@@ -34,7 +34,6 @@ Sign explaination:
       may be write an own gamma curve widget
 
  medium selection:
-    # add: add, edit, delete medium definition
     - medium definition in dependance of the scanner (?)
       (I am not sure if this makes sense with color managemant)
 
@@ -46,7 +45,7 @@ Sign explaination:
     - select multiple scan areas before starting the scan
 
  viewer function:
-    # add more filters
+    # add more filters (sharpen?)
       suggestions? - ONLY REALLY IMPORTANT FILTERS,
       FOR OTHER IMAGE MANIPULATION THERE IS THE GIMP
     # crop

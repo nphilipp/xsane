@@ -1,12 +1,11 @@
 # Turkish Translation for XSane
-# Copyright (C) YEAR Free Software Foundation, Inc.
 # TOGAN MUFTUOGLU  <toganm@yahoo.com>, 2000.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.80\n"
-"POT-Creation-Date: 2001-12-19 19:09+0100\n"
-"PO-Revision-Date: 2001-10-02 09:48GMT+02:00\n"
+"Project-Id-Version: XSANE 0.84\n"
+"POT-Creation-Date: 2002-01-22 23:34+0100\n"
+"PO-Revision-Date: 2002-01-15 09:44GMT+02:00\n"
 "Last-Translator: Togan Muftuoglu <toganm@yahoo.com>\n"
 "Language-Team: Turkish <kde-i18n-tr@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -113,9 +112,8 @@ msgid "Viewer: select output filename"
 msgstr "Gösterici: çýktý dosya adýný seçiniz"
 
 #. WINDOW_OCR_OUTPUT_FILENAME
-#, fuzzy
 msgid "Select output filename for OCR text file"
-msgstr "çýktý dosya adýný seçiniz"
+msgstr "OCR metin çýktý dosya adýný seçiniz"
 
 #. WINDOW_OUTPUT_FILENAME
 msgid "select output filename"
@@ -138,9 +136,8 @@ msgid "select temporary directory"
 msgstr "geçici dizini seçin"
 
 #. WINDOW_SCALE
-#, fuzzy
 msgid "Scale image"
-msgstr "Resmi kaydet"
+msgstr "Resmi ölçülendir"
 
 #. WINDOW_DESPECKLE
 msgid "Despeckle image"
@@ -151,9 +148,8 @@ msgid "Blur image"
 msgstr "Resmi bulanýklaþtýr"
 
 #. WINDOW_STORE_MEDIUM
-#, fuzzy
 msgid "Store medium definition"
-msgstr "Tenýmý yeniden isimlendir"
+msgstr "Ortam tanýmýný sakla"
 
 #. MENU_FILE
 msgid "File"
@@ -196,14 +192,12 @@ msgid "Close"
 msgstr "Kapat"
 
 #. MENU_ITEM_CLONE
-#, fuzzy
 msgid "Clone"
-msgstr "Kapat"
+msgstr "Klonla"
 
 #. MENU_ITEM_SCALE
-#, fuzzy
 msgid "Scale"
-msgstr "Kaydet"
+msgstr "Boyutlandýrma"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
@@ -326,9 +320,8 @@ msgid "Discard image"
 msgstr "Resmi sil"
 
 #. BUTTON_DISCARD_ALL_IMAGES
-#, fuzzy
 msgid "Discard all images"
-msgstr "Resmi sil"
+msgstr "Tüm resimleri  sil"
 
 #. BUTTON_DO_NOT_CLOSE
 msgid "Do not close"
@@ -336,7 +329,7 @@ msgstr "Kapatma"
 
 #. BUTTON_SCALE_BIND
 msgid "Bind scale"
-msgstr ""
+msgstr "Boyutlarý tut"
 
 #. RADIO_BUTTON_FINE_MODE
 msgid "Fine mode"
@@ -624,32 +617,31 @@ msgstr "Proje durumu"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
-msgstr ""
+msgstr "Ortam ismi"
 
 #. TEXT_VIEWER_IMAGE_INFO
 #, c-format
 msgid ""
 "Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
 msgstr ""
+"Boyut %d x %d piksel, %d bit/color, %d renkler, %1.0f dpi x %1.0f dpi, %1.1f "
+"%s"
 
 #. TEXT_X_SCALE_FACTOR
-#, fuzzy
 msgid "X-Scale factor:"
-msgstr "Zum çarpanýný ayarla"
+msgstr "X ölçek çarpaný"
 
 #. TEXT_Y_SCALE_FACTOR
-#, fuzzy
 msgid "Y-Scale factor:"
-msgstr "Zum çarpanýný ayarla"
+msgstr "Y ökçek çarpanýný ayarla"
 
 #. TEXT_DESPECKLE_RADIUS
-#, fuzzy
 msgid "Despeckle radius:"
-msgstr "Beneksizleþtirme"
+msgstr "Beneksizleþtirme yarýçapý"
 
 #. TEXT_BLUR_RADIUS
 msgid "Blur radius:"
-msgstr ""
+msgstr "Bulanýklaþtýrma yarýçapý"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -860,19 +852,16 @@ msgid "Viewer (png):"
 msgstr "Gösterici (png):"
 
 #. TEXT_SETUP_OCR_COMMAND
-#, fuzzy
 msgid "OCR Command:"
-msgstr "Komut:"
+msgstr "OCR Komutu:"
 
 #. TEXT_SETUP_OCR_INPUTFILE_OPT
-#, fuzzy
 msgid "Inputfile option:"
-msgstr "Postscript dosya seçeneði"
+msgstr "Giren dosya seçeneði"
 
 #. TEXT_SETUP_OCR_OUTPUTFILE_OPT
-#, fuzzy
 msgid "Outputfile option:"
-msgstr "Postscript dosya seçeneði"
+msgstr "Çýktý dosya seçeneði"
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
@@ -908,7 +897,7 @@ msgstr "E-posta:"
 
 #. NOTEBOOK_OCR_OPTIONS
 msgid "OCR"
-msgstr ""
+msgstr "OCR"
 
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display"
@@ -1132,9 +1121,8 @@ msgid "Cloning image"
 msgstr "Resim çoðaltýlýyor"
 
 #. PROGRESS_SCALING_DATA
-#, fuzzy
 msgid "Scaling image"
-msgstr "Resim saklanýyor"
+msgstr "Resim boyutlandýrýlýyor"
 
 #. PROGRESS_DESPECKLING_DATA
 msgid "Despeckling image"
@@ -1165,6 +1153,8 @@ msgid ""
 "save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or "
 "mail-<Ctrl-m>"
 msgstr ""
+"sakla-<Ctrl-s>, izle-<Ctrl-v>, fotokopi-<Ctrl-c>, fax-<Ctrl-f> "
+"veyamail-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
 msgid "Select source medium type"
@@ -1689,15 +1679,15 @@ msgstr "E-Posta HTML olarak yollandý, resimler direkt olarak gösterilmekte"
 
 #. DESC_OCR_COMMAND
 msgid "Enter command to start ocr program"
-msgstr ""
+msgstr "OCR prograrýmýn baþlatmak için komutu girin"
 
 #. DESC_OCR_INPUTFILE_OPT
 msgid "Enter option of the ocr program to define input file"
-msgstr ""
+msgstr "Çýktý dosyasý için ocr programýnýn seçeneðini belirleyin"
 
 #. DESC_OCR_OUTPUTFILE_OPT
 msgid "Enter option of the ocr program to define output file"
-msgstr ""
+msgstr "Çýktý dosyasý için ocr programýnýn seçeneðini belirleyin"
 
 #. DESC_PERMISSION_READ
 msgid "read"
@@ -1762,7 +1752,7 @@ msgstr "Döndürmek önizlemek ve taramak"
 
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
-msgstr ""
+msgstr "Optik karakter okuyucu"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
@@ -1793,14 +1783,12 @@ msgid "Zoom image"
 msgstr "Resmi büyüt"
 
 #. DESC_STORE_MEDIUM
-#, fuzzy
 msgid "Store medium"
-msgstr "Tenýmý yeniden isimlendir"
+msgstr "Saklama ortamý"
 
 #. DESC_DELETE_MEDIUM
-#, fuzzy
 msgid "Delete active medium"
-msgstr "Tanýmý silin"
+msgstr "Aktif ortamý silin"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -1815,9 +1803,8 @@ msgid "Filename too long"
 msgstr "Dosya adý çok uzun"
 
 #. ERR_CREATE_TEMP_FILE
-#, fuzzy
 msgid "Could not create temporary file"
-msgstr "Geçici önizleme dosyalarý yaratýlamadý"
+msgstr "Geçici dosya yaratýlamadý"
 
 #. ERR_SET_OPTION
 msgid "Failed to set value of option"
@@ -1865,9 +1852,8 @@ msgid "Failed to open"
 msgstr "Açmada hata"
 
 #. ERR_CREATE_SECURE_FILE
-#, fuzzy
 msgid "Could not create secure file (may be a link does exist):"
-msgstr "Önizleme dosyalarý için dosya isimleri yaratýlamadý"
+msgstr "Güvenli dosya yaratýlamadý (belki bað mevcut deðil)"
 
 #. ERR_FAILED_PRINTER_PIPE
 msgid "Failed to open pipe for executing printercommand"
@@ -1932,9 +1918,8 @@ msgid "Failed to execute mail image viewer:"
 msgstr "E-posta göstericisini çalýþtýramadý:"
 
 #. ERR_FAILED_EXEC_OCR_CMD
-#, fuzzy
 msgid "Failed to execute ocr command:"
-msgstr "faks komutunu çalýþtýramadý:"
+msgstr "ocr komutunu çalýþtýramadý:"
 
 #. ERR_BAD_FRAME_FORMAT
 msgid "bad frame format"
@@ -1990,9 +1975,8 @@ msgid "Could not create filenames for preview files"
 msgstr "Önizleme dosyalarý için dosya isimleri yaratýlamadý"
 
 #. ERR_CREATE_FAX_PROJECT
-#, fuzzy
 msgid "Could not create faxproject"
-msgstr "Proje yarat"
+msgstr "Fax projesi yaratýlamadý"
 
 #. WARN_COUNTER_UNDERRUN
 msgid "Filename counter underrun"
@@ -2063,7 +2047,7 @@ msgstr "bu bazý sorunlar yaratabilir!"
 #. WARN_UNSAVED_IMAGES
 #, c-format
 msgid "There are %d unsaved images"
-msgstr ""
+msgstr "Saklanmamýþ %d resim var"
 
 #. WARN_FILE_EXISTS
 #, c-format
@@ -2119,6 +2103,8 @@ msgid ""
 " -m, --mail                   start with mail-mode active\n"
 " -n, --no-mode-selection      disable menu for XSane mode selection\n"
 "\n"
+" -M, --Medium-calibration     enable medium calibration mode\n"
+"\n"
 " -F, --Fixed                  fixed main window size (overwrite preferences "
 "value)\n"
 " -R, --Resizeable             resizable, scrolled main window (overwrite "
@@ -2138,14 +2124,15 @@ msgstr ""
 "\n"
 "Kullaným þekli [AYGIT] sürücü:aygýtdosyasý (örn. umax:/dev/scanner).\n"
 "[SEÇENEK]... aþaðýdakilerin kombinasyonu olabilir:\n"
-" -h, --help                   yardým messajýný göster ve sonlandýr\n"
+" -h, --help                   yardým mesajýný göster ve sonlandýr\n"
 " -v, --version               sürüm bilgisini göster\n"
 "-l , --licence ·················· lisans bilgisini göster\n"
+"\n"
 " -d, --device-settings file   aygýt ayarlarýný dosyadan yükle (\".drc\" "
 "olmadan)\n"
 "\n"
+" -V, --viewer ................  izleme modu aktif olarak baþla\n"
 " -s, --save                   saklama modu aktif olarak baþla\n"
-" -V, --viewer ................  izleyme modu aktif olarak baþla\n"
 " -c, --copy                   kopyalama modu aktif olarak baþla\n"
 " -f, --fax                      faks modu aktif olarak baþla\n"
 " -m, --mail  ................    e-posta modu aktif olarak baþla\n"
@@ -2266,51 +2253,47 @@ msgstr "mektup yatay"
 
 #. MENU_ITEM_MEDIUM_FULL_RANGE
 msgid "Full range"
-msgstr ""
+msgstr "Tüm alan"
 
 #. MENU_ITEM_MEDIUM_SLIDE
 msgid "Slide"
-msgstr ""
+msgstr "Diapozitif"
 
 #. MENU_ITEM_MEDIUM_STANDARD_NEG
-#, fuzzy
 msgid "Standard negative"
-msgstr "Standart seçenekler"
+msgstr "Standart negatif"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG
 msgid "Agfa negative"
-msgstr ""
+msgstr "Agfa negatif"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG_XRG200_4
 msgid "Agfa negative XRG 200-4"
-msgstr ""
+msgstr "Agfa negatif XRG 200-4"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG_HDC_100
 msgid "Agfa negative HDC 100"
-msgstr ""
+msgstr "Agfa negatif HDC 100"
 
 #. MENU_ITEM_MEDIUM_FUJI_NEG
-#, fuzzy
 msgid "Fuji negative"
-msgstr "pasif"
+msgstr "Fuji negatif"
 
 #. MENU_ITEM_MEDIUM_KODAK_NEG
 msgid "Kodak negative"
-msgstr ""
+msgstr "Kodak negatif"
 
 #. MENU_ITEM_MEDIUM_KONICA_NEG
-#, fuzzy
 msgid "Konica negative"
-msgstr "pasif"
+msgstr "Konica negatif"
 
 #. MENU_ITEM_MEDIUM_KONICA_NEG_VX_100
-#, fuzzy
 msgid "Konica negative VX 100"
-msgstr "pasif"
+msgstr "Konica negatif VX 100"
 
 #. MENU_ITEM_MEDIUM_ROSSMANN_NEG_HR_100
 msgid "Rossmann negative HR 100"
-msgstr ""
+msgstr "Rossmann negatif HR 100"
 
 #. Sane backend messages
 msgid "flatbed scanner"
@@ -2366,11 +2349,3 @@ msgstr "Yetersiz hafýza"
 
 msgid "Access to resource has been denied"
 msgstr "Kaynaða eriþim reddedildi"
-
-#, fuzzy
-#~ msgid "Store Medium definition"
-#~ msgstr "Tanýmý silin"
-
-#~ msgid ""
-#~ "Use XSane for: SCANning-<Ctrl-s> photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>"
-#~ msgstr "Xsane'i TARAma-<Ctrl-s>fotoKOPÝ-<Ctrl-c> FAKS-<Ctrl-f>için kullanýn"

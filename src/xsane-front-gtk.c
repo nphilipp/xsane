@@ -1542,6 +1542,11 @@ int xsane_display_license(int ask_for_accept)
  
     fclose(infile);
   } 
+  else
+  {
+    DBG(DBG_error0, "ERROR: license text not found. Looks like xsane is not installed correct.\n");
+   return TRUE;
+  }
 
   /* Thaw the text widget, allowing the updates to become visible */
   gtk_text_thaw(GTK_TEXT(text)); 

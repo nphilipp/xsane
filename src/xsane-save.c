@@ -1702,7 +1702,13 @@ int xsane_save_jpeg(FILE *outfile, FILE *imagefile, Image_info *image_info, int 
     cinfo.in_color_space   = JCS_GRAYSCALE;
   }
   jpeg_set_defaults(&cinfo);
+
   jpeg_set_quality(&cinfo, quality, TRUE);
+
+  cinfo.density_unit     = 1; /* dpi */
+  cinfo.X_density        = image_info->resolution_x;
+  cinfo.Y_density        = image_info->resolution_y;
+
   jpeg_start_compress(&cinfo, TRUE);
 
   for (y = 0; y < image_info->image_height; y++)
@@ -2001,6 +2007,11 @@ int xsane_save_png(FILE *outfile, FILE *imagefile, Image_info *image_info, int c
   }
 
   png_set_sBIT(png_ptr, png_info_ptr, &sig_bit);
+#if defined(PNG_pHYs_SUPPORTED)
+  png_set_pHYs(png_ptr, png_info_ptr,
+               image_info->resolution_x * 100.0 / 2.54,
+               image_info->resolution_y * 100.0 / 2.54, PNG_RESOLUTION_METER);
+#endif
   png_write_info(png_ptr, png_info_ptr);
   png_set_shift(png_ptr, &sig_bit);
 

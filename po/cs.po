@@ -1,12 +1,12 @@
 # Czech translation for XSane.
-# Copyright (C) 2001 Free Software Foundation, Inc.
-# Stanislav Brabec <utx@penguin.cz>, 2000-2001.
+# Copyright (C) 2002 Free Software Foundation, Inc.
+# Stanislav Brabec <utx@penguin.cz>, 2000-2002.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.80\n"
-"POT-Creation-Date: 2001-12-19 19:09+0100\n"
-"PO-Revision-Date: 2001-10-04 14:14+0200\n"
+"Project-Id-Version: XSANE 0.84\n"
+"POT-Creation-Date: 2002-01-22 23:34+0100\n"
+"PO-Revision-Date: 2002-01-14 18:03+0100\n"
 "Last-Translator: Stanislav Brabec <utx@penguin.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -112,9 +112,8 @@ msgid "Viewer: select output filename"
 msgstr "Prohlí¾eè: zvolte výstupní soubor"
 
 #. WINDOW_OCR_OUTPUT_FILENAME
-#, fuzzy
 msgid "Select output filename for OCR text file"
-msgstr "výbìr jména výstupního souboru"
+msgstr "Zvolte jméno výstupního souboru s rozpoznaným textem"
 
 #. WINDOW_OUTPUT_FILENAME
 msgid "select output filename"
@@ -137,9 +136,8 @@ msgid "select temporary directory"
 msgstr "výbìr pomocného adresáøe"
 
 #. WINDOW_SCALE
-#, fuzzy
 msgid "Scale image"
-msgstr "Zápis obrázku"
+msgstr "Zmìna velikosti obrázku"
 
 #. WINDOW_DESPECKLE
 msgid "Despeckle image"
@@ -150,9 +148,8 @@ msgid "Blur image"
 msgstr "Rozostøit obrázek"
 
 #. WINDOW_STORE_MEDIUM
-#, fuzzy
 msgid "Store medium definition"
-msgstr "Pøejmenovat definici"
+msgstr "Ulo¾it definici média"
 
 #. MENU_FILE
 msgid "File"
@@ -195,14 +192,12 @@ msgid "Close"
 msgstr "Zavøít"
 
 #. MENU_ITEM_CLONE
-#, fuzzy
 msgid "Clone"
-msgstr "Zavøít"
+msgstr "Duplikovat"
 
 #. MENU_ITEM_SCALE
-#, fuzzy
 msgid "Scale"
-msgstr "Zápis"
+msgstr "Zmìna velikosti"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
@@ -325,9 +320,8 @@ msgid "Discard image"
 msgstr "Zahodit obrázek"
 
 #. BUTTON_DISCARD_ALL_IMAGES
-#, fuzzy
 msgid "Discard all images"
-msgstr "Zahodit obrázek"
+msgstr "Zahodit v¹echny obrázky"
 
 #. BUTTON_DO_NOT_CLOSE
 msgid "Do not close"
@@ -335,7 +329,7 @@ msgstr "Nezavírat"
 
 #. BUTTON_SCALE_BIND
 msgid "Bind scale"
-msgstr ""
+msgstr "Spøáhnout zmìnu velikosti"
 
 #. RADIO_BUTTON_FINE_MODE
 msgid "Fine mode"
@@ -622,32 +616,31 @@ msgstr "Stav projektu:"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
-msgstr ""
+msgstr "Název média:"
 
 #. TEXT_VIEWER_IMAGE_INFO
 #, c-format
 msgid ""
 "Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
 msgstr ""
+"Velikost v pixelech: %d × %d, bitù/barvu: %d, barev: %d, %1.0f dpi × %1.0f "
+"dpi, %1.1f %s"
 
 #. TEXT_X_SCALE_FACTOR
-#, fuzzy
 msgid "X-Scale factor:"
-msgstr "Nastavení faktoru zmìny velikosti"
+msgstr "Faktoru zmìny velikosti X:"
 
 #. TEXT_Y_SCALE_FACTOR
-#, fuzzy
 msgid "Y-Scale factor:"
-msgstr "Nastavení faktoru zmìny velikosti"
+msgstr "Faktoru zmìny velikosti Y:"
 
 #. TEXT_DESPECKLE_RADIUS
-#, fuzzy
 msgid "Despeckle radius:"
-msgstr "Vyèistit"
+msgstr "Polomìr pro vyèistìní:"
 
 #. TEXT_BLUR_RADIUS
 msgid "Blur radius:"
-msgstr ""
+msgstr "Polomìr rozostøení:"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -858,19 +851,16 @@ msgid "Viewer (png):"
 msgstr "Prohlí¾eè (png):"
 
 #. TEXT_SETUP_OCR_COMMAND
-#, fuzzy
 msgid "OCR Command:"
-msgstr "Pøíkaz:"
+msgstr "Pøíkaz OCR:"
 
 #. TEXT_SETUP_OCR_INPUTFILE_OPT
-#, fuzzy
 msgid "Inputfile option:"
-msgstr "Volby postscriptového souboru:"
+msgstr "Volba pro vstupní soubor:"
 
 #. TEXT_SETUP_OCR_OUTPUTFILE_OPT
-#, fuzzy
 msgid "Outputfile option:"
-msgstr "Volby postscriptového souboru:"
+msgstr "Volba pro výstupní soubor:"
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
@@ -906,7 +896,7 @@ msgstr "Po¹ta"
 
 #. NOTEBOOK_OCR_OPTIONS
 msgid "OCR"
-msgstr ""
+msgstr "OCR"
 
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display"
@@ -1130,9 +1120,8 @@ msgid "Cloning image"
 msgstr "Duplikuje se obrázek"
 
 #. PROGRESS_SCALING_DATA
-#, fuzzy
 msgid "Scaling image"
-msgstr "Obrázek se zapisuje"
+msgstr "Mìní se velikost obrázku"
 
 #. PROGRESS_DESPECKLING_DATA
 msgid "Despeckling image"
@@ -1163,6 +1152,8 @@ msgid ""
 "save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or "
 "mail-<Ctrl-m>"
 msgstr ""
+"ulo¾it-<Ctrl-s>, zobrazit-<Ctrl-v>, fotokopie-<Ctrl-c>, fax-<Ctrl-f> nebo "
+"po¹ta-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
 msgid "Select source medium type"
@@ -1688,15 +1679,15 @@ msgstr "Mail je posílán v re¾imu html, obrázky jsou zobrazovány pøímo"
 
 #. DESC_OCR_COMMAND
 msgid "Enter command to start ocr program"
-msgstr ""
+msgstr "Zadejte pøíkaz pro spu¹tìní ocr programu"
 
 #. DESC_OCR_INPUTFILE_OPT
 msgid "Enter option of the ocr program to define input file"
-msgstr ""
+msgstr "Zadejte volbu ocr programu pro zadání vstupního souboru"
 
 #. DESC_OCR_OUTPUTFILE_OPT
 msgid "Enter option of the ocr program to define output file"
-msgstr ""
+msgstr "Zadejte volbu ocr programu pro zadání výstupního souboru"
 
 #. DESC_PERMISSION_READ
 msgid "read"
@@ -1761,7 +1752,7 @@ msgstr "Rotace náhledu a skenování"
 
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
-msgstr ""
+msgstr "Optické rozpoznávání znakù"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
@@ -1792,14 +1783,12 @@ msgid "Zoom image"
 msgstr "Zvìt¹it obrázek"
 
 #. DESC_STORE_MEDIUM
-#, fuzzy
 msgid "Store medium"
-msgstr "Pøejmenovat definici"
+msgstr "Ulo¾it médium"
 
 #. DESC_DELETE_MEDIUM
-#, fuzzy
 msgid "Delete active medium"
-msgstr "Smazat definici"
+msgstr "Smazat aktivní médium"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -1814,9 +1803,8 @@ msgid "Filename too long"
 msgstr "Jméno souboru je pøíli¹ dlouhé"
 
 #. ERR_CREATE_TEMP_FILE
-#, fuzzy
 msgid "Could not create temporary file"
-msgstr "Nelze vytvoøit pracovní náhledové soubory"
+msgstr "Nelze vytvoøit doèasný soubor"
 
 #. ERR_SET_OPTION
 msgid "Failed to set value of option"
@@ -1864,9 +1852,8 @@ msgid "Failed to open"
 msgstr "Otevøení selhalo"
 
 #. ERR_CREATE_SECURE_FILE
-#, fuzzy
 msgid "Could not create secure file (may be a link does exist):"
-msgstr "Nelze vytvoøit jména náhledových souborù"
+msgstr "Nelze vytvoøit bezpeèný soubor (mo¾ná, ¾e existuje odkaz):"
 
 #. ERR_FAILED_PRINTER_PIPE
 msgid "Failed to open pipe for executing printercommand"
@@ -1929,9 +1916,8 @@ msgid "Failed to execute mail image viewer:"
 msgstr "Spu¹tìní prohlí¾eèe obrázkù v po¹tì selhalo"
 
 #. ERR_FAILED_EXEC_OCR_CMD
-#, fuzzy
 msgid "Failed to execute ocr command:"
-msgstr "Spu¹tìní faxového pøíkazu selhalo:"
+msgstr "Spu¹tìní ocr pøíkazu selhalo:"
 
 #. ERR_BAD_FRAME_FORMAT
 msgid "bad frame format"
@@ -1987,9 +1973,8 @@ msgid "Could not create filenames for preview files"
 msgstr "Nelze vytvoøit jména náhledových souborù"
 
 #. ERR_CREATE_FAX_PROJECT
-#, fuzzy
 msgid "Could not create faxproject"
-msgstr "Vytvoøit projekt"
+msgstr "Nelze vytvoøit faxový projekt"
 
 #. WARN_COUNTER_UNDERRUN
 msgid "Filename counter underrun"
@@ -2060,7 +2045,7 @@ msgstr "to mù¾e zpùsobit problémy!"
 #. WARN_UNSAVED_IMAGES
 #, c-format
 msgid "There are %d unsaved images"
-msgstr ""
+msgstr "Není zapsáno %d obrázkù"
 
 #. WARN_FILE_EXISTS
 #, c-format
@@ -2116,6 +2101,8 @@ msgid ""
 " -m, --mail                   start with mail-mode active\n"
 " -n, --no-mode-selection      disable menu for XSane mode selection\n"
 "\n"
+" -M, --Medium-calibration     enable medium calibration mode\n"
+"\n"
 " -F, --Fixed                  fixed main window size (overwrite preferences "
 "value)\n"
 " -R, --Resizeable             resizable, scrolled main window (overwrite "
@@ -2144,7 +2131,7 @@ msgstr ""
 "\".drc\")\n"
 "\n"
 " -s, --save                    spustí se v re¾imu zípisu\n"
-" -V, --viewer                  spustí se v re¾imu prohlí¾eèe\n"
+" -V, --viewer                  spustí se v re¾imu prohlí¾eèe (implicitní)\n"
 " -c, --copy                    spustí se v re¾imu kopírování\n"
 " -f, --fax                     spustí se v re¾imu faxování\n"
 " -m, --mail                    spustí se v re¾imu po¹ty\n"
@@ -2266,51 +2253,47 @@ msgstr "letter le¾."
 
 #. MENU_ITEM_MEDIUM_FULL_RANGE
 msgid "Full range"
-msgstr ""
+msgstr "Plný rozsah"
 
 #. MENU_ITEM_MEDIUM_SLIDE
 msgid "Slide"
-msgstr ""
+msgstr "Diapozitiv"
 
 #. MENU_ITEM_MEDIUM_STANDARD_NEG
-#, fuzzy
 msgid "Standard negative"
-msgstr "Standardní volby"
+msgstr "Standardní negativní"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG
 msgid "Agfa negative"
-msgstr ""
+msgstr "Agfa negativní"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG_XRG200_4
 msgid "Agfa negative XRG 200-4"
-msgstr ""
+msgstr "Agfa negativní XRG 200-4"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG_HDC_100
 msgid "Agfa negative HDC 100"
-msgstr ""
+msgstr "Agfa negativní HDC 100"
 
 #. MENU_ITEM_MEDIUM_FUJI_NEG
-#, fuzzy
 msgid "Fuji negative"
-msgstr "neaktivní"
+msgstr "Fuji negativní"
 
 #. MENU_ITEM_MEDIUM_KODAK_NEG
 msgid "Kodak negative"
-msgstr ""
+msgstr "Kodak negativní"
 
 #. MENU_ITEM_MEDIUM_KONICA_NEG
-#, fuzzy
 msgid "Konica negative"
-msgstr "neaktivní"
+msgstr "Konica negativní"
 
 #. MENU_ITEM_MEDIUM_KONICA_NEG_VX_100
-#, fuzzy
 msgid "Konica negative VX 100"
-msgstr "neaktivní"
+msgstr "Konica negativní VX 100"
 
 #. MENU_ITEM_MEDIUM_ROSSMANN_NEG_HR_100
 msgid "Rossmann negative HR 100"
-msgstr ""
+msgstr "Rossmann negativní HR 100"
 
 #. Sane backend messages
 msgid "flatbed scanner"
@@ -2367,11 +2350,31 @@ msgstr "Nedostatek pamìti"
 msgid "Access to resource has been denied"
 msgstr "Pøístup ke zdroji byl odmítnut"
 
-#, fuzzy
-#~ msgid "Store Medium definition"
-#~ msgstr "Smazat definici"
-
 #~ msgid ""
 #~ "Use XSane for: SCANning-<Ctrl-s> photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>"
 #~ msgstr ""
 #~ "XSane slou¾í pro: SKENování-<Ctrl-s> KOPírování-<Ctrl-c> FAXování-<Ctrl-f>"
+
+#~ msgid "Width of paper for postscript"
+#~ msgstr "©íøka papíru pro postscript"
+
+#~ msgid "Height of paper for postscript"
+#~ msgstr "Vý¹ka papíru pro postscript"
+
+#~ msgid "Left offset for postscript"
+#~ msgstr "Levý posun pro postscript"
+
+#~ msgid "Bottom offset for postscript"
+#~ msgstr "Spodní posun pro postscript"
+
+#~ msgid "Copy options"
+#~ msgstr "Volby kopírování"
+
+#~ msgid "Saving options"
+#~ msgstr "Volby zápisu"
+
+#~ msgid "Fax options"
+#~ msgstr "Volby faxu"
+
+#~ msgid "Reduce scan area"
+#~ msgstr "Redukce skenovací plochy"

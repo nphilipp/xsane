@@ -1924,4 +1924,36 @@ xsane-0.82 -> 0.83:
  - removed in xsane-viewer.c, line 222: xsane_create_secure_file(outputfilename) before
    xsane_save_image_as(...)
 
-   
+
+xsane-0.83 -> 0.84:
+-------------------
+
+ - if xsane-license.txt is not file when it shall be displayed then xsane does
+   print an error message and behaves like when the user did not accept the license.
+
+ - if xsane-startimage.pnm is not found then an image of the size 1x1 pixel is
+   created instead. This should normally never happen but some people start
+   xsane without that it has been installed. Then the behaviour of the preview
+   has been undefined before.
+
+ - removed "rm -f $cache_file" when gtk or sane was not found in configure.in,
+   this was bad when a user used a global cache file
+
+ - viewer is created with image size - if possible
+
+ - added serbian translation file (sr.po) - thanks to Du¹ko Rusmir <drusmir@gmx.ch>
+
+ - xsane_sigpipe_handler: changed
+   xsane_cancel_save(0);
+   to
+   xsane_cancel_save(&xsane.cancel_save);
+
+ - updated po-files: es, fr, ja, nl, ru, sr, tr
+
+ - x and y resolution information are added to jpeg and png files now
+
+ - preview zoom buttons are now also available when backend does geometry
+   options with unit pixel
+
+ - added Plustek logo
+

@@ -2365,6 +2365,31 @@ static void preview_restore_image(Preview *p)
         quality = preview_restore_image_from_file(p, in, -1, &time);
         fclose(in);
       }
+      else
+      {
+       guint16 *imagep;
+
+        DBG(DBG_error0, "ERROR: xsane-startimage not found. Looks like xsane is not installed correct.\n");
+
+        p->image_width  = 1;
+        p->image_height = 1;
+        p->params.depth = 16;
+
+        preview_get_memory(p);
+
+        imagep = p->image_data_raw;
+        *imagep++ = 65535;
+        *imagep++ = 00000;
+        *imagep++ = 00000;
+
+        p->image_x = p->image_width;
+        p->image_y = p->image_height;
+
+        p->image_surface[0]   = p->surface[p->index_xmin];
+        p->image_surface[1]   = p->surface[p->index_ymin];
+        p->image_surface[2]   = p->surface[p->index_xmax];
+        p->image_surface[3]   = p->surface[p->index_ymax];
+      }
       p->startimage = 1;
     }
   }
@@ -3846,7 +3871,7 @@ void preview_update_surface(Preview *p, int surface_changed)
     p->surface_unit = unit;
   }
 
-  if (p->surface_unit == SANE_UNIT_MM)
+  if (p->show_selection)
   {
     gtk_widget_set_sensitive(p->preset_area_option_menu, TRUE); /* enable preset area */
     gtk_widget_set_sensitive(p->zoom_in,    TRUE); /* zoom in is allowed at all */

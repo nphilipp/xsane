@@ -1,12 +1,12 @@
 # Japanese translation for XSane
-# Copyright (C) 2001
-# Kimizuka Tomokazu <sgtom@pluto.dti.ne.jp>, 2001.
+# Copyright (C) 2002
+# Kimizuka Tomokazu <sgtom@pluto.dti.ne.jp>, 2002.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.80\n"
-"POT-Creation-Date: 2001-12-19 19:09+0100\n"
-"PO-Revision-Date: 2001-10-06 09:37+09:00\n"
+"Project-Id-Version: XSANE 0.84\n"
+"POT-Creation-Date: 2002-01-22 23:34+0100\n"
+"PO-Revision-Date: 2002-01-17 15:28+0900\n"
 "Last-Translator: Kimizuka Tomokazu <sgtom@pluto.dti.ne.jp>\n"
 "Language-Team: Japanese <Kdeveloper@kde.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -112,9 +112,8 @@ msgid "Viewer: select output filename"
 msgstr "ビューワ：出力ファイル名を選択"
 
 #. WINDOW_OCR_OUTPUT_FILENAME
-#, fuzzy
 msgid "Select output filename for OCR text file"
-msgstr "出力ファイル名を選択"
+msgstr "出力OCRテキストファイル名を選択"
 
 #. WINDOW_OUTPUT_FILENAME
 msgid "select output filename"
@@ -137,9 +136,8 @@ msgid "select temporary directory"
 msgstr "一時ディレクトリを選択"
 
 #. WINDOW_SCALE
-#, fuzzy
 msgid "Scale image"
-msgstr "イメージを保存"
+msgstr "画像の拡大縮小"
 
 #. WINDOW_DESPECKLE
 msgid "Despeckle image"
@@ -150,9 +148,8 @@ msgid "Blur image"
 msgstr "画像をにじませる"
 
 #. WINDOW_STORE_MEDIUM
-#, fuzzy
 msgid "Store medium definition"
-msgstr "定義をリネーム"
+msgstr "触媒の定義を保存"
 
 #. MENU_FILE
 msgid "File"
@@ -195,14 +192,12 @@ msgid "Close"
 msgstr "閉じる"
 
 #. MENU_ITEM_CLONE
-#, fuzzy
 msgid "Clone"
-msgstr "閉じる"
+msgstr "複製"
 
 #. MENU_ITEM_SCALE
-#, fuzzy
 msgid "Scale"
-msgstr "保存"
+msgstr "倍率"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
@@ -322,12 +317,11 @@ msgstr "プレビューをキャンセル"
 
 #. BUTTON_DISCARD_IMAGE
 msgid "Discard image"
-msgstr "画像を削除"
+msgstr "画像を破棄"
 
 #. BUTTON_DISCARD_ALL_IMAGES
-#, fuzzy
 msgid "Discard all images"
-msgstr "すべての画像を削除"
+msgstr "すべての画像を破棄"
 
 #. BUTTON_DO_NOT_CLOSE
 msgid "Do not close"
@@ -335,7 +329,7 @@ msgstr "閉じない"
 
 #. BUTTON_SCALE_BIND
 msgid "Bind scale"
-msgstr ""
+msgstr "倍率を固定"
 
 #. RADIO_BUTTON_FINE_MODE
 msgid "Fine mode"
@@ -411,7 +405,7 @@ msgstr "ステップ"
 
 #. TEXT_FILETYPE
 msgid "Type"
-msgstr "タイプ："
+msgstr "タイプ"
 
 #. TEXT_SCANNER_BACKEND
 msgid "Scanner and backend:"
@@ -615,7 +609,7 @@ msgstr "メールテキスト："
 
 #. TEXT_ATTACHMENTS
 msgid "Attachments:"
-msgstr "添付"
+msgstr "添付："
 
 #. TEXT_MAIL_STATUS
 msgid "Project status:"
@@ -623,7 +617,7 @@ msgstr "プロジェクトの状態："
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
-msgstr ""
+msgstr "触媒名："
 
 #. TEXT_VIEWER_IMAGE_INFO
 #, c-format
@@ -632,23 +626,20 @@ msgid ""
 msgstr ""
 
 #. TEXT_X_SCALE_FACTOR
-#, fuzzy
 msgid "X-Scale factor:"
-msgstr "拡大率をセット"
+msgstr "X成分の倍率："
 
 #. TEXT_Y_SCALE_FACTOR
-#, fuzzy
 msgid "Y-Scale factor:"
-msgstr "拡大率をセット"
+msgstr "Y成分の倍率："
 
 #. TEXT_DESPECKLE_RADIUS
-#, fuzzy
 msgid "Despeckle radius:"
-msgstr "しみ取り"
+msgstr "しみ取り範囲："
 
 #. TEXT_BLUR_RADIUS
 msgid "Blur radius:"
-msgstr ""
+msgstr "にじみ範囲："
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -776,7 +767,7 @@ msgstr "ADF関連の設定："
 
 #. TEXT_SETUP_PREVIEW_PIPETTE_RANGE
 msgid "Preview pipette range"
-msgstr "ピペット範囲をプレビュー："
+msgstr "ピペット範囲をプレビュー"
 
 #. TEXT_SETUP_THRESHOLD_MIN
 msgid "Threshold minimum:"
@@ -859,19 +850,16 @@ msgid "Viewer (png):"
 msgstr "ビューワ(PNG)："
 
 #. TEXT_SETUP_OCR_COMMAND
-#, fuzzy
 msgid "OCR Command:"
-msgstr "コマンド："
+msgstr "OCRコマンド："
 
 #. TEXT_SETUP_OCR_INPUTFILE_OPT
-#, fuzzy
 msgid "Inputfile option:"
-msgstr "PostScriptファイルのオプション："
+msgstr "入力ファイルオプション："
 
 #. TEXT_SETUP_OCR_OUTPUTFILE_OPT
-#, fuzzy
 msgid "Outputfile option:"
-msgstr "PostScriptファイルのオプション："
+msgstr "出力ファイルオプション："
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
@@ -907,7 +895,7 @@ msgstr "メール"
 
 #. NOTEBOOK_OCR_OPTIONS
 msgid "OCR"
-msgstr ""
+msgstr "OCR"
 
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display"
@@ -1131,9 +1119,8 @@ msgid "Cloning image"
 msgstr "画像を複製中"
 
 #. PROGRESS_SCALING_DATA
-#, fuzzy
 msgid "Scaling image"
-msgstr "画像を保存中"
+msgstr "画像をスケーリング中"
 
 #. PROGRESS_DESPECKLING_DATA
 msgid "Despeckling image"
@@ -1229,11 +1216,11 @@ msgstr "スキャナの解像度をセット"
 
 #. DESC_RESOLUTION_X
 msgid "Set scan resolution for x direction"
-msgstr "スキャン時のx軸方向の解像度をセット"
+msgstr "スキャン時のX成分の解像度をセット"
 
 #. DESC_RESOLUTION_Y
 msgid "Set scan resolution for y direction"
-msgstr "スキャン時のy軸方向の解像度をセット"
+msgstr "スキャン時のY成分の解像度をセット"
 
 #. DESC_ZOOM
 msgid "Set zoomfactor"
@@ -1241,11 +1228,11 @@ msgstr "拡大率をセット"
 
 #. DESC_ZOOM_X
 msgid "Set zoomfactor for x direction"
-msgstr "x軸方向の拡大率をセット"
+msgstr "X成分の拡大率をセット"
 
 #. DESC_ZOOM_Y
 msgid "Set zoomfactor for y direction"
-msgstr "y軸方向の拡大率をセット"
+msgstr "X成分の拡大率をセット"
 
 #. DESC_COPY_NUMBER
 msgid "Set number of copies"
@@ -1668,15 +1655,15 @@ msgstr "メールはHTMLモードで送られ、画像は直接表示されます"
 
 #. DESC_OCR_COMMAND
 msgid "Enter command to start ocr program"
-msgstr ""
+msgstr "OCRプログラムの開始コマンドを入力"
 
 #. DESC_OCR_INPUTFILE_OPT
 msgid "Enter option of the ocr program to define input file"
-msgstr ""
+msgstr "入力ファイルを定義するOCRプログラムのオプションを入力"
 
 #. DESC_OCR_OUTPUTFILE_OPT
 msgid "Enter option of the ocr program to define output file"
-msgstr ""
+msgstr "出力ファイルを定義するOCRプログラムのオプションを入力"
 
 #. DESC_PERMISSION_READ
 msgid "read"
@@ -1741,7 +1728,7 @@ msgstr "プレビューを回転してスキャン"
 
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
-msgstr ""
+msgstr "オプション文字の認識"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
@@ -1749,15 +1736,15 @@ msgstr "画像を複製"
 
 #. DESC_VIEWER_ROTATE90
 msgid "Rotate image 90 degree"
-msgstr "画像を90°回転中"
+msgstr "画像を90°回転"
 
 #. DESC_VIEWER_ROTATE180
 msgid "Rotate image 180 degree"
-msgstr "画像を180°回転中"
+msgstr "画像を180°回転"
 
 #. DESC_VIEWER_ROTATE270
 msgid "Rotate image 270 degree"
-msgstr "画像を270°回転中"
+msgstr "画像を270°回転"
 
 #. DESC_VIEWER_MIRROR_X
 msgid "Mirror image at vertical axis"
@@ -1772,14 +1759,12 @@ msgid "Zoom image"
 msgstr "画像を拡大"
 
 #. DESC_STORE_MEDIUM
-#, fuzzy
 msgid "Store medium"
-msgstr "定義をリネーム"
+msgstr "触媒を保存"
 
 #. DESC_DELETE_MEDIUM
-#, fuzzy
 msgid "Delete active medium"
-msgstr "定義を削除"
+msgstr "アクティブな触媒を削除"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -1846,7 +1831,7 @@ msgstr "開けません"
 #. ERR_CREATE_SECURE_FILE
 #, fuzzy
 msgid "Could not create secure file (may be a link does exist):"
-msgstr "一時プレビューファイル名を作れません"
+msgstr "安全なファイルを作れません（リンク切れなど）："
 
 #. ERR_FAILED_PRINTER_PIPE
 msgid "Failed to open pipe for executing printercommand"
@@ -1862,7 +1847,7 @@ msgstr "スキャナの開始に失敗しました："
 
 #. ERR_FAILED_GET_PARAMS
 msgid "Failed to get parameters:"
-msgstr "パラメータの取得に失敗しました"
+msgstr "パラメータの取得に失敗しました："
 
 #. ERR_NO_OUTPUT_FORMAT
 msgid "No output format given"
@@ -1909,9 +1894,8 @@ msgid "Failed to execute mail image viewer:"
 msgstr "メールイメージビューワの実行に失敗しました："
 
 #. ERR_FAILED_EXEC_OCR_CMD
-#, fuzzy
 msgid "Failed to execute ocr command:"
-msgstr "FAXコマンドの実行に失敗しました："
+msgstr "OCRコマンドの実行に失敗しました："
 
 #. ERR_BAD_FRAME_FORMAT
 msgid "bad frame format"
@@ -1968,9 +1952,8 @@ msgid "Could not create filenames for preview files"
 msgstr "一時プレビューファイル名を作れません"
 
 #. ERR_CREATE_FAX_PROJECT
-#, fuzzy
 msgid "Could not create faxproject"
-msgstr "プロジェクト作成"
+msgstr "FAXプロジェクトを作れません"
 
 #. WARN_COUNTER_UNDERRUN
 msgid "Filename counter underrun"
@@ -2097,6 +2080,8 @@ msgid ""
 " -m, --mail                   start with mail-mode active\n"
 " -n, --no-mode-selection      disable menu for XSane mode selection\n"
 "\n"
+" -M, --Medium-calibration     enable medium calibration mode\n"
+"\n"
 " -F, --Fixed                  fixed main window size (overwrite preferences "
 "value)\n"
 " -R, --Resizeable             resizable, scrolled main window (overwrite "
@@ -2123,8 +2108,8 @@ msgstr ""
 " -d, --device-settings file   "
 "デバイス設定をファイルから読み込む（\".drc\"抜きで）\n"
 "\n"
-" -s, --save                   セーブモード アクティブで起動\n"
 " -V, --viewer                 ビューワモード アクティブで起動\n"
+" -s, --save                   セーブモード アクティブで起動\n"
 " -c, --copy                   コピーモード アクティブで起動\n"
 " -f, --fax                    FAXモード アクティブで起動\n"
 " -m, --mail                   メールモード アクティブで起動\n"
@@ -2246,51 +2231,47 @@ msgstr "レターサイズ 横"
 
 #. MENU_ITEM_MEDIUM_FULL_RANGE
 msgid "Full range"
-msgstr ""
+msgstr "フルレンジ"
 
 #. MENU_ITEM_MEDIUM_SLIDE
 msgid "Slide"
-msgstr ""
+msgstr "スライド"
 
 #. MENU_ITEM_MEDIUM_STANDARD_NEG
-#, fuzzy
 msgid "Standard negative"
-msgstr "標準オプション"
+msgstr "標準のネガ"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG
 msgid "Agfa negative"
-msgstr ""
+msgstr "Agfaのネガ"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG_XRG200_4
 msgid "Agfa negative XRG 200-4"
-msgstr ""
+msgstr "Agfa XRG 200-4"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG_HDC_100
 msgid "Agfa negative HDC 100"
-msgstr ""
+msgstr "Agfa negative HDC 100"
 
 #. MENU_ITEM_MEDIUM_FUJI_NEG
-#, fuzzy
 msgid "Fuji negative"
-msgstr "非活性"
+msgstr "富士フィルムのネガ"
 
 #. MENU_ITEM_MEDIUM_KODAK_NEG
 msgid "Kodak negative"
-msgstr ""
+msgstr "コダックのネガ"
 
 #. MENU_ITEM_MEDIUM_KONICA_NEG
-#, fuzzy
 msgid "Konica negative"
-msgstr "非活性"
+msgstr "コニカのネガ"
 
 #. MENU_ITEM_MEDIUM_KONICA_NEG_VX_100
-#, fuzzy
 msgid "Konica negative VX 100"
-msgstr "非活性"
+msgstr "コニカ VX 100"
 
 #. MENU_ITEM_MEDIUM_ROSSMANN_NEG_HR_100
 msgid "Rossmann negative HR 100"
-msgstr ""
+msgstr "Rossmann HR 100"
 
 #. Sane backend messages
 msgid "flatbed scanner"
@@ -2321,7 +2302,7 @@ msgid "Operation was cancelled"
 msgstr "オペレーションは取り消されました"
 
 msgid "Device busy"
-msgstr "デバイスビジーです"
+msgstr "デバイスがビジーです"
 
 msgid "Invalid argument"
 msgstr "不正な引数です"
@@ -2346,12 +2327,3 @@ msgstr "オーバーフロー"
 
 msgid "Access to resource has been denied"
 msgstr "リソースへのアクセスが拒否されました"
-
-#, fuzzy
-#~ msgid "Store Medium definition"
-#~ msgstr "定義を削除"
-
-#~ msgid ""
-#~ "Use XSane for: SCANning-<Ctrl-s> photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>"
-#~ msgstr ""
-#~ "XSaneの用途： スキャン-<Ctrl-s>、写真の焼き増し-<Ctrl-c>、FAX-<Ctrl-f>"

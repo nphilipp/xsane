@@ -1,11 +1,11 @@
 # German translation for XSane.
-# Copyright (C) 1999-2001 Oliver Rauch
+# Copyright (C) 1999-2002 Oliver Rauch
 # Oliver Rauch <Oliver.Rauch@rauch-domain.de>
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.80\n"
-"POT-Creation-Date: 2001-12-19 19:09+0100\n"
+"Project-Id-Version: XSANE 0.84\n"
+"POT-Creation-Date: 2002-01-22 23:34+0100\n"
 "PO-Revision-Date: 2000-01-21 15:51+01:00\n"
 "Last-Translator: Oliver Rauch <Oliver.Rauch@rauch-domain.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -2122,6 +2122,8 @@ msgid ""
 " -m, --mail                   start with mail-mode active\n"
 " -n, --no-mode-selection      disable menu for XSane mode selection\n"
 "\n"
+" -M, --Medium-calibration     enable medium calibration mode\n"
+"\n"
 " -F, --Fixed                  fixed main window size (overwrite preferences "
 "value)\n"
 " -R, --Resizeable             resizable, scrolled main window (overwrite "
@@ -2152,6 +2154,8 @@ msgstr ""
 " -f, --fax                    starte im Faxmodus\n"
 " -m, --mail                   starte im E-Mailmodus\n"
 " -n, --no-mode-selection      deaktiviere Modusauswahl\n"
+"\n"
+" -M, --Medium-calibration     aktiviere Medium Kalibrierungs Modus\n"
 "\n"
 " -F, --Fixed                  Hauptfenstergröße ist fest\n"
 " -R, --Resizeable             Hauptfenstergröße ist veränderbar\n"

@@ -1090,6 +1090,7 @@ static int xsane_viewer_read_image(Viewer *v)
  char buf[256];
  float size;
  char *size_unit;
+ int width, height;
 
   infile = fopen(v->filename, "rb");
   if (!infile)
@@ -1111,7 +1112,7 @@ static int xsane_viewer_read_image(Viewer *v)
                  image_info.image_width, image_info.image_height, image_info.depth, image_info.colors);
   /* open infile */
 
-  if (v->window) /* we already have an existing preview? */
+  if (v->window) /* we already have an existing viewer preview window? */
   {
     gtk_widget_destroy(v->window);
   }
@@ -1252,6 +1253,21 @@ static int xsane_viewer_read_image(Viewer *v)
   }
   gtk_label_set(GTK_LABEL(v->image_info_label), buf);
 
+  width = image_info.image_width + 26;
+  height = image_info.image_height + 136;
+
+  if (width > gdk_screen_width())
+  {
+    width = gdk_screen_width();
+  }
+
+  if (height > gdk_screen_height())
+  {
+    height = gdk_screen_height();
+  }
+
+  gtk_window_set_default_size(GTK_WINDOW(v->top), width, height);
+
   free(row);
   free(src_row);
   fclose(infile);
@@ -1303,7 +1319,6 @@ Viewer *xsane_viewer_new(char *filename, int reduce_to_lineart, char *output_fil
   gtk_window_set_title(GTK_WINDOW(v->top), buf);
   xsane_set_window_icon(v->top, 0);
   gtk_accel_group_attach(xsane.accelerator_group, GTK_OBJECT(v->top));   
-  gtk_window_set_default_size(GTK_WINDOW(v->top), 0.3 * gdk_screen_width(), 0.5 * gdk_screen_height());
   gtk_object_set_data(GTK_OBJECT(v->top), "Viewer", (void *) v);
   gtk_signal_connect(GTK_OBJECT(v->top), "delete_event", GTK_SIGNAL_FUNC(xsane_viewer_close_callback), NULL);
 
@@ -1411,13 +1426,12 @@ Viewer *xsane_viewer_new(char *filename, int reduce_to_lineart, char *output_fil
   gtk_box_pack_start(GTK_BOX(hbox), v->image_info_label, FALSE, FALSE, 2);
   gtk_widget_show(v->image_info_label);
 
+  gtk_widget_show(v->top);
 
   if (xsane_viewer_read_image(v)) /* read image and add preview to the viewport */
   {
     /* error */ 
   }
-
-  gtk_widget_show(v->top);
 
   v->progress_bar = (GtkProgressBar *) gtk_progress_bar_new();
 #if 0

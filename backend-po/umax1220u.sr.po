@@ -1,0 +1,591 @@
+msgid ""
+msgstr ""
+"Last-Translator: Rusmir Du¹ko <drusmir@gmx.ch>\n"
+"PO-Revision-Date: 2002-01-04 19:10GMT\n"
+"Language-Team: srpski <sr@li.org>\n"
+"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.9.2\n"
+
+#nls translation file for backend umax
+#language: serbian (sr)
+#original text: "Number of options"
+msgid "Number of options"
+msgstr "Broj opcija"
+
+#original text: "Preview"
+msgid "Preview"
+msgstr "Pregled"
+
+#original text: "Force monochrome preview"
+msgid "Force monochrome preview"
+msgstr "Sivi pregled"
+
+#original text: "Bit depth"
+msgid "Bit depth"
+msgstr "Dubina bita"
+
+#original text: "Scan mode"
+msgid "Scan mode"
+msgstr "Modus skeniranja"
+
+#original text: "Scan speed"
+msgid "Scan speed"
+msgstr "Brzina skeniranja"
+
+#original text: "Scan source"
+msgid "Scan source"
+msgstr "Izvor skeniranja"
+
+#original text: "Force backtracking"
+msgid "Force backtracking"
+msgstr "Bektrejs"
+
+#original text: "Top-left x"
+msgid "Top-left x"
+msgstr "levo"
+
+#original text: "Top-left y"
+msgid "Top-left y"
+msgstr "gore"
+
+#original text: "Bottom-right x"
+msgid "Bottom-right x"
+msgstr "desno"
+
+#original text: "Bottom-right y"
+msgid "Bottom-right y"
+msgstr "dole"
+
+#original text: "Scan resolution"
+msgid "Scan resolution"
+msgstr "Rezolucija skeniranja"
+
+#original text: "X-resolution"
+msgid "X-resolution"
+msgstr "X-rezolucija"
+
+#original text: "Y-resolution"
+msgid "Y-resolution"
+msgstr "Y-rezolucija"
+
+#original text: "Use custom gamma table"
+msgid "Use custom gamma table"
+msgstr "Koristi internu gamakorekturu"
+
+#original text: "Image intensity"
+msgid "Image intensity"
+msgstr "Jaèina slike"
+
+#original text: "Red intensity"
+msgid "Red intensity"
+msgstr "Jaèina crvene"
+
+#original text: "Green intensity"
+msgid "Green intensity"
+msgstr "Jaèina zelene"
+
+#original text: "Blue intensity"
+msgid "Blue intensity"
+msgstr "Jaèina plave"
+
+#original text: "Brightness"
+msgid "Brightness"
+msgstr "Osvetliti"
+
+#original text: "Contrast"
+msgid "Contrast"
+msgstr "Kontrast"
+
+#original text: "Grain size"
+msgid "Grain size"
+msgstr "Velièina granulacije"
+
+#original text: "Halftoning"
+msgid "Halftoning"
+msgstr "Poluton"
+
+#original text: "Black level"
+msgid "Black level"
+msgstr "Crni nivo"
+
+#original text: "White level"
+msgid "White level"
+msgstr "Beli nivo"
+
+#original text: "Shadow"
+msgid "Shadow"
+msgstr "Senke"
+
+#original text: "Shadow for red"
+msgid "Shadow for red"
+msgstr "Crvene senke"
+
+#original text: "Shadow for green"
+msgid "Shadow for green"
+msgstr "Zelene senke"
+
+#original text: "Shadow for blue"
+msgid "Shadow for blue"
+msgstr "Plave senke"
+
+#original text: "Highlight"
+msgid "Highlight"
+msgstr "Svetlo"
+
+#original text: "Highlight for red"
+msgid "Highlight for red"
+msgstr "Crveno svetlo"
+
+#original text: "Highlight for green"
+msgid "Highlight for green"
+msgstr "Zeleno svetlo"
+
+#original text: "Highlight for blue"
+msgid "Highlight for blue"
+msgstr "Plavo svetlo"
+
+#original text: "Hue"
+msgid "Hue"
+msgstr "Nijansa"
+
+#original text: "Saturation"
+msgid "Saturation"
+msgstr "Zasiæenje"
+
+#original text: "Filename"
+msgid "Filename"
+msgstr "Naziv fajla"
+
+#original text: "Halftone pattern size"
+msgid "Halftone pattern size"
+msgstr "Poluton velièine uzorka"
+
+#original text: "Halftone pattern"
+msgid "Halftone pattern"
+msgstr "Poluton uzorka"
+
+#original text: "Bind X and Y resolution"
+msgid "Bind X and Y resolution"
+msgstr "Pove¾i X i Y rezoluciju"
+
+#original text: "Negative"
+msgid "Negative"
+msgstr "Negativ"
+
+#original text: "Quality calibration"
+msgid "Quality calibration"
+msgstr "Kalibracija kvaliteta"
+
+#original text: "Double Optical Resolution"
+msgid "Double Optical Resolution"
+msgstr "Poduplaj optièku rezoluciju"
+
+#original text: "Bind RGB"
+msgid "Bind RGB"
+msgstr "Pove¾i RGB"
+
+#original text: "Threshold"
+msgid "Threshold"
+msgstr "Prag ¹uma"
+
+#original text: "Analog gamma correction"
+msgid "Analog gamma correction"
+msgstr "Analogna gamakorekcija"
+
+#original text: "Analog gamma red"
+msgid "Analog gamma red"
+msgstr "Analogna gamavrednost crvene"
+
+#original text: "Analog gamma green"
+msgid "Analog gamma green"
+msgstr "Analogna gamavrednost zelene"
+
+#original text: "Analog gamma blue"
+msgid "Analog gamma blue"
+msgstr "Analogna gamavrednost plave"
+
+#original text: "Bind analog gamma"
+msgid "Bind analog gamma"
+msgstr "Pove¾i analogne gamavrednosti"
+
+#original text: "Smear"
+msgid "Smear"
+msgstr "Podma¾i"
+
+#original text: "10 bit-mode"
+msgid "10 bit-mode"
+msgstr "10 bitni modus"
+
+#original text: "12 bit-mode"
+msgid "12 bit-mode"
+msgstr "12 bitni modus"
+
+#original text: "Warmup lamp"
+msgid "Warmup lamp"
+msgstr "Zagrej lampu"
+
+#original text: "Preview patch"
+msgid "Preview patch"
+msgstr "Pregled prepravke"
+
+#original text: "Start-scan patch"
+msgid "Start-scan patch"
+msgstr "Poèni prepravku skeniranja"
+
+#original text: "Cal. exposure-time"
+msgid "Cal. exposure-time"
+msgstr "Vreme osvetljena za kalibrisanje"
+
+#original text: "Cal. exposure-time for red"
+msgid "Cal. exposure-time for red"
+msgstr "Vreme osvetljena za kalibrisanje crvene"
+
+#original text: "Cal. exposure-time for green"
+msgid "Cal. exposure-time for green"
+msgstr "Vreme osvetljena za kalibrisanje zelene"
+
+#original text: "Cal. exposure-time for blue"
+msgid "Cal. exposure-time for blue"
+msgstr "Vreme osvetljena za kalibrisanje plave"
+
+#original text: "Scan exposure-time"
+msgid "Scan exposure-time"
+msgstr "Vreme osvetljena za skeniranje"
+
+#original text: "Scan exposure-time for red"
+msgid "Scan exposure-time for red"
+msgstr "Vreme osvetljena za skeniranje crvene"
+
+#original text: "Scan exposure-time for green"
+msgid "Scan exposure-time for green"
+msgstr "Vreme osvetljena za skeniranje zelene"
+
+#original text: "Scan exposure-time for blue"
+msgid "Scan exposure-time for blue"
+msgstr "Vreme osvetljena za skeniranje plave"
+
+#original text: "Set exposure-time"
+msgid "Set exposure-time"
+msgstr "Odredi vreme osvetljenja"
+
+#original text: "Cal. lamp density"
+msgid "Cal. lamp density"
+msgstr "Kalibri¹i jaèinu lampe"
+
+#original text: "Scan lamp density"
+msgid "Scan lamp density"
+msgstr "Jaèina lampe pri skeniranju"
+
+#original text: "Set lamp density"
+msgid "Set lamp density"
+msgstr "Odredi jaèinu lampe"
+
+#original text: "Request a preview-quality scan."
+msgid "Request a preview-quality scan."
+msgstr "Zatra¾i pregledno skeniranje"
+
+#original text: "Request that all previews are done in monochrome mode.  On a three-pass " " scanner this cuts down the number of passes to one and on a one-pass " "scanner, it reduces the memory requirements and scan-time of the preview."
+msgid "Request that all previews are done in monochrome mode.  On a three-pass " " scanner this cuts down the number of passes to one and on a one-pass " "scanner, it reduces the memory requirements and scan-time of the preview."
+msgstr "Zatra¾i da svi pregledi budu uraðeni u monohromom modusu"
+
+#original text: "Number of bits per sample, typical values are 1 for \"line-art\" and 8 " "for multibit scans."
+msgid "Number of bits per sample, typical values are 1 for \"line-art\" and 8 " "for multibit scans."
+msgstr "Broj bita po uzorku, tipiène vrednosti su 1 za linearna- i 8 za multibitna-skeniranja"
+
+#original text: "Selects the scan mode (e.g., lineart,monochrome, or color)."
+msgid "Selects the scan mode (e.g., lineart,monochrome, or color)."
+msgstr "Biraj naèin skeniranja (n.pr. crte¾ , grao ili u boji)"
+
+#original text: "Determines the speed at which the scan proceeds."
+msgid "Determines the speed at which the scan proceeds."
+msgstr "Odredi brzinu skeniranja"
+
+#original text: "Selects the scan source (such as a document-feeder)."
+msgid "Selects the scan source (such as a document-feeder)."
+msgstr "Odredi izvor skeniranja (kao ¹ahta za dokumenta)"
+
+#original text: "Controls whether backtracking is forced."
+msgid "Controls whether backtracking is forced."
+msgstr "Kontroli¹i koji sistem za korekciju je po¾eljan"
+
+#original text: "Top-left x position of scan area."
+msgid "Top-left x position of scan area."
+msgstr "Levi ugao polja za skeniranje"
+
+#original text: "Top-left y position of scan area."
+msgid "Top-left y position of scan area."
+msgstr "Gornji ugao polja za skeniranje"
+
+#original text: "Bottom-right x position of scan area."
+msgid "Bottom-right x position of scan area."
+msgstr "Desni ugao polja za skeniranje"
+
+#original text: "Bottom-right y position of scan area."
+msgid "Bottom-right y position of scan area."
+msgstr "Donji ugao polja za skeniranje"
+
+#original text: "Sets the resolution of the scanned image."
+msgid "Sets the resolution of the scanned image."
+msgstr "Odredi rezoluciju slike"
+
+#original text: "Sets the horizontal resolution of the scanned image."
+msgid "Sets the horizontal resolution of the scanned image."
+msgstr "Odredi horizontalnu rezoluciju slike"
+
+#original text: "Sets the vertical resolution of the scanned image."
+msgid "Sets the vertical resolution of the scanned image."
+msgstr "Odredi vertikalnu rezoluciju slike"
+
+#original text: "Determines whether a builtin or a custom gamma-table should be used."
+msgid "Determines whether a builtin or a custom gamma-table should be used."
+msgstr "Odredi da li da se ugraðena ili korisnièka gamakorrektura skenera upotrebljava"
+
+#original text: "Gamma-correction table.  In color mode this option equally affects the " "red, green, and blue channels simultaneously (i.e., it is an intensity " "gamma table)."
+msgid "Gamma-correction table.  In color mode this option equally affects the " "red, green, and blue channels simultaneously (i.e., it is an intensity " "gamma table)."
+msgstr "Tabela za gamakorekciju"
+
+#original text: "Gamma-correction table for the red band."
+msgid "Gamma-correction table for the red band."
+msgstr "Tabela za gamakorekciju crvene komponente"
+
+#original text: "Gamma-correction table for the green band."
+msgid "Gamma-correction table for the green band."
+msgstr "Tabela za gamakorekciju zelene komponente"
+
+#original text: "Gamma-correction table for the blue band."
+msgid "Gamma-correction table for the blue band."
+msgstr "Tabela za gamakorekciju plave komponente"
+
+#original text: "Controls the brightness of the acquired image."
+msgid "Controls the brightness of the acquired image."
+msgstr "Kontroli¹e osvetljenje slike"
+
+#original text: "Controls the contrast of the acquired image."
+msgid "Controls the contrast of the acquired image."
+msgstr "Kontroli¹e kontrast slike"
+
+#original text: "Selects the \"graininess\" of the acquired image.  Smaller values " "result in sharper images."
+msgid "Selects the \"graininess\" of the acquired image.  Smaller values " "result in sharper images."
+msgstr "Odaberi sivo nivo od slike"
+
+#original text: "Selects whether the acquired image should be halftoned (dithered)."
+msgid "Selects whether the acquired image should be halftoned (dithered)."
+msgstr "Odredi gde slika treba da bude polutonirana"
+
+#original text: "Selects what radiance level should be considered \"black\"."
+msgid "Selects what radiance level should be considered \"black\"."
+msgstr "Odredi koja vrednost osvetljenja da bude posmatrana kao crno"
+
+#original text: "Selects what radiance level should be considered \"white\"."
+msgid "Selects what radiance level should be considered \"white\"."
+msgstr "Odredi koja vrednost osvetljenja da bude posmatrana kao belo"
+
+#original text: "Selects what radiance level should be considered \"black\"."
+msgid "Selects what radiance level should be considered \"black\"."
+msgstr "Odredi koja vrednost osvetljenja da bude posmatrana kao crno"
+
+#original text: "Selects what red radiance level should be considered \"black\"."
+msgid "Selects what red radiance level should be considered \"black\"."
+msgstr "Odredi koja vrednost crvenog osvetljenja da bude posmatrana kao crno"
+
+#original text: "Selects what green radiance level should be considered \"black\"."
+msgid "Selects what green radiance level should be considered \"black\"."
+msgstr "Odredi koja vrednost zelenog osvetljenja da bude posmatrana kao crno"
+
+#original text: "Selects what blue radiance level should be considered \"black\"."
+msgid "Selects what blue radiance level should be considered \"black\"."
+msgstr "Odredi koja vrednost plavog osvetljenja da bude posmatrana kao crno"
+
+#original text: "Selects what radiance level should be considered \"white\"."
+msgid "Selects what radiance level should be considered \"white\"."
+msgstr "Odredi koja vrednost osvetljenja da bude posmatrana kao belo"
+
+#original text: "Selects what red radiance level should be considered \"full red\"."
+msgid "Selects what red radiance level should be considered \"full red\"."
+msgstr "Odredi koja vrednost crvenog osvetljenja da bude posmatrana kao potpuno crvena"
+
+#original text: "Selects what green radiance level should be considered \"full green\"."
+msgid "Selects what green radiance level should be considered \"full green\"."
+msgstr "Odredi koja vrednost zelenog osvetljenja da bude posmatrana kao potpuno zelena"
+
+#original text: "Selects what blue radiance level should be considered \"full blue\"."
+msgid "Selects what blue radiance level should be considered \"full blue\"."
+msgstr "Odredi koja vrednost plavog osvetljenja da bude posmatrana kao potpuno plavo"
+
+#original text: "Controls the \"hue\" (blue-level) of the acquired image."
+msgid "Controls the \"hue\" (blue-level) of the acquired image."
+msgstr "Kontroli¹i plavi nivo od slike"
+
+#original text: "The saturation level controls the amount of \"blooming\" that occurs when " "acquiring an image with a camera. Larger values cause more blooming."
+msgid "The saturation level controls the amount of \"blooming\" that occurs when " "acquiring an image with a camera. Larger values cause more blooming."
+msgstr "Nivo zasiæenja koji kontoli¹e kolièinu rumenila koji se javlja kod kamera"
+
+#original text: "The filename of the image to be loaded."
+msgid "The filename of the image to be loaded."
+msgstr "Ime fajla slike koja treba da se unese"
+
+#original text: "Sets the size of the halftoning (dithering) pattern used when scanning " "halftoned images."
+msgid "Sets the size of the halftoning (dithering) pattern used when scanning " "halftoned images."
+msgstr "Odredi velièinu uzorka u polutonu koji se upotrebljava kod skeniranja"
+
+#original text: "Defines the halftoning (dithering) pattern for scanning halftoned images."
+msgid "Defines the halftoning (dithering) pattern for scanning halftoned images."
+msgstr "Definiraj dithering senku za skeniranje polutoniranih slika"
+
+#original text: "Use same values for X and Y resolution"
+msgid "Use same values for X and Y resolution"
+msgstr "Upotrebljavaj iste vrednosti za X i Y"
+
+#original text: "Swap black and white"
+msgid "Swap black and white"
+msgstr "Invertuj boje, npr. promeni crnu u belu"
+
+#original text: "Do a quality white-calibration"
+msgid "Do a quality white-calibration"
+msgstr "Uradi kvalitetnu belu kalibraciju"
+
+#original text: "Use lens that doubles optical resolution"
+msgid "Use lens that doubles optical resolution"
+msgstr "Koristi soèivo koje poduplava optièku rezoluciju"
+
+#original text: "In RGB-mode use same values for each color"
+msgid "In RGB-mode use same values for each color"
+msgstr "Koristi istu vrednost sa svaku boju u RGB modusu"
+
+#original text: "Select minimum-brightness to get a white point"
+msgid "Select minimum-brightness to get a white point"
+msgstr "Izaberi minimalno osvetljenje za dobijanje bele taèke"
+
+#original text: "Analog gamma-correction"
+msgid "Analog gamma-correction"
+msgstr "Analogna gamakorektura"
+
+#original text: "Analog gamma-correction for red"
+msgid "Analog gamma-correction for red"
+msgstr "Analogna gamakorektura za crveno"
+
+#original text: "Analog gamma-correction for green"
+msgid "Analog gamma-correction for green"
+msgstr "Analogna gamakorektura za zeleno"
+
+#original text: "Analog gamma-correction for blue"
+msgid "Analog gamma-correction for blue"
+msgstr "Analogna gamakorektura za plavo"
+
+#original text: "In RGB-mode use same values for each color"
+msgid "In RGB-mode use same values for each color"
+msgstr "U RGB modusu koristi iste vrednosti za svaku boju"
+
+#original text: "Don't care about image smearing problem"
+msgid "Don't care about image smearing problem"
+msgstr "Ignori¹i problem podmazivanja slike"
+
+#original text: "Output with 10 bits instead of 8 bits"
+msgid "Output with 10 bits instead of 8 bits"
+msgstr "Izlaz sa 10 bita umesto 8 bita"
+
+#original text: "Output with 12 bits instead of 8 bits"
+msgid "Output with 12 bits instead of 8 bits"
+msgstr "Izlaz sa 12 bita umesto 8 bita"
+
+#original text: "Warmup lamp before scanning"
+msgid "Warmup lamp before scanning"
+msgstr "Zagrej lampu pre skeniranja"
+
+#original text: "Set preview-bit in rgb-mode"
+msgid "Set preview-bit in rgb-mode"
+msgstr "Namesti bite za pregled u boji"
+
+#original text: "Use special start-scan bits"
+msgid "Use special start-scan bits"
+msgstr "Koristi posebna pode¹avanja pri startu skeniranja"
+
+#original text: "Define exposure-time for calibration"
+msgid "Define exposure-time for calibration"
+msgstr "Defini¹i vreme osvetljenja za kalibrisanje"
+
+#original text: "Define exposure-time for red calibration"
+msgid "Define exposure-time for red calibration"
+msgstr "Defini¹i vreme osvetljenja za kalibrisanje crvene"
+
+#original text: "Define exposure-time for green calibration"
+msgid "Define exposure-time for green calibration"
+msgstr "Defini¹i vreme osvetljenja za kalibrisanje zalene"
+
+#original text: "Define exposure-time for blue calibration"
+msgid "Define exposure-time for blue calibration"
+msgstr "Defini¹i vreme osvetljenja za kalibrisanje plave"
+
+#original text: "Define exposure-time for scan"
+msgid "Define exposure-time for scan"
+msgstr "Defini¹i vreme osvetljenja za skeniranje"
+
+#original text: "Define exposure-time for red scan"
+msgid "Define exposure-time for red scan"
+msgstr "Defini¹i vreme osvetljenja za skeniranje crvene"
+
+#original text: "Define exposure-time for green scan"
+msgid "Define exposure-time for green scan"
+msgstr "Defini¹i vreme osvetljenja za skeniranje zelene"
+
+#original text: "Define exposure-time for blue scan"
+msgid "Define exposure-time for blue scan"
+msgstr "Defini¹i vreme osvetljenja za skeniranje plave"
+
+#original text: "Enable selection of exposure-time"
+msgid "Enable selection of exposure-time"
+msgstr "Omoguæi pode¹avanje vremena za osvetljenje"
+
+#original text: "Define lamp density for calibration"
+msgid "Define lamp density for calibration"
+msgstr "Defini¹i jaèinu osvetljenja pri kalibrisanju"
+
+#original text: "Define lamp density for scan"
+msgid "Define lamp density for scan"
+msgstr "Defini¹i jaèinu osvetljenja pri skeniranju"
+
+#original text: "Enable selection of lamp density"
+msgid "Enable selection of lamp density"
+msgstr "Omoguæi pode¹avanje jaèine lampe"
+
+#original text: "Geometry"
+msgid "Geometry"
+msgstr "Geometrija"
+
+#original text: "Enhancement"
+msgid "Enhancement"
+msgstr "Pobolj¹anje"
+
+#original text: "Scan Mode"
+msgid "Scan Mode"
+msgstr "Skeniranje"
+
+#original text: "Color"
+msgid "Color"
+msgstr "Boja"
+
+#original text: "Gray"
+msgid "Gray"
+msgstr "Sivo"
+
+#original text: "Halftone"
+msgid "Halftone"
+msgstr "Poluton"
+
+#original text: "Lineart"
+msgid "Lineart"
+msgstr "Crte¾"
+
+#original text: "Flatbed"
+msgid "Flatbed"
+msgstr "ravni skener"
+
+#original text: "Transparency Adapter"
+msgid "Transparency Adapter"
+msgstr "Adapter za propust svetla"
+
+#original text: "Automatic Document Feeder"
+msgid "Automatic Document Feeder"
+msgstr "Automatsko uvlaèenje dokumenta"
+

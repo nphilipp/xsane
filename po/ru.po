@@ -1,11 +1,9 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.80\n"
-"POT-Creation-Date: 2001-12-19 19:09+0100\n"
+"Project-Id-Version: XSANE 0.84\n"
+"POT-Creation-Date: 2002-01-22 23:34+0100\n"
 "PO-Revision-Date: 2001-08-10 01:05+0300\n"
 "Last-Translator: John Profic <profic@lrn.ru>\n"
 "Language-Team: RUSSIAN <RU@li.org>\n"
@@ -112,9 +110,8 @@ msgid "Viewer: select output filename"
 msgstr "Просмотр: выберите конечное имя файла"
 
 #. WINDOW_OCR_OUTPUT_FILENAME
-#, fuzzy
 msgid "Select output filename for OCR text file"
-msgstr "выберите конечное имя файла"
+msgstr "Выберите конечное имя файла для распознанного текста"
 
 #. WINDOW_OUTPUT_FILENAME
 msgid "select output filename"
@@ -137,9 +134,8 @@ msgid "select temporary directory"
 msgstr "изменить каталог для временных файлов"
 
 #. WINDOW_SCALE
-#, fuzzy
 msgid "Scale image"
-msgstr "Сохранить избражение"
+msgstr "Масщтабирование избражения"
 
 #. WINDOW_DESPECKLE
 msgid "Despeckle image"
@@ -150,9 +146,8 @@ msgid "Blur image"
 msgstr "Размыть изображение"
 
 #. WINDOW_STORE_MEDIUM
-#, fuzzy
 msgid "Store medium definition"
-msgstr "Переименовать область"
+msgstr "Записать носитель"
 
 #. MENU_FILE
 msgid "File"
@@ -195,14 +190,12 @@ msgid "Close"
 msgstr "Закрыть"
 
 #. MENU_ITEM_CLONE
-#, fuzzy
 msgid "Clone"
-msgstr "Закрыть"
+msgstr "Дублировать"
 
 #. MENU_ITEM_SCALE
-#, fuzzy
 msgid "Scale"
-msgstr "Файл"
+msgstr "Мастабирование"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
@@ -325,9 +318,8 @@ msgid "Discard image"
 msgstr "Удалить изображение"
 
 #. BUTTON_DISCARD_ALL_IMAGES
-#, fuzzy
 msgid "Discard all images"
-msgstr "Удалить изображение"
+msgstr "Удалить все изображения"
 
 #. BUTTON_DO_NOT_CLOSE
 msgid "Do not close"
@@ -335,7 +327,7 @@ msgstr "Не закрывать"
 
 #. BUTTON_SCALE_BIND
 msgid "Bind scale"
-msgstr ""
+msgstr "Зафиксировать масштаб"
 
 #. RADIO_BUTTON_FINE_MODE
 msgid "Fine mode"
@@ -622,32 +614,31 @@ msgstr "Статус проекта:"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
-msgstr ""
+msgstr "Имя носителя: "
 
 #. TEXT_VIEWER_IMAGE_INFO
 #, c-format
 msgid ""
 "Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
 msgstr ""
+"Размер %d на %d пикселей, %d бит/цвет, %d цветов, %1.0f dpi x %1.0f dpi, "
+"%1.1f %s"
 
 #. TEXT_X_SCALE_FACTOR
-#, fuzzy
 msgid "X-Scale factor:"
-msgstr "Процент увеличения"
+msgstr "Увеличения по оси X"
 
 #. TEXT_Y_SCALE_FACTOR
-#, fuzzy
 msgid "Y-Scale factor:"
-msgstr "Процент увеличения"
+msgstr "Увеличения по оси Y"
 
 #. TEXT_DESPECKLE_RADIUS
-#, fuzzy
 msgid "Despeckle radius:"
-msgstr "Убрать растр"
+msgstr "Радиус убирания растра:"
 
 #. TEXT_BLUR_RADIUS
 msgid "Blur radius:"
-msgstr ""
+msgstr "Радиус размытия:"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -858,19 +849,16 @@ msgid "Viewer (png):"
 msgstr "Программа просмотра PNG файлов:"
 
 #. TEXT_SETUP_OCR_COMMAND
-#, fuzzy
 msgid "OCR Command:"
-msgstr "Комманда:"
+msgstr "Комманда распознавания текста:"
 
 #. TEXT_SETUP_OCR_INPUTFILE_OPT
-#, fuzzy
 msgid "Inputfile option:"
-msgstr "Параметр для PostScript файла"
+msgstr "Параметр для исходного файла"
 
 #. TEXT_SETUP_OCR_OUTPUTFILE_OPT
-#, fuzzy
 msgid "Outputfile option:"
-msgstr "Параметр для PostScript файла"
+msgstr "Параметр для результирующего файла"
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
@@ -906,7 +894,7 @@ msgstr "Письмо"
 
 #. NOTEBOOK_OCR_OPTIONS
 msgid "OCR"
-msgstr ""
+msgstr "Распазнование текста"
 
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display"
@@ -1130,9 +1118,8 @@ msgid "Cloning image"
 msgstr "Дублированиет изображения"
 
 #. PROGRESS_SCALING_DATA
-#, fuzzy
 msgid "Scaling image"
-msgstr "Сохранение избражения"
+msgstr "Мастабирование избражения"
 
 #. PROGRESS_DESPECKLING_DATA
 msgid "Despeckling image"
@@ -1163,6 +1150,8 @@ msgid ""
 "save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or "
 "mail-<Ctrl-m>"
 msgstr ""
+"Сохранить-<Ctrl-s>, просмотреть-<Ctrl-v>, копировать-<Ctrl-c>, отправить "
+"факс-<Ctrl-f> или отправить письмо-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
 msgid "Select source medium type"
@@ -1687,7 +1676,7 @@ msgstr "Пароль для POP3 сервера"
 
 #. DESC_MAIL_VIEWER
 msgid "Enter command to be executed to view a mail image"
-msgstr "Введите комманду для выполнения для просмотра почтовых вложений"
+msgstr "Введите комманду для выполнения просмотра почтовых вложений"
 
 #. DESC_HTML_MAIL
 msgid "Mail is sent in html mode, images are displayed directly"
@@ -1696,15 +1685,15 @@ msgstr ""
 
 #. DESC_OCR_COMMAND
 msgid "Enter command to start ocr program"
-msgstr ""
+msgstr "Введите комманду для выполнения разпознавания текста"
 
 #. DESC_OCR_INPUTFILE_OPT
 msgid "Enter option of the ocr program to define input file"
-msgstr ""
+msgstr "Параметр для исходного файла"
 
 #. DESC_OCR_OUTPUTFILE_OPT
 msgid "Enter option of the ocr program to define output file"
-msgstr ""
+msgstr "Параметр для результирующего файла"
 
 #. DESC_PERMISSION_READ
 msgid "read"
@@ -1769,7 +1758,7 @@ msgstr "Поворот предварительного и окончательного сканирования"
 
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
-msgstr ""
+msgstr "Распазнование текстов"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
@@ -1800,14 +1789,12 @@ msgid "Zoom image"
 msgstr "Увеличить изображение"
 
 #. DESC_STORE_MEDIUM
-#, fuzzy
 msgid "Store medium"
-msgstr "Переименовать область"
+msgstr "Сохранить тип носителя"
 
 #. DESC_DELETE_MEDIUM
-#, fuzzy
 msgid "Delete active medium"
-msgstr "Удалить область"
+msgstr "Удалить тип носителя"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -1822,9 +1809,8 @@ msgid "Filename too long"
 msgstr "Имя файла слишком длинное"
 
 #. ERR_CREATE_TEMP_FILE
-#, fuzzy
 msgid "Could not create temporary file"
-msgstr "Невозможно создать временный файл для предварительного сканирования"
+msgstr "Невозможно создать временный файл"
 
 #. ERR_SET_OPTION
 msgid "Failed to set value of option"
@@ -1872,9 +1858,8 @@ msgid "Failed to open"
 msgstr "Невозможно открыть"
 
 #. ERR_CREATE_SECURE_FILE
-#, fuzzy
 msgid "Could not create secure file (may be a link does exist):"
-msgstr "Невозможно сгенерировать имя файла для предварительного сканирования"
+msgstr "Невозможно создать секретный файл (возможно ссылка не существует):"
 
 #. ERR_FAILED_PRINTER_PIPE
 msgid "Failed to open pipe for executing printercommand"
@@ -1937,9 +1922,8 @@ msgid "Failed to execute mail image viewer:"
 msgstr "Невозможно вызвать программу для почтовых изображений"
 
 #. ERR_FAILED_EXEC_OCR_CMD
-#, fuzzy
 msgid "Failed to execute ocr command:"
-msgstr "Невозможно выполнить комманду отправки факса"
+msgstr "Невозможно выполнить комманду распознавания текста:"
 
 #. ERR_BAD_FRAME_FORMAT
 msgid "bad frame format"
@@ -1995,9 +1979,8 @@ msgid "Could not create filenames for preview files"
 msgstr "Невозможно сгенерировать имя файла для предварительного сканирования"
 
 #. ERR_CREATE_FAX_PROJECT
-#, fuzzy
 msgid "Could not create faxproject"
-msgstr "Создать проект"
+msgstr "Невозможно создать проект факсимильного сообщения"
 
 #. WARN_COUNTER_UNDERRUN
 msgid "Filename counter underrun"
@@ -2068,7 +2051,7 @@ msgstr "это может привести к проблемам!"
 #. WARN_UNSAVED_IMAGES
 #, c-format
 msgid "There are %d unsaved images"
-msgstr ""
+msgstr "Имеется %d несохраненных избражений"
 
 #. WARN_FILE_EXISTS
 #, c-format
@@ -2124,6 +2107,8 @@ msgid ""
 " -m, --mail                   start with mail-mode active\n"
 " -n, --no-mode-selection      disable menu for XSane mode selection\n"
 "\n"
+" -M, --Medium-calibration     enable medium calibration mode\n"
+"\n"
 " -F, --Fixed                  fixed main window size (overwrite preferences "
 "value)\n"
 " -R, --Resizeable             resizable, scrolled main window (overwrite "
@@ -2150,8 +2135,8 @@ msgstr ""
 " -d, --device-settings file   загрузить параметры устройства из файла (без "
 "\".drc\")\n"
 "\n"
+" -V, --viewer                 запуск в режиме просмотра (по умолчанию)\n"
 " -s, --save                   запуск в режиме сканирования\n"
-" -V, --viewer                 запуск в режиме просмотра\n"
 " -c, --copy                   запуск в режиме копирования\n"
 " -f, --fax                    запуск в режиме факса\n"
 " -m, --mail                   запуск в режиме почты\n"
@@ -2274,51 +2259,47 @@ msgstr "Letter альбом"
 
 #. MENU_ITEM_MEDIUM_FULL_RANGE
 msgid "Full range"
-msgstr ""
+msgstr "Полный спектр"
 
 #. MENU_ITEM_MEDIUM_SLIDE
 msgid "Slide"
-msgstr ""
+msgstr "Слайд"
 
 #. MENU_ITEM_MEDIUM_STANDARD_NEG
-#, fuzzy
 msgid "Standard negative"
-msgstr "Стандартные параметры"
+msgstr "Стандартный негатив"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG
 msgid "Agfa negative"
-msgstr ""
+msgstr "Негатив Agfa"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG_XRG200_4
 msgid "Agfa negative XRG 200-4"
-msgstr ""
+msgstr "Негатив Agfa XRG 200-4"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG_HDC_100
 msgid "Agfa negative HDC 100"
-msgstr ""
+msgstr "Негатив Agfa HDC 100"
 
 #. MENU_ITEM_MEDIUM_FUJI_NEG
-#, fuzzy
 msgid "Fuji negative"
-msgstr "не активно"
+msgstr "Негатив Fuji"
 
 #. MENU_ITEM_MEDIUM_KODAK_NEG
 msgid "Kodak negative"
-msgstr ""
+msgstr "Негатив Kodak"
 
 #. MENU_ITEM_MEDIUM_KONICA_NEG
-#, fuzzy
 msgid "Konica negative"
-msgstr "не активно"
+msgstr "Негатив Konica"
 
 #. MENU_ITEM_MEDIUM_KONICA_NEG_VX_100
-#, fuzzy
 msgid "Konica negative VX 100"
-msgstr "не активно"
+msgstr "Негатив Konica VX 100"
 
 #. MENU_ITEM_MEDIUM_ROSSMANN_NEG_HR_100
 msgid "Rossmann negative HR 100"
-msgstr ""
+msgstr "Негатив Rossmann HR 100"
 
 #. Sane backend messages
 msgid "flatbed scanner"
@@ -2375,9 +2356,8 @@ msgstr "Не хватает памяти"
 msgid "Access to resource has been denied"
 msgstr "Доступ к ресурсу запрещен"
 
-#, fuzzy
 #~ msgid "Store Medium definition"
-#~ msgstr "Удалить область"
+#~ msgstr "Сохранить носитель"
 
 #~ msgid ""
 #~ "Use XSane for: SCANning-<Ctrl-s> photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>"

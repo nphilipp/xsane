@@ -6,14 +6,14 @@ AC_CONFIG_HEADER(include/config.h)
 
 # version code:
 V_MAJOR=0
-V_MINOR=83
+V_MINOR=84
 
 PACKAGE=xsane
 
 BINPROGS="xsane"
 
 # languages
-ALL_LINGUAS="cs de es fr nl ru sl sv it ja tr"
+ALL_LINGUAS="cs de es fr nl ru sl sr sv it ja tr"
 
 SANE_V_MAJOR=1
 VERSION=${V_MAJOR}.${V_MINOR}
@@ -161,7 +161,9 @@ if test "x${HAVE_SANE}" = "x"; then
   echo "     - if you installed SANE as rpm make sure you also included"
   echo "       sane-devel"
   echo "****************************************************************"
-  rm -f $cache_file
+  echo ""
+  echo "you may need to remove $cache_file before you run configure again"
+  echo ""
   exit
 fi
 
@@ -171,7 +173,9 @@ if test "x${HAVE_GTK}" = "x"; then
   echo "       if you installed gtk as rpm make sure you also included"
   echo "       gtk-devel"
   echo "****************************************************************"
-  rm -f $cache_file
+  echo ""
+  echo "you may need to remove $cache_file before you run configure again"
+  echo ""
   exit
 fi
 
@@ -189,7 +193,7 @@ To add include or library paths call:
   [env] CPPFLAGS=\"-I/path/to/foo/include\" LDFLAGS=\"-L/path/to/foo/libs\" ./configure])
 
 AC_OUTPUT([Makefile intl/Makefile po/Makefile lib/Makefile
-	   src/Makefile include/Makefile doc/Makefile],)
+	   src/Makefile include/Makefile doc/Makefile xsane.spec],)
 
 echo "****************************************************************"
 echo "*                                                              *"

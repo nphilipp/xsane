@@ -811,7 +811,7 @@ static RETSIGTYPE xsane_sigpipe_handler(int signal)
 {
   DBG(DBG_proc, "xsane_sigpipe_handler\n");
 
-  xsane_cancel_save(0);
+  xsane_cancel_save(&xsane.cancel_save);
   xsane.broken_pipe = 1;
 }
 

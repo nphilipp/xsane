@@ -1,14 +1,13 @@
 # Translations for XSane English->Dutch
 # Copyright (C) 2001 Free Software Foundation, Inc.
-# W. Sinke <sinke@wirehub.nl>, 2001.
+# W. Sinke <sinke@wirehub.nl>, 2001, 2002.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xsane 0.82\n"
-"POT-Creation-Date: 2001-12-19 19:09+0100\n"
-"PO-Revision-Date: 2001-12-17 23:04+0100\n"
+"Project-Id-Version: xsane 0.84\n"
+"POT-Creation-Date: 2002-01-22 23:34+0100\n"
+"PO-Revision-Date: 2002-01-15 01:10+0100\n"
 "Last-Translator: Wim Sinke <sinke@wirehub.nl>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -100,10 +99,9 @@ msgstr "Geavanceerde opties"
 msgid "device selection"
 msgstr "Apparaat selectie"
 
-# TBD
 #. WINDOW_PREVIEW
 msgid "Preview"
-msgstr "Voorbeeldscan"
+msgstr "Voorbeeld"
 
 #. WINDOW_VIEWER
 msgid "Viewer"
@@ -330,9 +328,10 @@ msgstr "Alle afbeeldingen verwijderen"
 msgid "Do not close"
 msgstr "Niet sluiten"
 
+# TBD
 #. BUTTON_SCALE_BIND
 msgid "Bind scale"
-msgstr ""
+msgstr "Bind scale"
 
 #. RADIO_BUTTON_FINE_MODE
 msgid "Fine mode"
@@ -1160,6 +1159,8 @@ msgid ""
 "save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or "
 "mail-<Ctrl-m>"
 msgstr ""
+"opslaan-<Ctrl-s>, bekijk-<Ctrl-v>, kopier-<Ctrl-c>, fax-<Ctrl-f> of "
+"mail-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
 msgid "Select source medium type"
@@ -1781,14 +1782,12 @@ msgid "Zoom image"
 msgstr "Inzomen"
 
 #. DESC_STORE_MEDIUM
-#, fuzzy
 msgid "Store medium"
-msgstr "Definitie hernoemen"
+msgstr "Sla medium op"
 
 #. DESC_DELETE_MEDIUM
-#, fuzzy
 msgid "Delete active medium"
-msgstr "Definitie verwijderen"
+msgstr "Huidige medium verwijderen"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2081,6 +2080,7 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[OPTIE]... [APPARAAT]"
 
 #. TEXT_HELP
+#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2100,6 +2100,8 @@ msgid ""
 " -f, --fax                    start with fax-mode active\n"
 " -m, --mail                   start with mail-mode active\n"
 " -n, --no-mode-selection      disable menu for XSane mode selection\n"
+"\n"
+" -M, --Medium-calibration     enable medium calibration mode\n"
 "\n"
 " -F, --Fixed                  fixed main window size (overwrite preferences "
 "value)\n"
@@ -2262,14 +2264,12 @@ msgid "Agfa negative"
 msgstr "Agfa negatief"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG_XRG200_4
-#, fuzzy
 msgid "Agfa negative XRG 200-4"
-msgstr "Agfa negatief"
+msgstr "Agfa negatief XRG 200-4"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG_HDC_100
-#, fuzzy
 msgid "Agfa negative HDC 100"
-msgstr "Agfa negatief"
+msgstr "Agfa negatief HDC 100"
 
 #. MENU_ITEM_MEDIUM_FUJI_NEG
 msgid "Fuji negative"
@@ -2284,13 +2284,12 @@ msgid "Konica negative"
 msgstr "Konica negatief"
 
 #. MENU_ITEM_MEDIUM_KONICA_NEG_VX_100
-#, fuzzy
 msgid "Konica negative VX 100"
-msgstr "Konica negatief"
+msgstr "Konica negatief VX 100"
 
 #. MENU_ITEM_MEDIUM_ROSSMANN_NEG_HR_100
 msgid "Rossmann negative HR 100"
-msgstr ""
+msgstr "Rossmann negatief HR 100"
 
 #. Sane backend messages
 msgid "flatbed scanner"
@@ -2346,12 +2345,3 @@ msgstr "Geheugen vol"
 
 msgid "Access to resource has been denied"
 msgstr "Geen toegang tot apparaat"
-
-#, fuzzy
-#~ msgid "Store Medium definition"
-#~ msgstr "Definitie verwijderen"
-
-#~ msgid ""
-#~ "Use XSane for: SCANning-<Ctrl-s> photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>"
-#~ msgstr ""
-#~ "Gebruik XSane voor: scannen <Ctrl-s>, kopiëren <Ctrl-c>, faxen <Ctrl-f>"

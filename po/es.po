@@ -1,12 +1,12 @@
-# XSane Spanish .pot file
+# XSane Spanish .po file
 # Copyright (C) 2001 Free Software Foundation, Inc.
 # Gustavo D. Vranjes <gvranjes@abaconet.com.ar>, 2001
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSane-0.81\n"
-"POT-Creation-Date: 2001-12-19 19:09+0100\n"
-"PO-Revision-Date: 2001-12-08 01:04GMT\n"
+"Project-Id-Version: XSane-0.84\n"
+"POT-Creation-Date: 2002-01-22 23:34+0100\n"
+"PO-Revision-Date: 2002-01-14 22:56GMT\n"
 "Last-Translator: Gustavo D. Vranjes <gvranjes@abaconet.com.ar>\n"
 "Language-Team: Castellano <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -149,9 +149,8 @@ msgid "Blur image"
 msgstr "Desenfocar imagen"
 
 #. WINDOW_STORE_MEDIUM
-#, fuzzy
 msgid "Store medium definition"
-msgstr "Renombrar definición"
+msgstr "Guardar definición de medio"
 
 #. MENU_FILE
 msgid "File"
@@ -330,8 +329,9 @@ msgid "Do not close"
 msgstr "No cerrar"
 
 #. BUTTON_SCALE_BIND
+#, fuzzy
 msgid "Bind scale"
-msgstr ""
+msgstr "Atar escala"
 
 #. RADIO_BUTTON_FINE_MODE
 msgid "Fine mode"
@@ -619,8 +619,9 @@ msgid "Project status:"
 msgstr "Estado del proyecto:"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
+#, fuzzy
 msgid "Medium Name:"
-msgstr ""
+msgstr "Nombre del medio:"
 
 #. TEXT_VIEWER_IMAGE_INFO
 #, c-format
@@ -1124,9 +1125,8 @@ msgid "Cloning image"
 msgstr "Clonando imagen"
 
 #. PROGRESS_SCALING_DATA
-#, fuzzy
 msgid "Scaling image"
-msgstr "Guardando imagen"
+msgstr "Cambiando tamaño de imagen"
 
 #. PROGRESS_DESPECKLING_DATA
 msgid "Despeckling image"
@@ -1157,6 +1157,8 @@ msgid ""
 "save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or "
 "mail-<Ctrl-m>"
 msgstr ""
+"guardar-<Ctrl-s>, ver-<Ctrl-v>, fotocopia-<Ctrl-c>, fax-<Ctrl-f> ó "
+"mail-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
 msgid "Select source medium type"
@@ -1817,14 +1819,12 @@ msgid "Zoom image"
 msgstr "Ampliar imagen"
 
 #. DESC_STORE_MEDIUM
-#, fuzzy
 msgid "Store medium"
-msgstr "Renombrar definición"
+msgstr "Guardar medio"
 
 #. DESC_DELETE_MEDIUM
-#, fuzzy
 msgid "Delete active medium"
-msgstr "Borrar definición"
+msgstr "Borrar medio activo"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2139,6 +2139,8 @@ msgid ""
 " -m, --mail                   start with mail-mode active\n"
 " -n, --no-mode-selection      disable menu for XSane mode selection\n"
 "\n"
+" -M, --Medium-calibration     enable medium calibration mode\n"
+"\n"
 " -F, --Fixed                  fixed main window size (overwrite preferences "
 "value)\n"
 " -R, --Resizeable             resizable, scrolled main window (overwrite "
@@ -2306,14 +2308,12 @@ msgid "Agfa negative"
 msgstr "Negativo Agfa"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG_XRG200_4
-#, fuzzy
 msgid "Agfa negative XRG 200-4"
-msgstr "Negativo Agfa"
+msgstr "Negativo Agfa XRG 200-4"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG_HDC_100
-#, fuzzy
 msgid "Agfa negative HDC 100"
-msgstr "Negativo Agfa"
+msgstr "Negativo Agfa HDC 100"
 
 #. MENU_ITEM_MEDIUM_FUJI_NEG
 msgid "Fuji negative"
@@ -2328,13 +2328,12 @@ msgid "Konica negative"
 msgstr "Negativo Konica"
 
 #. MENU_ITEM_MEDIUM_KONICA_NEG_VX_100
-#, fuzzy
 msgid "Konica negative VX 100"
-msgstr "Negativo Konica"
+msgstr "Negativo Konica VX 100"
 
 #. MENU_ITEM_MEDIUM_ROSSMANN_NEG_HR_100
 msgid "Rossmann negative HR 100"
-msgstr ""
+msgstr "Negativo Rossmann HR 100"
 
 #. Sane backend messages
 msgid "flatbed scanner"
@@ -2390,12 +2389,3 @@ msgstr "Sin memoria"
 
 msgid "Access to resource has been denied"
 msgstr "Acceso al recurso fue prohibido"
-
-#, fuzzy
-#~ msgid "Store Medium definition"
-#~ msgstr "Borrar definición"
-
-#~ msgid ""
-#~ "Use XSane for: SCANning-<Ctrl-s> photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>"
-#~ msgstr ""
-#~ "Usar XSane para: ESCANear-<Ctrl-s> fotoCOPIAar-<Ctrl-c> FAXear-<Ctrl-f>"

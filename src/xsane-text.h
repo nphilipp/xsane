@@ -641,6 +641,8 @@ The format of [DEVICE] is backendname:devicefile (e.g. umax:/dev/scanner).\n\
  -m, --mail                   start with mail-mode active\n\
  -n, --no-mode-selection      disable menu for XSane mode selection\n\
 \n\
+ -M, --Medium-calibration     enable medium calibration mode\n\
+\n\
  -F, --Fixed                  fixed main window size (overwrite preferences value)\n\
  -R, --Resizeable             resizable, scrolled main window (overwrite preferences value)\n\
 \n\
