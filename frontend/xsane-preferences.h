@@ -8,6 +8,7 @@ typedef struct
   {
     char *name;		/* user defined printer name */
     char *command;	/* printercommand */
+    char *copy_number_option;	/* option to define number of copies */
     int resolution;	/* printer resolution for copy mode  */
     int width;		/* printer width of printable area in 1/72inch  */
     int height;		/* printer height of printable area in 1/72inch  */

@@ -12,6 +12,9 @@
 
 #define DESC_RESOLUTION		"Set scan resolution"
 #define DESC_ZOOM		"Set zoomfactor"
+#define DESC_COPY_NUMBER	"Set number of copies"
+
+#define DESC_NEGATIVE		"Swap black and white, for scanning negatives"
 
 #define DESC_GAMMA		"Set gamma value"
 #define DESC_GAMMA_R		"Set gamma value for red component"
@@ -56,6 +59,7 @@
 #define DESC_PRINTER_SETUP	"Select definition to change"
 #define DESC_PRINTER_NAME	"Define a name for the selection of this definition"
 #define DESC_PRINTER_COMMAND	"Enter command to be executed in copy mode (e.g. \"lpr -\")"
+#define DESC_COPY_NUMBER_OPTION	"Enter option for copy numbers"
 #define DESC_PRINTER_RESOLUTION	"Resolution with which images are printed and saved in postscript"
 #define DESC_PRINTER_WIDTH	"Width of printable area in 1/72 inch"
 #define DESC_PRINTER_HEIGHT	"Height of printable area in 1/72 inch"

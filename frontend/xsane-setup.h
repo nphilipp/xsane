@@ -23,6 +23,8 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+extern void xsane_new_printer(void);   
+extern void xsane_update_int(GtkWidget *widget, int *val);
 extern void xsane_setup_dialog(GtkWidget *widget, gpointer data);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

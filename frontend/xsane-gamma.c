@@ -67,10 +67,10 @@
 /* forward declarations: */
 
 static void xsane_bound_double(double *value, double min, double max);
-static void xsane_draw_histogram_with_points(XsanePixmap *hist,
+static void xsane_draw_histogram_with_points(XsanePixmap *hist, int invert,
                                              SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue,
                                              int show_red, int show_green, int show_blue, int show_inten, double scale);
-static void xsane_draw_histogram_with_lines(XsanePixmap *hist,
+static void xsane_draw_histogram_with_lines(XsanePixmap *hist, int invert,
                                             SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue,
                                             int show_red, int show_green, int show_blue, int show_inten, double scale);
 void xsane_draw_slider_level(XsaneSlider *slider);
@@ -81,12 +81,12 @@ static gint xsane_slider_callback(GtkWidget *widget, GdkEvent *event, XsaneSlide
 void xsane_create_slider(XsaneSlider *slider);
 void xsane_create_histogram(GtkWidget *parent, char *title, int width, int height, XsanePixmap *hist);
 void xsane_destroy_histogram(void);
-static void xsane_calculate_auto_enhancement(SANE_Int *count_raw,
-              SANE_Int *count_raw_red, SANE_Int *count_raw_green, SANE_Int *count_raw_blue);
+static void xsane_calculate_auto_enhancement(int negative,
+              SANE_Int *count_raw, SANE_Int *count_raw_red, SANE_Int *count_raw_green, SANE_Int *count_raw_blue);
 void xsane_calculate_histogram(void);
 void xsane_update_histogram(void);
 void xsane_histogram_toggle_button_callback(GtkWidget *widget, gpointer data);
-void xsane_create_gamma_curve(SANE_Int *gammadata, double gamma,
+void xsane_create_gamma_curve(SANE_Int *gammadata, int negative, double gamma,
                               double brightness, double contrast, int numbers, int maxout);
 void xsane_update_gamma(void);
 static void xsane_enhancement_update(void);
@@ -118,13 +118,15 @@ static void xsane_bound_double(double *value, double min, double max)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_draw_histogram_with_points(XsanePixmap *hist,
+static void xsane_draw_histogram_with_points(XsanePixmap *hist, int invert,
                                              SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue,
                                              int show_red, int show_green, int show_blue, int show_inten, double scale)
 {
  GdkRectangle rect;
  int i;
  int inten, red, green, blue;
+ int colval;
+
 #define XD 1
 #define YD 2
 
@@ -143,13 +145,22 @@ static void xsane_draw_histogram_with_points(XsanePixmap *hist,
 
     for (i=0; i < HIST_WIDTH; i++)
     {
-      inten = show_inten * count[i]       * scale;
+      if (invert)
+      {
+        colval = 255-i;
+      }
+      else
+      {
+        colval = i;
+      }
+
+      inten = show_inten * count[colval]       * scale;
 
       if (xsane.xsane_color)
       {
-        red   = show_red   * count_red[i]   * scale;
-        green = show_green * count_green[i] * scale;
-        blue  = show_blue  * count_blue[i]  * scale;
+        red   = show_red   * count_red[colval]   * scale;
+        green = show_green * count_green[colval] * scale;
+        blue  = show_blue  * count_blue[colval]  * scale;
       }
 
       if (inten > HIST_HEIGHT)
@@ -176,7 +187,7 @@ static void xsane_draw_histogram_with_points(XsanePixmap *hist,
 }
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_draw_histogram_with_lines(XsanePixmap *hist,
+static void xsane_draw_histogram_with_lines(XsanePixmap *hist, int invert,
                                             SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue,
                                             int show_red, int show_green, int show_blue, int show_inten, double scale)
 {
@@ -189,6 +200,7 @@ static void xsane_draw_histogram_with_lines(XsanePixmap *hist,
  int color[4];
  int val_swap;
  int color_swap;
+ int colval;
 
   if (hist->pixmap)
   {
@@ -205,12 +217,22 @@ static void xsane_draw_histogram_with_lines(XsanePixmap *hist,
 
     for (i=0; i < HIST_WIDTH; i++)
     {
-      inten = show_inten * count[i]       * scale;
+      if (invert)
+      {
+        colval = 255-i;
+      }
+      else
+      {
+        colval = i;
+      }
+
+      inten = show_inten * count[colval]       * scale;
+
       if (xsane.xsane_color)
       {
-        red   = show_red   * count_red[i]   * scale;
-        green = show_green * count_green[i] * scale;
-        blue  = show_blue  * count_blue[i]  * scale;
+        red   = show_red   * count_red[colval]   * scale;
+        green = show_green * count_green[colval] * scale;
+        blue  = show_blue  * count_blue[colval]  * scale;
       }
 
       if (inten > HIST_HEIGHT)
@@ -632,8 +654,8 @@ void xsane_destroy_histogram()
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_calculate_auto_enhancement(SANE_Int *count_raw,
-              SANE_Int *count_raw_red, SANE_Int *count_raw_green, SANE_Int *count_raw_blue)
+static void xsane_calculate_auto_enhancement(int negative,
+              SANE_Int *count_raw, SANE_Int *count_raw_red, SANE_Int *count_raw_green, SANE_Int *count_raw_blue)
 {	 /* calculate white, medium and black values for auto enhancement */
  int limit;
  int points;
@@ -686,9 +708,18 @@ static void xsane_calculate_auto_enhancement(SANE_Int *count_raw,
       val += log(1 + count_raw[mid] + count_raw_red[mid] + count_raw_green[mid] + count_raw_blue[mid]);
     }
 
-    xsane.auto_white = max/2.55;
-    xsane.auto_gray  = mid/2.55;
-    xsane.auto_black = min/2.55;
+    if (negative)
+    {
+      xsane.auto_white = (255-min)/2.55;
+      xsane.auto_gray  = (255-mid)/2.55;
+      xsane.auto_black = (255-max)/2.55;
+    }
+    else /* positive */
+    {
+      xsane.auto_white = max/2.55;
+      xsane.auto_gray  = mid/2.55;
+      xsane.auto_black = min/2.55;
+    }
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -725,7 +756,7 @@ void xsane_calculate_histogram(void)
 
     if (xsane.param.depth > 1)
     {
-      xsane_calculate_auto_enhancement(count_raw, count_raw_red, count_raw_green, count_raw_blue);
+      xsane_calculate_auto_enhancement(xsane.negative, count_raw, count_raw_red, count_raw_green, count_raw_blue);
     }
 
     if (xsane.histogram_log)
@@ -764,16 +795,22 @@ void xsane_calculate_histogram(void)
 
     if (xsane.histogram_lines)
     {
-      xsane_draw_histogram_with_lines(&xsane.histogram_raw, count_raw, count_raw_red, count_raw_green, count_raw_blue,
+      xsane_draw_histogram_with_lines(&xsane.histogram_raw, xsane.negative,
+                         count_raw, count_raw_red, count_raw_green, count_raw_blue,
                         xsane.histogram_red, xsane.histogram_green, xsane.histogram_blue, xsane.histogram_int, scale);
-      xsane_draw_histogram_with_lines(&xsane.histogram_enh, count_enh, count_enh_red, count_enh_green, count_enh_blue,
+
+      xsane_draw_histogram_with_lines(&xsane.histogram_enh, 0 /* negative is done by gamma table */,
+                        count_enh, count_enh_red, count_enh_green, count_enh_blue,
                         xsane.histogram_red, xsane.histogram_green, xsane.histogram_blue, xsane.histogram_int, scale);
     }
     else
     {
-      xsane_draw_histogram_with_points(&xsane.histogram_raw, count_raw, count_raw_red, count_raw_green, count_raw_blue,
+      xsane_draw_histogram_with_points(&xsane.histogram_raw, xsane.negative,
+                        count_raw, count_raw_red, count_raw_green, count_raw_blue,
                         xsane.histogram_red, xsane.histogram_green, xsane.histogram_blue, xsane.histogram_int, scale);
-      xsane_draw_histogram_with_points(&xsane.histogram_enh, count_enh, count_enh_red, count_enh_green, count_enh_blue,
+
+      xsane_draw_histogram_with_points(&xsane.histogram_enh, 0 /*negative is done by gamma table */,
+                        count_enh, count_enh_red, count_enh_green, count_enh_blue,
                         xsane.histogram_red, xsane.histogram_green, xsane.histogram_blue, xsane.histogram_int, scale);
     }
 
@@ -811,7 +848,7 @@ void xsane_histogram_toggle_button_callback(GtkWidget *widget, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void xsane_create_gamma_curve(SANE_Int *gammadata, double gamma,
+void xsane_create_gamma_curve(SANE_Int *gammadata, int negative, double gamma,
                               double brightness, double contrast, int numbers, int maxout)
 {
  int i;
@@ -826,13 +863,27 @@ void xsane_create_gamma_curve(SANE_Int *gammadata, double gamma,
   m = 1.0 + contrast/100.0;
   b = (1.0 + brightness/100.0) * midin;
 
-  for (i=0; i <= maxin; i++)
+  if (negative)
   {
-    val = ((double) i) - midin;
-    val = val * m + b;
-    xsane_bound_double(&val, 0.0, maxin);
+    for (i=0; i <= maxin; i++)
+    {
+      val = ((double) (maxin - i)) - midin;
+      val = val * m + b;
+      xsane_bound_double(&val, 0.0, maxin);
 
-    gammadata[i] = 0.5 + maxout * pow( val/maxin, (1.0/gamma) );
+      gammadata[i] = 0.5 + maxout * pow( val/maxin, (1.0/gamma) );
+    }
+  }
+  else /* positive */
+  {
+    for (i=0; i <= maxin; i++)
+    {
+      val = ((double) i) - midin;
+      val = val * m + b;
+      xsane_bound_double(&val, 0.0, maxin);
+
+      gammadata[i] = 0.5 + maxout * pow( val/maxin, (1.0/gamma) );
+    }
   }
 }
 
@@ -853,32 +904,32 @@ void xsane_update_gamma(void)
       xsane.histogram_gamma_data_blue  = malloc(256 * sizeof(SANE_Int));
     }
 
-    xsane_create_gamma_curve(xsane.preview_gamma_data_red,
+    xsane_create_gamma_curve(xsane.preview_gamma_data_red, xsane.negative,
 		 	     xsane.gamma * xsane.gamma_red * preferences.preview_gamma * preferences.preview_gamma_red,
 			     xsane.brightness + xsane.brightness_red,
 			     xsane.contrast + xsane.contrast_red, 256, 255);
 
-    xsane_create_gamma_curve(xsane.preview_gamma_data_green,
+    xsane_create_gamma_curve(xsane.preview_gamma_data_green, xsane.negative,
 			     xsane.gamma * xsane.gamma_green * preferences.preview_gamma * preferences.preview_gamma_green,
 			     xsane.brightness + xsane.brightness_green,
 			     xsane.contrast + xsane.contrast_green, 256, 255);
 
-    xsane_create_gamma_curve(xsane.preview_gamma_data_blue,
+    xsane_create_gamma_curve(xsane.preview_gamma_data_blue, xsane.negative,
 			     xsane.gamma * xsane.gamma_blue * preferences.preview_gamma * preferences.preview_gamma_blue,
 			     xsane.brightness + xsane.brightness_blue,
 			     xsane.contrast + xsane.contrast_blue , 256, 255);
 
-    xsane_create_gamma_curve(xsane.histogram_gamma_data_red,
+    xsane_create_gamma_curve(xsane.histogram_gamma_data_red, xsane.negative,
 		 	     xsane.gamma * xsane.gamma_red,
 			     xsane.brightness + xsane.brightness_red,
 			     xsane.contrast + xsane.contrast_red, 256, 255);
 
-    xsane_create_gamma_curve(xsane.histogram_gamma_data_green,
+    xsane_create_gamma_curve(xsane.histogram_gamma_data_green, xsane.negative,
 			     xsane.gamma * xsane.gamma_green,
 			     xsane.brightness + xsane.brightness_green,
 			     xsane.contrast + xsane.contrast_green, 256, 255);
 
-    xsane_create_gamma_curve(xsane.histogram_gamma_data_blue,
+    xsane_create_gamma_curve(xsane.histogram_gamma_data_blue, xsane.negative,
 			     xsane.gamma * xsane.gamma_blue,
 			     xsane.brightness + xsane.brightness_blue,
 			     xsane.contrast + xsane.contrast_blue , 256, 255);

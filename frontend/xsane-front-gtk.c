@@ -99,22 +99,75 @@ void xsane_set_resolution(void)
 {
  const SANE_Option_Descriptor *opt;
  SANE_Word dpi;
+ SANE_Word bestdpi;
+ SANE_Word diff;
+ SANE_Word val;
+ int items;
+ int i;
 
   opt = sane_get_option_descriptor(dialog->dev, dialog->well_known.dpi);
-  switch (opt->type)
+
+  if (opt->constraint_type == SANE_CONSTRAINT_WORD_LIST)
   {
-    case SANE_TYPE_INT:
-      dpi = xsane.resolution;
-    break;
+    switch (opt->type)
+    {
+      case SANE_TYPE_INT:
+        dpi = xsane.resolution;
+      break;
 
-    case SANE_TYPE_FIXED:
-      dpi = SANE_FIX(xsane.resolution);
-    break;
+      case SANE_TYPE_FIXED:
+        dpi = SANE_FIX(xsane.resolution);
+      break;
 
-    default:
-     fprintf(stderr, "zoom_scale_update: unknown type %d\n", opt->type);
+      default:
+       fprintf(stderr, "set resolution: unknown type %d\n", opt->type);
+      return;
+    }
+  }
+  else if (opt->constraint_type == SANE_CONSTRAINT_RANGE)
+  {
+    switch (opt->type)
+    {
+      case SANE_TYPE_INT:
+        dpi = xsane.resolution;
+      break;
+
+      case SANE_TYPE_FIXED:
+        dpi = SANE_FIX(xsane.resolution);
+      break;
+
+      default:
+       fprintf(stderr, "set resolution: unknown type %d\n", opt->type);
+      return;
+    }
+    
+    items   = opt->constraint.word_list[0];
+    bestdpi = opt->constraint.word_list[1];
+    diff    = abs(bestdpi - dpi);
+
+    for (i=1; i<items; i++)
+    {
+      val = opt->constraint.word_list[i];
+      if (abs(val - dpi) < diff)
+      {
+        diff = abs(val - dpi);
+        bestdpi = val;
+      }
+    }
+
+    if (bestdpi == -1)
+    {
+       fprintf(stderr, "set resolution: unable to set resolution\n");
+      return;
+    }
+    dpi = bestdpi;
+  }
+  else
+  {
+    fprintf(stderr, "set resolution: unknown constraint-type %d\n", opt->constraint_type);
     return;
   }
+
   sane_control_option(dialog->dev, dialog->well_known.dpi, SANE_ACTION_SET_VALUE, &dpi, 0);
 }
 

@@ -32,7 +32,7 @@ extern void xsane_destroy_histogram(void);
 extern void xsane_calculate_histogram(void);
 extern void xsane_update_histogram(void);
 extern void xsane_histogram_toggle_button_callback(GtkWidget *widget, gpointer data);
-extern void xsane_create_gamma_curve(SANE_Int *gammadata, double gamma,
+extern void xsane_create_gamma_curve(SANE_Int *gammadata, int negative, double gamma, 
                                      double brightness, double contrast, int numbers, int maxout);
 extern void xsane_update_gamma(void);
 extern void xsane_enhancement_by_gamma(void);

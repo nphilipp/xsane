@@ -141,17 +141,18 @@ static struct
   }
 desc_printer[] =
   {
-    {"printer-name",		w_string,	PRTOFFSET(name)},
-    {"printer-command",		w_string,	PRTOFFSET(command)},
-    {"printer-resolution",	w_int,		PRTOFFSET(resolution)},
-    {"printer-width",		w_int,		PRTOFFSET(width)},
-    {"printer-height",		w_int,		PRTOFFSET(height)},
-    {"printer-left-offset",	w_int,		PRTOFFSET(leftoffset)},
-    {"printer-bottom-offset",	w_int,		PRTOFFSET(bottomoffset)},
-    {"printer-gamma",		w_double,	PRTOFFSET(gamma)},
-    {"printer-gamma-red",	w_double,	PRTOFFSET(gamma_red)},
-    {"printer-gamma-green",	w_double,	PRTOFFSET(gamma_green)},
-    {"printer-gamma-blue",	w_double,	PRTOFFSET(gamma_blue)}
+    {"printer-name",			w_string,	PRTOFFSET(name)},
+    {"printer-command",			w_string,	PRTOFFSET(command)},
+    {"printer-copy-number-option",	w_string,	PRTOFFSET(copy_number_option)},
+    {"printer-resolution",		w_int,		PRTOFFSET(resolution)},
+    {"printer-width",			w_int,		PRTOFFSET(width)},
+    {"printer-height",			w_int,		PRTOFFSET(height)},
+    {"printer-left-offset",		w_int,		PRTOFFSET(leftoffset)},
+    {"printer-bottom-offset",		w_int,		PRTOFFSET(bottomoffset)},
+    {"printer-gamma",			w_double,	PRTOFFSET(gamma)},
+    {"printer-gamma-red",		w_double,	PRTOFFSET(gamma_red)},
+    {"printer-gamma-green",		w_double,	PRTOFFSET(gamma_green)},
+    {"printer-gamma-blue",		w_double,	PRTOFFSET(gamma_blue)}
   };
 
 /* --------------------------------------------------------------------- */

@@ -1232,7 +1232,7 @@ static void preview_scan_start(Preview *p)
       gamma_gray_max  = opt->constraint.range->max;
 
       gamma_data = malloc(gamma_gray_size  * sizeof(SANE_Int));
-      xsane_create_gamma_curve(gamma_data, 1.0, 0.0, 0.0, gamma_gray_size, gamma_gray_max);
+      xsane_create_gamma_curve(gamma_data, 0, 1.0, 0.0, 0.0, gamma_gray_size, gamma_gray_max);
       gsg_update_vector(p->dialog, p->dialog->well_known.gamma_vector, gamma_data);
       free(gamma_data);
     }
@@ -1263,9 +1263,9 @@ static void preview_scan_start(Preview *p)
       gamma_data_green = malloc(gamma_green_size * sizeof(SANE_Int));
       gamma_data_blue  = malloc(gamma_blue_size  * sizeof(SANE_Int));
 
-      xsane_create_gamma_curve(gamma_data_red,   1.0, 0.0, 0.0, gamma_red_size,   gamma_red_max);
-      xsane_create_gamma_curve(gamma_data_green, 1.0, 0.0, 0.0, gamma_green_size, gamma_green_max);
-      xsane_create_gamma_curve(gamma_data_blue,  1.0, 0.0, 0.0, gamma_blue_size,  gamma_blue_max);
+      xsane_create_gamma_curve(gamma_data_red,   0, 1.0, 0.0, 0.0, gamma_red_size,   gamma_red_max);
+      xsane_create_gamma_curve(gamma_data_green, 0, 1.0, 0.0, 0.0, gamma_green_size, gamma_green_max);
+      xsane_create_gamma_curve(gamma_data_blue,  0, 1.0, 0.0, 0.0, gamma_blue_size,  gamma_blue_max);
 
       gsg_update_vector(p->dialog, p->dialog->well_known.gamma_vector_r, gamma_data_red);
       gsg_update_vector(p->dialog, p->dialog->well_known.gamma_vector_g, gamma_data_green);
@@ -2118,8 +2118,16 @@ void preview_update_surface(Preview *p, int surface_changed)
 
     if (p->max_scanner_surface[i] != val)
     {
-       surface_changed = 1;
+       surface_changed = 2;
        p->max_scanner_surface[i] = val;
+    }
+  }
+
+  if (surface_changed == 2) /* redefine all surface subparts */
+  {
+    for (i = 0; i < 4; i++)
+    {
+       val = p->max_scanner_surface[i];
        p->scanner_surface[i]     = val;
        p->surface[i]             = val;
        p->image_surface[i]       = val;

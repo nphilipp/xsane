@@ -1,7 +1,7 @@
 REQUIREMENTS:
 -------------
 - You need sane-1.0 or newer installed!
-- You need gtk+-1.0.x or gtk+-1.2
+- You need gtk+-1.2.x (don't know if gtk+-1.0.x still works)
 - You need glib
 - For png support you need libz and lipng installed!
 - For jpeg support you need jpeglib installed!
@@ -34,10 +34,14 @@ IF SOMETHING DOES NOT WORK:
     If you use a SuSE linux, edit /etc/ld.so.conf.in instead and call
     SuSEconfig instead of ldconfig.
 
-- If your computers system is a recent SuSE-Linux, netscape may be called via a
-  script Netscape and "netscape" is not in the path. In that case you have
-  to create a symblic link from Netscape to netscape, eg:
-  ln -s /usr/X11R6/bin/Netscape /usr/X11R6/bin/netscape
+- The online-help-viewer is now selectable.
+  If you use kde you can enter kdehelp in setup/display.
+  Preselected is netscape with usage of remote commands.
+
+  On some SuSE systems there only is "Netscape" and no "netscape" in the path,
+  in this case you have to set a symbolic link: 
+
+      ln -s /usr/bin/Netscape /usr/bin/netscape
 
 - If the compilation aborts with
       /usr/lib/libgimp.so: undefined reference to `g_debug' 

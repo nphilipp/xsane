@@ -69,7 +69,9 @@ struct XsaneSetup xsane_setup;
 
 /* forward declarations: */
 
-static void xsane_update_int(GtkWidget *widget, int *val);
+void xsane_new_printer(void);
+void xsane_update_int(GtkWidget *widget, int *val);
+
 static void xsane_update_bool(GtkWidget *widget, int *val);
 static void xsane_update_scale(GtkWidget *widget, double *val);
 static void xsane_update_double(GtkWidget *widget, double *val);
@@ -88,28 +90,29 @@ void xsane_setup_dialog(GtkWidget *widget, gpointer data);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_new_printer()
+void xsane_new_printer(void)
 {
   preferences.printernr = preferences.printerdefinitions++;
 
   preferences.printer[preferences.printernr] = calloc(sizeof(Preferences_printer_t), 1);
 
-  preferences.printer[preferences.printernr]->name         = strdup(PRINTERNAME);
-  preferences.printer[preferences.printernr]->command      = strdup(PRINTERCOMMAND);
-  preferences.printer[preferences.printernr]->resolution   = 300;
-  preferences.printer[preferences.printernr]->width        = 576;
-  preferences.printer[preferences.printernr]->height       = 835;
-  preferences.printer[preferences.printernr]->leftoffset   = 10;
-  preferences.printer[preferences.printernr]->bottomoffset = 10;
-  preferences.printer[preferences.printernr]->gamma        = 1.0;
-  preferences.printer[preferences.printernr]->gamma_red    = 1.0;
-  preferences.printer[preferences.printernr]->gamma_green  = 1.0;
-  preferences.printer[preferences.printernr]->gamma_blue   = 1.0;
+  preferences.printer[preferences.printernr]->name               = strdup(PRINTERNAME);
+  preferences.printer[preferences.printernr]->command            = strdup(PRINTERCOMMAND);
+  preferences.printer[preferences.printernr]->copy_number_option = strdup(PRINTERCOPYNUMBEROPTION);
+  preferences.printer[preferences.printernr]->resolution         = 300;
+  preferences.printer[preferences.printernr]->width              = 576;
+  preferences.printer[preferences.printernr]->height             = 835;
+  preferences.printer[preferences.printernr]->leftoffset         = 10;
+  preferences.printer[preferences.printernr]->bottomoffset       = 10;
+  preferences.printer[preferences.printernr]->gamma              = 1.0;
+  preferences.printer[preferences.printernr]->gamma_red          = 1.0;
+  preferences.printer[preferences.printernr]->gamma_green        = 1.0;
+  preferences.printer[preferences.printernr]->gamma_blue         = 1.0;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_update_int(GtkWidget *widget, int *val)
+void xsane_update_int(GtkWidget *widget, int *val)
 {
   char *start, *end;
   int v;
@@ -162,8 +165,12 @@ static void xsane_update_double(GtkWidget *widget, double *val)
 static void xsane_setup_printer_update()
 {
  char buf[256];
-  gtk_entry_set_text(GTK_ENTRY(xsane_setup.printer_name_entry),    (char *) preferences.printer[preferences.printernr]->name);
-  gtk_entry_set_text(GTK_ENTRY(xsane_setup.printer_command_entry), (char *) preferences.printer[preferences.printernr]->command);
+  gtk_entry_set_text(GTK_ENTRY(xsane_setup.printer_name_entry),   
+                     (char *) preferences.printer[preferences.printernr]->name);
+  gtk_entry_set_text(GTK_ENTRY(xsane_setup.printer_command_entry),
+                     (char *) preferences.printer[preferences.printernr]->command);
+  gtk_entry_set_text(GTK_ENTRY(xsane_setup.printer_copy_number_option_entry),
+                     (char *) preferences.printer[preferences.printernr]->copy_number_option);
 
   snprintf(buf, sizeof(buf), "%d", preferences.printer[preferences.printernr]->resolution);
   gtk_entry_set_text(GTK_ENTRY(xsane_setup.printer_resolution_entry), buf);
@@ -231,6 +238,13 @@ static void xsane_setup_printer_apply_changes(GtkWidget *widget, gpointer data)
     free((void *) preferences.printer[preferences.printernr]->command);
   }
   preferences.printer[preferences.printernr]->command = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.printer_command_entry)));
+
+  if (preferences.printer[preferences.printernr]->copy_number_option)
+  {
+    free((void *) preferences.printer[preferences.printernr]->copy_number_option);
+  }
+  preferences.printer[preferences.printernr]->copy_number_option =
+              strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.printer_copy_number_option_entry)));
 
   xsane_update_int(xsane_setup.printer_resolution_entry,   &preferences.printer[preferences.printernr]->resolution);
   xsane_update_int(xsane_setup.printer_width_entry,        &preferences.printer[preferences.printernr]->width);
@@ -452,6 +466,24 @@ void xsane_setup_dialog(GtkWidget *widget, gpointer data)
   gtk_widget_show(text);
   gtk_widget_show(hbox);
   xsane_setup.printer_command_entry = text;
+
+  /* copy number option : */
+
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+
+  label = gtk_label_new("Copy number option:");
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_widget_show(label);
+
+  text = gtk_entry_new();
+  gsg_set_tooltip(dialog->tooltips, text, DESC_COPY_NUMBER_OPTION);
+  gtk_widget_set_usize(text, 250, 0);
+  gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.printer[preferences.printernr]->copy_number_option);
+  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
+  gtk_widget_show(text);
+  gtk_widget_show(hbox);
+  xsane_setup.printer_copy_number_option_entry = text;
 
   /* printerresolution : */
 

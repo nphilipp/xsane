@@ -31,7 +31,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION "0.27\337"
+#define XSANE_VERSION "0.28\337"
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -80,6 +80,7 @@ extern int xsane_scanmode_number[];
 #define FAXFILENAME     	"page-001.fax"
 #define PRINTERNAME	  	"new printer"
 #define PRINTERCOMMAND  	"lpr -"
+#define PRINTERCOPYNUMBEROPTION "-#"
 #define FAXCOMMAND 	 	"sendfax"
 #define FAXRECEIVEROPT		"-d"
 #define FAXPOSTSCRIPTOPT	""
@@ -91,11 +92,11 @@ extern int xsane_scanmode_number[];
 #define HIST_WIDTH		256
 #define HIST_HEIGHT		100
 #define XSANE_DIALOG_WIDTH	296
-#define XSANE_DIALOG_HEIGHT	426
+#define XSANE_DIALOG_HEIGHT	451
 #define XSANE_DIALOG_POS_X	10
 #define XSANE_DIALOG_POS_X2	316
 #define XSANE_DIALOG_POS_Y	50
-#define XSANE_DIALOG_POS_Y2	502
+#define XSANE_DIALOG_POS_Y2	528
 
 #define XSANE_SLIDER_ACTIVE	-1
 #define XSANE_SLIDER_INACTIVE	-2
@@ -200,6 +201,7 @@ typedef struct Xsane
     struct XsaneSlider slider_green;
     struct XsaneSlider slider_blue;
 
+    int negative;
     double gamma;
     double gamma_red;
     double gamma_green;
@@ -233,6 +235,7 @@ typedef struct Xsane
     GdkGC *gc_backg;
     GdkColor *bg_trans;
 
+    int copy_number;
     double zoom;
     double resolution;
 
@@ -263,6 +266,7 @@ typedef struct Xsane
     SANE_Bool fax_fine_mode;
 
     GtkWidget *outputfilename_entry;
+    GtkWidget *copy_number_entry;
 
     SANE_Int *gamma_data, *gamma_data_red, *gamma_data_green, *gamma_data_blue;
     SANE_Int *preview_gamma_data_red, *preview_gamma_data_green, *preview_gamma_data_blue;
@@ -294,6 +298,7 @@ typedef struct XsaneSetup
 {
   GtkWidget *printer_name_entry;
   GtkWidget *printer_command_entry;
+  GtkWidget *printer_copy_number_option_entry;
   GtkWidget *printer_resolution_entry;
   GtkWidget *printer_leftoffset_entry;
   GtkWidget *printer_bottomoffset_entry;

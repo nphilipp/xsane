@@ -980,7 +980,7 @@ static void xsane_scan_done(void)
        else
        {
         char buf[256];
-         snprintf(buf, sizeof(buf), "Failed to open imagefile for conversion: %s", preferences.filename, strerror(errno));
+         snprintf(buf, sizeof(buf), "Failed to open imagefile(%s) for conversion: %s", preferences.filename, strerror(errno));
          gsg_error(buf);
        }
        xsane_progress_free(xsane.progress);
@@ -998,6 +998,12 @@ static void xsane_scan_done(void)
      char copyfilename[PATH_MAX];
      char buf[256];
 
+       xsane_update_int(xsane.copy_number_entry, &xsane.copy_number); /* get number of copies */
+       if (xsane.copy_number < 1)
+       {
+         xsane.copy_number = 1;
+       }
+
        /* open progressbar */
        snprintf(buf, sizeof(buf), "converting to postscript");
        xsane.progress = xsane_progress_new("Converting data....", buf, (GtkSignalFunc) xsane_cancel_save, 0);
@@ -1010,7 +1016,12 @@ static void xsane_scan_done(void)
        xsane.broken_pipe = 0;
        gsg_make_path(sizeof(copyfilename), copyfilename, "xsane", 0, "conversion", dialog->dev_name, ".tmp");
        infile = fopen(copyfilename, "r");
-       outfile = popen(preferences.printer[preferences.printernr]->command, "w");
+
+       snprintf(buf, sizeof(buf), "%s %s%d", preferences.printer[preferences.printernr]->command,
+                                             preferences.printer[preferences.printernr]->copy_number_option,
+                                             xsane.copy_number);
+       outfile = popen(buf, "w");
+/*       outfile = popen(preferences.printer[preferences.printernr]->command, "w"); */
        if ((outfile != 0) && (infile != 0)) /* copy mode, use zoom size */
        {
         struct SIGACTION act;
@@ -1037,7 +1048,7 @@ static void xsane_scan_done(void)
 
          if (!infile)
          {
-           snprintf(buf, sizeof(buf), "Failed to open imagefile for conversion: %s", preferences.filename, strerror(errno));
+           snprintf(buf, sizeof(buf), "Failed to open imagefile(%s) for conversion: %s", preferences.filename, strerror(errno));
            gsg_error(buf);
          }
          else if (!outfile)
@@ -1124,7 +1135,7 @@ static void xsane_scan_done(void)
        else
        {
         char buf[256];
-         snprintf(buf, sizeof(buf), "Failed to open imagefile for conversion: %s", xsane.fax_filename, strerror(errno));
+         snprintf(buf, sizeof(buf), "Failed to open imagefile(%s) for conversion: %s", xsane.fax_filename, strerror(errno));
          gsg_error(buf);
        }
        xsane_progress_free(xsane.progress);
@@ -1277,14 +1288,15 @@ static void xsane_start_scan(void)
     case SANE_FRAME_GREEN:	frame_type = "green"; break;
     case SANE_FRAME_BLUE:	frame_type = "blue"; break;
     case SANE_FRAME_GRAY:	frame_type = "gray"; break;
+    default:			frame_type = "unknown"; break;
   }
 
   if (xsane.mode == STANDALONE)
-    {				/* We are running in standalone mode */
+  {				/* We are running in standalone mode */
       if (!xsane.header_size)
-	{
+      {
 	  switch (xsane.param.format)
-	    {
+          {
 	    case SANE_FRAME_RGB:
 	    case SANE_FRAME_RED:
 	    case SANE_FRAME_GREEN:
@@ -1320,9 +1332,11 @@ static void xsane_start_scan(void)
                           xsane.param.pixels_per_line, xsane.param.lines);
               }
 	     break;
-	    }
+	    default:
+            /* unknown file format, do not write header */
+          }
 	  xsane.header_size = ftell(xsane.out);
-	}
+      }
 
       if (xsane.param.format >= SANE_FRAME_RED && xsane.param.format <= SANE_FRAME_BLUE)
       {
@@ -1341,7 +1355,7 @@ static void xsane_start_scan(void)
       {
         snprintf(buf, sizeof(buf), "Receiving %s data for fax ...", frame_type);
       }
-    }
+  }
 #ifdef HAVE_LIBGIMP_GIMP_H
   else
     {
@@ -1597,7 +1611,7 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
       if (xsane.scanner_gamma_gray)
       {
         xsane.gamma_data = malloc(gamma_gray_size  * sizeof(SANE_Int));
-        xsane_create_gamma_curve(xsane.gamma_data, 1.0, 0.0, 0.0, gamma_gray_size, gamma_gray_max);
+        xsane_create_gamma_curve(xsane.gamma_data, 0, 1.0, 0.0, 0.0, gamma_gray_size, gamma_gray_max);
         gsg_update_vector(dialog, dialog->well_known.gamma_vector, xsane.gamma_data);
         free(xsane.gamma_data);
         xsane.gamma_data = 0;
@@ -1632,17 +1646,17 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
         gamma_blue  = xsane.gamma * xsane.gamma_blue;
       }
 
-      xsane_create_gamma_curve(xsane.gamma_data_red,
+      xsane_create_gamma_curve(xsane.gamma_data_red, xsane.negative,
 		 	       gamma_red,
 			       xsane.brightness + xsane.brightness_red,
 			       xsane.contrast + xsane.contrast_red, gamma_red_size, gamma_red_max);
 
-      xsane_create_gamma_curve(xsane.gamma_data_green,
+      xsane_create_gamma_curve(xsane.gamma_data_green, xsane.negative,
 			       gamma_green,
 			       xsane.brightness + xsane.brightness_green,
 			       xsane.contrast + xsane.contrast_green, gamma_green_size, gamma_green_max);
 
-      xsane_create_gamma_curve(xsane.gamma_data_blue,
+      xsane_create_gamma_curve(xsane.gamma_data_blue, xsane.negative,
 			       gamma_blue,
 			       xsane.brightness + xsane.brightness_blue,
 			       xsane.contrast + xsane.contrast_blue , gamma_blue_size, gamma_blue_max);
@@ -1676,7 +1690,7 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
       }
 
       xsane.gamma_data = malloc(gamma_gray_size * sizeof(SANE_Int));
-      xsane_create_gamma_curve(xsane.gamma_data,
+      xsane_create_gamma_curve(xsane.gamma_data, xsane.negative,
                                gamma, xsane.brightness, xsane.contrast,
                                gamma_gray_size, gamma_gray_max);
 
@@ -1709,15 +1723,15 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
           gamma_blue  = xsane.gamma_blue;
         }
       
-        xsane_create_gamma_curve(xsane.gamma_data_red,
+        xsane_create_gamma_curve(xsane.gamma_data_red, 0,
                                  gamma_red, xsane.brightness_red, xsane.contrast_red,
                                  gamma_red_size, gamma_red_max);
 
-        xsane_create_gamma_curve(xsane.gamma_data_green,
+        xsane_create_gamma_curve(xsane.gamma_data_green, 0,
                                  gamma_green, xsane.brightness_green, xsane.contrast_green,
                                  gamma_green_size, gamma_green_max);
 
-        xsane_create_gamma_curve(xsane.gamma_data_blue,
+        xsane_create_gamma_curve(xsane.gamma_data_blue, 0,
                                  gamma_blue, xsane.brightness_blue, xsane.contrast_blue,
                                  gamma_blue_size, gamma_blue_max);
 
@@ -1743,7 +1757,7 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
         }
 
         xsane.gamma_data = malloc(gamma_gray_size * sizeof(SANE_Int));
-        xsane_create_gamma_curve(xsane.gamma_data,
+        xsane_create_gamma_curve(xsane.gamma_data, xsane.negative,
                                  gamma, xsane.brightness, xsane.contrast,
                                  gamma_gray_size, gamma_gray_max);
 
@@ -1771,17 +1785,17 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
           gamma_blue  = xsane.gamma * xsane.gamma_blue;
         }
 
-        xsane_create_gamma_curve(xsane.gamma_data_red,
+        xsane_create_gamma_curve(xsane.gamma_data_red, xsane.negative,
                                  gamma_red,
                                  xsane.brightness + xsane.brightness_red,
                                  xsane.contrast + xsane.contrast_red, gamma_red_size, gamma_red_max);
 
-        xsane_create_gamma_curve(xsane.gamma_data_green,
+        xsane_create_gamma_curve(xsane.gamma_data_green, xsane.negative,
                                  gamma_green,
                                  xsane.brightness + xsane.brightness_green,
                                  xsane.contrast + xsane.contrast_green, gamma_green_size, gamma_green_max);
 
-        xsane_create_gamma_curve(xsane.gamma_data_blue,
+        xsane_create_gamma_curve(xsane.gamma_data_blue, xsane.negative,
                                  gamma_blue,
                                  xsane.brightness + xsane.brightness_blue,
                                  xsane.contrast + xsane.contrast_blue , gamma_blue_size, gamma_blue_max);

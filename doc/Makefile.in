@@ -53,8 +53,8 @@ install: $(MANPAGES)
 	  $(INSTALL_DATA) $${page} $(mandir)/man1/$${page} || exit 1; \
 	done
 	$(MKDIR) $(datadir)
-	$(INSTALL_DATA) sane-*-doc.html $(sanedatadir)/
-	$(INSTALL_DATA) *.gif $(sanedatadir)/
+	$(INSTALL_DATA) $(srcdir)/sane-*-doc.html $(sanedatadir)/
+	$(INSTALL_DATA) $(srcdir)/*.gif $(sanedatadir)/
 
 docs: ps html
 

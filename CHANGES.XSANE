@@ -256,3 +256,16 @@ xsane-0.26 -> 0.27:
  - removed some bugs in gray gamma value calculation for real scan (preview was ok)
  - setup of faxoptions: normal, fine and postscript option is saved now
 
+
+xsane-0.27 -> 0.28:
+-------------------
+
+ - added option negative into enhancement and changed create_gamma
+   draw_histogram and auto_enhancement to work with it!
+
+ - increased contrast range from -100..+100 to -100..+200
+   and brightness range from -100..+100 to -200..+200
+   because the old values were not sufficent for scanning negatives
+
+ - added selection for number of copies in copy mode
+
