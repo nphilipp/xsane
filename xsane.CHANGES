@@ -529,3 +529,11 @@ xsane-0.41 -> 0.42:
  - corrected png lineart saving
 
 
+xsane-0.42 -> 0.43:
+-------------------
+
+ - disabled LZW-compression for TIFF.
+   Unisys holds a patent for LZW compression. I am not sure
+   about the licence status of LZW and TIFF. GIF is not supported
+   because of the licence problem. LZW for TIFF is disabled now.
+ - removed all LZW entries in sourcecode and translation tables

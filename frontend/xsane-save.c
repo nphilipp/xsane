@@ -640,9 +640,8 @@ void xsane_save_png(FILE *outfile, FILE *imagefile,
  png_color_8 sig_bit;
  char *data;
  char buf[256];
- int colortype, components;
+ int colortype, components, byte_width;
  int y;
- int byte_width = pixel_width;
 
   cancel_save = 0;
 
@@ -669,6 +668,8 @@ void xsane_save_png(FILE *outfile, FILE *imagefile,
     png_destroy_write_struct(&png_ptr, (png_infopp) 0);
     return;
   }
+
+  byte_width = pixel_width;
 
   if (color == 4) /* RGBA */
   {

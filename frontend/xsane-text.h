@@ -161,7 +161,6 @@
 #define MENU_ITEM_TIFF_COMP_CCITTRLE	_("CCITT 1D Huffman compression")
 #define MENU_ITEM_TIFF_COMP_CCITFAX3	_("CCITT Group 3 Fax compression")
 #define MENU_ITEM_TIFF_COMP_CCITFAX4	_("CCITT Group 4 Fax compression")
-#define MENU_ITEM_TIFF_COMP_LZW		_("Lempel-Ziv & Welch compression")
 #define MENU_ITEM_TIFF_COMP_JPEG	_("JPEG DCT compression")
 #define MENU_ITEM_TIFF_COMP_PACKBITS	_("pack bits")
 

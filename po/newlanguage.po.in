@@ -554,10 +554,6 @@ msgstr ""
 msgid MENU_ITEM_TIFF_COMP_CCITFAX4
 msgstr ""
 
-#original text:  "Lempel-Ziv & Welch compression"   
-msgid MENU_ITEM_TIFF_COMP_LZW
-msgstr ""
-
 #original text:  "JPEG DCT compression"   
 msgid MENU_ITEM_TIFF_COMP_JPEG
 msgstr ""

@@ -525,10 +525,6 @@ msgstr "Compression CCITT Group 3 Fax"
 msgid MENU_ITEM_TIFF_COMP_CCITFAX4
 msgstr "Compression CCITT Group 4 Fax"
 
-#original text:  "Lempel-Ziv & Welch compression"   
-msgid MENU_ITEM_TIFF_COMP_LZW
-msgstr "Compression Lempel-Ziv & Welch"
-
 #original text:  "JPEG DCT compression"   
 msgid MENU_ITEM_TIFF_COMP_JPEG
 msgstr "Compression JPEG DCT"
