@@ -31,7 +31,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION	"0.46"
+#define XSANE_VERSION	"0.47"
 #define XSANE_AUTHOR	"Oliver Rauch"
 #define XSANE_COPYRIGHT	"Oliver Rauch"
 #define XSANE_DATE	"1998/1999"
@@ -265,6 +265,10 @@ typedef struct Xsane
     GtkWidget *histogram_dialog;
     GtkWidget *fax_dialog;
     GtkWidget *fax_list;
+
+    GtkWidget *fax_project_box;
+    GtkWidget *fax_project_exists;
+    GtkWidget *fax_project_not_exists;
 
     /* window position and geometry */
     SANE_Int shell_posx;

@@ -42,6 +42,7 @@
 #define BUTTON_DELETE			_("Delete")
 #define BUTTON_SHOW			_("Show")
 #define BUTTON_RENAME			_("Rename")
+#define BUTTON_CREATE_PROJECT		_("Create project")
 #define BUTTON_SEND_PROJECT		_("Send project")
 #define BUTTON_DELETE_PROJECT		_("Delete project")
 #define BUTTON_ADD_PRINTER		_("Add printer")
@@ -337,7 +338,6 @@
 #define ERR_FAILED_CREATE_FILE		_("Failed to create file:")
 #define ERR_LOAD_DEVICE_SETTINGS	_("Error while loading device settings:")
 #define ERR_NO_DRC_FILE			_("is not a device-rc-file !!!")
-#define ERR_NETSCAPE_NOT_RUNNING	_("Ensure netscape is running!")
 #define ERR_NETSCAPE_EXECUTE_FAIL	_("Failed to execute netscape!")
 #define ERR_SENDFAX_RECEIVER_MISSING	_("Send fax: no receiver defined")
 

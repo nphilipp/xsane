@@ -593,3 +593,21 @@ xsane-0.45 -> 0.46:
    solves segmentation fault problem when device settings with lineart enabled
    are loaded
  
+
+xsane-0.46 -> 0.47:
+-------------------
+
+ - if helpfile viewer is netscape-remote and netscape is not running
+   it is started
+
+ - replaced ENODATA (used for EOF detection in xsane-rc-io and
+   xsane-device-preferences) by XSANE_EOF (=-1)
+   (ENODATA is not defined on all systems)
+
+ - If faxproject does not exist, project data entries are made insensitive
+   and buttons "send project" and "delete project" are replaced by "create project"
+
+ - Added missing "&" in xsane_device_preferences_save_values:
+   xsane_rc_io_w_array(w, &len, (void **) &word_array, (WireCodecFunc) xsane_rc_io_w_word, sizeof(SANE_Word));
+   that cause segmentation fault when writing bool, int or fixpoint arrays.
+ 

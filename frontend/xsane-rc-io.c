@@ -90,7 +90,7 @@ void xsane_rc_io_w_space(Wire *w, size_t howmuch)
             if (nread == 0)
             {
 /*              errno = EINVAL; */
-              errno = ENODATA; /* EOF */
+              errno = XSANE_EOF;
             }
             w->status = errno;
             return;

@@ -18,10 +18,6 @@ msgstr ""
 msgid ERR_NO_DRC_FILE
 msgstr ""
 
-#original text:  "Ensure netscape is running!"
-msgid ERR_NETSCAPE_NOT_RUNNING
-msgstr ""
-
 #original text:  "Failed to execute netscape!"
 msgid ERR_NETSCAPE_EXECUTE_FAIL
 msgstr ""

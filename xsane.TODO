@@ -23,11 +23,13 @@ first steps:
     + preview always in greyscale or always in color
   - enhancement:
     - move threshold in lineart-mode to main window ?
- - may be email-function
+    - add grayscale preview scan -> gamma 0/255 -> displayed preview  for lineart mode
+ - may be email-function (based on faxproject)
  + batch scan function
  + add support for different x/y resolutions
 
  * internal:
+   - make three pass scan work
    - segfault if pipette pick out of preview image
    - include much more parameters when saving images
    - test memory after all calls of malloc

@@ -126,6 +126,7 @@ static void xsane_fax_dialog_close(void);
 static void xsane_fax_project_delete(void);
 void xsane_fax_project_save(void);
 static void xsane_fax_project_load(void);
+static void xsane_fax_project_create(void);
 static void xsane_pref_toggle_tooltips(GtkWidget *widget, gpointer data);
 static void xsane_show_doc(GtkWidget *widget, gpointer data);
 static void xsane_fax_entrys_swap(GtkWidget *list_item_1, GtkWidget *list_item_2);
@@ -2269,7 +2270,8 @@ static void xsane_fax_dialog_delete()
 
 static void xsane_fax_dialog()
 {
- GtkWidget *fax_dialog, *fax_scan_vbox, *hbox, *button, *scrolled_window, *list;
+ GtkWidget *fax_dialog, *fax_scan_vbox, *fax_project_vbox, *hbox, *fax_project_exists_hbox, *button;
+ GtkWidget *scrolled_window, *list;
  char buf[64];
  GtkWidget *pixmapwidget, *text;
  GdkBitmap *mask;
@@ -2309,10 +2311,13 @@ static void xsane_fax_dialog()
   gtk_widget_show(text);
   gtk_widget_show(hbox);
 
+  fax_project_vbox = gtk_vbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(fax_scan_vbox), fax_project_vbox, TRUE, TRUE, 0);
+  gtk_widget_show(fax_project_vbox);
 
   hbox = gtk_hbox_new(FALSE, 2);
   gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
-  gtk_box_pack_start(GTK_BOX(fax_scan_vbox), hbox, FALSE, FALSE, 2);
+  gtk_box_pack_start(GTK_BOX(fax_project_vbox), hbox, FALSE, FALSE, 2);
 
   gtk_widget_realize(fax_dialog);
 
@@ -2335,7 +2340,7 @@ static void xsane_fax_dialog()
 
   scrolled_window = gtk_scrolled_window_new(0, 0);
   gtk_widget_set_usize(scrolled_window, 200, 100);
-  gtk_container_add(GTK_CONTAINER(fax_scan_vbox), scrolled_window);
+  gtk_container_add(GTK_CONTAINER(fax_project_vbox), scrolled_window);
   gtk_widget_show(scrolled_window);
 
   list = gtk_list_new();
@@ -2350,7 +2355,7 @@ static void xsane_fax_dialog()
 
   hbox = gtk_hbox_new(FALSE, 2);
   gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
-  gtk_box_pack_start(GTK_BOX(fax_scan_vbox), hbox, FALSE, FALSE, 2);
+  gtk_box_pack_start(GTK_BOX(fax_project_vbox), hbox, FALSE, FALSE, 2);
 
   button = gtk_button_new_with_label(BUTTON_SHOW);
   gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_fax_show_callback, list);
@@ -2372,19 +2377,31 @@ static void xsane_fax_dialog()
 
   gtk_widget_show(hbox);
 
+  xsane.fax_project_box = fax_project_vbox;
 
   /* fill in action area: */
   hbox = GTK_DIALOG(fax_dialog)->action_area;
 
+  fax_project_exists_hbox = gtk_hbox_new(FALSE, 2);
+  gtk_box_pack_start(GTK_BOX(hbox), fax_project_exists_hbox, TRUE, TRUE, 0);
+
   button = gtk_button_new_with_label(BUTTON_SEND_PROJECT);
   gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_fax_send, 0);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
+  gtk_box_pack_start(GTK_BOX(fax_project_exists_hbox), button, TRUE, TRUE, 0);
   gtk_widget_show(button);
 
   button = gtk_button_new_with_label(BUTTON_DELETE_PROJECT);
   gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_fax_project_delete, 0);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
+  gtk_box_pack_start(GTK_BOX(fax_project_exists_hbox), button, TRUE, TRUE, 0);
   gtk_widget_show(button);
+
+  gtk_widget_show(fax_project_exists_hbox);
+  xsane.fax_project_exists = fax_project_exists_hbox;
+
+  button = gtk_button_new_with_label(BUTTON_CREATE_PROJECT);
+  gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_fax_project_create, 0);
+  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
+  xsane.fax_project_not_exists = button;
 
   xsane.fax_dialog = fax_dialog;
 
@@ -2432,6 +2449,10 @@ static void xsane_fax_project_load()
 
     xsane.fax_receiver=strdup("");
     gtk_entry_set_text(GTK_ENTRY(xsane.fax_receiver_entry), (char *) xsane.fax_receiver);
+
+    gtk_widget_set_sensitive(xsane.fax_project_box, FALSE);
+    gtk_widget_hide(xsane.fax_project_exists);
+    gtk_widget_show(xsane.fax_project_not_exists);
   }
   else
   {
@@ -2480,6 +2501,9 @@ static void xsane_fax_project_load()
         gtk_widget_show(list_item);
       }
     }
+    gtk_widget_set_sensitive(xsane.fax_project_box, TRUE);
+    gtk_widget_show(xsane.fax_project_exists);
+    gtk_widget_hide(xsane.fax_project_not_exists);
   }
 
   if (projectfile)
@@ -2563,6 +2587,17 @@ void xsane_fax_project_save()
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static void xsane_fax_project_create()
+{
+  if (strlen(preferences.fax_project))
+  {
+    xsane_fax_project_save();
+    xsane_fax_project_load();
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void xsane_pref_toggle_tooltips(GtkWidget *widget, gpointer data)
 {
   preferences.tooltips_enabled = (GTK_CHECK_MENU_ITEM(widget)->active != 0);
@@ -2577,6 +2612,8 @@ static void xsane_show_doc_via_nsr(GtkWidget *widget, gpointer data) /* show via
  char *name = (char *) data;
  char buf[256];
  FILE *ns_pipe;
+ pid_t pid;
+ char *arg[3];
 
   snprintf(buf, sizeof(buf), "netscape -no-about-splash -remote \"openFile(%s/%s-doc.html)\" 2>&1",
                STRINGIFY(PATH_SANE_DATA_DIR), name);  
@@ -2598,13 +2635,24 @@ static void xsane_show_doc_via_nsr(GtkWidget *widget, gpointer data) /* show via
       gtk_main_iteration();
     }
 
-    if (pclose(ns_pipe))
+    if (pclose(ns_pipe)) /* netscape not running, start it */
     {
-      snprintf(buf, sizeof(buf), "%s", ERR_NETSCAPE_NOT_RUNNING);
-      xsane_back_gtk_error(buf, TRUE);
+      snprintf(buf, sizeof(buf), "%s/%s-doc.html", STRINGIFY(PATH_SANE_DATA_DIR), name);  
+      arg[0] = "netscape";
+      arg[1] = buf;
+      arg[2] = 0;
+
+      pid = fork();
+
+      if (pid == 0) /* new process */
+      {
+        execvp(arg[0], arg); /* does not return if successfully */
+        fprintf(stderr, "%s %s\n", ERR_FAILD_EXEC_DOC_VIEWER, preferences.doc_viewer);
+        _exit(0); /* do not use exit() here! otherwise gtk gets in trouble */
+      }
     }
   }
-  else
+  else /* execution failed */
   {
     snprintf(buf, sizeof(buf), "%s", ERR_NETSCAPE_EXECUTE_FAIL);
     xsane_back_gtk_error(buf, TRUE);

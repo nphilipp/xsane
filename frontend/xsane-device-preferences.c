@@ -116,7 +116,7 @@ static int xsane_device_preferences_load_values(Wire *w, SANE_Handle device)
       xsane_rc_io_w_string(w, &name);
     }
 
-    if (w->status == ENODATA) /* eof */
+    if (w->status == XSANE_EOF) /* eof */
     {
       if (keep_going) /* we had a reload otpions? */
       {
@@ -265,7 +265,7 @@ static int xsane_device_preferences_save_values(Wire *w, SANE_Handle device)
           }
 
           xsane_rc_io_w_string(w, (SANE_String *) &opt->name);
-          xsane_rc_io_w_array(w, &len, (void **) word_array, (WireCodecFunc) xsane_rc_io_w_word, sizeof(SANE_Word));
+          xsane_rc_io_w_array(w, &len, (void **) &word_array, (WireCodecFunc) xsane_rc_io_w_word, sizeof(SANE_Word));
         }
         break;
 

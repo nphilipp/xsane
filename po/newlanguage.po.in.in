@@ -140,6 +140,10 @@ msgstr ""
 _BUTTON_RENAME
 msgstr ""
 
+# original text: BUTTON_CREATE_PROJECT
+_BUTTON_CREATE_PROJECT
+msgstr ""
+
 # original text: BUTTON_SEND_PROJECT
 _BUTTON_SEND_PROJECT
 msgstr ""
@@ -1092,10 +1096,6 @@ msgstr ""
 
 # original text: ERR_NO_DRC_FILE
 _ERR_NO_DRC_FILE
-msgstr ""
-
-# original text: ERR_NETSCAPE_NOT_RUNNING
-_ERR_NETSCAPE_NOT_RUNNING
 msgstr ""
 
 # original text: ERR_NETSCAPE_EXECUTE_FAIL
