@@ -157,6 +157,7 @@ static void xsane_printer_callback(GtkWidget *widget, gpointer data);
 void xsane_pref_save(void);
 static int xsane_pref_restore(void);
 static RETSIGTYPE xsane_quit_handler(int signal);
+static RETSIGTYPE xsane_sigchld_handler(int signal);
 static void xsane_quit(void);
 static void xsane_exit(void);
 static gint xsane_standard_option_win_delete(GtkWidget *widget, gpointer data);
@@ -216,7 +217,8 @@ static void xsane_mail_send(void);
 static void xsane_pref_toggle_tooltips(GtkWidget *widget, gpointer data);
 static void xsane_mail_send_process(void);
 static void xsane_mail_send(void);
-static void xsane_show_license(GtkWidget *widget, gpointer data);
+static void xsane_show_eula(GtkWidget *widget, gpointer data);
+static void xsane_show_gpl(GtkWidget *widget, gpointer data);
 static void xsane_show_doc(GtkWidget *widget, gpointer data);
 static GtkWidget *xsane_view_build_menu(void);
 static GtkWidget *xsane_pref_build_menu(void);
@@ -575,17 +577,6 @@ static void xsane_set_modus_defaults(void)
 static void xsane_modus_callback(GtkWidget *xsane_parent, int *num)
 {
   DBG(DBG_proc, "xsane_modus_callback\n");
-
-  if (xsane.filetype) /* add extension to filename */
-  {
-   char buffer[256];
-
-    snprintf(buffer, sizeof(buffer), "%s%s", preferences.filename, xsane.filetype);
-    free(preferences.filename);
-    free(xsane.filetype);
-    xsane.filetype = NULL;
-    preferences.filename = strdup(buffer);
-  }
 
   xsane.xsane_mode = *num;
 
@@ -2067,9 +2058,28 @@ static int xsane_pref_restore(void)
     }
   }
 
+  if (!preferences.working_directory)
+  {
+   char filename[PATH_MAX];
+
+    if (getcwd(filename, sizeof(filename)))
+    {
+      preferences.working_directory = strdup(filename); /* set current working directory */
+    }
+  }
+  else
+  {
+    chdir(preferences.working_directory); /* set working directory */
+  }
+
   if (!preferences.filename)
   {
     preferences.filename = strdup(OUT_FILENAME);
+  }
+
+  if (!preferences.filetype)
+  {
+    preferences.filetype = strdup(XSANE_FILETYPE_BY_EXT);
   }
 
   if (preferences.printerdefinitions == 0)
@@ -2197,6 +2207,66 @@ static RETSIGTYPE xsane_quit_handler(int signal)
   xsane_quit();
 }
 
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void xsane_add_process_to_list(pid_t pid)
+{
+ XsaneChildprocess *newprocess;
+ 
+  DBG(DBG_proc, "xsane_add_process_to_list(%d)\n", pid);
+ 
+  newprocess = malloc(sizeof(XsaneChildprocess));
+  newprocess->pid = pid;
+  newprocess->next = xsane.childprocess_list;
+  xsane.childprocess_list = newprocess;
+} 
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static RETSIGTYPE xsane_sigchld_handler(int signal)
+{
+ int status;
+ XsaneChildprocess **childprocess_listptr = &xsane.childprocess_list;
+ XsaneChildprocess *childprocess = xsane.childprocess_list;
+
+  DBG(DBG_proc, "xsane_sigchld_handler\n");
+
+  if (xsane.xsane_mode == XSANE_MAIL) /* make sure we still are in email mode */
+  {
+    xsane_mail_project_load(); /* update status of mail project */
+  }
+
+
+  /* normally we would do a wait(&status); here, but some backends fork() a reader
+     process and test the return status of waitpid() that returns with an error
+     when we get the signal at first and clean up the process with wait().
+     A backend should not handle this as error but some do and so we have to handle this */
+
+  while (childprocess)
+  {
+   XsaneChildprocess *nextprocess;
+   pid_t pid;
+
+    pid = waitpid(childprocess->pid, &status, WNOHANG);
+    if ( (WIFEXITED(status)) && (pid == childprocess->pid) )
+    {
+      DBG(DBG_info, "deleteing pid %d from list\n", childprocess->pid);
+
+      nextprocess = childprocess->next;
+      free(childprocess); /* free memory of element */
+      childprocess = nextprocess; /* go to next element */
+      *childprocess_listptr = childprocess; /* remove element from list */
+      /* childprocess_listptr keeps the same !!! */
+    }
+    else
+    {
+      DBG(DBG_info, "keeping pid %d in list\n", childprocess->pid);
+
+      childprocess_listptr = &childprocess->next; /* set pointer to next element */
+      childprocess = childprocess->next; /* go to next element */
+    }
+  }
+}
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -2348,17 +2418,6 @@ static gint xsane_scan_win_delete(GtkWidget *w, gpointer data)
     {
       return TRUE;
     }
-  }
-
-  if (xsane.filetype) /* add extension to filename */
-  {
-   char buffer[256];
-
-    snprintf(buffer, sizeof(buffer), "%s%s", preferences.filename, xsane.filetype);
-    free(preferences.filename);
-    free(xsane.filetype);
-    xsane.filetype = 0;
-    preferences.filename = strdup(buffer);
   }
 
   xsane_pref_save();
@@ -2561,11 +2620,6 @@ static gint xsane_close_info_callback(GtkWidget *widget, gpointer data)
   gtk_widget_destroy(dialog_widget);
 
   xsane_set_sensitivity(TRUE);
-
-  xsane_update_histogram(TRUE /* update raw */);
-#ifdef HAVE_WORKING_GTK_GAMMACURVE
-  xsane_update_gamma_dialog();
-#endif
 
  return FALSE;
 }
@@ -2813,6 +2867,9 @@ static void xsane_info_dialog(GtkWidget *widget, gpointer data)
   bufptr += strlen(bufptr);
 #endif
 
+  sprintf(bufptr, "TXT, ");
+  bufptr += strlen(bufptr);
+
   bufptr--;
   bufptr--;
   *bufptr = 0; /* erase last comma */
@@ -2868,9 +2925,6 @@ static void xsane_info_dialog(GtkWidget *widget, gpointer data)
   gtk_widget_show(button);
 
   gtk_widget_show(info_dialog);
-
-  xsane_clear_histogram(&xsane.histogram_raw);
-  xsane_clear_histogram(&xsane.histogram_enh); 
 
   xsane_set_sensitivity(FALSE);
 }
@@ -3891,9 +3945,6 @@ static void xsane_fax_entry_insert_callback(GtkWidget *widget, gpointer list)
 
   DBG(DBG_proc, "xsane_fax_entry_insert_callback\n");
 
-  xsane_clear_histogram(&xsane.histogram_raw);
-  xsane_clear_histogram(&xsane.histogram_enh); 
-
   xsane_set_sensitivity(FALSE);
 
   snprintf(windowname, sizeof(windowname), "%s %s %s", xsane.prog_name, WINDOW_FAX_INSERT, preferences.fax_project);
@@ -3901,7 +3952,7 @@ static void xsane_fax_entry_insert_callback(GtkWidget *widget, gpointer list)
 
   umask((mode_t) preferences.directory_umask); /* define new file permissions */    
 
-  if (!xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, TRUE, FALSE, FALSE)) /* filename is selected */
+  if (!xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, NULL, TRUE, FALSE, FALSE, FALSE)) /* filename is selected */
   {
    FILE *sourcefile;
  
@@ -3986,7 +4037,6 @@ static void xsane_fax_entry_insert_callback(GtkWidget *widget, gpointer list)
   umask(XSANE_DEFAULT_UMASK); /* define new file permissions */    
 
   xsane_set_sensitivity(TRUE);
-  xsane_update_histogram(TRUE /* update raw */);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -4046,6 +4096,14 @@ static void xsane_fax_show_callback(GtkWidget *widget, gpointer list)
 
     if (pid == 0) /* new process */
     {
+     FILE *ipc_file = NULL;
+
+      if (xsane.ipc_pipefd[0])
+      {
+        close(xsane.ipc_pipefd[0]); /* close reading end of pipe */
+        ipc_file = fdopen(xsane.ipc_pipefd[1], "w");
+      }
+
       DBG(DBG_info, "trying to change user id fo new subprocess:\n");
       DBG(DBG_info, "old effective uid = %d\n", geteuid());
       setuid(getuid());
@@ -4053,7 +4111,20 @@ static void xsane_fax_show_callback(GtkWidget *widget, gpointer list)
 
       execvp(arg[0], arg); /* does not return if successfully */
       DBG(DBG_error, "%s %s\n", ERR_FAILED_EXEC_FAX_VIEWER, preferences.fax_viewer);
+
+      /* send error message via IPC pipe to parent process */
+      if (ipc_file)
+      {
+        fprintf(ipc_file, "%s %s:\n%s", ERR_FAILED_EXEC_FAX_VIEWER, preferences.fax_viewer, strerror(errno));
+        fflush(ipc_file); /* make sure message is displayed */
+        fclose(ipc_file);
+      }
+
       _exit(0); /* do not use exit() here! otherwise gtk gets in trouble */
+    }
+    else /* parent process */
+    {
+      xsane_add_process_to_list(pid); /* add pid to child process list */
     }
   }
 }
@@ -4081,9 +4152,6 @@ static void xsane_fax_send()
       xsane_back_gtk_error(buf, TRUE);
       return;
     }
-
-    xsane_clear_histogram(&xsane.histogram_raw);
-    xsane_clear_histogram(&xsane.histogram_enh); 
 
     xsane_set_sensitivity(FALSE);
 
@@ -4132,6 +4200,14 @@ static void xsane_fax_send()
 
     if (pid == 0) /* new process */
     {
+     FILE *ipc_file = NULL;
+
+      if (xsane.ipc_pipefd[0])
+      {
+        close(xsane.ipc_pipefd[0]); /* close reading end of pipe */
+        ipc_file = fdopen(xsane.ipc_pipefd[1], "w");
+      }
+
       DBG(DBG_info, "trying to change user id fo new subprocess:\n");
       DBG(DBG_info, "old effective uid = %d\n", geteuid());
       setuid(getuid());
@@ -4139,7 +4215,20 @@ static void xsane_fax_send()
 
       execvp(arg[0], arg); /* does not return if successfully */
       DBG(DBG_error, "%s %s\n", ERR_FAILED_EXEC_FAX_CMD, preferences.fax_command);
+
+      /* send error message via IPC pipe to parent process */
+      if (ipc_file)
+      {
+        fprintf(ipc_file, "%s %s:\n%s", ERR_FAILED_EXEC_FAX_CMD, preferences.fax_command, strerror(errno));
+        fflush(ipc_file); /* make sure message is displayed */
+        fclose(ipc_file);
+      }
+
       _exit(0); /* do not use exit() here! otherwise gtk gets in trouble */
+    }
+    else /* parent process */
+    {
+      xsane_add_process_to_list(pid); /* add pid to child process list */
     }
 
     for (i=0; i<argnr; i++)
@@ -4164,7 +4253,6 @@ static void xsane_fax_send()
     }
 
     xsane_set_sensitivity(TRUE);
-    xsane_update_histogram(TRUE /* update raw */);
   }
 }
 
@@ -5215,6 +5303,14 @@ static void xsane_mail_show_callback(GtkWidget *widget, gpointer list)
 
     if (pid == 0) /* new process */
     {
+     FILE *ipc_file = NULL;
+
+      if (xsane.ipc_pipefd[0])
+      {
+        close(xsane.ipc_pipefd[0]); /* close reading end of pipe */
+        ipc_file = fdopen(xsane.ipc_pipefd[1], "w");
+      }
+
       DBG(DBG_info, "trying to change user id fo new subprocess:\n");
       DBG(DBG_info, "old effective uid = %d\n", geteuid());
       setuid(getuid());
@@ -5222,7 +5318,20 @@ static void xsane_mail_show_callback(GtkWidget *widget, gpointer list)
 
       execvp(arg[0], arg); /* does not return if successfully */
       DBG(DBG_error, "%s %s\n", ERR_FAILED_EXEC_MAIL_VIEWER, preferences.mail_viewer);
+
+      /* send error message via IPC pipe to parent process */
+      if (ipc_file)
+      {
+        fprintf(ipc_file, "%s %s:\n%s", ERR_FAILED_EXEC_MAIL_VIEWER, preferences.mail_viewer, strerror(errno));
+        fflush(ipc_file); /* make sure message is displayed */
+        fclose(ipc_file);
+      }
+
       _exit(0); /* do not use exit() here! otherwise gtk gets in trouble */
+    }
+    else /* parent process */
+    {
+      xsane_add_process_to_list(pid); /* add pid to child process list */
     }
   }
 }
@@ -5530,20 +5639,9 @@ static void xsane_mail_send_process()
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static RETSIGTYPE xsane_mail_send_process_exited()
-{
-  if (xsane.xsane_mode == XSANE_MAIL) /* make sure we still are in email mode */
-  {
-    xsane_mail_project_load(); /* update status of mail project */
-  }
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
 static void xsane_mail_send()
 {
  pid_t pid;
- struct SIGACTION act;
 
   DBG(DBG_proc, "xsane_mail_send\n");
 
@@ -5566,7 +5664,15 @@ static void xsane_mail_send()
  
   if (pid == 0) /* new process */
   {
-    DBG(DBG_info, "trying to change user id fo new subprocess:\n");
+   FILE *ipc_file = NULL;
+
+    if (xsane.ipc_pipefd[0])
+    {
+      close(xsane.ipc_pipefd[0]); /* close reading end of pipe */
+      ipc_file = fdopen(xsane.ipc_pipefd[1], "w");
+    }
+
+    DBG(DBG_info, "trying to change user id for new subprocess:\n");
     DBG(DBG_info, "old effective uid = %d\n", geteuid());
     setuid(getuid());
     DBG(DBG_info, "new effective uid = %d\n", geteuid());
@@ -5575,10 +5681,10 @@ static void xsane_mail_send()
 
     _exit(0); /* do not use exit() here! otherwise gtk gets in trouble */
   }
-
-  memset (&act, 0, sizeof (act));
-  act.sa_handler = xsane_mail_send_process_exited;
-  sigaction (SIGCHLD, &act, 0);
+  else /* parent process */
+  {
+    xsane_add_process_to_list(pid); /* add pid to child process list */
+  }
 
   if (xsane.mail_status)
   {
@@ -5626,6 +5732,7 @@ static void xsane_show_doc_via_nsr(GtkWidget *widget, gpointer data) /* show via
 
   DBG(DBG_proc, "xsane_show_doc_via_nsr(%s)\n", name);
 
+
   /* at first we have to test if netscape is running */
   /* a simple way is to take a look at ~/.netscape/lock */
   /* when this is a link we can assume that netscape is running */
@@ -5658,6 +5765,14 @@ static void xsane_show_doc_via_nsr(GtkWidget *widget, gpointer data) /* show via
  
     if (pid == 0) /* new process */
     {
+     FILE *ipc_file = NULL;
+
+      if (xsane.ipc_pipefd[0])
+      {
+        close(xsane.ipc_pipefd[0]); /* close reading end of pipe */
+        ipc_file = fdopen(xsane.ipc_pipefd[1], "w");
+      }
+
       DBG(DBG_info, "trying to change user id fo new subprocess:\n");
       DBG(DBG_info, "old effective uid = %d\n", geteuid());
       setuid(getuid());
@@ -5665,7 +5780,20 @@ static void xsane_show_doc_via_nsr(GtkWidget *widget, gpointer data) /* show via
 
       execvp(arg[0], arg); /* does not return if successfully */
       DBG(DBG_error, "%s %s\n", ERR_FAILED_EXEC_DOC_VIEWER, preferences.doc_viewer);
+
+      /* send error message via IPC pipe to parent process */
+      if (ipc_file)
+      {
+        fprintf(ipc_file, "%s %s:\n%s", ERR_FAILED_EXEC_DOC_VIEWER, preferences.doc_viewer, strerror(errno));
+        fflush(ipc_file); /* make sure message is displayed */
+        fclose(ipc_file);
+      }
+
       _exit(0); /* do not use exit() here! otherwise gtk gets in trouble */
+    }
+    else /* parent process */
+    {
+      xsane_add_process_to_list(pid); /* add pid to child process list */
     }
   }
   else /* netscape not running */
@@ -5679,6 +5807,14 @@ static void xsane_show_doc_via_nsr(GtkWidget *widget, gpointer data) /* show via
  
     if (pid == 0) /* new process */
     {
+     FILE *ipc_file = NULL;
+
+      if (xsane.ipc_pipefd[0])
+      {
+        close(xsane.ipc_pipefd[0]); /* close reading end of pipe */
+        ipc_file = fdopen(xsane.ipc_pipefd[1], "w");
+      }
+
       DBG(DBG_info, "trying to change user id fo new subprocess:\n");
       DBG(DBG_info, "old effective uid = %d\n", geteuid());
       setuid(getuid());
@@ -5686,7 +5822,20 @@ static void xsane_show_doc_via_nsr(GtkWidget *widget, gpointer data) /* show via
 
       execvp(arg[0], arg); /* does not return if successfully */
       DBG(DBG_error, "%s %s\n", ERR_FAILED_EXEC_DOC_VIEWER, preferences.doc_viewer);
+
+      /* send error message via IPC pipe to parent process */
+      if (ipc_file)
+      {
+        fprintf(ipc_file, "%s %s:\n%s", ERR_FAILED_EXEC_DOC_VIEWER, preferences.doc_viewer, strerror(errno));
+        fflush(ipc_file); /* make sure message is displayed */
+        fclose(ipc_file);
+      }
+
       _exit(0); /* do not use exit() here! otherwise gtk gets in trouble */
+    }
+    else /* parent process */
+    {
+      xsane_add_process_to_list(pid); /* add pid to child process list */
     }
   }
 
@@ -5731,7 +5880,15 @@ static void xsane_show_doc(GtkWidget *widget, gpointer data)
     pid = fork();
 
     if (pid == 0) /* new process */
-    {
+    { 
+     FILE *ipc_file = NULL;
+
+      if (xsane.ipc_pipefd[0])
+      {
+        close(xsane.ipc_pipefd[0]); /* close reading end of pipe */
+        ipc_file = fdopen(xsane.ipc_pipefd[1], "w");
+      }
+
       DBG(DBG_info, "trying to change user id fo new subprocess:\n");
       DBG(DBG_info, "old effective uid = %d\n", geteuid());
       setuid(getuid());
@@ -5740,7 +5897,20 @@ static void xsane_show_doc(GtkWidget *widget, gpointer data)
       DBG(DBG_info, "executing %s %s\n", arg[0], arg[1]);
       execvp(arg[0], arg); /* does not return if successfully */
       DBG(DBG_error, "%s %s\n", ERR_FAILED_EXEC_DOC_VIEWER, preferences.doc_viewer);
+
+      /* send error message via IPC pipe to parent process */
+      if (ipc_file)
+      {
+        fprintf(ipc_file, "%s %s:\n%s", ERR_FAILED_EXEC_DOC_VIEWER, preferences.doc_viewer, strerror(errno));
+        fflush(ipc_file); /* make sure message is displayed */
+        fclose(ipc_file);
+      }
+
       _exit(0); /* do not use exit() here! otherwise gtk gets in trouble */
+    }
+    else /* parent process */
+    {
+      xsane_add_process_to_list(pid); /* add pid to child process list */
     }
   }
 }
@@ -6990,9 +7160,9 @@ static void xsane_device_dialog(void)
   }
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_preview_widget), xsane.show_preview);
 
-  xsane_set_all_resolutions(); /* make sure resolution, resolution_x and resolution_y are up to date */
   xsane_define_maximum_output_size(); /* draw maximum output frame in preview window if necessary */
   xsane_refresh_dialog();
+  xsane_set_all_resolutions(); /* make sure resolution, resolution_x and resolution_y are up to date */
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -7336,6 +7506,9 @@ static int xsane_init(int argc, char **argv)
 #ifdef HAVE_LIBTIFF
           printf(", tiff");
 #endif
+
+          printf(", txt");
+
           printf("\n");
           exit(0);
          break;
@@ -7453,6 +7626,7 @@ static int xsane_init(int argc, char **argv)
   gtk_window_set_resizable(GTK_WINDOW(device_scanning_dialog), FALSE);
   snprintf(buf, sizeof(buf), "%s %s", xsane.prog_name, XSANE_VERSION);
   gtk_window_set_title(GTK_WINDOW(device_scanning_dialog), buf);
+  g_signal_connect(GTK_OBJECT(device_scanning_dialog), "delete_event", GTK_SIGNAL_FUNC(xsane_quit), NULL);
 
   frame = gtk_frame_new(NULL);
   gtk_container_set_border_width(GTK_CONTAINER(frame), 10);
@@ -7578,6 +7752,11 @@ void xsane_interface(int argc, char **argv)
   act.sa_handler = xsane_quit_handler;
   sigaction(SIGTERM, &act, 0);
 
+  /* add a signal handler that cleans up zombie child processes */
+  memset(&act, 0, sizeof (act));
+  act.sa_handler = xsane_sigchld_handler;
+  sigaction(SIGCHLD, &act, 0);
+
   gtk_main();
   sane_exit();
 }
@@ -7695,13 +7874,33 @@ int main(int argc, char **argv)
     xsane.prog_name = argv[0];
   }
 
+  if (!pipe(xsane.ipc_pipefd)) /* success */
+  {
+    DBG(DBG_info, "created ipc_pipefd for inter progress communication\n");
+#ifndef BUGGY_GDK_INPUT_EXCEPTION
+    gdk_input_add(xsane.ipc_pipefd[0], GDK_INPUT_READ | GDK_INPUT_EXCEPTION, xsane_back_gtk_ipc_dialog_callback, 0);
+#endif
+  }
+  else
+  {
+    DBG(DBG_info, "could not create pipe for inter progress communication\n");
+    xsane.ipc_pipefd[0] = 0;
+    xsane.ipc_pipefd[1] = 0;
+  }
+
 #if 0
   bindtextdomain(PACKAGE, STRINGIFY(LOCALEDIR));
   textdomain(PACKAGE);         
+#ifdef HAVE_GTK2
+  bind_textdomain_codeset(PACKAGE, "UTF-8");
+#endif
 #else
   DBG(DBG_info, "Setting xsane localedir: %s\n", STRINGIFY(LOCALEDIR));
   bindtextdomain(xsane.prog_name, STRINGIFY(LOCALEDIR));
   textdomain(xsane.prog_name);
+#ifdef HAVE_GTK2
+  bind_textdomain_codeset(xsane.prog_name, "UTF-8");
+#endif
 #endif
 
 #ifdef HAVE_LIBGIMP_GIMP_H

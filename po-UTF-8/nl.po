@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xsane 0.84\n"
-"POT-Creation-Date: 2002-01-22 23:34+0100\n"
+"POT-Creation-Date: 2002-06-26 18:36+0200\n"
 "PO-Revision-Date: 2002-01-15 01:10+0100\n"
 "Last-Translator: Wim Sinke <sinke@wirehub.nl>\n"
 "MIME-Version: 1.0\n"
@@ -34,9 +34,13 @@ msgstr "Over vertaling"
 msgid "authorization"
 msgstr "authorizatie"
 
-#. WINDOW_LICENSE
-msgid "license"
-msgstr "licentie"
+#. WINDOW_GPL
+msgid "GPL - the license"
+msgstr ""
+
+#. WINDOW_EULA
+msgid "End User License Agreement"
+msgstr ""
 
 #. WINDOW_INFO
 msgid "info"
@@ -188,9 +192,9 @@ msgstr "Stoppen"
 msgid "Save image"
 msgstr "Bewaar afbeelding"
 
-#. MENU_ITEM_CLOSE
-msgid "Close"
-msgstr "Sluiten"
+#. MENU_ITEM_OCR
+msgid "OCR - save as text"
+msgstr ""
 
 #. MENU_ITEM_CLONE
 msgid "Clone"
@@ -199,6 +203,10 @@ msgstr "Kloon"
 #. MENU_ITEM_SCALE
 msgid "Scale"
 msgstr "Schaal"
+
+#. MENU_ITEM_CLOSE
+msgid "Close"
+msgstr "Sluiten"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
@@ -385,6 +393,10 @@ msgstr "Automatisch kleuren verbeteren"
 msgid "POP3 authentification"
 msgstr "POP3 legalisatie"
 
+#. RADIO_BUTTON_OCR_USE_GUI_PIPE
+msgid "Use GUI progress pipe"
+msgstr ""
+
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
 msgstr "Zoeken naar apparaten"
@@ -550,6 +562,33 @@ msgid "unknown"
 msgstr "onbekend"
 
 # TBD
+#. TEXT_EULA
+#, fuzzy
+msgid ""
+"XSane is distributed under the terms of the GNU General Public License\n"
+"as published by the Free Software Foundation; either version 2 of the\n"
+"License, or (at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but\n"
+"WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+"Should the program prove defective, you assume the cost of all\n"
+"necessary servicing, repair or correction. To use this program you\n"
+"have to read, understand and accept the following\n"
+"\"NO WARRANTY\" agreement.\n"
+msgstr ""
+"XSane wordt gedistribueerd onder de voorwaarden van de GNU General Public\n"
+"License, zoals gepubliseerd door de Free Software Foundation; hetzij versie "
+"2\n"
+"van de licentie of (naar keuze) iedere latere versie\n"
+"\n"
+"Dit programma wordt gedistribueerd in de hoop dat het nuttig is, maar "
+"ZONDER\n"
+"ENIGE GARANTIE; zelfs zonder de impliciete garantie van VERHANDELBAARHEID of "
+"de\n"
+"BRUIKBAARHEID VOOR EEN SPECIAAL DOEL.\n"
+
+# TBD
 #. TEXT_GPL
 msgid ""
 "XSane is distributed under the terms of the GNU General Public License\n"
@@ -630,16 +669,8 @@ msgstr ""
 msgid ""
 "Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
 msgstr ""
-"Grootte %d x %d pixel, %d bit/kleur, %d kleuren, %1.0f dpi x %1.0f dpi, "
-"%1.1f %s"
-
-#. TEXT_X_SCALE_FACTOR
-msgid "X-Scale factor:"
-msgstr "Vergroting in x-richting:"
-
-#. TEXT_Y_SCALE_FACTOR
-msgid "Y-Scale factor:"
-msgstr "Vergroting in y-richting"
+"Grootte %d x %d pixel, %d bit/kleur, %d kleuren, %1.0f dpi x %1.0f dpi, %"
+"1.1f %s"
 
 #. TEXT_DESPECKLE_RADIUS
 msgid "Despeckle radius:"
@@ -744,6 +775,11 @@ msgstr "TIFF 8 bit compressie"
 #. TEXT_SETUP_TIFF_COMPRESSION_1
 msgid "TIFF lineart image compression"
 msgstr "TIFF lineart compressie"
+
+#. TEXT_SETUP_SHOW_RANGE_MODE
+#, fuzzy
+msgid "Show range as:"
+msgstr "Pagina bekijken"
 
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
@@ -868,6 +904,19 @@ msgstr "Invoeroptie:"
 #. TEXT_SETUP_OCR_OUTPUTFILE_OPT
 msgid "Outputfile option:"
 msgstr "Uitvoeroptie:"
+
+#. TEXT_SETUP_OCR_USE_GUI_PIPE_OPT
+msgid "Use GUI progress pipe:"
+msgstr ""
+
+#. TEXT_SETUP_OCR_OUTFD_OPT
+#, fuzzy
+msgid "GUI output-fd option:"
+msgstr "Uitvoeroptie:"
+
+#. TEXT_SETUP_OCR_PROGRESS_KEYWORD
+msgid "Progress keyword:"
+msgstr ""
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
@@ -997,9 +1046,13 @@ msgstr "Laad apparaatinstellingen"
 msgid "Change directory"
 msgstr "Verander map"
 
-#. MENU_ITEM_XSANE_LICENSE
-msgid "License"
-msgstr "Licentie"
+#. MENU_ITEM_XSANE_EULA
+msgid "Show EULA"
+msgstr ""
+
+#. MENU_ITEM_XSANE_GPL
+msgid "Show license (GPL)"
+msgstr ""
 
 #. MENU_ITEM_XSANE_DOC
 msgid "XSane doc"
@@ -1048,6 +1101,26 @@ msgstr "JPEG DCT compressie"
 #. MENU_ITEM_TIFF_COMP_PACKBITS
 msgid "pack bits"
 msgstr "gepackte bits"
+
+#. MENU_ITEM_RANGE_SCALE
+msgid "Slider (Scale)"
+msgstr ""
+
+#. MENU_ITEM_RANGE_SCROLLBAR
+msgid "Slider (Scrollbar)"
+msgstr ""
+
+#. MENU_ITEM_RANGE_SPINBUTTON
+msgid "Spinbutton"
+msgstr ""
+
+#. MENU_ITEM_RANGE_SCALE_SPIN
+msgid "Scale and Spinbutton"
+msgstr ""
+
+#. MENU_ITEM_RANGE_SCROLL_SPIN
+msgid "Scrollbar and Spinbutton"
+msgstr ""
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
 msgid "Standard options window (lineart)"
@@ -1138,6 +1211,10 @@ msgstr "Vlekken verwijderen"
 msgid "Bluring image"
 msgstr "Afbeelding vervagen"
 
+#. PROGRESS_OCR
+msgid "OCR in progress"
+msgstr ""
+
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
 msgstr "Start scannen <Ctrl-Enter>"
@@ -1156,11 +1233,11 @@ msgstr "Breek de preview scan af <Alt-ESC>"
 
 #. DESC_XSANE_MODE
 msgid ""
-"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or "
-"mail-<Ctrl-m>"
+"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or mail-<Ctrl-"
+"m>"
 msgstr ""
-"opslaan-<Ctrl-s>, bekijk-<Ctrl-v>, kopier-<Ctrl-c>, fax-<Ctrl-f> of "
-"mail-<Ctrl-m>"
+"opslaan-<Ctrl-s>, bekijk-<Ctrl-v>, kopier-<Ctrl-c>, fax-<Ctrl-f> of mail-"
+"<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
 msgid "Select source medium type"
@@ -1518,6 +1595,10 @@ msgstr ""
 msgid "Use an own colormap for preview if display depth is 8 bpp"
 msgstr "Gebruik eigen kleurenpallet als scherm diepte 8-bpp is"
 
+#. DESC_SHOW_RANGE_MODE
+msgid "Select how a range is displayed"
+msgstr ""
+
 #. DESC_PREVIEW_OVERSAMPLING
 msgid "Value with that the calculated preview resolution is multiplied"
 msgstr ""
@@ -1688,6 +1769,20 @@ msgstr "Geef de optie om een invoerbestand op te geven"
 msgid "Enter option of the ocr program to define output file"
 msgstr "Geef de optie om een uitvoerbestand op te geven"
 
+#. DESC_OCR_USE_GUI_PIPE_OPT
+msgid "Define if the ocr program supports gui progress pipe"
+msgstr ""
+
+#. DESC_OCR_OUTFD_OPT
+#, fuzzy
+msgid ""
+"Enter option of the ocr program to define output filedescripor in GUI mode"
+msgstr "Geef de optie om een uitvoerbestand op te geven"
+
+#. DESC_OCR_PROGRESS_KEYWORD
+msgid "Define Keyword that is used to mark progress information"
+msgstr ""
+
 #. DESC_PERMISSION_READ
 msgid "read"
 msgstr "lezen"
@@ -1722,6 +1817,10 @@ msgid "Zoom 20% out"
 msgstr "Zoom 20% uit"
 
 #. DESC_ZOOM_IN
+msgid "Click at position to zoom to"
+msgstr ""
+
+#. DESC_ZOOM_AREA
 msgid "Zoom into selected area"
 msgstr "Zoom in het geselecteerde gebied"
 
@@ -1735,6 +1834,11 @@ msgstr "Selecteer zichtbare gebied"
 
 #. DESC_AUTOSELECT_SCANAREA
 msgid "Autoselect scanarea"
+msgstr "Automatische selectie"
+
+#. DESC_AUTORAISE_SCANAREA
+#, fuzzy
+msgid "Autoraise scanarea"
 msgstr "Automatische selectie"
 
 #. DESC_DELETE_IMAGES
@@ -1788,6 +1892,21 @@ msgstr "Sla medium op"
 #. DESC_DELETE_MEDIUM
 msgid "Delete active medium"
 msgstr "Huidige medium verwijderen"
+
+#. DESC_SCALE_FACTOR
+#, fuzzy
+msgid "Scale factor"
+msgstr "Vergroting in y-richting"
+
+#. DESC_X_SCALE_FACTOR
+#, fuzzy
+msgid "X-Scale factor"
+msgstr "Vergroting in x-richting:"
+
+#. DESC_Y_SCALE_FACTOR
+#, fuzzy
+msgid "Y-Scale factor"
+msgstr "Vergroting in y-richting"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2010,6 +2129,10 @@ msgstr "Waarschuwing"
 msgid "Information"
 msgstr "Informatie"
 
+#. ERR_HEADER_CHILD_PROCESS_ERROR
+msgid "Child process error"
+msgstr ""
+
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
 msgstr "Kon bestand niet maken:"
@@ -2091,8 +2214,8 @@ msgid ""
 " -v, --version                print version information\n"
 " -l, --license                print license information\n"
 "\n"
-" -d, --device-settings file   load device settings from file (without "
-"\".drc\")\n"
+" -d, --device-settings file   load device settings from file (without \".drc"
+"\")\n"
 "\n"
 " -V, --viewer                 start with viewer-mode active (default)\n"
 " -s, --save                   start with save-mode active\n"
@@ -2120,8 +2243,8 @@ msgstr ""
 "Start een grafische gebruikers interface om SANE (Scanner Access Now Easy) "
 "apparaten te gebruiken.\n"
 "\n"
-"Het formaat van [APPARAAT] is backendnaam:apparaatbestand (b.v. "
-"umax:/dev/scanner).\n"
+"Het formaat van [APPARAAT] is backendnaam:apparaatbestand (b.v. umax:/dev/"
+"scanner).\n"
 "[OPTIE]... kan een combinatie zijn van de volgende:\n"
 " -h, --help                   laat deze tekst zien en stop\n"
 " -v, --version                print versie informatie\n"
@@ -2345,3 +2468,9 @@ msgstr "Geheugen vol"
 
 msgid "Access to resource has been denied"
 msgstr "Geen toegang tot apparaat"
+
+#~ msgid "license"
+#~ msgstr "licentie"
+
+#~ msgid "License"
+#~ msgstr "Licentie"

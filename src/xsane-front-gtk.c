@@ -80,10 +80,9 @@ void xsane_separator_new(GtkWidget *xsane_parent, int dist);
 GtkWidget *xsane_info_table_text_new(GtkWidget *table, gchar *text, int row, int colomn);
 GtkWidget *xsane_info_text_new(GtkWidget *parent, gchar *text);
 void xsane_refresh_dialog(void);
-void xsane_set_sensitivity(SANE_Int sensitivity);
 void xsane_update_param(void *arg);
 void xsane_define_output_filename(void);
-int xsane_identify_output_format(char *filename, char **ext);
+int xsane_identify_output_format(char *filename, char *filetype, char **ext);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -405,7 +404,7 @@ void xsane_define_maximum_output_size()
       case XSANE_SAVE:
 
         xsane_define_output_filename();
-        xsane.xsane_output_format = xsane_identify_output_format(xsane.output_filename, 0);
+        xsane.xsane_output_format = xsane_identify_output_format(xsane.output_filename, preferences.filetype, 0);
 
         preview_set_maximum_output_size(xsane.preview, INF, INF);
        break;
@@ -1243,17 +1242,6 @@ static void xsane_browse_filename_callback(GtkWidget *widget, gpointer data)
 
   xsane_set_sensitivity(FALSE);
 
-  if (xsane.filetype) /* set filetype to "by ext." */
-  {
-   char buffer[256];
-
-    snprintf(buffer, sizeof(buffer), "%s%s", preferences.filename, xsane.filetype);
-    free(preferences.filename);
-    free(xsane.filetype);
-    xsane.filetype = NULL;
-    preferences.filename = strdup(buffer);
-  }
-
   if (preferences.filename) /* make sure a correct filename is defined */
   {
     strncpy(filename, preferences.filename, sizeof(filename));
@@ -1267,7 +1255,7 @@ static void xsane_browse_filename_callback(GtkWidget *widget, gpointer data)
   snprintf(windowname, sizeof(windowname), "%s %s %s", xsane.prog_name, WINDOW_OUTPUT_FILENAME, xsane.device_text);
 
   umask((mode_t) preferences.directory_umask); /* define new file permissions */    
-  xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, TRUE, TRUE, FALSE);
+  xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, &preferences.filetype, TRUE, TRUE, FALSE, TRUE);
   umask(XSANE_DEFAULT_UMASK); /* define new file permissions */    
 
   if (preferences.filename)
@@ -1275,16 +1263,17 @@ static void xsane_browse_filename_callback(GtkWidget *widget, gpointer data)
     free((void *) preferences.filename);
   }
 
+  preferences.filename = strdup(filename);
+
   xsane_set_sensitivity(TRUE);
 
-  preferences.filename = strdup(filename);
+  xsane_back_gtk_filetype_menu_set_history(xsane.filetype_option_menu, preferences.filetype);
 
   /* correct length of filename counter if it is shorter than minimum length */
   xsane_update_counter_in_filename(&preferences.filename, FALSE, 0, preferences.filename_counter_len);
 
   xsane_set_filename(preferences.filename);
 
-  gtk_option_menu_set_history(GTK_OPTION_MENU(xsane.filetype_option_menu), 0); /* set menu to "by ext" */
   xsane_define_maximum_output_size(); /* is necessary in postscript mode */
 }
 
@@ -1310,12 +1299,18 @@ static void xsane_filename_counter_step_callback(GtkWidget *widget, gpointer dat
 
 static void xsane_filetype_callback(GtkWidget *widget, gpointer data)
 {
+ char *new_filetype = (char *) data;
+ char buffer[PATH_MAX];
+ char *filename;
+
   DBG(DBG_proc, "xsane_filetype_callback\n");
 
-  if (data)
+  filename = preferences.filename;
+
+  if ((new_filetype) && (*new_filetype)) /* filetype exists and is not empty (by ext) */
   {
-   char *extension, *filename;
- 
+   char *extension;
+
     extension = strrchr(preferences.filename, '.');
 
     if ((extension) && (extension != preferences.filename))
@@ -1324,30 +1319,27 @@ static void xsane_filetype_callback(GtkWidget *widget, gpointer data)
         || (!strcasecmp(extension, ".png"))  || (!strcasecmp(extension, ".ps"))
         || (!strcasecmp(extension, ".rgba"))
         || (!strcasecmp(extension, ".tiff")) || (!strcasecmp(extension, ".tif"))
+        || (!strcasecmp(extension, ".text")) || (!strcasecmp(extension, ".txt"))
         || (!strcasecmp(extension, ".jpg"))  || (!strcasecmp(extension, ".jpeg"))
          ) /* remove filetype extension */
       {
-        filename = preferences.filename;
         *extension = 0; /* remove extension */
-        preferences.filename = strdup(filename); /* filename without extension */
-        free(filename); /* free unused memory */
       }
     }
-  }
-  else if (xsane.filetype)
-  {
-   char buffer[256];
-
-    snprintf(buffer, sizeof(buffer), "%s%s", preferences.filename, xsane.filetype);
-    free(preferences.filename);
-    free(xsane.filetype);
-    xsane.filetype = NULL;
+    snprintf(buffer, sizeof(buffer), "%s%s", filename, new_filetype);
+    free(filename);
     preferences.filename = strdup(buffer);
   }
 
-  if (data)
+  if (preferences.filetype)
   {
-    xsane.filetype = strdup((char *) data); /* set extension for filename */
+    free(preferences.filetype);
+    preferences.filetype = NULL;
+  }
+
+  if (new_filetype)
+  {
+    preferences.filetype = strdup(new_filetype);
   }
 
   /* correct length of filename counter if it is shorter than minimum length */
@@ -1378,14 +1370,12 @@ void xsane_outputfilename_new(GtkWidget *vbox)
  GtkWidget *hbox;
  GtkWidget *text;
  GtkWidget *button;
- GtkWidget *xsane_filetype_menu, *xsane_filetype_item;
  GtkWidget *xsane_filename_counter_step_option_menu;
  GtkWidget *xsane_filename_counter_step_menu;
  GtkWidget *xsane_filename_counter_step_item;
  GtkWidget *xsane_label;
  gchar buf[200];
  int i,j;
- int filetype_nr;
  int select_item = 0;
 
   DBG(DBG_proc, "xsane_outputfilename_new\n");
@@ -1452,102 +1442,8 @@ void xsane_outputfilename_new(GtkWidget *vbox)
   gtk_option_menu_set_menu(GTK_OPTION_MENU(xsane_filename_counter_step_option_menu), xsane_filename_counter_step_menu);
   gtk_option_menu_set_history(GTK_OPTION_MENU(xsane_filename_counter_step_option_menu), select_item);
 
-  /* filetype */
-
-  xsane_filetype_menu = gtk_menu_new();
-
-  xsane_filetype_item = gtk_menu_item_new_with_label(MENU_ITEM_FILETYPE_BY_EXT);
-  gtk_container_add(GTK_CONTAINER(xsane_filetype_menu), xsane_filetype_item);
-  g_signal_connect(GTK_OBJECT(xsane_filetype_item), "activate", (GtkSignalFunc) xsane_filetype_callback, NULL);
-  gtk_widget_show(xsane_filetype_item);
-  filetype_nr = 0;
-  select_item = 0;
-
-#ifdef HAVE_LIBJPEG
-  xsane_filetype_item = gtk_menu_item_new_with_label(MENU_ITEM_FILETYPE_JPEG);
-  gtk_container_add(GTK_CONTAINER(xsane_filetype_menu), xsane_filetype_item);
-  g_signal_connect(GTK_OBJECT(xsane_filetype_item), "activate", (GtkSignalFunc) xsane_filetype_callback, (void *) XSANE_FILETYPE_JPEG);
-  gtk_widget_show(xsane_filetype_item);
-  filetype_nr++;
-  if ( (xsane.filetype) && (!strcasecmp(xsane.filetype, XSANE_FILETYPE_JPEG)) )
-  {
-    select_item = filetype_nr;
-  }
-#endif
-
-#ifdef HAVE_LIBPNG
-#ifdef HAVE_LIBZ
-  xsane_filetype_item = gtk_menu_item_new_with_label(MENU_ITEM_FILETYPE_PNG);
-  gtk_container_add(GTK_CONTAINER(xsane_filetype_menu), xsane_filetype_item);
-  g_signal_connect(GTK_OBJECT(xsane_filetype_item), "activate", (GtkSignalFunc) xsane_filetype_callback, (void *) XSANE_FILETYPE_PNG);
-  gtk_widget_show(xsane_filetype_item);
-  filetype_nr++;
-  if ( (xsane.filetype) && (!strcasecmp(xsane.filetype, XSANE_FILETYPE_PNG)) )
-  {
-    select_item = filetype_nr;
-  }
-#endif
-#endif
-
-  xsane_filetype_item = gtk_menu_item_new_with_label(MENU_ITEM_FILETYPE_PNM);
-  gtk_container_add(GTK_CONTAINER(xsane_filetype_menu), xsane_filetype_item);
-  g_signal_connect(GTK_OBJECT(xsane_filetype_item), "activate", (GtkSignalFunc) xsane_filetype_callback, (void *) XSANE_FILETYPE_PNM);
-  gtk_widget_show(xsane_filetype_item);
-  filetype_nr++;
-  if ( (xsane.filetype) && (!strcasecmp(xsane.filetype, XSANE_FILETYPE_PNM)) )
-  {
-    select_item = filetype_nr;
-  }
-
-  xsane_filetype_item = gtk_menu_item_new_with_label(MENU_ITEM_FILETYPE_PS);
-  gtk_container_add(GTK_CONTAINER(xsane_filetype_menu), xsane_filetype_item);
-  g_signal_connect(GTK_OBJECT(xsane_filetype_item), "activate", (GtkSignalFunc) xsane_filetype_callback, (void *) XSANE_FILETYPE_PS);
-  gtk_widget_show(xsane_filetype_item);
-  filetype_nr++;
-  if ( (xsane.filetype) && (!strcasecmp(xsane.filetype, XSANE_FILETYPE_PS)) )
-  {
-    select_item = filetype_nr;
-  }
-
-  xsane_filetype_item = gtk_menu_item_new_with_label(MENU_ITEM_FILETYPE_RAW);
-  gtk_container_add(GTK_CONTAINER(xsane_filetype_menu), xsane_filetype_item);
-  g_signal_connect(GTK_OBJECT(xsane_filetype_item), "activate", (GtkSignalFunc) xsane_filetype_callback, (void *) XSANE_FILETYPE_RAW);
-  gtk_widget_show(xsane_filetype_item);
-  filetype_nr++;
-  if ( (xsane.filetype) && (!strcasecmp(xsane.filetype, XSANE_FILETYPE_RAW)) )
-  {
-    select_item = filetype_nr;
-  }
-
-#ifdef SUPPORT_RGBA
-  xsane_filetype_item = gtk_menu_item_new_with_label(MENU_ITEM_FILETYPE_RGBA);
-  gtk_container_add(GTK_CONTAINER(xsane_filetype_menu), xsane_filetype_item);
-  g_signal_connect(GTK_OBJECT(xsane_filetype_item), "activate", (GtkSignalFunc) xsane_filetype_callback, (void *) XSANE_FILETYPE_RGBA);
-  gtk_widget_show(xsane_filetype_item);
-  filetype_nr++;
-  if ( (xsane.filetype) && (!strcasecmp(xsane.filetype, XSANE_FILETYPE_RGBA)) )
-  {
-    select_item = filetype_nr;
-  }
-#endif
-
-#ifdef HAVE_LIBTIFF
-  xsane_filetype_item = gtk_menu_item_new_with_label(MENU_ITEM_FILETYPE_TIFF);
-  gtk_container_add(GTK_CONTAINER(xsane_filetype_menu), xsane_filetype_item);
-  g_signal_connect(GTK_OBJECT(xsane_filetype_item), "activate", (GtkSignalFunc) xsane_filetype_callback, (void *) XSANE_FILETYPE_TIFF);
-  gtk_widget_show(xsane_filetype_item);
-  filetype_nr++;
-  if ( (xsane.filetype) && (!strcasecmp(xsane.filetype, XSANE_FILETYPE_TIFF)) )
-  {
-    select_item = filetype_nr;
-  }
-#endif
-
-  xsane.filetype_option_menu = gtk_option_menu_new();
-  xsane_back_gtk_set_tooltip(xsane.tooltips, xsane.filetype_option_menu, DESC_FILETYPE);
+  xsane.filetype_option_menu = xsane_back_gtk_filetype_menu_new(preferences.filetype, (GtkSignalFunc) xsane_filetype_callback);
   gtk_box_pack_end(GTK_BOX(hbox), xsane.filetype_option_menu, FALSE, FALSE, 2);
-  gtk_option_menu_set_menu(GTK_OPTION_MENU(xsane.filetype_option_menu), xsane_filetype_menu);
-  gtk_option_menu_set_history(GTK_OPTION_MENU(xsane.filetype_option_menu), select_item);
   gtk_widget_show(xsane.filetype_option_menu);
 
   xsane_label = gtk_label_new(TEXT_FILETYPE); /* opposite order because of box_pack_end */
@@ -1728,8 +1624,6 @@ void xsane_update_param(void *arg)
 
 void xsane_define_output_filename(void)
 {
- char buffer[256];
-
   DBG(DBG_proc, "xsane_define_output_filename\n");
 
   if (xsane.output_filename)
@@ -1740,35 +1634,34 @@ void xsane_define_output_filename(void)
 
   if (!xsane.force_filename)
   {
-    if (xsane.filetype)
-    {
-      snprintf(buffer, sizeof(buffer), "%s%s", preferences.filename, xsane.filetype);
-      xsane.output_filename = strdup(buffer);
-    }
-    else
-    {
-      xsane.output_filename = strdup(preferences.filename);
-    }
+    xsane.output_filename = strdup(preferences.filename);
   }
   else
   {
-      xsane.output_filename = strdup(xsane.external_filename);
+    xsane.output_filename = strdup(xsane.external_filename);
   }
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-int xsane_identify_output_format(char *filename, char **ext)
+int xsane_identify_output_format(char *filename, char *filetype, char **ext)
 {
  char *extension;
  int output_format=-1;
 
   DBG(DBG_proc, "xsane_identify_output_format\n");
 
-  extension = strrchr(filename, '.');
-  if (extension)
+  if ((filetype) && (*filetype))
   {
-    extension++; /* skip "." */
+    extension = filetype+1; /* go to filetype, skip leading dot */
+  }
+  else
+  {
+    extension = strrchr(filename, '.');
+    if (extension)
+    {
+      extension++; /* skip "." */
+    }
   }
 
   output_format = XSANE_UNKNOWN;
@@ -1793,6 +1686,10 @@ int xsane_identify_output_format(char *filename, char **ext)
       {
         output_format = XSANE_PNM;
       }
+    }
+    else if ( (!strcasecmp(extension, "txt")) || (!strcasecmp(extension, "text")) )
+    {
+      output_format = XSANE_TEXT;
     }
 #ifdef HAVE_LIBPNG
 #ifdef HAVE_LIBZ
@@ -1855,7 +1752,7 @@ void xsane_change_working_directory(void)
   sprintf(windowname, "%s %s %s", xsane.prog_name, WINDOW_CHANGE_WORKING_DIR, xsane.device_text);
   if (getcwd(filename, sizeof(filename)))
   {
-    xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, TRUE, FALSE, TRUE);
+    xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, NULL, TRUE, FALSE, TRUE, FALSE);
     if (chdir(filename))
     {
      char buf[256];
@@ -1864,6 +1761,14 @@ void xsane_change_working_directory(void)
       xsane_back_gtk_error(buf, TRUE);
       xsane_set_sensitivity(TRUE);
       return;
+    }
+    else
+    {
+      if (preferences.working_directory)
+      {
+        free(preferences.working_directory);
+      }
+      preferences.working_directory = strdup(filename);
     }
   }
 

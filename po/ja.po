@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.84\n"
-"POT-Creation-Date: 2002-03-17 00:03+0100\n"
-"PO-Revision-Date: 2002-01-17 15:28+0900\n"
+"Project-Id-Version: XSANE 0.87\n"
+"POT-Creation-Date: 2002-06-30 19:11+0200\n"
+"PO-Revision-Date: 2002-07-03 00:28+900\n"
 "Last-Translator: Kimizuka Tomokazu <sgtom@pluto.dti.ne.jp>\n"
 "Language-Team: Japanese <Kdeveloper@kde.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -37,11 +37,11 @@ msgstr "アクセス権限"
 
 #. WINDOW_GPL
 msgid "GPL - the license"
-msgstr ""
+msgstr "GPL - ライセンス"
 
 #. WINDOW_EULA
 msgid "End User License Agreement"
-msgstr ""
+msgstr "エンドユーザー使用許諾"
 
 #. WINDOW_INFO
 msgid "info"
@@ -193,7 +193,7 @@ msgstr "イメージを保存"
 
 #. MENU_ITEM_OCR
 msgid "OCR - save as text"
-msgstr ""
+msgstr "OCR - テキストで保存"
 
 #. MENU_ITEM_CLONE
 msgid "Clone"
@@ -393,7 +393,7 @@ msgstr "POP3認証"
 
 #. RADIO_BUTTON_OCR_USE_GUI_PIPE
 msgid "Use GUI progress pipe"
-msgstr ""
+msgstr "GUIプログレスパイプを使用"
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
@@ -560,7 +560,6 @@ msgid "unknown"
 msgstr "未知"
 
 #. TEXT_EULA
-#, fuzzy
 msgid ""
 "XSane is distributed under the terms of the GNU General Public License\n"
 "as published by the Free Software Foundation; either version 2 of the\n"
@@ -581,6 +580,10 @@ msgstr ""
 "本プログラムは有用とは思いますが、頒布にあたっては、市場性及び\n"
 "特定目的適合性についての暗黙の保証を含めて、いかなる保証も行な\n"
 "いません。\n"
+"このプログラムが不完全であると証明された場合、奉仕や改修が必要\n"
+"となり、それらのすべてをあなたは受け入れることになります。\n"
+"このプログラムを使用するためにあなたがすべきことは、以下の\n"
+"「無保証許諾条項」を理解し、それに同意することです。\n"
 
 #. TEXT_GPL
 msgid ""
@@ -659,14 +662,6 @@ msgstr "触媒名："
 msgid ""
 "Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
 msgstr ""
-
-#. TEXT_X_SCALE_FACTOR
-msgid "X-Scale factor:"
-msgstr "X成分の倍率："
-
-#. TEXT_Y_SCALE_FACTOR
-msgid "Y-Scale factor:"
-msgstr "Y成分の倍率："
 
 #. TEXT_DESPECKLE_RADIUS
 msgid "Despeckle radius:"
@@ -773,9 +768,8 @@ msgid "TIFF lineart image compression"
 msgstr "TIFF ラインアート画像圧縮"
 
 #. TEXT_SETUP_SHOW_RANGE_MODE
-#, fuzzy
 msgid "Show range as:"
-msgstr "ページを表示"
+msgstr "範囲を表示："
 
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
@@ -903,16 +897,15 @@ msgstr "出力ファイルオプション："
 
 #. TEXT_SETUP_OCR_USE_GUI_PIPE_OPT
 msgid "Use GUI progress pipe:"
-msgstr ""
+msgstr "GUIプログレスパイプを使用"
 
 #. TEXT_SETUP_OCR_OUTFD_OPT
-#, fuzzy
 msgid "GUI output-fd option:"
-msgstr "出力ファイルオプション："
+msgstr "GUI出力FDオプション："
 
 #. TEXT_SETUP_OCR_PROGRESS_KEYWORD
 msgid "Progress keyword:"
-msgstr ""
+msgstr "プログレスキーワード："
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
@@ -1044,11 +1037,11 @@ msgstr "ディレクトリ変更"
 
 #. MENU_ITEM_XSANE_EULA
 msgid "Show EULA"
-msgstr ""
+msgstr "EULAを表示"
 
 #. MENU_ITEM_XSANE_GPL
 msgid "Show license (GPL)"
-msgstr ""
+msgstr "ライセンス(GPL)を表示"
 
 #. MENU_ITEM_XSANE_DOC
 msgid "XSane doc"
@@ -1098,18 +1091,25 @@ msgstr "JPEG DCT 圧縮"
 msgid "pack bits"
 msgstr "パックビット"
 
-#. MENU_ITEM_SHOW_RANGE_SCALE
-#, fuzzy
-msgid "Slider"
-msgstr "スライド"
+#. MENU_ITEM_RANGE_SCALE
+msgid "Slider (Scale)"
+msgstr "スライダー(スケール)"
 
-#. MENU_ITEM_SHOW_RANGE_SPINBUTTON
+#. MENU_ITEM_RANGE_SCROLLBAR
+msgid "Slider (Scrollbar)"
+msgstr "スライダー(スクロールバー)"
+
+#. MENU_ITEM_RANGE_SPINBUTTON
 msgid "Spinbutton"
-msgstr ""
+msgstr "スピンボタン"
 
-#. MENU_ITEM_SHOW_RANGE_BOTH
-msgid "Slider and Spinbutton"
-msgstr ""
+#. MENU_ITEM_RANGE_SCALE_SPIN
+msgid "Scale and Spinbutton"
+msgstr "スケールとスピンボタン"
+
+#. MENU_ITEM_RANGE_SCROLL_SPIN
+msgid "Scrollbar and Spinbutton"
+msgstr "スクロールバーとスピンボタン"
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
 msgid "Standard options window (lineart)"
@@ -1200,6 +1200,10 @@ msgstr "画像のしみ取り中"
 msgid "Bluring image"
 msgstr "画像をにじませ中"
 
+#. PROGRESS_OCR
+msgid "OCR in progress"
+msgstr "OCR進行中"
+
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
 msgstr "スキャン開始 <Ctrl-Enter>"
@@ -1218,9 +1222,11 @@ msgstr "スキャンプレビューをキャンセル <Alt-ESC>"
 
 #. DESC_XSANE_MODE
 msgid ""
-"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or "
-"mail-<Ctrl-m>"
+"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or mail-<Ctrl-"
+"m>"
 msgstr ""
+"保存-<Ctrl-s>, ビュー-<Ctrl-v>, フォトコピー-<Ctrl-c>, FAX-<Ctrl-f> または "
+"メール-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
 msgid "Select source medium type"
@@ -1574,7 +1580,7 @@ msgstr "ディスプレイ解像度が8ビットなら、プレビューに固有のカラーマップを使う"
 
 #. DESC_SHOW_RANGE_MODE
 msgid "Select how a range is displayed"
-msgstr ""
+msgstr "表示する範囲を選択"
 
 #. DESC_PREVIEW_OVERSAMPLING
 msgid "Value with that the calculated preview resolution is multiplied"
@@ -1741,17 +1747,18 @@ msgstr "出力ファイルを定義するOCRプログラムのオプションを入力"
 
 #. DESC_OCR_USE_GUI_PIPE_OPT
 msgid "Define if the ocr program supports gui progress pipe"
-msgstr ""
+msgstr "OCRプログラムがGUIプログレスパイプをサポートするかを定義"
 
 #. DESC_OCR_OUTFD_OPT
-#, fuzzy
 msgid ""
 "Enter option of the ocr program to define output filedescripor in GUI mode"
-msgstr "出力ファイルを定義するOCRプログラムのオプションを入力"
+msgstr ""
+"GUIモードで出力ファイルディスクリプタを定義するためのOCRプログラムのオプショ"
+"ンを入力"
 
 #. DESC_OCR_PROGRESS_KEYWORD
 msgid "Define Keyword that is used to mark progress information"
-msgstr ""
+msgstr "進行状況をマークするキーワードを定義"
 
 #. DESC_PERMISSION_READ
 msgid "read"
@@ -1787,6 +1794,10 @@ msgid "Zoom 20% out"
 msgstr "20%縮小"
 
 #. DESC_ZOOM_IN
+msgid "Click at position to zoom to"
+msgstr "拡大する位置をクリック"
+
+#. DESC_ZOOM_AREA
 msgid "Zoom into selected area"
 msgstr "選択領域を拡大"
 
@@ -1801,6 +1812,10 @@ msgstr "可視領域を選択"
 #. DESC_AUTOSELECT_SCANAREA
 msgid "Autoselect scanarea"
 msgstr "スキャン領域の自動選択"
+
+#. DESC_AUTORAISE_SCANAREA
+msgid "Autoraise scanarea"
+msgstr "スキャン領域の自動拡張"
 
 #. DESC_DELETE_IMAGES
 msgid "Delete preview image cache"
@@ -1854,6 +1869,18 @@ msgstr "触媒を保存"
 msgid "Delete active medium"
 msgstr "アクティブな触媒を削除"
 
+#. DESC_SCALE_FACTOR
+msgid "Scale factor"
+msgstr "倍率："
+
+#. DESC_X_SCALE_FACTOR
+msgid "X-Scale factor"
+msgstr "X成分の倍率："
+
+#. DESC_Y_SCALE_FACTOR
+msgid "Y-Scale factor"
+msgstr "Y成分の倍率："
+
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
 msgstr "ホームディレクトリの確定に失敗しました："
@@ -1867,9 +1894,8 @@ msgid "Filename too long"
 msgstr "ファイル名が長すぎます"
 
 #. ERR_CREATE_TEMP_FILE
-#, fuzzy
 msgid "Could not create temporary file"
-msgstr "一時プレビューファイルを作れません"
+msgstr "一時ファイルを作れません"
 
 #. ERR_SET_OPTION
 msgid "Failed to set value of option"
@@ -1917,7 +1943,6 @@ msgid "Failed to open"
 msgstr "開けません"
 
 #. ERR_CREATE_SECURE_FILE
-#, fuzzy
 msgid "Could not create secure file (may be a link does exist):"
 msgstr "安全なファイルを作れません（リンク切れなど）："
 
@@ -2077,6 +2102,10 @@ msgstr "警告"
 msgid "Information"
 msgstr "情報"
 
+#. ERR_HEADER_CHILD_PROCESS_ERROR
+msgid "Child process error"
+msgstr "子プロセスのエラー"
+
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
 msgstr "ファイルの作成に失敗しました："
@@ -2147,7 +2176,6 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[オプション]...[デバイス]"
 
 #. TEXT_HELP
-#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2158,8 +2186,8 @@ msgid ""
 " -v, --version                print version information\n"
 " -l, --license                print license information\n"
 "\n"
-" -d, --device-settings file   load device settings from file (without "
-"\".drc\")\n"
+" -d, --device-settings file   load device settings from file (without \".drc"
+"\")\n"
 "\n"
 " -V, --viewer                 start with viewer-mode active (default)\n"
 " -s, --save                   start with save-mode active\n"
@@ -2193,8 +2221,8 @@ msgstr ""
 " -v, --version                バージョン詳報を表示する\n"
 " -l, --license                ライセンス情報を表示する\n"
 "\n"
-" -d, --device-settings file   "
-"デバイス設定をファイルから読み込む（\".drc\"抜きで）\n"
+" -d, --device-settings file   デバイス設定をファイルから読み込む（\".drc\"抜"
+"きで）\n"
 "\n"
 " -V, --viewer                 ビューワモード アクティブで起動\n"
 " -s, --save                   セーブモード アクティブで起動\n"
@@ -2203,14 +2231,16 @@ msgstr ""
 " -m, --mail                   メールモード アクティブで起動\n"
 " -n, --no-mode-selection      XSaneのモード選択メニューをオフにする\n"
 "\n"
-" -F, --Fixed                  "
-"メインウィンドウのサイズを固定（設定値を上書き）\n"
-" -R, --Resizeable             "
-"メインウィンドウをスクロール・リサイズ可能にする（設定値を上書き）\n"
+" -M, --Medium-calibration     中間補正モードを有効にする\n"
+"\n"
+" -F, --Fixed                  メインウィンドウのサイズを固定（設定値を上書"
+"き）\n"
+" -R, --Resizeable             メインウィンドウをスクロール・リサイズ可能にす"
+"る（設定値を上書き）\n"
 "\n"
 " -p, --print-filenames        XSaneで作成した画像ファイル名を印刷\n"
-" -N, --force-filename name    "
-"ファイル名を強制して、ユーザーファイル名の選択を無効にする\n"
+" -N, --force-filename name    ファイル名を強制して、ユーザーファイル名の選択"
+"を無効にする\n"
 "\n"
 " --display X11-display        X11のディスプレイ出力にリダイレクトする\n"
 " --no-xshm                    共有メモリのイメージを使わない\n"
@@ -2226,9 +2256,8 @@ msgid ""
 "This function provides access to scanners and other image acquisition "
 "devices through the SANE (Scanner Access Now Easy) interface."
 msgstr ""
-"この機能は、インターフェイスSANE(Scanner Access Now "
-"Easy)を通じてスキャナをはじめとする画像取込みデバイスへのアクセスを提供します"
-"。"
+"この機能は、インターフェイスSANE(Scanner Access Now Easy)を通じてスキャナをは"
+"じめとする画像取込みデバイスへのアクセスを提供します。"
 
 #. Menu path must not be translated, this is done by the gimp. Only translate the text behind the last "/"
 #. XSANE_GIMP_MENU_DIALOG

@@ -115,14 +115,12 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
  SANE_Handle dev = xsane.dev;
  SANE_Status status;
  SANE_Int len;
- int i, j, x;
+ int i, j;
  char buf[255];
 
   DBG(DBG_proc, "xsane_read_image_data\n");
 
   xsane.reading_data = TRUE;
-
-  x = xsane.param.pixels_per_line;
 
   if ( (xsane.param.depth == 1) || (xsane.param.depth == 8) )
   {
@@ -247,16 +245,17 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
                 {
                   *expanded_buf8ptr = (val & (1 << j)) ? 0x00 : 0xff;
                   expanded_buf8ptr++;
-                  x--;
-                  if (x <= 0)
+
+                  xsane.lineart_to_grayscale_x--;
+                  if (xsane.lineart_to_grayscale_x <= 0)
                   {
-                    x = xsane.param.pixels_per_line;
+                    xsane.lineart_to_grayscale_x = xsane.param.pixels_per_line;
                     break;
                   }
                 }
                 buf8ptr++;
               }
-              fwrite(expanded_buf8, 1, len*8, xsane.out);
+              fwrite(expanded_buf8, 1, (size_t) (expanded_buf8ptr - expanded_buf8), xsane.out);
               free(expanded_buf8);
             }
             else /* save direct to the file */
@@ -1730,6 +1729,8 @@ static void xsane_start_scan(void)
 
   xsane.input_tag = -1;
 
+  xsane.lineart_to_grayscale_x = xsane.param.pixels_per_line;
+
 #ifndef BUGGY_GDK_INPUT_EXCEPTION
   /* for unix */
   if ((sane_set_io_mode(dev, SANE_TRUE) == SANE_STATUS_GOOD) && (sane_get_select_fd(dev, &fd) == SANE_STATUS_GOOD))
@@ -1757,6 +1758,8 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
  const SANE_Option_Descriptor *opt;
 
   DBG(DBG_proc, "xsane_scan_dialog\n");
+
+  xsane_set_sensitivity(FALSE);
 
   xsane.reduce_16bit_to_8bit = preferences.reduce_16bit_to_8bit; /* reduce 16 bit image to 8 bit ? */
 
@@ -1789,15 +1792,17 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
        char buf[256];
 
         fclose(testfile);
+
         snprintf(buf, sizeof(buf), WARN_FILE_EXISTS, xsane.output_filename);
         if (xsane_back_gtk_decision(ERR_HEADER_WARNING, (gchar **) warning_xpm, buf, BUTTON_OVERWRITE, BUTTON_CANCEL, TRUE /* wait */) == FALSE)
         {
+          xsane_set_sensitivity(TRUE);
           return;
         }
       }
     }
 
-    xsane.xsane_output_format = xsane_identify_output_format(xsane.output_filename, &extension);
+    xsane.xsane_output_format = xsane_identify_output_format(xsane.output_filename, preferences.filetype, &extension);
 
     if (xsane.xsane_mode == XSANE_SAVE)
     {
@@ -1812,7 +1817,8 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
           snprintf(buf, sizeof(buf), "%s", ERR_NO_OUTPUT_FORMAT);
         }
         xsane_back_gtk_error(buf, TRUE);
-        return;
+        xsane_set_sensitivity(TRUE);
+       return;
       }
       else if ( ( ( (xsane.xsane_output_format == XSANE_JPEG) && xsane.param.depth == 16) ||
                   ( (xsane.xsane_output_format == XSANE_PS)   && xsane.param.depth == 16) ) &&
@@ -1822,7 +1828,8 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
         snprintf(buf, sizeof(buf), TEXT_REDUCE_16BIT_TO_8BIT);
         if (xsane_back_gtk_decision(ERR_HEADER_INFO, (gchar **) info_xpm, buf, BUTTON_REDUCE, BUTTON_CANCEL, TRUE /* wait */) == FALSE)
         {
-          return;
+          xsane_set_sensitivity(TRUE);
+         return;
         }
         xsane.reduce_16bit_to_8bit = TRUE;
       }
@@ -1832,7 +1839,8 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
       {
         snprintf(buf, sizeof(buf), "No RGBA data format !!!"); /* user selected output format RGBA, scanner uses other format */
         xsane_back_gtk_error(buf, TRUE);
-        return;
+        xsane_set_sensitivity(TRUE);
+       return;
       }
 #endif
     }
@@ -1841,7 +1849,8 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
     {
       snprintf(buf, sizeof(buf), "Special format RGBA only supported in scan mode !!!");
       xsane_back_gtk_error(buf, TRUE);
-      return;
+      xsane_set_sensitivity(TRUE);
+     return;
     }
 #endif
 
@@ -1852,7 +1861,8 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
       {
         snprintf(buf, sizeof(buf), "Image data of type SANE_FRAME_RGBA\ncan only be saved in rgba or png format");
         xsane_back_gtk_error(buf, TRUE);
-        return;
+        xsane_set_sensitivity(TRUE);
+       return;
       }
     }
 #endif
@@ -1879,7 +1889,8 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
           snprintf(buf, sizeof(buf), TEXT_GIMP_REDUCE_16BIT_TO_8BIT);
           if (xsane_back_gtk_decision(ERR_HEADER_INFO, (gchar **) info_xpm, buf, BUTTON_REDUCE, BUTTON_CANCEL, TRUE /* wait */) == FALSE)
           {
-            return;
+            xsane_set_sensitivity(TRUE);
+           return;
           }
           xsane.reduce_16bit_to_8bit = TRUE;
         }
@@ -1887,6 +1898,7 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
         {
           snprintf(buf, sizeof(buf), ERR_GIMP_BAD_DEPTH, xsane.param.depth);
           xsane_back_gtk_error(buf, TRUE);
+          xsane_set_sensitivity(TRUE);
          return;
         }
       }
@@ -2036,9 +2048,9 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
     xsane.gamma_data = 0;
   }
 
-  xsane_clear_histogram(&xsane.histogram_raw);
-  xsane_clear_histogram(&xsane.histogram_enh);    
-  xsane_set_sensitivity(FALSE);
+//  xsane_clear_histogram(&xsane.histogram_raw);
+//  xsane_clear_histogram(&xsane.histogram_enh);    
+//  xsane_set_sensitivity(FALSE);
 
   while (gtk_events_pending())
   {

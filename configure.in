@@ -6,14 +6,14 @@ AC_CONFIG_HEADER(include/config.h)
 
 # version code:
 V_MAJOR=0
-V_MINOR=86
+V_MINOR=87
 
 PACKAGE=xsane
 
 BINPROGS="xsane"
 
 # languages
-ALL_LINGUAS="cs de es fr nl ru sl sr sv it ja tr"
+ALL_LINGUAS="cs de es fr nl ru sk sl sr sv it ja tr"
 
 SANE_V_MAJOR=1
 VERSION=${V_MAJOR}.${V_MINOR}
@@ -123,10 +123,13 @@ dnl *** if xsane is compiled as gimp plugin it is possible that we do not
 dnl *** need the test for gtk, but when we have gimp-1.0.x installed
 dnl *** (gimp-1.0.x does not have gimp-config) or we compile xsane without
 dnl *** gimp support we need the test for gtk
-AM_PATH_GTK(1.2.0, HAVE_GTK=yes, )
+AM_PATH_GTK2(2.0.0, HAVE_GTK=yes, )
+if test "x${HAVE_GTK}" = "x"; then
+  AM_PATH_GTK(1.2.0, HAVE_GTK=yes, )
+fi
 
 if test "${USE_GIMP}" = "yes"; then
-  AM_PATH_GIMP(1.0.0, HAVE_GIMP=yes)
+ AM_PATH_GIMP(1.0.0, HAVE_GIMP=yes)
 fi
  
 

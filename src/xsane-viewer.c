@@ -138,6 +138,7 @@ static void xsane_viewer_save_callback(GtkWidget *window, gpointer data)
  char *inputfilename;
  char windowname[256];
  int output_format;
+ char *filetype = NULL;
 
   DBG(DBG_proc, "xsane_viewer_save_callback\n");
 
@@ -156,7 +157,7 @@ static void xsane_viewer_save_callback(GtkWidget *window, gpointer data)
     snprintf(windowname, sizeof(windowname), "%s %s %s", xsane.prog_name, WINDOW_VIEWER_OUTPUT_FILENAME, xsane.device_text);
  
     umask((mode_t) preferences.directory_umask); /* define new file permissions */
-    abort = xsane_back_gtk_get_filename(windowname, outputfilename, sizeof(outputfilename), outputfilename, TRUE, TRUE, FALSE);
+    abort = xsane_back_gtk_get_filename(windowname, outputfilename, sizeof(outputfilename), outputfilename, &filetype, TRUE, TRUE, FALSE, TRUE);
     umask(XSANE_DEFAULT_UMASK); /* define new file permissions */ 
 
     if (abort)
@@ -187,7 +188,7 @@ static void xsane_viewer_save_callback(GtkWidget *window, gpointer data)
 
   inputfilename = strdup(v->filename);
 
-  output_format = xsane_identify_output_format(outputfilename, 0);
+  output_format = xsane_identify_output_format(outputfilename, filetype, 0);
 
   if (v->reduce_to_lineart) /* reduce grayscale image to lineart before saving */
   {
@@ -250,14 +251,7 @@ static void xsane_viewer_ocr_callback(GtkWidget *window, gpointer data)
  char outputfilename[1024];
  char *extensionptr;
  char windowname[256];
- char *arg[1000];
- char buf[256];
- int argnr;
- pid_t pid;
  int abort = 0;
- int i;
- int pipefd[2]; /* for progress communication with gocr */
- FILE *ocr_progress = NULL;
 
   DBG(DBG_proc, "xsane_viewer_ocr_callback\n");
 
@@ -275,7 +269,7 @@ static void xsane_viewer_ocr_callback(GtkWidget *window, gpointer data)
   snprintf(windowname, sizeof(windowname), "%s %s %s", xsane.prog_name, WINDOW_OCR_OUTPUT_FILENAME, xsane.device_text);
  
   umask((mode_t) preferences.directory_umask); /* define new file permissions */
-  abort = xsane_back_gtk_get_filename(windowname, outputfilename, sizeof(outputfilename), outputfilename, TRUE, TRUE, FALSE);
+  abort = xsane_back_gtk_get_filename(windowname, outputfilename, sizeof(outputfilename), outputfilename, NULL, TRUE, TRUE, FALSE, FALSE);
   umask(XSANE_DEFAULT_UMASK); /* define new file permissions */ 
 
   if (abort)
@@ -289,132 +283,9 @@ static void xsane_viewer_ocr_callback(GtkWidget *window, gpointer data)
     gtk_main_iteration();
   }
 
-  argnr = xsane_parse_options(preferences.ocr_command, arg);
-
-  arg[argnr++] = strdup(preferences.ocr_inputfile_option);
-  arg[argnr++] = strdup(v->filename);
-
-  arg[argnr++] = strdup(preferences.ocr_outputfile_option);
-  arg[argnr++] = strdup(outputfilename);
-
-  if (preferences.ocr_use_gui_pipe)
-  {
-    if (!pipe(pipefd)) /* success */
-    {
-      DBG(DBG_info, "created pipe for progress communication\n");
-
-      arg[argnr++] = strdup(preferences.ocr_gui_outfd_option);
-
-      snprintf(buf, sizeof(buf),"%d", pipefd[1]);
-      arg[argnr++] = strdup(buf);
-    }
-    else
-    {
-      DBG(DBG_info, "could not create pipe for progress communication\n");
-      pipefd[0] = 0;
-      pipefd[1] = 0;
-    }
-  }
-  else
-  {
-    DBG(DBG_info, "no pipe for progress communication requested\n");
-    pipefd[0] = 0;
-    pipefd[1] = 0;
-  }
-
-  arg[argnr] = 0;
-
-  pid = fork(); 
-
-  if (pid == 0) /* new process */
-  {
-    if (pipefd[0]) /* did we create the progress pipe? */
-    {
-      close(pipefd[0]); /* close reading end of pipe */
-    }
-
-    DBG(DBG_info, "trying to change user id fo new subprocess:\n");
-    DBG(DBG_info, "old effective uid = %d\n", geteuid());
-    setuid(getuid());
-    DBG(DBG_info, "new effective uid = %d\n", geteuid());
-
-
-    execvp(arg[0], arg); /* does not return if successfully */
-    DBG(DBG_error, "%s %s\n", ERR_FAILED_EXEC_OCR_CMD, preferences.ocr_command);
-    _exit(0); /* do not use exit() here! otherwise gtk gets in trouble */
-  }
-
-  if (pipefd[1])
-  {
-    close(pipefd[1]); /* close writing end of pipe */
-    ocr_progress = fdopen(pipefd[0], "r"); /* open reading end of pipe as file */
-  }
-
-  for (i=0; i<argnr; i++)
-  {
-    free(arg[i]);
-  }
-
-  if (ocr_progress) /* pipe available */
-  {
-    gtk_progress_set_format_string(GTK_PROGRESS(v->progress_bar), "OCR in progress");
-    gtk_progress_bar_update(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
-
-    while (!feof(ocr_progress))
-    {
-     int progress;
-      fgets(buf, sizeof(buf), ocr_progress);
-
-      if (!strncmp(preferences.ocr_progress_keyword, buf, strlen(preferences.ocr_progress_keyword)))
-      {
-        sscanf(buf + strlen(preferences.ocr_progress_keyword), "%d", &progress);
-        if (progress < 0)
-        {
-          progress = 0;
-        }
-
-        if (progress > 100)
-        {
-          progress = 100;
-        }
-
-        gtk_progress_bar_update(GTK_PROGRESS_BAR(v->progress_bar), progress/100.0);
-      }
-
-      while (gtk_events_pending())
-      {
-        gtk_main_iteration();
-      }
-    }
-
-    gtk_progress_set_format_string(GTK_PROGRESS(v->progress_bar), "");
-    gtk_progress_bar_update(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
-  }
-  else /* no pipe available */
-  {
-    while (pid)
-    {
-     int status = 0;
-     pid_t pid_status = waitpid(pid, &status, WNOHANG);
- 
-      if (pid == pid_status)
-      {
-        pid = 0; /* ok, child process has terminated */
-      }
- 
-      while (gtk_events_pending())
-      {
-        gtk_main_iteration();
-      }
-    } 
-  }
+  xsane_save_image_as_text(v->filename, outputfilename, v->progress_bar, &v->cancel_save);
 
   gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
-
-  if (pipefd[0])
-  {
-    fclose(ocr_progress); /* close reading end of pipe */
-  }
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

@@ -375,6 +375,7 @@
 #define PROGRESS_SCALING_DATA		_("Scaling image")
 #define PROGRESS_DESPECKLING_DATA	_("Despeckling image")
 #define PROGRESS_BLURING_DATA		_("Bluring image")
+#define PROGRESS_OCR			_("OCR in progress")
 
 #define DESC_SCAN_START			_("Start scan <Ctrl-Enter>")
 #define DESC_SCAN_CANCEL		_("Cancel scan <ESC>")
@@ -634,6 +635,7 @@ YOU ARE ALONE!\
 #define ERR_HEADER_ERROR		_("Error")
 #define ERR_HEADER_WARNING		_("Warning")
 #define ERR_HEADER_INFO			_("Information")
+#define ERR_HEADER_CHILD_PROCESS_ERROR	_("Child process error")
 
 #define ERR_FAILED_CREATE_FILE		_("Failed to create file:")
 #define ERR_LOAD_DEVICE_SETTINGS	_("Error while loading device settings:")

@@ -51,7 +51,9 @@ Preferences preferences =
   {
        0,		/* xsane-version string */
        0,		/* default path to temporary directory (not defined here) */
+       0,		/* default working_directory */
        0,		/* no default filename */
+       0,		/* no default filetype */
        0137,		/* image umask (permission mask for -rw-r------) */
        0027,		/* directory umask (permission mask for -rwxr-x----) */
        0,		/* no fax project */
@@ -148,7 +150,9 @@ desc[] =
   {
     {"xsane-version",			xsane_rc_pref_string,	POFFSET(xsane_version_str)},
     {"tmp-path",			xsane_rc_pref_string,	POFFSET(tmp_path)},
+    {"working-directory",		xsane_rc_pref_string,	POFFSET(working_directory)},
     {"filename",			xsane_rc_pref_string,	POFFSET(filename)},
+    {"filetype",			xsane_rc_pref_string,	POFFSET(filetype)},
     {"image-umask",			xsane_rc_pref_int,	POFFSET(image_umask)},
     {"directory-umask",			xsane_rc_pref_int,	POFFSET(directory_umask)},
     {"fax-project",			xsane_rc_pref_string,	POFFSET(fax_project)},

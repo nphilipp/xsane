@@ -1,18 +1,19 @@
-# XSane Spanish .po file
-# Copyright (C) 2001 Free Software Foundation, Inc.
-# Gustavo D. Vranjes <gvranjes@abaconet.com.ar>, 2001
+# translation of es.po to Castellano
+# XSane-0.87 Spanish .po file
+# Copyright (C) 2001,2002 Free Software Foundation, Inc.
+# Gustavo D. Vranjes <gvranjes@abaconet.com.ar>, 2001,2002
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSane-0.84\n"
-"POT-Creation-Date: 2002-03-17 00:03+0100\n"
-"PO-Revision-Date: 2002-01-14 22:56GMT\n"
+"Project-Id-Version: XSANE 0.87\n"
+"POT-Creation-Date: 2002-06-30 19:11+0200\n"
+"PO-Revision-Date: 2002-07-02 23:36GMT\n"
 "Last-Translator: Gustavo D. Vranjes <gvranjes@abaconet.com.ar>\n"
 "Language-Team: Castellano <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.9.5\n"
+"X-Generator: KBabel 1.0beta1\n"
 
 #. Please translate this to the correct directory name (eg. german=>de)
 #. XSANE_LANGUAGE_DIR
@@ -38,11 +39,11 @@ msgstr "autorización"
 
 #. WINDOW_GPL
 msgid "GPL - the license"
-msgstr ""
+msgstr "GPL - la licencia"
 
 #. WINDOW_EULA
 msgid "End User License Agreement"
-msgstr ""
+msgstr "Acuerdo de Licencia para Usuario Final"
 
 #. WINDOW_INFO
 msgid "info"
@@ -194,7 +195,7 @@ msgstr "Guardar imagen"
 
 #. MENU_ITEM_OCR
 msgid "OCR - save as text"
-msgstr ""
+msgstr "OCR - guardar como texto"
 
 #. MENU_ITEM_CLONE
 msgid "Clone"
@@ -337,7 +338,6 @@ msgid "Do not close"
 msgstr "No cerrar"
 
 #. BUTTON_SCALE_BIND
-#, fuzzy
 msgid "Bind scale"
 msgstr "Atar escala"
 
@@ -395,7 +395,7 @@ msgstr "Autentificación POP3"
 
 #. RADIO_BUTTON_OCR_USE_GUI_PIPE
 msgid "Use GUI progress pipe"
-msgstr ""
+msgstr "Usar progreso de tubería GUI "
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
@@ -563,7 +563,6 @@ msgid "unknown"
 msgstr "desconocido"
 
 #. TEXT_EULA
-#, fuzzy
 msgid ""
 "XSane is distributed under the terms of the GNU General Public License\n"
 "as published by the Free Software Foundation; either version 2 of the\n"
@@ -584,6 +583,11 @@ msgstr ""
 "Éste programa se distribuye con el deseo que pueda ser útil, pero\n"
 "SIN NINGUNA GARANTÍA; aún sin la garantía implícita de\n"
 "MERCANTILISMO o AJUSTE PARA ALGÚN PROPÓSITO PARTICULAR\n"
+"Sea el caso de probarse defecto del programa, usted asumirá el costo de "
+"toda\n"
+"reparación, servicio ó corrección necesarios. Para usar éste programa usted\n"
+"tiene que leer, entender y aceptar el siguiente\n"
+"acuerdo de \"NO GARANTÍA\".\n"
 
 #. TEXT_GPL
 msgid ""
@@ -654,7 +658,6 @@ msgid "Project status:"
 msgstr "Estado del proyecto:"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
-#, fuzzy
 msgid "Medium Name:"
 msgstr "Nombre del medio:"
 
@@ -665,14 +668,6 @@ msgid ""
 msgstr ""
 "Tamaño %d x %d pixel, %d bit/color, %d colores, %1.0f dpi x %1.0f ppp, %1.1f "
 "%s"
-
-#. TEXT_X_SCALE_FACTOR
-msgid "X-Scale factor:"
-msgstr "Factor de Escala-X:"
-
-#. TEXT_Y_SCALE_FACTOR
-msgid "Y-Scale factor:"
-msgstr "Factor de Escala Y:"
 
 #. TEXT_DESPECKLE_RADIUS
 msgid "Despeckle radius:"
@@ -779,9 +774,8 @@ msgid "TIFF lineart image compression"
 msgstr "Compresión de imagen TIFF de línea de arte"
 
 #. TEXT_SETUP_SHOW_RANGE_MODE
-#, fuzzy
 msgid "Show range as:"
-msgstr "Mostrar página"
+msgstr "Mostrar range as:"
 
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
@@ -909,16 +903,15 @@ msgstr "Opción del archivo de salida:"
 
 #. TEXT_SETUP_OCR_USE_GUI_PIPE_OPT
 msgid "Use GUI progress pipe:"
-msgstr ""
+msgstr "Usar tubería de progreso GUI:"
 
 #. TEXT_SETUP_OCR_OUTFD_OPT
-#, fuzzy
 msgid "GUI output-fd option:"
-msgstr "Opción del archivo de salida:"
+msgstr "Opción de salida-fd GUI:"
 
 #. TEXT_SETUP_OCR_PROGRESS_KEYWORD
 msgid "Progress keyword:"
-msgstr ""
+msgstr "Clave de progreso:"
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
@@ -1050,11 +1043,11 @@ msgstr "Cambiar directorio"
 
 #. MENU_ITEM_XSANE_EULA
 msgid "Show EULA"
-msgstr ""
+msgstr "Mostrar EULA"
 
 #. MENU_ITEM_XSANE_GPL
 msgid "Show license (GPL)"
-msgstr ""
+msgstr "Mostrar licencia (GPL)"
 
 #. MENU_ITEM_XSANE_DOC
 msgid "XSane doc"
@@ -1104,18 +1097,25 @@ msgstr "Compresión JPEG DCT"
 msgid "pack bits"
 msgstr "paquetes de bits"
 
-#. MENU_ITEM_SHOW_RANGE_SCALE
-#, fuzzy
-msgid "Slider"
-msgstr "Diapositiva"
+#. MENU_ITEM_RANGE_SCALE
+msgid "Slider (Scale)"
+msgstr "Diapositiva (Escala)"
 
-#. MENU_ITEM_SHOW_RANGE_SPINBUTTON
+#. MENU_ITEM_RANGE_SCROLLBAR
+msgid "Slider (Scrollbar)"
+msgstr "Deslizador (Barra de scroll)"
+
+#. MENU_ITEM_RANGE_SPINBUTTON
 msgid "Spinbutton"
-msgstr ""
+msgstr "Botón de spin"
 
-#. MENU_ITEM_SHOW_RANGE_BOTH
-msgid "Slider and Spinbutton"
-msgstr ""
+#. MENU_ITEM_RANGE_SCALE_SPIN
+msgid "Scale and Spinbutton"
+msgstr "Escala y botón de spin"
+
+#. MENU_ITEM_RANGE_SCROLL_SPIN
+msgid "Scrollbar and Spinbutton"
+msgstr "Barra de scroll y botón de spin"
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
 msgid "Standard options window (lineart)"
@@ -1206,6 +1206,10 @@ msgstr "Desparasitando imagen"
 msgid "Bluring image"
 msgstr "Desenfocando imagen"
 
+#. PROGRESS_OCR
+msgid "OCR in progress"
+msgstr "OCR en progreso"
+
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
 msgstr "Comenzar escaneo <Ctrl-Enter>"
@@ -1224,11 +1228,11 @@ msgstr "Cancelar vista previa del escaneo <Alt-ESC>"
 
 #. DESC_XSANE_MODE
 msgid ""
-"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or "
-"mail-<Ctrl-m>"
+"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or mail-<Ctrl-"
+"m>"
 msgstr ""
-"guardar-<Ctrl-s>, ver-<Ctrl-v>, fotocopia-<Ctrl-c>, fax-<Ctrl-f> ó "
-"mail-<Ctrl-m>"
+"guardar-<Ctrl-s>, ver-<Ctrl-v>, fotocopia-<Ctrl-c>, fax-<Ctrl-f> ó mail-"
+"<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
 msgid "Select source medium type"
@@ -1252,8 +1256,8 @@ msgid ""
 "Type of image format, the suitable filename extension is automatically added "
 "to the filename"
 msgstr ""
-"Tipo de formato de imagen, la extensión adecuada se agregará automáticamente "
-" al nombre de archivo"
+"Tipo de formato de imagen, la extensión adecuada se agregará "
+"automáticamente  al nombre de archivo"
 
 #. DESC_FAXPROJECT
 msgid "Enter name of fax project"
@@ -1562,8 +1566,8 @@ msgstr ""
 #. DESC_REDUCE_16BIT_TO_8BIT
 msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
 msgstr ""
-"Si el escáner envía imágenes de 16 bits/color guardar imágenes con 8 "
-"bits/color"
+"Si el escáner envía imágenes de 16 bits/color guardar imágenes con 8 bits/"
+"color"
 
 #. DESC_PSFILE_WIDTH
 msgid "Width of paper for postscript files"
@@ -1607,7 +1611,7 @@ msgstr ""
 
 #. DESC_SHOW_RANGE_MODE
 msgid "Select how a range is displayed"
-msgstr ""
+msgstr "Seleccionar cómo se muestra un rango"
 
 #. DESC_PREVIEW_OVERSAMPLING
 msgid "Value with that the calculated preview resolution is multiplied"
@@ -1801,17 +1805,18 @@ msgstr "ngresar opción para el programa de OCR para definir archivo de salida"
 
 #. DESC_OCR_USE_GUI_PIPE_OPT
 msgid "Define if the ocr program supports gui progress pipe"
-msgstr ""
+msgstr "Definir si el programa de ocr soporta tubería de proceso GUI"
 
 #. DESC_OCR_OUTFD_OPT
-#, fuzzy
 msgid ""
 "Enter option of the ocr program to define output filedescripor in GUI mode"
-msgstr "ngresar opción para el programa de OCR para definir archivo de salida"
+msgstr ""
+"Ingresar opción para el programa de ocr para definir descriptor de archivo "
+"de salida en modo GUI"
 
 #. DESC_OCR_PROGRESS_KEYWORD
 msgid "Define Keyword that is used to mark progress information"
-msgstr ""
+msgstr "Palabra clave que se usa para indicar información de progreso"
 
 #. DESC_PERMISSION_READ
 msgid "read"
@@ -1847,6 +1852,10 @@ msgid "Zoom 20% out"
 msgstr "Ampliar 20%"
 
 #. DESC_ZOOM_IN
+msgid "Click at position to zoom to"
+msgstr "Hacer click en la posición para hacer zoom a"
+
+#. DESC_ZOOM_AREA
 msgid "Zoom into selected area"
 msgstr "Ampliar dentro del área seleccionada"
 
@@ -1860,6 +1869,10 @@ msgstr "Seleccionar area visible"
 
 #. DESC_AUTOSELECT_SCANAREA
 msgid "Autoselect scanarea"
+msgstr "Autoseleccionar área de escaneado"
+
+#. DESC_AUTORAISE_SCANAREA
+msgid "Autoraise scanarea"
 msgstr "Autoseleccionar área de escaneado"
 
 #. DESC_DELETE_IMAGES
@@ -1913,6 +1926,18 @@ msgstr "Guardar medio"
 #. DESC_DELETE_MEDIUM
 msgid "Delete active medium"
 msgstr "Borrar medio activo"
+
+#. DESC_SCALE_FACTOR
+msgid "Scale factor"
+msgstr "Factor de escala"
+
+#. DESC_X_SCALE_FACTOR
+msgid "X-Scale factor"
+msgstr "Factor de Escala-X"
+
+#. DESC_Y_SCALE_FACTOR
+msgid "Y-Scale factor"
+msgstr "Factor de Escala Y"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2136,6 +2161,10 @@ msgstr "Aviso"
 msgid "Information"
 msgstr "Información"
 
+#. ERR_HEADER_CHILD_PROCESS_ERROR
+msgid "Child process error"
+msgstr "Error de proceso hijo"
+
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
 msgstr "Falló al crear archivo:"
@@ -2206,7 +2235,6 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[OPCIÓN]... [DISPOSITIVO]"
 
 #. TEXT_HELP
-#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2217,8 +2245,8 @@ msgid ""
 " -v, --version                print version information\n"
 " -l, --license                print license information\n"
 "\n"
-" -d, --device-settings file   load device settings from file (without "
-"\".drc\")\n"
+" -d, --device-settings file   load device settings from file (without \".drc"
+"\")\n"
 "\n"
 " -V, --viewer                 start with viewer-mode active (default)\n"
 " -s, --save                   start with save-mode active\n"
@@ -2243,40 +2271,43 @@ msgid ""
 " --sync                       request a synchronous connection with the X11 "
 "server"
 msgstr ""
-"Ejecutar interfaz gráfica para acceder a dispositivos SANE[(A)cceso a "
-"e(S)cáner (N)ahora (E)fácil)\n"
+"Ejecutar interfaz gráfica de usuario para acceder a dispositivos SANE [\n"
+"(A)cceso a e(S)cáner (N)ahora (E)fácil]\n"
 "\n"
-"El formato de [DISPOSITIVO] es nombre:archivo_de_dispositivo de backend "
-"(e.g. umax:/dev/scanner).\n"
-"[OPCIÓN]... puede  ser una combinación de los siguientes items:\n"
+"El formato de [DISPOSITIVO] es nombre_de_backend:archivo_de_dispositivo\n"
+"(p/ej. umax:/dev/scanner).\n"
+"[OPCIÓN]... puede  ser una combinación de los siguientes ítems:\n"
 " -h, --help                   mostrar éste mensaje de ayuda y salir\n"
 " -v, --version                imprimir información de la versión\n"
 " -l, --license                imprimir información de la licencia\n"
 "\n"
-" -d, --device-settings arch.  cargar opciones de dispositivo desde archivo "
-"(sin \".drc\")\n"
+" -d, --device-settings file  cargar opciones de dispositivo desde archivo\n"
+"                             (sin \".drc\")\n"
 "\n"
+" -V, --viewer                 comenzar con viewer-mode activo (por defecto)\n"
 " -s, --save                   comenzar con save-mode activo\n"
-" -V, --viewer                 comenzar con viewer-mode activo\n"
 " -c, --copy                   comenzar con copy-mode activo\n"
 " -f, --fax                    comenzar con fax-mode activo\n"
 " -m, --mail                   comenzar con mail-mode activo\n"
-" -n, --no-mode-selection      no habilitar menu para XSane mode selection\n"
+" -n, --no-mode-selection      no habilitar menu para selección del modo "
+"XSAne\n"
 "\n"
-" -F, --Fixed                  tamaño de ventana principal fijo (sobreescribe "
-"el valor de preferencias)\n"
-" -R, --Resizeable             ventana principal redimensionable, con scroll "
-"(sobreescribe el valor de preferencias)\n"
+" -M, --Medium-calibration     habilitar modo de calibración medio\n"
 "\n"
-" -p, --print-filenames        imprimir nombres de archivos de imágenes "
-"creadas por XSane\n"
-" -N, --force-filename nombre  forzar nombre de archivo y no habilitar el de "
-"la selección de usuario \n"
+" -F, --Fixed                  tamaño de ventana principal fijo\n"
+"                              (sobreescribe el valor de preferencias)\n"
+" -R, --Resizeable             ventana principal redimensionable, con scroll\n"
+"                              (sobreescribe el valor de preferencias)\n"
 "\n"
-" --display pantalla-X11       redireccionar salida a la pantalla de X11\n"
+" -p, --print-filenames        imprimir nombres de archivos de imágenes\n"
+"                              creadas por XSane\n"
+" -N, --force-filename name    forzar nombre de archivo y no habilitar el de\n"
+"                              la selección del usuario \n"
+"\n"
+" --display X11-display        redireccionar salida a la pantalla de X11\n"
 " --no-xshm                    no usar imágenes en memoria compartida\n"
-" --sync                       requerir una conexión sincrónica con el "
-"servidor X11"
+" --sync                       requerir una conexión sincrónica con "
+"el                               servidor X11"
 
 #. strings for gimp plugin
 #. XSANE_GIMP_INSTALL_BLURB
@@ -2289,8 +2320,8 @@ msgid ""
 "devices through the SANE (Scanner Access Now Easy) interface."
 msgstr ""
 "Ésta función proporciona acceso a escáneres y otros dispositivos de "
-"adquisición de imágenes a través de la interfaz SANE[(A)cceso a e(S)cáner "
-"(N)ahora (E)fácil)"
+"adquisición de imágenes a través de la interfaz SANE[(A)cceso a e(S)cáner (N)"
+"ahora (E)fácil)"
 
 #. Menu path must not be translated, this is done by the gimp. Only translate the text behind the last "/"
 #. XSANE_GIMP_MENU_DIALOG

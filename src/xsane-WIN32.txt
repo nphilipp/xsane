@@ -1,9 +1,7 @@
 README for xsane for win32:
 
 
-This is an early Version of xsane for win32.
-It may have several bugs. It is not tested very well
-but short tests looked very good.
+This is a win32 of xsane. It may have some bugs.
 
 This version supports:
  - preview scan, preview zoom
@@ -16,7 +14,6 @@ This version supports:
 
 It does not support:
  - fax mode (no compatible faxsoftware)
- - internationalization not set up correct
 
 
 Installation:
@@ -45,38 +42,46 @@ Configuration:
  system IP-addresses are not accepted; if you experience
  any problems try the NetBUI names.
 
-example for net.conf:
-myhost1
-myhost2.mydomain.com
-192.168.0.1
-192.169.1.73
+  example for net.conf:
+    myhost1
+    myhost2.mydomain.com
+    192.168.0.1
+    192.169.1.73
 
  you also can start xsane with host:backend:device given as command line option:
  	xsane 192.168.0.1:umax:/dev/scanner
-or
+ or
 	xsane myhost:umax:/dev/scanner
+
+
+Localisation:
+=============
+ You have to set the environment variable LANG to the language
+ you want to select, for e.g. german this looks like this:
+  set LANG=de
+  xsane
 
 
 Copy-Mode:
 ===========
-If you want to use copy mode, you need ghostscript for win32.
-You can download it e.g. from http://www.cs.wisc.edu/~ghost/
-Enter Setup/Copy options:
-enter as Command:
+ If you want to use copy mode, you need ghostscript for win32.
+ You can download it e.g. from http://www.cs.wisc.edu/~ghost/
+ Enter Setup/Copy options:
+ enter as Command:
 	c:/gs/gs6.50/bin/gswin32c -sDEVICE=mswinpr2 -dNOPAUSE -
-Pay attention: you have to use "/", don´t use "\".
-With sDEVICE=mswinpr2 you select the Printer Dialog of Windows.
+ Pay attention: you have to use "/", don´t use "\".
+ With sDEVICE=mswinpr2 you select the Printer Dialog of Windows.
 
-You also can enter DEVICE-name of your printer (e.g. laserjet).
-To get a list of available device names open a dos box,
-and call c:\gs\gs6.50\bin\gswin32c -h
+ You also can enter DEVICE-name of your printer (e.g. laserjet).
+ To get a list of available device names open a dos box,
+ and call c:\gs\gs6.50\bin\gswin32c -h
 
 
 Gimp-Plugin:
 ===========
-If you want to use xsane as gimp plugin,
-copy xsane.exe and *.dll to the GIMP´s plug-ins driectory
-(e.g. c:\Program Files\GIMP\plug-ins)
+ If you want to use xsane as gimp plugin,
+ copy xsane.exe and *.dll to the GIMP´s plug-ins driectory
+ (e.g. c:\Program Files\GIMP\plug-ins)
 
 
 Support:
@@ -117,7 +122,7 @@ Contact:
 ========
  You can contact me via email: Oliver.Rauch@rauch-domain.de
  but don`t ask for help/support for xsane-win32, I do not have the
- time to give support to it and want to use my free time to
+ time to give support to it, I want to use my free time to
  work on the code - please understand that.
 
 Oliver Rauch

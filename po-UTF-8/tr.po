@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.84\n"
-"POT-Creation-Date: 2002-01-22 23:34+0100\n"
+"POT-Creation-Date: 2002-06-26 18:36+0200\n"
 "PO-Revision-Date: 2002-01-15 09:44GMT+02:00\n"
 "Last-Translator: Togan Muftuoglu <toganm@yahoo.com>\n"
 "Language-Team: Turkish <kde-i18n-tr@kde.org>\n"
@@ -35,9 +35,13 @@ msgstr "Tercüme hakkında"
 msgid "authorization"
 msgstr "Otorizasyon"
 
-#. WINDOW_LICENSE
-msgid "license"
-msgstr "lisans"
+#. WINDOW_GPL
+msgid "GPL - the license"
+msgstr ""
+
+#. WINDOW_EULA
+msgid "End User License Agreement"
+msgstr ""
 
 #. WINDOW_INFO
 msgid "info"
@@ -187,9 +191,9 @@ msgstr "Çık"
 msgid "Save image"
 msgstr "Resmi kaydet"
 
-#. MENU_ITEM_CLOSE
-msgid "Close"
-msgstr "Kapat"
+#. MENU_ITEM_OCR
+msgid "OCR - save as text"
+msgstr ""
 
 #. MENU_ITEM_CLONE
 msgid "Clone"
@@ -198,6 +202,10 @@ msgstr "Klonla"
 #. MENU_ITEM_SCALE
 msgid "Scale"
 msgstr "Boyutlandırma"
+
+#. MENU_ITEM_CLOSE
+msgid "Close"
+msgstr "Kapat"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
@@ -383,6 +391,10 @@ msgstr "Renkleri otomatik düzelt"
 msgid "POP3 authentification"
 msgstr "POP3 otorizasyon"
 
+#. RADIO_BUTTON_OCR_USE_GUI_PIPE
+msgid "Use GUI progress pipe"
+msgstr ""
+
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
 msgstr "aygıtları arıyor"
@@ -547,6 +559,29 @@ msgstr "GIMP- ile derlenmiştir"
 msgid "unknown"
 msgstr "bilinmiyor"
 
+#. TEXT_EULA
+#, fuzzy
+msgid ""
+"XSane is distributed under the terms of the GNU General Public License\n"
+"as published by the Free Software Foundation; either version 2 of the\n"
+"License, or (at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but\n"
+"WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+"Should the program prove defective, you assume the cost of all\n"
+"necessary servicing, repair or correction. To use this program you\n"
+"have to read, understand and accept the following\n"
+"\"NO WARRANTY\" agreement.\n"
+msgstr ""
+"XSane, Free Software Foundation GNU Genel Kamu Lisansı, \n"
+"lisansın 2. sürümüne göre veya (sizin tercihiniz olarak)daha sonraki bir \n"
+"bir sürümü, altında dağıtılmaktadır.\n"
+"\n"
+"Bu program faydalı olacağı umuduyla dağıtılmaktadır, ama\n"
+"HİÇBİR GARANTİ İÇERMEZ; hatta HERHANGİ BİR AMACA \n"
+"UYGUNLUĞU VEYA ÜRÜNLEŞTİRİLMESİNİ bile.\n"
+
 #. TEXT_GPL
 msgid ""
 "XSane is distributed under the terms of the GNU General Public License\n"
@@ -626,14 +661,6 @@ msgid ""
 msgstr ""
 "Boyut %d x %d piksel, %d bit/color, %d renkler, %1.0f dpi x %1.0f dpi, %1.1f "
 "%s"
-
-#. TEXT_X_SCALE_FACTOR
-msgid "X-Scale factor:"
-msgstr "X ölçek çarpanı"
-
-#. TEXT_Y_SCALE_FACTOR
-msgid "Y-Scale factor:"
-msgstr "Y ökçek çarpanını ayarla"
 
 #. TEXT_DESPECKLE_RADIUS
 msgid "Despeckle radius:"
@@ -738,6 +765,11 @@ msgstr "TIFF 8 bit resim sıkıştırması"
 #. TEXT_SETUP_TIFF_COMPRESSION_1
 msgid "TIFF lineart image compression"
 msgstr "TIFF lineart resim sıkıştırması"
+
+#. TEXT_SETUP_SHOW_RANGE_MODE
+#, fuzzy
+msgid "Show range as:"
+msgstr "Sayfayı göster"
 
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
@@ -862,6 +894,19 @@ msgstr "Giren dosya seçeneği"
 #. TEXT_SETUP_OCR_OUTPUTFILE_OPT
 msgid "Outputfile option:"
 msgstr "Çıktı dosya seçeneği"
+
+#. TEXT_SETUP_OCR_USE_GUI_PIPE_OPT
+msgid "Use GUI progress pipe:"
+msgstr ""
+
+#. TEXT_SETUP_OCR_OUTFD_OPT
+#, fuzzy
+msgid "GUI output-fd option:"
+msgstr "Çıktı dosya seçeneği"
+
+#. TEXT_SETUP_OCR_PROGRESS_KEYWORD
+msgid "Progress keyword:"
+msgstr ""
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
@@ -991,9 +1036,13 @@ msgstr "Aygıt ayarlarını yükle"
 msgid "Change directory"
 msgstr "Dizin değiştir"
 
-#. MENU_ITEM_XSANE_LICENSE
-msgid "License"
-msgstr "lisans"
+#. MENU_ITEM_XSANE_EULA
+msgid "Show EULA"
+msgstr ""
+
+#. MENU_ITEM_XSANE_GPL
+msgid "Show license (GPL)"
+msgstr ""
 
 #. MENU_ITEM_XSANE_DOC
 msgid "XSane doc"
@@ -1042,6 +1091,26 @@ msgstr "JPEG DCT sıkıştırması"
 #. MENU_ITEM_TIFF_COMP_PACKBITS
 msgid "pack bits"
 msgstr "bitleri paketle"
+
+#. MENU_ITEM_RANGE_SCALE
+msgid "Slider (Scale)"
+msgstr ""
+
+#. MENU_ITEM_RANGE_SCROLLBAR
+msgid "Slider (Scrollbar)"
+msgstr ""
+
+#. MENU_ITEM_RANGE_SPINBUTTON
+msgid "Spinbutton"
+msgstr ""
+
+#. MENU_ITEM_RANGE_SCALE_SPIN
+msgid "Scale and Spinbutton"
+msgstr ""
+
+#. MENU_ITEM_RANGE_SCROLL_SPIN
+msgid "Scrollbar and Spinbutton"
+msgstr ""
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
 msgid "Standard options window (lineart)"
@@ -1132,6 +1201,10 @@ msgstr "Resmi beneksizleştir"
 msgid "Bluring image"
 msgstr "Resmi bulanıklaştır"
 
+#. PROGRESS_OCR
+msgid "OCR in progress"
+msgstr ""
+
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
 msgstr "Taramayı başlat <Ctrl-Enter>"
@@ -1150,11 +1223,11 @@ msgstr "Önizlemeyi iptal et <Alt-ESC>"
 
 #. DESC_XSANE_MODE
 msgid ""
-"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or "
-"mail-<Ctrl-m>"
+"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or mail-<Ctrl-"
+"m>"
 msgstr ""
-"sakla-<Ctrl-s>, izle-<Ctrl-v>, fotokopi-<Ctrl-c>, fax-<Ctrl-f> "
-"veyamail-<Ctrl-m>"
+"sakla-<Ctrl-s>, izle-<Ctrl-v>, fotokopi-<Ctrl-c>, fax-<Ctrl-f> veyamail-"
+"<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
 msgid "Select source medium type"
@@ -1518,6 +1591,10 @@ msgid "Use an own colormap for preview if display depth is 8 bpp"
 msgstr ""
 "Eğer ekran derinliği 8 bpp ise öngösterim için kişisel renk tablosunu kullan"
 
+#. DESC_SHOW_RANGE_MODE
+msgid "Select how a range is displayed"
+msgstr ""
+
 #. DESC_PREVIEW_OVERSAMPLING
 msgid "Value with that the calculated preview resolution is multiplied"
 msgstr "Hesaplanmış önizleme çözünürlüğünün çarpıldığı değer "
@@ -1590,8 +1667,8 @@ msgstr "Pipette fonksiyonu için ortalama renkte kullanılan karenin boyutları"
 msgid ""
 "Enter command to be executed to display helpfiles, must be a html-viewer!"
 msgstr ""
-"yardım dosyalarını göstermek için çalıştırılacak komutu girin, "
-"html-göstericisi olmalıdır!"
+"yardım dosyalarını göstermek için çalıştırılacak komutu girin, html-"
+"göstericisi olmalıdır!"
 
 #. DESC_AUTOENHANCE_GAMMA
 msgid "Change gamma value when autoenhancement button is pressed"
@@ -1689,6 +1766,20 @@ msgstr "Çıktı dosyası için ocr programının seçeneğini belirleyin"
 msgid "Enter option of the ocr program to define output file"
 msgstr "Çıktı dosyası için ocr programının seçeneğini belirleyin"
 
+#. DESC_OCR_USE_GUI_PIPE_OPT
+msgid "Define if the ocr program supports gui progress pipe"
+msgstr ""
+
+#. DESC_OCR_OUTFD_OPT
+#, fuzzy
+msgid ""
+"Enter option of the ocr program to define output filedescripor in GUI mode"
+msgstr "Çıktı dosyası için ocr programının seçeneğini belirleyin"
+
+#. DESC_OCR_PROGRESS_KEYWORD
+msgid "Define Keyword that is used to mark progress information"
+msgstr ""
+
 #. DESC_PERMISSION_READ
 msgid "read"
 msgstr "okuma"
@@ -1723,6 +1814,10 @@ msgid "Zoom 20% out"
 msgstr "% 20 zumla"
 
 #. DESC_ZOOM_IN
+msgid "Click at position to zoom to"
+msgstr ""
+
+#. DESC_ZOOM_AREA
 msgid "Zoom into selected area"
 msgstr "Seçilen alana zum yap"
 
@@ -1736,6 +1831,11 @@ msgstr "Görülen alanı belirleyin"
 
 #. DESC_AUTOSELECT_SCANAREA
 msgid "Autoselect scanarea"
+msgstr "Tarama alanını otomatik seç"
+
+#. DESC_AUTORAISE_SCANAREA
+#, fuzzy
+msgid "Autoraise scanarea"
 msgstr "Tarama alanını otomatik seç"
 
 #. DESC_DELETE_IMAGES
@@ -1789,6 +1889,21 @@ msgstr "Saklama ortamı"
 #. DESC_DELETE_MEDIUM
 msgid "Delete active medium"
 msgstr "Aktif ortamı silin"
+
+#. DESC_SCALE_FACTOR
+#, fuzzy
+msgid "Scale factor"
+msgstr "Y ökçek çarpanını ayarla"
+
+#. DESC_X_SCALE_FACTOR
+#, fuzzy
+msgid "X-Scale factor"
+msgstr "X ölçek çarpanı"
+
+#. DESC_Y_SCALE_FACTOR
+#, fuzzy
+msgid "Y-Scale factor"
+msgstr "Y ökçek çarpanını ayarla"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2012,6 +2127,10 @@ msgstr "Uyarı"
 msgid "Information"
 msgstr "Bilgi"
 
+#. ERR_HEADER_CHILD_PROCESS_ERROR
+msgid "Child process error"
+msgstr ""
+
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
 msgstr "Dosya yaratmada hata:"
@@ -2093,8 +2212,8 @@ msgid ""
 " -v, --version                print version information\n"
 " -l, --license                print license information\n"
 "\n"
-" -d, --device-settings file   load device settings from file (without "
-"\".drc\")\n"
+" -d, --device-settings file   load device settings from file (without \".drc"
+"\")\n"
 "\n"
 " -V, --viewer                 start with viewer-mode active (default)\n"
 " -s, --save                   start with save-mode active\n"
@@ -2349,3 +2468,9 @@ msgstr "Yetersiz hafıza"
 
 msgid "Access to resource has been denied"
 msgstr "Kaynağa erişim reddedildi"
+
+#~ msgid "license"
+#~ msgstr "lisans"
+
+#~ msgid "License"
+#~ msgstr "lisans"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.84\n"
-"POT-Creation-Date: 2002-01-22 23:34+0100\n"
+"POT-Creation-Date: 2002-06-26 18:36+0200\n"
 "PO-Revision-Date: 2001-11-11 21:30+01:00\n"
 "Last-Translator: Johan Bengtsson <johanb@lls.se>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,9 +35,13 @@ msgstr "Om översättningen"
 msgid "authorization"
 msgstr "auktorisering"
 
-#. WINDOW_LICENSE
-msgid "license"
-msgstr "licens"
+#. WINDOW_GPL
+msgid "GPL - the license"
+msgstr ""
+
+#. WINDOW_EULA
+msgid "End User License Agreement"
+msgstr ""
 
 #. WINDOW_INFO
 msgid "info"
@@ -190,9 +194,9 @@ msgstr "Avsluta"
 msgid "Save image"
 msgstr "Spara bild"
 
-#. MENU_ITEM_CLOSE
-msgid "Close"
-msgstr "Stäng"
+#. MENU_ITEM_OCR
+msgid "OCR - save as text"
+msgstr ""
 
 #. MENU_ITEM_CLONE
 #, fuzzy
@@ -203,6 +207,10 @@ msgstr "Stäng"
 #, fuzzy
 msgid "Scale"
 msgstr "Spara"
+
+#. MENU_ITEM_CLOSE
+msgid "Close"
+msgstr "Stäng"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
@@ -388,6 +396,10 @@ msgstr "Autokorrigera färger"
 msgid "POP3 authentification"
 msgstr "POP3 autentisering"
 
+#. RADIO_BUTTON_OCR_USE_GUI_PIPE
+msgid "Use GUI progress pipe"
+msgstr ""
+
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
 msgstr "Letar efter enheter..."
@@ -552,6 +564,31 @@ msgstr "kompilerad med GIMP-"
 msgid "unknown"
 msgstr "okänd"
 
+#. TEXT_EULA
+#, fuzzy
+msgid ""
+"XSane is distributed under the terms of the GNU General Public License\n"
+"as published by the Free Software Foundation; either version 2 of the\n"
+"License, or (at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but\n"
+"WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+"Should the program prove defective, you assume the cost of all\n"
+"necessary servicing, repair or correction. To use this program you\n"
+"have to read, understand and accept the following\n"
+"\"NO WARRANTY\" agreement.\n"
+msgstr ""
+"XSane distribueras under och omfattas av  GNU General Public License\n"
+"så som den är publicerad av Free Software Foundation; version 2 eller (om du "
+"vill) någon senare\n"
+"version\n"
+"\n"
+"Detta program distribueras med förhoppningen att det skall komma till nytta, "
+"men\n"
+"UTAN NÅGON GARANTI; utan ens någon underförstådd garanti för dess\n"
+"HANDELSBARHETET eller DUGLIGHET FÖR NÅGOT SÄRSKILT ÄNDAMÅL.\n"
+
 #. TEXT_GPL
 msgid ""
 "XSane is distributed under the terms of the GNU General Public License\n"
@@ -631,16 +668,6 @@ msgstr ""
 msgid ""
 "Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
 msgstr ""
-
-#. TEXT_X_SCALE_FACTOR
-#, fuzzy
-msgid "X-Scale factor:"
-msgstr "Ställ in zoomfaktor"
-
-#. TEXT_Y_SCALE_FACTOR
-#, fuzzy
-msgid "Y-Scale factor:"
-msgstr "Ställ in zoomfaktor"
 
 #. TEXT_DESPECKLE_RADIUS
 #, fuzzy
@@ -746,6 +773,11 @@ msgstr "TIFF 8 bit bildkompression"
 #. TEXT_SETUP_TIFF_COMPRESSION_1
 msgid "TIFF lineart image compression"
 msgstr "TIFF lineart-bildkompression"
+
+#. TEXT_SETUP_SHOW_RANGE_MODE
+#, fuzzy
+msgid "Show range as:"
+msgstr "Visa sida"
 
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
@@ -873,6 +905,19 @@ msgstr "Flagga för postscriptsfil:"
 #, fuzzy
 msgid "Outputfile option:"
 msgstr "Flagga för postscriptsfil:"
+
+#. TEXT_SETUP_OCR_USE_GUI_PIPE_OPT
+msgid "Use GUI progress pipe:"
+msgstr ""
+
+#. TEXT_SETUP_OCR_OUTFD_OPT
+#, fuzzy
+msgid "GUI output-fd option:"
+msgstr "Flagga för postscriptsfil:"
+
+#. TEXT_SETUP_OCR_PROGRESS_KEYWORD
+msgid "Progress keyword:"
+msgstr ""
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
@@ -1002,9 +1047,13 @@ msgstr "Hämta enhetsinställningar"
 msgid "Change directory"
 msgstr "Byt katalog"
 
-#. MENU_ITEM_XSANE_LICENSE
-msgid "License"
-msgstr "Licens"
+#. MENU_ITEM_XSANE_EULA
+msgid "Show EULA"
+msgstr ""
+
+#. MENU_ITEM_XSANE_GPL
+msgid "Show license (GPL)"
+msgstr ""
 
 #. MENU_ITEM_XSANE_DOC
 msgid "XSane doc"
@@ -1053,6 +1102,26 @@ msgstr "JPEG DCT kompression"
 #. MENU_ITEM_TIFF_COMP_PACKBITS
 msgid "pack bits"
 msgstr "packbits"
+
+#. MENU_ITEM_RANGE_SCALE
+msgid "Slider (Scale)"
+msgstr ""
+
+#. MENU_ITEM_RANGE_SCROLLBAR
+msgid "Slider (Scrollbar)"
+msgstr ""
+
+#. MENU_ITEM_RANGE_SPINBUTTON
+msgid "Spinbutton"
+msgstr ""
+
+#. MENU_ITEM_RANGE_SCALE_SPIN
+msgid "Scale and Spinbutton"
+msgstr ""
+
+#. MENU_ITEM_RANGE_SCROLL_SPIN
+msgid "Scrollbar and Spinbutton"
+msgstr ""
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
 msgid "Standard options window (lineart)"
@@ -1144,6 +1213,10 @@ msgstr "Damma av bild"
 msgid "Bluring image"
 msgstr "Sudda till bild"
 
+#. PROGRESS_OCR
+msgid "OCR in progress"
+msgstr ""
+
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
 msgstr "Starta inläsning <Ctrl-Enter>"
@@ -1162,8 +1235,8 @@ msgstr "Avbryt förhandsgranskning <Alt-ESC>"
 
 #. DESC_XSANE_MODE
 msgid ""
-"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or "
-"mail-<Ctrl-m>"
+"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or mail-<Ctrl-"
+"m>"
 msgstr ""
 
 #. DESC_XSANE_MEDIUM
@@ -1528,6 +1601,10 @@ msgid "Use an own colormap for preview if display depth is 8 bpp"
 msgstr ""
 "Använd egna färginställningar för förhandsgranskning om visningsläget är 8bpp"
 
+#. DESC_SHOW_RANGE_MODE
+msgid "Select how a range is displayed"
+msgstr ""
+
 #. DESC_PREVIEW_OVERSAMPLING
 msgid "Value with that the calculated preview resolution is multiplied"
 msgstr ""
@@ -1706,6 +1783,19 @@ msgstr ""
 msgid "Enter option of the ocr program to define output file"
 msgstr ""
 
+#. DESC_OCR_USE_GUI_PIPE_OPT
+msgid "Define if the ocr program supports gui progress pipe"
+msgstr ""
+
+#. DESC_OCR_OUTFD_OPT
+msgid ""
+"Enter option of the ocr program to define output filedescripor in GUI mode"
+msgstr ""
+
+#. DESC_OCR_PROGRESS_KEYWORD
+msgid "Define Keyword that is used to mark progress information"
+msgstr ""
+
 #. DESC_PERMISSION_READ
 msgid "read"
 msgstr "läs"
@@ -1740,6 +1830,10 @@ msgid "Zoom 20% out"
 msgstr "Zooma ut 20%"
 
 #. DESC_ZOOM_IN
+msgid "Click at position to zoom to"
+msgstr ""
+
+#. DESC_ZOOM_AREA
 msgid "Zoom into selected area"
 msgstr "Zooma in det markerade området"
 
@@ -1753,6 +1847,11 @@ msgstr "Markera det synliga området"
 
 #. DESC_AUTOSELECT_SCANAREA
 msgid "Autoselect scanarea"
+msgstr "Automatisk val av inläsningsyta"
+
+#. DESC_AUTORAISE_SCANAREA
+#, fuzzy
+msgid "Autoraise scanarea"
 msgstr "Automatisk val av inläsningsyta"
 
 #. DESC_DELETE_IMAGES
@@ -1808,6 +1907,21 @@ msgstr "Byt namn på inställning"
 #, fuzzy
 msgid "Delete active medium"
 msgstr "Ta bort inställning"
+
+#. DESC_SCALE_FACTOR
+#, fuzzy
+msgid "Scale factor"
+msgstr "Ställ in zoomfaktor"
+
+#. DESC_X_SCALE_FACTOR
+#, fuzzy
+msgid "X-Scale factor"
+msgstr "Ställ in zoomfaktor"
+
+#. DESC_Y_SCALE_FACTOR
+#, fuzzy
+msgid "Y-Scale factor"
+msgstr "Ställ in zoomfaktor"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2033,6 +2147,10 @@ msgstr "Varning"
 msgid "Information"
 msgstr "Information"
 
+#. ERR_HEADER_CHILD_PROCESS_ERROR
+msgid "Child process error"
+msgstr ""
+
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
 msgstr "Kunde inte skapa fil:"
@@ -2114,8 +2232,8 @@ msgid ""
 " -v, --version                print version information\n"
 " -l, --license                print license information\n"
 "\n"
-" -d, --device-settings file   load device settings from file (without "
-"\".drc\")\n"
+" -d, --device-settings file   load device settings from file (without \".drc"
+"\")\n"
 "\n"
 " -V, --viewer                 start with viewer-mode active (default)\n"
 " -s, --save                   start with save-mode active\n"
@@ -2143,15 +2261,15 @@ msgstr ""
 "Startar grafiskt användargränssnitt till SANE (Scanner Access Now Easy) "
 "enheter.\n"
 "\n"
-"Formatet för [ENHET] är drivrutinsnamn:enhetsfil (m.a.o. umax:/dev/scanner). "
-"\n"
+"Formatet för [ENHET] är drivrutinsnamn:enhetsfil (m.a.o. umax:/dev/"
+"scanner). \n"
 "[FLAGGA] ... kan vara en kombination av följande flaggor:\n"
 "-h, --help                     visa detta hjälpmeddelande och avsluta\n"
 "-v, --version                visa versionsinformation\n"
 "-l, --licens                   visa licensinfomation\n"
 "\n"
-"-d, --device-settings file   hämta enhetsinställningar från en fil (utan "
-"\".drc\")\n"
+"-d, --device-settings file   hämta enhetsinställningar från en fil (utan \"."
+"drc\")\n"
 "\n"
 "-s, --scan                   starta med bildläsarläge aktivt\n"
 "-c, --copy                   starta med kopiatorläge aktivt\n"
@@ -2373,6 +2491,12 @@ msgstr "Slut på minne"
 
 msgid "Access to resource has been denied"
 msgstr "Tillgång till resurs nekas"
+
+#~ msgid "license"
+#~ msgstr "licens"
+
+#~ msgid "License"
+#~ msgstr "Licens"
 
 #, fuzzy
 #~ msgid "Store Medium definition"

@@ -4,8 +4,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.84\n"
-"POT-Creation-Date: 2002-03-17 00:03+0100\n"
+"Project-Id-Version: XSANE 0.87\n"
+"POT-Creation-Date: 2002-06-30 19:11+0200\n"
 "PO-Revision-Date: 2000-02-09 21:00+01:00\n"
 "Last-Translator: Laurent Grawet <laurent.grawet@ibelgique.com>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -393,7 +393,7 @@ msgstr "Authentification POP3"
 
 #. RADIO_BUTTON_OCR_USE_GUI_PIPE
 msgid "Use GUI progress pipe"
-msgstr ""
+msgstr "Utilise le \"pipe\" de progression GUI"
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
@@ -560,7 +560,6 @@ msgid "unknown"
 msgstr "inconnu"
 
 #. TEXT_EULA
-#, fuzzy
 msgid ""
 "XSane is distributed under the terms of the GNU General Public License\n"
 "as published by the Free Software Foundation; either version 2 of the\n"
@@ -581,6 +580,11 @@ msgstr ""
 "Ce programme est distribué car potentiellement utile, mais SANS AUCUNNE\n"
 "GARANTIE, sans même les garanties de COMMERCIALISATION ou d'ADAPTATION\n"
 "DANS UN BUT SPECIFIQUE\n"
+"Dans le cas ou le programme se révelerait défectueux, vous vous engagez à\n"
+"assumer le coût de tous les services, réparations ou corrections "
+"nécessaires.\n"
+"Pour utiliser ce programme, vous devez avoir lu, compris et accepté les\n"
+"termes \"SANS GARANTIE\" de ce contrat.\n"
 
 #. TEXT_GPL
 msgid ""
@@ -659,16 +663,8 @@ msgstr "Nom du support:"
 msgid ""
 "Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
 msgstr ""
-"Taille %d x %d points, %d bit/couleur, %d couleurs, %1.0f dpi x %1.0f dpi, "
-"%1.1f %s"
-
-#. TEXT_X_SCALE_FACTOR
-msgid "X-Scale factor:"
-msgstr "Change le facteur d'échelle horizontal"
-
-#. TEXT_Y_SCALE_FACTOR
-msgid "Y-Scale factor:"
-msgstr "Change le facteur d'échelle vertical"
+"Taille %d x %d points, %d bit/couleur, %d couleurs, %1.0f dpi x %1.0f dpi, %"
+"1.1f %s"
 
 #. TEXT_DESPECKLE_RADIUS
 msgid "Despeckle radius:"
@@ -775,9 +771,8 @@ msgid "TIFF lineart image compression"
 msgstr "Compression des images TIFF mode trait"
 
 #. TEXT_SETUP_SHOW_RANGE_MODE
-#, fuzzy
 msgid "Show range as:"
-msgstr "Afficher la page"
+msgstr "Afficher la plage comme:"
 
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
@@ -905,16 +900,15 @@ msgstr "Option de fichier de sortie:"
 
 #. TEXT_SETUP_OCR_USE_GUI_PIPE_OPT
 msgid "Use GUI progress pipe:"
-msgstr ""
+msgstr "Utilise le \"pipe\" de progression GUI:"
 
 #. TEXT_SETUP_OCR_OUTFD_OPT
-#, fuzzy
 msgid "GUI output-fd option:"
-msgstr "Option de fichier de sortie:"
+msgstr "Option GUI output-fd:"
 
 #. TEXT_SETUP_OCR_PROGRESS_KEYWORD
 msgid "Progress keyword:"
-msgstr ""
+msgstr "Message de progression:"
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
@@ -1046,11 +1040,11 @@ msgstr "Changer de répertoire"
 
 #. MENU_ITEM_XSANE_EULA
 msgid "Show EULA"
-msgstr ""
+msgstr "Afficher EULA"
 
 #. MENU_ITEM_XSANE_GPL
 msgid "Show license (GPL)"
-msgstr ""
+msgstr "Afficher la licence (GPL)"
 
 #. MENU_ITEM_XSANE_DOC
 msgid "XSane doc"
@@ -1100,18 +1094,25 @@ msgstr "Compression JPEG DCT"
 msgid "pack bits"
 msgstr ""
 
-#. MENU_ITEM_SHOW_RANGE_SCALE
-#, fuzzy
-msgid "Slider"
-msgstr "Dia"
+#. MENU_ITEM_RANGE_SCALE
+msgid "Slider (Scale)"
+msgstr "Dia (Echelle)"
 
-#. MENU_ITEM_SHOW_RANGE_SPINBUTTON
+#. MENU_ITEM_RANGE_SCROLLBAR
+msgid "Slider (Scrollbar)"
+msgstr "Dia (Barre de défilement)"
+
+#. MENU_ITEM_RANGE_SPINBUTTON
 msgid "Spinbutton"
-msgstr ""
+msgstr "Bouton de rotation"
 
-#. MENU_ITEM_SHOW_RANGE_BOTH
-msgid "Slider and Spinbutton"
-msgstr ""
+#. MENU_ITEM_RANGE_SCALE_SPIN
+msgid "Scale and Spinbutton"
+msgstr "Echelle et bouton de rotation"
+
+#. MENU_ITEM_RANGE_SCROLL_SPIN
+msgid "Scrollbar and Spinbutton"
+msgstr "Barre de défilement et bouton de rotation"
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
 msgid "Standard options window (lineart)"
@@ -1202,6 +1203,10 @@ msgstr "Déparasitage de l'image..."
 msgid "Bluring image"
 msgstr "Flou de l'image..."
 
+#. PROGRESS_OCR
+msgid "OCR in progress"
+msgstr "OCR en cours..."
+
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
 msgstr "Numériser <Ctrl-Enter>"
@@ -1220,8 +1225,8 @@ msgstr "Annuler l'aperçu <Alt-ESC>"
 
 #. DESC_XSANE_MODE
 msgid ""
-"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or "
-"mail-<Ctrl-m>"
+"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or mail-<Ctrl-"
+"m>"
 msgstr ""
 "sauver-<Ctrl-s>, visionner-<Ctrl-v>, photocopier-<Ctrl-c>, faxer-<Ctrl-f> ou "
 "poster-<Ctrl-m>"
@@ -1556,8 +1561,8 @@ msgstr ""
 #. DESC_REDUCE_16BIT_TO_8BIT
 msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
 msgstr ""
-"Si le scanner envoie une image en 16 bits/couleur, sauver l'image en 8 "
-"bits/couleur"
+"Si le scanner envoie une image en 16 bits/couleur, sauver l'image en 8 bits/"
+"couleur"
 
 #. DESC_PSFILE_WIDTH
 msgid "Width of paper for postscript files"
@@ -1601,7 +1606,7 @@ msgstr ""
 
 #. DESC_SHOW_RANGE_MODE
 msgid "Select how a range is displayed"
-msgstr ""
+msgstr "Sélectionnez la manière dont la plage est affichée"
 
 #. DESC_PREVIEW_OVERSAMPLING
 msgid "Value with that the calculated preview resolution is multiplied"
@@ -1787,17 +1792,19 @@ msgstr "Entrez l'option du programme d'OCR pour définir un fichier de sortie"
 
 #. DESC_OCR_USE_GUI_PIPE_OPT
 msgid "Define if the ocr program supports gui progress pipe"
-msgstr ""
+msgstr "Définissez si le programme d'OCR supporte un pipe GUI de progression"
 
 #. DESC_OCR_OUTFD_OPT
-#, fuzzy
 msgid ""
 "Enter option of the ocr program to define output filedescripor in GUI mode"
-msgstr "Entrez l'option du programme d'OCR pour définir un fichier de sortie"
+msgstr ""
+"Entrez l'option du programme d'OCR pour définir un fichier descripteur de "
+"sortie en mode GUI"
 
 #. DESC_OCR_PROGRESS_KEYWORD
 msgid "Define Keyword that is used to mark progress information"
 msgstr ""
+"Définissez un mot clé à utiliser pour marquer l'information de progression"
 
 #. DESC_PERMISSION_READ
 msgid "read"
@@ -1833,6 +1840,10 @@ msgid "Zoom 20% out"
 msgstr "Zoom 20% en arrière"
 
 #. DESC_ZOOM_IN
+msgid "Click at position to zoom to"
+msgstr "Cliquez à la posisiton désirée du zoom"
+
+#. DESC_ZOOM_AREA
 msgid "Zoom into selected area"
 msgstr "Zoom l'aire sélectionnée"
 
@@ -1847,6 +1858,10 @@ msgstr "Sélectionne l'aire visible"
 #. DESC_AUTOSELECT_SCANAREA
 msgid "Autoselect scanarea"
 msgstr "Sélection automatique de l'aire de numérisation"
+
+#. DESC_AUTORAISE_SCANAREA
+msgid "Autoraise scanarea"
+msgstr "Affichage automatique de l'aire de numérisation"
 
 #. DESC_DELETE_IMAGES
 msgid "Delete preview image cache"
@@ -1899,6 +1914,18 @@ msgstr "Enregistre la définition du support"
 #. DESC_DELETE_MEDIUM
 msgid "Delete active medium"
 msgstr "Efface la définition du support"
+
+#. DESC_SCALE_FACTOR
+msgid "Scale factor"
+msgstr "Facteur d'échelle"
+
+#. DESC_X_SCALE_FACTOR
+msgid "X-Scale factor"
+msgstr "Facteur d'échelle horizontal"
+
+#. DESC_Y_SCALE_FACTOR
+msgid "Y-Scale factor"
+msgstr "Facteur d'échelle vertical"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2123,6 +2150,10 @@ msgstr "Avertissement"
 msgid "Information"
 msgstr "Information"
 
+#. ERR_HEADER_CHILD_PROCESS_ERROR
+msgid "Child process error"
+msgstr "Erreur de processus enfant"
+
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
 msgstr "Erreur de création de fichier"
@@ -2193,7 +2224,6 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[OPTION]... [PERIPHERIQUE]"
 
 #. TEXT_HELP
-#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2204,8 +2234,8 @@ msgid ""
 " -v, --version                print version information\n"
 " -l, --license                print license information\n"
 "\n"
-" -d, --device-settings file   load device settings from file (without "
-"\".drc\")\n"
+" -d, --device-settings file   load device settings from file (without \".drc"
+"\")\n"
 "\n"
 " -V, --viewer                 start with viewer-mode active (default)\n"
 " -s, --save                   start with save-mode active\n"
@@ -2250,6 +2280,8 @@ msgstr ""
 "-f, --fax                    démarre en mode fax\n"
 "-m, --mail                   start with mail-mode active\n"
 "-n, --no-mode-selection      désactive le menu de sélection de mode\n"
+"\n"
+"-M, --Medium-calibration     active le mode de calibration de media\n"
 "\n"
 "-F, --Fixed                  fixe la taille de la fenêtre principale (sans\n"
 "                             tenir compte des préférences)\n"
@@ -2476,4 +2508,5 @@ msgstr "Accès à la ressource refusé"
 #~ msgid ""
 #~ "Use XSane for: SCANning-<Ctrl-s> photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>"
 #~ msgstr ""
-#~ "Utilisez XSane pour : SCANNER <Ctrl-s>, photoCOPIER <Ctrl-c>, FAXER <Ctrl-f>"
+#~ "Utilisez XSane pour : SCANNER <Ctrl-s>, photoCOPIER <Ctrl-c>, FAXER <Ctrl-"
+#~ "f>"

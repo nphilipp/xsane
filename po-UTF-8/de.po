@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.84\n"
-"POT-Creation-Date: 2002-01-22 23:34+0100\n"
+"POT-Creation-Date: 2002-06-26 18:36+0200\n"
 "PO-Revision-Date: 2000-01-21 15:51+01:00\n"
 "Last-Translator: Oliver Rauch <Oliver.Rauch@rauch-domain.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -35,9 +35,13 @@ msgstr "Über Übersetzung"
 msgid "authorization"
 msgstr "Autorisation"
 
-#. WINDOW_LICENSE
-msgid "license"
-msgstr "Lizenz"
+#. WINDOW_GPL
+msgid "GPL - the license"
+msgstr ""
+
+#. WINDOW_EULA
+msgid "End User License Agreement"
+msgstr ""
 
 #. WINDOW_INFO
 msgid "info"
@@ -187,9 +191,9 @@ msgstr "Beenden"
 msgid "Save image"
 msgstr "Bild speichern"
 
-#. MENU_ITEM_CLOSE
-msgid "Close"
-msgstr "Schließen"
+#. MENU_ITEM_OCR
+msgid "OCR - save as text"
+msgstr ""
 
 #. MENU_ITEM_CLONE
 msgid "Clone"
@@ -198,6 +202,10 @@ msgstr "Klonen"
 #. MENU_ITEM_SCALE
 msgid "Scale"
 msgstr "Skalieren"
+
+#. MENU_ITEM_CLOSE
+msgid "Close"
+msgstr "Schließen"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
@@ -383,6 +391,10 @@ msgstr "Automatische Farbkorrektur"
 msgid "POP3 authentification"
 msgstr "POP3 Authentifizierung"
 
+#. RADIO_BUTTON_OCR_USE_GUI_PIPE
+msgid "Use GUI progress pipe"
+msgstr ""
+
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
 msgstr "Suche nach Geräten"
@@ -547,6 +559,29 @@ msgstr "übersetzt mit GIMP-"
 msgid "unknown"
 msgstr "unbekannt"
 
+#. TEXT_EULA
+msgid ""
+"XSane is distributed under the terms of the GNU General Public License\n"
+"as published by the Free Software Foundation; either version 2 of the\n"
+"License, or (at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but\n"
+"WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+"Should the program prove defective, you assume the cost of all\n"
+"necessary servicing, repair or correction. To use this program you\n"
+"have to read, understand and accept the following\n"
+"\"NO WARRANTY\" agreement.\n"
+msgstr ""
+"XSane wird unter den Bedingungen der GNU General Public Licence, wie\n"
+"von der Free Software Foundation veröffentlicht, herausgegeben, entweder\n"
+"Version 2 der Lizenz, oder (wenn Sie wünschen) jeder späteren Version.\n"
+"\n"
+"Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, daß es Ihnen\n"
+"von Nutzen sein wird, aber OHNE JEDE GEWÄHRLEISTUNG - sogar ohne die "
+"implizite\n"
+"Gewährleistung der MARKTREIFE oder der EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.\n"
+
 #. TEXT_GPL
 msgid ""
 "XSane is distributed under the terms of the GNU General Public License\n"
@@ -625,16 +660,8 @@ msgstr ""
 msgid ""
 "Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
 msgstr ""
-"Größe %d x %d Punkte, %d Bit/Farbe, %d Farben, %1.0f dpi x %1.0f dpi, %1.1f "
-"%s"
-
-#. TEXT_X_SCALE_FACTOR
-msgid "X-Scale factor:"
-msgstr "Vergrößerungsfaktor X:"
-
-#. TEXT_Y_SCALE_FACTOR
-msgid "Y-Scale factor:"
-msgstr "Vergrößerungsfaktor Y:"
+"Größe %d x %d Punkte, %d Bit/Farbe, %d Farben, %1.0f dpi x %1.0f dpi, %1.1f %"
+"s"
 
 #. TEXT_DESPECKLE_RADIUS
 msgid "Despeckle radius:"
@@ -739,6 +766,10 @@ msgstr "TIFF 8 bit Bildkompression"
 #. TEXT_SETUP_TIFF_COMPRESSION_1
 msgid "TIFF lineart image compression"
 msgstr "TIFF lineart Bildkompression"
+
+#. TEXT_SETUP_SHOW_RANGE_MODE
+msgid "Show range as:"
+msgstr "Bereich anzeigen als"
 
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
@@ -863,6 +894,18 @@ msgstr "Option für Eingabedatei:"
 #. TEXT_SETUP_OCR_OUTPUTFILE_OPT
 msgid "Outputfile option:"
 msgstr "Option für Ausgabedatei:"
+
+#. TEXT_SETUP_OCR_USE_GUI_PIPE_OPT
+msgid "Use GUI progress pipe:"
+msgstr ""
+
+#. TEXT_SETUP_OCR_OUTFD_OPT
+msgid "GUI output-fd option:"
+msgstr "GUI Ausgabe-fd Option:"
+
+#. TEXT_SETUP_OCR_PROGRESS_KEYWORD
+msgid "Progress keyword:"
+msgstr ""
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
@@ -992,9 +1035,13 @@ msgstr "Lade Geräteeinstellungen"
 msgid "Change directory"
 msgstr "Arbeitsverzeichnis ändern"
 
-#. MENU_ITEM_XSANE_LICENSE
-msgid "License"
-msgstr "Lizenz"
+#. MENU_ITEM_XSANE_EULA
+msgid "Show EULA"
+msgstr ""
+
+#. MENU_ITEM_XSANE_GPL
+msgid "Show license (GPL)"
+msgstr ""
 
 #. MENU_ITEM_XSANE_DOC
 msgid "XSane doc"
@@ -1044,6 +1091,26 @@ msgstr "JPEG DCT Kompression"
 msgid "pack bits"
 msgstr "gepackte Bits"
 
+#. MENU_ITEM_RANGE_SCALE
+msgid "Slider (Scale)"
+msgstr ""
+
+#. MENU_ITEM_RANGE_SCROLLBAR
+msgid "Slider (Scrollbar)"
+msgstr ""
+
+#. MENU_ITEM_RANGE_SPINBUTTON
+msgid "Spinbutton"
+msgstr ""
+
+#. MENU_ITEM_RANGE_SCALE_SPIN
+msgid "Scale and Spinbutton"
+msgstr ""
+
+#. MENU_ITEM_RANGE_SCROLL_SPIN
+msgid "Scrollbar and Spinbutton"
+msgstr ""
+
 #. MENU_ITEM_LINEART_MODE_STANDARD
 msgid "Standard options window (lineart)"
 msgstr "Standard Optionen Fenster (b/w)"
@@ -1066,7 +1133,7 @@ msgstr "nach Erw"
 
 #. MENU_ITEM_PRESET_AREA_ADD_SEL
 msgid "Add selection to list"
-msgstr "Auswahl zur Liste hinzufuegen"
+msgstr "Auswahl zur Liste hinzufügen"
 
 #. MENU_ITEM_PRESET_AREA_RENAME
 msgid "Rename definiton"
@@ -1133,6 +1200,10 @@ msgstr "Flecken entfernen"
 msgid "Bluring image"
 msgstr "Bild weichzeichnen"
 
+#. PROGRESS_OCR
+msgid "OCR in progress"
+msgstr ""
+
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
 msgstr "Scan starten <Ctrl-Enter>"
@@ -1151,8 +1222,8 @@ msgstr "Vorschauscan abbrechen <Alt-ESC>"
 
 #. DESC_XSANE_MODE
 msgid ""
-"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or "
-"mail-<Ctrl-m>"
+"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or mail-<Ctrl-"
+"m>"
 msgstr ""
 "speichern-<Ctrl-s>, betrachten-<Ctrl-v>, kopieren-<Ctrl-c>, faxen-<Ctrl-f> "
 "oder mailen-<Ctrl-m>"
@@ -1453,7 +1524,7 @@ msgstr "Kompression wenn Bild im PNG-Format gespeichert wird"
 
 #. DESC_FILENAME_COUNTER_LEN
 msgid "Minimum length of counter in filename"
-msgstr "Minimale Laenge des Zaehlers im Dateinamen"
+msgstr "Minimale Länge de Zählers im Dateinamen"
 
 #. DESC_TIFF_COMPRESSION_16
 msgid "Compression type if 16 bit image is saved as tiff"
@@ -1487,8 +1558,8 @@ msgstr ""
 #. DESC_REDUCE_16BIT_TO_8BIT
 msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
 msgstr ""
-"Wenn der Scanner das Bild mit 16 Bits/Farbe liefert wird das Bild mit 8 "
-"Bits/Farbe gespeichert"
+"Wenn der Scanner das Bild mit 16 Bits/Farbe liefert wird das Bild mit 8 Bits/"
+"Farbe gespeichert"
 
 #. DESC_PSFILE_WIDTH
 msgid "Width of paper for postscript files"
@@ -1528,6 +1599,10 @@ msgstr ""
 "Benutze eigene Farbpalette für Vorschaubild, wenn die Bildschirmfarbtiefe 8 "
 "Bit beträgt"
 
+#. DESC_SHOW_RANGE_MODE
+msgid "Select how a range is displayed"
+msgstr ""
+
 #. DESC_PREVIEW_OVERSAMPLING
 msgid "Value with that the calculated preview resolution is multiplied"
 msgstr "Wert, mit dem die berechnete Vorschauauflösung multipliziert wird"
@@ -1557,9 +1632,9 @@ msgid ""
 "Select grayscale scanmode. This scanmode is used for lineart preview scan "
 "when transformation from grayscale to lineart is enabled"
 msgstr ""
-"Name des Graustufen-Scanmodus auswählen. Dieser Scanmodus wird beim "
-"Schwarz-Weiss Vorschauscan verwendet, wenn Umwandlung von Graustufen in "
-"Schwarz/Weiß aktiviert ist."
+"Name des Graustufen-Scanmodus auswählen. Dieser Scanmodus wird beim Schwarz-"
+"Weiss Vorschauscan verwendet, wenn Umwandlung von Graustufen in Schwarz/Weiß "
+"aktiviert ist."
 
 #. DESC_PREVIEW_THRESHOLD_MIN
 #, no-c-format
@@ -1604,8 +1679,8 @@ msgstr ""
 msgid ""
 "Enter command to be executed to display helpfiles, must be a html-viewer!"
 msgstr ""
-"Befehl, der ausgeführt werden soll, um Hilfedateien anzuzeigen, muß ein "
-"HTML-Betrachter sein!"
+"Befehl, der ausgeführt werden soll, um Hilfedateien anzuzeigen, muß ein HTML-"
+"Betrachter sein!"
 
 #. DESC_AUTOENHANCE_GAMMA
 msgid "Change gamma value when autoenhancement button is pressed"
@@ -1709,6 +1784,19 @@ msgstr ""
 msgid "Enter option of the ocr program to define output file"
 msgstr ""
 
+#. DESC_OCR_USE_GUI_PIPE_OPT
+msgid "Define if the ocr program supports gui progress pipe"
+msgstr ""
+
+#. DESC_OCR_OUTFD_OPT
+msgid ""
+"Enter option of the ocr program to define output filedescripor in GUI mode"
+msgstr ""
+
+#. DESC_OCR_PROGRESS_KEYWORD
+msgid "Define Keyword that is used to mark progress information"
+msgstr ""
+
 #. DESC_PERMISSION_READ
 msgid "read"
 msgstr "lesen"
@@ -1743,6 +1831,10 @@ msgid "Zoom 20% out"
 msgstr "Zoomt um 20% heraus"
 
 #. DESC_ZOOM_IN
+msgid "Click at position to zoom to"
+msgstr ""
+
+#. DESC_ZOOM_AREA
 msgid "Zoom into selected area"
 msgstr "Zoomt in den gewählten Bereich hinein"
 
@@ -1758,9 +1850,13 @@ msgstr "Sichtbaren Bereich auswählen"
 msgid "Autoselect scanarea"
 msgstr "Scanbereich automatisch wählen"
 
+#. DESC_AUTORAISE_SCANAREA
+msgid "Autoraise scanarea"
+msgstr "Scanbereich automatisch vergrößern"
+
 #. DESC_DELETE_IMAGES
 msgid "Delete preview image cache"
-msgstr "Vorschau Speicher loeschen"
+msgstr "Vorschau Speicher löschen"
 
 #. DESC_PRESET_AREA
 msgid "Preset area"
@@ -1809,6 +1905,18 @@ msgstr "Medium speichern"
 #. DESC_DELETE_MEDIUM
 msgid "Delete active medium"
 msgstr "Medium löschen"
+
+#. DESC_SCALE_FACTOR
+msgid "Scale factor"
+msgstr "Vergrößerungsfakto:"
+
+#. DESC_X_SCALE_FACTOR
+msgid "X-Scale factor"
+msgstr "Vergrößerungsfaktor X:"
+
+#. DESC_Y_SCALE_FACTOR
+msgid "Y-Scale factor"
+msgstr "Vergrößerungsfaktor Y:"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2032,6 +2140,10 @@ msgstr "Warnung"
 msgid "Information"
 msgstr "Information"
 
+#. ERR_HEADER_CHILD_PROCESS_ERROR
+msgid "Child process error"
+msgstr ""
+
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
 msgstr "Fehler beim Erstellen der Datei:"
@@ -2112,8 +2224,8 @@ msgid ""
 " -v, --version                print version information\n"
 " -l, --license                print license information\n"
 "\n"
-" -d, --device-settings file   load device settings from file (without "
-"\".drc\")\n"
+" -d, --device-settings file   load device settings from file (without \".drc"
+"\")\n"
 "\n"
 " -V, --viewer                 start with viewer-mode active (default)\n"
 " -s, --save                   start with save-mode active\n"
@@ -2366,6 +2478,12 @@ msgstr "Kein Speicher"
 
 msgid "Access to resource has been denied"
 msgstr "Zugang zum Gerät wurde verweigert"
+
+#~ msgid "license"
+#~ msgstr "Lizenz"
+
+#~ msgid "License"
+#~ msgstr "Lizenz"
 
 #~ msgid "Store Medium definition"
 #~ msgstr "Mediendefinition speichern"

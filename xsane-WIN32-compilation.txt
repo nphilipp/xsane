@@ -100,7 +100,7 @@ IV) compiling xsane:
    IV.4) cd /xsane-*
    IV.5) edit configure and remove "exit" after "ERROR: SANE" and "ERROR: GTK"
    IV.6) copy src/Makefile.in.WIN32 to src/Makefile.in
-   IV.7) call ./configure --prefix="c:'\\\\'sane"
+   IV.7) call ./configure --prefix=c:/sane
               ignore errors about missing gtk, gimp and sane
    IV.8) In src/Makefile do:
          - check GTK-DLL names, GDK-DLL names in GTK_LIBS:

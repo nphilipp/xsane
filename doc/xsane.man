@@ -1,4 +1,4 @@
-.TH xsane 1 "11 Aug 2000"
+.TH xsane 1 "15 Jun 2002"
 .IX xsane
 .SH NAME
 xsane - scanner frontend for SANE
@@ -9,9 +9,11 @@ xsane - scanner frontend for SANE
 .IR file
 .RB | -d
 .IR file ]
+.RB [ --viewer | -V ]
 .RB [ --scan | -s ]
 .RB [ --copy | -c ]
 .RB [ --fax | -f ]
+.RB [ --mail | -m ]
 .RB [ --no-mode-selection | -n ]
 .RB [ --Fixed | -F ]
 .RB [ --Scrolled | -S ]
@@ -93,6 +95,17 @@ binary (e.g., "touch @BINDIR@/xsane") or delete the plugin cache
 (e.g., "rm ~/.gimp/pluginrc").  Either way, invoking
 .BR gimp (1)
 afterwards will cause the pluginrc to be rebuilt.
+.PP
+When
+.B xsane
+is started from the
+.B  gimp
+then it is not possible to add a devicename explictly. You have to make the
+devices known to the system by configuring
+.B sane-dll, sane-net
+and
+.B saned.
+
 .SH OPTIONS
 .PP
 If the
@@ -102,6 +115,12 @@ or
 flag is given xsane prints a version information, some
 information about gtk+ and gimp version it is compiled
 against and lists the supported fileformats, then it exits.
+.PP
+The
+.B --viewer
+or
+.B -V
+flag forces xsane to start in viewer mode.
 .PP
 The
 .B --scan
@@ -122,10 +141,16 @@ or
 flag forces xsane to start in fax mode.
 .PP
 The
+.B --mail
+or
+.B -m
+flag forces xsane to start in mail mode.
+.PP
+The
 .B --no-mode-selection
 or
 .B -n
-flag disables the menu for xsane mode selection (scan, copy, fax).
+flag disables the menu for xsane mode selection (viwer, scan, copy, fax, mail).
 .PP
 The
 .B --device-settings
@@ -198,7 +223,7 @@ This file serves the same purpose as the system-wide style file.  If
 present, it takes precedence over the system wide style file.
 .SH "SEE ALSO"
 gimp(1), xscanimage(1), scanimage(1),
-sane\-dll(5), sane\-net(5), sane-scsi(5),
+sane\-dll(5), sane\-net(5), saned(1), sane\-scsi(5), sane\-usb(5),
 sane\-"backendname"(5)
 .SH AUTHOR
 Oliver Rauch <Oliver.Rauch@rauch-domain.de>

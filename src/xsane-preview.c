@@ -3514,6 +3514,7 @@ Preview *preview_new(void)
 
   p->maximum_output_width  = INF; /* full output with */
   p->maximum_output_height = INF; /* full output height */
+  p->block_update_maximum_output_size_clipping = FALSE;
 
   p->preview_colors = -1;
   p->invalid = TRUE; /* no valid preview */
@@ -3969,7 +3970,11 @@ void preview_update_surface(Preview *p, int surface_changed)
     width  = p->surface[p->index_xmax] - p->surface[p->index_xmin];
     height = p->surface[p->index_ymax] - p->surface[p->index_ymin];
 
+#if 0
     if ( (p->calibration) || (p->startimage) ) /* predefined image should have constant aspect */
+#else
+    if (p->calibration) /* predefined calibration image should have constant aspect */
+#endif
     {
       p->aspect = fabs(p->image_width/(float) p->image_height);
     }
@@ -5849,6 +5854,16 @@ void preview_update_maximum_output_size(Preview *p)
 
 void preview_update_maximum_output_size(Preview *p)
 {
+  if (p->block_update_maximum_output_size_clipping)
+  {
+    DBG(DBG_info, "preview_update_maximum_output_size: blocked\n");
+   return;
+  }
+
+  DBG(DBG_proc, "preview_update_maximum_output_size\n");
+
+  p->block_update_maximum_output_size_clipping = TRUE;
+
   if ( (p->maximum_output_width >= INF) || (p->maximum_output_height >= INF) )
   {
     if (p->selection_maximum.active)
@@ -5894,6 +5909,8 @@ void preview_update_maximum_output_size(Preview *p)
       preview_establish_selection(p);
     }
   }
+
+  p->block_update_maximum_output_size_clipping=FALSE;
 }
 /* ---------------------------------------------------------------------------------------------------------------------- */
 

@@ -87,6 +87,7 @@ typedef struct
 
   float maximum_output_width;	/* maximum output width (photocopy) */
   float maximum_output_height;	/* maximum output height (photocopy) */
+  int block_update_maximum_output_size_clipping; /* do not clip maximum output size */
 
   int index_xmin, index_xmax, index_ymin, index_ymax; /* index numbers in dependance of p->rotation */
 

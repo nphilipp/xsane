@@ -6,13 +6,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-03-17 00:03+0100\n"
+"POT-Creation-Date: 2002-06-30 19:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
-"Content-Transfer-Encoding: ENCODING\n"
+"Content-Transfer-Encoding: 8bit\n"
 
 #. Please translate this to the correct directory name (eg. german=>de)
 #. XSANE_LANGUAGE_DIR
@@ -639,14 +639,6 @@ msgid ""
 "Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
 msgstr ""
 
-#. TEXT_X_SCALE_FACTOR
-msgid "X-Scale factor:"
-msgstr ""
-
-#. TEXT_Y_SCALE_FACTOR
-msgid "Y-Scale factor:"
-msgstr ""
-
 #. TEXT_DESPECKLE_RADIUS
 msgid "Despeckle radius:"
 msgstr ""
@@ -1075,16 +1067,24 @@ msgstr ""
 msgid "pack bits"
 msgstr ""
 
-#. MENU_ITEM_SHOW_RANGE_SCALE
-msgid "Slider"
+#. MENU_ITEM_RANGE_SCALE
+msgid "Slider (Scale)"
 msgstr ""
 
-#. MENU_ITEM_SHOW_RANGE_SPINBUTTON
+#. MENU_ITEM_RANGE_SCROLLBAR
+msgid "Slider (Scrollbar)"
+msgstr ""
+
+#. MENU_ITEM_RANGE_SPINBUTTON
 msgid "Spinbutton"
 msgstr ""
 
-#. MENU_ITEM_SHOW_RANGE_BOTH
-msgid "Slider and Spinbutton"
+#. MENU_ITEM_RANGE_SCALE_SPIN
+msgid "Scale and Spinbutton"
+msgstr ""
+
+#. MENU_ITEM_RANGE_SCROLL_SPIN
+msgid "Scrollbar and Spinbutton"
 msgstr ""
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
@@ -1176,6 +1176,10 @@ msgstr ""
 msgid "Bluring image"
 msgstr ""
 
+#. PROGRESS_OCR
+msgid "OCR in progress"
+msgstr ""
+
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
 msgstr ""
@@ -1194,8 +1198,8 @@ msgstr ""
 
 #. DESC_XSANE_MODE
 msgid ""
-"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or "
-"mail-<Ctrl-m>"
+"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or mail-<Ctrl-"
+"m>"
 msgstr ""
 
 #. DESC_XSANE_MEDIUM
@@ -1749,6 +1753,10 @@ msgid "Zoom 20% out"
 msgstr ""
 
 #. DESC_ZOOM_IN
+msgid "Click at position to zoom to"
+msgstr ""
+
+#. DESC_ZOOM_AREA
 msgid "Zoom into selected area"
 msgstr ""
 
@@ -1762,6 +1770,10 @@ msgstr ""
 
 #. DESC_AUTOSELECT_SCANAREA
 msgid "Autoselect scanarea"
+msgstr ""
+
+#. DESC_AUTORAISE_SCANAREA
+msgid "Autoraise scanarea"
 msgstr ""
 
 #. DESC_DELETE_IMAGES
@@ -1814,6 +1826,18 @@ msgstr ""
 
 #. DESC_DELETE_MEDIUM
 msgid "Delete active medium"
+msgstr ""
+
+#. DESC_SCALE_FACTOR
+msgid "Scale factor"
+msgstr ""
+
+#. DESC_X_SCALE_FACTOR
+msgid "X-Scale factor"
+msgstr ""
+
+#. DESC_Y_SCALE_FACTOR
+msgid "Y-Scale factor"
 msgstr ""
 
 #. ERR_HOME_DIR
@@ -2031,6 +2055,10 @@ msgstr ""
 msgid "Information"
 msgstr ""
 
+#. ERR_HEADER_CHILD_PROCESS_ERROR
+msgid "Child process error"
+msgstr ""
+
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
 msgstr ""
@@ -2111,8 +2139,8 @@ msgid ""
 " -v, --version                print version information\n"
 " -l, --license                print license information\n"
 "\n"
-" -d, --device-settings file   load device settings from file (without "
-"\".drc\")\n"
+" -d, --device-settings file   load device settings from file (without \".drc"
+"\")\n"
 "\n"
 " -V, --viewer                 start with viewer-mode active (default)\n"
 " -s, --save                   start with save-mode active\n"

@@ -44,6 +44,7 @@ extern void xsane_save_png(FILE *outfile, FILE *imagefile, Image_info *image_inf
 extern void xsane_save_png_16(FILE *outfile, FILE *imagefile, Image_info *image_info, int compression, GtkProgressBar *progress_bar, int *cancel_save);
 extern void xsane_save_pnm_16(FILE *outfile, FILE *imagefile, Image_info *image_info, GtkProgressBar *progress_bar, int *cancel_save);
 extern int xsane_save_image_as_lineart(char *input_filename, char *output_filename, GtkProgressBar *progress_bar, int *cancel_save);
+extern int xsane_save_image_as_text(char *input_filename, char *output_filename, GtkProgressBar *progress_bar, int *cancel_save);
 extern int xsane_save_image_as(char *input_filename, char *output_filename, int output_format, GtkProgressBar *progress_bar, int *cancel_save);
 extern void null_print_func(gchar *msg);
 extern int xsane_transfer_to_gimp(char *input_filename, GtkProgressBar *progress_bar, int *cancel_save);

@@ -1321,7 +1321,7 @@ static void xsane_setup_browse_tmp_path_callback(GtkWidget *widget, gpointer dat
   strncpy(tmp_path, old_tmp_path, sizeof(tmp_path));
 
   snprintf(windowname, sizeof(windowname), "%s %s", xsane.prog_name, WINDOW_TMP_PATH);
-  xsane_back_gtk_get_filename(windowname, tmp_path, sizeof(tmp_path), tmp_path, TRUE, FALSE, TRUE);
+  xsane_back_gtk_get_filename(windowname, tmp_path, sizeof(tmp_path), tmp_path, NULL, TRUE, FALSE, TRUE, FALSE);
 
   gtk_entry_set_text(GTK_ENTRY(xsane_setup.tmp_path_entry), tmp_path);
 }
@@ -3175,8 +3175,6 @@ void xsane_setup_dialog(GtkWidget *widget, gpointer data)
 
   device_options_changed = 0;
 
-  xsane_clear_histogram(&xsane.histogram_raw);
-  xsane_clear_histogram(&xsane.histogram_enh);
   xsane_set_sensitivity(FALSE);
 
   xsane.preview->calibration = 1; /* show monitor calibration image */

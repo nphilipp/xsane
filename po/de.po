@@ -4,8 +4,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.84\n"
-"POT-Creation-Date: 2002-04-16 20:16+0200\n"
+"Project-Id-Version: XSANE 0.87\n"
+"POT-Creation-Date: 2002-06-30 19:11+0200\n"
 "PO-Revision-Date: 2000-01-21 15:51+01:00\n"
 "Last-Translator: Oliver Rauch <Oliver.Rauch@rauch-domain.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -577,14 +577,14 @@ msgstr ""
 "von der Free Software Foundation veröffentlicht, herausgegeben, entweder\n"
 "Version 2 der Lizenz, oder (wenn Sie wünschen) jeder späteren Version.\n"
 "\n"
-"Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, daß es Ihnen\n"
-"von Nutzen sein wird, aber OHNE JEDE GEWÄHRLEISTUNG - sogar ohne die "
-"implizite\n"
-"Gewährleistung der MARKTREIFE oder der EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.\n"
-"Sollte das Programm einen Schaden verursachen, dann tragen Sie die Kosten\n"
-"für alle notwendigen Dienstleistungen, Reparaturen oder Korrekturen. Um\n"
-"dieses Programm zu benutzen, haben Sie den folgende Vereinbarung über den\n"
-"Haftungsausschluß zu lesen, zu verstehen und zu akzeptieren.\n"
+"Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, dass es\n"
+"Ihnen von Nutzen sein wird, aber OHNE JEDE GEWÄHRLEISTUNG\n"
+"- sogar ohne die implizite Gewährleistung der MARKTREIFE oder der\n"
+"EIGNUNG FÜR EINEN BESTIMMTEN ZWECK. Sollte das Programm einen\n"
+"Schaden verursachen, dann tragen Sie - der Benutzer - die Kosten\n"
+"für alle notwendigen Dienstleistungen, Reparaturen oder Korrekturen.\n"
+"Um dieses Programm zu benutzen, haben Sie die folgende Vereinbarung\n"
+"über den Haftungsausschluß zu lesen, zu verstehen und zu akzeptieren.\n"
 
 #. TEXT_GPL
 msgid ""
@@ -600,10 +600,10 @@ msgstr ""
 "von der Free Software Foundation veröffentlicht, herausgegeben, entweder\n"
 "Version 2 der Lizenz, oder (wenn Sie wünschen) jeder späteren Version.\n"
 "\n"
-"Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, daß es Ihnen\n"
-"von Nutzen sein wird, aber OHNE JEDE GEWÄHRLEISTUNG - sogar ohne die "
-"implizite\n"
-"Gewährleistung der MARKTREIFE oder der EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.\n"
+"Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, dass es\n"
+"Ihnen von Nutzen sein wird, aber OHNE JEDE GEWÄHRLEISTUNG\n"
+"- sogar ohne die implizite Gewährleistung der MARKTREIFE oder der\n"
+"EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.\n"
 
 #. TEXT_EMAIL
 msgid "Email:"
@@ -664,16 +664,8 @@ msgstr "Medium Name:"
 msgid ""
 "Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
 msgstr ""
-"Größe %d x %d Punkte, %d Bit/Farbe, %d Farben, %1.0f dpi x %1.0f dpi, %1.1f "
-"%s"
-
-#. TEXT_X_SCALE_FACTOR
-msgid "X-Scale factor:"
-msgstr "Vergrößerungsfaktor X:"
-
-#. TEXT_Y_SCALE_FACTOR
-msgid "Y-Scale factor:"
-msgstr "Vergrößerungsfaktor Y:"
+"Größe %d x %d Punkte, %d Bit/Farbe, %d Farben, %1.0f dpi x %1.0f dpi, %1.1f %"
+"s"
 
 #. TEXT_DESPECKLE_RADIUS
 msgid "Despeckle radius:"
@@ -953,7 +945,7 @@ msgstr "E-Mail"
 
 #. NOTEBOOK_OCR_OPTIONS
 msgid "OCR"
-msgstr ""
+msgstr "Texterkennung"
 
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display"
@@ -1105,23 +1097,23 @@ msgstr "gepackte Bits"
 
 #. MENU_ITEM_RANGE_SCALE
 msgid "Slider (Scale)"
-msgstr ""
+msgstr "Schieber (Scale)"
 
 #. MENU_ITEM_RANGE_SCROLLBAR
 msgid "Slider (Scrollbar)"
-msgstr ""
+msgstr "Schieber (Scrollbalken)"
 
 #. MENU_ITEM_RANGE_SPINBUTTON
 msgid "Spinbutton"
-msgstr ""
+msgstr "Drehknopf"
 
 #. MENU_ITEM_RANGE_SCALE_SPIN
 msgid "Scale and Spinbutton"
-msgstr ""
+msgstr "Scale und Drehknopf"
 
 #. MENU_ITEM_RANGE_SCROLL_SPIN
 msgid "Scrollbar and Spinbutton"
-msgstr ""
+msgstr "Scrollbalken und Drehknopf"
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
 msgid "Standard options window (lineart)"
@@ -1212,6 +1204,10 @@ msgstr "Flecken entfernen"
 msgid "Bluring image"
 msgstr "Bild weichzeichnen"
 
+#. PROGRESS_OCR
+msgid "OCR in progress"
+msgstr "Texterkennung"
+
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
 msgstr "Scan starten <Ctrl-Enter>"
@@ -1230,15 +1226,15 @@ msgstr "Vorschauscan abbrechen <Alt-ESC>"
 
 #. DESC_XSANE_MODE
 msgid ""
-"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or "
-"mail-<Ctrl-m>"
+"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or mail-<Ctrl-"
+"m>"
 msgstr ""
 "speichern-<Ctrl-s>, betrachten-<Ctrl-v>, kopieren-<Ctrl-c>, faxen-<Ctrl-f> "
 "oder mailen-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
 msgid "Select source medium type"
-msgstr "Type des Quellmediums auswählen"
+msgstr "Typ des Quellmediums auswählen"
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1270,7 +1266,7 @@ msgstr "Name der Faxseite eingeben"
 
 #. DESC_FAXRECEIVER
 msgid "Enter receiver phone number or address"
-msgstr "Telephonnummer des Empfängers eingeben"
+msgstr "Telefonnummer des Empfängers eingeben"
 
 #. DESC_MAILPROJECT
 msgid "Enter name of mail project"
@@ -1412,7 +1408,7 @@ msgstr ""
 
 #. DESC_ENH_RESTORE
 msgid "Restore enhancement values from preferences <Shift-r>"
-msgstr "Lade Farbverbesserungswerte aus Einstellungen >shift-r>"
+msgstr "Lade Farbverbesserungswerte aus Einstellungen <shift-r>"
 
 #. DESC_ENH_STORE
 msgid "Store active enhancement values to preferences <Shift-m>"
@@ -1566,8 +1562,8 @@ msgstr ""
 #. DESC_REDUCE_16BIT_TO_8BIT
 msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
 msgstr ""
-"Wenn der Scanner das Bild mit 16 Bits/Farbe liefert wird das Bild mit 8 "
-"Bits/Farbe gespeichert"
+"Wenn der Scanner das Bild mit 16 Bits/Farbe liefert wird das Bild mit 8 Bits/"
+"Farbe gespeichert"
 
 #. DESC_PSFILE_WIDTH
 msgid "Width of paper for postscript files"
@@ -1640,9 +1636,9 @@ msgid ""
 "Select grayscale scanmode. This scanmode is used for lineart preview scan "
 "when transformation from grayscale to lineart is enabled"
 msgstr ""
-"Name des Graustufen-Scanmodus auswählen. Dieser Scanmodus wird beim "
-"Schwarz-Weiss Vorschauscan verwendet, wenn Umwandlung von Graustufen in "
-"Schwarz/Weiß aktiviert ist."
+"Name des Graustufen-Scanmodus auswählen. Dieser Scanmodus wird beim Schwarz-"
+"Weiss Vorschauscan verwendet, wenn Umwandlung von Graustufen in Schwarz/Weiß "
+"aktiviert ist."
 
 #. DESC_PREVIEW_THRESHOLD_MIN
 #, no-c-format
@@ -1687,8 +1683,8 @@ msgstr ""
 msgid ""
 "Enter command to be executed to display helpfiles, must be a html-viewer!"
 msgstr ""
-"Befehl, der ausgeführt werden soll, um Hilfedateien anzuzeigen, muß ein "
-"HTML-Betrachter sein!"
+"Befehl, der ausgeführt werden soll, um Hilfedateien anzuzeigen, muß ein HTML-"
+"Betrachter sein!"
 
 #. DESC_AUTOENHANCE_GAMMA
 msgid "Change gamma value when autoenhancement button is pressed"
@@ -1794,16 +1790,21 @@ msgstr "Ausgabe-Datei-Option für OCR Programm eingeben"
 
 #. DESC_OCR_USE_GUI_PIPE_OPT
 msgid "Define if the ocr program supports gui progress pipe"
-msgstr "Definieren Sie, ob das OCR Programm eine GUI-Fortschritts-Pipe unterstützt"
+msgstr ""
+"Definieren Sie, ob das OCR Programm eine GUI-Fortschritts-Pipe unterstützt"
 
 #. DESC_OCR_OUTFD_OPT
 msgid ""
 "Enter option of the ocr program to define output filedescripor in GUI mode"
-msgstr "Geben Sie die Option des OCR Programms ein, mit der der Ausgabefildeskriptor im GUI Mode übergeben wird"
+msgstr ""
+"Geben Sie die Option des OCR Programms ein, mit der der Ausgabefildeskriptor "
+"im GUI Mode übergeben wird"
 
 #. DESC_OCR_PROGRESS_KEYWORD
 msgid "Define Keyword that is used to mark progress information"
-msgstr "Definieren Sie das Schlüsselwort, das benutzt wird, um Fortschritssangaben zu kennzeichenen"
+msgstr ""
+"Definieren Sie das Schlüsselwort, das benutzt wird, um Fortschritssangaben "
+"zu kennzeichenen"
 
 #. DESC_PERMISSION_READ
 msgid "read"
@@ -1839,6 +1840,10 @@ msgid "Zoom 20% out"
 msgstr "Zoomt um 20% heraus"
 
 #. DESC_ZOOM_IN
+msgid "Click at position to zoom to"
+msgstr "In gewünschten Bereich zum Zoomen klicken"
+
+#. DESC_ZOOM_AREA
 msgid "Zoom into selected area"
 msgstr "Zoomt in den gewählten Bereich hinein"
 
@@ -1909,6 +1914,18 @@ msgstr "Medium speichern"
 #. DESC_DELETE_MEDIUM
 msgid "Delete active medium"
 msgstr "Medium löschen"
+
+#. DESC_SCALE_FACTOR
+msgid "Scale factor"
+msgstr "Vergrößerungsfaktor:"
+
+#. DESC_X_SCALE_FACTOR
+msgid "X-Scale factor"
+msgstr "Vergrößerungsfaktor X:"
+
+#. DESC_Y_SCALE_FACTOR
+msgid "Y-Scale factor"
+msgstr "Vergrößerungsfaktor Y:"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2132,6 +2149,10 @@ msgstr "Warnung"
 msgid "Information"
 msgstr "Information"
 
+#. ERR_HEADER_CHILD_PROCESS_ERROR
+msgid "Child process error"
+msgstr "Kindprozess-Fehler"
+
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
 msgstr "Fehler beim Erstellen der Datei:"
@@ -2212,8 +2233,8 @@ msgid ""
 " -v, --version                print version information\n"
 " -l, --license                print license information\n"
 "\n"
-" -d, --device-settings file   load device settings from file (without "
-"\".drc\")\n"
+" -d, --device-settings file   load device settings from file (without \".drc"
+"\")\n"
 "\n"
 " -V, --viewer                 start with viewer-mode active (default)\n"
 " -s, --save                   start with save-mode active\n"

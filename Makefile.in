@@ -39,6 +39,11 @@ uninstall: uninstall-recursive
 
 clean: clean-recursive
 
+rpm: all-recursive
+	checkinstall -R --strip=no --pkgname=xsane --pkgversion=@VERSION@ \
+                     --pkgsource=http://www.xsane.org --pkgaltsource=ftp://ftp.mostang.com/sane/xsane \
+                     --pkggroup=Applications/Graphics --spec=xsane.spec --pkglicense=GPL --pkgrelease=1
+
 distclean: clean distclean-recursive
 	rm -f *~ include/*~ include/sane/*~ *.log *.bak libtool
 	rm -f include/sane/config.h Makefile config.cache config.status
@@ -47,7 +52,7 @@ distclean: clean distclean-recursive
 depend: depend-recursive
 
 all-recursive install-recursive uninstall-recursive clean-recursive distclean-recursive \
-depend-recursive:
+depend-recursive rpm-recursive:
 	for subdir in $(SUBDIRS); do		\
 	  target=`echo $@ | sed s/-recursive//`; \
 	  echo making $$target in $$subdir;	\

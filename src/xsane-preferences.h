@@ -88,7 +88,9 @@ typedef struct
   {
     char   *xsane_version_str;		/* xsane-version string */
     char   *tmp_path;			/* path to temporary directory */
+    char   *working_directory;		/* directory where xsane saves images etc */
     char   *filename;			/* default filename */
+    char   *filetype;			/* default filetype */
     int    image_umask;			/* image umask (permisson mask) */
     int    directory_umask;		/* directory umask (permisson mask) */
 

@@ -28,25 +28,9 @@
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 #if 0
-# define HAVE_GTK2
-# define HAVE_GTK_TEXT_VIEW_H
-#endif
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-#if 0
 #define DEF_GTK_ACCEL_LOCKED 0
 #else
 #define DEF_GTK_ACCEL_LOCKED GTK_ACCEL_LOCKED
-#endif
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-#ifndef HAVE_GTK2
-# include "xsane-gtk-1_x-compat.h"
-#else /* we have gtk+-2.0 */
-# define DEF_GTK_SIGNAL_SPINBUTTON_VALUE_CHANGED "value-changed"
-# define DEF_GTK_MENU_ACCEL_VISIBLE GTK_ACCEL_VISIBLE
 #endif
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -56,7 +40,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.86"
+#define XSANE_VERSION		"0.87"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2002"
@@ -135,6 +119,20 @@
 #include <gdk/gdkkeysyms.h>
 #include <gdk/gdk.h>
 #include <gtk/gtk.h>
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+#if GTK_MAJOR_VERSION == 2
+# define HAVE_GTK2
+#endif
+
+#ifdef HAVE_GTK2
+# define HAVE_GTK_TEXT_VIEW_H
+# define DEF_GTK_SIGNAL_SPINBUTTON_VALUE_CHANGED "value-changed"
+# define DEF_GTK_MENU_ACCEL_VISIBLE GTK_ACCEL_VISIBLE
+#else /* we don't have gtk+-2.0 */
+# include "xsane-gtk-1_x-compat.h"
+#endif
 
 #ifdef ENABLE_NLS
 #    include <libintl.h>
@@ -337,8 +335,8 @@ extern void xsane_mail_project_save(void);
 #define OCRCOMMAND 	 	"gocr"
 #define OCRINPUTFILEOPT	 	"-i"
 #define OCROUTPUTFILEOPT	"-o"
-#define OCROUTFDOPT		"--gui-fdout"
-#define OCRPROGRESSKEY		"Progress:"
+#define OCROUTFDOPT		"-x"
+#define OCRPROGRESSKEY		""
 #define DOCVIEWER_NETSCAPE	"netscape"
 #define DOCVIEWER 	 	DOCVIEWER_NETSCAPE
 
@@ -398,7 +396,7 @@ extern void xsane_mail_project_save(void);
 enum
 {
  XSANE_UNKNOWN, XSANE_PNM, XSANE_JPEG, XSANE_PNG, XSANE_PS, XSANE_TIFF, XSANE_RGBA,
- XSANE_RAW16, XSANE_PNM16
+ XSANE_RAW16, XSANE_PNM16, XSANE_TEXT
 };
  
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -431,12 +429,19 @@ typedef struct XsaneSlider
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+typedef struct XsaneChildprocess
+{
+  pid_t pid;
+  struct XsaneChildprocess *next;
+} XsaneChildprocess;
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 typedef struct Xsane
 {
     SANE_Int sane_backend_versioncode;
     char *backend;
     char *device_set_filename;
-    char *filetype;
     char *output_filename;
     char *dummy_filename;
 
@@ -540,6 +545,7 @@ typedef struct Xsane
     size_t bytes_read;
     int read_offset_16;
     char last_offset_16_byte;
+    int  lineart_to_grayscale_x;
     GtkProgressBar *progress_bar;
     int input_tag;
     SANE_Parameters param;
@@ -750,6 +756,9 @@ typedef struct Xsane
     char *adf_scansource;
 
 /* -------------------------------------------------- */
+
+    int ipc_pipefd[2]; /* for inter process communication error messages */
+    XsaneChildprocess *childprocess_list;
 
 } Xsane;
 

@@ -73,7 +73,7 @@ extern GtkWidget *xsane_info_text_new(GtkWidget *parent, gchar *text);
 extern void xsane_refresh_dialog(void);
 extern void xsane_update_param(void *arg);
 extern void xsane_define_output_filename(void);
-extern int xsane_identify_output_format(char *filename, char **ext);
+extern int xsane_identify_output_format(char *filename, char *filetype, char **ext);
 extern void xsane_change_working_directory(void);
 extern int xsane_display_eula(int ask_for_accept);
 extern int xsane_display_gpl(void);

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.76\n"
-"POT-Creation-Date: 2002-03-17 00:03+0100\n"
+"POT-Creation-Date: 2002-06-30 19:11+0200\n"
 "PO-Revision-Date: 2002-01-17 00:47GMT\n"
 "Last-Translator: Rusmir Duško <drusmir@gmx.ch>\n"
 "Language-Team: srpski <sr@li.org>\n"
@@ -647,16 +647,8 @@ msgstr ""
 msgid ""
 "Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
 msgstr ""
-"Veličina %d x %d piksxel, %d bit/boji, %d boja, %1.0f dpi x %1.0f dpi, "
-"%1.1f %s"
-
-#. TEXT_X_SCALE_FACTOR
-msgid "X-Scale factor:"
-msgstr "Odredi X stepen povećavanja:"
-
-#. TEXT_Y_SCALE_FACTOR
-msgid "Y-Scale factor:"
-msgstr "Odredi Y stepen povećavanja:"
+"Veličina %d x %d piksxel, %d bit/boji, %d boja, %1.0f dpi x %1.0f dpi, %1.1f "
+"%s"
 
 #. TEXT_DESPECKLE_RADIUS
 msgid "Despeckle radius:"
@@ -1088,17 +1080,25 @@ msgstr "JPEG DCT kompresija"
 msgid "pack bits"
 msgstr "zapakovani biti"
 
-#. MENU_ITEM_SHOW_RANGE_SCALE
+#. MENU_ITEM_RANGE_SCALE
 #, fuzzy
-msgid "Slider"
+msgid "Slider (Scale)"
 msgstr "Dia"
 
-#. MENU_ITEM_SHOW_RANGE_SPINBUTTON
+#. MENU_ITEM_RANGE_SCROLLBAR
+msgid "Slider (Scrollbar)"
+msgstr ""
+
+#. MENU_ITEM_RANGE_SPINBUTTON
 msgid "Spinbutton"
 msgstr ""
 
-#. MENU_ITEM_SHOW_RANGE_BOTH
-msgid "Slider and Spinbutton"
+#. MENU_ITEM_RANGE_SCALE_SPIN
+msgid "Scale and Spinbutton"
+msgstr ""
+
+#. MENU_ITEM_RANGE_SCROLL_SPIN
+msgid "Scrollbar and Spinbutton"
 msgstr ""
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
@@ -1190,6 +1190,10 @@ msgstr "Sliku odflekavati"
 msgid "Bluring image"
 msgstr "Zamagljavam sliku"
 
+#. PROGRESS_OCR
+msgid "OCR in progress"
+msgstr ""
+
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
 msgstr "Startaj skeniranje <Ctrl-Enter>"
@@ -1208,8 +1212,8 @@ msgstr "Prekini pregled <Alt-ESC>"
 
 #. DESC_XSANE_MODE
 msgid ""
-"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or "
-"mail-<Ctrl-m>"
+"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or mail-<Ctrl-"
+"m>"
 msgstr ""
 
 #. DESC_XSANE_MEDIUM
@@ -1391,8 +1395,7 @@ msgstr "Obnovi vrednosti za poboljšanje slike iz podešavanja <Shift-r>"
 
 #. DESC_ENH_STORE
 msgid "Store active enhancement values to preferences <Shift-m>"
-msgstr ""
-"Zapamti aktivne vrednosti za poboljšanje slike u podešavanja <Shift-m>"
+msgstr "Zapamti aktivne vrednosti za poboljšanje slike u podešavanja <Shift-m>"
 
 #. DESC_HIST_INTENSITY
 msgid "Show histogram of intensity/gray <Alt-i>"
@@ -1636,8 +1639,7 @@ msgstr ""
 
 #. DESC_PREVIEW_PIPETTE_RANGE
 msgid "dimension of square that is used to average color for pipette function"
-msgstr ""
-"Veličina kvadrata, koji se koristi da uskladi boju za funkciju pipete."
+msgstr "Veličina kvadrata, koji se koristi da uskladi boju za funkciju pipete."
 
 #. DESC_DOC_VIEWER
 msgid ""
@@ -1789,6 +1791,10 @@ msgid "Zoom 20% out"
 msgstr "Smanji za 20% "
 
 #. DESC_ZOOM_IN
+msgid "Click at position to zoom to"
+msgstr ""
+
+#. DESC_ZOOM_AREA
 msgid "Zoom into selected area"
 msgstr "Uvećavaj u izabrano područje"
 
@@ -1802,6 +1808,11 @@ msgstr "Izaberi vidnu površinu"
 
 #. DESC_AUTOSELECT_SCANAREA
 msgid "Autoselect scanarea"
+msgstr "Automatska selekcija površine skeniranja"
+
+#. DESC_AUTORAISE_SCANAREA
+#, fuzzy
+msgid "Autoraise scanarea"
 msgstr "Automatska selekcija površine skeniranja"
 
 #. DESC_DELETE_IMAGES
@@ -1857,6 +1868,21 @@ msgstr "Izaberi izvor medijuma"
 #, fuzzy
 msgid "Delete active medium"
 msgstr "Izbriši sliku"
+
+#. DESC_SCALE_FACTOR
+#, fuzzy
+msgid "Scale factor"
+msgstr "Odredi X stepen povećavanja:"
+
+#. DESC_X_SCALE_FACTOR
+#, fuzzy
+msgid "X-Scale factor"
+msgstr "Odredi X stepen povećavanja:"
+
+#. DESC_Y_SCALE_FACTOR
+#, fuzzy
+msgid "Y-Scale factor"
+msgstr "Odredi Y stepen povećavanja:"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -1950,8 +1976,7 @@ msgstr "Ponestalo je memorije"
 #. ERR_TOO_MUCH_DATA
 msgid "Backend sends more image data than it defined in parameters"
 msgstr ""
-"Backend-i šalju više podatako o slici, nego što je definisano u "
-"parametrima"
+"Backend-i šalju više podatako o slici, nego što je definisano u parametrima"
 
 #. ERR_LIBTIFF
 msgid "LIBTIFF reports error"
@@ -2081,6 +2106,10 @@ msgstr "Upozorenje"
 msgid "Information"
 msgstr "Obaveštenje"
 
+#. ERR_HEADER_CHILD_PROCESS_ERROR
+msgid "Child process error"
+msgstr ""
+
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
 msgstr "Greška pri pravljenju fajla:"
@@ -2162,8 +2191,8 @@ msgid ""
 " -v, --version                print version information\n"
 " -l, --license                print license information\n"
 "\n"
-" -d, --device-settings file   load device settings from file (without "
-"\".drc\")\n"
+" -d, --device-settings file   load device settings from file (without \".drc"
+"\")\n"
 "\n"
 " -V, --viewer                 start with viewer-mode active (default)\n"
 " -s, --save                   start with save-mode active\n"
@@ -2191,8 +2220,8 @@ msgstr ""
 "Startaj grafički korisnički interfejs (GUI) da dobiješ pristup do SANE "
 "(Scanner Access Now Easy) uređaja.\n"
 "\n"
-"Format [UREĐAJ] je ime backend-a: u obliku uređaja (n.pr. "
-"umax:/dev/scanner)\n"
+"Format [UREĐAJ] je ime backend-a: u obliku uređaja (n.pr. umax:/dev/"
+"scanner)\n"
 "[OPCIJA]... može biti kombinacija sledećih stavki:\n"
 " -h, --help                   pokaži ovaj pomoćni i tekst\n"
 " -v, --version                daj informacije o verziji\n"
@@ -2232,8 +2261,8 @@ msgid ""
 "This function provides access to scanners and other image acquisition "
 "devices through the SANE (Scanner Access Now Easy) interface."
 msgstr ""
-"Ta funkcija omogućava dostup do skenera i drugih uređaja za dobijanje "
-"slika pomoću SANE-a (Sccanner Access Now Easy) interfejsa."
+"Ta funkcija omogućava dostup do skenera i drugih uređaja za dobijanje slika "
+"pomoću SANE-a (Sccanner Access Now Easy) interfejsa."
 
 #. Menu path must not be translated, this is done by the gimp. Only translate the text behind the last "/"
 #. XSANE_GIMP_MENU_DIALOG

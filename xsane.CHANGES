@@ -1928,7 +1928,7 @@ xsane-0.82 -> 0.83:
 xsane-0.83 -> 0.84:
 -------------------
 
- - if xsane-license.txt is not file when it shall be displayed then xsane does
+ - if xsane-license.txt is not found when it shall be displayed then xsane does
    print an error message and behaves like when the user did not accept the license.
 
  - if xsane-startimage.pnm is not found then an image of the size 1x1 pixel is
@@ -2063,4 +2063,85 @@ xsane-0.85 -> 0.86:
      is selected and when the user clicks to the preview
      with the left or middle mouse button then it is zoomed
      to the clicked position
-     
+    
+
+xsane-0.86 -> 0.87:
+-------------------
+
+ - preview_update_maximum_output_size: function sets block bit
+   at beginning of routine and resets it at end of routine, this
+   way it is made sure that the function is not called
+   recursive. This avoids infinite loops when backend
+   changes geometry options.
+   
+ - xsane-device-preferences.c: saving and loading device options
+   does test for num_options now
+ 
+ - added xsane.ipc_pipefd and gdk_input_add(xsane.ipc_pipefd,...),
+   a child process can write to the pipe and xsane displays the
+   text in an error dialog
+ - added inter process communication pipe. When a child process
+   wants to display an error message it can write the message to
+   ipc_pipefd[1] and xsane will display the message in an error dialog
+
+ - xsane_back_gtk_decision_dialog can handle multiple dialogs now,
+   (used by xsane_back_gtk_error/warning/message/info
+
+ - added clear/redraw histogram to xsane_set_sensitivity()
+   removed clear/redraw histogram near calls to xsane_set_sensitivity()
+
+ - add xsane_sigchld_handler to cleanup zombie child processes,
+   this replaces xsane_mail_send_process_exited()
+
+ - changed progress bar pipe of ocr program:
+   -default option is "-x" (gocr)
+   -default progress keyword is "" (gocr)
+   -expects to values: "%d %d\r", main, sub
+    first value is used for progress bar, both are printed as text
+
+ - moved at the end of function xsane_device_dialog()
+   the call xsane_set_all_resolutions(); after xsane_refresh_dialog();
+   this way the backend default resolution is not overwritten at program startup
+
+ - changed calculation of aspect for startimage in preview_update_surface() from image aspect
+   to preview aspect
+
+ - xsane-scan.c saving lineart image as grayscale does work correct now:
+   - fwrite writes correct number of bytes
+   - x value is stored in global struct XSane so that it is not reset at
+     the beginning of xsane_read_image_data()
+
+ - moved ocr routine from xsane-viewer.c to xsane-save.c
+
+ - ocr routine can be selected by saving image as ".txt" or ".text" format
+
+ - added filetype menu to fileselection dialog
+
+ - changed behaviour of filetype menues: the extension immedeatly is added to/changed in
+   the filename (and is not added/corrected when the scan begins).
+   Now the filetype menu does behave the same way as gimp does. This means that
+   you e.g. can select filetype "jpeg" and name the file "image.pnm", in this
+   case the filetype is (like selected) "jpeg". I do not like this, but this is
+   how most programs do handle this situation.
+
+ - filetype is saved in preferences
+
+ - filetype "by ext" is handled as "" instead of NULL now
+
+ - selected working directory is saved in xsane preferences
+
+ - error_xpm, warning_xpm and info_xpm got a little 3d look
+
+ - added test for gtk2 to aclocal.m4 and configure.in/configure
+
+ - added bind_textdomain_codeset(xsane.prog_name, "UTF-8"); after bindtextdomain
+
+ - gtk-fileselection for selecting directories: for gtk2:
+   - selection_entry hidden
+   - added "/." to end of predefined path
+   - for gtk1 the text in selection_entry is removed from the filename after selection has finished
+
+ - updated translations: de, tr, ja, es, fr, cs, sv
+
+ - new translation: sk (slovakian), thanks to Zdenko Podobný <zdpo@mailbox.sk>
+

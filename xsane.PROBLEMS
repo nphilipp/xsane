@@ -66,6 +66,13 @@ READ THIS FILE IF YOU EXPERIENCE ANY PROBLEM
 
       ln -s /usr/bin/Netscape /usr/bin/netscape
 
+ - I have installed gtk+-2.x.x and configure does find it but xsane is compiled with
+   gtk-1.x.x, why?
+
+   When xsane is compiled as gimp plugin then xsane is compiled with the gtk version
+   that is used for gimp. When you disable the gimp plugin then xsane can be compiled
+   with gtk+-2.x.x!
+
  - If you call ./configure a second time, it may be good to call
      make distclean
    before that, if that does not work, remove config.cache:

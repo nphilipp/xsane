@@ -5,13 +5,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.84\n"
-"POT-Creation-Date: 2002-03-17 00:03+0100\n"
+"POT-Creation-Date: 2002-06-30 19:11+0200\n"
 "PO-Revision-Date: 2000-09-29  23:48+0100\n"
 "Last-Translator: Colorio Mauro <linuxbox@interfree.it>\n"
 "Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
-"Content-Transfer-Encoding: ENCODING\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
 
 #. Please translate this to the correct directory name (eg. german=>de)
 #. XSANE_LANGUAGE_DIR
@@ -672,16 +672,6 @@ msgid ""
 "Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
 msgstr ""
 
-#. TEXT_X_SCALE_FACTOR
-#, fuzzy
-msgid "X-Scale factor:"
-msgstr "Impostare il fattore di zoom"
-
-#. TEXT_Y_SCALE_FACTOR
-#, fuzzy
-msgid "Y-Scale factor:"
-msgstr "Impostare il fattore di zoom"
-
 #. TEXT_DESPECKLE_RADIUS
 #, fuzzy
 msgid "Despeckle radius:"
@@ -1130,16 +1120,24 @@ msgstr "Compressione JPEG DCT"
 msgid "pack bits"
 msgstr "compressione bit"
 
-#. MENU_ITEM_SHOW_RANGE_SCALE
-msgid "Slider"
+#. MENU_ITEM_RANGE_SCALE
+msgid "Slider (Scale)"
 msgstr ""
 
-#. MENU_ITEM_SHOW_RANGE_SPINBUTTON
+#. MENU_ITEM_RANGE_SCROLLBAR
+msgid "Slider (Scrollbar)"
+msgstr ""
+
+#. MENU_ITEM_RANGE_SPINBUTTON
 msgid "Spinbutton"
 msgstr ""
 
-#. MENU_ITEM_SHOW_RANGE_BOTH
-msgid "Slider and Spinbutton"
+#. MENU_ITEM_RANGE_SCALE_SPIN
+msgid "Scale and Spinbutton"
+msgstr ""
+
+#. MENU_ITEM_RANGE_SCROLL_SPIN
+msgid "Scrollbar and Spinbutton"
 msgstr ""
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
@@ -1243,6 +1241,10 @@ msgstr "Cancella progetto"
 msgid "Bluring image"
 msgstr "Cancella progetto"
 
+#. PROGRESS_OCR
+msgid "OCR in progress"
+msgstr ""
+
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
 msgstr ""
@@ -1263,8 +1265,8 @@ msgstr "Annulla anteprima"
 
 #. DESC_XSANE_MODE
 msgid ""
-"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or "
-"mail-<Ctrl-m>"
+"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or mail-<Ctrl-"
+"m>"
 msgstr ""
 
 #. DESC_XSANE_MEDIUM
@@ -1895,6 +1897,10 @@ msgid "Zoom 20% out"
 msgstr "Zoom -20%"
 
 #. DESC_ZOOM_IN
+msgid "Click at position to zoom to"
+msgstr ""
+
+#. DESC_ZOOM_AREA
 msgid "Zoom into selected area"
 msgstr "Ingrandisce nell'area selezionata"
 
@@ -1909,6 +1915,11 @@ msgstr "Seleziona l'area visibile"
 #. DESC_AUTOSELECT_SCANAREA
 #, fuzzy
 msgid "Autoselect scanarea"
+msgstr "Usa tutta l'area di scan"
+
+#. DESC_AUTORAISE_SCANAREA
+#, fuzzy
+msgid "Autoraise scanarea"
 msgstr "Usa tutta l'area di scan"
 
 #. DESC_DELETE_IMAGES
@@ -1969,6 +1980,21 @@ msgstr "Selezionare la definizione da cambiare"
 #, fuzzy
 msgid "Delete active medium"
 msgstr "Selezionare la definizione da cambiare"
+
+#. DESC_SCALE_FACTOR
+#, fuzzy
+msgid "Scale factor"
+msgstr "Impostare il fattore di zoom"
+
+#. DESC_X_SCALE_FACTOR
+#, fuzzy
+msgid "X-Scale factor"
+msgstr "Impostare il fattore di zoom"
+
+#. DESC_Y_SCALE_FACTOR
+#, fuzzy
+msgid "Y-Scale factor"
+msgstr "Impostare il fattore di zoom"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2198,6 +2224,10 @@ msgstr "Attenzione"
 msgid "Information"
 msgstr "Informazione"
 
+#. ERR_HEADER_CHILD_PROCESS_ERROR
+msgid "Child process error"
+msgstr ""
+
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
 msgstr "Impossibile creare il file:"
@@ -2279,8 +2309,8 @@ msgid ""
 " -v, --version                print version information\n"
 " -l, --license                print license information\n"
 "\n"
-" -d, --device-settings file   load device settings from file (without "
-"\".drc\")\n"
+" -d, --device-settings file   load device settings from file (without \".drc"
+"\")\n"
 "\n"
 " -V, --viewer                 start with viewer-mode active (default)\n"
 " -s, --save                   start with save-mode active\n"
@@ -2308,14 +2338,14 @@ msgstr ""
 "Lancia l'interfaccia grafica per accedere ai dispositivi SANE (Scanner "
 "Access Now Easy) \n"
 "\n"
-"La forma di [DISPOSITIVO] è nomebackend:filedispositivo (es. "
-"umax:/dev/scanner).\n"
+"La forma di [DISPOSITIVO] è nomebackend:filedispositivo (es. umax:/dev/"
+"scanner).\n"
 "[OPZIONE]... può essere una combinazione delle seguenti:\n"
 "-h, --help                   visualizza questo messaggio di help\n"
 "-v, --version                stampa le informazioni sulla versione\n"
 "\n"
-"-d, --device-settings file   carica i settaggi del dispositivo (senza "
-"\\\".drc\\\")\n"
+"-d, --device-settings file   carica i settaggi del dispositivo (senza \\\"."
+"drc\\\")\n"
 "\n"
 "-s, --scan                   parte con lo modo-scan attivo\n"
 "-c, --copy                   parte con il modo-copia attivo\n"
@@ -2604,10 +2634,11 @@ msgstr "Acesso alla risorsa negato"
 #~ msgstr "Incrementa contatore nome file"
 
 #~ msgid ""
-#~ "If the filename is of the form \"name-001.ext\" (where the number of digits "
-#~ "is free) the number is increased after a scan is finished"
+#~ "If the filename is of the form \"name-001.ext\" (where the number of "
+#~ "digits is free) the number is increased after a scan is finished"
 #~ msgstr ""
-#~ "Se il nome file è nella forma \"name-001.ext\" (dove il numero di cifre è\n"
+#~ "Se il nome file è nella forma \"name-001.ext\" (dove il numero di cifre "
+#~ "è\n"
 #~ "libero) il numero è incrementato dopo che l'aquisizione è terminata"
 
 #~ msgid "Filename extension and type of image format"

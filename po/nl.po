@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xsane 0.84\n"
-"POT-Creation-Date: 2002-03-17 00:03+0100\n"
-"PO-Revision-Date: 2002-01-15 01:10+0100\n"
+"Project-Id-Version: XSANE 0.87\n"
+"POT-Creation-Date: 2002-06-30 19:11+0200\n"
+"PO-Revision-Date: 2002-07-04 10:55+0100\n"
 "Last-Translator: Wim Sinke <sinke@wirehub.nl>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -36,11 +36,11 @@ msgstr "authorizatie"
 
 #. WINDOW_GPL
 msgid "GPL - the license"
-msgstr ""
+msgstr "GPL - de gebruikersrechten"
 
 #. WINDOW_EULA
 msgid "End User License Agreement"
-msgstr ""
+msgstr "Eindgebruikersovereenkomst"
 
 #. WINDOW_INFO
 msgid "info"
@@ -152,9 +152,8 @@ msgid "Blur image"
 msgstr "Afbeelding vervagen"
 
 #. WINDOW_STORE_MEDIUM
-#, fuzzy
 msgid "Store medium definition"
-msgstr "Definitie hernoemen"
+msgstr "Bewaar mediumdefinitie"
 
 #. MENU_FILE
 msgid "File"
@@ -194,7 +193,7 @@ msgstr "Bewaar afbeelding"
 
 #. MENU_ITEM_OCR
 msgid "OCR - save as text"
-msgstr ""
+msgstr "OCR - opslaan als tekst"
 
 #. MENU_ITEM_CLONE
 msgid "Clone"
@@ -395,7 +394,7 @@ msgstr "POP3 legalisatie"
 
 #. RADIO_BUTTON_OCR_USE_GUI_PIPE
 msgid "Use GUI progress pipe"
-msgstr ""
+msgstr "Gebruik GUI progressie pipe"
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
@@ -563,7 +562,6 @@ msgstr "onbekend"
 
 # TBD
 #. TEXT_EULA
-#, fuzzy
 msgid ""
 "XSane is distributed under the terms of the GNU General Public License\n"
 "as published by the Free Software Foundation; either version 2 of the\n"
@@ -578,15 +576,16 @@ msgid ""
 "\"NO WARRANTY\" agreement.\n"
 msgstr ""
 "XSane wordt gedistribueerd onder de voorwaarden van de GNU General Public\n"
-"License, zoals gepubliseerd door de Free Software Foundation; hetzij versie "
-"2\n"
-"van de licentie of (naar keuze) iedere latere versie\n"
+"License, zoals gepubliseerd door de Free Software Foundation; hetzij\n"
+"versie 2 van de licentie of (naar keuze) iedere latere versie\n"
 "\n"
-"Dit programma wordt gedistribueerd in de hoop dat het nuttig is, maar "
-"ZONDER\n"
-"ENIGE GARANTIE; zelfs zonder de impliciete garantie van VERHANDELBAARHEID of "
-"de\n"
-"BRUIKBAARHEID VOOR EEN SPECIAAL DOEL.\n"
+"Dit programma wordt gedistribueerd in de hoop dat het nuttig is, maar\n"
+"ZONDER ENIGE GARANTIE; zelfs zonder de impliciete garantie van \n"
+"VERHANDELBAARHEID of de BRUIKBAARHEID VOOR EEN SPECIAAL DOEL.\n"
+"Als het programma defekt blijkt, dan zijn onderhouds-, reparatie- en\n"
+"verbeteringskosten voor eigen rekening. Om dit programma te gebruiken moet\n"
+"je de volgende \"GEEN GARANTIE\" verklaring gelezen, begrepen en\n"
+"geaccepteerd hebben.\n"
 
 # TBD
 #. TEXT_GPL
@@ -662,23 +661,15 @@ msgstr "Projectstatus:"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
-msgstr ""
+msgstr "Naam medium:"
 
 #. TEXT_VIEWER_IMAGE_INFO
 #, c-format
 msgid ""
 "Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
 msgstr ""
-"Grootte %d x %d pixel, %d bit/kleur, %d kleuren, %1.0f dpi x %1.0f dpi, "
-"%1.1f %s"
-
-#. TEXT_X_SCALE_FACTOR
-msgid "X-Scale factor:"
-msgstr "Vergroting in x-richting:"
-
-#. TEXT_Y_SCALE_FACTOR
-msgid "Y-Scale factor:"
-msgstr "Vergroting in y-richting"
+"Grootte %d x %d pixels, %d bit/kleur, %d kleuren, %1.0f dpi x %1.0f dpi, %"
+"1.1f %s"
 
 #. TEXT_DESPECKLE_RADIUS
 msgid "Despeckle radius:"
@@ -785,9 +776,8 @@ msgid "TIFF lineart image compression"
 msgstr "TIFF lineart compressie"
 
 #. TEXT_SETUP_SHOW_RANGE_MODE
-#, fuzzy
 msgid "Show range as:"
-msgstr "Pagina bekijken"
+msgstr "Bekijk range als:"
 
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
@@ -915,16 +905,15 @@ msgstr "Uitvoeroptie:"
 
 #. TEXT_SETUP_OCR_USE_GUI_PIPE_OPT
 msgid "Use GUI progress pipe:"
-msgstr ""
+msgstr "Gebruik GUI progressie pipe:"
 
 #. TEXT_SETUP_OCR_OUTFD_OPT
-#, fuzzy
 msgid "GUI output-fd option:"
-msgstr "Uitvoeroptie:"
+msgstr "GUI uitvoer-fd optie:"
 
 #. TEXT_SETUP_OCR_PROGRESS_KEYWORD
 msgid "Progress keyword:"
-msgstr ""
+msgstr "Progressie sleutel:"
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
@@ -1056,11 +1045,11 @@ msgstr "Verander map"
 
 #. MENU_ITEM_XSANE_EULA
 msgid "Show EULA"
-msgstr ""
+msgstr "Gebruikersovereenkomst"
 
 #. MENU_ITEM_XSANE_GPL
 msgid "Show license (GPL)"
-msgstr ""
+msgstr "Licentie (GPL)"
 
 #. MENU_ITEM_XSANE_DOC
 msgid "XSane doc"
@@ -1110,18 +1099,25 @@ msgstr "JPEG DCT compressie"
 msgid "pack bits"
 msgstr "gepackte bits"
 
-#. MENU_ITEM_SHOW_RANGE_SCALE
-#, fuzzy
-msgid "Slider"
-msgstr "Dia"
+#. MENU_ITEM_RANGE_SCALE
+msgid "Slider (Scale)"
+msgstr "Slider (Vergroting)"
 
-#. MENU_ITEM_SHOW_RANGE_SPINBUTTON
+#. MENU_ITEM_RANGE_SCROLLBAR
+msgid "Slider (Scrollbar)"
+msgstr "Slider (Scrollbar)"
+
+#. MENU_ITEM_RANGE_SPINBUTTON
 msgid "Spinbutton"
-msgstr ""
+msgstr "Spinbutton"
 
-#. MENU_ITEM_SHOW_RANGE_BOTH
-msgid "Slider and Spinbutton"
-msgstr ""
+#. MENU_ITEM_RANGE_SCALE_SPIN
+msgid "Scale and Spinbutton"
+msgstr "Scale en Spinbutton"
+
+#. MENU_ITEM_RANGE_SCROLL_SPIN
+msgid "Scrollbar and Spinbutton"
+msgstr "Scrollbar en Spinbutton"
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
 msgid "Standard options window (lineart)"
@@ -1212,6 +1208,10 @@ msgstr "Vlekken verwijderen"
 msgid "Bluring image"
 msgstr "Afbeelding vervagen"
 
+#. PROGRESS_OCR
+msgid "OCR in progress"
+msgstr "Tekstherkenning is bezig"
+
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
 msgstr "Start scannen <Ctrl-Enter>"
@@ -1230,11 +1230,11 @@ msgstr "Breek de preview scan af <Alt-ESC>"
 
 #. DESC_XSANE_MODE
 msgid ""
-"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or "
-"mail-<Ctrl-m>"
+"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or mail-<Ctrl-"
+"m>"
 msgstr ""
-"opslaan-<Ctrl-s>, bekijk-<Ctrl-v>, kopier-<Ctrl-c>, fax-<Ctrl-f> of "
-"mail-<Ctrl-m>"
+"opslaan-<Ctrl-s>, bekijk-<Ctrl-v>, kopieer-<Ctrl-c>, fax-<Ctrl-f> of mail-"
+"<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
 msgid "Select source medium type"
@@ -1594,7 +1594,7 @@ msgstr "Gebruik eigen kleurenpallet als scherm diepte 8-bpp is"
 
 #. DESC_SHOW_RANGE_MODE
 msgid "Select how a range is displayed"
-msgstr ""
+msgstr "Selecteer hoe een range vetoond wordt"
 
 #. DESC_PREVIEW_OVERSAMPLING
 msgid "Value with that the calculated preview resolution is multiplied"
@@ -1768,17 +1768,18 @@ msgstr "Geef de optie om een uitvoerbestand op te geven"
 
 #. DESC_OCR_USE_GUI_PIPE_OPT
 msgid "Define if the ocr program supports gui progress pipe"
-msgstr ""
+msgstr "Ondersteund het OCR programma een GUI progressie pipe"
 
 #. DESC_OCR_OUTFD_OPT
-#, fuzzy
 msgid ""
 "Enter option of the ocr program to define output filedescripor in GUI mode"
-msgstr "Geef de optie om een uitvoerbestand op te geven"
+msgstr ""
+"Geef de optie van het OCR programma om de file descriptor te geven in GUI "
+"mode"
 
 #. DESC_OCR_PROGRESS_KEYWORD
 msgid "Define Keyword that is used to mark progress information"
-msgstr ""
+msgstr "Met welke sleutel word progressie informatie gemarkeerd"
 
 #. DESC_PERMISSION_READ
 msgid "read"
@@ -1814,6 +1815,10 @@ msgid "Zoom 20% out"
 msgstr "Zoom 20% uit"
 
 #. DESC_ZOOM_IN
+msgid "Click at position to zoom to"
+msgstr "Klik op de positie om in te zoomen"
+
+#. DESC_ZOOM_AREA
 msgid "Zoom into selected area"
 msgstr "Zoom in het geselecteerde gebied"
 
@@ -1828,6 +1833,10 @@ msgstr "Selecteer zichtbare gebied"
 #. DESC_AUTOSELECT_SCANAREA
 msgid "Autoselect scanarea"
 msgstr "Automatische selectie"
+
+#. DESC_AUTORAISE_SCANAREA
+msgid "Autoraise scanarea"
+msgstr "Automatisch naar voren brengen"
 
 #. DESC_DELETE_IMAGES
 msgid "Delete preview image cache"
@@ -1880,6 +1889,18 @@ msgstr "Sla medium op"
 #. DESC_DELETE_MEDIUM
 msgid "Delete active medium"
 msgstr "Huidige medium verwijderen"
+
+#. DESC_SCALE_FACTOR
+msgid "Scale factor"
+msgstr "Vergroting"
+
+#. DESC_X_SCALE_FACTOR
+msgid "X-Scale factor"
+msgstr "Vergroting in x-richting"
+
+#. DESC_Y_SCALE_FACTOR
+msgid "Y-Scale factor"
+msgstr "Vergroting in y-richting"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2102,6 +2123,10 @@ msgstr "Waarschuwing"
 msgid "Information"
 msgstr "Informatie"
 
+#. ERR_HEADER_CHILD_PROCESS_ERROR
+msgid "Child process error"
+msgstr "Child process fout"
+
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
 msgstr "Kon bestand niet maken:"
@@ -2172,7 +2197,6 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[OPTIE]... [APPARAAT]"
 
 #. TEXT_HELP
-#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2183,8 +2207,8 @@ msgid ""
 " -v, --version                print version information\n"
 " -l, --license                print license information\n"
 "\n"
-" -d, --device-settings file   load device settings from file (without "
-"\".drc\")\n"
+" -d, --device-settings file   load device settings from file (without \".drc"
+"\")\n"
 "\n"
 " -V, --viewer                 start with viewer-mode active (default)\n"
 " -s, --save                   start with save-mode active\n"
@@ -2212,8 +2236,8 @@ msgstr ""
 "Start een grafische gebruikers interface om SANE (Scanner Access Now Easy) "
 "apparaten te gebruiken.\n"
 "\n"
-"Het formaat van [APPARAAT] is backendnaam:apparaatbestand (b.v. "
-"umax:/dev/scanner).\n"
+"Het formaat van [APPARAAT] is backendnaam:apparaatbestand (b.v. umax:/dev/"
+"scanner).\n"
 "[OPTIE]... kan een combinatie zijn van de volgende:\n"
 " -h, --help                   laat deze tekst zien en stop\n"
 " -v, --version                print versie informatie\n"
@@ -2222,22 +2246,26 @@ msgstr ""
 " -d, --device-settings bestand laad apparaatinstellingen van bestand (zonder "
 "\".drc\")\n"
 "\n"
-" -V, --viewer                 begin in bekijk-mode\n"
+" -V, --viewer                 begin in bekijk-mode (standaard)\n"
 " -s, --save                   begin in save-mode\n"
 " -c, --copy                   begin in kopieer-mode\n"
 " -f, --fax                    begin in fax-mode\n"
 " -m, --mail                   begin in e-mail-mode\n"
 " -n, --no-mode-selection      mode mag niet veranderd worden door gebruiker\n"
 "\n"
-" -F, --Fixed                  vaste grootte hoofdvenster\n"
-" -R, --Resizeable             geen vaste grootte hoofdvenster\n"
+" -M, --Medium-calibration     maak medium calibreren mogelijk\n"
 "\n"
-" -p, --print-filenames        print bestandnamen van XSane\n"
+" -F, --Fixed                  vaste grootte hoofdvenster (overschrijft "
+"voorkeurinstellingen\n"
+" -R, --Resizeable             geen vaste grootte hoofdvenster (overschrijft "
+"voorkeurinstellingen\n"
+"\n"
+" -p, --print-filenames        print bestandnamen door XSane gemaakt\n"
 " -N, --force-filename naam    forceer een bestandsnaam\n"
 "\n"
-" --display X11-display        output naar X1-display\n"
+" --display X11-display        output naar X11-display\n"
 " --no-xshm                    gebruik geen shared memory afbeeldingen\n"
-" --sync                       vraag synchrone connectie met X server"
+" --sync                       vraag synchrone connectie met X11 server"
 
 #. strings for gimp plugin
 #. XSANE_GIMP_INSTALL_BLURB

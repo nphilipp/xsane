@@ -1,7 +1,7 @@
+To create a rpm archiv make sure that checkinstall
+(available at http://asic-linux.com.mx/~izto/checkinstall )
+is installed and then call (may be as root: "su -")
 
-anyone who wants to make an rpm should use a script like
-checkinstall (available at http://mayams.net/~izto/checkinstall-en.html )
-
-Thanks to Michael Blaustein <m-blaustein@sjca.edu> for this tip
+make rpm
 
 

@@ -4,8 +4,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.84\n"
-"POT-Creation-Date: 2002-03-17 00:03+0100\n"
+"Project-Id-Version: XSANE 0.87\n"
+"POT-Creation-Date: 2002-06-30 19:11+0200\n"
 "PO-Revision-Date: 2001-11-11 21:30+01:00\n"
 "Last-Translator: Johan Bengtsson <johanb@lls.se>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,11 +37,11 @@ msgstr "auktorisering"
 
 #. WINDOW_GPL
 msgid "GPL - the license"
-msgstr ""
+msgstr "GPL - licensen"
 
 #. WINDOW_EULA
 msgid "End User License Agreement"
-msgstr ""
+msgstr "Licensavtal för slutanvändare"
 
 #. WINDOW_INFO
 msgid "info"
@@ -116,9 +116,8 @@ msgid "Viewer: select output filename"
 msgstr "Visare: välj utmatningsfilnamn"
 
 #. WINDOW_OCR_OUTPUT_FILENAME
-#, fuzzy
 msgid "Select output filename for OCR text file"
-msgstr "till filnamn"
+msgstr "Välj utmatingsfilnamn för OCR textfil"
 
 #. WINDOW_OUTPUT_FILENAME
 msgid "select output filename"
@@ -141,9 +140,8 @@ msgid "select temporary directory"
 msgstr "välj temporär katalog"
 
 #. WINDOW_SCALE
-#, fuzzy
 msgid "Scale image"
-msgstr "Spara bild"
+msgstr "Skala bild"
 
 #. WINDOW_DESPECKLE
 msgid "Despeckle image"
@@ -154,9 +152,8 @@ msgid "Blur image"
 msgstr "Sudda till bild"
 
 #. WINDOW_STORE_MEDIUM
-#, fuzzy
 msgid "Store medium definition"
-msgstr "Byt namn på inställning"
+msgstr "Lagra mediedefinition"
 
 #. MENU_FILE
 msgid "File"
@@ -196,17 +193,15 @@ msgstr "Spara bild"
 
 #. MENU_ITEM_OCR
 msgid "OCR - save as text"
-msgstr ""
+msgstr "OCR - spara som text"
 
 #. MENU_ITEM_CLONE
-#, fuzzy
 msgid "Clone"
-msgstr "Stäng"
+msgstr "Klona"
 
 #. MENU_ITEM_SCALE
-#, fuzzy
 msgid "Scale"
-msgstr "Spara"
+msgstr "Skala"
 
 #. MENU_ITEM_CLOSE
 msgid "Close"
@@ -342,7 +337,7 @@ msgstr "Avsluta inte"
 
 #. BUTTON_SCALE_BIND
 msgid "Bind scale"
-msgstr ""
+msgstr "Bind skala"
 
 #. RADIO_BUTTON_FINE_MODE
 msgid "Fine mode"
@@ -398,7 +393,7 @@ msgstr "POP3 autentisering"
 
 #. RADIO_BUTTON_OCR_USE_GUI_PIPE
 msgid "Use GUI progress pipe"
-msgstr ""
+msgstr "Använd GUI statuslinje"
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
@@ -565,7 +560,6 @@ msgid "unknown"
 msgstr "okänd"
 
 #. TEXT_EULA
-#, fuzzy
 msgid ""
 "XSane is distributed under the terms of the GNU General Public License\n"
 "as published by the Free Software Foundation; either version 2 of the\n"
@@ -661,32 +655,23 @@ msgstr "Projekt status:"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
-msgstr ""
+msgstr "Namn på medium:"
 
 #. TEXT_VIEWER_IMAGE_INFO
 #, c-format
 msgid ""
 "Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
 msgstr ""
-
-#. TEXT_X_SCALE_FACTOR
-#, fuzzy
-msgid "X-Scale factor:"
-msgstr "Ställ in zoomfaktor"
-
-#. TEXT_Y_SCALE_FACTOR
-#, fuzzy
-msgid "Y-Scale factor:"
-msgstr "Ställ in zoomfaktor"
+"Storlek %d x %d pixlar, %d bit/färg, %d färger, %1.0f dpi x %1.0f dpi, %1.1f "
+"%s"
 
 #. TEXT_DESPECKLE_RADIUS
-#, fuzzy
 msgid "Despeckle radius:"
-msgstr "Damma av"
+msgstr "Avdammningsradie:"
 
 #. TEXT_BLUR_RADIUS
 msgid "Blur radius:"
-msgstr ""
+msgstr "Suddradie:"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -785,9 +770,8 @@ msgid "TIFF lineart image compression"
 msgstr "TIFF lineart-bildkompression"
 
 #. TEXT_SETUP_SHOW_RANGE_MODE
-#, fuzzy
 msgid "Show range as:"
-msgstr "Visa sida"
+msgstr "Visa omfång som:"
 
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
@@ -902,44 +886,40 @@ msgid "Viewer (png):"
 msgstr "Visare (png):"
 
 #. TEXT_SETUP_OCR_COMMAND
-#, fuzzy
 msgid "OCR Command:"
-msgstr "Kommando:"
+msgstr "OCR Kommando:"
 
 #. TEXT_SETUP_OCR_INPUTFILE_OPT
-#, fuzzy
 msgid "Inputfile option:"
-msgstr "Flagga för postscriptsfil:"
+msgstr "Inmatningsfilsalternativ:"
 
 #. TEXT_SETUP_OCR_OUTPUTFILE_OPT
-#, fuzzy
 msgid "Outputfile option:"
-msgstr "Flagga för postscriptsfil:"
+msgstr "Utmatningsfilsalternativ:"
 
 #. TEXT_SETUP_OCR_USE_GUI_PIPE_OPT
 msgid "Use GUI progress pipe:"
-msgstr ""
+msgstr "Använd GUI statuslinje:"
 
 #. TEXT_SETUP_OCR_OUTFD_OPT
-#, fuzzy
 msgid "GUI output-fd option:"
-msgstr "Flagga för postscriptsfil:"
+msgstr "GUI utmating-fd alternativ:"
 
 #. TEXT_SETUP_OCR_PROGRESS_KEYWORD
 msgid "Progress keyword:"
-msgstr ""
+msgstr "Status nyckelord:"
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
-msgstr "Användare"
+msgstr "användare"
 
 #. TEXT_SETUP_PERMISSION_GROUP
 msgid "group"
-msgstr "Grupp"
+msgstr "grupp"
 
 #. TEXT_SETUP_PERMISSION_ALL
 msgid "all"
-msgstr "Alla"
+msgstr "alla"
 
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
@@ -963,7 +943,7 @@ msgstr "Post"
 
 #. NOTEBOOK_OCR_OPTIONS
 msgid "OCR"
-msgstr ""
+msgstr "OCR"
 
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display"
@@ -1059,11 +1039,11 @@ msgstr "Byt katalog"
 
 #. MENU_ITEM_XSANE_EULA
 msgid "Show EULA"
-msgstr ""
+msgstr "Visa EULA"
 
 #. MENU_ITEM_XSANE_GPL
 msgid "Show license (GPL)"
-msgstr ""
+msgstr "Visa licens (GPL)"
 
 #. MENU_ITEM_XSANE_DOC
 msgid "XSane doc"
@@ -1113,17 +1093,25 @@ msgstr "JPEG DCT kompression"
 msgid "pack bits"
 msgstr "packbits"
 
-#. MENU_ITEM_SHOW_RANGE_SCALE
-msgid "Slider"
-msgstr ""
+#. MENU_ITEM_RANGE_SCALE
+msgid "Slider (Scale)"
+msgstr "Linje (Skala)"
 
-#. MENU_ITEM_SHOW_RANGE_SPINBUTTON
+#. MENU_ITEM_RANGE_SCROLLBAR
+msgid "Slider (Scrollbar)"
+msgstr "Linje (Rullningslist)"
+
+#. MENU_ITEM_RANGE_SPINBUTTON
 msgid "Spinbutton"
-msgstr ""
+msgstr "Vred"
 
-#. MENU_ITEM_SHOW_RANGE_BOTH
-msgid "Slider and Spinbutton"
-msgstr ""
+#. MENU_ITEM_RANGE_SCALE_SPIN
+msgid "Scale and Spinbutton"
+msgstr "Skala och Vred"
+
+#. MENU_ITEM_RANGE_SCROLL_SPIN
+msgid "Scrollbar and Spinbutton"
+msgstr "Rullningslist och Vred"
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
 msgid "Standard options window (lineart)"
@@ -1203,9 +1191,8 @@ msgid "Cloning image"
 msgstr "Klonar bild"
 
 #. PROGRESS_SCALING_DATA
-#, fuzzy
 msgid "Scaling image"
-msgstr "Sparar bild"
+msgstr "Skalar bild"
 
 #. PROGRESS_DESPECKLING_DATA
 msgid "Despeckling image"
@@ -1214,6 +1201,10 @@ msgstr "Damma av bild"
 #. PROGRESS_BLURING_DATA
 msgid "Bluring image"
 msgstr "Sudda till bild"
+
+#. PROGRESS_OCR
+msgid "OCR in progress"
+msgstr "OCR pågår"
 
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
@@ -1233,9 +1224,11 @@ msgstr "Avbryt förhandsgranskning <Alt-ESC>"
 
 #. DESC_XSANE_MODE
 msgid ""
-"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or "
-"mail-<Ctrl-m>"
+"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or mail-<Ctrl-"
+"m>"
 msgstr ""
+"spara-<Ctrl-s>, visa-<Ctrl-v>, fotokopia-<Ctrl-c>, faxa-<Ctrl-f> eller posta-"
+"<Ctrl-"
 
 #. DESC_XSANE_MEDIUM
 msgid "Select source medium type"
@@ -1601,7 +1594,7 @@ msgstr ""
 
 #. DESC_SHOW_RANGE_MODE
 msgid "Select how a range is displayed"
-msgstr ""
+msgstr "Välj hur ett omfång visas"
 
 #. DESC_PREVIEW_OVERSAMPLING
 msgid "Value with that the calculated preview resolution is multiplied"
@@ -1771,28 +1764,28 @@ msgstr "Post sänds i htmlläge, bilder visas direkt"
 
 #. DESC_OCR_COMMAND
 msgid "Enter command to start ocr program"
-msgstr ""
+msgstr "Skriv in kommando som startar ocrprogram"
 
 #. DESC_OCR_INPUTFILE_OPT
 msgid "Enter option of the ocr program to define input file"
-msgstr ""
+msgstr "Skriv in den flagga som definierar inmatingsfilen för ocrprogrammet"
 
 #. DESC_OCR_OUTPUTFILE_OPT
 msgid "Enter option of the ocr program to define output file"
-msgstr ""
+msgstr "Skriv in den flagga som definierar utmatingsfilen för ocrprogrammet"
 
 #. DESC_OCR_USE_GUI_PIPE_OPT
 msgid "Define if the ocr program supports gui progress pipe"
-msgstr ""
+msgstr "Definiera om ocrprogrammet stöder gui statuslinje"
 
 #. DESC_OCR_OUTFD_OPT
 msgid ""
 "Enter option of the ocr program to define output filedescripor in GUI mode"
-msgstr ""
+msgstr "Skriv in ocrprogrammets flagga för utmatingsfildeskriptor i GUI läge"
 
 #. DESC_OCR_PROGRESS_KEYWORD
 msgid "Define Keyword that is used to mark progress information"
-msgstr ""
+msgstr "Definiera Nyckelord som används för att markera statusinformation"
 
 #. DESC_PERMISSION_READ
 msgid "read"
@@ -1828,6 +1821,10 @@ msgid "Zoom 20% out"
 msgstr "Zooma ut 20%"
 
 #. DESC_ZOOM_IN
+msgid "Click at position to zoom to"
+msgstr "Klicka där du vill zooma"
+
+#. DESC_ZOOM_AREA
 msgid "Zoom into selected area"
 msgstr "Zooma in det markerade området"
 
@@ -1843,6 +1840,10 @@ msgstr "Markera det synliga området"
 msgid "Autoselect scanarea"
 msgstr "Automatisk val av inläsningsyta"
 
+#. DESC_AUTORAISE_SCANAREA
+msgid "Autoraise scanarea"
+msgstr "Höj inläsningsyta automatiskt"
+
 #. DESC_DELETE_IMAGES
 msgid "Delete preview image cache"
 msgstr "Ta bort förhandsgransknings bildcache"
@@ -1857,7 +1858,7 @@ msgstr "Rotera förhandsgranskning och inläsning"
 
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
-msgstr ""
+msgstr "Optisk Tecken Igenkännande"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
@@ -1888,14 +1889,24 @@ msgid "Zoom image"
 msgstr "Zooma bild"
 
 #. DESC_STORE_MEDIUM
-#, fuzzy
 msgid "Store medium"
-msgstr "Byt namn på inställning"
+msgstr "Lagra medium"
 
 #. DESC_DELETE_MEDIUM
-#, fuzzy
 msgid "Delete active medium"
-msgstr "Ta bort inställning"
+msgstr "Ta bort aktivt medium"
+
+#. DESC_SCALE_FACTOR
+msgid "Scale factor"
+msgstr "Skalnings fakor"
+
+#. DESC_X_SCALE_FACTOR
+msgid "X-Scale factor"
+msgstr "X-skale fakor"
+
+#. DESC_Y_SCALE_FACTOR
+msgid "Y-Scale factor"
+msgstr "Y-Skale faktor"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -1910,9 +1921,8 @@ msgid "Filename too long"
 msgstr "Filnamnet är för långt"
 
 #. ERR_CREATE_TEMP_FILE
-#, fuzzy
 msgid "Could not create temporary file"
-msgstr "Kunde inte skapa temporär förhandsgranskningsfil"
+msgstr "Kunde inte skapa temporär fil"
 
 #. ERR_SET_OPTION
 msgid "Failed to set value of option"
@@ -1960,9 +1970,8 @@ msgid "Failed to open"
 msgstr "Kunde inte öppna"
 
 #. ERR_CREATE_SECURE_FILE
-#, fuzzy
 msgid "Could not create secure file (may be a link does exist):"
-msgstr "Kunde inte skapa filnamn för förhandsgranskningsfiler"
+msgstr "Kunde inte skapa en säker fil (kanske en länk existerar):"
 
 #. ERR_FAILED_PRINTER_PIPE
 msgid "Failed to open pipe for executing printercommand"
@@ -2025,9 +2034,8 @@ msgid "Failed to execute mail image viewer:"
 msgstr "Kunde inte starta brevbildsvisare:"
 
 #. ERR_FAILED_EXEC_OCR_CMD
-#, fuzzy
 msgid "Failed to execute ocr command:"
-msgstr "Kunde inte exekvera faxkommando:"
+msgstr "Kunde inte exekvera ocrkommando:"
 
 #. ERR_BAD_FRAME_FORMAT
 msgid "bad frame format"
@@ -2083,9 +2091,8 @@ msgid "Could not create filenames for preview files"
 msgstr "Kunde inte skapa filnamn för förhandsgranskningsfiler"
 
 #. ERR_CREATE_FAX_PROJECT
-#, fuzzy
 msgid "Could not create faxproject"
-msgstr "Skapa projekt"
+msgstr "Kunde inte skapa faxprojekt"
 
 #. WARN_COUNTER_UNDERRUN
 msgid "Filename counter underrun"
@@ -2120,6 +2127,10 @@ msgstr "Varning"
 #. ERR_HEADER_INFO
 msgid "Information"
 msgstr "Information"
+
+#. ERR_HEADER_CHILD_PROCESS_ERROR
+msgid "Child process error"
+msgstr "Barnprocess fel"
 
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
@@ -2191,7 +2202,6 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[FLAGGA]... [ENHET]"
 
 #. TEXT_HELP
-#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2202,8 +2212,8 @@ msgid ""
 " -v, --version                print version information\n"
 " -l, --license                print license information\n"
 "\n"
-" -d, --device-settings file   load device settings from file (without "
-"\".drc\")\n"
+" -d, --device-settings file   load device settings from file (without \".drc"
+"\")\n"
 "\n"
 " -V, --viewer                 start with viewer-mode active (default)\n"
 " -s, --save                   start with save-mode active\n"
@@ -2231,21 +2241,24 @@ msgstr ""
 "Startar grafiskt användargränssnitt till SANE (Scanner Access Now Easy) "
 "enheter.\n"
 "\n"
-"Formatet för [ENHET] är drivrutinsnamn:enhetsfil (m.a.o. umax:/dev/scanner). "
-"\n"
+"Formatet för [ENHET] är drivrutinsnamn:enhetsfil (m.a.o. umax:/dev/"
+"scanner). \n"
 "[FLAGGA] ... kan vara en kombination av följande flaggor:\n"
 "-h, --help                     visa detta hjälpmeddelande och avsluta\n"
 "-v, --version                visa versionsinformation\n"
 "-l, --licens                   visa licensinfomation\n"
 "\n"
-"-d, --device-settings file   hämta enhetsinställningar från en fil (utan "
-"\".drc\")\n"
+"-d, --device-settings file   hämta enhetsinställningar från en fil (utan \"."
+"drc\")\n"
 "\n"
+" -V, --viewer                 starta med visarläge aktivt (standard)\n"
+" -s, --save                   starta med sparläge aktivt\n"
 "-s, --scan                   starta med bildläsarläge aktivt\n"
 "-c, --copy                   starta med kopiatorläge aktivt\n"
 "-f, --fax                    starta med faxläge aktivt\n"
 " -m, --mail                   starta med postläge aktivt\n"
 "-n, --no-mode-selection      visa inte meny för XSane lägesval\n"
+" -M, --Medium-calibration     slå på mediekalibreringsläge\n"
 "\n"
 "-F, --Fixed                  fast storlek på huvudfönster (skriv över "
 "preferensvärde)\n"
@@ -2361,51 +2374,47 @@ msgstr "letter landsk."
 
 #. MENU_ITEM_MEDIUM_FULL_RANGE
 msgid "Full range"
-msgstr ""
+msgstr "Fullt omfång"
 
 #. MENU_ITEM_MEDIUM_SLIDE
 msgid "Slide"
-msgstr ""
+msgstr "Linje"
 
 #. MENU_ITEM_MEDIUM_STANDARD_NEG
-#, fuzzy
 msgid "Standard negative"
-msgstr "Standardinställningar"
+msgstr "Standard negativ"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG
 msgid "Agfa negative"
-msgstr ""
+msgstr "Agfa negativ"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG_XRG200_4
 msgid "Agfa negative XRG 200-4"
-msgstr ""
+msgstr "Agfa negativ XRG 200-4"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG_HDC_100
 msgid "Agfa negative HDC 100"
-msgstr ""
+msgstr "Agfa negativ HDC 100"
 
 #. MENU_ITEM_MEDIUM_FUJI_NEG
-#, fuzzy
 msgid "Fuji negative"
-msgstr "inaktiv"
+msgstr "Fuji negativ"
 
 #. MENU_ITEM_MEDIUM_KODAK_NEG
 msgid "Kodak negative"
-msgstr ""
+msgstr "Kodak negativ"
 
 #. MENU_ITEM_MEDIUM_KONICA_NEG
-#, fuzzy
 msgid "Konica negative"
-msgstr "inaktiv"
+msgstr "Konica negativ"
 
 #. MENU_ITEM_MEDIUM_KONICA_NEG_VX_100
-#, fuzzy
 msgid "Konica negative VX 100"
-msgstr "inaktiv"
+msgstr "Konica negativ VX 100"
 
 #. MENU_ITEM_MEDIUM_ROSSMANN_NEG_HR_100
 msgid "Rossmann negative HR 100"
-msgstr ""
+msgstr "Rossmann negativ HR 100"
 
 #. Sane backend messages
 msgid "flatbed scanner"
@@ -2461,37 +2470,3 @@ msgstr "Slut på minne"
 
 msgid "Access to resource has been denied"
 msgstr "Tillgång till resurs nekas"
-
-#~ msgid "license"
-#~ msgstr "licens"
-
-#~ msgid "License"
-#~ msgstr "Licens"
-
-#, fuzzy
-#~ msgid "Store Medium definition"
-#~ msgstr "Ta bort inställning"
-
-#~ msgid ""
-#~ "Use XSane for: SCANning-<Ctrl-s> photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>"
-#~ msgstr ""
-#~ "Läs in bilder-<Ctrl-s>, faxa-<Ctrl-f> och gör fotokopior-<Ctrl-c> med "
-#~ "XSane..."
-
-#~ msgid "Width of paper for postscript"
-#~ msgstr "Pappersbredd för postscript"
-
-#~ msgid "Height of paper for postscript"
-#~ msgstr "Pappershöjd för postscript"
-
-#~ msgid "Left offset for postscript"
-#~ msgstr "Vänster marginal för postscript"
-
-#~ msgid "Bottom offset for postscript"
-#~ msgstr "Marginal från botten för postscript"
-
-#~ msgid "Scan"
-#~ msgstr "Läs in"
-
-#~ msgid "Failed to execute mail command:"
-#~ msgstr "Kunde inte exekvera postkommando:"

@@ -6,12 +6,7 @@ Sign explaination:
  + planned to do this soon/higher priority (but not promised for XSane-1.0)
  - comes later/lower priority
 
- internationalization/codesets:
-    - use bind_textdomain_codeset?
-    - does UTF-8 solve all problems?
-
  save-function:
-    # filetype ".txt" => call ocr function
     - list of last used filenames
 
  copy-function:
@@ -56,7 +51,8 @@ Sign explaination:
     # crop
     # what about automatic increase of filename counter???
       this is not simple because there may be several
-      viewers opend at the same time
+      viewers opend at the same time and a file in the
+      viewer may be saved several times
 
  internal:
     + add color management - may be via xcmsdb or scarse (www.scarse.org)

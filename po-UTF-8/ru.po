@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.84\n"
-"POT-Creation-Date: 2002-01-22 23:34+0100\n"
+"POT-Creation-Date: 2002-06-26 18:36+0200\n"
 "PO-Revision-Date: 2001-08-10 01:05+0300\n"
 "Last-Translator: John Profic <profic@lrn.ru>\n"
 "Language-Team: RUSSIAN <RU@li.org>\n"
@@ -33,9 +33,13 @@ msgstr "О локализации"
 msgid "authorization"
 msgstr "авторизация"
 
-#. WINDOW_LICENSE
-msgid "license"
-msgstr "лицензия"
+#. WINDOW_GPL
+msgid "GPL - the license"
+msgstr ""
+
+#. WINDOW_EULA
+msgid "End User License Agreement"
+msgstr ""
 
 #. WINDOW_INFO
 msgid "info"
@@ -185,9 +189,9 @@ msgstr "Выход"
 msgid "Save image"
 msgstr "Сохранить избражение"
 
-#. MENU_ITEM_CLOSE
-msgid "Close"
-msgstr "Закрыть"
+#. MENU_ITEM_OCR
+msgid "OCR - save as text"
+msgstr ""
 
 #. MENU_ITEM_CLONE
 msgid "Clone"
@@ -196,6 +200,10 @@ msgstr "Дублировать"
 #. MENU_ITEM_SCALE
 msgid "Scale"
 msgstr "Мастабирование"
+
+#. MENU_ITEM_CLOSE
+msgid "Close"
+msgstr "Закрыть"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
@@ -381,6 +389,10 @@ msgstr "Автокоррекция цвета"
 msgid "POP3 authentification"
 msgstr "Использовать авторизацию POP3"
 
+#. RADIO_BUTTON_OCR_USE_GUI_PIPE
+msgid "Use GUI progress pipe"
+msgstr ""
+
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
 msgstr "поиск устройств"
@@ -545,6 +557,28 @@ msgstr "собрано с GIMP-"
 msgid "unknown"
 msgstr "неизвесно"
 
+#. TEXT_EULA
+#, fuzzy
+msgid ""
+"XSane is distributed under the terms of the GNU General Public License\n"
+"as published by the Free Software Foundation; either version 2 of the\n"
+"License, or (at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but\n"
+"WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+"Should the program prove defective, you assume the cost of all\n"
+"necessary servicing, repair or correction. To use this program you\n"
+"have to read, understand and accept the following\n"
+"\"NO WARRANTY\" agreement.\n"
+msgstr ""
+"XSane распространяется по условиям GNU Генеральной публичной лицензии\n"
+"опубликованной Фондом свободного программного обеспечения версии 2\n"
+"или (по вашему мнению) любой более поздней\n"
+"\n"
+"Данное программное обеспечение распространяется в надежде на то, что оно\n"
+"будет полезным, но БЕЗ ЛЮБЫХ ГАРАНТИЙ...\n"
+
 #. TEXT_GPL
 msgid ""
 "XSane is distributed under the terms of the GNU General Public License\n"
@@ -621,16 +655,8 @@ msgstr "Имя носителя: "
 msgid ""
 "Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
 msgstr ""
-"Размер %d на %d пикселей, %d бит/цвет, %d цветов, %1.0f dpi x %1.0f dpi, "
-"%1.1f %s"
-
-#. TEXT_X_SCALE_FACTOR
-msgid "X-Scale factor:"
-msgstr "Увеличения по оси X"
-
-#. TEXT_Y_SCALE_FACTOR
-msgid "Y-Scale factor:"
-msgstr "Увеличения по оси Y"
+"Размер %d на %d пикселей, %d бит/цвет, %d цветов, %1.0f dpi x %1.0f dpi, %"
+"1.1f %s"
 
 #. TEXT_DESPECKLE_RADIUS
 msgid "Despeckle radius:"
@@ -735,6 +761,11 @@ msgstr "Сжатие для 8-битного TIFF изображения"
 #. TEXT_SETUP_TIFF_COMPRESSION_1
 msgid "TIFF lineart image compression"
 msgstr "Сжатия для TIFF рисунка"
+
+#. TEXT_SETUP_SHOW_RANGE_MODE
+#, fuzzy
+msgid "Show range as:"
+msgstr "Показать страницу"
 
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
@@ -859,6 +890,19 @@ msgstr "Параметр для исходного файла"
 #. TEXT_SETUP_OCR_OUTPUTFILE_OPT
 msgid "Outputfile option:"
 msgstr "Параметр для результирующего файла"
+
+#. TEXT_SETUP_OCR_USE_GUI_PIPE_OPT
+msgid "Use GUI progress pipe:"
+msgstr ""
+
+#. TEXT_SETUP_OCR_OUTFD_OPT
+#, fuzzy
+msgid "GUI output-fd option:"
+msgstr "Параметр для результирующего файла"
+
+#. TEXT_SETUP_OCR_PROGRESS_KEYWORD
+msgid "Progress keyword:"
+msgstr ""
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
@@ -988,9 +1032,13 @@ msgstr "Загрузить параметры устройства"
 msgid "Change directory"
 msgstr "Изменить текущий каталог"
 
-#. MENU_ITEM_XSANE_LICENSE
-msgid "License"
-msgstr "Лицезия"
+#. MENU_ITEM_XSANE_EULA
+msgid "Show EULA"
+msgstr ""
+
+#. MENU_ITEM_XSANE_GPL
+msgid "Show license (GPL)"
+msgstr ""
 
 #. MENU_ITEM_XSANE_DOC
 msgid "XSane doc"
@@ -1038,6 +1086,26 @@ msgstr "сжатие JPEG DCT"
 
 #. MENU_ITEM_TIFF_COMP_PACKBITS
 msgid "pack bits"
+msgstr ""
+
+#. MENU_ITEM_RANGE_SCALE
+msgid "Slider (Scale)"
+msgstr ""
+
+#. MENU_ITEM_RANGE_SCROLLBAR
+msgid "Slider (Scrollbar)"
+msgstr ""
+
+#. MENU_ITEM_RANGE_SPINBUTTON
+msgid "Spinbutton"
+msgstr ""
+
+#. MENU_ITEM_RANGE_SCALE_SPIN
+msgid "Scale and Spinbutton"
+msgstr ""
+
+#. MENU_ITEM_RANGE_SCROLL_SPIN
+msgid "Scrollbar and Spinbutton"
 msgstr ""
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
@@ -1129,6 +1197,10 @@ msgstr "Убирание растра с изображения"
 msgid "Bluring image"
 msgstr "Размытие изображения"
 
+#. PROGRESS_OCR
+msgid "OCR in progress"
+msgstr ""
+
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
 msgstr "Начать сканировние <Ctrl-Enter>"
@@ -1147,8 +1219,8 @@ msgstr "Отменить предварительное сканирование
 
 #. DESC_XSANE_MODE
 msgid ""
-"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or "
-"mail-<Ctrl-m>"
+"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or mail-<Ctrl-"
+"m>"
 msgstr ""
 "Сохранить-<Ctrl-s>, просмотреть-<Ctrl-v>, копировать-<Ctrl-c>, отправить "
 "факс-<Ctrl-f> или отправить письмо-<Ctrl-m>"
@@ -1370,8 +1442,8 @@ msgstr "Имя для данного описания"
 #. DESC_PRINTER_COMMAND
 msgid "Enter command to be executed in copy mode (e.g. \"lpr\")"
 msgstr ""
-"Комманда для выполнения при использовании режима копирования (например, "
-"\"lpr\")"
+"Комманда для выполнения при использовании режима копирования (например, \"lpr"
+"\")"
 
 #. DESC_COPY_NUMBER_OPTION
 msgid "Enter option for copy numbers"
@@ -1504,14 +1576,18 @@ msgstr "Размеры главного окна фиксированы или �
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
 msgid "Disable preview gamma when XSane runs as gimp plugin"
 msgstr ""
-"Отключать гамма коррекцию для предварительного сканирования при вызове "
-"XSane-а как GIMP-плагина"
+"Отключать гамма коррекцию для предварительного сканирования при вызове XSane-"
+"а как GIMP-плагина"
 
 #. DESC_PREVIEW_COLORMAP
 msgid "Use an own colormap for preview if display depth is 8 bpp"
 msgstr ""
 "Использовать собственную уветовую палитру для предврительного сканирования "
 "при цветности монитора в 8 bpp"
+
+#. DESC_SHOW_RANGE_MODE
+msgid "Select how a range is displayed"
+msgstr ""
 
 #. DESC_PREVIEW_OVERSAMPLING
 msgid "Value with that the calculated preview resolution is multiplied"
@@ -1695,6 +1771,20 @@ msgstr "Параметр для исходного файла"
 msgid "Enter option of the ocr program to define output file"
 msgstr "Параметр для результирующего файла"
 
+#. DESC_OCR_USE_GUI_PIPE_OPT
+msgid "Define if the ocr program supports gui progress pipe"
+msgstr ""
+
+#. DESC_OCR_OUTFD_OPT
+#, fuzzy
+msgid ""
+"Enter option of the ocr program to define output filedescripor in GUI mode"
+msgstr "Параметр для результирующего файла"
+
+#. DESC_OCR_PROGRESS_KEYWORD
+msgid "Define Keyword that is used to mark progress information"
+msgstr ""
+
 #. DESC_PERMISSION_READ
 msgid "read"
 msgstr "чтение"
@@ -1729,6 +1819,10 @@ msgid "Zoom 20% out"
 msgstr "Уменьшить на 20%"
 
 #. DESC_ZOOM_IN
+msgid "Click at position to zoom to"
+msgstr ""
+
+#. DESC_ZOOM_AREA
 msgid "Zoom into selected area"
 msgstr "Увеличить до выбранной области"
 
@@ -1742,6 +1836,11 @@ msgstr "Выбрать видимую область сканирования"
 
 #. DESC_AUTOSELECT_SCANAREA
 msgid "Autoselect scanarea"
+msgstr "Автовыбор области сканирования"
+
+#. DESC_AUTORAISE_SCANAREA
+#, fuzzy
+msgid "Autoraise scanarea"
 msgstr "Автовыбор области сканирования"
 
 #. DESC_DELETE_IMAGES
@@ -1795,6 +1894,21 @@ msgstr "Сохранить тип носителя"
 #. DESC_DELETE_MEDIUM
 msgid "Delete active medium"
 msgstr "Удалить тип носителя"
+
+#. DESC_SCALE_FACTOR
+#, fuzzy
+msgid "Scale factor"
+msgstr "Увеличения по оси Y"
+
+#. DESC_X_SCALE_FACTOR
+#, fuzzy
+msgid "X-Scale factor"
+msgstr "Увеличения по оси X"
+
+#. DESC_Y_SCALE_FACTOR
+#, fuzzy
+msgid "Y-Scale factor"
+msgstr "Увеличения по оси Y"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2016,6 +2130,10 @@ msgstr "Предупреждение"
 msgid "Information"
 msgstr "Информация"
 
+#. ERR_HEADER_CHILD_PROCESS_ERROR
+msgid "Child process error"
+msgstr ""
+
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
 msgstr "Невозможно создать файл:"
@@ -2097,8 +2215,8 @@ msgid ""
 " -v, --version                print version information\n"
 " -l, --license                print license information\n"
 "\n"
-" -d, --device-settings file   load device settings from file (without "
-"\".drc\")\n"
+" -d, --device-settings file   load device settings from file (without \".drc"
+"\")\n"
 "\n"
 " -V, --viewer                 start with viewer-mode active (default)\n"
 " -s, --save                   start with save-mode active\n"
@@ -2147,8 +2265,8 @@ msgstr ""
 " -R, --Resizeable             главное окно масштабируемо и прокручиваемо "
 "(перезаписывает установки)\n"
 "\n"
-" -p, --print-filenames        выводить имена изображений созданных, "
-"XSane-ом\n"
+" -p, --print-filenames        выводить имена изображений созданных, XSane-"
+"ом\n"
 " -N, --force-filename name    переопределить имя файла и отключить функцию "
 "выбора имени файла пользователем\n"
 "\n"
@@ -2356,11 +2474,17 @@ msgstr "Не хватает памяти"
 msgid "Access to resource has been denied"
 msgstr "Доступ к ресурсу запрещен"
 
+#~ msgid "license"
+#~ msgstr "лицензия"
+
+#~ msgid "License"
+#~ msgstr "Лицезия"
+
 #~ msgid "Store Medium definition"
 #~ msgstr "Сохранить носитель"
 
 #~ msgid ""
 #~ "Use XSane for: SCANning-<Ctrl-s> photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>"
 #~ msgstr ""
-#~ "Используйте XSane для: сканирования <Ctrl-s>; копирования <Ctrl-c>; отправки "
-#~ "факсов <Ctrl-f>"
+#~ "Используйте XSane для: сканирования <Ctrl-s>; копирования <Ctrl-c>; "
+#~ "отправки факсов <Ctrl-f>"

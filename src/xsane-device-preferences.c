@@ -162,7 +162,7 @@ static int xsane_device_preferences_load_values(Wire *w, SANE_Handle device)
 
     status = SANE_STATUS_GOOD;
     info = 0;
-    for (i = 1; (opt = xsane_get_option_descriptor(device, i)); ++i) /* search all options */
+    for (i = 1; (i < num_options) && (opt = xsane_get_option_descriptor(device, i)); ++i) /* search all options */
     {
       if (!opt->name || strcmp(opt->name, name) != 0) /* test if option names are equal */
       {
@@ -240,10 +240,13 @@ static int xsane_device_preferences_save_values(Wire *w, SANE_Handle device)
  SANE_String str = 0;
  SANE_Word word;
  int i;
+ SANE_Int num_options;
 
   DBG(DBG_proc, "xsane_device_preferences_save_values\n");
 
-  for (i = 0; (opt = xsane_get_option_descriptor(device, i)); ++i)
+  xsane_control_option(device, 0, SANE_ACTION_GET_VALUE, &num_options, 0);
+
+  for (i = 0; (i < num_options) && (opt = xsane_get_option_descriptor(device, i)); ++i)
   {
     if ((opt->cap & (SANE_CAP_SOFT_SELECT | SANE_CAP_SOFT_DETECT)) !=
         (SANE_CAP_SOFT_SELECT | SANE_CAP_SOFT_DETECT) || !opt->name)
@@ -636,14 +639,12 @@ void xsane_device_preferences_load(void)
 
   DBG(DBG_proc, "xsane_device_preferences_load\n");
 
-  xsane_clear_histogram(&xsane.histogram_raw);
-  xsane_clear_histogram(&xsane.histogram_enh);
   xsane_set_sensitivity(FALSE);
 
   sprintf(windowname, "%s %s %s", xsane.prog_name, WINDOW_LOAD_SETTINGS, xsane.device_text);
   xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", 0, 0, xsane.device_set_filename, ".drc", XSANE_PATH_LOCAL_SANE);
 
-  if (!xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, FALSE, FALSE, FALSE))
+  if (!xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, NULL, FALSE, FALSE, FALSE, FALSE))
   {
     xsane_device_preferences_load_file(filename);
   }
@@ -749,14 +750,12 @@ void xsane_device_preferences_save(void)
 
   DBG(DBG_proc, "xsane_device_preferences_save\n");
 
-  xsane_clear_histogram(&xsane.histogram_raw);
-  xsane_clear_histogram(&xsane.histogram_enh);
   xsane_set_sensitivity(FALSE);
 
   sprintf(windowname, "%s %s %s", xsane.prog_name, WINDOW_SAVE_SETTINGS, xsane.device_text);
   xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", 0, 0, xsane.device_set_filename, ".drc", XSANE_PATH_LOCAL_SANE);
 
-  if (!xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, FALSE, FALSE, FALSE))
+  if (!xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, NULL, FALSE, FALSE, FALSE, FALSE))
   {
     xsane_device_preferences_save_file(filename);
   }
