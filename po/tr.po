@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.80\n"
-"POT-Creation-Date: 2001-12-07 16:40+0100\n"
+"POT-Creation-Date: 2001-12-19 19:09+0100\n"
 "PO-Revision-Date: 2001-10-02 09:48GMT+02:00\n"
 "Last-Translator: Togan Muftuoglu <toganm@yahoo.com>\n"
 "Language-Team: Turkish <kde-i18n-tr@kde.org>\n"
@@ -149,6 +149,11 @@ msgstr "Resmi beneksizleþtir"
 #. WINDOW_BLUR
 msgid "Blur image"
 msgstr "Resmi bulanýklaþtýr"
+
+#. WINDOW_STORE_MEDIUM
+#, fuzzy
+msgid "Store medium definition"
+msgstr "Tenýmý yeniden isimlendir"
 
 #. MENU_FILE
 msgid "File"
@@ -616,6 +621,10 @@ msgstr "Ekler"
 #. TEXT_MAIL_STATUS
 msgid "Project status:"
 msgstr "Proje durumu"
+
+#. TEXT_MEDIUM_DEFINITION_NAME
+msgid "Medium Name:"
+msgstr ""
 
 #. TEXT_VIEWER_IMAGE_INFO
 #, c-format
@@ -1122,6 +1131,11 @@ msgstr "Resim saklanýyor"
 msgid "Cloning image"
 msgstr "Resim çoðaltýlýyor"
 
+#. PROGRESS_SCALING_DATA
+#, fuzzy
+msgid "Scaling image"
+msgstr "Resim saklanýyor"
+
 #. PROGRESS_DESPECKLING_DATA
 msgid "Despeckling image"
 msgstr "Resmi beneksizleþtir"
@@ -1147,8 +1161,10 @@ msgid "Cancel preview scan <Alt-ESC>"
 msgstr "Önizlemeyi iptal et <Alt-ESC>"
 
 #. DESC_XSANE_MODE
-msgid "Use XSane for: SCANning-<Ctrl-s> photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>"
-msgstr "Xsane'i TARAma-<Ctrl-s>fotoKOPÝ-<Ctrl-c> FAKS-<Ctrl-f>için kullanýn"
+msgid ""
+"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or "
+"mail-<Ctrl-m>"
+msgstr ""
 
 #. DESC_XSANE_MEDIUM
 msgid "Select source medium type"
@@ -1776,6 +1792,16 @@ msgstr "Yatay eksenlerde resmi ters görüntüle (ayna etkisi)"
 msgid "Zoom image"
 msgstr "Resmi büyüt"
 
+#. DESC_STORE_MEDIUM
+#, fuzzy
+msgid "Store medium"
+msgstr "Tenýmý yeniden isimlendir"
+
+#. DESC_DELETE_MEDIUM
+#, fuzzy
+msgid "Delete active medium"
+msgstr "Tanýmý silin"
+
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
 msgstr "Ev dizinini belirlemede hata:"
@@ -2072,6 +2098,7 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[SEÇENEK]...[AYGIT]"
 
 #. TEXT_HELP
+#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2085,8 +2112,8 @@ msgid ""
 " -d, --device-settings file   load device settings from file (without "
 "\".drc\")\n"
 "\n"
+" -V, --viewer                 start with viewer-mode active (default)\n"
 " -s, --save                   start with save-mode active\n"
-" -V, --viewer                 start with viewer-mode active\n"
 " -c, --copy                   start with copy-mode active\n"
 " -f, --fax                    start with fax-mode active\n"
 " -m, --mail                   start with mail-mode active\n"
@@ -2254,6 +2281,14 @@ msgstr "Standart seçenekler"
 msgid "Agfa negative"
 msgstr ""
 
+#. MENU_ITEM_MEDIUM_AGFA_NEG_XRG200_4
+msgid "Agfa negative XRG 200-4"
+msgstr ""
+
+#. MENU_ITEM_MEDIUM_AGFA_NEG_HDC_100
+msgid "Agfa negative HDC 100"
+msgstr ""
+
 #. MENU_ITEM_MEDIUM_FUJI_NEG
 #, fuzzy
 msgid "Fuji negative"
@@ -2267,6 +2302,15 @@ msgstr ""
 #, fuzzy
 msgid "Konica negative"
 msgstr "pasif"
+
+#. MENU_ITEM_MEDIUM_KONICA_NEG_VX_100
+#, fuzzy
+msgid "Konica negative VX 100"
+msgstr "pasif"
+
+#. MENU_ITEM_MEDIUM_ROSSMANN_NEG_HR_100
+msgid "Rossmann negative HR 100"
+msgstr ""
 
 #. Sane backend messages
 msgid "flatbed scanner"
@@ -2322,3 +2366,11 @@ msgstr "Yetersiz hafýza"
 
 msgid "Access to resource has been denied"
 msgstr "Kaynaða eriþim reddedildi"
+
+#, fuzzy
+#~ msgid "Store Medium definition"
+#~ msgstr "Tanýmý silin"
+
+#~ msgid ""
+#~ "Use XSane for: SCANning-<Ctrl-s> photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>"
+#~ msgstr "Xsane'i TARAma-<Ctrl-s>fotoKOPÝ-<Ctrl-c> FAKS-<Ctrl-f>için kullanýn"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.80\n"
-"POT-Creation-Date: 2001-12-07 16:40+0100\n"
+"POT-Creation-Date: 2001-12-19 19:09+0100\n"
 "PO-Revision-Date: 2000-01-21 15:51+01:00\n"
 "Last-Translator: Oliver Rauch <Oliver.Rauch@rauch-domain.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -136,9 +136,8 @@ msgid "select temporary directory"
 msgstr "temporäres Verzeichnis auswählen"
 
 #. WINDOW_SCALE
-#, fuzzy
 msgid "Scale image"
-msgstr "Bild speichern"
+msgstr "Bild skalieren"
 
 #. WINDOW_DESPECKLE
 msgid "Despeckle image"
@@ -147,6 +146,10 @@ msgstr "Flecken entfernen"
 #. WINDOW_BLUR
 msgid "Blur image"
 msgstr "Bild weichzeichnen"
+
+#. WINDOW_STORE_MEDIUM
+msgid "Store medium definition"
+msgstr "Mediumdefinition speichern"
 
 #. MENU_FILE
 msgid "File"
@@ -189,14 +192,12 @@ msgid "Close"
 msgstr "Schließen"
 
 #. MENU_ITEM_CLONE
-#, fuzzy
 msgid "Clone"
-msgstr "Schließen"
+msgstr "Klonen"
 
 #. MENU_ITEM_SCALE
-#, fuzzy
 msgid "Scale"
-msgstr "Speichern"
+msgstr "Skalieren"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
@@ -328,7 +329,7 @@ msgstr "nicht schliessen"
 
 #. BUTTON_SCALE_BIND
 msgid "Bind scale"
-msgstr ""
+msgstr "Verbinde Skalierung"
 
 #. RADIO_BUTTON_FINE_MODE
 msgid "Fine mode"
@@ -615,6 +616,10 @@ msgstr "Anhang:"
 msgid "Project status:"
 msgstr "Projekt Status:"
 
+#. TEXT_MEDIUM_DEFINITION_NAME
+msgid "Medium Name:"
+msgstr ""
+
 #. TEXT_VIEWER_IMAGE_INFO
 #, c-format
 msgid ""
@@ -624,14 +629,12 @@ msgstr ""
 "%s"
 
 #. TEXT_X_SCALE_FACTOR
-#, fuzzy
 msgid "X-Scale factor:"
-msgstr "Bestimmt den Vergrößerungsfaktor"
+msgstr "Vergrößerungsfaktor X:"
 
 #. TEXT_Y_SCALE_FACTOR
-#, fuzzy
 msgid "Y-Scale factor:"
-msgstr "Bestimmt den Vergrößerungsfaktor"
+msgstr "Vergrößerungsfaktor Y:"
 
 #. TEXT_DESPECKLE_RADIUS
 msgid "Despeckle radius:"
@@ -1118,6 +1121,10 @@ msgstr "Bild speichern"
 msgid "Cloning image"
 msgstr "Bild clonen"
 
+#. PROGRESS_SCALING_DATA
+msgid "Scaling image"
+msgstr "Bild skalieren"
+
 #. PROGRESS_DESPECKLING_DATA
 msgid "Despeckling image"
 msgstr "Flecken entfernen"
@@ -1143,8 +1150,12 @@ msgid "Cancel preview scan <Alt-ESC>"
 msgstr "Vorschauscan abbrechen <Alt-ESC>"
 
 #. DESC_XSANE_MODE
-msgid "Use XSane for: SCANning-<Ctrl-s> photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>"
-msgstr "Benutze XSane zum: Scannen-<Ctrl-s>, Kopieren-<Ctrl-c> Faxen-<Ctrl-f>"
+msgid ""
+"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or "
+"mail-<Ctrl-m>"
+msgstr ""
+"speichern-<Ctrl-s>, betrachten-<Ctrl-v>, kopieren-<Ctrl-c>, faxen-<Ctrl-f> "
+"oder mailen-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
 msgid "Select source medium type"
@@ -1791,6 +1802,14 @@ msgstr "Bild an horizontaler Achse spiegeln"
 msgid "Zoom image"
 msgstr "Bild zoomen"
 
+#. DESC_STORE_MEDIUM
+msgid "Store medium"
+msgstr "Medium speichern"
+
+#. DESC_DELETE_MEDIUM
+msgid "Delete active medium"
+msgstr "Medium löschen"
+
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
 msgstr "Konnte Heimatverzeichnis nicht bestimmen"
@@ -1853,9 +1872,9 @@ msgid "Failed to open"
 msgstr "Fehler beim Öffnen von"
 
 #. ERR_CREATE_SECURE_FILE
-#, fuzzy
 msgid "Could not create secure file (may be a link does exist):"
-msgstr "Konnte Dateinamen für Vorschaudateien nicht erzeugen"
+msgstr ""
+"Konnte keine sichere Datei erzeugen (möglicherweise exisitiert ein Link):"
 
 #. ERR_FAILED_PRINTER_PIPE
 msgid "Failed to open pipe for executing printercommand"
@@ -2096,8 +2115,8 @@ msgid ""
 " -d, --device-settings file   load device settings from file (without "
 "\".drc\")\n"
 "\n"
+" -V, --viewer                 start with viewer-mode active (default)\n"
 " -s, --save                   start with save-mode active\n"
-" -V, --viewer                 start with viewer-mode active\n"
 " -c, --copy                   start with copy-mode active\n"
 " -f, --fax                    start with fax-mode active\n"
 " -m, --mail                   start with mail-mode active\n"
@@ -2127,8 +2146,8 @@ msgstr ""
 "\n"
 " -d, --device-settings datei  lädt Geräteeinstellungen von datei\n"
 "\n"
+" -V, --viewer                 starte im Betrachtermodus (default)\n"
 " -s, --save                   starte im Speichernmodus\n"
-" -V, --viewer                 starte im Betrachtermodus\n"
 " -c, --copy                   starte im Kopiermodus\n"
 " -f, --fax                    starte im Faxmodus\n"
 " -m, --mail                   starte im E-Mailmodus\n"
@@ -2261,6 +2280,14 @@ msgstr "Standard Negativ"
 msgid "Agfa negative"
 msgstr "Agfa Negativ"
 
+#. MENU_ITEM_MEDIUM_AGFA_NEG_XRG200_4
+msgid "Agfa negative XRG 200-4"
+msgstr "Agfa Negativ XRG 200-4"
+
+#. MENU_ITEM_MEDIUM_AGFA_NEG_HDC_100
+msgid "Agfa negative HDC 100"
+msgstr "Agfa Negativ HDC 100"
+
 #. MENU_ITEM_MEDIUM_FUJI_NEG
 msgid "Fuji negative"
 msgstr "Fuji Negativ"
@@ -2272,6 +2299,14 @@ msgstr "Kodak Negativ"
 #. MENU_ITEM_MEDIUM_KONICA_NEG
 msgid "Konica negative"
 msgstr "Konica Negativ"
+
+#. MENU_ITEM_MEDIUM_KONICA_NEG_VX_100
+msgid "Konica negative VX 100"
+msgstr "Konica Negativ VX 100"
+
+#. MENU_ITEM_MEDIUM_ROSSMANN_NEG_HR_100
+msgid "Rossmann negative HR 100"
+msgstr "Rossmann Negativ HR 100"
 
 #. Sane backend messages
 msgid "flatbed scanner"
@@ -2327,3 +2362,6 @@ msgstr "Kein Speicher"
 
 msgid "Access to resource has been denied"
 msgstr "Zugang zum Gerät wurde verweigert"
+
+#~ msgid "Store Medium definition"
+#~ msgstr "Mediendefinition speichern"

@@ -3,7 +3,7 @@
    xsane-gamma.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2001 Oliver Rauch
+   Copyright (C) 1998-2002 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -58,8 +58,8 @@ void xsane_create_histogram(GtkWidget *parent, const char *title, int width, int
 void xsane_get_free_gamma_curve(gfloat *free_color_gamma_data, SANE_Int *gammadata,
                                 int negative, double gamma, double brightness, double contrast,
                                 int len, int maxout);
-static void xsane_calculate_auto_enhancement(int negative,
-              SANE_Int *count_raw, SANE_Int *count_raw_red, SANE_Int *count_raw_green, SANE_Int *count_raw_blue);
+static void xsane_calculate_auto_enhancement(SANE_Int *count_raw,
+            SANE_Int *count_raw_red, SANE_Int *count_raw_green, SANE_Int *count_raw_blue);
 void xsane_calculate_raw_histogram(void);
 void xsane_calculate_enh_histogram(void);
 void xsane_update_histogram(int update_raw);
@@ -674,8 +674,8 @@ void xsane_create_histogram(GtkWidget *parent, const char *title, int width, int
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_calculate_auto_enhancement(int negative,
-              SANE_Int *count_raw, SANE_Int *count_raw_red, SANE_Int *count_raw_green, SANE_Int *count_raw_blue)
+static void xsane_calculate_auto_enhancement(SANE_Int *count_raw,
+            SANE_Int *count_raw_red, SANE_Int *count_raw_green, SANE_Int *count_raw_blue)
 {	 /* calculate white, medium and black values for auto enhancement */
  int limit, limit_mid;
  int points, points_mix, points_red, points_green, points_blue;
@@ -827,42 +827,21 @@ static void xsane_calculate_auto_enhancement(int negative,
 
     xsane_bound_int(&mid_blue, min_blue, max_blue);
 
-    if (negative)
-    {
-      xsane.auto_white = (255-min)/2.55;
-      xsane.auto_gray  = (255-mid)/2.55;
-      xsane.auto_black = (255-max)/2.55;
+    xsane.auto_white = max/2.55;
+    xsane.auto_gray  = mid/2.55;
+    xsane.auto_black = min/2.55;
 
-      xsane.auto_white_red = (255-min_red)/2.55;
-      xsane.auto_gray_red  = (255-mid_red)/2.55;
-      xsane.auto_black_red = (255-max_red)/2.55;
+    xsane.auto_white_red = max_red/2.55;
+    xsane.auto_gray_red  = mid_red/2.55;
+    xsane.auto_black_red = min_red/2.55;
 
-      xsane.auto_white_green = (255-min_green)/2.55;
-      xsane.auto_gray_green  = (255-mid_green)/2.55;
-      xsane.auto_black_green = (255-max_green)/2.55;
+    xsane.auto_white_green = max_green/2.55;
+    xsane.auto_gray_green  = mid_green/2.55;
+    xsane.auto_black_green = min_green/2.55;
 
-      xsane.auto_white_blue = (255-min_blue)/2.55;
-      xsane.auto_gray_blue  = (255-mid_blue)/2.55;
-      xsane.auto_black_blue = (255-max_blue)/2.55;
-    }
-    else /* positive */
-    {
-      xsane.auto_white = max/2.55;
-      xsane.auto_gray  = mid/2.55;
-      xsane.auto_black = min/2.55;
-
-      xsane.auto_white_red = max_red/2.55;
-      xsane.auto_gray_red  = mid_red/2.55;
-      xsane.auto_black_red = min_red/2.55;
-
-      xsane.auto_white_green = max_green/2.55;
-      xsane.auto_gray_green  = mid_green/2.55;
-      xsane.auto_black_green = min_green/2.55;
-
-      xsane.auto_white_blue = max_blue/2.55;
-      xsane.auto_gray_blue  = mid_blue/2.55;
-      xsane.auto_black_blue = min_blue/2.55;
-    }
+    xsane.auto_white_blue = max_blue/2.55;
+    xsane.auto_gray_blue  = mid_blue/2.55;
+    xsane.auto_black_blue = min_blue/2.55;
   }
 
   DBG(DBG_proc, "xsane.auto_white       = %f\n", xsane.auto_white);
@@ -922,7 +901,7 @@ void xsane_calculate_raw_histogram(void)
 
     if (xsane.param.depth > 1)
     {
-      xsane_calculate_auto_enhancement(xsane.negative, count_raw, count_raw_red, count_raw_green, count_raw_blue);
+      xsane_calculate_auto_enhancement(count_raw, count_raw_red, count_raw_green, count_raw_blue);
     }
 
     if (xsane.histogram_log) /* logarithmical display */
@@ -1379,8 +1358,9 @@ void xsane_update_gamma_curve(int update_raw)
                                  xsane.brightness + xsane.brightness_blue,
                                  xsane.contrast + xsane.contrast_blue , xsane.preview_gamma_size, 255);               
 #else
-      if ( ( (xsane.xsane_colors > 1) && xsane.scanner_gamma_color ) || /* color scan and gamma table for red, green and blue available */
-           xsane.scanner_gamma_gray ) /* grayscale scan and gamma table for gray available */
+      if ( ( ( (xsane.xsane_colors > 1) && xsane.scanner_gamma_color ) || /* color scan and gamma table for red, green and blue available */
+             xsane.scanner_gamma_gray ) && /* grayscale scan and gamma table for gray available */
+           (!xsane.no_preview_medium_gamma) ) /* do not use gamma table when disabled */
       {
         DBG(DBG_info, "creating preview gamma tables without medium correction\n");
 
@@ -1844,13 +1824,13 @@ static int xsane_histogram_to_gamma(XsaneSlider *slider,
   *contrast = (10000.0 / (slider->value[2] - slider->value[0]) - 100.0);
   if (correct_bound)
   {
-    xsane_bound_double(contrast, -100.0 + contrast_offset, XSANE_CONTRAST_MAX + contrast_offset);
+    xsane_bound_double(contrast, -100.0 + contrast_offset, xsane.contrast_max + contrast_offset);
   }
 
   *brightness = - (slider->value[0] - 50.0) * (*contrast + 100.0)/50.0 - 100.0;
   if (correct_bound)
   {
-    xsane_bound_double(brightness, XSANE_BRIGHTNESS_MIN + brightness_offset, XSANE_BRIGHTNESS_MAX + brightness_offset);
+    xsane_bound_double(brightness, xsane.brightness_min + brightness_offset, xsane.brightness_max + brightness_offset);
   }
 
   mid   = slider->value[1] - slider->value[0];
@@ -1862,8 +1842,8 @@ static int xsane_histogram_to_gamma(XsaneSlider *slider,
     xsane_bound_double(gamma, XSANE_GAMMA_MIN * gamma_multiplier, XSANE_GAMMA_MAX * gamma_multiplier);
     return 1; /* in bound */
   }
-  else if (xsane_check_bound_double(*contrast, -100.0 + contrast_offset, XSANE_CONTRAST_MAX + contrast_offset) &&
-           xsane_check_bound_double(*brightness, XSANE_BRIGHTNESS_MIN + brightness_offset, XSANE_BRIGHTNESS_MAX + brightness_offset) &&
+  else if (xsane_check_bound_double(*contrast, -100.0 + contrast_offset, xsane.contrast_max + contrast_offset) &&
+           xsane_check_bound_double(*brightness, XSANE_BRIGHTNESS_MIN + brightness_offset, xsane.brightness_max + brightness_offset) &&
            xsane_check_bound_double(*gamma, XSANE_GAMMA_MIN * gamma_multiplier, XSANE_GAMMA_MAX * gamma_multiplier))
   {
     return 1; /* in bound */

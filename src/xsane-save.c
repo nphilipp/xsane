@@ -3,7 +3,7 @@
    xsane-save.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2001 Oliver Rauch
+   Copyright (C) 1998-2002 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -87,8 +87,8 @@ void null_print_func(gchar *msg);
           user will write soon (image.pnm) to mywork.txt.
           ==> Good user overwrites his own file, he is allowed to do so.
 
- Solution: If possible: test if output file is a symlink. If yes: remove symlink.
-           Create outputfile and make sure that it does not follow a symlink.
+ Solution: remove file.
+           Create outputfile and make sure that it does not exist while creation.
 
            The file is created with the requested image-file permissions.
 
@@ -113,35 +113,10 @@ int xsane_create_secure_file(const char *filename)
 
   DBG(DBG_proc, "xsane_create_secure_file\n");
 
-/* we need lstat because we need the information if a file is a symlink */
-/* stat() does return the info of the linked file not of the link itslef */
-#ifdef HAVE_LSTAT
-  {
-   struct stat st;
-
-    if (!lstat(filename, &st))
-    {
-      DBG(DBG_info, "file %s does exist\n", filename);
- 
-      if (S_ISLNK(st.st_mode))
-      {
-        DBG(DBG_info, "file %s is a link: remove the link\n", filename);
-        remove(filename);
-      }
-    }
-    else
-    {
-      DBG(DBG_info, "file %s does not exist\n", filename);
-    }
-  }
-#else
-  DBG(DBG_info, "we do not have lstat\n");
-#endif
-
+  remove(filename); /* we need to remove the file because open(..., O_EXCL) will fail otherwise */
   umask((mode_t) preferences.image_umask); /* define image file permissions */   
   fd = open(filename, O_WRONLY | O_CREAT | O_EXCL, 0666);
   umask(XSANE_DEFAULT_UMASK); /* define new file permissions */   
-
 
   if (fd > 0)
   {
@@ -703,7 +678,7 @@ int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_in
     {
       for (i = 0; i < image_info->colors * bytespp; i++)
       {
-        new_line[x * image_info->colors + i] = original_line[((int) (x / x_scale)) * image_info->colors + i];
+        new_line[x * image_info->colors * bytespp + i] = original_line[((int) (x / x_scale)) * image_info->colors * bytespp + i];
       }
     }
 

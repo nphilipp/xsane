@@ -3,7 +3,7 @@
    xsane-icons.h
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2001 Oliver Rauch
+   Copyright (C) 1998-2002 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -52,6 +52,7 @@ extern const char *mailreceiver_xpm[];
 extern const char *subject_xpm[];
 extern const char *colormode_xpm[];
 extern const char *medium_xpm[];
+extern const char *medium_delete_xpm[];
 extern const char *Gamma_xpm[];
 extern const char *Gamma_red_xpm[];
 extern const char *Gamma_green_xpm[];

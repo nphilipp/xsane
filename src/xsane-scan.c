@@ -3,7 +3,7 @@
    xsane-scan.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2001 Oliver Rauch
+   Copyright (C) 1998-2002 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -1650,8 +1650,8 @@ static void xsane_start_scan(void)
       /* no temporary file */
       if (xsane_create_secure_file(xsane.dummy_filename)) /* remove possibly existing symbolic links for security */
       {
-        xsane_scan_done(-1); /* -1 = error */
         snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_CREATE_SECURE_FILE, xsane.dummy_filename);
+        xsane_scan_done(-1); /* -1 = error */
         xsane_back_gtk_error(buf, TRUE);
        return;
       }

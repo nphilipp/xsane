@@ -3,7 +3,7 @@
    xsane-device-preferences.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2001 Oliver Rauch
+   Copyright (C) 1998-2002 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -592,7 +592,6 @@ void xsane_device_preferences_load_file(char *filename)
       }
     }
   }
-
   gtk_widget_set_uposition(xsane.shell, xsane.shell_posx, xsane.shell_posy);
   gtk_window_set_default_size(GTK_WINDOW(xsane.shell), xsane.shell_width, xsane.shell_height);
   gtk_widget_set_uposition(xsane.standard_options_shell, xsane.standard_options_shell_posx, xsane.standard_options_shell_posy);

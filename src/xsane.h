@@ -3,7 +3,7 @@
    xsane.h
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2001 Oliver Rauch
+   Copyright (C) 1998-2002 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -32,10 +32,10 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.82"
+#define XSANE_VERSION		"0.83"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
-#define XSANE_DATE		"1998-2001"
+#define XSANE_DATE		"1998-2002"
 #define XSANE_EMAIL		"Oliver.Rauch@xsane.org"
 #define XSANE_HOMEPAGE		"http://www.xsane.org"
 #define XSANE_COPYRIGHT_TXT	XSANE_DATE " " XSANE_COPYRIGHT
@@ -279,7 +279,7 @@ Image_info;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-enum { XSANE_SAVE, XSANE_VIEWER, XSANE_COPY, XSANE_FAX, XSANE_MAIL };
+enum { XSANE_VIEWER, XSANE_SAVE, XSANE_COPY, XSANE_FAX, XSANE_MAIL };
 enum { XSANE_LINEART_STANDARD, XSANE_LINEART_XSANE, XSANE_LINEART_GRAYSCALE };
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -320,11 +320,17 @@ extern void xsane_mail_project_save(void);
 #define DOCVIEWER_NETSCAPE	"netscape"
 #define DOCVIEWER 	 	DOCVIEWER_NETSCAPE
 
+#define XSANE_MEDIUM_CALIB_BRIGHTNESS_MIN	-1000.0
+#define XSANE_MEDIUM_CALIB_BRIGHTNESS_MAX	 1000.0
+#define XSANE_MEDIUM_CALIB_CONTRAST_MIN	 	    0.0
+#define XSANE_MEDIUM_CALIB_CONTRAST_MAX	 	 1000.0
+
 #define XSANE_BRIGHTNESS_MIN	-100.0
-#define XSANE_BRIGHTNESS_MAX	100.0
+#define XSANE_BRIGHTNESS_MAX	 100.0
 #define XSANE_CONTRAST_GRAY_MIN	-100.0
 #define XSANE_CONTRAST_MIN	-100.0
-#define XSANE_CONTRAST_MAX	100.0
+#define XSANE_CONTRAST_MAX	 100.0
+
 #define XSANE_GAMMA_MIN		0.3
 #define XSANE_GAMMA_MAX		3.0
 
@@ -555,6 +561,14 @@ typedef struct Xsane
     int histogram_int;
     int histogram_lines;
     int histogram_log;
+
+    int no_preview_medium_gamma; /* disable preview medium gamma */
+    int medium_calibration; /* enable calibration mode for medium */
+    int brightness_min;
+    int brightness_max;
+    int contrast_gray_min;
+    int contrast_min;
+    int contrast_max;
 
     /* colors */
     GdkGC *gc_red;

@@ -6,7 +6,7 @@ AC_CONFIG_HEADER(include/config.h)
 
 # version code:
 V_MAJOR=0
-V_MINOR=82
+V_MINOR=83
 
 PACKAGE=xsane
 
@@ -152,7 +152,6 @@ AC_SUBST(GTK_CFLAGS)
 AC_SUBST(GTK_LIBS)
 AC_SUBST(GIMP_LIBS)
 CPPFLAGS="${CPPFLAGS} \
-	  -DPATH_SANE_DATA_DIR=\$(sanedatadir) \
 	  -DV_MAJOR=${V_MAJOR} -DV_MINOR=${V_MINOR} -DSANE_V_MAJOR=${SANE_V_MAJOR}"
 
 dnl Print error message if sane or gtk is missing

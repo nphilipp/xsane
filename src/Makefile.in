@@ -22,6 +22,7 @@ includedir = @includedir@
 oldincludedir = /usr/include
 configdir = ${sysconfdir}/sane.d
 sanedatadir = ${datadir}/sane
+xsanedocdir = ${datadir}/sane/xsane/doc
 
 MKINSTALLDIRS = @MKINSTALLDIRS@
 INSTALL = @INSTALL@
@@ -31,7 +32,7 @@ INSTALL_DATA = @INSTALL_DATA@
 CC = @CC@
 INCLUDES = -I. -I$(srcdir) -I$(top_builddir)/include -I$(top_srcdir)/include @INCLUDES@
 DEFS = @DEFS@ -DLOCALEDIR=$(datadir)/locale
-CPPFLAGS = @CPPFLAGS@
+CPPFLAGS = @CPPFLAGS@ -DPATH_XSANE_DOC_DIR=\$(xsanedocdir) -DPATH_SANE_DATA_DIR=\$(sanedatadir)
 CFLAGS   = @CFLAGS@ @SANE_CFLAGS@ @GIMP_CFLAGS@ @GTK_CFLAGS@
 LDFLAGS  = @LDFLAGS@ @SANE_LDFLAGS@
 LIBS     = @SANE_LIBS@ @GIMP_LIBS@ @GTK_LIBS@ @INTLLIBS@ @LIBS@
@@ -59,7 +60,7 @@ XSANE_OBJS = xsane-back-gtk.o xsane-front-gtk.o xsane-gamma.o \
 all: $(PROGRAMS)
 
 install: $(PROGRAMS)
-	$(MKINSTALLDIRS) $(bindir) $(sbindir) $(datadir) $(sanedatadir) $(sanedatadir)/xsane
+	$(MKINSTALLDIRS) $(bindir) $(sbindir) $(datadir) $(sanedatadir) $(xsanedocdir) $(sanedatadir)/xsane
 	@for program in $(BINPROGS); do \
 	  $(INSTALL_PROGRAM) $${program} $(bindir)/$${program}; \
 	done

@@ -140,17 +140,6 @@ install-data-yes: all
 	    fi; \
 	  fi; \
 	done
-	if test "$(PACKAGE)" = "gettext"; then \
-	  if test -r "$(MKINSTALLDIRS)"; then \
-	    $(MKINSTALLDIRS) $(gettextsrcdir); \
-	  else \
-	    $(SHELL) $(top_srcdir)/mkinstalldirs $(gettextsrcdir); \
-	  fi; \
-	  $(INSTALL_DATA) $(srcdir)/Makefile.in \
-			  $(gettextsrcdir)/Makefile.in; \
-	else \
-	  : ; \
-	fi
 
 # Define this as empty until I found a useful application.
 installcheck:

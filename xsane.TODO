@@ -9,18 +9,18 @@ Sign explaination:
  save-function:
     # filetype ".txt" => call ocr function
 
+ copy-function:
+    + select image position on printer (centered/left/right/free) for copy
+
  fax-function:
     # use internal viewer to display images
       # while scanning save image as pnm
       # convtert all images to one postscript file when sending fax
-    + create lock file or information while spooling fax
+    + create lock file, add information while spooling fax
     + add coverpage with edit like mail function
     - add send delayed option
     - add options for sender/receiver Name
     + zoom ?
-
- copy-function:
-    + select image position on printer (centered/left/right/free) for copy
 
  email-function:
     # use internal viewer to display images
@@ -28,24 +28,24 @@ Sign explaination:
       # convtert image to target format when sending email
       # add new image types to email fileformat: tiff, jpeg
 
+ gamma function:
+    # add target gamma (e.g. for web publishing)
+    # correct gtk custom gamma functions and include it
+      may be write an own gamma curve widget
+
  medium selection:
     # add: add, edit, delete medium definition
     - medium definition in dependance of the scanner (?)
       (I am not sure if this makes sense with color managemant)
 
- preview:
+ preview function:
     - force aspect ratio of selection area
     - force size of scanarea in pixels (calculate resolution)
 
  batch scan function
     - select multiple scan areas before starting the scan
 
- gamma:
-    # add target gamma (e.g. for web publishing)
-    # correct gtk custom gamma functions and include it
-      may be write an own gamma curve widget
-
- viewer:
+ viewer function:
     # add more filters
       suggestions? - ONLY REALLY IMPORTANT FILTERS,
       FOR OTHER IMAGE MANIPULATION THERE IS THE GIMP

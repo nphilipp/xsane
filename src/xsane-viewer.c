@@ -3,7 +3,7 @@
    xsane-viewer.c
  
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2001 Oliver Rauch
+   Copyright (C) 1998-2002 Oliver Rauch
    This file is part of the XSANE package.
  
    This program is free software; you can redistribute it and/or modify
@@ -219,15 +219,6 @@ static void xsane_viewer_save_callback(GtkWidget *window, gpointer data)
   {
     gtk_progress_set_format_string(GTK_PROGRESS(v->progress_bar), PROGRESS_SAVING_DATA);
     gtk_progress_bar_update(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
-
-    if (xsane_create_secure_file(outputfilename)) /* remove possibly existing symbolic links for security */
-    {
-     char buf[256];
-
-      snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_CREATE_SECURE_FILE, outputfilename);
-      xsane_back_gtk_error(buf, TRUE);
-     return; /* error */
-    }
 
     xsane_save_image_as(inputfilename, outputfilename, output_format, v->progress_bar, &v->cancel_save);
 

@@ -3,7 +3,7 @@
    xsane-text.h
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2001 Oliver Rauch
+   Copyright (C) 1998-2002 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -64,6 +64,7 @@
 #define WINDOW_SCALE			_("Scale image")
 #define WINDOW_DESPECKLE		_("Despeckle image")
 #define WINDOW_BLUR			_("Blur image")
+#define WINDOW_STORE_MEDIUM		_("Store medium definition")
 
 #define MENU_FILE			_("File")
 #define MENU_PREFERENCES		_("Preferences")
@@ -200,6 +201,8 @@
 #define TEXT_MAIL_TEXT			_("Email text:")
 #define TEXT_ATTACHMENTS		_("Attachments:")
 #define TEXT_MAIL_STATUS		_("Project status:")
+
+#define TEXT_MEDIUM_DEFINITION_NAME	_("Medium Name:")
 
 #define TEXT_VIEWER_IMAGE_INFO		_("Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s")
 #define TEXT_X_SCALE_FACTOR		_("X-Scale factor:")
@@ -354,8 +357,8 @@
 #define DESC_SCAN_CANCEL		_("Cancel scan <ESC>")
 #define DESC_PREVIEW_ACQUIRE		_("Acquire preview scan <Alt-p>")
 #define DESC_PREVIEW_CANCEL		_("Cancel preview scan <Alt-ESC>")
-#define DESC_XSANE_MODE			_("Use XSane for: SCANning-<Ctrl-s> " \
-                                          "photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>")
+#define DESC_XSANE_MODE			_("save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, " \
+					  "fax-<Ctrl-f> or mail-<Ctrl-m>")
 #define DESC_XSANE_MEDIUM		_("Select source medium type")
 
 #define DESC_FILENAME_COUNTER_STEP	_("Value that is added to filenamecounter after scan")
@@ -534,7 +537,8 @@
 #define DESC_VIEWER_MIRROR_X		_("Mirror image at vertical axis")
 #define DESC_VIEWER_MIRROR_Y		_("Mirror image at horizontal axis")
 #define DESC_VIEWER_ZOOM		_("Zoom image")
-
+#define DESC_STORE_MEDIUM		_("Store medium")
+#define DESC_DELETE_MEDIUM		_("Delete active medium")
 
 #define ERR_HOME_DIR			_("Failed to determine home directory:")
 #define ERR_CHANGE_WORKING_DIR		_("Failed to change working directory to")
@@ -630,8 +634,8 @@ The format of [DEVICE] is backendname:devicefile (e.g. umax:/dev/scanner).\n\
 \n\
  -d, --device-settings file   load device settings from file (without \".drc\")\n\
 \n\
+ -V, --viewer                 start with viewer-mode active (default)\n\
  -s, --save                   start with save-mode active\n\
- -V, --viewer                 start with viewer-mode active\n\
  -c, --copy                   start with copy-mode active\n\
  -f, --fax                    start with fax-mode active\n\
  -m, --mail                   start with mail-mode active\n\
@@ -662,30 +666,34 @@ The format of [DEVICE] is backendname:devicefile (e.g. umax:/dev/scanner).\n\
 /* strings that are used in structures, so it is not allowed to use _()/gettext() here */
 /* gettext_noop does mark these texts but does not change the string */
 
-#define MENU_ITEM_SURFACE_FULL_SIZE	N_("full size")
-#define MENU_ITEM_SURFACE_DIN_A3P	N_("DIN A3 port.")
-#define MENU_ITEM_SURFACE_DIN_A3L	N_("DIN A3 land.")
-#define MENU_ITEM_SURFACE_DIN_A4P	N_("DIN A4 port.")
-#define MENU_ITEM_SURFACE_DIN_A4L	N_("DIN A4 land.")
-#define MENU_ITEM_SURFACE_DIN_A5P	N_("DIN A5 port.")
-#define MENU_ITEM_SURFACE_DIN_A5L	N_("DIN A5 land.")
-#define MENU_ITEM_SURFACE_13cmx18cm	N_("13cm x 18cm")
-#define MENU_ITEM_SURFACE_18cmx13cm	N_("18cm x 13cm")
-#define MENU_ITEM_SURFACE_10cmx15cm	N_("10cm x 15cm")
-#define MENU_ITEM_SURFACE_15cmx10cm	N_("15cm x 10cm")
-#define MENU_ITEM_SURFACE_9cmx13cm	N_("9cm x 13cm")
-#define MENU_ITEM_SURFACE_13cmx9cm	N_("13cm x 9cm")
-#define MENU_ITEM_SURFACE_legal_P	N_("legal port.")
-#define MENU_ITEM_SURFACE_legal_L	N_("legal land.")
-#define MENU_ITEM_SURFACE_letter_P	N_("letter port.")
-#define MENU_ITEM_SURFACE_letter_L	N_("letter land.")
+#define MENU_ITEM_SURFACE_FULL_SIZE		N_("full size")
+#define MENU_ITEM_SURFACE_DIN_A3P		N_("DIN A3 port.")
+#define MENU_ITEM_SURFACE_DIN_A3L		N_("DIN A3 land.")
+#define MENU_ITEM_SURFACE_DIN_A4P		N_("DIN A4 port.")
+#define MENU_ITEM_SURFACE_DIN_A4L		N_("DIN A4 land.")
+#define MENU_ITEM_SURFACE_DIN_A5P		N_("DIN A5 port.")
+#define MENU_ITEM_SURFACE_DIN_A5L		N_("DIN A5 land.")
+#define MENU_ITEM_SURFACE_13cmx18cm		N_("13cm x 18cm")
+#define MENU_ITEM_SURFACE_18cmx13cm		N_("18cm x 13cm")
+#define MENU_ITEM_SURFACE_10cmx15cm		N_("10cm x 15cm")
+#define MENU_ITEM_SURFACE_15cmx10cm		N_("15cm x 10cm")
+#define MENU_ITEM_SURFACE_9cmx13cm		N_("9cm x 13cm")
+#define MENU_ITEM_SURFACE_13cmx9cm		N_("13cm x 9cm")
+#define MENU_ITEM_SURFACE_legal_P		N_("legal port.")
+#define MENU_ITEM_SURFACE_legal_L		N_("legal land.")
+#define MENU_ITEM_SURFACE_letter_P		N_("letter port.")
+#define MENU_ITEM_SURFACE_letter_L		N_("letter land.")
 
-#define MENU_ITEM_MEDIUM_FULL_RANGE	N_("Full range")
-#define MENU_ITEM_MEDIUM_SLIDE		N_("Slide")
-#define MENU_ITEM_MEDIUM_STANDARD_NEG	N_("Standard negative")
-#define MENU_ITEM_MEDIUM_AGFA_NEG	N_("Agfa negative")
-#define MENU_ITEM_MEDIUM_FUJI_NEG	N_("Fuji negative")
-#define MENU_ITEM_MEDIUM_KODAK_NEG	N_("Kodak negative")
-#define MENU_ITEM_MEDIUM_KONICA_NEG	N_("Konica negative")
+#define MENU_ITEM_MEDIUM_FULL_RANGE		N_("Full range")
+#define MENU_ITEM_MEDIUM_SLIDE			N_("Slide")
+#define MENU_ITEM_MEDIUM_STANDARD_NEG		N_("Standard negative")
+#define MENU_ITEM_MEDIUM_AGFA_NEG		N_("Agfa negative")
+#define MENU_ITEM_MEDIUM_AGFA_NEG_XRG200_4	N_("Agfa negative XRG 200-4")
+#define MENU_ITEM_MEDIUM_AGFA_NEG_HDC_100	N_("Agfa negative HDC 100")
+#define MENU_ITEM_MEDIUM_FUJI_NEG		N_("Fuji negative")
+#define MENU_ITEM_MEDIUM_KODAK_NEG		N_("Kodak negative")
+#define MENU_ITEM_MEDIUM_KONICA_NEG		N_("Konica negative")
+#define MENU_ITEM_MEDIUM_KONICA_NEG_VX_100	N_("Konica negative VX 100")
+#define MENU_ITEM_MEDIUM_ROSSMANN_NEG_HR_100	N_("Rossmann negative HR 100")
 
 #endif

@@ -21,6 +21,7 @@ includedir = @includedir@
 oldincludedir = /usr/include
 configdir = ${sysconfdir}/sane.d
 sanedatadir = ${datadir}/sane
+xsanedocdir = ${datadir}/sane/xsane/doc
 
 MKDIR = $(top_srcdir)/mkinstalldirs
 INSTALL = @INSTALL@
@@ -55,15 +56,15 @@ install: $(MANPAGES)
 	done
 	$(MKDIR) $(datadir)
 
-	$(MKDIR) $(sanedatadir)
+	$(MKDIR) $(xsanedocdir)
 	@for page in *.html; do\
-	  echo installing $${page} in $(sanedatadir)/$${page}...; \
-	  $(INSTALL_DATA) $${page} $(sanedatadir)/$${page} || exit 1; \
+	  echo installing $${page} in $(xsanedocdir)/$${page}...; \
+	  $(INSTALL_DATA) $${page} $(xsanedocdir)/$${page} || exit 1; \
 	done
 
 	@for image in *.jpg; do\
-	  echo installing $${image} in $(sanedatadir)/$${image}...; \
-	  $(INSTALL_DATA) $${image} $(sanedatadir)/$${image} || exit 1; \
+	  echo installing $${image} in $(xsanedocdir)/$${image}...; \
+	  $(INSTALL_DATA) $${image} $(xsanedocdir)/$${image} || exit 1; \
 	done
 
 uninstall:
@@ -73,13 +74,13 @@ uninstall:
 	done
 
 	@for page in *.html; do\
-	  echo uninstalling $(sanedatadir)/$${page}...; \
-	  rm -f $(sanedatadir)/$${page} || exit 1; \
+	  echo uninstalling $(xsanedocdir)/$${page}...; \
+	  rm -f $(xsanedocdir)/$${page} || exit 1; \
 	done
 
 	@for image in *.jpg; do\
-	  echo uninstalling $${image} in $(sanedatadir)/$${image}...; \
-	  rm -f $(sanedatadir)/$${image} || exit 1; \
+	  echo uninstalling $${image} in $(xsanedocdir)/$${image}...; \
+	  rm -f $(xsanedocdir)/$${image} || exit 1; \
 	done
 
 docs: ps html

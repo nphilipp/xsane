@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.80\n"
-"POT-Creation-Date: 2001-12-07 16:40+0100\n"
+"POT-Creation-Date: 2001-12-19 19:09+0100\n"
 "PO-Revision-Date: 2001-11-11 21:30+01:00\n"
 "Last-Translator: Johan Bengtsson <johanb@lls.se>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -148,6 +148,11 @@ msgstr "Damma av bild"
 #. WINDOW_BLUR
 msgid "Blur image"
 msgstr "Sudda till bild"
+
+#. WINDOW_STORE_MEDIUM
+#, fuzzy
+msgid "Store medium definition"
+msgstr "Byt namn på inställning"
 
 #. MENU_FILE
 msgid "File"
@@ -616,6 +621,10 @@ msgstr "Bilagor:"
 #. TEXT_MAIL_STATUS
 msgid "Project status:"
 msgstr "Projekt status:"
+
+#. TEXT_MEDIUM_DEFINITION_NAME
+msgid "Medium Name:"
+msgstr ""
 
 #. TEXT_VIEWER_IMAGE_INFO
 #, c-format
@@ -1122,6 +1131,11 @@ msgstr "Sparar bild"
 msgid "Cloning image"
 msgstr "Klonar bild"
 
+#. PROGRESS_SCALING_DATA
+#, fuzzy
+msgid "Scaling image"
+msgstr "Sparar bild"
+
 #. PROGRESS_DESPECKLING_DATA
 msgid "Despeckling image"
 msgstr "Damma av bild"
@@ -1147,10 +1161,10 @@ msgid "Cancel preview scan <Alt-ESC>"
 msgstr "Avbryt förhandsgranskning <Alt-ESC>"
 
 #. DESC_XSANE_MODE
-msgid "Use XSane for: SCANning-<Ctrl-s> photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>"
+msgid ""
+"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or "
+"mail-<Ctrl-m>"
 msgstr ""
-"Läs in bilder-<Ctrl-s>, faxa-<Ctrl-f> och gör fotokopior-<Ctrl-c> med "
-"XSane..."
 
 #. DESC_XSANE_MEDIUM
 msgid "Select source medium type"
@@ -1785,6 +1799,16 @@ msgstr "Spegla bild vid horisontell axel"
 msgid "Zoom image"
 msgstr "Zooma bild"
 
+#. DESC_STORE_MEDIUM
+#, fuzzy
+msgid "Store medium"
+msgstr "Byt namn på inställning"
+
+#. DESC_DELETE_MEDIUM
+#, fuzzy
+msgid "Delete active medium"
+msgstr "Ta bort inställning"
+
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
 msgstr "Kunde inte hitta hemkatalogen:"
@@ -2079,6 +2103,7 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[FLAGGA]... [ENHET]"
 
 #. TEXT_HELP
+#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2092,8 +2117,8 @@ msgid ""
 " -d, --device-settings file   load device settings from file (without "
 "\".drc\")\n"
 "\n"
+" -V, --viewer                 start with viewer-mode active (default)\n"
 " -s, --save                   start with save-mode active\n"
-" -V, --viewer                 start with viewer-mode active\n"
 " -c, --copy                   start with copy-mode active\n"
 " -f, --fax                    start with fax-mode active\n"
 " -m, --mail                   start with mail-mode active\n"
@@ -2261,6 +2286,14 @@ msgstr "Standardinställningar"
 msgid "Agfa negative"
 msgstr ""
 
+#. MENU_ITEM_MEDIUM_AGFA_NEG_XRG200_4
+msgid "Agfa negative XRG 200-4"
+msgstr ""
+
+#. MENU_ITEM_MEDIUM_AGFA_NEG_HDC_100
+msgid "Agfa negative HDC 100"
+msgstr ""
+
 #. MENU_ITEM_MEDIUM_FUJI_NEG
 #, fuzzy
 msgid "Fuji negative"
@@ -2274,6 +2307,15 @@ msgstr ""
 #, fuzzy
 msgid "Konica negative"
 msgstr "inaktiv"
+
+#. MENU_ITEM_MEDIUM_KONICA_NEG_VX_100
+#, fuzzy
+msgid "Konica negative VX 100"
+msgstr "inaktiv"
+
+#. MENU_ITEM_MEDIUM_ROSSMANN_NEG_HR_100
+msgid "Rossmann negative HR 100"
+msgstr ""
 
 #. Sane backend messages
 msgid "flatbed scanner"
@@ -2329,6 +2371,16 @@ msgstr "Slut på minne"
 
 msgid "Access to resource has been denied"
 msgstr "Tillgång till resurs nekas"
+
+#, fuzzy
+#~ msgid "Store Medium definition"
+#~ msgstr "Ta bort inställning"
+
+#~ msgid ""
+#~ "Use XSane for: SCANning-<Ctrl-s> photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>"
+#~ msgstr ""
+#~ "Läs in bilder-<Ctrl-s>, faxa-<Ctrl-f> och gör fotokopior-<Ctrl-c> med "
+#~ "XSane..."
 
 #~ msgid "Width of paper for postscript"
 #~ msgstr "Pappersbredd för postscript"

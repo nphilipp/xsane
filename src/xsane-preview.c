@@ -3,7 +3,7 @@
    xsane-preview.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2001 Oliver Rauch
+   Copyright (C) 1998-2002 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -1981,7 +1981,7 @@ static void preview_scan_start(Preview *p)
 
       gamma_data = malloc(gamma_gray_size  * sizeof(SANE_Int));
 
-      if (xsane.xsane_colors > 1) /* color scan */
+      if ((xsane.xsane_colors > 1) || (xsane.no_preview_medium_gamma)) /* color scan or medium preview gamma disabled */
       {
         xsane_create_gamma_curve(gamma_data, 0, 1.0, 0.0, 0.0, 0.0, 100.0, 1.0, gamma_gray_size, gamma_gray_max);
       }
@@ -2022,15 +2022,28 @@ static void preview_scan_start(Preview *p)
       gamma_data_green = malloc(gamma_green_size * sizeof(SANE_Int));
       gamma_data_blue  = malloc(gamma_blue_size  * sizeof(SANE_Int));
 
-      xsane_create_gamma_curve(gamma_data_red,   xsane.medium_negative, 1.0, 0.0, 0.0,
-                               xsane.medium_shadow_red, xsane.medium_highlight_red, xsane.medium_gamma_red,
-                               gamma_red_size,   gamma_red_max);
-      xsane_create_gamma_curve(gamma_data_green, xsane.medium_negative, 1.0, 0.0, 0.0,
-                               xsane.medium_shadow_green, xsane.medium_highlight_green, xsane.medium_gamma_green,
-                               gamma_green_size, gamma_green_max);
-      xsane_create_gamma_curve(gamma_data_blue,  xsane.medium_negative, 1.0, 0.0, 0.0,
-                               xsane.medium_shadow_blue, xsane.medium_highlight_blue, xsane.medium_gamma_blue,
-                               gamma_blue_size,  gamma_blue_max);
+      if (xsane.no_preview_medium_gamma) /* do not use medium gamma for preview */
+      {
+        DBG(DBG_info, "preview: not using medium gamma table\n");
+
+        xsane_create_gamma_curve(gamma_data_red,   0, 1.0, 0.0, 0.0, 0.0, 100.0, 1.0, gamma_red_size,   gamma_red_max);
+        xsane_create_gamma_curve(gamma_data_green, 0, 1.0, 0.0, 0.0, 0.0, 100.0, 1.0, gamma_green_size, gamma_green_max);
+        xsane_create_gamma_curve(gamma_data_blue,  0, 1.0, 0.0, 0.0, 0.0, 100.0, 1.0, gamma_blue_size,  gamma_blue_max);
+      }
+      else /* use medium gamma for preview */
+      {
+        DBG(DBG_info, "preview: using medium gamma table\n");
+
+        xsane_create_gamma_curve(gamma_data_red,   xsane.medium_negative, 1.0, 0.0, 0.0,
+                                 xsane.medium_shadow_red, xsane.medium_highlight_red, xsane.medium_gamma_red,
+                                 gamma_red_size,   gamma_red_max);
+        xsane_create_gamma_curve(gamma_data_green, xsane.medium_negative, 1.0, 0.0, 0.0,
+                                 xsane.medium_shadow_green, xsane.medium_highlight_green, xsane.medium_gamma_green,
+                                 gamma_green_size, gamma_green_max);
+        xsane_create_gamma_curve(gamma_data_blue,  xsane.medium_negative, 1.0, 0.0, 0.0,
+                                 xsane.medium_shadow_blue, xsane.medium_highlight_blue, xsane.medium_gamma_blue,
+                                 gamma_blue_size,  gamma_blue_max);
+      }
 
       xsane_back_gtk_update_vector(xsane.well_known.gamma_vector_r, gamma_data_red);
       xsane_back_gtk_update_vector(xsane.well_known.gamma_vector_g, gamma_data_green);
@@ -3730,6 +3743,8 @@ void preview_update_surface(Preview *p, int surface_changed)
   unit = SANE_UNIT_PIXEL;
   type = SANE_TYPE_INT;
 
+  preview_update_selection(p); /* make sure preview selection is up to date */
+
   p->show_selection = FALSE; /* at first let's say we have no corrdinate selection */
 
   for (i = 0; i < 4; ++i) /* test if surface (max vals of scanarea) has changed */
@@ -4570,6 +4585,14 @@ static gint preview_preset_area_rename_callback(GtkWidget *widget, GtkWidget *pr
 
   rename_dialog = gtk_window_new(GTK_WINDOW_DIALOG);
   xsane_set_window_icon(rename_dialog, 0);
+
+  /* set rename dialog */ 
+  gtk_window_set_position(GTK_WINDOW(rename_dialog), GTK_WIN_POS_CENTER);
+  gtk_window_set_policy(GTK_WINDOW(rename_dialog), FALSE, FALSE, FALSE);
+  snprintf(buf, sizeof(buf), "%s %s", xsane.prog_name, WINDOW_PRESET_AREA_RENAME);
+  gtk_window_set_title(GTK_WINDOW(rename_dialog), buf);
+  gtk_signal_connect(GTK_OBJECT(rename_dialog), "delete_event", (GtkSignalFunc) xsane_preset_area_entry_rename_button_callback, (void *) -1);
+  gtk_widget_show(rename_dialog);
  
   /* set the main vbox */
   vbox = gtk_vbox_new(FALSE, 0);
@@ -4583,13 +4606,6 @@ static gint preview_preset_area_rename_callback(GtkWidget *widget, GtkWidget *pr
   gtk_box_pack_end(GTK_BOX(vbox), hbox, FALSE, FALSE, 5);
   gtk_container_set_border_width(GTK_CONTAINER(hbox), 5);
   gtk_widget_show(hbox);
- 
-  gtk_window_set_position(GTK_WINDOW(rename_dialog), GTK_WIN_POS_CENTER);
-  gtk_window_set_policy(GTK_WINDOW(rename_dialog), FALSE, FALSE, FALSE);
-  snprintf(buf, sizeof(buf), "%s %s", xsane.prog_name, WINDOW_PRESET_AREA_RENAME);
-  gtk_window_set_title(GTK_WINDOW(rename_dialog), buf);
-  gtk_signal_connect(GTK_OBJECT(rename_dialog), "delete_event", (GtkSignalFunc) xsane_preset_area_entry_rename_button_callback, (void *) -1);
-  gtk_widget_show(rename_dialog);
  
   text = gtk_entry_new_with_max_length(64);
   xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_PRESET_AREA_NAME);

@@ -3,7 +3,7 @@
    xsane-front-gtk.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2001 Oliver Rauch
+   Copyright (C) 1998-2002 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -722,7 +722,7 @@ gint xsane_authorization_callback(SANE_String_Const resource,
 void xsane_progress_cancel(GtkWidget *widget, gpointer data)
 {
  void *cancel_data_pointer;
- GtkSignalFunc callback = (GtkSignalFunc) data;
+ GtkFunction callback = (GtkFunction) data;
 
   DBG(DBG_proc, "xsane_progress_cancel\n");
 

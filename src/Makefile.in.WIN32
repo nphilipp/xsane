@@ -9,6 +9,7 @@ sanedir = @prefix@
 bindir = $(sanedir)
 datadir = $(sanedir)'\\'share
 sanedatadir = $(datadir)'\\'sane
+xsanedocdir = ${datadir}'\\'sane'\\'xsane'\\'doc
 
 MKINSTALLDIRS = @MKINSTALLDIRS@
 INSTALL = @INSTALL@
@@ -19,7 +20,7 @@ CC = @CC@ -mwindows
 INCLUDES = -I. -I$(srcdir) -I$(top_builddir)/include -I$(top_srcdir)/include \
 	   @GTK_CFLAGS@ @INCLUDES@ -I/usr/include -I/usr/include/gdk
 DEFS = -D_WIN32 @DEFS@ -DXSANE_FIXED_HOME_PATH=$(sanedir)'\\'home -DTEMP_PATH=c:'\\'temp -DSLASH=92 -DBUGGY_GDK_INPUT_EXCEPTION -DLOCALEDIR=share/locale
-CPPFLAGS = @CPPFLAGS@
+CPPFLAGS = @CPPFLAGS@ -DPATH_XSANE_DOC_DIR=\$(xsanedocdir) -DPATH_SANE_DATA_DIR=\$(sanedatadir)
 CFLAGS = @CFLAGS@ -fnative-struct
 LDFLAGS = @LDFLAGS@
 LIBS = -lintl -lsane @LIBS@
@@ -49,7 +50,7 @@ XSANE_OBJS = xsane-back-gtk.o xsane-front-gtk.o xsane-gamma.o xsane-preview.o \
 all: $(PROGRAMS)
 
 install: $(PROGRAMS)
-	$(MKINSTALLDIRS) $(bindir) $(datadir) $(sanedatadir) $(sanedatadir)/xsane
+	$(MKINSTALLDIRS) $(bindir) $(datadir) $(sanedatadir) $(xsanedocdir) $(sanedatadir)/xsane
 	@for program in $(BINPROGS); do \
 	  $(INSTALL_PROGRAM) $${program} $(bindir)/$${program}; \
 	done

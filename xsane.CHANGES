@@ -1844,8 +1844,9 @@ xsane-0.81 -> 0.82:
 
    - removed remove() in xsane_save_image_as_lineart()
 
-   - added remove() before call to xsane_save_image_as_lineart()
-     when created file is not a temporary file
+   - added routine xsane_create_secure_file() that makes sure that the created
+     file does not follow a symlink
+
 
  - when an error occurs while saving a file or the saving is aborted then
    the created image is removed
@@ -1855,12 +1856,6 @@ xsane-0.81 -> 0.82:
 
  - viewer_save_callback(): several changes for saving as lineart
 
- - added spanish translation (es.po) - thanks to 
-   Gustavo D. Vranjes <gvranjes@abaconet.com.ar>
-
- - added routine xsane_create_secure_file() that makes sure that the created
-   file does not follow a symlink
-
  - moved xsane_update_histogram() at end of xsane_update_gamma_curve()
    into if (xsane.preview) block - this avoids segfault on some systems
 
@@ -1868,7 +1863,7 @@ xsane-0.81 -> 0.82:
 
  - removed bug in despeckle routine
 
- - increased  speed of despeckle routine by about factor 6
+ - increased speed of despeckle routine by about factor 6
 
  - changed despeckle radius range from 1-9 to 2-10
 
@@ -1879,6 +1874,54 @@ xsane-0.81 -> 0.82:
 
  - added image scaling routine to viewer
 
- - added dutch translation nl.po - thanks to 
+ - added spanish translation (es.po) - thanks to 
+   Gustavo D. Vranjes <gvranjes@abaconet.com.ar>
+
+ - added dutch translation (nl.po) - thanks to 
    "Wim Sinke" <sinke@wirehub.nl>
 
+
+xsane-0.82 -> 0.83:
+-------------------
+
+ - scaling image size does work for 16 bit images now
+
+ - xsane_create_secure_file() now always removes the file (not only if it is a link),
+   this is needed because open(..., O_EXCL) does fail when the file exists (what can
+   happend when we want to overwrite an existing file).
+
+ - removed buggy ";" at end of if statement in xsane_enhancement_negative_callback
+
+ - default mode is viewer instead of saving mode
+
+ - updated po-files: nl
+
+ - xsane-front-gtk.c: void xsane_progress_cancel(GtkWidget *widget, gpointer data)
+   changed GtkSignalFunc callback = (GtkSignalFunc) data; to
+   GtkFunction callback = (GtkFunction) data;
+
+ - added media, experimentally determined values with UMAX Powerlook3:
+   Agfa XRG 200-4
+   Agfa HDC 100
+   Konica VX 100
+   Rossmann HR 100
+
+ - preview.c: preview_update_surface calls preview_update_selection at first to
+   make sure that the preview selection is up to date. Now xsane comes up with
+   the saved area selection when e.g. transparency mode is stored which forces
+   a change of the surface
+
+ - removed parameter negative from xsane_calculate_auto_enhancement,
+   autoenhancement does work again when negative button is pressed
+
+ - added mode "--Medium-definition"/"-M":
+   - preview is done without scanner gamma correction for medium
+   - added two icons to the main dialog: medium new and medium delete
+
+ - added xsanedocdir to doc/Makefile.in and src/Makefile.in
+   the path is used by xsane.c and the mentioned Makefiles
+
+ - removed in xsane-viewer.c, line 222: xsane_create_secure_file(outputfilename) before
+   xsane_save_image_as(...)
+
+   
