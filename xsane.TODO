@@ -8,9 +8,8 @@ Sign explaination:
 
  save-function:
     - list of last used filenames
-
- copy-function:
-    + select image position on printer (centered/left/right/free) for copy
+    - save several images into one file for:
+      -postscript
 
  fax-function:
     # use internal viewer to display images

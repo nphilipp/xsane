@@ -40,7 +40,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.88"
+#define XSANE_VERSION		"0.89"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2002"
@@ -56,6 +56,7 @@
 #define XSANE_HOLD_TIME 200
 #define XSANE_CONTINUOUS_HOLD_TIME 10
 #define XSANE_DEFAULT_DEVICE "SANE_DEFAULT_DEVICE"
+#define XSANE_3PASS_BUFFER_RGB_SIZE 1024
 
 #ifndef SLASH
 # define SLASH '/'
@@ -810,6 +811,7 @@ typedef struct XsaneSetup
   GtkWidget *overwrite_warning_button;
   GtkWidget *increase_filename_counter_button;
   GtkWidget *skip_existing_numbers_button;
+  GtkWidget *save_pnm16_as_ascii_button;
   GtkWidget *reduce_16bit_to_8bit_button;
 
   GtkWidget *main_window_fixed_button;

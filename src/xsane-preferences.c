@@ -93,6 +93,7 @@ Preferences preferences =
        1,		/* save_devprefs_at_exit */
        1,		/* overwrite_warning */
        1,		/* skip_existing_numbers */
+       0,		/* save_pnm16_as_ascii */
        0,		/* reduce_16bit_to_8bit */
        1,		/* filename_counter_step */
        4,		/* filename_counter_len */
@@ -133,7 +134,7 @@ Preferences preferences =
        1,		/* preselect_scanarea after preview scan */
        1,		/* auto_correct_colors after preview scan */
  GTK_UPDATE_DISCONTINUOUS, /* update policy for gtk frontend sliders */
-       0,		/* psrotate: rotate in postscript mode (landscape) */
+       0,		/* paper_orientation */
        0,		/* preset_area_definitions */
        0,		/* printernr */
        0		/* printerdefinitions */
@@ -193,6 +194,7 @@ desc[] =
     {"save-devprefs-at-exit",		xsane_rc_pref_int,	POFFSET(save_devprefs_at_exit)},
     {"overwrite-warning",		xsane_rc_pref_int,	POFFSET(overwrite_warning)},
     {"skip-existing-numbers",		xsane_rc_pref_int,	POFFSET(skip_existing_numbers)},
+    {"save-pnm16-as-ascii",		xsane_rc_pref_int,	POFFSET( save_pnm16_as_ascii)},
     {"reduce-16bit-to8bit",		xsane_rc_pref_int,	POFFSET(reduce_16bit_to_8bit)},
     {"filename-counter-step",		xsane_rc_pref_int,	POFFSET(filename_counter_step)},
     {"filename-counter-len",		xsane_rc_pref_int,	POFFSET(filename_counter_len)},
@@ -233,7 +235,7 @@ desc[] =
     {"preselect-scanarea",		xsane_rc_pref_int,	POFFSET(preselect_scanarea)},
     {"auto-correct-colors",		xsane_rc_pref_int,	POFFSET(auto_correct_colors)},
     {"gtk-update-policy",		xsane_rc_pref_int,	POFFSET(gtk_update_policy)},
-    {"postscript-rotate",		xsane_rc_pref_int,	POFFSET(psrotate)},
+    {"paper-orientation",		xsane_rc_pref_int,	POFFSET(paper_orientation)},
     {"preset-area-definitions",		xsane_rc_pref_int,	POFFSET(preset_area_definitions)},
     {"medium-definitions",		xsane_rc_pref_int,	POFFSET(medium_definitions)},
     {"printernr",			xsane_rc_pref_int,	POFFSET(printernr)},

@@ -4,8 +4,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.87\n"
-"POT-Creation-Date: 2002-09-13 08:34+0200\n"
+"Project-Id-Version: XSANE 0.89\n"
+"POT-Creation-Date: 2002-10-20 22:23+0200\n"
 "PO-Revision-Date: 2000-02-09 21:00+01:00\n"
 "Last-Translator: Laurent Grawet <laurent.grawet@ibelgique.com>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -37,11 +37,11 @@ msgstr "Autorisation"
 
 #. WINDOW_GPL
 msgid "GPL - the license"
-msgstr ""
+msgstr "GPL - La Licence"
 
 #. WINDOW_EULA
 msgid "End User License Agreement"
-msgstr ""
+msgstr "Contrat d'utilisateur"
 
 #. WINDOW_INFO
 msgid "info"
@@ -49,20 +49,19 @@ msgstr "Info"
 
 #. WINDOW_LOAD_BATCH_LIST
 msgid "load batch list"
-msgstr ""
+msgstr "Charger la liste"
 
 #. WINDOW_SAVE_BATCH_LIST
 msgid "save batch list"
-msgstr ""
+msgstr "Sauver la liste"
 
 #. WINDOW_BATCH_SCAN
 msgid "batch scan"
 msgstr "Numérisation par lots"
 
 #. WINDOW_BATCH_RENAME
-#, fuzzy
 msgid "rename batch area"
-msgstr "Effacer la page"
+msgstr "Renommer l'aire de numérisation"
 
 #. WINDOW_FAX_PROJECT
 msgid "fax project"
@@ -168,6 +167,11 @@ msgstr "Adoucir l'image"
 msgid "Store medium definition"
 msgstr "Enregister la définition du support"
 
+#. WINDOW_NO_DEVICES
+#, fuzzy
+msgid "No devices available"
+msgstr "Aucun périphérique disponible"
+
 #. MENU_FILE
 msgid "File"
 msgstr "Fichier"
@@ -206,7 +210,7 @@ msgstr "Sauver l'image"
 
 #. MENU_ITEM_OCR
 msgid "OCR - save as text"
-msgstr ""
+msgstr "OCR - Sauver au format texte"
 
 #. MENU_ITEM_CLONE
 msgid "Clone"
@@ -237,9 +241,8 @@ msgid "Enhanced image"
 msgstr "Image améliorée"
 
 #. BUTTON_SCAN
-#, fuzzy
 msgid "Scan"
-msgstr "Numérisation..."
+msgstr "Numériser"
 
 #. BUTTON_OK
 msgid "Ok"
@@ -278,14 +281,12 @@ msgid "Overwrite"
 msgstr "Ecraser"
 
 #. BUTTON_BATCH_LIST_SCAN
-#, fuzzy
 msgid "Scan batch list"
-msgstr "Conseils de numérisation"
+msgstr "Numériser la liste"
 
 #. BUTTON_BATCH_AREA_SCAN
-#, fuzzy
 msgid "Scan selected area"
-msgstr "Zoom l'aire sélectionnée"
+msgstr "Numériser l'aire sélectionnée"
 
 #. BUTTON_PAGE_DELETE
 msgid "Delete page"
@@ -378,6 +379,10 @@ msgstr "Avertissement en cas d'écrasement"
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
 msgid "Skip existing filenames"
 msgstr "Sauter les noms de fichiers existants"
+
+#. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
+msgid "Save 16bit pnm in ascii format"
+msgstr "Sauver l'image pnm 16 bit en format ascii"
 
 #. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
 msgid "Reduce 16 bit image to 8 bit"
@@ -695,43 +700,36 @@ msgid "Blur radius:"
 msgstr "Niveau de flou:"
 
 #. TEXT_BATCH_AREA_DEFAULT_NAME
-#, fuzzy
 msgid "(no name)"
-msgstr "(aucun)"
+msgstr "(sans nom)"
 
 #. TEXT_BATCH_LIST_AREANAME
-#, fuzzy
 msgid "Area name:"
-msgstr "Utilisateur:"
+msgstr "Nom de l'aire:"
 
 #. TEXT_BATCH_LIST_SCANMODE
-#, fuzzy
 msgid "Scanmode:"
-msgstr "Mode XSane"
+msgstr "Mode de numérisation:"
 
 #. TEXT_BATCH_LIST_GEOMETRY_TL
 msgid "Top left:"
-msgstr ""
+msgstr "Supérieur gauche:"
 
 #. TEXT_BATCH_LIST_GEOMETRY_SIZE
-#, fuzzy
 msgid "Size:"
-msgstr "Dia"
+msgstr "Taille:"
 
 #. TEXT_BATCH_LIST_RESOLUTION
-#, fuzzy
 msgid "Resolution:"
-msgstr "Option seuil:"
+msgstr "Résolution:"
 
 #. TEXT_BATCH_LIST_BIT_DEPTH
-#, fuzzy
 msgid "Bit depth:"
-msgstr "Valeur gamma d'entrée:"
+msgstr "Nombre de bits:"
 
 #. TEXT_BATCH_LIST_BY_GUI
-#, fuzzy
 msgid "as selected"
-msgstr "Zoom l'aire sélectionnée"
+msgstr "comme sélectionné"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -1019,32 +1017,31 @@ msgstr "e-mail"
 
 #. MENU_ITEM_SHOW_TOOLTIPS
 msgid "Show tooltips"
-msgstr "Affichage des bulles d'aide"
+msgstr "Bulles d'aide"
 
 #. MENU_ITEM_SHOW_PREVIEW
 msgid "Show preview"
-msgstr "Afficher l'aperçu"
+msgstr "Aperçu"
 
 #. MENU_ITEM_SHOW_HISTOGRAM
 msgid "Show histogram"
-msgstr "Afficher l'histogramme"
+msgstr "Histogramme"
 
 #. MENU_ITEM_SHOW_GAMMA
 msgid "Show gamma curve"
-msgstr "Afficher la courbe gamma"
+msgstr "Courbe gamma"
 
 #. MENU_ITEM_SHOW_BATCH_SCAN
-#, fuzzy
 msgid "Show batch scan"
 msgstr "Numérisation par lots"
 
 #. MENU_ITEM_SHOW_STANDARDOPTIONS
 msgid "Show standard options"
-msgstr "Afficher les options standard"
+msgstr "Options standard"
 
 #. MENU_ITEM_SHOW_ADVANCEDOPTIONS
 msgid "Show advanced options"
-msgstr "Afficher les options avancées"
+msgstr "Options avancées"
 
 #. MENU_ITEM_SETUP
 msgid "Setup"
@@ -1622,6 +1619,14 @@ msgstr ""
 "Si un compteur de noms de fichiers est utilisé, les nombres déjà utilisés "
 "sont évités"
 
+#. DESC_SAVE_PNM16_AS_ASCII
+msgid ""
+"When a 16 bit image shall be saved in pnm format then use ascii format "
+"instead of binary format. The binary format is a new format that is not "
+"supported by all programs. The ascii format is supported by more programs "
+"but it produces really huge files!!!"
+msgstr ""
+
 #. DESC_REDUCE_16BIT_TO_8BIT
 msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
 msgstr ""
@@ -1883,9 +1888,8 @@ msgid "execute"
 msgstr "exécution"
 
 #. DESC_ADD_BATCH
-#, fuzzy
 msgid "Add selection for batch scan"
-msgstr "Ajouter la sélection à la liste"
+msgstr "Ajouter la sélection pour la numérisation par lots"
 
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
@@ -1944,6 +1948,10 @@ msgstr "Aire de présélection"
 msgid "Rotate preview and scan"
 msgstr "Pivote l'aperçu et la numérisation"
 
+#. DESC_PAPER_ORIENTATION
+msgid "Define image position for printing"
+msgstr ""
+
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
 msgstr "Reconnaissance Optique de Caractères"
@@ -1997,31 +2005,28 @@ msgid "Y-Scale factor"
 msgstr "Facteur d'échelle vertical"
 
 #. DESC_BATCH_LIST_EMPTY
-#, fuzzy
 msgid "Empty batch list"
-msgstr "Conseils de numérisation"
+msgstr "Vide la liste"
 
 #. DESC_BATCH_LIST_SAVE
 msgid "Save batch list"
-msgstr ""
+msgstr "Sauve la liste"
 
 #. DESC_BATCH_LIST_LOAD
 msgid "Load batch list"
-msgstr ""
+msgstr "Charge la liste"
 
 #. DESC_BATCH_RENAME
-#, fuzzy
 msgid "Rename area"
-msgstr "Renommer la page"
+msgstr "Renomme l'aire"
 
 #. DESC_BATCH_ADD
-#, fuzzy
 msgid "Add selected preview area to batch list"
-msgstr "Ajouter la sélection à la liste"
+msgstr "Ajoute la sélection de la prévisualisation à la liste"
 
 #. DESC_BATCH_DEL
 msgid "Delete selected area from batch list"
-msgstr ""
+msgstr "Supprime l'aire sélectionnée de la liste"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2423,6 +2428,18 @@ msgstr ""
 msgid "<Toolbox>/Xtns/XSane/"
 msgstr ""
 
+#. HELP_NO_DEVICES
+msgid ""
+"Possible reasons:\n"
+"1) There really is no device that is supported by SANE\n"
+"2) Supported devices are busy\n"
+"3) The permissions for the device file do not allow you to use it - try as "
+"root\n"
+"4) The backend is not loaded by SANE (man sane-dll)\n"
+"5) The backend is not configured correct (man sane-\"backendname\")\n"
+"6) Possibly there is more than one SANE version installed"
+msgstr ""
+
 #. strings that are used in structures, so it is not allowed to use _()/gettext() here
 #. gettext_noop does mark these texts but does not change the string
 #. MENU_ITEM_SURFACE_FULL_SIZE
@@ -2494,9 +2511,8 @@ msgid "letter land."
 msgstr "Letter paysage"
 
 #. MENU_ITEM_MEDIUM_FULL_COLOR_RANGE
-#, fuzzy
 msgid "Full color range"
-msgstr "Pleine échelle"
+msgstr "Pleine échelle couleur"
 
 #. MENU_ITEM_MEDIUM_SLIDE
 msgid "Slide"

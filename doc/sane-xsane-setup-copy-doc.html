@@ -1,3 +1,4 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
@@ -83,6 +84,18 @@
 <li><a href="sane-xsane-preview-doc.html#DELETE_PREVIEW_CACHE">Delete preview cache</a></li>
 </ul>
 <br>
+<a href="sane-xsane-batch-scan-doc.html">Batch scan:</a>
+<ul>
+<li><a href="sane-xsane-batch-scan-doc.html#BATCH_SCAN_EMPTY">Empty batch list</a></li>
+<li><a href="sane-xsane-batch-scan-doc.html#BATCH_SCAN_OPEN">Open batch list</a></li>
+<li><a href="sane-xsane-batch-scan-doc.html#BATCH_SCAN_SAVE">Save batch list</a></li>
+<li><a href="sane-xsane-batch-scan-doc.html#BATCH_SCAN_ADD">Add area to list</a></li>
+<li><a href="sane-xsane-batch-scan-doc.html#BATCH_SCAN_DELETE">Remove selection</a></li>
+<li><a href="sane-xsane-batch-scan-doc.html#BATCH_SCAN_RENAME">Rename selection</a></li>
+<li><a href="sane-xsane-batch-scan-doc.html#BATCH_SCAN_ROTATE">Rotate image</a></li>
+<li><a href="sane-xsane-batch-scan-doc.html#BATCH_SCAN_MIRROR">Mirror image</a></li>
+</ul>
+<br>
 <font color="#000000">Setup:</font>
 <ul>
 <li><a href="sane-xsane-setup-copy-doc.html">Copy setup</a></li>
@@ -118,16 +131,17 @@ Define the name for the following printer definition.
 <blockquote>
 Enter the command with which you print files. The command has
 to read the file from the standard input. If you use the bsd printing system
-this is "lpr", if you use the old printing system this should be "lp".
+this is "lpr", if you use the old printing system this should be "lp". When you
+use KDE then you should try "kprinter --stdin".
 </blockquote>
 
 <h4>COPY NUMBER OPTION:</h4>
 <blockquote>
 Enter the option of the printer command with wich the number
-of copies are specified. If you use the bsd printing system (lpr)
+of copies are specified. If you use the bsd printing system (lpr) or kprinter
 this is "-#", if you use the old printing system (lp) this should be "-n".
 This option is the last option passed to the printerrcommand
-so if you specify a ";#" the option is ignored.
+so if you specify a ";#" then the option is ignored.
 </blockquote>
 
 <h4>RESOLUTION:</h4>

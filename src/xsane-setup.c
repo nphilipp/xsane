@@ -30,6 +30,7 @@
 #include "xsane-preview.h"
 #include "xsane-save.h"
 #include "xsane-gamma.h"
+#include "xsane-batch-scan.h"
 
 #ifdef HAVE_LIBPNG
 #ifdef HAVE_LIBZ
@@ -466,6 +467,8 @@ static void xsane_setup_display_apply_changes(GtkWidget *widget, gpointer data)
   preferences.doc_viewer = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.doc_viewer_entry)));
 
   xsane_update_gamma_curve(TRUE /* update raw */);
+
+  xsane_batch_scan_update_icon_list(); /* update gamma of batch scan icons */
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -604,6 +607,7 @@ static void xsane_setup_image_apply_changes(GtkWidget *widget, gpointer data)
   preferences.tiff_compression1_nr  = xsane_setup.tiff_compression1_nr;
 #endif
 
+  xsane_update_bool(xsane_setup.save_pnm16_as_ascii_button,   &preferences.save_pnm16_as_ascii);
   xsane_update_bool(xsane_setup.reduce_16bit_to_8bit_button,  &preferences.reduce_16bit_to_8bit);
 
   xsane_define_maximum_output_size();
@@ -972,7 +976,7 @@ static void xsane_printer_notebook(GtkWidget *notebook)
   gtk_widget_show(setup_vbox);
 
   frame = gtk_frame_new(0);
-  gtk_container_set_border_width(GTK_CONTAINER(frame), 4);
+  gtk_container_set_border_width(GTK_CONTAINER(frame), 7);
   gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_ETCHED_IN);
   gtk_box_pack_start(GTK_BOX(setup_vbox), frame, TRUE, TRUE, 0); /* sizeable framehight */
   gtk_widget_show(frame);
@@ -1348,7 +1352,7 @@ static void xsane_saving_notebook(GtkWidget *notebook)
   gtk_widget_show(setup_vbox);
 
   frame = gtk_frame_new(0);
-  gtk_container_set_border_width(GTK_CONTAINER(frame), 4);
+  gtk_container_set_border_width(GTK_CONTAINER(frame), 7);
   gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_ETCHED_IN);
   gtk_box_pack_start(GTK_BOX(setup_vbox), frame, TRUE, TRUE, 0); /* sizeable framehight */
   gtk_widget_show(frame);
@@ -1561,7 +1565,7 @@ static void xsane_image_notebook(GtkWidget *notebook)
   gtk_widget_show(setup_vbox);
 
   frame = gtk_frame_new(0);
-  gtk_container_set_border_width(GTK_CONTAINER(frame), 4);
+  gtk_container_set_border_width(GTK_CONTAINER(frame), 7);
   gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_ETCHED_IN);
   gtk_box_pack_start(GTK_BOX(setup_vbox), frame, TRUE, TRUE, 0); /* sizeable framehight */
   gtk_widget_show(frame);
@@ -1570,6 +1574,17 @@ static void xsane_image_notebook(GtkWidget *notebook)
   gtk_container_add(GTK_CONTAINER(frame), vbox);
   gtk_widget_show(vbox);
 
+
+  /* save pnm16 as ascii */
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+  button = gtk_check_button_new_with_label(RADIO_BUTTON_SAVE_PNM16_AS_ASCII);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_SAVE_PNM16_AS_ASCII);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), preferences.save_pnm16_as_ascii);
+  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 2);
+  gtk_widget_show(button);
+  gtk_widget_show(hbox);
+  xsane_setup.save_pnm16_as_ascii_button = button;
 
   /* reduce 16bit to 8bit */
   hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
@@ -1761,7 +1776,7 @@ static void xsane_fax_notebook(GtkWidget *notebook)
   gtk_widget_show(setup_vbox);
 
   frame = gtk_frame_new(0);
-  gtk_container_set_border_width(GTK_CONTAINER(frame), 4);
+  gtk_container_set_border_width(GTK_CONTAINER(frame), 7);
   gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_ETCHED_IN);
   gtk_box_pack_start(GTK_BOX(setup_vbox), frame, TRUE, TRUE, 0); /* sizeable framehight */
   gtk_widget_show(frame);
@@ -2018,7 +2033,7 @@ static void xsane_mail_notebook(GtkWidget *notebook)
   gtk_widget_show(setup_vbox);
 
   frame = gtk_frame_new(0);
-  gtk_container_set_border_width(GTK_CONTAINER(frame), 4);
+  gtk_container_set_border_width(GTK_CONTAINER(frame), 7);
   gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_ETCHED_IN);
   gtk_box_pack_start(GTK_BOX(setup_vbox), frame, TRUE, TRUE, 0); /* sizeable framehight */
   gtk_widget_show(frame);
@@ -2268,7 +2283,7 @@ static void xsane_ocr_notebook(GtkWidget *notebook)
   gtk_widget_show(setup_vbox);
 
   frame = gtk_frame_new(0);
-  gtk_container_set_border_width(GTK_CONTAINER(frame), 4);
+  gtk_container_set_border_width(GTK_CONTAINER(frame), 7);
   gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_ETCHED_IN);
   gtk_box_pack_start(GTK_BOX(setup_vbox), frame, TRUE, TRUE, 0); /* sizeable framehight */
   gtk_widget_show(frame);
@@ -2431,7 +2446,7 @@ static void xsane_display_notebook(GtkWidget *notebook)
   gtk_widget_show(setup_vbox);
 
   frame = gtk_frame_new(0);
-  gtk_container_set_border_width(GTK_CONTAINER(frame), 4);
+  gtk_container_set_border_width(GTK_CONTAINER(frame), 7);
   gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_ETCHED_IN);
   gtk_box_pack_start(GTK_BOX(setup_vbox), frame, TRUE, TRUE, 0); /* sizeable framehight */
   gtk_widget_show(frame);
@@ -2789,7 +2804,7 @@ static void xsane_enhance_notebook(GtkWidget *notebook)
   gtk_widget_show(setup_vbox);
 
   frame = gtk_frame_new(0);
-  gtk_container_set_border_width(GTK_CONTAINER(frame), 4);
+  gtk_container_set_border_width(GTK_CONTAINER(frame), 7);
   gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_ETCHED_IN);
   gtk_box_pack_start(GTK_BOX(setup_vbox), frame, TRUE, TRUE, 0); /* sizeable framehight */
   gtk_widget_show(frame);

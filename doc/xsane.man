@@ -5,6 +5,7 @@ xsane - scanner frontend for SANE
 .SH SYNOPSIS
 .B xsane
 .RB [ --version | -v ]
+.RB [ --license | -l ]
 .RB [ --device-settings
 .IR file
 .RB | -d
@@ -15,14 +16,17 @@ xsane - scanner frontend for SANE
 .RB [ --fax | -f ]
 .RB [ --mail | -m ]
 .RB [ --no-mode-selection | -n ]
+.RB [ --Medium-calibration | -M ]
 .RB [ --Fixed | -F ]
-.RB [ --Scrolled | -S ]
+.RB [ --Resizable | -R ]
+.RB [ --print-filenames | -p ]
+.RB [ --force-filename
+.IR name
+.RB | -N
+.IR name ]
 .RB [ --display
 .IR d ]
-.RB [ --no-xshm ]
 .RB [ --sync ]
-.RB [ --debug-level
-.IR n ]
 .RI [ devicename ]
 .SH DESCRIPTION
 .B xsane
@@ -116,6 +120,20 @@ flag is given xsane prints a version information, some
 information about gtk+ and gimp version it is compiled
 against and lists the supported fileformats, then it exits.
 .PP
+when the
+.B --license
+or
+.B -l
+flag is igven xsane prints license information and exits.
+.PP
+The
+.B --device-settings
+or
+.B -d
+flag reads the next option as default filename
+for device settings. The extension ".drc" must not
+be included.
+.PP
 The
 .B --viewer
 or
@@ -129,15 +147,15 @@ or
 flag forces xsane to start in scan mode.
 .PP
 The
-.B --fax
-or
-.B -f
-flag forces xsane to start in fax mode.
-.PP
-The
 .B --copy
 or
 .B -c
+flag forces xsane to start in fax mode.
+.PP
+The
+.B --fax
+or
+.B -f
 flag forces xsane to start in fax mode.
 .PP
 The
@@ -153,12 +171,12 @@ or
 flag disables the menu for xsane mode selection (viwer, scan, copy, fax, mail).
 .PP
 The
-.B --device-settings
+.B --Medium-calibration
 or
-.B -d
-flag reads the next option as default filename
-for device settings. The extension ".drc" must not
-be included.
+.B -M
+flag enables a special mode of xsane that can be used to define a source medium.
+This mode should not be used for scanning images because it may behave unexpected
+in several cases.
 .PP
 If the
 .B --Fixed
@@ -168,11 +186,28 @@ flag is given then xsane uses a fixed, non resizable main window.
 The flag overwrites the preferences value.
 .PP
 If the
-.B --Scrolled
+.B --Resizable
 or
-.B -S
-flag is given then xsane uses a scrolled, resizable main window.
+.B -R
+flag is given then xsane uses a scrolled and resizable main window.
 The flag overwrites the preferences value.
+.PP
+If
+.B --print-filenames
+or
+.B -p
+flag is given then xsane prints the names of created files to the standard output.
+.PP
+When the flag
+.B --force-filename
+or
+.B -N
+is given then xsane reads the next option as default image filename. The name should be
+of the format "name-###.ext". The selection box for filenames is disabled. This
+option normally should be used with the option
+.B --no-mode-selection
+and
+.B --scan.
 .PP
 The
 .B --display
@@ -180,13 +215,6 @@ flag selects the X11 display used to present the graphical user-interface
 (see
 .BR X (1)
 for details).
-.PP
-The
-.B --no-xshm
-flag requests not to use shared memory images.  Shared memory images
-usually enhance performance but cause problems with some buggy X11
-servers.  Unless your X11 server dies when running this program, there
-is no need or advantage to specify this flag.
 .PP
 The
 .B --sync

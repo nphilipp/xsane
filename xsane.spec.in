@@ -6,14 +6,14 @@
 Name: %{name}
 Version: %{version}
 Release: %{release}
-Summary: Xsane is a graphical frontend for the scanner library SANE
+Summary: XSane is a graphical frontend for scanners. It uses the library SANE.
 Group: Graphics
 URL: http://www.xsane.org
 Buildroot: /var/tmp/%{name}-buildroot
-Requires: sane
+Requires: sane-backends
 Source: ftp://ftp.mostang.com/pub/sane/xsane/%{name}-%{version}.tar.gz
 Copyright: GPL
-BuildRequires: gtk+ >= 1.2.0 libsane1-devel >= 1.0.2
+BuildRequires: gtk+ >= 1.2.0 sane-backends-devel >= 1.0.2
 
 %description
 Xsane is a grahical frontend for sane. Install this if you want a grahpical

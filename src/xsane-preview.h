@@ -88,6 +88,7 @@ typedef struct
 
   float maximum_output_width;	/* maximum output width (photocopy) */
   float maximum_output_height;	/* maximum output height (photocopy) */
+  int paper_orientation;	/* orientation of the paper (photocopy) */
   int block_update_maximum_output_size_clipping; /* do not clip maximum output size */
 
   int index_xmin, index_xmax, index_ymin, index_ymax; /* index numbers in dependance of p->rotation */
@@ -202,7 +203,7 @@ extern void preview_calculate_raw_histogram(Preview *p, SANE_Int *count_raw, SAN
 extern void preview_calculate_enh_histogram(Preview *p, SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue);
 
 extern void preview_area_resize(Preview *p);					/* redraw preview rulers */
-extern void preview_set_maximum_output_size(Preview *p, float width, float height);   /* set maximum outut size */
+extern void preview_set_maximum_output_size(Preview *p, float width, float height, int paper_orientation); /* set maximum outut size */
 extern void preview_select_full_preview_area(Preview *p);
 extern void preview_display_valid(Preview *p);
 extern void preview_create_batch_icon(Preview *p, Batch_Scan_Parameters *parameters);

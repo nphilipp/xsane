@@ -4,11 +4,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.87\n"
-"POT-Creation-Date: 2002-09-13 08:34+0200\n"
-"PO-Revision-Date: 2001-11-11 21:30+01:00\n"
+"Project-Id-Version: XSANE 0.88\n"
+"POT-Creation-Date: 2002-10-20 22:23+0200\n"
+"PO-Revision-Date: 2002-10-09 23:13+01:00\n"
 "Last-Translator: Johan Bengtsson <johanb@lls.se>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: LANGUAGE <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -49,20 +49,19 @@ msgstr "info"
 
 #. WINDOW_LOAD_BATCH_LIST
 msgid "load batch list"
-msgstr ""
+msgstr "ladda massinläsningslista"
 
 #. WINDOW_SAVE_BATCH_LIST
 msgid "save batch list"
-msgstr ""
+msgstr "spara massinläsningslista"
 
 #. WINDOW_BATCH_SCAN
 msgid "batch scan"
 msgstr "massinläsning"
 
 #. WINDOW_BATCH_RENAME
-#, fuzzy
 msgid "rename batch area"
-msgstr "Ta bort sida"
+msgstr "byt namn på massinläsningsområde"
 
 #. WINDOW_FAX_PROJECT
 msgid "fax project"
@@ -168,6 +167,11 @@ msgstr "Sudda till bild"
 msgid "Store medium definition"
 msgstr "Lagra mediedefinition"
 
+#. WINDOW_NO_DEVICES
+#, fuzzy
+msgid "No devices available"
+msgstr "inga enheter tillgängliga"
+
 #. MENU_FILE
 msgid "File"
 msgstr "Arkiv"
@@ -237,9 +241,8 @@ msgid "Enhanced image"
 msgstr "Bearbetad bild"
 
 #. BUTTON_SCAN
-#, fuzzy
 msgid "Scan"
-msgstr "Läser in"
+msgstr "Läs in"
 
 #. BUTTON_OK
 msgid "Ok"
@@ -278,14 +281,12 @@ msgid "Overwrite"
 msgstr "Skriv över"
 
 #. BUTTON_BATCH_LIST_SCAN
-#, fuzzy
 msgid "Scan batch list"
-msgstr "Bildinläsningstips"
+msgstr "Läs in batch lista"
 
 #. BUTTON_BATCH_AREA_SCAN
-#, fuzzy
 msgid "Scan selected area"
-msgstr "Zooma in det markerade området"
+msgstr "Läs in det markerade området"
 
 #. BUTTON_PAGE_DELETE
 msgid "Delete page"
@@ -378,6 +379,10 @@ msgstr "Överskriftsvarning"
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
 msgid "Skip existing filenames"
 msgstr "Hoppa över existerande filnamn"
+
+#. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
+msgid "Save 16bit pnm in ascii format"
+msgstr ""
 
 #. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
 msgid "Reduce 16 bit image to 8 bit"
@@ -694,9 +699,8 @@ msgid "Blur radius:"
 msgstr "Suddradie:"
 
 #. TEXT_BATCH_AREA_DEFAULT_NAME
-#, fuzzy
 msgid "(no name)"
-msgstr "(ingen)"
+msgstr "(inget namn)"
 
 #. TEXT_BATCH_LIST_AREANAME
 #, fuzzy
@@ -730,7 +734,7 @@ msgstr "Gammainmatningsdjup:"
 #. TEXT_BATCH_LIST_BY_GUI
 #, fuzzy
 msgid "as selected"
-msgstr "Zooma in det markerade området"
+msgstr "Läs in det markerade området"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -1033,9 +1037,8 @@ msgid "Show gamma curve"
 msgstr "Visa gammavärdeskurva"
 
 #. MENU_ITEM_SHOW_BATCH_SCAN
-#, fuzzy
 msgid "Show batch scan"
-msgstr "massinläsning"
+msgstr "Visa massinläsning"
 
 #. MENU_ITEM_SHOW_STANDARDOPTIONS
 msgid "Show standard options"
@@ -1612,6 +1615,14 @@ msgid ""
 msgstr ""
 "Om filnamnsräknaren automatiskt uppdateras, så hoppas använda nummer över"
 
+#. DESC_SAVE_PNM16_AS_ASCII
+msgid ""
+"When a 16 bit image shall be saved in pnm format then use ascii format "
+"instead of binary format. The binary format is a new format that is not "
+"supported by all programs. The ascii format is supported by more programs "
+"but it produces really huge files!!!"
+msgstr ""
+
 #. DESC_REDUCE_16BIT_TO_8BIT
 msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
 msgstr "Spara bild med 8/bits färg om bildläsare skickar bild med 16 bits/färg"
@@ -1864,9 +1875,8 @@ msgid "execute"
 msgstr "exekvera"
 
 #. DESC_ADD_BATCH
-#, fuzzy
 msgid "Add selection for batch scan"
-msgstr "Lägg till utvalt område i listan"
+msgstr "Lägg till utvalt område i listan för massinläsning"
 
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
@@ -1925,6 +1935,10 @@ msgstr "Förinställt område"
 msgid "Rotate preview and scan"
 msgstr "Rotera förhandsgranskning och inläsning"
 
+#. DESC_PAPER_ORIENTATION
+msgid "Define image position for printing"
+msgstr ""
+
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
 msgstr "Optisk Tecken Igenkännande"
@@ -1978,31 +1992,28 @@ msgid "Y-Scale factor"
 msgstr "Y-Skale faktor"
 
 #. DESC_BATCH_LIST_EMPTY
-#, fuzzy
 msgid "Empty batch list"
-msgstr "Bildinläsningstips"
+msgstr "Tom massinläsningslista"
 
 #. DESC_BATCH_LIST_SAVE
 msgid "Save batch list"
-msgstr ""
+msgstr "Spara massinläsningslista"
 
 #. DESC_BATCH_LIST_LOAD
 msgid "Load batch list"
-msgstr ""
+msgstr "Ladda massinläsningslista"
 
 #. DESC_BATCH_RENAME
-#, fuzzy
 msgid "Rename area"
-msgstr "Byt namn på sida"
+msgstr "Byt namn på område"
 
 #. DESC_BATCH_ADD
-#, fuzzy
 msgid "Add selected preview area to batch list"
-msgstr "Lägg till utvalt område i listan"
+msgstr "Lägg till utvalt område till massinläsningslistan"
 
 #. DESC_BATCH_DEL
 msgid "Delete selected area from batch list"
-msgstr ""
+msgstr "Ta bort det makerade området fråm massinläsningslistan"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2398,6 +2409,18 @@ msgstr "<Toolbox>/Xtns/XSane/Enhets dialog..."
 msgid "<Toolbox>/Xtns/XSane/"
 msgstr "<Toolbox>/Xtns/XSane/"
 
+#. HELP_NO_DEVICES
+msgid ""
+"Possible reasons:\n"
+"1) There really is no device that is supported by SANE\n"
+"2) Supported devices are busy\n"
+"3) The permissions for the device file do not allow you to use it - try as "
+"root\n"
+"4) The backend is not loaded by SANE (man sane-dll)\n"
+"5) The backend is not configured correct (man sane-\"backendname\")\n"
+"6) Possibly there is more than one SANE version installed"
+msgstr ""
+
 #. strings that are used in structures, so it is not allowed to use _()/gettext() here
 #. gettext_noop does mark these texts but does not change the string
 #. MENU_ITEM_SURFACE_FULL_SIZE
@@ -2469,9 +2492,8 @@ msgid "letter land."
 msgstr "letter landsk."
 
 #. MENU_ITEM_MEDIUM_FULL_COLOR_RANGE
-#, fuzzy
 msgid "Full color range"
-msgstr "Fullt omfång"
+msgstr "Fullt färgomfång"
 
 #. MENU_ITEM_MEDIUM_SLIDE
 msgid "Slide"

@@ -65,5 +65,5 @@
          gtk_window_set_policy(widget, FALSE, resizable, FALSE)
 # define gtk_image_new_from_pixmap(pixmap, mask) \
          gtk_pixmap_new(pixmap, mask)
- 
+
 #endif 

@@ -59,8 +59,8 @@ typedef struct
   int enhancement_rgb_default;
   int negative;
   GtkWidget *label;
-  GdkImage *gdk_image;
-  int gdk_image_size;
+  GtkWidget *gtk_preview;
+  int gtk_preview_size;
 } Batch_Scan_Parameters;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

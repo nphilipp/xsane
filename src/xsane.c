@@ -770,16 +770,6 @@ static void xsane_show_resolution_list_callback(GtkWidget *widget)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_page_rotate_callback(GtkWidget *widget)
-{
-  DBG(DBG_proc, "xsane_page_rotate_callback\n");
-
-  preferences.psrotate = (GTK_CHECK_MENU_ITEM(widget)->active != 0);
-  xsane_define_maximum_output_size();
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
 static void xsane_show_histogram_callback(GtkWidget * widget)
 {
   DBG(DBG_proc, "xsane_show_histogram_callback\n");
@@ -831,6 +821,18 @@ static void xsane_show_batch_scan_callback(GtkWidget * widget)
   {
     gtk_widget_hide(xsane.batch_scan_dialog);
   }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_paper_orientation_callback(GtkWidget *widget, gpointer data)
+{
+ int pos = (int) data;
+
+  DBG(DBG_proc, "xsane_paper_orientation_callback\n");
+
+  preferences.paper_orientation = pos;
+  xsane_define_maximum_output_size();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1680,6 +1682,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
    GtkWidget *pixmapwidget, *hbox, *xsane_printer_option_menu, *xsane_printer_menu, *xsane_printer_item;
    GdkBitmap *mask;
    GdkPixmap *pixmap;
+   GtkWidget *paper_orientation_option_menu, *paper_orientation_menu, *paper_orientation_item;
    int i;
 
     hbox = gtk_hbox_new(FALSE, 2);
@@ -1691,6 +1694,97 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
     gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
     gdk_drawable_unref(pixmap);
     gtk_widget_show(pixmapwidget);
+
+
+    /* printer position */
+    paper_orientation_menu = gtk_menu_new();
+
+    for (i = 0; i <= 12; ++i)
+    {
+     gchar **xpm_d;
+
+      if (i == 5) /* 5, 6, 7 are not used */
+      {
+        i = 8;
+      }
+
+      switch (i)
+      {
+        /* portrait */
+        default:
+        case 0:
+           xpm_d = (gchar **) paper_orientation_portrait_top_left_xpm;
+         break;
+
+        case 1:
+           xpm_d = (gchar **) paper_orientation_portrait_top_right_xpm;
+         break;
+
+        case 2:
+           xpm_d = (gchar **) paper_orientation_portrait_bottom_right_xpm;
+         break;
+
+        case 3:
+           xpm_d = (gchar **) paper_orientation_portrait_bottom_left_xpm;
+         break;
+
+        case 4:
+           xpm_d = (gchar **) paper_orientation_portrait_center_xpm;
+         break;
+
+        /* landscape */
+        case 8:
+           xpm_d = (gchar **) paper_orientation_landscape_top_left_xpm;
+         break;
+
+        case 9:
+           xpm_d = (gchar **) paper_orientation_landscape_top_right_xpm;
+         break;
+
+        case 10:
+           xpm_d = (gchar **) paper_orientation_landscape_bottom_right_xpm;
+         break;
+
+        case 11:
+           xpm_d = (gchar **) paper_orientation_landscape_bottom_left_xpm;
+         break;
+
+        case 12:
+           xpm_d = (gchar **) paper_orientation_landscape_center_xpm;
+         break;
+      }
+
+      paper_orientation_item = gtk_menu_item_new();
+      pixmap = gdk_pixmap_create_from_xpm_d(xsane.histogram_dialog->window, &mask, xsane.bg_trans, xpm_d);
+      pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
+      gtk_container_add(GTK_CONTAINER(paper_orientation_item), pixmapwidget);
+      gtk_widget_show(pixmapwidget);
+      gdk_drawable_unref(pixmap);
+
+
+      gtk_container_add(GTK_CONTAINER(paper_orientation_menu), paper_orientation_item);
+      g_signal_connect(GTK_OBJECT(paper_orientation_item), "activate", (GtkSignalFunc) xsane_paper_orientation_callback, (void *) i);
+
+      gtk_widget_show(paper_orientation_item);
+    }
+
+    paper_orientation_option_menu = gtk_option_menu_new();
+    xsane_back_gtk_set_tooltip(xsane.tooltips, paper_orientation_option_menu, DESC_PAPER_ORIENTATION);
+    gtk_box_pack_end(GTK_BOX(hbox), paper_orientation_option_menu, FALSE, FALSE, 0);
+    gtk_option_menu_set_menu(GTK_OPTION_MENU(paper_orientation_option_menu), paper_orientation_menu);
+
+    /* set default selection */
+    if (preferences.paper_orientation < 8) /* portrai number is correct */
+    {
+      gtk_option_menu_set_history(GTK_OPTION_MENU(paper_orientation_option_menu), preferences.paper_orientation);
+    }
+    else /* numbers 5, 6, 7 are unused, so we have to substract 3 for landscape mode */
+    {
+      gtk_option_menu_set_history(GTK_OPTION_MENU(paper_orientation_option_menu), preferences.paper_orientation-3);
+    }
+
+    gtk_widget_show(paper_orientation_option_menu);
+
 
     xsane_printer_menu = gtk_menu_new();
 
@@ -2914,9 +3008,6 @@ static void xsane_info_dialog(GtkWidget *widget, gpointer data)
 #endif
 
   sprintf(bufptr, "PNM, ");
-  bufptr += strlen(bufptr);
-
-  sprintf(bufptr, "RAW, ");
   bufptr += strlen(bufptr);
 
 #ifdef SUPPORT_RGBA
@@ -6049,24 +6140,6 @@ static GtkWidget *xsane_pref_build_menu(void)
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_widget_show(item);
 
-
-  /* page orientation */
-
-  item = gtk_check_menu_item_new_with_label(MENU_ITEM_PAGE_ROTATE);
-  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_R, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
-  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), preferences.psrotate);
-  gtk_menu_append(GTK_MENU(menu), item);
-  gtk_widget_show(item);
-  g_signal_connect(GTK_OBJECT(item), "toggled", (GtkSignalFunc) xsane_page_rotate_callback, NULL);
-
-
-
-  /* insert separator: */
-
-  item = gtk_menu_item_new();
-  gtk_menu_append(GTK_MENU(menu), item);
-  gtk_widget_show(item);
-
   /* Save device setting */
 
   item = gtk_menu_item_new_with_label(MENU_ITEM_SAVE_DEVICE_SETTINGS);
@@ -6268,6 +6341,10 @@ void xsane_panel_build()
   xsane.well_known.highlight_r     = -1;
   xsane.well_known.highlight_g     = -1;
   xsane.well_known.highlight_b     = -1;
+  xsane.well_known.batch_scan_start     = -1;
+  xsane.well_known.batch_scan_loop      = -1;
+  xsane.well_known.batch_scan_end       = -1;
+  xsane.well_known.batch_scan_next_tl_y = -1;
 
 
   /* standard options */
@@ -7343,7 +7420,10 @@ static int xsane_init(int argc, char **argv)
            3 - if wrong sane major version was found */
 {
  GtkWidget *device_scanning_dialog;
- GtkWidget *main_vbox;
+ GtkWidget *main_vbox, *hbox;
+ GdkPixmap *pixmap;
+ GdkBitmap *mask;
+ GtkWidget *pixmapwidget;
  GtkWidget *label;
  GtkWidget *frame;
  struct stat st;
@@ -7424,8 +7504,7 @@ static int xsane_init(int argc, char **argv)
 #endif
 
           printf("pnm, ");
-          printf("ps, ");
-          printf("raw");
+          printf("ps");
 
 #ifdef SUPPORT_RGBA
           printf(", rgba");
@@ -7556,6 +7635,8 @@ static int xsane_init(int argc, char **argv)
   gtk_window_set_title(GTK_WINDOW(device_scanning_dialog), buf);
   g_signal_connect(GTK_OBJECT(device_scanning_dialog), "delete_event", GTK_SIGNAL_FUNC(xsane_quit), NULL);
 
+  xsane_set_window_icon(device_scanning_dialog, 0);
+
   frame = gtk_frame_new(NULL);
   gtk_container_set_border_width(GTK_CONTAINER(frame), 10);
   gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_ETCHED_IN);
@@ -7567,14 +7648,32 @@ static int xsane_init(int argc, char **argv)
   gtk_container_add(GTK_CONTAINER(frame), main_vbox);
   gtk_widget_show(main_vbox);
 
+  hbox = gtk_hbox_new(FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(main_vbox), hbox, FALSE, FALSE, 2);
+  gtk_widget_show(hbox);
+
+  /* add device icon */
+  pixmap = gdk_pixmap_create_from_xpm_d(device_scanning_dialog->window, &mask, xsane.bg_trans, (gchar **) device_xpm);
+  pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
+  gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 10);
+  gtk_widget_show(pixmapwidget);
+  gdk_drawable_unref(pixmap);
+
+  /* add text */
   snprintf(buf, sizeof(buf), "  %s  ", TEXT_SCANNING_DEVICES);
   label = gtk_label_new(buf);
-  gtk_box_pack_start(GTK_BOX(main_vbox), label, FALSE, FALSE, 2);
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
   gtk_widget_show(label);
   
-  xsane_set_window_icon(device_scanning_dialog, 0);
-
   gtk_widget_show(device_scanning_dialog);
+
+  /* wait 100 ms to make sure window is displayed */
+  usleep(100000); /* this makes sure that the text "scanning for devices" is displayed */
+
+  while (gtk_events_pending())
+  {
+    gtk_main_iteration();
+  }
 
   xsane_widget_test_uposition(device_scanning_dialog);
 
@@ -7631,6 +7730,16 @@ static int xsane_init(int argc, char **argv)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static void xsane_help_no_devices(void)
+{
+ char buf[512];
+
+  snprintf(buf, sizeof(buf), "%s\n\n%s", ERR_NO_DEVICES, HELP_NO_DEVICES);
+  xsane_back_gtk_decision(WINDOW_NO_DEVICES, (gchar**) no_device_xpm, buf, BUTTON_CLOSE, NULL, TRUE);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 void xsane_interface(int argc, char **argv)
 {
  struct SIGACTION act;
@@ -7668,8 +7777,12 @@ void xsane_interface(int argc, char **argv)
     {
      char buf[256];
 
-      snprintf(buf, sizeof(buf), "%s: %s\n", xsane.prog_name, ERR_NO_DEVICES);
-      xsane_back_gtk_error(buf, TRUE);
+      snprintf(buf, sizeof(buf), "%s\n", ERR_NO_DEVICES);
+
+      if (xsane_back_gtk_decision(WINDOW_NO_DEVICES, (gchar**) no_device_xpm, buf, BUTTON_HELP, BUTTON_CLOSE, TRUE))
+      {
+        xsane_help_no_devices();
+      }
       xsane_exit();
     }
   }

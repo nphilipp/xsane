@@ -135,6 +135,7 @@ typedef struct
     int    save_devprefs_at_exit;	/* save device preferences at exit */
     int    overwrite_warning;		/* warn if file exists */
     int    skip_existing_numbers;	/* skip used filenames when automatically increase counter */
+    int    save_pnm16_as_ascii;		/* selection if pnm 16 bit is saved as ascii or binary file */
     int    reduce_16bit_to_8bit;	/* reduce images with 16 bits/color to 8 bits/color */
     int    filename_counter_step;	/* filename_counter += filename_counter_step; */
     int    filename_counter_len;	/* minimum length of filename_counter */
@@ -178,7 +179,7 @@ typedef struct
     int    auto_correct_colors;		/* automatic color correction after preview scan */
     int    gtk_update_policy;
 
-    int    psrotate;			/* rotate by 90 degree in postscript mode - landscape */
+    int    paper_orientation;		/* image position on printer and page orientation */
     int    printernr;			/* number of printers */
     int    printerdefinitions;
     Preferences_printer_t **printer;

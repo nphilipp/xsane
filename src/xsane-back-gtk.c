@@ -582,23 +582,31 @@ int xsane_back_gtk_set_option_double(int option, double value)
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-void xsane_back_gtk_close_dialog_callback(GtkWidget * widget, gpointer data)
+static int xsane_back_gtk_decision_delete_event(GtkWidget * widget, GdkEvent *event, gpointer data)
 {
-  DBG(DBG_proc, "xsane_back_gtk_close_dialog_callback\n");
+ gint *decision_flag = (gint *) data;
 
-  gtk_widget_destroy(data);
-  xsane.back_gtk_message_dialog_active = 0;
+  DBG(DBG_proc, "xsane_back_gtk_decision_delete_event\n");
+
+  xsane.back_gtk_message_dialog_active--;
+
+  if (decision_flag)
+  {
+    *decision_flag = -1;
+  }
+
+ return FALSE; /* continue with original delete even routine */
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-void xsane_back_gtk_decision_ok_callback(GtkWidget *widget, gpointer data)
+static void xsane_back_gtk_decision_ok_callback(GtkWidget *widget, gpointer data)
 {
  gint *decision_flag = (gint *) data;
 
   DBG(DBG_proc, "xsane_back_gtk_decision_ok_callback\n");
 
-  gtk_widget_destroy(widget->parent->parent->parent);
+  gtk_widget_destroy(widget->parent->parent->parent->parent);
   xsane.back_gtk_message_dialog_active--;
 
   if (decision_flag)
@@ -609,13 +617,13 @@ void xsane_back_gtk_decision_ok_callback(GtkWidget *widget, gpointer data)
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-void xsane_back_gtk_decision_reject_callback(GtkWidget *widget, gpointer data)
+static void xsane_back_gtk_decision_reject_callback(GtkWidget *widget, gpointer data)
 {
  gint *decision_flag = (gint *) data;
 
   DBG(DBG_proc, "xsane_back_gtk_decision_reject_callback\n");
 
-  gtk_widget_destroy(widget->parent->parent->parent);
+  gtk_widget_destroy(widget->parent->parent->parent->parent);
   xsane.back_gtk_message_dialog_active--;
 
   if (decision_flag)
@@ -628,11 +636,12 @@ void xsane_back_gtk_decision_reject_callback(GtkWidget *widget, gpointer data)
 
 gint xsane_back_gtk_decision(gchar *title, gchar **xpm_d,  gchar *message, gchar *oktext, gchar *rejecttext, int wait)
 {
- GtkWidget *main_vbox, *hbox, *label, *button;
+ GtkWidget *main_vbox, *hbox, *label, *button, *frame;
  GdkPixmap *pixmap;
  GdkBitmap *mask;
  GtkWidget *pixmapwidget;
  GtkWidget *decision_dialog;
+ GtkAccelGroup *accelerator_group;
  gint decision_flag;
  gint *decision_flag_ptr = NULL;
 
@@ -647,17 +656,27 @@ gint xsane_back_gtk_decision(gchar *title, gchar **xpm_d,  gchar *message, gchar
   decision_dialog = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   gtk_window_set_position(GTK_WINDOW(decision_dialog), GTK_WIN_POS_MOUSE);
   gtk_window_set_title(GTK_WINDOW(decision_dialog), title);
-  g_signal_connect(GTK_OBJECT(decision_dialog), "delete_event", GTK_SIGNAL_FUNC(xsane_back_gtk_decision_reject_callback), (void *) decision_flag_ptr);
+  g_signal_connect(GTK_OBJECT(decision_dialog), "delete_event", GTK_SIGNAL_FUNC(xsane_back_gtk_decision_delete_event), (void *) decision_flag_ptr);
 
   xsane_set_window_icon(decision_dialog, 0);
 
+  accelerator_group = gtk_accel_group_new();
+  gtk_window_add_accel_group(GTK_WINDOW(decision_dialog), accelerator_group);
+
+  /* create a frame */
+  frame = gtk_frame_new(NULL);
+  gtk_container_set_border_width(GTK_CONTAINER(frame), 10);
+  gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_ETCHED_IN);
+  gtk_container_add(GTK_CONTAINER(decision_dialog), frame);
+  gtk_widget_show(frame);
+
   /* create the main vbox */
-  main_vbox = gtk_vbox_new(TRUE, 5);
+  main_vbox = gtk_vbox_new(FALSE, 5);
   gtk_container_set_border_width(GTK_CONTAINER(main_vbox), 5);
   gtk_widget_show(main_vbox);
+  gtk_container_add(GTK_CONTAINER(frame), main_vbox);
 
-  gtk_container_add(GTK_CONTAINER(decision_dialog), main_vbox);
-
+  /* create a horizontal box to put the icon and the text insode */
   hbox = gtk_hbox_new(FALSE, 2);
   gtk_container_set_border_width(GTK_CONTAINER(hbox), 4);
   gtk_box_pack_start(GTK_BOX(main_vbox), hbox, FALSE, FALSE, 0);
@@ -700,6 +719,10 @@ gint xsane_back_gtk_decision(gchar *title, gchar **xpm_d,  gchar *message, gchar
     gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 5);
     gtk_widget_show(button);
   }
+
+  /* if rejectbutton is available then the following command is valid for the reject button */
+  /* otherwise it is valid for the ok button */
+  gtk_widget_add_accelerator(button, "clicked", accelerator_group, GDK_Escape, 0, DEF_GTK_ACCEL_LOCKED);
 
   gtk_widget_show(hbox);
   gtk_widget_show(decision_dialog);
@@ -912,12 +935,6 @@ void xsane_back_gtk_filetype_menu_set_history(GtkWidget *xsane_filetype_option_m
     select_item = filetype_nr;
   }
 
-  filetype_nr++;
-  if ( (filetype) && (!strcasecmp(filetype, XSANE_FILETYPE_RAW)) )
-  {
-    select_item = filetype_nr;
-  }
-
 #ifdef SUPPORT_RGBA
   filetype_nr++;
   if ( (filetype) && (!strcasecmp(filetype, XSANE_FILETYPE_RGBA)) )
@@ -1004,16 +1021,6 @@ GtkWidget *xsane_back_gtk_filetype_menu_new(char *filetype, GtkSignalFunc filety
   gtk_widget_show(xsane_filetype_item);
   filetype_nr++;
   if ( (filetype) && (!strcasecmp(filetype, XSANE_FILETYPE_PS)) )
-  {
-    select_item = filetype_nr;
-  }
-
-  xsane_filetype_item = gtk_menu_item_new_with_label(MENU_ITEM_FILETYPE_RAW);
-  gtk_container_add(GTK_CONTAINER(xsane_filetype_menu), xsane_filetype_item);
-  g_signal_connect(GTK_OBJECT(xsane_filetype_item), "activate", filetype_callback, (void *) XSANE_FILETYPE_RAW);
-  gtk_widget_show(xsane_filetype_item);
-  filetype_nr++;
-  if ( (filetype) && (!strcasecmp(filetype, XSANE_FILETYPE_RAW)) )
   {
     select_item = filetype_nr;
   }
@@ -1455,8 +1462,8 @@ void xsane_back_gtk_range_new(GtkWidget * parent, const char *name, gfloat val,
   label = gtk_label_new((char *) name);
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
 
-  elem->data = gtk_adjustment_new(val, min, max, quant, quant*10, (max-min) * 1e-40);
-  /* 1e-40 => hscrollbar has an unwanted side effect: the maximum is not the maximum */
+  elem->data = gtk_adjustment_new(val, min, max, quant, quant*10, (max-min) * 1e-30);
+  /* 1e-30 => hscrollbar has an unwanted side effect: the maximum is not the maximum */
   /* of the given range, it is reduced by the page_size, so it has to be very small */
 
   /* value label */
@@ -1768,9 +1775,19 @@ static void xsane_back_gtk_panel_destroy(void)
 
   DBG(DBG_proc, "xsane_back_gtk_panel_destroy\n");
 
+  if (!xsane.xsane_hbox)
+  {
+    DBG(DBG_proc, "xsane_back_gtk_panel_destroy: panel does not exist\n");
+   return;
+  }
+
   gtk_widget_destroy(xsane.xsane_hbox);
   gtk_widget_destroy(xsane.standard_hbox);
   gtk_widget_destroy(xsane.advanced_hbox);
+
+  xsane.xsane_hbox    = NULL;
+  xsane.standard_hbox = NULL;
+  xsane.advanced_hbox = NULL;
 
   /* free the menu labels of integer/fix-point word-lists: */
   for (i = 0; i < xsane.num_elements; ++i)

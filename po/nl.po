@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.87\n"
-"POT-Creation-Date: 2002-09-13 08:34+0200\n"
-"PO-Revision-Date: 2002-07-04 10:55+0100\n"
+"Project-Id-Version: XSANE 0.89\n"
+"POT-Creation-Date: 2002-10-20 22:23+0200\n"
+"PO-Revision-Date: 2002-09-19 10:55+0100\n"
 "Last-Translator: Wim Sinke <sinke@wirehub.nl>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -48,11 +48,11 @@ msgstr "Informatie"
 
 #. WINDOW_LOAD_BATCH_LIST
 msgid "load batch list"
-msgstr ""
+msgstr "Laad batch lijst"
 
 #. WINDOW_SAVE_BATCH_LIST
 msgid "save batch list"
-msgstr ""
+msgstr "Bewaar batch lijst"
 
 # Goed genoeg?
 #. WINDOW_BATCH_SCAN
@@ -60,9 +60,8 @@ msgid "batch scan"
 msgstr "batch scan"
 
 #. WINDOW_BATCH_RENAME
-#, fuzzy
 msgid "rename batch area"
-msgstr "Pagina verwijderen"
+msgstr "Batchgebied hernoemen"
 
 #. WINDOW_FAX_PROJECT
 msgid "fax project"
@@ -118,7 +117,7 @@ msgstr "Apparaat selectie"
 
 #. WINDOW_PREVIEW
 msgid "Preview"
-msgstr "Voorbeeld"
+msgstr "Preview"
 
 #. WINDOW_VIEWER
 msgid "Viewer"
@@ -168,6 +167,11 @@ msgstr "Afbeelding vervagen"
 msgid "Store medium definition"
 msgstr "Bewaar mediumdefinitie"
 
+#. WINDOW_NO_DEVICES
+#, fuzzy
+msgid "No devices available"
+msgstr "geen apparaten aanwezig"
+
 #. MENU_FILE
 msgid "File"
 msgstr "Bestand"
@@ -198,7 +202,7 @@ msgstr "Informatie"
 
 #. MENU_ITEM_QUIT
 msgid "Quit"
-msgstr "Stoppen"
+msgstr "Afsluiten"
 
 #. MENU_ITEM_SAVE_IMAGE
 msgid "Save image"
@@ -230,16 +234,15 @@ msgstr "Vervagen"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
-msgstr "Ruwe afbeelding"
+msgstr "Onbewerkte afbeelding"
 
 #. FRAME_ENHANCED_IMAGE
 msgid "Enhanced image"
 msgstr "Verbeterde afbeelding"
 
 #. BUTTON_SCAN
-#, fuzzy
 msgid "Scan"
-msgstr "Aan het scannen"
+msgstr "Scan"
 
 #. BUTTON_OK
 msgid "Ok"
@@ -278,14 +281,12 @@ msgid "Overwrite"
 msgstr "Overschrijven"
 
 #. BUTTON_BATCH_LIST_SCAN
-#, fuzzy
 msgid "Scan batch list"
-msgstr "Scantips"
+msgstr "Scan batch lijst"
 
 #. BUTTON_BATCH_AREA_SCAN
-#, fuzzy
 msgid "Scan selected area"
-msgstr "Zoom in het geselecteerde gebied"
+msgstr "Scan geselecteerde gebied"
 
 #. BUTTON_PAGE_DELETE
 msgid "Delete page"
@@ -337,11 +338,11 @@ msgstr "Printer verwijderen"
 
 #. BUTTON_PREVIEW_ACQUIRE
 msgid "Acquire preview"
-msgstr "Voorbeeldscan maken"
+msgstr "Preview maken"
 
 #. BUTTON_PREVIEW_CANCEL
 msgid "Cancel preview"
-msgstr "Voorbeeldscan afbreken"
+msgstr "Preview afbreken"
 
 #. BUTTON_DISCARD_IMAGE
 msgid "Discard image"
@@ -374,11 +375,15 @@ msgstr "Apparaatinstellingen bewaren bij verlaten"
 
 #. RADIO_BUTTON_OVERWRITE_WARNING
 msgid "Overwrite warning"
-msgstr "Overschrijfalarm"
+msgstr "Waarschuwing bij overschrijving"
 
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
 msgid "Skip existing filenames"
 msgstr "Bestaande bestandnamen overslaan"
+
+#. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
+msgid "Save 16bit pnm in ascii format"
+msgstr "Bewaar 16 bit PNM in ASCII formaat"
 
 #. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
 msgid "Reduce 16 bit image to 8 bit"
@@ -390,7 +395,7 @@ msgstr "Vaste hoofdvenstergrootte"
 
 #. RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA
 msgid "Disable gimp preview gamma"
-msgstr "Preview-gamma voor Gimp deactiveren"
+msgstr "Preview gamma voor Gimp deactiveren"
 
 #. RADIO_BUTTON_PRIVATE_COLORMAP
 msgid "Use private colormap"
@@ -430,7 +435,7 @@ msgstr "XSane opties"
 
 #. TEXT_XSANE_MODE
 msgid "XSane mode"
-msgstr "XSane doel"
+msgstr "XSane mode"
 
 #. TEXT_FILENAME_COUNTER_STEP
 msgid "Step"
@@ -655,7 +660,7 @@ msgid ""
 "by Oliver Rauch\n"
 "Email: Oliver.Rauch@rauch-domain.de\n"
 msgstr ""
-"Vertaling naar Nederlands\n"
+"Vertaling naar het Nederlands\n"
 "door Wim Sinke\n"
 "E-mail: sinke@wirehub.nl\n"
 
@@ -700,43 +705,36 @@ msgid "Blur radius:"
 msgstr "Vervagingsradius:"
 
 #. TEXT_BATCH_AREA_DEFAULT_NAME
-#, fuzzy
 msgid "(no name)"
-msgstr "(geen)"
+msgstr "(geen naam)"
 
 #. TEXT_BATCH_LIST_AREANAME
-#, fuzzy
 msgid "Area name:"
-msgstr "Gebruikersnaam:"
+msgstr "Naam van gebied:"
 
 #. TEXT_BATCH_LIST_SCANMODE
-#, fuzzy
 msgid "Scanmode:"
-msgstr "XSane doel"
+msgstr "XSane mode"
 
 #. TEXT_BATCH_LIST_GEOMETRY_TL
 msgid "Top left:"
-msgstr ""
+msgstr "Linksboven:"
 
 #. TEXT_BATCH_LIST_GEOMETRY_SIZE
-#, fuzzy
 msgid "Size:"
-msgstr "Dia"
+msgstr "Grootte:"
 
 #. TEXT_BATCH_LIST_RESOLUTION
-#, fuzzy
 msgid "Resolution:"
-msgstr "Drempelwaarde optie:"
+msgstr "Resolutie:"
 
 #. TEXT_BATCH_LIST_BIT_DEPTH
-#, fuzzy
 msgid "Bit depth:"
-msgstr "Bits in gamma invoer:"
+msgstr "Bits diepte:"
 
 #. TEXT_BATCH_LIST_BY_GUI
-#, fuzzy
 msgid "as selected"
-msgstr "Zoom in het geselecteerde gebied"
+msgstr "zoals geselecteerd"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -840,23 +838,23 @@ msgstr "Bekijk range als:"
 
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
-msgstr "Voorbeeldscan oversampling:"
+msgstr "Preview oversampling:"
 
 #. TEXT_SETUP_PREVIEW_GAMMA
 msgid "Preview gamma:"
-msgstr "Voorbeeldscan gamma:"
+msgstr "Preview gamma:"
 
 #. TEXT_SETUP_PREVIEW_GAMMA_RED
 msgid "Preview gamma red:"
-msgstr "Voorbeeldscan gamma rood:"
+msgstr "Preview gamma rood:"
 
 #. TEXT_SETUP_PREVIEW_GAMMA_GREEN
 msgid "Preview gamma green:"
-msgstr "Voorbeeldscan gamma groen:"
+msgstr "Preview gamma groen:"
 
 #. TEXT_SETUP_PREVIEW_GAMMA_BLUE
 msgid "Preview gamma blue:"
-msgstr "Voorbeeldscan gamma blauw:"
+msgstr "Preview gamma blauw:"
 
 #. TEXT_SETUP_LINEART_MODE
 msgid "Threshold option:"
@@ -868,7 +866,7 @@ msgstr "Automatische document invoer mode:"
 
 #. TEXT_SETUP_PREVIEW_PIPETTE_RANGE
 msgid "Preview pipette range"
-msgstr "Voorbeeldscan pipetbereik"
+msgstr "Preview pipetbereik"
 
 #. TEXT_SETUP_THRESHOLD_MIN
 msgid "Threshold minimum:"
@@ -988,7 +986,7 @@ msgstr "allemaal"
 
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
-msgstr "Bewaar"
+msgstr "Opslaan"
 
 #. NOTEBOOK_IMAGE_OPTIONS
 msgid "Image"
@@ -1000,11 +998,11 @@ msgstr "Kopiëren"
 
 #. NOTEBOOK_FAX_OPTIONS
 msgid "Fax"
-msgstr "Fax"
+msgstr "Faxen"
 
 #. NOTEBOOK_MAIL_OPTIONS
 msgid "Mail"
-msgstr "E-mail"
+msgstr "E-mailen"
 
 #. NOTEBOOK_OCR_OPTIONS
 msgid "OCR"
@@ -1040,9 +1038,8 @@ msgstr "Laat gammakromme zien"
 
 # Goed genoeg?
 #. MENU_ITEM_SHOW_BATCH_SCAN
-#, fuzzy
 msgid "Show batch scan"
-msgstr "batch scan"
+msgstr "Batch scan"
 
 #. MENU_ITEM_SHOW_STANDARDOPTIONS
 msgid "Show standard options"
@@ -1058,19 +1055,19 @@ msgstr "Configuratie"
 
 #. MENU_ITEM_LENGTH_UNIT
 msgid "Length unit"
-msgstr "Eenheid voor lengtes"
+msgstr "Lengteeenheid"
 
 #. SUBMENU_ITEM_LENGTH_MILLIMETERS
 msgid "millimeters"
-msgstr "millimeter"
+msgstr "Millimeter"
 
 #. SUBMENU_ITEM_LENGTH_CENTIMETERS
 msgid "centimeters"
-msgstr "centimeter"
+msgstr "Centimeter"
 
 #. SUBMENU_ITEM_LENGTH_INCHES
 msgid "inches"
-msgstr "inch"
+msgstr "Inch"
 
 #. MENU_ITEM_UPDATE_POLICY
 msgid "Update policy"
@@ -1078,15 +1075,15 @@ msgstr "Bijwerken"
 
 #. SUBMENU_ITEM_POLICY_CONTINUOUS
 msgid "continuous"
-msgstr "continue"
+msgstr "Continue"
 
 #. SUBMENU_ITEM_POLICY_DISCONTINU
 msgid "discontinuous"
-msgstr "niet continue"
+msgstr "Niet continue"
 
 #. SUBMENU_ITEM_POLICY_DELAYED
 msgid "delayed"
-msgstr "vertraagd"
+msgstr "Vertraagd"
 
 #. MENU_ITEM_SHOW_RESOLUTIONLIST
 msgid "Show resolution list"
@@ -1287,11 +1284,11 @@ msgstr "Onderbreek scan <ESC>"
 
 #. DESC_PREVIEW_ACQUIRE
 msgid "Acquire preview scan <Alt-p>"
-msgstr "Voorbeeldafbeelding maken <Alt-p>"
+msgstr "Preview maken <Alt-p>"
 
 #. DESC_PREVIEW_CANCEL
 msgid "Cancel preview scan <Alt-ESC>"
-msgstr "Breek de preview scan af <Alt-ESC>"
+msgstr "Breek de preview af <Alt-ESC>"
 
 #. DESC_XSANE_MODE
 msgid ""
@@ -1620,6 +1617,18 @@ msgstr ""
 "Gebruikte numbers worden overgeslagen als de bestandsteller automatisch "
 "verhoogd wordt"
 
+#. DESC_SAVE_PNM16_AS_ASCII
+msgid ""
+"When a 16 bit image shall be saved in pnm format then use ascii format "
+"instead of binary format. The binary format is a new format that is not "
+"supported by all programs. The ascii format is supported by more programs "
+"but it produces really huge files!!!"
+msgstr ""
+"Gebruik tekst i.p.v. binair formaat om 16 bits afbeeldingen te bewaren. Het "
+"binaire formaat is nieuw en wordt niet door alle programma's ondersteund. "
+"Het tekst formaat wordt door meer programma's ondersteund, maar levert zeer "
+"grote bestanden op!!!"
+
 #. DESC_REDUCE_16BIT_TO_8BIT
 msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
 msgstr "16-bits kleuren worden bewaard met 8-bits"
@@ -1650,8 +1659,7 @@ msgstr "Gebruik vaste grootte voor hoofdvenster of gebruik scrollbars"
 
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
 msgid "Disable preview gamma when XSane runs as gimp plugin"
-msgstr ""
-"Schakel voorbeeldscan gamma uit als XSane als Gimp plugin gebruikt wordt"
+msgstr "Schakel preview gamma uit als XSane als Gimp plugin gebruikt wordt"
 
 #. DESC_PREVIEW_COLORMAP
 msgid "Use an own colormap for preview if display depth is 8 bpp"
@@ -1663,24 +1671,23 @@ msgstr "Selecteer hoe een range vetoond wordt"
 
 #. DESC_PREVIEW_OVERSAMPLING
 msgid "Value with that the calculated preview resolution is multiplied"
-msgstr ""
-"Waarde waarmee de berekende voorbeeldscan resolutie vermenigvuldigd wordt"
+msgstr "Waarde waarmee de berekende preview resolutie vermenigvuldigd wordt"
 
 #. DESC_PREVIEW_GAMMA
 msgid "Set gamma correction value for preview image"
-msgstr "Gammacorrectie voor voorbeeldscan"
+msgstr "Gammacorrectie voor preview"
 
 #. DESC_PREVIEW_GAMMA_RED
 msgid "Set gamma correction value for red component of preview image"
-msgstr "Gammacorrectie voor rood van voorbeeldscan"
+msgstr "Gammacorrectie voor rood van preview"
 
 #. DESC_PREVIEW_GAMMA_GREEN
 msgid "Set gamma correction value for green component of preview image"
-msgstr "Gammacorrectie voor groen van voorbeeldscan"
+msgstr "Gammacorrectie voor groen van preview"
 
 #. DESC_PREVIEW_GAMMA_BLUE
 msgid "Set gamma correction value for blue component of preview image"
-msgstr "Gammacorrectie voor blauw van voorbeeldscan"
+msgstr "Gammacorrectie voor blauw van preview"
 
 #. DESC_LINEART_MODE
 msgid "Define the way XSane shall handle the threshold option"
@@ -1691,8 +1698,8 @@ msgid ""
 "Select grayscale scanmode. This scanmode is used for lineart preview scan "
 "when transformation from grayscale to lineart is enabled"
 msgstr ""
-"Kies grijswaarde scanmode. Dit wordt gebruikt voor de zwart wit "
-"voorbeeldscan als de transformatie van grijs naar zwart-wit aanstaat"
+"Kies grijswaarde scanmode. Dit wordt gebruikt voor de zwart wit preview als "
+"de transformatie van grijs naar zwart-wit aanstaat"
 
 #. DESC_PREVIEW_THRESHOLD_MIN
 #, no-c-format
@@ -1741,11 +1748,11 @@ msgstr ""
 
 #. DESC_PRESELECT_SCANAREA
 msgid "Select scanarea after preview scan has finished"
-msgstr "Kies scangebied nadat voorbeeldscan klaar is"
+msgstr "Kies scangebied nadat preview klaar is"
 
 #. DESC_AUTOCORRECT_COLORS
 msgid "Do color correction after preview scan has finished"
-msgstr "Verbeter de kleuren nadat voorbeeldscan klaar is"
+msgstr "Verbeter de kleuren nadat preview klaar is"
 
 #. DESC_FAX_COMMAND
 msgid "Enter command to be executed in fax mode"
@@ -1859,9 +1866,8 @@ msgid "execute"
 msgstr "uitvoeren"
 
 #. DESC_ADD_BATCH
-#, fuzzy
 msgid "Add selection for batch scan"
-msgstr "Voeg selectie toe aan lijst"
+msgstr "Voeg selectie toe aan batch lijst"
 
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
@@ -1910,7 +1916,7 @@ msgstr "Automatisch naar voren brengen"
 
 #. DESC_DELETE_IMAGES
 msgid "Delete preview image cache"
-msgstr "Verwijder voorbeeldscans uit geheugen"
+msgstr "Verwijder preview uit geheugen"
 
 #. DESC_PRESET_AREA
 msgid "Preset area"
@@ -1918,7 +1924,11 @@ msgstr "Vooringesteld gebied"
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
-msgstr "Draai voorbeeldscan en scan"
+msgstr "Draai preview en scan"
+
+#. DESC_PAPER_ORIENTATION
+msgid "Define image position for printing"
+msgstr ""
 
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
@@ -1973,31 +1983,28 @@ msgid "Y-Scale factor"
 msgstr "Vergroting in y-richting"
 
 #. DESC_BATCH_LIST_EMPTY
-#, fuzzy
 msgid "Empty batch list"
-msgstr "Scantips"
+msgstr "Lege batch"
 
 #. DESC_BATCH_LIST_SAVE
 msgid "Save batch list"
-msgstr ""
+msgstr "Bewaar batch lijst"
 
 #. DESC_BATCH_LIST_LOAD
 msgid "Load batch list"
-msgstr ""
+msgstr "Laad batch lijst"
 
 #. DESC_BATCH_RENAME
-#, fuzzy
 msgid "Rename area"
-msgstr "Pagina hernoemen"
+msgstr "Gebied hernoemen"
 
 #. DESC_BATCH_ADD
-#, fuzzy
 msgid "Add selected preview area to batch list"
-msgstr "Voeg selectie toe aan lijst"
+msgstr "Voeg geselecteerde gebied toe aan batch lijst"
 
 #. DESC_BATCH_DEL
 msgid "Delete selected area from batch list"
-msgstr ""
+msgstr "Verwijder geselecteerde gebied van de batch lijst"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2168,7 +2175,7 @@ msgstr "Kon geen geheugen voor afbeelding krijgen:"
 
 #. ERR_PREVIEW_BAD_DEPTH
 msgid "Preview cannot handle bit depth"
-msgstr "Voorbeeldscan kan niet met deze kleurdiepte werken"
+msgstr "Preview kan niet met deze kleurdiepte werken"
 
 #. ERR_GIMP_SUPPORT_MISSING
 msgid "GIMP support missing"
@@ -2176,11 +2183,11 @@ msgstr "Geen GIMP ondersteuning"
 
 #. ERR_CREATE_PREVIEW_FILE
 msgid "Could not create temporary preview files"
-msgstr "Kon geen tijdelijke voorbeeldscans maken"
+msgstr "Kon geen tijdelijke preview bestanden maken"
 
 #. ERR_CREATE_PREVIEW_FILENAME
 msgid "Could not create filenames for preview files"
-msgstr "Kon geen naam maken voor voorbeeldscan"
+msgstr "Kon geen naam maken voor previewbestand"
 
 #. ERR_CREATE_FAX_PROJECT
 msgid "Could not create faxproject"
@@ -2394,6 +2401,18 @@ msgstr "<Toolbox>/Xtns/XSane/Apparaat kiezen..."
 msgid "<Toolbox>/Xtns/XSane/"
 msgstr "<Toolbox>/Xtns/XSane/"
 
+#. HELP_NO_DEVICES
+msgid ""
+"Possible reasons:\n"
+"1) There really is no device that is supported by SANE\n"
+"2) Supported devices are busy\n"
+"3) The permissions for the device file do not allow you to use it - try as "
+"root\n"
+"4) The backend is not loaded by SANE (man sane-dll)\n"
+"5) The backend is not configured correct (man sane-\"backendname\")\n"
+"6) Possibly there is more than one SANE version installed"
+msgstr ""
+
 #. strings that are used in structures, so it is not allowed to use _()/gettext() here
 #. gettext_noop does mark these texts but does not change the string
 #. MENU_ITEM_SURFACE_FULL_SIZE
@@ -2465,9 +2484,8 @@ msgid "letter land."
 msgstr "letter land."
 
 #. MENU_ITEM_MEDIUM_FULL_COLOR_RANGE
-#, fuzzy
 msgid "Full color range"
-msgstr "Volledig bereik"
+msgstr "Volledig kleuren bereik"
 
 #. MENU_ITEM_MEDIUM_SLIDE
 msgid "Slide"

@@ -57,6 +57,10 @@
 #include <sys/mman.h>
 #endif
 
+#ifdef HAVE_OS2_H
+#include <process.h>
+#endif
+
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 #ifdef HAVE_LIBGIMP_GIMP_H
@@ -242,6 +246,44 @@ void xsane_convert_text_to_filename(char **text)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+void xsane_ensure_counter_in_filename(char **filename, int counter_len)
+{
+ char *position_point = NULL;
+ char *position;
+ int counter = 1;
+
+  DBG(DBG_proc, "xsane_ensure_counter_in_filename\n");
+
+  if (!counter_len)
+  {
+   counter_len = 1;
+  }
+
+  position_point = strrchr(*filename, '.');
+
+  if (!position_point) /* nothing usable ? */
+  {
+    position_point = *filename + strlen(*filename); /* position_point - 1 is last character */
+  }
+
+  if (position_point)
+  {
+    position = position_point-1;
+    if ( (position < *filename) || (*position < '0') || (*position >'9') ) /* we have no counter */
+    {
+     char buf[PATH_MAX];
+     int len;
+
+      len = position_point - (*filename); /* length until "." or end of string */
+      strncpy(buf, *filename, len);
+      snprintf(buf+len, sizeof(buf)-len, "-%0*d%s", counter_len,  counter, position_point);
+      *filename = strdup(buf);
+    }
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 void xsane_update_counter_in_filename(char **filename, int skip, int step, int min_counter_len)
 {
  FILE *testfile;
@@ -259,7 +301,7 @@ void xsane_update_counter_in_filename(char **filename, int skip, int step, int m
     return; /* do not touch counter */
   }
 
-  while (1) /* may  be we have to skip existing files */
+  while (1) /* loop because we may have to skip existing files */
   {
     position_point = strrchr(*filename, '.');
 
@@ -363,13 +405,53 @@ void xsane_read_pnm_header(FILE *infile, Image_info *image_info)
     {
       fgets(buf, sizeof(buf)-1, infile);
 
-      if (!strncmp(buf, "#  resolution_x =", 17))
+      if (!strncmp(buf, "#  resolution_x    =", 20))
       {
-        sscanf(buf+17, "%lf", &image_info->resolution_x);
+        sscanf(buf+20, "%lf", &image_info->resolution_x);
       }
-      else if (!strncmp(buf, "#  resolution_y =", 17))
+      else if (!strncmp(buf, "#  resolution_y    =", 20))
       {
-        sscanf(buf+17, "%lf", &image_info->resolution_y);
+        sscanf(buf+20, "%lf", &image_info->resolution_y);
+      }
+      else if (!strncmp(buf, "#  threshold       =", 20))
+      {
+        sscanf(buf+20, "%lf", &image_info->threshold);
+      }
+      else if (!strncmp(buf, "#  gamma           =", 20))
+      {
+        sscanf(buf+20, "%lf", &image_info->gamma);
+      }
+      else if (!strncmp(buf, "#  gamma      IRGB =", 20))
+      {
+        sscanf(buf+20, "%lf %lf %lf %lf",
+                        &image_info->gamma,
+                             &image_info->gamma_red, 
+                                &image_info->gamma_green, 
+                                    &image_info->gamma_blue);
+      }
+      else if (!strncmp(buf, "#  brightness      =", 20))
+      {
+        sscanf(buf+20, "%lf", &image_info->brightness);
+      }
+      else if (!strncmp(buf, "#  brightness IRGB =", 20))
+      {
+        sscanf(buf+20, "%lf %lf %lf %lf",
+                        &image_info->brightness,
+                             &image_info->brightness_red, 
+                                &image_info->brightness_green, 
+                                    &image_info->brightness_blue);
+      }
+      else if (!strncmp(buf, "#  contrast        =", 20))
+      {
+        sscanf(buf+20, "%lf", &image_info->contrast);
+      }
+      else if (!strncmp(buf, "#  contrast   IRGB =", 20))
+      {
+        sscanf(buf+20, "%lf %lf %lf %lf",
+                        &image_info->contrast,
+                             &image_info->contrast_red, 
+                                &image_info->contrast_green, 
+                                    &image_info->contrast_blue);
       }
     }
 
@@ -429,131 +511,101 @@ void xsane_read_pnm_header(FILE *infile, Image_info *image_info)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void xsane_write_pnm_header(FILE *outfile, Image_info *image_info)
+void xsane_write_pnm_header(FILE *outfile, Image_info *image_info, int save_pnm16_as_ascii)
 {
+ int maxval;
+ int magic;
+
   fflush(outfile);
   rewind(outfile);
+
+  if (image_info->depth > 8)
+  {
+    maxval = 65535;
+
+    if (save_pnm16_as_ascii)
+    {
+      magic = 2; /* thats the magic number for grayscale ascii, 3 = color ascii */
+    }
+    else /* save pnm as binary */
+    {
+      magic = 5; /* that is the magic number for grayscake binary, 6 = color binary */
+    }
+  }
+  else
+  {
+    maxval = 255;
+    magic = 5; /* 8 bit images are always saved in binary mode */
+  }
 
 
   if (image_info->colors == 1)
   {
-    switch (image_info->depth)
+    if (image_info->depth == 1)
     {
-      case 1: /* 1 bit lineart mode, write pbm header */
-        fprintf(outfile, "P4\n"
-                         "# XSane settings:\n"
-                         "#  resolution_x = %6.1f\n"
-                         "#  resolution_y = %6.1f\n"
-                         "#  threshold = %4.1f\n"
-                         "# XSANE data follows\n"
-                         "%05d %05d\n",
-                         image_info->resolution_x,
-                         image_info->resolution_y,
-                         image_info->threshold,
-                         image_info->image_width, image_info->image_height);
-       break;
-
-      case 8: /* 8 bit grayscale mode, write pgm header */
-        fprintf(outfile, "P5\n"
-                         "# XSane settings:\n"
-                         "#  resolution_x = %6.1f\n"
-                         "#  resolution_y = %6.1f\n"
-                         "#  gamma      = %3.2f\n"
-                         "#  brightness = %4.1f\n"
-                         "#  contrast   = %4.1f\n"
-                         "# XSANE data follows\n"
-                         "%05d %05d\n"
-                         "255\n",
-                         image_info->resolution_x,
-                         image_info->resolution_y,
-                         image_info->gamma,
-                         image_info->brightness,
-                         image_info->contrast,
-                         image_info->image_width, image_info->image_height);
-       break;
-
-      default: /* grayscale mode but not 1 or 8 bit, write as raw data because this is not defined in pnm */
-        fprintf(outfile, "P5\n"
-                         "# This file is in a not public defined data format.\n"
-                         "# It is a 16 bit gray binary format.\n"
-                         "# Some programs can read this as pnm/pgm format.\n"
-                         "# XSane settings:\n"
-                         "#  resolution_x = %6.1f\n"
-                         "#  resolution_y = %6.1f\n"
-                         "#  gamma      = %3.2f\n"
-                         "#  brightness = %4.1f\n"
-                         "#  contrast   = %4.1f\n"
-                         "# XSANE data follows\n"
-                         "%05d %05d\n"
-                         "65535\n",
-                         image_info->resolution_x,
-                         image_info->resolution_y,
-                         image_info->gamma,
-                         image_info->brightness,
-                         image_info->contrast,
-                         image_info->image_width, image_info->image_height);
-       break;
+      /* do not touch the texts and length here, the reading routine needs to know the exact texts */
+      fprintf(outfile, "P4\n"
+                       "# XSane settings:\n"
+                       "#  resolution_x    = %6.1f\n"
+                       "#  resolution_y    = %6.1f\n"
+                       "#  threshold       = %4.1f\n"
+                       "# XSANE data follows\n"
+                       "%05d %05d\n",
+                       image_info->resolution_x,
+                       image_info->resolution_y,
+                       image_info->threshold,
+                       image_info->image_width, image_info->image_height);
+    }
+    else
+    {
+      fprintf(outfile, "P%d\n"
+                       "# XSane settings:\n"
+                       "#  resolution_x    = %6.1f\n"
+                       "#  resolution_y    = %6.1f\n"
+                       "#  gamma           = %3.2f\n"
+                       "#  brightness      = %4.1f\n"
+                       "#  contrast        = %4.1f\n"
+                       "# XSANE data follows\n"
+                       "%05d %05d\n"
+                       "%d\n",
+                       magic, /* P5 for binary, P2 for ascii */
+                       image_info->resolution_x,
+                       image_info->resolution_y,
+                       image_info->gamma,
+                       image_info->brightness,
+                       image_info->contrast,
+                       image_info->image_width, image_info->image_height,
+                       maxval);
     }
   }
   else if (image_info->colors == 3)
   {
-    switch (image_info->depth)
-    {
-      case 8: /* color 8 bit mode, write ppm header */
-        fprintf(outfile, "P6\n"
-                         "# XSane settings:\n"
-                         "#  resolution_x = %6.1f\n"
-                         "#  resolution_y = %6.1f\n"
-                         "#  gamma      IRGB = %3.2f %3.2f %3.2f %3.2f\n"
-                         "#  brightness IRGB = %4.1f %4.1f %4.1f %4.1f\n"
-                         "#  contrast   IRGB = %4.1f %4.1f %4.1f %4.1f\n"
-                         "# XSANE data follows\n"
-                         "%05d %05d\n255\n",
-                         image_info->resolution_x,
-                         image_info->resolution_y,
-                         image_info->gamma,      image_info->gamma_red,      image_info->gamma_green,      image_info->gamma_blue,
-                         image_info->brightness, image_info->brightness_red, image_info->brightness_green, image_info->brightness_blue,
-                         image_info->contrast,   image_info->contrast_red,   image_info->contrast_green,   image_info->contrast_blue,
-                         image_info->image_width, image_info->image_height);
-       break;
-
-      default: /* color, but not 8 bit mode, write as raw data because this is not defined in pnm */
-        fprintf(outfile, "P6\n"
-                         "# This file is in a not public defined data format.\n"
-                         "# It is a 16 bit RGB binary format.\n"
-                         "# Some programs can read this as pnm/ppm format.\n"
-                         "# File created by XSane.\n"
-                         "# XSane settings:\n"
-                         "#  resolution_x = %6.1f\n"
-                         "#  resolution_y = %6.1f\n"
-                         "#  gamma      IRGB = %3.2f %3.2f %3.2f %3.2f\n"
-                         "#  brightness IRGB = %4.1f %4.1f %4.1f %4.1f\n"
-                         "#  contrast   IRGB = %4.1f %4.1f %4.1f %4.1f\n"
-                         "# XSANE data follows\n"
-                         "%05d %05d\n"
-                         "65535\n",
-                         image_info->resolution_x,
-                         image_info->resolution_y,
-                         image_info->gamma,      image_info->gamma_red,      image_info->gamma_green,      image_info->gamma_blue,
-                         image_info->brightness, image_info->brightness_red, image_info->brightness_green, image_info->brightness_blue,
-                         image_info->contrast,   image_info->contrast_red,   image_info->contrast_green,   image_info->contrast_blue,
-                         image_info->image_width, image_info->image_height);
-       break;
-    }
+    fprintf(outfile, "P%d\n"
+                     "# XSane settings:\n"
+                     "#  resolution_x    = %6.1f\n"
+                     "#  resolution_y    = %6.1f\n"
+                     "#  gamma      IRGB = %3.2f %3.2f %3.2f %3.2f\n"
+                     "#  brightness IRGB = %4.1f %4.1f %4.1f %4.1f\n"
+                     "#  contrast   IRGB = %4.1f %4.1f %4.1f %4.1f\n"
+                     "# XSANE data follows\n"
+                     "%05d %05d\n" \
+                     "%d\n",
+                     magic+1, /* P6 for binary, P3 for ascii */
+                     image_info->resolution_x,
+                     image_info->resolution_y,
+                     image_info->gamma,      image_info->gamma_red,      image_info->gamma_green,      image_info->gamma_blue,
+                     image_info->brightness, image_info->brightness_red, image_info->brightness_green, image_info->brightness_blue,
+                     image_info->contrast,   image_info->contrast_red,   image_info->contrast_green,   image_info->contrast_blue,
+                     image_info->image_width, image_info->image_height,
+                     maxval);
   }
 #ifdef SUPPORT_RGBA
   else if (image_info->colors == 4)
   {
-    switch (image_info->depth)
-    {
-      case 8: /* 8 bit RGBA mode */
-        fprintf(outfile, "SANE_RGBA\n%d %d\n255\n", image_info->image_width, image_info->image_height);
-       break;
-
-      default: /* 16 bit RGBA mode */
-        fprintf(outfile, "SANE_RGBA\n%d %d\n65535\n", image_info->image_width, image_info->image_height);
-       break;
-    }
+        fprintf(outfile, "SANE_RGBA\n" \
+                         "%d %d\n" \
+                         "%d\n",
+                         image_info->image_width, image_info->image_height, maxval);
   }
 #endif
 }
@@ -569,7 +621,7 @@ int xsane_save_grayscale_image_as_lineart(FILE *outfile, FILE *imagefile, Image_
 
   image_info->depth = 1;
 
-  xsane_write_pnm_header(outfile, image_info);
+  xsane_write_pnm_header(outfile, image_info, 0);
 
   for (y = 0; y < image_info->image_height; y++)
   {
@@ -688,7 +740,7 @@ int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_in
    return -1;
   }               
 
-  xsane_write_pnm_header(outfile, image_info);
+  xsane_write_pnm_header(outfile, image_info, 0);
 
   read_line = TRUE;
 
@@ -870,7 +922,7 @@ int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_in
    return -1;
   }
 
-  xsane_write_pnm_header(outfile, image_info);
+  xsane_write_pnm_header(outfile, image_info, 0);
 
   original_y = 0.0;
   old_original_y = -1;
@@ -945,7 +997,7 @@ int xsane_save_despeckle_image(FILE *outfile, FILE *imagefile, Image_info *image
     bytespp = 2;
   }
 
-  xsane_write_pnm_header(outfile, image_info);
+  xsane_write_pnm_header(outfile, image_info, 0);
 
   line_cache = malloc(color_width * bytespp * (2 * radius + 1));
   if (!line_cache)
@@ -1135,7 +1187,7 @@ int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info
     bytespp = 2;
   }
 
-  xsane_write_pnm_header(outfile, image_info);
+  xsane_write_pnm_header(outfile, image_info, 0);
 
   line_cache = malloc(image_info->image_width * image_info->colors * bytespp * (2 * intradius + 1));
   if (!line_cache)
@@ -1331,7 +1383,7 @@ int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info
 
   pos0 = ftell(imagefile); /* mark position to skip header */
 
-  xsane_write_pnm_header(outfile, image_info);
+  xsane_write_pnm_header(outfile, image_info, 0);
 
   line_cache = malloc(image_info->image_width * image_info->colors * bytespp * (2 * radius + 1));
   if (!line_cache)
@@ -1482,7 +1534,7 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
      break;
 
     case 0: /* 0 degree */
-      xsane_write_pnm_header(outfile, image_info);
+      xsane_write_pnm_header(outfile, image_info, 0);
 
       for (y = 0; y < pixel_height; y++)
       {
@@ -1528,7 +1580,7 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
       image_info->resolution_x = resolution_y;
       image_info->resolution_y = resolution_x;
 
-      xsane_write_pnm_header(outfile, image_info);
+      xsane_write_pnm_header(outfile, image_info, 0);
 
       for (x=0; x<pixel_width; x++)
       {
@@ -1570,7 +1622,7 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
      break;
 
     case 2: /* 180 degree */
-      xsane_write_pnm_header(outfile, image_info);
+      xsane_write_pnm_header(outfile, image_info, 0);
 
       for (y = pixel_height-1; y >= 0; y--)
       {
@@ -1617,7 +1669,7 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
       image_info->resolution_x = resolution_y;
       image_info->resolution_y = resolution_x;
 
-      xsane_write_pnm_header(outfile, image_info);
+      xsane_write_pnm_header(outfile, image_info, 0);
 
       for (x = pixel_width-1; x >= 0; x--)
       {
@@ -1658,7 +1710,7 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
      break;
 
     case 4: /* 0 degree, x mirror */
-      xsane_write_pnm_header(outfile, image_info);
+      xsane_write_pnm_header(outfile, image_info, 0);
 
       for (y = 0; y < pixel_height; y++)
       {
@@ -1705,7 +1757,7 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
       image_info->resolution_x = resolution_y;
       image_info->resolution_y = resolution_x;
 
-      xsane_write_pnm_header(outfile, image_info);
+      xsane_write_pnm_header(outfile, image_info, 0);
 
       for (x = 0; x < pixel_width; x++)
       {
@@ -1747,7 +1799,7 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
      break;
 
     case 6: /* 180 degree, x mirror */
-      xsane_write_pnm_header(outfile, image_info);
+      xsane_write_pnm_header(outfile, image_info, 0);
 
       for (y = pixel_height-1; y >= 0; y--)
       {
@@ -1794,7 +1846,7 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
       image_info->resolution_x = resolution_y;
       image_info->resolution_y = resolution_x;
 
-      xsane_write_pnm_header(outfile, image_info);
+      xsane_write_pnm_header(outfile, image_info, 0);
 
       for (x = pixel_width-1; x >= 0; x--)
       {
@@ -1850,51 +1902,114 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 static void xsane_save_ps_create_header(FILE *outfile, Image_info *image_info,
-                                        int left, int bottom, float width, float height,
-                                        int paperwidth, int paperheight, int rotate,
+                                        float width, float height,
+                                        int paper_left_margin, int paper_bottom_margin,
+                                        int paper_width, int paper_height,
+                                        int paper_orientation,
                                         GtkProgressBar *progress_bar)
 {
- int degree, position_left, position_bottom, box_left, box_bottom, box_right, box_top;
+ int degree, position_left, position_bottom, box_left, box_bottom, box_right, box_top, depth;
+ int left, bottom;
 
   DBG(DBG_proc, "xsane_save_ps_create_header\n");
 
-  if (rotate) /* rotate with 90 degrees - eg for landscape mode */
+  switch (paper_orientation)
+  {
+    default:
+    case 0: /* top left portrait */
+      left   = 0.0;
+      bottom = paper_height - height;
+     break;
+
+    case 1: /* top right portrait */
+      left   = paper_width  - width;
+      bottom = paper_height - height;
+     break;
+
+    case 2: /* bottom right portrait */
+      left   = paper_width - width;
+      bottom = 0.0;
+     break;
+
+    case 3: /* bottom left portrait */
+      left   = 0.0;
+      bottom = 0.0;
+     break;
+
+    case 4: /* center portrait */
+      left   = paper_width  / 2.0 - width  / 2.0;
+      bottom = paper_height / 2.0 - height / 2.0;
+     break;
+
+
+    case 8: /* top left landscape */
+      left   = 0.0;
+      bottom = paper_width - height;
+     break;
+
+    case 9: /* top right landscape */
+      left   = paper_height - width;
+      bottom = paper_width  - height;
+     break;
+
+    case 10: /* bottom right landscape */
+      left   = paper_height - width;
+      bottom = 0.0;
+     break;
+
+    case 11: /* bottom left landscape */
+      left   = 0.0;
+      bottom = 0.0;
+     break;
+
+    case 12: /* center landscape */
+      left   = paper_height / 2.0 - width  / 2.0;
+      bottom = paper_width  / 2.0 - height / 2.0;
+     break;
+  }
+
+
+  if (paper_orientation >= 8) /* rotate with 90 degrees - landscape mode */
   {
     degree = 90;
-    position_left   = left;
-    position_bottom = bottom - paperwidth;
-    box_left        = paperwidth - bottom - height * 72.0;
-    box_bottom      = left;
-    box_right       = (int) (box_left   + height * 72.0);
-    box_top         = (int) (box_bottom + width  * 72.0);
+    position_left   = left   + paper_bottom_margin;
+    position_bottom = bottom - paper_width - paper_left_margin;
+    box_left        = paper_width - paper_left_margin - bottom - height;
+    box_bottom      = left   + paper_bottom_margin;
+    box_right       = box_left   + height;
+    box_top         = box_bottom + width;
   }
-  else /* do not rotate, eg for portrait mode */
+  else /* do not rotate, portrait mode */
   {
     degree = 0;
-    position_left   = left;
-    position_bottom = bottom;
-    box_left        = left;
-    box_bottom      = bottom;
-    box_right       = (int) (box_left   + width  * 72.0);
-    box_top         = (int) (box_bottom + height * 72.0);
+    position_left   = left   + paper_left_margin;
+    position_bottom = bottom + paper_bottom_margin;
+    box_left        = left   + paper_left_margin;
+    box_bottom      = bottom + paper_bottom_margin;
+    box_right       = box_left   + round(width+0.5);
+    box_top         = box_bottom + round(height+0.5);
   }
 
-  if (image_info->depth == 16)
+  depth = image_info->depth;
+
+  if (depth > 8)
   {
-    image_info->depth = 8; /* 16 bits/color are already reduced to 8 bits/color */
+    depth = 8;
   }
 
-  fprintf(outfile, "%%!PS-Adobe-2.0 EPSF-2.0\n");
-  fprintf(outfile, "%%%%Creator: xsane version %s (sane %d.%d)\n", VERSION,
-                                                                   SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
-                                                                   SANE_VERSION_MINOR(xsane.sane_backend_versioncode));
-  fprintf(outfile, "%%%%Pages: 1 1\n");
+  fprintf(outfile, "%%!PS-Adobe-3.0\n");
+  fprintf(outfile, "%%%%Creator: XSane version %s (sane %d.%d) - by Oliver Rauch\n", VERSION,
+                        SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
+                        SANE_VERSION_MINOR(xsane.sane_backend_versioncode));
+  fprintf(outfile, "%%%%DocumentData: Clean7Bit\n");
+  fprintf(outfile, "%%%%Pages: 1\n");
   fprintf(outfile, "%%%%BoundingBox: %d %d %d %d\n", box_left, box_bottom, box_right, box_top);
-  fprintf(outfile, "%%\n");
+  fprintf(outfile, "%%%%EndComments\n");
   fprintf(outfile, "/origstate save def\n");
   fprintf(outfile, "20 dict begin\n");
+  fprintf(outfile, "%%%%Page: 1 1\n");
 
-  if (image_info->depth == 1)
+  if (depth == 1)
   {
     fprintf(outfile, "/pix %d string def\n", (image_info->image_width+7)/8);
     fprintf(outfile, "/grays %d string def\n", image_info->image_width);
@@ -1909,9 +2024,9 @@ static void xsane_save_ps_create_header(FILE *outfile, Image_info *image_info,
 
   fprintf(outfile, "%d rotate\n", degree);
   fprintf(outfile, "%d %d translate\n", position_left, position_bottom);
-  fprintf(outfile, "%f %f scale\n", width * 72.0, height * 72.0);
-  fprintf(outfile, "%d %d %d\n", image_info->image_width, image_info->image_height, image_info->depth);
-  fprintf(outfile, "[%d %d %d %d %d %d]\n", image_info->image_width, 0, 0, -image_info->image_height, 0 , image_info->image_height);
+  fprintf(outfile, "%f %f scale\n", width, height);
+  fprintf(outfile, "%d %d %d\n", image_info->image_width, image_info->image_height, depth);
+  fprintf(outfile, "[%d %d %d %d %d %d]\n", image_info->image_width, 0, 0, -image_info->image_height, 0, image_info->image_height);
   fprintf(outfile, "{currentfile pix readhexstring pop}\n");
 
   if (image_info->colors == 3) /* what about RGBA here ? */
@@ -1980,13 +2095,32 @@ static int xsane_save_ps_gray(FILE *outfile, FILE *imagefile, Image_info *image_
   count = 0;
   for (y = 0; y < image_info->image_height; y++)
   {
-    for (x = 0; x < image_info->image_width; x++)
+    if (image_info->depth > 8) /* reduce 16 bit images */
     {
-      fprintf(outfile, "%02x", fgetc(imagefile));
-      if (++count >=40)
+     guint16 val;
+
+      for (x = 0; x < image_info->image_width; x++)
       {
-        fprintf(outfile, "\n");
-	count = 0;
+        fread(&val, 2, 1, imagefile);
+        fprintf(outfile, "%02x", val/256);
+
+        if (++count >= 40)
+        {
+          fprintf(outfile, "\n");
+          count = 0;
+        }
+      }
+    }
+    else /* 8 bits/sample */
+    {
+      for (x = 0; x < image_info->image_width; x++)
+      {
+        fprintf(outfile, "%02x", fgetc(imagefile));
+        if (++count >= 40)
+        {
+          fprintf(outfile, "\n");
+          count = 0;
+        }
       }
     }
     fprintf(outfile, "\n");
@@ -2024,15 +2158,39 @@ static int xsane_save_ps_color(FILE *outfile, FILE *imagefile, Image_info *image
       gtk_main_iteration();
     }
 
-    for (x = 0; x < image_info->image_width; x++)
+    if (image_info->depth > 8) /* reduce 16 bit images */
     {
-      fprintf(outfile, "%02x", fgetc(imagefile));
-      fprintf(outfile, "%02x", fgetc(imagefile));
-      fprintf(outfile, "%02x", fgetc(imagefile));
-      if (++count >=10)
+     guint16 val;
+
+      for (x = 0; x < image_info->image_width; x++)
       {
-        fprintf(outfile, "\n");
-	count = 0;
+        fread(&val, 2, 1, imagefile);
+        fprintf(outfile, "%02x", val/256);
+        fread(&val, 2, 1, imagefile);
+        fprintf(outfile, "%02x", val/256);
+        fread(&val, 2, 1, imagefile);
+        fprintf(outfile, "%02x", val/256);
+
+        if (++count >= 10)
+        {
+          fprintf(outfile, "\n");
+          count = 0;
+        }
+      }
+    }
+    else /* 8 bits/sample */
+    {
+      for (x = 0; x < image_info->image_width; x++)
+      {
+        fprintf(outfile, "%02x", fgetc(imagefile));
+        fprintf(outfile, "%02x", fgetc(imagefile));
+        fprintf(outfile, "%02x", fgetc(imagefile));
+
+        if (++count >= 10)
+        {
+          fprintf(outfile, "\n");
+          count = 0;
+        }
       }
     }
     fprintf(outfile, "\n");
@@ -2049,13 +2207,15 @@ static int xsane_save_ps_color(FILE *outfile, FILE *imagefile, Image_info *image
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-int xsane_save_ps(FILE *outfile, FILE *imagefile, Image_info *image_info, int left, int bottom, float width, float height,
-                  int paperheight, int paperwidth, int rotate, GtkProgressBar *progress_bar, int *cancel_save)
+int xsane_save_ps(FILE *outfile, FILE *imagefile, Image_info *image_info, float width, float height,
+                  int paper_left_margin, int paper_bottom_margin, int paperheight, int paperwidth, int paper_orientation,
+                  GtkProgressBar *progress_bar, int *cancel_save)
 {
   DBG(DBG_proc, "xsane_save_ps\n");
 
-  xsane_save_ps_create_header(outfile, image_info,
-                              left, bottom, width, height, paperheight, paperwidth, rotate, progress_bar);
+  xsane_save_ps_create_header(outfile, image_info, width, height,
+                              paper_left_margin, paper_bottom_margin, paperheight, paperwidth, paper_orientation,
+                              progress_bar);
 
   if (image_info->colors == 1) /* lineart, halftone, grayscale */
   {
@@ -2077,6 +2237,7 @@ int xsane_save_ps(FILE *outfile, FILE *imagefile, Image_info *image_info, int le
   fprintf(outfile, "showpage\n");
   fprintf(outfile, "end\n");
   fprintf(outfile, "origstate restore\n");
+  fprintf(outfile, "%%%%EOF\n");
   fprintf(outfile, "\n");
 
  return (*cancel_save);
@@ -2091,6 +2252,7 @@ int xsane_save_jpeg(FILE *outfile, FILE *imagefile, Image_info *image_info, int 
  char buf[256];
  int x,y;
  int components = 1;
+ int bytespp = 1;
  struct jpeg_compress_struct cinfo;
  struct jpeg_error_mgr jerr;
  JSAMPROW row_pointer[1];
@@ -2104,7 +2266,12 @@ int xsane_save_jpeg(FILE *outfile, FILE *imagefile, Image_info *image_info, int 
     components = 3;
   }
 
-  data = malloc(image_info->image_width * components);
+  if (image_info->depth > 8)
+  {
+    bytespp = 2;
+  }
+
+  data = malloc(image_info->image_width * components * bytespp);
 
   if (!data)
   {
@@ -2170,7 +2337,17 @@ int xsane_save_jpeg(FILE *outfile, FILE *imagefile, Image_info *image_info, int 
         mask >>= 1;
       }
     }
-    else
+    else if (image_info->depth > 8) /* jpeg does not support 16 bits/sample, so we reduce it at first */
+    {
+      guint16 *data16 = (guint16 *) data;
+      fread(data, components * 2, image_info->image_width, imagefile);
+      for (x = 0; x < image_info->image_width * components; x++)
+      {
+        data[x] = data16[x] / 256;
+      }
+
+    }
+    else /* 8 bits/sample */
     {
       fread(data, components, image_info->image_width, imagefile);
     }
@@ -2598,18 +2775,15 @@ int xsane_save_png_16(FILE *outfile, FILE *imagefile, Image_info *image_info, in
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-int xsane_save_pnm_16_gray(FILE *outfile, FILE *imagefile, Image_info *image_info, GtkProgressBar *progress_bar, int *cancel_save)
+static int xsane_save_pnm_16_ascii_gray(FILE *outfile, FILE *imagefile, Image_info *image_info, GtkProgressBar *progress_bar, int *cancel_save)
 {
  int x,y;
  guint16 val;
  int count = 0;
 
-  DBG(DBG_proc, "xsane_save_pnm_16_gray\n");
+  DBG(DBG_proc, "xsane_save_pnm_16_ascii_gray\n");
 
   *cancel_save = 0;
-
-  /* write pgm ascii > 8 bpp */
-  fprintf(outfile, "P2\n# SANE data follows\n%d %d\n65535\n", image_info->image_width, image_info->image_height);
 
   for (y = 0; y < image_info->image_height; y++)
   {
@@ -2643,27 +2817,18 @@ int xsane_save_pnm_16_gray(FILE *outfile, FILE *imagefile, Image_info *image_inf
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-int xsane_save_pnm_16_color(FILE *outfile, FILE *imagefile, Image_info *image_info, GtkProgressBar *progress_bar, int *cancel_save)
+static int xsane_save_pnm_16_ascii_color(FILE *outfile, FILE *imagefile, Image_info *image_info, GtkProgressBar *progress_bar, int *cancel_save)
 {
  int x,y;
  guint16 val;
  int count = 0;
 
-  DBG(DBG_proc, "xsane_save_pnm_16_color\n");
+  DBG(DBG_proc, "xsane_save_pnm_16_ascii_color\n");
 
   *cancel_save = 0;
 
-  /* write ppm ascii > 8 bpp */
-  fprintf(outfile, "P3\n# SANE data follows\n%d %d\n65535\n", image_info->image_width, image_info->image_height);
-
   for (y = 0; y < image_info->image_height; y++)
   {
-    gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height);
-    while (gtk_events_pending())
-    {
-      gtk_main_iteration();
-    }
-
     for (x = 0; x < image_info->image_width; x++)
     {
       fread(&val, 2, 1, imagefile); /* get data in machine order */
@@ -2684,6 +2849,92 @@ int xsane_save_pnm_16_color(FILE *outfile, FILE *imagefile, Image_info *image_in
     fprintf(outfile, "\n");
     count = 0;
 
+    gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height);
+    while (gtk_events_pending())
+    {
+      gtk_main_iteration();
+    }
+
+    if (*cancel_save)
+    {
+      break;
+    }
+  }
+
+ return (*cancel_save);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static int xsane_save_pnm_16_binary_gray(FILE *outfile, FILE *imagefile, Image_info *image_info, GtkProgressBar *progress_bar, int *cancel_save)
+{
+ int x,y;
+ guint16 val;
+
+  DBG(DBG_proc, "xsane_save_pnm_16_binary_gray\n");
+
+  *cancel_save = 0;
+
+  for (y = 0; y < image_info->image_height; y++)
+  {
+    for (x = 0; x < image_info->image_width; x++)
+    {
+      fread(&val, 2, 1, imagefile); /* get data in machine order */
+      fputc(val / 256, outfile); /* MSB fist */
+      fputc(val & 255, outfile); /* LSB */
+    }
+
+    gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height);
+    while (gtk_events_pending())
+    {
+      gtk_main_iteration();
+    }
+    if (*cancel_save)
+    {
+      break;
+    }
+  }
+
+ return (*cancel_save);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static int xsane_save_pnm_16_binary_color(FILE *outfile, FILE *imagefile, Image_info *image_info, GtkProgressBar *progress_bar, int *cancel_save)
+{
+ int x,y;
+ guint16 val;
+
+  DBG(DBG_proc, "xsane_save_pnm_16_binary_color\n");
+
+  *cancel_save = 0;
+
+  for (y = 0; y < image_info->image_height; y++)
+  {
+    for (x = 0; x < image_info->image_width; x++)
+    {
+      /* red */
+      fread(&val, 2, 1, imagefile); /* get data in machine order */
+      fputc(val / 256, outfile); /* MSB fist */
+      fputc(val & 255, outfile); /* LSB */
+
+      /* green */
+      fread(&val, 2, 1, imagefile); /* get data in machine order */
+      fputc(val / 256, outfile); /* MSB fist */
+      fputc(val & 255, outfile); /* LSB */
+
+      /* blue */
+      fread(&val, 2, 1, imagefile); /* get data in machine order */
+      fputc(val / 256, outfile); /* MSB fist */
+      fputc(val & 255, outfile); /* LSB */
+    }
+
+    gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height);
+    while (gtk_events_pending())
+    {
+      gtk_main_iteration();
+    }
+
     if (*cancel_save)
     {
       break;
@@ -2699,13 +2950,29 @@ int xsane_save_pnm_16(FILE *outfile, FILE *imagefile, Image_info *image_info, Gt
 {
   DBG(DBG_proc, "xsane_save_pnm_16\n");
 
+  xsane_write_pnm_header(outfile, image_info, preferences.save_pnm16_as_ascii);
+
   if (image_info->colors > 1)
   {
-    xsane_save_pnm_16_color(outfile, imagefile, image_info, progress_bar, cancel_save);
+    if (preferences.save_pnm16_as_ascii)
+    {
+      xsane_save_pnm_16_ascii_color(outfile, imagefile, image_info, progress_bar, cancel_save);
+    }
+    else
+    {
+      xsane_save_pnm_16_binary_color(outfile, imagefile, image_info, progress_bar, cancel_save);
+    }
   }
   else
   {
-    xsane_save_pnm_16_gray(outfile, imagefile, image_info, progress_bar, cancel_save);
+    if (preferences.save_pnm16_as_ascii)
+    {
+      xsane_save_pnm_16_ascii_gray(outfile, imagefile, image_info, progress_bar, cancel_save);
+    }
+    else
+    {
+      xsane_save_pnm_16_binary_gray(outfile, imagefile, image_info, progress_bar, cancel_save);
+    }
   }
 
  return (*cancel_save);
@@ -2808,7 +3075,8 @@ int xsane_save_image_as_text(char *input_filename, char *output_filename, GtkPro
   }
  
   arg[argnr] = 0;
- 
+
+#ifndef HAVE_OS2_H 
   pid = fork();
  
   if (pid == 0) /* new process */
@@ -2845,6 +3113,14 @@ int xsane_save_image_as_text(char *input_filename, char *output_filename, GtkPro
  
     _exit(0); /* do not use exit() here! otherwise gtk gets in trouble */
   }
+
+#else
+  pid = spawnvp(P_NOWAIT, arg[0], arg);
+  if (pid == -1)
+  {
+   DBG(DBG_error, "%s %s\n", ERR_FAILED_EXEC_OCR_CMD, preferences.ocr_command);
+  }
+#endif
  
   if (pipefd[1])
   {
@@ -3001,17 +3277,17 @@ int xsane_save_image_as(char *input_filename, char *output_filename, int output_
         { 
          float imagewidth, imageheight;
 
-           imagewidth  = image_info.image_width/image_info.resolution_x; /* width in inch */
-           imageheight = image_info.image_height/image_info.resolution_y; /* height in inch */
+           imagewidth  = 72.0 * image_info.image_width/image_info.resolution_x; /* width in 1/72 inch */
+           imageheight = 72.0 * image_info.image_height/image_info.resolution_y; /* height in 1/72 inch */
 
             xsane_save_ps(outfile, infile,
                           &image_info,
-                          0.0, /* left edge */
-                          0.0, /* botoom edge */
                           imagewidth, imageheight,
-                          0.0, /* paperwidth */
-                          0.0, /* paperheight */
-                          0 /* portrait */,
+                          0, /* paper_left_margin */
+                          0, /* paper_bottom_margin */
+                          (int) imagewidth, /* paper_width */
+                          (int) imageheight, /* paper_height */
+                          0 /* portrait top left */,
                           progress_bar,
                           cancel_save);
         }

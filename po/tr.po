@@ -3,9 +3,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.88\n"
-"POT-Creation-Date: 2002-09-13 08:34+0200\n"
-"PO-Revision-Date: 2002-09-13 09:17+0300\n"
+"Project-Id-Version: XSANE 0.89\n"
+"POT-Creation-Date: 2002-10-20 22:23+0200\n"
+"PO-Revision-Date: 2002-10-14 10:21+0300\n"
 "Last-Translator: Togan Muftuoglu <toganm@yahoo.com>\n"
 "Language-Team: Turkish <kde-i18n-tr@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -166,6 +166,11 @@ msgstr "Resmi bulanýklaþtýr"
 #. WINDOW_STORE_MEDIUM
 msgid "Store medium definition"
 msgstr "Ortam tanýmýný sakla"
+
+#. WINDOW_NO_DEVICES
+#, fuzzy
+msgid "No devices available"
+msgstr "Hiçbir aygýt mevcut deðil"
 
 #. MENU_FILE
 msgid "File"
@@ -374,6 +379,10 @@ msgstr "Üzerine yazma uyarýsý"
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
 msgid "Skip existing filenames"
 msgstr "Varolan dosya isimlerini atla"
+
+#. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
+msgid "Save 16bit pnm in ascii format"
+msgstr "16bit pnm'yi ascii formatýnda sakla"
 
 #. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
 msgid "Reduce 16 bit image to 8 bit"
@@ -694,38 +703,32 @@ msgid "(no name)"
 msgstr "(adsýz)"
 
 #. TEXT_BATCH_LIST_AREANAME
-#, fuzzy
 msgid "Area name:"
-msgstr "Kullanýcý adý:"
+msgstr "Alan adý:"
 
 #. TEXT_BATCH_LIST_SCANMODE
-#, fuzzy
 msgid "Scanmode:"
-msgstr "Xsane modu"
+msgstr "Tarama modu"
 
 #. TEXT_BATCH_LIST_GEOMETRY_TL
 msgid "Top left:"
-msgstr ""
+msgstr "Sol üst"
 
 #. TEXT_BATCH_LIST_GEOMETRY_SIZE
-#, fuzzy
 msgid "Size:"
-msgstr "Diapozitif"
+msgstr "Boyut"
 
 #. TEXT_BATCH_LIST_RESOLUTION
-#, fuzzy
 msgid "Resolution:"
-msgstr "Threshold seçeneði"
+msgstr "Çözünürlük:"
 
 #. TEXT_BATCH_LIST_BIT_DEPTH
-#, fuzzy
 msgid "Bit depth:"
-msgstr "Gamma giriþ derinliði"
+msgstr "Bit derinliði"
 
 #. TEXT_BATCH_LIST_BY_GUI
-#, fuzzy
 msgid "as selected"
-msgstr "Seçilen alaný tara"
+msgstr "seçildiði gibi"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -1309,7 +1312,8 @@ msgid ""
 "Type of image format, the suitable filename extension is automatically added "
 "to the filename"
 msgstr ""
-"Resim formatýnýn tipi, uygun olan dosya soneki otomatik olarakdosyaya eklenir"
+"Resim formatýnýn tipi, uygun olan dosya soneki otomatik olarak dosyaya "
+"eklenir"
 
 #. DESC_FAXPROJECT
 msgid "Enter name of fax project"
@@ -1608,6 +1612,18 @@ msgid ""
 msgstr ""
 "Eðer dosya adý sayacý otomatik olarak artýrýlýyorsa, kullanýlan rakamlar "
 "atlanýr"
+
+#. DESC_SAVE_PNM16_AS_ASCII
+msgid ""
+"When a 16 bit image shall be saved in pnm format then use ascii format "
+"instead of binary format. The binary format is a new format that is not "
+"supported by all programs. The ascii format is supported by more programs "
+"but it produces really huge files!!!"
+msgstr ""
+"16 bitlik resim pnm formatýnda saklanacaðý zaman binary formatý yerine ascii "
+"formatýný  kullanýn. Binary formatý henüz tüm programlar tarafýndan "
+"kullanýlmayan yeni bir formattýr. Ascii formatý daha fazla program "
+"tarafýndan kullanýlmasýna karþýn oldukça büyük dosyalar üretir."
 
 #. DESC_REDUCE_16BIT_TO_8BIT
 msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
@@ -1913,6 +1929,10 @@ msgstr "Alaný önceden seç"
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
 msgstr "Döndürmek önizlemek ve taramak"
+
+#. DESC_PAPER_ORIENTATION
+msgid "Define image position for printing"
+msgstr ""
 
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
@@ -2385,6 +2405,18 @@ msgstr "<Araçkutusu>/XTns/Xsane/Aygýt diyalog "
 #. XSANE_GIMP_MENU_OLD
 msgid "<Toolbox>/Xtns/XSane/"
 msgstr "<Araçkutusu>/Xtns/XSane/"
+
+#. HELP_NO_DEVICES
+msgid ""
+"Possible reasons:\n"
+"1) There really is no device that is supported by SANE\n"
+"2) Supported devices are busy\n"
+"3) The permissions for the device file do not allow you to use it - try as "
+"root\n"
+"4) The backend is not loaded by SANE (man sane-dll)\n"
+"5) The backend is not configured correct (man sane-\"backendname\")\n"
+"6) Possibly there is more than one SANE version installed"
+msgstr ""
 
 #. strings that are used in structures, so it is not allowed to use _()/gettext() here
 #. gettext_noop does mark these texts but does not change the string

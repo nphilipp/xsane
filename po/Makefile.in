@@ -201,6 +201,16 @@ update-po: Makefile
 	  fi; \
 	done
 
+utf8:
+	for LNG in *.po ; do \
+	 FORMAT=`grep charset $$LNG | sed -e '{ s/Content-Type: text\/plain; charset=//g ; s/\\\n// ; s/\"//g ; }'` ;\
+	 echo recoding $$LNG from $$FORMAT to UTF-8;\
+	 COMMAND="s/"$$FORMAT"/UTF-8/g" ;\
+	 cat $$LNG | sed -e $$COMMAND >UTF-8/$$LNG ;\
+	 recode $$FORMAT..UTF-8 UTF-8/$$LNG ;\
+	done
+
+
 Makefile: Makefile.in ../config.status
 	cd .. \
 	  && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= \

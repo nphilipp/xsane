@@ -25,18 +25,19 @@
 extern int xsane_create_secure_file(const char *filename);
 extern void xsane_cancel_save();
 extern void xsane_convert_text_to_filename(char **filename);
+extern void xsane_ensure_counter_in_filename(char **filename, int counter_len);
 extern void xsane_update_counter_in_filename(char **filename, int skip, int step, int min_counter_len);
 extern void xsane_increase_counter_in_filename(char *filename, int skip);
 extern void xsane_read_pnm_header(FILE *infile, Image_info *image_info);
-extern void xsane_write_pnm_header(FILE *outfile, Image_info *image_info);
+extern void xsane_write_pnm_header(FILE *outfile, Image_info *image_info, int save_pnm16_as_ascii);
 extern int xsane_save_grayscale_image_as_lineart(FILE *outfile, FILE *imagefile, Image_info *image_info, GtkProgressBar *progress_bar, int *cancel_save);
 extern int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_info, float x_scale, float y_scale, GtkProgressBar *progress_bar, int *cancel_save);
 extern int xsane_save_despeckle_image(FILE *outfile, FILE *imagefile, Image_info *image_info, int radius, GtkProgressBar *progress_bar, int *cancel_save);
 extern int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info, float radius, GtkProgressBar *progress_bar, int *cancel_save);
 extern int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_info, int rotation, GtkProgressBar *progress_bar, int *cancel_save);
 extern void xsane_save_ps(FILE *outfile, FILE *imagefile, Image_info *image_info,
-                          int left, int bottom, float width, float height,
-                          int paperwidth, int paperheight, int landscape,
+                          float width, float height,
+                          int paper_left_margin, int paper_bottom_margin, int paperwidth, int paperheight, int paper_orientation,
                           GtkProgressBar *progress_bar, int *cancel_save);
 extern void xsane_save_jpeg(FILE *outfile, FILE *imagefile, Image_info *image_info, int quality, GtkProgressBar *progress_bar, int *cancel_save);
 extern void xsane_save_tiff(const char *outfilename, FILE *imagefile, Image_info *image_info, int quality, GtkProgressBar *progress_bar, int *cancel_save);

@@ -1,0 +1,223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Oliver Rauch">
+   <meta name="Description" content="scan, photocopy and fax frontend for SANE">
+   <title>XSane - Batch scan window</title>
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EF" vlink="#51188E" alink="#FF0000">
+
+
+<table>
+<tr>
+<td width=200>
+<img SRC="xsane-logo2.jpg" alt="XSane-logo" hspace=30 align=TOP>
+</td>
+<td>
+<blockquote>
+<h1><font color="#009900">Batch scan window</font></h1>
+</blockquote>
+
+</td>
+</tr>
+</table>
+
+
+<hr WIDTH="100%">
+
+<table>
+<tr>
+<td valign=TOP width="200" bgcolor="#E0E0BA">
+<br>
+<a href="sane-xsane-doc.html">Index</a>
+<br>
+<br>
+<br>
+<font color="#000000">Main window:</font>
+<ul>
+<li><a href="sane-xsane-viewer-doc.html">Viewer mode</a></li>
+<li><a href="sane-xsane-save-doc.html">Save mode</a></li>
+<li><a href="sane-xsane-copy-doc.html">Copy mode</a></li>
+<li><a href="sane-xsane-fax-doc.html">Fax mode</a></li>
+<li><a href="sane-xsane-mail-doc.html">Mail mode</a></li>
+<li><a href="sane-xsane-gimp-doc.html">Gimp plugin</a></li>
+</ul>
+<br>
+<a href="sane-xsane-color-correction-doc.html">Color correction:</a>
+<ul>
+<li><a href="sane-xsane-color-correction-doc.html#GAMMA">Gamma correction</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#BRIGHTNESS">Brightness</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#CONTRAST">Contrast</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#THRESHOLD">Threshold</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#RGB_DEFAULT">RGB default</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#NEGATIVE">Negative</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#AUTOENHANCEMENT">Autoenhancement</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#ENHANCEMENT_DEFAULT">Default</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#RESTORE_ENHANCEMENT">Restore</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#STORE_ENHANCEMENT">Store</a></li>
+<li><a href="sane-xsane-histogram-doc.html">Histogram window</a></li>
+<li><a href="sane-xsane-preview-doc.html#PIPETTE_WHITE">Pipette functions</a></li>
+</ul>
+<br>
+<a href="sane-xsane-standard-doc.html">Standard options window</a>
+<br>
+<br>
+<br>
+<a href="sane-xsane-advanced-doc.html">Advanced options window</a>
+<br>
+<br>
+<br>
+<a href="sane-xsane-preview-doc.html">Preview:</a>
+<ul>
+<li><a href="sane-xsane-preview-doc.html#PIPETTE_WHITE">Pipette white</a></li>
+<li><a href="sane-xsane-preview-doc.html#PIPETTE_GRAY">Pipette gray</a></li>
+<li><a href="sane-xsane-preview-doc.html#PIPETTE_BLACK">Pipette black</a></li>
+<li><a href="sane-xsane-preview-doc.html#UNZOOM">Unzoom</a></li>
+<li><a href="sane-xsane-preview-doc.html#ZOOM_OUT">Zoom out</a></li>
+<li><a href="sane-xsane-preview-doc.html#ZOOM_IN">Zoom in</a></li>
+<li><a href="sane-xsane-preview-doc.html#UNDO_ZOOM">Undo zoom</a></li>
+<li><a href="sane-xsane-preview-doc.html#AUTOSELECT">Autoselect scanarea</a></li>
+<li><a href="sane-xsane-preview-doc.html#AUTORAISE">Autoraise scanarea</a></li>
+<li><a href="sane-xsane-preview-doc.html#SELECT_VISIBLE_AREA">Select visible area</a></li>
+<li><a href="sane-xsane-preview-doc.html#SELECT_SCAN_AREA">Select scanarea</a></li>
+<li><a href="sane-xsane-preview-doc.html#MOVE_SCAN_AREA">Move scanarea</a></li>
+<li><a href="sane-xsane-preview-doc.html#DELETE_PREVIEW_CACHE">Delete preview cache</a></li>
+</ul>
+<br>
+<a href="sane-xsane-batch-scan-doc.html">Batch scan:</a>
+<ul>
+<li><a href="sane-xsane-batch-scan-doc.html#BATCH_SCAN_EMPTY">Empty batch list</a></li>
+<li><a href="sane-xsane-batch-scan-doc.html#BATCH_SCAN_OPEN">Open batch list</a></li>
+<li><a href="sane-xsane-batch-scan-doc.html#BATCH_SCAN_SAVE">Save batch list</a></li>
+<li><a href="sane-xsane-batch-scan-doc.html#BATCH_SCAN_ADD">Add area to list</a></li>
+<li><a href="sane-xsane-batch-scan-doc.html#BATCH_SCAN_DELETE">Remove selection</a></li>
+<li><a href="sane-xsane-batch-scan-doc.html#BATCH_SCAN_RENAME">Rename selection</a></li>
+<li><a href="sane-xsane-batch-scan-doc.html#BATCH_SCAN_ROTATE">Rotate image</a></li>
+<li><a href="sane-xsane-batch-scan-doc.html#BATCH_SCAN_MIRROR">Mirror image</a></li>
+</ul>
+<br>
+<font color="#000000">Setup:</font>
+<ul>
+<li><a href="sane-xsane-setup-copy-doc.html">Copy setup</a></li>
+<li><a href="sane-xsane-setup-display-doc.html">Display setup</a></li>
+<li><a href="sane-xsane-setup-enhancement-doc.html">Enhancement setup</a></li>
+<li><a href="sane-xsane-setup-fax-doc.html">Fax setup</a></li>
+<li><a href="sane-xsane-setup-image-doc.html">Image setup</a></li>
+<li><a href="sane-xsane-setup-mail-doc.html">Mail setup</a></li>
+<li><a href="sane-xsane-setup-save-doc.html">Saving setup</a></li>
+</ul>
+</td>
+
+
+
+<td VALIGN=TOP BGCOLOR="#FFFFFF">
+<blockquote>
+<br>
+The batch scan window displays a list of selected areas and images (when
+a preview scan has been done).
+<br>
+<br>
+<br>
+<center><img SRC="xsane-batch-scan.jpg" alt="batch-scan-window"></center>
+<br>
+The images are updated when a new preview scan is done or the gamma correction
+has changed.
+<p>
+The batch scan function can be used in all scanmodes (viewer, save, copy, fax, email)
+and as gimp plugin.
+<p>
+<img SRC="xsane-new.jpg" alt="new-batch-list">
+&nbsp;&nbsp;
+<a NAME="BATCH_SCAN_EMPTY"></a><b><u>Empty batch scan list:</u></b>
+<blockquote>
+Remove all selections form the batch scan list.
+</blockquote>
+
+<p>
+<img SRC="xsane-open.jpg" alt="open-batch-list">
+&nbsp;&nbsp;
+<a NAME="BATCH_SCAN_OPEN"></a><b><u>Open batch scan list:</u></b>
+<blockquote>
+Read a batch scan list from disk.
+</blockquote>
+
+<p>
+<img SRC="xsane-save2.jpg" alt="save-batch-list">
+&nbsp;&nbsp;
+<a NAME="BATCH_SCAN_SAVE"></a><b><u>Save batch scan list:</u></b>
+<blockquote>
+Store batch scan list to disk.
+</blockquote>
+
+<p>
+<img SRC="xsane-batch-scan-add.jpg" alt="batch-scan-add">
+&nbsp;&nbsp;
+<a NAME="BATCH_SCAN_ADD"></a><b><u>Batch scan add area:</u></b>
+<blockquote>
+Adds the selected area to the batch scan list.
+</blockquote>
+
+<p>
+<img SRC="xsane-batch-scan-delete.jpg" alt="batch-scan-delete">
+&nbsp;&nbsp;
+<a NAME="BATCH_SCAN_DELETE"></a><b><u>Remove selection from batch scan list:</u></b>
+<blockquote>
+Remove the selected area (marked) from the batch scan list.
+</blockquote>
+
+<p>
+<img SRC="xsane-rename.jpg" alt="batch-scan-rename">
+&nbsp;&nbsp;
+<a NAME="BATCH_SCAN_RENAME"></a><b><u>Rename selection from batch scan list:</u></b>
+<blockquote>
+Rename the selected area (marked).
+</blockquote>
+
+<p>
+<img SRC="xsane-rotate-90.jpg" alt="rotate90">
+<img SRC="xsane-rotate-180.jpg" alt="rotate180">
+<img SRC="xsane-rotate-270.jpg" alt="rotate270">
+&nbsp;&nbsp;
+<a NAME="BATCH_SCAN_ROTATE90"></a><b><u>Rotate image 90, 180, 270 degree:</u></b>
+<blockquote>
+Rotates the image by 90, 180, 270 degree (clockwise).
+</blockquote>
+
+<p>
+<img SRC="xsane-mirror-x.jpg" alt="mirror-x">
+<img SRC="xsane-mirror-y.jpg" alt="mirror-y">
+&nbsp;&nbsp;
+<a NAME="BATCH_SCAN_ROTATE90"></a><b><u>Mirror image at vertical or horizontal axis:</u></b>
+<blockquote>
+Mirrors the image at vertical or horizontal axis.
+</blockquote>
+
+<p>
+<a NAME="BATCH_SCAN_SCAN"></a><b><u>Scan batch list:</u></b>
+<blockquote>
+Scans each image that is displayed in the batch scan list.
+</blockquote>
+
+<p>
+<a NAME="BATCH_SCAN_SCAN_SELECTED"></a><b><u>Scan selected area:</u></b>
+<blockquote>
+Scans the selected (marked) image.
+</blockquote>
+
+</blockquote>
+
+
+</td>
+</tr>
+</table>
+
+<hr WIDTH="100%">
+
+<blockquote>
+Author: <a href="mailto:Oliver.Rauch@xsane.org">Oliver Rauch</a>
+</blockquote>
+
+</body>
+</html>
+

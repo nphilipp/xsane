@@ -183,8 +183,8 @@ static gint preview_preset_area_delete_callback(GtkWidget *widget, GtkWidget *pr
 static gint preview_preset_area_move_up_callback(GtkWidget *widget, GtkWidget *preset_area_widget);
 static gint preview_preset_area_move_down_callback(GtkWidget *widget, GtkWidget *preset_area_widget);
 static gint preview_preset_area_context_menu_callback(GtkWidget *widget, GdkEvent *event);
-static void preview_preset_area_callback(GtkWidget *widget, gpointer call_data);
-static void preview_rotation_callback(GtkWidget *widget, gpointer call_data);
+static void preview_preset_area_callback(GtkWidget *widget, gpointer data);
+static void preview_rotation_callback(GtkWidget *widget, gpointer data);
 static void preview_autoselect_scanarea_callback(GtkWidget *window, gpointer data);
 
 void preview_do_gamma_correction(Preview *p);
@@ -197,7 +197,7 @@ void preview_gamma_correction(Preview *p, int gamma_input_bits,
 void preview_area_resize(Preview *p);
 gint preview_area_resize_handler(GtkWidget *widget, GdkEvent *event, gpointer data);
 void preview_update_maximum_output_size(Preview *p);
-void preview_set_maximum_output_size(Preview *p, float width, float height);
+void preview_set_maximum_output_size(Preview *p, float width, float height, int paper_orientation);
 void preview_autoraise_scanarea(Preview *p, int preview_x, int preview_y, float *autoselect_coord);
 void preview_autoselect_scanarea(Preview *p, float *autoselect_coord);
 void preview_display_valid(Preview *p);
@@ -1420,8 +1420,8 @@ static int preview_increment_image_y(Preview *p)
 
     if ( (!p->image_data_enh) || (!p->image_data_raw) )
     {
-      preview_scan_done(p, 0);
       snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_ALLOCATE_IMAGE, strerror(errno));
+      preview_scan_done(p, 0);
       xsane_back_gtk_error(buf, TRUE);
      return -1;
     }
@@ -1479,8 +1479,8 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
     }
     else /* bad bitdepth */
     {
-      preview_scan_done(p, 0);
       snprintf(buf, sizeof(buf), "%s %d.", ERR_PREVIEW_BAD_DEPTH, p->params.depth);
+      preview_scan_done(p, 0);
       xsane_back_gtk_error(buf, TRUE);
      return;
     }
@@ -1587,8 +1587,8 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
             break;
 
           default:
-            preview_scan_done(p, 0);
             snprintf(buf, sizeof(buf), "%s %d.", ERR_PREVIEW_BAD_DEPTH, p->params.depth);
+            preview_scan_done(p, 0);
             xsane_back_gtk_error(buf, TRUE);
            return;
         }
@@ -1684,8 +1684,8 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
            break;
 
           default:
-            preview_scan_done(p, 0);
             snprintf(buf, sizeof(buf), "%s %d.", ERR_PREVIEW_BAD_DEPTH, p->params.depth);
+            preview_scan_done(p, 0);
             xsane_back_gtk_error(buf, TRUE);
            return;
         }
@@ -1762,16 +1762,16 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
                break;
 
               default:
-                preview_scan_done(p, 0);
                 snprintf(buf, sizeof(buf), "%s %d.", ERR_PREVIEW_BAD_DEPTH, p->params.depth);
+                preview_scan_done(p, 0);
                 xsane_back_gtk_error(buf, TRUE);
                return;
             }
            break;
 
           default:
-            preview_scan_done(p, 0);
             snprintf(buf, sizeof(buf), "%s %d.", ERR_BAD_FRAME_FORMAT, p->params.format);
+            preview_scan_done(p, 0);
             xsane_back_gtk_error(buf, TRUE);
            return;
     }
@@ -2168,17 +2168,11 @@ int preview_create_batch_icon_from_file(Preview *p, FILE *in, Batch_Scan_Paramet
  int c;
  int maximum_size;
  int quality = 0;
+ int xx, yy;
+ int offset = 0;
+ guchar *data;
 
   DBG(DBG_proc, "preview_create_batch_icon_from_file\n");
-
-  /* make unused parts white */
-  for (y=0; y < parameters->gdk_image_size; y++)
-  { 
-    for (x=0; x < parameters->gdk_image_size; x++)
-    {
-      gdk_image_put_pixel(parameters->gdk_image, x, y, 0xF0F0F0);
-    }
-  }
 
   if (!in)
   {
@@ -2269,8 +2263,8 @@ int preview_create_batch_icon_from_file(Preview *p, FILE *in, Batch_Scan_Paramet
 
 
   {
-    float xscale = (float)width / parameters->gdk_image_size;
-    float yscale = (float)height / parameters->gdk_image_size;
+    float xscale = (float)width / parameters->gtk_preview_size;
+    float yscale = (float)height / parameters->gtk_preview_size;
 
     if (xscale > yscale)
     {
@@ -2285,21 +2279,34 @@ int preview_create_batch_icon_from_file(Preview *p, FILE *in, Batch_Scan_Paramet
   width = width / scale;
   height = height / scale;
 
-  if (width > parameters->gdk_image_size)
+  if (width > parameters->gtk_preview_size)
   {
-    width = parameters->gdk_image_size;
+    width = parameters->gtk_preview_size;
   }
 
-  if (height > parameters->gdk_image_size)
+  if (height > parameters->gtk_preview_size)
   {
-    height = parameters->gdk_image_size;
+    height = parameters->gtk_preview_size;
   }
 
-  maximum_size = parameters->gdk_image_size -1;
+  maximum_size = parameters->gtk_preview_size -1;
 
-  dx = (parameters->gdk_image_size - width) / 2;
-  dy = (parameters->gdk_image_size - height) / 2;
+  dx = (parameters->gtk_preview_size - width) / 2;
+  dy = (parameters->gtk_preview_size - height) / 2;
 
+
+  data = malloc(parameters->gtk_preview_size * parameters->gtk_preview_size * 3);
+  if (!data)
+  {
+    DBG(DBG_error, "preview_create_batch_icon_from_file: out of memory\n");
+   return min_quality;
+  }
+
+  /* make unused parts white */
+  for (x = 0; x< parameters->gtk_preview_size * parameters->gtk_preview_size * 3; x++)
+  {
+    data[x] = 0xF0;
+  }
 
   if (max_val == 65535)
   {
@@ -2321,40 +2328,66 @@ int preview_create_batch_icon_from_file(Preview *p, FILE *in, Batch_Scan_Paramet
         c = r * 65536 + g * 256 + b;
 
         switch (parameters->rotation)
-          {
-            case 0: /* 0 degree */
-              gdk_image_put_pixel(parameters->gdk_image, x + dx, y + dy, c);
-            break;
+        {
+          case 0: /* 0 degree */
+            xx = x + dx;
+            yy = y + dy;
+            offset = parameters->gtk_preview_size * 3 * yy + 3*(xx);
+          break;
 
-            case 1: /* 90 degree */
-              gdk_image_put_pixel(parameters->gdk_image, maximum_size - y - dy, x + dx, c);
-            break;
+          case 1: /* 90 degree */
+            xx = maximum_size - y;
+            yy = x + dx;
+            offset = parameters->gtk_preview_size * 3 * yy + 3*(xx);
+          break;
 
-            case 2: /* 180 degree */
-              gdk_image_put_pixel(parameters->gdk_image, maximum_size - x - dx, maximum_size - y - dy, c);
-            break;
+          case 2: /* 180 degree */
+            xx = maximum_size - x - dx;
+            yy = maximum_size - y - dy;
+            offset = parameters->gtk_preview_size * 3 * yy + 3*(xx);
+          break;
 
-            case 3: /* 270 degree */
-              gdk_image_put_pixel(parameters->gdk_image, y + dy, maximum_size - x - dx, c);
-            break;
+          case 3: /* 270 degree */
+            xx = y + dy;
+            yy = maximum_size - x - dx;
+            offset = parameters->gtk_preview_size * 3 * yy + 3*(xx);
+          break;
 
-            case 4: /* 0 degree, x-mirror */
-              gdk_image_put_pixel(parameters->gdk_image, maximum_size - x - dx, y + dy, c);
-            break;
+          case 4: /* 0 degree, x-mirror */
+            xx = maximum_size - x - dx;
+            yy = y + dy;
+            offset = parameters->gtk_preview_size * 3 * yy + 3*(xx);
+          break;
 
-            case 5: /* 90 degree, x-mirror */
-              gdk_image_put_pixel(parameters->gdk_image, y + dy, x + dx, c);
-            break;
+          case 5: /* 90 degree, x-mirror */
+            xx = y + dy;
+            yy = x + dx;
+            offset = parameters->gtk_preview_size * 3 * yy + 3*(xx);
+          break;
 
-            case 6: /* 180 degree, x-mirror */
-              gdk_image_put_pixel(parameters->gdk_image, x + dx, maximum_size - y - dy, c);
-            break;
+          case 6: /* 180 degree, x-mirror */
+            xx = x + dx;
+            yy = maximum_size - y - dy;
+            offset = parameters->gtk_preview_size * 3 * yy + 3*(xx);
+          break;
 
-            case 7: /* 270 degree, x-mirror */
-              gdk_image_put_pixel(parameters->gdk_image, maximum_size - y - dy, maximum_size - x - dx, c);
-            break;
-          }
+          case 7: /* 270 degree, x-mirror */
+            xx = maximum_size - y - dy;
+            yy = maximum_size - x - dx;
+            offset = parameters->gtk_preview_size * 3 * yy + 3*(xx);
+          break;
+        }
+
+        data[offset + 0] = r;
+        data[offset + 1] = g;
+        data[offset + 2] = b;
       }
+    }
+
+    for (y = 0; y < parameters->gtk_preview_size; y++)
+    {
+      gtk_preview_draw_row(GTK_PREVIEW(parameters->gtk_preview), data + 3 * parameters->gtk_preview_size * y,
+                           0, y, parameters->gtk_preview_size);
     }
   }
   else /* depth = 8 */
@@ -2363,8 +2396,6 @@ int preview_create_batch_icon_from_file(Preview *p, FILE *in, Batch_Scan_Paramet
     { 
       for (x=0; x < width; x++)
       {
-       int r, g, b, c;
-
         fseek(in, header + (xoffset + (int)(x * scale) + (yoffset + (int)(y * scale)) * image_width) * 3, SEEK_SET);
 
         r = fgetc(in);
@@ -2375,46 +2406,71 @@ int preview_create_batch_icon_from_file(Preview *p, FILE *in, Batch_Scan_Paramet
 
         b = fgetc(in);
         b = preview_gamma_data_blue[b << rotate8];
-
-        c = r * 65536 + g * 256 + b;
-
         switch (parameters->rotation)
-          {
-            case 0: /* 0 degree */
-              gdk_image_put_pixel(parameters->gdk_image, x + dx, y + dy, c);
-            break;
+        {
+          case 0: /* 0 degree */
+            xx = x + dx;
+            yy = y + dy;
+            offset = parameters->gtk_preview_size * 3 * yy + 3*(xx);
+          break;
 
-            case 1: /* 90 degree */
-              gdk_image_put_pixel(parameters->gdk_image, maximum_size - y - dy, x + dx, c);
-            break;
+          case 1: /* 90 degree */
+            xx = maximum_size - y;
+            yy = x + dx;
+            offset = parameters->gtk_preview_size * 3 * yy + 3*(xx);
+          break;
 
-            case 2: /* 180 degree */
-              gdk_image_put_pixel(parameters->gdk_image, maximum_size - x - dx, maximum_size - y - dy, c);
-            break;
+          case 2: /* 180 degree */
+            xx = maximum_size - x - dx;
+            yy = maximum_size - y - dy;
+            offset = parameters->gtk_preview_size * 3 * yy + 3*(xx);
+          break;
 
-            case 3: /* 270 degree */
-              gdk_image_put_pixel(parameters->gdk_image, y + dy, maximum_size - x - dx, c);
-            break;
+          case 3: /* 270 degree */
+            xx = y + dy;
+            yy = maximum_size - x - dx;
+            offset = parameters->gtk_preview_size * 3 * yy + 3*(xx);
+          break;
 
-            case 4: /* 0 degree, x-mirror */
-              gdk_image_put_pixel(parameters->gdk_image, maximum_size - x - dx, y + dy, c);
-            break;
+          case 4: /* 0 degree, x-mirror */
+            xx = maximum_size - x - dx;
+            yy = y + dy;
+            offset = parameters->gtk_preview_size * 3 * yy + 3*(xx);
+          break;
 
-            case 5: /* 90 degree, x-mirror */
-              gdk_image_put_pixel(parameters->gdk_image, y + dy, x + dx, c);
-            break;
+          case 5: /* 90 degree, x-mirror */
+            xx = y + dy;
+            yy = x + dx;
+            offset = parameters->gtk_preview_size * 3 * yy + 3*(xx);
+          break;
 
-            case 6: /* 180 degree, x-mirror */
-              gdk_image_put_pixel(parameters->gdk_image, x + dx, maximum_size - y - dy, c);
-            break;
+          case 6: /* 180 degree, x-mirror */
+            xx = x + dx;
+            yy = maximum_size - y - dy;
+            offset = parameters->gtk_preview_size * 3 * yy + 3*(xx);
+          break;
 
-            case 7: /* 270 degree, x-mirror */
-              gdk_image_put_pixel(parameters->gdk_image, maximum_size - y - dy, maximum_size - x - dx, c);
-            break;
-          }
+          case 7: /* 270 degree, x-mirror */
+            xx = maximum_size - y - dy;
+            yy = maximum_size - x - dx;
+            offset = parameters->gtk_preview_size * 3 * yy + 3*(xx);
+          break;
+        }
+
+        data[offset + 0] = r;
+        data[offset + 1] = g;
+        data[offset + 2] = b;
       }
     }
+
+    for (y = 0; y < parameters->gtk_preview_size; y++)
+    {
+      gtk_preview_draw_row(GTK_PREVIEW(parameters->gtk_preview), data + 3 * parameters->gtk_preview_size * y,
+                           0, y, parameters->gtk_preview_size);
+    }
   }
+
+  free(data);
 
  return quality;
 }
@@ -3636,8 +3692,8 @@ static gint preview_expose_event_handler_end(GtkWidget *window, GdkEvent *event,
     }
     else
     {
-       p->selection.active         = expose_event_selection_active;
-       p->selection_maximum.active = expose_event_selection_maximum_active;
+      p->selection.active         = expose_event_selection_active;
+      p->selection_maximum.active = expose_event_selection_maximum_active;
       preview_draw_selection(p); /* draw selections again */
     }
   }
@@ -5445,9 +5501,9 @@ static gint preview_preset_area_context_menu_callback(GtkWidget *widget, GdkEven
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void preview_preset_area_callback(GtkWidget *widget, gpointer call_data)
+static void preview_preset_area_callback(GtkWidget *widget, gpointer data)
 {
- Preview *p = call_data;
+ Preview *p = data;
  int selection;
 
   DBG(DBG_proc, "preview_preset_area_callback\n");
@@ -5468,9 +5524,9 @@ static void preview_preset_area_callback(GtkWidget *widget, gpointer call_data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void preview_rotation_callback(GtkWidget *widget, gpointer call_data)
+static void preview_rotation_callback(GtkWidget *widget, gpointer data)
 {
- Preview *p = call_data;
+ Preview *p = data;
  float rotated_surface[4];
  int rot;
 
@@ -5556,8 +5612,10 @@ static void preview_rotation_callback(GtkWidget *widget, gpointer call_data)
 
   p->rotation = rot;
 
-  preview_update_selection(p); /* read selection from backend: correct rotation */
+  p->block_update_maximum_output_size_clipping = TRUE; /* necessary when in copy mode */
   preview_update_surface(p, 2); /* rotate surfaces */
+  p->block_update_maximum_output_size_clipping = FALSE;
+  preview_update_selection(p); /* read selection from backend: correct rotation */
   xsane_batch_scan_update_icon_list(); /* rotate batch scan icons */
 }
 
@@ -6106,81 +6164,18 @@ gint preview_area_resize_handler(GtkWidget *widget, GdkEvent *event, gpointer da
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
-#if 0
-void preview_update_maximum_output_size(Preview *p)
-{
-  DBG(DBG_proc, "preview_update_maximum_output_size\n");
-
-  if ( (p->maximum_output_width >= INF) || (p->maximum_output_height >= INF) )
-  {
-    if (p->selection_maximum.active)
-    {
-      p->selection_maximum.active = FALSE;
-    }
-  }
-  else
-  {
-    p->previous_selection_maximum = p->selection_maximum;
-
-    p->selection_maximum.active = TRUE;
-    p->selection_maximum.coordinate[0] = (p->selection.coordinate[0] + p->selection.coordinate[2] - p->maximum_output_width )/2.0;
-    p->selection_maximum.coordinate[1] = (p->selection.coordinate[1] + p->selection.coordinate[3] - p->maximum_output_height)/2.0;
-    p->selection_maximum.coordinate[2] = (p->selection.coordinate[0] + p->selection.coordinate[2] + p->maximum_output_width )/2.0;
-    p->selection_maximum.coordinate[3] = (p->selection.coordinate[1] + p->selection.coordinate[3] + p->maximum_output_height)/2.0;
-
-    if (p->selection_maximum.coordinate[0] < p->max_scanner_surface[0])
-    {
-      p->selection_maximum.coordinate[0] = p->max_scanner_surface[0];
-    }
-
-    if (p->selection_maximum.coordinate[1] < p->max_scanner_surface[1])
-    {
-      p->selection_maximum.coordinate[1] = p->max_scanner_surface[1];
-    }
-
-    if (p->selection_maximum.coordinate[2] > p->max_scanner_surface[2])
-    {
-      p->selection_maximum.coordinate[2] = p->max_scanner_surface[2];
-    }
-
-    if (p->selection_maximum.coordinate[3] > p->max_scanner_surface[3])
-    {
-      p->selection_maximum.coordinate[3] = p->max_scanner_surface[3];
-    }
-
-    if ( (p->selection.coordinate[0] < p->selection_maximum.coordinate[0]) ||
-         (p->selection.coordinate[1] < p->selection_maximum.coordinate[1]) ||
-         (p->selection.coordinate[2] > p->selection_maximum.coordinate[2]) ||
-         (p->selection.coordinate[3] > p->selection_maximum.coordinate[3]) )
-    {
-      if (p->selection.coordinate[0] < p->selection_maximum.coordinate[0])
-      {
-        p->selection.coordinate[0] = p->selection_maximum.coordinate[0];
-      }
-
-      if (p->selection.coordinate[1] < p->selection_maximum.coordinate[1])
-      {
-        p->selection.coordinate[1] = p->selection_maximum.coordinate[1];
-      }
-
-      if (p->selection.coordinate[2] > p->selection_maximum.coordinate[2])
-      {
-        p->selection.coordinate[2] = p->selection_maximum.coordinate[2];
-      }
-
-      if (p->selection.coordinate[3] > p->selection_maximum.coordinate[3])
-      {
-        p->selection.coordinate[3] = p->selection_maximum.coordinate[3];
-      }
-      preview_draw_selection(p);
-      preview_establish_selection(p);
-    }
-  }
-}
-#endif
 
 void preview_update_maximum_output_size(Preview *p)
 {
+ float xxx = 0.0;
+ float yyy = 0.0;
+ float dxmin = 0;
+ float dymin = 0;
+ float dxmax = 0;
+ float dymax = 0;
+
+ int paper_orientation = 0;
+
   if (p->block_update_maximum_output_size_clipping)
   {
     DBG(DBG_info, "preview_update_maximum_output_size: blocked\n");
@@ -6198,42 +6193,131 @@ void preview_update_maximum_output_size(Preview *p)
       p->selection_maximum.active = FALSE;
     }
   }
-  else
+  else /* we have a maximum output size definition */
   {
     p->previous_selection_maximum = p->selection_maximum;
-
     p->selection_maximum.active = TRUE;
-    p->selection_maximum.coordinate[p->index_xmin] = p->selection.coordinate[p->index_xmin];
-    p->selection_maximum.coordinate[p->index_ymin] = p->selection.coordinate[p->index_ymin];
-    p->selection_maximum.coordinate[p->index_xmax] = p->selection.coordinate[p->index_xmin] + p->maximum_output_width;
-    p->selection_maximum.coordinate[p->index_ymax] = p->selection.coordinate[p->index_ymin] + p->maximum_output_height;
 
-    if (p->selection_maximum.coordinate[p->index_xmax] > p->max_scanner_surface[p->index_xmax])
+    if (p->paper_orientation & 4) /* center? */
     {
-      p->selection_maximum.coordinate[p->index_xmax] = p->max_scanner_surface[p->index_xmax];
+      paper_orientation = p->paper_orientation;
+    }
+    else /* not in center */
+    {
+      switch (p->rotation)
+      {
+        default:
+        case 0: /* 0 degree */
+          paper_orientation = p->paper_orientation & 3;
+         break;
+
+        case 1: /* 90 degree */
+          paper_orientation = (1 - p->paper_orientation) & 3;
+         break;
+
+        case 2: /* 180 degree */
+          paper_orientation = (2 + p->paper_orientation) & 3;
+         break;
+
+        case 3: /* 270 degree */
+          paper_orientation = (3 - p->paper_orientation) & 3;
+         break;
+  
+        case 4: /* 0 degree, x mirror */
+          paper_orientation = (1 - p->paper_orientation) & 3;
+         break;
+ 
+        case 5: /* 90 degree, x mirror */
+          paper_orientation = p->paper_orientation & 3;
+         break;
+
+        case 6: /* 180 degree, x mirror */
+          paper_orientation = (3 - p->paper_orientation) & 3;
+         break;
+
+        case 7: /* 270 degree, x mirror */
+          paper_orientation = (2 + p->paper_orientation) & 3;
+         break;
+      }
     }
 
-    if (p->selection_maximum.coordinate[p->index_ymax] > p->max_scanner_surface[p->index_ymax])
+    switch (paper_orientation)
     {
-      p->selection_maximum.coordinate[p->index_ymax] = p->max_scanner_surface[p->index_ymax];
+      default:
+      case 0: /* top left portrait */
+      case 8: /* top left landscape */
+        xxx = 0.0;
+        yyy = 0.0;
+       break;
+
+      case 1: /* top right portrait */
+      case 9: /* top right landscape */
+        xxx = 1.0;
+        yyy = 0.0;
+       break;
+
+      case 2: /* bottom right portrait */
+      case 10: /* bottom right landscape */
+        xxx = 1.0;
+        yyy = 1.0;
+       break;
+
+      case 3: /* bottom left portrait */
+      case 11: /* bottom left landscape */
+        xxx = 0.0;
+        yyy = 1.0;
+       break;
+
+      case 4: /* center portrait */
+      case 12: /* center landscape */
+        xxx = 0.5;
+        yyy = 0.5;
+       break;
     }
+
+    p->selection_maximum.coordinate[p->index_xmin] = p->selection.coordinate[p->index_xmin] + xxx *(-p->selection.coordinate[p->index_xmin] + p->selection.coordinate[p->index_xmax]) - p->maximum_output_width  * xxx - dxmin;
+    p->selection_maximum.coordinate[p->index_ymin] = p->selection.coordinate[p->index_ymin] + yyy *(-p->selection.coordinate[p->index_ymin] + p->selection.coordinate[p->index_ymax]) - p->maximum_output_height * yyy - dymin;
+    p->selection_maximum.coordinate[p->index_xmax] = p->selection.coordinate[p->index_xmin] + xxx *(-p->selection.coordinate[p->index_xmin] + p->selection.coordinate[p->index_xmax]) + p->maximum_output_width  * (1.0 - xxx) + dxmax;
+    p->selection_maximum.coordinate[p->index_ymax] = p->selection.coordinate[p->index_ymin] + yyy *(-p->selection.coordinate[p->index_ymin] + p->selection.coordinate[p->index_ymax]) + p->maximum_output_height * (1.0 - yyy) + dymax;
+
 
     if ( (p->selection.coordinate[p->index_xmin] < p->selection_maximum.coordinate[p->index_xmin]) ||
          (p->selection.coordinate[p->index_ymin] < p->selection_maximum.coordinate[p->index_ymin]) ||
          (p->selection.coordinate[p->index_xmax] > p->selection_maximum.coordinate[p->index_xmax]) ||
          (p->selection.coordinate[p->index_ymax] > p->selection_maximum.coordinate[p->index_ymax]) )
     {
+     int selection_changed = FALSE;
+
+      if (p->selection.coordinate[p->index_xmin] < p->selection_maximum.coordinate[p->index_xmin])
+      {
+        p->selection.coordinate[p->index_xmin] = p->selection_maximum.coordinate[p->index_xmin];
+        selection_changed = TRUE;
+      }
+
+      if (p->selection.coordinate[p->index_ymin] < p->selection_maximum.coordinate[p->index_ymin])
+      {
+        p->selection.coordinate[p->index_ymin] = p->selection_maximum.coordinate[p->index_ymin];
+        selection_changed = TRUE;
+      }
+
       if (p->selection.coordinate[p->index_xmax] > p->selection_maximum.coordinate[p->index_xmax])
       {
         p->selection.coordinate[p->index_xmax] = p->selection_maximum.coordinate[p->index_xmax];
+        selection_changed = TRUE;
       }
 
       if (p->selection.coordinate[p->index_ymax] > p->selection_maximum.coordinate[p->index_ymax])
       {
         p->selection.coordinate[p->index_ymax] = p->selection_maximum.coordinate[p->index_ymax];
+        selection_changed = TRUE;
       }
+
       preview_draw_selection(p);
-      preview_establish_selection(p);
+
+      if (selection_changed)
+      {
+        preview_establish_selection(p); 
+      }
     }
   }
 
@@ -6241,13 +6325,14 @@ void preview_update_maximum_output_size(Preview *p)
 }
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void preview_set_maximum_output_size(Preview *p, float width, float height)
+void preview_set_maximum_output_size(Preview *p, float width, float height, int paper_orientation)
 {
  /* witdh and height in device units */
   DBG(DBG_proc, "preview_set_maximum_output_size\n");
 
   p->maximum_output_width  = width;
   p->maximum_output_height = height;
+  p->paper_orientation     = paper_orientation;
 
   preview_update_maximum_output_size(p);
   preview_draw_selection(p);
@@ -6664,6 +6749,15 @@ void preview_autoselect_scanarea(Preview *p, float *autoselect_coord)
     {
       break;
     }
+  }
+
+  if ( (top >= bottom) || (right <= left) ) /* empty selection: use complete image */
+  {
+    DBG(DBG_info, "autoselect_scanarea: empty selection: using complete area\n");
+    top    = 0;
+    bottom = p->image_height -1;
+    left   = 0;
+    right  = p->image_width -1;
   }
 
   preview_get_scale_device_to_image(p, &xscale, &yscale);

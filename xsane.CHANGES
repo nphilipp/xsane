@@ -2174,3 +2174,84 @@ xsane-0.87 -> 0.88:
  - added xsane.scan_rotation that is used by xsane-scan.c instead of xsane.preview->rotation
 
  - updated translations: cs, de, es, ja, ru, tr
+
+
+xsane-0.88 -> 0.89:
+-------------------
+
+ - 3 pass scanning: data interleaving is done in buffer, patch by <Oliver.Friedrich@hamburg.de>
+
+ - replaced fork() by spawnvp for ocr command in xsane-save.c (patch by Franz Bakan)
+
+ - xsane_save_jpeg does reduce a 16bit/sample images to 8bit/sample at first because jpeg does
+   not support 16 bit/sample
+
+ - xsane_save_ps does reduce 16bit/sample images to 8bit/sample while saving
+
+ - When scanning to file (mode SAVE) then the warning about image depth reduction 16->8 bit/sample
+   for jpeg and postscript is not printed any more.
+
+ - Since april 2000 there is defined a pnm (ppm/pgm) format for 16 bit binary images.
+   With this format the unofficial RAW16 format that has been used by xsane until version 0.88
+   becomes senseless. The RAW16 format has been removed, xsane does create 16 bit binary pnm files
+   now (the difference between the RAW16 and the pnm16binary format is that the pnm16binary format
+   always uses MSB first while RAW16 was written in machine byte order).
+   In preferences-Setup->Image there is a selection if the pnm16 image shall be saved in ascii or
+   binary format.
+   When you have any problems with the pnm16binary format then make sure at first that the program
+   you use does support it correct. imagemagic does support it, the xv version 3.10a does not
+   support it.
+
+ - read_pnm_header now does read the gamma, contrast, brightness, threshold values, so when these
+   data is saved in an image then it is correct now.
+
+ - gamma, brightness, contrast and threshold are added in the header of pnm files now
+
+ - when 16 bit image is scanned and "reduce 16bit image to 8bit" is selected and the image
+   is saved as pnm then the file is created correct now
+
+ - batch scan thumbnail: replaced gdk_image by gtk_preview
+   gdk_image needs pixel colors based on hardware, gtk_preview uses truecolor pixels.
+
+ - added po file converstion to utf8 in po/Makefile[.in]
+
+ - added documentation for batch scan window
+
+ - changed page size in range from (max-min)*1e-40 to (max-min)*1e-30
+   because some systems like solaris had problems (one long bar that
+   could not be moved)
+
+ - xsane-preview.c: in case of an error the error error text is created before
+   preview_scan_done is called when parameters->* are needed for creating the
+   error message
+
+ - made html pages compatible to html 4.01
+
+ - changed header of postscript files, may be this solves the printing problem on some systems
+
+ - added "%%EOF" to end of postscript files
+
+ - updated translations: cs, de, fr, ja, nl, ru, sv (update for 0.88), tr
+ - new translations: pt, pt_BR
+
+ - add no_device icon in error message: no devices available
+
+ - added help_no_devices dialog
+
+ - added device icon in device_scanning_dialog
+
+ - added a frame in the decision dialog
+
+ - when preview_autoselect_scanarea does not find an image then
+   the complete image is used
+
+ - added accelerator key ESC to decision dialog:
+   when a reject button (right) is available then ESC=reject,
+   when no reject button is available then ESC=OK.
+
+ - set block_update_maximum_output_size_clipping in preview_rotation_callback,
+   now rotation does work like expected when in copy mode
+
+ - added paper_orientation menu in copy mode
+
+ - xsane_back_gtk_panel_destory: added test if panel exisits (!xsane.xsane_hbox)

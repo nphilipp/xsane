@@ -1,0 +1,2591 @@
+# Swedish translation for XSane.
+# Copyright (C) 1999-2001 Johan Bengtsson
+# Johan Bengtsson
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: XSANE 0.88\n"
+"POT-Creation-Date: 2002-10-20 22:23+0200\n"
+"PO-Revision-Date: 2002-10-09 23:13+01:00\n"
+"Last-Translator: Johan Bengtsson <johanb@lls.se>\n"
+"Language-Team: LANGUAGE <sv@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Please translate this to the correct directory name (eg. german=>de)
+#. XSANE_LANGUAGE_DIR
+msgid "language_dir"
+msgstr "se"
+
+#. XSANE_COPYRIGHT_SIGN
+msgid "(c)"
+msgstr "(c)"
+
+#. can be translated with \251
+#. WINDOW_ABOUT_XSANE
+msgid "About"
+msgstr "Om"
+
+#. WINDOW_ABOUT_TRANSLATION, MENU_ITEM_ABOUT_TRANSLATION
+msgid "About translation"
+msgstr "Om översättningen"
+
+#. WINDOW_AUTHORIZE
+msgid "authorization"
+msgstr "auktorisering"
+
+#. WINDOW_GPL
+msgid "GPL - the license"
+msgstr "GPL - licensen"
+
+#. WINDOW_EULA
+msgid "End User License Agreement"
+msgstr "Licensavtal för slutanvändare"
+
+#. WINDOW_INFO
+msgid "info"
+msgstr "info"
+
+#. WINDOW_LOAD_BATCH_LIST
+msgid "load batch list"
+msgstr "ladda massinläsningslista"
+
+#. WINDOW_SAVE_BATCH_LIST
+msgid "save batch list"
+msgstr "spara massinläsningslista"
+
+#. WINDOW_BATCH_SCAN
+msgid "batch scan"
+msgstr "massinläsning"
+
+#. WINDOW_BATCH_RENAME
+msgid "rename batch area"
+msgstr "byt namn på massinläsningsområde"
+
+#. WINDOW_FAX_PROJECT
+msgid "fax project"
+msgstr "faxprojekt"
+
+#. WINDOW_FAX_RENAME
+msgid "rename fax page"
+msgstr "byt namn på faxsida"
+
+#. WINDOW_FAX_INSERT
+msgid "insert ps-file into fax"
+msgstr "infoga ps-fil i fax"
+
+#. WINDOW_MAIL_PROJECT
+msgid "mail project"
+msgstr "brevprojekt"
+
+#. WINDOW_MAIL_RENAME
+msgid "rename mail image"
+msgstr "byt namn på brevbild"
+
+#. WINDOW_MAIL_INSERT
+msgid "insert file into mail"
+msgstr "infoga fil i brev"
+
+#. WINDOW_PRESET_AREA_RENAME
+msgid "rename preset area"
+msgstr "byt namn på det förinställda området"
+
+#. WINDOW_SETUP
+msgid "setup"
+msgstr "inställningar"
+
+#. WINDOW_HISTOGRAM
+msgid "Histogram"
+msgstr "Histogram"
+
+#. WINDOW_GAMMA
+msgid "Gamma curve"
+msgstr "Gammakurva"
+
+#. WINDOW_STANDARD_OPTIONS
+msgid "Standard options"
+msgstr "Standardinställningar"
+
+#. WINDOW_ADVANCED_OPTIONS
+msgid "Advanced options"
+msgstr "Avancerade inställningar"
+
+#. WINDOW_DEVICE_SELECTION
+msgid "device selection"
+msgstr "Enhetsval"
+
+#. WINDOW_PREVIEW
+msgid "Preview"
+msgstr "Förhandsgranskning"
+
+#. WINDOW_VIEWER
+msgid "Viewer"
+msgstr "Visare"
+
+#. WINDOW_VIEWER_OUTPUT_FILENAME
+msgid "Viewer: select output filename"
+msgstr "Visare: välj utmatningsfilnamn"
+
+#. WINDOW_OCR_OUTPUT_FILENAME
+msgid "Select output filename for OCR text file"
+msgstr "Välj utmatingsfilnamn för OCR textfil"
+
+#. WINDOW_OUTPUT_FILENAME
+msgid "select output filename"
+msgstr "till filnamn"
+
+#. WINDOW_SAVE_SETTINGS
+msgid "save device settings"
+msgstr "sane enhetsinställningar"
+
+#. WINDOW_LOAD_SETTINGS
+msgid "load device settings"
+msgstr "hämta enhetsinställningar"
+
+#. WINDOW_CHANGE_WORKING_DIR
+msgid "change working directory"
+msgstr "ändra arbetskatalog"
+
+#. WINDOW_TMP_PATH
+msgid "select temporary directory"
+msgstr "välj temporär katalog"
+
+#. WINDOW_SCALE
+msgid "Scale image"
+msgstr "Skala bild"
+
+#. WINDOW_DESPECKLE
+msgid "Despeckle image"
+msgstr "Damma av bild"
+
+#. WINDOW_BLUR
+msgid "Blur image"
+msgstr "Sudda till bild"
+
+#. WINDOW_STORE_MEDIUM
+msgid "Store medium definition"
+msgstr "Lagra mediedefinition"
+
+#. WINDOW_NO_DEVICES
+#, fuzzy
+msgid "No devices available"
+msgstr "inga enheter tillgängliga"
+
+#. MENU_FILE
+msgid "File"
+msgstr "Arkiv"
+
+#. MENU_PREFERENCES
+msgid "Preferences"
+msgstr "Inställningar"
+
+#. MENU_VIEW
+msgid "View"
+msgstr "Visa"
+
+#. MENU_HELP
+msgid "Help"
+msgstr "Hjälp"
+
+#. MENU_FILTERS
+msgid "Filters"
+msgstr "Filter"
+
+#. MENU_ITEM_ABOUT_XSANE
+msgid "About XSane"
+msgstr "Om XSane"
+
+#. MENU_ITEM_INFO
+msgid "Info"
+msgstr "Info"
+
+#. MENU_ITEM_QUIT
+msgid "Quit"
+msgstr "Avsluta"
+
+#. MENU_ITEM_SAVE_IMAGE
+msgid "Save image"
+msgstr "Spara bild"
+
+#. MENU_ITEM_OCR
+msgid "OCR - save as text"
+msgstr "OCR - spara som text"
+
+#. MENU_ITEM_CLONE
+msgid "Clone"
+msgstr "Klona"
+
+#. MENU_ITEM_SCALE
+msgid "Scale"
+msgstr "Skala"
+
+#. MENU_ITEM_CLOSE
+msgid "Close"
+msgstr "Stäng"
+
+#. MENU_ITEM_DESPECKLE
+msgid "Despeckle"
+msgstr "Damma av"
+
+#. MENU_ITEM_BLUR
+msgid "Blur"
+msgstr "Sudda till"
+
+#. FRAME_RAW_IMAGE
+msgid "Raw image"
+msgstr "Obearbetad bild"
+
+#. FRAME_ENHANCED_IMAGE
+msgid "Enhanced image"
+msgstr "Bearbetad bild"
+
+#. BUTTON_SCAN
+msgid "Scan"
+msgstr "Läs in"
+
+#. BUTTON_OK
+msgid "Ok"
+msgstr "Ok"
+
+#. BUTTON_ACCEPT
+msgid "Accept"
+msgstr "Acceptera"
+
+#. BUTTON_NOT_ACCEPT
+msgid "Not accept"
+msgstr "Accepterar inte"
+
+#. BUTTON_APPLY
+msgid "Apply"
+msgstr "Tillämpa"
+
+#. BUTTON_CANCEL
+msgid "Cancel"
+msgstr "Avbryt"
+
+#. BUTTON_REDUCE
+msgid "Reduce"
+msgstr "Reducera"
+
+#. BUTTON_CONT_AT_OWN_RISK
+msgid "Continue at your own risk"
+msgstr "Fortsätt på egen risk"
+
+#. BUTTON_BROWSE
+msgid "Browse"
+msgstr "Bläddra"
+
+#. BUTTON_OVERWRITE
+msgid "Overwrite"
+msgstr "Skriv över"
+
+#. BUTTON_BATCH_LIST_SCAN
+msgid "Scan batch list"
+msgstr "Läs in batch lista"
+
+#. BUTTON_BATCH_AREA_SCAN
+msgid "Scan selected area"
+msgstr "Läs in det markerade området"
+
+#. BUTTON_PAGE_DELETE
+msgid "Delete page"
+msgstr "Ta bort sida"
+
+#. BUTTON_PAGE_SHOW
+msgid "Show page"
+msgstr "Visa sida"
+
+#. BUTTON_PAGE_RENAME
+msgid "Rename page"
+msgstr "Byt namn på sida"
+
+#. BUTTON_IMAGE_DELETE
+msgid "Delete image"
+msgstr "Ta bort bild"
+
+#. BUTTON_IMAGE_SHOW
+msgid "Show image"
+msgstr "Visa bild"
+
+#. BUTTON_IMAGE_RENAME
+msgid "Rename image"
+msgstr "Byt namn på bild"
+
+#. BUTTON_FILE_INSERT
+msgid "Insert file"
+msgstr "Infoga fil"
+
+#. BUTTON_CREATE_PROJECT
+msgid "Create project"
+msgstr "Skapa projekt"
+
+#. BUTTON_SEND_PROJECT
+msgid "Send project"
+msgstr "Skicka projekt"
+
+#. BUTTON_DELETE_PROJECT
+msgid "Delete project"
+msgstr "Ta bort projekt"
+
+#. BUTTON_ADD_PRINTER
+msgid "Add printer"
+msgstr "Lägg till skrivare"
+
+#. BUTTON_DELETE_PRINTER
+msgid "Delete printer"
+msgstr "Ta bort skrivare"
+
+#. BUTTON_PREVIEW_ACQUIRE
+msgid "Acquire preview"
+msgstr "Hämta förhandsgranskning"
+
+#. BUTTON_PREVIEW_CANCEL
+msgid "Cancel preview"
+msgstr "Avbryt förhandsgranskning"
+
+#. BUTTON_DISCARD_IMAGE
+msgid "Discard image"
+msgstr "Ta bort bild"
+
+#. BUTTON_DISCARD_ALL_IMAGES
+msgid "Discard all images"
+msgstr "Ta bort alla bilder"
+
+#. BUTTON_DO_NOT_CLOSE
+msgid "Do not close"
+msgstr "Avsluta inte"
+
+#. BUTTON_SCALE_BIND
+msgid "Bind scale"
+msgstr "Bind skala"
+
+#. RADIO_BUTTON_FINE_MODE
+msgid "Fine mode"
+msgstr "Högkvalitetsläge"
+
+#. RADIO_BUTTON_HTML_MAIL
+msgid "HTML mail"
+msgstr "HTML brev"
+
+#. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
+msgid "Save device preferences at exit"
+msgstr "Spara inställningar när programmet avslutas"
+
+#. RADIO_BUTTON_OVERWRITE_WARNING
+msgid "Overwrite warning"
+msgstr "Överskriftsvarning"
+
+#. RADIO_BUTTON_SKIP_EXISTING_NRS
+msgid "Skip existing filenames"
+msgstr "Hoppa över existerande filnamn"
+
+#. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
+msgid "Save 16bit pnm in ascii format"
+msgstr ""
+
+#. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
+msgid "Reduce 16 bit image to 8 bit"
+msgstr "Reducera 16 bits bild till 8 bitar"
+
+#. RADIO_BUTTON_WINDOW_FIXED
+msgid "Main window size fixed"
+msgstr "Fixerad storlek på huvudfönster"
+
+#. RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA
+msgid "Disable gimp preview gamma"
+msgstr "Koppla bort förhandsgranskningsgamma"
+
+#. RADIO_BUTTON_PRIVATE_COLORMAP
+msgid "Use private colormap"
+msgstr "Använd egen färgpalett"
+
+#. RADIO_BUTTON_AUTOENHANCE_GAMMA
+msgid "Autoenhance gamma"
+msgstr "Automatisk gammainställning"
+
+#. RADIO_BUTTON_PRESELECT_SCANAREA
+msgid "Preselect scanarea"
+msgstr "Förval av inläsningsyta"
+
+#. RADIO_BUTTON_AUTOCORRECT_COLORS
+msgid "Autocorrect colors"
+msgstr "Autokorrigera färger"
+
+#. RADIO_BUTTON_POP3_AUTHENTIFICATION
+msgid "POP3 authentification"
+msgstr "POP3 autentisering"
+
+#. RADIO_BUTTON_OCR_USE_GUI_PIPE
+msgid "Use GUI progress pipe"
+msgstr "Använd GUI statuslinje"
+
+#. TEXT_SCANNING_DEVICES
+msgid "scanning for devices"
+msgstr "Letar efter enheter..."
+
+#. TEXT_AVAILABLE_DEVICES
+msgid "Available devices:"
+msgstr "Tillgängliga enheter:"
+
+#. TEXT_XSANE_OPTIONS
+msgid "XSane options"
+msgstr "XSane-inställningar"
+
+#. TEXT_XSANE_MODE
+msgid "XSane mode"
+msgstr "XSane-läge"
+
+#. TEXT_FILENAME_COUNTER_STEP
+msgid "Step"
+msgstr "Steg"
+
+#. TEXT_FILETYPE
+msgid "Type"
+msgstr "Typ"
+
+#. TEXT_SCANNER_BACKEND
+msgid "Scanner and backend:"
+msgstr "Bildläsare och drivrutin:"
+
+#. TEXT_VENDOR
+msgid "Vendor:"
+msgstr "Tillverkare:"
+
+#. TEXT_MODEL
+msgid "Model:"
+msgstr "Modell:"
+
+#. TEXT_TYPE
+msgid "Type:"
+msgstr "Typ:"
+
+#. TEXT_DEVICE
+msgid "Device:"
+msgstr "Enhet:"
+
+#. TEXT_LOADED_BACKEND
+msgid "Loaded backend:"
+msgstr "Laddad drivrutin:"
+
+#. TEXT_SANE_VERSION
+msgid "Sane version:"
+msgstr "Sane version:"
+
+#. TEXT_RECENT_VALUES
+msgid "Recent values:"
+msgstr "Senaste värden:"
+
+#. TEXT_GAMMA_CORR_BY
+msgid "Gamma correction by:"
+msgstr "Gamma korrektion av:"
+
+#. TEXT_SCANNER
+msgid "scanner"
+msgstr "bildläsare"
+
+#. TEXT_SOFTWARE_XSANE
+msgid "software (XSane)"
+msgstr "mjukvara (XSane)"
+
+#. TEXT_NONE
+msgid "none"
+msgstr "ingen"
+
+#. TEXT_GAMMA_INPUT_DEPTH
+msgid "Gamma input depth:"
+msgstr "Gammainmatningsdjup:"
+
+#. TEXT_GAMMA_OUTPUT_DEPTH
+msgid "Gamma output depth:"
+msgstr "Gammautmatningsdjup:"
+
+#. TEXT_SCANNER_OUTPUT_DEPTH
+msgid "Scanner output depth:"
+msgstr "Bildläsarens utmatningsdjup:"
+
+#. TEXT_OUTPUT_FORMATS
+msgid "XSane output formats:"
+msgstr "XSane utmatningsformat:"
+
+#. TEXT_8BIT_FORMATS
+msgid "8 bit output formats:"
+msgstr "8 bits utmatningsformat:"
+
+#. TEXT_16BIT_FORMATS
+msgid "16 bit output formats:"
+msgstr "16 bits utmatningsformat:"
+
+#. TEXT_GIMP_REDUCE_16BIT_TO_8BIT
+msgid ""
+"Gimp does not support depth 16 bits/color.\n"
+"Do you want to reduce the depth to 8 bits/color?"
+msgstr ""
+"Gimp stöder inte 16 bits färgdjup. \n"
+"Vill du reducera till 8 bits färgdjup?"
+
+#. TEXT_REDUCE_16BIT_TO_8BIT
+msgid ""
+"Bit depth 16 bits/color is not supported for this output format.\n"
+"Do you want to reduce the depth to 8 bits/color?"
+msgstr ""
+"16 bits färgdjup stöds inte för detta utmatnings format.\n"
+"Vill du reducera till 8 bits färgdjup?"
+
+#. TEXT_AUTHORIZATION_REQ
+msgid "Authorization required for"
+msgstr "Tillstånd krävs för"
+
+#. TEXT_AUTHORIZATION_SECURE
+msgid "Password transmission is secure"
+msgstr "Lösenordstransfer är säker"
+
+#. TEXT_AUTHORIZATION_INSECURE
+msgid "Backend requests plain-text password"
+msgstr "Drivrutin kräver lösenord i klartext"
+
+#. TEXT_USERNAME
+msgid "Username :"
+msgstr "Användarnamn:"
+
+#. TEXT_PASSWORD
+msgid "Password :"
+msgstr "Lösenord:"
+
+#. TEXT_INVALID_PARAMS
+msgid "Invalid parameters."
+msgstr "Ogiltiga parametrar."
+
+#. TEXT_VERSION
+msgid "version:"
+msgstr "version:"
+
+#. TEXT_PACKAGE
+msgid "package"
+msgstr "paket"
+
+#. TEXT_WITH_GIMP_SUPPORT
+msgid "with GIMP support"
+msgstr "med GIMP-support"
+
+#. TEXT_WITHOUT_GIMP_SUPPORT
+msgid "without GIMP support"
+msgstr "utan GIMP-support"
+
+#. TEXT_GTK_VERSION
+msgid "compiled with GTK-"
+msgstr "kompilerad med GTK-"
+
+#. TEXT_GIMP_VERSION
+msgid "compiled with GIMP-"
+msgstr "kompilerad med GIMP-"
+
+#. TEXT_UNKNOWN
+msgid "unknown"
+msgstr "okänd"
+
+#. TEXT_EULA
+msgid ""
+"XSane is distributed under the terms of the GNU General Public License\n"
+"as published by the Free Software Foundation; either version 2 of the\n"
+"License, or (at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but\n"
+"WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+"Should the program prove defective, you assume the cost of all\n"
+"necessary servicing, repair or correction. To use this program you\n"
+"have to read, understand and accept the following\n"
+"\"NO WARRANTY\" agreement.\n"
+msgstr ""
+"XSane distribueras under och omfattas av  GNU General Public License\n"
+"så som den är publicerad av Free Software Foundation; version 2 eller (om du "
+"vill) någon senare\n"
+"version\n"
+"\n"
+"Detta program distribueras med förhoppningen att det skall komma till nytta, "
+"men\n"
+"UTAN NÅGON GARANTI; utan ens någon underförstådd garanti för dess\n"
+"HANDELSBARHETET eller DUGLIGHET FÖR NÅGOT SÄRSKILT ÄNDAMÅL.\n"
+
+#. TEXT_GPL
+msgid ""
+"XSane is distributed under the terms of the GNU General Public License\n"
+"as published by the Free Software Foundation; either version 2 of the\n"
+"License, or (at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but\n"
+"WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+msgstr ""
+"XSane distribueras under och omfattas av  GNU General Public License\n"
+"så som den är publicerad av Free Software Foundation; version 2 eller (om du "
+"vill) någon senare\n"
+"version\n"
+"\n"
+"Detta program distribueras med förhoppningen att det skall komma till nytta, "
+"men\n"
+"UTAN NÅGON GARANTI; utan ens någon underförstådd garanti för dess\n"
+"HANDELSBARHETET eller DUGLIGHET FÖR NÅGOT SÄRSKILT ÄNDAMÅL.\n"
+
+#. TEXT_EMAIL
+msgid "Email:"
+msgstr "Epost:"
+
+#. TEXT_HOMEPAGE
+msgid "Homepage:"
+msgstr "Hemsida:"
+
+#. TEXT_FILE
+msgid "File:"
+msgstr "Fil:"
+
+#. TEXT_TRANSLATION
+msgid "Translation:"
+msgstr "Översättning:"
+
+#. Please translate this to something like
+#. translation to YOUR LANGUAGE\n
+#. by YOUR NAME\n
+#. Email: your.name@yourdomain.com\n
+#. TEXT_TRANSLATION_INFO
+msgid ""
+"untranslated original english text\n"
+"by Oliver Rauch\n"
+"Email: Oliver.Rauch@rauch-domain.de\n"
+msgstr ""
+"Svensk översättning\n"
+"av Johan Bengtsson\n"
+"E-post: johanb@lls.se\n"
+
+#. TEXT_INFO_BOX
+msgid "0x0: 0KB"
+msgstr "0x0: 0KB"
+
+#. TEXT_ADF_PAGES_SCANNED
+msgid "Scanned pages: "
+msgstr "Inlästa sidor: "
+
+#. TEXT_MAIL_TEXT
+msgid "Email text:"
+msgstr "Epost text:"
+
+#. TEXT_ATTACHMENTS
+msgid "Attachments:"
+msgstr "Bilagor:"
+
+#. TEXT_MAIL_STATUS
+msgid "Project status:"
+msgstr "Projekt status:"
+
+#. TEXT_MEDIUM_DEFINITION_NAME
+msgid "Medium Name:"
+msgstr "Namn på medium:"
+
+#. TEXT_VIEWER_IMAGE_INFO
+#, c-format
+msgid ""
+"Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
+msgstr ""
+"Storlek %d x %d pixlar, %d bit/färg, %d färger, %1.0f dpi x %1.0f dpi, %1.1f "
+"%s"
+
+#. TEXT_DESPECKLE_RADIUS
+msgid "Despeckle radius:"
+msgstr "Avdammningsradie:"
+
+#. TEXT_BLUR_RADIUS
+msgid "Blur radius:"
+msgstr "Suddradie:"
+
+#. TEXT_BATCH_AREA_DEFAULT_NAME
+msgid "(no name)"
+msgstr "(inget namn)"
+
+#. TEXT_BATCH_LIST_AREANAME
+#, fuzzy
+msgid "Area name:"
+msgstr "Användarnamn:"
+
+#. TEXT_BATCH_LIST_SCANMODE
+#, fuzzy
+msgid "Scanmode:"
+msgstr "XSane-läge"
+
+#. TEXT_BATCH_LIST_GEOMETRY_TL
+msgid "Top left:"
+msgstr ""
+
+#. TEXT_BATCH_LIST_GEOMETRY_SIZE
+#, fuzzy
+msgid "Size:"
+msgstr "Linje"
+
+#. TEXT_BATCH_LIST_RESOLUTION
+#, fuzzy
+msgid "Resolution:"
+msgstr "Inställning av högkvalitetsläge:"
+
+#. TEXT_BATCH_LIST_BIT_DEPTH
+#, fuzzy
+msgid "Bit depth:"
+msgstr "Gammainmatningsdjup:"
+
+#. TEXT_BATCH_LIST_BY_GUI
+#, fuzzy
+msgid "as selected"
+msgstr "Läs in det markerade området"
+
+#. TEXT_SETUP_PRINTER_SEL
+msgid "Printer selection:"
+msgstr "Välj skrivare:"
+
+#. TEXT_SETUP_PRINTER_NAME
+msgid "Name:"
+msgstr "Namn:"
+
+#. TEXT_SETUP_PRINTER_CMD, TEXT_SETUP_FAX_CMD
+msgid "Command:"
+msgstr "Kommando:"
+
+#. TEXT_SETUP_COPY_NR_OPT
+msgid "Copy number option:"
+msgstr "Flagga för kopienummer:"
+
+#. TEXT_SETUP_PRINTER_LINEART_RES
+msgid "Lineart resolution (dpi):"
+msgstr "Upplösning i grafikläge (dpi):"
+
+#. TEXT_SETUP_PRINTER_GRAYSCALE_RES
+msgid "Grayscale resolution (dpi):"
+msgstr "Upplösning i svartvit läge (dpi):"
+
+#. TEXT_SETUP_PRINTER_COLOR_RES
+msgid "Color resolution (dpi):"
+msgstr "Upplösning i färgläge (dpi):"
+
+#. TEXT_SETUP_PRINTER_WIDTH
+msgid "Width"
+msgstr "Bredd"
+
+#. TEXT_SETUP_PRINTER_HEIGHT
+msgid "Height"
+msgstr "Höjd"
+
+#. TEXT_SETUP_PRINTER_LEFT
+msgid "Left offset"
+msgstr "Vänster marginal"
+
+#. TEXT_SETUP_PRINTER_BOTTOM
+msgid "Bottom offset"
+msgstr "Marginal från botten"
+
+#. TEXT_SETUP_PRINTER_GAMMA
+msgid "Printer gamma value:"
+msgstr "Skrivarens gammavärde:"
+
+#. TEXT_SETUP_PRINTER_GAMMA_RED
+msgid "Printer gamma red:"
+msgstr "Skrivargamma röd:"
+
+#. TEXT_SETUP_PRINTER_GAMMA_GREEN
+msgid "Printer gamma green:"
+msgstr "Skrivargamma grön:"
+
+#. TEXT_SETUP_PRINTER_GAMMA_BLUE
+msgid "Printer gamma blue:"
+msgstr "Skrivargamma blå:"
+
+#. TEXT_SETUP_TMP_PATH
+msgid "Temporary directory"
+msgstr "Temporär katalog"
+
+#. TEXT_SETUP_IMAGE_PERMISSION
+msgid "Image-file permissions"
+msgstr "Rättigheter för bildfil"
+
+#. TEXT_SETUP_DIR_PERMISSION
+msgid "Directory permissions"
+msgstr "Rättigheter för katalog"
+
+#. TEXT_SETUP_JPEG_QUALITY
+msgid "JPEG image quality"
+msgstr "JPEG-bildkvalitet"
+
+#. TEXT_SETUP_PNG_COMPRESSION
+msgid "PNG image compression"
+msgstr "PNG bildkompression"
+
+#. TEXT_SETUP_FILENAME_COUNTER_LEN
+msgid "Filename counter length"
+msgstr "Filnamnsräknarens längd"
+
+#. TEXT_SETUP_TIFF_COMPRESSION_16
+msgid "TIFF 16 bit image compression"
+msgstr "TIFF 16 bit bildkompression"
+
+#. TEXT_SETUP_TIFF_COMPRESSION_8
+msgid "TIFF 8 bit image compression"
+msgstr "TIFF 8 bit bildkompression"
+
+#. TEXT_SETUP_TIFF_COMPRESSION_1
+msgid "TIFF lineart image compression"
+msgstr "TIFF lineart-bildkompression"
+
+#. TEXT_SETUP_SHOW_RANGE_MODE
+msgid "Show range as:"
+msgstr "Visa omfång som:"
+
+#. TEXT_SETUP_PREVIEW_OVERSAMPLING
+msgid "Preview oversampling:"
+msgstr "Översampling vid förhandsgranskning:"
+
+#. TEXT_SETUP_PREVIEW_GAMMA
+msgid "Preview gamma:"
+msgstr "Förhandsgranskningsgamma:"
+
+#. TEXT_SETUP_PREVIEW_GAMMA_RED
+msgid "Preview gamma red:"
+msgstr "Förhandsgranskningsgamma röd:"
+
+#. TEXT_SETUP_PREVIEW_GAMMA_GREEN
+msgid "Preview gamma green:"
+msgstr "Förhandsgranskningsgamma grön:"
+
+#. TEXT_SETUP_PREVIEW_GAMMA_BLUE
+msgid "Preview gamma blue:"
+msgstr "Förhandsgranskningsgamma blå:"
+
+#. TEXT_SETUP_LINEART_MODE
+msgid "Threshold option:"
+msgstr "Inställning av högkvalitetsläge:"
+
+#. TEXT_SETUP_ADF_MODE
+msgid "Automatic Document Feeder Modus:"
+msgstr "Automatisk Dokument Matar Modus:"
+
+#. TEXT_SETUP_PREVIEW_PIPETTE_RANGE
+msgid "Preview pipette range"
+msgstr "Pipettstorlek vid förhandsgranskning"
+
+#. TEXT_SETUP_THRESHOLD_MIN
+msgid "Threshold minimum:"
+msgstr "Tröskelvärdes minimum:"
+
+#. TEXT_SETUP_THRESHOLD_MAX
+msgid "Threshold maximum:"
+msgstr "Tröskelvärdes maximum:"
+
+#. TEXT_SETUP_THRESHOLD_MUL
+msgid "Threshold multiplier:"
+msgstr "Tröskelvärdes multiplikator:"
+
+#. TEXT_SETUP_THRESHOLD_OFF
+msgid "Threshold offset:"
+msgstr "Tröskelvärdes offset:"
+
+#. TEXT_SETUP_GRAYSCALE_SCANMODE
+msgid "Name of grayscale scanmode:"
+msgstr "Namn på scanläge för svartvit"
+
+#. TEXT_SETUP_HELPFILE_VIEWER
+msgid "Helpfile viewer (HTML):"
+msgstr "Hjälpfilsvisare (HTML):"
+
+#. TEXT_SETUP_FAX_RECEIVER_OPTION
+msgid "Receiver option:"
+msgstr "Flagga för mottagare:"
+
+#. TEXT_SETUP_FAX_POSTSCRIPT_OPT
+msgid "Postscriptfile option:"
+msgstr "Flagga för postscriptsfil:"
+
+#. TEXT_SETUP_FAX_NORMAL_MODE_OPT
+msgid "Normal mode option:"
+msgstr "Flagga för normalläge:"
+
+#. TEXT_SETUP_FAX_FINE_MODE_OPT
+msgid "Fine mode option:"
+msgstr "Flagga för högkvalitetsläge:"
+
+#. TEXT_SETUP_FAX_VIEWER
+msgid "Viewer (Postscript):"
+msgstr "Visare (Postscript):"
+
+#. TEXT_SETUP_SMTP_SERVER
+msgid "SMTP server:"
+msgstr "SMTP server"
+
+#. TEXT_SETUP_SMTP_PORT
+msgid "SMTP port:"
+msgstr "SMTP port"
+
+#. TEXT_SETUP_MAIL_FROM
+msgid "From:"
+msgstr "Från:"
+
+#. TEXT_SETUP_MAIL_REPLY_TO
+msgid "Reply to:"
+msgstr "Svara till:"
+
+#. TEXT_SETUP_POP3_SERVER
+msgid "POP3 server:"
+msgstr "POP3 server:"
+
+#. TEXT_SETUP_POP3_PORT
+msgid "POP3 port:"
+msgstr "POP3 port:"
+
+#. TEXT_SETUP_POP3_USER
+msgid "POP3 user:"
+msgstr "POP3 användare:"
+
+#. TEXT_SETUP_POP3_PASS
+msgid "POP3 password:"
+msgstr "POP3 lösenord:"
+
+#. TEXT_SETUP_MAIL_VIEWER
+msgid "Viewer (png):"
+msgstr "Visare (png):"
+
+#. TEXT_SETUP_OCR_COMMAND
+msgid "OCR Command:"
+msgstr "OCR Kommando:"
+
+#. TEXT_SETUP_OCR_INPUTFILE_OPT
+msgid "Inputfile option:"
+msgstr "Inmatningsfilsalternativ:"
+
+#. TEXT_SETUP_OCR_OUTPUTFILE_OPT
+msgid "Outputfile option:"
+msgstr "Utmatningsfilsalternativ:"
+
+#. TEXT_SETUP_OCR_USE_GUI_PIPE_OPT
+msgid "Use GUI progress pipe:"
+msgstr "Använd GUI statuslinje:"
+
+#. TEXT_SETUP_OCR_OUTFD_OPT
+msgid "GUI output-fd option:"
+msgstr "GUI utmating-fd alternativ:"
+
+#. TEXT_SETUP_OCR_PROGRESS_KEYWORD
+msgid "Progress keyword:"
+msgstr "Status nyckelord:"
+
+#. TEXT_SETUP_PERMISSION_USER
+msgid "user"
+msgstr "användare"
+
+#. TEXT_SETUP_PERMISSION_GROUP
+msgid "group"
+msgstr "grupp"
+
+#. TEXT_SETUP_PERMISSION_ALL
+msgid "all"
+msgstr "alla"
+
+#. NOTEBOOK_SAVING_OPTIONS
+msgid "Save"
+msgstr "Spara"
+
+#. NOTEBOOK_IMAGE_OPTIONS
+msgid "Image"
+msgstr "Bild"
+
+#. NOTEBOOK_COPY_OPTIONS
+msgid "Copy"
+msgstr "Kopiera"
+
+#. NOTEBOOK_FAX_OPTIONS
+msgid "Fax"
+msgstr "Faxa"
+
+#. NOTEBOOK_MAIL_OPTIONS
+msgid "Mail"
+msgstr "Post"
+
+#. NOTEBOOK_OCR_OPTIONS
+msgid "OCR"
+msgstr "OCR"
+
+#. NOTEBOOK_DISPLAY_OPTIONS
+msgid "Display"
+msgstr "Visa"
+
+#. NOTEBOOK_ENHANCE_OPTIONS
+msgid "Enhancement"
+msgstr "Bearbetning"
+
+#. MENU_ITEM_MAIL
+msgid "Email"
+msgstr "Epost"
+
+#. MENU_ITEM_SHOW_TOOLTIPS
+msgid "Show tooltips"
+msgstr "Visa ballonghjälp"
+
+#. MENU_ITEM_SHOW_PREVIEW
+msgid "Show preview"
+msgstr "Visa förhandsgranskning"
+
+#. MENU_ITEM_SHOW_HISTOGRAM
+msgid "Show histogram"
+msgstr "Visa histogram"
+
+#. MENU_ITEM_SHOW_GAMMA
+msgid "Show gamma curve"
+msgstr "Visa gammavärdeskurva"
+
+#. MENU_ITEM_SHOW_BATCH_SCAN
+msgid "Show batch scan"
+msgstr "Visa massinläsning"
+
+#. MENU_ITEM_SHOW_STANDARDOPTIONS
+msgid "Show standard options"
+msgstr "Visa standardinställningar"
+
+#. MENU_ITEM_SHOW_ADVANCEDOPTIONS
+msgid "Show advanced options"
+msgstr "Visa avancerade inställningar"
+
+#. MENU_ITEM_SETUP
+msgid "Setup"
+msgstr "Inställningar"
+
+#. MENU_ITEM_LENGTH_UNIT
+msgid "Length unit"
+msgstr "Längdenhet"
+
+#. SUBMENU_ITEM_LENGTH_MILLIMETERS
+msgid "millimeters"
+msgstr "millimeter"
+
+#. SUBMENU_ITEM_LENGTH_CENTIMETERS
+msgid "centimeters"
+msgstr "centimeter"
+
+#. SUBMENU_ITEM_LENGTH_INCHES
+msgid "inches"
+msgstr "tum"
+
+#. MENU_ITEM_UPDATE_POLICY
+msgid "Update policy"
+msgstr "Uppdateringspolicy"
+
+#. SUBMENU_ITEM_POLICY_CONTINUOUS
+msgid "continuous"
+msgstr "kontinuerlig"
+
+#. SUBMENU_ITEM_POLICY_DISCONTINU
+msgid "discontinuous"
+msgstr "diskontinuerlig"
+
+#. SUBMENU_ITEM_POLICY_DELAYED
+msgid "delayed"
+msgstr "fördröjd"
+
+#. MENU_ITEM_SHOW_RESOLUTIONLIST
+msgid "Show resolution list"
+msgstr "Visa upplösningslista"
+
+#. MENU_ITEM_PAGE_ROTATE
+msgid "Rotate postscript"
+msgstr "Rotera postscript"
+
+#. MENU_ITEM_SAVE_DEVICE_SETTINGS
+msgid "Save device settings"
+msgstr "Spara enhetsinställningar"
+
+#. MENU_ITEM_LOAD_DEVICE_SETTINGS
+msgid "Load device settings"
+msgstr "Hämta enhetsinställningar"
+
+#. MENU_ITEM_CHANGE_WORKING_DIR
+msgid "Change directory"
+msgstr "Byt katalog"
+
+#. MENU_ITEM_XSANE_EULA
+msgid "Show EULA"
+msgstr "Visa EULA"
+
+#. MENU_ITEM_XSANE_GPL
+msgid "Show license (GPL)"
+msgstr "Visa licens (GPL)"
+
+#. MENU_ITEM_XSANE_DOC
+msgid "XSane doc"
+msgstr "XSane doc"
+
+#. MENU_ITEM_BACKEND_DOC
+msgid "Backend doc"
+msgstr "Drivrutin doc"
+
+#. MENU_ITEM_AVAILABLE_BACKENDS
+msgid "Available backends"
+msgstr "Tillgängliga drivrutiner"
+
+#. MENU_ITEM_SCANTIPS
+msgid "Scantips"
+msgstr "Bildinläsningstips"
+
+#. MENU_ITEM_PROBLEMS
+msgid "Problems?"
+msgstr "Problem?"
+
+#. MENU_ITEM_COUNTER_LEN_INACTIVE
+msgid "inactive"
+msgstr "inaktiv"
+
+#. MENU_ITEM_TIFF_COMP_NONE
+msgid "no compression"
+msgstr "ingen kompression"
+
+#. MENU_ITEM_TIFF_COMP_CCITTRLE
+msgid "CCITT 1D Huffman compression"
+msgstr "CCITT 1D Huffmankompression"
+
+#. MENU_ITEM_TIFF_COMP_CCITFAX3
+msgid "CCITT Group 3 Fax compression"
+msgstr "CCITT Grupp 3 faxkompression"
+
+#. MENU_ITEM_TIFF_COMP_CCITFAX4
+msgid "CCITT Group 4 Fax compression"
+msgstr "CCITT Grupp 4 faxkompression"
+
+#. MENU_ITEM_TIFF_COMP_JPEG
+msgid "JPEG DCT compression"
+msgstr "JPEG DCT kompression"
+
+#. MENU_ITEM_TIFF_COMP_PACKBITS
+msgid "pack bits"
+msgstr "packbits"
+
+#. MENU_ITEM_RANGE_SCALE
+msgid "Slider (Scale)"
+msgstr "Linje (Skala)"
+
+#. MENU_ITEM_RANGE_SCROLLBAR
+msgid "Slider (Scrollbar)"
+msgstr "Linje (Rullningslist)"
+
+#. MENU_ITEM_RANGE_SPINBUTTON
+msgid "Spinbutton"
+msgstr "Vred"
+
+#. MENU_ITEM_RANGE_SCALE_SPIN
+msgid "Scale and Spinbutton"
+msgstr "Skala och Vred"
+
+#. MENU_ITEM_RANGE_SCROLL_SPIN
+msgid "Scrollbar and Spinbutton"
+msgstr "Rullningslist och Vred"
+
+#. MENU_ITEM_LINEART_MODE_STANDARD
+msgid "Standard options window (lineart)"
+msgstr "Standardinställningar (grafik)"
+
+#. MENU_ITEM_LINEART_MODE_XSANE
+msgid "XSane main window (lineart)"
+msgstr "XSane huvudfönster (grafik)"
+
+#. MENU_ITEM_LINEART_MODE_GRAY
+msgid "XSane main window (grayscale->lineart)"
+msgstr "XSane huvudfönster (svartvit->grafik)"
+
+#. MENU_ITEM_SELECTION_NONE
+msgid "(none)"
+msgstr "(ingen)"
+
+#. MENU_ITEM_FILETYPE_BY_EXT
+msgid "by ext"
+msgstr "filändelse"
+
+#. MENU_ITEM_PRESET_AREA_ADD_SEL
+msgid "Add selection to list"
+msgstr "Lägg till utvalt område i listan"
+
+#. MENU_ITEM_PRESET_AREA_RENAME
+msgid "Rename definiton"
+msgstr "Byt namn på inställning"
+
+#. MENU_ITEM_PRESET_AREA_DELETE
+msgid "Delete definition"
+msgstr "Ta bort inställning"
+
+#. MENU_OTEM_PRESET_AREA_MOVE_UP
+msgid "Move up"
+msgstr "Flytta upp"
+
+#. MENU_OTEM_PRESET_AREA_MOVE_DWN
+msgid "Move down"
+msgstr "Flytta ner"
+
+#. PROGRESS_SCANNING
+msgid "Scanning"
+msgstr "Läser in"
+
+#. PROGRESS_RECEIVING_FRAME_DATA
+#, c-format
+msgid "Receiving %s data"
+msgstr "Tar emot %s data"
+
+#. PROGRESS_TRANSFERING_DATA
+msgid "Transfering image"
+msgstr "För över bild"
+
+#. PROGRESS_ROTATING_DATA
+msgid "Rotating image"
+msgstr "Roterar bild"
+
+#. PROGRESS_MIRRORING_DATA
+msgid "Mirroring image"
+msgstr "Speglar bild"
+
+#. PROGRESS_PACKING_DATA
+msgid "Packing image"
+msgstr "Packar bild"
+
+#. PROGRESS_CONVERTING_DATA
+msgid "Converting image"
+msgstr "Konverterar data...."
+
+#. PROGRESS_SAVING_DATA
+msgid "Saving image"
+msgstr "Sparar bild"
+
+#. PROGRESS_CLONING_DATA
+msgid "Cloning image"
+msgstr "Klonar bild"
+
+#. PROGRESS_SCALING_DATA
+msgid "Scaling image"
+msgstr "Skalar bild"
+
+#. PROGRESS_DESPECKLING_DATA
+msgid "Despeckling image"
+msgstr "Damma av bild"
+
+#. PROGRESS_BLURING_DATA
+msgid "Bluring image"
+msgstr "Sudda till bild"
+
+#. PROGRESS_OCR
+msgid "OCR in progress"
+msgstr "OCR pågår"
+
+#. DESC_SCAN_START
+msgid "Start scan <Ctrl-Enter>"
+msgstr "Starta inläsning <Ctrl-Enter>"
+
+#. DESC_SCAN_CANCEL
+msgid "Cancel scan <ESC>"
+msgstr "Avbryt inläsning <ESC>"
+
+#. DESC_PREVIEW_ACQUIRE
+msgid "Acquire preview scan <Alt-p>"
+msgstr "Hämta in förhandsgranskning <Alt-p>"
+
+#. DESC_PREVIEW_CANCEL
+msgid "Cancel preview scan <Alt-ESC>"
+msgstr "Avbryt förhandsgranskning <Alt-ESC>"
+
+#. DESC_XSANE_MODE
+msgid ""
+"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or mail-<Ctrl-"
+"m>"
+msgstr ""
+"spara-<Ctrl-s>, visa-<Ctrl-v>, fotokopia-<Ctrl-c>, faxa-<Ctrl-f> eller posta-"
+"<Ctrl-"
+
+#. DESC_XSANE_MEDIUM
+msgid "Select source medium type"
+msgstr "Välj typ av källmedium"
+
+#. DESC_FILENAME_COUNTER_STEP
+msgid "Value that is added to filenamecounter after scan"
+msgstr "Värde som adderas till filnamnsräknare efter inläsning"
+
+#. DESC_BROWSE_FILENAME
+msgid "Browse for image filename"
+msgstr "Bläddra efter filnamn"
+
+#. DESC_FILENAME
+msgid "Filename for scanned image"
+msgstr "Filnamn för inläst bild"
+
+#. DESC_FILETYPE
+msgid ""
+"Type of image format, the suitable filename extension is automatically added "
+"to the filename"
+msgstr ""
+"Typ av bildformat, den passande filändelsen läggs automatiskt till filnamnet"
+
+#. DESC_FAXPROJECT
+msgid "Enter name of fax project"
+msgstr "Skriv in namn för faxprojekt"
+
+#. DESC_FAXPAGENAME
+msgid "Enter new name for faxpage"
+msgstr "Skriv in nytt namn för faxsida"
+
+#. DESC_FAXRECEIVER
+msgid "Enter receiver phone number or address"
+msgstr "Skriv in mottagarens telefonnummer eller adress"
+
+#. DESC_MAILPROJECT
+msgid "Enter name of mail project"
+msgstr "Skriv in namn för brevprojekt"
+
+#. DESC_MAILIMAGENAME
+msgid "Enter new name for mail image"
+msgstr "Skriv in nytt namn för brevbild"
+
+#. DESC_MAILRECEIVER
+msgid "Enter email address"
+msgstr "Skriv in epost adress"
+
+#. DESC_MAILSUBJECT
+msgid "Enter subject of email"
+msgstr "Skriv in ämne för epost"
+
+#. DESC_PRESET_AREA_NAME
+msgid "Enter new name for preset area"
+msgstr "Skriv in nytt namn för förinställt område"
+
+#. DESC_PRINTER_SELECT
+msgid "Select printerdefinition <Shift-F1/F2/...>"
+msgstr "Välj skrivardefinition <Shift-F1/F2/...>"
+
+#. DESC_RESOLUTION
+msgid "Set scan resolution"
+msgstr "Ställ in bildläsarupplösning"
+
+#. DESC_RESOLUTION_X
+msgid "Set scan resolution for x direction"
+msgstr "Ställ in bildläsarupplösning x inriktning"
+
+#. DESC_RESOLUTION_Y
+msgid "Set scan resolution for y direction"
+msgstr "Ställ in bildläsarupplösning"
+
+#. DESC_ZOOM
+msgid "Set zoomfactor"
+msgstr "Ställ in zoomfaktor"
+
+#. DESC_ZOOM_X
+msgid "Set zoomfactor for x direction"
+msgstr "Ställ in zoomfaktor för x riktning"
+
+#. DESC_ZOOM_Y
+msgid "Set zoomfactor for y direction"
+msgstr "Ställ in zoomfaktor för y riktning"
+
+#. DESC_COPY_NUMBER
+msgid "Set number of copies"
+msgstr "Ställ in antal kopior"
+
+#. DESC_NEGATIVE
+msgid "Negative: Invert colors for scanning negatives <Shift-n>"
+msgstr "Negativ: Invertera färger vid inläsning av negativ <Shift-n>"
+
+#. DESC_GAMMA
+msgid "Set gamma value"
+msgstr "Ställ in gammavärde"
+
+#. DESC_GAMMA_R
+msgid "Set gamma value for red component"
+msgstr "Ställ in gammavärde för den röda komponenten"
+
+#. DESC_GAMMA_G
+msgid "Set gamma value for green component"
+msgstr "Ställ in gammavärde för den gröna komponenten"
+
+#. DESC_GAMMA_B
+msgid "Set gamma value for blue component"
+msgstr "Ställ in gammavärde för den blåa komponenten"
+
+#. DESC_BRIGHTNESS
+msgid "Set brightness"
+msgstr "Ställ in ljusstyrka"
+
+#. DESC_BRIGHTNESS_R
+msgid "Set brightness for red component"
+msgstr "Ställ in ljusstyrka för den röda komponenten"
+
+#. DESC_BRIGHTNESS_G
+msgid "Set brightness for green component"
+msgstr "Ställ in ljusstyrka för den gröna komponenten"
+
+#. DESC_BRIGHTNESS_B
+msgid "Set brightness for blue component"
+msgstr "Ställ in ljusstyrka för den blåa komponenten"
+
+#. DESC_CONTRAST
+msgid "Set contrast"
+msgstr "Ställ in kontrast"
+
+#. DESC_CONTRAST_R
+msgid "Set contrast for red component"
+msgstr "Ställ in kontrast för den röda komponenten"
+
+#. DESC_CONTRAST_G
+msgid "Set contrast for green component"
+msgstr "Ställ in kontrast för den gröna komponenten"
+
+#. DESC_CONTRAST_B
+msgid "Set contrast for blue component"
+msgstr "Ställ in kontrast för den blåa komponenten"
+
+#. DESC_THRESHOLD
+msgid "Set threshold"
+msgstr "Ställ in tröskelvärde"
+
+#. DESC_RGB_DEFAULT
+msgid ""
+"RGB default: Set enhancement values for red, green and blue to default "
+"values <Shift-b>:\n"
+" gamma = 1.0\n"
+" brightness = 0\n"
+" contrast = 0"
+msgstr ""
+"RGB standardvärde: Sätt bearbetningvärdena för rött, grönt och blått till "
+"standardvärden: <Shift-b>:\n"
+" gamma = 1.0\n"
+" ljus = 0\n"
+" kontrast = 0"
+
+#. DESC_ENH_AUTO
+msgid "Autoadjust gamma, brightness and contrast <Shift-e>"
+msgstr "Autojustera gamma, ljus och kontrast <Shift-e>"
+
+#. DESC_ENH_DEFAULT
+msgid ""
+"Set default enhancement values <Shift-d>:\n"
+"gamma = 1.0\n"
+"brightness = 0\n"
+"contrast = 0"
+msgstr ""
+"Ställ in standarvärden för bearbetning <Shift-d>:\n"
+"gamma = 1.0\n"
+"ljus = 0\n"
+"kontrast = 0"
+
+#. DESC_ENH_RESTORE
+msgid "Restore enhancement values from preferences <Shift-r>"
+msgstr "Återställ korrigeringsvärden <Shift-r>"
+
+#. DESC_ENH_STORE
+msgid "Store active enhancement values to preferences <Shift-m>"
+msgstr "Spara de aktiva korrigeringsvärdena <Shift-m>"
+
+#. DESC_HIST_INTENSITY
+msgid "Show histogram of intensity/gray <Alt-i>"
+msgstr "Visa histogram för intensitet/gråvärde <Alt-i>"
+
+#. DESC_HIST_RED
+msgid "Show histogram of red component <Alt-r>"
+msgstr "Visa histogram för den röda komponenten <Alt-r>"
+
+#. DESC_HIST_GREEN
+msgid "Show histogram of green component <Alt-g>"
+msgstr "Visa histogram för den gröna komponenten <Alt-g>"
+
+#. DESC_HIST_BLUE
+msgid "Show histogram of blue component <Alt-b>"
+msgstr "Visa histogram för den blåa komponenten <Alt-b>"
+
+#. DESC_HIST_PIXEL
+msgid "Display mode: show histogram with lines instead of pixels <Alt-m>"
+msgstr "Visa histogram med linjer istället för pixlar <Alt-m>"
+
+#. DESC_HIST_LOG
+msgid "Show logarithm of pixelcount <Alt-l>"
+msgstr "Visa pixelantal som logaritm <Alt-l>"
+
+#. DESC_PRINTER_SETUP
+msgid "Select definition to change"
+msgstr "Välj inställning som skall ändras"
+
+#. DESC_PRINTER_NAME
+msgid "Define a name for the selection of this definition"
+msgstr "Definiera ett namn för den här inställningen"
+
+#. DESC_PRINTER_COMMAND
+msgid "Enter command to be executed in copy mode (e.g. \"lpr\")"
+msgstr "Ange ett kommando att exekveras i kopierings läge (m.a.o. \"lpr -\")"
+
+#. DESC_COPY_NUMBER_OPTION
+msgid "Enter option for copy numbers"
+msgstr "Skriv in flagga för kopienummer"
+
+#. DESC_PRINTER_LINEART_RESOLUTION
+msgid ""
+"Resolution with which lineart images are printed and saved in postscript"
+msgstr ""
+"Upplösning med vilken grafiska bilder skrivs ut och sparas i postscript"
+
+#. DESC_PRINTER_GRAYSCALE_RESOLUTION
+msgid ""
+"Resolution with which grayscale images are printed and saved in postscript"
+msgstr ""
+"Upplösning med vilken svartvita bilder skrivs ut och sparas i postscript"
+
+#. DESC_PRINTER_COLOR_RESOLUTION
+msgid "Resolution with which color images are printed and saved in postscript"
+msgstr "Upplösning med vilken färgbilder skrivs ut och sparas i postscript"
+
+#. DESC_PRINTER_WIDTH
+msgid "Width of printable area"
+msgstr "Utskriftsbara områdets bredd"
+
+#. DESC_PRINTER_HEIGHT
+msgid "Height of printable area"
+msgstr "Utskriftsbara områdets höjd"
+
+#. DESC_PRINTER_LEFTOFFSET
+msgid "Left offset from the edge of the paper to the printable area"
+msgstr ""
+"Marginal från den vänstra sidan av pappret till det utskrivbara området"
+
+#. DESC_PRINTER_BOTTOMOFFSET
+msgid "Bottom offset from the edge of the paper to the printable area"
+msgstr "Marginal från botten av pappret till det utskrivbara området"
+
+#. DESC_PRINTER_GAMMA
+msgid "Additional gamma value for photocopy"
+msgstr "Extra gammavärde för fotokopiering"
+
+#. DESC_PRINTER_GAMMA_RED
+msgid "Additional gamma value for red component for photocopy"
+msgstr "Extra gammavärde för den röda komponenten vid fotokopiering"
+
+#. DESC_PRINTER_GAMMA_GREEN
+msgid "Additional gamma value for green component for photocopy"
+msgstr "Extra gammavärde för den gröna komponeneten vid fotokopiering"
+
+#. DESC_PRINTER_GAMMA_BLUE
+msgid "Additional gamma value for blue component for photocopy"
+msgstr "Extra gammavärde för den blåa komponeneten vid fotokopiering"
+
+#. DESC_TMP_PATH
+msgid "Path to temp directory"
+msgstr "Sökväg till temporärkatalogen"
+
+#. DESC_BUTTON_TMP_PATH_BROWSE
+msgid "Browse for temporary directory"
+msgstr "Bläddra efter temporär katalog"
+
+#. DESC_JPEG_QUALITY
+msgid ""
+"Quality in percent if image is saved as jpeg or tiff with jpeg compression"
+msgstr ""
+"Kvalitet i procent om bilden sparas som jpeg eller tiff med jpeg-kompression"
+
+#. DESC_PNG_COMPRESSION
+msgid "Compression if image is saved as png"
+msgstr "Kompression om bilden sparas som png"
+
+#. DESC_FILENAME_COUNTER_LEN
+msgid "Minimum length of counter in filename"
+msgstr "Minimum längd för räknaren i filnamn"
+
+#. DESC_TIFF_COMPRESSION_16
+msgid "Compression type if 16 bit image is saved as tiff"
+msgstr "Kompressionstyp om 16-bits bild sparas som tiff"
+
+#. DESC_TIFF_COMPRESSION_8
+msgid "Compression type if 8 bit image is saved as tiff"
+msgstr "Kompressionstyp om 8-bits bild sparas som tiff"
+
+#. DESC_TIFF_COMPRESSION_1
+msgid "Compression type if lineart image is saved as tiff"
+msgstr "Kompressionstyp om grafisk bild sparas som tiff"
+
+#. DESC_SAVE_DEVPREFS_AT_EXIT
+msgid "Save device dependant preferences in default file at exit of xsane"
+msgstr "Spara enhetsberoende inställningar i standardfilen när xsane avslutas"
+
+#. DESC_OVERWRITE_WARNING
+msgid "Warn before overwriting an existing file"
+msgstr "Varna innan en befintlig fil skrivs över"
+
+#. DESC_SKIP_EXISTING
+msgid ""
+"If filename counter is automatically increased, used numbers are skipped"
+msgstr ""
+"Om filnamnsräknaren automatiskt uppdateras, så hoppas använda nummer över"
+
+#. DESC_SAVE_PNM16_AS_ASCII
+msgid ""
+"When a 16 bit image shall be saved in pnm format then use ascii format "
+"instead of binary format. The binary format is a new format that is not "
+"supported by all programs. The ascii format is supported by more programs "
+"but it produces really huge files!!!"
+msgstr ""
+
+#. DESC_REDUCE_16BIT_TO_8BIT
+msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
+msgstr "Spara bild med 8/bits färg om bildläsare skickar bild med 16 bits/färg"
+
+#. DESC_PSFILE_WIDTH
+msgid "Width of paper for postscript files"
+msgstr "Pappersbredd för postscript filer"
+
+#. DESC_PSFILE_HEIGHT
+msgid "Height of paper for postscript files"
+msgstr "Pappershöjd för postscript filer"
+
+#. DESC_PSFILE_LEFTOFFSET
+msgid ""
+"Left offset from the edge of the paper to the usable area for postscript "
+"files"
+msgstr ""
+"Marginal från den vänstra sidan av pappret till det utskrivbara området för "
+"postscriptfiler"
+
+#. DESC_PSFILE_BOTTOMOFFSET
+msgid ""
+"Bottom offset from the edge of the paper to the usable area for postscript "
+"files"
+msgstr ""
+"Marginal från botten av pappret till det utskrivbara området för "
+"postscriptfiler"
+
+#. DESC_MAIN_WINDOW_FIXED
+msgid "Use fixed main window size or scrolled, resizable main window"
+msgstr ""
+"Använd en fixerad storlek för huvudfönstret, eller ett rullbart fönster med "
+"variabel storlek"
+
+#. DESC_DISABLE_GIMP_PREVIEW_GAMMA
+msgid "Disable preview gamma when XSane runs as gimp plugin"
+msgstr ""
+"Koppla bort förhandsgranskningsgamma när XSane körs som gimp insticksprogram"
+
+#. DESC_PREVIEW_COLORMAP
+msgid "Use an own colormap for preview if display depth is 8 bpp"
+msgstr ""
+"Använd egna färginställningar för förhandsgranskning om visningsläget är 8bpp"
+
+#. DESC_SHOW_RANGE_MODE
+msgid "Select how a range is displayed"
+msgstr "Välj hur ett omfång visas"
+
+#. DESC_PREVIEW_OVERSAMPLING
+msgid "Value with that the calculated preview resolution is multiplied"
+msgstr ""
+"Värde som den kalkylerade förhandsgranskningsupplösningen multipliceras med"
+
+#. DESC_PREVIEW_GAMMA
+msgid "Set gamma correction value for preview image"
+msgstr "Ställ in gammakorrigeringsvärde för förhandsgranskningsbild"
+
+#. DESC_PREVIEW_GAMMA_RED
+msgid "Set gamma correction value for red component of preview image"
+msgstr ""
+"Ställ in gammakorrigeringsvärde för den röda komponenten i "
+"förhandsgranskningsbilden"
+
+#. DESC_PREVIEW_GAMMA_GREEN
+msgid "Set gamma correction value for green component of preview image"
+msgstr ""
+"Ställ in gammakorrigeringsvärde för den gröna komponenten i "
+"förhandsgranskningsbilden"
+
+#. DESC_PREVIEW_GAMMA_BLUE
+msgid "Set gamma correction value for blue component of preview image"
+msgstr ""
+"Ställ in gammakorrigeringsvärde för den blåa komponenten i "
+"förhandsgranskningsbilden"
+
+#. DESC_LINEART_MODE
+msgid "Define the way XSane shall handle the threshold option"
+msgstr "Tala om hur XSane skall hantera tröskelvärdesinställningen"
+
+#. DESC_GRAYSCALE_SCANMODE
+msgid ""
+"Select grayscale scanmode. This scanmode is used for lineart preview scan "
+"when transformation from grayscale to lineart is enabled"
+msgstr ""
+"Välj svartvit inläsningsläge. Detta läge används för förhandsgranskning i "
+"grafikläge när överföring från svartvit till grafik är inkopplat"
+
+#. DESC_PREVIEW_THRESHOLD_MIN
+#, no-c-format
+msgid "The scanner's minimum threshold level in %"
+msgstr "Bildläsarens minimala tröskelnivå i %"
+
+#. DESC_PREVIEW_THRESHOLD_MAX
+#, no-c-format
+msgid "The scanner's maximum threshold level in %"
+msgstr "Bildläsarens maximala tröskelnivå i %"
+
+#. DESC_PREVIEW_THRESHOLD_MUL
+msgid ""
+"Multiplier to make XSane threshold range and scanner threshold range the same"
+msgstr ""
+"Multiplikator som synkroniserar tröskelomfången från bildläsaren och XSane"
+
+#. DESC_PREVIEW_THRESHOLD_OFF
+msgid ""
+"Offset to make XSane threshold range and scanner threshold range the same"
+msgstr "Offset som synkroniserar tröskelomfången från bildläsaren och XSane"
+
+#. DESC_ADF_MODE
+msgid ""
+"Select scansource for Automatic Document feeder. If this scansource is "
+"selected XSane scans until \"out of paper\" or error."
+msgstr ""
+"Välj inläsningskälla för Automatisk Dokument Matare. Om denna\n"
+"inläsningskälla är vald läser XSane in framtill \"out of paper\" eller "
+"felmeddelande."
+
+#. DESC_PREVIEW_PIPETTE_RANGE
+msgid "dimension of square that is used to average color for pipette function"
+msgstr ""
+"Storlek på fyrkanten som används för att få fram pipettfunktionens "
+"standarvärde"
+
+#. DESC_DOC_VIEWER
+msgid ""
+"Enter command to be executed to display helpfiles, must be a html-viewer!"
+msgstr ""
+"Skriv in det kommando som köras för att visa hjälpfiler, det måste vara ett "
+"program som kan visa htmlfiler!"
+
+#. DESC_AUTOENHANCE_GAMMA
+msgid "Change gamma value when autoenhancement button is pressed"
+msgstr "Ändra gammavärde när autoexponeringsknappen används"
+
+#. DESC_PRESELECT_SCANAREA
+msgid "Select scanarea after preview scan has finished"
+msgstr "Välj inläsningsområde efter förhandsgranskningen är klar"
+
+#. DESC_AUTOCORRECT_COLORS
+msgid "Do color correction after preview scan has finished"
+msgstr "Gör färgkorrigering efter förhansgranskingen är klar"
+
+#. DESC_FAX_COMMAND
+msgid "Enter command to be executed in fax mode"
+msgstr "Kommando som skall köras i fax läge"
+
+#. DESC_FAX_RECEIVER_OPT
+msgid "Enter option to specify receiver"
+msgstr "Flagga för att specificera mottagare"
+
+#. DESC_FAX_POSTSCRIPT_OPT
+msgid "Enter option to specify postscript files following"
+msgstr "Flagga för att specificera postscript filer följande"
+
+#. DESC_FAX_NORMAL_OPT
+msgid "Enter option to specify normal mode (low resolution)"
+msgstr "Flagga för att specificera normalläge (låg upplösning)"
+
+#. DESC_FAX_FINE_OPT
+msgid "Enter option to specify fine mode (high resolution)"
+msgstr "Flagga för att ställa in högkvalitetsläge (hög upplösning)"
+
+#. DESC_FAX_VIEWER
+msgid "Enter command to be executed to view a fax"
+msgstr "Kommando som körs för att visa ett fax"
+
+#. DESC_FAX_FINE_MODE
+msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
+msgstr "Skicka fax med hög vertikal upplösning (196 lpi istället för 98 lpi)"
+
+#. DESC_SMTP_SERVER
+msgid "IP Address or Domain name of SMTP server"
+msgstr "SMTP serverns IP adress eller domän"
+
+#. DESC_SMTP_PORT
+msgid "port to connect to SMTP server"
+msgstr "port som kopplar upp mot SMTP server"
+
+#. DESC_MAIL_FROM
+msgid "enter your email address"
+msgstr "skriv in din epost adress"
+
+#. DESC_MAIL_REPLY_TO
+msgid "enter email address for replied emails"
+msgstr "skriv in epost adress för besvarad epost"
+
+#. DESC_POP3_AUTHENTIFICATION
+msgid "Authentificate at POP3 server before sending mail"
+msgstr "Autentiserna mot POP3 server innan post skickas"
+
+#. DESC_POP3_SERVER
+msgid "IP Address or Domain name of POP3 server"
+msgstr "POP3 serverns IP adress eller domän"
+
+#. DESC_POP3_PORT
+msgid "port to connect to POP3 server"
+msgstr "port som kopplar upp mot POP3 server"
+
+#. DESC_POP3_USER
+msgid "user name for POP3 server"
+msgstr "användarnamn för POP3 server"
+
+#. DESC_POP3_PASS
+msgid "password for POP3 server"
+msgstr "lösenord för POP3 server"
+
+#. DESC_MAIL_VIEWER
+msgid "Enter command to be executed to view a mail image"
+msgstr "Kommando som körs för att visa en brevbild"
+
+#. DESC_HTML_MAIL
+msgid "Mail is sent in html mode, images are displayed directly"
+msgstr "Post sänds i htmlläge, bilder visas direkt"
+
+#. DESC_OCR_COMMAND
+msgid "Enter command to start ocr program"
+msgstr "Skriv in kommando som startar ocrprogram"
+
+#. DESC_OCR_INPUTFILE_OPT
+msgid "Enter option of the ocr program to define input file"
+msgstr "Skriv in den flagga som definierar inmatingsfilen för ocrprogrammet"
+
+#. DESC_OCR_OUTPUTFILE_OPT
+msgid "Enter option of the ocr program to define output file"
+msgstr "Skriv in den flagga som definierar utmatingsfilen för ocrprogrammet"
+
+#. DESC_OCR_USE_GUI_PIPE_OPT
+msgid "Define if the ocr program supports gui progress pipe"
+msgstr "Definiera om ocrprogrammet stöder gui statuslinje"
+
+#. DESC_OCR_OUTFD_OPT
+msgid ""
+"Enter option of the ocr program to define output filedescripor in GUI mode"
+msgstr "Skriv in ocrprogrammets flagga för utmatingsfildeskriptor i GUI läge"
+
+#. DESC_OCR_PROGRESS_KEYWORD
+msgid "Define Keyword that is used to mark progress information"
+msgstr "Definiera Nyckelord som används för att markera statusinformation"
+
+#. DESC_PERMISSION_READ
+msgid "read"
+msgstr "läs"
+
+#. DESC_PERMISSION_WRITE
+msgid "write"
+msgstr "skriv"
+
+#. DESC_PERMISSION_EXECUTE
+msgid "execute"
+msgstr "exekvera"
+
+#. DESC_ADD_BATCH
+msgid "Add selection for batch scan"
+msgstr "Lägg till utvalt område i listan för massinläsning"
+
+#. DESC_PIPETTE_WHITE
+msgid "Pick white point"
+msgstr "Välj vitpunkt"
+
+#. DESC_PIPETTE_GRAY
+msgid "Pick gray point"
+msgstr "Välj gråpunkt"
+
+#. DESC_PIPETTE_BLACK
+msgid "Pick black point"
+msgstr "Välj svartpunkt"
+
+#. DESC_ZOOM_FULL
+msgid "Use full scanarea"
+msgstr "Använd hela inläsningsområdet"
+
+#. DESC_ZOOM_OUT
+#, no-c-format
+msgid "Zoom 20% out"
+msgstr "Zooma ut 20%"
+
+#. DESC_ZOOM_IN
+msgid "Click at position to zoom to"
+msgstr "Klicka där du vill zooma"
+
+#. DESC_ZOOM_AREA
+msgid "Zoom into selected area"
+msgstr "Zooma in det markerade området"
+
+#. DESC_ZOOM_UNDO
+msgid "Undo last zoom"
+msgstr "Ångra senaste zoomningen"
+
+#. DESC_FULL_PREVIEW_AREA
+msgid "Select visible area"
+msgstr "Markera det synliga området"
+
+#. DESC_AUTOSELECT_SCANAREA
+msgid "Autoselect scanarea"
+msgstr "Automatisk val av inläsningsyta"
+
+#. DESC_AUTORAISE_SCANAREA
+msgid "Autoraise scanarea"
+msgstr "Höj inläsningsyta automatiskt"
+
+#. DESC_DELETE_IMAGES
+msgid "Delete preview image cache"
+msgstr "Ta bort förhandsgransknings bildcache"
+
+#. DESC_PRESET_AREA
+msgid "Preset area"
+msgstr "Förinställt område"
+
+#. DESC_ROTATION
+msgid "Rotate preview and scan"
+msgstr "Rotera förhandsgranskning och inläsning"
+
+#. DESC_PAPER_ORIENTATION
+msgid "Define image position for printing"
+msgstr ""
+
+#. DESC_VIEWER_OCR
+msgid "Optical Character Recognition"
+msgstr "Optisk Tecken Igenkännande"
+
+#. DESC_VIEWER_CLONE
+msgid "Clone image"
+msgstr "Klona bild"
+
+#. DESC_ROTATE90
+msgid "Rotate image 90 degree"
+msgstr "Rotera bild 90 grader"
+
+#. DESC_ROTATE180
+msgid "Rotate image 180 degree"
+msgstr "Rotera bild 180 grader"
+
+#. DESC_ROTATE270
+msgid "Rotate image 270 degree"
+msgstr "Rotera bild 270 grader"
+
+#. DESC_MIRROR_X
+msgid "Mirror image at vertical axis"
+msgstr "Spegla bild vid vertikal axel"
+
+#. DESC_MIRROR_Y
+msgid "Mirror image at horizontal axis"
+msgstr "Spegla bild vid horisontell axel"
+
+#. DESC_VIEWER_ZOOM
+msgid "Zoom image"
+msgstr "Zooma bild"
+
+#. DESC_STORE_MEDIUM
+msgid "Store medium"
+msgstr "Lagra medium"
+
+#. DESC_DELETE_MEDIUM
+msgid "Delete active medium"
+msgstr "Ta bort aktivt medium"
+
+#. DESC_SCALE_FACTOR
+msgid "Scale factor"
+msgstr "Skalnings fakor"
+
+#. DESC_X_SCALE_FACTOR
+msgid "X-Scale factor"
+msgstr "X-skale fakor"
+
+#. DESC_Y_SCALE_FACTOR
+msgid "Y-Scale factor"
+msgstr "Y-Skale faktor"
+
+#. DESC_BATCH_LIST_EMPTY
+msgid "Empty batch list"
+msgstr "Tom massinläsningslista"
+
+#. DESC_BATCH_LIST_SAVE
+msgid "Save batch list"
+msgstr "Spara massinläsningslista"
+
+#. DESC_BATCH_LIST_LOAD
+msgid "Load batch list"
+msgstr "Ladda massinläsningslista"
+
+#. DESC_BATCH_RENAME
+msgid "Rename area"
+msgstr "Byt namn på område"
+
+#. DESC_BATCH_ADD
+msgid "Add selected preview area to batch list"
+msgstr "Lägg till utvalt område till massinläsningslistan"
+
+#. DESC_BATCH_DEL
+msgid "Delete selected area from batch list"
+msgstr "Ta bort det makerade området fråm massinläsningslistan"
+
+#. ERR_HOME_DIR
+msgid "Failed to determine home directory:"
+msgstr "Kunde inte hitta hemkatalogen:"
+
+#. ERR_CHANGE_WORKING_DIR
+msgid "Failed to change working directory to"
+msgstr "Kunde inte ändra arbetskatalog till:"
+
+#. ERR_FILENAME_TOO_LONG
+msgid "Filename too long"
+msgstr "Filnamnet är för långt"
+
+#. ERR_CREATE_TEMP_FILE
+msgid "Could not create temporary file"
+msgstr "Kunde inte skapa temporär fil"
+
+#. ERR_SET_OPTION
+msgid "Failed to set value of option"
+msgstr "Kunde inte sätta värdet för flaggan"
+
+#. ERR_GET_OPTION
+msgid "Failed to obtain value of option"
+msgstr "Kunde inte erhålla värdet för flaggan"
+
+#. ERR_OPTION_COUNT
+msgid "Error obtaining option count"
+msgstr "Fel när värdet för flaggan skulle erhållas"
+
+#. ERR_DEVICE_OPEN_FAILED
+msgid "Failed to open device"
+msgstr "Kunde inte öppna enhet"
+
+#. ERR_NO_DEVICES
+msgid "no devices available"
+msgstr "inga enheter tillgängliga"
+
+#. ERR_DURING_READ
+msgid "Error during read:"
+msgstr "Fel vid inläsning:"
+
+#. ERR_DURING_SAVE
+msgid "Error during save:"
+msgstr "Fel under spararande:"
+
+#. ERR_BAD_DEPTH
+msgid "Can't handle depth"
+msgstr "Kan inte hantera bilddjup"
+
+#. ERR_GIMP_BAD_DEPTH
+#, c-format
+msgid "GIMP can't handle depth %d bits/color"
+msgstr "GIMP kan inte hantera bilddjup med %d bits/färg"
+
+#. ERR_UNKNOWN_SAVING_FORMAT
+msgid "Unknown file format for saving"
+msgstr "Kan inte spara i det här filformatet"
+
+#. ERR_OPEN_FAILED
+msgid "Failed to open"
+msgstr "Kunde inte öppna"
+
+#. ERR_CREATE_SECURE_FILE
+msgid "Could not create secure file (may be a link does exist):"
+msgstr "Kunde inte skapa en säker fil (kanske en länk existerar):"
+
+#. ERR_FAILED_PRINTER_PIPE
+msgid "Failed to open pipe for executing printercommand"
+msgstr "Kunde inte öppna rör för att köra skrivarkommando"
+
+#. ERR_FAILED_EXEC_PRINTER_CMD
+msgid "Failed to execute printercommand:"
+msgstr "Kunde inte köra skrivarkommando:"
+
+#. ERR_FAILED_START_SCANNER
+msgid "Failed to start scanner:"
+msgstr "Kunde inte starta bildläsare:"
+
+#. ERR_FAILED_GET_PARAMS
+msgid "Failed to get parameters:"
+msgstr "Kunde inte erhålla parametrar:"
+
+#. ERR_NO_OUTPUT_FORMAT
+msgid "No output format given"
+msgstr "Inget utmatningsformat angivet"
+
+#. ERR_NO_MEM
+msgid "out of memory"
+msgstr "slut på minne"
+
+#. ERR_TOO_MUCH_DATA
+msgid "Backend sends more image data than it defined in parameters"
+msgstr "Drivrutin skickar mer bilddata än den definierade i sina parametrar"
+
+#. ERR_LIBTIFF
+msgid "LIBTIFF reports error"
+msgstr "LIBTIFF rapporterar fel"
+
+#. ERR_LIBPNG
+msgid "LIBPNG reports error"
+msgstr "LIBPNG rapporterar fel"
+
+#. ERR_UNKNOWN_TYPE
+msgid "unknown type"
+msgstr "okänd typ"
+
+#. ERR_UNKNOWN_CONSTRAINT_TYPE
+msgid "unknown constraint type"
+msgstr "unknown constraint type"
+
+#. ERR_FAILED_EXEC_DOC_VIEWER
+msgid "Failed to execute documentation viewer:"
+msgstr "Kunde inte starta dokumentvisare"
+
+#. ERR_FAILED_EXEC_FAX_VIEWER
+msgid "Failed to execute fax viewer:"
+msgstr "Kunde inte starta faxvisare:"
+
+#. ERR_FAILED_EXEC_FAX_CMD
+msgid "Failed to execute fax command:"
+msgstr "Kunde inte exekvera faxkommando:"
+
+#. ERR_FAILED_EXEC_MAIL_VIEWER
+msgid "Failed to execute mail image viewer:"
+msgstr "Kunde inte starta brevbildsvisare:"
+
+#. ERR_FAILED_EXEC_OCR_CMD
+msgid "Failed to execute ocr command:"
+msgstr "Kunde inte exekvera ocrkommando:"
+
+#. ERR_BAD_FRAME_FORMAT
+msgid "bad frame format"
+msgstr "fel frameformat"
+
+#. ERR_FAILED_SET_RESOLUTION
+msgid "unable to set resolution"
+msgstr "kunde inte sätta upplösning"
+
+#. ERR_PASSWORD_FILE_INSECURE
+#, c-format
+msgid "Password file (%s) is insecure, use permission x00\n"
+msgstr "Lösenordsfil (%s) har säkerhetsproblem, använd rättighet x00\n"
+
+#. ERR_ERROR
+msgid "error"
+msgstr "fel"
+
+#. ERR_MAJOR_VERSION_NR_CONFLICT
+msgid "Sane major version number mismatch!"
+msgstr "Save huvudversionsnummer stämmer inte!"
+
+#. ERR_XSANE_MAJOR_VERSION
+msgid "XSane major version ="
+msgstr "XSane huvudversion ="
+
+#. ERR_BACKEND_MAJOR_VERSION
+msgid "backend major version ="
+msgstr "drivrutin huvudversion ="
+
+#. ERR_PROGRAM_ABORTED
+msgid "*** PROGRAM ABORTED ***"
+msgstr "***PROGRAMMET AVSLUTAT***"
+
+#. ERR_FAILED_ALLOCATE_IMAGE
+msgid "Failed to allocate image memory:"
+msgstr "Kunde inte allokera bild minne:"
+
+#. ERR_PREVIEW_BAD_DEPTH
+msgid "Preview cannot handle bit depth"
+msgstr "Förhandsgranskning kan inte hantera bit-djup"
+
+#. ERR_GIMP_SUPPORT_MISSING
+msgid "GIMP support missing"
+msgstr "Stöd för GIMP saknas"
+
+#. ERR_CREATE_PREVIEW_FILE
+msgid "Could not create temporary preview files"
+msgstr "Kunde inte skapa temporär förhandsgranskningsfil"
+
+#. ERR_CREATE_PREVIEW_FILENAME
+msgid "Could not create filenames for preview files"
+msgstr "Kunde inte skapa filnamn för förhandsgranskningsfiler"
+
+#. ERR_CREATE_FAX_PROJECT
+msgid "Could not create faxproject"
+msgstr "Kunde inte skapa faxprojekt"
+
+#. WARN_COUNTER_UNDERRUN
+msgid "Filename counter underrun"
+msgstr "Filnamnsräknaren är överbelastad"
+
+#. WARN_NO_VALUE_CONSTRAINT
+msgid "warning: option has no value constraint"
+msgstr "varning: alternativet har ingen värdebegränsning"
+
+#. WARN_XSANE_AS_ROOT
+msgid ""
+"You try to run XSane as ROOT, that really is DANGEROUS!\n"
+"\n"
+"Do not send any bug reports when you\n"
+"have any problem while running XSane as root:\n"
+"YOU ARE ALONE!"
+msgstr ""
+"Du kan försöka köra XSane som root, men det är FARLIGT!\n"
+"\n"
+"Skicka inte in några bugrapporter om du\n"
+"har några problem medan du kör XSane som root:\n"
+"DU FÅR KLARA DIG SJÄLV!"
+
+#. ERR_HEADER_ERROR
+msgid "Error"
+msgstr "Fel"
+
+#. ERR_HEADER_WARNING
+msgid "Warning"
+msgstr "Varning"
+
+#. ERR_HEADER_INFO
+msgid "Information"
+msgstr "Information"
+
+#. ERR_HEADER_CHILD_PROCESS_ERROR
+msgid "Child process error"
+msgstr "Barnprocess fel"
+
+#. ERR_FAILED_CREATE_FILE
+msgid "Failed to create file:"
+msgstr "Kunde inte skapa fil:"
+
+#. ERR_LOAD_DEVICE_SETTINGS
+msgid "Error while loading device settings:"
+msgstr "Fel under hämtning av enhetsinställningar:"
+
+#. ERR_NO_DRC_FILE
+msgid "is not a device-rc-file !!!"
+msgstr "är inte en device-rc-fil !!!"
+
+#. ERR_NETSCAPE_EXECUTE_FAIL
+msgid "Failed to execute netscape!"
+msgstr "Kunde inte starta Netscape!"
+
+#. ERR_SENDFAX_RECEIVER_MISSING
+msgid "Send fax: no receiver defined"
+msgstr "Skicka fax: ingen mottagare angiven"
+
+#. ERR_CREATED_FOR_DEVICE
+msgid "has been created for device"
+msgstr "har skapats för enheten"
+
+#. ERR_USED_FOR_DEVICE
+msgid "you want to use it for device"
+msgstr "du vill använda den för enhet"
+
+#. ERR_MAY_CAUSE_PROBLEMS
+msgid "this may cause problems!"
+msgstr "detta kan orsaka problem!"
+
+#. WARN_UNSAVED_IMAGES
+#, c-format
+msgid "There are %d unsaved images"
+msgstr "Det finns %d osparade bilder"
+
+#. WARN_FILE_EXISTS
+#, c-format
+msgid "File %s already exists"
+msgstr "Fil %s existerar redan"
+
+#. ERR_FILE_NOT_EXISTS
+#, c-format
+msgid "File %s does not exist"
+msgstr "Fil %s existerar inte"
+
+#. ERR_FILE_NOT_POSTSCRIPT
+#, c-format
+msgid "File %s is not a postscript file"
+msgstr "Fil %s är inte en postskriptfil"
+
+#. ERR_UNSUPPORTED_OUTPUT_FORMAT
+#, c-format
+msgid "Unsupported %d-bit output format: %s"
+msgstr "%d-bit utmatningsformat som inte stöds: %s"
+
+#. WARN_VIEWER_IMAGE_NOT_SAVED
+msgid "viewer image is not saved"
+msgstr "visarbild sparas inte"
+
+#. TEXT_USAGE
+msgid "Usage:"
+msgstr "Användning:"
+
+#. TEXT_USAGE_OPTIONS
+msgid "[OPTION]... [DEVICE]"
+msgstr "[FLAGGA]... [ENHET]"
+
+#. TEXT_HELP
+msgid ""
+"Start up graphical user interface to access SANE (Scanner Access Now Easy) "
+"devices.\n"
+"\n"
+"The format of [DEVICE] is backendname:devicefile (e.g. umax:/dev/scanner).\n"
+"[OPTION]... can be a combination of the following items:\n"
+" -h, --help                   display this help message and exit\n"
+" -v, --version                print version information\n"
+" -l, --license                print license information\n"
+"\n"
+" -d, --device-settings file   load device settings from file (without \".drc"
+"\")\n"
+"\n"
+" -V, --viewer                 start with viewer-mode active (default)\n"
+" -s, --save                   start with save-mode active\n"
+" -c, --copy                   start with copy-mode active\n"
+" -f, --fax                    start with fax-mode active\n"
+" -m, --mail                   start with mail-mode active\n"
+" -n, --no-mode-selection      disable menu for XSane mode selection\n"
+"\n"
+" -M, --Medium-calibration     enable medium calibration mode\n"
+"\n"
+" -F, --Fixed                  fixed main window size (overwrite preferences "
+"value)\n"
+" -R, --Resizeable             resizable, scrolled main window (overwrite "
+"preferences value)\n"
+"\n"
+" -p, --print-filenames        print image filenames created by XSane\n"
+" -N, --force-filename name    force filename and disable user filename "
+"selection\n"
+"\n"
+" --display X11-display        redirect output to X11-display\n"
+" --no-xshm                    do not use shared memory images\n"
+" --sync                       request a synchronous connection with the X11 "
+"server"
+msgstr ""
+"Startar grafiskt användargränssnitt till SANE (Scanner Access Now Easy) "
+"enheter.\n"
+"\n"
+"Formatet för [ENHET] är drivrutinsnamn:enhetsfil (m.a.o. umax:/dev/"
+"scanner). \n"
+"[FLAGGA] ... kan vara en kombination av följande flaggor:\n"
+"-h, --help                     visa detta hjälpmeddelande och avsluta\n"
+"-v, --version                visa versionsinformation\n"
+"-l, --licens                   visa licensinfomation\n"
+"\n"
+"-d, --device-settings file   hämta enhetsinställningar från en fil (utan \"."
+"drc\")\n"
+"\n"
+" -V, --viewer                 starta med visarläge aktivt (standard)\n"
+" -s, --save                   starta med sparläge aktivt\n"
+"-s, --scan                   starta med bildläsarläge aktivt\n"
+"-c, --copy                   starta med kopiatorläge aktivt\n"
+"-f, --fax                    starta med faxläge aktivt\n"
+" -m, --mail                   starta med postläge aktivt\n"
+"-n, --no-mode-selection      visa inte meny för XSane lägesval\n"
+" -M, --Medium-calibration     slå på mediekalibreringsläge\n"
+"\n"
+"-F, --Fixed                  fast storlek på huvudfönster (skriv över "
+"preferensvärde)\n"
+"-R, --Resizeable             justerbart fönster med rullningslist (skriv "
+"över preferensvärde)\n"
+"\n"
+" -p, --print-filenames        skriv ut filnamn skapade av XSane\n"
+" -N, --force-filename name    sätt filnamn och ignorera filnamn som "
+"användaren väljer\n"
+"--display X11-display        omdirigera utmatning till X11-display\n"
+"--no-xshm                    använd inte delat minne\n"
+"--sync                       kalla på en synkron förbindelse med X11 servern"
+
+#. strings for gimp plugin
+#. XSANE_GIMP_INSTALL_BLURB
+msgid "Front-end to the SANE interface"
+msgstr "Grafiskt interface för SANE bildläsarprogram"
+
+#. XSANE_GIMP_INSTALL_HELP
+msgid ""
+"This function provides access to scanners and other image acquisition "
+"devices through the SANE (Scanner Access Now Easy) interface."
+msgstr ""
+"Den här funktionen ger tillgång till bildläsare och andra inläsningsenheter "
+"genom SANE (Scanner Access Now Easy) gränssnittet."
+
+#. Menu path must not be translated, this is done by the gimp. Only translate the text behind the last "/"
+#. XSANE_GIMP_MENU_DIALOG
+msgid "<Toolbox>/File/Acquire/XSane: Device dialog..."
+msgstr "<Toolbox>/File/Acquire/XSane: Enhets dialog..."
+
+#. XSANE_GIMP_MENU
+msgid "<Toolbox>/File/Acquire/XSane: "
+msgstr "<Toolbox>/File/Acquire/XSane: "
+
+#. XSANE_GIMP_MENU_DIALOG_OLD
+msgid "<Toolbox>/Xtns/XSane/Device dialog..."
+msgstr "<Toolbox>/Xtns/XSane/Enhets dialog..."
+
+#. XSANE_GIMP_MENU_OLD
+msgid "<Toolbox>/Xtns/XSane/"
+msgstr "<Toolbox>/Xtns/XSane/"
+
+#. HELP_NO_DEVICES
+msgid ""
+"Possible reasons:\n"
+"1) There really is no device that is supported by SANE\n"
+"2) Supported devices are busy\n"
+"3) The permissions for the device file do not allow you to use it - try as "
+"root\n"
+"4) The backend is not loaded by SANE (man sane-dll)\n"
+"5) The backend is not configured correct (man sane-\"backendname\")\n"
+"6) Possibly there is more than one SANE version installed"
+msgstr ""
+
+#. strings that are used in structures, so it is not allowed to use _()/gettext() here
+#. gettext_noop does mark these texts but does not change the string
+#. MENU_ITEM_SURFACE_FULL_SIZE
+msgid "full size"
+msgstr "full storlek"
+
+#. MENU_ITEM_SURFACE_DIN_A3P
+msgid "DIN A3 port."
+msgstr "DIN A3 portr."
+
+#. MENU_ITEM_SURFACE_DIN_A3L
+msgid "DIN A3 land."
+msgstr "DIN A3 landsk."
+
+#. MENU_ITEM_SURFACE_DIN_A4P
+msgid "DIN A4 port."
+msgstr "DIN A4 portr."
+
+#. MENU_ITEM_SURFACE_DIN_A4L
+msgid "DIN A4 land."
+msgstr "DIN A4 landsk."
+
+#. MENU_ITEM_SURFACE_DIN_A5P
+msgid "DIN A5 port."
+msgstr "DIN A5 portr."
+
+#. MENU_ITEM_SURFACE_DIN_A5L
+msgid "DIN A5 land."
+msgstr "DIN A5 landsk."
+
+#. MENU_ITEM_SURFACE_13cmx18cm
+msgid "13cm x 18cm"
+msgstr "13cm x 18cm"
+
+#. MENU_ITEM_SURFACE_18cmx13cm
+msgid "18cm x 13cm"
+msgstr "18cm x 13cm"
+
+#. MENU_ITEM_SURFACE_10cmx15cm
+msgid "10cm x 15cm"
+msgstr "10cm x 15cm"
+
+#. MENU_ITEM_SURFACE_15cmx10cm
+msgid "15cm x 10cm"
+msgstr "15cm x 10cm"
+
+#. MENU_ITEM_SURFACE_9cmx13cm
+msgid "9cm x 13cm"
+msgstr "9cm x 13cm"
+
+#. MENU_ITEM_SURFACE_13cmx9cm
+msgid "13cm x 9cm"
+msgstr "13cm x 9cm"
+
+#. MENU_ITEM_SURFACE_legal_P
+msgid "legal port."
+msgstr "legal portr."
+
+#. MENU_ITEM_SURFACE_legal_L
+msgid "legal land."
+msgstr "legal landsk."
+
+#. MENU_ITEM_SURFACE_letter_P
+msgid "letter port."
+msgstr "letter portr."
+
+#. MENU_ITEM_SURFACE_letter_L
+msgid "letter land."
+msgstr "letter landsk."
+
+#. MENU_ITEM_MEDIUM_FULL_COLOR_RANGE
+msgid "Full color range"
+msgstr "Fullt färgomfång"
+
+#. MENU_ITEM_MEDIUM_SLIDE
+msgid "Slide"
+msgstr "Linje"
+
+#. MENU_ITEM_MEDIUM_STANDARD_NEG
+msgid "Standard negative"
+msgstr "Standard negativ"
+
+#. MENU_ITEM_MEDIUM_AGFA_NEG
+msgid "Agfa negative"
+msgstr "Agfa negativ"
+
+#. MENU_ITEM_MEDIUM_AGFA_NEG_XRG200_4
+msgid "Agfa negative XRG 200-4"
+msgstr "Agfa negativ XRG 200-4"
+
+#. MENU_ITEM_MEDIUM_AGFA_NEG_HDC_100
+msgid "Agfa negative HDC 100"
+msgstr "Agfa negativ HDC 100"
+
+#. MENU_ITEM_MEDIUM_FUJI_NEG
+msgid "Fuji negative"
+msgstr "Fuji negativ"
+
+#. MENU_ITEM_MEDIUM_KODAK_NEG
+msgid "Kodak negative"
+msgstr "Kodak negativ"
+
+#. MENU_ITEM_MEDIUM_KONICA_NEG
+msgid "Konica negative"
+msgstr "Konica negativ"
+
+#. MENU_ITEM_MEDIUM_KONICA_NEG_VX_100
+msgid "Konica negative VX 100"
+msgstr "Konica negativ VX 100"
+
+#. MENU_ITEM_MEDIUM_ROSSMANN_NEG_HR_100
+msgid "Rossmann negative HR 100"
+msgstr "Rossmann negativ HR 100"
+
+#. Sane backend messages
+msgid "flatbed scanner"
+msgstr "flatbäddsbildläsare"
+
+msgid "frame grabber"
+msgstr "frame grabber"
+
+msgid "handheld scanner"
+msgstr "handhållen bildläsare"
+
+msgid "still camera"
+msgstr "stillbildskamera"
+
+msgid "video camera"
+msgstr "videokamera"
+
+msgid "virtual device"
+msgstr "virtuell enhet"
+
+msgid "Success"
+msgstr "Operationen lyckades"
+
+msgid "Operation not supported"
+msgstr "Denna operation stöds inte"
+
+msgid "Operation was cancelled"
+msgstr "Operationen inställd"
+
+msgid "Device busy"
+msgstr "Enheten upptagen"
+
+msgid "Invalid argument"
+msgstr "Felaktigt argument"
+
+msgid "End of file reached"
+msgstr "Slutet på filen är nått"
+
+msgid "Document feeder jammed"
+msgstr "Dokumentmataren har hängt sig"
+
+msgid "Document feeder out of documents"
+msgstr "Dokumentmataren har slut på dokument"
+
+msgid "Scanner cover is open"
+msgstr "Bildläsarlocket är öppet"
+
+msgid "Error during device I/O"
+msgstr "Fel under enhets I/O"
+
+msgid "Out of memory"
+msgstr "Slut på minne"
+
+msgid "Access to resource has been denied"
+msgstr "Tillgång till resurs nekas"

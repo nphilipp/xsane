@@ -223,11 +223,6 @@ static void xsane_batch_scan_empty_list(void)
 
     if (parameters)
     {
-#ifdef HAVE_GTK2
-#if 0
-      gdk_image_unref(parameters->gdk_image);
-#endif
-#endif
       free(parameters);
     }
 
@@ -574,11 +569,6 @@ static void xsane_batch_scan_delete(void)
 
     if (parameters)
     {
-#ifdef HAVE_GTK2
-#if 0
-      gdk_image_unref(parameters->gdk_image);
-#endif
-#endif
       free(parameters);
     }
 
@@ -671,11 +661,7 @@ static GtkWidget *xsane_batch_scan_create_list_entry(Batch_Scan_Parameters *para
  GtkWidget *list_item;
  GtkWidget *hbox;
  int size = 120;
- GdkImage *gdk_image;
- GtkWidget *gtk_image;
- GdkBitmap *mask;
  char *data;
- int x;
 
   list_item = gtk_list_item_new();
 
@@ -683,28 +669,14 @@ static GtkWidget *xsane_batch_scan_create_list_entry(Batch_Scan_Parameters *para
   gtk_container_add(GTK_CONTAINER(list_item), hbox);
   gtk_widget_show(hbox);
 
-  data=calloc(size, size);
+  data = calloc(size, size);
 
-  for (x=0; x < size * size; x++)
-  {
-    data[x]=255;
-  }
+  parameters->gtk_preview = gtk_preview_new(GTK_PREVIEW_COLOR);
+  gtk_preview_size(GTK_PREVIEW(parameters->gtk_preview), size, size);
+  gtk_box_pack_start(GTK_BOX(hbox), parameters->gtk_preview, FALSE, FALSE, 0);
+  gtk_widget_show(parameters->gtk_preview);
 
-  gdk_image = gdk_image_new(GDK_IMAGE_NORMAL, gdk_visual_get_best(), size, size); 
-  mask = gdk_bitmap_create_from_data(xsane.batch_scan_dialog->window, data, size, size);
-
-#ifdef HAVE_GTK2
-  gtk_image = gtk_image_new_from_image(gdk_image, mask);
-#else
-  gtk_image = gtk_image_new(gdk_image, mask);
-  /* gtk-1.2.x crashes if we unref_gdk_bitmap(mask) here */
-#endif
-
-  gtk_box_pack_start(GTK_BOX(hbox), gtk_image, FALSE, FALSE, 0);
-  gtk_widget_show(gtk_image);
-
-  parameters->gdk_image = gdk_image;
-  parameters->gdk_image_size = size;
+  parameters->gtk_preview_size = size;
 
   preview_create_batch_icon(xsane.preview, parameters);
 
@@ -1006,6 +978,7 @@ void xsane_create_batch_scan_dialog(const char *devicetext)
   /* the scolled window with the list */
   scrolled_window = gtk_scrolled_window_new(0, 0);
   gtk_widget_set_size_request(scrolled_window, 400, 200);
+  gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
   gtk_container_add(GTK_CONTAINER(batch_scan_vbox), scrolled_window);
   gtk_widget_show(scrolled_window);
 

@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.87\n"
-"POT-Creation-Date: 2002-09-13 08:34+0200\n"
-"PO-Revision-Date: 2002-07-11 18:08+0100\n"
+"POT-Creation-Date: 2002-10-20 22:23+0200\n"
+"PO-Revision-Date: 2002-09-18 19:30+0100\n"
 "Last-Translator: Zdenko Podobný <zdpo@mailbox.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -49,20 +49,19 @@ msgstr "informácie"
 
 #. WINDOW_LOAD_BATCH_LIST
 msgid "load batch list"
-msgstr ""
+msgstr "naèíta» dávkový zoznam"
 
 #. WINDOW_SAVE_BATCH_LIST
 msgid "save batch list"
-msgstr ""
+msgstr "ulo¾i» dávkový zoznam"
 
 #. WINDOW_BATCH_SCAN
 msgid "batch scan"
 msgstr "dávkové skenovanie"
 
 #. WINDOW_BATCH_RENAME
-#, fuzzy
 msgid "rename batch area"
-msgstr "Zmaza» stránku"
+msgstr "premenova» dávkovú oblas»"
 
 #. WINDOW_FAX_PROJECT
 msgid "fax project"
@@ -168,6 +167,11 @@ msgstr "Rozmaza» obrázok"
 msgid "Store medium definition"
 msgstr "Ulo¾i» definíciu média"
 
+#. WINDOW_NO_DEVICES
+#, fuzzy
+msgid "No devices available"
+msgstr "¾iadne zariadenie nie je dostupné"
+
 #. MENU_FILE
 msgid "File"
 msgstr "Súbor"
@@ -237,9 +241,8 @@ msgid "Enhanced image"
 msgstr "Spracovaný obrázok"
 
 #. BUTTON_SCAN
-#, fuzzy
 msgid "Scan"
-msgstr "Skenujem"
+msgstr "Skenova»"
 
 #. BUTTON_OK
 msgid "Ok"
@@ -278,14 +281,12 @@ msgid "Overwrite"
 msgstr "Prepísa»"
 
 #. BUTTON_BATCH_LIST_SCAN
-#, fuzzy
 msgid "Scan batch list"
-msgstr "Tipy pre skenovanie"
+msgstr "Skenova» dávkový zoznam"
 
 #. BUTTON_BATCH_AREA_SCAN
-#, fuzzy
 msgid "Scan selected area"
-msgstr "Priblí¾i» zvolenú oblas»"
+msgstr "Skenova» zvolenú oblas»"
 
 #. BUTTON_PAGE_DELETE
 msgid "Delete page"
@@ -378,6 +379,10 @@ msgstr "Varovanie o prepísaní"
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
 msgid "Skip existing filenames"
 msgstr "Preskoèi» existujúce názvy súborov"
+
+#. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
+msgid "Save 16bit pnm in ascii format"
+msgstr ""
 
 #. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
 msgid "Reduce 16 bit image to 8 bit"
@@ -695,9 +700,8 @@ msgid "Blur radius:"
 msgstr "Polomer rozostrenia:"
 
 #. TEXT_BATCH_AREA_DEFAULT_NAME
-#, fuzzy
 msgid "(no name)"
-msgstr "(¾iadny)"
+msgstr "(bez názvu)"
 
 #. TEXT_BATCH_LIST_AREANAME
 #, fuzzy
@@ -731,7 +735,7 @@ msgstr "Vstupná gama håbka:"
 #. TEXT_BATCH_LIST_BY_GUI
 #, fuzzy
 msgid "as selected"
-msgstr "Priblí¾i» zvolenú oblas»"
+msgstr "Skenova» zvolenú oblas»"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -963,7 +967,7 @@ msgstr "Pou¾i» GUI rúru postupu:"
 
 #. TEXT_SETUP_OCR_OUTFD_OPT
 msgid "GUI output-fd option:"
-msgstr ""
+msgstr "Nastavenie GUI výstupu:"
 
 #. TEXT_SETUP_OCR_PROGRESS_KEYWORD
 msgid "Progress keyword:"
@@ -1034,9 +1038,8 @@ msgid "Show gamma curve"
 msgstr "Zobrazi» gama krivku"
 
 #. MENU_ITEM_SHOW_BATCH_SCAN
-#, fuzzy
 msgid "Show batch scan"
-msgstr "dávkové skenovanie"
+msgstr "Zobrazi» dávkové skenovanie"
 
 #. MENU_ITEM_SHOW_STANDARDOPTIONS
 msgid "Show standard options"
@@ -1618,6 +1621,14 @@ msgid ""
 msgstr ""
 "Ak poèítadlo súborov automaticky zväè¹ovaný, pou¾ité èísla sú preskoèené"
 
+#. DESC_SAVE_PNM16_AS_ASCII
+msgid ""
+"When a 16 bit image shall be saved in pnm format then use ascii format "
+"instead of binary format. The binary format is a new format that is not "
+"supported by all programs. The ascii format is supported by more programs "
+"but it produces really huge files!!!"
+msgstr ""
+
 #. DESC_REDUCE_16BIT_TO_8BIT
 msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
 msgstr ""
@@ -1845,6 +1856,7 @@ msgstr "Urèenie, èi ocr program podporuje gui rúru postupu"
 msgid ""
 "Enter option of the ocr program to define output filedescripor in GUI mode"
 msgstr ""
+"Vlo¾i» nastavenie ocr programu urèujúci výstupný popis súboru v GUI re¾ime"
 
 #. DESC_OCR_PROGRESS_KEYWORD
 msgid "Define Keyword that is used to mark progress information"
@@ -1864,9 +1876,8 @@ msgid "execute"
 msgstr "spustenie"
 
 #. DESC_ADD_BATCH
-#, fuzzy
 msgid "Add selection for batch scan"
-msgstr "Prida» výber do zoznamu"
+msgstr "Prida» výber do zoznamu skenovania"
 
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
@@ -1925,6 +1936,10 @@ msgstr "Predvolená oblas»"
 msgid "Rotate preview and scan"
 msgstr "Otoèenie náhµadu a skenovania"
 
+#. DESC_PAPER_ORIENTATION
+msgid "Define image position for printing"
+msgstr ""
+
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
 msgstr "Optické rozpoznávanie textu"
@@ -1978,31 +1993,28 @@ msgid "Y-Scale factor"
 msgstr "Faktor zmeny veµkosti Y"
 
 #. DESC_BATCH_LIST_EMPTY
-#, fuzzy
 msgid "Empty batch list"
-msgstr "Tipy pre skenovanie"
+msgstr "Prázdny dávkový zoznam"
 
 #. DESC_BATCH_LIST_SAVE
 msgid "Save batch list"
-msgstr ""
+msgstr "Ulo¾i» dávkový zoznam"
 
 #. DESC_BATCH_LIST_LOAD
 msgid "Load batch list"
-msgstr ""
+msgstr "Naèíta» dávkový zoznam"
 
 #. DESC_BATCH_RENAME
-#, fuzzy
 msgid "Rename area"
-msgstr "Premenova» stránku"
+msgstr "Premenova» oblas»"
 
 #. DESC_BATCH_ADD
-#, fuzzy
 msgid "Add selected preview area to batch list"
-msgstr "Prida» výber do zoznamu"
+msgstr "Prida» zvolený náhµad oblasti do zoznamu"
 
 #. DESC_BATCH_DEL
 msgid "Delete selected area from batch list"
-msgstr ""
+msgstr "Zmaza» zvolenú oblas» z dávkového zoznamu"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2400,6 +2412,18 @@ msgstr "<Toolbox>/Extra/XSane/Dialóg zariadenia..."
 msgid "<Toolbox>/Xtns/XSane/"
 msgstr "<Toolbox>/Extra/XSane/"
 
+#. HELP_NO_DEVICES
+msgid ""
+"Possible reasons:\n"
+"1) There really is no device that is supported by SANE\n"
+"2) Supported devices are busy\n"
+"3) The permissions for the device file do not allow you to use it - try as "
+"root\n"
+"4) The backend is not loaded by SANE (man sane-dll)\n"
+"5) The backend is not configured correct (man sane-\"backendname\")\n"
+"6) Possibly there is more than one SANE version installed"
+msgstr ""
+
 #. strings that are used in structures, so it is not allowed to use _()/gettext() here
 #. gettext_noop does mark these texts but does not change the string
 #. MENU_ITEM_SURFACE_FULL_SIZE
@@ -2471,9 +2495,8 @@ msgid "letter land."
 msgstr "letter na ¹írku"
 
 #. MENU_ITEM_MEDIUM_FULL_COLOR_RANGE
-#, fuzzy
 msgid "Full color range"
-msgstr "Celý rozsah"
+msgstr "Celofarebný rozsah"
 
 #. MENU_ITEM_MEDIUM_SLIDE
 msgid "Slide"

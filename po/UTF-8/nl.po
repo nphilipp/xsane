@@ -1,223 +1,248 @@
-# Japanese translation for XSane
-# Copyright (C) 2002
-# Kimizuka Tomokazu <sgtom@pluto.dti.ne.jp>, 2002.
+# Translations for XSane English->Dutch
+# Copyright (C) 2001 Free Software Foundation, Inc.
+# W. Sinke <sinke@wirehub.nl>, 2001, 2002.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.84\n"
-"POT-Creation-Date: 2002-01-22 23:34+0100\n"
-"PO-Revision-Date: 2002-01-17 15:28+0900\n"
-"Last-Translator: Kimizuka Tomokazu <sgtom@pluto.dti.ne.jp>\n"
-"Language-Team: Japanese <Kdeveloper@kde.gr.jp>\n"
+"Project-Id-Version: XSANE 0.89\n"
+"POT-Creation-Date: 2002-10-20 22:23+0200\n"
+"PO-Revision-Date: 2002-09-19 10:55+0100\n"
+"Last-Translator: Wim Sinke <sinke@wirehub.nl>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=EUC-JP\n"
-"Content-Transfer-Encoding: 8-bit\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 
 #. Please translate this to the correct directory name (eg. german=>de)
 #. XSANE_LANGUAGE_DIR
 msgid "language_dir"
-msgstr "言語ディレクトリ"
+msgstr "nl"
 
 #. XSANE_COPYRIGHT_SIGN
 msgid "(c)"
-msgstr ""
+msgstr "©"
 
 #. can be translated with \251
 #. WINDOW_ABOUT_XSANE
 msgid "About"
-msgstr "XSaneについて"
+msgstr "Over"
 
 #. WINDOW_ABOUT_TRANSLATION, MENU_ITEM_ABOUT_TRANSLATION
 msgid "About translation"
-msgstr "翻訳について"
+msgstr "Over vertaling"
 
 #. WINDOW_AUTHORIZE
 msgid "authorization"
-msgstr "アクセス権限"
+msgstr "authorizatie"
 
-#. WINDOW_LICENSE
-msgid "license"
-msgstr "ライセンス"
+#. WINDOW_GPL
+msgid "GPL - the license"
+msgstr "GPL - de gebruikersrechten"
+
+#. WINDOW_EULA
+msgid "End User License Agreement"
+msgstr "Eindgebruikersovereenkomst"
 
 #. WINDOW_INFO
 msgid "info"
-msgstr "情報"
+msgstr "Informatie"
 
+#. WINDOW_LOAD_BATCH_LIST
+msgid "load batch list"
+msgstr "Laad batch lijst"
+
+#. WINDOW_SAVE_BATCH_LIST
+msgid "save batch list"
+msgstr "Bewaar batch lijst"
+
+# Goed genoeg?
 #. WINDOW_BATCH_SCAN
 msgid "batch scan"
-msgstr "バッチスキャン"
+msgstr "batch scan"
+
+#. WINDOW_BATCH_RENAME
+msgid "rename batch area"
+msgstr "Batchgebied hernoemen"
 
 #. WINDOW_FAX_PROJECT
 msgid "fax project"
-msgstr "FAXプロジェクト"
+msgstr "faxproject"
 
 #. WINDOW_FAX_RENAME
 msgid "rename fax page"
-msgstr "FAXページをリネーム"
+msgstr "Faxpagina hernoemen"
 
 #. WINDOW_FAX_INSERT
 msgid "insert ps-file into fax"
-msgstr "PSファイルをFAXに挿入"
+msgstr "ps-bestand in fax voegen"
 
 #. WINDOW_MAIL_PROJECT
 msgid "mail project"
-msgstr "メールプロジェクト"
+msgstr "mailproject"
 
 #. WINDOW_MAIL_RENAME
 msgid "rename mail image"
-msgstr "メールイメージをリネーム"
+msgstr "e-mail afbeelding hernoemen"
 
 #. WINDOW_MAIL_INSERT
 msgid "insert file into mail"
-msgstr "ファイルをメールに挿入"
+msgstr "voeg bestand in e-mail"
 
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
-msgstr "プリセット領域をリネーム"
+msgstr "vooringesteld gebied hernoemen"
 
 #. WINDOW_SETUP
 msgid "setup"
-msgstr "セットアップ"
+msgstr "configuratie"
 
 #. WINDOW_HISTOGRAM
 msgid "Histogram"
-msgstr "ヒストグラム"
+msgstr "Histogram"
 
 #. WINDOW_GAMMA
 msgid "Gamma curve"
-msgstr "ガンマ曲線"
+msgstr "Gammakromme"
 
 #. WINDOW_STANDARD_OPTIONS
 msgid "Standard options"
-msgstr "標準オプション"
+msgstr "Standaard opties"
 
 #. WINDOW_ADVANCED_OPTIONS
 msgid "Advanced options"
-msgstr "詳細オプション"
+msgstr "Geavanceerde opties"
 
 #. WINDOW_DEVICE_SELECTION
 msgid "device selection"
-msgstr "デバイス選択"
+msgstr "Apparaat selectie"
 
 #. WINDOW_PREVIEW
 msgid "Preview"
-msgstr "プレビュー"
+msgstr "Preview"
 
 #. WINDOW_VIEWER
 msgid "Viewer"
-msgstr "ビューワ"
+msgstr "Bekijken"
 
 #. WINDOW_VIEWER_OUTPUT_FILENAME
 msgid "Viewer: select output filename"
-msgstr "ビューワ：出力ファイル名を選択"
+msgstr "Bekijken: kies uitvoernaam"
 
 #. WINDOW_OCR_OUTPUT_FILENAME
 msgid "Select output filename for OCR text file"
-msgstr "出力OCRテキストファイル名を選択"
+msgstr "Kies uitvoerbestand voor herkende tekst"
 
 #. WINDOW_OUTPUT_FILENAME
 msgid "select output filename"
-msgstr "出力ファイル名を選択"
+msgstr "kies uitvoernaam"
 
 #. WINDOW_SAVE_SETTINGS
 msgid "save device settings"
-msgstr "デバイス設定を保存"
+msgstr "Apparaatinstellingen bewaren"
 
 #. WINDOW_LOAD_SETTINGS
 msgid "load device settings"
-msgstr "デバイス設定を読込"
+msgstr "Apparaatinstellingen laden"
 
 #. WINDOW_CHANGE_WORKING_DIR
 msgid "change working directory"
-msgstr "作業ディレクトリを変更"
+msgstr "verander werkmap"
 
 #. WINDOW_TMP_PATH
 msgid "select temporary directory"
-msgstr "一時ディレクトリを選択"
+msgstr "selecteer tijdelijke map"
 
 #. WINDOW_SCALE
 msgid "Scale image"
-msgstr "画像の拡大縮小"
+msgstr "Schaal afbeelding"
 
 #. WINDOW_DESPECKLE
 msgid "Despeckle image"
-msgstr "画像のしみ取り"
+msgstr "Vlekken wegwerken"
 
 #. WINDOW_BLUR
 msgid "Blur image"
-msgstr "画像をにじませる"
+msgstr "Afbeelding vervagen"
 
 #. WINDOW_STORE_MEDIUM
 msgid "Store medium definition"
-msgstr "触媒の定義を保存"
+msgstr "Bewaar mediumdefinitie"
+
+#. WINDOW_NO_DEVICES
+#, fuzzy
+msgid "No devices available"
+msgstr "geen apparaten aanwezig"
 
 #. MENU_FILE
 msgid "File"
-msgstr "ファイル"
+msgstr "Bestand"
 
 #. MENU_PREFERENCES
 msgid "Preferences"
-msgstr "設定"
+msgstr "Instellingen"
 
 #. MENU_VIEW
 msgid "View"
-msgstr "表示"
+msgstr "Bekijk"
 
 #. MENU_HELP
 msgid "Help"
-msgstr "ヘルプ"
+msgstr "Help"
 
 #. MENU_FILTERS
 msgid "Filters"
-msgstr "フィルタ"
+msgstr "Filters"
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
-msgstr "XSaneについて"
+msgstr "Over XSane"
 
 #. MENU_ITEM_INFO
 msgid "Info"
-msgstr "情報"
+msgstr "Informatie"
 
 #. MENU_ITEM_QUIT
 msgid "Quit"
-msgstr "終了"
+msgstr "Afsluiten"
 
 #. MENU_ITEM_SAVE_IMAGE
 msgid "Save image"
-msgstr "イメージを保存"
+msgstr "Bewaar afbeelding"
 
-#. MENU_ITEM_CLOSE
-msgid "Close"
-msgstr "閉じる"
+#. MENU_ITEM_OCR
+msgid "OCR - save as text"
+msgstr "OCR - opslaan als tekst"
 
 #. MENU_ITEM_CLONE
 msgid "Clone"
-msgstr "複製"
+msgstr "Kloon"
 
 #. MENU_ITEM_SCALE
 msgid "Scale"
-msgstr "倍率"
+msgstr "Schaal"
+
+#. MENU_ITEM_CLOSE
+msgid "Close"
+msgstr "Sluiten"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
-msgstr "しみ取り"
+msgstr "Ontvlekken"
 
 #. MENU_ITEM_BLUR
 msgid "Blur"
-msgstr "にじみ"
+msgstr "Vervagen"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
-msgstr "Rawイメージ"
+msgstr "Onbewerkte afbeelding"
 
 #. FRAME_ENHANCED_IMAGE
 msgid "Enhanced image"
-msgstr "拡張イメージ"
+msgstr "Verbeterde afbeelding"
 
-#. BUTTON_START
-msgid "Start"
-msgstr "スタート"
+#. BUTTON_SCAN
+msgid "Scan"
+msgstr "Scan"
 
 #. BUTTON_OK
 msgid "Ok"
@@ -225,328 +250,369 @@ msgstr "OK"
 
 #. BUTTON_ACCEPT
 msgid "Accept"
-msgstr "はい"
+msgstr "Accepteren"
 
 #. BUTTON_NOT_ACCEPT
 msgid "Not accept"
-msgstr "いいえ"
+msgstr "Niet accepteren"
 
 #. BUTTON_APPLY
 msgid "Apply"
-msgstr "了解"
+msgstr "Uitvoeren"
 
 #. BUTTON_CANCEL
 msgid "Cancel"
-msgstr "キャンセル"
+msgstr "Afbreken"
 
 #. BUTTON_REDUCE
 msgid "Reduce"
-msgstr "縮小"
+msgstr "Reduceren"
 
 #. BUTTON_CONT_AT_OWN_RISK
 msgid "Continue at your own risk"
-msgstr "本当に続ける"
+msgstr "Doorgaan op eigen risico"
 
 #. BUTTON_BROWSE
 msgid "Browse"
-msgstr "ブラウズ"
+msgstr "Doorzoeken"
 
 #. BUTTON_OVERWRITE
 msgid "Overwrite"
-msgstr "上書き"
+msgstr "Overschrijven"
 
-#. BUTTON_ADD_AREA
-msgid "Add area"
-msgstr "領域追加"
+#. BUTTON_BATCH_LIST_SCAN
+msgid "Scan batch list"
+msgstr "Scan batch lijst"
+
+#. BUTTON_BATCH_AREA_SCAN
+msgid "Scan selected area"
+msgstr "Scan geselecteerde gebied"
 
 #. BUTTON_PAGE_DELETE
 msgid "Delete page"
-msgstr "ページ削除"
+msgstr "Pagina verwijderen"
 
 #. BUTTON_PAGE_SHOW
 msgid "Show page"
-msgstr "ページを表示"
+msgstr "Pagina bekijken"
 
 #. BUTTON_PAGE_RENAME
 msgid "Rename page"
-msgstr "ページをリネーム"
+msgstr "Pagina hernoemen"
 
 #. BUTTON_IMAGE_DELETE
 msgid "Delete image"
-msgstr "画像を削除"
+msgstr "Afbeelding verwijderen"
 
 #. BUTTON_IMAGE_SHOW
 msgid "Show image"
-msgstr "画像を表示"
+msgstr "Afbeelding bekijken"
 
 #. BUTTON_IMAGE_RENAME
 msgid "Rename image"
-msgstr "画像をリネーム"
+msgstr "Afbeelding hernoemen"
 
 #. BUTTON_FILE_INSERT
 msgid "Insert file"
-msgstr "ファイルを挿入"
+msgstr "Bestand invoegen"
 
 #. BUTTON_CREATE_PROJECT
 msgid "Create project"
-msgstr "プロジェクト作成"
+msgstr "Project beginnen"
 
 #. BUTTON_SEND_PROJECT
 msgid "Send project"
-msgstr "プロジェクトを送る"
+msgstr "Project versturen"
 
 #. BUTTON_DELETE_PROJECT
 msgid "Delete project"
-msgstr "プロジェクト削除"
+msgstr "Project verwijderen"
 
 #. BUTTON_ADD_PRINTER
 msgid "Add printer"
-msgstr "プリンタ追加"
+msgstr "Printer toevoegen"
 
 #. BUTTON_DELETE_PRINTER
 msgid "Delete printer"
-msgstr "プリンタ削除"
+msgstr "Printer verwijderen"
 
 #. BUTTON_PREVIEW_ACQUIRE
 msgid "Acquire preview"
-msgstr "プレビューを取得"
+msgstr "Preview maken"
 
 #. BUTTON_PREVIEW_CANCEL
 msgid "Cancel preview"
-msgstr "プレビューをキャンセル"
+msgstr "Preview afbreken"
 
 #. BUTTON_DISCARD_IMAGE
 msgid "Discard image"
-msgstr "画像を破棄"
+msgstr "Afbeelding verwijderen"
 
 #. BUTTON_DISCARD_ALL_IMAGES
 msgid "Discard all images"
-msgstr "すべての画像を破棄"
+msgstr "Alle afbeeldingen verwijderen"
 
 #. BUTTON_DO_NOT_CLOSE
 msgid "Do not close"
-msgstr "閉じない"
+msgstr "Niet sluiten"
 
+# TBD
 #. BUTTON_SCALE_BIND
 msgid "Bind scale"
-msgstr "倍率を固定"
+msgstr "Bind scale"
 
 #. RADIO_BUTTON_FINE_MODE
 msgid "Fine mode"
-msgstr "ファインモード"
+msgstr "Fijne modus"
 
 #. RADIO_BUTTON_HTML_MAIL
 msgid "HTML mail"
-msgstr "HTMLメール"
+msgstr "HTML e-mail"
 
 #. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device preferences at exit"
-msgstr "終了時にデバイス設定を保存"
+msgstr "Apparaatinstellingen bewaren bij verlaten"
 
 #. RADIO_BUTTON_OVERWRITE_WARNING
 msgid "Overwrite warning"
-msgstr "上書きの警告"
+msgstr "Waarschuwing bij overschrijving"
 
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
 msgid "Skip existing filenames"
-msgstr "現在のファイル名をスキップ"
+msgstr "Bestaande bestandnamen overslaan"
+
+#. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
+msgid "Save 16bit pnm in ascii format"
+msgstr "Bewaar 16 bit PNM in ASCII formaat"
 
 #. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
 msgid "Reduce 16 bit image to 8 bit"
-msgstr "16ビット画像を8ビットに減色"
+msgstr "16 bits afbeelding reduceren naar 8 bits"
 
 #. RADIO_BUTTON_WINDOW_FIXED
 msgid "Main window size fixed"
-msgstr "メインウィンドウのサイズを固定"
+msgstr "Vaste hoofdvenstergrootte"
 
 #. RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA
 msgid "Disable gimp preview gamma"
-msgstr "GIMPのガンマプレビューを無効化"
+msgstr "Preview gamma voor Gimp deactiveren"
 
 #. RADIO_BUTTON_PRIVATE_COLORMAP
 msgid "Use private colormap"
-msgstr "プライベートカラーマップを使う"
+msgstr "Gebruik eigen kleurenpallet"
 
 #. RADIO_BUTTON_AUTOENHANCE_GAMMA
 msgid "Autoenhance gamma"
-msgstr "自動強調（ガンマ）"
+msgstr "Automatisch gamma verbeteren"
 
 #. RADIO_BUTTON_PRESELECT_SCANAREA
 msgid "Preselect scanarea"
-msgstr "スキャン領域の先行指定"
+msgstr "Automatisch scangebied selecteren"
 
 #. RADIO_BUTTON_AUTOCORRECT_COLORS
 msgid "Autocorrect colors"
-msgstr "色彩の自動補正"
+msgstr "Automatisch kleuren verbeteren"
 
 #. RADIO_BUTTON_POP3_AUTHENTIFICATION
 msgid "POP3 authentification"
-msgstr "POP3認証"
+msgstr "POP3 legalisatie"
+
+#. RADIO_BUTTON_OCR_USE_GUI_PIPE
+msgid "Use GUI progress pipe"
+msgstr "Gebruik GUI progressie pipe"
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
-msgstr "デバイスをスキャンしています"
+msgstr "Zoeken naar apparaten"
 
 #. TEXT_AVAILABLE_DEVICES
 msgid "Available devices:"
-msgstr "デバイス使用可能："
+msgstr "Bruikbare apparaten:"
 
 #. TEXT_XSANE_OPTIONS
 msgid "XSane options"
-msgstr "XSaneのオプション"
+msgstr "XSane opties"
 
 #. TEXT_XSANE_MODE
 msgid "XSane mode"
-msgstr "XSaneのモード"
+msgstr "XSane mode"
 
 #. TEXT_FILENAME_COUNTER_STEP
 msgid "Step"
-msgstr "ステップ"
+msgstr "Stap"
 
 #. TEXT_FILETYPE
 msgid "Type"
-msgstr "タイプ"
+msgstr "Type"
 
 #. TEXT_SCANNER_BACKEND
 msgid "Scanner and backend:"
-msgstr "スキャナとバックエンド："
+msgstr "Scanner en backend:"
 
 #. TEXT_VENDOR
 msgid "Vendor:"
-msgstr "ベンダ："
+msgstr "Gemaakt door:"
 
 #. TEXT_MODEL
 msgid "Model:"
-msgstr "機種："
+msgstr "Model:"
 
 #. TEXT_TYPE
 msgid "Type:"
-msgstr "型名："
+msgstr "Type:"
 
 #. TEXT_DEVICE
 msgid "Device:"
-msgstr "デバイス："
+msgstr "Apparaat:"
 
 #. TEXT_LOADED_BACKEND
 msgid "Loaded backend:"
-msgstr "読込まれたバックエンド："
+msgstr "Geladen backend:"
 
 #. TEXT_SANE_VERSION
 msgid "Sane version:"
-msgstr "Saneのバージョン："
+msgstr "Sane versie:"
 
 #. TEXT_RECENT_VALUES
 msgid "Recent values:"
-msgstr "最近の値："
+msgstr "Recente waarden:"
 
 #. TEXT_GAMMA_CORR_BY
 msgid "Gamma correction by:"
-msgstr "ガンマコレクション："
+msgstr "Gammakorrectie door:"
 
 #. TEXT_SCANNER
 msgid "scanner"
-msgstr "スキャナ"
+msgstr "scanner"
 
 #. TEXT_SOFTWARE_XSANE
 msgid "software (XSane)"
-msgstr "ソフトウェア（XSane）"
+msgstr "software (XSane)"
 
 #. TEXT_NONE
 msgid "none"
-msgstr "なし"
+msgstr "geen"
 
 #. TEXT_GAMMA_INPUT_DEPTH
 msgid "Gamma input depth:"
-msgstr "ガンマ入力深度："
+msgstr "Bits in gamma invoer:"
 
 #. TEXT_GAMMA_OUTPUT_DEPTH
 msgid "Gamma output depth:"
-msgstr "ガンマ出力深度："
+msgstr "Bits in gamma uitvoer:"
 
 #. TEXT_SCANNER_OUTPUT_DEPTH
 msgid "Scanner output depth:"
-msgstr "スキャナ出力深度："
+msgstr "Bits in scanner uitvoer:"
 
 #. TEXT_OUTPUT_FORMATS
 msgid "XSane output formats:"
-msgstr "XSane出力フォーマット："
+msgstr "XSane uitvoerformaten:"
 
 #. TEXT_8BIT_FORMATS
 msgid "8 bit output formats:"
-msgstr "8ビット出力フォーマット："
+msgstr "8 bits uitvoerformaten:"
 
 #. TEXT_16BIT_FORMATS
 msgid "16 bit output formats:"
-msgstr "16ビット出力フォーマット："
+msgstr "16 bits uitvoerformaten:"
 
 #. TEXT_GIMP_REDUCE_16BIT_TO_8BIT
 msgid ""
 "Gimp does not support depth 16 bits/color.\n"
 "Do you want to reduce the depth to 8 bits/color?"
 msgstr ""
-"GIMPは16ビットカラーをサポートしていません。\n"
-"8ビットカラーに減色しますか?"
+"Gimp kan geen 16 bits kleurdiepte aan.\n"
+"Wil je de diepte reduceren naar 8 bits?"
 
 #. TEXT_REDUCE_16BIT_TO_8BIT
 msgid ""
 "Bit depth 16 bits/color is not supported for this output format.\n"
 "Do you want to reduce the depth to 8 bits/color?"
 msgstr ""
-"この出力フォーマットは16ビットカラーをサポートしていません。\n"
-"8ビットカラーに減色しますか?"
+"Dit uitvoerformaat kan geen 16 bits kleurdiepte aan.\n"
+"Wil je de diepte reduceren naar 8 bits?"
 
 #. TEXT_AUTHORIZATION_REQ
 msgid "Authorization required for"
-msgstr "アクセス権限が必要です："
+msgstr "Authorizatie benodigd voor"
 
 #. TEXT_AUTHORIZATION_SECURE
 msgid "Password transmission is secure"
-msgstr "パスワード透過性は安全です"
+msgstr "Paswoordoverdracht is veilig"
 
 #. TEXT_AUTHORIZATION_INSECURE
 msgid "Backend requests plain-text password"
-msgstr "バックエンドは平文のパスワードを要求しています"
+msgstr "Backend heeft platte-tekst paswoord nodig"
 
 #. TEXT_USERNAME
 msgid "Username :"
-msgstr "ユーザー名："
+msgstr "Gebruikersnaam:"
 
 #. TEXT_PASSWORD
 msgid "Password :"
-msgstr "パスワード："
+msgstr "Paswoord:"
 
 #. TEXT_INVALID_PARAMS
 msgid "Invalid parameters."
-msgstr "不正なパラメータです"
+msgstr "Ongeldige parameters."
 
 #. TEXT_VERSION
 msgid "version:"
-msgstr "バージョン"
+msgstr "versie:"
 
 #. TEXT_PACKAGE
 msgid "package"
-msgstr "パッケージ"
+msgstr "pakket"
 
 #. TEXT_WITH_GIMP_SUPPORT
 msgid "with GIMP support"
-msgstr "GIMPサポートあり"
+msgstr "met GIMP ondersteuning"
 
 #. TEXT_WITHOUT_GIMP_SUPPORT
 msgid "without GIMP support"
-msgstr "GIMPサポートなし"
+msgstr "zonder GIMP ondersteuning"
 
 #. TEXT_GTK_VERSION
 msgid "compiled with GTK-"
-msgstr "コンパイルされています…GTK-"
+msgstr "gecompileerd met GTK-"
 
 #. TEXT_GIMP_VERSION
 msgid "compiled with GIMP-"
-msgstr "コンパイルされています…GIMP-"
+msgstr "gecompileerd met GIMP-"
 
 #. TEXT_UNKNOWN
 msgid "unknown"
-msgstr "未知"
+msgstr "onbekend"
 
+# TBD
+#. TEXT_EULA
+msgid ""
+"XSane is distributed under the terms of the GNU General Public License\n"
+"as published by the Free Software Foundation; either version 2 of the\n"
+"License, or (at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but\n"
+"WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+"Should the program prove defective, you assume the cost of all\n"
+"necessary servicing, repair or correction. To use this program you\n"
+"have to read, understand and accept the following\n"
+"\"NO WARRANTY\" agreement.\n"
+msgstr ""
+"XSane wordt gedistribueerd onder de voorwaarden van de GNU General Public\n"
+"License, zoals gepubliseerd door de Free Software Foundation; hetzij\n"
+"versie 2 van de licentie of (naar keuze) iedere latere versie\n"
+"\n"
+"Dit programma wordt gedistribueerd in de hoop dat het nuttig is, maar\n"
+"ZONDER ENIGE GARANTIE; zelfs zonder de impliciete garantie van \n"
+"VERHANDELBAARHEID of de BRUIKBAARHEID VOOR EEN SPECIAAL DOEL.\n"
+"Als het programma defekt blijkt, dan zijn onderhouds-, reparatie- en\n"
+"verbeteringskosten voor eigen rekening. Om dit programma te gebruiken moet\n"
+"je de volgende \"GEEN GARANTIE\" verklaring gelezen, begrepen en\n"
+"geaccepteerd hebben.\n"
+
+# TBD
 #. TEXT_GPL
 msgid ""
 "XSane is distributed under the terms of the GNU General Public License\n"
@@ -557,29 +623,32 @@ msgid ""
 "WITHOUT ANY WARRANTY; without even the implied warranty of\n"
 "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
-"XSaneは、Free Software Foundationが公表したGNU一般公有使用許諾\n"
-"の「バージョン２」或いはそれ以降の各バージョンの中からいずれか\n"
-"を選択し、そのバージョンが定める条項に従って本プログラムを再頒\n"
-"布または変更することができます。\n"
-"本プログラムは有用とは思いますが、頒布にあたっては、市場性及び\n"
-"特定目的適合性についての暗黙の保証を含めて、いかなる保証も行な\n"
-"いません。\n"
+"XSane wordt gedistribueerd onder de voorwaarden van de GNU General Public\n"
+"License, zoals gepubliseerd door de Free Software Foundation; hetzij versie "
+"2\n"
+"van de licentie of (naar keuze) iedere latere versie\n"
+"\n"
+"Dit programma wordt gedistribueerd in de hoop dat het nuttig is, maar "
+"ZONDER\n"
+"ENIGE GARANTIE; zelfs zonder de impliciete garantie van VERHANDELBAARHEID of "
+"de\n"
+"BRUIKBAARHEID VOOR EEN SPECIAAL DOEL.\n"
 
 #. TEXT_EMAIL
 msgid "Email:"
-msgstr "メール："
+msgstr "E-mail:"
 
 #. TEXT_HOMEPAGE
 msgid "Homepage:"
-msgstr "ホームページ："
+msgstr "Homepage:"
 
 #. TEXT_FILE
 msgid "File:"
-msgstr "ファイル："
+msgstr "Bestand:"
 
 #. TEXT_TRANSLATION
 msgid "Translation:"
-msgstr "翻訳："
+msgstr "Vertaling:"
 
 #. Please translate this to something like
 #. translation to YOUR LANGUAGE\n
@@ -591,708 +660,787 @@ msgid ""
 "by Oliver Rauch\n"
 "Email: Oliver.Rauch@rauch-domain.de\n"
 msgstr ""
-"日本語への翻訳者：\n"
-"君塚知一\n"
-"メール: sgtom@pluto.dti.ne.jp\n"
+"Vertaling naar het Nederlands\n"
+"door Wim Sinke\n"
+"E-mail: sinke@wirehub.nl\n"
 
 #. TEXT_INFO_BOX
 msgid "0x0: 0KB"
-msgstr "0x0: 0キロバイト"
+msgstr "0x0: 0KB"
 
 #. TEXT_ADF_PAGES_SCANNED
 msgid "Scanned pages: "
-msgstr "スキャンされたページ："
+msgstr "Gescande paginas: "
 
 #. TEXT_MAIL_TEXT
 msgid "Email text:"
-msgstr "メールテキスト："
+msgstr "E-mail text:"
 
 #. TEXT_ATTACHMENTS
 msgid "Attachments:"
-msgstr "添付："
+msgstr "Attachments:"
 
 #. TEXT_MAIL_STATUS
 msgid "Project status:"
-msgstr "プロジェクトの状態："
+msgstr "Projectstatus:"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
-msgstr "触媒名："
+msgstr "Naam medium:"
 
 #. TEXT_VIEWER_IMAGE_INFO
 #, c-format
 msgid ""
 "Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
 msgstr ""
-
-#. TEXT_X_SCALE_FACTOR
-msgid "X-Scale factor:"
-msgstr "X成分の倍率："
-
-#. TEXT_Y_SCALE_FACTOR
-msgid "Y-Scale factor:"
-msgstr "Y成分の倍率："
+"Grootte %d x %d pixels, %d bit/kleur, %d kleuren, %1.0f dpi x %1.0f dpi, %"
+"1.1f %s"
 
 #. TEXT_DESPECKLE_RADIUS
 msgid "Despeckle radius:"
-msgstr "しみ取り範囲："
+msgstr "Ontvlekradius:"
 
 #. TEXT_BLUR_RADIUS
 msgid "Blur radius:"
-msgstr "にじみ範囲："
+msgstr "Vervagingsradius:"
+
+#. TEXT_BATCH_AREA_DEFAULT_NAME
+msgid "(no name)"
+msgstr "(geen naam)"
+
+#. TEXT_BATCH_LIST_AREANAME
+msgid "Area name:"
+msgstr "Naam van gebied:"
+
+#. TEXT_BATCH_LIST_SCANMODE
+msgid "Scanmode:"
+msgstr "XSane mode"
+
+#. TEXT_BATCH_LIST_GEOMETRY_TL
+msgid "Top left:"
+msgstr "Linksboven:"
+
+#. TEXT_BATCH_LIST_GEOMETRY_SIZE
+msgid "Size:"
+msgstr "Grootte:"
+
+#. TEXT_BATCH_LIST_RESOLUTION
+msgid "Resolution:"
+msgstr "Resolutie:"
+
+#. TEXT_BATCH_LIST_BIT_DEPTH
+msgid "Bit depth:"
+msgstr "Bits diepte:"
+
+#. TEXT_BATCH_LIST_BY_GUI
+msgid "as selected"
+msgstr "zoals geselecteerd"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
-msgstr "プリンタ選択："
+msgstr "Printerselectie"
 
 #. TEXT_SETUP_PRINTER_NAME
 msgid "Name:"
-msgstr "名前："
+msgstr "Naam:"
 
 #. TEXT_SETUP_PRINTER_CMD, TEXT_SETUP_FAX_CMD
 msgid "Command:"
-msgstr "コマンド："
+msgstr "Commando"
 
 #. TEXT_SETUP_COPY_NR_OPT
 msgid "Copy number option:"
-msgstr "番号オプションをコピー："
+msgstr "Aantal kopiëen optie:"
 
 #. TEXT_SETUP_PRINTER_LINEART_RES
 msgid "Lineart resolution (dpi):"
-msgstr "ラインアート解像度(dpi)："
+msgstr "Zwart-wit resolutie (dpi):"
 
 #. TEXT_SETUP_PRINTER_GRAYSCALE_RES
 msgid "Grayscale resolution (dpi):"
-msgstr "グレースケール解像度(dpi)："
+msgstr "Grijswaarde resolutie (dpi):"
 
 #. TEXT_SETUP_PRINTER_COLOR_RES
 msgid "Color resolution (dpi):"
-msgstr "色解像度(dpi)："
+msgstr "Kleur resolutie (dpi):"
 
 #. TEXT_SETUP_PRINTER_WIDTH
 msgid "Width"
-msgstr "幅"
+msgstr "Breedte"
 
 #. TEXT_SETUP_PRINTER_HEIGHT
 msgid "Height"
-msgstr "高さ"
+msgstr "Hoogte"
 
 #. TEXT_SETUP_PRINTER_LEFT
 msgid "Left offset"
-msgstr "左オフセット"
+msgstr "Linker rand"
 
 #. TEXT_SETUP_PRINTER_BOTTOM
 msgid "Bottom offset"
-msgstr "下オフセット"
+msgstr "Onderrand"
 
 #. TEXT_SETUP_PRINTER_GAMMA
 msgid "Printer gamma value:"
-msgstr "プリンタガンマ値："
+msgstr "Printer gammawaarde:"
 
 #. TEXT_SETUP_PRINTER_GAMMA_RED
 msgid "Printer gamma red:"
-msgstr "プリンタガンマ 赤："
+msgstr "Printer gammawaarde rood:"
 
 #. TEXT_SETUP_PRINTER_GAMMA_GREEN
 msgid "Printer gamma green:"
-msgstr "プリンタガンマ 緑："
+msgstr "Printer gammawaarde groen:"
 
 #. TEXT_SETUP_PRINTER_GAMMA_BLUE
 msgid "Printer gamma blue:"
-msgstr "プリンタガンマ 青："
+msgstr "Printer gammawaarde blauw:"
 
 #. TEXT_SETUP_TMP_PATH
 msgid "Temporary directory"
-msgstr "一時ディレクトリ"
+msgstr "Tijdelijke map"
 
 #. TEXT_SETUP_IMAGE_PERMISSION
 msgid "Image-file permissions"
-msgstr "画像ファイルの許可属性"
+msgstr "Bestandspermissies afbeelding"
 
 #. TEXT_SETUP_DIR_PERMISSION
 msgid "Directory permissions"
-msgstr "ディレクトリの許可属性"
+msgstr "Mappermissies"
 
 #. TEXT_SETUP_JPEG_QUALITY
 msgid "JPEG image quality"
-msgstr "JPEG画像品質"
+msgstr "JPEG kwaliteit"
 
 #. TEXT_SETUP_PNG_COMPRESSION
 msgid "PNG image compression"
-msgstr "PNG画像圧縮"
+msgstr "PNG compressie"
 
 #. TEXT_SETUP_FILENAME_COUNTER_LEN
 msgid "Filename counter length"
-msgstr "ファイル名カウンタの範囲"
+msgstr "Bestandsnaamteller lengte"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_16
 msgid "TIFF 16 bit image compression"
-msgstr "TIFF 16ビット画像圧縮"
+msgstr "TIFF 16 bit compressie"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_8
 msgid "TIFF 8 bit image compression"
-msgstr "TIFF 8ビット画像圧縮"
+msgstr "TIFF 8 bit compressie"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_1
 msgid "TIFF lineart image compression"
-msgstr "TIFF ラインアート画像圧縮"
+msgstr "TIFF lineart compressie"
+
+#. TEXT_SETUP_SHOW_RANGE_MODE
+msgid "Show range as:"
+msgstr "Bekijk range als:"
 
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
-msgstr "オーバーサンプリングをプレビュー："
+msgstr "Preview oversampling:"
 
 #. TEXT_SETUP_PREVIEW_GAMMA
 msgid "Preview gamma:"
-msgstr "ガンマをプレビュー："
+msgstr "Preview gamma:"
 
 #. TEXT_SETUP_PREVIEW_GAMMA_RED
 msgid "Preview gamma red:"
-msgstr "ガンマ赤をプレビュー："
+msgstr "Preview gamma rood:"
 
 #. TEXT_SETUP_PREVIEW_GAMMA_GREEN
 msgid "Preview gamma green:"
-msgstr "ガンマ緑をプレビュー："
+msgstr "Preview gamma groen:"
 
 #. TEXT_SETUP_PREVIEW_GAMMA_BLUE
 msgid "Preview gamma blue:"
-msgstr "ガンマ青をプレビュー："
+msgstr "Preview gamma blauw:"
 
 #. TEXT_SETUP_LINEART_MODE
 msgid "Threshold option:"
-msgstr "閾値オプション："
+msgstr "Drempelwaarde optie:"
 
 #. TEXT_SETUP_ADF_MODE
 msgid "Automatic Document Feeder Modus:"
-msgstr "ADF関連の設定："
+msgstr "Automatische document invoer mode:"
 
 #. TEXT_SETUP_PREVIEW_PIPETTE_RANGE
 msgid "Preview pipette range"
-msgstr "ピペット範囲をプレビュー"
+msgstr "Preview pipetbereik"
 
 #. TEXT_SETUP_THRESHOLD_MIN
 msgid "Threshold minimum:"
-msgstr "閾値の下限："
+msgstr "Drempelwaarde minimum:"
 
 #. TEXT_SETUP_THRESHOLD_MAX
 msgid "Threshold maximum:"
-msgstr "閾値の上限："
+msgstr "Drempelwaarde maximum:"
 
 #. TEXT_SETUP_THRESHOLD_MUL
 msgid "Threshold multiplier:"
-msgstr "閾値の乗数："
+msgstr "Drempelwaarde multiplicator:"
 
 #. TEXT_SETUP_THRESHOLD_OFF
 msgid "Threshold offset:"
-msgstr "閾値のオフセット："
+msgstr "Drempelwaarde verschuiving:"
 
 #. TEXT_SETUP_GRAYSCALE_SCANMODE
 msgid "Name of grayscale scanmode:"
-msgstr "グレースケールのスキャンモード名："
+msgstr "Naam van grijswaarde scanmodus:"
 
 #. TEXT_SETUP_HELPFILE_VIEWER
 msgid "Helpfile viewer (HTML):"
-msgstr "ヘルプファイルビューワ(HTML)："
+msgstr "Hulpbestand bekijker (HTML):"
 
 #. TEXT_SETUP_FAX_RECEIVER_OPTION
 msgid "Receiver option:"
-msgstr "受信オプション："
+msgstr "Ontvanger optie:"
 
 #. TEXT_SETUP_FAX_POSTSCRIPT_OPT
 msgid "Postscriptfile option:"
-msgstr "PostScriptファイルのオプション："
+msgstr "PostScriptbestand optie:"
 
 #. TEXT_SETUP_FAX_NORMAL_MODE_OPT
 msgid "Normal mode option:"
-msgstr "標準モードのオプション："
+msgstr "Normale modus optie:"
 
 #. TEXT_SETUP_FAX_FINE_MODE_OPT
 msgid "Fine mode option:"
-msgstr "精細モードのオプション："
+msgstr "Fijne modus optie:"
 
 #. TEXT_SETUP_FAX_VIEWER
 msgid "Viewer (Postscript):"
-msgstr "ビューワ(PostScript)："
+msgstr "Bekijkprogramma (PostScript):"
 
 #. TEXT_SETUP_SMTP_SERVER
 msgid "SMTP server:"
-msgstr "SMTPサーバ："
+msgstr "SMTP server:"
 
 #. TEXT_SETUP_SMTP_PORT
 msgid "SMTP port:"
-msgstr "SMTPポート："
+msgstr "SMTP port:"
 
 #. TEXT_SETUP_MAIL_FROM
 msgid "From:"
-msgstr "差出人："
+msgstr "Van:"
 
 #. TEXT_SETUP_MAIL_REPLY_TO
 msgid "Reply to:"
-msgstr "返信先："
+msgstr "Antwoord aan:"
 
 #. TEXT_SETUP_POP3_SERVER
 msgid "POP3 server:"
-msgstr "POP3サーバ："
+msgstr "POP3 server:"
 
 #. TEXT_SETUP_POP3_PORT
 msgid "POP3 port:"
-msgstr "POP3ポート："
+msgstr "POP3 port:"
 
 #. TEXT_SETUP_POP3_USER
 msgid "POP3 user:"
-msgstr "POP3ユーザー："
+msgstr "POP3 gebruiker:"
 
 #. TEXT_SETUP_POP3_PASS
 msgid "POP3 password:"
-msgstr "POP3パスワード："
+msgstr "POP3 paswoord:"
 
 #. TEXT_SETUP_MAIL_VIEWER
 msgid "Viewer (png):"
-msgstr "ビューワ(PNG)："
+msgstr "Bekijkprogramma (png):"
 
 #. TEXT_SETUP_OCR_COMMAND
 msgid "OCR Command:"
-msgstr "OCRコマンド："
+msgstr "Tekstherkennings- (OCR) commando:"
 
 #. TEXT_SETUP_OCR_INPUTFILE_OPT
 msgid "Inputfile option:"
-msgstr "入力ファイルオプション："
+msgstr "Invoeroptie:"
 
 #. TEXT_SETUP_OCR_OUTPUTFILE_OPT
 msgid "Outputfile option:"
-msgstr "出力ファイルオプション："
+msgstr "Uitvoeroptie:"
+
+#. TEXT_SETUP_OCR_USE_GUI_PIPE_OPT
+msgid "Use GUI progress pipe:"
+msgstr "Gebruik GUI progressie pipe:"
+
+#. TEXT_SETUP_OCR_OUTFD_OPT
+msgid "GUI output-fd option:"
+msgstr "GUI uitvoer-fd optie:"
+
+#. TEXT_SETUP_OCR_PROGRESS_KEYWORD
+msgid "Progress keyword:"
+msgstr "Progressie sleutel:"
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
-msgstr "ユーザー"
+msgstr "gebruiker"
 
 #. TEXT_SETUP_PERMISSION_GROUP
 msgid "group"
-msgstr "グループ"
+msgstr "groep"
 
 #. TEXT_SETUP_PERMISSION_ALL
 msgid "all"
-msgstr "すべて"
+msgstr "allemaal"
 
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
-msgstr "保存"
+msgstr "Opslaan"
 
 #. NOTEBOOK_IMAGE_OPTIONS
 msgid "Image"
-msgstr "画像"
+msgstr "Afbeelding"
 
 #. NOTEBOOK_COPY_OPTIONS
 msgid "Copy"
-msgstr "コピー"
+msgstr "Kopiëren"
 
 #. NOTEBOOK_FAX_OPTIONS
 msgid "Fax"
-msgstr "FAX"
+msgstr "Faxen"
 
 #. NOTEBOOK_MAIL_OPTIONS
 msgid "Mail"
-msgstr "メール"
+msgstr "E-mailen"
 
 #. NOTEBOOK_OCR_OPTIONS
 msgid "OCR"
-msgstr "OCR"
+msgstr "Tekstherkenning (OCR)"
 
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display"
-msgstr "表示"
+msgstr "Bekijk"
 
 #. NOTEBOOK_ENHANCE_OPTIONS
 msgid "Enhancement"
-msgstr "強調"
+msgstr "Verbetering"
 
 #. MENU_ITEM_MAIL
 msgid "Email"
-msgstr "メール"
+msgstr "E-mail"
 
 #. MENU_ITEM_SHOW_TOOLTIPS
 msgid "Show tooltips"
-msgstr "ツールチップを表示"
+msgstr "Laat tips zien"
 
 #. MENU_ITEM_SHOW_PREVIEW
 msgid "Show preview"
-msgstr "プレビューを表示"
+msgstr "Laat preview zien"
 
 #. MENU_ITEM_SHOW_HISTOGRAM
 msgid "Show histogram"
-msgstr "ヒストグラムを表示"
+msgstr "Laat histogram zien"
 
 #. MENU_ITEM_SHOW_GAMMA
 msgid "Show gamma curve"
-msgstr "ガンマ曲線を表示"
+msgstr "Laat gammakromme zien"
+
+# Goed genoeg?
+#. MENU_ITEM_SHOW_BATCH_SCAN
+msgid "Show batch scan"
+msgstr "Batch scan"
 
 #. MENU_ITEM_SHOW_STANDARDOPTIONS
 msgid "Show standard options"
-msgstr "標準オプションを表示"
+msgstr "Laat standaard opties zien"
 
 #. MENU_ITEM_SHOW_ADVANCEDOPTIONS
 msgid "Show advanced options"
-msgstr "詳細オプションを表示"
+msgstr "Laat geavanceerde opties zien"
 
 #. MENU_ITEM_SETUP
 msgid "Setup"
-msgstr "セットアップ"
+msgstr "Configuratie"
 
 #. MENU_ITEM_LENGTH_UNIT
 msgid "Length unit"
-msgstr "長さの単位"
+msgstr "Lengteeenheid"
 
 #. SUBMENU_ITEM_LENGTH_MILLIMETERS
 msgid "millimeters"
-msgstr "ミリメートル"
+msgstr "Millimeter"
 
 #. SUBMENU_ITEM_LENGTH_CENTIMETERS
 msgid "centimeters"
-msgstr "センチメートル"
+msgstr "Centimeter"
 
 #. SUBMENU_ITEM_LENGTH_INCHES
 msgid "inches"
-msgstr "インチ"
+msgstr "Inch"
 
 #. MENU_ITEM_UPDATE_POLICY
 msgid "Update policy"
-msgstr "ポリシーを更新"
+msgstr "Bijwerken"
 
 #. SUBMENU_ITEM_POLICY_CONTINUOUS
 msgid "continuous"
-msgstr "連続的"
+msgstr "Continue"
 
 #. SUBMENU_ITEM_POLICY_DISCONTINU
 msgid "discontinuous"
-msgstr "非連続的"
+msgstr "Niet continue"
 
 #. SUBMENU_ITEM_POLICY_DELAYED
 msgid "delayed"
-msgstr "遅れて"
+msgstr "Vertraagd"
 
 #. MENU_ITEM_SHOW_RESOLUTIONLIST
 msgid "Show resolution list"
-msgstr "解像度リストを表示"
+msgstr "Laat resolutie lijst zien"
 
 #. MENU_ITEM_PAGE_ROTATE
 msgid "Rotate postscript"
-msgstr "PostScriptを回転"
+msgstr "Draai PostScript"
 
 #. MENU_ITEM_SAVE_DEVICE_SETTINGS
 msgid "Save device settings"
-msgstr "デバイス設定を保存"
+msgstr "Bewaar apparaatinstellingen"
 
 #. MENU_ITEM_LOAD_DEVICE_SETTINGS
 msgid "Load device settings"
-msgstr "デバイス設定を読込み"
+msgstr "Laad apparaatinstellingen"
 
 #. MENU_ITEM_CHANGE_WORKING_DIR
 msgid "Change directory"
-msgstr "ディレクトリ変更"
+msgstr "Verander map"
 
-#. MENU_ITEM_XSANE_LICENSE
-msgid "License"
-msgstr "ライセンス"
+#. MENU_ITEM_XSANE_EULA
+msgid "Show EULA"
+msgstr "Gebruikersovereenkomst"
+
+#. MENU_ITEM_XSANE_GPL
+msgid "Show license (GPL)"
+msgstr "Licentie (GPL)"
 
 #. MENU_ITEM_XSANE_DOC
 msgid "XSane doc"
-msgstr "XSaneの文書"
+msgstr "XSane documentatie"
 
 #. MENU_ITEM_BACKEND_DOC
 msgid "Backend doc"
-msgstr "バックエンドの文書"
+msgstr "Backend documentatie"
 
 #. MENU_ITEM_AVAILABLE_BACKENDS
 msgid "Available backends"
-msgstr "利用可能なバックエンド"
+msgstr "Beschikbare backends"
 
 #. MENU_ITEM_SCANTIPS
 msgid "Scantips"
-msgstr "スキャンに関するTips"
+msgstr "Scantips"
 
 #. MENU_ITEM_PROBLEMS
 msgid "Problems?"
-msgstr "何か問題?"
+msgstr "Problemen?"
 
 #. MENU_ITEM_COUNTER_LEN_INACTIVE
 msgid "inactive"
-msgstr "非活性"
+msgstr "inactief"
 
 #. MENU_ITEM_TIFF_COMP_NONE
 msgid "no compression"
-msgstr "圧縮しない"
+msgstr "geen compressie"
 
 #. MENU_ITEM_TIFF_COMP_CCITTRLE
 msgid "CCITT 1D Huffman compression"
-msgstr "CCITT 1D Huffman 圧縮"
+msgstr "CCITT 1D Huffman compressie"
 
 #. MENU_ITEM_TIFF_COMP_CCITFAX3
 msgid "CCITT Group 3 Fax compression"
-msgstr "CCITT Group 3 Fax 圧縮"
+msgstr "CCITT Group 3 Fax compressie"
 
 #. MENU_ITEM_TIFF_COMP_CCITFAX4
 msgid "CCITT Group 4 Fax compression"
-msgstr "CCITT Group 4 Fax 圧縮"
+msgstr "CCITT Group 4 Fax compressie"
 
 #. MENU_ITEM_TIFF_COMP_JPEG
 msgid "JPEG DCT compression"
-msgstr "JPEG DCT 圧縮"
+msgstr "JPEG DCT compressie"
 
 #. MENU_ITEM_TIFF_COMP_PACKBITS
 msgid "pack bits"
-msgstr "パックビット"
+msgstr "gepackte bits"
+
+#. MENU_ITEM_RANGE_SCALE
+msgid "Slider (Scale)"
+msgstr "Slider (Vergroting)"
+
+#. MENU_ITEM_RANGE_SCROLLBAR
+msgid "Slider (Scrollbar)"
+msgstr "Slider (Scrollbar)"
+
+#. MENU_ITEM_RANGE_SPINBUTTON
+msgid "Spinbutton"
+msgstr "Spinbutton"
+
+#. MENU_ITEM_RANGE_SCALE_SPIN
+msgid "Scale and Spinbutton"
+msgstr "Scale en Spinbutton"
+
+#. MENU_ITEM_RANGE_SCROLL_SPIN
+msgid "Scrollbar and Spinbutton"
+msgstr "Scrollbar en Spinbutton"
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
 msgid "Standard options window (lineart)"
-msgstr "標準オプションウィンドウ（ラインアート）"
+msgstr "Standaard opties venster (z/w)"
 
 #. MENU_ITEM_LINEART_MODE_XSANE
 msgid "XSane main window (lineart)"
-msgstr "XSane メインウィンドウ（ラインアート）"
+msgstr "XSane hoofdvenster (z/w)"
 
 #. MENU_ITEM_LINEART_MODE_GRAY
 msgid "XSane main window (grayscale->lineart)"
-msgstr "XSane メインウィンドウ（グレースケール→ラインアート）"
+msgstr "XSane hoofvenster (grijs->z/w)"
 
 #. MENU_ITEM_SELECTION_NONE
 msgid "(none)"
-msgstr "（なし）"
+msgstr "(geen)"
 
 #. MENU_ITEM_FILETYPE_BY_EXT
 msgid "by ext"
-msgstr "拡張子ごと"
+msgstr "zoals extentie"
 
 #. MENU_ITEM_PRESET_AREA_ADD_SEL
 msgid "Add selection to list"
-msgstr "選択内容を一覧に追加"
+msgstr "Voeg selectie toe aan lijst"
 
 #. MENU_ITEM_PRESET_AREA_RENAME
 msgid "Rename definiton"
-msgstr "定義をリネーム"
+msgstr "Definitie hernoemen"
 
 #. MENU_ITEM_PRESET_AREA_DELETE
 msgid "Delete definition"
-msgstr "定義を削除"
+msgstr "Definitie verwijderen"
 
 #. MENU_OTEM_PRESET_AREA_MOVE_UP
 msgid "Move up"
-msgstr "上へ移動"
+msgstr "Naar boven"
 
 #. MENU_OTEM_PRESET_AREA_MOVE_DWN
 msgid "Move down"
-msgstr "下へ移動"
+msgstr "Naar beneden"
 
 #. PROGRESS_SCANNING
 msgid "Scanning"
-msgstr "スキャンしています"
+msgstr "Aan het scannen"
 
 #. PROGRESS_RECEIVING_FRAME_DATA
 #, c-format
 msgid "Receiving %s data"
-msgstr "データ %s を受信しています"
+msgstr "Ontvang %s gegevens"
 
 #. PROGRESS_TRANSFERING_DATA
 msgid "Transfering image"
-msgstr "画像を変換中"
+msgstr "Versturen afbeelding"
 
 #. PROGRESS_ROTATING_DATA
 msgid "Rotating image"
-msgstr "画像を回転中"
+msgstr "Draaien afbeelding"
 
 #. PROGRESS_MIRRORING_DATA
 msgid "Mirroring image"
-msgstr "画像を鏡映中"
+msgstr "Afbeelding spiegelen"
 
 #. PROGRESS_PACKING_DATA
 msgid "Packing image"
-msgstr "画像を圧縮中"
+msgstr "Afbeelding packen"
 
 #. PROGRESS_CONVERTING_DATA
 msgid "Converting image"
-msgstr "画像を変換中"
+msgstr "Afbeelding converteren"
 
 #. PROGRESS_SAVING_DATA
 msgid "Saving image"
-msgstr "画像を保存中"
+msgstr "Afbeelding bewaren"
 
 #. PROGRESS_CLONING_DATA
 msgid "Cloning image"
-msgstr "画像を複製中"
+msgstr "Plaatje kloneren"
 
 #. PROGRESS_SCALING_DATA
 msgid "Scaling image"
-msgstr "画像をスケーリング中"
+msgstr "Schalen afbeelding"
 
 #. PROGRESS_DESPECKLING_DATA
 msgid "Despeckling image"
-msgstr "画像のしみ取り中"
+msgstr "Vlekken verwijderen"
 
 #. PROGRESS_BLURING_DATA
 msgid "Bluring image"
-msgstr "画像をにじませ中"
+msgstr "Afbeelding vervagen"
+
+#. PROGRESS_OCR
+msgid "OCR in progress"
+msgstr "Tekstherkenning is bezig"
 
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
-msgstr "スキャン開始 <Ctrl-Enter>"
+msgstr "Start scannen <Ctrl-Enter>"
 
 #. DESC_SCAN_CANCEL
 msgid "Cancel scan <ESC>"
-msgstr "スキャンの取消し <ESC>"
+msgstr "Onderbreek scan <ESC>"
 
 #. DESC_PREVIEW_ACQUIRE
 msgid "Acquire preview scan <Alt-p>"
-msgstr "スキャンプレビューを取得 <Alt-p>"
+msgstr "Preview maken <Alt-p>"
 
 #. DESC_PREVIEW_CANCEL
 msgid "Cancel preview scan <Alt-ESC>"
-msgstr "スキャンプレビューをキャンセル <Alt-ESC>"
+msgstr "Breek de preview af <Alt-ESC>"
 
 #. DESC_XSANE_MODE
 msgid ""
-"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or "
-"mail-<Ctrl-m>"
+"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or mail-<Ctrl-"
+"m>"
 msgstr ""
+"opslaan-<Ctrl-s>, bekijk-<Ctrl-v>, kopieer-<Ctrl-c>, fax-<Ctrl-f> of mail-"
+"<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
 msgid "Select source medium type"
-msgstr "素材のメディアタイプ選択"
+msgstr "Kies bronmedium type"
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
-msgstr "スキャン後に加算されるファイル名カウンタ値"
+msgstr "Waarde die bij de bestandsnaamteller wordt opgeteld na de scan"
 
 #. DESC_BROWSE_FILENAME
 msgid "Browse for image filename"
-msgstr "画像ファイル名をブラウズ"
+msgstr "Kies een bestandsnaam"
 
 #. DESC_FILENAME
 msgid "Filename for scanned image"
-msgstr "スキャンした画像のファイル名"
+msgstr "Bestandsnaam voor gescande afbeelding"
 
 #. DESC_FILETYPE
 msgid ""
 "Type of image format, the suitable filename extension is automatically added "
 "to the filename"
-msgstr "画像フォーマットタイプファイル名に自動でつく適切な拡張子"
+msgstr ""
+"Bestandstype: de gebruikelijke extentie wordt automatisch toegevoegd aan de "
+"bestandsnaam"
 
 #. DESC_FAXPROJECT
 msgid "Enter name of fax project"
-msgstr "FAXプロジェクト名を入力"
+msgstr "De naam van het faxproject"
 
 #. DESC_FAXPAGENAME
 msgid "Enter new name for faxpage"
-msgstr "FAXページにつけるファイル名を入力"
+msgstr "Geef de naam van de faxpagina"
 
 #. DESC_FAXRECEIVER
 msgid "Enter receiver phone number or address"
-msgstr "FAX受信機の電話番号かアドレスを入力"
+msgstr "Geef telefoonnummer of adres van de ontvanger"
 
 #. DESC_MAILPROJECT
 msgid "Enter name of mail project"
-msgstr "メールプロジェクト名を入力"
+msgstr "De naam van het e-mail project"
 
 #. DESC_MAILIMAGENAME
 msgid "Enter new name for mail image"
-msgstr "新規メールイメージのファイル名を入力"
+msgstr "De naam van de afbeelding"
 
 #. DESC_MAILRECEIVER
 msgid "Enter email address"
-msgstr "メールアドレスを入力"
+msgstr "E-mail adres"
 
 #. DESC_MAILSUBJECT
 msgid "Enter subject of email"
-msgstr "メールの表題を入力"
+msgstr "E-mail onderwerp"
 
 #. DESC_PRESET_AREA_NAME
 msgid "Enter new name for preset area"
-msgstr "プリセット領域につける名前を新規入力"
+msgstr "Geef naam voor gebied"
 
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
-msgstr "プリンタの解像度を選択 <Shift-F1/F2/...>"
+msgstr "Kies printerdefinitie <Shift-F1/F2/...>"
 
 #. DESC_RESOLUTION
 msgid "Set scan resolution"
-msgstr "スキャナの解像度をセット"
+msgstr "Kies de scan resolutie"
 
 #. DESC_RESOLUTION_X
 msgid "Set scan resolution for x direction"
-msgstr "スキャン時のX成分の解像度をセット"
+msgstr "Kies de scan resolutie in de x-richting"
 
 #. DESC_RESOLUTION_Y
 msgid "Set scan resolution for y direction"
-msgstr "スキャン時のY成分の解像度をセット"
+msgstr "Kies de scan resolutie in de y-richting"
 
 #. DESC_ZOOM
 msgid "Set zoomfactor"
-msgstr "拡大率をセット"
+msgstr "Kies vergroting"
 
 #. DESC_ZOOM_X
 msgid "Set zoomfactor for x direction"
-msgstr "X成分の拡大率をセット"
+msgstr "Kies vergroting in x-richting"
 
 #. DESC_ZOOM_Y
 msgid "Set zoomfactor for y direction"
-msgstr "X成分の拡大率をセット"
+msgstr "Kies vergroting in y-richting"
 
 #. DESC_COPY_NUMBER
 msgid "Set number of copies"
-msgstr "コピー枚数をセット"
+msgstr "Aantal kopiën"
 
 #. DESC_NEGATIVE
 msgid "Negative: Invert colors for scanning negatives <Shift-n>"
-msgstr "裏焼き：色彩を裏焼き状態でスキャン <Shift-n>"
+msgstr "Negatief: Inverteer de kleuren van een negatief <Shift-n>"
 
 #. DESC_GAMMA
 msgid "Set gamma value"
-msgstr "ガンマ値をセット"
+msgstr "Verander de gamma waarde"
 
 #. DESC_GAMMA_R
 msgid "Set gamma value for red component"
-msgstr "赤ガンマ値をセット"
+msgstr "Verander de gamma waarde voor rood"
 
 #. DESC_GAMMA_G
 msgid "Set gamma value for green component"
-msgstr "緑ガンマ値をセット"
+msgstr "Verander de gamma waarde voor groen"
 
 #. DESC_GAMMA_B
 msgid "Set gamma value for blue component"
-msgstr "青ガンマ値をセット"
+msgstr "Verander de gamma waarde voor blauw"
 
 #. DESC_BRIGHTNESS
 msgid "Set brightness"
-msgstr "明度をセット"
+msgstr "Kies helderheid"
 
 #. DESC_BRIGHTNESS_R
 msgid "Set brightness for red component"
-msgstr "赤成分への明度をセット"
+msgstr "Kies helderheid voor rood"
 
 #. DESC_BRIGHTNESS_G
 msgid "Set brightness for green component"
-msgstr "緑成分への明度をセット"
+msgstr "Kies helderheid voor groen"
 
 #. DESC_BRIGHTNESS_B
 msgid "Set brightness for blue component"
-msgstr "青成分への明度をセット"
+msgstr "Kies helderheid voor blauw"
 
 #. DESC_CONTRAST
 msgid "Set contrast"
-msgstr "コントラストをセット"
+msgstr "Kies contrast"
 
 #. DESC_CONTRAST_R
 msgid "Set contrast for red component"
-msgstr "赤成分へのコントラストをセット"
+msgstr "Kies contrast voor rood"
 
 #. DESC_CONTRAST_G
 msgid "Set contrast for green component"
-msgstr "緑成分へのコントラストをセット"
+msgstr "Kies contrast voor groen"
 
 #. DESC_CONTRAST_B
 msgid "Set contrast for blue component"
-msgstr "青成分へのコントラストをセット"
+msgstr "Kies contrast voor blauw"
 
 #. DESC_THRESHOLD
 msgid "Set threshold"
-msgstr "閾値をセット"
+msgstr "Kies drempelwaarde"
 
 #. DESC_RGB_DEFAULT
 msgid ""
@@ -1302,16 +1450,15 @@ msgid ""
 " brightness = 0\n"
 " contrast = 0"
 msgstr ""
-"RGBデフォルト値：赤・緑・青への強調値のデフォルト値をセット <Shift-b>：\n"
-"ガンマ値 = 1.0\n"
-"明度 = 0\n"
-"コントラスト = 0"
+"RGB standaard: Zet de aanpassingswaarden voor rood, groen en blauw op de "
+"standaardwaarden <Shift-b>:\n"
+" gamma = 1.0\n"
+" helderheid = 0\n"
+" contrast = 0"
 
 #. DESC_ENH_AUTO
 msgid "Autoadjust gamma, brightness and contrast <Shift-e>"
-msgstr ""
-"選択されたスキャン領域に応じて、ガンマ値、明度、コントラストを自動調整 "
-"<Shift-e>"
+msgstr "Automatische aanpassing van gamma, helderheid en contrast <Shift-e>"
 
 #. DESC_ENH_DEFAULT
 msgid ""
@@ -1320,648 +1467,739 @@ msgid ""
 "brightness = 0\n"
 "contrast = 0"
 msgstr ""
-"デフォルトの強調値をセット <Shift-d>:：\n"
-"ガンマ値 = 1.0\n"
-"明度 = 0\n"
-"コントラスト = 0"
+"Kies de standaardwaarden <Shift-d>:\n"
+"gamma = 1.0\n"
+"helderheid = 0\n"
+"contrast = 0"
 
 #. DESC_ENH_RESTORE
 msgid "Restore enhancement values from preferences <Shift-r>"
-msgstr "設定した強調値を復元 <Shift-r>"
+msgstr "Gebruik aanpassingswaarden van de configuratie <Shift-r>"
 
 #. DESC_ENH_STORE
 msgid "Store active enhancement values to preferences <Shift-m>"
-msgstr "設定した強調値を保存 <Shift-m>"
+msgstr "Bewaar aanpassingswaarden in de configuratie <Shift-m>"
 
 #. DESC_HIST_INTENSITY
 msgid "Show histogram of intensity/gray <Alt-i>"
-msgstr "輝度／白黒階調のヒストグラムを表示 <Alt-i>"
+msgstr "Histogram van intensiteit zien <Alt-i>"
 
 #. DESC_HIST_RED
 msgid "Show histogram of red component <Alt-r>"
-msgstr "赤成分のヒストグラムを表示 <Alt-r>"
+msgstr "Histogram van rood <Alt-r>"
 
 #. DESC_HIST_GREEN
 msgid "Show histogram of green component <Alt-g>"
-msgstr "緑成分のヒストグラムを表示 <Alt-g>"
+msgstr "Histogram van groen <Alt-g>"
 
 #. DESC_HIST_BLUE
 msgid "Show histogram of blue component <Alt-b>"
-msgstr "青成分のヒストグラムを表示 <Alt-b>"
+msgstr "Histogram van blauw <Alt-b>"
 
 #. DESC_HIST_PIXEL
 msgid "Display mode: show histogram with lines instead of pixels <Alt-m>"
-msgstr "画素の代わりに線でヒストグラムを表示 <Alt-m>"
+msgstr "Kies tussen lijnen of pixels <Alt-m>"
 
 #. DESC_HIST_LOG
 msgid "Show logarithm of pixelcount <Alt-l>"
-msgstr "画素数を対数で表示 <Alt-l>"
+msgstr "Logaritmisch histogram <Alt-l>"
 
 #. DESC_PRINTER_SETUP
 msgid "Select definition to change"
-msgstr "変更する解像度の選択"
+msgstr "Kies definitie om te veranderen"
 
 #. DESC_PRINTER_NAME
 msgid "Define a name for the selection of this definition"
-msgstr "選択した解像度の名前を定義"
+msgstr "Naam van deze definitie"
 
 #. DESC_PRINTER_COMMAND
 msgid "Enter command to be executed in copy mode (e.g. \"lpr\")"
-msgstr "コピーモードでの実行コマンドを入力（例：\"lpr\"）"
+msgstr "Geef het commando dat tijdens het kopiëren uitgevoerd word (\"lpr\")"
 
 #. DESC_COPY_NUMBER_OPTION
 msgid "Enter option for copy numbers"
-msgstr "オプション：コピー枚数を入力"
+msgstr "Optie voor het aantal kopiën"
 
 #. DESC_PRINTER_LINEART_RESOLUTION
 msgid ""
 "Resolution with which lineart images are printed and saved in postscript"
-msgstr "ラインアート画像の解像度はPostScriptで印刷・保存されます"
+msgstr "Printresolutie voor zwart wit afbeeldingen"
 
 #. DESC_PRINTER_GRAYSCALE_RESOLUTION
 msgid ""
 "Resolution with which grayscale images are printed and saved in postscript"
-msgstr "グレースケール画像の解像度はPostScriptで印刷・保存されます"
+msgstr "Printresolutie voor grijswaarde afbeeldingen"
 
 #. DESC_PRINTER_COLOR_RESOLUTION
 msgid "Resolution with which color images are printed and saved in postscript"
-msgstr "カラー画像の解像度はPostScriptで印刷・保存されます"
+msgstr "Printresolutie voor kleurenafbeeldingen"
 
 #. DESC_PRINTER_WIDTH
 msgid "Width of printable area"
-msgstr "印刷可能領域幅"
+msgstr "Printbreedte"
 
 #. DESC_PRINTER_HEIGHT
 msgid "Height of printable area"
-msgstr "印刷可能領域高さ"
+msgstr "Printhoogte"
 
 #. DESC_PRINTER_LEFTOFFSET
 msgid "Left offset from the edge of the paper to the printable area"
-msgstr "印刷可能領域の用紙端からの左オフセット"
+msgstr "Afstand van rand to printbare gebied"
 
 #. DESC_PRINTER_BOTTOMOFFSET
 msgid "Bottom offset from the edge of the paper to the printable area"
-msgstr "印刷可能領域の用紙端からの下オフセット"
+msgstr "Afstand van rand to printbare gebied"
 
 #. DESC_PRINTER_GAMMA
 msgid "Additional gamma value for photocopy"
-msgstr "焼き増しへの追加ガンマ値"
+msgstr "Extra gammacorrectie voor fotokopie"
 
 #. DESC_PRINTER_GAMMA_RED
 msgid "Additional gamma value for red component for photocopy"
-msgstr "焼き増しへの赤成分追加ガンマ値"
+msgstr "Extra gammacorrectie voor rood voor fotokopie"
 
 #. DESC_PRINTER_GAMMA_GREEN
 msgid "Additional gamma value for green component for photocopy"
-msgstr "焼き増しへの緑成分追加ガンマ値"
+msgstr "Extra gammacorrectie voor groen voor fotokopie"
 
 #. DESC_PRINTER_GAMMA_BLUE
 msgid "Additional gamma value for blue component for photocopy"
-msgstr "焼き増しへの青成分追加ガンマ値"
+msgstr "Extra gammacorrectie voor blauw voor fotokopie"
 
 #. DESC_TMP_PATH
 msgid "Path to temp directory"
-msgstr "一時ディレクトリへのパス"
+msgstr "Pad naar tijdelijke map"
 
 #. DESC_BUTTON_TMP_PATH_BROWSE
 msgid "Browse for temporary directory"
-msgstr "一時ディレクトリの参照"
+msgstr "Bekijk de tijdelijke map"
 
 #. DESC_JPEG_QUALITY
 msgid ""
 "Quality in percent if image is saved as jpeg or tiff with jpeg compression"
-msgstr "JPEG圧縮で保存されたJPEGまたはTIFF画像の画質(%)"
+msgstr ""
+"Kwaliteit in procenten als afbeelding als JPEG of TIFF met JPEG compressie "
+"bewaard wordt"
 
-# DESC_PNG_COMPRESSION
 #. DESC_PNG_COMPRESSION
 msgid "Compression if image is saved as png"
-msgstr "画像がPNGで保存されていれば圧縮"
+msgstr "Compressie van PNG afbeeldingen"
 
 #. DESC_FILENAME_COUNTER_LEN
 msgid "Minimum length of counter in filename"
-msgstr "ファイル名のカウンタの最小範囲"
+msgstr "Minimale lengte van bestandenteller"
 
 #. DESC_TIFF_COMPRESSION_16
 msgid "Compression type if 16 bit image is saved as tiff"
-msgstr "16ビット画像がTIFFで保存されている場合の圧縮タイプ"
+msgstr "Compressie van 16-bits TIFF afbeeldingen"
 
 #. DESC_TIFF_COMPRESSION_8
 msgid "Compression type if 8 bit image is saved as tiff"
-msgstr "8ビット画像がTIFFで保存されている場合の圧縮タイプ"
+msgstr "Compressie van 8-bits TIFF afbeeldingen"
 
 #. DESC_TIFF_COMPRESSION_1
 msgid "Compression type if lineart image is saved as tiff"
-msgstr "ラインアート画像がTIFFで保存されている場合の圧縮タイプ"
+msgstr "Compressie van zwart wit TIFF afbeeldingen"
 
 #. DESC_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device dependant preferences in default file at exit of xsane"
-msgstr "XSane終了時にデバイス依存の設定を既定値としてファイル保存"
+msgstr ""
+"Bewaar apparaatspecifieke instellingen in standaard bestand als XSane eindigt"
 
 #. DESC_OVERWRITE_WARNING
 msgid "Warn before overwriting an existing file"
-msgstr "現在のファイルに上書きする前の警告"
+msgstr "Geef een waarschuwing voordat een bestaand bestand overschreven wordt"
 
 #. DESC_SKIP_EXISTING
 msgid ""
 "If filename counter is automatically increased, used numbers are skipped"
-msgstr "ファイル名のカウンタが自動的に増加する際、使用済みの番号はとばされます"
+msgstr ""
+"Gebruikte numbers worden overgeslagen als de bestandsteller automatisch "
+"verhoogd wordt"
+
+#. DESC_SAVE_PNM16_AS_ASCII
+msgid ""
+"When a 16 bit image shall be saved in pnm format then use ascii format "
+"instead of binary format. The binary format is a new format that is not "
+"supported by all programs. The ascii format is supported by more programs "
+"but it produces really huge files!!!"
+msgstr ""
+"Gebruik tekst i.p.v. binair formaat om 16 bits afbeeldingen te bewaren. Het "
+"binaire formaat is nieuw en wordt niet door alle programma's ondersteund. "
+"Het tekst formaat wordt door meer programma's ondersteund, maar levert zeer "
+"grote bestanden op!!!"
 
 #. DESC_REDUCE_16BIT_TO_8BIT
 msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
-msgstr "画像が16ビットカラーでスキャナから送られたら、8ビットで保存"
+msgstr "16-bits kleuren worden bewaard met 8-bits"
 
 #. DESC_PSFILE_WIDTH
 msgid "Width of paper for postscript files"
-msgstr "PostScriptファイルの用紙幅"
+msgstr "Breedte van papier in PostScript bestanden"
 
 #. DESC_PSFILE_HEIGHT
 msgid "Height of paper for postscript files"
-msgstr "PostScriptファイルの用紙高さ"
+msgstr "Hoogte van papier in PostScript bestanden"
 
 #. DESC_PSFILE_LEFTOFFSET
 msgid ""
 "Left offset from the edge of the paper to the usable area for postscript "
 "files"
-msgstr "PostScriptファイルの使用可能領域の用紙端からの左オフセット"
+msgstr "Linker afstand van de rand van het papier"
 
 #. DESC_PSFILE_BOTTOMOFFSET
 msgid ""
 "Bottom offset from the edge of the paper to the usable area for postscript "
 "files"
-msgstr "PostScriptファイルの使用可能領域の用紙端からの下オフセット"
+msgstr "Onderste afstand van de rand van het papier"
 
 #. DESC_MAIN_WINDOW_FIXED
 msgid "Use fixed main window size or scrolled, resizable main window"
-msgstr "メインウィンドウに固定サイズを使うか、スクロール・リサイズ可能にする"
+msgstr "Gebruik vaste grootte voor hoofdvenster of gebruik scrollbars"
 
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
 msgid "Disable preview gamma when XSane runs as gimp plugin"
-msgstr "XSaneがGIMPプラグインとして動作する時は、ガンマプレビューをオフにする"
+msgstr "Schakel preview gamma uit als XSane als Gimp plugin gebruikt wordt"
 
 #. DESC_PREVIEW_COLORMAP
 msgid "Use an own colormap for preview if display depth is 8 bpp"
-msgstr "ディスプレイ解像度が8ビットなら、プレビューに固有のカラーマップを使う"
+msgstr "Gebruik eigen kleurenpallet als scherm diepte 8-bpp is"
+
+#. DESC_SHOW_RANGE_MODE
+msgid "Select how a range is displayed"
+msgstr "Selecteer hoe een range vetoond wordt"
 
 #. DESC_PREVIEW_OVERSAMPLING
 msgid "Value with that the calculated preview resolution is multiplied"
-msgstr "プレビュー解像度に掛けられた計算値"
+msgstr "Waarde waarmee de berekende preview resolutie vermenigvuldigd wordt"
 
 #. DESC_PREVIEW_GAMMA
 msgid "Set gamma correction value for preview image"
-msgstr "プレビュー画像のガンマ補正値をセット"
+msgstr "Gammacorrectie voor preview"
 
 #. DESC_PREVIEW_GAMMA_RED
 msgid "Set gamma correction value for red component of preview image"
-msgstr "プレビュー画像の赤成分のガンマ補正値をセット"
+msgstr "Gammacorrectie voor rood van preview"
 
 #. DESC_PREVIEW_GAMMA_GREEN
 msgid "Set gamma correction value for green component of preview image"
-msgstr "プレビュー画像の緑成分のガンマ補正値をセット"
+msgstr "Gammacorrectie voor groen van preview"
 
 #. DESC_PREVIEW_GAMMA_BLUE
 msgid "Set gamma correction value for blue component of preview image"
-msgstr "プレビュー画像の青成分のガンマ補正値をセット"
+msgstr "Gammacorrectie voor blauw van preview"
 
 #. DESC_LINEART_MODE
 msgid "Define the way XSane shall handle the threshold option"
-msgstr "XSaneの閾値オプション処理方式を定義"
+msgstr "Hoe moet XSane de drempelwaarde gebruiken"
 
 #. DESC_GRAYSCALE_SCANMODE
 msgid ""
 "Select grayscale scanmode. This scanmode is used for lineart preview scan "
 "when transformation from grayscale to lineart is enabled"
-msgstr "グレースケールのスキャンモードを選択してください。"
+msgstr ""
+"Kies grijswaarde scanmode. Dit wordt gebruikt voor de zwart wit preview als "
+"de transformatie van grijs naar zwart-wit aanstaat"
 
 #. DESC_PREVIEW_THRESHOLD_MIN
 #, no-c-format
 msgid "The scanner's minimum threshold level in %"
-msgstr "スキャナの最小閾値レベル（%）"
+msgstr "De minimale drempelwaarde in % van de scanner"
 
 #. DESC_PREVIEW_THRESHOLD_MAX
 #, no-c-format
 msgid "The scanner's maximum threshold level in %"
-msgstr "スキャナの最大閾値レベル（%）"
+msgstr "De maximale drempelwaarde in % van de scanner"
 
 #. DESC_PREVIEW_THRESHOLD_MUL
 msgid ""
 "Multiplier to make XSane threshold range and scanner threshold range the same"
-msgstr "XSaneとスキャナの閾値範囲を等しくするための乗数"
+msgstr ""
+"Factor om de drempelwaarde van XSane gelijk te maken aan die van de scanner"
 
 #. DESC_PREVIEW_THRESHOLD_OFF
 msgid ""
 "Offset to make XSane threshold range and scanner threshold range the same"
-msgstr "XSaneとスキャナの閾値範囲を等しくするためのオフセット"
+msgstr ""
+"Verschuiving om de drempelwaarde van XSane gelijk te maken aan die van de "
+"scanner"
 
 #. DESC_ADF_MODE
 msgid ""
 "Select scansource for Automatic Document feeder. If this scansource is "
 "selected XSane scans until \"out of paper\" or error."
 msgstr ""
-"ADFのためのスキャンソースを選択してください。このスキャンソースが選択されると"
-"XSaneは用紙切れかエラーになるまでスキャンをします"
+"Kies bron voor automatische document doorvoer. Indien geselecteerd gaat "
+"XSane door met scannen to een \"papier op\" fout."
 
 #. DESC_PREVIEW_PIPETTE_RANGE
 msgid "dimension of square that is used to average color for pipette function"
-msgstr "ピペット機能用の標準色に使われる小片の面積"
+msgstr "grootte van het vierkantje waar de pipet het gemiddelde berekent"
 
 #. DESC_DOC_VIEWER
 msgid ""
 "Enter command to be executed to display helpfiles, must be a html-viewer!"
-msgstr "ヘルプファイル表示時に実行されるコマンド(HTMLビューワです!)を入力"
+msgstr "HTML programma om de helpfiles te bekijken"
 
 #. DESC_AUTOENHANCE_GAMMA
 msgid "Change gamma value when autoenhancement button is pressed"
-msgstr "自動強調ボタン押下時にガンマ値を変更"
+msgstr ""
+"Verander gammawaarde als de automatische aanpassings knop ingedrukt wordt"
 
 #. DESC_PRESELECT_SCANAREA
 msgid "Select scanarea after preview scan has finished"
-msgstr "プレビュースキャン終了後のスキャン領域を選択"
+msgstr "Kies scangebied nadat preview klaar is"
 
 #. DESC_AUTOCORRECT_COLORS
 msgid "Do color correction after preview scan has finished"
-msgstr "プレビュースキャン終了後に色彩補正を行う"
+msgstr "Verbeter de kleuren nadat preview klaar is"
 
 #. DESC_FAX_COMMAND
 msgid "Enter command to be executed in fax mode"
-msgstr "FAXモードで実行されるコマンドを入力"
+msgstr "Geef commando dat in fax-mode uitgevoerd moet worden"
 
 #. DESC_FAX_RECEIVER_OPT
 msgid "Enter option to specify receiver"
-msgstr "FAX受信機識別オプションを入力"
+msgstr "Geef optie om ontvanger te specificeren"
 
 #. DESC_FAX_POSTSCRIPT_OPT
 msgid "Enter option to specify postscript files following"
-msgstr "後続のPostScriptファイル識別オプションを入力"
+msgstr "Geef optie voor de PostScript bestanden"
 
 #. DESC_FAX_NORMAL_OPT
 msgid "Enter option to specify normal mode (low resolution)"
-msgstr "標準モード（低解像度）識別オプションを入力"
+msgstr "Geef optie voor normale mode (lage resolutie)"
 
 #. DESC_FAX_FINE_OPT
 msgid "Enter option to specify fine mode (high resolution)"
-msgstr "精細モード（高解像度）識別オプションを入力"
+msgstr "Geef optie voor fijne mode (hoge resolutie)"
 
 #. DESC_FAX_VIEWER
 msgid "Enter command to be executed to view a fax"
-msgstr "FAX参照のための実行コマンドを入力"
+msgstr "Commando om fax te bekijken"
 
 #. DESC_FAX_FINE_MODE
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
-msgstr "垂直高解像度（98lpiに代えて196lpiで）モードでFAX送信"
+msgstr "Verstuur hoge resolutie fax (196 lpi inplaats van 98 lpi)"
 
 #. DESC_SMTP_SERVER
 msgid "IP Address or Domain name of SMTP server"
-msgstr "IPアドレスまたはSMTPサーバのドメイン名"
+msgstr "IP-adres of domain name van SMTP server"
 
 #. DESC_SMTP_PORT
 msgid "port to connect to SMTP server"
-msgstr "SMTPサーバへの接続ポート"
+msgstr "port om met SMTP server te communiceren"
 
 #. DESC_MAIL_FROM
 msgid "enter your email address"
-msgstr "メールアドレスを入力してください"
+msgstr "geef je e-mail adres"
 
 #. DESC_MAIL_REPLY_TO
 msgid "enter email address for replied emails"
-msgstr "返信先アドレスを入力してください"
+msgstr "geef e-mail adres voor antwoord e-mails"
 
 #. DESC_POP3_AUTHENTIFICATION
 msgid "Authentificate at POP3 server before sending mail"
-msgstr "メール送信前にPOP3サーバで認証"
+msgstr "Inloggen in POP3 server voor het versturen van e-mail"
 
 #. DESC_POP3_SERVER
 msgid "IP Address or Domain name of POP3 server"
-msgstr "IPアドレスまたはPOP3サーバのドメイン名"
+msgstr "IP-adres of domain name van POP3 server"
 
 #. DESC_POP3_PORT
 msgid "port to connect to POP3 server"
-msgstr "POP3サーバへの接続ポート"
+msgstr "port om met POP3 server te communiceren"
 
 #. DESC_POP3_USER
 msgid "user name for POP3 server"
-msgstr "POP3サーバのユーザー名"
+msgstr "gebruikersnaam voor POP3 server"
 
 #. DESC_POP3_PASS
 msgid "password for POP3 server"
-msgstr "POP3サーバのパスワード"
+msgstr "paswoord voor POP3 server"
 
 #. DESC_MAIL_VIEWER
 msgid "Enter command to be executed to view a mail image"
-msgstr "メールイメージ表示のための実行コマンドを入力"
+msgstr "Commando om e-mail afbeelding te bekijken"
 
 #. DESC_HTML_MAIL
 msgid "Mail is sent in html mode, images are displayed directly"
-msgstr "メールはHTMLモードで送られ、画像は直接表示されます"
+msgstr "E-mail wordt als HTML verstuurd. Afbeeldingen verschijnen direct"
 
 #. DESC_OCR_COMMAND
 msgid "Enter command to start ocr program"
-msgstr "OCRプログラムの開始コマンドを入力"
+msgstr "Geef commando om tekstherkenningsprogramma te starten"
 
 #. DESC_OCR_INPUTFILE_OPT
 msgid "Enter option of the ocr program to define input file"
-msgstr "入力ファイルを定義するOCRプログラムのオプションを入力"
+msgstr "Geef de optie om een invoerbestand op te geven"
 
 #. DESC_OCR_OUTPUTFILE_OPT
 msgid "Enter option of the ocr program to define output file"
-msgstr "出力ファイルを定義するOCRプログラムのオプションを入力"
+msgstr "Geef de optie om een uitvoerbestand op te geven"
+
+#. DESC_OCR_USE_GUI_PIPE_OPT
+msgid "Define if the ocr program supports gui progress pipe"
+msgstr "Ondersteund het OCR programma een GUI progressie pipe"
+
+#. DESC_OCR_OUTFD_OPT
+msgid ""
+"Enter option of the ocr program to define output filedescripor in GUI mode"
+msgstr ""
+"Geef de optie van het OCR programma om de file descriptor te geven in GUI "
+"mode"
+
+#. DESC_OCR_PROGRESS_KEYWORD
+msgid "Define Keyword that is used to mark progress information"
+msgstr "Met welke sleutel word progressie informatie gemarkeerd"
 
 #. DESC_PERMISSION_READ
 msgid "read"
-msgstr "読込み"
+msgstr "lezen"
 
 #. DESC_PERMISSION_WRITE
 msgid "write"
-msgstr "書込み"
+msgstr "schrijven"
 
 #. DESC_PERMISSION_EXECUTE
 msgid "execute"
-msgstr "実行"
+msgstr "uitvoeren"
+
+#. DESC_ADD_BATCH
+msgid "Add selection for batch scan"
+msgstr "Voeg selectie toe aan batch lijst"
 
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
-msgstr "白点をピック"
+msgstr "Kies wit punt"
 
 #. DESC_PIPETTE_GRAY
 msgid "Pick gray point"
-msgstr "灰点をピック"
+msgstr "Kies grijs punt"
 
 #. DESC_PIPETTE_BLACK
 msgid "Pick black point"
-msgstr "黒点をピック"
+msgstr "Kies zwart punt"
 
 #. DESC_ZOOM_FULL
 msgid "Use full scanarea"
-msgstr "スキャン領域すべてを使用"
+msgstr "Gebruik volledige scangebied"
 
 #. DESC_ZOOM_OUT
 #, no-c-format
 msgid "Zoom 20% out"
-msgstr "20%縮小"
+msgstr "Zoom 20% uit"
 
 #. DESC_ZOOM_IN
+msgid "Click at position to zoom to"
+msgstr "Klik op de positie om in te zoomen"
+
+#. DESC_ZOOM_AREA
 msgid "Zoom into selected area"
-msgstr "選択領域を拡大"
+msgstr "Zoom in het geselecteerde gebied"
 
 #. DESC_ZOOM_UNDO
 msgid "Undo last zoom"
-msgstr "前回の拡大を元に戻す"
+msgstr "Eén zoom terug"
 
 #. DESC_FULL_PREVIEW_AREA
 msgid "Select visible area"
-msgstr "可視領域を選択"
+msgstr "Selecteer zichtbare gebied"
 
 #. DESC_AUTOSELECT_SCANAREA
 msgid "Autoselect scanarea"
-msgstr "スキャン領域の自動選択"
+msgstr "Automatische selectie"
+
+#. DESC_AUTORAISE_SCANAREA
+msgid "Autoraise scanarea"
+msgstr "Automatisch naar voren brengen"
 
 #. DESC_DELETE_IMAGES
 msgid "Delete preview image cache"
-msgstr "プレビュー画像のキャッシュを削除"
+msgstr "Verwijder preview uit geheugen"
 
 #. DESC_PRESET_AREA
 msgid "Preset area"
-msgstr "プリセット領域"
+msgstr "Vooringesteld gebied"
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
-msgstr "プレビューを回転してスキャン"
+msgstr "Draai preview en scan"
+
+#. DESC_PAPER_ORIENTATION
+msgid "Define image position for printing"
+msgstr ""
 
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
-msgstr "オプション文字の認識"
+msgstr "Tekstherkenning (OCR)"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
-msgstr "画像を複製"
+msgstr "Kopiëer afbeelding"
 
-#. DESC_VIEWER_ROTATE90
+#. DESC_ROTATE90
 msgid "Rotate image 90 degree"
-msgstr "画像を90°回転"
+msgstr "Draai 90 graden"
 
-#. DESC_VIEWER_ROTATE180
+#. DESC_ROTATE180
 msgid "Rotate image 180 degree"
-msgstr "画像を180°回転"
+msgstr "Draai 180 graden"
 
-#. DESC_VIEWER_ROTATE270
+#. DESC_ROTATE270
 msgid "Rotate image 270 degree"
-msgstr "画像を270°回転"
+msgstr "Draai 270 graden"
 
-#. DESC_VIEWER_MIRROR_X
+#. DESC_MIRROR_X
 msgid "Mirror image at vertical axis"
-msgstr "垂直鏡像"
+msgstr "Spiegel in vertikale richting"
 
-#. DESC_VIEWER_MIRROR_Y
+#. DESC_MIRROR_Y
 msgid "Mirror image at horizontal axis"
-msgstr "水平鏡像"
+msgstr "Spiegel in horizontale richting"
 
 #. DESC_VIEWER_ZOOM
 msgid "Zoom image"
-msgstr "画像を拡大"
+msgstr "Inzomen"
 
 #. DESC_STORE_MEDIUM
 msgid "Store medium"
-msgstr "触媒を保存"
+msgstr "Sla medium op"
 
 #. DESC_DELETE_MEDIUM
 msgid "Delete active medium"
-msgstr "アクティブな触媒を削除"
+msgstr "Huidige medium verwijderen"
+
+#. DESC_SCALE_FACTOR
+msgid "Scale factor"
+msgstr "Vergroting"
+
+#. DESC_X_SCALE_FACTOR
+msgid "X-Scale factor"
+msgstr "Vergroting in x-richting"
+
+#. DESC_Y_SCALE_FACTOR
+msgid "Y-Scale factor"
+msgstr "Vergroting in y-richting"
+
+#. DESC_BATCH_LIST_EMPTY
+msgid "Empty batch list"
+msgstr "Lege batch"
+
+#. DESC_BATCH_LIST_SAVE
+msgid "Save batch list"
+msgstr "Bewaar batch lijst"
+
+#. DESC_BATCH_LIST_LOAD
+msgid "Load batch list"
+msgstr "Laad batch lijst"
+
+#. DESC_BATCH_RENAME
+msgid "Rename area"
+msgstr "Gebied hernoemen"
+
+#. DESC_BATCH_ADD
+msgid "Add selected preview area to batch list"
+msgstr "Voeg geselecteerde gebied toe aan batch lijst"
+
+#. DESC_BATCH_DEL
+msgid "Delete selected area from batch list"
+msgstr "Verwijder geselecteerde gebied van de batch lijst"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
-msgstr "ホームディレクトリの確定に失敗しました："
+msgstr "Kon hoofdmap niet vinden:"
 
 #. ERR_CHANGE_WORKING_DIR
 msgid "Failed to change working directory to"
-msgstr "作業ディレクトリの変更に失敗しました"
+msgstr "Kon werkmap niet veranderen in"
 
 #. ERR_FILENAME_TOO_LONG
 msgid "Filename too long"
-msgstr "ファイル名が長すぎます"
+msgstr "Bestandsnaam te lang"
 
 #. ERR_CREATE_TEMP_FILE
-#, fuzzy
 msgid "Could not create temporary file"
-msgstr "一時プレビューファイルを作れません"
+msgstr "Kon geen tijdelijk bestand maken"
 
 #. ERR_SET_OPTION
 msgid "Failed to set value of option"
-msgstr "オプション値のセットに失敗しました"
+msgstr "Kon waarde van optie niet veranderen"
 
 #. ERR_GET_OPTION
 msgid "Failed to obtain value of option"
-msgstr "オプション値の取得に失敗しました"
+msgstr "Kon geen waarde van optie verkrijgen"
 
 #. ERR_OPTION_COUNT
 msgid "Error obtaining option count"
-msgstr "オプションカウントの取得エラーです"
+msgstr "Kon aantal opties niet vinden"
 
 #. ERR_DEVICE_OPEN_FAILED
 msgid "Failed to open device"
-msgstr "デバイスを開けません"
+msgstr "Kon apparaat niet vinden"
 
 #. ERR_NO_DEVICES
 msgid "no devices available"
-msgstr "デバイスがありません"
+msgstr "geen apparaten aanwezig"
 
 #. ERR_DURING_READ
 msgid "Error during read:"
-msgstr "読込みエラーです："
+msgstr "Fout tijden lezen:"
 
 #. ERR_DURING_SAVE
 msgid "Error during save:"
-msgstr "保存エラーです："
+msgstr "Fout tijdens bewaren:"
 
 #. ERR_BAD_DEPTH
 msgid "Can't handle depth"
-msgstr "深度が取得できません"
+msgstr "Kan diepte niet aan"
 
 #. ERR_GIMP_BAD_DEPTH
 #, c-format
 msgid "GIMP can't handle depth %d bits/color"
-msgstr "GIMPが%dビットカラーを取得できません"
+msgstr "GIMP kan niet met %d bits per kleur overweg"
 
 #. ERR_UNKNOWN_SAVING_FORMAT
 msgid "Unknown file format for saving"
-msgstr "未知の保存フォーマットです"
+msgstr "Onbekend bestandstype tijdens bewaren"
 
 #. ERR_OPEN_FAILED
 msgid "Failed to open"
-msgstr "開けません"
+msgstr "Kon niet openen"
 
 #. ERR_CREATE_SECURE_FILE
-#, fuzzy
 msgid "Could not create secure file (may be a link does exist):"
-msgstr "安全なファイルを作れません（リンク切れなど）："
+msgstr "Kon geen 'secure' bestand maken (misschien mist een link):"
 
 #. ERR_FAILED_PRINTER_PIPE
 msgid "Failed to open pipe for executing printercommand"
-msgstr "プリンタコマンド実行のためのパイプを開けません"
+msgstr "Kon geen printercommando openen"
 
 #. ERR_FAILED_EXEC_PRINTER_CMD
 msgid "Failed to execute printercommand:"
-msgstr "プリンタコマンドの実行に失敗しました："
+msgstr "Kon printercommando niet uitvoeren:"
 
 #. ERR_FAILED_START_SCANNER
 msgid "Failed to start scanner:"
-msgstr "スキャナの開始に失敗しました："
+msgstr "Kon scanner niet aanzetten:"
 
 #. ERR_FAILED_GET_PARAMS
 msgid "Failed to get parameters:"
-msgstr "パラメータの取得に失敗しました："
+msgstr "Kon parameters niet verkrijgen:"
 
 #. ERR_NO_OUTPUT_FORMAT
 msgid "No output format given"
-msgstr "出力フォーマットがありません"
+msgstr "Geen uitvoerformaat gegeven"
 
 #. ERR_NO_MEM
 msgid "out of memory"
-msgstr "オーバーフロー"
+msgstr "geheugen vol"
 
 #. ERR_TOO_MUCH_DATA
 msgid "Backend sends more image data than it defined in parameters"
-msgstr "バックエンドが規定のパラメータを超えた画像を送ってきました"
+msgstr "Backend geeft meer data dan gewenst"
 
 #. ERR_LIBTIFF
 msgid "LIBTIFF reports error"
-msgstr "LIBTIFFがエラーを返してきました"
+msgstr "LIBTIFF geeft fout"
 
 #. ERR_LIBPNG
 msgid "LIBPNG reports error"
-msgstr "LIBPNGがエラーを返してきました"
+msgstr "LIBPNG geeft fout"
 
 #. ERR_UNKNOWN_TYPE
 msgid "unknown type"
-msgstr "未知のタイプです"
+msgstr "onbekend type"
 
 #. ERR_UNKNOWN_CONSTRAINT_TYPE
 msgid "unknown constraint type"
-msgstr "未知の制約条件です"
+msgstr "onbekende beperking type"
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
-msgstr "文書ビューワの実行に失敗しました："
+msgstr "Kon documentatie programma niet starten:"
 
 #. ERR_FAILED_EXEC_FAX_VIEWER
 msgid "Failed to execute fax viewer:"
-msgstr "FAXビューワの実行に失敗しました："
+msgstr "Kon fax programma niet starten:"
 
 #. ERR_FAILED_EXEC_FAX_CMD
 msgid "Failed to execute fax command:"
-msgstr "FAXコマンドの実行に失敗しました："
+msgstr "Kon fax commando niet uitvoeren:"
 
 #. ERR_FAILED_EXEC_MAIL_VIEWER
 msgid "Failed to execute mail image viewer:"
-msgstr "メールイメージビューワの実行に失敗しました："
+msgstr "Kon e-mail afbeelding niet bekijken:"
 
 #. ERR_FAILED_EXEC_OCR_CMD
 msgid "Failed to execute ocr command:"
-msgstr "OCRコマンドの実行に失敗しました："
+msgstr "Kon tekstherkenningscommando niet uitvoeren:"
 
+# TBD
 #. ERR_BAD_FRAME_FORMAT
 msgid "bad frame format"
-msgstr "不正なフレームフォーマットです"
+msgstr "slecht frame formaat"
 
 #. ERR_FAILED_SET_RESOLUTION
 msgid "unable to set resolution"
-msgstr "解像度をセットできません"
+msgstr "kon resolutie niet veranderen"
 
 #. ERR_PASSWORD_FILE_INSECURE
 #, c-format
 msgid "Password file (%s) is insecure, use permission x00\n"
-msgstr ""
-"パスワードファイル（%s）は安全ではありません。許可属性x00を適用してください\n"
+msgstr "Paswoordbestand (%s) in niet veilig, gebruik permissie x00\n"
 
 #. ERR_ERROR
 msgid "error"
-msgstr "エラー"
+msgstr "fout"
 
 #. ERR_MAJOR_VERSION_NR_CONFLICT
 msgid "Sane major version number mismatch!"
-msgstr "Saneのメジャーバージョンの不整合です!"
+msgstr "Sane hoofdversie nummer incorrect!"
 
 #. ERR_XSANE_MAJOR_VERSION
 msgid "XSane major version ="
-msgstr "XSaneのメジャーバージョンは"
+msgstr "XSane hoofdversie ="
 
 #. ERR_BACKEND_MAJOR_VERSION
 msgid "backend major version ="
-msgstr "バックエンドのメジャーバージョンは"
+msgstr "backend hoofdversie ="
 
 #. ERR_PROGRAM_ABORTED
 msgid "*** PROGRAM ABORTED ***"
-msgstr "*** プログラムの異常終了 ***"
+msgstr "*** PROGRAMMA BEÏNDIGD ***"
 
 #. ERR_FAILED_ALLOCATE_IMAGE
 msgid "Failed to allocate image memory:"
-msgstr "画像メモリの割当てに失敗しました："
+msgstr "Kon geen geheugen voor afbeelding krijgen:"
 
 #. ERR_PREVIEW_BAD_DEPTH
 msgid "Preview cannot handle bit depth"
-msgstr "プレビューはビット深度を取得できません"
+msgstr "Preview kan niet met deze kleurdiepte werken"
 
 #. ERR_GIMP_SUPPORT_MISSING
 msgid "GIMP support missing"
-msgstr "GIMPサポートが見つかりません"
+msgstr "Geen GIMP ondersteuning"
 
 #. ERR_CREATE_PREVIEW_FILE
 msgid "Could not create temporary preview files"
-msgstr "一時プレビューファイルを作れません"
+msgstr "Kon geen tijdelijke preview bestanden maken"
 
 #. ERR_CREATE_PREVIEW_FILENAME
 msgid "Could not create filenames for preview files"
-msgstr "一時プレビューファイル名を作れません"
+msgstr "Kon geen naam maken voor previewbestand"
 
 #. ERR_CREATE_FAX_PROJECT
 msgid "Could not create faxproject"
-msgstr "FAXプロジェクトを作れません"
+msgstr "Kon geen faxproject maken"
 
 #. WARN_COUNTER_UNDERRUN
 msgid "Filename counter underrun"
-msgstr "ファイル名カウンタのアンダーランです"
+msgstr "Bestandsnaamteller te klein"
 
 #. WARN_NO_VALUE_CONSTRAINT
 msgid "warning: option has no value constraint"
-msgstr "警告：オプションは制約条件の値を持っていません"
+msgstr "waarschuwing: optie heeft geen waardebeperking"
 
 #. WARN_XSANE_AS_ROOT
 msgid ""
@@ -1971,95 +2209,98 @@ msgid ""
 "have any problem while running XSane as root:\n"
 "YOU ARE ALONE!"
 msgstr ""
-"ルート権限でXSaneを使うのは、たいへん危険です!\n"
+"Je probeert XSane als ROOT te draaien. Dat is heel GEVAARLIJK!\n"
 "\n"
-"ルート権限でXSaneを動かしているときの問題についてのバグ報告は、\n"
-"一切送らないでください\n"
-"「あなたは独りなのです」から！"
+"Stuur geen foutmeldingen op als je XSane\n"
+"als root draait.\n"
+"JE STAAT ER ALLEEN VOOR!"
 
 #. ERR_HEADER_ERROR
 msgid "Error"
-msgstr "エラー"
+msgstr "Fout"
 
 #. ERR_HEADER_WARNING
 msgid "Warning"
-msgstr "警告"
+msgstr "Waarschuwing"
 
 #. ERR_HEADER_INFO
 msgid "Information"
-msgstr "情報"
+msgstr "Informatie"
+
+#. ERR_HEADER_CHILD_PROCESS_ERROR
+msgid "Child process error"
+msgstr "Child process fout"
 
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
-msgstr "ファイルの作成に失敗しました："
+msgstr "Kon bestand niet maken:"
 
 #. ERR_LOAD_DEVICE_SETTINGS
 msgid "Error while loading device settings:"
-msgstr "デバイス設定読込中のエラーです："
+msgstr "Fout tijdens het laden van apparaatinstellingen:"
 
 #. ERR_NO_DRC_FILE
 msgid "is not a device-rc-file !!!"
-msgstr "はデバイス設定ファイルではありません!!!"
+msgstr "is geen apparaat-rc-bestand!!!"
 
 #. ERR_NETSCAPE_EXECUTE_FAIL
 msgid "Failed to execute netscape!"
-msgstr "Netscapeの実行に失敗しました!"
+msgstr "Kon netscape niet starten!"
 
 #. ERR_SENDFAX_RECEIVER_MISSING
 msgid "Send fax: no receiver defined"
-msgstr "FAX送信：受信機が定義されていません"
+msgstr "Zenden fax: geen ontvanger gedefinieerd"
 
 #. ERR_CREATED_FOR_DEVICE
 msgid "has been created for device"
-msgstr "はデバイスに対して作成されています"
+msgstr "is gemaakt voor apparaat"
 
 #. ERR_USED_FOR_DEVICE
 msgid "you want to use it for device"
-msgstr "デバイス用に使いたい"
+msgstr "je wilt het voor apparaat gebruiken"
 
 #. ERR_MAY_CAUSE_PROBLEMS
 msgid "this may cause problems!"
-msgstr "これは問題の種になるかも!"
+msgstr "dit kan problemen veroorzaken!"
 
 #. WARN_UNSAVED_IMAGES
 #, c-format
 msgid "There are %d unsaved images"
-msgstr "%d個の画像が未保存です"
+msgstr "Er zijn %d afbeeldingen niet bewaard"
 
 #. WARN_FILE_EXISTS
 #, c-format
 msgid "File %s already exists"
-msgstr "ファイル %s は既に存在しています"
+msgstr "Bestand %s bestaat al"
 
 #. ERR_FILE_NOT_EXISTS
 #, c-format
 msgid "File %s does not exist"
-msgstr "ファイル %s は存在しません"
+msgstr "Kon bestand %s niet vinden"
 
 #. ERR_FILE_NOT_POSTSCRIPT
 #, c-format
 msgid "File %s is not a postscript file"
-msgstr "ファイル %s はPostScriptファイルではありません"
+msgstr "%s is geen PostScript bestand"
 
 #. ERR_UNSUPPORTED_OUTPUT_FORMAT
 #, c-format
 msgid "Unsupported %d-bit output format: %s"
-msgstr "%dビットでサポートされていない出力フォーマットです： %s"
+msgstr "Geen ondersteuning van %d-bits kleuren in het %s formaat"
 
 #. WARN_VIEWER_IMAGE_NOT_SAVED
 msgid "viewer image is not saved"
-msgstr "ビューワの画像が保存されていません"
+msgstr "Afbeelding is niet bewaard"
 
 #. TEXT_USAGE
 msgid "Usage:"
-msgstr "書式："
+msgstr "Gebruik:"
 
 #. TEXT_USAGE_OPTIONS
 msgid "[OPTION]... [DEVICE]"
-msgstr "[オプション]...[デバイス]"
+msgstr "[OPTIE]... [APPARAAT]"
 
 #. TEXT_HELP
-#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2070,8 +2311,8 @@ msgid ""
 " -v, --version                print version information\n"
 " -l, --license                print license information\n"
 "\n"
-" -d, --device-settings file   load device settings from file (without "
-"\".drc\")\n"
+" -d, --device-settings file   load device settings from file (without \".drc"
+"\")\n"
 "\n"
 " -V, --viewer                 start with viewer-mode active (default)\n"
 " -s, --save                   start with save-mode active\n"
@@ -2096,56 +2337,57 @@ msgid ""
 " --sync                       request a synchronous connection with the X11 "
 "server"
 msgstr ""
-"スタートアップ：SANE(Scanner Access Now Easy)デバイスのGUI\n"
+"Start een grafische gebruikers interface om SANE (Scanner Access Now Easy) "
+"apparaten te gebruiken.\n"
 "\n"
-"[デバイス] のフォーマットはバックエンドの名前です：デバイスファイル (例 "
-"umax:/dev/scanner)。\n"
-"[オプション]... では、以下の項目の組み合わせが可能です：\n"
-" -h, --help                   このヘルプメッセージを表示して終了する\n"
-" -v, --version                バージョン詳報を表示する\n"
-" -l, --license                ライセンス情報を表示する\n"
+"Het formaat van [APPARAAT] is backendnaam:apparaatbestand (b.v. umax:/dev/"
+"scanner).\n"
+"[OPTIE]... kan een combinatie zijn van de volgende:\n"
+" -h, --help                   laat deze tekst zien en stop\n"
+" -v, --version                print versie informatie\n"
+" -l, --license                print licentie informatie\n"
 "\n"
-" -d, --device-settings file   "
-"デバイス設定をファイルから読み込む（\".drc\"抜きで）\n"
+" -d, --device-settings bestand laad apparaatinstellingen van bestand (zonder "
+"\".drc\")\n"
 "\n"
-" -V, --viewer                 ビューワモード アクティブで起動\n"
-" -s, --save                   セーブモード アクティブで起動\n"
-" -c, --copy                   コピーモード アクティブで起動\n"
-" -f, --fax                    FAXモード アクティブで起動\n"
-" -m, --mail                   メールモード アクティブで起動\n"
-" -n, --no-mode-selection      XSaneのモード選択メニューをオフにする\n"
+" -V, --viewer                 begin in bekijk-mode (standaard)\n"
+" -s, --save                   begin in save-mode\n"
+" -c, --copy                   begin in kopieer-mode\n"
+" -f, --fax                    begin in fax-mode\n"
+" -m, --mail                   begin in e-mail-mode\n"
+" -n, --no-mode-selection      mode mag niet veranderd worden door gebruiker\n"
 "\n"
-" -F, --Fixed                  "
-"メインウィンドウのサイズを固定（設定値を上書き）\n"
-" -R, --Resizeable             "
-"メインウィンドウをスクロール・リサイズ可能にする（設定値を上書き）\n"
+" -M, --Medium-calibration     maak medium calibreren mogelijk\n"
 "\n"
-" -p, --print-filenames        XSaneで作成した画像ファイル名を印刷\n"
-" -N, --force-filename name    "
-"ファイル名を強制して、ユーザーファイル名の選択を無効にする\n"
+" -F, --Fixed                  vaste grootte hoofdvenster (overschrijft "
+"voorkeurinstellingen\n"
+" -R, --Resizeable             geen vaste grootte hoofdvenster (overschrijft "
+"voorkeurinstellingen\n"
 "\n"
-" --display X11-display        X11のディスプレイ出力にリダイレクトする\n"
-" --no-xshm                    共有メモリのイメージを使わない\n"
-" --sync                       X11サーバへの同期接続を要求する"
+" -p, --print-filenames        print bestandnamen door XSane gemaakt\n"
+" -N, --force-filename naam    forceer een bestandsnaam\n"
+"\n"
+" --display X11-display        output naar X11-display\n"
+" --no-xshm                    gebruik geen shared memory afbeeldingen\n"
+" --sync                       vraag synchrone connectie met X11 server"
 
 #. strings for gimp plugin
 #. XSANE_GIMP_INSTALL_BLURB
 msgid "Front-end to the SANE interface"
-msgstr "インターフェイスSANEのフロントエンド"
+msgstr "Front-end voor de SANE interface"
 
 #. XSANE_GIMP_INSTALL_HELP
 msgid ""
 "This function provides access to scanners and other image acquisition "
 "devices through the SANE (Scanner Access Now Easy) interface."
 msgstr ""
-"この機能は、インターフェイスSANE(Scanner Access Now "
-"Easy)を通じてスキャナをはじめとする画像取込みデバイスへのアクセスを提供します"
-"。"
+"Deze functie geeft toegang tot scanners en andere aquisitie apparaten door "
+"de SANE (Scanner Access Now Easy) interface."
 
 #. Menu path must not be translated, this is done by the gimp. Only translate the text behind the last "/"
 #. XSANE_GIMP_MENU_DIALOG
 msgid "<Toolbox>/File/Acquire/XSane: Device dialog..."
-msgstr "<Toolbox>/File/Acquire/XSane: デバイスダイアログ..."
+msgstr "<Toolbox>/File/Acquire/XSane: Apparaat kiezen..."
 
 #. XSANE_GIMP_MENU
 msgid "<Toolbox>/File/Acquire/XSane: "
@@ -2153,177 +2395,189 @@ msgstr "<Toolbox>/File/Acquire/XSane: "
 
 #. XSANE_GIMP_MENU_DIALOG_OLD
 msgid "<Toolbox>/Xtns/XSane/Device dialog..."
-msgstr "<Toolbox>/Xtns/XSane/Device dialog..."
+msgstr "<Toolbox>/Xtns/XSane/Apparaat kiezen..."
 
 #. XSANE_GIMP_MENU_OLD
 msgid "<Toolbox>/Xtns/XSane/"
 msgstr "<Toolbox>/Xtns/XSane/"
 
+#. HELP_NO_DEVICES
+msgid ""
+"Possible reasons:\n"
+"1) There really is no device that is supported by SANE\n"
+"2) Supported devices are busy\n"
+"3) The permissions for the device file do not allow you to use it - try as "
+"root\n"
+"4) The backend is not loaded by SANE (man sane-dll)\n"
+"5) The backend is not configured correct (man sane-\"backendname\")\n"
+"6) Possibly there is more than one SANE version installed"
+msgstr ""
+
 #. strings that are used in structures, so it is not allowed to use _()/gettext() here
 #. gettext_noop does mark these texts but does not change the string
 #. MENU_ITEM_SURFACE_FULL_SIZE
 msgid "full size"
-msgstr "フルサイズ"
+msgstr "volledige grootte"
 
 #. MENU_ITEM_SURFACE_DIN_A3P
 msgid "DIN A3 port."
-msgstr "DIN A3 縦"
+msgstr "DIN A3 port."
 
 #. MENU_ITEM_SURFACE_DIN_A3L
 msgid "DIN A3 land."
-msgstr "DIN A3 横"
+msgstr "DIN A3 land."
 
 #. MENU_ITEM_SURFACE_DIN_A4P
 msgid "DIN A4 port."
-msgstr "DIN A4 縦"
+msgstr "DIN A4 port."
 
 #. MENU_ITEM_SURFACE_DIN_A4L
 msgid "DIN A4 land."
-msgstr "DIN A4 横"
+msgstr "DIN A4 land."
 
 #. MENU_ITEM_SURFACE_DIN_A5P
 msgid "DIN A5 port."
-msgstr "DIN A5 縦"
+msgstr "DIN A5 port."
 
 #. MENU_ITEM_SURFACE_DIN_A5L
 msgid "DIN A5 land."
-msgstr "DIN A5 横"
+msgstr "DIN A5 land."
 
 #. MENU_ITEM_SURFACE_13cmx18cm
 msgid "13cm x 18cm"
-msgstr "13cm X 18cm"
+msgstr "13cm x 18cm"
 
 #. MENU_ITEM_SURFACE_18cmx13cm
 msgid "18cm x 13cm"
-msgstr "18cm X 13cm"
+msgstr "18cm x 13cm"
 
 #. MENU_ITEM_SURFACE_10cmx15cm
 msgid "10cm x 15cm"
-msgstr "10cm X 15cm"
+msgstr "10cm x 15cm"
 
 #. MENU_ITEM_SURFACE_15cmx10cm
 msgid "15cm x 10cm"
-msgstr "15cm X 10cm"
+msgstr "15cm x 10cm"
 
 #. MENU_ITEM_SURFACE_9cmx13cm
 msgid "9cm x 13cm"
-msgstr "9cm X 13cm"
+msgstr "9cm x 13cm"
 
 #. MENU_ITEM_SURFACE_13cmx9cm
 msgid "13cm x 9cm"
-msgstr "13cm X 9cm"
+msgstr "13cm x 9cm"
 
 #. MENU_ITEM_SURFACE_legal_P
 msgid "legal port."
-msgstr "リーガルサイズ 縦"
+msgstr "legal port."
 
 #. MENU_ITEM_SURFACE_legal_L
 msgid "legal land."
-msgstr "リーガルサイズ 横"
+msgstr "legal land."
 
 #. MENU_ITEM_SURFACE_letter_P
 msgid "letter port."
-msgstr "レターサイズ 縦"
+msgstr "letter port."
 
 #. MENU_ITEM_SURFACE_letter_L
 msgid "letter land."
-msgstr "レターサイズ 横"
+msgstr "letter land."
 
-#. MENU_ITEM_MEDIUM_FULL_RANGE
-msgid "Full range"
-msgstr "フルレンジ"
+#. MENU_ITEM_MEDIUM_FULL_COLOR_RANGE
+msgid "Full color range"
+msgstr "Volledig kleuren bereik"
 
 #. MENU_ITEM_MEDIUM_SLIDE
 msgid "Slide"
-msgstr "スライド"
+msgstr "Dia"
 
 #. MENU_ITEM_MEDIUM_STANDARD_NEG
 msgid "Standard negative"
-msgstr "標準のネガ"
+msgstr "Standaard negatief"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG
 msgid "Agfa negative"
-msgstr "Agfaのネガ"
+msgstr "Agfa negatief"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG_XRG200_4
 msgid "Agfa negative XRG 200-4"
-msgstr "Agfa XRG 200-4"
+msgstr "Agfa negatief XRG 200-4"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG_HDC_100
 msgid "Agfa negative HDC 100"
-msgstr "Agfa negative HDC 100"
+msgstr "Agfa negatief HDC 100"
 
 #. MENU_ITEM_MEDIUM_FUJI_NEG
 msgid "Fuji negative"
-msgstr "富士フィルムのネガ"
+msgstr "Fuji negatief"
 
 #. MENU_ITEM_MEDIUM_KODAK_NEG
 msgid "Kodak negative"
-msgstr "コダックのネガ"
+msgstr "Kodak negatief"
 
 #. MENU_ITEM_MEDIUM_KONICA_NEG
 msgid "Konica negative"
-msgstr "コニカのネガ"
+msgstr "Konica negatief"
 
 #. MENU_ITEM_MEDIUM_KONICA_NEG_VX_100
 msgid "Konica negative VX 100"
-msgstr "コニカ VX 100"
+msgstr "Konica negatief VX 100"
 
 #. MENU_ITEM_MEDIUM_ROSSMANN_NEG_HR_100
 msgid "Rossmann negative HR 100"
-msgstr "Rossmann HR 100"
+msgstr "Rossmann negatief HR 100"
 
 #. Sane backend messages
 msgid "flatbed scanner"
-msgstr "フラットベッドスキャナ"
+msgstr "flatbedscanner"
 
 msgid "frame grabber"
-msgstr "フレーム取込み"
+msgstr "framegrabber"
 
 msgid "handheld scanner"
-msgstr "ハンドヘルドスキャナ"
+msgstr "handscanner"
 
 msgid "still camera"
-msgstr "スチールカメラ"
+msgstr "still camera"
 
 msgid "video camera"
-msgstr "ビデオカメラ"
+msgstr "videocamera"
 
 msgid "virtual device"
-msgstr "仮想デバイス"
+msgstr "virtueel apparaat"
 
 msgid "Success"
-msgstr "成功"
+msgstr "Succes"
 
 msgid "Operation not supported"
-msgstr "オペレーションはサポートされていません"
+msgstr "Functie niet ondersteund"
 
 msgid "Operation was cancelled"
-msgstr "オペレーションは取り消されました"
+msgstr "Functie was onderbroken"
 
 msgid "Device busy"
-msgstr "デバイスがビジーです"
+msgstr "Apparaat bezig"
 
 msgid "Invalid argument"
-msgstr "不正な引数です"
+msgstr "Fout argument"
 
 msgid "End of file reached"
-msgstr "ファイル終端まできました"
+msgstr "Einde van bestand bereikt"
 
 msgid "Document feeder jammed"
-msgstr "給紙系統に異常"
+msgstr "Document doorvoer geblokkeerd"
 
 msgid "Document feeder out of documents"
-msgstr "用紙が足りません"
+msgstr "Geen documenten meer"
 
 msgid "Scanner cover is open"
-msgstr "スキャナのカバーが開いています"
+msgstr "Scanner deksel is open"
 
 msgid "Error during device I/O"
-msgstr "デバイスI/Oエラー"
+msgstr "Fout tijdens apparaat communicatie"
 
 msgid "Out of memory"
-msgstr "オーバーフロー"
+msgstr "Geheugen vol"
 
 msgid "Access to resource has been denied"
-msgstr "リソースへのアクセスが拒否されました"
+msgstr "Geen toegang tot apparaat"

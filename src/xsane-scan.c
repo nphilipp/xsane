@@ -85,8 +85,9 @@ static int xsane_generate_dummy_filename(int conversion_level)
        (xsane.xsane_mode == XSANE_FAX) ||
        (xsane.xsane_mode == XSANE_MAIL) ||
        (xsane.xsane_mode == XSANE_VIEWER) ||
-       ( (xsane.xsane_mode == XSANE_SAVE)  && (xsane.xsane_output_format != XSANE_PNM) &&
-         (xsane.xsane_output_format != XSANE_RAW16) && (xsane.xsane_output_format != XSANE_RGBA) ) )
+       ( (xsane.xsane_mode == XSANE_SAVE)  &&
+         (xsane.xsane_output_format != XSANE_PNM) &&
+         (xsane.xsane_output_format != XSANE_RGBA) ) )
   {
     tempfile = TRUE;
   }
@@ -308,11 +309,13 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
         case SANE_FRAME_GREEN:
         case SANE_FRAME_BLUE:
           {
+           unsigned char rgbbuf[3 * XSANE_3PASS_BUFFER_RGB_SIZE];
+           int pos;
+
             DBG(DBG_info, "3 pass color\n");
 
             if (!xsane.scanner_gamma_color) /* gamma correction by xsane */
             {
-             char val;
              SANE_Int *gamma;
 
               if (xsane.param.format == SANE_FRAME_RED)
@@ -330,19 +333,51 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
 
               for (i = 0; i < len; ++i)
               {
-                val = gamma[(int) buf8[i]];
-                fputc(val, xsane.out);
-                fseek(xsane.out, 2, SEEK_CUR);
+                buf8[i] = gamma[(int) buf8[i]];
               }
             }
-            else /* gamma correction by scanner */
+
+            buf8ptr = buf8;
+            pos = 0;
+
+            while(pos < len)
             {
-              for (i = 0; i < len; ++i)
+             int cnt, bytes;
+
+              cnt = len - pos;
+
+              if (cnt > XSANE_3PASS_BUFFER_RGB_SIZE)
               {
-                fputc(buf8[i], xsane.out);
-                fseek(xsane.out, 2, SEEK_CUR);
+                cnt = XSANE_3PASS_BUFFER_RGB_SIZE;
               }
-            }
+
+              bytes = 3 * cnt - 2;
+
+              /* if there already is data: read block of already scanned colors */
+              if( (xsane.param.format > SANE_FRAME_RED) && (cnt > 1) )
+              {
+               long fpos = ftell(xsane.out);
+
+                fseek(xsane.out, 0, SEEK_CUR); /* sync between write and read */
+                fread(rgbbuf, 1, bytes - 1, xsane.out);
+                fseek(xsane.out, fpos, SEEK_SET);
+              }
+
+              /* add just scanned color to block */
+              for(j = 0; j < cnt; j++)
+              {
+                rgbbuf[3 * j] = buf8ptr[j];
+              }
+
+              /* write block back to disk */
+              fwrite(rgbbuf, 1, bytes, xsane.out);
+
+              pos += cnt;
+              buf8ptr += cnt;
+
+              /* skip the bytes for the two other colors */
+              fseek(xsane.out, 2, SEEK_CUR);
+            } /* while(pos < len) */
           }
          break;
 
@@ -1012,7 +1047,7 @@ void xsane_scan_done(SANE_Status status)
       image_info.threshold        = xsane.threshold;
 
 
-      xsane_write_pnm_header(xsane.out, &image_info);
+      xsane_write_pnm_header(xsane.out, &image_info, 0);
     }
 
     DBG(DBG_info, "closing output file\n");
@@ -1148,7 +1183,6 @@ void xsane_scan_done(SANE_Status status)
       }
 
       if ( ( (xsane.xsane_output_format != XSANE_PNM) && /* these files do not need any transformation */
-             (xsane.xsane_output_format != XSANE_RAW16) &&
              (xsane.xsane_output_format != XSANE_RGBA) ) ||
            (xsane.mode == XSANE_GIMP_EXTENSION) )
       { /* ok, we have to do a transformation */
@@ -1242,48 +1276,26 @@ void xsane_scan_done(SANE_Status status)
 
         xsane_read_pnm_header(infile, &image_info);
 
-        imagewidth  = image_info.image_width/(float)printer_resolution; /* width in inch */
-        imageheight = image_info.image_height/(float)printer_resolution; /* height in inch */
+        imagewidth  = 72.0 * image_info.image_width/(float)printer_resolution; /* width in 1/72 inch */
+        imageheight = 72.0 * image_info.image_height/(float)printer_resolution; /* height in 1/72 inch */
 
         memset (&act, 0, sizeof (act)); /* define broken pipe handler */
         act.sa_handler = xsane_sigpipe_handler;
         sigaction (SIGPIPE, &act, 0);
 
+        DBG(DBG_info, "imagewidth  = %f\n 1/72 inch", imagewidth);
+        DBG(DBG_info, "imageheight = %f\n 1/72 inch", imageheight);
 
-        if (preferences.psrotate) /* rotate: landscape */
-        {
-          xsane_save_ps(outfile, infile,
-                        &image_info,
-                        (preferences.printer[preferences.printernr]->bottomoffset +
-                         preferences.printer[preferences.printernr]->height) * 36.0/MM_PER_INCH - imagewidth * 36.0, /* left edge */
-                        (preferences.printer[preferences.printernr]->leftoffset +
-                         preferences.printer[preferences.printernr]->width) * 36.0/MM_PER_INCH - imageheight * 36.0, /* bottom edge */
-                        imagewidth, imageheight,
-                        (preferences.printer[preferences.printernr]->leftoffset +
-                         preferences.printer[preferences.printernr]->width ) * 72.0/MM_PER_INCH,  /* paperwidth */
-                        (preferences.printer[preferences.printernr]->bottomoffset +
-                         preferences.printer[preferences.printernr]->height) * 72.0/MM_PER_INCH, /* paperheight */
-                        1 /* landscape */,
-                        xsane.progress_bar,
-                        &xsane.cancel_save);
-        }
-        else /* do not rotate: portrait */
-        {
-          xsane_save_ps(outfile, infile,
-                        &image_info,
-                        (preferences.printer[preferences.printernr]->leftoffset +
-                         preferences.printer[preferences.printernr]->width) * 36.0/MM_PER_INCH - imagewidth * 36.0, /* left edge */
-                        (preferences.printer[preferences.printernr]->bottomoffset +
-                         preferences.printer[preferences.printernr]->height) * 36.0/MM_PER_INCH - imageheight * 36.0, /* bottom edge */
-                        imagewidth, imageheight,
-                        (preferences.printer[preferences.printernr]->leftoffset +
-                         preferences.printer[preferences.printernr]->width ) * 72.0/MM_PER_INCH,  /* paperwidth */
-                        (preferences.printer[preferences.printernr]->bottomoffset +
-                         preferences.printer[preferences.printernr]->height) * 72.0/MM_PER_INCH, /* paperheight */
-                        0 /* portrait */,
-                        xsane.progress_bar,
-                        &xsane.cancel_save);
-        }
+        xsane_save_ps(outfile, infile,
+                      &image_info,
+                      imagewidth, imageheight,
+                      preferences.printer[preferences.printernr]->leftoffset   * 72.0/MM_PER_INCH, /* paper_left_margin */
+                      preferences.printer[preferences.printernr]->bottomoffset * 72.0/MM_PER_INCH, /* paper_bottom_margin */
+                      preferences.printer[preferences.printernr]->width  * 72.0/MM_PER_INCH, /* usable paperwidth */
+                      preferences.printer[preferences.printernr]->height * 72.0/MM_PER_INCH, /* usable paperheight */
+                      preferences.paper_orientation,
+                      xsane.progress_bar,
+                      &xsane.cancel_save);
       }
       else
       {
@@ -1348,20 +1360,20 @@ void xsane_scan_done(SANE_Status status)
          {
           float imagewidth, imageheight;
 
-           imagewidth  = image_info.image_width/xsane.resolution_x; /* width in inch */
-           imageheight = image_info.image_height/xsane.resolution_y; /* height in inch */
+           imagewidth  = 72.0 * image_info.image_width/xsane.resolution_x; /* width in 1/72 inch */
+           imageheight = 72.0 * image_info.image_height/xsane.resolution_y; /* height in 1/72 inch */
 
-           DBG(DBG_info, "imagewidth  = %f\n", imagewidth);
-           DBG(DBG_info, "imageheight = %f\n", imageheight);
+           DBG(DBG_info, "imagewidth  = %f\n 1/72 inch", imagewidth);
+           DBG(DBG_info, "imageheight = %f\n 1/72 inch", imageheight);
 
            xsane_save_ps(outfile, infile,
                          &image_info,
-                         (preferences.fax_leftoffset   + preferences.fax_width)  * 36.0/MM_PER_INCH - imagewidth * 36.0,
-                         (preferences.fax_bottomoffset + preferences.fax_height) * 36.0/MM_PER_INCH - imageheight * 36.0,
                          imagewidth, imageheight,
-                         (preferences.fax_leftoffset   + preferences.fax_width ) * 72.0/MM_PER_INCH, /* paperwidth */
-                         (preferences.fax_bottomoffset + preferences.fax_height) * 72.0/MM_PER_INCH, /* paperheight */
-                         0 /* portrait */,
+                         preferences.fax_leftoffset   * 72.0/MM_PER_INCH, /* paper_left_margin */
+                         preferences.fax_bottomoffset * 72.0/MM_PER_INCH, /* paper_bottom_margin */
+                         preferences.fax_width  * 72.0/MM_PER_INCH, /* paper_width */
+                         preferences.fax_height * 72.0/MM_PER_INCH, /* paper_height */
+                         0 /* portrait top left */,
                          xsane.progress_bar,
                          &xsane.cancel_save);
            fclose(outfile);
@@ -1666,7 +1678,8 @@ static void xsane_start_scan(void)
       }
     }
 
-    xsane.out = fopen(xsane.dummy_filename, "wb"); /* b = binary mode for win32 */
+    /* create file: + = also allow read for blocked rgb multiplexing,  b = binary mode for win32 */
+    xsane.out = fopen(xsane.dummy_filename, "wb+");
 
     if (!xsane.out) /* error while opening the dummy_file for writing */
     {
@@ -1707,7 +1720,7 @@ static void xsane_start_scan(void)
  
     image_info.threshold        = xsane.threshold;
 
-    xsane_write_pnm_header(xsane.out, &image_info);
+    xsane_write_pnm_header(xsane.out, &image_info, 0);
 
     fflush(xsane.out);
     xsane.header_size = ftell(xsane.out); /* store header size for 3 pass scan */
@@ -1772,6 +1785,10 @@ void xsane_scan_dialog(void)
     /* correct length of filename counter if it is shorter than minimum length */
     if (!xsane.force_filename)
     {
+      if (xsane.batch_loop) /* we are doing a batch scan, so we need a counter in the filename */
+      {
+        xsane_ensure_counter_in_filename(&preferences.filename, preferences.filename_counter_len);
+      }
       xsane_update_counter_in_filename(&preferences.filename, FALSE, 0, preferences.filename_counter_len);
       xsane_set_filename(preferences.filename); 
     }
@@ -1822,6 +1839,7 @@ void xsane_scan_dialog(void)
         xsane_set_sensitivity(TRUE);
        return;
       }
+#if 0 /* this is not necessary any more because the saving routines do the conversion */
       else if ( ( ( (xsane.xsane_output_format == XSANE_JPEG) && xsane.param.depth == 16) ||
                   ( (xsane.xsane_output_format == XSANE_PS)   && xsane.param.depth == 16) ) &&
                 ( !xsane.reduce_16bit_to_8bit) )
@@ -1835,6 +1853,7 @@ void xsane_scan_dialog(void)
         }
         xsane.reduce_16bit_to_8bit = TRUE;
       }
+#endif
       
 #ifdef SUPPORT_RGBA
       else if ((xsane.xsane_output_format == XSANE_RGBA) && (xsane.param.format != SANE_FRAME_RGBA))

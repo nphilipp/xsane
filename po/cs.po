@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.88\n"
-"POT-Creation-Date: 2002-09-13 08:34+0200\n"
-"PO-Revision-Date: 2002-09-15 22:33+0200\n"
-"Last-Translator: Stanislav Brabec <utx@penguin.cz>\n"
+"Project-Id-Version: XSANE 0.89\n"
+"POT-Creation-Date: 2002-10-20 22:23+0200\n"
+"PO-Revision-Date: 2002-10-10 12:16+0200\n"
+"Last-Translator: Stanislav Brabec <sbrabec@suse.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-2\n"
@@ -166,6 +166,11 @@ msgstr "Rozostøit obrázek"
 #. WINDOW_STORE_MEDIUM
 msgid "Store medium definition"
 msgstr "Ulo¾it definici média"
+
+#. WINDOW_NO_DEVICES
+#, fuzzy
+msgid "No devices available"
+msgstr "nejsou k dispozici ¾ádná zaøízení"
 
 #. MENU_FILE
 msgid "File"
@@ -374,6 +379,10 @@ msgstr "Varování o pøepsání"
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
 msgid "Skip existing filenames"
 msgstr "Pøeskoèit existující jména souborù"
+
+#. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
+msgid "Save 16bit pnm in ascii format"
+msgstr "Zapsat jako 16bitový pnm v ascii formátu"
 
 #. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
 msgid "Reduce 16 bit image to 8 bit"
@@ -693,38 +702,32 @@ msgid "(no name)"
 msgstr "(beze jména)"
 
 #. TEXT_BATCH_LIST_AREANAME
-#, fuzzy
 msgid "Area name:"
-msgstr "U¾ivatel:"
+msgstr "Jméno oblasti:"
 
 #. TEXT_BATCH_LIST_SCANMODE
-#, fuzzy
 msgid "Scanmode:"
-msgstr "Re¾im XSane"
+msgstr "Re¾im skenování:"
 
 #. TEXT_BATCH_LIST_GEOMETRY_TL
 msgid "Top left:"
-msgstr ""
+msgstr "Horní levý:"
 
 #. TEXT_BATCH_LIST_GEOMETRY_SIZE
-#, fuzzy
 msgid "Size:"
-msgstr "Diapozitiv"
+msgstr "Velikost:"
 
 #. TEXT_BATCH_LIST_RESOLUTION
-#, fuzzy
 msgid "Resolution:"
-msgstr "Volba prahu:"
+msgstr "Rozli¹ení:"
 
 #. TEXT_BATCH_LIST_BIT_DEPTH
-#, fuzzy
 msgid "Bit depth:"
-msgstr "Vstupní hloubka gama:"
+msgstr "Bitová hloubka:"
 
 #. TEXT_BATCH_LIST_BY_GUI
-#, fuzzy
 msgid "as selected"
-msgstr "Zvolená oblast skenování"
+msgstr "jako vybraná"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -1610,6 +1613,18 @@ msgid ""
 msgstr ""
 "Je-li èítaè souborù automaticky zvìt¹ován, pou¾itá èísla jsou pøeskoèena"
 
+#. DESC_SAVE_PNM16_AS_ASCII
+msgid ""
+"When a 16 bit image shall be saved in pnm format then use ascii format "
+"instead of binary format. The binary format is a new format that is not "
+"supported by all programs. The ascii format is supported by more programs "
+"but it produces really huge files!!!"
+msgstr ""
+"Pokud má být 16bitový obrázek zapsán ve formátu pnm, potom pou¾ijte ascii "
+"formát namísto binárního. Bunární formát je nový a nepodporují ho v¹echny "
+"programy. Ascii formát podporuje více programù, ale produkuje obrovské "
+"soubory!!!"
+
 #. DESC_REDUCE_16BIT_TO_8BIT
 msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
 msgstr ""
@@ -1911,6 +1926,10 @@ msgstr "Pøedvolená oblast"
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
 msgstr "Rotace náhledu a skenování"
+
+#. DESC_PAPER_ORIENTATION
+msgid "Define image position for printing"
+msgstr ""
 
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
@@ -2383,6 +2402,18 @@ msgstr "<Toolbox>/Xtns/XSane/Dialog zaøízení..."
 #. XSANE_GIMP_MENU_OLD
 msgid "<Toolbox>/Xtns/XSane/"
 msgstr "<Toolbox>/Xtns/XSane/"
+
+#. HELP_NO_DEVICES
+msgid ""
+"Possible reasons:\n"
+"1) There really is no device that is supported by SANE\n"
+"2) Supported devices are busy\n"
+"3) The permissions for the device file do not allow you to use it - try as "
+"root\n"
+"4) The backend is not loaded by SANE (man sane-dll)\n"
+"5) The backend is not configured correct (man sane-\"backendname\")\n"
+"6) Possibly there is more than one SANE version installed"
+msgstr ""
 
 #. strings that are used in structures, so it is not allowed to use _()/gettext() here
 #. gettext_noop does mark these texts but does not change the string

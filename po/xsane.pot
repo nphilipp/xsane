@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-09-13 08:34+0200\n"
+"POT-Creation-Date: 2002-10-20 22:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -166,6 +166,10 @@ msgstr ""
 
 #. WINDOW_STORE_MEDIUM
 msgid "Store medium definition"
+msgstr ""
+
+#. WINDOW_NO_DEVICES
+msgid "No devices available"
 msgstr ""
 
 #. MENU_FILE
@@ -374,6 +378,10 @@ msgstr ""
 
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
 msgid "Skip existing filenames"
+msgstr ""
+
+#. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
+msgid "Save 16bit pnm in ascii format"
 msgstr ""
 
 #. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
@@ -1557,6 +1565,14 @@ msgid ""
 "If filename counter is automatically increased, used numbers are skipped"
 msgstr ""
 
+#. DESC_SAVE_PNM16_AS_ASCII
+msgid ""
+"When a 16 bit image shall be saved in pnm format then use ascii format "
+"instead of binary format. The binary format is a new format that is not "
+"supported by all programs. The ascii format is supported by more programs "
+"but it produces really huge files!!!"
+msgstr ""
+
 #. DESC_REDUCE_16BIT_TO_8BIT
 msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
 msgstr ""
@@ -1842,6 +1858,10 @@ msgstr ""
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
+msgstr ""
+
+#. DESC_PAPER_ORIENTATION
+msgid "Define image position for printing"
 msgstr ""
 
 #. DESC_VIEWER_OCR
@@ -2272,6 +2292,18 @@ msgstr ""
 
 #. XSANE_GIMP_MENU_OLD
 msgid "<Toolbox>/Xtns/XSane/"
+msgstr ""
+
+#. HELP_NO_DEVICES
+msgid ""
+"Possible reasons:\n"
+"1) There really is no device that is supported by SANE\n"
+"2) Supported devices are busy\n"
+"3) The permissions for the device file do not allow you to use it - try as "
+"root\n"
+"4) The backend is not loaded by SANE (man sane-dll)\n"
+"5) The backend is not configured correct (man sane-\"backendname\")\n"
+"6) Possibly there is more than one SANE version installed"
 msgstr ""
 
 #. strings that are used in structures, so it is not allowed to use _()/gettext() here

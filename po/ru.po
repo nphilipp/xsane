@@ -3,8 +3,8 @@
 # Vitaly Lipatov <lav@altlinux.ru>, 2002
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.88\n"
-"POT-Creation-Date: 2002-09-13 08:34+0200\n"
+"Project-Id-Version: XSANE 0.89\n"
+"POT-Creation-Date: 2002-10-20 22:23+0200\n"
 "PO-Revision-Date: 2002-09-14 14:09MSK\n"
 "Last-Translator: John Profic <profic@lrn.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -166,6 +166,10 @@ msgstr "Размыть изображение"
 #. WINDOW_STORE_MEDIUM
 msgid "Store medium definition"
 msgstr "Записать носитель"
+
+#. WINDOW_NO_DEVICES
+msgid "No devices available"
+msgstr "Доступные устройства отсутствуют"
 
 #. MENU_FILE
 msgid "File"
@@ -374,6 +378,10 @@ msgstr "Предупреждать при перезаписи"
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
 msgid "Skip existing filenames"
 msgstr "Пропускать существующие"
+
+#. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
+msgid "Save 16bit pnm in ascii format"
+msgstr "Сохранять 16-битные pnm в ascii формате"
 
 #. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
 msgid "Reduce 16 bit image to 8 bit"
@@ -697,38 +705,32 @@ msgid "(no name)"
 msgstr "(без имени)"
 
 #. TEXT_BATCH_LIST_AREANAME
-#, fuzzy
 msgid "Area name:"
-msgstr "Имя пользователя :"
+msgstr "Имя области:"
 
 #. TEXT_BATCH_LIST_SCANMODE
-#, fuzzy
 msgid "Scanmode:"
-msgstr "Режим"
+msgstr "Режим сканирования:"
 
 #. TEXT_BATCH_LIST_GEOMETRY_TL
 msgid "Top left:"
-msgstr ""
+msgstr "Верхняя левая координата:"
 
 #. TEXT_BATCH_LIST_GEOMETRY_SIZE
-#, fuzzy
 msgid "Size:"
-msgstr "Слайд"
+msgstr "Размер:"
 
 #. TEXT_BATCH_LIST_RESOLUTION
-#, fuzzy
 msgid "Resolution:"
-msgstr "Параметры управления порогом:"
+msgstr "Разрешение:"
 
 #. TEXT_BATCH_LIST_BIT_DEPTH
-#, fuzzy
 msgid "Bit depth:"
-msgstr "Исходная глубина гаммы:"
+msgstr "Глубина цвета:"
 
 #. TEXT_BATCH_LIST_BY_GUI
-#, fuzzy
 msgid "as selected"
-msgstr "Сканировать выбранную область"
+msgstr "как выделено"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -1609,6 +1611,18 @@ msgstr ""
 "При использовании счётчика в названии файла уже использованные номера "
 "пропускаются"
 
+#. DESC_SAVE_PNM16_AS_ASCII
+msgid ""
+"When a 16 bit image shall be saved in pnm format then use ascii format "
+"instead of binary format. The binary format is a new format that is not "
+"supported by all programs. The ascii format is supported by more programs "
+"but it produces really huge files!!!"
+msgstr ""
+"При сохранении 16-битных изображений в формате pnm используйте текстовый "
+"(ascii) формат вместо бинарного. Бинарный формат - новый и не поддерживается "
+"всеми программами. Текстовый формат поддерживается большим числом программ, "
+"но занимает значительно больше места на диске!!!"
+
 #. DESC_REDUCE_16BIT_TO_8BIT
 msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
 msgstr ""
@@ -1927,6 +1941,10 @@ msgstr "Заданные области"
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
 msgstr "Поворот предварительного и окончательного сканирования"
+
+#. DESC_PAPER_ORIENTATION
+msgid "Define image position for printing"
+msgstr ""
 
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
@@ -2400,6 +2418,26 @@ msgstr "<Toolbox>/Xtns/XSane/Выбор устройства..."
 #. XSANE_GIMP_MENU_OLD
 msgid "<Toolbox>/Xtns/XSane/"
 msgstr "<Toolbox>/Xtns/XSane/"
+
+#. HELP_NO_DEVICES
+msgid ""
+"Possible reasons:\n"
+"1) There really is no device that is supported by SANE\n"
+"2) Supported devices are busy\n"
+"3) The permissions for the device file do not allow you to use it - try as "
+"root\n"
+"4) The backend is not loaded by SANE (man sane-dll)\n"
+"5) The backend is not configured correct (man sane-\"backendname\")\n"
+"6) Possibly there is more than one SANE version installed"
+msgstr ""
+"Возможные причины:\n"
+"1) Действительно нет устройств поддерживаемых SANE\n"
+"2) Поддерживаемые устройства заняты\n"
+"3) Права доступа к устройству не дают возможности использовать его - "
+"попробуйте с правами root\n"
+"4) Драйвер не загружен SANE-ом (man sane-dll)\n"
+"5) Драйвер сконфигурирован неправильно (man sane-\"драйвер\")\n"
+"6) Возможно установлена более чем одна версия SANE"
 
 #. strings that are used in structures, so it is not allowed to use _()/gettext() here
 #. gettext_noop does mark these texts but does not change the string

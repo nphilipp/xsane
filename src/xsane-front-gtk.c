@@ -406,43 +406,45 @@ void xsane_define_maximum_output_size()
         xsane_define_output_filename();
         xsane.xsane_output_format = xsane_identify_output_format(xsane.output_filename, preferences.filetype, 0);
 
-        preview_set_maximum_output_size(xsane.preview, INF, INF);
+        preview_set_maximum_output_size(xsane.preview, INF, INF, 0);
        break;
 
       case XSANE_VIEWER:
-        preview_set_maximum_output_size(xsane.preview, INF, INF);
+        preview_set_maximum_output_size(xsane.preview, INF, INF, 0);
        break;
 
       case XSANE_COPY:
-        if (preferences.psrotate) /* rotate: landscape */
+        if (preferences.paper_orientation >= 8) /* rotate: landscape */
         {
           preview_set_maximum_output_size(xsane.preview,
                                           preferences.printer[preferences.printernr]->height / xsane.zoom_y,
-                                          preferences.printer[preferences.printernr]->width  / xsane.zoom_x);
+                                          preferences.printer[preferences.printernr]->width  / xsane.zoom_x,
+                                          preferences.paper_orientation);
         }
         else /* do not rotate: portrait */
         {
           preview_set_maximum_output_size(xsane.preview,
                                           preferences.printer[preferences.printernr]->width  / xsane.zoom_x,
-                                          preferences.printer[preferences.printernr]->height / xsane.zoom_y);
+                                          preferences.printer[preferences.printernr]->height / xsane.zoom_y,
+                                          preferences.paper_orientation);
         }
        break;
 
       case XSANE_FAX:
-        preview_set_maximum_output_size(xsane.preview, preferences.fax_width, preferences.fax_height);
+        preview_set_maximum_output_size(xsane.preview, preferences.fax_width, preferences.fax_height, 0);
        break;
 
       case XSANE_MAIL:
-        preview_set_maximum_output_size(xsane.preview, INF, INF);
+        preview_set_maximum_output_size(xsane.preview, INF, INF, 0);
        break;
 
       default:
-        preview_set_maximum_output_size(xsane.preview, INF, INF);
+        preview_set_maximum_output_size(xsane.preview, INF, INF, 0);
     }
   }
   else
   {
-    preview_set_maximum_output_size(xsane.preview, INF, INF);
+    preview_set_maximum_output_size(xsane.preview, INF, INF, 0);
   }
 }
 
@@ -1062,8 +1064,8 @@ void xsane_range_new(GtkBox *parent, char *labeltext, const char *desc,
   label = gtk_label_new(labeltext);
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 1);
 
-  *data = gtk_adjustment_new(*val, min, max, quant, page_step, (max-min) * 1e-40);
-  /* 1e-40 => hscrollbar has an unwanted side effect: the maximum is not the maximum */
+  *data = gtk_adjustment_new(*val, min, max, quant, page_step, (max-min) * 1e-30);
+  /* 1e-30 => hscrollbar has an unwanted side effect: the maximum is not the maximum */
   /* of the given range, it is reduced by the page_size, so it has to be very small */
 
   /* value label */
@@ -1155,8 +1157,8 @@ void xsane_range_new_with_pixmap(GdkWindow *window, GtkBox *parent, const char *
   gtk_widget_show(pixmapwidget);
   gdk_drawable_unref(pixmap);
 
-  *data = gtk_adjustment_new(*val, min, max, quant, page_step, (max-min) * 1e-40);
-  /* 1e-40 => hscrollbar has an unwanted side effect: the maximum is not the maximum */
+  *data = gtk_adjustment_new(*val, min, max, quant, page_step, (max-min) * 1e-30);
+  /* 1e-30 => hscrollbar has an unwanted side effect: the maximum is not the maximum */
   /* of the given range, it is reduced by the page_size, so it has to be very small */
 
   /* value label */
@@ -1668,17 +1670,10 @@ int xsane_identify_output_format(char *filename, char *filetype, char **ext)
 
   if (extension)
   {
-    if (!strcasecmp(extension, "raw"))
+    if ( (!strcasecmp(extension, "pnm")) || (!strcasecmp(extension, "ppm")) ||
+         (!strcasecmp(extension, "pgm")) || (!strcasecmp(extension, "pbm")) )
     {
-      if (xsane.param.depth == 16)
-      {
-        output_format = XSANE_RAW16;
-      }
-    }
-    else if ( (!strcasecmp(extension, "pnm")) || (!strcasecmp(extension, "ppm")) ||
-              (!strcasecmp(extension, "pgm")) || (!strcasecmp(extension, "pbm")) )
-    {
-      if (xsane.param.depth == 16)
+      if ((xsane.param.depth == 16) && (!preferences.reduce_16bit_to_8bit) )
       {
         output_format = XSANE_PNM16;
       }
@@ -1780,6 +1775,18 @@ void xsane_change_working_directory(void)
 static int eula_accept_flag;
 static GtkWidget *eula_dialog = NULL;
 
+static gboolean xsane_eula_delete_event(GtkWidget *widget, GdkEvent *event, gpointer data)
+{
+  eula_accept_flag = (int) data;
+
+  DBG(DBG_proc ,"xsane_eula_delete_event(%d)\n", eula_accept_flag);
+  eula_dialog = NULL;
+
+ return FALSE; /* continue with original delete even routine */
+}
+
+/* -------------------------------------- */
+
 static void xsane_eula_button_callback(GtkWidget *widget, gpointer data)
 {
   eula_accept_flag = (int) data;
@@ -1790,12 +1797,12 @@ static void xsane_eula_button_callback(GtkWidget *widget, gpointer data)
   eula_dialog = NULL;
 }
 
-/* ---------------------------------------------------------------------------------------------------------------------- */
+/* -------------------------------------- */
 
 int xsane_display_eula(int ask_for_accept)
 /* returns FALSE if accepted, TRUE if not accepted */
 {
- GtkWidget *vbox, *hbox, *button, *label;
+ GtkWidget *vbox, *hbox, *button, *label, *frame;
  GtkAccelGroup *accelerator_group;
  char buf[1024];
  char filename[PATH_MAX];
@@ -1812,18 +1819,32 @@ int xsane_display_eula(int ask_for_accept)
   gtk_widget_set_size_request(eula_dialog, 550, 580);
   gtk_window_set_position(GTK_WINDOW(eula_dialog), GTK_WIN_POS_CENTER);
   gtk_window_set_resizable(GTK_WINDOW(eula_dialog), TRUE);
-  g_signal_connect(GTK_OBJECT(eula_dialog), "delete_event", GTK_SIGNAL_FUNC(xsane_eula_button_callback), (void *) -1); /* -1 = cancel */
+  g_signal_connect(GTK_OBJECT(eula_dialog), "delete_event", GTK_SIGNAL_FUNC(xsane_eula_delete_event), (void *) -1); /* -1 = cancel */
   snprintf(buf, sizeof(buf), "%s %s", xsane.prog_name, WINDOW_EULA);
   gtk_window_set_title(GTK_WINDOW(eula_dialog), buf);
-  xsane_set_window_icon(eula_dialog, 0);
-
   accelerator_group = gtk_accel_group_new();
   gtk_window_add_accel_group(GTK_WINDOW(eula_dialog), accelerator_group);
 
+#if 0
+  xsane_set_window_icon(eula_dialog, 0);
+#endif
+
+  /* create a frame */
+  frame = gtk_frame_new(NULL);
+  gtk_container_set_border_width(GTK_CONTAINER(frame), 10);
+  gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_ETCHED_IN);
+  gtk_container_add(GTK_CONTAINER(eula_dialog), frame);
+  gtk_widget_show(frame);
+
   vbox = gtk_vbox_new(FALSE, 5);
   gtk_container_set_border_width(GTK_CONTAINER(vbox), 5);
-  gtk_container_add(GTK_CONTAINER(eula_dialog), vbox);
+  gtk_container_add(GTK_CONTAINER(frame), vbox);
   gtk_widget_show(vbox); 
+#if 1
+  /* this is normally done directly after gtk_window_set_title() */
+  /* but gtk crashes when we would do that and select a text with the mouse */
+  xsane_set_window_icon(eula_dialog, 0);
+#endif
 
   /* display XSane copyright message */
   snprintf(buf, sizeof(buf), "XSane %s %s\n"
@@ -2006,16 +2027,28 @@ static GtkWidget *license_dialog = NULL;
 
 static void xsane_close_license_dialog_callback(GtkWidget *widget, gpointer data)
 {
+  DBG(DBG_proc ,"xsane_close_license_dialog_callback\n");
+
   gtk_widget_destroy(license_dialog);
   license_dialog = NULL;
 }
 
-/* ---------------------------------------------------------------------------------------------------------------------- */
+/* ------------------------------------------------ */
 
-int xsane_display_gpl(void)
-/* returns FALSE if accepted, TRUE if not accepted */
+static gboolean xsane_license_dialog_delete_event(GtkWidget *widget, GdkEvent *event, gpointer data)
 {
- GtkWidget *vbox, *hbox, *button, *label;
+  DBG(DBG_proc ,"xsane_license_dialog_delete_event\n");
+
+  license_dialog = NULL;
+
+ return FALSE; /* continue with original delete even routine */
+}
+
+/* ------------------------------------------------ */
+
+void xsane_display_gpl(void)
+{
+ GtkWidget *vbox, *hbox, *button, *label, *frame;
  GtkAccelGroup *accelerator_group;
  char buf[1024];
  char filename[PATH_MAX];
@@ -2023,24 +2056,39 @@ int xsane_display_gpl(void)
 
   if (license_dialog) /* make sure the dialog is only opend once */
   {
-    return 0;
+    return;
   }
 
   license_dialog = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   gtk_widget_set_size_request(license_dialog, 550, 580);
   gtk_window_set_position(GTK_WINDOW(license_dialog), GTK_WIN_POS_CENTER);
   gtk_window_set_resizable(GTK_WINDOW(license_dialog), TRUE);
+  g_signal_connect(GTK_OBJECT(license_dialog), "delete_event", GTK_SIGNAL_FUNC(xsane_license_dialog_delete_event), NULL);
   snprintf(buf, sizeof(buf), "%s: %s", xsane.prog_name, WINDOW_GPL);
   gtk_window_set_title(GTK_WINDOW(license_dialog), buf);
-  xsane_set_window_icon(license_dialog, 0);
-
   accelerator_group = gtk_accel_group_new();
   gtk_window_add_accel_group(GTK_WINDOW(license_dialog), accelerator_group);
 
+#if 0
+  xsane_set_window_icon(license_dialog, 0);
+#endif
+
+  /* create a frame */
+  frame = gtk_frame_new(NULL);
+  gtk_container_set_border_width(GTK_CONTAINER(frame), 10);
+  gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_ETCHED_IN);
+  gtk_container_add(GTK_CONTAINER(license_dialog), frame);
+  gtk_widget_show(frame);
+
   vbox = gtk_vbox_new(FALSE, 5);
   gtk_container_set_border_width(GTK_CONTAINER(vbox), 5);
-  gtk_container_add(GTK_CONTAINER(license_dialog), vbox);
+  gtk_container_add(GTK_CONTAINER(frame), vbox);
   gtk_widget_show(vbox); 
+#if 1
+  /* this is normally done directly after gtk_window_set_title() */
+  /* but gtk crashes when we would do that and select a text with the mouse */
+  xsane_set_window_icon(license_dialog, 0);
+#endif
 
   /* display XSane copyright message */
   snprintf(buf, sizeof(buf), "XSane %s %s\n"
@@ -2106,7 +2154,7 @@ int xsane_display_gpl(void)
     else
     {
       DBG(DBG_error0, "ERROR: license text not found. Looks like xsane is not installed correct.\n");
-     return TRUE;
+     return;
     }
 
   }
@@ -2149,7 +2197,7 @@ int xsane_display_gpl(void)
     else
     {
       DBG(DBG_error0, "ERROR: license text not found. Looks like xsane is not installed correct.\n");
-     return TRUE;
+     return;
     }
 
     /* Thaw the text widget, allowing the updates to become visible */
@@ -2178,8 +2226,6 @@ int xsane_display_gpl(void)
   gtk_widget_show(hbox);
   gtk_widget_show(vbox);
   gtk_widget_show(license_dialog);
-
-  return 0;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

@@ -69,6 +69,7 @@
 #define WINDOW_DESPECKLE		_("Despeckle image")
 #define WINDOW_BLUR			_("Blur image")
 #define WINDOW_STORE_MEDIUM		_("Store medium definition")
+#define WINDOW_NO_DEVICES		_("No devices available")
 
 #define MENU_FILE			_("File")
 #define MENU_PREFERENCES		_("Preferences")
@@ -103,6 +104,7 @@
 #define BUTTON_CONT_AT_OWN_RISK		_("Continue at your own risk")
 #define BUTTON_BROWSE			_("Browse")
 #define BUTTON_CLOSE			_("Close")
+#define BUTTON_HELP			_("Help")
 #define BUTTON_OVERWRITE		_("Overwrite")
 #define BUTTON_BATCH_LIST_SCAN		_("Scan batch list")
 #define BUTTON_BATCH_AREA_SCAN		_("Scan selected area")
@@ -130,6 +132,7 @@
 #define RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT _("Save device preferences at exit")
 #define RADIO_BUTTON_OVERWRITE_WARNING	_("Overwrite warning")
 #define RADIO_BUTTON_SKIP_EXISTING_NRS	_("Skip existing filenames")
+#define RADIO_BUTTON_SAVE_PNM16_AS_ASCII _("Save 16bit pnm in ascii format")
 #define RADIO_BUTTON_REDUCE_16BIT_TO_8BIT _("Reduce 16 bit image to 8 bit")
 #define RADIO_BUTTON_WINDOW_FIXED	_("Main window size fixed")
 #define RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA	_("Disable gimp preview gamma")
@@ -487,6 +490,10 @@
 #define DESC_SAVE_DEVPREFS_AT_EXIT	_("Save device dependant preferences in default file at exit of xsane")
 #define DESC_OVERWRITE_WARNING		_("Warn before overwriting an existing file")
 #define DESC_SKIP_EXISTING		_("If filename counter is automatically increased, used numbers are skipped")
+#define DESC_SAVE_PNM16_AS_ASCII	_("When a 16 bit image shall be saved in pnm format then use ascii format " \
+                                          "instead of binary format. The binary format is a new format that is not " \
+                                          "supported by all programs. The ascii format is supported by more programs " \
+                                          "but it produces really huge files!!!")
 #define DESC_REDUCE_16BIT_TO_8BIT	_("If scanner sends image with 16 bits/color save image with 8 bits/color")
 #define DESC_PSFILE_WIDTH		_("Width of paper for postscript files")
 #define DESC_PSFILE_HEIGHT		_("Height of paper for postscript files")
@@ -568,6 +575,7 @@
 
 #define DESC_PRESET_AREA		_("Preset area")
 #define DESC_ROTATION			_("Rotate preview and scan")
+#define DESC_PAPER_ORIENTATION		_("Define image position for printing")
 
 #define DESC_VIEWER_SAVE		_("Save image")
 #define DESC_VIEWER_OCR			_("Optical Character Recognition")
@@ -718,6 +726,14 @@ The format of [DEVICE] is backendname:devicefile (e.g. umax:/dev/scanner).\n\
 #define XSANE_GIMP_MENU			_("<Toolbox>/File/Acquire/XSane: ")
 #define XSANE_GIMP_MENU_DIALOG_OLD	_("<Toolbox>/Xtns/XSane/Device dialog...")
 #define XSANE_GIMP_MENU_OLD		_("<Toolbox>/Xtns/XSane/")
+
+#define HELP_NO_DEVICES	      _("Possible reasons:\n" \
+				"1) There really is no device that is supported by SANE\n" \
+				"2) Supported devices are busy\n" \
+				"3) The permissions for the device file do not allow you to use it - try as root\n" \
+				"4) The backend is not loaded by SANE (man sane-dll)\n" \
+				"5) The backend is not configured correct (man sane-\"backendname\")\n" \
+				"6) Possibly there is more than one SANE version installed" )
 
 /* strings that are used in structures, so it is not allowed to use _()/gettext() here */
 /* gettext_noop does mark these texts but does not change the string */
