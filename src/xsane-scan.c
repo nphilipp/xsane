@@ -1370,8 +1370,33 @@ void xsane_scan_done(SANE_Status status)
          if ((outfile != 0) && (infile != 0)) /* copy mode, use zoom size */
          {
           struct SIGACTION act;
-          float imagewidth  = xsane.param.pixels_per_line/(float)preferences.printer[preferences.printernr]->resolution; /* width in inch */
-          float imageheight = xsane.param.lines/(float)preferences.printer[preferences.printernr]->resolution; /* height in inch */
+          float imagewidth, imageheight;
+          int printer_resolution;
+
+           switch (xsane.param.format)
+           {
+             case SANE_FRAME_GRAY:
+               if (xsane.param.depth == 1)
+               {
+                 printer_resolution = preferences.printer[preferences.printernr]->lineart_resolution;
+               }
+               else
+               {
+                 printer_resolution = preferences.printer[preferences.printernr]->grayscale_resolution;
+               }
+             break;
+
+             case SANE_FRAME_RGB:
+             case SANE_FRAME_RED:
+             case SANE_FRAME_GREEN:
+             case SANE_FRAME_BLUE:
+             default:
+               printer_resolution = preferences.printer[preferences.printernr]->color_resolution;
+             break;
+           }        
+
+           imagewidth  = xsane.param.pixels_per_line/(float)printer_resolution; /* width in inch */
+           imageheight = xsane.param.lines/(float)printer_resolution; /* height in inch */
 
            memset (&act, 0, sizeof (act)); /* define broken pipe handler */
            act.sa_handler = xsane_sigpipe_handler;
@@ -1871,7 +1896,7 @@ static void xsane_start_scan(void)
 	  layer_ID = gimp_layer_new(xsane.image_ID, "Background",
 				     xsane.param.pixels_per_line,
 				     xsane.param.lines,
-				     drawable_type, 100, NORMAL_MODE);
+				     drawable_type, 100.0, NORMAL_MODE);
 	  gimp_image_add_layer(xsane.image_ID, layer_ID, 0);
 
 	  xsane.drawable = gimp_drawable_get(layer_ID);

@@ -24,6 +24,7 @@
 
 #include "xsane.h"
 #include "xsane-back-gtk.h"
+#include "xsane-front-gtk.h"
 #include "xsane-preferences.h"
 #include "xsane-gamma.h"
 
@@ -299,18 +300,18 @@ void xsane_back_gtk_set_option(GSGDialog * dialog, int opt_num, void *val, SANE_
     return;
   }
 
-  if ((info & SANE_INFO_RELOAD_PARAMS) && dialog->param_change_callback)
+  if (info & SANE_INFO_RELOAD_PARAMS)
   {
-    (*dialog->param_change_callback) (dialog, dialog->param_change_arg);
+    xsane_update_param(dialog, 0);
   }
 
   if (info & SANE_INFO_RELOAD_OPTIONS)
   {
     xsane_back_gtk_panel_rebuild(dialog);
-    if (dialog->option_reload_callback)
+    if (xsane.preview)
     {
-      (*dialog->option_reload_callback) (dialog, dialog->option_reload_arg);
-    }
+      preview_update_surface(xsane.preview, 0);
+    }                                             
     xsane_enhancement_by_gamma(); /* WARNING: THIS IS A TEST xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
   }
 }
@@ -1147,10 +1148,7 @@ static void xsane_back_gtk_panel_rebuild(GSGDialog * dialog)
 void xsane_back_gtk_refresh_dialog(GSGDialog *dialog)
 {
   xsane_back_gtk_panel_rebuild(dialog);
-  if (dialog->param_change_callback)
-  {
-    (*dialog->param_change_callback) (dialog, dialog->param_change_arg);
-  }
+  xsane_update_param(dialog, 0);
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */

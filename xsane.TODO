@@ -24,9 +24,6 @@ first steps:
  + batch scan function
     - select multiple scan areas before starting the scan
 
- - GIMP-plugin
-    - let user disable monitor gamma for gimp plugin
-
  * internal:
    + add range check / valid value when reading xsane.rc/*.drc files
    + correct image height after scanning in hand scanner mode 
@@ -52,4 +49,6 @@ second steps:
  - WIN32 version of xsane
    - at first for network scanning
    - may be later we make a sane-WIN32 version so that the backends do work too
+   - then we need a WIN32 TWAIN interface for xsane
+
 

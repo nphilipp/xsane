@@ -32,11 +32,12 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.58"
+#define XSANE_VERSION		"0.59"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2000"
 #define XSANE_EMAIL		"Oliver.Rauch@Wolfsburg.DE"
+#define XSANE_HOMEPAGE		"http://www.wolfsburg.de/~rauch/sane/sane-xsane.html"
 #define XSANE_COPYRIGHT_TXT	XSANE_DATE " " XSANE_COPYRIGHT
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -69,6 +70,8 @@
 
 #include <sys/stat.h>
 #include <sys/types.h>
+
+#include <locale.h>
 
 #include <sane/sane.h>
 #include <sane/saneopts.h>
@@ -478,7 +481,9 @@ typedef struct XsaneSetup
   GtkWidget *printer_name_entry;
   GtkWidget *printer_command_entry;
   GtkWidget *printer_copy_number_option_entry;
-  GtkWidget *printer_resolution_entry;
+  GtkWidget *printer_lineart_resolution_entry;
+  GtkWidget *printer_grayscale_resolution_entry;
+  GtkWidget *printer_color_resolution_entry;
   GtkWidget *printer_leftoffset_entry;
   GtkWidget *printer_bottomoffset_entry;
   GtkWidget *printer_gamma_entry;
@@ -506,6 +511,8 @@ typedef struct XsaneSetup
   GtkWidget *preview_threshold_max_entry;
   GtkWidget *preview_threshold_mul_entry;
   GtkWidget *preview_threshold_off_entry;
+  GtkWidget *auto_enhance_gamma_button;
+  GtkWidget *disable_gimp_preview_gamma_button;
   GtkWidget *preview_oversampling_entry;
   GtkWidget *preview_own_cmap_button;
   GtkWidget *doc_viewer_entry;

@@ -37,7 +37,9 @@ typedef struct
     char   *name;			/* user defined printer name */
     char   *command;			/* printercommand */
     char   *copy_number_option;		/* option to define number of copies */
-    int    resolution;			/* printer resolution for copy mode  */
+    int    lineart_resolution;		/* printer resolution for lineart mode  */
+    int    grayscale_resolution;	/* printer resolution for grayscale mode  */
+    int    color_resolution;		/* printer resolution for color mode  */
     double width;			/* printer width of printable area in mm */
     double height;			/* printer height of printable area in mm */
     double leftoffset;			/* printer left offset in mm */
@@ -95,6 +97,7 @@ typedef struct
     double preview_gamma_red;		/* red gamma value for previews */
     double preview_gamma_green;		/* green gamma value for previews */
     double preview_gamma_blue;		/* blue gamma value for previews */
+    int    disable_gimp_preview_gamma;	/* fixed (1) or scrolled (0) main window */
     double xsane_gamma;
     double xsane_gamma_red;
     double xsane_gamma_green;
@@ -110,6 +113,7 @@ typedef struct
 
     int    xsane_rgb_default;
     int    xsane_negative;
+    int    auto_enhance_gamma;
     int    gtk_update_policy;
 
     int    psrotate;			/* rotate by 90 degree in postscript mode - landscape */

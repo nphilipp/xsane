@@ -1,0 +1,31 @@
+If you are a begginer with linux/unix please read this...:
+
+On almost all linux/unix sourcecode packages you find files that you should
+read at first like README, INSTALL, programname.README ...
+
+for Xsane this is:
+  xsane.INSTALL and xsane.PROBLEMS
+there you find a description what you need and how to build the package.
+
+If something goes wrong or you have any questions first read xsane.FAQ
+There are several other files (xsane.XXX) that might help/answer your question.
+
+After all that is done and you still have problems - if possible - ask a friend
+how knows a bit more about linux/unix.
+
+If all that does not help contact me
+
+This way you learn a lot about linux/unix and if the next problem occurs you
+have a good chance to solve it on your own.
+
+If you do not understand what is written in these texts, you should start
+with more simple things. Please do not ask me in that case - I want to
+spend my free time to improve Xsane and not to tell beginners how to
+build/install it - please understand that.
+
+If you checked all described in the xsane.XYZ files and you still have
+problems, contact me.
+
+Thanks
+Oliver Rauch
+

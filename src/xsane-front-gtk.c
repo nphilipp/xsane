@@ -285,6 +285,8 @@ int xsane_set_resolution(int well_known_option, double resolution)
 
 void xsane_set_all_resolutions(void)
 {
+ int printer_resolution;
+
   xsane_set_resolution(dialog->well_known.dpi_y, xsane.resolution_y); /* set y resolution if possible */
   if (xsane_set_resolution(dialog->well_known.dpi_x, xsane.resolution_x)) /* set x resolution if possible */
   {
@@ -293,9 +295,31 @@ void xsane_set_all_resolutions(void)
     xsane.resolution_y = xsane.resolution;
   }
 
-  xsane.zoom   = xsane.resolution   / preferences.printer[preferences.printernr]->resolution;
-  xsane.zoom_x = xsane.resolution_x / preferences.printer[preferences.printernr]->resolution;
-  xsane.zoom_y = xsane.resolution_y / preferences.printer[preferences.printernr]->resolution; 
+  switch (xsane.param.format)
+  {
+    case SANE_FRAME_GRAY:
+      if (xsane.param.depth == 1)
+      {
+        printer_resolution = preferences.printer[preferences.printernr]->lineart_resolution;
+      }
+      else
+      {
+        printer_resolution = preferences.printer[preferences.printernr]->grayscale_resolution;
+      }
+    break;
+
+    case SANE_FRAME_RGB:
+    case SANE_FRAME_RED:
+    case SANE_FRAME_GREEN:
+    case SANE_FRAME_BLUE:
+    default:
+      printer_resolution = preferences.printer[preferences.printernr]->color_resolution;
+    break;
+  }
+
+  xsane.zoom   = xsane.resolution   / printer_resolution;
+  xsane.zoom_x = xsane.resolution_x / printer_resolution;
+  xsane.zoom_y = xsane.resolution_y / printer_resolution; 
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

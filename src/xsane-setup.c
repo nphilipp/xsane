@@ -75,9 +75,9 @@ static void xsane_printer_notebook(GtkWidget *notebook);
 static void xsane_saving_notebook(GtkWidget *notebook);
 static void xsane_fax_notebook(GtkWidget *notebook);
 static void xsane_display_notebook(GtkWidget *notebook);
-static void xsane_device_notebook_sensitivity(int lineart_mode);
+static void xsane_enhance_notebook_sensitivity(int lineart_mode);
 static void xsane_setup_lineart_mode_callback(GtkWidget *widget, gpointer data);
-static void xsane_device_notebook(GtkWidget *notebook);
+static void xsane_enhance_notebook(GtkWidget *notebook);
 
 void xsane_setup_dialog(GtkWidget *widget, gpointer data);
 
@@ -92,15 +92,17 @@ void xsane_new_printer(void)
   preferences.printer[preferences.printernr]->name               = strdup(PRINTERNAME);
   preferences.printer[preferences.printernr]->command            = strdup(PRINTERCOMMAND);
   preferences.printer[preferences.printernr]->copy_number_option = strdup(PRINTERCOPYNUMBEROPTION);
-  preferences.printer[preferences.printernr]->resolution         = 300;
-  preferences.printer[preferences.printernr]->width              = 203.2;
-  preferences.printer[preferences.printernr]->height             = 294.6;
-  preferences.printer[preferences.printernr]->leftoffset         = 3.5;
-  preferences.printer[preferences.printernr]->bottomoffset       = 3.5;
-  preferences.printer[preferences.printernr]->gamma              = 1.0;
-  preferences.printer[preferences.printernr]->gamma_red          = 1.0;
-  preferences.printer[preferences.printernr]->gamma_green        = 1.0;
-  preferences.printer[preferences.printernr]->gamma_blue         = 1.0;
+  preferences.printer[preferences.printernr]->lineart_resolution   = 300;
+  preferences.printer[preferences.printernr]->grayscale_resolution = 150;
+  preferences.printer[preferences.printernr]->color_resolution     = 150;
+  preferences.printer[preferences.printernr]->width                = 203.2;
+  preferences.printer[preferences.printernr]->height               = 294.6;
+  preferences.printer[preferences.printernr]->leftoffset           = 3.5;
+  preferences.printer[preferences.printernr]->bottomoffset         = 3.5;
+  preferences.printer[preferences.printernr]->gamma                = 1.0;
+  preferences.printer[preferences.printernr]->gamma_red            = 1.0;
+  preferences.printer[preferences.printernr]->gamma_green          = 1.0;
+  preferences.printer[preferences.printernr]->gamma_blue           = 1.0;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -165,8 +167,12 @@ static void xsane_setup_printer_update()
   gtk_entry_set_text(GTK_ENTRY(xsane_setup.printer_copy_number_option_entry),
                      (char *) preferences.printer[preferences.printernr]->copy_number_option);
 
-  snprintf(buf, sizeof(buf), "%d", preferences.printer[preferences.printernr]->resolution);
-  gtk_entry_set_text(GTK_ENTRY(xsane_setup.printer_resolution_entry), buf);
+  snprintf(buf, sizeof(buf), "%d", preferences.printer[preferences.printernr]->lineart_resolution);
+  gtk_entry_set_text(GTK_ENTRY(xsane_setup.printer_lineart_resolution_entry), buf);
+  snprintf(buf, sizeof(buf), "%d", preferences.printer[preferences.printernr]->grayscale_resolution);
+  gtk_entry_set_text(GTK_ENTRY(xsane_setup.printer_grayscale_resolution_entry), buf);
+  snprintf(buf, sizeof(buf), "%d", preferences.printer[preferences.printernr]->color_resolution);
+  gtk_entry_set_text(GTK_ENTRY(xsane_setup.printer_color_resolution_entry), buf);
   snprintf(buf, sizeof(buf), "%3.2f", preferences.printer[preferences.printernr]->width);
   gtk_entry_set_text(GTK_ENTRY(xsane_setup.printer_width_entry), buf);
   snprintf(buf, sizeof(buf), "%3.2f", preferences.printer[preferences.printernr]->height);
@@ -239,7 +245,9 @@ static void xsane_setup_printer_apply_changes(GtkWidget *widget, gpointer data)
   preferences.printer[preferences.printernr]->copy_number_option =
               strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.printer_copy_number_option_entry)));
 
-  xsane_update_int(xsane_setup.printer_resolution_entry,   &preferences.printer[preferences.printernr]->resolution);
+  xsane_update_int(xsane_setup.printer_lineart_resolution_entry,   &preferences.printer[preferences.printernr]->lineart_resolution);
+  xsane_update_int(xsane_setup.printer_grayscale_resolution_entry, &preferences.printer[preferences.printernr]->grayscale_resolution);
+  xsane_update_int(xsane_setup.printer_color_resolution_entry,     &preferences.printer[preferences.printernr]->color_resolution);
 
   xsane_update_double(xsane_setup.printer_width_entry,        &preferences.printer[preferences.printernr]->width);
   xsane_update_double(xsane_setup.printer_height_entry,       &preferences.printer[preferences.printernr]->height);
@@ -323,15 +331,16 @@ static void xsane_setup_tiff_compression_1_callback(GtkWidget *widget, gpointer 
 
 static void xsane_setup_display_apply_changes(GtkWidget *widget, gpointer data)
 {
-  xsane_update_bool(xsane_setup.main_window_fixed_button,         &preferences.main_window_fixed);
-  xsane_update_bool(xsane_setup.preview_own_cmap_button,          &preferences.preview_own_cmap);
+  xsane_update_bool(xsane_setup.main_window_fixed_button,          &preferences.main_window_fixed);
+  xsane_update_bool(xsane_setup.preview_own_cmap_button,           &preferences.preview_own_cmap);
 
-  xsane_update_double(xsane_setup.preview_gamma_entry,            &preferences.preview_gamma);
-  xsane_update_double(xsane_setup.preview_gamma_red_entry,        &preferences.preview_gamma_red);
-  xsane_update_double(xsane_setup.preview_gamma_green_entry,      &preferences.preview_gamma_green);
-  xsane_update_double(xsane_setup.preview_gamma_blue_entry,       &preferences.preview_gamma_blue);
+  xsane_update_double(xsane_setup.preview_gamma_entry,             &preferences.preview_gamma);
+  xsane_update_double(xsane_setup.preview_gamma_red_entry,         &preferences.preview_gamma_red);
+  xsane_update_double(xsane_setup.preview_gamma_green_entry,       &preferences.preview_gamma_green);
+  xsane_update_double(xsane_setup.preview_gamma_blue_entry,        &preferences.preview_gamma_blue);
+  xsane_update_bool(xsane_setup.disable_gimp_preview_gamma_button, &preferences.disable_gimp_preview_gamma);
 
-  xsane_update_double(xsane_setup.preview_oversampling_entry,     &preferences.preview_oversampling);
+  xsane_update_double(xsane_setup.preview_oversampling_entry,      &preferences.preview_oversampling);
 
   if (preferences.doc_viewer)
   {
@@ -344,7 +353,7 @@ static void xsane_setup_display_apply_changes(GtkWidget *widget, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_setup_device_apply_changes(GtkWidget *widget, gpointer data)
+static void xsane_setup_enhance_apply_changes(GtkWidget *widget, gpointer data)
 {
   xsane.lineart_mode = xsane_setup.lineart_mode;
 
@@ -358,6 +367,8 @@ static void xsane_setup_device_apply_changes(GtkWidget *widget, gpointer data)
     free((void *) xsane.grayscale_scanmode);
   }
   xsane.grayscale_scanmode = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.preview_grayscale_scanmode_entry)));
+
+  xsane_update_bool(xsane_setup.auto_enhance_gamma_button, &preferences.auto_enhance_gamma);
 
   xsane_update_gamma();
 }
@@ -434,7 +445,7 @@ static void xsane_setup_options_ok_callback(GtkWidget *widget, gpointer data)
 {
   xsane_setup_printer_apply_changes(0, 0);
   xsane_setup_display_apply_changes(0, 0);
-  xsane_setup_device_apply_changes(0, 0);
+  xsane_setup_enhance_apply_changes(0, 0);
   xsane_setup_saving_apply_changes(0, 0);
   xsane_setup_fax_apply_changes(0, 0);
 
@@ -734,24 +745,68 @@ static void xsane_printer_notebook(GtkWidget *notebook)
   gtk_widget_show(hbox);
   xsane_setup.printer_copy_number_option_entry = text;
 
-  /* printerresolution : */
+
+  xsane_separator_new(vbox, 2);
+
+
+  /* printer lineart resolution : */
 
   hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
 
-  label = gtk_label_new(TEXT_SETUP_PRINTER_RES);
+  label = gtk_label_new(TEXT_SETUP_PRINTER_LINEART_RES);
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
   gtk_widget_show(label);
 
   text = gtk_entry_new();
-  xsane_back_gtk_set_tooltip(dialog->tooltips, text, DESC_PRINTER_RESOLUTION);
+  xsane_back_gtk_set_tooltip(dialog->tooltips, text, DESC_PRINTER_LINEART_RESOLUTION);
   gtk_widget_set_usize(text, 50, 0);
-  snprintf(buf, sizeof(buf), "%d", preferences.printer[preferences.printernr]->resolution);
+  snprintf(buf, sizeof(buf), "%d", preferences.printer[preferences.printernr]->lineart_resolution);
   gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
   gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
   gtk_widget_show(text);
   gtk_widget_show(hbox);
-  xsane_setup.printer_resolution_entry = text;
+  xsane_setup.printer_lineart_resolution_entry = text;
+
+
+  /* printer grayscale resolution : */
+
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+
+  label = gtk_label_new(TEXT_SETUP_PRINTER_GRAYSCALE_RES);
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_widget_show(label);
+
+  text = gtk_entry_new();
+  xsane_back_gtk_set_tooltip(dialog->tooltips, text, DESC_PRINTER_GRAYSCALE_RESOLUTION);
+  gtk_widget_set_usize(text, 50, 0);
+  snprintf(buf, sizeof(buf), "%d", preferences.printer[preferences.printernr]->grayscale_resolution);
+  gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
+  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
+  gtk_widget_show(text);
+  gtk_widget_show(hbox);
+  xsane_setup.printer_grayscale_resolution_entry = text;
+
+
+  /* printer color resolution : */
+
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+
+  label = gtk_label_new(TEXT_SETUP_PRINTER_COLOR_RES);
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_widget_show(label);
+
+  text = gtk_entry_new();
+  xsane_back_gtk_set_tooltip(dialog->tooltips, text, DESC_PRINTER_COLOR_RESOLUTION);
+  gtk_widget_set_usize(text, 50, 0);
+  snprintf(buf, sizeof(buf), "%d", preferences.printer[preferences.printernr]->color_resolution);
+  gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
+  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
+  gtk_widget_show(text);
+  gtk_widget_show(hbox);
+  xsane_setup.printer_color_resolution_entry = text;
 
 
   xsane_separator_new(vbox, 2);
@@ -1682,6 +1737,18 @@ static void xsane_display_notebook(GtkWidget *notebook)
   gtk_widget_show(text);
   xsane_setup.preview_gamma_blue_entry = text;
 
+  /* disable preview gamma for gimp plugin: */
+
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+  button = gtk_check_button_new_with_label(RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA);
+  xsane_back_gtk_set_tooltip(dialog->tooltips, button, DESC_DISABLE_GIMP_PREVIEW_GAMMA);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), preferences.disable_gimp_preview_gamma);
+  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 2);
+  gtk_widget_show(button);
+  gtk_widget_show(hbox);
+  xsane_setup.disable_gimp_preview_gamma_button = button;
+
 
   xsane_separator_new(vbox, 2);
 
@@ -1723,7 +1790,7 @@ static void xsane_display_notebook(GtkWidget *notebook)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_device_notebook_sensitivity(int lineart_mode)
+static void xsane_enhance_notebook_sensitivity(int lineart_mode)
 {
  int sensitivity_val = FALSE;
  int sensitivity_mode = FALSE;
@@ -1751,12 +1818,12 @@ static void xsane_device_notebook_sensitivity(int lineart_mode)
 static void xsane_setup_lineart_mode_callback(GtkWidget *widget, gpointer data)
 {
   xsane_setup.lineart_mode = (int) data;
-  xsane_device_notebook_sensitivity(xsane_setup.lineart_mode);
+  xsane_enhance_notebook_sensitivity(xsane_setup.lineart_mode);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_device_notebook(GtkWidget *notebook)
+static void xsane_enhance_notebook(GtkWidget *notebook)
 {
  GtkWidget *setup_vbox, *vbox, *hbox, *button, *label, *text, *frame;
  GtkWidget *lineart_mode_option_menu, *lineart_mode_menu, *lineart_mode_item;
@@ -1773,11 +1840,11 @@ static void xsane_device_notebook(GtkWidget *notebook)
  lineart_mode lineart_mode_strings[LINEART_MODE_NUMBER];
  
 
-  /* Device options notebook page */
+  /* enhancement options notebook page */
 
   setup_vbox = gtk_vbox_new(FALSE, 5);
 
-  label = gtk_label_new(NOTEBOOK_DEVICE_OPTIONS);
+  label = gtk_label_new(NOTEBOOK_ENHANCE_OPTIONS);
   gtk_notebook_append_page(GTK_NOTEBOOK(notebook), setup_vbox, label);
   gtk_widget_show(setup_vbox);
 
@@ -1934,6 +2001,19 @@ static void xsane_device_notebook(GtkWidget *notebook)
   gtk_widget_show(hbox);
   xsane_setup.preview_grayscale_scanmode_entry = text;
 
+  xsane_separator_new(vbox, 2);
+
+  /* autenhance gamma */
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+  button = gtk_check_button_new_with_label(RADIO_BUTTON_AUTOENHANCE_GAMMA);
+  xsane_back_gtk_set_tooltip(dialog->tooltips, button, DESC_AUTOENHANCE_GAMMA);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), preferences.auto_enhance_gamma);
+  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 2);
+  gtk_widget_show(button);
+  gtk_widget_show(hbox);
+  xsane_setup.auto_enhance_gamma_button = button;
+
 
   xsane_separator_new(vbox, 4);
 
@@ -1944,11 +2024,11 @@ static void xsane_device_notebook(GtkWidget *notebook)
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
 
   button = gtk_button_new_with_label(BUTTON_APPLY);
-  gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_device_apply_changes, NULL);
+  gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_enhance_apply_changes, NULL);
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
   gtk_widget_show(button);
 
-  xsane_device_notebook_sensitivity(xsane_setup.lineart_mode);
+  xsane_enhance_notebook_sensitivity(xsane_setup.lineart_mode);
 
   gtk_widget_show(hbox);
 }
@@ -1982,7 +2062,7 @@ void xsane_setup_dialog(GtkWidget *widget, gpointer data)
   xsane_printer_notebook(notebook);
   xsane_fax_notebook(notebook);
   xsane_display_notebook(notebook);
-  xsane_device_notebook(notebook);
+  xsane_enhance_notebook(notebook);
 
 
   /* fill in action area: */

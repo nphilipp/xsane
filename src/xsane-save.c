@@ -152,6 +152,7 @@ void xsane_increase_counter_in_filename(char *filename, int skip)
  char *position_point;
  char *position_counter;
  char counter;
+ int  overflow = 0;
  FILE *testfile;
 
   while (1)
@@ -165,27 +166,37 @@ void xsane_increase_counter_in_filename(char *filename, int skip)
     {
       position_counter = filename + strlen(filename) - 1;
     }
-  
+ 
+    if (position_counter < filename)
+    {
+      break; /* empty string or starts with "." */
+    }
+ 
     if (!( (*position_counter >= '0') && (*position_counter <='9') ))
     {
       break; /* no counter found */
     }
 
-    while ( (position_counter > filename) && (*position_counter >= '0') && (*position_counter <='9') )
+    while ( (position_counter >= filename) && (*position_counter >= '0') && (*position_counter <='9') )
     {
       counter = ++(*position_counter);
+
       if (counter !=  ':')
       {
+        overflow = 0; /* ok, we were able to increase the next digit, no overflow */
         break;
       }
+
       *position_counter = '0';
       position_counter--;
+
+      overflow = 1; /* may be an overflow occured */
     }
 
-    if (!( (*position_counter >= '0') && (*position_counter <='9') )) /* overflow */
+    if (overflow) /* overflow */
     {
       xsane_back_gtk_warning(WARN_COUNTER_OVERFLOW, FALSE);
-      break; /* last available number ("999") */
+      break; /* last available number ("..999") */
     }
 
     if (skip) /* test if filename already used */

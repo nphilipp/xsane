@@ -925,12 +925,12 @@ xsane-0.57 -> 0.58:
 
  - added gtk_set_locale() before gtk_init()
 
- - added copright sign "(c)" to translated texts because it is not available on all charsets
+ - added copyright sign "(c)" to translated texts because it is not available on all charsets
 
  - temporary filenames are created random and unique (mktemp + random number)
    due to security problems with fixed/calculateable tempfiles.
 
- - the preview-files are created (empty) at program startuo now
+ - the preview-files are created (empty) at program startup now
 
  - when program exits the previews are erased
    there is no way to store the preview images any more when the program is closed
@@ -940,4 +940,41 @@ xsane-0.57 -> 0.58:
  - renamed directory frontend to src
 
  - create xsane-help script that opens online helpfile
+
+
+xsane-0.58 -> 0.59:
+-------------------
+
+ - added "%*[\n]" to the end of the scanf command in xsane-preview.c:
+     fscanf(in, "P6\n# surface: %g %g %g %g %u %u\n%d %d\n255%*[\n]",
+   otherwise we got problems when the image data began with low values (black)
+
+ - preview_do_gamma_correction does test for 3 pass scanner color mode
+
+ - changed fax x-resolution and standard resolution from 98 ppi to 204 ppi
+   and with of faxpage from 210.0 to 215.7 (so we get 1728 pixels in x direction,
+   hxlafax-faq says that is the correct size)
+
+ - split preferences.printer[..].resolution -> lineart, grayscale and color_resolution
+
+ - added setlocale(LC_NUMERIC, "C"); in xsane_init() and #include <locale.h> in xsane.h
+   this should solve the problems with empty images (100%transparent) with gimp
+   and other problems that were caused by local settings (1.3 <=> 1,3).
+
+ - added setup-option "disable gimp preview gamma"
+ 
+ - added selection (preferences/setup/enhancement options) if autoenhancement changes gamma value
+
+ - renamed Preferences/Setup/"Device options" to "Enhancement options"
+
+ - removed xsane internal callbacks from dialog struct, the functions are called directly now
+
+ - changed the reading of the preview image header again. The last newline character before the image
+   data starts again made some problems, this seems to depend on the data that follows. So I added
+   a fgets() command to skip the newline character - this seems to work.
+
+ - changed increase_filename_in_counter, does work now if the only character of the base-filename
+   is the counter
+
+ - reduced size of src/xsane-startimage.pnm (1MB => 0.6MB)
 

@@ -42,7 +42,7 @@ extern void xsane_enhancement_by_gamma(void);
 extern void xsane_enhancement_restore_default(void);
 extern void xsane_enhancement_restore(void);
 extern void xsane_enhancement_store(void);
-extern void xsane_enhancement_by_histogram(void);
+extern void xsane_enhancement_by_histogram(int update_gamma);
 extern void xsane_create_histogram_dialog(const char *devicetext);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

@@ -48,7 +48,7 @@ Preferences preferences =
        0,		/* no default fax normal option */
        0,		/* no default fax fine option */
        0,		/* no fax viewer */
-     210.0,             /* fax_width:  width of fax paper in mm */
+     215.70,            /* fax_width:  width of fax paper in mm */
      296.98,		/* fax_height: height of fax paper in mm */
        0.0,             /* fax_leftoffset */
        0.0,             /* fax_bottomoffset */
@@ -77,6 +77,7 @@ Preferences preferences =
        1.0,		/* preview_gamma_red */
        1.0,		/* preview_gamma_green */
        1.0,		/* preview_gamma_blue */
+       1,		/* disable_gimp_preview_gamma */
        1.6,		/* gamma */
        1.0,		/* gamma red */
        1.0,		/* gamma green */
@@ -91,6 +92,7 @@ Preferences preferences =
        0.0,		/* contrast blue */
        1,		/* rgb default */
        0,		/* negative */
+       1,		/* change gamma value with autoenhance button */
  GTK_UPDATE_DISCONTINUOUS, /* update policy for gtk frontend sliders */
        0,		/* psrotate: rotate in postscript mode (landscape) */
        0,		/* printernr */
@@ -147,6 +149,7 @@ desc[] =
     {"preview-gamma-red",		xsane_rc_pref_double,	POFFSET(preview_gamma_red)},
     {"preview-gamma-green",		xsane_rc_pref_double,	POFFSET(preview_gamma_green)},
     {"preview-gamma-blue",		xsane_rc_pref_double,	POFFSET(preview_gamma_blue)},
+    {"disable-gimp-preview-gamma",	xsane_rc_pref_int,	POFFSET(disable_gimp_preview_gamma)},
     {"gamma",				xsane_rc_pref_double,	POFFSET(xsane_gamma)},
     {"gamma-red",			xsane_rc_pref_double,	POFFSET(xsane_gamma_red)},
     {"gamma-green",			xsane_rc_pref_double,	POFFSET(xsane_gamma_green)},
@@ -161,6 +164,7 @@ desc[] =
     {"contrast-blue",			xsane_rc_pref_double,	POFFSET(xsane_contrast_blue)},
     {"rgb-default",			xsane_rc_pref_int,	POFFSET(xsane_rgb_default)},
     {"negative",			xsane_rc_pref_int,	POFFSET(xsane_negative)},
+    {"auto-enhance-gamma",		xsane_rc_pref_int,	POFFSET(auto_enhance_gamma)},
     {"gtk-update-policy",		xsane_rc_pref_int,	POFFSET(gtk_update_policy)},
     {"postscript-rotate",		xsane_rc_pref_int,	POFFSET(psrotate)},
     {"printernr",			xsane_rc_pref_int,	POFFSET(printernr)},
@@ -180,7 +184,9 @@ desc_printer[] =
     {"printer-name",			xsane_rc_pref_string,	PRTOFFSET(name)},
     {"printer-command",			xsane_rc_pref_string,	PRTOFFSET(command)},
     {"printer-copy-number-option",	xsane_rc_pref_string,	PRTOFFSET(copy_number_option)},
-    {"printer-resolution",		xsane_rc_pref_int,	PRTOFFSET(resolution)},
+    {"printer-lineart-resolution",	xsane_rc_pref_int,	PRTOFFSET(lineart_resolution)},
+    {"printer-grayscale-resolution",	xsane_rc_pref_int,	PRTOFFSET(grayscale_resolution)},
+    {"printer-color-resolution",	xsane_rc_pref_int,	PRTOFFSET(color_resolution)},
     {"printer-width",			xsane_rc_pref_double,	PRTOFFSET(width)},
     {"printer-height",			xsane_rc_pref_double,	PRTOFFSET(height)},
     {"printer-left-offset",		xsane_rc_pref_double,	PRTOFFSET(leftoffset)},

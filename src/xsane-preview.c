@@ -438,10 +438,7 @@ static void preview_establish_selection(Preview *p)
 
   xsane.block_update_param = FALSE;
 
-  if (p->dialog->param_change_callback)
-  {
-    (*p->dialog->param_change_callback) (p->dialog, p->dialog->param_change_arg);
-  }
+  xsane_update_param(dialog, 0); 
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1358,11 +1355,13 @@ static int preview_restore_image_from_file(Preview *p, FILE *in, int min_quality
  u_int psurface_type, psurface_unit;
  int image_width, image_height;
  int xoffset, yoffset, width, height;
+ int bit_depth;
  int quality = 0;
  int y;
  float psurface[4];
  size_t nread;
  char *imagep;
+ char buf[255];
 
   if (!in)
   {
@@ -1370,14 +1369,16 @@ static int preview_restore_image_from_file(Preview *p, FILE *in, int min_quality
   }
 
   /* See whether there is a saved preview and load it if present: */
-
-  if (fscanf(in, "P6\n# surface: %g %g %g %g %u %u\n%d %d\n255\n",
+  if (fscanf(in, "P6\n# surface: %g %g %g %g %u %u\n%d %d\n%d",
 	      psurface + 0, psurface + 1, psurface + 2, psurface + 3,
 	      &psurface_type, &psurface_unit,
-	      &image_width, &image_height) != 8)
+	      &image_width, &image_height,
+              &bit_depth) != 9)
   {
     return min_quality;
   }
+
+  fgets(buf, sizeof(buf), in); /* skip newline character. this made a lot of problems in the past, so I skip it this way */
 
 
   if (min_quality >= 0) /* read real preview */
@@ -1809,7 +1810,7 @@ static gint preview_button_press_event_handler(GtkWidget *window, GdkEvent *even
             }
           }
 
-          xsane_enhancement_by_histogram();
+          xsane_enhancement_by_histogram(TRUE);
         }
 
         p->mode = MODE_NORMAL;
@@ -1912,7 +1913,7 @@ static gint preview_button_press_event_handler(GtkWidget *window, GdkEvent *even
             xsane.slider_blue.value[0] = xsane.slider_blue.value[1]-1;
           }
 
-          xsane_enhancement_by_histogram();
+          xsane_enhancement_by_histogram(TRUE);
         }
 
         p->mode = MODE_NORMAL;
@@ -2000,7 +2001,7 @@ static gint preview_button_press_event_handler(GtkWidget *window, GdkEvent *even
             }
           }
 
-          xsane_enhancement_by_histogram();
+          xsane_enhancement_by_histogram(TRUE);
         }
 
         p->mode = MODE_NORMAL;
@@ -3136,7 +3137,10 @@ void preview_do_gamma_correction(Preview *p)
 
   if ((p->image_data_raw) && (p->params.depth > 1) && (preview_gamma_data_red))
   {
-    if (xsane.param.format == SANE_FRAME_RGB)
+    if ( (xsane.param.format == SANE_FRAME_RGB) ||
+         (xsane.param.format == SANE_FRAME_RED) ||
+         (xsane.param.format == SANE_FRAME_GREEN) ||
+         (xsane.param.format == SANE_FRAME_BLUE) )
     {
       for (y=0; y < p->image_height; y++)
       {

@@ -17,6 +17,11 @@ READ THIS FILE IF YOU EXPERIENCE ANY PROBLEM
    - If you used an earlier version of xsane before remove the configuration
      directory: rm -rf ~/.sane/xsane
      (you have to enter all configurations again afterwards).
+   - make sure there is only one gtk-config and only one gimp-config
+     file on your system (find / -name "g*-config").
+   - Do not install any self compiled source package over binary packages,
+     in most cases the installation paths are different so the old versions
+     are not overwritten!
 
  - If you get an error message  that libsane-dll.so.1 or libsane.so.1 is not found, you have to
    tell your system where the SANE-libraries are installed.

@@ -127,16 +127,6 @@ typedef struct GSGDialog
     GSGDialogElement *element;
     gint idle_id;
     u_int rebuild : 1;
-    /* This callback gets invoked whenever the backend notifies us
-       that the option descriptors have changed.  */
-    GSGCallback option_reload_callback;
-    void *option_reload_arg;
-    /* This callback gets invoked whenever the backend notifies us
-       that the parameters have changed.  */
-    GSGCallback param_change_callback;
-    void *param_change_arg;
-    XSANECallback update_xsane_callback;
-    void *update_xsane_arg;
     int pixelcolor;
   }
 GSGDialog;
