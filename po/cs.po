@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.64\n"
-"POT-Creation-Date: 2001-01-27 23:23+0100\n"
-"PO-Revision-Date: 2000-11-14 10:32+01:00\n"
+"Project-Id-Version: XSANE 0.72\n"
+"POT-Creation-Date: 2001-02-17 21:38+0100\n"
+"PO-Revision-Date: 2001-02-17 14:33+01:00\n"
 "Last-Translator: Stanislav Brabec <utx@penguin.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,10 +17,7 @@ msgstr ""
 msgid "(c)"
 msgstr "(c)"
 
-#. XSANE_COPYRIGHT_SIGN
-msgid "©"
-msgstr "(c)"
-
+#. can be translated with \251
 #. WINDOW_ABOUT_XSANE
 msgid "About"
 msgstr "O programu"
@@ -32,6 +29,10 @@ msgstr "O pøekladu"
 #. WINDOW_AUTHORIZE
 msgid "authorization"
 msgstr "autorizace"
+
+#. WINDOW_LICENSE
+msgid "license"
+msgstr "licence"
 
 #. WINDOW_INFO
 msgid "info"
@@ -48,6 +49,10 @@ msgstr "faxový projekt"
 #. WINDOW_FAX_RENAME
 msgid "rename fax page"
 msgstr "pøejmenovat faxovou stránku"
+
+#. WINDOW_FAX_INSERT
+msgid "insert ps-file into fax"
+msgstr "zadat ps-soubor pro fax"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -141,6 +146,14 @@ msgstr "Start"
 msgid "Ok"
 msgstr "OK"
 
+#. BUTTON_ACCEPT
+msgid "Accept"
+msgstr "Pøijmout"
+
+#. BUTTON_NOT_ACCEPT
+msgid "Not accept"
+msgstr "Nepøijmout"
+
 #. BUTTON_APPLY
 msgid "Apply"
 msgstr "Pou¾ít"
@@ -169,17 +182,21 @@ msgstr "Pøepsat"
 msgid "Add area"
 msgstr "Pøidat oblast"
 
-#. BUTTON_DELETE
-msgid "Delete"
-msgstr "Smazat"
+#. BUTTON_PAGE_DELETE
+msgid "Delete page"
+msgstr "Smazat stránku"
 
-#. BUTTON_SHOW
-msgid "Show"
-msgstr "Zobrazit"
+#. BUTTON_PAGE_SHOW
+msgid "Show page"
+msgstr "Zobrazit stránku"
 
-#. BUTTON_RENAME
-msgid "Rename"
-msgstr "Pøejmenovat"
+#. BUTTON_PAGE_RENAME
+msgid "Rename page"
+msgstr "Pøejmenovat stránku"
+
+#. BUTTON_FILE_INSERT
+msgid "Insert file"
+msgstr "Vlo¾it soubor"
 
 #. BUTTON_CREATE_PROJECT
 msgid "Create project"
@@ -218,9 +235,8 @@ msgid "Overwrite warning"
 msgstr "Varování o pøepsání"
 
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
-#, fuzzy
 msgid "Skip existing filenames"
-msgstr "Pøeskoèit existující èísla"
+msgstr "Pøeskoèit existující jména souborù"
 
 #. RADIO_BUTTON_WINDOW_FIXED
 msgid "Main window size fixed"
@@ -255,14 +271,12 @@ msgid "XSane mode"
 msgstr "Re¾im XSane"
 
 #. TEXT_FILENAME_COUNTER_STEP
-#, fuzzy
 msgid "Step"
-msgstr "Nastavení"
+msgstr "Krok"
 
 #. TEXT_FILETYPE
-#, fuzzy
 msgid "Type"
-msgstr "Typ:"
+msgstr "Typ"
 
 #. TEXT_SCANNER_BACKEND
 msgid "Scanner and backend:"
@@ -305,8 +319,8 @@ msgid "scanner"
 msgstr "skener"
 
 #. TEXT_SOFTWARE_XSANE
-msgid "software (xsane)"
-msgstr "software (xsane)"
+msgid "software (XSane)"
+msgstr "software (XSane)"
 
 #. TEXT_NONE
 msgid "none"
@@ -342,19 +356,19 @@ msgstr "Je vy¾adovaná autorizace"
 
 #. TEXT_AUTHORIZATION_SECURE
 msgid "Password transmission is secure"
-msgstr ""
+msgstr "Pøenos hesla je bezpeèný"
 
 #. TEXT_AUTHORIZATION_INSECURE
 msgid "Backend requests plain-text password"
-msgstr ""
+msgstr "Ovladaè vy¾aduje heslo jako obyèejný text"
 
 #. TEXT_USERNAME
 msgid "Username :"
-msgstr "U¾ivatel: "
+msgstr "U¾ivatel:"
 
 #. TEXT_PASSWORD
 msgid "Password :"
-msgstr "Heslo: "
+msgstr "Heslo:"
 
 #. TEXT_INVALID_PARAMS
 msgid "Invalid parameters."
@@ -390,11 +404,21 @@ msgstr "neznámý"
 
 #. TEXT_GPL
 msgid ""
-"This program is distributed under the terms\n"
-"of the GNU General Public License\n"
+"XSane is distributed under the terms of the GNU General Public License\n"
+"as published by the Free Software Foundation; either version 2 of the\n"
+"License, or (at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but\n"
+"WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
-"Tento program je ¹íøen podle ustanovení\n"
-"Obecné veøejné licence GNU\n"
+"Program XSane je ¹iøitelný v souladu s Obecnou veøejnou licencí GNU\n"
+"publikovanou Free Software Foundation; buï licencí verze 2 nebo\n"
+"(dle va¹i volby) jakoukoliv novìj¹í.\n"
+"\n"
+"Tento program je ¹íøen v nadìji, ¾e bude u¾iteèný, av¹ak\n"
+"BEZ JAKÉKOLI ZÁRUKY; neposkytují se ani odvozené záruky\n"
+"PRODEJNOSTI anebo VHODNOSTI PRO URÈITÝ ÚÈEL.\n"
 
 #. TEXT_EMAIL
 msgid "Email:"
@@ -416,7 +440,7 @@ msgstr "Pøeklad:"
 msgid ""
 "untranslated original english text\n"
 "by Oliver Rauch\n"
-"Email: Oliver.Rauch@Wolfsburg.DE\n"
+"Email: Oliver.Rauch@rauch-domain.de\n"
 msgstr ""
 "èeský pøeklad\n"
 "Stanislav Brabec\n"
@@ -511,9 +535,8 @@ msgid "PNG image compression"
 msgstr "Komprese PNG obrázku"
 
 #. TEXT_SETUP_FILENAME_COUNTER_LEN
-#, fuzzy
 msgid "Filename counter length"
-msgstr "Pøeteèení èítaèe jména souboru"
+msgstr "Délka èítaèe jména souboru"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_16
 msgid "TIFF 16 bit image compression"
@@ -569,12 +592,11 @@ msgstr "Volba prahu:"
 
 #. TEXT_SETUP_ADF_MODE
 msgid "Automatic Document Feeder Modus:"
-msgstr ""
+msgstr "Re¾im automatického podavaèe dokumentù:"
 
 #. TEXT_SETUP_PREVIEW_PIPETTE_RANGE
-#, fuzzy
 msgid "Preview pipette range"
-msgstr "Pøevzorkování náhledu:"
+msgstr "Náhled rozsahu pipety"
 
 #. TEXT_SETUP_THRESHOLD_MIN
 msgid "Threshold minimum:"
@@ -622,15 +644,15 @@ msgstr "Prohlí¾eè (Postscript):"
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
-msgstr ""
+msgstr "u¾ivatel"
 
 #. TEXT_SETUP_PERMISSION_GROUP
 msgid "group"
-msgstr ""
+msgstr "skupina"
 
 #. TEXT_SETUP_PERMISSION_ALL
 msgid "all"
-msgstr ""
+msgstr "v¹ichni"
 
 #. NOTEBOOK_COPY_OPTIONS
 msgid "Copy options"
@@ -744,9 +766,13 @@ msgstr "Naèíst nastavení zaøízení"
 msgid "Change directory"
 msgstr "Zmìnit adresáø"
 
+#. MENU_ITEM_XSANE_LICENSE
+msgid "License"
+msgstr "Licence"
+
 #. MENU_ITEM_XSANE_DOC
-msgid "Xsane doc"
-msgstr "Dokumentace Xsane"
+msgid "XSane doc"
+msgstr "Dokumentace XSane"
 
 #. MENU_ITEM_BACKEND_DOC
 msgid "Backend doc"
@@ -766,7 +792,7 @@ msgstr "Problémy?"
 
 #. MENU_ITEM_COUNTER_LEN_INACTIVE
 msgid "inactive"
-msgstr ""
+msgstr "neaktivní"
 
 #. MENU_ITEM_TIFF_COMP_NONE
 msgid "no compression"
@@ -805,9 +831,8 @@ msgid "XSane main window (grayscale->lineart)"
 msgstr "Hlavní okno XSane (¹edi -> èárová grafika)"
 
 #. MENU_ITEM_SELECTION_NONE
-#, fuzzy
 msgid "(none)"
-msgstr "nikdo"
+msgstr "(nic)"
 
 #. MENU_ITEM_FILETYPE_BY_EXT
 msgid "by ext"
@@ -827,26 +852,41 @@ msgid "Saving image"
 msgstr "Zapisuje se obrázek"
 
 #. PROGRESS_ROTATING_DATA
-#, fuzzy
 msgid "Rotating image"
-msgstr "Zapisuje se obrázek"
+msgstr "Rotuje se obrázek"
 
 #. PROGRESS_PACKING_DATA
-#, fuzzy
 msgid "Packing image"
-msgstr "Zapisuje se obrázek"
+msgstr "Komprimuje se obrázek"
 
 #. PROGRESS_CONVERTING_DATA
 msgid "Converting data"
 msgstr "Konvertují se data"
 
+#. DESC_SCAN_START
+msgid "Start scan <Ctrl-Enter>"
+msgstr "Zahájit skenování <Ctrl-Vstup>"
+
+#. DESC_SCAN_CANCEL
+msgid "Cancel scan <ESC>"
+msgstr "Zru¹it skenování <Esc>"
+
+#. DESC_PREVIEW_ACQUIRE
+msgid "Acquire preview scan <Alt-p>"
+msgstr "Získat náhledový sken <Alt-p>"
+
+#. DESC_PREVIEW_CANCEL
+msgid "Cancel preview scan <Alt-ESC>"
+msgstr "Zru¹it náhledový sken <Alt-ESC>"
+
 #. DESC_XSANE_MODE
-msgid "Use XSane for SCANning, photoCOPYing, FAXing..."
-msgstr "XSane slou¾í pro skenování, kopírování, faxování..."
+msgid "Use XSane for: SCANning-<Ctrl-s> photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>"
+msgstr ""
+"XSane slou¾í pro: SKENování-<Ctrl-s> KOPírování-<Ctrl-c> FAXování-<Ctrl-f>"
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
-msgstr ""
+msgstr "Hodnota, která se pøidá k èítaèi jména souboru po skenování"
 
 #. DESC_BROWSE_FILENAME
 msgid "Browse for image filename"
@@ -861,6 +901,7 @@ msgid ""
 "Type of image format, the suitable filename extension is automatically added "
 "to the filename"
 msgstr ""
+"Typ formátu obrázku, vhodná koncovka je ke jménu souboru doplnìná automaticky"
 
 #. DESC_FAXPROJECT
 msgid "Enter name of fax project"
@@ -875,8 +916,8 @@ msgid "Enter receiver phone number or address"
 msgstr "Zadání telefonního èísla nebo adresy pøíjemce"
 
 #. DESC_PRINTER_SELECT
-msgid "Select printer definition"
-msgstr "Volba definice tiskárny"
+msgid "Select printerdefinition <Shift-F1/F2/...>"
+msgstr "Volba definice tiskárny <Pøeøaïovaè-F1/F2/...>"
 
 #. DESC_RESOLUTION
 msgid "Set scan resolution"
@@ -907,12 +948,8 @@ msgid "Set number of copies"
 msgstr "Nastavení poètu kopií"
 
 #. DESC_NEGATIVE
-msgid ""
-"Negative: Invert colors for scanning negatives\n"
-"e.g. swap black and white"
-msgstr ""
-"Negativ: Invertuje barvy pro skenování negativù\n"
-"tj. pøehodí èernou a bílou"
+msgid "Negative: Invert colors for scanning negatives <Shift-n>"
+msgstr "Negativ: Invertuje barvy pro skenování negativù <Pøeøaïovaè-n>"
 
 #. DESC_GAMMA
 msgid "Set gamma value"
@@ -969,66 +1006,64 @@ msgstr "Nastavení prahu"
 #. DESC_RGB_DEFAULT
 msgid ""
 "RGB default: Set enhancement values for red, green and blue to default "
-"values:\n"
+"values <Shift-b>:\n"
 " gamma = 1.0\n"
 " brightness = 0\n"
 " contrast = 0"
 msgstr ""
-"Implicitní RGB: Nastavení hodnot pro zpracování èervené, zelené a modré:\n"
+"Implicitní RGB: Nastavení implicitních hodnot pro zpracování èervené, zelené "
+"a modré <Pøeøaïovaè-b>:\n"
 " gama = 1.0\n"
 " jas = 0\n"
 " kontrast = 0"
 
 #. DESC_ENH_AUTO
-msgid ""
-"Autoadjust gamma, brightness and contrast in dependance of selected scan area"
-msgstr ""
-"Automatické nastavení gamy, jasu a kontrastu v závislosti na vybrané "
-"skenovací oblasti"
+msgid "Autoadjust gamma, brightness and contrast <Shift-e>"
+msgstr "Automatické nastavení gamy, jasu a kontrastu <Pøeøaïovaè-e>"
 
 #. DESC_ENH_DEFAULT
 msgid ""
-"Set default enhancement values:\n"
+"Set default enhancement values <Shift-d>:\n"
 "gamma = 1.0\n"
 "brightness = 0\n"
 "contrast = 0"
 msgstr ""
-"Nastavení implicitních hodnot zpracování:\n"
+"Nastavení implicitních hodnot zpracování  <Pøeøaïovaè-d>:\n"
 "gama = 1.0\n"
 "jas = 0\n"
 "kontrast = 0"
 
 #. DESC_ENH_RESTORE
-msgid "Restore enhancement values from preferences"
-msgstr "Obnovit hodnoty zpracování z pøedvoleb"
+msgid "Restore enhancement values from preferences <Shift-r>"
+msgstr "Obnovení hodnot zpracování z pøedvoleb  <Pøeøaïovaè-r>"
 
 #. DESC_ENH_STORE
-msgid "Store active enhancement values to preferences"
-msgstr "Ulo¾it hodnoty zpracování z pøedvoleb"
+msgid "Store active enhancement values to preferences <Shift-m>"
+msgstr "Ulo¾ení aktivních hodnot zpracování do pøedvoleb  <Pøeøaïovaè-m>"
 
 #. DESC_HIST_INTENSITY
-msgid "Show histogram of intensity/gray"
-msgstr "Zobrazit histogram intenzity / ¹edi"
+msgid "Show histogram of intensity/gray <Alt-i>"
+msgstr "Zobrazit histogram intenzity/¹edí <Alt-i>"
 
 #. DESC_HIST_RED
-msgid "Show histogram of red component"
-msgstr "Zobrazit histogram èervené komponenty"
+msgid "Show histogram of red component <Alt-r>"
+msgstr "Zobrazit histogram èervené komponenty <Alt-r>"
 
 #. DESC_HIST_GREEN
-msgid "Show histogram of green component"
-msgstr "Zobrazit histogram zelené komponenty"
+msgid "Show histogram of green component <Alt-g>"
+msgstr "Zobrazit histogram zelené komponenty <Alt-g>"
 
 #. DESC_HIST_BLUE
-msgid "Show histogram of blue component"
-msgstr "Zobrazit histogram modré komponenty"
+msgid "Show histogram of blue component <Alt-b>"
+msgstr "Zobrazit histogram modré komponenty <Alt-b>"
 
 #. DESC_HIST_PIXEL
-msgid "Display histogram with lines instead of pixels"
-msgstr "Zoprazit èárový histogram místo plo¹ného"
+msgid "Display mode: show histogram with lines instead of pixels <Alt-m>"
+msgstr "Re¾im zobrazování: zobrazit èárový histogram místo bodového <Alt-m>"
 
 #. DESC_HIST_LOG
-msgid "Show logarithm of pixelcount"
-msgstr "Zobrazit logaritmy poètù pixelù"
+msgid "Show logarithm of pixelcount <Alt-l>"
+msgstr "Zobrazit logaritmy poètù pixelù <Alt-l>"
 
 #. DESC_PRINTER_SETUP
 msgid "Select definition to change"
@@ -1039,9 +1074,9 @@ msgid "Define a name for the selection of this definition"
 msgstr "Zadání jména pro výbìr této definice"
 
 #. DESC_PRINTER_COMMAND
-msgid "Enter command to be executed in copy mode (e.g. \"lpr -\")"
+msgid "Enter command to be executed in copy mode (e.g. \"lpr\")"
 msgstr ""
-"Zadání pøíkazu, který má být vyvolán v re¾imu kopírování (napø. \"lpr -\")"
+"Zadání pøíkazu, který má být vyvolán v re¾imu kopírování (napø. \"lpr\")"
 
 #. DESC_COPY_NUMBER_OPTION
 msgid "Enter option for copy numbers"
@@ -1119,7 +1154,7 @@ msgstr "Komprese, je-li obrázek zapisován jako png"
 
 #. DESC_FILENAME_COUNTER_LEN
 msgid "Minimum length of counter in filename"
-msgstr ""
+msgstr "Minimální délka èítaèe ve jménu souboru"
 
 #. DESC_TIFF_COMPRESSION_16
 msgid "Compression type if 16 bit image is saved as tiff"
@@ -1174,8 +1209,8 @@ msgstr ""
 "velikostí"
 
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
-msgid "Disable preview gamma when xsane runs as gimp plugin"
-msgstr "Zakázat gama náhledu, bì¾í-li xsane jako gimp modul"
+msgid "Disable preview gamma when XSane runs as gimp plugin"
+msgstr "Zakázat gama náhledu, bì¾í-li XSane jako gimp modul"
 
 #. DESC_PREVIEW_COLORMAP
 msgid "Use an own colormap for preview if display depth is 8 bpp"
@@ -1202,17 +1237,16 @@ msgid "Set gamma correction value for blue component of preview image"
 msgstr "Nastavení gama korekce pro modrou komponentu náhledového obrázku"
 
 #. DESC_LINEART_MODE
-msgid "Define the way xsane shall handle the threshold option"
-msgstr "Definuje zpùsob, kterým má xsane pracovat s volbou prahu"
+msgid "Define the way XSane shall handle the threshold option"
+msgstr "Definuje zpùsob, kterým má XSane pracovat s volbou prahu"
 
 #. DESC_GRAYSCALE_SCANMODE
-#, fuzzy
 msgid ""
 "Select grayscale scanmode. This scanmode is used for lineart preview scan "
 "when transformation from grayscale to lineart is enabled"
 msgstr ""
-"Zadejte název re¾imu v ¹edích - pro náhled s pøevodem z ¹edí do èárové "
-"grafiky"
+"Zadání skenovacího re¾imu ¹edí. Tento re¾im je pou¾it pro náhledový sken "
+"èárové grafiky, je-li zapnut pøevod z ¹edí do èárové grafiky"
 
 #. DESC_PREVIEW_THRESHOLD_MIN
 #, no-c-format
@@ -1226,23 +1260,27 @@ msgstr "Maximální hodnota prahu v %"
 
 #. DESC_PREVIEW_THRESHOLD_MUL
 msgid ""
-"Multiplier to make xsane threshold range and scanner threshold range the same"
-msgstr "Èinitel, který nastaví shodný rozsah prahù a rozsah prahù skeneru"
+"Multiplier to make XSane threshold range and scanner threshold range the same"
+msgstr ""
+"Èinitel, který nastaví shodný rozsah prahù XSane a rozsah prahù skeneru"
 
 #. DESC_PREVIEW_THRESHOLD_OFF
 msgid ""
-"Offset to make xsane threshold range and scanner threshold range the same"
-msgstr "Posun. který nastaví shodný rozsah prahù a rozsah prahù skeneru"
+"Offset to make XSane threshold range and scanner threshold range the same"
+msgstr "Posun, který nastaví shodný rozsah prahù XSane a rozsah prahù skeneru"
 
 #. DESC_ADF_MODE
 msgid ""
 "Select scansource for Automatic Document feeder. If this scansource is "
-"selected xsane scans until \"out of paper\" or error."
+"selected XSane scans until \"out of paper\" or error."
 msgstr ""
+"Výbìr skenovacího zdroje pro automatický podavaè dokumentù. Je-li zvolen, "
+"XSane skenuje, dokud nenastane stav \"do¹el papír\" nebo chyba."
 
 #. DESC_PREVIEW_PIPETTE_RANGE
 msgid "dimension of square that is used to average color for pipette function"
 msgstr ""
+"rozmìry ètverce, který je pou¾it ke zprùmìrování barvy pro barevnou pipetu"
 
 #. DESC_DOC_VIEWER
 msgid ""
@@ -1285,17 +1323,15 @@ msgstr ""
 
 #. DESC_PERMISSION_READ
 msgid "read"
-msgstr ""
+msgstr "ètení"
 
 #. DESC_PERMISSION_WRITE
-#, fuzzy
 msgid "write"
-msgstr "Pøepsat"
+msgstr "zápis"
 
 #. DESC_PERMISSION_EXECUTE
-#, fuzzy
 msgid "execute"
-msgstr "Smazat"
+msgstr "spu¹tìní"
 
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
@@ -1331,18 +1367,16 @@ msgid "Select visible area"
 msgstr "Volba viditelné oblasti"
 
 #. DESC_AUTOSELECT_SCANAREA
-#, fuzzy
 msgid "Autoselect scanarea"
-msgstr "U¾ití plné skenovací plochy"
+msgstr "Automatický výbìr skenovací plochy"
 
 #. DESC_PRESET_AREA
-#, fuzzy
 msgid "Reduce scan area"
-msgstr "U¾ití plné skenovací plochy"
+msgstr "Redukce skenovací plochy"
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
-msgstr ""
+msgstr "Rotace náhledu a skenování"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -1463,7 +1497,7 @@ msgstr "nepodaøilo se nastavit rozli¹ení"
 #. ERR_PASSWORD_FILE_INSECURE
 #, c-format
 msgid "Password file (%s) is insecure, use permission x00\n"
-msgstr ""
+msgstr "Soubor s hesly (%s) je nebezpeèný, pou¾ijte práva x00\n"
 
 #. ERR_ERROR
 msgid "error"
@@ -1474,8 +1508,8 @@ msgid "Sane major version number mismatch!"
 msgstr "Hlavní èíslo verze Sane nesouhlasí!"
 
 #. ERR_XSANE_MAJOR_VERSION
-msgid "xsane major version ="
-msgstr "hlavní èíslo verze xsane ="
+msgid "XSane major version ="
+msgstr "Hlavní èíslo verze XSane ="
 
 #. ERR_BACKEND_MAJOR_VERSION
 msgid "backend major version ="
@@ -1498,9 +1532,8 @@ msgid "GIMP support missing"
 msgstr "Chybí podpora programu GIMP"
 
 #. WARN_COUNTER_UNDERRUN
-#, fuzzy
 msgid "Filename counter underrun"
-msgstr "Pøeteèení èítaèe jména souboru"
+msgstr "Podteèení èítaèe jména souboru"
 
 #. WARN_NO_VALUE_CONSTRAINT
 msgid "warning: option has no value constraint"
@@ -1508,16 +1541,16 @@ msgstr "varování: volba nezískala ¾ádnou hodnotu"
 
 #. WARN_XSANE_AS_ROOT
 msgid ""
-"You try to run xsane as ROOT, that really is DANGEROUS!\n"
+"You try to run XSane as ROOT, that really is DANGEROUS!\n"
 "\n"
 "Do not send any bug reports when you\n"
-"have any problem while running xsane as root:\n"
+"have any problem while running XSane as root:\n"
 "YOU ARE ALONE!"
 msgstr ""
-"Spou¹títe xsane jako SUPERU®IVATEL, co¾ je velmi NEBEZPEÈNÉ!\n"
+"Spou¹títe XSane jako SUPERU®IVATEL, co¾ je velmi NEBEZPEÈNÉ!\n"
 "\n"
 "Neposílejte chybová hlá¹ení, budete-li mít problémy\n"
-"pøi bìhu xsane pod superu¾ivatelem:\n"
+"pøi bìhu XSane pod superu¾ivatelem:\n"
 "JSTE OSAMÌLÍ!"
 
 #. ERR_HEADER_ERROR
@@ -1569,6 +1602,16 @@ msgstr "to mù¾e zpùsobit problémy!"
 msgid "File %s already exists"
 msgstr "Soubor %s ji¾ existuje"
 
+#. ERR_FILE_NOT_EXISTS
+#, c-format
+msgid "File %s does not exist"
+msgstr "Soubor %s neexistuje"
+
+#. ERR_FILE_NOT_POSTSCRIPT
+#, c-format
+msgid "File %s is not a postscript file"
+msgstr "Soubor %s není postscriptový soubor"
+
 #. ERR_UNSUPPORTED_OUTPUT_FORMAT
 #, c-format
 msgid "Unsupported %d-bit output format: %s"
@@ -1583,7 +1626,6 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[VOLBA]... [ZAØÍZENÍ]"
 
 #. TEXT_HELP
-#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -1592,6 +1634,7 @@ msgid ""
 "[OPTION]... can be a combination of the following items:\n"
 " -h, --help                   display this help message and exit\n"
 " -v, --version                print version information\n"
+" -l, --license                print license information\n"
 "\n"
 " -d, --device-settings file   load device settings from file (without "
 "\".drc\")\n"
@@ -1599,14 +1642,14 @@ msgid ""
 " -s, --scan                   start with scan-mode active\n"
 " -c, --copy                   start with copy-mode active\n"
 " -f, --fax                    start with fax-mode active\n"
-" -n, --no-mode-selection      disable menu for xsane mode selection\n"
+" -n, --no-mode-selection      disable menu for XSane mode selection\n"
 "\n"
 " -F, --Fixed                  fixed main window size (overwrite preferences "
 "value)\n"
 " -R, --Resizeable             resizable, scrolled main window (overwrite "
 "preferences value)\n"
 "\n"
-" -p, --print-filenames        print image filenames created by xsane\n"
+" -p, --print-filenames        print image filenames created by XSane\n"
 " -N, --force-filename name    force filename and disable user filename "
 "selection\n"
 "\n"
@@ -1623,6 +1666,7 @@ msgstr ""
 "[VOLBA]... mù¾e být kombinací následujících polo¾ek:\n"
 "-h, --help                    vypí¹e tuto nápovìdu a skonèí\n"
 "-v, --version                 vypí¹e oznaèení verze\n"
+"-l, --license                 vypí¹e informace o licenci\n"
 "\n"
 "-d, --device-settings soubor  naète nastavení zaøízení ze souboru (bez "
 "\".drc\")\n"
@@ -1637,6 +1681,9 @@ msgstr ""
 "-R, --Resizeable              pou¾ije hlavní okno s posuvníky a promìnnou "
 "velikostí\n"
 "                              (pøepí¹e hodnotu pøedvolby)\n"
+"-p, --print-filenames         vypí¹e jména souborù s vytvoøenými obrázky\n"
+"-N, --force-filename name     vnutit jméno souboru a vypnout volbu jména "
+"souboru\n"
 "\n"
 "--display X11-displej         pøesmìruje výstup na X11-displej\n"
 "--no-xshm                     nepou¾ije sdílené pamì»ové obrazy\n"
@@ -1677,56 +1724,55 @@ msgstr "<Toolbox>/Xtns/XSane/"
 #. gettext_noop does mark these texts but does not change the string
 #. MENU_ITEM_SURFACE_FULL_SIZE
 msgid "full size"
-msgstr ""
+msgstr "plná velikost"
 
 #. MENU_ITEM_SURFACE_DIN_A3P
 msgid "DIN A3 port."
-msgstr ""
+msgstr "ÈSN A3 stoj."
 
 #. MENU_ITEM_SURFACE_DIN_A3L
 msgid "DIN A3 land."
-msgstr ""
+msgstr "ÈSN A3 le¾."
 
 #. MENU_ITEM_SURFACE_DIN_A4P
 msgid "DIN A4 port."
-msgstr ""
+msgstr "ÈSN A4 stoj."
 
 #. MENU_ITEM_SURFACE_DIN_A4L
 msgid "DIN A4 land."
-msgstr ""
+msgstr "ÈSN A4 le¾."
 
 #. MENU_ITEM_SURFACE_DIN_A5P
 msgid "DIN A5 port."
-msgstr ""
+msgstr "ÈSN A5 stoj."
 
 #. MENU_ITEM_SURFACE_DIN_A5L
 msgid "DIN A5 land."
-msgstr ""
+msgstr "ÈSN A5 le¾."
 
 #. MENU_ITEM_SURFACE_9cmx13cm
 msgid "9cm x 13cm"
-msgstr ""
+msgstr "9cm × 13cm"
 
 #. MENU_ITEM_SURFACE_13cmx9cm
 msgid "13cm x 9cm"
-msgstr ""
+msgstr "13cm × 9cm"
 
 #. MENU_ITEM_SURFACE_legal_P
 msgid "legal port."
-msgstr ""
+msgstr "legal stoj."
 
 #. MENU_ITEM_SURFACE_legal_L
 msgid "legal land."
-msgstr ""
+msgstr "legal le¾."
 
 #. MENU_ITEM_SURFACE_letter_P
-#, fuzzy
 msgid "letter port."
-msgstr "Smazat projekt"
+msgstr "letter stoj."
 
 #. MENU_ITEM_SURFACE_letter_L
 msgid "letter land."
-msgstr ""
+msgstr "letter le¾."
 
 #. Sane backend messages
 msgid "flatbed scanner"
@@ -1782,23 +1828,3 @@ msgstr "Nedostatek pamìti"
 
 msgid "Access to resource has been denied"
 msgstr "Pøístup ke zdroji byl odmítnut"
-
-#~ msgid "Increase filename counter"
-#~ msgstr "Zvý¹it èítaè jména souboru"
-
-#~ msgid ""
-#~ "If the filename is of the form \"name-001.ext\" (where the number of digits "
-#~ "is free) the number is increased after a scan is finished"
-#~ msgstr ""
-#~ "Je-li jméno souboru ve tvaru \"jméno-001.pøíp\" (poèet èíslic je libovolný), "
-#~ "èíslo je o skenování zvìt¹eno"
-
-#~ msgid "Filename extension and type of image format"
-#~ msgstr "Pøípona jména souboru a typ obrázkového formátu"
-
-#, fuzzy
-#~ msgid "Filename counter step"
-#~ msgstr "Pøeteèení èítaèe jména souboru"
-
-#~ msgid "Exit"
-#~ msgstr "Konec"

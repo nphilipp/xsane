@@ -1,0 +1,584 @@
+#nls translation file for backend umax
+#language: japanese (ja)
+
+#original text: "Number of options" 
+msgid "Number of options" 
+msgstr "オプションの数"
+
+#original text: "Preview" 
+msgid "Preview" 
+msgstr "プレビュー"
+
+#original text: "Force monochrome preview" 
+msgid "Force monochrome preview" 
+msgstr "強制モノクロプレビュー"
+
+#original text: "Bit depth" 
+msgid "Bit depth" 
+msgstr "ビット深度"
+
+#original text: "Scan mode" 
+msgid "Scan mode" 
+msgstr "スキャンモード"
+
+#original text: "Scan speed" 
+msgid "Scan speed" 
+msgstr "スキャンスピード"
+
+#original text: "Scan source" 
+msgid "Scan source" 
+msgstr "スキャンソース"
+
+#original text: "Force backtracking" 
+msgid "Force backtracking" 
+msgstr "強制バックトラック"
+
+#original text: "Top-left x" 
+msgid "Top-left x" 
+msgstr "上辺左のx座標"
+
+#original text: "Top-left y" 
+msgid "Top-left y" 
+msgstr "上辺左のy座標"
+
+#original text: "Bottom-right x" 
+msgid "Bottom-right x" 
+msgstr "底辺右のx座標"
+
+#original text: "Bottom-right y" 
+msgid "Bottom-right y" 
+msgstr "底辺右のy座標"
+
+#original text: "Scan resolution" 
+msgid "Scan resolution" 
+msgstr "スキャン解像度"
+
+#original text: "X-resolution" 
+msgid "X-resolution" 
+msgstr "X方向の解像度"
+
+#original text: "Y-resolution" 
+msgid "Y-resolution" 
+msgstr "Y方向の解像度"
+
+#original text: "Use custom gamma table" 
+msgid "Use custom gamma table" 
+msgstr "カスタムガンマテーブルを使用"
+
+#original text: "Image intensity" 
+msgid "Image intensity" 
+msgstr "画像強調"
+
+#original text: "Red intensity" 
+msgid "Red intensity" 
+msgstr "赤成分の強調"
+
+#original text: "Green intensity" 
+msgid "Green intensity" 
+msgstr "緑成分の強調"
+
+#original text: "Blue intensity" 
+msgid "Blue intensity" 
+msgstr "青成分の強調"
+
+#original text: "Brightness" 
+msgid "Brightness" 
+msgstr "明度"
+
+#original text: "Contrast" 
+msgid "Contrast" 
+msgstr "コントラスト"
+
+#original text: "Grain size" 
+msgid "Grain size" 
+msgstr "粒度"
+
+#original text: "Halftoning" 
+msgid "Halftoning" 
+msgstr "中間トーン"
+
+#original text: "Black level" 
+msgid "Black level" 
+msgstr "黒階調"
+
+#original text: "White level" 
+msgid "White level" 
+msgstr "白階調"
+
+#original text: "Shadow" 
+msgid "Shadow" 
+msgstr "陰影"
+
+#original text: "Shadow for red" 
+msgid "Shadow for red" 
+msgstr "赤成分への陰影"
+
+#original text: "Shadow for green" 
+msgid "Shadow for green" 
+msgstr "緑成分への陰影"
+
+#original text: "Shadow for blue" 
+msgid "Shadow for blue" 
+msgstr "青成分への陰影"
+
+#original text: "Highlight" 
+msgid "Highlight" 
+msgstr "ハイライト"
+
+#original text: "Highlight for red" 
+msgid "Highlight for red" 
+msgstr "赤成分へのハイライト"
+
+#original text: "Highlight for green" 
+msgid "Highlight for green" 
+msgstr "緑成分へのハイライト"
+
+#original text: "Highlight for blue" 
+msgid "Highlight for blue" 
+msgstr "青成分へのハイライト"
+
+#original text: "Hue" 
+msgid "Hue" 
+msgstr "色合い"
+
+#original text: "Saturation" 
+msgid "Saturation" 
+msgstr "彩度"
+
+#original text: "Filename" 
+msgid "Filename" 
+msgstr "ファイル名"
+
+#original text: "Halftone pattern size" 
+msgid "Halftone pattern size" 
+msgstr "中間トーンの紋様サイズ"
+
+#original text: "Halftone pattern" 
+msgid "Halftone pattern" 
+msgstr "中間トーンの紋様"
+
+#original text: "Bind X and Y resolution" 
+msgid "Bind X and Y resolution" 
+msgstr "XとYの各方向の解像度を結合"
+
+#original text: "Negative" 
+msgid "Negative" 
+msgstr "裏焼き"
+
+#original text: "Quality calibration" 
+msgid "Quality calibration" 
+msgstr "画質補正"
+
+#original text: "Double Optical Resolution" 
+msgid "Double Optical Resolution" 
+msgstr "倍精度光学解像度"
+
+#original text: "Bind RGB" 
+msgid "Bind RGB" 
+msgstr "RGBを結合"
+
+#original text: "Threshold" 
+msgid "Threshold" 
+msgstr "閾値"
+
+#original text: "Analog gamma correction" 
+msgid "Analog gamma correction" 
+msgstr "アナログガンマ補正"
+
+#original text: "Analog gamma red" 
+msgid "Analog gamma red" 
+msgstr "アナログガンマ 赤"
+
+#original text: "Analog gamma green" 
+msgid "Analog gamma green" 
+msgstr "アナログガンマ 緑"
+
+#original text: "Analog gamma blue" 
+msgid "Analog gamma blue" 
+msgstr "アナログガンマ 青"
+
+#original text: "Bind analog gamma" 
+msgid "Bind analog gamma" 
+msgstr "アナログガンマを結合"
+
+#original text: "Smear" 
+msgid "Smear" 
+msgstr "しみ"
+
+#original text: "10 bit-mode" 
+msgid "10 bit-mode" 
+msgstr "10ビットモード"
+
+#original text: "12 bit-mode" 
+msgid "12 bit-mode" 
+msgstr "12ビットモード"
+
+#original text: "Warmup lamp" 
+msgid "Warmup lamp" 
+msgstr "ウォームアップランプ"
+
+#original text: "Preview patch" 
+msgid "Preview patch" 
+msgstr "プレビューパッチ"
+
+#original text: "Start-scan patch" 
+msgid "Start-scan patch" 
+msgstr "スマートスキャンパッチ"
+
+#original text: "Cal. exposure-time" 
+msgid "Cal. exposure-time" 
+msgstr "露光時間の計算"
+
+#original text: "Cal. exposure-time for red" 
+msgid "Cal. exposure-time for red" 
+msgstr "露光時間の計算(赤)"
+
+#original text: "Cal. exposure-time for green" 
+msgid "Cal. exposure-time for green" 
+msgstr "露光時間の計算(緑)"
+
+#original text: "Cal. exposure-time for blue" 
+msgid "Cal. exposure-time for blue" 
+msgstr "露光時間の計算(青)"
+
+#original text: "Scan exposure-time" 
+msgid "Scan exposure-time" 
+msgstr "指定の露光時間でスキャン"
+
+#original text: "Scan exposure-time for red" 
+msgid "Scan exposure-time for red" 
+msgstr "指定の露光時間でスキャン(赤)"
+
+#original text: "Scan exposure-time for green" 
+msgid "Scan exposure-time for green" 
+msgstr "指定の露光時間でスキャン(緑)"
+
+#original text: "Scan exposure-time for blue" 
+msgid "Scan exposure-time for blue" 
+msgstr "指定の露光時間でスキャン(青)"
+
+#original text: "Set exposure-time" 
+msgid "Set exposure-time" 
+msgstr "露光時間をセット"
+
+#original text: "Cal. lamp density" 
+msgid "Cal. lamp density" 
+msgstr "光彩密度を計算"
+
+#original text: "Scan lamp density" 
+msgid "Scan lamp density" 
+msgstr "指定の光彩密度でスキャン"
+
+#original text: "Set lamp density" 
+msgid "Set lamp density" 
+msgstr "光彩密度をセット"
+
+
+
+
+#original text: "Request a preview-quality scan." 
+msgid "Request a preview-quality scan." 
+msgstr "プレビュー画質でスキャンする"
+
+#original text: "Request that all previews are done in monochrome mode.  On a three-pass " " scanner this cuts down the number of passes to one and on a one-pass " "scanner, it reduces the memory requirements and scan-time of the preview." 
+msgid "Request that all previews are done in monochrome mode.  On a three-pass " " scanner this cuts down the number of passes to one and on a one-pass " "scanner, it reduces the memory requirements and scan-time of the preview." 
+msgstr "すべてのプレビューはモノクロモードで実行されます。ワンパススキャナでは"　"パス数は1となり、プレビューに要するメモリやスキャン時間を節約します。"
+
+#original text: "Number of bits per sample, typical values are 1 for \"line-art\" and 8 " "for multibit scans." 
+msgid "Number of bits per sample, typical values are 1 for \"line-art\" and 8 " "for multibit scans." 
+msgstr "サンプル当りのビット数。ラインアートに対しては通常1で、マルチビットでのスキャンでは8です。"
+
+#original text: "Selects the scan mode (e.g., lineart,monochrome, or color)." 
+msgid "Selects the scan mode (e.g., lineart,monochrome, or color)." 
+msgstr "スキャンモードを選択（例：ラインアート、モノクロ、カラー） "
+
+#original text: "Determines the speed at which the scan proceeds." 
+msgid "Determines the speed at which the scan proceeds." 
+msgstr "スキャン進行速度を決定"
+
+#original text: "Selects the scan source (such as a document-feeder)." 
+msgid "Selects the scan source (such as a document-feeder)." 
+msgstr "スキャンソースを選択（文書フィーダなど）"
+
+#original text: "Controls whether backtracking is forced." 
+msgid "Controls whether backtracking is forced." 
+msgstr "バックトラッキングの強制をコントロール"
+
+#original text: "Top-left x position of scan area." 
+msgid "Top-left x position of scan area." 
+msgstr "スキャン領域の上辺左のx座標"
+
+#original text: "Top-left y position of scan area." 
+msgid "Top-left y position of scan area." 
+msgstr "スキャン領域の上辺左のy座標"
+
+#original text: "Bottom-right x position of scan area." 
+msgid "Bottom-right x position of scan area." 
+msgstr "スキャン領域の底辺右のx座標"
+
+#original text: "Bottom-right y position of scan area." 
+msgid "Bottom-right y position of scan area." 
+msgstr "スキャン領域の底辺右のy座標"
+
+#original text: "Sets the resolution of the scanned image." 
+msgid "Sets the resolution of the scanned image." 
+msgstr "スキャンした画像の解像度をセット"
+
+#original text: "Sets the horizontal resolution of the scanned image." 
+msgid "Sets the horizontal resolution of the scanned image." 
+msgstr "スキャンした画像の水平解像度をセット"
+
+#original text: "Sets the vertical resolution of the scanned image." 
+msgid "Sets the vertical resolution of the scanned image." 
+msgstr "スキャンした画像の垂直解像度をセット"
+
+#original text: "Determines whether a builtin or a custom gamma-table should be used." 
+msgid "Determines whether a builtin or a custom gamma-table should be used." 
+msgstr "使用するガンマテーブルを決定（ビルトインかカスタムか）"
+
+#original text: "Gamma-correction table.  In color mode this option equally affects the " "red, green, and blue channels simultaneously (i.e., it is an intensity " "gamma table)." 
+msgid "Gamma-correction table.  In color mode this option equally affects the " "red, green, and blue channels simultaneously (i.e., it is an intensity " "gamma table)." 
+msgstr "ガンマ補正テーブル。このオプションはカラーモードで赤・緑・青の各チャネル" "に対して一様に機能します。"
+
+#original text: "Gamma-correction table for the red band." 
+msgid "Gamma-correction table for the red band." 
+msgstr "赤帯域に対するガンマ補正"
+
+#original text: "Gamma-correction table for the green band." 
+msgid "Gamma-correction table for the green band." 
+msgstr "緑帯域に対するガンマ補正"
+
+#original text: "Gamma-correction table for the blue band." 
+msgid "Gamma-correction table for the blue band." 
+msgstr "青帯域に対するガンマ補正"
+
+#original text: "Controls the brightness of the acquired image." 
+msgid "Controls the brightness of the acquired image." 
+msgstr "取り込み画像の明度をコントロール"
+
+#original text: "Controls the contrast of the acquired image." 
+msgid "Controls the contrast of the acquired image." 
+msgstr "取り込み画像のコントラストをコントロール"
+
+#original text: "Selects the \"graininess\" of the acquired image.  Smaller values " "result in sharper images." 
+msgid "Selects the \"graininess\" of the acquired image.  Smaller values " "result in sharper images." 
+msgstr "取り込み画像の粒度を選択。画像鮮明化の結果より小さい。"
+
+#original text: "Selects whether the acquired image should be halftoned (dithered)." 
+msgid "Selects whether the acquired image should be halftoned (dithered)." 
+msgstr "取り込み画像を中間トーンにかけるかを選択（ディザ化）"
+
+#original text: "Selects what radiance level should be considered \"black\"." 
+msgid "Selects what radiance level should be considered \"black\"." 
+msgstr "黒色とされた部分の輝度を選択"
+
+#original text: "Selects what radiance level should be considered \"white\"." 
+msgid "Selects what radiance level should be considered \"white\"." 
+msgstr "白色とされた部分の輝度を選択"
+
+#original text: "Selects what radiance level should be considered \"black\"." 
+msgid "Selects what radiance level should be considered \"black\"." 
+msgstr "黒色とされた部分の輝度を選択"
+
+#original text: "Selects what red radiance level should be considered \"black\"." 
+msgid "Selects what red radiance level should be considered \"black\"." 
+msgstr "黒色とされた部分の赤成分の輝度を選択"
+
+#original text: "Selects what green radiance level should be considered \"black\"." 
+msgid "Selects what green radiance level should be considered \"black\"." 
+msgstr "黒色とされた部分の緑成分の輝度を選択"
+
+#original text: "Selects what blue radiance level should be considered \"black\"." 
+msgid "Selects what blue radiance level should be considered \"black\"." 
+msgstr "黒色とされた部分の青成分の輝度を選択"
+
+#original text: "Selects what radiance level should be considered \"white\"." 
+msgid "Selects what radiance level should be considered \"white\"." 
+msgstr "白色とされた部分の輝度を選択"
+
+#original text: "Selects what red radiance level should be considered \"full red\"." 
+msgid "Selects what red radiance level should be considered \"full red\"." 
+msgstr "赤色とされた部分の赤成分の輝度を選択"
+
+#original text: "Selects what green radiance level should be considered \"full green\"." 
+msgid "Selects what green radiance level should be considered \"full green\"." 
+msgstr "緑色とされた部分の緑成分の輝度を選択"
+
+#original text: "Selects what blue radiance level should be considered \"full blue\"." 
+msgid "Selects what blue radiance level should be considered \"full blue\"." 
+msgstr "青色とされた部分の青成分の輝度を選択"
+
+#original text: "Controls the \"hue\" (blue-level) of the acquired image." 
+msgid "Controls the \"hue\" (blue-level) of the acquired image." 
+msgstr "取り込み画像の色合い（青）をコントロール"
+
+#original text: "The saturation level controls the amount of \"blooming\" that occurs when " "acquiring an image with a camera. Larger values cause more blooming." 
+msgid "The saturation level controls the amount of \"blooming\" that occurs when " "acquiring an image with a camera. Larger values cause more blooming." 
+msgstr "ぼかし量をコントロールする彩度"
+
+#original text: "The filename of the image to be loaded." 
+msgid "The filename of the image to be loaded." 
+msgstr "読み込み画像ファイル名"
+
+#original text: "Sets the size of the halftoning (dithering) pattern used when scanning " "halftoned images." 
+msgid "Sets the size of the halftoning (dithering) pattern used when scanning " "halftoned images." 
+msgstr "中間トーン（ディザ）の紋様サイズをセット"
+
+#original text: "Defines the halftoning (dithering) pattern for scanning halftoned images." 
+msgid "Defines the halftoning (dithering) pattern for scanning halftoned images." 
+msgstr "中間トーン（ディザ）の紋様サイズを定義"
+
+#original text: "Use same values for X and Y resolution" 
+msgid "Use same values for X and Y resolution" 
+msgstr "XとYの各方向の解像度に同じ値を採用します"
+
+#original text: "Swap black and white" 
+msgid "Swap black and white" 
+msgstr "黒色と白色を交換します"
+
+#original text: "Do a quality white-calibration" 
+msgid "Do a quality white-calibration" 
+msgstr "白色画質補正を行います"
+
+#original text: "Use lens that doubles optical resolution" 
+msgid "Use lens that doubles optical resolution" 
+msgstr "光学解像度が倍精度のレンズを使います"
+
+#original text: "In RGB-mode use same values for each color" 
+msgid "In RGB-mode use same values for each color" 
+msgstr "RGBモードにおいて各色に対して同じ値を用います"
+
+#original text: "Select minimum-brightness to get a white point" 
+msgid "Select minimum-brightness to get a white point" 
+msgstr "白点を取得するための最小明度を選択します"
+
+#original text: "Analog gamma-correction" 
+msgid "Analog gamma-correction" 
+msgstr "アナログガンマ補正"
+
+#original text: "Analog gamma-correction for red" 
+msgid "Analog gamma-correction for red" 
+msgstr "赤成分へのアナログガンマ補正"
+
+#original text: "Analog gamma-correction for green" 
+msgid "Analog gamma-correction for green" 
+msgstr "緑成分へのアナログガンマ補正"
+
+#original text: "Analog gamma-correction for blue" 
+msgid "Analog gamma-correction for blue" 
+msgstr "青成分へのアナログガンマ補正"
+
+#original text: "In RGB-mode use same values for each color" 
+msgid "In RGB-mode use same values for each color" 
+msgstr "RGBモードにおいて各色に対し同じ値を用います"
+
+#original text: "Don't care about image smearing problem" 
+msgid "Don't care about image smearing problem" 
+msgstr "画像のしみへの心配がいりません"
+
+#original text: "Output with 10 bits instead of 8 bits" 
+msgid "Output with 10 bits instead of 8 bits" 
+msgstr "8ビットの代わりに10ビットで出力します"
+
+#original text: "Output with 12 bits instead of 8 bits" 
+msgid "Output with 12 bits instead of 8 bits" 
+msgstr "8ビットの代わりに12ビットで出力します"
+
+#original text: "Warmup lamp before scanning" 
+msgid "Warmup lamp before scanning" 
+msgstr "スキャン前のウォームアップランプ"
+
+#original text: "Set preview-bit in rgb-mode" 
+msgid "Set preview-bit in rgb-mode" 
+msgstr "RGBモードでのプレビュービットをセット"
+
+#original text: "Use special start-scan bits" 
+msgid "Use special start-scan bits" 
+msgstr "special start-scan bitsを使います"
+
+#original text: "Define exposure-time for calibration" 
+msgid "Define exposure-time for calibration" 
+msgstr "補正時の露光時間を定義"
+
+#original text: "Define exposure-time for red calibration" 
+msgid "Define exposure-time for red calibration" 
+msgstr "赤成分補正時の露光時間を定義"
+
+#original text: "Define exposure-time for green calibration" 
+msgid "Define exposure-time for green calibration" 
+msgstr "緑成分補正時の露光時間を定義"
+
+#original text: "Define exposure-time for blue calibration" 
+msgid "青成分補正時の露光時間を定義"
+
+#original text: "Define exposure-time for scan" 
+msgid "Define exposure-time for scan" 
+msgstr "スキャン時の露光時間を定義"
+
+#original text: "Define exposure-time for red scan" 
+msgid "Define exposure-time for red scan" 
+msgstr "赤成分スキャン時の露光時間を定義"
+
+#original text: "Define exposure-time for green scan" 
+msgid "緑成分スキャン時の露光時間を定義"
+
+#original text: "Define exposure-time for blue scan" 
+msgid "Define exposure-time for blue scan" 
+msgstr "青成分スキャン時の露光時間を定義"
+
+#original text: "Enable selection of exposure-time" 
+msgid "Enable selection of exposure-time" 
+msgstr "露光時間を選択可にする"
+
+#original text: "Define lamp density for calibration" 
+msgid "Define lamp density for calibration" 
+msgstr "補正時の光彩密度を定義"
+
+#original text: "Define lamp density for scan" 
+msgid "Define lamp density for scan" 
+msgstr "スキャン時の光彩密度を定義"
+
+#original text: "Enable selection of lamp density" 
+msgid "Enable selection of lamp density" 
+msgstr "光彩密度を選択可にする"
+
+#original text: "Geometry"
+msgid "Geometry"
+msgstr "ジオメトリ"
+
+#original text: "Enhancement"
+msgid "Enhancement"
+msgstr "強調"
+
+#original text: "Scan Mode"
+msgid "Scan Mode"
+msgstr "スキャンモード"
+
+#original text: "Color"
+msgid "Color"
+msgstr "カラー"
+
+#original text: "Gray"
+msgid "Gray"
+msgstr "グレー"
+
+#original text: "Halftone"
+msgid "Halftone"
+msgstr "中間トーン"
+
+#original text: "Lineart"
+msgid "Lineart"
+msgstr "ラインアート"
+
+#original text: "Flatbed"
+msgid "Flatbed"
+msgstr "フラットベッド"
+
+#original text: "Transparency Adapter"
+msgid "Transparency Adapter"
+msgstr "透過アダプタ"
+
+#original text: "Automatic Document Feeder"
+msgid "Automatic Document Feeder"
+msgstr "ADF(Automatic Document Feeder)"
+

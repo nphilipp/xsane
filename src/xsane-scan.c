@@ -2,7 +2,7 @@
 
    xsane-scan.c
 
-   Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
+   Oliver Rauch <Oliver.Rauch@rauch-domain.de>
    Copyright (C) 1998-2001 Oliver Rauch
    This file is part of the XSANE package.
 
@@ -1857,7 +1857,7 @@ void xsane_scan_done(SANE_Status status)
       }
       else /* external filename */
       {
-        xsane_update_counter_in_filename(&xsane.external_filename, TRUE, 1, preferences.filename_counter_len);
+        xsane_update_counter_in_filename(&xsane.external_filename, TRUE, 1, 0);
       }
     }
     else if (xsane.xsane_mode == XSANE_FAX)
@@ -1965,10 +1965,15 @@ static void xsane_start_scan(void)
 
   DBG(DBG_proc, "xsane_start_scan\n");
 
-  /* correct length of filename counter if it is shorter than minimum length */
-  xsane_update_counter_in_filename(&preferences.filename, FALSE, 0, preferences.filename_counter_len);
- 
-  gtk_entry_set_text(GTK_ENTRY(xsane.outputfilename_entry), preferences.filename); 
+  if ( (xsane.mode == XSANE_STANDALONE) && (xsane.xsane_mode == XSANE_SCAN) )
+  {
+    /* correct length of filename counter if it is shorter than minimum length */
+    if (!xsane.force_filename)
+    {
+      xsane_update_counter_in_filename(&preferences.filename, FALSE, 0, preferences.filename_counter_len);
+      gtk_entry_set_text(GTK_ENTRY(xsane.outputfilename_entry), preferences.filename); 
+    }
+  }
 
   xsane_clear_histogram(&xsane.histogram_raw);
   xsane_clear_histogram(&xsane.histogram_enh);    

@@ -40,6 +40,12 @@ Shift S		Setup
 
 Alt P		Start Preview Scan
 Alt ESC		Cancel Preview Scan
+Alt KP_+	Zoom in
+Alt KP_-	Zoom out
+Alt KP_*	Zoom not
+Alt KP_/	Zoom undo
+Alt A		Autoselect scanarea
+Alt V		Select visible scanarea
 
 Alt I		Histogram lines for intensity
 Alt R		Histogram lines for red

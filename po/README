@@ -17,7 +17,10 @@ SELECT YOUR LANGUAGE:
 ---------------------
 
 set environment variable LANG to your language
-(eg. export LANG=de) and call xsane
+(eg. export LANG=german) and call xsane
+You have to set the correct keyword. When you select
+LANG=fr you will select the french translated texts but
+not the correct fonts. Setting LANG=french works fine.
 
 
 
@@ -43,7 +46,7 @@ To test/install your new translation:
 
 If you want to make your translation public
 please send your "language".po file to:
-Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
+Oliver Rauch <Oliver.Rauch@rauch-domain.de>
 
 
 

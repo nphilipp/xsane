@@ -201,4 +201,4 @@ gimp(1), xscanimage(1), scanimage(1),
 sane\-dll(5), sane\-net(5), sane-scsi(5),
 sane\-"backendname"(5)
 .SH AUTHOR
-Oliver Rauch (Oliver.Rauch@Wolfsburg.DE)
+Oliver Rauch <Oliver.Rauch@rauch-domain.de>

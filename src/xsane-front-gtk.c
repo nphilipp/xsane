@@ -2,7 +2,7 @@
 
    xsane-front-gtk.c
 
-   Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
+   Oliver Rauch <Oliver.Rauch@rauch-domain.de>
    Copyright (C) 1998-2001 Oliver Rauch
    This file is part of the XSANE package.
 
@@ -1380,7 +1380,7 @@ void xsane_change_working_directory(void)
   sprintf(windowname, "%s %s %s", xsane.prog_name, WINDOW_CHANGE_WORKING_DIR, xsane.device_text);
   if (getcwd(filename, sizeof(filename)))
   {
-    xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, FALSE);
+    xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, FALSE, FALSE);
     if (chdir(filename))
     {
      char buf[256];
@@ -1393,6 +1393,173 @@ void xsane_change_working_directory(void)
   }
 
   xsane_set_sensitivity(TRUE);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static int license_flag;
+static GtkWidget *license_dialog = NULL;
+
+static void xsane_license_button_callback(GtkWidget *widget, gpointer data)
+{
+  license_flag = (int) data;
+
+  DBG(DBG_proc ,"xsane_license_button_callback(%d)\n", license_flag);
+
+  gtk_widget_destroy(license_dialog);
+  license_dialog = NULL;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+int xsane_display_license(int ask_for_accept)
+/* returns FALSE if accepted, TRUE if not accepted */
+{
+ GtkWidget *vbox, *hbox, *button, *label;
+ GtkWidget *text, *vscrollbar;
+ GtkAccelGroup *accelerator_group;
+ char buf[1024];
+ char filename[PATH_MAX];
+ FILE *infile;
+
+  DBG(DBG_proc, "xsane_display_license(%d)\n", ask_for_accept);
+
+  if (license_dialog) /* make sure the dialog is only opend once */
+  {
+    return 0;
+  }
+
+  license_dialog = gtk_window_new(GTK_WINDOW_DIALOG);
+  gtk_widget_set_usize(license_dialog, 550, 580);
+  gtk_window_set_position(GTK_WINDOW(license_dialog), GTK_WIN_POS_CENTER);
+  gtk_window_set_policy(GTK_WINDOW(license_dialog), FALSE, TRUE, FALSE);
+  gtk_signal_connect(GTK_OBJECT(license_dialog), "delete_event",
+                     GTK_SIGNAL_FUNC(xsane_license_button_callback), (void *) -1); /* -1 = cancel */
+  snprintf(buf, sizeof(buf), "%s %s", xsane.prog_name, WINDOW_LICENSE);
+  gtk_window_set_title(GTK_WINDOW(license_dialog), buf);
+  xsane_set_window_icon(license_dialog, 0);
+
+  accelerator_group = gtk_accel_group_new();
+  gtk_accel_group_attach(accelerator_group, GTK_OBJECT(license_dialog));
+
+  vbox = gtk_vbox_new(FALSE, 5);
+  gtk_container_set_border_width(GTK_CONTAINER(vbox), 5);
+  gtk_container_add(GTK_CONTAINER(license_dialog), vbox);
+  gtk_widget_show(vbox); 
+
+  /* display XSane copyright message */
+  snprintf(buf, sizeof(buf), "XSane %s %s\n"
+                             "%s %s\n"
+                             "\n"
+                             "%s\n"
+                             "%s %s\n"
+                             "%s %s\n",
+                             TEXT_VERSION, XSANE_VERSION,
+                             XSANE_COPYRIGHT_SIGN, XSANE_COPYRIGHT_TXT,
+                             TEXT_GPL,
+                             TEXT_HOMEPAGE, XSANE_HOMEPAGE,
+                             TEXT_EMAIL, XSANE_EMAIL);
+
+  label = gtk_label_new(buf);
+  gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0);
+  gtk_widget_show(label);
+
+  /* add hbox with text and scrollbar to display the license text */
+  hbox = gtk_hbox_new(FALSE, 2);
+  gtk_container_set_border_width(GTK_CONTAINER(hbox), 4);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, TRUE, TRUE, 0); 
+  gtk_widget_show(hbox);
+ 
+  /* Create the GtkText widget */
+  text = gtk_text_new(NULL, NULL);
+  gtk_text_set_editable(GTK_TEXT(text), FALSE); /* text is not editable */
+  gtk_text_set_word_wrap(GTK_TEXT(text), TRUE); /* wrap complete words */
+  gtk_box_pack_start(GTK_BOX(hbox), text, TRUE, TRUE, 0); 
+  gtk_widget_show(text);
+ 
+  /* Add a vertical scrollbar to the GtkText widget */
+  vscrollbar = gtk_vscrollbar_new(GTK_TEXT(text)->vadj);
+  gtk_box_pack_start(GTK_BOX(hbox), vscrollbar, FALSE, FALSE, 0); 
+  gtk_widget_show(vscrollbar);
+
+  /* Freeze the text widget, ready for multiple updates */ 
+  gtk_text_freeze(GTK_TEXT(text)); 
+
+  /* Load the file text.c into the text window */
+  xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", 0, "xsane-license", 0, ".txt", XSANE_PATH_SYSTEM);
+  infile = fopen(filename, "r");
+ 
+  if (infile)
+  {
+    char buffer[4096];
+    int nchars;
+ 
+    while (!feof(infile))
+    {
+      nchars = fread(buffer, 1, 4096, infile);
+      gtk_text_insert(GTK_TEXT(text), NULL, NULL, NULL, buffer, nchars);
+    }
+ 
+    fclose(infile);
+  } 
+
+  /* Thaw the text widget, allowing the updates to become visible */
+  gtk_text_thaw(GTK_TEXT(text)); 
+
+
+
+  hbox = gtk_hbox_new(FALSE, 2);
+  gtk_container_set_border_width(GTK_CONTAINER(hbox), 4);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0); 
+
+  if (ask_for_accept) /* show accept + not accept buttons */
+  {
+    button = gtk_button_new_with_label(BUTTON_ACCEPT);
+    gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_license_button_callback, (void *) 0 /* accept */);
+    gtk_container_add(GTK_CONTAINER(hbox), button);
+    gtk_widget_show(button);
+
+    button = gtk_button_new_with_label(BUTTON_NOT_ACCEPT);
+    gtk_widget_add_accelerator(button, "clicked", accelerator_group, GDK_Escape, 0, GTK_ACCEL_LOCKED);
+    GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
+    gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_license_button_callback, (void *) 1 /* not accept */);
+    gtk_container_add(GTK_CONTAINER(hbox), button);
+    gtk_widget_grab_default(button);
+    gtk_widget_show(button);
+  }
+  else /* show close button */
+  {
+    button = gtk_button_new_with_label(BUTTON_CLOSE);
+    gtk_widget_add_accelerator(button, "clicked", accelerator_group, GDK_Escape, 0, GTK_ACCEL_LOCKED);
+    GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
+    gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_license_button_callback, (void *) 0 /* ok = accept */);
+    gtk_container_add(GTK_CONTAINER(hbox), button);
+    gtk_widget_grab_default(button);
+    gtk_widget_show(button);
+  }
+
+  gtk_widget_show(hbox);
+  gtk_widget_show(vbox);
+  gtk_widget_show(license_dialog);
+
+  if (ask_for_accept == 0) /* do not ask for accept */
+  {
+    return 0;
+  }
+  
+  license_flag = -255;
+
+  while(license_flag == -255)
+  {
+    gtk_main_iteration(); /* allow gtk to react to user action */
+  }
+
+  while (gtk_events_pending())
+  {
+    gtk_main_iteration();
+  }
+ 
+ return license_flag;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

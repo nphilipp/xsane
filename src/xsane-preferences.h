@@ -2,7 +2,7 @@
 
    xsane-preferences.h
 
-   Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
+   Oliver Rauch <Oliver.Rauch@rauch-domain.de>
    Copyright (C) 1998-2001 Oliver Rauch
    This file is part of the XSANE package.
 
@@ -53,6 +53,7 @@ Preferences_printer_t;
 
 typedef struct
   {
+    char   *xsane_version_str;		/* xsane-version string */
     char   *tmp_path;			/* path to temporary directory */
     char   *filename;			/* default filename */
     int    image_umask;			/* image umask (permisson mask) */

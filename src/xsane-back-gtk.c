@@ -2,7 +2,7 @@
 
    xsane-back-gtk.c
 
-   Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
+   Oliver Rauch <Oliver.Rauch@rauch-domain.de>
    Copyright (C) 1998-2001 Oliver Rauch
    This file is part of the XSANE package.
 
@@ -628,19 +628,27 @@ static void xsane_back_gtk_get_filename_button_clicked(GtkWidget *w, gpointer da
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-int xsane_back_gtk_get_filename(const char *label, const char *default_name, size_t max_len, char *filename, int show_fileopts)
+int xsane_back_gtk_get_filename(const char *label, const char *default_name, size_t max_len, char *filename, int show_fileopts, int shorten_path)
 {
  int cancel = 0, ok = 0, destroy = 0;
  GtkWidget *fileselection;
+ GtkAccelGroup *accelerator_group;
 
   DBG(DBG_proc, "xsane_back_gtk_get_filename\n");
 
+
   fileselection = gtk_file_selection_new((char *) label);
+  accelerator_group = gtk_accel_group_new();
+  gtk_accel_group_attach(accelerator_group, GTK_OBJECT(fileselection));
 
   gtk_signal_connect(GTK_OBJECT(fileselection),
                      "destroy", GTK_SIGNAL_FUNC(xsane_back_gtk_get_filename_button_clicked), &destroy);         
+
   gtk_signal_connect(GTK_OBJECT(GTK_FILE_SELECTION(fileselection)->cancel_button),
 		     "clicked", (GtkSignalFunc) xsane_back_gtk_get_filename_button_clicked, &cancel);
+  gtk_widget_add_accelerator(GTK_FILE_SELECTION(fileselection)->cancel_button, "clicked",
+                              accelerator_group, GDK_Escape, 0, GTK_ACCEL_LOCKED);
+
   gtk_signal_connect(GTK_OBJECT(GTK_FILE_SELECTION(fileselection)->ok_button),
 		     "clicked", (GtkSignalFunc) xsane_back_gtk_get_filename_button_clicked, &ok);
   if (default_name)
@@ -667,7 +675,7 @@ int xsane_back_gtk_get_filename(const char *label, const char *default_name, siz
   {
     if (gtk_events_pending())
     {
-    gtk_main_iteration();
+      gtk_main_iteration();
     }
   }
 
@@ -690,7 +698,7 @@ int xsane_back_gtk_get_filename(const char *label, const char *default_name, siz
     cwd[cwd_len] = '\0';
 
     DBG(DBG_info, "xsane_back_gtk_get_filename: full path filename = %s\n", filename);
-    if (strncmp(filename, cwd, cwd_len) == 0)
+    if (shorten_path && (strncmp(filename, cwd, cwd_len) == 0))
     {
       memcpy(filename, filename + cwd_len, len - cwd_len + 1);
       DBG(DBG_info, "xsane_back_gtk_get_filename: short path filename = %s\n", filename);

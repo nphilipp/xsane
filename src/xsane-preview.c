@@ -2,7 +2,7 @@
 
    xsane-preview.c
 
-   Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
+   Oliver Rauch <Oliver.Rauch@rauch-domain.de>
    Copyright (C) 1998-2001 Oliver Rauch
    This file is part of the XSANE package.
 
@@ -2802,6 +2802,7 @@ Preview *preview_new(void)
  GdkCursor *cursor;
  GtkWidget *preset_area_option_menu, *preset_area_menu, *preset_area_item;
  GtkWidget *rotation_option_menu, *rotation_menu, *rotation_item;
+ GtkWidget *button;
  Preview *p;
  int i;
  char buf[256];
@@ -2892,17 +2893,24 @@ Preview *preview_new(void)
   p->zoom_in   = xsane_button_new_with_pixmap(p->top->window, p->button_box, zoom_in_xpm,   DESC_ZOOM_IN,   (GtkSignalFunc) preview_zoom_in,    p);
   p->zoom_undo = xsane_button_new_with_pixmap(p->top->window, p->button_box, zoom_undo_xpm, DESC_ZOOM_UNDO, (GtkSignalFunc) preview_zoom_undo,  p);
 
+  gtk_widget_add_accelerator(p->zoom_not,  "clicked", xsane.accelerator_group, GDK_KP_Multiply, GDK_MOD1_MASK, GTK_ACCEL_LOCKED); /* Alt keypad_* */
+  gtk_widget_add_accelerator(p->zoom_out,  "clicked", xsane.accelerator_group, GDK_KP_Subtract, GDK_MOD1_MASK, GTK_ACCEL_LOCKED); /* Alt keypad_- */
+  gtk_widget_add_accelerator(p->zoom_in,   "clicked", xsane.accelerator_group, GDK_KP_Add,      GDK_MOD1_MASK, GTK_ACCEL_LOCKED); /* Alt keypad_+ */
+  gtk_widget_add_accelerator(p->zoom_undo, "clicked", xsane.accelerator_group, GDK_KP_Divide,   GDK_MOD1_MASK, GTK_ACCEL_LOCKED); /* Alt keypad_/ */
+
   gtk_widget_set_sensitive(p->zoom_not, FALSE); /* no zoom at this point, so no zoom not */
   gtk_widget_set_sensitive(p->zoom_out, FALSE); /* no zoom at this point, so no zoom out */
   gtk_widget_set_sensitive(p->zoom_undo, FALSE); /* no zoom at this point, so no zoom undo */
 
 
 
-  xsane_button_new_with_pixmap(p->top->window, p->button_box, auto_select_preview_area_xpm, DESC_AUTOSELECT_SCANAREA,
-                               (GtkSignalFunc) preview_autoselect_scanarea_callback,  p);
+  button = xsane_button_new_with_pixmap(p->top->window, p->button_box, auto_select_preview_area_xpm, DESC_AUTOSELECT_SCANAREA,
+                                        (GtkSignalFunc) preview_autoselect_scanarea_callback,  p);
+  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_A, GDK_MOD1_MASK, GTK_ACCEL_LOCKED); /* Alt keypad_* */
 
-  xsane_button_new_with_pixmap(p->top->window, p->button_box, full_preview_area_xpm, DESC_FULL_PREVIEW_AREA,
-                               (GtkSignalFunc) preview_full_preview_area_callback, p);
+  button = xsane_button_new_with_pixmap(p->top->window, p->button_box, full_preview_area_xpm, DESC_FULL_PREVIEW_AREA,
+                                        (GtkSignalFunc) preview_full_preview_area_callback, p);
+  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_V, GDK_MOD1_MASK, GTK_ACCEL_LOCKED); /* Alt keypad_* */
 
   /* select maximum scanarea */
   preset_area_menu = gtk_menu_new();
@@ -3020,12 +3028,14 @@ Preview *preview_new(void)
 
   /* Start button */
   p->start = gtk_button_new_with_label(BUTTON_PREVIEW_ACQUIRE);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, p->start, DESC_PREVIEW_ACQUIRE);
   gtk_signal_connect(GTK_OBJECT(p->start), "clicked", (GtkSignalFunc) preview_start_button_clicked, p);
   gtk_box_pack_start(GTK_BOX(hbox), p->start, TRUE, TRUE, 0);
   gtk_widget_add_accelerator(p->start, "clicked", xsane.accelerator_group, GDK_P, GDK_MOD1_MASK, GTK_ACCEL_LOCKED); /* Alt P */
 
   /* Cancel button */
   p->cancel = gtk_button_new_with_label(BUTTON_PREVIEW_CANCEL);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, p->cancel, DESC_PREVIEW_CANCEL);
   gtk_signal_connect(GTK_OBJECT(p->cancel), "clicked", (GtkSignalFunc) preview_cancel_button_clicked, p);
   gtk_box_pack_start(GTK_BOX(hbox), p->cancel, TRUE, TRUE, 0);
   gtk_widget_add_accelerator(p->cancel, "clicked", xsane.accelerator_group, GDK_Escape, GDK_MOD1_MASK, GTK_ACCEL_LOCKED); /* Alt ESC */

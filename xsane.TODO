@@ -1,5 +1,5 @@
 This is a list of what I want to change/include for xsane.
-If you have any suggestions: mail to Oliver.Rauch@Wolfsburg.DE
+If you have any suggestions: mail to Oliver.Rauch@rauch-domain.de
 
 (+ planned to do this soon/higher priority, - comes later/lower priority)
 
@@ -10,7 +10,6 @@ first steps:
     - add options for sender/receiver Name
     - what about faxprojects with mixed normal- and fine-mode pages?
     + zoom ?
-    - include external postscript files, update filelist (read directory contents)
  - email-function:
     - based on fax mode
     - image type = ?
@@ -23,7 +22,6 @@ first steps:
     - force aspect ratio of selection area
  - batch scan function
     - select multiple scan areas before starting the scan
- - rotate scan by 0/90/180/270 degree
 
  * internal:
    + add range check / valid value when reading xsane.rc/*.drc files
@@ -31,7 +29,7 @@ first steps:
    + add several defaults (fax=> mode=gray,...)
    - include much more parameters when saving images
    - test memory after each call of malloc - partly done
-   - more/better online helpfiles
+   - more/better online helpfiles (mostly done)
    - postscript/printer setup: geometry in inch/millimeter/centimeter
    + delete/recreate preview files when temp directory is changed
    - correct charset of tooltips for all national codepages
@@ -48,7 +46,7 @@ second steps:
    - drag and drop for preview image?
    - other drag and drop functions?
 
- + add color management - may be via xcmsdb
+ + add color management - may be via xcmsdb (not until xsane-1.0 I think)
  - average of a multiple scan of the same image
 
  - TWAIN:

@@ -1,22 +1,23 @@
+# Swedish translation for XSane.
+# Copyright (C) 1999-2001 Johan Bengtsson
+# Johan Bengtsson
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-01-27 23:23+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Project-Id-Version: XSANE 0.72\n"
+"POT-Creation-Date: 2001-02-17 21:38+0100\n"
+"PO-Revision-Date: 2001-02-18 13:00+01:00\n"
+"Last-Translator: FULL NAME <johanb@lls.se>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
-"Content-Transfer-Encoding: ENCODING\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
 
 #. XSANE_COPYRIGHT_SIGN
 msgid "(c)"
 msgstr "(c)"
 
-#. XSANE_COPYRIGHT_SIGN
-msgid "©"
-msgstr "©"
-
+#. can be translated with \251
 #. WINDOW_ABOUT_XSANE
 msgid "About"
 msgstr "Om"
@@ -28,6 +29,10 @@ msgstr "Om översättningen"
 #. WINDOW_AUTHORIZE
 msgid "authorization"
 msgstr "auktorisering"
+
+#. WINDOW_LICENSE
+msgid "license"
+msgstr "licens"
 
 #. WINDOW_INFO
 msgid "info"
@@ -44,6 +49,10 @@ msgstr "faxprojekt"
 #. WINDOW_FAX_RENAME
 msgid "rename fax page"
 msgstr "byt namn på faxsida"
+
+#. WINDOW_FAX_INSERT
+msgid "insert ps-file into fax"
+msgstr "infoga ps-fil i fax"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -67,7 +76,7 @@ msgstr "Avancerade inställningar"
 
 #. WINDOW_DEVICE_SELECTION
 msgid "device selection"
-msgstr "enhetsval"
+msgstr "Enhetsval"
 
 #. WINDOW_PREVIEW
 msgid "Preview"
@@ -137,6 +146,14 @@ msgstr "Starta"
 msgid "Ok"
 msgstr "Ok"
 
+#. BUTTON_ACCEPT
+msgid "Accept"
+msgstr "Acceptera"
+
+#. BUTTON_NOT_ACCEPT
+msgid "Not accept"
+msgstr "Accepterar inte"
+
 #. BUTTON_APPLY
 msgid "Apply"
 msgstr "Tillämpa"
@@ -165,17 +182,21 @@ msgstr "Skriv över"
 msgid "Add area"
 msgstr "Lägg till område"
 
-#. BUTTON_DELETE
-msgid "Delete"
-msgstr "Ta bort"
+#. BUTTON_PAGE_DELETE
+msgid "Delete page"
+msgstr "Ta bort sida"
 
-#. BUTTON_SHOW
-msgid "Show"
-msgstr "Visa"
+#. BUTTON_PAGE_SHOW
+msgid "Show page"
+msgstr "Visa sida"
 
-#. BUTTON_RENAME
-msgid "Rename"
-msgstr "Byt namn"
+#. BUTTON_PAGE_RENAME
+msgid "Rename page"
+msgstr "Byt namn på sida"
+
+#. BUTTON_FILE_INSERT
+msgid "Insert file"
+msgstr "Infoga fil"
 
 #. BUTTON_CREATE_PROJECT
 msgid "Create project"
@@ -214,9 +235,8 @@ msgid "Overwrite warning"
 msgstr "Överskriftsvarning"
 
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
-#, fuzzy
 msgid "Skip existing filenames"
-msgstr "Hoppa över existerande nummer"
+msgstr "Hoppa över existerande filnamn"
 
 #. RADIO_BUTTON_WINDOW_FIXED
 msgid "Main window size fixed"
@@ -236,7 +256,7 @@ msgstr "Automatisk gammainställning"
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
-msgstr "letar efter enheter"
+msgstr "Letar efter enheter..."
 
 #. TEXT_AVAILABLE_DEVICES
 msgid "Available devices:"
@@ -251,14 +271,12 @@ msgid "XSane mode"
 msgstr "XSane-läge"
 
 #. TEXT_FILENAME_COUNTER_STEP
-#, fuzzy
 msgid "Step"
-msgstr "Inställningar"
+msgstr "Steg"
 
 #. TEXT_FILETYPE
-#, fuzzy
 msgid "Type"
-msgstr "Typ:"
+msgstr "Typ"
 
 #. TEXT_SCANNER_BACKEND
 msgid "Scanner and backend:"
@@ -301,8 +319,9 @@ msgid "scanner"
 msgstr "bildläsare"
 
 #. TEXT_SOFTWARE_XSANE
-msgid "software (xsane)"
-msgstr "mjukvara (xsane)"
+#, fuzzy
+msgid "software (XSane)"
+msgstr "mjukvara (XSane)"
 
 #. TEXT_NONE
 msgid "none"
@@ -338,11 +357,11 @@ msgstr "Tillstånd krävs för"
 
 #. TEXT_AUTHORIZATION_SECURE
 msgid "Password transmission is secure"
-msgstr ""
+msgstr "Lösenordstransfer är säker"
 
 #. TEXT_AUTHORIZATION_INSECURE
 msgid "Backend requests plain-text password"
-msgstr ""
+msgstr "Drivrutin kräver lösenord i klartext"
 
 #. TEXT_USERNAME
 msgid "Username :"
@@ -386,15 +405,27 @@ msgstr "okänd"
 
 #. TEXT_GPL
 msgid ""
-"This program is distributed under the terms\n"
-"of the GNU General Public License\n"
+"XSane is distributed under the terms of the GNU General Public License\n"
+"as published by the Free Software Foundation; either version 2 of the\n"
+"License, or (at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but\n"
+"WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
-"Detta program omfattas av\n"
-"GNU General Public License\n"
+"XSane distribueras under och omfattas av  GNU General Public License\n"
+"så som den är publicerad av Free Software Foundation; version 2 eller (om du "
+"vill) någon senare\n"
+"version\n"
+"\n"
+"Detta program distribueras med förhoppningen att det skall komma till nytta, "
+"men\n"
+"UTAN NÅGON GARANTI; utan ens någon underförstådd garanti för dess\n"
+"HANDELSBARHETET eller DUGLIGHET FÖR NÅGOT SÄRSKILT ÄNDAMÅL.\n"
 
 #. TEXT_EMAIL
 msgid "Email:"
-msgstr "E-post:"
+msgstr "Epost:"
 
 #. TEXT_HOMEPAGE
 msgid "Homepage:"
@@ -409,14 +440,15 @@ msgid "Translation:"
 msgstr "Översättning:"
 
 #. TEXT_TRANSLATION_INFO
+#, fuzzy
 msgid ""
 "untranslated original english text\n"
 "by Oliver Rauch\n"
-"Email: Oliver.Rauch@Wolfsburg.DE\n"
+"Email: Oliver.Rauch@rauch-domain.de\n"
 msgstr ""
-"Översättning av engelsk originaltext\n"
-"av Johan Bengtsson\n"
-"E-post: johanb@lls.se\n"
+"Oöversatt engelsk originaltext\n"
+"av Oliver Rauch\n"
+"E-post: Oliver.Rauch@Wolfsburg.DE\n"
 
 #. TEXT_INFO_BOX
 msgid "0x0: 0KB"
@@ -507,9 +539,8 @@ msgid "PNG image compression"
 msgstr "PNG bildkompression"
 
 #. TEXT_SETUP_FILENAME_COUNTER_LEN
-#, fuzzy
 msgid "Filename counter length"
-msgstr "Filnamnsräknaren är överbelastad"
+msgstr "Filnamnsräknarens längd"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_16
 msgid "TIFF 16 bit image compression"
@@ -561,16 +592,15 @@ msgstr "Förhandsgranskningsgamma blå:"
 
 #. TEXT_SETUP_LINEART_MODE
 msgid "Threshold option:"
-msgstr "Flagga för högkvalitetsläge:"
+msgstr "Inställning av högkvalitetsläge:"
 
 #. TEXT_SETUP_ADF_MODE
 msgid "Automatic Document Feeder Modus:"
-msgstr ""
+msgstr "Automatisk Dokument Matar Modus:"
 
 #. TEXT_SETUP_PREVIEW_PIPETTE_RANGE
-#, fuzzy
 msgid "Preview pipette range"
-msgstr "Översampling vid förhandsgranskning:"
+msgstr "Pipettstorlek vid förhandsgranskning"
 
 #. TEXT_SETUP_THRESHOLD_MIN
 msgid "Threshold minimum:"
@@ -618,15 +648,15 @@ msgstr "Visare (Postscript):"
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
-msgstr ""
+msgstr "Användare"
 
 #. TEXT_SETUP_PERMISSION_GROUP
 msgid "group"
-msgstr ""
+msgstr "Grupp"
 
 #. TEXT_SETUP_PERMISSION_ALL
 msgid "all"
-msgstr ""
+msgstr "Alla"
 
 #. NOTEBOOK_COPY_OPTIONS
 msgid "Copy options"
@@ -740,9 +770,14 @@ msgstr "Hämta enhetsinställningar"
 msgid "Change directory"
 msgstr "Byt katalog"
 
+#. MENU_ITEM_XSANE_LICENSE
+msgid "License"
+msgstr "Licens"
+
 #. MENU_ITEM_XSANE_DOC
-msgid "Xsane doc"
-msgstr "Xsane doc"
+#, fuzzy
+msgid "XSane doc"
+msgstr "XSane doc"
 
 #. MENU_ITEM_BACKEND_DOC
 msgid "Backend doc"
@@ -762,7 +797,7 @@ msgstr "Problem?"
 
 #. MENU_ITEM_COUNTER_LEN_INACTIVE
 msgid "inactive"
-msgstr ""
+msgstr "inaktiv"
 
 #. MENU_ITEM_TIFF_COMP_NONE
 msgid "no compression"
@@ -801,9 +836,8 @@ msgid "XSane main window (grayscale->lineart)"
 msgstr "XSane huvudfönster (svartvit->grafik)"
 
 #. MENU_ITEM_SELECTION_NONE
-#, fuzzy
 msgid "(none)"
-msgstr "ingen"
+msgstr "(ingen)"
 
 #. MENU_ITEM_FILETYPE_BY_EXT
 msgid "by ext"
@@ -823,26 +857,43 @@ msgid "Saving image"
 msgstr "Sparar bild"
 
 #. PROGRESS_ROTATING_DATA
-#, fuzzy
 msgid "Rotating image"
-msgstr "Sparar bild"
+msgstr "Roterar bild"
 
 #. PROGRESS_PACKING_DATA
-#, fuzzy
 msgid "Packing image"
-msgstr "Sparar bild"
+msgstr "Packar bild"
 
 #. PROGRESS_CONVERTING_DATA
 msgid "Converting data"
 msgstr "Konverterar data...."
 
+#. DESC_SCAN_START
+msgid "Start scan <Ctrl-Enter>"
+msgstr "Starta inläsning <Ctrl-Enter>"
+
+#. DESC_SCAN_CANCEL
+msgid "Cancel scan <ESC>"
+msgstr "Avbryt inläsning <ESC>"
+
+#. DESC_PREVIEW_ACQUIRE
+msgid "Acquire preview scan <Alt-p>"
+msgstr "Hämta in förhandsgranskning <Alt-p>"
+
+#. DESC_PREVIEW_CANCEL
+msgid "Cancel preview scan <Alt-ESC>"
+msgstr "Avbryt förhandsgranskning <Alt-ESC>"
+
 #. DESC_XSANE_MODE
-msgid "Use XSane for SCANning, photoCOPYing, FAXing..."
-msgstr "Läs in bilder, faxa och gör fotokopior med XSane..."
+#, fuzzy
+msgid "Use XSane for: SCANning-<Ctrl-s> photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>"
+msgstr ""
+"Läs in bilder-<Ctrl-s>, faxa-<Ctrl-f> och gör fotokopior-<Ctrl-c> med "
+"XSane..."
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
-msgstr ""
+msgstr "Värde som adderas till filnamnsräknare efter inläsning"
 
 #. DESC_BROWSE_FILENAME
 msgid "Browse for image filename"
@@ -857,6 +908,7 @@ msgid ""
 "Type of image format, the suitable filename extension is automatically added "
 "to the filename"
 msgstr ""
+"Typ av bildformat, den passande filändelsen läggs automatiskt till filnamnet"
 
 #. DESC_FAXPROJECT
 msgid "Enter name of fax project"
@@ -871,8 +923,9 @@ msgid "Enter receiver phone number or address"
 msgstr "Skriv in mottagarens telefonnummer eller adress"
 
 #. DESC_PRINTER_SELECT
-msgid "Select printer definition"
-msgstr "Välj skrivardefinition"
+#, fuzzy
+msgid "Select printerdefinition <Shift-F1/F2/...>"
+msgstr "Välj skrivardefinition <Shift-F1/F2/...>"
 
 #. DESC_RESOLUTION
 msgid "Set scan resolution"
@@ -892,23 +945,20 @@ msgstr "Ställ in zoomfaktor"
 
 #. DESC_ZOOM_X
 msgid "Set zoomfactor for x direction"
-msgstr "Ställ in zoomfaktor"
+msgstr "Ställ in zoomfaktor för x riktning"
 
 #. DESC_ZOOM_Y
 msgid "Set zoomfactor for y direction"
-msgstr "Ställ in zoomfaktor"
+msgstr "Ställ in zoomfaktor för y riktning"
 
 #. DESC_COPY_NUMBER
 msgid "Set number of copies"
 msgstr "Ställ in antal kopior"
 
 #. DESC_NEGATIVE
-msgid ""
-"Negative: Invert colors for scanning negatives\n"
-"e.g. swap black and white"
-msgstr ""
-"Negativ: Invertera färger vid inläsning av negativ\n"
-"m.a.o. byt ut svart och vit"
+#, fuzzy
+msgid "Negative: Invert colors for scanning negatives <Shift-n>"
+msgstr "Negativ: Invertera färger vid inläsning av negativ <Shift-n>"
 
 #. DESC_GAMMA
 msgid "Set gamma value"
@@ -952,80 +1002,88 @@ msgstr "Ställ in kontrast för den röda komponenten"
 
 #. DESC_CONTRAST_G
 msgid "Set contrast for green component"
-msgstr "Ställ in ljusstyrka för den gröna komponenten"
+msgstr "Ställ in kontrast för den gröna komponenten"
 
 #. DESC_CONTRAST_B
 msgid "Set contrast for blue component"
-msgstr "Ställ in ljusstyrka för den blåa komponenten"
+msgstr "Ställ in kontrast för den blåa komponenten"
 
 #. DESC_THRESHOLD
 msgid "Set threshold"
 msgstr "Ställ in tröskelvärde"
 
 #. DESC_RGB_DEFAULT
+#, fuzzy
 msgid ""
 "RGB default: Set enhancement values for red, green and blue to default "
-"values:\n"
+"values <Shift-b>:\n"
 " gamma = 1.0\n"
 " brightness = 0\n"
 " contrast = 0"
 msgstr ""
-"RGB standardvärde: Sätt inställningarna för rött, grönt och blått till "
-"standardvärden:\n"
+"RGB standardvärde: Sätt bearbetningvärdena för rött, grönt och blått till "
+"standardvärden: <Shift-b>:\n"
 " gamma = 1.0\n"
 " ljus = 0\n"
 " kontrast = 0"
 
 #. DESC_ENH_AUTO
-msgid ""
-"Autoadjust gamma, brightness and contrast in dependance of selected scan area"
-msgstr ""
-"Autojustera gamma, ljus och kontrast i överenstämmelse med det markerade "
-"inläsningsområdet"
+#, fuzzy
+msgid "Autoadjust gamma, brightness and contrast <Shift-e>"
+msgstr "Autojustera gamma, ljus och kontrast <Shift-e>"
 
 #. DESC_ENH_DEFAULT
+#, fuzzy
 msgid ""
-"Set default enhancement values:\n"
+"Set default enhancement values <Shift-d>:\n"
 "gamma = 1.0\n"
 "brightness = 0\n"
 "contrast = 0"
 msgstr ""
-"Sätt korrigering till standardvärden:\n"
+"Sätt korrigering till standardvärden <Shift-d>:\n"
 "gamma = 1.0\n"
 "ljus = 0\n"
 "kontrast = 0"
 
 #. DESC_ENH_RESTORE
-msgid "Restore enhancement values from preferences"
-msgstr "Återställ korrigeringsvärden"
+#, fuzzy
+msgid "Restore enhancement values from preferences <Shift-r>"
+msgstr "Återställ korrigeringsvärden <Shift-r>"
 
 #. DESC_ENH_STORE
-msgid "Store active enhancement values to preferences"
-msgstr "Spara de aktiva korrigeringsvärdena"
+#, fuzzy
+msgid "Store active enhancement values to preferences <Shift-m>"
+msgstr "Spara de aktiva korrigeringsvärdena <Shift-m>"
 
 #. DESC_HIST_INTENSITY
-msgid "Show histogram of intensity/gray"
-msgstr "Visa histogram för intensitet/gråvärde"
+#, fuzzy
+msgid "Show histogram of intensity/gray <Alt-i>"
+msgstr "Visa histogram för intensitet/gråvärde <Alt-i>"
 
 #. DESC_HIST_RED
-msgid "Show histogram of red component"
-msgstr "Visa histogram för den röda komponenten"
+#, fuzzy
+msgid "Show histogram of red component <Alt-r>"
+msgstr "Visa histogram för den röda komponenten <Alt-r>"
 
 #. DESC_HIST_GREEN
-msgid "Show histogram of green component"
-msgstr "Visa histogram för den gröna komponenten"
+#, fuzzy
+msgid "Show histogram of green component <Alt-g>"
+msgstr "Visa histogram för den gröna komponenten <Alt-g>"
 
 #. DESC_HIST_BLUE
-msgid "Show histogram of blue component"
-msgstr "Visa histogram för den blåa komponenten"
+#, fuzzy
+msgid "Show histogram of blue component <Alt-b>"
+msgstr "Visa histogram för den blåa komponenten <Alt-b>"
 
 #. DESC_HIST_PIXEL
-msgid "Display histogram with lines instead of pixels"
-msgstr "Visa histogram med linjer istället för pixlar"
+#, fuzzy
+msgid "Display mode: show histogram with lines instead of pixels <Alt-m>"
+msgstr "Visa histogram med linjer istället för pixlar <Alt-m>"
 
 #. DESC_HIST_LOG
-msgid "Show logarithm of pixelcount"
-msgstr "Visa pixelantal som logaritm"
+#, fuzzy
+msgid "Show logarithm of pixelcount <Alt-l>"
+msgstr "Visa pixelantal som logaritm <Alt-l>"
 
 #. DESC_PRINTER_SETUP
 msgid "Select definition to change"
@@ -1036,9 +1094,9 @@ msgid "Define a name for the selection of this definition"
 msgstr "Definiera ett namn för den här inställningen"
 
 #. DESC_PRINTER_COMMAND
-msgid "Enter command to be executed in copy mode (e.g. \"lpr -\")"
-msgstr ""
-"Ange ett kommando som skall exekveras i kopierings läge (m.a.o. \"lpr -\")"
+#, fuzzy
+msgid "Enter command to be executed in copy mode (e.g. \"lpr\")"
+msgstr "Ange ett kommando att exekveras i kopierings läge (m.a.o. \"lpr -\")"
 
 #. DESC_COPY_NUMBER_OPTION
 msgid "Enter option for copy numbers"
@@ -1113,7 +1171,7 @@ msgstr "Kompression om bilden sparas som png"
 
 #. DESC_FILENAME_COUNTER_LEN
 msgid "Minimum length of counter in filename"
-msgstr ""
+msgstr "Minimum längd för räknaren i filnamn"
 
 #. DESC_TIFF_COMPRESSION_16
 msgid "Compression type if 16 bit image is saved as tiff"
@@ -1150,15 +1208,15 @@ msgid ""
 "Left offset from the edge of the paper to the usable area in mm for "
 "postscript files"
 msgstr ""
-"Marginal från den vänstra sidan av pappret till det utskrivbara området i "
-"mmför postscriptfiler"
+"Marginal från den vänstra sidan av pappret till det utskrivbara området i mm "
+"för postscriptfiler"
 
 #. DESC_PSFILE_BOTTOMOFFSET
 msgid ""
 "Bottom offset from the edge of the paper to the usable area in mm for "
 "postscript files"
 msgstr ""
-"Marginal från botten av pappret till det utskrivbara området i mmför "
+"Marginal från botten av pappret till det utskrivbara området i mm för "
 "postscriptfiler"
 
 #. DESC_MAIN_WINDOW_FIXED
@@ -1168,9 +1226,10 @@ msgstr ""
 "variabel storlek"
 
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
-msgid "Disable preview gamma when xsane runs as gimp plugin"
+#, fuzzy
+msgid "Disable preview gamma when XSane runs as gimp plugin"
 msgstr ""
-"Koppla bort förhandsgranskningsgamma när xsane körs som gimp insticksprogram"
+"Koppla bort förhandsgranskningsgamma när XSane körs som gimp insticksprogram"
 
 #. DESC_PREVIEW_COLORMAP
 msgid "Use an own colormap for preview if display depth is 8 bpp"
@@ -1205,17 +1264,17 @@ msgstr ""
 "förhandsgranskningsbilden"
 
 #. DESC_LINEART_MODE
-msgid "Define the way xsane shall handle the threshold option"
-msgstr "Tala om hur xsane skall hantera tröskelvärdesinställningen"
+#, fuzzy
+msgid "Define the way XSane shall handle the threshold option"
+msgstr "Tala om hur XSane skall hantera tröskelvärdesinställningen"
 
 #. DESC_GRAYSCALE_SCANMODE
-#, fuzzy
 msgid ""
 "Select grayscale scanmode. This scanmode is used for lineart preview scan "
 "when transformation from grayscale to lineart is enabled"
 msgstr ""
-"Skriv in namn på svartvit scanläge - för förhandsgranskning med överföring "
-"från svartvit till grafik"
+"Välj svartvit inläsningsläge. Detta läge används för förhandsgranskning i "
+"grafikläge när överföring från svartvit till grafik är inkopplat"
 
 #. DESC_PREVIEW_THRESHOLD_MIN
 #, no-c-format
@@ -1228,25 +1287,33 @@ msgid "The scanner's maximum threshold level in %"
 msgstr "Bildläsarens maximala tröskelnivå i %"
 
 #. DESC_PREVIEW_THRESHOLD_MUL
+#, fuzzy
 msgid ""
-"Multiplier to make xsane threshold range and scanner threshold range the same"
+"Multiplier to make XSane threshold range and scanner threshold range the same"
 msgstr ""
-"Multiplikator som synkroniserar tröskelomfången från bildläsaren och xsane"
+"Multiplikator som synkroniserar tröskelomfången från bildläsaren och XSane"
 
 #. DESC_PREVIEW_THRESHOLD_OFF
+#, fuzzy
 msgid ""
-"Offset to make xsane threshold range and scanner threshold range the same"
-msgstr "Offset som synkroniserar tröskelomfången från bildläsaren och xsane"
+"Offset to make XSane threshold range and scanner threshold range the same"
+msgstr "Offset som synkroniserar tröskelomfången från bildläsaren och XSane"
 
 #. DESC_ADF_MODE
+#, fuzzy
 msgid ""
 "Select scansource for Automatic Document feeder. If this scansource is "
-"selected xsane scans until \"out of paper\" or error."
+"selected XSane scans until \"out of paper\" or error."
 msgstr ""
+"Välj inläsningskälla för Automatisk Dokument Matare. Om denna\n"
+"inläsningskälla är vald läser XSane in framtill \"out of paper\" eller "
+"felmeddelande."
 
 #. DESC_PREVIEW_PIPETTE_RANGE
 msgid "dimension of square that is used to average color for pipette function"
 msgstr ""
+"Storlek på fyrkanten som används för att få fram pipettfunktionens "
+"standarvärde"
 
 #. DESC_DOC_VIEWER
 msgid ""
@@ -1289,29 +1356,27 @@ msgstr "Skicka fax med hög vertikal upplösning (196 lpi istället för 98 lpi)"
 
 #. DESC_PERMISSION_READ
 msgid "read"
-msgstr ""
+msgstr "läs"
 
 #. DESC_PERMISSION_WRITE
-#, fuzzy
 msgid "write"
-msgstr "Skriv över"
+msgstr "skriv"
 
 #. DESC_PERMISSION_EXECUTE
-#, fuzzy
 msgid "execute"
-msgstr "Ta bort"
+msgstr "exekvera"
 
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
-msgstr "Ställ in vitpunkt"
+msgstr "Välj vitpunkt"
 
 #. DESC_PIPETTE_GRAY
 msgid "Pick gray point"
-msgstr "Ställ in gråpunkt"
+msgstr "Välj gråpunkt"
 
 #. DESC_PIPETTE_BLACK
 msgid "Pick black point"
-msgstr "Ställ in svartpunkt"
+msgstr "Välj svartpunkt"
 
 #. DESC_ZOOM_FULL
 msgid "Use full scanarea"
@@ -1335,18 +1400,16 @@ msgid "Select visible area"
 msgstr "Markera det synliga området"
 
 #. DESC_AUTOSELECT_SCANAREA
-#, fuzzy
 msgid "Autoselect scanarea"
-msgstr "Använd hela inläsningsområdet"
+msgstr "Automatisk val av inläsningsyta"
 
 #. DESC_PRESET_AREA
-#, fuzzy
 msgid "Reduce scan area"
-msgstr "Använd hela inläsningsområdet"
+msgstr "Minska inläsningområdet"
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
-msgstr ""
+msgstr "Rotera förhandsgranskning och inläsning"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -1467,7 +1530,7 @@ msgstr "kunde inte sätta upplösning"
 #. ERR_PASSWORD_FILE_INSECURE
 #, c-format
 msgid "Password file (%s) is insecure, use permission x00\n"
-msgstr ""
+msgstr "Lösenordsfil (%s) är osäker, använd rättighet x00\n"
 
 #. ERR_ERROR
 msgid "error"
@@ -1478,8 +1541,9 @@ msgid "Sane major version number mismatch!"
 msgstr "Save huvudversionsnummer stämmer inte!"
 
 #. ERR_XSANE_MAJOR_VERSION
-msgid "xsane major version ="
-msgstr "xsane huvudversion ="
+#, fuzzy
+msgid "XSane major version ="
+msgstr "XSane huvudversion ="
 
 #. ERR_BACKEND_MAJOR_VERSION
 msgid "backend major version ="
@@ -1495,14 +1559,13 @@ msgstr "Kunde inte allokera bild minne:"
 
 #. ERR_PREVIEW_BAD_DEPTH
 msgid "Preview cannot handle bit depth"
-msgstr "Förhandsgranskning kan inte hantera bit djup"
+msgstr "Förhandsgranskning kan inte hantera bit-djup"
 
 #. ERR_GIMP_SUPPORT_MISSING
 msgid "GIMP support missing"
 msgstr "Stöd för GIMP saknas"
 
 #. WARN_COUNTER_UNDERRUN
-#, fuzzy
 msgid "Filename counter underrun"
 msgstr "Filnamnsräknaren är överbelastad"
 
@@ -1511,17 +1574,18 @@ msgid "warning: option has no value constraint"
 msgstr "varning: alternativet har ingen värdebegränsning"
 
 #. WARN_XSANE_AS_ROOT
+#, fuzzy
 msgid ""
-"You try to run xsane as ROOT, that really is DANGEROUS!\n"
+"You try to run XSane as ROOT, that really is DANGEROUS!\n"
 "\n"
 "Do not send any bug reports when you\n"
-"have any problem while running xsane as root:\n"
+"have any problem while running XSane as root:\n"
 "YOU ARE ALONE!"
 msgstr ""
-"Du kan försöka köra xsane som root, men det är FARLIGT!\n"
+"Du kan försöka köra XSane som root, men det är FARLIGT!\n"
 "\n"
 "Skicka inte in några bugrapporter om du\n"
-"har några problem medan du kör xsane som root:\n"
+"har några problem medan du kör XSane som root:\n"
 "DU FÅR KLARA DIG SJÄLV!"
 
 #. ERR_HEADER_ERROR
@@ -1573,6 +1637,16 @@ msgstr "detta kan orsaka problem!"
 msgid "File %s already exists"
 msgstr "Fil %s existerar redan"
 
+#. ERR_FILE_NOT_EXISTS
+#, c-format
+msgid "File %s does not exist"
+msgstr "Fil %s existerar inte"
+
+#. ERR_FILE_NOT_POSTSCRIPT
+#, fuzzy, c-format
+msgid "File %s is not a postscript file"
+msgstr "Fil %s är inte en postskriptfil"
+
 #. ERR_UNSUPPORTED_OUTPUT_FORMAT
 #, c-format
 msgid "Unsupported %d-bit output format: %s"
@@ -1596,6 +1670,7 @@ msgid ""
 "[OPTION]... can be a combination of the following items:\n"
 " -h, --help                   display this help message and exit\n"
 " -v, --version                print version information\n"
+" -l, --license                print license information\n"
 "\n"
 " -d, --device-settings file   load device settings from file (without "
 "\".drc\")\n"
@@ -1603,14 +1678,14 @@ msgid ""
 " -s, --scan                   start with scan-mode active\n"
 " -c, --copy                   start with copy-mode active\n"
 " -f, --fax                    start with fax-mode active\n"
-" -n, --no-mode-selection      disable menu for xsane mode selection\n"
+" -n, --no-mode-selection      disable menu for XSane mode selection\n"
 "\n"
 " -F, --Fixed                  fixed main window size (overwrite preferences "
 "value)\n"
 " -R, --Resizeable             resizable, scrolled main window (overwrite "
 "preferences value)\n"
 "\n"
-" -p, --print-filenames        print image filenames created by xsane\n"
+" -p, --print-filenames        print image filenames created by XSane\n"
 " -N, --force-filename name    force filename and disable user filename "
 "selection\n"
 "\n"
@@ -1625,8 +1700,9 @@ msgstr ""
 "Formatet för [ENHET] är drivrutinsnamn:enhetsfil (m.a.o. umax:/dev/scanner). "
 "\n"
 "[FLAGGA] ... kan vara en kombination av följande flaggor:\n"
-"-h, --help                   visa detta hjälpmeddelande och avsluta\n"
+"-h, --help                     visa detta hjälpmeddelande och avsluta\n"
 "-v, --version                visa versionsinformation\n"
+"-l, --licens                   visa licensinfomation\n"
 "\n"
 "-d, --device-settings file   hämta enhetsinställningar från en fil (utan "
 "\".drc\")\n"
@@ -1634,7 +1710,7 @@ msgstr ""
 "-s, --scan                   starta med bildläsarläge aktivt\n"
 "-c, --copy                   starta med kopiatorläge aktivt\n"
 "-f, --fax                    starta med faxläge aktivt\n"
-"-n, --no-mode-selection      visa inte meny för xsane lägesval\n"
+"-n, --no-mode-selection      visa inte meny för XSane lägesval\n"
 "\n"
 "-F, --Fixed                  fast storlek på huvudfönster (skriv över "
 "preferensvärde)\n"
@@ -1679,56 +1755,55 @@ msgstr "<Verktyg>/Insticksprogram/XSane/"
 #. gettext_noop does mark these texts but does not change the string
 #. MENU_ITEM_SURFACE_FULL_SIZE
 msgid "full size"
-msgstr ""
+msgstr "full storlek"
 
 #. MENU_ITEM_SURFACE_DIN_A3P
 msgid "DIN A3 port."
-msgstr ""
+msgstr "DIN A3 portr."
 
 #. MENU_ITEM_SURFACE_DIN_A3L
 msgid "DIN A3 land."
-msgstr ""
+msgstr "DIN A3 landsk."
 
 #. MENU_ITEM_SURFACE_DIN_A4P
 msgid "DIN A4 port."
-msgstr ""
+msgstr "DIN A4 portr."
 
 #. MENU_ITEM_SURFACE_DIN_A4L
 msgid "DIN A4 land."
-msgstr ""
+msgstr "DIN A4 landsk."
 
 #. MENU_ITEM_SURFACE_DIN_A5P
 msgid "DIN A5 port."
-msgstr ""
+msgstr "DIN A5 portr."
 
 #. MENU_ITEM_SURFACE_DIN_A5L
 msgid "DIN A5 land."
-msgstr ""
+msgstr "DIN A5 landsk."
 
 #. MENU_ITEM_SURFACE_9cmx13cm
 msgid "9cm x 13cm"
-msgstr ""
+msgstr "9cm x 13cm"
 
 #. MENU_ITEM_SURFACE_13cmx9cm
 msgid "13cm x 9cm"
-msgstr ""
+msgstr "13cm x 9cm"
 
 #. MENU_ITEM_SURFACE_legal_P
 msgid "legal port."
-msgstr ""
+msgstr "legal portr."
 
 #. MENU_ITEM_SURFACE_legal_L
 msgid "legal land."
-msgstr ""
+msgstr "legal landsk."
 
 #. MENU_ITEM_SURFACE_letter_P
-#, fuzzy
 msgid "letter port."
-msgstr "Ta bort projekt"
+msgstr "letter portr."
 
 #. MENU_ITEM_SURFACE_letter_L
 msgid "letter land."
-msgstr ""
+msgstr "letter landsk."
 
 #. Sane backend messages
 msgid "flatbed scanner"
@@ -1785,6 +1860,25 @@ msgstr "Slut på minne"
 msgid "Access to resource has been denied"
 msgstr "Tillgång till resurs nekas"
 
+#~ msgid "©"
+#~ msgstr "©"
+
+#~ msgid "Delete"
+#~ msgstr "Ta bort"
+
+#~ msgid "Show"
+#~ msgstr "Visa"
+
+#~ msgid "Rename"
+#~ msgstr "Byt namn"
+
+#~ msgid ""
+#~ "This program is distributed under the terms\n"
+#~ "of the GNU General Public License\n"
+#~ msgstr ""
+#~ "Detta program omfattas av\n"
+#~ "GNU General Public License\n"
+
 #~ msgid "Increase filename counter"
 #~ msgstr "Uppdatera filnamnsräknare"
 
@@ -1798,9 +1892,8 @@ msgstr "Tillgång till resurs nekas"
 #~ msgid "Filename extension and type of image format"
 #~ msgstr "Filnamns suffix och bildformat"
 
-#, fuzzy
 #~ msgid "Filename counter step"
-#~ msgstr "Filnamnsräknaren är överbelastad"
+#~ msgstr "Filnamns räknarsteg"
 
 #~ msgid "Exit"
 #~ msgstr "Avsluta"

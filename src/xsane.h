@@ -2,7 +2,7 @@
 
    xsane.h
 
-   Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
+   Oliver Rauch <Oliver.Rauch@rauch-domain.de>
    Copyright (C) 1998-2001 Oliver Rauch
    This file is part of the XSANE package.
 
@@ -32,12 +32,12 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.71"
+#define XSANE_VERSION		"0.72"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2001"
-#define XSANE_EMAIL		"Oliver.Rauch@Wolfsburg.DE"
-#define XSANE_HOMEPAGE		"http://www.wolfsburg.de/~rauch/sane/sane-xsane.html"
+#define XSANE_EMAIL		"Oliver.Rauch@rauch-domain.de"
+#define XSANE_HOMEPAGE		"http://www.xsane.org"
 #define XSANE_COPYRIGHT_TXT	XSANE_DATE " " XSANE_COPYRIGHT
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -233,16 +233,15 @@ extern void xsane_fax_project_save(void);
 
 #define OUT_FILENAME     	"out.pnm"
 #define FAXPROJECT 	    	"faxproject"
-#define FAXFILENAME     	"page-001.fax"
 #define PRINTERNAME	  	"new printer"
-#define PRINTERCOMMAND  	"lpr -"
+#define PRINTERCOMMAND  	"lpr"
 #define PRINTERCOPYNUMBEROPTION "-#"
 #define FAXCOMMAND 	 	"sendfax"
 #define FAXRECEIVEROPT		"-d"
 #define FAXPOSTSCRIPTOPT	""
 #define FAXNORMALOPT		"-l"
 #define FAXFINEOPT		"-m"
-#define FAXVIEWER 	 	"xv"
+#define FAXVIEWER 	 	"gv"
 #define DOCVIEWER_NETSCAPE	"netscape"
 #define DOCVIEWER 	 	DOCVIEWER_NETSCAPE
 

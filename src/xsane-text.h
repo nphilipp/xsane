@@ -2,7 +2,7 @@
 
    xsane-text.h
 
-   Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
+   Oliver Rauch <Oliver.Rauch@rauch-domain.de>
    Copyright (C) 1998-2001 Oliver Rauch
    This file is part of the XSANE package.
 
@@ -28,19 +28,17 @@
 #define XSANE_STRSTATUS(status)		_(sane_strstatus(status))
 #define _BGT(text)			dgettext(xsane.backend, text)
 
-#ifdef _WIN32
-#define XSANE_COPYRIGHT_SIGN		_("(c)")
-#else
-#define XSANE_COPYRIGHT_SIGN		_("\251")
-#endif
+#define XSANE_COPYRIGHT_SIGN		_("(c)") /* can be translated with \251 */
 
 #define WINDOW_ABOUT_XSANE		_("About")
 #define WINDOW_ABOUT_TRANSLATION	_("About translation")
 #define WINDOW_AUTHORIZE		_("authorization")
+#define WINDOW_LICENSE			_("license")
 #define WINDOW_INFO			_("info")
 #define WINDOW_BATCH_SCAN		_("batch scan")
 #define WINDOW_FAX_PROJECT		_("fax project")
 #define WINDOW_FAX_RENAME		_("rename fax page")
+#define WINDOW_FAX_INSERT		_("insert ps-file into fax")
 #define WINDOW_SETUP			_("setup")
 #define WINDOW_HISTOGRAM		_("Histogram")
 #define WINDOW_GAMMA			_("Gamma curve")
@@ -69,6 +67,8 @@
 
 #define BUTTON_START			_("Start")
 #define BUTTON_OK			_("Ok")
+#define BUTTON_ACCEPT			_("Accept")
+#define BUTTON_NOT_ACCEPT		_("Not accept")
 #define BUTTON_APPLY			_("Apply")
 #define BUTTON_CANCEL			_("Cancel")
 #define BUTTON_CONT_AT_OWN_RISK		_("Continue at your own risk")
@@ -76,9 +76,10 @@
 #define BUTTON_CLOSE			_("Close")
 #define BUTTON_OVERWRITE		_("Overwrite")
 #define BUTTON_ADD_AREA			_("Add area")
-#define BUTTON_DELETE			_("Delete")
-#define BUTTON_SHOW			_("Show")
-#define BUTTON_RENAME			_("Rename")
+#define BUTTON_PAGE_DELETE		_("Delete page")
+#define BUTTON_PAGE_SHOW		_("Show page")
+#define BUTTON_PAGE_RENAME		_("Rename page")
+#define BUTTON_FILE_INSERT		_("Insert file")
 #define BUTTON_CREATE_PROJECT		_("Create project")
 #define BUTTON_SEND_PROJECT		_("Send project")
 #define BUTTON_DELETE_PROJECT		_("Delete project")
@@ -111,7 +112,7 @@
 #define TEXT_RECENT_VALUES		_("Recent values:")
 #define TEXT_GAMMA_CORR_BY		_("Gamma correction by:")
 #define TEXT_SCANNER			_("scanner")
-#define TEXT_SOFTWARE_XSANE		_("software (xsane)")
+#define TEXT_SOFTWARE_XSANE		_("software (XSane)")
 #define TEXT_NONE			_("none")
 #define TEXT_GAMMA_INPUT_DEPTH		_("Gamma input depth:")
 #define TEXT_GAMMA_OUTPUT_DEPTH		_("Gamma output depth:")
@@ -132,15 +133,20 @@
 #define TEXT_GTK_VERSION		_("compiled with GTK-")
 #define TEXT_GIMP_VERSION		_("compiled with GIMP-")
 #define TEXT_UNKNOWN			_("unknown")
-#define TEXT_GPL			_("This program is distributed under the terms\n" \
-                                          "of the GNU General Public License\n")
+#define TEXT_GPL			_("XSane is distributed under the terms of the GNU General Public License\n" \
+                                          "as published by the Free Software Foundation; either version 2 of the\n" \
+                                          "License, or (at your option) any later version.\n" \
+                                          "\n" \
+                                          "This program is distributed in the hope that it will be useful, but\n" \
+                                          "WITHOUT ANY WARRANTY; without even the implied warranty of\n" \
+                                          "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n")
 #define TEXT_EMAIL			_("Email:")
 #define TEXT_HOMEPAGE			_("Homepage:")
 #define TEXT_FILE			_("File:")
 #define TEXT_TRANSLATION		_("Translation:")
 #define TEXT_TRANSLATION_INFO		_("untranslated original english text\n" \
 					  "by Oliver Rauch\n" \
-					  "Email: Oliver.Rauch@Wolfsburg.DE\n")
+					  "Email: Oliver.Rauch@rauch-domain.de\n")
 
 #define TEXT_INFO_BOX			_("0x0: 0KB")
 
@@ -234,7 +240,8 @@
 #define MENU_ITEM_LOAD_DEVICE_SETTINGS	_("Load device settings")
 #define MENU_ITEM_CHANGE_WORKING_DIR	_("Change directory")
 
-#define MENU_ITEM_XSANE_DOC		_("Xsane doc")
+#define MENU_ITEM_XSANE_LICENSE		_("License")
+#define MENU_ITEM_XSANE_DOC		_("XSane doc")
 #define MENU_ITEM_BACKEND_DOC		_("Backend doc")
 #define MENU_ITEM_AVAILABLE_BACKENDS	_("Available backends")
 #define MENU_ITEM_SCANTIPS		_("Scantips")
@@ -263,8 +270,12 @@
 #define PROGRESS_PACKING_DATA		_("Packing image")
 #define PROGRESS_CONVERTING_DATA	_("Converting data")
 
-
-#define DESC_XSANE_MODE			_("Use XSane for SCANning, photoCOPYing, FAXing...")
+#define DESC_SCAN_START			_("Start scan <Ctrl-Enter>")
+#define DESC_SCAN_CANCEL		_("Cancel scan <ESC>")
+#define DESC_PREVIEW_ACQUIRE		_("Acquire preview scan <Alt-p>")
+#define DESC_PREVIEW_CANCEL		_("Cancel preview scan <Alt-ESC>")
+#define DESC_XSANE_MODE			_("Use XSane for: SCANning-<Ctrl-s> " \
+                                          "photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>")
 
 #define DESC_FILENAME_COUNTER_STEP	_("Value that is added to filenamecounter after scan")
 #define DESC_BROWSE_FILENAME		_("Browse for image filename")
@@ -274,7 +285,7 @@
 #define DESC_FAXPAGENAME		_("Enter new name for faxpage")
 #define DESC_FAXRECEIVER		_("Enter receiver phone number or address")
 
-#define DESC_PRINTER_SELECT		_("Select printer definition")
+#define DESC_PRINTER_SELECT		_("Select printerdefinition <Shift-F1/F2/...>")
 
 #define DESC_RESOLUTION			_("Set scan resolution")
 #define DESC_RESOLUTION_X		_("Set scan resolution for x direction")
@@ -284,8 +295,7 @@
 #define DESC_ZOOM_Y			_("Set zoomfactor for y direction")
 #define DESC_COPY_NUMBER		_("Set number of copies")
 
-#define DESC_NEGATIVE			_("Negative: Invert colors for scanning negatives\n" \
-						"e.g. swap black and white")
+#define DESC_NEGATIVE			_("Negative: Invert colors for scanning negatives <Shift-n>")
 
 #define DESC_GAMMA			_("Set gamma value")
 #define DESC_GAMMA_R			_("Set gamma value for red component")
@@ -304,29 +314,30 @@
 
 #define DESC_THRESHOLD			_("Set threshold")
 
-#define DESC_RGB_DEFAULT		_("RGB default: Set enhancement values for red, green and blue to default values:\n" \
+#define DESC_RGB_DEFAULT		_("RGB default: Set enhancement values for red, " \
+                                          "green and blue to default values <Shift-b>:\n" \
 						" gamma = 1.0\n" \
 						" brightness = 0\n" \
 						" contrast = 0")
 
-#define DESC_ENH_AUTO			_("Autoadjust gamma, brightness and contrast in dependance of selected scan area")
-#define DESC_ENH_DEFAULT		_("Set default enhancement values:\n" \
+#define DESC_ENH_AUTO			_("Autoadjust gamma, brightness and contrast <Shift-e>")
+#define DESC_ENH_DEFAULT		_("Set default enhancement values <Shift-d>:\n" \
 						"gamma = 1.0\n" \
 						"brightness = 0\n" \
 						"contrast = 0")
-#define DESC_ENH_RESTORE		_("Restore enhancement values from preferences")
-#define DESC_ENH_STORE			_("Store active enhancement values to preferences")
+#define DESC_ENH_RESTORE		_("Restore enhancement values from preferences <Shift-r>")
+#define DESC_ENH_STORE			_("Store active enhancement values to preferences <Shift-m>")
 
-#define DESC_HIST_INTENSITY		_("Show histogram of intensity/gray")
-#define DESC_HIST_RED			_("Show histogram of red component")
-#define DESC_HIST_GREEN			_("Show histogram of green component")
-#define DESC_HIST_BLUE			_("Show histogram of blue component")
-#define DESC_HIST_PIXEL			_("Display histogram with lines instead of pixels")
-#define DESC_HIST_LOG			_("Show logarithm of pixelcount")
+#define DESC_HIST_INTENSITY		_("Show histogram of intensity/gray <Alt-i>")
+#define DESC_HIST_RED			_("Show histogram of red component <Alt-r>")
+#define DESC_HIST_GREEN			_("Show histogram of green component <Alt-g>")
+#define DESC_HIST_BLUE			_("Show histogram of blue component <Alt-b>")
+#define DESC_HIST_PIXEL			_("Display mode: show histogram with lines instead of pixels <Alt-m>")
+#define DESC_HIST_LOG			_("Show logarithm of pixelcount <Alt-l>")
 
 #define DESC_PRINTER_SETUP		_("Select definition to change")
 #define DESC_PRINTER_NAME		_("Define a name for the selection of this definition")
-#define DESC_PRINTER_COMMAND		_("Enter command to be executed in copy mode (e.g. \"lpr -\")")
+#define DESC_PRINTER_COMMAND		_("Enter command to be executed in copy mode (e.g. \"lpr\")")
 #define DESC_COPY_NUMBER_OPTION		_("Enter option for copy numbers")
 #define DESC_PRINTER_LINEART_RESOLUTION	_("Resolution with which lineart images are printed and saved in postscript")
 #define DESC_PRINTER_GRAYSCALE_RESOLUTION	_("Resolution with which grayscale images are printed and saved in postscript")
@@ -354,23 +365,23 @@
 #define DESC_PSFILE_LEFTOFFSET		_("Left offset from the edge of the paper to the usable area in mm for postscript files")
 #define DESC_PSFILE_BOTTOMOFFSET	_("Bottom offset from the edge of the paper to the usable area in mm for postscript files")
 #define DESC_MAIN_WINDOW_FIXED		_("Use fixed main window size or scrolled, resizable main window")
-#define DESC_DISABLE_GIMP_PREVIEW_GAMMA	_("Disable preview gamma when xsane runs as gimp plugin")
+#define DESC_DISABLE_GIMP_PREVIEW_GAMMA	_("Disable preview gamma when XSane runs as gimp plugin")
 #define DESC_PREVIEW_COLORMAP		_("Use an own colormap for preview if display depth is 8 bpp")
 #define DESC_PREVIEW_OVERSAMPLING	_("Value with that the calculated preview resolution is multiplied")
 #define DESC_PREVIEW_GAMMA		_("Set gamma correction value for preview image")
 #define DESC_PREVIEW_GAMMA_RED		_("Set gamma correction value for red component of preview image")
 #define DESC_PREVIEW_GAMMA_GREEN	_("Set gamma correction value for green component of preview image")
 #define DESC_PREVIEW_GAMMA_BLUE		_("Set gamma correction value for blue component of preview image")
-#define DESC_LINEART_MODE               _("Define the way xsane shall handle the threshold option")
+#define DESC_LINEART_MODE               _("Define the way XSane shall handle the threshold option")
 #define DESC_GRAYSCALE_SCANMODE         _("Select grayscale scanmode. " \
                                           "This scanmode is used for lineart preview scan when transformation " \
                                           "from grayscale to lineart is enabled")
 #define DESC_PREVIEW_THRESHOLD_MIN      _("The scanner's minimum threshold level in %")
 #define DESC_PREVIEW_THRESHOLD_MAX      _("The scanner's maximum threshold level in %")
-#define DESC_PREVIEW_THRESHOLD_MUL      _("Multiplier to make xsane threshold range and scanner threshold range the same")
-#define DESC_PREVIEW_THRESHOLD_OFF      _("Offset to make xsane threshold range and scanner threshold range the same")
+#define DESC_PREVIEW_THRESHOLD_MUL      _("Multiplier to make XSane threshold range and scanner threshold range the same")
+#define DESC_PREVIEW_THRESHOLD_OFF      _("Offset to make XSane threshold range and scanner threshold range the same")
 #define DESC_ADF_MODE			_("Select scansource for Automatic Document feeder. " \
-                                          "If this scansource is selected xsane scans until \"out of paper\" or error.")
+                                          "If this scansource is selected XSane scans until \"out of paper\" or error.")
 #define DESC_PREVIEW_PIPETTE_RANGE	_("dimension of square that is used to average color for pipette function")
 #define DESC_DOC_VIEWER			_("Enter command to be executed to display helpfiles, must be a html-viewer!")
 #define DESC_AUTOENHANCE_GAMMA		_("Change gamma value when autoenhancement button is pressed")
@@ -440,7 +451,7 @@
 
 #define ERR_ERROR			_("error")
 #define ERR_MAJOR_VERSION_NR_CONFLICT	_("Sane major version number mismatch!")
-#define ERR_XSANE_MAJOR_VERSION		_("xsane major version =")
+#define ERR_XSANE_MAJOR_VERSION		_("XSane major version =")
 #define ERR_BACKEND_MAJOR_VERSION	_("backend major version =")
 #define ERR_PROGRAM_ABORTED		_("*** PROGRAM ABORTED ***")
 
@@ -450,9 +461,9 @@
 
 #define WARN_COUNTER_UNDERRUN		_("Filename counter underrun")
 #define WARN_NO_VALUE_CONSTRAINT	_("warning: option has no value constraint")
-#define WARN_XSANE_AS_ROOT		_("You try to run xsane as ROOT, that really is DANGEROUS!\n\n\
+#define WARN_XSANE_AS_ROOT		_("You try to run XSane as ROOT, that really is DANGEROUS!\n\n\
 Do not send any bug reports when you\n\
-have any problem while running xsane as root:\n\
+have any problem while running XSane as root:\n\
 YOU ARE ALONE!\
 ")
 
@@ -471,6 +482,8 @@ YOU ARE ALONE!\
 #define ERR_MAY_CAUSE_PROBLEMS		_("this may cause problems!")
 
 #define WARN_FILE_EXISTS		_("File %s already exists")
+#define ERR_FILE_NOT_EXISTS		_("File %s does not exist")
+#define ERR_FILE_NOT_POSTSCRIPT		_("File %s is not a postscript file")
 #define ERR_UNSUPPORTED_OUTPUT_FORMAT	_("Unsupported %d-bit output format: %s")
 
 #define TEXT_USAGE			_("Usage:")
@@ -482,18 +495,19 @@ The format of [DEVICE] is backendname:devicefile (e.g. umax:/dev/scanner).\n\
 [OPTION]... can be a combination of the following items:\n\
  -h, --help                   display this help message and exit\n\
  -v, --version                print version information\n\
+ -l, --license                print license information\n\
 \n\
  -d, --device-settings file   load device settings from file (without \".drc\")\n\
 \n\
  -s, --scan                   start with scan-mode active\n\
  -c, --copy                   start with copy-mode active\n\
  -f, --fax                    start with fax-mode active\n\
- -n, --no-mode-selection      disable menu for xsane mode selection\n\
+ -n, --no-mode-selection      disable menu for XSane mode selection\n\
 \n\
  -F, --Fixed                  fixed main window size (overwrite preferences value)\n\
  -R, --Resizeable             resizable, scrolled main window (overwrite preferences value)\n\
 \n\
- -p, --print-filenames        print image filenames created by xsane\n\
+ -p, --print-filenames        print image filenames created by XSane\n\
  -N, --force-filename name    force filename and disable user filename selection\n\
 \n\
  --display X11-display        redirect output to X11-display\n\
@@ -514,6 +528,7 @@ The format of [DEVICE] is backendname:devicefile (e.g. umax:/dev/scanner).\n\
 
 /* strings that are used in structures, so it is not allowed to use _()/gettext() here */
 /* gettext_noop does mark these texts but does not change the string */
+
 #define MENU_ITEM_SURFACE_FULL_SIZE	N_("full size")
 #define MENU_ITEM_SURFACE_DIN_A3P	N_("DIN A3 port.")
 #define MENU_ITEM_SURFACE_DIN_A3L	N_("DIN A3 land.")

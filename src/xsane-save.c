@@ -2,7 +2,7 @@
 
    xsane-save.c
 
-   Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
+   Oliver Rauch <Oliver.Rauch@rauch-domain.de>
    Copyright (C) 1998-2001 Oliver Rauch
    This file is part of the XSANE package.
 
@@ -251,17 +251,36 @@ void xsane_write_pnm_header(FILE *outfile, int pixel_width, int pixel_height, in
       switch (bits)
       {
          case 8: /* color 8 bit mode, write ppm header */
-           fprintf(outfile, "P6\n# SANE data follows\n%d %d\n255\n", pixel_width, pixel_height);
+           fprintf(outfile, "P6\n"
+                            "# XSane settings:\n"
+                            "#  gamma      IRGB = %3.2f %3.2f %3.2f %3.2f\n"
+                            "#  brightness IRGB = %4.1f %4.1f %4.1f %4.1f\n"
+                            "#  contrast   IRGB = %4.1f %4.1f %4.1f %4.1f\n"
+                            "# SANE data follows\n"
+                            "%d %d\n255\n",
+                             xsane.gamma,      xsane.gamma_red,      xsane.gamma_green,      xsane.gamma_blue,
+                             xsane.brightness, xsane.brightness_red, xsane.brightness_green, xsane.brightness_blue,
+                             xsane.contrast,   xsane.contrast_red,   xsane.contrast_green,   xsane.contrast_blue,
+                             pixel_width, pixel_height);
           break;
 
          default: /* color, but not 8 bit mode, write as raw data because this is not defined in pnm */
            fprintf(outfile, "P6\n"
-                              "# This file is in a not public defined data format.\n"
-                              "# It is a 16 bit RGB binary format.\n"
-                              "# Some programs can read this as pnm/ppm format.\n"
-                              "# SANE data follows.\n"
-                              "%d %d\n"
-                              "65535\n", pixel_width, pixel_height);
+                            "# This file is in a not public defined data format.\n"
+                            "# It is a 16 bit RGB binary format.\n"
+                            "# Some programs can read this as pnm/ppm format.\n"
+                            "# File created by XSane.\n"
+                            "# XSane settings:\n"
+                            "#  gamma      IRGB = %3.2f %3.2f %3.2f %3.2f\n"
+                            "#  brightness IRGB = %4.1f %4.1f %4.1f %4.1f\n"
+                            "#  contrast   IRGB = %4.1f %4.1f %4.1f %4.1f\n"
+                            "# SANE data follows.\n"
+                            "%d %d\n"
+                            "65535\n",
+                            xsane.gamma,      xsane.gamma_red,      xsane.gamma_green,      xsane.gamma_blue,
+                            xsane.brightness, xsane.brightness_red, xsane.brightness_green, xsane.brightness_blue,
+                            xsane.contrast,   xsane.contrast_red,   xsane.contrast_green,   xsane.contrast_blue,
+                            pixel_width, pixel_height);
           break;
       }
       break;
@@ -270,21 +289,46 @@ void xsane_write_pnm_header(FILE *outfile, int pixel_width, int pixel_height, in
       switch (bits)
       {
          case 1: /* 1 bit lineart mode, write pbm header */
-           fprintf(outfile, "P4\n# SANE data follows\n%d %d\n", pixel_width, pixel_height);
+           fprintf(outfile, "P4\n"
+                            "# XSane settings:\n"
+                            "#  threshold = %4.1f\n"
+                            "# SANE data follows\n"
+                            "%d %d\n",
+                            xsane.threshold,
+                            pixel_width, pixel_height);
           break;
 
          case 8: /* 8 bit grayscale mode, write pgm header */
-           fprintf(outfile, "P5\n# SANE data follows\n%d %d\n255\n", pixel_width, pixel_height);
+           fprintf(outfile, "P5\n"
+                            "# XSane settings:\n"
+                            "#  gamma      = %3.2f\n"
+                            "#  brightness = %4.1f\n"
+                            "#  contrast   = %4.1f\n"
+                            "# SANE data follows\n"
+                            "%d %d\n"
+                            "255\n",
+                            xsane.gamma,
+                            xsane.brightness,
+                            xsane.contrast,
+                            pixel_width, pixel_height);
           break;
 
          default: /* grayscale mode but not 1 or 8 bit, write as raw data because this is not defined in pnm */
            fprintf(outfile, "P5\n"
-                              "# This file is in a not public defined data format.\n"
-                              "# It is a 16 bit gray binary format.\n"
-                              "# Some programs can read this as pnm/pgm format.\n"
-                              "# SANE data follows.\n"
-                              "%d %d\n"
-                              "65535\n", pixel_width, pixel_height);
+                            "# This file is in a not public defined data format.\n"
+                            "# It is a 16 bit gray binary format.\n"
+                            "# Some programs can read this as pnm/pgm format.\n"
+                            "# XSane settings:\n"
+                            "#  gamma      = %3.2f\n"
+                            "#  brightness = %4.1f\n"
+                            "#  contrast   = %4.1f\n"
+                            "# SANE data follows.\n"
+                            "%d %d\n"
+                            "65535\n",
+                            xsane.gamma,
+                            xsane.brightness,
+                            xsane.contrast,
+                            pixel_width, pixel_height);
           break;
       }
       break;

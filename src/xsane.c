@@ -2,7 +2,7 @@
 
    xsane.c
 
-   Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
+   Oliver Rauch <Oliver.Rauch@rauch-domain.de>
    Copyright (C) 1998-2001 Oliver Rauch
    This file is part of the XSANE package.
 
@@ -48,6 +48,7 @@ struct option long_options[] =
 {
   {"help", no_argument, 0, 'h'},
   {"version", no_argument, 0, 'v'},
+  {"license", no_argument, 0, 'l'},
   {"device-settings", required_argument, 0, 'd'},
   {"scan", no_argument, 0, 's'},
   {"copy", no_argument, 0, 'c'},
@@ -111,7 +112,7 @@ static void xsane_show_histogram_callback(GtkWidget *widget);
 static void xsane_show_gamma_callback(GtkWidget *widget);
 static void xsane_printer_callback(GtkWidget *widget, gpointer data);
 void xsane_pref_save(void);
-static void xsane_pref_restore(void);
+static int xsane_pref_restore(void);
 static void xsane_quit(void);
 static void xsane_exit(void);
 static gint xsane_standard_option_win_delete(GtkWidget *widget, gpointer data);
@@ -139,11 +140,13 @@ void xsane_fax_project_save(void);
 static void xsane_fax_project_load(void);
 static void xsane_fax_project_create(void);
 static void xsane_pref_toggle_tooltips(GtkWidget *widget, gpointer data);
+static void xsane_show_license(GtkWidget *widget, gpointer data);
 static void xsane_show_doc(GtkWidget *widget, gpointer data);
 static void xsane_fax_entrys_swap(GtkWidget *list_item_1, GtkWidget *list_item_2);
 static void xsane_fax_entry_move_up_callback(GtkWidget *widget, gpointer list);
 static void xsane_fax_entry_move_down_callback(GtkWidget *widget, gpointer list);
 static void xsane_fax_entry_rename_callback(GtkWidget *widget, gpointer list);
+static void xsane_fax_entry_insert_callback(GtkWidget *widget, gpointer list);
 static void xsane_fax_entry_delete_callback(GtkWidget *widget, gpointer list);
 static void xsane_fax_show_callback(GtkWidget *widget, gpointer data);
 static void xsane_fax_send(void);
@@ -156,7 +159,7 @@ static void xsane_select_device_by_key_callback(GtkWidget * widget, gpointer dat
 static void xsane_select_device_by_mouse_callback(GtkWidget * widget, GdkEventButton *event, gpointer data);
 static void xsane_choose_device(void);
 static void xsane_usage(void);
-static void xsane_init(int argc, char **argv);
+static int xsane_init(int argc, char **argv);
 void xsane_interface(int argc, char **argv);
 int main(int argc, char ** argv);
 
@@ -462,7 +465,7 @@ static void xsane_browse_filename_callback(GtkWidget *widget, gpointer data)
   snprintf(windowname, sizeof(windowname), "%s %s %s", xsane.prog_name, WINDOW_OUTPUT_FILENAME, xsane.device_text);
 
   umask((mode_t) preferences.directory_umask); /* define new file permissions */    
-  xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, TRUE);
+  xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, TRUE, TRUE);
   umask(XSANE_DEFAULT_UMASK); /* define new file permissions */    
 
   if (preferences.filename)
@@ -1686,7 +1689,11 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
     for (i=0; i < preferences.printerdefinitions; i++)
     {
       xsane_printer_item = gtk_menu_item_new_with_label(preferences.printer[i]->name);
-      gtk_widget_add_accelerator(xsane_printer_item, "activate", xsane.accelerator_group, GDK_F1+i, GDK_SHIFT_MASK, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
+      if (i<12)
+      {
+        gtk_widget_add_accelerator(xsane_printer_item, "activate", xsane.accelerator_group,
+                                   GDK_F1+i, GDK_SHIFT_MASK,  GTK_ACCEL_LOCKED);
+      }
       gtk_container_add(GTK_CONTAINER(xsane_printer_menu), xsane_printer_item);
       gtk_signal_connect(GTK_OBJECT(xsane_printer_item), "activate", (GtkSignalFunc) xsane_printer_callback, (void *) i);
       gtk_widget_show(xsane_printer_item);
@@ -1926,10 +1933,12 @@ void xsane_pref_save(void)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_pref_restore(void)
+static int xsane_pref_restore(void)
+/* returns true if this is the first time this xsane version is called */
 {
  char filename[PATH_MAX];
  int fd;
+ int result = TRUE;
 
   DBG(DBG_proc, "xsane_pref_restore\n");
 
@@ -1940,6 +1949,16 @@ static void xsane_pref_restore(void)
   {
     preferences_restore(fd);
     close(fd);
+
+    /* the version test only is done for the local xsane.rc file because each user */
+    /* shall accept (or not) the license for xsane */
+    if (preferences.xsane_version_str)
+    {
+      if (!strcmp(preferences.xsane_version_str, XSANE_VERSION))
+      {
+        result = FALSE; /* this version already has been started */
+      }
+    }
   }
   else /* no local sane file, look for system file */
   {
@@ -1952,6 +1971,12 @@ static void xsane_pref_restore(void)
       close(fd);
     }
   }
+
+  if (preferences.xsane_version_str)
+  {
+    free(preferences.xsane_version_str);
+  }
+  preferences.xsane_version_str = strdup(XSANE_VERSION); /* store recent xsane-version */
 
   if (!preferences.tmp_path)
   {
@@ -2007,6 +2032,8 @@ static void xsane_pref_restore(void)
   {
     preferences.doc_viewer = strdup(DOCVIEWER);
   }
+
+ return result;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -2315,6 +2342,7 @@ static void xsane_info_dialog(GtkWidget *widget, gpointer data)
  GtkWidget *info_dialog, *vbox, *button, *label, *frame, *framebox, *hbox, *table;
  char buf[256];
  char *bufptr;
+ GtkAccelGroup *accelerator_group;
 
   DBG(DBG_proc, "xsane_info_dialog\n");
 
@@ -2326,6 +2354,9 @@ static void xsane_info_dialog(GtkWidget *widget, gpointer data)
   gtk_signal_connect(GTK_OBJECT(info_dialog), "destroy", GTK_SIGNAL_FUNC(xsane_close_info_callback), info_dialog);
   snprintf(buf, sizeof(buf), "%s %s %s", xsane.prog_name, WINDOW_INFO, xsane.device_text);
   gtk_window_set_title(GTK_WINDOW(info_dialog), buf);
+
+  accelerator_group = gtk_accel_group_new();
+  gtk_accel_group_attach(accelerator_group, GTK_OBJECT(info_dialog));
 
   xsane_set_window_icon(info_dialog, 0);
 
@@ -2362,7 +2393,7 @@ static void xsane_info_dialog(GtkWidget *widget, gpointer data)
 
   snprintf(buf, sizeof(buf), TEXT_TYPE);
   label = xsane_info_table_text_new(table, buf, 0, 2);
-  snprintf(buf, sizeof(buf), "%s", xsane.devlist[xsane.selected_dev]->type);
+  snprintf(buf, sizeof(buf), "%s", _(xsane.devlist[xsane.selected_dev]->type));
   label = xsane_info_table_text_new(table, buf, 1, 2);
 
   snprintf(buf, sizeof(buf), TEXT_DEVICE);
@@ -2589,6 +2620,7 @@ static void xsane_info_dialog(GtkWidget *widget, gpointer data)
 /*  gtk_label_set((GtkLabel *)label, "HALLO"); */
 
   button = gtk_button_new_with_label(BUTTON_CLOSE);
+  gtk_widget_add_accelerator(button, "clicked", accelerator_group, GDK_Escape, 0, GTK_ACCEL_LOCKED);  
   GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
   gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_close_info_callback, info_dialog);
   gtk_box_pack_start(GTK_BOX(vbox), button, FALSE, FALSE, 0);
@@ -2605,30 +2637,58 @@ static void xsane_info_dialog(GtkWidget *widget, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static GtkWidget *about_dialog = NULL;
+
+static int xsane_close_about_dialog_callback(GtkWidget *widget, gpointer data)
+{
+  DBG(DBG_proc, "xsane_close_about_dialog_callback\n");
+
+  gtk_widget_destroy(about_dialog);
+  about_dialog = NULL;
+
+ return FALSE;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void xsane_about_dialog(GtkWidget *widget, gpointer data)
 {
- GtkWidget *about_dialog, *vbox, *button, *label;
- char buf[512];
+ GtkWidget *vbox, *hbox, *button, *label;
+ char buf[1024];
  char filename[PATH_MAX];
  GtkWidget *pixmapwidget;
  GdkBitmap *mask;
  GdkPixmap *pixmap;
  GtkStyle *style;
  GdkColor *bg_trans;
+ GtkAccelGroup *accelerator_group;
 
   DBG(DBG_proc, "xsane_about_dialog\n");
+
+  if (about_dialog)
+  {
+    return;
+  }
 
   about_dialog = gtk_window_new(GTK_WINDOW_DIALOG);
   gtk_window_set_position(GTK_WINDOW(about_dialog), GTK_WIN_POS_CENTER);
   gtk_window_set_policy(GTK_WINDOW(about_dialog), FALSE, FALSE, FALSE);
-  gtk_signal_connect(GTK_OBJECT(about_dialog), "destroy", GTK_SIGNAL_FUNC(xsane_close_info_callback), about_dialog);
+  gtk_signal_connect(GTK_OBJECT(about_dialog), "destroy", GTK_SIGNAL_FUNC(xsane_close_about_dialog_callback), NULL);
   snprintf(buf, sizeof(buf), "%s %s", WINDOW_ABOUT_XSANE, xsane.prog_name);
   gtk_window_set_title(GTK_WINDOW(about_dialog), buf);
 
+  accelerator_group = gtk_accel_group_new();
+  gtk_accel_group_attach(accelerator_group, GTK_OBJECT(about_dialog));
+
   xsane_set_window_icon(about_dialog, 0);
 
+  hbox = gtk_hbox_new(/* not homogeneous */ TRUE, 5);
+  gtk_container_set_border_width(GTK_CONTAINER(hbox), 5);
+  gtk_container_add(GTK_CONTAINER(about_dialog), hbox);
+  gtk_widget_show(hbox);
+
   vbox = gtk_vbox_new(/* not homogeneous */ FALSE, 5);
-  gtk_container_add(GTK_CONTAINER(about_dialog), vbox);
+  gtk_box_pack_start(GTK_BOX(hbox), vbox, FALSE, FALSE, 20);
   gtk_widget_show(vbox);
 
   /* xsane logo */
@@ -2651,16 +2711,11 @@ static void xsane_about_dialog(GtkWidget *widget, gpointer data)
   snprintf(buf, sizeof(buf), "XSane %s %s\n"
                              "%s %s\n"
                              "\n"
-                             "%s\n"
-                             "%s\n"
-                             "   %s   \n"
-                             "\n"
+                             "%s %s\n"
                              "%s %s\n",
                              TEXT_VERSION, XSANE_VERSION,
                              XSANE_COPYRIGHT_SIGN, XSANE_COPYRIGHT_TXT,
-                             TEXT_GPL,
-                             TEXT_HOMEPAGE,
-                             XSANE_HOMEPAGE,
+                             TEXT_HOMEPAGE, XSANE_HOMEPAGE,
                              TEXT_EMAIL, XSANE_EMAIL);
 
   label = gtk_label_new(buf);
@@ -2669,25 +2724,35 @@ static void xsane_about_dialog(GtkWidget *widget, gpointer data)
 
 
   button = gtk_button_new_with_label(BUTTON_CLOSE);
+  gtk_widget_add_accelerator(button, "clicked", accelerator_group, GDK_Escape, 0, GTK_ACCEL_LOCKED);  
   GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
-  gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_close_info_callback, about_dialog);
+  gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_close_about_dialog_callback, NULL);
   gtk_box_pack_start(GTK_BOX(vbox), button, FALSE, FALSE, 0);
   gtk_widget_grab_default(button);
   gtk_widget_show(button);
 
   gtk_widget_show(about_dialog);
+}
 
-  xsane_clear_histogram(&xsane.histogram_raw);
-  xsane_clear_histogram(&xsane.histogram_enh); 
+/* ---------------------------------------------------------------------------------------------------------------------- */
 
-  xsane_set_sensitivity(FALSE);
+static GtkWidget *about_translation_dialog = NULL;
+
+static int xsane_close_about_translation_dialog_callback(GtkWidget *widget, gpointer data)
+{
+  DBG(DBG_proc, "xsane_close_about_translation_dialog_callback\n");
+
+  gtk_widget_destroy(about_translation_dialog);
+  about_translation_dialog = NULL;
+
+ return FALSE;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 static void xsane_about_translation_dialog(GtkWidget *widget, gpointer data)
 {
- GtkWidget *about_translation_dialog, *vbox, *button, *label;
+ GtkWidget *vbox, *hbox, *button, *label;
  char buf[512];
  char filename[PATH_MAX];
  GtkWidget *pixmapwidget;
@@ -2695,20 +2760,34 @@ static void xsane_about_translation_dialog(GtkWidget *widget, gpointer data)
  GdkPixmap *pixmap;
  GtkStyle *style;
  GdkColor *bg_trans;
+ GtkAccelGroup *accelerator_group;
 
   DBG(DBG_proc, "xsane_about_translation_dialog\n");
+
+  if (about_translation_dialog)
+  {
+    return;
+  }
 
   about_translation_dialog = gtk_window_new(GTK_WINDOW_DIALOG);
   gtk_window_set_position(GTK_WINDOW(about_translation_dialog), GTK_WIN_POS_CENTER);
   gtk_window_set_policy(GTK_WINDOW(about_translation_dialog), FALSE, FALSE, FALSE);
-  gtk_signal_connect(GTK_OBJECT(about_translation_dialog), "destroy", GTK_SIGNAL_FUNC(xsane_close_info_callback), about_translation_dialog);
+  gtk_signal_connect(GTK_OBJECT(about_translation_dialog), "destroy", GTK_SIGNAL_FUNC(xsane_close_about_translation_dialog_callback), NULL);
   snprintf(buf, sizeof(buf), "%s %s", WINDOW_ABOUT_TRANSLATION, xsane.prog_name);
   gtk_window_set_title(GTK_WINDOW(about_translation_dialog), buf);
 
+  accelerator_group = gtk_accel_group_new();
+  gtk_accel_group_attach(accelerator_group, GTK_OBJECT(about_translation_dialog));
+
   xsane_set_window_icon(about_translation_dialog, 0);
 
+  hbox = gtk_hbox_new(/* not homogeneous */ TRUE, 5);
+  gtk_container_set_border_width(GTK_CONTAINER(hbox), 5);
+  gtk_container_add(GTK_CONTAINER(about_translation_dialog), hbox);
+  gtk_widget_show(hbox);
+
   vbox = gtk_vbox_new(/* not homogeneous */ FALSE, 5);
-  gtk_container_add(GTK_CONTAINER(about_translation_dialog), vbox);
+  gtk_box_pack_start(GTK_BOX(hbox), vbox, FALSE, FALSE, 20);
   gtk_widget_show(vbox);
 
   /* xsane logo */
@@ -2738,18 +2817,14 @@ static void xsane_about_translation_dialog(GtkWidget *widget, gpointer data)
 
 
   button = gtk_button_new_with_label(BUTTON_CLOSE);
+  gtk_widget_add_accelerator(button, "clicked", accelerator_group, GDK_Escape, 0, GTK_ACCEL_LOCKED);  
   GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
-  gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_close_info_callback, about_translation_dialog);
+  gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_close_about_translation_dialog_callback, NULL);
   gtk_box_pack_start(GTK_BOX(vbox), button, FALSE, FALSE, 0);
   gtk_widget_grab_default(button);
   gtk_widget_show(button);
 
   gtk_widget_show(about_translation_dialog);
-
-  xsane_clear_histogram(&xsane.histogram_raw);
-  xsane_clear_histogram(&xsane.histogram_enh); 
-
-  xsane_set_sensitivity(FALSE);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -3017,17 +3092,22 @@ static void xsane_fax_dialog()
   gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
   gtk_box_pack_start(GTK_BOX(fax_project_vbox), hbox, FALSE, FALSE, 2);
 
-  button = gtk_button_new_with_label(BUTTON_SHOW);
+  button = gtk_button_new_with_label(BUTTON_FILE_INSERT);
+  gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_fax_entry_insert_callback, list);
+  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
+  gtk_widget_show(button);
+
+  button = gtk_button_new_with_label(BUTTON_PAGE_SHOW);
   gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_fax_show_callback, list);
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
   gtk_widget_show(button);
 
-  button = gtk_button_new_with_label(BUTTON_RENAME);
+  button = gtk_button_new_with_label(BUTTON_PAGE_RENAME);
   gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_fax_entry_rename_callback, list);
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
   gtk_widget_show(button);
 
-  button = gtk_button_new_with_label(BUTTON_DELETE);
+  button = gtk_button_new_with_label(BUTTON_PAGE_DELETE);
   gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_fax_entry_delete_callback, list);
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
   gtk_widget_show(button);
@@ -3114,8 +3194,9 @@ static void xsane_fax_project_load()
 
   if ((!projectfile) || (feof(projectfile)))
   {
-    snprintf(buf, sizeof(buf), "%s/page-001.ps", preferences.fax_project);
+    snprintf(buf, sizeof(buf), "%s/page-1.ps", preferences.fax_project);
     xsane.fax_filename=strdup(buf);
+    xsane_update_counter_in_filename(&xsane.fax_filename, FALSE, 0, preferences.filename_counter_len); /* correct counter len */
 
     xsane.fax_receiver=strdup("");
     gtk_entry_set_text(GTK_ENTRY(xsane.fax_receiver_entry), (char *) xsane.fax_receiver);
@@ -3286,6 +3367,13 @@ static void xsane_pref_toggle_tooltips(GtkWidget *widget, gpointer data)
   preferences.tooltips_enabled = (GTK_CHECK_MENU_ITEM(widget)->active != 0);
   xsane_back_gtk_set_tooltips(preferences.tooltips_enabled);
   xsane_pref_save();
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_show_license(GtkWidget *widget, gpointer data)
+{
+  xsane_display_license(0);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -3607,6 +3695,100 @@ static void xsane_fax_entry_rename_callback(GtkWidget *widget, gpointer list)
 
     xsane_set_sensitivity(TRUE);
   }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_fax_entry_insert_callback(GtkWidget *widget, gpointer list)
+{
+ GtkWidget *list_item;
+ char filename[1024];
+ char windowname[255];
+
+  DBG(DBG_proc, "xsane_fax_entry_insert_callback\n");
+
+  xsane_set_sensitivity(FALSE);
+
+  snprintf(windowname, sizeof(windowname), "%s %s %s", xsane.prog_name, WINDOW_FAX_INSERT, preferences.fax_project);
+  filename[0] = 0;
+
+  umask((mode_t) preferences.directory_umask); /* define new file permissions */    
+
+  if (!xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, TRUE, FALSE)) /* filename is selected */
+  {
+   FILE *sourcefile;
+ 
+    sourcefile = fopen(filename, "rb"); /* read binary (b for win32) */
+    if (sourcefile) /* file exists */
+    {
+     char buf[1024];
+
+      fgets(buf, 1024, sourcefile);
+
+      if (!strncmp("%!PS", buf, 4))
+      {
+       FILE *destfile;
+
+        /* copy file to project directory */
+        destfile = fopen(xsane.fax_filename, "wb"); /* write binary (b for win32) */
+        if (destfile) /* file is created */
+        {
+         char *extension;
+         char *page;
+
+          fprintf(destfile, "%s\n", buf);
+
+          while (!feof(sourcefile))
+          {
+            fgets(buf, 1024, sourcefile);
+            fprintf(destfile, "%s", buf);
+          }
+
+          fclose(destfile);
+
+
+          /* add filename to fax page list */
+          page = strdup(strrchr(xsane.fax_filename,'/')+1);
+          extension = strrchr(page, '.');
+          if (extension)
+          {
+            *extension = 0;
+          }
+
+          list_item = gtk_list_item_new_with_label(page);
+          gtk_object_set_data(GTK_OBJECT(list_item), "list_item_data", strdup(page));
+          gtk_container_add(GTK_CONTAINER(xsane.fax_list), list_item);
+          gtk_widget_show(list_item);
+
+          xsane_update_counter_in_filename(&xsane.fax_filename, TRUE, 1, preferences.filename_counter_len);
+          xsane_fax_project_save();
+          free(page);
+        }
+        else /* file could not be created */
+        {
+          snprintf(buf, sizeof(buf), "%s %s", ERR_OPEN_FAILED, filename);
+          xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+        }
+      }
+      else
+      {
+        snprintf(buf, sizeof(buf), ERR_FILE_NOT_POSTSCRIPT, filename);
+        xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+      }
+
+      fclose(sourcefile);
+    } 
+    else
+    {
+     char buf[256];
+      snprintf(buf, sizeof(buf), ERR_FILE_NOT_EXISTS, filename);
+      xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+    }
+  }
+
+  umask(XSANE_DEFAULT_UMASK); /* define new file permissions */    
+
+  xsane_set_sensitivity(TRUE);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -4068,6 +4250,22 @@ static GtkWidget *xsane_help_build_menu(void)
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_about_translation_dialog, NULL);
   gtk_widget_show(item);
 
+
+  /* separator */
+
+  item = gtk_menu_item_new();
+  gtk_menu_append(GTK_MENU(menu), item);
+  gtk_widget_show(item);
+
+
+  /* XSane license */
+
+  item = gtk_menu_item_new_with_label(MENU_ITEM_XSANE_LICENSE);
+  gtk_menu_append(GTK_MENU(menu), item);
+  gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_license, NULL);
+  gtk_widget_show(item);
+
+
   /* separator */
 
   item = gtk_menu_item_new();
@@ -4081,6 +4279,9 @@ static GtkWidget *xsane_help_build_menu(void)
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_doc, (void *) "sane-xsane");
   gtk_widget_show(item);
+
+
+  /* separator */
 
   item = gtk_menu_item_new();
   gtk_menu_append(GTK_MENU(menu), item);
@@ -4638,9 +4839,6 @@ static void xsane_device_dialog(void)
     xsane.device_set_filename = strdup(buf); /* set preferences filename */
   }
 
-
-  xsane_pref_restore(); /* restore preferences */
-
   if (xsane.main_window_fixed == -1) /* no command line option given */
   {
     xsane.main_window_fixed = preferences.main_window_fixed;
@@ -4914,6 +5112,7 @@ static void xsane_device_dialog(void)
 
   /* The Scan button */
   button = gtk_button_new_with_label(BUTTON_START);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_SCAN_START);
   gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_Return, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
   gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_scan_dialog, NULL);
   gtk_box_pack_start(GTK_BOX(vbox), button, FALSE, FALSE, 0);
@@ -4922,6 +5121,7 @@ static void xsane_device_dialog(void)
 
   /* The Cancel button */
   button = gtk_button_new_with_label(BUTTON_CANCEL);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_SCAN_CANCEL);
   gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_Escape, 0, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
   gtk_box_pack_start(GTK_BOX(vbox), button, FALSE, FALSE, 0);
   gtk_widget_show(button);
@@ -5022,6 +5222,7 @@ static void xsane_choose_device(void)
  GtkStyle *style;
  GdkColor *bg_trans;
  GSList *owner;
+ GtkAccelGroup *device_selection_accelerator_group;
  gint i;
  const SANE_Device *adev;
  char buf[256];
@@ -5058,6 +5259,9 @@ static void xsane_choose_device(void)
   gtk_signal_connect(GTK_OBJECT(xsane.choose_device_dialog), "destroy", GTK_SIGNAL_FUNC(xsane_quit), NULL);
   snprintf(buf, sizeof(buf), "%s %s %s", xsane.prog_name, XSANE_VERSION, WINDOW_DEVICE_SELECTION);
   gtk_window_set_title(GTK_WINDOW(xsane.choose_device_dialog), buf);
+
+  device_selection_accelerator_group = gtk_accel_group_new(); /* do we have to delete it when dialog is closed ? */
+  gtk_accel_group_attach(device_selection_accelerator_group, GTK_OBJECT(xsane.choose_device_dialog));
 
   main_vbox = gtk_vbox_new(FALSE, 0);
   gtk_container_set_border_width(GTK_CONTAINER(main_vbox), 0);
@@ -5153,6 +5357,12 @@ static void xsane_choose_device(void)
 
     snprintf(buf, sizeof(buf), "%s %s %s [%s]", vendor, model, type, adev->name);
     button = gtk_radio_button_new_with_label(owner, (char *) buf);
+
+    if (i<12)
+    {
+      gtk_widget_add_accelerator(button, "clicked", device_selection_accelerator_group, GDK_F1+i, 0, GTK_ACCEL_LOCKED);
+    }
+
     gtk_signal_connect(GTK_OBJECT(button), "button_press_event",
                        (GtkSignalFunc) xsane_select_device_by_mouse_callback, (void *) (long) i);
     gtk_signal_connect(GTK_OBJECT(button), "clicked",
@@ -5185,6 +5395,7 @@ static void xsane_choose_device(void)
 
   /* The Cancel button */
   button = gtk_button_new_with_label(BUTTON_CANCEL);
+  gtk_widget_add_accelerator(button, "clicked", device_selection_accelerator_group, GDK_Escape, 0, GTK_ACCEL_LOCKED);
   gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_quit, NULL);
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
   gtk_widget_show(button);
@@ -5196,13 +5407,19 @@ static void xsane_choose_device(void)
 
 static void xsane_usage(void)
 {
-  printf("%s %s %s\n", TEXT_USAGE, xsane.prog_name, TEXT_USAGE_OPTIONS);
-  printf("\n%s\n\n", TEXT_HELP);
+  printf("XSane %s %s\n", TEXT_VERSION, XSANE_VERSION);
+  printf("%s %s\n\n", XSANE_COPYRIGHT_SIGN, XSANE_COPYRIGHT_TXT);
+  printf("%s %s %s\n\n", TEXT_USAGE, xsane.prog_name, TEXT_USAGE_OPTIONS);
+  printf("%s\n\n", TEXT_HELP);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_init(int argc, char **argv)
+static int xsane_init(int argc, char **argv)
+/* returns 0 - if ok
+           1 - if license was not accepted
+           2 - if canceld because xsane was started as root
+           3 - if wrong sane major version was found */
 {
  GtkWidget *device_scanning_dialog;
  GtkWidget *main_vbox;
@@ -5225,6 +5442,7 @@ static void xsane_init(int argc, char **argv)
   gdk_set_use_xshm(gimp_use_xshm());
 #endif
 
+  /* before we open any windows we have to read the style file */
   xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", 0, "xsane-style", 0, ".rc", XSANE_PATH_LOCAL_SANE);
   if (stat(filename, &st) >= 0)
   {
@@ -5241,6 +5459,24 @@ static void xsane_init(int argc, char **argv)
     }
   }
 
+  if (xsane_pref_restore()) /* restore preferences, returns TRUE if license is not accpted yet */
+  {
+    if (xsane_display_license(1)) /* show license and ask for accept/not accept */
+    {
+      DBG(DBG_info, "user did not accept license, we abort\n");
+      return 1; /* User did not accept license */
+    }
+  }
+
+  if (!getuid()) /* root ? */
+  {
+    if (xsane_back_gtk_decision(ERR_HEADER_WARNING, (gchar **) warning_xpm, WARN_XSANE_AS_ROOT,
+        BUTTON_CANCEL, BUTTON_CONT_AT_OWN_RISK, TRUE /* wait */) == TRUE)
+    {
+      return 2; /* User selected CANCEL */
+    } 
+  }
+
   sane_init(&xsane.sane_backend_versioncode, (void *) xsane_authorization_callback);
   if (SANE_VERSION_MAJOR(xsane.sane_backend_versioncode) != SANE_V_MAJOR)
   {
@@ -5255,14 +5491,14 @@ static void xsane_init(int argc, char **argv)
                     ERR_XSANE_MAJOR_VERSION, SANE_V_MAJOR,
                     ERR_BACKEND_MAJOR_VERSION, SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
                     ERR_PROGRAM_ABORTED);
-    return;
+    return 3;
   }
 
   if (argc > 1)
   {
     int ch;
 
-    while((ch = getopt_long(argc, argv, "cd:fghnpsvFN:R", long_options, 0)) != EOF)
+    while((ch = getopt_long(argc, argv, "cd:fghlnpsvFN:R", long_options, 0)) != EOF)
     {
       switch(ch)
       {
@@ -5277,7 +5513,7 @@ static void xsane_init(int argc, char **argv)
          break;
 
         case 'v': /* --version */
-          printf("%s-%s\n", xsane.prog_name, XSANE_VERSION);
+          printf("%s-%s %s %s\n", xsane.prog_name, XSANE_VERSION, XSANE_COPYRIGHT_SIGN, XSANE_COPYRIGHT_TXT);
           printf("  %s %s\n", TEXT_PACKAGE, PACKAGE_VERSION);
           printf("  SANE-%d.%d\n", SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
                                  SANE_VERSION_MINOR(xsane.sane_backend_versioncode));
@@ -5314,8 +5550,14 @@ static void xsane_init(int argc, char **argv)
           printf(", tiff");
 #endif
           printf("\n");
-
           exit(0);
+         break;
+
+        case 'l': /* --license */
+          printf("%s-%s %s %s\n\n", xsane.prog_name, XSANE_VERSION, XSANE_COPYRIGHT_SIGN, XSANE_COPYRIGHT_TXT);
+          printf("%s\n", TEXT_GPL);
+          exit(0);
+         break;
 
         case 'd': /* --device-settings */
           xsane.device_set_filename = strdup(optarg);
@@ -5367,8 +5609,8 @@ static void xsane_init(int argc, char **argv)
   gtk_window_set_policy(GTK_WINDOW(device_scanning_dialog), FALSE, FALSE, FALSE);
   snprintf(buf, sizeof(buf), "%s %s", xsane.prog_name, XSANE_VERSION);
   gtk_window_set_title(GTK_WINDOW(device_scanning_dialog), buf);
+  gtk_widget_show(device_scanning_dialog);
 
-  xsane_set_window_icon(device_scanning_dialog, 0);
 
   main_vbox = gtk_vbox_new(FALSE, 0);
   gtk_container_set_border_width(GTK_CONTAINER(main_vbox), 20);
@@ -5380,13 +5622,20 @@ static void xsane_init(int argc, char **argv)
   gtk_box_pack_start(GTK_BOX(main_vbox), label, FALSE, FALSE, 2);
   gtk_widget_show(label);
   
-  gtk_widget_show(device_scanning_dialog);
+  xsane_set_window_icon(device_scanning_dialog, 0);
 
   while (gtk_events_pending())
   {
     gtk_main_iteration();
   }
 
+  /* wait 100 ms to make sure window is displayed */
+  usleep(100000); /* this makes sure that the text "scanning for devices" is displayed */
+
+  while (gtk_events_pending())
+  {
+    gtk_main_iteration();
+  }
 
   sane_get_devices(&xsane.devlist, SANE_FALSE /* local and network devices */);
 
@@ -5427,6 +5676,8 @@ static void xsane_init(int argc, char **argv)
       xsane.selected_dev = 0;
     }
   }
+
+ return 0; /* everything is ok */
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -5437,15 +5688,9 @@ void xsane_interface(int argc, char **argv)
 
   xsane.info_label = NULL;
 
-  xsane_init(argc, argv); /* initialize xsane variables if command line option is given, set xsane.selected_dev */
-
-  if (!getuid()) /* root ? */
+  if (xsane_init(argc, argv)) /* initialize xsane variables if command line option is given, set xsane.selected_dev */
   {
-    if (xsane_back_gtk_decision(ERR_HEADER_WARNING, (gchar **) warning_xpm, WARN_XSANE_AS_ROOT,
-        BUTTON_CANCEL, BUTTON_CONT_AT_OWN_RISK, TRUE /* wait */) == TRUE)
-    {
-      return; /* User selected CANCEL */
-    } 
+    return; /* we have to abort (license not accepted, aborted because xsane runs as root) */
   }
 
   for (xsane.num_of_devs = 0; xsane.devlist[xsane.num_of_devs]; ++xsane.num_of_devs); /* count available devices */

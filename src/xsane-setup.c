@@ -2,7 +2,7 @@
 
    xsane-setup.c
 
-   Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
+   Oliver Rauch <Oliver.Rauch@rauch-domain.de>
    Copyright (C) 1998-2001 Oliver Rauch
    This file is part of the XSANE package.
 
@@ -1113,7 +1113,7 @@ static void xsane_setup_browse_tmp_path_callback(GtkWidget *widget, gpointer dat
   strncpy(tmp_path, old_tmp_path, sizeof(tmp_path));
 
   snprintf(windowname, sizeof(windowname), "%s %s", xsane.prog_name, WINDOW_TMP_PATH);
-  xsane_back_gtk_get_filename(windowname, tmp_path, sizeof(tmp_path), tmp_path, TRUE);
+  xsane_back_gtk_get_filename(windowname, tmp_path, sizeof(tmp_path), tmp_path, TRUE, FALSE);
 
   gtk_entry_set_text(GTK_ENTRY(xsane_setup.tmp_path_entry), tmp_path);
 }
@@ -1125,10 +1125,10 @@ static void xsane_saving_notebook(GtkWidget *notebook)
  GtkWidget *setup_vbox, *vbox, *hbox, *button, *label, *text, *frame;
  GtkWidget *filename_counter_len_option_menu, *filename_counter_len_menu, *filename_counter_len_item;
  char buf[64];
+ int i, select = 1;
 
 #ifdef HAVE_LIBTIFF
  GtkWidget *tiff_compression_option_menu, *tiff_compression_menu, *tiff_compression_item;
- int i, select = 1;
 
  typedef struct tiff_compression_t
  {

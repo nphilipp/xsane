@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.70\n"
-"POT-Creation-Date: 2001-01-27 23:23+0100\n"
-"PO-Revision-Date: 2001-01-25 18:00+09:00\n"
+"POT-Creation-Date: 2001-02-17 21:38+0100\n"
+"PO-Revision-Date: 2001-02-18 21:33+09:00\n"
 "Last-Translator: Kimizuka Tomokazu <sgtom@pluto.dti.ne.jp>\n"
 "Language-Team: Japanese <Kdeveloper@kde.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -17,10 +17,7 @@ msgstr ""
 msgid "(c)"
 msgstr ""
 
-#. XSANE_COPYRIGHT_SIGN
-msgid "©"
-msgstr ""
-
+#. can be translated with \251
 #. WINDOW_ABOUT_XSANE
 msgid "About"
 msgstr "XSane¤Ë¤Ä¤¤¤Æ"
@@ -32,6 +29,10 @@ msgstr "ËÝÌõ¤Ë¤Ä¤¤¤Æ"
 #. WINDOW_AUTHORIZE
 msgid "authorization"
 msgstr "¥¢¥¯¥»¥¹¸¢¸Â"
+
+#. WINDOW_LICENSE
+msgid "license"
+msgstr "¥é¥¤¥»¥ó¥¹"
 
 #. WINDOW_INFO
 msgid "info"
@@ -48,6 +49,10 @@ msgstr "FAX¥×¥í¥¸¥§¥¯¥È"
 #. WINDOW_FAX_RENAME
 msgid "rename fax page"
 msgstr "FAX¥Ú¡¼¥¸¤ò¥ê¥Í¡¼¥à"
+
+#. WINDOW_FAX_INSERT
+msgid "insert ps-file into fax"
+msgstr "PS¥Õ¥¡¥¤¥ë¤òFAX¤ËÁÞÆþ"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -141,6 +146,14 @@ msgstr "¥¹¥¿¡¼¥È"
 msgid "Ok"
 msgstr "OK"
 
+#. BUTTON_ACCEPT
+msgid "Accept"
+msgstr "¤Ï¤¤"
+
+#. BUTTON_NOT_ACCEPT
+msgid "Not accept"
+msgstr "¤¤¤¤¤¨"
+
 #. BUTTON_APPLY
 msgid "Apply"
 msgstr "Î»²ò"
@@ -169,17 +182,21 @@ msgstr "¾å½ñ¤­"
 msgid "Add area"
 msgstr "ÎÎ°èÄÉ²Ã"
 
-#. BUTTON_DELETE
-msgid "Delete"
-msgstr "ºï½ü"
+#. BUTTON_PAGE_DELETE
+msgid "Delete page"
+msgstr "¥Ú¡¼¥¸ºï½ü"
 
-#. BUTTON_SHOW
-msgid "Show"
-msgstr "É½¼¨"
+#. BUTTON_PAGE_SHOW
+msgid "Show page"
+msgstr "¥Ú¡¼¥¸¤òÉ½¼¨"
 
-#. BUTTON_RENAME
-msgid "Rename"
-msgstr "¥ê¥Í¡¼¥à"
+#. BUTTON_PAGE_RENAME
+msgid "Rename page"
+msgstr "¥Ú¡¼¥¸¤ò¥ê¥Í¡¼¥à"
+
+#. BUTTON_FILE_INSERT
+msgid "Insert file"
+msgstr "¥Õ¥¡¥¤¥ë¤òÁÞÆþ"
 
 #. BUTTON_CREATE_PROJECT
 msgid "Create project"
@@ -218,9 +235,8 @@ msgid "Overwrite warning"
 msgstr "¾å½ñ¤­¤Î·Ù¹ð"
 
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
-#, fuzzy
 msgid "Skip existing filenames"
-msgstr "¸½ºß¤ÎÈÖ¹æ¤ò¥¹¥­¥Ã¥×"
+msgstr "¸½ºß¤Î¥Õ¥¡¥¤¥ëÌ¾¤ò¥¹¥­¥Ã¥×"
 
 #. RADIO_BUTTON_WINDOW_FIXED
 msgid "Main window size fixed"
@@ -255,14 +271,12 @@ msgid "XSane mode"
 msgstr "XSane¤Î¥â¡¼¥É"
 
 #. TEXT_FILENAME_COUNTER_STEP
-#, fuzzy
 msgid "Step"
-msgstr "¥»¥Ã¥È¥¢¥Ã¥×"
+msgstr "¥¹¥Æ¥Ã¥×"
 
 #. TEXT_FILETYPE
-#, fuzzy
 msgid "Type"
-msgstr "·¿Ì¾¡§"
+msgstr "¥¿¥¤¥×¡§"
 
 #. TEXT_SCANNER_BACKEND
 msgid "Scanner and backend:"
@@ -305,7 +319,7 @@ msgid "scanner"
 msgstr "¥¹¥­¥ã¥Ê"
 
 #. TEXT_SOFTWARE_XSANE
-msgid "software (xsane)"
+msgid "software (XSane)"
 msgstr "¥½¥Õ¥È¥¦¥§¥¢¡ÊXSane¡Ë"
 
 #. TEXT_NONE
@@ -390,11 +404,22 @@ msgstr "Ì¤ÃÎ"
 
 #. TEXT_GPL
 msgid ""
-"This program is distributed under the terms\n"
-"of the GNU General Public License\n"
+"XSane is distributed under the terms of the GNU General Public License\n"
+"as published by the Free Software Foundation; either version 2 of the\n"
+"License, or (at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but\n"
+"WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
-"¤³¤Î¥×¥í¥°¥é¥à¤Ï¡¢GNU Public License¤Î\n"
-"µ¬Äê¤Î²¼¤ËÇÛÉÛ¤µ¤ì¤Æ¤¤¤Þ¤¹\n"
+"XSane¡¢¤ÏFree Software Foundation¤¬¸øÉ½¤·¤¿GNU°ìÈÌ¸øÍ­»ÈÍÑµöÂú¤Î\n"
+"¡Ö¥Ð¡¼¥¸¥ç¥ó£²¡×°¿¤¤¤Ï¤½¤ì°Ê¹ß¤Î³Æ¥Ð¡¼¥¸¥ç¥ó¤ÎÃæ¤«¤é¤¤¤º¤ì¤«¤òÁªÂò¤·¡¢¤½¤Î¥Ð¡"
+"¼¥¸¥ç¥ó¤¬\n"
+"Äê¤á¤ë¾ò¹à¤Ë½¾¤Ã¤ÆËÜ¥×¥í¥°¥é¥à¤òºÆÈÒÉÛ¤Þ¤¿¤ÏÊÑ¹¹¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤¹¡£\n"
+"\n"
+"ËÜ¥×¥í¥°¥é¥à¤ÏÍ­ÍÑ¤È¤Ï»×¤¤¤Þ¤¹¤¬¡¢ÈÒÉÛ¤Ë¤¢¤¿¤Ã¤Æ¤Ï¡¢»Ô¾ìÀ­µÚ¤ÓÆÃÄêÌÜÅªÅ¬¹çÀ­¤"
+"Ë¤Ä¤¤¤Æ¤Î°ÅÌÛ\n"
+"¤ÎÊÝ¾Ú¤ò´Þ¤á¤Æ¡¢¤¤¤«¤Ê¤ëÊÝ¾Ú¤â¹Ô¤Ê¤¤¤Þ¤»¤ó¡£\n"
 
 #. TEXT_EMAIL
 msgid "Email:"
@@ -416,11 +441,11 @@ msgstr "ËÝÌõ¡§"
 msgid ""
 "untranslated original english text\n"
 "by Oliver Rauch\n"
-"Email: Oliver.Rauch@Wolfsburg.DE\n"
+"Email: Oliver.Rauch@rauch-domain.de\n"
 msgstr ""
-"Ì¤ËÝÌõ¤Î¸¶½ñ¤ÎÃø¼Ô¡§\n"
-"Oliver Rauch\n"
-"Email: Oliver.Rauch@Wolfsburg.DE\n"
+"ÆüËÜ¸ì¤Ø¤ÎËÝÌõ¼Ô¡§\n"
+"·¯ÄÍÃÎ°ì\n"
+"¥á¡¼¥ë: sgtom@pluto.dti.ne.jp\n"
 
 #. TEXT_INFO_BOX
 msgid "0x0: 0KB"
@@ -511,9 +536,8 @@ msgid "PNG image compression"
 msgstr "PNG²èÁü°µ½Ì"
 
 #. TEXT_SETUP_FILENAME_COUNTER_LEN
-#, fuzzy
 msgid "Filename counter length"
-msgstr "¥Õ¥¡¥¤¥ëÌ¾¥«¥¦¥ó¥¿¤Î¥ª¡¼¥Ð¡¼¥Õ¥í¡¼¤Ç¤¹"
+msgstr "¥Õ¥¡¥¤¥ëÌ¾¥«¥¦¥ó¥¿¤ÎÈÏ°Ï"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_16
 msgid "TIFF 16 bit image compression"
@@ -572,9 +596,8 @@ msgid "Automatic Document Feeder Modus:"
 msgstr "ADF´ØÏ¢¤ÎÀßÄê¡§"
 
 #. TEXT_SETUP_PREVIEW_PIPETTE_RANGE
-#, fuzzy
 msgid "Preview pipette range"
-msgstr "¥ª¡¼¥Ð¡¼¥µ¥ó¥×¥ê¥ó¥°¤ò¥×¥ì¥Ó¥å¡¼¡§"
+msgstr "¥Ô¥Ú¥Ã¥ÈÈÏ°Ï¤ò¥×¥ì¥Ó¥å¡¼¡§"
 
 #. TEXT_SETUP_THRESHOLD_MIN
 msgid "Threshold minimum:"
@@ -622,15 +645,15 @@ msgstr "¥Ó¥å¡¼¥ï(PostScript)¡§"
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
-msgstr ""
+msgstr "¥æ¡¼¥¶¡¼"
 
 #. TEXT_SETUP_PERMISSION_GROUP
 msgid "group"
-msgstr ""
+msgstr "¥°¥ë¡¼¥×"
 
 #. TEXT_SETUP_PERMISSION_ALL
 msgid "all"
-msgstr ""
+msgstr "¤¹¤Ù¤Æ"
 
 #. NOTEBOOK_COPY_OPTIONS
 msgid "Copy options"
@@ -744,13 +767,17 @@ msgstr "¥Ç¥Ð¥¤¥¹ÀßÄê¤òÆÉ¹þ¤ß"
 msgid "Change directory"
 msgstr "¥Ç¥£¥ì¥¯¥È¥êÊÑ¹¹"
 
+#. MENU_ITEM_XSANE_LICENSE
+msgid "License"
+msgstr "¥é¥¤¥»¥ó¥¹"
+
 #. MENU_ITEM_XSANE_DOC
-msgid "Xsane doc"
-msgstr "XSaneÊ¸½ñ"
+msgid "XSane doc"
+msgstr "XSane¤ÎÊ¸½ñ"
 
 #. MENU_ITEM_BACKEND_DOC
 msgid "Backend doc"
-msgstr "¥Ð¥Ã¥¯¥¨¥ó¥ÉÊ¸½ñ"
+msgstr "¥Ð¥Ã¥¯¥¨¥ó¥É¤ÎÊ¸½ñ"
 
 #. MENU_ITEM_AVAILABLE_BACKENDS
 msgid "Available backends"
@@ -766,7 +793,7 @@ msgstr "²¿¤«ÌäÂê?"
 
 #. MENU_ITEM_COUNTER_LEN_INACTIVE
 msgid "inactive"
-msgstr ""
+msgstr "Èó³èÀ­"
 
 #. MENU_ITEM_TIFF_COMP_NONE
 msgid "no compression"
@@ -837,13 +864,29 @@ msgstr "²èÁü¤ò°µ½ÌÃæ"
 msgid "Converting data"
 msgstr "²èÁü¤òÊÑ´¹Ãæ"
 
+#. DESC_SCAN_START
+msgid "Start scan <Ctrl-Enter>"
+msgstr "¥¹¥­¥ã¥ó³«»Ï <Ctrl-Enter>"
+
+#. DESC_SCAN_CANCEL
+msgid "Cancel scan <ESC>"
+msgstr "¥¹¥­¥ã¥ó¤Î¼è¾Ã¤· <ESC>"
+
+#. DESC_PREVIEW_ACQUIRE
+msgid "Acquire preview scan <Alt-p>"
+msgstr "¥¹¥­¥ã¥ó¥×¥ì¥Ó¥å¡¼¤ò¼èÆÀ <Alt-p>"
+
+#. DESC_PREVIEW_CANCEL
+msgid "Cancel preview scan <Alt-ESC>"
+msgstr "¥¹¥­¥ã¥ó¥×¥ì¥Ó¥å¡¼¤ò¥­¥ã¥ó¥»¥ë <Alt-ESC>"
+
 #. DESC_XSANE_MODE
-msgid "Use XSane for SCANning, photoCOPYing, FAXing..."
-msgstr "¥¹¥­¥ã¥Ê¡¢¼Ì¿¿¤Î¾Æ¤­Áý¤·¡¢FAX¤ËXSane¤ò»È¤¨¤Ð..."
+msgid "Use XSane for: SCANning-<Ctrl-s> photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>"
+msgstr "XSane¤ÎÍÑÅÓ¡§ ¥¹¥­¥ã¥ó-<Ctrl-s>¡¢¼Ì¿¿¤Î¾Æ¤­Áý¤·-<Ctrl-c>¡¢FAX-<Ctrl-f>"
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
-msgstr ""
+msgstr "¥¹¥­¥ã¥ó¸å¤Ë²Ã»»¤µ¤ì¤ë¥Õ¥¡¥¤¥ëÌ¾¥«¥¦¥ó¥¿ÃÍ"
 
 #. DESC_BROWSE_FILENAME
 msgid "Browse for image filename"
@@ -857,7 +900,7 @@ msgstr "¥¹¥­¥ã¥ó¤·¤¿²èÁü¤Î¥Õ¥¡¥¤¥ëÌ¾"
 msgid ""
 "Type of image format, the suitable filename extension is automatically added "
 "to the filename"
-msgstr ""
+msgstr "²èÁü¥Õ¥©¡¼¥Þ¥Ã¥È¥¿¥¤¥×¥Õ¥¡¥¤¥ëÌ¾¤Ë¼«Æ°¤Ç¤Ä¤¯Å¬ÀÚ¤Ê³ÈÄ¥»Ò"
 
 #. DESC_FAXPROJECT
 msgid "Enter name of fax project"
@@ -872,8 +915,8 @@ msgid "Enter receiver phone number or address"
 msgstr "FAX¼õ¿®µ¡¤ÎÅÅÏÃÈÖ¹æ¤«¥¢¥É¥ì¥¹¤òÆþÎÏ"
 
 #. DESC_PRINTER_SELECT
-msgid "Select printer definition"
-msgstr "¥×¥ê¥ó¥¿¤Î²òÁüÅÙ¤òÁªÂò"
+msgid "Select printerdefinition <Shift-F1/F2/...>"
+msgstr "¥×¥ê¥ó¥¿¤Î²òÁüÅÙ¤òÁªÂò <Shift-F1/F2/...>"
 
 #. DESC_RESOLUTION
 msgid "Set scan resolution"
@@ -904,12 +947,8 @@ msgid "Set number of copies"
 msgstr "¥³¥Ô¡¼Ëç¿ô¤ò¥»¥Ã¥È"
 
 #. DESC_NEGATIVE
-msgid ""
-"Negative: Invert colors for scanning negatives\n"
-"e.g. swap black and white"
-msgstr ""
-"Î¢¾Æ¤­¡§¿§ºÌ¤òÎ¢¾Æ¤­¾õÂÖ¤Ç¥¹¥­¥ã¥ó\n"
-"Îã¡§Çò¹õÈ¿Å¾"
+msgid "Negative: Invert colors for scanning negatives <Shift-n>"
+msgstr "Î¢¾Æ¤­¡§¿§ºÌ¤òÎ¢¾Æ¤­¾õÂÖ¤Ç¥¹¥­¥ã¥ó <Shift-n>"
 
 #. DESC_GAMMA
 msgid "Set gamma value"
@@ -966,64 +1005,65 @@ msgstr "ïçÃÍ¤ò¥»¥Ã¥È"
 #. DESC_RGB_DEFAULT
 msgid ""
 "RGB default: Set enhancement values for red, green and blue to default "
-"values:\n"
+"values <Shift-b>:\n"
 " gamma = 1.0\n"
 " brightness = 0\n"
 " contrast = 0"
 msgstr ""
-"RGB¥Ç¥Õ¥©¥ë¥ÈÃÍ¡§ÀÖ¡¦ÎÐ¡¦ÀÄ¤Ø¤Î¶¯Ä´ÃÍ¤Î¥Ç¥Õ¥©¥ë¥ÈÃÍ¤ò¥»¥Ã¥ÈÃÍ¡§\n"
+"RGB¥Ç¥Õ¥©¥ë¥ÈÃÍ¡§ÀÖ¡¦ÎÐ¡¦ÀÄ¤Ø¤Î¶¯Ä´ÃÍ¤Î¥Ç¥Õ¥©¥ë¥ÈÃÍ¤ò¥»¥Ã¥È <Shift-b>¡§\n"
 "¥¬¥ó¥ÞÃÍ = 1.0\n"
 "ÌÀÅÙ = 0\n"
 "¥³¥ó¥È¥é¥¹¥È = 0"
 
 #. DESC_ENH_AUTO
-msgid ""
-"Autoadjust gamma, brightness and contrast in dependance of selected scan area"
-msgstr "ÁªÂò¤µ¤ì¤¿¥¹¥­¥ã¥óÎÎ°è¤Ë±þ¤¸¤Æ¡¢¥¬¥ó¥ÞÃÍ¡¢ÌÀÅÙ¡¢¥³¥ó¥È¥é¥¹¥È¤ò¼«Æ°Ä´À°"
+msgid "Autoadjust gamma, brightness and contrast <Shift-e>"
+msgstr ""
+"ÁªÂò¤µ¤ì¤¿¥¹¥­¥ã¥óÎÎ°è¤Ë±þ¤¸¤Æ¡¢¥¬¥ó¥ÞÃÍ¡¢ÌÀÅÙ¡¢¥³¥ó¥È¥é¥¹¥È¤ò¼«Æ°Ä´À° "
+"<Shift-e>"
 
 #. DESC_ENH_DEFAULT
 msgid ""
-"Set default enhancement values:\n"
+"Set default enhancement values <Shift-d>:\n"
 "gamma = 1.0\n"
 "brightness = 0\n"
 "contrast = 0"
 msgstr ""
-"¥Ç¥Õ¥©¥ë¥È¤Î¶¯Ä´ÃÍ¤ò¥»¥Ã¥È¡§\n"
+"¥Ç¥Õ¥©¥ë¥È¤Î¶¯Ä´ÃÍ¤ò¥»¥Ã¥È <Shift-d>:¡§\n"
 "¥¬¥ó¥ÞÃÍ = 1.0\n"
 "ÌÀÅÙ = 0\n"
 "¥³¥ó¥È¥é¥¹¥È = 0"
 
 #. DESC_ENH_RESTORE
-msgid "Restore enhancement values from preferences"
-msgstr "ÀßÄê¤·¤¿¶¯Ä´ÃÍ¤òÉü¸µ"
+msgid "Restore enhancement values from preferences <Shift-r>"
+msgstr "ÀßÄê¤·¤¿¶¯Ä´ÃÍ¤òÉü¸µ <Shift-r>"
 
 #. DESC_ENH_STORE
-msgid "Store active enhancement values to preferences"
-msgstr "ÀßÄê¤·¤¿¶¯Ä´ÃÍ¤òÊÝÂ¸"
+msgid "Store active enhancement values to preferences <Shift-m>"
+msgstr "ÀßÄê¤·¤¿¶¯Ä´ÃÍ¤òÊÝÂ¸ <Shift-m>"
 
 #. DESC_HIST_INTENSITY
-msgid "Show histogram of intensity/gray"
-msgstr "µ±ÅÙ¡¿Çò¹õ³¬Ä´¤Î¥Ò¥¹¥È¥°¥é¥à¤òÉ½¼¨"
+msgid "Show histogram of intensity/gray <Alt-i>"
+msgstr "µ±ÅÙ¡¿Çò¹õ³¬Ä´¤Î¥Ò¥¹¥È¥°¥é¥à¤òÉ½¼¨ <Alt-i>"
 
 #. DESC_HIST_RED
-msgid "Show histogram of red component"
-msgstr "ÀÖÀ®Ê¬¤Î¥Ò¥¹¥È¥°¥é¥à¤òÉ½¼¨"
+msgid "Show histogram of red component <Alt-r>"
+msgstr "ÀÖÀ®Ê¬¤Î¥Ò¥¹¥È¥°¥é¥à¤òÉ½¼¨ <Alt-r>"
 
 #. DESC_HIST_GREEN
-msgid "Show histogram of green component"
-msgstr "ÎÐÀ®Ê¬¤Î¥Ò¥¹¥È¥°¥é¥à¤òÉ½¼¨"
+msgid "Show histogram of green component <Alt-g>"
+msgstr "ÎÐÀ®Ê¬¤Î¥Ò¥¹¥È¥°¥é¥à¤òÉ½¼¨ <Alt-g>"
 
 #. DESC_HIST_BLUE
-msgid "Show histogram of blue component"
-msgstr "ÀÄÀ®Ê¬¤Î¥Ò¥¹¥È¥°¥é¥à¤òÉ½¼¨"
+msgid "Show histogram of blue component <Alt-b>"
+msgstr "ÀÄÀ®Ê¬¤Î¥Ò¥¹¥È¥°¥é¥à¤òÉ½¼¨ <Alt-b>"
 
 #. DESC_HIST_PIXEL
-msgid "Display histogram with lines instead of pixels"
-msgstr "²èÁÇ¤ÎÂå¤ï¤ê¤ËÀþ¤Ç¥Ò¥¹¥È¥°¥é¥à¤òÉ½¼¨"
+msgid "Display mode: show histogram with lines instead of pixels <Alt-m>"
+msgstr "²èÁÇ¤ÎÂå¤ï¤ê¤ËÀþ¤Ç¥Ò¥¹¥È¥°¥é¥à¤òÉ½¼¨ <Alt-m>"
 
 #. DESC_HIST_LOG
-msgid "Show logarithm of pixelcount"
-msgstr "²èÁÇ¿ô¤òÂÐ¿ô¤ÇÉ½¼¨"
+msgid "Show logarithm of pixelcount <Alt-l>"
+msgstr "²èÁÇ¿ô¤òÂÐ¿ô¤ÇÉ½¼¨ <Alt-l>"
 
 #. DESC_PRINTER_SETUP
 msgid "Select definition to change"
@@ -1034,8 +1074,8 @@ msgid "Define a name for the selection of this definition"
 msgstr "ÁªÂò¤·¤¿²òÁüÅÙ¤ÎÌ¾Á°¤òÄêµÁ"
 
 #. DESC_PRINTER_COMMAND
-msgid "Enter command to be executed in copy mode (e.g. \"lpr -\")"
-msgstr "¥³¥Ô¡¼¥â¡¼¥É¤Ç¤Î¼Â¹Ô¥³¥Þ¥ó¥É¤òÆþÎÏ¡ÊÎã¡§\"lpr -\"¡Ë"
+msgid "Enter command to be executed in copy mode (e.g. \"lpr\")"
+msgstr "¥³¥Ô¡¼¥â¡¼¥É¤Ç¤Î¼Â¹Ô¥³¥Þ¥ó¥É¤òÆþÎÏ¡ÊÎã¡§\"lpr\"¡Ë"
 
 #. DESC_COPY_NUMBER_OPTION
 msgid "Enter option for copy numbers"
@@ -1107,7 +1147,7 @@ msgstr "²èÁü¤¬PNG¤ÇÊÝÂ¸¤µ¤ì¤Æ¤¤¤ì¤Ð°µ½Ì"
 
 #. DESC_FILENAME_COUNTER_LEN
 msgid "Minimum length of counter in filename"
-msgstr ""
+msgstr "¥Õ¥¡¥¤¥ëÌ¾¤Î¥«¥¦¥ó¥¿¤ÎºÇ¾®ÈÏ°Ï"
 
 #. DESC_TIFF_COMPRESSION_16
 msgid "Compression type if 16 bit image is saved as tiff"
@@ -1157,7 +1197,7 @@ msgid "Use fixed main window size or scrolled, resizable main window"
 msgstr "¥á¥¤¥ó¥¦¥£¥ó¥É¥¦¤Ë¸ÇÄê¥µ¥¤¥º¤ò»È¤¦¤«¡¢¥¹¥¯¥í¡¼¥ë¡¦¥ê¥µ¥¤¥º²ÄÇ½¤Ë¤¹¤ë"
 
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
-msgid "Disable preview gamma when xsane runs as gimp plugin"
+msgid "Disable preview gamma when XSane runs as gimp plugin"
 msgstr "XSane¤¬GIMP¥×¥é¥°¥¤¥ó¤È¤·¤ÆÆ°ºî¤¹¤ë»þ¤Ï¡¢¥¬¥ó¥Þ¥×¥ì¥Ó¥å¡¼¤ò¥ª¥Õ¤Ë¤¹¤ë"
 
 #. DESC_PREVIEW_COLORMAP
@@ -1185,7 +1225,7 @@ msgid "Set gamma correction value for blue component of preview image"
 msgstr "¥×¥ì¥Ó¥å¡¼²èÁü¤ÎÀÄÀ®Ê¬¤Î¥¬¥ó¥ÞÊäÀµÃÍ¤ò¥»¥Ã¥È"
 
 #. DESC_LINEART_MODE
-msgid "Define the way xsane shall handle the threshold option"
+msgid "Define the way XSane shall handle the threshold option"
 msgstr "XSane¤ÎïçÃÍ¥ª¥×¥·¥ç¥ó½èÍýÊý¼°¤òÄêµÁ"
 
 #. DESC_GRAYSCALE_SCANMODE
@@ -1194,8 +1234,8 @@ msgid ""
 "when transformation from grayscale to lineart is enabled"
 msgstr ""
 "¥°¥ì¡¼¥¹¥±¡¼¥ë¤Î¥¹¥­¥ã¥ó¥â¡¼¥É¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£¤³¤Î¥¹¥­¥ã¥ó¥â¡¼¥É¤Ï¥°¥ì¡¼¥"
-"¹¥±¡¼¥ë¤«¤é¥é¥¤¥ó¥¢¡¼¥È¤Ø¤ÎÊÑ´¹¤¬²ÄÇ½¤Ê¤È¤­¡¢¥é¥¤¥ó¥¢¡¼¥È¤Î¥×¥ì¥Ó¥å¡¼¤Ç»È¤ï¤ì"
-"¤Þ¤¹¡£"
+"¹¥±¡¼¥ë¤«¤é¥é¥¤¥ó¥¢¡¼¥È¤Ø¤ÎÊÑ´¹¤¬¥ª¥ó¤ÎºÝ¤Ë¡¢¥é¥¤¥ó¥¢¡¼¥È¤Î¥¹¥­¥ã¥ó¥×¥ì¥Ó¥å¡¼"
+"¤ËÅ¬ÍÑ¤µ¤ì¤Þ¤¹¡£"
 
 #. DESC_PREVIEW_THRESHOLD_MIN
 #, no-c-format
@@ -1209,25 +1249,25 @@ msgstr "¥¹¥­¥ã¥Ê¤ÎºÇÂçïçÃÍ¥ì¥Ù¥ë¡Ê%¡Ë"
 
 #. DESC_PREVIEW_THRESHOLD_MUL
 msgid ""
-"Multiplier to make xsane threshold range and scanner threshold range the same"
+"Multiplier to make XSane threshold range and scanner threshold range the same"
 msgstr "XSane¤È¥¹¥­¥ã¥Ê¤ÎïçÃÍÈÏ°Ï¤òÅù¤·¤¯¤¹¤ë¤¿¤á¤Î¾è¿ô"
 
 #. DESC_PREVIEW_THRESHOLD_OFF
 msgid ""
-"Offset to make xsane threshold range and scanner threshold range the same"
+"Offset to make XSane threshold range and scanner threshold range the same"
 msgstr "XSane¤È¥¹¥­¥ã¥Ê¤ÎïçÃÍÈÏ°Ï¤òÅù¤·¤¯¤¹¤ë¤¿¤á¤Î¥ª¥Õ¥»¥Ã¥È"
 
 #. DESC_ADF_MODE
 msgid ""
 "Select scansource for Automatic Document feeder. If this scansource is "
-"selected xsane scans until \"out of paper\" or error."
+"selected XSane scans until \"out of paper\" or error."
 msgstr ""
 "ADF¤Î¤¿¤á¤Î¥¹¥­¥ã¥ó¥½¡¼¥¹¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£¤³¤Î¥¹¥­¥ã¥ó¥½¡¼¥¹¤¬ÁªÂò¤µ¤ì¤ë¤È"
-"¡¢XSane¤ÏÍÑ»æÀÚ¤ì¤«¥¨¥é¡¼¤Ë¤Ê¤ë¤Þ¤Ç¥¹¥­¥ã¥ó¤ò¤·¤Þ¤¹"
+"XSane¤ÏÍÑ»æÀÚ¤ì¤«¥¨¥é¡¼¤Ë¤Ê¤ë¤Þ¤Ç¥¹¥­¥ã¥ó¤ò¤·¤Þ¤¹"
 
 #. DESC_PREVIEW_PIPETTE_RANGE
 msgid "dimension of square that is used to average color for pipette function"
-msgstr ""
+msgstr "¥Ô¥Ú¥Ã¥Èµ¡Ç½ÍÑ¤ÎÉ¸½à¿§¤Ë»È¤ï¤ì¤ë¾®ÊÒ¤ÎÌÌÀÑ"
 
 #. DESC_DOC_VIEWER
 msgid ""
@@ -1268,17 +1308,15 @@ msgstr "¿âÄ¾¹â²òÁüÅÙ¡Ê98lpi¤ËÂå¤¨¤Æ196lpi¤Ç¡Ë¥â¡¼¥É¤ÇFAXÁ÷¿®"
 
 #. DESC_PERMISSION_READ
 msgid "read"
-msgstr ""
+msgstr "ÆÉ¹þ¤ß"
 
 #. DESC_PERMISSION_WRITE
-#, fuzzy
 msgid "write"
-msgstr "¾å½ñ¤­"
+msgstr "½ñ¹þ¤ß"
 
 #. DESC_PERMISSION_EXECUTE
-#, fuzzy
 msgid "execute"
-msgstr "ºï½ü"
+msgstr "¼Â¹Ô"
 
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
@@ -1314,18 +1352,16 @@ msgid "Select visible area"
 msgstr "²Ä»ëÎÎ°è¤òÁªÂò"
 
 #. DESC_AUTOSELECT_SCANAREA
-#, fuzzy
 msgid "Autoselect scanarea"
-msgstr "¥¹¥­¥ã¥óÎÎ°è¤¹¤Ù¤Æ¤ò»ÈÍÑ"
+msgstr "¥¹¥­¥ã¥óÎÎ°è¤Î¼«Æ°ÁªÂò"
 
 #. DESC_PRESET_AREA
-#, fuzzy
 msgid "Reduce scan area"
-msgstr "¥¹¥­¥ã¥óÎÎ°è¤¹¤Ù¤Æ¤ò»ÈÍÑ"
+msgstr "¥¹¥­¥ã¥óÎÎ°è¤ò½Ì¾®"
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
-msgstr ""
+msgstr "¥×¥ì¥Ó¥å¡¼¤ò²óÅ¾¤·¤Æ¥¹¥­¥ã¥ó"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -1458,7 +1494,7 @@ msgid "Sane major version number mismatch!"
 msgstr "Sane¤Î¥á¥¸¥ã¡¼¥Ð¡¼¥¸¥ç¥ó¤ÎÉÔÀ°¹ç¤Ç¤¹!"
 
 #. ERR_XSANE_MAJOR_VERSION
-msgid "xsane major version ="
+msgid "XSane major version ="
 msgstr "XSane¤Î¥á¥¸¥ã¡¼¥Ð¡¼¥¸¥ç¥ó¤Ï"
 
 #. ERR_BACKEND_MAJOR_VERSION
@@ -1482,9 +1518,8 @@ msgid "GIMP support missing"
 msgstr "GIMP¥µ¥Ý¡¼¥È¤¬¸«¤Ä¤«¤ê¤Þ¤»¤ó"
 
 #. WARN_COUNTER_UNDERRUN
-#, fuzzy
 msgid "Filename counter underrun"
-msgstr "¥Õ¥¡¥¤¥ëÌ¾¥«¥¦¥ó¥¿¤Î¥ª¡¼¥Ð¡¼¥Õ¥í¡¼¤Ç¤¹"
+msgstr "¥Õ¥¡¥¤¥ëÌ¾¥«¥¦¥ó¥¿¤Î¥¢¥ó¥À¡¼¥é¥ó¤Ç¤¹"
 
 #. WARN_NO_VALUE_CONSTRAINT
 msgid "warning: option has no value constraint"
@@ -1492,17 +1527,17 @@ msgstr "·Ù¹ð¡§¥ª¥×¥·¥ç¥ó¤ÏÀ©Ìó¾ò·ï¤ÎÃÍ¤ò»ý¤Ã¤Æ¤¤¤Þ¤»¤ó"
 
 #. WARN_XSANE_AS_ROOT
 msgid ""
-"You try to run xsane as ROOT, that really is DANGEROUS!\n"
+"You try to run XSane as ROOT, that really is DANGEROUS!\n"
 "\n"
 "Do not send any bug reports when you\n"
-"have any problem while running xsane as root:\n"
+"have any problem while running XSane as root:\n"
 "YOU ARE ALONE!"
 msgstr ""
-"¥ë¡¼¥È¤ÇXSane¤ò»È¤¦¤³¤È¤Ï¡¢¤¿¤¤¤Ø¤ó¡Ö´í¸±¡×¤Ç¤¹!\n"
+"¥ë¡¼¥È¸¢¸Â¤ÇXSane¤ò»È¤¦¤Î¤Ï¡¢¤¿¤¤¤Ø¤ó´í¸±¤Ç¤¹!\n"
 "\n"
 "¥ë¡¼¥È¸¢¸Â¤ÇXSane¤òÆ°¤«¤·¤Æ¤¤¤ë¤È¤­¤ÎÌäÂê¤Ë¤Ä¤¤¤Æ¤Î¥Ð¥°Êó¹ð¤Ï¡¢\n"
 "°ìÀÚÁ÷¤é¤Ê¤¤¤Ç¤¯¤À¤µ¤¤\n"
-"¡Ö¤¢¤Ê¤¿¤ÏÆÈ¤ê¤Ê¤Î¤Ç¤¹¡ª¡×"
+"¡Ö¤¢¤Ê¤¿¤ÏÆÈ¤ê¤Ê¤Î¤Ç¤¹¡×¤«¤é¡ª"
 
 #. ERR_HEADER_ERROR
 msgid "Error"
@@ -1553,6 +1588,16 @@ msgstr "¤³¤ì¤ÏÌäÂê¤Î¼ï¤Ë¤Ê¤ë¤«¤â!"
 msgid "File %s already exists"
 msgstr "¥Õ¥¡¥¤¥ë %s ¤Ï´û¤ËÂ¸ºß¤·¤Æ¤¤¤Þ¤¹"
 
+#. ERR_FILE_NOT_EXISTS
+#, fuzzy, c-format
+msgid "File %s does not exist"
+msgstr "¥Õ¥¡¥¤¥ë %s ¤Ï´û¤ËÂ¸ºß¤·¤Æ¤¤¤Þ¤¹"
+
+#. ERR_FILE_NOT_POSTSCRIPT
+#, c-format
+msgid "File %s is not a postscript file"
+msgstr "¥Õ¥¡¥¤¥ë %s ¤ÏPostScript¥Õ¥¡¥¤¥ë¤Ç¤Ï¤¢¤ê¤Þ¤»¤ó"
+
 #. ERR_UNSUPPORTED_OUTPUT_FORMAT
 #, c-format
 msgid "Unsupported %d-bit output format: %s"
@@ -1575,6 +1620,7 @@ msgid ""
 "[OPTION]... can be a combination of the following items:\n"
 " -h, --help                   display this help message and exit\n"
 " -v, --version                print version information\n"
+" -l, --license                print license information\n"
 "\n"
 " -d, --device-settings file   load device settings from file (without "
 "\".drc\")\n"
@@ -1582,14 +1628,14 @@ msgid ""
 " -s, --scan                   start with scan-mode active\n"
 " -c, --copy                   start with copy-mode active\n"
 " -f, --fax                    start with fax-mode active\n"
-" -n, --no-mode-selection      disable menu for xsane mode selection\n"
+" -n, --no-mode-selection      disable menu for XSane mode selection\n"
 "\n"
 " -F, --Fixed                  fixed main window size (overwrite preferences "
 "value)\n"
 " -R, --Resizeable             resizable, scrolled main window (overwrite "
 "preferences value)\n"
 "\n"
-" -p, --print-filenames        print image filenames created by xsane\n"
+" -p, --print-filenames        print image filenames created by XSane\n"
 " -N, --force-filename name    force filename and disable user filename "
 "selection\n"
 "\n"
@@ -1605,6 +1651,7 @@ msgstr ""
 "[¥ª¥×¥·¥ç¥ó]... ¤Ç¤Ï¡¢°Ê²¼¤Î¹àÌÜ¤ÎÁÈ¤ß¹ç¤ï¤»¤¬²ÄÇ½¤Ç¤¹¡§\n"
 " -h, --help                   ¤³¤Î¥Ø¥ë¥×¥á¥Ã¥»¡¼¥¸¤òÉ½¼¨¤·¤Æ½ªÎ»¤¹¤ë\n"
 " -v, --version                ¥Ð¡¼¥¸¥ç¥ó¾ÜÊó¤òÉ½¼¨¤¹¤ë\n"
+" -l, --license                ¥é¥¤¥»¥ó¥¹¾ðÊó¤òÉ½¼¨¤¹¤ë\n"
 "\n"
 " -d, --device-settings file   "
 "¥Ç¥Ð¥¤¥¹ÀßÄê¤ò¥Õ¥¡¥¤¥ë¤«¤éÆÉ¤ß¹þ¤à¡Ê\".drc\"È´¤­¤Ç¡Ë\n"
@@ -1662,56 +1709,55 @@ msgstr "<Toolbox>/Xtns/XSane/"
 #. gettext_noop does mark these texts but does not change the string
 #. MENU_ITEM_SURFACE_FULL_SIZE
 msgid "full size"
-msgstr ""
+msgstr "¥Õ¥ë¥µ¥¤¥º"
 
 #. MENU_ITEM_SURFACE_DIN_A3P
 msgid "DIN A3 port."
-msgstr ""
+msgstr "DIN A3 ½Ä"
 
 #. MENU_ITEM_SURFACE_DIN_A3L
 msgid "DIN A3 land."
-msgstr ""
+msgstr "DIN A3 ²£"
 
 #. MENU_ITEM_SURFACE_DIN_A4P
 msgid "DIN A4 port."
-msgstr ""
+msgstr "DIN A4 ½Ä"
 
 #. MENU_ITEM_SURFACE_DIN_A4L
 msgid "DIN A4 land."
-msgstr ""
+msgstr "DIN A4 ²£"
 
 #. MENU_ITEM_SURFACE_DIN_A5P
 msgid "DIN A5 port."
-msgstr ""
+msgstr "DIN A5 ½Ä"
 
 #. MENU_ITEM_SURFACE_DIN_A5L
 msgid "DIN A5 land."
-msgstr ""
+msgstr "DIN A5 ²£"
 
 #. MENU_ITEM_SURFACE_9cmx13cm
 msgid "9cm x 13cm"
-msgstr ""
+msgstr "9cm X 13cm"
 
 #. MENU_ITEM_SURFACE_13cmx9cm
 msgid "13cm x 9cm"
-msgstr ""
+msgstr "13cm X 9cm"
 
 #. MENU_ITEM_SURFACE_legal_P
 msgid "legal port."
-msgstr ""
+msgstr "¥ê¡¼¥¬¥ë¥µ¥¤¥º ½Ä"
 
 #. MENU_ITEM_SURFACE_legal_L
 msgid "legal land."
-msgstr ""
+msgstr "¥ê¡¼¥¬¥ë¥µ¥¤¥º ²£"
 
 #. MENU_ITEM_SURFACE_letter_P
-#, fuzzy
 msgid "letter port."
-msgstr "¥×¥í¥¸¥§¥¯¥Èºï½ü"
+msgstr "¥ì¥¿¡¼¥µ¥¤¥º ½Ä"
 
 #. MENU_ITEM_SURFACE_letter_L
 msgid "letter land."
-msgstr ""
+msgstr "¥ì¥¿¡¼¥µ¥¤¥º ²£"
 
 #. Sane backend messages
 msgid "flatbed scanner"
@@ -1767,16 +1813,3 @@ msgstr "¥ª¡¼¥Ð¡¼¥Õ¥í¡¼"
 
 msgid "Access to resource has been denied"
 msgstr "¥ê¥½¡¼¥¹¤Ø¤Î¥¢¥¯¥»¥¹¤¬µñÈÝ¤µ¤ì¤Þ¤·¤¿"
-
-#~ msgid "Increase filename counter"
-#~ msgstr "¥Õ¥¡¥¤¥ëÌ¾¥«¥¦¥ó¥¿¤òÁý¤ä¤¹"
-
-#~ msgid "Filename extension and type of image format"
-#~ msgstr "¥Õ¥¡¥¤¥ëÌ¾¤Î³ÈÄ¥»Ò¤È²èÁü¥Õ¥©¡¼¥Þ¥Ã¥È¤Î¥¿¥¤¥×"
-
-#~ msgid ""
-#~ "If the filename is of the form \"name-001.ext\" (where the number of digits "
-#~ "is free) the number is increased after a scan is finished"
-#~ msgstr ""
-#~ "¥Õ¥¡¥¤¥ëÌ¾¤¬\"name-001.ext\"¡Ê·å¿ô¼«Í³¡Ë¤Î¤è¤¦¤Ê·Á¼°¤Î¾ì¹ç¡¢¤½¤ÎÈÖ¹æ¤Ï¥¹¥­¥ã¥"
-#~ "ó¤¬´°Î»¤¹¤ë¤¿¤Ó¤ËÁý²Ã¤·¤Þ¤¹"

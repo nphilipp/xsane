@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.62\n"
-"POT-Creation-Date: 2001-01-27 23:23+0100\n"
+"POT-Creation-Date: 2001-02-17 21:38+0100\n"
 "PO-Revision-Date: 2000-09-29  23:48+0100\n"
 "Last-Translator: Colorio Mauro <linuxbox@interfree.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -17,10 +17,7 @@ msgstr ""
 msgid "(c)"
 msgstr ""
 
-#. XSANE_COPYRIGHT_SIGN
-msgid "©"
-msgstr ""
-
+#. can be translated with \251
 #. WINDOW_ABOUT_XSANE
 msgid "About"
 msgstr "Informazioni su"
@@ -32,6 +29,11 @@ msgstr "Traduzioni:"
 #. WINDOW_AUTHORIZE
 msgid "authorization"
 msgstr "autorizzazione"
+
+#. WINDOW_LICENSE
+#, fuzzy
+msgid "license"
+msgstr "pollici"
 
 #. WINDOW_INFO
 msgid "info"
@@ -48,6 +50,11 @@ msgstr "progetto fax"
 #. WINDOW_FAX_RENAME
 msgid "rename fax page"
 msgstr "rinomina pagina fax"
+
+#. WINDOW_FAX_INSERT
+#, fuzzy
+msgid "insert ps-file into fax"
+msgstr "Inserire il nome del progetto fax"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -141,6 +148,14 @@ msgstr "Avvio"
 msgid "Ok"
 msgstr "Ok"
 
+#. BUTTON_ACCEPT
+msgid "Accept"
+msgstr ""
+
+#. BUTTON_NOT_ACCEPT
+msgid "Not accept"
+msgstr ""
+
 #. BUTTON_APPLY
 msgid "Apply"
 msgstr "Applica"
@@ -169,17 +184,24 @@ msgstr "Sovra scrivi"
 msgid "Add area"
 msgstr "Aggiungi area"
 
-#. BUTTON_DELETE
-msgid "Delete"
-msgstr "Cancella"
+#. BUTTON_PAGE_DELETE
+#, fuzzy
+msgid "Delete page"
+msgstr "Cancella progetto"
 
-#. BUTTON_SHOW
-msgid "Show"
-msgstr "Mostra"
+#. BUTTON_PAGE_SHOW
+#, fuzzy
+msgid "Show page"
+msgstr "Visualizza anteprima"
 
-#. BUTTON_RENAME
-msgid "Rename"
-msgstr "Rinomina"
+#. BUTTON_PAGE_RENAME
+#, fuzzy
+msgid "Rename page"
+msgstr "rinomina pagina fax"
+
+#. BUTTON_FILE_INSERT
+msgid "Insert file"
+msgstr ""
 
 #. BUTTON_CREATE_PROJECT
 msgid "Create project"
@@ -305,7 +327,8 @@ msgid "scanner"
 msgstr "scanner"
 
 #. TEXT_SOFTWARE_XSANE
-msgid "software (xsane)"
+#, fuzzy
+msgid "software (XSane)"
 msgstr "software (xsane)"
 
 #. TEXT_NONE
@@ -390,11 +413,14 @@ msgstr "sconosciuto"
 
 #. TEXT_GPL
 msgid ""
-"This program is distributed under the terms\n"
-"of the GNU General Public License\n"
+"XSane is distributed under the terms of the GNU General Public License\n"
+"as published by the Free Software Foundation; either version 2 of the\n"
+"License, or (at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but\n"
+"WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
-"Questo programma viene distribuito sotto \n"
-"la GNU General Public License (GPL)\n"
 
 #. TEXT_EMAIL
 msgid "Email:"
@@ -417,7 +443,7 @@ msgstr "Opzione soglia:"
 msgid ""
 "untranslated original english text\n"
 "by Oliver Rauch\n"
-"Email: Oliver.Rauch@Wolfsburg.DE\n"
+"Email: Oliver.Rauch@rauch-domain.de\n"
 msgstr ""
 
 #. TEXT_INFO_BOX
@@ -743,8 +769,14 @@ msgstr "Carica settaggi dispositivo"
 msgid "Change directory"
 msgstr "Cambia directory"
 
+#. MENU_ITEM_XSANE_LICENSE
+#, fuzzy
+msgid "License"
+msgstr "pollici"
+
 #. MENU_ITEM_XSANE_DOC
-msgid "Xsane doc"
+#, fuzzy
+msgid "XSane doc"
 msgstr "Documentazione Xsane"
 
 #. MENU_ITEM_BACKEND_DOC
@@ -839,8 +871,27 @@ msgstr "Salvataggio immagine"
 msgid "Converting data"
 msgstr "Conversione dati"
 
+#. DESC_SCAN_START
+msgid "Start scan <Ctrl-Enter>"
+msgstr ""
+
+#. DESC_SCAN_CANCEL
+msgid "Cancel scan <ESC>"
+msgstr ""
+
+#. DESC_PREVIEW_ACQUIRE
+#, fuzzy
+msgid "Acquire preview scan <Alt-p>"
+msgstr "Acquisisci anterpima"
+
+#. DESC_PREVIEW_CANCEL
+#, fuzzy
+msgid "Cancel preview scan <Alt-ESC>"
+msgstr "Annulla anteprima"
+
 #. DESC_XSANE_MODE
-msgid "Use XSane for SCANning, photoCOPYing, FAXing..."
+#, fuzzy
+msgid "Use XSane for: SCANning-<Ctrl-s> photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>"
 msgstr "Usare XSane per acquisizioni, fotocopie , fax..."
 
 #. DESC_FILENAME_COUNTER_STEP
@@ -874,7 +925,8 @@ msgid "Enter receiver phone number or address"
 msgstr "Inserire il numero telefonico o l'indirizzo del ricevente"
 
 #. DESC_PRINTER_SELECT
-msgid "Select printer definition"
+#, fuzzy
+msgid "Select printerdefinition <Shift-F1/F2/...>"
 msgstr "Selezionare la definizione della stampante"
 
 #. DESC_RESOLUTION
@@ -906,9 +958,8 @@ msgid "Set number of copies"
 msgstr "Impostare il numero di copie"
 
 #. DESC_NEGATIVE
-msgid ""
-"Negative: Invert colors for scanning negatives\n"
-"e.g. swap black and white"
+#, fuzzy
+msgid "Negative: Invert colors for scanning negatives <Shift-n>"
 msgstr ""
 "Negativo: Inverte i colori per i negativi\n"
 "es. scambia bianco e nero"
@@ -966,9 +1017,10 @@ msgid "Set threshold"
 msgstr "Imposta soglia"
 
 #. DESC_RGB_DEFAULT
+#, fuzzy
 msgid ""
 "RGB default: Set enhancement values for red, green and blue to default "
-"values:\n"
+"values <Shift-b>:\n"
 " gamma = 1.0\n"
 " brightness = 0\n"
 " contrast = 0"
@@ -981,14 +1033,14 @@ msgstr ""
 
 #. DESC_ENH_AUTO
 #, fuzzy
-msgid ""
-"Autoadjust gamma, brightness and contrast in dependance of selected scan area"
+msgid "Autoadjust gamma, brightness and contrast <Shift-e>"
 msgstr ""
 "Autocalibro gamma, brillantezza e contrasto dipendente dall'area selezionata"
 
 #. DESC_ENH_DEFAULT
+#, fuzzy
 msgid ""
-"Set default enhancement values:\n"
+"Set default enhancement values <Shift-d>:\n"
 "gamma = 1.0\n"
 "brightness = 0\n"
 "contrast = 0"
@@ -999,35 +1051,43 @@ msgstr ""
 "contrasto = 0"
 
 #. DESC_ENH_RESTORE
-msgid "Restore enhancement values from preferences"
+#, fuzzy
+msgid "Restore enhancement values from preferences <Shift-r>"
 msgstr "Ripristina valori di accentuo dalle preferenze"
 
 #. DESC_ENH_STORE
-msgid "Store active enhancement values to preferences"
+#, fuzzy
+msgid "Store active enhancement values to preferences <Shift-m>"
 msgstr "Salva i valori d'accentuo attivo nelle preferenze"
 
 #. DESC_HIST_INTENSITY
-msgid "Show histogram of intensity/gray"
+#, fuzzy
+msgid "Show histogram of intensity/gray <Alt-i>"
 msgstr "Visualizza istogramma di intensità/grigio"
 
 #. DESC_HIST_RED
-msgid "Show histogram of red component"
+#, fuzzy
+msgid "Show histogram of red component <Alt-r>"
 msgstr "Visualizza istogramma per la componente rossa"
 
 #. DESC_HIST_GREEN
-msgid "Show histogram of green component"
+#, fuzzy
+msgid "Show histogram of green component <Alt-g>"
 msgstr "Visualizza istogramma per la componente verde"
 
 #. DESC_HIST_BLUE
-msgid "Show histogram of blue component"
+#, fuzzy
+msgid "Show histogram of blue component <Alt-b>"
 msgstr "Visualizza istogramma per la componente blu"
 
 #. DESC_HIST_PIXEL
-msgid "Display histogram with lines instead of pixels"
+#, fuzzy
+msgid "Display mode: show histogram with lines instead of pixels <Alt-m>"
 msgstr "Visualizza istogramma con linee invece di pixel"
 
 #. DESC_HIST_LOG
-msgid "Show logarithm of pixelcount"
+#, fuzzy
+msgid "Show logarithm of pixelcount <Alt-l>"
 msgstr "Visualizza algoritmo di conteggio pixel"
 
 #. DESC_PRINTER_SETUP
@@ -1039,7 +1099,8 @@ msgid "Define a name for the selection of this definition"
 msgstr "Definire un nome per la selezione di questa definizione"
 
 #. DESC_PRINTER_COMMAND
-msgid "Enter command to be executed in copy mode (e.g. \"lpr -\")"
+#, fuzzy
+msgid "Enter command to be executed in copy mode (e.g. \"lpr\")"
 msgstr "Inserire il comando da eseguire nel modo 'copia' (es. \"lpr -\")"
 
 #. DESC_COPY_NUMBER_OPTION
@@ -1174,7 +1235,8 @@ msgstr ""
 "ridimensionabile"
 
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
-msgid "Disable preview gamma when xsane runs as gimp plugin"
+#, fuzzy
+msgid "Disable preview gamma when XSane runs as gimp plugin"
 msgstr "Disabilita l'anteprima gamma quando xsane gira come un plugin di gimp"
 
 #. DESC_PREVIEW_COLORMAP
@@ -1212,7 +1274,8 @@ msgstr ""
 "anteprima"
 
 #. DESC_LINEART_MODE
-msgid "Define the way xsane shall handle the threshold option"
+#, fuzzy
+msgid "Define the way XSane shall handle the threshold option"
 msgstr "Definisce il modo in cui xsane deve gestire l'opzione soglia"
 
 #. DESC_GRAYSCALE_SCANMODE
@@ -1235,21 +1298,23 @@ msgid "The scanner's maximum threshold level in %"
 msgstr "La soglia di livello massima dello scanner in %"
 
 #. DESC_PREVIEW_THRESHOLD_MUL
+#, fuzzy
 msgid ""
-"Multiplier to make xsane threshold range and scanner threshold range the same"
+"Multiplier to make XSane threshold range and scanner threshold range the same"
 msgstr ""
 "Moltiplicatore per eguagliare il range di soglia di xsabe con quello dello "
 "scanner"
 
 #. DESC_PREVIEW_THRESHOLD_OFF
+#, fuzzy
 msgid ""
-"Offset to make xsane threshold range and scanner threshold range the same"
+"Offset to make XSane threshold range and scanner threshold range the same"
 msgstr "Scarto per eguagliare il range di soglia dello scanner e di xsane"
 
 #. DESC_ADF_MODE
 msgid ""
 "Select scansource for Automatic Document feeder. If this scansource is "
-"selected xsane scans until \"out of paper\" or error."
+"selected XSane scans until \"out of paper\" or error."
 msgstr ""
 
 #. DESC_PREVIEW_PIPETTE_RANGE
@@ -1487,7 +1552,8 @@ msgid "Sane major version number mismatch!"
 msgstr "Errore versione maggiore sane!"
 
 #. ERR_XSANE_MAJOR_VERSION
-msgid "xsane major version ="
+#, fuzzy
+msgid "XSane major version ="
 msgstr "Versione maggiore xsane ="
 
 #. ERR_BACKEND_MAJOR_VERSION
@@ -1520,11 +1586,12 @@ msgid "warning: option has no value constraint"
 msgstr "attenzione: l'opzione non ha valori costanti"
 
 #. WARN_XSANE_AS_ROOT
+#, fuzzy
 msgid ""
-"You try to run xsane as ROOT, that really is DANGEROUS!\n"
+"You try to run XSane as ROOT, that really is DANGEROUS!\n"
 "\n"
 "Do not send any bug reports when you\n"
-"have any problem while running xsane as root:\n"
+"have any problem while running XSane as root:\n"
 "YOU ARE ALONE!"
 msgstr ""
 "Si sta tentando di utilizzare xsane come ROOT, è PERICOLOSO!\n"
@@ -1582,6 +1649,16 @@ msgstr "questo potrebbe causare problemi!"
 msgid "File %s already exists"
 msgstr "File %s già esistente"
 
+#. ERR_FILE_NOT_EXISTS
+#, fuzzy, c-format
+msgid "File %s does not exist"
+msgstr "File %s già esistente"
+
+#. ERR_FILE_NOT_POSTSCRIPT
+#, fuzzy, c-format
+msgid "File %s is not a postscript file"
+msgstr "Larghezza della carta in mm per i file postscript"
+
 #. ERR_UNSUPPORTED_OUTPUT_FORMAT
 #, c-format
 msgid "Unsupported %d-bit output format: %s"
@@ -1605,6 +1682,7 @@ msgid ""
 "[OPTION]... can be a combination of the following items:\n"
 " -h, --help                   display this help message and exit\n"
 " -v, --version                print version information\n"
+" -l, --license                print license information\n"
 "\n"
 " -d, --device-settings file   load device settings from file (without "
 "\".drc\")\n"
@@ -1612,14 +1690,14 @@ msgid ""
 " -s, --scan                   start with scan-mode active\n"
 " -c, --copy                   start with copy-mode active\n"
 " -f, --fax                    start with fax-mode active\n"
-" -n, --no-mode-selection      disable menu for xsane mode selection\n"
+" -n, --no-mode-selection      disable menu for XSane mode selection\n"
 "\n"
 " -F, --Fixed                  fixed main window size (overwrite preferences "
 "value)\n"
 " -R, --Resizeable             resizable, scrolled main window (overwrite "
 "preferences value)\n"
 "\n"
-" -p, --print-filenames        print image filenames created by xsane\n"
+" -p, --print-filenames        print image filenames created by XSane\n"
 " -N, --force-filename name    force filename and disable user filename "
 "selection\n"
 "\n"
@@ -1794,6 +1872,22 @@ msgstr "Memoria esaurita"
 
 msgid "Access to resource has been denied"
 msgstr "Acesso alla risorsa negato"
+
+#~ msgid ""
+#~ "This program is distributed under the terms\n"
+#~ "of the GNU General Public License\n"
+#~ msgstr ""
+#~ "Questo programma viene distribuito sotto \n"
+#~ "la GNU General Public License (GPL)\n"
+
+#~ msgid "Delete"
+#~ msgstr "Cancella"
+
+#~ msgid "Show"
+#~ msgstr "Mostra"
+
+#~ msgid "Rename"
+#~ msgstr "Rinomina"
 
 #~ msgid "Increase filename counter"
 #~ msgstr "Incrementa contatore nome file"

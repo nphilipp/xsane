@@ -2,7 +2,7 @@
 
    xsane-front-gtk.h
 
-   Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
+   Oliver Rauch <Oliver.Rauch@rauch-domain.de>
    Copyright (C) 1998-2001 Oliver Rauch
    This file is part of the XSANE package.
 
@@ -72,6 +72,7 @@ extern void xsane_update_param(void *arg);
 extern void xsane_define_output_filename(void);
 extern void xsane_identify_output_format(char **ext);
 extern void xsane_change_working_directory(void);
+extern int xsane_display_license(int ask_for_accept);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 

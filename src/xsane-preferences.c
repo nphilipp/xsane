@@ -2,7 +2,7 @@
 
    xsane-preferences.c
 
-   Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
+   Oliver Rauch <Oliver.Rauch@rauch-domain.de>
    Copyright (C) 1998-2001 Oliver Rauch
    This file is part of the XSANE package.
 
@@ -47,6 +47,7 @@
 
 Preferences preferences =
   {
+       0,		/* xsane-version string */
        0,		/* default path to temporary directory (not defined here) */
        0,		/* no default filename */
        0137,		/* image umask (permission mask for -rw-r------) */
@@ -123,6 +124,7 @@ static struct
   }
 desc[] =
   {
+    {"xsane-version",			xsane_rc_pref_string,	POFFSET(xsane_version_str)},
     {"tmp-path",			xsane_rc_pref_string,	POFFSET(tmp_path)},
     {"filename",			xsane_rc_pref_string,	POFFSET(filename)},
     {"image-umask",			xsane_rc_pref_int,	POFFSET(image_umask)},

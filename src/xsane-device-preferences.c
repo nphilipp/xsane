@@ -2,7 +2,7 @@
 
    xsane-device-preferences.c
 
-   Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
+   Oliver Rauch <Oliver.Rauch@rauch-domain.de>
    Copyright (C) 1998-2001 Oliver Rauch
    This file is part of the XSANE package.
 
@@ -49,16 +49,22 @@ desc_xsane_device[] =
 {
     {"xsane-main-window-x-position",             xsane_rc_pref_int, DPOFFSET(shell_posx)},
     {"xsane-main-window-y-position",             xsane_rc_pref_int, DPOFFSET(shell_posy)},
+
     {"xsane-main-window-width",                  xsane_rc_pref_int, DPOFFSET(shell_width)},
     {"xsane-main-window-height",                 xsane_rc_pref_int, DPOFFSET(shell_height)},
+
     {"xsane-standard-options-window-x-position", xsane_rc_pref_int, DPOFFSET(standard_options_shell_posx)},
     {"xsane-standard-options-window-y-position", xsane_rc_pref_int, DPOFFSET(standard_options_shell_posy)},
+
     {"xsane-advanced-options-window-x-position", xsane_rc_pref_int, DPOFFSET(advanced_options_shell_posx)},
     {"xsane-advanced-options-window-y-position", xsane_rc_pref_int, DPOFFSET(advanced_options_shell_posy)},
+
     {"xsane-histogram-window-x-position",        xsane_rc_pref_int, DPOFFSET(histogram_dialog_posx)},
     {"xsane-histogram-window-y-position",        xsane_rc_pref_int, DPOFFSET(histogram_dialog_posy)},
+
     {"xsane-gamma-window-x-position",            xsane_rc_pref_int, DPOFFSET(gamma_dialog_posx)},
     {"xsane-gamma-window-y-position",            xsane_rc_pref_int, DPOFFSET(gamma_dialog_posy)},
+
     {"xsane-preview-window-x-position",          xsane_rc_pref_int, DPOFFSET(preview_dialog_posx)},
     {"xsane-preview-window-y-position",          xsane_rc_pref_int, DPOFFSET(preview_dialog_posy)},
     {"xsane-preview-window-width",               xsane_rc_pref_int, DPOFFSET(preview_dialog_width)},
@@ -86,6 +92,7 @@ desc_xsane_device[] =
     {"xsane-threshold-multiplier",    xsane_rc_pref_double,       DPOFFSET(threshold_mul)},
     {"xsane-threshold-offset",        xsane_rc_pref_double,       DPOFFSET(threshold_off)},
     {"xsane-grayscale-scanmode",      xsane_rc_pref_string,       DPOFFSET(grayscale_scanmode)},
+
     {"xsane-adf-scansource",          xsane_rc_pref_string,       DPOFFSET(adf_scansource)},
 
     {"xsane-enhancement-rgb-default", xsane_rc_pref_int,          DPOFFSET(enhancement_rgb_default)},
@@ -634,8 +641,11 @@ void xsane_device_preferences_load(void)
 
   sprintf(windowname, "%s %s %s", xsane.prog_name, WINDOW_LOAD_SETTINGS, xsane.device_text);
   xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", 0, 0, xsane.device_set_filename, ".drc", XSANE_PATH_LOCAL_SANE);
-  xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, FALSE);
-  xsane_device_preferences_load_file(filename);
+
+  if (!xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, FALSE, FALSE))
+  {
+    xsane_device_preferences_load_file(filename);
+  }
   xsane_set_sensitivity(TRUE);
 }        
 
@@ -661,66 +671,68 @@ void xsane_device_preferences_save(GtkWidget *widget, gpointer data)
 
   sprintf(windowname, "%s %s %s", xsane.prog_name, WINDOW_SAVE_SETTINGS, xsane.device_text);
   xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", 0, 0, xsane.device_set_filename, ".drc", XSANE_PATH_LOCAL_SANE);
-  xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, FALSE);
 
-  umask(XSANE_DEFAULT_UMASK); /* define new file permissions */
-  fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0666);
-  if (fd < 0)
+  if (!xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, FALSE, FALSE))
   {
-    char buf[256];
+    umask(XSANE_DEFAULT_UMASK); /* define new file permissions */
+    fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+    if (fd < 0)
+    {
+     char buf[256];
 
-    snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_CREATE_FILE, strerror(errno));
-    xsane_back_gtk_error(buf, TRUE);
-    xsane_set_sensitivity(TRUE);
-    return;
+      snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_CREATE_FILE, strerror(errno));
+      xsane_back_gtk_error(buf, TRUE);
+      xsane_set_sensitivity(TRUE);
+      return;
+    }
+
+    /* prepare wire */
+    w.io.fd = fd;
+    w.io.read = read;
+    w.io.write = write;
+    xsane_rc_io_w_init(&w);
+    xsane_rc_io_w_set_dir(&w, WIRE_ENCODE);
+
+    XSANE_RC_IO_W_STRINGCONST(&w, "XSANE_DEVICE_RC");
+    xsane_rc_io_w_string(&w, &xsane.device_set_filename);
+
+    XSANE_RC_IO_W_STRINGCONST(&w, "xsane-version");
+    XSANE_RC_IO_W_STRINGCONST(&w, XSANE_VERSION);
+
+    /* make geometry and position values up to date */
+    xsane_widget_get_uposition(xsane.shell, &xsane.shell_posx, &xsane.shell_posy);
+    gdk_window_get_size(xsane.shell->window, &xsane.shell_width, &xsane.shell_height);
+    gtk_widget_set_uposition(xsane.shell, xsane.shell_posx, xsane.shell_posy); /* geometry used when window closed and opened again */
+    gtk_window_set_default_size(GTK_WINDOW(xsane.shell), xsane.shell_width, xsane.shell_height);
+
+    xsane_widget_get_uposition(xsane.standard_options_shell, &xsane.standard_options_shell_posx, &xsane.standard_options_shell_posy);
+    gtk_widget_set_uposition(xsane.standard_options_shell, xsane.standard_options_shell_posx, xsane.standard_options_shell_posy);
+
+    xsane_widget_get_uposition(xsane.advanced_options_shell, &xsane.advanced_options_shell_posx, &xsane.advanced_options_shell_posy);
+    gtk_widget_set_uposition(xsane.advanced_options_shell, xsane.advanced_options_shell_posx, xsane.advanced_options_shell_posy);
+
+    xsane_widget_get_uposition(xsane.histogram_dialog, &xsane.histogram_dialog_posx, &xsane.histogram_dialog_posy);
+    gtk_widget_set_uposition(xsane.histogram_dialog, xsane.histogram_dialog_posx, xsane.histogram_dialog_posy);
+
+    if (xsane.preview)
+    {
+      xsane_widget_get_uposition(xsane.preview->top, &xsane.preview_dialog_posx, &xsane.preview_dialog_posy);
+      gdk_window_get_size(xsane.preview->top->window, &xsane.preview_dialog_width, &xsane.preview_dialog_height);
+      gtk_widget_set_uposition(xsane.preview->top, xsane.preview_dialog_posx, xsane.preview_dialog_posy);
+      gtk_window_set_default_size(GTK_WINDOW(xsane.preview->top), xsane.preview_dialog_width, xsane.preview_dialog_height);
+    }
+
+    xsane_device_preferences_save_values(&w, xsane.dev);
+
+    for (i = 0; i < NELEMS(desc_xsane_device); ++i) /* save device preferences xsane values */
+    {
+      xsane_rc_io_w_string(&w, &desc_xsane_device[i].name);
+      (*desc_xsane_device[i].codec) (&w, &xsane, desc_xsane_device[i].offset);
+    }   
+
+    xsane_rc_io_w_flush(&w);
+    close(fd);
   }
-
-  /* prepare wire */
-  w.io.fd = fd;
-  w.io.read = read;
-  w.io.write = write;
-  xsane_rc_io_w_init(&w);
-  xsane_rc_io_w_set_dir(&w, WIRE_ENCODE);
-
-  XSANE_RC_IO_W_STRINGCONST(&w, "XSANE_DEVICE_RC");
-  xsane_rc_io_w_string(&w, &xsane.device_set_filename);
-
-  XSANE_RC_IO_W_STRINGCONST(&w, "xsane-version");
-  XSANE_RC_IO_W_STRINGCONST(&w, XSANE_VERSION);
-
-  /* make geometry and position values up to date */
-  xsane_widget_get_uposition(xsane.shell, &xsane.shell_posx, &xsane.shell_posy);
-  gdk_window_get_size(xsane.shell->window, &xsane.shell_width, &xsane.shell_height);
-  gtk_widget_set_uposition(xsane.shell, xsane.shell_posx, xsane.shell_posy); /* geometry used when window closed and opened again */
-  gtk_window_set_default_size(GTK_WINDOW(xsane.shell), xsane.shell_width, xsane.shell_height);
-
-  xsane_widget_get_uposition(xsane.standard_options_shell, &xsane.standard_options_shell_posx, &xsane.standard_options_shell_posy);
-  gtk_widget_set_uposition(xsane.standard_options_shell, xsane.standard_options_shell_posx, xsane.standard_options_shell_posy);
-
-  xsane_widget_get_uposition(xsane.advanced_options_shell, &xsane.advanced_options_shell_posx, &xsane.advanced_options_shell_posy);
-  gtk_widget_set_uposition(xsane.advanced_options_shell, xsane.advanced_options_shell_posx, xsane.advanced_options_shell_posy);
-
-  xsane_widget_get_uposition(xsane.histogram_dialog, &xsane.histogram_dialog_posx, &xsane.histogram_dialog_posy);
-  gtk_widget_set_uposition(xsane.histogram_dialog, xsane.histogram_dialog_posx, xsane.histogram_dialog_posy);
-
-  if (xsane.preview)
-  {
-    xsane_widget_get_uposition(xsane.preview->top, &xsane.preview_dialog_posx, &xsane.preview_dialog_posy);
-    gdk_window_get_size(xsane.preview->top->window, &xsane.preview_dialog_width, &xsane.preview_dialog_height);
-    gtk_widget_set_uposition(xsane.preview->top, xsane.preview_dialog_posx, xsane.preview_dialog_posy);
-    gtk_window_set_default_size(GTK_WINDOW(xsane.preview->top), xsane.preview_dialog_width, xsane.preview_dialog_height);
-  }
-
-  xsane_device_preferences_save_values(&w, xsane.dev);
-
-  for (i = 0; i < NELEMS(desc_xsane_device); ++i) /* save device preferences xsane values */
-  {
-    xsane_rc_io_w_string(&w, &desc_xsane_device[i].name);
-    (*desc_xsane_device[i].codec) (&w, &xsane, desc_xsane_device[i].offset);
-  }   
-
-  xsane_rc_io_w_flush(&w);
-  close(fd);
 
   xsane_set_sensitivity(TRUE);
   xsane_enhancement_by_gamma();

@@ -1,180 +1,230 @@
-<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <html>
 <head>
    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-   <meta name="GENERATOR" content="Mozilla/4.74 [en] (X11; U; Linux 2.2.18 i686) [Netscape]">
    <meta name="Author" content="Oliver Rauch">
    <meta name="Description" content="scan, photocopy and fax frontend for SANE">
-   <title>XSane - Preview</title>
+   <title>XSane - Preview window</title>
 </head>
 <body text="#000000" bgcolor="#FFFFFF" link="#0000EF" vlink="#51188E" alink="#FF0000">
 
-<blockquote>
-<h3>
-<img SRC="xsane-logo2.jpg" height=150 width=128 align=LEFT></h3>
-&nbsp;
-<p>&nbsp;
-<br>&nbsp;
-<br>&nbsp;</blockquote>
 
+<table>
+<tr>
+<td width=200>
+<img SRC="xsane-logo2.jpg" alt="XSane-logo" hspace=30 align=TOP>
+</td>
+<td>
 <blockquote>
-<h1>
-<u><font color="#009900"><font size=+2>Preview window</font></font></u></h1>
+<h1><font color="#009900">Preview window</font></h1>
+</blockquote>
+
+</td>
+</tr>
+</table>
+
+
+<hr WIDTH="100%">
+
+<table>
+<tr>
+<td valign=TOP width="200" bgcolor="#E0E0BA">
+<br>
+<a href="sane-xsane-doc.html">Index</a>
+<br>
+<br>
+<br>
+<font color="#000000">Main window:</font>
+<ul>
+<li><a href="sane-xsane-scan-doc.html">Scan mode</a></li>
+<li><a href="sane-xsane-copy-doc.html">Copy mode</a></li>
+<li><a href="sane-xsane-fax-doc.html">Fax mode</a></li>
+<li><a href="sane-xsane-gimp-doc.html">Gimp plugin</a></li>
+</ul>
+<br>
+<a href="sane-xsane-color-correction-doc.html">Color correction:</a>
+<ul>
+<li><a href="sane-xsane-color-correction-doc.html#GAMMA">Gamma correction</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#BRIGHTNESS">Brightness</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#CONTRAST">Contrast</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#THRESHOLD">Threshold</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#RGB_DEFAULT">RGB default</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#NEGATIVE">Negative</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#AUTOENHANCEMENT">Autoenhancement</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#ENHANCEMENT_DEFAULT">Default</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#RESTORE_ENHANCEMENT">Restore</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#STORE_ENHANCEMENT">Store</a></li>
+<li><a href="sane-xsane-histogram-doc.html">Histogram window</a></li>
+<li><a href="sane-xsane-preview-doc.html#PIPETTE_WHITE">Pipette functions</a></li>
+</ul>
+<br>
+<a href="sane-xsane-standard-doc.html">Standard options window</a>
+<br>
+<br>
+<br>
+<a href="sane-xsane-advanced-doc.html">Advanced options window</a>
+<br>
+<br>
+<br>
+<a href="sane-xsane-preview-doc.html">Preview:</a>
+<ul>
+<li><a href="sane-xsane-preview-doc.html#PIPETTE_WHITE">Pipette white</a></li>
+<li><a href="sane-xsane-preview-doc.html#PIPETTE_GRAY">Pipette gray</a></li>
+<li><a href="sane-xsane-preview-doc.html#PIPETTE_BLACK">Pipette black</a></li>
+<li><a href="sane-xsane-preview-doc.html#UNZOOM">Unzoom</a></li>
+<li><a href="sane-xsane-preview-doc.html#ZOOM_OUT">Zoom out</a></li>
+<li><a href="sane-xsane-preview-doc.html#ZOOM_IN">Zoom in</a></li>
+<li><a href="sane-xsane-preview-doc.html#UNDO_ZOOM">Undo zoom</a></li>
+<li><a href="sane-xsane-preview-doc.html#AUTOSELECT">Autoselect scanarea</a></li>
+<li><a href="sane-xsane-preview-doc.html#SELECT_VISIBLE_AREA">Select visible area</a></li>
+<li><a href="sane-xsane-preview-doc.html#SELECT_SCAN_AREA">Select scanarea</a></li>
+<li><a href="sane-xsane-preview-doc.html#MOVE_SCAN_AREA">Move scanarea</a></li>
+</ul>
+<br>
+<font color="#000000">Setup:</font>
+<ul>
+<li><a href="sane-xsane-setup-copy-doc.html">Copy setup</a></li>
+<li><a href="sane-xsane-setup-display-doc.html">Display setup</a></li>
+<li><a href="sane-xsane-setup-save-doc.html">Saving setup</a></li>
+<li><a href="sane-xsane-setup-fax-doc.html">Fax setup</a></li>
+<li><a href="sane-xsane-setup-enhancement-doc.html">Enhancement setup</a></li>
+</ul>
+</td>
+
+
+
+<td VALIGN=TOP BGCOLOR="#FFFFFF">
+<blockquote>
+<br>
 The preview window is to select an area that you want to scan. You can
 resize the preview window and zoom into the scan area.
-<br>&nbsp;</blockquote>
-
-<center><img SRC="sane-xsane-preview.jpg" height=651 width=490></center>
-
-<p><br>
-<blockquote>&nbsp;
-<br>With the smaller, black dashed frame in the preview you select the
+<br>
+<br>
+<br>
+<center><img SRC="xsane-preview.jpg" alt="preview-window"></center>
+<br>
+<blockquote>
+<br>With the smaller, black/white dashed frame in the preview you select the
 area that shall be scanned. The larger, red/green dashed frame is only
-available in COPY-mode, it shows the size of the page of the selected printer
-relative to the zoom scale.</blockquote>
+available in COPY-mode (and when you scan to a postscript file). It shows
+the size of the page of the selected printer relative to the zoom scale.
+</blockquote>
 
-<blockquote><img SRC="sane-xsane-pipette-white.jpg" height=26 width=27><a NAME="PIPETTE_WHITE"></a><b><u>Pipette
-white:</u></b>
-<blockquote>Use mouse pointer and click a point that shall be white. If
+<img SRC="xsane-pipette-white.jpg" alt="pipette-white">
+&nbsp;&nbsp;
+<a NAME="PIPETTE_WHITE"></a><b><u>Pipette white:</u></b>
+<blockquote>
+Use mouse pointer and click a point that shall be white. If
 you use the left mouse button only the intensity is used to calculate the
 white point. If <i>RGB default</i> (main window) is not activated you can
 use the middle mouse button to define the white point for each color component.
-You can abort the selection by pressing the right mouse button.</blockquote>
+You can abort the selection by pressing the right mouse button.
+</blockquote>
 
-<dt>
-<img SRC="sane-xsane-pipette-gray.jpg" height=26 width=28>&nbsp;<a NAME="PIPETTE_GRAY"></a><b><u>Pipette
-gray:</u></b></dt>
-
+<img SRC="xsane-pipette-gray.jpg" alt="pipette-gray">
+&nbsp;&nbsp;
+<a NAME="PIPETTE_GRAY"></a><b><u>Pipette gray:</u></b>
 <blockquote>
-<dt>
 Use mouse pointer and click a point that shall be medium gray. If you use
 the left mouse button only the intensity is used to calculate the gray
 point. If <i>RGB default</i> (main window) is not activated you can use
 the middle mouse button to define the gray point for each color component.
-You can abort the selection by pressing the right mouse button.</dt>
+You can abort the selection by pressing the right mouse button.
 </blockquote>
 
-<dt>
-<img SRC="sane-xsane-pipette-black.jpg" height=26 width=26>&nbsp;<a NAME="PIPETTE_BLACK"></a><b><u>Pipette
-black:</u></b></dt>
-
+<img SRC="xsane-pipette-black.jpg" alt="pipette-black">
+&nbsp;&nbsp;
+<a NAME="PIPETTE_BLACK"></a><b><u>Pipette black:</u></b>
 <blockquote>
-<dt>
 Use mouse pointer and click a point that shall be black. If you use the
 left mouse button only the intensity is used to calculate the black point.
 If <i>RGB default</i> (main window) is not activated you can use the middle
 mouse button to define the black point for each color component. You can
-abort the selection by pressing the right mouse button.</dt>
+abort the selection by pressing the right mouse button.
 </blockquote>
 
-<dt>
-<img SRC="sane-xsane-zoom-not.jpg" height=26 width=26>&nbsp;<a NAME="UNZOOM"></a><b><u>Unzoom:</u></b></dt>
-
+<img SRC="xsane-zoom-not.jpg" alt="zoom-not">
+&nbsp;&nbsp;
+<a NAME="UNZOOM"></a><b><u>Unzoom:</u></b>
 <blockquote>
-<dt>
-Use full scan area.</dt>
+Use full scan area.
 </blockquote>
 
-<dt>
-<img SRC="sane-xsane-zoom-out.jpg" height=27 width=27>&nbsp;<a NAME="ZOOM_OUT"></a><b><u>Zoom
-out:</u></b></dt>
-
+<img SRC="xsane-zoom-out.jpg" alt="zoom-out">
+&nbsp;&nbsp;
+<a NAME="ZOOM_OUT"></a><b><u>Zoom out:</u></b>
 <blockquote>
-<dt>
-Increase preview area by 20%.</dt>
+Increase preview area by 20%.
 </blockquote>
 
-<dt>
-<img SRC="sane-xsane-zoom-in.jpg" height=26 width=26>&nbsp;<a NAME="ZOOM_IN"></a><b><u>Zoom
-in:</u></b></dt>
-
+<img SRC="xsane-zoom-in.jpg" alt="zoom-in">
+&nbsp;&nbsp;
+<a NAME="ZOOM_IN"></a><b><u>Zoom in:</u></b>
 <blockquote>
-<dt>
-Zoom into selected area.</dt>
+Zoom into selected area.
 </blockquote>
 
-<dt>
-<img SRC="sane-xsane-zoom-undo.jpg" height=26 width=26>&nbsp;<a NAME="UNDO_ZOOM"></a><b><u>Undo
-zoom:</u></b></dt>
-
+<img SRC="xsane-zoom-undo.jpg" alt="zoom-undo">
+&nbsp;&nbsp;
+<a NAME="UNDO_ZOOM"></a><b><u>Undo zoom:</u></b>
 <blockquote>
-<dt>
-Undo last zoom.</dt>
+Undo last zoom.
 </blockquote>
 
-<dt>
-<img SRC="sane-xsane-autoselect.jpg" height=28 width=26>&nbsp;<a NAME="AUTOSELECT"></a><b><u>Autoselect:</u></b></dt>
-
+<img SRC="xsane-autoselect.jpg" alt="autoselect">
+&nbsp;&nbsp;
+<a NAME="AUTOSELECT"></a><b><u>Autoselect:</u></b>
 <blockquote>
-<dt>
-Select part with image(s).</dt>
+Select part with image(s).
 </blockquote>
 
-<dt>
-<img SRC="sane-xsane-visible-area.jpg" height=26 width=26>&nbsp;<a NAME="SELECT_VISIBLE_AREA"></a><b><u>Select
-visible area:</u></b></dt>
-
+<img SRC="xsane-visible-area.jpg" alt="select-visible-area">
+&nbsp;&nbsp;
+<a NAME="SELECT_VISIBLE_AREA"></a><b><u>Select visible area:</u></b>
 <blockquote>
-<dt>
-Select the visible area in the preview window for scanning.</dt>
+Select the visible area in the preview window for scanning.
 </blockquote>
 
-<dt>
-<b><u>Acquire Preview:</u></b></dt>
-
+<b><u>Acquire Preview:</u></b>
 <blockquote>
-<dt>
 Start preview scan. If you resized the preview window, the new preview
-is done with updated resolution.</dt>
+is done with updated resolution.
 </blockquote>
 
-<dt>
-<b><u>Cancel Preview:</u></b></dt>
-
+<b><u>Cancel Preview:</u></b>
 <blockquote>
-<dt>
-Cancel a preview scan.</dt>
-
-<dt>
-</dt>
+Cancel a preview scan.
 </blockquote>
 
-<dt>
-<a NAME="SELECT_SCAN_AREA"></a><b><u>Left mouse button:</u></b></dt>
-
+<a NAME="SELECT_SCAN_AREA"></a><b><u>Left mouse button:</u></b>
 <blockquote>
-<dt>
-<u>Select scan area:</u> Press (&amp;hold) left mouse button to define
+<u><b>Select scan area:</b></u> Press (&amp;hold) left mouse button to define
 one edge, move the mouse so that the area you want to scan is in the frame
-and release the button.</dt>
-
-<br>&nbsp;
-<dt>
-<u>Edit scan area:</u> Move the pointer over an edge of the existing selection,
-the mouse pointer changes. Now press (&amp;hold)&nbsp; the left mouse button,
-you can move the draged edge of the scanarea, then release the left mouse
-button.</dt>
+and release the button.
+<br>
+<br>
+<u><b>Edit scan area:</b></u> Move the pointer over an edge or side of the
+existing selection, the mouse pointer changes. Now press (&amp;hold) the left
+mouse button, you can move the draged edge/side of the scanarea, then release the
+left mouse button.
 </blockquote>
 
-<dt>
-<a NAME="MOVE_SCAN_AREA"></a><b><u>Right and middle mouse button:</u></b></dt>
-
+<a NAME="MOVE_SCAN_AREA"></a><b><u>Right and middle mouse button:</u></b>
 <blockquote>
-<dt>
 If you press (&amp;hold) the right or the middle mouse button in the selection
-frame you can move the selection frame without resizing it.</dt>
-</blockquote>
+frame you can move the selection frame without resizing it.
 </blockquote>
 
-<blockquote>
-<blockquote>
-<blockquote>&nbsp;</blockquote>
 </blockquote>
-</blockquote>
+</td>
+</tr>
+</table>
 
 <hr WIDTH="100%">
-<center><a href="sane-xsane-doc.html">INDEX</a></center>
 
-<p><br>
+<blockquote>
+Author: <a href="mailto:Oliver.Rauch@xsane.org">Oliver Rauch</a>
+</blockquote>
+
 </body>
 </html>
+

@@ -11,6 +11,8 @@ READ THIS FILE IF YOU EXPERIENCE ANY PROBLEM
    - make sure there is only one sane version installed before
      you compile xsane
      (try as root: $find / -name "*sane*" | less)
+     *** !!! ABOUT 50% OF ALL PROBLEM REPORTS I GET ARE CAUSED !!! ***
+     *** !!! BY MULTIPLE SANE VERSIONS INSTALLED !!! ***
    - If you used an earlier version of xsane before remove the configuration
      directory: rm -rf ~/.sane/xsane
      (you have to enter all configurations again afterwards).

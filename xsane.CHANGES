@@ -1325,10 +1325,66 @@ xsane-0.70 -> 0.71:
  - updated html doc (not complete)
 
  - added tooltips to permission buttons (r,w,x)
- - permission texts: user, group, all, read, write, execute
-   can be translated now.
+   permission texts: user, group, all, read, write, execute can be translated now.
 
  - added japanese translation (thanks to Kimizuka Tomokazu <sgtom@pluto.dti.ne.jp>)
 
  - renamed oldgimp.h to gimp-1_0-compat.h
+
+
+xsane-0.71 -> 0.72:
+-------------------
+
+ - changed default postscript viewer from xv to gv
+
+ - moved int i, select = 1; in static void xsane_saving_notebook() out of #ifdef HAVE_LIBTIFF block
+
+ - filename counter length correction is only done in sane_start when there is a user selectable filename
+
+ - if external filename is given the counter len is not touched when not necessary
+
+ - added "insert file" function to fax mode
+
+ - added output of gamma, brightness and contrast settings to pnm headers
+
+ - updated xsane online-documentation (html)
+
+ - added license dialog, it is shown when it was not already accepted for this xsane version
+   (tested in local xsane.rc)
+
+ - about and about translation dialogs do not set XSane´s sensitivity to false any more
+
+ - copyright sign is now always defined as "(c)", can be translated with \251 if character is available
+
+ - device preferences are not saved/loaded any more when file selection is aborted
+
+ - in xsane_info_dialog the scanner type is translated now
+
+ - added accelerator keys to device selection dialog:
+     Escape   -> Cancel
+     F1,F2,.. -> select device number 1,2,...
+
+ - added usleep(100ms) in device selection dialog before scanning for devices, this way we make
+   sure that the text "scanning for devices" is displayed
+
+ - added some accelarator keys to the preview window:
+    Alt ESC   Cancel Preview Scan
+    Alt KP+  Zoom in
+    Alt KP-  Zoom out
+    Alt KP*  Zoom not
+    Alt KP/  Zoom undo
+    Alt A     Autoselect scanarea
+    Alt V     Select visible scanarea
+
+ - added accelerator key Escape to file-selection-dialog, about-dialog and about-translation-dialog
+   attached to cancel/close button
+
+ - updated translations:
+   - german translation
+   - czech translation    - thanks to Stanislav Brabec <utx@penguin.cz>
+   - turkish translation  - thanks to Togan Muftuoglo <toganm@yahoo.com>
+   - japanese translation - thanks to Kimizuka Tomokazu <sgtom@pluto.dti.ne.jp>
+   - french translation   - thanks to Laurent Grawet <laurent.grawet@ibelgique.com>
+
+
 

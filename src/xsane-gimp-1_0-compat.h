@@ -2,7 +2,7 @@
  
    xsane-gimp-1_0-compat.h
  
-   Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
+   Oliver Rauch <Oliver.Rauch@rauch-domain.de>
    Copyright (C) 2000-2001 Oliver Rauch
    This file is part of the XSANE package.
  

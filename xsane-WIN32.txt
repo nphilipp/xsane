@@ -91,14 +91,14 @@ Licence:
  * xsane and  xsane for win32 stand under the terms of
    the GNU general public licence (GPL).
    You can find the sourcecode for xsane at:
-   http://www.wolfsburg.de/~rauch/sane/sane-xsane.html
+   http://www.xsane.org
 
  * The gtk-libraries that come with xsane also do stand under the terms of the
    GNU general public licence - GPL (gdk, gtk, glib, gnu-intl, gmodule)
 
  * cygwin1.dll stands under the term of the GNU general public licence - GPL
 
- * The sourcecode of xsane can be found at http://www.wolfsburg.de/~rauch/sane
+ * The sourcecode of xsane can be found at http://www.xsane.org
 
  * The sourcecode of sane can be found at http://www.mostang.com/sane
 
@@ -115,7 +115,7 @@ Compile it yourself:
 
 Contact:
 ========
- You can contact me via email: Oliver.Rauch@Wolfsburg.DE
+ You can contact me via email: Oliver.Rauch@rauch-domain.de
  but don`t ask for help/support for xsane-win32, I do not have the
  time to give support to it and want to use my free time to
  work on the code - please understand that.

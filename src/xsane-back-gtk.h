@@ -2,7 +2,7 @@
 
    xsane-back-gtk.h
 
-   Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
+   Oliver Rauch <Oliver.Rauch@rauch-domain.de>
    Copyright (C) 1998-2001 Oliver Rauch
    This file is part of the XSANE package.
 
@@ -59,7 +59,7 @@ extern void xsane_back_gtk_error(gchar *error_message, gint wait);
 extern void xsane_back_gtk_warning(gchar *warning_message, gint wait);
 extern void xsane_back_gtk_info(gchar *info_message, gint wait);
 extern int xsane_back_gtk_get_filename(const char *label, const char *default_name,
-			    size_t max_len, char *filename, int show_fileopts);
+			    size_t max_len, char *filename, int show_fileopts, int shorten_path);
 
 extern void xsane_back_gtk_sync(void);
 extern void xsane_back_gtk_update_vector(int opt_num, SANE_Int *vector);

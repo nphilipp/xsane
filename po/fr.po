@@ -4,8 +4,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.62\n"
-"POT-Creation-Date: 2001-01-27 23:23+0100\n"
+"Project-Id-Version: XSANE 0.72\n"
+"POT-Creation-Date: 2001-02-17 21:38+0100\n"
 "PO-Revision-Date: 2000-02-09 21:00+01:00\n"
 "Last-Translator: Laurent Grawet <laurent.grawet@ibelgique.com>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -17,10 +17,7 @@ msgstr ""
 msgid "(c)"
 msgstr ""
 
-#. XSANE_COPYRIGHT_SIGN
-msgid "©"
-msgstr ""
-
+#. can be translated with \251
 #. WINDOW_ABOUT_XSANE
 msgid "About"
 msgstr "A propos"
@@ -31,7 +28,11 @@ msgstr "Concernant la traduction"
 
 #. WINDOW_AUTHORIZE
 msgid "authorization"
-msgstr "autorisation"
+msgstr "Autorisation"
+
+#. WINDOW_LICENSE
+msgid "license"
+msgstr "Licence"
 
 #. WINDOW_INFO
 msgid "info"
@@ -39,15 +40,19 @@ msgstr "Info"
 
 #. WINDOW_BATCH_SCAN
 msgid "batch scan"
-msgstr "numérisation par lots"
+msgstr "Numérisation par lots"
 
 #. WINDOW_FAX_PROJECT
 msgid "fax project"
-msgstr "projet fax"
+msgstr "Projet fax"
 
 #. WINDOW_FAX_RENAME
 msgid "rename fax page"
-msgstr "renommer la page de fax"
+msgstr "Renommer la page de fax"
+
+#. WINDOW_FAX_INSERT
+msgid "insert ps-file into fax"
+msgstr "Importer un fichier ps dans un fax"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -71,7 +76,7 @@ msgstr "Options avancées"
 
 #. WINDOW_DEVICE_SELECTION
 msgid "device selection"
-msgstr "sélection de périphérique"
+msgstr "Sélection de périphérique"
 
 #. WINDOW_PREVIEW
 msgid "Preview"
@@ -79,19 +84,19 @@ msgstr "Aperçu"
 
 #. WINDOW_OUTPUT_FILENAME
 msgid "select output filename"
-msgstr "choisissez le nom du fichier de sortie"
+msgstr "Choisissez le nom du fichier de sortie"
 
 #. WINDOW_SAVE_SETTINGS
 msgid "save device settings"
-msgstr "enregistrer les paramètres du périphérique"
+msgstr "Enregistrer les paramètres du périphérique"
 
 #. WINDOW_LOAD_SETTINGS
 msgid "load device settings"
-msgstr "charger les paramètres du périphérique"
+msgstr "Charger les paramètres du périphérique"
 
 #. WINDOW_CHANGE_WORKING_DIR
 msgid "change working directory"
-msgstr "change le répertoire de travail"
+msgstr "Change le répertoire de travail"
 
 #. WINDOW_TMP_PATH
 msgid "select temporary directory"
@@ -141,6 +146,14 @@ msgstr "Départ"
 msgid "Ok"
 msgstr "Ok"
 
+#. BUTTON_ACCEPT
+msgid "Accept"
+msgstr "Accepter"
+
+#. BUTTON_NOT_ACCEPT
+msgid "Not accept"
+msgstr "Refuser"
+
 #. BUTTON_APPLY
 msgid "Apply"
 msgstr "Appliquer"
@@ -169,17 +182,21 @@ msgstr "Ecraser"
 msgid "Add area"
 msgstr "Ajouter une aire"
 
-#. BUTTON_DELETE
-msgid "Delete"
-msgstr "Effacer"
+#. BUTTON_PAGE_DELETE
+msgid "Delete page"
+msgstr "Effacer la page"
 
-#. BUTTON_SHOW
-msgid "Show"
-msgstr "Montrer"
+#. BUTTON_PAGE_SHOW
+msgid "Show page"
+msgstr "Afficher la page"
 
-#. BUTTON_RENAME
-msgid "Rename"
-msgstr "Renommer"
+#. BUTTON_PAGE_RENAME
+msgid "Rename page"
+msgstr "Renommer la page"
+
+#. BUTTON_FILE_INSERT
+msgid "Insert file"
+msgstr "Insérer un fichier"
 
 #. BUTTON_CREATE_PROJECT
 msgid "Create project"
@@ -218,9 +235,8 @@ msgid "Overwrite warning"
 msgstr "Avertissement en cas d'écrasement"
 
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
-#, fuzzy
 msgid "Skip existing filenames"
-msgstr "Éviter les nombres existants"
+msgstr "Sauter les noms de fichiers existants"
 
 #. RADIO_BUTTON_WINDOW_FIXED
 msgid "Main window size fixed"
@@ -228,7 +244,7 @@ msgstr "Taille de la fenêtre principale fixe"
 
 #. RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA
 msgid "Disable gimp preview gamma"
-msgstr "Désactive la prévisualisation gamma de Gimp"
+msgstr "Désactive l'aperçu gamma de Gimp"
 
 #. RADIO_BUTTON_PRIVATE_COLORMAP
 msgid "Use private colormap"
@@ -255,14 +271,12 @@ msgid "XSane mode"
 msgstr "Mode XSane"
 
 #. TEXT_FILENAME_COUNTER_STEP
-#, fuzzy
 msgid "Step"
-msgstr "Configuration"
+msgstr "Pas"
 
 #. TEXT_FILETYPE
-#, fuzzy
 msgid "Type"
-msgstr "Type:"
+msgstr "Type"
 
 #. TEXT_SCANNER_BACKEND
 msgid "Scanner and backend:"
@@ -305,7 +319,7 @@ msgid "scanner"
 msgstr "scanner"
 
 #. TEXT_SOFTWARE_XSANE
-msgid "software (xsane)"
+msgid "software (XSane)"
 msgstr "logiciel (XSane)"
 
 #. TEXT_NONE
@@ -314,11 +328,11 @@ msgstr "aucun"
 
 #. TEXT_GAMMA_INPUT_DEPTH
 msgid "Gamma input depth:"
-msgstr "Mode gamma d'entrée:"
+msgstr "Valeur gamma d'entrée:"
 
 #. TEXT_GAMMA_OUTPUT_DEPTH
 msgid "Gamma output depth:"
-msgstr "Mode gamma de sortie:"
+msgstr "Valeur gamma de sortie:"
 
 #. TEXT_SCANNER_OUTPUT_DEPTH
 msgid "Scanner output depth:"
@@ -390,11 +404,21 @@ msgstr "inconnu"
 
 #. TEXT_GPL
 msgid ""
-"This program is distributed under the terms\n"
-"of the GNU General Public License\n"
+"XSane is distributed under the terms of the GNU General Public License\n"
+"as published by the Free Software Foundation; either version 2 of the\n"
+"License, or (at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but\n"
+"WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
-"Ce programme est distribué sous les termes\n"
-"de la Licence Publique Générale GNU\n"
+"XSane est distribué selon les termes de la GNU \"General Public License\"\n"
+"comme publiée par la FSF \"Free Software Foundation\" ; soit la version 2\n"
+"de la Licence, ou (à votre choix) toute version ultérieure.\n"
+"\n"
+"Ce programme est distribué car potentiellement utile, mais SANS AUCUNNE\n"
+"GARANTIE, sans même les garanties de COMMERCIALISATION ou d'ADAPTATION\n"
+"DANS UN BUT SPECIFIQUE\n"
 
 #. TEXT_EMAIL
 msgid "Email:"
@@ -416,7 +440,7 @@ msgstr "Traduction:"
 msgid ""
 "untranslated original english text\n"
 "by Oliver Rauch\n"
-"Email: Oliver.Rauch@Wolfsburg.DE\n"
+"Email: Oliver.Rauch@rauch-domain.de\n"
 msgstr ""
 "traduit en français\n"
 "par Laurent Grawet\n"
@@ -444,19 +468,19 @@ msgstr "Commande:"
 
 #. TEXT_SETUP_COPY_NR_OPT
 msgid "Copy number option:"
-msgstr "Option du nombre de copie:"
+msgstr "Nombre de copies:"
 
 #. TEXT_SETUP_PRINTER_LINEART_RES
 msgid "Lineart resolution (dpi):"
-msgstr "Résolution mode trait (dpi):"
+msgstr "Résolution en mode trait (dpi):"
 
 #. TEXT_SETUP_PRINTER_GRAYSCALE_RES
 msgid "Grayscale resolution (dpi):"
-msgstr "Résolution mode niveaux de gris (dpi):"
+msgstr "Résolution en mode niveaux de gris (dpi):"
 
 #. TEXT_SETUP_PRINTER_COLOR_RES
 msgid "Color resolution (dpi):"
-msgstr "Résolution mode couleur (dpi):"
+msgstr "Résolution en mode couleur (dpi):"
 
 #. TEXT_SETUP_PRINTER_WIDTH
 msgid "Width [mm]:"
@@ -511,9 +535,8 @@ msgid "PNG image compression"
 msgstr "Compression des images PNG"
 
 #. TEXT_SETUP_FILENAME_COUNTER_LEN
-#, fuzzy
 msgid "Filename counter length"
-msgstr "Dépassement du compteur de nom de fichier"
+msgstr "Valeur du compteur de noms de fichiers"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_16
 msgid "TIFF 16 bit image compression"
@@ -572,9 +595,8 @@ msgid "Automatic Document Feeder Modus:"
 msgstr "Chargeur automatique de documents:"
 
 #. TEXT_SETUP_PREVIEW_PIPETTE_RANGE
-#, fuzzy
 msgid "Preview pipette range"
-msgstr "Suréchantillonage de prévisualisation:"
+msgstr "Plage de la pipette de l'aperçu"
 
 #. TEXT_SETUP_THRESHOLD_MIN
 msgid "Threshold minimum:"
@@ -606,7 +628,7 @@ msgstr "Option de réception:"
 
 #. TEXT_SETUP_FAX_POSTSCRIPT_OPT
 msgid "Postscriptfile option:"
-msgstr "Option fichier PostScript:"
+msgstr "Option de fichier PostScript:"
 
 #. TEXT_SETUP_FAX_NORMAL_MODE_OPT
 msgid "Normal mode option:"
@@ -622,15 +644,15 @@ msgstr "Visualisateur (PostScript):"
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
-msgstr ""
+msgstr "utilisateur"
 
 #. TEXT_SETUP_PERMISSION_GROUP
 msgid "group"
-msgstr ""
+msgstr "groupe"
 
 #. TEXT_SETUP_PERMISSION_ALL
 msgid "all"
-msgstr ""
+msgstr "tous"
 
 #. NOTEBOOK_COPY_OPTIONS
 msgid "Copy options"
@@ -744,8 +766,12 @@ msgstr "Charger les paramètres du périphérique"
 msgid "Change directory"
 msgstr "Changer de répertoire"
 
+#. MENU_ITEM_XSANE_LICENSE
+msgid "License"
+msgstr "Licence"
+
 #. MENU_ITEM_XSANE_DOC
-msgid "Xsane doc"
+msgid "XSane doc"
 msgstr "Doc Xsane"
 
 #. MENU_ITEM_BACKEND_DOC
@@ -766,7 +792,7 @@ msgstr "Problèmes?"
 
 #. MENU_ITEM_COUNTER_LEN_INACTIVE
 msgid "inactive"
-msgstr ""
+msgstr "inactif"
 
 #. MENU_ITEM_TIFF_COMP_NONE
 msgid "no compression"
@@ -814,7 +840,7 @@ msgstr "par ext"
 
 #. PROGRESS_SCANNING
 msgid "Scanning"
-msgstr "Numérisation"
+msgstr "Numérisation..."
 
 #. PROGRESS_RECEIVING_FRAME_DATA
 #, c-format
@@ -823,7 +849,7 @@ msgstr "Réception des données %s"
 
 #. PROGRESS_SAVING_DATA
 msgid "Saving image"
-msgstr "Enregistrement image"
+msgstr "Enregistrement de l'image"
 
 #. PROGRESS_ROTATING_DATA
 msgid "Rotating image"
@@ -837,13 +863,30 @@ msgstr "Compression de l'image"
 msgid "Converting data"
 msgstr "Conversion des données..."
 
+#. DESC_SCAN_START
+msgid "Start scan <Ctrl-Enter>"
+msgstr "Numériser <Ctrl-Enter>"
+
+#. DESC_SCAN_CANCEL
+msgid "Cancel scan <ESC>"
+msgstr "Annuler la numérisation <ESC>"
+
+#. DESC_PREVIEW_ACQUIRE
+msgid "Acquire preview scan <Alt-p>"
+msgstr "Acquisition de l'aperçu <Alt-p>"
+
+#. DESC_PREVIEW_CANCEL
+msgid "Cancel preview scan <Alt-ESC>"
+msgstr "Annuler l'aperçu <Alt-ESC>"
+
 #. DESC_XSANE_MODE
-msgid "Use XSane for SCANning, photoCOPYing, FAXing..."
-msgstr "Utilisez XSane pour scanner, photocopier, faxer..."
+msgid "Use XSane for: SCANning-<Ctrl-s> photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>"
+msgstr ""
+"Utilisez XSane pour : SCANNER <Ctrl-s>, photoCOPIER <Ctrl-c>, FAXER <Ctrl-f>"
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
-msgstr ""
+msgstr "Valeur ajoutée au compteur de noms de fichiers après numérisation"
 
 #. DESC_BROWSE_FILENAME
 msgid "Browse for image filename"
@@ -858,6 +901,8 @@ msgid ""
 "Type of image format, the suitable filename extension is automatically added "
 "to the filename"
 msgstr ""
+"Type de format d'image, l'extension de nom de fichier correspondante est "
+"automatiquement ajoutée"
 
 #. DESC_FAXPROJECT
 msgid "Enter name of fax project"
@@ -869,11 +914,11 @@ msgstr "Entrez le nouveau nom pour la page de fax"
 
 #. DESC_FAXRECEIVER
 msgid "Enter receiver phone number or address"
-msgstr "Entrez l'option à spécifier au destinataire"
+msgstr "Entrez le numéro de tél. ou l'adresse du destinataire"
 
 #. DESC_PRINTER_SELECT
-msgid "Select printer definition"
-msgstr "Change la définition de l'imprimante"
+msgid "Select printerdefinition <Shift-F1/F2/...>"
+msgstr "Sélectionne l'imprimante <Shift-F1/F2/...>"
 
 #. DESC_RESOLUTION
 msgid "Set scan resolution"
@@ -904,12 +949,9 @@ msgid "Set number of copies"
 msgstr "Entrez le nombre de copies"
 
 #. DESC_NEGATIVE
-msgid ""
-"Negative: Invert colors for scanning negatives\n"
-"e.g. swap black and white"
+msgid "Negative: Invert colors for scanning negatives <Shift-n>"
 msgstr ""
-"Négatif: Inverse les couleurs pour la numérisation de négatifs\n"
-"ex: inverse noir/blanc"
+"Négatif: Inverse les couleurs pour la numérisation de négatifs <Shift-n>"
 
 #. DESC_GAMMA
 msgid "Set gamma value"
@@ -966,67 +1008,64 @@ msgstr "Change le seuil"
 #. DESC_RGB_DEFAULT
 msgid ""
 "RGB default: Set enhancement values for red, green and blue to default "
-"values:\n"
+"values <Shift-b>:\n"
 " gamma = 1.0\n"
 " brightness = 0\n"
 " contrast = 0"
 msgstr ""
 "Défaults RGB: Place les optimisations pour le rouge, vert et bleu à leurs "
-"valeurs par défaut:\n"
+"valeurs par défaut <Shift-b>:\n"
 " gamma = 1.0\n"
 " luminosité = 0\n"
 " contraste = 0"
 
 #. DESC_ENH_AUTO
-msgid ""
-"Autoadjust gamma, brightness and contrast in dependance of selected scan area"
-msgstr ""
-"Ajuste automatiquement gamma, luminosité et contraste en fonction de la zone "
-"de numérisation sélectionnée"
+msgid "Autoadjust gamma, brightness and contrast <Shift-e>"
+msgstr "Ajuste automatiquement gamma, luminosité et contraste <Shift-e>"
 
 #. DESC_ENH_DEFAULT
 msgid ""
-"Set default enhancement values:\n"
+"Set default enhancement values <Shift-d>:\n"
 "gamma = 1.0\n"
 "brightness = 0\n"
 "contrast = 0"
 msgstr ""
-"Place les optimisations à leurs valeurs par défaut:\n"
+"Place les optimisations à leurs valeurs par défaut <Shift-d>:\n"
 " gamma = 1.0\n"
 " luminosité = 0\n"
 " contraste = 0"
 
 #. DESC_ENH_RESTORE
-msgid "Restore enhancement values from preferences"
-msgstr "Restaure les optimisations des préférences"
+msgid "Restore enhancement values from preferences <Shift-r>"
+msgstr "Restaure les optimisations des préférences <Shift-r>"
 
 #. DESC_ENH_STORE
-msgid "Store active enhancement values to preferences"
-msgstr "Enregistre les optimisations actives dans les préférences"
+msgid "Store active enhancement values to preferences <Shift-m>"
+msgstr "Enregistre les optimisations actives dans les préférences <Shift-m>"
 
 #. DESC_HIST_INTENSITY
-msgid "Show histogram of intensity/gray"
-msgstr "Affiche l'histogramme de l'intensité/gris"
+msgid "Show histogram of intensity/gray <Alt-i>"
+msgstr "Affiche l'histogramme de l'intensité/gris <Alt-i>"
 
 #. DESC_HIST_RED
-msgid "Show histogram of red component"
-msgstr "Affiche l'histogramme de la composante rouge"
+msgid "Show histogram of red component <Alt-r>"
+msgstr "Affiche l'histogramme de la composante rouge <Alt-r>"
 
 #. DESC_HIST_GREEN
-msgid "Show histogram of green component"
-msgstr "Affiche l'histogramme de la composante verte"
+msgid "Show histogram of green component <Alt-g>"
+msgstr "Affiche l'histogramme de la composante verte <Alt-g>"
 
 #. DESC_HIST_BLUE
-msgid "Show histogram of blue component"
-msgstr "Affiche l'histogramme de la composante bleue"
+msgid "Show histogram of blue component <Alt-b>"
+msgstr "Affiche l'histogramme de la composante bleue <Alt-b>"
 
 #. DESC_HIST_PIXEL
-msgid "Display histogram with lines instead of pixels"
-msgstr "Affiche l'histogramme avec des lignes à la place des points"
+msgid "Display mode: show histogram with lines instead of pixels <Alt-m>"
+msgstr "Affiche l'histogramme avec des lignes à la place des points <Alt-m>"
 
 #. DESC_HIST_LOG
-msgid "Show logarithm of pixelcount"
-msgstr "Affiche le logarithme du nombre de points"
+msgid "Show logarithm of pixelcount <Alt-l>"
+msgstr "Affiche le logarithme du nombre de points <Alt-l>"
 
 #. DESC_PRINTER_SETUP
 msgid "Select definition to change"
@@ -1037,8 +1076,8 @@ msgid "Define a name for the selection of this definition"
 msgstr "Entrez un nom pour cette définition"
 
 #. DESC_PRINTER_COMMAND
-msgid "Enter command to be executed in copy mode (e.g. \"lpr -\")"
-msgstr "Entrez la commande a exécuter en mode copie (par ex.: \"lpr -\")"
+msgid "Enter command to be executed in copy mode (e.g. \"lpr\")"
+msgstr "Entrez la commande à exécuter en mode copie (par ex.: \"lpr\")"
 
 #. DESC_COPY_NUMBER_OPTION
 msgid "Enter option for copy numbers"
@@ -1082,19 +1121,19 @@ msgstr "Décalage entre le bord inférieur du papier et l'aire imprimable en mm"
 
 #. DESC_PRINTER_GAMMA
 msgid "Additional gamma value for photocopy"
-msgstr "Gamma additionnel pour photocopie"
+msgstr "Gamma additionnel pour la photocopie"
 
 #. DESC_PRINTER_GAMMA_RED
 msgid "Additional gamma value for red component for photocopy"
-msgstr "Gamma additionnel pour la composante rouge pour photocopie"
+msgstr "Gamma additionnel pour la composante rouge pour la photocopie"
 
 #. DESC_PRINTER_GAMMA_GREEN
 msgid "Additional gamma value for green component for photocopy"
-msgstr "Gamma additionnel pour la composante verte pour photocopie"
+msgstr "Gamma additionnel pour la composante verte pour la photocopie"
 
 #. DESC_PRINTER_GAMMA_BLUE
 msgid "Additional gamma value for blue component for photocopy"
-msgstr "Gamma additionnel pour la composante bleue pour photocopie"
+msgstr "Gamma additionnel pour la composante bleue pour la photocopie"
 
 #. DESC_TMP_PATH
 msgid "Path to temp directory"
@@ -1117,7 +1156,7 @@ msgstr "Compression si l'image est enregistrée en png"
 
 #. DESC_FILENAME_COUNTER_LEN
 msgid "Minimum length of counter in filename"
-msgstr ""
+msgstr "Longueur minimale du compteur de noms de fichiers"
 
 #. DESC_TIFF_COMPRESSION_16
 msgid "Compression type if 16 bit image is saved as tiff"
@@ -1173,10 +1212,8 @@ msgstr ""
 "principale redimensionable"
 
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
-msgid "Disable preview gamma when xsane runs as gimp plugin"
-msgstr ""
-"Désactive la prévisualisation gamma quand XSane fonctionne comme un plugin "
-"Gimp"
+msgid "Disable preview gamma when XSane runs as gimp plugin"
+msgstr "Désactive l'aperçu gamma quand XSane fonctionne comme un plugin Gimp"
 
 #. DESC_PREVIEW_COLORMAP
 msgid "Use an own colormap for preview if display depth is 8 bpp"
@@ -1210,8 +1247,8 @@ msgstr ""
 "Change la correction gamma de la composante bleue pour l'image de l'aperçu"
 
 #. DESC_LINEART_MODE
-msgid "Define the way xsane shall handle the threshold option"
-msgstr "Défini la manière dont XSane gère l'option seuil"
+msgid "Define the way XSane shall handle the threshold option"
+msgstr "Défini la manière dont XSane doit gérer l'option seuil"
 
 #. DESC_GRAYSCALE_SCANMODE
 msgid ""
@@ -1234,21 +1271,21 @@ msgstr "Le niveau de seuil maximum du scanner en %"
 
 #. DESC_PREVIEW_THRESHOLD_MUL
 msgid ""
-"Multiplier to make xsane threshold range and scanner threshold range the same"
+"Multiplier to make XSane threshold range and scanner threshold range the same"
 msgstr ""
 "Multiplicateur pour rendre l'échelle de seuil de XSane et du scanner les "
 "mêmes"
 
 #. DESC_PREVIEW_THRESHOLD_OFF
 msgid ""
-"Offset to make xsane threshold range and scanner threshold range the same"
+"Offset to make XSane threshold range and scanner threshold range the same"
 msgstr ""
 "Décalage pour rendre l'échelle de seuil de XSane et du scanner les mêmes"
 
 #. DESC_ADF_MODE
 msgid ""
 "Select scansource for Automatic Document feeder. If this scansource is "
-"selected xsane scans until \"out of paper\" or error."
+"selected XSane scans until \"out of paper\" or error."
 msgstr ""
 "Sélectionnez la source de numérisation pour le chargeur automatique de "
 "documents. Dans ce mode, XSane numérisera jusqu'à l'obtention d'un signal "
@@ -1257,12 +1294,14 @@ msgstr ""
 #. DESC_PREVIEW_PIPETTE_RANGE
 msgid "dimension of square that is used to average color for pipette function"
 msgstr ""
+"Dimension du carré utilisée pour déterminer la couleur moyenne pour la "
+"fonction pipette"
 
 #. DESC_DOC_VIEWER
 msgid ""
 "Enter command to be executed to display helpfiles, must be a html-viewer!"
 msgstr ""
-"Entrez la commande a exécuter pour afficher les fichiers d'aide; doit être "
+"Entrez la commande a exécuter pour afficher les fichiers d'aide ; doit être "
 "capable de lire du html!"
 
 #. DESC_AUTOENHANCE_GAMMA
@@ -1296,21 +1335,20 @@ msgstr "Entrez la commande à être exécutée pour voir un fax"
 #. DESC_FAX_FINE_MODE
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
 msgstr ""
-"Envoie un fax avec une résolution verticale (196 lpi à la place de 98 lpi)"
+"Envoie un fax avec une résolution verticale élevée (196 lpi à la place de 98 "
+"lpi)"
 
 #. DESC_PERMISSION_READ
 msgid "read"
-msgstr ""
+msgstr "lecture"
 
 #. DESC_PERMISSION_WRITE
-#, fuzzy
 msgid "write"
-msgstr "Ecraser"
+msgstr "écriture"
 
 #. DESC_PERMISSION_EXECUTE
-#, fuzzy
 msgid "execute"
-msgstr "Effacer"
+msgstr "exécution"
 
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
@@ -1346,9 +1384,8 @@ msgid "Select visible area"
 msgstr "Sélectionne l'aire visible"
 
 #. DESC_AUTOSELECT_SCANAREA
-#, fuzzy
 msgid "Autoselect scanarea"
-msgstr "Utilise l'aire de numérisation complète"
+msgstr "Sélection automatique de l'aire de numérisation"
 
 #. DESC_PRESET_AREA
 msgid "Reduce scan area"
@@ -1356,7 +1393,7 @@ msgstr "Réduit l'aire de numérisation"
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
-msgstr "Pivote la prévisualisation et la numérisation"
+msgstr "Pivote l'aperçu et la numérisation"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -1487,15 +1524,15 @@ msgstr "Erreur"
 
 #. ERR_MAJOR_VERSION_NR_CONFLICT
 msgid "Sane major version number mismatch!"
-msgstr "Incohérence dans les numéros de version majeur de Sane!"
+msgstr "Incohérence dans le numéro de version majeur de Sane!"
 
 #. ERR_XSANE_MAJOR_VERSION
-msgid "xsane major version ="
-msgstr "version majeure de XSane ="
+msgid "XSane major version ="
+msgstr "Version majeure de XSane ="
 
 #. ERR_BACKEND_MAJOR_VERSION
 msgid "backend major version ="
-msgstr "version majeure du backend ="
+msgstr "Version majeure du backend ="
 
 #. ERR_PROGRAM_ABORTED
 msgid "*** PROGRAM ABORTED ***"
@@ -1514,23 +1551,23 @@ msgid "GIMP support missing"
 msgstr "le support pour GIMP est manquant"
 
 #. WARN_COUNTER_UNDERRUN
-#, fuzzy
 msgid "Filename counter underrun"
-msgstr "Dépassement du compteur de nom de fichier"
+msgstr "Repositionnement du compteur de noms de fichiers"
 
 #. WARN_NO_VALUE_CONSTRAINT
 msgid "warning: option has no value constraint"
-msgstr "attention: l'option n'a pas de restriction"
+msgstr "Attention: l'option n'a pas de restriction"
 
 #. WARN_XSANE_AS_ROOT
 msgid ""
-"You try to run xsane as ROOT, that really is DANGEROUS!\n"
+"You try to run XSane as ROOT, that really is DANGEROUS!\n"
 "\n"
 "Do not send any bug reports when you\n"
-"have any problem while running xsane as root:\n"
+"have any problem while running XSane as root:\n"
 "YOU ARE ALONE!"
 msgstr ""
 "Vous exécutez XSane en tant que ROOT, c'est réellement DANGEREUX !\n"
+"\n"
 "N'envoyez pas de rapports de bug si vous rencontrez\n"
 "des problèmes en utilisant XSane en tant que root:\n"
 "VOUS ETES SEUL !"
@@ -1584,6 +1621,16 @@ msgstr "cela peut occasionner des problèmes!"
 msgid "File %s already exists"
 msgstr "Le fichier %s existe déja"
 
+#. ERR_FILE_NOT_EXISTS
+#, c-format
+msgid "File %s does not exist"
+msgstr "Le fichier %s n'existe pas"
+
+#. ERR_FILE_NOT_POSTSCRIPT
+#, c-format
+msgid "File %s is not a postscript file"
+msgstr "Le fichier %s n'est pas un fichier PostScript"
+
 #. ERR_UNSUPPORTED_OUTPUT_FORMAT
 #, c-format
 msgid "Unsupported %d-bit output format: %s"
@@ -1606,6 +1653,7 @@ msgid ""
 "[OPTION]... can be a combination of the following items:\n"
 " -h, --help                   display this help message and exit\n"
 " -v, --version                print version information\n"
+" -l, --license                print license information\n"
 "\n"
 " -d, --device-settings file   load device settings from file (without "
 "\".drc\")\n"
@@ -1613,14 +1661,14 @@ msgid ""
 " -s, --scan                   start with scan-mode active\n"
 " -c, --copy                   start with copy-mode active\n"
 " -f, --fax                    start with fax-mode active\n"
-" -n, --no-mode-selection      disable menu for xsane mode selection\n"
+" -n, --no-mode-selection      disable menu for XSane mode selection\n"
 "\n"
 " -F, --Fixed                  fixed main window size (overwrite preferences "
 "value)\n"
 " -R, --Resizeable             resizable, scrolled main window (overwrite "
 "preferences value)\n"
 "\n"
-" -p, --print-filenames        print image filenames created by xsane\n"
+" -p, --print-filenames        print image filenames created by XSane\n"
 " -N, --force-filename name    force filename and disable user filename "
 "selection\n"
 "\n"
@@ -1629,14 +1677,16 @@ msgid ""
 " --sync                       request a synchronous connection with the X11 "
 "server"
 msgstr ""
-"Démarre l'interface graphique pour accéder à SANE (Scanner Access Now "
-"Easy).\n"
+"Démarre l'interface graphique pour accéder aux périphériques de SANE "
+"(Scanner Access Now Easy).\n"
+"\n"
 "Le format de [PERIPHERIQUE] est : nom_du_backend:fichier_périphérique\n"
 "(ex : umax:/dev/scanner).\n"
 "[OPTION]... peut être une des combinaisons suivantes :\n"
 "\n"
 "-h, --help                   affiche ce message d'aide et quitte\n"
 "-v, --version                donne des informations sur la version\n"
+"-l, --license                affiche des informations sur la licence\n"
 "\n"
 "-d, --device-settings file   charge la configuration d'un périphérique à\n"
 "                             partir d'un fichier (sans \".drc\")\n"
@@ -1782,10 +1832,10 @@ msgid "End of file reached"
 msgstr "Fin de fichier atteinte"
 
 msgid "Document feeder jammed"
-msgstr "Chargeur de document bloqué"
+msgstr "Chargeur de documents bloqué"
 
 msgid "Document feeder out of documents"
-msgstr "Chargeur de document vide"
+msgstr "Chargeur de documents vide"
 
 msgid "Scanner cover is open"
 msgstr "Le capot du scanner est ouvert"
@@ -1798,44 +1848,3 @@ msgstr "Dépassement de mémoire"
 
 msgid "Access to resource has been denied"
 msgstr "Accès à la ressource refusé"
-
-#~ msgid "Increase filename counter"
-#~ msgstr "Incrémenter le compteur de nom de fichier"
-
-#~ msgid ""
-#~ "If the filename is of the form \"name-001.ext\" (where the number of digits "
-#~ "is free) the number is increased after a scan is finished"
-#~ msgstr ""
-#~ "Si le nom de fichier est de la forme \"nom-001.ext\" (où le nombre de "
-#~ "chiffres est libre), le nom est incrémenté lorsque la numérisation est "
-#~ "terminée"
-
-#~ msgid "Filename extension and type of image format"
-#~ msgstr "Extension et type du format d'image"
-
-#~ msgid "Exit"
-#~ msgstr "Quitter"
-
-#~ msgid "Preserve preview image"
-#~ msgstr "Préserver l'image de l'aperçu"
-
-#~ msgid "Device options"
-#~ msgstr "Options du périphérique"
-
-#~ msgid "Preserve preview image for next program start"
-#~ msgstr "Préserver l'image de l'aperçu pour le prochain démarrage"
-
-#~ msgid "Saving fax image"
-#~ msgstr "Enregistrement image fax"
-
-#~ msgid "Converting to postscript"
-#~ msgstr "Conversion en PostScript..."
-
-#~ msgid "Receiving %s data for photocopy ..."
-#~ msgstr "Réception des données %s pour photocopie..."
-
-#~ msgid "Receiving %s data for fax ..."
-#~ msgstr "Réception des données %s pour fax..."
-
-#~ msgid "Receiving %s data for GIMP..."
-#~ msgstr "Réception des données %s pour GIMP..."
