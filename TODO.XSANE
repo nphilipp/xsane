@@ -3,6 +3,7 @@ If you have any suggestions: mail to Oliver.Rauch@Wolfsburg.DE
 
 first steps:
  - set resolution in copy-mode at beginning
+ - program cancel_handler for data conversion
  - what happens if backend supports gamma table but does not
    use "custom_gamma"-option and we do a preview scan with enhancement != default ?
  - make better backend-dependend option handling and error handling (mostly done!)
@@ -16,16 +17,16 @@ first steps:
  - print info about used (hidden) parametres (software/scanner gamma, analog gamma ...)
  - xsane_setup: select image position on printer (centered/left/right/...) for copy
  - store more than 1 enhancement and give names for it, may be in own files
- - postscript-output for 1/8/10/12 bpp
+ - postscript-output for 10/12 bpp (does postscript support it?)
  - fax-function
  - may be email-function
  - other output formats for saving:
-   - png
-   - jpeg
-   - postscript
+   - gif ?
+   - tiff ?
    - ...?
  - online help (netscape remote)
  - save all options to a file including preview-selection
+ - correct last byte in png- and jpeg- lineart-save
 
 second steps:
  - let user select whether

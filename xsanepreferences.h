@@ -13,6 +13,8 @@ typedef struct
     int printer_height;		/* printer height of printable area in 1/72inch  */
     int printer_leftoffset;	/* printer left offset in 1/72inch  */
     int printer_bottomoffset;	/* printer bottom offset in 1/72inch  */
+    double jpeg_quality;	/* quality when saving image as jpeg */
+    double png_compression;	/* compression when saving image as pnm */
     int tooltips_enabled;	/* should tooltips be disabled? */
     int show_histogram;		/* show histogram ? */
     int show_standard_options;	/* show standard options ? */

@@ -41,6 +41,8 @@ Preferences preferences =
      835,		/* printer_height */
       10,		/* printer_leftoffset */
       10,		/* printer_bottomoffset */
+      80.0,		/* jpeg_quality */
+      7.0,		/* png_compression */
        1,		/* tooltips enabled */
        0,		/* (dont) show histogram */
        0,		/* (dont) show standard options */
@@ -81,6 +83,8 @@ desc[] =
     {"printer-res", w_int, POFFSET(printerresolution)},
     {"printer-leftoffset", w_int, POFFSET(printer_leftoffset)},
     {"printer-bottomoffset", w_int, POFFSET(printer_bottomoffset)},
+    {"jpeg-quality", w_double, POFFSET(jpeg_quality)},
+    {"png-compression", w_double, POFFSET(png_compression)},
     {"tool-tips", w_int, POFFSET(tooltips_enabled)},
     {"show-histogram", w_int, POFFSET(show_histogram)},
     {"show-standard-options", w_int, POFFSET(show_standard_options)},

@@ -28,6 +28,10 @@ cp README-PATCH $1/frontend
 cp TODO.XSANE $1/frontend
 
 cp Makefile.in $1/frontend
+cp configure $1/
+cp config.h.in $1/include/sane
+
+cp xsane-logo.xpm $1/frontend
 
 echo "TO COMPILE XSANE:"
 echo "-----------------"

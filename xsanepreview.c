@@ -818,6 +818,7 @@ static void scan_done (Preview *p)
 
   gtk_widget_set_sensitive (p->cancel, FALSE);
   gsg_set_sensitivity (p->dialog, TRUE);
+  xsane_update_histogram();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1100,22 +1101,21 @@ static gint event_handler (GtkWidget *window, GdkEvent *event, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void start_button_clicked (GtkWidget *widget, gpointer data)
+static void start_button_clicked(GtkWidget *widget, gpointer data)
 {
-  preview_scan (data);
-  xsane_update_histogram();
+  preview_scan(data);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void cancel_button_clicked (GtkWidget *widget, gpointer data)
+static void cancel_button_clicked(GtkWidget *widget, gpointer data)
 {
   scan_done (data);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void top_destroyed (GtkWidget *widget, gpointer call_data)
+static void top_destroyed(GtkWidget *widget, gpointer call_data)
 {
   Preview *p = call_data;
 

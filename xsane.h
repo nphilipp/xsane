@@ -48,4 +48,9 @@
 #define DESC_HIST_PIXEL		"Display histogram with lines instead of pixels"
 #define DESC_HIST_LOG		"Show logarithm of pixelcount"
 
+enum
+{
+ XSANE_PNM, XSANE_JPEG, XSANE_PNG, XSANE_PS
+};
+
 #endif

@@ -20,6 +20,7 @@ mandir = @mandir@
 includedir = @includedir@
 oldincludedir = /usr/include
 configdir = ${sysconfdir}/sane.d
+datasanedir = ${datadir}/sane
 
 MKDIR = $(top_srcdir)/mkinstalldirs
 INSTALL = @INSTALL@
@@ -40,7 +41,7 @@ GIMP_LIBS = @GIMP_LIBS@
 LIBTOOL = ../libtool
 MINST	= --mode=install
 MLINK	= --mode=link
-XSCAN	= @XSCAN@ xsane
+XSCAN	= @XSCAN@
 SANED	= @SANED@
 
 COMPILE = $(CC) -c $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS)
@@ -67,7 +68,7 @@ XSANE_OBJS = xsane.o progress.o xsanepreview.o xsanepreferences.o xsanegtk.o
 all: $(PROGRAMS)
 
 install: $(PROGRAMS)
-	$(MKDIR) $(bindir) $(sbindir) $(datadir)
+	$(MKDIR) $(bindir) $(sbindir) $(datadir) $(datasanedir)
 	@for program in $(BINPROGS); do \
 	  $(LIBTOOL) $(MINST) $(INSTALL_PROGRAM) $${program} \
 	    $(bindir)/$${program}; \
@@ -77,6 +78,7 @@ install: $(PROGRAMS)
 	    $(sbindir)/$${program}; \
 	done
 	$(INSTALL_DATA) $(srcdir)/sane-style.rc $(datadir)/sane-style.rc
+	$(INSTALL_DATA) $(srcdir)/xsane-logo.xpm $(datasanedir)/xsane-logo.xpm
 
 test: test.o $(LIBSANE) $(LIBLIB)
 	@$(LIBTOOL) $(MLINK) $(LINK) test.o $(LIBSANE) $(LIBLIB) $(LIBS)
