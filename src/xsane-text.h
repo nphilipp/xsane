@@ -219,8 +219,6 @@
 #define TEXT_MEDIUM_DEFINITION_NAME	_("Medium Name:")
 
 #define TEXT_VIEWER_IMAGE_INFO		_("Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s")
-#define TEXT_X_SCALE_FACTOR		_("X-Scale factor:")
-#define TEXT_Y_SCALE_FACTOR		_("Y-Scale factor:")
 #define TEXT_DESPECKLE_RADIUS		_("Despeckle radius:")
 #define TEXT_BLUR_RADIUS		_("Blur radius:")
 
@@ -544,7 +542,8 @@
 
 #define DESC_ZOOM_FULL			_("Use full scanarea")
 #define DESC_ZOOM_OUT			_("Zoom 20% out")
-#define DESC_ZOOM_IN			_("Zoom into selected area")
+#define DESC_ZOOM_IN			_("Click at position to zoom to")
+#define DESC_ZOOM_AREA			_("Zoom into selected area")
 #define DESC_ZOOM_UNDO			_("Undo last zoom")
 
 #define DESC_FULL_PREVIEW_AREA		_("Select visible area")
@@ -569,6 +568,9 @@
 #define DESC_VIEWER_ZOOM		_("Zoom image")
 #define DESC_STORE_MEDIUM		_("Store medium")
 #define DESC_DELETE_MEDIUM		_("Delete active medium")
+#define DESC_SCALE_FACTOR		_("Scale factor")
+#define DESC_X_SCALE_FACTOR		_("X-Scale factor")
+#define DESC_Y_SCALE_FACTOR		_("Y-Scale factor")
 
 #define ERR_HOME_DIR			_("Failed to determine home directory:")
 #define ERR_CHANGE_WORKING_DIR		_("Failed to change working directory to")

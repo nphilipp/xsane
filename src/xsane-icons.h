@@ -33,6 +33,10 @@
 #define CURSOR_AUTORAISE_SCANAREA_HEIGHT 16
 #define CURSOR_AUTORAISE_SCANAREA_HOT_X 7
 #define CURSOR_AUTORAISE_SCANAREA_HOT_Y 7
+#define CURSOR_ZOOM_WIDTH 16
+#define CURSOR_ZOOM_HEIGHT 16
+#define CURSOR_ZOOM_HOT_X 6
+#define CURSOR_ZOOM_HOT_Y 6
 
 extern const char *xsane_window_icon_xpm[];
 extern const char *error_xpm[];
@@ -82,6 +86,7 @@ extern const char *pipette_black_xpm[];
 extern const char *zoom_not_xpm[];
 extern const char *zoom_out_xpm[];
 extern const char *zoom_in_xpm[];
+extern const char *zoom_area_xpm[];
 extern const char *zoom_undo_xpm[];
 extern const char *full_preview_area_xpm[];
 extern const char *auto_select_preview_area_xpm[];
@@ -113,5 +118,6 @@ extern const char cursor_pipette_black[];
 extern const char cursor_pipette_mask[];
 extern const char cursor_autoraise_scanarea[];
 extern const char cursor_autoraise_scanarea_mask[];
-
+extern const char cursor_zoom[];
+extern const char cursor_zoom_mask[];
 #endif

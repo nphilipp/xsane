@@ -1890,6 +1890,7 @@ static void xsane_save_ps_create_header(FILE *outfile, Image_info *image_info,
   fprintf(outfile, "%%%%Creator: xsane version %s (sane %d.%d)\n", VERSION,
                                                                    SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
                                                                    SANE_VERSION_MINOR(xsane.sane_backend_versioncode));
+  fprintf(outfile, "%%%%Pages: 1 1\n");
   fprintf(outfile, "%%%%BoundingBox: %d %d %d %d\n", box_left, box_bottom, box_right, box_top);
   fprintf(outfile, "%%\n");
   fprintf(outfile, "/origstate save def\n");

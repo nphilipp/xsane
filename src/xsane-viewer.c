@@ -109,6 +109,11 @@ static gint xsane_viewer_close_callback(GtkWidget *widget, gpointer data)
     list = list->next_viewer;
   }
 
+  if (v->active_dialog)
+  {
+    gtk_widget_destroy(v->active_dialog);
+  }
+
   free(v);
 
  return TRUE;
@@ -121,6 +126,7 @@ static void xsane_viewer_dialog_cancel(GtkWidget *window, gpointer data)
  Viewer *v = (Viewer *) data;
 
   gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
+  v->active_dialog = NULL;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -467,6 +473,13 @@ static void xsane_viewer_clone_callback(GtkWidget *window, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static void xsane_viewer_range_changed(GtkAdjustment *adj_data, double *val)
+{
+   *val = adj_data->value;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void xsane_viewer_spinbutton_float_changed(GtkWidget *spinbutton, gpointer data)
 {
  float *val = (float *) data;
@@ -489,14 +502,23 @@ static void xsane_viewer_spinbutton_int_changed(GtkWidget *spinbutton, gpointer 
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static void xsane_viewer_button_changed(GtkWidget *button, gpointer data)
+{
+ int *val = (int *) data;
+
+  *val = GTK_TOGGLE_BUTTON(button)->active;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void xsane_viewer_scale_callback(GtkWidget *window, gpointer data)
 {
  Viewer *v = (Viewer *) data;
  GtkWidget *selection_dialog;
  GtkWidget *frame;
  GtkWidget *hbox, *vbox;
- GtkWidget *label, *spinbutton, *button;
- GtkAdjustment *adjustment;
+ GtkWidget *button;
+ GtkObject *scale_widget, *scalex_widget, *scaley_widget;
  char buf[256];
 
   DBG(DBG_proc, "xsane_viewer_scale_callback\n");
@@ -512,12 +534,29 @@ static void xsane_viewer_scale_callback(GtkWidget *window, gpointer data)
     snprintf(buf, sizeof(buf), WINDOW_SCALE); 
   }
 
-  selection_dialog = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_position(GTK_WINDOW(selection_dialog), GTK_WIN_POS_MOUSE);
-  gtk_window_set_title(GTK_WINDOW(selection_dialog), buf);
-  xsane_set_window_icon(selection_dialog, 0);
+  if (v->active_dialog) /* use active dialog */
+  {
+    selection_dialog = v->active_dialog;
+    gtk_container_foreach(GTK_CONTAINER(selection_dialog), (GtkCallback) gtk_widget_destroy, NULL);
+    if (!v->bind_scale)
+    {
+      v->y_scale_factor = v->x_scale_factor;
+    }
+  }
+  else /* first time the dialog is opened */
+  {
+    selection_dialog = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_resizable(GTK_WINDOW(selection_dialog), FALSE);
+    gtk_window_set_position(GTK_WINDOW(selection_dialog), GTK_WIN_POS_MOUSE);
+    gtk_window_set_title(GTK_WINDOW(selection_dialog), buf);
+    xsane_set_window_icon(selection_dialog, 0);
+    g_signal_connect(GTK_OBJECT(selection_dialog), "destroy", (GtkSignalFunc) xsane_viewer_dialog_cancel, (void *) v);
 
-  v->active_dialog = selection_dialog;
+    v->active_dialog = selection_dialog;
+    v->x_scale_factor = 1.0;
+    v->y_scale_factor = 1.0;
+    v->bind_scale = TRUE;
+  }
 
   frame = gtk_frame_new(0);
   gtk_container_set_border_width(GTK_CONTAINER(frame), 4);
@@ -530,52 +569,39 @@ static void xsane_viewer_scale_callback(GtkWidget *window, gpointer data)
   gtk_container_add(GTK_CONTAINER(frame), vbox);
   gtk_widget_show(vbox);
 
-#if 0
   /* bind scale */
-
   button = gtk_check_button_new_with_label(BUTTON_SCALE_BIND);
   gtk_box_pack_start(GTK_BOX(vbox), button, FALSE, FALSE, 5);
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), TRUE);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), v->bind_scale);
+  g_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_viewer_button_changed, (void *) &v->bind_scale);
+  g_signal_connect_after(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_viewer_scale_callback, (void *) v);
   gtk_widget_show(button);
-#endif
 
-  /* x_scale factor: <-> */
+  if (v->bind_scale)
+  {
+    /* scale factor: <-> */
+    xsane_range_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(vbox), zoom_xpm, 
+                                DESC_SCALE_FACTOR,
+                                0.01, 10.0, 0.01, 0.1, 2, &v->x_scale_factor, &scale_widget,
+                                0, xsane_viewer_range_changed,
+                                TRUE);
+  }
+  else
+  {
+    /* x_scale factor: <-> */
+    xsane_range_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(vbox), zoom_x_xpm,
+                                DESC_X_SCALE_FACTOR,
+                                0.01, 10.0, 0.01, 0.1, 2, &v->x_scale_factor, &scalex_widget,
+                                0, xsane_viewer_range_changed,
+                                TRUE);
 
-  v->x_scale_factor = 1.0;
-
-  hbox = gtk_hbox_new(FALSE, 2);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 5);
-  gtk_widget_show(hbox);
-
-  label = gtk_label_new(TEXT_X_SCALE_FACTOR); 
-  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 10);
-  gtk_widget_show(label);
-
-  adjustment = (GtkAdjustment *) gtk_adjustment_new(1.0, 0.01, 10.0, 0.01, 0.1, 0.0);
-  spinbutton = gtk_spin_button_new(adjustment, 0, 2);
-  g_signal_connect(GTK_OBJECT(spinbutton), DEF_GTK_SIGNAL_SPINBUTTON_VALUE_CHANGED, (GtkSignalFunc) xsane_viewer_spinbutton_float_changed, (void *) &v->x_scale_factor);
-  gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(spinbutton), TRUE);
-  gtk_box_pack_end(GTK_BOX(hbox), spinbutton, FALSE, FALSE, 10);
-  gtk_widget_show(spinbutton);
-
-  /* y_scale factor: <-> */
-
-  v->y_scale_factor = 1.0;
-
-  hbox = gtk_hbox_new(FALSE, 2);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 5);
-  gtk_widget_show(hbox);
-
-  label = gtk_label_new(TEXT_Y_SCALE_FACTOR); 
-  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 10);
-  gtk_widget_show(label);
-
-  adjustment = (GtkAdjustment *) gtk_adjustment_new(1.0, 0.01, 10.0, 0.01, 0.1, 0.0);
-  spinbutton = gtk_spin_button_new(adjustment, 0, 2);
-  g_signal_connect(GTK_OBJECT(spinbutton), DEF_GTK_SIGNAL_SPINBUTTON_VALUE_CHANGED, (GtkSignalFunc) xsane_viewer_spinbutton_float_changed, (void *) &v->y_scale_factor);
-  gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(spinbutton), TRUE);
-  gtk_box_pack_end(GTK_BOX(hbox), spinbutton, FALSE, FALSE, 10);
-  gtk_widget_show(spinbutton);
+    /* y_scale factor: <-> */
+    xsane_range_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(vbox), zoom_y_xpm,
+                                DESC_Y_SCALE_FACTOR,
+                                0.01, 10.0, 0.01, 0.1, 2, &v->y_scale_factor, &scaley_widget,
+                                0, xsane_viewer_range_changed,
+                                TRUE);
+  }
 
   /* Apply Cancel */
 
@@ -631,6 +657,7 @@ static void xsane_viewer_despeckle_callback(GtkWidget *window, gpointer data)
   gtk_window_set_position(GTK_WINDOW(selection_dialog), GTK_WIN_POS_MOUSE);
   gtk_window_set_title(GTK_WINDOW(selection_dialog), buf);
   xsane_set_window_icon(selection_dialog, 0);
+  g_signal_connect(GTK_OBJECT(selection_dialog), "destroy", (GtkSignalFunc) xsane_viewer_dialog_cancel, (void *) v);
 
   v->active_dialog = selection_dialog;
 
@@ -717,6 +744,7 @@ static void xsane_viewer_blur_callback(GtkWidget *window, gpointer data)
   gtk_window_set_position(GTK_WINDOW(selection_dialog), GTK_WIN_POS_MOUSE);
   gtk_window_set_title(GTK_WINDOW(selection_dialog), buf);
   xsane_set_window_icon(selection_dialog, 0);
+  g_signal_connect(GTK_OBJECT(selection_dialog), "destroy", (GtkSignalFunc) xsane_viewer_dialog_cancel, (void *) v);
 
   v->active_dialog = selection_dialog;
 
@@ -817,6 +845,11 @@ static void xsane_viewer_scale_image(GtkWidget *window, gpointer data)
   gtk_progress_set_format_string(GTK_PROGRESS(v->progress_bar), PROGRESS_SCALING_DATA);
 
   gtk_progress_bar_update(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
+
+  if (v->bind_scale)
+  {
+    v->y_scale_factor = v->x_scale_factor;
+  }
 
   xsane_save_scaled_image(outfile, infile, &image_info, v->x_scale_factor, v->y_scale_factor, v->progress_bar, &v->cancel_save);
 

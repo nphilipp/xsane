@@ -335,12 +335,11 @@ int xsane_set_resolution(int well_known_option, double resolution)
     return 1; /* error */
   }
 
-#if 0
+  /* it makes problems to call xsane_back_gtk_set_option. This would allow a */
+  /* panel_rebuild that can mess up a lot at this place*/
   xsane_control_option(xsane.dev, well_known_option, SANE_ACTION_SET_VALUE, &dpi, 0);
-#else
-  xsane_back_gtk_set_option(well_known_option, &dpi, SANE_ACTION_SET_VALUE);
-#endif
-  return 0; /* everything is ok */
+
+ return 0; /* everything is ok */
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -351,15 +350,6 @@ void xsane_set_all_resolutions(void)
 
   DBG(DBG_proc, "xsane_set_all_resolutions\n");
 
-#if 0
-  xsane_set_resolution(xsane.well_known.dpi_y, xsane.resolution_y); /* set y resolution if possible */
-  if (xsane_set_resolution(xsane.well_known.dpi_x, xsane.resolution_x)) /* set x resolution if possible */
-  {
-    xsane_set_resolution(xsane.well_known.dpi, xsane.resolution); /* set common resolution if necessary */
-    xsane.resolution_x = xsane.resolution;
-    xsane.resolution_y = xsane.resolution;
-  }
-#else
   if (xsane_set_resolution(xsane.well_known.dpi_y, xsane.resolution_y)) /* set y resolution if possible */
   {
     xsane_set_resolution(xsane.well_known.dpi, xsane.resolution); /* set common resolution if necessary */
@@ -370,7 +360,6 @@ void xsane_set_all_resolutions(void)
   {
     xsane_set_resolution(xsane.well_known.dpi_x, xsane.resolution_x); /* set x resolution if possible */
   }
-#endif
 
   switch (xsane.param.format)
   {

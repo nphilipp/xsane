@@ -161,9 +161,11 @@ static void preview_cancel_button_clicked(GtkWidget *widget, gpointer data);
 static void preview_area_correct(Preview *p);
 static void preview_save_image(Preview *p);
 static void preview_delete_images(Preview *p);
+static void preview_select_zoom_point(Preview *p, int preview_x, int preview_y);
 static void preview_zoom_not(GtkWidget *window, gpointer data);
 static void preview_zoom_out(GtkWidget *window, gpointer data);
 static void preview_zoom_in(GtkWidget *window, gpointer data);
+static void preview_zoom_area(GtkWidget *window, gpointer data);
 static void preview_zoom_undo(GtkWidget *window, gpointer data);
 static void preview_get_color(Preview *p, int x, int y, int range, int *red, int *green, int *blue);
 static void preview_pipette_white(GtkWidget *window, gpointer data);
@@ -576,16 +578,17 @@ static void preview_bound_selection(Preview *p)
 
   if (p->selection.active)
   {
-#if 0
+#if 1
     xsane_bound_float(&p->selection.coordinate[0], p->scanner_surface[0], p->scanner_surface[2]);
     xsane_bound_float(&p->selection.coordinate[2], p->scanner_surface[0], p->scanner_surface[2]);
     xsane_bound_float(&p->selection.coordinate[1], p->scanner_surface[1], p->scanner_surface[3]);
     xsane_bound_float(&p->selection.coordinate[3], p->scanner_surface[1], p->scanner_surface[3]);
-#endif
+#else
     xsane_bound_float(&p->selection.coordinate[0], p->surface[0], p->surface[2]);
     xsane_bound_float(&p->selection.coordinate[2], p->surface[0], p->surface[2]);
     xsane_bound_float(&p->selection.coordinate[1], p->surface[1], p->surface[3]);
     xsane_bound_float(&p->selection.coordinate[3], p->surface[1], p->surface[3]);
+#endif
   }
 }
 
@@ -3064,6 +3067,27 @@ static gint preview_button_press_event_handler(GtkWidget *window, GdkEvent *even
       }
       break;
 
+      case MODE_ZOOM_IN:
+      {
+        DBG(DBG_info, "zoom in mode\n");
+
+        if ( ( (((GdkEventButton *)event)->button == 1) || (((GdkEventButton *)event)->button == 2) ) &&
+             (p->image_data_raw) ) /* left or middle button */
+        {
+          preview_select_zoom_point(p, event->button.x, event->button.y); /* select zoom point */
+        }
+        else
+        {
+          p->mode = MODE_NORMAL;
+
+          cursor = gdk_cursor_new(XSANE_CURSOR_PREVIEW);
+          gdk_window_set_cursor(p->window->window, cursor);
+          gdk_cursor_unref(cursor);
+          p->cursornr = XSANE_CURSOR_PREVIEW;
+        }
+      }
+      break;
+
       case MODE_NORMAL:
       {
         DBG(DBG_info, "normal mode\n");
@@ -3529,20 +3553,22 @@ Preview *preview_new(void)
   p->pipette_black = xsane_button_new_with_pixmap(p->top->window, p->button_box, pipette_black_xpm, DESC_PIPETTE_BLACK, (GtkSignalFunc) preview_pipette_black, p);
 
   /* Zoom not, zoom out and zoom in button */
-  p->zoom_not   = xsane_button_new_with_pixmap(p->top->window, p->button_box, zoom_not_xpm,  DESC_ZOOM_FULL, (GtkSignalFunc) preview_zoom_not,   p);
-  p->zoom_out   = xsane_button_new_with_pixmap(p->top->window, p->button_box, zoom_out_xpm,  DESC_ZOOM_OUT,  (GtkSignalFunc) preview_zoom_out,   p);
-  p->zoom_in    = xsane_button_new_with_pixmap(p->top->window, p->button_box, zoom_in_xpm,   DESC_ZOOM_IN,   (GtkSignalFunc) preview_zoom_in,    p);
-  p->zoom_undo  = xsane_button_new_with_pixmap(p->top->window, p->button_box, zoom_undo_xpm, DESC_ZOOM_UNDO, (GtkSignalFunc) preview_zoom_undo,  p);
-  p->full_area  = xsane_button_new_with_pixmap(p->top->window, p->button_box, auto_select_preview_area_xpm, DESC_AUTOSELECT_SCANAREA, (GtkSignalFunc) preview_autoselect_scanarea_callback, p);
-  p->autoraise  = xsane_button_new_with_pixmap(p->top->window, p->button_box, auto_raise_preview_area_xpm,  DESC_AUTORAISE_SCANAREA,  (GtkSignalFunc) preview_init_autoraise_scanarea,      p);
-  p->autoselect = xsane_button_new_with_pixmap(p->top->window, p->button_box, full_preview_area_xpm,        DESC_FULL_PREVIEW_AREA,   (GtkSignalFunc) preview_full_preview_area_callback,   p);
-  delete_images = xsane_button_new_with_pixmap(p->top->window, p->button_box, delete_images_xpm,            DESC_DELETE_IMAGES,       (GtkSignalFunc) preview_delete_images_callback,       p);
+  p->zoom_not    = xsane_button_new_with_pixmap(p->top->window, p->button_box, zoom_not_xpm,  DESC_ZOOM_FULL, (GtkSignalFunc) preview_zoom_not,  p);
+  p->zoom_out    = xsane_button_new_with_pixmap(p->top->window, p->button_box, zoom_out_xpm,  DESC_ZOOM_OUT,  (GtkSignalFunc) preview_zoom_out,  p);
+  p->zoom_in     = xsane_button_new_with_pixmap(p->top->window, p->button_box, zoom_in_xpm,   DESC_ZOOM_IN,   (GtkSignalFunc) preview_zoom_in,   p);
+  p->zoom_area   = xsane_button_new_with_pixmap(p->top->window, p->button_box, zoom_area_xpm, DESC_ZOOM_AREA, (GtkSignalFunc) preview_zoom_area, p);
+  p->zoom_undo   = xsane_button_new_with_pixmap(p->top->window, p->button_box, zoom_undo_xpm, DESC_ZOOM_UNDO, (GtkSignalFunc) preview_zoom_undo, p);
+  p->full_area   = xsane_button_new_with_pixmap(p->top->window, p->button_box, auto_select_preview_area_xpm, DESC_AUTOSELECT_SCANAREA, (GtkSignalFunc) preview_autoselect_scanarea_callback, p);
+  p->autoraise   = xsane_button_new_with_pixmap(p->top->window, p->button_box, auto_raise_preview_area_xpm,  DESC_AUTORAISE_SCANAREA,  (GtkSignalFunc) preview_init_autoraise_scanarea,      p);
+  p->autoselect  = xsane_button_new_with_pixmap(p->top->window, p->button_box, full_preview_area_xpm,        DESC_FULL_PREVIEW_AREA,   (GtkSignalFunc) preview_full_preview_area_callback,   p);
+  delete_images  = xsane_button_new_with_pixmap(p->top->window, p->button_box, delete_images_xpm,            DESC_DELETE_IMAGES,       (GtkSignalFunc) preview_delete_images_callback,       p);
 
-  gtk_widget_add_accelerator(p->zoom_not,  "clicked", xsane.accelerator_group, GDK_KP_Multiply, GDK_MOD1_MASK, DEF_GTK_ACCEL_LOCKED); /* Alt keypad_* */
-  gtk_widget_add_accelerator(p->zoom_out,  "clicked", xsane.accelerator_group, GDK_KP_Subtract, GDK_MOD1_MASK, DEF_GTK_ACCEL_LOCKED); /* Alt keypad_- */
-  gtk_widget_add_accelerator(p->zoom_in,   "clicked", xsane.accelerator_group, GDK_KP_Add,      GDK_MOD1_MASK, DEF_GTK_ACCEL_LOCKED); /* Alt keypad_+ */
-  gtk_widget_add_accelerator(p->zoom_undo, "clicked", xsane.accelerator_group, GDK_KP_Divide,   GDK_MOD1_MASK, DEF_GTK_ACCEL_LOCKED); /* Alt keypad_/ */
-  gtk_widget_add_accelerator(p->full_area, "clicked", xsane.accelerator_group, GDK_A, GDK_MOD1_MASK, DEF_GTK_ACCEL_LOCKED); /* Alt keypad_* */
+  gtk_widget_add_accelerator(p->zoom_not,   "clicked", xsane.accelerator_group, GDK_KP_Multiply, GDK_MOD1_MASK, DEF_GTK_ACCEL_LOCKED); /* Alt keypad_* */
+  gtk_widget_add_accelerator(p->zoom_out,   "clicked", xsane.accelerator_group, GDK_KP_Subtract, GDK_MOD1_MASK, DEF_GTK_ACCEL_LOCKED); /* Alt keypad_- */
+  gtk_widget_add_accelerator(p->zoom_in,    "clicked", xsane.accelerator_group, GDK_KP_Add,      GDK_MOD1_MASK, DEF_GTK_ACCEL_LOCKED); /* Alt keypad_+ */
+  gtk_widget_add_accelerator(p->zoom_area,  "clicked", xsane.accelerator_group, GDK_KP_Enter,    GDK_MOD1_MASK, DEF_GTK_ACCEL_LOCKED); /* Alt keypad_Enter */
+  gtk_widget_add_accelerator(p->zoom_undo,  "clicked", xsane.accelerator_group, GDK_KP_Divide,   GDK_MOD1_MASK, DEF_GTK_ACCEL_LOCKED); /* Alt keypad_/ */
+  gtk_widget_add_accelerator(p->full_area,  "clicked", xsane.accelerator_group, GDK_A, GDK_MOD1_MASK, DEF_GTK_ACCEL_LOCKED); /* Alt keypad_* */
   gtk_widget_add_accelerator(p->autoselect, "clicked", xsane.accelerator_group, GDK_V, GDK_MOD1_MASK, DEF_GTK_ACCEL_LOCKED); /* Alt keypad_* */
   gtk_widget_add_accelerator(delete_images, "clicked", xsane.accelerator_group, GDK_KP_Delete, GDK_MOD1_MASK, DEF_GTK_ACCEL_LOCKED); /* Alt keypad_* */
 
@@ -3910,6 +3936,7 @@ void preview_update_surface(Preview *p, int surface_changed)
   {
     gtk_widget_set_sensitive(p->preset_area_option_menu, TRUE); /* enable preset area */
     gtk_widget_set_sensitive(p->zoom_in,    TRUE); /* zoom in is allowed at all */
+    gtk_widget_set_sensitive(p->zoom_area,  TRUE); /* zoom area is allowed at all */
     gtk_widget_set_sensitive(p->full_area,  TRUE); /* enable selection buttons */
     gtk_widget_set_sensitive(p->autoselect, TRUE); 
   }
@@ -3917,6 +3944,7 @@ void preview_update_surface(Preview *p, int surface_changed)
   {
     gtk_widget_set_sensitive(p->preset_area_option_menu, FALSE); /* disable preset area */
     gtk_widget_set_sensitive(p->zoom_in,    FALSE); /* no zoom at all */
+    gtk_widget_set_sensitive(p->zoom_area,  FALSE);
     gtk_widget_set_sensitive(p->zoom_out,   FALSE);
     gtk_widget_set_sensitive(p->zoom_undo,  FALSE);
     gtk_widget_set_sensitive(p->zoom_not,   FALSE); 
@@ -4286,6 +4314,27 @@ void preview_destroy(Preview *p)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static void preview_zoom_area(GtkWidget *window, gpointer data)
+{
+ Preview *p=data;
+ int i;
+
+  DBG(DBG_proc, "preview_zoom_area\n");
+
+  for (i=0; i<4; i++)
+  {
+    p->old_surface[i] = p->surface[i];
+    p->surface[i]     = p->selection.coordinate[i];
+  }
+
+  preview_update_surface(p, 1);
+  gtk_widget_set_sensitive(p->zoom_not, TRUE); /* allow unzoom */
+  gtk_widget_set_sensitive(p->zoom_out, TRUE); /* allow zoom out */
+  gtk_widget_set_sensitive(p->zoom_undo,TRUE); /* allow zoom undo */
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void preview_zoom_not(GtkWidget *window, gpointer data)
 {
  Preview *p=data;
@@ -4355,18 +4404,24 @@ static void preview_zoom_out(GtkWidget *window, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void preview_zoom_in(GtkWidget *window, gpointer data)
+static void preview_select_zoom_point(Preview *p, int preview_x, int preview_y)
 {
- Preview *p=data;
  int i;
+ float device_x, device_y;
 
-  DBG(DBG_proc, "preview_zoom_in\n");
+  DBG(DBG_proc, "preview_select_zoom_point(%d, %d)\n", preview_x, preview_y);
+
+  preview_transform_coordinate_window_to_device(p, preview_x, preview_y, &device_x, &device_y);
 
   for (i=0; i<4; i++)
   {
     p->old_surface[i] = p->surface[i];
-    p->surface[i]     = p->selection.coordinate[i];
   }
+
+  p->surface[0] = device_x + (p->surface[0] - device_x) * 0.8;
+  p->surface[1] = device_y + (p->surface[1] - device_y) * 0.8;
+  p->surface[2] = device_x + (p->surface[2] - device_x) * 0.8;
+  p->surface[3] = device_y + (p->surface[3] - device_y) * 0.8;
 
   preview_update_surface(p, 1);
   gtk_widget_set_sensitive(p->zoom_not, TRUE); /* allow unzoom */
@@ -4588,6 +4643,38 @@ static void preview_init_autoraise_scanarea(GtkWidget *window, gpointer data)
   p->cursornr = -1;
 }
 
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void preview_zoom_in(GtkWidget *window, gpointer data)
+{
+ Preview *p=data;
+ GdkCursor *cursor;
+ GdkColor fg;
+ GdkColor bg;
+ GdkPixmap *pixmap;
+ GdkPixmap *mask;
+
+  DBG(DBG_proc, "preview_zoom\n");
+
+  p->mode = MODE_ZOOM_IN;
+
+  pixmap = gdk_bitmap_create_from_data(p->top->window, cursor_zoom,      CURSOR_ZOOM_WIDTH, CURSOR_ZOOM_HEIGHT);
+  mask   = gdk_bitmap_create_from_data(p->top->window, cursor_zoom_mask, CURSOR_ZOOM_WIDTH, CURSOR_ZOOM_HEIGHT);
+
+  fg.red   = 0;
+  fg.green = 0;
+  fg.blue  = 0;
+
+  bg.red   = 65535;
+  bg.green = 65535;
+  bg.blue  = 65535;
+
+  cursor = gdk_cursor_new_from_pixmap(pixmap, mask, &fg, &bg, CURSOR_ZOOM_HOT_X, CURSOR_ZOOM_HOT_Y);
+
+  gdk_window_set_cursor(p->window->window, cursor);
+  gdk_cursor_unref(cursor);
+  p->cursornr = -1;
+}
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 void preview_select_full_preview_area(Preview *p)

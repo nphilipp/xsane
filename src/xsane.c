@@ -882,7 +882,6 @@ static void xsane_resolution_scale_update(GtkAdjustment *adj, double *val)
 {
  int printer_resolution; 
 
-#if 1
 /* gtk does not make sure that the value is quantisized correct */
   float diff, old, new, quant;
 
@@ -899,18 +898,20 @@ static void xsane_resolution_scale_update(GtkAdjustment *adj, double *val)
     *val = old + diff;
     adj->value = *val;
 
+#ifndef _WIN32
+    /* the resolution slider gets almost unusable when we do this with win32 */
     if (xsane_resolution_timer)
     {
       gtk_timeout_remove(xsane_resolution_timer);
       xsane_resolution_timer = 0;
     }
     xsane_resolution_timer = gtk_timeout_add(XSANE_HOLD_TIME, (GtkFunction) xsane_resolution_timer_callback, (gpointer) adj);
-  }
-#else
-  DBG(DBG_proc, "xsane_resolution_scale_update\n");
-
-  *val = adj->value;
 #endif
+  }
+  else
+  {
+    *val = adj->value;
+  }
 
   switch (xsane.param.format)
   {
@@ -6425,7 +6426,7 @@ void xsane_panel_build()
 
                 if (dquant == 0) /* no quantization specified */
                 {
-                  dquant = 0.01; /* display x.2 digits */
+                  dquant = 0.001; /* display x.3 digits */
                 }
 
                 xsane_back_gtk_range_new(parent, title, dval, dmin, dmax, dquant, (opt->cap & SANE_CAP_AUTOMATIC), elem,
@@ -7043,7 +7044,7 @@ static void xsane_choose_device(void)
  gint i;
  const SANE_Device *adev;
  char buf[256];
- char vendor[9];
+ char vendor[12];
  char model[17];
  char type[20];
  char filename[PATH_MAX];

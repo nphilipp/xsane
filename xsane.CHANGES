@@ -2005,7 +2005,7 @@ xsane-0.84 -> 0.85:
  - update_counter_in_filename does not touch the counter when step = 0 and
    min_length = 0
 
- - added prview function autoraise_scanarea (may be the name is stupid?):
+ - added preview function autoraise_scanarea (may be the name is stupid?):
    if you select this function and click to an image then the image
    is selected as scanarea
    
@@ -2036,3 +2036,31 @@ xsane-0.84 -> 0.85:
      by xsane_set_filename() now
 
 
+xsane-0.85 -> 0.86:
+-------------------
+
+ - reversed the change of xsane-0.84->0.85 that replaced
+   xsane_control_option by back_gtk_set_option in xsane_set_resolution.
+   If resolution change causes a SANE_RELOAD_OPTIONS this is not handled any
+   more. 
+   Reason: It caused a segfault in different situations when panel_rebuild
+   was called. I tried to implement that it works like expected, but the
+   resolution option needs a lot of special cases handling that makes it
+   very hard to handle this. Also the gtk slider does not work when
+   the panel is rebuild each time when the value is changed.
+
+ - increased vendor length from 9 to 12 characters.
+
+ - changed dialog of viewer/scale
+   - The dialog uses xsane_range instead of a spinbutton now
+   - The scale sliders for x and y can be binded now,
+
+ - added %%Pages: 1 1 to header of postscript files in xsane-save.c
+
+ - changed preview zoom icons and function names:
+   - changed icon and name of zoom_in to zoom_area
+   - added new function zoom_in: if enabled a zoom cursor
+     is selected and when the user clicks to the preview
+     with the left or middle mouse button then it is zoomed
+     to the clicked position
+     

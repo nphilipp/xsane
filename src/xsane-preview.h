@@ -42,7 +42,8 @@ enum
   MODE_PIPETTE_WHITE,
   MODE_PIPETTE_GRAY,
   MODE_PIPETTE_BLACK,
-  MODE_AUTORAISE_SCANAREA
+  MODE_AUTORAISE_SCANAREA,
+  MODE_ZOOM_IN
 };
 
 /* ------------------------------------------------------------------------------------------------------ */
@@ -164,6 +165,7 @@ typedef struct
   GtkWidget *zoom_not;		/* zoom not button */
   GtkWidget *zoom_out;		/* zoom out button */
   GtkWidget *zoom_in;		/* zoom in button */
+  GtkWidget *zoom_area;		/* zoom area button */
   GtkWidget *zoom_undo;		/* zoom undo button */
   GtkWidget *full_area;		/* select full scanarea */
   GtkWidget *autoraise;		/* autoraise scanarea */

@@ -6,7 +6,7 @@ AC_CONFIG_HEADER(include/config.h)
 
 # version code:
 V_MAJOR=0
-V_MINOR=85
+V_MINOR=86
 
 PACKAGE=xsane
 

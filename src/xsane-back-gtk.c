@@ -986,7 +986,7 @@ void xsane_back_gtk_range_new(GtkWidget * parent, const char *name, gfloat val,
   }
   else
   {
-    digits = (int) log10(1/quant)+0.8; /* set number of digits in dependacne of quantization */
+    digits = (int) (log10(1/quant)+0.8); /* set number of digits in dependacne of quantization */
   }
 
   hbox = gtk_hbox_new(FALSE, 2);

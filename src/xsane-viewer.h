@@ -44,8 +44,9 @@ typedef struct Viewer
   int despeckle_radius;
   float blur_radius;
 
-  float x_scale_factor;
-  float y_scale_factor;
+  int bind_scale;
+  double x_scale_factor;
+  double y_scale_factor;
 
   GtkWidget *top;
   GtkWidget *button_box;
