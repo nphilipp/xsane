@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.76\n"
-"POT-Creation-Date: 2001-04-22 11:23+0200\n"
+"POT-Creation-Date: 2001-05-18 23:04+0200\n"
 "PO-Revision-Date: 2001-02-25 14:06+01:00\n"
 "Last-Translator: Ales Kosir <ales.kosir@lugos.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -530,19 +530,23 @@ msgid "Color resolution (dpi):"
 msgstr "Loèljivost v barvnem naèinu (dpi):"
 
 #. TEXT_SETUP_PRINTER_WIDTH
-msgid "Width [mm]:"
+#, fuzzy
+msgid "Width"
 msgstr "©irina [mm]:"
 
 #. TEXT_SETUP_PRINTER_HEIGHT
-msgid "Height [mm]:"
+#, fuzzy
+msgid "Height"
 msgstr "Vi¹ina [mm]:"
 
 #. TEXT_SETUP_PRINTER_LEFT
-msgid "Left offset [mm]:"
+#, fuzzy
+msgid "Left offset"
 msgstr "Levi odmik [mm]:"
 
 #. TEXT_SETUP_PRINTER_BOTTOM
-msgid "Bottom offset [mm]:"
+#, fuzzy
+msgid "Bottom offset"
 msgstr "Odmik spodaj [mm]:"
 
 #. TEXT_SETUP_PRINTER_GAMMA
@@ -598,19 +602,23 @@ msgid "TIFF lineart image compression"
 msgstr "Stiskanje v naèinu Lineart v zapisu TIFF"
 
 #. TEXT_SETUP_PSFILE_WIDTH
-msgid "Width of paper for postscript [mm]:"
+#, fuzzy
+msgid "Width of paper for postscript"
 msgstr "©irina papirja za zapis postscript [mm]:"
 
 #. TEXT_SETUP_PSFILE_HEIGHT
-msgid "Height of paper for postscript [mm]:"
+#, fuzzy
+msgid "Height of paper for postscript"
 msgstr "Vi¹ina papirja za zapis postscript [mm]:"
 
 #. TEXT_SETUP_PSFILE_LEFT
-msgid "Left offset for postscript [mm]:"
+#, fuzzy
+msgid "Left offset for postscript"
 msgstr "Levi odmik pri zapisu postscript [mm]:"
 
 #. TEXT_SETUP_PSFILE_BOTTOM
-msgid "Bottom offset for postscript [mm]:"
+#, fuzzy
+msgid "Bottom offset for postscript"
 msgstr "Spodnji odmik pri zapisu postscript [mm]:"
 
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
@@ -701,42 +709,35 @@ msgstr "skupina"
 msgid "all"
 msgstr "vsi"
 
-#. NOTEBOOK_COPY_OPTIONS
-msgid "Copy options"
-msgstr "Izbire pri prepisovanju"
-
 #. NOTEBOOK_SAVING_OPTIONS
-msgid "Saving options"
-msgstr "Shranjujem izbire"
+msgid "Save"
+msgstr ""
 
 #. NOTEBOOK_IMAGE_OPTIONS
-#, fuzzy
-msgid "Image options"
-msgstr "Izbire XSane"
+msgid "Image"
+msgstr ""
+
+#. NOTEBOOK_COPY_OPTIONS
+msgid "Copy"
+msgstr "Kopiraj"
+
+#. NOTEBOOK_FAX_OPTIONS
+msgid "Fax"
+msgstr "Faks"
 
 #. NOTEBOOK_DISPLAY_OPTIONS
-msgid "Display options"
+#, fuzzy
+msgid "Display"
 msgstr "Prikaz izbir"
 
 #. NOTEBOOK_ENHANCE_OPTIONS
-msgid "Enhancement options"
+#, fuzzy
+msgid "Enhancement"
 msgstr "Izbire za izbolj¹evanje"
-
-#. NOTEBOOK_FAX_OPTIONS
-msgid "Fax options"
-msgstr "Nastavitve faksa"
 
 #. MENU_ITEM_SCAN
 msgid "Scan"
 msgstr "Skeniraj"
-
-#. MENU_ITEM_COPY
-msgid "Copy"
-msgstr "Kopiraj"
-
-#. MENU_ITEM_FAX
-msgid "Fax"
-msgstr "Faks"
 
 #. MENU_ITEM_SHOW_TOOLTIPS
 msgid "Show tooltips"
@@ -1196,19 +1197,23 @@ msgid "Resolution with which color images are printed and saved in postscript"
 msgstr "Loèljivost, v kateri natisnemo in shranimo slike v naèinu color"
 
 #. DESC_PRINTER_WIDTH
-msgid "Width of printable area in mm"
+#, fuzzy
+msgid "Width of printable area"
 msgstr "©irina obmoèja, ki se natisne [mm]"
 
 #. DESC_PRINTER_HEIGHT
-msgid "Height of printable area in mm"
+#, fuzzy
+msgid "Height of printable area"
 msgstr "Vi¹ina obmoèja, ki se natisne [mm]"
 
 #. DESC_PRINTER_LEFTOFFSET
-msgid "Left offset from the edge of the paper to the printable area in mm"
+#, fuzzy
+msgid "Left offset from the edge of the paper to the printable area"
 msgstr "Odmik obmoèja, ki se natisne, od levega roba papirja [mm]"
 
 #. DESC_PRINTER_BOTTOMOFFSET
-msgid "Bottom offset from the edge of the paper to the printable area in mm"
+#, fuzzy
+msgid "Bottom offset from the edge of the paper to the printable area"
 msgstr "Odmik obmoèja, ki se natisne, od spodnjega roba papirja [mm]"
 
 #. DESC_PRINTER_GAMMA
@@ -1280,24 +1285,28 @@ msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
 msgstr ""
 
 #. DESC_PSFILE_WIDTH
-msgid "Width of paper in mm for postscript files"
+#, fuzzy
+msgid "Width of paper for postscript files"
 msgstr "©irina papirja pri tiskanju v postscriptnem zapisu [mm]"
 
 #. DESC_PSFILE_HEIGHT
-msgid "Height of paper in mm for postscript files"
+#, fuzzy
+msgid "Height of paper for postscript files"
 msgstr "Vi¹ina papirja pri tiskanju v postscriptnem zapisu [mm]"
 
 #. DESC_PSFILE_LEFTOFFSET
+#, fuzzy
 msgid ""
-"Left offset from the edge of the paper to the usable area in mm for "
-"postscript files"
+"Left offset from the edge of the paper to the usable area for postscript "
+"files"
 msgstr ""
 "Odmik slike od levega roba papirja pri tiskanju v postscriptnem zapisu [mm]"
 
 #. DESC_PSFILE_BOTTOMOFFSET
+#, fuzzy
 msgid ""
-"Bottom offset from the edge of the paper to the usable area in mm for "
-"postscript files"
+"Bottom offset from the edge of the paper to the usable area for postscript "
+"files"
 msgstr ""
 "Odmik slike od levega roba papirja pri tiskanju v postscriptnem zapisu [mm]"
 
@@ -1967,6 +1976,19 @@ msgstr "Zmanjkalo je pomnilnika"
 
 msgid "Access to resource has been denied"
 msgstr "Dostop do vira je ni dovoljen."
+
+#~ msgid "Copy options"
+#~ msgstr "Izbire pri prepisovanju"
+
+#~ msgid "Saving options"
+#~ msgstr "Shranjujem izbire"
+
+#, fuzzy
+#~ msgid "Image options"
+#~ msgstr "Izbire XSane"
+
+#~ msgid "Fax options"
+#~ msgstr "Nastavitve faksa"
 
 #~ msgid "Reduce scan area"
 #~ msgstr "Zmanj¹aj obmoèje skeniranja"

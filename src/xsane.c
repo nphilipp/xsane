@@ -1151,7 +1151,7 @@ static int xsane_resolution_widget_new(GtkWidget *parent, int well_known_option,
             break;
 
             default:
-              fprintf(stderr, "resolution_widget_new: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
+              DBG(DBG_error, "resolution_widget_new: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
           }
 
           if (quant == 0)
@@ -1277,7 +1277,7 @@ static int xsane_resolution_widget_new(GtkWidget *parent, int well_known_option,
             break;
 
             default:
-              fprintf(stderr, "resolution_word_list_creation: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
+              DBG(DBG_error, "resolution_word_list_creation: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
           }
 
 
@@ -1409,7 +1409,7 @@ static int xsane_zoom_widget_new(GtkWidget *parent, int well_known_option, doubl
             break;
 
             default:
-              fprintf(stderr, "zoom_scale_update: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
+              DBG(DBG_error, "zoom_scale_update: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
           }
         break;
 
@@ -1420,7 +1420,7 @@ static int xsane_zoom_widget_new(GtkWidget *parent, int well_known_option, doubl
         break;
 
         default:
-          fprintf(stderr, "zoom_scale_update: %s %d\n", ERR_UNKNOWN_CONSTRAINT_TYPE, opt->constraint_type);
+          DBG(DBG_error, "zoom_scale_update: %s %d\n", ERR_UNKNOWN_CONSTRAINT_TYPE, opt->constraint_type);
       }
 
       if (resolution == 0) /* no prefered value */
@@ -1628,7 +1628,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
            break;
 
            default:
-            fprintf(stderr, "scanmode_selection: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
+            DBG(DBG_error, "scanmode_selection: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
         }
         gtk_widget_show(hbox);
       }
@@ -1668,7 +1668,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
            break;
 
           default:
-            fprintf(stderr, "scansource_selection: %s %d\n", ERR_UNKNOWN_CONSTRAINT_TYPE, opt->constraint_type);
+            DBG(DBG_error, "scansource_selection: %s %d\n", ERR_UNKNOWN_CONSTRAINT_TYPE, opt->constraint_type);
         }
         gtk_widget_show(hbox);
       }
@@ -3477,7 +3477,7 @@ static void xsane_show_doc_via_nsr(GtkWidget *widget, gpointer data) /* show via
     if (pid == 0) /* new process */
     {
       execvp(arg[0], arg); /* does not return if successfully */
-      fprintf(stderr, "%s %s\n", ERR_FAILD_EXEC_DOC_VIEWER, preferences.doc_viewer);
+      DBG(DBG_error, "%s %s\n", ERR_FAILD_EXEC_DOC_VIEWER, preferences.doc_viewer);
       _exit(0); /* do not use exit() here! otherwise gtk gets in trouble */
     }
   }
@@ -3493,7 +3493,7 @@ static void xsane_show_doc_via_nsr(GtkWidget *widget, gpointer data) /* show via
     if (pid == 0) /* new process */
     {
       execvp(arg[0], arg); /* does not return if successfully */
-      fprintf(stderr, "%s %s\n", ERR_FAILD_EXEC_DOC_VIEWER, preferences.doc_viewer);
+      DBG(DBG_error, "%s %s\n", ERR_FAILD_EXEC_DOC_VIEWER, preferences.doc_viewer);
       _exit(0); /* do not use exit() here! otherwise gtk gets in trouble */
     }
   }
@@ -3542,7 +3542,7 @@ static void xsane_show_doc(GtkWidget *widget, gpointer data)
     {
       DBG(DBG_info, "executing %s %s\n", arg[0], arg[1]);
       execvp(arg[0], arg); /* does not return if successfully */
-      fprintf(stderr, "%s %s\n", ERR_FAILD_EXEC_DOC_VIEWER, preferences.doc_viewer);
+      DBG(DBG_error, "%s %s\n", ERR_FAILD_EXEC_DOC_VIEWER, preferences.doc_viewer);
       _exit(0); /* do not use exit() here! otherwise gtk gets in trouble */
     }
   }
@@ -3920,7 +3920,7 @@ static void xsane_fax_show_callback(GtkWidget *widget, gpointer list)
     if (pid == 0) /* new process */
     {
       execvp(arg[0], arg); /* does not return if successfully */
-      fprintf(stderr, "%s %s\n", ERR_FAILD_EXEC_FAX_VIEWER, preferences.fax_viewer);
+      DBG(DBG_error, "%s %s\n", ERR_FAILD_EXEC_FAX_VIEWER, preferences.fax_viewer);
       _exit(0); /* do not use exit() here! otherwise gtk gets in trouble */
     }
   }
@@ -4001,7 +4001,7 @@ static void xsane_fax_send()
     if (pid == 0) /* new process */
     {
       execvp(arg[0], arg); /* does not return if successfully */
-      fprintf(stderr, "%s %s\n", ERR_FAILED_EXEC_FAX_CMD, preferences.fax_command);
+      DBG(DBG_error, "%s %s\n", ERR_FAILED_EXEC_FAX_CMD, preferences.fax_command);
       _exit(0); /* do not use exit() here! otherwise gtk gets in trouble */
     }
 
@@ -4166,7 +4166,7 @@ static GtkWidget *xsane_pref_build_menu(void)
 
   subitem = gtk_check_menu_item_new_with_label(SUBMENU_ITEM_LENGTH_MILLIMETERS);
   gtk_menu_append(GTK_MENU(submenu), subitem);
-  if (preferences.length_unit == 1.0)
+  if ( (preferences.length_unit > 0.9) && (preferences.length_unit < 1.1))
   {
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(subitem), TRUE);
   }
@@ -4176,7 +4176,7 @@ static GtkWidget *xsane_pref_build_menu(void)
 
   subitem = gtk_check_menu_item_new_with_label(SUBMENU_ITEM_LENGTH_CENTIMETERS);
   gtk_menu_append(GTK_MENU(submenu), subitem);
-  if (preferences.length_unit == 10.0)
+  if ( (preferences.length_unit > 9.9) && (preferences.length_unit < 10.1))
   {
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(subitem), TRUE);
   }
@@ -4186,7 +4186,7 @@ static GtkWidget *xsane_pref_build_menu(void)
 
   subitem = gtk_check_menu_item_new_with_label(SUBMENU_ITEM_LENGTH_INCHES);
   gtk_menu_append(GTK_MENU(submenu), subitem);
-  if (preferences.length_unit == 25.4)
+  if ( (preferences.length_unit > 25.3) && (preferences.length_unit < 25.5))
   {
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(subitem), TRUE);
   }
@@ -4195,9 +4195,6 @@ static GtkWidget *xsane_pref_build_menu(void)
   xsane.length_unit_in = subitem;
 
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(item), submenu);
-
-  xsane.length_unit_widget = item;
-
 
   /* insert separator: */
 
@@ -4643,7 +4640,7 @@ void xsane_panel_build()
               break;
 
             default:
-              fprintf(stderr, "xsane_panel_build: %s %d!\n", ERR_UNKNOWN_CONSTRAINT_TYPE, opt->constraint_type);
+              DBG(DBG_error, "xsane_panel_build: %s %d!\n", ERR_UNKNOWN_CONSTRAINT_TYPE, opt->constraint_type);
               break;
           }
           break;
@@ -4717,7 +4714,7 @@ void xsane_panel_build()
               break;
 
             default:
-              fprintf(stderr, "xsane_panel_build: %s %d!\n", ERR_UNKNOWN_CONSTRAINT_TYPE, opt->constraint_type);
+              DBG(DBG_error, "xsane_panel_build: %s %d!\n", ERR_UNKNOWN_CONSTRAINT_TYPE, opt->constraint_type);
               break;
           }
           break;
@@ -4750,7 +4747,7 @@ void xsane_panel_build()
               break;
 
             default:
-              fprintf(stderr, "xsane_panel_build: %s %d!\n", ERR_UNKNOWN_CONSTRAINT_TYPE, opt->constraint_type);
+              DBG(DBG_error, "xsane_panel_build: %s %d!\n", ERR_UNKNOWN_CONSTRAINT_TYPE, opt->constraint_type);
               break;
           }
           free (buf);
@@ -4776,7 +4773,7 @@ void xsane_panel_build()
           break;
 
         default:
-          fprintf(stderr, "xsane_panel_build: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
+          DBG(DBG_error, "xsane_panel_build: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
           break;
       }
       continue;
@@ -4804,21 +4801,6 @@ void xsane_panel_build()
   xsane_update_histogram(TRUE /* update raw */);
   xsane_update_sliders();
 
-  if (xsane.length_unit_widget)
-  {
-   int unit;
-
-    status = xsane_get_area_value(xsane.well_known.coord[0], 0, &unit);
-
-    if ( (unit == SANE_UNIT_PIXEL) || (status) )
-    {
-      gtk_widget_set_sensitive(xsane.length_unit_widget, FALSE);
-    }
-    else
-    {
-      gtk_widget_set_sensitive(xsane.length_unit_widget, TRUE);
-    }
-  }
 #ifdef HAVE_WORKING_GTK_GAMMACURVE
   xsane_update_gamma_dialog();
 #endif
@@ -5583,6 +5565,7 @@ static int xsane_init(int argc, char **argv)
 
         case 'v': /* --version */
           printf("%s-%s %s %s\n", xsane.prog_name, XSANE_VERSION, XSANE_COPYRIGHT_SIGN, XSANE_COPYRIGHT_TXT);
+          printf("  %s %s\n", TEXT_EMAIL, XSANE_EMAIL);
           printf("  %s %s\n", TEXT_PACKAGE, PACKAGE_VERSION);
           printf("  %s%d.%d.%d\n", TEXT_GTK_VERSION, GTK_MAJOR_VERSION, GTK_MINOR_VERSION, GTK_MICRO_VERSION);
 
@@ -5692,7 +5675,7 @@ static int xsane_init(int argc, char **argv)
 
   if (SANE_VERSION_MAJOR(xsane.sane_backend_versioncode) != SANE_V_MAJOR)
   {
-    fprintf(stderr, "\n\n"
+    DBG(DBG_error0, "\n\n"
                     "%s %s:\n"
                     "  %s\n"
                     "  %s %d\n"

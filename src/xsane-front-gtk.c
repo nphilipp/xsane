@@ -173,7 +173,7 @@ double xsane_find_best_resolution(int well_known_option, double dpi)
       break;
 
       default:
-        fprintf(stderr, "find_best_resolution: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
+        DBG(DBG_error, "find_best_resolution: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
     }
 
     bestdpi = dpi;
@@ -238,7 +238,7 @@ double xsane_find_best_resolution(int well_known_option, double dpi)
   }
   else
   {
-    fprintf(stderr, "find_best_resolution: %s %d\n", ERR_UNKNOWN_CONSTRAINT_TYPE, opt->constraint_type);
+    DBG(DBG_error, "find_best_resolution: %s %d\n", ERR_UNKNOWN_CONSTRAINT_TYPE, opt->constraint_type);
     return -1; /* error */
   }
 
@@ -271,7 +271,7 @@ int xsane_set_resolution(int well_known_option, double resolution)
 
   if (bestdpi < 0)
   {
-     fprintf(stderr, "set_resolution: %s\n", ERR_FAILED_SET_RESOLUTION);
+     DBG(DBG_error, "set_resolution: %s\n", ERR_FAILED_SET_RESOLUTION);
     return -1;
   }
 
@@ -286,7 +286,7 @@ int xsane_set_resolution(int well_known_option, double resolution)
     break;
 
     default:
-     fprintf(stderr, "set_resolution: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
+     DBG(DBG_error, "set_resolution: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
     return 1; /* error */
   }
 
@@ -896,7 +896,7 @@ static void xsane_option_menu_callback(GtkWidget *widget, gpointer data)
       break;
 
     default:
-      fprintf(stderr, "xsane_option_menu_callback: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
+      DBG(DBG_error, "xsane_option_menu_callback: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
       break;
   }
   xsane_back_gtk_set_option(opt_num, valp, SANE_ACTION_SET_VALUE);

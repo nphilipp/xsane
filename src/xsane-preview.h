@@ -143,6 +143,7 @@ typedef struct
   Batch_selection *batch_selection;
 
   GtkWidget *top;		/* top-level widget */
+  GtkWidget *unit_label;
   GtkWidget *hruler;
   GtkWidget *vruler;
   GtkWidget *viewport;

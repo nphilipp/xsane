@@ -32,7 +32,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.76"
+#define XSANE_VERSION		"0.77"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2001"
@@ -490,7 +490,6 @@ typedef struct Xsane
     double resolution_x;
     double resolution_y;
 
-    GtkWidget *length_unit_widget;
     GtkWidget *length_unit_mm;
     GtkWidget *length_unit_cm;
     GtkWidget *length_unit_in;

@@ -1665,7 +1665,7 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
            break;
 
           default:
-            fprintf(stderr, "preview_read_image_data: %s %d\n", ERR_BAD_FRAME_FORMAT, p->params.format);
+            DBG(DBG_error, "preview_read_image_data: %s %d\n", ERR_BAD_FRAME_FORMAT, p->params.format);
             preview_scan_done(p);
             return;
     }
@@ -3387,6 +3387,11 @@ Preview *preview_new(void)
   frame = gtk_frame_new(/* label */ 0);
   gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_OUT);
   gtk_table_attach(GTK_TABLE(table), frame, 0, 1, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
+
+  /* the unit label */
+  p->unit_label = gtk_label_new("cm");
+  gtk_container_add(GTK_CONTAINER(frame), p->unit_label);
+  gtk_widget_show(p->unit_label);
 
   /* the horizontal ruler */
   p->hruler = gtk_hruler_new();
@@ -5266,6 +5271,8 @@ void preview_area_resize(Preview *p)
   delta_y = max_y - min_y;
 
   gtk_ruler_set_range(GTK_RULER(p->vruler), min_y, min_y + delta_y*p->preview_window_height/p->preview_height, min_y, /* max_size */ 20);
+
+  gtk_label_set_text(GTK_LABEL(p->unit_label), xsane_back_gtk_unit_string(p->surface_unit));
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

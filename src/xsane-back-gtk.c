@@ -193,7 +193,7 @@ const char *xsane_back_gtk_unit_string(SANE_Unit unit)
   switch (unit)
   {
     case SANE_UNIT_NONE:	return "none";
-    case SANE_UNIT_PIXEL:	return "pixel";
+    case SANE_UNIT_PIXEL:	return "px";
     case SANE_UNIT_BIT:		return "bit";
     case SANE_UNIT_DPI:		return "dpi";
     case SANE_UNIT_PERCENT:	return "%";
@@ -486,7 +486,7 @@ gint xsane_back_gtk_decision(gchar *title, gchar **xpm_d,  gchar *message, gchar
 
   if (xsane.back_gtk_message_dialog_active)
   {
-    fprintf(stderr, "%s: %s\n", title, message);
+    DBG(DBG_error0, "%s: %s\n", title, message);
     return TRUE;
   }
   xsane.back_gtk_message_dialog_active = 1;
@@ -875,7 +875,7 @@ static void xsane_back_gtk_scale_update(GtkAdjustment * adj_data, GSGDialogEleme
       break;
 
     default:
-      fprintf(stderr, "xsane_back_gtk_scale_update: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
+      DBG(DBG_error, "xsane_back_gtk_scale_update: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
       return;
   }
 
@@ -1028,7 +1028,7 @@ static void xsane_back_gtk_option_menu_callback(GtkWidget * widget, gpointer dat
       break;
 
     default:
-      fprintf(stderr, "xsane_back_gtk_option_menu_callback: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
+      DBG(DBG_error, "xsane_back_gtk_option_menu_callback: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
       break;
   }
   xsane_back_gtk_set_option(opt_num, valp, SANE_ACTION_SET_VALUE);

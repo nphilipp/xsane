@@ -1827,17 +1827,17 @@ static void xsane_gimp_query(void)
   sane_init(&xsane.sane_backend_versioncode, (void *) xsane_authorization_callback);
   if (SANE_VERSION_MAJOR(xsane.sane_backend_versioncode) != SANE_V_MAJOR)
   {
-    fprintf(stderr, "\n\n"
+    DBG(DBG_error0, "\n\n"
                     "%s %s:\n"
                     "  %s\n"
                     "  %s %d\n"
                     "  %s %d\n"
                     "%s\n\n",
-                    xsane.prog_name, ERR_ERROR,
-                    ERR_MAJOR_VERSION_NR_CONFLICT,
-                    ERR_XSANE_MAJOR_VERSION, SANE_V_MAJOR,
-                    ERR_BACKEND_MAJOR_VERSION, SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
-                    ERR_PROGRAM_ABORTED);      
+                     xsane.prog_name, ERR_ERROR,
+                     ERR_MAJOR_VERSION_NR_CONFLICT,
+                     ERR_XSANE_MAJOR_VERSION, SANE_V_MAJOR,
+                     ERR_BACKEND_MAJOR_VERSION, SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
+                     ERR_PROGRAM_ABORTED);      
     return;
   }
 

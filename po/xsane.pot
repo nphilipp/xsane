@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-04-22 11:23+0200\n"
+"POT-Creation-Date: 2001-05-18 23:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -519,19 +519,19 @@ msgid "Color resolution (dpi):"
 msgstr ""
 
 #. TEXT_SETUP_PRINTER_WIDTH
-msgid "Width [mm]:"
+msgid "Width"
 msgstr ""
 
 #. TEXT_SETUP_PRINTER_HEIGHT
-msgid "Height [mm]:"
+msgid "Height"
 msgstr ""
 
 #. TEXT_SETUP_PRINTER_LEFT
-msgid "Left offset [mm]:"
+msgid "Left offset"
 msgstr ""
 
 #. TEXT_SETUP_PRINTER_BOTTOM
-msgid "Bottom offset [mm]:"
+msgid "Bottom offset"
 msgstr ""
 
 #. TEXT_SETUP_PRINTER_GAMMA
@@ -587,19 +587,19 @@ msgid "TIFF lineart image compression"
 msgstr ""
 
 #. TEXT_SETUP_PSFILE_WIDTH
-msgid "Width of paper for postscript [mm]:"
+msgid "Width of paper for postscript"
 msgstr ""
 
 #. TEXT_SETUP_PSFILE_HEIGHT
-msgid "Height of paper for postscript [mm]:"
+msgid "Height of paper for postscript"
 msgstr ""
 
 #. TEXT_SETUP_PSFILE_LEFT
-msgid "Left offset for postscript [mm]:"
+msgid "Left offset for postscript"
 msgstr ""
 
 #. TEXT_SETUP_PSFILE_BOTTOM
-msgid "Bottom offset for postscript [mm]:"
+msgid "Bottom offset for postscript"
 msgstr ""
 
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
@@ -690,40 +690,32 @@ msgstr ""
 msgid "all"
 msgstr ""
 
-#. NOTEBOOK_COPY_OPTIONS
-msgid "Copy options"
-msgstr ""
-
 #. NOTEBOOK_SAVING_OPTIONS
-msgid "Saving options"
+msgid "Save"
 msgstr ""
 
 #. NOTEBOOK_IMAGE_OPTIONS
-msgid "Image options"
+msgid "Image"
 msgstr ""
 
-#. NOTEBOOK_DISPLAY_OPTIONS
-msgid "Display options"
-msgstr ""
-
-#. NOTEBOOK_ENHANCE_OPTIONS
-msgid "Enhancement options"
+#. NOTEBOOK_COPY_OPTIONS
+msgid "Copy"
 msgstr ""
 
 #. NOTEBOOK_FAX_OPTIONS
-msgid "Fax options"
+msgid "Fax"
+msgstr ""
+
+#. NOTEBOOK_DISPLAY_OPTIONS
+msgid "Display"
+msgstr ""
+
+#. NOTEBOOK_ENHANCE_OPTIONS
+msgid "Enhancement"
 msgstr ""
 
 #. MENU_ITEM_SCAN
 msgid "Scan"
-msgstr ""
-
-#. MENU_ITEM_COPY
-msgid "Copy"
-msgstr ""
-
-#. MENU_ITEM_FAX
-msgid "Fax"
 msgstr ""
 
 #. MENU_ITEM_SHOW_TOOLTIPS
@@ -1149,19 +1141,19 @@ msgid "Resolution with which color images are printed and saved in postscript"
 msgstr ""
 
 #. DESC_PRINTER_WIDTH
-msgid "Width of printable area in mm"
+msgid "Width of printable area"
 msgstr ""
 
 #. DESC_PRINTER_HEIGHT
-msgid "Height of printable area in mm"
+msgid "Height of printable area"
 msgstr ""
 
 #. DESC_PRINTER_LEFTOFFSET
-msgid "Left offset from the edge of the paper to the printable area in mm"
+msgid "Left offset from the edge of the paper to the printable area"
 msgstr ""
 
 #. DESC_PRINTER_BOTTOMOFFSET
-msgid "Bottom offset from the edge of the paper to the printable area in mm"
+msgid "Bottom offset from the edge of the paper to the printable area"
 msgstr ""
 
 #. DESC_PRINTER_GAMMA
@@ -1231,23 +1223,23 @@ msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
 msgstr ""
 
 #. DESC_PSFILE_WIDTH
-msgid "Width of paper in mm for postscript files"
+msgid "Width of paper for postscript files"
 msgstr ""
 
 #. DESC_PSFILE_HEIGHT
-msgid "Height of paper in mm for postscript files"
+msgid "Height of paper for postscript files"
 msgstr ""
 
 #. DESC_PSFILE_LEFTOFFSET
 msgid ""
-"Left offset from the edge of the paper to the usable area in mm for "
-"postscript files"
+"Left offset from the edge of the paper to the usable area for postscript "
+"files"
 msgstr ""
 
 #. DESC_PSFILE_BOTTOMOFFSET
 msgid ""
-"Bottom offset from the edge of the paper to the usable area in mm for "
-"postscript files"
+"Bottom offset from the edge of the paper to the usable area for postscript "
+"files"
 msgstr ""
 
 #. DESC_MAIN_WINDOW_FIXED

@@ -4,8 +4,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.76\n"
-"POT-Creation-Date: 2001-04-22 11:23+0200\n"
+"Project-Id-Version: XSANE 0.77\n"
+"POT-Creation-Date: 2001-05-18 23:04+0200\n"
 "PO-Revision-Date: 2000-01-21 15:51+01:00\n"
 "Last-Translator: Oliver Rauch <Oliver.Rauch@rauch-domain.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -533,20 +533,20 @@ msgid "Color resolution (dpi):"
 msgstr "Farb-Auflösung (dpi):"
 
 #. TEXT_SETUP_PRINTER_WIDTH
-msgid "Width [mm]:"
-msgstr "Breite [mm]:"
+msgid "Width"
+msgstr "Breite"
 
 #. TEXT_SETUP_PRINTER_HEIGHT
-msgid "Height [mm]:"
-msgstr "Höhe [mm]:"
+msgid "Height"
+msgstr "Höhe"
 
 #. TEXT_SETUP_PRINTER_LEFT
-msgid "Left offset [mm]:"
-msgstr "Linker Rand [mm]:"
+msgid "Left offset"
+msgstr "Linker Rand"
 
 #. TEXT_SETUP_PRINTER_BOTTOM
-msgid "Bottom offset [mm]:"
-msgstr "Unterer Rand [mm]:"
+msgid "Bottom offset"
+msgstr "Unterer Rand"
 
 #. TEXT_SETUP_PRINTER_GAMMA
 msgid "Printer gamma value:"
@@ -601,20 +601,20 @@ msgid "TIFF lineart image compression"
 msgstr "TIFF lineart Bildkompression"
 
 #. TEXT_SETUP_PSFILE_WIDTH
-msgid "Width of paper for postscript [mm]:"
-msgstr "Breite des druckbaren Bereichs für Postscript [mm]:"
+msgid "Width of paper for postscript"
+msgstr "Breite des druckbaren Bereichs für Postscript"
 
 #. TEXT_SETUP_PSFILE_HEIGHT
-msgid "Height of paper for postscript [mm]:"
-msgstr "Höhe des druckbaren Bereichs für Postscript [mm]:"
+msgid "Height of paper for postscript"
+msgstr "Höhe des druckbaren Bereichs für Postscript"
 
 #. TEXT_SETUP_PSFILE_LEFT
-msgid "Left offset for postscript [mm]:"
-msgstr "Linker Rand für Postscript [mm]:"
+msgid "Left offset for postscript"
+msgstr "Linker Rand für Postscript"
 
 #. TEXT_SETUP_PSFILE_BOTTOM
-msgid "Bottom offset for postscript [mm]:"
-msgstr "Unterer Rand für Postscript [mm]:"
+msgid "Bottom offset for postscript"
+msgstr "Unterer Rand für Postscript"
 
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
@@ -704,41 +704,33 @@ msgstr "Gruppe"
 msgid "all"
 msgstr "Alle"
 
-#. NOTEBOOK_COPY_OPTIONS
-msgid "Copy options"
-msgstr "Photokopie"
-
 #. NOTEBOOK_SAVING_OPTIONS
-msgid "Saving options"
+msgid "Save"
 msgstr "Speichern"
 
 #. NOTEBOOK_IMAGE_OPTIONS
-msgid "Image options"
+msgid "Image"
 msgstr "Bild"
 
+#. NOTEBOOK_COPY_OPTIONS
+msgid "Copy"
+msgstr "Photokopie"
+
+#. NOTEBOOK_FAX_OPTIONS
+msgid "Fax"
+msgstr "Fax"
+
 #. NOTEBOOK_DISPLAY_OPTIONS
-msgid "Display options"
+msgid "Display"
 msgstr "Darstellung"
 
 #. NOTEBOOK_ENHANCE_OPTIONS
-msgid "Enhancement options"
+msgid "Enhancement"
 msgstr "Verbesserungen"
-
-#. NOTEBOOK_FAX_OPTIONS
-msgid "Fax options"
-msgstr "Fax"
 
 #. MENU_ITEM_SCAN
 msgid "Scan"
 msgstr "Scannen"
-
-#. MENU_ITEM_COPY
-msgid "Copy"
-msgstr "Kopieren"
-
-#. MENU_ITEM_FAX
-msgid "Fax"
-msgstr "Faxen"
 
 #. MENU_ITEM_SHOW_TOOLTIPS
 msgid "Show tooltips"
@@ -1181,21 +1173,20 @@ msgstr ""
 "werden"
 
 #. DESC_PRINTER_WIDTH
-msgid "Width of printable area in mm"
-msgstr "Breite des druckbaren Bereichs in mm"
+msgid "Width of printable area"
+msgstr "Breite des druckbaren Bereichs"
 
 #. DESC_PRINTER_HEIGHT
-msgid "Height of printable area in mm"
-msgstr "Höhe des druckbaren Bereichs in mm"
+msgid "Height of printable area"
+msgstr "Höhe des druckbaren Bereichs"
 
 #. DESC_PRINTER_LEFTOFFSET
-msgid "Left offset from the edge of the paper to the printable area in mm"
-msgstr "Abstand vom linken Papierrand zum Beginn des druckbaren Bereichs in mm"
+msgid "Left offset from the edge of the paper to the printable area"
+msgstr "Abstand vom linken Papierrand zum Beginn des druckbaren Bereichs"
 
 #. DESC_PRINTER_BOTTOMOFFSET
-msgid "Bottom offset from the edge of the paper to the printable area in mm"
-msgstr ""
-"Abstand vom unteren Papierrand zum Beginn des druckbaren Bereichs in mm"
+msgid "Bottom offset from the edge of the paper to the printable area"
+msgstr "Abstand vom unteren Papierrand zum Beginn des druckbaren Bereichs"
 
 #. DESC_PRINTER_GAMMA
 msgid "Additional gamma value for photocopy"
@@ -1267,30 +1258,32 @@ msgstr ""
 
 #. DESC_REDUCE_16BIT_TO_8BIT
 msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
-msgstr "Wenn der Scanner das Bild mit 16 Bits/Farbe liefert wird das Bild mot 8 Bits/Farbe gespeichert"
+msgstr ""
+"Wenn der Scanner das Bild mit 16 Bits/Farbe liefert wird das Bild mit 8 "
+"Bits/Farbe gespeichert"
 
 #. DESC_PSFILE_WIDTH
-msgid "Width of paper in mm for postscript files"
-msgstr "Breite des druckbaren Bereichs für Postscript in mm"
+msgid "Width of paper for postscript files"
+msgstr "Breite des druckbaren Bereichs für Postscript"
 
 #. DESC_PSFILE_HEIGHT
-msgid "Height of paper in mm for postscript files"
-msgstr "Höhe des druckbaren Bereichs für Postscript in mm"
+msgid "Height of paper for postscript files"
+msgstr "Höhe des druckbaren Bereichs für Postscript"
 
 #. DESC_PSFILE_LEFTOFFSET
 msgid ""
-"Left offset from the edge of the paper to the usable area in mm for "
-"postscript files"
+"Left offset from the edge of the paper to the usable area for postscript "
+"files"
 msgstr ""
-"Abstand vom linken Papierrand zum Beginn des druckbaren Bereichs in mm für "
+"Abstand vom linken Papierrand zum Beginn des druckbaren Bereichs für "
 "Postsciptdateien"
 
 #. DESC_PSFILE_BOTTOMOFFSET
 msgid ""
-"Bottom offset from the edge of the paper to the usable area in mm for "
-"postscript files"
+"Bottom offset from the edge of the paper to the usable area for postscript "
+"files"
 msgstr ""
-"Abstand vom unteren Papierrand zum Beginn des druckbaren Bereichs in mm für "
+"Abstand vom unteren Papierrand zum Beginn des druckbaren Bereichs für "
 "Postsciptdateien"
 
 #. DESC_MAIN_WINDOW_FIXED
@@ -1958,4 +1951,3 @@ msgstr "Kein Speicher"
 
 msgid "Access to resource has been denied"
 msgstr "Zugang zum Gerät wurde verweigert"
-

@@ -1569,3 +1569,36 @@ xsane-0.75 -> 0.76:
 
  - removed a bug in aclocal.m4 wehn gimp was not found
 
+
+xsane-0.76 -> 0.77:
+-------------------
+
+ - removed "+0.5" in calculation of gamma table. A gamma value of 1.000 does
+   not change the image data any more
+
+ - xsane_update_gamma_curve(TRUE /* update raw */); is called when setup dialog is closed
+   (apply and cancel), now the preview is displayed with correct gamma values when setup
+   dialog is closed.
+
+ - configure does set gtk parameters correct when compiling gimp testprogram failed
+
+ - xsane internal gamma tables for scanning are created after sane_start is called,
+   this makes sure that the gamma table size calculated with param.depth really is correct
+
+ - setup uses selected length unit
+
+ - length unit is printed in top left edge between rulers in preview window
+
+ - when length unit is saved as inch the length unit submenu "in" now is selected at program start
+
+ - removed xsane.spec because I got a mail that it does not produce working installations
+
+ - length unit also can be selected now when backend length unit is pixel, so it
+   is possible to change the length unit of the setup window
+
+ - save device preferneces dialog is opened when user closes setup dialog and any
+   device options have been changed
+
+ - replaced all fprintf(stderr, ... by DBG(...
+
+ - updated translations: cs, de, fr, ja, sv, tr

@@ -405,12 +405,14 @@ void xsane_device_preferences_load_file(char *filename)
   xsane.contrast_blue               = 0.0;
 
   xsane.lineart_mode                = 0;
-  xsane.grayscale_scanmode          = 0; /* Empty String => keeps lineart */
+  xsane.grayscale_scanmode          = 0; /* Empty String => keeps "grayscale" */
   xsane.threshold                   = 50.0;
   xsane.threshold_min               = 0.0;
   xsane.threshold_max               = 100.0;
   xsane.threshold_mul               = 1.0;
   xsane.threshold_off               = 0.0;
+
+  xsane.adf_scansource              = 0; /* Empty String => keeps adf scansource */
 
   xsane.enhancement_rgb_default     = 1;
   xsane.negative                    = 0;
@@ -585,7 +587,7 @@ void xsane_device_preferences_load_file(char *filename)
         break;
  
         default:
-         fprintf(stderr, "xsane_pref_load_file: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
+         DBG(DBG_error, "xsane_pref_load_file: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
         return;
       }
     }

@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.76\n"
-"POT-Creation-Date: 2001-04-22 11:23+0200\n"
-"PO-Revision-Date: 2001-04-08 20:45+01:00\n"
+"Project-Id-Version: XSANE 0.77\n"
+"POT-Creation-Date: 2001-05-18 23:04+0200\n"
+"PO-Revision-Date: 2001-05-21 21:30+01:00\n"
 "Last-Translator: FULL NAME <johanb@lls.se>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -534,20 +534,20 @@ msgid "Color resolution (dpi):"
 msgstr "Upplösning i färgläge (dpi):"
 
 #. TEXT_SETUP_PRINTER_WIDTH
-msgid "Width [mm]:"
-msgstr "Bredd [mm]:"
+msgid "Width"
+msgstr "Bredd"
 
 #. TEXT_SETUP_PRINTER_HEIGHT
-msgid "Height [mm]:"
-msgstr "Höjd [mm]:"
+msgid "Height"
+msgstr "Höjd"
 
 #. TEXT_SETUP_PRINTER_LEFT
-msgid "Left offset [mm]:"
-msgstr "Vänster marginal [mm]:"
+msgid "Left offset"
+msgstr "Vänster marginal"
 
 #. TEXT_SETUP_PRINTER_BOTTOM
-msgid "Bottom offset [mm]:"
-msgstr "Marginal från botten [mm]:"
+msgid "Bottom offset"
+msgstr "Marginal från botten"
 
 #. TEXT_SETUP_PRINTER_GAMMA
 msgid "Printer gamma value:"
@@ -602,20 +602,20 @@ msgid "TIFF lineart image compression"
 msgstr "TIFF lineart-bildkompression"
 
 #. TEXT_SETUP_PSFILE_WIDTH
-msgid "Width of paper for postscript [mm]:"
-msgstr "Pappersbredd för postscript [mm]:"
+msgid "Width of paper for postscript"
+msgstr "Pappersbredd för postscript"
 
 #. TEXT_SETUP_PSFILE_HEIGHT
-msgid "Height of paper for postscript [mm]:"
-msgstr "Pappershöjd för postscript [mm]:"
+msgid "Height of paper for postscript"
+msgstr "Pappershöjd för postscript"
 
 #. TEXT_SETUP_PSFILE_LEFT
-msgid "Left offset for postscript [mm]:"
-msgstr "Vänster marginal för postscript [mm]:"
+msgid "Left offset for postscript"
+msgstr "Vänster marginal för postscript"
 
 #. TEXT_SETUP_PSFILE_BOTTOM
-msgid "Bottom offset for postscript [mm]:"
-msgstr "Marginal från botten för postscript [mm]:"
+msgid "Bottom offset for postscript"
+msgstr "Marginal från botten för postscript"
 
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
@@ -705,42 +705,33 @@ msgstr "Grupp"
 msgid "all"
 msgstr "Alla"
 
-#. NOTEBOOK_COPY_OPTIONS
-msgid "Copy options"
-msgstr "Kopiator"
-
 #. NOTEBOOK_SAVING_OPTIONS
-msgid "Saving options"
-msgstr "Spara"
+msgid "Save"
+msgstr ""
 
 #. NOTEBOOK_IMAGE_OPTIONS
-#, fuzzy
-msgid "Image options"
-msgstr "XSane-inställningar"
+msgid "Image"
+msgstr ""
 
-#. NOTEBOOK_DISPLAY_OPTIONS
-msgid "Display options"
-msgstr "Visa"
-
-#. NOTEBOOK_ENHANCE_OPTIONS
-msgid "Enhancement options"
-msgstr "Bearbetning"
-
-#. NOTEBOOK_FAX_OPTIONS
-msgid "Fax options"
-msgstr "Fax"
-
-#. MENU_ITEM_SCAN
-msgid "Scan"
-msgstr "Läsa in"
-
-#. MENU_ITEM_COPY
+#. NOTEBOOK_COPY_OPTIONS
 msgid "Copy"
 msgstr "Kopiera"
 
-#. MENU_ITEM_FAX
+#. NOTEBOOK_FAX_OPTIONS
 msgid "Fax"
 msgstr "Faxa"
+
+#. NOTEBOOK_DISPLAY_OPTIONS
+msgid "Display"
+msgstr "Visa"
+
+#. NOTEBOOK_ENHANCE_OPTIONS
+msgid "Enhancement"
+msgstr "Bearbetning"
+
+#. MENU_ITEM_SCAN
+msgid "Scan"
+msgstr "Läs in"
 
 #. MENU_ITEM_SHOW_TOOLTIPS
 msgid "Show tooltips"
@@ -919,7 +910,6 @@ msgid "Scanning"
 msgstr "Läser in"
 
 #. PROGRESS_RECEIVING_FRAME_DATA
-#, c-format
 msgid "Receiving %s data"
 msgstr "Tar emot %s data"
 
@@ -1179,21 +1169,21 @@ msgid "Resolution with which color images are printed and saved in postscript"
 msgstr "Upplösning med vilken färgbilder skrivs ut och sparas i postscript"
 
 #. DESC_PRINTER_WIDTH
-msgid "Width of printable area in mm"
-msgstr "Utskriftsbara områdets bredd i mm"
+msgid "Width of printable area"
+msgstr "Utskriftsbara områdets bredd"
 
 #. DESC_PRINTER_HEIGHT
-msgid "Height of printable area in mm"
-msgstr "Utskriftsbara områdets höjd i mm"
+msgid "Height of printable area"
+msgstr "Utskriftsbara områdets höjd"
 
 #. DESC_PRINTER_LEFTOFFSET
-msgid "Left offset from the edge of the paper to the printable area in mm"
+msgid "Left offset from the edge of the paper to the printable area"
 msgstr ""
-"Marginal från den vänstra sidan av pappret till det utskrivbara området i mm"
+"Marginal från den vänstra sidan av pappret till det utskrivbara området"
 
 #. DESC_PRINTER_BOTTOMOFFSET
-msgid "Bottom offset from the edge of the paper to the printable area in mm"
-msgstr "Marginal från botten av pappret till det utskrivbara området i mm"
+msgid "Bottom offset from the edge of the paper to the printable area"
+msgstr "Marginal från botten av pappret till det utskrivbara området"
 
 #. DESC_PRINTER_GAMMA
 msgid "Additional gamma value for photocopy"
@@ -1264,27 +1254,27 @@ msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
 msgstr ""
 
 #. DESC_PSFILE_WIDTH
-msgid "Width of paper in mm for postscript files"
-msgstr "Pappersbredd i mm för postscript filer"
+msgid "Width of paper for postscript files"
+msgstr "Pappersbredd för postscript filer"
 
 #. DESC_PSFILE_HEIGHT
-msgid "Height of paper in mm for postscript files"
-msgstr "Pappershöjd i mm för postscript filer"
+msgid "Height of paper for postscript files"
+msgstr "Pappershöjd för postscript filer"
 
 #. DESC_PSFILE_LEFTOFFSET
 msgid ""
-"Left offset from the edge of the paper to the usable area in mm for "
-"postscript files"
+"Left offset from the edge of the paper to the usable area for postscript "
+"files"
 msgstr ""
-"Marginal från den vänstra sidan av pappret till det utskrivbara området i mm "
-"för postscriptfiler"
+"Marginal från den vänstra sidan av pappret till det utskrivbara området"
+" för postscriptfiler"
 
 #. DESC_PSFILE_BOTTOMOFFSET
 msgid ""
-"Bottom offset from the edge of the paper to the usable area in mm for "
-"postscript files"
+"Bottom offset from the edge of the paper to the usable area for postscript "
+"files"
 msgstr ""
-"Marginal från botten av pappret till det utskrivbara området i mm för "
+"Marginal från botten av pappret till det utskrivbara området för "
 "postscriptfiler"
 
 #. DESC_MAIN_WINDOW_FIXED
@@ -1343,12 +1333,10 @@ msgstr ""
 "grafikläge när överföring från svartvit till grafik är inkopplat"
 
 #. DESC_PREVIEW_THRESHOLD_MIN
-#, no-c-format
 msgid "The scanner's minimum threshold level in %"
 msgstr "Bildläsarens minimala tröskelnivå i %"
 
 #. DESC_PREVIEW_THRESHOLD_MAX
-#, no-c-format
 msgid "The scanner's maximum threshold level in %"
 msgstr "Bildläsarens maximala tröskelnivå i %"
 
@@ -1454,7 +1442,6 @@ msgid "Use full scanarea"
 msgstr "Använd hela inläsningsområdet"
 
 #. DESC_ZOOM_OUT
-#, no-c-format
 msgid "Zoom 20% out"
 msgstr "Zooma ut 20%"
 
@@ -1527,7 +1514,6 @@ msgid "Can't handle depth"
 msgstr "Kan inte hantera bilddjup"
 
 #. ERR_GIMP_BAD_DEPTH
-#, c-format
 msgid "GIMP can't handle depth %d bits/color"
 msgstr "GIMP kan inte hantera bilddjup med %d bits/färg"
 
@@ -1600,7 +1586,6 @@ msgid "unable to set resolution"
 msgstr "kunde inte sätta upplösning"
 
 #. ERR_PASSWORD_FILE_INSECURE
-#, c-format
 msgid "Password file (%s) is insecure, use permission x00\n"
 msgstr "Lösenordsfil (%s) har säkerhetsproblem, använd rättighet x00\n"
 
@@ -1711,22 +1696,18 @@ msgid "this may cause problems!"
 msgstr "detta kan orsaka problem!"
 
 #. WARN_FILE_EXISTS
-#, c-format
 msgid "File %s already exists"
 msgstr "Fil %s existerar redan"
 
 #. ERR_FILE_NOT_EXISTS
-#, c-format
 msgid "File %s does not exist"
 msgstr "Fil %s existerar inte"
 
 #. ERR_FILE_NOT_POSTSCRIPT
-#, c-format
 msgid "File %s is not a postscript file"
 msgstr "Fil %s är inte en postskriptfil"
 
 #. ERR_UNSUPPORTED_OUTPUT_FORMAT
-#, c-format
 msgid "Unsupported %d-bit output format: %s"
 msgstr "%d-bit utmatningsformat som inte stöds: %s"
 
@@ -1952,53 +1933,3 @@ msgstr "Slut på minne"
 
 msgid "Access to resource has been denied"
 msgstr "Tillgång till resurs nekas"
-
-#~ msgid "Reduce scan area"
-#~ msgstr "Minska inläsningområdet"
-
-#~ msgid "©"
-#~ msgstr "©"
-
-#~ msgid "Delete"
-#~ msgstr "Ta bort"
-
-#~ msgid "Show"
-#~ msgstr "Visa"
-
-#~ msgid "Rename"
-#~ msgstr "Byt namn"
-
-#~ msgid ""
-#~ "This program is distributed under the terms\n"
-#~ "of the GNU General Public License\n"
-#~ msgstr ""
-#~ "Detta program omfattas av\n"
-#~ "GNU General Public License\n"
-
-#~ msgid "Increase filename counter"
-#~ msgstr "Uppdatera filnamnsräknare"
-
-#~ msgid ""
-#~ "If the filename is of the form \"name-001.ext\" (where the number of digits "
-#~ "is free) the number is increased after a scan is finished"
-#~ msgstr ""
-#~ "Om filnamnet ser ut så här: \"namn-001.ext\" (där antalet siffror är "
-#~ "valfritt) ökas numret varje gång en inläsning är slutförd"
-
-#~ msgid "Filename extension and type of image format"
-#~ msgstr "Filnamns suffix och bildformat"
-
-#~ msgid "Filename counter step"
-#~ msgstr "Filnamns räknarsteg"
-
-#~ msgid "Exit"
-#~ msgstr "Avsluta"
-
-#~ msgid "Preserve preview image"
-#~ msgstr "Bevara förhandsgranskningsbild"
-
-#~ msgid "Device options"
-#~ msgstr "Avancerade inställningar"
-
-#~ msgid "Preserve preview image for next program start"
-#~ msgstr "Bevara förhandsgransknings bilden till nästa programstart"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.76\n"
-"POT-Creation-Date: 2001-04-22 11:23+0200\n"
+"POT-Creation-Date: 2001-05-18 23:04+0200\n"
 "PO-Revision-Date: 2000-09-29  23:48+0100\n"
 "Last-Translator: Colorio Mauro <linuxbox@interfree.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -531,19 +531,23 @@ msgid "Color resolution (dpi):"
 msgstr "Risoluzione Colore(dpi):"
 
 #. TEXT_SETUP_PRINTER_WIDTH
-msgid "Width [mm]:"
+#, fuzzy
+msgid "Width"
 msgstr "Larghezza [mm]:"
 
 #. TEXT_SETUP_PRINTER_HEIGHT
-msgid "Height [mm]:"
+#, fuzzy
+msgid "Height"
 msgstr "Altezza [mm]:"
 
 #. TEXT_SETUP_PRINTER_LEFT
-msgid "Left offset [mm]:"
+#, fuzzy
+msgid "Left offset"
 msgstr "Margine sinistro [mm]:"
 
 #. TEXT_SETUP_PRINTER_BOTTOM
-msgid "Bottom offset [mm]:"
+#, fuzzy
+msgid "Bottom offset"
 msgstr "Margine inferiore [mm]:"
 
 #. TEXT_SETUP_PRINTER_GAMMA
@@ -600,19 +604,23 @@ msgid "TIFF lineart image compression"
 msgstr "Compressione immagine TIFF lineart"
 
 #. TEXT_SETUP_PSFILE_WIDTH
-msgid "Width of paper for postscript [mm]:"
+#, fuzzy
+msgid "Width of paper for postscript"
 msgstr "Larghezza della carta per postscript [mm]:"
 
 #. TEXT_SETUP_PSFILE_HEIGHT
-msgid "Height of paper for postscript [mm]:"
+#, fuzzy
+msgid "Height of paper for postscript"
 msgstr "Altezza della carta per postscript [mm]:"
 
 #. TEXT_SETUP_PSFILE_LEFT
-msgid "Left offset for postscript [mm]:"
+#, fuzzy
+msgid "Left offset for postscript"
 msgstr "Margine sinistro per postscript [mm]:"
 
 #. TEXT_SETUP_PSFILE_BOTTOM
-msgid "Bottom offset for postscript [mm]:"
+#, fuzzy
+msgid "Bottom offset for postscript"
 msgstr "Margine inferiore per postscript [mm]:"
 
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
@@ -704,42 +712,35 @@ msgstr ""
 msgid "all"
 msgstr ""
 
-#. NOTEBOOK_COPY_OPTIONS
-msgid "Copy options"
-msgstr "Copia opzioni"
-
 #. NOTEBOOK_SAVING_OPTIONS
-msgid "Saving options"
-msgstr "Salva opzioni"
+msgid "Save"
+msgstr ""
 
 #. NOTEBOOK_IMAGE_OPTIONS
-#, fuzzy
-msgid "Image options"
-msgstr "Opzioni XSane"
+msgid "Image"
+msgstr ""
+
+#. NOTEBOOK_COPY_OPTIONS
+msgid "Copy"
+msgstr "Copia"
+
+#. NOTEBOOK_FAX_OPTIONS
+msgid "Fax"
+msgstr "Fax"
 
 #. NOTEBOOK_DISPLAY_OPTIONS
-msgid "Display options"
+#, fuzzy
+msgid "Display"
 msgstr "Opzioni display"
 
 #. NOTEBOOK_ENHANCE_OPTIONS
-msgid "Enhancement options"
+#, fuzzy
+msgid "Enhancement"
 msgstr "Opzioni di accentuo"
-
-#. NOTEBOOK_FAX_OPTIONS
-msgid "Fax options"
-msgstr "Opzioni Fax"
 
 #. MENU_ITEM_SCAN
 msgid "Scan"
 msgstr "Scanner"
-
-#. MENU_ITEM_COPY
-msgid "Copy"
-msgstr "Copia"
-
-#. MENU_ITEM_FAX
-msgid "Fax"
-msgstr "Fax"
 
 #. MENU_ITEM_SHOW_TOOLTIPS
 msgid "Show tooltips"
@@ -1206,19 +1207,23 @@ msgstr ""
 "postscript"
 
 #. DESC_PRINTER_WIDTH
-msgid "Width of printable area in mm"
+#, fuzzy
+msgid "Width of printable area"
 msgstr "Larghezza dell'area di stampa in mm"
 
 #. DESC_PRINTER_HEIGHT
-msgid "Height of printable area in mm"
+#, fuzzy
+msgid "Height of printable area"
 msgstr "Altezza dell'area di stampa in mm"
 
 #. DESC_PRINTER_LEFTOFFSET
-msgid "Left offset from the edge of the paper to the printable area in mm"
+#, fuzzy
+msgid "Left offset from the edge of the paper to the printable area"
 msgstr "Margine sinistro dalla testa della pagina all'area di stampa in mm"
 
 #. DESC_PRINTER_BOTTOMOFFSET
-msgid "Bottom offset from the edge of the paper to the printable area in mm"
+#, fuzzy
+msgid "Bottom offset from the edge of the paper to the printable area"
 msgstr "Margine inferiore dalla testa della pagina all'area di stampa in mm"
 
 #. DESC_PRINTER_GAMMA
@@ -1292,25 +1297,29 @@ msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
 msgstr ""
 
 #. DESC_PSFILE_WIDTH
-msgid "Width of paper in mm for postscript files"
+#, fuzzy
+msgid "Width of paper for postscript files"
 msgstr "Larghezza della carta in mm per i file postscript"
 
 #. DESC_PSFILE_HEIGHT
-msgid "Height of paper in mm for postscript files"
+#, fuzzy
+msgid "Height of paper for postscript files"
 msgstr "Altezza della carta in mm per i file postscript"
 
 #. DESC_PSFILE_LEFTOFFSET
+#, fuzzy
 msgid ""
-"Left offset from the edge of the paper to the usable area in mm for "
-"postscript files"
+"Left offset from the edge of the paper to the usable area for postscript "
+"files"
 msgstr ""
 "Margine sinistro dalla testa della carta all'area utilizzabile in mm per\n"
 "i file postscript"
 
 #. DESC_PSFILE_BOTTOMOFFSET
+#, fuzzy
 msgid ""
-"Bottom offset from the edge of the paper to the usable area in mm for "
-"postscript files"
+"Bottom offset from the edge of the paper to the usable area for postscript "
+"files"
 msgstr ""
 "Margine inferiore dalla testa della carta all'area utilizzabile in mm per i "
 "file postscript"
@@ -1992,6 +2001,19 @@ msgstr "Memoria esaurita"
 
 msgid "Access to resource has been denied"
 msgstr "Acesso alla risorsa negato"
+
+#~ msgid "Copy options"
+#~ msgstr "Copia opzioni"
+
+#~ msgid "Saving options"
+#~ msgstr "Salva opzioni"
+
+#, fuzzy
+#~ msgid "Image options"
+#~ msgstr "Opzioni XSane"
+
+#~ msgid "Fax options"
+#~ msgstr "Opzioni Fax"
 
 #, fuzzy
 #~ msgid "Reduce scan area"

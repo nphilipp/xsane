@@ -50,6 +50,7 @@ void xsane_scan_done(SANE_Status status);
 void xsane_cancel(void);
 static void xsane_start_scan(void);
 void xsane_scan_dialog(GtkWidget * widget, gpointer call_data);
+static void xsane_create_internal_gamma_tables(void);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -386,7 +387,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
 
         default:
           xsane_scan_done(-1); /* -1 = error */
-          fprintf(stderr, "xsane_read_image_data: %s %d\n", ERR_BAD_FRAME_FORMAT, xsane.param.format);
+          DBG(DBG_error, "xsane_read_image_data: %s %d\n", ERR_BAD_FRAME_FORMAT, xsane.param.format);
           return;
          break;
       }
@@ -761,7 +762,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
 
         default:
           xsane_scan_done(-1); /* -1 = error */
-          fprintf(stderr, "xsane_read_image_data: %s %d\n", ERR_BAD_FRAME_FORMAT, xsane.param.format);
+          DBG(DBG_error, "xsane_read_image_data: %s %d\n", ERR_BAD_FRAME_FORMAT, xsane.param.format);
           return;
          break;
       }
@@ -1617,53 +1618,53 @@ static void xsane_start_scan(void)
     default:			frame_type = "unknown"; break;
   }
 
+  if ( (xsane.param.depth == 1) && (xsane.preview->rotation) )
   {
-    if ( (xsane.param.depth == 1) && (xsane.preview->rotation) )
+    xsane.expand_lineart_to_grayscale = 1; /* We want to do transformation with lineart scan, so we save it as grayscale */
+  }
+
+  if (!xsane.header_size) /* first pass of multi pass scan or single pass scan */
+  {
+    xsane_create_internal_gamma_tables(); /* create gamma tables that are not supported by scanner */
+
+    if (xsane_generate_dummy_filename(0)) /* create filename the scanned data is saved to */
     {
-      xsane.expand_lineart_to_grayscale = 1; /* We want to do transformation with lineart scan, so we save it as grayscale */
+      /* temporary file */
+      umask(0177); /* creare temporary file with "-rw-------" permissions */   
+    }
+    else
+    {
+      /* no temporary file */
+      umask((mode_t) preferences.image_umask); /* define image file permissions */   
     }
 
-    if (!xsane.header_size) /* first pass of multi pass scan or single pass scan */
+    remove(xsane.dummy_filename); /* remove existing file */
+    xsane.out = fopen(xsane.dummy_filename, "wb"); /* b = binary mode for win32 */
+    umask(XSANE_DEFAULT_UMASK); /* define new file permissions */   
+
+    if (!xsane.out) /* error while opening the dummy_file for writing */
     {
-      if (xsane_generate_dummy_filename(0)) /* create filename the scanned data is saved to */
-      {
-        /* temporary file */
-        umask(0177); /* creare temporary file with "-rw-------" permissions */   
-      }
-      else
-      {
-        /* no temporary file */
-        umask((mode_t) preferences.image_umask); /* define image file permissions */   
-      }
-
-      remove(xsane.dummy_filename); /* remove existing file */
-      xsane.out = fopen(xsane.dummy_filename, "wb"); /* b = binary mode for win32 */
-      umask(XSANE_DEFAULT_UMASK); /* define new file permissions */   
-
-      if (!xsane.out) /* error while opening the dummy_file for writing */
-      {
-        xsane_scan_done(-1); /* -1 = error */
-        DBG(DBG_info, "open of file `%s'failed : %s\n", xsane.dummy_filename, strerror(errno));
-        snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, xsane.dummy_filename, strerror(errno));
-        xsane_back_gtk_error(buf, TRUE);
-        return;
-      }
-
-      if ( (xsane.expand_lineart_to_grayscale) || (xsane.reduce_16bit_to_8bit) )
-      {
-        xsane.depth = 8;
-      }
-
-      xsane_write_pnm_header(xsane.out, xsane.param.pixels_per_line, xsane.param.lines, xsane.depth);
-
-      fflush(xsane.out);
-      xsane.header_size = ftell(xsane.out);
+      xsane_scan_done(-1); /* -1 = error */
+      DBG(DBG_info, "open of file `%s'failed : %s\n", xsane.dummy_filename, strerror(errno));
+      snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, xsane.dummy_filename, strerror(errno));
+      xsane_back_gtk_error(buf, TRUE);
+      return;
     }
 
-    if (xsane.param.format >= SANE_FRAME_RED && xsane.param.format <= SANE_FRAME_BLUE)
+    if ( (xsane.expand_lineart_to_grayscale) || (xsane.reduce_16bit_to_8bit) )
     {
-      fseek(xsane.out, xsane.header_size + xsane.param.format - SANE_FRAME_RED, SEEK_SET);
+      xsane.depth = 8;
     }
+
+    xsane_write_pnm_header(xsane.out, xsane.param.pixels_per_line, xsane.param.lines, xsane.depth);
+
+    fflush(xsane.out);
+    xsane.header_size = ftell(xsane.out);
+  }
+
+  if (xsane.param.format >= SANE_FRAME_RED && xsane.param.format <= SANE_FRAME_BLUE)
+  {
+    fseek(xsane.out, xsane.header_size + xsane.param.format - SANE_FRAME_RED, SEEK_SET);
   }
 
   xsane.pixelcolor = 0;
@@ -1697,6 +1698,7 @@ static void xsane_start_scan(void)
 void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
 {
  char buf[256];
+ const SANE_Option_Descriptor *opt;
 
   DBG(DBG_proc, "xsane_scan_dialog\n");
 
@@ -1706,7 +1708,8 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
 
   xsane_define_output_filename(); /* make xsane.output_filename up to date */
 
-  if (xsane.mode == XSANE_STANDALONE)  				/* We are running in standalone mode */
+  /* test if file exists, may be we have to output an overwrite warning */
+  if (xsane.mode == XSANE_STANDALONE) /* We are running in standalone mode */
   {
    char *extension;
 
@@ -1830,67 +1833,189 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
     free(xsane.dummy_filename);
     xsane.dummy_filename = 0;
   }
-	   
-  if (xsane.param.depth > 1) /* if depth > 1 use gamma correction */
+
+  /* create scanner gamma tables, xsane internal gamma tables are created after sane_start */
+  if ( xsane.xsane_color && /* color scan */
+       xsane.scanner_gamma_color ) /* gamma table for red, green and blue available */
   {
-   int size;
-   int gamma_gray_size, gamma_red_size, gamma_green_size, gamma_blue_size;
-   int gamma_gray_max, gamma_red_max, gamma_green_max, gamma_blue_max;
-   const SANE_Option_Descriptor *opt;
+   double gamma_red, gamma_green, gamma_blue;
+   int gamma_red_size, gamma_green_size, gamma_blue_size;
+   int gamma_red_max, gamma_green_max, gamma_blue_max;
 
-    size = (int) pow(2, xsane.param.depth);
-    gamma_gray_size  = size;
-    gamma_red_size   = size;
-    gamma_green_size = size;
-    gamma_blue_size  = size;
+    /* ok, scanner color gamma function is supported, so we do all conversions about that */
+    /* we do not need any gamma tables while scanning, so we can free them after sending */
+    /* the data to the scanner */
 
-    size--; 
-    gamma_gray_max   = size;
-    gamma_red_max    = size;
-    gamma_green_max  = size;
-    gamma_blue_max   = size;
-
-    if (xsane.scanner_gamma_gray) /* gamma table for gray available */
+    /* if also gray gamma function is supported, set this to 1.0 to get the right colors */
+    if (xsane.scanner_gamma_gray)
     {
+     int gamma_gray_size;
+     int gamma_gray_max;
+
       opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector);
       gamma_gray_size = opt->size / sizeof(opt->type);
       gamma_gray_max  = opt->constraint.range->max;
+
+      xsane.gamma_data = malloc(gamma_gray_size  * sizeof(SANE_Int));
+      xsane_create_gamma_curve(xsane.gamma_data, 0, 1.0, 0.0, 0.0, gamma_gray_size, gamma_gray_max);
+      xsane_back_gtk_update_vector(xsane.well_known.gamma_vector, xsane.gamma_data);
+      free(xsane.gamma_data);
+      xsane.gamma_data = 0;
     }
 
-    if ( xsane.xsane_color && /* color scan */
-         xsane.scanner_gamma_color ) /* gamma table for red, green and blue available */
+    opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector_r);
+    gamma_red_size = opt->size / sizeof(opt->type);
+    gamma_red_max  = opt->constraint.range->max;
+
+    opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector_g);
+    gamma_green_size = opt->size / sizeof(opt->type);
+    gamma_green_max  = opt->constraint.range->max;
+
+    opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector_b);
+    gamma_blue_size = opt->size / sizeof(opt->type);
+    gamma_blue_max  = opt->constraint.range->max;
+
+    xsane.gamma_data_red   = malloc(gamma_red_size   * sizeof(SANE_Int));
+    xsane.gamma_data_green = malloc(gamma_green_size * sizeof(SANE_Int));
+    xsane.gamma_data_blue  = malloc(gamma_blue_size  * sizeof(SANE_Int));
+
+    if (xsane.xsane_mode == XSANE_COPY)
     {
+      gamma_red   = xsane.gamma * xsane.gamma_red   * preferences.printer[preferences.printernr]->gamma * preferences.printer[preferences.printernr]->gamma_red;
+      gamma_green = xsane.gamma * xsane.gamma_green * preferences.printer[preferences.printernr]->gamma * preferences.printer[preferences.printernr]->gamma_green;
+      gamma_blue  = xsane.gamma * xsane.gamma_blue  * preferences.printer[preferences.printernr]->gamma * preferences.printer[preferences.printernr]->gamma_blue;
+    }
+    else
+    {
+      gamma_red   = xsane.gamma * xsane.gamma_red;
+      gamma_green = xsane.gamma * xsane.gamma_green;
+      gamma_blue  = xsane.gamma * xsane.gamma_blue;
+    }
+
+    xsane_create_gamma_curve(xsane.gamma_data_red, xsane.negative,
+		 	       gamma_red,
+			       xsane.brightness + xsane.brightness_red,
+			       xsane.contrast + xsane.contrast_red, gamma_red_size, gamma_red_max);
+
+    xsane_create_gamma_curve(xsane.gamma_data_green, xsane.negative,
+			       gamma_green,
+			       xsane.brightness + xsane.brightness_green,
+			       xsane.contrast + xsane.contrast_green, gamma_green_size, gamma_green_max);
+
+    xsane_create_gamma_curve(xsane.gamma_data_blue, xsane.negative,
+			       gamma_blue,
+			       xsane.brightness + xsane.brightness_blue,
+			       xsane.contrast + xsane.contrast_blue , gamma_blue_size, gamma_blue_max);
+
+    xsane_back_gtk_update_vector(xsane.well_known.gamma_vector_r, xsane.gamma_data_red);
+    xsane_back_gtk_update_vector(xsane.well_known.gamma_vector_g, xsane.gamma_data_green);
+    xsane_back_gtk_update_vector(xsane.well_known.gamma_vector_b, xsane.gamma_data_blue);
+
+    free(xsane.gamma_data_red);
+    free(xsane.gamma_data_green);
+    free(xsane.gamma_data_blue);
+
+    xsane.gamma_data_red   = 0;
+    xsane.gamma_data_green = 0;
+    xsane.gamma_data_blue  = 0;
+  }
+  else if (xsane.scanner_gamma_gray) /* only scanner gray gamma function available */
+  {
+   /* ok, the scanner only supports gray gamma function */
+   /* if we are doing a grayscale scan everyting is ok, */
+   /* for a color scan the software has to do the gamma correction set by the component slider */
+
+   double gamma;
+   int gamma_gray_size;
+   int gamma_gray_max;
+
+    opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector);
+    gamma_gray_size = opt->size / sizeof(opt->type);
+    gamma_gray_max  = opt->constraint.range->max;
+
+    if (xsane.xsane_mode == XSANE_COPY)
+    {
+      gamma = xsane.gamma * preferences.printer[preferences.printernr]->gamma;
+    }
+    else
+    {
+      gamma = xsane.gamma;
+    }
+
+    xsane.gamma_data = malloc(gamma_gray_size * sizeof(SANE_Int));
+    xsane_create_gamma_curve(xsane.gamma_data, xsane.negative,
+                             gamma, xsane.brightness, xsane.contrast,
+                             gamma_gray_size, gamma_gray_max);
+
+    xsane_back_gtk_update_vector(xsane.well_known.gamma_vector, xsane.gamma_data);
+    free(xsane.gamma_data);
+    xsane.gamma_data = 0;
+  }
+
+  while (gtk_events_pending())
+  {
+    gtk_main_iteration();
+  }
+
+  xsane_start_scan();
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_create_internal_gamma_tables(void)
+{
+ int size, maxval;
+
+  size = (int) pow(2, xsane.param.depth);
+  maxval = size-1;
+
+  if (xsane.xsane_color) /* color scan */
+  {
+    if ( (!xsane.scanner_gamma_color) && (xsane.scanner_gamma_gray) )
+    {
+      /* we have to create color gamma table for software conversion */
+	/* but we only have to use color slider values, because gray slider value */
+	/* is used by scanner gray gamma */
+
      double gamma_red, gamma_green, gamma_blue;
 
-      /* ok, scanner color gamma function is supported, so we do all conversions about that */
-      /* we do not need any gamma tables while scanning, so we can free them after sending */
-      /* the data to the scanner */
+      DBG(DBG_info, "creating xsane internal color gamma tables with size %d\n", size);
 
-      /* if also gray gamma function is supported, set this to 1.0 to get the right colors */
-      if (xsane.scanner_gamma_gray)
+      xsane.gamma_data_red   = malloc(size * sizeof(SANE_Int));
+      xsane.gamma_data_green = malloc(size * sizeof(SANE_Int));
+      xsane.gamma_data_blue  = malloc(size * sizeof(SANE_Int));
+
+      if (xsane.xsane_mode == XSANE_COPY)
       {
-        xsane.gamma_data = malloc(gamma_gray_size  * sizeof(SANE_Int));
-        xsane_create_gamma_curve(xsane.gamma_data, 0, 1.0, 0.0, 0.0, gamma_gray_size, gamma_gray_max);
-        xsane_back_gtk_update_vector(xsane.well_known.gamma_vector, xsane.gamma_data);
-        free(xsane.gamma_data);
-        xsane.gamma_data = 0;
+        gamma_red   = xsane.gamma_red   * preferences.printer[preferences.printernr]->gamma_red;
+        gamma_green = xsane.gamma_green * preferences.printer[preferences.printernr]->gamma_green;
+        gamma_blue  = xsane.gamma_blue  * preferences.printer[preferences.printernr]->gamma_blue;
       }
+      else
+      {
+        gamma_red   = xsane.gamma_red;
+        gamma_green = xsane.gamma_green;
+        gamma_blue  = xsane.gamma_blue;
+      }
+    
+      xsane_create_gamma_curve(xsane.gamma_data_red, 0, gamma_red, xsane.brightness_red, xsane.contrast_red, size, maxval);
 
-      opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector_r);
-      gamma_red_size = opt->size / sizeof(opt->type);
-      gamma_red_max  = opt->constraint.range->max;
+      xsane_create_gamma_curve(xsane.gamma_data_green, 0, gamma_green, xsane.brightness_green, xsane.contrast_green, size, maxval);
 
-      opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector_g);
-      gamma_green_size = opt->size / sizeof(opt->type);
-      gamma_green_max  = opt->constraint.range->max;
+      xsane_create_gamma_curve(xsane.gamma_data_blue, 0, gamma_blue, xsane.brightness_blue, xsane.contrast_blue, size, maxval);
 
-      opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector_b);
-      gamma_blue_size = opt->size / sizeof(opt->type);
-      gamma_blue_max  = opt->constraint.range->max;
+      /* gamma tables are freed after scan */
+    }
+    else if ( (!xsane.scanner_gamma_color) && (!xsane.scanner_gamma_gray) ) /* no scanner gamma table */
+    {
+     double gamma_red, gamma_green, gamma_blue;
+      /* ok, we have to combin gray and color slider values */
 
-      xsane.gamma_data_red   = malloc(gamma_red_size   * sizeof(SANE_Int));
-      xsane.gamma_data_green = malloc(gamma_green_size * sizeof(SANE_Int));
-      xsane.gamma_data_blue  = malloc(gamma_blue_size  * sizeof(SANE_Int));
+      DBG(DBG_info, "creating xsane internal complete gamma tables with size %d\n", size);
+
+      xsane.gamma_data_red   = malloc(size * sizeof(SANE_Int));
+      xsane.gamma_data_green = malloc(size * sizeof(SANE_Int));
+      xsane.gamma_data_blue  = malloc(size * sizeof(SANE_Int));
 
       if (xsane.xsane_mode == XSANE_COPY)
       {
@@ -1906,38 +2031,30 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
       }
 
       xsane_create_gamma_curve(xsane.gamma_data_red, xsane.negative,
-		 	       gamma_red,
-			       xsane.brightness + xsane.brightness_red,
-			       xsane.contrast + xsane.contrast_red, gamma_red_size, gamma_red_max);
+                               gamma_red,
+                               xsane.brightness + xsane.brightness_red,
+                               xsane.contrast + xsane.contrast_red, size, maxval);
 
       xsane_create_gamma_curve(xsane.gamma_data_green, xsane.negative,
-			       gamma_green,
-			       xsane.brightness + xsane.brightness_green,
-			       xsane.contrast + xsane.contrast_green, gamma_green_size, gamma_green_max);
+                               gamma_green,
+                               xsane.brightness + xsane.brightness_green,
+                               xsane.contrast + xsane.contrast_green, size, maxval);
 
       xsane_create_gamma_curve(xsane.gamma_data_blue, xsane.negative,
-			       gamma_blue,
-			       xsane.brightness + xsane.brightness_blue,
-			       xsane.contrast + xsane.contrast_blue , gamma_blue_size, gamma_blue_max);
+                               gamma_blue,
+                               xsane.brightness + xsane.brightness_blue,
+                               xsane.contrast + xsane.contrast_blue , size, maxval);
 
-      xsane_back_gtk_update_vector(xsane.well_known.gamma_vector_r, xsane.gamma_data_red);
-      xsane_back_gtk_update_vector(xsane.well_known.gamma_vector_g, xsane.gamma_data_green);
-      xsane_back_gtk_update_vector(xsane.well_known.gamma_vector_b, xsane.gamma_data_blue);
-
-      free(xsane.gamma_data_red);
-      free(xsane.gamma_data_green);
-      free(xsane.gamma_data_blue);
-
-      xsane.gamma_data_red   = 0;
-      xsane.gamma_data_green = 0;
-      xsane.gamma_data_blue  = 0;
+      /* gamma tables are freed after scan */
     }
-    else if (xsane.scanner_gamma_gray) /* only scanner gray gamma function available */
+  }
+  else /* grayscale scan */
+  {
+    if (!xsane.scanner_gamma_gray) /* no gray scanner gamma table */
     {
      double gamma;
-      /* ok, the scanner only supports gray gamma function */
-      /* if we are doing a grayscale scan everyting is ok, */
-      /* for a color scan the software has to do the gamma correction set by the component slider */
+
+      DBG(DBG_info, "creating xsane internal gray gamma table with size %d\n", size);
 
       if (xsane.xsane_mode == XSANE_COPY)
       {
@@ -1948,129 +2065,13 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
         gamma = xsane.gamma;
       }
 
-      xsane.gamma_data = malloc(gamma_gray_size * sizeof(SANE_Int));
+      xsane.gamma_data = malloc(size * sizeof(SANE_Int));
       xsane_create_gamma_curve(xsane.gamma_data, xsane.negative,
-                               gamma, xsane.brightness, xsane.contrast,
-                               gamma_gray_size, gamma_gray_max);
+                               gamma, xsane.brightness, xsane.contrast, size, maxval);
 
-      xsane_back_gtk_update_vector(xsane.well_known.gamma_vector, xsane.gamma_data);
-      free(xsane.gamma_data);
-      xsane.gamma_data = 0;
-
-      if (xsane.xsane_color) /* ok, we are doing a colorscan */
-      {
-        /* we have to create color gamma table for software conversion */
-	/* but we only have to use color slider values, because gray slider value */
-	/* is used by scanner gray gamma */
-
-       double gamma_red, gamma_green, gamma_blue;
-
-        xsane.gamma_data_red   = malloc(gamma_red_size   * sizeof(SANE_Int));
-        xsane.gamma_data_green = malloc(gamma_green_size * sizeof(SANE_Int));
-        xsane.gamma_data_blue  = malloc(gamma_blue_size  * sizeof(SANE_Int));
-
-        if (xsane.xsane_mode == XSANE_COPY)
-        {
-          gamma_red   = xsane.gamma_red   * preferences.printer[preferences.printernr]->gamma_red;
-          gamma_green = xsane.gamma_green * preferences.printer[preferences.printernr]->gamma_green;
-          gamma_blue  = xsane.gamma_blue  * preferences.printer[preferences.printernr]->gamma_blue;
-        }
-        else
-        {
-          gamma_red   = xsane.gamma_red;
-          gamma_green = xsane.gamma_green;
-          gamma_blue  = xsane.gamma_blue;
-        }
-      
-        xsane_create_gamma_curve(xsane.gamma_data_red, 0,
-                                 gamma_red, xsane.brightness_red, xsane.contrast_red,
-                                 gamma_red_size, gamma_red_max);
-
-        xsane_create_gamma_curve(xsane.gamma_data_green, 0,
-                                 gamma_green, xsane.brightness_green, xsane.contrast_green,
-                                 gamma_green_size, gamma_green_max);
-
-        xsane_create_gamma_curve(xsane.gamma_data_blue, 0,
-                                 gamma_blue, xsane.brightness_blue, xsane.contrast_blue,
-                                 gamma_blue_size, gamma_blue_max);
-
-        /* gamma tables are freed after scan */
-      }
-
-    }
-    else /* scanner does not support any gamma correction */
-    {
-      /* ok, we have to do it on our own */
-
-      if (xsane.xsane_color == 0) /* no color scan */
-      {
-       double gamma;
-
-        if (xsane.xsane_mode == XSANE_COPY)
-        {
-          gamma = xsane.gamma * preferences.printer[preferences.printernr]->gamma;
-        }
-        else
-        {
-          gamma = xsane.gamma;
-        }
-
-        xsane.gamma_data = malloc(gamma_gray_size * sizeof(SANE_Int));
-        xsane_create_gamma_curve(xsane.gamma_data, xsane.negative,
-                                 gamma, xsane.brightness, xsane.contrast,
-                                 gamma_gray_size, gamma_gray_max);
-
-        /* gamma table is freed after scan */
-      }
-      else /* color scan */
-      {
-       double gamma_red, gamma_green, gamma_blue;
-        /* ok, we have to combin gray and color slider values */
-
-        xsane.gamma_data_red   = malloc(gamma_red_size   * sizeof(SANE_Int));
-        xsane.gamma_data_green = malloc(gamma_green_size * sizeof(SANE_Int));
-        xsane.gamma_data_blue  = malloc(gamma_blue_size  * sizeof(SANE_Int));
-
-        if (xsane.xsane_mode == XSANE_COPY)
-        {
-          gamma_red   = xsane.gamma * xsane.gamma_red   * preferences.printer[preferences.printernr]->gamma * preferences.printer[preferences.printernr]->gamma_red;
-          gamma_green = xsane.gamma * xsane.gamma_green * preferences.printer[preferences.printernr]->gamma * preferences.printer[preferences.printernr]->gamma_green;
-          gamma_blue  = xsane.gamma * xsane.gamma_blue  * preferences.printer[preferences.printernr]->gamma * preferences.printer[preferences.printernr]->gamma_blue;
-        }
-        else
-        {
-          gamma_red   = xsane.gamma * xsane.gamma_red;
-          gamma_green = xsane.gamma * xsane.gamma_green;
-          gamma_blue  = xsane.gamma * xsane.gamma_blue;
-        }
-
-        xsane_create_gamma_curve(xsane.gamma_data_red, xsane.negative,
-                                 gamma_red,
-                                 xsane.brightness + xsane.brightness_red,
-                                 xsane.contrast + xsane.contrast_red, gamma_red_size, gamma_red_max);
-
-        xsane_create_gamma_curve(xsane.gamma_data_green, xsane.negative,
-                                 gamma_green,
-                                 xsane.brightness + xsane.brightness_green,
-                                 xsane.contrast + xsane.contrast_green, gamma_green_size, gamma_green_max);
-
-        xsane_create_gamma_curve(xsane.gamma_data_blue, xsane.negative,
-                                 gamma_blue,
-                                 xsane.brightness + xsane.brightness_blue,
-                                 xsane.contrast + xsane.contrast_blue , gamma_blue_size, gamma_blue_max);
-
-        /* gamma tables are freed after scan */
-      }
-
+      /* gamma table is freed after scan */
     }
   }
-
-  while (gtk_events_pending())
-  {
-    gtk_main_iteration();
-  }
-
-  xsane_start_scan();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.76\n"
-"POT-Creation-Date: 2001-04-22 11:23+0200\n"
-"PO-Revision-Date: 2001-04-13 0:15+09:00\n"
+"Project-Id-Version: XSANE 0.77\n"
+"POT-Creation-Date: 2001-05-18 23:04+0200\n"
+"PO-Revision-Date: 2001-05-21 23:18+09:00\n"
 "Last-Translator: Kimizuka Tomokazu <sgtom@pluto.dti.ne.jp>\n"
 "Language-Team: Japanese <Kdeveloper@kde.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -257,7 +257,7 @@ msgstr "¸½ºß¤Î¥Õ¥¡¥¤¥ëÌ¾¤ò¥¹¥­¥Ã¥×"
 
 #. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
 msgid "Reduce 16 bit image to 8 bit"
-msgstr ""
+msgstr "16¥Ó¥Ã¥È²èÁü¤ò8¥Ó¥Ã¥È¤Ë¸º¿§"
 
 #. RADIO_BUTTON_WINDOW_FIXED
 msgid "Main window size fixed"
@@ -459,11 +459,8 @@ msgid ""
 msgstr ""
 "XSane¤Ï¡¢Free Software Foundation¤¬¸øÉ½¤·¤¿GNU°ìÈÌ¸øÍ­»ÈÍÑµöÂú¤Î\n"
 "¡Ö¥Ð¡¼¥¸¥ç¥ó£²¡×°¿¤¤¤Ï¤½¤ì°Ê¹ß¤Î³Æ¥Ð¡¼¥¸¥ç¥ó¤ÎÃæ¤«¤é¤¤¤º¤ì¤«¤òÁªÂò¤·¡¢¤½¤Î\n"
-"¥Ð¡¼¥¸¥ç¥ó¤¬Äê¤á¤ë¾ò¹à¤Ë½¾¤Ã¤ÆËÜ¥×¥í¥°¥é¥à¤òºÆÈÒÉÛ¤Þ¤¿¤ÏÊÑ¹¹¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤"
-"¹¡£\n"
-"\n"
-"ËÜ¥×¥í¥°¥é¥à¤ÏÍ­ÍÑ¤È¤Ï»×¤¤¤Þ¤¹¤¬¡¢ÈÒÉÛ¤Ë¤¢¤¿¤Ã¤Æ¤Ï¡¢»Ô¾ìÀ­µÚ¤ÓÆÃÄêÌÜÅªÅ¬¹çÀ­"
-"\n"
+"¥Ð¡¼¥¸¥ç¥ó¤¬Äê¤á¤ë¾ò¹à¤Ë½¾¤Ã¤ÆËÜ¥×¥í¥°¥é¥à¤òºÆÈÒÉÛ¤Þ¤¿¤ÏÊÑ¹¹¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤¹¡£\n"
+"ËÜ¥×¥í¥°¥é¥à¤ÏÍ­ÍÑ¤È¤Ï»×¤¤¤Þ¤¹¤¬¡¢ÈÒÉÛ¤Ë¤¢¤¿¤Ã¤Æ¤Ï¡¢»Ô¾ìÀ­µÚ¤ÓÆÃÄêÌÜÅªÅ¬¹çÀ­\n"
 "¤Ë¤Ä¤¤¤Æ¤Î°ÅÌÛ¤ÎÊÝ¾Ú¤ò´Þ¤á¤Æ¡¢¤¤¤«¤Ê¤ëÊÝ¾Ú¤â¹Ô¤Ê¤¤¤Þ¤»¤ó¡£\n"
 
 #. TEXT_EMAIL
@@ -533,20 +530,20 @@ msgid "Color resolution (dpi):"
 msgstr "¿§²òÁüÅÙ(dpi)¡§"
 
 #. TEXT_SETUP_PRINTER_WIDTH
-msgid "Width [mm]:"
-msgstr "Éý[mm]¡§"
+msgid "Width"
+msgstr "Éý"
 
 #. TEXT_SETUP_PRINTER_HEIGHT
-msgid "Height [mm]:"
-msgstr "¹â¤µ[mm]¡§"
+msgid "Height"
+msgstr "¹â¤µ"
 
 #. TEXT_SETUP_PRINTER_LEFT
-msgid "Left offset [mm]:"
-msgstr "º¸¥ª¥Õ¥»¥Ã¥È[mm]¡§"
+msgid "Left offset"
+msgstr "º¸¥ª¥Õ¥»¥Ã¥È"
 
 #. TEXT_SETUP_PRINTER_BOTTOM
-msgid "Bottom offset [mm]:"
-msgstr "²¼¥ª¥Õ¥»¥Ã¥È[mm]¡§"
+msgid "Bottom offset"
+msgstr "²¼¥ª¥Õ¥»¥Ã¥È"
 
 #. TEXT_SETUP_PRINTER_GAMMA
 msgid "Printer gamma value:"
@@ -601,20 +598,20 @@ msgid "TIFF lineart image compression"
 msgstr "TIFF ¥é¥¤¥ó¥¢¡¼¥È²èÁü°µ½Ì"
 
 #. TEXT_SETUP_PSFILE_WIDTH
-msgid "Width of paper for postscript [mm]:"
-msgstr "PostScriptÍÑ¤ÎÍÑ»æÉý[mm]¡§"
+msgid "Width of paper for postscript"
+msgstr "PostScriptÍÑ¤ÎÍÑ»æÉý"
 
 #. TEXT_SETUP_PSFILE_HEIGHT
-msgid "Height of paper for postscript [mm]:"
-msgstr "PostScriptÍÑ¤ÎÍÑ»æ¹â¤µ[mm]¡§"
+msgid "Height of paper for postscript"
+msgstr "PostScriptÍÑ¤ÎÍÑ»æ¹â¤µ"
 
 #. TEXT_SETUP_PSFILE_LEFT
-msgid "Left offset for postscript [mm]:"
-msgstr "PostScriptÍÑ¤Îº¸¥ª¥Õ¥»¥Ã¥È[mm]¡§"
+msgid "Left offset for postscript"
+msgstr "PostScriptÍÑ¤Îº¸¥ª¥Õ¥»¥Ã¥È"
 
 #. TEXT_SETUP_PSFILE_BOTTOM
-msgid "Bottom offset for postscript [mm]:"
-msgstr "PostScriptÍÑ¤Î²¼¥ª¥Õ¥»¥Ã¥È[mm]¡§"
+msgid "Bottom offset for postscript"
+msgstr "PostScriptÍÑ¤Î²¼¥ª¥Õ¥»¥Ã¥È"
 
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
@@ -704,42 +701,33 @@ msgstr "¥°¥ë¡¼¥×"
 msgid "all"
 msgstr "¤¹¤Ù¤Æ"
 
-#. NOTEBOOK_COPY_OPTIONS
-msgid "Copy options"
-msgstr "¥³¥Ô¡¼¤Î¥ª¥×¥·¥ç¥ó"
-
 #. NOTEBOOK_SAVING_OPTIONS
-msgid "Saving options"
-msgstr "ÊÝÂ¸¥ª¥×¥·¥ç¥ó"
+msgid "Save"
+msgstr "ÊÝÂ¸"
 
 #. NOTEBOOK_IMAGE_OPTIONS
-#, fuzzy
-msgid "Image options"
-msgstr "XSane¤Î¥ª¥×¥·¥ç¥ó"
+msgid "Image"
+msgstr "²èÁü"
 
-#. NOTEBOOK_DISPLAY_OPTIONS
-msgid "Display options"
-msgstr "É½¼¨¥ª¥×¥·¥ç¥ó"
-
-#. NOTEBOOK_ENHANCE_OPTIONS
-msgid "Enhancement options"
-msgstr "¶¯Ä´µ¡Ç½¤Î¥ª¥×¥·¥ç¥ó"
+#. NOTEBOOK_COPY_OPTIONS
+msgid "Copy"
+msgstr "¥³¥Ô¡¼"
 
 #. NOTEBOOK_FAX_OPTIONS
-msgid "Fax options"
-msgstr "FAX¤Î¥ª¥×¥·¥ç¥ó"
+msgid "Fax"
+msgstr "FAX"
+
+#. NOTEBOOK_DISPLAY_OPTIONS
+msgid "Display"
+msgstr "É½¼¨"
+
+#. NOTEBOOK_ENHANCE_OPTIONS
+msgid "Enhancement"
+msgstr "¶¯Ä´"
 
 #. MENU_ITEM_SCAN
 msgid "Scan"
 msgstr "¥¹¥­¥ã¥ó"
-
-#. MENU_ITEM_COPY
-msgid "Copy"
-msgstr "¥³¥Ô¡¼"
-
-#. MENU_ITEM_FAX
-msgid "Fax"
-msgstr "FAX"
 
 #. MENU_ITEM_SHOW_TOOLTIPS
 msgid "Show tooltips"
@@ -1174,20 +1162,20 @@ msgid "Resolution with which color images are printed and saved in postscript"
 msgstr "¥«¥é¡¼²èÁü¤Î²òÁüÅÙ¤ÏPostScript¤Ç°õºþ¡¦ÊÝÂ¸¤µ¤ì¤Þ¤¹"
 
 #. DESC_PRINTER_WIDTH
-msgid "Width of printable area in mm"
-msgstr "°õºþ²ÄÇ½ÎÎ°è¤Î¥ß¥ê¥á¡¼¥È¥ëÉý"
+msgid "Width of printable area"
+msgstr "°õºþ²ÄÇ½ÎÎ°èÉý"
 
 #. DESC_PRINTER_HEIGHT
-msgid "Height of printable area in mm"
-msgstr "°õºþ²ÄÇ½ÎÎ°è¤Î¥ß¥ê¥á¡¼¥È¥ë¹â¤µ"
+msgid "Height of printable area"
+msgstr "°õºþ²ÄÇ½ÎÎ°è¹â¤µ"
 
 #. DESC_PRINTER_LEFTOFFSET
-msgid "Left offset from the edge of the paper to the printable area in mm"
-msgstr "°õºþ²ÄÇ½ÎÎ°è¤ÎÍÑ»æÃ¼¤«¤é¤Îº¸¥ª¥Õ¥»¥Ã¥È¡Ê¥ß¥ê¥á¡¼¥È¥ë¡Ë"
+msgid "Left offset from the edge of the paper to the printable area"
+msgstr "°õºþ²ÄÇ½ÎÎ°è¤ÎÍÑ»æÃ¼¤«¤é¤Îº¸¥ª¥Õ¥»¥Ã¥È"
 
 #. DESC_PRINTER_BOTTOMOFFSET
-msgid "Bottom offset from the edge of the paper to the printable area in mm"
-msgstr "°õºþ²ÄÇ½ÎÎ°è¤ÎÍÑ»æÃ¼¤«¤é¤Î²¼¥ª¥Õ¥»¥Ã¥È¡Ê¥ß¥ê¥á¡¼¥È¥ë¡Ë"
+msgid "Bottom offset from the edge of the paper to the printable area"
+msgstr "°õºþ²ÄÇ½ÎÎ°è¤ÎÍÑ»æÃ¼¤«¤é¤Î²¼¥ª¥Õ¥»¥Ã¥È"
 
 #. DESC_PRINTER_GAMMA
 msgid "Additional gamma value for photocopy"
@@ -1254,29 +1242,29 @@ msgstr "¥Õ¥¡¥¤¥ëÌ¾¤Î¥«¥¦¥ó¥¿¤¬¼«Æ°Åª¤ËÁý²Ã¤¹¤ëºÝ¡¢»ÈÍÑºÑ¤ß¤ÎÈÖ¹æ¤Ï¤È¤Ð¤µ¤ì¤Þ¤¹"
 
 #. DESC_REDUCE_16BIT_TO_8BIT
 msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
-msgstr ""
+msgstr "²èÁü¤¬16¥Ó¥Ã¥È¥«¥é¡¼¤Ç¥¹¥­¥ã¥Ê¤«¤éÁ÷¤é¤ì¤¿¤é¡¢8¥Ó¥Ã¥È¤ÇÊÝÂ¸"
 
 #. DESC_PSFILE_WIDTH
-msgid "Width of paper in mm for postscript files"
-msgstr "PostScript¥Õ¥¡¥¤¥ë¤ÎÍÑ»æÉý¡Ê¥ß¥ê¥á¡¼¥È¥ë¡Ë"
+msgid "Width of paper for postscript files"
+msgstr "PostScript¥Õ¥¡¥¤¥ë¤ÎÍÑ»æÉý"
 
 #. DESC_PSFILE_HEIGHT
-msgid "Height of paper in mm for postscript files"
-msgstr "PostScript¥Õ¥¡¥¤¥ë¤ÎÍÑ»æ¹â¤µ¡Ê¥ß¥ê¥á¡¼¥È¥ë¡Ë"
+msgid "Height of paper for postscript files"
+msgstr "PostScript¥Õ¥¡¥¤¥ë¤ÎÍÑ»æ¹â¤µ"
 
 #. DESC_PSFILE_LEFTOFFSET
 msgid ""
-"Left offset from the edge of the paper to the usable area in mm for "
-"postscript files"
+"Left offset from the edge of the paper to the usable area for postscript "
+"files"
 msgstr ""
-"PostScript¥Õ¥¡¥¤¥ë¤Î»ÈÍÑ²ÄÇ½ÎÎ°è¤ÎÍÑ»æÃ¼¤«¤é¤Îº¸¥ª¥Õ¥»¥Ã¥È¡Ê¥ß¥ê¥á¡¼¥È¥ë¡Ë"
+"PostScript¥Õ¥¡¥¤¥ë¤Î»ÈÍÑ²ÄÇ½ÎÎ°è¤ÎÍÑ»æÃ¼¤«¤é¤Îº¸¥ª¥Õ¥»¥Ã¥È"
 
 #. DESC_PSFILE_BOTTOMOFFSET
 msgid ""
-"Bottom offset from the edge of the paper to the usable area in mm for "
-"postscript files"
+"Bottom offset from the edge of the paper to the usable area for postscript "
+"files"
 msgstr ""
-"PostScript¥Õ¥¡¥¤¥ë¤Î»ÈÍÑ²ÄÇ½ÎÎ°è¤ÎÍÑ»æÃ¼¤«¤é¤Î²¼¥ª¥Õ¥»¥Ã¥È¡Ê¥ß¥ê¥á¡¼¥È¥ë¡Ë"
+"PostScript¥Õ¥¡¥¤¥ë¤Î»ÈÍÑ²ÄÇ½ÎÎ°è¤ÎÍÑ»æÃ¼¤«¤é¤Î²¼¥ª¥Õ¥»¥Ã¥È"
 
 #. DESC_MAIN_WINDOW_FIXED
 msgid "Use fixed main window size or scrolled, resizable main window"
@@ -1319,9 +1307,8 @@ msgid ""
 "Select grayscale scanmode. This scanmode is used for lineart preview scan "
 "when transformation from grayscale to lineart is enabled"
 msgstr ""
-"¥°¥ì¡¼¥¹¥±¡¼¥ë¤Î¥¹¥­¥ã¥ó¥â¡¼¥É¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£¤³¤Î¥¹¥­¥ã¥ó¥â¡¼¥É¤Ï¥°¥ì¡¼¥"
-"¹¥±¡¼¥ë¤«¤é¥é¥¤¥ó¥¢¡¼¥È¤Ø¤ÎÊÑ´¹¤¬²ÄÇ½¤Ê¾ì¹ç¡¢¥é¥¤¥ó¥¢¡¼¥È¤Ç¤Î¥×¥ì¥Ó¥å¡¼¥¹¥­¥ã"
-"¥ó¤ËÅ¬ÍÑ¤µ¤ì¤Þ¤¹¡£"
+"¥°¥ì¡¼¥¹¥±¡¼¥ë¤Î¥¹¥­¥ã¥ó¥â¡¼¥É¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£¤³¤Î¥¹¥­¥ã¥ó¥â¡¼¥É¤Ï¥°¥ì¡¼"
+"¥¹¥±¡¼¥ë¤«¤é¥é¥¤¥ó¥¢¡¼¥È¤Ø¤ÎÊÑ´¹¤¬Í­¸ú¤Ê¤È¤­¡¢¥é¥¤¥ó¥¢¡¼¥È¥×¥ì¥Ó¥å¡¼¤ËÅ¬ÍÑ¤µ¤ì¤Þ¤¹¡£"
 
 #. DESC_PREVIEW_THRESHOLD_MIN
 #, no-c-format
@@ -1932,6 +1919,3 @@ msgstr "¥ª¡¼¥Ð¡¼¥Õ¥í¡¼"
 
 msgid "Access to resource has been denied"
 msgstr "¥ê¥½¡¼¥¹¤Ø¤Î¥¢¥¯¥»¥¹¤¬µñÈÝ¤µ¤ì¤Þ¤·¤¿"
-
-#~ msgid "Reduce scan area"
-#~ msgstr "¥¹¥­¥ã¥óÎÎ°è¤ò½Ì¾®"

@@ -15,9 +15,12 @@ first steps:
     + zoom ?
  - email-function:
     - based on fax mode
-    - image type = ?
+    - image type = png/jpeg ? (user selectable?)
     - resolution selectable
-    - create a html mail - mail editor = ?
+    - save as mail:
+      (a) ascii mail with base64 mime attachement (images are attached as file in the mail)
+      (b) html mail, images are loaded by the html code (images are visible in the mail)
+    - may be a little editor that allows to add some texts?!
  - copy mode and scan mode into postscript file:
     + select image position on printer (centered/left/right/free) for copy
  - preview:
@@ -33,7 +36,6 @@ first steps:
    - include much more parameters when saving images
    + test memory after each call of malloc - partly done
    - more/better online helpfiles (mostly done)
-   + postscript/printer setup: geometry in inch/millimeter/centimeter
    - correct charset of tooltips for all national codepages
 
  + correct gtk custom gamma functions and include it
@@ -60,7 +62,7 @@ second steps:
    - add a twain-unix interface to xsane
 
  - WIN32 version of xsane/sane
-   + make internationalization work
+   + make internationalization work (looks like a charset problem)
    - may be xsane-win32 without cygwin.dll on native win32 mode
    - may be later we make a sane-WIN32 version so that the backends do work too
 

@@ -1146,7 +1146,7 @@ void xsane_create_preview_gamma_curve(u_char *gammadata, int negative, double ga
       val = val * m + b;
       xsane_bound_double(&val, 0.0, maxin);
 
-      gammadata[i] = (u_char) (0.5 + 255 * pow( val/maxin, (1.0/gamma) ));
+      gammadata[i] = (u_char) (255 * pow( val/maxin, (1.0/gamma) ));
     }
   }
 }
@@ -1195,7 +1195,7 @@ void xsane_create_gamma_curve(SANE_Int *gammadata, int negative, double gamma,
       val = val * m + b;
       xsane_bound_double(&val, 0.0, maxin);
 
-      gammadata[i] = 0.5 + maxout * pow( val/maxin, (1.0/gamma) );
+      gammadata[i] = maxout * pow( val/maxin, (1.0/gamma) );
     }
   }
 }
