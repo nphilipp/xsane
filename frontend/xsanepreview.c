@@ -375,7 +375,7 @@ void preview_do_gamma_correction(Preview *p)
  int x,y;
  int offset;
 
-  if ((p->image_data_raw) && (p->params.depth > 1))
+  if (p->image_data_raw)
   {
     for (y=0; y < p->image_height; y++)
     {
@@ -454,7 +454,7 @@ void preview_gamma_correction(Preview *p, SANE_Int *gamma_red, SANE_Int *gamma_g
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void display_image(Preview *p)
+static void display_image (Preview *p)
 {
   if (p->params.lines <= 0 && p->image_y < p->image_height)
   {
@@ -1191,7 +1191,6 @@ static void restore_preview_image(Preview *p)
     return;
   }
 
-  p->params.depth = 8;
   p->image_width = width;
   p->image_height = height;
   p->image_data = malloc (3 * width * height);

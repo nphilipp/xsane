@@ -1,4 +1,4 @@
-/* xsane -- a graphical (X11, gtk) scanner-oriented SANE frontend
+/* xsane -- a graphical scanner-oriented SANE frontend
 
    Author:
    Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
@@ -19,12 +19,7 @@
    along with this program; if not, write to the Free Software
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  */
 
-#ifdef _AIX
-# include <lalloca.h>   /* MUST come first for AIX! */
-#endif
-
 #include <sane/config.h>
-#include <lalloca.h>
 
 #include <assert.h>
 #include <errno.h>
@@ -78,20 +73,11 @@
 #define HIST_HEIGHT		100
 #define XSANE_DIALOG_WIDTH	296
 #define XSANE_DIALOG_HEIGHT	416
+#define XSANE_SLIDER_HEIGHT	10
 #define XSANE_DIALOG_POS_X	10
 #define XSANE_DIALOG_POS_X2	316
 #define XSANE_DIALOG_POS_Y	50
 #define XSANE_DIALOG_POS_Y2	492
-
-#define XSANE_SLIDER_ACTIVE	-1
-#define XSANE_SLIDER_INACTIVE	-2
-#define XSANE_SLIDER_WIDTH	260
-#define XSANE_SLIDER_HEIGHT	12
-#define XSANE_SLIDER_OFFSET	2
-#define XSANE_SLIDER_EVENTS	GDK_EXPOSURE_MASK | GDK_ENTER_NOTIFY_MASK | \
-				GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | \
-				GDK_BUTTON1_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK
-//#define XSANE_SLIDER_EVENTS	0
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -103,7 +89,12 @@ int gsg_message_dialog_active = 0;
 
 #include <libgimp/gimp.h>
 
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void query(void);
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void run(char *name, int nparams, GParam * param, int *nreturn_vals, GParam ** return_vals);
 
 GPlugInInfo PLUG_IN_INFO =
@@ -126,21 +117,9 @@ enum
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 enum
-{
- STANDALONE, GIMP_EXTENSION
-};
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-struct XsaneSlider
-{
-  int position[3];
-  double value[3];
-  double min, max;
-  int active;
-  GtkWidget *preview;
-  int r, g, b;
-};
+  {
+    STANDALONE, GIMP_EXTENSION
+  };
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -187,11 +166,6 @@ static struct
     struct XsanePixmap histogram_raw;
     struct XsanePixmap histogram_enh;
 
-    struct XsaneSlider slider_gray;
-    struct XsaneSlider slider_red;
-    struct XsaneSlider slider_green;
-    struct XsaneSlider slider_blue;
-
     GdkGC *gc_red;
     GdkGC *gc_green;
     GdkGC *gc_blue;
@@ -216,6 +190,9 @@ static struct
     double contrast_red;
     double contrast_green;
     double contrast_blue;
+    double pipette_white;
+    double pipette_gray;
+    double pipette_black;
     double auto_white;
     double auto_gray;
     double auto_black;
@@ -244,6 +221,9 @@ static struct
     GtkObject *contrast_red_widget;
     GtkObject *contrast_green_widget;
     GtkObject *contrast_blue_widget;
+    GtkObject *pipette_white_widget;
+    GtkObject *pipette_gray_widget;
+    GtkObject *pipette_black_widget;
 
     SANE_Bool xsane_color;
     SANE_Bool scanner_gamma_color;
@@ -302,23 +282,8 @@ static void xsane_info_dialog(GtkWidget *widget, gpointer data);
 static void xsane_scale_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char *desc,
                                         float min, float max, float quant, float step, float xxx,
                                         int digits, double *val, GtkObject **data, int option, void *xsane_scale_callback);
+static void xsane_pipette_changed(GtkAdjustment *adj_data, double *val);
 static void xsane_separator_new(GtkWidget *xsane_parent, int dist);
-static void xsane_enhancement_by_histogram();
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_bound_double(double *value, double min, double max)
-{
-  if (*value < min)
-  {
-    *value = min;
-  }
-
-  if (*value > max)
-  {
-    *value = max;
-  }
-}
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -1153,42 +1118,22 @@ static void xsane_draw_histogram_with_lines(struct XsanePixmap *hist,
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_draw_slider_level(struct XsaneSlider *slider)
+static void xsane_draw_histogram_pipette(struct XsanePixmap *hist)
 {
- int i;
- guchar buf[XSANE_SLIDER_WIDTH*3];
  GdkRectangle rect;
-
-  buf[0] = buf[1] = buf[2] = 0;
-  buf[3+0] = buf[3+1] = buf[3+2]= 0;
-
-  for (i=0; i<256; i++)
-  {
-    buf[3*i+0+6] = i * slider->r;
-    buf[3*i+1+6] = i * slider->g;
-    buf[3*i+2+6] = i * slider->b;
-  }
-
-  buf[258*3+0] = 255 * slider->r;
-  buf[258*3+1] = 255 * slider->g;
-  buf[258*3+2] = 255 * slider->b;
-
-  buf[259*3+0] = 255 * slider->r;
-  buf[259*3+1] = 255 * slider->g;
-  buf[259*3+2] = 255 * slider->b;
-
-  for (i=0; i<XSANE_SLIDER_HEIGHT; i++)
-  {
-    gtk_preview_draw_row(GTK_PREVIEW(slider->preview),buf, 0, i, XSANE_SLIDER_WIDTH);
-  }
 
   rect.x=0;
   rect.y=0;
-  rect.width  = XSANE_SLIDER_WIDTH;
-  rect.height = XSANE_SLIDER_HEIGHT;
+  rect.width  = HIST_WIDTH;
+  rect.height = HIST_HEIGHT;
 
-  gtk_widget_draw(slider->preview, &rect);
+  gdk_draw_line(xsane.histogram_raw.pixmap, xsane.gc_white, xsane.pipette_white * 2.55, 0, xsane.pipette_white * 2.55, 100);
+  gdk_draw_line(xsane.histogram_raw.pixmap, xsane.gc_white, xsane.pipette_gray  * 2.55, 0, xsane.pipette_gray  * 2.55, 100);
+  gdk_draw_line(xsane.histogram_raw.pixmap, xsane.gc_white, xsane.pipette_black * 2.55, 0, xsane.pipette_black * 2.55, 100);
+
+  gtk_widget_draw(xsane.histogram_raw.pixmapwid, &rect);
 }
+
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 static void xsane_draw_slider(GdkWindow *window, GdkGC *border_gc, GdkGC *fill_gc, int value) /* draw ^ */
@@ -1197,226 +1142,13 @@ static void xsane_draw_slider(GdkWindow *window, GdkGC *border_gc, GdkGC *fill_g
 
   for (y=0; y < XSANE_SLIDER_HEIGHT; y++)
   {
-    gdk_draw_line(window, fill_gc, value + XSANE_SLIDER_OFFSET - y/2, y, value + XSANE_SLIDER_OFFSET + y/2, y);
+    gdk_draw_line(window, fill_gc, value - y/2, y, value + y/2, y);
   }
 
-  gdk_draw_line(window, border_gc, value + XSANE_SLIDER_OFFSET, 0,
-                                   value + XSANE_SLIDER_OFFSET - (XSANE_SLIDER_HEIGHT - 1)/2, XSANE_SLIDER_HEIGHT-1);
-  gdk_draw_line(window, border_gc, value + XSANE_SLIDER_OFFSET, 0,
-                                   value + XSANE_SLIDER_OFFSET + (XSANE_SLIDER_HEIGHT - 1)/2, XSANE_SLIDER_HEIGHT-1);
-  gdk_draw_line(window, border_gc, value + XSANE_SLIDER_OFFSET - (XSANE_SLIDER_HEIGHT - 1)/2, XSANE_SLIDER_HEIGHT-1, 
-                                   value + XSANE_SLIDER_OFFSET + (XSANE_SLIDER_HEIGHT - 1)/2, XSANE_SLIDER_HEIGHT-1);
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_clear_slider(struct XsaneSlider *slider)
-{
-/*
- GdkRectangle rect;
-
-  rect.y=0;
-  rect.width  = XSANE_SLIDER_HEIGHT+3;
-  rect.height = XSANE_SLIDER_HEIGHT;
-
-  rect.x= slider->position[0] - XSANE_SLIDER_HEIGHT/2 - 1;
-  gtk_widget_draw(slider->preview, &rect);
-
-  rect.x= slider->position[1] - XSANE_SLIDER_HEIGHT/2 - 1;
-  gtk_widget_draw(slider->preview, &rect);
-
-  rect.x= slider->position[2] - XSANE_SLIDER_HEIGHT/2 - 1;
-  gtk_widget_draw(slider->preview, &rect);
-*/
-  xsane_draw_slider_level(slider);
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_redraw_slider(struct XsaneSlider *slider)
-{
-  xsane_draw_slider(slider->preview->window,
-                    slider->preview->style->white_gc,
-                    slider->preview->style->black_gc,
-                    slider->position[0]);
-
-  xsane_draw_slider(slider->preview->window,
-                    slider->preview->style->white_gc,
-                    slider->preview->style->dark_gc[GTK_STATE_NORMAL],
-                    slider->position[1]);
-
-  xsane_draw_slider(slider->preview->window,
-                    slider->preview->style->black_gc,
-                    slider->preview->style->white_gc,
-                    slider->position[2]);
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_set_slider(struct XsaneSlider *slider, double min, double mid, double max)
-{
-  slider->value[0] = min;
-  slider->value[1] = mid;
-  slider->value[2] = max;
-
-  xsane_clear_slider(slider); 
-
-  slider->position[0] = min * 2.55;
-  slider->position[1] = mid * 2.55;
-  slider->position[2] = max * 2.55;
-
-  xsane_redraw_slider(slider);
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_update_slider(struct XsaneSlider *slider)
-{
-  xsane_clear_slider(slider); 
-
-  slider->position[0] = 2.55 * slider->value[0];
-  slider->position[1] = 2.55 * slider->value[1];
-  slider->position[2] = 2.55 * slider->value[2];
-
-  xsane_redraw_slider(slider);
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_update_sliders()
-{
-  xsane_update_slider(&xsane.slider_gray);
-
-  if ( (xsane.xsane_color) && (!xsane.enhancement_rgb_default) )
-  {
-    xsane_update_slider(&xsane.slider_red);
-    xsane_update_slider(&xsane.slider_green);
-    xsane_update_slider(&xsane.slider_blue);
-
-    xsane.slider_gray.active  = XSANE_SLIDER_ACTIVE; /* mark slider active */
-    xsane.slider_red.active   = XSANE_SLIDER_ACTIVE; /* mark slider active */
-    xsane.slider_green.active = XSANE_SLIDER_ACTIVE; /* mark slider active */
-    xsane.slider_blue.active  = XSANE_SLIDER_ACTIVE; /* mark slider active */
-  }
-  else
-  {
-    xsane_clear_slider(&xsane.slider_red);
-    xsane_clear_slider(&xsane.slider_green);
-    xsane_clear_slider(&xsane.slider_blue);
-
-    xsane.slider_red.active   = XSANE_SLIDER_INACTIVE; /* mark slider inactive */
-    xsane.slider_green.active = XSANE_SLIDER_INACTIVE; /* mark slider inactive */
-    xsane.slider_blue.active  = XSANE_SLIDER_INACTIVE; /* mark slider inactive */
-
-    if (xsane.param.depth == 1)
-    {
-      xsane_clear_slider(&xsane.slider_gray);
-      xsane.slider_gray.active = XSANE_SLIDER_INACTIVE; /* mark slider inactive */
-    }
-    else
-    {
-      xsane.slider_gray.active = XSANE_SLIDER_ACTIVE; /* mark slider active */
-    }
-  }
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static gint xsane_slider_callback(GtkWidget *widget, GdkEvent *event, struct XsaneSlider *slider)
-{
- GdkEventButton *button_event;
- GdkEventMotion *motion_event;
- int x, distance;
- int i = 0;
- int update = FALSE;
-
-  if (slider->active == XSANE_SLIDER_INACTIVE)
-  {
-    return 0;
-  }
-
-  switch(event->type)
-  {
-    case GDK_EXPOSE:
-      xsane_redraw_slider(slider);
-     break;
-
-    case GDK_BUTTON_PRESS:
-      gtk_grab_add(widget);
-      button_event = (GdkEventButton *) event;
-
-      distance = G_MAXINT;
-      for (i=0; i<3; i++)
-      {
-        if (fabs(button_event->x - slider->position[i]) < distance)
-	{
-	  slider->active = i;
-	  distance = fabs(button_event->x - slider->position[i]);
-	}
-      }
-      if (distance<10)
-      {
-        x = button_event->x;
-        update = TRUE;
-      }
-      else
-      {
-        slider->active = XSANE_SLIDER_ACTIVE;
-      }
-     break;
-    
-    case GDK_BUTTON_RELEASE:
-      gtk_grab_remove(widget);
-      xsane_enhancement_by_histogram(); /* slider->active must be unchanged !!! */
-      slider->active = XSANE_SLIDER_ACTIVE; /* ok, now we can reset it */
-     break;
-
-    case GDK_MOTION_NOTIFY:
-      motion_event = (GdkEventMotion *) event;
-      gdk_window_get_pointer(widget->window, &x, 0, 0);
-      update = TRUE;
-     break;
-
-    default:
-     break;
-  }
-
-  if (update)
-  {
-    switch(slider->active)
-    {
-      case 0:
-	slider->value[0] = (x-XSANE_SLIDER_OFFSET) / 2.55;
-	xsane_bound_double(&slider->value[0], 0.0, slider->value[1] - 1);
-       break;
-
-      case 1:
-	slider->value[1] = (x-XSANE_SLIDER_OFFSET) / 2.55;
-	xsane_bound_double(&slider->value[1], slider->value[0] + 1, slider->value[2] - 1);
-       break;
-
-      case 2:
-	slider->value[2] = (x-XSANE_SLIDER_OFFSET) / 2.55;
-	xsane_bound_double(&slider->value[2], slider->value[1] + 1, 100.0);
-       break;
-
-      default:
-       break;
-    }
-    xsane_set_slider(slider, slider->value[0], slider->value[1], slider->value[2]);
-  }
-
- return 0;
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_create_slider(struct XsaneSlider *slider)
-{
-  slider->preview = gtk_preview_new(GTK_PREVIEW_COLOR);
-  gtk_preview_size(GTK_PREVIEW(slider->preview), XSANE_SLIDER_WIDTH, XSANE_SLIDER_HEIGHT);
-  gtk_widget_set_events(slider->preview, XSANE_SLIDER_EVENTS);
-  gtk_signal_connect(GTK_OBJECT(slider->preview), "event", GTK_SIGNAL_FUNC(xsane_slider_callback), slider);
+  gdk_draw_line(window, border_gc, value, 0, value - (XSANE_SLIDER_HEIGHT - 1)/2, XSANE_SLIDER_HEIGHT-1);
+  gdk_draw_line(window, border_gc, value, 0, value + (XSANE_SLIDER_HEIGHT - 1)/2, XSANE_SLIDER_HEIGHT-1);
+  gdk_draw_line(window, border_gc, value - (XSANE_SLIDER_HEIGHT - 1)/2, XSANE_SLIDER_HEIGHT-1, 
+                                   value + (XSANE_SLIDER_HEIGHT - 1)/2, XSANE_SLIDER_HEIGHT-1);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1590,6 +1322,8 @@ static void xsane_calculate_histogram()
                         xsane.histogram_red, xsane.histogram_green, xsane.histogram_blue, xsane.histogram_int, scale);
     }
 
+    xsane_draw_histogram_pipette(&xsane.histogram_raw);
+
     free(count_enh_blue);
     free(count_enh_green);
     free(count_enh_red);
@@ -1643,7 +1377,10 @@ void xsane_create_gamma_curve(SANE_Int *gammadata, double gamma,
   {
     val = ((double) i) - midin;
     val = val * m + b;
-    xsane_bound_double(&val, 0.0, maxin);
+    if (val < 0)
+    { val = 0; }
+    else if (val > maxin)
+    { val = maxin; }
 
     gammadata[i] = 0.5 + maxout * pow( val/maxin, (1.0/gamma) );
   }
@@ -1726,91 +1463,70 @@ static void xsane_enhancement_update()
     gtk_signal_emit_by_name(xsane.contrast_blue_widget,    "changed"); 
   }
 
-  /* update histogram slider */
-
-  xsane_update_sliders();
-
-  while (gtk_events_pending())
-  {
-    gtk_main_iteration();
-  }
+  /* update histogram sliders */
 
   gtk_signal_emit_by_name(xsane.gamma_widget,         "changed"); 
   gtk_signal_emit_by_name(xsane.brightness_widget,    "changed"); 
   gtk_signal_emit_by_name(xsane.contrast_widget,      "changed"); 
-}
 
-/* ---------------------------------------------------------------------------------------------------------------------- */
+  GTK_ADJUSTMENT(xsane.pipette_black_widget)->value = xsane.pipette_black;
+  GTK_ADJUSTMENT(xsane.pipette_gray_widget)->value  = xsane.pipette_gray;
+  GTK_ADJUSTMENT(xsane.pipette_white_widget)->value = xsane.pipette_white;
 
-static void xsane_gamma_to_histogram(double *min, double *mid, double *max,
-                                     double contrast, double brightness, double gamma)
-{
- double m;
- double b;
-
-  m = 1.0 + contrast/100.0;
-  b = (1.0 + brightness/100.0) * 50.0;
-
-  if (m > 0)
-  {
-    *min = 50.0 - b/m;
-    *mid = (100.0 * pow(0.5, gamma)-b) / m + 50.0;
-    *max = (100.0-b)/m + 50.0;
-  }
-  else
-  {
-    *min = 0.0;
-    *mid = 50.0;
-    *max = 100.0;
-  }
-
-  xsane_bound_double(min, 0.0, 99.0);
-  xsane_bound_double(max, 1.0, 100.0);
-  xsane_bound_double(mid, *min+1, *max-1);
+  gtk_signal_emit_by_name(xsane.pipette_black_widget, "changed"); 
+  gtk_signal_emit_by_name(xsane.pipette_gray_widget,  "changed"); 
+  gtk_signal_emit_by_name(xsane.pipette_white_widget, "changed"); 
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 static void xsane_enhancement_by_gamma()
 {
- double min, mid, max;
+ double m;
+ double b;
+ double black;
+ double gray;
+ double white;
 
-  xsane_gamma_to_histogram(&min, &mid, &max, xsane.contrast, xsane.brightness, xsane.gamma);
+  m = 1.0 + xsane.contrast/100.0;
+  b = (1.0 + xsane.brightness/100.0) * 50.0;
 
-  xsane.slider_gray.value[0] = min;
-  xsane.slider_gray.value[1] = mid;
-  xsane.slider_gray.value[2] = max;
+  if (m > 0)
+  {
+    black = 50.0 - b/m;
+    gray  = (100.0 * pow(0.5, xsane.gamma)-b) / m + 50.0;
+    white = (100.0-b)/m + 50.0;
+  }
+  else
+  {
+    black = 0.0;
+    gray  = 50.0;
+    white = 100.0;
+  }
 
+  if (black < 0.0)
+  {
+    black = 0.0;
+  }
 
-  xsane_gamma_to_histogram(&min, &mid, &max,
-                           xsane.contrast + xsane.contrast_red,
-                           xsane.brightness + xsane.brightness_red,
-                           xsane.gamma * xsane.gamma_red);
+  if (white > 100.0)
+  {
+    white = 100.0;
+  }
 
-  xsane.slider_red.value[0] = min;
-  xsane.slider_red.value[1] = mid;
-  xsane.slider_red.value[2] = max;
+  if (gray < black + 0.01)
+  {
+    gray = black + 0.01;
+  }
 
+  if (gray > white - 0.01)
+  {
+    gray = white - 0.01;
+  }
 
-  xsane_gamma_to_histogram(&min, &mid, &max,
-                           xsane.contrast + xsane.contrast_green,
-                           xsane.brightness + xsane.brightness_green,
-                           xsane.gamma * xsane.gamma_green);
-
-  xsane.slider_green.value[0] = min;
-  xsane.slider_green.value[1] = mid;
-  xsane.slider_green.value[2] = max;
-
-
-  xsane_gamma_to_histogram(&min, &mid, &max,
-                           xsane.contrast + xsane.contrast_blue,
-                           xsane.brightness + xsane.brightness_blue,
-                           xsane.gamma * xsane.gamma_blue);
-
-  xsane.slider_blue.value[0] = min;
-  xsane.slider_blue.value[1] = mid;
-  xsane.slider_blue.value[2] = max;
-
+  xsane.pipette_black = black;
+  xsane.pipette_gray  = gray;
+  xsane.pipette_white = white;
 
   xsane_enhancement_update();
   xsane_update_gamma();
@@ -1995,68 +1711,60 @@ static void xsane_resolution_update(GtkAdjustment *adj_data, double *val)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_histogram_to_gamma(struct XsaneSlider *slider, double *contrast, double *brightness, double *gamma)
+static void xsane_enhancement_by_pipette()
 {
- double mid;
+ double brightness;
+ double contrast;
+ double gray;
  double range;
 
-  *contrast   = (10000.0 / (slider->value[2] - slider->value[0]) - 100.0);
-  *brightness = - (slider->value[0] - 50.0) * (*contrast + 100.0)/50.0 - 100.0;
+  contrast   = (10000.0 / (xsane.pipette_white - xsane.pipette_black) - 100.0);
+  brightness = - (xsane.pipette_black - 50.0) * (contrast + 100.0)/50.0 - 100.0;
 
-  mid   = slider->value[1] - slider->value[0];
-  range = slider->value[2] - slider->value[0];
+  gray  = xsane.pipette_gray - xsane.pipette_black;
+  range = xsane.pipette_white - xsane.pipette_black;
 
-  *gamma = log(mid/range) / log(0.5);
+  xsane.gamma            = log(gray/range)/log(0.5);
+  xsane.gamma_red        = 1.0;
+  xsane.gamma_green      = 1.0;
+  xsane.gamma_blue       = 1.0;
+
+  xsane.brightness       = brightness;
+  xsane.brightness_red   = 0.0;
+  xsane.brightness_green = 0.0;
+  xsane.brightness_blue  = 0.0;
+
+  xsane.contrast         = contrast;
+  xsane.contrast_red     = 0.0;
+  xsane.contrast_green   = 0.0;
+  xsane.contrast_blue    = 0.0;
+
+  xsane_enhancement_update();
+  xsane_update_gamma();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-
-static void xsane_enhancement_by_histogram()
+static void xsane_pipette_changed(GtkAdjustment *adj_data, double *val)
 {
- double gray_brightness;
- double gray_contrast;
- double gray_gamma;
- double brightness;
- double contrast;
- double gamma;
+  *val = adj_data->value;
 
-  xsane_histogram_to_gamma(&xsane.slider_gray, &gray_contrast, &gray_brightness, &gray_gamma);
-
-  xsane.gamma      = gray_gamma;
-  xsane.brightness = gray_brightness;
-  xsane.contrast   = gray_contrast;
-
-  if ( (xsane.xsane_color) && (!xsane.enhancement_rgb_default) ) /* rgb sliders active */
+  if (xsane.pipette_black > xsane.pipette_white - 0.01)
   {
-    if (xsane.slider_gray.active < 0) /* gray slider not moved */
-    {
-      xsane_histogram_to_gamma(&xsane.slider_red, &contrast, &brightness, &gamma);
-
-      xsane.gamma_red        = gamma / gray_gamma;
-      xsane.brightness_red   = brightness - gray_brightness;
-      xsane.contrast_red     = contrast - gray_contrast;
-
-      xsane_histogram_to_gamma(&xsane.slider_green, &contrast, &brightness, &gamma);
-
-      xsane.gamma_green      = gamma / gray_gamma;
-      xsane.brightness_green = brightness - gray_brightness;
-      xsane.contrast_green   = contrast - gray_contrast;
-
-      xsane_histogram_to_gamma(&xsane.slider_blue, &contrast, &brightness, &gamma);
-
-      xsane.gamma_blue       = gamma / gray_gamma;
-      xsane.brightness_blue  = brightness - gray_brightness;
-      xsane.contrast_blue    = contrast - gray_contrast;
-    }
-    else /* gray slider was moved in rgb-mode */
-    {
-      xsane_enhancement_by_gamma();
-    }
+    xsane.pipette_black = xsane.pipette_white - 0.01;
   }
 
-  xsane_enhancement_update();
-  xsane_update_gamma();
+  if (xsane.pipette_gray < xsane.pipette_black + 0.01)
+  {
+    xsane.pipette_gray = xsane.pipette_black + 0.01;
+  }
+
+  if (xsane.pipette_gray > xsane.pipette_white - 0.01)
+  {
+    xsane.pipette_gray = xsane.pipette_white - 0.01;
+  }
+
+  xsane_enhancement_by_pipette();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -2347,6 +2055,52 @@ static void xsane_outputfilename_new(GtkWidget *vbox)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+#ifdef HAVE_LIBGIMP_GIMP_H
+static int
+encode_devname(const char *devname, int n, char *buf)
+{
+  static const char hexdigit[] = "0123456789abcdef";
+  char *dst, *limit;
+  const char *src;
+  char ch;
+
+  limit = buf + n;
+  for (src = devname, dst = buf; *src; ++src)
+    {
+      if (dst >= limit)
+	return -1;
+
+      ch = *src;
+      /* don't use the ctype.h macros here since we don't want to
+	 allow anything non-ASCII here... */
+      if ((ch >= '0' && ch <= '9') || (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z'))
+	*dst++ = ch;
+      else
+	{
+	  /* encode */
+
+	  if (dst + 4 >= limit)
+	    return -1;
+
+	  *dst++ = '-';
+	  if (ch == '-')
+	    *dst++ = '-';
+	  else
+	    {
+	      *dst++ = hexdigit[(ch >> 4) & 0x0f];
+	      *dst++ = hexdigit[(ch >> 0) & 0x0f];
+	      *dst++ = '-';
+	    }
+	}
+    }
+  if (dst >= limit)
+    return -1;
+  *dst = '\0';
+  return 0;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void xsane_enhancement_rgb_default_callback(GtkWidget * widget)
 {
   xsane.enhancement_rgb_default = (GTK_TOGGLE_BUTTON(widget)->active != 0);
@@ -2365,40 +2119,19 @@ static void xsane_enhancement_rgb_default_callback(GtkWidget * widget)
     xsane.contrast_green   = 0.0;
     xsane.contrast_blue    = 0.0;
 
-    xsane.slider_red.value[0] =   0.0;
-    xsane.slider_red.value[1] =  50.0;
-    xsane.slider_red.value[2] = 100.0;
-
-    xsane.slider_green.value[0] =   0.0;
-    xsane.slider_green.value[1] =  50.0;
-    xsane.slider_green.value[2] = 100.0;
-
-    xsane.slider_blue.value[0] =   0.0;
-    xsane.slider_blue.value[1] =  50.0;
-    xsane.slider_blue.value[2] = 100.0;
+    xsane.pipette_white    = 100.0;
+    xsane.pipette_gray     =  50.0;
+    xsane.pipette_black    =   0.0;
 
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(xsane.main_dialog_scrolled),
                                    GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
   }
   else
   {
-    xsane.slider_red.value[0] = xsane.slider_gray.value[0];
-    xsane.slider_red.value[1] = xsane.slider_gray.value[1];
-    xsane.slider_red.value[2] = xsane.slider_gray.value[2];
-
-    xsane.slider_green.value[0] = xsane.slider_gray.value[0];
-    xsane.slider_green.value[1] = xsane.slider_gray.value[1];
-    xsane.slider_green.value[2] = xsane.slider_gray.value[2];
-
-    xsane.slider_blue.value[0] = xsane.slider_gray.value[0];
-    xsane.slider_blue.value[1] = xsane.slider_gray.value[1];
-    xsane.slider_blue.value[2] = xsane.slider_gray.value[2];
-
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(xsane.main_dialog_scrolled),
                                    GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
   }
 
-  xsane_update_sliders();
   xsane_update_gamma();
   xsane_refresh_dialog(dialog);
 }
@@ -2409,23 +2142,11 @@ static void xsane_auto_enhancement_callback(GtkWidget * widget)
 {
   xsane_calculate_histogram();
 
-  xsane.slider_gray.value[0] = xsane.auto_black;
-  xsane.slider_gray.value[1] = xsane.auto_gray;
-  xsane.slider_gray.value[2] = xsane.auto_white;
+  xsane.pipette_white = xsane.auto_white;
+  xsane.pipette_gray  = xsane.auto_gray;
+  xsane.pipette_black = xsane.auto_black;
 
-  xsane.slider_red.value[0] = xsane.auto_black;
-  xsane.slider_red.value[1] = xsane.auto_gray;
-  xsane.slider_red.value[2] = xsane.auto_white;
-  
-  xsane.slider_green.value[0] = xsane.auto_black;
-  xsane.slider_green.value[1] = xsane.auto_gray;
-  xsane.slider_green.value[2] = xsane.auto_white;
-  
-  xsane.slider_blue.value[0] = xsane.auto_black;
-  xsane.slider_blue.value[1] = xsane.auto_gray;
-  xsane.slider_blue.value[2] = xsane.auto_white;
-
-  xsane_enhancement_by_histogram();
+  xsane_enhancement_by_pipette();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -2801,15 +2522,6 @@ GtkWidget *xsane_update_xsane_callback()
 
   /* Notebook XSane Frame Enhancement */
 
-  sane_get_parameters(dialog->dev, &xsane.param); /* update xsane.param */
-
-  if (xsane.param.depth == 1)
-  {
-    return(xsane_hbox);
-  }
-
-  xsane.slider_gray.active   = XSANE_SLIDER_ACTIVE; /* mark slider active */
-
   if ( (xsane.xsane_color) && (!xsane.enhancement_rgb_default) )
   {
     xsane_separator_new(xsane_vbox_xsane_modus, 2);
@@ -2949,52 +2661,6 @@ static int decode_devname(const char *encoded_devname, int n, char *buf)
 	      *dst = val;
 
 	      ++src;	/* simply skip terminating '-' for now... */
-	    }
-	}
-    }
-  if (dst >= limit)
-    return -1;
-  *dst = '\0';
-  return 0;
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-#ifdef HAVE_LIBGIMP_GIMP_H
-static int
-encode_devname(const char *devname, int n, char *buf)
-{
-  static const char hexdigit[] = "0123456789abcdef";
-  char *dst, *limit;
-  const char *src;
-  char ch;
-
-  limit = buf + n;
-  for (src = devname, dst = buf; *src; ++src)
-    {
-      if (dst >= limit)
-	return -1;
-
-      ch = *src;
-      /* don't use the ctype.h macros here since we don't want to
-	 allow anything non-ASCII here... */
-      if ((ch >= '0' && ch <= '9') || (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z'))
-	*dst++ = ch;
-      else
-	{
-	  /* encode */
-
-	  if (dst + 4 >= limit)
-	    return -1;
-
-	  *dst++ = '-';
-	  if (ch == '-')
-	    *dst++ = '-';
-	  else
-	    {
-	      *dst++ = hexdigit[(ch >> 4) & 0x0f];
-	      *dst++ = hexdigit[(ch >> 0) & 0x0f];
-	      *dst++ = '-';
 	    }
 	}
     }
@@ -4186,7 +3852,7 @@ static void scan_dialog(GtkWidget * widget, gpointer call_data)
     {
       /* ok, the scanner only supports gray gamma function */
       /* if we are doing a grayscale scan everyting is ok, */
-      /* for a color scan the software has to do the gamma correction set by the component slider */
+      /* for a color scan the software has to do the gamma correction set by the component sliders */
 
       xsane.gamma_data = malloc(gamma_gray_size * sizeof(SANE_Int));
       xsane_create_gamma_curve(xsane.gamma_data,
@@ -5454,13 +5120,6 @@ void panel_build(GSGDialog * dialog)
   dialog->advanced_hbox = advanced_hbox;
 
   xsane_update_histogram();
-/*
-  xsane_draw_slider_level(&xsane.slider_gray);
-  xsane_draw_slider_level(&xsane.slider_red);
-  xsane_draw_slider_level(&xsane.slider_green);
-  xsane_draw_slider_level(&xsane.slider_blue);
-*/
-  xsane_update_sliders();
 
   /* now add in vector editor, if necessary: */
 /*
@@ -5496,6 +5155,9 @@ static void device_dialog(void)
   GdkColormap *colormap;
   GtkWidget *xsane_color_hbox;
   GtkWidget *xsane_histogram_vbox;
+  GtkWidget *pixmapwidget;
+  GdkBitmap *mask;
+  GdkPixmap *pixmap;
   SANE_Int num_elements;
   SANE_Status status;
   SANE_Handle dev;
@@ -5765,54 +5427,46 @@ static void device_dialog(void)
 
   xsane_separator_new(xsane_histogram_vbox, 0);
 
-  xsane.slider_gray.r = 1;
-  xsane.slider_gray.g = 1;
-  xsane.slider_gray.b = 1;
-  xsane.slider_gray.active = -1;
-  xsane_create_slider(&xsane.slider_gray);
-  gtk_box_pack_start(GTK_BOX(xsane_histogram_vbox), xsane.slider_gray.preview, FALSE, FALSE, 0);
-  gtk_widget_show(xsane.slider_gray.preview);
-  gtk_widget_realize(xsane.slider_gray.preview);
+  pixmap = gdk_pixmap_create_from_xpm_d(xsane.shell->window, &mask, xsane.bg_trans, (gchar **) range_gray_xpm);
+  pixmapwidget = gtk_pixmap_new(pixmap, mask);
+  gtk_box_pack_start(GTK_BOX(xsane_histogram_vbox), pixmapwidget, FALSE, FALSE, 0);
+  gtk_widget_show(pixmapwidget);
+  gdk_pixmap_unref(pixmap);
 
   xsane_separator_new(xsane_histogram_vbox, 0);
 
-  xsane.slider_red.r = 1;
-  xsane.slider_red.g = 0;
-  xsane.slider_red.b = 0;
-  xsane.slider_red.active = -1;
-  xsane_create_slider(&xsane.slider_red);
-  gtk_box_pack_start(GTK_BOX(xsane_histogram_vbox), xsane.slider_red.preview, FALSE, FALSE, 0);
-  gtk_widget_show(xsane.slider_red.preview);
-  gtk_widget_realize(xsane.slider_red.preview);
+  pixmap = gdk_pixmap_create_from_xpm_d(xsane.shell->window, &mask, xsane.bg_trans, (gchar **) range_red_xpm);
+  pixmapwidget = gtk_pixmap_new(pixmap, mask);
+  gtk_box_pack_start(GTK_BOX(xsane_histogram_vbox), pixmapwidget, FALSE, FALSE, 0);
+  gtk_widget_show(pixmapwidget);
+  gdk_pixmap_unref(pixmap);
 
   xsane_separator_new(xsane_histogram_vbox, 0);
 
-  xsane.slider_green.r = 0;
-  xsane.slider_green.g = 1;
-  xsane.slider_green.b = 0;
-  xsane.slider_green.active = -1;
-  xsane_create_slider(&xsane.slider_green);
-  gtk_box_pack_start(GTK_BOX(xsane_histogram_vbox), xsane.slider_green.preview, FALSE, FALSE, 0);
-  gtk_widget_show(xsane.slider_green.preview);
-  gtk_widget_realize(xsane.slider_green.preview);
+  pixmap = gdk_pixmap_create_from_xpm_d(xsane.shell->window, &mask, xsane.bg_trans, (gchar **) range_green_xpm);
+  pixmapwidget = gtk_pixmap_new(pixmap, mask);
+  gtk_box_pack_start(GTK_BOX(xsane_histogram_vbox), pixmapwidget, FALSE, FALSE, 0);
+  gtk_widget_show(pixmapwidget);
+  gdk_pixmap_unref(pixmap);
 
   xsane_separator_new(xsane_histogram_vbox, 0);
 
-  xsane.slider_blue.r = 0;
-  xsane.slider_blue.g = 0;
-  xsane.slider_blue.b = 1;
-  xsane.slider_blue.active = -1;
-  xsane_create_slider(&xsane.slider_blue);
-  gtk_box_pack_start(GTK_BOX(xsane_histogram_vbox), xsane.slider_blue.preview, FALSE, FALSE, 0);
-  gtk_widget_show(xsane.slider_blue.preview);
-  gtk_widget_realize(xsane.slider_blue.preview);
-
-  xsane_draw_slider_level(&xsane.slider_gray);
-  xsane_draw_slider_level(&xsane.slider_red);
-  xsane_draw_slider_level(&xsane.slider_green);
-  xsane_draw_slider_level(&xsane.slider_blue);
+  pixmap = gdk_pixmap_create_from_xpm_d(xsane.shell->window, &mask, xsane.bg_trans, (gchar **) range_blue_xpm);
+  pixmapwidget = gtk_pixmap_new(pixmap, mask);
+  gtk_box_pack_start(GTK_BOX(xsane_histogram_vbox), pixmapwidget, FALSE, FALSE, 0);
+  gtk_widget_show(pixmapwidget);
+  gdk_pixmap_unref(pixmap);
 
   xsane_separator_new(xsane_histogram_vbox, 0);
+
+  xsane_scale_new_with_pixmap(GTK_BOX(xsane_histogram_vbox), pipette_white_xpm, DESC_WHITE, 0.0, 100.0, 0.1, 0.1, 0.0, 1,
+                              &xsane.pipette_white, &xsane.pipette_white_widget, 0, xsane_pipette_changed);
+
+  xsane_scale_new_with_pixmap(GTK_BOX(xsane_histogram_vbox), pipette_gray_xpm, DESC_GRAY, 0.0, 100.0, 0.1, 0.1, 0.0, 1,
+                              &xsane.pipette_gray, &xsane.pipette_gray_widget, 0, xsane_pipette_changed);
+
+  xsane_scale_new_with_pixmap(GTK_BOX(xsane_histogram_vbox), pipette_black_xpm, DESC_BLACK, 0.0, 100.0, 0.1, 0.1, 0.0, 1,
+                              &xsane.pipette_black, &xsane.pipette_black_widget, 0, xsane_pipette_changed);
 
   xsane_pixmap_new(xsane_histogram_vbox, "Enhanced image", 256, 100, &(xsane.histogram_enh));
 
@@ -5906,13 +5560,6 @@ static void device_dialog(void)
   }
 
   gtk_widget_show(xsane.shell); /* call as last so focus is on it */
-
-  while (gtk_events_pending())
-  {
-    gtk_main_iteration();
-  }
-
-  xsane_update_sliders();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -6155,21 +5802,6 @@ static void init(int argc, char **argv)
         break; 
       }
     }
-
-    if ((seldev < 0) && (argc > 1))
-    {
-     static SANE_Device dev;
-     static const SANE_Device *device_list[] = { &dev, 0 };
-
-      memset(&dev, 0, sizeof(dev));
-      dev.name   = argv[argc - 1];
-      dev.vendor = "unknown";
-      dev.type   = "unknown";
-      dev.model  = "unknown";
-
-      devlist = device_list;
-      seldev = 0;
-    }
   }
 }
 
@@ -6254,18 +5886,9 @@ int main(int argc, char **argv)
   xsane.contrast_red     = 0.0;
   xsane.contrast_green   = 0.0;
   xsane.contrast_blue    = 0.0;
-  xsane.slider_gray.value[2]  = 100.0;
-  xsane.slider_gray.value[1]  = 50.0;
-  xsane.slider_gray.value[0]  = 0.0;
-  xsane.slider_red.value[2]   = 100.0;
-  xsane.slider_red.value[1]   = 50.0;
-  xsane.slider_red.value[0]   = 0.0;
-  xsane.slider_green.value[2] = 100.0;
-  xsane.slider_green.value[1] = 50.0;
-  xsane.slider_green.value[0] = 0.0;
-  xsane.slider_blue.value[2]  = 100.0;
-  xsane.slider_blue.value[1]  = 50.0;
-  xsane.slider_blue.value[0]  = 0.0;
+  xsane.pipette_white    = 100.0;
+  xsane.pipette_gray     = 50.0;
+  xsane.pipette_black    = 0.0;
   xsane.auto_white       = 100.0;
   xsane.auto_gray        = 50.0;
   xsane.auto_black       = 0.0;

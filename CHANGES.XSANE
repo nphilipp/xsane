@@ -58,14 +58,3 @@ xsane-0.13 -> 0.14:
  - tested for param.depth>1 for gamma correction
  - added test for sane major version number, abort if mismatch
 
-
-xsane-0.14 -> 0.15:
--------------------
-
- - if device is given as commandline option it is now loaded again
-   if it is not in the devicelist
- - moved some functions in xsane.c out of a #ifdef HAVE_LIBGIMP .. #endif-block
- - added sliders in the gray/red/green/blue-levels for black/gray/white points
- - gamma correction in preview is now only done if depth > 1
- - enhancement sliders are not shown in lineart mode any more
-

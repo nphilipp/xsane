@@ -25,8 +25,8 @@ first steps:
  - save all options to a file including preview-selection
  - COPY: more than one copy of one scan
 
-second steps: 
- - let user select whether (dont know if this is practicable)
+second steps:
+ - let user select whether
    - analog gamma
    - highlight
    - shadow
@@ -36,14 +36,14 @@ second steps:
 
    - Change calculation of gamma curve for it
    - do preview with selected values set to default
-   - input multiplicators in xsane-setup to make
-     scanner dependend values compatible to xsane-values
+   - input multiplactors in xsane-setup to make
+     scanner depend values compatible to xsane-values
 
 third steps:
  - correct gtk custom gamma functions and include it
  - include special fnctions for GNOME/KDE
 
-more ideas:
+ideas:
  - preview always in greyscale or always in color
  - define preview area (for small pictures)
 
