@@ -3,7 +3,7 @@
    xsane-icons.h
 
    Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
-   Copyright (C) 1998-2000 Oliver Rauch
+   Copyright (C) 1998-2001 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -65,6 +65,7 @@ extern const char *zoom_out_xpm[];
 extern const char *zoom_in_xpm[];
 extern const char *zoom_undo_xpm[];
 extern const char *full_preview_area_xpm[];
+extern const char *auto_select_preview_area_xpm[];
 extern const char *printer_xpm[];
 extern const char *zoom_xpm[];
 extern const char *zoom_x_xpm[];

@@ -3,7 +3,7 @@
    xsane-back-gtk.h
 
    Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
-   Copyright (C) 1998-2000 Oliver Rauch
+   Copyright (C) 1998-2001 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -46,6 +46,7 @@ extern int xsane_back_gtk_message_dialog_active;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+extern void xsane_bound_int(int *value, int min, int max);
 extern void xsane_bound_float(float *value, float min, float max);
 extern void xsane_bound_double(double *value, double min, double max);
 extern const SANE_Option_Descriptor *xsane_get_option_descriptor(SANE_Handle handle, SANE_Int option);

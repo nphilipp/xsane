@@ -3,7 +3,7 @@
    xsane-icons.c
 
    Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
-   Copyright (C) 1998-2000 Oliver Rauch
+   Copyright (C) 1998-2001 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -1261,6 +1261,40 @@ const char *full_preview_area_xpm[] =
 " .       .       .  ",
 " .     . . .     .  ",
 " .      ...      .  ",
+" .       .       .  ",
+" .................  ",
+"                    ",
+};
+
+/* --------------------------------------------------- */
+
+const char *auto_select_preview_area_xpm[] =
+{
+/* width height num_colors chars_per_pixel */
+"    20    20        4            1",
+/* colors */
+"  none",
+". c #000000",
+"+ c #c0c0c0",
+"a c #ffffff",
+/* pixels */
+"                    ",
+" .................  ",
+" .       .       .  ",
+" .     . . .     .  ",
+" .      ...      .  ",
+" .       .       .  ",
+" .    .......    .  ",
+" .    .     .    .  ",
+" . .  .     .  . .  ",
+" .  . .     . .  .  ",
+" ......     ......  ",
+" .  . .     . .  .  ",
+" . .  .     .  . .  ",
+" .    .......    .  ",
+" .       .       .  ",
+" .      ...      .  ",
+" .     . . .     .  ",
 " .       .       .  ",
 " .................  ",
 "                    ",

@@ -3,7 +3,7 @@
    xsane-preferences.c
 
    Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
-   Copyright (C) 1998-2000 Oliver Rauch
+   Copyright (C) 1998-2001 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -69,8 +69,9 @@ Preferences preferences =
  COMPRESSION_JPEG,	/* tiff_compression8_nr */
  COMPRESSION_CCITTFAX3,	/* tiff_compression1_nr */
        1,		/* overwrite_warning */
-       1,		/* increase_filename_counter */
        1,		/* skip_existing_numbers */
+       1,		/* filename_counter_step */
+       4,		/* filename_counter_len */
      210.0,             /* psfile_width:  width of psfile in mm */
      296.98,		/* psfile_height: height of psfile in mm */
        0.0,             /* psfile_leftoffset */
@@ -90,6 +91,7 @@ Preferences preferences =
        1.0,		/* preview_gamma_green */
        1.0,		/* preview_gamma_blue */
        1,		/* disable_gimp_preview_gamma */
+       3,		/* preview_pipette_range */
        1.6,		/* gamma */
        1.0,		/* gamma red */
        1.0,		/* gamma green */
@@ -138,8 +140,9 @@ desc[] =
     {"fax-height",			xsane_rc_pref_double,	POFFSET(fax_height)},
     {"doc-viewer",			xsane_rc_pref_string,	POFFSET(doc_viewer)},
     {"overwrite-warning",		xsane_rc_pref_int,	POFFSET(overwrite_warning)},
-    {"increase-filename-counter",	xsane_rc_pref_int,	POFFSET(increase_filename_counter)},
     {"skip-existing-numbers",		xsane_rc_pref_int,	POFFSET(skip_existing_numbers)},
+    {"filename-counter-step",		xsane_rc_pref_int,	POFFSET(filename_counter_step)},
+    {"filename-counter-len",		xsane_rc_pref_int,	POFFSET(filename_counter_len)},
     {"psfile-left-offset",		xsane_rc_pref_double,	POFFSET(psfile_leftoffset)},
     {"psfile-bottom-offset",		xsane_rc_pref_double,	POFFSET(psfile_bottomoffset)},
     {"psfile-width",			xsane_rc_pref_double,	POFFSET(psfile_width)},
@@ -164,6 +167,7 @@ desc[] =
     {"preview-gamma-green",		xsane_rc_pref_double,	POFFSET(preview_gamma_green)},
     {"preview-gamma-blue",		xsane_rc_pref_double,	POFFSET(preview_gamma_blue)},
     {"disable-gimp-preview-gamma",	xsane_rc_pref_int,	POFFSET(disable_gimp_preview_gamma)},
+    {"preview-pipette-range",		xsane_rc_pref_int,	POFFSET(preview_pipette_range)},
     {"gamma",				xsane_rc_pref_double,	POFFSET(xsane_gamma)},
     {"gamma-red",			xsane_rc_pref_double,	POFFSET(xsane_gamma_red)},
     {"gamma-green",			xsane_rc_pref_double,	POFFSET(xsane_gamma_green)},

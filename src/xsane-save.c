@@ -3,7 +3,7 @@
    xsane-save.c
 
    Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
-   Copyright (C) 1998-2000 Oliver Rauch
+   Copyright (C) 1998-2001 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -152,79 +152,88 @@ void xsane_convert_text_to_filename(char **text)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void xsane_increase_counter_in_filename(char *filename, int skip)
+void xsane_update_counter_in_filename(char **filename, int skip, int step, int min_counter_len)
 {
+ FILE *testfile;
  char *position_point = NULL;
  char *position_counter;
- char counter;
- int  overflow = 0;
- FILE *testfile;
+ char buf[PATH_MAX];
+ int counter;
+ int counter_len;
+ int set_counter_len = min_counter_len;
 
-  DBG(DBG_proc, "xsane_increase_counter_in_filename\n");
+  DBG(DBG_proc, "xsane_update_counter_in_filename\n");
 
   if (!xsane.filetype) /* no filetype: serach "." */
   {
-    position_point = strrchr(filename, '.');
+    position_point = strrchr(*filename, '.');
   }
 
-  while (1)
-  { 
-    if (position_point)
+  if (!position_point) /* nothing usable ? */
+  {
+    position_point = *filename + strlen(*filename); /* here is no point, but position - 1 is last character */
+  }
+
+  if (position_point)
+  {
+    position_counter = position_point-1; /* go to last number of counter (if xounter exists) */
+
+    /* search non numeric char */
+    while ( (position_counter >= *filename) && (*position_counter >= '0') && (*position_counter <='9') )
     {
-      position_counter = position_point-1;
-    }
-    else
-    {
-      position_counter = filename + strlen(filename) - 1;
+      position_counter--; /* search fisrt numeric character */
     }
 
-    if (position_counter < filename)
-    {
-      break; /* empty string or starts with "." */
-    }
- 
-    if (!( (*position_counter >= '0') && (*position_counter <='9') ))
-    {
-      break; /* no counter found */
-    }
+    position_counter++; /* go to first numeric charcter */
 
-    while ( (position_counter >= filename) && (*position_counter >= '0') && (*position_counter <='9') )
-    {
-      counter = ++(*position_counter);
+    counter_len = position_point - position_counter;
 
-      if (counter !=  ':')
+    if (counter_len) /* we have a counter */
+    {
+      sscanf(position_counter, "%d", &counter);
+
+      while (1) /* may  be we have to skip existing files */
       {
-        overflow = 0; /* ok, we were able to increase the next digit, no overflow */
-        break;
+        counter += step; /* update counter */
+
+        if (counter < 0)
+        {
+          counter = 0;
+          xsane_back_gtk_warning(WARN_COUNTER_UNDERRUN, TRUE);
+          break; /* last available number ("..999") */
+        }
+
+        *position_counter = 0; /* set end of string mark to counter start */
+
+        if (set_counter_len == 0)
+        {
+           set_counter_len = counter_len;
+        }
+
+        snprintf(buf, sizeof(buf), "%s%0*d%s", *filename, set_counter_len,  counter, position_point);
+
+        DBG(DBG_info, "filename = \"%s\"\n", buf);
+
+        free(*filename);
+        *filename = strdup(buf);
+
+        if (skip) /* test if filename already used */
+        {
+          testfile = fopen(*filename, "rb"); /* read binary (b for win32) */
+          if (testfile) /* filename used: skip */
+          {
+            fclose(testfile);
+          }
+          else
+          {
+            break; /* filename not used, ok */
+          }
+        }
+        else /* do not test if filename already used */
+        {
+          break; /* filename ok */
+        }
       }
-
-      *position_counter = '0';
-      position_counter--;
-
-      overflow = 1; /* may be an overflow occured */
-    }
-
-    if (overflow) /* overflow */
-    {
-      xsane_back_gtk_warning(WARN_COUNTER_OVERFLOW, TRUE);
-      break; /* last available number ("..999") */
-    }
-
-    if (skip) /* test if filename already used */
-    {
-      testfile = fopen(filename, "rb"); /* read binary (b for win32) */
-      if (testfile) /* filename used: skip */
-      {
-        fclose(testfile);
-      }
-      else
-      {
-        break; /* filename not used, ok */
-      }
-    }
-    else /* do not test if filename already used */
-    {
-      break; /* filename ok */
     }
   }
 }

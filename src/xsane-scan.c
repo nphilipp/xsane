@@ -3,7 +3,7 @@
    xsane-scan.c
 
    Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
-   Copyright (C) 1998-2000 Oliver Rauch
+   Copyright (C) 1998-2001 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -1847,16 +1847,17 @@ void xsane_scan_done(SANE_Status status)
     {
       if (!xsane.force_filename) /* user filename selection active */
       {
-        if (preferences.increase_filename_counter)
+        if (preferences.filename_counter_step) /* increase filename counter ? */
         {
-          xsane_increase_counter_in_filename(preferences.filename, preferences.skip_existing_numbers);
+          xsane_update_counter_in_filename(&preferences.filename, preferences.skip_existing_numbers,
+                                           preferences.filename_counter_step, preferences.filename_counter_len);
           gtk_entry_set_text(GTK_ENTRY(xsane.outputfilename_entry), (char *) preferences.filename); /* update filename in entry */
           gtk_entry_set_position(GTK_ENTRY(xsane.outputfilename_entry), strlen(preferences.filename)); /* set cursor to right position of filename */
         }
       }
       else /* external filename */
       {
-        xsane_increase_counter_in_filename(xsane.external_filename, TRUE);
+        xsane_update_counter_in_filename(&xsane.external_filename, TRUE, 1, preferences.filename_counter_len);
       }
     }
     else if (xsane.xsane_mode == XSANE_FAX)
@@ -1876,7 +1877,7 @@ void xsane_scan_done(SANE_Status status)
       gtk_container_add(GTK_CONTAINER(xsane.fax_list), list_item);
       gtk_widget_show(list_item);
 
-      xsane_increase_counter_in_filename(xsane.fax_filename, preferences.skip_existing_numbers);
+      xsane_update_counter_in_filename(&xsane.fax_filename, TRUE, 1, preferences.filename_counter_len);
       xsane_fax_project_save();
       free(page);
     }
@@ -1963,6 +1964,11 @@ static void xsane_start_scan(void)
  int fd;
 
   DBG(DBG_proc, "xsane_start_scan\n");
+
+  /* correct length of filename counter if it is shorter than minimum length */
+  xsane_update_counter_in_filename(&preferences.filename, FALSE, 0, preferences.filename_counter_len);
+ 
+  gtk_entry_set_text(GTK_ENTRY(xsane.outputfilename_entry), preferences.filename); 
 
   xsane_clear_histogram(&xsane.histogram_raw);
   xsane_clear_histogram(&xsane.histogram_enh);    

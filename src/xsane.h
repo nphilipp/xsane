@@ -3,7 +3,7 @@
    xsane.h
 
    Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
-   Copyright (C) 1998-2000 Oliver Rauch
+   Copyright (C) 1998-2001 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -32,10 +32,10 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.70"
+#define XSANE_VERSION		"0.71"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
-#define XSANE_DATE		"1998-2000"
+#define XSANE_DATE		"1998-2001"
 #define XSANE_EMAIL		"Oliver.Rauch@Wolfsburg.DE"
 #define XSANE_HOMEPAGE		"http://www.wolfsburg.de/~rauch/sane/sane-xsane.html"
 #define XSANE_COPYRIGHT_TXT	XSANE_DATE " " XSANE_COPYRIGHT
@@ -198,11 +198,11 @@ GSGDialogElement;
 /* ok, we have the new gimp interface */
 #  else
 /* we have the old gimp interface and need the compatibility header file */
-#   include "xsane-oldgimp.h" 
+#   include "xsane-gimp-1_0-compat.h" 
 #  endif
 # else
 /* we have the old gimp interface and need the compatibility header file */
-#  include "xsane-oldgimp.h" 
+#  include "xsane-gimp-1_0-compat.h" 
 # endif
 
   extern GimpPlugInInfo PLUG_IN_INFO; /* needed for win32 */
@@ -654,6 +654,8 @@ typedef struct XsaneSetup
   GtkWidget *psfile_height_entry;
   GtkWidget *tmp_path_entry;
 
+  int filename_counter_len;
+
   int tiff_compression16_nr;
   int tiff_compression8_nr;
   int tiff_compression1_nr;
@@ -662,6 +664,8 @@ typedef struct XsaneSetup
 
   int image_permissions;
   int directory_permissions;
+
+  int preview_pipette_range;
 
   char *grayscale_scanmode;
   char *adf_scansource;

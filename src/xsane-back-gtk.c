@@ -3,7 +3,7 @@
    xsane-back-gtk.c
 
    Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
-   Copyright (C) 1998-2000 Oliver Rauch
+   Copyright (C) 1998-2001 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -47,6 +47,30 @@ void xsane_back_gtk_set_option(int opt_num, void *val, SANE_Action action);
 static void xsane_back_gtk_panel_rebuild(void);
 void xsane_set_sensitivity(SANE_Int sensitivity);
 void xsane_set_window_icon(GtkWidget *gtk_window, gchar **xpm_d);
+
+/* ----------------------------------------------------------------------------------------------------------------- */
+ 
+void xsane_bound_int(int *value, int min, int max)
+{
+  DBG(DBG_proc3, "xsane_bound_int\n");
+ 
+  if (min > max)
+  {
+    int help = min;
+    min = max;
+    max = help;
+  }
+ 
+  if (*value < min)
+  {
+    *value = min;
+  }
+ 
+  if (*value > max)
+  {
+    *value = max;
+  }
+}
 
 /* ----------------------------------------------------------------------------------------------------------------- */
  

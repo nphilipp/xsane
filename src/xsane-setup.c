@@ -3,7 +3,7 @@
    xsane-setup.c
 
    Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
-   Copyright (C) 1998-2000 Oliver Rauch
+   Copyright (C) 1998-2001 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -336,6 +336,15 @@ static void xsane_setup_printer_delete(GtkWidget *widget, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static void xsane_setup_filename_counter_len_callback(GtkWidget *widget, gpointer data)
+{
+  DBG(DBG_proc, "xsane_setup_filename_counter_len_callback\n");
+
+  xsane_setup.filename_counter_len = (int) data;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 #ifdef HAVE_LIBTIFF
 static void xsane_setup_tiff_compression16_callback(GtkWidget *widget, gpointer data)
 {
@@ -424,6 +433,8 @@ static void xsane_setup_enhance_apply_changes(GtkWidget *widget, gpointer data)
     xsane.adf_scansource = strdup(xsane_setup.adf_scansource);
   }
 
+  preferences.preview_pipette_range = xsane_setup.preview_pipette_range;
+
   xsane_update_bool(xsane_setup.auto_enhance_gamma_button, &preferences.auto_enhance_gamma);
 
   xsane_update_gamma_curve();
@@ -455,6 +466,8 @@ static void xsane_setup_saving_apply_changes(GtkWidget *widget, gpointer data)
   preferences.tiff_compression1_nr  = xsane_setup.tiff_compression1_nr;
 #endif
 
+  preferences.filename_counter_len  = xsane_setup.filename_counter_len;
+
   if (preferences.tmp_path)
   {
     free((void *) preferences.tmp_path);
@@ -462,7 +475,6 @@ static void xsane_setup_saving_apply_changes(GtkWidget *widget, gpointer data)
   preferences.tmp_path = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.tmp_path_entry)));
 
   xsane_update_bool(xsane_setup.overwrite_warning_button,         &preferences.overwrite_warning);
-  xsane_update_bool(xsane_setup.increase_filename_counter_button, &preferences.increase_filename_counter);
   xsane_update_bool(xsane_setup.skip_existing_numbers_button,     &preferences.skip_existing_numbers);
   preferences.image_umask     = 0777 - xsane_setup.image_permissions;
   preferences.directory_umask = 0777 - xsane_setup.directory_permissions;
@@ -599,17 +611,17 @@ static void xsane_permission_box(GtkWidget *parent, gchar *name, gchar *descript
     hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
     gtk_box_pack_start(GTK_BOX(parent), hbox, FALSE, FALSE, 2);
 
-    label = gtk_label_new("user");
+    label = gtk_label_new(TEXT_SETUP_PERMISSION_USER);
     gtk_widget_set_usize(label, 75, 0);
     gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
     gtk_widget_show(label);
 
-    label = gtk_label_new("group");
+    label = gtk_label_new(TEXT_SETUP_PERMISSION_GROUP);
     gtk_widget_set_usize(label, 75, 0);
     gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
     gtk_widget_show(label);
 
-    label = gtk_label_new("all");
+    label = gtk_label_new(TEXT_SETUP_PERMISSION_ALL);
     gtk_widget_set_usize(label, 75, 0);
     gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
     gtk_widget_show(label);
@@ -623,6 +635,7 @@ static void xsane_permission_box(GtkWidget *parent, gchar *name, gchar *descript
 
   button = gtk_toggle_button_new_with_label("r");
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *permission & 256 );
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_PERMISSION_READ);
   gtk_widget_set_usize(button, 21, 0);
   gtk_widget_set_name(button, name);
   gtk_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_permission_toggled, (void *) 256);
@@ -632,6 +645,7 @@ static void xsane_permission_box(GtkWidget *parent, gchar *name, gchar *descript
 
   button = gtk_toggle_button_new_with_label("w");
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *permission & 128 );
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_PERMISSION_WRITE);
   gtk_widget_set_usize(button, 21, 0);
   gtk_widget_set_name(button, name);
   gtk_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_permission_toggled, (void *) 128);
@@ -641,6 +655,7 @@ static void xsane_permission_box(GtkWidget *parent, gchar *name, gchar *descript
 
   button = gtk_toggle_button_new_with_label("x");
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *permission & 64 );
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_PERMISSION_EXECUTE);
   gtk_widget_set_usize(button, 21, 0);
   gtk_widget_set_name(button, name);
   gtk_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_permission_toggled, (void *) 64);
@@ -658,6 +673,7 @@ static void xsane_permission_box(GtkWidget *parent, gchar *name, gchar *descript
 
   button = gtk_toggle_button_new_with_label("r");
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *permission & 32 );
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_PERMISSION_READ);
   gtk_widget_set_usize(button, 21, 0);
   gtk_widget_set_name(button, name);
   gtk_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_permission_toggled, (void *) 32);
@@ -666,6 +682,7 @@ static void xsane_permission_box(GtkWidget *parent, gchar *name, gchar *descript
 
   button = gtk_toggle_button_new_with_label("w");
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *permission & 16 );
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_PERMISSION_WRITE);
   gtk_widget_set_usize(button, 21, 0);
   gtk_widget_set_name(button, name);
   gtk_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_permission_toggled, (void *) 16);
@@ -674,6 +691,7 @@ static void xsane_permission_box(GtkWidget *parent, gchar *name, gchar *descript
 
   button = gtk_toggle_button_new_with_label("x");
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *permission & 8 );
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_PERMISSION_EXECUTE);
   gtk_widget_set_usize(button, 21, 0);
   gtk_widget_set_name(button, name);
   gtk_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_permission_toggled, (void *) 8);
@@ -691,6 +709,7 @@ static void xsane_permission_box(GtkWidget *parent, gchar *name, gchar *descript
 
   button = gtk_toggle_button_new_with_label("r");
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *permission & 4 );
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_PERMISSION_READ);
   gtk_widget_set_usize(button, 21, 0);
   gtk_widget_set_name(button, name);
   gtk_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_permission_toggled, (void *) 4);
@@ -699,6 +718,7 @@ static void xsane_permission_box(GtkWidget *parent, gchar *name, gchar *descript
 
   button = gtk_toggle_button_new_with_label("w");
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *permission & 2 );
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_PERMISSION_WRITE);
   gtk_widget_set_usize(button, 21, 0);
   gtk_widget_set_name(button, name);
   gtk_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_permission_toggled, (void *) 2);
@@ -707,6 +727,7 @@ static void xsane_permission_box(GtkWidget *parent, gchar *name, gchar *descript
 
   button = gtk_toggle_button_new_with_label("x");
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *permission & 1 );
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_PERMISSION_EXECUTE);
   gtk_widget_set_usize(button, 21, 0);
   gtk_widget_set_name(button, name);
   gtk_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_permission_toggled, (void *) 1);
@@ -727,7 +748,6 @@ static void xsane_permission_box(GtkWidget *parent, gchar *name, gchar *descript
   gtk_widget_show(label);
 
   gtk_widget_show(hbox);
-
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1103,6 +1123,7 @@ static void xsane_setup_browse_tmp_path_callback(GtkWidget *widget, gpointer dat
 static void xsane_saving_notebook(GtkWidget *notebook)
 {
  GtkWidget *setup_vbox, *vbox, *hbox, *button, *label, *text, *frame;
+ GtkWidget *filename_counter_len_option_menu, *filename_counter_len_menu, *filename_counter_len_item;
  char buf[64];
 
 #ifdef HAVE_LIBTIFF
@@ -1221,18 +1242,7 @@ static void xsane_saving_notebook(GtkWidget *notebook)
   gtk_widget_show(hbox);
   xsane_setup.overwrite_warning_button = button;
 
-  /* increase filename counter */
-  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
-  button = gtk_check_button_new_with_label(RADIO_BUTTON_INCREASE_COUNTER);
-  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_INCREASE_COUNTER);
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), preferences.increase_filename_counter);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 2);
-  gtk_widget_show(button);
-  gtk_widget_show(hbox);
-  xsane_setup.increase_filename_counter_button = button;
-
-  /* increase filename counter */
+  /* skip existing numbers */
   hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
   button = gtk_check_button_new_with_label(RADIO_BUTTON_SKIP_EXISTING_NRS);
@@ -1242,6 +1252,49 @@ static void xsane_saving_notebook(GtkWidget *notebook)
   gtk_widget_show(button);
   gtk_widget_show(hbox);
   xsane_setup.skip_existing_numbers_button = button;
+
+  /* filename counter length */
+  hbox = gtk_hbox_new(FALSE, 2);
+  gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
+
+  label = gtk_label_new(TEXT_SETUP_FILENAME_COUNTER_LEN);
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_widget_show(label);
+
+  filename_counter_len_option_menu = gtk_option_menu_new();
+  xsane_back_gtk_set_tooltip(xsane.tooltips, filename_counter_len_option_menu, DESC_FILENAME_COUNTER_LEN);
+  gtk_box_pack_end(GTK_BOX(hbox), filename_counter_len_option_menu, FALSE, FALSE, 2);
+  gtk_widget_show(filename_counter_len_option_menu);
+  gtk_widget_show(hbox);
+
+  filename_counter_len_menu = gtk_menu_new();
+
+  for (i=0; i <= 10; i++)
+  {
+    if (i)
+    {
+      snprintf(buf, sizeof(buf), "%d", i);
+    }
+    else
+    {
+      snprintf(buf, sizeof(buf), MENU_ITEM_COUNTER_LEN_INACTIVE);
+    }
+    filename_counter_len_item = gtk_menu_item_new_with_label(buf);
+    gtk_container_add(GTK_CONTAINER(filename_counter_len_menu), filename_counter_len_item);
+    gtk_signal_connect(GTK_OBJECT(filename_counter_len_item), "activate",
+                       (GtkSignalFunc) xsane_setup_filename_counter_len_callback, (void *) i);
+    gtk_widget_show(filename_counter_len_item);
+    if (preferences.filename_counter_len == i)
+    {
+      select = i;
+    }
+  }
+
+  gtk_option_menu_set_menu(GTK_OPTION_MENU(filename_counter_len_option_menu), filename_counter_len_menu);
+  gtk_option_menu_set_history(GTK_OPTION_MENU(filename_counter_len_option_menu), select);
+  xsane_setup.filename_counter_len = preferences.filename_counter_len;
+
 
 #ifdef HAVE_LIBJPEG 
   xsane_separator_new(vbox, 4);
@@ -1975,6 +2028,15 @@ static void xsane_setup_grayscale_mode_callback(GtkWidget *widget, gpointer data
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static void xsane_setup_preview_pipette_range_callback(GtkWidget *widget, gpointer data)
+{
+  DBG(DBG_proc, "xsane_setup_preview_pipette_range_callback\n");
+
+  xsane_setup.preview_pipette_range = (int) data;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void xsane_setup_adf_mode_callback(GtkWidget *widget, gpointer data)
 {
   if (xsane_setup.adf_scansource)
@@ -1994,9 +2056,10 @@ static void xsane_enhance_notebook(GtkWidget *notebook)
  GtkWidget *lineart_mode_option_menu, *lineart_mode_menu, *lineart_mode_item;
  GtkWidget *adf_option_menu, *adf_menu, *adf_item;
  GtkWidget *gray_option_menu, *gray_menu, *gray_item;
+ GtkWidget *preview_pipette_range_option_menu, *preview_pipette_range_menu, *preview_pipette_range_item;
  const SANE_Option_Descriptor *opt;
  char buf[64];
- int i, select = 1;
+ int i, j, select = 1;
 
  typedef struct lineart_mode_t
  {
@@ -2231,6 +2294,44 @@ static void xsane_enhance_notebook(GtkWidget *notebook)
   gtk_widget_show(button);
   gtk_widget_show(hbox);
   xsane_setup.auto_enhance_gamma_button = button;
+
+
+  /* preview pipette range */
+  hbox = gtk_hbox_new(FALSE, 2);
+  gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
+
+  label = gtk_label_new(TEXT_SETUP_PREVIEW_PIPETTE_RANGE);
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_widget_show(label);
+
+  preview_pipette_range_option_menu = gtk_option_menu_new();
+  xsane_back_gtk_set_tooltip(xsane.tooltips, preview_pipette_range_option_menu, DESC_PREVIEW_PIPETTE_RANGE);
+  gtk_box_pack_end(GTK_BOX(hbox), preview_pipette_range_option_menu, FALSE, FALSE, 2);
+  gtk_widget_show(preview_pipette_range_option_menu);
+  gtk_widget_show(hbox);
+
+  preview_pipette_range_menu = gtk_menu_new();
+
+  j=1;
+  for (i=0; i<=3; i++)
+  {
+    snprintf(buf, sizeof(buf), "%d x %d pixel", j, j);
+    preview_pipette_range_item = gtk_menu_item_new_with_label(buf);
+    gtk_container_add(GTK_CONTAINER(preview_pipette_range_menu), preview_pipette_range_item);
+    gtk_signal_connect(GTK_OBJECT(preview_pipette_range_item), "activate",
+                       (GtkSignalFunc) xsane_setup_preview_pipette_range_callback, (void *) j);
+    gtk_widget_show(preview_pipette_range_item);
+    if (preferences.preview_pipette_range == j)
+    {
+      select = i;
+    }
+    j+=2;
+  }
+
+  gtk_option_menu_set_menu(GTK_OPTION_MENU(preview_pipette_range_option_menu), preview_pipette_range_menu);
+  gtk_option_menu_set_history(GTK_OPTION_MENU(preview_pipette_range_option_menu), select);
+  xsane_setup.preview_pipette_range = preferences.preview_pipette_range;
 
 
   xsane_separator_new(vbox, 4);

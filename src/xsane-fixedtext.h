@@ -3,7 +3,7 @@
    xsane-fixedtext.h
 
    Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
-   Copyright (C) 1998-2000 Oliver Rauch
+   Copyright (C) 1998-2001 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -26,17 +26,23 @@
 #define XSANE_FIXEDTEXT_H
 
 #ifdef _WIN32
-# define MENU_ITEM_FILETYPE_JPEG	".jpg"
-# define MENU_ITEM_FILETYPE_TIFF	".tif"
+# define XSANE_FILETYPE_JPEG		".jpg"
+# define XSANE_FILETYPE_TIFF		".tif"
 #else
-# define MENU_ITEM_FILETYPE_JPEG	".jpeg"
-# define MENU_ITEM_FILETYPE_TIFF	".tiff"
+# define XSANE_FILETYPE_JPEG		".jpeg"
+# define XSANE_FILETYPE_TIFF		".tiff"
 #endif
 
-#define MENU_ITEM_FILETYPE_PNG		".png"
-#define MENU_ITEM_FILETYPE_PNM		".pnm"
-#define MENU_ITEM_FILETYPE_PS		".ps"
-#define MENU_ITEM_FILETYPE_RAW		".raw"
+#define XSANE_FILETYPE_PNG		".png"
+#define XSANE_FILETYPE_PNM		".pnm"
+#define XSANE_FILETYPE_PS		".ps"
+#define XSANE_FILETYPE_RAW		".raw"
 
+#define MENU_ITEM_FILETYPE_JPEG		"JPEG"
+#define MENU_ITEM_FILETYPE_TIFF		"TIFF"
+#define MENU_ITEM_FILETYPE_PNG		"PNG"
+#define MENU_ITEM_FILETYPE_PNM		"PNM"
+#define MENU_ITEM_FILETYPE_PS		"PostScript"
+#define MENU_ITEM_FILETYPE_RAW		"RAW"
 
 #endif

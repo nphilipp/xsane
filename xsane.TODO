@@ -21,8 +21,6 @@ first steps:
       and show it in the preview.
  - preview:
     - force aspect ratio of selection area
-    + autoselection of scanarea cropping black or white margins (work in progress)
-    + define radius for pipette average
  - batch scan function
     - select multiple scan areas before starting the scan
  - rotate scan by 0/90/180/270 degree
@@ -62,6 +60,7 @@ second steps:
 
  - WIN32 version of xsane/sane
    + make internationalization work
+   - may be xsane-win32 without cygwin.dll on native win32 mode
    - may be later we make a sane-WIN32 version so that the backends do work too
 
 

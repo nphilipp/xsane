@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Xsane 0.62\n"
-"POT-Creation-Date: 2001-01-14 13:53+0100\n"
+"POT-Creation-Date: 2001-01-27 23:23+0100\n"
 "PO-Revision-Date: 2000-10-04 13:09+0300\n"
 "Last-Translator: Togan Müftüoðlu <toganm@yahoo.com>\n"
 "Language-Team: Turkish <tr@li.org>\n"
@@ -217,12 +217,9 @@ msgstr "Fine modu"
 msgid "Overwrite warning"
 msgstr "Üzerine yazma uyarýsý"
 
-#. RADIO_BUTTON_INCREASE_COUNTER
-msgid "Increase filename counter"
-msgstr "Dosya sayacýný arttýr"
-
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
-msgid "Skip existing numbers"
+#, fuzzy
+msgid "Skip existing filenames"
 msgstr "Varolan sayýlarý atla"
 
 #. RADIO_BUTTON_WINDOW_FIXED
@@ -256,6 +253,16 @@ msgstr "Xsane seçenekleri"
 #. TEXT_XSANE_MODE
 msgid "XSane mode"
 msgstr "Xsane modu"
+
+#. TEXT_FILENAME_COUNTER_STEP
+#, fuzzy
+msgid "Step"
+msgstr "Ayarlar"
+
+#. TEXT_FILETYPE
+#, fuzzy
+msgid "Type"
+msgstr "Tip:"
 
 #. TEXT_SCANNER_BACKEND
 msgid "Scanner and backend:"
@@ -503,6 +510,11 @@ msgstr "JPEG resim kalitesi"
 msgid "PNG image compression"
 msgstr "PNG resim sýkýþtýrmasý"
 
+#. TEXT_SETUP_FILENAME_COUNTER_LEN
+#, fuzzy
+msgid "Filename counter length"
+msgstr "Dosya adý sayacý karýþtý"
+
 #. TEXT_SETUP_TIFF_COMPRESSION_16
 msgid "TIFF 16 bit image compression"
 msgstr "TIFF 16 bit resim sýkýþtýrmasý"
@@ -559,6 +571,11 @@ msgstr "Threshold seçeneði"
 msgid "Automatic Document Feeder Modus:"
 msgstr ""
 
+#. TEXT_SETUP_PREVIEW_PIPETTE_RANGE
+#, fuzzy
+msgid "Preview pipette range"
+msgstr "Önizleme örnekleme:"
+
 #. TEXT_SETUP_THRESHOLD_MIN
 msgid "Threshold minimum:"
 msgstr "Threshold minimum:"
@@ -602,6 +619,18 @@ msgstr "Hassas mod seçeneði"
 #. TEXT_SETUP_FAX_VIEWER
 msgid "Viewer (Postscript):"
 msgstr "Ýzleyici (Postscript):"
+
+#. TEXT_SETUP_PERMISSION_USER
+msgid "user"
+msgstr ""
+
+#. TEXT_SETUP_PERMISSION_GROUP
+msgid "group"
+msgstr ""
+
+#. TEXT_SETUP_PERMISSION_ALL
+msgid "all"
+msgstr ""
 
 #. NOTEBOOK_COPY_OPTIONS
 msgid "Copy options"
@@ -735,6 +764,10 @@ msgstr "Tarama ipuçlarý"
 msgid "Problems?"
 msgstr "Problemler ?"
 
+#. MENU_ITEM_COUNTER_LEN_INACTIVE
+msgid "inactive"
+msgstr ""
+
 #. MENU_ITEM_TIFF_COMP_NONE
 msgid "no compression"
 msgstr "sýkýþtýrma yok"
@@ -811,6 +844,10 @@ msgstr "Data dönüþtürülüyor "
 msgid "Use XSane for SCANning, photoCOPYing, FAXing..."
 msgstr "Xsane'i TARAma,fotoKOPÝ, FAKS için kullanýn"
 
+#. DESC_FILENAME_COUNTER_STEP
+msgid "Value that is added to filenamecounter after scan"
+msgstr ""
+
 #. DESC_BROWSE_FILENAME
 msgid "Browse for image filename"
 msgstr "resim dosyasý ara"
@@ -820,8 +857,10 @@ msgid "Filename for scanned image"
 msgstr "Taranan resim için ad"
 
 #. DESC_FILETYPE
-msgid "Filename extension and type of image format"
-msgstr "resim formatý için dosya tipi ve eki"
+msgid ""
+"Type of image format, the suitable filename extension is automatically added "
+"to the filename"
+msgstr ""
 
 #. DESC_FAXPROJECT
 msgid "Enter name of fax project"
@@ -1074,6 +1113,10 @@ msgstr ""
 msgid "Compression if image is saved as png"
 msgstr "Eðer resim png olarak saklanýrsa sýkýþtýrma"
 
+#. DESC_FILENAME_COUNTER_LEN
+msgid "Minimum length of counter in filename"
+msgstr ""
+
 #. DESC_TIFF_COMPRESSION_16
 msgid "Compression type if 16 bit image is saved as tiff"
 msgstr "Eðer 16 bit resim tiff olarak saklanacaksa sýkýþtýrma tipi"
@@ -1089,14 +1132,6 @@ msgstr "Eðer lineart resim tiff olarak saklanacaksa sýkýþtýrma tipi"
 #. DESC_OVERWRITE_WARNING
 msgid "Warn before overwriting an existing file"
 msgstr "Varolan dosyanýn üzerine yazarken uyar"
-
-#. DESC_INCREASE_COUNTER
-msgid ""
-"If the filename is of the form \"name-001.ext\" (where the number of digits "
-"is free) the number is increased after a scan is finished"
-msgstr ""
-"Eðer dosyaadý \"isim-001.taký\" þeklinde ise (rakam "
-"kullanýmýserbesttir)rakam tarama bittikten sonra arttýrýlýr"
 
 #. DESC_SKIP_EXISTING
 msgid ""
@@ -1203,6 +1238,10 @@ msgid ""
 "selected xsane scans until \"out of paper\" or error."
 msgstr ""
 
+#. DESC_PREVIEW_PIPETTE_RANGE
+msgid "dimension of square that is used to average color for pipette function"
+msgstr ""
+
 #. DESC_DOC_VIEWER
 msgid ""
 "Enter command to be executed to display helpfiles, must be a html-viewer!"
@@ -1242,6 +1281,20 @@ msgstr "Faksý görmek için çalýþtýrýlacak komutu yazýn"
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
 msgstr "Faksý yüksek dikey çözünürlükle (98 lpi yerine 196 lpi ile)gönder"
 
+#. DESC_PERMISSION_READ
+msgid "read"
+msgstr ""
+
+#. DESC_PERMISSION_WRITE
+#, fuzzy
+msgid "write"
+msgstr "Üzerine yaz"
+
+#. DESC_PERMISSION_EXECUTE
+#, fuzzy
+msgid "execute"
+msgstr "Sil"
+
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
 msgstr "Beyaz nokta seç"
@@ -1274,6 +1327,20 @@ msgstr "Son zumu geri al"
 #. DESC_FULL_PREVIEW_AREA
 msgid "Select visible area"
 msgstr "Görülen alaný belirleyin"
+
+#. DESC_AUTOSELECT_SCANAREA
+#, fuzzy
+msgid "Autoselect scanarea"
+msgstr "Tüm tarama alanýný kullan"
+
+#. DESC_PRESET_AREA
+#, fuzzy
+msgid "Reduce scan area"
+msgstr "Tüm tarama alanýný kullan"
+
+#. DESC_ROTATION
+msgid "Rotate preview and scan"
+msgstr ""
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -1428,8 +1495,9 @@ msgstr "Önizleme bit derinliðini kullanamaz"
 msgid "GIMP support missing"
 msgstr "GIMP desteði kayýp"
 
-#. WARN_COUNTER_OVERFLOW
-msgid "Filename counter overflow"
+#. WARN_COUNTER_UNDERRUN
+#, fuzzy
+msgid "Filename counter underrun"
 msgstr "Dosya adý sayacý karýþtý"
 
 #. WARN_NO_VALUE_CONSTRAINT
@@ -1600,6 +1668,61 @@ msgstr "<Araçkutusu>/XTns/Xsane/Aygýt diyalog "
 msgid "<Toolbox>/Xtns/XSane/"
 msgstr "<Araçkutusu>/Xtns/XSane/"
 
+#. strings that are used in structures, so it is not allowed to use _()/gettext() here
+#. gettext_noop does mark these texts but does not change the string
+#. MENU_ITEM_SURFACE_FULL_SIZE
+msgid "full size"
+msgstr ""
+
+#. MENU_ITEM_SURFACE_DIN_A3P
+msgid "DIN A3 port."
+msgstr ""
+
+#. MENU_ITEM_SURFACE_DIN_A3L
+msgid "DIN A3 land."
+msgstr ""
+
+#. MENU_ITEM_SURFACE_DIN_A4P
+msgid "DIN A4 port."
+msgstr ""
+
+#. MENU_ITEM_SURFACE_DIN_A4L
+msgid "DIN A4 land."
+msgstr ""
+
+#. MENU_ITEM_SURFACE_DIN_A5P
+msgid "DIN A5 port."
+msgstr ""
+
+#. MENU_ITEM_SURFACE_DIN_A5L
+msgid "DIN A5 land."
+msgstr ""
+
+#. MENU_ITEM_SURFACE_9cmx13cm
+msgid "9cm x 13cm"
+msgstr ""
+
+#. MENU_ITEM_SURFACE_13cmx9cm
+msgid "13cm x 9cm"
+msgstr ""
+
+#. MENU_ITEM_SURFACE_legal_P
+msgid "legal port."
+msgstr ""
+
+#. MENU_ITEM_SURFACE_legal_L
+msgid "legal land."
+msgstr ""
+
+#. MENU_ITEM_SURFACE_letter_P
+#, fuzzy
+msgid "letter port."
+msgstr "Proje sil"
+
+#. MENU_ITEM_SURFACE_letter_L
+msgid "letter land."
+msgstr ""
+
 #. Sane backend messages
 msgid "flatbed scanner"
 msgstr "flatbed tarayýcý"
@@ -1654,6 +1777,23 @@ msgstr "Yetersiz hafýza"
 
 msgid "Access to resource has been denied"
 msgstr "Kaynaða eriþim reddedildi"
+
+#~ msgid "Increase filename counter"
+#~ msgstr "Dosya sayacýný arttýr"
+
+#~ msgid ""
+#~ "If the filename is of the form \"name-001.ext\" (where the number of digits "
+#~ "is free) the number is increased after a scan is finished"
+#~ msgstr ""
+#~ "Eðer dosyaadý \"isim-001.taký\" þeklinde ise (rakam "
+#~ "kullanýmýserbesttir)rakam tarama bittikten sonra arttýrýlýr"
+
+#~ msgid "Filename extension and type of image format"
+#~ msgstr "resim formatý için dosya tipi ve eki"
+
+#, fuzzy
+#~ msgid "Filename counter step"
+#~ msgstr "Dosya adý sayacý karýþtý"
 
 #~ msgid "Exit"
 #~ msgstr "Çýkýþ"

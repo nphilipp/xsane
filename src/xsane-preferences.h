@@ -3,7 +3,7 @@
    xsane-preferences.h
 
    Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
-   Copyright (C) 1998-2000 Oliver Rauch
+   Copyright (C) 1998-2001 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -78,8 +78,9 @@ typedef struct
     int    tiff_compression8_nr;	/* compression type nr when saving 8 bit image as tiff */
     int    tiff_compression1_nr;	/* compression type nr when saving 1 bit image as tiff */
     int    overwrite_warning;		/* warn if file exists */
-    int    increase_filename_counter;	/* automatically increase counter */
-    int    skip_existing_numbers;	/* automatically increase counter */
+    int    skip_existing_numbers;	/* skip used filenames when automatically increase counter */
+    int    filename_counter_step;	/* filename_counter += filename_counter_step; */
+    int    filename_counter_len;	/* minimum length of filename_counter */
     double psfile_width;		/* width of psfile in mm */
     double psfile_height;		/* height of psfile in mm */
     double psfile_leftoffset;		/* left offset of psfile in mm */
@@ -100,6 +101,7 @@ typedef struct
     double preview_gamma_green;		/* green gamma value for previews */
     double preview_gamma_blue;		/* blue gamma value for previews */
     int    disable_gimp_preview_gamma;	/* fixed (1) or scrolled (0) main window */
+    int    preview_pipette_range;	/* dimension of a square that is used to pick pipette color */
     double xsane_gamma;
     double xsane_gamma_red;
     double xsane_gamma_green;

@@ -3,7 +3,7 @@
    xsane.c
 
    Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
-   Copyright (C) 1998-2000 Oliver Rauch
+   Copyright (C) 1998-2001 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -94,6 +94,7 @@ static void xsane_threshold_changed(void);
 static void xsane_gamma_changed(GtkAdjustment *adj_data, double *val);
 static void xsane_set_modus_defaults(void);
 static void xsane_modus_callback(GtkWidget *xsane_parent, int *num);
+static void xsane_filename_counter_step_callback(GtkWidget *widget, gpointer data);
 static void xsane_filetype_callback(GtkWidget *widget, gpointer data);
 static void xsane_outputfilename_changed_callback(GtkWidget *widget, gpointer data);
 static void xsane_browse_filename_callback(GtkWidget *widget, gpointer data);
@@ -354,6 +355,15 @@ static void xsane_modus_callback(GtkWidget *xsane_parent, int *num)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static void xsane_filename_counter_step_callback(GtkWidget *widget, gpointer data)
+{
+  DBG(DBG_proc, "xsane_filename_counter_step_callback\n");
+ 
+  preferences.filename_counter_step = (int) data;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void xsane_filetype_callback(GtkWidget *widget, gpointer data)
 {
   DBG(DBG_proc, "xsane_filetype_callback\n");
@@ -396,6 +406,8 @@ static void xsane_filetype_callback(GtkWidget *widget, gpointer data)
     xsane.filetype = strdup((char *) data); /* set extension for filename */
   }
 
+  /* correct length of filename counter if it is shorter than minimum length */
+  xsane_update_counter_in_filename(&preferences.filename, FALSE, 0, preferences.filename_counter_len);
   gtk_entry_set_text(GTK_ENTRY(xsane.outputfilename_entry), preferences.filename);
   xsane_define_maximum_output_size(); /* is necessary in postscript mode */
 }
@@ -453,8 +465,6 @@ static void xsane_browse_filename_callback(GtkWidget *widget, gpointer data)
   xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, TRUE);
   umask(XSANE_DEFAULT_UMASK); /* define new file permissions */    
 
-  gtk_entry_set_text(GTK_ENTRY(xsane.outputfilename_entry), filename);
-
   if (preferences.filename)
   {
     free((void *) preferences.filename);
@@ -463,6 +473,11 @@ static void xsane_browse_filename_callback(GtkWidget *widget, gpointer data)
   xsane_set_sensitivity(TRUE);
 
   preferences.filename = strdup(filename);
+
+  /* correct length of filename counter if it is shorter than minimum length */
+  xsane_update_counter_in_filename(&preferences.filename, FALSE, 0, preferences.filename_counter_len);
+
+  gtk_entry_set_text(GTK_ENTRY(xsane.outputfilename_entry), preferences.filename);
 
   gtk_option_menu_set_history(GTK_OPTION_MENU(xsane.filetype_option_menu), 0); /* set menu to "by ext" */
   xsane_define_maximum_output_size(); /* is necessary in postscript mode */
@@ -476,14 +491,24 @@ static void xsane_outputfilename_new(GtkWidget *vbox)
  GtkWidget *text;
  GtkWidget *button;
  GtkWidget *xsane_filetype_menu, *xsane_filetype_item;
+ GtkWidget *xsane_filename_counter_step_option_menu;
+ GtkWidget *xsane_filename_counter_step_menu;
+ GtkWidget *xsane_filename_counter_step_item;
+ GtkWidget *xsane_label;
+ gchar buf[200];
+ int i,j;
+ int select_item = 0;
 
   DBG(DBG_proc, "xsane_outputfilename_new\n");
+
+  /* first line: disk icon, filename box */
 
   hbox = gtk_hbox_new(FALSE, 2);
   gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
 
-  button = xsane_button_new_with_pixmap(xsane.xsane_window->window, hbox, file_xpm, DESC_BROWSE_FILENAME, (GtkSignalFunc) xsane_browse_filename_callback, NULL);
+  button = xsane_button_new_with_pixmap(xsane.xsane_window->window, hbox, file_xpm, DESC_BROWSE_FILENAME,
+                                        (GtkSignalFunc) xsane_browse_filename_callback, NULL);
   gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_B, GDK_CONTROL_MASK, GTK_ACCEL_LOCKED);
 
   text = gtk_entry_new_with_max_length(255);
@@ -494,6 +519,50 @@ static void xsane_outputfilename_new(GtkWidget *vbox)
   gtk_signal_connect(GTK_OBJECT(text), "changed", (GtkSignalFunc) xsane_outputfilename_changed_callback, NULL);
 
   xsane.outputfilename_entry = text;
+
+  gtk_widget_show(text);
+  gtk_widget_show(hbox);
+
+
+  /* second line: Step, Type */
+
+  hbox = gtk_hbox_new(FALSE, 2);
+  gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+
+  /* filename counter step */
+ 
+  xsane_label = gtk_label_new(TEXT_FILENAME_COUNTER_STEP);
+  gtk_box_pack_start(GTK_BOX(hbox), xsane_label, FALSE, FALSE, 2);
+  gtk_widget_show(xsane_label);
+ 
+  xsane_filename_counter_step_option_menu = gtk_option_menu_new();
+  xsane_back_gtk_set_tooltip(xsane.tooltips, xsane_filename_counter_step_option_menu, DESC_FILENAME_COUNTER_STEP);
+  gtk_box_pack_start(GTK_BOX(hbox), xsane_filename_counter_step_option_menu, FALSE, FALSE, 2);
+  gtk_widget_show(xsane_filename_counter_step_option_menu);
+  gtk_widget_show(hbox);
+ 
+  xsane_filename_counter_step_menu = gtk_menu_new();
+
+  j = -2;
+  for (i=0; i < 5; i++)
+  {
+    snprintf(buf, sizeof(buf), "%+d", j);
+    xsane_filename_counter_step_item = gtk_menu_item_new_with_label(buf);
+    gtk_container_add(GTK_CONTAINER(xsane_filename_counter_step_menu), xsane_filename_counter_step_item);
+    gtk_signal_connect(GTK_OBJECT(xsane_filename_counter_step_item), "activate",
+                       (GtkSignalFunc) xsane_filename_counter_step_callback, (void *) j);
+    gtk_widget_show(xsane_filename_counter_step_item);
+    if (preferences.filename_counter_step == j++)
+    {
+      select_item = i;
+    }
+  }
+ 
+  gtk_option_menu_set_menu(GTK_OPTION_MENU(xsane_filename_counter_step_option_menu), xsane_filename_counter_step_menu);
+  gtk_option_menu_set_history(GTK_OPTION_MENU(xsane_filename_counter_step_option_menu), select_item);
+
+  /* filetype */
 
   xsane_filetype_menu = gtk_menu_new();
 
@@ -507,7 +576,7 @@ static void xsane_outputfilename_new(GtkWidget *vbox)
   xsane_filetype_item = gtk_menu_item_new_with_label(MENU_ITEM_FILETYPE_JPEG);
   gtk_container_add(GTK_CONTAINER(xsane_filetype_menu), xsane_filetype_item);
   gtk_signal_connect(GTK_OBJECT(xsane_filetype_item), "activate",
-                     (GtkSignalFunc) xsane_filetype_callback, MENU_ITEM_FILETYPE_JPEG);
+                     (GtkSignalFunc) xsane_filetype_callback, XSANE_FILETYPE_JPEG);
   gtk_widget_show(xsane_filetype_item);
 #endif
 
@@ -516,7 +585,7 @@ static void xsane_outputfilename_new(GtkWidget *vbox)
   xsane_filetype_item = gtk_menu_item_new_with_label(MENU_ITEM_FILETYPE_PNG);
   gtk_container_add(GTK_CONTAINER(xsane_filetype_menu), xsane_filetype_item);
   gtk_signal_connect(GTK_OBJECT(xsane_filetype_item), "activate",
-                     (GtkSignalFunc) xsane_filetype_callback, MENU_ITEM_FILETYPE_PNG);
+                     (GtkSignalFunc) xsane_filetype_callback, XSANE_FILETYPE_PNG);
   gtk_widget_show(xsane_filetype_item);
 #endif
 #endif
@@ -524,26 +593,26 @@ static void xsane_outputfilename_new(GtkWidget *vbox)
   xsane_filetype_item = gtk_menu_item_new_with_label(MENU_ITEM_FILETYPE_PNM);
   gtk_container_add(GTK_CONTAINER(xsane_filetype_menu), xsane_filetype_item);
   gtk_signal_connect(GTK_OBJECT(xsane_filetype_item), "activate",
-                     (GtkSignalFunc) xsane_filetype_callback, MENU_ITEM_FILETYPE_PNM);
+                     (GtkSignalFunc) xsane_filetype_callback, XSANE_FILETYPE_PNM);
   gtk_widget_show(xsane_filetype_item);
 
   xsane_filetype_item = gtk_menu_item_new_with_label(MENU_ITEM_FILETYPE_PS);
   gtk_container_add(GTK_CONTAINER(xsane_filetype_menu), xsane_filetype_item);
   gtk_signal_connect(GTK_OBJECT(xsane_filetype_item), "activate",
-                     (GtkSignalFunc) xsane_filetype_callback, MENU_ITEM_FILETYPE_PS);
+                     (GtkSignalFunc) xsane_filetype_callback, XSANE_FILETYPE_PS);
   gtk_widget_show(xsane_filetype_item);
 
   xsane_filetype_item = gtk_menu_item_new_with_label(MENU_ITEM_FILETYPE_RAW);
   gtk_container_add(GTK_CONTAINER(xsane_filetype_menu), xsane_filetype_item);
   gtk_signal_connect(GTK_OBJECT(xsane_filetype_item), "activate",
-                     (GtkSignalFunc) xsane_filetype_callback, MENU_ITEM_FILETYPE_RAW);
+                     (GtkSignalFunc) xsane_filetype_callback, XSANE_FILETYPE_RAW);
   gtk_widget_show(xsane_filetype_item);
 
 #ifdef HAVE_LIBTIFF
   xsane_filetype_item = gtk_menu_item_new_with_label(MENU_ITEM_FILETYPE_TIFF);
   gtk_container_add(GTK_CONTAINER(xsane_filetype_menu), xsane_filetype_item);
   gtk_signal_connect(GTK_OBJECT(xsane_filetype_item), "activate",
-                     (GtkSignalFunc) xsane_filetype_callback, MENU_ITEM_FILETYPE_TIFF);
+                     (GtkSignalFunc) xsane_filetype_callback, XSANE_FILETYPE_TIFF);
   gtk_widget_show(xsane_filetype_item);
 #endif
 
@@ -553,6 +622,10 @@ static void xsane_outputfilename_new(GtkWidget *vbox)
   gtk_option_menu_set_menu(GTK_OPTION_MENU(xsane.filetype_option_menu), xsane_filetype_menu);
   gtk_option_menu_set_history(GTK_OPTION_MENU(xsane.filetype_option_menu), 0);
   gtk_widget_show(xsane.filetype_option_menu);
+
+  xsane_label = gtk_label_new(TEXT_FILETYPE); /* opposite order because of box_pack_end */
+  gtk_box_pack_end(GTK_BOX(hbox), xsane_label, FALSE, FALSE, 2);
+  gtk_widget_show(xsane_label);
 
   gtk_widget_show(text);
   gtk_widget_show(hbox);
@@ -811,7 +884,7 @@ static void xsane_show_histogram_callback(GtkWidget * widget)
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 #ifdef HAVE_WORKING_GTK_GAMMACURVE
-static void xsane_show_gamma_callback(GtkWidget * widget)
+static void xsane_show_gamma_callback(GtkWidget *widget)
 {
   DBG(DBG_proc, "xsane_show_gamma_callback\n");
 
@@ -1575,7 +1648,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
 
     if ( (xsane.mode == XSANE_STANDALONE) && (!xsane.force_filename) )
     {
-      xsane_outputfilename_new(xsane_vbox_xsane_modus);
+      xsane_outputfilename_new(xsane_vbox_xsane_modus); /* create filename box, step and type menu */
     }
 
     /* resolution selection */

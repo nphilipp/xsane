@@ -1286,3 +1286,49 @@ xsane-0.69 -> 0.70:
      100 100
      65535
 
+
+
+xsane-0.70 -> 0.71:
+-------------------
+
+ - corrected aspect ratio in xsane-preview.c in routine that calculates preview resolution
+
+ - corrected user definition of maximum scanner surface
+ 
+ - added translation of preview menu maximum surface(preset area)
+
+ - added tooltip for maximum surface(preset area) menu and rotation menu
+
+ - finished  preview_autoselect_scanarea()
+
+ - added autoselect scanarea button to preview window
+
+ - changed automaitic increase of filename counter:
+   - the step direction and length is not forced to +1,
+     the user can select one of the values -2/-1/0/+1/+2.
+     It is defined by preferences.filename_counter_step.
+     This way it is possible to scan double sided papers
+     with correct automatic page number generation.
+   - the digits are not increased by a loop any more,
+     the number is read, the new number is calculated
+     and the new filename is generated. The user can
+     select a minimum filename counter length now,
+     it is defined in preferences.filename_counter_len
+     and can be selected by the user in setup/saving options
+   - when the number of digits are not enough the number is
+     automatically increased now.
+   - a message comes up when counter gets smaller than 0
+   
+ - pipette the color is averaged on a square, the size of the
+   square can be defined by the user
+
+ - updated html doc (not complete)
+
+ - added tooltips to permission buttons (r,w,x)
+ - permission texts: user, group, all, read, write, execute
+   can be translated now.
+
+ - added japanese translation (thanks to Kimizuka Tomokazu <sgtom@pluto.dti.ne.jp>)
+
+ - renamed oldgimp.h to gimp-1_0-compat.h
+

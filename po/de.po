@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.62\n"
-"POT-Creation-Date: 2001-01-14 13:53+0100\n"
+"POT-Creation-Date: 2001-01-27 23:23+0100\n"
 "PO-Revision-Date: 2000-01-21 15:51+01:00\n"
 "Last-Translator: Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>\n"
 "Language-Team: German <de@li.org>\n"
@@ -217,13 +217,9 @@ msgstr "Fein-Modus"
 msgid "Overwrite warning"
 msgstr "Überschreibwarnung"
 
-#. RADIO_BUTTON_INCREASE_COUNTER
-msgid "Increase filename counter"
-msgstr "Dateinamenzähler erhöhen"
-
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
-msgid "Skip existing numbers"
-msgstr "Existierende Werte überspringen"
+msgid "Skip existing filenames"
+msgstr "Existierende Dateinamen überspringen"
 
 #. RADIO_BUTTON_WINDOW_FIXED
 msgid "Main window size fixed"
@@ -256,6 +252,14 @@ msgstr "XSane Optionen"
 #. TEXT_XSANE_MODE
 msgid "XSane mode"
 msgstr "XSane Modus"
+
+#. TEXT_FILENAME_COUNTER_STEP
+msgid "Step"
+msgstr "Schritt"
+
+#. TEXT_FILETYPE
+msgid "Type"
+msgstr "Typ"
 
 #. TEXT_SCANNER_BACKEND
 msgid "Scanner and backend:"
@@ -335,11 +339,11 @@ msgstr "Autorisation benötigt für"
 
 #. TEXT_AUTHORIZATION_SECURE
 msgid "Password transmission is secure"
-msgstr ""
+msgstr "Passwortübertragung ist sicher"
 
 #. TEXT_AUTHORIZATION_INSECURE
 msgid "Backend requests plain-text password"
-msgstr ""
+msgstr "Backend erbittet unverschlüsseltes Passwort"
 
 #. TEXT_USERNAME
 msgid "Username :"
@@ -503,6 +507,10 @@ msgstr "JPEG Bildqualität"
 msgid "PNG image compression"
 msgstr "PNG Bildkompression"
 
+#. TEXT_SETUP_FILENAME_COUNTER_LEN
+msgid "Filename counter length"
+msgstr "Dateinamenzähler Länge"
+
 #. TEXT_SETUP_TIFF_COMPRESSION_16
 msgid "TIFF 16 bit image compression"
 msgstr "TIFF 16 bit Bildkompression"
@@ -557,7 +565,11 @@ msgstr "Schwellwert Option:"
 
 #. TEXT_SETUP_ADF_MODE
 msgid "Automatic Document Feeder Modus:"
-msgstr ""
+msgstr "Modus automatischer Dokumenteneinzug:"
+
+#. TEXT_SETUP_PREVIEW_PIPETTE_RANGE
+msgid "Preview pipette range"
+msgstr "Vorschau Bereich Pipette"
 
 #. TEXT_SETUP_THRESHOLD_MIN
 msgid "Threshold minimum:"
@@ -602,6 +614,18 @@ msgstr "Option für Feinmodus:"
 #. TEXT_SETUP_FAX_VIEWER
 msgid "Viewer (Postscript):"
 msgstr "Betrachter (Postscript):"
+
+#. TEXT_SETUP_PERMISSION_USER
+msgid "user"
+msgstr "Benutzer"
+
+#. TEXT_SETUP_PERMISSION_GROUP
+msgid "group"
+msgstr "Gruppe"
+
+#. TEXT_SETUP_PERMISSION_ALL
+msgid "all"
+msgstr "Alle"
 
 #. NOTEBOOK_COPY_OPTIONS
 msgid "Copy options"
@@ -735,6 +759,10 @@ msgstr "Scantipps"
 msgid "Problems?"
 msgstr "Probleme?"
 
+#. MENU_ITEM_COUNTER_LEN_INACTIVE
+msgid "inactive"
+msgstr "nicht aktiv"
+
 #. MENU_ITEM_TIFF_COMP_NONE
 msgid "no compression"
 msgstr "keine Kompression"
@@ -808,6 +836,10 @@ msgstr "Konvertiere Daten"
 msgid "Use XSane for SCANning, photoCOPYing, FAXing..."
 msgstr "Benutze XSane zum Scannen, Kopieren oder Faxen"
 
+#. DESC_FILENAME_COUNTER_STEP
+msgid "Value that is added to filenamecounter after scan"
+msgstr "Wert, der nach einem Scan zum Dateinamenzähler addiert wird"
+
 #. DESC_BROWSE_FILENAME
 msgid "Browse for image filename"
 msgstr "Suche nach Bild-Dateinamen"
@@ -817,8 +849,12 @@ msgid "Filename for scanned image"
 msgstr "Dateiname für gescanntes Bild"
 
 #. DESC_FILETYPE
-msgid "Filename extension and type of image format"
-msgstr "Dateinamenerweiterung und Format der Bilddatei"
+msgid ""
+"Type of image format, the suitable filename extension is automatically added "
+"to the filename"
+msgstr ""
+"Dateiformat, die passende Dateinamen-Erweiterung wird autmatisch an den "
+"Dateinamen angehängt"
 
 #. DESC_FAXPROJECT
 msgid "Enter name of fax project"
@@ -1076,6 +1112,10 @@ msgstr ""
 msgid "Compression if image is saved as png"
 msgstr "Kompression wenn Bild im PNG-Format gespeichert wird"
 
+#. DESC_FILENAME_COUNTER_LEN
+msgid "Minimum length of counter in filename"
+msgstr "Minimale Laenge des Zaehlers im Dateinamen"
+
 #. DESC_TIFF_COMPRESSION_16
 msgid "Compression type if 16 bit image is saved as tiff"
 msgstr "Kompression wenn 16 bit Bild im TIFF-Format gespeichert wird"
@@ -1091,12 +1131,6 @@ msgstr "Kompression wenn lineart Bild im TIFF-Format gespeichert wird"
 #. DESC_OVERWRITE_WARNING
 msgid "Warn before overwriting an existing file"
 msgstr "Warne vorm Überschreiben exisitierender Dateien"
-
-#. DESC_INCREASE_COUNTER
-msgid ""
-"If the filename is of the form \"name-001.ext\" (where the number of digits "
-"is free) the number is increased after a scan is finished"
-msgstr "... wenn der Dateiname folgender Form ist: \"name-001.erw\""
 
 #. DESC_SKIP_EXISTING
 msgid ""
@@ -1209,6 +1243,12 @@ msgstr ""
 "Scanquelle angewählt ist, scannt xsane bis \"kein Papier\" oder ein Fehler "
 "auftritt."
 
+#. DESC_PREVIEW_PIPETTE_RANGE
+msgid "dimension of square that is used to average color for pipette function"
+msgstr ""
+"Größe des Quadrats, das zum Mitteln der Farbe für die Pipette Funkiton "
+"benutzt wird"
+
 #. DESC_DOC_VIEWER
 msgid ""
 "Enter command to be executed to display helpfiles, must be a html-viewer!"
@@ -1219,6 +1259,8 @@ msgstr ""
 #. DESC_AUTOENHANCE_GAMMA
 msgid "Change gamma value when autoenhancement button is pressed"
 msgstr ""
+"Gamma Wert wird angepasst wenn Knopf für automatische Verbesserung gedrückt "
+"wird"
 
 #. DESC_FAX_COMMAND
 msgid "Enter command to be executed in fax mode"
@@ -1250,6 +1292,18 @@ msgstr ""
 #. DESC_FAX_FINE_MODE
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
 msgstr "Sende Fax mit hoher vertikaler Auflösung (196 lpi anstatt 98 lpi)"
+
+#. DESC_PERMISSION_READ
+msgid "read"
+msgstr "lesen"
+
+#. DESC_PERMISSION_WRITE
+msgid "write"
+msgstr "schreiben"
+
+#. DESC_PERMISSION_EXECUTE
+msgid "execute"
+msgstr "ausführen"
 
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
@@ -1283,6 +1337,18 @@ msgstr "letzten Zoom rückgängig machen"
 #. DESC_FULL_PREVIEW_AREA
 msgid "Select visible area"
 msgstr "Sichtbaren Bereich auswählen"
+
+#. DESC_AUTOSELECT_SCANAREA
+msgid "Autoselect scanarea"
+msgstr "Scanbereich automatisch wählen"
+
+#. DESC_PRESET_AREA
+msgid "Reduce scan area"
+msgstr "Reduziere Scanbereich"
+
+#. DESC_ROTATION
+msgid "Rotate preview and scan"
+msgstr "Drehe Vorschau und Scan"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -1403,7 +1469,7 @@ msgstr "konnte Auflösung nicht definieren"
 #. ERR_PASSWORD_FILE_INSECURE
 #, c-format
 msgid "Password file (%s) is insecure, use permission x00\n"
-msgstr ""
+msgstr "Passwortdatei (%s) ist unsicher, benutze Rechte x00\n"
 
 #. ERR_ERROR
 msgid "error"
@@ -1437,9 +1503,9 @@ msgstr "Vorschau kann Bittiefe nicht handhaben:"
 msgid "GIMP support missing"
 msgstr "GIMP Unterstützung fehlt"
 
-#. WARN_COUNTER_OVERFLOW
-msgid "Filename counter overflow"
-msgstr "Dateinamenzähler übergelaufen"
+#. WARN_COUNTER_UNDERRUN
+msgid "Filename counter underrun"
+msgstr "Dateinamenzähler Unterlauf"
 
 #. WARN_NO_VALUE_CONSTRAINT
 msgid "warning: option has no value constraint"
@@ -1610,6 +1676,60 @@ msgstr "<Toolbox>/Xtns/XSane/Geräteauswahl"
 msgid "<Toolbox>/Xtns/XSane/"
 msgstr "<Toolbox>/Xtns/XSane/"
 
+#. strings that are used in structures, so it is not allowed to use _()/gettext() here
+#. gettext_noop does mark these texts but does not change the string
+#. MENU_ITEM_SURFACE_FULL_SIZE
+msgid "full size"
+msgstr "volle Größe"
+
+#. MENU_ITEM_SURFACE_DIN_A3P
+msgid "DIN A3 port."
+msgstr "DIN A3 hoch"
+
+#. MENU_ITEM_SURFACE_DIN_A3L
+msgid "DIN A3 land."
+msgstr "DIN A3 quer"
+
+#. MENU_ITEM_SURFACE_DIN_A4P
+msgid "DIN A4 port."
+msgstr "DIN A4 hoch"
+
+#. MENU_ITEM_SURFACE_DIN_A4L
+msgid "DIN A4 land."
+msgstr "DIN A4 quer"
+
+#. MENU_ITEM_SURFACE_DIN_A5P
+msgid "DIN A5 port."
+msgstr "DIN A5 hoch"
+
+#. MENU_ITEM_SURFACE_DIN_A5L
+msgid "DIN A5 land."
+msgstr "DIN A5 quer"
+
+#. MENU_ITEM_SURFACE_9cmx13cm
+msgid "9cm x 13cm"
+msgstr ""
+
+#. MENU_ITEM_SURFACE_13cmx9cm
+msgid "13cm x 9cm"
+msgstr ""
+
+#. MENU_ITEM_SURFACE_legal_P
+msgid "legal port."
+msgstr "legal hoch"
+
+#. MENU_ITEM_SURFACE_legal_L
+msgid "legal land."
+msgstr "legal quer"
+
+#. MENU_ITEM_SURFACE_letter_P
+msgid "letter port."
+msgstr "letter hoch"
+
+#. MENU_ITEM_SURFACE_letter_L
+msgid "letter land."
+msgstr "letter quer"
+
 #. Sane backend messages
 msgid "flatbed scanner"
 msgstr "Flachbettscanner"
@@ -1664,29 +1784,3 @@ msgstr "Kein Speicher"
 
 msgid "Access to resource has been denied"
 msgstr "Zugang zum Gerät wurde verweigert"
-
-#~ msgid "Exit"
-#~ msgstr "Beenden"
-
-#~ msgid "Preserve preview image"
-#~ msgstr "Behalte Vorschaubild"
-
-#~ msgid "Device options"
-#~ msgstr "Geräteoptionen"
-
-#~ msgid "Preserve preview image for next program start"
-#~ msgstr "Behalte Vorschaubild für nächsten Programmstart"
-
-#~ msgid "Lineart/threshold handling:"
-#~ msgstr "Strichzeichnung/Schwellwert Handhabung"
-
-#~ msgid "Lineart preview scanmode:"
-#~ msgstr "Vorschaumodus Strichzeichnung"
-
-#~ msgid "Grayscale preview"
-#~ msgstr "Grautstufen Vorschauscan"
-
-#~ msgid ""
-#~ "Select modus that shall be used for lineart previews (Lineart or Grayscale)"
-#~ msgstr ""
-#~ "Scanmodus für Strichzeichnungsvorschauscans auswählen (Lineart, Grayscale)"

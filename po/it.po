@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.62\n"
-"POT-Creation-Date: 2001-01-14 13:53+0100\n"
+"POT-Creation-Date: 2001-01-27 23:23+0100\n"
 "PO-Revision-Date: 2000-09-29  23:48+0100\n"
 "Last-Translator: Colorio Mauro <linuxbox@interfree.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -217,12 +217,9 @@ msgstr "Modo fine"
 msgid "Overwrite warning"
 msgstr "Attenzione sovrascrittura"
 
-#. RADIO_BUTTON_INCREASE_COUNTER
-msgid "Increase filename counter"
-msgstr "Incrementa contatore nome file"
-
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
-msgid "Skip existing numbers"
+#, fuzzy
+msgid "Skip existing filenames"
 msgstr "Salta numeri esistenti"
 
 #. RADIO_BUTTON_WINDOW_FIXED
@@ -256,6 +253,16 @@ msgstr "Opzioni XSane"
 #. TEXT_XSANE_MODE
 msgid "XSane mode"
 msgstr "Modo XSane"
+
+#. TEXT_FILENAME_COUNTER_STEP
+#, fuzzy
+msgid "Step"
+msgstr "Imposta"
+
+#. TEXT_FILETYPE
+#, fuzzy
+msgid "Type"
+msgstr "Tipo:"
 
 #. TEXT_SCANNER_BACKEND
 msgid "Scanner and backend:"
@@ -502,6 +509,11 @@ msgstr "Qualità immagine JPEG"
 msgid "PNG image compression"
 msgstr "Compressione immagine PNG"
 
+#. TEXT_SETUP_FILENAME_COUNTER_LEN
+#, fuzzy
+msgid "Filename counter length"
+msgstr "Contatore dei nome file troppo grande"
+
 #. TEXT_SETUP_TIFF_COMPRESSION_16
 msgid "TIFF 16 bit image compression"
 msgstr "Compressione immagine TIFF a 16 bit"
@@ -558,6 +570,11 @@ msgstr "Opzione soglia:"
 msgid "Automatic Document Feeder Modus:"
 msgstr ""
 
+#. TEXT_SETUP_PREVIEW_PIPETTE_RANGE
+#, fuzzy
+msgid "Preview pipette range"
+msgstr "Anteprima oversampling:"
+
 #. TEXT_SETUP_THRESHOLD_MIN
 msgid "Threshold minimum:"
 msgstr "Soglia minima:"
@@ -601,6 +618,18 @@ msgstr "Opzioni modo fine:"
 #. TEXT_SETUP_FAX_VIEWER
 msgid "Viewer (Postscript):"
 msgstr "Visualizzatore (Postscript):"
+
+#. TEXT_SETUP_PERMISSION_USER
+msgid "user"
+msgstr ""
+
+#. TEXT_SETUP_PERMISSION_GROUP
+msgid "group"
+msgstr ""
+
+#. TEXT_SETUP_PERMISSION_ALL
+msgid "all"
+msgstr ""
 
 #. NOTEBOOK_COPY_OPTIONS
 msgid "Copy options"
@@ -734,6 +763,10 @@ msgstr "Scantips"
 msgid "Problems?"
 msgstr "Problemi?"
 
+#. MENU_ITEM_COUNTER_LEN_INACTIVE
+msgid "inactive"
+msgstr ""
+
 #. MENU_ITEM_TIFF_COMP_NONE
 msgid "no compression"
 msgstr "nessuna compressione"
@@ -810,6 +843,10 @@ msgstr "Conversione dati"
 msgid "Use XSane for SCANning, photoCOPYing, FAXing..."
 msgstr "Usare XSane per acquisizioni, fotocopie , fax..."
 
+#. DESC_FILENAME_COUNTER_STEP
+msgid "Value that is added to filenamecounter after scan"
+msgstr ""
+
 #. DESC_BROWSE_FILENAME
 msgid "Browse for image filename"
 msgstr "Navia per nome file immagine"
@@ -819,8 +856,10 @@ msgid "Filename for scanned image"
 msgstr "Nome file per immagine acquisita"
 
 #. DESC_FILETYPE
-msgid "Filename extension and type of image format"
-msgstr "Estensione file e tipo formato dell'immagine"
+msgid ""
+"Type of image format, the suitable filename extension is automatically added "
+"to the filename"
+msgstr ""
 
 #. DESC_FAXPROJECT
 msgid "Enter name of fax project"
@@ -1077,6 +1116,10 @@ msgstr ""
 msgid "Compression if image is saved as png"
 msgstr "Compressione se l'immagine viene salvata come png"
 
+#. DESC_FILENAME_COUNTER_LEN
+msgid "Minimum length of counter in filename"
+msgstr ""
+
 #. DESC_TIFF_COMPRESSION_16
 msgid "Compression type if 16 bit image is saved as tiff"
 msgstr "Tipo di compressione se l'immagine a 16 bit viene salvata come tiff"
@@ -1092,14 +1135,6 @@ msgstr "Tipo compressione se l'immagine lineart viene salvata come tiff"
 #. DESC_OVERWRITE_WARNING
 msgid "Warn before overwriting an existing file"
 msgstr "Segnale prima di sovrascrivere un file esistente"
-
-#. DESC_INCREASE_COUNTER
-msgid ""
-"If the filename is of the form \"name-001.ext\" (where the number of digits "
-"is free) the number is increased after a scan is finished"
-msgstr ""
-"Se il nome file è nella forma \"name-001.ext\" (dove il numero di cifre è\n"
-"libero) il numero è incrementato dopo che l'aquisizione è terminata"
 
 #. DESC_SKIP_EXISTING
 msgid ""
@@ -1217,6 +1252,10 @@ msgid ""
 "selected xsane scans until \"out of paper\" or error."
 msgstr ""
 
+#. DESC_PREVIEW_PIPETTE_RANGE
+msgid "dimension of square that is used to average color for pipette function"
+msgstr ""
+
 #. DESC_DOC_VIEWER
 msgid ""
 "Enter command to be executed to display helpfiles, must be a html-viewer!"
@@ -1257,6 +1296,20 @@ msgstr "Inserire il comando da eseguire per visualizzare un fax"
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
 msgstr "Utilizza un'alta risoluzione verticale (196 lpi invece di 98 lpi)"
 
+#. DESC_PERMISSION_READ
+msgid "read"
+msgstr ""
+
+#. DESC_PERMISSION_WRITE
+#, fuzzy
+msgid "write"
+msgstr "Sovra scrivi"
+
+#. DESC_PERMISSION_EXECUTE
+#, fuzzy
+msgid "execute"
+msgstr "Cancella"
+
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
 msgstr "Prende un punto bianco"
@@ -1289,6 +1342,20 @@ msgstr "Annulla l'ultimo ingrandimento"
 #. DESC_FULL_PREVIEW_AREA
 msgid "Select visible area"
 msgstr "Seleziona l'area visibile"
+
+#. DESC_AUTOSELECT_SCANAREA
+#, fuzzy
+msgid "Autoselect scanarea"
+msgstr "Usa tutta l'area di scan"
+
+#. DESC_PRESET_AREA
+#, fuzzy
+msgid "Reduce scan area"
+msgstr "Usa tutta l'area di scan"
+
+#. DESC_ROTATION
+msgid "Rotate preview and scan"
+msgstr ""
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -1443,8 +1510,9 @@ msgstr "L'anteprima non può gestire il bit profondità"
 msgid "GIMP support missing"
 msgstr "Manca il supporto per GIMP"
 
-#. WARN_COUNTER_OVERFLOW
-msgid "Filename counter overflow"
+#. WARN_COUNTER_UNDERRUN
+#, fuzzy
+msgid "Filename counter underrun"
 msgstr "Contatore dei nome file troppo grande"
 
 #. WARN_NO_VALUE_CONSTRAINT
@@ -1617,6 +1685,61 @@ msgstr "<Toolbox>/Xtns/Xsane/Finestra dispositivo..."
 msgid "<Toolbox>/Xtns/XSane/"
 msgstr "<Toolbox>/Xtns/XSane/"
 
+#. strings that are used in structures, so it is not allowed to use _()/gettext() here
+#. gettext_noop does mark these texts but does not change the string
+#. MENU_ITEM_SURFACE_FULL_SIZE
+msgid "full size"
+msgstr ""
+
+#. MENU_ITEM_SURFACE_DIN_A3P
+msgid "DIN A3 port."
+msgstr ""
+
+#. MENU_ITEM_SURFACE_DIN_A3L
+msgid "DIN A3 land."
+msgstr ""
+
+#. MENU_ITEM_SURFACE_DIN_A4P
+msgid "DIN A4 port."
+msgstr ""
+
+#. MENU_ITEM_SURFACE_DIN_A4L
+msgid "DIN A4 land."
+msgstr ""
+
+#. MENU_ITEM_SURFACE_DIN_A5P
+msgid "DIN A5 port."
+msgstr ""
+
+#. MENU_ITEM_SURFACE_DIN_A5L
+msgid "DIN A5 land."
+msgstr ""
+
+#. MENU_ITEM_SURFACE_9cmx13cm
+msgid "9cm x 13cm"
+msgstr ""
+
+#. MENU_ITEM_SURFACE_13cmx9cm
+msgid "13cm x 9cm"
+msgstr ""
+
+#. MENU_ITEM_SURFACE_legal_P
+msgid "legal port."
+msgstr ""
+
+#. MENU_ITEM_SURFACE_legal_L
+msgid "legal land."
+msgstr ""
+
+#. MENU_ITEM_SURFACE_letter_P
+#, fuzzy
+msgid "letter port."
+msgstr "Cancella progetto"
+
+#. MENU_ITEM_SURFACE_letter_L
+msgid "letter land."
+msgstr ""
+
 #. Sane backend messages
 msgid "flatbed scanner"
 msgstr "flatbed scanner"
@@ -1671,6 +1794,23 @@ msgstr "Memoria esaurita"
 
 msgid "Access to resource has been denied"
 msgstr "Acesso alla risorsa negato"
+
+#~ msgid "Increase filename counter"
+#~ msgstr "Incrementa contatore nome file"
+
+#~ msgid ""
+#~ "If the filename is of the form \"name-001.ext\" (where the number of digits "
+#~ "is free) the number is increased after a scan is finished"
+#~ msgstr ""
+#~ "Se il nome file è nella forma \"name-001.ext\" (dove il numero di cifre è\n"
+#~ "libero) il numero è incrementato dopo che l'aquisizione è terminata"
+
+#~ msgid "Filename extension and type of image format"
+#~ msgstr "Estensione file e tipo formato dell'immagine"
+
+#, fuzzy
+#~ msgid "Filename counter step"
+#~ msgstr "Contatore dei nome file troppo grande"
 
 #~ msgid "Exit"
 #~ msgstr "Esci"

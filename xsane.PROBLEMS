@@ -78,9 +78,6 @@ READ THIS FILE IF YOU EXPERIENCE ANY PROBLEM
      make distclean
      ./configure --with-included-gettext
 
- - If configure does not find libsane, try
-     ./configure --enable-intl-patch
-
  - If configure does not find sane.h, find out if/where sane.h is installed:
      find / -name "sane.h"
    if it is not installed SANE was not installed complete, if you installed

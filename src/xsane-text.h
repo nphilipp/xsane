@@ -3,7 +3,7 @@
    xsane-text.h
 
    Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
-   Copyright (C) 1998-2000 Oliver Rauch
+   Copyright (C) 1998-2001 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -89,8 +89,7 @@
 
 #define RADIO_BUTTON_FINE_MODE		_("Fine mode")
 #define RADIO_BUTTON_OVERWRITE_WARNING	_("Overwrite warning")
-#define RADIO_BUTTON_INCREASE_COUNTER	_("Increase filename counter")
-#define RADIO_BUTTON_SKIP_EXISTING_NRS	_("Skip existing numbers")
+#define RADIO_BUTTON_SKIP_EXISTING_NRS	_("Skip existing filenames")
 #define RADIO_BUTTON_WINDOW_FIXED	_("Main window size fixed")
 #define RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA	_("Disable gimp preview gamma")
 #define RADIO_BUTTON_PRIVATE_COLORMAP	_("Use private colormap")
@@ -100,6 +99,8 @@
 #define TEXT_AVAILABLE_DEVICES		_("Available devices:")
 #define TEXT_XSANE_OPTIONS		_("XSane options")
 #define TEXT_XSANE_MODE			_("XSane mode")
+#define TEXT_FILENAME_COUNTER_STEP	_("Step")
+#define TEXT_FILETYPE			_("Type")
 #define TEXT_SCANNER_BACKEND		_("Scanner and backend:")
 #define TEXT_VENDOR			_("Vendor:")
 #define TEXT_MODEL			_("Model:")
@@ -150,7 +151,7 @@
 #define TEXT_SETUP_PRINTER_CMD		_("Command:")
 #define TEXT_SETUP_COPY_NR_OPT		_("Copy number option:")
 #define TEXT_SETUP_PRINTER_LINEART_RES	_("Lineart resolution (dpi):")
-#define TEXT_SETUP_PRINTER_GRAYSCALE_RES	_("Grayscale resolution (dpi):")
+#define TEXT_SETUP_PRINTER_GRAYSCALE_RES _("Grayscale resolution (dpi):")
 #define TEXT_SETUP_PRINTER_COLOR_RES	_("Color resolution (dpi):")
 #define TEXT_SETUP_PRINTER_WIDTH	_("Width [mm]:")
 #define TEXT_SETUP_PRINTER_HEIGHT	_("Height [mm]:")
@@ -165,6 +166,7 @@
 #define TEXT_SETUP_DIR_PERMISSION	_("Directory permissions")
 #define TEXT_SETUP_JPEG_QUALITY		_("JPEG image quality")
 #define TEXT_SETUP_PNG_COMPRESSION	_("PNG image compression")
+#define TEXT_SETUP_FILENAME_COUNTER_LEN	_("Filename counter length")
 #define TEXT_SETUP_TIFF_COMPRESSION_16	_("TIFF 16 bit image compression")
 #define TEXT_SETUP_TIFF_COMPRESSION_8	_("TIFF 8 bit image compression")
 #define TEXT_SETUP_TIFF_COMPRESSION_1	_("TIFF lineart image compression")
@@ -179,6 +181,7 @@
 #define TEXT_SETUP_PREVIEW_GAMMA_BLUE	_("Preview gamma blue:")
 #define TEXT_SETUP_LINEART_MODE         _("Threshold option:")
 #define TEXT_SETUP_ADF_MODE		_("Automatic Document Feeder Modus:")
+#define TEXT_SETUP_PREVIEW_PIPETTE_RANGE _("Preview pipette range")
 #define TEXT_SETUP_THRESHOLD_MIN        _("Threshold minimum:")
 #define TEXT_SETUP_THRESHOLD_MAX        _("Threshold maximum:")
 #define TEXT_SETUP_THRESHOLD_MUL        _("Threshold multiplier:")
@@ -195,6 +198,9 @@
 #define TEXT_SETUP_FAX_HEIGHT		_("Height [mm]:")
 #define TEXT_SETUP_FAX_LEFT		_("Left offset [mm]:")
 #define TEXT_SETUP_FAX_BOTTOM		_("Bottom offset [mm]:")
+#define TEXT_SETUP_PERMISSION_USER	_("user")
+#define TEXT_SETUP_PERMISSION_GROUP	_("group")
+#define TEXT_SETUP_PERMISSION_ALL	_("all")
 
 #define NOTEBOOK_COPY_OPTIONS		_("Copy options")
 #define NOTEBOOK_SAVING_OPTIONS		_("Saving options")
@@ -234,6 +240,7 @@
 #define MENU_ITEM_SCANTIPS		_("Scantips")
 #define MENU_ITEM_PROBLEMS		_("Problems?")
 
+#define MENU_ITEM_COUNTER_LEN_INACTIVE	_("inactive")
 #define MENU_ITEM_TIFF_COMP_NONE	_("no compression")
 #define MENU_ITEM_TIFF_COMP_CCITTRLE	_("CCITT 1D Huffman compression")
 #define MENU_ITEM_TIFF_COMP_CCITFAX3	_("CCITT Group 3 Fax compression")
@@ -259,9 +266,10 @@
 
 #define DESC_XSANE_MODE			_("Use XSane for SCANning, photoCOPYing, FAXing...")
 
+#define DESC_FILENAME_COUNTER_STEP	_("Value that is added to filenamecounter after scan")
 #define DESC_BROWSE_FILENAME		_("Browse for image filename")
 #define DESC_FILENAME			_("Filename for scanned image")
-#define DESC_FILETYPE			_("Filename extension and type of image format")
+#define DESC_FILETYPE			_("Type of image format, the suitable filename extension is automatically added to the filename")
 #define DESC_FAXPROJECT			_("Enter name of fax project")
 #define DESC_FAXPAGENAME		_("Enter new name for faxpage")
 #define DESC_FAXRECEIVER		_("Enter receiver phone number or address")
@@ -335,13 +343,11 @@
 #define DESC_BUTTON_TMP_PATH_BROWSE	_("Browse for temporary directory")
 #define DESC_JPEG_QUALITY		_("Quality in percent if image is saved as jpeg or tiff with jpeg compression")
 #define DESC_PNG_COMPRESSION		_("Compression if image is saved as png")
+#define DESC_FILENAME_COUNTER_LEN	_("Minimum length of counter in filename")
 #define DESC_TIFF_COMPRESSION_16	_("Compression type if 16 bit image is saved as tiff")
 #define DESC_TIFF_COMPRESSION_8		_("Compression type if 8 bit image is saved as tiff")
 #define DESC_TIFF_COMPRESSION_1		_("Compression type if lineart image is saved as tiff")
 #define DESC_OVERWRITE_WARNING		_("Warn before overwriting an existing file")
-#define DESC_INCREASE_COUNTER		_("If the filename is of the form \"name-001.ext\" " \
-						"(where the number of digits is free) " \
-						"the number is increased after a scan is finished")
 #define DESC_SKIP_EXISTING		_("If filename counter is automatically increased, used numbers are skipped")
 #define DESC_PSFILE_WIDTH		_("Width of paper in mm for postscript files")
 #define DESC_PSFILE_HEIGHT		_("Height of paper in mm for postscript files")
@@ -365,6 +371,7 @@
 #define DESC_PREVIEW_THRESHOLD_OFF      _("Offset to make xsane threshold range and scanner threshold range the same")
 #define DESC_ADF_MODE			_("Select scansource for Automatic Document feeder. " \
                                           "If this scansource is selected xsane scans until \"out of paper\" or error.")
+#define DESC_PREVIEW_PIPETTE_RANGE	_("dimension of square that is used to average color for pipette function")
 #define DESC_DOC_VIEWER			_("Enter command to be executed to display helpfiles, must be a html-viewer!")
 #define DESC_AUTOENHANCE_GAMMA		_("Change gamma value when autoenhancement button is pressed")
 
@@ -380,6 +387,10 @@
 #define DESC_FAX_LEFTOFFSET		_("Left offset from the edge of the paper to the printable area in mm")
 #define DESC_FAX_BOTTOMOFFSET		_("Bottom offset from the edge of the paper to the printable area in mm")
 
+#define DESC_PERMISSION_READ		_("read")
+#define DESC_PERMISSION_WRITE		_("write")
+#define DESC_PERMISSION_EXECUTE		_("execute")
+
 #define DESC_PIPETTE_WHITE		_("Pick white point")
 #define DESC_PIPETTE_GRAY		_("Pick gray point")
 #define DESC_PIPETTE_BLACK		_("Pick black point")
@@ -390,6 +401,10 @@
 #define DESC_ZOOM_UNDO			_("Undo last zoom")
 
 #define DESC_FULL_PREVIEW_AREA		_("Select visible area")
+#define DESC_AUTOSELECT_SCANAREA	_("Autoselect scanarea")
+
+#define DESC_PRESET_AREA		_("Reduce scan area")
+#define DESC_ROTATION			_("Rotate preview and scan")
 
 
 #define ERR_HOME_DIR			_("Failed to determine home directory:")
@@ -433,7 +448,7 @@
 #define ERR_PREVIEW_BAD_DEPTH		_("Preview cannot handle bit depth")
 #define ERR_GIMP_SUPPORT_MISSING	_("GIMP support missing")
 
-#define WARN_COUNTER_OVERFLOW		_("Filename counter overflow")
+#define WARN_COUNTER_UNDERRUN		_("Filename counter underrun")
 #define WARN_NO_VALUE_CONSTRAINT	_("warning: option has no value constraint")
 #define WARN_XSANE_AS_ROOT		_("You try to run xsane as ROOT, that really is DANGEROUS!\n\n\
 Do not send any bug reports when you\n\
@@ -496,5 +511,21 @@ The format of [DEVICE] is backendname:devicefile (e.g. umax:/dev/scanner).\n\
 #define XSANE_GIMP_MENU			_("<Toolbox>/File/Acquire/XSane: ")
 #define XSANE_GIMP_MENU_DIALOG_OLD	_("<Toolbox>/Xtns/XSane/Device dialog...")
 #define XSANE_GIMP_MENU_OLD		_("<Toolbox>/Xtns/XSane/")
+
+/* strings that are used in structures, so it is not allowed to use _()/gettext() here */
+/* gettext_noop does mark these texts but does not change the string */
+#define MENU_ITEM_SURFACE_FULL_SIZE	N_("full size")
+#define MENU_ITEM_SURFACE_DIN_A3P	N_("DIN A3 port.")
+#define MENU_ITEM_SURFACE_DIN_A3L	N_("DIN A3 land.")
+#define MENU_ITEM_SURFACE_DIN_A4P	N_("DIN A4 port.")
+#define MENU_ITEM_SURFACE_DIN_A4L	N_("DIN A4 land.")
+#define MENU_ITEM_SURFACE_DIN_A5P	N_("DIN A5 port.")
+#define MENU_ITEM_SURFACE_DIN_A5L	N_("DIN A5 land.")
+#define MENU_ITEM_SURFACE_9cmx13cm	N_("9cm x 13cm")
+#define MENU_ITEM_SURFACE_13cmx9cm	N_("13cm x 9cm")
+#define MENU_ITEM_SURFACE_legal_P	N_("legal port.")
+#define MENU_ITEM_SURFACE_legal_L	N_("legal land.")
+#define MENU_ITEM_SURFACE_letter_P	N_("letter port.")
+#define MENU_ITEM_SURFACE_letter_L	N_("letter land.")
 
 #endif

@@ -2,7 +2,7 @@
 <html>
 <head>
    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-   <meta name="GENERATOR" content="Mozilla/4.74 [en] (X11; U; Linux 2.2.17 i686) [Netscape]">
+   <meta name="GENERATOR" content="Mozilla/4.74 [en] (X11; U; Linux 2.2.18 i686) [Netscape]">
    <meta name="Author" content="Oliver Rauch">
    <meta name="Description" content="scan, photocopy and fax frontend for SANE">
    <title>XSane - Setup</title>
@@ -13,22 +13,22 @@
 <img SRC="xsane-logo2.jpg" height=150 width=128 align=LEFT></dd>
 
 <dd>
-<br>
-<br>
-<br>
-<br>
-<BR></dd>
+</dd>
 
+<br>&nbsp;
+<p>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
 <blockquote>
 <h1>
 <u><font color="#009900"><font size=+2>Saving setup</font></font></u></h1>
-&nbsp;
-<p>&nbsp;</blockquote>
+&nbsp;</blockquote>
 
 <blockquote>&nbsp;</blockquote>
 
 <center>
-<p><br><img SRC="sane-xsane-setup-save.jpg" height=593 width=418></center>
+<p><br><img SRC="sane-xsane-setup-save.jpg" height=670 width=488></center>
 
 <blockquote>
 <h4>
@@ -50,22 +50,20 @@ OVERWRITE WARNING:</h4>
 <blockquote>If enabled, a warning comes up before an existing file is overwritten.</blockquote>
 
 <h4>
-INCREASE FILENAME COUNTER:</h4>
-
-<blockquote>If enabled, the number in the filename of the following form
-is automatically increased after a scan is completed:
-<blockquote><i>image-001.ext</i></blockquote>
-The number of digits is free and will not be changed, in case of an overflow,
-a warning is printed and the counter becomes 0.</blockquote>
-
-<blockquote>If an automatic document feeder is used the filename should
-contain a counter and this option should be enabled.</blockquote>
-
-<h4>
 SKIP EXISTING NUMBERS:</h4>
 
 <blockquote>If <i>increase filename counter</i> is enabled, filenames that
-already exist are skipped!</blockquote>
+already exist are skipped!
+<br>&nbsp;</blockquote>
+
+<h4>
+FILENAME&nbsp;COUNTER&nbsp;LENGTH:</h4>
+
+<blockquote>If the filename includes a counter (image-0003.pnm), the length
+of the counter can be defined. This can be interesting eg. if you want
+to scan 500 images and want that the ordering the images by their filenames
+creates the same order like the counter does. If you select <i>inactive</i>
+the counter is not changed by xsane.</blockquote>
 
 <h4>
 JPEG IMAGE QUALITY:</h4>

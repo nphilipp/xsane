@@ -3,7 +3,7 @@
    xsane-preview.c
 
    Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
-   Copyright (C) 1998-2000 Oliver Rauch
+   Copyright (C) 1998-2001 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -102,7 +102,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define PRESET_AREA_ITEMS 10
+#define PRESET_AREA_ITEMS 13
 typedef struct
 {
   char *name;
@@ -112,16 +112,19 @@ typedef struct
 
 static const Preset_area preset_area[] =
 {
- { "full size",	INF,	INF },
- { "DIN A3P",	296.98,	420.0 },
- { "DIN A4P",	210.0,	296.98 },
- { "DIN A4L",	296.98,	210.0 },
- { "DIN A5P",	148.5,	210.0 },
- { "DIN A5L",	210.0,	148.5 },
- { "9x13 cm",	90.0,	130.0 },
- { "13x9 cm",	130.0,	90.0 },
- { "legal",	215.9,	355.6 },
- { "letter",	215.9,	279.4 }
+ { MENU_ITEM_SURFACE_FULL_SIZE,	INF,	INF },
+ { MENU_ITEM_SURFACE_DIN_A3P,	296.98,	420.0 },
+ { MENU_ITEM_SURFACE_DIN_A3L,	420.0,	296.98 },
+ { MENU_ITEM_SURFACE_DIN_A4P,	210.0,	296.98 },
+ { MENU_ITEM_SURFACE_DIN_A4L,	296.98,	210.0 },
+ { MENU_ITEM_SURFACE_DIN_A5P,	148.5,	210.0 },
+ { MENU_ITEM_SURFACE_DIN_A5L,	210.0,	148.5 },
+ { MENU_ITEM_SURFACE_9cmx13cm,	90.0,	130.0 },
+ { MENU_ITEM_SURFACE_13cmx9cm,	130.0,	90.0 },
+ { MENU_ITEM_SURFACE_legal_P,	215.9,	355.6 },
+ { MENU_ITEM_SURFACE_legal_L,	355.6,	215.9 },
+ { MENU_ITEM_SURFACE_letter_P,	215.9,	279.4 },
+ { MENU_ITEM_SURFACE_letter_L,	279.4,	215.9 }
 };
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -179,7 +182,7 @@ static void preview_zoom_not(GtkWidget *window, gpointer data);
 static void preview_zoom_out(GtkWidget *window, gpointer data);
 static void preview_zoom_in(GtkWidget *window, gpointer data);
 static void preview_zoom_undo(GtkWidget *window, gpointer data);
-static void preview_get_color(Preview *p, int x, int y, int *red, int *green, int *blue);
+static void preview_get_color(Preview *p, int x, int y, int range, int *red, int *green, int *blue);
 static void preview_pipette_white(GtkWidget *window, gpointer data);
 static void preview_pipette_gray(GtkWidget *window, gpointer data);
 static void preview_pipette_black(GtkWidget *window, gpointer data);
@@ -187,6 +190,7 @@ void preview_select_full_preview_area(Preview *p);
 static void preview_full_preview_area_callback(GtkWidget *widget, gpointer call_data);
 static void preview_preset_area_callback(GtkWidget *widget, gpointer call_data);
 static void preview_rotation_callback(GtkWidget *widget, gpointer call_data);
+static void preview_autoselect_scanarea_callback(GtkWidget *window, gpointer data);
 
 void preview_do_gamma_correction(Preview *p);
 void preview_calculate_histogram(Preview *p,
@@ -199,7 +203,7 @@ void preview_area_resize(Preview *p);
 gint preview_area_resize_handler(GtkWidget *widget, GdkEvent *event, gpointer data);
 void preview_update_maximum_output_size(Preview *p);
 void preview_set_maximum_output_size(Preview *p, float width, float height);
-void preview_autoselect_scanarea(Preview *p, float *autoselect_coord, int background_white);
+void preview_autoselect_scanarea(Preview *p, float *autoselect_coord);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -735,8 +739,8 @@ static void preview_get_scale_window_to_image(Preview *p, float *xscalep, float 
       }
     break;
 
-    case 1: /* rotate 90 degree */ /* xxxxxxx needs debug */
-    case 3: /* rotate 270 degree */ /* xxxxxxx needs debug */
+    case 1: /* rotate 90 degree */ 
+    case 3: /* rotate 270 degree */ 
       if (p->image_height > 0)
       {
         xscale = p->image_height / (float) p->preview_width;
@@ -853,7 +857,7 @@ static void preview_paint_image(Preview *p)
      break;
 
 
-    case 1: /* 90 degree */ /* xxxxxxx needs debug */
+    case 1: /* 90 degree */ 
       /* because we run in x direction we have to draw all rows all the time */
 
       src_y = 0.0;
@@ -902,7 +906,7 @@ static void preview_paint_image(Preview *p)
      break;
 
 
-    case 2: /* 180 degree */ /* xxxxxxx needs debug */
+    case 2: /* 180 degree */ 
 
       /* don't draw last line unless it's complete: */
       height = p->image_y; /* last line */
@@ -963,7 +967,7 @@ static void preview_paint_image(Preview *p)
      break;
 
 
-    case 3: /* 270 degree */ /* xxxxxxx needs debug */
+    case 3: /* 270 degree */ 
       /* because we run in x direction we have to draw all rows all the time */
 
       src_y = 0.0;
@@ -2289,7 +2293,7 @@ static gint preview_button_press_event_handler(GtkWidget *window, GdkEvent *even
         {
          int r=255, g=255, b=255; /* preset color to white */
 
-          preview_get_color(p, event->button.x, event->button.y, &r, &g, &b);
+          preview_get_color(p, event->button.x, event->button.y, preferences.preview_pipette_range, &r, &g, &b);
 
           xsane.slider_gray.value[2]  = sqrt( (r*r+g*g+b*b) / 3)/2.55;
 
@@ -2378,7 +2382,7 @@ static gint preview_button_press_event_handler(GtkWidget *window, GdkEvent *even
         {
          int r=128, g=128, b=128; /* preset color to gray */
 
-          preview_get_color(p, event->button.x, event->button.y, &r, &g, &b);
+          preview_get_color(p, event->button.x, event->button.y, preferences.preview_pipette_range, &r, &g, &b);
 
           xsane.slider_gray.value[1] = sqrt( (r*r+g*g+b*b) / 3)/2.55;
 
@@ -2484,7 +2488,7 @@ static gint preview_button_press_event_handler(GtkWidget *window, GdkEvent *even
         {
          int r=0, g=0, b=0; /* preset color to black */
 
-          preview_get_color(p, event->button.x, event->button.y, &r, &g, &b);
+          preview_get_color(p, event->button.x, event->button.y, preferences.preview_pipette_range, &r, &g, &b);
 
           xsane.slider_gray.value[0] = sqrt( (r*r+g*g+b*b) / 3)/2.55;
 
@@ -2894,6 +2898,9 @@ Preview *preview_new(void)
 
 
 
+  xsane_button_new_with_pixmap(p->top->window, p->button_box, auto_select_preview_area_xpm, DESC_AUTOSELECT_SCANAREA,
+                               (GtkSignalFunc) preview_autoselect_scanarea_callback,  p);
+
   xsane_button_new_with_pixmap(p->top->window, p->button_box, full_preview_area_xpm, DESC_FULL_PREVIEW_AREA,
                                (GtkSignalFunc) preview_full_preview_area_callback, p);
 
@@ -2902,7 +2909,7 @@ Preview *preview_new(void)
 
   for (i = 0; i < PRESET_AREA_ITEMS; ++i)
   {
-    preset_area_item = gtk_menu_item_new_with_label(preset_area[i].name);
+    preset_area_item = gtk_menu_item_new_with_label(_(preset_area[i].name));
     gtk_container_add(GTK_CONTAINER(preset_area_menu), preset_area_item);
     gtk_signal_connect(GTK_OBJECT(preset_area_item), "activate", (GtkSignalFunc) preview_preset_area_callback, p);
     gtk_object_set_data(GTK_OBJECT(preset_area_item), "Selection", (void *) i);  
@@ -2911,6 +2918,7 @@ Preview *preview_new(void)
   }                  
 
   preset_area_option_menu = gtk_option_menu_new();
+  xsane_back_gtk_set_tooltip(xsane.tooltips, preset_area_option_menu, DESC_PRESET_AREA);
   gtk_box_pack_start(GTK_BOX(p->button_box), preset_area_option_menu, FALSE, FALSE, 2);
   gtk_option_menu_set_menu(GTK_OPTION_MENU(preset_area_option_menu), preset_area_menu);
   gtk_option_menu_set_history(GTK_OPTION_MENU(preset_area_option_menu), 0); /* full area */
@@ -2937,6 +2945,7 @@ Preview *preview_new(void)
   }                  
 
   rotation_option_menu = gtk_option_menu_new();
+  xsane_back_gtk_set_tooltip(xsane.tooltips, rotation_option_menu, DESC_ROTATION);
   gtk_box_pack_start(GTK_BOX(p->button_box), rotation_option_menu, FALSE, FALSE, 2);
   gtk_option_menu_set_menu(GTK_OPTION_MENU(rotation_option_menu), rotation_menu);
   gtk_option_menu_set_history(GTK_OPTION_MENU(rotation_option_menu), p->rotation); /* set rotation */
@@ -3175,10 +3184,15 @@ void preview_update_surface(Preview *p, int surface_changed)
   {
     DBG(DBG_info, "preview_update_surface: using reduced surface\n");
     /* these *_scanner_surface coordinates are all rotated (window coords) */
-    p->surface[p->index_xmin]  = p->scanner_surface[p->index_xmin];
-    p->surface[p->index_xmax]  = p->scanner_surface[p->index_xmin] + preset_width;
-    p->surface[p->index_ymin]  = p->scanner_surface[p->index_ymin];
-    p->surface[p->index_ymax]  = p->scanner_surface[p->index_ymin] + preset_height;
+    p->scanner_surface[p->index_xmin] = p->scanner_surface[p->index_xmin];
+    p->scanner_surface[p->index_xmax] = p->scanner_surface[p->index_xmin] + preset_width;
+    p->scanner_surface[p->index_ymin] = p->scanner_surface[p->index_ymin];
+    p->scanner_surface[p->index_ymax] = p->scanner_surface[p->index_ymin] + preset_height;
+
+    p->surface[p->index_xmin] = p->scanner_surface[p->index_xmin];
+    p->surface[p->index_xmax] = p->scanner_surface[p->index_xmin] + preset_width;
+    p->surface[p->index_ymin] = p->scanner_surface[p->index_ymin];
+    p->surface[p->index_ymax] = p->scanner_surface[p->index_ymin] + preset_height;
 
     p->image_surface[0] = p->scanner_surface[p->index_xmin];
     p->image_surface[2] = p->scanner_surface[p->index_xmin] + preset_width;
@@ -3308,18 +3322,29 @@ void preview_scan(Preview *p)
 
   if (xsane.well_known.dpi > 0)
   {
+   float aspect;
+
+    if ( (p->rotation == 0) || (p->rotation == 2) )
+    {
+      aspect = p->aspect;
+    }
+    else
+    {
+      aspect = 1.0 / p->aspect;
+    }
+
     opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.dpi);
 
     gwidth  = p->preview_width;
     gheight = p->preview_height;
 
     height = gheight;
-    width  = height * p->aspect;
+    width  = height * aspect;
 
     if (width > gwidth)
     {
       width  = gwidth;
-      height = width / p->aspect;
+      height = width / aspect;
     }
 
     swidth = fabs(p->surface[xsane_back_gtk_BR_X] - p->surface[xsane_back_gtk_TL_X]);
@@ -3630,11 +3655,14 @@ static void preview_zoom_undo(GtkWidget *window, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void preview_get_color(Preview *p, int x, int y, int *red, int *green, int *blue)
+static void preview_get_color(Preview *p, int x, int y, int range, int *red, int *green, int *blue)
 {
  int image_x, image_y;
+ int image_x_min, image_y_min;
+ int image_x_max, image_y_max;
  float xscale_p2i, yscale_p2i;
  int offset;
+ int count = 0;
 
   DBG(DBG_proc, "preview_get_color\n");
 
@@ -3647,20 +3675,46 @@ static void preview_get_color(Preview *p, int x, int y, int *red, int *green, in
 
     if ( (image_x < p->image_width) && (image_y < p->image_height) )
     {
-      offset = 3 * (image_y * p->image_width + image_x);
+      image_x_min = image_x - range/2;
+      image_y_min = image_y - range/2;
+      image_x_max = image_x + range/2;
+      image_y_max = image_y + range/2;
 
-      if (!xsane.negative) /* positive */
+      xsane_bound_int(&image_x_min, 0, p->image_width - 1);
+      xsane_bound_int(&image_x_max, 0, p->image_width - 1);
+      xsane_bound_int(&image_y_min, 0, p->image_height - 1);
+      xsane_bound_int(&image_y_max, 0, p->image_height - 1);
+
+      *red   = 0;
+      *green = 0;
+      *blue  = 0;
+
+      for (image_x = image_x_min; image_x <= image_x_max; image_x++)
       {
-        *red   = p->image_data_raw[offset    ];
-        *green = p->image_data_raw[offset + 1];
-        *blue  = p->image_data_raw[offset + 2];
+        for (image_y = image_y_min; image_y <= image_y_max; image_y++)
+        {
+          count++;
+
+          offset = 3 * (image_y * p->image_width + image_x);
+ 
+          if (!xsane.negative) /* positive */
+          {
+            *red   += p->image_data_raw[offset    ];
+            *green += p->image_data_raw[offset + 1];
+            *blue  += p->image_data_raw[offset + 2];
+          }
+          else /* negative */
+          {
+            *red   += 255 - p->image_data_raw[offset    ];
+            *green += 255 - p->image_data_raw[offset + 1];
+            *blue  += 255 - p->image_data_raw[offset + 2];
+          }
+        }
       }
-      else /* negative */
-      {
-        *red   = 255 - p->image_data_raw[offset    ];
-        *green = 255 - p->image_data_raw[offset + 1];
-        *blue  = 255 - p->image_data_raw[offset + 2];
-      }
+
+      *red   /= count;
+      *green /= count;
+      *blue  /= count;
     }
   }
 }
@@ -3860,6 +3914,18 @@ static void preview_rotation_callback(GtkWidget *widget, gpointer call_data)
   preview_update_surface(p, 2); /* rotate surfaces */
 
   preview_update_selection(p); /* read selection from backend: correct rotation */
+  xsane_update_histogram(); /* update histogram (necessary because overwritten by preview_update_surface */
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void preview_autoselect_scanarea_callback(GtkWidget *window, gpointer data)
+{
+ Preview *p=data;
+
+  preview_autoselect_scanarea(p, p->selection.coordinate); /* get autoselection coordinates */
+  preview_draw_selection(p); 
+  preview_establish_selection(p); 
   xsane_update_histogram(); /* update histogram (necessary because overwritten by preview_update_surface */
 }
 
@@ -4347,12 +4413,65 @@ void preview_set_maximum_output_size(Preview *p, float width, float height)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void preview_autoselect_scanarea(Preview *p, float *autoselect_coord, int background_white)
+void preview_autoselect_scanarea(Preview *p, float *autoselect_coord)
 {
  int x, y;
  int offset;
  float color;
  int top, bottom, left, right;
+ float xscale, yscale;
+ long bright_sum = 0;
+ int brightness;
+ int background_white;
+
+  DBG(DBG_proc, "preview_autoselect_scanarea\n");
+
+  /* try to find out background color */
+  /* add color values at the margins */
+  /* and see if it is more black or more white */
+
+  /* upper line */
+  for (x = 0; x < p->image_width; x++)
+  {
+    offset = 3 * x;
+    bright_sum += (p->image_data_enh[offset + 0] + p->image_data_enh[offset + 1] + p->image_data_enh[offset + 2]) / 3.0; 
+  }
+
+  /* lower line */
+  for (x = 0; x < p->image_width; x++)
+  {
+    offset = 3 * ( (p->image_height-1) * p->image_width + x);
+    bright_sum += (p->image_data_enh[offset + 0] + p->image_data_enh[offset + 1] + p->image_data_enh[offset + 2]) / 3.0; 
+  }
+
+  /* left line */
+  for (y = 0; y < p->image_height; y++)
+  {
+    offset = 3 * y * p->image_width;
+    bright_sum += (p->image_data_enh[offset + 0] + p->image_data_enh[offset + 1] + p->image_data_enh[offset + 2]) / 3.0; 
+  }
+
+  /* right line */
+  for (y = 0; y < p->image_height; y++)
+  {
+    offset = 3 * (y * p->image_width + p->image_width - 1);
+    bright_sum += (p->image_data_enh[offset + 0] + p->image_data_enh[offset + 1] + p->image_data_enh[offset + 2]) / 3.0; 
+  }
+
+  brightness = bright_sum / (2 * (p->image_width + p->image_height) );
+  DBG(DBG_info, "preview_autoselect_scanarea: average margin brightness is %d\n", brightness);
+
+  if ( brightness > 128 )
+  {
+    DBG(DBG_info, "preview_autoselect_scanarea: background is white\n");
+    background_white = 1;
+  }
+  else
+  {
+    DBG(DBG_info, "preview_autoselect_scanarea: background is black\n");
+    background_white = 0;
+  }
+  
 
   /* search top */
   top = 0;
@@ -4361,15 +4480,16 @@ void preview_autoselect_scanarea(Preview *p, float *autoselect_coord, int backgr
     for (x = 0; x < p->image_width; x++)
     {
       offset = 3 * (y * p->image_width + x);
-      color = (p->image_data_raw[offset + 0] + p->image_data_raw[offset + 1] + p->image_data_raw[offset + 2]) / 3.0; 
+      color = (p->image_data_enh[offset + 0] + p->image_data_enh[offset + 1] + p->image_data_enh[offset + 2]) / 3.0; 
       if (background_white)
       {
-        if (color < 230)
+        if (color < 200)
         {
           top = y;
           break;
         }
       }
+
       else if (color > 25 )
       {
         top = y;
@@ -4390,7 +4510,7 @@ void preview_autoselect_scanarea(Preview *p, float *autoselect_coord, int backgr
     for (x = 0; x < p->image_width; x++)
     {
       offset = 3 * (y * p->image_width + x);
-      color = (p->image_data_raw[offset + 0] + p->image_data_raw[offset + 1] + p->image_data_raw[offset + 2]) / 3.0; 
+      color = (p->image_data_enh[offset + 0] + p->image_data_enh[offset + 1] + p->image_data_enh[offset + 2]) / 3.0; 
       if (background_white)
       {
         if (color < 200)
@@ -4419,7 +4539,7 @@ void preview_autoselect_scanarea(Preview *p, float *autoselect_coord, int backgr
     for (y = 0; y < p->image_height; y++)
     {
       offset = 3 * (y * p->image_width + x);
-      color = (p->image_data_raw[offset + 0] + p->image_data_raw[offset + 1] + p->image_data_raw[offset + 2]) / 3.0; 
+      color = (p->image_data_enh[offset + 0] + p->image_data_enh[offset + 1] + p->image_data_enh[offset + 2]) / 3.0; 
       if (background_white)
       {
         if (color < 200)
@@ -4448,7 +4568,7 @@ void preview_autoselect_scanarea(Preview *p, float *autoselect_coord, int backgr
     for (y = 0; y < p->image_height; y++)
     {
       offset = 3 * (y * p->image_width + x);
-      color = (p->image_data_raw[offset + 0] + p->image_data_raw[offset + 1] + p->image_data_raw[offset + 2]) / 3.0; 
+      color = (p->image_data_enh[offset + 0] + p->image_data_enh[offset + 1] + p->image_data_enh[offset + 2]) / 3.0; 
       if (background_white)
       {
         if (color < 200)
@@ -4468,10 +4588,23 @@ void preview_autoselect_scanarea(Preview *p, float *autoselect_coord, int backgr
       break;
     }
   }
-  *(autoselect_coord+0) = left;
-  *(autoselect_coord+1) = top;
-  *(autoselect_coord+2) = right;
-  *(autoselect_coord+3) = bottom;
+
+  preview_get_scale_device_to_image(p, &xscale, &yscale);
+
+  if ((p->rotation == 0) || (p->rotation == 2)) /* 0 or 180 degree */
+  {
+    *(autoselect_coord+0) = p->image_surface[0] + left / xscale;
+    *(autoselect_coord+2) = p->image_surface[0] + right / xscale;
+    *(autoselect_coord+1) = p->image_surface[1] + top / yscale;
+    *(autoselect_coord+3) = p->image_surface[1] + bottom / yscale;
+  }
+  else /* 90 or 270 degree */
+  {
+    *(autoselect_coord+1) = p->image_surface[1] + left / xscale;
+    *(autoselect_coord+3) = p->image_surface[1] + right / xscale;
+    *(autoselect_coord+0) = p->image_surface[0] + top / yscale;
+    *(autoselect_coord+2) = p->image_surface[0] + bottom / yscale;
+  }
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

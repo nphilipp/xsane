@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.62\n"
-"POT-Creation-Date: 2001-01-14 13:53+0100\n"
+"POT-Creation-Date: 2001-01-27 23:23+0100\n"
 "PO-Revision-Date: 2000-02-09 21:00+01:00\n"
 "Last-Translator: Laurent Grawet <laurent.grawet@ibelgique.com>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -183,15 +183,15 @@ msgstr "Renommer"
 
 #. BUTTON_CREATE_PROJECT
 msgid "Create project"
-msgstr "Créer projet"
+msgstr "Créer un projet"
 
 #. BUTTON_SEND_PROJECT
 msgid "Send project"
-msgstr "Envoyer projet"
+msgstr "Envoyer un projet"
 
 #. BUTTON_DELETE_PROJECT
 msgid "Delete project"
-msgstr "Effacer projet"
+msgstr "Effacer un projet"
 
 #. BUTTON_ADD_PRINTER
 msgid "Add printer"
@@ -217,12 +217,9 @@ msgstr "Mode fin"
 msgid "Overwrite warning"
 msgstr "Avertissement en cas d'écrasement"
 
-#. RADIO_BUTTON_INCREASE_COUNTER
-msgid "Increase filename counter"
-msgstr "Incrémenter le compteur de nom de fichier"
-
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
-msgid "Skip existing numbers"
+#, fuzzy
+msgid "Skip existing filenames"
 msgstr "Éviter les nombres existants"
 
 #. RADIO_BUTTON_WINDOW_FIXED
@@ -256,6 +253,16 @@ msgstr "Options de XSane"
 #. TEXT_XSANE_MODE
 msgid "XSane mode"
 msgstr "Mode XSane"
+
+#. TEXT_FILENAME_COUNTER_STEP
+#, fuzzy
+msgid "Step"
+msgstr "Configuration"
+
+#. TEXT_FILETYPE
+#, fuzzy
+msgid "Type"
+msgstr "Type:"
 
 #. TEXT_SCANNER_BACKEND
 msgid "Scanner and backend:"
@@ -335,11 +342,11 @@ msgstr "Autorisation requise pour"
 
 #. TEXT_AUTHORIZATION_SECURE
 msgid "Password transmission is secure"
-msgstr ""
+msgstr "La transmission de mot de passe est sure"
 
 #. TEXT_AUTHORIZATION_INSECURE
 msgid "Backend requests plain-text password"
-msgstr ""
+msgstr "Mot de passe pour les requêtes du backend"
 
 #. TEXT_USERNAME
 msgid "Username :"
@@ -395,7 +402,7 @@ msgstr "e-mail:"
 
 #. TEXT_HOMEPAGE
 msgid "Homepage:"
-msgstr ""
+msgstr "Page d'accueil:"
 
 #. TEXT_FILE
 msgid "File:"
@@ -503,6 +510,11 @@ msgstr "Qualité d'image JPEG"
 msgid "PNG image compression"
 msgstr "Compression des images PNG"
 
+#. TEXT_SETUP_FILENAME_COUNTER_LEN
+#, fuzzy
+msgid "Filename counter length"
+msgstr "Dépassement du compteur de nom de fichier"
+
 #. TEXT_SETUP_TIFF_COMPRESSION_16
 msgid "TIFF 16 bit image compression"
 msgstr "Compression des images TIFF 16 bit"
@@ -557,7 +569,12 @@ msgstr "Option seuil:"
 
 #. TEXT_SETUP_ADF_MODE
 msgid "Automatic Document Feeder Modus:"
-msgstr ""
+msgstr "Chargeur automatique de documents:"
+
+#. TEXT_SETUP_PREVIEW_PIPETTE_RANGE
+#, fuzzy
+msgid "Preview pipette range"
+msgstr "Suréchantillonage de prévisualisation:"
 
 #. TEXT_SETUP_THRESHOLD_MIN
 msgid "Threshold minimum:"
@@ -602,6 +619,18 @@ msgstr "Option du mode fin:"
 #. TEXT_SETUP_FAX_VIEWER
 msgid "Viewer (Postscript):"
 msgstr "Visualisateur (PostScript):"
+
+#. TEXT_SETUP_PERMISSION_USER
+msgid "user"
+msgstr ""
+
+#. TEXT_SETUP_PERMISSION_GROUP
+msgid "group"
+msgstr ""
+
+#. TEXT_SETUP_PERMISSION_ALL
+msgid "all"
+msgstr ""
 
 #. NOTEBOOK_COPY_OPTIONS
 msgid "Copy options"
@@ -735,6 +764,10 @@ msgstr "Conseils de numérisation"
 msgid "Problems?"
 msgstr "Problèmes?"
 
+#. MENU_ITEM_COUNTER_LEN_INACTIVE
+msgid "inactive"
+msgstr ""
+
 #. MENU_ITEM_TIFF_COMP_NONE
 msgid "no compression"
 msgstr "pas de compression"
@@ -772,9 +805,8 @@ msgid "XSane main window (grayscale->lineart)"
 msgstr "Fenêtre principale de XSane (niveaux de gris->mode trait)"
 
 #. MENU_ITEM_SELECTION_NONE
-#, fuzzy
 msgid "(none)"
-msgstr "aucun"
+msgstr "(aucun)"
 
 #. MENU_ITEM_FILETYPE_BY_EXT
 msgid "by ext"
@@ -794,22 +826,24 @@ msgid "Saving image"
 msgstr "Enregistrement image"
 
 #. PROGRESS_ROTATING_DATA
-#, fuzzy
 msgid "Rotating image"
-msgstr "Enregistrement image"
+msgstr "Rotation de l'image"
 
 #. PROGRESS_PACKING_DATA
-#, fuzzy
 msgid "Packing image"
-msgstr "Enregistrement image"
+msgstr "Compression de l'image"
 
 #. PROGRESS_CONVERTING_DATA
 msgid "Converting data"
-msgstr "Convertion des données..."
+msgstr "Conversion des données..."
 
 #. DESC_XSANE_MODE
 msgid "Use XSane for SCANning, photoCOPYing, FAXing..."
 msgstr "Utilisez XSane pour scanner, photocopier, faxer..."
+
+#. DESC_FILENAME_COUNTER_STEP
+msgid "Value that is added to filenamecounter after scan"
+msgstr ""
 
 #. DESC_BROWSE_FILENAME
 msgid "Browse for image filename"
@@ -820,8 +854,10 @@ msgid "Filename for scanned image"
 msgstr "Nom de fichier pour l'image numérisée"
 
 #. DESC_FILETYPE
-msgid "Filename extension and type of image format"
-msgstr "Extension et type du format d'image"
+msgid ""
+"Type of image format, the suitable filename extension is automatically added "
+"to the filename"
+msgstr ""
 
 #. DESC_FAXPROJECT
 msgid "Enter name of fax project"
@@ -998,7 +1034,7 @@ msgstr "Choisissez la définition à changer"
 
 #. DESC_PRINTER_NAME
 msgid "Define a name for the selection of this definition"
-msgstr "Défini un nom pour la sélection de cette définition"
+msgstr "Entrez un nom pour cette définition"
 
 #. DESC_PRINTER_COMMAND
 msgid "Enter command to be executed in copy mode (e.g. \"lpr -\")"
@@ -1079,6 +1115,10 @@ msgstr ""
 msgid "Compression if image is saved as png"
 msgstr "Compression si l'image est enregistrée en png"
 
+#. DESC_FILENAME_COUNTER_LEN
+msgid "Minimum length of counter in filename"
+msgstr ""
+
 #. DESC_TIFF_COMPRESSION_16
 msgid "Compression type if 16 bit image is saved as tiff"
 msgstr "Type de compression si une image 16 bit est enregistrée en tiff"
@@ -1094,15 +1134,6 @@ msgstr "Type de compression si l'image trait est enregistrée en tiff"
 #. DESC_OVERWRITE_WARNING
 msgid "Warn before overwriting an existing file"
 msgstr "Avertir avant d'écraser un fichier existant"
-
-#. DESC_INCREASE_COUNTER
-msgid ""
-"If the filename is of the form \"name-001.ext\" (where the number of digits "
-"is free) the number is increased after a scan is finished"
-msgstr ""
-"Si le nom de fichier est de la forme \"nom-001.ext\" (où le nombre de "
-"chiffres est libre), le nom est incrémenté lorsque la numérisation est "
-"terminée"
 
 #. DESC_SKIP_EXISTING
 msgid ""
@@ -1166,30 +1197,30 @@ msgstr "Change la correction gamma pour l'image de l'aperçu"
 #. DESC_PREVIEW_GAMMA_RED
 msgid "Set gamma correction value for red component of preview image"
 msgstr ""
-"Change la correction gamma pour la composante rouge pour l'image de l'aperçu"
+"Change la correction gamma de la composante rouge pour l'image de l'aperçu"
 
 #. DESC_PREVIEW_GAMMA_GREEN
 msgid "Set gamma correction value for green component of preview image"
 msgstr ""
-"Change la correction gamma pour la composante verte pour l'image de l'aperçu"
+"Change la correction gamma de la composante verte pour l'image de l'aperçu"
 
 #. DESC_PREVIEW_GAMMA_BLUE
 msgid "Set gamma correction value for blue component of preview image"
 msgstr ""
-"Change la correction gamma pour la composante bleue pour l'image de l'aperçu"
+"Change la correction gamma de la composante bleue pour l'image de l'aperçu"
 
 #. DESC_LINEART_MODE
 msgid "Define the way xsane shall handle the threshold option"
 msgstr "Défini la manière dont XSane gère l'option seuil"
 
 #. DESC_GRAYSCALE_SCANMODE
-#, fuzzy
 msgid ""
 "Select grayscale scanmode. This scanmode is used for lineart preview scan "
 "when transformation from grayscale to lineart is enabled"
 msgstr ""
-"Entrez le nom du mode de numérisation en niveaux de gris - pour "
-"prévisualiser avec transformation des niveaux de gris en mode trait"
+"Sélection du mode de numérisation en niveaux de gris. Ce mode de "
+"numérisation est utilisé pour la prévisualisation en mode trait quand la "
+"tranformation des niveaux de gris en mode trait est activée."
 
 #. DESC_PREVIEW_THRESHOLD_MIN
 #, no-c-format
@@ -1205,7 +1236,8 @@ msgstr "Le niveau de seuil maximum du scanner en %"
 msgid ""
 "Multiplier to make xsane threshold range and scanner threshold range the same"
 msgstr ""
-"Multiplier pour rendre l'échelle de seuil de XSane et du scanner les mêmes"
+"Multiplicateur pour rendre l'échelle de seuil de XSane et du scanner les "
+"mêmes"
 
 #. DESC_PREVIEW_THRESHOLD_OFF
 msgid ""
@@ -1217,6 +1249,13 @@ msgstr ""
 msgid ""
 "Select scansource for Automatic Document feeder. If this scansource is "
 "selected xsane scans until \"out of paper\" or error."
+msgstr ""
+"Sélectionnez la source de numérisation pour le chargeur automatique de "
+"documents. Dans ce mode, XSane numérisera jusqu'à l'obtention d'un signal "
+"\"plus de papier\" ou d'une erreur."
+
+#. DESC_PREVIEW_PIPETTE_RANGE
+msgid "dimension of square that is used to average color for pipette function"
 msgstr ""
 
 #. DESC_DOC_VIEWER
@@ -1259,6 +1298,20 @@ msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
 msgstr ""
 "Envoie un fax avec une résolution verticale (196 lpi à la place de 98 lpi)"
 
+#. DESC_PERMISSION_READ
+msgid "read"
+msgstr ""
+
+#. DESC_PERMISSION_WRITE
+#, fuzzy
+msgid "write"
+msgstr "Ecraser"
+
+#. DESC_PERMISSION_EXECUTE
+#, fuzzy
+msgid "execute"
+msgstr "Effacer"
+
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
 msgstr "Choisissez un point blanc"
@@ -1291,6 +1344,19 @@ msgstr "Annule le dernier zoom"
 #. DESC_FULL_PREVIEW_AREA
 msgid "Select visible area"
 msgstr "Sélectionne l'aire visible"
+
+#. DESC_AUTOSELECT_SCANAREA
+#, fuzzy
+msgid "Autoselect scanarea"
+msgstr "Utilise l'aire de numérisation complète"
+
+#. DESC_PRESET_AREA
+msgid "Reduce scan area"
+msgstr "Réduit l'aire de numérisation"
+
+#. DESC_ROTATION
+msgid "Rotate preview and scan"
+msgstr "Pivote la prévisualisation et la numérisation"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -1413,6 +1479,7 @@ msgstr "Impossible d'attribuer la résolution"
 #, c-format
 msgid "Password file (%s) is insecure, use permission x00\n"
 msgstr ""
+"Le fichier de mot de passe (%s) n'est pas sur, utilisez des droits x00\n"
 
 #. ERR_ERROR
 msgid "error"
@@ -1446,8 +1513,9 @@ msgstr "La prévisualisation ne supporte pas le mode"
 msgid "GIMP support missing"
 msgstr "le support pour GIMP est manquant"
 
-#. WARN_COUNTER_OVERFLOW
-msgid "Filename counter overflow"
+#. WARN_COUNTER_UNDERRUN
+#, fuzzy
+msgid "Filename counter underrun"
 msgstr "Dépassement du compteur de nom de fichier"
 
 #. WARN_NO_VALUE_CONSTRAINT
@@ -1477,7 +1545,7 @@ msgstr "Avertissement"
 
 #. ERR_HEADER_INFO
 msgid "Information"
-msgstr ""
+msgstr "Information"
 
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
@@ -1622,6 +1690,60 @@ msgstr ""
 msgid "<Toolbox>/Xtns/XSane/"
 msgstr ""
 
+#. strings that are used in structures, so it is not allowed to use _()/gettext() here
+#. gettext_noop does mark these texts but does not change the string
+#. MENU_ITEM_SURFACE_FULL_SIZE
+msgid "full size"
+msgstr "Taille maximum"
+
+#. MENU_ITEM_SURFACE_DIN_A3P
+msgid "DIN A3 port."
+msgstr "DIN A3 portrait"
+
+#. MENU_ITEM_SURFACE_DIN_A3L
+msgid "DIN A3 land."
+msgstr "DIN A3 paysage"
+
+#. MENU_ITEM_SURFACE_DIN_A4P
+msgid "DIN A4 port."
+msgstr "DIN A4 portrait"
+
+#. MENU_ITEM_SURFACE_DIN_A4L
+msgid "DIN A4 land."
+msgstr "DIN A4 paysage"
+
+#. MENU_ITEM_SURFACE_DIN_A5P
+msgid "DIN A5 port."
+msgstr "DIN A5 portrait"
+
+#. MENU_ITEM_SURFACE_DIN_A5L
+msgid "DIN A5 land."
+msgstr "DIN A5 paysage"
+
+#. MENU_ITEM_SURFACE_9cmx13cm
+msgid "9cm x 13cm"
+msgstr ""
+
+#. MENU_ITEM_SURFACE_13cmx9cm
+msgid "13cm x 9cm"
+msgstr ""
+
+#. MENU_ITEM_SURFACE_legal_P
+msgid "legal port."
+msgstr "Legal portrait"
+
+#. MENU_ITEM_SURFACE_legal_L
+msgid "legal land."
+msgstr "Legal paysage"
+
+#. MENU_ITEM_SURFACE_letter_P
+msgid "letter port."
+msgstr "Letter portrait"
+
+#. MENU_ITEM_SURFACE_letter_L
+msgid "letter land."
+msgstr "Letter paysage"
+
 #. Sane backend messages
 msgid "flatbed scanner"
 msgstr "scanner à plat"
@@ -1677,6 +1799,20 @@ msgstr "Dépassement de mémoire"
 msgid "Access to resource has been denied"
 msgstr "Accès à la ressource refusé"
 
+#~ msgid "Increase filename counter"
+#~ msgstr "Incrémenter le compteur de nom de fichier"
+
+#~ msgid ""
+#~ "If the filename is of the form \"name-001.ext\" (where the number of digits "
+#~ "is free) the number is increased after a scan is finished"
+#~ msgstr ""
+#~ "Si le nom de fichier est de la forme \"nom-001.ext\" (où le nombre de "
+#~ "chiffres est libre), le nom est incrémenté lorsque la numérisation est "
+#~ "terminée"
+
+#~ msgid "Filename extension and type of image format"
+#~ msgstr "Extension et type du format d'image"
+
 #~ msgid "Exit"
 #~ msgstr "Quitter"
 
@@ -1693,7 +1829,7 @@ msgstr "Accès à la ressource refusé"
 #~ msgstr "Enregistrement image fax"
 
 #~ msgid "Converting to postscript"
-#~ msgstr "Convertion en PostScript..."
+#~ msgstr "Conversion en PostScript..."
 
 #~ msgid "Receiving %s data for photocopy ..."
 #~ msgstr "Réception des données %s pour photocopie..."
