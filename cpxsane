@@ -1,0 +1,35 @@
+clear
+echo "ATTENTION:"
+echo "=========="
+echo ""
+echo "This script will include XSane to your SANE-directory"
+echo $1
+echo ""
+echo "Make sure you do apply this patch to the right sane-version!"
+echo ""
+
+echo "enter the word YES if you agree and you would like to continue"
+read in
+
+if [ $in = "YES" ]
+then
+
+cp cpxsane $1/frontend
+cp xsane.c $1/frontend
+cp xsanegtk.h $1/frontend
+cp xsanegtk.c $1/frontend
+cp xsanepreview.h $1/frontend
+cp xsanepreview.c $1/frontend
+cp xsanepreferences.h $1/frontend
+cp xsanepreferences.c $1/frontend
+
+cp README-PATCH $1/frontend
+
+cp Makefile $1/frontend
+
+echo "enter "$1
+echo "and type make, then make install as root"
+
+else
+echo "ABORTED"
+fi

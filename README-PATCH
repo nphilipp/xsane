@@ -1,0 +1,19 @@
+Hi!
+
+To include XSane into SANE, type
+cpxsane path-to-sane-directory/sane-x.xx
+
+e.g:
+cpsane /home/hallo/sane-1.00
+
+then enter the sane-directory and do
+  make
+
+and as root:
+  make install
+
+Good luck,
+Oliver Rauch
+
+Emails to: Oliver.Rauch@Wolfsburg.DE
+
