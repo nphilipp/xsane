@@ -44,6 +44,7 @@ static int xsane_viewer_zoom[] = {9, 13, 18, 25, 35, 50, 71, 100, 141, 200, 282,
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static void xsane_viewer_set_sensitivity(Viewer *v, int sensitivity);
 static gint xsane_viewer_close_callback(GtkWidget *window, gpointer data);
 static void xsane_viewer_dialog_cancel(GtkWidget *window, gpointer data);
 static void xsane_viewer_save_callback(GtkWidget *window, gpointer data);
@@ -64,7 +65,83 @@ static GtkWidget *xsane_viewer_file_build_menu(Viewer *v);
 static GtkWidget *xsane_viewer_edit_build_menu(Viewer *v);
 static GtkWidget *xsane_viewer_filters_build_menu(Viewer *v);
 static int xsane_viewer_read_image(Viewer *v);
-Viewer *xsane_viewer_new(char *filename, int reduce_to_lineart, char *output_filename, viewer_modification allow_modification);
+Viewer *xsane_viewer_new(char *filename, int allow_reduction_to_lineart, char *output_filename, viewer_modification allow_modification);
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_viewer_set_sensitivity(Viewer *v, int sensitivity)
+{
+  if (sensitivity)
+  {
+    v->block_actions = FALSE;
+    gtk_widget_set_sensitive(GTK_WIDGET(v->file_menu), TRUE);
+    gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
+
+    switch (v->allow_modification)
+    {
+      case VIEWER_NO_MODIFICATION:
+        gtk_widget_set_sensitive(GTK_WIDGET(v->save_menu_item),  FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->ocr_menu_item),   FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->clone_menu_item), FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->edit_menu),       FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->filters_menu),    FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->geometry_menu),   FALSE);
+
+        gtk_widget_set_sensitive(GTK_WIDGET(v->save),                FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->ocr),                 FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->clone),               FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->edit_button_box),     FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->filters_button_box),  FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->geometry_button_box), FALSE);
+       break;
+
+      case VIEWER_NO_NAME_AND_SIZE_MODIFICATION:
+        gtk_widget_set_sensitive(GTK_WIDGET(v->save_menu_item),  TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->ocr_menu_item),   FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->clone_menu_item), FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->edit_menu),       TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->filters_menu),    TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->geometry_menu),   FALSE);
+
+        gtk_widget_set_sensitive(GTK_WIDGET(v->save),                TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->ocr),                 FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->clone),               FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->edit_button_box),     TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->filters_button_box),  TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->geometry_button_box), FALSE);
+       break;
+
+      case VIEWER_NO_NAME_MODIFICATION:
+        gtk_widget_set_sensitive(GTK_WIDGET(v->ocr_menu_item),   FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->clone_menu_item), FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->ocr),             FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->clone),           FALSE);
+        /* fall through */
+
+      case VIEWER_FULL_MODIFICATION:
+      default:
+        gtk_widget_set_sensitive(GTK_WIDGET(v->save_menu_item), TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->edit_menu),      TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->filters_menu),   TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->geometry_menu),  TRUE);
+
+        gtk_widget_set_sensitive(GTK_WIDGET(v->save),                TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->edit_button_box),     TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->filters_button_box),  TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->geometry_button_box), TRUE);
+       break;
+    }
+  }
+  else
+  {
+    v->block_actions = TRUE;
+    gtk_widget_set_sensitive(GTK_WIDGET(v->file_menu),     FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(v->edit_menu),     FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(v->filters_menu),  FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(v->geometry_menu), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(v->button_box),    FALSE);
+  }
+}
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -72,9 +149,9 @@ static gint xsane_viewer_close_callback(GtkWidget *widget, gpointer data)
 {
  Viewer *v, *list, **prev_list;
 
-  v = (Viewer*) gtk_object_get_data(GTK_OBJECT(widget), "Viewer");
-
   DBG(DBG_proc, "xsane_viewer_close_callback\n");
+
+  v = (Viewer*) gtk_object_get_data(GTK_OBJECT(widget), "Viewer");
 
   if (v->block_actions) /* actions blocked: return */
   {
@@ -83,23 +160,25 @@ static gint xsane_viewer_close_callback(GtkWidget *widget, gpointer data)
    return TRUE;
   }
 
-  v->block_actions = TRUE;
-
   if (!v->image_saved)
   {
    char buf[256];
 
     snprintf(buf, sizeof(buf), WARN_VIEWER_IMAGE_NOT_SAVED);
-    gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), FALSE);
+    xsane_viewer_set_sensitivity(v, FALSE);
     if (xsane_back_gtk_decision(ERR_HEADER_WARNING, (gchar **) warning_xpm, buf, BUTTON_DO_NOT_CLOSE, BUTTON_DISCARD_IMAGE, TRUE /* wait */))
     {
-      gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
-      v->block_actions = FALSE;
+      xsane_viewer_set_sensitivity(v, TRUE);
       return TRUE;
     } 
   }
 
-  remove(v->filename);
+  /* when no modification is allowed then we work with the original file */
+  /* so we should not erase it */
+  if (v->allow_modification != VIEWER_NO_MODIFICATION)
+  {
+    remove(v->filename);
+  }
 
   if (v->undo_filename)
   {
@@ -161,9 +240,8 @@ static void xsane_viewer_dialog_cancel(GtkWidget *window, gpointer data)
 {
  Viewer *v = (Viewer *) data;
 
-  gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
+  xsane_viewer_set_sensitivity(v, TRUE);
   v->active_dialog = NULL;
-  v->block_actions = FALSE;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -188,8 +266,7 @@ static void xsane_viewer_save_callback(GtkWidget *window, gpointer data)
 
   DBG(DBG_proc, "xsane_viewer_save_callback\n");
 
-  v->block_actions = TRUE;
-  gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), FALSE);
+  xsane_viewer_set_sensitivity(v, FALSE);
 
   if (v->output_filename)
   {
@@ -210,8 +287,7 @@ static void xsane_viewer_save_callback(GtkWidget *window, gpointer data)
 
     if (abort)
     {
-      gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
-      v->block_actions = FALSE;
+      xsane_viewer_set_sensitivity(v, TRUE);
      return;
     }
   }
@@ -237,8 +313,7 @@ static void xsane_viewer_save_callback(GtkWidget *window, gpointer data)
       snprintf(buf, sizeof(buf), WARN_FILE_EXISTS, v->output_filename);
       if (xsane_back_gtk_decision(ERR_HEADER_WARNING, (gchar **) warning_xpm, buf, BUTTON_OVERWRITE, BUTTON_CANCEL, TRUE /* wait */) == FALSE)
       {
-        gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
-        v->block_actions = FALSE;
+        xsane_viewer_set_sensitivity(v, TRUE);
        return;
       }
     }
@@ -248,51 +323,60 @@ static void xsane_viewer_save_callback(GtkWidget *window, gpointer data)
 
   output_format = xsane_identify_output_format(v->output_filename, filetype, 0);
 
-  if (v->reduce_to_lineart) /* reduce grayscale image to lineart before saving */
+ // if ((!v->allow_reduction_to_lineart) && (output_format == XSANE_PNM)) /* save PNM but do not reduce to lineart (if lineart) */
+  if (output_format == XSANE_PNM) /* save PNM but do not reduce to lineart (if lineart) */
   {
-   char dummyfilename[1024];
+   FILE *outfile;
+   FILE *infile;
+   Image_info image_info;
 
-    if (output_format != XSANE_PNM)
+    if (xsane_create_secure_file(v->output_filename)) /* remove possibly existing symbolic links for security */
     {
-      xsane_back_gtk_make_path(sizeof(dummyfilename), dummyfilename, 0, 0, "xsane-viewer-", xsane.dev_name, ".ppm", XSANE_PATH_TMP);
+     char buf[256];
+
+      snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_CREATE_SECURE_FILE, v->output_filename);
+      xsane_back_gtk_error(buf, TRUE);
+      xsane_viewer_set_sensitivity(v, TRUE);
+     return; /* error */
     }
-    else /* pbm: no further conversion, we save to destination filename */
+#if 1
+    infile = fopen(v->filename, "rb");
+    if (!infile)
     {
-      snprintf(dummyfilename, sizeof(dummyfilename), "%s", v->output_filename);
-      if (xsane_create_secure_file(dummyfilename)) /* remove possibly existing symbolic links for security */
-      {
-       char buf[256];
-
-        snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_CREATE_SECURE_FILE, dummyfilename);
-        xsane_back_gtk_error(buf, TRUE);
-        v->block_actions = FALSE;
-       return; /* error */
-      }
+      DBG(DBG_error, "could not load file %s\n", v->filename);
+      xsane_viewer_set_sensitivity(v, TRUE);
+     return;
     }
-
-    gtk_progress_set_format_string(GTK_PROGRESS(v->progress_bar), PROGRESS_PACKING_DATA);
-    gtk_progress_bar_update(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
-
-    /* the outputfile always is a temporary file, so we do not have to care about symlinks here */
-    xsane_save_image_as_lineart(v->filename, dummyfilename, v->progress_bar, &v->cancel_save);
-
-    gtk_progress_set_format_string(GTK_PROGRESS(v->progress_bar), "");
-    gtk_progress_bar_update(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
-
-    free(inputfilename);
-    inputfilename = strdup(dummyfilename);
-  }
-
-
-  if ((!v->reduce_to_lineart) || (output_format != XSANE_PNM)) /* pbm already is saved above, otherwise save now */
-  {
+  
+    xsane_read_pnm_header(infile, &image_info);
+  
+    DBG(DBG_info, "saving image %s with geometry: %d x %d x %d, %d colors\n", v->filename, image_info.image_width, image_info.image_height, image_info.depth, image_info.colors);
+  
+    outfile = fopen(v->output_filename, "wb");
+    if (!outfile)
+    {
+      DBG(DBG_error, "could not save file %s\n", v->output_filename);
+      xsane_viewer_set_sensitivity(v, TRUE);
+     return;
+    }
+  
     gtk_progress_set_format_string(GTK_PROGRESS(v->progress_bar), PROGRESS_SAVING_DATA);
     gtk_progress_bar_update(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
-
-    xsane_save_image_as(inputfilename, v->output_filename, output_format, v->progress_bar, &v->cancel_save);
-
+  
+    xsane_save_rotate_image(outfile, infile, &image_info, 0, v->progress_bar, &v->cancel_save);
+  
+    fclose(infile);
+    fclose(outfile);
+  
     gtk_progress_set_format_string(GTK_PROGRESS(v->progress_bar), "");
     gtk_progress_bar_update(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
+#else
+    xsane_copy_file(v->filename, v->output_filename, v->progress_bar, &v->cancel_save);
+#endif
+  }
+  else
+  {
+    xsane_save_image_as(inputfilename, v->output_filename, output_format, v->progress_bar, &v->cancel_save);
   }
 
   free(inputfilename);
@@ -305,9 +389,7 @@ static void xsane_viewer_save_callback(GtkWidget *window, gpointer data)
 
   xsane_update_counter_in_filename(&v->output_filename, preferences.skip_existing_numbers, 1, preferences.filename_counter_len);
 
-  gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
-
-  v->block_actions = FALSE;
+  xsane_viewer_set_sensitivity(v, TRUE);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -329,8 +411,7 @@ static void xsane_viewer_ocr_callback(GtkWidget *window, gpointer data)
 
   DBG(DBG_proc, "xsane_viewer_ocr_callback\n");
 
-  v->block_actions = TRUE;
-  gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), FALSE);
+  xsane_viewer_set_sensitivity(v, FALSE);
 
   strncpy(outputfilename, preferences.filename, sizeof(outputfilename)-5);
 
@@ -349,8 +430,7 @@ static void xsane_viewer_ocr_callback(GtkWidget *window, gpointer data)
 
   if (abort)
   {
-    gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
-    v->block_actions = FALSE;
+    xsane_viewer_set_sensitivity(v, TRUE);
    return;
   }
 
@@ -361,8 +441,7 @@ static void xsane_viewer_ocr_callback(GtkWidget *window, gpointer data)
 
   xsane_save_image_as_text(v->filename, outputfilename, v->progress_bar, &v->cancel_save);
 
-  gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
-  v->block_actions = FALSE;
+  xsane_viewer_set_sensitivity(v, TRUE);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -384,15 +463,13 @@ static void xsane_viewer_clone_callback(GtkWidget *window, gpointer data)
 
   DBG(DBG_proc, "xsane_viewer_clone_callback\n");
 
-  gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), FALSE);
-  v->block_actions = TRUE;
+  xsane_viewer_set_sensitivity(v, FALSE);
 
   infile = fopen(v->filename, "rb");
   if (!infile)
   {
     DBG(DBG_error, "could not load file %s\n", v->filename);
-    gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
-    v->block_actions = FALSE;
+    xsane_viewer_set_sensitivity(v, TRUE);
 
    return;
   }
@@ -407,9 +484,7 @@ static void xsane_viewer_clone_callback(GtkWidget *window, gpointer data)
   if (!outfile)
   {
     DBG(DBG_error, "could not save file %s\n", outfilename);
-    gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
-    v->block_actions = FALSE;
-
+    xsane_viewer_set_sensitivity(v, TRUE);
    return;
   }
 
@@ -424,20 +499,18 @@ static void xsane_viewer_clone_callback(GtkWidget *window, gpointer data)
   gtk_progress_set_format_string(GTK_PROGRESS(v->progress_bar), "");
   gtk_progress_bar_update(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
 
-  gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
+  xsane_viewer_set_sensitivity(v, TRUE);
 
   if (v->last_saved_filename)
   {
    char buf[256];
     snprintf(buf, sizeof(buf), "%s%s", FILENAME_PREFIX_CLONE_OF, v->last_saved_filename);
-    xsane_viewer_new(outfilename, v->reduce_to_lineart, buf, v->allow_modification);
+    xsane_viewer_new(outfilename, v->allow_reduction_to_lineart, buf, v->allow_modification);
   }
   else
   {
-    xsane_viewer_new(outfilename, v->reduce_to_lineart, NULL, v->allow_modification);
+    xsane_viewer_new(outfilename, v->allow_reduction_to_lineart, NULL, v->allow_modification);
   }
-
-  v->block_actions = FALSE;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -563,16 +636,14 @@ static void xsane_viewer_scale_callback(GtkWidget *window, gpointer data)
 
   DBG(DBG_proc, "xsane_viewer_scale_callback\n");
 
-  gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), FALSE);
+  xsane_viewer_set_sensitivity(v, FALSE);
   v->block_actions = 2; /* do not set it to TRUE because we have to recall this dialog! */
 
   infile = fopen(v->filename, "rb");
   if (!infile)
   {
     DBG(DBG_error, "could not load file %s\n", v->filename);
-    gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
-    v->block_actions = FALSE;
-
+    xsane_viewer_set_sensitivity(v, TRUE);
    return;
   }
 
@@ -818,8 +889,7 @@ static void xsane_viewer_despeckle_callback(GtkWidget *window, gpointer data)
 
   DBG(DBG_proc, "xsane_viewer_despeckle_callback\n");
 
-  gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), FALSE);
-  v->block_actions = TRUE;
+  xsane_viewer_set_sensitivity(v, FALSE);
 
   if (v->output_filename)
   {
@@ -913,8 +983,7 @@ static void xsane_viewer_blur_callback(GtkWidget *window, gpointer data)
 
   DBG(DBG_proc, "xsane_viewer_blur_callback\n");
 
-  gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), FALSE);
-  v->block_actions = TRUE;
+  xsane_viewer_set_sensitivity(v, FALSE);
 
   if (v->output_filename)
   {
@@ -1037,15 +1106,13 @@ static void xsane_viewer_scale_image(GtkWidget *window, gpointer data)
 
   gtk_widget_destroy(v->active_dialog);
 
-  gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), FALSE);
+  xsane_viewer_set_sensitivity(v, FALSE);
 
   infile = fopen(v->filename, "rb");
   if (!infile)
   {
     DBG(DBG_error, "could not load file %s\n", v->filename);
-    gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
-    v->block_actions = FALSE;
-
+    xsane_viewer_set_sensitivity(v, TRUE);
    return;
   }
 
@@ -1059,9 +1126,7 @@ static void xsane_viewer_scale_image(GtkWidget *window, gpointer data)
   if (!outfile)
   {
     DBG(DBG_error, "could not save file %s\n", outfilename);
-    gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
-    v->block_actions = FALSE;
-
+    xsane_viewer_set_sensitivity(v, TRUE);
    return;
   }
 
@@ -1106,8 +1171,7 @@ static void xsane_viewer_scale_image(GtkWidget *window, gpointer data)
     gtk_window_set_title(GTK_WINDOW(v->top), buf);
   }
 
-  gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
-  v->block_actions = FALSE;
+  xsane_viewer_set_sensitivity(v, TRUE);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1124,15 +1188,13 @@ static void xsane_viewer_despeckle_image(GtkWidget *window, gpointer data)
 
   gtk_widget_destroy(v->active_dialog);
 
-  gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), FALSE);
+  xsane_viewer_set_sensitivity(v, FALSE);
 
   infile = fopen(v->filename, "rb");
   if (!infile)
   {
     DBG(DBG_error, "could not load file %s\n", v->filename);
-    gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
-    v->block_actions = FALSE;
-
+    xsane_viewer_set_sensitivity(v, TRUE);
    return;
   }
 
@@ -1146,9 +1208,7 @@ static void xsane_viewer_despeckle_image(GtkWidget *window, gpointer data)
   if (!outfile)
   {
     DBG(DBG_error, "could not save file %s\n", outfilename);
-    gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
-    v->block_actions = FALSE;
-
+    xsane_viewer_set_sensitivity(v, TRUE);
    return;
   }
 
@@ -1188,8 +1248,7 @@ static void xsane_viewer_despeckle_image(GtkWidget *window, gpointer data)
     gtk_window_set_title(GTK_WINDOW(v->top), buf);
   }
 
-  gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
-  v->block_actions = FALSE;
+  xsane_viewer_set_sensitivity(v, TRUE);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1206,15 +1265,13 @@ static void xsane_viewer_blur_image(GtkWidget *window, gpointer data)
 
   gtk_widget_destroy(v->active_dialog);
 
-  gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), FALSE);
+  xsane_viewer_set_sensitivity(v, FALSE);
 
   infile = fopen(v->filename, "rb");
   if (!infile)
   {
     DBG(DBG_error, "could not load file %s\n", v->filename);
-    gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
-    v->block_actions = FALSE;
-
+    xsane_viewer_set_sensitivity(v, TRUE);
    return;
   }
 
@@ -1228,9 +1285,7 @@ static void xsane_viewer_blur_image(GtkWidget *window, gpointer data)
   if (!outfile)
   {
     DBG(DBG_error, "could not save file %s\n", outfilename);
-    gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
-    v->block_actions = FALSE;
-
+    xsane_viewer_set_sensitivity(v, TRUE);
    return;
   }
 
@@ -1270,8 +1325,7 @@ static void xsane_viewer_blur_image(GtkWidget *window, gpointer data)
     gtk_window_set_title(GTK_WINDOW(v->top), buf);
   }
 
-  gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
-  v->block_actions = FALSE;
+  xsane_viewer_set_sensitivity(v, TRUE);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1292,13 +1346,13 @@ static void xsane_viewer_rotate(Viewer *v, int rotation)
 
   DBG(DBG_proc, "xsane_viewer_rotate(%d)\n", rotation);
 
-  gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), FALSE);
+  xsane_viewer_set_sensitivity(v, FALSE);
 
   infile = fopen(v->filename, "rb");
   if (!infile)
   {
     DBG(DBG_error, "could not load file %s\n", v->filename);
-    gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
+    xsane_viewer_set_sensitivity(v, TRUE);
 
    return;
   }
@@ -1313,7 +1367,7 @@ static void xsane_viewer_rotate(Viewer *v, int rotation)
   if (!outfile)
   {
     DBG(DBG_error, "could not save file %s\n", outfilename);
-    gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
+    xsane_viewer_set_sensitivity(v, TRUE);
 
    return;
   }
@@ -1361,7 +1415,7 @@ static void xsane_viewer_rotate(Viewer *v, int rotation)
     gtk_window_set_title(GTK_WINDOW(v->top), buf);
   }
 
-  gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
+  xsane_viewer_set_sensitivity(v, TRUE);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1810,7 +1864,7 @@ static int xsane_viewer_read_image(Viewer *v)
     size_unit = "KB";
   }
 
-  if (v->reduce_to_lineart)
+  if (v->allow_reduction_to_lineart)
   {
     snprintf(buf, sizeof(buf), TEXT_VIEWER_IMAGE_INFO, image_info.image_width, image_info.image_height, 1, image_info.colors, 
              image_info.resolution_x, image_info.resolution_y, size, size_unit);
@@ -1855,7 +1909,7 @@ static int xsane_viewer_read_image(Viewer *v)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-Viewer *xsane_viewer_new(char *filename, int reduce_to_lineart, char *output_filename, viewer_modification allow_modification)
+Viewer *xsane_viewer_new(char *filename, int allow_reduction_to_lineart, char *output_filename, viewer_modification allow_modification)
 {
  char buf[256];
  Viewer *v;
@@ -1878,7 +1932,7 @@ Viewer *xsane_viewer_new(char *filename, int reduce_to_lineart, char *output_fil
 
   v->filename = strdup(filename);
   v->undo_filename = NULL;
-  v->reduce_to_lineart = reduce_to_lineart;
+  v->allow_reduction_to_lineart = allow_reduction_to_lineart;
   v->zoom = 1.0;
   v->image_saved = FALSE;
   v->allow_modification = allow_modification;
@@ -1986,8 +2040,14 @@ Viewer *xsane_viewer_new(char *filename, int reduce_to_lineart, char *output_fil
   v->ocr       = xsane_button_new_with_pixmap(v->top->window, v->file_button_box, ocr_xpm,       DESC_VIEWER_OCR,       (GtkSignalFunc) xsane_viewer_ocr_callback, v);
   v->clone     = xsane_button_new_with_pixmap(v->top->window, v->button_box, clone_xpm,     DESC_VIEWER_CLONE,     (GtkSignalFunc) xsane_viewer_clone_callback, v);
 
-  v->undo      = xsane_button_new_with_pixmap(v->top->window, v->button_box, undo_xpm,      DESC_VIEWER_UNDO,      (GtkSignalFunc) xsane_viewer_undo_callback, v);
 
+  /* top hbox for edit icons */
+  v->edit_button_box = gtk_hbox_new(FALSE, 0);
+  gtk_container_set_border_width(GTK_CONTAINER(v->edit_button_box), 0);
+  gtk_box_pack_start(GTK_BOX(v->button_box), v->edit_button_box, FALSE, FALSE, 0);
+  gtk_widget_show(v->edit_button_box);
+
+  v->undo      = xsane_button_new_with_pixmap(v->top->window, v->edit_button_box, undo_xpm,      DESC_VIEWER_UNDO,      (GtkSignalFunc) xsane_viewer_undo_callback, v);
 
 
   /* top hbox for filter icons */
@@ -2081,59 +2141,11 @@ Viewer *xsane_viewer_new(char *filename, int reduce_to_lineart, char *output_fil
   gtk_progress_set_format_string(GTK_PROGRESS(v->progress_bar), "");
   gtk_widget_show(GTK_WIDGET(v->progress_bar));
 
-  switch (v->allow_modification)
-  {
-    case VIEWER_NO_MODIFICATION:
-      gtk_widget_set_sensitive(GTK_WIDGET(v->save_menu_item), FALSE);
-      gtk_widget_set_sensitive(GTK_WIDGET(v->ocr_menu_item), FALSE);
-      gtk_widget_set_sensitive(GTK_WIDGET(v->clone_menu_item), FALSE);
-      gtk_widget_set_sensitive(GTK_WIDGET(v->filters_menu), FALSE);
-      gtk_widget_set_sensitive(GTK_WIDGET(v->geometry_menu), FALSE);
-
-      gtk_widget_set_sensitive(GTK_WIDGET(v->save), FALSE);
-      gtk_widget_set_sensitive(GTK_WIDGET(v->ocr), FALSE);
-      gtk_widget_set_sensitive(GTK_WIDGET(v->clone), FALSE);
-      gtk_widget_set_sensitive(GTK_WIDGET(v->filters_button_box), FALSE);
-      gtk_widget_set_sensitive(GTK_WIDGET(v->geometry_button_box), FALSE);
-     break;
-
-    case VIEWER_NO_NAME_AND_SIZE_MODIFICATION:
-      gtk_widget_set_sensitive(GTK_WIDGET(v->save_menu_item), TRUE);
-      gtk_widget_set_sensitive(GTK_WIDGET(v->ocr_menu_item), FALSE);
-      gtk_widget_set_sensitive(GTK_WIDGET(v->clone_menu_item), FALSE);
-      gtk_widget_set_sensitive(GTK_WIDGET(v->filters_menu), TRUE);
-      gtk_widget_set_sensitive(GTK_WIDGET(v->geometry_menu), FALSE);
-
-      gtk_widget_set_sensitive(GTK_WIDGET(v->save), TRUE);
-      gtk_widget_set_sensitive(GTK_WIDGET(v->ocr), FALSE);
-      gtk_widget_set_sensitive(GTK_WIDGET(v->clone), FALSE);
-      gtk_widget_set_sensitive(GTK_WIDGET(v->filters_button_box), TRUE);
-      gtk_widget_set_sensitive(GTK_WIDGET(v->geometry_button_box), FALSE);
-     break;
-
-    case VIEWER_NO_NAME_MODIFICATION:
-      gtk_widget_set_sensitive(GTK_WIDGET(v->ocr_menu_item), FALSE);
-      gtk_widget_set_sensitive(GTK_WIDGET(v->clone_menu_item), FALSE);
-      gtk_widget_set_sensitive(GTK_WIDGET(v->ocr), FALSE);
-      gtk_widget_set_sensitive(GTK_WIDGET(v->clone), FALSE);
-      /* fall through */
-
-    case VIEWER_FULL_MODIFICATION:
-    default:
-      gtk_widget_set_sensitive(GTK_WIDGET(v->save_menu_item), TRUE);
-      gtk_widget_set_sensitive(GTK_WIDGET(v->filters_menu), TRUE);
-      gtk_widget_set_sensitive(GTK_WIDGET(v->geometry_menu), TRUE);
-
-      gtk_widget_set_sensitive(GTK_WIDGET(v->save), TRUE);
-      gtk_widget_set_sensitive(GTK_WIDGET(v->filters_button_box), TRUE);
-      gtk_widget_set_sensitive(GTK_WIDGET(v->geometry_button_box), TRUE);
-     break;
-  }
+  xsane_viewer_set_sensitivity(v, TRUE);
 
   gtk_widget_set_sensitive(GTK_WIDGET(v->undo), FALSE);
   gtk_widget_set_sensitive(GTK_WIDGET(v->undo_menu_item), FALSE);
 
  return v;
 }
-
 

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: da\n"
-"POT-Creation-Date: 2004-08-05 12:07+0200\n"
+"POT-Creation-Date: 2004-08-13 22:28+0200\n"
 "PO-Revision-Date: 2004-04-21 03:50+0200\n"
 "Last-Translator: Mogens Jaeger <mogensjaeger@get2net.dk>\n"
 "Language-Team: Dansk <da@li.org>\n"
@@ -367,6 +367,11 @@ msgstr "Slet billede"
 #. BUTTON_IMAGE_SHOW
 msgid "Show image"
 msgstr "Vis billede"
+
+#. BUTTON_IMAGE_EDIT
+#, fuzzy
+msgid "Edit image"
+msgstr "Forbedret billede"
 
 #. BUTTON_IMAGE_RENAME
 msgid "Rename image"
@@ -739,6 +744,46 @@ msgstr "Vedhæftninger:"
 #. TEXT_MAIL_STATUS
 msgid "Project status:"
 msgstr "Projekt status:"
+
+#. TEXT_MAIL_STATUS_NOT_CREATED
+#, fuzzy
+msgid "not created"
+msgstr "læs"
+
+#. TEXT_MAIL_STATUS_CREATED
+#, fuzzy
+msgid "created"
+msgstr "læs"
+
+#. TEXT_MAIL_STATUS_CHANGED
+msgid "changed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_ERR_READ_PROJECT
+#, fuzzy
+msgid "error reading mailproject"
+msgstr "Angiv navn på mail projekt"
+
+#. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
+msgid "POP3 connection failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
+msgid "POP3 login failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
+msgid "SMTP connection failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SENT
+#, fuzzy
+msgid "sent"
+msgstr "opsætning"
+
+#. TEXT_MAIL_STATUS_SENDING
+msgid "sending"
+msgstr ""
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
@@ -1928,7 +1973,8 @@ msgid "Enter command to be executed to view a mail image"
 msgstr "Komando der skal udføres, for at vise mail billeder"
 
 #. DESC_HTML_MAIL
-msgid "Mail is sent in html mode, images are displayed directly"
+#, fuzzy
+msgid "Mail is sent in html mode, place image with: <IMAGE>"
 msgstr "Mail er sendt i HTML tilstand, billeder vises direkte"
 
 #. DESC_OCR_COMMAND

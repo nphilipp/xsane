@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2004-08-05 12:07+0200\n"
+"POT-Creation-Date: 2004-08-13 22:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -361,6 +361,10 @@ msgstr ""
 msgid "Show image"
 msgstr ""
 
+#. BUTTON_IMAGE_EDIT
+msgid "Edit image"
+msgstr ""
+
 #. BUTTON_IMAGE_RENAME
 msgid "Rename image"
 msgstr ""
@@ -704,6 +708,42 @@ msgstr ""
 
 #. TEXT_MAIL_STATUS
 msgid "Project status:"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_NOT_CREATED
+msgid "not created"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_CREATED
+msgid "created"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_CHANGED
+msgid "changed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_ERR_READ_PROJECT
+msgid "error reading mailproject"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
+msgid "POP3 connection failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
+msgid "POP3 login failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
+msgid "SMTP connection failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SENT
+msgid "sent"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SENDING
+msgid "sending"
 msgstr ""
 
 #. TEXT_MEDIUM_DEFINITION_NAME
@@ -1844,7 +1884,7 @@ msgid "Enter command to be executed to view a mail image"
 msgstr ""
 
 #. DESC_HTML_MAIL
-msgid "Mail is sent in html mode, images are displayed directly"
+msgid "Mail is sent in html mode, place image with: <IMAGE>"
 msgstr ""
 
 #. DESC_OCR_COMMAND

@@ -20,12 +20,8 @@ Sign explaination:
       - may be pnm
 
  fax-function:
-    # use internal viewer to display images
-      # while scanning save image as pnm
-      # save linearts as grayscale (needed for viewer)
-      # viewer: copy file to dummy file, start viewer. The viewer saves back to original file
-      # convert to lineart before further processing when sending fax
-      # convtert all images to one or more postscript/tiff/pbm/g3 files when or before sending fax
+    # convtert all images to one or more postscript/tiff/pbm/g3 files before sending fax
+    # delete page/project: create dialog "really remove?"
     # cleanup user interface of fax function
     + zoom ?
     + create lock file, add information while spooling fax
@@ -34,12 +30,8 @@ Sign explaination:
     - add options for sender/receiver Name
 
  email-function:
-    # use internal viewer to display images
-      # while scanning save image as pnm
-      # save linearts as grayscale (needed for viewer)
-      # viewer: copy file to dummy file, start viewer. The viewer saves back to original file
-      # convtert image to target format when sending email
-      # add new image types to email fileformat: tiff, jpeg
+    # add new image types to email fileformat: tiff, jpeg
+    # delete image/project: create dialog "really remove?"
     # cleanup user interface of email function
 
  gamma function:

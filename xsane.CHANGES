@@ -2491,8 +2491,6 @@ xsane-0.94 -> 0.95:
 
  - in xsane_back_gtk_value_update: removed rounding (+ 0.5) in case SANE_TYPE_INT
 
- - new translations: hu
-
  - changed menues in the xsane main dialog:
    - added new menu "Window"
    - moved Window menue entries form "View" to "Window"
@@ -2503,11 +2501,11 @@ xsane-0.94 -> 0.95:
  - added test if resolution list is displayed or scale is displayed in
    xsane_resolution_timer_callback(). Without this test it sometimes
    happened that pressing CTRL+L (Swap show resolution list) caused a
-   segfault because the callback was executed in a moment where the
+   segfault because the timer callback was executed in a moment where the
    adjustment is not valid
 
- - added: if (abc->window)
-   before each: gdk_window_process_updates(abc->window)
+ - added: if (???->window)
+   before each: gdk_window_process_updates(???->window)
    in xsane-gamma.c, this made problems with gtk+2.x
 
  - when a postscript file is added to a faxproject then the original name of the
@@ -2540,7 +2538,45 @@ xsane-0.94 -> 0.95:
    - added rotation and mirror functions to menu "Geometry"
    - added undo function to menu "Edit"
 
- - changed icons in the xsane viewer dialog:
-   - moved scale icon to geometry icons (rotation/mirror)
-   - added undo icon
+ - changed button boxes/icons in the xsane viewer dialog:
+   - added button boxes equal to menus: file, edit, filters, geometry
+   - added undo icon to edit box
+   - moved blur uand despeckle icon to filter box
+   - moved scale, rotation and mirrir icons to geometry box
+
+ - replaced several "char buf[???];" by "char filename[PATH_MAX];"
+
+ - changed fax mode:
+   - scanned images are stored in pnm format
+   - for each list entry there is a data and a type information now
+   - internal viewer is used now for pnm-fax files
+   - faxviewer is used for ps files
+   - before sending the fax pnm images are converted into ps images
+   - after sending the mail ps images are erased
+
+ - changed e-mail mode:
+   - scanned images are stored in pnm format
+   - for each list entry there is a data and a type information now
+   - internal viewer is used now for pnm-mail files
+   - before sending the mail pnm images are converted into png images
+   - after sending the mail the png images are erased
+   - mail project status is translated now
+   - BUFIX: end of email text is marked with 0 byte
+
+ - added function xsane_viewer_set_sensitivity()
+   - moved all gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE/FALSE); to it
+   - added several gtk_widget_set_sensitive(???_menu, TRUE/FALSE); commands to it
+   - moved almost all v->block_actions to it
+   - now it should not be possible any more to crash xsane by closing the viewer
+     while it is saving something
+
+ - added info "reduce to lineart" to image_info + xsane-pnm-header
+
+ - renamed viewer v->reduce_to_lineart to v->allow_reduction_to_lineart
+
+ - save_image_as() now automatically reduces lineart images to pbm before saving
+
+ - new translations: hu
+
+ - updated translations: de, es, ja, pt, pt_BR, sk
 

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.95\n"
-"POT-Creation-Date: 2004-08-05 12:07+0200\n"
+"POT-Creation-Date: 2004-08-13 22:28+0200\n"
 "PO-Revision-Date: 2000-01-21 15:51+01:00\n"
 "Last-Translator: Oliver Rauch <Oliver.Rauch@rauch-domain.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -358,6 +358,10 @@ msgstr "Bild löschen"
 #. BUTTON_IMAGE_SHOW
 msgid "Show image"
 msgstr "Bild anzeigen"
+
+#. BUTTON_IMAGE_EDIT
+msgid "Edit image"
+msgstr "Bild ändern"
 
 #. BUTTON_IMAGE_RENAME
 msgid "Rename image"
@@ -730,6 +734,42 @@ msgstr "Anhang:"
 #. TEXT_MAIL_STATUS
 msgid "Project status:"
 msgstr "Projekt Status:"
+
+#. TEXT_MAIL_STATUS_NOT_CREATED
+msgid "not created"
+msgstr "nicht erstellt"
+
+#. TEXT_MAIL_STATUS_CREATED
+msgid "created"
+msgstr "erstellt"
+
+#. TEXT_MAIL_STATUS_CHANGED
+msgid "changed"
+msgstr "geändert"
+
+#. TEXT_MAIL_STATUS_ERR_READ_PROJECT
+msgid "error reading mailproject"
+msgstr "Fehler beim Lesen des Mailprojekts"
+
+#. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
+msgid "POP3 connection failed"
+msgstr "POP3 Verbindung fehlgeschlagen"
+
+#. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
+msgid "POP3 login failed"
+msgstr "POP3 Login fehlgeschlagen"
+
+#. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
+msgid "SMTP connection failed"
+msgstr "SMTP Verbindung fehlgeschlagen"
+
+#. TEXT_MAIL_STATUS_SENT
+msgid "sent"
+msgstr "gesendt"
+
+#. TEXT_MAIL_STATUS_SENDING
+msgid "sending"
+msgstr "wird gesendet"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
@@ -1934,8 +1974,8 @@ msgid "Enter command to be executed to view a mail image"
 msgstr "Befehl, der ausgeführt werden soll, um Mail-Bilder anzuzeigen"
 
 #. DESC_HTML_MAIL
-msgid "Mail is sent in html mode, images are displayed directly"
-msgstr "E-Mail wird im hmtl Modus gesandt"
+msgid "Mail is sent in html mode, place image with: <IMAGE>"
+msgstr "E-Mail wird im hmtl Modus gesandt, Bild placieren mit: <IMAGE>"
 
 #. DESC_OCR_COMMAND
 msgid "Enter command to start ocr program"

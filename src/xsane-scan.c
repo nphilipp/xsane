@@ -83,8 +83,6 @@ static int xsane_generate_dummy_filename(int conversion_level)
 
   if ( (xsane.mode == XSANE_GIMP_EXTENSION) ||
        (xsane.xsane_mode == XSANE_COPY) ||
-       (xsane.xsane_mode == XSANE_FAX) ||
-       (xsane.xsane_mode == XSANE_MAIL) ||
        (xsane.xsane_mode == XSANE_VIEWER) ||
        ( (xsane.xsane_mode == XSANE_SAVE)  &&
          (xsane.xsane_output_format != XSANE_PNM) &&
@@ -95,11 +93,25 @@ static int xsane_generate_dummy_filename(int conversion_level)
 
   if (tempfile) /* save to temporary file */
   {
-    xsane_back_gtk_make_path(sizeof(filename), filename, 0, 0, "conversion-", xsane.dev_name, ".ppm", XSANE_PATH_TMP);
+    xsane_back_gtk_make_path(sizeof(filename), filename, 0, 0, "xsane-conversion-", xsane.dev_name, ".ppm", XSANE_PATH_TMP);
     xsane.dummy_filename = strdup(filename);
     DBG(DBG_info, "xsane.dummy_filename = %s\n", xsane.dummy_filename);
 
    return TRUE;
+  }
+  else if (xsane.xsane_mode == XSANE_FAX) /* no conversion following, save directly to the selected filename */
+  {
+    xsane.dummy_filename = strdup(xsane.fax_filename);
+    DBG(DBG_info, "xsane.dummy_filename = %s\n", xsane.dummy_filename);
+
+   return FALSE;
+  }
+  else if (xsane.xsane_mode == XSANE_MAIL) /* no conversion following, save directly to the selected filename */
+  {
+    xsane.dummy_filename = strdup(xsane.mail_filename);
+    DBG(DBG_info, "xsane.dummy_filename = %s\n", xsane.dummy_filename);
+
+   return FALSE;
   }
   else /* no conversion following, save directly to the selected filename */
   {
@@ -1046,31 +1058,32 @@ void xsane_scan_done(SANE_Status status)
       DBG(DBG_info, "correcting image height to %d lines\n", pixel_height);
       xsane.param.lines = pixel_height;
 
-      image_info.image_width      = xsane.param.pixels_per_line;
-      image_info.image_height     = pixel_height;
-      image_info.depth            = xsane.depth;
-      image_info.colors           = xsane.xsane_colors;
+      image_info.image_width       = xsane.param.pixels_per_line;
+      image_info.image_height      = pixel_height;
+      image_info.depth             = xsane.depth;
+      image_info.colors            = xsane.xsane_colors;
 
-      image_info.resolution_x     = xsane.resolution_x;
-      image_info.resolution_y     = xsane.resolution_y;
+      image_info.resolution_x      = xsane.resolution_x;
+      image_info.resolution_y      = xsane.resolution_y;
 
-      image_info.gamma            = xsane.gamma;
-      image_info.gamma_red        = xsane.gamma_red;
-      image_info.gamma_green      = xsane.gamma_green;
-      image_info.gamma_blue       = xsane.gamma_blue;
+      image_info.gamma             = xsane.gamma;
+      image_info.gamma_red         = xsane.gamma_red;
+      image_info.gamma_green       = xsane.gamma_green;
+      image_info.gamma_blue        = xsane.gamma_blue;
 
-      image_info.brightness       = xsane.brightness;
-      image_info.brightness_red   = xsane.brightness_red;
-      image_info.brightness_green = xsane.brightness_green;
-      image_info.brightness_blue  = xsane.brightness_blue;
+      image_info.brightness        = xsane.brightness;
+      image_info.brightness_red    = xsane.brightness_red;
+      image_info.brightness_green  = xsane.brightness_green;
+      image_info.brightness_blue   = xsane.brightness_blue;
  
-      image_info.contrast         = xsane.contrast;
-      image_info.contrast_red     = xsane.contrast_red;
-      image_info.contrast_green   = xsane.contrast_green;
-      image_info.contrast_blue    = xsane.contrast_blue;
+      image_info.contrast          = xsane.contrast;
+      image_info.contrast_red      = xsane.contrast_red;
+      image_info.contrast_green    = xsane.contrast_green;
+      image_info.contrast_blue     = xsane.contrast_blue;
  
-      image_info.threshold        = xsane.threshold;
+      image_info.threshold         = xsane.threshold;
 
+      image_info.reduce_to_lineart = xsane.expand_lineart_to_grayscale;
 
       xsane_write_pnm_header(xsane.out, &image_info, 0);
     }
@@ -1174,7 +1187,12 @@ void xsane_scan_done(SANE_Status status)
 
     if (xsane.xsane_mode == XSANE_VIEWER)
     {
-      xsane_viewer_new(xsane.dummy_filename, xsane.expand_lineart_to_grayscale, NULL, VIEWER_FULL_MODIFICATION);
+      xsane_viewer_new(xsane.dummy_filename, TRUE, NULL, VIEWER_FULL_MODIFICATION);
+      xsane.expand_lineart_to_grayscale = 0;
+    }
+
+    if ((xsane.xsane_mode == XSANE_FAX) || (xsane.xsane_mode == XSANE_MAIL))
+    {
       xsane.expand_lineart_to_grayscale = 0;
     }
 
@@ -1359,120 +1377,6 @@ void xsane_scan_done(SANE_Status status)
         pclose(outfile);
       }
     }
-    else if (xsane.xsane_mode == XSANE_FAX)
-    {
-     FILE *outfile;
-     FILE *infile;
-
-       /* open progressbar */
-       xsane_progress_new(PROGRESS_CONVERTING_DATA, PROGRESS_TRANSFERING_DATA, (GtkSignalFunc) xsane_cancel_save, &xsane.cancel_save);
-
-       while (gtk_events_pending())
-       {
-         gtk_main_iteration();
-       }
-
-       infile = fopen(xsane.dummy_filename, "rb"); /* read binary (b for win32) */
-       if (infile != 0)
-       {
-         xsane_read_pnm_header(infile, &image_info);
-
-         umask((mode_t) preferences.image_umask); /* define image file permissions */   
-         outfile = fopen(xsane.fax_filename, "wb"); /* b = binary mode for win32 */
-         umask(XSANE_DEFAULT_UMASK); /* define new file permissions */   
-         if (outfile != 0)
-         {
-          float imagewidth, imageheight;
-
-           imagewidth  = 72.0 * image_info.image_width /image_info.resolution_x; /* width in 1/72 inch */
-           imageheight = 72.0 * image_info.image_height/image_info.resolution_y; /* height in 1/72 inch */
-
-           DBG(DBG_info, "imagewidth  = %f\n 1/72 inch", imagewidth);
-           DBG(DBG_info, "imageheight = %f\n 1/72 inch", imageheight);
-
-           xsane_save_ps(outfile, infile,
-                         &image_info,
-                         imagewidth, imageheight,
-                         preferences.fax_leftoffset   * 72.0/MM_PER_INCH, /* paper_left_margin */
-                         preferences.fax_bottomoffset * 72.0/MM_PER_INCH, /* paper_bottom_margin */
-                         preferences.fax_width  * 72.0/MM_PER_INCH, /* paper_width */
-                         preferences.fax_height * 72.0/MM_PER_INCH, /* paper_height */
-                         0 /* portrait top left */,
-                         xsane.progress_bar,
-                         &xsane.cancel_save);
-           fclose(outfile);
-         }
-         else
-         {
-          char buf[256];
-
-           DBG(DBG_info, "open of faxfile `%s'failed : %s\n", xsane.fax_filename, strerror(errno));
-
-           snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, xsane.fax_filename, strerror(errno));
-           xsane_back_gtk_error(buf, TRUE);
-         }
-
-         fclose(infile);
-         remove(xsane.dummy_filename);
-       }
-       else
-       {
-        char buf[256];
-
-         DBG(DBG_info, "open of faxfile `%s'failed : %s\n", xsane.fax_filename, strerror(errno));
-
-         snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, xsane.fax_filename, strerror(errno));
-         xsane_back_gtk_error(buf, TRUE);
-       }
-       xsane_progress_clear();
-
-       while (gtk_events_pending())
-       {
-         DBG(DBG_info, "calling gtk_main_iteration");
-         gtk_main_iteration();
-       }
-    }
-#ifdef XSANE_ACTIVATE_MAIL
-    else if (xsane.xsane_mode == XSANE_MAIL)
-    {
-     FILE *infile;
-
-       /* open progressbar */
-       xsane_progress_new(PROGRESS_CONVERTING_DATA, PROGRESS_TRANSFERING_DATA, (GtkSignalFunc) xsane_cancel_save, &xsane.cancel_save);
-
-       while (gtk_events_pending())
-       {
-         gtk_main_iteration();
-       }
-
-       infile = fopen(xsane.dummy_filename, "rb"); /* read binary (b for win32) */
-       if (infile != 0)
-       {
-         xsane_read_pnm_header(infile, &image_info);
-
-         xsane_save_image_as(xsane.dummy_filename, xsane.mail_filename, XSANE_PNG, xsane.progress_bar, &xsane.cancel_save);
-
-         fclose(infile);
-         remove(xsane.dummy_filename);
-       }
-       else
-       {
-        char buf[256];
-
-         DBG(DBG_info, "open of mailfile `%s'failed : %s\n", xsane.dummy_filename, strerror(errno));
-
-         snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, xsane.dummy_filename, strerror(errno));
-         xsane_back_gtk_error(buf, TRUE);
-       }
-       xsane_progress_clear();
-
-       while (gtk_events_pending())
-       {
-         DBG(DBG_info, "calling gtk_main_iteration");
-         gtk_main_iteration();
-       }
-    }
-#endif
 
     if ( (xsane.xsane_mode == XSANE_SAVE) && (xsane.mode == XSANE_STANDALONE) )
     {
@@ -1495,44 +1399,62 @@ void xsane_scan_done(SANE_Status status)
     {
      GtkWidget *list_item;
      char *page;
+     char *type;
      char *extension;
 
       page = strdup(strrchr(xsane.fax_filename,'/')+1);
       extension = strrchr(page, '.');
       if (extension)
       {
+        type = strdup(extension);
         *extension = 0;
       }
+      else
+      {
+        type = "";
+      }
+
       list_item = gtk_list_item_new_with_label(page);
       gtk_object_set_data(GTK_OBJECT(list_item), "list_item_data", strdup(page));
+      gtk_object_set_data(GTK_OBJECT(list_item), "list_item_type", strdup(type));
       gtk_container_add(GTK_CONTAINER(xsane.fax_list), list_item);
       gtk_widget_show(list_item);
 
       xsane_update_counter_in_filename(&xsane.fax_filename, TRUE, 1, preferences.filename_counter_len);
       xsane_fax_project_save();
       free(page);
+      free(type);
     }
 #ifdef XSANE_ACTIVATE_MAIL
     else if (xsane.xsane_mode == XSANE_MAIL)
     {
      GtkWidget *list_item;
-     char *image;
+     char *page;
+     char *type;
      char *extension;
 
-      image = strdup(strrchr(xsane.mail_filename,'/')+1);
-      extension = strrchr(image, '.');
+      page = strdup(strrchr(xsane.mail_filename,'/')+1);
+      extension = strrchr(page, '.');
       if (extension)
       {
+        type = strdup(extension);
         *extension = 0;
       }
-      list_item = gtk_list_item_new_with_label(image);
-      gtk_object_set_data(GTK_OBJECT(list_item), "list_item_data", strdup(image));
+      else
+      {
+        type = "";
+      }
+
+      list_item = gtk_list_item_new_with_label(page);
+      gtk_object_set_data(GTK_OBJECT(list_item), "list_item_data", strdup(page));
+      gtk_object_set_data(GTK_OBJECT(list_item), "list_item_type", strdup(type));
       gtk_container_add(GTK_CONTAINER(xsane.mail_list), list_item);
       gtk_widget_show(list_item);
 
       xsane_update_counter_in_filename(&xsane.mail_filename, TRUE, 1, preferences.filename_counter_len);
       xsane_mail_project_save();
-      free(image);
+      free(page);
+      free(type);
     }
 #endif
   }
@@ -1683,14 +1605,16 @@ static void xsane_start_scan(void)
     default:			frame_type = "unknown"; break;
   }
 
-  if ((xsane.param.depth == 1) && (xsane.scan_rotation))
+  if ((xsane.param.depth == 1) && ((xsane.scan_rotation) ||
+                                   (xsane.xsane_mode == XSANE_VIEWER) ||
+                                   (xsane.xsane_mode == XSANE_FAX) ||
+                                   (xsane.xsane_mode == XSANE_MAIL))
+     ) /* We want to do a transformation with a lineart scan */
+       /* or use the viewer to display a lineart scan, */
+       /* so we save it as grayscale */
   {
-    xsane.expand_lineart_to_grayscale = 1; /* We want to do transformation with lineart scan, so we save it as grayscale */
-  }
-
-  if ((xsane.param.depth == 1) && (xsane.xsane_mode == XSANE_VIEWER))
-  {
-    xsane.expand_lineart_to_grayscale = 1; /* we are using the viewer, lineart is not supported, so create grayscale */
+    DBG(DBG_proc, "lineart scan will be expanded to grayscale\n");
+    xsane.expand_lineart_to_grayscale = 1;
   }
 
   if (!xsane.header_size) /* first pass of multi pass scan or single pass scan */
@@ -1751,6 +1675,8 @@ static void xsane_start_scan(void)
     image_info.contrast_blue    = xsane.contrast_blue;
  
     image_info.threshold        = xsane.threshold;
+
+    image_info.reduce_to_lineart = xsane.expand_lineart_to_grayscale;
 
     xsane_write_pnm_header(xsane.out, &image_info, 0);
 

@@ -46,7 +46,7 @@ typedef struct Viewer
   char *last_saved_filename;
   char *undo_filename;
 
-  int reduce_to_lineart;
+  int allow_reduction_to_lineart;
   float zoom;
   int image_saved;
   int cancel_save;
@@ -63,6 +63,7 @@ typedef struct Viewer
   GtkWidget *button_box;
 
   GtkWidget *file_button_box;
+  GtkWidget *edit_button_box;
   GtkWidget *filters_button_box;
   GtkWidget *geometry_button_box;
 

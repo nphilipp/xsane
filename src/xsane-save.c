@@ -403,6 +403,7 @@ void xsane_read_pnm_header(FILE *infile, Image_info *image_info)
 
     image_info->resolution_x = 72.0;
     image_info->resolution_y = 72.0;
+    image_info->reduce_to_lineart = FALSE;
 
     while (strcmp(buf, "# XSANE data follows\n"))
     {
@@ -455,6 +456,10 @@ void xsane_read_pnm_header(FILE *infile, Image_info *image_info)
                              &image_info->contrast_red, 
                                 &image_info->contrast_green, 
                                     &image_info->contrast_blue);
+      }
+      else if (!strncmp(buf, "#  reduce to lineart", 20))
+      {
+        image_info->reduce_to_lineart = TRUE;
       }
     }
 
@@ -558,6 +563,25 @@ void xsane_write_pnm_header(FILE *outfile, Image_info *image_info, int save_pnm1
                        image_info->resolution_y,
                        image_info->threshold,
                        image_info->image_width, image_info->image_height);
+    }
+    else if (image_info->reduce_to_lineart)
+    {
+      /* do not touch the texts and length here, the reading routine needs to know the exact texts */
+      fprintf(outfile, "P%d\n"
+                       "# XSane settings:\n"
+                       "#  resolution_x    = %6.1f\n"
+                       "#  resolution_y    = %6.1f\n"
+                       "#  threshold       = %4.1f\n"
+                       "#  reduce to lineart\n"
+                       "# XSANE data follows\n"
+                       "%05d %05d\n"
+                       "%d\n",
+                       magic, /* P5 for binary, P2 for ascii */
+                       image_info->resolution_x,
+                       image_info->resolution_y,
+                       image_info->threshold,
+                       image_info->image_width, image_info->image_height,
+                       maxval);
     }
     else
     {
@@ -710,6 +734,8 @@ int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_in
  int read_line;
 
   DBG(DBG_proc, "xsane_save_scaled_image\n");
+
+  *cancel_save = 0;
 
   if (image_info->depth > 8)
   {
@@ -1214,6 +1240,8 @@ int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info
  int xmax_flag;
  int ymin_flag;
  int ymax_flag;
+
+  *cancel_save = 0;
 
   intradius = (int) radius;
 
@@ -2395,6 +2423,8 @@ int xsane_save_ps(FILE *outfile, FILE *imagefile, Image_info *image_info, float 
 {
   DBG(DBG_proc, "xsane_save_ps\n");
 
+  *cancel_save = 0;
+
   xsane_save_ps_create_header(outfile, image_info, width, height,
                               paper_left_margin, paper_bottom_margin, paperheight, paperwidth, paper_orientation,
                               progress_bar);
@@ -3230,6 +3260,8 @@ int xsane_save_pnm_16(FILE *outfile, FILE *imagefile, Image_info *image_info, Gt
 {
   DBG(DBG_proc, "xsane_save_pnm_16\n");
 
+  *cancel_save = 0;
+
   xsane_write_pnm_header(outfile, image_info, preferences.save_pnm16_as_ascii);
 
   if (image_info->colors > 1)
@@ -3483,13 +3515,19 @@ int xsane_save_image_as_text(char *input_filename, char *output_filename, GtkPro
 }                                                                                                                                                      
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-
+/* save image in destination file format. lineart images that are stored as grayscale image are reduced to lineart! */
 int xsane_save_image_as(char *input_filename, char *output_filename, int output_format, GtkProgressBar *progress_bar, int *cancel_save)
 {
  FILE *outfile;
  FILE *infile;
  char buf[256];
  Image_info image_info;
+ char lineart_filename[PATH_MAX];
+ int remove_input_file = FALSE;
+  
+  DBG(DBG_proc, "xsane_save_image_as(input_file=%s, output_file=%s, type=%d)\n", input_filename, output_filename, output_format);
+
+  *cancel_save = 0;
 
   infile = fopen(input_filename, "rb"); /* read binary (b for win32) */
   if (infile == 0)
@@ -3502,6 +3540,51 @@ int xsane_save_image_as(char *input_filename, char *output_filename, int output_
   }
 
   xsane_read_pnm_header(infile, &image_info);
+
+  if ((image_info.reduce_to_lineart) && (output_format != XSANE_PNM))
+  {
+    DBG(DBG_info, "original image is a lineart => reduce to lineart\n");
+    fclose(infile);
+    xsane_back_gtk_make_path(sizeof(lineart_filename), lineart_filename, 0, 0, "xsane-conversion-", xsane.dev_name, ".pbm", XSANE_PATH_TMP);
+
+    snprintf(buf, sizeof(buf), "%s: %s", PROGRESS_PACKING_DATA, output_filename);
+
+    gtk_progress_set_format_string(GTK_PROGRESS(progress_bar), buf);
+    gtk_progress_bar_update(GTK_PROGRESS_BAR(progress_bar), 0.0);
+
+    while (gtk_events_pending())
+    {
+      gtk_main_iteration();
+    }
+
+    xsane_save_image_as_lineart(input_filename, lineart_filename, progress_bar, cancel_save);
+
+    input_filename = lineart_filename;
+    remove_input_file = TRUE;
+
+    infile = fopen(input_filename, "rb"); /* read binary (b for win32) */
+    if (infile == 0)
+    {
+     char buf[256];
+      snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, input_filename, strerror(errno));
+      xsane_back_gtk_error(buf, TRUE);     
+
+     return -1;
+    }
+
+    xsane_read_pnm_header(infile, &image_info);
+  }
+
+  snprintf(buf, sizeof(buf), "%s: %s", PROGRESS_SAVING_DATA, output_filename);
+
+  gtk_progress_set_format_string(GTK_PROGRESS(progress_bar), buf);
+  gtk_progress_bar_update(GTK_PROGRESS_BAR(progress_bar), 0.0);
+
+  while (gtk_events_pending())
+  {
+    gtk_main_iteration();
+  }
+
 
 #ifdef HAVE_LIBTIFF
   if (output_format == XSANE_TIFF)		/* routines that want to have filename  for saving */
@@ -3525,7 +3608,14 @@ int xsane_save_image_as(char *input_filename, char *output_filename, int output_
       switch(output_format)
       {
         case XSANE_PNM:
-          xsane_save_rotate_image(outfile, infile, &image_info, 0, progress_bar, cancel_save);
+          if (image_info.reduce_to_lineart)
+          {
+            xsane_save_grayscale_image_as_lineart(outfile, infile, &image_info, progress_bar, cancel_save);
+          }
+          else
+          {
+            xsane_save_rotate_image(outfile, infile, &image_info, 0, progress_bar, cancel_save);
+          }
          break;
 
 #ifdef HAVE_LIBJPEG
@@ -3588,6 +3678,19 @@ int xsane_save_image_as(char *input_filename, char *output_filename, int output_
 
           remove(output_filename); /* no usable output: remove output file  */
 
+          if (remove_input_file)
+          {
+            remove(input_filename); /* remove lineart pbm file  */
+          }
+
+          gtk_progress_set_format_string(GTK_PROGRESS(progress_bar), "");
+          gtk_progress_bar_update(GTK_PROGRESS_BAR(progress_bar), 0.0);
+
+          while (gtk_events_pending())
+          {
+            gtk_main_iteration();
+          }
+
          return -2;
          break; /* switch format == default */
       }
@@ -3599,15 +3702,42 @@ int xsane_save_image_as(char *input_filename, char *output_filename, int output_
       xsane_back_gtk_error(buf, TRUE);
 
       fclose(infile);
+
+      if (remove_input_file)
+      {
+        remove(input_filename); /* remove lineart pbm file  */
+      }
+
+      gtk_progress_set_format_string(GTK_PROGRESS(progress_bar), "");
+      gtk_progress_bar_update(GTK_PROGRESS_BAR(progress_bar), 0.0);
+
+      while (gtk_events_pending())
+      {
+        gtk_main_iteration();
+      }
+
      return -2;
     }
   }
 
   fclose (infile);
 
+  if (remove_input_file)
+  {
+    remove(input_filename); /* remove lineart pbm file  */
+  }
+
   if (*cancel_save) /* remove output file if saving has been canceled */
   {
     remove(output_filename);
+  }
+
+  gtk_progress_set_format_string(GTK_PROGRESS(progress_bar), "");
+  gtk_progress_bar_update(GTK_PROGRESS_BAR(progress_bar), 0.0);
+
+  while (gtk_events_pending())
+  {
+    gtk_main_iteration();
   }
 
  return (*cancel_save);
@@ -4631,4 +4761,108 @@ int write_smtp_footer(int fd_socket)
 }
 
 #endif
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+int xsane_copy_file(char *source_filename, char *destination_filename, GtkProgressBar *progress_bar, int *cancel_save)
+{
+ char buf[1024];
+ FILE *infile;
+ FILE *outfile;
+ int size;
+ int bytes;
+ int bytes_sum = 0;
+
+
+  DBG(DBG_proc, "copying file %s to %s\n", source_filename, destination_filename);
+
+  outfile = fopen(destination_filename, "wb"); /* b = binary mode for win32 */
+
+  if (outfile == 0)
+  {
+    snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, destination_filename, strerror(errno));
+    xsane_back_gtk_error(buf, TRUE);
+   return -2;
+  }
+
+  infile = fopen(source_filename, "rb"); /* read binary (b for win32) */
+  if (infile == 0)
+  {
+   char buf[256];
+    snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, source_filename, strerror(errno));
+    xsane_back_gtk_error(buf, TRUE);     
+
+    fclose(outfile);
+    remove(destination_filename); /* remove already created output file */
+   return -1;
+  }
+
+  fseek(infile, 0, SEEK_END);
+  size = ftell(infile);
+  fseek(infile, 0, SEEK_SET);
+
+  snprintf(buf, sizeof(buf), "%s: %s", PROGRESS_SAVING_DATA, destination_filename);
+
+  gtk_progress_set_format_string(GTK_PROGRESS(progress_bar), buf);
+  gtk_progress_bar_update(GTK_PROGRESS_BAR(progress_bar), 0.0);
+
+  while (gtk_events_pending())
+  {
+    gtk_main_iteration();
+  }
+
+  while (!feof(infile))
+  {
+    bytes = fread(buf, 1, sizeof(buf), infile);
+    if (bytes > 0)
+    {
+      fwrite(buf, 1, bytes, outfile);
+      bytes_sum += bytes;
+    }
+
+    gtk_progress_bar_update(progress_bar, (float) bytes_sum / size); /* update progress bar */
+
+    while (gtk_events_pending())
+    {
+      gtk_main_iteration();
+    }
+
+    if (ferror(outfile))
+    {
+     char buf[255];
+
+      snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+      DBG(DBG_error, "%s\n", buf);
+      xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+      *cancel_save = 1;
+     break;
+    }
+
+    if (*cancel_save)
+    {
+      break;
+    }
+  }
+
+  fclose(infile);
+  fclose(outfile);
+
+  gtk_progress_set_format_string(GTK_PROGRESS(progress_bar), "");
+  gtk_progress_bar_update(GTK_PROGRESS_BAR(progress_bar), 0.0);
+
+  while (gtk_events_pending())
+  {
+    gtk_main_iteration();
+  }
+
+  if (size != bytes_sum)
+  {
+    DBG(DBG_info, "copy errro, not complete, %d bytes of %d bytes copied\n", bytes_sum, size);
+   return -3;
+  }
+
+  DBG(DBG_info, "copy complete, %d bytes copied\n", bytes_sum);
+
+ return 0;
+}
+
 /* ---------------------------------------------------------------------------------------------------------------------- */

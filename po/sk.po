@@ -4,15 +4,17 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: sane 0.93\n"
-"POT-Creation-Date: 2004-08-05 12:07+0200\n"
-"PO-Revision-Date: 2004-04-21 21:49+0100\n"
+"Project-Id-Version: xsane-0.95\n"
+"POT-Creation-Date: 2004-08-13 22:28+0200\n"
+"PO-Revision-Date: 09.08.2004 21:26\n"
 "Last-Translator: Zdenko Podobný <zdpo@mailbox.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.3\n"
+"X-Generator: KBabel 1.3.1\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #. Please translate this to the correct directory name (eg. german=>de)
 #. XSANE_LANGUAGE_DIR
@@ -26,7 +28,7 @@ msgstr "(c)"
 #. can be translated with \251
 #. FILENAME_PREFIX_CLONE_OF
 msgid "clone-of-"
-msgstr ""
+msgstr "klon"
 
 #. WINDOW_ABOUT_XSANE
 msgid "About"
@@ -97,19 +99,16 @@ msgid "rename preset area"
 msgstr "premenovať predvolaná oblasť"
 
 #. WINDOW_PRESET_AREA_ADD
-#, fuzzy
 msgid "add preset area"
-msgstr "premenovať predvolaná oblasť"
+msgstr "pridať predvolenú oblasť"
 
 #. WINDOW_MEDIUM_RENAME
-#, fuzzy
 msgid "rename medium"
-msgstr "Uložiť médium"
+msgstr "premenovať médium"
 
 #. WINDOW_MEDIUM_ADD
-#, fuzzy
 msgid "add new medium"
-msgstr "Uložiť médium"
+msgstr "pridať nové médium"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -205,7 +204,7 @@ msgstr "Zobraziť"
 
 #. MENU_WINDOW
 msgid "Window"
-msgstr ""
+msgstr "Okno"
 
 #. MENU_HELP
 msgid "Help"
@@ -213,7 +212,7 @@ msgstr "Pomocník"
 
 #. MENU_EDIT
 msgid "Edit"
-msgstr ""
+msgstr "Upraviť"
 
 #. MENU_FILTERS
 msgid "Filters"
@@ -221,7 +220,7 @@ msgstr "Filtre"
 
 #. MENU_GEOMETRY
 msgid "Geometry"
-msgstr ""
+msgstr "Geometria"
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
@@ -257,7 +256,7 @@ msgstr "Zavrieť"
 
 #. MENU_ITEM_UNDO
 msgid "Undo"
-msgstr ""
+msgstr "Späť"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
@@ -269,27 +268,23 @@ msgstr "Rozostriť"
 
 #. MENU_ITEM_ROTATE90
 msgid "Rotate 90"
-msgstr ""
+msgstr "Rotovať 90"
 
 #. MENU_ITEM_ROTATE180
-#, fuzzy
 msgid "Rotate 180"
-msgstr "Otočenie obrázka o 180 stupňov"
+msgstr "Rotovať 180"
 
 #. MENU_ITEM_ROTATE270
-#, fuzzy
 msgid "Rotate 270"
-msgstr "Otočenie obrázka o 270 stupňov"
+msgstr "Rotovať 270"
 
 #. MENU_ITEM_MIRROR_X
-#, fuzzy
 msgid "Mirror |"
-msgstr "chyba"
+msgstr "Zrkadlo |"
 
 #. MENU_ITEM_MIRROR_Y
-#, fuzzy
 msgid "Mirror -"
-msgstr "chyba"
+msgstr "Zrkadlo -"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -366,6 +361,11 @@ msgstr "Odstrániť obrázok"
 #. BUTTON_IMAGE_SHOW
 msgid "Show image"
 msgstr "Zobraziť obrázok"
+
+#. BUTTON_IMAGE_EDIT
+#, fuzzy
+msgid "Edit image"
+msgstr "Spracovaný obrázok"
 
 #. BUTTON_IMAGE_RENAME
 msgid "Rename image"
@@ -505,7 +505,7 @@ msgstr "Typ"
 
 #. TEXT_SCANNER_BACKEND
 msgid "Scanner and backend:"
-msgstr "Skener a ovládač"
+msgstr "Skener a ovládač:"
 
 #. TEXT_VENDOR
 msgid "Vendor:"
@@ -737,6 +737,46 @@ msgstr "Prílohy:"
 #. TEXT_MAIL_STATUS
 msgid "Project status:"
 msgstr "Stav projektu:"
+
+#. TEXT_MAIL_STATUS_NOT_CREATED
+#, fuzzy
+msgid "not created"
+msgstr "čítanie"
+
+#. TEXT_MAIL_STATUS_CREATED
+#, fuzzy
+msgid "created"
+msgstr "čítanie"
+
+#. TEXT_MAIL_STATUS_CHANGED
+msgid "changed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_ERR_READ_PROJECT
+#, fuzzy
+msgid "error reading mailproject"
+msgstr "Vložte názov poštového projektu"
+
+#. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
+msgid "POP3 connection failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
+msgid "POP3 login failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
+msgid "SMTP connection failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SENT
+#, fuzzy
+msgid "sent"
+msgstr "nastavenie"
+
+#. TEXT_MAIL_STATUS_SENDING
+msgid "sending"
+msgstr ""
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
@@ -1043,7 +1083,7 @@ msgid "all"
 msgstr "všetko"
 
 msgid "new media"
-msgstr ""
+msgstr "nové médium"
 
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
@@ -1236,15 +1276,15 @@ msgstr "Behúň (Posuvník)"
 
 #. MENU_ITEM_RANGE_SPINBUTTON
 msgid "Spinbutton"
-msgstr "Otočné tlačítko"
+msgstr "Otočné tlačidlo"
 
 #. MENU_ITEM_RANGE_SCALE_SPIN
 msgid "Scale and Spinbutton"
-msgstr "Mierka a otočné tlačítko"
+msgstr "Mierka a otočné tlačidlo"
 
 #. MENU_ITEM_RANGE_SCROLL_SPIN
 msgid "Scrollbar and Spinbutton"
-msgstr "Posuvník a otočné tlačítko"
+msgstr "Posuvník a otočné tlačidlo"
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
 msgid "Standard options window (lineart)"
@@ -1272,33 +1312,28 @@ msgstr "Pridať výber do zoznamu"
 
 #  MENU_ITEM_EDIT_MEDIUM_DEF
 #. MENU_ITEM_MEDIUM_ADD
-#, fuzzy
 msgid "Add medium definition"
-msgstr "Upraviť definíciu média"
+msgstr "Pridať definíciu média"
 
 #. MENU_ITEM_RENAME
-#, fuzzy
 msgid "Rename item"
-msgstr "Premenovať obrázka"
+msgstr "Premenovať položku"
 
 #. MENU_ITEM_DELETE
-#, fuzzy
 msgid "Delete item"
-msgstr "Zmazať tlačiareň"
+msgstr "Odstrániť položku"
 
 #. MENU_ITEM_MOVE_UP
-#, fuzzy
 msgid "Move item up"
-msgstr "Posunúť nahor"
+msgstr "Posunúť položku hore"
 
 #. MENU_ITEM_MOVE_DWN
-#, fuzzy
 msgid "Move item down"
-msgstr "Posunúť nadol"
+msgstr "Posunúť položku dole"
 
 #. PROGRESS_SCANNING
 msgid "Scanning"
-msgstr "Skenujem"
+msgstr "Skenovanie"
 
 #. PROGRESS_RECEIVING_FRAME_DATA
 #, c-format
@@ -1381,6 +1416,11 @@ msgid ""
 "To create a medium enable the option edit medium definition in preferences "
 "menu."
 msgstr ""
+"Vyberte typ zdrojového média.\n"
+"Na premenovanie, preusporiadanie alebo zmazanie záznamu použite kontextovú "
+"ponuku (pravé tlačidlo myši).\n"
+"Na vytvorenie média povoľte nastavenie upraviť definíciu média v ponuke "
+"nastavenia."
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1434,9 +1474,8 @@ msgid "Enter new name for preset area"
 msgstr "Vložte nový názov pre predvolenú oblasť"
 
 #. DESC_PRESET_AREA_ADD
-#, fuzzy
 msgid "Enter name for new preset area"
-msgstr "Vložte nový názov pre predvolenú oblasť"
+msgstr "Vložte názov pre novú predvolenú oblasť"
 
 #  DESC_MEDIUM_DEFINITION_NAME
 #. DESC_MEDIUM_RENAME
@@ -1445,9 +1484,8 @@ msgstr "Vložte nový názov pre definíciu média"
 
 #  DESC_MEDIUM_DEFINITION_NAME
 #. DESC_MEDIUM_ADD
-#, fuzzy
 msgid "Enter name for new medium definition"
-msgstr "Vložte nový názov pre definíciu média"
+msgstr "Vložte názov pre novú definíciu média"
 
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
@@ -1859,7 +1897,7 @@ msgstr ""
 
 #. DESC_AUTOENHANCE_GAMMA
 msgid "Change gamma value when autoenhancement button is pressed"
-msgstr "Zmení gama hodnotu, ak je stlačené tlačítko automatickej úpravy"
+msgstr "Zmení gama hodnotu, ak je stlačené tlačidlo automatickej úpravy"
 
 #. DESC_PRESELECT_SCANAREA
 msgid "Select scanarea after preview scan has finished"
@@ -1939,7 +1977,8 @@ msgstr ""
 "Nastavenie príkazu, ktorý ma byť spustený k zobrazeniu obrázku v emaily"
 
 #. DESC_HTML_MAIL
-msgid "Mail is sent in html mode, images are displayed directly"
+#, fuzzy
+msgid "Mail is sent in html mode, place image with: <IMAGE>"
 msgstr "Email je poslaný v html móde, obrázky sú zobrazené priamo"
 
 #. DESC_OCR_COMMAND
@@ -2041,6 +2080,9 @@ msgid ""
 "To add new area or edit an existing area use contect menu (right mouse "
 "button)."
 msgstr ""
+"Predvolená oblasť:\n"
+"Na pridanie novej oblasti alebo úpravy existujúcej oblasti použite "
+"kontextovú ponuku (pravé tlačidlo myši)."
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -2059,7 +2101,6 @@ msgid "Optical Character Recognition"
 msgstr "Optické rozpoznávanie textu"
 
 #. DESC_VIEWER_UNDO
-#, fuzzy
 msgid "Undo last change"
 msgstr "Vrátiť späť poslednú zmenu"
 
@@ -2266,11 +2307,11 @@ msgstr "neznámy požadovaný typ"
 
 #. ERR_OPTION_NAME_NULL
 msgid "Option has empty name (NULL)."
-msgstr ""
+msgstr "Voľba má prázdny názov (NULL)."
 
 #. ERR_BACKEND_BUG
 msgid "This is a backend bug. Please inform the author of the backend!"
-msgstr ""
+msgstr "Toto je chyba programu. Informujte prosím autora programu!"
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.90\n"
-"POT-Creation-Date: 2004-08-05 12:07+0200\n"
+"POT-Creation-Date: 2004-08-13 22:28+0200\n"
 "PO-Revision-Date: 2002-12-23 02:48MSK\n"
 "Last-Translator: Vitaly Lipatov <lav@altlinux.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -366,6 +366,11 @@ msgstr "Удалить изображение"
 #. BUTTON_IMAGE_SHOW
 msgid "Show image"
 msgstr "Показать изображение"
+
+#. BUTTON_IMAGE_EDIT
+#, fuzzy
+msgid "Edit image"
+msgstr "Обработанное изображение"
 
 #. BUTTON_IMAGE_RENAME
 msgid "Rename image"
@@ -739,6 +744,46 @@ msgstr "Изображения:"
 #. TEXT_MAIL_STATUS
 msgid "Project status:"
 msgstr "Состояние послания:"
+
+#. TEXT_MAIL_STATUS_NOT_CREATED
+#, fuzzy
+msgid "not created"
+msgstr "чтение"
+
+#. TEXT_MAIL_STATUS_CREATED
+#, fuzzy
+msgid "created"
+msgstr "чтение"
+
+#. TEXT_MAIL_STATUS_CHANGED
+msgid "changed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_ERR_READ_PROJECT
+#, fuzzy
+msgid "error reading mailproject"
+msgstr "Название почтового сообщения"
+
+#. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
+msgid "POP3 connection failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
+msgid "POP3 login failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
+msgid "SMTP connection failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SENT
+#, fuzzy
+msgid "sent"
+msgstr "установки"
+
+#. TEXT_MAIL_STATUS_SENDING
+msgid "sending"
+msgstr ""
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
@@ -1945,7 +1990,8 @@ msgid "Enter command to be executed to view a mail image"
 msgstr "Введите команду для просмотра почтовых вложений"
 
 #. DESC_HTML_MAIL
-msgid "Mail is sent in html mode, images are displayed directly"
+#, fuzzy
+msgid "Mail is sent in html mode, place image with: <IMAGE>"
 msgstr ""
 "Письмо отправляется в виде HTML-документа, изображения отображаются напрямую"
 

@@ -372,6 +372,8 @@ typedef struct Image_info
     double contrast_blue;
 
     double threshold;
+
+    int reduce_to_lineart;
   }
 Image_info;
 
@@ -445,6 +447,7 @@ extern void xsane_batch_scan_add(void);
 #define FAXNORMALOPT		"-l"
 #define FAXFINEOPT		"-m"
 #define FAXVIEWER 	 	"gv"
+#define FAXCONVERTPSTOPNM  	"gs -dNOPAUSE -dBATCH -q -r204 -sDEVICE=pnm -sOutputFile="
 #define MAILPROJECT 	    	"mailproject"
 #define MAILCOMMAND 	 	"sendmail"
 #define MAILVIEWER 	 	"xv"
@@ -635,6 +638,7 @@ typedef struct Xsane
     GtkWidget *fax_project_not_exists;
     GtkWidget *fax_project_entry;
     GtkWidget *fax_receiver_entry;
+    GtkProgressBar *fax_progress_bar;
 
     GtkWidget *mail_dialog;
     GtkWidget *mail_list;
@@ -646,7 +650,7 @@ typedef struct Xsane
     GtkWidget *mail_subject_entry;
     GtkWidget *mail_text_widget;
     GtkWidget *mail_html_mode_widget;
-    GtkWidget *mail_status_label;
+    GtkProgressBar *mail_progress_bar;
 
     GdkPixmap *window_icon_pixmap;
     GdkBitmap *window_icon_mask;        

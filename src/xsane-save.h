@@ -60,5 +60,7 @@ extern int open_socket(char *server, int port);
 extern int pop3_login(int fd_socket, char *user, char *passwd);
 extern int write_smtp_header(int fd_socket, char *from, char *to);
 extern int write_smtp_footer(int fd_socket);
+extern int xsane_copy_file(char *source_filename, char *destination_filename, GtkProgressBar *progress_bar, int *cancel_save);
+
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
