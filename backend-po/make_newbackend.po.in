@@ -1,0 +1,3 @@
+gcc -E -P - <newbackend.po.in.in | sed -e "s/^_/msgid /g" - | cat newbackend.po.in.header - >newbackend.po.in
+
+

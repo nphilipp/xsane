@@ -23,10 +23,10 @@ msgid WINDOW_FAX_RENAME
 msgstr "Faxseite umbenennen"
 
 msgid WINDOW_SETUP
-msgstr "Einstellungen"
+msgstr "Konfiguration"
 
 msgid WINDOW_HISTOGRAM
-msgstr "Histogram"
+msgstr "Histogramm"
 
 msgid WINDOW_STANDARD_OPTIONS
 msgstr "Standard Optionen"
@@ -332,7 +332,7 @@ msgid MENU_ITEM_FAX
 msgstr "Faxen"
 
 msgid MENU_ITEM_SETUP
-msgstr "Einstellungen"
+msgstr "Konfiguration"
 
 msgid MENU_ITEM_SHOW_TOOLTIPS
 msgstr "Zeige Tips"
@@ -341,7 +341,7 @@ msgid MENU_ITEM_SHOW_PREVIEW
 msgstr "Zeige Vorschau"
 
 msgid MENU_ITEM_SHOW_HISTOGRAM
-msgstr "Zeige Histogram"
+msgstr "Zeige Histogramm"
 
 msgid MENU_ITEM_SHOW_STANDARDOPTIONS
 msgstr "Zeige Standardoptionen"
@@ -405,6 +405,42 @@ msgstr "gepackte Bits"
 
 msgid MENU_ITEM_FILETYPE_BY_EXT
 msgstr "nach erw."
+
+#original text:  "Saving image"
+msgid PROGRESS_SAVING
+msgstr "Speichere Bild"
+
+#original text:  "Saving fax image"
+msgid PROGRESS_SAVING_FAX
+msgstr "Speichere Faxbild"
+
+#original text:  "Converting data...."
+msgid PROGRESS_CONVERTING_DATA
+msgstr "Konvertiere Daten..."
+
+#original text:  "Converting to postscript"
+msgid PROGRESS_CONVERTING_PS
+msgstr "Konvertiere nach Postscript"
+
+#original text:  "Scanning"
+msgid PROGRESS_SCANNING
+msgstr "Scanne"
+
+#original text:  "Receiving %s data for `%s'..."
+msgid PROGRESS_RECEIVING_SCAN
+msgstr "Empfange %s Daten für `%s'..."
+
+#original text:  "Receiving %s data for photocopy ..."
+msgid PROGRESS_RECEIVING_COPY
+msgstr "Empfange %s Daten für Photocopie"
+
+#original text:  "Receiving %s data for fax ..."
+msgid PROGRESS_RECEIVING_FAX
+msgstr "Empfange %s Daten für Fax ..."
+
+#original text:  "Receiving %s data for GIMP..."
+msgid PROGRESS_RECEIVING_GIMP
+msgstr "Empfange %s Daten für GIMP..."
 
 msgid DESC_XSANE_MODE
 msgstr "Benutze XSane zum Scannen, Kopieren oder Faxen"
@@ -512,7 +548,7 @@ msgid DESC_HIST_BLUE
 msgstr "Zeige Histogramm für blaue Komponente"
 
 msgid DESC_HIST_PIXEL
-msgstr "Zeichne Histogram mit Linien Anstatt mit Punkten"
+msgstr "Zeichne Histogramm mit Linien anstatt mit Punkten"
 
 msgid DESC_HIST_LOG
 msgstr "Benutze Logarithmus der Pixelzahlen"
@@ -786,12 +822,33 @@ msgstr "" \
 "-f, --fax                    starte im Faxmodus\n" \
 "-n, --no-mode-selection      deaktiviere Modusauswahl\n" \
 "\n" \
-"-F, --Fixed                  Haupfenstergröße ist fest\n" \
-"-R, --Resizeable             Haupfenstergröße ist veränderbar\n" \
+"-F, --Fixed                  Hauptfenstergröße ist fest\n" \
+"-R, --Resizeable             Hauptfenstergröße ist veränderbar\n" \
 "\n" \
 "--display X11-display        lenkt X-Ausgabe auf X11-display um\n" \
 "--no-xshm                    keine shared memory Bilder benutzen\n" \
 "--sync                       fordert synchrone Verbindung zum X-Server an"
+
+
+
+msgid "flatbed scanner"
+msgstr "Flachbett Scanner"
+
+msgid "frame grabber"
+msgstr "Framegrabber"
+
+msgid "handheld scanner"
+msgstr "Handscanner"
+
+msgid "still camera"
+msgstr "Photocamera"
+
+msgid "video camera"
+msgstr "Videocamera"
+
+msgid "virtual device"
+msgstr "virtuelles Gerät"
+                     
 
 
 msgid "Success"

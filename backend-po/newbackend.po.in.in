@@ -1,0 +1,546 @@
+#include "/usr/local/include/sane/saneopts.h"
+#define _(x) x
+
+# nls translation file for backend "BACKENDNAME"
+# language: "LANGUAGE" (XYZ)
+
+
+#original text: SANE_TITLE_NUM_OPTIONS
+_SANE_TITLE_NUM_OPTIONS
+msgstr ""
+
+#original text: SANE_TITLE_PREVIEW
+_SANE_TITLE_PREVIEW
+msgstr ""
+
+#original text: SANE_TITLE_GRAY_PREVIEW
+_SANE_TITLE_GRAY_PREVIEW
+msgstr ""
+
+#original text: SANE_TITLE_BIT_DEPTH
+_SANE_TITLE_BIT_DEPTH
+msgstr ""
+
+#original text: SANE_TITLE_SCAN_MODE
+_SANE_TITLE_SCAN_MODE
+msgstr ""
+
+#original text: SANE_TITLE_SCAN_SPEED
+_SANE_TITLE_SCAN_SPEED
+msgstr ""
+
+#original text: SANE_TITLE_SCAN_SOURCE
+_SANE_TITLE_SCAN_SOURCE
+msgstr ""
+
+#original text: SANE_TITLE_BACKTRACK
+_SANE_TITLE_BACKTRACK
+msgstr ""
+
+#original text: SANE_TITLE_SCAN_TL_X
+_SANE_TITLE_SCAN_TL_X
+msgstr ""
+
+#original text: SANE_TITLE_SCAN_TL_Y
+_SANE_TITLE_SCAN_TL_Y
+msgstr ""
+
+#original text: SANE_TITLE_SCAN_BR_X
+_SANE_TITLE_SCAN_BR_X
+msgstr ""
+
+#original text: SANE_TITLE_SCAN_BR_Y
+_SANE_TITLE_SCAN_BR_Y
+msgstr ""
+
+#original text: SANE_TITLE_SCAN_RESOLUTION
+_SANE_TITLE_SCAN_RESOLUTION
+msgstr ""
+
+#original text: SANE_TITLE_SCAN_X_RESOLUTION
+_SANE_TITLE_SCAN_X_RESOLUTION
+msgstr ""
+
+#original text: SANE_TITLE_SCAN_Y_RESOLUTION
+_SANE_TITLE_SCAN_Y_RESOLUTION
+msgstr ""
+
+#original text: SANE_TITLE_CUSTOM_GAMMA
+_SANE_TITLE_CUSTOM_GAMMA
+msgstr ""
+
+#original text: SANE_TITLE_GAMMA_VECTOR
+_SANE_TITLE_GAMMA_VECTOR
+msgstr ""
+
+#original text: SANE_TITLE_GAMMA_VECTOR_R
+_SANE_TITLE_GAMMA_VECTOR_R
+msgstr ""
+
+#original text: SANE_TITLE_GAMMA_VECTOR_G
+_SANE_TITLE_GAMMA_VECTOR_G
+msgstr ""
+
+#original text: SANE_TITLE_GAMMA_VECTOR_B
+_SANE_TITLE_GAMMA_VECTOR_B
+msgstr ""
+
+#original text: SANE_TITLE_BRIGHTNESS
+_SANE_TITLE_BRIGHTNESS
+msgstr ""
+
+#original text: SANE_TITLE_CONTRAST
+_SANE_TITLE_CONTRAST
+msgstr ""
+
+#original text: SANE_TITLE_GRAIN_SIZE
+_SANE_TITLE_GRAIN_SIZE
+msgstr ""
+
+#original text: SANE_TITLE_HALFTONE
+_SANE_TITLE_HALFTONE
+msgstr ""
+
+#original text: SANE_TITLE_BLACK_LEVEL
+_SANE_TITLE_BLACK_LEVEL
+msgstr ""
+
+#original text: SANE_TITLE_WHITE_LEVEL
+_SANE_TITLE_WHITE_LEVEL
+msgstr ""
+
+#original text: SANE_TITLE_SHADOW
+_SANE_TITLE_SHADOW
+msgstr ""
+
+#original text: SANE_TITLE_SHADOW_R
+_SANE_TITLE_SHADOW_R
+msgstr ""
+
+#original text: SANE_TITLE_SHADOW_G
+_SANE_TITLE_SHADOW_G
+msgstr ""
+
+#original text: SANE_TITLE_SHADOW_B
+_SANE_TITLE_SHADOW_B
+msgstr ""
+
+#original text: SANE_TITLE_HIGHLIGHT
+_SANE_TITLE_HIGHLIGHT
+msgstr ""
+
+#original text: SANE_TITLE_HIGHLIGHT_R
+_SANE_TITLE_HIGHLIGHT_R
+msgstr ""
+
+#original text: SANE_TITLE_HIGHLIGHT_G
+_SANE_TITLE_HIGHLIGHT_G
+msgstr ""
+
+#original text: SANE_TITLE_HIGHLIGHT_B
+_SANE_TITLE_HIGHLIGHT_B
+msgstr ""
+
+#original text: SANE_TITLE_HUE
+_SANE_TITLE_HUE
+msgstr ""
+
+#original text: SANE_TITLE_SATURATION
+_SANE_TITLE_SATURATION
+msgstr ""
+
+#original text: SANE_TITLE_FILE
+_SANE_TITLE_FILE
+msgstr ""
+
+#original text: SANE_TITLE_HALFTONE_DIMENSION
+_SANE_TITLE_HALFTONE_DIMENSION
+msgstr ""
+
+#original text: SANE_TITLE_HALFTONE_PATTERN
+_SANE_TITLE_HALFTONE_PATTERN
+msgstr ""
+
+#original text: SANE_TITLE_RESOLUTION_BIND
+_SANE_TITLE_RESOLUTION_BIND
+msgstr ""
+
+#original text: SANE_TITLE_NEGATIVE
+_SANE_TITLE_NEGATIVE
+msgstr ""
+
+#original text: SANE_TITLE_QUALITY_CAL
+_SANE_TITLE_QUALITY_CAL
+msgstr ""
+
+#original text: SANE_TITLE_DOR
+_SANE_TITLE_DOR
+msgstr ""
+
+#original text: SANE_TITLE_RGB_BIND
+_SANE_TITLE_RGB_BIND
+msgstr ""
+
+#original text: SANE_TITLE_THRESHOLD
+_SANE_TITLE_THRESHOLD
+msgstr ""
+
+#original text: SANE_TITLE_ANALOG_GAMMA
+_SANE_TITLE_ANALOG_GAMMA
+msgstr ""
+
+#original text: SANE_TITLE_ANALOG_GAMMA_R
+_SANE_TITLE_ANALOG_GAMMA_R
+msgstr ""
+
+#original text: SANE_TITLE_ANALOG_GAMMA_G
+_SANE_TITLE_ANALOG_GAMMA_G
+msgstr ""
+
+#original text: SANE_TITLE_ANALOG_GAMMA_B
+_SANE_TITLE_ANALOG_GAMMA_B
+msgstr ""
+
+#original text: SANE_TITLE_ANALOG_GAMMA_BIND
+_SANE_TITLE_ANALOG_GAMMA_BIND
+msgstr ""
+
+#original text: SANE_TITLE_SMEAR
+_SANE_TITLE_SMEAR
+msgstr ""
+
+#original text: SANE_TITLE_TEN_BIT_MODE
+_SANE_TITLE_TEN_BIT_MODE
+msgstr ""
+
+#original text: SANE_TITLE_TWELVE_BIT_MODE
+_SANE_TITLE_TWELVE_BIT_MODE
+msgstr ""
+
+#original text: SANE_TITLE_WARMUP
+_SANE_TITLE_WARMUP
+msgstr ""
+
+#original text: SANE_TITLE_RGB_PREVIEW_PATCH
+_SANE_TITLE_RGB_PREVIEW_PATCH
+msgstr ""
+
+#original text: SANE_TITLE_START_SCAN_PATCH
+_SANE_TITLE_START_SCAN_PATCH
+msgstr ""
+
+#original text: SANE_TITLE_CAL_EXPOS_TIME
+_SANE_TITLE_CAL_EXPOS_TIME
+msgstr ""
+
+#original text: SANE_TITLE_CAL_EXPOS_TIME_R
+_SANE_TITLE_CAL_EXPOS_TIME_R
+msgstr ""
+
+#original text: SANE_TITLE_CAL_EXPOS_TIME_G
+_SANE_TITLE_CAL_EXPOS_TIME_G
+msgstr ""
+
+#original text: SANE_TITLE_CAL_EXPOS_TIME_B
+_SANE_TITLE_CAL_EXPOS_TIME_B
+msgstr ""
+
+#original text: SANE_TITLE_SCAN_EXPOS_TIME
+_SANE_TITLE_SCAN_EXPOS_TIME
+msgstr ""
+
+#original text: SANE_TITLE_SCAN_EXPOS_TIME_R
+_SANE_TITLE_SCAN_EXPOS_TIME_R
+msgstr ""
+
+#original text: SANE_TITLE_SCAN_EXPOS_TIME_G
+_SANE_TITLE_SCAN_EXPOS_TIME_G
+msgstr ""
+
+#original text: SANE_TITLE_SCAN_EXPOS_TIME_B
+_SANE_TITLE_SCAN_EXPOS_TIME_B
+msgstr ""
+
+#original text: SANE_TITLE_SELECT_EXPOSURE_TIME
+_SANE_TITLE_SELECT_EXPOSURE_TIME
+msgstr ""
+
+#original text: SANE_TITLE_CAL_LAMP_DEN
+_SANE_TITLE_CAL_LAMP_DEN
+msgstr ""
+
+#original text: SANE_TITLE_SCAN_LAMP_DEN
+_SANE_TITLE_SCAN_LAMP_DEN
+msgstr ""
+
+#original text: SANE_TITLE_SELECT_LAMP_DENSITY
+_SANE_TITLE_SELECT_LAMP_DENSITY
+msgstr ""
+
+#original text: SANE_DESC_PREVIEW
+_SANE_DESC_PREVIEW
+msgstr ""
+
+#original text: SANE_DESC_GRAY_PREVIEW
+_SANE_DESC_GRAY_PREVIEW
+msgstr ""
+
+#original text: SANE_DESC_BIT_DEPTH
+_SANE_DESC_BIT_DEPTH
+msgstr ""
+
+#original text: SANE_DESC_SCAN_MODE
+_SANE_DESC_SCAN_MODE
+msgstr ""
+
+#original text: SANE_DESC_SCAN_SPEED
+_SANE_DESC_SCAN_SPEED
+msgstr ""
+
+#original text: SANE_DESC_SCAN_SOURCE
+_SANE_DESC_SCAN_SOURCE
+msgstr ""
+
+#original text: SANE_DESC_BACKTRACK
+_SANE_DESC_BACKTRACK
+msgstr ""
+
+#original text: SANE_DESC_SCAN_TL_X
+_SANE_DESC_SCAN_TL_X
+msgstr ""
+
+#original text: SANE_DESC_SCAN_TL_Y
+_SANE_DESC_SCAN_TL_Y
+msgstr ""
+
+#original text: SANE_DESC_SCAN_BR_X
+_SANE_DESC_SCAN_BR_X
+msgstr ""
+
+#original text: SANE_DESC_SCAN_BR_Y
+_SANE_DESC_SCAN_BR_Y
+msgstr ""
+
+#original text: SANE_DESC_SCAN_RESOLUTION
+_SANE_DESC_SCAN_RESOLUTION
+msgstr ""
+
+#original text: SANE_DESC_SCAN_X_RESOLUTION
+_SANE_DESC_SCAN_X_RESOLUTION
+msgstr ""
+
+#original text: SANE_DESC_SCAN_Y_RESOLUTION
+_SANE_DESC_SCAN_Y_RESOLUTION
+msgstr ""
+
+#original text: SANE_DESC_CUSTOM_GAMMA
+_SANE_DESC_CUSTOM_GAMMA
+msgstr ""
+
+#original text: SANE_DESC_GAMMA_VECTOR
+_SANE_DESC_GAMMA_VECTOR
+msgstr ""
+
+#original text: SANE_DESC_GAMMA_VECTOR_R
+_SANE_DESC_GAMMA_VECTOR_R
+msgstr ""
+
+#original text: SANE_DESC_GAMMA_VECTOR_G
+_SANE_DESC_GAMMA_VECTOR_G
+msgstr ""
+
+#original text: SANE_DESC_GAMMA_VECTOR_B
+_SANE_DESC_GAMMA_VECTOR_B
+msgstr ""
+
+#original text: SANE_DESC_BRIGHTNESS
+_SANE_DESC_BRIGHTNESS
+msgstr ""
+
+#original text: SANE_DESC_CONTRAST
+_SANE_DESC_CONTRAST
+msgstr ""
+
+#original text: SANE_DESC_GRAIN_SIZE
+_SANE_DESC_GRAIN_SIZE
+msgstr ""
+
+#original text: SANE_DESC_HALFTONE
+_SANE_DESC_HALFTONE
+msgstr ""
+
+#original text: SANE_DESC_BLACK_LEVEL
+_SANE_DESC_BLACK_LEVEL
+msgstr ""
+
+#original text: SANE_DESC_WHITE_LEVEL
+_SANE_DESC_WHITE_LEVEL
+msgstr ""
+
+#original text: SANE_DESC_SHADOW
+_SANE_DESC_SHADOW
+msgstr ""
+
+#original text: SANE_DESC_SHADOW_R
+_SANE_DESC_SHADOW_R
+msgstr ""
+
+#original text: SANE_DESC_SHADOW_G
+_SANE_DESC_SHADOW_G
+msgstr ""
+
+#original text: SANE_DESC_SHADOW_B
+_SANE_DESC_SHADOW_B
+msgstr ""
+
+#original text: SANE_DESC_HIGHLIGHT
+_SANE_DESC_HIGHLIGHT
+msgstr ""
+
+#original text: SANE_DESC_HIGHLIGHT_R
+_SANE_DESC_HIGHLIGHT_R
+msgstr ""
+
+#original text: SANE_DESC_HIGHLIGHT_G
+_SANE_DESC_HIGHLIGHT_G
+msgstr ""
+
+#original text: SANE_DESC_HIGHLIGHT_B
+_SANE_DESC_HIGHLIGHT_B
+msgstr ""
+
+#original text: SANE_DESC_HUE
+_SANE_DESC_HUE
+msgstr ""
+
+#original text: SANE_DESC_SATURATION
+_SANE_DESC_SATURATION
+msgstr ""
+
+#original text: SANE_DESC_FILE
+_SANE_DESC_FILE
+msgstr ""
+
+#original text: SANE_DESC_HALFTONE_DIMENSION
+_SANE_DESC_HALFTONE_DIMENSION
+msgstr ""
+
+#original text: SANE_DESC_HALFTONE_PATTERN
+_SANE_DESC_HALFTONE_PATTERN
+msgstr ""
+
+#original text: SANE_DESC_RESOLUTION_BIND
+_SANE_DESC_RESOLUTION_BIND
+msgstr ""
+
+#original text: SANE_DESC_NEGATIVE
+_SANE_DESC_NEGATIVE
+msgstr ""
+
+#original text: SANE_DESC_QUALITY_CAL
+_SANE_DESC_QUALITY_CAL
+msgstr ""
+
+#original text: SANE_DESC_DOR
+_SANE_DESC_DOR
+msgstr ""
+
+#original text: SANE_DESC_RGB_BIND
+_SANE_DESC_RGB_BIND
+msgstr ""
+
+#original text: SANE_DESC_THRESHOLD
+_SANE_DESC_THRESHOLD
+msgstr ""
+
+#original text: SANE_DESC_ANALOG_GAMMA
+_SANE_DESC_ANALOG_GAMMA
+msgstr ""
+
+#original text: SANE_DESC_ANALOG_GAMMA_R
+_SANE_DESC_ANALOG_GAMMA_R
+msgstr ""
+
+#original text: SANE_DESC_ANALOG_GAMMA_G
+_SANE_DESC_ANALOG_GAMMA_G
+msgstr ""
+
+#original text: SANE_DESC_ANALOG_GAMMA_B
+_SANE_DESC_ANALOG_GAMMA_B
+msgstr ""
+
+#original text: SANE_DESC_ANALOG_GAMMA_BIND
+_SANE_DESC_ANALOG_GAMMA_BIND
+msgstr ""
+
+#original text: SANE_DESC_SMEAR
+_SANE_DESC_SMEAR
+msgstr ""
+
+#original text: SANE_DESC_TEN_BIT_MODE
+_SANE_DESC_TEN_BIT_MODE
+msgstr ""
+
+#original text: SANE_DESC_TWELVE_BIT_MODE
+_SANE_DESC_TWELVE_BIT_MODE
+msgstr ""
+
+#original text: SANE_DESC_WARMUP
+_SANE_DESC_WARMUP
+msgstr ""
+
+#original text: SANE_DESC_RGB_PREVIEW_PATCH
+_SANE_DESC_RGB_PREVIEW_PATCH
+msgstr ""
+
+#original text: SANE_DESC_START_SCAN_PATCH
+_SANE_DESC_START_SCAN_PATCH
+msgstr ""
+
+#original text: SANE_DESC_CAL_EXPOS_TIME
+_SANE_DESC_CAL_EXPOS_TIME
+msgstr ""
+
+#original text: SANE_DESC_CAL_EXPOS_TIME_R
+_SANE_DESC_CAL_EXPOS_TIME_R
+msgstr ""
+
+#original text: SANE_DESC_CAL_EXPOS_TIME_G
+_SANE_DESC_CAL_EXPOS_TIME_G
+msgstr ""
+
+#original text: SANE_DESC_CAL_EXPOS_TIME_B
+_SANE_DESC_CAL_EXPOS_TIME_B
+msgstr ""
+
+#original text: SANE_DESC_SCAN_EXPOS_TIME
+_SANE_DESC_SCAN_EXPOS_TIME
+msgstr ""
+
+#original text: SANE_DESC_SCAN_EXPOS_TIME_R
+_SANE_DESC_SCAN_EXPOS_TIME_R
+msgstr ""
+
+#original text: SANE_DESC_SCAN_EXPOS_TIME_G
+_SANE_DESC_SCAN_EXPOS_TIME_G
+msgstr ""
+
+#original text: SANE_DESC_SCAN_EXPOS_TIME_B
+_SANE_DESC_SCAN_EXPOS_TIME_B
+msgstr ""
+
+#original text: SANE_DESC_SELECT_EXPOSURE_TIME
+_SANE_DESC_SELECT_EXPOSURE_TIME
+msgstr ""
+
+#original text: SANE_DESC_CAL_LAMP_DEN
+_SANE_DESC_CAL_LAMP_DEN
+msgstr ""
+
+#original text: SANE_DESC_SCAN_LAMP_DEN
+_SANE_DESC_SCAN_LAMP_DEN
+msgstr ""
+
+#original text: SANE_DESC_SELECT_LAMP_DENSITY
+_SANE_DESC_SELECT_LAMP_DENSITY
+msgstr ""

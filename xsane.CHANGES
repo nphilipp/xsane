@@ -430,3 +430,18 @@ xsane-0.35 -> 0.36:
    preprocessor of gcc, all texts are #defined in frontend/xsane-text.h
 
 
+xsane-0.36 -> 0.37:
+-------------------
+
+ - added some texts to xsane-text.h and newlanguage.po.in[.in],
+   created file add-0.37.po.in where the new entries are listed
+ - moved generation of xsane.backend (backendname like umax)
+   from xsane_help_build_menu to xsane_device_dialog, needed for
+   translation of backend options
+ - added translation for backend options:
+   Backend translation is done with translation table sane-BACKENDNAME.mo 
+ - removed bug in preview_update_selection() (forgotten p->selection.active = TRUE)
+   The selection box is updated correct now
+ - removed bug in aclocal.m4: not fount "-lintl" when gettext is in glibc
+
+

@@ -1,0 +1,56 @@
+#original text:  "Saving image"
+msgid PROGRESS_SAVING
+msgstr ""
+
+#original text:  "Saving fax image"
+msgid PROGRESS_SAVING_FAX
+msgstr ""
+
+#original text:  "Converting data...."
+msgid PROGRESS_CONVERTING_DATA
+msgstr ""
+
+#original text:  "Converting to postscript"
+msgid PROGRESS_CONVERTING_PS
+msgstr ""
+
+#original text:  "Scanning"
+msgid PROGRESS_SCANNING
+msgstr ""
+
+#original text:  "Receiving %s data for `%s'..."
+msgid PROGRESS_RECEIVING_SCAN
+msgstr ""
+
+#original text:  "Receiving %s data for photocopy ..."
+msgid PROGRESS_RECEIVING_COPY
+msgstr ""
+
+#original text:  "Receiving %s data for fax ..."
+msgid PROGRESS_RECEIVING_FAX
+msgstr ""
+
+#original text:  "Receiving %s data for GIMP..."
+msgid PROGRESS_RECEIVING_GIMP
+msgstr ""
+        
+
+
+msgid "flatbed scanner"
+msgstr ""
+
+msgid "frame grabber"
+msgstr ""
+
+msgid "handheld scanner"
+msgstr ""
+
+msgid "still camera"
+msgstr ""
+
+msgid "video camera"
+msgstr ""
+
+msgid "virtual device"
+msgstr ""
+                     

@@ -751,7 +751,7 @@ GtkWidget *xsane_update_xsane_callback()
 
 /* scan copy fax selection */
 
-  if ( (xsane.mode == STANDALONE) && (xsane.mode_selection) ) /* display xsane mode selection menu */
+  if ( (xsane.mode == XSANE_STANDALONE) && (xsane.mode_selection) ) /* display xsane mode selection menu */
   {
     xsane_hbox_xsane_modus = gtk_hbox_new(FALSE, 2);
     gtk_container_set_border_width(GTK_CONTAINER(xsane_hbox_xsane_modus), 2);
@@ -829,7 +829,7 @@ GtkWidget *xsane_update_xsane_callback()
             set = malloc(opt->size);
             status = sane_control_option(dialog->dev, dialog->well_known.scanmode, SANE_ACTION_GET_VALUE, set, 0);
 
-            xsane_option_menu_new(hbox, (char **) opt->constraint.string_list, set, dialog->well_known.scanmode, opt->desc, 0);
+            xsane_option_menu_new(hbox, (char **) opt->constraint.string_list, set, dialog->well_known.scanmode, _BGT(opt->desc), 0);
           }
            break;
 
@@ -868,7 +868,7 @@ GtkWidget *xsane_update_xsane_callback()
             set = malloc(opt->size);
             status = sane_control_option(dialog->dev, dialog->well_known.scansource, SANE_ACTION_GET_VALUE, set, 0);
 
-            xsane_option_menu_new(hbox, (char **) opt->constraint.string_list, set, dialog->well_known.scansource, opt->desc, 0);
+            xsane_option_menu_new(hbox, (char **) opt->constraint.string_list, set, dialog->well_known.scansource, _BGT(opt->desc), 0);
            }
            break;
 
@@ -887,7 +887,7 @@ GtkWidget *xsane_update_xsane_callback()
 
     xsane.copy_number_entry = 0;
 
-    if (xsane.mode == STANDALONE)
+    if (xsane.mode == XSANE_STANDALONE)
     {
       xsane_outputfilename_new(xsane_vbox_xsane_modus);
     }
@@ -1477,7 +1477,7 @@ static void xsane_quit(void)
   }
 
 #ifdef HAVE_LIBGIMP_GIMP_H
-  if (xsane.mode == GIMP_EXTENSION)
+  if (xsane.mode == XSANE_GIMP_EXTENSION)
   {
     gimp_quit();
   }
@@ -1497,7 +1497,7 @@ static void xsane_exit(void) /* this is called when xsane exits before gtk_main 
   sane_exit();
 
 #ifdef HAVE_LIBGIMP_GIMP_H
-  if (xsane.mode == GIMP_EXTENSION)
+  if (xsane.mode == XSANE_GIMP_EXTENSION)
   {
     gimp_quit();
   }
@@ -2732,7 +2732,7 @@ static void xsane_show_doc_via_nsr(GtkWidget *widget, gpointer data) /* show via
  char buf[256];
  FILE *ns_pipe;
 
-  snprintf(buf, sizeof(buf), "netscape -no-about-splash -remote \"openFile(%s/sane-%s-doc.html)\" 2>&1",
+  snprintf(buf, sizeof(buf), "netscape -no-about-splash -remote \"openFile(%s/%s-doc.html)\" 2>&1",
                STRINGIFY(PATH_SANE_DATA_DIR), name);  
   ns_pipe = popen(buf, "r");
 
@@ -2785,7 +2785,7 @@ static void xsane_show_doc(GtkWidget *widget, gpointer data)
   }
   else
   {
-    snprintf(buf, sizeof(buf), "%s/sane-%s-doc.html", STRINGIFY(PATH_SANE_DATA_DIR), name);  
+    snprintf(buf, sizeof(buf), "%s/%s-doc.html", STRINGIFY(PATH_SANE_DATA_DIR), name);  
     arg[0] = preferences.doc_viewer;
     arg[1] = buf;
     arg[2] = 0;
@@ -3296,37 +3296,20 @@ static GtkWidget *xsane_pref_build_menu(void)
 static GtkWidget *xsane_help_build_menu(void)
 {
   GtkWidget *menu, *item;
-  char buf[256];
-  char *bufptr;
 
   menu = gtk_menu_new();
 
   item = gtk_menu_item_new_with_label(MENU_ITEM_XSANE_DOC);
   gtk_menu_append(GTK_MENU(menu), item);
-  gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_doc, (void *) "xsane");
+  gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_doc, (void *) "sane-xsane");
   gtk_widget_show(item);
 
   item = gtk_menu_item_new();
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_widget_show(item);
 
-  snprintf(buf, sizeof(buf), "%s", devlist[seldev]->name);
-  bufptr = strrchr(buf, ':');
-  if (bufptr)
+  if (xsane.backend)
   {
-    *bufptr = 0; 
-    bufptr = strrchr(buf, ':');
-    if (bufptr)
-    {
-      bufptr++;
-    }
-    else
-    {
-      bufptr = buf;
-    }
-
-    xsane.backend = strdup(bufptr);
-
     item = gtk_menu_item_new_with_label(MENU_ITEM_BACKEND_DOC);
     gtk_menu_append(GTK_MENU(menu), item);
     gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_doc, (void *) xsane.backend);
@@ -3335,7 +3318,7 @@ static GtkWidget *xsane_help_build_menu(void)
 
   item = gtk_menu_item_new_with_label(MENU_ITEM_AVAILABLE_BACKENDS);
   gtk_menu_append(GTK_MENU(menu), item);
-  gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_doc, (void *) "backends");
+  gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_doc, (void *) "sane-backends");
   gtk_widget_show(item);
 
   item = gtk_menu_item_new();
@@ -3344,7 +3327,7 @@ static GtkWidget *xsane_help_build_menu(void)
 
   item = gtk_menu_item_new_with_label(MENU_ITEM_SCANTIPS);
   gtk_menu_append(GTK_MENU(menu), item);
-  gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_doc, (void *) "scantips");
+  gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_doc, (void *) "sane-scantips");
   gtk_widget_show(item);
 
 
@@ -3455,13 +3438,14 @@ void panel_build(GSGDialog *dialog)
       elem = dialog->element + i;
       elem->dialog = dialog;
 
+
       if (opt->unit == SANE_UNIT_NONE)
       {
-        strncpy(title, opt->title, sizeof (title));
+        snprintf(title, sizeof(title), "%s", _BGT(opt->title));
       }
       else
       {
-        snprintf(title, sizeof (title), "%s [%s]", opt->title, gsg_unit_string(opt->unit));
+        snprintf(title, sizeof(title), "%s [%s]", _BGT(opt->title), gsg_unit_string(opt->unit));
       }
 
       switch (opt->type)
@@ -3470,8 +3454,10 @@ void panel_build(GSGDialog *dialog)
           /* group a set of options */
           vbox = standard_vbox;
           if (opt->cap & SANE_CAP_ADVANCED)
+          {
             vbox = advanced_vbox;
-          parent = gsg_group_new (vbox, title);
+          }
+          parent = gsg_group_new(vbox, title);
           elem->widget = parent;
           break;
 
@@ -3479,8 +3465,10 @@ void panel_build(GSGDialog *dialog)
           assert (opt->size == sizeof(SANE_Word));
           status = sane_control_option (dialog->dev, i, SANE_ACTION_GET_VALUE, &val, 0);
           if (status != SANE_STATUS_GOOD)
+          {
             goto get_value_failed;
-          gsg_button_new(parent, title, val, elem, dialog->tooltips, opt->desc);
+          }
+          gsg_button_new(parent, title, val, elem, dialog->tooltips, _BGT(opt->desc));
           gtk_widget_show(parent->parent);
           break;
 
@@ -3504,8 +3492,8 @@ void panel_build(GSGDialog *dialog)
                 if (quant == 0)
                   quant = 1;
                 gsg_scale_new(parent, title, val, opt->constraint.range->min, opt->constraint.range->max, quant,
-                          (opt->cap & SANE_CAP_AUTOMATIC), elem, dialog->tooltips, opt->desc);
-                gtk_widget_show (parent->parent);
+                          (opt->cap & SANE_CAP_AUTOMATIC), elem, dialog->tooltips, _BGT(opt->desc));
+                gtk_widget_show(parent->parent);
               }
               break;
 
@@ -3522,7 +3510,7 @@ void panel_build(GSGDialog *dialog)
                 }
                 str_list[j] = 0;
                 sprintf(str, "%d", val);
-                gsg_option_menu_new(parent, title, str_list, str, elem, dialog->tooltips, opt->desc);
+                gsg_option_menu_new(parent, title, str_list, str, elem, dialog->tooltips, _BGT(opt->desc));
                 free(str_list);
                 gtk_widget_show(parent->parent);
               }
@@ -3565,7 +3553,7 @@ void panel_build(GSGDialog *dialog)
                   dquant /= preferences.length_unit;
                 }
                 gsg_scale_new(parent, title, dval, dmin, dmax, dquant, (opt->cap & SANE_CAP_AUTOMATIC), elem,
-                          dialog->tooltips, opt->desc);
+                          dialog->tooltips, _BGT(opt->desc));
                 gtk_widget_show (parent->parent);
               }
               break;
@@ -3583,7 +3571,7 @@ void panel_build(GSGDialog *dialog)
                 }
                 str_list[j] = 0;
                 sprintf(str, "%g", SANE_UNFIX (val));
-                gsg_option_menu_new (parent, title, str_list, str, elem, dialog->tooltips, opt->desc);
+                gsg_option_menu_new(parent, title, str_list, str, elem, dialog->tooltips, _BGT(opt->desc));
                 free (str_list);
                 gtk_widget_show (parent->parent);
               }
@@ -3613,13 +3601,13 @@ void panel_build(GSGDialog *dialog)
                 /* use a "list-selection" widget */
                 gsg_option_menu_new (parent, title,
                                (char **) opt->constraint.string_list, buf,
-                               elem, dialog->tooltips, opt->desc);
+                               elem, dialog->tooltips, _BGT(opt->desc));
                 gtk_widget_show (parent->parent);
               }
               break;
 
             case SANE_CONSTRAINT_NONE:
-              gsg_text_entry_new(parent, title, buf, elem, dialog->tooltips, opt->desc);
+              gsg_text_entry_new(parent, title, buf, elem, dialog->tooltips, _BGT(opt->desc));
               gtk_widget_show (parent->parent);
               break;
 
@@ -3633,9 +3621,9 @@ void panel_build(GSGDialog *dialog)
         case SANE_TYPE_BUTTON:
           button = gtk_button_new();
           gtk_signal_connect(GTK_OBJECT (button), "clicked", (GtkSignalFunc) gsg_push_button_callback, elem);
-          gsg_set_tooltip(dialog->tooltips, button, opt->desc);
+          gsg_set_tooltip(dialog->tooltips, button, _BGT(opt->desc));
 
-          label = gtk_label_new (title);
+          label = gtk_label_new(title);
           gtk_container_add(GTK_CONTAINER (button), label);
 
           gtk_box_pack_start(GTK_BOX (parent), button, FALSE, TRUE, 0);
@@ -3745,6 +3733,26 @@ static void xsane_device_dialog(void)
     return;
   }
 
+  snprintf(buf, sizeof(buf), "%s", devlist[seldev]->name);	/* generate "sane-BACKENDNAME" */
+  textptr = strrchr(buf, ':'); /* format is miden:miden:miden:backend:device or backend:device */
+  if (textptr)
+  {
+    *textptr = 0; 
+    textptr = strrchr(buf, ':');
+    if (textptr) /* midend:backend:device */
+    {
+      textptr++;
+    }
+    else /* backend:device */
+    {
+      textptr = buf;
+    }
+
+    xsane.backend = malloc(strlen(textptr)+6);
+    sprintf(xsane.backend, "sane-%s", textptr); /* add "sane-" */
+
+    bindtextdomain(xsane.backend, LOCALEDIR); /* set path for backend translation texts */
+  }
 
   /* create device-text for window titles */
 
@@ -4169,7 +4177,7 @@ static gint32 xsane_choose_device(void)
     { model[j]=' '; }
     model[j]=0;
 
-    strncpy(type, adev->type, sizeof(type)-1);
+    strncpy(type, _(adev->type), sizeof(type)-1); /* allow translation of device type */
     for (j = strlen(type); j < sizeof(type)-1; j++)
     { type[j]=' '; }
     type[j]=0;
@@ -4413,7 +4421,7 @@ int main(int argc, char **argv)
 
   xsane.main_window_fixed   = -1; /* no command line option given, use preferences or fixed */
 
-  xsane.mode                = STANDALONE;
+  xsane.mode                = XSANE_STANDALONE;
   xsane.xsane_mode          = XSANE_SCAN;
   xsane.xsane_output_format = XSANE_PNM;
   xsane.mode_selection      = 1; /* enable selection of xsane mode */

@@ -312,7 +312,7 @@ static void preview_update_selection(Preview *p)
       p->selection.coordinate[i + 2] = p->selection.coordinate[i];
     }
   }
-
+  p->selection.active = TRUE;
   preview_draw_selection(p);
 }
 
@@ -1777,7 +1777,7 @@ Preview *preview_new(GSGDialog *dialog)
 #endif
   gtk_widget_push_colormap(gtk_preview_get_cmap());
 
-  snprintf(buf, sizeof(buf), "%s %s %s", prog_name, WINDOW_PREVIEW, device_text);
+  snprintf(buf, sizeof(buf), "%s %s", WINDOW_PREVIEW, device_text);
   p->top = gtk_dialog_new();
   gtk_signal_connect(GTK_OBJECT(p->top), "destroy", GTK_SIGNAL_FUNC(preview_top_destroyed), p);
   gtk_window_set_title(GTK_WINDOW(p->top), buf);

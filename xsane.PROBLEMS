@@ -38,3 +38,7 @@
    you did not install sane-devel.rpm!  Get sane-devel.rpm from
    the site you got sane.rpm and install it!
 
+- If make aborts with missing library "-lintl" try
+  ./configure --with-included-gettext
+
+

@@ -1,3 +1,332 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #nls translation file for xsane
 #language: germand (de)
 
@@ -20,10 +349,10 @@ msgid  "rename fax page"
 msgstr "Faxseite umbenennen"
 
 msgid  "setup"   
-msgstr "Einstellungen"
+msgstr "Konfiguration"
 
 msgid  "Histogram"   
-msgstr "Histogram"
+msgstr "Histogramm"
 
 msgid  "Standard options"   
 msgstr "Standard Optionen"
@@ -34,7 +363,7 @@ msgstr "Erweiterte Optionen"
 msgid  "device selection"   
 msgstr "Geräteauswahl"
 
-msgid  "preview"   
+msgid  "Preview"   
 msgstr "Vorschau"
 
 msgid  "output filename"   
@@ -329,7 +658,7 @@ msgid  "Fax"
 msgstr "Faxen"
 
 msgid  "Setup"   
-msgstr "Einstellungen"
+msgstr "Konfiguration"
 
 msgid  "Show tooltips"   
 msgstr "Zeige Tips"
@@ -338,7 +667,7 @@ msgid  "Show preview"
 msgstr "Zeige Vorschau"
 
 msgid  "Show histogram"   
-msgstr "Zeige Histogram"
+msgstr "Zeige Histogramm"
 
 msgid  "Show standard options"   
 msgstr "Zeige Standardoptionen"
@@ -402,6 +731,42 @@ msgstr "gepackte Bits"
 
 msgid  "by ext"   
 msgstr "nach erw."
+
+#original text:  "Saving image"
+msgid  "Saving image"   
+msgstr "Speichere Bild"
+
+#original text:  "Saving fax image"
+msgid  "Saving fax image"   
+msgstr "Speichere Faxbild"
+
+#original text:  "Converting data...."
+msgid  "Converting data...."   
+msgstr "Konvertiere Daten..."
+
+#original text:  "Converting to postscript"
+msgid  "Converting to postscript"   
+msgstr "Konvertiere nach Postscript"
+
+#original text:  "Scanning"
+msgid  "Scanning"   
+msgstr "Scanne"
+
+#original text:  "Receiving %s data for `%s'..."
+msgid  "Receiving %s data for `%s'..."   
+msgstr "Empfange %s Daten für `%s'..."
+
+#original text:  "Receiving %s data for photocopy ..."
+msgid  "Receiving %s data for photocopy ..."   
+msgstr "Empfange %s Daten für Photocopie"
+
+#original text:  "Receiving %s data for fax ..."
+msgid  "Receiving %s data for fax ..."   
+msgstr "Empfange %s Daten für Fax ..."
+
+#original text:  "Receiving %s data for GIMP..."
+msgid  "Receiving %s data for GIMP..."   
+msgstr "Empfange %s Daten für GIMP..."
 
 msgid  "Use XSane for SCANning, photoCOPYing, FAXing..."   
 msgstr "Benutze XSane zum Scannen, Kopieren oder Faxen"
@@ -503,7 +868,7 @@ msgid  "Show histogram of blue component"
 msgstr "Zeige Histogramm für blaue Komponente"
 
 msgid  "Display histogram with lines instead of pixels"   
-msgstr "Zeichne Histogram mit Linien Anstatt mit Punkten"
+msgstr "Zeichne Histogramm mit Linien anstatt mit Punkten"
 
 msgid  "Show logarithm of pixelcount"   
 msgstr "Benutze Logarithmus der Pixelzahlen"
@@ -764,7 +1129,28 @@ msgid  "[OPTION]... [DEVICE]"
 msgstr "[OPTION]... [GERÄTEDATEI]"
 
 msgid  "Start up graphical user interface to access SANE (Scanner Access Now Easy) devices.\n\n-h, --help                   display this help message and exit\n-v, --version                print version information\n\n-d, --device-settings file   load device settings from file (without \".drc\")\n\n-s, --scan                   start with scan-mode active\n-c, --copy                   start with copy-mode active\n-f, --fax                    start with fax-mode active\n-n, --no-mode-selection      disable menu for xsane mode selection\n\n-F, --Fixed                  fixed main window size (overwrite preferences value)\n-R, --Resizeable             resizable, scrolled main window (overwrite preferences value)\n\n--display X11-display        redirect output to X11-display\n--no-xshm                    do not use shared memory images\n--sync                       request a synchronous connection with the X11 server"   			
-msgstr "" "Startet graphisches Benutzerinterface für SANE (Scanner Access Now Easy)\n" "\n" "-h, --help                   zeigt diesen Hilfetext\n" "-v, --version                gibt Versionsinformation aus\n" "\n" "-d, --device-settings datei  lädt Geräteeinstellungen von datei\n" "\n" "-s, --scan                   starte im Scanmodus\n" "-c, --copy                   starte im Kopiermodus\n" "-f, --fax                    starte im Faxmodus\n" "-n, --no-mode-selection      deaktiviere Modusauswahl\n" "\n" "-F, --Fixed                  Haupfenstergröße ist fest\n" "-R, --Resizeable             Haupfenstergröße ist veränderbar\n" "\n" "--display X11-display        lenkt X-Ausgabe auf X11-display um\n" "--no-xshm                    keine shared memory Bilder benutzen\n" "--sync                       fordert synchrone Verbindung zum X-Server an"
+msgstr "" "Startet graphisches Benutzerinterface für SANE (Scanner Access Now Easy)\n" "\n" "-h, --help                   zeigt diesen Hilfetext\n" "-v, --version                gibt Versionsinformation aus\n" "\n" "-d, --device-settings datei  lädt Geräteeinstellungen von datei\n" "\n" "-s, --scan                   starte im Scanmodus\n" "-c, --copy                   starte im Kopiermodus\n" "-f, --fax                    starte im Faxmodus\n" "-n, --no-mode-selection      deaktiviere Modusauswahl\n" "\n" "-F, --Fixed                  Hauptfenstergröße ist fest\n" "-R, --Resizeable             Hauptfenstergröße ist veränderbar\n" "\n" "--display X11-display        lenkt X-Ausgabe auf X11-display um\n" "--no-xshm                    keine shared memory Bilder benutzen\n" "--sync                       fordert synchrone Verbindung zum X-Server an"
+
+
+
+msgid "flatbed scanner"
+msgstr "Flachbett Scanner"
+
+msgid "frame grabber"
+msgstr "Framegrabber"
+
+msgid "handheld scanner"
+msgstr "Handscanner"
+
+msgid "still camera"
+msgstr "Photocamera"
+
+msgid "video camera"
+msgstr "Videocamera"
+
+msgid "virtual device"
+msgstr "virtuelles Gerät"
+                     
 
 
 msgid "Success"

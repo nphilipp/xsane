@@ -1,0 +1,579 @@
+#include "/usr/local/include/sane/saneopts.h"
+#define _(x) x
+
+#nls translation file for backend umax
+#language: german (de)
+
+#original text: "Number of options" 
+msgid SANE_TITLE_NUM_OPTIONS
+msgstr "Anzahl der Optionen"
+
+#original text: "Preview" 
+msgid SANE_TITLE_PREVIEW
+msgstr "Vorschau"
+
+#original text: "Force monochrome preview" 
+msgid SANE_TITLE_GRAY_PREVIEW
+msgstr "Vorschauscan in grau"
+
+#original text: "Bit depth" 
+msgid SANE_TITLE_BIT_DEPTH
+msgstr "Bittiefe"
+
+#original text: "Scan mode" 
+msgid SANE_TITLE_SCAN_MODE
+msgstr "Scan Modus"
+
+#original text: "Scan speed" 
+msgid SANE_TITLE_SCAN_SPEED
+msgstr "Scangeschwindigkeit"
+
+#original text: "Scan source" 
+msgid SANE_TITLE_SCAN_SOURCE
+msgstr "Scanquelle"
+
+#original text: "Force backtracking" 
+msgid SANE_TITLE_BACKTRACK
+msgstr ""
+
+#original text: "Top-left x" 
+msgid SANE_TITLE_SCAN_TL_X
+msgstr "links"
+
+#original text: "Top-left y" 
+msgid SANE_TITLE_SCAN_TL_Y
+msgstr "oben"
+
+#original text: "Bottom-right x" 
+msgid SANE_TITLE_SCAN_BR_X
+msgstr "rechts"
+
+#original text: "Bottom-right y" 
+msgid SANE_TITLE_SCAN_BR_Y
+msgstr "unten"
+
+#original text: "Scan resolution" 
+msgid SANE_TITLE_SCAN_RESOLUTION
+msgstr "Scanauflösung"
+
+#original text: "X-resolution" 
+msgid SANE_TITLE_SCAN_X_RESOLUTION
+msgstr "X-Auflösung"
+
+#original text: "Y-resolution" 
+msgid SANE_TITLE_SCAN_Y_RESOLUTION
+msgstr "Y-Auflösung"
+
+#original text: "Use custom gamma table" 
+msgid SANE_TITLE_CUSTOM_GAMMA
+msgstr "Benutze scannerinterne Gammakorrektur"
+
+#original text: "Image intensity" 
+msgid SANE_TITLE_GAMMA_VECTOR
+msgstr "Bildintensität"
+
+#original text: "Red intensity" 
+msgid SANE_TITLE_GAMMA_VECTOR_R
+msgstr "Intensität Rot"
+
+#original text: "Green intensity" 
+msgid SANE_TITLE_GAMMA_VECTOR_G
+msgstr "Intensität Grün"
+
+#original text: "Blue intensity" 
+msgid SANE_TITLE_GAMMA_VECTOR_B
+msgstr "Intensität Blau"
+
+#original text: "Brightness" 
+msgid SANE_TITLE_BRIGHTNESS
+msgstr "Helligkeit"
+
+#original text: "Contrast" 
+msgid SANE_TITLE_CONTRAST
+msgstr "Kontrast"
+
+#original text: "Grain size" 
+msgid SANE_TITLE_GRAIN_SIZE
+msgstr ""
+
+#original text: "Halftoning" 
+msgid SANE_TITLE_HALFTONE
+msgstr ""
+
+#original text: "Black level" 
+msgid SANE_TITLE_BLACK_LEVEL
+msgstr "Wert für Schwarz"
+
+#original text: "White level" 
+msgid SANE_TITLE_WHITE_LEVEL
+msgstr "Wert für Weiß"
+
+#original text: "Shadow" 
+msgid SANE_TITLE_SHADOW
+msgstr "Schatten"
+
+#original text: "Shadow for red" 
+msgid SANE_TITLE_SHADOW_R
+msgstr "Schatten Rot"
+
+#original text: "Shadow for green" 
+msgid SANE_TITLE_SHADOW_G
+msgstr "Schatten Grün"
+
+#original text: "Shadow for blue" 
+msgid SANE_TITLE_SHADOW_B
+msgstr "Schatten Blau"
+
+#original text: "Highlight" 
+msgid SANE_TITLE_HIGHLIGHT
+msgstr "Licht"
+
+#original text: "Highlight for red" 
+msgid SANE_TITLE_HIGHLIGHT_R
+msgstr "Licht Rot"
+
+#original text: "Highlight for green" 
+msgid SANE_TITLE_HIGHLIGHT_G
+msgstr "Licht Grün"
+
+#original text: "Highlight for blue" 
+msgid SANE_TITLE_HIGHLIGHT_B
+msgstr "Licht Blau"
+
+#original text: "Hue" 
+msgid SANE_TITLE_HUE
+msgstr ""
+
+#original text: "Saturation" 
+msgid SANE_TITLE_SATURATION
+msgstr "Sättigung"
+
+#original text: "Filename" 
+msgid SANE_TITLE_FILE
+msgstr "Datiename"
+
+#original text: "Halftone pattern size" 
+msgid SANE_TITLE_HALFTONE_DIMENSION
+msgstr "Halbton Matrix Größe"
+
+#original text: "Halftone pattern" 
+msgid SANE_TITLE_HALFTONE_PATTERN
+msgstr "Halbton Matrix"
+
+#original text: "Bind X and Y resolution" 
+msgid SANE_TITLE_RESOLUTION_BIND
+msgstr "verbinde X und Y Auflösung"
+
+#original text: "Negative" 
+msgid SANE_TITLE_NEGATIVE
+msgstr "Negativ"
+
+#original text: "Quality calibration" 
+msgid SANE_TITLE_QUALITY_CAL
+msgstr "Qualitäts Weißabgleich"
+
+#original text: "Double Optical Resolution" 
+msgid SANE_TITLE_DOR
+msgstr "Verdoppelte optische Auflösung"
+
+#original text: "Bind RGB" 
+msgid SANE_TITLE_RGB_BIND
+msgstr "Verbinde RGB"
+
+#original text: "Threshold" 
+msgid SANE_TITLE_THRESHOLD
+msgstr "Grenzwert"
+
+#original text: "Analog gamma correction" 
+msgid SANE_TITLE_ANALOG_GAMMA
+msgstr "Analoge Gammakorrektur"
+
+#original text: "Analog gamma red" 
+msgid SANE_TITLE_ANALOG_GAMMA_R
+msgstr "Analoger Gammawert Rot"
+
+#original text: "Analog gamma green" 
+msgid SANE_TITLE_ANALOG_GAMMA_G
+msgstr "Analoger Gammawert Grün"
+
+#original text: "Analog gamma blue" 
+msgid SANE_TITLE_ANALOG_GAMMA_B
+msgstr "Analoger Gammawert Blau"
+
+#original text: "Bind analog gamma" 
+msgid SANE_TITLE_ANALOG_GAMMA_BIND
+msgstr "Verbinde analoge Gammawerte"
+
+#original text: "Smear" 
+msgid SANE_TITLE_SMEAR
+msgstr "Schmieren"
+
+#original text: "10 bit-mode" 
+msgid SANE_TITLE_TEN_BIT_MODE
+msgstr ""
+
+#original text: "12 bit-mode" 
+msgid SANE_TITLE_TWELVE_BIT_MODE
+msgstr ""
+
+#original text: "Warmup lamp" 
+msgid SANE_TITLE_WARMUP
+msgstr "Lampe aufwärmen"
+
+#original text: "Preview patch" 
+msgid SANE_TITLE_RGB_PREVIEW_PATCH
+msgstr ""
+
+#original text: "Start-scan patch" 
+msgid SANE_TITLE_START_SCAN_PATCH
+msgstr ""
+
+#original text: "Cal. exposure-time" 
+msgid SANE_TITLE_CAL_EXPOS_TIME
+msgstr "Beleuchtungszeit zum Kalibrieren"
+
+#original text: "Cal. exposure-time for red" 
+msgid SANE_TITLE_CAL_EXPOS_TIME_R
+msgstr "Beleuchtungszeit zum Kalibrieren von Rot"
+
+#original text: "Cal. exposure-time for green" 
+msgid SANE_TITLE_CAL_EXPOS_TIME_G
+msgstr "Beleuchtungszeit zum Kalibrieren von Grün"
+
+#original text: "Cal. exposure-time for blue" 
+msgid SANE_TITLE_CAL_EXPOS_TIME_B
+msgstr "Beleuchtungszeit zum Kalibrieren von Blau"
+
+#original text: "Scan exposure-time" 
+msgid SANE_TITLE_SCAN_EXPOS_TIME
+msgstr "Beleuchtungszeit zum Scannen"
+
+#original text: "Scan exposure-time for red" 
+msgid SANE_TITLE_SCAN_EXPOS_TIME_R
+msgstr "Beleuchtungszeit zum Scannen von Rot"
+
+#original text: "Scan exposure-time for green" 
+msgid SANE_TITLE_SCAN_EXPOS_TIME_G
+msgstr "Beleuchtungszeit zum Scannen von Grün"
+
+#original text: "Scan exposure-time for blue" 
+msgid SANE_TITLE_SCAN_EXPOS_TIME_B
+msgstr "Beleuchtungszeit zum Scannen von Blau"
+
+#original text: "Set exposure-time" 
+msgid SANE_TITLE_SELECT_EXPOSURE_TIME
+msgstr "Definiere Beleuchtungszeit"
+
+#original text: "Cal. lamp density" 
+msgid SANE_TITLE_CAL_LAMP_DEN
+msgstr "Lichtwert für Kalibrierung"
+
+#original text: "Scan lamp density" 
+msgid SANE_TITLE_SCAN_LAMP_DEN
+msgstr "Lichtwert beim Scannen"
+
+#original text: "Set lamp density" 
+msgid SANE_TITLE_SELECT_LAMP_DENSITY
+msgstr "Definiere Lichtwert"
+
+
+
+
+#original text: "Request a preview-quality scan." 
+msgid SANE_DESC_PREVIEW
+msgstr "Erbitte Scan in Vorschauqualität"
+
+#original text: "Request that all previews are done in monochrome mode.  On a three-pass " " scanner this cuts down the number of passes to one and on a one-pass " "scanner, it reduces the memory requirements and scan-time of the preview." 
+msgid SANE_DESC_GRAY_PREVIEW
+msgstr ""
+
+#original text: "Number of bits per sample, typical values are 1 for \"line-art\" and 8 " "for multibit scans." 
+msgid SANE_DESC_BIT_DEPTH
+msgstr "Anzahl der Bits pro Farbwert, typische Werte seind 1 für lineart- und 8 für multibit-Scans"
+
+#original text: "Selects the scan mode (e.g., lineart,monochrome, or color)." 
+msgid SANE_DESC_SCAN_MODE
+msgstr "Wählt den Scanmode (z.B. Lineart, Grau oder Farbe)"
+
+#original text: "Determines the speed at which the scan proceeds." 
+msgid SANE_DESC_SCAN_SPEED
+msgstr "Bestimmt die Scangeschwindigkeit"
+
+#original text: "Selects the scan source (such as a document-feeder)." 
+msgid SANE_DESC_SCAN_SOURCE
+msgstr "Bestimmt die Scanquelle (wie Dokumenteneinzug)"
+
+#original text: "Controls whether backtracking is forced." 
+msgid SANE_DESC_BACKTRACK
+msgstr ""
+
+#original text: "Top-left x position of scan area." 
+msgid SANE_DESC_SCAN_TL_X
+msgstr "linke Kante des zu scannenden Bereichs"
+
+#original text: "Top-left y position of scan area." 
+msgid SANE_DESC_SCAN_TL_Y
+msgstr "Obere Kante des zu scannenden Bereichs"
+
+#original text: "Bottom-right x position of scan area." 
+msgid SANE_DESC_SCAN_BR_X
+msgstr "rechte Kante des zu scannenden Bereichs"
+
+#original text: "Bottom-right y position of scan area." 
+msgid SANE_DESC_SCAN_BR_Y
+msgstr "untere Kante des zu scannenden Bereichs"
+
+#original text: "Sets the resolution of the scanned image." 
+msgid SANE_DESC_SCAN_RESOLUTION
+msgstr "Bestimmt die Auflösung des Bildes"
+
+#original text: "Sets the horizontal resolution of the scanned image." 
+msgid SANE_DESC_SCAN_X_RESOLUTION
+msgstr "Bestimmt die horizontale Auflösung des Bildes"
+
+#original text: "Sets the vertical resolution of the scanned image." 
+msgid SANE_DESC_SCAN_Y_RESOLUTION
+msgstr "Bestimmt die vertikale Auflösung des Bildes"
+
+#original text: "Determines whether a builtin or a custom gamma-table should be used." 
+msgid SANE_DESC_CUSTOM_GAMMA
+msgstr "Bestimmt ob die scannerinterne Gammakorrektur verwendet wird"
+
+#original text: "Gamma-correction table.  In color mode this option equally affects the " "red, green, and blue channels simultaneously (i.e., it is an intensity " "gamma table)." 
+msgid SANE_DESC_GAMMA_VECTOR
+msgstr "Gamma Tabelle"
+
+#original text: "Gamma-correction table for the red band." 
+msgid SANE_DESC_GAMMA_VECTOR_R
+msgstr "Gamma Tabelle für rote Komponente"
+
+#original text: "Gamma-correction table for the green band." 
+msgid SANE_DESC_GAMMA_VECTOR_G
+msgstr "Gamma Tabelle für grüne Komponente"
+
+#original text: "Gamma-correction table for the blue band." 
+msgid SANE_DESC_GAMMA_VECTOR_B
+msgstr "Gamma Tabelle für blaue Komponente"
+
+#original text: "Controls the brightness of the acquired image." 
+msgid SANE_DESC_BRIGHTNESS
+msgstr "Kontrolliert die Helligkeit des Bildes"
+
+#original text: "Controls the contrast of the acquired image." 
+msgid SANE_DESC_CONTRAST
+msgstr "Kontrolliert den Kontrast des Bildes"
+
+#original text: "Selects the \"graininess\" of the acquired image.  Smaller values " "result in sharper images." 
+msgid SANE_DESC_GRAIN_SIZE
+msgstr ""
+
+#original text: "Selects whether the acquired image should be halftoned (dithered)." 
+msgid SANE_DESC_HALFTONE
+msgstr ""
+
+#original text: "Selects what radiance level should be considered \"black\"." 
+msgid SANE_DESC_BLACK_LEVEL
+msgstr "Bestimmt, welcher Helligkeitswert als Schwarz angesehen werden soll"
+
+#original text: "Selects what radiance level should be considered \"white\"." 
+msgid SANE_DESC_WHITE_LEVEL
+msgstr "Bestimmt, welcher Helligkeitswert als Weiß angesehen werden soll"
+
+#original text: "Selects what radiance level should be considered \"black\"." 
+msgid SANE_DESC_SHADOW
+msgstr "Bestimmt, welcher Helligkeitswert als Schwarz angesehen werden soll"
+
+#original text: "Selects what red radiance level should be considered \"black\"." 
+msgid SANE_DESC_SHADOW_R
+msgstr "Bestimmt, welcher Helligkeitswert der roten Komponente als Schwarz angesehen werden soll"
+
+#original text: "Selects what green radiance level should be considered \"black\"." 
+msgid SANE_DESC_SHADOW_G
+msgstr "Bestimmt, welcher Helligkeitswert der grünen Komponente als Schwarz angesehen werden soll"
+
+#original text: "Selects what blue radiance level should be considered \"black\"." 
+msgid SANE_DESC_SHADOW_B
+msgstr "Bestimmt, welcher Helligkeitswert der blauen Komponente als Schwarz angesehen werden soll"
+
+#original text: "Selects what radiance level should be considered \"white\"." 
+msgid SANE_DESC_HIGHLIGHT
+msgstr "Bestimmt, welcher Helligkeitswert als Weiß angesehen werden soll"
+
+#original text: "Selects what red radiance level should be considered \"full red\"." 
+msgid SANE_DESC_HIGHLIGHT_R
+msgstr "Bestimmt, welcher Helligkeitswert der roten Komponente als Weiß angesehen werden soll"
+
+#original text: "Selects what green radiance level should be considered \"full green\"." 
+msgid SANE_DESC_HIGHLIGHT_G
+msgstr "Bestimmt, welcher Helligkeitswert der grünen Komponente als Weiß angesehen werden soll"
+
+#original text: "Selects what blue radiance level should be considered \"full blue\"." 
+msgid SANE_DESC_HIGHLIGHT_B
+msgstr "Bestimmt, welcher Helligkeitswert der blauen Komponente als Weiß angesehen werden soll"
+
+#original text: "Controls the \"hue\" (blue-level) of the acquired image." 
+msgid SANE_DESC_HUE
+msgstr ""
+
+#original text: "The saturation level controls the amount of \"blooming\" that occurs when " "acquiring an image with a camera. Larger values cause more blooming." 
+msgid SANE_DESC_SATURATION
+msgstr ""
+
+#original text: "The filename of the image to be loaded." 
+msgid SANE_DESC_FILE
+msgstr "Der Dateiname des zu ladenden Bildes"
+
+#original text: "Sets the size of the halftoning (dithering) pattern used when scanning " "halftoned images." 
+msgid SANE_DESC_HALFTONE_DIMENSION
+msgstr ""
+
+#original text: "Defines the halftoning (dithering) pattern for scanning halftoned images." 
+msgid SANE_DESC_HALFTONE_PATTERN
+msgstr ""
+
+#original text: "Use same values for X and Y resolution" 
+msgid SANE_DESC_RESOLUTION_BIND
+msgstr "Benutze die gleichen Auflösungen für X und Y"
+
+#original text: "Swap black and white" 
+msgid SANE_DESC_NEGATIVE
+msgstr "Invertiere die Farben, z.B. tausche Schwarz gegen Weiß"
+
+#original text: "Do a quality white-calibration" 
+msgid SANE_DESC_QUALITY_CAL
+msgstr "Führe einen Qualitätsweißabgleich durch"
+
+#original text: "Use lens that doubles optical resolution" 
+msgid SANE_DESC_DOR
+msgstr "Benutze die Linse, mit der die optische Auflösung verdoppelt wird"
+
+#original text: "In RGB-mode use same values for each color" 
+msgid SANE_DESC_RGB_BIND
+msgstr "Benutze die gleichen Wert für alle Farben im RGB Modus"
+
+#original text: "Select minimum-brightness to get a white point" 
+msgid SANE_DESC_THRESHOLD
+msgstr "Wähle die minimale Helligkeit, die als Weiß betrachtet werden soll"
+
+#original text: "Analog gamma-correction" 
+msgid SANE_DESC_ANALOG_GAMMA
+msgstr "analoge Gammakorrektur"
+
+#original text: "Analog gamma-correction for red" 
+msgid SANE_DESC_ANALOG_GAMMA_R
+msgstr "analoge Gammakorrektur für Rot"
+
+#original text: "Analog gamma-correction for green" 
+msgid SANE_DESC_ANALOG_GAMMA_G
+msgstr "analoge Gammakorrektur für Grün"
+
+#original text: "Analog gamma-correction for blue" 
+msgid SANE_DESC_ANALOG_GAMMA_B
+msgstr "analoge Gammakorrektur für Blau"
+
+#original text: "In RGB-mode use same values for each color" 
+msgid SANE_DESC_ANALOG_GAMMA_BIND
+msgstr ""
+
+#original text: "Don't care about image smearing problem" 
+msgid SANE_DESC_SMEAR
+msgstr "Ignoriere das Problem des Verschmierens des Bildes"
+
+#original text: "Output with 10 bits instead of 8 bits" 
+msgid SANE_DESC_TEN_BIT_MODE
+msgstr ""
+
+#original text: "Output with 12 bits instead of 8 bits" 
+msgid SANE_DESC_TWELVE_BIT_MODE
+msgstr ""
+
+#original text: "Warmup lamp before scanning" 
+msgid SANE_DESC_WARMUP
+msgstr "Wärme die Lampe vorm Scannen auf"
+
+#original text: "Set preview-bit in rgb-mode" 
+msgid SANE_DESC_RGB_PREVIEW_PATCH
+msgstr "Setzt das Vorschaubit im Farbmodus"
+
+#original text: "Use special start-scan bits" 
+msgid SANE_DESC_START_SCAN_PATCH
+msgstr "Benutze besondere Einstellungen beim Start des Scans"
+
+#original text: "Define exposure-time for calibration" 
+msgid SANE_DESC_CAL_EXPOS_TIME
+msgstr "Bestimmt die Beleuchtungszeit für die Kalibrierung"
+
+#original text: "Define exposure-time for red calibration" 
+msgid SANE_DESC_CAL_EXPOS_TIME_R
+msgstr "Bestimmt die Beleuchtungszeit für die Kalibrierung der roten Komponente"
+
+#original text: "Define exposure-time for green calibration" 
+msgid SANE_DESC_CAL_EXPOS_TIME_G
+msgstr "Bestimmt die Beleuchtungszeit für die Kalibrierung der grünen Komponente"
+
+#original text: "Define exposure-time for blue calibration" 
+msgid SANE_DESC_CAL_EXPOS_TIME_B
+msgstr "Bestimmt die Beleuchtungszeit für die Kalibrierung der blauen Komponente"
+
+#original text: "Define exposure-time for scan" 
+msgid SANE_DESC_SCAN_EXPOS_TIME
+msgstr "Bestimmt die Beleuchtungszeit für den Scan"
+
+#original text: "Define exposure-time for red scan" 
+msgid SANE_DESC_SCAN_EXPOS_TIME_R
+msgstr "Bestimmt die Beleuchtungszeit für den Scan der roten Komponente"
+
+#original text: "Define exposure-time for green scan" 
+msgid SANE_DESC_SCAN_EXPOS_TIME_G
+msgstr "Bestimmt die Beleuchtungszeit für den Scan der grünen Komponente"
+
+#original text: "Define exposure-time for blue scan" 
+msgid SANE_DESC_SCAN_EXPOS_TIME_B
+msgstr "Bestimmt die Beleuchtungszeit für den Scan der blauen Komponente"
+
+#original text: "Enable selection of exposure-time" 
+msgid SANE_DESC_SELECT_EXPOSURE_TIME
+msgstr "Ermögliche Einstellung der Beleuchtungszeiten"
+
+#original text: "Define lamp density for calibration" 
+msgid SANE_DESC_CAL_LAMP_DEN
+msgstr "Definiere die Lichtwerte beim Kalibrieren"
+
+#original text: "Define lamp density for scan" 
+msgid SANE_DESC_SCAN_LAMP_DEN
+msgstr "Definiere die Lichtwerte beim Scannen"
+
+#original text: "Enable selection of lamp density" 
+msgid SANE_DESC_SELECT_LAMP_DENSITY
+msgstr "Ermögliche Auswahl der Lichtwerte"
+
+msgid "Geometry"
+msgstr "Geometrie"
+
+msgid "Enhancement"
+msgstr "Farbverbesserung"
+
+msgid "Scan Mode"
+msgstr "Scan Modus"
+
+msgid "Color"
+msgstr "Farbe"
+
+msgid "Gray"
+msgstr "Graustufen"
+
+msgid "Halftone"
+msgstr "Halbton"
+
+msgid "Lineart"
+msgstr "Strichzeichnung"
+
+msgid "Flatbed"
+msgstr "Flachbett"
+
+msgid "Transparency"
+msgstr "Durchlicht"
+
+msgid "Automatic Document Feeder"
+msgstr "Autom. Dokumenteneinzug"
+

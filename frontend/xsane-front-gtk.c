@@ -259,7 +259,6 @@ gint xsane_authorization_callback(SANE_String_Const resource,
 
   authorize_dialog = gtk_window_new(GTK_WINDOW_DIALOG);
   gtk_window_set_position(GTK_WINDOW(authorize_dialog), GTK_WIN_POS_CENTER);
-//  gtk_widget_set_usize(authorize_dialog, 300, 190);
   gtk_window_set_policy(GTK_WINDOW(authorize_dialog), FALSE, FALSE, FALSE);
   gtk_signal_connect(GTK_OBJECT(authorize_dialog), "delete_event",
                      GTK_SIGNAL_FUNC(xsane_authorization_button_callback), (void *) -1); /* -1 = cancel */
@@ -544,11 +543,7 @@ void xsane_option_menu_new(GtkWidget *parent, char *str_list[], const char *val,
   menu = gtk_menu_new();
   for (i = 0; i < num_items; ++i)
   {
-    item = gtk_menu_item_new_with_label(str_list[i]);
-    if (i == 0)
-    {
-      gtk_widget_set_usize(item, 60, 0);
-    }
+    item = gtk_menu_item_new_with_label(_BGT(str_list[i]));
     gtk_container_add(GTK_CONTAINER(menu), item);
 
     if (option_menu_callback)
@@ -752,10 +747,10 @@ void xsane_set_sensitivity(SANE_Int sensitivity)
 
   if (xsane.preview)
   {
-    gtk_widget_set_sensitive(xsane.preview->button_box, sensitivity);	/* button box at top of window */
-    gtk_widget_set_sensitive(xsane.preview->viewport, sensitivity);	/* Preview image selection */
-    gtk_widget_set_sensitive(xsane.preview->start, sensitivity);	/* Acquire preview button */
-  }
+    gtk_widget_set_sensitive(xsane.preview->button_box, sensitivity);   /* button box at top of window */
+    gtk_widget_set_sensitive(xsane.preview->viewport, sensitivity);     /* Preview image selection */
+    gtk_widget_set_sensitive(xsane.preview->start, sensitivity);        /* Acquire preview button */
+  } 
 
   if (xsane.fax_dialog)
   {

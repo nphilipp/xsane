@@ -271,6 +271,7 @@ static void xsane_gimp_query(void)
        "Oliver Rauch",
       "1998/1999",
       "<Toolbox>/Xtns/XSane/Device dialog...",
+/*      "<Toolbox>/File/Acquire/XSane: Device dialog...", */
       "RGB, GRAY",
       PROC_EXTENSION,
       nargs, nreturn_vals,
@@ -302,6 +303,7 @@ static void xsane_gimp_query(void)
 	continue;	/* name too long... */
 
       strncpy(mpath, "<Toolbox>/Xtns/XSane/", sizeof(mpath));
+/*      strncpy(mpath, "<Toolbox>/File/Acquire/XSane: ", sizeof(mpath)); */
       len = strlen(mpath);
       for (j = 0; devlist[i]->name[j]; ++j)
 	{
@@ -336,7 +338,7 @@ static void xsane_gimp_run(char *name, int nparams, GParam * param, int *nreturn
   int nargs;
 
   run_mode = param[0].data.d_int32;
-  xsane.mode = GIMP_EXTENSION;
+  xsane.mode = XSANE_GIMP_EXTENSION;
 
   *nreturn_vals = 1;
   *return_vals = values;
@@ -345,7 +347,7 @@ static void xsane_gimp_run(char *name, int nparams, GParam * param, int *nreturn
   values[0].data.d_status = STATUS_CALLING_ERROR;
 
   nargs = 0;
-  args[nargs++] = "xssane";
+  args[nargs++] = "xsane";
 
   seldev = -1;
   if (strncmp(name, "xsane-", 6) == 0)
@@ -480,7 +482,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
       switch (xsane.param.format)
       {
         case SANE_FRAME_GRAY:
-          if (xsane.mode == STANDALONE)
+          if (xsane.mode == XSANE_STANDALONE)
           {
            int i;
            char val;
@@ -547,7 +549,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
          break;
 
         case SANE_FRAME_RGB:
-          if (xsane.mode == STANDALONE)
+          if (xsane.mode == XSANE_STANDALONE)
           {
            int i;
            char val;
@@ -651,7 +653,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
         case SANE_FRAME_RED:
         case SANE_FRAME_GREEN:
         case SANE_FRAME_BLUE:
-          if (xsane.mode == STANDALONE)
+          if (xsane.mode == XSANE_STANDALONE)
           {
             for (i = 0; i < len; ++i)
             {
@@ -701,7 +703,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
 
 #ifdef SUPPORT_RGBA
         case SANE_FRAME_RGBA: /* Scanning including Infrared channel */
-          if (xsane.mode == STANDALONE)
+          if (xsane.mode == XSANE_STANDALONE)
           {
             int i;
             char val;
@@ -877,7 +879,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
       switch (xsane.param.format)
       {
         case SANE_FRAME_GRAY:
-          if (xsane.mode == STANDALONE)
+          if (xsane.mode == XSANE_STANDALONE)
           {
            int i;
            guint16 val;
@@ -898,7 +900,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
          break;
 
         case SANE_FRAME_RGB:
-          if (xsane.mode == STANDALONE)
+          if (xsane.mode == XSANE_STANDALONE)
           {
            int i;
            guint16 val;
@@ -935,7 +937,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
         case SANE_FRAME_RED:
         case SANE_FRAME_GREEN:
         case SANE_FRAME_BLUE:
-          if (xsane.mode == STANDALONE)
+          if (xsane.mode == XSANE_STANDALONE)
           {
             for (i = 0; i < len/2; ++i)
             {
@@ -947,7 +949,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
 
 #ifdef SUPPORT_RGBA
         case SANE_FRAME_RGBA:
-          if (xsane.mode == STANDALONE)
+          if (xsane.mode == XSANE_STANDALONE)
           {
            int i;
            guint16 val;
@@ -1115,7 +1117,7 @@ void xsane_scan_done(SANE_Status status)
 
   if ( (status == SANE_STATUS_GOOD) || (status == SANE_STATUS_EOF) ) /* no error, do conversion etc. */
   {
-    if (xsane.mode == STANDALONE)
+    if (xsane.mode == XSANE_STANDALONE)
     {
       if ( (xsane.xsane_mode == XSANE_SCAN) && (xsane.xsane_output_format != XSANE_PNM) &&
            (xsane.xsane_output_format != XSANE_RAW16) && (xsane.xsane_output_format != XSANE_RGBA) )
@@ -1125,8 +1127,8 @@ void xsane_scan_done(SANE_Status status)
        char buf[256];
 
          /* open progressbar */
-         snprintf(buf, sizeof(buf), "Saving image");
-         xsane.progress = xsane_progress_new("Converting data....", buf, (GtkSignalFunc) xsane_cancel_save, 0);
+         snprintf(buf, sizeof(buf), PROGRESS_SAVING);
+         xsane.progress = xsane_progress_new(PROGRESS_CONVERTING_DATA, buf, (GtkSignalFunc) xsane_cancel_save, 0);
          xsane_progress_update(xsane.progress, 0);
          while (gtk_events_pending())
          {
@@ -1250,8 +1252,8 @@ void xsane_scan_done(SANE_Status status)
          }
 
          /* open progressbar */
-         snprintf(buf, sizeof(buf), "converting to postscript");
-         xsane.progress = xsane_progress_new("Converting data....", buf, (GtkSignalFunc) xsane_cancel_save, 0);
+         snprintf(buf, sizeof(buf), PROGRESS_CONVERTING_PS);
+         xsane.progress = xsane_progress_new(PROGRESS_CONVERTING_DATA, buf, (GtkSignalFunc) xsane_cancel_save, 0);
          xsane_progress_update(xsane.progress, 0);
          while (gtk_events_pending())
          {
@@ -1332,8 +1334,8 @@ void xsane_scan_done(SANE_Status status)
        char buf[256];
 
          /* open progressbar */
-         snprintf(buf, sizeof(buf), "Saving fax image");
-         xsane.progress = xsane_progress_new("Converting data....", buf, (GtkSignalFunc) xsane_cancel_save, 0);
+         snprintf(buf, sizeof(buf), PROGRESS_SAVING_FAX);
+         xsane.progress = xsane_progress_new(PROGRESS_CONVERTING_DATA, buf, (GtkSignalFunc) xsane_cancel_save, 0);
          xsane_progress_update(xsane.progress, 0);
          while (gtk_events_pending())
          {
@@ -1413,7 +1415,7 @@ void xsane_scan_done(SANE_Status status)
 
     xsane.header_size = 0;
     
-    if ( (preferences.increase_filename_counter) && (xsane.xsane_mode == XSANE_SCAN) && (xsane.mode == STANDALONE) )
+    if ( (preferences.increase_filename_counter) && (xsane.xsane_mode == XSANE_SCAN) && (xsane.mode == XSANE_STANDALONE) )
     {
       xsane_increase_counter_in_filename(preferences.filename, preferences.skip_existing_numbers);
       gtk_entry_set_text(GTK_ENTRY(xsane.outputfilename_entry), (char *) preferences.filename);
@@ -1491,7 +1493,7 @@ static void xsane_start_scan(void)
   xsane_set_sensitivity(FALSE);
 
 #ifdef HAVE_LIBGIMP_GIMP_H
-  if (xsane.mode == GIMP_EXTENSION && xsane.tile)
+  if (xsane.mode == XSANE_GIMP_EXTENSION && xsane.tile)
     {
       int height, remaining;
 
@@ -1572,7 +1574,7 @@ static void xsane_start_scan(void)
     default:			frame_type = "unknown"; break;
   }
 
-  if (xsane.mode == STANDALONE)
+  if (xsane.mode == XSANE_STANDALONE)
   {				/* We are running in standalone mode */
       if (!xsane.header_size)
       {
@@ -1640,15 +1642,15 @@ static void xsane_start_scan(void)
 
       if (xsane.xsane_mode == XSANE_SCAN)
       {
-        snprintf(buf, sizeof(buf), "Receiving %s data for `%s'...", frame_type, preferences.filename);
+        snprintf(buf, sizeof(buf), PROGRESS_RECEIVING_SCAN, _(frame_type), preferences.filename);
       }
       else if (xsane.xsane_mode == XSANE_COPY)
       {
-        snprintf(buf, sizeof(buf), "Receiving %s data for photocopy ...", frame_type);
+        snprintf(buf, sizeof(buf), PROGRESS_RECEIVING_COPY, _(frame_type));
       }
       else if (xsane.xsane_mode == XSANE_FAX)
       {
-        snprintf(buf, sizeof(buf), "Receiving %s data for fax ...", frame_type);
+        snprintf(buf, sizeof(buf), PROGRESS_RECEIVING_FAX, _(frame_type));
       }
   }
 #ifdef HAVE_LIBGIMP_GIMP_H
@@ -1732,7 +1734,7 @@ static void xsane_start_scan(void)
 	xsane.tile_offset = xsane.param.format - SANE_FRAME_RED;
       }
 
-      snprintf(buf, sizeof(buf), "Receiving %s data for GIMP...", frame_type);
+      snprintf(buf, sizeof(buf), PROGRESS_RECEIVING_GIMP, _(frame_type));
     }
 #endif /* HAVE_LIBGIMP_GIMP_H */
 
@@ -1742,7 +1744,7 @@ static void xsane_start_scan(void)
   {
     xsane_progress_free(xsane.progress);
   }
-  xsane.progress = xsane_progress_new("Scanning", buf, (GtkSignalFunc) xsane_cancel, 0);
+  xsane.progress = xsane_progress_new(PROGRESS_SCANNING, buf, (GtkSignalFunc) xsane_cancel, 0);
 
   xsane.input_tag = -1;
 
@@ -1766,7 +1768,7 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
 
   sane_get_parameters(dialog->dev, &xsane.param); /* update xsane.param */
 
-  if (xsane.mode == STANDALONE)  				/* We are running in standalone mode */
+  if (xsane.mode == XSANE_STANDALONE)  				/* We are running in standalone mode */
   {
    char *extension;
 

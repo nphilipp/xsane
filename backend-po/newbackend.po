@@ -1,0 +1,544 @@
+
+#nls translation file for backend "BACKENDNAME"
+#language: "LANGUAGE" (XYZ)
+
+
+#original text: "Number of options" 
+msgid "Number of options" 
+msgstr ""
+
+#original text: "Preview" 
+msgid "Preview" 
+msgstr ""
+
+#original text: "Force monochrome preview" 
+msgid "Force monochrome preview" 
+msgstr ""
+
+#original text: "Bit depth" 
+msgid "Bit depth" 
+msgstr ""
+
+#original text: "Scan mode" 
+msgid "Scan mode" 
+msgstr ""
+
+#original text: "Scan speed" 
+msgid "Scan speed" 
+msgstr ""
+
+#original text: "Scan source" 
+msgid "Scan source" 
+msgstr ""
+
+#original text: "Force backtracking" 
+msgid "Force backtracking" 
+msgstr ""
+
+#original text: "Top-left x" 
+msgid "Top-left x" 
+msgstr ""
+
+#original text: "Top-left y" 
+msgid "Top-left y" 
+msgstr ""
+
+#original text: "Bottom-right x" 
+msgid "Bottom-right x" 
+msgstr ""
+
+#original text: "Bottom-right y" 
+msgid "Bottom-right y" 
+msgstr ""
+
+#original text: "Scan resolution" 
+msgid "Scan resolution" 
+msgstr ""
+
+#original text: "X-resolution" 
+msgid "X-resolution" 
+msgstr ""
+
+#original text: "Y-resolution" 
+msgid "Y-resolution" 
+msgstr ""
+
+#original text: "Use custom gamma table" 
+msgid "Use custom gamma table" 
+msgstr ""
+
+#original text: "Image intensity" 
+msgid "Image intensity" 
+msgstr ""
+
+#original text: "Red intensity" 
+msgid "Red intensity" 
+msgstr ""
+
+#original text: "Green intensity" 
+msgid "Green intensity" 
+msgstr ""
+
+#original text: "Blue intensity" 
+msgid "Blue intensity" 
+msgstr ""
+
+#original text: "Brightness" 
+msgid "Brightness" 
+msgstr ""
+
+#original text: "Contrast" 
+msgid "Contrast" 
+msgstr ""
+
+#original text: "Grain size" 
+msgid "Grain size" 
+msgstr ""
+
+#original text: "Halftoning" 
+msgid "Halftoning" 
+msgstr ""
+
+#original text: "Black level" 
+msgid "Black level" 
+msgstr ""
+
+#original text: "White level" 
+msgid "White level" 
+msgstr ""
+
+#original text: "Shadow" 
+msgid "Shadow" 
+msgstr ""
+
+#original text: "Shadow for red" 
+msgid "Shadow for red" 
+msgstr ""
+
+#original text: "Shadow for green" 
+msgid "Shadow for green" 
+msgstr ""
+
+#original text: "Shadow for blue" 
+msgid "Shadow for blue" 
+msgstr ""
+
+#original text: "Highlight" 
+msgid "Highlight" 
+msgstr ""
+
+#original text: "Highlight for red" 
+msgid "Highlight for red" 
+msgstr ""
+
+#original text: "Highlight for green" 
+msgid "Highlight for green" 
+msgstr ""
+
+#original text: "Highlight for blue" 
+msgid "Highlight for blue" 
+msgstr ""
+
+#original text: "Hue" 
+msgid "Hue" 
+msgstr ""
+
+#original text: "Saturation" 
+msgid "Saturation" 
+msgstr ""
+
+#original text: "Filename" 
+msgid "Filename" 
+msgstr ""
+
+#original text: "Halftone pattern size" 
+msgid "Halftone pattern size" 
+msgstr ""
+
+#original text: "Halftone pattern" 
+msgid "Halftone pattern" 
+msgstr ""
+
+#original text: "Bind X and Y resolution" 
+msgid "Bind X and Y resolution" 
+msgstr ""
+
+#original text: "Negative" 
+msgid "Negative" 
+msgstr ""
+
+#original text: "Quality calibration" 
+msgid "Quality calibration" 
+msgstr ""
+
+#original text: "Double Optical Resolution" 
+msgid "Double Optical Resolution" 
+msgstr ""
+
+#original text: "Bind RGB" 
+msgid "Bind RGB" 
+msgstr ""
+
+#original text: "Threshold" 
+msgid "Threshold" 
+msgstr ""
+
+#original text: "Analog gamma correction" 
+msgid "Analog gamma correction" 
+msgstr ""
+
+#original text: "Analog gamma red" 
+msgid "Analog gamma red" 
+msgstr ""
+
+#original text: "Analog gamma green" 
+msgid "Analog gamma green" 
+msgstr ""
+
+#original text: "Analog gamma blue" 
+msgid "Analog gamma blue" 
+msgstr ""
+
+#original text: "Bind analog gamma" 
+msgid "Bind analog gamma" 
+msgstr ""
+
+#original text: "Smear" 
+msgid "Smear" 
+msgstr ""
+
+#original text: "10 bit-mode" 
+msgid "10 bit-mode" 
+msgstr ""
+
+#original text: "12 bit-mode" 
+msgid "12 bit-mode" 
+msgstr ""
+
+#original text: "Warmup lamp" 
+msgid "Warmup lamp" 
+msgstr ""
+
+#original text: "Preview patch" 
+msgid "Preview patch" 
+msgstr ""
+
+#original text: "Start-scan patch" 
+msgid "Start-scan patch" 
+msgstr ""
+
+#original text: "Cal. exposure-time" 
+msgid "Cal. exposure-time" 
+msgstr ""
+
+#original text: "Cal. exposure-time for red" 
+msgid "Cal. exposure-time for red" 
+msgstr ""
+
+#original text: "Cal. exposure-time for green" 
+msgid "Cal. exposure-time for green" 
+msgstr ""
+
+#original text: "Cal. exposure-time for blue" 
+msgid "Cal. exposure-time for blue" 
+msgstr ""
+
+#original text: "Scan exposure-time" 
+msgid "Scan exposure-time" 
+msgstr ""
+
+#original text: "Scan exposure-time for red" 
+msgid "Scan exposure-time for red" 
+msgstr ""
+
+#original text: "Scan exposure-time for green" 
+msgid "Scan exposure-time for green" 
+msgstr ""
+
+#original text: "Scan exposure-time for blue" 
+msgid "Scan exposure-time for blue" 
+msgstr ""
+
+#original text: "Set exposure-time" 
+msgid "Set exposure-time" 
+msgstr ""
+
+#original text: "Cal. lamp density" 
+msgid "Cal. lamp density" 
+msgstr ""
+
+#original text: "Scan lamp density" 
+msgid "Scan lamp density" 
+msgstr ""
+
+#original text: "Set lamp density" 
+msgid "Set lamp density" 
+msgstr ""
+
+#original text: "Request a preview-quality scan." 
+msgid "Request a preview-quality scan." 
+msgstr ""
+
+#original text: "Request that all previews are done in monochrome mode.  On a three-pass " " scanner this cuts down the number of passes to one and on a one-pass " "scanner, it reduces the memory requirements and scan-time of the preview." 
+msgid "Request that all previews are done in monochrome mode.  On a three-pass " " scanner this cuts down the number of passes to one and on a one-pass " "scanner, it reduces the memory requirements and scan-time of the preview." 
+msgstr ""
+
+#original text: "Number of bits per sample, typical values are 1 for \"line-art\" and 8 " "for multibit scans." 
+msgid "Number of bits per sample, typical values are 1 for \"line-art\" and 8 " "for multibit scans." 
+msgstr ""
+
+#original text: "Selects the scan mode (e.g., lineart,monochrome, or color)." 
+msgid "Selects the scan mode (e.g., lineart,monochrome, or color)." 
+msgstr ""
+
+#original text: "Determines the speed at which the scan proceeds." 
+msgid "Determines the speed at which the scan proceeds." 
+msgstr ""
+
+#original text: "Selects the scan source (such as a document-feeder)." 
+msgid "Selects the scan source (such as a document-feeder)." 
+msgstr ""
+
+#original text: "Controls whether backtracking is forced." 
+msgid "Controls whether backtracking is forced." 
+msgstr ""
+
+#original text: "Top-left x position of scan area." 
+msgid "Top-left x position of scan area." 
+msgstr ""
+
+#original text: "Top-left y position of scan area." 
+msgid "Top-left y position of scan area." 
+msgstr ""
+
+#original text: "Bottom-right x position of scan area." 
+msgid "Bottom-right x position of scan area." 
+msgstr ""
+
+#original text: "Bottom-right y position of scan area." 
+msgid "Bottom-right y position of scan area." 
+msgstr ""
+
+#original text: "Sets the resolution of the scanned image." 
+msgid "Sets the resolution of the scanned image." 
+msgstr ""
+
+#original text: "Sets the horizontal resolution of the scanned image." 
+msgid "Sets the horizontal resolution of the scanned image." 
+msgstr ""
+
+#original text: "Sets the vertical resolution of the scanned image." 
+msgid "Sets the vertical resolution of the scanned image." 
+msgstr ""
+
+#original text: "Determines whether a builtin or a custom gamma-table should be used." 
+msgid "Determines whether a builtin or a custom gamma-table should be used." 
+msgstr ""
+
+#original text: "Gamma-correction table.  In color mode this option equally affects the " "red, green, and blue channels simultaneously (i.e., it is an intensity " "gamma table)." 
+msgid "Gamma-correction table.  In color mode this option equally affects the " "red, green, and blue channels simultaneously (i.e., it is an intensity " "gamma table)." 
+msgstr ""
+
+#original text: "Gamma-correction table for the red band." 
+msgid "Gamma-correction table for the red band." 
+msgstr ""
+
+#original text: "Gamma-correction table for the green band." 
+msgid "Gamma-correction table for the green band." 
+msgstr ""
+
+#original text: "Gamma-correction table for the blue band." 
+msgid "Gamma-correction table for the blue band." 
+msgstr ""
+
+#original text: "Controls the brightness of the acquired image." 
+msgid "Controls the brightness of the acquired image." 
+msgstr ""
+
+#original text: "Controls the contrast of the acquired image." 
+msgid "Controls the contrast of the acquired image." 
+msgstr ""
+
+#original text: "Selects the \"graininess\" of the acquired image.  Smaller values " "result in sharper images." 
+msgid "Selects the \"graininess\" of the acquired image.  Smaller values " "result in sharper images." 
+msgstr ""
+
+#original text: "Selects whether the acquired image should be halftoned (dithered)." 
+msgid "Selects whether the acquired image should be halftoned (dithered)." 
+msgstr ""
+
+#original text: "Selects what radiance level should be considered \"black\"." 
+msgid "Selects what radiance level should be considered \"black\"." 
+msgstr ""
+
+#original text: "Selects what radiance level should be considered \"white\"." 
+msgid "Selects what radiance level should be considered \"white\"." 
+msgstr ""
+
+#original text: "Selects what radiance level should be considered \"black\"." 
+msgid "Selects what radiance level should be considered \"black\"." 
+msgstr ""
+
+#original text: "Selects what red radiance level should be considered \"black\"." 
+msgid "Selects what red radiance level should be considered \"black\"." 
+msgstr ""
+
+#original text: "Selects what green radiance level should be considered \"black\"." 
+msgid "Selects what green radiance level should be considered \"black\"." 
+msgstr ""
+
+#original text: "Selects what blue radiance level should be considered \"black\"." 
+msgid "Selects what blue radiance level should be considered \"black\"." 
+msgstr ""
+
+#original text: "Selects what radiance level should be considered \"white\"." 
+msgid "Selects what radiance level should be considered \"white\"." 
+msgstr ""
+
+#original text: "Selects what red radiance level should be considered \"full red\"." 
+msgid "Selects what red radiance level should be considered \"full red\"." 
+msgstr ""
+
+#original text: "Selects what green radiance level should be considered \"full green\"." 
+msgid "Selects what green radiance level should be considered \"full green\"." 
+msgstr ""
+
+#original text: "Selects what blue radiance level should be considered \"full blue\"." 
+msgid "Selects what blue radiance level should be considered \"full blue\"." 
+msgstr ""
+
+#original text: "Controls the \"hue\" (blue-level) of the acquired image." 
+msgid "Controls the \"hue\" (blue-level) of the acquired image." 
+msgstr ""
+
+#original text: "The saturation level controls the amount of \"blooming\" that occurs when " "acquiring an image with a camera. Larger values cause more blooming." 
+msgid "The saturation level controls the amount of \"blooming\" that occurs when " "acquiring an image with a camera. Larger values cause more blooming." 
+msgstr ""
+
+#original text: "The filename of the image to be loaded." 
+msgid "The filename of the image to be loaded." 
+msgstr ""
+
+#original text: "Sets the size of the halftoning (dithering) pattern used when scanning " "halftoned images." 
+msgid "Sets the size of the halftoning (dithering) pattern used when scanning " "halftoned images." 
+msgstr ""
+
+#original text: "Defines the halftoning (dithering) pattern for scanning halftoned images." 
+msgid "Defines the halftoning (dithering) pattern for scanning halftoned images." 
+msgstr ""
+
+#original text: "Use same values for X and Y resolution" 
+msgid "Use same values for X and Y resolution" 
+msgstr ""
+
+#original text: "Swap black and white" 
+msgid "Swap black and white" 
+msgstr ""
+
+#original text: "Do a quality white-calibration" 
+msgid "Do a quality white-calibration" 
+msgstr ""
+
+#original text: "Use lens that doubles optical resolution" 
+msgid "Use lens that doubles optical resolution" 
+msgstr ""
+
+#original text: "In RGB-mode use same values for each color" 
+msgid "In RGB-mode use same values for each color" 
+msgstr ""
+
+#original text: "Select minimum-brightness to get a white point" 
+msgid "Select minimum-brightness to get a white point" 
+msgstr ""
+
+#original text: "Analog gamma-correction" 
+msgid "Analog gamma-correction" 
+msgstr ""
+
+#original text: "Analog gamma-correction for red" 
+msgid "Analog gamma-correction for red" 
+msgstr ""
+
+#original text: "Analog gamma-correction for green" 
+msgid "Analog gamma-correction for green" 
+msgstr ""
+
+#original text: "Analog gamma-correction for blue" 
+msgid "Analog gamma-correction for blue" 
+msgstr ""
+
+#original text: "In RGB-mode use same values for each color" 
+msgid "In RGB-mode use same values for each color" 
+msgstr ""
+
+#original text: "Don't care about image smearing problem" 
+msgid "Don't care about image smearing problem" 
+msgstr ""
+
+#original text: "Output with 10 bits instead of 8 bits" 
+msgid "Output with 10 bits instead of 8 bits" 
+msgstr ""
+
+#original text: "Output with 12 bits instead of 8 bits" 
+msgid "Output with 12 bits instead of 8 bits" 
+msgstr ""
+
+#original text: "Warmup lamp before scanning" 
+msgid "Warmup lamp before scanning" 
+msgstr ""
+
+#original text: "Set preview-bit in rgb-mode" 
+msgid "Set preview-bit in rgb-mode" 
+msgstr ""
+
+#original text: "Use special start-scan bits" 
+msgid "Use special start-scan bits" 
+msgstr ""
+
+#original text: "Define exposure-time for calibration" 
+msgid "Define exposure-time for calibration" 
+msgstr ""
+
+#original text: "Define exposure-time for red calibration" 
+msgid "Define exposure-time for red calibration" 
+msgstr ""
+
+#original text: "Define exposure-time for green calibration" 
+msgid "Define exposure-time for green calibration" 
+msgstr ""
+
+#original text: "Define exposure-time for blue calibration" 
+msgid "Define exposure-time for blue calibration" 
+msgstr ""
+
+#original text: "Define exposure-time for scan" 
+msgid "Define exposure-time for scan" 
+msgstr ""
+
+#original text: "Define exposure-time for red scan" 
+msgid "Define exposure-time for red scan" 
+msgstr ""
+
+#original text: "Define exposure-time for green scan" 
+msgid "Define exposure-time for green scan" 
+msgstr ""
+
+#original text: "Define exposure-time for blue scan" 
+msgid "Define exposure-time for blue scan" 
+msgstr ""
+
+#original text: "Enable selection of exposure-time" 
+msgid "Enable selection of exposure-time" 
+msgstr ""
+
+#original text: "Define lamp density for calibration" 
+msgid "Define lamp density for calibration" 
+msgstr ""
+
+#original text: "Define lamp density for scan" 
+msgid "Define lamp density for scan" 
+msgstr ""
+
+#original text: "Enable selection of lamp density" 
+msgid "Enable selection of lamp density" 
+msgstr ""

@@ -2,6 +2,7 @@
 #define XSANE_TEXT_H
 
 #define XSANE_STRSTATUS(status)		_(sane_strstatus(status))
+#define _BGT(text)			dgettext(xsane.backend, text)
 
 #define WINDOW_ABOUT			_("About")
 #define WINDOW_AUTHORIZE		_("authorization")
@@ -14,7 +15,7 @@
 #define WINDOW_STANDARD_OPTIONS		_("Standard options")
 #define WINDOW_ADVANCED_OPTIONS		_("Advanced options")
 #define WINDOW_DEVICE_SELECTION		_("device selection")
-#define WINDOW_PREVIEW			_("preview")
+#define WINDOW_PREVIEW			_("Preview")
 #define WINDOW_OUTPUT_FILENAME		_("output filename")
 #define WINDOW_SAVE_SETTINGS		_("save device settings")
 #define WINDOW_LOAD_SETTINGS		_("load device settings")
@@ -159,6 +160,16 @@
 #define MENU_ITEM_FILETYPE_RAW		_(".raw")
 #define MENU_ITEM_FILETYPE_TIFF		_(".tiff")
 #define MENU_ITEM_FILETYPE_BY_EXT	_("by ext")
+
+#define PROGRESS_SAVING			_("Saving image")
+#define PROGRESS_SAVING_FAX		_("Saving fax image")
+#define PROGRESS_CONVERTING_DATA	_("Converting data....")
+#define PROGRESS_CONVERTING_PS		_("Converting to postscript")
+#define PROGRESS_SCANNING		_("Scanning")
+#define PROGRESS_RECEIVING_SCAN		_("Receiving %s data for `%s'...")
+#define PROGRESS_RECEIVING_COPY		_("Receiving %s data for photocopy ...")
+#define PROGRESS_RECEIVING_FAX		_("Receiving %s data for fax ...")
+#define PROGRESS_RECEIVING_GIMP		_("Receiving %s data for GIMP...")
 
 
 #define DESC_XSANE_MODE			_("Use XSane for SCANning, photoCOPYing, FAXing...")

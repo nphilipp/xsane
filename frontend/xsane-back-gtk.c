@@ -701,7 +701,7 @@ void gsg_option_menu_new(GtkWidget *parent, const char *name, char *str_list[],
   menu = gtk_menu_new();
   for (i = 0; i < num_items; ++i)
   {
-    item = gtk_menu_item_new_with_label(str_list[i]);
+    item = gtk_menu_item_new_with_label(_BGT(str_list[i]));
     gtk_container_add(GTK_CONTAINER(menu), item);
     gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) option_menu_callback, menu_items + i);
 
