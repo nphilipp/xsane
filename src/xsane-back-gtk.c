@@ -1172,7 +1172,7 @@ int xsane_back_gtk_get_filename(const char *label, const char *default_name, siz
     gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
     gtk_widget_show(hbox);
 
-    label = gtk_label_new("Filetype"); // XXXXXXXXXXX
+    label = gtk_label_new(TEXT_FILETYPE);
     gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 0);
     gtk_widget_show(label);
 
@@ -2112,6 +2112,7 @@ void xsane_set_sensitivity(SANE_Int sensitivity)
   if (xsane.preview)
   {
     gtk_widget_set_sensitive(xsane.preview->button_box, sensitivity);   /* button box at top of window */
+    gtk_widget_set_sensitive(xsane.preview->menu_box, sensitivity);     /* menu box at top of window */
 #if 1
     gtk_widget_set_sensitive(xsane.preview->viewport, sensitivity);     /* Preview image selection */
 #endif

@@ -1,3 +1,6 @@
+
+- the SIGTERM handler is not called when gimp exits with xsane-plugin open.
+
 ----------------------------------------------------------------------------------
 
 - xsane sometimes crashes at program startup with snapscan backend in panel_rebuild

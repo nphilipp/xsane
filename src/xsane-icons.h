@@ -64,6 +64,7 @@ extern const char *mailreceiver_xpm[];
 extern const char *subject_xpm[];
 extern const char *colormode_xpm[];
 extern const char *medium_xpm[];
+extern const char *medium_edit_xpm[];
 extern const char *medium_delete_xpm[];
 extern const char *Gamma_xpm[];
 extern const char *Gamma_red_xpm[];

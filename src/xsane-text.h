@@ -340,6 +340,7 @@
 #define SUBMENU_ITEM_POLICY_DELAYED	_("delayed")
 #define MENU_ITEM_SHOW_RESOLUTIONLIST	_("Show resolution list")
 #define MENU_ITEM_PAGE_ROTATE		_("Rotate postscript")
+#define MENU_ITEM_EDIT_MEDIUM_DEF	_("Edit medium definition")
 #define MENU_ITEM_SAVE_DEVICE_SETTINGS	_("Save device settings")
 #define MENU_ITEM_LOAD_DEVICE_SETTINGS	_("Load device settings")
 #define MENU_ITEM_CHANGE_WORKING_DIR	_("Change directory")
@@ -400,7 +401,7 @@
 #define DESC_PREVIEW_CANCEL		_("Cancel preview scan <Alt-ESC>")
 #define DESC_XSANE_MODE			_("save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, " \
 					  "fax-<Ctrl-f> or mail-<Ctrl-m>")
-#define DESC_XSANE_MEDIUM		_("Select source medium type")
+#define DESC_XSANE_MEDIUM		_("Select source medium type\n")
 
 #define DESC_FILENAME_COUNTER_STEP	_("Value that is added to filenamecounter after scan")
 #define DESC_BROWSE_FILENAME		_("Browse for image filename")
@@ -414,6 +415,7 @@
 #define DESC_MAILRECEIVER		_("Enter email address")
 #define DESC_MAILSUBJECT		_("Enter subject of email")
 #define DESC_PRESET_AREA_NAME		_("Enter new name for preset area")
+#define DESC_MEDIUM_DEFINITION_NAME	_("Enter new name for medium definition")
 
 #define DESC_PRINTER_SELECT		_("Select printerdefinition <Shift-F1/F2/...>")
 
@@ -425,7 +427,7 @@
 #define DESC_ZOOM_Y			_("Set zoomfactor for y direction")
 #define DESC_COPY_NUMBER		_("Set number of copies")
 
-#define DESC_NEGATIVE			_("Negative: Invert colors for scanning negatives <Shift-n>")
+#define DESC_NEGATIVE			_("Negative: Invert colors for scanning negatives <Ctrl-n>")
 
 #define DESC_GAMMA			_("Set gamma value")
 #define DESC_GAMMA_R			_("Set gamma value for red component")
@@ -445,18 +447,18 @@
 #define DESC_THRESHOLD			_("Set threshold")
 
 #define DESC_RGB_DEFAULT		_("RGB default: Set enhancement values for red, " \
-                                          "green and blue to default values <Shift-b>:\n" \
+                                          "green and blue to default values <Ctrl-b>:\n" \
 						" gamma = 1.0\n" \
 						" brightness = 0\n" \
 						" contrast = 0")
 
-#define DESC_ENH_AUTO			_("Autoadjust gamma, brightness and contrast <Shift-e>")
-#define DESC_ENH_DEFAULT		_("Set default enhancement values <Shift-d>:\n" \
+#define DESC_ENH_AUTO			_("Autoadjust gamma, brightness and contrast <Ctrl-e>")
+#define DESC_ENH_DEFAULT		_("Set default enhancement values <Ctrl-0>:\n" \
 						"gamma = 1.0\n" \
 						"brightness = 0\n" \
 						"contrast = 0")
-#define DESC_ENH_RESTORE		_("Restore enhancement values from preferences <Shift-r>")
-#define DESC_ENH_STORE			_("Store active enhancement values to preferences <Shift-m>")
+#define DESC_ENH_RESTORE		_("Restore enhancement values from preferences <Ctrl-r>")
+#define DESC_ENH_STORE			_("Store active enhancement values to preferences <Ctrl-+>")
 
 #define DESC_HIST_INTENSITY		_("Show histogram of intensity/gray <Alt-i>")
 #define DESC_HIST_RED			_("Show histogram of red component <Alt-r>")
@@ -706,8 +708,6 @@ The format of [DEVICE] is backendname:devicefile (e.g. umax:/dev/scanner).\n\
  -f, --fax                    start with fax-mode active\n\
  -m, --mail                   start with mail-mode active\n\
  -n, --no-mode-selection      disable menu for XSane mode selection\n\
-\n\
- -M, --Medium-calibration     enable medium calibration mode\n\
 \n\
  -F, --Fixed                  fixed main window size (overwrite preferences value)\n\
  -R, --Resizeable             resizable, scrolled main window (overwrite preferences value)\n\

@@ -964,7 +964,12 @@ void xsane_create_batch_scan_dialog(const char *devicetext)
   xsane_button_new_with_pixmap(xsane.batch_scan_dialog->window, xsane.batch_scan_button_box, load_xpm,        DESC_BATCH_LIST_LOAD,  (GtkSignalFunc) xsane_batch_scan_load_list,  NULL);
   xsane_button_new_with_pixmap(xsane.batch_scan_dialog->window, xsane.batch_scan_button_box, save_xpm,        DESC_BATCH_LIST_SAVE,  (GtkSignalFunc) xsane_batch_scan_save_list,  NULL);
 
+  xsane_vseparator_new(xsane.batch_scan_button_box, 3);
+
   xsane_button_new_with_pixmap(xsane.batch_scan_dialog->window, xsane.batch_scan_button_box, add_batch_xpm,   DESC_BATCH_ADD, (GtkSignalFunc) xsane_batch_scan_add,    NULL);
+
+  xsane_vseparator_new(xsane.batch_scan_button_box, 3);
+
   xsane_button_new_with_pixmap(xsane.batch_scan_dialog->window, xsane.batch_scan_button_box, del_batch_xpm,   DESC_BATCH_DEL, (GtkSignalFunc) xsane_batch_scan_delete, NULL);
 
   xsane_button_new_with_pixmap(xsane.batch_scan_dialog->window, xsane.batch_scan_button_box, ascii_xpm,       DESC_BATCH_RENAME, (GtkSignalFunc) xsane_batch_scan_rename_callback, NULL);

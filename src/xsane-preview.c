@@ -103,6 +103,11 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+#define XSANE_ZOOM_SIZE 80
+#define XSANE_ZOOM_FACTOR 4
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static u_char *preview_gamma_data_red   = 0;
 static u_char *preview_gamma_data_green = 0;
 static u_char *preview_gamma_data_blue  = 0;
@@ -2153,7 +2158,7 @@ static int preview_make_image_path(Preview *p, size_t filename_size, char *filen
 
   DBG(DBG_proc, "preview_make_image_path\n");
 
-  snprintf(buf, sizeof(buf), "preview-level-%d-", level);
+  snprintf(buf, sizeof(buf), "xsane-preview-level-%d-", level);
   return xsane_back_gtk_make_path(filename_size, filename, 0, 0, buf, xsane.dev_name, ".ppm", XSANE_PATH_TMP);
 }
 
@@ -2821,6 +2826,217 @@ static int preview_get_pixel_color(Preview *p, int x, int y, int *raw_red, int *
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static void xsane_swap_int(int *a, int *b)
+{
+ int i;
+  i = *a;
+  *a = *b;
+  *b = i; 
+}
+
+static void preview_display_zoom(Preview *p, int x, int y, int zoom)
+{
+ int pointer_x, pointer_y;
+ int image_x, image_y;
+ int image_x_lof, image_x_rof;
+ int image_y_tof, image_y_bof;
+ int image_x_min, image_y_min;
+ int image_x_max, image_y_max;
+ int image_x_direction, image_y_direction;
+ int offset;
+ int r, g, b;
+ int px, py;
+ int i;
+ char *row;
+
+  DBG(DBG_proc, "preview_display_zoom");
+
+  if (!p->image_data_raw)
+  {
+    return;
+  }
+
+  row = calloc(XSANE_ZOOM_SIZE, 3);
+
+  if (row)
+  {
+    preview_transform_coordinate_window_to_image(p, x, y, &image_x, &image_y);
+    preview_transform_coordinate_window_to_image(p, x, y, &pointer_x, &pointer_y);
+
+    image_x_min = image_x - XSANE_ZOOM_SIZE/(zoom*2);
+    image_y_min = image_y - XSANE_ZOOM_SIZE/(zoom*2);
+
+    image_x_max = image_x_min + XSANE_ZOOM_SIZE/zoom + 1;
+    image_y_max = image_y_min + XSANE_ZOOM_SIZE/zoom + 1;
+
+    xsane_bound_int(&image_x_min, 0, p->image_width - 1);
+    xsane_bound_int(&image_x_max, 0, p->image_width - 1);
+    xsane_bound_int(&image_y_min, 0, p->image_height - 1);
+    xsane_bound_int(&image_y_max, 0, p->image_height - 1);
+
+    if ((image_x_max - image_x_min) && (image_y_max - image_y_min))
+    {
+      image_x_lof = image_x_min - (image_x - XSANE_ZOOM_SIZE/(zoom*2));
+      image_x_rof = image_x - XSANE_ZOOM_SIZE/(zoom*2) + XSANE_ZOOM_SIZE/zoom + 1 - image_x_max;
+      image_y_tof = image_y_min - (image_y - XSANE_ZOOM_SIZE/(zoom*2));
+      image_y_bof = image_y - XSANE_ZOOM_SIZE/(zoom*2) + XSANE_ZOOM_SIZE/zoom + 1 - image_y_max;
+
+      image_x_direction = 1;
+      image_y_direction = 1;
+
+      switch (p->rotation & 3)
+      {
+        case 0: /* do not rotate - 0 degree */
+        default:
+         break;
+
+        case 1: /* 90 degree */
+          xsane_swap_int(&image_y_min, &image_y_max);
+          xsane_swap_int(&image_y_tof, &image_y_bof);
+          image_y_direction *= -1;
+         break;
+
+        case 2: /* 180 degree */
+          xsane_swap_int(&image_x_min, &image_x_max);
+          xsane_swap_int(&image_x_lof, &image_x_rof);
+          xsane_swap_int(&image_y_min, &image_y_max);
+          xsane_swap_int(&image_y_tof, &image_y_bof);
+          image_x_direction *= -1;
+          image_y_direction *= -1;
+         break;
+
+        case 3: /* 270 degree */
+          xsane_swap_int(&image_x_min, &image_x_max);
+          xsane_swap_int(&image_x_lof, &image_x_rof);
+          image_x_direction *= -1;
+         break;
+      }
+
+
+      if ((p->rotation & 1) == 0)
+      {
+        if (p->rotation & 4) /* mirror */
+        {
+          xsane_swap_int(&image_x_min, &image_x_max);
+          xsane_swap_int(&image_x_lof, &image_x_rof);
+          image_x_direction *= -1;
+        }
+
+        py = image_y_tof * zoom;
+
+        for (i=0; i < py; i++)
+        {
+          gtk_preview_draw_row(GTK_PREVIEW(p->zoom), row, 0, i, XSANE_ZOOM_SIZE);
+        }
+
+        for (image_y = image_y_min; image_y != image_y_max + image_y_direction; image_y += image_y_direction)
+        {
+          px = image_x_lof * zoom;
+
+          for (image_x = image_x_min; image_x != image_x_max + image_x_direction; image_x += image_x_direction)
+          {
+            offset = 3 * (image_y * p->image_width + image_x);
+ 
+            r = (p->image_data_enh[offset  ]);
+            g = (p->image_data_enh[offset+1]);
+            b = (p->image_data_enh[offset+2]);
+
+            if ( (image_x == pointer_x) && (image_y == pointer_y) )
+            {
+              r = g = b = (128 + (r+g+b) / 3) & 255; /* mark the cursor position */
+            }
+
+            for (i=0; (i<zoom) && (px < XSANE_ZOOM_SIZE); i++)
+            {
+              row[px*3+0] = r;
+              row[px*3+1] = g;
+              row[px*3+2] = b;
+              px++;
+            }
+          }
+
+          for (i=0; (i<zoom) && (py < XSANE_ZOOM_SIZE); i++)
+          {
+            gtk_preview_draw_row(GTK_PREVIEW(p->zoom), row, 0, py++, XSANE_ZOOM_SIZE);
+          }
+        }
+      }
+      else /* swap x and y */
+      {
+        if (p->rotation & 4) /* mirror */
+        {
+          xsane_swap_int(&image_y_min, &image_y_max);
+          xsane_swap_int(&image_y_tof, &image_y_bof);
+          image_y_direction *= -1;
+        }
+
+        py = image_x_lof * zoom;
+
+        for (i=0; i < py; i++)
+        {
+          gtk_preview_draw_row(GTK_PREVIEW(p->zoom), row, 0, i, XSANE_ZOOM_SIZE);
+        }
+
+        for (image_x = image_x_min; image_x != image_x_max + image_x_direction; image_x += image_x_direction)
+        {
+          px = image_y_tof * zoom;
+
+          for (image_y = image_y_min; image_y != image_y_max + image_y_direction; image_y += image_y_direction)
+          {
+            offset = 3 * (image_y * p->image_width + image_x);
+ 
+            r = (p->image_data_enh[offset  ]);
+            g = (p->image_data_enh[offset+1]);
+            b = (p->image_data_enh[offset+2]);
+
+            if ( (image_x == pointer_x) && (image_y == pointer_y) )
+            {
+              r = g = b = (128 + (r+g+b) / 3) & 255; /* mark the cursor position */
+            }
+
+            for (i=0; (i<zoom) && (px < XSANE_ZOOM_SIZE); i++)
+            {
+              row[px*3+0] = r;
+              row[px*3+1] = g;
+              row[px*3+2] = b;
+              px++;
+            }
+          }
+
+          for (i=0; (i<zoom) && (py < XSANE_ZOOM_SIZE); i++)
+          {
+            gtk_preview_draw_row(GTK_PREVIEW(p->zoom), row, 0, py++, XSANE_ZOOM_SIZE);
+          }
+        }
+      }
+
+      for (i=0; i < XSANE_ZOOM_SIZE; i++)
+      {
+        row[i*3+0] = 0;
+        row[i*3+1] = 0;
+        row[i*3+2] = 0;
+      }
+
+      for (i=py; i < XSANE_ZOOM_SIZE; i++)
+      {
+        gtk_preview_draw_row(GTK_PREVIEW(p->zoom), row, 0, i, XSANE_ZOOM_SIZE);
+      }
+    }
+    else
+    {
+      for (i = 0; i < XSANE_ZOOM_SIZE; i++)
+      {
+        gtk_preview_draw_row(GTK_PREVIEW(p->zoom), row, 0, i, XSANE_ZOOM_SIZE);
+      }
+    }
+    gtk_widget_queue_draw(p->zoom);
+
+    free(row);
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void preview_display_color_components(Preview *p, int x, int y)
 {
  char buffer[256];
@@ -2883,6 +3099,7 @@ static gint preview_motion_event_handler(GtkWidget *window, GdkEvent *event, gpo
 
   if (!p->scanning)
   {
+    preview_display_zoom(p, event->motion.x, event->motion.y, XSANE_ZOOM_FACTOR);
     preview_display_color_components(p, event->motion.x, event->motion.y);
 
     switch (((GdkEventMotion *)event)->state &
@@ -4050,6 +4267,7 @@ Preview *preview_new(void)
  GtkSignalFunc signal_func;
  GtkWidgetClass *class;
  GtkWidget *vbox, *action_box;
+ GtkWidget *outer_hbox, *middle_vbox;
  GdkCursor *cursor;
  GtkWidget *preset_area_option_menu;
  GtkWidget *rotation_option_menu, *rotation_menu, *rotation_item;
@@ -4271,13 +4489,24 @@ Preview *preview_new(void)
 
 
 
+  /* the outer hbox at the bottom */
+  outer_hbox = gtk_hbox_new(FALSE, 4);
+  gtk_container_set_border_width(GTK_CONTAINER(outer_hbox), 1);
+  gtk_box_pack_start(GTK_BOX(vbox), outer_hbox, FALSE, FALSE, 0);
+  gtk_widget_show(outer_hbox);
+
+  /* the middle vbox at the bottom */
+  middle_vbox = gtk_vbox_new(FALSE, 4);
+  gtk_container_set_border_width(GTK_CONTAINER(middle_vbox), 1);
+  gtk_box_pack_start(GTK_BOX(outer_hbox), middle_vbox, FALSE, FALSE, 0);
+  gtk_widget_show(middle_vbox);
 
   /* the menu_box (hbox) */
   p->menu_box = gtk_hbox_new(FALSE, 4);
   gtk_container_set_border_width(GTK_CONTAINER(p->menu_box), 1);
-  gtk_box_pack_start(GTK_BOX(vbox), p->menu_box, FALSE, FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(middle_vbox), p->menu_box, FALSE, FALSE, 0);
 
-  xsane_separator_new(vbox, 1);
+  xsane_separator_new(middle_vbox, 1);
 
 
   /* select maximum scanarea */
@@ -4376,6 +4605,16 @@ Preview *preview_new(void)
   gtk_widget_show(ratio_option_menu);
   p->ratio_option_menu = ratio_option_menu;
 
+  /* the pointer zoom */
+  frame = gtk_frame_new(0);
+  gtk_box_pack_start(GTK_BOX(outer_hbox), frame, FALSE, FALSE, 3);
+  gtk_container_set_border_width(GTK_CONTAINER(frame), 0);
+  gtk_widget_show(frame);
+  p->zoom = gtk_preview_new(GTK_PREVIEW_COLOR);
+  gtk_preview_size(GTK_PREVIEW(p->zoom), XSANE_ZOOM_SIZE, XSANE_ZOOM_SIZE);
+  gtk_container_add(GTK_CONTAINER(frame), p->zoom);
+  gtk_widget_show(p->zoom);
+
 #if 0
   /* the RGB label */
   frame = gtk_frame_new(0);
@@ -4394,7 +4633,7 @@ Preview *preview_new(void)
 
   /* set the action_hbox */
   action_box = gtk_hbox_new(FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(vbox), action_box, FALSE, FALSE, 2);
+  gtk_box_pack_start(GTK_BOX(middle_vbox), action_box, FALSE, FALSE, 2);
   gtk_container_set_border_width(GTK_CONTAINER(action_box), 0);
   gtk_widget_show(action_box);
 
@@ -4761,10 +5000,6 @@ void preview_scan(Preview *p)
   }
 
   preview_save_option(p, xsane.well_known.bit_depth, &p->saved_bit_depth, &p->saved_bit_depth_valid);
-
-#if 0
-  xsane_set_medium(preferences.medium[xsane.medium_nr]); /* make sure medium gamma values are up to date */
-#endif
 
   /* determine dpi, if necessary: */
 

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.90\n"
-"POT-Creation-Date: 2002-12-13 19:46+0100\n"
+"POT-Creation-Date: 2003-01-19 10:41+0100\n"
 "PO-Revision-Date: 2000-01-21 15:51+01:00\n"
 "Last-Translator: Oliver Rauch <Oliver.Rauch@rauch-domain.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -713,7 +713,7 @@ msgstr "Scanmodus:"
 
 #. TEXT_BATCH_LIST_GEOMETRY_TL
 msgid "Top left:"
-msgstr "Oben link:"
+msgstr "Oben links:"
 
 #. TEXT_BATCH_LIST_GEOMETRY_SIZE
 msgid "Size:"
@@ -905,7 +905,7 @@ msgstr "Option für Feinmodus:"
 
 #. TEXT_SETUP_FAX_PROGRAM_DEFAULTS
 msgid "Set program defaults for:"
-msgstr ""
+msgstr "Setze Standardwerte für folgendes Programm"
 
 #. TEXT_SETUP_FAX_VIEWER
 msgid "Viewer (Postscript):"
@@ -1090,6 +1090,11 @@ msgstr "Zeige Auflösungsliste"
 #. MENU_ITEM_PAGE_ROTATE
 msgid "Rotate postscript"
 msgstr "Drehe Postscript"
+
+#. MENU_ITEM_EDIT_MEDIUM_DEF
+#, fuzzy
+msgid "Edit medium definition"
+msgstr "Mediumdefinition speichern"
 
 #. MENU_ITEM_SAVE_DEVICE_SETTINGS
 msgid "Save device settings"
@@ -1297,8 +1302,9 @@ msgstr ""
 "oder mailen-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
-msgid "Select source medium type"
-msgstr "Typ des Quellmediums auswählen"
+#, fuzzy
+msgid "Select source medium type\n"
+msgstr "Medium speichern"
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1352,6 +1358,10 @@ msgstr "Betreff eingeben"
 msgid "Enter new name for preset area"
 msgstr "Name der Gebietsvoreinstellung eingeben"
 
+#. DESC_MEDIUM_DEFINITION_NAME
+msgid "Enter new name for medium definition"
+msgstr "Namen für Mediendefinition eingeben"
+
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
 msgstr "Wähle Druckerdefinition <Shift-F1/F2/...>"
@@ -1385,8 +1395,8 @@ msgid "Set number of copies"
 msgstr "Bestimmt die Anzahl der Kopien"
 
 #. DESC_NEGATIVE
-msgid "Negative: Invert colors for scanning negatives <Shift-n>"
-msgstr "Negativ: Invertiere Farben, zum Scannen von Negativen <Shift-n>"
+msgid "Negative: Invert colors for scanning negatives <Ctrl-n>"
+msgstr "Negativ: Invertiere Farben, zum Scannen von Negativen <Ctrl-n>"
 
 #. DESC_GAMMA
 msgid "Set gamma value"
@@ -1443,40 +1453,40 @@ msgstr "Schwellwert setzen"
 #. DESC_RGB_DEFAULT
 msgid ""
 "RGB default: Set enhancement values for red, green and blue to default "
-"values <Shift-b>:\n"
+"values <Ctrl-b>:\n"
 " gamma = 1.0\n"
 " brightness = 0\n"
 " contrast = 0"
 msgstr ""
 "RGB Standard: Setzt Farbverbesserungswerte für rot, grün und blau auf "
-"Standardwerte <Shift-b>:\n"
+"Standardwerte <Ctrl-b>:\n"
 "Gamma = 1.0\n"
 "Helligkeit = 0\n"
 "Kontrast = 0"
 
 #. DESC_ENH_AUTO
-msgid "Autoadjust gamma, brightness and contrast <Shift-e>"
-msgstr "Automatische Einstellung von Gamma, Helligkeit und Kontrast <Shift-e>"
+msgid "Autoadjust gamma, brightness and contrast <Ctrl-e>"
+msgstr "Automatische Einstellung von Gamma, Helligkeit und Kontrast <Ctrl-e>"
 
 #. DESC_ENH_DEFAULT
 msgid ""
-"Set default enhancement values <Shift-d>:\n"
+"Set default enhancement values <Ctrl-0>:\n"
 "gamma = 1.0\n"
 "brightness = 0\n"
 "contrast = 0"
 msgstr ""
-"Setze Standardwerte für Farbverbesserung <Shift-d>:\n"
+"Setze Standardwerte für Farbverbesserung <Ctrl-0>:\n"
 "Gamma = 1.0\n"
 "Helligkeit = 0\n"
 "Kontrast = 0"
 
 #. DESC_ENH_RESTORE
-msgid "Restore enhancement values from preferences <Shift-r>"
-msgstr "Lade Farbverbesserungswerte aus Einstellungen <shift-r>"
+msgid "Restore enhancement values from preferences <Ctrl-r>"
+msgstr "Lade Farbverbesserungswerte aus Einstellungen <Ctrl-r>"
 
 #. DESC_ENH_STORE
-msgid "Store active enhancement values to preferences <Shift-m>"
-msgstr "Speichere Farbverbesserungswerte in Einstellungen <Shift-m>"
+msgid "Store active enhancement values to preferences <Ctrl-+>"
+msgstr "Speichere Farbverbesserungswerte in Einstellungen <Ctrl-m>"
 
 #. DESC_HIST_INTENSITY
 msgid "Show histogram of intensity/gray <Alt-i>"
@@ -1681,7 +1691,7 @@ msgstr ""
 
 #. DESC_SHOW_RANGE_MODE
 msgid "Select how a range is displayed"
-msgstr ""
+msgstr "Bestimmen Sie, wie die Auswahle eines Bereichs dargestellt wird"
 
 #. DESC_PREVIEW_OVERSAMPLING
 msgid "Value with that the calculated preview resolution is multiplied"
@@ -2343,6 +2353,7 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[OPTION]... [GERÄT]"
 
 #. TEXT_HELP
+#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2362,8 +2373,6 @@ msgid ""
 " -f, --fax                    start with fax-mode active\n"
 " -m, --mail                   start with mail-mode active\n"
 " -n, --no-mode-selection      disable menu for XSane mode selection\n"
-"\n"
-" -M, --Medium-calibration     enable medium calibration mode\n"
 "\n"
 " -F, --Fixed                  fixed main window size (overwrite preferences "
 "value)\n"
@@ -2491,27 +2500,27 @@ msgstr "DIN A5 quer"
 
 #. MENU_ITEM_SURFACE_13cmx18cm
 msgid "13cm x 18cm"
-msgstr ""
+msgstr "13cm x 18cm"
 
 #. MENU_ITEM_SURFACE_18cmx13cm
 msgid "18cm x 13cm"
-msgstr ""
+msgstr "18cm x 13cm"
 
 #. MENU_ITEM_SURFACE_10cmx15cm
 msgid "10cm x 15cm"
-msgstr ""
+msgstr "10cm x 15cm"
 
 #. MENU_ITEM_SURFACE_15cmx10cm
 msgid "15cm x 10cm"
-msgstr ""
+msgstr "15cm x 10cm"
 
 #. MENU_ITEM_SURFACE_9cmx13cm
 msgid "9cm x 13cm"
-msgstr ""
+msgstr "9cm x 13cm"
 
 #. MENU_ITEM_SURFACE_13cmx9cm
 msgid "13cm x 9cm"
-msgstr ""
+msgstr "13cm x 9cm"
 
 #. MENU_ITEM_SURFACE_legal_P
 msgid "legal port."
@@ -2614,7 +2623,7 @@ msgid "Document feeder jammed"
 msgstr "Dokumenteneinzug blockiert"
 
 msgid "Document feeder out of documents"
-msgstr "Documenteneinzug ohne Papier"
+msgstr "Dokumenteneinzug ohne Papier"
 
 msgid "Scanner cover is open"
 msgstr "Scannerdeckel ist offen"
@@ -2627,3 +2636,10 @@ msgstr "Kein Speicher"
 
 msgid "Access to resource has been denied"
 msgstr "Zugang zum Gerät wurde verweigert"
+
+#~ msgid ""
+#~ "Select source medium type\n"
+#~ "To define a new medium type call \"xsane -M\""
+#~ msgstr ""
+#~ "Typ des Quellmediums auswählen\n"
+#~ "Um ein neues Medium zu definieren \"xsane -M\" aufrufen"

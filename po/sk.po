@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.90\n"
-"POT-Creation-Date: 2002-12-13 19:46+0100\n"
+"POT-Creation-Date: 2003-01-19 10:41+0100\n"
 "PO-Revision-Date: 2002-12-14 12:51+0100\n"
 "Last-Translator: Zdenko Podobný <zdpo@mailbox.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -1090,6 +1090,11 @@ msgstr "Zobrazi» zoznam rozlí¹ení"
 msgid "Rotate postscript"
 msgstr "Otoèenie postscriptu"
 
+#. MENU_ITEM_EDIT_MEDIUM_DEF
+#, fuzzy
+msgid "Edit medium definition"
+msgstr "Ulo¾i» definíciu média"
+
 #. MENU_ITEM_SAVE_DEVICE_SETTINGS
 msgid "Save device settings"
 msgstr "Ulo¾i» nastavenia zariadení"
@@ -1296,7 +1301,8 @@ msgstr ""
 "po¹ta-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
-msgid "Select source medium type"
+#, fuzzy
+msgid "Select source medium type\n"
 msgstr "Zvoµte typ zdrojového média"
 
 #. DESC_FILENAME_COUNTER_STEP
@@ -1350,6 +1356,11 @@ msgstr "Vlo¾te predmet správy"
 msgid "Enter new name for preset area"
 msgstr "Vlo¾te nový názov pre predvolenú oblas»"
 
+#. DESC_MEDIUM_DEFINITION_NAME
+#, fuzzy
+msgid "Enter new name for medium definition"
+msgstr "Ulo¾i» definíciu média"
+
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
 msgstr "Voµba definície tlaèiarne <Shift-F1/F2/...>"
@@ -1383,7 +1394,8 @@ msgid "Set number of copies"
 msgstr "Nastavenie poètu kópií"
 
 #. DESC_NEGATIVE
-msgid "Negative: Invert colors for scanning negatives <Shift-n>"
+#, fuzzy
+msgid "Negative: Invert colors for scanning negatives <Ctrl-n>"
 msgstr "Negatív: Invertuje farby pre skenovanie negatívov <Shift-n>"
 
 #. DESC_GAMMA
@@ -1439,9 +1451,10 @@ msgid "Set threshold"
 msgstr "Nastavenie prahu"
 
 #. DESC_RGB_DEFAULT
+#, fuzzy
 msgid ""
 "RGB default: Set enhancement values for red, green and blue to default "
-"values <Shift-b>:\n"
+"values <Ctrl-b>:\n"
 " gamma = 1.0\n"
 " brightness = 0\n"
 " contrast = 0"
@@ -1453,12 +1466,14 @@ msgstr ""
 " kontrast = 0"
 
 #. DESC_ENH_AUTO
-msgid "Autoadjust gamma, brightness and contrast <Shift-e>"
+#, fuzzy
+msgid "Autoadjust gamma, brightness and contrast <Ctrl-e>"
 msgstr "Prispôsobenie gama, jasu a kontrastu <Shift-e>"
 
 #. DESC_ENH_DEFAULT
+#, fuzzy
 msgid ""
-"Set default enhancement values <Shift-d>:\n"
+"Set default enhancement values <Ctrl-0>:\n"
 "gamma = 1.0\n"
 "brightness = 0\n"
 "contrast = 0"
@@ -1469,11 +1484,13 @@ msgstr ""
 " kontrast = 0"
 
 #. DESC_ENH_RESTORE
-msgid "Restore enhancement values from preferences <Shift-r>"
+#, fuzzy
+msgid "Restore enhancement values from preferences <Ctrl-r>"
 msgstr "Obnovenie ¹tandardných hodnôt spracovávania <Shift-r>"
 
 #. DESC_ENH_STORE
-msgid "Store active enhancement values to preferences <Shift-m>"
+#, fuzzy
+msgid "Store active enhancement values to preferences <Ctrl-+>"
 msgstr "Ulo¾enie aktívnych hodnôt spracovávania do nastavení <Shift-m>"
 
 #. DESC_HIST_INTENSITY
@@ -2323,6 +2340,7 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[VO¥BA]... [ZARIADENIE]"
 
 #. TEXT_HELP
+#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2342,8 +2360,6 @@ msgid ""
 " -f, --fax                    start with fax-mode active\n"
 " -m, --mail                   start with mail-mode active\n"
 " -n, --no-mode-selection      disable menu for XSane mode selection\n"
-"\n"
-" -M, --Medium-calibration     enable medium calibration mode\n"
 "\n"
 " -F, --Fixed                  fixed main window size (overwrite preferences "
 "value)\n"

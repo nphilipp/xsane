@@ -74,6 +74,8 @@ typedef struct Viewer
   GtkProgressBar *progress_bar;
 
   GtkWidget *active_dialog;
+
+  int block_actions;
 }
 Viewer;
 

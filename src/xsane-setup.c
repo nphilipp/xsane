@@ -2402,7 +2402,6 @@ static void xsane_ocr_notebook(GtkWidget *notebook)
   hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
   button = gtk_check_button_new_with_label(RADIO_BUTTON_OCR_USE_GUI_PIPE);
-//  g_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_setup_ocr_use_gui_pipe_callback, (void *) pop3_vbox);
   xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_OCR_USE_GUI_PIPE_OPT);
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), preferences.ocr_use_gui_pipe);
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 2);

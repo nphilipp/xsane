@@ -1,17 +1,18 @@
+# Russian translation of XSANE.
 # Copyright (C) 2001-2002, The Free Software Foundation
 # John Profic <profic@lrn.ru>, 2001, 2002
 # Vitaly Lipatov <lav@altlinux.ru>, 2002
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.89\n"
-"POT-Creation-Date: 2002-12-13 19:46+0100\n"
-"PO-Revision-Date: 2002-10-28 17:00MSK\n"
+"Project-Id-Version: XSANE 0.90\n"
+"POT-Creation-Date: 2003-01-19 10:41+0100\n"
+"PO-Revision-Date: 2002-12-23 02:48MSK\n"
 "Last-Translator: Vitaly Lipatov <lav@altlinux.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=KOI8-R\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.9.6\n"
+"X-Generator: KBabel 1.0\n"
 
 #. Please translate this to the correct directory name (eg. german=>de)
 #. XSANE_LANGUAGE_DIR
@@ -906,7 +907,7 @@ msgstr "Параметр, указывающий хороший режим:"
 
 #. TEXT_SETUP_FAX_PROGRAM_DEFAULTS
 msgid "Set program defaults for:"
-msgstr ""
+msgstr "Установить умолчания для:"
 
 #. TEXT_SETUP_FAX_VIEWER
 msgid "Viewer (Postscript):"
@@ -1091,6 +1092,11 @@ msgstr "Показать список разрешений сканирования"
 #. MENU_ITEM_PAGE_ROTATE
 msgid "Rotate postscript"
 msgstr "Повернуть PostScript"
+
+#. MENU_ITEM_EDIT_MEDIUM_DEF
+#, fuzzy
+msgid "Edit medium definition"
+msgstr "Записать параметры носителя"
 
 #. MENU_ITEM_SAVE_DEVICE_SETTINGS
 msgid "Save device settings"
@@ -1298,7 +1304,8 @@ msgstr ""
 "факсу-<Ctrl-f> или отправить письмо-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
-msgid "Select source medium type"
+#, fuzzy
+msgid "Select source medium type\n"
 msgstr "Тип носителя"
 
 #. DESC_FILENAME_COUNTER_STEP
@@ -1354,6 +1361,11 @@ msgstr "Тема письма"
 msgid "Enter new name for preset area"
 msgstr "Новое название для области"
 
+#. DESC_MEDIUM_DEFINITION_NAME
+#, fuzzy
+msgid "Enter new name for medium definition"
+msgstr "Записать параметры носителя"
+
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
 msgstr "Выбор описания принтера <Shift-F1/F2/...>"
@@ -1387,7 +1399,8 @@ msgid "Set number of copies"
 msgstr "Количество копий"
 
 #. DESC_NEGATIVE
-msgid "Negative: Invert colors for scanning negatives <Shift-n>"
+#, fuzzy
+msgid "Negative: Invert colors for scanning negatives <Ctrl-n>"
 msgstr "Негатив: инвертировать цвета для сканирования негативов <Shift-n>"
 
 #. DESC_GAMMA
@@ -1443,9 +1456,10 @@ msgid "Set threshold"
 msgstr "Управление порогом"
 
 #. DESC_RGB_DEFAULT
+#, fuzzy
 msgid ""
 "RGB default: Set enhancement values for red, green and blue to default "
-"values <Shift-b>:\n"
+"values <Ctrl-b>:\n"
 " gamma = 1.0\n"
 " brightness = 0\n"
 " contrast = 0"
@@ -1457,12 +1471,14 @@ msgstr ""
 "контрастность = 0"
 
 #. DESC_ENH_AUTO
-msgid "Autoadjust gamma, brightness and contrast <Shift-e>"
+#, fuzzy
+msgid "Autoadjust gamma, brightness and contrast <Ctrl-e>"
 msgstr "Автоподбор значений гаммы, яркости и контрастности <Shift-e>"
 
 #. DESC_ENH_DEFAULT
+#, fuzzy
 msgid ""
-"Set default enhancement values <Shift-d>:\n"
+"Set default enhancement values <Ctrl-0>:\n"
 "gamma = 1.0\n"
 "brightness = 0\n"
 "contrast = 0"
@@ -1473,11 +1489,13 @@ msgstr ""
 "контрастность = 0"
 
 #. DESC_ENH_RESTORE
-msgid "Restore enhancement values from preferences <Shift-r>"
+#, fuzzy
+msgid "Restore enhancement values from preferences <Ctrl-r>"
 msgstr "Восстановить настройки выразительности <Shift-r>"
 
 #. DESC_ENH_STORE
-msgid "Store active enhancement values to preferences <Shift-m>"
+#, fuzzy
+msgid "Store active enhancement values to preferences <Ctrl-+>"
 msgstr "Запомнить настройки выразительности изображения <Shift-m>"
 
 #. DESC_HIST_INTENSITY
@@ -1952,7 +1970,7 @@ msgstr "Поворот предварительного и окончательного сканирования"
 
 #. DESC_RATIO
 msgid "Aspect ratio of selection"
-msgstr ""
+msgstr "Отношение сторон выделения"
 
 #. DESC_PAPER_ORIENTATION
 msgid "Define image position for printing"
@@ -2012,11 +2030,11 @@ msgstr "Увеличение по оси Y"
 
 #. DESC_SCALE_WIDTH
 msgid "Scale image to width [in pixel]"
-msgstr ""
+msgstr "Изменить размер изображения до ширины [в точках]"
 
 #. DESC_SCALE_HEIGHT
 msgid "Scale image to height [in pixel]"
-msgstr ""
+msgstr "Изменить размер изображения до высоты [в точках]"
 
 #. DESC_BATCH_LIST_EMPTY
 msgid "Empty batch list"
@@ -2337,6 +2355,7 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[ПАРАМЕТРЫ]... [УСТРОЙСТВО]"
 
 #. TEXT_HELP
+#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2356,8 +2375,6 @@ msgid ""
 " -f, --fax                    start with fax-mode active\n"
 " -m, --mail                   start with mail-mode active\n"
 " -n, --no-mode-selection      disable menu for XSane mode selection\n"
-"\n"
-" -M, --Medium-calibration     enable medium calibration mode\n"
 "\n"
 " -F, --Fixed                  fixed main window size (overwrite preferences "
 "value)\n"

@@ -65,6 +65,9 @@ desc_xsane_device[] =
     {"xsane-gamma-window-x-position",            xsane_rc_pref_int, DPOFFSET(gamma_dialog_posx)},
     {"xsane-gamma-window-y-position",            xsane_rc_pref_int, DPOFFSET(gamma_dialog_posy)},
 
+    {"xsane-batch-window-x-position",            xsane_rc_pref_int, DPOFFSET(batch_dialog_posx)},
+    {"xsane-batch-window-y-position",            xsane_rc_pref_int, DPOFFSET(batch_dialog_posy)},
+
     {"xsane-preview-window-x-position",          xsane_rc_pref_int, DPOFFSET(preview_dialog_posx)},
     {"xsane-preview-window-y-position",          xsane_rc_pref_int, DPOFFSET(preview_dialog_posy)},
     {"xsane-preview-window-width",               xsane_rc_pref_int, DPOFFSET(preview_dialog_width)},
@@ -387,6 +390,12 @@ void xsane_device_preferences_load_file(char *filename)
   xsane.histogram_dialog_posx       = XSANE_HISTOGRAM_POS_X;
   xsane.histogram_dialog_posy       = XSANE_HISTOGRAM_POS_Y;
 
+  xsane.gamma_dialog_posx           = XSANE_GAMMA_POS_X;
+  xsane.gamma_dialog_posy           = XSANE_GAMMA_POS_Y;
+
+  xsane.batch_dialog_posx           = XSANE_BATCH_POS_X;
+  xsane.batch_dialog_posy           = XSANE_BATCH_POS_Y;
+
   xsane.preview_dialog_posx         = XSANE_PREVIEW_POS_X;
   xsane.preview_dialog_posy         = XSANE_PREVIEW_POS_Y;
   xsane.preview_dialog_width        = XSANE_PREVIEW_WIDTH;
@@ -600,6 +609,10 @@ void xsane_device_preferences_load_file(char *filename)
   gtk_window_move(GTK_WINDOW(xsane.standard_options_shell), xsane.standard_options_shell_posx, xsane.standard_options_shell_posy);
   gtk_window_move(GTK_WINDOW(xsane.advanced_options_shell), xsane.advanced_options_shell_posx, xsane.advanced_options_shell_posy);
   gtk_window_move(GTK_WINDOW(xsane.histogram_dialog), xsane.histogram_dialog_posx, xsane.histogram_dialog_posy);
+#if 0
+  gtk_window_move(GTK_WINDOW(xsane.gamma_dialog), xsane.gamma_dialog_posx, xsane.gamma_dialog_posy);
+#endif
+  gtk_window_move(GTK_WINDOW(xsane.batch_scan_dialog), xsane.batch_dialog_posx, xsane.batch_dialog_posy);
   gtk_window_move(GTK_WINDOW(xsane.preview->top), xsane.preview_dialog_posx, xsane.preview_dialog_posy);
   gtk_window_set_default_size(GTK_WINDOW(xsane.preview->top), xsane.preview_dialog_width, xsane.preview_dialog_height);
 
@@ -707,6 +720,14 @@ void xsane_device_preferences_save_file(char *filename)
 
     xsane_window_get_position(xsane.histogram_dialog, &xsane.histogram_dialog_posx, &xsane.histogram_dialog_posy);
     gtk_window_move(GTK_WINDOW(xsane.histogram_dialog), xsane.histogram_dialog_posx, xsane.histogram_dialog_posy);
+
+#if 0
+    xsane_window_get_position(xsane.gamma_dialog, &xsane.gamma_dialog_posx, &xsane.gamma_dialog_posy);
+    gtk_window_move(GTK_WINDOW(xsane.gamma_dialog), xsane.gamma_dialog_posx, xsane.gamma_dialog_posy);
+#endif
+
+    xsane_window_get_position(xsane.batch_scan_dialog, &xsane.batch_dialog_posx, &xsane.batch_dialog_posy);
+    gtk_window_move(GTK_WINDOW(xsane.batch_scan_dialog), xsane.batch_dialog_posx, xsane.batch_dialog_posy);
 
     if (xsane.preview)
     {

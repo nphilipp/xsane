@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.90\n"
-"POT-Creation-Date: 2002-12-13 19:46+0100\n"
+"POT-Creation-Date: 2003-01-19 10:41+0100\n"
 "PO-Revision-Date: 2002-11-30 21:20+0700\n"
 "Last-Translator: Trinh Minh Thanh <tmthanh@linuxmail.org>\n"
 "Language-Team: Gnome-Vi Team <Gnomevi-list@lists.sourceforge.net>\n"
@@ -1084,6 +1084,11 @@ msgstr "Hiển thị danh sách độ phân giải"
 msgid "Rotate postscript"
 msgstr "Xoay postscript"
 
+#. MENU_ITEM_EDIT_MEDIUM_DEF
+#, fuzzy
+msgid "Edit medium definition"
+msgstr "Lưu trữ định nghĩa phương tiện"
+
 #. MENU_ITEM_SAVE_DEVICE_SETTINGS
 msgid "Save device settings"
 msgstr "Lưu thiết lập thiết bị"
@@ -1289,7 +1294,8 @@ msgstr ""
 "lưu-<Ctrl-s>, xem-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> hay thư-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
-msgid "Select source medium type"
+#, fuzzy
+msgid "Select source medium type\n"
 msgstr "Chọn loại nguồn phương tiện"
 
 #. DESC_FILENAME_COUNTER_STEP
@@ -1344,6 +1350,11 @@ msgstr "Nhập chủ đề thư"
 msgid "Enter new name for preset area"
 msgstr "Nhập tên mới cho vùng lập trước"
 
+#. DESC_MEDIUM_DEFINITION_NAME
+#, fuzzy
+msgid "Enter new name for medium definition"
+msgstr "Lưu trữ định nghĩa phương tiện"
+
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
 msgstr "Chọn định nghĩa máy in <Shift-F1/F2/...>"
@@ -1377,7 +1388,8 @@ msgid "Set number of copies"
 msgstr "Đặt số lượng bản sao"
 
 #. DESC_NEGATIVE
-msgid "Negative: Invert colors for scanning negatives <Shift-n>"
+#, fuzzy
+msgid "Negative: Invert colors for scanning negatives <Ctrl-n>"
 msgstr "Âm bản: đảo ngược màu để quét âm bản <Shift-n>"
 
 #. DESC_GAMMA
@@ -1433,9 +1445,10 @@ msgid "Set threshold"
 msgstr "Đặt ngưỡng"
 
 #. DESC_RGB_DEFAULT
+#, fuzzy
 msgid ""
 "RGB default: Set enhancement values for red, green and blue to default "
-"values <Shift-b>:\n"
+"values <Ctrl-b>:\n"
 " gamma = 1.0\n"
 " brightness = 0\n"
 " contrast = 0"
@@ -1447,12 +1460,14 @@ msgstr ""
 " độ tương phản = 0"
 
 #. DESC_ENH_AUTO
-msgid "Autoadjust gamma, brightness and contrast <Shift-e>"
+#, fuzzy
+msgid "Autoadjust gamma, brightness and contrast <Ctrl-e>"
 msgstr "Tự động hiệu chỉnh gamma, độ sáng và độ tương phản <Shift-e>"
 
 #. DESC_ENH_DEFAULT
+#, fuzzy
 msgid ""
-"Set default enhancement values <Shift-d>:\n"
+"Set default enhancement values <Ctrl-0>:\n"
 "gamma = 1.0\n"
 "brightness = 0\n"
 "contrast = 0"
@@ -1463,11 +1478,13 @@ msgstr ""
 "độ tương phản = 0"
 
 #. DESC_ENH_RESTORE
-msgid "Restore enhancement values from preferences <Shift-r>"
+#, fuzzy
+msgid "Restore enhancement values from preferences <Ctrl-r>"
 msgstr "Khôi phục các giá trị mặc định từ các tùy thích <Shift-r>"
 
 #. DESC_ENH_STORE
-msgid "Store active enhancement values to preferences <Shift-m>"
+#, fuzzy
+msgid "Store active enhancement values to preferences <Ctrl-+>"
 msgstr "Lưu trữ các giá trị nâng cao hoạt động vào Tùy thích <Shift-m>"
 
 #. DESC_HIST_INTENSITY
@@ -2301,6 +2318,7 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[TÙY CHỌN]...[THIẾT BỊ]"
 
 #. TEXT_HELP
+#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2320,8 +2338,6 @@ msgid ""
 " -f, --fax                    start with fax-mode active\n"
 " -m, --mail                   start with mail-mode active\n"
 " -n, --no-mode-selection      disable menu for XSane mode selection\n"
-"\n"
-" -M, --Medium-calibration     enable medium calibration mode\n"
 "\n"
 " -F, --Fixed                  fixed main window size (overwrite preferences "
 "value)\n"

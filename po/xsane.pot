@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-12-13 19:46+0100\n"
+"POT-Creation-Date: 2003-01-19 10:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1063,6 +1063,10 @@ msgstr ""
 msgid "Rotate postscript"
 msgstr ""
 
+#. MENU_ITEM_EDIT_MEDIUM_DEF
+msgid "Edit medium definition"
+msgstr ""
+
 #. MENU_ITEM_SAVE_DEVICE_SETTINGS
 msgid "Save device settings"
 msgstr ""
@@ -1267,7 +1271,7 @@ msgid ""
 msgstr ""
 
 #. DESC_XSANE_MEDIUM
-msgid "Select source medium type"
+msgid "Select source medium type\n"
 msgstr ""
 
 #. DESC_FILENAME_COUNTER_STEP
@@ -1320,6 +1324,10 @@ msgstr ""
 msgid "Enter new name for preset area"
 msgstr ""
 
+#. DESC_MEDIUM_DEFINITION_NAME
+msgid "Enter new name for medium definition"
+msgstr ""
+
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
 msgstr ""
@@ -1353,7 +1361,7 @@ msgid "Set number of copies"
 msgstr ""
 
 #. DESC_NEGATIVE
-msgid "Negative: Invert colors for scanning negatives <Shift-n>"
+msgid "Negative: Invert colors for scanning negatives <Ctrl-n>"
 msgstr ""
 
 #. DESC_GAMMA
@@ -1411,30 +1419,30 @@ msgstr ""
 #. DESC_RGB_DEFAULT
 msgid ""
 "RGB default: Set enhancement values for red, green and blue to default "
-"values <Shift-b>:\n"
+"values <Ctrl-b>:\n"
 " gamma = 1.0\n"
 " brightness = 0\n"
 " contrast = 0"
 msgstr ""
 
 #. DESC_ENH_AUTO
-msgid "Autoadjust gamma, brightness and contrast <Shift-e>"
+msgid "Autoadjust gamma, brightness and contrast <Ctrl-e>"
 msgstr ""
 
 #. DESC_ENH_DEFAULT
 msgid ""
-"Set default enhancement values <Shift-d>:\n"
+"Set default enhancement values <Ctrl-0>:\n"
 "gamma = 1.0\n"
 "brightness = 0\n"
 "contrast = 0"
 msgstr ""
 
 #. DESC_ENH_RESTORE
-msgid "Restore enhancement values from preferences <Shift-r>"
+msgid "Restore enhancement values from preferences <Ctrl-r>"
 msgstr ""
 
 #. DESC_ENH_STORE
-msgid "Store active enhancement values to preferences <Shift-m>"
+msgid "Store active enhancement values to preferences <Ctrl-+>"
 msgstr ""
 
 #. DESC_HIST_INTENSITY
@@ -2264,8 +2272,6 @@ msgid ""
 " -f, --fax                    start with fax-mode active\n"
 " -m, --mail                   start with mail-mode active\n"
 " -n, --no-mode-selection      disable menu for XSane mode selection\n"
-"\n"
-" -M, --Medium-calibration     enable medium calibration mode\n"
 "\n"
 " -F, --Fixed                  fixed main window size (overwrite preferences "
 "value)\n"

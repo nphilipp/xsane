@@ -64,7 +64,6 @@ struct option long_options[] =
   {"Resizeable", no_argument, 0, 'R'},
   {"print-filenames", no_argument, 0, 'p'},
   {"force-filename", required_argument, 0, 'N'},
-  {"Medium-calibration", no_argument, 0, 'M'},
   {0, }
 };
 
@@ -168,6 +167,7 @@ static void xsane_show_preview_callback(GtkWidget * widget, gpointer call_data);
 static GtkWidget *xsane_files_build_menu(void);
 static void xsane_set_medium_callback(GtkWidget *widget, gpointer data);
 static void xsane_set_pref_unit_callback(GtkWidget *widget, gpointer data);
+static void xsane_edit_medium_definition_callback(GtkWidget *widget, gpointer data);
 static void xsane_set_update_policy_callback(GtkWidget *widget, gpointer data);
 static gint xsane_close_info_callback(GtkWidget *widget, gpointer data);
 static void xsane_info_dialog(GtkWidget *widget, gpointer data);
@@ -256,43 +256,47 @@ static void xsane_add_medium_definition(const gchar *definition_name)
   preferences.medium_definitions++;
   preferences.medium = realloc( preferences.medium, preferences.medium_definitions * sizeof(void *));
 
-  if (xsane.negative == xsane.medium_negative) /* result is  positive */
-  { 
+
+  if (xsane.negative)
+  {
     preferences.medium[i] = calloc(sizeof(Preferences_medium_t), 1);
     preferences.medium[i]->name            = strdup(definition_name);
-    preferences.medium[i]->shadow_gray     = xsane.medium_shadow_gray  + (xsane.medium_highlight_gray  - xsane.medium_shadow_gray)  * xsane.slider_gray.value[0]  / 100.0;
-    preferences.medium[i]->shadow_red      = xsane.medium_shadow_red   + (xsane.medium_highlight_red   - xsane.medium_shadow_red)   * xsane.slider_red.value[0]   / 100.0;
-    preferences.medium[i]->shadow_green    = xsane.medium_shadow_green + (xsane.medium_highlight_green - xsane.medium_shadow_green) * xsane.slider_green.value[0] / 100.0;
-    preferences.medium[i]->shadow_blue     = xsane.medium_shadow_blue  + (xsane.medium_highlight_blue  - xsane.medium_shadow_blue)  * xsane.slider_blue.value[0]  / 100.0;
-    preferences.medium[i]->highlight_gray  = xsane.medium_shadow_gray  + (xsane.medium_highlight_gray  - xsane.medium_shadow_gray)  * xsane.slider_gray.value[2]  / 100.0;
-    preferences.medium[i]->highlight_red   = xsane.medium_shadow_red   + (xsane.medium_highlight_red   - xsane.medium_shadow_red)   * xsane.slider_red.value[2]   / 100.0;
-    preferences.medium[i]->highlight_green = xsane.medium_shadow_green + (xsane.medium_highlight_green - xsane.medium_shadow_green) * xsane.slider_green.value[2] / 100.0;
-    preferences.medium[i]->highlight_blue  = xsane.medium_shadow_blue  + (xsane.medium_highlight_blue  - xsane.medium_shadow_blue)  * xsane.slider_blue.value[2]  / 100.0;
+    preferences.medium[i]->shadow_gray     = 100.0 - xsane.slider_gray.value[2];
+    preferences.medium[i]->shadow_red      = 100.0 - xsane.slider_red.value[2];
+    preferences.medium[i]->shadow_green    = 100.0 - xsane.slider_green.value[2];
+    preferences.medium[i]->shadow_blue     = 100.0 - xsane.slider_blue.value[2];
+    preferences.medium[i]->highlight_gray  = 100.0 - xsane.slider_gray.value[0];
+    preferences.medium[i]->highlight_red   = 100.0 - xsane.slider_red.value[0];
+    preferences.medium[i]->highlight_green = 100.0 - xsane.slider_green.value[0];
+    preferences.medium[i]->highlight_blue  = 100.0 - xsane.slider_blue.value[0];
     preferences.medium[i]->gamma_gray      = xsane.gamma;
-    preferences.medium[i]->gamma_red       = xsane.gamma * xsane.gamma_red   * xsane.medium_gamma_red;
-    preferences.medium[i]->gamma_green     = xsane.gamma * xsane.gamma_green * xsane.medium_gamma_green;
-    preferences.medium[i]->gamma_blue      = xsane.gamma * xsane.gamma_blue  * xsane.medium_gamma_blue;
-    preferences.medium[i]->negative        = 0;
+    preferences.medium[i]->gamma_red       = xsane.gamma * xsane.gamma_red;
+    preferences.medium[i]->gamma_green     = xsane.gamma * xsane.gamma_green;
+    preferences.medium[i]->gamma_blue      = xsane.gamma * xsane.gamma_blue;
+    preferences.medium[i]->negative        = xsane.negative;
   }
-  else /* result is negative  */
+  else
   { 
     preferences.medium[i] = calloc(sizeof(Preferences_medium_t), 1);
     preferences.medium[i]->name            = strdup(definition_name);
-    preferences.medium[i]->shadow_gray     = xsane.medium_shadow_gray  + (xsane.medium_highlight_gray  - xsane.medium_shadow_gray)  * (1.0 - xsane.slider_gray.value[2]  / 100.0);
-    preferences.medium[i]->shadow_red      = xsane.medium_shadow_red   + (xsane.medium_highlight_red   - xsane.medium_shadow_red)   * (1.0 - xsane.slider_red.value[2]   / 100.0);
-    preferences.medium[i]->shadow_green    = xsane.medium_shadow_green + (xsane.medium_highlight_green - xsane.medium_shadow_green) * (1.0 - xsane.slider_green.value[2] / 100.0);
-    preferences.medium[i]->shadow_blue     = xsane.medium_shadow_blue  + (xsane.medium_highlight_blue  - xsane.medium_shadow_blue)  * (1.0 - xsane.slider_blue.value[2]  / 100.0);
-    preferences.medium[i]->highlight_gray  = xsane.medium_shadow_gray  + (xsane.medium_highlight_gray  - xsane.medium_shadow_gray)  * (1.0 - xsane.slider_gray.value[0]  / 100.0);
-    preferences.medium[i]->highlight_red   = xsane.medium_shadow_red   + (xsane.medium_highlight_red   - xsane.medium_shadow_red)   * (1.0 - xsane.slider_red.value[0]   / 100.0);
-    preferences.medium[i]->highlight_green = xsane.medium_shadow_green + (xsane.medium_highlight_green - xsane.medium_shadow_green) * (1.0 - xsane.slider_green.value[0] / 100.0);
-    preferences.medium[i]->highlight_blue  = xsane.medium_shadow_blue  + (xsane.medium_highlight_blue  - xsane.medium_shadow_blue)  * (1.0 - xsane.slider_blue.value[0]  / 100.0);
+    preferences.medium[i]->shadow_gray     = xsane.slider_gray.value[0];
+    preferences.medium[i]->shadow_red      = xsane.slider_red.value[0];
+    preferences.medium[i]->shadow_green    = xsane.slider_green.value[0];
+    preferences.medium[i]->shadow_blue     = xsane.slider_blue.value[0];
+    preferences.medium[i]->highlight_gray  = xsane.slider_gray.value[2];
+    preferences.medium[i]->highlight_red   = xsane.slider_red.value[2];
+    preferences.medium[i]->highlight_green = xsane.slider_green.value[2];
+    preferences.medium[i]->highlight_blue  = xsane.slider_blue.value[2];
     preferences.medium[i]->gamma_gray      = xsane.gamma;
-    preferences.medium[i]->gamma_red       = xsane.gamma * xsane.gamma_red   * xsane.medium_gamma_red;
-    preferences.medium[i]->gamma_green     = xsane.gamma * xsane.gamma_green * xsane.medium_gamma_green;
-    preferences.medium[i]->gamma_blue      = xsane.gamma * xsane.gamma_blue  * xsane.medium_gamma_blue;
-    preferences.medium[i]->negative        = 1;
+    preferences.medium[i]->gamma_red       = xsane.gamma * xsane.gamma_red;
+    preferences.medium[i]->gamma_green     = xsane.gamma * xsane.gamma_green;
+    preferences.medium[i]->gamma_blue      = xsane.gamma * xsane.gamma_blue;
+    preferences.medium[i]->negative        = xsane.negative;
   }
 
+  xsane.medium_nr = i;
+
+  xsane_enhancement_by_gamma(); /* update sliders */
   xsane_back_gtk_refresh_dialog();
 }
 
@@ -321,9 +325,6 @@ static void xsane_add_medium_definition_callback()
   gtk_window_set_position(GTK_WINDOW(add_medium_dialog), GTK_WIN_POS_MOUSE);
   gtk_window_set_title(GTK_WINDOW(add_medium_dialog), WINDOW_STORE_MEDIUM);
   xsane_set_window_icon(add_medium_dialog, 0);
-#if 0
-  g_signal_connect(GTK_OBJECT(add_medium_dialog), "delete_event", (GtkSignalFunc) xsane_add_medium_definition_button_callback, (GtkObject *) -1); /* connect object */
-#endif
   g_signal_connect(GTK_OBJECT(add_medium_dialog), "delete_event", (GtkSignalFunc) xsane_add_medium_definition_button_callback, (GtkObject *) -1); 
 
   /* set the main vbox */
@@ -344,9 +345,16 @@ static void xsane_add_medium_definition_callback()
   gtk_widget_show(label);
  
   text = gtk_entry_new();
-  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_PRESET_AREA_NAME);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_MEDIUM_DEFINITION_NAME);
   gtk_entry_set_max_length(GTK_ENTRY(text), 64);
-  gtk_entry_set_text(GTK_ENTRY(text), "");
+  if (xsane.medium_nr)
+  {
+    gtk_entry_set_text(GTK_ENTRY(text), preferences.medium[xsane.medium_nr]->name);
+  }
+  else
+  {
+    gtk_entry_set_text(GTK_ENTRY(text), "");
+  }
   gtk_widget_set_size_request(text, 300, -1);
   gtk_box_pack_start(GTK_BOX(hbox), text, TRUE, TRUE, 4);
   gtk_widget_show(text);
@@ -430,14 +438,23 @@ static void xsane_delete_medium_definition_callback()
 
   xsane.medium_changed = TRUE;
 
-  xsane_set_medium(preferences.medium[xsane.medium_nr]);
+  if (xsane.medium_calibration) /* are we running in medium calibration mode? */
+  {
+    xsane_apply_medium_definition_as_enhancement(preferences.medium[xsane.medium_nr]);
+    xsane_set_medium(NULL);
+  }
+  else
+  {
+    xsane_set_medium(preferences.medium[xsane.medium_nr]);
+  }
+
+  xsane_enhancement_by_gamma(); /* update sliders */
+  xsane_back_gtk_refresh_dialog(); /* update menu */
 
   xsane_update_gamma_curve(TRUE); /* if necessary update preview gamma */
 
   preview_display_valid(xsane.preview); /* update valid status of preview image */
   /* the valid status depends on gamma handling an medium change */
-
-  xsane_back_gtk_refresh_dialog(); /* update menu */
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1614,7 +1631,14 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
       gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
       gtk_box_pack_start(GTK_BOX(xsane_vbox_xsane_modus), hbox, FALSE, FALSE, 2);
 
-      pixmap = gdk_pixmap_create_from_xpm_d(xsane.histogram_dialog->window, &mask, xsane.bg_trans, (gchar **) medium_xpm);
+      if (xsane.medium_calibration)
+      {
+        pixmap = gdk_pixmap_create_from_xpm_d(xsane.histogram_dialog->window, &mask, xsane.bg_trans, (gchar **) medium_edit_xpm);
+      }
+      else
+      {
+        pixmap = gdk_pixmap_create_from_xpm_d(xsane.histogram_dialog->window, &mask, xsane.bg_trans, (gchar **) medium_xpm);
+      }
       pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
       gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
       gdk_drawable_unref(pixmap);
@@ -1642,7 +1666,15 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
 
       xsane.medium_widget = xsane_medium_option_menu;
 
-      xsane_set_medium(preferences.medium[xsane.medium_nr]); /* set selected medium */
+      if (xsane.medium_calibration) /* are we running in medium calibration mode? */
+      {
+        xsane_apply_medium_definition_as_enhancement(preferences.medium[xsane.medium_nr]);
+        xsane_set_medium(NULL);
+      }
+      else
+      {
+        xsane_set_medium(preferences.medium[xsane.medium_nr]);
+      }
     }
     else /* no medium selextion for lineart mode: use Full range gamma curve */
     {
@@ -1994,28 +2026,21 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
   {
     button = xsane_toggle_button_new_with_pixmap(xsane.xsane_window->window, xsane_hbox_xsane_enhancement, rgb_default_xpm, DESC_RGB_DEFAULT,
                                                  &xsane.enhancement_rgb_default, xsane_enhancement_rgb_default_callback);
-    gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_B, GDK_SHIFT_MASK, DEF_GTK_ACCEL_LOCKED);
+    gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_B, GDK_CONTROL_MASK, DEF_GTK_ACCEL_LOCKED);
   }
 
   button = xsane_toggle_button_new_with_pixmap(xsane.xsane_window->window, xsane_hbox_xsane_enhancement, negative_xpm, DESC_NEGATIVE,
                                                &xsane.negative, xsane_enhancement_negative_callback);
-  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_N, GDK_SHIFT_MASK, DEF_GTK_ACCEL_LOCKED);
+  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_N, GDK_CONTROL_MASK, DEF_GTK_ACCEL_LOCKED);
 
   button = xsane_button_new_with_pixmap(xsane.xsane_window->window, xsane_hbox_xsane_enhancement, enhance_xpm, DESC_ENH_AUTO,
                                         xsane_auto_enhancement_callback, NULL);
-  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_E, GDK_SHIFT_MASK, DEF_GTK_ACCEL_LOCKED);
+  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_E, GDK_CONTROL_MASK, DEF_GTK_ACCEL_LOCKED);
 
   button = xsane_button_new_with_pixmap(xsane.xsane_window->window, xsane_hbox_xsane_enhancement, default_enhancement_xpm, DESC_ENH_DEFAULT,
                                         xsane_enhancement_restore_default, NULL);
-  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_D, GDK_SHIFT_MASK, DEF_GTK_ACCEL_LOCKED);
+  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_0, GDK_CONTROL_MASK, DEF_GTK_ACCEL_LOCKED);
 
-  button = xsane_button_new_with_pixmap(xsane.xsane_window->window, xsane_hbox_xsane_enhancement, restore_enhancement_xpm, DESC_ENH_RESTORE,
-                                       xsane_enhancement_restore, NULL);
-  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_R, GDK_SHIFT_MASK, DEF_GTK_ACCEL_LOCKED);
-
-  button = xsane_button_new_with_pixmap(xsane.xsane_window->window, xsane_hbox_xsane_enhancement, store_enhancement_xpm, DESC_ENH_STORE,
-                                        xsane_enhancement_store, NULL);
-  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_M, GDK_SHIFT_MASK, DEF_GTK_ACCEL_LOCKED);
 
   if (xsane.medium_calibration) /* are we running in medium calibration mode? */
   {
@@ -2024,6 +2049,16 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
 
     button = xsane_button_new_with_pixmap(xsane.xsane_window->window, xsane_hbox_xsane_enhancement, medium_delete_xpm, DESC_DELETE_MEDIUM,
                                           xsane_delete_medium_definition_callback, NULL);
+  }
+  else
+  {
+    button = xsane_button_new_with_pixmap(xsane.xsane_window->window, xsane_hbox_xsane_enhancement, restore_enhancement_xpm, DESC_ENH_RESTORE,
+                                         xsane_enhancement_restore, NULL);
+    gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_R, GDK_CONTROL_MASK, DEF_GTK_ACCEL_LOCKED);
+
+    button = xsane_button_new_with_pixmap(xsane.xsane_window->window, xsane_hbox_xsane_enhancement, store_enhancement_xpm, DESC_ENH_STORE,
+                                          xsane_enhancement_store, NULL);
+    gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_plus, GDK_CONTROL_MASK, DEF_GTK_ACCEL_LOCKED);
   }
 
   xsane_update_histogram(TRUE /* update raw */);
@@ -2620,7 +2655,18 @@ static void xsane_set_medium_callback(GtkWidget *widget, gpointer data)
 
   xsane.medium_nr = medium_nr;
 
-  xsane_set_medium(preferences.medium[medium_nr]);
+  if (xsane.medium_calibration) /* are we running in medium calibration mode? */
+  {
+    xsane_apply_medium_definition_as_enhancement(preferences.medium[xsane.medium_nr]);
+    xsane_set_medium(NULL);
+  }
+  else
+  {
+    xsane_set_medium(preferences.medium[xsane.medium_nr]);
+  }
+
+  xsane_enhancement_by_gamma(); /* update sliders */
+  xsane_back_gtk_refresh_dialog(); /* update menu */
 
   xsane_update_gamma_curve(TRUE); /* if necessary update preview gamma */
 
@@ -2678,6 +2724,51 @@ static void xsane_set_pref_unit_callback(GtkWidget *widget, gpointer data)
   xsane_batch_scan_update_label_list(); /* update units in batch scan list */
 
   xsane_pref_save();
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_edit_medium_definition_callback(GtkWidget *widget, gpointer data)
+{
+  DBG(DBG_proc, "xsane_edit_medium_definition_callback\n");
+
+  if (GTK_CHECK_MENU_ITEM(widget)->active) /* enable edit mode */
+  {
+    DBG(DBG_info2, "enabling edit mode\n");
+
+    xsane.medium_calibration = TRUE;
+    xsane.no_preview_medium_gamma = TRUE;
+
+    xsane.brightness_min    = XSANE_MEDIUM_CALIB_BRIGHTNESS_MIN;
+    xsane.brightness_max    = XSANE_MEDIUM_CALIB_BRIGHTNESS_MAX;
+    xsane.contrast_gray_min = XSANE_CONTRAST_GRAY_MIN;
+    xsane.contrast_min      = XSANE_MEDIUM_CALIB_CONTRAST_MIN;
+    xsane.contrast_max      = XSANE_MEDIUM_CALIB_CONTRAST_MAX;
+
+    xsane_apply_medium_definition_as_enhancement(preferences.medium[xsane.medium_nr]);
+    xsane_set_medium(NULL);
+  }
+  else  /* disable edit mode */
+  {
+    DBG(DBG_info2, "disabling edit mode\n");
+
+    xsane.medium_calibration = FALSE;
+    xsane.no_preview_medium_gamma = FALSE;
+
+    xsane.brightness_min    = XSANE_BRIGHTNESS_MIN;
+    xsane.brightness_max    = XSANE_BRIGHTNESS_MAX;
+    xsane.contrast_gray_min = XSANE_CONTRAST_GRAY_MIN;
+    xsane.contrast_min      = XSANE_CONTRAST_MIN;
+    xsane.contrast_max      = XSANE_CONTRAST_MAX;
+
+    xsane_apply_medium_definition_as_enhancement(preferences.medium[0]);
+    xsane_set_medium(preferences.medium[xsane.medium_nr]);
+  }
+
+  xsane_enhancement_by_gamma(); /* update sliders */
+  xsane_back_gtk_refresh_dialog(); /* update dialog */
+
+  xsane_update_gamma_curve(TRUE); /* if necessary update preview gamma */
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -4269,7 +4360,7 @@ static void xsane_mail_dialog()
   gtk_window_set_title(GTK_WINDOW(mail_dialog), buf);
   g_signal_connect(GTK_OBJECT(mail_dialog), "delete_event", (GtkSignalFunc) xsane_mail_dialog_delete, NULL);
   xsane_set_window_icon(mail_dialog, 0);
-  /* do not add an accelerator table here or the user will not be able to enter valid texts */
+  gtk_window_add_accel_group(GTK_WINDOW(mail_dialog), xsane.accelerator_group); 
 
   /* set the main vbox */
   mail_scan_vbox = gtk_vbox_new(FALSE, 0);
@@ -6014,7 +6105,7 @@ static GtkWidget *xsane_pref_build_menu(void)
   /* XSane setup dialog */
 
   item = gtk_menu_item_new_with_label(MENU_ITEM_SETUP);
-  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_S, GDK_SHIFT_MASK, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
+  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_S, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
   gtk_menu_append(GTK_MENU(menu), item);
   g_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_setup_dialog, NULL);
   gtk_widget_show(item);
@@ -6130,6 +6221,18 @@ static GtkWidget *xsane_pref_build_menu(void)
   gtk_widget_show(xsane.show_resolution_list_widget);
   g_signal_connect(GTK_OBJECT(xsane.show_resolution_list_widget), "toggled", (GtkSignalFunc) xsane_show_resolution_list_callback, NULL);
 
+  /* insert separator: */
+
+  item = gtk_menu_item_new();
+  gtk_menu_append(GTK_MENU(menu), item);
+  gtk_widget_show(item);
+
+  /* edit medium definitions */
+
+  item = gtk_check_menu_item_new_with_label(MENU_ITEM_EDIT_MEDIUM_DEF);
+  g_signal_connect(GTK_OBJECT(item), "toggled", (GtkSignalFunc) xsane_edit_medium_definition_callback, NULL);
+  gtk_menu_append(GTK_MENU(menu), item);
+  gtk_widget_show(item);
 
   /* insert separator: */
 
@@ -6953,7 +7056,7 @@ static void xsane_device_dialog(void)
   gtk_widget_show(xsane_vbox_main);
 
 #if 0
-  /* add vendor´s logo */
+  /* add vendor`s logo */
   xsane_vendor_pixmap_new(xsane.shell->window, xsane_window);
 #endif
 
@@ -6976,7 +7079,7 @@ static void xsane_device_dialog(void)
   gtk_container_add(GTK_CONTAINER(xsane.standard_options_shell), xsane_vbox_standard);
   gtk_widget_show(xsane_vbox_standard);
 
-  /* add vendor´s logo */
+  /* add vendor`s logo */
   xsane_vendor_pixmap_new(xsane.standard_options_shell->window, xsane_vbox_standard);
 
   /* create  a subwindow so the standard dialog keeps its position on rebuilds: */
@@ -7076,7 +7179,6 @@ static void xsane_device_dialog(void)
   xsane_create_batch_scan_dialog(xsane.device_text);
 
   /* The bottom area: info frame, progress bar, start and cancel button */
-//  xsane_separator_new(xsane_window, 2);
   hbox = gtk_hbox_new(FALSE, 3);
   gtk_box_pack_end(GTK_BOX(xsane_window), hbox, FALSE, FALSE, 0);
   gtk_container_set_border_width(GTK_CONTAINER(hbox), 3);
@@ -7235,8 +7337,8 @@ static int xsane_select_device_by_mouse_callback(GtkWidget * widget, GdkEventBut
 static void xsane_choose_device(void)
 {
  GtkWidget *main_vbox, *vbox, *hbox, *button, *device_frame, *device_vbox, *pixmapwidget, *label;
- GdkBitmap *mask;
- GdkPixmap *pixmap;
+ GdkBitmap *mask = NULL;
+ GdkPixmap *pixmap = NULL;
  GtkStyle *style;
  GdkColor *bg_trans;
  GSList *owner;
@@ -7490,7 +7592,7 @@ static int xsane_init(int argc, char **argv)
   {
     int ch;
 
-    while((ch = getopt_long(argc, argv, "cd:fghlmnpsvFMN:RV", long_options, 0)) != EOF)
+    while((ch = getopt_long(argc, argv, "cd:fghlmnpsvFN:RV", long_options, 0)) != EOF)
     {
       switch(ch)
       {
@@ -7594,17 +7696,6 @@ static int xsane_init(int argc, char **argv)
 
         case 'p': /* --print-filenames */
            xsane.print_filenames = TRUE;
-         break;
-
-        case 'M': /* --Medium-calibration */
-           xsane.medium_calibration = TRUE;
-           xsane.no_preview_medium_gamma = TRUE;
-
-           xsane.brightness_min    = XSANE_MEDIUM_CALIB_BRIGHTNESS_MIN;
-           xsane.brightness_max    = XSANE_MEDIUM_CALIB_BRIGHTNESS_MAX;
-           xsane.contrast_gray_min = XSANE_MEDIUM_CALIB_CONTRAST_MIN;
-           xsane.contrast_min      = XSANE_MEDIUM_CALIB_CONTRAST_MIN;
-           xsane.contrast_max      = XSANE_MEDIUM_CALIB_CONTRAST_MAX;
          break;
 
         case 'h': /* --help */
@@ -7812,14 +7903,16 @@ void xsane_interface(int argc, char **argv)
     }
   }
 
-  /* define SIGTERM-handler to make sure that e.g. all temporary files are deleted */
-  /* when xsane gets a SIGTERM signal */
+  /* define SIGTERM, SIGINT, SIGHUP-handler to make sure that e.g. all temporary files are deleted */
+  /* when xsane gets such a signal */
   memset(&act, 0, sizeof(act));
   act.sa_handler = xsane_quit_handler;
   sigaction(SIGTERM, &act, 0);
+  sigaction(SIGINT,  &act, 0);
+  sigaction(SIGHUP,  &act, 0);
 
   /* add a signal handler that cleans up zombie child processes */
-  memset(&act, 0, sizeof (act));
+  memset(&act, 0, sizeof(act));
   act.sa_handler = xsane_sigchld_handler;
   sigaction(SIGCHLD, &act, 0);
 

@@ -40,7 +40,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.90"
+#define XSANE_VERSION		"0.91"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2002"
@@ -358,7 +358,7 @@ extern void xsane_batch_scan_add(void);
 
 #define XSANE_MEDIUM_CALIB_BRIGHTNESS_MIN	-1000.0
 #define XSANE_MEDIUM_CALIB_BRIGHTNESS_MAX	 1000.0
-#define XSANE_MEDIUM_CALIB_CONTRAST_MIN	 	    0.0
+#define XSANE_MEDIUM_CALIB_CONTRAST_MIN	 	-1000.0
 #define XSANE_MEDIUM_CALIB_CONTRAST_MAX	 	 1000.0
 
 #define XSANE_BRIGHTNESS_MIN	-100.0
@@ -380,6 +380,8 @@ extern void xsane_batch_scan_add(void);
 #define XSANE_HISTOGRAM_POS_Y	50
 #define XSANE_GAMMA_POS_X	280
 #define XSANE_GAMMA_POS_Y	420
+#define XSANE_BATCH_POS_X	480
+#define XSANE_BATCH_POS_Y	420
 #define XSANE_STD_OPTIONS_POS_X	1
 #define XSANE_STD_OPTIONS_POS_Y	400
 #define XSANE_ADV_OPTIONS_POS_X	280
@@ -731,6 +733,8 @@ typedef struct Xsane
     int histogram_dialog_posy;
     int gamma_dialog_posx;
     int gamma_dialog_posy;
+    int batch_dialog_posx;
+    int batch_dialog_posy;
     int preview_dialog_posx;
     int preview_dialog_posy;
     int preview_dialog_width;

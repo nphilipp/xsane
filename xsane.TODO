@@ -6,6 +6,9 @@ Sign explaination:
  + planned to do this soon/higher priority (but not promised for XSane-1.0)
  - comes later/lower priority
 
+ batch scan:
+ - load default list
+
  scan-function:
     # allow additional image data after each row (is sane standard conform)
 

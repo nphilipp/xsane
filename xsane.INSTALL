@@ -50,5 +50,17 @@ DO THE FOLLOWING AS NORMAL USER:
 
 If something does not work like expected read file xsane.PROBLEMS
 
+
+XSANE AS GIMP PLUGIN
+--------------------
+
+To run xsane as gimp plugin it has to be compiled with gimp support
+(you need package gimp, gimp-devel and may be pkg-tool) before you
+call configure).
+
+To  run  xsane under the gimp(1), simply set a symbolic link from the xsane-binary to one of
+the gimp(1) plug-ins directories. (Read the manpage of xsane for more details)!
+
+
 DO NOT RUN XSANE AS ROOT!
 

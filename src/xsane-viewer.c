@@ -75,13 +75,25 @@ static gint xsane_viewer_close_callback(GtkWidget *widget, gpointer data)
 
   DBG(DBG_proc, "xsane_viewer_close_callback\n");
 
+  if (v->block_actions) /* actions blocked: return */
+  {
+    gdk_beep();
+    DBG(DBG_info, "xsane_viewer_close_callback: actions are blocked\n");
+   return TRUE;
+  }
+
+  v->block_actions = TRUE;
+
   if (!v->image_saved)
   {
    char buf[256];
 
     snprintf(buf, sizeof(buf), WARN_VIEWER_IMAGE_NOT_SAVED);
+    gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), FALSE);
     if (xsane_back_gtk_decision(ERR_HEADER_WARNING, (gchar **) warning_xpm, buf, BUTTON_DO_NOT_CLOSE, BUTTON_DISCARD_IMAGE, TRUE /* wait */))
     {
+      gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
+      v->block_actions = FALSE;
       return TRUE;
     } 
   }
@@ -125,6 +137,7 @@ static void xsane_viewer_dialog_cancel(GtkWidget *window, gpointer data)
 
   gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
   v->active_dialog = NULL;
+  v->block_actions = FALSE;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -138,8 +151,16 @@ static void xsane_viewer_save_callback(GtkWidget *window, gpointer data)
  int output_format;
  char *filetype = NULL;
 
+  if (v->block_actions) /* actions blocked: return */
+  {
+    gdk_beep();
+    DBG(DBG_info, "xsane_viewer_save_callback: actions are blocked\n");
+   return;
+  }
+
   DBG(DBG_proc, "xsane_viewer_save_callback\n");
 
+  v->block_actions = TRUE;
   gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), FALSE);
 
   if (v->output_filename)
@@ -161,6 +182,7 @@ static void xsane_viewer_save_callback(GtkWidget *window, gpointer data)
     if (abort)
     {
       gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
+      v->block_actions = FALSE;
      return;
     }
   }
@@ -179,6 +201,7 @@ static void xsane_viewer_save_callback(GtkWidget *window, gpointer data)
       if (xsane_back_gtk_decision(ERR_HEADER_WARNING, (gchar **) warning_xpm, buf, BUTTON_OVERWRITE, BUTTON_CANCEL, TRUE /* wait */) == FALSE)
       {
         gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
+        v->block_actions = FALSE;
        return;
       }
     }
@@ -205,6 +228,7 @@ static void xsane_viewer_save_callback(GtkWidget *window, gpointer data)
 
         snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_CREATE_SECURE_FILE, dummyfilename);
         xsane_back_gtk_error(buf, TRUE);
+        v->block_actions = FALSE;
        return; /* error */
       }
     }
@@ -239,6 +263,7 @@ static void xsane_viewer_save_callback(GtkWidget *window, gpointer data)
   v->image_saved = TRUE;
 
   gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
+  v->block_actions = FALSE;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -251,8 +276,16 @@ static void xsane_viewer_ocr_callback(GtkWidget *window, gpointer data)
  char windowname[256];
  int abort = 0;
 
+  if (v->block_actions) /* actions blocked: return */
+  {
+    gdk_beep();
+    DBG(DBG_info, "xsane_viewer_ocr_callback: actions are blocked\n");
+   return;
+  }
+
   DBG(DBG_proc, "xsane_viewer_ocr_callback\n");
 
+  v->block_actions = TRUE;
   gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), FALSE);
 
   strncpy(outputfilename, preferences.filename, sizeof(outputfilename)-5);
@@ -273,6 +306,7 @@ static void xsane_viewer_ocr_callback(GtkWidget *window, gpointer data)
   if (abort)
   {
     gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
+    v->block_actions = FALSE;
    return;
   }
 
@@ -284,6 +318,7 @@ static void xsane_viewer_ocr_callback(GtkWidget *window, gpointer data)
   xsane_save_image_as_text(v->filename, outputfilename, v->progress_bar, &v->cancel_save);
 
   gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
+  v->block_actions = FALSE;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -296,15 +331,24 @@ static void xsane_viewer_clone_callback(GtkWidget *window, gpointer data)
  char outfilename[256];
  Image_info image_info;
 
+  if (v->block_actions) /* actions blocked: return */
+  {
+    gdk_beep();
+    DBG(DBG_info, "xsane_viewer_clone_callback: actions are blocked\n");
+   return;
+  }
+
   DBG(DBG_proc, "xsane_viewer_clone_callback\n");
 
   gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), FALSE);
+  v->block_actions = TRUE;
 
   infile = fopen(v->filename, "rb");
   if (!infile)
   {
     DBG(DBG_error, "could not load file %s\n", v->filename);
     gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
+    v->block_actions = FALSE;
 
    return;
   }
@@ -320,6 +364,7 @@ static void xsane_viewer_clone_callback(GtkWidget *window, gpointer data)
   {
     DBG(DBG_error, "could not save file %s\n", outfilename);
     gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
+    v->block_actions = FALSE;
 
    return;
   }
@@ -338,6 +383,7 @@ static void xsane_viewer_clone_callback(GtkWidget *window, gpointer data)
   gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
 
   xsane_viewer_new(outfilename, v->reduce_to_lineart, NULL);
+  v->block_actions = FALSE;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -454,15 +500,24 @@ static void xsane_viewer_scale_callback(GtkWidget *window, gpointer data)
  FILE *infile;
  Image_info image_info;
 
+  if (v->block_actions == TRUE) /* actions blocked: return */
+  {
+    gdk_beep();
+    DBG(DBG_info, "xsane_viewer_scale_callback: actions are blocked\n");
+   return;
+  }
+
   DBG(DBG_proc, "xsane_viewer_scale_callback\n");
 
   gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), FALSE);
+  v->block_actions = 2; /* do not set it to TRUE because we have to recall this dialog! */
 
   infile = fopen(v->filename, "rb");
   if (!infile)
   {
     DBG(DBG_error, "could not load file %s\n", v->filename);
     gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
+    v->block_actions = FALSE;
 
    return;
   }
@@ -700,9 +755,17 @@ static void xsane_viewer_despeckle_callback(GtkWidget *window, gpointer data)
  GtkAdjustment *adjustment;
  char buf[256];
 
+  if (v->block_actions) /* actions blocked: return */
+  {
+    gdk_beep();
+    DBG(DBG_info, "xsane_viewer_despeckle_callback: actions are blocked\n");
+   return;
+  }
+
   DBG(DBG_proc, "xsane_viewer_despeckle_callback\n");
 
   gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), FALSE);
+  v->block_actions = TRUE;
 
   if (v->output_filename)
   {
@@ -746,7 +809,6 @@ static void xsane_viewer_despeckle_callback(GtkWidget *window, gpointer data)
 
   adjustment = (GtkAdjustment *) gtk_adjustment_new(2.0, 2.0, 10.0, 1.0, 5.0, 0.0);
   spinbutton = gtk_spin_button_new(adjustment, 0, 0);
-//  g_signal_connect(GTK_OBJECT(spinbutton), DEF_GTK_SIGNAL_SPINBUTTON_VALUE_CHANGED, (GtkSignalFunc) xsane_viewer_spinbutton_int_changed, (void *) &v->despeckle_radius);
   g_signal_connect(GTK_OBJECT(adjustment), "value_changed", (GtkSignalFunc) xsane_viewer_adjustment_int_changed, (void *) &v->despeckle_radius);
   gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(spinbutton), TRUE);
   gtk_box_pack_end(GTK_BOX(hbox), spinbutton, FALSE, FALSE, 10);
@@ -788,9 +850,17 @@ static void xsane_viewer_blur_callback(GtkWidget *window, gpointer data)
  GtkAdjustment *adjustment;
  char buf[256];
 
+  if (v->block_actions) /* actions blocked: return */
+  {
+    gdk_beep();
+    DBG(DBG_info, "xsane_viewer_blur_callback: actions are blocked\n");
+   return;
+  }
+
   DBG(DBG_proc, "xsane_viewer_blur_callback\n");
 
   gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), FALSE);
+  v->block_actions = TRUE;
 
   if (v->output_filename)
   {
@@ -835,7 +905,6 @@ static void xsane_viewer_blur_callback(GtkWidget *window, gpointer data)
 
   adjustment = (GtkAdjustment *) gtk_adjustment_new(1.0, 1.0, 20.0, 0.1, 1.0, 0.0);
   spinbutton = gtk_spin_button_new(adjustment, 0, 2);
-//  g_signal_connect(GTK_OBJECT(spinbutton), DEF_GTK_SIGNAL_SPINBUTTON_VALUE_CHANGED, (GtkSignalFunc) xsane_viewer_spinbutton_float_changed, (void *) &v->blur_radius);
   g_signal_connect(GTK_OBJECT(adjustment), "value_changed", (GtkSignalFunc) xsane_viewer_adjustment_float_changed, (void *) &v->blur_radius);
   gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(spinbutton), TRUE);
   gtk_box_pack_end(GTK_BOX(hbox), spinbutton, FALSE, FALSE, 10);
@@ -885,6 +954,7 @@ static void xsane_viewer_scale_image(GtkWidget *window, gpointer data)
   {
     DBG(DBG_error, "could not load file %s\n", v->filename);
     gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
+    v->block_actions = FALSE;
 
    return;
   }
@@ -900,6 +970,7 @@ static void xsane_viewer_scale_image(GtkWidget *window, gpointer data)
   {
     DBG(DBG_error, "could not save file %s\n", outfilename);
     gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
+    v->block_actions = FALSE;
 
    return;
   }
@@ -931,6 +1002,7 @@ static void xsane_viewer_scale_image(GtkWidget *window, gpointer data)
   xsane_viewer_read_image(v);
 
   gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
+  v->block_actions = FALSE;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -954,6 +1026,7 @@ static void xsane_viewer_despeckle_image(GtkWidget *window, gpointer data)
   {
     DBG(DBG_error, "could not load file %s\n", v->filename);
     gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
+    v->block_actions = FALSE;
 
    return;
   }
@@ -969,6 +1042,7 @@ static void xsane_viewer_despeckle_image(GtkWidget *window, gpointer data)
   {
     DBG(DBG_error, "could not save file %s\n", outfilename);
     gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
+    v->block_actions = FALSE;
 
    return;
   }
@@ -995,6 +1069,7 @@ static void xsane_viewer_despeckle_image(GtkWidget *window, gpointer data)
   xsane_viewer_read_image(v);
 
   gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
+  v->block_actions = FALSE;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1018,6 +1093,7 @@ static void xsane_viewer_blur_image(GtkWidget *window, gpointer data)
   {
     DBG(DBG_error, "could not load file %s\n", v->filename);
     gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
+    v->block_actions = FALSE;
 
    return;
   }
@@ -1033,6 +1109,7 @@ static void xsane_viewer_blur_image(GtkWidget *window, gpointer data)
   {
     DBG(DBG_error, "could not save file %s\n", outfilename);
     gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
+    v->block_actions = FALSE;
 
    return;
   }
@@ -1059,6 +1136,7 @@ static void xsane_viewer_blur_image(GtkWidget *window, gpointer data)
   xsane_viewer_read_image(v);
 
   gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
+  v->block_actions = FALSE;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1069,6 +1147,13 @@ static void xsane_viewer_rotate(Viewer *v, int rotation)
  FILE *infile;
  char outfilename[256];
  Image_info image_info;
+
+  if (v->block_actions) /* actions blocked: return */
+  {
+    gdk_beep();
+    DBG(DBG_info, "xsane_viewer_rotate: actions are blocked\n");
+   return;
+  }
 
   DBG(DBG_proc, "xsane_viewer_rotate(%d)\n", rotation);
 

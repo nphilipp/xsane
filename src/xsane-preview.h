@@ -165,9 +165,10 @@ typedef struct
   GtkWidget *window;		/* the preview window */
   GtkWidget *start;		/* the start button */
   GtkWidget *cancel;		/* the cancel button */
+  GtkWidget *zoom;		/* the zoom */
 
-  GtkWidget *button_box;	/* hbox for the following buttons */
-  GtkWidget *menu_box;		/* hbox for the following menues */
+  GtkWidget *menu_box;		/* the bottom menu box */
+  GtkWidget *button_box;	/* the bottom button box */
   GtkWidget *add_batch;		/* add batch button */
   GtkWidget *pipette_white;	/* pipette white button */
   GtkWidget *pipette_gray;	/* pipette gray button */

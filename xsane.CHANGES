@@ -2322,3 +2322,43 @@ xsane-0.89 -> 0.90:
 
  - xsane_create_preview_gamma_curve: replaced 255 by 255.99999 to create correct preview gamma table
 
+
+xsane-0.90 -> 0.91:
+-------------------
+
+ - xsane_generate_dummy_filename(): use temporary file in case xsane.mode == XSANE_GIMP_EXTENSION
+
+ - changed <Shift> accellerator keys that used letters to other key (if possible same key with <Ctrl>,
+   because with these accelartor keys it was not possible to enter these letters in any entries.
+
+ - added accelerator group to mail dialog again, it is now possible to enter all texts and use
+   the accelerator keys at the same time
+
+ - added zoom of image under the pointer to the preview window
+
+ - removed all c++ style remarks "//"
+
+ - changed behaviour of medium definition mode:
+   - The raw histogram now does show the raw data when the selected medium definition
+     is not set to the full range
+   - When creating a new medium definition the name of the used definition is preset
+   - When creating a new medium definition then this definition is selected
+   - When deleting a definition then the previous definition is selected
+
+ - renamed temporary file "preview-level*" to "xsane-preview-level*"
+
+ - position of batch scan dialog is saved in device preferences
+
+ - add chines tranlation (zh)
+
+ - corrected RGBA mode
+
+ - added blocking function to viewer: it is not possible to open two dialogs for the same
+   viewer at the same time
+
+ - added signal handling for SIGINT and SIGHUP
+
+ - in Batch scanning mode sane_cancel is called between all scans! This has to be done
+   because it is not allowed to change scan parameters between sane_start and sane_cancel.
+
+

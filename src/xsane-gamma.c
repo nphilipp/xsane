@@ -1117,6 +1117,190 @@ void xsane_create_preview_threshold_curve(u_char *gammadata, double threshold, i
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
+#if 0
+void xsane_create_preview_gamma_curve(u_char *gammadata, int negative, double gamma,
+                                      double brightness, double contrast,
+                                      double medium_shadow, double medium_highlight, double medium_gamma, 
+                                      int numbers)
+{
+ int i;
+ double midin;
+ double val;
+ double m;
+ double b;
+ double medium_m;
+ double medium_mid;
+ int maxin = numbers-1;
+ double clip_shadow, clip_highlight;
+ double m_shadow, m_highlight;
+ double s2 = 0.0, s3 = 0.0; 
+ double h2 = 0.0, h3 = 0.0;
+ double clip_alpha = 0.34; /* 1/3 ... 1/2 are allowed */
+ int medium_range;
+ int unclipped_range;
+ double medium_shadow_val, medium_highlight_val;
+ double medium_highlight_val_from_maxin;
+ double clip_highlight_from_maxin;
+
+  medium_range    = (medium_highlight - medium_shadow)/ 100.0 * maxin;
+
+  m_shadow = 1.0;
+  m_highlight = 1.0;
+
+  medium_shadow_val = medium_shadow/100.0 * maxin;
+  medium_highlight_val = medium_highlight/100.0 * maxin;
+  medium_highlight_val_from_maxin = maxin - medium_highlight_val;
+
+  for (i=1; i<10; i++)
+  {
+    clip_shadow = clip_alpha * m_shadow * medium_shadow_val;
+    clip_highlight_from_maxin = clip_alpha * (m_highlight * medium_highlight_val_from_maxin);
+    clip_highlight = maxin - clip_highlight_from_maxin;
+    unclipped_range = clip_highlight - clip_shadow;
+
+    m_shadow = (4 * m_shadow + unclipped_range / medium_range / medium_gamma) / 5;
+    m_highlight = (4 * m_highlight + unclipped_range / medium_range) / 5;
+  }
+  m_shadow = 1.0;
+  m_highlight = 1.0;
+
+  /* soft clipping constants for shadow of medium */
+
+  if (medium_shadow_val)
+  {
+    clip_shadow = clip_alpha * m_shadow * medium_shadow_val;
+    s2 = 3 * clip_shadow / (medium_shadow_val * medium_shadow_val) - m_shadow / medium_shadow_val;
+    s3 = m_shadow / (medium_shadow_val * medium_shadow_val)  - 2 * clip_shadow / (medium_shadow_val * medium_shadow_val * medium_shadow_val);
+
+    DBG(DBG_info2, "\n");
+    DBG(DBG_info2, "maxin = %d\n", maxin);
+    DBG(DBG_info2, "m_shadow          = %f\n", m_shadow);
+    DBG(DBG_info2, "medium_shadow_val = %d\n", medium_shadow_val);
+    DBG(DBG_info2, "clip_shadow       = %f\n", clip_shadow);
+    DBG(DBG_info2, "s2                = %f\n", s2);
+    DBG(DBG_info2, "s3                = %f\n", s3);
+    DBG(DBG_info2, "s2*shadow^2 + s3*shadow^3 = %f\n", s2 * medium_shadow_val * medium_shadow_val + s3 * medium_shadow_val * medium_shadow_val* medium_shadow_val);
+  }
+  else
+  {
+    clip_shadow = 0;
+  }
+
+
+  /* soft clipping constants for highlight of medium */
+
+  if (medium_highlight_val < maxin)
+  {
+    medium_highlight_val_from_maxin = maxin - medium_highlight_val;
+    clip_highlight_from_maxin = clip_alpha * (m_highlight * medium_highlight_val_from_maxin);
+    clip_highlight = maxin - clip_highlight_from_maxin;
+    h2 = 3 * clip_highlight_from_maxin / (medium_highlight_val_from_maxin * medium_highlight_val_from_maxin) - m_highlight / medium_highlight_val_from_maxin;
+    h3 = m_highlight / (medium_highlight_val_from_maxin * medium_highlight_val_from_maxin)  - 2 * clip_highlight_from_maxin / (medium_highlight_val_from_maxin * medium_highlight_val_from_maxin * medium_highlight_val_from_maxin);
+
+    DBG(DBG_info2, "\n");
+    DBG(DBG_info2, "maxin = %d\n", maxin);
+    DBG(DBG_info2, "m_highlight          = %f\n", m_highlight);
+    DBG(DBG_info2, "medium_highlight_val = %d\n", medium_highlight_val);
+    DBG(DBG_info2, "clip_highlight       = %f\n", clip_highlight);
+    DBG(DBG_info2, "h2                   = %f\n", h2);
+    DBG(DBG_info2, "h3                   = %f\n", h3);
+    DBG(DBG_info2, "h2*highlight^2 + h3*highlight^3 = %f\n", h2 * (maxin - medium_highlight_val) * (maxin - medium_highlight_val) + h3 * (maxin - medium_highlight_val) * (maxin - medium_highlight_val) * (maxin - medium_highlight_val));
+  }
+  else
+  {
+    clip_highlight = maxin;
+  }
+
+  /* standard gamma constants for medium */
+
+  unclipped_range = clip_highlight   - clip_shadow;
+  DBG(DBG_info2, "medium_range = %d\n", medium_range);
+  DBG(DBG_info2, "unclipped_range = %d\n", unclipped_range);
+
+  medium_m   = 100.0/(medium_highlight - medium_shadow);
+  medium_mid = (medium_shadow + medium_highlight)/200.0 * maxin;
+
+  DBG(DBG_proc, "xsane_create_preview_gamma_curve(neg=%d, gam=%3.2f, bri=%3.2f, ctr=%3.2f, nrs=%d)\n",
+                 negative, gamma, brightness, contrast, numbers);
+
+  if (contrast < -100.0)
+  {
+    contrast = -100.0;
+  }
+
+  midin = (int)(numbers / 2.0);
+
+  m = 1.0 + contrast/100.0;
+  b = (1.0 + brightness/100.0) * midin;
+
+  if (negative)
+  {
+    for (i=0; i <= maxin; i++)
+    {
+      val = ((double) i);
+
+      /* medium correction */
+      val = (val - medium_mid) * medium_m + midin;
+      val = maxin - val; /* invert */
+
+      if (i < medium_shadow_val)
+      {
+        val = maxin - s2 * i * i - s3 * i * i * i;
+      }
+      else if (i > medium_highlight_val)
+      {
+        val = h2 * (maxin - i) * (maxin - i) + h3 * (maxin - i) * (maxin - i) * (maxin - i);
+      }
+      else
+      {
+        xsane_bound_double(&val, 0.0, maxin);
+        val = (maxin - clip_highlight) + unclipped_range * pow( val/maxin, (1.0/medium_gamma) );
+      }
+
+      val = val - midin;
+
+      /* user correction */
+      val = val * m + b;
+      xsane_bound_double(&val, 0.0, maxin);
+
+      gammadata[i] = (u_char) (255.99999 * pow( ceil(val)/maxin, (1.0/gamma) ));
+    }
+  }
+  else /* positive */
+  {
+    for (i=0; i <= maxin; i++)
+    {
+      val = ((double) i);
+
+      /* medium correction */
+      val = (val - medium_mid) * medium_m + midin;
+
+      if (i < medium_shadow_val)
+      {
+        val = s2 * i * i + s3 * i * i * i;
+      }
+      else if (i > medium_highlight_val)
+      {
+        val = maxin - (h2 * (maxin - i) * (maxin - i) + h3 * (maxin - i) * (maxin - i) * (maxin - i));
+      }
+      else
+      {
+        xsane_bound_double(&val, 0.0, maxin);
+        val = clip_shadow + unclipped_range * pow( val/maxin, (1.0/medium_gamma) );
+      }
+
+      val = val - midin;
+
+      /* user correction */
+      val = val * m + b;
+      xsane_bound_double(&val, 0.0, maxin);
+
+      gammadata[i] = (u_char) (255.99999 * pow( val/maxin, (1.0/gamma) ));
+    }
+  }
+}
+
+#else
 
 void xsane_create_preview_gamma_curve(u_char *gammadata, int negative, double gamma,
                                       double brightness, double contrast,
@@ -1190,6 +1374,7 @@ void xsane_create_preview_gamma_curve(u_char *gammadata, int negative, double ga
     }
   }
 }
+#endif
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -1702,9 +1887,9 @@ void xsane_enhancement_by_gamma(void)
   brightness = xsane.brightness + xsane.brightness_red;
   gamma      = xsane.gamma * xsane.gamma_red;
 
-  if (contrast < -100)
+  if (contrast < xsane.contrast_min)
   {
-    contrast = -100;
+    contrast = xsane.contrast_min;
   }
 
   xsane_gamma_to_histogram(&min, &mid, &max, contrast, brightness, gamma);
@@ -1720,9 +1905,9 @@ void xsane_enhancement_by_gamma(void)
   brightness = xsane.brightness + xsane.brightness_green;
   gamma      = xsane.gamma * xsane.gamma_green;
 
-  if (contrast < -100)
+  if (contrast < xsane.contrast_min)
   {
-    contrast = -100;
+    contrast = xsane.contrast_min;
   }
 
   xsane_gamma_to_histogram(&min, &mid, &max, contrast, brightness, gamma);
@@ -1737,9 +1922,9 @@ void xsane_enhancement_by_gamma(void)
   brightness = xsane.brightness + xsane.brightness_blue;
   gamma      = xsane.gamma * xsane.gamma_blue;
 
-  if (contrast < -100)
+  if (contrast < xsane.contrast_min)
   {
-    contrast = -100;
+    contrast = xsane.contrast_min;
   }
 
   xsane_gamma_to_histogram(&min, &mid, &max, contrast, brightness, gamma);
@@ -1852,7 +2037,7 @@ static int xsane_histogram_to_gamma(XsaneSlider *slider,
   *contrast = (10000.0 / (slider->value[2] - slider->value[0]) - 100.0);
   if (correct_bound)
   {
-    xsane_bound_double(contrast, -100.0 + contrast_offset, xsane.contrast_max + contrast_offset);
+    xsane_bound_double(contrast, xsane.contrast_min + contrast_offset, xsane.contrast_max + contrast_offset);
   }
 
   *brightness = - (slider->value[0] - 50.0) * (*contrast + 100.0)/50.0 - 100.0;
@@ -1865,17 +2050,19 @@ static int xsane_histogram_to_gamma(XsaneSlider *slider,
   range = slider->value[2] - slider->value[0];
 
   *gamma = log(mid/range) / log(0.5);
+
   if (correct_bound)
   {
     xsane_bound_double(gamma, XSANE_GAMMA_MIN * gamma_multiplier, XSANE_GAMMA_MAX * gamma_multiplier);
     return 1; /* in bound */
   }
-  else if (xsane_check_bound_double(*contrast, -100.0 + contrast_offset, xsane.contrast_max + contrast_offset) &&
-           xsane_check_bound_double(*brightness, XSANE_BRIGHTNESS_MIN + brightness_offset, xsane.brightness_max + brightness_offset) &&
+  else if (xsane_check_bound_double(*contrast, xsane.contrast_min + contrast_offset, xsane.contrast_max + contrast_offset) &&
+           xsane_check_bound_double(*brightness, xsane.brightness_min + brightness_offset, xsane.brightness_max + brightness_offset) &&
            xsane_check_bound_double(*gamma, XSANE_GAMMA_MIN * gamma_multiplier, XSANE_GAMMA_MAX * gamma_multiplier))
   {
     return 1; /* in bound */
   }
+
   return 0; /* out of bound */
 }
 
@@ -2383,6 +2570,39 @@ void xsane_set_auto_enhancement()
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+/* set medium values as gamma/contrast/brightness */
+void xsane_apply_medium_definition_as_enhancement(Preferences_medium_t *medium)
+{
+  xsane.gamma      = medium->gamma_gray;
+  xsane.contrast   = 10000.0 / (medium->highlight_gray  - medium->shadow_gray)  - 100.0;
+  xsane.brightness = - (medium->shadow_gray  - 50.0) * (xsane.contrast + 100.0) / 50.0 - 100.0;
+
+  xsane.gamma_red   = medium->gamma_red   / xsane.gamma;
+  xsane.gamma_green = medium->gamma_green / xsane.gamma;
+  xsane.gamma_blue  = medium->gamma_blue  / xsane.gamma;
+
+  xsane.contrast_red   = 10000.0 / (medium->highlight_red   - medium->shadow_red)   - 100.0 - xsane.contrast;
+  xsane.contrast_green = 10000.0 / (medium->highlight_green - medium->shadow_green) - 100.0 - xsane.contrast;
+  xsane.contrast_blue  = 10000.0 / (medium->highlight_blue  - medium->shadow_blue)  - 100.0 - xsane.contrast;
+
+  xsane.brightness_red   = - (medium->shadow_red   - 50.0) * (xsane.contrast + xsane.contrast_red   + 100.0) / 50.0 - 100.0 - xsane.brightness;
+  xsane.brightness_green = - (medium->shadow_green - 50.0) * (xsane.contrast + xsane.contrast_green + 100.0) / 50.0 - 100.0 - xsane.brightness;
+  xsane.brightness_blue  = - (medium->shadow_blue  - 50.0) * (xsane.contrast + xsane.contrast_blue  + 100.0) / 50.0 - 100.0 - xsane.brightness;
+
+  xsane.negative = medium->negative;
+
+  if (xsane.negative)
+  {
+    xsane.brightness       = -xsane.brightness;
+    xsane.brightness_red   = -xsane.brightness_red;
+    xsane.brightness_green = -xsane.brightness_green;
+    xsane.brightness_blue  = -xsane.brightness_blue;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+/* set medium values */
 void xsane_set_medium(Preferences_medium_t *medium)
 {
  const SANE_Option_Descriptor *opt;

@@ -53,6 +53,7 @@ extern void xsane_create_histogram_dialog(const char *devicetext);
 extern void xsane_create_gamma_dialog(const char *devicetext);
 extern void xsane_update_gamma_dialog(void);
 extern void xsane_set_auto_enhancement(void);
+extern void xsane_apply_medium_definition_as_enhancement(Preferences_medium_t *medium);
 extern void xsane_set_medium(Preferences_medium_t *medium);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

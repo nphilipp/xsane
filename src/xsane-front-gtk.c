@@ -796,7 +796,7 @@ GtkWidget *xsane_vendor_pixmap_new(GdkWindow *window, GtkWidget *parent)
  char filename[PATH_MAX];
  GtkWidget *hbox, *vbox;
  GtkWidget *pixmapwidget = NULL;
- GdkBitmap *mask;
+ GdkBitmap *mask = NULL;
  GdkPixmap *pixmap = NULL;
 
   if (xsane.devlist[xsane.selected_dev]->vendor)

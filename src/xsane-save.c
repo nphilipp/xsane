@@ -3830,22 +3830,22 @@ int xsane_transfer_to_gimp(char *input_filename, GtkProgressBar *progress_bar, i
     }
   }
 #ifdef SUPPORT_RGBA
-  else if (colors == 4) /* RGBA */
+  else if (image_info.colors == 4) /* RGBA */
   {
    int i;
 
-    switch (bits)
+    switch (image_info.depth)
     {
       case 8: /* 8 bit RGBA */
       case 16: /* 16 bit RGBA already has been reduced to 8 bit */
-        for (i = 0; i < pixel_width*pixel_height*4; ++i)
+        for (i = 0; i < image_info.image_width * image_info.image_height * 4; ++i)
         {
           tile[tile_offset++] = fgetc(imagefile);
           if (tile_offset % 4 == 0)
           {
             x++;
 
-            if (x >= pixel_width)
+            if (x >= image_info.image_width)
             {
              int tile_height = gimp_tile_height();
 
@@ -3854,11 +3854,11 @@ int xsane_transfer_to_gimp(char *input_filename, GtkProgressBar *progress_bar, i
 
               if (y % tile_height == 0)
               {
-                gimp_pixel_rgn_set_rect(&region, tile, 0, y - tile_height, pixel_width, tile_height);
+                gimp_pixel_rgn_set_rect(&region, tile, 0, y - tile_height, image_info.image_width, tile_height);
                 tile_offset = 0;
               }
 
-              gtk_progress_bar_update(progress_bar, (float) y / pixel_height); /* update progress bar */
+              gtk_progress_bar_update(progress_bar, (float) y / image_info.image_height); /* update progress bar */
               while (gtk_events_pending())
               {
                 gtk_main_iteration();

@@ -16,7 +16,6 @@ xsane - scanner frontend for SANE
 .RB [ --fax | -f ]
 .RB [ --mail | -m ]
 .RB [ --no-mode-selection | -n ]
-.RB [ --Medium-calibration | -M ]
 .RB [ --Fixed | -F ]
 .RB [ --Resizable | -R ]
 .RB [ --print-filenames | -p ]
@@ -65,10 +64,10 @@ plug-ins directories.  For example, for gimp-1.0.x the command
 ln -s @BINDIR@/xsane ~/.gimp/plug-ins/
 .RE
 .PP
-and for gimp 1.1.x the command:
+and for gimp 1.2.x the command:
 .PP
 .RS
-ln -s @BINDIR@/xsane ~/.gimp-1.1/plug-ins/
+ln -s @BINDIR@/xsane ~/.gimp-1.2/plug-ins/
 .RE
 .PP
 adds a symlink for the
@@ -150,7 +149,7 @@ The
 .B --copy
 or
 .B -c
-flag forces xsane to start in fax mode.
+flag forces xsane to start in copy mode.
 .PP
 The
 .B --fax
@@ -169,14 +168,6 @@ The
 or
 .B -n
 flag disables the menu for xsane mode selection (viwer, save, copy, fax, mail).
-.PP
-The
-.B --Medium-calibration
-or
-.B -M
-flag enables a special mode of xsane that can be used to define a source medium.
-This mode should not be used for scanning images because it may behave unexpected
-in several cases.
 .PP
 If the
 .B --Fixed

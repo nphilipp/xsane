@@ -81,7 +81,8 @@ static int xsane_generate_dummy_filename(int conversion_level)
     tempfile = TRUE;
   }
 
-  if ( (xsane.xsane_mode == XSANE_COPY) ||
+  if ( (xsane.mode == XSANE_GIMP_EXTENSION) ||
+       (xsane.xsane_mode == XSANE_COPY) ||
        (xsane.xsane_mode == XSANE_FAX) ||
        (xsane.xsane_mode == XSANE_MAIL) ||
        (xsane.xsane_mode == XSANE_VIEWER) ||
@@ -1563,11 +1564,19 @@ void xsane_scan_done(SANE_Status status)
     /*  b) sane_start returns SANE_STATUS_NO_DOCS	*/
     /*  c) an error occurs 				*/
 
+    DBG(DBG_info, "ADF mode end of scan: increment page counter and restart scan\n");
     xsane.adf_page_counter += 1;
     g_signal_emit_by_name(xsane.start_button, "clicked"); /* press START button */
   }
-  else if ( (!xsane.batch_loop) || ( (status != SANE_STATUS_GOOD) && (status != SANE_STATUS_EOF) ) ) /* last scan: update histogram */
+  else if ( ( (status == SANE_STATUS_GOOD) || (status == SANE_STATUS_EOF) ) && (xsane.batch_loop) )
   {
+    /* batch scan loop, this is not the last scan */
+    DBG(DBG_info, "Batch mode end of scan\n");
+    sane_cancel(xsane.dev); /* we have to call sane_cancel otherwise we are not able to set new parameters */
+  }
+  else if ( ( (status != SANE_STATUS_GOOD) && (status != SANE_STATUS_EOF) ) || (!xsane.batch_loop) ) /* last scan: update histogram */
+  {
+    DBG(DBG_info, "Normal end of scan\n");
     xsane_set_sensitivity(TRUE);		/* reactivate buttons etc */
     sane_cancel(xsane.dev); /* stop scanning */
     xsane_update_histogram(TRUE /* update raw */);
@@ -2087,9 +2096,11 @@ void xsane_scan_dialog(void)
     xsane.gamma_data = 0;
   }
 
-//  xsane_clear_histogram(&xsane.histogram_raw);
-//  xsane_clear_histogram(&xsane.histogram_enh);    
-//  xsane_set_sensitivity(FALSE);
+#if 0
+  xsane_clear_histogram(&xsane.histogram_raw);
+  xsane_clear_histogram(&xsane.histogram_enh);    
+  xsane_set_sensitivity(FALSE);
+#endif
 
   while (gtk_events_pending())
   {
