@@ -76,11 +76,15 @@
 
 #include <sys/param.h>
 
-#include "xsane-back-gtk.h"
 #include "xsane.h"
+#include "xsane-back-gtk.h"
+#include "xsane-front-gtk.h"
 #include "xsane-preview.h"
 #include "xsane-preferences.h"
 #include "xsane-gamma.h"
+#include "xsane-icons-def.h"
+#include "xsane-text.h"
+
 
 #ifndef PATH_MAX
 # define PATH_MAX	1024
@@ -119,6 +123,9 @@ static SANE_Int *histogram_gamma_data_blue  = 0;
 /* forward declarations */
 static void preview_scan_start(Preview *p);
 static void preview_scan_done(Preview *p);
+static void preview_zoom_not(GtkWidget *window, gpointer data);
+static void preview_zoom_out(GtkWidget *window, gpointer data);
+static void preview_zoom_in(GtkWidget *window, gpointer data);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -187,15 +194,15 @@ static void preview_update_selection (Preview *p)
     optnum = p->dialog->well_known.coord[i];
     if (optnum > 0)
     {
-      opt = sane_get_option_descriptor (p->dialog->dev, optnum);
-      status = sane_control_option (p->dialog->dev, optnum, SANE_ACTION_GET_VALUE, &val, 0);
+      opt = sane_get_option_descriptor(p->dialog->dev, optnum);
+      status = sane_control_option(p->dialog->dev, optnum, SANE_ACTION_GET_VALUE, &val, 0);
       if (status != SANE_STATUS_GOOD)
       {
         continue;
       }
       if (opt->type == SANE_TYPE_FIXED)
       {
-        dev_selection[i] = SANE_UNFIX (val);
+        dev_selection[i] = SANE_UNFIX(val);
       }
       else
       {
@@ -590,7 +597,7 @@ void preview_area_resize(GtkWidget *widget)
     min_x *= factor; max_x *= factor; min_y *= factor; max_y *= factor;
   }
 
-  preview_get_image_scale (p, &xscale, &yscale);
+  preview_get_image_scale(p, &xscale, &yscale);
 
   if (p->surface_unit == SANE_UNIT_PIXEL)
   {
@@ -623,7 +630,7 @@ void preview_area_resize(GtkWidget *widget)
   gtk_ruler_set_range(GTK_RULER(p->vruler), f*min_y, f*max_y, f*min_y, /* max_size */ 20);
 
   preview_paint_image(p);
-  preview_update_selection(p);
+  preview_update(p);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -985,11 +992,14 @@ static void preview_scan_done(Preview *p)
 
   if (p->input_tag >= 0)
   {
-    gdk_input_remove (p->input_tag);
+    gdk_input_remove(p->input_tag);
     p->input_tag = -1;
   }
 
   sane_cancel(p->dialog->dev);
+ 
+  xsane.block_update_param = TRUE; /* do not change parameters each time */
+
   preview_restore_option(p, p->dialog->well_known.dpi, p->saved_dpi, p->saved_dpi_valid);
 
   for (i = 0; i < 4; ++i)
@@ -1005,6 +1015,8 @@ static void preview_scan_done(Preview *p)
   gtk_widget_set_sensitive(xsane.histogram_dialog, TRUE);
   gtk_widget_set_sensitive (p->cancel, FALSE);
   gsg_set_sensitivity (p->dialog, TRUE);
+
+  xsane.block_update_param = FALSE;
 
   preview_update(p);
   xsane_update_histogram();
@@ -1192,7 +1204,9 @@ static void preview_establish_selection(Preview *p)
   float min, max, normal, dev_selection[4];
   int i;
 
-  memcpy (dev_selection, p->surface, sizeof (dev_selection));
+  xsane.block_update_param = TRUE; /* do not change parameters each time */
+
+  memcpy(dev_selection, p->surface, sizeof(dev_selection));
   if (p->selection.active)
   {
     for (i = 0; i < 2; ++i)
@@ -1223,6 +1237,8 @@ static void preview_establish_selection(Preview *p)
   }
 
   gsg_update_scan_window (p->dialog);
+
+  xsane.block_update_param = FALSE;
 
   if (p->dialog->param_change_callback)
   {
@@ -1316,7 +1332,7 @@ static gint preview_expose_handler(GtkWidget *window, GdkEvent *event, gpointer 
   Preview *p = data;
 
   p->selection.active = FALSE;
-  preview_update_selection (p);
+  preview_update_selection(p);
   return FALSE;
 }
 
@@ -1333,8 +1349,7 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
 	{
 	  p->gc = gdk_gc_new (p->window->window);
 	  gdk_gc_set_function (p->gc, GDK_INVERT);
-	  gdk_gc_set_line_attributes (p->gc, 1, GDK_LINE_ON_OFF_DASH,
-				      GDK_CAP_BUTT, GDK_JOIN_MITER);
+	  gdk_gc_set_line_attributes (p->gc, 1, GDK_LINE_ON_OFF_DASH, GDK_CAP_BUTT, GDK_JOIN_MITER);
 	  preview_paint_image(p);
 	}
       else
@@ -1351,52 +1366,172 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
 	break;
 
       case GDK_BUTTON_PRESS:
-	p->selection.coord[0] = event->button.x;
-	p->selection.coord[1] = event->button.y;
-	p->selection_drag = TRUE;
+        switch (((GdkEventButton *)event)->button)
+        {
+          case 1: /* left putton */
+            p->selection_xedge = -1;
+            if ( (p->selection.coord[0] - SELECTION_RANGE < event->button.x) &&
+                 (event->button.x < p->selection.coord[0] + SELECTION_RANGE) ) 
+            {
+              p->selection_xedge = 0;
+            }
+            else if ( (p->selection.coord[2] - SELECTION_RANGE < event->button.x) &&
+                      (event->button.x < p->selection.coord[2] + SELECTION_RANGE) )
+            {
+              p->selection_xedge = 2;
+            }
+
+            p->selection_yedge = -1;
+            if ( (p->selection.coord[1] - SELECTION_RANGE < event->button.y) &&
+                 (event->button.y < p->selection.coord[1] + SELECTION_RANGE) )
+            {
+              p->selection_yedge = 1;
+            }
+            else if ( (p->selection.coord[3] - SELECTION_RANGE < event->button.y) &&
+                      (event->button.y < p->selection.coord[3] + SELECTION_RANGE) )
+            {
+              p->selection_yedge = 3;
+            }
+
+            if ( (p->selection_xedge != -1) && (p->selection_yedge != -1) ) /* move edge */
+            {
+              p->selection_drag_edge = TRUE;
+              p->selection.coord[p->selection_xedge] = event->button.x;
+              p->selection.coord[p->selection_yedge] = event->button.y;
+            }
+            else /* select new area */
+            {
+              p->selection.coord[0] = event->button.x;
+              p->selection.coord[1] = event->button.y;
+              p->selection_drag = TRUE;
+            }
+	   break;
+
+          case 2: /* middle button */
+          case 3: /* right button */
+            if ( (p->selection.coord[0] - SELECTION_RANGE < event->button.x) &&
+                 (p->selection.coord[2] + SELECTION_RANGE > event->button.x) &&
+                 (p->selection.coord[1] - SELECTION_RANGE < event->button.y) &&
+                 (p->selection.coord[3] + SELECTION_RANGE > event->button.y) )
+            {
+              p->selection_drag = TRUE;
+              p->selection_xpos = event->button.x;
+              p->selection_ypos = event->button.y;
+            }
+	   break;
+          default:
+        }
 	break;
 
       case GDK_BUTTON_RELEASE:
-	if (!p->selection_drag)
-	  break;
-	p->selection_drag = FALSE;
+        switch (((GdkEventButton *)event)->button)
+        {
+          case 1: /* left button */
+          case 2: /* middle button */
+          case 3: /* right button */
+            if ( (p->selection_drag) || (p->selection_drag_edge) )
+            {
 
-	p->selection.coord[2] = event->button.x;
-	p->selection.coord[3] = event->button.y;
-	p->selection.active =
-	  (p->selection.coord[0] != p->selection.coord[2]
-	   || p->selection.coord[1] != p->selection.coord[3]);
+              if (((GdkEventButton *)event)->button == 1) /* left putton */
+              {
+                if (p->selection_drag_edge)
+                {
+                  p->selection.coord[p->selection_xedge] = event->button.x;
+                  p->selection.coord[p->selection_yedge] = event->button.y;
+                  p->selection_drag_edge = FALSE;
+                }
+                else
+                {
+                  p->selection.coord[2] = event->button.x;
+                  p->selection.coord[3] = event->button.y;
+                }
+              }
 
-	if (p->selection.active)
-	  {
-	    for (i = 0; i < 2; i += 1)
-	      if (p->selection.coord[i] > p->selection.coord[i + 2])
-		{
-		  tmp = p->selection.coord[i];
-		  p->selection.coord[i] = p->selection.coord[i + 2];
-		  p->selection.coord[i + 2] = tmp;
-		}
-	    if (p->selection.coord[0] < 0)
-	      p->selection.coord[0] = 0;
-	    if (p->selection.coord[1] < 0)
-	      p->selection.coord[1] = 0;
-	    if (p->selection.coord[2] >= p->preview_width)
-	      p->selection.coord[2] = p->preview_width - 1;
-	    if (p->selection.coord[3] >= p->preview_height)
-	      p->selection.coord[3] = p->preview_height - 1;
-	  }
-	preview_draw_selection(p);
-	preview_establish_selection(p);
-	break;
+              p->selection_drag = FALSE;
+
+              p->selection.active =
+               (p->selection.coord[0] != p->selection.coord[2] || p->selection.coord[1] != p->selection.coord[3]);
+
+              if (p->selection.active)
+              {
+                for (i = 0; i < 2; i += 1)
+                {
+                  if (p->selection.coord[i] > p->selection.coord[i + 2])
+                  {
+                    tmp = p->selection.coord[i];
+                    p->selection.coord[i] = p->selection.coord[i + 2];
+                    p->selection.coord[i + 2] = tmp;
+                  }
+                }
+
+                if (p->selection.coord[0] < 0)
+                {
+                  p->selection.coord[0] = 0;
+                }
+                if (p->selection.coord[1] < 0)
+                {
+                  p->selection.coord[1] = 0;
+                }
+                if (p->selection.coord[2] >= p->preview_width)
+                {
+                  p->selection.coord[2] = p->preview_width - 1;
+                }
+                if (p->selection.coord[3] >= p->preview_height)
+                {
+                  p->selection.coord[3] = p->preview_height - 1;
+                }
+              }
+              preview_draw_selection(p);
+              preview_establish_selection(p);
+            }
+          default:
+         break;
+        }
+       break;
 
       case GDK_MOTION_NOTIFY:
-	if (p->selection_drag)
-	  {
-	    p->selection.active = TRUE;
-	    p->selection.coord[2] = event->motion.x;
-	    p->selection.coord[3] = event->motion.y;
-	    preview_draw_selection(p);
-	  }
+        switch (((GdkEventMotion *)event)->state)
+        {
+          case 256: /* left putton */
+            if (p->selection_drag_edge)
+            {
+              p->selection.active = TRUE;
+              p->selection.coord[p->selection_xedge] = event->button.x;
+              p->selection.coord[p->selection_yedge] = event->button.y;
+              preview_draw_selection(p);
+            }
+
+            if (p->selection_drag)
+            {
+              p->selection.active = TRUE;
+              p->selection.coord[2] = event->motion.x;
+              p->selection.coord[3] = event->motion.y;
+              preview_draw_selection(p);
+            }
+           break;
+
+          case 512: /* middle button */
+          case 1024: /* right button */
+            if (p->selection_drag)
+            {
+             int dx, dy;
+
+              dx = p->selection_xpos - event->motion.x;
+              dy = p->selection_ypos - event->motion.y;
+
+              p->selection_xpos = event->motion.x;
+              p->selection_ypos = event->motion.y;
+
+              p->selection.active = TRUE;
+              p->selection.coord[0] -= dx;
+              p->selection.coord[1] -= dy;
+              p->selection.coord[2] -= dx;
+              p->selection.coord[3] -= dy;
+              preview_draw_selection(p);
+            }
+           break;
+          default:
+        }
 	break;
 
       default:
@@ -1440,14 +1575,15 @@ Preview *preview_new(GSGDialog *dialog)
   GtkSignalFunc signal_func;
   GtkWidgetClass *class;
   GtkBox *vbox, *hbox;
+  GtkWidget *top_hbox;
   Preview *p;
 
-  p = malloc (sizeof (*p));
+  p = malloc(sizeof(*p));
   if (!p)
   {
     return 0;
   }
-  memset (p, 0, sizeof (*p));
+  memset (p, 0, sizeof(*p));
 
   p->dialog = dialog;
   p->input_tag = -1;
@@ -1455,7 +1591,6 @@ Preview *preview_new(GSGDialog *dialog)
   if (first_time)
   {
     first_time = 0;
-/*    gtk_preview_set_gamma(preferences.preview_gamma); */
     gtk_preview_set_gamma(1.0);
     gtk_preview_set_install_cmap(preferences.preview_own_cmap);
   }
@@ -1471,11 +1606,39 @@ Preview *preview_new(GSGDialog *dialog)
   vbox = GTK_BOX(GTK_DIALOG(p->top)->vbox);
   hbox = GTK_BOX(GTK_DIALOG(p->top)->action_area);
 
+
+
+  /* top hbox for pipette buttons */
+  top_hbox = gtk_hbox_new(FALSE, 5);
+  gtk_container_border_width(GTK_CONTAINER(top_hbox), 4);
+  gtk_box_pack_start(GTK_BOX(vbox), top_hbox, FALSE, FALSE, 0);
+
+  /* White, gray and black pipette button */
+  p->pipette_white = xsane_button_new_with_pixmap(top_hbox, pipette_white_xpm, DESC_PIPETTE_WHITE, (GtkSignalFunc) 0, p);
+  p->pipette_gray  = xsane_button_new_with_pixmap(top_hbox, pipette_gray_xpm,  DESC_PIPETTE_GRAY,  (GtkSignalFunc) 0, p);
+  p->pipette_black = xsane_button_new_with_pixmap(top_hbox, pipette_black_xpm, DESC_PIPETTE_BLACK, (GtkSignalFunc) 0, p);
+
+  /* Zoom not, zoom out and zoom in button */
+  p->zoom_not = xsane_button_new_with_pixmap(top_hbox, zoom_not_xpm, DESC_ZOOM_FULL, (GtkSignalFunc) preview_zoom_not, p);
+  p->zoom_out = xsane_button_new_with_pixmap(top_hbox, zoom_out_xpm, DESC_ZOOM_OUT,  (GtkSignalFunc) preview_zoom_out, p);
+  p->zoom_in  = xsane_button_new_with_pixmap(top_hbox, zoom_in_xpm,  DESC_ZOOM_IN,   (GtkSignalFunc) preview_zoom_in,  p);
+
+gtk_widget_set_sensitive(p->pipette_white, FALSE); /* xxxxxxxxxxxxxxxxxxxxx remove this when ready */
+gtk_widget_set_sensitive(p->pipette_gray,  FALSE);
+gtk_widget_set_sensitive(p->pipette_black, FALSE);
+
+  gtk_widget_set_sensitive(p->zoom_not, FALSE); /* no zoom at this point, so no zoom not */
+  gtk_widget_set_sensitive(p->zoom_out, FALSE); /* no zoom at this point, so no zoom out */
+
+  gtk_widget_show(top_hbox);
+
+
+
   /* construct the preview area (table with sliders & preview window) */
   table = gtk_table_new(2, 2, /* homogeneous */ FALSE);
-  gtk_table_set_col_spacing(GTK_TABLE (table), 0, 1);
-  gtk_table_set_row_spacing(GTK_TABLE (table), 0, 1);
-  gtk_container_border_width(GTK_CONTAINER (table), 2);
+  gtk_table_set_col_spacing(GTK_TABLE(table), 0, 1);
+  gtk_table_set_row_spacing(GTK_TABLE(table), 0, 1);
+  gtk_container_border_width(GTK_CONTAINER(table), 2);
   gtk_box_pack_start(vbox, table, /* expand */ TRUE, /* fill */ TRUE, /* padding */ 0);
 
   /* the empty box in the top-left corner */
@@ -1484,11 +1647,11 @@ Preview *preview_new(GSGDialog *dialog)
   gtk_table_attach(GTK_TABLE(table), frame, 0, 1, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
 
   /* the horizontal ruler */
-  p->hruler = gtk_hruler_new ();
+  p->hruler = gtk_hruler_new();
   gtk_table_attach(GTK_TABLE(table), p->hruler, 1, 2, 0, 1, GTK_FILL, 0, 0, 0);
 
   /* the vertical ruler */
-  p->vruler = gtk_vruler_new ();
+  p->vruler = gtk_vruler_new();
   gtk_table_attach(GTK_TABLE(table), p->vruler, 0, 1, 1, 2, 0, GTK_FILL, 0, 0);
 
   /* the preview area */
@@ -1568,6 +1731,7 @@ void preview_update(Preview *p)
   surface_changed = 0;
   unit = SANE_UNIT_PIXEL;
   type = SANE_TYPE_INT;
+
   for (i = 0; i < 4; ++i)
   {
     val = (i & 2) ? INF : -INF;
@@ -1591,9 +1755,10 @@ void preview_update(Preview *p)
       }
     }
 
-    if (p->surface[i] != val)
+    if (p->scanner_surface[i] != val)
     {
        surface_changed = 1;
+       p->scanner_surface[i] = val;
        p->surface[i] = val;
     }
   }
@@ -1647,15 +1812,29 @@ void preview_update(Preview *p)
     p->aspect = width/height;
   }
 
-  max_width  = 0.5*gdk_screen_width ();
-  max_height = 0.5*gdk_screen_height ();
+  if (surface_changed)
+  {
+    max_width  = 0.5 * gdk_screen_width();
+    max_height = 0.5 * gdk_screen_height();
+  }
+  else
+  {
+    max_width  = p->window->allocation.width;
+    max_height = p->window->allocation.height;
+  }
 
   if (p->surface_unit != SANE_UNIT_PIXEL)
   {
     width  = max_width;
-    height = max_height;
+    height = width / p->aspect;
+
+    if (height > max_height)
+    {
+      height = max_height;
+      width  = height * p->aspect;
+    }
   }
-  else
+  else /* unit = pixel */
   {
     if (width > max_width)
     {
@@ -1666,18 +1845,18 @@ void preview_update(Preview *p)
     {
       height = max_height;
     }
-  }
 
-  /* re-adjust so we maintain aspect without exceeding max size: */
-  if (width/height != p->aspect)
-  {
-    if (p->aspect > 1.0)
+    /* re-adjust so we maintain aspect without exceeding max size: */
+    if (width/height != p->aspect)
     {
-      height = width / p->aspect;
-    }
-    else
-    {
-      width  = height * p->aspect;
+      if (p->aspect > 1.0)
+      {
+        height = width / p->aspect;
+      }
+      else
+      {
+        width  = height * p->aspect;
+      }
     }
   }
 
@@ -1710,6 +1889,7 @@ void preview_scan(Preview *p)
  gint gwidth, gheight;
  int i;
 
+  xsane.block_update_param = TRUE; /* do not change parameters each time */
   preview_save_option(p, p->dialog->well_known.dpi, &p->saved_dpi, &p->saved_dpi_valid);
   for (i = 0; i < 4; ++i)
   {
@@ -1778,10 +1958,12 @@ void preview_scan(Preview *p)
 
   preview_set_option_bool(p, p->dialog->well_known.preview, SANE_TRUE);
 
-   if ( (p->saved_bit_depth > 8) && (p->saved_bit_depth_valid) ) /* don't scan with more than 8bpp */
-   {
-     preview_set_option_int(p, p->dialog->well_known.bit_depth, 8);
-   }
+  if ( (p->saved_bit_depth > 8) && (p->saved_bit_depth_valid) ) /* don't scan with more than 8bpp */
+  {
+    preview_set_option_int(p, p->dialog->well_known.bit_depth, 8);
+  }
+
+  xsane.block_update_param = FALSE;
 
   /* OK, all set to go */
   preview_scan_start(p);
@@ -1841,3 +2023,82 @@ void preview_destroy(Preview *p)
   free(p);
 }
 
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void preview_zoom_not(GtkWidget *window, gpointer data)
+{
+ Preview *p=data;
+ int i;
+
+  for (i=0; i<4; i++)
+  {
+    p->surface[i] = p->scanner_surface[i];
+  }
+  preview_update(p);
+  preview_area_resize(p->window);
+  gtk_widget_set_sensitive(p->zoom_out, FALSE); /* forbid zoom out */
+  gtk_widget_set_sensitive(p->zoom_not, FALSE); /* forbid unzoom */
+  preview_scan(p);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void preview_zoom_out(GtkWidget *window, gpointer data)
+{
+ Preview *p=data;
+ int i;
+
+  for (i=0; i<4; i++)
+  {
+    p->surface[i] = p->old_surface[i];
+  }
+  preview_update(p);
+  preview_area_resize(p->window);
+  gtk_widget_set_sensitive(p->zoom_out, FALSE); /* forbid zoom out */
+  gtk_widget_set_sensitive(p->zoom_not, TRUE); /* allow unzoom */
+  preview_scan(p);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void preview_zoom_in(GtkWidget *window, gpointer data)
+{
+ Preview *p=data;
+ const SANE_Option_Descriptor *opt;
+ SANE_Status status;
+ SANE_Word val;
+ int i, optnum;
+
+  for (i=0; i<4; i++)
+  {
+    p->old_surface[i] = p->surface[i];
+
+    optnum = p->dialog->well_known.coord[i];
+    if (optnum > 0)
+    {
+      opt = sane_get_option_descriptor(p->dialog->dev, optnum);
+      status = sane_control_option(p->dialog->dev, optnum, SANE_ACTION_GET_VALUE, &val, 0);
+      if (status != SANE_STATUS_GOOD)
+      {
+        continue;
+      }
+
+      if (opt->type == SANE_TYPE_FIXED)
+      {
+        p->surface[i] = SANE_UNFIX(val);
+      }
+      else
+      {
+        p->surface[i] = val;
+      }
+    }
+  }
+
+  preview_update(p);
+  preview_area_resize(p->window);
+  gtk_widget_set_sensitive(p->zoom_out, TRUE); /* allow zoom out */
+  gtk_widget_set_sensitive(p->zoom_not, TRUE); /* allow unzoom */
+  preview_scan(p);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */

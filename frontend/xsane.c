@@ -123,7 +123,6 @@ static void xsane_quit(void);
 static void xsane_exit(void);
 static gint xsane_standard_option_win_delete(GtkWidget *widget, gpointer data);
 static gint xsane_advanced_option_win_delete(GtkWidget *widget, gpointer data);
-static gint xsane_histogram_win_delete(GtkWidget *widget, gpointer data);
 static gint xsane_scan_win_delete(GtkWidget *w, gpointer data);
 static void xsane_preview_window_destroyed(GtkWidget *widget, gpointer call_data);
 static void xsane_scan_preview(GtkWidget * widget, gpointer call_data);
@@ -232,14 +231,21 @@ static void xsane_refresh_dialog(void *nothing)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-/* Update the info line with the latest size information.  */
+/* Update the info line with the latest size information and update histogram.  */
 static void xsane_update_param(GSGDialog *dialog, void *arg)
 {
  SANE_Parameters params;
  gchar buf[200];
 
   if (!xsane.info_label)
+  {
     return;
+  }
+
+  if (xsane.block_update_param) /* if we change more than one value, we only want to update all once */
+  {
+    return;
+  }
 
   if (sane_get_parameters(gsg_dialog_get_device(dialog), &params) == SANE_STATUS_GOOD)
     {
@@ -1283,16 +1289,6 @@ static gint xsane_advanced_option_win_delete(GtkWidget *widget, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static gint xsane_histogram_win_delete(GtkWidget *widget, gpointer data)
-{
-  gtk_widget_hide(widget);
-  preferences.show_histogram = FALSE;
-  gtk_check_menu_item_set_state(GTK_CHECK_MENU_ITEM(xsane.show_histogram_widget), preferences.show_histogram);
-  return TRUE;
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
 /* Invoked when window manager's "delete" (or "close") function is invoked.  */
 static gint xsane_scan_win_delete(GtkWidget *w, gpointer data)
 {
@@ -1336,32 +1332,6 @@ static void xsane_scan_preview(GtkWidget * widget, gpointer call_data)
   }
   xsane_update_gamma();
 }
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-#if 0
-
-static void xsane_zoom_in_preview(GtkWidget * widget, gpointer data)
-{
-  if (Selection.x1 >= Selection.x2 || Selection.y1 >= Selection.y2 || !Selection.active)
-    return;
-
-  Selection.active = FALSE;
-  draw_selection(TRUE);
-
-  gtk_ruler_set_range(GTK_RULER(xsane.hruler), Selection.x1, Selection.x2, 0, 20);
-  gtk_ruler_set_range(GTK_RULER(xsane.vruler), Selection.y1, Selection.y2, 0, 20);
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_zoom_out_preview(GtkWidget * widget, gpointer data)
-{
-  gtk_ruler_set_range(GTK_RULER(xsane.hruler), 0, Preview.PhysWidth, 0, 20);
-  gtk_ruler_set_range(GTK_RULER(xsane.vruler), 0, Preview.PhysHeight, 0, 20);
-}
-
-#endif /* 0 */
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -3278,8 +3248,8 @@ static void xsane_device_dialog(void)
   GdkGCValues vals;
   GtkStyle *style;
   GdkColormap *colormap;
-  GtkWidget *xsane_color_hbox;
-  GtkWidget *xsane_histogram_vbox;
+//  GtkWidget *xsane_color_hbox;
+//  GtkWidget *xsane_histogram_vbox;
   SANE_Int num_elements;
   SANE_Status status;
   SANE_Handle dev;
@@ -3545,97 +3515,7 @@ static void xsane_device_dialog(void)
   gtk_tooltips_set_colors(dialog->tooltips, &dialog->tooltips_bg, &dialog->tooltips_fg);
   gsg_set_tooltips(dialog, preferences.tooltips_enabled);
 
-
-  /* create histogram window */  /* xxxxxxxxxxxxx MOVE THIS TO xsane-gamma.c xxxxxxxxxxxxxxxxxxxxxx */
-
-  xsane.histogram_dialog = gtk_window_new(GTK_WINDOW_DIALOG);
-  gtk_window_set_policy(GTK_WINDOW(xsane.histogram_dialog), FALSE, FALSE, FALSE);
-  gtk_widget_set_uposition(xsane.histogram_dialog, XSANE_DIALOG_POS_X2, XSANE_DIALOG_POS_Y);
-  gtk_signal_connect(GTK_OBJECT(xsane.histogram_dialog), "delete_event", GTK_SIGNAL_FUNC(xsane_histogram_win_delete), 0);
-  sprintf(windowname, "%s histogram %s", prog_name, devicetext);
-  gtk_window_set_title(GTK_WINDOW(xsane.histogram_dialog), windowname);
-
-  xsane_histogram_vbox = gtk_vbox_new(FALSE, 0);
-  gtk_container_border_width(GTK_CONTAINER(xsane_histogram_vbox), 5);
-  gtk_container_add(GTK_CONTAINER(xsane.histogram_dialog), xsane_histogram_vbox);
-  gtk_widget_show(xsane_histogram_vbox);
-
-  xsane_pixmap_new(xsane_histogram_vbox, "Raw image", 256, 100, &(xsane.histogram_raw));
-
-  xsane_separator_new(xsane_histogram_vbox, 0);
-
-  xsane.slider_gray.r = 1;
-  xsane.slider_gray.g = 1;
-  xsane.slider_gray.b = 1;
-  xsane.slider_gray.active = -1;
-  xsane_create_slider(&xsane.slider_gray);
-  gtk_box_pack_start(GTK_BOX(xsane_histogram_vbox), xsane.slider_gray.preview, FALSE, FALSE, 0);
-  gtk_widget_show(xsane.slider_gray.preview);
-  gtk_widget_realize(xsane.slider_gray.preview);
-
-  xsane_separator_new(xsane_histogram_vbox, 0);
-
-  xsane.slider_red.r = 1;
-  xsane.slider_red.g = 0;
-  xsane.slider_red.b = 0;
-  xsane.slider_red.active = -1;
-  xsane_create_slider(&xsane.slider_red);
-  gtk_box_pack_start(GTK_BOX(xsane_histogram_vbox), xsane.slider_red.preview, FALSE, FALSE, 0);
-  gtk_widget_show(xsane.slider_red.preview);
-  gtk_widget_realize(xsane.slider_red.preview);
-
-  xsane_separator_new(xsane_histogram_vbox, 0);
-
-  xsane.slider_green.r = 0;
-  xsane.slider_green.g = 1;
-  xsane.slider_green.b = 0;
-  xsane.slider_green.active = -1;
-  xsane_create_slider(&xsane.slider_green);
-  gtk_box_pack_start(GTK_BOX(xsane_histogram_vbox), xsane.slider_green.preview, FALSE, FALSE, 0);
-  gtk_widget_show(xsane.slider_green.preview);
-  gtk_widget_realize(xsane.slider_green.preview);
-
-  xsane_separator_new(xsane_histogram_vbox, 0);
-
-  xsane.slider_blue.r = 0;
-  xsane.slider_blue.g = 0;
-  xsane.slider_blue.b = 1;
-  xsane.slider_blue.active = -1;
-  xsane_create_slider(&xsane.slider_blue);
-  gtk_box_pack_start(GTK_BOX(xsane_histogram_vbox), xsane.slider_blue.preview, FALSE, FALSE, 0);
-  gtk_widget_show(xsane.slider_blue.preview);
-  gtk_widget_realize(xsane.slider_blue.preview);
-
-  xsane_draw_slider_level(&xsane.slider_gray);
-  xsane_draw_slider_level(&xsane.slider_red);
-  xsane_draw_slider_level(&xsane.slider_green);
-  xsane_draw_slider_level(&xsane.slider_blue);
-
-  xsane_separator_new(xsane_histogram_vbox, 0);
-
-  xsane_pixmap_new(xsane_histogram_vbox, "Enhanced image", 256, 100, &(xsane.histogram_enh));
-
-  xsane_color_hbox = gtk_hbox_new(TRUE, 5);
-  gtk_container_border_width(GTK_CONTAINER(xsane_color_hbox), 5);
-  gtk_container_add(GTK_CONTAINER(xsane_histogram_vbox), xsane_color_hbox);
-  gtk_widget_show(xsane_color_hbox);
-
-  xsane_toggle_button_new_with_pixmap(xsane_color_hbox, intensity_xpm, DESC_HIST_INTENSITY,
-                         &xsane.histogram_int,   xsane_histogram_toggle_button_callback);
-  xsane_toggle_button_new_with_pixmap(xsane_color_hbox, red_xpm, DESC_HIST_RED,
-                         &xsane.histogram_red,   xsane_histogram_toggle_button_callback);
-  xsane_toggle_button_new_with_pixmap(xsane_color_hbox, green_xpm, DESC_HIST_GREEN,
-                         &xsane.histogram_green, xsane_histogram_toggle_button_callback);
-  xsane_toggle_button_new_with_pixmap(xsane_color_hbox, blue_xpm, DESC_HIST_BLUE,
-                         &xsane.histogram_blue,  xsane_histogram_toggle_button_callback);
-  xsane_toggle_button_new_with_pixmap(xsane_color_hbox, pixel_xpm, DESC_HIST_PIXEL,
-                         &xsane.histogram_lines, xsane_histogram_toggle_button_callback);
-  xsane_toggle_button_new_with_pixmap(xsane_color_hbox, log_xpm, DESC_HIST_LOG,
-                         &xsane.histogram_log, xsane_histogram_toggle_button_callback);
-
-  gtk_widget_show(xsane_color_hbox);
-
-
+  xsane_create_histogram_dialog(devicetext); /* create the histogram dialog */
 
   panel_build(dialog); /* create backend dependend options */
 

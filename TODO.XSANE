@@ -13,9 +13,8 @@ first steps:
     - more than one copy of one scan
   - If automatic document feeder: scan until error (out of paper, jammed, ...)
   - preview:
-    - zoom preview
-    - pick white and black point
-    - sizeable window
+    - improve zoom
+    - pick white, gray and black point
   - enhancement:
     - include invert (for negatives) into enhancement
     - store more than 1 enhancement and give names for it, may be in own files
@@ -25,7 +24,6 @@ first steps:
  * internal:
    - test number of printers fit into field
    - move threshold in lineart-mode to main window
-   - improve support for 16/48 bpp mode
    - test memory after all calls of malloc
    - make better backend-dependend option handling and error handling (mostly done!)
    - other output formats for saving:

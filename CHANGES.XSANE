@@ -207,3 +207,20 @@ xsane-0.23 -> 0.24:
  - remvoed bugs in startup if no device is available or selected,
    the xsane.rc-file keeps untouched now
 
+
+xsane-0.24 -> 0.25:
+-------------------
+
+ - moved xsane_pixmap_new as xsane_create_histogram from xsane-front-gtk.c to
+   xsane-gamma.c
+ - now putting the histogram sliders directly into the slider preview instead
+   of drawing into the preview window, the sliders are not erased by other
+   other windows now
+ - added block_update_param flag, the update_param and update_histogram routines
+   are now called only one time if the preview scan area is changed
+ - added changing of one edge in preview scanarea (left mousebotton near the edge)
+ - added moving of preview scanarea (middle or right mousebutton)
+ - moved creation of histogram dialog to xsane-gamma.c
+ - removed some bugs in the preview, resizing the preview window should work now
+ - added an experimental zoom for the preview
+

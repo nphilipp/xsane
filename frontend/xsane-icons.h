@@ -1,5 +1,7 @@
+#ifndef XSANE_ICONS_H
+#define XSANE_ICONS_H    
 
-const char * file_xpm[] =
+const char *file_xpm[] =
 {
 /* width height num_colors chars_per_pixel */
 "    20    20        4            1",
@@ -31,7 +33,7 @@ const char * file_xpm[] =
 "                    "
 };
 
-const char * fax_xpm[] =
+const char *fax_xpm[] =
 {
 /* width height num_colors chars_per_pixel */
 "    20    20        4            1",
@@ -63,7 +65,7 @@ const char * fax_xpm[] =
 "                    "
 };
 
-const char * faxreceiver_xpm[] =
+const char *faxreceiver_xpm[] =
 {
 /* width height num_colors chars_per_pixel */
 "    20    20        3            1",
@@ -128,7 +130,7 @@ const char *colormode_xpm[] = {
 "                    "
 };
 
-const char * Gamma_xpm[] =
+const char *Gamma_xpm[] =
 {
 /* width height num_colors chars_per_pixel */
 "    20    20        2            1",
@@ -158,7 +160,7 @@ const char * Gamma_xpm[] =
 "                    "
 };
 
-const char * Gamma_red_xpm[] =
+const char *Gamma_red_xpm[] =
 {
 /* width height num_colors chars_per_pixel */
 "    20    20        2            1",
@@ -188,7 +190,7 @@ const char * Gamma_red_xpm[] =
 "    ........        ",
 };
 
-const char * Gamma_green_xpm[] =
+const char *Gamma_green_xpm[] =
 {
 /* width height num_colors chars_per_pixel */
 "    20    20        2            1",
@@ -218,7 +220,7 @@ const char * Gamma_green_xpm[] =
 "    ........        ",
 };
 
-const char * Gamma_blue_xpm[] =
+const char *Gamma_blue_xpm[] =
 {
 /* width height num_colors chars_per_pixel */
 "    20    20        2            1",
@@ -249,7 +251,7 @@ const char * Gamma_blue_xpm[] =
 };
 
 
-const char * brightness_xpm[] =
+const char *brightness_xpm[] =
 {
 /* width height num_colors chars_per_pixel */
 "    20    20        3            1",
@@ -280,7 +282,7 @@ const char * brightness_xpm[] =
 "         .          ",
 };
 
-const char * brightness_red_xpm[] =
+const char *brightness_red_xpm[] =
 {
 /* width height num_colors chars_per_pixel */
 "    20    20        3            1",
@@ -311,7 +313,7 @@ const char * brightness_red_xpm[] =
 "         .          ",
 };
 
-const char * brightness_green_xpm[] =
+const char *brightness_green_xpm[] =
 {
 /* width height num_colors chars_per_pixel */
 "    20    20        3            1",
@@ -342,7 +344,7 @@ const char * brightness_green_xpm[] =
 "         .          ",
 };
 
-const char * brightness_blue_xpm[] =
+const char *brightness_blue_xpm[] =
 {
 /* width height num_colors chars_per_pixel */
 "    20    20        3            1",
@@ -498,7 +500,6 @@ const char *contrast_blue_xpm[] =
 "       .....        ",
 };
 
-#if 0
 const char *pipette_white_xpm[] =
 {
 /* width height num_colors chars_per_pixel */
@@ -595,7 +596,102 @@ const char *pipette_black_xpm[] =
 " .....              ",
 "  ...               ",
 };
-#endif
+
+const char *zoom_in_xpm[] =
+{
+/* width height num_colors chars_per_pixel */
+"    20    20        4            1",
+/* colors */
+"  none",
+". c #000000",
+"+ c #c0c0c0",
+"a c #ffffff",
+/* pixels */
+"                    ",
+"                    ",
+"     .....          ",
+"    .+aaaa.         ",
+"   .++aaaaa.        ",
+"  .+++aaaaaa.       ",
+"  .aaaaaaaaa.       ",
+"  .aaaaaaaaa.       ",
+"  .aaaaaaaaa.       ",
+"   .aaaaaaa.        ",
+"    .aaaaa.         ",
+"     .......        ",
+"          ...       ",
+"    .      ...      ",
+"    .       ...     ",
+"  .....      ...    ",
+"    .         ...   ",
+"    .          ..   ",
+"                    ",
+"                    ",
+};
+
+const char *zoom_not_xpm[] =
+{
+/* width height num_colors chars_per_pixel */
+"    20    20        4            1",
+/* colors */
+"  none",
+". c #000000",
+"+ c #c0c0c0",
+"a c #ffffff",
+/* pixels */
+"                    ",
+"                    ",
+" ..  .....       .. ",
+"  ...+aaaa.     ..  ",
+"   ..+aaaaa.   ..   ",
+"  .+..aaaaaa. ..    ",
+"  .aa..aaaaa...     ",
+"  .aaa..aaaa..      ",
+"  .aaaa..aa..       ",
+"   .aaaa....        ",
+"    .aaaa..         ",
+"     .......        ",
+"       .. ...       ",
+"      ..   ...      ",
+"     ..     ...     ",
+"    ..       ...    ",
+"   ..         ...   ",
+"  ..           ..   ",
+"                    ",
+"                    ",
+};
+
+const char *zoom_out_xpm[] =
+{
+/* width height num_colors chars_per_pixel */
+"    20    20        4            1",
+/* colors */
+"  none",
+". c #000000",
+"+ c #c0c0c0",
+"a c #ffffff",
+/* pixels */
+"                    ",
+"                    ",
+"     .....          ",
+"    .+aaaa.         ",
+"   .++aaaaa.        ",
+"  .+++aaaaaa.       ",
+"  .aaaaaaaaa.       ",
+"  .aaaaaaaaa.       ",
+"  .aaaaaaaaa.       ",
+"   .aaaaaaa.        ",
+"    .aaaaa.         ",
+"     .......        ",
+"          ...       ",
+"           ...      ",
+"            ...     ",
+"  .....      ...    ",
+"              ...   ",
+"               ..   ",
+"                    ",
+"                    ",
+};
 
 const char *printer_xpm[] =
 {
@@ -971,3 +1067,5 @@ const char *move_down_xpm[] =
 "                    ",
 "                    ",
 };
+
+#endif

@@ -27,6 +27,7 @@ extern void xsane_draw_slider_level(XsaneSlider *slider);
 extern void xsane_update_slider(XsaneSlider *slider);
 extern void xsane_update_sliders(void);
 extern void xsane_create_slider(XsaneSlider *slider);
+extern void xsane_create_histogram(GtkWidget *parent, char *title, int width, int height, XsanePixmap *hist);
 extern void xsane_destroy_histogram(void);
 extern void xsane_calculate_histogram(void);
 extern void xsane_update_histogram(void);
@@ -39,5 +40,6 @@ extern void xsane_enhancement_restore_default(void);
 extern void xsane_enhancement_restore_saved(void);
 extern void xsane_enhancement_save(void);
 extern void xsane_enhancement_by_histogram(void);
+extern void xsane_create_histogram_dialog(char *devicetext);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

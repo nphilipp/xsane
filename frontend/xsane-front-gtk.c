@@ -77,9 +77,8 @@ void xsane_progress_free(XsaneProgress_t *p);
 void xsane_progress_update(XsaneProgress_t *p, gfloat newval);
 void xsane_toggle_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[], const char *desc,
                                          int *state, void *xsane_toggle_button_callback);
-void xsane_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[], const char *desc,
-                                  void *xsane_button_callback, gpointer data);
-void xsane_pixmap_new(GtkWidget *parent, char *title, int width, int height, XsanePixmap *hist);
+GtkWidget *xsane_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[], const char *desc,
+                                        void *xsane_button_callback, gpointer data);
 void xsane_option_menu_new(GtkWidget *parent, char *str_list[], const char *val, int option_number, const char *desc);
 void xsane_scale_new(GtkBox *parent, char *labeltext, const char *desc,
                      float min, float max, float quant, float step, float xxx,
@@ -341,7 +340,7 @@ void xsane_toggle_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[],
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void xsane_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[], const char *desc,
+GtkWidget *xsane_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[], const char *desc,
                                   void *xsane_button_callback, gpointer data)
 {
   GtkWidget *button;
@@ -358,27 +357,15 @@ void xsane_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[], const 
   gtk_widget_show(pixmapwidget);
   gdk_pixmap_unref(pixmap);
 
-  gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_button_callback, data);
+  if (xsane_button_callback)
+  {
+    gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_button_callback, data);
+  }
   gtk_box_pack_start(GTK_BOX(parent), button, FALSE, FALSE, 0);
   gtk_widget_show(button);
+
+  return(button);
 }
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-void xsane_pixmap_new(GtkWidget *parent, char *title, int width, int height, XsanePixmap *hist)
-{
-  GdkBitmap *mask=NULL;
-
-   hist->frame     = gtk_frame_new(title);
-   hist->pixmap    = gdk_pixmap_new(xsane.shell->window, width, height, -1);
-   hist->pixmapwid = gtk_pixmap_new(hist->pixmap, mask);
-   gtk_container_add(GTK_CONTAINER(hist->frame), hist->pixmapwid);
-   gdk_draw_rectangle(hist->pixmap, xsane.gc_backg, TRUE, 0, 0, width, height);
-
-   gtk_box_pack_start(GTK_BOX(parent), hist->frame, FALSE, FALSE, 2);
-   gtk_widget_show(hist->pixmapwid);
-   gtk_widget_show(hist->frame);
- }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 

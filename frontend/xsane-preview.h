@@ -25,13 +25,17 @@
 #include <sane/config.h>
 #include <sane/sane.h>
 
+#define SELECTION_RANGE 15
+
 typedef struct
   {
     GSGDialog *dialog;	/* the dialog for this preview */
 
     SANE_Value_Type surface_type;
     SANE_Unit surface_unit;
-    float surface[4];	/* the corners of the scan surface (device coords) */
+    float surface[4];		/* the corners of the selected surface (device coords) */
+    float old_surface[4];	/* the corners of the old selected surface (device coords) */
+    float scanner_surface[4];	/* the corners of the scanner surface (device coords) */
     float aspect;	/* the aspect ratio of the scan surface */
 
     int saved_dpi_valid;
@@ -62,6 +66,11 @@ typedef struct
 
     GdkGC *gc;
     int selection_drag;
+    int selection_drag_edge;
+    int selection_xpos;
+    int selection_ypos;
+    int selection_xedge;
+    int selection_yedge;
     struct
       {
 	int active;
@@ -75,6 +84,12 @@ typedef struct
     GtkWidget *viewport;
     GtkWidget *window;	/* the preview window */
     GtkWidget *cancel;	/* the cancel button */
+    GtkWidget *pipette_white;
+    GtkWidget *pipette_gray;
+    GtkWidget *pipette_black;
+    GtkWidget *zoom_not;
+    GtkWidget *zoom_out;
+    GtkWidget *zoom_in;
   }
 Preview;
 

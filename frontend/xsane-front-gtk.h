@@ -36,8 +36,8 @@ extern void xsane_progress_free(XsaneProgress_t *p);
 extern void xsane_progress_update(XsaneProgress_t *p, gfloat newval);
 extern void xsane_toggle_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[], const char *desc,
                                                 int *state, void *xsane_toggle_button_callback);
-extern void xsane_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[], const char *desc,
-                                         void *xsane_button_callback, gpointer data);
+extern GtkWidget *xsane_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[], const char *desc, 
+                                               void *xsane_button_callback, gpointer data);
 extern void xsane_pixmap_new(GtkWidget *parent, char *title, int width, int height, XsanePixmap *hist);
 extern void xsane_option_menu_new(GtkWidget *parent, char *str_list[], const char *val, int option_number, const char *desc);
 extern void xsane_scale_new(GtkBox *parent, char *labeltext, const char *desc,

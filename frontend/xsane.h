@@ -30,7 +30,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION "0.24\337"
+#define XSANE_VERSION "0.25\337"
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -99,7 +99,7 @@ extern int xsane_scanmode_number[];
 #define XSANE_SLIDER_ACTIVE	-1
 #define XSANE_SLIDER_INACTIVE	-2
 #define XSANE_SLIDER_WIDTH	260
-#define XSANE_SLIDER_HEIGHT	12
+#define XSANE_SLIDER_HEIGHT	10
 #define XSANE_SLIDER_OFFSET	2
 #define XSANE_SLIDER_EVENTS	GDK_EXPOSURE_MASK | GDK_ENTER_NOTIFY_MASK | \
 				GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | \
@@ -157,13 +157,13 @@ typedef struct Xsane
     SANE_Int sane_backend_versioncode;
     char *backend;
 
+    /* dialogs */
     GtkWidget *shell;
     GtkWidget *standard_options_shell;
     GtkWidget *advanced_options_shell;
     GtkWidget *main_dialog_scrolled;
     GtkWidget *histogram_dialog;
     GtkWidget *fax_dialog;
-
     GtkWidget *fax_list;
 
     GtkWidget *hruler;
@@ -198,18 +198,6 @@ typedef struct Xsane
     struct XsaneSlider slider_green;
     struct XsaneSlider slider_blue;
 
-    GdkGC *gc_red;
-    GdkGC *gc_green;
-    GdkGC *gc_blue;
-    GdkGC *gc_white;
-    GdkGC *gc_black;
-    GdkGC *gc_trans;
-    GdkGC *gc_backg;
-    GdkColor *bg_trans;
-
-    double zoom;
-    double resolution;
-
     double gamma;
     double gamma_red;
     double gamma_green;
@@ -232,6 +220,19 @@ typedef struct Xsane
     int histogram_int;
     int histogram_lines;
     int histogram_log;
+
+    /* colors */
+    GdkGC *gc_red;
+    GdkGC *gc_green;
+    GdkGC *gc_blue;
+    GdkGC *gc_white;
+    GdkGC *gc_black;
+    GdkGC *gc_trans;
+    GdkGC *gc_backg;
+    GdkColor *bg_trans;
+
+    double zoom;
+    double resolution;
 
     GtkWidget *length_unit_widget;
     GtkWidget *show_histogram_widget;
@@ -267,6 +268,8 @@ typedef struct Xsane
 
     char *fax_filename;
     char *fax_receiver;
+
+    int block_update_param;
 
     int broken_pipe; /* for printercommand pipe */
 

@@ -87,4 +87,11 @@
 #define DESC_FAX_VIEWER		"Enter command to be executed to view a fax"
 #define DESC_FAX_FINE_MODE	"Use high vertical resolution (196 lpi instead of 98 lpi)"
 
+#define DESC_PIPETTE_WHITE	"Pick white point"
+#define DESC_PIPETTE_GRAY	"Pick gray point"
+#define DESC_PIPETTE_BLACK	"Pick black point"
+#define DESC_ZOOM_FULL		"Use full scanarea"
+#define DESC_ZOOM_OUT		"Use last zoomscale"
+#define DESC_ZOOM_IN		"Use selected scanarea"
+
 #endif
