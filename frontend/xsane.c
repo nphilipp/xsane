@@ -1,6 +1,9 @@
 /* xsane -- a graphical (X11, gtk) scanner-oriented SANE frontend
+
+   xsane.c
+
    Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
-   Copyright (C) 1998,1999 Oliver Rauch
+   Copyright (C) 1998-2000 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -15,7 +18,7 @@
 
    You should have received a copy of the GNU General Public License
    along with this program; if not, write to the Free Software
-   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  */
+   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  */ 
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -73,6 +76,16 @@ struct Xsane xsane;
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 int xsane_scanmode_number[] = { XSANE_SCAN, XSANE_COPY, XSANE_FAX };
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+#define XSANE_GTK_NAME_RESOLUTION   "GtkMenuResolution"
+#define XSANE_GTK_NAME_X_RESOLUTION "GtkMenuXResolution"
+#define XSANE_GTK_NAME_Y_RESOLUTION "GtkMenuYResolution"
+
+#define XSANE_GTK_NAME_ZOOM   "GtkMenuZoom"
+#define XSANE_GTK_NAME_X_ZOOM "GtkMenuXZoom"
+#define XSANE_GTK_NAME_Y_ZOOM "GtkMenuYZoom"
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -279,63 +292,6 @@ static void xsane_update_param(GSGDialog *dialog, void *arg)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_zoom_update(GtkAdjustment *adj_data, double *val)
-{
-  *val=adj_data->value;
-
-  xsane.resolution = xsane.zoom * preferences.printer[preferences.printernr]->resolution;
-  xsane_set_resolution(xsane.resolution);
-  xsane_update_param(dialog, 0);
-
-  xsane_define_maximum_output_size();
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_resolution_scale_update(GtkAdjustment *adj_data, double *val)
-{
-#if 1
-/* gtk does not make sure that the value is quantisized correct */
-  float diff, old, new, quant;
-
-  quant = adj_data->step_increment;
-
-  if (quant != 0)
-  {
-    new = (adj_data->value);
-    old = (xsane.resolution);
-    diff = quant*((int) ((new - old)/quant));
-
-    *val = old + diff;
-    adj_data->value = *val;
-  }
-#else
-  *val = adj_data->value;
-#endif
-
-  xsane_set_resolution(xsane.resolution);
-  xsane_update_param(dialog, 0);
-  xsane.zoom = xsane.resolution / preferences.printer[preferences.printernr]->resolution;
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_resolution_list_callback(GtkWidget *widget, gpointer data)
-{
-  GSGMenuItem *menu_item = data;
-  GSGDialogElement *elem = menu_item->elem;
-  GSGDialog *dialog = elem->dialog;
-  SANE_Word val;
-
-  sscanf(menu_item->label, "%d", &val);
-  xsane.resolution = val;
-  xsane_set_resolution(xsane.resolution);
-  xsane_update_param(dialog, 0);
-  xsane.zoom = xsane.resolution / preferences.printer[preferences.printernr]->resolution;
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
 static void xsane_gamma_changed(GtkAdjustment *adj_data, double *val)
 {
   *val = adj_data->value;
@@ -367,14 +323,7 @@ static void xsane_modus_callback(GtkWidget *xsane_parent, int *num)
     gtk_widget_set_sensitive(GTK_WIDGET(xsane.start_button), TRUE); 
   }
 
-  if (xsane.xsane_mode == XSANE_COPY)
-  {
-    xsane_define_maximum_output_size();
-  }
-  else
-  {
-    preview_set_maximum_output_size(xsane.preview, INF, INF);
-  }
+  xsane_define_maximum_output_size();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -604,18 +553,24 @@ static void xsane_fax_fine_mode_callback(GtkWidget * widget)
 
   if (xsane.fax_fine_mode)
   {
-    xsane.resolution = 196;
+    xsane.resolution   = 196;
+    xsane.resolution_x = 98;
+    xsane.resolution_y = 196;
   }
   else
   {
-    xsane.resolution = 98;
+    xsane.resolution   = 98;
+    xsane.resolution_x = 98;
+    xsane.resolution_y = 98;
   }
 
-  xsane_set_resolution(xsane.resolution);
+  xsane_set_all_resolutions();
+
   xsane_update_param(dialog, 0);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void xsane_enhancement_rgb_default_callback(GtkWidget * widget)
 {
   xsane.enhancement_rgb_default = (GTK_TOGGLE_BUTTON(widget)->active != 0);
@@ -670,7 +625,38 @@ static void xsane_enhancement_rgb_default_callback(GtkWidget * widget)
 
 static void xsane_enhancement_negative_callback(GtkWidget * widget)
 {
+ double v0;
+
+  if (xsane.negative != (GTK_TOGGLE_BUTTON(widget)->active != 0));
+  {
+    v0 = xsane.slider_gray.value[0];
+    xsane.slider_gray.value[0] = 100.0 - xsane.slider_gray.value[2];
+    xsane.slider_gray.value[1] = 100.0 - xsane.slider_gray.value[1];
+    xsane.slider_gray.value[2] = 100.0 - v0;
+
+    if (!xsane.enhancement_rgb_default)
+    {
+      v0 = xsane.slider_red.value[0];
+      xsane.slider_red.value[0] = 100.0 - xsane.slider_red.value[2];
+      xsane.slider_red.value[1] = 100.0 - xsane.slider_red.value[1];
+      xsane.slider_red.value[2] = 100.0 - v0;
+
+      v0 = xsane.slider_green.value[0];
+      xsane.slider_green.value[0] = 100.0 - xsane.slider_green.value[2];
+      xsane.slider_green.value[1] = 100.0 - xsane.slider_green.value[1];
+      xsane.slider_green.value[2] = 100.0 - v0;
+
+      v0 = xsane.slider_blue.value[0];
+      xsane.slider_blue.value[0] = 100.0 - xsane.slider_blue.value[2];
+      xsane.slider_blue.value[1] = 100.0 - xsane.slider_blue.value[1];
+      xsane.slider_blue.value[2] = 100.0 - v0;
+    }
+  }
+
   xsane.negative = (GTK_TOGGLE_BUTTON(widget)->active != 0);
+
+  xsane_update_sliders();
+  xsane_enhancement_by_histogram();
   xsane_update_gamma();
 }
 
@@ -781,6 +767,371 @@ static void xsane_printer_callback(GtkWidget *widget, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static void xsane_resolution_scale_update(GtkAdjustment *adj_data, double *val)
+{
+#if 1
+/* gtk does not make sure that the value is quantisized correct */
+  float diff, old, new, quant;
+
+  quant = adj_data->step_increment;
+
+  if (quant != 0)
+  {
+    new = adj_data->value;
+    old = *val;
+    diff = quant*((int) ((new - old)/quant));
+
+    *val = old + diff;
+    adj_data->value = *val;
+  }
+#else
+  *val = adj_data->value;
+#endif
+
+  xsane_set_all_resolutions();
+
+  xsane_update_param(dialog, 0);
+  xsane.zoom   = xsane.resolution   / preferences.printer[preferences.printernr]->resolution;
+  xsane.zoom_x = xsane.resolution_x / preferences.printer[preferences.printernr]->resolution;
+  xsane.zoom_y = xsane.resolution_y / preferences.printer[preferences.printernr]->resolution;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_resolution_list_callback(GtkWidget *widget, gpointer data)
+{
+  GSGMenuItem *menu_item = data;
+  GSGDialogElement *elem = menu_item->elem;
+  GSGDialog *dialog = elem->dialog;
+  SANE_Word val;
+  gchar *name = gtk_widget_get_name(widget->parent);
+
+  sscanf(menu_item->label, "%d", &val);
+
+  if (!strcmp(name, XSANE_GTK_NAME_RESOLUTION))
+  {
+    xsane.resolution   = val;
+    xsane.resolution_x = val;
+    xsane.resolution_y = val;
+
+    xsane_set_resolution(dialog->well_known.dpi,   xsane.resolution);
+    xsane_set_resolution(dialog->well_known.dpi_x, xsane.resolution_x);
+    xsane_set_resolution(dialog->well_known.dpi_y, xsane.resolution_y);
+
+    xsane.zoom   = xsane.resolution   / preferences.printer[preferences.printernr]->resolution;
+    xsane.zoom_x = xsane.resolution_x / preferences.printer[preferences.printernr]->resolution;
+    xsane.zoom_y = xsane.resolution_y / preferences.printer[preferences.printernr]->resolution;
+  }
+  else if (!strcmp(name, XSANE_GTK_NAME_X_RESOLUTION))
+  {
+    xsane.resolution   = val;
+    xsane.resolution_x = val;
+    xsane_set_resolution(dialog->well_known.dpi_x, xsane.resolution_x);
+    xsane.zoom = xsane.resolution / preferences.printer[preferences.printernr]->resolution;
+  }
+  else if (!strcmp(name, XSANE_GTK_NAME_Y_RESOLUTION))
+  {
+    xsane.resolution_y = val;
+    xsane_set_resolution(dialog->well_known.dpi_y, xsane.resolution_y);
+    xsane.zoom = xsane.resolution / preferences.printer[preferences.printernr]->resolution;
+  }
+
+  xsane_update_param(dialog, 0);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static int xsane_resolution_widget_new(GtkWidget *parent, int well_known_option, double *resolution, const char *image_xpm[],
+                                       const gchar *desc, const gchar *widget_name)
+{
+ GtkObject *resolution_widget;
+ const SANE_Option_Descriptor *opt;
+
+  opt = sane_get_option_descriptor(dialog->dev, well_known_option);
+
+  if (!opt)
+  {
+    return -1; /* options does not exist */
+  }
+  else
+  {
+    if (SANE_OPTION_IS_ACTIVE(opt->cap))
+    {
+      switch (opt->constraint_type)
+      {
+        case SANE_CONSTRAINT_RANGE:
+        {
+         SANE_Word quant=0;
+         SANE_Word min=0;
+         SANE_Word max=0;
+         SANE_Word val=0;
+
+          gtk_widget_set_sensitive(xsane.show_resolution_list_widget, TRUE); 
+          sane_control_option(dialog->dev, well_known_option, SANE_ACTION_GET_VALUE, &val, 0); 
+
+          switch (opt->type)
+          {
+            case SANE_TYPE_INT:
+              min   = opt->constraint.range->min;
+              max   = opt->constraint.range->max;
+              quant = opt->constraint.range->quant;
+            break;
+
+            case SANE_TYPE_FIXED:
+              min   = SANE_UNFIX(opt->constraint.range->min);
+              max   = SANE_UNFIX(opt->constraint.range->max);
+              quant = SANE_UNFIX(opt->constraint.range->quant);
+              val   = SANE_UNFIX(val);
+            break;
+
+            default:
+              fprintf(stderr, "zoom_scale_update: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
+          }
+
+          if (quant == 0)
+          {
+            quant = 1;
+          }
+
+          if (!(*resolution)) /* no prefered value */
+          {
+            *resolution = val; /* set backend predefined value */
+          }
+
+          if (!preferences.show_resolution_list) /* user wants slider */ 
+          {
+            xsane_scale_new_with_pixmap(GTK_BOX(parent), image_xpm, desc,
+                                        min, max, quant, quant, 0.0, 0, resolution, &resolution_widget,
+                                        well_known_option, xsane_resolution_scale_update, SANE_OPTION_IS_SETTABLE(opt->cap));
+          }
+          else /* user wants list instead of slider */
+          {
+           SANE_Int max_items = 20;
+           char **str_list;
+           char str[16];
+           int i;
+           int j = 0;
+           SANE_Word wanted_res;
+           SANE_Word val = max;
+           int res = max;
+           double mul;
+
+            sane_control_option(dialog->dev, well_known_option, SANE_ACTION_GET_VALUE, &wanted_res, 0); 
+            if (opt->type == SANE_TYPE_FIXED)
+            {
+              wanted_res = (int) SANE_UNFIX(wanted_res);
+            }
+
+            if (*resolution) /* prefered value */
+            {
+              wanted_res = *resolution; /* set frontend prefered value */
+            }
+ 
+            str_list = malloc((max_items + 1) * sizeof(str_list[0]));
+
+            sprintf(str, "%d", max);
+            str_list[j++] = strdup(str);
+
+            i=9;
+            while ((j < max_items) && (res > 50) && (res > min) && (i > 0))
+            {
+              mul = ((double) i) / (i+1);
+              res = (int) (max * mul);
+              if  (res/mul == max)
+              {
+                sprintf(str, "%d", res);
+                str_list[j++] = strdup(str);
+                if (res >= wanted_res)
+                {
+                  val = res;
+                }
+              }
+              i--;
+            }
+
+            i = 3;
+            while ((j < max_items) && (res > 50) && (res > min))
+            {
+              mul = 1.0/i;
+              res = max * mul;
+              if (res/mul  == max)
+              {
+                sprintf(str, "%d", res);
+                str_list[j++] = strdup(str);
+                if (res >= wanted_res)
+                {
+                  val = res;
+                }
+              }
+              i++;
+            }
+
+            str_list[j] = 0;
+            sprintf(str, "%d", (int) val);
+
+            xsane_option_menu_new_with_pixmap(GTK_BOX(parent), image_xpm, desc, str_list, str, &resolution_widget, well_known_option,
+                                              xsane_resolution_list_callback, SANE_OPTION_IS_SETTABLE(opt->cap), widget_name);
+
+            free(str_list);
+            *resolution = val;
+            xsane_set_resolution(well_known_option, *resolution);
+          }
+        }
+        break;
+
+        case SANE_CONSTRAINT_WORD_LIST:
+        {
+         /* use a "list-selection" widget */
+         SANE_Int items;
+         char **str_list;
+         char str[16];
+         int j;
+         SANE_Word val=0;
+
+          gtk_widget_set_sensitive(xsane.show_resolution_list_widget, FALSE); 
+
+          items = opt->constraint.word_list[0];
+          str_list = malloc((items + 1) * sizeof(str_list[0]));
+          switch (opt->type)
+          {
+            case SANE_TYPE_INT:
+              for (j = 0; j < items; ++j)
+              {
+                sprintf(str, "%d", opt->constraint.word_list[j + 1]);
+                str_list[j] = strdup(str);
+              }
+              str_list[j] = 0;
+              sane_control_option(dialog->dev, well_known_option, SANE_ACTION_GET_VALUE, &val, 0); 
+              sprintf(str, "%d", (int) val);
+            break;
+
+            case SANE_TYPE_FIXED:
+              for (j = 0; j < items; ++j)
+              {
+                sprintf(str, "%d", (int) SANE_UNFIX(opt->constraint.word_list[j + 1]));
+                str_list[j] = strdup(str);
+               }
+              str_list[j] = 0;
+              sane_control_option(dialog->dev, well_known_option, SANE_ACTION_GET_VALUE, &val, 0); 
+              sprintf(str, "%d", (int) SANE_UNFIX(val));
+            break;
+
+            default:
+              fprintf(stderr, "resolution_word_list_creation: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
+          }
+
+
+          xsane_option_menu_new_with_pixmap(GTK_BOX(parent), image_xpm, desc,
+                                            str_list, str, &resolution_widget, well_known_option,
+                                            xsane_resolution_list_callback, SANE_OPTION_IS_SETTABLE(opt->cap), widget_name);
+          free(str_list);
+        }
+        break;
+
+        default:
+         break;
+      }	/* constraint type */
+
+      return 0; /* everything is ok */
+
+    } /* if resolution option active */
+
+    return 1; /* not active */
+
+  } /* if (opt) */
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_zoom_update(GtkAdjustment *adj_data, double *val)
+{
+  *val=adj_data->value;
+
+  /* update all resolutions */
+  xsane.resolution   = xsane.zoom   * preferences.printer[preferences.printernr]->resolution;
+  xsane.resolution_x = xsane.zoom_x * preferences.printer[preferences.printernr]->resolution;
+  xsane.resolution_y = xsane.zoom_y * preferences.printer[preferences.printernr]->resolution;
+
+  xsane_set_all_resolutions();
+
+  xsane_update_param(dialog, 0);
+
+  xsane_define_maximum_output_size();
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static int xsane_zoom_widget_new(GtkWidget *parent, int well_known_option, double *zoom, double resolution,
+                                 const char *image_xpm[], const gchar *desc)
+{
+ const SANE_Option_Descriptor *opt;
+ double output_resolution = preferences.printer[preferences.printernr]->resolution;
+
+  opt = sane_get_option_descriptor(dialog->dev, well_known_option);
+  if (!opt)
+  {
+    return -1; /* option not available */
+  }
+  else
+  {
+    if (SANE_OPTION_IS_ACTIVE(opt->cap))
+    {
+     double min = 0.0;
+     double max = 0.0;
+     SANE_Word val = 0.0;
+
+      sane_control_option(dialog->dev, well_known_option, SANE_ACTION_GET_VALUE, &val, 0); 
+
+      switch (opt->constraint_type)
+      {
+        case SANE_CONSTRAINT_RANGE:
+          switch (opt->type)
+          {
+            case SANE_TYPE_INT:
+              min   = ((double) opt->constraint.range->min) / output_resolution;
+              max   = ((double) opt->constraint.range->max) / output_resolution;
+            break;
+
+            case SANE_TYPE_FIXED:
+              min   = SANE_UNFIX(opt->constraint.range->min) / output_resolution;
+              max   = SANE_UNFIX(opt->constraint.range->max) / output_resolution;
+              val   = SANE_UNFIX(val);
+            break;
+
+            default:
+              fprintf(stderr, "zoom_scale_update: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
+          }
+        break;
+
+        case SANE_CONSTRAINT_WORD_LIST:
+          xsane_get_bounds(opt, &min, &max);
+          min   = min / output_resolution;
+          max   = max / output_resolution;
+        break;
+
+        default:
+          fprintf(stderr, "zoom_scale_update: %s %d\n", ERR_UNKNOWN_CONSTRAINT_TYPE, opt->constraint_type);
+      }
+
+      if (resolution == 0) /* no prefered value */
+      {
+        resolution = val; /* set backend predefined value */
+      }
+
+      *zoom = resolution / output_resolution;
+
+      xsane_scale_new_with_pixmap(GTK_BOX(parent), image_xpm, desc, min, max, 0.01, 0.01, 0.1, 2,
+                                  zoom, &xsane.zoom_widget, well_known_option, xsane_zoom_update,
+                                  SANE_OPTION_IS_SETTABLE(opt->cap));
+
+      return 0; /* everything is ok */
+    }
+    return 1; /* option not active */
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 GtkWidget *xsane_update_xsane_callback()
 {
   /* creates the XSane option window */
@@ -796,7 +1147,6 @@ GtkWidget *xsane_update_xsane_callback()
   GtkWidget *xsane_hbox_xsane_enhancement;
   GtkWidget *xsane_frame;
   GtkWidget *xsane_button;
-  GSGDialogElement *elem;
   gchar buf[200];
 
   /* xsane main options */
@@ -902,7 +1252,7 @@ GtkWidget *xsane_update_xsane_callback()
             status = sane_control_option(dialog->dev, dialog->well_known.scanmode, SANE_ACTION_GET_VALUE, set, 0);
 
             xsane_option_menu_new(hbox, (char **) opt->constraint.string_list, set, dialog->well_known.scanmode,
-                                  _BGT(opt->desc), 0, SANE_OPTION_IS_SETTABLE(opt->cap));
+                                  _BGT(opt->desc), 0, SANE_OPTION_IS_SETTABLE(opt->cap), 0);
           }
            break;
 
@@ -942,7 +1292,7 @@ GtkWidget *xsane_update_xsane_callback()
             status = sane_control_option(dialog->dev, dialog->well_known.scansource, SANE_ACTION_GET_VALUE, set, 0);
 
             xsane_option_menu_new(hbox, (char **) opt->constraint.string_list, set, dialog->well_known.scansource,
-                                  _BGT(opt->desc), 0, SANE_OPTION_IS_SETTABLE(opt->cap));
+                                  _BGT(opt->desc), 0, SANE_OPTION_IS_SETTABLE(opt->cap), 0);
            }
            break;
 
@@ -957,8 +1307,6 @@ GtkWidget *xsane_update_xsane_callback()
 
   if (xsane.xsane_mode == XSANE_SCAN)
   {
-   const SANE_Option_Descriptor *opt;
-
     xsane.copy_number_entry = 0;
 
     if (xsane.mode == XSANE_STANDALONE)
@@ -967,197 +1315,20 @@ GtkWidget *xsane_update_xsane_callback()
     }
 
     /* resolution selection */
-    opt = sane_get_option_descriptor(dialog->dev, dialog->well_known.dpi);
-    if (opt)
+    if (!xsane_resolution_widget_new(xsane_vbox_xsane_modus, dialog->well_known.dpi_x, &xsane.resolution_x, resolution_x_xpm,
+                                     DESC_RESOLUTION_X, XSANE_GTK_NAME_X_RESOLUTION)) /* draw x resolution widget if possible */
     {
-      if (SANE_OPTION_IS_ACTIVE(opt->cap))
-      {
-        switch (opt->constraint_type)
-        {
-          case SANE_CONSTRAINT_RANGE:
-          {
-           SANE_Word quant=0;
-           SANE_Word min=0;
-           SANE_Word max=0;
-           SANE_Word val=0;
-
-            gtk_widget_set_sensitive(xsane.show_resolution_list_widget, TRUE); 
-            sane_control_option(dialog->dev, dialog->well_known.dpi, SANE_ACTION_GET_VALUE, &val, 0); 
-
-            switch (opt->type)
-            {
-              case SANE_TYPE_INT:
-                min   = opt->constraint.range->min;
-                max   = opt->constraint.range->max;
-                quant = opt->constraint.range->quant;
-              break;
-
-              case SANE_TYPE_FIXED:
-                min   = SANE_UNFIX(opt->constraint.range->min);
-                max   = SANE_UNFIX(opt->constraint.range->max);
-                quant = SANE_UNFIX(opt->constraint.range->quant);
-                val   = SANE_UNFIX(val);
-              break;
-
-              default:
-                fprintf(stderr, "zoom_scale_update: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
-/* xxxxxxxxxxxxxxxxxxxxxxxxxxx */
-            }
-
-            if (quant == 0)
-            {
-              quant = 1;
-            }
-
-            if (!xsane.resolution) /* no prefered value */
-            {
-              xsane.resolution = val; /* set backend predefined value */
-            }
-
-            if (!preferences.show_resolution_list) /* user wants slider */ 
-            {
-              xsane_scale_new_with_pixmap(GTK_BOX(xsane_vbox_xsane_modus), resolution_xpm, DESC_RESOLUTION,
-                                          min, max, quant, quant, 0.0, 0, &xsane.resolution, &xsane.resolution_widget,
-                                          dialog->well_known.dpi, xsane_resolution_scale_update, SANE_OPTION_IS_SETTABLE(opt->cap));
-            }
-            else /* user wants list instead of slider */
-            {
-             SANE_Int max_items = 20;
-             char **str_list;
-             char str[16];
-             int i;
-             int j = 0;
-             SANE_Word wanted_res;
-             SANE_Word val = max;
-             int res = max;
-             double mul;
-
-              sane_control_option(dialog->dev, dialog->well_known.dpi, SANE_ACTION_GET_VALUE, &wanted_res, 0); 
-              if (opt->type == SANE_TYPE_FIXED)
-              {
-                wanted_res = (int) SANE_UNFIX(wanted_res);
-              }
-
-              if (xsane.resolution) /* prefered value */
-              {
-                wanted_res = xsane.resolution; /* set frontend prefered value */
-              }
- 
-              str_list = malloc((max_items + 1) * sizeof(str_list[0]));
-
-              sprintf(str, "%d", max);
-              str_list[j++] = strdup(str);
-
-              i=9;
-              while ((j < max_items) && (res > 50) && (res > min) && (i > 0))
-              {
-                mul = ((double) i) / (i+1);
-                res = (int) (max * mul);
-                if  (res/mul == max)
-                {
-                  sprintf(str, "%d", res);
-                  str_list[j++] = strdup(str);
-                  if (res >= wanted_res)
-                  {
-                    val = res;
-                  }
-                }
-                i--;
-              }
-
-              i = 3;
-              while ((j < max_items) && (res > 50) && (res > min))
-              {
-                mul = 1.0/i;
-                res = max * mul;
-                if (res/mul  == max)
-                {
-                  sprintf(str, "%d", res);
-                  str_list[j++] = strdup(str);
-                  if (res >= wanted_res)
-                  {
-                    val = res;
-                  }
-                }
-                i++;
-              }
-
-              str_list[j] = 0;
-              sprintf(str, "%d", (int) val);
-
-              xsane_option_menu_new_with_pixmap(GTK_BOX(xsane_vbox_xsane_modus), resolution_xpm, DESC_RESOLUTION,
-                                                str_list, str, &xsane.resolution_widget, dialog->well_known.dpi,
-                                                xsane_resolution_list_callback, SANE_OPTION_IS_SETTABLE(opt->cap));
-              free(str_list);
-              xsane.resolution = val;
-              xsane_set_resolution(xsane.resolution);
-            }
-
-            elem = dialog->element + dialog->well_known.dpi;
-            elem->data = xsane.resolution_widget;
-          }
-          break;
-
-          case SANE_CONSTRAINT_WORD_LIST:
-          {
-           /* use a "list-selection" widget */
-           SANE_Int items;
-           char **str_list;
-           char str[16];
-           int j;
-           SANE_Word val=0;
-
-            gtk_widget_set_sensitive(xsane.show_resolution_list_widget, FALSE); 
-
-            items = opt->constraint.word_list[0];
-            str_list = malloc((items + 1) * sizeof(str_list[0]));
-            switch (opt->type)
-            {
-              case SANE_TYPE_INT:
-                for (j = 0; j < items; ++j)
-                {
-                  sprintf(str, "%d", opt->constraint.word_list[j + 1]);
-                  str_list[j] = strdup(str);
-                }
-                str_list[j] = 0;
-                sane_control_option (dialog->dev, dialog->well_known.dpi, SANE_ACTION_GET_VALUE, &val, 0); 
-                sprintf(str, "%d", (int) val);
-              break;
-
-              case SANE_TYPE_FIXED:
-                for (j = 0; j < items; ++j)
-                {
-                  sprintf(str, "%d", (int) SANE_UNFIX(opt->constraint.word_list[j + 1]));
-                  str_list[j] = strdup(str);
-                 }
-                str_list[j] = 0;
-                sane_control_option (dialog->dev, dialog->well_known.dpi, SANE_ACTION_GET_VALUE, &val, 0); 
-                sprintf(str, "%d", (int) SANE_UNFIX(val));
-              break;
-
-              default:
-                fprintf(stderr, "resolution_word_list_creation: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
-            }
-
-
-            xsane_option_menu_new_with_pixmap(GTK_BOX(xsane_vbox_xsane_modus), resolution_xpm, DESC_RESOLUTION,
-                                              str_list, str, &xsane.resolution_widget, dialog->well_known.dpi,
-                                              xsane_resolution_list_callback, SANE_OPTION_IS_SETTABLE(opt->cap));
-            free(str_list);
-            elem = dialog->element + dialog->well_known.dpi;
-            elem->data = xsane.resolution_widget;
-          }
-          break;
-
-          default:
-           break;
-        }	/* constraint type */
-      }		/* if resolution option active */
-    } /* if (opt) */
+      xsane_resolution_widget_new(xsane_vbox_xsane_modus, dialog->well_known.dpi_y, &xsane.resolution_y, resolution_y_xpm,
+                                  DESC_RESOLUTION_Y, XSANE_GTK_NAME_Y_RESOLUTION); /* ok, also draw y resolution widget */
+    }
+    else /* no x resolution, so lets draw common resolution widget */
+    {
+      xsane_resolution_widget_new(xsane_vbox_xsane_modus, dialog->well_known.dpi, &xsane.resolution, resolution_xpm,
+                                  DESC_RESOLUTION, XSANE_GTK_NAME_RESOLUTION); 
+    }
   }
   else if (xsane.xsane_mode == XSANE_COPY)
   {
-   const SANE_Option_Descriptor *opt;
    GtkWidget *pixmapwidget, *hbox, *xsane_printer_option_menu, *xsane_printer_menu, *xsane_printer_item;
    GdkBitmap *mask;
    GdkPixmap *pixmap;
@@ -1204,59 +1375,16 @@ GtkWidget *xsane_update_xsane_callback()
     xsane.copy_number_entry = xsane_text;
 
     /* zoom selection */
-    opt = sane_get_option_descriptor(dialog->dev, dialog->well_known.dpi);
-    if (opt)
+    if (!xsane_zoom_widget_new(xsane_vbox_xsane_modus, dialog->well_known.dpi_x, &xsane.zoom_x,
+                               xsane.resolution_x, zoom_x_xpm, DESC_ZOOM_X))
     {
-      if (SANE_OPTION_IS_ACTIVE(opt->cap))
-      {
-       double quant=0.0; /* xxxxxxxxxxxxxxx is not used here any more - REMOVE ? */
-       double min=0.0;
-       double max=0.0;
-
-        switch (opt->constraint_type)
-        {
-          case SANE_CONSTRAINT_RANGE:
-            switch (opt->type)
-            {
-              case SANE_TYPE_INT:
-                min   = ((double) opt->constraint.range->min) / preferences.printer[preferences.printernr]->resolution;
-                max   = ((double) opt->constraint.range->max) / preferences.printer[preferences.printernr]->resolution;
-                quant = ((double) opt->constraint.range->quant) / preferences.printer[preferences.printernr]->resolution;
-              break;
-
-              case SANE_TYPE_FIXED:
-                min   = SANE_UNFIX(opt->constraint.range->min) / preferences.printer[preferences.printernr]->resolution;
-                max   = SANE_UNFIX(opt->constraint.range->max) / preferences.printer[preferences.printernr]->resolution;
-                quant = SANE_UNFIX(opt->constraint.range->quant) / preferences.printer[preferences.printernr]->resolution;
-              break;
-
-              default:
-                fprintf(stderr, "zoom_scale_update: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
-            }
-          break;
-
-          case SANE_CONSTRAINT_WORD_LIST:
-            xsane_get_bounds(opt, &min, &max);
-            min   = min / preferences.printer[preferences.printernr]->resolution;
-            max   = max / preferences.printer[preferences.printernr]->resolution;
-            quant = 0.0;
-          break;
-
-          default:
-            fprintf(stderr, "zoom_scale_update: %s %d\n", ERR_UNKNOWN_CONSTRAINT_TYPE, opt->constraint_type);
-        }
-
-        if (quant == 0)
-        {
-          quant = 0.01;
-        }
-
-        xsane.zoom = xsane.resolution / preferences.printer[preferences.printernr]->resolution;
-
-        xsane_scale_new_with_pixmap(GTK_BOX(xsane_vbox_xsane_modus), zoom_xpm, DESC_ZOOM, min, max, 0.01, 0.01, 0.1, 2,
-                                    &xsane.zoom, &xsane.zoom_widget, dialog->well_known.dpi, xsane_zoom_update,
-                                    SANE_OPTION_IS_SETTABLE(opt->cap));
-      }
+      xsane_zoom_widget_new(xsane_vbox_xsane_modus, dialog->well_known.dpi_y, &xsane.zoom_y,
+                            xsane.resolution_y, zoom_y_xpm, DESC_ZOOM_Y);
+    }
+    else
+    {
+      xsane_zoom_widget_new(xsane_vbox_xsane_modus, dialog->well_known.dpi, &xsane.zoom,
+                            xsane.resolution, zoom_xpm, DESC_ZOOM);
     }
   }
   else /* XSANE_FAX */
@@ -1264,9 +1392,16 @@ GtkWidget *xsane_update_xsane_callback()
    const SANE_Option_Descriptor *opt;
 
     xsane.copy_number_entry = 0;
-    xsane.resolution = 98;
+    xsane.resolution   = 98;
+    xsane.resolution_x = 98;
+    xsane.resolution_y = 98;
 
     opt = sane_get_option_descriptor(dialog->dev, dialog->well_known.dpi);
+    if (!opt)
+    {
+      opt = sane_get_option_descriptor(dialog->dev, dialog->well_known.dpi_x);
+    }
+
     if (opt)
     {
       if (SANE_OPTION_IS_ACTIVE(opt->cap))
@@ -1280,9 +1415,12 @@ GtkWidget *xsane_update_xsane_callback()
 
         if (xsane.fax_fine_mode)
         {
-          xsane.resolution = 196;
+          xsane.resolution   = 196;
+          xsane.resolution_x = 98;
+          xsane.resolution_y = 196;
         }
-        xsane_set_resolution(xsane.resolution);
+
+        xsane_set_all_resolutions();
       }
     }
     xsane_fax_dialog();
@@ -3374,6 +3512,8 @@ void xsane_panel_build(GSGDialog *dialog)
   dialog->well_known.scansource      = -1;
   dialog->well_known.preview         = -1;
   dialog->well_known.dpi             = -1;
+  dialog->well_known.dpi_x           = -1;
+  dialog->well_known.dpi_y           = -1;
   dialog->well_known.coord[xsane_back_gtk_TL_X] = -1;
   dialog->well_known.coord[xsane_back_gtk_TL_Y] = -1;
   dialog->well_known.coord[xsane_back_gtk_BR_X] = -1;
@@ -3422,6 +3562,12 @@ void xsane_panel_build(GSGDialog *dialog)
           else if (strcmp(opt->name, SANE_NAME_SCAN_RESOLUTION) == 0
                    && opt->unit == SANE_UNIT_DPI && (opt->type == SANE_TYPE_INT || opt->type == SANE_TYPE_FIXED))
             dialog->well_known.dpi = i;
+          else if (strcmp(opt->name, SANE_NAME_SCAN_X_RESOLUTION) == 0
+                   && opt->unit == SANE_UNIT_DPI && (opt->type == SANE_TYPE_INT || opt->type == SANE_TYPE_FIXED))
+            dialog->well_known.dpi_x = i;
+          else if (strcmp(opt->name, SANE_NAME_SCAN_Y_RESOLUTION) == 0
+                   && opt->unit == SANE_UNIT_DPI && (opt->type == SANE_TYPE_INT || opt->type == SANE_TYPE_FIXED))
+            dialog->well_known.dpi_y = i;
           else if (strcmp (opt->name, SANE_NAME_SCAN_MODE) == 0)
             dialog->well_known.scanmode = i;
           else if (strcmp (opt->name, SANE_NAME_SCAN_SOURCE) == 0)
@@ -3498,7 +3644,9 @@ void xsane_panel_build(GSGDialog *dialog)
           switch (opt->constraint_type)
           {
             case SANE_CONSTRAINT_RANGE:
-              if (strcmp(opt->name, SANE_NAME_SCAN_RESOLUTION) != 0) /* do not show resolution */
+              if ( (strcmp(opt->name, SANE_NAME_SCAN_RESOLUTION)  ) && /* do not show resolution */
+                   (strcmp(opt->name, SANE_NAME_SCAN_X_RESOLUTION)) && /* do not show x-resolution */
+                   (strcmp(opt->name, SANE_NAME_SCAN_Y_RESOLUTION)) )  /* do not show y-resolution */
               {
                 /* use a scale */
                 quant = opt->constraint.range->quant;
@@ -3511,7 +3659,9 @@ void xsane_panel_build(GSGDialog *dialog)
               break;
 
             case SANE_CONSTRAINT_WORD_LIST:
-              if (strcmp(opt->name, SANE_NAME_SCAN_RESOLUTION) != 0) /* do not show resolution */
+              if ( (strcmp(opt->name, SANE_NAME_SCAN_RESOLUTION)  ) && /* do not show resolution */
+                   (strcmp(opt->name, SANE_NAME_SCAN_X_RESOLUTION)) && /* do not show x-resolution */
+                   (strcmp(opt->name, SANE_NAME_SCAN_Y_RESOLUTION)) )  /* do not show y-resolution */
               {
                 /* use a "list-selection" widget */
                 num_words = opt->constraint.word_list[0];
@@ -3551,7 +3701,9 @@ void xsane_panel_build(GSGDialog *dialog)
           switch (opt->constraint_type)
           {
             case SANE_CONSTRAINT_RANGE:
-              if (strcmp(opt->name, SANE_NAME_SCAN_RESOLUTION) != 0) /* do not show resolution */
+              if ( (strcmp(opt->name, SANE_NAME_SCAN_RESOLUTION)  ) && /* do not show resolution */
+                   (strcmp(opt->name, SANE_NAME_SCAN_X_RESOLUTION)) && /* do not show x-resolution */
+                   (strcmp(opt->name, SANE_NAME_SCAN_Y_RESOLUTION)) )  /* do not show y-resolution */
               {
                 /* use a scale */
                 quant = opt->constraint.range->quant;
@@ -3575,7 +3727,9 @@ void xsane_panel_build(GSGDialog *dialog)
               break;
 
             case SANE_CONSTRAINT_WORD_LIST:
-              if (strcmp(opt->name, SANE_NAME_SCAN_RESOLUTION) != 0) /* do not show resolution */
+              if ( (strcmp(opt->name, SANE_NAME_SCAN_RESOLUTION)  ) && /* do not show resolution */
+                   (strcmp(opt->name, SANE_NAME_SCAN_X_RESOLUTION)) && /* do not show x-resolution */
+                   (strcmp(opt->name, SANE_NAME_SCAN_Y_RESOLUTION)) )  /* do not show y-resolution */
               {
                 /* use a "list-selection" widget */
                 num_words = opt->constraint.word_list[0];
@@ -3666,6 +3820,12 @@ void xsane_panel_build(GSGDialog *dialog)
         xsane_back_gtk_error(msg, TRUE);
       }
     }
+
+  if ((dialog->well_known.dpi_x == -1) && (dialog->well_known.dpi_y != -1))
+  {
+    dialog->well_known.dpi_x = dialog->well_known.dpi;
+  }
+
   xsane_hbox = xsane_update_xsane_callback();
 
   gtk_container_add(GTK_CONTAINER(dialog->xsane_window), xsane_hbox);
@@ -4153,16 +4313,15 @@ static void xsane_select_device_by_mouse_callback(GtkWidget * widget, GdkEventBu
 
 static gint32 xsane_choose_device(void)
 {
- GtkWidget *main_vbox, *vbox, *hbox, *button, *device_frame, *device_vbox;
- GSList *owner;
- const SANE_Device *adev;
- gint i;
- char buf[256];
- GtkWidget *pixmapwidget;
+ GtkWidget *main_vbox, *vbox, *hbox, *button, *device_frame, *device_vbox, *pixmapwidget;
  GdkBitmap *mask;
  GdkPixmap *pixmap;
  GtkStyle *style;
  GdkColor *bg_trans;
+ GSList *owner;
+ gint i;
+ const SANE_Device *adev;
+ char buf[256];
  char vendor[9];
  char model[17];
  char type[20];
@@ -4215,19 +4374,25 @@ static gint32 xsane_choose_device(void)
     adev = devlist[i];
 
     strncpy(vendor, adev->vendor, sizeof(vendor)-1);
+    vendor[sizeof(vendor)-1] = 0;
     for (j = strlen(vendor); j < sizeof(vendor)-1; j++)
-    { vendor[j]=' '; }
-    vendor[j]=0;
+    {
+      vendor[j] = ' ';
+    }
 
     strncpy(model, adev->model, sizeof(model)-1);
+    model[sizeof(model)-1] = 0;
     for (j = strlen(model); j < sizeof(model)-1; j++)
-    { model[j]=' '; }
-    model[j]=0;
+    {
+      model[j] = ' ';
+    }
 
     strncpy(type, _(adev->type), sizeof(type)-1); /* allow translation of device type */
+    type[sizeof(type)-1] = 0;
     for (j = strlen(type); j < sizeof(type)-1; j++)
-    { type[j]=' '; }
-    type[j]=0;
+    {
+      type[j] = ' ';
+    }
 
     snprintf(buf, sizeof(buf), "%s %s %s [%s]", vendor, model, type, adev->name);
     button = gtk_radio_button_new_with_label(owner, (char *) buf);
@@ -4501,7 +4666,11 @@ int main(int argc, char **argv)
   xsane.histogram_lines = 1;
 
   xsane.zoom             = 1.0;
+  xsane.zoom_x           = 1.0;
+  xsane.zoom_y           = 1.0;
   xsane.resolution       = 0.0;
+  xsane.resolution_x     = 0.0;
+  xsane.resolution_y     = 0.0;
   xsane.copy_number      = 1;
 
   xsane.gamma            = 1.0;

@@ -1,16 +1,19 @@
-----------------------------------------------------------------
+
  NEWS:
-xsane-0.48:
-  If you use KDE (kwm), call configure with environment
-    variable CPPFLAGS set to
-    "-DXSANE_BUGGY_WINDOWMANAGER_WINDOW_POSITION"
 
-xsane-0.46:
- The format of the *.drc files has changed from xsane-0.45 to
- xsane-0.46. Use xsane-convert-to-0.46 to convert the files
- ~/.sane/xsane/*.drc BEFORE you start xsane!
+****************************************************************
+*                                                              *
+* xsane-0.49:                                                  *
+*  The format of the xsane.rc file has changed: the printer    *
+*  geometry values are saved in mm instead of 1/72 inch now.   *
+*  Use xsane-convert-to-0.49 to convert xsane.rc BEFORE you    *
+*  start xsane!                                                *
+*  To compile it call                                          *
+*  make xsane-convert-to-0.49                                  *
+*                                                              *
+****************************************************************
 
- To compile it call
- make xsane-convert-to-0.46
-----------------------------------------------------------------
+   if you update from a version before xsane-0.48 please
+   read xsane.OLDER_NEWS
+
 

@@ -649,3 +649,43 @@ xsane-0.47 -> 0.48:
 
  - disabled fileoptions (mkdir, rm, mv) in loading/saving preferences
 
+
+xsane-0.48 -> 0.49:
+-------------------
+
+ - added support for different x/y resolutions and zoom factors,
+   the y-resolution slider is added to the xsane main dialog now
+
+ - in gimp mode x- and y-resolution infos are set correct now
+
+ - added resolution and zoom icons for x- and y-dimension
+
+ - added fax_width and fax_height to preferences
+
+ - added paper size frame in fax mode preview
+
+ - added czech translation - thanks to by Stanislav Brabec <utx@k332.feld.cvut.cz>
+
+ - changed gimp_install_procedure(...): "RGB, GRAY" -> 0
+
+ - changed printer geometry setup from 1/72 ich to mm
+
+ - added setup entries for fax- width, height, left_offset and bottom_offset
+
+ - corrected terminating \0 of strings in sane_choose_device
+
+ - when button "Negative" is pressed the white/gray/black points
+   are also inverted
+
+ - split preview_restore_image into preview_restore_image and
+   preview_restore_image_from_file, it can zoom into a saved
+   image now.
+
+ - zoom functions are done now without a new preview scan.
+   3 different zoom levels are stored.
+
+ - in xsane_scan_start the output file is only opend once in multi pass scan
+   three pass scan does work now again.
+
+ - added several missing routines for gamma correction in three pass scan
+

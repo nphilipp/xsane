@@ -1,3 +1,25 @@
+/* xsane -- a graphical (X11, gtk) scanner-oriented SANE frontend
+
+   xsane-icons.c
+
+   Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
+   Copyright (C) 1998-2000 Oliver Rauch
+   This file is part of the XSANE package.
+
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  */ 
+
 /* --------------------------------------------------- */
 
 const char *xsane_window_icon_xpm[] =
@@ -1231,6 +1253,74 @@ const char *zoom_xpm[] =
 
 /* --------------------------------------------------- */
 
+const char *zoom_x_xpm[] =
+{
+/* width height num_colors chars_per_pixel */
+"    20    20        4            1",
+/* colors */
+". c #000000",
+"  none",
+"a c #ffffff",
+"# c #4040ff",
+/* pixels */
+"                    ",
+"                    ",
+"     .............. ",
+"     .aaaaaaaaaaaa. ",
+"     .aaaaaaaaaaaa. ",
+"     .aaaaaaaaaaaa. ",
+"     .aaaaaaaaaaaa. ",
+"     .aaaaaaaaaaaa. ",
+"     .aaa....aaaaa. ",
+"     .aaaa...aaaaa. ",
+"     .aaa....aaaaa. ",
+"     .aa...a.aaaaa. ",
+"     .aaa           ",
+" .......a  ##    ## ",
+" .aaaaa.a   ##  ##  ",
+" .aaaaa..    ####   ",
+" .aaaaa.      ##    ",
+" .aaaaa.     ####   ",
+" .aaaaa.    ##  ##  ",
+" .......   ##    ## ",
+};
+
+/* --------------------------------------------------- */
+
+const char *zoom_y_xpm[] =
+{
+/* width height num_colors chars_per_pixel */
+"    20    20        4            1",
+/* colors */
+". c #000000",
+"  none",
+"a c #ffffff",
+"# c #4040ff",
+/* pixels */
+"                    ",
+"                    ",
+"     .............. ",
+"     .aaaaaaaaaaaa. ",
+"     .aaaaaaaaaaaa. ",
+"     .aaaaaaaaaaaa. ",
+"     .aaaaaaaaaaaa. ",
+"     .aaaaaaaaaaaa. ",
+"     .aaa....aaaaa. ",
+"     .aaaa...aaaaa. ",
+"     .aaa....aaaaa. ",
+"     .aa...a.aaaaa. ",
+"     .aaa           ",
+" .......a  ##    ## ",
+" .aaaaa.a   ##  ##  ",
+" .aaaaa..    ####   ",
+" .aaaaa.      ##    ",
+" .aaaaa.      ##    ",
+" .aaaaa.      ##    ",
+" .......      ##    ",
+};
+
+/* --------------------------------------------------- */
+
 const char *resolution_xpm[] =
 {
 /* width height num_colors chars_per_pixel */
@@ -1259,6 +1349,72 @@ const char *resolution_xpm[] =
 "   ..               ",
 "  ....     ..    .  ",
 "   ..      ..       ",
+};
+
+/* --------------------------------------------------- */
+
+const char *resolution_x_xpm[] =
+{
+/* width height num_colors chars_per_pixel */
+"    20    20        3            1",
+/* colors */
+". c #000000",
+"# c #4040ff",
+"  none",
+/* pixels */
+"                    ",
+"                    ",
+"                    ",
+"   ...     ..       ",
+"  .....   ....   .  ",
+" ....... ...... ... ",
+" .......  ....   .  ",
+" .......   ..       ",
+"  .....             ",
+"   ...     ..    .  ",
+"          ....  ... ",
+"   ..     ....   .  ",
+"  ....              ",
+" ......    ##    ## ",
+"  ....      ##  ##  ",
+"   ..        ####   ",
+"              ##    ",
+"   ..        ####   ",
+"  ....      ##  ##  ",
+"   ..      ##    ## ",
+};
+
+/* --------------------------------------------------- */
+
+const char *resolution_y_xpm[] =
+{
+/* width height num_colors chars_per_pixel */
+"    20    20        3            1",
+/* colors */
+". c #000000",
+"# c #4040ff",
+"  none",
+/* pixels */
+"                    ",
+"                    ",
+"                    ",
+"   ...     ..       ",
+"  .....   ....   .  ",
+" ....... ...... ... ",
+" .......  ....   .  ",
+" .......   ..       ",
+"  .....             ",
+"   ...     ..    .  ",
+"          ....  ... ",
+"   ..     ....   .  ",
+"  ....              ",
+" ......    ##    ## ",
+"  ....      ##  ##  ",
+"   ..        ####   ",
+"              ##    ",
+"   ..         ##    ",
+"  ....        ##    ",
+"   ..         ##    ",
 };
 
 /* --------------------------------------------------- */

@@ -1,9 +1,10 @@
 /* xsane -- a graphical (X11, gtk) scanner-oriented SANE frontend
 
-   Author:
-   Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
+   xsane.h
 
-   Copyright (C) 1998,1999 Oliver Rauch
+   Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
+   Copyright (C) 1998-2000 Oliver Rauch
+   This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -17,7 +18,7 @@
 
    You should have received a copy of the GNU General Public License
    along with this program; if not, write to the Free Software
-   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  */
+   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  */ 
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -31,10 +32,10 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION	"0.48"
+#define XSANE_VERSION	"0.49"
 #define XSANE_AUTHOR	"Oliver Rauch"
 #define XSANE_COPYRIGHT	"Oliver Rauch"
-#define XSANE_DATE	"1998/1999"
+#define XSANE_DATE	"1998-2000"
 #define XSANE_EMAIL	"Oliver.Rauch@Wolfsburg.DE"
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -386,7 +387,11 @@ typedef struct Xsane
 
     int copy_number;
     double zoom;
+    double zoom_x;
+    double zoom_y;
     double resolution;
+    double resolution_x;
+    double resolution_y;
 
     GtkWidget *length_unit_widget;
     GtkWidget *length_unit_mm;
@@ -401,7 +406,6 @@ typedef struct Xsane
     GtkWidget *show_advanced_options_widget;
     GtkWidget *show_resolution_list_widget;
     GtkObject *zoom_widget;
-    GtkObject *resolution_widget;
     GtkObject *gamma_widget;
     GtkObject *gamma_red_widget;
     GtkObject *gamma_green_widget;
@@ -489,6 +493,10 @@ typedef struct XsaneSetup
   GtkWidget *fax_normal_option_entry;
   GtkWidget *fax_fine_option_entry;
   GtkWidget *fax_viewer_entry;
+  GtkWidget *fax_width_entry;
+  GtkWidget *fax_leftoffset_entry;
+  GtkWidget *fax_bottomoffset_entry;
+  GtkWidget *fax_height_entry;
 
   int tiff_compression_nr;
   int tiff_compression_1_nr;

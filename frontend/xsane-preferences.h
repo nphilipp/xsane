@@ -1,6 +1,9 @@
 /* xsane -- a graphical (X11, gtk) scanner-oriented SANE frontend
+
+   xsane-preferences.h
+
    Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
-   Copyright (C) 1998,1999 Oliver Rauch
+   Copyright (C) 1998-2000 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -15,7 +18,7 @@
 
    You should have received a copy of the GNU General Public License
    along with this program; if not, write to the Free Software
-   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  */
+   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  */ 
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -35,10 +38,10 @@ typedef struct
     char *command;	/* printercommand */
     char *copy_number_option;	/* option to define number of copies */
     int resolution;	/* printer resolution for copy mode  */
-    int width;		/* printer width of printable area in 1/72inch  */
-    int height;		/* printer height of printable area in 1/72inch  */
-    int leftoffset;	/* printer left offset in 1/72inch  */
-    int bottomoffset;	/* printer bottom offset in 1/72inch  */
+    double width;	/* printer width of printable area in mm */
+    double height;	/* printer height of printable area in mm */
+    double leftoffset;	/* printer left offset in mm */
+    double bottomoffset;/* printer bottom offset in mm */
     double gamma;	/* printer gamma */
     double gamma_red;	/* printer gamma red */
     double gamma_green;	/* printer gamma green */
@@ -51,6 +54,7 @@ typedef struct
     char *filename;		/* default filename */
     mode_t image_umask;         /* image umask (permisson mask) */
     mode_t directory_umask;     /* directory umask (permisson mask) */
+
     char *fax_project;		/* fax project */
     char *fax_command;		/* faxcommand */
     char *fax_receiver_option;	/* fax receiver option */
@@ -58,7 +62,13 @@ typedef struct
     char *fax_normal_option;	/* fax normal mode option */
     char *fax_fine_option;	/* fax fine mode option */
     char *fax_viewer;		/* fax viewer */
+    double fax_width;		/* width of fax paper in mm */
+    double fax_height;		/* height of fax paper in mm */
+    double fax_leftoffset;	/* left offset of fax paper in mm */
+    double fax_bottomoffset;	/* bottom offset of fax paper in mm */
+
     char *doc_viewer;		/* doc viewer for helpfiles */
+
     double jpeg_quality;	/* quality when saving image as jpeg */
     double png_compression;	/* compression when saving image as pnm */
     int tiff_compression_nr;	/* compression type nr when saving multi bit image as tiff */
@@ -66,6 +76,7 @@ typedef struct
     int overwrite_warning;	/* warn if file exists */
     int increase_filename_counter;	/* automatically increase counter */
     int skip_existing_numbers;	/* automatically increase counter */
+
     int tooltips_enabled;	/* should tooltips be disabled? */
     int show_histogram;		/* show histogram ? */
     int show_standard_options;	/* show standard options ? */

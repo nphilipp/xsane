@@ -340,6 +340,18 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
  
 
 
@@ -357,6 +369,7 @@
 
 #nls translation file for xsane
 #language: german (de)
+#by Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
 
 #original text:  "About"   
 msgid  "About"   
@@ -707,19 +720,19 @@ msgid  "Resolution (dpi):"
 msgstr "Auflösung (dpi):"
 
 #original text:  "Width (1/72 inch):"   
-msgid  "Width (1/72 inch):"   
+msgid  "Width [mm]:"   
 msgstr "Breite (1/72 Zoll):"
 
 #original text:  "Height (1/72 inch):"   
-msgid  "Height (1/72 inch):"   
+msgid  "Height [mm]:"   
 msgstr "Höhe (1/72 Zoll):"
 
 #original text:  "Left offset (1/72 inch):"   
-msgid  "Left offset (1/72 inch):"   
+msgid  "Left offset [mm]:"   
 msgstr "Linker Rand (1/72 Zoll):"
 
 #original text:  "Bottom offset (1/72 inch):"   
-msgid  "Bottom offset (1/72 inch):"   
+msgid  "Bottom offset [mm]:"   
 msgstr "Unterer Rand (1/72 Zoll):"
 
 #original text:  "Printer gamma value:"   
@@ -780,7 +793,7 @@ msgstr "Befehl:"
 
 #original text:  "Receiver option:"   
 msgid  "Receiver option:"   
-msgstr "Option für Empfäangernummer"
+msgstr "Option für Empfängernummer"
 
 #original text:  "Postscriptfile option:"   
 msgid  "Postscriptfile option:"   
@@ -800,19 +813,19 @@ msgstr "Betrachter (Postscript):"
 
 #original text:  "Copy options"   
 msgid  "Copy options"   
-msgstr "Kopier Optionen"
+msgstr "Photokopie"
 
 #original text:  "Saving options"   
 msgid  "Saving options"   
-msgstr "Speichern Optionen"
+msgstr "Speichern"
 
 #original text:  "Display options"   
 msgid  "Display options"   
-msgstr "Darstellungsoptionen"
+msgstr "Darstellung"
 
 #original text:  "Fax options"   
 msgid  "Fax options"   
-msgstr "Fax Optionen"
+msgstr "Fax"
 
 #original text:  "Scan"   
 msgid  "Scan"   
@@ -908,11 +921,11 @@ msgstr "CCITT 1D Huffman Kompression"
 
 #original text:  "CCITT Group 3 Fax compression"   
 msgid  "CCITT Group 3 Fax compression"   
-msgstr "CCITT Group 3 Fax Kompression"
+msgstr "CCITT Gruppe 3 Fax Kompression"
 
 #original text:  "CCITT Group 4 Fax compression"   
 msgid  "CCITT Group 4 Fax compression"   
-msgstr "CCITT Group 4 Fax Kompression"
+msgstr "CCITT Gruppe 4 Fax Kompression"
 
 #original text:  "JPEG DCT compression"   
 msgid  "JPEG DCT compression"   
@@ -952,7 +965,7 @@ msgstr "Empfange %s Daten für `%s'..."
 
 #original text:  "Receiving %s data for photocopy ..."   
 msgid  "Receiving %s data for photocopy ..."   
-msgstr "Empfange %s Daten für Photocopie"
+msgstr "Empfange %s Daten für Photokopie"
 
 #original text:  "Receiving %s data for fax ..."   
 msgid  "Receiving %s data for fax ..."   
@@ -1072,11 +1085,11 @@ msgstr "Setze Standardwerte für Farbverbesserung:\n" "Gamma = 1.0\n" "Helligkeit
 
 #original text:  "Restore enhancement values from preferences"   
 msgid  "Restore enhancement values from preferences"   
-msgstr "Lade Farbverbesserung aus Einstellungen"
+msgstr "Lade Farbverbesserungswerte aus Einstellungen"
 
 #original text:  "Store active enhancement values to preferences"   
 msgid  "Store active enhancement values to preferences"   
-msgstr "Speichere Farbverbesserung in Einstellungen"
+msgstr "Speichere Farbverbesserungswerte in Einstellungen"
 
 #original text:  "Show histogram of intensity/gray"   
 msgid  "Show histogram of intensity/gray"   
@@ -1123,19 +1136,19 @@ msgid  "Resolution with which images are printed and saved in postscript"
 msgstr "Auflösung, mit der Bilder gedrucht und im Postscriptformat gespeichert werden"
 
 #original text:  "Width of printable area in 1/72 inch"   
-msgid  "Width of printable area in 1/72 inch"   
+msgid  "Width of printable area in mm"   
 msgstr "Breite des druckbaren Bereichs in 1/72 Zoll"
 
 #original text:  "Height of printable area in 1/72 inch"   
-msgid  "Height of printable area in 1/72 inch"   
+msgid  "Height of printable area in mm"   
 msgstr "Höhe des druckbaren Bereichs in 1/72 Zoll"
 
 #original text:  "Left offset from the edge of the paper to the printable area in 1/72 inch"   
-msgid  "Left offset from the edge of the paper to the printable area in 1/72 inch"   
+msgid  "Left offset from the edge of the paper to the printable area in mm"   
 msgstr "Abstand vom linken Papierrand zum Beginn des druckbaren Bereichs in 1/72 Zoll"
 
 #original text:  "Bottom offset from the edge of the paper to the printable area in 1/72 inch"   
-msgid  "Bottom offset from the edge of the paper to the printable area in 1/72 inch"   
+msgid  "Bottom offset from the edge of the paper to the printable area in mm"   
 msgstr "Abstand vom unteren Papierrand zum Beginn des druckbaren Bereichs in 1/72 Zoll"
 
 #original text:  "Additional gamma value for photocopy"   
@@ -1224,7 +1237,7 @@ msgstr "Option, mit der die Empfängertelephonnumer angegeben wird"
 
 #original text:  "Enter option to specify postscript files following"   
 msgid  "Enter option to specify postscript files following"   
-msgstr "Option, mit der angegeben wird, dass der Dateiname eine Postscriptdatei folgt"
+msgstr "Option, mit der angegeben wird, dass der Dateiname einer Postscriptdatei folgt"
 
 #original text:  "Enter option to specify normal mode (low resolution)"   
 msgid  "Enter option to specify normal mode (low resolution)"   
@@ -1440,7 +1453,7 @@ msgstr "Warnung"
 
 #original text:  "Failed to create file:"   
 msgid  "Failed to create file:"   
-msgstr "Fehler beim Erstellen des Files:"
+msgstr "Fehler beim Erstellen der Datei:"
 
 #original text:  "Error while loading device settings:"   
 msgid  "Error while loading device settings:"   
@@ -1500,7 +1513,7 @@ msgstr "<Toolbox>/Xtns/XSane/"
 
 #original text:  "<Toolbox>/File/Acquire/XSane: Device dialog..."   
 msgid  "<Toolbox>/File/Acquire/XSane: Device dialog..."   
-msgstr "<Toolbox>/Datei/Acquire/XSane: Geräteauswahl"
+msgstr "<Toolbox>/File/Acquire/XSane: Geräteauswahl"
 
 #original text:  "<Toolbox>/Xtns/XSane/Device dialog..."   
 msgid  "<Toolbox>/Xtns/XSane/Device dialog..."   
@@ -1509,7 +1522,7 @@ msgstr "<Toolbox>/Xtns/XSane/Geräteauswahl"
 
 #original text: "flatbed scanner"
 msgid "flatbed scanner"
-msgstr "Flachbett Scanner"
+msgstr "Flachbettscanner"
 
 #original text: "frame grabber"
 msgid "frame grabber"
@@ -1521,11 +1534,11 @@ msgstr "Handscanner"
 
 #original text: "still camera"
 msgid "still camera"
-msgstr "Photocamera"
+msgstr "Photokamera"
 
 #original text: "video camera"
 msgid "video camera"
-msgstr "Videocamera"
+msgstr "Videokamera"
 
 #original text: "virtual device"
 msgid "virtual device"

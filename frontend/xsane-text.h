@@ -1,3 +1,27 @@
+/* xsane -- a graphical (X11, gtk) scanner-oriented SANE frontend
+
+   xsane-text.h
+
+   Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
+   Copyright (C) 1998-2000 Oliver Rauch
+   This file is part of the XSANE package.
+
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  */ 
+
+/* ------------------------------------------------------------------------ */
+
 #ifndef XSANE_TEXT_H
 #define XSANE_TEXT_H
 
@@ -99,10 +123,10 @@
 #define TEXT_SETUP_PRINTER_CMD		_("Command:")
 #define TEXT_SETUP_COPY_NR_OPT		_("Copy number option:")
 #define TEXT_SETUP_PRINTER_RES		_("Resolution (dpi):")
-#define TEXT_SETUP_PRINTER_WIDTH	_("Width (1/72 inch):")
-#define TEXT_SETUP_PRINTER_HEIGHT	_("Height (1/72 inch):")
-#define TEXT_SETUP_PRINTER_LEFT		_("Left offset (1/72 inch):")
-#define TEXT_SETUP_PRINTER_BOTTOM	_("Bottom offset (1/72 inch):")
+#define TEXT_SETUP_PRINTER_WIDTH	_("Width [mm]:")
+#define TEXT_SETUP_PRINTER_HEIGHT	_("Height [mm]:")
+#define TEXT_SETUP_PRINTER_LEFT		_("Left offset [mm]:")
+#define TEXT_SETUP_PRINTER_BOTTOM	_("Bottom offset [mm]:")
 #define TEXT_SETUP_PRINTER_GAMMA	_("Printer gamma value:")
 #define TEXT_SETUP_PRINTER_GAMMA_RED	_("Printer gamma red:")
 #define TEXT_SETUP_PRINTER_GAMMA_GREEN	_("Printer gamma green:")
@@ -122,6 +146,10 @@
 #define TEXT_SETUP_FAX_NORMAL_MODE_OPT	_("Normal mode option:")
 #define TEXT_SETUP_FAX_FINE_MODE_OPT	_("Fine mode option:")
 #define TEXT_SETUP_FAX_VIEWER		_("Viewer (Postscript):")
+#define TEXT_SETUP_FAX_WIDTH		_("Width [mm]:")
+#define TEXT_SETUP_FAX_HEIGHT		_("Height [mm]:")
+#define TEXT_SETUP_FAX_LEFT		_("Left offset [mm]:")
+#define TEXT_SETUP_FAX_BOTTOM		_("Bottom offset [mm]:")
 
 #define NOTEBOOK_COPY_OPTIONS		_("Copy options")
 #define NOTEBOOK_SAVING_OPTIONS		_("Saving options")
@@ -197,7 +225,11 @@
 #define DESC_PRINTER_SELECT		_("Select printer definition")
 
 #define DESC_RESOLUTION			_("Set scan resolution")
+#define DESC_RESOLUTION_X		_("Set scan resolution for x direction")
+#define DESC_RESOLUTION_Y		_("Set scan resolution for y direction")
 #define DESC_ZOOM			_("Set zoomfactor")
+#define DESC_ZOOM_X			_("Set zoomfactor for x direction")
+#define DESC_ZOOM_Y			_("Set zoomfactor for y direction")
 #define DESC_COPY_NUMBER		_("Set number of copies")
 
 #define DESC_NEGATIVE			_("Negative: Invert colors for scanning negatives\n" \
@@ -243,10 +275,10 @@
 #define DESC_PRINTER_COMMAND		_("Enter command to be executed in copy mode (e.g. \"lpr -\")")
 #define DESC_COPY_NUMBER_OPTION		_("Enter option for copy numbers")
 #define DESC_PRINTER_RESOLUTION		_("Resolution with which images are printed and saved in postscript")
-#define DESC_PRINTER_WIDTH		_("Width of printable area in 1/72 inch")
-#define DESC_PRINTER_HEIGHT		_("Height of printable area in 1/72 inch")
-#define DESC_PRINTER_LEFTOFFSET		_("Left offset from the edge of the paper to the printable area in 1/72 inch")
-#define DESC_PRINTER_BOTTOMOFFSET	_("Bottom offset from the edge of the paper to the printable area in 1/72 inch")
+#define DESC_PRINTER_WIDTH		_("Width of printable area in mm")
+#define DESC_PRINTER_HEIGHT		_("Height of printable area in mm")
+#define DESC_PRINTER_LEFTOFFSET		_("Left offset from the edge of the paper to the printable area in mm")
+#define DESC_PRINTER_BOTTOMOFFSET	_("Bottom offset from the edge of the paper to the printable area in mm")
 #define DESC_PRINTER_GAMMA		_("Additional gamma value for photocopy")
 #define DESC_PRINTER_GAMMA_RED		_("Additional gamma value for red component for photocopy")
 #define DESC_PRINTER_GAMMA_GREEN	_("Additional gamma value for green component for photocopy")
@@ -276,6 +308,10 @@
 #define DESC_FAX_FINE_OPT		_("Enter option to specify fine mode (high resolution)")
 #define DESC_FAX_VIEWER			_("Enter command to be executed to view a fax")
 #define DESC_FAX_FINE_MODE		_("Use high vertical resolution (196 lpi instead of 98 lpi)")
+#define DESC_FAX_WIDTH			_("Width of printable area in mm")
+#define DESC_FAX_HEIGHT			_("Height of printable area in mm")
+#define DESC_FAX_LEFTOFFSET		_("Left offset from the edge of the paper to the printable area in mm")
+#define DESC_FAX_BOTTOMOFFSET		_("Bottom offset from the edge of the paper to the printable area in mm")
 
 #define DESC_PIPETTE_WHITE		_("Pick white point")
 #define DESC_PIPETTE_GRAY		_("Pick gray point")

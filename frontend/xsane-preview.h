@@ -1,21 +1,24 @@
-/* xsane preview
-   Copyright (C) 1997 David Mosberger-Tang
-   Copyright (C) 1999 Oliver Rauch
+/* xsane -- a graphical (X11, gtk) scanner-oriented SANE frontend
+
+   xsane-preview.h
+
+   Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
+   Copyright (C) 1998-2000 Oliver Rauch
    This file is part of the XSANE package.
 
-   SANE is free software; you can redistribute it and/or modify it under
-   the terms of the GNU General Public License as published by the Free
-   Software Foundation; either version 2 of the License, or (at your
-   option) any later version.
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
 
-   SANE is distributed in the hope that it will be useful, but WITHOUT
-   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-   for more details.
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with sane; see the file COPYING.  If not, write to the Free
-   Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  */
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  */ 
 
 /* ------------------------------------------------------------------------------------------------------ */
 
@@ -82,7 +85,11 @@ typedef struct
   float maximum_output_height;	/* maximum output height (photocopy) */
 
   int saved_dpi_valid;
+  int saved_dpi_x_valid;
+  int saved_dpi_y_valid;
   SANE_Word saved_dpi;
+  SANE_Word saved_dpi_x;
+  SANE_Word saved_dpi_y;
   int saved_coord_valid[4];
   SANE_Word saved_coord[4];
   int saved_custom_gamma_valid;

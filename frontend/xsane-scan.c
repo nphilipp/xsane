@@ -1,6 +1,9 @@
 /* xsane -- a graphical (X11, gtk) scanner-oriented SANE frontend
+
+   xsane-scan.c
+
    Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
-   Copyright (C) 1998,1999 Oliver Rauch
+   Copyright (C) 1998-2000 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -15,7 +18,7 @@
 
    You should have received a copy of the GNU General Public License
    along with this program; if not, write to the Free Software
-   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  */
+   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  */ 
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -256,7 +259,7 @@ static void xsane_gimp_query(void)
 			 XSANE_COPYRIGHT,
 			 XSANE_DATE,
 			 mpath,
-			 "RGB, GRAY",
+			 0, /* "RGB, GRAY", */
 			 PROC_EXTENSION,
 			 nargs, nreturn_vals,
 			 args, return_vals);
@@ -496,7 +499,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
             }
           }
 #ifdef HAVE_LIBGIMP_GIMP_H
-          else
+          else /* GIMP MODE GRAY 8 bit */
           {
             switch (xsane.param.depth)
             {
@@ -577,7 +580,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
             }
           }
 #ifdef HAVE_LIBGIMP_GIMP_H
-          else
+          else /* GIMP MODE RGB 8 bit */
           {
             switch (xsane.param.depth)
             {
@@ -605,7 +608,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
                break;
 
               case 8:
-                if (!xsane.scanner_gamma_color)
+                if (!xsane.scanner_gamma_color) /* gamma correction by xsane */
                 {
                   for (i = 0; i < len; ++i)
                   {
@@ -628,7 +631,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
                     }
                   }
                 }
-                else
+                else /* gamma correction by scanner */
                 {
                   for (i = 0; i < len; ++i)
                   {
@@ -654,14 +657,42 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
         case SANE_FRAME_BLUE:
           if (xsane.mode == XSANE_STANDALONE)
           {
-            for (i = 0; i < len; ++i)
+            if (!xsane.scanner_gamma_color) /* gamma correction by xsane */
             {
-              fwrite(buf8 + i, 1, 1, xsane.out);
-              fseek(xsane.out, 2, SEEK_CUR);
+             char val;
+             SANE_Int *gamma;
+
+              if (xsane.param.format == SANE_FRAME_RED)
+              {
+                gamma = xsane.gamma_data_red;
+              }
+              else if (xsane.param.format == SANE_FRAME_GREEN)
+              {
+                gamma = xsane.gamma_data_green;
+              }
+              else
+              {
+                gamma = xsane.gamma_data_blue;
+              }
+
+              for (i = 0; i < len; ++i)
+              {
+                val = gamma[(int) buf8[i]];
+                fwrite(&val, 1, 1, xsane.out);
+                fseek(xsane.out, 2, SEEK_CUR);
+              }
+            }
+            else /* gamma correction by scanner */
+            {
+              for (i = 0; i < len; ++i)
+              {
+                fwrite(&buf8[i], 1, 1, xsane.out);
+                fseek(xsane.out, 2, SEEK_CUR);
+              }
             }
           }
 #ifdef HAVE_LIBGIMP_GIMP_H
-          else
+          else /* GIMP MODE RED, GREEN, BLUE (3PASS) 8 bit */
           {
             switch (xsane.param.depth)
             {
@@ -688,11 +719,38 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
                break;
 
               case 8:
-                for (i = 0; i < len; ++i)
+                if (!xsane.scanner_gamma_color) /* gamma correction by xsane */
                 {
-                  xsane.tile[xsane.tile_offset] = buf8[i];
-                  xsane.tile_offset += 3;
-                  xsane_gimp_advance();
+                 SANE_Int *gamma;
+
+                  if (xsane.param.format == SANE_FRAME_RED)
+                  {
+                    gamma = xsane.gamma_data_red;
+                  }
+                  else if (xsane.param.format == SANE_FRAME_GREEN)
+                  {
+                    gamma = xsane.gamma_data_green;
+                  }
+                  else
+                  {
+                    gamma = xsane.gamma_data_blue;
+                  }
+
+                  for (i = 0; i < len; ++i)
+                  {
+                    xsane.tile[xsane.tile_offset] = gamma[(int) buf8[i]];
+                    xsane.tile_offset += 3;
+                    xsane_gimp_advance();
+                  }
+                }
+                else /* gamma correction by scanner */
+                {
+                  for (i = 0; i < len; ++i)
+                  {
+                    xsane.tile[xsane.tile_offset] = buf8[i];
+                    xsane.tile_offset += 3;
+                    xsane_gimp_advance();
+                  }
                 }
                break;
 
@@ -744,7 +802,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
             }
           }
 #ifdef HAVE_LIBGIMP_GIMP_H
-          else
+          else /* GIMP MODE RGBA 8 bit */
           {
             int i;
 
@@ -887,7 +945,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
            int i;
            guint16 val;
 
-            if (!xsane.scanner_gamma_gray)
+            if (!xsane.scanner_gamma_gray) /* gamma correction by xsane */
             {
               for (i=0; i < len/2; ++i)
               {
@@ -895,7 +953,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
                 fwrite(&val, 2, 1, xsane.out);
               }
             }
-            else
+            else /* gamma correction by scanner */
             {
               fwrite(buf16, 2, len/2, xsane.out);
             }
@@ -908,7 +966,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
            int i;
            guint16 val;
 
-            if (!xsane.scanner_gamma_color)
+            if (!xsane.scanner_gamma_color) /* gamma correction by xsane */
             {
               for (i=0; i < len/2; ++i)
               {
@@ -930,7 +988,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
                 fwrite(&val, 2, 1, xsane.out);
               }
             }
-            else
+            else /* gamma correction by scanner */
             {
               fwrite(buf16, 2, len/2, xsane.out);
             }
@@ -1206,15 +1264,15 @@ void xsane_scan_done(SANE_Status status)
 
                  case XSANE_PS: /* save postscript, use original size */
                  { 
-                   float imagewidth  = xsane.param.pixels_per_line/(float)xsane.resolution; /* width in inch */
-                   float imageheight = xsane.param.lines/(float)xsane.resolution; /* height in inch */
+                   float imagewidth  = xsane.param.pixels_per_line/xsane.resolution_x; /* width in inch */
+                   float imageheight = xsane.param.lines/xsane.resolution_y; /* height in inch */
 
                     xsane_save_ps(outfile, infile,
                                   xsane.xsane_color /* gray, color */,
                                   xsane.param.depth /* bits */,
                                   xsane.param.pixels_per_line, xsane.param.lines,
-                                  preferences.printer[preferences.printernr]->leftoffset + preferences.printer[preferences.printernr]->width/2 - imagewidth*36,
-                                  preferences.printer[preferences.printernr]->bottomoffset + preferences.printer[preferences.printernr]->height/2 - imageheight*36,
+                                  (preferences.printer[preferences.printernr]->leftoffset  + preferences.printer[preferences.printernr]->width/2)*72.0/MM_PER_INCH - imagewidth*36,
+                                  (preferences.printer[preferences.printernr]->bottomoffset + preferences.printer[preferences.printernr]->height/2)*72.0/MM_PER_INCH - imageheight*36,
                                   imagewidth, imageheight);
                  }
                  break;
@@ -1297,8 +1355,8 @@ void xsane_scan_done(SANE_Status status)
                          xsane.xsane_color /* gray, color */,
                          xsane.param.depth /* bits */,
                          xsane.param.pixels_per_line, xsane.param.lines,
-                         preferences.printer[preferences.printernr]->leftoffset + preferences.printer[preferences.printernr]->width/2 - imagewidth*36,
-                         preferences.printer[preferences.printernr]->bottomoffset + preferences.printer[preferences.printernr]->height/2 - imageheight*36,
+                         (preferences.printer[preferences.printernr]->leftoffset   + preferences.printer[preferences.printernr]->width/2)*72.0/MM_PER_INCH - imagewidth*36,
+                         (preferences.printer[preferences.printernr]->bottomoffset + preferences.printer[preferences.printernr]->height/2)*72.0/MM_PER_INCH - imageheight*36,
                          imagewidth, imageheight);
          }
          else
@@ -1360,32 +1418,33 @@ void xsane_scan_done(SANE_Status status)
          {
            fseek(infile, xsane.header_size, SEEK_SET);
 
+           umask(preferences.image_umask); /* define image file permissions */   
+           outfile = fopen(xsane.fax_filename, "w");
+           umask(XSANE_DEFAULT_UMASK); /* define new file permissions */   
+           if (outfile != 0)
            {
-             umask(preferences.image_umask); /* define image file permissions */   
-             outfile = fopen(xsane.fax_filename, "w");
-             umask(XSANE_DEFAULT_UMASK); /* define new file permissions */   
-             if (outfile != 0)
-             {
-              float imagewidth  = xsane.param.pixels_per_line/(float)xsane.resolution; /* width in inch */
-              float imageheight = xsane.param.lines/(float)xsane.resolution; /* height in inch */
+            float imagewidth, imageheight;
 
-               xsane_save_ps(outfile, infile,
-                             xsane.xsane_color /* gray, color */,
-                             xsane.param.depth /* bits */,
-                             xsane.param.pixels_per_line, xsane.param.lines,
-                             preferences.printer[preferences.printernr]->leftoffset + preferences.printer[preferences.printernr]->width/2 - imagewidth*36,
-                             preferences.printer[preferences.printernr]->bottomoffset + preferences.printer[preferences.printernr]->height/2 - imageheight*36,
-                             imagewidth, imageheight);
-               fclose(outfile);
-             }
-             else
-             {
-              char buf[256];
+             imagewidth  = xsane.param.pixels_per_line/xsane.resolution_x; /* width in inch */
+             imageheight = xsane.param.lines/xsane.resolution_y; /* height in inch */
 
-               snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, xsane.fax_filename, strerror(errno));
-               xsane_back_gtk_error(buf, TRUE);
-             }
+             xsane_save_ps(outfile, infile,
+                           xsane.xsane_color /* gray, color */,
+                           xsane.param.depth /* bits */,
+                           xsane.param.pixels_per_line, xsane.param.lines,
+                           (preferences.fax_leftoffset   + preferences.fax_width/2)*72.0/MM_PER_INCH  - imagewidth*36,
+                           (preferences.fax_bottomoffset + preferences.fax_height/2)*72.0/MM_PER_INCH - imageheight*36,
+                           imagewidth, imageheight);
+             fclose(outfile);
            }
+           else
+           {
+            char buf[256];
+
+             snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, xsane.fax_filename, strerror(errno));
+             xsane_back_gtk_error(buf, TRUE);
+           }
+
            fclose(infile);
            remove(xsane.dummy_filename);
          }
@@ -1597,20 +1656,20 @@ static void xsane_start_scan(void)
       umask(preferences.image_umask); /* define image file permissions */   
     }
 
-    remove(xsane.dummy_filename); /* remove existing file */
-    xsane.out = fopen(xsane.dummy_filename, "w");
-    umask(XSANE_DEFAULT_UMASK); /* define new file permissions */   
-
-    if (!xsane.out) /* error while opening the dummy_file for writing */
+    if (!xsane.header_size) /* first pass of multi pass scan */
     {
-      xsane_scan_done(-1); /* -1 = error */
-      snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, xsane.output_filename, strerror(errno));
-      xsane_back_gtk_error(buf, TRUE);
-      return;
-    }
+      remove(xsane.dummy_filename); /* remove existing file */
+      xsane.out = fopen(xsane.dummy_filename, "w");
+      umask(XSANE_DEFAULT_UMASK); /* define new file permissions */   
 
-    if (!xsane.header_size)
-    {
+      if (!xsane.out) /* error while opening the dummy_file for writing */
+      {
+        xsane_scan_done(-1); /* -1 = error */
+        snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, xsane.output_filename, strerror(errno));
+        xsane_back_gtk_error(buf, TRUE);
+        return;
+      }
+
       switch (xsane.param.format)
       {
         case SANE_FRAME_RGB:
@@ -1665,6 +1724,7 @@ static void xsane_start_scan(void)
          /* unknown file format, do not write header */
           break;
         }
+        fflush(xsane.out);
         xsane.header_size = ftell(xsane.out);
       }
 
@@ -1741,9 +1801,9 @@ static void xsane_start_scan(void)
 
 /* the following is supported since gimp-1.1.? */
 #ifdef GIMP_HAVE_RESOLUTION_INFO
-          if (xsane.resolution > 0)
+          if (xsane.resolution_x > 0)
           {
-            gimp_image_set_resolution(xsane.image_ID, xsane.resolution /* xres */,xsane.resolution /* yres */);
+            gimp_image_set_resolution(xsane.image_ID, xsane.resolution_x ,xsane.resolution_y);
           }
 /*          gimp_image_set_unit(xsane.image_ID, unit?); */
 #endif

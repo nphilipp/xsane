@@ -1,6 +1,9 @@
 /* xsane -- a graphical (X11, gtk) scanner-oriented SANE frontend
+
+   xsane-front-gtk.h
+
    Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
-   Copyright (C) 1998,1999 Oliver Rauch
+   Copyright (C) 1998-2000 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -15,7 +18,7 @@
 
    You should have received a copy of the GNU General Public License
    along with this program; if not, write to the Free Software
-   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  */
+   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  */ 
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -30,7 +33,8 @@
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 extern void xsane_get_bounds(const SANE_Option_Descriptor *opt, double *minp, double *maxp);
-extern void xsane_set_resolution(int resolution);
+extern int xsane_set_resolution(int well_known_option, int resolution);
+extern void xsane_set_all_resolutions(void);
 extern void xsane_define_maximum_output_size(); 
 extern void xsane_close_dialog_callback(GtkWidget *widget, gpointer data);
 extern void xsane_authorization_button_callback(GtkWidget *widget, gpointer data);
@@ -47,10 +51,11 @@ extern GtkWidget *xsane_button_new_with_pixmap(GtkWidget *parent, const char *xp
                                                void *xsane_button_callback, gpointer data);
 extern void xsane_pixmap_new(GtkWidget *parent, char *title, int width, int height, XsanePixmap *hist);
 extern void xsane_option_menu_new(GtkWidget *parent, char *str_list[], const char *val, int option_number, const char *desc,
-                                  void *option_menu_callback, SANE_Int settable);
+                                  void *option_menu_callback, SANE_Int settable, const gchar *widget_name);
 extern void xsane_option_menu_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char *desc,
                                               char *str_list[], const char *val,
-                                              GtkObject **data, int option, void *option_menu_callback, SANE_Int settable);
+                                              GtkObject **data, int option,
+                                              void *option_menu_callback, SANE_Int settable, const gchar *widget_name);
 extern void xsane_scale_new(GtkBox *parent, char *labeltext, const char *desc,
                             float min, float max, float quant, float step, float xxx,
                             int digits, double *val, GtkObject **data, void *xsane_scale_callback, SANE_Int settable);

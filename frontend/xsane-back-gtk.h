@@ -1,6 +1,9 @@
 /* xsane -- a graphical (X11, gtk) scanner-oriented SANE frontend
+
+   xsane-back-gtk.h
+
    Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
-   Copyright (C) 1998,1999 Oliver Rauch
+   Copyright (C) 1998-2000 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -68,6 +71,8 @@ typedef struct
     int scansource;
     int preview;
     int dpi;
+    int dpi_x;
+    int dpi_y;
     int coord[4];
     int gamma_vector;
     int gamma_vector_r;

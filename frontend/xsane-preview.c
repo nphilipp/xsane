@@ -1,21 +1,24 @@
-/* xsane
-   Copyright (C) 1999 Oliver Rauch,
+/* xsane -- a graphical (X11, gtk) scanner-oriented SANE frontend
+
+   xsane-preview.c
+
+   Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
+   Copyright (C) 1998-2000 Oliver Rauch
    This file is part of the XSANE package.
 
-   SANE is free software; you can redistribute it and/or modify it under
-   the terms of the GNU General Public License as published by the Free
-   Software Foundation; either version 2 of the License, or (at your
-   option) any later version.
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
 
-   SANE is distributed in the hope that it will be useful, but WITHOUT
-   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-   for more details.
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with sane; see the file COPYING.  If not, write to the Free
-   Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  */
-
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  */ 
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -85,6 +88,7 @@ extern const char *device_text;
 
 /* Cut fp conversion routines some slack: */
 #define GROSSLY_DIFFERENT(f1,f2)	(fabs ((f1) - (f2)) > 1e-3)
+#define GROSSLY_EQUAL(f1,f2)		(fabs ((f1) - (f2)) < 1e-3) 
 
 #ifdef __alpha__
   /* This seems to be necessary for at least some XFree86 3.1.2
@@ -155,13 +159,14 @@ static int  preview_increment_image_y(Preview *p);
 static void preview_read_image_data(gpointer data, gint source, GdkInputCondition cond);
 static void preview_scan_done(Preview *p);
 static void preview_scan_start(Preview *p);
-static int preview_make_image_path(Preview *p, size_t filename_size, char *filename);
+static int preview_make_image_path(Preview *p, size_t filename_size, char *filename, int level);
 static void preview_restore_image(Preview *p);
 static gint preview_expose_handler(GtkWidget *window, GdkEvent *event, gpointer data);
 static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer data);
 static void preview_start_button_clicked(GtkWidget *widget, gpointer data);
 static void preview_cancel_button_clicked(GtkWidget *widget, gpointer data);
 static void preview_area_correct(Preview *p);
+static void preview_save_image(Preview *p);
 static void preview_zoom_not(GtkWidget *window, gpointer data);
 static void preview_zoom_out(GtkWidget *window, gpointer data);
 static void preview_zoom_in(GtkWidget *window, gpointer data);
@@ -658,7 +663,6 @@ static void preview_display_image(Preview *p)
     assert(p->image_data_raw);
     assert(p->image_data_enh);
   }
-  preview_display_partial_image(p);
 
   memcpy(p->image_data_raw, p->image_data_enh, 3*p->image_width * p->image_height);
   preview_do_gamma_correction(p);
@@ -770,8 +774,8 @@ static int preview_increment_image_y(Preview *p)
   ++p->image_y;
   if (p->params.lines <= 0 && p->image_y >= p->image_height)
   {
-    offset = 3*p->image_width*p->image_height;
-    extra_size = 3*32*p->image_width;
+    offset = 3 * p->image_width*p->image_height;
+    extra_size = 3 * 32 * p->image_width;
     p->image_height += 32;
     p->image_data_raw = realloc(p->image_data_raw, offset + extra_size);
     p->image_data_enh = realloc(p->image_data_enh, offset + extra_size);
@@ -806,9 +810,10 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
     {
       if (status == SANE_STATUS_EOF)
       {
-        if (p->params.last_frame)
+        if (p->params.last_frame) /* got all preview image data */
         {
-          preview_display_image(p);
+          preview_display_image(p); /* display preview image */
+          preview_save_image(p);    /* save preview image */
         }
         else
         {
@@ -980,7 +985,9 @@ static void preview_scan_done(Preview *p)
  
   xsane.block_update_param = TRUE; /* do not change parameters each time */
 
-  preview_restore_option(p, p->dialog->well_known.dpi, p->saved_dpi, p->saved_dpi_valid);
+  preview_restore_option(p, p->dialog->well_known.dpi,   p->saved_dpi,   p->saved_dpi_valid);
+  preview_restore_option(p, p->dialog->well_known.dpi_x, p->saved_dpi_x, p->saved_dpi_x_valid);
+  preview_restore_option(p, p->dialog->well_known.dpi_y, p->saved_dpi_y, p->saved_dpi_y_valid);
 
   for (i = 0; i < 4; ++i)
   {
@@ -1127,17 +1134,19 @@ static void preview_scan_start(Preview *p)
   }
 
   if ( (!p->image_data_enh)  || (p->params.pixels_per_line != p->image_width)
-      || (p->params.lines >= 0 && p->params.lines != p->image_height) )
+      || ( (p->params.lines >= 0) && (p->params.lines != p->image_height) ) )
   {
     /* image size changed */
     if (p->image_data_enh)
     {
       free(p->image_data_enh);
+      p->image_data_enh = 0;
     }
 
     if (p->image_data_raw)
     {
       free(p->image_data_raw);
+      p->image_data_raw = 0;
     }
 
     p->image_width  = p->params.pixels_per_line;
@@ -1154,10 +1163,16 @@ static void preview_scan_start(Preview *p)
     if ( (!p->image_data_raw) || (!p->image_data_enh) )
     {
       if (p->image_data_enh)
-      { free(p->image_data_enh); }
+      {
+        free(p->image_data_enh);
+        p->image_data_enh = 0;
+      }
 
       if (p->image_data_raw)
-      { free(p->image_data_raw); }
+      {
+        free(p->image_data_raw);
+        p->image_data_raw = 0;
+      }
 
       snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_ALLOCATE_IMAGE, strerror(errno));
       xsane_back_gtk_error(buf, TRUE);
@@ -1187,58 +1202,83 @@ static void preview_scan_start(Preview *p)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static int preview_make_image_path(Preview *p, size_t filename_size, char *filename)
+static int preview_make_image_path(Preview *p, size_t filename_size, char *filename, int level)
 {
-  return xsane_back_gtk_make_path(filename_size, filename, 0, 0, "preview-", p->dialog->dev_name, ".ppm", XSANE_PATH_TMP);
+ char buf[256];
+
+  snprintf(buf, sizeof(buf), "preview-level-%d-", level);
+  return xsane_back_gtk_make_path(filename_size, filename, 0, 0, buf, p->dialog->dev_name, ".ppm", XSANE_PATH_TMP);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void preview_restore_image(Preview *p)
+static int preview_restore_image_from_file(Preview *p, FILE *in, int min_quality)
 {
  u_int psurface_type, psurface_unit;
- char filename[PATH_MAX];
- int width, height;
+ int image_width, image_height;
+ int xoffset, yoffset, width, height;
+ int quality;
+ int y;
  float psurface[4];
  size_t nread;
- FILE *in;
+ char *imagep;
 
-  /* See whether there is a saved preview and load it if present: */
-
-  if (preview_make_image_path(p, sizeof(filename), filename) < 0)
-  {
-    return;
-  }
-
-  in = fopen(filename, "r");
   if (!in)
   {
-    return;
+    return min_quality;
   }
+
+  /* See whether there is a saved preview and load it if present: */
 
   if (fscanf(in, "P6\n# surface: %g %g %g %g %u %u\n%d %d\n255\n",
 	      psurface + 0, psurface + 1, psurface + 2, psurface + 3,
 	      &psurface_type, &psurface_unit,
-	      &width, &height) != 8)
+	      &image_width, &image_height) != 8)
   {
-    return;
+    return min_quality;
   }
 
-  if (GROSSLY_DIFFERENT (psurface[0], p->surface[0]) ||
-      GROSSLY_DIFFERENT (psurface[1], p->surface[1]) ||
-      GROSSLY_DIFFERENT (psurface[2], p->surface[2]) ||
-      GROSSLY_DIFFERENT (psurface[3], p->surface[3]) ||
-      psurface_type != p->surface_type || psurface_unit != p->surface_unit)
-    /* ignore preview image that was acquired for/with a different surface */
+  if ((psurface_type != p->surface_type) || (psurface_unit != p->surface_unit))
   {
-    return;
+    return min_quality;
   }
 
-  p->params.depth = 8;
-  p->image_width = width;
-  p->image_height = height;
-  p->image_data_enh = malloc(3 * width * height);
-  p->image_data_raw = malloc(3 * width * height);
+  xoffset = (p->surface[0] -  psurface[0])/(psurface[2]  - psurface[0]) * image_width;
+  yoffset = (p->surface[1] -  psurface[1])/(psurface[3]  - psurface[1]) * image_height;
+  width   = (p->surface[2] - p->surface[0])/(psurface[2] - psurface[0]) * image_width;
+  height  = (p->surface[3] - p->surface[1])/(psurface[3] - psurface[1]) * image_height;
+  quality = width;
+
+  if ((xoffset < 0) || (yoffset < 0) ||
+      (xoffset+width > image_width) || (yoffset+height > image_height) ||
+      (width == 0) || (height == 0))
+  {
+    return min_quality;
+  }
+
+  if (quality < min_quality)
+  {
+    return min_quality;
+  }
+
+  if (p->image_data_enh)
+  {
+    free(p->image_data_enh);
+    p->image_data_enh = 0;
+  }
+
+  if (p->image_data_raw)
+  {
+    free(p->image_data_raw);
+    p->image_data_raw = 0;
+  }
+
+  p->params.depth   = 8;
+  p->image_width    = width;
+  p->image_height   = height;
+  p->image_data_enh = malloc(3 * p->image_width * p->image_height);
+  p->image_data_raw = malloc(3 * p->image_width * p->image_height);
+
   if ( (!p->image_data_raw) || (!p->image_data_enh) )
   {
    char buf[255];
@@ -1246,27 +1286,72 @@ static void preview_restore_image(Preview *p)
     if (p->image_data_enh)
     {
       free(p->image_data_enh);
+      p->image_data_enh = 0;
     }
 
     if (p->image_data_raw)
     {
       free(p->image_data_raw);
+      p->image_data_raw = 0;
     }
 
     snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_ALLOCATE_IMAGE, strerror(errno));
     xsane_back_gtk_error(buf, TRUE);
-    return;
+    return min_quality;
   }
 
-  nread = fread(p->image_data_enh, 3, width * height, in);
+  fseek(in, yoffset * 3 * image_width, SEEK_CUR); /* skip unused lines */
 
-  p->image_y = nread / width;
-  p->image_x = nread % width;
+  imagep = p->image_data_enh;
+
+  for (y = yoffset; y < yoffset + height; y++)
+  {
+    fseek(in, xoffset * 3, SEEK_CUR); /* skip unused pixel left of area */
+
+    nread = fread(imagep, 3, width, in);
+    imagep += width * 3;
+
+    fseek(in, (image_width - width - xoffset) * 3, SEEK_CUR); /* skip unused pixel right of area */
+  }
+
+  p->image_y = height;
+  p->image_x = width;
+
+  p->image_surface[0] = p->surface[0];
+  p->image_surface[1] = p->surface[1];
+  p->image_surface[2] = p->surface[2];
+  p->image_surface[3] = p->surface[3];
+
+ return quality;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void preview_restore_image(Preview *p)
+{
+ char filename[PATH_MAX];
+ FILE *in;
+ int status;
+ int quality = 0;
+ int level;
+
+  /* See whether there is a saved preview and load it if present: */
+
+  for(level = 2; level >= 0; level--)
+  {
+    status = preview_make_image_path(p, sizeof(filename), filename, level);
+    if (status >= 0)
+    {
+      in = fopen(filename, "r");
+      if (in)
+      {
+        quality = preview_restore_image_from_file(p, in, quality);
+      }
+    }
+  }
   memcpy(p->image_data_raw, p->image_data_enh, 3 * p->image_width * p->image_height);
 
-  preview_update_surface(p, 0); /* if surface was not defined it's necessary to redefine it now */
-
-  preview_update_selection(p);
+  preview_do_gamma_correction(p);
   xsane_update_histogram();
 }
 
@@ -2260,18 +2345,22 @@ void preview_update_surface(Preview *p, int surface_changed)
     p->surface_type = type;
   }
 
-  if (surface_changed && p->image_data_enh)
+  if (surface_changed)
   {
-    free(p->image_data_enh);
-    free(p->image_data_raw);
-    p->image_data_enh = 0;
-    p->image_data_raw = 0;
-    p->image_width = 0;
-    p->image_height = 0;
-  }
+    if (p->image_data_enh)
+    {
+      free(p->image_data_enh);
+      p->image_data_enh = 0;
+    }
 
-  if (surface_changed) /* calculate p->aspect if surface has changed */
-  {
+    if (p->image_data_raw)
+    {
+      free(p->image_data_raw);
+      p->image_data_raw = 0;
+    }
+    p->image_width  = 0;
+    p->image_height = 0;
+
     /* guess the initial preview window size: */
 
     width  = p->surface[xsane_back_gtk_BR_X] - p->surface[xsane_back_gtk_TL_X];
@@ -2317,10 +2406,7 @@ void preview_update_surface(Preview *p, int surface_changed)
     gtk_widget_set_usize(GTK_WIDGET(p->window), p->preview_width, p->preview_height);
     /* preview_area_resize is automatically called by signal handler */
 
-    if (preferences.preserve_preview)
-    {
-      preview_restore_image(p);
-    }
+    preview_restore_image(p);
   }
   else
   {
@@ -2338,7 +2424,11 @@ void preview_scan(Preview *p)
  int i;
 
   xsane.block_update_param = TRUE; /* do not change parameters each time */
-  preview_save_option(p, p->dialog->well_known.dpi, &p->saved_dpi, &p->saved_dpi_valid);
+
+  preview_save_option(p, p->dialog->well_known.dpi,   &p->saved_dpi,   &p->saved_dpi_valid);
+  preview_save_option(p, p->dialog->well_known.dpi_x, &p->saved_dpi_x, &p->saved_dpi_x_valid);
+  preview_save_option(p, p->dialog->well_known.dpi_y, &p->saved_dpi_y, &p->saved_dpi_y_valid);
+
   for (i = 0; i < 4; ++i)
   {
     preview_save_option(p, p->dialog->well_known.coord[i], &p->saved_coord[i], p->saved_coord_valid + i);
@@ -2394,7 +2484,9 @@ void preview_scan(Preview *p)
       dpi = max;
     }
 
-    xsane_set_resolution(dpi); /* set resolution to dpi or next higher value that is available */
+    xsane_set_resolution(p->dialog->well_known.dpi,   dpi); /* set resolution to dpi or next higher value that is available */
+    xsane_set_resolution(p->dialog->well_known.dpi_x, dpi); /* set resolution to dpi or next higher value that is available */
+    xsane_set_resolution(p->dialog->well_known.dpi_y, dpi); /* set resolution to dpi or next higher value that is available */
   }
 
   /* set the scan window (necessary since backends may default to non-maximum size):  */
@@ -2419,17 +2511,53 @@ void preview_scan(Preview *p)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static void preview_save_image_file(Preview *p, FILE *out)
+{
+  if (out)
+  {
+    /* always save it as a PPM image: */
+    fprintf(out, "P6\n# surface: %g %g %g %g %u %u\n%d %d\n255\n",
+                 p->surface[0], p->surface[1], p->surface[2], p->surface[3],
+                 p->surface_type, p->surface_unit, p->image_width, p->image_height);
+
+    fwrite(p->image_data_raw, 3, p->image_width*p->image_height, out);
+    fclose(out);
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void preview_save_image(Preview *p)
 {
  char filename[PATH_MAX];
  FILE *out;
+ int status;
 
-  if ((!preferences.preserve_preview) ||  (!p->image_data_enh))
+  if (!p->image_data_enh)
   {
     return;
   }
 
-  if (preview_make_image_path(p, sizeof(filename), filename) >= 0)
+  if ( GROSSLY_EQUAL(p->max_scanner_surface[0], p->surface[0]) && /* full device surface */
+       GROSSLY_EQUAL(p->max_scanner_surface[1], p->surface[1]) &&
+       GROSSLY_EQUAL(p->max_scanner_surface[2], p->surface[2]) &&
+       GROSSLY_EQUAL(p->max_scanner_surface[3], p->surface[3]) )
+  {
+    status = preview_make_image_path(p, sizeof(filename), filename, 0);
+  }
+  else if ( GROSSLY_EQUAL(p->scanner_surface[0], p->surface[0]) && /* user defined surface */
+            GROSSLY_EQUAL(p->scanner_surface[1], p->surface[1]) &&
+            GROSSLY_EQUAL(p->scanner_surface[2], p->surface[2]) &&
+            GROSSLY_EQUAL(p->scanner_surface[3], p->surface[3]) )
+  {
+    status = preview_make_image_path(p, sizeof(filename), filename, 1);
+  }
+  else /* zoom area */
+  {
+    status = preview_make_image_path(p, sizeof(filename), filename, 2);
+  }
+
+  if (status >= 0)
   {
     /* save preview image */
     remove(filename); /* remove existing preview */
@@ -2437,16 +2565,7 @@ static void preview_save_image(Preview *p)
     out = fopen(filename, "w");
     umask(XSANE_DEFAULT_UMASK); /* define new file permissions */
 
-    if (out)
-    {
-      /* always save it as a PPM image: */
-      fprintf(out, "P6\n# surface: %g %g %g %g %u %u\n%d %d\n255\n",
-		  p->surface[0], p->surface[1], p->surface[2], p->surface[3],
-		  p->surface_type, p->surface_unit, p->image_width, p->image_height);
-
-      fwrite(p->image_data_raw, 3, p->image_width*p->image_height, out);
-      fclose(out);
-    }
+    preview_save_image_file(p, out);
   }
 }
 
@@ -2454,6 +2573,10 @@ static void preview_save_image(Preview *p)
 
 void preview_destroy(Preview *p)
 {
+ int level;
+ int status;
+ char filename[PATH_MAX];
+
   if (p->scanning)
   {
     preview_scan_done(p);		/* don't save partial window */
@@ -2463,19 +2586,34 @@ void preview_destroy(Preview *p)
     preview_save_image(p);
   }
 
+  if (!preferences.preserve_preview)
+  {
+    for(level = 0; level <= 2; level++)
+    {
+      status = preview_make_image_path(p, sizeof(filename), filename, level);
+      if (status >= 0)
+      {
+        remove(filename); /* remove existing preview */
+      }
+    }
+  }
+
   if (p->image_data_enh)
   {
     free(p->image_data_enh);
+    p->image_data_enh = 0;
   }
 
   if (p->image_data_raw)
   {
     free(p->image_data_raw);
+    p->image_data_raw = 0;
   }
 
   if (p->preview_row)
   {
     free(p->preview_row);
+    p->preview_row = 0;
   }
 
   if (p->gc_selection)
@@ -2493,6 +2631,8 @@ void preview_destroy(Preview *p)
     gtk_widget_destroy(p->top);
   }
   free(p);
+
+  p = 0;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -2516,8 +2656,9 @@ static void preview_zoom_not(GtkWidget *window, gpointer data)
   {
     gtk_main_iteration();
   }
-
+#if 0
   preview_scan(p);
+#endif
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -2568,7 +2709,9 @@ static void preview_zoom_out(GtkWidget *window, gpointer data)
     gtk_main_iteration();
   }
 
+#if 0
   preview_scan(p);
+#endif
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -2616,7 +2759,9 @@ static void preview_zoom_in(GtkWidget *window, gpointer data)
     gtk_main_iteration();
   }
 
+#if 0
   preview_scan(p);
+#endif
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -2641,7 +2786,9 @@ static void preview_zoom_undo(GtkWidget *window, gpointer data)
     gtk_main_iteration();
   }
 
+#if 0
   preview_scan(p);
+#endif
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -2823,6 +2970,9 @@ void preview_do_gamma_correction(Preview *p)
       }
     }
     preview_display_partial_image(p);
+	
+    p->previous_selection.active = FALSE; /* previous selection is not drawn */
+    p->previous_selection_maximum.active = FALSE;
   }
 }
 
@@ -2949,8 +3099,6 @@ void preview_gamma_correction(Preview *p,
   histogram_gamma_data_blue  = gamma_blue_hist;
 
   preview_do_gamma_correction(p);
-  p->previous_selection.active = FALSE;
-  p->previous_selection_maximum.active = FALSE;
   preview_draw_selection(p);
 }
 
@@ -2979,7 +3127,7 @@ void preview_area_resize(GtkWidget *widget)
   }
   else
   {
-    p->preview_row = malloc(3*p->preview_window_width);
+    p->preview_row = malloc(3 * p->preview_window_width);
   }
 
   /* set the ruler ranges: */

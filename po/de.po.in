@@ -3,6 +3,7 @@
 
 #nls translation file for xsane
 #language: german (de)
+#by Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
 
 #original text:  "About"   
 msgid WINDOW_ABOUT
@@ -1146,7 +1147,7 @@ msgstr "<Toolbox>/Xtns/XSane/"
 
 #original text:  "<Toolbox>/File/Acquire/XSane: Device dialog..."   
 msgid XSANE_GIMP_MENU_DIALOG
-msgstr "<Toolbox>/Datei/Acquire/XSane: Geräteauswahl"
+msgstr "<Toolbox>/File/Acquire/XSane: Geräteauswahl"
 
 #original text:  "<Toolbox>/Xtns/XSane/Device dialog..."   
 msgid XSANE_GIMP_MENU_DIALOG_OLD
