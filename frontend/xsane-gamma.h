@@ -23,6 +23,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+extern void xsane_clear_histogram(XsanePixmap *hist);    
 extern void xsane_draw_slider_level(XsaneSlider *slider);
 extern void xsane_update_slider(XsaneSlider *slider);
 extern void xsane_update_sliders(void);

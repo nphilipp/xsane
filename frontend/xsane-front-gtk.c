@@ -94,6 +94,7 @@ void xsane_option_menu_new_with_pixmap(GtkBox *parent, const char *xpm_d[], cons
 void xsane_separator_new(GtkWidget *xsane_parent, int dist);
 GtkWidget *xsane_info_table_text_new(GtkWidget *table, gchar *text, int row, int colomn);
 GtkWidget *xsane_info_text_new(GtkWidget *parent, gchar *text);
+void xsane_refresh_dialog(void *nothing);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -199,7 +200,7 @@ void xsane_set_resolution(int resolution)
     bestdpi = opt->constraint.word_list[1];
     diff    = abs(bestdpi - dpi);
 
-    for (i=1; i<items; i++)
+    for (i=1; i<=items; i++)
     {
       val = opt->constraint.word_list[i];
       if (abs(val - dpi) < diff)
@@ -732,4 +733,11 @@ GtkWidget *xsane_info_text_new(GtkWidget *parent, gchar *text)
  return label;
 }
 #endif
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void xsane_refresh_dialog(void *nothing)
+{
+  gsg_refresh_dialog(dialog);
+}                    
+
 /* ---------------------------------------------------------------------------------------------------------------------- */

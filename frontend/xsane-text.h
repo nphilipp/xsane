@@ -19,7 +19,7 @@
 #define BUTTON_AUTO		"Auto"
 #define BUTTON_DEFAULT		"Default"
 #define BUTTON_RESTORE		"Restore"
-#define BUTTON_SAVE		"Save"
+#define BUTTON_STORE		"Store"
 #define BUTTON_CLOSE		"Close"
 
 #define RADIO_BUTTON_FINE_MODE	"Fine mode"
@@ -48,6 +48,8 @@
 #define TEXT_OUTPUT_FORMATS	"XSane output formats:"
 #define TEXT_8BIT_FORMATS	"8 bit output formats:"
 #define TEXT_16BIT_FORMATS	"16 bit output formats:"
+#define TEXT_SAVE_SETTINGS	"Save device settings:"
+#define TEXT_LOAD_SETTINGS	"Load device settings:"
 
 #define MENU_ITEM_SCAN		"Scan"
 #define MENU_ITEM_COPY		"Copy"

@@ -62,6 +62,8 @@ typedef struct
     double xsane_contrast_red;
     double xsane_contrast_green;
     double xsane_contrast_blue;
+    int xsane_rgb_default;
+    int xsane_negative;
     int printernr;
     int printerdefinitions;
     Preferences_printer_t *printer[10];

@@ -495,7 +495,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
            int i;
            char val;
 
-            if (!xsane.scanner_gamma_color)
+            if (!xsane.scanner_gamma_color) /* gamma correction by xsane */
             {
               for (i=0; i < len; ++i)
               {
@@ -517,7 +517,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
                 fwrite(&val, 1, 1, xsane.out);
               }
             }
-            else
+            else /* gamma correction has been done by scanner */
             {
               fwrite(buf8, 1, len, xsane.out);
             }
@@ -641,6 +641,101 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
           }
 #endif /* HAVE_LIBGIMP_GIMP_H */
          break;
+
+#ifdef SUPPORT_RGBI
+        case SANE_FRAME_RGBI: /* Scanning including Infrared channel */
+          if (xsane.mode == STANDALONE)
+          {
+            int i;
+            char val;
+
+            if (!xsane.scanner_gamma_color) /* gamma correction by xsane */
+            {
+              for (i=0; i < len; ++i)
+              {
+                if (dialog->pixelcolor == 0)
+                {
+                  val = xsane.gamma_data_red[(int) buf8[i]];
+                  dialog->pixelcolor++;
+                }
+                else if (dialog->pixelcolor == 1)
+                {
+                  val = xsane.gamma_data_green[(int) buf8[i]];
+                  dialog->pixelcolor++;
+                }
+                else if (dialog->pixelcolor == 2)
+                {
+                  val = xsane.gamma_data_blue[(int) buf8[i]];
+                  dialog->pixelcolor++;
+                }
+                else
+                {
+                  val = buf8[i]; /* no gamma table for infrared channel */
+                  dialog->pixelcolor = 0;
+                }
+                fwrite(&val, 1, 1, xsane.out);
+              }
+            }
+            else /* gamma correction has been done by scanner */
+            {
+              fwrite(buf8, 1, len, xsane.out);
+            }
+          }
+#ifdef HAVE_LIBGIMP_GIMP_H
+          else
+          {
+            int i;
+
+
+            switch (xsane.param.depth)
+            {
+              case 8:
+                if (!xsane.scanner_gamma_color) /* gamma correction by xsane */
+                {
+                  for (i=0; i < len; ++i)
+                  {
+                    if (xsane.tile_offset % 4 == 0)
+                    {
+                      xsane.tile[xsane.tile_offset++] = xsane.gamma_data_red[(int) buf8[i]];
+                    }
+                    else if (xsane.tile_offset % 4 == 1)
+                    {
+                      xsane.tile[xsane.tile_offset++] = xsane.gamma_data_green[(int) buf8[i]];
+                    }
+                    else if (xsane.tile_offset % 4 == 2)
+                    {
+                      xsane.tile[xsane.tile_offset++] = xsane.gamma_data_blue[(int) buf8[i]];
+                    }
+                    else
+                    {
+                      xsane.tile[xsane.tile_offset++] = buf8[i]; /* no gamma table for infrared channel */
+                    }                                           
+
+                    if (xsane.tile_offset % 4 == 0)
+                    {
+                      xsane_gimp_advance();
+                    }
+                  }
+                }
+                else /* gamma correction has been done by scanner */
+                {
+                 for (i = 0; i < len; ++i)
+                 {
+                   xsane.tile[xsane.tile_offset++] = buf8[i];
+                    if (xsane.tile_offset % 4 == 0)
+                    {
+                      xsane_gimp_advance();
+                    }
+                  }
+                }
+               break;
+           default:
+             goto bad_depth;
+            }
+          }
+#endif /* HAVE_LIBGIMP_GIMP_H */
+         break;
+#endif
 
         default:
           fprintf(stderr, "%s.xsane_read_image_data: bad frame format %d\n", prog_name, xsane.param.format);
@@ -790,6 +885,48 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
           }
          break;
 
+#ifdef SUPPORT_RGBI
+        case SANE_FRAME_RGBI:
+          if (xsane.mode == STANDALONE)
+          {
+           int i;
+           guint16 val;
+
+            if (!xsane.scanner_gamma_color)
+            {
+              for (i=0; i < len/2; ++i)
+              {
+                if (dialog->pixelcolor == 0)
+                {
+                  val = xsane.gamma_data_red[buf16[i]];
+                  dialog->pixelcolor++;
+                }
+                else if (dialog->pixelcolor == 1)
+                {
+                  val = xsane.gamma_data_green[buf16[i]];
+                  dialog->pixelcolor++;
+                }
+                else if (dialog->pixelcolor == 2)
+                {
+                  val = xsane.gamma_data_blue[buf16[i]];
+                  dialog->pixelcolor++;
+                }
+                else
+                {
+                  val = buf16[i]; /* no gamma table for infrared channel */
+                  dialog->pixelcolor = 0;
+                }
+                fwrite(&val, 2, 1, xsane.out);
+              }
+            }
+            else
+            {
+              fwrite(buf16, 2, len/2, xsane.out);
+            }
+          }
+         break;
+#endif
+
         default:
           fprintf(stderr, "%s.xsane_read_image_data: bad frame format %d\n", prog_name, xsane.param.format);
           xsane_scan_done();
@@ -878,8 +1015,8 @@ static void xsane_scan_done(void)
     xsane.out = 0;
 
 
-    if ( (xsane.xsane_mode == XSANE_SCAN) && (xsane.xsane_output_format != XSANE_PNM) 
-                                            && (xsane.xsane_output_format != XSANE_RAW16) )
+    if ( (xsane.xsane_mode == XSANE_SCAN) && (xsane.xsane_output_format != XSANE_PNM) &&
+         (xsane.xsane_output_format != XSANE_RAW16) && (xsane.xsane_output_format != XSANE_RGBI) )
     {
      FILE *outfile;
      FILE *infile;
@@ -1200,6 +1337,8 @@ static void xsane_scan_done(void)
     xsane_fax_project_save();
     free(page);
   }
+
+  xsane_update_histogram();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1219,6 +1358,8 @@ static void xsane_start_scan(void)
   char buf[256];
   int fd;
 
+  xsane_clear_histogram(&xsane.histogram_raw);
+  xsane_clear_histogram(&xsane.histogram_enh);    
   gsg_set_sensitivity(dialog, FALSE); /* turn off buttons and sliders ... */
   gtk_widget_set_sensitive(xsane.shell, FALSE);
   gtk_widget_set_sensitive(xsane.histogram_dialog, FALSE);
@@ -1288,6 +1429,9 @@ static void xsane_start_scan(void)
     case SANE_FRAME_GREEN:	frame_type = "green"; break;
     case SANE_FRAME_BLUE:	frame_type = "blue"; break;
     case SANE_FRAME_GRAY:	frame_type = "gray"; break;
+#ifdef SUPPORT_RGBI
+    case SANE_FRAME_RGBI:	frame_type = "RGBI"; break;
+#endif
     default:			frame_type = "unknown"; break;
   }
 
@@ -1304,13 +1448,11 @@ static void xsane_start_scan(void)
               switch (xsane.param.depth)
 	      {
                 case 8: /* color 8 bit mode, write ppm header */
-                  fprintf(xsane.out, "P6\n# SANE data follows\n%d %d\n255\n",
-                          xsane.param.pixels_per_line, xsane.param.lines);
+                  fprintf(xsane.out, "P6\n# SANE data follows\n%d %d\n255\n", xsane.param.pixels_per_line, xsane.param.lines);
                  break;
 
 		default: /* color, but not 8 bit mode, write as raw data because this is not defined in pnm */ 
-                  fprintf(xsane.out, "SANE_RGB_RAW\n%d %d\n65535\n",
-                          xsane.param.pixels_per_line, xsane.param.lines);
+                  fprintf(xsane.out, "SANE_RGB_RAW\n%d %d\n65535\n", xsane.param.pixels_per_line, xsane.param.lines);
               }
              break;
 
@@ -1318,20 +1460,33 @@ static void xsane_start_scan(void)
               switch (xsane.param.depth)
 	      {
                 case 1: /* 1 bit lineart mode, write pbm header */
-                  fprintf(xsane.out, "P4\n# SANE data follows\n%d %d\n",
-                          xsane.param.pixels_per_line, xsane.param.lines);
+                  fprintf(xsane.out, "P4\n# SANE data follows\n%d %d\n", xsane.param.pixels_per_line, xsane.param.lines);
                  break;
 
                 case 8: /* 8 bit grayscale mode, write pgm header */
-                  fprintf(xsane.out, "P5\n# SANE data follows\n%d %d\n255\n",
-                          xsane.param.pixels_per_line, xsane.param.lines);
+                  fprintf(xsane.out, "P5\n# SANE data follows\n%d %d\n255\n", xsane.param.pixels_per_line, xsane.param.lines);
                  break;
 
                 default: /* grayscale mode but not 1 or 8 bit, write as raw data because this is not defined in pnm */
-                  fprintf(xsane.out, "SANE_GRAYSCALE_RAW\n%d %d\n65535\n",
-                          xsane.param.pixels_per_line, xsane.param.lines);
+                  fprintf(xsane.out, "SANE_GRAYSCALE_RAW\n%d %d\n65535\n", xsane.param.pixels_per_line, xsane.param.lines);
               }
 	     break;
+
+#ifdef SUPPORT_RGBI
+	    case SANE_FRAME_RGBI:
+              switch (xsane.param.depth)
+	      {
+                case 8: /* 8 bit RGBI mode */
+                  fprintf(xsane.out, "SANE_RGBI\n%d %d\n255\n", xsane.param.pixels_per_line, xsane.param.lines);
+                 break;
+
+                default: /* 16 bit RGBI mode */
+                  fprintf(xsane.out, "SANE_RGBI\n%d %d\n65535\n", xsane.param.pixels_per_line, xsane.param.lines);
+                 break;
+              }
+             break;                                                            
+#endif
+
 	    default:
             /* unknown file format, do not write header */
           }
@@ -1365,10 +1520,23 @@ static void xsane_start_scan(void)
 
       xsane.tile_offset = 0;
       tile_size = xsane.param.pixels_per_line * gimp_tile_height();
-      if (xsane.param.format != SANE_FRAME_GRAY)
+
+      switch(xsane.param.format)
       {
-	tile_size *= 3;	/* 24 bits/pixel */
+        case  SANE_FRAME_RGB:
+        case  SANE_FRAME_RED:
+        case  SANE_FRAME_BLUE:
+        case  SANE_FRAME_GREEN:
+          tile_size *= 3;  /* 24 bits/pixel RGB */
+         break;
+#ifdef SUPPORT_RGBI
+        case  SANE_FRAME_RGBI:
+          tile_size *= 4;  /* 32 bits/pixel RGBI */
+         break;
+#endif
+        default:
       }
+
       if (xsane.tile)
       {
 	xsane.first_frame = 0;
@@ -1380,13 +1548,20 @@ static void xsane_start_scan(void)
 	  gint32 layer_ID;
 
 	  if (xsane.param.format == SANE_FRAME_GRAY)
-	    {
-	      image_type = GRAY;
-	      drawable_type = GRAY_IMAGE;
-	    }
+	  {
+	    image_type = GRAY;
+	    drawable_type = GRAY_IMAGE;
+	  }
+#ifdef SUPPORT_RGBI
+          else if (xsane.param.format == SANE_FRAME_RGBI)
+          {
+            image_type = RGB;
+            drawable_type = RGBA_IMAGE; /* interpret infrared as alpha */
+          }
+#endif
+                            
 
-	  xsane.image_ID = gimp_image_new(xsane.param.pixels_per_line,
-					     xsane.param.lines, image_type);
+	  xsane.image_ID = gimp_image_new(xsane.param.pixels_per_line, xsane.param.lines, image_type);
 	  layer_ID = gimp_layer_new(xsane.image_ID, "Background",
 				     xsane.param.pixels_per_line,
 				     xsane.param.lines,
@@ -1505,6 +1680,12 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
           xsane.xsane_output_format = XSANE_TIFF;
         }
 #endif
+#ifdef SUPPORT_RGBI
+        else if (!strcasecmp(extension, "rgbi"))
+        {
+          xsane.xsane_output_format = XSANE_RGBI;
+        }
+#endif
       }
     }
     else /* depth >8 bpp */
@@ -1528,27 +1709,63 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
         }
 #endif
 #endif
+#ifdef SUPPORT_RGBI
+        else if (!strcasecmp(extension, "rgbi"))
+        {
+          xsane.xsane_output_format = XSANE_RGBI;
+        }
+#endif
       }
     }
 
-    if ( (xsane.xsane_output_format == XSANE_UNKNOWN) && (xsane.xsane_mode == XSANE_SCAN) )
+    if (xsane.xsane_mode == XSANE_SCAN)
     {
-      if (extension)
+      if (xsane.xsane_output_format == XSANE_UNKNOWN)
       {
-        snprintf(buf, sizeof(buf), "Unsupported %d-bit output format: %s", xsane.param.depth, extension);
+        if (extension)
+        {
+          snprintf(buf, sizeof(buf), "Unsupported %d-bit output format: %s", xsane.param.depth, extension);
+        }
+        else
+        {
+          snprintf(buf, sizeof(buf), "No output format given !!!");
+        }
+        gsg_error(buf);
+        return;
       }
-      else
+#ifdef SUPPORT_RGBI
+      else if ((xsane.xsane_output_format == XSANE_RGBI) && (xsane.param.format != SANE_FRAME_RGBI))
       {
-        snprintf(buf, sizeof(buf), "No output format given !!!");
+        snprintf(buf, sizeof(buf), "No RGBI data format !!!"); /* user selected output format RGBI, scanner uses other format */
+        gsg_error(buf);
+        return;
       }
-
+#endif
+    }
+#ifdef SUPPORT_RGBI
+    else if (xsane.param.format == SANE_FRAME_RGBI) /* no scanmode but format=rgbi */
+    {
+      snprintf(buf, sizeof(buf), "Special format RGBI only supported in scan mode !!!");
       gsg_error(buf);
       return;
     }
+#endif
+
+#ifdef SUPPORT_RGBI
+    if (xsane.param.format == SANE_FRAME_RGBI)
+    {
+      if ( (xsane.xsane_output_format != XSANE_RGBI) && (xsane.xsane_output_format != XSANE_PNG) )
+      {
+        snprintf(buf, sizeof(buf), "Image data of type SANE_FRAME_RGBI\ncan only be saved in rgbi or png format");
+        gsg_error(buf);
+        return;
+      }
+    }
+#endif
       
     if ( (xsane.xsane_mode == XSANE_COPY) || (xsane.xsane_mode == XSANE_FAX) || /* we have to do a conversion */
-         ((xsane.xsane_mode == XSANE_SCAN)  && (xsane.xsane_output_format != XSANE_PNM)
-                                            && (xsane.xsane_output_format != XSANE_RAW16) ) )
+         ( (xsane.xsane_mode == XSANE_SCAN)  && (xsane.xsane_output_format != XSANE_PNM) &&
+           (xsane.xsane_output_format != XSANE_RAW16) && (xsane.xsane_output_format != XSANE_RGBI) ) )
     {
      char filename[PATH_MAX];
 

@@ -603,11 +603,11 @@ void preview_calculate_histogram(Preview *p,
       }
     }
   }
-  else
+  else /* no preview image => all colors = 1 */
   {
    int i;
 
-    for (i = 1; i < 255; i++)
+    for (i = 1; i <= 254; i++)
     {
       count_raw      [i] = 0;
       count_raw_red  [i] = 0;
@@ -620,26 +620,25 @@ void preview_calculate_histogram(Preview *p,
       count_blue [i] = 0;
     }
 
-    count_raw      [0] = 1;
-    count_raw_red  [0] = 1;
-    count_raw_green[0] = 1;
-    count_raw_blue [0] = 1;
+    count_raw      [0] = 10;
+    count_raw_red  [0] = 10;
+    count_raw_green[0] = 10;
+    count_raw_blue [0] = 10;
 
-    count      [0] = 1;
-    count_red  [0] = 1;
-    count_green[0] = 1;
-    count_blue [0] = 1;
+    count      [0] = 10;
+    count_red  [0] = 10;
+    count_green[0] = 10;
+    count_blue [0] = 10;
 
+    count_raw      [255] = 10;
+    count_raw_red  [255] = 10;
+    count_raw_green[255] = 10;
+    count_raw_blue [255] = 10;
 
-    count_raw      [255] = 1;
-    count_raw_red  [255] = 1;
-    count_raw_green[255] = 1;
-    count_raw_blue [255] = 1;
-
-    count      [255] = 1;
-    count_red  [255] = 1;
-    count_green[255] = 1;
-    count_blue [255] = 1;
+    count      [255] = 10;
+    count_red  [255] = 10;
+    count_green[255] = 10;
+    count_blue [255] = 10;
   }
 }
 
@@ -1145,6 +1144,8 @@ static void preview_scan_start(Preview *p)
     p->image_surface[i] = p->surface[i];
   }
 
+  xsane_clear_histogram(&xsane.histogram_raw);
+  xsane_clear_histogram(&xsane.histogram_enh);
   gtk_widget_set_sensitive(p->cancel, TRUE);
   gsg_set_sensitivity(p->dialog, FALSE);
   gtk_widget_set_sensitive(xsane.shell, FALSE);
@@ -1486,25 +1487,77 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
         {
           case MODE_PIPETTE_WHITE:
           {
-            if ((((GdkEventButton *)event)->button == 1) && (p->image_data_raw) ) /* left buttom */
+            if ( ( (((GdkEventButton *)event)->button == 1) || (((GdkEventButton *)event)->button == 2) ) &&
+                 (p->image_data_raw) ) /* left or middle button */
             {
              int r,g,b;
 
               preview_get_color(p, event->button.x, event->button.y, &r, &g, &b);
 
-              xsane.slider_gray.value[2] = sqrt( (r*r+g*g+b*b) / 3)/2.55;
+              xsane.slider_gray.value[2]  = sqrt( (r*r+g*g+b*b) / 3)/2.55;
+
+              if ( (!xsane.enhancement_rgb_default) && (((GdkEventButton *)event)->button == 2) ) /* middle button */
+              {
+                xsane.slider_red.value[2]   = r/2.55;
+                xsane.slider_green.value[2] = g/2.55;
+                xsane.slider_blue.value[2]  = b/2.55;
+              }
+              else
+              {
+                xsane.slider_red.value[2]   = xsane.slider_gray.value[2];
+                xsane.slider_green.value[2] = xsane.slider_gray.value[2];
+                xsane.slider_blue.value[2]  = xsane.slider_gray.value[2];
+              }
 
               if (xsane.slider_gray.value[2] < 2)
               {
                 xsane.slider_gray.value[2] = 2;
               }
- 
               if (xsane.slider_gray.value[1] >= xsane.slider_gray.value[2])
               {
                 xsane.slider_gray.value[1] = xsane.slider_gray.value[2]-1;
                 if (xsane.slider_gray.value[0] >= xsane.slider_gray.value[1])
                 {
                   xsane.slider_gray.value[0] = xsane.slider_gray.value[1]-1;
+                }
+              }
+
+              if (xsane.slider_red.value[2] < 2)
+              {
+                xsane.slider_red.value[2] = 2;
+              }
+              if (xsane.slider_red.value[1] >= xsane.slider_red.value[2])
+              {
+                xsane.slider_red.value[1] = xsane.slider_red.value[2]-1;
+                if (xsane.slider_red.value[0] >= xsane.slider_red.value[1])
+                {
+                  xsane.slider_red.value[0] = xsane.slider_red.value[1]-1;
+                }
+              }
+
+              if (xsane.slider_green.value[2] < 2)
+              {
+                xsane.slider_green.value[2] = 2;
+              }
+              if (xsane.slider_green.value[1] >= xsane.slider_green.value[2])
+              {
+                xsane.slider_green.value[1] = xsane.slider_green.value[2]-1;
+                if (xsane.slider_green.value[0] >= xsane.slider_green.value[1])
+                {
+                  xsane.slider_green.value[0] = xsane.slider_green.value[1]-1;
+                }
+              }
+
+              if (xsane.slider_blue.value[2] < 2)
+              {
+                xsane.slider_blue.value[2] = 2;
+              }
+              if (xsane.slider_blue.value[1] >= xsane.slider_blue.value[2])
+              {
+                xsane.slider_blue.value[1] = xsane.slider_blue.value[2]-1;
+                if (xsane.slider_blue.value[0] >= xsane.slider_blue.value[1])
+                {
+                  xsane.slider_blue.value[0] = xsane.slider_blue.value[1]-1;
                 }
               }
 
@@ -1521,7 +1574,8 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
 
           case MODE_PIPETTE_GRAY:
           {
-            if ((((GdkEventButton *)event)->button == 1) && (p->image_data_raw) ) /* left buttom */
+            if ( ( (((GdkEventButton *)event)->button == 1) || (((GdkEventButton *)event)->button == 2) ) &&
+                 (p->image_data_raw) ) /* left or middle button */
             {
              int r,g,b;
 
@@ -1529,24 +1583,85 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
 
               xsane.slider_gray.value[1] = sqrt( (r*r+g*g+b*b) / 3)/2.55;
 
+              if ( (!xsane.enhancement_rgb_default) && (((GdkEventButton *)event)->button == 2) ) /* middle button */
+              {
+                xsane.slider_red.value[1]   = r/2.55;
+                xsane.slider_green.value[1] = g/2.55;
+                xsane.slider_blue.value[1]  = b/2.55;
+              }
+              else
+              {
+                xsane.slider_red.value[1]   = xsane.slider_gray.value[1];
+                xsane.slider_green.value[1] = xsane.slider_gray.value[1];
+                xsane.slider_blue.value[1]  = xsane.slider_gray.value[1];
+              }
+
               if (xsane.slider_gray.value[1] == 0)
               {
                 xsane.slider_gray.value[1] += 1;
               }
-
               if (xsane.slider_gray.value[1] == 100)
               {
                 xsane.slider_gray.value[1] -= 1;
               }
-
               if (xsane.slider_gray.value[1] >= xsane.slider_gray.value[2])
               {
                 xsane.slider_gray.value[2] = xsane.slider_gray.value[1]+1;
               }
-
               if (xsane.slider_gray.value[1] <= xsane.slider_gray.value[0])
               {
                 xsane.slider_gray.value[0] = xsane.slider_gray.value[1]-1;
+              }
+
+              if (xsane.slider_red.value[1] == 0)
+              {
+                xsane.slider_red.value[1] += 1;
+              }
+              if (xsane.slider_red.value[1] == 100)
+              {
+                xsane.slider_red.value[1] -= 1;
+              }
+              if (xsane.slider_red.value[1] >= xsane.slider_red.value[2])
+              {
+                xsane.slider_red.value[2] = xsane.slider_red.value[1]+1;
+              }
+              if (xsane.slider_red.value[1] <= xsane.slider_red.value[0])
+              {
+                xsane.slider_red.value[0] = xsane.slider_red.value[1]-1;
+              }
+
+              if (xsane.slider_green.value[1] == 0)
+              {
+                xsane.slider_green.value[1] += 1;
+              }
+              if (xsane.slider_green.value[1] == 100)
+              {
+                xsane.slider_green.value[1] -= 1;
+              }
+              if (xsane.slider_green.value[1] >= xsane.slider_green.value[2])
+              {
+                xsane.slider_green.value[2] = xsane.slider_green.value[1]+1;
+              }
+              if (xsane.slider_green.value[1] <= xsane.slider_green.value[0])
+              {
+                xsane.slider_green.value[0] = xsane.slider_green.value[1]-1;
+              }
+
+              if (xsane.slider_blue.value[1] == 0)
+              {
+                xsane.slider_blue.value[1] += 1;
+              }
+              if (xsane.slider_blue.value[1] == 100)
+              {
+                xsane.slider_blue.value[1] -= 1;
+              }
+              if (xsane.slider_blue.value[1] >= xsane.slider_blue.value[2])
+              {
+                xsane.slider_blue.value[2] = xsane.slider_blue.value[1]+1;
+              }
+              if (xsane.slider_blue.value[1] <= xsane.slider_blue.value[0])
+              {
+                xsane.slider_blue.value[0] = xsane.slider_blue.value[1]-1;
               }
 
               xsane_enhancement_by_histogram();
@@ -1562,7 +1677,8 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
 
           case MODE_PIPETTE_BLACK:
           {
-            if ((((GdkEventButton *)event)->button == 1) && (p->image_data_raw) ) /* left buttom */
+            if ( ( (((GdkEventButton *)event)->button == 1) || (((GdkEventButton *)event)->button == 2) ) &&
+                 (p->image_data_raw) ) /* left or middle button */
             {
              int r,g,b;
 
@@ -1570,17 +1686,68 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
 
               xsane.slider_gray.value[0] = sqrt( (r*r+g*g+b*b) / 3)/2.55;
 
+              if ( (!xsane.enhancement_rgb_default) && (((GdkEventButton *)event)->button == 2) ) /* middle button */
+              {
+                xsane.slider_red.value[0]   = r/2.55;
+                xsane.slider_green.value[0] = g/2.55;
+                xsane.slider_blue.value[0]  = b/2.55;
+              }
+              else
+              {
+                xsane.slider_red.value[0]   = xsane.slider_gray.value[0];
+                xsane.slider_green.value[0] = xsane.slider_gray.value[0];
+                xsane.slider_blue.value[0]  = xsane.slider_gray.value[0];
+              }
+
               if (xsane.slider_gray.value[0] > 98)
               {
                 xsane.slider_gray.value[0] = 98;
               }
-
               if (xsane.slider_gray.value[1] <= xsane.slider_gray.value[0])
               {
                 xsane.slider_gray.value[1] = xsane.slider_gray.value[0]+1;
                 if (xsane.slider_gray.value[2] <= xsane.slider_gray.value[1])
                 {
                   xsane.slider_gray.value[2] = xsane.slider_gray.value[1]+1;
+                }
+              }
+
+              if (xsane.slider_red.value[0] > 98)
+              {
+                xsane.slider_red.value[0] = 98;
+              }
+              if (xsane.slider_red.value[1] <= xsane.slider_red.value[0])
+              {
+                xsane.slider_red.value[1] = xsane.slider_red.value[0]+1;
+                if (xsane.slider_red.value[2] <= xsane.slider_red.value[1])
+                {
+                  xsane.slider_red.value[2] = xsane.slider_red.value[1]+1;
+                }
+              }
+
+              if (xsane.slider_green.value[0] > 98)
+              {
+                xsane.slider_green.value[0] = 98;
+              }
+              if (xsane.slider_green.value[1] <= xsane.slider_green.value[0])
+              {
+                xsane.slider_green.value[1] = xsane.slider_green.value[0]+1;
+                if (xsane.slider_green.value[2] <= xsane.slider_green.value[1])
+                {
+                  xsane.slider_green.value[2] = xsane.slider_green.value[1]+1;
+                }
+              }
+
+              if (xsane.slider_blue.value[0] > 98)
+              {
+                xsane.slider_blue.value[0] = 98;
+              }
+              if (xsane.slider_blue.value[1] <= xsane.slider_blue.value[0])
+              {
+                xsane.slider_blue.value[1] = xsane.slider_blue.value[0]+1;
+                if (xsane.slider_blue.value[2] <= xsane.slider_blue.value[1])
+                {
+                  xsane.slider_blue.value[2] = xsane.slider_blue.value[1]+1;
                 }
               }
 
@@ -2517,9 +2684,18 @@ static void preview_get_color(Preview *p, int x, int y, int *red, int *green, in
 
     offset = 3 * (image_y * p->image_width + image_x);
 
-    *red   = p->image_data_raw[offset    ];
-    *green = p->image_data_raw[offset + 1];
-    *blue  = p->image_data_raw[offset + 2];
+    if (!xsane.negative) /* positive */
+    {
+      *red   = p->image_data_raw[offset    ];
+      *green = p->image_data_raw[offset + 1];
+      *blue  = p->image_data_raw[offset + 2];
+    }
+    else /* negative */
+    {
+      *red   = 255 - p->image_data_raw[offset    ];
+      *green = 255 - p->image_data_raw[offset + 1];
+      *blue  = 255 - p->image_data_raw[offset + 2];
+    }
   }
 }
 

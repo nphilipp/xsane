@@ -27,10 +27,11 @@
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 /* #define XSANE_TEST */
+/* #define SUPPORT_RGBI */
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION "0.29\337"
+#define XSANE_VERSION "0.30\337"
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -88,6 +89,15 @@ extern int xsane_scanmode_number[];
 #define FAXVIEWER 	 	"xv"
 #define DOCVIEWERNETSCAPEREMOTE	"netscape-remote"
 #define DOCVIEWER 	 	DOCVIEWERNETSCAPEREMOTE	
+
+#define XSANE_BRIGHTNESS_MIN	-300.0
+#define XSANE_BRIGHTNESS_MAX	300.0
+#define XSANE_CONTRAST_GRAY_MIN	-100.0
+#define XSANE_CONTRAST_MIN	-300.0
+#define XSANE_CONTRAST_MAX	300.0
+#define XSANE_GAMMA_MIN		0.3
+#define XSANE_GAMMA_MAX		3.0
+
 #define HIST_WIDTH		256
 #define HIST_HEIGHT		100
 #define XSANE_DIALOG_WIDTH	296
@@ -111,7 +121,7 @@ extern int xsane_scanmode_number[];
 
 enum
 {
- XSANE_UNKNOWN, XSANE_PNM, XSANE_JPEG, XSANE_PNG, XSANE_PS, XSANE_TIFF,
+ XSANE_UNKNOWN, XSANE_PNM, XSANE_JPEG, XSANE_PNG, XSANE_PS, XSANE_TIFF, XSANE_RGBI,
  XSANE_RAW16, XSANE_PNM16
 };
  
@@ -214,9 +224,19 @@ typedef struct Xsane
     double contrast_red;
     double contrast_green;
     double contrast_blue;
+
     double auto_white;
     double auto_gray;
     double auto_black;
+    double auto_white_red;
+    double auto_gray_red;
+    double auto_black_red;
+    double auto_white_green;
+    double auto_gray_green;
+    double auto_black_green;
+    double auto_white_blue;
+    double auto_gray_blue;
+    double auto_black_blue;
 
     int histogram_red;
     int histogram_green;
@@ -259,7 +279,7 @@ typedef struct Xsane
     GtkObject *contrast_green_widget;
     GtkObject *contrast_blue_widget;
 
-    SANE_Bool xsane_color;
+    SANE_Int xsane_color;
     SANE_Bool scanner_gamma_color;
     SANE_Bool scanner_gamma_gray;
     SANE_Bool enhancement_rgb_default;

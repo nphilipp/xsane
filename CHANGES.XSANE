@@ -277,3 +277,27 @@ xsane-0.28 -> 0.29:
  - added support for resolution of type CONSTRAINT_WORD_LIST 
  - xsane-mode (scan, copy, fax) can be selected as command line option (-s, -c, -f) now
  - most texts that are defined in xsane are defined in xsane-text now
+
+
+xsane-0.29 -> 0.30:
+-------------------
+
+ - removed bug in xsane_set_resolution, now highest resolution can be set if
+   resolution is a list!
+ - added RGBI support - must be activated in xsane.h (SUPPORT_RGBI)
+ - added options rgb default and negative to preferences
+ - enhancement values are saved with device settings now
+ - The filename can be specified now for the file in which the device settings are saved
+   or from which they are loaded.
+   - changed extension from ".rc" to ".drc" (device rc)
+   - added header "XSANE_DEVICE_RC" to identify it as device-rc-file
+ - added calculation for color components to auto enhancement
+ - pipette functions: middle mouse button defines shadow/gray/highlight
+   for color components, left mouse button only defines gray values!
+ - auto enhancement values are set to standard values in
+   xsane_calculate_histogram if no values could be calculated
+ - histogram is cleared when sensitivity is set to false
+ - improved calculation of auto enhancement values
+ - increased contrast range from -100..+200 to -100..+300 (gray) and
+   -300..+300 (color) and brightness range from -200..+200 to -300..+300
+

@@ -683,12 +683,17 @@ void xsane_save_png(FILE *outfile, FILE *imagefile,
     return;
   }
 
-  if (color)
+  if (color == 4) /* RGBI */
+  {
+    components = 4;
+    colortype = PNG_COLOR_TYPE_RGB_ALPHA;
+  }
+  else if (color) /* RGB */
   {
     components = 3;
     colortype = PNG_COLOR_TYPE_RGB;
   }
-  else
+  else /* gray or black/white */
   {
     components = 1;
     colortype = PNG_COLOR_TYPE_GRAY;
@@ -702,6 +707,7 @@ void xsane_save_png(FILE *outfile, FILE *imagefile,
   sig_bit.red   = bits;
   sig_bit.green = bits;
   sig_bit.blue  = bits;
+  sig_bit.alpha = bits;
   sig_bit.gray  = bits;
 
   png_set_sBIT(png_ptr, png_info_ptr, &sig_bit);
@@ -790,12 +796,17 @@ void xsane_save_png_16(FILE *outfile, FILE *imagefile,
     return;
   }
 
-  if (color)
+  if (color == 4) /* RGBI */
+  {
+    components = 4;
+    colortype = PNG_COLOR_TYPE_RGB_ALPHA;
+  }
+  else if (color) /* RGB */
   {
     components = 3;
     colortype = PNG_COLOR_TYPE_RGB;
   }
-  else
+  else /* gray or black/white */
   {
     components = 1;
     colortype = PNG_COLOR_TYPE_GRAY;
@@ -809,6 +820,7 @@ void xsane_save_png_16(FILE *outfile, FILE *imagefile,
   sig_bit.red   = bits;
   sig_bit.green = bits;
   sig_bit.blue  = bits;
+  sig_bit.alpha = bits;
   sig_bit.gray  = bits;
 
   png_set_sBIT(png_ptr, png_info_ptr, &sig_bit);

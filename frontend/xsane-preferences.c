@@ -75,6 +75,8 @@ Preferences preferences =
      0.0,		/* contrast red */
      0.0,		/* contrast green */
      0.0,		/* contrast blue */
+     1,			/* rgb default */
+     0,			/* negative */
      0,			/* printernr */
      0			/* printerdefinitions */
   };
@@ -131,6 +133,8 @@ desc[] =
     {"contrast-red",			w_double,	POFFSET(xsane_contrast_red)},
     {"contrast-green",			w_double,	POFFSET(xsane_contrast_green)},
     {"contrast-blue",			w_double,	POFFSET(xsane_contrast_blue)},
+    {"rgb-default",			w_int,		POFFSET(xsane_rgb_default)},
+    {"negative",			w_int,		POFFSET(xsane_negative)},
     {"printernr",			w_int,		POFFSET(printernr)},
     {"printerdefinitions",		w_int,		POFFSET(printerdefinitions)}
   };

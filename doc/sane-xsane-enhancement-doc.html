@@ -1,0 +1,106 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.6 [en] (X11; I; Linux 2.2.5 i586) [Netscape]">
+   <meta name="Author" content="Oliver Rauch">
+   <meta name="Description" content="scan, photocopy and fax frontend for SANE">
+   <title>XSane - Enhancement</title>
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EF" vlink="#51188E" alink="#FF0000">
+&nbsp;
+<dd>
+<img SRC="xsane-logo2.gif" height=150 width=128 align=LEFT></dd>
+
+<br>&nbsp;
+<blockquote>
+<h1>
+<u><font color="#009900">Enhancement</font></u></h1>
+XSane uses a gamma table to do the following enhancement functions. If
+the scanner supports a custom gamma table (and the option is enabled) XSane
+uses the scanner internal gamma table with the scanner's maximum bit depth.
+<br>&nbsp;
+<br>&nbsp;</blockquote>
+
+<center><img SRC="sane-xsane.gif" height=479 width=304></center>
+
+<blockquote>&nbsp;
+<dt>
+<img SRC="gamma.gif" height=21 width=22>&nbsp;&nbsp;&nbsp;<b> Gamma correction:</b></dt>
+
+<blockquote>The gamma correction is a non linear correction. Black keeps
+black and white keeps white
+<blockquote>if the gamma value is greater than 1.0 the gray intensities
+are brightned
+<br>if the gamma value is smaller than 1.0 the gray intensities are darkend</blockquote>
+</blockquote>
+
+<dt>
+<img SRC="brightness.gif" height=21 width=22>&nbsp;&nbsp;&nbsp; <b>Brightness:</b></dt>
+
+<blockquote>positive values increase the brightness of the image. All values
+are increased by the same value. 100% means a shift of the half value range
+(on 8 bits (256 values) this means a shift of 128).</blockquote>
+
+<dt>
+<img SRC="contrast.gif" height=21 width=22>&nbsp;&nbsp;&nbsp; <b>Contrast:</b></dt>
+
+<blockquote>positive values increase the contrast of the image. Medium
+gray keeps medium gray (8 bits: 128)
+<blockquote>-100% means that all colors become medium gray
+<br>+100% means that the difference between a value and medium gray is
+doubled</blockquote>
+</blockquote>
+
+<dt>
+<b>RGB default:</b></dt>
+
+<blockquote>if RGB default is activated, all values for the color components
+(red, green and blue) are set to the default values (gamma=1.0, brightness=0%,
+contrast=0%). If you deactivate it, you can set different enhancement values
+for each color.</blockquote>
+
+<dt>
+<b>Negative:</b></dt>
+
+<blockquote>This option inverts the intensities (black &lt;-> white). It
+is for scanning negatives.
+<p>Negatives do not only have inverted colors, it also is necessary to
+do a color correction for each color component because the negatives have
+very different color ranges for each color.
+<br>&nbsp;</blockquote>
+
+<dt>
+<b>Auto:</b></dt>
+
+<blockquote>If you press this button XSane tries to set good values for
+brightness, contrast and gamma correction independance of the selected
+part in the preview window. This does work quiet well for brightness and
+contrast, but the gamma correction normally has to be corrected manually.
+<br>If RGB default is disabled, the components for each color are set individually.</blockquote>
+<b>Default:</b>
+<blockquote>Sets the enhancement values to default: gamma=1.0, brightness=0%,
+contrast=0%.</blockquote>
+
+<dt>
+<b>Restore:</b></dt>
+
+<blockquote>Restores the enhancement values from preferences.</blockquote>
+
+<dt>
+<b>Store:</b></dt>
+
+<blockquote>Store selected enhancement values to preferences.</blockquote>
+</blockquote>
+
+<blockquote>
+<blockquote>&nbsp;</blockquote>
+</blockquote>
+
+<center>
+<hr WIDTH="100%">
+<br><a href="sane-xsane-doc.html">INDEX</a></center>
+
+<p><br>
+</body>
+</html>

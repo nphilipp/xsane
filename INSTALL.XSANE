@@ -8,6 +8,8 @@ REQUIREMENTS:
 - For tiff support you need libtiff installed!
 - If you use gtk+-1.2, update to gimp-1.0.4
 - gcc (tested with gcc-v2.7.2.3 and gcc-egcs-2.91.66), don`t use g++/c++ compilers
+- For rgbi support sane.h has to define SANE_FRAME_RGBI and you have to
+  uncomment SUPPORT_RGBI in xsane.h
 
 
 COMPILATION AND INSTALLATION:

@@ -7,6 +7,7 @@ first steps:
  * options:
  - fax-function
     - add send delayed option
+    - add options for sender/receiver Name
     - what about faxprojects with normal- and fine-mode pages?
   - copy mode:
     - select raster size (1x1,2x2,3x3,4x4,5x5)
@@ -17,9 +18,9 @@ first steps:
     - improve handling of saved previews
     - may be zoom in without a new preview scan
     + 16 bit preview scan, gamma conversion to 8 bit
+    - preview always in greyscale or always in color
   - enhancement:
-    - store more than 1 enhancement and give names for it, may be in own files
-    - move threshold in lineart-mode to main window
+    - move threshold in lineart-mode to main window ?
  - may be email-function
  + batch scan function
  - add support for different x/y resolutions
@@ -33,15 +34,9 @@ first steps:
    - make better backend-dependend option handling and error handling (mostly done!)
    - other output formats for saving
    - more online helpfiles
-   - save all options to a file including preview-selection
    - if netscape-remote is docviewer, start netscape if not running
-   - make xsane work if resolution is not a range!!!!!!
-
 
 second steps:
  - correct gtk custom gamma functions and include it
  - include special functions for GNOME/KDE - *** DOES ANYONE HAVE ANY SUGGESTIONS TO THIS ? ***
-
-more ideas:
- - preview always in greyscale or always in color
 

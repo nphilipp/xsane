@@ -67,6 +67,7 @@
 /* forward declarations: */
 
 static void xsane_bound_double(double *value, double min, double max);
+void xsane_clear_histogram(XsanePixmap *hist);
 static void xsane_draw_histogram_with_points(XsanePixmap *hist, int invert,
                                              SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue,
                                              int show_red, int show_green, int show_blue, int show_inten, double scale);
@@ -113,6 +114,24 @@ static void xsane_bound_double(double *value, double min, double max)
   if (*value > max)
   {
     *value = max;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void xsane_clear_histogram(XsanePixmap *hist)
+{
+ GdkRectangle rect;
+
+  if(hist->pixmap)
+  {
+    rect.x=0;
+    rect.y=0;
+    rect.width  = HIST_WIDTH;
+    rect.height = HIST_HEIGHT;
+
+    gdk_draw_rectangle(hist->pixmap, xsane.gc_backg, TRUE, 0, 0, HIST_WIDTH, HIST_HEIGHT);
+    gtk_widget_draw(hist->pixmapwid, &rect);
   }
 }
 
@@ -657,55 +676,144 @@ void xsane_destroy_histogram()
 static void xsane_calculate_auto_enhancement(int negative,
               SANE_Int *count_raw, SANE_Int *count_raw_red, SANE_Int *count_raw_green, SANE_Int *count_raw_blue)
 {	 /* calculate white, medium and black values for auto enhancement */
- int limit;
- int points;
- int min;
- int mid;
- int max;
+ int limit, limit_mid;
+ int points, points_mix, points_red, points_green, points_blue;
+ int min, mid, max;
+ int min_red, mid_red, max_red;
+ int min_green, mid_green, max_green;
+ int min_blue, mid_blue, max_blue;
  int val;
  int i;
 
-    points = 0;
+  if (xsane.preview)
+  {
+    points       = 0;
+    points_mix   = 0;
+    points_red   = 0;
+    points_green = 0;
+    points_blue  = 0;
+
     for (i=0; i<256; i++)
     {
-/*      points += count_raw[i] + count_raw_red[i] + count_raw_green[i] + count_raw_blue[i]; */
-      points += log(1 + count_raw[i] + count_raw_red[i] + count_raw_green[i] + count_raw_blue[i]);
+      points       += count_raw[i];
+      points_mix   += 10 * log(1 + count_raw[i] + count_raw_red[i] + count_raw_green[i] + count_raw_blue[i]);
+      points_red   += 10 * log(1 + count_raw_red[i]);
+      points_green += 10 * log(1 + count_raw_green[i]);
+      points_blue  += 10 * log(1 + count_raw_blue[i]);
     }
 
-    limit = points / 500;
+    limit = 1 + points / 5000;
 
-    if (limit < 10)
-    {
-      limit = 10;
-    }
+    /* ----- gray ----- */
 
     min = -1;
     val = 0;
-    while ( (val < limit) && (min < 254) )
+    while ( (val/4 < limit) && (min < 254) )
     {
       min++;
-/*      val += count_raw[min] + count_raw_red[min] + count_raw_green[min] + count_raw_blue[min]; */
-      val += log(1 + count_raw[min] + count_raw_red[min] + count_raw_green[min] + count_raw_blue[min]);
+      val += count_raw[min] + count_raw_red[min] + count_raw_green[min] + count_raw_blue[min];
     }
 
     max = HIST_WIDTH;
     val = 0;
-    while ( (val < limit) && (max > min + 1) )
+    while ( (val/4 < limit) && (max > min + 1) )
     {
       max--;
-/*      val += count_raw[max] + count_raw_red[max] + count_raw_green[max] + count_raw_blue[max]; */
-      val += log(1 + count_raw[max] + count_raw_red[max] + count_raw_green[max] + count_raw_blue[max]);
+      val += count_raw[max] + count_raw_red[max] + count_raw_green[max] + count_raw_blue[max];
     }
 
-    limit = points / 2.0;
+    limit_mid = points_mix / 2.0;
 
-    mid = -1;
+    mid = 0;
     val = 0;
-    while ( (val < limit) && (mid < max - 1) )
+    while ( (val < limit_mid) && (mid < max - 2) )
     {
       mid++;
-/*      val += count_raw[mid] + count_raw_red[mid] + count_raw_green[mid] + count_raw_blue[mid]; */
-      val += log(1 + count_raw[mid] + count_raw_red[mid] + count_raw_green[mid] + count_raw_blue[mid]);
+      val += 10 * log(1 + count_raw[mid] + count_raw_red[mid] + count_raw_green[mid] + count_raw_blue[mid]);
+    }
+
+    /* ----- red ----- */
+
+    min_red = -1;
+    val     = 0;
+    while ( (val < limit) && (min_red < 254) )
+    {
+      min_red++;
+      val += count_raw_red[min_red];
+    }
+
+    max_red = HIST_WIDTH;
+    val     = 0;
+    while ( (val < limit) && (max_red > min_red + 1) )
+    {
+      max_red--;
+      val += count_raw_red[max_red];
+    }
+
+    limit_mid = points_red / 2.0;
+
+    mid_red = 0;
+    val     = 0;
+    while ( (val < limit_mid) && (mid_red < max_red - 2) )
+    {
+      mid_red++;
+      val += 10 * log(1 + count_raw_red[mid_red]);
+    }
+
+    /* ----- green ----- */
+
+    min_green = -1;
+    val       = 0;
+    while ( (val < limit) && (min_green < 254) )
+    {
+      min_green++;
+      val += count_raw_green[min_green];
+    }
+
+    max_green = HIST_WIDTH;
+    val       = 0;
+    while ( (val < limit) && (max_green > min_green + 1) )
+    {
+      max_green--;
+      val += count_raw_green[max_green];
+    }
+
+    limit_mid = points_green / 2.0;
+
+    mid_green = 0;
+    val     = 0;
+    while ( (val < limit_mid) && (mid_green < max_green - 2) )
+    {
+      mid_green++;
+      val += 10 * log(1 + count_raw_green[mid_green]);
+    }
+
+    /* ----- blue ----- */
+
+    min_blue = -1;
+    val      = 0;
+    while ( (val < limit) && (min_blue < 254) )
+    {
+      min_blue++;
+      val += count_raw_blue[min_blue];
+    }
+
+    max_blue = HIST_WIDTH;
+    val       = 0;
+    while ( (val < limit) && (max_blue > min_blue + 1) )
+    {
+      max_blue--;
+      val += count_raw_blue[max_blue];
+    }
+
+    limit_mid = points_blue / 2.0;
+
+    mid_blue = 0;
+    val      = 0;
+    while ( (val < limit_mid) && (mid_blue < max_blue - 2) )
+    {
+      mid_blue++;
+      val += 10 * log(1 + count_raw_blue[mid_blue]);
     }
 
     if (negative)
@@ -713,13 +821,38 @@ static void xsane_calculate_auto_enhancement(int negative,
       xsane.auto_white = (255-min)/2.55;
       xsane.auto_gray  = (255-mid)/2.55;
       xsane.auto_black = (255-max)/2.55;
+
+      xsane.auto_white_red = (255-min_red)/2.55;
+      xsane.auto_gray_red  = (255-mid_red)/2.55;
+      xsane.auto_black_red = (255-max_red)/2.55;
+
+      xsane.auto_white_green = (255-min_green)/2.55;
+      xsane.auto_gray_green  = (255-mid_green)/2.55;
+      xsane.auto_black_green = (255-max_green)/2.55;
+
+      xsane.auto_white_blue = (255-min_blue)/2.55;
+      xsane.auto_gray_blue  = (255-mid_blue)/2.55;
+      xsane.auto_black_blue = (255-max_blue)/2.55;
     }
     else /* positive */
     {
       xsane.auto_white = max/2.55;
       xsane.auto_gray  = mid/2.55;
       xsane.auto_black = min/2.55;
+
+      xsane.auto_white_red = max_red/2.55;
+      xsane.auto_gray_red  = mid_red/2.55;
+      xsane.auto_black_red = min_red/2.55;
+
+      xsane.auto_white_green = max_green/2.55;
+      xsane.auto_gray_green  = mid_green/2.55;
+      xsane.auto_black_green = min_green/2.55;
+
+      xsane.auto_white_blue = max_blue/2.55;
+      xsane.auto_gray_blue  = mid_blue/2.55;
+      xsane.auto_black_blue = min_blue/2.55;
     }
+  }
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -740,7 +873,25 @@ void xsane_calculate_histogram(void)
  int maxval;
  double scale;
 
-  if (xsane.preview)
+  /* at first reset auto enhancement values */
+
+  xsane.auto_black = 0.0;
+  xsane.auto_gray  = 50.0;
+  xsane.auto_white = 100.0;
+
+  xsane.auto_black_red = 0.0;
+  xsane.auto_gray_red  = 50.0;
+  xsane.auto_white_red = 100.0;
+
+  xsane.auto_black_green = 0.0;
+  xsane.auto_gray_green  = 50.0;
+  xsane.auto_white_green = 100.0;
+
+  xsane.auto_black_blue = 0.0;
+  xsane.auto_gray_blue  = 50.0;
+  xsane.auto_white_blue = 100.0;
+
+  if (xsane.preview) /* preview window exists? */
   {
     count_raw       = calloc(256, sizeof(SANE_Int));
     count_raw_red   = calloc(256, sizeof(SANE_Int));
@@ -822,6 +973,11 @@ void xsane_calculate_histogram(void)
     free(count_raw_green);
     free(count_raw_red);
     free(count_raw);
+  }
+  else
+  {
+    xsane_clear_histogram(&xsane.histogram_raw);
+    xsane_clear_histogram(&xsane.histogram_enh);
   }
 }
 
@@ -1109,6 +1265,10 @@ void xsane_enhancement_restore_saved()
   xsane.contrast_green   = preferences.xsane_contrast_green;
   xsane.contrast_blue    = preferences.xsane_contrast_blue;
 
+  xsane.enhancement_rgb_default = preferences.xsane_rgb_default;
+  xsane.negative                = preferences.xsane_negative;
+
+  xsane_refresh_dialog(dialog);
   xsane_enhancement_by_gamma();
 }
 
@@ -1130,6 +1290,9 @@ void xsane_enhancement_save()
   preferences.xsane_contrast_red     = xsane.contrast_red;
   preferences.xsane_contrast_green   = xsane.contrast_green;
   preferences.xsane_contrast_blue    = xsane.contrast_blue;
+
+  preferences.xsane_rgb_default      = xsane.enhancement_rgb_default;
+  preferences.xsane_negative         = xsane.negative;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
