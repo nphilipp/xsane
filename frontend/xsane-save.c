@@ -301,7 +301,7 @@ static void xsane_save_ps_bw(FILE *outfile, FILE *imagefile, int pixel_width, in
     }
     fprintf(outfile, "\n");
     count = 0;
-    xsane_progress_update(xsane.progress, (float)y/pixel_height);
+    xsane_progress_update((float)y/pixel_height);
     while (gtk_events_pending())
     {
       gtk_main_iteration();
@@ -335,7 +335,7 @@ static void xsane_save_ps_gray(FILE *outfile, FILE *imagefile, int pixel_width, 
     }
     fprintf(outfile, "\n");
     count = 0;
-    xsane_progress_update(xsane.progress, (float)y/pixel_height);
+    xsane_progress_update((float)y/pixel_height);
     while (gtk_events_pending())
     {
       gtk_main_iteration();
@@ -372,7 +372,7 @@ static void xsane_save_ps_color(FILE *outfile, FILE *imagefile, int pixel_width,
     fprintf(outfile, "\n");
     count = 0;
 
-    xsane_progress_update(xsane.progress, (float)y/pixel_height);
+    xsane_progress_update((float)y/pixel_height);
     while (gtk_events_pending())
     {
       gtk_main_iteration();
@@ -471,7 +471,7 @@ void xsane_save_jpeg(FILE *outfile, FILE *imagefile,
 
   for (y=0; y<pixel_height; y++)
   {
-    xsane_progress_update(xsane.progress, (float)y/pixel_height);
+    xsane_progress_update((float)y/pixel_height);
     while (gtk_events_pending())
     {
       gtk_main_iteration();
@@ -602,7 +602,7 @@ void xsane_save_tiff(const char *outfilename, FILE *imagefile,
 
   for (y = 0; y < pixel_height; y++)
   {
-    xsane_progress_update(xsane.progress, (float) y / pixel_height);
+    xsane_progress_update((float) y / pixel_height);
     while (gtk_events_pending())
     {
       gtk_main_iteration();
@@ -729,7 +729,7 @@ void xsane_save_png(FILE *outfile, FILE *imagefile,
 
   for (y = 0; y < pixel_height; y++)
   {
-    xsane_progress_update(xsane.progress, (float) y / pixel_height);
+    xsane_progress_update((float) y / pixel_height);
     while (gtk_events_pending())
     {
       gtk_main_iteration();
@@ -842,7 +842,7 @@ void xsane_save_png_16(FILE *outfile, FILE *imagefile,
 
   for (y = 0; y < pixel_height; y++)
   {
-    xsane_progress_update(xsane.progress, (float)y/pixel_height);
+    xsane_progress_update((float)y/pixel_height);
     while (gtk_events_pending())
     {
       gtk_main_iteration();
@@ -899,7 +899,7 @@ void xsane_save_pnm_16_gray(FILE *outfile, FILE *imagefile, int bits, int pixel_
     fprintf(outfile, "\n");
     count = 0;
 
-    xsane_progress_update(xsane.progress, (float)y/pixel_height);
+    xsane_progress_update((float)y/pixel_height);
     while (gtk_events_pending())
     {
       gtk_main_iteration();
@@ -946,7 +946,7 @@ void xsane_save_pnm_16_color(FILE *outfile, FILE *imagefile, int bits, int pixel
     fprintf(outfile, "\n");
     count = 0;
 
-    xsane_progress_update(xsane.progress, (float)y/pixel_height);
+    xsane_progress_update((float)y/pixel_height);
     while (gtk_events_pending())
     {
       gtk_main_iteration();

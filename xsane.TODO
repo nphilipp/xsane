@@ -3,10 +3,6 @@ If you have any suggestions: mail to Oliver.Rauch@Wolfsburg.DE
 
 (+ planned to do this soon/higher priority, - comes later/lower priority)
 
-errors:
- + autoenhancement crashes if selected area is totally white
- + segfault if pipette pick out of preview image
-
 first steps:
  * options:
  - fax-function:

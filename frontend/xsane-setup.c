@@ -1026,18 +1026,18 @@ void xsane_setup_dialog(GtkWidget *widget, gpointer data)
 #endif
 
 #ifdef HAVE_LIBJPEG 
-  xsane_scale_new(GTK_BOX(vbox), TEXT_SETUP_JPEG_QUALITY, DESC_JPEG_QUALITY, 0.0, 100.0, 1.0, 1.0, 0.0, 0,
+  xsane_scale_new(GTK_BOX(vbox), TEXT_SETUP_JPEG_QUALITY, DESC_JPEG_QUALITY, 0.0, 100.0, 1.0, 10.0, 0.0, 0,
                   &preferences.jpeg_quality, (GtkObject **) &xsane_setup.jpeg_image_quality_scale, 0, TRUE);
 #else
 #ifdef HAVE_LIBTIFF
-  xsane_scale_new(GTK_BOX(vbox), TEXT_SETUP_JPEG_QUALITY, DESC_JPEG_QUALITY, 0.0, 100.0, 1.0, 1.0, 0.0, 0,
+  xsane_scale_new(GTK_BOX(vbox), TEXT_SETUP_JPEG_QUALITY, DESC_JPEG_QUALITY, 0.0, 100.0, 1.0, 10.0, 0.0, 0,
                   &preferences.jpeg_quality, (GtkObject **) &xsane_setup.jpeg_image_quality_scale, 0, TRUE);
 #endif
 #endif
 
 #ifdef HAVE_LIBPNG
 #ifdef HAVE_LIBZ
-  xsane_scale_new(GTK_BOX(vbox), TEXT_SETUP_PNG_COMPRESSION, DESC_PNG_COMPRESSION, 0.0, Z_BEST_COMPRESSION, 1.0, 1.0, 0.0, 0,
+  xsane_scale_new(GTK_BOX(vbox), TEXT_SETUP_PNG_COMPRESSION, DESC_PNG_COMPRESSION, 0.0, Z_BEST_COMPRESSION, 1.0, 10.0, 0.0, 0,
                   &preferences.png_compression, (GtkObject **) &xsane_setup.pnm_image_compression_scale, 0, TRUE);
 #endif
 #endif

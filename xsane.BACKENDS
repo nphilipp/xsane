@@ -1,0 +1,18 @@
+The following backends are known to work
+
+backend		version		reported xsane-version
+=======================================================
+sane-artec	0.5			0.46
+sane-canon	?			?
+sane-epson	sane-1.0.1, 0.13	0.50
+sane-hp		0.83			0.50
+sane-microtek	?			?
+sane-microtek2	0.8, pre0.9.020100	0.50 and earlier
+sane-mustek	?			0.48, 0.50
+sane-musteka4s2	?			0.42
+sane-pnm	sane-1.0.1		0.50 and earlier
+sane-sharp	?			0.47
+sane-umax 	1.0-build-*		*
+
+
+

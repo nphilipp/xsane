@@ -43,8 +43,6 @@ void xsane_set_window_icon(GtkWidget *gtk_window, gchar **xpm_d);
 
 const char *xsane_back_gtk_unit_string(SANE_Unit unit)
 {
-  double d;
-
   switch (unit)
   {
     case SANE_UNIT_NONE:	return "none";
@@ -53,12 +51,11 @@ const char *xsane_back_gtk_unit_string(SANE_Unit unit)
     case SANE_UNIT_DPI:		return "dpi";
     case SANE_UNIT_PERCENT:	return "%";
     case SANE_UNIT_MM:
-      d = preferences.length_unit;
-      if (d > 9.9 && d < 10.1)
+      if (preferences.length_unit > 9.9 && preferences.length_unit < 10.1)
       {
 	return "cm";
       }
-      else if (d > 25.3 && d < 25.5)
+      else if (preferences.length_unit > 25.3 && preferences.length_unit < 25.5)
       {
 	return "in";
       }
@@ -686,7 +683,7 @@ void xsane_back_gtk_scale_new(GtkWidget * parent, const char *name, gfloat val,
   label = gtk_label_new((char *) name);
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
 
-  elem->data = gtk_adjustment_new(val, min, max, quant, 1.0, 0.0);
+  elem->data = gtk_adjustment_new(val, min, max, quant, quant*10, 0.0);
   scale = gtk_hscale_new(GTK_ADJUSTMENT(elem->data));
   xsane_back_gtk_set_tooltip(tooltips, scale, desc);
   gtk_widget_set_usize(scale, 150, 0);
@@ -703,14 +700,15 @@ void xsane_back_gtk_scale_new(GtkWidget * parent, const char *name, gfloat val,
 
   gtk_range_set_update_policy(GTK_RANGE(scale), GTK_UPDATE_CONTINUOUS);
   gtk_scale_set_value_pos(GTK_SCALE(scale), GTK_POS_TOP);
+
   if (quant - (int) quant == 0.0)
   {
     gtk_scale_set_digits(GTK_SCALE(scale), 0);
   }
   else
   {
-    /* one place behind decimal point */
-    gtk_scale_set_digits(GTK_SCALE(scale), 1);
+    /* set number of digits in dependacne of quantization */
+    gtk_scale_set_digits(GTK_SCALE(scale), (int) log10(1/quant)+0.8);
   }
 
   gtk_signal_connect(elem->data, "value_changed", (GtkSignalFunc) xsane_back_gtk_scale_update, elem);
@@ -1349,7 +1347,9 @@ void xsane_set_sensitivity(SANE_Int sensitivity)
 {
   if (xsane.shell)
   {
-    gtk_widget_set_sensitive(xsane.shell, sensitivity);
+    gtk_widget_set_sensitive(xsane.menubar, sensitivity); 
+    gtk_widget_set_sensitive(dialog->xsane_window, sensitivity); 
+    gtk_widget_set_sensitive(GTK_WIDGET(xsane.start_button), sensitivity);
     gtk_widget_set_sensitive(xsane.standard_options_shell, sensitivity);
     gtk_widget_set_sensitive(xsane.advanced_options_shell, sensitivity);
     gtk_widget_set_sensitive(xsane.histogram_dialog, sensitivity);
@@ -1358,7 +1358,7 @@ void xsane_set_sensitivity(SANE_Int sensitivity)
   if (xsane.preview)
   {
     gtk_widget_set_sensitive(xsane.preview->button_box, sensitivity);   /* button box at top of window */
-#if 0
+#if 1
     gtk_widget_set_sensitive(xsane.preview->viewport, sensitivity);     /* Preview image selection */
 #endif
     gtk_widget_set_sensitive(xsane.preview->start, sensitivity);        /* Acquire preview button */
@@ -1369,10 +1369,12 @@ void xsane_set_sensitivity(SANE_Int sensitivity)
     gtk_widget_set_sensitive(xsane.fax_dialog, sensitivity);
   }
 
+#if 0
   if (dialog)
   {
     xsane_back_gtk_set_sensitivity(dialog, sensitivity);
   }
+#endif
 
   while (gtk_events_pending()) /* make sure set_sensitivity is displayed */
   {

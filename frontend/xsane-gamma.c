@@ -674,7 +674,7 @@ static void xsane_calculate_auto_enhancement(int negative,
 
     min = -1;
     val = 0;
-    while ( (val/4 < limit) && (min < 254) )
+    while ( (val/4 < limit) && (min < 253) )
     {
       min++;
       val += count_raw[min] + count_raw_red[min] + count_raw_green[min] + count_raw_blue[min];
@@ -692,7 +692,7 @@ static void xsane_calculate_auto_enhancement(int negative,
 
     mid = 0;
     val = 0;
-    while ( (val < limit_mid) && (mid < max - 2) )
+    while ( (val < limit_mid) && (mid < max - 1) )
     {
       mid++;
       val += 10 * log(1 + count_raw[mid] + count_raw_red[mid] + count_raw_green[mid] + count_raw_blue[mid]);
@@ -702,7 +702,7 @@ static void xsane_calculate_auto_enhancement(int negative,
 
     min_red = -1;
     val     = 0;
-    while ( (val < limit) && (min_red < 254) )
+    while ( (val < limit) && (min_red < 253) )
     {
       min_red++;
       val += count_raw_red[min_red];
@@ -720,7 +720,7 @@ static void xsane_calculate_auto_enhancement(int negative,
 
     mid_red = 0;
     val     = 0;
-    while ( (val < limit_mid) && (mid_red < max_red - 2) )
+    while ( (val < limit_mid) && (mid_red < max_red - 1) )
     {
       mid_red++;
       val += 10 * log(1 + count_raw_red[mid_red]);
@@ -730,7 +730,7 @@ static void xsane_calculate_auto_enhancement(int negative,
 
     min_green = -1;
     val       = 0;
-    while ( (val < limit) && (min_green < 254) )
+    while ( (val < limit) && (min_green < 253) )
     {
       min_green++;
       val += count_raw_green[min_green];
@@ -748,7 +748,7 @@ static void xsane_calculate_auto_enhancement(int negative,
 
     mid_green = 0;
     val     = 0;
-    while ( (val < limit_mid) && (mid_green < max_green - 2) )
+    while ( (val < limit_mid) && (mid_green < max_green - 1) )
     {
       mid_green++;
       val += 10 * log(1 + count_raw_green[mid_green]);
@@ -758,7 +758,7 @@ static void xsane_calculate_auto_enhancement(int negative,
 
     min_blue = -1;
     val      = 0;
-    while ( (val < limit) && (min_blue < 254) )
+    while ( (val < limit) && (min_blue < 253) )
     {
       min_blue++;
       val += count_raw_blue[min_blue];
@@ -776,7 +776,7 @@ static void xsane_calculate_auto_enhancement(int negative,
 
     mid_blue = 0;
     val      = 0;
-    while ( (val < limit_mid) && (mid_blue < max_blue - 2) )
+    while ( (val < limit_mid) && (mid_blue < max_blue - 1) )
     {
       mid_blue++;
       val += 10 * log(1 + count_raw_blue[mid_blue]);
@@ -1150,8 +1150,8 @@ static void xsane_gamma_to_histogram(double *min, double *mid, double *max,
     *max = 100.0;
   }
 
-  xsane_bound_double(min, 0.0, 99.0);
-  xsane_bound_double(max, 1.0, 100.0);
+  xsane_bound_double(min, 0.0, 98.0);
+  xsane_bound_double(max, *min+1, 100.0);
   xsane_bound_double(mid, *min+1, *max-1);
 }
 
@@ -1174,10 +1174,9 @@ void xsane_enhancement_by_gamma(void)
   brightness = xsane.brightness + xsane.brightness_red;
   gamma      = xsane.gamma * xsane.gamma_red;
 
-  if (contrast < -100.0)
-  {
-    contrast = -100.0;
-  }
+  xsane_bound_double(&contrast, -100.0, XSANE_CONTRAST_MAX);
+  xsane_bound_double(&brightness, XSANE_BRIGHTNESS_MIN, XSANE_BRIGHTNESS_MAX);
+  xsane_bound_double(&gamma, XSANE_GAMMA_MIN, XSANE_GAMMA_MAX);
 
   xsane_gamma_to_histogram(&min, &mid, &max, contrast, brightness, gamma);
 
@@ -1191,10 +1190,9 @@ void xsane_enhancement_by_gamma(void)
   brightness = xsane.brightness + xsane.brightness_green;
   gamma      = xsane.gamma * xsane.gamma_green;
 
-  if (contrast < -100.0)
-  {
-    contrast = -100.0;
-  }
+  xsane_bound_double(&contrast, -100.0, XSANE_CONTRAST_MAX);
+  xsane_bound_double(&brightness, XSANE_BRIGHTNESS_MIN, XSANE_BRIGHTNESS_MAX);
+  xsane_bound_double(&gamma, XSANE_GAMMA_MIN, XSANE_GAMMA_MAX);
 
   xsane_gamma_to_histogram(&min, &mid, &max, contrast, brightness, gamma);
 
@@ -1208,10 +1206,9 @@ void xsane_enhancement_by_gamma(void)
   brightness = xsane.brightness + xsane.brightness_blue;
   gamma      = xsane.gamma * xsane.gamma_blue;
 
-  if (contrast < -100.0)
-  {
-    contrast = -100.0;
-  }
+  xsane_bound_double(&contrast, -100.0, XSANE_CONTRAST_MAX);
+  xsane_bound_double(&brightness, XSANE_BRIGHTNESS_MIN, XSANE_BRIGHTNESS_MAX);
+  xsane_bound_double(&gamma, XSANE_GAMMA_MIN, XSANE_GAMMA_MAX);
 
   xsane_gamma_to_histogram(&min, &mid, &max,
                            xsane.contrast + xsane.contrast_blue,
@@ -1312,6 +1309,10 @@ static void xsane_histogram_to_gamma(XsaneSlider *slider, double *contrast, doub
   range = slider->value[2] - slider->value[0];
 
   *gamma = log(mid/range) / log(0.5);
+
+  xsane_bound_double(contrast, -100.0, XSANE_CONTRAST_MAX);
+  xsane_bound_double(brightness, XSANE_BRIGHTNESS_MIN, XSANE_BRIGHTNESS_MAX);
+  xsane_bound_double(gamma, XSANE_GAMMA_MIN, XSANE_GAMMA_MAX);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1354,8 +1355,7 @@ void xsane_enhancement_by_histogram(void)
       xsane.brightness_blue  = brightness - gray_brightness;
       xsane.contrast_blue    = contrast - gray_contrast;
 
-      xsane_enhancement_update();
-      xsane_update_gamma();
+      xsane_enhancement_by_gamma();
     }
     else /* gray slider was moved in rgb-mode */
     {
@@ -1364,8 +1364,7 @@ void xsane_enhancement_by_histogram(void)
   }
   else /* rgb sliders not active */
   {
-    xsane_enhancement_update();
-    xsane_update_gamma();
+    xsane_enhancement_by_gamma();
   }
 }
 

@@ -1,3 +1,36 @@
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+ 
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -490,7 +523,7 @@ msgstr "Smazat"
 
 #original text:  "Show"
 msgid  "Show"   
-msgstr "Ukázat"
+msgstr "Zobrazit"
 
 #original text:  "Rename"
 msgid  "Rename"   
@@ -704,21 +737,21 @@ msgstr "Volba poètu kopií:"
 msgid  "Resolution (dpi):"   
 msgstr "Rozli¹ení (dpi):"
 
-#original text:  "Width (1/72 inch):"
-msgid  "Width (1/72 inch):"   
-msgstr "©íøka (1/72 palce):"
+#original text:  "Width [mm]:"
+msgid  "Width [mm]:"   
+msgstr "©íøka [mm]:"
 
-#original text:  "Height (1/72 inch):"
-msgid  "Height (1/72 inch):"   
-msgstr "Vý¹ka (1/72 palce):"
+#original text:  "Height [mm]:"
+msgid  "Height [mm]:"   
+msgstr "Vý¹ka [mm]:"
 
-#original text:  "Left offset (1/72 inch):"
-msgid  "Left offset (1/72 inch):"   
-msgstr "Levý posun (1/72 palce):"
+#original text:  "Left offset [mm]:"
+msgid  "Left offset [mm]:"   
+msgstr "Levý posun [mm]:"
 
-#original text:  "Bottom offset (1/72 inch):"
-msgid  "Bottom offset (1/72 inch):"   
-msgstr "Spodní posun (1/72 palce):"
+#original text:  "Bottom offset [mm]:"
+msgid  "Bottom offset [mm]:"   
+msgstr "Spodní posun [mm]:"
 
 #original text:  "Printer gamma value:"
 msgid  "Printer gamma value:"   
@@ -826,28 +859,28 @@ msgstr "Nastavení"
 
 #original text:  "Show tooltips"
 msgid  "Show tooltips"   
-msgstr "Ukazovat tipy"
+msgstr "Zobrazovat tipy"
 
 #original text:  "Show preview"
 msgid  "Show preview"   
-msgstr "Ukazovat náhled"
+msgstr "Zobrazovat náhled"
 
 #original text:  "Show histogram"
 msgid  "Show histogram"   
-msgstr "Ukazovat histogram"
+msgstr "Zobrazovat histogram"
 
 #original text:  "Show standard options"
 msgid  "Show standard options"   
-msgstr "Ukazovat standardní volby"
+msgstr "Zobrazovat standardní volby"
 
 #original text:  "Show advanced options"
 msgid  "Show advanced options"   
-msgstr "Ukazovat roz¹íøené volby"
+msgstr "Zobrazovat roz¹íøené volby"
 
 
 #original text:  "Show resolution list"
 msgid  "Show resolution list"   
-msgstr "Ukazovat seznam rozli¹ení"
+msgstr "Zobrazovat seznam rozli¹ení"
 
 #original text:  "Length unit"
 msgid  "Length unit"   
@@ -1114,21 +1147,21 @@ msgstr "Zadání volby poètu kopií"
 msgid  "Resolution with which images are printed and saved in postscript"   
 msgstr "Rozli¹ení, ve kterém budou obrázky tisknuty a zapisovány do postscriptu"
 
-#original text:  "Width of printable area in 1/72 inch"
-msgid  "Width of printable area in 1/72 inch"   
-msgstr "©íøka tisknutelné plochy v dvaasedmdesátinách palce"
+#original text:  "Width of printable area in mm"
+msgid  "Width of printable area in mm"   
+msgstr "©íøka tisknutelné plochy v mm"
 
-#original text:  "Height of printable area in 1/72 inch"
-msgid  "Height of printable area in 1/72 inch"   
-msgstr "Vý¹ka tisknutelné plochy v dvaasedmdesátinách palce"
+#original text:  "Height of printable area in mm"
+msgid  "Height of printable area in mm"   
+msgstr "Vý¹ka tisknutelné plochy v mm"
 
-#original text:  "Left offset from the edge of the paper to the printable area in 1/72 inch"
-msgid  "Left offset from the edge of the paper to the printable area in 1/72 inch"   
-msgstr "Posun od levého okraje papíru do tisknutelné plochy v dvaasedmdesátinách palce"
+#original text:  "Left offset from the edge of the paper to the printable area in mm"
+msgid  "Left offset from the edge of the paper to the printable area in mm"   
+msgstr "Posun od levého okraje papíru do tisknutelné plochy v mm"
 
-#original text:  "Bottom offset from the edge of the paper to the printable area in 1/72 inch"
-msgid  "Bottom offset from the edge of the paper to the printable area in 1/72 inch"   
-msgstr "Posun od spodního okraje papíru do tisknutelné plochy v dvaasedmdesátinách palce"
+#original text:  "Bottom offset from the edge of the paper to the printable area in mm"
+msgid  "Bottom offset from the edge of the paper to the printable area in mm"   
+msgstr "Posun od spodního okraje papíru do tisknutelné plochy v mm"
 
 #original text:  "Additional gamma value for photocopy"
 msgid  "Additional gamma value for photocopy"   
@@ -1152,7 +1185,7 @@ msgstr "Kvalita v procentech, je-li obrázek zapisován jako jpeg nebo tiff s jpeg
 
 #original text:  "Compression if image is saved as png"
 msgid  "Compression if image is saved as png"   
-msgstr "Typ komprese, je-li obrázek zapisován jako png"
+msgstr "Komprese, je-li obrázek zapisován jako png"
 
 #original text:  "Compression type if multi bit image is saved as tiff"
 msgid  "Compression type if multi bit image is saved as tiff"   
@@ -1542,7 +1575,6 @@ msgstr "videokamera"
 #original text: "virtual device"
 msgid "virtual device"
 msgstr "virtuální zaøízení"
-
 
 #original text: "Success"
 msgid "Success"

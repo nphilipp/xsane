@@ -709,3 +709,35 @@ xsane-0.49 -> 0.50:
 
  - changed dynamic menue list definition in xsane_setup for TIFF_COMPRESSION menu
 
+
+xsane-0.50 -> 0.51:
+-------------------
+
+ - added some rangechecks to histogram->gamma calculation
+   it is done as histogram->gamma->histogram now
+
+ - changed redraw frame in preview_display_partial_image(),
+   now the old image is completely overpainted! 
+
+ - added xsane_set_all_resolutions() to xsane_printer_callback,
+   now paper size frame is updated when printer is changed
+
+ - corrected wrong error message in setting of scansource_selection
+   from "unknown type" to "unknown constraint type"
+
+ - moved xsane.header_size = 0; to the end of xsane_scan_done so it is called in each case
+   the missing command was responsible for a segfault when starting a scan after xsane_cancel
+   has been called
+
+ - moved progress_bar from it's own window to the bottom of the main window
+   progress_bar texts are displayed in info frame and in progress bar
+
+ - added size in mm/cm/in to progress bar when not scanning
+
+ - in scales the number of digits is defined by quantization now, if no quantization is given
+   by backend (quant=0, SANE_TYPE_FIXED) x.2 digits are displayed
+
+ - corrected page_setp for scales
+
+ - selection_active is reset in preview_display_partial_image instead of preview_paint_image
+

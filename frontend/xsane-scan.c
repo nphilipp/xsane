@@ -453,6 +453,14 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
         return;
       }
 
+      if (status == SANE_STATUS_CANCELLED)
+      {
+        xsane_scan_done(status); /* status = return of sane_read */
+        snprintf(buf, sizeof(buf), "%s.", XSANE_STRSTATUS(status));
+        xsane_back_gtk_warning(buf, TRUE);
+        return;
+      }
+
       if (status != SANE_STATUS_GOOD)
       {
         xsane_scan_done(status); /* status = return of sane_read */
@@ -467,7 +475,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
       }
 
       xsane.bytes_read += len;
-      xsane_progress_update(xsane.progress, xsane.bytes_read / (gfloat) xsane.num_bytes);
+      xsane_progress_update(xsane.bytes_read / (gfloat) xsane.num_bytes);
 
       if (xsane.input_tag < 0)
       {
@@ -913,6 +921,14 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
         return;
       }
 
+      if (status == SANE_STATUS_CANCELLED)
+      {
+        xsane_scan_done(status); /* status = return of sane_read */
+        snprintf(buf, sizeof(buf), "%s.", XSANE_STRSTATUS(status));
+        xsane_back_gtk_warning(buf, TRUE);
+        return;
+      }
+
       if (status != SANE_STATUS_GOOD)
       {
         xsane_scan_done(status); /* status = return of sane_read */
@@ -927,7 +943,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
       }
 
       xsane.bytes_read += len;
-      xsane_progress_update(xsane.progress, xsane.bytes_read / (gfloat) xsane.num_bytes);
+      xsane_progress_update(xsane.bytes_read / (gfloat) xsane.num_bytes);
 
       if (xsane.input_tag < 0)
       {
@@ -1139,11 +1155,7 @@ void xsane_scan_done(SANE_Status status)
     xsane.input_tag = -1;
   }
 
-  if (xsane.progress) /* remove progressbar */
-  {
-    xsane_progress_free(xsane.progress);
-    xsane.progress = 0;
-  }
+  xsane_progress_clear(); /* clear progress bar and reset cancel callback */
 
   while(gtk_events_pending())	/* let gtk remove the progress bar and update everything that needs it */
   {
@@ -1189,8 +1201,7 @@ void xsane_scan_done(SANE_Status status)
 
          /* open progressbar */
          snprintf(buf, sizeof(buf), PROGRESS_SAVING);
-         xsane.progress = xsane_progress_new(PROGRESS_CONVERTING_DATA, buf, (GtkSignalFunc) xsane_cancel_save, 0);
-         xsane_progress_update(xsane.progress, 0);
+         xsane_progress_new(PROGRESS_CONVERTING_DATA, buf, (GtkSignalFunc) xsane_cancel_save);
          while (gtk_events_pending())
          {
            gtk_main_iteration();
@@ -1329,8 +1340,7 @@ void xsane_scan_done(SANE_Status status)
            snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, xsane.output_filename, strerror(errno));
            xsane_back_gtk_error(buf, TRUE);
          }
-         xsane_progress_free(xsane.progress);
-         xsane.progress = 0;
+         xsane_progress_clear();
 
          while (gtk_events_pending())
          {
@@ -1351,8 +1361,7 @@ void xsane_scan_done(SANE_Status status)
 
          /* open progressbar */
          snprintf(buf, sizeof(buf), PROGRESS_CONVERTING_PS);
-         xsane.progress = xsane_progress_new(PROGRESS_CONVERTING_DATA, buf, (GtkSignalFunc) xsane_cancel_save, 0);
-         xsane_progress_update(xsane.progress, 0);
+         xsane_progress_new(PROGRESS_CONVERTING_DATA, buf, (GtkSignalFunc) xsane_cancel_save);
          while (gtk_events_pending())
          {
            gtk_main_iteration();
@@ -1435,8 +1444,7 @@ void xsane_scan_done(SANE_Status status)
            xsane_back_gtk_error(buf, TRUE);
          }
 
-         xsane_progress_free(xsane.progress);
-         xsane.progress = 0;
+         xsane_progress_clear();
          while (gtk_events_pending())
          {
            gtk_main_iteration();
@@ -1461,8 +1469,7 @@ void xsane_scan_done(SANE_Status status)
 
          /* open progressbar */
          snprintf(buf, sizeof(buf), PROGRESS_SAVING_FAX);
-         xsane.progress = xsane_progress_new(PROGRESS_CONVERTING_DATA, buf, (GtkSignalFunc) xsane_cancel_save, 0);
-         xsane_progress_update(xsane.progress, 0);
+         xsane_progress_new(PROGRESS_CONVERTING_DATA, buf, (GtkSignalFunc) xsane_cancel_save);
          while (gtk_events_pending())
          {
            gtk_main_iteration();
@@ -1529,8 +1536,7 @@ void xsane_scan_done(SANE_Status status)
            snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, xsane.fax_filename, strerror(errno));
            xsane_back_gtk_error(buf, TRUE);
          }
-         xsane_progress_free(xsane.progress);
-         xsane.progress = 0;
+         xsane_progress_clear();
 
          while (gtk_events_pending())
          {
@@ -1562,8 +1568,6 @@ void xsane_scan_done(SANE_Status status)
     }
 #endif /* HAVE_LIBGIMP_GIMP_H */
 
-    xsane.header_size = 0;
-    
     if ( (preferences.increase_filename_counter) && (xsane.xsane_mode == XSANE_SCAN) && (xsane.mode == XSANE_STANDALONE) )
     {
       xsane_increase_counter_in_filename(preferences.filename, preferences.skip_existing_numbers);
@@ -1624,6 +1628,8 @@ void xsane_scan_done(SANE_Status status)
     sane_cancel(xsane_back_gtk_dialog_get_device(dialog)); /* stop scanning */
     xsane_update_histogram();
   }
+
+  xsane.header_size = 0;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1908,11 +1914,7 @@ static void xsane_start_scan(void)
 
   dialog->pixelcolor = 0;
 
-  if (xsane.progress)
-  {
-    xsane_progress_free(xsane.progress);
-  }
-  xsane.progress = xsane_progress_new(PROGRESS_SCANNING, buf, (GtkSignalFunc) xsane_cancel, 0);
+  xsane_progress_new(PROGRESS_SCANNING, buf, (GtkSignalFunc) xsane_cancel);
 
   xsane.input_tag = -1;
 

@@ -289,7 +289,14 @@ static void preview_draw_rect(Preview *p, GdkWindow *win, GdkGC *gc, float coord
   wi = (gint) (w * xscale + 0.5);
   hi = (gint) (h * yscale + 0.5);
 
+#if 1
   gdk_draw_rectangle(win, gc, FALSE, xi, yi, wi + 1, hi + 1);
+#else
+  gdk_draw_line(win, gc, xi     , yi     , xi+wi+1, yi);
+  gdk_draw_line(win, gc, xi     , yi+hi+1, xi+wi+1, yi+hi+1);
+  gdk_draw_line(win, gc, xi     , yi     , xi     , yi+hi+1);
+  gdk_draw_line(win, gc, xi+wi+1, yi     , xi+wi+1, yi+hi+1);
+#endif
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -349,6 +356,8 @@ static void preview_update_selection(Preview *p)
 
   p->previous_selection = p->selection;
 
+  p->selection.active = TRUE;
+
   for (i = 0; i < 4; ++i)
   {
     optnum = p->dialog->well_known.coord[i];
@@ -386,6 +395,7 @@ static void preview_update_selection(Preview *p)
           p->selection.coordinate[i] = p->preview_height;
          break;
       }
+      p->selection.active = FALSE;
     }
   }
 
@@ -398,7 +408,8 @@ static void preview_update_selection(Preview *p)
   }
 
   p->selection.active = ( (p->selection.coordinate[0] != p->selection.coordinate[2]) &&
-                          (p->selection.coordinate[1] != p->selection.coordinate[3]) );
+                          (p->selection.coordinate[1] != p->selection.coordinate[3]) &&
+                           p->selection.active );
 
   preview_draw_selection(p);
 }
@@ -569,7 +580,7 @@ static void preview_paint_image(Preview *p)
 
   preview_get_scale_preview_to_image(p, &xscale, &yscale);
 
-  memset(p->preview_row, 0x80, 3*p->preview_window_width);
+  memset(p->preview_row, 0x80, 3 * p->preview_window_width);
 
   /* don't draw last line unless it's complete: */
   height = p->image_y;
@@ -629,6 +640,9 @@ static void preview_paint_image(Preview *p)
 
 static void preview_display_partial_image(Preview *p)
 {
+  p->previous_selection.active = FALSE; /* ok, old selections are overpainted */
+  p->previous_selection_maximum.active = FALSE;
+
   preview_paint_image(p);
 
   if (GTK_WIDGET_DRAWABLE(p->window))
@@ -638,8 +652,9 @@ static void preview_display_partial_image(Preview *p)
 
     src_x = (p->window->allocation.width - preview->buffer_width)/2;
     src_y = (p->window->allocation.height - preview->buffer_height)/2;
+
     gtk_preview_put(preview, p->window->window, p->window->style->black_gc, src_x, src_y,
-                    0, 0, p->preview_width, p->preview_height);
+                    0, 0, p->preview_window_width, p->preview_window_height);
   }
 }
 
@@ -672,7 +687,7 @@ static void preview_display_image(Preview *p)
     assert(p->image_data_enh);
   }
 
-  memcpy(p->image_data_raw, p->image_data_enh, 3 * p->image_width * p->image_height);
+  memcpy(p->image_data_raw, p->image_data_enh, 3 * p->image_width * p->image_height); /* store scanned preview ind raw */
 
   preview_do_gamma_correction(p);
 }
@@ -1374,8 +1389,6 @@ static gint preview_expose_handler(GtkWidget *window, GdkEvent *event, gpointer 
 
   p->previous_selection.active = FALSE; /* ok, old selections are overpainted */
   p->previous_selection_maximum.active = FALSE;
-  p->selection.active = TRUE; /* ok, old selections are overpainted */
-  p->selection_maximum.active = TRUE;
   preview_draw_selection(p); /* draw selections again */
 
   return FALSE;
@@ -1416,6 +1429,7 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
       p->gc_selection_maximum = gdk_gc_new(p->window->window);
       gdk_gc_set_function(p->gc_selection_maximum, GDK_XOR);
       gdk_gc_set_line_attributes(p->gc_selection_maximum, 1, GDK_LINE_ON_OFF_DASH, GDK_CAP_BUTT, GDK_JOIN_MITER);
+
       color.red   = 0;
       color.green = 65535;
       color.blue  = 30000;
@@ -2392,15 +2406,17 @@ void preview_update_surface(Preview *p, int surface_changed)
   {
     p->preview_window_width  = 0.5 * gdk_screen_width();
     p->preview_window_height = 0.5 * gdk_screen_height();
+    preview_area_correct(p);
+    gtk_widget_set_usize(GTK_WIDGET(p->window), p->preview_width, p->preview_height);
   }
-
-  preview_area_correct(p);
+  else
+  {
+    preview_area_correct(p);
+  }
 
   if (surface_changed)
   {
-    gtk_widget_set_usize(GTK_WIDGET(p->window), p->preview_width, p->preview_height);
-    /* preview_area_resize is automatically called by signal handler */
-
+    preview_area_resize(p->window); /* correct rules */
     preview_bound_selection(p); /* make sure selection is not larger than surface */
     preview_restore_image(p); /* draw selected surface of the image */
   }
@@ -2938,26 +2954,23 @@ void preview_do_gamma_correction(Preview *p)
  int x,y;
  int offset;
 
-  if (p->image_data_raw)
+  if ((p->image_data_raw) && (p->params.depth > 1) && (preview_gamma_data_red))
   {
-    if ((p->image_data_raw) && (p->params.depth > 1) && (preview_gamma_data_red))
+    for (y=0; y < p->image_height; y++)
     {
-      for (y=0; y < p->image_height; y++)
+      for (x=0; x < p->image_width; x++)
       {
-        for (x=0; x < p->image_width; x++)
-        {
-          offset = 3 * (y * p->image_width + x);
-          p->image_data_enh[offset    ] = preview_gamma_data_red  [p->image_data_raw[offset    ]];
-          p->image_data_enh[offset + 1] = preview_gamma_data_green[p->image_data_raw[offset + 1]];
-          p->image_data_enh[offset + 2] = preview_gamma_data_blue [p->image_data_raw[offset + 2]];
-        }
+        offset = 3 * (y * p->image_width + x);
+        p->image_data_enh[offset    ] = preview_gamma_data_red  [p->image_data_raw[offset    ]];
+        p->image_data_enh[offset + 1] = preview_gamma_data_green[p->image_data_raw[offset + 1]];
+        p->image_data_enh[offset + 2] = preview_gamma_data_blue [p->image_data_raw[offset + 2]];
       }
     }
+  }
 
+  if (p->image_data_enh)
+  {
     preview_display_partial_image(p);
-	
-    p->previous_selection.active = FALSE; /* previous selection is not drawn */
-    p->previous_selection_maximum.active = FALSE;
   }
 }
 
@@ -3104,7 +3117,7 @@ void preview_area_resize(GtkWidget *widget)
   p->preview_width         = widget->allocation.width;
   p->preview_height        = widget->allocation.height;
 
-  preview_area_correct(p); /* set preview dimensions (with right aspect) that they fit into the window */
+  preview_area_correct(p); /* set preview dimensions (with right aspect) that it fits into the window */
 
   if (p->preview_row) /* make sure preview_row is large enough for one line of the new size */
   {
@@ -3168,8 +3181,7 @@ void preview_area_resize(GtkWidget *widget)
   max_x *= f;
   delta_x = max_x - min_x;
 
-  gtk_ruler_set_range(GTK_RULER(p->hruler), min_x, min_x + delta_x*p->preview_window_width/p->preview_width,
-                      min_x, /* max_size */ 20);
+  gtk_ruler_set_range(GTK_RULER(p->hruler), min_x, min_x + delta_x*p->preview_window_width/p->preview_width, min_x, /* max_size */ 20);
 
   if (p->image_height > 0)
   {
@@ -3184,8 +3196,7 @@ void preview_area_resize(GtkWidget *widget)
   max_y *= f;
   delta_y = max_y - min_y;
 
-  gtk_ruler_set_range(GTK_RULER(p->vruler), min_y, min_y + delta_y*p->preview_window_height/p->preview_height,
-                      min_y, /* max_size */ 20);
+  gtk_ruler_set_range(GTK_RULER(p->vruler), min_y, min_y + delta_y*p->preview_window_height/p->preview_height, min_y, /* max_size */ 20);
 
   preview_paint_image(p);
 }

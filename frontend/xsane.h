@@ -32,7 +32,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION	"0.50"
+#define XSANE_VERSION	"0.51"
 #define XSANE_AUTHOR	"Oliver Rauch"
 #define XSANE_COPYRIGHT	"Oliver Rauch"
 #define XSANE_DATE	"1998-2000"
@@ -231,16 +231,6 @@ enum
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-typedef struct XsaneProgress_t
-{
-    GtkSignalFunc callback;
-    gpointer callback_data;
-    GtkWidget *shell;
-    GtkWidget *pbar;
-} XsaneProgress_t;
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
 typedef struct XsanePixmap
 {
   GtkWidget *frame;
@@ -275,6 +265,7 @@ typedef struct Xsane
 
     /* dialogs */
     GtkWidget *shell;
+    GtkWidget *menubar;
     GtkWidget *standard_options_shell;
     GtkWidget *advanced_options_shell;
     GtkWidget *main_dialog_scrolled;
@@ -309,6 +300,8 @@ typedef struct Xsane
     GtkWidget *vruler;
     GtkWidget *info_label;
     GtkObject *start_button;
+    GtkObject *cancel_button;
+    GtkSignalFunc cancel_callback;
     Preview   *preview;
     gint32    mode;
 
@@ -318,7 +311,7 @@ typedef struct Xsane
     /* various scanning related state: */
     size_t num_bytes;
     size_t bytes_read;
-    XsaneProgress_t *progress;
+    GtkWidget *progress_bar;
     int input_tag;
     SANE_Parameters param;
     int x, y;

@@ -42,9 +42,9 @@ extern gint xsane_authorization_callback(SANE_String_Const resource,
                                          SANE_Char username[SANE_MAX_USERNAME_LEN],
                                          SANE_Char password[SANE_MAX_PASSWORD_LEN]);
 extern void xsane_progress_cancel(GtkWidget *widget, gpointer data);
-extern XsaneProgress_t *xsane_progress_new(char *title, char *text, GtkSignalFunc callback, gpointer callback_data);
-extern void xsane_progress_free(XsaneProgress_t *p);
-extern void xsane_progress_update(XsaneProgress_t *p, gfloat newval);
+extern void xsane_progress_new(char *bar_text, char *info, GtkSignalFunc callback);
+extern void xsane_progress_update(gfloat newval);
+extern void xsane_progress_clear();
 extern void xsane_toggle_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[], const char *desc,
                                                 int *state, void *xsane_toggle_button_callback);
 extern GtkWidget *xsane_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[], const char *desc, 
@@ -57,15 +57,16 @@ extern void xsane_option_menu_new_with_pixmap(GtkBox *parent, const char *xpm_d[
                                               GtkObject **data, int option,
                                               void *option_menu_callback, SANE_Int settable, const gchar *widget_name);
 extern void xsane_scale_new(GtkBox *parent, char *labeltext, const char *desc,
-                            float min, float max, float quant, float step, float xxx,
+                            float min, float max, float quant, float page_step, float page_size,
                             int digits, double *val, GtkObject **data, void *xsane_scale_callback, SANE_Int settable);
 extern void xsane_scale_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char *desc,
-                                        float min, float max, float quant, float step, float xxx, int digits,
+                                        float min, float max, float quant, float page_step, float page_size, int digits,
                                         double *val, GtkObject **data, int option, void *xsane_scale_callback, SANE_Int settable);
 extern void xsane_separator_new(GtkWidget *xsane_parent, int dist);
 extern GtkWidget *xsane_info_table_text_new(GtkWidget *table, gchar *text, int row, int colomn);
 extern GtkWidget *xsane_info_text_new(GtkWidget *parent, gchar *text);
 extern void xsane_refresh_dialog(void *nothing);
+extern void xsane_update_param(GSGDialog *dialog, void *arg);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 

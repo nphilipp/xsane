@@ -1,6 +1,7 @@
 #include "../frontend/xsane-text.h"
 #define _(x) x
 
+
 #nls translation file for xsane
 #language: german (de)
 #by Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
@@ -141,7 +142,7 @@ msgstr "Anzeigen"
 msgid BUTTON_RENAME
 msgstr "Umbenennen"
 
-#original text:  "Create project"
+#original text:  "Create project"   
 msgid BUTTON_CREATE_PROJECT
 msgstr "Projekt erstellen"
 
@@ -353,21 +354,21 @@ msgstr "Option for Anzahl der Kopien:"
 msgid TEXT_SETUP_PRINTER_RES
 msgstr "Auflösung (dpi):"
 
-#original text:  "Width (1/72 inch):"   
+#original text:  "Width [mm]:"   
 msgid TEXT_SETUP_PRINTER_WIDTH
-msgstr "Breite (1/72 Zoll):"
+msgstr "Breite [mm]:"
 
-#original text:  "Height (1/72 inch):"   
+#original text:  "Height [mm]:"   
 msgid TEXT_SETUP_PRINTER_HEIGHT
-msgstr "Höhe (1/72 Zoll):"
+msgstr "Höhe [mm]:"
 
-#original text:  "Left offset (1/72 inch):"   
+#original text:  "Left offset [mm]:"   
 msgid TEXT_SETUP_PRINTER_LEFT
-msgstr "Linker Rand (1/72 Zoll):"
+msgstr "Linker Rand [mm]:"
 
-#original text:  "Bottom offset (1/72 inch):"   
+#original text:  "Bottom offset [mm]:"   
 msgid TEXT_SETUP_PRINTER_BOTTOM
-msgstr "Unterer Rand (1/72 Zoll):"
+msgstr "Unterer Rand [mm]:"
 
 #original text:  "Printer gamma value:"   
 msgid TEXT_SETUP_PRINTER_GAMMA
@@ -769,21 +770,21 @@ msgstr "Option, mit der die Anzahl der Kopien angegeben wird"
 msgid DESC_PRINTER_RESOLUTION
 msgstr "Auflösung, mit der Bilder gedrucht und im Postscriptformat gespeichert werden"
 
-#original text:  "Width of printable area in 1/72 inch"   
+#original text:  "Width of printable area in mm"   
 msgid DESC_PRINTER_WIDTH
-msgstr "Breite des druckbaren Bereichs in 1/72 Zoll"
+msgstr "Breite des druckbaren Bereichs in mm"
 
-#original text:  "Height of printable area in 1/72 inch"   
+#original text:  "Height of printable area in mm"   
 msgid DESC_PRINTER_HEIGHT
-msgstr "Höhe des druckbaren Bereichs in 1/72 Zoll"
+msgstr "Höhe des druckbaren Bereichs in mm"
 
-#original text:  "Left offset from the edge of the paper to the printable area in 1/72 inch"   
+#original text:  "Left offset from the edge of the paper to the printable area in mm"   
 msgid DESC_PRINTER_LEFTOFFSET
-msgstr "Abstand vom linken Papierrand zum Beginn des druckbaren Bereichs in 1/72 Zoll"
+msgstr "Abstand vom linken Papierrand zum Beginn des druckbaren Bereichs in mm"
 
-#original text:  "Bottom offset from the edge of the paper to the printable area in 1/72 inch"   
+#original text:  "Bottom offset from the edge of the paper to the printable area in mm"   
 msgid DESC_PRINTER_BOTTOMOFFSET
-msgstr "Abstand vom unteren Papierrand zum Beginn des druckbaren Bereichs in 1/72 Zoll"
+msgstr "Abstand vom unteren Papierrand zum Beginn des druckbaren Bereichs in mm"
 
 #original text:  "Additional gamma value for photocopy"   
 msgid DESC_PRINTER_GAMMA

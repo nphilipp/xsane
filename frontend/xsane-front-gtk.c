@@ -52,9 +52,9 @@ gint xsane_authorization_callback(SANE_String_Const resource,
                                   SANE_Char username[SANE_MAX_USERNAME_LEN],
                                   SANE_Char password[SANE_MAX_PASSWORD_LEN]);
 void xsane_progress_cancel(GtkWidget *widget, gpointer data);
-XsaneProgress_t *xsane_progress_new(char *title, char *text, GtkSignalFunc callback, gpointer callback_data);
-void xsane_progress_free(XsaneProgress_t *p);
-void xsane_progress_update(XsaneProgress_t *p, gfloat newval);
+void xsane_progress_new(char *bar_text, char *info, GtkSignalFunc callback);
+void xsane_progress_update(gfloat newval);
+void xsane_progress_clear();
 void xsane_toggle_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[], const char *desc,
                                          int *state, void *xsane_toggle_button_callback);
 GtkWidget *xsane_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[], const char *desc,
@@ -76,6 +76,7 @@ GtkWidget *xsane_info_table_text_new(GtkWidget *table, gchar *text, int row, int
 GtkWidget *xsane_info_text_new(GtkWidget *parent, gchar *text);
 void xsane_refresh_dialog(void *nothing);
 void xsane_set_sensitivity(SANE_Int sensitivity);
+void xsane_update_param(GSGDialog *dialog, void *arg);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -402,73 +403,44 @@ gint xsane_authorization_callback(SANE_String_Const resource,
 
 void xsane_progress_cancel(GtkWidget *widget, gpointer data)
 {
-  XsaneProgress_t *p = (XsaneProgress_t *) data;
+ GtkSignalFunc callback = data;
 
-  (*p->callback) ();
+  (callback)();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-XsaneProgress_t *xsane_progress_new(char *title, char *text, GtkSignalFunc callback, gpointer callback_data)
+void xsane_progress_new(char *bar_text, char *info, GtkSignalFunc callback)
 {
-  GtkWidget *button, *label;
-  GtkBox *vbox, *hbox;
-  XsaneProgress_t *p;
-  static const int progress_x = 5;
-  static const int progress_y = 5;
-
-  p = (XsaneProgress_t *) malloc(sizeof(XsaneProgress_t));
-  p->callback = callback;
-
-  p->shell = gtk_dialog_new();
-  gtk_widget_set_uposition(p->shell, progress_x, progress_y);
-  gtk_window_set_title(GTK_WINDOW (p->shell), title);
-
-  xsane_set_window_icon(p->shell, 0);
-
-  vbox = GTK_BOX(GTK_DIALOG(p->shell)->vbox);
-  hbox = GTK_BOX(GTK_DIALOG(p->shell)->action_area);
-
-  gtk_container_set_border_width(GTK_CONTAINER (vbox), 7);
-
-  label = gtk_label_new(text);
-  gtk_misc_set_alignment(GTK_MISC (label), 0.0, 0.5);
-  gtk_box_pack_start(vbox, label, FALSE, TRUE, 0);
-
-  p->pbar = gtk_progress_bar_new();
-  gtk_widget_set_usize(p->pbar, 200, 20);
-  gtk_box_pack_start(vbox, p->pbar, TRUE, TRUE, 0);
-
-  button = gtk_toggle_button_new_with_label(BUTTON_CANCEL);
-  gtk_signal_connect(GTK_OBJECT (button), "clicked", (GtkSignalFunc) xsane_progress_cancel, p);
-  gtk_box_pack_start(hbox, button, TRUE, TRUE, 0);
-
-  gtk_widget_show(label);
-  gtk_widget_show(p->pbar);
-  gtk_widget_show(button);
-  gtk_widget_show(GTK_WIDGET (p->shell));
-  return p;
+  gtk_label_set(GTK_LABEL(xsane.info_label), info);
+  gtk_progress_set_format_string(GTK_PROGRESS(xsane.progress_bar), bar_text); 
+  gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.progress_bar), 0.0);
+  gtk_widget_set_sensitive(GTK_WIDGET(xsane.cancel_button), TRUE);
+  gtk_signal_connect(GTK_OBJECT(xsane.cancel_button), "clicked", (GtkSignalFunc) xsane_progress_cancel, callback);
+  xsane.cancel_callback = callback;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void xsane_progress_free(XsaneProgress_t *p)
+void xsane_progress_clear()
 {
-  if (p)
+  xsane_update_param(dialog, 0);
+  gtk_progress_set_format_string(GTK_PROGRESS(xsane.progress_bar), ""); 
+  gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.progress_bar), 0.0);
+  gtk_widget_set_sensitive(GTK_WIDGET(xsane.cancel_button), FALSE);
+
+  if (xsane.cancel_callback)
   {
-    gtk_widget_destroy(p->shell);
-    free (p);
+    gtk_signal_disconnect_by_func(GTK_OBJECT(xsane.cancel_button), (GtkSignalFunc) xsane_progress_cancel, xsane.cancel_callback);
+    xsane.cancel_callback = 0;
   }
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void xsane_progress_update(XsaneProgress_t *p, gfloat newval)
+void xsane_progress_update(gfloat newval)
 {
-  if (p)
-  {
-    gtk_progress_bar_update(GTK_PROGRESS_BAR(p->pbar), newval);
-  }
+  gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.progress_bar), newval);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -656,7 +628,7 @@ void xsane_option_menu_new_with_pixmap(GtkBox *parent, const char *xpm_d[], cons
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 void xsane_scale_new(GtkBox *parent, char *labeltext, const char *desc,
-                     float min, float max, float quant, float step, float page_step,
+                     float min, float max, float quant, float page_step, float page_size,
                      int digits, double *val, GtkObject **data, void *xsane_scale_callback, SANE_Int settable)
 {
  GtkWidget *hbox;
@@ -669,7 +641,7 @@ void xsane_scale_new(GtkBox *parent, char *labeltext, const char *desc,
   label = gtk_label_new(labeltext);
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
 
-  *data = gtk_adjustment_new(*val, min, max, quant, step, page_step);
+  *data = gtk_adjustment_new(*val, min, max, quant, page_step, page_size);
   scale = gtk_hscale_new(GTK_ADJUSTMENT(*data));
   xsane_back_gtk_set_tooltip(dialog->tooltips, scale, desc);
   gtk_widget_set_usize(scale, 201, 0); /* minimum scale with = 201 pixels */
@@ -695,8 +667,8 @@ void xsane_scale_new(GtkBox *parent, char *labeltext, const char *desc,
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 void xsane_scale_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char *desc,
-                                 float min, float max, float quant, float step, float page_step, int digits,
-                                 double *val, GtkObject **data, int option, void *xsane_scale_callback, SANE_Int settable)
+                                 float min, float max, float quant, float page_step, float page_size,
+                                 int digits, double *val, GtkObject **data, int option, void *xsane_scale_callback, SANE_Int settable)
 {
  GtkWidget *hbox;
  GtkWidget *scale;
@@ -711,7 +683,7 @@ void xsane_scale_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char
   pixmapwidget = gtk_pixmap_new(pixmap, mask);
   gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
 
-  *data = gtk_adjustment_new(*val, min, max, quant, step, page_step);
+  *data = gtk_adjustment_new(*val, min, max, quant, page_step, page_size);
   scale = gtk_hscale_new(GTK_ADJUSTMENT(*data));
   xsane_back_gtk_set_tooltip(dialog->tooltips, scale, desc);
   gtk_widget_set_usize(scale, 201, 0); /* minimum scale with = 201 pxiels */
@@ -794,5 +766,91 @@ void xsane_refresh_dialog(void *nothing)
 {
   xsane_back_gtk_refresh_dialog(dialog);
 }                    
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+/* Update the info line with the latest size information and update histogram.  */
+void xsane_update_param(GSGDialog *dialog, void *arg)
+{
+ SANE_Parameters params;
+ gchar buf[200];
+ const char *unit;
+
+  if (!xsane.info_label)
+  {
+    return;
+  }
+
+  if (xsane.block_update_param) /* if we change more than one value, we only want to update all once */
+  {
+    return;
+  }
+
+  if (xsane.preview)
+  {
+    preview_update_surface(xsane.preview, 0);
+  }
+
+  if (sane_get_parameters(xsane_back_gtk_dialog_get_device(dialog), &params) == SANE_STATUS_GOOD)
+  {
+   float size = params.bytes_per_line * params.lines;
+
+    unit = "B";
+
+    if (params.format >= SANE_FRAME_RED && params.format <= SANE_FRAME_BLUE)
+    {
+      size *= 3.0;
+    }
+
+    if (size >= 1024.0 * 1024.0)
+    {
+      size /= 1024.0 * 1024.0;
+      unit = "MB";
+    }
+    else if (size >= 1024.0)
+    {
+      size /= 1024.0;
+      unit = "KB";
+    }
+    snprintf(buf, sizeof(buf), "%d px x %d px (%1.1f %s)", params.pixels_per_line, params.lines, size, unit);
+
+    if (params.format == SANE_FRAME_GRAY)
+    {
+      xsane.xsane_color = 0;
+    }
+#ifdef SUPPORT_RGBA
+    else if (params.format == SANE_FRAME_RGBA)
+    {
+      xsane.xsane_color = 4;
+    }
+#endif
+    else /* RGB */
+    {
+      xsane.xsane_color = 3;
+    }
+  }
+  else 
+  {
+    snprintf(buf, sizeof(buf), TEXT_INVALID_PARAMS);
+  }
+
+  gtk_label_set(GTK_LABEL(xsane.info_label), buf);
+
+
+  if (xsane.preview->surface_unit == SANE_UNIT_MM)
+  {
+   double dx, dy;
+
+    unit = xsane_back_gtk_unit_string(xsane.preview->surface_unit);
+
+    dx = (xsane.preview->selection.coordinate[2] - xsane.preview->selection.coordinate[0]) / preferences.length_unit;
+    dy = (xsane.preview->selection.coordinate[3] - xsane.preview->selection.coordinate[1]) / preferences.length_unit;
+
+    snprintf(buf, sizeof(buf), "%1.2f %s x %1.2f %s", dx, unit, dy, unit);
+    gtk_progress_set_format_string(GTK_PROGRESS(xsane.progress_bar), buf);
+  }
+
+  xsane_update_histogram();
+}
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

@@ -1,3 +1,26 @@
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+ 
 
 
 
@@ -358,6 +381,7 @@
 
 
  
+
 
 
 
@@ -507,7 +531,7 @@ msgstr "Anzeigen"
 msgid  "Rename"   
 msgstr "Umbenennen"
 
-#original text:  "Create project"
+#original text:  "Create project"   
 msgid  "Create project"   
 msgstr "Projekt erstellen"
 
@@ -719,21 +743,21 @@ msgstr "Option for Anzahl der Kopien:"
 msgid  "Resolution (dpi):"   
 msgstr "Auflösung (dpi):"
 
-#original text:  "Width (1/72 inch):"   
+#original text:  "Width [mm]:"   
 msgid  "Width [mm]:"   
-msgstr "Breite (1/72 Zoll):"
+msgstr "Breite [mm]:"
 
-#original text:  "Height (1/72 inch):"   
+#original text:  "Height [mm]:"   
 msgid  "Height [mm]:"   
-msgstr "Höhe (1/72 Zoll):"
+msgstr "Höhe [mm]:"
 
-#original text:  "Left offset (1/72 inch):"   
+#original text:  "Left offset [mm]:"   
 msgid  "Left offset [mm]:"   
-msgstr "Linker Rand (1/72 Zoll):"
+msgstr "Linker Rand [mm]:"
 
-#original text:  "Bottom offset (1/72 inch):"   
+#original text:  "Bottom offset [mm]:"   
 msgid  "Bottom offset [mm]:"   
-msgstr "Unterer Rand (1/72 Zoll):"
+msgstr "Unterer Rand [mm]:"
 
 #original text:  "Printer gamma value:"   
 msgid  "Printer gamma value:"   
@@ -1135,21 +1159,21 @@ msgstr "Option, mit der die Anzahl der Kopien angegeben wird"
 msgid  "Resolution with which images are printed and saved in postscript"   
 msgstr "Auflösung, mit der Bilder gedrucht und im Postscriptformat gespeichert werden"
 
-#original text:  "Width of printable area in 1/72 inch"   
+#original text:  "Width of printable area in mm"   
 msgid  "Width of printable area in mm"   
-msgstr "Breite des druckbaren Bereichs in 1/72 Zoll"
+msgstr "Breite des druckbaren Bereichs in mm"
 
-#original text:  "Height of printable area in 1/72 inch"   
+#original text:  "Height of printable area in mm"   
 msgid  "Height of printable area in mm"   
-msgstr "Höhe des druckbaren Bereichs in 1/72 Zoll"
+msgstr "Höhe des druckbaren Bereichs in mm"
 
-#original text:  "Left offset from the edge of the paper to the printable area in 1/72 inch"   
+#original text:  "Left offset from the edge of the paper to the printable area in mm"   
 msgid  "Left offset from the edge of the paper to the printable area in mm"   
-msgstr "Abstand vom linken Papierrand zum Beginn des druckbaren Bereichs in 1/72 Zoll"
+msgstr "Abstand vom linken Papierrand zum Beginn des druckbaren Bereichs in mm"
 
-#original text:  "Bottom offset from the edge of the paper to the printable area in 1/72 inch"   
+#original text:  "Bottom offset from the edge of the paper to the printable area in mm"   
 msgid  "Bottom offset from the edge of the paper to the printable area in mm"   
-msgstr "Abstand vom unteren Papierrand zum Beginn des druckbaren Bereichs in 1/72 Zoll"
+msgstr "Abstand vom unteren Papierrand zum Beginn des druckbaren Bereichs in mm"
 
 #original text:  "Additional gamma value for photocopy"   
 msgid  "Additional gamma value for photocopy"   
