@@ -520,7 +520,7 @@ gint xsane_authorization_callback(SANE_String_Const resource,
             marker = strchr(stored_password, ':');
             if (marker)
             {
-              *marker = 0; /* set \0 to end of stroed_password */
+              *marker = 0; /* set \0 to end of stored_password */
               stored_resource = marker + 1;
 
               if (strcmp(stored_resource, resource_string) == 0) /* password file resource equals requested resource */
@@ -665,7 +665,9 @@ gint xsane_authorization_callback(SANE_String_Const resource,
 
     snprintf(buf, sizeof(buf), "%s%s", (strstr(resource, "$MD5$")) + 5, password); /* random string from backend + password */
     md5_buffer(buf, strlen(buf), md5digest); /* calculate md5digest */
+#if 0 /* makes problems with WIN32 */
     memset(password, 0, SANE_MAX_PASSWORD_LEN); /* clear password */
+#endif
 
     sprintf(password, "$MD5$%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
             md5digest[0],  md5digest[1],  md5digest[2],  md5digest[3],

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-11-23 20:47+0100\n"
+"POT-Creation-Date: 2000-12-10 13:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -551,6 +551,10 @@ msgstr ""
 msgid "Threshold option:"
 msgstr ""
 
+#. TEXT_SETUP_ADF_MODE
+msgid "Automatic Document Feeder Modus:"
+msgstr ""
+
 #. TEXT_SETUP_THRESHOLD_MIN
 msgid "Threshold minimum:"
 msgstr ""
@@ -761,6 +765,10 @@ msgstr ""
 
 #. MENU_ITEM_LINEART_MODE_GRAY
 msgid "XSane main window (grayscale->lineart)"
+msgstr ""
+
+#. MENU_ITEM_SELECTION_NONE
+msgid "(none)"
 msgstr ""
 
 #. MENU_ITEM_FILETYPE_BY_EXT
@@ -1120,8 +1128,8 @@ msgstr ""
 
 #. DESC_GRAYSCALE_SCANMODE
 msgid ""
-"Enter name of grayscale scanmode - for preview with transformation from "
-"grayscale to lineart"
+"Select grayscale scanmode. This scanmode is used for lineart preview scan "
+"when transformation from grayscale to lineart is enabled"
 msgstr ""
 
 #. DESC_PREVIEW_THRESHOLD_MIN
@@ -1142,6 +1150,12 @@ msgstr ""
 #. DESC_PREVIEW_THRESHOLD_OFF
 msgid ""
 "Offset to make xsane threshold range and scanner threshold range the same"
+msgstr ""
+
+#. DESC_ADF_MODE
+msgid ""
+"Select scansource for Automatic Document feeder. If this scansource is "
+"selected xsane scans until \"out of paper\" or error."
 msgstr ""
 
 #. DESC_DOC_VIEWER

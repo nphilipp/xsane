@@ -7,14 +7,13 @@ but short tests looked very good.
 
 This version supports:
  - preview scan, preview zoom
- - scan and save to pnm, ps and raw file, if compiled in also jpeg and png
+ - scan and save to pnm, ps and raw file, if compiled in also jpeg, png and tiff
  - handling of all backend options
+ - helpfiles
 
 It does not support:
- - copy mode (no printing)
+ - copy mode (no printing, may be this can be done with ghostscript)
  - fax mode (no compatible faxsoftware)
- - helpfiles
- - tiff as output file format
 
 Unknown / not supported in the moment:
  - gimp-plugin not tested/not compiled with gimp support
@@ -25,6 +24,8 @@ Installation:
  - unpack the archiv to c:\
    that creates the directory c:\Sane with several files
    you do not need to copy any files, simply call xsane or scanimage
+ 
+ - sane MUST BE installed in c:\sane because the paths are hardcoded
 
  - xsane may not work if you install it at any other place!
 
@@ -56,11 +57,13 @@ myhost2.mydomain.com
 or
 	xsane myhost:umax:/dev/scanner
 
+
 Support:
 ========
  There is no special support for xsane for win32.
  I develop xsane on a linux machine and will make a binary version
  for win32 from time to time.
+
 
 Licence:
 ========
@@ -74,12 +77,21 @@ Licence:
 
  * cygwin1.dll stands under the term of the GNU general public licence - GPL
 
- * Libraries of jpeg, png and tiff are linked statically.
-   They have their own licences who allow free private and may be
-   free commercial usage.
+ * other cyg*.dll stand under the term of the GNU general public licence - GPL
 
- * For location of sourcecode and information about the dlls read
-   xsane.WIN32-compilation.
+ * The sourcecode of xsane can be found at http://www.wolfsburg.de/~rauch/sane
+
+ * The sourcecode of sane can be found at http://www.mostang.com/sane
+
+ * For any information about cygwin take a look at http://cygwin.com
+
+ * For any information about gtk/gdk for win32 take a look at
+   http://user.sgic.fi/~tml/gimp/win32/
+
+
+Compile it yourself:
+====================
+ * In xsane.WIN32-compilation I wrote down what I did to create xsane.exe
 
 
 Contact:

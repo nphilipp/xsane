@@ -1183,7 +1183,7 @@ static int xsane_test_multi_scan(void)
 
         if (status == SANE_STATUS_GOOD)
         {
-          if (!strcmp(set, SANE_NAME_DOCUMENT_FEEDER))
+          if (!strcmp(set, xsane.adf_scansource))
           {
             return TRUE;
           }

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.64\n"
-"POT-Creation-Date: 2000-11-23 20:47+0100\n"
+"POT-Creation-Date: 2000-12-10 13:12+0100\n"
 "PO-Revision-Date: 2000-11-14 10:32+01:00\n"
 "Last-Translator: Stanislav Brabec <utx@penguin.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -555,6 +555,10 @@ msgstr "Modrá gama náhledu:"
 msgid "Threshold option:"
 msgstr "Volba prahu:"
 
+#. TEXT_SETUP_ADF_MODE
+msgid "Automatic Document Feeder Modus:"
+msgstr ""
+
 #. TEXT_SETUP_THRESHOLD_MIN
 msgid "Threshold minimum:"
 msgstr "Minimum prahu:"
@@ -766,6 +770,11 @@ msgstr "Hlavní okno XSane (èárová grafika)"
 #. MENU_ITEM_LINEART_MODE_GRAY
 msgid "XSane main window (grayscale->lineart)"
 msgstr "Hlavní okno XSane (¹edi -> èárová grafika)"
+
+#. MENU_ITEM_SELECTION_NONE
+#, fuzzy
+msgid "(none)"
+msgstr "nikdo"
 
 #. MENU_ITEM_FILETYPE_BY_EXT
 msgid "by ext"
@@ -1152,9 +1161,10 @@ msgid "Define the way xsane shall handle the threshold option"
 msgstr "Definuje zpùsob, kterým má xsane pracovat s volbou prahu"
 
 #. DESC_GRAYSCALE_SCANMODE
+#, fuzzy
 msgid ""
-"Enter name of grayscale scanmode - for preview with transformation from "
-"grayscale to lineart"
+"Select grayscale scanmode. This scanmode is used for lineart preview scan "
+"when transformation from grayscale to lineart is enabled"
 msgstr ""
 "Zadejte název re¾imu v ¹edích - pro náhled s pøevodem z ¹edí do èárové "
 "grafiky"
@@ -1178,6 +1188,12 @@ msgstr "Èinitel, který nastaví shodný rozsah prahù a rozsah prahù skeneru"
 msgid ""
 "Offset to make xsane threshold range and scanner threshold range the same"
 msgstr "Posun. který nastaví shodný rozsah prahù a rozsah prahù skeneru"
+
+#. DESC_ADF_MODE
+msgid ""
+"Select scansource for Automatic Document feeder. If this scansource is "
+"selected xsane scans until \"out of paper\" or error."
+msgstr ""
 
 #. DESC_DOC_VIEWER
 msgid ""

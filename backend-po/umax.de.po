@@ -273,6 +273,281 @@
 
 
 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #nls translation file for backend umax
 #language: german (de)
@@ -562,7 +837,7 @@ msgstr ""
 
 #original text: "Number of bits per sample, typical values are 1 for \"line-art\" and 8 " "for multibit scans." 
 msgid "Number of bits per sample, typical values are 1 for \"line-art\" and 8 " "for multibit scans." 
-msgstr "Anzahl der Bits pro Farbwert, typische Werte seind 1 für lineart- und 8 für multibit-Scans"
+msgstr "Anzahl der Bits pro Farbwert, typische Werte sind 1 für lineart- und 8 für multibit-Scans"
 
 #original text: "Selects the scan mode (e.g., lineart,monochrome, or color)." 
 msgid "Selects the scan mode (e.g., lineart,monochrome, or color)." 
@@ -820,33 +1095,43 @@ msgstr "Definiere die Lichtwerte beim Scannen"
 msgid "Enable selection of lamp density" 
 msgstr "Ermögliche Auswahl der Lichtwerte"
 
+#original text: "Geometry"
 msgid "Geometry"
 msgstr "Geometrie"
 
+#original text: "Enhancement"
 msgid "Enhancement"
 msgstr "Farbverbesserung"
 
+#original text: "Scan Mode"
 msgid "Scan Mode"
 msgstr "Scan Modus"
 
+#original text: "Color"
 msgid "Color"
 msgstr "Farbe"
 
+#original text: "Gray"
 msgid "Gray"
 msgstr "Graustufen"
 
+#original text: "Halftone"
 msgid "Halftone"
 msgstr "Halbton"
 
+#original text: "Lineart"
 msgid "Lineart"
 msgstr "Strichzeichnung"
 
+#original text: "Flatbed"
 msgid "Flatbed"
 msgstr "Flachbett"
 
-msgid "Transparency"
-msgstr "Durchlicht"
+#original text: "Transparency Adapter"
+msgid "Transparency Adapter"
+msgstr "Durchlichteinheit"
 
+#original text: "Automatic Document Feeder"
 msgid "Automatic Document Feeder"
 msgstr "Autom. Dokumenteneinzug"
 

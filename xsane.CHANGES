@@ -1163,3 +1163,19 @@ xsane-0.64 -> 0.65:
      this made problems with preview window if X default color depth differd from X color depth
    new status: routines are called with parameter GdkWindow *window now.
 
+
+xsane-0.65 -> 0.66:
+-------------------
+
+ - added setup menu for Automatic Document Feeder Scansource
+   (ADF-Scansource name was predefined to "Automatic Document Feeder" before,
+    now it can be defined for each device (is saved in decice settings))
+
+ - changed setup for lineart->grayscale scanmode from entry to menu with available scanmodes
+
+ - updated xsane.WIN32-compilation and src/Makefile.in.WIN32
+   I compiled a pre version of xsane-0.66 with the cygwin snapshot from 2000-12-10 and
+   gtk+-dev-20001023.zip, glib-dev-20001023.zip, libiconv-dev-20001007.zip
+   with the way described in xsane.WIN32-compilation without any problems.
+   The problem with the fork() seems to be solved in this cygwin version.
+

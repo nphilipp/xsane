@@ -86,6 +86,7 @@ desc_xsane_device[] =
     {"xsane-threshold-multiplier",    xsane_rc_pref_double,       DPOFFSET(threshold_mul)},
     {"xsane-threshold-offset",        xsane_rc_pref_double,       DPOFFSET(threshold_off)},
     {"xsane-grayscale-scanmode",      xsane_rc_pref_string,       DPOFFSET(grayscale_scanmode)},
+    {"xsane-adf-scansource",          xsane_rc_pref_string,       DPOFFSET(adf_scansource)},
 
     {"xsane-enhancement-rgb-default", xsane_rc_pref_int,          DPOFFSET(enhancement_rgb_default)},
     {"xsane-negative",                xsane_rc_pref_int,          DPOFFSET(negative)},

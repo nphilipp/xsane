@@ -178,6 +178,7 @@
 #define TEXT_SETUP_PREVIEW_GAMMA_GREEN	_("Preview gamma green:")
 #define TEXT_SETUP_PREVIEW_GAMMA_BLUE	_("Preview gamma blue:")
 #define TEXT_SETUP_LINEART_MODE         _("Threshold option:")
+#define TEXT_SETUP_ADF_MODE		_("Automatic Document Feeder Modus:")
 #define TEXT_SETUP_THRESHOLD_MIN        _("Threshold minimum:")
 #define TEXT_SETUP_THRESHOLD_MAX        _("Threshold maximum:")
 #define TEXT_SETUP_THRESHOLD_MUL        _("Threshold multiplier:")
@@ -243,6 +244,7 @@
 #define MENU_ITEM_LINEART_MODE_STANDARD	_("Standard options window (lineart)")
 #define MENU_ITEM_LINEART_MODE_XSANE	_("XSane main window (lineart)")
 #define MENU_ITEM_LINEART_MODE_GRAY	_("XSane main window (grayscale->lineart)")
+#define MENU_ITEM_SELECTION_NONE	_("(none)")
 
 #define MENU_ITEM_FILETYPE_BY_EXT	_("by ext")
 
@@ -352,12 +354,15 @@
 #define DESC_PREVIEW_GAMMA_GREEN	_("Set gamma correction value for green component of preview image")
 #define DESC_PREVIEW_GAMMA_BLUE		_("Set gamma correction value for blue component of preview image")
 #define DESC_LINEART_MODE               _("Define the way xsane shall handle the threshold option")
-#define DESC_GRAYSCALE_SCANMODE         _("Enter name of grayscale scanmode" \
-                                          " - for preview with transformation from grayscale to lineart")
+#define DESC_GRAYSCALE_SCANMODE         _("Select grayscale scanmode. " \
+                                          "This scanmode is used for lineart preview scan when transformation " \
+                                          "from grayscale to lineart is enabled")
 #define DESC_PREVIEW_THRESHOLD_MIN      _("The scanner's minimum threshold level in %")
 #define DESC_PREVIEW_THRESHOLD_MAX      _("The scanner's maximum threshold level in %")
 #define DESC_PREVIEW_THRESHOLD_MUL      _("Multiplier to make xsane threshold range and scanner threshold range the same")
 #define DESC_PREVIEW_THRESHOLD_OFF      _("Offset to make xsane threshold range and scanner threshold range the same")
+#define DESC_ADF_MODE			_("Select scansource for Automatic Document feeder. " \
+                                          "If this scansource is selected xsane scans until \"out of paper\" or error.")
 #define DESC_DOC_VIEWER			_("Enter command to be executed to display helpfiles, must be a html-viewer!")
 #define DESC_AUTOENHANCE_GAMMA		_("Change gamma value when autoenhancement button is pressed")
 

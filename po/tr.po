@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Xsane 0.62\n"
-"POT-Creation-Date: 2000-11-23 20:47+0100\n"
+"POT-Creation-Date: 2000-12-10 13:12+0100\n"
 "PO-Revision-Date: 2000-10-04 13:09+0300\n"
 "Last-Translator: Togan Müftüoðlu <toganm@yahoo.com>\n"
 "Language-Team: Turkish <tr@li.org>\n"
@@ -555,6 +555,10 @@ msgstr "Önizleme mavi gamma"
 msgid "Threshold option:"
 msgstr "Threshold seçeneði"
 
+#. TEXT_SETUP_ADF_MODE
+msgid "Automatic Document Feeder Modus:"
+msgstr ""
+
 #. TEXT_SETUP_THRESHOLD_MIN
 msgid "Threshold minimum:"
 msgstr "Threshold minimum:"
@@ -766,6 +770,11 @@ msgstr "XSane ana pencere (lineart)"
 #. MENU_ITEM_LINEART_MODE_GRAY
 msgid "XSane main window (grayscale->lineart)"
 msgstr "Xsane ana pencere (grayscale->lineart)"
+
+#. MENU_ITEM_SELECTION_NONE
+#, fuzzy
+msgid "(none)"
+msgstr "hiçbiri"
 
 #. MENU_ITEM_FILETYPE_BY_EXT
 msgid "by ext"
@@ -1149,9 +1158,10 @@ msgid "Define the way xsane shall handle the threshold option"
 msgstr "Xsane'nin threshold seçeneðini nasýl kullanacaðýný belirleyin"
 
 #. DESC_GRAYSCALE_SCANMODE
+#, fuzzy
 msgid ""
-"Enter name of grayscale scanmode - for preview with transformation from "
-"grayscale to lineart"
+"Select grayscale scanmode. This scanmode is used for lineart preview scan "
+"when transformation from grayscale to lineart is enabled"
 msgstr ""
 "Grayscaleden lineart'a dönüþümlü önzizleme için Grayscale modununadýný girin"
 
@@ -1176,6 +1186,12 @@ msgid ""
 "Offset to make xsane threshold range and scanner threshold range the same"
 msgstr ""
 "Xsane threshold aralýðý ile tarayýcý threshold aralýðýný ayný yapacak rakam"
+
+#. DESC_ADF_MODE
+msgid ""
+"Select scansource for Automatic Document feeder. If this scansource is "
+"selected xsane scans until \"out of paper\" or error."
+msgstr ""
 
 #. DESC_DOC_VIEWER
 msgid ""

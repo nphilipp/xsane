@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.62\n"
-"POT-Creation-Date: 2000-11-23 20:47+0100\n"
+"POT-Creation-Date: 2000-12-10 13:12+0100\n"
 "PO-Revision-Date: 2000-01-21 15:51+01:00\n"
 "Last-Translator: Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>\n"
 "Language-Team: German <de@li.org>\n"
@@ -555,6 +555,10 @@ msgstr "Vorschau Gamma blau:"
 msgid "Threshold option:"
 msgstr "Grenzwert Option:"
 
+#. TEXT_SETUP_ADF_MODE
+msgid "Automatic Document Feeder Modus:"
+msgstr ""
+
 #. TEXT_SETUP_THRESHOLD_MIN
 msgid "Threshold minimum:"
 msgstr "Grenzwert Minimum:"
@@ -766,6 +770,11 @@ msgstr "XSane Hauptfenster (b/w)"
 #. MENU_ITEM_LINEART_MODE_GRAY
 msgid "XSane main window (grayscale->lineart)"
 msgstr "XSane Hauptfenster (grau->b/w)"
+
+#. MENU_ITEM_SELECTION_NONE
+#, fuzzy
+msgid "(none)"
+msgstr "keine"
 
 #. MENU_ITEM_FILETYPE_BY_EXT
 msgid "by ext"
@@ -1153,11 +1162,11 @@ msgstr "Definiert die Art, wie die Grenzwert-Option behandelt werden soll"
 
 #. DESC_GRAYSCALE_SCANMODE
 msgid ""
-"Enter name of grayscale scanmode - for preview with transformation from "
-"grayscale to lineart"
+"Select grayscale scanmode. This scanmode is used for lineart preview scan "
+"when transformation from grayscale to lineart is enabled"
 msgstr ""
-"Name des Scanmous \"Graustufen\" - für Vorschauscan mit Umwandlung von "
-"Graustufen in Schwarz/Weiß"
+"Name des Graustufen-Scanmodus auswählen. Dieser Scanmodus wird beim Schwarz-Weiss "
+"Vorschauscan verwendet, wenn Umwandlung von Graustufen in Schwarz/Weiß aktiviert ist."
 
 #. DESC_PREVIEW_THRESHOLD_MIN
 #, no-c-format
@@ -1182,6 +1191,15 @@ msgid ""
 msgstr ""
 "Grenzwertverschiebung um xsane's Grenzwertbereich und den Grenzwertbereich "
 "des Scanners aufeinander abzustimmen"
+
+#. DESC_ADF_MODE
+msgid ""
+"Select scansource for Automatic Document feeder. If this scansource is "
+"selected xsane scans until \"out of paper\" or error."
+msgstr ""
+"Scanquelle für automatischen Dokumenteneinzug auswählen. Wenn diese "
+"Scanquelle angewählt ist, scannt xsane bis \"kein Papier\" oder ein "
+"Fehler auftritt."
 
 #. DESC_DOC_VIEWER
 msgid ""

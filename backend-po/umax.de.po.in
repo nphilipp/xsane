@@ -1,5 +1,280 @@
 #include "/usr/local/include/sane/saneopts.h"
 #define _(x) x
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #nls translation file for backend umax
 #language: german (de)
@@ -547,33 +822,43 @@ msgstr "Definiere die Lichtwerte beim Scannen"
 msgid SANE_DESC_SELECT_LAMP_DENSITY
 msgstr "Ermögliche Auswahl der Lichtwerte"
 
+#original text: "Geometry"
 msgid "Geometry"
 msgstr "Geometrie"
 
+#original text: "Enhancement"
 msgid "Enhancement"
 msgstr "Farbverbesserung"
 
+#original text: "Scan Mode"
 msgid "Scan Mode"
 msgstr "Scan Modus"
 
+#original text: "Color"
 msgid "Color"
 msgstr "Farbe"
 
+#original text: "Gray"
 msgid "Gray"
 msgstr "Graustufen"
 
+#original text: "Halftone"
 msgid "Halftone"
 msgstr "Halbton"
 
+#original text: "Lineart"
 msgid "Lineart"
 msgstr "Strichzeichnung"
 
+#original text: "Flatbed"
 msgid "Flatbed"
 msgstr "Flachbett"
 
-msgid "Transparency"
-msgstr "Durchlicht"
+#original text: "Transparency Adapter"
+msgid "Transparency Adapter"
+msgstr "Durchlichteinheit"
 
+#original text: "Automatic Document Feeder"
 msgid "Automatic Document Feeder"
 msgstr "Autom. Dokumenteneinzug"
 

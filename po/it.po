@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.62\n"
-"POT-Creation-Date: 2000-11-23 20:47+0100\n"
+"POT-Creation-Date: 2000-12-10 13:12+0100\n"
 "PO-Revision-Date: 2000-09-29  23:48+0100\n"
 "Last-Translator: Colorio Mauro <linuxbox@interfree.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -554,6 +554,10 @@ msgstr "Gamma blue anteprima:"
 msgid "Threshold option:"
 msgstr "Opzione soglia:"
 
+#. TEXT_SETUP_ADF_MODE
+msgid "Automatic Document Feeder Modus:"
+msgstr ""
+
 #. TEXT_SETUP_THRESHOLD_MIN
 msgid "Threshold minimum:"
 msgstr "Soglia minima:"
@@ -765,6 +769,11 @@ msgstr "Xsane finestra principale (lineart)"
 #. MENU_ITEM_LINEART_MODE_GRAY
 msgid "XSane main window (grayscale->lineart)"
 msgstr "Xsane finestra principale (scala di grigi->lineart)"
+
+#. MENU_ITEM_SELECTION_NONE
+#, fuzzy
+msgid "(none)"
+msgstr "nessuno"
 
 #. MENU_ITEM_FILETYPE_BY_EXT
 msgid "by ext"
@@ -1162,9 +1171,10 @@ msgid "Define the way xsane shall handle the threshold option"
 msgstr "Definisce il modo in cui xsane deve gestire l'opzione soglia"
 
 #. DESC_GRAYSCALE_SCANMODE
+#, fuzzy
 msgid ""
-"Enter name of grayscale scanmode - for preview with transformation from "
-"grayscale to lineart"
+"Select grayscale scanmode. This scanmode is used for lineart preview scan "
+"when transformation from grayscale to lineart is enabled"
 msgstr ""
 "Inserire il nome del modo scaladigrigi - per la trasformazione "
 "dell'anteprima da scala di grigi a lineart"
@@ -1190,6 +1200,12 @@ msgstr ""
 msgid ""
 "Offset to make xsane threshold range and scanner threshold range the same"
 msgstr "Scarto per eguagliare il range di soglia dello scanner e di xsane"
+
+#. DESC_ADF_MODE
+msgid ""
+"Select scansource for Automatic Document feeder. If this scansource is "
+"selected xsane scans until \"out of paper\" or error."
+msgstr ""
 
 #. DESC_DOC_VIEWER
 msgid ""

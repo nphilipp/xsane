@@ -192,6 +192,7 @@ void preview_area_resize(Preview *p);
 gint preview_area_resize_handler(GtkWidget *widget, GdkEvent *event, gpointer data);
 void preview_update_maximum_output_size(Preview *p);
 void preview_set_maximum_output_size(Preview *p, float width, float height);
+void preview_autoselect_scanarea(Preview *p, float *autoselect_coord, int background_white);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -4234,6 +4235,135 @@ void preview_set_maximum_output_size(Preview *p, float width, float height)
 
   preview_update_maximum_output_size(p);
   preview_draw_selection(p);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void preview_autoselect_scanarea(Preview *p, float *autoselect_coord, int background_white)
+{
+ int x, y;
+ int offset;
+ float color;
+ int top, bottom, left, right;
+
+  /* search top */
+  top = 0;
+  for (y = 0; y < p->image_height; y++)
+  {
+    for (x = 0; x < p->image_width; x++)
+    {
+      offset = 3 * (y * p->image_width + x);
+      color = (p->image_data_raw[offset + 0] + p->image_data_raw[offset + 1] + p->image_data_raw[offset + 2]) / 3.0; 
+      if (background_white)
+      {
+        if (color < 230)
+        {
+          top = y;
+          break;
+        }
+      }
+      else if (color > 25 )
+      {
+        top = y;
+        break;
+      }
+    }
+    if (top)
+    {
+      break;
+    }
+  }
+
+
+  /* search bottom */
+  bottom = 0;
+  for (y = p->image_height-1; y > top; y--)
+  {
+    for (x = 0; x < p->image_width; x++)
+    {
+      offset = 3 * (y * p->image_width + x);
+      color = (p->image_data_raw[offset + 0] + p->image_data_raw[offset + 1] + p->image_data_raw[offset + 2]) / 3.0; 
+      if (background_white)
+      {
+        if (color < 200)
+        {
+          bottom = y;
+          break;
+        }
+      }
+      else if (color > 55 )
+      {
+        bottom = y;
+        break;
+      }
+    }
+    if (bottom)
+    {
+      break;
+    }
+  }
+
+
+  /* search left */
+  left = 0;
+  for (x = 0; x < p->image_width; x++)
+  {
+    for (y = 0; y < p->image_height; y++)
+    {
+      offset = 3 * (y * p->image_width + x);
+      color = (p->image_data_raw[offset + 0] + p->image_data_raw[offset + 1] + p->image_data_raw[offset + 2]) / 3.0; 
+      if (background_white)
+      {
+        if (color < 200)
+        {
+          left = x;
+          break;
+        }
+      }
+      else if (color > 55 )
+      {
+        left = x;
+        break;
+      }
+    }
+    if (left)
+    {
+      break;
+    }
+  }
+
+
+  /* search right */
+  right = 0;
+  for (x = p->image_width-1; x > left; x--)
+  {
+    for (y = 0; y < p->image_height; y++)
+    {
+      offset = 3 * (y * p->image_width + x);
+      color = (p->image_data_raw[offset + 0] + p->image_data_raw[offset + 1] + p->image_data_raw[offset + 2]) / 3.0; 
+      if (background_white)
+      {
+        if (color < 200)
+        {
+          right = x;
+          break;
+        }
+      }
+      else if (color > 55 )
+      {
+        right = x;
+        break;
+      }
+    }
+    if (right)
+    {
+      break;
+    }
+  }
+  *(autoselect_coord+0) = left;
+  *(autoselect_coord+1) = top;
+  *(autoselect_coord+2) = right;
+  *(autoselect_coord+3) = bottom;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

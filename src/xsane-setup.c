@@ -404,8 +404,25 @@ static void xsane_setup_enhance_apply_changes(GtkWidget *widget, gpointer data)
   if (xsane.grayscale_scanmode)
   {
     free((void *) xsane.grayscale_scanmode);
+    xsane.grayscale_scanmode = NULL;
   }
-  xsane.grayscale_scanmode = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.preview_grayscale_scanmode_entry)));
+
+  if (xsane_setup.grayscale_scanmode)
+  {
+    xsane.grayscale_scanmode = strdup(xsane_setup.grayscale_scanmode);
+  }
+
+  
+  if (xsane.adf_scansource)
+  {
+    free((void *) xsane.adf_scansource);
+    xsane.adf_scansource = NULL;
+  }
+
+  if (xsane_setup.adf_scansource)
+  {
+    xsane.adf_scansource = strdup(xsane_setup.adf_scansource);
+  }
 
   xsane_update_bool(xsane_setup.auto_enhance_gamma_button, &preferences.auto_enhance_gamma);
 
@@ -494,6 +511,19 @@ static void xsane_setup_options_ok_callback(GtkWidget *widget, gpointer data)
   xsane_setup_enhance_apply_changes(0, 0);
   xsane_setup_saving_apply_changes(0, 0);
   xsane_setup_fax_apply_changes(0, 0);
+
+  if (xsane_setup.grayscale_scanmode)
+  {
+    free((void *) xsane_setup.grayscale_scanmode);
+    xsane_setup.grayscale_scanmode = NULL;
+  }
+
+  if (xsane_setup.adf_scansource)
+  {
+    free((void *) xsane_setup.adf_scansource);
+    xsane_setup.adf_scansource = NULL;
+  }
+
 
   xsane_pref_save();
 
@@ -698,10 +728,6 @@ static void xsane_permission_box(GtkWidget *parent, gchar *name, gchar *descript
 
   gtk_widget_show(hbox);
 
-  while (gtk_events_pending())
-  {
-   gtk_main_iteration();
-  }                      
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1923,7 +1949,7 @@ static void xsane_enhance_notebook_sensitivity(int lineart_mode)
   gtk_widget_set_sensitive(xsane_setup.preview_threshold_max_entry, sensitivity_val);
   gtk_widget_set_sensitive(xsane_setup.preview_threshold_mul_entry, sensitivity_val);
   gtk_widget_set_sensitive(xsane_setup.preview_threshold_off_entry, sensitivity_val);
-  gtk_widget_set_sensitive(xsane_setup.preview_grayscale_scanmode_entry, sensitivity_mode);
+  gtk_widget_set_sensitive(xsane_setup.preview_grayscale_scanmode_widget, sensitivity_mode);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1936,10 +1962,39 @@ static void xsane_setup_lineart_mode_callback(GtkWidget *widget, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static void xsane_setup_grayscale_mode_callback(GtkWidget *widget, gpointer data)
+{
+  if (xsane_setup.grayscale_scanmode)
+  {
+    free(xsane_setup.grayscale_scanmode);
+    xsane_setup.grayscale_scanmode = NULL;
+  }
+
+  xsane_setup.grayscale_scanmode = strdup( (char *) data);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_setup_adf_mode_callback(GtkWidget *widget, gpointer data)
+{
+  if (xsane_setup.adf_scansource)
+  {
+    free(xsane_setup.adf_scansource);
+    xsane_setup.adf_scansource = NULL;
+  }
+
+  xsane_setup.adf_scansource = strdup( (char *) data);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void xsane_enhance_notebook(GtkWidget *notebook)
 {
  GtkWidget *setup_vbox, *vbox, *hbox, *button, *label, *text, *frame;
  GtkWidget *lineart_mode_option_menu, *lineart_mode_menu, *lineart_mode_item;
+ GtkWidget *adf_option_menu, *adf_menu, *adf_item;
+ GtkWidget *gray_option_menu, *gray_menu, *gray_item;
+ const SANE_Option_Descriptor *opt;
  char buf[64];
  int i, select = 1;
 
@@ -2103,17 +2158,66 @@ static void xsane_enhance_notebook(GtkWidget *notebook)
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
   gtk_widget_show(label);
 
-  text = gtk_entry_new();
-  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_GRAYSCALE_SCANMODE);
-  gtk_widget_set_usize(text, 250, 0);
-  if (xsane.grayscale_scanmode)
-  {  
-    gtk_entry_set_text(GTK_ENTRY(text), (char *) xsane.grayscale_scanmode);
+  xsane_setup.grayscale_scanmode = NULL;
+
+  select = 0;
+  gray_menu = gtk_menu_new();
+
+  gray_item = gtk_menu_item_new_with_label(MENU_ITEM_SELECTION_NONE);
+  gtk_container_add(GTK_CONTAINER(gray_menu), gray_item);
+  gtk_signal_connect(GTK_OBJECT(gray_item), "activate", (GtkSignalFunc) xsane_setup_grayscale_mode_callback, MENU_ITEM_SELECTION_NONE);
+  gtk_widget_show(gray_item);
+
+  opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.scanmode);
+  if (opt)
+  {
+    if (SANE_OPTION_IS_ACTIVE(opt->cap))
+    {
+      switch (opt->constraint_type)
+      {
+        case SANE_CONSTRAINT_STRING_LIST:
+        {
+         char *set;
+         SANE_Status status;
+
+          /* use a "list-selection" widget */
+          set = malloc(opt->size);
+          status = xsane_control_option(xsane.dev, xsane.well_known.scansource, SANE_ACTION_GET_VALUE, set, 0);
+
+          for (i=0; opt->constraint.string_list[i]; i++)
+          {
+            gray_item = gtk_menu_item_new_with_label(_BGT(opt->constraint.string_list[i]));
+            gtk_container_add(GTK_CONTAINER(gray_menu), gray_item);
+            gtk_signal_connect(GTK_OBJECT(gray_item), "activate", (GtkSignalFunc) xsane_setup_grayscale_mode_callback, (void *) opt->constraint.string_list[i]);
+            gtk_widget_show(gray_item);
+
+            if (xsane.grayscale_scanmode)
+            {
+              if (!strcmp(opt->constraint.string_list[i], xsane.grayscale_scanmode))
+              {
+                select = i+1;
+              }
+            }
+          }
+        }
+        break;
+
+        default:
+          fprintf(stderr, "grayscale_scanmode_selection: %s %d\n", ERR_UNKNOWN_CONSTRAINT_TYPE, opt->constraint_type);
+      }
+    }
   }
-  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
-  gtk_widget_show(text);
+
+  gray_option_menu = gtk_option_menu_new();
+  xsane_back_gtk_set_tooltip(xsane.tooltips, gray_option_menu, DESC_GRAYSCALE_SCANMODE);
+  gtk_box_pack_end(GTK_BOX(hbox), gray_option_menu, FALSE, FALSE, 2);
+  gtk_option_menu_set_menu(GTK_OPTION_MENU(gray_option_menu), gray_menu);
+  gtk_option_menu_set_history(GTK_OPTION_MENU(gray_option_menu), select);
   gtk_widget_show(hbox);
-  xsane_setup.preview_grayscale_scanmode_entry = text;
+
+  gtk_widget_show(gray_option_menu);  
+  xsane_setup.preview_grayscale_scanmode_widget = gray_option_menu;
+
 
   xsane_separator_new(vbox, 2);
 
@@ -2127,6 +2231,79 @@ static void xsane_enhance_notebook(GtkWidget *notebook)
   gtk_widget_show(button);
   gtk_widget_show(hbox);
   xsane_setup.auto_enhance_gamma_button = button;
+
+
+  xsane_separator_new(vbox, 4);
+
+
+  /* ADF modus menu  */
+
+  hbox = gtk_hbox_new(FALSE, 2);
+  gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
+
+  label = gtk_label_new(TEXT_SETUP_ADF_MODE);
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_widget_show(label);
+
+  xsane_setup.adf_scansource = NULL;
+
+  select = 0;
+  adf_menu = gtk_menu_new();
+
+  adf_item = gtk_menu_item_new_with_label(MENU_ITEM_SELECTION_NONE);
+  gtk_container_add(GTK_CONTAINER(adf_menu), adf_item);
+  gtk_signal_connect(GTK_OBJECT(adf_item), "activate", (GtkSignalFunc) xsane_setup_adf_mode_callback, MENU_ITEM_SELECTION_NONE);
+  gtk_widget_show(adf_item);
+
+  opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.scansource);
+  if (opt)
+  {
+    if (SANE_OPTION_IS_ACTIVE(opt->cap))
+    {
+      switch (opt->constraint_type)
+      {
+        case SANE_CONSTRAINT_STRING_LIST:
+        {
+         char *set;
+         SANE_Status status;
+
+          /* use a "list-selection" widget */
+          set = malloc(opt->size);
+          status = xsane_control_option(xsane.dev, xsane.well_known.scansource, SANE_ACTION_GET_VALUE, set, 0);
+
+          for (i=0; opt->constraint.string_list[i]; i++)
+          {
+            adf_item = gtk_menu_item_new_with_label(_BGT(opt->constraint.string_list[i]));
+            gtk_container_add(GTK_CONTAINER(adf_menu), adf_item);
+            gtk_signal_connect(GTK_OBJECT(adf_item), "activate", (GtkSignalFunc) xsane_setup_adf_mode_callback, (void *) opt->constraint.string_list[i]);
+            gtk_widget_show(adf_item);
+
+            if (xsane.adf_scansource)
+            {
+              if (!strcmp(opt->constraint.string_list[i], xsane.adf_scansource))
+              {
+                select = i+1;
+              }
+            }
+          }
+        }
+        break;
+
+        default:
+          fprintf(stderr, "adf_scansource_selection: %s %d\n", ERR_UNKNOWN_CONSTRAINT_TYPE, opt->constraint_type);
+      }
+    }
+  }
+
+  adf_option_menu = gtk_option_menu_new();
+  xsane_back_gtk_set_tooltip(xsane.tooltips, adf_option_menu, DESC_ADF_MODE);
+  gtk_box_pack_end(GTK_BOX(hbox), adf_option_menu, FALSE, FALSE, 2);
+  gtk_option_menu_set_menu(GTK_OPTION_MENU(adf_option_menu), adf_menu);
+  gtk_option_menu_set_history(GTK_OPTION_MENU(adf_option_menu), select);
+  gtk_widget_show(hbox);
+
+  gtk_widget_show(adf_option_menu);  
 
 
   xsane_separator_new(vbox, 4);

@@ -1,0 +1,2 @@
+#include "/usr/local/include/sane/saneopts.h"
+#define _(x) x

@@ -32,7 +32,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.65"
+#define XSANE_VERSION		"0.66"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2000"
@@ -273,12 +273,6 @@ extern void xsane_fax_project_save(void);
 				GDK_BUTTON1_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK
 #define INF			5.0e9
 #define MM_PER_INCH		25.4
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-#ifndef SANE_NAME_DOCUMENT_FEEDER
-#define SANE_NAME_DOCUMENT_FEEDER "Automatic Document Feeder"
-#endif 
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -573,6 +567,7 @@ typedef struct Xsane
     int print_filenames;
     int force_filename;
     char *external_filename;
+    char *adf_scansource;
 
 /* -------------------------------------------------- */
 
@@ -621,7 +616,7 @@ typedef struct XsaneSetup
   GtkWidget *preview_gamma_green_entry;
   GtkWidget *preview_gamma_blue_entry;
   GtkWidget *preview_lineart_mode_entry;
-  GtkWidget *preview_grayscale_scanmode_entry;
+  GtkWidget *preview_grayscale_scanmode_widget;
   GtkWidget *preview_threshold_min_entry;
   GtkWidget *preview_threshold_max_entry;
   GtkWidget *preview_threshold_mul_entry;
@@ -656,6 +651,9 @@ typedef struct XsaneSetup
 
   int image_permissions;
   int directory_permissions;
+
+  char *grayscale_scanmode;
+  char *adf_scansource;
 
 } XsaneSetup;
 

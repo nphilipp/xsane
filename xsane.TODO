@@ -22,11 +22,10 @@ first steps:
  - preview:
     - force aspect ratio of selection area
     + rotate preview by 0/90/180/270 degree (work in progress)
-    - autoselection cropping black or white margins
+    + autoselection of scanarea cropping black or white margins (work in progress)
     + define radius for pipette average
  - batch scan function
     - select multiple scan areas before starting the scan
- - auto select scanarea
  - rotate scan by 0/90/180/270 degree
 
  * internal:
@@ -53,7 +52,7 @@ second steps:
    - other drag and drop functions?
 
  + add color management - may be via xcmsdb
- - average of a multi scan of the same image
+ - average of a multiple scan of the same image
 
  - TWAIN:
    - add a twain-win32 interface (for xsane-win32)

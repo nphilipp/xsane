@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-11-23 20:47+0100\n"
+"POT-Creation-Date: 2000-12-10 13:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -551,6 +551,10 @@ msgstr "Förhandsgranskningsgamma blå:"
 msgid "Threshold option:"
 msgstr "Flagga för högkvalitetsläge:"
 
+#. TEXT_SETUP_ADF_MODE
+msgid "Automatic Document Feeder Modus:"
+msgstr ""
+
 #. TEXT_SETUP_THRESHOLD_MIN
 msgid "Threshold minimum:"
 msgstr "Tröskelvärdes minimum:"
@@ -762,6 +766,11 @@ msgstr "XSane huvudfönster (grafik)"
 #. MENU_ITEM_LINEART_MODE_GRAY
 msgid "XSane main window (grayscale->lineart)"
 msgstr "XSane huvudfönster (svartvit->grafik)"
+
+#. MENU_ITEM_SELECTION_NONE
+#, fuzzy
+msgid "(none)"
+msgstr "ingen"
 
 #. MENU_ITEM_FILETYPE_BY_EXT
 msgid "by ext"
@@ -1155,9 +1164,10 @@ msgid "Define the way xsane shall handle the threshold option"
 msgstr "Tala om hur xsane skall hantera tröskelvärdesinställningen"
 
 #. DESC_GRAYSCALE_SCANMODE
+#, fuzzy
 msgid ""
-"Enter name of grayscale scanmode - for preview with transformation from "
-"grayscale to lineart"
+"Select grayscale scanmode. This scanmode is used for lineart preview scan "
+"when transformation from grayscale to lineart is enabled"
 msgstr ""
 "Skriv in namn på svartvit scanläge - för förhandsgranskning med överföring "
 "från svartvit till grafik"
@@ -1182,6 +1192,12 @@ msgstr ""
 msgid ""
 "Offset to make xsane threshold range and scanner threshold range the same"
 msgstr "Offset som synkroniserar tröskelomfången från bildläsaren och xsane"
+
+#. DESC_ADF_MODE
+msgid ""
+"Select scansource for Automatic Document feeder. If this scansource is "
+"selected xsane scans until \"out of paper\" or error."
+msgstr ""
 
 #. DESC_DOC_VIEWER
 msgid ""
