@@ -22,6 +22,7 @@ cp xsanepreview.h $1/frontend
 cp xsanepreview.c $1/frontend
 cp xsanepreferences.h $1/frontend
 cp xsanepreferences.c $1/frontend
+cp xsane-icons.h $1/frontend
 
 cp README-PATCH $1/frontend
 

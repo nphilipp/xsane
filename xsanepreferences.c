@@ -37,6 +37,8 @@ Preferences preferences =
        0,		/* no default printercommand */
      300,		/* printerresolution */
        1,		/* tooltips enabled */
+       1,		/* enhancement enabled */
+       0,		/* (dont) show histogram */
     10.0,		/* length unit */
        1,		/* preserve_preview */
        0,		/* preview_own_cmap */
@@ -72,6 +74,8 @@ desc[] =
     {"printer-cmd", w_string, POFFSET(printercommand)},
     {"printer-res", w_int, POFFSET(printerresolution)},
     {"tool-tips", w_int, POFFSET(tooltips_enabled)},
+    {"enable-enhancement", w_int, POFFSET(gamma_selected)},
+    {"show-histogram", w_int, POFFSET(show_histogram)},
     {"length-unit", w_double, POFFSET(length_unit)},
     {"preserve-preview", w_int, POFFSET(preserve_preview)},
     {"preview-own-cmap", w_int, POFFSET(preview_own_cmap)},

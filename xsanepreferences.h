@@ -10,6 +10,8 @@ typedef struct
     const char *printercommand;	/* default printercommand */
     int printerresolution;	/* printer resolution for copy mode  */
     int tooltips_enabled;	/* should tooltips be disabled? */
+    int gamma_selected;		/* enhancement enabled ? */
+    int show_histogram;		/* show histogram ? */
     double length_unit;		/* 1.0==mm, 10.0==cm, 25.4==inches, etc. */
     int preserve_preview;	/* save/restore preview image(s)? */
     int preview_own_cmap;	/* install colormap for preview */

@@ -501,7 +501,7 @@ static void scale_new (GtkWidget * parent, const char *name, gfloat val,
   elem->data = gtk_adjustment_new (val, min, max, quant, 1.0, 0.0);
   scale = gtk_hscale_new (GTK_ADJUSTMENT (elem->data));
   set_tooltip (tooltips, scale, desc);
-  gtk_widget_set_usize (scale, 200, 0);
+  gtk_widget_set_usize (scale, 100, 0);
 
   if (automatic)
     autobutton_new (hbox, elem, scale, tooltips);
@@ -1028,16 +1028,16 @@ static void panel_build (GSGDialog * dialog)
 	  switch (opt->constraint_type)
 	    {
 	    case SANE_CONSTRAINT_RANGE:
-	      /* use a scale */
-	      quant = opt->constraint.range->quant;
-	      if (quant == 0)
-		quant = 1;
-	      scale_new (parent, title, val,
-			 opt->constraint.range->min,
-			 opt->constraint.range->max, quant,
-			 (opt->cap & SANE_CAP_AUTOMATIC), elem,
-			 dialog->tooltips, opt->desc);
-	      gtk_widget_show (parent->parent);
+	      if (strcmp (opt->name, SANE_NAME_SCAN_RESOLUTION) != 0) /* do not show resolution */
+	      {
+	        /* use a scale */
+	        quant = opt->constraint.range->quant;
+	        if (quant == 0)
+		  quant = 1;
+	        scale_new(parent, title, val, opt->constraint.range->min, opt->constraint.range->max, quant,
+			  (opt->cap & SANE_CAP_AUTOMATIC), elem, dialog->tooltips, opt->desc);
+	        gtk_widget_show (parent->parent);
+	      }
 	      break;
 
 	    case SANE_CONSTRAINT_WORD_LIST:
@@ -1075,25 +1075,27 @@ static void panel_build (GSGDialog * dialog)
 	  switch (opt->constraint_type)
 	    {
 	    case SANE_CONSTRAINT_RANGE:
-	      /* use a scale */
-	      quant = opt->constraint.range->quant;
-	      if (quant == 0)
-		quant = 1;
-	      dval = SANE_UNFIX (val);
-	      dmin = SANE_UNFIX (opt->constraint.range->min);
-	      dmax = SANE_UNFIX (opt->constraint.range->max);
-	      dquant = SANE_UNFIX (quant);
-	      if (opt->unit == SANE_UNIT_MM)
+	      if (strcmp (opt->name, SANE_NAME_SCAN_RESOLUTION) != 0) /* do not show resolution */
+	      {
+ 	        /* use a scale */
+	        quant = opt->constraint.range->quant;
+	        if (quant == 0)
+ 	        quant = 1;
+	        dval = SANE_UNFIX (val);
+	        dmin = SANE_UNFIX (opt->constraint.range->min);
+	        dmax = SANE_UNFIX (opt->constraint.range->max);
+	        dquant = SANE_UNFIX (quant);
+	        if (opt->unit == SANE_UNIT_MM)
 		{
 		  dval /= preferences.length_unit;
 		  dmin /= preferences.length_unit;
 		  dmax /= preferences.length_unit;
 		  dquant /= preferences.length_unit;
 		}
-	      scale_new (parent, title, dval, dmin, dmax, dquant,
-			 (opt->cap & SANE_CAP_AUTOMATIC), elem,
-			 dialog->tooltips, opt->desc);
-	      gtk_widget_show (parent->parent);
+	        scale_new(parent, title, dval, dmin, dmax, dquant, (opt->cap & SANE_CAP_AUTOMATIC), elem,
+			  dialog->tooltips, opt->desc);
+	        gtk_widget_show (parent->parent);
+	      }
 	      break;
 
 	    case SANE_CONSTRAINT_WORD_LIST:
