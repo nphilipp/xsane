@@ -1,5 +1,4 @@
 /* gtk/XSANE-glue -- gtk interfacing routines for XSANE
-   Uses the SANE library.
    Copyright (C) 1999 Oliver Rauch,
    1997 David Mosberger and Tristan Tarrant
 
@@ -35,10 +34,10 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-#include <xsanegtk.h>
+#include <xsane-gtk.h>
 #include <xsane.h>
+#include <xsane-preferences.h>
 
-#include <xsanepreferences.h>
 #include <sane/sane.h>
 #include <sane/saneopts.h>
 
@@ -727,7 +726,7 @@ GtkWidget * gsg_group_new (GtkWidget *parent, const char * title)
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
-
+#if 0
 static GtkWidget* curve_new (GSGDialog *dialog, int optnum)
 {
   const SANE_Option_Descriptor * opt;
@@ -843,9 +842,9 @@ static void vector_new (GSGDialog * dialog, GtkWidget *vbox, int num_vopts, int 
     }
   gtk_widget_show (notebook);
 }
-
+#endif
 /* ----------------------------------------------------------------------------------------------------------------- */
-
+#if 0
 static void tooltips_destroy(GSGDialog * dialog)
 {
 #ifdef HAVE_GTK_TOOLTIPS_SET_TIPS
@@ -854,10 +853,9 @@ static void tooltips_destroy(GSGDialog * dialog)
 #else
   gtk_object_unref(GTK_OBJECT(dialog->tooltips));
 #endif
-
   dialog->tooltips = 0;
 }
-
+#endif
 /* ----------------------------------------------------------------------------------------------------------------- */
 
 static void panel_destroy(GSGDialog * dialog)

@@ -1,0 +1,9 @@
+- Unpack archiv. 
+- Enter xsane-0.xx directory. 
+- To compile call ./configure and make. 
+- To install call make install as root. 
+- Call xsane. 
+- If you get an error message  that libsane-dll.so.1 is not found, you have to
+  tell your system where the SANE-libraries are installed.
+    For linux: edit /etc/ld.so.conf and add a line with the path to the
+    libraries (normally /usr/local/lib/sane), then call ldconfig as root. 

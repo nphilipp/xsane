@@ -53,7 +53,7 @@ PROGRAMS = $(BINPROGS)
 LIBLIB = ../lib/liblib.a
 LIBSANEI = ../sanei/libsanei.a
 
-XSANE_OBJS = xsane.o progress.o xsanepreview.o xsanepreferences.o xsanegtk.o
+XSANE_OBJS = xsane.o xsane-preview.o xsane-preferences.o xsane-gtk.o xsane-save.o
 
 .c.o:
 	$(COMPILE) $<

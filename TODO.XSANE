@@ -2,7 +2,9 @@ This is a list of what I want to change/include for xsane.
 If you have any suggestions: mail to Oliver.Rauch@Wolfsburg.DE
 
 first steps:
- - support for 16/48 bpp mode
+ - add authoraziation dialog
+ - move threshold in lineart-mode to main window
+ - improve support for 16/48 bpp mode
  - test memory after all calls of malloc
  - set resolution in copy-mode at beginning
  - program cancel_handler for data conversion
@@ -25,8 +27,8 @@ first steps:
  - save all options to a file including preview-selection
  - COPY: more than one copy of one scan
 
-second steps:
- - let user select whether
+second steps: 
+ - let user select whether (dont know if this is practicable)
    - analog gamma
    - highlight
    - shadow
@@ -36,14 +38,14 @@ second steps:
 
    - Change calculation of gamma curve for it
    - do preview with selected values set to default
-   - input multiplactors in xsane-setup to make
-     scanner depend values compatible to xsane-values
+   - input multiplicators in xsane-setup to make
+     scanner dependend values compatible to xsane-values
 
 third steps:
  - correct gtk custom gamma functions and include it
- - include special fnctions for GNOME/KDE
+ - include special functions for GNOME/KDE
 
-ideas:
+more ideas:
  - preview always in greyscale or always in color
  - define preview area (for small pictures)
 

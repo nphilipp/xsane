@@ -1,6 +1,7 @@
-/* sane - Scanner Access Now Easy.
+/* xsane
    Copyright (C) 1997 David Mosberger-Tang
-   This file is part of the SANE package.
+   Copyright (C) 1999 Oliver Rauch
+   This file is part of the XSANE package.
 
    SANE is free software; you can redistribute it and/or modify it under
    the terms of the GNU General Public License as published by the Free
@@ -15,6 +16,7 @@
    You should have received a copy of the GNU General Public License
    along with sane; see the file COPYING.  If not, write to the Free
    Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  */
+
 #ifndef xsanepreview_h
 #define xsanepreview_h
 
@@ -54,7 +56,7 @@ typedef struct
     int image_width;
     int image_height;
     u_char *image_data_raw;	/* 3 * image_width * image_height bytes */
-    u_char *image_data;		/* 3 * image_width * image_height bytes */
+    u_char *image_data_enh;	/* 3 * image_width * image_height bytes */
 
     GdkGC *gc;
     int selection_drag;
@@ -81,19 +83,19 @@ extern Preview *preview_new (GSGDialog *dialog);
 extern void preview_gamma_correction(Preview *p, int gamma_red[], int gamma_green[], int gamma_blue[]);
 
 /* Some of the parameters may have changed---update the preview.  */
-extern void preview_update (Preview *p);
+extern void preview_update(Preview *p);
 
 /* Acquire a preview image and display it.  */
-extern void preview_scan (Preview *p);
+extern void preview_scan(Preview *p);
 
 /* Destroy a preview.  */
-extern void preview_destroy (Preview *p);
+extern void preview_destroy(Preview *p);
 
 /* calculate histogram */
 extern void preview_calculate_histogram(Preview *p,
+
 SANE_Int *count_raw, SANE_Int *count_raw_red, SANE_Int *count_raw_green, SANE_Int *count_raw_blue,
 SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue,
 SANE_Int left_x, SANE_Int top_y, SANE_Int right_x, SANE_Int bottom_y);
-
 
 #endif /* preview_h */

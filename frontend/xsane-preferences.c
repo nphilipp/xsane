@@ -1,7 +1,7 @@
-/* sane - Scanner Access Now Easy.
+/* xsane
    Copyright (C) 1999 Oliver Rauch
    Copyright (C) 1997 David Mosberger-Tang
-   This file is part of the SANE package.
+   This file is part of the XSANE package.
 
    SANE is free software; you can redistribute it and/or modify it
    under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#include <xsanepreferences.h>
+#include <xsane-preferences.h>
 #include <sane/sane.h>
 #include <sane/sanei.h>
 #include <sane/sanei_wire.h>
