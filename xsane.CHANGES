@@ -1179,3 +1179,12 @@ xsane-0.65 -> 0.66:
    with the way described in xsane.WIN32-compilation without any problems.
    The problem with the fork() seems to be solved in this cygwin version.
 
+ - updated aclocal.m4 and configure (gimp test)
+
+
+xsane-0.66 -> 0.67:
+-------------------
+
+ - added test if (xsane.adf_scansource) before usage of xsane.adf_scansource
+   (caused segfault when no ADF Scanmode was defined in setup)
+

@@ -1183,9 +1183,13 @@ static int xsane_test_multi_scan(void)
 
         if (status == SANE_STATUS_GOOD)
         {
-          if (!strcmp(set, xsane.adf_scansource))
+          if (xsane.adf_scansource)
           {
-            return TRUE;
+            if (!strcmp(set, xsane.adf_scansource))
+            {
+              free(set);
+              return TRUE;
+            }
           }
         }
         free(set);
