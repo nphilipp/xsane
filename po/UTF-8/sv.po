@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.88\n"
-"POT-Creation-Date: 2002-10-20 22:23+0200\n"
+"POT-Creation-Date: 2002-12-13 19:46+0100\n"
 "PO-Revision-Date: 2002-10-09 23:13+01:00\n"
 "Last-Translator: Johan Bengtsson <johanb@lls.se>\n"
 "Language-Team: LANGUAGE <sv@li.org>\n"
@@ -908,6 +908,10 @@ msgstr "Flagga för normalläge:"
 msgid "Fine mode option:"
 msgstr "Flagga för högkvalitetsläge:"
 
+#. TEXT_SETUP_FAX_PROGRAM_DEFAULTS
+msgid "Set program defaults for:"
+msgstr ""
+
 #. TEXT_SETUP_FAX_VIEWER
 msgid "Viewer (Postscript):"
 msgstr "Visare (Postscript):"
@@ -1212,11 +1216,11 @@ msgstr "Byt namn på inställning"
 msgid "Delete definition"
 msgstr "Ta bort inställning"
 
-#. MENU_OTEM_PRESET_AREA_MOVE_UP
+#. MENU_ITEM_PRESET_AREA_MOVE_UP
 msgid "Move up"
 msgstr "Flytta upp"
 
-#. MENU_OTEM_PRESET_AREA_MOVE_DWN
+#. MENU_ITEM_PRESET_AREA_MOVE_DWN
 msgid "Move down"
 msgstr "Flytta ner"
 
@@ -1935,6 +1939,10 @@ msgstr "Förinställt område"
 msgid "Rotate preview and scan"
 msgstr "Rotera förhandsgranskning och inläsning"
 
+#. DESC_RATIO
+msgid "Aspect ratio of selection"
+msgstr ""
+
 #. DESC_PAPER_ORIENTATION
 msgid "Define image position for printing"
 msgstr ""
@@ -1990,6 +1998,14 @@ msgstr "X-skale fakor"
 #. DESC_Y_SCALE_FACTOR
 msgid "Y-Scale factor"
 msgstr "Y-Skale faktor"
+
+#. DESC_SCALE_WIDTH
+msgid "Scale image to width [in pixel]"
+msgstr ""
+
+#. DESC_SCALE_HEIGHT
+msgid "Scale image to height [in pixel]"
+msgstr ""
 
 #. DESC_BATCH_LIST_EMPTY
 msgid "Empty batch list"

@@ -42,7 +42,6 @@
 #endif
 #endif
 
-#include <sys/types.h>
 #include <sys/wait.h>
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -3442,7 +3441,6 @@ static void xsane_fax_dialog_close()
     return;
   }
 
-  gtk_window_remove_accel_group(GTK_WINDOW(xsane.fax_dialog), xsane.accelerator_group);
   gtk_widget_destroy(xsane.fax_dialog);
 
   xsane.fax_dialog = NULL;
@@ -4219,7 +4217,7 @@ static void xsane_fax_send()
      int status = 0;
      pid_t pid_status = waitpid(pid, &status, WNOHANG);
   
-      if (pid == pid_status)
+      if ( (pid_status < 0 ) || (pid == pid_status) )
       {
         pid = 0; /* ok, child process has terminated */
       }
@@ -4532,7 +4530,6 @@ static void xsane_mail_dialog_close()
     return;
   }
 
-  gtk_window_remove_accel_group(GTK_WINDOW(xsane.mail_dialog), xsane.accelerator_group);
   gtk_widget_destroy(xsane.mail_dialog);
 
   xsane.mail_dialog = NULL;
@@ -6782,10 +6779,38 @@ static void xsane_device_dialog(void)
 
     xsane.backend = malloc(strlen(textptr)+6);
     sprintf(xsane.backend, "sane-%s", textptr); /* add "sane-" */
+    DBG(DBG_info, "Setting backend name \"%s\"\n", xsane.backend);
 
-    DBG(DBG_info, "Setting backend \"%s\" localedir: %s\n", xsane.backend, STRINGIFY(LOCALEDIR));
-    bindtextdomain(xsane.backend, STRINGIFY(LOCALEDIR)); /* set path for backend translation texts */
+    xsane.backend_translation = xsane.backend;
+    bindtextdomain(xsane.backend_translation, STRINGIFY(LOCALEDIR)); /* set path for backend translation texts */
+#ifdef HAVE_GTK2
+    bind_textdomain_codeset(xsane.backend_translation, "UTF-8");
+#endif
+
+    if (!strlen(dgettext(xsane.backend_translation, ""))) /* translation not valid, use general translation table */
+    {
+      xsane.backend_translation = "sane-backends";
+      DBG(DBG_info, "Setting general translation table \"sane-backends\" with localedir: %s\n", STRINGIFY(LOCALEDIR));
+    }
+    else /* we have a valid table for the backend */
+    {
+      DBG(DBG_info, "Setting backend translation table \"%s\" with localedir: %s\n", xsane.backend_translation, STRINGIFY(LOCALEDIR));
+    }
   }
+  else /* use general backend name "sane-backends" for sane */
+  {
+    xsane.backend = strdup("sane-backends");
+    DBG(DBG_info, "Setting general backend name \"%s\"\n", xsane.backend);
+
+    xsane.backend_translation = xsane.backend;
+    DBG(DBG_info, "Setting general translation table \"sane-backends\" with localedir: %s\n", STRINGIFY(LOCALEDIR));
+  }
+
+  bindtextdomain("sane-backends", STRINGIFY(LOCALEDIR)); /* set path for backend translation texts */
+#ifdef HAVE_GTK2
+  bind_textdomain_codeset(xsane.backend_translation, "UTF-8");
+#endif
+
 
   /* create device-text for window titles */
 
@@ -7051,16 +7076,16 @@ static void xsane_device_dialog(void)
   xsane_create_batch_scan_dialog(xsane.device_text);
 
   /* The bottom area: info frame, progress bar, start and cancel button */
-  xsane_separator_new(xsane_window, 2);
-  hbox = gtk_hbox_new(FALSE, 5);
-  gtk_box_pack_end(GTK_BOX(xsane_window), hbox, FALSE, FALSE, 5);
-  gtk_container_set_border_width(GTK_CONTAINER(hbox), 5);
+//  xsane_separator_new(xsane_window, 2);
+  hbox = gtk_hbox_new(FALSE, 3);
+  gtk_box_pack_end(GTK_BOX(xsane_window), hbox, FALSE, FALSE, 0);
+  gtk_container_set_border_width(GTK_CONTAINER(hbox), 3);
   gtk_widget_show(hbox);
 
 
   /* vertical box for info frame and progress bar */
-  vbox = gtk_vbox_new(FALSE, 5);
-  gtk_box_pack_start(GTK_BOX(hbox), vbox, TRUE, TRUE, 0);
+  vbox = gtk_vbox_new(FALSE, 3);
+  gtk_box_pack_start(GTK_BOX(hbox), vbox, TRUE, TRUE, 5);
   gtk_widget_show(vbox);
 
 
@@ -7071,7 +7096,7 @@ static void xsane_device_dialog(void)
   gtk_widget_show(frame);
 
   infobox = gtk_hbox_new(FALSE, 5);
-  gtk_container_set_border_width(GTK_CONTAINER(infobox), 2);
+  gtk_container_set_border_width(GTK_CONTAINER(infobox), 4);
   gtk_container_add(GTK_CONTAINER(frame), infobox);
   gtk_widget_show(infobox);
 
@@ -7088,7 +7113,7 @@ static void xsane_device_dialog(void)
 
 
   /* vertical box for scan and cancel button */
-  vbox = gtk_vbox_new(FALSE, 5);
+  vbox = gtk_vbox_new(FALSE, 3);
   gtk_box_pack_start(GTK_BOX(hbox), vbox, TRUE, TRUE, 0);
   gtk_widget_show(vbox);
 
@@ -7097,7 +7122,7 @@ static void xsane_device_dialog(void)
   xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_SCAN_START);
   gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_Return, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
   g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_scan_callback, NULL);
-  gtk_box_pack_start(GTK_BOX(vbox), button, FALSE, FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), button, TRUE, TRUE, 0);
   gtk_widget_show(button);
   xsane.start_button = GTK_OBJECT(button);
 
@@ -7109,7 +7134,7 @@ static void xsane_device_dialog(void)
 #endif
   xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_SCAN_CANCEL);
   gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_Escape, 0, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
-  gtk_box_pack_start(GTK_BOX(vbox), button, FALSE, FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), button, TRUE, TRUE, 0);
   gtk_widget_show(button);
   gtk_widget_set_sensitive(GTK_WIDGET(button), FALSE); 
   xsane.cancel_button = GTK_OBJECT(button);
@@ -7936,7 +7961,7 @@ int main(int argc, char **argv)
   bind_textdomain_codeset(PACKAGE, "UTF-8");
 #endif
 #else
-  DBG(DBG_info, "Setting xsane localedir: %s\n", STRINGIFY(LOCALEDIR));
+  DBG(DBG_info, "Setting xsane translation table with localedir: %s\n", STRINGIFY(LOCALEDIR));
   bindtextdomain(xsane.prog_name, STRINGIFY(LOCALEDIR));
   textdomain(xsane.prog_name);
 #ifdef HAVE_GTK2

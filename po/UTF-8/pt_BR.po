@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.89\n"
-"POT-Creation-Date: 2002-10-20 22:23+0200\n"
+"POT-Creation-Date: 2002-12-13 19:46+0100\n"
 "PO-Revision-Date: 2002-19-10 23:00+3\n"
 "Last-Translator: Yujo Rodrigues <yujo@alunos.ufu.br>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
@@ -903,6 +903,10 @@ msgstr "Opção de modo normal:"
 msgid "Fine mode option:"
 msgstr "Opção de modo fino:"
 
+#. TEXT_SETUP_FAX_PROGRAM_DEFAULTS
+msgid "Set program defaults for:"
+msgstr ""
+
 #. TEXT_SETUP_FAX_VIEWER
 msgid "Viewer (Postscript):"
 msgstr "Visualizador (Postscript):"
@@ -1207,11 +1211,11 @@ msgstr "Renomear definição"
 msgid "Delete definition"
 msgstr "Apagar definição"
 
-#. MENU_OTEM_PRESET_AREA_MOVE_UP
+#. MENU_ITEM_PRESET_AREA_MOVE_UP
 msgid "Move up"
 msgstr "Mover acima"
 
-#. MENU_OTEM_PRESET_AREA_MOVE_DWN
+#. MENU_ITEM_PRESET_AREA_MOVE_DWN
 msgid "Move down"
 msgstr "Mover abaixo"
 
@@ -1942,6 +1946,10 @@ msgstr "Àrea pré-selecionada"
 msgid "Rotate preview and scan"
 msgstr "Rotaciona pré-visualização e digitaliza"
 
+#. DESC_RATIO
+msgid "Aspect ratio of selection"
+msgstr ""
+
 #. DESC_PAPER_ORIENTATION
 msgid "Define image position for printing"
 msgstr ""
@@ -1997,6 +2005,14 @@ msgstr "Fator de escala X"
 #. DESC_Y_SCALE_FACTOR
 msgid "Y-Scale factor"
 msgstr "Fator de escala Y"
+
+#. DESC_SCALE_WIDTH
+msgid "Scale image to width [in pixel]"
+msgstr ""
+
+#. DESC_SCALE_HEIGHT
+msgid "Scale image to height [in pixel]"
+msgstr ""
 
 #. DESC_BATCH_LIST_EMPTY
 msgid "Empty batch list"

@@ -49,11 +49,13 @@ enum
 
 /* ------------------------------------------------------------------------------------------------------ */
 
+#if 0
 typedef struct Batch_selection
 {
   float coordinate[4]; /* batch selection coordinate (device coord) */
   struct Batch_selection *next;
 } Batch_selection;
+#endif
 
 typedef struct
 {
@@ -142,6 +144,7 @@ typedef struct
   int selection_ypos;
   int selection_xedge;
   int selection_yedge;
+  float ratio;
 
   Tselection selection;				/* selected area to scan */
   Tselection previous_selection;		/* previous ... */
@@ -150,7 +153,9 @@ typedef struct
 
   int show_selection;
 
+#if 0
   Batch_selection *batch_selection;
+#endif
 
   GtkWidget *top;		/* top-level widget */
   GtkWidget *unit_label;
@@ -162,6 +167,7 @@ typedef struct
   GtkWidget *cancel;		/* the cancel button */
 
   GtkWidget *button_box;	/* hbox for the following buttons */
+  GtkWidget *menu_box;		/* hbox for the following menues */
   GtkWidget *add_batch;		/* add batch button */
   GtkWidget *pipette_white;	/* pipette white button */
   GtkWidget *pipette_gray;	/* pipette gray button */
@@ -176,10 +182,12 @@ typedef struct
   GtkWidget *autoselect;	/* autoselect scanarea */
   GtkWidget *preset_area_option_menu;	/* menu for selection of preview area */
   GtkWidget *rotation_option_menu;	/* menu for selection of rotation */
+  GtkWidget *ratio_option_menu;	/* menu for selection of ratio */
   GtkWidget *scanning_pixmap;	/* pixmap that shows preview is in scanning progress */
   GtkWidget *valid_pixmap;	/* pixmap that shows preview is valid */
   GtkWidget *invalid_pixmap;	/* pixmap that shows preview is invalid */
   GtkWidget *incomplete_pixmap;	/* pixmap that shows preview is incomplete */
+  GtkWidget *rgb_label;		/* label to show RGB values */
 }
 Preview;
 

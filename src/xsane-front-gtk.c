@@ -77,6 +77,7 @@ void xsane_range_new_with_pixmap(GdkWindow *window, GtkBox *parent, const char *
 static void xsane_outputfilename_changed_callback(GtkWidget *widget, gpointer data);
 void xsane_set_filename(gchar *filename);
 void xsane_separator_new(GtkWidget *xsane_parent, int dist);
+void xsane_vseparator_new(GtkWidget *xsane_parent, int dist);
 GtkWidget *xsane_info_table_text_new(GtkWidget *table, gchar *text, int row, int colomn);
 GtkWidget *xsane_info_text_new(GtkWidget *parent, gchar *text);
 void xsane_refresh_dialog(void);
@@ -1285,6 +1286,8 @@ void xsane_set_filename(gchar *filename)
 {
   g_signal_handlers_block_by_func(GTK_OBJECT(xsane.outputfilename_entry), (GtkSignalFunc) xsane_outputfilename_changed_callback, NULL);
   gtk_entry_set_text(GTK_ENTRY(xsane.outputfilename_entry), (char *) filename); /* update filename in entry */
+  gtk_entry_set_position(GTK_ENTRY(xsane.outputfilename_entry), strlen(filename)); /* set cursor to right position of filename */
+
   g_signal_handlers_unblock_by_func(GTK_OBJECT(xsane.outputfilename_entry), (GtkSignalFunc) xsane_outputfilename_changed_callback, NULL);
 }
 
@@ -1397,6 +1400,8 @@ void xsane_outputfilename_new(GtkWidget *vbox)
   xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_FILENAME);
   gtk_entry_set_max_length(GTK_ENTRY(text), 255);
   gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.filename);
+  gtk_entry_set_position(GTK_ENTRY(text), strlen(preferences.filename)); /* set cursor to right position of filename */
+
   gtk_box_pack_start(GTK_BOX(hbox), text, TRUE, TRUE, 4);
   g_signal_connect(GTK_OBJECT(text), "changed", (GtkSignalFunc) xsane_outputfilename_changed_callback, NULL);
 
@@ -1467,6 +1472,20 @@ void xsane_separator_new(GtkWidget *xsane_parent, int dist)
   xsane_separator = gtk_hseparator_new();
   gtk_box_pack_start(GTK_BOX(xsane_parent), xsane_separator, FALSE, FALSE, dist);
   gtk_widget_show(xsane_separator);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void xsane_vseparator_new(GtkWidget *xsane_parent, int dist)
+{
+ GtkWidget *xsane_vseparator;
+
+  DBG(DBG_proc, "xsane_vseparator_new\n");
+
+  xsane_vseparator = gtk_vseparator_new();
+  gtk_box_pack_start(GTK_BOX(xsane_parent), xsane_vseparator, FALSE, FALSE, dist);
+  gtk_widget_show(xsane_vseparator);
+
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

@@ -4,8 +4,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.88\n"
-"POT-Creation-Date: 2002-10-20 22:23+0200\n"
+"Project-Id-Version: XSANE 0.90\n"
+"POT-Creation-Date: 2002-12-13 19:46+0100\n"
 "PO-Revision-Date: 2000-01-21 15:51+01:00\n"
 "Last-Translator: Oliver Rauch <Oliver.Rauch@rauch-domain.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -903,6 +903,10 @@ msgstr "Option für Normalmodus:"
 msgid "Fine mode option:"
 msgstr "Option für Feinmodus:"
 
+#. TEXT_SETUP_FAX_PROGRAM_DEFAULTS
+msgid "Set program defaults for:"
+msgstr ""
+
 #. TEXT_SETUP_FAX_VIEWER
 msgid "Viewer (Postscript):"
 msgstr "Betrachter (Postscript):"
@@ -1197,7 +1201,7 @@ msgstr "nach Erw"
 
 #. MENU_ITEM_PRESET_AREA_ADD_SEL
 msgid "Add selection to list"
-msgstr "Auswahl zur Liste hinzufuegen"
+msgstr "Auswahl zur Liste hinzufügen"
 
 #. MENU_ITEM_PRESET_AREA_RENAME
 msgid "Rename definiton"
@@ -1207,11 +1211,11 @@ msgstr "Definition umbenennen"
 msgid "Delete definition"
 msgstr "Definition löschen"
 
-#. MENU_OTEM_PRESET_AREA_MOVE_UP
+#. MENU_ITEM_PRESET_AREA_MOVE_UP
 msgid "Move up"
 msgstr "Nach oben schieben"
 
-#. MENU_OTEM_PRESET_AREA_MOVE_DWN
+#. MENU_ITEM_PRESET_AREA_MOVE_DWN
 msgid "Move down"
 msgstr "Nach unten schieben"
 
@@ -1519,20 +1523,20 @@ msgstr "Option, mit der die Anzahl der Kopien angegeben wird"
 msgid ""
 "Resolution with which lineart images are printed and saved in postscript"
 msgstr ""
-"Auflösung, mit der Lineart-Bilder gedrucht und im Postscriptformat "
+"Auflösung, mit der Lineart-Bilder gedruckt und im Postscriptformat "
 "gespeichert werden"
 
 #. DESC_PRINTER_GRAYSCALE_RESOLUTION
 msgid ""
 "Resolution with which grayscale images are printed and saved in postscript"
 msgstr ""
-"Auflösung, mit der Graustufen-Bilder gedrucht und im Postscriptformat "
+"Auflösung, mit der Graustufen-Bilder gedruckt und im Postscriptformat "
 "gespeichert werden"
 
 #. DESC_PRINTER_COLOR_RESOLUTION
 msgid "Resolution with which color images are printed and saved in postscript"
 msgstr ""
-"Auflösung, mit der Farb-Bilder gedrucht und im Postscriptformat gespeichert "
+"Auflösung, mit der Farb-Bilder gedruckt und im Postscriptformat gespeichert "
 "werden"
 
 #. DESC_PRINTER_WIDTH
@@ -1588,7 +1592,7 @@ msgstr "Kompression wenn Bild im PNG-Format gespeichert wird"
 
 #. DESC_FILENAME_COUNTER_LEN
 msgid "Minimum length of counter in filename"
-msgstr "Minimale Länge des Zaehlers im Dateinamen"
+msgstr "Minimale Länge des Zählers im Dateinamen"
 
 #. DESC_TIFF_COMPRESSION_16
 msgid "Compression type if 16 bit image is saved as tiff"
@@ -1626,6 +1630,10 @@ msgid ""
 "supported by all programs. The ascii format is supported by more programs "
 "but it produces really huge files!!!"
 msgstr ""
+"Speicher 16 Bit PNM-Bilder im ASCII Format anstatt im Binär Format. Das "
+"Binär Format ist ein neues Format, das nicht von allen Programmen "
+"unterstützt wird. Das ASCII Format wird von mehr Programmen unterstützt, "
+"aber die Dateien werden sehr groß!!!"
 
 #. DESC_REDUCE_16BIT_TO_8BIT
 msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
@@ -1663,7 +1671,7 @@ msgstr "Verwende feste oder veränderbare Hauptfenstergröße"
 
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
 msgid "Disable preview gamma when XSane runs as gimp plugin"
-msgstr ""
+msgstr "Preview Gamma deaktivieren wenn XSane als Gimp-Plugin gestartet wird"
 
 #. DESC_PREVIEW_COLORMAP
 msgid "Use an own colormap for preview if display depth is 8 bpp"
@@ -1744,7 +1752,7 @@ msgstr ""
 #. DESC_PREVIEW_PIPETTE_RANGE
 msgid "dimension of square that is used to average color for pipette function"
 msgstr ""
-"Größe des Quadrats, das zum Mitteln der Farbe für die Pipette Funkiton "
+"Größe des Quadrats, das zum Mitteln der Farbe für die Pipette Funktion "
 "benutzt wird"
 
 #. DESC_DOC_VIEWER
@@ -1818,11 +1826,11 @@ msgstr "Geben Sie die E-Mail Adresse für Antworten auf diese Mail ein"
 #. DESC_POP3_AUTHENTIFICATION
 msgid "Authentificate at POP3 server before sending mail"
 msgstr ""
-"Authehtifizierung über POP3 Server durchführen bevor mail gesendet wird"
+"Authentifizierung über POP3 Server durchführen bevor mail gesendet wird"
 
 #. DESC_POP3_SERVER
 msgid "IP Address or Domain name of POP3 server"
-msgstr "IP ADresse oder Domain Name des POP3 Servers"
+msgstr "IP Adresse oder Domain Name des POP3 Servers"
 
 #. DESC_POP3_PORT
 msgid "port to connect to POP3 server"
@@ -1888,7 +1896,7 @@ msgstr "ausführen"
 
 #. DESC_ADD_BATCH
 msgid "Add selection for batch scan"
-msgstr "Auswahl zur Stapelliste hinzufuegen"
+msgstr "Auswahl zur Stapelliste hinzufügen"
 
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
@@ -1937,7 +1945,7 @@ msgstr "Scanbereich automatisch aufziehen"
 
 #. DESC_DELETE_IMAGES
 msgid "Delete preview image cache"
-msgstr "Vorschau Speicher loeschen"
+msgstr "Vorschau Speicher löschen"
 
 #. DESC_PRESET_AREA
 msgid "Preset area"
@@ -1947,9 +1955,13 @@ msgstr "Bereichsvoreinstellung"
 msgid "Rotate preview and scan"
 msgstr "Drehe Vorschau und Scan"
 
+#. DESC_RATIO
+msgid "Aspect ratio of selection"
+msgstr "Seitenverhältnis der Auswahl"
+
 #. DESC_PAPER_ORIENTATION
 msgid "Define image position for printing"
-msgstr ""
+msgstr "Bildposition beim Drucken definieren"
 
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
@@ -1993,15 +2005,23 @@ msgstr "Medium löschen"
 
 #. DESC_SCALE_FACTOR
 msgid "Scale factor"
-msgstr "Vergrößerungsfaktor:"
+msgstr "Vergrößerungsfaktor"
 
 #. DESC_X_SCALE_FACTOR
 msgid "X-Scale factor"
-msgstr "Vergrößerungsfaktor X:"
+msgstr "Vergrößerungsfaktor X"
 
 #. DESC_Y_SCALE_FACTOR
 msgid "Y-Scale factor"
-msgstr "Vergrößerungsfaktor Y:"
+msgstr "Vergrößerungsfaktor Y"
+
+#. DESC_SCALE_WIDTH
+msgid "Scale image to width [in pixel]"
+msgstr "Bild auf Breite [in Pixeln] skalieren"
+
+#. DESC_SCALE_HEIGHT
+msgid "Scale image to height [in pixel]"
+msgstr "Bild auf Höhe [in Pixeln] skalieren"
 
 #. DESC_BATCH_LIST_EMPTY
 msgid "Empty batch list"
@@ -2021,7 +2041,7 @@ msgstr "Bereich umbenennen"
 
 #. DESC_BATCH_ADD
 msgid "Add selected preview area to batch list"
-msgstr "Vorschau-Auswahl zur Stapelliste hinzufuegen"
+msgstr "Vorschau-Auswahl zur Stapelliste hinzufügen"
 
 #. DESC_BATCH_DEL
 msgid "Delete selected area from batch list"

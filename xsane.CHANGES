@@ -2254,4 +2254,71 @@ xsane-0.88 -> 0.89:
 
  - added paper_orientation menu in copy mode
 
- - xsane_back_gtk_panel_destory: added test if panel exisits (!xsane.xsane_hbox)
+
+
+xsane-0.89 -> 0.90:
+-------------------
+
+ - replaced "round(i+0.5)" in xsane_save_ps by "ceil(i)" because round is not
+   available on all systems
+
+ - replaced order of includes for sys/types.h ans sys/stat.h in xsane.h
+
+ - removed some includes from some *.c files that are already in xsane.h
+
+ - added to xsane.h:
+   #ifdef HAVE_OS2_H
+   # define strcasecmp stricmp
+   #endif
+
+ - always set position of outputfilename_entry to the right
+
+ - added test for (pid_status < 0) in xsane_fax_send in routine
+   waiting for child process. The program does continue now
+   when the fax is sent.
+
+ - fax setup: added "set program defaults" buttons for efax, hylafax and mgetty+sendfax
+
+ - bindtextdomain for backend is set for sane-"backendname" and sane-backends
+   sane-backends is used when sane-"backendname" does not exist (no "" entry)
+
+ - set codeset for backend textdomain to "UTF-8"
+
+ - xsane-preview.c: motion_notify_event_handler: added 
+   if (p->selection_xedge != -1) and if (p->selection_yedge != -1)
+   before setting new coordinates
+
+ - xsane-preview.c: added aspect_ratio function to motion_event_handler
+
+ - added aspect_ratio menu to preview window
+
+ - xsane-save.c: save_scaled_image: added " 0.5" to round image width and height
+
+ - xsane-viewer.c: added widgets to scale dialog that allow defining image size
+
+ - aclocal.m4: added "-lintl" when gettext is found in libintl
+
+ - aclocal.m4: added warning that check for gtk is not possible when pkg-config
+   is not available
+
+ - added romanian (ro.po), vietnamese (vi.po) and danish (da.po) translation
+
+ - updated translation based on xsane-0.89 texts: es, it, ru
+
+ - updated translations: cs, de, fr, nl, sk, tr
+
+ - replaced some signals for spinbutton by signals for adjustments in xsane-viewer.c
+
+ - xsane_mail_dialog_close() and xsane_fax_dialog_close():
+   removed gtk_window_remove_accel_group(GTK_WINDOW(xsane.mail_dialog), xsane.accelerator_group);
+
+ - xsane-scan.c/xsane_read_image_data() and xsane-preview.c/preview_read_image_data:
+   when we have no select_fd then we don't leave the scanloop with break; but
+   we do a gtk_main_loop and  continue;
+
+ - xsane-scan.c and xsane-preview.c: WIN32 now also does use the gdk_input_add functions.
+
+ - preview: added output of RGB values of the pixel under the pointer in the preview
+
+ - xsane_create_preview_gamma_curve: replaced 255 by 255.99999 to create correct preview gamma table
+

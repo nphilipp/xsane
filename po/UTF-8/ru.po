@@ -4,14 +4,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.89\n"
-"POT-Creation-Date: 2002-10-20 22:23+0200\n"
-"PO-Revision-Date: 2002-09-14 14:09MSK\n"
-"Last-Translator: John Profic <profic@lrn.ru>\n"
+"POT-Creation-Date: 2002-12-13 19:46+0100\n"
+"PO-Revision-Date: 2002-10-28 17:00MSK\n"
+"Last-Translator: Vitaly Lipatov <lav@altlinux.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Hands\n"
+"X-Generator: KBabel 0.9.6\n"
 
 #. Please translate this to the correct directory name (eg. german=>de)
 #. XSANE_LANGUAGE_DIR
@@ -165,7 +165,7 @@ msgstr "Размыть изображение"
 
 #. WINDOW_STORE_MEDIUM
 msgid "Store medium definition"
-msgstr "Записать носитель"
+msgstr "Записать параметры носителя"
 
 #. WINDOW_NO_DEVICES
 msgid "No devices available"
@@ -209,7 +209,7 @@ msgstr "Сохранить изображение"
 
 #. MENU_ITEM_OCR
 msgid "OCR - save as text"
-msgstr "OCR - сохранить как текст"
+msgstr "Распознать и сохранить как текст"
 
 #. MENU_ITEM_CLONE
 msgid "Clone"
@@ -345,11 +345,11 @@ msgstr "Отменить предварительное сканирование
 
 #. BUTTON_DISCARD_IMAGE
 msgid "Discard image"
-msgstr "Удалить изображение"
+msgstr "Отказаться от изображения"
 
 #. BUTTON_DISCARD_ALL_IMAGES
 msgid "Discard all images"
-msgstr "Удалить все изображения"
+msgstr "Отказаться от всех изображений"
 
 #. BUTTON_DO_NOT_CLOSE
 msgid "Do not close"
@@ -381,7 +381,7 @@ msgstr "Пропускать существующие"
 
 #. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
 msgid "Save 16bit pnm in ascii format"
-msgstr "Сохранять 16-битные pnm в ascii формате"
+msgstr "Сохранять 16-битные pnm в формате ASCII"
 
 #. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
 msgid "Reduce 16 bit image to 8 bit"
@@ -393,7 +393,7 @@ msgstr "Не позволять менять размер главного ок�
 
 #. RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA
 msgid "Disable gimp preview gamma"
-msgstr "Отключить гамма-коррекцию в предварительном сканировании для GIMP-а"
+msgstr "Отключить гамма-коррекцию в предварительном сканировании для GIMP"
 
 #. RADIO_BUTTON_PRIVATE_COLORMAP
 msgid "Use private colormap"
@@ -520,7 +520,7 @@ msgid ""
 "Gimp does not support depth 16 bits/color.\n"
 "Do you want to reduce the depth to 8 bits/color?"
 msgstr ""
-"GIMP не поддерживает глубину в 16 бит на цвет.\n"
+"GIMP не поддерживает глубину цвета в 16 бит.\n"
 "Уменьшить глубину до 8 бит на цвет?"
 
 #. TEXT_REDUCE_16BIT_TO_8BIT
@@ -528,7 +528,7 @@ msgid ""
 "Bit depth 16 bits/color is not supported for this output format.\n"
 "Do you want to reduce the depth to 8 bits/color?"
 msgstr ""
-"Данный формат файла не поддерживает глубину в 16 бит на цвет.\n"
+"Данный формат файла не поддерживает глубину цвета в 16 бит.\n"
 "Уменьшить глубину до 8 бит на цвет?"
 
 #. TEXT_AUTHORIZATION_REQ
@@ -565,11 +565,11 @@ msgstr "пакет"
 
 #. TEXT_WITH_GIMP_SUPPORT
 msgid "with GIMP support"
-msgstr "с поддержкой GIMP-а"
+msgstr "с поддержкой GIMP"
 
 #. TEXT_WITHOUT_GIMP_SUPPORT
 msgid "without GIMP support"
-msgstr "поддержка GIMP-а отсутствует"
+msgstr "поддержка GIMP отсутствует"
 
 #. TEXT_GTK_VERSION
 msgid "compiled with GTK-"
@@ -702,11 +702,11 @@ msgstr "Радиус размытия:"
 
 #. TEXT_BATCH_AREA_DEFAULT_NAME
 msgid "(no name)"
-msgstr "(без имени)"
+msgstr "(без названия)"
 
 #. TEXT_BATCH_LIST_AREANAME
 msgid "Area name:"
-msgstr "Имя области:"
+msgstr "Название области:"
 
 #. TEXT_BATCH_LIST_SCANMODE
 msgid "Scanmode:"
@@ -746,19 +746,19 @@ msgstr "Команда:"
 
 #. TEXT_SETUP_COPY_NR_OPT
 msgid "Copy number option:"
-msgstr "Параметр для количества копий"
+msgstr "Параметр для количества копий:"
 
 #. TEXT_SETUP_PRINTER_LINEART_RES
 msgid "Lineart resolution (dpi):"
-msgstr "Разрешение при сканировании рисунка (dpi)"
+msgstr "Разрешение для штрихового изображения (dpi):"
 
 #. TEXT_SETUP_PRINTER_GRAYSCALE_RES
 msgid "Grayscale resolution (dpi):"
-msgstr "Разрешение при сканировании ч/б фото (dpi)"
+msgstr "Разрешение для чёрно-белого изображения (dpi):"
 
 #. TEXT_SETUP_PRINTER_COLOR_RES
 msgid "Color resolution (dpi):"
-msgstr "Разрешение при сканировании цветного фото (dpi)"
+msgstr "Разрешение для цветного изображения (dpi):"
 
 #. TEXT_SETUP_PRINTER_WIDTH
 msgid "Width"
@@ -826,7 +826,7 @@ msgstr "Сжатие для 8-битного изображения TIFF"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_1
 msgid "TIFF lineart image compression"
-msgstr "Сжатия для рисунка TIFF"
+msgstr "Сжатия для штрихового (1-битного) изображения TIFF"
 
 #. TEXT_SETUP_SHOW_RANGE_MODE
 msgid "Show range as:"
@@ -834,7 +834,7 @@ msgstr "Показать диапазон как:"
 
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
-msgstr "Увеличение предварительного сканирования:"
+msgstr "Увеличение при предварительном сканировании:"
 
 #. TEXT_SETUP_PREVIEW_GAMMA
 msgid "Preview gamma:"
@@ -882,7 +882,7 @@ msgstr "Смещение для порога:"
 
 #. TEXT_SETUP_GRAYSCALE_SCANMODE
 msgid "Name of grayscale scanmode:"
-msgstr "Название режима для ч/б фото"
+msgstr "Название режима чёрно-белого сканирования:"
 
 #. TEXT_SETUP_HELPFILE_VIEWER
 msgid "Helpfile viewer (HTML):"
@@ -894,15 +894,19 @@ msgstr "Параметр для приёма:"
 
 #. TEXT_SETUP_FAX_POSTSCRIPT_OPT
 msgid "Postscriptfile option:"
-msgstr "Параметр для PostScript-файла"
+msgstr "Параметр для PostScript-файла:"
 
 #. TEXT_SETUP_FAX_NORMAL_MODE_OPT
 msgid "Normal mode option:"
-msgstr "Параметр, указывающий нормальный режим"
+msgstr "Параметр, указывающий нормальный режим:"
 
 #. TEXT_SETUP_FAX_FINE_MODE_OPT
 msgid "Fine mode option:"
-msgstr "Параметр, указывающий хороший режим"
+msgstr "Параметр, указывающий хороший режим:"
+
+#. TEXT_SETUP_FAX_PROGRAM_DEFAULTS
+msgid "Set program defaults for:"
+msgstr ""
 
 #. TEXT_SETUP_FAX_VIEWER
 msgid "Viewer (Postscript):"
@@ -950,23 +954,23 @@ msgstr "Команда распознавания текста:"
 
 #. TEXT_SETUP_OCR_INPUTFILE_OPT
 msgid "Inputfile option:"
-msgstr "Параметр для входного файла"
+msgstr "Параметр для входного файла:"
 
 #. TEXT_SETUP_OCR_OUTPUTFILE_OPT
 msgid "Outputfile option:"
-msgstr "Параметр для выходного файла"
+msgstr "Параметр для выходного файла:"
 
 #. TEXT_SETUP_OCR_USE_GUI_PIPE_OPT
 msgid "Use GUI progress pipe:"
-msgstr "Использовать канал GUI"
+msgstr "Использовать канал GUI:"
 
 #. TEXT_SETUP_OCR_OUTFD_OPT
 msgid "GUI output-fd option:"
-msgstr "Параметр для выхода-fd GUI"
+msgstr "Параметр для выхода-fd GUI:"
 
 #. TEXT_SETUP_OCR_PROGRESS_KEYWORD
 msgid "Progress keyword:"
-msgstr "Ключевое слово степени выполнения"
+msgstr "Ключевое слово степени выполнения:"
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
@@ -1178,15 +1182,15 @@ msgstr "Полоса прокрутки и кнопка поворота"
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
 msgid "Standard options window (lineart)"
-msgstr "Окно стандартных параметров (рисунок)"
+msgstr "Окно стандартных параметров (штриховое)"
 
 #. MENU_ITEM_LINEART_MODE_XSANE
 msgid "XSane main window (lineart)"
-msgstr "Главное окно (рисунок)"
+msgstr "Главное окно XSane (штриховое)"
 
 #. MENU_ITEM_LINEART_MODE_GRAY
 msgid "XSane main window (grayscale->lineart)"
-msgstr "Главное окно (ч/б фото->рисунок)"
+msgstr "Главное окно XSane (чёрно-белое -> штриховое)"
 
 #. MENU_ITEM_SELECTION_NONE
 msgid "(none)"
@@ -1208,11 +1212,11 @@ msgstr "Переименовать область"
 msgid "Delete definition"
 msgstr "Удалить область"
 
-#. MENU_OTEM_PRESET_AREA_MOVE_UP
+#. MENU_ITEM_PRESET_AREA_MOVE_UP
 msgid "Move up"
 msgstr "На позицию вверх"
 
-#. MENU_OTEM_PRESET_AREA_MOVE_DWN
+#. MENU_ITEM_PRESET_AREA_MOVE_DWN
 msgid "Move down"
 msgstr "На позицию вниз"
 
@@ -1223,7 +1227,7 @@ msgstr "Сканирование"
 #. PROGRESS_RECEIVING_FRAME_DATA
 #, c-format
 msgid "Receiving %s data"
-msgstr "Принимаю данные %s"
+msgstr "Приём данных %s"
 
 #. PROGRESS_TRANSFERING_DATA
 msgid "Transfering image"
@@ -1243,7 +1247,7 @@ msgstr "Сжатие изображения"
 
 #. PROGRESS_CONVERTING_DATA
 msgid "Converting image"
-msgstr "Конвертирование изображения"
+msgstr "Преобразование изображения"
 
 #. PROGRESS_SAVING_DATA
 msgid "Saving image"
@@ -1267,7 +1271,7 @@ msgstr "Размытие изображения"
 
 #. PROGRESS_OCR
 msgid "OCR in progress"
-msgstr "Выполняется распознавание текста"
+msgstr "Распознавание текста"
 
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
@@ -1299,7 +1303,8 @@ msgstr "Тип носителя"
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
-msgstr "Значение, на которое изменяется счётчик после сканирования"
+msgstr ""
+"Значение, на которое изменяется счётчик в названии файла после сканирования"
 
 #. DESC_BROWSE_FILENAME
 msgid "Browse for image filename"
@@ -1367,15 +1372,15 @@ msgstr "Разрешение сканирование по оси Y"
 
 #. DESC_ZOOM
 msgid "Set zoomfactor"
-msgstr "Процент увеличения"
+msgstr "Коэффициент увеличения"
 
 #. DESC_ZOOM_X
 msgid "Set zoomfactor for x direction"
-msgstr "Процент увеличения по оси X"
+msgstr "Коэффициент увеличения по оси X"
 
 #. DESC_ZOOM_Y
 msgid "Set zoomfactor for y direction"
-msgstr "Процент увеличения по оси Y"
+msgstr "Коэффициент увеличения по оси Y"
 
 #. DESC_COPY_NUMBER
 msgid "Set number of copies"
@@ -1469,15 +1474,15 @@ msgstr ""
 
 #. DESC_ENH_RESTORE
 msgid "Restore enhancement values from preferences <Shift-r>"
-msgstr "Восстановление значений из параметров <Shift-r>"
+msgstr "Восстановить настройки выразительности <Shift-r>"
 
 #. DESC_ENH_STORE
 msgid "Store active enhancement values to preferences <Shift-m>"
-msgstr "Запоминание значений в параметры <Shift-m>"
+msgstr "Запомнить настройки выразительности изображения <Shift-m>"
 
 #. DESC_HIST_INTENSITY
 msgid "Show histogram of intensity/gray <Alt-i>"
-msgstr "Показать уровни для интенсивности/серого <Alt-i>"
+msgstr "Показать уровни для интенсивности/степени серости <Alt-i>"
 
 #. DESC_HIST_RED
 msgid "Show histogram of red component <Alt-r>"
@@ -1518,17 +1523,22 @@ msgstr "Параметр для указания количества копий
 #. DESC_PRINTER_LINEART_RESOLUTION
 msgid ""
 "Resolution with which lineart images are printed and saved in postscript"
-msgstr "Разрешение, с которым рисунки печатаются и сохраняются в PostScript"
+msgstr ""
+"Разрешение, с которым штриховые изображения печатаются и сохраняются в "
+"PostScript"
 
 #. DESC_PRINTER_GRAYSCALE_RESOLUTION
 msgid ""
 "Resolution with which grayscale images are printed and saved in postscript"
-msgstr "Разрешение, с которым ч/б фото печатаются и сохраняются в PostScript"
+msgstr ""
+"Разрешение, с которым чёрно-белые изображения печатаются и сохраняются в "
+"PostScript"
 
 #. DESC_PRINTER_COLOR_RESOLUTION
 msgid "Resolution with which color images are printed and saved in postscript"
 msgstr ""
-"Разрешение, с которым цветные фото печатаются и сохраняются в PostScript"
+"Разрешение, с которым цветные изображения печатаются и сохраняются в "
+"PostScript"
 
 #. DESC_PRINTER_WIDTH
 msgid "Width of printable area"
@@ -1585,20 +1595,20 @@ msgstr "Минимальная длина счётчика в названии �
 
 #. DESC_TIFF_COMPRESSION_16
 msgid "Compression type if 16 bit image is saved as tiff"
-msgstr "Тип сжатия для формата TIFF при 16-битной глубине цвета"
+msgstr "Тип сжатия для формата TIFF при глубине цвета 16 бит"
 
 #. DESC_TIFF_COMPRESSION_8
 msgid "Compression type if 8 bit image is saved as tiff"
-msgstr "Тип сжатия для формата TIFF при 8-битной глубине цвета"
+msgstr "Тип сжатия для формата TIFF при глубине цвета 8 бит"
 
 #. DESC_TIFF_COMPRESSION_1
 msgid "Compression type if lineart image is saved as tiff"
-msgstr "Тип сжатия для формата TIFF при сохранении рисунков"
+msgstr "Тип сжатия для формата TIFF при сохранении штриховых изображений"
 
 #. DESC_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device dependant preferences in default file at exit of xsane"
 msgstr ""
-"Сохранять параметры устройства в файле по умолчанию при выходе их XSane-а"
+"Сохранять параметры устройства в файле по умолчанию при выходе из XSane"
 
 #. DESC_OVERWRITE_WARNING
 msgid "Warn before overwriting an existing file"
@@ -1619,14 +1629,13 @@ msgid ""
 "but it produces really huge files!!!"
 msgstr ""
 "При сохранении 16-битных изображений в формате pnm используйте текстовый "
-"(ascii) формат вместо бинарного. Бинарный формат - новый и не поддерживается "
-"всеми программами. Текстовый формат поддерживается большим числом программ, "
-"но занимает значительно больше места на диске!!!"
+"(ascii) формат вместо двоичного. Двоичный формат появился недавно и не "
+"всеми  программами поддерживается. Текстовый формат поддерживается многими "
+"программами, но занимает значительно больше места на диске!!!"
 
 #. DESC_REDUCE_16BIT_TO_8BIT
 msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
-msgstr ""
-"При сканировании с 16-битной глубиной цвета уменьшать цветность до 8 бит"
+msgstr "При сканировании с глубиной цвета 16 бит уменьшать цветность до 8 бит"
 
 #. DESC_PSFILE_WIDTH
 msgid "Width of paper for postscript files"
@@ -1655,8 +1664,8 @@ msgstr "Размеры главного окна фиксированы или �
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
 msgid "Disable preview gamma when XSane runs as gimp plugin"
 msgstr ""
-"Отключать гамма-коррекцию для предварительного сканирования при вызове XSane-"
-"а как GIMP-плагина"
+"Отключать гамма-коррекцию для предварительного сканирования привызове XSane "
+"как модуля GIMP"
 
 #. DESC_PREVIEW_COLORMAP
 msgid "Use an own colormap for preview if display depth is 8 bpp"
@@ -1666,12 +1675,12 @@ msgstr ""
 
 #. DESC_SHOW_RANGE_MODE
 msgid "Select how a range is displayed"
-msgstr "Выберите как будет отображаться диапазон"
+msgstr "Выберите, как будет отображаться диапазон"
 
 #. DESC_PREVIEW_OVERSAMPLING
 msgid "Value with that the calculated preview resolution is multiplied"
 msgstr ""
-"Значение на которое умножается высчитанное разрешение для предварительного "
+"Значение, на которое умножается высчитанное разрешение для предварительного "
 "сканирования"
 
 #. DESC_PREVIEW_GAMMA
@@ -1705,9 +1714,9 @@ msgid ""
 "Select grayscale scanmode. This scanmode is used for lineart preview scan "
 "when transformation from grayscale to lineart is enabled"
 msgstr ""
-"Выберите режим сканирования для ч/б фото. Этот режим будет использоваться "
-"для предварительного просмотра рисунков если преобразование из ч/б фото в "
-"рисунок включено"
+"Выберите режим сканирования для чёрно-белых изображений. Этот режим будет "
+"использоваться для предварительного просмотра штриховых изображений, если "
+"преобразование из чёрно-белого изображения в штриховое включено"
 
 #. DESC_PREVIEW_THRESHOLD_MIN
 #, no-c-format
@@ -1747,8 +1756,7 @@ msgstr ""
 msgid ""
 "Enter command to be executed to display helpfiles, must be a html-viewer!"
 msgstr ""
-"Команда для выполнения при показе файлов помощи, должна уметь отображать "
-"HTML-файлы"
+"Команда для отображения файлов справки, должна уметь отображать файлы HTML"
 
 #. DESC_AUTOENHANCE_GAMMA
 msgid "Change gamma value when autoenhancement button is pressed"
@@ -1762,11 +1770,11 @@ msgstr ""
 #. DESC_AUTOCORRECT_COLORS
 msgid "Do color correction after preview scan has finished"
 msgstr ""
-"Делать цветовую коррекцию после завершения предварительного сканирования"
+"Выполнять цветовую коррекцию после завершения предварительного сканирования"
 
 #. DESC_FAX_COMMAND
 msgid "Enter command to be executed in fax mode"
-msgstr "Команда для выполнения при использовании режима факса"
+msgstr "Команда для выполнения в режиме факса"
 
 #. DESC_FAX_RECEIVER_OPT
 msgid "Enter option to specify receiver"
@@ -1774,19 +1782,19 @@ msgstr "Параметр для определения получателя"
 
 #. DESC_FAX_POSTSCRIPT_OPT
 msgid "Enter option to specify postscript files following"
-msgstr "Параметр для определения последующего PostScript-файла"
+msgstr "Параметр, которым указывается входной файл PostScript"
 
 #. DESC_FAX_NORMAL_OPT
 msgid "Enter option to specify normal mode (low resolution)"
-msgstr "Параметр для определения режима Normal (низкое разрешение)"
+msgstr "Параметр для указания нормального режима (низкое разрешение)"
 
 #. DESC_FAX_FINE_OPT
 msgid "Enter option to specify fine mode (high resolution)"
-msgstr "Параметр для определения режима Fine (высокое разрешение)"
+msgstr "Параметр для указания хорошего режима (высокое разрешение)"
 
 #. DESC_FAX_VIEWER
 msgid "Enter command to be executed to view a fax"
-msgstr "Команда для выполнения для просмотра факса"
+msgstr "Команда для просмотра факса"
 
 #. DESC_FAX_FINE_MODE
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
@@ -1811,7 +1819,7 @@ msgstr "Адрес для ответа"
 
 #. DESC_POP3_AUTHENTIFICATION
 msgid "Authentificate at POP3 server before sending mail"
-msgstr "Авторизоваться на POP3 сервере перед отправкой письма"
+msgstr "Авторизоваться на POP3-сервере перед отправкой письма"
 
 #. DESC_POP3_SERVER
 msgid "IP Address or Domain name of POP3 server"
@@ -1831,7 +1839,7 @@ msgstr "Пароль для POP3-сервера"
 
 #. DESC_MAIL_VIEWER
 msgid "Enter command to be executed to view a mail image"
-msgstr "Введите команду, выполняемую для просмотра почтовых вложений"
+msgstr "Введите команду для просмотра почтовых вложений"
 
 #. DESC_HTML_MAIL
 msgid "Mail is sent in html mode, images are displayed directly"
@@ -1840,7 +1848,7 @@ msgstr ""
 
 #. DESC_OCR_COMMAND
 msgid "Enter command to start ocr program"
-msgstr "Введите команду для выполнения распознавания текста"
+msgstr "Введите команду распознавания текста"
 
 #. DESC_OCR_INPUTFILE_OPT
 msgid "Enter option of the ocr program to define input file"
@@ -1942,9 +1950,13 @@ msgstr "Заданные области"
 msgid "Rotate preview and scan"
 msgstr "Поворот предварительного и окончательного сканирования"
 
+#. DESC_RATIO
+msgid "Aspect ratio of selection"
+msgstr ""
+
 #. DESC_PAPER_ORIENTATION
 msgid "Define image position for printing"
-msgstr ""
+msgstr "Укажите расположения печатаемого изображения"
 
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
@@ -1998,6 +2010,14 @@ msgstr "Увеличение по оси X"
 msgid "Y-Scale factor"
 msgstr "Увеличение по оси Y"
 
+#. DESC_SCALE_WIDTH
+msgid "Scale image to width [in pixel]"
+msgstr ""
+
+#. DESC_SCALE_HEIGHT
+msgid "Scale image to height [in pixel]"
+msgstr ""
+
 #. DESC_BATCH_LIST_EMPTY
 msgid "Empty batch list"
 msgstr "Очистить пакет"
@@ -2028,7 +2048,7 @@ msgstr "Невозможно определить домашний катало�
 
 #. ERR_CHANGE_WORKING_DIR
 msgid "Failed to change working directory to"
-msgstr "Невозможно изменить каталог на:"
+msgstr "Невозможно изменить каталог на"
 
 #. ERR_FILENAME_TOO_LONG
 msgid "Filename too long"
@@ -2117,11 +2137,11 @@ msgstr "Драйвер послал больше данных, чем перед
 
 #. ERR_LIBTIFF
 msgid "LIBTIFF reports error"
-msgstr "LIBTIFF сообщила об ошибке"
+msgstr "LIBTIFF сообщает об ошибке"
 
 #. ERR_LIBPNG
 msgid "LIBPNG reports error"
-msgstr "LIBPNG сообщила об ошибке"
+msgstr "LIBPNG сообщает об ошибке"
 
 #. ERR_UNKNOWN_TYPE
 msgid "unknown type"
@@ -2133,11 +2153,11 @@ msgstr "неизвестный принуждённый тип"
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
-msgstr "Невозможно вызвать программу для просмотра документации:"
+msgstr "Невозможно вызвать программу просмотра документации:"
 
 #. ERR_FAILED_EXEC_FAX_VIEWER
 msgid "Failed to execute fax viewer:"
-msgstr "Невозможно вызвать программу для просмотра факсов:"
+msgstr "Невозможно вызвать программу просмотра факсов:"
 
 #. ERR_FAILED_EXEC_FAX_CMD
 msgid "Failed to execute fax command:"
@@ -2145,7 +2165,7 @@ msgstr "Невозможно выполнить команду отправки 
 
 #. ERR_FAILED_EXEC_MAIL_VIEWER
 msgid "Failed to execute mail image viewer:"
-msgstr "Невозможно вызвать программу для почтовых изображений"
+msgstr "Невозможно вызвать программу просмотра почтовых изображений"
 
 #. ERR_FAILED_EXEC_OCR_CMD
 msgid "Failed to execute ocr command:"
@@ -2297,7 +2317,7 @@ msgstr "Файл %s не существует"
 #. ERR_FILE_NOT_POSTSCRIPT
 #, c-format
 msgid "File %s is not a postscript file"
-msgstr "Файл %s не является PostScript-файлом"
+msgstr "Файл %s не является файлом PostScript"
 
 #. ERR_UNSUPPORTED_OUTPUT_FORMAT
 #, c-format
@@ -2382,7 +2402,7 @@ msgstr ""
 " -p, --print-filenames        выводить названия изображений, созданных "
 "XSane\n"
 " -N, --force-filename name    назначить названия файла автоматически и "
-"отключить выборназвания пользователем\n"
+"отключить выбор названия пользователем\n"
 "\n"
 " --display X11-display        перенаправить вывод на дисплей X11\n"
 " --no-xshm                    не использовать изображений в разделяемой "
@@ -2431,13 +2451,13 @@ msgid ""
 "6) Possibly there is more than one SANE version installed"
 msgstr ""
 "Возможные причины:\n"
-"1) Действительно нет устройств поддерживаемых SANE\n"
+"1) Действительно нет устройств, поддерживаемых SANE\n"
 "2) Поддерживаемые устройства заняты\n"
 "3) Права доступа к устройству не дают возможности использовать его - "
-"попробуйте с правами root\n"
-"4) Драйвер не загружен SANE-ом (man sane-dll)\n"
-"5) Драйвер сконфигурирован неправильно (man sane-\"драйвер\")\n"
-"6) Возможно установлена более чем одна версия SANE"
+"попробуйте запустить xsane с правами root\n"
+"4) Драйвер не загружен SANE (см. man sane-dll)\n"
+"5) Драйвер сконфигурирован неправильно (см. man sane-\"драйвер\")\n"
+"6) Возможно, установлена более чем одна версия SANE"
 
 #. strings that are used in structures, so it is not allowed to use _()/gettext() here
 #. gettext_noop does mark these texts but does not change the string
@@ -2511,7 +2531,7 @@ msgstr "Letter альбом"
 
 #. MENU_ITEM_MEDIUM_FULL_COLOR_RANGE
 msgid "Full color range"
-msgstr "Полный палитра цветов"
+msgstr "Полная палитра цветов"
 
 #. MENU_ITEM_MEDIUM_SLIDE
 msgid "Slide"

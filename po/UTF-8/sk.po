@@ -3,9 +3,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.87\n"
-"POT-Creation-Date: 2002-10-20 22:23+0200\n"
-"PO-Revision-Date: 2002-09-18 19:30+0100\n"
+"Project-Id-Version: XSANE 0.90\n"
+"POT-Creation-Date: 2002-12-13 19:46+0100\n"
+"PO-Revision-Date: 2002-12-14 12:51+0100\n"
 "Last-Translator: Zdenko Podobný <zdpo@mailbox.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -168,9 +168,8 @@ msgid "Store medium definition"
 msgstr "Uložiť definíciu média"
 
 #. WINDOW_NO_DEVICES
-#, fuzzy
 msgid "No devices available"
-msgstr "žiadne zariadenie nie je dostupné"
+msgstr "Nie je dostupné žiadne zariadenie"
 
 #. MENU_FILE
 msgid "File"
@@ -382,7 +381,7 @@ msgstr "Preskočiť existujúce názvy súborov"
 
 #. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
 msgid "Save 16bit pnm in ascii format"
-msgstr ""
+msgstr "Uložiť 16 bitové pnm v ascii formáte"
 
 #. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
 msgid "Reduce 16 bit image to 8 bit"
@@ -704,38 +703,32 @@ msgid "(no name)"
 msgstr "(bez názvu)"
 
 #. TEXT_BATCH_LIST_AREANAME
-#, fuzzy
 msgid "Area name:"
-msgstr "Používateľ :"
+msgstr "Názov oblasti:"
 
 #. TEXT_BATCH_LIST_SCANMODE
-#, fuzzy
 msgid "Scanmode:"
-msgstr "XSane režim"
+msgstr "Mód skenovania:"
 
 #. TEXT_BATCH_LIST_GEOMETRY_TL
 msgid "Top left:"
-msgstr ""
+msgstr "Vľavo hore:"
 
 #. TEXT_BATCH_LIST_GEOMETRY_SIZE
-#, fuzzy
 msgid "Size:"
-msgstr "Diapozitív"
+msgstr "Veľkosť:"
 
 #. TEXT_BATCH_LIST_RESOLUTION
-#, fuzzy
 msgid "Resolution:"
-msgstr "Nastavenie prahu:"
+msgstr "Rozlíšenie:"
 
 #. TEXT_BATCH_LIST_BIT_DEPTH
-#, fuzzy
 msgid "Bit depth:"
-msgstr "Vstupná gama hĺbka:"
+msgstr "Bitová hĺbka:"
 
 #. TEXT_BATCH_LIST_BY_GUI
-#, fuzzy
 msgid "as selected"
-msgstr "Skenovať zvolenú oblasť"
+msgstr "podľa výberu"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -908,6 +901,10 @@ msgstr "Voľby normálneho režimu:"
 #. TEXT_SETUP_FAX_FINE_MODE_OPT
 msgid "Fine mode option:"
 msgstr "Nastavenie jemného režimu:"
+
+#. TEXT_SETUP_FAX_PROGRAM_DEFAULTS
+msgid "Set program defaults for:"
+msgstr "Štandardné nastavenia programu pre:"
 
 #. TEXT_SETUP_FAX_VIEWER
 msgid "Viewer (Postscript):"
@@ -1213,11 +1210,11 @@ msgstr "Premenovať definíciu"
 msgid "Delete definition"
 msgstr "Zmazať definíciu"
 
-#. MENU_OTEM_PRESET_AREA_MOVE_UP
+#. MENU_ITEM_PRESET_AREA_MOVE_UP
 msgid "Move up"
 msgstr "Posunúť nahor"
 
-#. MENU_OTEM_PRESET_AREA_MOVE_DWN
+#. MENU_ITEM_PRESET_AREA_MOVE_DWN
 msgid "Move down"
 msgstr "Posunúť nadol"
 
@@ -1628,6 +1625,10 @@ msgid ""
 "supported by all programs. The ascii format is supported by more programs "
 "but it produces really huge files!!!"
 msgstr ""
+"Keď ukladáte 16 bitový obrázok vo formáte pnm, tak by ste mali použiť ascii  "
+"formát namiesto binárneho formátu. Binárny formát je novým formátom a nie je "
+"podporovaný všetkými programami. Ascii formát je podporovaný oveľa väčším "
+"počtom programov, ale vytvára skutočne veľké súbory!!!"
 
 #. DESC_REDUCE_16BIT_TO_8BIT
 msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
@@ -1936,9 +1937,13 @@ msgstr "Predvolená oblasť"
 msgid "Rotate preview and scan"
 msgstr "Otočenie náhľadu a skenovania"
 
+#. DESC_RATIO
+msgid "Aspect ratio of selection"
+msgstr "Očakávaný pomer výberu"
+
 #. DESC_PAPER_ORIENTATION
 msgid "Define image position for printing"
-msgstr ""
+msgstr "Definovanie pozície obrázku pre tlač"
 
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
@@ -1991,6 +1996,14 @@ msgstr "Faktor zmeny veľkosti X"
 #. DESC_Y_SCALE_FACTOR
 msgid "Y-Scale factor"
 msgstr "Faktor zmeny veľkosti Y"
+
+#. DESC_SCALE_WIDTH
+msgid "Scale image to width [in pixel]"
+msgstr ""
+
+#. DESC_SCALE_HEIGHT
+msgid "Scale image to height [in pixel]"
+msgstr ""
 
 #. DESC_BATCH_LIST_EMPTY
 msgid "Empty batch list"
@@ -2423,6 +2436,14 @@ msgid ""
 "5) The backend is not configured correct (man sane-\"backendname\")\n"
 "6) Possibly there is more than one SANE version installed"
 msgstr ""
+"Možné dôvody:\n"
+"1) Skutočne neexituje zariadenie, ktoré je podporované v SANE\n"
+"2) Podporované zariadenie sa používa\n"
+"3) Práva zariadenia vám nepovoľujú jeho používanie - vyskúšajte SANE spustiť "
+"ako root\n"
+"4) Backend nie je načítaný pomocou SANE (man sane-dll)\n"
+"5) Backend nie je správne nakonfigurovaný (man sane-\"názovbackendu\")\n"
+"6) Pravdepodobne viac ako len jedna verzia SANE je nainštalovaná"
 
 #. strings that are used in structures, so it is not allowed to use _()/gettext() here
 #. gettext_noop does mark these texts but does not change the string

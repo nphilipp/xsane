@@ -6,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.87\n"
-"POT-Creation-Date: 2002-10-20 22:23+0200\n"
-"PO-Revision-Date: 2002-09-11 22:16GMT\n"
-"Last-Translator: Gustavo D. Vranjes <gvranjes@abaconet.com.ar>\n"
+"Project-Id-Version: XSANE 0.89\n"
+"POT-Creation-Date: 2002-12-13 19:46+0100\n"
+"PO-Revision-Date: 2002-10-27 16:40GMT\n"
+"Last-Translator: Gustavo D. Vranjes <gvranjes@SoftHome.net>\n"
 "Language-Team: Castellano <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -171,9 +171,8 @@ msgid "Store medium definition"
 msgstr "Guardar definición de medio"
 
 #. WINDOW_NO_DEVICES
-#, fuzzy
 msgid "No devices available"
-msgstr "no hay dispositivos obtenibles"
+msgstr "No hay dispositivos obtenibles"
 
 #. MENU_FILE
 msgid "File"
@@ -385,7 +384,7 @@ msgstr "Omitir nombres de archivos existentes"
 
 #. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
 msgid "Save 16bit pnm in ascii format"
-msgstr ""
+msgstr "Guardar 16bit pnm en formato ascii"
 
 #. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
 msgid "Reduce 16 bit image to 8 bit"
@@ -661,7 +660,7 @@ msgid ""
 msgstr ""
 "texto traducido al castellano\n"
 "por Gustavo D. Vranjes\n"
-"Correo electrónico gvranjes@abaconet.com.ar\n"
+"Correo electrónico gvranjes@SoftHome.net\n"
 
 #. TEXT_INFO_BOX
 msgid "0x0: 0KB"
@@ -708,38 +707,32 @@ msgid "(no name)"
 msgstr "(sin nombre)"
 
 #. TEXT_BATCH_LIST_AREANAME
-#, fuzzy
 msgid "Area name:"
-msgstr "Nombre de usuario:"
+msgstr "Nombre de area:"
 
 #. TEXT_BATCH_LIST_SCANMODE
-#, fuzzy
 msgid "Scanmode:"
-msgstr "Modo de XSane"
+msgstr "Modo de escaneo:"
 
 #. TEXT_BATCH_LIST_GEOMETRY_TL
 msgid "Top left:"
-msgstr ""
+msgstr "Izquierda arriba:"
 
 #. TEXT_BATCH_LIST_GEOMETRY_SIZE
-#, fuzzy
 msgid "Size:"
-msgstr "Diapositiva"
+msgstr "Tamaño:"
 
 #. TEXT_BATCH_LIST_RESOLUTION
-#, fuzzy
 msgid "Resolution:"
-msgstr "Opción de umbral:"
+msgstr "Resolución:"
 
 #. TEXT_BATCH_LIST_BIT_DEPTH
-#, fuzzy
 msgid "Bit depth:"
-msgstr "Profundidad de entrada de gamma:"
+msgstr "Profundidad de bit:"
 
 #. TEXT_BATCH_LIST_BY_GUI
-#, fuzzy
 msgid "as selected"
-msgstr "Escanear área seleccionada"
+msgstr "como se seleccionó"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -912,6 +905,10 @@ msgstr "Opción en modo normal:"
 #. TEXT_SETUP_FAX_FINE_MODE_OPT
 msgid "Fine mode option:"
 msgstr "Opción en modo fino:"
+
+#. TEXT_SETUP_FAX_PROGRAM_DEFAULTS
+msgid "Set program defaults for:"
+msgstr ""
 
 #. TEXT_SETUP_FAX_VIEWER
 msgid "Viewer (Postscript):"
@@ -1217,11 +1214,11 @@ msgstr "Renombrar definición"
 msgid "Delete definition"
 msgstr "Borrar definición"
 
-#. MENU_OTEM_PRESET_AREA_MOVE_UP
+#. MENU_ITEM_PRESET_AREA_MOVE_UP
 msgid "Move up"
 msgstr "Mover arriba"
 
-#. MENU_OTEM_PRESET_AREA_MOVE_DWN
+#. MENU_ITEM_PRESET_AREA_MOVE_DWN
 msgid "Move down"
 msgstr "Mover abajo"
 
@@ -1638,6 +1635,11 @@ msgid ""
 "supported by all programs. The ascii format is supported by more programs "
 "but it produces really huge files!!!"
 msgstr ""
+"Cuando una imagen de 16 bits deba guardarse en formato pnm use el formato "
+"ascii en vez del formato binario. El formato binario es un formato nuevo que "
+"no está soportado por todos los programas. ¡¡¡El formato ascii está "
+"soportado por la mayoría de los programas pero produce archivos realmente "
+"enormes!!!"
 
 #. DESC_REDUCE_16BIT_TO_8BIT
 msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
@@ -1967,9 +1969,13 @@ msgstr "Área de preset"
 msgid "Rotate preview and scan"
 msgstr "Rotar previsualización y escanear"
 
+#. DESC_RATIO
+msgid "Aspect ratio of selection"
+msgstr ""
+
 #. DESC_PAPER_ORIENTATION
 msgid "Define image position for printing"
-msgstr ""
+msgstr "Definir posición de imagen para imprimir"
 
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
@@ -2022,6 +2028,14 @@ msgstr "Factor de Escala-X"
 #. DESC_Y_SCALE_FACTOR
 msgid "Y-Scale factor"
 msgstr "Factor de Escala Y"
+
+#. DESC_SCALE_WIDTH
+msgid "Scale image to width [in pixel]"
+msgstr ""
+
+#. DESC_SCALE_HEIGHT
+msgid "Scale image to height [in pixel]"
+msgstr ""
 
 #. DESC_BATCH_LIST_EMPTY
 msgid "Empty batch list"
@@ -2459,6 +2473,13 @@ msgid ""
 "5) The backend is not configured correct (man sane-\"backendname\")\n"
 "6) Possibly there is more than one SANE version installed"
 msgstr ""
+"Razones posibles:\n"
+"1) No hay un dispositivo soportado por SANE\n"
+"2) Los dispositivos soportados están ocupados\n"
+"3) Los permisos para el dispositivo no le permiten usarlo. Pruebe como root\n"
+"4) El backend no está cargado por SANE (man sane-dll)\n"
+"5) El backend no está configurado correctamente (man sane-\"backendname\")\n"
+"6) Posiblemente haya más de una versión de SANE instalada"
 
 #. strings that are used in structures, so it is not allowed to use _()/gettext() here
 #. gettext_noop does mark these texts but does not change the string

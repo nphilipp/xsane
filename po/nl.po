@@ -1,15 +1,16 @@
 # Translations for XSane English->Dutch
 # Copyright (C) 2001 Free Software Foundation, Inc.
 # W. Sinke <sinke@wirehub.nl>, 2001, 2002.
-#
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.89\n"
-"POT-Creation-Date: 2002-10-20 22:23+0200\n"
-"PO-Revision-Date: 2002-09-19 10:55+0100\n"
-"Last-Translator: Wim Sinke <sinke@wirehub.nl>\n"
+"Project-Id-Version: XSANE 0.90\n"
+"POT-Creation-Date: 2002-12-13 19:46+0100\n"
+"PO-Revision-Date: 2002-12-11 20:57+0100\n"
+"Last-Translator:  <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=ISO-8859-9\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #. Please translate this to the correct directory name (eg. german=>de)
@@ -28,7 +29,7 @@ msgstr "Over"
 
 #. WINDOW_ABOUT_TRANSLATION, MENU_ITEM_ABOUT_TRANSLATION
 msgid "About translation"
-msgstr "Over vertaling"
+msgstr "Over de vertaling"
 
 #. WINDOW_AUTHORIZE
 msgid "authorization"
@@ -168,9 +169,8 @@ msgid "Store medium definition"
 msgstr "Bewaar mediumdefinitie"
 
 #. WINDOW_NO_DEVICES
-#, fuzzy
 msgid "No devices available"
-msgstr "geen apparaten aanwezig"
+msgstr "Geen apparaten vrij"
 
 #. MENU_FILE
 msgid "File"
@@ -908,6 +908,10 @@ msgstr "Normale modus optie:"
 msgid "Fine mode option:"
 msgstr "Fijne modus optie:"
 
+#. TEXT_SETUP_FAX_PROGRAM_DEFAULTS
+msgid "Set program defaults for:"
+msgstr "Geef programma standaardwaarden:"
+
 #. TEXT_SETUP_FAX_VIEWER
 msgid "Viewer (Postscript):"
 msgstr "Bekijkprogramma (PostScript):"
@@ -1213,11 +1217,11 @@ msgstr "Definitie hernoemen"
 msgid "Delete definition"
 msgstr "Definitie verwijderen"
 
-#. MENU_OTEM_PRESET_AREA_MOVE_UP
+#. MENU_ITEM_PRESET_AREA_MOVE_UP
 msgid "Move up"
 msgstr "Naar boven"
 
-#. MENU_OTEM_PRESET_AREA_MOVE_DWN
+#. MENU_ITEM_PRESET_AREA_MOVE_DWN
 msgid "Move down"
 msgstr "Naar beneden"
 
@@ -1926,9 +1930,13 @@ msgstr "Vooringesteld gebied"
 msgid "Rotate preview and scan"
 msgstr "Draai preview en scan"
 
+#. DESC_RATIO
+msgid "Aspect ratio of selection"
+msgstr ""
+
 #. DESC_PAPER_ORIENTATION
 msgid "Define image position for printing"
-msgstr ""
+msgstr "Definieer positie van de afbeelding voor printen"
 
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
@@ -1981,6 +1989,14 @@ msgstr "Vergroting in x-richting"
 #. DESC_Y_SCALE_FACTOR
 msgid "Y-Scale factor"
 msgstr "Vergroting in y-richting"
+
+#. DESC_SCALE_WIDTH
+msgid "Scale image to width [in pixel]"
+msgstr ""
+
+#. DESC_SCALE_HEIGHT
+msgid "Scale image to height [in pixel]"
+msgstr ""
 
 #. DESC_BATCH_LIST_EMPTY
 msgid "Empty batch list"
@@ -2412,6 +2428,13 @@ msgid ""
 "5) The backend is not configured correct (man sane-\"backendname\")\n"
 "6) Possibly there is more than one SANE version installed"
 msgstr ""
+"Mogelijke redenen:\n"
+"1) Er is echt geen apparaat dat door SANE ondersteund wordt\n"
+"2) De ondersteunde apparaten zijn bezet\n"
+"3) Je hebt geen permissie om het apparaat te gebruiken, probeer als root\n"
+"4) De backend is niet geladen door SANE (man sane-dll)\n"
+"5) De backend is niet goed geconfigureerd (man sane-<backendnaam>)\n"
+"6) Misschien is er meer dan één versie van SANE geïnstalleerd"
 
 #. strings that are used in structures, so it is not allowed to use _()/gettext() here
 #. gettext_noop does mark these texts but does not change the string

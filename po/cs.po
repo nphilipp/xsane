@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.89\n"
-"POT-Creation-Date: 2002-10-20 22:23+0200\n"
-"PO-Revision-Date: 2002-10-10 12:16+0200\n"
+"Project-Id-Version: XSANE 0.90\n"
+"POT-Creation-Date: 2002-12-13 19:46+0100\n"
+"PO-Revision-Date: 2002-12-11 12:50+0100\n"
 "Last-Translator: Stanislav Brabec <sbrabec@suse.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -168,9 +168,8 @@ msgid "Store medium definition"
 msgstr "Ulo¾it definici média"
 
 #. WINDOW_NO_DEVICES
-#, fuzzy
 msgid "No devices available"
-msgstr "nejsou k dispozici ¾ádná zaøízení"
+msgstr "Nejsou k dispozici ¾ádná zaøízení"
 
 #. MENU_FILE
 msgid "File"
@@ -901,6 +900,10 @@ msgstr "Volby normálního re¾imu:"
 msgid "Fine mode option:"
 msgstr "Volby re¾imu vysokého rozli¹ení:"
 
+#. TEXT_SETUP_FAX_PROGRAM_DEFAULTS
+msgid "Set program defaults for:"
+msgstr "Nastavit implicitní program pro:"
+
 #. TEXT_SETUP_FAX_VIEWER
 msgid "Viewer (Postscript):"
 msgstr "Prohlí¾eè (Postscript):"
@@ -1205,11 +1208,11 @@ msgstr "Pøejmenovat definici"
 msgid "Delete definition"
 msgstr "Smazat definici"
 
-#. MENU_OTEM_PRESET_AREA_MOVE_UP
+#. MENU_ITEM_PRESET_AREA_MOVE_UP
 msgid "Move up"
 msgstr "Pøesun vý¹"
 
-#. MENU_OTEM_PRESET_AREA_MOVE_DWN
+#. MENU_ITEM_PRESET_AREA_MOVE_DWN
 msgid "Move down"
 msgstr "Pøesun ní¾"
 
@@ -1927,9 +1930,13 @@ msgstr "Pøedvolená oblast"
 msgid "Rotate preview and scan"
 msgstr "Rotace náhledu a skenování"
 
+#. DESC_RATIO
+msgid "Aspect ratio of selection"
+msgstr ""
+
 #. DESC_PAPER_ORIENTATION
 msgid "Define image position for printing"
-msgstr ""
+msgstr "Definovat pozici obrázku pro tisk"
 
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
@@ -1982,6 +1989,14 @@ msgstr "Faktoru zmìny velikosti X"
 #. DESC_Y_SCALE_FACTOR
 msgid "Y-Scale factor"
 msgstr "Faktoru zmìny velikosti Y"
+
+#. DESC_SCALE_WIDTH
+msgid "Scale image to width [in pixel]"
+msgstr ""
+
+#. DESC_SCALE_HEIGHT
+msgid "Scale image to height [in pixel]"
+msgstr ""
 
 #. DESC_BATCH_LIST_EMPTY
 msgid "Empty batch list"
@@ -2414,6 +2429,13 @@ msgid ""
 "5) The backend is not configured correct (man sane-\"backendname\")\n"
 "6) Possibly there is more than one SANE version installed"
 msgstr ""
+"Mo¾né dùvody:\n"
+"1) Opravdu zde není ¾ádné zaøízení, které je podporování SANE\n"
+"2) Podporovaná zaøízení jsou obsazená\n"
+"3) Práva k zaøízením nedovolují pou¾ití - zkuste jako superu¾ivatel\n"
+"4) Ovladaè není nata¾ený do SANE (man sane-dll)\n"
+"5) Ovladaè není správnì nakonfigurovaný (man sane-\"jméno_ovladaèe\")\n"
+"6) Mo¾ná je nainstalováno více verzí SANE"
 
 #. strings that are used in structures, so it is not allowed to use _()/gettext() here
 #. gettext_noop does mark these texts but does not change the string

@@ -29,7 +29,7 @@
 #define XSANE_LANGUAGE_DIR		_("language_dir")
 
 #define XSANE_STRSTATUS(status)		_(sane_strstatus(status))
-#define _BGT(text)			dgettext(xsane.backend, text)
+#define _BGT(text)			dgettext(xsane.backend_translation, text)
 
 #define XSANE_COPYRIGHT_SIGN		_("(c)") /* can be translated with \251 */
 
@@ -281,6 +281,7 @@
 #define TEXT_SETUP_FAX_POSTSCRIPT_OPT	_("Postscriptfile option:")
 #define TEXT_SETUP_FAX_NORMAL_MODE_OPT	_("Normal mode option:")
 #define TEXT_SETUP_FAX_FINE_MODE_OPT	_("Fine mode option:")
+#define TEXT_SETUP_FAX_PROGRAM_DEFAULTS _("Set program defaults for:")
 #define TEXT_SETUP_FAX_VIEWER		_("Viewer (Postscript):")
 #define TEXT_SETUP_FAX_WIDTH		_("Width")
 #define TEXT_SETUP_FAX_HEIGHT		_("Height")
@@ -375,8 +376,8 @@
 #define MENU_ITEM_PRESET_AREA_ADD_SEL	_("Add selection to list")
 #define MENU_ITEM_PRESET_AREA_RENAME	_("Rename definiton")
 #define MENU_ITEM_PRESET_AREA_DELETE	_("Delete definition")
-#define MENU_OTEM_PRESET_AREA_MOVE_UP	_("Move up")
-#define MENU_OTEM_PRESET_AREA_MOVE_DWN	_("Move down")
+#define MENU_ITEM_PRESET_AREA_MOVE_UP	_("Move up")
+#define MENU_ITEM_PRESET_AREA_MOVE_DWN	_("Move down")
 
 #define PROGRESS_SCANNING		_("Scanning")
 #define PROGRESS_RECEIVING_FRAME_DATA	_("Receiving %s data")
@@ -575,6 +576,7 @@
 
 #define DESC_PRESET_AREA		_("Preset area")
 #define DESC_ROTATION			_("Rotate preview and scan")
+#define DESC_RATIO			_("Aspect ratio of selection")
 #define DESC_PAPER_ORIENTATION		_("Define image position for printing")
 
 #define DESC_VIEWER_SAVE		_("Save image")
@@ -594,6 +596,8 @@
 #define DESC_SCALE_FACTOR		_("Scale factor")
 #define DESC_X_SCALE_FACTOR		_("X-Scale factor")
 #define DESC_Y_SCALE_FACTOR		_("Y-Scale factor")
+#define DESC_SCALE_WIDTH		_("Scale image to width [in pixel]")
+#define DESC_SCALE_HEIGHT		_("Scale image to height [in pixel]")
 #define DESC_BATCH_LIST_EMPTY		_("Empty batch list")
 #define DESC_BATCH_LIST_SAVE		_("Save batch list")
 #define DESC_BATCH_LIST_LOAD		_("Load batch list")

@@ -179,7 +179,19 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
 
       if (!len) /* nothing read */
       {
-        break; /* out of data for now, leave while loop */
+        if (xsane.input_tag >= 0)
+        {
+          break; /* leave xsane_read_image_data, will be called by gdk when select_fd event occurs */
+        }
+        else /* no select fd available */
+        {
+          while (gtk_events_pending())
+          {
+            DBG(DBG_info, "calling gtk_main_iteration\n");
+            gtk_main_iteration();
+          }
+          continue; /* we have to keep this loop running because it will never be called again */
+        }
       }
 
       xsane.bytes_read += len;
@@ -524,7 +536,19 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
 
       if (!len) /* nothing read */
       {
-        break; /* out of data for now, leave while loop */
+        if (xsane.input_tag >= 0)
+        {
+          break; /* leave xsane_read_image_data, will be called by gdk when select_fd event occurs */
+        }
+        else /* no select fd available */
+        {
+          while (gtk_events_pending())
+          {
+            DBG(DBG_info, "calling gtk_main_iteration\n");
+            gtk_main_iteration();
+          }
+          continue; /* we have to keep this loop running because it will never be called again */
+        }
       }
 
       xsane.bytes_read += len;
@@ -1746,18 +1770,12 @@ static void xsane_start_scan(void)
 
   xsane.lineart_to_grayscale_x = xsane.param.pixels_per_line;
 
-#ifndef BUGGY_GDK_INPUT_EXCEPTION
-  /* for unix */
   if ((sane_set_io_mode(dev, SANE_TRUE) == SANE_STATUS_GOOD) && (sane_get_select_fd(dev, &fd) == SANE_STATUS_GOOD))
   {
     DBG(DBG_info, "gdk_input_add\n");
     xsane.input_tag = gdk_input_add(fd, GDK_INPUT_READ | GDK_INPUT_EXCEPTION, xsane_read_image_data, 0);
   }
   else
-#else
-  /* for win32 */
-  sane_set_io_mode(dev, SANE_FALSE);
-#endif
   {
     xsane_read_image_data(0, -1, GDK_INPUT_READ);
   }

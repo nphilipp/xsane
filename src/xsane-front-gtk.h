@@ -68,6 +68,7 @@ extern void xsane_range_new_with_pixmap(GdkWindow *window, GtkBox *parent, const
 extern void xsane_set_filename(gchar *filename);
 extern void xsane_outputfilename_new(GtkWidget *vbox);
 extern void xsane_separator_new(GtkWidget *xsane_parent, int dist);
+extern void xsane_vseparator_new(GtkWidget *xsane_parent, int dist);
 extern GtkWidget *xsane_info_table_text_new(GtkWidget *table, gchar *text, int row, int colomn);
 extern GtkWidget *xsane_info_text_new(GtkWidget *parent, gchar *text);
 extern void xsane_refresh_dialog(void);

@@ -3,9 +3,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.89\n"
-"POT-Creation-Date: 2002-10-20 22:23+0200\n"
-"PO-Revision-Date: 2002-10-14 10:21+0300\n"
+"Project-Id-Version: XSANE 0.90\n"
+"POT-Creation-Date: 2002-12-13 19:46+0100\n"
+"PO-Revision-Date: 2002-12-09 10:42+0200\n"
 "Last-Translator: Togan Muftuoglu <toganm@yahoo.com>\n"
 "Language-Team: Turkish <kde-i18n-tr@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -168,7 +168,6 @@ msgid "Store medium definition"
 msgstr "Ortam tanýmýný sakla"
 
 #. WINDOW_NO_DEVICES
-#, fuzzy
 msgid "No devices available"
 msgstr "Hiçbir aygýt mevcut deðil"
 
@@ -607,7 +606,7 @@ msgstr ""
 "UYGUNLUÐU VEYA ÜRÜNLEÞTÝRÝLMESÝNÝ bile.\n"
 "Eðer program hatalý çýkarsa, gerekli tüm servislerin, tamirlerin veya \n"
 "düzeltmelerin maliyetini kabullenirsiniz. Bu programý kullanmak için \n"
-"aþaðýdaki \"GARANTÝ YOK\" anlaþmasýný okuyup, anlmak ve kabul etmek \n"
+"aþaðýdaki \"GARANTÝ YOK\" anlaþmasýný okuyup, anlamak ve kabul etmek \n"
 "durumundasýnýz. \n"
 
 #. TEXT_GPL
@@ -901,6 +900,10 @@ msgstr "Normal mod seçeneði"
 #. TEXT_SETUP_FAX_FINE_MODE_OPT
 msgid "Fine mode option:"
 msgstr "Hassas mod seçeneði"
+
+#. TEXT_SETUP_FAX_PROGRAM_DEFAULTS
+msgid "Set program defaults for:"
+msgstr "Program öntanýmlýlarýný belirle:"
 
 #. TEXT_SETUP_FAX_VIEWER
 msgid "Viewer (Postscript):"
@@ -1200,17 +1203,17 @@ msgstr "Seçileni listeye ekle"
 
 #. MENU_ITEM_PRESET_AREA_RENAME
 msgid "Rename definiton"
-msgstr "Tenýmý yeniden isimlendir"
+msgstr "Tanýmý yeniden isimlendir"
 
 #. MENU_ITEM_PRESET_AREA_DELETE
 msgid "Delete definition"
 msgstr "Tanýmý silin"
 
-#. MENU_OTEM_PRESET_AREA_MOVE_UP
+#. MENU_ITEM_PRESET_AREA_MOVE_UP
 msgid "Move up"
 msgstr "Yukarý taþý"
 
-#. MENU_OTEM_PRESET_AREA_MOVE_DWN
+#. MENU_ITEM_PRESET_AREA_MOVE_DWN
 msgid "Move down"
 msgstr "Aþaðý taþý"
 
@@ -1930,9 +1933,13 @@ msgstr "Alaný önceden seç"
 msgid "Rotate preview and scan"
 msgstr "Döndürmek önizlemek ve taramak"
 
+#. DESC_RATIO
+msgid "Aspect ratio of selection"
+msgstr "Seçimin görünüm oraný:"
+
 #. DESC_PAPER_ORIENTATION
 msgid "Define image position for printing"
-msgstr ""
+msgstr "Basým için resim pozisyonunu tanýmla"
 
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
@@ -1985,6 +1992,14 @@ msgstr "X ölçek çarpaný"
 #. DESC_Y_SCALE_FACTOR
 msgid "Y-Scale factor"
 msgstr "Y ölçek çarpaný"
+
+#. DESC_SCALE_WIDTH
+msgid "Scale image to width [in pixel]"
+msgstr ""
+
+#. DESC_SCALE_HEIGHT
+msgid "Scale image to height [in pixel]"
+msgstr ""
 
 #. DESC_BATCH_LIST_EMPTY
 msgid "Empty batch list"
@@ -2119,7 +2134,7 @@ msgstr "bilinmeyen tip"
 
 #. ERR_UNKNOWN_CONSTRAINT_TYPE
 msgid "unknown constraint type"
-msgstr "bilinmeyen contraint tipi"
+msgstr "bilinmeyen sýkýþtýrma tipi"
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
@@ -2417,6 +2432,13 @@ msgid ""
 "5) The backend is not configured correct (man sane-\"backendname\")\n"
 "6) Possibly there is more than one SANE version installed"
 msgstr ""
+"Olasý nedenler: \n"
+"1)SANE tarafýndan desteklenen aygýt yok \n"
+"2)Desteklenen aygýtlar meþgul \n"
+"3)Aygýt dosyasý için eriþim izniniz yok, root olarak deneyin \n"
+"4)Sürücü SANE tarafýndan yüklenmemiþ (man sane-dll)\n"
+"5)Sürücü doðru ayarlanmamýþ (man sane-\"sürücüadý\")\n"
+"6)Birden fazla SANE sürümü yüklenmiþ olabilir"
 
 #. strings that are used in structures, so it is not allowed to use _()/gettext() here
 #. gettext_noop does mark these texts but does not change the string

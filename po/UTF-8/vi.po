@@ -1,14 +1,13 @@
-# French translation for XSane.
-# Copyright (C) 1999-2000
-# Laurent Grawet <laurent.grawet@ibelgique.com>, 2000.
+# XSane in vietnamese.
+# Copyright (C) Trịnh Minh Thanh <tmthanh@yahoo.com>, 2002.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.90\n"
 "POT-Creation-Date: 2002-12-13 19:46+0100\n"
-"PO-Revision-Date: 2000-02-09 21:00+01:00\n"
-"Last-Translator: Laurent Grawet <laurent.grawet@ibelgique.com>\n"
-"Language-Team: French <fr@li.org>\n"
+"PO-Revision-Date: 2002-11-30 21:20+0700\n"
+"Last-Translator: Trinh Minh Thanh <tmthanh@linuxmail.org>\n"
+"Language-Team: Gnome-Vi Team <Gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,572 +15,572 @@ msgstr ""
 #. Please translate this to the correct directory name (eg. german=>de)
 #. XSANE_LANGUAGE_DIR
 msgid "language_dir"
-msgstr "fr"
+msgstr "vi_dir"
 
 #. XSANE_COPYRIGHT_SIGN
 msgid "(c)"
-msgstr ""
+msgstr "(c)"
 
 #. can be translated with \251
 #. WINDOW_ABOUT_XSANE
 msgid "About"
-msgstr "A propos"
+msgstr "Giới thiệu"
 
 #. WINDOW_ABOUT_TRANSLATION, MENU_ITEM_ABOUT_TRANSLATION
 msgid "About translation"
-msgstr "Concernant la traduction"
+msgstr "Nói về dịch thuật"
 
 #. WINDOW_AUTHORIZE
 msgid "authorization"
-msgstr "Autorisation"
+msgstr "Chấp thuận giấy phép"
 
 #. WINDOW_GPL
 msgid "GPL - the license"
-msgstr "GPL - La Licence"
+msgstr "GPL - giấy phép"
 
 #. WINDOW_EULA
 msgid "End User License Agreement"
-msgstr "Contrat d'utilisateur"
+msgstr "Chấp thuận giấy phép của người dùng"
 
 #. WINDOW_INFO
 msgid "info"
-msgstr "Info"
+msgstr "thông tin"
 
 #. WINDOW_LOAD_BATCH_LIST
 msgid "load batch list"
-msgstr "Charger la liste"
+msgstr "nạp danh sách batch"
 
 #. WINDOW_SAVE_BATCH_LIST
 msgid "save batch list"
-msgstr "Sauver la liste"
+msgstr "lưu danh sách batch"
 
 #. WINDOW_BATCH_SCAN
 msgid "batch scan"
-msgstr "Numérisation par lots"
+msgstr "quét batch"
 
 #. WINDOW_BATCH_RENAME
 msgid "rename batch area"
-msgstr "Renommer l'aire de numérisation"
+msgstr "đổi tên vùng batch"
 
 #. WINDOW_FAX_PROJECT
 msgid "fax project"
-msgstr "Projet fax"
+msgstr "dự án fax"
 
 #. WINDOW_FAX_RENAME
 msgid "rename fax page"
-msgstr "Renommer la page de fax"
+msgstr "đổi tên trang fax"
 
 #. WINDOW_FAX_INSERT
 msgid "insert ps-file into fax"
-msgstr "Importer un fichier ps dans un fax"
+msgstr "chèn tập tin ps vào fax"
 
 #. WINDOW_MAIL_PROJECT
 msgid "mail project"
-msgstr "Projet e-mail"
+msgstr "dự án thư"
 
 #. WINDOW_MAIL_RENAME
 msgid "rename mail image"
-msgstr "Renommer l'image du message"
+msgstr "đổi tên ảnh thư"
 
 #. WINDOW_MAIL_INSERT
 msgid "insert file into mail"
-msgstr "Insérer un fichier dans le message"
+msgstr "chèn tập tin vào thư"
 
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
-msgstr "Renommer l'aire de présélection"
+msgstr "đổi tên vùng lập trước"
 
 #. WINDOW_SETUP
 msgid "setup"
-msgstr "Configuration"
+msgstr "thiết lập"
 
 #. WINDOW_HISTOGRAM
 msgid "Histogram"
-msgstr "Histogramme"
+msgstr "Bảng kê"
 
 #. WINDOW_GAMMA
 msgid "Gamma curve"
-msgstr "Courbe gamma"
+msgstr "Đường cong gamma"
 
 #. WINDOW_STANDARD_OPTIONS
 msgid "Standard options"
-msgstr "Options standard"
+msgstr "Tùy chọn chuẩn"
 
 #. WINDOW_ADVANCED_OPTIONS
 msgid "Advanced options"
-msgstr "Options avancées"
+msgstr "Tùy chọn nâng cao"
 
 #. WINDOW_DEVICE_SELECTION
 msgid "device selection"
-msgstr "Sélection de périphérique"
+msgstr "chọn thiết bị"
 
 #. WINDOW_PREVIEW
 msgid "Preview"
-msgstr "Aperçu"
+msgstr "Xem trước"
 
 #. WINDOW_VIEWER
 msgid "Viewer"
-msgstr "Visionneuse"
+msgstr "Trình xem"
 
 #. WINDOW_VIEWER_OUTPUT_FILENAME
 msgid "Viewer: select output filename"
-msgstr "Visionneuse: Choisissez le nom du fichier de sortie"
+msgstr "Trình xem: chọn tên tập tin đầu ra"
 
 #. WINDOW_OCR_OUTPUT_FILENAME
 msgid "Select output filename for OCR text file"
-msgstr "Choisissez le nom du fichier texte OCR"
+msgstr "Chọn tên tập tin đầu ra cho tập tin văn bản OCR"
 
 #. WINDOW_OUTPUT_FILENAME
 msgid "select output filename"
-msgstr "Choisissez le nom du fichier de sortie"
+msgstr "chọn tên tập tin đầu ra"
 
 #. WINDOW_SAVE_SETTINGS
 msgid "save device settings"
-msgstr "Enregistrer les paramètres du périphérique"
+msgstr "lưu thiết lập thiết bị"
 
 #. WINDOW_LOAD_SETTINGS
 msgid "load device settings"
-msgstr "Charger les paramètres du périphérique"
+msgstr "nạp thiết lập thiết bị"
 
 #. WINDOW_CHANGE_WORKING_DIR
 msgid "change working directory"
-msgstr "Changer le répertoire de travail"
+msgstr "thay đổi thư mục làm việc"
 
 #. WINDOW_TMP_PATH
 msgid "select temporary directory"
-msgstr "Choisissez un répertoire temporaire"
+msgstr "chọn thư mục tạm thời"
 
 #. WINDOW_SCALE
 msgid "Scale image"
-msgstr "Redimensionner l'image"
+msgstr "Cân chỉnh ảnh"
 
 #. WINDOW_DESPECKLE
 msgid "Despeckle image"
-msgstr "Déparasiter l'image"
+msgstr "Xóa vết lốm đốm ảnh"
 
 #. WINDOW_BLUR
 msgid "Blur image"
-msgstr "Adoucir l'image"
+msgstr "Mờ ảnh"
 
 #. WINDOW_STORE_MEDIUM
 msgid "Store medium definition"
-msgstr "Enregister la définition du support"
+msgstr "Lưu trữ định nghĩa phương tiện"
 
 #. WINDOW_NO_DEVICES
 msgid "No devices available"
-msgstr "Aucun périphérique disponible"
+msgstr "Hiện không có thiết bị"
 
 #. MENU_FILE
 msgid "File"
-msgstr "Fichier"
+msgstr "Tệp"
 
 #. MENU_PREFERENCES
 msgid "Preferences"
-msgstr "Préférences"
+msgstr "Sở thích"
 
 #. MENU_VIEW
 msgid "View"
-msgstr "Afficher"
+msgstr "Xem"
 
 #. MENU_HELP
 msgid "Help"
-msgstr "Aide"
+msgstr "Trợ giúp"
 
 #. MENU_FILTERS
 msgid "Filters"
-msgstr "Filtres"
+msgstr "Trình lọc"
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
-msgstr "A propos de XSane"
+msgstr "Nói về XSane"
 
 #. MENU_ITEM_INFO
 msgid "Info"
-msgstr "Info"
+msgstr "Thông tin"
 
 #. MENU_ITEM_QUIT
 msgid "Quit"
-msgstr "Quitter"
+msgstr "Thoát"
 
 #. MENU_ITEM_SAVE_IMAGE
 msgid "Save image"
-msgstr "Sauver l'image"
+msgstr "Lưu ảnh"
 
 #. MENU_ITEM_OCR
 msgid "OCR - save as text"
-msgstr "OCR - Sauver au format texte"
+msgstr "OCR - lưu là văn bản"
 
 #. MENU_ITEM_CLONE
 msgid "Clone"
-msgstr "Cloner"
+msgstr "Bản sao"
 
 #. MENU_ITEM_SCALE
 msgid "Scale"
-msgstr "Redimensioner"
+msgstr "Cân chỉnh"
 
 #. MENU_ITEM_CLOSE
 msgid "Close"
-msgstr "Fermer"
+msgstr "Đóng"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
-msgstr "Déparasitage"
+msgstr "Xóa vết lốm đốm"
 
 #. MENU_ITEM_BLUR
 msgid "Blur"
-msgstr "Flou"
+msgstr "Làm mờ"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
-msgstr "Image brute"
+msgstr "Ảnh thô"
 
 #. FRAME_ENHANCED_IMAGE
 msgid "Enhanced image"
-msgstr "Image améliorée"
+msgstr "Ảnh cải thiện"
 
 #. BUTTON_SCAN
 msgid "Scan"
-msgstr "Numériser"
+msgstr "Quét"
 
 #. BUTTON_OK
 msgid "Ok"
-msgstr "Ok"
+msgstr "OK"
 
 #. BUTTON_ACCEPT
 msgid "Accept"
-msgstr "Accepter"
+msgstr "Đồng ý"
 
 #. BUTTON_NOT_ACCEPT
 msgid "Not accept"
-msgstr "Refuser"
+msgstr "Không đồng ý"
 
 #. BUTTON_APPLY
 msgid "Apply"
-msgstr "Appliquer"
+msgstr "Áp dụng"
 
 #. BUTTON_CANCEL
 msgid "Cancel"
-msgstr "Annuler"
+msgstr "Bỏ qua"
 
 #. BUTTON_REDUCE
 msgid "Reduce"
-msgstr "Réduire"
+msgstr "Giảm"
 
 #. BUTTON_CONT_AT_OWN_RISK
 msgid "Continue at your own risk"
-msgstr "Continuer à vos propres risques"
+msgstr "Tiếp tục với rủi ro"
 
 #. BUTTON_BROWSE
 msgid "Browse"
-msgstr "Parcourir"
+msgstr "Duyệt"
 
 #. BUTTON_OVERWRITE
 msgid "Overwrite"
-msgstr "Ecraser"
+msgstr "Ghi đè"
 
 #. BUTTON_BATCH_LIST_SCAN
 msgid "Scan batch list"
-msgstr "Numériser la liste"
+msgstr "Quét danh sách batch"
 
 #. BUTTON_BATCH_AREA_SCAN
 msgid "Scan selected area"
-msgstr "Numériser l'aire sélectionnée"
+msgstr "Quét vùng chọn"
 
 #. BUTTON_PAGE_DELETE
 msgid "Delete page"
-msgstr "Effacer la page"
+msgstr "Xóa trang"
 
 #. BUTTON_PAGE_SHOW
 msgid "Show page"
-msgstr "Afficher la page"
+msgstr "Hiển thị trang"
 
 #. BUTTON_PAGE_RENAME
 msgid "Rename page"
-msgstr "Renommer la page"
+msgstr "Đổi tên trang"
 
 #. BUTTON_IMAGE_DELETE
 msgid "Delete image"
-msgstr "Effacer l'image"
+msgstr "Xóa ảnh"
 
 #. BUTTON_IMAGE_SHOW
 msgid "Show image"
-msgstr "Afficher l'image"
+msgstr "Hiển thị ảnh"
 
 #. BUTTON_IMAGE_RENAME
 msgid "Rename image"
-msgstr "Renommer l'image"
+msgstr "Đổi tên ảnh"
 
 #. BUTTON_FILE_INSERT
 msgid "Insert file"
-msgstr "Insérer un fichier"
+msgstr "Chèn tập tin"
 
 #. BUTTON_CREATE_PROJECT
 msgid "Create project"
-msgstr "Créer un projet"
+msgstr "Tạo dự án"
 
 #. BUTTON_SEND_PROJECT
 msgid "Send project"
-msgstr "Envoyer un projet"
+msgstr "Gửi dự án"
 
 #. BUTTON_DELETE_PROJECT
 msgid "Delete project"
-msgstr "Effacer un projet"
+msgstr "Xóa dự án"
 
 #. BUTTON_ADD_PRINTER
 msgid "Add printer"
-msgstr "Ajouter une imprimante"
+msgstr "Thêm máy in"
 
 #. BUTTON_DELETE_PRINTER
 msgid "Delete printer"
-msgstr "Enlever une imprimante"
+msgstr "Xóa máy in"
 
 #. BUTTON_PREVIEW_ACQUIRE
 msgid "Acquire preview"
-msgstr "Acquisition de l'aperçu"
+msgstr "Yêu cầu xem trước"
 
 #. BUTTON_PREVIEW_CANCEL
 msgid "Cancel preview"
-msgstr "Annuler l'aperçu"
+msgstr "Bỏ qua việc xem trước"
 
 #. BUTTON_DISCARD_IMAGE
 msgid "Discard image"
-msgstr "Abandonner l'image"
+msgstr "Bỏ ảnh"
 
 #. BUTTON_DISCARD_ALL_IMAGES
 msgid "Discard all images"
-msgstr "Abandonner toutes les images"
+msgstr "Bỏ mọi ảnh"
 
 #. BUTTON_DO_NOT_CLOSE
 msgid "Do not close"
-msgstr "Ne pas fermer"
+msgstr "Không đóng"
 
 #. BUTTON_SCALE_BIND
 msgid "Bind scale"
-msgstr "Garder à l'échelle"
+msgstr "Giới hạn cân chỉnh"
 
 #. RADIO_BUTTON_FINE_MODE
 msgid "Fine mode"
-msgstr "Mode fin"
+msgstr "Chế độ tinh túy"
 
 #. RADIO_BUTTON_HTML_MAIL
 msgid "HTML mail"
-msgstr "e-mail HTML"
+msgstr "Thư dạng html"
 
 #. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device preferences at exit"
-msgstr "Sauver les paramètres du périphérique en quittant"
+msgstr "Lưu các sở thích thiết bị và thoát ra"
 
 #. RADIO_BUTTON_OVERWRITE_WARNING
 msgid "Overwrite warning"
-msgstr "Avertissement en cas d'écrasement"
+msgstr "Cảnh báo việc ghi đè"
 
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
 msgid "Skip existing filenames"
-msgstr "Sauter les noms de fichiers existants"
+msgstr "Bỏ qua các tên tập tin đang tồn tại"
 
 #. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
 msgid "Save 16bit pnm in ascii format"
-msgstr "Sauver l'image pnm 16 bit en format ascii"
+msgstr "Lưu 16bit pnm theo định dạng ascii"
 
 #. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
 msgid "Reduce 16 bit image to 8 bit"
-msgstr "Réduire une image 16 bit en 8 bit"
+msgstr "Giảm ảnh 16 bit xuống 8 bit"
 
 #. RADIO_BUTTON_WINDOW_FIXED
 msgid "Main window size fixed"
-msgstr "Taille de la fenêtre principale fixe"
+msgstr "Cố định kích cỡ cửa sổ chính"
 
 #. RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA
 msgid "Disable gimp preview gamma"
-msgstr "Désactive l'aperçu gamma de Gimp"
+msgstr "Tắt gamma xem trước của GIMP"
 
 #. RADIO_BUTTON_PRIVATE_COLORMAP
 msgid "Use private colormap"
-msgstr "Utiliser une palette de couleurs privée"
+msgstr "Dùng bản đồ màu riêng"
 
 #. RADIO_BUTTON_AUTOENHANCE_GAMMA
 msgid "Autoenhance gamma"
-msgstr "Correction gamma automatique"
+msgstr "Tự động cải thiện gamma"
 
 #. RADIO_BUTTON_PRESELECT_SCANAREA
 msgid "Preselect scanarea"
-msgstr "Présélection de l'aire de numérisation"
+msgstr "Chọn trước vùng quét"
 
 #. RADIO_BUTTON_AUTOCORRECT_COLORS
 msgid "Autocorrect colors"
-msgstr "Correction automatique des couleurs"
+msgstr "Tự chỉnh màu"
 
 #. RADIO_BUTTON_POP3_AUTHENTIFICATION
 msgid "POP3 authentification"
-msgstr "Authentification POP3"
+msgstr "Chứng thực POP3"
 
 #. RADIO_BUTTON_OCR_USE_GUI_PIPE
 msgid "Use GUI progress pipe"
-msgstr "Utilise le \"pipe\" de progression GUI"
+msgstr "Dùng pipe tiến trình đồ họa"
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
-msgstr "Recherche de périphériques..."
+msgstr "đang quét tìm thiết bị"
 
 #. TEXT_AVAILABLE_DEVICES
 msgid "Available devices:"
-msgstr "Périphériques disponibles:"
+msgstr "Thiết bị hiện có:"
 
 #. TEXT_XSANE_OPTIONS
 msgid "XSane options"
-msgstr "Options de XSane"
+msgstr "Tùy chọn XSane"
 
 #. TEXT_XSANE_MODE
 msgid "XSane mode"
-msgstr "Mode XSane"
+msgstr "Chế độ XSane"
 
 #. TEXT_FILENAME_COUNTER_STEP
 msgid "Step"
-msgstr "Pas"
+msgstr "bước"
 
 #. TEXT_FILETYPE
 msgid "Type"
-msgstr "Type"
+msgstr "Loại"
 
 #. TEXT_SCANNER_BACKEND
 msgid "Scanner and backend:"
-msgstr "Scanner et backend:"
+msgstr "Máy quét và backend:"
 
 #. TEXT_VENDOR
 msgid "Vendor:"
-msgstr "Vendeur:"
+msgstr "Nhà SX:"
 
 #. TEXT_MODEL
 msgid "Model:"
-msgstr "Modèle:"
+msgstr "Model:"
 
 #. TEXT_TYPE
 msgid "Type:"
-msgstr "Type:"
+msgstr "Loại:"
 
 #. TEXT_DEVICE
 msgid "Device:"
-msgstr "Périphérique:"
+msgstr "Thiết bị:"
 
 #. TEXT_LOADED_BACKEND
 msgid "Loaded backend:"
-msgstr "Backend chargé:"
+msgstr "đã nạp backend:"
 
 #. TEXT_SANE_VERSION
 msgid "Sane version:"
-msgstr "Version de Sane:"
+msgstr "Phiên bản SANE:"
 
 #. TEXT_RECENT_VALUES
 msgid "Recent values:"
-msgstr "Valeurs récentes:"
+msgstr "Giá trị hiện thời:"
 
 #. TEXT_GAMMA_CORR_BY
 msgid "Gamma correction by:"
-msgstr "Correction gamma par:"
+msgstr "Hiệu chỉnh gamma bởi:"
 
 #. TEXT_SCANNER
 msgid "scanner"
-msgstr "scanner"
+msgstr "máy quét"
 
 #. TEXT_SOFTWARE_XSANE
 msgid "software (XSane)"
-msgstr "logiciel (XSane)"
+msgstr "phần mềm (XSane)"
 
 #. TEXT_NONE
 msgid "none"
-msgstr "aucun"
+msgstr "không"
 
 #. TEXT_GAMMA_INPUT_DEPTH
 msgid "Gamma input depth:"
-msgstr "Valeur gamma d'entrée:"
+msgstr "Độ sâu đầu vào gamma:"
 
 #. TEXT_GAMMA_OUTPUT_DEPTH
 msgid "Gamma output depth:"
-msgstr "Valeur gamma de sortie:"
+msgstr "Độ sâu đầu ra gamma:"
 
 #. TEXT_SCANNER_OUTPUT_DEPTH
 msgid "Scanner output depth:"
-msgstr "Mode du scanner:"
+msgstr "Độ sâu đầu ra máy quét:"
 
 #. TEXT_OUTPUT_FORMATS
 msgid "XSane output formats:"
-msgstr "Formats de sortie XSane:"
+msgstr "Định dạng đầu ra của XSane:"
 
 #. TEXT_8BIT_FORMATS
 msgid "8 bit output formats:"
-msgstr "Formats de sortie 8 bits:"
+msgstr "Định dạng đầu ra 8 bit:"
 
 #. TEXT_16BIT_FORMATS
 msgid "16 bit output formats:"
-msgstr "Formats de sortie 16 bits:"
+msgstr "Định dạng đầu ra 16 bit:"
 
 #. TEXT_GIMP_REDUCE_16BIT_TO_8BIT
 msgid ""
 "Gimp does not support depth 16 bits/color.\n"
 "Do you want to reduce the depth to 8 bits/color?"
 msgstr ""
-"Gimp ne supporte pas la définition 16 bits/couleur.\n"
-"Voulez-vous réduire la définition à 8 bits/couleur ?"
+"Gimp không hỗ trợ độ sâu màu 16 bit.\n"
+"Có muốn hạ xuống 8 bit không ?"
 
 #. TEXT_REDUCE_16BIT_TO_8BIT
 msgid ""
 "Bit depth 16 bits/color is not supported for this output format.\n"
 "Do you want to reduce the depth to 8 bits/color?"
 msgstr ""
-"La définition 16 bits/couleur n'est pas supportée par ce format de sortie.\n"
-"Voulez-vous réduire la définition à 8 bits/couleur ?"
+"Không hỗ trợ độ sâu màu 16 bit cho định dạng đầu ra này.\n"
+"Có muốn hạ xuống 8 bit không ?"
 
 #. TEXT_AUTHORIZATION_REQ
 msgid "Authorization required for"
-msgstr "Autorisation requise pour"
+msgstr "Yêu cầu chấp thuận giấy phép cho"
 
 #. TEXT_AUTHORIZATION_SECURE
 msgid "Password transmission is secure"
-msgstr "La transmission de mot de passe est sure"
+msgstr "Truyền mật khẩu được bảo mật"
 
 #. TEXT_AUTHORIZATION_INSECURE
 msgid "Backend requests plain-text password"
-msgstr "Mot de passe pour les requêtes du backend"
+msgstr "Backend yêu cầu mật khẩu dạng văn bản đơn thuần"
 
 #. TEXT_USERNAME
 msgid "Username :"
-msgstr "Utilisateur:"
+msgstr "Tên người dùng :"
 
 #. TEXT_PASSWORD
 msgid "Password :"
-msgstr "Mot de passe:"
+msgstr "Mật khẩu :"
 
 #. TEXT_INVALID_PARAMS
 msgid "Invalid parameters."
-msgstr "Paramètres non valides"
+msgstr "Các tham số không hợp lệ."
 
 #. TEXT_VERSION
 msgid "version:"
-msgstr "version"
+msgstr "phiên bản:"
 
 #. TEXT_PACKAGE
 msgid "package"
-msgstr "paquetage"
+msgstr "gói tin"
 
 #. TEXT_WITH_GIMP_SUPPORT
 msgid "with GIMP support"
-msgstr "avec support GIMP"
+msgstr "với hỗ trợ của GIMP"
 
 #. TEXT_WITHOUT_GIMP_SUPPORT
 msgid "without GIMP support"
-msgstr "sans support GIMP"
+msgstr "không có hỗ trợ của GIMP"
 
 #. TEXT_GTK_VERSION
 msgid "compiled with GTK-"
-msgstr "compilé avec GTK-"
+msgstr "được biên dịch với GTK-"
 
 #. TEXT_GIMP_VERSION
 msgid "compiled with GIMP-"
-msgstr "compilé avec GIMP-"
+msgstr "được biên dịch với GIMP-"
 
 #. TEXT_UNKNOWN
 msgid "unknown"
-msgstr "inconnu"
+msgstr "không xác định"
 
 #. TEXT_EULA
 msgid ""
@@ -597,18 +596,15 @@ msgid ""
 "have to read, understand and accept the following\n"
 "\"NO WARRANTY\" agreement.\n"
 msgstr ""
-"XSane est distribué selon les termes de la GNU \"General Public License\"\n"
-"comme publiée par la FSF \"Free Software Foundation\" ; soit la version 2\n"
-"de la Licence, ou (à votre choix) toute version ultérieure.\n"
+"XSane được phân phối dưới các điều khoản của GNU/GPL do\n"
+"Tổ Chức Phần Mềm Tự Do phát hành kể từ phiên bản 2 trở đi.\n"
 "\n"
-"Ce programme est distribué car potentiellement utile, mais SANS AUCUNNE\n"
-"GARANTIE, sans même les garanties de COMMERCIALISATION ou d'ADAPTATION\n"
-"DANS UN BUT SPECIFIQUE\n"
-"Dans le cas ou le programme se révelerait défectueux, vous vous engagez à\n"
-"assumer le coût de tous les services, réparations ou corrections "
-"nécessaires.\n"
-"Pour utiliser ce programme, vous devez avoir lu, compris et accepté les\n"
-"termes \"SANS GARANTIE\" de ce contrat.\n"
+"Chương trình này được phân phối với hy vọng là nó hữu ích cho bạn\n"
+"nhưng không kèm theo bảo đảm nào, thậm chí không có ý là sẽ\n"
+"đảm bảo cho việc thương mại hay cho một mục đích đặc biệt nào.\n"
+"Chương chình không tránh khỏi có thiếu sót, bạn có thể tốn kém với\n"
+"mọi dịch vụ cần thiết, sửa chữa hay hiệu chỉnh. Để dùng chương trình,\n"
+"bạn cần đọc để hiểu và chấp thuận cam kết \"KHÔNG ĐẢM BẢO\" sau.\n"
 
 #. TEXT_GPL
 msgid ""
@@ -620,29 +616,28 @@ msgid ""
 "WITHOUT ANY WARRANTY; without even the implied warranty of\n"
 "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
-"XSane est distribué selon les termes de la GNU \"General Public License\"\n"
-"comme publiée par la FSF \"Free Software Foundation\" ; soit la version 2\n"
-"de la Licence, ou (à votre choix) toute version ultérieure.\n"
+"XSane được phân phối dưới các điều khoản của GNU/GPL do\n"
+"Tổ Chức Phần Mềm Tự Do phát hành kể từ phiên bản 2 trở đi.\n"
 "\n"
-"Ce programme est distribué car potentiellement utile, mais SANS AUCUNNE\n"
-"GARANTIE, sans même les garanties de COMMERCIALISATION ou d'ADAPTATION\n"
-"DANS UN BUT SPECIFIQUE\n"
+"Chương trình này được phân phối với hy vọng là nó hữu ích cho bạn\n"
+"nhưng không kèm theo bảo đảm nào, thậm chí không có ý là sẽ\n"
+"đảm bảo cho việc thương mại hay cho một mục đích đặc biệt nào.\n"
 
 #. TEXT_EMAIL
 msgid "Email:"
-msgstr "e-mail:"
+msgstr "Thư:"
 
 #. TEXT_HOMEPAGE
 msgid "Homepage:"
-msgstr "Page d'accueil:"
+msgstr "Trang chủ:"
 
 #. TEXT_FILE
 msgid "File:"
-msgstr "Fichier:"
+msgstr "Tập tin:"
 
 #. TEXT_TRANSLATION
 msgid "Translation:"
-msgstr "Traduction:"
+msgstr "Dịch thuật:"
 
 #. Please translate this to something like
 #. translation to YOUR LANGUAGE\n
@@ -654,9 +649,9 @@ msgid ""
 "by Oliver Rauch\n"
 "Email: Oliver.Rauch@rauch-domain.de\n"
 msgstr ""
-"traduit en français\n"
-"par Laurent Grawet\n"
-"E-mail: laurent.grawet@ibelgique.com\n"
+"Dịch sang tiếng Việt bởi:\n"
+"Trịnh Minh Thanh\n"
+"Email:  tmthanh@yahoo.com\n"
 
 #. TEXT_INFO_BOX
 msgid "0x0: 0KB"
@@ -664,343 +659,342 @@ msgstr "0x0: 0KB"
 
 #. TEXT_ADF_PAGES_SCANNED
 msgid "Scanned pages: "
-msgstr "Pages numérisées:"
+msgstr "Trang đã quét: "
 
 #. TEXT_MAIL_TEXT
 msgid "Email text:"
-msgstr "Texte de l'e-mail:"
+msgstr "Văn bản email:"
 
 #. TEXT_ATTACHMENTS
 msgid "Attachments:"
-msgstr "Pièces attachées:"
+msgstr "Đính kèm:"
 
 #. TEXT_MAIL_STATUS
 msgid "Project status:"
-msgstr "Statut du projet:"
+msgstr "Tình trạng dự án:"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
-msgstr "Nom du support:"
+msgstr "Tên Trung Bình:"
 
 #. TEXT_VIEWER_IMAGE_INFO
 #, c-format
 msgid ""
 "Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
 msgstr ""
-"Taille %d x %d points, %d bit/couleur, %d couleurs, %1.0f dpi x %1.0f dpi, %"
-"1.1f %s"
+"Kích cỡ %d x %d pixel, %d bit/màu, %d màu, %1.0f dpi x %1.0f dpi, %1.1f %s"
 
 #. TEXT_DESPECKLE_RADIUS
 msgid "Despeckle radius:"
-msgstr "Niveau de déparasitage:"
+msgstr "Xóa vết lốm đốm bán kính:"
 
 #. TEXT_BLUR_RADIUS
 msgid "Blur radius:"
-msgstr "Niveau de flou:"
+msgstr "Radius mờ:"
 
 #. TEXT_BATCH_AREA_DEFAULT_NAME
 msgid "(no name)"
-msgstr "(sans nom)"
+msgstr "(không tên)"
 
 #. TEXT_BATCH_LIST_AREANAME
 msgid "Area name:"
-msgstr "Nom de l'aire:"
+msgstr "Tên vùng:"
 
 #. TEXT_BATCH_LIST_SCANMODE
 msgid "Scanmode:"
-msgstr "Mode de numérisation:"
+msgstr "Chế độ quét:"
 
 #. TEXT_BATCH_LIST_GEOMETRY_TL
 msgid "Top left:"
-msgstr "Supérieur gauche:"
+msgstr "Đỉnh trái:"
 
 #. TEXT_BATCH_LIST_GEOMETRY_SIZE
 msgid "Size:"
-msgstr "Taille:"
+msgstr "Kích thước:"
 
 #. TEXT_BATCH_LIST_RESOLUTION
 msgid "Resolution:"
-msgstr "Résolution:"
+msgstr "Độ phân giải:"
 
 #. TEXT_BATCH_LIST_BIT_DEPTH
 msgid "Bit depth:"
-msgstr "Nombre de bits:"
+msgstr "Độ sâu bit:"
 
 #. TEXT_BATCH_LIST_BY_GUI
 msgid "as selected"
-msgstr "comme sélectionné"
+msgstr "như đã chọn"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
-msgstr "Sélection de l'imprimante:"
+msgstr "Chọn máy in:"
 
 #. TEXT_SETUP_PRINTER_NAME
 msgid "Name:"
-msgstr "Nom:"
+msgstr "Tên:"
 
 #. TEXT_SETUP_PRINTER_CMD, TEXT_SETUP_FAX_CMD
 msgid "Command:"
-msgstr "Commande:"
+msgstr "Lệnh:"
 
 #. TEXT_SETUP_COPY_NR_OPT
 msgid "Copy number option:"
-msgstr "Nombre de copies:"
+msgstr "Tùy chọn số lượng bản sao:"
 
 #. TEXT_SETUP_PRINTER_LINEART_RES
 msgid "Lineart resolution (dpi):"
-msgstr "Résolution en mode trait (dpi):"
+msgstr "Độ phân giải lineart (dpi):"
 
 #. TEXT_SETUP_PRINTER_GRAYSCALE_RES
 msgid "Grayscale resolution (dpi):"
-msgstr "Résolution en mode niveaux de gris (dpi):"
+msgstr "Độ phân giải cân bằng xám (dpi):"
 
 #. TEXT_SETUP_PRINTER_COLOR_RES
 msgid "Color resolution (dpi):"
-msgstr "Résolution en mode couleur (dpi):"
+msgstr "Độ phân giải màu (dpi):"
 
 #. TEXT_SETUP_PRINTER_WIDTH
 msgid "Width"
-msgstr "Largeur"
+msgstr "Rộng"
 
 #. TEXT_SETUP_PRINTER_HEIGHT
 msgid "Height"
-msgstr "Longueur"
+msgstr "Cao"
 
 #. TEXT_SETUP_PRINTER_LEFT
 msgid "Left offset"
-msgstr "Marge gauche"
+msgstr "Bên trái Offset"
 
 #. TEXT_SETUP_PRINTER_BOTTOM
 msgid "Bottom offset"
-msgstr "Marge inférieure"
+msgstr "Đáy offset"
 
 #. TEXT_SETUP_PRINTER_GAMMA
 msgid "Printer gamma value:"
-msgstr "Gamma de l'imprimante:"
+msgstr "Giá trị gamma máy in:"
 
 #. TEXT_SETUP_PRINTER_GAMMA_RED
 msgid "Printer gamma red:"
-msgstr "Gamma rouge de l'imprimante:"
+msgstr "Màu đỏ gamma máy in:"
 
 #. TEXT_SETUP_PRINTER_GAMMA_GREEN
 msgid "Printer gamma green:"
-msgstr "Gamma vert de l'imprimante:"
+msgstr "Màu xanh lá cây gamma máy in:"
 
 #. TEXT_SETUP_PRINTER_GAMMA_BLUE
 msgid "Printer gamma blue:"
-msgstr "Gamma bleu de l'imprimante:"
+msgstr "Màu xanh da trời gamma máy in:"
 
 #. TEXT_SETUP_TMP_PATH
 msgid "Temporary directory"
-msgstr "Répertoire temporaire"
+msgstr "Thư mục tạm"
 
 #. TEXT_SETUP_IMAGE_PERMISSION
 msgid "Image-file permissions"
-msgstr "Permissions du fichier-image"
+msgstr "Quyền hạn cho tập tin ảnh"
 
 #. TEXT_SETUP_DIR_PERMISSION
 msgid "Directory permissions"
-msgstr "Permissions du répertoire"
+msgstr "Quyền hạn cho thư mục"
 
 #. TEXT_SETUP_JPEG_QUALITY
 msgid "JPEG image quality"
-msgstr "Qualité d'image JPEG"
+msgstr "Chất lượng ảnh JPEG"
 
 #. TEXT_SETUP_PNG_COMPRESSION
 msgid "PNG image compression"
-msgstr "Compression des images PNG"
+msgstr "Nén ảnh PNG"
 
 #. TEXT_SETUP_FILENAME_COUNTER_LEN
 msgid "Filename counter length"
-msgstr "Longueur du compteur de noms de fichiers"
+msgstr "Độ dài bộ đếm tên tập tin"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_16
 msgid "TIFF 16 bit image compression"
-msgstr "Compression des images TIFF 16 bit"
+msgstr "Nén ảnh 16 bit TIFF"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_8
 msgid "TIFF 8 bit image compression"
-msgstr "Compression des images TIFF 8 bit"
+msgstr "Nén ảnh 8 bit TIFF"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_1
 msgid "TIFF lineart image compression"
-msgstr "Compression des images TIFF mode trait"
+msgstr "Nén ảnh TIFF lineart"
 
 #. TEXT_SETUP_SHOW_RANGE_MODE
 msgid "Show range as:"
-msgstr "Afficher la plage comme:"
+msgstr "Hiển thị chuỗi là:"
 
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
-msgstr "Suréchantillonage de prévisualisation:"
+msgstr "Xem trước quá mẫu chuẩn:"
 
 #. TEXT_SETUP_PREVIEW_GAMMA
 msgid "Preview gamma:"
-msgstr "Gamma de l'aperçu:"
+msgstr "Xem trước gamma:"
 
 #. TEXT_SETUP_PREVIEW_GAMMA_RED
 msgid "Preview gamma red:"
-msgstr "Gamma rouge de l'aperçu:"
+msgstr "Xem trước gamma đỏ:"
 
 #. TEXT_SETUP_PREVIEW_GAMMA_GREEN
 msgid "Preview gamma green:"
-msgstr "Gamma vert de l'aperçu:"
+msgstr "Xem trước gamma xanh lá cây:"
 
 #. TEXT_SETUP_PREVIEW_GAMMA_BLUE
 msgid "Preview gamma blue:"
-msgstr "Gamma bleu de l'aperçu:"
+msgstr "Xem trước gamma xanh da trời:"
 
 #. TEXT_SETUP_LINEART_MODE
 msgid "Threshold option:"
-msgstr "Option seuil:"
+msgstr "Tùy chọn ngưỡng:"
 
 #. TEXT_SETUP_ADF_MODE
 msgid "Automatic Document Feeder Modus:"
-msgstr "Chargeur automatique de documents:"
+msgstr "Modus trình cung cấp tài liệu tự động:"
 
 #. TEXT_SETUP_PREVIEW_PIPETTE_RANGE
 msgid "Preview pipette range"
-msgstr "Plage de la pipette de l'aperçu"
+msgstr "Xem trước chuỗi pipette"
 
 #. TEXT_SETUP_THRESHOLD_MIN
 msgid "Threshold minimum:"
-msgstr "Seuil minimum:"
+msgstr "Ngưỡng tối thiểu:"
 
 #. TEXT_SETUP_THRESHOLD_MAX
 msgid "Threshold maximum:"
-msgstr "Seuil maximum:"
+msgstr "Ngưỡng tối đa:"
 
 #. TEXT_SETUP_THRESHOLD_MUL
 msgid "Threshold multiplier:"
-msgstr "Multiplicateur de seuil:"
+msgstr "Ngưỡng bộ nhân:"
 
 #. TEXT_SETUP_THRESHOLD_OFF
 msgid "Threshold offset:"
-msgstr "Décalage de seuil:"
+msgstr "Ngưỡng offset:"
 
 #. TEXT_SETUP_GRAYSCALE_SCANMODE
 msgid "Name of grayscale scanmode:"
-msgstr "Nom du mode de numérisation en niveaux de gris:"
+msgstr "Tên chế độ quét cân bằng xám:"
 
 #. TEXT_SETUP_HELPFILE_VIEWER
 msgid "Helpfile viewer (HTML):"
-msgstr "Visionneuse de fichiers d'aide (HTML):"
+msgstr "Trình xem tập tin trợ giúp (html):"
 
 #. TEXT_SETUP_FAX_RECEIVER_OPTION
 msgid "Receiver option:"
-msgstr "Option de réception:"
+msgstr "Tùy chọn người nhận:"
 
 #. TEXT_SETUP_FAX_POSTSCRIPT_OPT
 msgid "Postscriptfile option:"
-msgstr "Option de fichier PostScript:"
+msgstr "Tùy chọn Postscriptfile:"
 
 #. TEXT_SETUP_FAX_NORMAL_MODE_OPT
 msgid "Normal mode option:"
-msgstr "Option du mode normal:"
+msgstr "Tùy chọn chế độ bình thường:"
 
 #. TEXT_SETUP_FAX_FINE_MODE_OPT
 msgid "Fine mode option:"
-msgstr "Option du mode fin:"
+msgstr "Tùy chọn chế độ tinh túy:"
 
 #. TEXT_SETUP_FAX_PROGRAM_DEFAULTS
 msgid "Set program defaults for:"
-msgstr "Options par défaut pour:"
+msgstr "Đặt mặc định chương trình cho:"
 
 #. TEXT_SETUP_FAX_VIEWER
 msgid "Viewer (Postscript):"
-msgstr "Visionneuse (PostScript):"
+msgstr "Trình xem (Postscript):"
 
 #. TEXT_SETUP_SMTP_SERVER
 msgid "SMTP server:"
-msgstr "Serveur SMTP:"
+msgstr "Máy chủ SMTP:"
 
 #. TEXT_SETUP_SMTP_PORT
 msgid "SMTP port:"
-msgstr "Port SMTP:"
+msgstr "Cổng SMTP:"
 
 #. TEXT_SETUP_MAIL_FROM
 msgid "From:"
-msgstr "De:"
+msgstr "Từ:"
 
 #. TEXT_SETUP_MAIL_REPLY_TO
 msgid "Reply to:"
-msgstr "Répondre à:"
+msgstr "Trả lời đến:"
 
 #. TEXT_SETUP_POP3_SERVER
 msgid "POP3 server:"
-msgstr "Serveur POP3:"
+msgstr "Máy chủ POP3:"
 
 #. TEXT_SETUP_POP3_PORT
 msgid "POP3 port:"
-msgstr "Port POP3:"
+msgstr "Cổng POP3:"
 
 #. TEXT_SETUP_POP3_USER
 msgid "POP3 user:"
-msgstr "Utilisateur POP3:"
+msgstr "Người dùng POP3:"
 
 #. TEXT_SETUP_POP3_PASS
 msgid "POP3 password:"
-msgstr "Mot de passe POP3:"
+msgstr "Mật khẩu POP3:"
 
 #. TEXT_SETUP_MAIL_VIEWER
 msgid "Viewer (png):"
-msgstr "Visionneuse (png):"
+msgstr "Trình xem (png):"
 
 #. TEXT_SETUP_OCR_COMMAND
 msgid "OCR Command:"
-msgstr "Commande OCR:"
+msgstr "Lệnh OCR:"
 
 #. TEXT_SETUP_OCR_INPUTFILE_OPT
 msgid "Inputfile option:"
-msgstr "Option de fichier d'entrée:"
+msgstr "Tùy chọn tập tin đầu vào:"
 
 #. TEXT_SETUP_OCR_OUTPUTFILE_OPT
 msgid "Outputfile option:"
-msgstr "Option de fichier de sortie:"
+msgstr "Tùy chọn tập tin đầu ra:"
 
 #. TEXT_SETUP_OCR_USE_GUI_PIPE_OPT
 msgid "Use GUI progress pipe:"
-msgstr "Utilise le \"pipe\" de progression GUI:"
+msgstr "Dùng pipe tiến trình đồ họa:"
 
 #. TEXT_SETUP_OCR_OUTFD_OPT
 msgid "GUI output-fd option:"
-msgstr "Option GUI output-fd:"
+msgstr "Tùy chọn output-fd đồ họa:"
 
 #. TEXT_SETUP_OCR_PROGRESS_KEYWORD
 msgid "Progress keyword:"
-msgstr "Message de progression:"
+msgstr "Từ khóa tiến trình:"
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
-msgstr "utilisateur"
+msgstr "người dùng"
 
 #. TEXT_SETUP_PERMISSION_GROUP
 msgid "group"
-msgstr "groupe"
+msgstr "nhóm"
 
 #. TEXT_SETUP_PERMISSION_ALL
 msgid "all"
-msgstr "tous"
+msgstr "toàn bộ"
 
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
-msgstr "Enregistrer"
+msgstr "Lưu"
 
 #. NOTEBOOK_IMAGE_OPTIONS
 msgid "Image"
-msgstr "Image"
+msgstr "Ảnh"
 
 #. NOTEBOOK_COPY_OPTIONS
 msgid "Copy"
-msgstr "Copier"
+msgstr "Sao chép"
 
 #. NOTEBOOK_FAX_OPTIONS
 msgid "Fax"
-msgstr "Faxer"
+msgstr "Fax"
 
 #. NOTEBOOK_MAIL_OPTIONS
 msgid "Mail"
-msgstr "Message"
+msgstr "Thư"
 
 #. NOTEBOOK_OCR_OPTIONS
 msgid "OCR"
@@ -1008,437 +1002,435 @@ msgstr "OCR"
 
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display"
-msgstr "Affichage"
+msgstr "Hiển thị"
 
 #. NOTEBOOK_ENHANCE_OPTIONS
 msgid "Enhancement"
-msgstr "Optimisation"
+msgstr "Cải thiện"
 
 #. MENU_ITEM_MAIL
 msgid "Email"
-msgstr "e-mail"
+msgstr "Email"
 
 #. MENU_ITEM_SHOW_TOOLTIPS
 msgid "Show tooltips"
-msgstr "Bulles d'aide"
+msgstr "Hiển thị mẹo sử dụng"
 
 #. MENU_ITEM_SHOW_PREVIEW
 msgid "Show preview"
-msgstr "Aperçu"
+msgstr "Hiển thị Xem Trước"
 
 #. MENU_ITEM_SHOW_HISTOGRAM
 msgid "Show histogram"
-msgstr "Histogramme"
+msgstr "Hiển thị bảng kê"
 
 #. MENU_ITEM_SHOW_GAMMA
 msgid "Show gamma curve"
-msgstr "Courbe gamma"
+msgstr "Hiển thị đường cong gamma"
 
 #. MENU_ITEM_SHOW_BATCH_SCAN
 msgid "Show batch scan"
-msgstr "Numérisation par lots"
+msgstr "Hiển thị quét batch"
 
 #. MENU_ITEM_SHOW_STANDARDOPTIONS
 msgid "Show standard options"
-msgstr "Options standard"
+msgstr "Hiển thị tùy chọn chuẩn"
 
 #. MENU_ITEM_SHOW_ADVANCEDOPTIONS
 msgid "Show advanced options"
-msgstr "Options avancées"
+msgstr "Hiển thị tùy chọn nâng cao"
 
 #. MENU_ITEM_SETUP
 msgid "Setup"
-msgstr "Configuration"
+msgstr "Thiết lập"
 
 #. MENU_ITEM_LENGTH_UNIT
 msgid "Length unit"
-msgstr "Unité de longueur"
+msgstr "Đơn vị dài"
 
 #. SUBMENU_ITEM_LENGTH_MILLIMETERS
 msgid "millimeters"
-msgstr "millimètres"
+msgstr "millimeters"
 
 #. SUBMENU_ITEM_LENGTH_CENTIMETERS
 msgid "centimeters"
-msgstr "centimètres"
+msgstr "centimeters"
 
 #. SUBMENU_ITEM_LENGTH_INCHES
 msgid "inches"
-msgstr "pouces"
+msgstr "inches"
 
 #. MENU_ITEM_UPDATE_POLICY
 msgid "Update policy"
-msgstr "Mise à jour"
+msgstr "Chính sách cập nhật"
 
 #. SUBMENU_ITEM_POLICY_CONTINUOUS
 msgid "continuous"
-msgstr "continue"
+msgstr "liên tục"
 
 #. SUBMENU_ITEM_POLICY_DISCONTINU
 msgid "discontinuous"
-msgstr "discontinue"
+msgstr "không liên tục"
 
 #. SUBMENU_ITEM_POLICY_DELAYED
 msgid "delayed"
-msgstr "retardée"
+msgstr "Để trễ"
 
 #. MENU_ITEM_SHOW_RESOLUTIONLIST
 msgid "Show resolution list"
-msgstr "Afficher la liste des résolutions"
+msgstr "Hiển thị danh sách độ phân giải"
 
 #. MENU_ITEM_PAGE_ROTATE
 msgid "Rotate postscript"
-msgstr "Rotation PostScript"
+msgstr "Xoay postscript"
 
 #. MENU_ITEM_SAVE_DEVICE_SETTINGS
 msgid "Save device settings"
-msgstr "Enregistrer les paramètres du périphérique"
+msgstr "Lưu thiết lập thiết bị"
 
 #. MENU_ITEM_LOAD_DEVICE_SETTINGS
 msgid "Load device settings"
-msgstr "Charger les paramètres du périphérique"
+msgstr "Nạp thiết lập thiết bị"
 
 #. MENU_ITEM_CHANGE_WORKING_DIR
 msgid "Change directory"
-msgstr "Changer de répertoire"
+msgstr "Đổi thư mục"
 
 #. MENU_ITEM_XSANE_EULA
 msgid "Show EULA"
-msgstr "Afficher EULA"
+msgstr "Hiển thị EULA"
 
 #. MENU_ITEM_XSANE_GPL
 msgid "Show license (GPL)"
-msgstr "Afficher la licence (GPL)"
+msgstr "Hiển thị giấy phép (GPL)"
 
 #. MENU_ITEM_XSANE_DOC
 msgid "XSane doc"
-msgstr "Doc Xsane"
+msgstr "Tài liệu XSane"
 
 #. MENU_ITEM_BACKEND_DOC
 msgid "Backend doc"
-msgstr "Doc backend"
+msgstr "Tài liệu backend"
 
 #. MENU_ITEM_AVAILABLE_BACKENDS
 msgid "Available backends"
-msgstr "Backends disponibles"
+msgstr "Backend hiện có"
 
 #. MENU_ITEM_SCANTIPS
 msgid "Scantips"
-msgstr "Conseils de numérisation"
+msgstr "Mẹo khi quét"
 
 #. MENU_ITEM_PROBLEMS
 msgid "Problems?"
-msgstr "Problèmes?"
+msgstr "Trục trặc?"
 
 #. MENU_ITEM_COUNTER_LEN_INACTIVE
 msgid "inactive"
-msgstr "inactif"
+msgstr "bất hoạt"
 
 #. MENU_ITEM_TIFF_COMP_NONE
 msgid "no compression"
-msgstr "pas de compression"
+msgstr "không nén"
 
 #. MENU_ITEM_TIFF_COMP_CCITTRLE
 msgid "CCITT 1D Huffman compression"
-msgstr "Compression CCITT 1D Huffman"
+msgstr "Nén CCITT 1D Huffman"
 
 #. MENU_ITEM_TIFF_COMP_CCITFAX3
 msgid "CCITT Group 3 Fax compression"
-msgstr "Compression CCITT Group 3 Fax"
+msgstr "Nén CCITT Group 3 Fax"
 
 #. MENU_ITEM_TIFF_COMP_CCITFAX4
 msgid "CCITT Group 4 Fax compression"
-msgstr "Compression CCITT Group 4 Fax"
+msgstr "Nén CCITT Group 4 Fax"
 
 #. MENU_ITEM_TIFF_COMP_JPEG
 msgid "JPEG DCT compression"
-msgstr "Compression JPEG DCT"
+msgstr "Nén JPEG DCT"
 
 #. MENU_ITEM_TIFF_COMP_PACKBITS
 msgid "pack bits"
-msgstr ""
+msgstr "gói các bit"
 
 #. MENU_ITEM_RANGE_SCALE
 msgid "Slider (Scale)"
-msgstr "Dia (Echelle)"
+msgstr "Con trượt (cân chỉnh)"
 
 #. MENU_ITEM_RANGE_SCROLLBAR
 msgid "Slider (Scrollbar)"
-msgstr "Dia (Barre de défilement)"
+msgstr "Con trượt (thanh cuộn)"
 
 #. MENU_ITEM_RANGE_SPINBUTTON
 msgid "Spinbutton"
-msgstr "Bouton de rotation"
+msgstr "Nút xoay"
 
 #. MENU_ITEM_RANGE_SCALE_SPIN
 msgid "Scale and Spinbutton"
-msgstr "Echelle et bouton de rotation"
+msgstr "Nút Xoay và Cân chỉnh"
 
 #. MENU_ITEM_RANGE_SCROLL_SPIN
 msgid "Scrollbar and Spinbutton"
-msgstr "Barre de défilement et bouton de rotation"
+msgstr "Thanh cuộn và Nút xoay"
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
 msgid "Standard options window (lineart)"
-msgstr "Fenêtre d'options standard (mode trait)"
+msgstr "Cửa sổ các tùy chọn chuẩn (lineart)"
 
 #. MENU_ITEM_LINEART_MODE_XSANE
 msgid "XSane main window (lineart)"
-msgstr "Fenêtre principale de XSane (mode trait)"
+msgstr "Cửa sổ chính XSane (lineart)"
 
 #. MENU_ITEM_LINEART_MODE_GRAY
 msgid "XSane main window (grayscale->lineart)"
-msgstr "Fenêtre principale de XSane (niveaux de gris->mode trait)"
+msgstr "Cửa sổ chính XSane (grayscale->lineart)"
 
 #. MENU_ITEM_SELECTION_NONE
 msgid "(none)"
-msgstr "(aucun)"
+msgstr "(không)"
 
 #. MENU_ITEM_FILETYPE_BY_EXT
 msgid "by ext"
-msgstr "par ext"
+msgstr "theo phần mở rộng"
 
 #. MENU_ITEM_PRESET_AREA_ADD_SEL
 msgid "Add selection to list"
-msgstr "Ajouter la sélection à la liste"
+msgstr "Thêm phần chọn vào danh sách"
 
 #. MENU_ITEM_PRESET_AREA_RENAME
 msgid "Rename definiton"
-msgstr "Renommer la définition"
+msgstr "Đổi tên định nghĩa"
 
 #. MENU_ITEM_PRESET_AREA_DELETE
 msgid "Delete definition"
-msgstr "Effacer la définition"
+msgstr "Xóa định nghĩa"
 
 #. MENU_ITEM_PRESET_AREA_MOVE_UP
 msgid "Move up"
-msgstr "Haut"
+msgstr "Chuyển lên"
 
 #. MENU_ITEM_PRESET_AREA_MOVE_DWN
 msgid "Move down"
-msgstr "Bas"
+msgstr "Chuyển xuống"
 
 #. PROGRESS_SCANNING
 msgid "Scanning"
-msgstr "Numérisation..."
+msgstr "Đang quét"
 
 #. PROGRESS_RECEIVING_FRAME_DATA
 #, c-format
 msgid "Receiving %s data"
-msgstr "Réception des données %s..."
+msgstr "Đang nhận dữ liệu %s"
 
 #. PROGRESS_TRANSFERING_DATA
 msgid "Transfering image"
-msgstr "Transfert de l'image..."
+msgstr "Đang truyền ảnh"
 
 #. PROGRESS_ROTATING_DATA
 msgid "Rotating image"
-msgstr "Rotation de l'image..."
+msgstr "Đang xoay ảnh"
 
 #. PROGRESS_MIRRORING_DATA
 msgid "Mirroring image"
-msgstr "Mirroir de l'image..."
+msgstr "Đang phản chiếu ảnh"
 
 #. PROGRESS_PACKING_DATA
 msgid "Packing image"
-msgstr "Compression de l'image..."
+msgstr "Đang đóng gói ảnh"
 
 #. PROGRESS_CONVERTING_DATA
 msgid "Converting image"
-msgstr "Conversion de l'image..."
+msgstr "Đang chuyển đổi ảnh"
 
 #. PROGRESS_SAVING_DATA
 msgid "Saving image"
-msgstr "Sauvegarde de l'image..."
+msgstr "Đang lưu ảnh"
 
 #. PROGRESS_CLONING_DATA
 msgid "Cloning image"
-msgstr "Clonage de l'image..."
+msgstr "Đang sao ảnh"
 
 #. PROGRESS_SCALING_DATA
 msgid "Scaling image"
-msgstr "Redimensionnement de l'image..."
+msgstr "Đang cân chỉnh ảnh"
 
 #. PROGRESS_DESPECKLING_DATA
 msgid "Despeckling image"
-msgstr "Déparasitage de l'image..."
+msgstr "Đang xóa lốm đốm ảnh"
 
 #. PROGRESS_BLURING_DATA
 msgid "Bluring image"
-msgstr "Flou de l'image..."
+msgstr "Đang làm mờ ảnh"
 
 #. PROGRESS_OCR
 msgid "OCR in progress"
-msgstr "OCR en cours..."
+msgstr "OCR đang trong tiến trình"
 
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
-msgstr "Numériser <Ctrl-Enter>"
+msgstr "Bắt đầu quét <Ctrl-Enter>"
 
 #. DESC_SCAN_CANCEL
 msgid "Cancel scan <ESC>"
-msgstr "Annuler la numérisation <ESC>"
+msgstr "Thôi quét <ESC>"
 
 #. DESC_PREVIEW_ACQUIRE
 msgid "Acquire preview scan <Alt-p>"
-msgstr "Acquisition de l'aperçu <Alt-p>"
+msgstr "Yêu cầu quét xem trước <Alt-p>"
 
 #. DESC_PREVIEW_CANCEL
 msgid "Cancel preview scan <Alt-ESC>"
-msgstr "Annuler l'aperçu <Alt-ESC>"
+msgstr "Bỏ qua quét xem trước <Alt-Esc>"
 
 #. DESC_XSANE_MODE
 msgid ""
 "save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or mail-<Ctrl-"
 "m>"
 msgstr ""
-"sauver-<Ctrl-s>, visionner-<Ctrl-v>, photocopier-<Ctrl-c>, faxer-<Ctrl-f> ou "
-"poster-<Ctrl-m>"
+"lưu-<Ctrl-s>, xem-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> hay thư-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
 msgid "Select source medium type"
-msgstr "Sélectionne le type de media de la source"
+msgstr "Chọn loại nguồn phương tiện"
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
-msgstr "Valeur ajoutée au compteur de noms de fichiers après numérisation"
+msgstr "Giá trị được thêm vào bộ đếm tên tập tin sau khi quét"
 
 #. DESC_BROWSE_FILENAME
 msgid "Browse for image filename"
-msgstr "Parcourir pour un nom d'image"
+msgstr "Duyệt cho tên tập tin ảnh"
 
 #. DESC_FILENAME
 msgid "Filename for scanned image"
-msgstr "Nom de fichier pour l'image numérisée"
+msgstr "Tên tập tin cho ảnh đã quét"
 
 #. DESC_FILETYPE
 msgid ""
 "Type of image format, the suitable filename extension is automatically added "
 "to the filename"
 msgstr ""
-"Type de format d'image, l'extension de nom de fichier correspondante est "
-"automatiquement ajoutée"
+"Loại định dạng ảnh, phần mở rộng của tên tập tin được tự động thêm vào tên "
+"tập tin"
 
 #. DESC_FAXPROJECT
 msgid "Enter name of fax project"
-msgstr "Entrez le nom du projet fax"
+msgstr "Nhập tên dự án Fax"
 
 #. DESC_FAXPAGENAME
 msgid "Enter new name for faxpage"
-msgstr "Entrez le nouveau nom pour la page de fax"
+msgstr "Nhập tên mới cho trang Fax"
 
 #. DESC_FAXRECEIVER
 msgid "Enter receiver phone number or address"
-msgstr "Entrez le numéro de tél. ou l'adresse du destinataire"
+msgstr "Nhập số điện thoại hay địa chỉ người nhận"
 
 #. DESC_MAILPROJECT
 msgid "Enter name of mail project"
-msgstr "Entrez le nom du projet e-mail"
+msgstr "Nhập tên dự án thư"
 
 #. DESC_MAILIMAGENAME
 msgid "Enter new name for mail image"
-msgstr "Entrez le nouveau nom pour l'image du message"
+msgstr "Nhập tên mới cho ảnh trong thư"
 
 #. DESC_MAILRECEIVER
 msgid "Enter email address"
-msgstr "Entrez l'adresse e-mail"
+msgstr "Nhập địa chỉ thư"
 
 #. DESC_MAILSUBJECT
 msgid "Enter subject of email"
-msgstr "Entrez le sujet de l'e-mail"
+msgstr "Nhập chủ đề thư"
 
 #. DESC_PRESET_AREA_NAME
 msgid "Enter new name for preset area"
-msgstr "Entrez un nom pour la présélection"
+msgstr "Nhập tên mới cho vùng lập trước"
 
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
-msgstr "Sélectionne l'imprimante <Shift-F1/F2/...>"
+msgstr "Chọn định nghĩa máy in <Shift-F1/F2/...>"
 
 #. DESC_RESOLUTION
 msgid "Set scan resolution"
-msgstr "Change la résolution de numérisation"
+msgstr "Đặt độ phân giải khi quét"
 
 #. DESC_RESOLUTION_X
 msgid "Set scan resolution for x direction"
-msgstr "Change la résolution horizontale de numérisation"
+msgstr "Đặt độ phân giải cho hướng X"
 
 #. DESC_RESOLUTION_Y
 msgid "Set scan resolution for y direction"
-msgstr "Change la résolution verticale de numérisation"
+msgstr "Đặt độ phân giải cho hướng Y"
 
 #. DESC_ZOOM
 msgid "Set zoomfactor"
-msgstr "Change le facteur de zoom"
+msgstr "Đặt zoomfactor"
 
 #. DESC_ZOOM_X
 msgid "Set zoomfactor for x direction"
-msgstr "Change le facteur de zoom horizontal"
+msgstr "Đặt zoomfactor cho hướng x"
 
 #. DESC_ZOOM_Y
 msgid "Set zoomfactor for y direction"
-msgstr "Change le facteur de zoom vertical"
+msgstr "Đặt zoomfactor cho hướng y"
 
 #. DESC_COPY_NUMBER
 msgid "Set number of copies"
-msgstr "Entrez le nombre de copies"
+msgstr "Đặt số lượng bản sao"
 
 #. DESC_NEGATIVE
 msgid "Negative: Invert colors for scanning negatives <Shift-n>"
-msgstr ""
-"Négatif: Inverse les couleurs pour la numérisation de négatifs <Shift-n>"
+msgstr "Âm bản: đảo ngược màu để quét âm bản <Shift-n>"
 
 #. DESC_GAMMA
 msgid "Set gamma value"
-msgstr "Change la valeur gamma"
+msgstr "Đặt giá trị gamma"
 
 #. DESC_GAMMA_R
 msgid "Set gamma value for red component"
-msgstr "Change le gamma pour la composante rouge"
+msgstr "Đặt giá trị gamma cho thành phần màu đỏ"
 
 #. DESC_GAMMA_G
 msgid "Set gamma value for green component"
-msgstr "Change le gamma pour la composante verte"
+msgstr "Đặt giá trị gamma cho thành phần màu xanh lá cây"
 
 #. DESC_GAMMA_B
 msgid "Set gamma value for blue component"
-msgstr "Change le gamma pour la composante bleue"
+msgstr "Đặt giá trị gamma cho thành phần màu xanh da trời"
 
 #. DESC_BRIGHTNESS
 msgid "Set brightness"
-msgstr "Change la luminosité"
+msgstr "Đặt độ sáng"
 
 #. DESC_BRIGHTNESS_R
 msgid "Set brightness for red component"
-msgstr "Change la luminosité pour la composante rouge"
+msgstr "Đặt độ sáng cho thành phần màu đỏ"
 
 #. DESC_BRIGHTNESS_G
 msgid "Set brightness for green component"
-msgstr "Change la luminosité pour la composante verte"
+msgstr "Đặt độ sáng cho thành phần màu xanh lá cây"
 
 #. DESC_BRIGHTNESS_B
 msgid "Set brightness for blue component"
-msgstr "Change la luminosité pour la composante bleue"
+msgstr "Đặt độ sáng cho thành phần màu xanh da trời"
 
 #. DESC_CONTRAST
 msgid "Set contrast"
-msgstr "Change le contraste"
+msgstr "Đặt độ tương phản"
 
 #. DESC_CONTRAST_R
 msgid "Set contrast for red component"
-msgstr "Change le contraste pour la composante rouge"
+msgstr "Đặt độ tương phản cho thành phần màu đỏ"
 
 #. DESC_CONTRAST_G
 msgid "Set contrast for green component"
-msgstr "Change le contraste pour la composante verte"
+msgstr "Đặt độ tương phản cho thành phần màu xanh lá cây"
 
 #. DESC_CONTRAST_B
 msgid "Set contrast for blue component"
-msgstr "Change le contraste pour la composante bleue"
+msgstr "Đặt độ tương phản cho thành phần màu xanh da trời"
 
 #. DESC_THRESHOLD
 msgid "Set threshold"
-msgstr "Change le seuil"
+msgstr "Đặt ngưỡng"
 
 #. DESC_RGB_DEFAULT
 msgid ""
@@ -1448,15 +1440,15 @@ msgid ""
 " brightness = 0\n"
 " contrast = 0"
 msgstr ""
-"Défaults RGB: Place les optimisations pour le rouge, vert et bleu à leurs "
-"valeurs par défaut <Shift-b>:\n"
+"Mặc định RGB: Đặt các giá trị nâng cao cho màu đỏ, xanh lá cây và xanh da "
+"trời thành giá trị mặc định <shift-b>:\n"
 " gamma = 1.0\n"
-" luminosité = 0\n"
-" contraste = 0"
+" độ sáng = 0\n"
+" độ tương phản = 0"
 
 #. DESC_ENH_AUTO
 msgid "Autoadjust gamma, brightness and contrast <Shift-e>"
-msgstr "Ajuste automatiquement gamma, luminosité et contraste <Shift-e>"
+msgstr "Tự động hiệu chỉnh gamma, độ sáng và độ tương phản <Shift-e>"
 
 #. DESC_ENH_DEFAULT
 msgid ""
@@ -1465,162 +1457,153 @@ msgid ""
 "brightness = 0\n"
 "contrast = 0"
 msgstr ""
-"Place les optimisations à leurs valeurs par défaut <Shift-d>:\n"
-" gamma = 1.0\n"
-" luminosité = 0\n"
-" contraste = 0"
+"Đặt giá trị cải thiện mặc định <Shift-d>:\n"
+"gamma = 1.0\n"
+"độ sáng = 0\n"
+"độ tương phản = 0"
 
 #. DESC_ENH_RESTORE
 msgid "Restore enhancement values from preferences <Shift-r>"
-msgstr "Restaure les optimisations des préférences <Shift-r>"
+msgstr "Khôi phục các giá trị mặc định từ các tùy thích <Shift-r>"
 
 #. DESC_ENH_STORE
 msgid "Store active enhancement values to preferences <Shift-m>"
-msgstr "Enregistre les optimisations actives dans les préférences <Shift-m>"
+msgstr "Lưu trữ các giá trị nâng cao hoạt động vào Tùy thích <Shift-m>"
 
 #. DESC_HIST_INTENSITY
 msgid "Show histogram of intensity/gray <Alt-i>"
-msgstr "Affiche l'histogramme de l'intensité/gris <Alt-i>"
+msgstr "Hiển thị bảng kê cường độ/màu xám <Alt-i>"
 
 #. DESC_HIST_RED
 msgid "Show histogram of red component <Alt-r>"
-msgstr "Affiche l'histogramme de la composante rouge <Alt-r>"
+msgstr "Hiển thị bảng kê của thành phần màu đỏ <Alt-r>"
 
 #. DESC_HIST_GREEN
 msgid "Show histogram of green component <Alt-g>"
-msgstr "Affiche l'histogramme de la composante verte <Alt-g>"
+msgstr "Hiển thị bảng kê của thành phần màu xanh lá cây <Alt-g>"
 
 #. DESC_HIST_BLUE
 msgid "Show histogram of blue component <Alt-b>"
-msgstr "Affiche l'histogramme de la composante bleue <Alt-b>"
+msgstr "Hiển thị bảng kê của thành phần màu xanh da trời <Alt-b>"
 
 #. DESC_HIST_PIXEL
 msgid "Display mode: show histogram with lines instead of pixels <Alt-m>"
-msgstr "Affiche l'histogramme avec des lignes à la place des points <Alt-m>"
+msgstr "Chế độ hiển thị: hiển thị bảng kê với các dòng thay vì pixel <Alt-m>"
 
 #. DESC_HIST_LOG
 msgid "Show logarithm of pixelcount <Alt-l>"
-msgstr "Affiche le logarithme du nombre de points <Alt-l>"
+msgstr "Hiển thị logarithm của pixelcount <Alt-l>"
 
 #. DESC_PRINTER_SETUP
 msgid "Select definition to change"
-msgstr "Choisissez la définition à changer"
+msgstr "Chọn định nghĩa để thay đổi"
 
 #. DESC_PRINTER_NAME
 msgid "Define a name for the selection of this definition"
-msgstr "Entrez un nom pour cette définition"
+msgstr "Đặt tên cho việc chọn định nghĩa này"
 
 #. DESC_PRINTER_COMMAND
 msgid "Enter command to be executed in copy mode (e.g. \"lpr\")"
-msgstr "Entrez la commande à exécuter en mode copie (par ex.: \"lpr\")"
+msgstr "Nhập lệnh được thực thi trong chế độ sao chép (VD:  \"lpr\")"
 
 #. DESC_COPY_NUMBER_OPTION
 msgid "Enter option for copy numbers"
-msgstr "Entrez l'option du nombre de copies"
+msgstr "Nhập tùy chọn cho số lượng bản sao"
 
 #. DESC_PRINTER_LINEART_RESOLUTION
 msgid ""
 "Resolution with which lineart images are printed and saved in postscript"
-msgstr ""
-"Résolution avec laquelle les images trait doivent être enregistrées et "
-"imprimées en PostScript"
+msgstr "Độ phân giải để in và lưu ảnh lineart theo dạng postscript"
 
 #. DESC_PRINTER_GRAYSCALE_RESOLUTION
 msgid ""
 "Resolution with which grayscale images are printed and saved in postscript"
-msgstr ""
-"Résolution avec laquelle les images en niveaux de gris doivent être "
-"enregistrées et imprimées en PostScript"
+msgstr "Độ phân giải để in và lưu ảnh cân bằng xám theo dạng postscript"
 
 #. DESC_PRINTER_COLOR_RESOLUTION
 msgid "Resolution with which color images are printed and saved in postscript"
-msgstr ""
-"Résolution avec laquelle les images en couleur doivent être enregistrées et "
-"imprimées en PostScript"
+msgstr "Độ phân giải để in và lưu ảnh màu theo dạng postscript"
 
 #. DESC_PRINTER_WIDTH
 msgid "Width of printable area"
-msgstr "Largeur de la zone imprimable"
+msgstr "Chiều rộng của vùng in được"
 
 #. DESC_PRINTER_HEIGHT
 msgid "Height of printable area"
-msgstr "Longueur de la zone imprimable"
+msgstr "Chiều cao của vùng in được"
 
 #. DESC_PRINTER_LEFTOFFSET
 msgid "Left offset from the edge of the paper to the printable area"
-msgstr "Marge entre le bord gauche du papier et l'aire imprimable"
+msgstr "Offset trái từ mép giấy đến vùng in được"
 
 #. DESC_PRINTER_BOTTOMOFFSET
 msgid "Bottom offset from the edge of the paper to the printable area"
-msgstr "Marge entre le bord inférieur du papier et l'aire imprimable en mm"
+msgstr "Offset đáy từ mép giấy đến vùng in được"
 
 #. DESC_PRINTER_GAMMA
 msgid "Additional gamma value for photocopy"
-msgstr "Gamma additionnel pour la photocopie"
+msgstr "Giá trị gamma thêm cho photocopy"
 
 #. DESC_PRINTER_GAMMA_RED
 msgid "Additional gamma value for red component for photocopy"
-msgstr "Gamma additionnel pour la composante rouge pour la photocopie"
+msgstr "Giá trị gamma thêm cho thành phần màu đỏ cho photocopy"
 
 #. DESC_PRINTER_GAMMA_GREEN
 msgid "Additional gamma value for green component for photocopy"
-msgstr "Gamma additionnel pour la composante verte pour la photocopie"
+msgstr "Giá trị gamma thêm cho thành phần màu xanh lá cây cho photocopy"
 
 #. DESC_PRINTER_GAMMA_BLUE
 msgid "Additional gamma value for blue component for photocopy"
-msgstr "Gamma additionnel pour la composante bleue pour la photocopie"
+msgstr "Giá trị gamma thêm cho thành phần màu xanh da trời cho photocopy"
 
 #. DESC_TMP_PATH
 msgid "Path to temp directory"
-msgstr "Chemin du répertoire temporaire"
+msgstr "Đường dẫn tới thư mục tạm"
 
 #. DESC_BUTTON_TMP_PATH_BROWSE
 msgid "Browse for temporary directory"
-msgstr "Parcourir pour un répertoire temporaire"
+msgstr "Duyệt cho thư mục tạm"
 
 #. DESC_JPEG_QUALITY
 msgid ""
 "Quality in percent if image is saved as jpeg or tiff with jpeg compression"
 msgstr ""
-"Qualité en pourcentage si l'image est enregistrée en jpeg ou tiff avec "
-"compression jpeg"
+"Chất lượng theo phần trăm nếu ảnh được lưu là jpeg hay tiff với nén jpeg"
 
 #. DESC_PNG_COMPRESSION
 msgid "Compression if image is saved as png"
-msgstr "Compression si l'image est enregistrée en png"
+msgstr "Nén nếu ảnh được lưu dạng png"
 
 #. DESC_FILENAME_COUNTER_LEN
 msgid "Minimum length of counter in filename"
-msgstr "Longueur minimale du compteur de noms de fichiers"
+msgstr "Độ dài tối thiểu của bộ đếm trong tên tập tin"
 
 #. DESC_TIFF_COMPRESSION_16
 msgid "Compression type if 16 bit image is saved as tiff"
-msgstr "Type de compression si une image 16 bit est enregistrée en tiff"
+msgstr "Kiểu nén nếu ảnh 16 bit được lưu là tiff"
 
 #. DESC_TIFF_COMPRESSION_8
 msgid "Compression type if 8 bit image is saved as tiff"
-msgstr "Type de compression si une image 8 bit est enregistrée en tiff"
+msgstr "Kiểu nén nếu ảnh 8 bit được lưu là tiff"
 
 #. DESC_TIFF_COMPRESSION_1
 msgid "Compression type if lineart image is saved as tiff"
-msgstr "Type de compression si l'image trait est enregistrée en tiff"
+msgstr "Kiểu nén nếu ảnh lineart được lưu là tiff"
 
 #. DESC_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device dependant preferences in default file at exit of xsane"
 msgstr ""
-"Enregister les paramètres du scanner dans le fichier par défaut en quittant "
+"Lưu các tùy thích phụ thuộc thiết bị vào tập tin mặc định khi thoát khỏi "
 "XSane"
 
 #. DESC_OVERWRITE_WARNING
 msgid "Warn before overwriting an existing file"
-msgstr "Avertir avant d'écraser un fichier existant"
+msgstr "Cảnh báo trước khi ghi đè một tập tin đang tồn tại"
 
 #. DESC_SKIP_EXISTING
 msgid ""
 "If filename counter is automatically increased, used numbers are skipped"
-msgstr ""
-"Si un compteur de noms de fichiers est utilisé, les nombres déjà utilisés "
-"sont évités"
+msgstr "Nếu bộ đếm tên tập tin được tăng tự động, bỏ qua các số được dùng"
 
 #. DESC_SAVE_PNM16_AS_ASCII
 msgid ""
@@ -1629,327 +1612,309 @@ msgid ""
 "supported by all programs. The ascii format is supported by more programs "
 "but it produces really huge files!!!"
 msgstr ""
+"Khi lưu ảnh 16 bit theo định dạng pnm thì sau đó dùng định dạng ascii thay "
+"cho định dạng nhị phân. Định dạng nhị phân là định dạng mới không được các "
+"chương trình hỗ trợ. Định dạng ascii được nhiều chương trình hỗ trợ nhưng "
+"lại tạo các tập tin ảnh lớn !!!"
 
 #. DESC_REDUCE_16BIT_TO_8BIT
 msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
-msgstr ""
-"Si le scanner envoie une image en 16 bits/couleur, sauver l'image en 8 bits/"
-"couleur"
+msgstr "Nếu máy quét gửi ảnh 16 bit/màu thì lưu thành 8 bit/màu"
 
 #. DESC_PSFILE_WIDTH
 msgid "Width of paper for postscript files"
-msgstr "Largeur du papier pour les fichiers PostScript"
+msgstr "Bề ngang của trang cho tập tin postscript"
 
 #. DESC_PSFILE_HEIGHT
 msgid "Height of paper for postscript files"
-msgstr "Longueur du papier pour les fichiers PostScript"
+msgstr "Chiều cao của trang cho tập tin postscript"
 
 #. DESC_PSFILE_LEFTOFFSET
 msgid ""
 "Left offset from the edge of the paper to the usable area for postscript "
 "files"
 msgstr ""
-"Marge entre le bord gauche du papier et l'aire imprimable pour les fichiers "
-"PostScript"
+"Bên trái offset từ mép giấy đến vùng sử dụng được cho tập tin postscript"
 
 #. DESC_PSFILE_BOTTOMOFFSET
 msgid ""
 "Bottom offset from the edge of the paper to the usable area for postscript "
 "files"
-msgstr ""
-"Marge entre le bord inférieur du papier et l'aire imprimable pour les "
-"fichiers PostScript"
+msgstr "Đáy offset từ mép giấy đến vùng sử dụng được cho tập tin postscript"
 
 #. DESC_MAIN_WINDOW_FIXED
 msgid "Use fixed main window size or scrolled, resizable main window"
-msgstr ""
-"Utilise une fenêtre principale de taille fixe ou avec défilement, fenêtre "
-"principale redimensionable"
+msgstr "Dùng cỡ cửa sổ chính cố định hoặc được cuộn và có thể đổi cỡ"
 
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
 msgid "Disable preview gamma when XSane runs as gimp plugin"
-msgstr "Désactive l'aperçu gamma quand XSane fonctionne comme un plugin Gimp"
+msgstr "Tắt Xem trước gamma khi XSane chạy kiểu plugin của GIMP"
 
 #. DESC_PREVIEW_COLORMAP
 msgid "Use an own colormap for preview if display depth is 8 bpp"
-msgstr ""
-"Utilise une palette de couleurs privée pour l'aperçu si l'affichage est en "
-"mode 8bits"
+msgstr "Dùng bản đồ màu cho xem trước nếu độ sâu hiển thị là 8 bit"
 
 #. DESC_SHOW_RANGE_MODE
 msgid "Select how a range is displayed"
-msgstr "Sélectionnez la manière dont la plage est affichée"
+msgstr "Chọn cách hiển thị một chuỗi"
 
 #. DESC_PREVIEW_OVERSAMPLING
 msgid "Value with that the calculated preview resolution is multiplied"
-msgstr ""
-"Valeur avec laquelle la résolution de prévisualisation calculée est "
-"multipliée"
+msgstr "Giá trị để độ phân giải xem trước được tính toán để nhân lên"
 
 #. DESC_PREVIEW_GAMMA
 msgid "Set gamma correction value for preview image"
-msgstr "Change la correction gamma pour l'image de l'aperçu"
+msgstr "Đặt giá trị hiệu chỉnh gamma cho ảnh xem trước"
 
 #. DESC_PREVIEW_GAMMA_RED
 msgid "Set gamma correction value for red component of preview image"
-msgstr ""
-"Change la correction gamma de la composante rouge pour l'image de l'aperçu"
+msgstr "Đặt giá trị hiệu chỉnh gamma cho thành phần màu đỏ của ảnh xem trước"
 
 #. DESC_PREVIEW_GAMMA_GREEN
 msgid "Set gamma correction value for green component of preview image"
 msgstr ""
-"Change la correction gamma de la composante verte pour l'image de l'aperçu"
+"Đặt giá trị hiệu chỉnh gamma cho thành phần màu xanh lá cây của ảnh xem trước"
 
 #. DESC_PREVIEW_GAMMA_BLUE
 msgid "Set gamma correction value for blue component of preview image"
 msgstr ""
-"Change la correction gamma de la composante bleue pour l'image de l'aperçu"
+"Đặt giá trị hiệu chỉnh gamma cho thành phần màu xanh da trời của ảnh xem "
+"trước"
 
 #. DESC_LINEART_MODE
 msgid "Define the way XSane shall handle the threshold option"
-msgstr "Défini la manière dont XSane doit gérer l'option seuil"
+msgstr "Định nghĩa cách để XSane xử lý tùy chọn ngưỡng"
 
 #. DESC_GRAYSCALE_SCANMODE
 msgid ""
 "Select grayscale scanmode. This scanmode is used for lineart preview scan "
 "when transformation from grayscale to lineart is enabled"
 msgstr ""
-"Sélection du mode de numérisation en niveaux de gris. Ce mode de "
-"numérisation est utilisé pour la prévisualisation en mode trait quand la "
-"tranformation des niveaux de gris en mode trait est activée."
+"Chọn chế độ quét cân bằng xám, dùng để quét xem trước lineart khi cho phép "
+"chuyển dạng từ cân bằng xám thành lineart"
 
 #. DESC_PREVIEW_THRESHOLD_MIN
 #, no-c-format
 msgid "The scanner's minimum threshold level in %"
-msgstr "Le niveau de seuil minimum du scanner en %"
+msgstr "Mức ngưỡng tối thiểu của máy quét theo %"
 
 #. DESC_PREVIEW_THRESHOLD_MAX
 #, no-c-format
 msgid "The scanner's maximum threshold level in %"
-msgstr "Le niveau de seuil maximum du scanner en %"
+msgstr "Mức ngưỡng tối đa của máy quét theo %"
 
 #. DESC_PREVIEW_THRESHOLD_MUL
 msgid ""
 "Multiplier to make XSane threshold range and scanner threshold range the same"
-msgstr ""
-"Multiplicateur pour rendre l'échelle de seuil de XSane et du scanner les "
-"mêmes"
+msgstr "Bộ nhân để tạo chuỗi ngưỡng của XSane và máy quét là như nhau"
 
 #. DESC_PREVIEW_THRESHOLD_OFF
 msgid ""
 "Offset to make XSane threshold range and scanner threshold range the same"
-msgstr ""
-"Décalage pour rendre l'échelle de seuil de XSane et du scanner les mêmes"
+msgstr "Offset để tạo chuỗi ngưỡng của XSane và máy quét là như nhau"
 
 #. DESC_ADF_MODE
 msgid ""
 "Select scansource for Automatic Document feeder. If this scansource is "
 "selected XSane scans until \"out of paper\" or error."
 msgstr ""
-"Sélectionnez la source de numérisation pour le chargeur automatique de "
-"documents. Dans ce mode, XSane numérisera jusqu'à l'obtention d'un signal "
-"\"plus de papier\" ou d'une erreur."
+"Chọn nguồn quét cho trình cung cấp tài liệu tự động. Nếu nguồn quét này được "
+"XSane chọn quét đến khi \"Hết giấy\" hay lỗi."
 
 #. DESC_PREVIEW_PIPETTE_RANGE
 msgid "dimension of square that is used to average color for pipette function"
-msgstr ""
-"Dimension du carré utilisée pour déterminer la couleur moyenne pour la "
-"fonction pipette"
+msgstr "Cạnh hình vuông được dùng để bình thường màu cho chức năng pipette"
 
 #. DESC_DOC_VIEWER
 msgid ""
 "Enter command to be executed to display helpfiles, must be a html-viewer!"
 msgstr ""
-"Entrez la commande a exécuter pour afficher les fichiers d'aide ; doit être "
-"capable de lire du html !"
+"Nhập lệnh được thực thi để hiển thị tập tin trợ giúp, phải là trình xem "
+"html !"
 
 #. DESC_AUTOENHANCE_GAMMA
 msgid "Change gamma value when autoenhancement button is pressed"
-msgstr "Change la valeur gamma quand le bouton d'optimisation auto est pressé"
+msgstr "Thay đổi giá trị gamma khi nhấn nút tự động cải thiện"
 
 #. DESC_PRESELECT_SCANAREA
 msgid "Select scanarea after preview scan has finished"
-msgstr ""
-"Sélectionne l'aire de numérisation une fois la prévisualisation terminée"
+msgstr "Chọn vùng quét sau khi kết thúc việc quét xem trước"
 
 #. DESC_AUTOCORRECT_COLORS
 msgid "Do color correction after preview scan has finished"
-msgstr "Corrige les couleurs une fois la prévisualisation terminée"
+msgstr "Thực hiện hiệu chỉnh màu sau khi kết thúc việc quét xem trước"
 
 #. DESC_FAX_COMMAND
 msgid "Enter command to be executed in fax mode"
-msgstr "Entrez la commande à exécuter en mode fax"
+msgstr "Nhập lệnh được thực thi trong chế độ Fax"
 
 #. DESC_FAX_RECEIVER_OPT
 msgid "Enter option to specify receiver"
-msgstr "Entrez l'option à spécifier au destinataire"
+msgstr "Nhập tùy chọn để chỉ ra người nhận"
 
 #. DESC_FAX_POSTSCRIPT_OPT
 msgid "Enter option to specify postscript files following"
-msgstr "Entrez l'option à spécifier aux fichiers PostScript"
+msgstr "Nhập tùy chọn để định ra tập tin postscript sau đây"
 
 #. DESC_FAX_NORMAL_OPT
 msgid "Enter option to specify normal mode (low resolution)"
-msgstr "Entrez l'option à spécifier au mode normal (basse résolution)"
+msgstr "Nhập tùy chọn để định ra chế độ bình thường (độ phân giải thấp)"
 
 #. DESC_FAX_FINE_OPT
 msgid "Enter option to specify fine mode (high resolution)"
-msgstr "Entrez l'option à spécifier au mode fin (haute résolution)"
+msgstr "Nhập tùy chọn để định ra chế độ tinh túy (độ phân giải cao)"
 
 #. DESC_FAX_VIEWER
 msgid "Enter command to be executed to view a fax"
-msgstr "Entrez la commande à être exécutée pour voir un fax"
+msgstr "Nhập lệnh được thực thi để xem Fax"
 
 #. DESC_FAX_FINE_MODE
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
-msgstr ""
-"Envoie un fax avec une résolution verticale élevée (196 lpi à la place de 98 "
-"lpi)"
+msgstr "Gửi Fax có độ phân giải dọc cao (196 lpi thay vì 98 lpi)"
 
 #. DESC_SMTP_SERVER
 msgid "IP Address or Domain name of SMTP server"
-msgstr "Adresse IP ou nom de domaine du serveur SMTP"
+msgstr "Địa chỉ IP hay tên miền của máy chủ SMTP"
 
 #. DESC_SMTP_PORT
 msgid "port to connect to SMTP server"
-msgstr "Port de connexion SMTP"
+msgstr "cổng nối tới máy chủ SMTP"
 
 #. DESC_MAIL_FROM
 msgid "enter your email address"
-msgstr "Entrez votre adresse e-mail"
+msgstr "nhập địa chỉ email của bạn"
 
 #. DESC_MAIL_REPLY_TO
 msgid "enter email address for replied emails"
-msgstr "Entrez l'adresse e-mail de réponse"
+msgstr "nhập địa chỉ email cho các email được trả lời"
 
 #. DESC_POP3_AUTHENTIFICATION
 msgid "Authentificate at POP3 server before sending mail"
-msgstr "S'authentifier au près du serveur POP3 avant d'envoyer le message"
+msgstr "Chứng thực tại máy chủ POP3 trước khi gửi thư"
 
 #. DESC_POP3_SERVER
 msgid "IP Address or Domain name of POP3 server"
-msgstr "Adresse IP ou nom de domaine du serveur POP3"
+msgstr "Địa chỉ IP hay tên miền của máy chủ POP3"
 
 #. DESC_POP3_PORT
 msgid "port to connect to POP3 server"
-msgstr "Port de connexion POP3"
+msgstr "cổng để nối tới máy chủ POP3"
 
 #. DESC_POP3_USER
 msgid "user name for POP3 server"
-msgstr "Nom d'utilisateur pour le serveur POP3"
+msgstr "tên người dùng cho máy chủ POP3"
 
 #. DESC_POP3_PASS
 msgid "password for POP3 server"
-msgstr "Mot de passe pour le serveur POP3"
+msgstr "mật khẩu cho máy chủ POP3"
 
 #. DESC_MAIL_VIEWER
 msgid "Enter command to be executed to view a mail image"
-msgstr "Entrez la commande à être exécutée pour voir une image e-mail"
+msgstr "Nhập lệnh được thực thi để xem ảnh trong thư"
 
 #. DESC_HTML_MAIL
 msgid "Mail is sent in html mode, images are displayed directly"
-msgstr "Message envoyé en mode html, les images sont affichées directement"
+msgstr "Thư gửi theo phương thức HTML, ảnh được hiển thị trực tiếp"
 
 #. DESC_OCR_COMMAND
 msgid "Enter command to start ocr program"
-msgstr "Entrez la commande pour lancer le programme d'OCR"
+msgstr "nhập lệnh chạy chương trình OCR"
 
 #. DESC_OCR_INPUTFILE_OPT
 msgid "Enter option of the ocr program to define input file"
-msgstr "Entrez l'option du programme d'OCR pour définir un fichier d'entrée"
+msgstr "Nhập tùy chọn của chương trình OCR để định ra tập tin đầu vào"
 
 #. DESC_OCR_OUTPUTFILE_OPT
 msgid "Enter option of the ocr program to define output file"
-msgstr "Entrez l'option du programme d'OCR pour définir un fichier de sortie"
+msgstr "Nhập tùy chọn của chương trình OCR để định ra tập tin đầu ra"
 
 #. DESC_OCR_USE_GUI_PIPE_OPT
 msgid "Define if the ocr program supports gui progress pipe"
-msgstr "Définissez si le programme d'OCR supporte un pipe GUI de progression"
+msgstr "Định nghĩa nếu chương trình OCR hỗ trợ pipe tiến trình đồ họa"
 
 #. DESC_OCR_OUTFD_OPT
 msgid ""
 "Enter option of the ocr program to define output filedescripor in GUI mode"
 msgstr ""
-"Entrez l'option du programme d'OCR pour définir un fichier descripteur de "
-"sortie en mode GUI"
+"Nhập tùy chọn của chương trình OCR để định ra output filedescripor trong chế "
+"độ đồ họa"
 
 #. DESC_OCR_PROGRESS_KEYWORD
 msgid "Define Keyword that is used to mark progress information"
-msgstr ""
-"Définissez un mot clé à utiliser pour marquer l'information de progression"
+msgstr "Định ra từ khóa dùng để đánh dấu thông tin tiến trình"
 
 #. DESC_PERMISSION_READ
 msgid "read"
-msgstr "lecture"
+msgstr "đọc"
 
 #. DESC_PERMISSION_WRITE
 msgid "write"
-msgstr "écriture"
+msgstr "ghi"
 
 #. DESC_PERMISSION_EXECUTE
 msgid "execute"
-msgstr "exécution"
+msgstr "thực thi"
 
 #. DESC_ADD_BATCH
 msgid "Add selection for batch scan"
-msgstr "Ajouter la sélection pour la numérisation par lots"
+msgstr "Thêm phần chọn cho quét batch"
 
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
-msgstr "Choisissez un point blanc"
+msgstr "Lấy điểm trắng"
 
 #. DESC_PIPETTE_GRAY
 msgid "Pick gray point"
-msgstr "Choisissez un point gris"
+msgstr "Lấy điểm xám"
 
 #. DESC_PIPETTE_BLACK
 msgid "Pick black point"
-msgstr "Choisissez un point noir"
+msgstr "Lấy điểm đen"
 
 #. DESC_ZOOM_FULL
 msgid "Use full scanarea"
-msgstr "Utilise l'aire de numérisation complète"
+msgstr "Dùng toàn bộ vùng quét"
 
 #. DESC_ZOOM_OUT
 #, no-c-format
 msgid "Zoom 20% out"
-msgstr "Zoom 20% en arrière"
+msgstr "Thu nhỏ 20%"
 
 #. DESC_ZOOM_IN
 msgid "Click at position to zoom to"
-msgstr "Cliquez à la posisiton désirée du zoom"
+msgstr "Nhấp chuột tại vị trí để phóng thành"
 
 #. DESC_ZOOM_AREA
 msgid "Zoom into selected area"
-msgstr "Zoom l'aire sélectionnée"
+msgstr "Phóng vào trong vùng được chọn"
 
 #. DESC_ZOOM_UNDO
 msgid "Undo last zoom"
-msgstr "Annule le dernier zoom"
+msgstr "Thôi việc phóng vừa rồi"
 
 #. DESC_FULL_PREVIEW_AREA
 msgid "Select visible area"
-msgstr "Sélectionne l'aire visible"
+msgstr "Chọn vùng hiển thị"
 
 #. DESC_AUTOSELECT_SCANAREA
 msgid "Autoselect scanarea"
-msgstr "Sélection automatique de l'aire de numérisation"
+msgstr "Tự chọn vùng quét"
 
 #. DESC_AUTORAISE_SCANAREA
 msgid "Autoraise scanarea"
-msgstr "Affichage automatique de l'aire de numérisation"
+msgstr "Tự nâng vùng quét"
 
 #. DESC_DELETE_IMAGES
 msgid "Delete preview image cache"
-msgstr "Effacer le cache de l'aperçu"
+msgstr "Xóa cache ảnh xem trước"
 
 #. DESC_PRESET_AREA
 msgid "Preset area"
-msgstr "Aire de présélection"
+msgstr "Lập trước vùng"
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
-msgstr "Pivote l'aperçu et la numérisation"
+msgstr "Xoay ảnh xem trước và quét"
 
 #. DESC_RATIO
 msgid "Aspect ratio of selection"
@@ -1957,59 +1922,59 @@ msgstr ""
 
 #. DESC_PAPER_ORIENTATION
 msgid "Define image position for printing"
-msgstr ""
+msgstr "Định ra vị trí ảnh để in"
 
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
-msgstr "Reconnaissance Optique de Caractères"
+msgstr "Nhận Dạng Ký Tự Quang (OCR)"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
-msgstr "Cloner l'image"
+msgstr "Sao ảnh"
 
 #. DESC_ROTATE90
 msgid "Rotate image 90 degree"
-msgstr "Rotation à 90° de l'image"
+msgstr "Xoay ảnh 90 độ"
 
 #. DESC_ROTATE180
 msgid "Rotate image 180 degree"
-msgstr "Rotation à 180° de l'image"
+msgstr "Xoay ảnh 180 độ"
 
 #. DESC_ROTATE270
 msgid "Rotate image 270 degree"
-msgstr "Rotation à 270° de l'image"
+msgstr "Xoay ảnh 270 độ"
 
 #. DESC_MIRROR_X
 msgid "Mirror image at vertical axis"
-msgstr "Effet mirroir à axe vertical"
+msgstr "Phản chiếu ảnh tại trục dọc"
 
 #. DESC_MIRROR_Y
 msgid "Mirror image at horizontal axis"
-msgstr "Effet mirroir à axe horizontal"
+msgstr "Phản chiếu ảnh tại trục ngang"
 
 #. DESC_VIEWER_ZOOM
 msgid "Zoom image"
-msgstr "Zoom sur l'image"
+msgstr "Phóng ảnh"
 
 #. DESC_STORE_MEDIUM
 msgid "Store medium"
-msgstr "Enregistre la définition du support"
+msgstr "Thiết bị lưu trữ"
 
 #. DESC_DELETE_MEDIUM
 msgid "Delete active medium"
-msgstr "Efface la définition du support"
+msgstr "Xóa phương tiện hoạt động"
 
 #. DESC_SCALE_FACTOR
 msgid "Scale factor"
-msgstr "Facteur d'échelle"
+msgstr "Nhân tố cân chỉnh"
 
 #. DESC_X_SCALE_FACTOR
 msgid "X-Scale factor"
-msgstr "Facteur d'échelle horizontal"
+msgstr "Nhân tố cân chỉnh X"
 
 #. DESC_Y_SCALE_FACTOR
 msgid "Y-Scale factor"
-msgstr "Facteur d'échelle vertical"
+msgstr "Nhân tố cân chỉnh Y"
 
 #. DESC_SCALE_WIDTH
 msgid "Scale image to width [in pixel]"
@@ -2021,224 +1986,221 @@ msgstr ""
 
 #. DESC_BATCH_LIST_EMPTY
 msgid "Empty batch list"
-msgstr "Vide la liste"
+msgstr "Xóa nội dung danh sách batch"
 
 #. DESC_BATCH_LIST_SAVE
 msgid "Save batch list"
-msgstr "Sauve la liste"
+msgstr "Lưu danh sách batch"
 
 #. DESC_BATCH_LIST_LOAD
 msgid "Load batch list"
-msgstr "Charge la liste"
+msgstr "Nạp danh sách batch"
 
 #. DESC_BATCH_RENAME
 msgid "Rename area"
-msgstr "Renomme l'aire"
+msgstr "Đổi tên vùng"
 
 #. DESC_BATCH_ADD
 msgid "Add selected preview area to batch list"
-msgstr "Ajoute la sélection de la prévisualisation à la liste"
+msgstr "Thêm vùng xem trước được chọn vào danh sách batch"
 
 #. DESC_BATCH_DEL
 msgid "Delete selected area from batch list"
-msgstr "Supprime l'aire sélectionnée de la liste"
+msgstr "Xóa vùng được chọn khỏi danh sách batch"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
-msgstr "Impossible de déterminer le répertoire personnel:"
+msgstr "Không xác định được thư mục home:"
 
 #. ERR_CHANGE_WORKING_DIR
 msgid "Failed to change working directory to"
-msgstr "Impossible de changer le répertoire de travail en:"
+msgstr "Không đổi được thư mục hoạt động thành"
 
 #. ERR_FILENAME_TOO_LONG
 msgid "Filename too long"
-msgstr "Nom de fichier trop long"
+msgstr "Tên tập tin quá dài"
 
 #. ERR_CREATE_TEMP_FILE
 msgid "Could not create temporary file"
-msgstr "Ne peut créer de fichier temporaire"
+msgstr "Không tạo được tập tin tạm thời"
 
 #. ERR_SET_OPTION
 msgid "Failed to set value of option"
-msgstr "Echec du changement de la valeur de l'option"
+msgstr "Không lập được giá trị của tùy chọn"
 
 #. ERR_GET_OPTION
 msgid "Failed to obtain value of option"
-msgstr "Echec de l'obtention de la valeur de l'option"
+msgstr "Không đạt được giá trị tùy chọn"
 
 #. ERR_OPTION_COUNT
 msgid "Error obtaining option count"
-msgstr "Erreur de l'option 'count'"
+msgstr "Lỗi khi đạt được tùy chọn đếm"
 
 #. ERR_DEVICE_OPEN_FAILED
 msgid "Failed to open device"
-msgstr "Erreur d'ouverture du périphérique"
+msgstr "Không mở được thiết bị"
 
 #. ERR_NO_DEVICES
 msgid "no devices available"
-msgstr "Aucun périphérique disponible"
+msgstr "không có thiết bị"
 
 #. ERR_DURING_READ
 msgid "Error during read:"
-msgstr "Erreur pendant la lecture"
+msgstr "Lỗi khi đang đọc:"
 
 #. ERR_DURING_SAVE
 msgid "Error during save:"
-msgstr "Erreur pendant la sauvegarde"
+msgstr "Lỗi khi đang lưu:"
 
 #. ERR_BAD_DEPTH
 msgid "Can't handle depth"
-msgstr "Ne supporte pas le mode"
+msgstr "Không thể xử lý được độ sâu"
 
 #. ERR_GIMP_BAD_DEPTH
 #, c-format
 msgid "GIMP can't handle depth %d bits/color"
-msgstr "GIMP ne supporte pas la profondeur %d bits/color"
+msgstr "GIMP không thể xử lý độ sâu %d bit/màu"
 
 #. ERR_UNKNOWN_SAVING_FORMAT
 msgid "Unknown file format for saving"
-msgstr "Format de sauvegarde inconnu"
+msgstr "Không xác định được định dạng tập tin để lưu"
 
 #. ERR_OPEN_FAILED
 msgid "Failed to open"
-msgstr "Echec de l'ouverture"
+msgstr "Không mở được"
 
 #. ERR_CREATE_SECURE_FILE
 msgid "Could not create secure file (may be a link does exist):"
-msgstr "Ne peut créer un fichier sécurité (peut-être qu'un lien existe déja):"
+msgstr "Không thể tạp tập tin bảo mật (có thể do liên kết tồn tại):"
 
 #. ERR_FAILED_PRINTER_PIPE
 msgid "Failed to open pipe for executing printercommand"
-msgstr ""
-"Echec lors de l'ouverture du pipe pour exécuter la commande d'impression"
+msgstr "Không mở được pipe để thực thi lệnh máy in"
 
 #. ERR_FAILED_EXEC_PRINTER_CMD
 msgid "Failed to execute printercommand:"
-msgstr "Echec de l'exécution de la commande d'impression"
+msgstr "Không thực thi được lệnh máy in:"
 
 #. ERR_FAILED_START_SCANNER
 msgid "Failed to start scanner:"
-msgstr "Echec du démarrage du scanner"
+msgstr "Không chạy được máy in:"
 
 #. ERR_FAILED_GET_PARAMS
 msgid "Failed to get parameters:"
-msgstr "Echec lors du chargement des paramètres"
+msgstr "Không nhận được tham số:"
 
 #. ERR_NO_OUTPUT_FORMAT
 msgid "No output format given"
-msgstr "Pas de format de sortie donné"
+msgstr "Không có định dạng đầu ra"
 
 #. ERR_NO_MEM
 msgid "out of memory"
-msgstr "Dépassement de mémoire"
+msgstr "hết bộ nhớ"
 
 #. ERR_TOO_MUCH_DATA
 msgid "Backend sends more image data than it defined in parameters"
-msgstr "Le backend envoie plus de données image que défini dans les paramètres"
+msgstr "Backend gửi nhiều dữ liệu ảnh hơn chỉ định trong tham số"
 
 #. ERR_LIBTIFF
 msgid "LIBTIFF reports error"
-msgstr "LIBTIFF a reporté une erreur"
+msgstr "LIBTIFF báo lỗi"
 
 #. ERR_LIBPNG
 msgid "LIBPNG reports error"
-msgstr "LIBPNG a reporté une erreur"
+msgstr "LIBPNG báo lỗi"
 
 #. ERR_UNKNOWN_TYPE
 msgid "unknown type"
-msgstr "type inconnu"
+msgstr "loại không xác định"
 
 #. ERR_UNKNOWN_CONSTRAINT_TYPE
 msgid "unknown constraint type"
-msgstr "type de restriction inconnu"
+msgstr "Kiểu tự chủ không xác định"
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
-msgstr "Erreur d'exécution de la visionneuse de documentation"
+msgstr "Không thực thi được trình xem tài liệu:"
 
 #. ERR_FAILED_EXEC_FAX_VIEWER
 msgid "Failed to execute fax viewer:"
-msgstr "Erreur d'exécution de la visionneuse de fax"
+msgstr "Không thực thi được trình xem Fax:"
 
 #. ERR_FAILED_EXEC_FAX_CMD
 msgid "Failed to execute fax command:"
-msgstr "Erreur d'exécution de la commande de fax:"
+msgstr "Không thực thi được lệnh Fax:"
 
 #. ERR_FAILED_EXEC_MAIL_VIEWER
 msgid "Failed to execute mail image viewer:"
-msgstr "Erreur d'exécution de la visionneuse d'image:"
+msgstr "Không thực thi được trình xem ảnh trong thư:"
 
 #. ERR_FAILED_EXEC_OCR_CMD
 msgid "Failed to execute ocr command:"
-msgstr "Erreur d'exécution de la commande OCR:"
+msgstr "Không thực thi được lệnh OCR:"
 
 #. ERR_BAD_FRAME_FORMAT
 msgid "bad frame format"
-msgstr "Mauvais format de frame"
+msgstr "định dạng khung hỏng"
 
 #. ERR_FAILED_SET_RESOLUTION
 msgid "unable to set resolution"
-msgstr "Impossible d'attribuer la résolution"
+msgstr "không thể đặt độ phân giải"
 
 #. ERR_PASSWORD_FILE_INSECURE
 #, c-format
 msgid "Password file (%s) is insecure, use permission x00\n"
-msgstr ""
-"Le fichier de mot de passe (%s) n'est pas sur, utilisez des droits x00\n"
+msgstr "Tập tin mật khẩu (%s) không bảo mật, hãy dùng quyền hạn x00\n"
 
 #. ERR_ERROR
 msgid "error"
-msgstr "Erreur"
+msgstr "lỗi"
 
 #. ERR_MAJOR_VERSION_NR_CONFLICT
 msgid "Sane major version number mismatch!"
-msgstr "Incohérence dans le numéro de version majeur de Sane!"
+msgstr "Không khớp số phiên bản chính của SANE!"
 
 #. ERR_XSANE_MAJOR_VERSION
 msgid "XSane major version ="
-msgstr "Version majeure de XSane ="
+msgstr "phiên bản chính XSane ="
 
 #. ERR_BACKEND_MAJOR_VERSION
 msgid "backend major version ="
-msgstr "Version majeure du backend ="
+msgstr "phiên bản chính của backend ="
 
 #. ERR_PROGRAM_ABORTED
 msgid "*** PROGRAM ABORTED ***"
-msgstr "*** ARRET DU PROGRAMME ***"
+msgstr "*** HỦY BỎ CHƯƠNG TRÌNH ***"
 
 #. ERR_FAILED_ALLOCATE_IMAGE
 msgid "Failed to allocate image memory:"
-msgstr "Erreur d'allocation de mémoire pour l'image"
+msgstr "Không cấp phát bộ nhớ cho ảnh được:"
 
 #. ERR_PREVIEW_BAD_DEPTH
 msgid "Preview cannot handle bit depth"
-msgstr "La prévisualisation ne supporte pas le mode"
+msgstr "Xem trước không thể xử lý độ sâu bit"
 
 #. ERR_GIMP_SUPPORT_MISSING
 msgid "GIMP support missing"
-msgstr "le support pour GIMP est manquant"
+msgstr "Thiếu hỗ trợ GIMP"
 
 #. ERR_CREATE_PREVIEW_FILE
 msgid "Could not create temporary preview files"
-msgstr "Ne peut pas créer de fichiers temporaires de prévisualisation"
+msgstr "Không thể tạo tập tin xem trước tạm thời"
 
 #. ERR_CREATE_PREVIEW_FILENAME
 msgid "Could not create filenames for preview files"
-msgstr ""
-"Ne peut pas créer de noms de fichiers pour les fichiers de prévisualisation"
+msgstr "Không thể tạo tên cho tập tin xem trước"
 
 #. ERR_CREATE_FAX_PROJECT
 msgid "Could not create faxproject"
-msgstr "Ne peut créer un projet fax"
+msgstr "Không thể tạo được dự án fax"
 
 #. WARN_COUNTER_UNDERRUN
 msgid "Filename counter underrun"
-msgstr "Repositionnement du compteur de noms de fichiers"
+msgstr "Chạy dưới bộ đếm tên tập tin"
 
 #. WARN_NO_VALUE_CONSTRAINT
 msgid "warning: option has no value constraint"
-msgstr "Attention: l'option n'a pas de restriction"
+msgstr "cảnh báo: tùy chọn không có tính tự chủ giá trị"
 
 #. WARN_XSANE_AS_ROOT
 msgid ""
@@ -2248,96 +2210,95 @@ msgid ""
 "have any problem while running XSane as root:\n"
 "YOU ARE ALONE!"
 msgstr ""
-"Vous exécutez XSane en tant que ROOT, c'est réellement DANGEREUX !\n"
+"Bạn chạy XSane bằng ROOT, việc này rất NGUY HIỂM!\n"
 "\n"
-"N'envoyez pas de rapports de bug si vous rencontrez\n"
-"des problèmes en utilisant XSane en tant que root:\n"
-"VOUS ETES SEUL !"
+"Không gửi bất kỳ báo lỗi nào nếu có khi chạy XSane bằng root:\n"
+"Bạn không được hỗ trợ !"
 
 #. ERR_HEADER_ERROR
 msgid "Error"
-msgstr "Erreur"
+msgstr "Lỗi"
 
 #. ERR_HEADER_WARNING
 msgid "Warning"
-msgstr "Avertissement"
+msgstr "Cảnh báo"
 
 #. ERR_HEADER_INFO
 msgid "Information"
-msgstr "Information"
+msgstr "thông tin"
 
 #. ERR_HEADER_CHILD_PROCESS_ERROR
 msgid "Child process error"
-msgstr "Erreur de processus enfant"
+msgstr "Lỗi tiến trình con"
 
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
-msgstr "Erreur de création de fichier"
+msgstr "Không tạo được tập tin:"
 
 #. ERR_LOAD_DEVICE_SETTINGS
 msgid "Error while loading device settings:"
-msgstr "Erreur lors du chargement des paramètres du périphérique"
+msgstr "Lỗi khi nạp thiết lập của thiết bị:"
 
 #. ERR_NO_DRC_FILE
 msgid "is not a device-rc-file !!!"
-msgstr "n'est pas un fichier périphérique-rc"
+msgstr "không phải là device-rc-file !!!"
 
 #. ERR_NETSCAPE_EXECUTE_FAIL
 msgid "Failed to execute netscape!"
-msgstr "Echec de l'exécution de Netscape"
+msgstr "Không thực thi được Netscape!"
 
 #. ERR_SENDFAX_RECEIVER_MISSING
 msgid "Send fax: no receiver defined"
-msgstr "Envoi fax: pas de destinataire définit"
+msgstr "Gửi fax: chưa chỉ định người nhận"
 
 #. ERR_CREATED_FOR_DEVICE
 msgid "has been created for device"
-msgstr "a été créé pour le périphérique"
+msgstr "đã được tạo ra cho thiết bị"
 
 #. ERR_USED_FOR_DEVICE
 msgid "you want to use it for device"
-msgstr "vous voulez l'utiliser comme périphérique"
+msgstr "bạn muốn dùng nó cho thiết bị"
 
 #. ERR_MAY_CAUSE_PROBLEMS
 msgid "this may cause problems!"
-msgstr "cela peut occasionner des problèmes!"
+msgstr "Việc này có thể gây trục trặc!"
 
 #. WARN_UNSAVED_IMAGES
 #, c-format
 msgid "There are %d unsaved images"
-msgstr "Il y a %d images non sauvées"
+msgstr "Có %d ảnh chưa được lưu"
 
 #. WARN_FILE_EXISTS
 #, c-format
 msgid "File %s already exists"
-msgstr "Le fichier %s existe déja"
+msgstr "Tập tin %s tồn tại rồi"
 
 #. ERR_FILE_NOT_EXISTS
 #, c-format
 msgid "File %s does not exist"
-msgstr "Le fichier %s n'existe pas"
+msgstr "Tập tin %s không tồn tại"
 
 #. ERR_FILE_NOT_POSTSCRIPT
 #, c-format
 msgid "File %s is not a postscript file"
-msgstr "Le fichier %s n'est pas un fichier PostScript"
+msgstr "Tập tin %s không phải dạng postscript"
 
 #. ERR_UNSUPPORTED_OUTPUT_FORMAT
 #, c-format
 msgid "Unsupported %d-bit output format: %s"
-msgstr "Format de sortie %d-bit non supporté: %s"
+msgstr "Không hỗ trợ định dạng đầu ra %d-bit: %s"
 
 #. WARN_VIEWER_IMAGE_NOT_SAVED
 msgid "viewer image is not saved"
-msgstr "L'image de la visionneuse n'est pas sauvegardée"
+msgstr "Ảnh xem trước không được lưu"
 
 #. TEXT_USAGE
 msgid "Usage:"
-msgstr "Usage:"
+msgstr "Cách dùng:"
 
 #. TEXT_USAGE_OPTIONS
 msgid "[OPTION]... [DEVICE]"
-msgstr "[OPTION]... [PERIPHERIQUE]"
+msgstr "[TÙY CHỌN]...[THIẾT BỊ]"
 
 #. TEXT_HELP
 msgid ""
@@ -2376,72 +2337,71 @@ msgid ""
 " --sync                       request a synchronous connection with the X11 "
 "server"
 msgstr ""
-"Démarre l'interface graphique pour accéder aux périphériques de SANE "
-"(Scanner Access Now Easy).\n"
+"Khởi chạy giao diện đồ họa để truy cập thiết bị SANE (Scanner Access Now "
+"Easy)\n"
 "\n"
-"Le format de [PERIPHERIQUE] est : nom_du_backend:fichier_périphérique\n"
-"(ex : umax:/dev/scanner).\n"
-"[OPTION]... peut être une des combinaisons suivantes :\n"
+"Định dạng [Thiết Bị] là tên backend: tập tin thiết bị (VD: umax:/dev/"
+"scanner).\n"
+"[Tùy Chọn]... có thể là phức hợp của các mục sau đây:\n"
+" -h, --help                   hiển thị thông điệp trợ giúp và thoát ra\n"
+" -v, --version                in lên màn hình thông tin về phiên bản\n"
+" -l, --license                in ra màn hình thông tin về giấy phép\n"
 "\n"
-"-h, --help                   affiche ce message d'aide et quitte\n"
-"-v, --version                donne des informations sur la version\n"
-"-l, --license                affiche des informations sur la licence\n"
+" -d, --device-settings file   nạp thiết lập thiết bị từ tập tin (không có \"."
+"drc\")\n"
 "\n"
-"-d, --device-settings file   charge la configuration d'un périphérique à\n"
-"                             partir d'un fichier (sans \".drc\")\n"
+" -V, --viewer                 chạy kèm hoạt động chế độ của trình xem (mặc "
+"định)\n"
+" -s, --save                   chạy kèm hoạt động của chế dộ lưu\n"
+" -c, --copy                   chạy kèm hoạt động của chế độ sao chép\n"
+" -f, --fax                    chạy kèm hoạt động của chế độ fax\n"
+" -m, --mail                   chạy kèm hoạt động của chế độ thư\n"
+" -n, --no-mode-selection      Tắt menu cho việc chọn chế độ của XSane\n"
 "\n"
-"-V, --viewer                 démarre en mode visionneuse (défaut)\n"
-"-s, --save                   démarre en mode sauvegarde\n"
-"-c, --copy                   démarre en mode copie\n"
-"-f, --fax                    démarre en mode fax\n"
-"-m, --mail                   start with mail-mode active\n"
-"-n, --no-mode-selection      désactive le menu de sélection de mode\n"
+" -M, --Medium-calibration     bật chạy chế độ chuẩn hóa trung bình\n"
 "\n"
-"-M, --Medium-calibration     active le mode de calibration de media\n"
+" -F, --Fixed                  cố định cỡ cửa sổ chính (ghi đè giá trị tùy "
+"thích)\n"
+" -R, --Resizeable             đổi cỡ và cuộn cửa sổ chính (ghi đè giá trị "
+"tùy thích)\n"
 "\n"
-"-F, --Fixed                  fixe la taille de la fenêtre principale (sans\n"
-"                             tenir compte des préférences)\n"
-"-R, --Resizeable             taille de la fenêtre principale variable (sans\n"
-"                             tenir compte des préférences)\n"
-"-p, --print-filenames        affiche le nom des images créées par XSane\n"
-"-N, --force-filename name    force le nom de fichier et désactive la "
-"sélection\n"
-"                             utilisateur\n"
-"--display affichage-X11      redirige l'affichage vers un autre affichage "
-"X11\n"
-"--no-xshm                    n'utilise pas la mémoire partagée\n"
-"--sync                       demande une connexion synchrone avec le serveur "
-"X"
+" -p, --print-filenames        in tên tập tin ảnh do XSane tạo ra\n"
+" -N, --force-filename name    ép buộc tên tập tin và tắt việc chọn tên tập "
+"tin của người dùng\n"
+"\n"
+" --display X11-display        đổi hướng đầu ra tới X11-display\n"
+" --no-xshm                    không dùng ảnh bộ nh chia sẻ\n"
+" --sync                       yêu cầu kết nối đồng bộ với máy chủ X11"
 
 #. strings for gimp plugin
 #. XSANE_GIMP_INSTALL_BLURB
 msgid "Front-end to the SANE interface"
-msgstr "Front-end pour l'interface SANE"
+msgstr "Front-end tới giao diện SANE"
 
 #. XSANE_GIMP_INSTALL_HELP
 msgid ""
 "This function provides access to scanners and other image acquisition "
 "devices through the SANE (Scanner Access Now Easy) interface."
 msgstr ""
-"Cette fonction permet l'accès aux scanners et autres périphériques "
-"d'acquisition d'images à travers SANE (Scanner Access Now Easy)"
+"Chức năng này cho truy cập máy quét và các thiết bị thu ảnh thông qua giao "
+"diện của SANE (Scanner Access Now Easy)."
 
 #. Menu path must not be translated, this is done by the gimp. Only translate the text behind the last "/"
 #. XSANE_GIMP_MENU_DIALOG
 msgid "<Toolbox>/File/Acquire/XSane: Device dialog..."
-msgstr ""
+msgstr "<Hộp công cụ>/File/Yêu cầu/XSane: Thoại thiết bị..."
 
 #. XSANE_GIMP_MENU
 msgid "<Toolbox>/File/Acquire/XSane: "
-msgstr ""
+msgstr "<Hộp công cụ>/File/Yêu cầu/XSane: "
 
 #. XSANE_GIMP_MENU_DIALOG_OLD
 msgid "<Toolbox>/Xtns/XSane/Device dialog..."
-msgstr ""
+msgstr "<Hộp công cụ>/Xtns/XSane/Thoại thiết bị..."
 
 #. XSANE_GIMP_MENU_OLD
 msgid "<Toolbox>/Xtns/XSane/"
-msgstr ""
+msgstr "<Hộp công cụ>/Xtns/XSane/"
 
 #. HELP_NO_DEVICES
 msgid ""
@@ -2454,172 +2414,179 @@ msgid ""
 "5) The backend is not configured correct (man sane-\"backendname\")\n"
 "6) Possibly there is more than one SANE version installed"
 msgstr ""
+"Có thể là những nguyên nhân sau:\n"
+"1) Thật sự là không có thiết bị nào được SANE hỗ trợ.\n"
+"2) Thiết bị được hỗ trợ đang bận\n"
+"3) Quyền hạn cho tập tin thiết bị không cho phép bạn - hãy thử bằng root\n"
+"4) SANE không nạp backend (man sane-dll)\n"
+"5) Chưa cấu hình đúng backend (man sane-\"backendname\")\n"
+"6) Có khả năng là có hơn một phiên bản của SANE đã được cài đặt"
 
 #. strings that are used in structures, so it is not allowed to use _()/gettext() here
 #. gettext_noop does mark these texts but does not change the string
 #. MENU_ITEM_SURFACE_FULL_SIZE
 msgid "full size"
-msgstr "Taille maximum"
+msgstr "To hết cỡ"
 
 #. MENU_ITEM_SURFACE_DIN_A3P
 msgid "DIN A3 port."
-msgstr "DIN A3 portrait"
+msgstr "DIN A3 port."
 
 #. MENU_ITEM_SURFACE_DIN_A3L
 msgid "DIN A3 land."
-msgstr "DIN A3 paysage"
+msgstr "DIN A3 land."
 
 #. MENU_ITEM_SURFACE_DIN_A4P
 msgid "DIN A4 port."
-msgstr "DIN A4 portrait"
+msgstr "DIN A4 port."
 
 #. MENU_ITEM_SURFACE_DIN_A4L
 msgid "DIN A4 land."
-msgstr "DIN A4 paysage"
+msgstr "DIN A4 land."
 
 #. MENU_ITEM_SURFACE_DIN_A5P
 msgid "DIN A5 port."
-msgstr "DIN A5 portrait"
+msgstr "DIN A5 port."
 
 #. MENU_ITEM_SURFACE_DIN_A5L
 msgid "DIN A5 land."
-msgstr "DIN A5 paysage"
+msgstr "DIN A5 land."
 
 #. MENU_ITEM_SURFACE_13cmx18cm
 msgid "13cm x 18cm"
-msgstr ""
+msgstr "13cm x 18cm"
 
 #. MENU_ITEM_SURFACE_18cmx13cm
 msgid "18cm x 13cm"
-msgstr ""
+msgstr "18cm x 13cm"
 
 #. MENU_ITEM_SURFACE_10cmx15cm
 msgid "10cm x 15cm"
-msgstr ""
+msgstr "10cm x 15cm"
 
 #. MENU_ITEM_SURFACE_15cmx10cm
 msgid "15cm x 10cm"
-msgstr ""
+msgstr "15cm x 10cm"
 
 #. MENU_ITEM_SURFACE_9cmx13cm
 msgid "9cm x 13cm"
-msgstr ""
+msgstr "9cm x 13cm"
 
 #. MENU_ITEM_SURFACE_13cmx9cm
 msgid "13cm x 9cm"
-msgstr ""
+msgstr "13cm x 9cm"
 
 #. MENU_ITEM_SURFACE_legal_P
 msgid "legal port."
-msgstr "Legal portrait"
+msgstr "Port hợp lệ."
 
 #. MENU_ITEM_SURFACE_legal_L
 msgid "legal land."
-msgstr "Legal paysage"
+msgstr "Land hợp lệ."
 
 #. MENU_ITEM_SURFACE_letter_P
 msgid "letter port."
-msgstr "Letter portrait"
+msgstr "letter port."
 
 #. MENU_ITEM_SURFACE_letter_L
 msgid "letter land."
-msgstr "Letter paysage"
+msgstr "letter land."
 
 #. MENU_ITEM_MEDIUM_FULL_COLOR_RANGE
 msgid "Full color range"
-msgstr "Pleine échelle couleur"
+msgstr "Dải màu đầy đủ"
 
 #. MENU_ITEM_MEDIUM_SLIDE
 msgid "Slide"
-msgstr "Dia"
+msgstr "Slide"
 
 #. MENU_ITEM_MEDIUM_STANDARD_NEG
 msgid "Standard negative"
-msgstr "Négatif standard"
+msgstr "Âm bản chuẩn"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG
 msgid "Agfa negative"
-msgstr "Négatif Agfa"
+msgstr "Âm bản Agfa"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG_XRG200_4
 msgid "Agfa negative XRG 200-4"
-msgstr "Négatif Agfa XRG 200-4"
+msgstr "Âm bản Agfa XRG 200-4"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG_HDC_100
 msgid "Agfa negative HDC 100"
-msgstr "Négatif Agfa HDC 100"
+msgstr "Âm bản Agfa HDC 100"
 
 #. MENU_ITEM_MEDIUM_FUJI_NEG
 msgid "Fuji negative"
-msgstr "Négatif Fuji"
+msgstr "Âm bản Fuji"
 
 #. MENU_ITEM_MEDIUM_KODAK_NEG
 msgid "Kodak negative"
-msgstr "Négatif Kodak"
+msgstr "Âm bản Kodak"
 
 #. MENU_ITEM_MEDIUM_KONICA_NEG
 msgid "Konica negative"
-msgstr "Négatif Konica"
+msgstr "Âm bản Konica"
 
 #. MENU_ITEM_MEDIUM_KONICA_NEG_VX_100
 msgid "Konica negative VX 100"
-msgstr "Négatif Konica VX 100"
+msgstr "Âm bản Konica VX 100"
 
 #. MENU_ITEM_MEDIUM_ROSSMANN_NEG_HR_100
 msgid "Rossmann negative HR 100"
-msgstr "Négatif Rossman HR 100"
+msgstr "Âm bản Rossmann HR 100"
 
 #. Sane backend messages
 msgid "flatbed scanner"
-msgstr "scanner à plat"
+msgstr "Máy quẻt nằm"
 
 msgid "frame grabber"
-msgstr "carte d'acquisition vidéo"
+msgstr "Trình thu khung"
 
 msgid "handheld scanner"
-msgstr "scanner à main"
+msgstr "Máy quét cầm tay"
 
 msgid "still camera"
-msgstr "appareil numérique"
+msgstr "camera tĩnh"
 
 msgid "video camera"
-msgstr "caméra numérique"
+msgstr "video camera"
 
 msgid "virtual device"
-msgstr "périphérique virtuel"
+msgstr "thiết bị ảo"
 
 msgid "Success"
-msgstr "Succès"
+msgstr "Thành công"
 
 msgid "Operation not supported"
-msgstr "Opération non supportée"
+msgstr "Chức năng không được hỗ trợ"
 
 msgid "Operation was cancelled"
-msgstr "Opération annulée"
+msgstr "Chức năng đã bị bỏ qua"
 
 msgid "Device busy"
-msgstr "Périphérique occupé"
+msgstr "Thiết bị đang bận"
 
 msgid "Invalid argument"
-msgstr "Argument invalide"
+msgstr "Đối số không hợp lệ"
 
 msgid "End of file reached"
-msgstr "Fin de fichier atteinte"
+msgstr "Đến cuối cùng của tập tin"
 
 msgid "Document feeder jammed"
-msgstr "Chargeur de documents bloqué"
+msgstr "Kẹt trình cung cấp tài liệu"
 
 msgid "Document feeder out of documents"
-msgstr "Chargeur de documents vide"
+msgstr "Trình cung cấp tài liệu hết tài liệu"
 
 msgid "Scanner cover is open"
-msgstr "Le capot du scanner est ouvert"
+msgstr "Nắp máy quét đang mở"
 
 msgid "Error during device I/O"
-msgstr "Erreur d'I/O sur le périphérique"
+msgstr "Lỗi trong thiết bị I/O"
 
 msgid "Out of memory"
-msgstr "Dépassement de mémoire"
+msgstr "Hết bộ nhớ"
 
 msgid "Access to resource has been denied"
-msgstr "Accès à la ressource refusé"
+msgstr "Truy cập nguồn đã bị từ chối"

@@ -11,7 +11,7 @@ xsane - scanner frontend for SANE
 .RB | -d
 .IR file ]
 .RB [ --viewer | -V ]
-.RB [ --scan | -s ]
+.RB [ --save | -s ]
 .RB [ --copy | -c ]
 .RB [ --fax | -f ]
 .RB [ --mail | -m ]
@@ -141,10 +141,10 @@ or
 flag forces xsane to start in viewer mode.
 .PP
 The
-.B --scan
+.B --save
 or
 .B -s
-flag forces xsane to start in scan mode.
+flag forces xsane to start in save mode.
 .PP
 The
 .B --copy
@@ -168,7 +168,7 @@ The
 .B --no-mode-selection
 or
 .B -n
-flag disables the menu for xsane mode selection (viwer, scan, copy, fax, mail).
+flag disables the menu for xsane mode selection (viwer, save, copy, fax, mail).
 .PP
 The
 .B --Medium-calibration
@@ -207,7 +207,7 @@ of the format "name-###.ext". The selection box for filenames is disabled. This
 option normally should be used with the option
 .B --no-mode-selection
 and
-.B --scan.
+.B --save.
 .PP
 The
 .B --display

@@ -40,7 +40,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.89"
+#define XSANE_VERSION		"0.90"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2002"
@@ -101,8 +101,9 @@
 #include <getopt.h>
 #include <time.h>
 
-#include <sys/stat.h>
+/* OS/2 want sys/types before sys/stat */
 #include <sys/types.h>
+#include <sys/stat.h>
 
 #include <locale.h>
 
@@ -130,11 +131,12 @@
 
 #ifdef HAVE_GTK2
 # define HAVE_GTK_TEXT_VIEW_H
-# define DEF_GTK_SIGNAL_SPINBUTTON_VALUE_CHANGED "value-changed"
 # define DEF_GTK_MENU_ACCEL_VISIBLE GTK_ACCEL_VISIBLE
 #else /* we don't have gtk+-2.0 */
 # include "xsane-gtk-1_x-compat.h"
 #endif
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
 
 #ifdef ENABLE_NLS
 #    include <libintl.h>
@@ -153,6 +155,12 @@
 #    define bindtextdomain(Domain,Directory) (Domain)
 #    define _(String) (String)
 #    define N_(String) (String)
+#endif
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+#ifdef HAVE_OS2_H
+# define strcasecmp stricmp
 #endif
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -449,6 +457,7 @@ typedef struct Xsane
 {
     SANE_Int sane_backend_versioncode;
     char *backend;
+    char *backend_translation;
     char *device_set_filename;
     char *output_filename;
     char *dummy_filename;

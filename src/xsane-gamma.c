@@ -1128,9 +1128,9 @@ void xsane_create_preview_gamma_curve(u_char *gammadata, int negative, double ga
  double val;
  double m;
  double b;
- int maxin = numbers-1;
  double medium_m;
  double medium_mid;
+ int maxin = numbers-1;
 
   medium_m   = 100.0/(medium_highlight - medium_shadow);
   medium_mid = (medium_shadow + medium_highlight)/200.0 * maxin;
@@ -1166,7 +1166,7 @@ void xsane_create_preview_gamma_curve(u_char *gammadata, int negative, double ga
       val = val * m + b;
       xsane_bound_double(&val, 0.0, maxin);
 
-      gammadata[i] = (u_char) (255 * pow( val/maxin, (1.0/gamma) ));
+      gammadata[i] = (u_char) (255.99999 * pow( ceil(val)/maxin, (1.0/gamma) ));
     }
   }
   else /* positive */
@@ -1186,7 +1186,7 @@ void xsane_create_preview_gamma_curve(u_char *gammadata, int negative, double ga
       val = val * m + b;
       xsane_bound_double(&val, 0.0, maxin);
 
-      gammadata[i] = (u_char) (255 * pow( val/maxin, (1.0/gamma) ));
+      gammadata[i] = (u_char) (255.99999 * pow( val/maxin, (1.0/gamma) ));
     }
   }
 }
@@ -1244,7 +1244,7 @@ void xsane_create_gamma_curve(SANE_Int *gammadata,
       /* user correction */
       val = val * m + b;
       xsane_bound_double(&val, 0.0, maxin);
-      gammadata[i] = maxout * pow( val/maxin, (1.0/gamma) );
+      gammadata[i] = (int) (maxout * pow( val/maxin, (1.0/gamma) ));
     }
   }
   else /* positive */
@@ -1263,7 +1263,7 @@ void xsane_create_gamma_curve(SANE_Int *gammadata,
       /* user correction */
       val = val * m + b;
       xsane_bound_double(&val, 0.0, maxin);
-      gammadata[i] = maxout * pow( val/maxin, (1.0/gamma) );
+      gammadata[i] = (int) (maxout * pow( val/maxin, (1.0/gamma) ));
     }
   }
 }

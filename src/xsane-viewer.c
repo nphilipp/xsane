@@ -23,7 +23,6 @@
 /* ---------------------------------------------------------------------------------------------------------------------- */
  
 #include "xsane.h"
-/* #include <sys/param.h> */
 #include "xsane-back-gtk.h"
 #include "xsane-front-gtk.h"
 #include "xsane-preferences.h"
@@ -42,7 +41,6 @@
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 static int xsane_viewer_zoom[] = {35, 50, 71, 100, 141, 200, 282, 400 };
-#define XSANE_VIEWER_ZOOM_ITEMS 8
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -152,7 +150,7 @@ static void xsane_viewer_save_callback(GtkWidget *window, gpointer data)
   {
    int abort = 0;
 
-    strcpy(outputfilename, preferences.filename);
+    strncpy(outputfilename, preferences.filename, sizeof(outputfilename));
  
     snprintf(windowname, sizeof(windowname), "%s %s %s", xsane.prog_name, WINDOW_VIEWER_OUTPUT_FILENAME, xsane.device_text);
  
@@ -344,40 +342,96 @@ static void xsane_viewer_clone_callback(GtkWidget *window, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_viewer_range_changed(GtkAdjustment *adj_data, double *val)
+static void xsane_viewer_adjustment_float_changed(GtkAdjustment *adj_data, float *val)
 {
-   *val = adj_data->value;
+  *val = (float) adj_data->value;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_viewer_spinbutton_float_changed(GtkWidget *spinbutton, gpointer data)
+static void xsane_viewer_adjustment_int_changed(GtkAdjustment *adj_data, int *val)
 {
- float *val = (float *) data;
-
-#ifdef HAVE_GTK2
-  *val = (float) gtk_spin_button_get_value((GtkSpinButton *) spinbutton);
-#else
-  *val = gtk_spin_button_get_value_as_float((GtkSpinButton *) spinbutton);
-#endif
+  *val = (int) adj_data->value;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_viewer_spinbutton_int_changed(GtkWidget *spinbutton, gpointer data)
+static void xsane_viewer_button_changed(GtkWidget *button, int *val)
 {
- int *val = (int *) data;
-
-  *val = gtk_spin_button_get_value_as_int((GtkSpinButton *) spinbutton);
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_viewer_button_changed(GtkWidget *button, gpointer data)
-{
- int *val = (int *) data;
-
   *val = GTK_TOGGLE_BUTTON(button)->active;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_viewer_scale_set_scale_value_and_adjustments(GtkAdjustment *adj_data, double *scale_val)
+{
+ GtkAdjustment *adj;
+ int image_width, image_height;
+
+  *scale_val = adj_data->value;
+
+  image_width  = (int) gtk_object_get_data(GTK_OBJECT(adj_data), "image_width");
+  image_height = (int) gtk_object_get_data(GTK_OBJECT(adj_data), "image_height");
+
+  adj = (GtkAdjustment*) gtk_object_get_data(GTK_OBJECT(adj_data), "size-x-adjustment");
+  if ((adj) && (image_width))
+  {
+    gtk_adjustment_set_value(adj, (*scale_val) * image_width);
+  }
+
+  adj = (GtkAdjustment*) gtk_object_get_data(GTK_OBJECT(adj_data), "size-y-adjustment");
+  if ((adj) && (image_height))
+  {
+    gtk_adjustment_set_value(adj, (*scale_val) * image_height);
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_viewer_scale_set_size_x_value_and_adjustments(GtkAdjustment *adj_data, double *scale_val)
+{
+ GtkAdjustment *adj;
+ int image_width, image_height;
+
+  image_width  = (int) gtk_object_get_data(GTK_OBJECT(adj_data), "image_width");
+  image_height = (int) gtk_object_get_data(GTK_OBJECT(adj_data), "image_height");
+
+  if (!image_width)
+  {
+    return; /* we are not able to calulate the scale value */
+  }
+
+  *scale_val = adj_data->value / image_width;
+
+  adj = (GtkAdjustment*) gtk_object_get_data(GTK_OBJECT(adj_data), "scale-adjustment");
+  if (adj)
+  {
+    gtk_adjustment_set_value(adj, *scale_val);
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_viewer_scale_set_size_y_value_and_adjustments(GtkAdjustment *adj_data, double *scale_val)
+{
+ GtkAdjustment *adj;
+ int image_width, image_height;
+
+  image_width  = (int) gtk_object_get_data(GTK_OBJECT(adj_data), "image_width");
+  image_height = (int) gtk_object_get_data(GTK_OBJECT(adj_data), "image_height");
+
+  if (!image_height)
+  {
+    return; /* we are not able to calulate the scale value */
+  }
+
+  *scale_val = adj_data->value / image_height;
+
+  adj = (GtkAdjustment*) gtk_object_get_data(GTK_OBJECT(adj_data), "scale-adjustment");
+  if (adj)
+  {
+    gtk_adjustment_set_value(adj, *scale_val);
+  }
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -390,11 +444,33 @@ static void xsane_viewer_scale_callback(GtkWidget *window, gpointer data)
  GtkWidget *hbox, *vbox;
  GtkWidget *button;
  GtkObject *scale_widget, *scalex_widget, *scaley_widget;
+ GtkAdjustment *adjustment_size_x;
+ GtkAdjustment *adjustment_size_y;
+ GtkWidget *spinbutton;
+ GdkPixmap *pixmap;
+ GdkBitmap *mask;
+ GtkWidget *pixmapwidget;
  char buf[256];
+ FILE *infile;
+ Image_info image_info;
 
   DBG(DBG_proc, "xsane_viewer_scale_callback\n");
 
   gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), FALSE);
+
+  infile = fopen(v->filename, "rb");
+  if (!infile)
+  {
+    DBG(DBG_error, "could not load file %s\n", v->filename);
+    gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
+
+   return;
+  }
+
+  xsane_read_pnm_header(infile, &image_info);
+
+  fclose(infile);
+
 
   if (v->output_filename)
   {
@@ -450,28 +526,141 @@ static void xsane_viewer_scale_callback(GtkWidget *window, gpointer data)
 
   if (v->bind_scale)
   {
+    hbox = gtk_hbox_new(FALSE, 0);
+    gtk_container_set_border_width(GTK_CONTAINER(hbox), 4); 
+    gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+    gtk_widget_show(hbox);
+
     /* scale factor: <-> */
-    xsane_range_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(vbox), zoom_xpm, 
+    xsane_range_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(hbox), zoom_xpm, 
                                 DESC_SCALE_FACTOR,
-                                0.01, 10.0, 0.01, 0.1, 2, &v->x_scale_factor, &scale_widget,
-                                0, xsane_viewer_range_changed,
+                                0.01, 4.0, 0.01, 0.1, 2, &v->x_scale_factor, &scale_widget,
+                                0, xsane_viewer_scale_set_scale_value_and_adjustments,
                                 TRUE);
+
+    /* x-size */
+    pixmap = gdk_pixmap_create_from_xpm_d(selection_dialog->window, &mask, xsane.bg_trans, (gchar **) size_x_xpm);
+    pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
+    gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 20);
+    gtk_widget_show(pixmapwidget);
+    gdk_drawable_unref(pixmap);
+
+    adjustment_size_x = (GtkAdjustment *) gtk_adjustment_new(v->x_scale_factor * image_info.image_width , 0.01 * image_info.image_width, 4.0 * image_info.image_width, 1.0, 5.0, 0.0);
+    spinbutton = gtk_spin_button_new(adjustment_size_x, 0, 0);
+    g_signal_connect(GTK_OBJECT(adjustment_size_x), "value_changed", (GtkSignalFunc) xsane_viewer_scale_set_size_x_value_and_adjustments, (void *) &v->x_scale_factor);
+    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(spinbutton), FALSE);
+    gtk_widget_set_size_request(spinbutton, 80, -1);
+    gtk_box_pack_start(GTK_BOX(hbox), spinbutton, FALSE, FALSE, 0);
+    gtk_widget_show(spinbutton);
+    xsane_back_gtk_set_tooltip(xsane.tooltips, spinbutton, DESC_SCALE_WIDTH); 
+
+    /* y-size */
+    pixmap = gdk_pixmap_create_from_xpm_d(selection_dialog->window, &mask, xsane.bg_trans, (gchar **) size_y_xpm);
+    pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
+    gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 20);
+    gtk_widget_show(pixmapwidget);
+    gdk_drawable_unref(pixmap);
+
+    adjustment_size_y = (GtkAdjustment *) gtk_adjustment_new(v->x_scale_factor * image_info.image_height , 0.01 * image_info.image_height, 4.0 * image_info.image_height, 1.0, 5.0, 0.0);
+    spinbutton = gtk_spin_button_new(adjustment_size_y, 0, 0);
+    g_signal_connect(GTK_OBJECT(adjustment_size_y), "value_changed", (GtkSignalFunc) xsane_viewer_scale_set_size_y_value_and_adjustments, (void *) &v->x_scale_factor);
+    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(spinbutton), FALSE);
+    gtk_widget_set_size_request(spinbutton, 80, -1);
+    gtk_box_pack_start(GTK_BOX(hbox), spinbutton, FALSE, FALSE, 0);
+    gtk_widget_show(spinbutton);
+    xsane_back_gtk_set_tooltip(xsane.tooltips, spinbutton, DESC_SCALE_HEIGHT); 
+
+    gtk_object_set_data(GTK_OBJECT(scale_widget), "size-x-adjustment", (void *) adjustment_size_x);
+    gtk_object_set_data(GTK_OBJECT(scale_widget), "size-y-adjustment", (void *) adjustment_size_y);
+    gtk_object_set_data(GTK_OBJECT(scale_widget), "image_width",       (void *) image_info.image_width);
+    gtk_object_set_data(GTK_OBJECT(scale_widget), "image_height",      (void *) image_info.image_height);
+
+    gtk_object_set_data(GTK_OBJECT(adjustment_size_x), "scale-adjustment",   (void *) scale_widget);
+    gtk_object_set_data(GTK_OBJECT(adjustment_size_x), "size-y-adjustment",  (void *) adjustment_size_y);
+    gtk_object_set_data(GTK_OBJECT(adjustment_size_x), "image_width",        (void *) image_info.image_width);
+    gtk_object_set_data(GTK_OBJECT(adjustment_size_x), "image_height",       (void *) image_info.image_height);
+
+    gtk_object_set_data(GTK_OBJECT(adjustment_size_y), "scale-adjustment",   (void *) scale_widget);
+    gtk_object_set_data(GTK_OBJECT(adjustment_size_y), "size-x-adjustment",  (void *) adjustment_size_x);
+    gtk_object_set_data(GTK_OBJECT(adjustment_size_y), "image_width",        (void *) image_info.image_width);
+    gtk_object_set_data(GTK_OBJECT(adjustment_size_y), "image_height",       (void *) image_info.image_height);
   }
   else
   {
+    /* X */
+    hbox = gtk_hbox_new(FALSE, 0);
+    gtk_container_set_border_width(GTK_CONTAINER(hbox), 4); 
+    gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+    gtk_widget_show(hbox);
+
     /* x_scale factor: <-> */
-    xsane_range_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(vbox), zoom_x_xpm,
+    xsane_range_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(hbox), zoom_x_xpm,
                                 DESC_X_SCALE_FACTOR,
-                                0.01, 10.0, 0.01, 0.1, 2, &v->x_scale_factor, &scalex_widget,
-                                0, xsane_viewer_range_changed,
+                                0.01, 4.0, 0.01, 0.1, 2, &v->x_scale_factor, &scalex_widget,
+                                0, xsane_viewer_scale_set_scale_value_and_adjustments,
                                 TRUE);
 
+    /* x-size */
+    pixmap = gdk_pixmap_create_from_xpm_d(selection_dialog->window, &mask, xsane.bg_trans, (gchar **) size_x_xpm);
+    pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
+    gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 20);
+    gtk_widget_show(pixmapwidget);
+    gdk_drawable_unref(pixmap);
+
+    adjustment_size_x = (GtkAdjustment *) gtk_adjustment_new(v->x_scale_factor * image_info.image_width , 0.01 * image_info.image_width, 4.0 * image_info.image_width, 1.0, 5.0, 0.0);
+    spinbutton = gtk_spin_button_new(adjustment_size_x, 0, 0);
+    g_signal_connect(GTK_OBJECT(adjustment_size_x), "value_changed", (GtkSignalFunc) xsane_viewer_scale_set_size_x_value_and_adjustments, (void *) &v->x_scale_factor);
+    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(spinbutton), FALSE);
+    gtk_widget_set_size_request(spinbutton, 80, -1);
+    gtk_box_pack_start(GTK_BOX(hbox), spinbutton, FALSE, FALSE, 0);
+    gtk_widget_show(spinbutton);
+    xsane_back_gtk_set_tooltip(xsane.tooltips, spinbutton, DESC_SCALE_WIDTH); 
+
+    gtk_object_set_data(GTK_OBJECT(scalex_widget), "size-x-adjustment",  (void *) adjustment_size_x);
+    gtk_object_set_data(GTK_OBJECT(scalex_widget), "image_width",        (void *) image_info.image_width);
+    gtk_object_set_data(GTK_OBJECT(scalex_widget), "image_height",       (void *) image_info.image_height);
+
+    gtk_object_set_data(GTK_OBJECT(adjustment_size_x), "scale-adjustment",   (void *) scalex_widget);
+    gtk_object_set_data(GTK_OBJECT(adjustment_size_x), "image_width",        (void *) image_info.image_width);
+    gtk_object_set_data(GTK_OBJECT(adjustment_size_x), "image_height",       (void *) image_info.image_height);
+
+
+    /* Y */
+    hbox = gtk_hbox_new(FALSE, 0);
+    gtk_container_set_border_width(GTK_CONTAINER(hbox), 4); 
+    gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+    gtk_widget_show(hbox);
+
     /* y_scale factor: <-> */
-    xsane_range_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(vbox), zoom_y_xpm,
+    xsane_range_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(hbox), zoom_y_xpm,
                                 DESC_Y_SCALE_FACTOR,
-                                0.01, 10.0, 0.01, 0.1, 2, &v->y_scale_factor, &scaley_widget,
-                                0, xsane_viewer_range_changed,
+                                0.01, 4.0, 0.01, 0.1, 2, &v->y_scale_factor, &scaley_widget,
+                                0, xsane_viewer_scale_set_scale_value_and_adjustments,
                                 TRUE);
+
+    /* y-size */
+    pixmap = gdk_pixmap_create_from_xpm_d(selection_dialog->window, &mask, xsane.bg_trans, (gchar **) size_y_xpm);
+    pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
+    gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 20);
+    gtk_widget_show(pixmapwidget);
+    gdk_drawable_unref(pixmap);
+
+    adjustment_size_y = (GtkAdjustment *) gtk_adjustment_new(v->y_scale_factor * image_info.image_height , 0.01 * image_info.image_height, 4.0 * image_info.image_height, 1.0, 5.0, 0.0);
+    spinbutton = gtk_spin_button_new(adjustment_size_y, 0, 0);
+    g_signal_connect(GTK_OBJECT(adjustment_size_y), "value_changed", (GtkSignalFunc) xsane_viewer_scale_set_size_y_value_and_adjustments, (void *) &v->y_scale_factor);
+    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(spinbutton), FALSE);
+    gtk_widget_set_size_request(spinbutton, 80, -1);
+    gtk_box_pack_start(GTK_BOX(hbox), spinbutton, FALSE, FALSE, 0);
+    gtk_widget_show(spinbutton);
+    xsane_back_gtk_set_tooltip(xsane.tooltips, spinbutton, DESC_SCALE_HEIGHT); 
+
+    gtk_object_set_data(GTK_OBJECT(scaley_widget), "size-y-adjustment", (void *) adjustment_size_y);
+    gtk_object_set_data(GTK_OBJECT(scaley_widget), "image_width",       (void *) image_info.image_width);
+    gtk_object_set_data(GTK_OBJECT(scaley_widget), "image_height",      (void *) image_info.image_height);
+
+    gtk_object_set_data(GTK_OBJECT(adjustment_size_y), "scale-adjustment",   (void *) scaley_widget);
+    gtk_object_set_data(GTK_OBJECT(adjustment_size_y), "image_width",        (void *) image_info.image_width);
+    gtk_object_set_data(GTK_OBJECT(adjustment_size_y), "image_height",       (void *) image_info.image_height);
   }
 
   /* Apply Cancel */
@@ -557,7 +746,8 @@ static void xsane_viewer_despeckle_callback(GtkWidget *window, gpointer data)
 
   adjustment = (GtkAdjustment *) gtk_adjustment_new(2.0, 2.0, 10.0, 1.0, 5.0, 0.0);
   spinbutton = gtk_spin_button_new(adjustment, 0, 0);
-  g_signal_connect(GTK_OBJECT(spinbutton), DEF_GTK_SIGNAL_SPINBUTTON_VALUE_CHANGED, (GtkSignalFunc) xsane_viewer_spinbutton_int_changed, (void *) &v->despeckle_radius);
+//  g_signal_connect(GTK_OBJECT(spinbutton), DEF_GTK_SIGNAL_SPINBUTTON_VALUE_CHANGED, (GtkSignalFunc) xsane_viewer_spinbutton_int_changed, (void *) &v->despeckle_radius);
+  g_signal_connect(GTK_OBJECT(adjustment), "value_changed", (GtkSignalFunc) xsane_viewer_adjustment_int_changed, (void *) &v->despeckle_radius);
   gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(spinbutton), TRUE);
   gtk_box_pack_end(GTK_BOX(hbox), spinbutton, FALSE, FALSE, 10);
   gtk_widget_show(spinbutton);
@@ -645,7 +835,8 @@ static void xsane_viewer_blur_callback(GtkWidget *window, gpointer data)
 
   adjustment = (GtkAdjustment *) gtk_adjustment_new(1.0, 1.0, 20.0, 0.1, 1.0, 0.0);
   spinbutton = gtk_spin_button_new(adjustment, 0, 2);
-  g_signal_connect(GTK_OBJECT(spinbutton), DEF_GTK_SIGNAL_SPINBUTTON_VALUE_CHANGED, (GtkSignalFunc) xsane_viewer_spinbutton_float_changed, (void *) &v->blur_radius);
+//  g_signal_connect(GTK_OBJECT(spinbutton), DEF_GTK_SIGNAL_SPINBUTTON_VALUE_CHANGED, (GtkSignalFunc) xsane_viewer_spinbutton_float_changed, (void *) &v->blur_radius);
+  g_signal_connect(GTK_OBJECT(adjustment), "value_changed", (GtkSignalFunc) xsane_viewer_adjustment_float_changed, (void *) &v->blur_radius);
   gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(spinbutton), TRUE);
   gtk_box_pack_end(GTK_BOX(hbox), spinbutton, FALSE, FALSE, 10);
   gtk_widget_show(spinbutton);
@@ -1422,7 +1613,8 @@ Viewer *xsane_viewer_new(char *filename, int reduce_to_lineart, char *output_fil
 
   zoom_menu = gtk_menu_new();
   selection = 0;
-  for (i = 0; i < XSANE_VIEWER_ZOOM_ITEMS; i++)
+
+  for (i = 0; i < sizeof(xsane_viewer_zoom) / sizeof(int); i++)
   {
     snprintf(buf, sizeof(buf), "%d %%", xsane_viewer_zoom[i]);
     zoom_menu_item = gtk_menu_item_new_with_label(buf);

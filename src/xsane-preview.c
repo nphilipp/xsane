@@ -118,6 +118,8 @@ static u_char *histogram_medium_gamma_data_blue  = 0;
 
 static int preview_gamma_input_bits;
 
+static char *ratio_string[] = { "free", " 2:1", "16:9", "15:10",    " 4:3",   " 1:1", " 3:4", " 9:16", "10:15",  " 1:2"};
+static float ratio_value[]  =  { 0.0,    2.0, 16.0/9.0, 15.0/10.0, 4.0/3.0,  1.0,  0.75,  0.5625, 10.0/15.0, 0.5 };
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 /* forward declarations */
@@ -185,6 +187,8 @@ static gint preview_preset_area_move_down_callback(GtkWidget *widget, GtkWidget 
 static gint preview_preset_area_context_menu_callback(GtkWidget *widget, GdkEvent *event);
 static void preview_preset_area_callback(GtkWidget *widget, gpointer data);
 static void preview_rotation_callback(GtkWidget *widget, gpointer data);
+static void preview_establish_ratio(Preview *p);
+static void preview_ratio_callback(GtkWidget *widget, gpointer data);
 static void preview_autoselect_scanarea_callback(GtkWidget *window, gpointer data);
 
 void preview_do_gamma_correction(Preview *p);
@@ -1532,7 +1536,19 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
 
     if (!len)
     {
-      break;			/* out of data for now */
+      if (p->input_tag >= 0) /* we have a selecet fd */
+      {
+        break; /* leave preview_read_image_data, will be called by gdk when select_fd event occurs */
+      }
+      else
+      {
+        while (gtk_events_pending())
+        {
+          DBG(DBG_info, "preview_read_image_data: calling gtk_main_iteration\n");
+          gtk_main_iteration();
+        }
+        continue; /* we have to keep this loop running because it will never be called again */
+      }
     }
 
     switch (p->params.format)
@@ -2119,17 +2135,11 @@ static void preview_scan_start(Preview *p)
   p->selection.active = FALSE;
   p->previous_selection_maximum.active = FALSE;
 
-#ifndef BUGGY_GDK_INPUT_EXCEPTION
-  /* for unix */
   if ((sane_set_io_mode(dev, SANE_TRUE) == SANE_STATUS_GOOD) && (sane_get_select_fd(dev, &fd) == SANE_STATUS_GOOD))
   {
     p->input_tag = gdk_input_add(fd, GDK_INPUT_READ | GDK_INPUT_EXCEPTION, preview_read_image_data, p);
   }
   else
-#else
-  /* for win32 */
-  sane_set_io_mode(dev, SANE_FALSE);
-#endif
   {
     preview_read_image_data(p, -1, GDK_INPUT_READ);
   }
@@ -2766,6 +2776,73 @@ static void preview_restore_image(Preview *p)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static int preview_get_pixel_color(Preview *p, int x, int y, int *raw_red, int *raw_green, int *raw_blue,
+                                                              int *enh_red, int *enh_green, int *enh_blue)
+{
+ int image_x, image_y;
+ int offset;
+ int rotate = 16 - preview_gamma_input_bits;
+
+  DBG(DBG_proc, "preview_get_pixel_color\n");
+ 
+  if (p->image_data_raw)
+  {
+    preview_transform_coordinate_window_to_image(p, x, y, &image_x, &image_y);
+
+    if ( (image_x >= 0) && (image_x < p->image_width) && (image_y >=0) && (image_y < p->image_height) )
+    {
+      offset = 3 * (image_y * p->image_width + image_x);
+
+      if (!xsane.negative) /* positive */
+      {
+        *raw_red   = (p->image_data_raw[offset    ]) >> 8;
+        *raw_green = (p->image_data_raw[offset + 1]) >> 8;
+        *raw_blue  = (p->image_data_raw[offset + 2]) >> 8;
+      }
+      else /* negative */
+      {
+        *raw_red   = 255 - ((p->image_data_raw[offset    ]) >> 8);
+        *raw_green = 255 - ((p->image_data_raw[offset + 1]) >> 8);
+        *raw_blue  = 255 - ((p->image_data_raw[offset + 2]) >> 8);
+      }
+
+      /* the enhanced pixels are already inverted when negative is selected */ 
+      /* do not use image_data_enh because the preview gamma value is applied to this */
+      *enh_red   = histogram_gamma_data_red  [(p->image_data_raw[offset    ]) >> rotate];
+      *enh_green = histogram_gamma_data_green[(p->image_data_raw[offset + 1]) >> rotate];
+      *enh_blue  = histogram_gamma_data_blue [(p->image_data_raw[offset + 2]) >> rotate];
+
+     return 0;
+    }
+  }
+
+ return -1;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void preview_display_color_components(Preview *p, int x, int y)
+{
+ char buffer[256];
+ int raw_red, raw_green, raw_blue, enh_red, enh_green, enh_blue;
+
+  if (! preview_get_pixel_color(p, x, y, &raw_red, &raw_green, &raw_blue, &enh_red, &enh_green, &enh_blue))
+  {
+    snprintf(buffer, sizeof(buffer), " %03d, %03d, %03d \n" \
+                                     " %03d, %03d, %03d ",
+    raw_red, raw_green, raw_blue, enh_red, enh_green, enh_blue);
+  }
+  else
+  {
+    snprintf(buffer, sizeof(buffer), " ###, ###, ### \n" \
+                                     " ###, ###, ### ");
+  }
+
+  gtk_label_set_text(GTK_LABEL(p->rgb_label), buffer);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static gint preview_hold_event_handler(gpointer data)
 {
  Preview *p = data;
@@ -2806,6 +2883,8 @@ static gint preview_motion_event_handler(GtkWidget *window, GdkEvent *event, gpo
 
   if (!p->scanning)
   {
+    preview_display_color_components(p, event->motion.x, event->motion.y);
+
     switch (((GdkEventMotion *)event)->state &
             GDK_Num_Lock & GDK_Caps_Lock & GDK_Shift_Lock & GDK_Scroll_Lock) /* mask all Locks */
     {
@@ -2816,8 +2895,159 @@ static gint preview_motion_event_handler(GtkWidget *window, GdkEvent *event, gpo
         if ( (p->selection_drag) || (p->selection_drag_edge) )
         {
           p->selection.active = TRUE;
-          p->selection.coordinate[p->selection_xedge] = preview_x;
-          p->selection.coordinate[p->selection_yedge] = preview_y;
+
+          if (preview_x < p->scanner_surface[p->index_xmin])
+          {
+            preview_x = p->scanner_surface[p->index_xmin];
+          }
+          else if (preview_x > p->scanner_surface[p->index_xmax])
+          {
+            preview_x = p->scanner_surface[p->index_xmax];
+          }
+
+          if (preview_y < p->scanner_surface[p->index_ymin])
+          {
+            preview_y = p->scanner_surface[p->index_ymin];
+          }
+          else if (preview_y > p->scanner_surface[p->index_ymax])
+          {
+            preview_y = p->scanner_surface[p->index_ymax];
+          }
+
+
+          if (p->selection_xedge != -1)
+          {
+            p->selection.coordinate[p->selection_xedge] = preview_x;
+          }
+
+          if (p->selection_yedge != -1)
+          {
+            p->selection.coordinate[p->selection_yedge] = preview_y;
+          }
+
+          if (p->ratio) /* forced preview ratio ? */
+          {
+            if ( (p->selection_xedge == p->index_xmin) && (p->selection_yedge == p->index_ymin) ) /* top left corner */
+            {
+             float width;
+              width  = fabs(p->selection.coordinate[p->index_xmax] - p->selection.coordinate[p->index_xmin]);
+            
+              p->selection.coordinate[p->index_ymax] = p->selection.coordinate[p->index_ymin] + width / p->ratio;
+
+              if (p->selection.coordinate[p->index_ymax] > p->scanner_surface[p->index_ymax])
+              {
+               float height;
+                p->selection.coordinate[p->index_ymax] = p->scanner_surface[p->index_ymax];
+                height = fabs(p->selection.coordinate[p->index_ymax] - p->selection.coordinate[p->index_ymin]);
+                p->selection.coordinate[p->index_xmin] = p->selection.coordinate[p->index_xmax] - height * p->ratio;
+              }
+            }
+            else if ( (p->selection_xedge == p->index_xmax) && (p->selection_yedge == p->index_ymin) )/* top right corner */
+            {
+             float width;
+              width  = fabs(p->selection.coordinate[p->index_xmax] - p->selection.coordinate[p->index_xmin]);
+            
+              p->selection.coordinate[p->index_ymax] = p->selection.coordinate[p->index_ymin] + width / p->ratio;
+
+              if (p->selection.coordinate[p->index_ymax] > p->scanner_surface[p->index_ymax])
+              {
+               float height;
+                p->selection.coordinate[p->index_ymax] = p->scanner_surface[p->index_ymax];
+                height = fabs(p->selection.coordinate[p->index_ymax] - p->selection.coordinate[p->index_ymin]);
+                p->selection.coordinate[p->index_xmax] = p->selection.coordinate[p->index_xmin] + height * p->ratio;
+              }
+            }
+            else if ( (p->selection_xedge == p->index_xmin) && (p->selection_yedge == p->index_ymax) ) /* bottom left edge */
+            {
+             float width;
+              width  = fabs(p->selection.coordinate[p->index_xmax] - p->selection.coordinate[p->index_xmin]);
+            
+              p->selection.coordinate[p->index_ymin] = p->selection.coordinate[p->index_ymax] - width / p->ratio;
+
+              if (p->selection.coordinate[p->index_ymin] <  p->scanner_surface[p->index_ymin])
+              {
+               float height;
+                p->selection.coordinate[p->index_ymin] = p->scanner_surface[p->index_ymin];
+                height = fabs(p->selection.coordinate[p->index_ymax] - p->selection.coordinate[p->index_ymin]);
+                p->selection.coordinate[p->index_xmin] = p->selection.coordinate[p->index_xmax] - height * p->ratio;
+              }
+            }
+            else if ( (p->selection_xedge == p->index_xmax) && (p->selection_yedge == p->index_ymax) ) /* bottom right edge */
+            {
+             float width;
+              width  = fabs(p->selection.coordinate[p->index_xmax] - p->selection.coordinate[p->index_xmin]);
+            
+              p->selection.coordinate[p->index_ymin] = p->selection.coordinate[p->index_ymax] - width / p->ratio;
+
+              if (p->selection.coordinate[p->index_ymin] <  p->scanner_surface[p->index_ymin])
+              {
+               float height;
+                p->selection.coordinate[p->index_ymin] = p->scanner_surface[p->index_ymin];
+                height = fabs(p->selection.coordinate[p->index_ymax] - p->selection.coordinate[p->index_ymin]);
+                p->selection.coordinate[p->index_xmax] = p->selection.coordinate[p->index_xmin] + height * p->ratio;
+              }
+            }
+            else if (p->selection_xedge == p->index_xmin) /* left edge */
+            {
+             float width;
+              width  = fabs(p->selection.coordinate[p->index_xmax] - p->selection.coordinate[p->index_xmin]);
+            
+              p->selection.coordinate[p->index_ymax] = p->selection.coordinate[p->index_ymin] + width / p->ratio;
+
+              if (p->selection.coordinate[p->index_ymax] > p->scanner_surface[p->index_ymax])
+              {
+               float height;
+                p->selection.coordinate[p->index_ymax] = p->scanner_surface[p->index_ymax];
+                height = fabs(p->selection.coordinate[p->index_ymax] - p->selection.coordinate[p->index_ymin]);
+                p->selection.coordinate[p->index_xmin] = p->selection.coordinate[p->index_xmax] - height * p->ratio;
+              }
+            }
+            else if (p->selection_xedge == p->index_xmax) /* right edge */
+            {
+             float width;
+              width  = fabs(p->selection.coordinate[p->index_xmax] - p->selection.coordinate[p->index_xmin]);
+            
+              p->selection.coordinate[p->index_ymax] = p->selection.coordinate[p->index_ymin] + width / p->ratio;
+
+              if (p->selection.coordinate[p->index_ymax] > p->scanner_surface[p->index_ymax])
+              {
+               float height;
+                p->selection.coordinate[p->index_ymax] = p->scanner_surface[p->index_ymax];
+                height = fabs(p->selection.coordinate[p->index_ymax] - p->selection.coordinate[p->index_ymin]);
+                p->selection.coordinate[p->index_xmax] = p->selection.coordinate[p->index_xmin] + height * p->ratio;
+              }
+            }
+            else if (p->selection_yedge == p->index_ymin) /* top edge */
+            {
+             float height;
+              height = fabs(p->selection.coordinate[p->index_ymax] - p->selection.coordinate[p->index_ymin]);
+            
+              p->selection.coordinate[p->index_xmax] = p->selection.coordinate[p->index_xmin] + height * p->ratio;
+
+              if (p->selection.coordinate[p->index_xmax] > p->scanner_surface[p->index_xmax])
+              {
+               float width;
+                p->selection.coordinate[p->index_xmax] = p->scanner_surface[p->index_xmax];
+                width  = fabs(p->selection.coordinate[p->index_xmax] - p->selection.coordinate[p->index_xmin]);
+                p->selection.coordinate[p->index_ymin] = p->selection.coordinate[p->index_ymax] - width / p->ratio;
+              }
+            }
+            else if (p->selection_yedge == p->index_ymax) /* bottom edge */
+            {
+             float height;
+              height = fabs(p->selection.coordinate[p->index_ymax] - p->selection.coordinate[p->index_ymin]);
+            
+              p->selection.coordinate[p->index_xmax] = p->selection.coordinate[p->index_xmin] + height * p->ratio;
+
+              if (p->selection.coordinate[p->index_xmax] > p->scanner_surface[p->index_xmax])
+              {
+               float width;
+                p->selection.coordinate[p->index_xmax] = p->scanner_surface[p->index_xmax];
+                width  = fabs(p->selection.coordinate[p->index_xmax] - p->selection.coordinate[p->index_xmin]);
+                p->selection.coordinate[p->index_ymax] = p->selection.coordinate[p->index_ymin] + width / p->ratio;
+              }
+            }
+          }
 
           preview_order_selection(p);
           preview_bound_selection(p);
@@ -3819,16 +4049,19 @@ Preview *preview_new(void)
  GtkWidget *table, *frame;
  GtkSignalFunc signal_func;
  GtkWidgetClass *class;
- GtkWidget *vbox, *hbox;
+ GtkWidget *vbox, *action_box;
  GdkCursor *cursor;
  GtkWidget *preset_area_option_menu;
  GtkWidget *rotation_option_menu, *rotation_menu, *rotation_item;
+ GtkWidget *ratio_option_menu, *ratio_menu, *ratio_item;
  GtkWidget *delete_images;
  GdkBitmap *mask;
  GdkPixmap *pixmap = NULL;
+ GtkWidget *pixmapwidget;
  Preview *p;
  int i;
  char buf[256];
+ int ratio_nr = 0;
 
   DBG(DBG_proc, "preview_new\n");
 
@@ -3881,6 +4114,7 @@ Preview *preview_new(void)
 
   p->preview_colors = -1;
   p->invalid = TRUE; /* no valid preview */
+  p->ratio = 0.0;
 
 #ifndef XSERVER_WITH_BUGGY_VISUALS
   gtk_widget_push_visual(gtk_preview_get_visual()); /* this has no function for gtk+-2.0 */
@@ -3893,31 +4127,32 @@ Preview *preview_new(void)
   xsane_set_window_icon(p->top, 0);
   gtk_window_add_accel_group(GTK_WINDOW(p->top), xsane.accelerator_group);
 
+
   /* set the main vbox */
   vbox = gtk_vbox_new(FALSE, 0);
   gtk_container_set_border_width(GTK_CONTAINER(vbox), 0);
   gtk_container_add(GTK_CONTAINER(p->top), vbox);
   gtk_widget_show(vbox);     
 
-  /* set the main hbox */
-  hbox = gtk_hbox_new(FALSE, 0);
-  gtk_box_pack_end(GTK_BOX(vbox), hbox, FALSE, FALSE, 5);
-  gtk_container_set_border_width(GTK_CONTAINER(hbox), 5);
-  gtk_widget_show(hbox);
 
 
-  /* top hbox for icons */
+  /* the button_box (hbox) */
   p->button_box = gtk_hbox_new(FALSE, 1);
-  gtk_container_set_border_width(GTK_CONTAINER(p->button_box), 1);
+  gtk_container_set_border_width(GTK_CONTAINER(p->button_box), 0);
   gtk_box_pack_start(GTK_BOX(vbox), p->button_box, FALSE, FALSE, 0);
+
 
   /* add new selection for batch scanning */
   p->add_batch  = xsane_button_new_with_pixmap(p->top->window, p->button_box, add_batch_xpm, DESC_ADD_BATCH, (GtkSignalFunc) preview_add_batch, p);
+
+  xsane_vseparator_new(p->button_box, 3);
 
   /* White, gray and black pipette button */
   p->pipette_white = xsane_button_new_with_pixmap(p->top->window, p->button_box, pipette_white_xpm, DESC_PIPETTE_WHITE, (GtkSignalFunc) preview_pipette_white, p);
   p->pipette_gray  = xsane_button_new_with_pixmap(p->top->window, p->button_box, pipette_gray_xpm,  DESC_PIPETTE_GRAY,  (GtkSignalFunc) preview_pipette_gray,  p);
   p->pipette_black = xsane_button_new_with_pixmap(p->top->window, p->button_box, pipette_black_xpm, DESC_PIPETTE_BLACK, (GtkSignalFunc) preview_pipette_black, p);
+
+  xsane_vseparator_new(p->button_box, 3);
 
   /* Zoom not, zoom out and zoom in button */
   p->zoom_not    = xsane_button_new_with_pixmap(p->top->window, p->button_box, zoom_not_xpm,  DESC_ZOOM_FULL, (GtkSignalFunc) preview_zoom_not,  p);
@@ -3925,9 +4160,15 @@ Preview *preview_new(void)
   p->zoom_in     = xsane_button_new_with_pixmap(p->top->window, p->button_box, zoom_in_xpm,   DESC_ZOOM_IN,   (GtkSignalFunc) preview_zoom_in,   p);
   p->zoom_area   = xsane_button_new_with_pixmap(p->top->window, p->button_box, zoom_area_xpm, DESC_ZOOM_AREA, (GtkSignalFunc) preview_zoom_area, p);
   p->zoom_undo   = xsane_button_new_with_pixmap(p->top->window, p->button_box, zoom_undo_xpm, DESC_ZOOM_UNDO, (GtkSignalFunc) preview_zoom_undo, p);
+
+  xsane_vseparator_new(p->button_box, 3);
+
   p->full_area   = xsane_button_new_with_pixmap(p->top->window, p->button_box, auto_select_preview_area_xpm, DESC_AUTOSELECT_SCANAREA, (GtkSignalFunc) preview_autoselect_scanarea_callback, p);
   p->autoraise   = xsane_button_new_with_pixmap(p->top->window, p->button_box, auto_raise_preview_area_xpm,  DESC_AUTORAISE_SCANAREA,  (GtkSignalFunc) preview_init_autoraise_scanarea,      p);
   p->autoselect  = xsane_button_new_with_pixmap(p->top->window, p->button_box, full_preview_area_xpm,        DESC_FULL_PREVIEW_AREA,   (GtkSignalFunc) preview_full_preview_area_callback,   p);
+
+  xsane_vseparator_new(p->button_box, 3);
+
   delete_images  = xsane_button_new_with_pixmap(p->top->window, p->button_box, delete_images_xpm,            DESC_DELETE_IMAGES,       (GtkSignalFunc) preview_delete_images_callback,       p);
 
   gtk_widget_add_accelerator(p->zoom_not,   "clicked", xsane.accelerator_group, GDK_KP_Multiply, GDK_MOD1_MASK, DEF_GTK_ACCEL_LOCKED); /* Alt keypad_* */
@@ -3946,73 +4187,25 @@ Preview *preview_new(void)
   gtk_widget_set_sensitive(p->autoselect, FALSE); /* no selection */
 
 
-  /* select maximum scanarea */
-
-  preset_area_option_menu = gtk_option_menu_new();
-  xsane_back_gtk_set_tooltip(xsane.tooltips, preset_area_option_menu, DESC_PRESET_AREA);
-  gtk_box_pack_start(GTK_BOX(p->button_box), preset_area_option_menu, FALSE, FALSE, 0);
-  gtk_widget_show(preset_area_option_menu);
-  p->preset_area_option_menu = preset_area_option_menu;
-  preview_create_preset_area_menu(p, 0); /* build menu and set default to 0=full size */
-
-
-  /* select rotation */
-  rotation_menu = gtk_menu_new();
-
-  for (i = 0; i < 12; ++i)
-  {
-   char buffer[256];
-   int rot;
-
-    if (i<4)
-    {
-      snprintf(buffer, sizeof(buffer), "%03d  ", i*90);  
-      rot = i;
-    }
-    else if (i<8)
-    {
-      snprintf(buffer, sizeof(buffer), "%03d |", i*90-360);  
-      rot = i;
-    }
-    else
-    {
-      snprintf(buffer, sizeof(buffer), "%03d -", i*90-2*360);  
-      rot = (((i & 3) + 2) & 3) + 4;
-    }
-    rotation_item = gtk_menu_item_new_with_label(buffer);
-    gtk_container_add(GTK_CONTAINER(rotation_menu), rotation_item);
-    g_signal_connect(GTK_OBJECT(rotation_item), "activate", (GtkSignalFunc) preview_rotation_callback, p);
-    gtk_object_set_data(GTK_OBJECT(rotation_item), "Selection", (void *) rot);  
-
-    gtk_widget_show(rotation_item);
-  }                  
-
-  rotation_option_menu = gtk_option_menu_new();
-  xsane_back_gtk_set_tooltip(xsane.tooltips, rotation_option_menu, DESC_ROTATION);
-  gtk_box_pack_start(GTK_BOX(p->button_box), rotation_option_menu, FALSE, FALSE, 0);
-  gtk_option_menu_set_menu(GTK_OPTION_MENU(rotation_option_menu), rotation_menu);
-  gtk_option_menu_set_history(GTK_OPTION_MENU(rotation_option_menu), p->rotation); /* set rotation */
-/*  xsane_back_gtk_set_tooltip(tooltips, rotation_option_menu, desc); */
-
-  gtk_widget_show(rotation_option_menu);
-  p->rotation_option_menu = rotation_option_menu;
-
-
   gtk_widget_show(p->button_box);
+  /* the button box is ready */
 
 
 
   /* construct the preview area (table with sliders & preview window) */
+
   table = gtk_table_new(2, 2, /* homogeneous */ FALSE);
   gtk_table_set_col_spacing(GTK_TABLE(table), 0, 1);
   gtk_table_set_row_spacing(GTK_TABLE(table), 0, 1);
   gtk_container_set_border_width(GTK_CONTAINER(table), 1);
   gtk_box_pack_start(GTK_BOX(vbox), table, /* expand */ TRUE, /* fill */ TRUE, /* padding */ 0);
+  gtk_widget_show(table);
 
   /* the empty box in the top-left corner */
   frame = gtk_frame_new(/* label */ 0);
   gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_OUT);
   gtk_table_attach(GTK_TABLE(table), frame, 0, 1, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
+  gtk_widget_show(frame);
 
   /* the unit label */
   p->unit_label = gtk_label_new("cm");
@@ -4022,10 +4215,12 @@ Preview *preview_new(void)
   /* the horizontal ruler */
   p->hruler = gtk_hruler_new();
   gtk_table_attach(GTK_TABLE(table), p->hruler, 1, 2, 0, 1, GTK_FILL, 0, 0, 0);
+  gtk_widget_show(p->hruler);
 
   /* the vertical ruler */
   p->vruler = gtk_vruler_new();
   gtk_table_attach(GTK_TABLE(table), p->vruler, 0, 1, 1, 2, 0, GTK_FILL, 0, 0);
+  gtk_widget_show(p->vruler);
 
   /* the preview area */
   p->window = gtk_preview_new(GTK_PREVIEW_COLOR);
@@ -4035,10 +4230,11 @@ Preview *preview_new(void)
 			GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK);
 
   /* the first expose_event is responsible to undraw the selection frame */
-  g_signal_connect(GTK_OBJECT(p->window), "expose_event", (GtkSignalFunc) preview_expose_event_handler_start, p);
+  g_signal_connect(GTK_OBJECT(p->window), "expose_event",         (GtkSignalFunc) preview_expose_event_handler_start, p);
   g_signal_connect(GTK_OBJECT(p->window), "button_press_event",   (GtkSignalFunc) preview_button_press_event_handler, p);
   g_signal_connect(GTK_OBJECT(p->window), "motion_notify_event",  (GtkSignalFunc) preview_motion_event_handler, p);
   g_signal_connect(GTK_OBJECT(p->window), "button_release_event", (GtkSignalFunc) preview_button_release_event_handler, p);
+
   g_signal_connect_after(GTK_OBJECT(p->window), "size_allocate", (GtkSignalFunc) preview_area_resize_handler, p);
   /* the second expose_event is responsible to redraw the selection frame */
   g_signal_connect_after(GTK_OBJECT(p->window), "expose_event",  (GtkSignalFunc) preview_expose_event_handler_end, p);
@@ -4067,62 +4263,199 @@ Preview *preview_new(void)
   p->viewport = gtk_frame_new(/* label */ 0);
   gtk_frame_set_shadow_type(GTK_FRAME(p->viewport), GTK_SHADOW_IN);
   gtk_container_add(GTK_CONTAINER(p->viewport), p->window);
+  gtk_widget_show(p->viewport);
 
   gtk_table_attach(GTK_TABLE(table), p->viewport, 1, 2, 1, 2,
 		   GTK_FILL | GTK_EXPAND | GTK_SHRINK, GTK_FILL | GTK_EXPAND | GTK_SHRINK, 0, 0);
+  /* the preview area is ready */
 
-  preview_update_surface(p, 0);
 
-  /* fill in action area: */
+
+
+  /* the menu_box (hbox) */
+  p->menu_box = gtk_hbox_new(FALSE, 4);
+  gtk_container_set_border_width(GTK_CONTAINER(p->menu_box), 1);
+  gtk_box_pack_start(GTK_BOX(vbox), p->menu_box, FALSE, FALSE, 0);
+
+  xsane_separator_new(vbox, 1);
+
+
+  /* select maximum scanarea */
+  pixmap = gdk_pixmap_create_from_xpm_d(p->top->window, &mask, xsane.bg_trans, (gchar **) size_xpm);
+  pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
+  gtk_box_pack_start(GTK_BOX(p->menu_box), pixmapwidget, FALSE, FALSE, 2);
+  gtk_widget_show(pixmapwidget);
+  gdk_drawable_unref(pixmap);
+
+  preset_area_option_menu = gtk_option_menu_new();
+  xsane_back_gtk_set_tooltip(xsane.tooltips, preset_area_option_menu, DESC_PRESET_AREA);
+  gtk_box_pack_start(GTK_BOX(p->menu_box), preset_area_option_menu, FALSE, FALSE, 0);
+  gtk_widget_show(preset_area_option_menu);
+  p->preset_area_option_menu = preset_area_option_menu;
+  preview_create_preset_area_menu(p, 0); /* build menu and set default to 0=full size */
+
+  xsane_vseparator_new(p->menu_box, 3);
+
+  /* select rotation */
+  pixmap = gdk_pixmap_create_from_xpm_d(p->top->window, &mask, xsane.bg_trans, (gchar **) rotation_xpm);
+  pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
+  gtk_box_pack_start(GTK_BOX(p->menu_box), pixmapwidget, FALSE, FALSE, 2);
+  gtk_widget_show(pixmapwidget);
+  gdk_drawable_unref(pixmap);
+
+  rotation_menu = gtk_menu_new();
+
+  for (i = 0; i < 12; ++i)
+  {
+   int rot;
+
+    if (i<4)
+    {
+      snprintf(buf, sizeof(buf), "%03d  ", i*90);  
+      rot = i;
+    }
+    else if (i<8)
+    {
+      snprintf(buf, sizeof(buf), "%03d |", i*90-360);  
+      rot = i;
+    }
+    else
+    {
+      snprintf(buf, sizeof(buf), "%03d -", i*90-2*360);  
+      rot = (((i & 3) + 2) & 3) + 4;
+    }
+    rotation_item = gtk_menu_item_new_with_label(buf);
+    gtk_container_add(GTK_CONTAINER(rotation_menu), rotation_item);
+    g_signal_connect(GTK_OBJECT(rotation_item), "activate", (GtkSignalFunc) preview_rotation_callback, p);
+    gtk_object_set_data(GTK_OBJECT(rotation_item), "Selection", (void *) rot);  
+
+    gtk_widget_show(rotation_item);
+  }                  
+
+  rotation_option_menu = gtk_option_menu_new();
+  xsane_back_gtk_set_tooltip(xsane.tooltips, rotation_option_menu, DESC_ROTATION);
+  gtk_box_pack_start(GTK_BOX(p->menu_box), rotation_option_menu, FALSE, FALSE, 0);
+  gtk_option_menu_set_menu(GTK_OPTION_MENU(rotation_option_menu), rotation_menu);
+  gtk_option_menu_set_history(GTK_OPTION_MENU(rotation_option_menu), p->rotation); /* set rotation */
+
+  gtk_widget_show(rotation_option_menu);
+  p->rotation_option_menu = rotation_option_menu;
+
+  xsane_vseparator_new(p->menu_box, 3);
+
+  /* the preview aspect ratio menu */
+  pixmap = gdk_pixmap_create_from_xpm_d(p->top->window, &mask, xsane.bg_trans, (gchar **) aspect_ratio_xpm);
+  pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
+  gtk_box_pack_start(GTK_BOX(p->menu_box), pixmapwidget, FALSE, FALSE, 2);
+  gtk_widget_show(pixmapwidget);
+  gdk_drawable_unref(pixmap);
+
+  ratio_menu = gtk_menu_new();
+
+  for (i = 0; i < sizeof(ratio_value)/sizeof(float); ++i)
+  {
+    ratio_item = gtk_menu_item_new_with_label(ratio_string[i]);
+    gtk_container_add(GTK_CONTAINER(ratio_menu), ratio_item);
+    g_signal_connect(GTK_OBJECT(ratio_item), "activate", (GtkSignalFunc) preview_ratio_callback, p);
+    gtk_object_set_data(GTK_OBJECT(ratio_item), "Selection", &ratio_value[i]);  
+
+    gtk_widget_show(ratio_item);
+
+    if (ratio_value[i] == p->ratio)
+    {
+      ratio_nr = i;
+    }
+  }                  
+
+  ratio_option_menu = gtk_option_menu_new();
+  xsane_back_gtk_set_tooltip(xsane.tooltips, ratio_option_menu, DESC_RATIO);
+  gtk_box_pack_start(GTK_BOX(p->menu_box), ratio_option_menu, FALSE, FALSE, 0);
+  gtk_option_menu_set_menu(GTK_OPTION_MENU(ratio_option_menu), ratio_menu);
+  gtk_option_menu_set_history(GTK_OPTION_MENU(ratio_option_menu), ratio_nr); /* set ratio */
+
+  gtk_widget_show(ratio_option_menu);
+  p->ratio_option_menu = ratio_option_menu;
+
+#if 0
+  /* the RGB label */
+  frame = gtk_frame_new(0);
+  gtk_box_pack_start(GTK_BOX(p->menu_box), frame, FALSE, FALSE, 3);
+  gtk_widget_show(frame);
+  p->rgb_label = gtk_label_new(0);
+  gtk_container_add(GTK_CONTAINER(frame), p->rgb_label);
+  gtk_widget_show(p->rgb_label);
+  preview_display_color_components(p, -1, -1); /* display "###, ###, ###" */
+#endif
+
+  gtk_widget_show(p->menu_box);
+  /* the menu box is ready */
+
+
+
+  /* set the action_hbox */
+  action_box = gtk_hbox_new(FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), action_box, FALSE, FALSE, 2);
+  gtk_container_set_border_width(GTK_CONTAINER(action_box), 0);
+  gtk_widget_show(action_box);
+
 
   /* the (in)valid pixmaps */
   pixmap = gdk_pixmap_create_from_xpm_d(p->top->window, &mask, xsane.bg_trans, (gchar **) valid_xpm);
   p->valid_pixmap = gtk_image_new_from_pixmap(pixmap, mask);
-  gtk_box_pack_start(GTK_BOX(hbox), p->valid_pixmap, FALSE, FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(action_box), p->valid_pixmap, FALSE, FALSE, 0);
   gtk_widget_show(p->valid_pixmap);
   gdk_drawable_unref(pixmap);
 
   pixmap = gdk_pixmap_create_from_xpm_d(p->top->window, &mask, xsane.bg_trans, (gchar **) scanning_xpm);
   p->scanning_pixmap = gtk_image_new_from_pixmap(pixmap, mask);
-  gtk_box_pack_start(GTK_BOX(hbox), p->scanning_pixmap, FALSE, FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(action_box), p->scanning_pixmap, FALSE, FALSE, 0);
   gtk_widget_show(p->scanning_pixmap);
   gdk_drawable_unref(pixmap);
 
   pixmap = gdk_pixmap_create_from_xpm_d(p->top->window, &mask, xsane.bg_trans, (gchar **) incomplete_xpm);
   p->incomplete_pixmap = gtk_image_new_from_pixmap(pixmap, mask);
-  gtk_box_pack_start(GTK_BOX(hbox), p->incomplete_pixmap, FALSE, FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(action_box), p->incomplete_pixmap, FALSE, FALSE, 0);
   gtk_widget_show(p->incomplete_pixmap);
   gdk_drawable_unref(pixmap);
 
   pixmap = gdk_pixmap_create_from_xpm_d(p->top->window, &mask, xsane.bg_trans, (gchar **) invalid_xpm);
   p->invalid_pixmap = gtk_image_new_from_pixmap(pixmap, mask);
-  gtk_box_pack_start(GTK_BOX(hbox), p->invalid_pixmap, FALSE, FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(action_box), p->invalid_pixmap, FALSE, FALSE, 0);
   gtk_widget_show(p->invalid_pixmap);
   gdk_drawable_unref(pixmap);
+
 
   /* Start button */
   p->start = gtk_button_new_with_label(BUTTON_PREVIEW_ACQUIRE);
   xsane_back_gtk_set_tooltip(xsane.tooltips, p->start, DESC_PREVIEW_ACQUIRE);
   g_signal_connect(GTK_OBJECT(p->start), "clicked", (GtkSignalFunc) preview_start_button_clicked, p);
-  gtk_box_pack_start(GTK_BOX(hbox), p->start, TRUE, TRUE, 10);
+  gtk_box_pack_start(GTK_BOX(action_box), p->start, TRUE, TRUE, 5);
   gtk_widget_add_accelerator(p->start, "clicked", xsane.accelerator_group, GDK_P, GDK_MOD1_MASK, DEF_GTK_ACCEL_LOCKED); /* Alt P */
+  gtk_widget_show(p->start);
 
   /* Cancel button */
   p->cancel = gtk_button_new_with_label(BUTTON_PREVIEW_CANCEL);
   xsane_back_gtk_set_tooltip(xsane.tooltips, p->cancel, DESC_PREVIEW_CANCEL);
   g_signal_connect(GTK_OBJECT(p->cancel), "clicked", (GtkSignalFunc) preview_cancel_button_clicked, p);
-  gtk_box_pack_start(GTK_BOX(hbox), p->cancel, TRUE, TRUE, 10);
+  gtk_box_pack_start(GTK_BOX(action_box), p->cancel, TRUE, TRUE, 5);
   gtk_widget_add_accelerator(p->cancel, "clicked", xsane.accelerator_group, GDK_Escape, GDK_MOD1_MASK, DEF_GTK_ACCEL_LOCKED); /* Alt ESC */
+  gtk_widget_show(p->cancel);
   gtk_widget_set_sensitive(p->cancel, FALSE);
 
-  gtk_widget_show(p->cancel);
-  gtk_widget_show(p->start);
-  gtk_widget_show(p->viewport);
-  gtk_widget_show(p->window);
-  gtk_widget_show(p->hruler);
-  gtk_widget_show(p->vruler);
+#if 1
+  /* the RGB label */
+  frame = gtk_frame_new(0);
+  gtk_box_pack_start(GTK_BOX(action_box), frame, FALSE, FALSE, 3);
   gtk_widget_show(frame);
-  gtk_widget_show(table);
+  p->rgb_label = gtk_label_new(0);
+  gtk_container_add(GTK_CONTAINER(frame), p->rgb_label);
+  gtk_widget_show(p->rgb_label);
+  preview_display_color_components(p, -1, -1); /* display "###, ###, ###" */
+#endif
+
+  preview_update_surface(p, 0);
+
+  gtk_widget_show(p->window);
   gtk_widget_show(p->top);
 
   cursor = gdk_cursor_new(XSANE_CURSOR_PREVIEW);	/* set default curosr */
@@ -4838,7 +5171,7 @@ static void preview_get_color(Preview *p, int x, int y, int range, int *red, int
   {
     preview_transform_coordinate_window_to_image(p, x, y, &image_x, &image_y);
 
-    if ( (image_x < p->image_width) && (image_y < p->image_height) )
+    if ( (image_x >= 0) && (image_x < p->image_width) && (image_y >=0) && (image_y < p->image_height) )
     {
       image_x_min = image_x - range/2;
       image_y_min = image_y - range/2;
@@ -5474,7 +5807,7 @@ static gint preview_preset_area_context_menu_callback(GtkWidget *widget, GdkEven
       if (selection>1) /* available from 3rd item */
       {
         /* move up */
-        menu_item = gtk_menu_item_new_with_label(MENU_OTEM_PRESET_AREA_MOVE_UP);
+        menu_item = gtk_menu_item_new_with_label(MENU_ITEM_PRESET_AREA_MOVE_UP);
         gtk_widget_show(menu_item);
         gtk_container_add(GTK_CONTAINER(menu), menu_item);
         g_signal_connect(GTK_OBJECT(menu_item), "activate", (GtkSignalFunc) preview_preset_area_move_up_callback, widget);
@@ -5483,7 +5816,7 @@ static gint preview_preset_area_context_menu_callback(GtkWidget *widget, GdkEven
       if ((selection) && (selection < preferences.preset_area_definitions-1))
       {
         /* move down */
-        menu_item = gtk_menu_item_new_with_label(MENU_OTEM_PRESET_AREA_MOVE_DWN);
+        menu_item = gtk_menu_item_new_with_label(MENU_ITEM_PRESET_AREA_MOVE_DWN);
         gtk_widget_show(menu_item);
         gtk_container_add(GTK_CONTAINER(menu), menu_item);
         g_signal_connect(GTK_OBJECT(menu_item), "activate", (GtkSignalFunc) preview_preset_area_move_down_callback, widget);
@@ -5617,6 +5950,79 @@ static void preview_rotation_callback(GtkWidget *widget, gpointer data)
   p->block_update_maximum_output_size_clipping = FALSE;
   preview_update_selection(p); /* read selection from backend: correct rotation */
   xsane_batch_scan_update_icon_list(); /* rotate batch scan icons */
+  preview_establish_ratio(p); /* make sure ratio is like selected - when selected */
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void preview_establish_ratio(Preview *p)
+{
+ float width, height;
+
+  DBG(DBG_proc, "preview_establish_ratio\n");
+
+  if (p->ratio == 0.0)
+  {
+    return;
+  }
+
+  width  = fabs(p->selection.coordinate[p->index_xmax] - p->selection.coordinate[p->index_xmin]);
+  height = fabs(p->selection.coordinate[p->index_ymax] - p->selection.coordinate[p->index_ymin]);
+
+  if ( (0.99 < width / p->ratio / height) && (width / p->ratio / height < 1.01) )
+  {
+    return;
+  }
+
+  if ( (0.99 < width * p->ratio / height) && (width * p->ratio / height < 1.01) )
+  {
+    width = height;
+
+    if (width > p->scanner_surface[p->index_xmax] - p->scanner_surface[p->index_xmin])
+    {
+      width = p->scanner_surface[p->index_xmax] - p->scanner_surface[p->index_xmin];
+    }
+  }
+
+  height = width / p->ratio;
+  if (height > p->scanner_surface[p->index_ymax] - p->scanner_surface[p->index_ymin])
+  {
+    height = p->scanner_surface[p->index_ymax] - p->scanner_surface[p->index_ymin];
+    width = height * p->ratio;
+  }
+
+  p->selection.coordinate[p->index_xmax] = p->selection.coordinate[p->index_xmin] + width;
+  if (p->selection.coordinate[p->index_xmax] > p->scanner_surface[p->index_xmax])
+  {
+    p->selection.coordinate[p->index_xmax] = p->scanner_surface[p->index_xmax];
+    p->selection.coordinate[p->index_xmin] = p->selection.coordinate[p->index_xmax] - width;
+  }
+
+  p->selection.coordinate[p->index_ymax] = p->selection.coordinate[p->index_ymin] + height;
+  if (p->selection.coordinate[p->index_ymax] > p->scanner_surface[p->index_ymax])
+  {
+    p->selection.coordinate[p->index_ymax] = p->scanner_surface[p->index_ymax];
+    p->selection.coordinate[p->index_ymin] = p->selection.coordinate[p->index_ymax] - height;
+  }
+
+  preview_draw_selection(p); 
+  preview_establish_selection(p); 
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void preview_ratio_callback(GtkWidget *widget, gpointer data)
+{
+ Preview *p = data;
+ float *ratio;
+
+  DBG(DBG_proc, "preview_ratio_callback\n");
+
+  ratio = (float *) gtk_object_get_data(GTK_OBJECT(widget), "Selection");
+
+  p->ratio = *ratio;
+
+  preview_establish_ratio(p);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -5637,8 +6043,8 @@ void preview_do_gamma_correction(Preview *p)
 {
  int x,y;
  int offset;
- u_char *image_data_enhp;
- guint16 *image_data_rawp;
+ u_char *image_data_enhp = NULL;
+ guint16 *image_data_rawp = NULL;
  int rotate = 16 - preview_gamma_input_bits;
 
   DBG(DBG_proc, "preview_do_gamma_correction\n");

@@ -23,7 +23,6 @@
 #ifndef XSANE_GTK_1_x_COMPAT_H
 #define XSANE_GTK_1_x_COMPAT_H  
 
-# define DEF_GTK_SIGNAL_SPINBUTTON_VALUE_CHANGED "changed"
 # define DEF_GTK_MENU_ACCEL_VISIBLE 0
  
 # define g_signal_connect(instance, detailed_signal, c_handler, data) \

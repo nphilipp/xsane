@@ -6,10 +6,15 @@ Sign explaination:
  + planned to do this soon/higher priority (but not promised for XSane-1.0)
  - comes later/lower priority
 
+ scan-function:
+    # allow additional image data after each row (is sane standard conform)
+
  save-function:
     - list of last used filenames
     - save several images into one file for:
-      -postscript
+      - postscript
+      - may be tiff
+    ? enable filters in save mode?
 
  fax-function:
     # use internal viewer to display images
@@ -20,12 +25,14 @@ Sign explaination:
     - add send delayed option
     - add options for sender/receiver Name
     + zoom ?
+    # cleanup user interface of fax function
 
  email-function:
     # use internal viewer to display images
       # while scanning save image as pnm
       # convtert image to target format when sending email
       # add new image types to email fileformat: tiff, jpeg
+    # cleanup user interface of email function
 
  gamma function:
     # add target gamma (e.g. for web publishing)
@@ -37,8 +44,9 @@ Sign explaination:
       (I am not sure if this makes sense with color managemant)
 
  preview function:
-    - force aspect ratio of selection area
+    # allow additional image data after each row (is sane standard conform)
     - force size of scanarea in pixels (calculate resolution)
+      this will not produce exact results with some scanners!!!
 
  viewer function:
     # add more filters (sharpen?)
@@ -59,9 +67,14 @@ Sign explaination:
     - include much more parameters when saving images
     + test memory after each call of malloc - partly done
     - more/better online helpfiles (mostly done)
-    - added infrared filter for transmissive rgbi scans:
+    - add infrared filter for transmissive rgbi scans:
       use next neighbour with high transmission(i) value
       (may be to viewer)
+   + test if file is writable before scan is started
+   ? show histogram of scanned image?
+   ? show scanned image in save mode or automatically save image in viewer mode?
+   ? project save/load with preview image, scanmode, .... ???
+
 
  include special functions for GNOME/KDE
    *** DOES ANYONE HAVE ANY SUGGESTIONS TO THIS ? ***

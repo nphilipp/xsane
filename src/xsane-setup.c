@@ -1760,10 +1760,39 @@ static void xsane_image_notebook(GtkWidget *notebook)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+typedef struct
+{
+  char *identifier;
+  char *fax_command;
+  char *fax_receiver_option;
+  char *fax_postscript_option;
+  char *fax_normal_option;
+  char *fax_fine_option;
+} fax_program_options_type;
+
+fax_program_options_type fax_program[] =
+{
+  {" hylafax ",        "sendfax",  "-d", "",  "-l", "-m"},
+  {" mgetty+sendfax ", "faxspool", "",   "",  "-n", ""},
+  {" efax ",           "fax send", "",   "",  "-l", ""},
+};
+
+static void xsane_fax_notebook_set_faxprogram_default_callback(GtkWidget *widget, int program_number)
+{
+  gtk_entry_set_text(GTK_ENTRY(xsane_setup.fax_command_entry),           (char *) fax_program[program_number].fax_command);
+  gtk_entry_set_text(GTK_ENTRY(xsane_setup.fax_receiver_option_entry),   (char *) fax_program[program_number].fax_receiver_option);
+  gtk_entry_set_text(GTK_ENTRY(xsane_setup.fax_postscript_option_entry), (char *) fax_program[program_number].fax_postscript_option);
+  gtk_entry_set_text(GTK_ENTRY(xsane_setup.fax_normal_option_entry),     (char *) fax_program[program_number].fax_normal_option);
+  gtk_entry_set_text(GTK_ENTRY(xsane_setup.fax_fine_option_entry),       (char *) fax_program[program_number].fax_fine_option);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void xsane_fax_notebook(GtkWidget *notebook)
 {
  GtkWidget *setup_vbox, *vbox, *hbox, *button, *label, *text, *frame;
  char buf[64];
+ int i;
 
   DBG(DBG_proc, "xsane_fax_notebook\n");
 
@@ -1878,6 +1907,26 @@ static void xsane_fax_notebook(GtkWidget *notebook)
   gtk_widget_show(text);
   gtk_widget_show(hbox);
   xsane_setup.fax_fine_option_entry = text;
+
+
+  /* fax set program default options : */
+
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+
+  label = gtk_label_new(TEXT_SETUP_FAX_PROGRAM_DEFAULTS);
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 0);
+  gtk_widget_show(label);
+
+  for (i=0; i < sizeof(fax_program)/sizeof(fax_program_options_type); i++)
+  {
+    button = gtk_button_new_with_label(fax_program[i].identifier);
+    g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_fax_notebook_set_faxprogram_default_callback, (void *) i);
+    gtk_box_pack_end(GTK_BOX(hbox), button, FALSE, FALSE, 10);
+    gtk_widget_show(button);
+  }
+
+  gtk_widget_show(hbox);
 
 
   xsane_separator_new(vbox, 2);

@@ -53,7 +53,6 @@
 #endif
 
 #ifdef HAVE_MMAP
-#include <unistd.h>
 #include <sys/mman.h>
 #endif
 
@@ -677,8 +676,8 @@ int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_in
 {
  int original_image_width  = image_info->image_width;
  int original_image_height = image_info->image_height;
- int new_image_width  = image_info->image_width * x_scale;
- int new_image_height = image_info->image_height * y_scale;
+ int new_image_width  = image_info->image_width  * x_scale + 0.5;
+ int new_image_height = image_info->image_height * y_scale + 0.5;
  unsigned char *original_line;
  guint16 *original_line16 = NULL;
  unsigned char *new_line;
@@ -1976,8 +1975,8 @@ static void xsane_save_ps_create_header(FILE *outfile, Image_info *image_info,
     position_bottom = bottom - paper_width - paper_left_margin;
     box_left        = paper_width - paper_left_margin - bottom - height;
     box_bottom      = left   + paper_bottom_margin;
-    box_right       = box_left   + height;
-    box_top         = box_bottom + width;
+    box_right       = box_left   + ceil(height);
+    box_top         = box_bottom + ceil(width);
   }
   else /* do not rotate, portrait mode */
   {
@@ -1986,8 +1985,8 @@ static void xsane_save_ps_create_header(FILE *outfile, Image_info *image_info,
     position_bottom = bottom + paper_bottom_margin;
     box_left        = left   + paper_left_margin;
     box_bottom      = bottom + paper_bottom_margin;
-    box_right       = box_left   + round(width+0.5);
-    box_top         = box_bottom + round(height+0.5);
+    box_right       = box_left   + ceil(width);
+    box_top         = box_bottom + ceil(height);
   }
 
   depth = image_info->depth;
@@ -3335,6 +3334,8 @@ int xsane_save_image_as(char *input_filename, char *output_filename, int output_
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------------------------------------- */
 
 #ifdef HAVE_LIBGIMP_GIMP_H
 static int xsane_decode_devname(const char *encoded_devname, int n, char *buf)
@@ -3904,6 +3905,10 @@ int xsane_transfer_to_gimp(char *input_filename, GtkProgressBar *progress_bar, i
 #endif /* HAVE_LIBGIMP_GIMP_H */ 
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 #ifdef XSANE_ACTIVATE_MAIL
 
 /* character base of base64 coding */
