@@ -4,6 +4,11 @@ If you have any suggestions: mail to Oliver.Rauch@Wolfsburg.DE
 (+ planned to do this soon, - comes later)
 
 first steps:
+ + configure options:
+   --disable-gimp-support
+   --disable-jpeg-support
+   --disable-tiff-support
+   --disable-png-support
  * options:
  - fax-function
     - add send delayed option
@@ -36,8 +41,10 @@ first steps:
    - if netscape-remote is docviewer, start netscape if not running
 
 second steps:
- - support NLS/gettext, may be sane-2.0 will help a bit here
  - correct gtk custom gamma functions and include it
  - include special functions for GNOME/KDE - *** DOES ANYONE HAVE ANY SUGGESTIONS TO THIS ? ***
+   - GNOME:
+     - gnome-print support?
+     - session management
  + add color management - may be via xcmsdb
 

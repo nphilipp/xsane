@@ -1,0 +1,805 @@
+#nls translation file for xsane
+#language: french (fr)
+
+msgid  "About"   
+msgstr "a propos"
+
+msgid  "authorization"   
+msgstr "authorisation"
+
+msgid  "info"   
+msgstr "info"
+
+msgid  "batch scan"   
+msgstr "scan en batch"
+
+msgid  "fax project"   
+msgstr "projet fax"
+
+msgid  "rename fax page"   
+msgstr "renommer la page de fax"
+
+msgid  "setup"   
+msgstr "Configuration"
+
+msgid  "Histogram"   
+msgstr "Histogramme"
+
+msgid  "Standard options"   
+msgstr "Options standards"
+
+msgid  "Advanced options"   
+msgstr "Options avancées"
+
+msgid  "device selection"   
+msgstr "sélection de périphérique"
+
+msgid  "preview"   
+msgstr "aperçu"
+
+msgid  "output filename"   
+msgstr "fichier de sortie"
+
+msgid  "save device settings"   
+msgstr "enregistrer les paramétres du périphérique"
+
+msgid  "load device settings"   
+msgstr "charger les paramétres du périphérique"
+
+msgid  "File"   
+msgstr "Fichier"
+
+msgid  "Preferences"   
+msgstr "Préférences"
+
+msgid  "Help"   
+msgstr "Aide"
+
+msgid  "About"   
+msgstr "A propos"
+
+msgid  "Info"   
+msgstr "Info"
+
+msgid  "Exit"   
+msgstr "Quitter"
+
+msgid  "Raw image"   
+msgstr "Image brute"
+
+msgid  "Enhanced image"   
+msgstr "Image améliorée"
+
+msgid  "Start"   
+msgstr "Départ"
+
+msgid  "Ok"   
+msgstr "Ok"
+
+msgid  "Apply"   
+msgstr "Appliquer"
+
+msgid  "Cancel"   
+msgstr "Annuler"
+
+msgid  "Close"   
+msgstr "Fermer"
+
+msgid  "Add area"   
+msgstr "Ajouter une aire"
+
+msgid  "Delete"   
+msgstr "Affacer"
+
+msgid  "Show"   
+msgstr "Montrer"
+
+msgid  "Rename"   
+msgstr "Renommer"
+
+msgid  "Send project"   
+msgstr "Envoyer projet"
+
+msgid  "Delete project"   
+msgstr "Effacer projet"
+
+msgid  "Add printer"   
+msgstr "Ajouter une imprimante"
+
+msgid  "Delete printer"   
+msgstr "Enlever une imprimante"
+
+msgid  "Acquire Preview"   
+msgstr "Acquisition de l'aperçu"
+
+msgid  "Cancel Preview"   
+msgstr "Annuler l'aperçu"
+
+msgid  "Fine mode"   
+msgstr "Mode Fin"
+
+msgid  "Overwrite warning"   
+msgstr "Avertissement en cas d'écrasement"
+
+msgid  "Increase filename counter"   
+msgstr "Incrémenter le compteur de nom de fichier"
+
+msgid  "Skip existing numbers"   
+msgstr "Éviter les nombres existants"
+
+msgid  "Main window size fixed"   
+msgstr "Taille de la fenêtre principale fixe"
+
+msgid  "Preserve preview image"   
+msgstr "Préserver l'image de l'aperçu"
+
+msgid  "Use private colormap"   
+msgstr "Utiliser une palette de couleurs privée"
+
+msgid  "Available devices:"   
+msgstr "Périphériques disponibles:"
+
+msgid  "XSane options"   
+msgstr "Options de XSane"
+
+msgid  "XSane mode"   
+msgstr "Mode XSane"
+
+msgid  "Scanner and backend:"   
+msgstr "Scanner et moteur:"
+
+msgid  "Vendor:"   
+msgstr "Vendeur:"
+
+msgid  "Model:"   
+msgstr "Modèle:"
+
+msgid  "Type:"   
+msgstr "Type:"
+
+msgid  "Device:"   
+msgstr "Périphérique:"
+
+msgid  "Loaded backend:"   
+msgstr "Moteur chargé:"
+
+msgid  "Sane version:"   
+msgstr "Version de Sane:"
+
+msgid  "Recent values:"   
+msgstr "Valeurs récentes:"
+
+msgid  "Gamma correction by:"   
+msgstr "Correction Gamma par:"
+
+msgid  "scanner"   
+msgstr "scanner"
+
+msgid  "software (xsane)"   
+msgstr "logiciel (xsane)"
+
+msgid  "none"   	
+msgstr "aucun"
+
+msgid  "Gamma input depth:"   
+msgstr ""
+
+msgid  "Gamma output depth:"   
+msgstr ""
+
+msgid  "Scanner output depth:"   
+msgstr ""
+
+msgid  "XSane output formats:"   
+msgstr "Formats de sortie XSane:"
+
+msgid  "8 bit output formats:"   
+msgstr "Formats de sortie 8 bits:"
+
+msgid  "16 bit output formats:"   
+msgstr "Formats de sortie 16 bits:"
+
+msgid  "Authorization required for"   
+msgstr "Authorisation requise pour"
+
+msgid  "Username :"   
+msgstr "Utilisateur:"
+
+msgid  "Password :"   
+msgstr "Mot de passe:"
+
+msgid  "Invalid parameters."   
+msgstr "Paramétres non valides"
+
+msgid  "version:"   
+msgstr "version"
+
+msgid  "package"   
+msgstr "paquetage"
+
+msgid  "unknown"   
+msgstr "inconnu"
+
+msgid  "0x0: 0KB"   
+msgstr "0x0: 0KB"
+
+msgid  "Printer selection:"   
+msgstr "Sélection de l'imprimante:"
+
+msgid  "Name:"   
+msgstr "Nom:"
+
+msgid  "Command:"   
+msgstr "Commande:"
+
+msgid  "Copy number option:"   
+msgstr "Option du nombre de copie:"
+
+msgid  "Resolution (dpi):"   
+msgstr "Résolution (dpi):"
+
+msgid  "Width (1/72 inch):"   
+msgstr "Largeur (en 72ème de pouce):"
+
+msgid  "Height (1/72 inch):"   
+msgstr "Hauteur (en 72e de pouce):"
+
+msgid  "Left offset (1/72 inch):"   
+msgstr "Marge gauche (en 72ème de pouce):"
+
+msgid  "Bottom offset (1/72 inch):"   
+msgstr "Marge inférieure (en 72ème de pouce):"
+
+msgid  "Printer gamma value:"   
+msgstr "Valeur gamma de l'imprimante:"
+
+msgid  "Printer gamma red:"   
+msgstr "Valeur gamma rouge de l'imprimante:"
+
+msgid  "Printer gamma green:"   
+msgstr "Valeur gamma verte de l'imprimante:"
+
+msgid  "Printer gamma blue:"   
+msgstr "Valeur gamma bleue de l'imprimante:"
+
+msgid  "JPEG image quality"   
+msgstr "Qualité d'image JPEG"
+
+msgid  "PNG image compression"   
+msgstr "Compression des images PNG"
+
+msgid  "TIFF multi bit image compression"   
+msgstr "Compression multi-bit des images TIFF"
+
+msgid  "TIFF lineart image compression"   
+msgstr "Compression d'image TIFF lineart"
+
+msgid  "Preview gamma:"   
+msgstr "Gamma de l'aperçu:"
+
+msgid  "Preview gamma red:"   
+msgstr "Gamma rouge de l'aperçu:"
+
+msgid  "Preview gamma green:"   
+msgstr "Gamma vert de l'aperçu:"
+
+msgid  "Preview gamma blue:"   
+msgstr "Gamma bleu de l'aperçu:"
+
+msgid  "Helpfile viewer (HTML):"   
+msgstr "Afficheur de fichiers d'aide (HTML):"
+
+msgid  "Command:"   
+msgstr ""
+
+msgid  "Receiver option:"   
+msgstr "Option de réception:"
+
+msgid  "Postscriptfile option:"   
+msgstr "Option fichier PostScript:"
+
+msgid  "Normal mode option:"   
+msgstr "Option du mode normal:"
+
+msgid  "Fine mode option:"   
+msgstr "Option du mode fin:"
+
+msgid  "Viewer (Postscript):"   
+msgstr "Visualisateur (PostScript):"
+
+msgid  "Printer options"   
+msgstr "Options d'impression"
+
+msgid  "Saving options"   
+msgstr "Enregistrement des options"
+
+msgid  "Display options"   
+msgstr "Options de l'affichage"
+
+msgid  "Fax options"   
+msgstr "Options de fax"
+
+msgid  "Scan"   
+msgstr "Scanner"
+
+msgid  "Copy"   
+msgstr "Copier"
+
+msgid  "Fax"   
+msgstr "Faxer"
+
+msgid  "Setup"   
+msgstr "Configuration"
+
+msgid  "Show tooltips"   
+msgstr "Affichage des bulles d'aide"
+
+msgid  "Show preview"   
+msgstr "Afficher l'aperçu"
+
+msgid  "Show histogram"   
+msgstr "Afficher l'histogramme"
+
+msgid  "Show standard options"   
+msgstr "Afficher les options standard"
+
+msgid  "Show advanced options"   
+msgstr "Afficher les options avancées"
+
+msgid  "Show resolution list"   
+msgstr "Afficher la liste des résolutions"
+
+msgid  "Length unit"   
+msgstr "Unité de longueur"
+
+msgid  "millimeters"   
+msgstr "millimétres"
+
+msgid  "centimeters"   
+msgstr "centimétres"
+
+msgid  "inches"   
+msgstr "pouces" 
+
+msgid  "Save device settings"   
+msgstr "Enregistrer les paramétres du périphérique"
+
+msgid  "Load device settings"   
+msgstr "Charger les paramétres du périphérique"
+
+msgid  "Xsane doc"   
+msgstr "Doc Xsane"
+
+msgid  "Backend doc"   
+msgstr "Doc moteur"
+
+msgid  "Available backends"   
+msgstr "Moteurs disponibles"
+
+msgid  "Scantips"   
+msgstr "Conseils d'utilisation"
+
+msgid  "no compression"   
+msgstr "pas de compression"
+
+msgid  "CCITT 1D Huffman compression"   
+msgstr "Compression CCITT 1D Huffman"
+
+msgid  "CCITT Group 3 Fax compression"   
+msgstr "Compression CCITT Group 3 Fax"
+
+msgid  "CCITT Group 4 Fax compression"   
+msgstr "Compression CCITT Group 4 Fax"
+
+msgid  "Lempel-Ziv & Welch compression"   
+msgstr "Compression Lempel-Ziv & Welch"
+
+msgid  "JPEG DCT compression"   
+msgstr "Compression JPEG DCT"
+
+msgid  "pack bits"   
+msgstr ""
+
+msgid  "by ext"   
+msgstr "par ext"
+
+msgid  "Use XSane for SCANning, photoCOPYing, FAXing..."   
+msgstr "Utilisez XSane pour SCANner, photoCOPIER, FAXer..."
+
+msgid  "Browse for image filename"   
+msgstr "Parcourir"
+
+msgid  "Filename for scanned image"   
+msgstr "Nom de fichier pour l'image scannée"
+
+msgid  "Define image file format"   
+msgstr "Definir le format de fichier d'image"
+
+msgid  "Enter name of fax project"   
+msgstr "Entrez le nom du projet fax"
+
+msgid  "Enter new name for faxpage"   
+msgstr "Entrez le nouveau nom pour la page de fax"
+
+msgid  "Enter receiver phone number or address"   
+msgstr "Entrez l'option à spécifier au destinataire"
+
+msgid  "Select printer definition"   
+msgstr "Changer la définition de l'imprimante"
+
+msgid  "Set scan resolution"   
+msgstr "Changer la résolution du scan"
+
+msgid  "Set zoomfactor"   	
+msgstr "Changer le facteur de zoom"
+
+msgid  "Set number of copies"   
+msgstr "Entrez l'option du nombre de copies"
+
+msgid  "Negative: Invert colors for scanning negatives\n" "e.g. swap black and white"   
+msgstr ""
+
+msgid  "Set gamma value"   
+msgstr ""
+
+msgid  "Set gamma value for red component"   
+msgstr ""
+
+msgid  "Set gamma value for green component"   
+msgstr ""
+
+msgid  "Set gamma value for blue component"   
+msgstr ""
+
+msgid  "Set brightness"   
+msgstr ""
+
+msgid  "Set brightness for red component"   
+msgstr ""
+
+msgid  "Set brightness for green component"   
+msgstr ""
+
+msgid  "Set brightness for blue component"   
+msgstr ""
+
+msgid  "Set contrast"   
+msgstr ""
+
+msgid  "Set contrast for red component"   
+msgstr ""
+
+msgid  "Set contrast for green component"   
+msgstr ""
+
+msgid  "Set contrast for blue component"   
+msgstr ""
+
+msgid  "RGB default: Set enhancement values for red, green and blue to default values:\n" " gamma = 1.0\n" " brightness = 0\n" " contrast = 0"   
+msgstr ""
+
+msgid  "Autoadjust gamma, brightness and contrast in dependance " "of selected area (rgb-values are set to default)"   
+msgstr ""
+
+msgid  "Set default enhancement values:\n" "gamma = 1.0\n" "brightness = 0\n" "contrast = 0"   
+msgstr ""
+
+msgid  "Restore enhancement values from preferences"   
+msgstr ""
+
+msgid  "Store active enhancemnt values to preferences"   
+msgstr ""
+
+msgid  "Show histogram of intensity/gray"   
+msgstr "Afficher l'histogramme de l'intensité/gris"
+
+msgid  "Show histogram of red component"   
+msgstr "Afficher l'histogramme du composant rouge"
+
+msgid  "Show histogram of green component"   
+msgstr "Afficher l'histogramme du composant vert"
+
+msgid  "Show histogram of blue component"   
+msgstr "Afficher l'histogramme du composant bleu"
+
+msgid  "Display histogram with lines instead of pixels"   
+msgstr "Afficher l'histogramme avec des lignes à la place des pixels"
+
+msgid  "Show logarithm of pixelcount"   
+msgstr "Afficher le logarithme du nombre de pixels"
+
+msgid  "Select definition to change"   
+msgstr "Choisissez la définition à changer"
+
+msgid  "Define a name for the selection of this definition"   
+msgstr "Définissez un nom pour la sélection de cette définition"
+
+msgid  "Enter command to be executed in copy mode (e.g. \"lpr -\")"   
+msgstr "Entrez la commande a exécuter en mode copie (par ex.: \"lpr -\")"
+
+msgid  "Enter option for copy numbers"   
+msgstr "Entrez l'option du nombre de copies"
+
+msgid  "Resolution with which images are printed and saved in postscript"   
+msgstr "Résolution à laquelle les images doivent être enregistrées et imprimées en PostScript"
+
+msgid  "Width of printable area in 1/72 inch"   
+msgstr "Largeur de la zone imprimable en 72ème de pouce"
+
+msgid  "Height of printable area in 1/72 inch"   
+msgstr "Hauteur de la zone imprimable en 72ème de pouce"
+
+msgid  "Left offset from the edge of the paper to the printable area in 1/72 inch"   
+msgstr "Décallage entre le bord gauche du papier et l'aire imprimable en 72ème de pouce"
+
+msgid  "Bottom offset from the edge of the paper to the printable area in 1/72 inch"   
+msgstr "Décallage entre le bord inférieur du papier et l'aire imprimable en 72ème de pouce"
+
+msgid  "Additional gamma value for photocopy"   
+msgstr "Gamma additionnel pour photocopie"
+
+msgid  "Additional gamma value for red component for photocopy"   
+msgstr "Gamma additionnel pour la composante rouge pour photocopie"
+
+msgid  "Additional gamma value for green component for photocopy"   
+msgstr "Gamma additionnel pour la composante verte pour photocopie"
+
+msgid  "Additional gamma value for blue component for photocopy"   
+msgstr "Gamma additionnel pour la composante bleue pour photocopie"
+
+msgid  "Quality in percent if image is saved as jpeg or tiff with jpeg compression"   
+msgstr "Qualité en pourcentage si l'image est enregistrée en jpeg ou tiff avec compression jpeg"
+
+msgid  "Compression if image is saved as png"   
+msgstr "Compression si l'image est enregistrée en png"
+
+msgid  "Compression type if multi bit image is saved as tiff"   
+msgstr "Type de compression si l'image multi-bit est enregistrée en tiff"
+
+msgid  "Compression type if lineart image is saved as tiff"   
+msgstr "Type de compression si l'image lineart est enregistrée en tiff"
+
+msgid  "Warn before overwriting an existing file"   
+msgstr "Avertir avant d'écraser un fichier existant"
+
+msgid  "If the filename is of the form \"name-001.ext\" " "(where the number of digits is free) " "the number is increased after a scan is finished"   
+msgstr "Si le nom de fichier est de la forme \"nom-001.ext\" (où le nombre de " "chiffres est libre), le nom est incrémenté lorsque le scan est terminé"
+
+msgid  "If filename counter is automatically increased, used numbers are skipped"   
+msgstr ""
+
+msgid  "Use fixed main window size or scrolled, resizable main window"   
+msgstr "Si un compteur de noms de fichiers est utilisé, les nombres déjà utilisés sont évités"
+
+msgid  "Preserve preview image for next program start"   
+msgstr "Préserver l'image de l'aperçu pour le prochain démarrage"
+
+msgid  "Use an own colormap for preview if display depth is 8 bpp"   
+msgstr "Utiliser une palette de couleurs privée pour l'aperçu si l'affichage est en mode 8bits"
+
+msgid  "Set gamma correction value for preview image"   
+msgstr "Changer la valeur de la correction gamma pour l'image de l'aperçu"
+
+msgid  "Set gamma correction value for red component of preview image"   
+msgstr "Changer la valeur de la correction gamma pour le composant rouge pour l'image de l'aperçu"
+
+msgid  "Set gamma correction value for green component of preview image"   
+msgstr "Changer la valeur de la correction gamma pour le composant vert pour l'image de l'aperçu"
+
+msgid  "Set gamma correction value for blue component of preview image"   
+msgstr "Changer la valeur de la correction gamma pour le composant bleue pour l'image de l'aperçu"
+
+msgid  "Enter command to be executed to display helpfiles, must be a html-viewer!"   
+msgstr "Entrez la commande a exécuter pour afficher les fichiers d'aide; doit être capable de lire du html"
+
+msgid  "Enter command to be executed in fax mode"   
+msgstr "Entrez la commande à exécuter en mode fax"
+
+msgid  "Enter option to specify receiver"   
+msgstr "Entrez l'option à spécifier au destinataire"
+
+msgid  "Enter option to specify postscript files following"   
+msgstr "Entrez l'option à spécifier aux fichiers PostScript suivant"
+
+msgid  "Enter option to specify normal mode (low resolution)"   
+msgstr "Entrez l'option à spécifier au mode normal (basse résolution)"
+
+msgid  "Enter option to specify fine mode (high resolution)"   
+msgstr "Entrez l'option à spécifier au mode fin (haute résolution)"
+
+msgid  "Enter command to be executed to view a fax"   
+msgstr "Entrez la commande à être exécuter pour voir un fax"
+
+msgid  "Use high vertical resolution (196 lpi instead of 98 lpi)"   
+msgstr "Utiliser une plus grande résolution verticale (196 lpi à la place de 98 lpi)"
+
+msgid  "Pick white point"   
+msgstr "Choisissez un point blanc"
+
+msgid  "Pick gray point"   
+msgstr "Choisissez un point gris"
+
+msgid  "Pick black point"   
+msgstr "Choisissez un point noir"
+
+msgid  "Use full scanarea"   
+msgstr "Utiliser l'aire de scan complète"
+
+msgid  "Zoom 20% out"   
+msgstr "Zoomer 20% en arrière"
+
+msgid  "Zoom into selected area"   
+msgstr "Zoomer l'aire sélectionnée"
+
+msgid  "Undo last zoom"   
+msgstr "Annuler le dernier zoom"
+
+msgid  "Select visible area"   
+msgstr "Sélectionner l'aire visible"
+
+msgid  "Failed to determine home directory:"   
+msgstr "Impossible de déterminer le répertoire personnel"
+
+msgid  "Filename too long"   
+msgstr "Nom de fichier trop long"
+
+msgid  "Failed to set value of option"   
+msgstr "Échec du changement de la valeur de l'option"
+
+msgid  "Failed to obtain value of option"   
+msgstr "Échec de l'obtention de la valeur de l'option"
+
+msgid  "Error obtaining option count"   
+msgstr "Erreur de l'option 'count'"
+
+msgid  "Failed to open device"   
+msgstr ""
+
+msgid  "no devices available"   
+msgstr "aucun périphérique disponible"
+
+msgid  "Error during read:"   
+msgstr ""
+
+msgid  "Error during save:"   
+msgstr ""
+
+msgid  "Cannot handle depth"   
+msgstr ""
+
+msgid  "Unknown file format for saving"   
+msgstr ""
+
+msgid  "Failed to open"   
+msgstr ""
+
+msgid  "Failed to open pipe for executing printercommand"   
+msgstr ""
+
+msgid  "Failed to execute printercommand:"   
+msgstr ""
+
+msgid  "Failed to start scanner:"   
+msgstr ""
+
+msgid  "Failed to get parameters:"   
+msgstr ""
+
+msgid  "No output format given"   
+msgstr ""
+
+msgid  "out of memory"   
+msgstr ""
+
+msgid  "LIBTIFF reports error"   
+msgstr ""
+
+msgid  "LIBPNG reports error"   
+msgstr ""
+
+msgid  "unknown type"   
+msgstr ""
+
+msgid  "unknown constraint type"   
+msgstr ""
+
+msgid  "Failed to execute documentation viewer:"   
+msgstr ""
+
+msgid  "Failed to execute fax viewer:"   
+msgstr ""
+
+msgid  "Failed to execute faxcommand:"   
+msgstr ""
+
+msgid  "bad frame format"   
+msgstr ""
+
+msgid  "unable to set resolution"   
+msgstr ""
+
+msgid  "error"   
+msgstr "Erreur"
+
+msgid  "Sane major version number mismatch!"   
+msgstr "Incohérence dans les numéros de version majeur de Sane!"
+
+msgid  "xsane major version ="   
+msgstr "version majeure de xsane ="
+
+msgid  "backend major version ="   
+msgstr "version majeure du moteur ="
+
+msgid  "*** PROGRAM ABORTED ***"   
+msgstr "*** ARRET DU PROGRAMME ***"
+
+msgid  "Failed to allocate image memory:"   
+msgstr ""
+
+msgid  "Preview cannot handle bit depth"   
+msgstr ""
+
+msgid  "GIMP support missing"   
+msgstr "le support pour GIMP est manquant"
+
+msgid  "Filename counter overflow"   
+msgstr ""
+
+msgid  "warning: option has no value constraint"   
+msgstr ""
+
+msgid  "Ok"   
+msgstr ""
+
+msgid  "Error"   
+msgstr "Erreur"
+
+msgid  "Warning"   
+msgstr "Avertissement"
+
+msgid  "Usage:"   
+msgstr "Usage:"
+
+msgid  "[OPTION]... [DEVICE]"   
+msgstr "[OPTION]... [PÉRIPHÉRIQUE]"
+
+msgid  "Start up graphical user interface to access SANE (Scanner Access Now Easy) devices.\n\n-h, --help                   display this help message and exit\n-v, --version                print version information\n\n-d, --device-settings file   load device settings from file (without \".drc\")\n\n-s, --scan                   start with scan-mode active\n-c, --copy                   start with copy-mode active\n-f, --fax                    start with fax-mode active\n-n, --no-mode-selection      disable menu for xsane mode selection\n\n-F, --Fixed                  fixed main window size (overwrite preferences value)\n-R, --Resizeable             resizable, scrolled main window (overwrite preferences value)\n\n--display X11-display        redirect output to X11-display\n--no-xshm                    do not use shared memory images\n--sync                       request a synchronous connection with the X11 server"   			
+msgstr "" "Démarre l'interface graphique pour accéder à SANE (Scanner Access Now Easy).\n" "\n" "-h, --help                   affiche ce message d'aide et quitte\n" "-v, --version                donne des informations sur la version\n" "\n" "-d, --device-settings file   charge la configuration d'un périphérique à\n" "                             partir d'un fichier (sans \".drc\")\n" "\n" "-s, --scan                   démarre en mode scan\n" "-c, --copy                   démarre en mode copie\n" "-f, --fax                    démarre en mode fax\n" "-n, --no-mode-selection      désactive le menu de sélection de mode\n" "\n" "-F, --Fixed                  fixe la taille de la fenêtre principale (sans\n" "                             tenir compte des préférences)" "-R, --Resizeable             taille de la fenêtre principale variable (sans\n" "                             tenir compte des préférences)\n" "--display affichage-X11      redirige l'affichage vers un autre affichage X11\n" "--no-xshm                    n'utilise pas la mémoire partagée\n" "--sync                       demande une connexion synchrone avec le serveur X"
+
+
+msgid "Success"
+msgstr ""
+
+msgid "Operation not supported"
+msgstr ""
+
+msgid "Operation was cancelled"
+msgstr ""
+
+msgid "Device busy"
+msgstr ""
+
+msgid "Invalid argument"
+msgstr ""
+
+msgid "End of file reached"
+msgstr ""
+
+msgid "Document feeder jammed"
+msgstr ""
+
+msgid "Document feeder out of documents"
+msgstr ""
+
+msgid "Scanner cover is open"
+msgstr ""
+
+msgid "Error during device I/O"
+msgstr ""
+
+msgid "Out of memory"
+msgstr ""
+
+msgid "Access to resource has been denied"
+msgstr ""
+

@@ -27,7 +27,7 @@ INSTALL_DATA = @INSTALL_DATA@
 
 @SET_MAKE@
 
-SUBDIRS	= lib sanei frontend doc
+SUBDIRS	= lib sanei @INTLSUB@ frontend @POSUB@ doc
 
 all: all-recursive
 
@@ -39,7 +39,7 @@ clean: clean-recursive
 distclean: clean distclean-recursive
 	rm -f *~ include/*~ include/sane/*~ *.log *.bak libtool
 	rm -f include/sane/config.h Makefile config.cache config.status
-	rm -f japi/Makefile
+	rm -f intl/Makefile
 
 depend: depend-recursive
 

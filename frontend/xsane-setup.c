@@ -421,15 +421,17 @@ void xsane_setup_dialog(GtkWidget *widget, gpointer data)
 {
  GtkWidget *setup_dialog, *setup_vbox, *vbox, *hbox, *button, *label, *text, *frame, *notebook;
  GtkWidget *printer_option_menu;
- GtkWidget *tiff_compression_option_menu, *tiff_compression_menu, *tiff_compression_item;
- int i, select = 1;
  char buf[64];
 
-typedef struct tiff_compression_t
-{
- char *name;
- int number;
-} tiff_compression;
+#ifdef HAVE_LIBTIFF
+ GtkWidget *tiff_compression_option_menu, *tiff_compression_menu, *tiff_compression_item;
+ int i, select = 1;
+
+ typedef struct tiff_compression_t
+ {
+  char *name;
+  int number;
+ } tiff_compression;
 
  tiff_compression tiff_compression_strings[] =
  {
@@ -451,6 +453,7 @@ typedef struct tiff_compression_t
 	{ MENU_ITEM_TIFF_COMP_PACKBITS,	COMPRESSION_PACKBITS}
 #define TIFF_COMPRESSION1_NUMBER 7
  };
+#endif /* HAVE_LIBTIFF */
 
   xsane_set_sensitivity(FALSE);
 

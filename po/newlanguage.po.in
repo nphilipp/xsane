@@ -1,0 +1,1064 @@
+#include "../frontend/xsane-text.h"
+#define _(x) x
+
+#nls translation file for xsane
+#language: newlanguage (abbreviation)
+
+#original text:  "About"   
+msgid WINDOW_ABOUT
+msgstr ""
+
+#original text:  "authorization"   
+msgid WINDOW_AUTHORIZE
+msgstr ""
+
+#original tex:  "info"   
+msgid WINDOW_INFO
+msgstr ""
+
+#original tex:  "batch scan"   
+msgid WINDOW_BATCH_SCAN
+msgstr ""
+
+#original tex:  "fax project"   
+msgid WINDOW_FAX_PROJECT
+msgstr ""
+
+#original tex:  "rename fax page"   
+msgid WINDOW_FAX_RENAME
+msgstr ""
+
+#original tex:  "setup"   
+msgid WINDOW_SETUP
+msgstr ""
+
+#original tex:  "Histogram"   
+msgid WINDOW_HISTOGRAM
+msgstr ""
+
+#original tex:  "Standard options"   
+msgid WINDOW_STANDARD_OPTIONS
+msgstr ""
+
+#original tex:  "Advanced options"   
+msgid WINDOW_ADVANCED_OPTIONS
+msgstr ""
+
+#original tex:  "device selection"   
+msgid WINDOW_DEVICE_SELECTION
+msgstr ""
+
+#original tex:  "preview"   
+msgid WINDOW_PREVIEW
+msgstr ""
+
+#original tex:  "output filename"   
+msgid WINDOW_OUTPUT_FILENAME
+msgstr ""
+
+#original tex:  "save device settings"   
+msgid WINDOW_SAVE_SETTINGS
+msgstr ""
+
+#original tex:  "load device settings"   
+msgid WINDOW_LOAD_SETTINGS
+msgstr ""
+
+#original tex:  "File"   
+msgid MENU_FILE
+msgstr ""
+
+#original tex:  "Preferences"   
+msgid MENU_PREFERENCES
+msgstr ""
+
+#original tex:  "Help"   
+msgid MENU_HELP
+msgstr ""
+
+#original tex:  "About"   
+msgid MENU_ITEM_ABOUT
+msgstr ""
+
+#original tex:  "Info"   
+msgid MENU_ITEM_INFO
+msgstr ""
+
+#original tex:  "Exit"   
+msgid MENU_ITEM_EXIT
+msgstr ""
+
+#original tex:  "Raw image"   
+msgid FRAME_RAW_IMAGE
+msgstr ""
+
+#original tex:  "Enhanced image"   
+msgid FRAME_ENHANCED_IMAGE
+msgstr ""
+
+#original tex:  "Start"   
+msgid BUTTON_START
+msgstr ""
+
+#original tex:  "Ok"   
+msgid BUTTON_OK
+msgstr ""
+
+#original tex:  "Apply"   
+msgid BUTTON_APPLY
+msgstr ""
+
+#original tex:  "Cancel"   
+msgid BUTTON_CANCEL
+msgstr ""
+
+#original tex:  "Close"   
+msgid BUTTON_CLOSE
+msgstr ""
+
+#original tex:  "Add area"   
+msgid BUTTON_ADD_AREA
+msgstr ""
+
+#original tex:  "Delete"   
+msgid BUTTON_DELETE
+msgstr ""
+
+#original tex:  "Show"   
+msgid BUTTON_SHOW
+msgstr ""
+
+#original tex:  "Rename"   
+msgid BUTTON_RENAME
+msgstr ""
+
+#original tex:  "Send project"   
+msgid BUTTON_SEND_PROJECT
+msgstr ""
+
+#original tex:  "Delete project"   
+msgid BUTTON_DELETE_PROJECT
+msgstr ""
+
+#original tex:  "Add printer"   
+msgid BUTTON_ADD_PRINTER
+msgstr ""
+
+#original tex:  "Delete printer"   
+msgid BUTTON_DELETE_PRINTER
+msgstr ""
+
+#original tex:  "Acquire Preview"   
+msgid BUTTON_PREVIEW_ACQUIRE
+msgstr ""
+
+#original tex:  "Cancel Preview"   
+msgid BUTTON_PREVIEW_CANCEL
+msgstr ""
+
+#original tex:  "Fine mode"   
+msgid RADIO_BUTTON_FINE_MODE
+msgstr ""
+
+#original tex:  "Overwrite warning"   
+msgid RADIO_BUTTON_OVERWRITE_WARNING
+msgstr ""
+
+#original tex:  "Increase filename counter"   
+msgid RADIO_BUTTON_INCREASE_COUNTER
+msgstr ""
+
+#original tex:  "Skip existing numbers"   
+msgid RADIO_BUTTON_SKIP_EXISTING_NRS
+msgstr ""
+
+#original tex:  "Main window size fixed"   
+msgid RADIO_BUTTON_WINDOW_FIXED
+msgstr ""
+
+#original tex:  "Preserve preview image"   
+msgid RADIO_BUTTON_PRESERVE_PRVIEW
+msgstr ""
+
+#original tex:  "Use private colormap"   
+msgid RADIO_BUTTON_PRIVATE_COLORMAP
+msgstr ""
+
+#original tex:  "Available devices:"   
+msgid TEXT_AVAILABLE_DEVICES
+msgstr ""
+
+#original tex:  "XSane options"   
+msgid TEXT_XSANE_OPTIONS
+msgstr ""
+
+#original tex:  "XSane mode"   
+msgid TEXT_XSANE_MODE
+msgstr ""
+
+#original tex:  "Scanner and backend:"   
+msgid TEXT_SCANNER_BACKEND
+msgstr ""
+
+#original tex:  "Vendor:"   
+msgid TEXT_VENDOR
+msgstr ""
+
+#original tex:  "Model:"   
+msgid TEXT_MODEL
+msgstr ""
+
+#original tex:  "Type:"   
+msgid TEXT_TYPE
+msgstr ""
+
+#original tex:  "Device:"   
+msgid TEXT_DEVICE
+msgstr ""
+
+#original tex:  "Loaded backend:"   
+msgid TEXT_LOADED_BACKEND
+msgstr ""
+
+#original tex:  "Sane version:"   
+msgid TEXT_SANE_VERSION
+msgstr ""
+
+#original tex:  "Recent values:"   
+msgid TEXT_RECENT_VALUES
+msgstr ""
+
+#original tex:  "Gamma correction by:"   
+msgid TEXT_GAMMA_CORR_BY
+msgstr ""
+
+#original tex:  "scanner"   
+msgid TEXT_SCANNER
+msgstr ""
+
+#original tex:  "software (xsane)"   
+msgid TEXT_SOFTWARE_XSANE
+msgstr ""
+
+#original tex:  "none"   
+msgid TEXT_NONE
+msgstr ""
+
+#original tex:  "Gamma input depth:"   
+msgid TEXT_GAMMA_INPUT_DEPTH
+msgstr ""
+
+#original tex:  "Gamma output depth:"   
+msgid TEXT_GAMMA_OUTPUT_DEPTH
+msgstr ""
+
+#original tex:  "Scanner output depth:"   
+msgid TEXT_SCANNER_OUTPUT_DEPTH
+msgstr ""
+
+#original tex:  "XSane output formats:"   
+msgid TEXT_OUTPUT_FORMATS
+msgstr ""
+
+#original tex:  "8 bit output formats:"   
+msgid TEXT_8BIT_FORMATS
+msgstr ""
+
+#original tex:  "16 bit output formats:"   
+msgid TEXT_16BIT_FORMATS
+msgstr ""
+
+#original tex:  "Authorization required for"   
+msgid TEXT_AUTHORIZATION_REQ
+msgstr ""
+
+#original tex:  "Username :"   
+msgid TEXT_USERNAME
+msgstr ""
+
+#original tex:  "Password :"   
+msgid TEXT_PASSWORD
+msgstr ""
+
+#original tex:  "Invalid parameters."   
+msgid TEXT_INVALID_PARAMS
+msgstr ""
+
+#original tex:  "version:"   
+msgid TEXT_VERSION
+msgstr ""
+
+#original tex:  "package"   
+msgid TEXT_PACKAGE
+msgstr ""
+
+#original tex:  "unknown"   
+msgid TEXT_UNKNOWN
+msgstr ""
+
+#original tex:  "0x0: 0KB"   
+msgid TEXT_INFO_BOX
+msgstr ""
+
+#original tex:  "Printer selection:"   
+msgid TEXT_SETUP_PRINTER_SEL
+msgstr ""
+
+#original tex:  "Name:"   
+msgid TEXT_SETUP_PRINTER_NAME
+msgstr ""
+
+#original tex:  "Command:"   
+msgid TEXT_SETUP_PRINTER_CMD
+msgstr ""
+
+#original tex:  "Copy number option:"   
+msgid TEXT_SETUP_COPY_NR_OPT
+msgstr ""
+
+#original tex:  "Resolution (dpi):"   
+msgid TEXT_SETUP_PRINTER_RES
+msgstr ""
+
+#original tex:  "Width (1/72 inch):"   
+msgid TEXT_SETUP_PRINTER_WIDTH
+msgstr ""
+
+#original tex:  "Height (1/72 inch):"   
+msgid TEXT_SETUP_PRINTER_HEIGHT
+msgstr ""
+
+#original tex:  "Left offset (1/72 inch):"   
+msgid TEXT_SETUP_PRINTER_LEFT
+msgstr ""
+
+#original tex:  "Bottom offset (1/72 inch):"   
+msgid TEXT_SETUP_PRINTER_BOTTOM
+msgstr ""
+
+#original tex:  "Printer gamma value:"   
+msgid TEXT_SETUP_PRINTER_GAMMA
+msgstr ""
+
+#original tex:  "Printer gamma red:"   
+msgid TEXT_SETUP_PRINTER_GAMMA_RED
+msgstr ""
+
+#original tex:  "Printer gamma green:"   
+msgid TEXT_SETUP_PRINTER_GAMMA_GREEN
+msgstr ""
+
+#original tex:  "Printer gamma blue:"   
+msgid TEXT_SETUP_PRINTER_GAMMA_BLUE
+msgstr ""
+
+#original tex:  "JPEG image quality"   
+msgid TEXT_SETUP_JPEG_QUALITY
+msgstr ""
+
+#original tex:  "PNG image compression"   
+msgid TEXT_SETUP_PNG_COMPRESSION
+msgstr ""
+
+#original tex:  "TIFF multi bit image compression"   
+msgid TEXT_SETUP_TIFF_COMPRESSION
+msgstr ""
+
+#original tex:  "TIFF lineart image compression"   
+msgid TEXT_SETUP_TIFF_COMPRESSION_1
+msgstr ""
+
+#original tex:  "Preview gamma:"   
+msgid TEXT_SETUP_PREVIEW_GAMMA
+msgstr ""
+
+#original tex:  "Preview gamma red:"   
+msgid TEXT_SETUP_PREVIEW_GAMMA_RED
+msgstr ""
+
+#original tex:  "Preview gamma green:"   
+msgid TEXT_SETUP_PREVIEW_GAMMA_GREEN
+msgstr ""
+
+#original tex:  "Preview gamma blue:"   
+msgid TEXT_SETUP_PREVIEW_GAMMA_BLUE
+msgstr ""
+
+#original tex:  "Helpfile viewer (HTML):"   
+msgid TEXT_SETUP_HELPFILE_VIEWER
+msgstr ""
+
+#original tex:  "Command:"   
+msgid TEXT_SETUP_FAX_COMMAND
+msgstr ""
+
+#original tex:  "Receiver option:"   
+msgid TEXT_SETUP_FAX_RECEIVER_OPTION
+msgstr ""
+
+#original tex:  "Postscriptfile option:"   
+msgid TEXT_SETUP_FAX_POSTSCRIPT_OPT
+msgstr ""
+
+#original tex:  "Normal mode option:"   
+msgid TEXT_SETUP_FAX_NORMAL_MODE_OPT
+msgstr ""
+
+#original tex:  "Fine mode option:"   
+msgid TEXT_SETUP_FAX_FINE_MODE_OPT
+msgstr ""
+
+#original tex:  "Viewer (Postscript):"   
+msgid TEXT_SETUP_FAX_VIEWER
+msgstr ""
+
+#original tex:  "Printer options"   
+msgid NOTEBOOK_PRINTER_OPTIONS
+msgstr ""
+
+#original tex:  "Saving options"   
+msgid NOTEBOOK_SAVING_OPTIONS
+msgstr ""
+
+#original tex:  "Display options"   
+msgid NOTEBOOK_DISPLAY_OPTIONS
+msgstr ""
+
+#original tex:  "Fax options"   
+msgid NOTEBOOK_FAX_OPTIONS
+msgstr ""
+
+#original tex:  "Scan"   
+msgid MENU_ITEM_SCAN
+msgstr ""
+
+#original tex:  "Copy"   
+msgid MENU_ITEM_COPY
+msgstr ""
+
+#original tex:  "Fax"   
+msgid MENU_ITEM_FAX
+msgstr ""
+
+#original tex:  "Setup"   
+msgid MENU_ITEM_SETUP
+msgstr ""
+
+#original tex:  "Show tooltips"   
+msgid MENU_ITEM_SHOW_TOOLTIPS
+msgstr ""
+
+#original tex:  "Show preview"   
+msgid MENU_ITEM_SHOW_PREVIEW
+msgstr ""
+
+#original tex:  "Show histogram"   
+msgid MENU_ITEM_SHOW_HISTOGRAM
+msgstr ""
+
+#original tex:  "Show standard options"   
+msgid MENU_ITEM_SHOW_STANDARDOPTIONS
+msgstr ""
+
+#original tex:  "Show advanced options"   
+msgid MENU_ITEM_SHOW_ADVANCEDOPTIONS
+msgstr ""
+
+
+#original tex:  "Show resolution list"   
+msgid MENU_ITEM_SHOW_RESOLUTIONLIST
+msgstr ""
+
+#original tex:  "Length unit"   
+msgid MENU_ITEM_LENGTH_UNIT
+msgstr ""
+
+#original tex:  "millimeters"   
+msgid SUBMENU_ITEM_LENGTH_MILLIMETERS
+msgstr ""
+
+#original tex:  "centimeters"   
+msgid SUBMENU_ITEM_LENGTH_CENTIMETERS
+msgstr ""
+
+#original tex:  "inches"   
+msgid SUBMENU_ITEM_LENGTH_INCHES
+msgstr ""
+
+#original tex:  "Save device settings"   
+msgid MENU_ITEM_SAVE_DEVICE_SETTINGS
+msgstr ""
+
+#original tex:  "Load device settings"   
+msgid MENU_ITEM_LOAD_DEVICE_SETTINGS
+msgstr ""
+
+#original tex:  "Xsane doc"   
+msgid MENU_ITEM_XSANE_DOC
+msgstr ""
+
+#original tex:  "Backend doc"   
+msgid MENU_ITEM_BACKEND_DOC
+msgstr ""
+
+#original tex:  "Available backends"   
+msgid MENU_ITEM_AVAILABLE_BACKENDS
+msgstr ""
+
+#original tex:  "Scantips"   
+msgid MENU_ITEM_SCANTIPS
+msgstr ""
+
+#original tex:  "no compression"   
+msgid MENU_ITEM_TIFF_COMP_NONE
+msgstr ""
+
+#original tex:  "CCITT 1D Huffman compression"   
+msgid MENU_ITEM_TIFF_COMP_CCITTRLE
+msgstr ""
+
+#original tex:  "CCITT Group 3 Fax compression"   
+msgid MENU_ITEM_TIFF_COMP_CCITFAX3
+msgstr ""
+
+#original tex:  "CCITT Group 4 Fax compression"   
+msgid MENU_ITEM_TIFF_COMP_CCITFAX4
+msgstr ""
+
+#original tex:  "Lempel-Ziv & Welch compression"   
+msgid MENU_ITEM_TIFF_COMP_LZW
+msgstr ""
+
+#original tex:  "JPEG DCT compression"   
+msgid MENU_ITEM_TIFF_COMP_JPEG
+msgstr ""
+
+#original tex:  "pack bits"   
+msgid MENU_ITEM_TIFF_COMP_PACKBITS
+msgstr ""
+
+#original tex:  "by ext"   
+msgid MENU_ITEM_FILETYPE_BY_EXT
+msgstr ""
+
+#original tex:  "Use XSane for SCANning, photoCOPYing, FAXing..."   
+msgid DESC_XSANE_MODE
+msgstr ""
+
+#original tex:  "Browse for image filename"   
+msgid DESC_BROWSE_FILENAME
+msgstr ""
+
+#original tex:  "Filename for scanned image"   
+msgid DESC_FILENAME
+msgstr ""
+
+#original tex:  "Define image file format"   
+msgid DESC_FILETYPE
+msgstr ""
+
+#original tex:  "Enter name of fax project"   
+msgid DESC_FAXPROJECT
+msgstr ""
+
+#original tex:  "Enter new name for faxpage"   
+msgid DESC_FAXPAGENAME
+msgstr ""
+
+#original tex:  "Enter receiver phone number or address"   
+msgid DESC_FAXRECEIVER
+msgstr ""
+
+#original tex:  "Select printer definition"   
+msgid DESC_PRINTER_SELECT
+msgstr ""
+
+#original tex:  "Set scan resolution"   
+msgid DESC_RESOLUTION
+msgstr ""
+
+#original tex:  "Set zoomfactor"   	
+msgid DESC_ZOOM	
+msgstr ""
+
+#original tex:  "Set number of copies"   
+msgid DESC_COPY_NUMBER
+msgstr ""
+
+#original tex:  "Negative: Invert colors for scanning negatives\n" "e.g. swap black and white"   
+msgid DESC_NEGATIVE
+msgstr ""
+
+#original tex:  "Set gamma value"   
+msgid DESC_GAMMA
+msgstr ""
+
+#original tex:  "Set gamma value for red component"   
+msgid DESC_GAMMA_R
+msgstr ""
+
+#original tex:  "Set gamma value for green component"   
+msgid DESC_GAMMA_G
+msgstr ""
+
+#original tex:  "Set gamma value for blue component"   
+msgid DESC_GAMMA_B
+msgstr ""
+
+#original tex:  "Set brightness"   
+msgid DESC_BRIGHTNESS
+msgstr ""
+
+#original tex:  "Set brightness for red component"   
+msgid DESC_BRIGHTNESS_R
+msgstr ""
+
+#original tex:  "Set brightness for green component"   
+msgid DESC_BRIGHTNESS_G
+msgstr ""
+
+#original tex:  "Set brightness for blue component"   
+msgid DESC_BRIGHTNESS_B
+msgstr ""
+
+#original tex:  "Set contrast"   
+msgid DESC_CONTRAST
+msgstr ""
+
+#original tex:  "Set contrast for red component"   
+msgid DESC_CONTRAST_R
+msgstr ""
+
+#original tex:  "Set contrast for green component"   
+msgid DESC_CONTRAST_G
+msgstr ""
+
+#original tex:  "Set contrast for blue component"   
+msgid DESC_CONTRAST_B
+msgstr ""
+
+#original tex:  "RGB default: Set enhancement values for red, green and blue to default values:\n" " gamma = 1.0\n" " brightness = 0\n" " contrast = 0"   
+msgid DESC_RGB_DEFAULT
+msgstr ""
+
+#original tex:  "Autoadjust gamma, brightness and contrast in dependance " "of selected area (rgb-values are set to default)"   
+msgid DESC_ENH_AUTO
+msgstr ""
+
+#original tex:  "Set default enhancement values:\n" "gamma = 1.0\n" "brightness = 0\n" "contrast = 0"   
+msgid DESC_ENH_DEFAULT
+msgstr ""
+
+#original tex:  "Restore enhancement values from preferences"   
+msgid DESC_ENH_RESTORE
+msgstr ""
+
+#original tex:  "Store active enhancemnt values to preferences"   
+msgid DESC_ENH_STORE
+msgstr ""
+
+#original tex:  "Show histogram of intensity/gray"   
+msgid DESC_HIST_INTENSITY
+msgstr ""
+
+#original tex:  "Show histogram of red component"   
+msgid DESC_HIST_RED
+msgstr ""
+
+#original tex:  "Show histogram of green component"   
+msgid DESC_HIST_GREEN
+msgstr ""
+
+#original tex:  "Show histogram of blue component"   
+msgid DESC_HIST_BLUE
+msgstr ""
+
+#original tex:  "Display histogram with lines instead of pixels"   
+msgid DESC_HIST_PIXEL
+msgstr ""
+
+#original tex:  "Show logarithm of pixelcount"   
+msgid DESC_HIST_LOG
+msgstr ""
+
+#original tex:  "Select definition to change"   
+msgid DESC_PRINTER_SETUP
+msgstr ""
+
+#original tex:  "Define a name for the selection of this definition"   
+msgid DESC_PRINTER_NAME
+msgstr ""
+
+#original tex:  "Enter command to be executed in copy mode (e.g. \"lpr -\")"   
+msgid DESC_PRINTER_COMMAND
+msgstr ""
+
+#original tex:  "Enter option for copy numbers"   
+msgid DESC_COPY_NUMBER_OPTION
+msgstr ""
+
+#original tex:  "Resolution with which images are printed and saved in postscript"   
+msgid DESC_PRINTER_RESOLUTION
+msgstr ""
+
+#original tex:  "Width of printable area in 1/72 inch"   
+msgid DESC_PRINTER_WIDTH
+msgstr ""
+
+#original tex:  "Height of printable area in 1/72 inch"   
+msgid DESC_PRINTER_HEIGHT
+msgstr ""
+
+#original tex:  "Left offset from the edge of the paper to the printable area in 1/72 inch"   
+msgid DESC_PRINTER_LEFTOFFSET
+msgstr ""
+
+#original tex:  "Bottom offset from the edge of the paper to the printable area in 1/72 inch"   
+msgid DESC_PRINTER_BOTTOMOFFSET
+msgstr ""
+
+#original tex:  "Additional gamma value for photocopy"   
+msgid DESC_PRINTER_GAMMA
+msgstr ""
+
+#original tex:  "Additional gamma value for red component for photocopy"   
+msgid DESC_PRINTER_GAMMA_RED
+msgstr ""
+
+#original tex:  "Additional gamma value for green component for photocopy"   
+msgid DESC_PRINTER_GAMMA_GREEN
+msgstr ""
+
+#original tex:  "Additional gamma value for blue component for photocopy"   
+msgid DESC_PRINTER_GAMMA_BLUE
+msgstr ""
+
+#original tex:  "Quality in percent if image is saved as jpeg or tiff with jpeg compression"   
+msgid DESC_JPEG_QUALITY
+msgstr ""
+
+#original tex:  "Compression if image is saved as png"   
+msgid DESC_PNG_COMPRESSION
+msgstr ""
+
+#original tex:  "Compression type if multi bit image is saved as tiff"   
+msgid DESC_TIFF_COMPRESSION
+msgstr ""
+
+#original tex:  "Compression type if lineart image is saved as tiff"   
+msgid DESC_TIFF_COMPRESSION_1
+msgstr ""
+
+#original tex:  "Warn before overwriting an existing file"   
+msgid DESC_OVERWRITE_WARNING
+msgstr ""
+
+#original tex:  "If the filename is of the form \"name-001.ext\" " "(where the number of digits is free) " "the number is increased after a scan is finished"   
+msgid DESC_INCREASE_COUNTER
+msgstr ""
+
+#original tex:  "If filename counter is automatically increased, used numbers are skipped"   
+msgid DESC_SKIP_EXISTING
+msgstr ""
+
+#original tex:  "Use fixed main window size or scrolled, resizable main window"   
+msgid DESC_MAIN_WINDOW_FIXED
+msgstr ""
+
+#original tex:  "Preserve preview image for next program start"   
+msgid DESC_PREVIEW_PRESERVE
+msgstr ""
+
+#original tex:  "Use an own colormap for preview if display depth is 8 bpp"   
+msgid DESC_PREVIEW_COLORMAP
+msgstr ""
+
+#original tex:  "Set gamma correction value for preview image"   
+msgid DESC_PREVIEW_GAMMA
+msgstr ""
+
+#original tex:  "Set gamma correction value for red component of preview image"   
+msgid DESC_PREVIEW_GAMMA_RED
+msgstr ""
+
+#original tex:  "Set gamma correction value for green component of preview image"   
+msgid DESC_PREVIEW_GAMMA_GREEN
+msgstr ""
+
+#original tex:  "Set gamma correction value for blue component of preview image"   
+msgid DESC_PREVIEW_GAMMA_BLUE
+msgstr ""
+
+#original tex:  "Enter command to be executed to display helpfiles, must be a html-viewer!"   
+msgid DESC_DOC_VIEWER
+msgstr ""
+
+#original tex:  "Enter command to be executed in fax mode"   
+msgid DESC_FAX_COMMAND
+msgstr ""
+
+#original tex:  "Enter option to specify receiver"   
+msgid DESC_FAX_RECEIVER_OPT
+msgstr ""
+
+#original tex:  "Enter option to specify postscript files following"   
+msgid DESC_FAX_POSTSCRIPT_OPT
+msgstr ""
+
+#original tex:  "Enter option to specify normal mode (low resolution)"   
+msgid DESC_FAX_NORMAL_OPT
+msgstr ""
+
+#original tex:  "Enter option to specify fine mode (high resolution)"   
+msgid DESC_FAX_FINE_OPT
+msgstr ""
+
+#original tex:  "Enter command to be executed to view a fax"   
+msgid DESC_FAX_VIEWER
+msgstr ""
+
+#original tex:  "Use high vertical resolution (196 lpi instead of 98 lpi)"   
+msgid DESC_FAX_FINE_MODE
+msgstr ""
+
+#original tex:  "Pick white point"   
+msgid DESC_PIPETTE_WHITE
+msgstr ""
+
+#original tex:  "Pick gray point"   
+msgid DESC_PIPETTE_GRAY
+msgstr ""
+
+#original tex:  "Pick black point"   
+msgid DESC_PIPETTE_BLACK
+msgstr ""
+
+#original tex:  "Use full scanarea"   
+msgid DESC_ZOOM_FULL
+msgstr ""
+
+#original tex:  "Zoom 20% out"   
+msgid DESC_ZOOM_OUT
+msgstr ""
+
+#original tex:  "Zoom into selected area"   
+msgid DESC_ZOOM_IN
+msgstr ""
+
+#original tex:  "Undo last zoom"   
+msgid DESC_ZOOM_UNDO
+msgstr ""
+
+#original tex:  "Select visible area"   
+msgid DESC_FULL_PREVIEW_AREA
+msgstr ""
+
+#original tex:  "Failed to determine home directory:"   
+msgid ERR_HOME_DIR
+msgstr ""
+
+#original tex:  "Filename too long"   
+msgid ERR_FILENAME_TOO_LONG
+msgstr ""
+
+#original tex:  "Failed to set value of option"   
+msgid ERR_SET_OPTION
+msgstr ""
+
+#original tex:  "Failed to obtain value of option"   
+msgid ERR_GET_OPTION
+msgstr ""
+
+#original tex:  "Error obtaining option count"   
+msgid ERR_OPTION_COUNT
+msgstr ""
+
+#original tex:  "Failed to open device"   
+msgid ERR_DEVICE_OPEN_FAILED
+msgstr ""
+
+#original tex:  "no devices available"   
+msgid ERR_NO_DEVICES
+msgstr ""
+
+#original tex:  "Error during read:"   
+msgid ERR_DURING_READ
+msgstr ""
+
+#original tex:  "Error during save:"   
+msgid ERR_DURING_SAVE
+msgstr ""
+
+#original tex:  "Cannot handle depth"   
+msgid ERR_BAD_DEPTH
+msgstr ""
+
+#original tex:  "Unknown file format for saving"   
+msgid ERR_UNKNOWN_SAVING_FORMAT
+msgstr ""
+
+#original tex:  "Failed to open"   
+msgid ERR_OPEN_FAILED
+msgstr ""
+
+#original tex:  "Failed to open pipe for executing printercommand"   
+msgid ERR_FAILED_PRINTER_PIPE
+msgstr ""
+
+#original tex:  "Failed to execute printercommand:"   
+msgid ERR_FAILED_EXEC_PRINTER_CMD
+msgstr ""
+
+#original tex:  "Failed to start scanner:"   
+msgid ERR_FAILED_START_SCANNER
+msgstr ""
+
+#original tex:  "Failed to get parameters:"   
+msgid ERR_FAILED_GET_PARAMS
+msgstr ""
+
+#original tex:  "No output format given"   
+msgid ERR_NO_OUTPUT_FORMAT
+msgstr ""
+
+#original tex:  "out of memory"   
+msgid ERR_NO_MEM
+msgstr ""
+
+#original tex:  "LIBTIFF reports error"   
+msgid ERR_LIBTIFF
+msgstr ""
+
+#original tex:  "LIBPNG reports error"   
+msgid ERR_LIBPNG
+msgstr ""
+
+#original tex:  "unknown type"   
+msgid ERR_UNKNOWN_TYPE
+msgstr ""
+
+#original tex:  "unknown constraint type"   
+msgid ERR_UNKNOWN_CONSTRAINT_TYPE
+msgstr ""
+
+#original tex:  "Failed to execute documentation viewer:"   
+msgid ERR_FAILD_EXEC_DOC_VIEWER
+msgstr ""
+
+#original tex:  "Failed to execute fax viewer:"   
+msgid ERR_FAILD_EXEC_FAX_VIEWER
+msgstr ""
+
+#original tex:  "Failed to execute faxcommand:"   
+msgid ERR_FAILED_EXEC_FAX_CMD
+msgstr ""
+
+#original tex:  "bad frame format"   
+msgid ERR_BAD_FRAME_FORMAT
+msgstr ""
+
+#original tex:  "unable to set resolution"   
+msgid ERR_FAILED_SET_RESOLUTION
+msgstr ""
+
+#original tex:  "error"   
+msgid ERR_ERROR
+msgstr ""
+
+#original tex:  "Sane major version number mismatch!"   
+msgid ERR_MAJOR_VERSION_NR_CONFLICT
+msgstr ""
+
+#original tex:  "xsane major version ="   
+msgid ERR_XSANE_MAJOR_VERSION
+msgstr ""
+
+#original tex:  "backend major version ="   
+msgid ERR_BACKEND_MAJOR_VERSION
+msgstr ""
+
+#original tex:  "*** PROGRAM ABORTED ***"   
+msgid ERR_PROGRAM_ABORTED
+msgstr ""
+
+#original tex:  "Failed to allocate image memory:"   
+msgid ERR_FAILED_ALLOCATE_IMAGE
+msgstr ""
+
+#original tex:  "Preview cannot handle bit depth"   
+msgid ERR_PREVIEW_BAD_DEPTH
+msgstr ""
+
+#original tex:  "GIMP support missing"   
+msgid ERR_GIMP_SUPPORT_MISSING
+msgstr ""
+
+#original tex:  "Filename counter overflow"   
+msgid WARN_COUNTER_OVERFLOW
+msgstr ""
+
+#original tex:  "warning: option has no value constraint"   
+msgid WARN_NO_VALUE_CONSTRAINT
+msgstr ""
+
+#original tex:  "Ok"   
+msgid ERR_BUTTON_OK
+msgstr ""
+
+#original tex:  "Error"   
+msgid ERR_HEADER_ERROR
+msgstr ""
+
+#original tex:  "Warning"   
+msgid ERR_HEADER_WARNING
+msgstr ""
+
+#original tex:  "Usage:"   
+msgid TEXT_USAGE
+msgstr ""
+
+#original tex:  "[OPTION]... [DEVICE]"   
+msgid TEXT_USAGE_OPTIONS
+msgstr ""
+
+#original tex:  "Start up graphical user interface to access SANE (Scanner Access Now Easy) devices.\n\n-h, --help                   display this help message and exit\n-v, --version                print version information\n\n-d, --device-settings file   load device settings from file (without \".drc\")\n\n-s, --scan                   start with scan-mode active\n-c, --copy                   start with copy-mode active\n-f, --fax                    start with fax-mode active\n-n, --no-mode-selection      disable menu for xsane mode selection\n\n-F, --Fixed                  fixed main window size (overwrite preferences value)\n-R, --Resizeable             resizable, scrolled main window (overwrite preferences value)\n\n--display X11-display        redirect output to X11-display\n--no-xshm                    do not use shared memory images\n--sync                       request a synchronous connection with the X11 server"   			
+msgid TEXT_HELP			
+msgstr ""
+
+
+msgid "Success"
+msgstr ""
+
+msgid "Operation not supported"
+msgstr ""
+
+msgid "Operation was cancelled"
+msgstr ""
+
+msgid "Device busy"
+msgstr ""
+
+msgid "Invalid argument"
+msgstr ""
+
+msgid "End of file reached"
+msgstr ""
+
+msgid "Document feeder jammed"
+msgstr ""
+
+msgid "Document feeder out of documents"
+msgstr ""
+
+msgid "Scanner cover is open"
+msgstr ""
+
+msgid "Error during device I/O"
+msgstr ""
+
+msgid "Out of memory"
+msgstr ""
+
+msgid "Access to resource has been denied"
+msgstr ""
+

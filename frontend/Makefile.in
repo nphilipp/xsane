@@ -29,12 +29,13 @@ INSTALL_DATA = @INSTALL_DATA@
 
 CC = @CC@
 INCLUDES = -I. -I$(srcdir) -I$(top_builddir)/include -I$(top_srcdir)/include \
-	@GTK_CFLAGS@ @INCLUDES@
+	   -I $(top_srcdir)/intl @GTK_CFLAGS@ @INCLUDES@ \
+	   -DLOCALEDIR=\""$(datadir)/locale"\"
 DEFS = @DEFS@
 CPPFLAGS = @CPPFLAGS@
 CFLAGS = @CFLAGS@
 LDFLAGS = @LDFLAGS@
-LIBS = @LIBS@
+LIBS = @INTLLIBS@ @LIBS@
 GTK_LIBS = @GTK_LIBS@
 GIMP_LIBS = @GIMP_LIBS@
 

@@ -31,7 +31,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION "0.35"
+#define XSANE_VERSION "0.36"
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -39,6 +39,27 @@
 #include <xsane-back-gtk.h>
 #include <xsane-preferences.h>
 #include <xsane-preview.h>
+
+#ifdef ENABLE_NLS
+#    include <libintl.h>
+#    define _(String) gettext (String)
+#    ifdef gettext_noop
+#        define N_(String) gettext_noop (String)
+#    else
+#        define N_(String) (String)
+#    endif
+#else
+/* Stubs that do something close enough.  */
+#    define textdomain(String) (String)
+#    define gettext(String) (String)
+#    define dgettext(Domain,Message) (Message)
+#    define dcgettext(Domain,Message,Type) (Message)
+#    define bindtextdomain(Domain,Directory) (Domain)
+#    define _(String) (String)
+#    define N_(String) (String)
+#endif
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
 
 #ifdef HAVE_LIBGIMP_GIMP_H
 #include <libgimp/gimp.h>
@@ -275,6 +296,7 @@ typedef struct Xsane
     double resolution;
 
     GtkWidget *length_unit_widget;
+    GtkWidget *show_preview_widget;
     GtkWidget *show_histogram_widget;
     GtkWidget *show_standard_options_widget;
     GtkWidget *show_advanced_options_widget;
@@ -295,6 +317,7 @@ typedef struct Xsane
     GtkObject *contrast_blue_widget;
 
     SANE_Int xsane_color;
+    SANE_Bool show_preview;
     SANE_Bool scanner_gamma_color;
     SANE_Bool scanner_gamma_gray;
     SANE_Bool enhancement_rgb_default;

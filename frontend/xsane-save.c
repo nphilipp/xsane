@@ -28,6 +28,7 @@
 #include "xsane.h"
 #include "xsane-preview.h"
 #include "xsane-front-gtk.h"
+#include "xsane-text.h"
 
 #ifdef HAVE_LIBJPEG
 #include <jpeglib.h>
@@ -186,10 +187,7 @@ void xsane_increase_counter_in_filename(char *filename, int skip)
 
     if (!( (*position_counter >= '0') && (*position_counter <='9') )) /* overflow */
     {
-     char buf[256];
-
-      snprintf(buf, sizeof(buf), "Filename counter overflow\n");
-      gsg_warning(buf);
+      gsg_warning(WARN_COUNTER_OVERFLOW);
       break; /* last available number ("999") */
     }
 
@@ -455,7 +453,7 @@ void xsane_save_jpeg(FILE *outfile, FILE *imagefile,
 
   if (!data)
   {
-    snprintf(buf, sizeof(buf), "Error during save: out of memory\n");
+    snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_NO_MEM);
     gsg_error(buf);
     return;
   }
@@ -556,7 +554,7 @@ void xsane_save_tiff(const char *outfilename, FILE *imagefile,
   tiffile = TIFFOpen(outfilename, "w");
   if (!tiffile)
   {
-    snprintf(buf, sizeof(buf), "Error during save: TIFFOpen did not open file %s\n", outfilename);
+    snprintf(buf, sizeof(buf), "%s %s %s\n",ERR_DURING_SAVE, ERR_OPEN_FAILED, outfilename);
     gsg_error(buf);
     return;
   }
@@ -565,7 +563,7 @@ void xsane_save_tiff(const char *outfilename, FILE *imagefile,
 
   if (!data)
   {
-    snprintf(buf, sizeof(buf), "Error during save: out of memory\n");
+    snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_NO_MEM);
     gsg_error(buf);
     return;
   }
@@ -655,7 +653,7 @@ void xsane_save_png(FILE *outfile, FILE *imagefile,
   png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, 0, 0, 0);
   if (!png_ptr)
   {
-    snprintf(buf, sizeof(buf), "Error during save: could not create png write structure\n");
+    snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_LIBTIFF);
     gsg_error(buf);
     return;
   }
@@ -663,14 +661,14 @@ void xsane_save_png(FILE *outfile, FILE *imagefile,
   png_info_ptr = png_create_info_struct(png_ptr);
   if (!png_info_ptr)
   {
-    snprintf(buf, sizeof(buf), "Error during save: could not create png info structure\n");
+    snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_LIBTIFF);
     gsg_error(buf);
     return;
   }
 
   if (setjmp(png_ptr->jmpbuf))
   {
-    snprintf(buf, sizeof(buf), "Error during save: could not setjmp for png routine\n");
+    snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_LIBPNG);
     gsg_error(buf);
     png_destroy_write_struct(&png_ptr, (png_infopp) 0);
     return;
@@ -712,7 +710,7 @@ void xsane_save_png(FILE *outfile, FILE *imagefile,
 
   if (!data)
   {
-    snprintf(buf, sizeof(buf), "Error during save: out of memory\n");
+    snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_NO_MEM);
     gsg_error(buf);
     png_destroy_write_struct(&png_ptr, (png_infopp) 0);
     return;
@@ -768,7 +766,7 @@ void xsane_save_png_16(FILE *outfile, FILE *imagefile,
   png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, 0, 0, 0);
   if (!png_ptr)
   {
-    snprintf(buf, sizeof(buf), "Error during save: could not create png write structure\n");
+    snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_LIBPNG);
     gsg_error(buf);
     return;
   }
@@ -776,14 +774,14 @@ void xsane_save_png_16(FILE *outfile, FILE *imagefile,
   png_info_ptr = png_create_info_struct(png_ptr);
   if (!png_info_ptr)
   {
-    snprintf(buf, sizeof(buf), "Error during save: could not create png info structure\n");
+    snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_LIBPNG);
     gsg_error(buf);
     return;
   }
 
   if (setjmp(png_ptr->jmpbuf))
   {
-    snprintf(buf, sizeof(buf), "Error during save: could not setjmp for png routine\n");
+    snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_LIBPNG);
     gsg_error(buf);
     png_destroy_write_struct(&png_ptr, (png_infopp) 0);
     return;
@@ -825,7 +823,7 @@ void xsane_save_png_16(FILE *outfile, FILE *imagefile,
 
   if (!data)
   {
-    snprintf(buf, sizeof(buf), "Error during save: out of memory\n");
+    snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_NO_MEM);
     gsg_error(buf);
     png_destroy_write_struct(&png_ptr, (png_infopp) 0);
     return;

@@ -176,7 +176,7 @@ void xsane_set_resolution(int resolution)
       break;
 
       default:
-       fprintf(stderr, "set resolution: unknown type %d\n", opt->type);
+       fprintf(stderr, "set_resolution: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
       return;
     }
   }
@@ -193,7 +193,7 @@ void xsane_set_resolution(int resolution)
       break;
 
       default:
-       fprintf(stderr, "set resolution: unknown type %d\n", opt->type);
+       fprintf(stderr, "set_resolution: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
       return;
     }
     
@@ -213,14 +213,14 @@ void xsane_set_resolution(int resolution)
 
     if (bestdpi == -1)
     {
-       fprintf(stderr, "set resolution: unable to set resolution\n");
+       fprintf(stderr, "set_resolution: %s\n", ERR_FAILED_SET_RESOLUTION);
       return;
     }
     dpi = bestdpi;
   }
   else
   {
-    fprintf(stderr, "set resolution: unknown constraint-type %d\n", opt->constraint_type);
+    fprintf(stderr, "set_resolution: %s %d\n", ERR_UNKNOWN_CONSTRAINT_TYPE, opt->constraint_type);
     return;
   }
 
@@ -259,68 +259,68 @@ gint xsane_authorization_callback(SANE_String_Const resource,
 
   authorize_dialog = gtk_window_new(GTK_WINDOW_DIALOG);
   gtk_window_set_position(GTK_WINDOW(authorize_dialog), GTK_WIN_POS_CENTER);
-  gtk_widget_set_usize(authorize_dialog, 300, 190);
+//  gtk_widget_set_usize(authorize_dialog, 300, 190);
   gtk_window_set_policy(GTK_WINDOW(authorize_dialog), FALSE, FALSE, FALSE);
   gtk_signal_connect(GTK_OBJECT(authorize_dialog), "delete_event",
                      GTK_SIGNAL_FUNC(xsane_authorization_button_callback), (void *) -1); /* -1 = cancel */
   snprintf(buf, sizeof(buf), "%s %s", prog_name, WINDOW_AUTHORIZE);
   gtk_window_set_title(GTK_WINDOW(authorize_dialog), buf);
 
-  vbox = gtk_vbox_new(/* not homogeneous */ FALSE, 10);
+  vbox = gtk_vbox_new(/* not homogeneous */ FALSE, 10); /* y-space between all box items */
   gtk_container_add(GTK_CONTAINER(authorize_dialog), vbox);
   gtk_widget_show(vbox);
 
   snprintf(buf, sizeof(buf), "\n\n%s %s\n", TEXT_AUTHORIZATION_REQ, resource);
   label = gtk_label_new(buf);
-  gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0); /* y-space around authorization text */
   gtk_widget_show(label);
 
   /* ask for username */
-  hbox = gtk_hbox_new(FALSE, 20);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
+  hbox = gtk_hbox_new(FALSE, 10); /* x-space between label and input filed */
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0); /* y-space around inner items */
 
   label = gtk_label_new(TEXT_USERNAME);
-  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 20);
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 10); /* x-space around label */
   gtk_widget_show(label);
 
   username_widget = gtk_entry_new_with_max_length(SANE_MAX_USERNAME_LEN-1);
-  gtk_widget_set_usize(username_widget, 200, 0);
+  gtk_widget_set_usize(username_widget, 250, 0);
   gtk_entry_set_text(GTK_ENTRY(username_widget), "");
-  gtk_box_pack_end(GTK_BOX(hbox), username_widget, FALSE, FALSE, 20);
+  gtk_box_pack_end(GTK_BOX(hbox), username_widget, FALSE, FALSE, 10); /* x-space around input filed */
   gtk_widget_show(username_widget);
   gtk_widget_show(hbox);
 
 
   /* ask for password */
-  hbox = gtk_hbox_new(FALSE, 20);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
+  hbox = gtk_hbox_new(FALSE, 10); /* x-space between label and input filed */
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0); /* y-space around inner items */
 
   label = gtk_label_new(TEXT_PASSWORD);
-  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 20);
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 10); /* x-space around label */
   gtk_widget_show(label);
 
   password_widget = gtk_entry_new_with_max_length(SANE_MAX_PASSWORD_LEN-1);
   gtk_entry_set_visibility(GTK_ENTRY(password_widget), FALSE); /* make entered text invisible */
-  gtk_widget_set_usize(password_widget, 200, 0);
+  gtk_widget_set_usize(password_widget, 250, 0);
   gtk_entry_set_text(GTK_ENTRY(password_widget), "");
-  gtk_box_pack_end(GTK_BOX(hbox), password_widget, FALSE, FALSE, 20);
+  gtk_box_pack_end(GTK_BOX(hbox), password_widget, FALSE, FALSE, 10); /* x-space around input filed */
   gtk_widget_show(password_widget);
   gtk_widget_show(hbox);
 
   /* buttons */
-  hbox = gtk_hbox_new(TRUE, 10);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 30);
+  hbox = gtk_hbox_new(TRUE, 10); /* x-space between buttons */
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 10);  /* y-space around buttons */
 
   button = gtk_button_new_with_label(BUTTON_OK);
   GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
   gtk_signal_connect(GTK_OBJECT(button), "clicked", GTK_SIGNAL_FUNC(xsane_authorization_button_callback), (void *) 1);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 10);
+  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 10); /* x-space around OK-button */
   gtk_widget_grab_default(button);
   gtk_widget_show(button);
 
   button = gtk_button_new_with_label(BUTTON_CANCEL);
   gtk_signal_connect(GTK_OBJECT(button), "clicked", GTK_SIGNAL_FUNC(xsane_authorization_button_callback), (void *) -1);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 10);
+  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 10); /* x-space around cancel-button */
   gtk_widget_show(button);
 
   gtk_widget_show(hbox);
@@ -520,7 +520,7 @@ static void xsane_option_menu_callback(GtkWidget *widget, gpointer data)
       break;
 
     default:
-      fprintf(stderr, "xsane_option_menu_callback: unexpected type %d\n", opt->type);
+      fprintf(stderr, "xsane_option_menu_callback: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
       break;
   }
   gsg_set_option(dialog, opt_num, valp, SANE_ACTION_SET_VALUE);

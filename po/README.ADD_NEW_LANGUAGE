@@ -1,0 +1,68 @@
+Hi,
+
+if you are interested in adding a new language to xsane
+please read this text:
+
+XSane uses gettext for supporting translation into different languages.
+*** BUT ***:
+I don`t use the standard routines to create the empty translation(*.po) file.
+My way is more flexible when changes in the original textes are made:
+
+SHORT DESCRIPTION:
+------------------
+
+All texts that are printed from xsane are #DEFINEd in xsane-text.h.
+Every text that is added to xsane will be added in frontend/xsane-text.h
+AND in po/newlanguage.in.in.
+
+******* Please don`t edit or create a *.po file by hand! ********
+
+The files *.po are created form the files *.po.in . In xsane and in the
+*.po.in files we use the #defined labels of the text instead of the text.
+This way the original text can be changed without all language files
+have to be changed!
+
+po.in2po uses the gcc preprocessor to replace the #defined labels by the
+original (up to date) text and creates the *.po files.
+
+make_newlanguage.po.in creates the file newlanguage.po.in, the gcc preprocessor
+is used to add the recent original texts as comments.
+
+WHAT DO YOU HAVE TO DO TO CREATE ADD A NEW LANGUAGE?
+----------------------------------------------------
+
+Take the file newlanguage.po.in and copy it to "language".po.in
+where "language" is the abbrevation that represents you language
+(eg. fr.po.in for french, de.po.in for german,...).
+
+Edit the file "language".po.in and type in the translation
+in the lines:
+msgstr "text"
+
+If that is done:
+ - if you have gcc installed, call po.in2po "language"
+ - if you don`t have gcc see if you have a C preprocessor you can use
+   if not, I will transform it for you
+
+now change to the xsane directory and do
+edit configure.in and add "language" to ALL_LINGUAS, then do
+ make distclean
+ ./configure
+ make
+and as root
+ make install
+
+(You have to install xsane, otherwise the language files will not be found!)
+
+set environment variable LANG to your language
+(eg. export LANG=de) and call xsane
+
+If you want to make your translation public
+please send your "language".po.in file to:
+Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
+If you have any problems please also contact
+me on the email-address above!
+
+Bye
+Oliver Rauch
+

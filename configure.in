@@ -6,9 +6,13 @@ AC_CONFIG_HEADER(include/sane/config.h)
 
 # version code:
 V_MAJOR=0
-V_MINOR=35
+V_MINOR=36
 
 PACKAGE=xsane
+
+# languages
+ALL_LINGUAS="de fr"
+
 SANE_V_MAJOR=1
 VERSION=${V_MAJOR}.${V_MINOR}
 PACKAGE_VERSION="$PACKAGE-$VERSION"
@@ -59,7 +63,6 @@ dnl Checks for libraries.
 AC_CHECK_LIB(scsi, scsireq_enter)       # FreeBSD needs this 
 AC_CHECK_LIB(cam, cam_open_device)      # FreeBSD 3+ needs this
 AC_CHECK_LIB(m,sqrt)
-AC_CHECK_LIB(intl,gettext)
 AC_CHECK_LIB(jpeg,jpeg_start_decompress)
 AC_CHECK_LIB(z,deflateInit_)
 AC_CHECK_LIB(tiff,TIFFOpen)
@@ -71,6 +74,19 @@ AC_CHECK_FUNCS(atexit mkdir sigprocmask strdup strndup strftime strstr \
     strsep strtod snprintf usleep strcasecmp strncasecmp)
 
 dnl Checks for libraries.
+dnl Check for NLS/gettext
+AM_GNU_GETTEXT
+AC_LINK_FILES($nls_cv_header_libgt, $nls_cv_header_intl)
+
+if test "$USE_NLS" = yes; then
+    if test "$USE_INCLUDED_LIBINTL" = yes; then
+        CPPFLAGS="$CPPFLAGS -I\$(top_builddir)/intl"
+        INTLSUB=intl
+    fi
+fi   
+
+AC_SUBST(INTLSUB)
+
 
 #### Choose a window system.
 
@@ -140,8 +156,8 @@ AC_SUBST(V_MAJOR)
 AC_SUBST(V_MINOR)
 AC_SUBST(DLL_PRELOAD)
 
-AC_OUTPUT([Makefile lib/Makefile sanei/Makefile frontend/Makefile
-	   include/Makefile doc/Makefile],)
+AC_OUTPUT([Makefile intl/Makefile po/Makefile lib/Makefile sanei/Makefile
+	   frontend/Makefile include/Makefile doc/Makefile],)
 
 echo "****************************************************************"
 echo "* *** PLEASE READ SANE DOCUMENTATION BEFORE STARTING XSANE *** *"

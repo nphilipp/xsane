@@ -6,10 +6,6 @@
    you compile xsane
    (try as root: $find / -name "*sane*" | less)
 
- - If you have NativeLanguageSupport (NLS)/gettext installed,
-   make sure environment variable LANG is not set, xsane
-   does not support NLS!
-
  - If you compiled  xsane/gtk/glib with the egcs compiler try
    recompiling all with the "normal" gcc compiler!
 

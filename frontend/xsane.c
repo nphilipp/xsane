@@ -133,7 +133,7 @@ static gint xsane_standard_option_win_delete(GtkWidget *widget, gpointer data);
 static gint xsane_advanced_option_win_delete(GtkWidget *widget, gpointer data);
 static gint xsane_scan_win_delete(GtkWidget *w, gpointer data);
 static void xsane_preview_window_destroyed(GtkWidget *widget, gpointer call_data);
-static void xsane_scan_preview(GtkWidget * widget, gpointer call_data);
+static void xsane_show_preview_callback(GtkWidget * widget, gpointer call_data);
 static void xsane_files_exit_callback(GtkWidget *widget, gpointer data);
 static GtkWidget *xsane_files_build_menu(void);
 static void xsane_pref_set_unit_callback(GtkWidget *widget, gpointer data);
@@ -834,7 +834,7 @@ GtkWidget *xsane_update_xsane_callback()
            break;
 
            default:
-            fprintf(stderr, "scanmode_selection: unknown type %d\n", opt->type);
+            fprintf(stderr, "scanmode_selection: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
         }
         gtk_widget_show(hbox);
       }
@@ -873,7 +873,7 @@ GtkWidget *xsane_update_xsane_callback()
            break;
 
           default:
-            fprintf(stderr, "scansource_selection: unknown type %d\n", opt->type);
+            fprintf(stderr, "scansource_selection: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
         }
         gtk_widget_show(hbox);
       }
@@ -926,7 +926,8 @@ GtkWidget *xsane_update_xsane_callback()
               break;
 
               default:
-                fprintf(stderr, "zoom_scale_update: unknown type %d\n", opt->type);
+                fprintf(stderr, "zoom_scale_update: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
+/* xxxxxxxxxxxxxxxxxxxxxxxxxxx */
             }
 
             if (quant == 0)
@@ -1061,7 +1062,7 @@ GtkWidget *xsane_update_xsane_callback()
               break;
 
               default:
-                fprintf(stderr, "resolution_word_list creation: unknown type %d\n", opt->type);
+                fprintf(stderr, "resolution_word_list_creation: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
             }
 
 
@@ -1156,7 +1157,7 @@ GtkWidget *xsane_update_xsane_callback()
               break;
 
               default:
-                fprintf(stderr, "zoom_scale_update: unknown type %d\n", opt->type);
+                fprintf(stderr, "zoom_scale_update: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
             }
           break;
 
@@ -1168,7 +1169,7 @@ GtkWidget *xsane_update_xsane_callback()
           break;
 
           default:
-            fprintf(stderr, "zoom_scale_update: unknown constraint type %d\n", opt->constraint_type);
+            fprintf(stderr, "zoom_scale_update: %s %d\n", ERR_UNKNOWN_CONSTRAINT_TYPE, opt->constraint_type);
         }
 
         if (quant == 0)
@@ -1366,7 +1367,7 @@ void xsane_pref_save(void)
   {
    char buf[256];
 
-    snprintf(buf, sizeof(buf), "Failed to create file: %s.", strerror(errno));
+    snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_CREATE_FILE, strerror(errno));
     gsg_error(buf);
     return;
   }
@@ -1539,16 +1540,16 @@ static gint xsane_scan_win_delete(GtkWidget *w, gpointer data)
 
 static void xsane_preview_window_destroyed(GtkWidget *widget, gpointer call_data)
 {
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(call_data), FALSE);
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(call_data), FALSE);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 /* Invoked when the preview button is pressed. */
 
-static void xsane_scan_preview(GtkWidget * widget, gpointer call_data)
+static void xsane_show_preview_callback(GtkWidget * widget, gpointer call_data)
 {
-  if (GTK_TOGGLE_BUTTON(widget)->active)
+  if (GTK_CHECK_MENU_ITEM(widget)->active)
   {
     if (!xsane.preview)
     {
@@ -1556,10 +1557,11 @@ static void xsane_scan_preview(GtkWidget * widget, gpointer call_data)
       if (xsane.preview && xsane.preview->top)
       {
         gtk_signal_connect(GTK_OBJECT(xsane.preview->top), "destroy", GTK_SIGNAL_FUNC(xsane_preview_window_destroyed), widget);
+        xsane.show_preview = TRUE;
       }
       else
       {
-        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), FALSE);
+        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(widget), FALSE);
       }
     }
   }
@@ -1567,6 +1569,7 @@ static void xsane_scan_preview(GtkWidget * widget, gpointer call_data)
   {
     preview_destroy(xsane.preview);
     xsane.preview = 0;
+    xsane.show_preview = FALSE;
   }
   xsane_update_gamma();
 }
@@ -2465,7 +2468,7 @@ static void xsane_pref_device_save(GtkWidget *widget, gpointer data)
   {
     char buf[256];
 
-    snprintf(buf, sizeof(buf), "Failed to create file: %s.", strerror(errno));
+    snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_CREATE_FILE, strerror(errno));
     gsg_error(buf);
     return;
   }
@@ -2479,7 +2482,7 @@ static void xsane_pref_device_save(GtkWidget *widget, gpointer data)
   {
     char buf[256];
 
-    snprintf(buf, sizeof(buf), "Failed to create file: %s.", strerror(errno));
+    snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_CREATE_FILE, strerror(errno));
     gsg_error(buf);
     return;
   }
@@ -2492,7 +2495,7 @@ static void xsane_pref_device_save(GtkWidget *widget, gpointer data)
   {
     char buf[256];
 
-    snprintf(buf, sizeof(buf), "Failed to create file: %s.", strerror(errno));
+    snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_CREATE_FILE, strerror(errno));
     gsg_error(buf);
     return;
   }
@@ -2530,6 +2533,9 @@ static void xsane_pref_device_save(GtkWidget *widget, gpointer data)
   fprintf(file, "\"xsane-negative\"\n");
   fprintf(file, "%d\n", xsane.negative);
 
+  fprintf(file, "\"xsane-show-preview\"\n");
+  fprintf(file, "%d\n", xsane.show_preview);
+
   fclose(file);
 
   xsane_set_sensitivity(TRUE);
@@ -2558,7 +2564,7 @@ static void xsane_pref_device_load_file(char *filename)
     {
       char buf[256];
 
-      snprintf(buf, sizeof(buf), "Error while loading device settings:\n%s is not a device-rc-file !!!", filename);
+      snprintf(buf, sizeof(buf), "%s\n%s %s", ERR_LOAD_DEVICE_SETTINGS, filename, ERR_NO_DRC_FILE);
       gsg_error(buf);
       return;
     }
@@ -2633,6 +2639,10 @@ static void xsane_pref_device_load_file(char *filename)
     {
      fscanf(file, "%d\n", &xsane.negative);
     }
+    else if (strcmp(option, "\"xsane-show-preview\"") == 0)
+    {
+     fscanf(file, "%d\n", &xsane.show_preview);
+    }
   }
   fclose(file);
 
@@ -2670,7 +2680,7 @@ static void xsane_pref_device_load_file(char *filename)
       break;
  
       default:
-       fprintf(stderr, "xsane_pref_load_file: unknown type %d\n", opt->type);
+       fprintf(stderr, "xsane_pref_load_file: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
       return;
     }
   }
@@ -2744,13 +2754,13 @@ static void xsane_show_doc_via_nsr(GtkWidget *widget, gpointer data) /* show via
 
     if (pclose(ns_pipe))
     {
-      snprintf(buf, sizeof(buf), "Ensure netscape is running!");
+      snprintf(buf, sizeof(buf), "%s", ERR_NETSCAPE_NOT_RUNNING);
       gsg_error(buf);
     }
   }
   else
   {
-    snprintf(buf, sizeof(buf), "Failed to execute netscape!");
+    snprintf(buf, sizeof(buf), "%s", ERR_NETSCAPE_EXECUTE_FAIL);
     gsg_error(buf);
   }
 
@@ -2785,7 +2795,7 @@ static void xsane_show_doc(GtkWidget *widget, gpointer data)
     if (pid == 0) /* new process */
     {
       execvp(arg[0], arg); /* does not return if successfully */
-      fprintf(stderr, "Failed to execute documentation viewer: %s\n", preferences.doc_viewer);
+      fprintf(stderr, "%s %s\n", ERR_FAILD_EXEC_DOC_VIEWER, preferences.doc_viewer);
       _exit(0); /* do not use exit() here! otherwise gtk gets in trouble */
     }
   }
@@ -3040,7 +3050,7 @@ static void xsane_fax_show_callback(GtkWidget *widget, gpointer list)
     if (pid == 0) /* new process */
     {
       execvp(arg[0], arg); /* does not return if successfully */
-      fprintf(stderr, "Failed to execute fax viewer: %s\n", preferences.fax_viewer);
+      fprintf(stderr, "%s %s\n", ERR_FAILD_EXEC_FAX_VIEWER, preferences.fax_viewer);
       _exit(0); /* do not use exit() here! otherwise gtk gets in trouble */
     }
   }
@@ -3063,7 +3073,7 @@ static void xsane_fax_send()
   {
     if (!xsane_option_defined(xsane.fax_receiver))
     {
-      snprintf(buf, sizeof(buf), "Send fax: no receiver defined\n");
+      snprintf(buf, sizeof(buf), "%s\n", ERR_SENDFAX_RECEIVER_MISSING);
       gsg_error(buf);
       return;
     }
@@ -3114,7 +3124,7 @@ static void xsane_fax_send()
     if (pid == 0) /* new process */
     {
       execvp(arg[0], arg); /* does not return if successfully */
-      fprintf(stderr, "Failed to execute faxcommand: %s\n", preferences.fax_command);
+      fprintf(stderr, "%s %s\n", ERR_FAILED_EXEC_FAX_CMD, preferences.fax_command);
       _exit(0); /* do not use exit() here! otherwise gtk gets in trouble */
     }
 
@@ -3136,7 +3146,7 @@ static GtkWidget *xsane_pref_build_menu(void)
 
   /* XSane setup dialog */
 
-  item = gtk_menu_item_new_with_label("Setup");
+  item = gtk_menu_item_new_with_label(MENU_ITEM_SETUP);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_setup_dialog, 0);
   gtk_widget_show(item);
@@ -3167,16 +3177,22 @@ static GtkWidget *xsane_pref_build_menu(void)
 
   /* show tooltips */
 
-  item = gtk_check_menu_item_new_with_label("Show tooltips");
+  item = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_TOOLTIPS);
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), preferences.tooltips_enabled);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_widget_show(item);
   gtk_signal_connect(GTK_OBJECT(item), "toggled", (GtkSignalFunc) xsane_pref_toggle_tooltips, 0);
 
+  /* show preview */
 
+  xsane.show_preview_widget = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_PREVIEW);
+  gtk_menu_append(GTK_MENU(menu), xsane.show_preview_widget);
+  gtk_widget_show(xsane.show_preview_widget);
+  gtk_signal_connect(GTK_OBJECT(xsane.show_preview_widget), "toggled", (GtkSignalFunc) xsane_show_preview_callback, 0);
+ 
   /* show histogram */
 
-  xsane.show_histogram_widget = gtk_check_menu_item_new_with_label("Show histogram");
+  xsane.show_histogram_widget = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_HISTOGRAM);
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_histogram_widget), preferences.show_histogram);
   gtk_menu_append(GTK_MENU(menu), xsane.show_histogram_widget);
   gtk_widget_show(xsane.show_histogram_widget);
@@ -3185,7 +3201,7 @@ static GtkWidget *xsane_pref_build_menu(void)
   
   /* show standard options */
 
-  xsane.show_standard_options_widget = gtk_check_menu_item_new_with_label("Show standard options");
+  xsane.show_standard_options_widget = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_STANDARDOPTIONS);
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_standard_options_widget), preferences.show_standard_options);
   gtk_menu_append(GTK_MENU(menu), xsane.show_standard_options_widget);
   gtk_widget_show(xsane.show_standard_options_widget);
@@ -3194,7 +3210,7 @@ static GtkWidget *xsane_pref_build_menu(void)
 
   /* show advanced options */
 
-  xsane.show_advanced_options_widget = gtk_check_menu_item_new_with_label("Show advanced options");
+  xsane.show_advanced_options_widget = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_ADVANCEDOPTIONS);
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_advanced_options_widget), preferences.show_advanced_options);
   gtk_menu_append(GTK_MENU(menu), xsane.show_advanced_options_widget);
   gtk_widget_show(xsane.show_advanced_options_widget);
@@ -3210,7 +3226,7 @@ static GtkWidget *xsane_pref_build_menu(void)
 
   /* show resolution list */
 
-  xsane.show_resolution_list_widget = gtk_check_menu_item_new_with_label("Show resolution list");
+  xsane.show_resolution_list_widget = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_RESOLUTIONLIST);
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_resolution_list_widget), preferences.show_resolution_list);
   gtk_menu_append(GTK_MENU(menu), xsane.show_resolution_list_widget);
   gtk_widget_show(xsane.show_resolution_list_widget);
@@ -3226,23 +3242,23 @@ static GtkWidget *xsane_pref_build_menu(void)
 
   /* length unit */
 
-  item = gtk_menu_item_new_with_label("Length unit");
+  item = gtk_menu_item_new_with_label(MENU_ITEM_LENGTH_UNIT);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_widget_show(item);
 
   submenu = gtk_menu_new();
 
-  subitem = gtk_menu_item_new_with_label("millimeters");
+  subitem = gtk_menu_item_new_with_label(SUBMENU_ITEM_LENGTH_MILLIMETERS);
   gtk_menu_append(GTK_MENU(submenu), subitem);
   gtk_signal_connect(GTK_OBJECT(subitem), "activate", (GtkSignalFunc) xsane_pref_set_unit_callback, "mm");
   gtk_widget_show(subitem);
 
-  subitem = gtk_menu_item_new_with_label("centimeters");
+  subitem = gtk_menu_item_new_with_label(SUBMENU_ITEM_LENGTH_CENTIMETERS);
   gtk_menu_append(GTK_MENU(submenu), subitem);
   gtk_signal_connect(GTK_OBJECT(subitem), "activate", (GtkSignalFunc) xsane_pref_set_unit_callback, "cm");
   gtk_widget_show(subitem);
 
-  subitem = gtk_menu_item_new_with_label("inches");
+  subitem = gtk_menu_item_new_with_label(SUBMENU_ITEM_LENGTH_INCHES);
   gtk_menu_append(GTK_MENU(submenu), subitem);
   gtk_signal_connect(GTK_OBJECT(subitem), "activate", (GtkSignalFunc) xsane_pref_set_unit_callback, "in");
   gtk_widget_show(subitem);
@@ -3260,14 +3276,14 @@ static GtkWidget *xsane_pref_build_menu(void)
 
   /* Save device setting */
 
-  item = gtk_menu_item_new_with_label("Save device settings");
+  item = gtk_menu_item_new_with_label(MENU_ITEM_SAVE_DEVICE_SETTINGS);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_pref_device_save, 0);
   gtk_widget_show(item);
 
   /* Load device setting */
 
-  item = gtk_menu_item_new_with_label("Load device settings");
+  item = gtk_menu_item_new_with_label(MENU_ITEM_LOAD_DEVICE_SETTINGS);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_pref_device_load, 0);
   gtk_widget_show(item);
@@ -3285,7 +3301,7 @@ static GtkWidget *xsane_help_build_menu(void)
 
   menu = gtk_menu_new();
 
-  item = gtk_menu_item_new_with_label("Xsane doc");
+  item = gtk_menu_item_new_with_label(MENU_ITEM_XSANE_DOC);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_doc, (void *) "xsane");
   gtk_widget_show(item);
@@ -3311,13 +3327,13 @@ static GtkWidget *xsane_help_build_menu(void)
 
     xsane.backend = strdup(bufptr);
 
-    item = gtk_menu_item_new_with_label("Backend doc");
+    item = gtk_menu_item_new_with_label(MENU_ITEM_BACKEND_DOC);
     gtk_menu_append(GTK_MENU(menu), item);
     gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_doc, (void *) xsane.backend);
     gtk_widget_show(item);
   }
 
-  item = gtk_menu_item_new_with_label("Available backends");
+  item = gtk_menu_item_new_with_label(MENU_ITEM_AVAILABLE_BACKENDS);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_doc, (void *) "backends");
   gtk_widget_show(item);
@@ -3326,7 +3342,7 @@ static GtkWidget *xsane_help_build_menu(void)
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_widget_show(item);
 
-  item = gtk_menu_item_new_with_label("Scantips");
+  item = gtk_menu_item_new_with_label(MENU_ITEM_SCANTIPS);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_doc, (void *) "scantips");
   gtk_widget_show(item);
@@ -3513,7 +3529,7 @@ void panel_build(GSGDialog *dialog)
               break;
 
             default:
-              fprintf(stderr, "panel_build: unknown constraint %d!\n", opt->constraint_type);
+              fprintf(stderr, "panel_build: %s %d!\n", ERR_UNKNOWN_CONSTRAINT_TYPE, opt->constraint_type);
               break;
           }
           break;
@@ -3574,7 +3590,7 @@ void panel_build(GSGDialog *dialog)
               break;
 
             default:
-              fprintf (stderr, "panel_build: unknown constraint %d!\n", opt->constraint_type);
+              fprintf(stderr, "panel_build: %s %d!\n", ERR_UNKNOWN_CONSTRAINT_TYPE, opt->constraint_type);
               break;
           }
           break;
@@ -3608,15 +3624,15 @@ void panel_build(GSGDialog *dialog)
               break;
 
             default:
-              fprintf(stderr, "panel_build: unknown constraint %d!\n", opt->constraint_type);
+              fprintf(stderr, "panel_build: %s %d!\n", ERR_UNKNOWN_CONSTRAINT_TYPE, opt->constraint_type);
               break;
           }
           free (buf);
           break;
 
         case SANE_TYPE_BUTTON:
-          button = gtk_button_new ();
-          gtk_signal_connect (GTK_OBJECT (button), "clicked", (GtkSignalFunc) gsg_push_button_callback, elem);
+          button = gtk_button_new();
+          gtk_signal_connect(GTK_OBJECT (button), "clicked", (GtkSignalFunc) gsg_push_button_callback, elem);
           gsg_set_tooltip(dialog->tooltips, button, opt->desc);
 
           label = gtk_label_new (title);
@@ -3632,7 +3648,7 @@ void panel_build(GSGDialog *dialog)
           break;
 
         default:
-          fprintf(stderr, "panel_build: Unknown type %d\n", opt->type);
+          fprintf(stderr, "panel_build: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
           break;
       }
       continue;
@@ -3641,7 +3657,7 @@ void panel_build(GSGDialog *dialog)
       {
         char msg[256];
 
-        sprintf(msg, "Failed to obtain value of option %s: %s.", opt->name, sane_strstatus(status));
+        sprintf(msg, "%s %s: %s.", ERR_GET_OPTION, opt->name, XSANE_STRSTATUS(status));
         gsg_error(msg);
       }
     }
@@ -3693,7 +3709,7 @@ void panel_build(GSGDialog *dialog)
 
 static void xsane_device_dialog(void)
 {
-  GtkWidget *hbox, *button, *frame;
+  GtkWidget *hbox, *button, *frame, *infobox;
   GtkWidget *main_dialog_window, *standard_dialog_window, *advanced_dialog_window;
   GtkWidget *menubar, *menubar_item;
   const gchar *devname;
@@ -3717,7 +3733,7 @@ static void xsane_device_dialog(void)
   status = sane_open(devname, &dev);
   if (status != SANE_STATUS_GOOD)
   {
-    snprintf(buf, sizeof(buf), "Failed to open device `%s': %s.", devname, sane_strstatus(status));
+    snprintf(buf, sizeof(buf), "%s `%s':\n %s.", ERR_DEVICE_OPEN_FAILED, devname, XSANE_STRSTATUS(status));
     gsg_error(buf);
     return;
   }
@@ -3760,7 +3776,7 @@ static void xsane_device_dialog(void)
  
   if (!xsane.device_set_filename)
   {
-    if (!strcmp(devlist[seldev]->vendor, "unknown"))
+    if (!strcmp(devlist[seldev]->vendor, TEXT_UNKNOWN))
     {
       snprintf(buf, sizeof(buf), "%s",  devlist[seldev]->name);
     }
@@ -3985,25 +4001,22 @@ static void xsane_device_dialog(void)
 
 
 
-  /* The info row */
+  /* The bottom row of info and start button */
 
-  hbox = gtk_hbox_new(FALSE, 5);
-  gtk_container_set_border_width(GTK_CONTAINER(hbox), 3);
-  gtk_box_pack_start(GTK_BOX(xsane_window), hbox, FALSE, FALSE, 0);
-  gtk_widget_show(hbox);
+  hbox = GTK_DIALOG(xsane.shell)->action_area;
 
   frame = gtk_frame_new(0);
   gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
   gtk_box_pack_start(GTK_BOX(hbox), frame, FALSE, FALSE, 0);
   gtk_widget_show(frame);
 
-  hbox = gtk_hbox_new(FALSE, 5);
-  gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
-  gtk_container_add(GTK_CONTAINER(frame), hbox);
-  gtk_widget_show(hbox);
+  infobox = gtk_hbox_new(FALSE, 5);
+  gtk_container_set_border_width(GTK_CONTAINER(infobox), 2);
+  gtk_container_add(GTK_CONTAINER(frame), infobox);
+  gtk_widget_show(infobox);
 
-  xsane.info_label = gtk_label_new("0x0: 0KB");
-  gtk_box_pack_start(GTK_BOX(hbox), xsane.info_label, FALSE, FALSE, 0);
+  xsane.info_label = gtk_label_new(TEXT_INFO_BOX);
+  gtk_box_pack_start(GTK_BOX(infobox), xsane.info_label, FALSE, FALSE, 0);
   gtk_widget_show(xsane.info_label);
 
 
@@ -4018,13 +4031,6 @@ static void xsane_device_dialog(void)
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
   gtk_widget_show(button);
   xsane.start_button = GTK_OBJECT(button);
-
-  /* The Preview button */
-  button = gtk_toggle_button_new_with_label(BUTTON_PREVIEW);
-  gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_scan_preview, 0);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
-  gtk_widget_show(button);
-
 
 
   xsane_pref_device_restore();	/* restore device-settings */
@@ -4049,6 +4055,12 @@ static void xsane_device_dialog(void)
   }
 
   xsane_update_sliders();
+
+  if ((xsane.show_preview) && (!xsane.preview))
+  {
+    gtk_signal_emit_by_name(GTK_OBJECT(xsane.show_preview_widget), "toggled");
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_preview_widget), xsane.show_preview);
+  }
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -4200,27 +4212,8 @@ static gint32 xsane_choose_device(void)
 
 static void xsane_usage(void)
 {
-    printf("Usage: %s [OPTION]... [DEVICE]\n\
-\n\
-Start up graphical user interface to access SANE (Scanner Access Now Easy) devices.\n\
-\n\
--h, --help                   display this help message and exit\n\
--v, --version                print version information\n\
-\n\
--d, --device-settings file   load device settings from file (without \".drc\")\n\
-\n\
--s, --scan                   start with scan-mode active\n\
--c, --copy                   start with copy-mode active\n\
--f, --fax                    start with fax-mode active\n\
--n, --no-mode-selection      disable menu for xsane mode selection\n\
-\n\
--F, --Fixed                  fixed main window size (overwrite preferences value)\n\
--R, --Resizeable             resizable, scrolled main window (overwrite preferences value)\n\
-\n\
---display X11-display        redirect output to X11-display\n\
---no-xshm                    do not use shared memory images\n\
---sync                       request a synchronous connection with the X11 server\n\
-", prog_name);
+  printf("%s %s %s\n", TEXT_USAGE, prog_name, TEXT_USAGE_OPTIONS);
+  printf("\n%s\n\n", TEXT_HELP);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -4256,12 +4249,16 @@ static void xsane_init(int argc, char **argv)
   if (SANE_VERSION_MAJOR(xsane.sane_backend_versioncode) != SANE_V_MAJOR)
   {
     fprintf(stderr, "\n\n"
-                    "%s error:\n"
-                    "  Sane major version number mismatch!\n"
-                    "  xsane major version = %d\n"
-                    "  backend major version = %d\n"
-                    "*** PROGRAM ABORTED ***\n\n",
-                    prog_name, SANE_V_MAJOR, SANE_VERSION_MAJOR(xsane.sane_backend_versioncode));
+                    "%s %s:\n"
+                    "  %s\n"
+                    "  %s %d\n"
+                    "  %s %d\n"
+                    "%s\n\n",
+                    prog_name, ERR_ERROR,
+                    ERR_MAJOR_VERSION_NR_CONFLICT,
+                    ERR_XSANE_MAJOR_VERSION, SANE_V_MAJOR,
+                    ERR_BACKEND_MAJOR_VERSION, SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
+                    ERR_PROGRAM_ABORTED);
     return;
   }
 
@@ -4274,15 +4271,16 @@ static void xsane_init(int argc, char **argv)
       switch(ch)
       {
         case 'g': /* this options is set when called from the gimp */
-          printf("%s: GIMP support missing.\n", argv[0]);
+          printf("%s: %s\n", argv[0], ERR_GIMP_SUPPORT_MISSING);
           exit(0);
 
         case 'v': /* --version */
-          printf("%s %s (sane %d.%d, package %s)\n",
+          printf("%s %s (sane %d.%d, %s %s)\n",
                  prog_name,
                  XSANE_VERSION, 
                  SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
                  SANE_VERSION_MINOR(xsane.sane_backend_versioncode),
+                 TEXT_PACKAGE,
                  PACKAGE_VERSION);
           exit(0);
 
@@ -4345,9 +4343,9 @@ static void xsane_init(int argc, char **argv)
 
       memset(&dev, 0, sizeof(dev));
       dev.name   = argv[argc - 1];
-      dev.vendor = "unknown";
-      dev.type   = "unknown";
-      dev.model  = "unknown";
+      dev.vendor = TEXT_UNKNOWN;
+      dev.type   = TEXT_UNKNOWN;
+      dev.model  = TEXT_UNKNOWN;
 
       devlist = device_list;
       seldev = 0;
@@ -4396,7 +4394,7 @@ void xsane_interface(int argc, char **argv)
     {
      char buf[256];
 
-      snprintf(buf, sizeof(buf), "%s: no devices available.\n", prog_name);
+      snprintf(buf, sizeof(buf), "%s: %s\n", prog_name, ERR_NO_DEVICES);
       gsg_error(buf);
       xsane_exit();
     }
@@ -4476,6 +4474,12 @@ int main(int argc, char **argv)
   {
     prog_name = argv[0];
   }
+#if 0
+  bindtextdomain(PACKAGE, LOCALEDIR);
+  textdomain(PACKAGE);         
+#endif
+  bindtextdomain(prog_name, LOCALEDIR);
+  textdomain(prog_name);         
 
 #ifdef HAVE_LIBGIMP_GIMP_H
   {
@@ -4487,6 +4491,7 @@ int main(int argc, char **argv)
        gimp" messages when xsane gets invoked in stand-alone
        mode.  */
     old_print_func = g_set_print_handler((GPrintFunc) null_print_func);
+
     /* gimp_main() returns 1 if xsane wasn't invoked by GIMP */
     result = gimp_main(argc, argv);
     g_set_message_handler(old_print_func);

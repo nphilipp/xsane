@@ -287,7 +287,7 @@ static void preview_update_selection(Preview *p)
     }
     else /* backend does not use scanarea options */
     {
-      switch(i)
+      switch (i)
       {
         case 0:
         case 1:
@@ -331,7 +331,7 @@ static void preview_establish_selection(Preview *p)
     preview_set_option_float(p, p->dialog->well_known.coord[i], p->selection.coordinate[i]);
   }
 
-  gsg_update_scan_window (p->dialog);
+  gsg_update_scan_window(p->dialog);
 
   xsane.block_update_param = FALSE;
 
@@ -618,14 +618,14 @@ static void preview_restore_option(Preview *p, int option, SANE_Word saved_value
   }
 
   dev = p->dialog->dev;
-  status = sane_control_option (dev, option, SANE_ACTION_SET_VALUE, &saved_value, 0);
+  status = sane_control_option(dev, option, SANE_ACTION_SET_VALUE, &saved_value, 0);
 
   if (status != SANE_STATUS_GOOD)
   {
     char buf[256];
-    opt = sane_get_option_descriptor (dev, option);
-    snprintf (buf, sizeof(buf), "Failed restore value of option %s: %s.", opt->name, sane_strstatus (status));
-    gsg_error (buf);
+    opt = sane_get_option_descriptor(dev, option);
+    snprintf(buf, sizeof(buf), "%s %s: %s.", ERR_SET_OPTION, opt->name, XSANE_STRSTATUS(status));
+    gsg_error(buf);
   }
 }
 
@@ -643,7 +643,7 @@ static void preview_set_option_float(Preview *p, int option, float value)
   }
 
   dev = p->dialog->dev;
-  opt = sane_get_option_descriptor (dev, option);
+  opt = sane_get_option_descriptor(dev, option);
   if (opt->type == SANE_TYPE_FIXED)
   {
     word = SANE_FIX(value) + 0.5;
@@ -653,7 +653,7 @@ static void preview_set_option_float(Preview *p, int option, float value)
     word = value + 0.5;
   }
 
-  sane_control_option (dev, option, SANE_ACTION_SET_VALUE, &word, 0);
+  sane_control_option(dev, option, SANE_ACTION_SET_VALUE, &word, 0);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -666,7 +666,7 @@ static void preview_set_option_bool(Preview *p, int option, SANE_Bool value)
     return;
 
   dev = p->dialog->dev;
-  sane_control_option (dev, option, SANE_ACTION_SET_VALUE, &value, 0);
+  sane_control_option(dev, option, SANE_ACTION_SET_VALUE, &value, 0);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -679,7 +679,7 @@ static void preview_set_option_int(Preview *p, int option, SANE_Int value)
     return;
 
   dev = p->dialog->dev;
-  sane_control_option (dev, option, SANE_ACTION_SET_VALUE, &value, 0);
+  sane_control_option(dev, option, SANE_ACTION_SET_VALUE, &value, 0);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -700,8 +700,8 @@ static int preview_increment_image_y(Preview *p)
     p->image_data_enh = realloc(p->image_data_enh, offset + extra_size);
     if ( (!p->image_data_enh) || (!p->image_data_raw) )
     {
-      snprintf (buf, sizeof (buf), "Failed to reallocate image memory: %s.", strerror (errno));
-      gsg_error (buf);
+      snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_ALLOCATE_IMAGE, strerror(errno));
+      gsg_error(buf);
       preview_scan_done(p);
       return -1;
     }
@@ -724,7 +724,7 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
   dev = p->dialog->dev;
   while (1)
   {
-    status = sane_read (dev, buf, sizeof (buf), &len);
+    status = sane_read(dev, buf, sizeof(buf), &len);
     if (status != SANE_STATUS_GOOD)
     {
       if (status == SANE_STATUS_EOF)
@@ -741,8 +741,8 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
       }
       else
       {
-        snprintf (buf, sizeof (buf), "Error during read: %s.", sane_strstatus (status));
-        gsg_error (buf);
+        snprintf(buf, sizeof(buf), "%s %s.", ERR_DURING_READ, XSANE_STRSTATUS(status));
+        gsg_error(buf);
       }
       preview_scan_done(p);
       return;
@@ -861,7 +861,7 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
            break;
 
           default:
-            fprintf (stderr, "preview_read_image_data: bad frame format %d\n", p->params.format);
+            fprintf(stderr, "preview_read_image_data: %s %d\n", ERR_BAD_FRAME_FORMAT, p->params.format);
             preview_scan_done(p);
             return;
     }
@@ -879,7 +879,7 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
   return;
 
 bad_depth:
-  snprintf(buf, sizeof (buf), "Preview cannot handle depth %d.", p->params.depth);
+  snprintf(buf, sizeof(buf), "%s %d.", ERR_PREVIEW_BAD_DEPTH, p->params.depth);
   gsg_error(buf);
   preview_scan_done(p);
   return;
@@ -914,7 +914,7 @@ static void preview_scan_done(Preview *p)
 
   preview_set_option_bool(p, p->dialog->well_known.preview, SANE_FALSE);
 
-  gtk_widget_set_sensitive (p->cancel, FALSE);
+  gtk_widget_set_sensitive(p->cancel, FALSE);
   xsane_set_sensitivity(TRUE);
 
   xsane.block_update_param = FALSE;
@@ -1027,8 +1027,8 @@ static void preview_scan_start(Preview *p)
   status = sane_start(dev);
   if (status != SANE_STATUS_GOOD)
   {
-    snprintf (buf, sizeof (buf), "Failed to start scanner: %s.", sane_strstatus (status));
-    gsg_error (buf);
+    snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_START_SCANNER, XSANE_STRSTATUS(status));
+    gsg_error(buf);
     preview_scan_done(p);
     return;
   }
@@ -1036,8 +1036,8 @@ static void preview_scan_start(Preview *p)
   status = sane_get_parameters(dev, &p->params);
   if (status != SANE_STATUS_GOOD)
   {
-    snprintf (buf, sizeof(buf), "Failed to obtain parameters: %s.", sane_strstatus (status));
-    gsg_error (buf);
+    snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_GET_PARAMS, XSANE_STRSTATUS(status));
+    gsg_error(buf);
     preview_scan_done(p);
     return;
   }
@@ -1082,7 +1082,7 @@ static void preview_scan_start(Preview *p)
       if (p->image_data_raw)
       { free(p->image_data_raw); }
 
-      snprintf(buf, sizeof(buf), "Failed to allocate image memory: %s.", strerror (errno));
+      snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_ALLOCATE_IMAGE, strerror(errno));
       gsg_error(buf);
       preview_scan_done(p);
       return;
@@ -1129,18 +1129,18 @@ static void preview_restore_image(Preview *p)
 
   /* See whether there is a saved preview and load it if present: */
 
-  if (preview_make_image_path (p, sizeof (filename), filename) < 0)
+  if (preview_make_image_path(p, sizeof(filename), filename) < 0)
   {
     return;
   }
 
-  in = fopen (filename, "r");
+  in = fopen(filename, "r");
   if (!in)
   {
     return;
   }
 
-  if (fscanf (in, "P6\n# surface: %g %g %g %g %u %u\n%d %d\n255\n",
+  if (fscanf(in, "P6\n# surface: %g %g %g %g %u %u\n%d %d\n255\n",
 	      psurface + 0, psurface + 1, psurface + 2, psurface + 3,
 	      &psurface_type, &psurface_unit,
 	      &width, &height) != 8)
@@ -1177,12 +1177,12 @@ static void preview_restore_image(Preview *p)
       free(p->image_data_raw);
     }
 
-    snprintf(buf, sizeof(buf), "Failed to allocate image memory: %s.", strerror (errno));
+    snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_ALLOCATE_IMAGE, strerror(errno));
     gsg_error(buf);
     return;
   }
 
-  nread = fread (p->image_data_enh, 3, width * height, in);
+  nread = fread(p->image_data_enh, 3, width * height, in);
 
   p->image_y = nread / width;
   p->image_x = nread % width;
@@ -1706,7 +1706,7 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
 
       default:
 #if 0
-	fprintf (stderr, "preview_event_handler: unhandled event type %d\n", event->type);
+	fprintf(stderr, "preview_event_handler: unhandled event type %d\n", event->type);
 #endif
 	break;
       }
@@ -1866,7 +1866,7 @@ Preview *preview_new(GSGDialog *dialog)
   /* the preview area */
 
   p->window = gtk_preview_new(GTK_PREVIEW_COLOR);
-  gtk_preview_set_expand(GTK_PREVIEW (p->window), TRUE);
+  gtk_preview_set_expand(GTK_PREVIEW(p->window), TRUE);
   gtk_widget_set_events(p->window,
 			GDK_EXPOSURE_MASK | GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK |
 			GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK);
@@ -1879,17 +1879,17 @@ Preview *preview_new(GSGDialog *dialog)
 
   class = GTK_WIDGET_CLASS(GTK_OBJECT(p->hruler)->klass);
   signal_func = (GtkSignalFunc) class->motion_notify_event;
-  gtk_signal_connect_object(GTK_OBJECT(p->window), "motion_notify_event", signal_func, GTK_OBJECT (p->hruler));
+  gtk_signal_connect_object(GTK_OBJECT(p->window), "motion_notify_event", signal_func, GTK_OBJECT(p->hruler));
 
   class = GTK_WIDGET_CLASS(GTK_OBJECT(p->vruler)->klass);
   signal_func = (GtkSignalFunc) class->motion_notify_event;
-  gtk_signal_connect_object(GTK_OBJECT(p->window), "motion_notify_event", signal_func, GTK_OBJECT (p->vruler));
+  gtk_signal_connect_object(GTK_OBJECT(p->window), "motion_notify_event", signal_func, GTK_OBJECT(p->vruler));
 
   p->viewport = gtk_frame_new(/* label */ 0);
-  gtk_frame_set_shadow_type(GTK_FRAME (p->viewport), GTK_SHADOW_IN);
-  gtk_container_add(GTK_CONTAINER (p->viewport), p->window);
+  gtk_frame_set_shadow_type(GTK_FRAME(p->viewport), GTK_SHADOW_IN);
+  gtk_container_add(GTK_CONTAINER(p->viewport), p->window);
 
-  gtk_table_attach(GTK_TABLE (table), p->viewport, 1, 2, 1, 2,
+  gtk_table_attach(GTK_TABLE(table), p->viewport, 1, 2, 1, 2,
 		   GTK_FILL | GTK_EXPAND | GTK_SHRINK,
 		   GTK_FILL | GTK_EXPAND | GTK_SHRINK, 0, 0);
 
@@ -1900,12 +1900,12 @@ Preview *preview_new(GSGDialog *dialog)
   /* Start button */
   p->start = gtk_button_new_with_label(BUTTON_PREVIEW_ACQUIRE);
   gtk_signal_connect(GTK_OBJECT(p->start), "clicked", (GtkSignalFunc) preview_start_button_clicked, p);
-  gtk_box_pack_start(GTK_BOX (hbox), p->start, TRUE, TRUE, 0);
+  gtk_box_pack_start(GTK_BOX(hbox), p->start, TRUE, TRUE, 0);
 
   /* Cancel button */
   p->cancel = gtk_button_new_with_label(BUTTON_PREVIEW_CANCEL);
-  gtk_signal_connect(GTK_OBJECT (p->cancel), "clicked", (GtkSignalFunc) preview_cancel_button_clicked, p);
-  gtk_box_pack_start(GTK_BOX (hbox), p->cancel, TRUE, TRUE, 0);
+  gtk_signal_connect(GTK_OBJECT(p->cancel), "clicked", (GtkSignalFunc) preview_cancel_button_clicked, p);
+  gtk_box_pack_start(GTK_BOX(hbox), p->cancel, TRUE, TRUE, 0);
   gtk_widget_set_sensitive(p->cancel, FALSE);
 
   gtk_widget_show(p->cancel);
@@ -2245,16 +2245,16 @@ void preview_destroy(Preview *p)
   else if (preferences.preserve_preview && p->image_data_enh && preview_make_image_path(p, sizeof(filename), filename) >= 0)
   {
     /* save preview image */
-    out = fopen (filename, "w");
+    out = fopen(filename, "w");
     if (out)
     {
       /* always save it as a PPM image: */
-      fprintf (out, "P6\n# surface: %g %g %g %g %u %u\n%d %d\n255\n",
-		   p->surface[0], p->surface[1], p->surface[2], p->surface[3],
-		   p->surface_type, p->surface_unit,
-		   p->image_width, p->image_height);
-      fwrite (p->image_data_raw, 3, p->image_width*p->image_height, out);
-      fclose (out);
+      fprintf(out, "P6\n# surface: %g %g %g %g %u %u\n%d %d\n255\n",
+		  p->surface[0], p->surface[1], p->surface[2], p->surface[3],
+		  p->surface_type, p->surface_unit,
+		  p->image_width, p->image_height);
+      fwrite(p->image_data_raw, 3, p->image_width*p->image_height, out);
+      fclose(out);
     }
   }
 

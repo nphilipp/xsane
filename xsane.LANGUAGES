@@ -1,0 +1,7 @@
+Since version 0.36 xsane supports NLS, you can add a translation
+file for your language now. If you want to add a new language to
+xsane please read the file po/README.ADD_NEW_LANGUAGE!
+
+Thanks
+Oliver Rauch
+

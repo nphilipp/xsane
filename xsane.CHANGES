@@ -381,7 +381,8 @@ xsane-0.33 -> 0.34:
  - xsane_scan_done -> sane_cancel is called now if an error occurs
  - if an error occurs while scanning the created file is removed
  - xsane windows/buttons get inactive while setup dialog is open
- - xsane_scan_done -> sane_cancel is called when main window is closed (while scanning)
+ - xsane_scan_done -> sane_cancel is called when main window is closed
+   (while scanning)
  - if there are no standard device settings at program startup, xsane
    take the backend predefined resolution (before this was set to 100)
  - if no scanarea options are given, the preview works with
@@ -394,9 +395,11 @@ xsane-0.34 -> 0.35:
 -------------------
 
  - corrected doc/Makefile.in for change gif->jpg
- - added tiff compression type selection for multi bit and one bit images to setup:
+ - added tiff compression type selection for multi bit and one bit images to
+   setup:
    none, CCITT 1D Huffman compression, CCITT Group 3 Fax compression,
-   CCITT Group 4 Fax compression, Lempel-Ziv & Welch, JPEG DCT compression, pack bits
+   CCITT Group 4 Fax compression, Lempel-Ziv & Welch, JPEG DCT compression,
+   pack bits
  - implemented real single-bit format for tiff
  - setup/jpeg quality selection is enabled if jpeglib or libtiff is available
  - added gimp_image_set_resolution(...) to gimp saving routine
@@ -407,5 +410,23 @@ xsane-0.34 -> 0.35:
  - (added image filetype menu to the image filename line - not ready)
  - replaced button-texts negative, rgb default, auto, default, store and
    restore by icons
+
+
+xsane-0.35 -> 0.36:
+-------------------
+
+ - moved xsane_generate_dummy_filename in xsane-scan.c out of a
+   #ifdef HAVE_LIBGIMP_H block
+ - changed some icons
+ - added #ifdef HAVE_LIBTIFF around TIFF-relevant definitions in
+   xsane_setup_dialog in xsane-setup.c
+ - included NLS/gettext version 0.10.35
+ - texts that are created by xsane can be converted to other languages
+   now - texts created by the backend can not be translated yet!
+ - added gettext relevant routines to aclocal.m4 and correct some bugs
+ - added french translation - thanks to Vincent Renardias <vincent@ldsol.com>
+ - added german translation table
+ - translation files "*.po" are created by "*.po.in" with help of the
+   preprocessor of gcc, all texts are #defined in frontend/xsane-text.h
 
 

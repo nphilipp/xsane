@@ -85,11 +85,13 @@ GPlugInInfo PLUG_IN_INFO =
 
 /* forward declarations: */
 
+static void xsane_generate_dummy_filename();
+#ifdef HAVE_LIBGIMP_GIMP_H
 static int xsane_decode_devname(const char *encoded_devname, int n, char *buf);
 static int xsane_encode_devname(const char *devname, int n, char *buf);
-static void xsane_generate_dummy_filename();
 void null_print_func(gchar *msg);
 static void xsane_gimp_advance(void);
+#endif
 static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition cond);
 static RETSIGTYPE xsane_sigpipe_handler(int signal);
 static int xsane_test_multi_scan(void);
@@ -100,6 +102,32 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static void xsane_generate_dummy_filename()
+{
+
+  if (xsane.dummy_filename)
+  {
+    free(xsane.dummy_filename);
+  }
+
+  if ( (xsane.xsane_mode == XSANE_COPY) || (xsane.xsane_mode == XSANE_FAX) || /* we have to do a conversion */
+       ( (xsane.xsane_mode == XSANE_SCAN)  && (xsane.xsane_output_format != XSANE_PNM) &&
+         (xsane.xsane_output_format != XSANE_RAW16) && (xsane.xsane_output_format != XSANE_RGBA) ) )
+  {
+   char filename[PATH_MAX];
+
+    gsg_make_path(sizeof(filename), filename, "xsane", 0, "conversion", dialog->dev_name, ".tmp");
+    xsane.dummy_filename = strdup(filename);
+  }
+  else /* no conversion following, save directly to the selected filename */
+  {
+    xsane.dummy_filename = strdup(preferences.filename);
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+#ifdef HAVE_LIBGIMP_GIMP_H
 static int xsane_decode_devname(const char *encoded_devname, int n, char *buf)
 {
   char *dst, *limit;
@@ -167,7 +195,6 @@ static int xsane_decode_devname(const char *encoded_devname, int n, char *buf)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#ifdef HAVE_LIBGIMP_GIMP_H
 static int xsane_encode_devname(const char *devname, int n, char *buf)
 {
   static const char hexdigit[] = "0123456789abcdef";
@@ -221,31 +248,6 @@ static int xsane_encode_devname(const char *devname, int n, char *buf)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_generate_dummy_filename()
-{
-
-  if (xsane.dummy_filename)
-  {
-    free(xsane.dummy_filename);
-  }
-
-  if ( (xsane.xsane_mode == XSANE_COPY) || (xsane.xsane_mode == XSANE_FAX) || /* we have to do a conversion */
-       ( (xsane.xsane_mode == XSANE_SCAN)  && (xsane.xsane_output_format != XSANE_PNM) &&
-         (xsane.xsane_output_format != XSANE_RAW16) && (xsane.xsane_output_format != XSANE_RGBA) ) )
-  {
-   char filename[PATH_MAX];
-
-    gsg_make_path(sizeof(filename), filename, "xsane", 0, "conversion", dialog->dev_name, ".tmp");
-    xsane.dummy_filename = strdup(filename);
-  }
-  else /* no conversion following, save directly to the selected filename */
-  {
-    xsane.dummy_filename = strdup(preferences.filename);
-  }
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
 static void xsane_gimp_query(void)
 {
   static GParamDef args[] =
@@ -278,11 +280,16 @@ static void xsane_gimp_query(void)
   if (SANE_VERSION_MAJOR(xsane.sane_backend_versioncode) != SANE_V_MAJOR)
   {
     fprintf(stderr, "\n\n"
-                    "%s warning:\n"
-                    "  Sane major version number mismatch!\n"
-                    "  xsane major version = %d\n"
-                    "  backend major version = %d\n",
-                    prog_name, SANE_V_MAJOR, SANE_VERSION_MAJOR(xsane.sane_backend_versioncode));
+                    "%s %s:\n"
+                    "  %s\n"
+                    "  %s %d\n"
+                    "  %s %d\n"
+                    "%s\n\n",
+                    prog_name, ERR_ERROR,
+                    ERR_MAJOR_VERSION_NR_CONFLICT,
+                    ERR_XSANE_MAJOR_VERSION, SANE_V_MAJOR,
+                    ERR_BACKEND_MAJOR_VERSION, SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
+                    ERR_PROGRAM_ABORTED);      
     return;
   }
 
@@ -376,11 +383,8 @@ void null_print_func(gchar *msg)
 {
 }
 
-#endif /* HAVE_LIBGIMP_GIMP_H */
-
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#ifdef HAVE_LIBGIMP_GIMP_H
 static void xsane_gimp_advance(void)
 {
   if (++xsane.x >= xsane.param.pixels_per_line)
@@ -452,7 +456,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
       if (status != SANE_STATUS_GOOD)
       {
         xsane_scan_done(status); /* status = return of sane_read */
-        snprintf(buf, sizeof(buf), "Error during read: %s.", sane_strstatus(status));
+        snprintf(buf, sizeof(buf), "%s %s.", ERR_DURING_READ, XSANE_STRSTATUS(status));
         gsg_error(buf);
         return;
       }
@@ -794,7 +798,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
 
         default:
           xsane_scan_done(-1); /* -1 = error */
-          fprintf(stderr, "%s.xsane_read_image_data: bad frame format %d\n", prog_name, xsane.param.format);
+          fprintf(stderr, "xsane_read_image_data: %s %d\n", ERR_BAD_FRAME_FORMAT, xsane.param.format);
           return;
          break;
       }
@@ -849,7 +853,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
       if (status != SANE_STATUS_GOOD)
       {
         xsane_scan_done(status); /* status = return of sane_read */
-        snprintf(buf, sizeof(buf), "Error during read: %s.", sane_strstatus(status));
+        snprintf(buf, sizeof(buf), "%s %s.", ERR_DURING_READ, XSANE_STRSTATUS(status));
         gsg_error(buf);
         return;
       }
@@ -985,7 +989,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
 
         default:
           xsane_scan_done(-1); /* -1 = error */
-          fprintf(stderr, "%s.xsane_read_image_data: bad frame format %d\n", prog_name, xsane.param.format);
+          fprintf(stderr, "xsane_read_image_data: %s %d\n", ERR_BAD_FRAME_FORMAT, xsane.param.format);
           return;
          break;
       }
@@ -994,7 +998,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
   else
   {
     xsane_scan_done(-1); /* -1 = error */
-    snprintf(buf, sizeof(buf), "Cannot handle depth %d.", xsane.param.depth);
+    snprintf(buf, sizeof(buf), "%s %d.", ERR_BAD_DEPTH, xsane.param.depth);
     gsg_error(buf);
     return;
   }
@@ -1007,7 +1011,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
 bad_depth:
 
   xsane_scan_done(-1); /* -1 = error */
-  snprintf(buf, sizeof(buf), "Cannot handle depth %d.", xsane.param.depth);
+  snprintf(buf, sizeof(buf), "%s %d.", ERR_BAD_DEPTH, xsane.param.depth);
   gsg_error(buf);
   return;
 #endif
@@ -1202,7 +1206,7 @@ void xsane_scan_done(SANE_Status status)
 
 
                  default:
-                   snprintf(buf, sizeof(buf),"Unknown file format for saving!\n" );
+                   snprintf(buf, sizeof(buf),"%s", ERR_UNKNOWN_SAVING_FORMAT);
                    gsg_error(buf);
                   break;
                }
@@ -1212,7 +1216,7 @@ void xsane_scan_done(SANE_Status status)
              {
               char buf[256];
 
-               snprintf(buf, sizeof(buf), "Failed to open `%s': %s", preferences.filename, strerror(errno));
+               snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, preferences.filename, strerror(errno));
                gsg_error(buf);
              }
            }
@@ -1222,7 +1226,7 @@ void xsane_scan_done(SANE_Status status)
          else
          {
           char buf[256];
-           snprintf(buf, sizeof(buf), "Failed to open imagefile(%s) for conversion: %s", preferences.filename, strerror(errno));
+           snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, preferences.filename, strerror(errno));
            gsg_error(buf);
          }
          xsane_progress_free(xsane.progress);
@@ -1288,20 +1292,18 @@ void xsane_scan_done(SANE_Status status)
 
            if (!infile)
            {
-             snprintf(buf, sizeof(buf), "Failed to open imagefile(%s) for conversion: %s", preferences.filename, strerror(errno));
+             snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, preferences.filename, strerror(errno));
              gsg_error(buf);
            }
            else if (!outfile)
            {
-             snprintf(buf, sizeof(buf), "Failed to open pipe for executing printercommand");
-             gsg_error(buf);
+             gsg_error(ERR_FAILED_PRINTER_PIPE);
            }
          }
 
          if (xsane.broken_pipe)
          {
-           snprintf(buf, sizeof(buf), "Failed to execute printercommand \"%s\"",
-                    preferences.printer[preferences.printernr]->command);
+           snprintf(buf, sizeof(buf), "%s \"%s\"", ERR_FAILED_EXEC_PRINTER_CMD, preferences.printer[preferences.printernr]->command);
            gsg_error(buf);
          }
 
@@ -1363,7 +1365,7 @@ void xsane_scan_done(SANE_Status status)
              {
               char buf[256];
 
-               snprintf(buf, sizeof(buf), "Failed to open `%s': %s", xsane.fax_filename, strerror(errno));
+               snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, xsane.fax_filename, strerror(errno));
                gsg_error(buf);
              }
            }
@@ -1373,7 +1375,7 @@ void xsane_scan_done(SANE_Status status)
          else
          {
           char buf[256];
-           snprintf(buf, sizeof(buf), "Failed to open imagefile(%s) for conversion: %s", xsane.fax_filename, strerror(errno));
+           snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, xsane.fax_filename, strerror(errno));
            gsg_error(buf);
          }
          xsane_progress_free(xsane.progress);
@@ -1529,7 +1531,7 @@ static void xsane_start_scan(void)
   else if (status != SANE_STATUS_GOOD) /* error */
   {
     xsane_scan_done(status);
-    snprintf(buf, sizeof(buf), "Failed to start scanner: %s", sane_strstatus(status));
+    snprintf(buf, sizeof(buf), "%s %s", ERR_FAILED_START_SCANNER, XSANE_STRSTATUS(status));
     gsg_error(buf);
     return;
   }
@@ -1540,7 +1542,7 @@ static void xsane_start_scan(void)
   if (!xsane.out) /* error while opening the dummy_file for writing */
   {
     xsane_scan_done(-1); /* -1 = error */
-    snprintf(buf, sizeof(buf), "Failed to open `%s': %s", preferences.filename, strerror(errno));
+    snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, preferences.filename, strerror(errno));
     gsg_error(buf);
     return;
   }
@@ -1549,7 +1551,7 @@ static void xsane_start_scan(void)
   if (status != SANE_STATUS_GOOD)
   {
     xsane_scan_done(status);
-    snprintf(buf, sizeof(buf), "Failed to get parameters: %s", sane_strstatus(status));
+    snprintf(buf, sizeof(buf), "%s %s", ERR_FAILED_GET_PARAMS, XSANE_STRSTATUS(status));
     gsg_error(buf);
     return;
   }
@@ -1876,7 +1878,7 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
         }
         else
         {
-          snprintf(buf, sizeof(buf), "No output format given !!!");
+          snprintf(buf, sizeof(buf), "%s", ERR_NO_OUTPUT_FORMAT);
         }
         gsg_error(buf);
         return;
