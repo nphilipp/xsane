@@ -470,9 +470,16 @@ xsane-0.37 -> 0.38:
  - added preferences menu item "Update policy"
  - now options are only changable if SANE_CAP_SOFT_SELECT is set
  - added test for bitdepth in xsane_scan_dialog for GIMP mode,
-   error message pops up when unsupported bit depths are selectd
+   error message pops up when unsupported bit depths are selected
  - moved case XSANE_PNM16 out of a #ifdef HAVE_LIBPNG block
  - position of all windows and size of main window and preview window
    is save in device settings, setting preview window geometry
    does not work because window does not exist at relevant times.
+
+
+xsane-0.38 -> 0.39:
+-------------------
+
+ - bounded contrast to >=-100.0
+ - Added test if GIMP_CHECK_VERSION is defined
 

@@ -1035,6 +1035,11 @@ void xsane_create_gamma_curve(SANE_Int *gammadata, int negative, double gamma,
  double b;
  int maxin = numbers-1;
 
+  if (contrast < -100.0)
+  {
+    contrast = -100.0;
+  }
+
   midin = (int)(numbers / 2.0);
 
   m = 1.0 + contrast/100.0;
@@ -1202,6 +1207,7 @@ static void xsane_gamma_to_histogram(double *min, double *mid, double *max,
 void xsane_enhancement_by_gamma(void)
 {
  double min, mid, max;
+ double contrast, brightness, gamma;
 
   xsane_gamma_to_histogram(&min, &mid, &max, xsane.contrast, xsane.brightness, xsane.gamma);
 
@@ -1210,25 +1216,49 @@ void xsane_enhancement_by_gamma(void)
   xsane.slider_gray.value[2] = max;
 
 
-  xsane_gamma_to_histogram(&min, &mid, &max,
-                           xsane.contrast + xsane.contrast_red,
-                           xsane.brightness + xsane.brightness_red,
-                           xsane.gamma * xsane.gamma_red);
+  /* red */
+  contrast   = xsane.contrast   + xsane.contrast_red;
+  brightness = xsane.brightness + xsane.brightness_red;
+  gamma      = xsane.gamma * xsane.gamma_red;
+
+  if (contrast < -100.0)
+  {
+    contrast = -100.0;
+  }
+
+  xsane_gamma_to_histogram(&min, &mid, &max, contrast, brightness, gamma);
 
   xsane.slider_red.value[0] = min;
   xsane.slider_red.value[1] = mid;
   xsane.slider_red.value[2] = max;
 
 
-  xsane_gamma_to_histogram(&min, &mid, &max,
-                           xsane.contrast + xsane.contrast_green,
-                           xsane.brightness + xsane.brightness_green,
-                           xsane.gamma * xsane.gamma_green);
+  /* green */
+  contrast   = xsane.contrast   + xsane.contrast_green;
+  brightness = xsane.brightness + xsane.brightness_green;
+  gamma      = xsane.gamma * xsane.gamma_green;
+
+  if (contrast < -100.0)
+  {
+    contrast = -100.0;
+  }
+
+  xsane_gamma_to_histogram(&min, &mid, &max, contrast, brightness, gamma);
 
   xsane.slider_green.value[0] = min;
   xsane.slider_green.value[1] = mid;
   xsane.slider_green.value[2] = max;
 
+
+  /* blue */
+  contrast   = xsane.contrast   + xsane.contrast_blue;
+  brightness = xsane.brightness + xsane.brightness_blue;
+  gamma      = xsane.gamma * xsane.gamma_blue;
+
+  if (contrast < -100.0)
+  {
+    contrast = -100.0;
+  }
 
   xsane_gamma_to_histogram(&min, &mid, &max,
                            xsane.contrast + xsane.contrast_blue,

@@ -263,8 +263,12 @@ static void xsane_gimp_query(void)
   int i, j;
 
   snprintf(name, sizeof(name), "%s", prog_name);
-#if GIMP_CHECK_VERSION(1,1,9)
+#ifdef GIMP_CHECK_VERSION
+# if GIMP_CHECK_VERSION(1,1,9)
   snprintf(mpath, sizeof(mpath), "%s", XSANE_GIMP_MENU_DIALOG);
+# else
+  snprintf(mpath, sizeof(mpath), "%s", XSANE_GIMP_MENU_DIALOG_OLD);
+# endif
 #else
   snprintf(mpath, sizeof(mpath), "%s", XSANE_GIMP_MENU_DIALOG_OLD);
 #endif
@@ -307,8 +311,12 @@ static void xsane_gimp_query(void)
 	continue;	/* name too long... */
       }
 
-#if GIMP_CHECK_VERSION(1,1,9)
+#ifdef GIMP_CHECK_VERSION
+# if GIMP_CHECK_VERSION(1,1,9)
       snprintf(mpath, sizeof(mpath), "%s", XSANE_GIMP_MENU);
+# else
+      snprintf(mpath, sizeof(mpath), "%s", XSANE_GIMP_MENU_OLD);
+# endif
 #else
       snprintf(mpath, sizeof(mpath), "%s", XSANE_GIMP_MENU_OLD);
 #endif
