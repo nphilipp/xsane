@@ -1,5 +1,6 @@
 /* sane - Scanner Access Now Easy.
-   Copyright (C) 1997 David Mosberger-Tang and Tristan Tarrant
+   Copyright (C) 1999 Oliver Rauch,
+   1997 David Mosberger-Tang and Tristan Tarrant
    This file is part of the SANE package.
 
    SANE is free software; you can redistribute it and/or modify it under

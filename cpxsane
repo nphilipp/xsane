@@ -16,6 +16,7 @@ then
 
 cp cpxsane $1/frontend
 cp xsane.c $1/frontend
+cp xsane.h $1/frontend
 cp xsanegtk.h $1/frontend
 cp xsanegtk.c $1/frontend
 cp xsanepreview.h $1/frontend
@@ -37,9 +38,9 @@ echo " make"
 echo "and if everything worked, as root:"
 echo " make install"
 echo ""
-echo "to use xsane as gimp-plugin, remove"
-echo "~/.gimp/plug-ins/xscanimage"
-echo "and set symbolic link from xsane to ~/.gimp/plug-ins/xsane"
+echo "to use xsane as gimp-plugin"
+echo "set symbolic link from xsane to ~/.gimp/plug-ins/xsane"
+echo "You get access from gimp to xsane via menu: Tools/XSane"
 else
 echo "ABORTED"
 fi

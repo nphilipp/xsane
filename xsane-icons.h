@@ -627,3 +627,191 @@ static const char *scanner_xpm[] =
 "##.................#",
 "#..................#",
 };
+
+
+
+static const char *intensity_xpm[] =
+{
+/* width height num_colors chars_per_pixel */
+"    20    20        3            1",
+/* colors */
+". c #000000",
+"# none",
+"a c #ffffff",
+/* pixels */
+"####################",
+"#..................#",
+"#.aaaaaaaaaaaaaaaa.#",
+"#.aaaaaaaaaaaaaaaa.#",
+"#.aaaa........aaaa.#",
+"#.aaaaaaa..aaaaaaa.#",
+"#.aaaaaaa..aaaaaaa.#",
+"#.aaaaaaa..aaaaaaa.#",
+"#.aaaaaaa..aaaaaaa.#",
+"#.aaaaaaa..aaaaaaa.#",
+"#.aaaaaaa..aaaaaaa.#",
+"#.aaaaaaa..aaaaaaa.#",
+"#.aaaaaaa..aaaaaaa.#",
+"#.aaaaaaa..aaaaaaa.#",
+"#.aaaaaaa..aaaaaaa.#",
+"#.aaaa........aaaa.#",
+"#.aaaaaaaaaaaaaaaa.#",
+"#.aaaaaaaaaaaaaaaa.#",
+"#..................#",
+"####################",
+};
+
+static const char *red_xpm[] =
+{
+/* width height num_colors chars_per_pixel */
+"    20    20        3            1",
+/* colors */
+". c #000000",
+"# none",
+"a c #ff2020",
+/* pixels */
+"####################",
+"#..................#",
+"#.aaaaaaaaaaaaaaaa.#",
+"#.aaaaaaaaaaaaaaaa.#",
+"#.aa..........aaaa.#",
+"#.aa...........aaa.#",
+"#.aa..aaaaaaaa..aa.#",
+"#.aa..aaaaaaaa..aa.#",
+"#.aa..aaaaaaaa..aa.#",
+"#.aa...........aaa.#",
+"#.aa..........aaaa.#",
+"#.aa..aaaa..aaaaaa.#",
+"#.aa..aaaaa..aaaaa.#",
+"#.aa..aaaaaa..aaaa.#",
+"#.aa..aaaaaaa..aaa.#",
+"#.aa..aaaaaaa..aaa.#",
+"#.aaaaaaaaaaaaaaaa.#",
+"#.aaaaaaaaaaaaaaaa.#",
+"#..................#",
+"####################",
+};
+
+static const char *green_xpm[] =
+{
+/* width height num_colors chars_per_pixel */
+"    20    20        3            1",
+/* colors */
+". c #000000",
+"# none",
+"a c #20ff20",
+/* pixels */
+"####################",
+"#..................#",
+"#.aaaaaaaaaaaaaaaa.#",
+"#.aaaaaaaaaaaaaaaa.#",
+"#.aaaaa.......aaaa.#",
+"#.aaa...........aa.#",
+"#.aaa..aaaaaaa..aa.#",
+"#.aaa..aaaaaaaaaaa.#",
+"#.aaa..aaaaaaaaaaa.#",
+"#.aaa..aaa.....aaa.#",
+"#.aaa..aaa......aa.#",
+"#.aaa..aaaaaaa..aa.#",
+"#.aaa..aaaaaaa..aa.#",
+"#.aaa..aaaaaaa..aa.#",
+"#.aaaa.........aaa.#",
+"#.aaaaa.......aaaa.#",
+"#.aaaaaaaaaaaaaaaa.#",
+"#.aaaaaaaaaaaaaaaa.#",
+"#..................#",
+"####################",
+};
+
+static const char *blue_xpm[] =
+{
+/* width height num_colors chars_per_pixel */
+"    20    20        3            1",
+/* colors */
+". c #000000",
+"# none",
+"a c #3030ff",
+/* pixels */
+"####################",
+"#..................#",
+"#.aaaaaaaaaaaaaaaa.#",
+"#.aaaaaaaaaaaaaaaa.#",
+"#.aa...........aaa.#",
+"#.aa............aa.#",
+"#.aa..aaaaaaaa..aa.#",
+"#.aa..aaaaaaaa..aa.#",
+"#.aa..aaaaaaaa..aa.#",
+"#.aa...........aaa.#",
+"#.aa...........aaa.#",
+"#.aa..aaaaaaaa..aa.#",
+"#.aa..aaaaaaaa..aa.#",
+"#.aa..aaaaaaaa..aa.#",
+"#.aa............aa.#",
+"#.aa...........aaa.#",
+"#.aaaaaaaaaaaaaaaa.#",
+"#.aaaaaaaaaaaaaaaa.#",
+"#..................#",
+"####################",
+};
+
+static const char *pixel_xpm[] =
+{
+/* width height num_colors chars_per_pixel */
+"    20    20        3            1",
+/* colors */
+"a c #000000",
+"# none",
+". c #ffffff",
+/* pixels */
+"####################",
+"####################",
+"####################",
+"#####a##########.###",
+"####a#a########.####",
+"#######a######.#####",
+"###a####a#a##.######",
+"#########a##.#######",
+"##a########.########",
+"##########.#########",
+"#########.##########",
+"########.######a####",
+"#######.####aaaa####",
+"######.#####aaaa#a##",
+"#####.###a##aaaaaa##",
+"####.##a#aaaaaaaaa##",
+"###.##aaaaaaaaaaaa##",
+"####################",
+"####################",
+"####################",
+};
+
+static const char *log_xpm[] =
+{
+/* width height num_colors chars_per_pixel */
+"    20    20        2            1",
+/* colors */
+". c #000000",
+"# none",
+/* pixels */
+"####################",
+"####################",
+"####################",
+"####################",
+"####################",
+"#.######..#####...##",
+"#.#####.##.###.###.#",
+"#.####.####.##.#####",
+"#.####.####.##.#####",
+"#.####.####.##.#####",
+"#.####.####.##.#...#",
+"#.####.####.##.###.#",
+"#.####.####.##.###.#",
+"#.####.####.##.###.#",
+"#.#####.##.###.###.#",
+"#....###..#####...##",
+"####################",
+"####################",
+"####################",
+"####################",
+};
+

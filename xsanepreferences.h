@@ -9,8 +9,11 @@ typedef struct
     const char *filename;	/* default filename */
     const char *printercommand;	/* default printercommand */
     int printerresolution;	/* printer resolution for copy mode  */
+    int printer_width;		/* printer width of printable area in 1/72inch  */
+    int printer_height;		/* printer height of printable area in 1/72inch  */
+    int printer_leftoffset;	/* printer left offset in 1/72inch  */
+    int printer_bottomoffset;	/* printer bottom offset in 1/72inch  */
     int tooltips_enabled;	/* should tooltips be disabled? */
-    int gamma_selected;		/* enhancement enabled ? */
     int show_histogram;		/* show histogram ? */
     double length_unit;		/* 1.0==mm, 10.0==cm, 25.4==inches, etc. */
     int preserve_preview;	/* save/restore preview image(s)? */

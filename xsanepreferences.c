@@ -1,4 +1,5 @@
 /* sane - Scanner Access Now Easy.
+   Copyright (C) 1999 Oliver Rauch
    Copyright (C) 1997 David Mosberger-Tang
    This file is part of the SANE package.
 
@@ -36,8 +37,11 @@ Preferences preferences =
        0,		/* no default filename */
        0,		/* no default printercommand */
      300,		/* printerresolution */
+     576,		/* printer_width */
+     835,		/* printer_height */
+      10,		/* printer_leftoffset */
+      10,		/* printer_bottomoffset */
        1,		/* tooltips enabled */
-       1,		/* enhancement enabled */
        0,		/* (dont) show histogram */
     10.0,		/* length unit */
        1,		/* preserve_preview */
@@ -73,8 +77,9 @@ desc[] =
     {"filename", w_string, POFFSET(filename)},
     {"printer-cmd", w_string, POFFSET(printercommand)},
     {"printer-res", w_int, POFFSET(printerresolution)},
+    {"printer-leftoffset", w_int, POFFSET(printer_leftoffset)},
+    {"printer-bottomoffset", w_int, POFFSET(printer_bottomoffset)},
     {"tool-tips", w_int, POFFSET(tooltips_enabled)},
-    {"enable-enhancement", w_int, POFFSET(gamma_selected)},
     {"show-histogram", w_int, POFFSET(show_histogram)},
     {"length-unit", w_double, POFFSET(length_unit)},
     {"preserve-preview", w_int, POFFSET(preserve_preview)},
