@@ -62,7 +62,7 @@ second steps:
    - add a twain-unix interface to xsane
 
  - WIN32 version of xsane/sane
-   + at first xsane network scanning (work in progress, mostly done)
+   + make gimp plugin mode work correct (opacity -> 0)
    - may be later we make a sane-WIN32 version so that the backends do work too
 
 

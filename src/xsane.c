@@ -3228,6 +3228,7 @@ static void xsane_show_doc_via_nsr(GtkWidget *widget, gpointer data) /* show via
   DBG(DBG_proc, "xsane_show_doc_via_nsr(%s)\n", name);
 
   snprintf(buf, sizeof(buf), "netscape -no-about-splash -remote \"openFile(%s/%s-doc.html)\" 2>&1", STRINGIFY(PATH_SANE_DATA_DIR), name);  
+  DBG(DBG_info, "executing %s\n", buf);
   ns_pipe = popen(buf, "rb"); /* read binary (b for win32) */
 
   if (ns_pipe)
@@ -3301,6 +3302,7 @@ static void xsane_show_doc(GtkWidget *widget, gpointer data)
 
     if (pid == 0) /* new process */
     {
+      DBG(DBG_info, "executing %s %s\n", arg[0], arg[1]);
       execvp(arg[0], arg); /* does not return if successfully */
       fprintf(stderr, "%s %s\n", ERR_FAILD_EXEC_DOC_VIEWER, preferences.doc_viewer);
       _exit(0); /* do not use exit() here! otherwise gtk gets in trouble */
@@ -5118,7 +5120,9 @@ static void xsane_init(int argc, char **argv)
 
   DBG(DBG_proc, "xsane_init\n");
 
+#ifndef _WIN32
   gtk_set_locale();
+#endif
   gtk_init(&argc, &argv);
   setlocale(LC_NUMERIC, "C");
 
@@ -5131,6 +5135,7 @@ static void xsane_init(int argc, char **argv)
   xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", 0, "xsane-style", 0, ".rc", XSANE_PATH_LOCAL_SANE);
   if (stat(filename, &st) >= 0)
   {
+    DBG(DBG_info, "loading %s\n", filename);
     gtk_rc_parse(filename);
   }
   else /* no local xsane-style.rc, look for system file */
@@ -5138,6 +5143,7 @@ static void xsane_init(int argc, char **argv)
     xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", 0, "xsane-style", 0, ".rc", XSANE_PATH_SYSTEM);
     if (stat(filename, &st) >= 0)
     {
+      DBG(DBG_info, "loading %s\n", filename);
       gtk_rc_parse(filename);
     }
   }
@@ -5496,6 +5502,10 @@ int main(int argc, char **argv)
     old_print_func    = g_set_print_handler((GPrintFunc) null_print_func);
     old_printerr_func = g_set_printerr_handler((GPrintFunc) null_print_func);
 
+#ifdef _WIN32 
+    /* don`t know why, but win32 does need this */
+    set_gimp_PLUG_IN_INFO_PTR(&PLUG_IN_INFO);
+#endif
     /* gimp_main() returns 1 if xsane wasn't invoked by GIMP */
     result = gimp_main(argc, argv);
 

@@ -1188,3 +1188,30 @@ xsane-0.66 -> 0.67:
  - added test if (xsane.adf_scansource) before usage of xsane.adf_scansource
    (caused segfault when no ADF Scanmode was defined in setup)
 
+
+xsane-0.67 -> 0.68:
+-------------------
+
+ - changed src/Makefile.in.WIN32 so that the installation directory can
+   be selected by configure --prefix=... and the used paths are more
+   common to the one on unix (/usr/local => c:\sane)
+
+ - changed src/Makefile.in.WIN32 for gimp support (uncomment GIMP_LIBS)
+
+ - WIN32+gimp-support: set_gimp_PLUG_IN_INFO_PTR(&PLUG_IN_INFO) is called 
+
+ - added extern GimpPlugIn PLUG_IN_INFO to xsane.h (needed in xsane.c for win32)
+
+ - replaced free(xsane.tile) by g_free(xsane.tile)
+   (the free(...) caused a crash on win32)
+
+ - changed aclocal.m4: gimp test does work with gimp-1.0.x version again
+
+ - renamed xsane.WIN32 and xsane.WIN32-compilation to xsane-WIN32.txt
+   and xsane-WIN32-compilation.txt (it is easer to use on windows)
+   
+ - src/xsane-style.rc is saved in dosmode (\n\r) now. 
+
+ - removed (#ifndef _WIN32) gtk_set_locale() from xsane.c for win32
+   (when it was called gimp plugin created transparent images)
+

@@ -6,7 +6,7 @@ AC_CONFIG_HEADER(include/sane/config.h)
 
 # version code:
 V_MAJOR=0
-V_MINOR=67
+V_MINOR=68
 
 PACKAGE=xsane
 
@@ -126,18 +126,6 @@ dnl *** try the simple gimp test
 if test "${USE_GIMP}" = "yes"; then
   AM_PATH_GIMP(1.0.0, HAVE_GIMP=yes)
 fi
-
-#dnl *** Simple gimp test
-#saved_CPPFLAGS="${CPPFLAGS}"
-#saved_LIBS="${LIBS}"
-#CPPFLAGS="${CPPFLAGS} ${GTK_CFLAGS}"
-#LIBS="${LIBS} ${GTK_LIBS}"
-#if test "${USE_GIMP}" = "yes"; then
-#  AC_CHECK_HEADERS(libgimp/gimp.h, GIMP_LIBS="-lgimp")
-#  AC_CHECK_HEADERS(libgimp/gimpfeatures.h)
-#fi 
-#LIBS="${saved_LIBS}"
-#CPPFLAGS="${saved_CPPFLAGS}"
  
 
 # png test must stand after test for zlib

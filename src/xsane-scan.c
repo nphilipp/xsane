@@ -1726,7 +1726,7 @@ void xsane_scan_done(SANE_Status status)
     gimp_drawable_flush(xsane.drawable);
     gimp_display_new(xsane.image_ID);
     gimp_drawable_detach(xsane.drawable);
-    free(xsane.tile);
+    g_free(xsane.tile);
     xsane.tile = 0;
   }
 #endif /* HAVE_LIBGIMP_GIMP_H */

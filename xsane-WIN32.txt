@@ -10,13 +10,13 @@ This version supports:
  - scan and save to pnm, ps and raw file, if compiled in also jpeg, png and tiff
  - handling of all backend options
  - helpfiles
+ - copy mode (printing via ghostscript, see section "copy mode")
+ - gimp-plugin
+
 
 It does not support:
- - copy mode (no printing, may be this can be done with ghostscript)
  - fax mode (no compatible faxsoftware)
-
-Unknown / not supported in the moment:
- - gimp-plugin not tested/not compiled with gimp support
+ - internationalization not setup correct
 
 
 Installation:
@@ -25,9 +25,8 @@ Installation:
    that creates the directory c:\Sane with several files
    you do not need to copy any files, simply call xsane or scanimage
  
- - sane MUST BE installed in c:\sane because the paths are hardcoded
-
- - xsane may not work if you install it at any other place!
+ - Sane MUST BE installed in c:\sane because the paths are hardcoded.
+   Xsane will not work correct if you install it at any other place!
 
  - make sure you have a directory c:\temp (or whatever you
    define as temporary directory in xsane's setup)
@@ -40,7 +39,7 @@ Installation:
 
 Configuration:
 ==============
- edit c:\Sane\net.conf
+ edit c:\Sane\etc\sane.d\net.conf
  and enter a list of NetBEUI names or of IP-addresses
  of machines you want to connect to. On some Windows
  system IP-addresses are not accepted; if you experience
@@ -52,10 +51,30 @@ myhost2.mydomain.com
 192.168.0.1
 192.169.1.73
 
- you also can start xsane with backend and decice given as command line option:
+ you also can start xsane with host:backend:device given as command line option:
  	xsane 192.168.0.1:umax:/dev/scanner
 or
 	xsane myhost:umax:/dev/scanner
+
+
+Copy-Mode:
+===========
+If you want to use copy mode, you need ghostscript for win32.
+You can download it e.g. from http://www.cs.wisc.edu/~ghost/
+Enter Setup/Copy options:
+enter as Command:
+	c:/gs/gs6.50/bin/gswin32c -sDEVICE=laserjet -dNOPAUSE -
+Pay attention: you have to use "/", don´t use "\".
+You have to enter the DEVICE name of your printer (laserjet).
+To get a list of available device names open a dos box,
+and call c:\gs\gs6.50\bin\gswin32c -h
+
+
+Gimp-Plugin:
+===========
+If you want to use xsane as gimp plugin,
+copy xsane.exe and *.dll to the GIMP´s plug-ins driectory
+(e.g. c:\Program Files\GIMP\plug-ins)
 
 
 Support:
@@ -67,7 +86,7 @@ Support:
 
 Licence:
 ========
- * xsane, xsane for win32 stand under the term of
+ * xsane and  xsane for win32 stand under the terms of
    the GNU general public licence (GPL).
    You can find the sourcecode for xsane at:
    http://www.wolfsburg.de/~rauch/sane/sane-xsane.html
@@ -76,8 +95,6 @@ Licence:
    GNU general public licence - GPL (gdk, gtk, glib, gnu-intl, gmodule)
 
  * cygwin1.dll stands under the term of the GNU general public licence - GPL
-
- * other cyg*.dll stand under the term of the GNU general public licence - GPL
 
  * The sourcecode of xsane can be found at http://www.wolfsburg.de/~rauch/sane
 
@@ -97,7 +114,7 @@ Compile it yourself:
 Contact:
 ========
  You can contact me via email: Oliver.Rauch@Wolfsburg.DE
- but don`t ask for support for xsane-win32, I do not have the
+ but don`t ask for help/support for xsane-win32, I do not have the
  time to give support to it and want to use my free time to
  work on the code - please understand that.
 

@@ -32,7 +32,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.67"
+#define XSANE_VERSION		"0.68"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2000"
@@ -196,6 +196,8 @@ GSGDialogElement;
 /* we have the old gimp interface and need the compatibility header file */
 #  include "xsane-oldgimp.h" 
 # endif
+
+  extern GimpPlugInInfo PLUG_IN_INFO; /* needed for win32 */
 
 #endif /* HAVE_LIBGIMP_GIMP_H */
 
@@ -559,7 +561,7 @@ typedef struct Xsane
     double threshold_max;
     double threshold_mul;
     double threshold_off;
-    SANE_String grayscale_scanmode;
+    char *grayscale_scanmode;
 
     int enhancement_rgb_default;
     int negative;

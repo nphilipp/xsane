@@ -55,6 +55,7 @@ install: $(MANPAGES)
 	done
 	$(MKDIR) $(datadir)
 
+	$(MKDIR) $(sanedatadir)
 	@for page in *.html; do\
 	  echo installing $${page} in $(sanedatadir)/$${page}...; \
 	  $(INSTALL_DATA) $${page} $(sanedatadir)/$${page} || exit 1; \
