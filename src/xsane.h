@@ -32,7 +32,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.68"
+#define XSANE_VERSION		"0.69"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2000"
@@ -51,6 +51,14 @@
 #ifndef SLASH
 # define SLASH '/'
 #endif 
+
+#ifndef XSANE_FIXED_HOME_PATH
+# define XSANE_FIXED_HOME_PATH /tmp
+#endif
+
+#ifndef ENVIRONMENT_HOME_DIR_NAME
+# define ENVIRONMENT_HOME_DIR_NAME HOME
+#endif
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -235,8 +243,8 @@ extern void xsane_fax_project_save(void);
 #define FAXNORMALOPT		"-l"
 #define FAXFINEOPT		"-m"
 #define FAXVIEWER 	 	"xv"
-#define DOCVIEWERNETSCAPEREMOTE	"netscape-remote"
-#define DOCVIEWER 	 	DOCVIEWERNETSCAPEREMOTE	
+#define DOCVIEWER_NETSCAPE	"netscape"
+#define DOCVIEWER 	 	DOCVIEWER_NETSCAPE
 
 #define XSANE_BRIGHTNESS_MIN	-400.0
 #define XSANE_BRIGHTNESS_MAX	400.0

@@ -15,23 +15,25 @@ READ THIS FILE IF YOU EXPERIENCE ANY PROBLEM
      directory: rm -rf ~/.sane/xsane
      (you have to enter all configurations again afterwards).
    - make sure there is only one gtk-config and only one gimp-config
-     file on your system (find / -name "g*-config").
+     file on your system (find / -name "g*-config") or set path to
+     the correct one (./configure --help)
    - Do not install any self compiled source package over binary packages,
      in most cases the installation paths are different so the old versions
      are not overwritten!
 
 - If you get an error message  that libsane-dll.so.1 or libsane-so.1 is not found, you have to
   tell your system where the SANE-libraries are installed.
-   - On some systems the library directory "/usr/local/lib" is not searched by the
-     systems dynamic library loader.  If SANE is installed in "/usr/local/..."
-     you have to tell your systems dynamic library loader to search in "/usr/local/lib".
-     For linux: add the path "/usr/local/lib" to /etc/ld.so.conf and call ldconfig (as root).
+   - On some systems the library directory "/usr/local/lib" is not searched by
+     the systems dynamic library loader. If SANE is installed in
+     "/usr/local/..." you have to tell your systems dynamic library loader to
+     search in "/usr/local/lib". For linux: add the path "/usr/local/lib" to
+     /etc/ld.so.conf and call ldconfig (as root).
    - For sane-1.0.1 you have to add a line with the path to the SANE libraries
-     (normally /usr/local/lib/sane) to /etc/ld.so.conf and call ldconfig (as root).
-     For sane-1.0.2 (and later versions) the path to the SANE libs MUST NOT be listed
-     in /etc/ld.so.conf    
-   - If all that does not help, make sure that libsane.so.* are symbolic links to
-     ./sane/libsane-dll.so.*
+     (normally /usr/local/lib/sane) to /etc/ld.so.conf and call ldconfig (as
+     root). For sane-1.0.2 (and later versions) the path to the SANE libs MUST
+     NOT be listed in /etc/ld.so.conf    
+   - If all that does not help, make sure that libsane.so.* are symbolic links
+     to ./sane/libsane-dll.so.*
 
    short explaination:
      xsane does not search itself for the library, that is done by the dynamic

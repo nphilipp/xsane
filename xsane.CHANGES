@@ -1210,8 +1210,34 @@ xsane-0.67 -> 0.68:
  - renamed xsane.WIN32 and xsane.WIN32-compilation to xsane-WIN32.txt
    and xsane-WIN32-compilation.txt (it is easer to use on windows)
    
- - src/xsane-style.rc is saved in dosmode (\n\r) now. 
-
  - removed (#ifndef _WIN32) gtk_set_locale() from xsane.c for win32
    (when it was called gimp plugin created transparent images)
+
+ - saved xsane-style.rc in DOS mode (\n\r)
+
+
+xsane-0.68 -> 0.69:
+-------------------
+
+ - some changes in aclocal.m4 for gimp test:
+   - When gimp-config is not found, the output of gtk-config is used
+   - GTK_CFLAGS or GIMP_CFLAGS are added to CPPFLAGS for test for gimp.h and gimpfeatures.h
+   - GTK_CFLAGS and GTK_LIBS are erased when gimp_config is available
+
+ - changed src/Makefile.in: GIMP_CFLAGS is used now
+
+ - saved xsane-style.rc in unix mode (\n) because DOS mode (\n\r) made problems
+
+ - added new way to call netscape remote command:
+   at first xsane tries to find out if netscape is running, for this it tries to
+   find out if there is a link "~/.netscape/lock". If this link exists netscape should
+   be running and xsane calls "netscape -remote openFile(...)". Otherwise xsane calls
+   "netscape ..."
+
+ - changed keywork "netscape-remote" as docviewer to "netscape"
+
+ - changed way to find out home directory in xsane-back-gtk.c:
+   now getenv(ENVIRONMENT_HOME_DIR_NAME) is used instead of getpwuid(...)->pw_dir.
+   (getenv is usable for Win32 and unix, getpwuid makes problems on Win32)
+   
 

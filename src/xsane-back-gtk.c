@@ -128,7 +128,6 @@ void xsane_back_gtk_set_tooltip(GtkTooltips *tooltips, GtkWidget *widget, const 
 int xsane_back_gtk_make_path(size_t buf_size, char *buf, const char *prog_name, const char *dir_name,
                              const char *prefix, const char *dev_name, const char *postfix, int location)
 {
- struct passwd *pw;
  size_t len, extra;
  int i;
 
@@ -136,21 +135,14 @@ int xsane_back_gtk_make_path(size_t buf_size, char *buf, const char *prog_name, 
 
   if (location == XSANE_PATH_LOCAL_SANE) /* make path to local file */
   {
-#ifndef XSANE_FIXED_HOME_PATH
-    /* standard for unix */
-    pw = getpwuid(getuid()); /* get homedirectory */
-    if (!pw)
+    if (getenv(STRINGIFY(ENVIRONMENT_HOME_DIR_NAME)) != NULL)
     {
-      snprintf(buf, buf_size, "%s %s", ERR_HOME_DIR, strerror(errno));
-      xsane_back_gtk_error(buf, FALSE);
-      return -1;
+      snprintf(buf, buf_size-2, "%s%c.sane", getenv(STRINGIFY(ENVIRONMENT_HOME_DIR_NAME)), SLASH);
     }
-
-    snprintf(buf, buf_size-2, "%s%c.sane", pw->pw_dir, SLASH);
-#else
-    /* standard for win32 */
-    snprintf(buf, buf_size-2, "%s", STRINGIFY(XSANE_FIXED_HOME_PATH));
-#endif
+    else
+    {
+      snprintf(buf, buf_size-2, "%s", STRINGIFY(XSANE_FIXED_HOME_PATH));
+    }
     mkdir(buf, 0777);	/* ensure ~/.sane directory exists */
   }
   else if (location == XSANE_PATH_SYSTEM) /* make path to system file */

@@ -3221,53 +3221,63 @@ static void xsane_show_doc_via_nsr(GtkWidget *widget, gpointer data) /* show via
 {
  char *name = (char *) data;
  char buf[256];
- FILE *ns_pipe;
  pid_t pid;
- char *arg[3];
+ char *arg[5];
+ struct stat st;
+ char netscape_lock_path[PATH_MAX];
 
   DBG(DBG_proc, "xsane_show_doc_via_nsr(%s)\n", name);
 
-  snprintf(buf, sizeof(buf), "netscape -no-about-splash -remote \"openFile(%s/%s-doc.html)\" 2>&1", STRINGIFY(PATH_SANE_DATA_DIR), name);  
-  DBG(DBG_info, "executing %s\n", buf);
-  ns_pipe = popen(buf, "rb"); /* read binary (b for win32) */
+  /* at first we have to test if netscape is running */
+  /* a simple way is to take a look at ~/.netscape/lock */
+  /* when this is a link we can assume that netscape is running */
 
-  if (ns_pipe)
+  if (getenv(STRINGIFY(ENVIRONMENT_HOME_DIR_NAME)) != NULL) /* $HOME defined? */
   {
-    while (!feof(ns_pipe))
+    snprintf(netscape_lock_path, sizeof(netscape_lock_path), "%s%c.netscape%clock",
+             getenv(STRINGIFY(ENVIRONMENT_HOME_DIR_NAME)), SLASH, SLASH); 
+  }
+  else
+  {
+    *netscape_lock_path = 0; /* empty path */
+  }
+
+
+  if ((strlen(netscape_lock_path) > 0) && (lstat(netscape_lock_path, &st) == 0)) /*  netscape is running */
+  {
+    DBG(DBG_proc, "xsane_show_doc_via_nsr: netscape is running\n");
+    snprintf(buf, sizeof(buf), "openFile(%s/%s-doc.html)", STRINGIFY(PATH_SANE_DATA_DIR), name);
+    arg[0] = "netscape";
+    arg[1] = "-no-about-splash";
+    arg[2] = "-remote";
+    arg[3] = buf;
+    arg[4] = 0;
+ 
+    pid = fork();
+ 
+    if (pid == 0) /* new process */
     {
-      while (gtk_events_pending())
-      {
-        gtk_main_iteration();
-      }
-      fgetc(ns_pipe); /* remove char from pipe */
-    }
-
-    while (gtk_events_pending())
-    {
-      gtk_main_iteration();
-    }
-
-    if (pclose(ns_pipe)) /* netscape not running, start it */
-    {
-      snprintf(buf, sizeof(buf), "%s/%s-doc.html", STRINGIFY(PATH_SANE_DATA_DIR), name);  
-      arg[0] = "netscape";
-      arg[1] = buf;
-      arg[2] = 0;
-
-      pid = fork();
-
-      if (pid == 0) /* new process */
-      {
-        execvp(arg[0], arg); /* does not return if successfully */
-        fprintf(stderr, "%s %s\n", ERR_FAILD_EXEC_DOC_VIEWER, preferences.doc_viewer);
-        _exit(0); /* do not use exit() here! otherwise gtk gets in trouble */
-      }
+      execvp(arg[0], arg); /* does not return if successfully */
+      fprintf(stderr, "%s %s\n", ERR_FAILD_EXEC_DOC_VIEWER, preferences.doc_viewer);
+      _exit(0); /* do not use exit() here! otherwise gtk gets in trouble */
     }
   }
-  else /* execution failed */
-  {
-    snprintf(buf, sizeof(buf), "%s", ERR_NETSCAPE_EXECUTE_FAIL);
-    xsane_back_gtk_error(buf, TRUE);
+  else /* netscape not running */
+  { 
+    DBG(DBG_proc, "xsane_show_doc_via_nsr: netscape is not running, trying to start netscape\n");
+    snprintf(buf, sizeof(buf), "%s/%s-doc.html", STRINGIFY(PATH_SANE_DATA_DIR), name);
+    arg[0] = "netscape";
+    arg[1] = buf;
+    arg[2] = 0;
+ 
+    pid = fork();
+ 
+    if (pid == 0) /* new process */
+    {
+      execvp(arg[0], arg); /* does not return if successfully */
+      fprintf(stderr, "%s %s\n", ERR_FAILD_EXEC_DOC_VIEWER, preferences.doc_viewer);
+      _exit(0); /* do not use exit() here! otherwise gtk gets in trouble */
+    }
   }
 
   while (gtk_events_pending())
@@ -3287,7 +3297,7 @@ static void xsane_show_doc(GtkWidget *widget, gpointer data)
 
   DBG(DBG_proc, "xsane_show_doc(%s)\n", name);
 
-  if (!strcmp(preferences.doc_viewer, DOCVIEWERNETSCAPEREMOTE))
+  if (!strcmp(preferences.doc_viewer, DOCVIEWER_NETSCAPE))
   {
     xsane_show_doc_via_nsr(widget, data);
   }

@@ -6,7 +6,7 @@ AC_CONFIG_HEADER(include/sane/config.h)
 
 # version code:
 V_MAJOR=0
-V_MINOR=68
+V_MINOR=69
 
 PACKAGE=xsane
 
@@ -118,11 +118,12 @@ AC_SUBST(INTLSUB)
 
 AM_PATH_SANE(1.0.0, HAVE_SANE=yes, )
 
+dnl *** if xsane is compiled as gimp plugin it is possible that we do not
+dnl *** need the test for gtk, but when we have gimp-1.0.x installed
+dnl *** (gimp-1.0.x does not have gimp-config) or we compile xsane without
+dnl *** gimp support we need the test for gtk
 AM_PATH_GTK(1.2.0, HAVE_GTK=yes, )
 
-dnl *** Improved gimp test
-dnl *** if it does not work correct
-dnl *** try the simple gimp test
 if test "${USE_GIMP}" = "yes"; then
   AM_PATH_GIMP(1.0.0, HAVE_GIMP=yes)
 fi
