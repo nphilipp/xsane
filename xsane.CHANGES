@@ -1708,3 +1708,60 @@ xsane-0.78 -> 0.79:
  - cancel preview does now only call sane_cancel and tests for SANE_STATUS_CANCELLED while
    reading image data.
 
+
+xsane-0.79 -> 0.80:
+-------------------
+
+ - moved setting of medium gamma correction values from xsane_set_medium_callback in xsane.c
+   to xsane_set_medium in xsane-gamma.c
+
+ - xsane_set_medium is called in xsane_scan_dialog and in preview_scan
+
+ - replaced predefined areas 10x14 cm and 14x10 cm by 10x15 cm and 15x10 cm
+
+ - updated documentation (partly)
+
+ - correcting image height when canceling conversion to jpeg format,
+   program does not crash any more
+
+ - added russian translation - thanks to John Profic <profic@lrn.ru>
+
+ - solved problem with lineart image saved as png (wrong byte width)
+
+ - moved medium selection menue from preferences menu to xsane main dialog
+
+ - inactive backend options are not saved to the device-rc file
+
+ - added progress_bar to the paramter list of xsane_save_*
+
+ - added xsane-viewer.c and xsane-viewer.h to the src directory
+
+ - added fflush(outfile); to end of rotation routine, this seems to
+   solve a problem of incomplete files when rotating the image file
+
+ - added routine xsane_read_pnm_header to get correct header offset
+   and read geometrie values
+
+ - for saving routines now the header offset and geometrie values of
+   xsane_load_pnm_header are used instead of xsane´s internal values
+
+ - changed handling of color identification:
+   old: xsane_color  == 0 => grayscale/lineart
+   new: xsane_colors == 1 => grayscale/lineart
+
+ - when image is saved as postscript file (not copy mode etc)
+   then the bounding box exactly surrounds the image now.
+   Removed psfile parts from setup and preferences.
+
+ - xsane_widget_test_uposition(gtk_window) does wait now until
+   gtk_window is realized before gtk_widget_set/get_uposition
+   test is done
+
+ - for hpux added include of alloca.h to sane.h
+
+ - added function xsane_debug_message that is used for DBG when
+   gcc is not used because defines with variable arguments is
+   not ANSI.
+
+ - updated translations: cs, de, fr, ja, ru, tr
+

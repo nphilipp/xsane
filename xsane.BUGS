@@ -1,9 +1,10 @@
 ----------------------------------------------------------------------------------
 
+ - do not try to save inactive option settings to device rc file,
+   some backends do not answer with status invalid in this case.
+
  - preview selection does not fit exact the scanned image? (I can not reproduce
    this)
-
- - lineart png shifts image horizontal ?
 
  - on some systems it is reported that:
    - saving as png -> coredump

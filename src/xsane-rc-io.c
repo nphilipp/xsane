@@ -914,7 +914,10 @@ void xsane_rc_pref_string(Wire *w, void *p, long offset)
   if (w->direction == WIRE_ENCODE)
   {
     string = PFIELD(p, offset, char *);
-    DBG(DBG_wire, "xsane_rc_pref_string: encoding string = %s\n", string);
+    if (string)
+    {
+      DBG(DBG_wire, "xsane_rc_pref_string: encoding string = %s\n", string);
+    }
   }
 
   xsane_rc_io_w_string(w, &string);
@@ -932,7 +935,11 @@ void xsane_rc_pref_string(Wire *w, void *p, long offset)
       }
       *field = string ? strdup (string) : 0;
     }
-    DBG(DBG_wire, "xsane_rc_pref_string: decoding string = %s\n", string);
+
+    if (string)
+    {
+      DBG(DBG_wire, "xsane_rc_pref_string: decoding string = %s\n", string);
+    }
     xsane_rc_io_w_free(w, (WireCodecFunc) xsane_rc_io_w_string, &string);
   }
 }

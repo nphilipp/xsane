@@ -1,12 +1,12 @@
 # Czech translation for XSane.
-# Copyright (C) 2000 Free Software Foundation, Inc.
-# Stanislav Brabec <utx@penguin.cz>, 2000.
+# Copyright (C) 2001 Free Software Foundation, Inc.
+# Stanislav Brabec <utx@penguin.cz>, 2000-2001.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.77\n"
-"POT-Creation-Date: 2001-06-10 10:31+0200\n"
-"PO-Revision-Date: 2001-05-21 11:10+02:00\n"
+"Project-Id-Version: XSANE 0.80\n"
+"POT-Creation-Date: 2001-10-03 12:19+0200\n"
+"PO-Revision-Date: 2001-10-03 23:09+0200\n"
 "Last-Translator: Stanislav Brabec <utx@penguin.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -60,19 +60,16 @@ msgid "insert ps-file into fax"
 msgstr "zadat ps-soubor pro fax"
 
 #. WINDOW_MAIL_PROJECT
-#, fuzzy
 msgid "mail project"
-msgstr "faxový projekt"
+msgstr "po¹tovní projekt"
 
 #. WINDOW_MAIL_RENAME
-#, fuzzy
 msgid "rename mail image"
-msgstr "pøejmenovat faxovou stránku"
+msgstr "pøejmenovat obrázek do po¹ty"
 
 #. WINDOW_MAIL_INSERT
-#, fuzzy
 msgid "insert file into mail"
-msgstr "zadat ps-soubor pro fax"
+msgstr "vlo¾it soubor do po¹ty"
 
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
@@ -105,6 +102,14 @@ msgstr "výbìr zaøízení"
 #. WINDOW_PREVIEW
 msgid "Preview"
 msgstr "Náhled"
+
+#. WINDOW_VIEWER
+msgid "Viewer"
+msgstr "Prohlí¾eè"
+
+#. WINDOW_VIEWER_OUTPUT_FILENAME
+msgid "Viewer: select output filename"
+msgstr "Prohlí¾eè: zvolte výstupní soubor"
 
 #. WINDOW_OUTPUT_FILENAME
 msgid "select output filename"
@@ -142,6 +147,10 @@ msgstr "Pohled"
 msgid "Help"
 msgstr "Nápovìda"
 
+#. MENU_FILTERS
+msgid "Filters"
+msgstr "Filtry"
+
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
 msgstr "O XSane"
@@ -153,6 +162,22 @@ msgstr "Informace"
 #. MENU_ITEM_QUIT
 msgid "Quit"
 msgstr "Konec"
+
+#. MENU_ITEM_SAVE_IMAGE
+msgid "Save image"
+msgstr "Zapsat obrázek"
+
+#. MENU_ITEM_CLOSE
+msgid "Close"
+msgstr "Zavøít"
+
+#. MENU_ITEM_DESPECKLE
+msgid "Despeckle"
+msgstr "Vyèistit"
+
+#. MENU_ITEM_BLUR
+msgid "Blur"
+msgstr "Rozostøení"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -198,10 +223,6 @@ msgstr "Pokraèovat na vlastní riziko"
 msgid "Browse"
 msgstr "Procházet"
 
-#. BUTTON_CLOSE
-msgid "Close"
-msgstr "Zavøít"
-
 #. BUTTON_OVERWRITE
 msgid "Overwrite"
 msgstr "Pøepsat"
@@ -223,19 +244,16 @@ msgid "Rename page"
 msgstr "Pøejmenovat stránku"
 
 #. BUTTON_IMAGE_DELETE
-#, fuzzy
 msgid "Delete image"
-msgstr "Smazat stránku"
+msgstr "Smazat obrázek"
 
 #. BUTTON_IMAGE_SHOW
-#, fuzzy
 msgid "Show image"
-msgstr "Zobrazit stránku"
+msgstr "Ukázat obrázek"
 
 #. BUTTON_IMAGE_RENAME
-#, fuzzy
 msgid "Rename image"
-msgstr "Pøejmenovat stránku"
+msgstr "Pøejmenovat obrázek"
 
 #. BUTTON_FILE_INSERT
 msgid "Insert file"
@@ -262,12 +280,25 @@ msgid "Delete printer"
 msgstr "Odebrat tiskárnu"
 
 #. BUTTON_PREVIEW_ACQUIRE
-msgid "Acquire Preview"
+msgid "Acquire preview"
 msgstr "Sejmout náhled"
 
 #. BUTTON_PREVIEW_CANCEL
-msgid "Cancel Preview"
+msgid "Cancel preview"
 msgstr "Zru¹it náhled"
+
+#. BUTTON_DISCARD_IMAGE
+msgid "Discard image"
+msgstr "Zahodit obrázek"
+
+#. BUTTON_DISCARD_ALL_IMAGES
+#, fuzzy
+msgid "Discard all images"
+msgstr "Zahodit obrázek"
+
+#. BUTTON_DO_NOT_CLOSE
+msgid "Do not close"
+msgstr "Nezavírat"
 
 #. RADIO_BUTTON_FINE_MODE
 msgid "Fine mode"
@@ -275,7 +306,7 @@ msgstr "Nalézt re¾im"
 
 #. RADIO_BUTTON_HTML_MAIL
 msgid "HTML mail"
-msgstr ""
+msgstr "HTML po¹ta"
 
 #. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device preferences at exit"
@@ -299,7 +330,7 @@ msgstr "Pevná velikost hlavního okna"
 
 #. RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA
 msgid "Disable gimp preview gamma"
-msgstr "Zakázat gimp gama náhledu"
+msgstr "Zakázat pro gimp gama náhledu"
 
 #. RADIO_BUTTON_PRIVATE_COLORMAP
 msgid "Use private colormap"
@@ -319,7 +350,7 @@ msgstr "Automatická korekce barev"
 
 #. RADIO_BUTTON_POP3_AUTHENTIFICATION
 msgid "POP3 authentification"
-msgstr ""
+msgstr "Authentifikace POP3"
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
@@ -529,7 +560,6 @@ msgid ""
 "by Oliver Rauch\n"
 "Email: Oliver.Rauch@rauch-domain.de\n"
 msgstr ""
-"èeský pøeklad\n"
 "Stanislav Brabec\n"
 "e-mail: utx@penguin.cz\n"
 
@@ -542,13 +572,16 @@ msgid "Scanned pages: "
 msgstr "Skenované stránky: "
 
 #. TEXT_MAIL_TEXT
-#, fuzzy
 msgid "Email text:"
-msgstr "E-mail:"
+msgstr "Text e-mailu:"
 
 #. TEXT_ATTACHMENTS
 msgid "Attachments:"
-msgstr ""
+msgstr "Pøílohy:"
+
+#. TEXT_MAIL_STATUS
+msgid "Project status:"
+msgstr "Stav projektu:"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -646,22 +679,6 @@ msgstr "Komprese 8bitových TIFF obrázkù"
 msgid "TIFF lineart image compression"
 msgstr "Komprese TIFF èárové grafiky"
 
-#. TEXT_SETUP_PSFILE_WIDTH
-msgid "Width of paper for postscript"
-msgstr "©íøka papíru pro postscript"
-
-#. TEXT_SETUP_PSFILE_HEIGHT
-msgid "Height of paper for postscript"
-msgstr "Vý¹ka papíru pro postscript"
-
-#. TEXT_SETUP_PSFILE_LEFT
-msgid "Left offset for postscript"
-msgstr "Levý posun pro postscript"
-
-#. TEXT_SETUP_PSFILE_BOTTOM
-msgid "Bottom offset for postscript"
-msgstr "Spodní posun pro postscript"
-
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
 msgstr "Pøevzorkování náhledu:"
@@ -740,36 +757,39 @@ msgstr "Prohlí¾eè (Postscript):"
 
 #. TEXT_SETUP_SMTP_SERVER
 msgid "SMTP server:"
-msgstr ""
+msgstr "SMTP server:"
 
 #. TEXT_SETUP_SMTP_PORT
 msgid "SMTP port:"
-msgstr ""
+msgstr "SMTP port:"
 
 #. TEXT_SETUP_MAIL_FROM
 msgid "From:"
-msgstr ""
+msgstr "Od:"
 
 #. TEXT_SETUP_MAIL_REPLY_TO
 msgid "Reply to:"
-msgstr ""
+msgstr "Odpovìdìt na:"
 
 #. TEXT_SETUP_POP3_SERVER
 msgid "POP3 server:"
-msgstr ""
+msgstr "POP3 server:"
 
 #. TEXT_SETUP_POP3_PORT
 msgid "POP3 port:"
-msgstr ""
+msgstr "POP3 port:"
 
 #. TEXT_SETUP_POP3_USER
 msgid "POP3 user:"
-msgstr ""
+msgstr "POP3 u¾ivatel:"
 
 #. TEXT_SETUP_POP3_PASS
-#, fuzzy
 msgid "POP3 password:"
-msgstr "Heslo:"
+msgstr "POP3 heslo:"
+
+#. TEXT_SETUP_MAIL_VIEWER
+msgid "Viewer (png):"
+msgstr "Prohlí¾eè (png):"
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
@@ -785,7 +805,7 @@ msgstr "v¹ichni"
 
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
-msgstr "Zapsat"
+msgstr "Zápis"
 
 #. NOTEBOOK_IMAGE_OPTIONS
 msgid "Image"
@@ -800,9 +820,8 @@ msgid "Fax"
 msgstr "Faxování"
 
 #. NOTEBOOK_MAIL_OPTIONS
-#, fuzzy
 msgid "Mail"
-msgstr "E-mail:"
+msgstr "Po¹ta"
 
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display"
@@ -812,14 +831,9 @@ msgstr "Zobrazování"
 msgid "Enhancement"
 msgstr "Vylep¹ení"
 
-#. MENU_ITEM_SCAN
-msgid "Scan"
-msgstr "Skenování"
-
 #. MENU_ITEM_MAIL
-#, fuzzy
 msgid "Email"
-msgstr "E-mail:"
+msgstr "E-mail"
 
 #. MENU_ITEM_SHOW_TOOLTIPS
 msgid "Show tooltips"
@@ -1004,19 +1018,39 @@ msgstr "Pøijímají se data typu %s"
 
 #. PROGRESS_TRANSFERING_DATA
 msgid "Transfering image"
-msgstr "Pøená¹í se obrázek"
+msgstr "Obrázek se pøená¹í"
 
 #. PROGRESS_ROTATING_DATA
 msgid "Rotating image"
-msgstr "Rotuje se obrázek"
+msgstr "Obrázek se rotuje"
+
+#. PROGRESS_MIRRORING_DATA
+msgid "Mirroring image"
+msgstr "Obrázek se zrcadlí"
 
 #. PROGRESS_PACKING_DATA
 msgid "Packing image"
-msgstr "Komprimuje se obrázek"
+msgstr "Obrázek se komprimuje"
 
 #. PROGRESS_CONVERTING_DATA
-msgid "Converting data"
-msgstr "Konvertují se data"
+msgid "Converting image"
+msgstr "Obrázek se pøevádí"
+
+#. PROGRESS_SAVING_DATA
+msgid "Saving image"
+msgstr "Obrázek se zapisuje"
+
+#. PROGRESS_CLONING_DATA
+msgid "Cloning image"
+msgstr "Razítkuje se obrázek"
+
+#. PROGRESS_DESPECKLING_DATA
+msgid "Despeckling image"
+msgstr "Obrázek se vyèis»uje"
+
+#. PROGRESS_BLURING_DATA
+msgid "Bluring image"
+msgstr "Obrázek se rozostøuje"
 
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
@@ -1039,6 +1073,10 @@ msgid "Use XSane for: SCANning-<Ctrl-s> photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>"
 msgstr ""
 "XSane slou¾í pro: SKENování-<Ctrl-s> KOPírování-<Ctrl-c> FAXování-<Ctrl-f>"
 
+#. DESC_XSANE_MEDIUM
+msgid "Select source medium type"
+msgstr "Zvolte typ zdrojového média"
+
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
 msgstr "Hodnota, která se pøidá k èítaèi jména souboru po skenování"
@@ -1060,7 +1098,7 @@ msgstr ""
 
 #. DESC_FAXPROJECT
 msgid "Enter name of fax project"
-msgstr "Zadání jméno faxového projektu"
+msgstr "Zadání jména faxového projektu"
 
 #. DESC_FAXPAGENAME
 msgid "Enter new name for faxpage"
@@ -1071,22 +1109,20 @@ msgid "Enter receiver phone number or address"
 msgstr "Zadání telefonního èísla nebo adresy pøíjemce"
 
 #. DESC_MAILPROJECT
-#, fuzzy
 msgid "Enter name of mail project"
-msgstr "Zadání jméno faxového projektu"
+msgstr "Zadání jména po¹tovního projektu"
 
 #. DESC_MAILIMAGENAME
-#, fuzzy
 msgid "Enter new name for mail image"
-msgstr "Zadání jména faxové strany"
+msgstr "Zadejte nové jméno obrázku do po¹ty"
 
 #. DESC_MAILRECEIVER
 msgid "Enter email address"
-msgstr ""
+msgstr "Zadejte e-mailovou adresu"
 
 #. DESC_MAILSUBJECT
 msgid "Enter subject of email"
-msgstr ""
+msgstr "Zadejte pøedmìt zprávy"
 
 #. DESC_PRESET_AREA_NAME
 msgid "Enter new name for preset area"
@@ -1517,43 +1553,47 @@ msgstr ""
 
 #. DESC_SMTP_SERVER
 msgid "IP Address or Domain name of SMTP server"
-msgstr ""
+msgstr "IP adresa nebo doména SMTP serveru"
 
 #. DESC_SMTP_PORT
 msgid "port to connect to SMTP server"
-msgstr ""
+msgstr "port pro spojení se SMTP serverem"
 
 #. DESC_MAIL_FROM
 msgid "enter your email address"
-msgstr ""
+msgstr "zadejte svou e-mailovou adresu"
 
 #. DESC_MAIL_REPLY_TO
 msgid "enter email address for replied emails"
-msgstr ""
+msgstr "zadejte svou e-mailovou adresu pro odpovìdi"
 
 #. DESC_POP3_AUTHENTIFICATION
 msgid "Authentificate at POP3 server before sending mail"
-msgstr ""
+msgstr "Authentifikace na POP3 serveru pøed odesláním mailu"
 
 #. DESC_POP3_SERVER
 msgid "IP Address or Domain name of POP3 server"
-msgstr ""
+msgstr "IP adresa nebo jméno doména POP3 serveru"
 
 #. DESC_POP3_PORT
 msgid "port to connect to POP3 server"
-msgstr ""
+msgstr "port pro pøipojení k POP3 serveru"
 
 #. DESC_POP3_USER
 msgid "user name for POP3 server"
-msgstr ""
+msgstr "u¾ivatelské jméno pro POP3 server"
 
 #. DESC_POP3_PASS
 msgid "password for POP3 server"
-msgstr ""
+msgstr "heslo pro POP3 server"
+
+#. DESC_MAIL_VIEWER
+msgid "Enter command to be executed to view a mail image"
+msgstr "Zadání pøíkazu, který má být vyvolán pøi zobrazení obrázku v mailu"
 
 #. DESC_HTML_MAIL
 msgid "Mail is sent in html mode, images are displayed directly"
-msgstr ""
+msgstr "Mail je posílán v re¾imu html, obrázky jsou zobrazovány pøímo"
 
 #. DESC_PERMISSION_READ
 msgid "read"
@@ -1605,9 +1645,8 @@ msgid "Autoselect scanarea"
 msgstr "Automatický výbìr skenovací plochy"
 
 #. DESC_DELETE_IMAGES
-#, fuzzy
 msgid "Delete preview image cache"
-msgstr "Rotace náhledu a skenování"
+msgstr "Smazat pamì» náhledu"
 
 #. DESC_PRESET_AREA
 msgid "Preset area"
@@ -1616,6 +1655,42 @@ msgstr "Pøedvolená oblast"
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
 msgstr "Rotace náhledu a skenování"
+
+#. DESC_VIEWER_CLONE
+msgid "Clone image"
+msgstr "Razítkovat obrázek"
+
+#. DESC_VIEWER_DESPECKLE
+msgid "Despeckle image"
+msgstr "Vyèistit obrázek"
+
+#. DESC_VIEWER_BLUR
+msgid "Blur image"
+msgstr "Rozostøit obrázek"
+
+#. DESC_VIEWER_ROTATE90
+msgid "Rotate image 90 degree"
+msgstr "Rotovat obrázek o 90 stupòù"
+
+#. DESC_VIEWER_ROTATE180
+msgid "Rotate image 180 degree"
+msgstr "Rotovat obrázek o 180 stupòù"
+
+#. DESC_VIEWER_ROTATE270
+msgid "Rotate image 270 degree"
+msgstr "Rotovat obrázek o 270 stupòù"
+
+#. DESC_VIEWER_MIRROR_X
+msgid "Mirror image at vertical axis"
+msgstr "Zrcadlit obrázek kolem svislé osy"
+
+#. DESC_VIEWER_MIRROR_Y
+msgid "Mirror image at horizontal axis"
+msgstr "Zrcadlit obrázek kolem vodorovné osy"
+
+#. DESC_VIEWER_ZOOM
+msgid "Zoom image"
+msgstr "Zvìt¹it obrázek"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -1700,7 +1775,7 @@ msgstr "nedostatek pamìti"
 
 #. ERR_TOO_MUCH_DATA
 msgid "Backend sends more image data than it defined in parameters"
-msgstr ""
+msgstr "Ovladaè poslal více dat, ne¾ bylo definováno v parametrech"
 
 #. ERR_LIBTIFF
 msgid "LIBTIFF reports error"
@@ -1727,14 +1802,12 @@ msgid "Failed to execute fax viewer:"
 msgstr "Spu¹tìní faxového prohlí¾eèe selhalo"
 
 #. ERR_FAILED_EXEC_FAX_CMD
-#, fuzzy
 msgid "Failed to execute fax command:"
 msgstr "Spu¹tìní faxového pøíkazu selhalo:"
 
 #. ERR_FAILED_EXEC_MAIL_VIEWER
-#, fuzzy
 msgid "Failed to execute mail image viewer:"
-msgstr "Spu¹tìní faxového prohlí¾eèe selhalo"
+msgstr "Spu¹tìní prohlí¾eèe obrázkù v po¹tì selhalo"
 
 #. ERR_BAD_FRAME_FORMAT
 msgid "bad frame format"
@@ -1855,6 +1928,11 @@ msgstr "má být pou¾it pro zaøízení"
 msgid "this may cause problems!"
 msgstr "to mù¾e zpùsobit problémy!"
 
+#. WARN_UNSAVED_IMAGES
+#, c-format
+msgid "There are %d unsaved images"
+msgstr ""
+
 #. WARN_FILE_EXISTS
 #, c-format
 msgid "File %s already exists"
@@ -1875,6 +1953,10 @@ msgstr "Soubor %s není postscriptový soubor"
 msgid "Unsupported %d-bit output format: %s"
 msgstr "Nepodporované %dbitové výstupní formáty: %s"
 
+#. WARN_VIEWER_IMAGE_NOT_SAVED
+msgid "viewer image is not saved"
+msgstr "obrázek z prohlí¾eèe není zapsán"
+
 #. TEXT_USAGE
 msgid "Usage:"
 msgstr "U¾ití:"
@@ -1884,7 +1966,6 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[VOLBA]... [ZAØÍZENÍ]"
 
 #. TEXT_HELP
-#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -1898,7 +1979,8 @@ msgid ""
 " -d, --device-settings file   load device settings from file (without "
 "\".drc\")\n"
 "\n"
-" -s, --scan                   start with scan-mode active\n"
+" -s, --save                   start with save-mode active\n"
+" -V, --viewer                 start with viewer-mode active\n"
 " -c, --copy                   start with copy-mode active\n"
 " -f, --fax                    start with fax-mode active\n"
 " -m, --mail                   start with mail-mode active\n"
@@ -1918,36 +2000,38 @@ msgid ""
 " --sync                       request a synchronous connection with the X11 "
 "server"
 msgstr ""
-"Spu¹tìní grafického rozhraní pro pøístup k SANE zarízením.\n"
+"Spu¹tìní grafického rozhraní pro pøístup k SANE zaøízením.\n"
 "(SANE = Scanner Access Now Easy - pøístup ke skeneru je nyní snadný)\n"
 "\n"
 "Formát [ZAØÍZENÍ] je jméno_ovladaèe:jméno_zaøízení (napø. "
 "umax:/dev/scanner).\n"
 "[VOLBA]... mù¾e být kombinací následujících polo¾ek:\n"
-"-h, --help                    vypí¹e tuto nápovìdu a skonèí\n"
-"-v, --version                 vypí¹e oznaèení verze\n"
-"-l, --license                 vypí¹e informace o licenci\n"
+" -h, --help                    vypí¹e tuto nápovìdu a skonèí\n"
+" -v, --version                 vypí¹e oznaèení verze\n"
+" -l, --license                 vypí¹e informace o licenci\n"
 "\n"
-"-d, --device-settings soubor  naète nastavení zaøízení ze souboru (bez "
+" -d, --device-settings soubor  naète nastavení zaøízení ze souboru (bez "
 "\".drc\")\n"
 "\n"
-"-s, --scan                    spustí se v re¾imu skenování\n"
-"-c, --copy                    spustí se v re¾imu kopírování\n"
-"-f, --fax                     spustí se v re¾imu faxování\n"
-"-n, --no-mode-selection       zaká¾e menu volby xsane re¾imu\n"
+" -s, --save                    spustí se v re¾imu zípisu\n"
+" -V, --viewer                  spustí se v re¾imu prohlí¾eèe\n"
+" -c, --copy                    spustí se v re¾imu kopírování\n"
+" -f, --fax                     spustí se v re¾imu faxování\n"
+" -m, --mail                    spustí se v re¾imu po¹ty\n"
+" -n, --no-mode-selection       zaká¾e menu volby re¾imu XSane\n"
 "\n"
-"-F, --Fixed                   pou¾ije pevnou velikost hlavního okna\n"
-"                              (pøepí¹e hodnotu pøedvolby)\n"
-"-R, --Resizeable              pou¾ije hlavní okno s posuvníky a promìnnou "
+" -F, --Fixed                   pou¾ije pevnou velikost hlavního okna\n"
+"                               (pøepí¹e hodnotu pøedvolby)\n"
+" -R, --Resizeable              pou¾ije hlavní okno s posuvníky a promìnnou "
 "velikostí\n"
-"                              (pøepí¹e hodnotu pøedvolby)\n"
-"-p, --print-filenames         vypí¹e jména souborù s vytvoøenými obrázky\n"
-"-N, --force-filename name     vnutit jméno souboru a vypnout volbu jména "
+"                               (pøepí¹e hodnotu pøedvolby)\n"
+" -p, --print-filenames         vypí¹e jména souborù s vytvoøenými obrázky\n"
+" -N, --force-filename name     vnutí jméno souboru a vypne volbu jména "
 "souboru\n"
 "\n"
-"--display X11-displej         pøesmìruje výstup na X11-displej\n"
-"--no-xshm                     nepou¾ije sdílené pamì»ové obrazy\n"
-"--sync                        vy¾ádá synchronní spojení s X11 serverem"
+" --display X11-displej         pøesmìruje výstup na X11-displej\n"
+" --no-xshm                     nepou¾ije sdílené pamì»ové obrazy\n"
+" --sync                        vy¾ádá synchronní spojení s X11 serverem"
 
 #. strings for gimp plugin
 #. XSANE_GIMP_INSTALL_BLURB
@@ -2018,13 +2102,13 @@ msgstr "13cm × 18cm"
 msgid "18cm x 13cm"
 msgstr "18cm × 13cm"
 
-#. MENU_ITEM_SURFACE_10cmx14cm
-msgid "10cm x 14cm"
-msgstr "10cm × 14cm"
+#. MENU_ITEM_SURFACE_10cmx15cm
+msgid "10cm x 15cm"
+msgstr "10cm × 15cm"
 
-#. MENU_ITEM_SURFACE_14cmx10cm
-msgid "14cm x 10cm"
-msgstr "14cm × 10cm"
+#. MENU_ITEM_SURFACE_15cmx10cm
+msgid "15cm x 10cm"
+msgstr "15cm × 10cm"
 
 #. MENU_ITEM_SURFACE_9cmx13cm
 msgid "9cm x 13cm"
@@ -2104,7 +2188,3 @@ msgstr "Nedostatek pamìti"
 
 msgid "Access to resource has been denied"
 msgstr "Pøístup ke zdroji byl odmítnut"
-
-#, fuzzy
-#~ msgid "Failed to execute mail command:"
-#~ msgstr "Spu¹tìní faxového pøíkazu selhalo:"

@@ -7,9 +7,6 @@ Sign explaination:
  - comes later/lower priority
 
 
- scan-function
-    # better postscript savings
-
  fax-function:
     + create lock file or information while spooling fax
     + add coverpage with edit like mail function
@@ -27,7 +24,7 @@ Sign explaination:
     - add ocr function, e.g. via gocr
 
  medium selection:
-    - add: add, edit, delete medium definition
+    # add: add, edit, delete medium definition
 
  preview:
     - force aspect ratio of selection area
@@ -40,10 +37,12 @@ Sign explaination:
     # correct gtk custom gamma functions and include it
       may be write an own gamma curve widget
 
+ viewer:
+    # crop function after scanning
+    # add some filters
+    # add scaling function
+
  internal:
-    - display scanned image in preview or new window (?)
-    - crop function after scanning?
-    - add some filters?
     + add range check / valid value when reading xsane.rc/*.drc files
     + add several defaults (fax=> mode=gray,...)
     - include much more parameters when saving images

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.77\n"
-"POT-Creation-Date: 2001-06-10 10:31+0200\n"
+"POT-Creation-Date: 2001-10-03 12:19+0200\n"
 "PO-Revision-Date: 2001-05-21 21:30+01:00\n"
 "Last-Translator: FULL NAME <johanb@lls.se>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -106,6 +106,16 @@ msgstr "Enhetsval"
 msgid "Preview"
 msgstr "Förhandsgranskning"
 
+#. WINDOW_VIEWER
+#, fuzzy
+msgid "Viewer"
+msgstr "Visa"
+
+#. WINDOW_VIEWER_OUTPUT_FILENAME
+#, fuzzy
+msgid "Viewer: select output filename"
+msgstr "till filnamn"
+
 #. WINDOW_OUTPUT_FILENAME
 msgid "select output filename"
 msgstr "till filnamn"
@@ -142,6 +152,11 @@ msgstr "Visa"
 msgid "Help"
 msgstr "Hjälp"
 
+#. MENU_FILTERS
+#, fuzzy
+msgid "Filters"
+msgstr "Arkiv"
+
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
 msgstr "Om XSane"
@@ -153,6 +168,23 @@ msgstr "Info"
 #. MENU_ITEM_QUIT
 msgid "Quit"
 msgstr "Avsluta"
+
+#. MENU_ITEM_SAVE_IMAGE
+#, fuzzy
+msgid "Save image"
+msgstr "Obearbetad bild"
+
+#. MENU_ITEM_CLOSE
+msgid "Close"
+msgstr "Stäng"
+
+#. MENU_ITEM_DESPECKLE
+msgid "Despeckle"
+msgstr ""
+
+#. MENU_ITEM_BLUR
+msgid "Blur"
+msgstr ""
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -197,10 +229,6 @@ msgstr "Fortsätt på egen risk"
 #. BUTTON_BROWSE
 msgid "Browse"
 msgstr "Bläddra"
-
-#. BUTTON_CLOSE
-msgid "Close"
-msgstr "Stäng"
 
 #. BUTTON_OVERWRITE
 msgid "Overwrite"
@@ -262,12 +290,28 @@ msgid "Delete printer"
 msgstr "Ta bort skrivare"
 
 #. BUTTON_PREVIEW_ACQUIRE
-msgid "Acquire Preview"
+#, fuzzy
+msgid "Acquire preview"
 msgstr "Hämta in förhandsgranskning"
 
 #. BUTTON_PREVIEW_CANCEL
-msgid "Cancel Preview"
+#, fuzzy
+msgid "Cancel preview"
 msgstr "Avbryt förhandsgranskning"
+
+#. BUTTON_DISCARD_IMAGE
+#, fuzzy
+msgid "Discard image"
+msgstr "Ta bort sida"
+
+#. BUTTON_DISCARD_ALL_IMAGES
+#, fuzzy
+msgid "Discard all images"
+msgstr "Ta bort sida"
+
+#. BUTTON_DO_NOT_CLOSE
+msgid "Do not close"
+msgstr ""
 
 #. RADIO_BUTTON_FINE_MODE
 msgid "Fine mode"
@@ -552,6 +596,10 @@ msgstr "Epost:"
 msgid "Attachments:"
 msgstr ""
 
+#. TEXT_MAIL_STATUS
+msgid "Project status:"
+msgstr ""
+
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
 msgstr "Välj skrivare:"
@@ -647,22 +695,6 @@ msgstr "TIFF 8 bit bildkompression"
 #. TEXT_SETUP_TIFF_COMPRESSION_1
 msgid "TIFF lineart image compression"
 msgstr "TIFF lineart-bildkompression"
-
-#. TEXT_SETUP_PSFILE_WIDTH
-msgid "Width of paper for postscript"
-msgstr "Pappersbredd för postscript"
-
-#. TEXT_SETUP_PSFILE_HEIGHT
-msgid "Height of paper for postscript"
-msgstr "Pappershöjd för postscript"
-
-#. TEXT_SETUP_PSFILE_LEFT
-msgid "Left offset for postscript"
-msgstr "Vänster marginal för postscript"
-
-#. TEXT_SETUP_PSFILE_BOTTOM
-msgid "Bottom offset for postscript"
-msgstr "Marginal från botten för postscript"
 
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
@@ -773,6 +805,11 @@ msgstr ""
 msgid "POP3 password:"
 msgstr "Lösenord:"
 
+#. TEXT_SETUP_MAIL_VIEWER
+#, fuzzy
+msgid "Viewer (png):"
+msgstr "Visare (Postscript):"
+
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
 msgstr "Användare"
@@ -813,10 +850,6 @@ msgstr "Visa"
 #. NOTEBOOK_ENHANCE_OPTIONS
 msgid "Enhancement"
 msgstr "Bearbetning"
-
-#. MENU_ITEM_SCAN
-msgid "Scan"
-msgstr "Läs in"
 
 #. MENU_ITEM_MAIL
 #, fuzzy
@@ -1012,13 +1045,39 @@ msgstr "För över bild"
 msgid "Rotating image"
 msgstr "Roterar bild"
 
+#. PROGRESS_MIRRORING_DATA
+#, fuzzy
+msgid "Mirroring image"
+msgstr "Roterar bild"
+
 #. PROGRESS_PACKING_DATA
 msgid "Packing image"
 msgstr "Packar bild"
 
 #. PROGRESS_CONVERTING_DATA
-msgid "Converting data"
+#, fuzzy
+msgid "Converting image"
 msgstr "Konverterar data...."
+
+#. PROGRESS_SAVING_DATA
+#, fuzzy
+msgid "Saving image"
+msgstr "Obearbetad bild"
+
+#. PROGRESS_CLONING_DATA
+#, fuzzy
+msgid "Cloning image"
+msgstr "Roterar bild"
+
+#. PROGRESS_DESPECKLING_DATA
+#, fuzzy
+msgid "Despeckling image"
+msgstr "Ta bort sida"
+
+#. PROGRESS_BLURING_DATA
+#, fuzzy
+msgid "Bluring image"
+msgstr "Ta bort sida"
 
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
@@ -1041,6 +1100,10 @@ msgid "Use XSane for: SCANning-<Ctrl-s> photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>"
 msgstr ""
 "Läs in bilder-<Ctrl-s>, faxa-<Ctrl-f> och gör fotokopior-<Ctrl-c> med "
 "XSane..."
+
+#. DESC_XSANE_MEDIUM
+msgid "Select source medium type"
+msgstr ""
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1560,6 +1623,11 @@ msgstr ""
 msgid "password for POP3 server"
 msgstr ""
 
+#. DESC_MAIL_VIEWER
+#, fuzzy
+msgid "Enter command to be executed to view a mail image"
+msgstr "Kommando som körs för att visa ett fax"
+
 #. DESC_HTML_MAIL
 msgid "Mail is sent in html mode, images are displayed directly"
 msgstr ""
@@ -1625,6 +1693,47 @@ msgstr "Förinställt område"
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
 msgstr "Rotera förhandsgranskning och inläsning"
+
+#. DESC_VIEWER_CLONE
+#, fuzzy
+msgid "Clone image"
+msgstr "Ta bort sida"
+
+#. DESC_VIEWER_DESPECKLE
+#, fuzzy
+msgid "Despeckle image"
+msgstr "Ta bort sida"
+
+#. DESC_VIEWER_BLUR
+#, fuzzy
+msgid "Blur image"
+msgstr "Ta bort sida"
+
+#. DESC_VIEWER_ROTATE90
+#, fuzzy
+msgid "Rotate image 90 degree"
+msgstr "Roterar bild"
+
+#. DESC_VIEWER_ROTATE180
+msgid "Rotate image 180 degree"
+msgstr ""
+
+#. DESC_VIEWER_ROTATE270
+msgid "Rotate image 270 degree"
+msgstr ""
+
+#. DESC_VIEWER_MIRROR_X
+msgid "Mirror image at vertical axis"
+msgstr ""
+
+#. DESC_VIEWER_MIRROR_Y
+msgid "Mirror image at horizontal axis"
+msgstr ""
+
+#. DESC_VIEWER_ZOOM
+#, fuzzy
+msgid "Zoom image"
+msgstr "Visa sida"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -1864,6 +1973,11 @@ msgstr "du vill använda den för enhet"
 msgid "this may cause problems!"
 msgstr "detta kan orsaka problem!"
 
+#. WARN_UNSAVED_IMAGES
+#, c-format
+msgid "There are %d unsaved images"
+msgstr ""
+
 #. WARN_FILE_EXISTS
 #, c-format
 msgid "File %s already exists"
@@ -1883,6 +1997,10 @@ msgstr "Fil %s är inte en postskriptfil"
 #, c-format
 msgid "Unsupported %d-bit output format: %s"
 msgstr "%d-bit utmatningsformat som inte stöds: %s"
+
+#. WARN_VIEWER_IMAGE_NOT_SAVED
+msgid "viewer image is not saved"
+msgstr ""
 
 #. TEXT_USAGE
 msgid "Usage:"
@@ -1907,7 +2025,8 @@ msgid ""
 " -d, --device-settings file   load device settings from file (without "
 "\".drc\")\n"
 "\n"
-" -s, --scan                   start with scan-mode active\n"
+" -s, --save                   start with save-mode active\n"
+" -V, --viewer                 start with viewer-mode active\n"
 " -c, --copy                   start with copy-mode active\n"
 " -f, --fax                    start with fax-mode active\n"
 " -m, --mail                   start with mail-mode active\n"
@@ -2022,12 +2141,14 @@ msgstr "13cm x 18cm"
 msgid "18cm x 13cm"
 msgstr "18cm x 13cm"
 
-#. MENU_ITEM_SURFACE_10cmx14cm
-msgid "10cm x 14cm"
+#. MENU_ITEM_SURFACE_10cmx15cm
+#, fuzzy
+msgid "10cm x 15cm"
 msgstr "10cm x 14cm"
 
-#. MENU_ITEM_SURFACE_14cmx10cm
-msgid "14cm x 10cm"
+#. MENU_ITEM_SURFACE_15cmx10cm
+#, fuzzy
+msgid "15cm x 10cm"
 msgstr "14cm x 10cm"
 
 #. MENU_ITEM_SURFACE_9cmx13cm
@@ -2108,6 +2229,21 @@ msgstr "Slut på minne"
 
 msgid "Access to resource has been denied"
 msgstr "Tillgång till resurs nekas"
+
+#~ msgid "Width of paper for postscript"
+#~ msgstr "Pappersbredd för postscript"
+
+#~ msgid "Height of paper for postscript"
+#~ msgstr "Pappershöjd för postscript"
+
+#~ msgid "Left offset for postscript"
+#~ msgstr "Vänster marginal för postscript"
+
+#~ msgid "Bottom offset for postscript"
+#~ msgstr "Marginal från botten för postscript"
+
+#~ msgid "Scan"
+#~ msgstr "Läs in"
 
 #, fuzzy
 #~ msgid "Failed to execute mail command:"

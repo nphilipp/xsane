@@ -71,14 +71,18 @@ static void xsane_setup_display_apply_changes(GtkWidget *widget, gpointer data);
 static void xsane_setup_saving_apply_changes(GtkWidget *widget, gpointer data);
 static void xsane_setup_image_apply_changes(GtkWidget *widget, gpointer data);
 static void xsane_setup_fax_apply_changes(GtkWidget *widget, gpointer data);
+#ifdef XSANE_ACTIVATE_MAIL
 static void xsane_setup_mail_apply_changes(GtkWidget *widget, gpointer data);
+#endif
 static void xsane_setup_options_ok_callback(GtkWidget *widget, gpointer data);
 
 static void xsane_printer_notebook(GtkWidget *notebook);
 static void xsane_saving_notebook(GtkWidget *notebook);
 static void xsane_image_notebook(GtkWidget *notebook);
 static void xsane_fax_notebook(GtkWidget *notebook);
+#ifdef XSANE_ACTIVATE_MAIL
 static void xsane_mail_notebook(GtkWidget *notebook);
+#endif
 static void xsane_display_notebook(GtkWidget *notebook);
 static void xsane_enhance_notebook_sensitivity(int lineart_mode);
 static void xsane_setup_lineart_mode_callback(GtkWidget *widget, gpointer data);
@@ -595,11 +599,6 @@ static void xsane_setup_image_apply_changes(GtkWidget *widget, gpointer data)
 
   xsane_update_bool(xsane_setup.reduce_16bit_to_8bit_button,  &preferences.reduce_16bit_to_8bit);
 
-  xsane_update_geometry_double(xsane_setup.psfile_leftoffset_entry,   &preferences.psfile_leftoffset,   preferences.length_unit);
-  xsane_update_geometry_double(xsane_setup.psfile_bottomoffset_entry, &preferences.psfile_bottomoffset, preferences.length_unit);
-  xsane_update_geometry_double(xsane_setup.psfile_width_entry,        &preferences.psfile_width,        preferences.length_unit);
-  xsane_update_geometry_double(xsane_setup.psfile_height_entry,       &preferences.psfile_height,       preferences.length_unit);
-
   xsane_define_maximum_output_size();
 }
 
@@ -630,6 +629,7 @@ static void xsane_setup_fax_apply_changes(GtkWidget *widget, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+#ifdef XSANE_ACTIVATE_MAIL
 static void xsane_setup_mail_apply_changes(GtkWidget *widget, gpointer data)
 {
  int i;
@@ -655,6 +655,7 @@ static void xsane_setup_mail_apply_changes(GtkWidget *widget, gpointer data)
   xsane_update_int(xsane_setup.mail_smtp_port_entry, &preferences.mail_smtp_port);
   xsane_update_int(xsane_setup.mail_pop3_port_entry, &preferences.mail_pop3_port);
 }
+#endif
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -668,7 +669,9 @@ static void xsane_setup_options_ok_callback(GtkWidget *widget, gpointer data)
   xsane_setup_saving_apply_changes(0, 0);
   xsane_setup_image_apply_changes(0, 0);
   xsane_setup_fax_apply_changes(0, 0);
+#ifdef XSANE_ACTIVATE_MAIL
   xsane_setup_mail_apply_changes(0, 0);
+#endif
 
   if (xsane_setup.grayscale_scanmode)
   {
@@ -1447,8 +1450,7 @@ static void xsane_saving_notebook(GtkWidget *notebook)
 
 static void xsane_image_notebook(GtkWidget *notebook)
 {
- GtkWidget *setup_vbox, *vbox, *hbox, *button, *label, *text, *frame;
- char buf[64];
+ GtkWidget *setup_vbox, *vbox, *hbox, *button, *label, *frame;
  int i, select = 1;
 
 #ifdef HAVE_LIBTIFF
@@ -1669,87 +1671,6 @@ static void xsane_image_notebook(GtkWidget *notebook)
 
 #endif
 
-  xsane_separator_new(vbox, 4);
-
-  /* psfile width: */
-
-  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
-
-  snprintf(buf, sizeof(buf), "%s [%s]:", TEXT_SETUP_PSFILE_WIDTH, xsane_back_gtk_unit_string(SANE_UNIT_MM));
-  label = gtk_label_new(buf);
-  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
-  gtk_widget_show(label);
-
-  text = gtk_entry_new();
-  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_PSFILE_WIDTH);
-  gtk_widget_set_usize(text, 80, 0);
-  snprintf(buf, sizeof(buf), "%4.3f", preferences.psfile_width / preferences.length_unit);
-  gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
-  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
-  gtk_widget_show(text);
-  gtk_widget_show(hbox);
-  xsane_setup.psfile_width_entry = text;
-
-  /* psfile height: */
-
-  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
-
-  snprintf(buf, sizeof(buf), "%s [%s]:", TEXT_SETUP_PSFILE_HEIGHT, xsane_back_gtk_unit_string(SANE_UNIT_MM));
-  label = gtk_label_new(buf);
-  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
-  gtk_widget_show(label);
-
-  text = gtk_entry_new();
-  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_PSFILE_HEIGHT);
-  gtk_widget_set_usize(text, 80, 0);
-  snprintf(buf, sizeof(buf), "%4.3f", preferences.psfile_height / preferences.length_unit);
-  gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
-  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
-  gtk_widget_show(text);
-  gtk_widget_show(hbox);
-  xsane_setup.psfile_height_entry = text;
-
-  /* psfile left offset : */
-
-  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
-
-  snprintf(buf, sizeof(buf), "%s [%s]:", TEXT_SETUP_PSFILE_LEFT, xsane_back_gtk_unit_string(SANE_UNIT_MM));
-  label = gtk_label_new(buf);
-  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
-  gtk_widget_show(label);
-
-  text = gtk_entry_new();
-  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_PSFILE_LEFTOFFSET);
-  gtk_widget_set_usize(text, 80, 0);
-  snprintf(buf, sizeof(buf), "%4.3f", preferences.psfile_leftoffset / preferences.length_unit);
-  gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
-  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
-  gtk_widget_show(text);
-  gtk_widget_show(hbox);
-  xsane_setup.psfile_leftoffset_entry = text;
-
-  /* psfile bottom offset : */
-
-  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
-
-  snprintf(buf, sizeof(buf), "%s [%s]:", TEXT_SETUP_PSFILE_BOTTOM, xsane_back_gtk_unit_string(SANE_UNIT_MM));
-  label = gtk_label_new(buf);
-  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
-  gtk_widget_show(label);
-
-  text = gtk_entry_new();
-  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_PSFILE_BOTTOMOFFSET);
-  gtk_widget_set_usize(text, 80, 0);
-  snprintf(buf, sizeof(buf), "%4.3f", preferences.psfile_bottomoffset / preferences.length_unit);
-  gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
-  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
-  gtk_widget_show(text);
-  gtk_widget_show(hbox);
-  xsane_setup.psfile_bottomoffset_entry = text;
 
   xsane_separator_new(vbox, 4);
 
@@ -2019,6 +1940,7 @@ static void xsane_setup_pop3_authentification_callback(GtkWidget *widget, gpoint
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+#ifdef XSANE_ACTIVATE_MAIL
 static void xsane_mail_notebook(GtkWidget *notebook)
 {
  GtkWidget *setup_vbox, *vbox, *pop3_vbox, *hbox, *button, *label, *text, *frame;
@@ -2264,6 +2186,7 @@ static void xsane_mail_notebook(GtkWidget *notebook)
 
   gtk_widget_show(hbox);
 }
+#endif
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -2995,7 +2918,9 @@ void xsane_setup_dialog(GtkWidget *widget, gpointer data)
   xsane_image_notebook(notebook);
   xsane_printer_notebook(notebook);
   xsane_fax_notebook(notebook);
+#ifdef XSANE_ACTIVATE_MAIL
   xsane_mail_notebook(notebook);
+#endif
   xsane_display_notebook(notebook);
   xsane_enhance_notebook(notebook);
 

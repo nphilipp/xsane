@@ -43,7 +43,7 @@ extern gint xsane_authorization_callback(SANE_String_Const resource,
                                          SANE_Char username[SANE_MAX_USERNAME_LEN],
                                          SANE_Char password[SANE_MAX_PASSWORD_LEN]);
 extern void xsane_progress_cancel(GtkWidget *widget, gpointer data);
-extern void xsane_progress_new(char *bar_text, char *info, GtkSignalFunc callback);
+extern void xsane_progress_new(char *bar_text, char *info, GtkSignalFunc callback, int *cancel_data_pointer);
 extern void xsane_progress_update(gfloat newval);
 extern void xsane_progress_clear();
 extern GtkWidget *xsane_vendor_pixmap_new(GdkWindow *window, GtkWidget *parent); 
@@ -70,7 +70,7 @@ extern GtkWidget *xsane_info_text_new(GtkWidget *parent, gchar *text);
 extern void xsane_refresh_dialog(void);
 extern void xsane_update_param(void *arg);
 extern void xsane_define_output_filename(void);
-extern void xsane_identify_output_format(char **ext);
+extern int xsane_identify_output_format(char *filename, char **ext);
 extern void xsane_change_working_directory(void);
 extern int xsane_display_license(int ask_for_accept);
 extern void xsane_widget_get_uposition(GtkWidget *gtk_window, gint *x, gint *y);

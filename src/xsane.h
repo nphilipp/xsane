@@ -32,7 +32,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.79"
+#define XSANE_VERSION		"0.80"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2001"
@@ -71,6 +71,10 @@
 # include <lalloca.h>
 #endif
 
+#ifdef __hpux
+# include <alloca.h>
+#endif
+
 #include <assert.h>
 #include <errno.h>
 #include <memory.h>
@@ -100,6 +104,7 @@
 #include "xsane-text.h"
 #include "xsane-fixedtext.h"
 #include "xsane-icons.h"
+#include "xsane-viewer.h"
 
 #include <gdk/gdkkeysyms.h>
 #include <gdk/gdk.h>
@@ -208,6 +213,38 @@ typedef struct GSGDialogElement
 GSGDialogElement;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
+
+typedef struct Image_info
+  {
+    int image_width;
+    int image_height;
+
+    int depth;
+    int colors;
+
+    double resolution_x;
+    double resolution_y;
+
+    double gamma;
+    double gamma_red;
+    double gamma_green;
+    double gamma_blue;
+
+    double brightness;
+    double brightness_red;
+    double brightness_green;
+    double brightness_blue;
+
+    double contrast;
+    double contrast_red;
+    double contrast_green;
+    double contrast_blue;
+
+    double threshold;
+  }
+Image_info;
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
 #include "xsane-preferences.h"
 #include "xsane-preview.h"
 
@@ -240,7 +277,7 @@ GSGDialogElement;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-enum { XSANE_SCAN, XSANE_COPY, XSANE_FAX, XSANE_MAIL };
+enum { XSANE_SAVE, XSANE_VIEWER, XSANE_COPY, XSANE_FAX, XSANE_MAIL };
 enum { XSANE_LINEART_STANDARD, XSANE_LINEART_XSANE, XSANE_LINEART_GRAYSCALE };
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -448,9 +485,11 @@ typedef struct Xsane
     GtkObject *start_button;
     GtkObject *cancel_button;
     GtkSignalFunc cancel_callback;
+    Viewer    *viewer_list;
     Preview   *preview;
     int preview_gamma_size;
     int mode;
+    int medium_nr;
 
     int main_window_fixed;
     int mode_selection;
@@ -461,10 +500,9 @@ typedef struct Xsane
     SANE_Int depth;
     size_t num_bytes;
     size_t bytes_read;
-    GtkWidget *progress_bar;
+    GtkProgressBar *progress_bar;
     int input_tag;
     SANE_Parameters param;
-    int x, y;
     int adf_page_counter;
 
     /* for standalone mode: */
@@ -555,7 +593,7 @@ typedef struct Xsane
     GtkObject *contrast_blue_widget;
     GtkObject *threshold_widget;
 
-    SANE_Int xsane_color;
+    SANE_Int xsane_colors;
     SANE_Bool scanner_gamma_color;
     SANE_Bool scanner_gamma_gray;
 
@@ -582,6 +620,8 @@ typedef struct Xsane
     int block_update_param;
 
     int broken_pipe; /* for printercommand pipe */
+
+    int cancel_save;
 
 /* -------------------------------------------------- */
 
@@ -659,15 +699,6 @@ typedef struct Xsane
 
 /* -------------------------------------------------- */
 
-#ifdef HAVE_LIBGIMP_GIMP_H
-    /* for GIMP mode: */
-    gint32 image_ID; /* has to be gint32 */
-    GimpDrawable *drawable;
-    guchar *tile;
-    unsigned tile_offset;
-    GimpPixelRgn region;
-    int first_frame;		/* used for RED/GREEN/BLUE frames */
-#endif
 } Xsane;
 
 extern struct Xsane xsane;
@@ -729,10 +760,6 @@ typedef struct XsaneSetup
   GtkWidget *fax_leftoffset_entry;
   GtkWidget *fax_bottomoffset_entry;
   GtkWidget *fax_height_entry;
-  GtkWidget *psfile_width_entry;
-  GtkWidget *psfile_leftoffset_entry;
-  GtkWidget *psfile_bottomoffset_entry;
-  GtkWidget *psfile_height_entry;
   GtkWidget *tmp_path_entry;
 
   GtkWidget *mail_smtp_server_entry;
@@ -770,6 +797,7 @@ extern struct XsaneSetup xsane_setup;
 
 extern int DBG_LEVEL;
 
+#ifdef __GNUC__
 # define DBG(level, msg, args...)                \
   {                                              \
     if (DBG_LEVEL >= (level))                    \
@@ -778,6 +806,10 @@ extern int DBG_LEVEL;
       fflush(stderr);                            \
     }                                            \
   }
+#else
+  extern void xsane_debug_message(int level, const char *fmt, ...);
+# define DBG xsane_debug_message
+#endif
 
 # define DBG_init()                                          \
   {                                                          \

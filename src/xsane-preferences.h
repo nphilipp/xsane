@@ -129,10 +129,6 @@ typedef struct
     int    reduce_16bit_to_8bit;	/* reduce images with 16 bits/color to 8 bits/color */
     int    filename_counter_step;	/* filename_counter += filename_counter_step; */
     int    filename_counter_len;	/* minimum length of filename_counter */
-    double psfile_width;		/* width of psfile in mm */
-    double psfile_height;		/* height of psfile in mm */
-    double psfile_leftoffset;		/* left offset of psfile in mm */
-    double psfile_bottomoffset;		/* bottom offset of psfile in mm */
 
     int    tooltips_enabled;		/* should tooltips be disabled? */
     int    show_histogram;		/* show histogram ? */

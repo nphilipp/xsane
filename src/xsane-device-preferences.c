@@ -148,6 +148,8 @@ static int xsane_device_preferences_load_values(Wire *w, SANE_Handle device)
         keep_going = 0;
         continue;
       }
+
+      /* no keep_gooing: we can exit, all options should be set correct */
       return 0;
     }
     else if (w->status) /* error: skip line */
@@ -169,9 +171,12 @@ static int xsane_device_preferences_load_values(Wire *w, SANE_Handle device)
 
       if (IS_SET(caused_reload, i)) 
       {
-        continue; /* option caused a reload, continue search ??? why? ??? */
+        continue; /* option already caused a reload: */
+                  /* we expect that this option already is set correct */
+                  /* otherwise we could get infinite loops */
       }
 
+      /* name is correct and option did not force a reload: set option */
       switch (opt->type)
       {
         case SANE_TYPE_BOOL:
@@ -182,7 +187,7 @@ static int xsane_device_preferences_load_values(Wire *w, SANE_Handle device)
             xsane_rc_io_w_word(w, &word);
             status = xsane_control_option(device, i, SANE_ACTION_SET_VALUE, &word, &info);
           }
-          else
+          else /* array */
           {
             SANE_Int len;
 
@@ -240,8 +245,14 @@ static int xsane_device_preferences_save_values(Wire *w, SANE_Handle device)
 
   for (i = 0; (opt = xsane_get_option_descriptor(device, i)); ++i)
   {
-    if ((opt->cap & (SANE_CAP_SOFT_SELECT | SANE_CAP_SOFT_DETECT)) != (SANE_CAP_SOFT_SELECT | SANE_CAP_SOFT_DETECT) || !opt->name)
+    if ((opt->cap & (SANE_CAP_SOFT_SELECT | SANE_CAP_SOFT_DETECT)) !=
+        (SANE_CAP_SOFT_SELECT | SANE_CAP_SOFT_DETECT) || !opt->name)
 	/* if we can't query AND set the option, don't bother saving it */
+    {
+      continue;
+    }
+
+    if (!SANE_OPTION_IS_ACTIVE(opt->cap)) /* option is not active, don`t save it */
     {
       continue;
     }

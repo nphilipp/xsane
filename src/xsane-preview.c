@@ -1464,7 +1464,7 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
         offset = 0;
       }
     }
-    else
+    else /* bad bitdepth */
     {
       preview_scan_done(p, 0);
       snprintf(buf, sizeof(buf), "%s %d.", ERR_PREVIEW_BAD_DEPTH, p->params.depth);
@@ -1519,42 +1519,113 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
         switch (p->params.depth)
         {
           case 8:
-            for (i = 0; i < len; ++i)
+#if 0
+            if (!xsane.scanner_gamma_gray) /* medium gamma correction has to be done by xsane */
             {
-              if (preview_test_image_y(p))
-              {
-                return; /* backend sends too much image data */
-              }
+             int val;
 
-              p->image_data_raw[p->image_offset]   = buf[i] * 256;
-              p->image_data_enh[p->image_offset++] = buf[i];
-
-              if (p->image_offset%3 == 0)
+              for (i = 0; i < len; ++i)
               {
-                if (++p->image_x >= p->image_width && preview_increment_image_y(p) < 0)
+                if (preview_test_image_y(p))
                 {
-                  return;
+                  return; /* backend sends too much image data */
+                }
+
+                val = p->gamma_data_gray[(int) buf[i]*256];
+
+                p->image_data_raw[p->image_offset]   = val;
+                p->image_data_enh[p->image_offset++] = (uchar) (val / 256);
+
+                if (p->image_offset%3 == 0)
+                {
+                  if (++p->image_x >= p->image_width && preview_increment_image_y(p) < 0)
+                  {
+                    return;
+                  }
+                }
+              }
+            }
+            else /* medium gamma correction is done by scanner */
+#endif
+            {
+              for (i = 0; i < len; ++i)
+              {
+                if (preview_test_image_y(p))
+                {
+                  return; /* backend sends too much image data */
+                }
+
+                p->image_data_raw[p->image_offset]   = buf[i] * 256;
+                p->image_data_enh[p->image_offset++] = buf[i];
+
+                if (p->image_offset%3 == 0)
+                {
+                  if (++p->image_x >= p->image_width && preview_increment_image_y(p) < 0)
+                  {
+                    return;
+                  }
                 }
               }
             }
             break;
 
           case 16:
-            for (i = 0; i < len/2; ++i)
+#if 0
+            if (!xsane.scanner_gamma_color) /* medium gamma correction has to be done by xsane */
             {
-              if (preview_test_image_y(p))
-              {
-                return; /* backend sends too much image data */
-              }
+             int val;
 
-              p->image_data_raw[p->image_offset]   = buf16[i];
-              p->image_data_enh[p->image_offset++] = (u_char) (buf16[i]/256);
-
-              if (p->image_offset%3 == 0)
+              for (i = 0; i < len/2; ++i)
               {
-                if (++p->image_x >= p->image_width && preview_increment_image_y(p) < 0)
+                if (preview_test_image_y(p))
                 {
-                  return;
+                  return; /* backend sends too much image data */
+                }
+
+                if (p->image_offset%3 == 0)
+                {
+                  val = p->gamma_data_red[(int) buf16[i]];
+                }
+                else if (p->image_offset%3 == 1)
+                {
+                  val = p->gamma_data_green[(int) buf16[i]];
+                }
+                else
+                {
+                  val = p->gamma_data_blue[(int) buf16[i]];
+                }
+  
+                p->image_data_raw[p->image_offset]   = val;
+                p->image_data_enh[p->image_offset++] = (u_char) (val/256);
+  
+                if (p->image_offset%3 == 0)
+                {
+                  if (++p->image_x >= p->image_width && preview_increment_image_y(p) < 0)
+                  {
+                    return;
+                  }
+                }
+              }
+            }
+            else /* medium gamma correction is done by scanner */
+#endif
+            {
+              for (i = 0; i < len/2; ++i)
+              {
+                if (preview_test_image_y(p))
+                {
+                  return; /* backend sends too much image data */
+                }
+  
+                p->image_data_raw[p->image_offset]   = buf16[i];
+                p->image_data_enh[p->image_offset++] = (u_char) (buf16[i]/256);
+  
+                if (p->image_offset%3 == 0)
+                {
+                  if (++p->image_x >= p->image_width && preview_increment_image_y(p) < 0)
+                  {
+                    return;
+                  }
                 }
               }
             }
@@ -1900,6 +1971,7 @@ static int preview_get_memory(Preview *p)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+/* preview_scan_start is called 3 times in 3 pass color scanning mode */
 static void preview_scan_start(Preview *p)
 {
  SANE_Handle dev = xsane.dev;
@@ -1924,13 +1996,10 @@ static void preview_scan_start(Preview *p)
   p->image_surface[2]   = p->surface[p->index_xmax];
   p->image_surface[3]   = p->surface[p->index_ymax];
 
-  xsane_clear_histogram(&xsane.histogram_raw);
-  xsane_clear_histogram(&xsane.histogram_enh);
-
   gtk_widget_set_sensitive(p->cancel, TRUE);
   xsane_set_sensitivity(FALSE);
 
-  /* clear old preview: */
+  /* clear preview row */
   memset(p->preview_row, 0xff, 3*p->preview_width);
 
   for (y = 0; y < p->preview_height; ++y)
@@ -1958,7 +2027,18 @@ static void preview_scan_start(Preview *p)
       gamma_gray_max  = opt->constraint.range->max;
 
       gamma_data = malloc(gamma_gray_size  * sizeof(SANE_Int));
-      xsane_create_gamma_curve(gamma_data, 0, 1.0, 0.0, 0.0, 0.0, 100.0, 1.0, gamma_gray_size, gamma_gray_max);
+
+      if (xsane.xsane_colors > 1) /* color scan */
+      {
+        xsane_create_gamma_curve(gamma_data, 0, 1.0, 0.0, 0.0, 0.0, 100.0, 1.0, gamma_gray_size, gamma_gray_max);
+      }
+      else /* grayscale scan */
+      {
+        xsane_create_gamma_curve(gamma_data, xsane.medium_negative, 1.0, 0.0, 0.0,
+                                 xsane.medium_shadow_gray, xsane.medium_highlight_gray, xsane.medium_gamma_gray,
+                                 gamma_gray_size, gamma_gray_max);
+      }
+      
       xsane_back_gtk_update_vector(xsane.well_known.gamma_vector, gamma_data);
       free(gamma_data);
     }
@@ -3417,7 +3497,7 @@ Preview *preview_new(void)
   gtk_widget_show(hbox);
 
 
-  /* top hbox for pipette buttons */
+  /* top hbox for icons */
   p->button_box = gtk_hbox_new(FALSE, 1);
   gtk_container_set_border_width(GTK_CONTAINER(p->button_box), 1);
   gtk_box_pack_start(GTK_BOX(vbox), p->button_box, FALSE, FALSE, 0);
@@ -3886,6 +3966,9 @@ void preview_scan(Preview *p)
 
   preview_save_option(p, xsane.well_known.bit_depth, &p->saved_bit_depth, &p->saved_bit_depth_valid);
 
+
+  xsane_set_medium(preferences.medium[xsane.medium_nr]); /* make sure medium gamma values are up to date */
+
   /* determine dpi, if necessary: */
 
   if (xsane.well_known.dpi > 0)
@@ -3975,6 +4058,9 @@ void preview_scan(Preview *p)
 #endif
 
   xsane.block_update_param = FALSE;
+
+  xsane_clear_histogram(&xsane.histogram_raw);
+  xsane_clear_histogram(&xsane.histogram_enh);
 
   /* OK, all set to go */
   preview_scan_start(p);

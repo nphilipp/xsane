@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.77\n"
-"POT-Creation-Date: 2001-06-10 10:31+0200\n"
-"PO-Revision-Date: 2001-05-21 23:18+09:00\n"
+"Project-Id-Version: XSANE 0.80\n"
+"POT-Creation-Date: 2001-10-03 12:19+0200\n"
+"PO-Revision-Date: 2001-10-04 01:00+09:00\n"
 "Last-Translator: Kimizuka Tomokazu <sgtom@pluto.dti.ne.jp>\n"
 "Language-Team: Japanese <Kdeveloper@kde.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -60,19 +60,16 @@ msgid "insert ps-file into fax"
 msgstr "PS¥Õ¥¡¥¤¥ë¤òFAX¤ËÁÞÆþ"
 
 #. WINDOW_MAIL_PROJECT
-#, fuzzy
 msgid "mail project"
-msgstr "FAX¥×¥í¥¸¥§¥¯¥È"
+msgstr "¥á¡¼¥ë¥×¥í¥¸¥§¥¯¥È"
 
 #. WINDOW_MAIL_RENAME
-#, fuzzy
 msgid "rename mail image"
-msgstr "FAX¥Ú¡¼¥¸¤ò¥ê¥Í¡¼¥à"
+msgstr "¥á¡¼¥ë¥¤¥á¡¼¥¸¤ò¥ê¥Í¡¼¥à"
 
 #. WINDOW_MAIL_INSERT
-#, fuzzy
 msgid "insert file into mail"
-msgstr "PS¥Õ¥¡¥¤¥ë¤òFAX¤ËÁÞÆþ"
+msgstr "¥Õ¥¡¥¤¥ë¤ò¥á¡¼¥ë¤ËÁÞÆþ"
 
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
@@ -105,6 +102,14 @@ msgstr "¥Ç¥Ð¥¤¥¹ÁªÂò"
 #. WINDOW_PREVIEW
 msgid "Preview"
 msgstr "¥×¥ì¥Ó¥å¡¼"
+
+#. WINDOW_VIEWER
+msgid "Viewer"
+msgstr "¥Ó¥å¡¼¥ï"
+
+#. WINDOW_VIEWER_OUTPUT_FILENAME
+msgid "Viewer: select output filename"
+msgstr "¥Ó¥å¡¼¥ï¡§½ÐÎÏ¥Õ¥¡¥¤¥ëÌ¾¤òÁªÂò"
 
 #. WINDOW_OUTPUT_FILENAME
 msgid "select output filename"
@@ -142,6 +147,10 @@ msgstr "É½¼¨"
 msgid "Help"
 msgstr "¥Ø¥ë¥×"
 
+#. MENU_FILTERS
+msgid "Filters"
+msgstr "¥Õ¥£¥ë¥¿"
+
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
 msgstr "XSane¤Ë¤Ä¤¤¤Æ"
@@ -153,6 +162,22 @@ msgstr "¾ðÊó"
 #. MENU_ITEM_QUIT
 msgid "Quit"
 msgstr "½ªÎ»"
+
+#. MENU_ITEM_SAVE_IMAGE
+msgid "Save image"
+msgstr "¥¤¥á¡¼¥¸¤òÊÝÂ¸"
+
+#. MENU_ITEM_CLOSE
+msgid "Close"
+msgstr "ÊÄ¤¸¤ë"
+
+#. MENU_ITEM_DESPECKLE
+msgid "Despeckle"
+msgstr "¤·¤ß¼è¤ê"
+
+#. MENU_ITEM_BLUR
+msgid "Blur"
+msgstr "¤Ë¤¸¤ß"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -198,10 +223,6 @@ msgstr "ËÜÅö¤ËÂ³¤±¤ë"
 msgid "Browse"
 msgstr "¥Ö¥é¥¦¥º"
 
-#. BUTTON_CLOSE
-msgid "Close"
-msgstr "ÊÄ¤¸¤ë"
-
 #. BUTTON_OVERWRITE
 msgid "Overwrite"
 msgstr "¾å½ñ¤­"
@@ -223,19 +244,16 @@ msgid "Rename page"
 msgstr "¥Ú¡¼¥¸¤ò¥ê¥Í¡¼¥à"
 
 #. BUTTON_IMAGE_DELETE
-#, fuzzy
 msgid "Delete image"
-msgstr "¥Ú¡¼¥¸ºï½ü"
+msgstr "²èÁü¤òºï½ü"
 
 #. BUTTON_IMAGE_SHOW
-#, fuzzy
 msgid "Show image"
-msgstr "¥Ú¡¼¥¸¤òÉ½¼¨"
+msgstr "²èÁü¤òÉ½¼¨"
 
 #. BUTTON_IMAGE_RENAME
-#, fuzzy
 msgid "Rename image"
-msgstr "¥Ú¡¼¥¸¤ò¥ê¥Í¡¼¥à"
+msgstr "²èÁü¤ò¥ê¥Í¡¼¥à"
 
 #. BUTTON_FILE_INSERT
 msgid "Insert file"
@@ -262,12 +280,25 @@ msgid "Delete printer"
 msgstr "¥×¥ê¥ó¥¿ºï½ü"
 
 #. BUTTON_PREVIEW_ACQUIRE
-msgid "Acquire Preview"
+msgid "Acquire preview"
 msgstr "¥×¥ì¥Ó¥å¡¼¤ò¼èÆÀ"
 
 #. BUTTON_PREVIEW_CANCEL
-msgid "Cancel Preview"
+msgid "Cancel preview"
 msgstr "¥×¥ì¥Ó¥å¡¼¤ò¥­¥ã¥ó¥»¥ë"
+
+#. BUTTON_DISCARD_IMAGE
+msgid "Discard image"
+msgstr "²èÁü¤òºï½ü"
+
+#. BUTTON_DISCARD_ALL_IMAGES
+#, fuzzy
+msgid "Discard all images"
+msgstr "²èÁü¤òºï½ü"
+
+#. BUTTON_DO_NOT_CLOSE
+msgid "Do not close"
+msgstr "ÊÄ¤¸¤Ê¤¤"
 
 #. RADIO_BUTTON_FINE_MODE
 msgid "Fine mode"
@@ -275,7 +306,7 @@ msgstr "¥Õ¥¡¥¤¥ó¥â¡¼¥É"
 
 #. RADIO_BUTTON_HTML_MAIL
 msgid "HTML mail"
-msgstr ""
+msgstr "HTML¥á¡¼¥ë"
 
 #. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device preferences at exit"
@@ -319,7 +350,7 @@ msgstr "¿§ºÌ¤Î¼«Æ°ÊäÀµ"
 
 #. RADIO_BUTTON_POP3_AUTHENTIFICATION
 msgid "POP3 authentification"
-msgstr ""
+msgstr "POP3Ç§¾Ú"
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
@@ -497,10 +528,9 @@ msgid ""
 msgstr ""
 "XSane¤Ï¡¢Free Software Foundation¤¬¸øÉ½¤·¤¿GNU°ìÈÌ¸øÍ­»ÈÍÑµöÂú¤Î\n"
 "¡Ö¥Ð¡¼¥¸¥ç¥ó£²¡×°¿¤¤¤Ï¤½¤ì°Ê¹ß¤Î³Æ¥Ð¡¼¥¸¥ç¥ó¤ÎÃæ¤«¤é¤¤¤º¤ì¤«¤òÁªÂò¤·¡¢¤½¤Î\n"
-"¥Ð¡¼¥¸¥ç¥ó¤¬Äê¤á¤ë¾ò¹à¤Ë½¾¤Ã¤ÆËÜ¥×¥í¥°¥é¥à¤òºÆÈÒÉÛ¤Þ¤¿¤ÏÊÑ¹¹¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤"
-"¹¡£\n"
-"ËÜ¥×¥í¥°¥é¥à¤ÏÍ­ÍÑ¤È¤Ï»×¤¤¤Þ¤¹¤¬¡¢ÈÒÉÛ¤Ë¤¢¤¿¤Ã¤Æ¤Ï¡¢»Ô¾ìÀ­µÚ¤ÓÆÃÄêÌÜÅªÅ¬¹çÀ­"
-"\n"
+"¥Ð¡¼¥¸¥ç¥ó¤¬Äê¤á¤ë¾ò¹à¤Ë½¾¤Ã¤ÆËÜ¥×¥í¥°¥é¥à¤òºÆÈÒÉÛ¤Þ¤¿¤ÏÊÑ¹¹¤¹¤ë¤³¤È¤¬¤Ç¤­\n"
+"¤Þ¤¹¡£ËÜ¥×¥í¥°¥é¥à¤ÏÍ­ÍÑ¤È¤Ï»×¤¤¤Þ¤¹¤¬¡¢ÈÒÉÛ¤Ë¤¢¤¿¤Ã¤Æ¤Ï¡¢»Ô¾ìÀ­µÚ¤ÓÆÃÄêÌÜÅªÅ"
+"¬¹çÀ­\n"
 "¤Ë¤Ä¤¤¤Æ¤Î°ÅÌÛ¤ÎÊÝ¾Ú¤ò´Þ¤á¤Æ¡¢¤¤¤«¤Ê¤ëÊÝ¾Ú¤â¹Ô¤Ê¤¤¤Þ¤»¤ó¡£\n"
 
 #. TEXT_EMAIL
@@ -542,13 +572,16 @@ msgid "Scanned pages: "
 msgstr "¥¹¥­¥ã¥ó¤µ¤ì¤¿¥Ú¡¼¥¸¡§"
 
 #. TEXT_MAIL_TEXT
-#, fuzzy
 msgid "Email text:"
-msgstr "¥á¡¼¥ë¡§"
+msgstr "¥á¡¼¥ë¥Æ¥­¥¹¥È¡§"
 
 #. TEXT_ATTACHMENTS
 msgid "Attachments:"
-msgstr ""
+msgstr "ÅºÉÕ"
+
+#. TEXT_MAIL_STATUS
+msgid "Project status:"
+msgstr "¥×¥í¥¸¥§¥¯¥È¤Î¾õÂÖ¡§"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -646,22 +679,6 @@ msgstr "TIFF 8¥Ó¥Ã¥È²èÁü°µ½Ì"
 msgid "TIFF lineart image compression"
 msgstr "TIFF ¥é¥¤¥ó¥¢¡¼¥È²èÁü°µ½Ì"
 
-#. TEXT_SETUP_PSFILE_WIDTH
-msgid "Width of paper for postscript"
-msgstr "PostScriptÍÑ¤ÎÍÑ»æÉý"
-
-#. TEXT_SETUP_PSFILE_HEIGHT
-msgid "Height of paper for postscript"
-msgstr "PostScriptÍÑ¤ÎÍÑ»æ¹â¤µ"
-
-#. TEXT_SETUP_PSFILE_LEFT
-msgid "Left offset for postscript"
-msgstr "PostScriptÍÑ¤Îº¸¥ª¥Õ¥»¥Ã¥È"
-
-#. TEXT_SETUP_PSFILE_BOTTOM
-msgid "Bottom offset for postscript"
-msgstr "PostScriptÍÑ¤Î²¼¥ª¥Õ¥»¥Ã¥È"
-
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
 msgstr "¥ª¡¼¥Ð¡¼¥µ¥ó¥×¥ê¥ó¥°¤ò¥×¥ì¥Ó¥å¡¼¡§"
@@ -740,36 +757,39 @@ msgstr "¥Ó¥å¡¼¥ï(PostScript)¡§"
 
 #. TEXT_SETUP_SMTP_SERVER
 msgid "SMTP server:"
-msgstr ""
+msgstr "SMTP¥µ¡¼¥Ð¡§"
 
 #. TEXT_SETUP_SMTP_PORT
 msgid "SMTP port:"
-msgstr ""
+msgstr "SMTP¥Ý¡¼¥È¡§"
 
 #. TEXT_SETUP_MAIL_FROM
 msgid "From:"
-msgstr ""
+msgstr "º¹½Ð¿Í¡§"
 
 #. TEXT_SETUP_MAIL_REPLY_TO
 msgid "Reply to:"
-msgstr ""
+msgstr "ÊÖ¿®Àè¡§"
 
 #. TEXT_SETUP_POP3_SERVER
 msgid "POP3 server:"
-msgstr ""
+msgstr "POP3¥µ¡¼¥Ð¡§"
 
 #. TEXT_SETUP_POP3_PORT
 msgid "POP3 port:"
-msgstr ""
+msgstr "POP3¥Ý¡¼¥È¡§"
 
 #. TEXT_SETUP_POP3_USER
 msgid "POP3 user:"
-msgstr ""
+msgstr "POP3¥æ¡¼¥¶¡¼¡§"
 
 #. TEXT_SETUP_POP3_PASS
-#, fuzzy
 msgid "POP3 password:"
-msgstr "¥Ñ¥¹¥ï¡¼¥É¡§"
+msgstr "POP3¥Ñ¥¹¥ï¡¼¥É¡§"
+
+#. TEXT_SETUP_MAIL_VIEWER
+msgid "Viewer (png):"
+msgstr "¥Ó¥å¡¼¥ï(PNG)¡§"
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
@@ -800,9 +820,8 @@ msgid "Fax"
 msgstr "FAX"
 
 #. NOTEBOOK_MAIL_OPTIONS
-#, fuzzy
 msgid "Mail"
-msgstr "¥á¡¼¥ë¡§"
+msgstr "¥á¡¼¥ë"
 
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display"
@@ -812,14 +831,9 @@ msgstr "É½¼¨"
 msgid "Enhancement"
 msgstr "¶¯Ä´"
 
-#. MENU_ITEM_SCAN
-msgid "Scan"
-msgstr "¥¹¥­¥ã¥ó"
-
 #. MENU_ITEM_MAIL
-#, fuzzy
 msgid "Email"
-msgstr "¥á¡¼¥ë¡§"
+msgstr "¥á¡¼¥ë"
 
 #. MENU_ITEM_SHOW_TOOLTIPS
 msgid "Show tooltips"
@@ -1010,13 +1024,33 @@ msgstr "²èÁü¤òÊÑ´¹Ãæ"
 msgid "Rotating image"
 msgstr "²èÁü¤ò²óÅ¾Ãæ"
 
+#. PROGRESS_MIRRORING_DATA
+msgid "Mirroring image"
+msgstr "²èÁü¤ò¶À±ÇÃæ"
+
 #. PROGRESS_PACKING_DATA
 msgid "Packing image"
 msgstr "²èÁü¤ò°µ½ÌÃæ"
 
 #. PROGRESS_CONVERTING_DATA
-msgid "Converting data"
+msgid "Converting image"
 msgstr "²èÁü¤òÊÑ´¹Ãæ"
+
+#. PROGRESS_SAVING_DATA
+msgid "Saving image"
+msgstr "²èÁü¤òÊÝÂ¸Ãæ"
+
+#. PROGRESS_CLONING_DATA
+msgid "Cloning image"
+msgstr "²èÁü¤òÊ£À½Ãæ"
+
+#. PROGRESS_DESPECKLING_DATA
+msgid "Despeckling image"
+msgstr "²èÁü¤Î¤·¤ß¼è¤êÃæ"
+
+#. PROGRESS_BLURING_DATA
+msgid "Bluring image"
+msgstr "²èÁü¤ò¤Ë¤¸¤Þ¤»Ãæ"
 
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
@@ -1038,13 +1072,17 @@ msgstr "¥¹¥­¥ã¥ó¥×¥ì¥Ó¥å¡¼¤ò¥­¥ã¥ó¥»¥ë <Alt-ESC>"
 msgid "Use XSane for: SCANning-<Ctrl-s> photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>"
 msgstr "XSane¤ÎÍÑÅÓ¡§ ¥¹¥­¥ã¥ó-<Ctrl-s>¡¢¼Ì¿¿¤Î¾Æ¤­Áý¤·-<Ctrl-c>¡¢FAX-<Ctrl-f>"
 
+#. DESC_XSANE_MEDIUM
+msgid "Select source medium type"
+msgstr "ÁÇºà¤Î¥á¥Ç¥£¥¢¥¿¥¤¥×ÁªÂò"
+
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
 msgstr "¥¹¥­¥ã¥ó¸å¤Ë²Ã»»¤µ¤ì¤ë¥Õ¥¡¥¤¥ëÌ¾¥«¥¦¥ó¥¿ÃÍ"
 
 #. DESC_BROWSE_FILENAME
 msgid "Browse for image filename"
-msgstr "²èÁü¥Õ¥¡¥¤¥ëÌ¾¤ò»²¾È"
+msgstr "²èÁü¥Õ¥¡¥¤¥ëÌ¾¤ò¥Ö¥é¥¦¥º"
 
 #. DESC_FILENAME
 msgid "Filename for scanned image"
@@ -1069,22 +1107,20 @@ msgid "Enter receiver phone number or address"
 msgstr "FAX¼õ¿®µ¡¤ÎÅÅÏÃÈÖ¹æ¤«¥¢¥É¥ì¥¹¤òÆþÎÏ"
 
 #. DESC_MAILPROJECT
-#, fuzzy
 msgid "Enter name of mail project"
-msgstr "FAX¥×¥í¥¸¥§¥¯¥ÈÌ¾¤òÆþÎÏ"
+msgstr "¥á¡¼¥ë¥×¥í¥¸¥§¥¯¥ÈÌ¾¤òÆþÎÏ"
 
 #. DESC_MAILIMAGENAME
-#, fuzzy
 msgid "Enter new name for mail image"
-msgstr "FAX¥Ú¡¼¥¸¤Ë¤Ä¤±¤ë¥Õ¥¡¥¤¥ëÌ¾¤òÆþÎÏ"
+msgstr "¿·µ¬¥á¡¼¥ë¥¤¥á¡¼¥¸¤Î¥Õ¥¡¥¤¥ëÌ¾¤òÆþÎÏ"
 
 #. DESC_MAILRECEIVER
 msgid "Enter email address"
-msgstr ""
+msgstr "¥á¡¼¥ë¥¢¥É¥ì¥¹¤òÆþÎÏ"
 
 #. DESC_MAILSUBJECT
 msgid "Enter subject of email"
-msgstr ""
+msgstr "¥á¡¼¥ë¤ÎÉ½Âê¤òÆþÎÏ"
 
 #. DESC_PRESET_AREA_NAME
 msgid "Enter new name for preset area"
@@ -1414,10 +1450,7 @@ msgstr "XSane¤ÎïçÃÍ¥ª¥×¥·¥ç¥ó½èÍýÊý¼°¤òÄêµÁ"
 msgid ""
 "Select grayscale scanmode. This scanmode is used for lineart preview scan "
 "when transformation from grayscale to lineart is enabled"
-msgstr ""
-"¥°¥ì¡¼¥¹¥±¡¼¥ë¤Î¥¹¥­¥ã¥ó¥â¡¼¥É¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£¤³¤Î¥¹¥­¥ã¥ó¥â¡¼¥É¤Ï¥°¥ì¡¼¥"
-"¹¥±¡¼¥ë¤«¤é¥é¥¤¥ó¥¢¡¼¥È¤Ø¤ÎÊÑ´¹¤¬Í­¸ú¤Ê¤È¤­¡¢¥é¥¤¥ó¥¢¡¼¥È¥×¥ì¥Ó¥å¡¼¤ËÅ¬ÍÑ¤µ¤ì"
-"¤Þ¤¹¡£"
+msgstr "¥°¥ì¡¼¥¹¥±¡¼¥ë¤Î¥¹¥­¥ã¥ó¥â¡¼¥É¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£"
 
 #. DESC_PREVIEW_THRESHOLD_MIN
 #, no-c-format
@@ -1498,43 +1531,47 @@ msgstr "¿âÄ¾¹â²òÁüÅÙ¡Ê98lpi¤ËÂå¤¨¤Æ196lpi¤Ç¡Ë¥â¡¼¥É¤ÇFAXÁ÷¿®"
 
 #. DESC_SMTP_SERVER
 msgid "IP Address or Domain name of SMTP server"
-msgstr ""
+msgstr "IP¥¢¥É¥ì¥¹¤Þ¤¿¤ÏSMTP¥µ¡¼¥Ð¤Î¥É¥á¥¤¥óÌ¾"
 
 #. DESC_SMTP_PORT
 msgid "port to connect to SMTP server"
-msgstr ""
+msgstr "SMTP¥µ¡¼¥Ð¤Ø¤ÎÀÜÂ³¥Ý¡¼¥È"
 
 #. DESC_MAIL_FROM
 msgid "enter your email address"
-msgstr ""
+msgstr "¥á¡¼¥ë¥¢¥É¥ì¥¹¤òÆþÎÏ¤·¤Æ¤¯¤À¤µ¤¤"
 
 #. DESC_MAIL_REPLY_TO
 msgid "enter email address for replied emails"
-msgstr ""
+msgstr "ÊÖ¿®Àè¥¢¥É¥ì¥¹¤òÆþÎÏ¤·¤Æ¤¯¤À¤µ¤¤"
 
 #. DESC_POP3_AUTHENTIFICATION
 msgid "Authentificate at POP3 server before sending mail"
-msgstr ""
+msgstr "¥á¡¼¥ëÁ÷¿®Á°¤ËPOP3¥µ¡¼¥Ð¤ÇÇ§¾Ú"
 
 #. DESC_POP3_SERVER
 msgid "IP Address or Domain name of POP3 server"
-msgstr ""
+msgstr "IP¥¢¥É¥ì¥¹¤Þ¤¿¤ÏPOP3¥µ¡¼¥Ð¤Î¥É¥á¥¤¥óÌ¾"
 
 #. DESC_POP3_PORT
 msgid "port to connect to POP3 server"
-msgstr ""
+msgstr "POP3¥µ¡¼¥Ð¤Ø¤ÎÀÜÂ³¥Ý¡¼¥È"
 
 #. DESC_POP3_USER
 msgid "user name for POP3 server"
-msgstr ""
+msgstr "POP3¥µ¡¼¥Ð¤Î¥æ¡¼¥¶¡¼Ì¾"
 
 #. DESC_POP3_PASS
 msgid "password for POP3 server"
-msgstr ""
+msgstr "POP3¥µ¡¼¥Ð¤Î¥Ñ¥¹¥ï¡¼¥É"
+
+#. DESC_MAIL_VIEWER
+msgid "Enter command to be executed to view a mail image"
+msgstr "¥á¡¼¥ë¥¤¥á¡¼¥¸É½¼¨¤Î¤¿¤á¤Î¼Â¹Ô¥³¥Þ¥ó¥É¤òÆþÎÏ"
 
 #. DESC_HTML_MAIL
 msgid "Mail is sent in html mode, images are displayed directly"
-msgstr ""
+msgstr "¥á¡¼¥ë¤ÏHTML¥â¡¼¥É¤ÇÁ÷¤é¤ì¡¢²èÁü¤ÏÄ¾ÀÜÉ½¼¨¤µ¤ì¤Þ¤¹"
 
 #. DESC_PERMISSION_READ
 msgid "read"
@@ -1586,9 +1623,8 @@ msgid "Autoselect scanarea"
 msgstr "¥¹¥­¥ã¥óÎÎ°è¤Î¼«Æ°ÁªÂò"
 
 #. DESC_DELETE_IMAGES
-#, fuzzy
 msgid "Delete preview image cache"
-msgstr "¥×¥ì¥Ó¥å¡¼¤ò²óÅ¾¤·¤Æ¥¹¥­¥ã¥ó"
+msgstr "¥×¥ì¥Ó¥å¡¼²èÁü¤Î¥­¥ã¥Ã¥·¥å¤òºï½ü"
 
 #. DESC_PRESET_AREA
 msgid "Preset area"
@@ -1597,6 +1633,42 @@ msgstr "¥×¥ê¥»¥Ã¥ÈÎÎ°è"
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
 msgstr "¥×¥ì¥Ó¥å¡¼¤ò²óÅ¾¤·¤Æ¥¹¥­¥ã¥ó"
+
+#. DESC_VIEWER_CLONE
+msgid "Clone image"
+msgstr "²èÁü¤òÊ£À½"
+
+#. DESC_VIEWER_DESPECKLE
+msgid "Despeckle image"
+msgstr "²èÁü¤Î¤·¤ß¼è¤ê"
+
+#. DESC_VIEWER_BLUR
+msgid "Blur image"
+msgstr "²èÁü¤ò¤Ë¤¸¤Þ¤»¤ë"
+
+#. DESC_VIEWER_ROTATE90
+msgid "Rotate image 90 degree"
+msgstr "²èÁü¤ò90¡ë²óÅ¾Ãæ"
+
+#. DESC_VIEWER_ROTATE180
+msgid "Rotate image 180 degree"
+msgstr "²èÁü¤ò180¡ë²óÅ¾Ãæ"
+
+#. DESC_VIEWER_ROTATE270
+msgid "Rotate image 270 degree"
+msgstr "²èÁü¤ò270¡ë²óÅ¾Ãæ"
+
+#. DESC_VIEWER_MIRROR_X
+msgid "Mirror image at vertical axis"
+msgstr "¿âÄ¾¶ÀÁü"
+
+#. DESC_VIEWER_MIRROR_Y
+msgid "Mirror image at horizontal axis"
+msgstr "¿åÊ¿¶ÀÁü"
+
+#. DESC_VIEWER_ZOOM
+msgid "Zoom image"
+msgstr "²èÁü¤ò³ÈÂç"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -1681,7 +1753,7 @@ msgstr "¥ª¡¼¥Ð¡¼¥Õ¥í¡¼"
 
 #. ERR_TOO_MUCH_DATA
 msgid "Backend sends more image data than it defined in parameters"
-msgstr ""
+msgstr "¥Ð¥Ã¥¯¥¨¥ó¥É¤¬µ¬Äê¤Î¥Ñ¥é¥á¡¼¥¿¤òÄ¶¤¨¤¿²èÁü¤òÁ÷¤Ã¤Æ¤­¤Þ¤·¤¿"
 
 #. ERR_LIBTIFF
 msgid "LIBTIFF reports error"
@@ -1708,14 +1780,12 @@ msgid "Failed to execute fax viewer:"
 msgstr "FAX¥Ó¥å¡¼¥ï¤Î¼Â¹Ô¤Ë¼ºÇÔ¤·¤Þ¤·¤¿¡§"
 
 #. ERR_FAILED_EXEC_FAX_CMD
-#, fuzzy
 msgid "Failed to execute fax command:"
 msgstr "FAX¥³¥Þ¥ó¥É¤Î¼Â¹Ô¤Ë¼ºÇÔ¤·¤Þ¤·¤¿¡§"
 
 #. ERR_FAILED_EXEC_MAIL_VIEWER
-#, fuzzy
 msgid "Failed to execute mail image viewer:"
-msgstr "FAX¥Ó¥å¡¼¥ï¤Î¼Â¹Ô¤Ë¼ºÇÔ¤·¤Þ¤·¤¿¡§"
+msgstr "¥á¡¼¥ë¥¤¥á¡¼¥¸¥Ó¥å¡¼¥ï¤Î¼Â¹Ô¤Ë¼ºÇÔ¤·¤Þ¤·¤¿¡§"
 
 #. ERR_BAD_FRAME_FORMAT
 msgid "bad frame format"
@@ -1837,6 +1907,11 @@ msgstr "¥Ç¥Ð¥¤¥¹ÍÑ¤Ë»È¤¤¤¿¤¤"
 msgid "this may cause problems!"
 msgstr "¤³¤ì¤ÏÌäÂê¤Î¼ï¤Ë¤Ê¤ë¤«¤â!"
 
+#. WARN_UNSAVED_IMAGES
+#, c-format
+msgid "There are %d unsaved images"
+msgstr ""
+
 #. WARN_FILE_EXISTS
 #, c-format
 msgid "File %s already exists"
@@ -1857,6 +1932,10 @@ msgstr "¥Õ¥¡¥¤¥ë %s ¤ÏPostScript¥Õ¥¡¥¤¥ë¤Ç¤Ï¤¢¤ê¤Þ¤»¤ó"
 msgid "Unsupported %d-bit output format: %s"
 msgstr "%d¥Ó¥Ã¥È¤Ç¥µ¥Ý¡¼¥È¤µ¤ì¤Æ¤¤¤Ê¤¤½ÐÎÏ¥Õ¥©¡¼¥Þ¥Ã¥È¤Ç¤¹¡§ %s"
 
+#. WARN_VIEWER_IMAGE_NOT_SAVED
+msgid "viewer image is not saved"
+msgstr "¥Ó¥å¡¼¥ï¤Î²èÁü¤¬ÊÝÂ¸¤µ¤ì¤Æ¤¤¤Þ¤»¤ó"
+
 #. TEXT_USAGE
 msgid "Usage:"
 msgstr "½ñ¼°¡§"
@@ -1866,7 +1945,6 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[¥ª¥×¥·¥ç¥ó]...[¥Ç¥Ð¥¤¥¹]"
 
 #. TEXT_HELP
-#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -1880,7 +1958,8 @@ msgid ""
 " -d, --device-settings file   load device settings from file (without "
 "\".drc\")\n"
 "\n"
-" -s, --scan                   start with scan-mode active\n"
+" -s, --save                   start with save-mode active\n"
+" -V, --viewer                 start with viewer-mode active\n"
 " -c, --copy                   start with copy-mode active\n"
 " -f, --fax                    start with fax-mode active\n"
 " -m, --mail                   start with mail-mode active\n"
@@ -1912,9 +1991,11 @@ msgstr ""
 " -d, --device-settings file   "
 "¥Ç¥Ð¥¤¥¹ÀßÄê¤ò¥Õ¥¡¥¤¥ë¤«¤éÆÉ¤ß¹þ¤à¡Ê\".drc\"È´¤­¤Ç¡Ë\n"
 "\n"
-" -s, --scan                   ¥¹¥­¥ã¥ó¥â¡¼¥É ¥¢¥¯¥Æ¥£¥Ö¤Çµ¯Æ°\n"
+" -s, --save                   ¥»¡¼¥Ö¥â¡¼¥É ¥¢¥¯¥Æ¥£¥Ö¤Çµ¯Æ°\n"
+" -V, --viewer                 ¥Ó¥å¡¼¥ï¥â¡¼¥É ¥¢¥¯¥Æ¥£¥Ö¤Çµ¯Æ°\n"
 " -c, --copy                   ¥³¥Ô¡¼¥â¡¼¥É ¥¢¥¯¥Æ¥£¥Ö¤Çµ¯Æ°\n"
 " -f, --fax                    FAX¥â¡¼¥É ¥¢¥¯¥Æ¥£¥Ö¤Çµ¯Æ°\n"
+" -m, --mail                   ¥á¡¼¥ë¥â¡¼¥É ¥¢¥¯¥Æ¥£¥Ö¤Çµ¯Æ°\n"
 " -n, --no-mode-selection      XSane¤Î¥â¡¼¥ÉÁªÂò¥á¥Ë¥å¡¼¤ò¥ª¥Õ¤Ë¤¹¤ë\n"
 "\n"
 " -F, --Fixed                  "
@@ -1999,13 +2080,13 @@ msgstr "13cm X 18cm"
 msgid "18cm x 13cm"
 msgstr "18cm X 13cm"
 
-#. MENU_ITEM_SURFACE_10cmx14cm
-msgid "10cm x 14cm"
-msgstr "10cm X 14cm"
+#. MENU_ITEM_SURFACE_10cmx15cm
+msgid "10cm x 15cm"
+msgstr "10cm X 15cm"
 
-#. MENU_ITEM_SURFACE_14cmx10cm
-msgid "14cm x 10cm"
-msgstr "14cm X 10cm"
+#. MENU_ITEM_SURFACE_15cmx10cm
+msgid "15cm x 10cm"
+msgstr "15cm X 10cm"
 
 #. MENU_ITEM_SURFACE_9cmx13cm
 msgid "9cm x 13cm"
@@ -2085,7 +2166,3 @@ msgstr "¥ª¡¼¥Ð¡¼¥Õ¥í¡¼"
 
 msgid "Access to resource has been denied"
 msgstr "¥ê¥½¡¼¥¹¤Ø¤Î¥¢¥¯¥»¥¹¤¬µñÈÝ¤µ¤ì¤Þ¤·¤¿"
-
-#, fuzzy
-#~ msgid "Failed to execute mail command:"
-#~ msgstr "FAX¥³¥Þ¥ó¥É¤Î¼Â¹Ô¤Ë¼ºÇÔ¤·¤Þ¤·¤¿¡§"

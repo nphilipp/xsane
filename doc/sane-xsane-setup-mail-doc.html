@@ -1,28 +1,31 @@
-<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <html>
 <head>
    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-   <meta name="GENERATOR" content="Mozilla/4.74 [en] (X11; U; Linux 2.2.18 i686) [Netscape]">
    <meta name="Author" content="Oliver Rauch">
    <meta name="Description" content="scan, photocopy and fax frontend for SANE">
-   <title>XSane - Advanced options window</title>
+   <title>XSane - Mail setup</title>
 </head>
 <body text="#000000" bgcolor="#FFFFFF" link="#0000EF" vlink="#51188E" alink="#FF0000">
 
 
 <table>
+<tr>
 <td width=200>
-<img SRC="xsane-logo2.jpg" hspace=30 height=150 width=128 align=TOP>
+<img SRC="xsane-logo2.jpg" alt="XSane-logo" hspace=30 align=TOP>
 </td>
 <td>
-<h1><dd><font color="#009900">Advanced options window</font></dd></h1>
+<blockquote>
+<h1><font color="#009900">Mail setup</font></h1>
+</blockquote>
 </td>
+</tr>
 </table>
 
 
 <hr WIDTH="100%">
 
 <table>
+<tr>
 <td valign=TOP width="200" bgcolor="#E0E0BA">
 <br>
 <a href="sane-xsane-doc.html">Index</a>
@@ -30,16 +33,16 @@
 <br>
 <br>
 <font color="#000000">Main window:</font>
-<blockquote>
+<ul>
 <li><a href="sane-xsane-scan-doc.html">Scan mode</a></li>
 <li><a href="sane-xsane-copy-doc.html">Copy mode</a></li>
 <li><a href="sane-xsane-fax-doc.html">Fax mode</a></li>
 <li><a href="sane-xsane-mail-doc.html">Mail mode</a></li>
 <li><a href="sane-xsane-gimp-doc.html">Gimp plugin</a></li>
-</blockquote>
+</ul>
 <br>
 <a href="sane-xsane-color-correction-doc.html">Color correction:</a>
-<blockquote>
+<ul>
 <li><a href="sane-xsane-color-correction-doc.html#GAMMA">Gamma correction</a></li>
 <li><a href="sane-xsane-color-correction-doc.html#BRIGHTNESS">Brightness</a></li>
 <li><a href="sane-xsane-color-correction-doc.html#CONTRAST">Contrast</a></li>
@@ -52,7 +55,7 @@
 <li><a href="sane-xsane-color-correction-doc.html#STORE_ENHANCEMENT">Store</a></li>
 <li><a href="sane-xsane-histogram-doc.html">Histogram window</a></li>
 <li><a href="sane-xsane-preview-doc.html#PIPETTE_WHITE">Pipette functions</a></li>
-</blockquote>
+</ul>
 <br>
 <a href="sane-xsane-standard-doc.html">Standard options window</a>
 <br>
@@ -63,7 +66,7 @@
 <br>
 <br>
 <a href="sane-xsane-preview-doc.html">Preview:</a>
-<blockquote>
+<ul>
 <li><a href="sane-xsane-preview-doc.html#PIPETTE_WHITE">Pipette white</a></li>
 <li><a href="sane-xsane-preview-doc.html#PIPETTE_GRAY">Pipette gray</a></li>
 <li><a href="sane-xsane-preview-doc.html#PIPETTE_BLACK">Pipette black</a></li>
@@ -76,7 +79,7 @@
 <li><a href="sane-xsane-preview-doc.html#SELECT_SCAN_AREA">Select scanarea</a></li>
 <li><a href="sane-xsane-preview-doc.html#MOVE_SCAN_AREA">Move scanarea</a></li>
 <li><a href="sane-xsane-preview-doc.html#DELETE_PREVIEW_CACHE">Delete preview cache</a></li>
-</blockquote>
+</ul>
 <br>
 <font color="#000000">Setup:</font>
 <ul>
@@ -93,29 +96,94 @@
 
 
 <td VALIGN=TOP BGCOLOR="#FFFFFF">
-
 <blockquote>
 <br>
-<center><img SRC="xsane-advanced.jpg" height=248 width=296></center>
+You open the setup window via the menu <i>preferences/setup</i> in the
+main window of xsane.
 <br>
 <br>
 <br>
-The advanced options window contains special scanner options
-that should be used by advanced users. XSane does not now anything about
-these options, it only creates this dialog to give the user the possibility
-to take control of these options.
-<p>
-Please read the backend manual if you need any information about
-the functions you find in this window.
+<center><img SRC="xsane-setup-mail.jpg" alt="Xsane-setup-mail-window"></center>
+<br>
+<br>
+<br>
+
+<h4>FROM:</h4>
+<blockquote>
+Enter your email address.
+</blockquote>
+
+<h4>REPLY TO:</h4>
+<blockquote>
+Enter the email address to which the receiver shall answer.
+If this is the same as the <i>from</i> address enter the same
+address again.
+</blockquote>
+
+<h4>SMTP SERVER:</h4>
+<blockquote>
+This is the address of the smtp server.
+</blockquote>
+
+<h4>SMPT PORT:</h4>
+<blockquote>
+Here you have to enter the port number on which the smtp server
+expects smtp connections. The standard port number is 25.
+</blockquote>
+
+<h4>POP3 authentification:</h4>
+<blockquote>
+Some smtp servers expect authentification before accepting
+any mail. The smtp protocol does not define any authentification
+routines. A lot of smtp servers expect that you authentificate
+yourself via the pop3 authentification routines.
+</blockquote>
+
+<h4>POP3 server:</h4>
+<blockquote>
+This is the address of the pop3 server.
+</blockquote>
+
+<h4>POP3 port:</h4>
+<blockquote>
+Here you have to enter the port number on which the pop3 server
+expects pop3 connections. The standard port number is 110.
+</blockquote>
+
+<h4>POP3 user:</h4>
+<blockquote>
+Enter your username for the pop3 server.
+</blockquote>
+
+<h4>POP3 password:</h4>
+<blockquote>
+Enter the password for the pop3 server. Pay attention, this can
+be a security hole. The user and password is stored in the
+xsane.rc file in ~/.sane/xsane/xsane.rc. The password is
+not stored in plain text but it is simple to reconstruct
+the password from the entry in xsane.rc. If you enter
+your pop3 password here make sure no one gets access
+to your xsane.rc file.
+</blockquote>
+
+<h4>Viewer(png):</h4>
+<blockquote>
+Enter the program that shall be used to display a scanned
+image when the <i>show image</i> button is pressed in the mail dialog.
+The program has to be able to display png images.
+</blockquote>
+
 </blockquote>
 </td>
+</tr>
 </table>
 
 <hr WIDTH="100%">
 
 <blockquote>
-<font size=+1>Author: <a href="mailto:Oliver.Rauch@xsane.org">Oliver Rauch</a></font>
+Author: <a href="mailto:Oliver.Rauch@xsane.org">Oliver Rauch</a>
 </blockquote>
 
 </body>
 </html>
+

@@ -26,19 +26,25 @@ extern void xsane_cancel_save();
 extern void xsane_convert_text_to_filename(char **filename);
 extern void xsane_update_counter_in_filename(char **filename, int skip, int step, int min_counter_len);
 extern void xsane_increase_counter_in_filename(char *filename, int skip);
-extern void xsane_write_pnm_header(FILE *outfile, int pixel_width, int pixel_height, int bits);
-extern int xsane_save_grayscale_image_as_lineart(FILE *outfile, FILE *imagefile, int pixel_width, int pixel_height);
-extern int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, int color, int bits,
-                                   int *pixel_width_ptr, int *pixel_height_ptr, int rotation);
-extern void xsane_save_ps(FILE *outfile, FILE *imagefile, int color, int bits, int pixel_width, int pixel_height,
-                          int left, int bottom, float width, float height, int paperwidth, int paperheight, int landscape);
-extern void xsane_save_jpeg(FILE *outfile, FILE *imagefile, int color, int bits, int pixel_width, int pixel_height, int quality);
-extern void xsane_save_tiff(const char *outfilename, FILE *imagefile, int color, int bits, int pixel_width, int pixel_height, int quality);
-extern void xsane_save_png(FILE *outfile, FILE *imagefile, int color, int bits, int pixel_width, int pixel_height, int compression);
-extern void xsane_save_png_16(FILE *outfile, FILE *imagefile, int color, int bits, int pixel_width, int pixel_height, int compression);
-extern void xsane_save_pnm_16(FILE *outfile, FILE *imagefile, int color, int bits, int pixel_width, int pixel_height);
+extern void xsane_read_pnm_header(FILE *infile, Image_info *image_info);
+extern void xsane_write_pnm_header(FILE *outfile, Image_info *image_info);
+extern int xsane_save_grayscale_image_as_lineart(FILE *outfile, FILE *imagefile, Image_info *image_info, GtkProgressBar *progress_bar, int *cancel_save);
+extern int xsane_save_despeckle_image(FILE *outfile, FILE *imagefile, Image_info *image_info, int radius, GtkProgressBar *progress_bar, int *cancel_save);
+extern int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info, int radius, GtkProgressBar *progress_bar, int *cancel_save);
+extern int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_info, int rotation, GtkProgressBar *progress_bar, int *cancel_save);
+extern void xsane_save_ps(FILE *outfile, FILE *imagefile, Image_info *image_info,
+                          int left, int bottom, float width, float height,
+                          int paperwidth, int paperheight, int landscape,
+                          GtkProgressBar *progress_bar, int *cancel_save);
+extern void xsane_save_jpeg(FILE *outfile, FILE *imagefile, Image_info *image_info, int quality, GtkProgressBar *progress_bar, int *cancel_save);
+extern void xsane_save_tiff(const char *outfilename, FILE *imagefile, Image_info *image_info, int quality, GtkProgressBar *progress_bar, int *cancel_save);
+extern void xsane_save_png(FILE *outfile, FILE *imagefile, Image_info *image_info, int compression, GtkProgressBar *progress_bar, int *cancel_save);
+extern void xsane_save_png_16(FILE *outfile, FILE *imagefile, Image_info *image_info, int compression, GtkProgressBar *progress_bar, int *cancel_save);
+extern void xsane_save_pnm_16(FILE *outfile, FILE *imagefile, Image_info *image_info, GtkProgressBar *progress_bar, int *cancel_save);
+extern int xsane_save_image_as_lineart(char *input_filename, char *output_filename, GtkProgressBar *progress_bar, int *cancel_save);
+extern int xsane_save_image_as(char *input_filename, char *output_filename, int output_format, GtkProgressBar *progress_bar, int *cancel_save);
 extern void null_print_func(gchar *msg);
-extern void xsane_transfer_to_gimp(FILE *imagefile, int color, int bits, int pixel_width, int pixel_height);
+extern int xsane_transfer_to_gimp(char *input_filename, GtkProgressBar *progress_bar, int *cancel_save);
 extern void write_base64(int fd_socket, FILE *infile);
 extern void write_mail_header(int fd_socket, char *from, char *reply_to, char *to, char *subject, char *boundary, int related);
 extern void write_mail_footer(int fd_socket, char *boundary);

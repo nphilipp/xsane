@@ -1,0 +1,15 @@
+From: "Roman Bartkowiak" <rba@umax.de>
+To: <oliver.rauch@wolfsburg.de>
+
+Hallo Herr Rauch,
+
+ich wünsche Ihnen gleichfalls alles gute im neuen Jahr, vor allem
+kooperative Hersteller und klare SDK-Dokumentationen ;-)
+
+Das Umax Logo dürfen Sie natürlich verwenden, solange klar
+ersichtlich ist, daß sich für Umax selbst in Verbindung mit dem Treiber
+keine Verpflichtungen (Support, etc.) ergeben.
+
+Mit freundlichen Grüßen
+Roman Bartkowiak
+Umax Systems GmbH

@@ -4,8 +4,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.77\n"
-"POT-Creation-Date: 2001-06-10 10:31+0200\n"
+"Project-Id-Version: XSANE 0.80\n"
+"POT-Creation-Date: 2001-10-03 12:19+0200\n"
 "PO-Revision-Date: 2000-02-09 21:00+01:00\n"
 "Last-Translator: Laurent Grawet <laurent.grawet@ibelgique.com>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -60,19 +60,16 @@ msgid "insert ps-file into fax"
 msgstr "Importer un fichier ps dans un fax"
 
 #. WINDOW_MAIL_PROJECT
-#, fuzzy
 msgid "mail project"
-msgstr "Projet fax"
+msgstr "Projet e-mail"
 
 #. WINDOW_MAIL_RENAME
-#, fuzzy
 msgid "rename mail image"
-msgstr "Renommer la page de fax"
+msgstr "Renommer l'image du message"
 
 #. WINDOW_MAIL_INSERT
-#, fuzzy
 msgid "insert file into mail"
-msgstr "Importer un fichier ps dans un fax"
+msgstr "Insérer un fichier dans le message"
 
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
@@ -105,6 +102,14 @@ msgstr "Sélection de périphérique"
 #. WINDOW_PREVIEW
 msgid "Preview"
 msgstr "Aperçu"
+
+#. WINDOW_VIEWER
+msgid "Viewer"
+msgstr "Visionneuse"
+
+#. WINDOW_VIEWER_OUTPUT_FILENAME
+msgid "Viewer: select output filename"
+msgstr "Visionneuse: Choisissez le nom du fichier de sortie"
 
 #. WINDOW_OUTPUT_FILENAME
 msgid "select output filename"
@@ -142,6 +147,10 @@ msgstr "Afficher"
 msgid "Help"
 msgstr "Aide"
 
+#. MENU_FILTERS
+msgid "Filters"
+msgstr "Filtres"
+
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
 msgstr "A propos de XSane"
@@ -153,6 +162,22 @@ msgstr "Info"
 #. MENU_ITEM_QUIT
 msgid "Quit"
 msgstr "Quitter"
+
+#. MENU_ITEM_SAVE_IMAGE
+msgid "Save image"
+msgstr "Sauver l'image"
+
+#. MENU_ITEM_CLOSE
+msgid "Close"
+msgstr "Fermer"
+
+#. MENU_ITEM_DESPECKLE
+msgid "Despeckle"
+msgstr "Déparasitage"
+
+#. MENU_ITEM_BLUR
+msgid "Blur"
+msgstr "Flou"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -198,10 +223,6 @@ msgstr "Continuer à vos propres risques"
 msgid "Browse"
 msgstr "Parcourir"
 
-#. BUTTON_CLOSE
-msgid "Close"
-msgstr "Fermer"
-
 #. BUTTON_OVERWRITE
 msgid "Overwrite"
 msgstr "Ecraser"
@@ -223,19 +244,16 @@ msgid "Rename page"
 msgstr "Renommer la page"
 
 #. BUTTON_IMAGE_DELETE
-#, fuzzy
 msgid "Delete image"
-msgstr "Effacer la page"
+msgstr "Effacer l'image"
 
 #. BUTTON_IMAGE_SHOW
-#, fuzzy
 msgid "Show image"
-msgstr "Afficher la page"
+msgstr "Afficher l'image"
 
 #. BUTTON_IMAGE_RENAME
-#, fuzzy
 msgid "Rename image"
-msgstr "Renommer la page"
+msgstr "Renommer l'image"
 
 #. BUTTON_FILE_INSERT
 msgid "Insert file"
@@ -262,12 +280,25 @@ msgid "Delete printer"
 msgstr "Enlever une imprimante"
 
 #. BUTTON_PREVIEW_ACQUIRE
-msgid "Acquire Preview"
+msgid "Acquire preview"
 msgstr "Acquisition de l'aperçu"
 
 #. BUTTON_PREVIEW_CANCEL
-msgid "Cancel Preview"
+msgid "Cancel preview"
 msgstr "Annuler l'aperçu"
+
+#. BUTTON_DISCARD_IMAGE
+msgid "Discard image"
+msgstr "Abandonner l'image"
+
+#. BUTTON_DISCARD_ALL_IMAGES
+#, fuzzy
+msgid "Discard all images"
+msgstr "Abandonner l'image"
+
+#. BUTTON_DO_NOT_CLOSE
+msgid "Do not close"
+msgstr "Ne pas fermer"
 
 #. RADIO_BUTTON_FINE_MODE
 msgid "Fine mode"
@@ -275,11 +306,11 @@ msgstr "Mode fin"
 
 #. RADIO_BUTTON_HTML_MAIL
 msgid "HTML mail"
-msgstr ""
+msgstr "e-mail HTML"
 
 #. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device preferences at exit"
-msgstr "Sauver les paramètres du périphérique à la sortie"
+msgstr "Sauver les paramètres du périphérique en quittant"
 
 #. RADIO_BUTTON_OVERWRITE_WARNING
 msgid "Overwrite warning"
@@ -319,7 +350,7 @@ msgstr "Correction automatique des couleurs"
 
 #. RADIO_BUTTON_POP3_AUTHENTIFICATION
 msgid "POP3 authentification"
-msgstr ""
+msgstr "Authentification POP3"
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
@@ -542,13 +573,16 @@ msgid "Scanned pages: "
 msgstr "Pages numérisées:"
 
 #. TEXT_MAIL_TEXT
-#, fuzzy
 msgid "Email text:"
-msgstr "e-mail:"
+msgstr "Texte de l'e-mail:"
 
 #. TEXT_ATTACHMENTS
 msgid "Attachments:"
-msgstr ""
+msgstr "Pièces attachées:"
+
+#. TEXT_MAIL_STATUS
+msgid "Project status:"
+msgstr "Statut du projet:"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -632,7 +666,7 @@ msgstr "Compression des images PNG"
 
 #. TEXT_SETUP_FILENAME_COUNTER_LEN
 msgid "Filename counter length"
-msgstr "Valeur du compteur de noms de fichiers"
+msgstr "Longueur du compteur de noms de fichiers"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_16
 msgid "TIFF 16 bit image compression"
@@ -645,22 +679,6 @@ msgstr "Compression des images TIFF 8 bit"
 #. TEXT_SETUP_TIFF_COMPRESSION_1
 msgid "TIFF lineart image compression"
 msgstr "Compression des images TIFF mode trait"
-
-#. TEXT_SETUP_PSFILE_WIDTH
-msgid "Width of paper for postscript"
-msgstr "Largeur du papier pour PostScript"
-
-#. TEXT_SETUP_PSFILE_HEIGHT
-msgid "Height of paper for postscript"
-msgstr "Longueur du papier pour PostScript"
-
-#. TEXT_SETUP_PSFILE_LEFT
-msgid "Left offset for postscript"
-msgstr "Marge gauche pour PostScript"
-
-#. TEXT_SETUP_PSFILE_BOTTOM
-msgid "Bottom offset for postscript"
-msgstr "Marge inférieure pour PostScript"
 
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
@@ -716,7 +734,7 @@ msgstr "Nom du mode de numérisation en niveaux de gris:"
 
 #. TEXT_SETUP_HELPFILE_VIEWER
 msgid "Helpfile viewer (HTML):"
-msgstr "Afficheur de fichiers d'aide (HTML):"
+msgstr "Visionneuse de fichiers d'aide (HTML):"
 
 #. TEXT_SETUP_FAX_RECEIVER_OPTION
 msgid "Receiver option:"
@@ -736,40 +754,43 @@ msgstr "Option du mode fin:"
 
 #. TEXT_SETUP_FAX_VIEWER
 msgid "Viewer (Postscript):"
-msgstr "Visualisateur (PostScript):"
+msgstr "Visionneuse (PostScript):"
 
 #. TEXT_SETUP_SMTP_SERVER
 msgid "SMTP server:"
-msgstr ""
+msgstr "Serveur SMTP:"
 
 #. TEXT_SETUP_SMTP_PORT
 msgid "SMTP port:"
-msgstr ""
+msgstr "Port SMTP:"
 
 #. TEXT_SETUP_MAIL_FROM
 msgid "From:"
-msgstr ""
+msgstr "De:"
 
 #. TEXT_SETUP_MAIL_REPLY_TO
 msgid "Reply to:"
-msgstr ""
+msgstr "Répondre à:"
 
 #. TEXT_SETUP_POP3_SERVER
 msgid "POP3 server:"
-msgstr ""
+msgstr "Serveur POP3:"
 
 #. TEXT_SETUP_POP3_PORT
 msgid "POP3 port:"
-msgstr ""
+msgstr "Port POP3:"
 
 #. TEXT_SETUP_POP3_USER
 msgid "POP3 user:"
-msgstr ""
+msgstr "Utilisateur POP3:"
 
 #. TEXT_SETUP_POP3_PASS
-#, fuzzy
 msgid "POP3 password:"
-msgstr "Mot de passe:"
+msgstr "Mot de passe POP3:"
+
+#. TEXT_SETUP_MAIL_VIEWER
+msgid "Viewer (png):"
+msgstr "Visionneuse (png):"
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
@@ -800,9 +821,8 @@ msgid "Fax"
 msgstr "Faxer"
 
 #. NOTEBOOK_MAIL_OPTIONS
-#, fuzzy
 msgid "Mail"
-msgstr "e-mail:"
+msgstr "Message"
 
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display"
@@ -812,14 +832,9 @@ msgstr "Affichage"
 msgid "Enhancement"
 msgstr "Optimisation"
 
-#. MENU_ITEM_SCAN
-msgid "Scan"
-msgstr "Scanner"
-
 #. MENU_ITEM_MAIL
-#, fuzzy
 msgid "Email"
-msgstr "e-mail:"
+msgstr "e-mail"
 
 #. MENU_ITEM_SHOW_TOOLTIPS
 msgid "Show tooltips"
@@ -1010,13 +1025,33 @@ msgstr "Transfert de l'image..."
 msgid "Rotating image"
 msgstr "Rotation de l'image..."
 
+#. PROGRESS_MIRRORING_DATA
+msgid "Mirroring image"
+msgstr "Mirroir de l'image..."
+
 #. PROGRESS_PACKING_DATA
 msgid "Packing image"
 msgstr "Compression de l'image..."
 
 #. PROGRESS_CONVERTING_DATA
-msgid "Converting data"
-msgstr "Conversion des données..."
+msgid "Converting image"
+msgstr "Conversion de l'image..."
+
+#. PROGRESS_SAVING_DATA
+msgid "Saving image"
+msgstr "Sauvegarde de l'image..."
+
+#. PROGRESS_CLONING_DATA
+msgid "Cloning image"
+msgstr "Clonage de l'image..."
+
+#. PROGRESS_DESPECKLING_DATA
+msgid "Despeckling image"
+msgstr "Déparasitage de l'image..."
+
+#. PROGRESS_BLURING_DATA
+msgid "Bluring image"
+msgstr "Flou de l'image..."
 
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
@@ -1039,13 +1074,17 @@ msgid "Use XSane for: SCANning-<Ctrl-s> photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>"
 msgstr ""
 "Utilisez XSane pour : SCANNER <Ctrl-s>, photoCOPIER <Ctrl-c>, FAXER <Ctrl-f>"
 
+#. DESC_XSANE_MEDIUM
+msgid "Select source medium type"
+msgstr "Sélectionne le type de media de la source"
+
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
 msgstr "Valeur ajoutée au compteur de noms de fichiers après numérisation"
 
 #. DESC_BROWSE_FILENAME
 msgid "Browse for image filename"
-msgstr "Parcourir"
+msgstr "Parcourir pour un nom d'image"
 
 #. DESC_FILENAME
 msgid "Filename for scanned image"
@@ -1072,22 +1111,20 @@ msgid "Enter receiver phone number or address"
 msgstr "Entrez le numéro de tél. ou l'adresse du destinataire"
 
 #. DESC_MAILPROJECT
-#, fuzzy
 msgid "Enter name of mail project"
-msgstr "Entrez le nom du projet fax"
+msgstr "Entrez le nom du projet e-mail"
 
 #. DESC_MAILIMAGENAME
-#, fuzzy
 msgid "Enter new name for mail image"
-msgstr "Entrez le nouveau nom pour la page de fax"
+msgstr "Entrez le nouveau nom pour l'image du message"
 
 #. DESC_MAILRECEIVER
 msgid "Enter email address"
-msgstr ""
+msgstr "Entrez l'adresse e-mail"
 
 #. DESC_MAILSUBJECT
 msgid "Enter subject of email"
-msgstr ""
+msgstr "Entrez le sujet de l'e-mail"
 
 #. DESC_PRESET_AREA_NAME
 msgid "Enter new name for preset area"
@@ -1350,6 +1387,8 @@ msgstr "Type de compression si l'image trait est enregistrée en tiff"
 #. DESC_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device dependant preferences in default file at exit of xsane"
 msgstr ""
+"Enregister les paramètres du scanner dans le fichier par défaut en quittant "
+"XSane"
 
 #. DESC_OVERWRITE_WARNING
 msgid "Warn before overwriting an existing file"
@@ -1365,6 +1404,8 @@ msgstr ""
 #. DESC_REDUCE_16BIT_TO_8BIT
 msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
 msgstr ""
+"Si le scanner envoie une image en 16 bits/couleur, sauver l'image en 8 "
+"bits/couleur"
 
 #. DESC_PSFILE_WIDTH
 msgid "Width of paper for postscript files"
@@ -1534,43 +1575,47 @@ msgstr ""
 
 #. DESC_SMTP_SERVER
 msgid "IP Address or Domain name of SMTP server"
-msgstr ""
+msgstr "Adresse IP ou nom de domaine du serveur SMTP"
 
 #. DESC_SMTP_PORT
 msgid "port to connect to SMTP server"
-msgstr ""
+msgstr "Port de connexion SMTP"
 
 #. DESC_MAIL_FROM
 msgid "enter your email address"
-msgstr ""
+msgstr "Entrez votre adresse e-mail"
 
 #. DESC_MAIL_REPLY_TO
 msgid "enter email address for replied emails"
-msgstr ""
+msgstr "Entrez l'adresse e-mail de réponse"
 
 #. DESC_POP3_AUTHENTIFICATION
 msgid "Authentificate at POP3 server before sending mail"
-msgstr ""
+msgstr "S'authentifier au près du serveur POP3 avant d'envoyer le message"
 
 #. DESC_POP3_SERVER
 msgid "IP Address or Domain name of POP3 server"
-msgstr ""
+msgstr "Adresse IP ou nom de domaine du serveur POP3"
 
 #. DESC_POP3_PORT
 msgid "port to connect to POP3 server"
-msgstr ""
+msgstr "Port de connexion POP3"
 
 #. DESC_POP3_USER
 msgid "user name for POP3 server"
-msgstr ""
+msgstr "Nom d'utilisateur pour le serveur POP3"
 
 #. DESC_POP3_PASS
 msgid "password for POP3 server"
-msgstr ""
+msgstr "Mot de passe pour le serveur POP3"
+
+#. DESC_MAIL_VIEWER
+msgid "Enter command to be executed to view a mail image"
+msgstr "Entrez la commande à être exécutée pour voir une image e-mail"
 
 #. DESC_HTML_MAIL
 msgid "Mail is sent in html mode, images are displayed directly"
-msgstr ""
+msgstr "Message envoyé en mode html, les images sont affichées directement"
 
 #. DESC_PERMISSION_READ
 msgid "read"
@@ -1622,9 +1667,8 @@ msgid "Autoselect scanarea"
 msgstr "Sélection automatique de l'aire de numérisation"
 
 #. DESC_DELETE_IMAGES
-#, fuzzy
 msgid "Delete preview image cache"
-msgstr "Pivote l'aperçu et la numérisation"
+msgstr "Effacer le cache de l'aperçu"
 
 #. DESC_PRESET_AREA
 msgid "Preset area"
@@ -1634,9 +1678,45 @@ msgstr "Aire de présélection"
 msgid "Rotate preview and scan"
 msgstr "Pivote l'aperçu et la numérisation"
 
+#. DESC_VIEWER_CLONE
+msgid "Clone image"
+msgstr "Cloner l'image"
+
+#. DESC_VIEWER_DESPECKLE
+msgid "Despeckle image"
+msgstr "Déparasiter l'image"
+
+#. DESC_VIEWER_BLUR
+msgid "Blur image"
+msgstr "Adoucir l'image"
+
+#. DESC_VIEWER_ROTATE90
+msgid "Rotate image 90 degree"
+msgstr "Rotation à 90° de l'image"
+
+#. DESC_VIEWER_ROTATE180
+msgid "Rotate image 180 degree"
+msgstr "Rotation à 180° de l'image"
+
+#. DESC_VIEWER_ROTATE270
+msgid "Rotate image 270 degree"
+msgstr "Rotation à 270° de l'image"
+
+#. DESC_VIEWER_MIRROR_X
+msgid "Mirror image at vertical axis"
+msgstr "Effet mirroir à axe vertical"
+
+#. DESC_VIEWER_MIRROR_Y
+msgid "Mirror image at horizontal axis"
+msgstr "Effet mirroir à axe horizontal"
+
+#. DESC_VIEWER_ZOOM
+msgid "Zoom image"
+msgstr "Zoom sur l'image"
+
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
-msgstr "Impossible de déterminer le répertoire personnel"
+msgstr "Impossible de déterminer le répertoire personnel:"
 
 #. ERR_CHANGE_WORKING_DIR
 msgid "Failed to change working directory to"
@@ -1718,7 +1798,7 @@ msgstr "Dépassement de mémoire"
 
 #. ERR_TOO_MUCH_DATA
 msgid "Backend sends more image data than it defined in parameters"
-msgstr ""
+msgstr "Le backend envoie plus de données image que défini dans les paramètres"
 
 #. ERR_LIBTIFF
 msgid "LIBTIFF reports error"
@@ -1738,21 +1818,19 @@ msgstr "type de restriction inconnu"
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
-msgstr "Erreur d'exécution du visualisateur de documentation"
+msgstr "Erreur d'exécution de la visionneuse de documentation"
 
 #. ERR_FAILED_EXEC_FAX_VIEWER
 msgid "Failed to execute fax viewer:"
-msgstr "Erreur d'exécution du visualisateur de fax"
+msgstr "Erreur d'exécution de la visionneuse de fax"
 
 #. ERR_FAILED_EXEC_FAX_CMD
-#, fuzzy
 msgid "Failed to execute fax command:"
-msgstr "Erreur d'exécution de la commande de fax"
+msgstr "Erreur d'exécution de la commande de fax:"
 
 #. ERR_FAILED_EXEC_MAIL_VIEWER
-#, fuzzy
 msgid "Failed to execute mail image viewer:"
-msgstr "Erreur d'exécution du visualisateur de fax"
+msgstr "Erreur d'exécution de la visionneuse d'image:"
 
 #. ERR_BAD_FRAME_FORMAT
 msgid "bad frame format"
@@ -1875,6 +1953,11 @@ msgstr "vous voulez l'utiliser comme périphérique"
 msgid "this may cause problems!"
 msgstr "cela peut occasionner des problèmes!"
 
+#. WARN_UNSAVED_IMAGES
+#, c-format
+msgid "There are %d unsaved images"
+msgstr ""
+
 #. WARN_FILE_EXISTS
 #, c-format
 msgid "File %s already exists"
@@ -1895,6 +1978,10 @@ msgstr "Le fichier %s n'est pas un fichier PostScript"
 msgid "Unsupported %d-bit output format: %s"
 msgstr "Format de sortie %d-bit non supporté: %s"
 
+#. WARN_VIEWER_IMAGE_NOT_SAVED
+msgid "viewer image is not saved"
+msgstr "L'image de la visionneuse n'est pas sauvegardée"
+
 #. TEXT_USAGE
 msgid "Usage:"
 msgstr "Usage:"
@@ -1904,7 +1991,6 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[OPTION]... [PERIPHERIQUE]"
 
 #. TEXT_HELP
-#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -1918,7 +2004,8 @@ msgid ""
 " -d, --device-settings file   load device settings from file (without "
 "\".drc\")\n"
 "\n"
-" -s, --scan                   start with scan-mode active\n"
+" -s, --save                   start with save-mode active\n"
+" -V, --viewer                 start with viewer-mode active\n"
 " -c, --copy                   start with copy-mode active\n"
 " -f, --fax                    start with fax-mode active\n"
 " -m, --mail                   start with mail-mode active\n"
@@ -1952,9 +2039,11 @@ msgstr ""
 "-d, --device-settings file   charge la configuration d'un périphérique à\n"
 "                             partir d'un fichier (sans \".drc\")\n"
 "\n"
-"-s, --scan                   démarre en mode scan\n"
+"-s, --save                   démarre en mode sauvegarde\n"
+"-V, --viewer                 démarre en mode visionneuse\n"
 "-c, --copy                   démarre en mode copie\n"
 "-f, --fax                    démarre en mode fax\n"
+"-m, --mail                   start with mail-mode active\n"
 "-n, --no-mode-selection      désactive le menu de sélection de mode\n"
 "\n"
 "-F, --Fixed                  fixe la taille de la fenêtre principale (sans\n"
@@ -2039,12 +2128,12 @@ msgstr ""
 msgid "18cm x 13cm"
 msgstr ""
 
-#. MENU_ITEM_SURFACE_10cmx14cm
-msgid "10cm x 14cm"
+#. MENU_ITEM_SURFACE_10cmx15cm
+msgid "10cm x 15cm"
 msgstr ""
 
-#. MENU_ITEM_SURFACE_14cmx10cm
-msgid "14cm x 10cm"
+#. MENU_ITEM_SURFACE_15cmx10cm
+msgid "15cm x 10cm"
 msgstr ""
 
 #. MENU_ITEM_SURFACE_9cmx13cm
@@ -2125,7 +2214,3 @@ msgstr "Dépassement de mémoire"
 
 msgid "Access to resource has been denied"
 msgstr "Accès à la ressource refusé"
-
-#, fuzzy
-#~ msgid "Failed to execute mail command:"
-#~ msgstr "Erreur d'exécution de la commande de fax"

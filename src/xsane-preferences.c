@@ -88,10 +88,6 @@ Preferences preferences =
        0,		/* reduce_16bit_to_8bit */
        1,		/* filename_counter_step */
        4,		/* filename_counter_len */
-     210.0,             /* psfile_width:  width of psfile in mm */
-     296.98,		/* psfile_height: height of psfile in mm */
-       0.0,             /* psfile_leftoffset */
-       0.0,             /* psfile_bottomoffset */
        1,		/* tooltips enabled */
        1,		/* (dont) show histogram */
        1,		/* (dont) show gamma */
@@ -182,10 +178,6 @@ desc[] =
     {"reduce-16bit-to8bit",		xsane_rc_pref_int,	POFFSET(reduce_16bit_to_8bit)},
     {"filename-counter-step",		xsane_rc_pref_int,	POFFSET(filename_counter_step)},
     {"filename-counter-len",		xsane_rc_pref_int,	POFFSET(filename_counter_len)},
-    {"psfile-width",			xsane_rc_pref_double,	POFFSET(psfile_width)},
-    {"psfile-height",			xsane_rc_pref_double,	POFFSET(psfile_height)},
-    {"psfile-left-offset",		xsane_rc_pref_double,	POFFSET(psfile_leftoffset)},
-    {"psfile-bottom-offset",		xsane_rc_pref_double,	POFFSET(psfile_bottomoffset)},
     {"tool-tips",			xsane_rc_pref_int,	POFFSET(tooltips_enabled)},
     {"show-histogram",			xsane_rc_pref_int,	POFFSET(show_histogram)},
     {"show-gamma",			xsane_rc_pref_int,	POFFSET(show_gamma)},

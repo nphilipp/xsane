@@ -4,15 +4,15 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Xsane 0.77\n"
-"POT-Creation-Date: 2001-06-10 10:31+0200\n"
-"PO-Revision-Date: 2001-05-20 13:05+GMT+02:00\n"
+"Project-Id-Version: XSANE 0.80\n"
+"POT-Creation-Date: 2001-10-03 12:19+0200\n"
+"PO-Revision-Date: 2001-10-02 09:48GMT+02:00\n"
 "Last-Translator: Togan Muftuoglu <toganm@yahoo.com>\n"
 "Language-Team: Turkish <kde-i18n-tr@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-9\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.8\n"
+"X-Generator: KBabel 0.9.5\n"
 
 #. Please translate this to the correct directory name (eg. german=>de)
 #. XSANE_LANGUAGE_DIR
@@ -61,19 +61,16 @@ msgid "insert ps-file into fax"
 msgstr "ps-dosyasýný faxa yerleþtirin"
 
 #. WINDOW_MAIL_PROJECT
-#, fuzzy
 msgid "mail project"
-msgstr "fax projesi"
+msgstr "e-posta projesi"
 
 #. WINDOW_MAIL_RENAME
-#, fuzzy
 msgid "rename mail image"
-msgstr "fax sayfasýný yeniden isimlendir"
+msgstr "e-posta resmini yeniden isimlendir"
 
 #. WINDOW_MAIL_INSERT
-#, fuzzy
 msgid "insert file into mail"
-msgstr "ps-dosyasýný faxa yerleþtirin"
+msgstr "dosyayý e-postaya yerleþtirin"
 
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
@@ -106,6 +103,14 @@ msgstr "aygýt seçimi"
 #. WINDOW_PREVIEW
 msgid "Preview"
 msgstr "Önizleme"
+
+#. WINDOW_VIEWER
+msgid "Viewer"
+msgstr "Gösterici"
+
+#. WINDOW_VIEWER_OUTPUT_FILENAME
+msgid "Viewer: select output filename"
+msgstr "Gösterici: çýktý dosya adýný seçiniz"
 
 #. WINDOW_OUTPUT_FILENAME
 msgid "select output filename"
@@ -143,6 +148,10 @@ msgstr "Ýzleme"
 msgid "Help"
 msgstr "Yardým"
 
+#. MENU_FILTERS
+msgid "Filters"
+msgstr "Filtreler"
+
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
 msgstr "Xsane hakkýnda"
@@ -154,6 +163,22 @@ msgstr "Bilgi"
 #. MENU_ITEM_QUIT
 msgid "Quit"
 msgstr "Çýk"
+
+#. MENU_ITEM_SAVE_IMAGE
+msgid "Save image"
+msgstr "Resmi kaydet"
+
+#. MENU_ITEM_CLOSE
+msgid "Close"
+msgstr "Kapat"
+
+#. MENU_ITEM_DESPECKLE
+msgid "Despeckle"
+msgstr "Beneksizleþtirme"
+
+#. MENU_ITEM_BLUR
+msgid "Blur"
+msgstr "Bulanýklaþtýrma"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -199,10 +224,6 @@ msgstr "Kendi riskiniz altýnda devam edin"
 msgid "Browse"
 msgstr "Gözat"
 
-#. BUTTON_CLOSE
-msgid "Close"
-msgstr "Kapat"
-
 #. BUTTON_OVERWRITE
 msgid "Overwrite"
 msgstr "Üzerine yaz"
@@ -224,19 +245,16 @@ msgid "Rename page"
 msgstr "Sayfayý yeniden isimlendir"
 
 #. BUTTON_IMAGE_DELETE
-#, fuzzy
 msgid "Delete image"
-msgstr "Sayfayý sil"
+msgstr "Resmi sil"
 
 #. BUTTON_IMAGE_SHOW
-#, fuzzy
 msgid "Show image"
-msgstr "Sayfayý göster"
+msgstr "Resmi göster"
 
 #. BUTTON_IMAGE_RENAME
-#, fuzzy
 msgid "Rename image"
-msgstr "Sayfayý yeniden isimlendir"
+msgstr "Resmi yeniden isimlendir"
 
 #. BUTTON_FILE_INSERT
 msgid "Insert file"
@@ -263,12 +281,25 @@ msgid "Delete printer"
 msgstr "Yazýcý sil"
 
 #. BUTTON_PREVIEW_ACQUIRE
-msgid "Acquire Preview"
-msgstr "Önizleme al"
+msgid "Acquire preview"
+msgstr "Önizleme iste"
 
 #. BUTTON_PREVIEW_CANCEL
-msgid "Cancel Preview"
+msgid "Cancel preview"
 msgstr "Önizlemeyi iptal et"
+
+#. BUTTON_DISCARD_IMAGE
+msgid "Discard image"
+msgstr "Resmi sil"
+
+#. BUTTON_DISCARD_ALL_IMAGES
+#, fuzzy
+msgid "Discard all images"
+msgstr "Resmi sil"
+
+#. BUTTON_DO_NOT_CLOSE
+msgid "Do not close"
+msgstr "Kapatma"
 
 #. RADIO_BUTTON_FINE_MODE
 msgid "Fine mode"
@@ -276,7 +307,7 @@ msgstr "Fine modu"
 
 #. RADIO_BUTTON_HTML_MAIL
 msgid "HTML mail"
-msgstr ""
+msgstr "HTML e-posta"
 
 #. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device preferences at exit"
@@ -320,7 +351,7 @@ msgstr "Renkleri otomatik düzelt"
 
 #. RADIO_BUTTON_POP3_AUTHENTIFICATION
 msgid "POP3 authentification"
-msgstr ""
+msgstr "POP3 otorizasyon"
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
@@ -543,13 +574,16 @@ msgid "Scanned pages: "
 msgstr "Taranan sayfalar: "
 
 #. TEXT_MAIL_TEXT
-#, fuzzy
 msgid "Email text:"
-msgstr "Eposta:"
+msgstr "Eposta metni"
 
 #. TEXT_ATTACHMENTS
 msgid "Attachments:"
-msgstr ""
+msgstr "Ekler"
+
+#. TEXT_MAIL_STATUS
+msgid "Project status:"
+msgstr "Proje durumu"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -647,22 +681,6 @@ msgstr "TIFF 8 bit resim sýkýþtýrmasý"
 msgid "TIFF lineart image compression"
 msgstr "TIFF lineart resim sýkýþtýrmasý"
 
-#. TEXT_SETUP_PSFILE_WIDTH
-msgid "Width of paper for postscript"
-msgstr "Postscript için sayfa eni "
-
-#. TEXT_SETUP_PSFILE_HEIGHT
-msgid "Height of paper for postscript"
-msgstr "Postscript için sayfa boyu "
-
-#. TEXT_SETUP_PSFILE_LEFT
-msgid "Left offset for postscript"
-msgstr "Postscript için sol boþluk "
-
-#. TEXT_SETUP_PSFILE_BOTTOM
-msgid "Bottom offset for postscript"
-msgstr "Postsrcipt için alt boþluk "
-
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
 msgstr "Önizleme örnekleme:"
@@ -741,36 +759,39 @@ msgstr "Ýzleyici (Postscript):"
 
 #. TEXT_SETUP_SMTP_SERVER
 msgid "SMTP server:"
-msgstr ""
+msgstr "SMTP sunucu"
 
 #. TEXT_SETUP_SMTP_PORT
 msgid "SMTP port:"
-msgstr ""
+msgstr "SMTP portu"
 
 #. TEXT_SETUP_MAIL_FROM
 msgid "From:"
-msgstr ""
+msgstr "Kimden"
 
 #. TEXT_SETUP_MAIL_REPLY_TO
 msgid "Reply to:"
-msgstr ""
+msgstr "Yanýt Adresi"
 
 #. TEXT_SETUP_POP3_SERVER
 msgid "POP3 server:"
-msgstr ""
+msgstr "POP3 Sunucu"
 
 #. TEXT_SETUP_POP3_PORT
 msgid "POP3 port:"
-msgstr ""
+msgstr "POP3 Portu"
 
 #. TEXT_SETUP_POP3_USER
 msgid "POP3 user:"
-msgstr ""
+msgstr "POP3 kullanýcý:"
 
 #. TEXT_SETUP_POP3_PASS
-#, fuzzy
 msgid "POP3 password:"
-msgstr "Þifre:"
+msgstr "POP3 Þifre:"
+
+#. TEXT_SETUP_MAIL_VIEWER
+msgid "Viewer (png):"
+msgstr "Gösterici (png):"
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
@@ -801,9 +822,8 @@ msgid "Fax"
 msgstr "Fax"
 
 #. NOTEBOOK_MAIL_OPTIONS
-#, fuzzy
 msgid "Mail"
-msgstr "Eposta:"
+msgstr "E-posta:"
 
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display"
@@ -813,14 +833,9 @@ msgstr "Göster"
 msgid "Enhancement"
 msgstr "Geliþtirme "
 
-#. MENU_ITEM_SCAN
-msgid "Scan"
-msgstr "Tara"
-
 #. MENU_ITEM_MAIL
-#, fuzzy
 msgid "Email"
-msgstr "Eposta:"
+msgstr "E-posta:"
 
 #. MENU_ITEM_SHOW_TOOLTIPS
 msgid "Show tooltips"
@@ -1011,13 +1026,33 @@ msgstr "Resmi aktarýyor"
 msgid "Rotating image"
 msgstr "Resmi döndürüyor"
 
+#. PROGRESS_MIRRORING_DATA
+msgid "Mirroring image"
+msgstr "Resmin ayna görüntüsünü oluþtur"
+
 #. PROGRESS_PACKING_DATA
 msgid "Packing image"
 msgstr "Resmi sýkýþtýrýyor"
 
 #. PROGRESS_CONVERTING_DATA
-msgid "Converting data"
-msgstr "Data dönüþtürülüyor "
+msgid "Converting image"
+msgstr "Resim dönüþtürülüyor "
+
+#. PROGRESS_SAVING_DATA
+msgid "Saving image"
+msgstr "Resim saklanýyor"
+
+#. PROGRESS_CLONING_DATA
+msgid "Cloning image"
+msgstr "Resim çoðaltýlýyor"
+
+#. PROGRESS_DESPECKLING_DATA
+msgid "Despeckling image"
+msgstr "Resmi beneksizleþtir"
+
+#. PROGRESS_BLURING_DATA
+msgid "Bluring image"
+msgstr "Resmi bulanýklaþtýr"
 
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
@@ -1038,6 +1073,10 @@ msgstr "Önizlemeyi iptal et <Alt-ESC>"
 #. DESC_XSANE_MODE
 msgid "Use XSane for: SCANning-<Ctrl-s> photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>"
 msgstr "Xsane'i TARAma-<Ctrl-s>fotoKOPÝ-<Ctrl-c> FAKS-<Ctrl-f>için kullanýn"
+
+#. DESC_XSANE_MEDIUM
+msgid "Select source medium type"
+msgstr "Kaynak ortam tipini seçin"
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1071,22 +1110,20 @@ msgid "Enter receiver phone number or address"
 msgstr "Alýcýnýn telefon numrasýný veya adresini girin"
 
 #. DESC_MAILPROJECT
-#, fuzzy
 msgid "Enter name of mail project"
-msgstr "faks projesinin adýný girin"
+msgstr "E-Posta projesinin adýný girin"
 
 #. DESC_MAILIMAGENAME
-#, fuzzy
 msgid "Enter new name for mail image"
-msgstr "Faks sayfasý için ad girin"
+msgstr "E-Posta resmi için yeni isimgirin"
 
 #. DESC_MAILRECEIVER
 msgid "Enter email address"
-msgstr ""
+msgstr "E-posta adresi girin"
 
 #. DESC_MAILSUBJECT
 msgid "Enter subject of email"
-msgstr ""
+msgstr "E-Posta konusu girin"
 
 #. DESC_PRESET_AREA_NAME
 msgid "Enter new name for preset area"
@@ -1516,43 +1553,47 @@ msgstr "Faksý yüksek dikey çözünürlükle (98 lpi yerine 196 lpi ile)gönder"
 
 #. DESC_SMTP_SERVER
 msgid "IP Address or Domain name of SMTP server"
-msgstr ""
+msgstr "SMTP sunucusunun IP adresi veya Alan Adý"
 
 #. DESC_SMTP_PORT
 msgid "port to connect to SMTP server"
-msgstr ""
+msgstr "SMTP Sunucusuna baðlanacak port"
 
 #. DESC_MAIL_FROM
 msgid "enter your email address"
-msgstr ""
+msgstr "E-Posta adresinizi yazýn"
 
 #. DESC_MAIL_REPLY_TO
 msgid "enter email address for replied emails"
-msgstr ""
+msgstr "Yanýtlama Adresini girin "
 
 #. DESC_POP3_AUTHENTIFICATION
 msgid "Authentificate at POP3 server before sending mail"
-msgstr ""
+msgstr "E-posta yollamadan önce POP3 sunucusunda otorizayon yap"
 
 #. DESC_POP3_SERVER
 msgid "IP Address or Domain name of POP3 server"
-msgstr ""
+msgstr "POP3 Sunucusunun IP adresini veya Alan Adýný yazýn"
 
 #. DESC_POP3_PORT
 msgid "port to connect to POP3 server"
-msgstr ""
+msgstr "POP3 sunusunda baðlanýlacak port"
 
 #. DESC_POP3_USER
 msgid "user name for POP3 server"
-msgstr ""
+msgstr "POP3 sunucusundaki kullanýcý adý"
 
 #. DESC_POP3_PASS
 msgid "password for POP3 server"
-msgstr ""
+msgstr "POP3 sunucusu için þifre"
+
+#. DESC_MAIL_VIEWER
+msgid "Enter command to be executed to view a mail image"
+msgstr "E-posta resmini görmek için çalýþtýrýlacak komutu yazýn"
 
 #. DESC_HTML_MAIL
 msgid "Mail is sent in html mode, images are displayed directly"
-msgstr ""
+msgstr "E-Posta HTML olarak yollandý, resimler direkt olarak gösterilmekte"
 
 #. DESC_PERMISSION_READ
 msgid "read"
@@ -1604,9 +1645,8 @@ msgid "Autoselect scanarea"
 msgstr "Tarama alanýný otomatik seç"
 
 #. DESC_DELETE_IMAGES
-#, fuzzy
 msgid "Delete preview image cache"
-msgstr "Döndürmek önizlemek ve taramak"
+msgstr "Önizleme resim kaþesini sil"
 
 #. DESC_PRESET_AREA
 msgid "Preset area"
@@ -1615,6 +1655,42 @@ msgstr "Alaný önceden seç"
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
 msgstr "Döndürmek önizlemek ve taramak"
+
+#. DESC_VIEWER_CLONE
+msgid "Clone image"
+msgstr "Resmi çoðalt"
+
+#. DESC_VIEWER_DESPECKLE
+msgid "Despeckle image"
+msgstr "Resmi beneksizleþtir"
+
+#. DESC_VIEWER_BLUR
+msgid "Blur image"
+msgstr "Resmi bulanýklaþtýr"
+
+#. DESC_VIEWER_ROTATE90
+msgid "Rotate image 90 degree"
+msgstr "Resmi 90 derece döndür"
+
+#. DESC_VIEWER_ROTATE180
+msgid "Rotate image 180 degree"
+msgstr "Resmi 180 derece döndür"
+
+#. DESC_VIEWER_ROTATE270
+msgid "Rotate image 270 degree"
+msgstr "Resmi 270 derece döndür"
+
+#. DESC_VIEWER_MIRROR_X
+msgid "Mirror image at vertical axis"
+msgstr "Düþey eksenlerde resmi ters görüntüle (ayna etkisi)"
+
+#. DESC_VIEWER_MIRROR_Y
+msgid "Mirror image at horizontal axis"
+msgstr "Yatay eksenlerde resmi ters görüntüle (ayna etkisi)"
+
+#. DESC_VIEWER_ZOOM
+msgid "Zoom image"
+msgstr "Resmi büyüt"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -1700,6 +1776,8 @@ msgstr "yetersiz hafýza"
 #. ERR_TOO_MUCH_DATA
 msgid "Backend sends more image data than it defined in parameters"
 msgstr ""
+"Tarayýcý sürücüsü parametrelerde belirtilenden daha fazla resim datasý "
+"gönderiyor"
 
 #. ERR_LIBTIFF
 msgid "LIBTIFF reports error"
@@ -1726,14 +1804,12 @@ msgid "Failed to execute fax viewer:"
 msgstr "Faks göstericisini çalýþtýramadý:"
 
 #. ERR_FAILED_EXEC_FAX_CMD
-#, fuzzy
 msgid "Failed to execute fax command:"
 msgstr "faks komutunu çalýþtýramadý:"
 
 #. ERR_FAILED_EXEC_MAIL_VIEWER
-#, fuzzy
 msgid "Failed to execute mail image viewer:"
-msgstr "Faks göstericisini çalýþtýramadý:"
+msgstr "E-posta göstericisini çalýþtýramadý:"
 
 #. ERR_BAD_FRAME_FORMAT
 msgid "bad frame format"
@@ -1854,6 +1930,11 @@ msgstr "aygýt için kullanmak istiyorsunuz"
 msgid "this may cause problems!"
 msgstr "bu bazý sorunlar yaratabilir!"
 
+#. WARN_UNSAVED_IMAGES
+#, c-format
+msgid "There are %d unsaved images"
+msgstr ""
+
 #. WARN_FILE_EXISTS
 #, c-format
 msgid "File %s already exists"
@@ -1874,6 +1955,10 @@ msgstr "Dosya %s postscript dosyasý deðil"
 msgid "Unsupported %d-bit output format: %s"
 msgstr "Desteklenmeyen %d-bit çýktý formatý:%s"
 
+#. WARN_VIEWER_IMAGE_NOT_SAVED
+msgid "viewer image is not saved"
+msgstr "Ýzleme resmi saklanamadý"
+
 #. TEXT_USAGE
 msgid "Usage:"
 msgstr "Kullaným:"
@@ -1883,7 +1968,6 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[SEÇENEK]...[AYGIT]"
 
 #. TEXT_HELP
-#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -1897,7 +1981,8 @@ msgid ""
 " -d, --device-settings file   load device settings from file (without "
 "\".drc\")\n"
 "\n"
-" -s, --scan                   start with scan-mode active\n"
+" -s, --save                   start with save-mode active\n"
+" -V, --viewer                 start with viewer-mode active\n"
 " -c, --copy                   start with copy-mode active\n"
 " -f, --fax                    start with fax-mode active\n"
 " -m, --mail                   start with mail-mode active\n"
@@ -1928,9 +2013,11 @@ msgstr ""
 " -d, --device-settings file   aygýt ayarlarýný dosyadan yükle (\".drc\" "
 "olmadan)\n"
 "\n"
-" -s, --scan                   tarama modu aktif olarak baþla\n"
+" -s, --save                   saklama modu aktif olarak baþla\n"
+" -V, --viewer ................  izleyme modu aktif olarak baþla\n"
 " -c, --copy                   kopyalama modu aktif olarak baþla\n"
-" -f, --fax                    faks modu aktif olarak baþla\n"
+" -f, --fax                      faks modu aktif olarak baþla\n"
+" -m, --mail  ................    e-posta modu aktif olarak baþla\n"
 " -n, --no-mode-selection      xsane mod seçimi menüsünü pasif kýl\n"
 "\n"
 " -F, --Fixed                  sabit ana pencere boyutu (tercihler deðerinin "
@@ -2014,13 +2101,13 @@ msgstr "13cm x 18cm"
 msgid "18cm x 13cm"
 msgstr "18cm x 13cm"
 
-#. MENU_ITEM_SURFACE_10cmx14cm
-msgid "10cm x 14cm"
-msgstr "10cm x 14cm"
+#. MENU_ITEM_SURFACE_10cmx15cm
+msgid "10cm x 15cm"
+msgstr "10cm x 15cm"
 
-#. MENU_ITEM_SURFACE_14cmx10cm
-msgid "14cm x 10cm"
-msgstr "14cm x 10cm"
+#. MENU_ITEM_SURFACE_15cmx10cm
+msgid "15cm x 10cm"
+msgstr "15cm x 10cm"
 
 #. MENU_ITEM_SURFACE_9cmx13cm
 msgid "9cm x 13cm"
@@ -2100,7 +2187,3 @@ msgstr "Yetersiz hafýza"
 
 msgid "Access to resource has been denied"
 msgstr "Kaynaða eriþim reddedildi"
-
-#, fuzzy
-#~ msgid "Failed to execute mail command:"
-#~ msgstr "faks komutunu çalýþtýramadý:"

@@ -150,7 +150,7 @@ static void xsane_draw_histogram_with_points(XsanePixmap *hist, int invert,
 
       inten = show_inten * count[colval]       * scale;
 
-      if (xsane.xsane_color)
+      if (xsane.xsane_colors > 1)
       {
         red   = show_red   * count_red[colval]   * scale;
         green = show_green * count_green[colval] * scale;
@@ -224,7 +224,7 @@ static void xsane_draw_histogram_with_lines(XsanePixmap *hist, int invert,
 
       inten = show_inten * count[colval]       * scale;
 
-      if (xsane.xsane_color)
+      if (xsane.xsane_colors > 1)
       {
         red   = show_red   * count_red[colval]   * scale;
         green = show_green * count_green[colval] * scale;
@@ -484,7 +484,7 @@ void xsane_update_sliders()
 
   xsane_update_slider(&xsane.slider_gray);
 
-  if ( (xsane.xsane_color) && (!xsane.enhancement_rgb_default) )
+  if ( (xsane.xsane_colors > 1) && (!xsane.enhancement_rgb_default) )
   {
     xsane_update_slider(&xsane.slider_red);
     xsane_update_slider(&xsane.slider_green);
@@ -1198,9 +1198,9 @@ void xsane_create_gamma_curve(SANE_Int *gammadata,
       /* medium correction */
       val = (val - medium_mid) * medium_m + midin;
       xsane_bound_double(&val, 0.0, maxin);
+      val = maxin - val; /* invert */
       val = maxin * pow( val/maxin, (1.0/medium_gamma) );
 
-      val = maxin - val; /* invert */
       val = val - midin;
 
       /* user correction */
@@ -1412,7 +1412,7 @@ static void xsane_enhancement_update(void)
   GTK_ADJUSTMENT(xsane.brightness_widget)->value = xsane.brightness;
   GTK_ADJUSTMENT(xsane.contrast_widget)->value   = xsane.contrast;
 
-  if ( (xsane.xsane_color) && (!xsane.enhancement_rgb_default) )
+  if ( (xsane.xsane_colors > 1) && (!xsane.enhancement_rgb_default) )
   {
     GTK_ADJUSTMENT(xsane.gamma_red_widget)->value    = xsane.gamma_red;
     GTK_ADJUSTMENT(xsane.gamma_green_widget)->value  = xsane.gamma_green;
@@ -1694,7 +1694,7 @@ void xsane_enhancement_by_histogram(int update_gamma)
     xsane.contrast   = gray_contrast;
   }
 
-  if ( (xsane.xsane_color) && (!xsane.enhancement_rgb_default) ) /* rgb sliders active */
+  if ( (xsane.xsane_colors > 1) && (!xsane.enhancement_rgb_default) ) /* rgb sliders active */
   {
     if ((xsane.slider_gray.active == XSANE_SLIDER_ACTIVE) ||
         (xsane.slider_gray.active == XSANE_SLIDER_INACTIVE)) /* gray slider not moved */
@@ -2172,5 +2172,158 @@ void xsane_set_auto_enhancement()
     xsane.slider_blue.value[2] = xsane.auto_white_blue;
   }
 }
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+void xsane_set_medium(Preferences_medium_t *medium)
+{
+ const SANE_Option_Descriptor *opt;
+ int shadow_gray, shadow_red, shadow_green, shadow_blue;
+ int highlight_gray, highlight_red, highlight_green, highlight_blue;
+
+
+  if (!medium)
+  {
+    DBG(DBG_proc, "xsane_set_medium: no medium given, using default values\n");
+
+    xsane.medium_gamma_gray  = 1.0;
+    xsane.medium_gamma_red   = 1.0;
+    xsane.medium_gamma_green = 1.0;
+    xsane.medium_gamma_blue  = 1.0;
+ 
+    xsane.medium_shadow_gray  = 0.0;
+    xsane.medium_shadow_red   = 0.0;
+    xsane.medium_shadow_green = 0.0;
+    xsane.medium_shadow_blue  = 0.0;
+ 
+    xsane.medium_highlight_gray  = 100.0;
+    xsane.medium_highlight_red   = 100.0;
+    xsane.medium_highlight_green = 100.0;
+    xsane.medium_highlight_blue  = 100.0;
+ 
+    xsane.medium_negative = 0;
+
+   return;
+  }
+ 
+  DBG(DBG_proc, "xsane_set_medium: setting values for %s\n", medium->name);
+
+  if (xsane.xsane_colors > 1)
+  {
+    xsane.medium_gamma_red   = medium->gamma_red;
+    xsane.medium_gamma_green = medium->gamma_green;
+    xsane.medium_gamma_blue  = medium->gamma_blue;
+
+    xsane.medium_shadow_red   = medium->shadow_red;
+    xsane.medium_shadow_green = medium->shadow_green;
+    xsane.medium_shadow_blue  = medium->shadow_blue;
+
+    xsane.medium_highlight_red   = medium->highlight_red;
+    xsane.medium_highlight_green = medium->highlight_green;
+    xsane.medium_highlight_blue  = medium->highlight_blue;
+  } 
+  else
+  {
+    xsane.medium_gamma_gray      = medium->gamma_gray;
+    xsane.medium_shadow_gray     = medium->shadow_gray;
+    xsane.medium_highlight_gray  = medium->highlight_gray;
+  }
+ 
+  xsane.medium_negative = medium->negative;
+ 
+#if 1
+return;
+#endif
+ 
+  opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.shadow);
+  if (!opt)
+  {
+    opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.shadow_r);
+  }
+  else if (!opt)
+  {
+    opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.highlight);
+  }
+  else if (!opt)
+  {
+    opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.highlight_r);
+  }
+  else if (!opt)
+  {
+    DBG(DBG_info, "xsane_set_medium_callback: no shadow/highlight values available\n");
+   return;
+  }
+
+  if (opt->type == SANE_TYPE_FIXED)
+  {
+    shadow_gray     = SANE_FIX(medium->shadow_gray);
+    shadow_red      = SANE_FIX(medium->shadow_red);
+    shadow_green    = SANE_FIX(medium->shadow_green);
+    shadow_blue     = SANE_FIX(medium->shadow_blue);
+    highlight_gray  = SANE_FIX(medium->highlight_gray);
+    highlight_red   = SANE_FIX(medium->highlight_red);
+    highlight_green = SANE_FIX(medium->highlight_green);
+    highlight_blue  = SANE_FIX(medium->highlight_blue);
+  }
+  else if (opt->type == SANE_TYPE_INT)
+  {
+    shadow_gray     = (int) medium->shadow_gray;
+    shadow_red      = (int) medium->shadow_red;
+    shadow_green    = (int) medium->shadow_green;
+    shadow_blue     = (int) medium->shadow_blue;
+    highlight_gray  = (int) medium->highlight_gray;
+    highlight_red   = (int) medium->highlight_red;
+    highlight_green = (int) medium->highlight_green;
+    highlight_blue  = (int) medium->highlight_blue;
+  }
+  else
+  {
+    DBG(DBG_info, "xsane_set_medium_callback: unknown type of shadow/highlight: %d\n", opt->type);
+   return;
+  }
+
+  /* shadow values */ 
+  if (!xsane_control_option(xsane.dev, xsane.well_known.shadow,      SANE_ACTION_SET_VALUE, &shadow_gray, 0))
+  {
+    xsane.medium_shadow_gray = 0.0; /* we are using hardware shadow */
+  }
+ 
+  if (!xsane_control_option(xsane.dev, xsane.well_known.shadow_r,    SANE_ACTION_SET_VALUE, &shadow_red, 0))
+  {
+    xsane.medium_shadow_red = 0.0; /* we are using hardware shadow */
+  }
+ 
+  if (!xsane_control_option(xsane.dev, xsane.well_known.shadow_g,    SANE_ACTION_SET_VALUE, &shadow_green, 0))
+  {
+    xsane.medium_shadow_green = 0.0; /* we are using hardware shadow */
+  }
+ 
+  if (!xsane_control_option(xsane.dev, xsane.well_known.shadow_b,    SANE_ACTION_SET_VALUE, &shadow_blue, 0))
+  {
+    xsane.medium_shadow_blue = 0.0; /* we are using hardware shadow */
+  }                                                                                                         
+
+  /* highlight values */
+  if (!xsane_control_option(xsane.dev, xsane.well_known.highlight,   SANE_ACTION_SET_VALUE, &highlight_gray, 0))
+  {
+    xsane.medium_highlight_gray = 100.0; /* we are using hardware highlight */
+  }
+ 
+  if (!xsane_control_option(xsane.dev, xsane.well_known.highlight_r, SANE_ACTION_SET_VALUE, &highlight_red, 0))
+  {
+    xsane.medium_highlight_red = 100.0; /* we are using hardware highlight */
+  }
+ 
+  if (!xsane_control_option(xsane.dev, xsane.well_known.highlight_g, SANE_ACTION_SET_VALUE, &highlight_green, 0))
+  {
+    xsane.medium_highlight_green = 100.0; /* we are using hardware highlight */
+  }
+ 
+  if (!xsane_control_option(xsane.dev, xsane.well_known.highlight_b, SANE_ACTION_SET_VALUE, &highlight_blue, 0))
+  {
+    xsane.medium_highlight_blue = 100.0; /* we are using hardware highlight */
+  }
+ 
+  xsane_back_gtk_refresh_dialog();
+}                                                                                                             
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

@@ -53,7 +53,7 @@ gint xsane_authorization_callback(SANE_String_Const resource,
                                   SANE_Char username[SANE_MAX_USERNAME_LEN],
                                   SANE_Char password[SANE_MAX_PASSWORD_LEN]);
 void xsane_progress_cancel(GtkWidget *widget, gpointer data);
-void xsane_progress_new(char *bar_text, char *info, GtkSignalFunc callback);
+void xsane_progress_new(char *bar_text, char *info, GtkSignalFunc callback, int *cancel_data_pointer);
 void xsane_progress_update(gfloat newval);
 void xsane_progress_clear();
 GtkWidget *xsane_vendor_pixmap_new(GdkWindow *window, GtkWidget *parent);
@@ -80,7 +80,7 @@ void xsane_refresh_dialog(void);
 void xsane_set_sensitivity(SANE_Int sensitivity);
 void xsane_update_param(void *arg);
 void xsane_define_output_filename(void);
-void xsane_identify_output_format(char **ext);
+int xsane_identify_output_format(char *filename, char **ext);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -364,26 +364,16 @@ void xsane_define_maximum_output_size()
   {
     switch(xsane.xsane_mode)
     {
-      case XSANE_SCAN:
+      case XSANE_SAVE:
 
         xsane_define_output_filename();
-        xsane_identify_output_format(0);
+        xsane.xsane_output_format = xsane_identify_output_format(xsane.output_filename, 0);
 
-        if (xsane.xsane_output_format == XSANE_PS) 
-        {
-          if (preferences.psrotate) /* rotate: landscape */
-          {
-            preview_set_maximum_output_size(xsane.preview, preferences.psfile_height, preferences.psfile_width);
-          }
-          else /* do not rotate: portrait */
-          {
-            preview_set_maximum_output_size(xsane.preview, preferences.psfile_width, preferences.psfile_height);
-          }
-        }
-        else
-        {
-          preview_set_maximum_output_size(xsane.preview, INF, INF);
-        }
+        preview_set_maximum_output_size(xsane.preview, INF, INF);
+       break;
+
+      case XSANE_VIEWER:
+        preview_set_maximum_output_size(xsane.preview, INF, INF);
        break;
 
       case XSANE_COPY:
@@ -688,16 +678,19 @@ gint xsane_authorization_callback(SANE_String_Const resource,
 
 void xsane_progress_cancel(GtkWidget *widget, gpointer data)
 {
+ void *cancel_data_pointer;
  GtkSignalFunc callback = (GtkSignalFunc) data;
 
   DBG(DBG_proc, "xsane_progress_cancel\n");
 
-  (callback)();
+  cancel_data_pointer = gtk_object_get_data(GTK_OBJECT(widget), "progress-cancel-data-pointer");
+
+  (callback)(cancel_data_pointer);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void xsane_progress_new(char *bar_text, char *info, GtkSignalFunc callback)
+void xsane_progress_new(char *bar_text, char *info, GtkSignalFunc callback, int *cancel_data_pointer)
 {
   DBG(DBG_proc, "xsane_progress_new\n");
 
@@ -705,6 +698,7 @@ void xsane_progress_new(char *bar_text, char *info, GtkSignalFunc callback)
   gtk_progress_set_format_string(GTK_PROGRESS(xsane.progress_bar), bar_text); 
   gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.progress_bar), 0.0);
   gtk_widget_set_sensitive(GTK_WIDGET(xsane.cancel_button), TRUE);
+  gtk_object_set_data(GTK_OBJECT(xsane.cancel_button), "progress-cancel-data-pointer", cancel_data_pointer);
   gtk_signal_connect(GTK_OBJECT(xsane.cancel_button), "clicked", (GtkSignalFunc) xsane_progress_cancel, callback);
   xsane.cancel_callback = callback;
 }
@@ -1172,7 +1166,7 @@ void xsane_update_param(void *arg)
 
   if (sane_get_parameters(xsane.dev, &xsane.param) == SANE_STATUS_GOOD)
   {
-   float size = xsane.param.bytes_per_line * xsane.param.lines;
+   float size = (float) xsane.param.bytes_per_line * (float) xsane.param.lines;
    int depth = xsane.param.depth;
 
     if ( (depth == 16) && (preferences.reduce_16bit_to_8bit) )
@@ -1213,17 +1207,17 @@ void xsane_update_param(void *arg)
 
     if (xsane.param.format == SANE_FRAME_GRAY)
     {
-      xsane.xsane_color = 0;
+      xsane.xsane_colors = 1;
     }
 #ifdef SUPPORT_RGBA
     else if (xsane.param.format == SANE_FRAME_RGBA)
     {
-      xsane.xsane_color = 4;
+      xsane.xsane_colors = 4;
     }
 #endif
     else /* RGB */
     {
-      xsane.xsane_color = 3;
+      xsane.xsane_colors = 3;
     }
   }
   else 
@@ -1284,19 +1278,20 @@ void xsane_define_output_filename(void)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void xsane_identify_output_format(char **ext)
+int xsane_identify_output_format(char *filename, char **ext)
 {
  char *extension;
+ int output_format=-1;
 
   DBG(DBG_proc, "xsane_identify_output_format\n");
 
-  extension = strrchr(xsane.output_filename, '.');
+  extension = strrchr(filename, '.');
   if (extension)
   {
     extension++; /* skip "." */
   }
 
-  xsane.xsane_output_format = XSANE_UNKNOWN;
+  output_format = XSANE_UNKNOWN;
 
   if (extension)
   {
@@ -1304,7 +1299,7 @@ void xsane_identify_output_format(char **ext)
     {
       if (xsane.param.depth == 16)
       {
-        xsane.xsane_output_format = XSANE_RAW16;
+        output_format = XSANE_RAW16;
       }
     }
     else if ( (!strcasecmp(extension, "pnm")) || (!strcasecmp(extension, "ppm")) ||
@@ -1312,41 +1307,41 @@ void xsane_identify_output_format(char **ext)
     {
       if (xsane.param.depth == 16)
       {
-        xsane.xsane_output_format = XSANE_PNM16;
+        output_format = XSANE_PNM16;
       }
       else
       {
-        xsane.xsane_output_format = XSANE_PNM;
+        output_format = XSANE_PNM;
       }
     }
 #ifdef HAVE_LIBPNG
 #ifdef HAVE_LIBZ
     else if (!strcasecmp(extension, "png"))
     {
-      xsane.xsane_output_format = XSANE_PNG;
+      output_format = XSANE_PNG;
     }
 #endif
 #endif
 #ifdef HAVE_LIBJPEG
     else if ( (!strcasecmp(extension, "jpg")) || (!strcasecmp(extension, "jpeg")) )
     {
-      xsane.xsane_output_format = XSANE_JPEG;
+      output_format = XSANE_JPEG;
     }
 #endif
     else if (!strcasecmp(extension, "ps"))
     {
-      xsane.xsane_output_format = XSANE_PS;
+      output_format = XSANE_PS;
     }
 #ifdef HAVE_LIBTIFF
     else if ( (!strcasecmp(extension, "tif")) || (!strcasecmp(extension, "tiff")) )
     {
-      xsane.xsane_output_format = XSANE_TIFF;
+      output_format = XSANE_TIFF;
     }
 #endif
 #ifdef SUPPORT_RGBA
     else if (!strcasecmp(extension, "rgba"))
     {
-      xsane.xsane_output_format = XSANE_RGBA;
+      output_format = XSANE_RGBA;
     }
 #endif
   }
@@ -1362,6 +1357,8 @@ void xsane_identify_output_format(char **ext)
       *ext = 0;
     }
   }
+
+ return output_format;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1586,16 +1583,20 @@ void xsane_widget_test_uposition(GtkWidget *gtk_window)
 
   gtk_widget_realize(gtk_window);
 
-  while (gtk_events_pending())
+  while (!GTK_WIDGET_REALIZED(gtk_window) || (gtk_events_pending()))
   {
     gtk_main_iteration();
   }
 
   xsane_widget_get_uposition(gtk_window, &x, &y);
+  xsane_widget_get_uposition(gtk_window, &x, &y);
+
   DBG(DBG_info, "xsane_widget_test_uposition: original position = %d, %d\n", x, y);
+
   x_orig = x;
   y_orig = y;
   gtk_widget_set_uposition(gtk_window, x, y);
+
   xsane_widget_get_uposition(gtk_window, &x, &y);
   DBG(DBG_info, "xsane_widget_test_uposition: new position = %d, %d\n", x, y);
 

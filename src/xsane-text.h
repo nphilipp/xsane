@@ -53,6 +53,8 @@
 #define WINDOW_ADVANCED_OPTIONS		_("Advanced options")
 #define WINDOW_DEVICE_SELECTION		_("device selection")
 #define WINDOW_PREVIEW			_("Preview")
+#define WINDOW_VIEWER			_("Viewer")
+#define WINDOW_VIEWER_OUTPUT_FILENAME	_("Viewer: select output filename")
 #define WINDOW_OUTPUT_FILENAME		_("select output filename")
 #define WINDOW_SAVE_SETTINGS		_("save device settings")
 #define WINDOW_LOAD_SETTINGS		_("load device settings")
@@ -63,11 +65,18 @@
 #define MENU_PREFERENCES		_("Preferences")
 #define MENU_VIEW			_("View")
 #define MENU_HELP			_("Help")
+#define MENU_FILTERS			_("Filters")
 
 #define MENU_ITEM_ABOUT_XSANE		_("About XSane")
 #define MENU_ITEM_ABOUT_TRANSLATION	_("About translation")
 #define MENU_ITEM_INFO			_("Info")
 #define MENU_ITEM_QUIT			_("Quit")
+
+#define MENU_ITEM_SAVE_IMAGE		_("Save image")
+#define MENU_ITEM_CLOSE			_("Close")
+
+#define MENU_ITEM_DESPECKLE		_("Despeckle")
+#define MENU_ITEM_BLUR			_("Blur")
 
 #define FRAME_RAW_IMAGE			_("Raw image")
 #define FRAME_ENHANCED_IMAGE		_("Enhanced image")
@@ -96,8 +105,11 @@
 #define BUTTON_DELETE_PROJECT		_("Delete project")
 #define BUTTON_ADD_PRINTER		_("Add printer")
 #define BUTTON_DELETE_PRINTER		_("Delete printer")
-#define BUTTON_PREVIEW_ACQUIRE		_("Acquire Preview")
-#define BUTTON_PREVIEW_CANCEL		_("Cancel Preview")
+#define BUTTON_PREVIEW_ACQUIRE		_("Acquire preview")
+#define BUTTON_PREVIEW_CANCEL		_("Cancel preview")
+#define BUTTON_DISCARD_IMAGE		_("Discard image")
+#define BUTTON_DISCARD_ALL_IMAGES	_("Discard all images")
+#define BUTTON_DO_NOT_CLOSE		_("Do not close")
 
 #define RADIO_BUTTON_FINE_MODE		_("Fine mode")
 #define RADIO_BUTTON_HTML_MAIL		_("HTML mail")
@@ -206,10 +218,6 @@
 #define TEXT_SETUP_TIFF_COMPRESSION_16	_("TIFF 16 bit image compression")
 #define TEXT_SETUP_TIFF_COMPRESSION_8	_("TIFF 8 bit image compression")
 #define TEXT_SETUP_TIFF_COMPRESSION_1	_("TIFF lineart image compression")
-#define TEXT_SETUP_PSFILE_WIDTH		_("Width of paper for postscript")
-#define TEXT_SETUP_PSFILE_HEIGHT	_("Height of paper for postscript")
-#define TEXT_SETUP_PSFILE_LEFT		_("Left offset for postscript")
-#define TEXT_SETUP_PSFILE_BOTTOM	_("Bottom offset for postscript")
 #define TEXT_SETUP_PREVIEW_OVERSAMPLING	_("Preview oversampling:")
 #define TEXT_SETUP_PREVIEW_GAMMA	_("Preview gamma:")
 #define TEXT_SETUP_PREVIEW_GAMMA_RED	_("Preview gamma red:")
@@ -255,7 +263,8 @@
 #define NOTEBOOK_DISPLAY_OPTIONS	_("Display")
 #define NOTEBOOK_ENHANCE_OPTIONS	_("Enhancement")
 
-#define MENU_ITEM_SCAN			_("Scan")
+#define MENU_ITEM_SAVE			_("Save")
+#define MENU_ITEM_VIEWER		_("Viewer")
 #define MENU_ITEM_COPY			_("Copy")
 #define MENU_ITEM_FAX			_("Fax")
 #define MENU_ITEM_MAIL			_("Email")
@@ -272,7 +281,6 @@
 #define SUBMENU_ITEM_LENGTH_MILLIMETERS	_("millimeters")
 #define SUBMENU_ITEM_LENGTH_CENTIMETERS	_("centimeters")
 #define SUBMENU_ITEM_LENGTH_INCHES	_("inches")
-#define MENU_ITEM_MEDIUM		_("Medium (Highlight/Shadow)")
 #define MENU_ITEM_UPDATE_POLICY		_("Update policy")
 #define SUBMENU_ITEM_POLICY_CONTINUOUS	_("continuous")
 #define SUBMENU_ITEM_POLICY_DISCONTINU	_("discontinuous")
@@ -316,8 +324,13 @@
 
 #define PROGRESS_TRANSFERING_DATA	_("Transfering image")
 #define PROGRESS_ROTATING_DATA		_("Rotating image")
+#define PROGRESS_MIRRORING_DATA		_("Mirroring image")
 #define PROGRESS_PACKING_DATA		_("Packing image")
-#define PROGRESS_CONVERTING_DATA	_("Converting data")
+#define PROGRESS_CONVERTING_DATA	_("Converting image")
+#define PROGRESS_SAVING_DATA		_("Saving image")
+#define PROGRESS_CLONING_DATA		_("Cloning image")
+#define PROGRESS_DESPECKLING_DATA	_("Despeckling image")
+#define PROGRESS_BLURING_DATA		_("Bluring image")
 
 #define DESC_SCAN_START			_("Start scan <Ctrl-Enter>")
 #define DESC_SCAN_CANCEL		_("Cancel scan <ESC>")
@@ -325,6 +338,7 @@
 #define DESC_PREVIEW_CANCEL		_("Cancel preview scan <Alt-ESC>")
 #define DESC_XSANE_MODE			_("Use XSane for: SCANning-<Ctrl-s> " \
                                           "photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>")
+#define DESC_XSANE_MEDIUM		_("Select source medium type")
 
 #define DESC_FILENAME_COUNTER_STEP	_("Value that is added to filenamecounter after scan")
 #define DESC_BROWSE_FILENAME		_("Browse for image filename")
@@ -487,6 +501,17 @@
 #define DESC_PRESET_AREA		_("Preset area")
 #define DESC_ROTATION			_("Rotate preview and scan")
 
+#define DESC_VIEWER_SAVE		_("Save image")
+#define DESC_VIEWER_CLONE		_("Clone image")
+#define DESC_VIEWER_DESPECKLE		_("Despeckle image")
+#define DESC_VIEWER_BLUR		_("Blur image")
+#define DESC_VIEWER_ROTATE90		_("Rotate image 90 degree")
+#define DESC_VIEWER_ROTATE180		_("Rotate image 180 degree")
+#define DESC_VIEWER_ROTATE270		_("Rotate image 270 degree")
+#define DESC_VIEWER_MIRROR_X		_("Mirror image at vertical axis")
+#define DESC_VIEWER_MIRROR_Y		_("Mirror image at horizontal axis")
+#define DESC_VIEWER_ZOOM		_("Zoom image")
+
 
 #define ERR_HOME_DIR			_("Failed to determine home directory:")
 #define ERR_CHANGE_WORKING_DIR		_("Failed to change working directory to")
@@ -556,10 +581,13 @@ YOU ARE ALONE!\
 #define ERR_USED_FOR_DEVICE		_("you want to use it for device")
 #define ERR_MAY_CAUSE_PROBLEMS		_("this may cause problems!")
 
+#define WARN_UNSAVED_IMAGES		_("There are %d unsaved images")
 #define WARN_FILE_EXISTS		_("File %s already exists")
 #define ERR_FILE_NOT_EXISTS		_("File %s does not exist")
 #define ERR_FILE_NOT_POSTSCRIPT		_("File %s is not a postscript file")
 #define ERR_UNSUPPORTED_OUTPUT_FORMAT	_("Unsupported %d-bit output format: %s")
+
+#define WARN_VIEWER_IMAGE_NOT_SAVED	_("viewer image is not saved")
 
 #define TEXT_USAGE			_("Usage:")
 #define TEXT_USAGE_OPTIONS		_("[OPTION]... [DEVICE]")
@@ -574,7 +602,8 @@ The format of [DEVICE] is backendname:devicefile (e.g. umax:/dev/scanner).\n\
 \n\
  -d, --device-settings file   load device settings from file (without \".drc\")\n\
 \n\
- -s, --scan                   start with scan-mode active\n\
+ -s, --save                   start with save-mode active\n\
+ -V, --viewer                 start with viewer-mode active\n\
  -c, --copy                   start with copy-mode active\n\
  -f, --fax                    start with fax-mode active\n\
  -m, --mail                   start with mail-mode active\n\
@@ -614,8 +643,8 @@ The format of [DEVICE] is backendname:devicefile (e.g. umax:/dev/scanner).\n\
 #define MENU_ITEM_SURFACE_DIN_A5L	N_("DIN A5 land.")
 #define MENU_ITEM_SURFACE_13cmx18cm	N_("13cm x 18cm")
 #define MENU_ITEM_SURFACE_18cmx13cm	N_("18cm x 13cm")
-#define MENU_ITEM_SURFACE_10cmx14cm	N_("10cm x 14cm")
-#define MENU_ITEM_SURFACE_14cmx10cm	N_("14cm x 10cm")
+#define MENU_ITEM_SURFACE_10cmx15cm	N_("10cm x 15cm")
+#define MENU_ITEM_SURFACE_15cmx10cm	N_("15cm x 10cm")
 #define MENU_ITEM_SURFACE_9cmx13cm	N_("9cm x 13cm")
 #define MENU_ITEM_SURFACE_13cmx9cm	N_("13cm x 9cm")
 #define MENU_ITEM_SURFACE_legal_P	N_("legal port.")
