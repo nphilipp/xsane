@@ -32,7 +32,7 @@ INSTALL_DATA = @INSTALL_DATA@
 CC = @CC@
 INCLUDES = -I. -I$(srcdir) -I$(top_builddir)/include -I$(top_srcdir)/include @INCLUDES@
 DEFS = @DEFS@ -DLOCALEDIR=$(datadir)/locale
-CPPFLAGS = @CPPFLAGS@ -DPATH_XSANE_DOC_DIR=\$(xsanedocdir) -DPATH_SANE_DATA_DIR=\$(sanedatadir)
+CPPFLAGS = @CPPFLAGS@ -DPATH_XSANE_DOC_DIR=$(xsanedocdir) -DPATH_SANE_DATA_DIR=$(sanedatadir)
 CFLAGS   = @CFLAGS@ @SANE_CFLAGS@ @GIMP_CFLAGS@ @GTK_CFLAGS@
 LDFLAGS  = @LDFLAGS@ @SANE_LDFLAGS@
 LIBS     = @SANE_LIBS@ @GIMP_LIBS@ @GTK_LIBS@ @INTLLIBS@ @LIBS@
@@ -109,3 +109,105 @@ depend:
 	makedepend $(INCLUDES) *.c
 
 .PHONY: all install depend clean distclean
+
+xsane.o: xsane.h
+xsane.o: xsane-back-gtk.h
+xsane.o: xsane-front-gtk.h
+xsane.o: xsane-preview.h
+xsane.o: xsane-save.h
+xsane.o: xsane-gamma.h
+xsane.o: xsane-setup.h
+xsane.o: xsane-scan.h
+xsane.o: xsane-rc-io.h
+xsane.o: xsane-device-preferences.h
+xsane.o: xsane-preferences.h
+xsane.o: xsane-icons.h
+xsane.o: xsane-batch-scan.h
+
+xsane-back-gtk.o: xsane.h
+xsane-back-gtk.o: xsane-back-gtk.h
+xsane-back-gtk.o: xsane-front-gtk.h
+xsane-back-gtk.o: xsane-preferences.h
+xsane-back-gtk.o: xsane-gamma.h
+
+xsane-front-gtk.o: xsane.h
+xsane-front-gtk.o: xsane-back-gtk.h
+xsane-front-gtk.o: xsane-preferences.h
+xsane-front-gtk.o: xsane-preview.h
+xsane-front-gtk.o: xsane-save.h
+xsane-front-gtk.o: xsane-gamma.h
+xsane-front-gtk.o: xsane-setup.h
+
+xsane-batch-scan.o: xsane.h
+xsane-batch-scan.o: xsane-scan.h
+xsane-batch-scan.o: xsane-batch-scan.h
+xsane-batch-scan.o: xsane-back-gtk.h
+xsane-batch-scan.o: xsane-front-gtk.h
+xsane-batch-scan.o: xsane-rc-io.h
+xsane-batch-scan.o: xsane-preview.h
+xsane-batch-scan.o: xsane-gamma.h
+
+xsane-preview.o: xsane.h
+xsane-preview.o: xsane-back-gtk.h
+xsane-preview.o: xsane-front-gtk.h
+xsane-preview.o: xsane-batch-scan.h
+xsane-preview.o: xsane-preview.h
+xsane-preview.o: xsane-preferences.h
+xsane-preview.o: xsane-gamma.h
+
+xsane-preferecnes.o: xsane.h
+xsane-preferecnes.o: xsane-preferences.h
+xsane-preferecnes.o: xsane-rc-io.h
+
+xsane-device-preferences.o: xsane.h
+xsane-device-preferences.o: xsane-rc-io.h
+xsane-device-preferences.o: xsane-back-gtk.h
+xsane-device-preferences.o: xsane-front-gtk.h
+xsane-device-preferences.o: xsane-gamma.h
+
+xsane-rc-io.o: xsane.h
+xsane-rc-io.o: xsane-rc-io.h
+
+xsane-save.o: xsane.h
+xsane-save.o: xsane-back-gtk.h
+xsane-save.o: xsane-front-gtk.h
+
+xsane-scan.o: xsane.h
+xsane-scan.o: xsane-back-gtk.h
+xsane-scan.o: xsane-front-gtk.h
+xsane-scan.o: xsane-preferences.h
+xsane-scan.o: xsane-preview.h
+xsane-scan.o: xsane-viewer.h
+xsane-scan.o: xsane-save.h
+xsane-scan.o: xsane-gamma.h
+xsane-scan.o: xsane-setup.h
+
+xsane-gamma.o: xsane.h
+xsane-gamma.o: xsane-back-gtk.h
+xsane-gamma.o: xsane-front-gtk.h
+xsane-gamma.o: xsane-preferences.h
+xsane-gamma.o: xsane-preview.h
+xsane-gamma.o: xsane-save.h
+
+xsane-setup.o: xsane.h
+xsane-setup.o: xsane-back-gtk.h
+xsane-setup.o: xsane-front-gtk.h
+xsane-setup.o: xsane-preferences.h
+xsane-setup.o: xsane-device-preferences.h
+xsane-setup.o: xsane-preview.h
+xsane-setup.o: xsane-save.h
+xsane-setup.o: xsane-gamma.h
+xsane-setup.o: xsane-batch-scan.h
+
+xsane-viewer.o: xsane.h
+xsane-viewer.o: xsane-back-gtk.h
+xsane-viewer.o: xsane-front-gtk.h
+xsane-viewer.o: xsane-preferences.h
+xsane-viewer.o: xsane-viewer.h
+xsane-viewer.o: xsane-gamma.h
+xsane-viewer.o: xsane-icons.h
+xsane-viewer.o: xsane-save.h
+
+
+
+

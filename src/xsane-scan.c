@@ -1778,13 +1778,14 @@ static void xsane_start_scan(void)
   xsane.input_tag = -1;
 
   xsane.lineart_to_grayscale_x = xsane.param.pixels_per_line;
-
+#ifndef BUGGY_GDK_INPUT_EXCEPTION
   if ((sane_set_io_mode(dev, SANE_TRUE) == SANE_STATUS_GOOD) && (sane_get_select_fd(dev, &fd) == SANE_STATUS_GOOD))
   {
     DBG(DBG_info, "gdk_input_add\n");
     xsane.input_tag = gdk_input_add(fd, GDK_INPUT_READ | GDK_INPUT_EXCEPTION, xsane_read_image_data, 0);
   }
   else
+#endif
   {
     xsane_read_image_data(0, -1, GDK_INPUT_READ);
   }

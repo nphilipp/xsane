@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.90\n"
-"POT-Creation-Date: 2004-04-20 18:54+0200\n"
+"POT-Creation-Date: 2004-05-08 23:55+0200\n"
 "PO-Revision-Date: 2002-12-09 10:42+0200\n"
 "Last-Translator: Togan Muftuoglu <toganm@yahoo.com>\n"
 "Language-Team: Turkish <kde-i18n-tr@kde.org>\n"
@@ -90,6 +90,21 @@ msgstr "dosyayý e-postaya yerleþtirin"
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
 msgstr "Önceden belirlenmiþ alaný yeniden isimlendir"
+
+#. WINDOW_PRESET_AREA_ADD
+#, fuzzy
+msgid "add preset area"
+msgstr "Önceden belirlenmiþ alaný yeniden isimlendir"
+
+#. WINDOW_MEDIUM_RENAME
+#, fuzzy
+msgid "rename medium"
+msgstr "Saklama ortamý"
+
+#. WINDOW_MEDIUM_ADD
+#, fuzzy
+msgid "add new medium"
+msgstr "Saklama ortamý"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -981,6 +996,9 @@ msgstr "grup"
 msgid "all"
 msgstr "hepsi"
 
+msgid "new media"
+msgstr ""
+
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
 msgstr "Kaydet"
@@ -1206,20 +1224,29 @@ msgstr "dosya son takýsý"
 msgid "Add selection to list"
 msgstr "Seçileni listeye ekle"
 
-#. MENU_ITEM_PRESET_AREA_RENAME
-msgid "Rename definiton"
-msgstr "Tanýmý yeniden isimlendir"
+#. MENU_ITEM_MEDIUM_ADD
+#, fuzzy
+msgid "Add medium definition"
+msgstr "Ortam tanýmýný sakla"
 
-#. MENU_ITEM_PRESET_AREA_DELETE
-msgid "Delete definition"
-msgstr "Tanýmý silin"
+#. MENU_ITEM_RENAME
+#, fuzzy
+msgid "Rename item"
+msgstr "Resmi yeniden isimlendir"
 
-#. MENU_ITEM_PRESET_AREA_MOVE_UP
-msgid "Move up"
+#. MENU_ITEM_DELETE
+#, fuzzy
+msgid "Delete item"
+msgstr "Yazýcý sil"
+
+#. MENU_ITEM_MOVE_UP
+#, fuzzy
+msgid "Move item up"
 msgstr "Yukarý taþý"
 
-#. MENU_ITEM_PRESET_AREA_MOVE_DWN
-msgid "Move down"
+#. MENU_ITEM_MOVE_DWN
+#, fuzzy
+msgid "Move item down"
 msgstr "Aþaðý taþý"
 
 #. PROGRESS_SCANNING
@@ -1300,9 +1327,13 @@ msgstr ""
 "<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
-#, fuzzy
-msgid "Select source medium type\n"
-msgstr "Kaynak ortam tipini seçin"
+msgid ""
+"Select source medium type.\n"
+"To rename, reorder or delete an entry use context menu (right mouse "
+"button).\n"
+"To create a medium enable the option edit medium definition in preferences "
+"menu."
+msgstr ""
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1352,13 +1383,23 @@ msgstr "E-posta adresi girin"
 msgid "Enter subject of email"
 msgstr "E-Posta konusu girin"
 
-#. DESC_PRESET_AREA_NAME
+#. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
 msgstr "Öncden belirlenen alan için yeni isim gir"
 
-#. DESC_MEDIUM_DEFINITION_NAME
+#. DESC_PRESET_AREA_ADD
+#, fuzzy
+msgid "Enter name for new preset area"
+msgstr "Öncden belirlenen alan için yeni isim gir"
+
+#. DESC_MEDIUM_RENAME
 #, fuzzy
 msgid "Enter new name for medium definition"
+msgstr "Ortam tanýmýný sakla"
+
+#. DESC_MEDIUM_ADD
+#, fuzzy
+msgid "Enter name for new medium definition"
 msgstr "Ortam tanýmýný sakla"
 
 #. DESC_PRINTER_SELECT
@@ -1943,8 +1984,11 @@ msgid "Delete preview image cache"
 msgstr "Önizleme resim kaþesini sil"
 
 #. DESC_PRESET_AREA
-msgid "Preset area"
-msgstr "Alaný önceden seç"
+msgid ""
+"Preset area:\n"
+"To add new area or edit an existing area use contect menu (right mouse "
+"button)."
+msgstr ""
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -2161,6 +2205,14 @@ msgstr "bilinmeyen tip"
 #. ERR_UNKNOWN_CONSTRAINT_TYPE
 msgid "unknown constraint type"
 msgstr "bilinmeyen sýkýþtýrma tipi"
+
+#. ERR_OPTION_NAME_NULL
+msgid "Option has empty name (NULL)."
+msgstr ""
+
+#. ERR_BACKEND_BUG
+msgid "This is a backend bug. Please inform the author of the backend!"
+msgstr ""
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
@@ -2633,3 +2685,16 @@ msgstr "Yetersiz hafýza"
 
 msgid "Access to resource has been denied"
 msgstr "Kaynaða eriþim reddedildi"
+
+#~ msgid "Preset area"
+#~ msgstr "Alaný önceden seç"
+
+#, fuzzy
+#~ msgid "Select source medium type\n"
+#~ msgstr "Kaynak ortam tipini seçin"
+
+#~ msgid "Rename definiton"
+#~ msgstr "Tanýmý yeniden isimlendir"
+
+#~ msgid "Delete definition"
+#~ msgstr "Tanýmý silin"

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: da\n"
-"POT-Creation-Date: 2004-04-20 18:54+0200\n"
+"POT-Creation-Date: 2004-05-08 23:55+0200\n"
 "PO-Revision-Date: 2004-04-21 03:50+0200\n"
 "Last-Translator: Mogens Jaeger <mogensjaeger@get2net.dk>\n"
 "Language-Team: Dansk <da@li.org>\n"
@@ -92,6 +92,21 @@ msgstr "indsæt fil i mail"
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
 msgstr "omdøb forvalgt område"
+
+#. WINDOW_PRESET_AREA_ADD
+#, fuzzy
+msgid "add preset area"
+msgstr "omdøb forvalgt område"
+
+#. WINDOW_MEDIUM_RENAME
+#, fuzzy
+msgid "rename medium"
+msgstr "Gem medium"
+
+#. WINDOW_MEDIUM_ADD
+#, fuzzy
+msgid "add new medium"
+msgstr "Gem medium"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -985,6 +1000,9 @@ msgstr "gruppe"
 msgid "all"
 msgstr "alle"
 
+msgid "new media"
+msgstr ""
+
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
 msgstr "Gem"
@@ -1209,20 +1227,29 @@ msgstr "efter fil-endelse"
 msgid "Add selection to list"
 msgstr "Tilføj valgt område til liste"
 
-#. MENU_ITEM_PRESET_AREA_RENAME
-msgid "Rename definiton"
-msgstr "Omdøb definition"
+#. MENU_ITEM_MEDIUM_ADD
+#, fuzzy
+msgid "Add medium definition"
+msgstr "Ret medie definition"
 
-#. MENU_ITEM_PRESET_AREA_DELETE
-msgid "Delete definition"
-msgstr "Slet definition"
+#. MENU_ITEM_RENAME
+#, fuzzy
+msgid "Rename item"
+msgstr "Omdøb billede"
 
-#. MENU_ITEM_PRESET_AREA_MOVE_UP
-msgid "Move up"
+#. MENU_ITEM_DELETE
+#, fuzzy
+msgid "Delete item"
+msgstr "Slet printer"
+
+#. MENU_ITEM_MOVE_UP
+#, fuzzy
+msgid "Move item up"
 msgstr "Flyt op"
 
-#. MENU_ITEM_PRESET_AREA_MOVE_DWN
-msgid "Move down"
+#. MENU_ITEM_MOVE_DWN
+#, fuzzy
+msgid "Move item down"
 msgstr "Flyt ned"
 
 #. PROGRESS_SCANNING
@@ -1303,8 +1330,13 @@ msgstr ""
 "<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
-msgid "Select source medium type\n"
-msgstr "Vælg kilde mediets type\n"
+msgid ""
+"Select source medium type.\n"
+"To rename, reorder or delete an entry use context menu (right mouse "
+"button).\n"
+"To create a medium enable the option edit medium definition in preferences "
+"menu."
+msgstr ""
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1354,12 +1386,22 @@ msgstr "Angiv email adresse"
 msgid "Enter subject of email"
 msgstr "Angiv subjekt for email"
 
-#. DESC_PRESET_AREA_NAME
+#. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
 msgstr "Angiv nyt navn på forvalgt område"
 
-#. DESC_MEDIUM_DEFINITION_NAME
+#. DESC_PRESET_AREA_ADD
+#, fuzzy
+msgid "Enter name for new preset area"
+msgstr "Angiv nyt navn på forvalgt område"
+
+#. DESC_MEDIUM_RENAME
 msgid "Enter new name for medium definition"
+msgstr "Angiv nyt navn på medie definition"
+
+#. DESC_MEDIUM_ADD
+#, fuzzy
+msgid "Enter name for new medium definition"
 msgstr "Angiv nyt navn på medie definition"
 
 #. DESC_PRINTER_SELECT
@@ -1942,8 +1984,11 @@ msgid "Delete preview image cache"
 msgstr "Slet forhåndsvisnings cache"
 
 #. DESC_PRESET_AREA
-msgid "Preset area"
-msgstr "Forudvalgt område"
+msgid ""
+"Preset area:\n"
+"To add new area or edit an existing area use contect menu (right mouse "
+"button)."
+msgstr ""
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -2157,6 +2202,14 @@ msgstr "ukendt type"
 #. ERR_UNKNOWN_CONSTRAINT_TYPE
 msgid "unknown constraint type"
 msgstr "ukendt forpligtende type"
+
+#. ERR_OPTION_NAME_NULL
+msgid "Option has empty name (NULL)."
+msgstr ""
+
+#. ERR_BACKEND_BUG
+msgid "This is a backend bug. Please inform the author of the backend!"
+msgstr ""
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
@@ -2626,3 +2679,15 @@ msgstr "Ikke mere ram"
 
 msgid "Access to resource has been denied"
 msgstr "Adgang til ressource nægtet"
+
+#~ msgid "Preset area"
+#~ msgstr "Forudvalgt område"
+
+#~ msgid "Select source medium type\n"
+#~ msgstr "Vælg kilde mediets type\n"
+
+#~ msgid "Rename definiton"
+#~ msgstr "Omdøb definition"
+
+#~ msgid "Delete definition"
+#~ msgstr "Slet definition"

@@ -39,7 +39,7 @@ typedef enum
     xsane_back_gtk_BR_X,	/* bottom-right x */
     xsane_back_gtk_BR_Y	/* bottom-right y */
   }
-GSGCornerCoordinates;
+CornerCoordinates;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -55,9 +55,9 @@ extern const SANE_Option_Descriptor *xsane_get_option_descriptor(SANE_Handle han
 extern SANE_Status xsane_control_option(SANE_Handle handle, SANE_Int option, SANE_Action action, void *val, SANE_Int *info); 
 extern int xsane_back_gtk_make_path(size_t max_len, char *filename_ret, const char *prog_name, const char *dir_name,
                                     const char *prefix, const char *dev_name, const char *postfix, int local);
-extern gint xsane_back_gtk_decision(gchar *title, gchar** icon_xpm, gchar *message, gchar *oktext, gchar *rejecttext, int wait);
+extern gint xsane_back_gtk_decision(gchar *title, gchar **icon_xpm, gchar *message, gchar *oktext, gchar *rejecttext, int wait);
 extern void xsane_back_gtk_ipc_dialog_callback(gpointer data, gint source, GdkInputCondition cond);
-extern void xsane_back_gtk_message(gchar *title, gchar** icon_xpm, gchar *message, int wait);
+extern void xsane_back_gtk_message(gchar *title, gchar **icon_xpm, gchar *message, int wait);
 extern void xsane_back_gtk_error(gchar *error_message, int wait);
 extern void xsane_back_gtk_warning(gchar *warning_message, int wait);
 extern void xsane_back_gtk_info(gchar *info_message, int wait);
@@ -66,7 +66,6 @@ extern GtkWidget *xsane_back_gtk_filetype_menu_new(char *filetype, GtkSignalFunc
 extern int xsane_back_gtk_get_filename(const char *label, const char *default_name, size_t max_len, char *filename, char **filetype,
                                        int show_fileopts, int shorten_path, int hide_file_list, int show_filetype_menu);
 
-extern void xsane_back_gtk_sync(void);
 extern void xsane_back_gtk_update_vector(int opt_num, SANE_Int *vector);
 extern void xsane_back_gtk_refresh_dialog(void);
 /* extern void xsane_back_gtk_vector_new(GtkWidget *box, int num_vopts, int *vopts); */
@@ -83,17 +82,20 @@ extern int xsane_back_gtk_get_option_double(int option, double *val, SANE_Int *u
 extern void xsane_back_gtk_set_option(int opt_num, void *val, SANE_Action action);
 extern void xsane_back_gtk_get_batch_parameters(Batch_Scan_Parameters *parameters, SANE_Int *unit);
 extern void xsane_back_gtk_establish_batch_parameters(Batch_Scan_Parameters *parameters, int panel_rebuild, int set_scanmode, int set_resolution);
-extern GtkWidget *xsane_back_gtk_group_new (GtkWidget *parent, const char * title);
-extern void xsane_back_gtk_button_new(GtkWidget * parent, const char *name, SANE_Word val,
-            GSGDialogElement *elem, GtkTooltips *tooltips, const char *desc, SANE_Int settable);
-extern void xsane_back_gtk_range_new(GtkWidget * parent, const char *name, gfloat val,
+extern GtkWidget *xsane_back_gtk_group_new (GtkWidget *parent, const char *title);
+extern void xsane_back_gtk_button_new(GtkWidget *parent, const char *name, SANE_Word val,
+            DialogElement *elem, GtkTooltips *tooltips, const char *desc, SANE_Int settable);
+extern void xsane_back_gtk_range_new(GtkWidget *parent, const char *name, gfloat val,
            gfloat min, gfloat max, gfloat quant, int automatic,
-	   GSGDialogElement *elem, GtkTooltips *tooltips, const char *desc, SANE_Int settable);
+	   DialogElement *elem, GtkTooltips *tooltips, const char *desc, SANE_Int settable);
+extern void xsane_back_gtk_value_new(GtkWidget *parent, const char *name, gfloat val,
+	   gfloat quant, int automatic,
+	   DialogElement *elem, GtkTooltips *tooltips, const char *desc, SANE_Int settable);
 extern void xsane_back_gtk_option_menu_new(GtkWidget *parent, const char *name, char *str_list[],
-           const char *val, GSGDialogElement * elem, GtkTooltips *tooltips, const char *desc, SANE_Int settable);
+           const char *val, DialogElement *elem, GtkTooltips *tooltips, const char *desc, SANE_Int settable);
 extern void xsane_back_gtk_text_entry_new(GtkWidget *parent, const char *name, const char *val,
-                GSGDialogElement *elem, GtkTooltips *tooltips, const char *desc, SANE_Int settable);
-extern void xsane_back_gtk_push_button_callback(GtkWidget * widget, gpointer data);
+                DialogElement *elem, GtkTooltips *tooltips, const char *desc, SANE_Int settable);
+extern void xsane_back_gtk_push_button_callback(GtkWidget *widget, gpointer data);
 extern const char *xsane_back_gtk_unit_string(SANE_Unit unit);
 extern void xsane_set_window_icon(GtkWidget *gtk_window, gchar **xpm_d);
 

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sane 0.93\n"
-"POT-Creation-Date: 2004-04-20 18:54+0200\n"
+"POT-Creation-Date: 2004-05-08 23:55+0200\n"
 "PO-Revision-Date: 2004-04-21 21:49+0100\n"
 "Last-Translator: Zdenko Podobný <zdpo@mailbox.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -91,6 +91,21 @@ msgstr "vložiť obrázok do pošty"
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
 msgstr "premenovať predvolaná oblasť"
+
+#. WINDOW_PRESET_AREA_ADD
+#, fuzzy
+msgid "add preset area"
+msgstr "premenovať predvolaná oblasť"
+
+#. WINDOW_MEDIUM_RENAME
+#, fuzzy
+msgid "rename medium"
+msgstr "Uložiť médium"
+
+#. WINDOW_MEDIUM_ADD
+#, fuzzy
+msgid "add new medium"
+msgstr "Uložiť médium"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -983,6 +998,9 @@ msgstr "skupina"
 msgid "all"
 msgstr "všetko"
 
+msgid "new media"
+msgstr ""
+
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
 msgstr "Ukladanie"
@@ -1208,20 +1226,30 @@ msgstr "podľa prípony"
 msgid "Add selection to list"
 msgstr "Pridať výber do zoznamu"
 
-#. MENU_ITEM_PRESET_AREA_RENAME
-msgid "Rename definiton"
-msgstr "Premenovať definíciu"
+#  MENU_ITEM_EDIT_MEDIUM_DEF
+#. MENU_ITEM_MEDIUM_ADD
+#, fuzzy
+msgid "Add medium definition"
+msgstr "Upraviť definíciu média"
 
-#. MENU_ITEM_PRESET_AREA_DELETE
-msgid "Delete definition"
-msgstr "Zmazať definíciu"
+#. MENU_ITEM_RENAME
+#, fuzzy
+msgid "Rename item"
+msgstr "Premenovať obrázka"
 
-#. MENU_ITEM_PRESET_AREA_MOVE_UP
-msgid "Move up"
+#. MENU_ITEM_DELETE
+#, fuzzy
+msgid "Delete item"
+msgstr "Zmazať tlačiareň"
+
+#. MENU_ITEM_MOVE_UP
+#, fuzzy
+msgid "Move item up"
 msgstr "Posunúť nahor"
 
-#. MENU_ITEM_PRESET_AREA_MOVE_DWN
-msgid "Move down"
+#. MENU_ITEM_MOVE_DWN
+#, fuzzy
+msgid "Move item down"
 msgstr "Posunúť nadol"
 
 #. PROGRESS_SCANNING
@@ -1301,10 +1329,14 @@ msgstr ""
 "uložiť<Ctrl-s>, zobraziť-<Ctrl-v>, fotokópia-<Ctrl-c>, fax-<Ctrl-f> alebo "
 "pošta-<Ctrl-m>"
 
-#  DESC_XSANE_MEDIUM
 #. DESC_XSANE_MEDIUM
-msgid "Select source medium type\n"
-msgstr "Zvoľte typ zdrojového média\n"
+msgid ""
+"Select source medium type.\n"
+"To rename, reorder or delete an entry use context menu (right mouse "
+"button).\n"
+"To create a medium enable the option edit medium definition in preferences "
+"menu."
+msgstr ""
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1353,13 +1385,24 @@ msgstr "Vložte emailovú adresu"
 msgid "Enter subject of email"
 msgstr "Vložte predmet správy"
 
-#. DESC_PRESET_AREA_NAME
+#. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
 msgstr "Vložte nový názov pre predvolenú oblasť"
 
+#. DESC_PRESET_AREA_ADD
+#, fuzzy
+msgid "Enter name for new preset area"
+msgstr "Vložte nový názov pre predvolenú oblasť"
+
 #  DESC_MEDIUM_DEFINITION_NAME
-#. DESC_MEDIUM_DEFINITION_NAME
+#. DESC_MEDIUM_RENAME
 msgid "Enter new name for medium definition"
+msgstr "Vložte nový názov pre definíciu média"
+
+#  DESC_MEDIUM_DEFINITION_NAME
+#. DESC_MEDIUM_ADD
+#, fuzzy
+msgid "Enter name for new medium definition"
 msgstr "Vložte nový názov pre definíciu média"
 
 #. DESC_PRINTER_SELECT
@@ -1949,8 +1992,11 @@ msgid "Delete preview image cache"
 msgstr "Zmazať pamäť náhľadu"
 
 #. DESC_PRESET_AREA
-msgid "Preset area"
-msgstr "Predvolená oblasť"
+msgid ""
+"Preset area:\n"
+"To add new area or edit an existing area use contect menu (right mouse "
+"button)."
+msgstr ""
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -2168,6 +2214,14 @@ msgstr "neznámy typ"
 #. ERR_UNKNOWN_CONSTRAINT_TYPE
 msgid "unknown constraint type"
 msgstr "neznámy požadovaný typ"
+
+#. ERR_OPTION_NAME_NULL
+msgid "Option has empty name (NULL)."
+msgstr ""
+
+#. ERR_BACKEND_BUG
+msgid "This is a backend bug. Please inform the author of the backend!"
+msgstr ""
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
@@ -2640,3 +2694,16 @@ msgstr "Mimo pamäte"
 
 msgid "Access to resource has been denied"
 msgstr "Prístup k zdroju bol odmietnutý"
+
+#~ msgid "Preset area"
+#~ msgstr "Predvolená oblasť"
+
+#  DESC_XSANE_MEDIUM
+#~ msgid "Select source medium type\n"
+#~ msgstr "Zvoľte typ zdrojového média\n"
+
+#~ msgid "Rename definiton"
+#~ msgstr "Premenovať definíciu"
+
+#~ msgid "Delete definition"
+#~ msgstr "Zmazať definíciu"

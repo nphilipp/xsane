@@ -189,7 +189,7 @@ desc[] =
     {"ocr-use-gui-pipe",		xsane_rc_pref_int,	POFFSET(ocr_use_gui_pipe)},
     {"ocr-gui-outfd-option",		xsane_rc_pref_string,	POFFSET(ocr_gui_outfd_option)},
     {"ocr-progress-keyword",		xsane_rc_pref_string,	POFFSET(ocr_progress_keyword)},
-    {"doc-viewer",			xsane_rc_pref_string,	POFFSET(doc_viewer)},
+    {"browser",				xsane_rc_pref_string,	POFFSET(browser)},
     {"jpeg-quality",			xsane_rc_pref_double,	POFFSET(jpeg_quality)},
     {"png-compression",			xsane_rc_pref_double, 	POFFSET(png_compression)},
     {"tiff-compression16_nr",		xsane_rc_pref_int, 	POFFSET(tiff_compression16_nr)},
@@ -241,7 +241,6 @@ desc[] =
     {"gtk-update-policy",		xsane_rc_pref_int,	POFFSET(gtk_update_policy)},
     {"paper-orientation",		xsane_rc_pref_int,	POFFSET(paper_orientation)},
     {"preset-area-definitions",		xsane_rc_pref_int,	POFFSET(preset_area_definitions)},
-    {"medium-definitions",		xsane_rc_pref_int,	POFFSET(medium_definitions)},
     {"printernr",			xsane_rc_pref_int,	POFFSET(printernr)},
     {"printerdefinitions",		xsane_rc_pref_int,	POFFSET(printerdefinitions)}
   };
@@ -366,23 +365,6 @@ void preferences_save(int fd)
     }
     n++;
   }
-
-  /* save mediums */
-
-  n=0;
-
-  while (n < preferences.medium_definitions)
-  {
-    DBG(DBG_info2, "saving preferences medium definition %s\n", preferences.medium[n]->name);
-    for (i = 0; i < NELEMS(desc_medium); ++i)
-    {
-      xsane_rc_io_w_string(&w, &desc_medium[i].name);
-      (*desc_medium[i].codec) (&w, preferences.medium[n], desc_medium[i].offset);
-    }
-    n++;
-  }
-
-
 
   xsane_rc_io_w_set_dir(&w, WIRE_DECODE);	/* flush it out */
   xsane_rc_io_w_exit(&w);
@@ -514,8 +496,94 @@ void preferences_restore(int fd)
     }
   }
 
+  xsane_rc_io_w_exit(&w);
+}
+
+/* --------------------------------------------------------------------- */
+/* --------------------------------------------------------------------- */
+
+void preferences_save_media(int fd)
+{
+ Wire w;
+ int i, n;
+ char *medium_defs="MEDIUM_DEFINITIONS";
+
+  DBG(DBG_proc, "preferences_save_media\n");
+
+  w.io.fd = fd;
+  w.io.read = read;
+  w.io.write = write;
+  xsane_rc_io_w_init(&w);
+  xsane_rc_io_w_set_dir(&w, WIRE_ENCODE);
+
+  xsane_rc_io_w_string(&w, &medium_defs);
+  xsane_rc_io_w_word(&w, &preferences.medium_definitions);
+
+  /* save media */
+
+  n=0;
+
+  DBG(DBG_info, "saving %d medium definitions\n", preferences.medium_definitions);
+
+  while (n < preferences.medium_definitions)
+  {
+    DBG(DBG_info2, "=> saving medium definition %s\n", preferences.medium[n]->name);
+    for (i = 0; i < NELEMS(desc_medium); ++i)
+    {
+      xsane_rc_io_w_string(&w, &desc_medium[i].name);
+      (*desc_medium[i].codec) (&w, preferences.medium[n], desc_medium[i].offset);
+    }
+    n++;
+  }
+
+  xsane_rc_io_w_set_dir(&w, WIRE_DECODE);	/* flush it out */
+  xsane_rc_io_w_exit(&w);
+}
+
+/* --------------------------------------------------------------------- */
+
+void preferences_restore_media(int fd)
+{
+ SANE_String name;
+ Wire w;
+ int i, n;
+
+  DBG(DBG_proc, "preferences_restore_media\n");
+
+  w.io.fd = fd;
+  w.io.read = read;
+  w.io.write = write;
+  xsane_rc_io_w_init(&w);
+  xsane_rc_io_w_set_dir(&w, WIRE_DECODE);
+
+  preferences.medium_definitions = 0;
+
+  xsane_rc_io_w_space(&w, 3);
+  if (w.status)
+  {
+    xsane_rc_io_w_exit(&w);
+   return;
+  }
+
+  xsane_rc_io_w_string(&w, &name);
+  if (w.status || !name)
+  {
+    xsane_rc_io_w_exit(&w);
+   return;
+  }
+
+  if (strcmp(name, "MEDIUM_DEFINITIONS")) /* falsche Datei */
+  {
+    DBG(DBG_info, "no medium definitions in file\n");
+    xsane_rc_io_w_exit(&w);
+   return;
+  }
+
+  xsane_rc_io_w_word(&w, &preferences.medium_definitions);
+
   if (preferences.medium_definitions)
   {
+    DBG(DBG_info, "reading %d medium definition\n", preferences.medium_definitions);
     preferences.medium = calloc(preferences.medium_definitions, sizeof(void *)); 
 
     n=0;
@@ -547,10 +615,12 @@ void preferences_restore(int fd)
           break;
         }
       }
-      DBG(DBG_info2, "preferences medium definition %s read\n", preferences.medium[n]->name);
+      DBG(DBG_info2, "=> medium definition %s read\n", preferences.medium[n]->name);
       n++;
     }
   }
 
   xsane_rc_io_w_exit(&w);
 }
+
+/* --------------------------------------------------------------------- */

@@ -9,7 +9,7 @@ This version supports:
  - handling of all backend options
  - helpfiles
  - copy mode (printing via ghostscript, see section "copy mode")
- - gimp-plugin
+ - gimp-plugin (if compiled in)
 
 
 It does not support:
@@ -20,7 +20,8 @@ Installation:
 =============
  - unpack the archiv to c:\
    that creates the directory c:\Sane with several files
-   you do not need to copy any files, simply call xsane or scanimage
+   you do not need to copy any files, simply call c:\sane\bin\xsane or
+   c:\sane\bin\scanimage
  
  - Sane MUST BE installed in c:\sane because the paths are hardcoded.
    Xsane will not work correct if you install it at any other place!
@@ -28,10 +29,10 @@ Installation:
  - make sure you have a directory c:\temp (or whatever you
    define as temporary directory in xsane's setup)
 
- - there are two icons (xsane-32x32.ico and xsane-48x48.ico)
-   that you can use if you set a link from xsane.exe to your desktop,
-   for that use right mouse button and change properties of the link,
-   change icon and select "c:\sane\xsane-??x??.ico"
+ - there are three icons (xsane.ico, xsane-32x32.ico and xsane-48x48.ico)
+   in c:\sane\bin that you can use if you set a link from xsane.exe to
+   your desktop, for that use right mouse button and change properties
+   of the link, change icon and select "c:\sane\bin\xsane-??x??.ico"
 
 
 Configuration:
@@ -48,10 +49,10 @@ Configuration:
     192.168.0.1
     192.169.1.73
 
- you also can start xsane with host:backend:device given as command line option:
- 	xsane 192.168.0.1:umax:/dev/scanner
+ you also can start xsane with net:host:backend:device given as command line option:
+ 	xsane net:192.168.0.1:umax:/dev/scanner
  or
-	xsane myhost:umax:/dev/scanner
+	xsane net:myhost:umax:/dev/scanner
 
 
 Localisation:
@@ -60,6 +61,8 @@ Localisation:
  you want to select, for e.g. german this looks like this:
   set LANG=de
   xsane
+ It is a good idea to do this in a script that is started at system boot,
+ e.g. in autoexec.bat
 
 
 Copy-Mode:
@@ -79,6 +82,7 @@ Copy-Mode:
 
 Gimp-Plugin:
 ===========
+ (Does only work when xsane.exe is compiled as gimp plugin)
  If you want to use xsane as gimp plugin,
  copy xsane.exe and *.dll to the GIMP´s plug-ins driectory
  (e.g. c:\Program Files\GIMP\plug-ins)
@@ -105,24 +109,26 @@ Licence:
 
  * The sourcecode of xsane can be found at http://www.xsane.org
 
- * The sourcecode of sane can be found at http://www.mostang.com/sane
+ * The sourcecode of sane can be found at http://www.sane-project.org
 
  * For any information about cygwin take a look at http://cygwin.com
 
  * For any information about gtk/gdk for win32 take a look at
-   http://user.sgic.fi/~tml/gimp/win32/
+   http://www.gtk.org or http://www.gimp.org/win32/
 
 
 Compile it yourself:
 ====================
- * In xsane.WIN32-compilation I wrote down what I did to create xsane.exe
+ * There is an instruction in the file xsane.WIN32-compilation
 
 
 Contact:
 ========
  You can contact me via email: Oliver.Rauch@rauch-domain.de
- but don`t ask for help/support for xsane-win32, I do not have the
- time to give support to it, I want to use my free time to
- work on the code - please understand that.
+ bugreports, bugfixes and feature requests (that are not
+ already listed) are welcome. Please don`t ask for help/support
+ for xsane-win32, I do not have the time to give support for it,
+ I want to use my free time to work on the code - please understand
+ that.
 
 Oliver Rauch

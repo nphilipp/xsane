@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.90\n"
-"POT-Creation-Date: 2004-04-20 18:54+0200\n"
+"POT-Creation-Date: 2004-05-08 23:55+0200\n"
 "PO-Revision-Date: 2004-04-21 14:17+0200\n"
 "Last-Translator: Stanislav Brabec <sbrabec@suse.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -90,6 +90,21 @@ msgstr "vlo¾it soubor do po¹ty"
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
 msgstr "pøejmenovat pøedvolenou oblast"
+
+#. WINDOW_PRESET_AREA_ADD
+#, fuzzy
+msgid "add preset area"
+msgstr "pøejmenovat pøedvolenou oblast"
+
+#. WINDOW_MEDIUM_RENAME
+#, fuzzy
+msgid "rename medium"
+msgstr "Ulo¾it médium"
+
+#. WINDOW_MEDIUM_ADD
+#, fuzzy
+msgid "add new medium"
+msgstr "Ulo¾it médium"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -980,6 +995,9 @@ msgstr "skupina"
 msgid "all"
 msgstr "v¹ichni"
 
+msgid "new media"
+msgstr ""
+
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
 msgstr "Zápis"
@@ -1204,20 +1222,29 @@ msgstr "Pøípona"
 msgid "Add selection to list"
 msgstr "Pøidat výbìr do seznamu"
 
-#. MENU_ITEM_PRESET_AREA_RENAME
-msgid "Rename definiton"
-msgstr "Pøejmenovat definici"
+#. MENU_ITEM_MEDIUM_ADD
+#, fuzzy
+msgid "Add medium definition"
+msgstr "Upravit definici média"
 
-#. MENU_ITEM_PRESET_AREA_DELETE
-msgid "Delete definition"
-msgstr "Smazat definici"
+#. MENU_ITEM_RENAME
+#, fuzzy
+msgid "Rename item"
+msgstr "Pøejmenovat obrázek"
 
-#. MENU_ITEM_PRESET_AREA_MOVE_UP
-msgid "Move up"
+#. MENU_ITEM_DELETE
+#, fuzzy
+msgid "Delete item"
+msgstr "Odebrat tiskárnu"
+
+#. MENU_ITEM_MOVE_UP
+#, fuzzy
+msgid "Move item up"
 msgstr "Pøesun vý¹"
 
-#. MENU_ITEM_PRESET_AREA_MOVE_DWN
-msgid "Move down"
+#. MENU_ITEM_MOVE_DWN
+#, fuzzy
+msgid "Move item down"
 msgstr "Pøesun ní¾"
 
 #. PROGRESS_SCANNING
@@ -1298,8 +1325,13 @@ msgstr ""
 "po¹ta-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
-msgid "Select source medium type\n"
-msgstr "Zvolte typ zdrojového média\n"
+msgid ""
+"Select source medium type.\n"
+"To rename, reorder or delete an entry use context menu (right mouse "
+"button).\n"
+"To create a medium enable the option edit medium definition in preferences "
+"menu."
+msgstr ""
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1348,12 +1380,22 @@ msgstr "Zadejte e-mailovou adresu"
 msgid "Enter subject of email"
 msgstr "Zadejte pøedmìt zprávy"
 
-#. DESC_PRESET_AREA_NAME
+#. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
 msgstr "Zadejte nové jméno pro pøedvolenou oblast"
 
-#. DESC_MEDIUM_DEFINITION_NAME
+#. DESC_PRESET_AREA_ADD
+#, fuzzy
+msgid "Enter name for new preset area"
+msgstr "Zadejte nové jméno pro pøedvolenou oblast"
+
+#. DESC_MEDIUM_RENAME
 msgid "Enter new name for medium definition"
+msgstr "Zadejte nové jméno pro definici média"
+
+#. DESC_MEDIUM_ADD
+#, fuzzy
+msgid "Enter name for new medium definition"
 msgstr "Zadejte nové jméno pro definici média"
 
 #. DESC_PRINTER_SELECT
@@ -1931,8 +1973,11 @@ msgid "Delete preview image cache"
 msgstr "Smazat pamì» náhledu"
 
 #. DESC_PRESET_AREA
-msgid "Preset area"
-msgstr "Pøedvolená oblast"
+msgid ""
+"Preset area:\n"
+"To add new area or edit an existing area use contect menu (right mouse "
+"button)."
+msgstr ""
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -2146,6 +2191,14 @@ msgstr "neznámý typ"
 #. ERR_UNKNOWN_CONSTRAINT_TYPE
 msgid "unknown constraint type"
 msgstr "neznámý po¾adovaný typ"
+
+#. ERR_OPTION_NAME_NULL
+msgid "Option has empty name (NULL)."
+msgstr ""
+
+#. ERR_BACKEND_BUG
+msgid "This is a backend bug. Please inform the author of the backend!"
+msgstr ""
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
@@ -2618,3 +2671,15 @@ msgstr "Nedostatek pamìti"
 
 msgid "Access to resource has been denied"
 msgstr "Pøístup ke zdroji byl odmítnut"
+
+#~ msgid "Preset area"
+#~ msgstr "Pøedvolená oblast"
+
+#~ msgid "Select source medium type\n"
+#~ msgstr "Zvolte typ zdrojového média\n"
+
+#~ msgid "Rename definiton"
+#~ msgstr "Pøejmenovat definici"
+
+#~ msgid "Delete definition"
+#~ msgstr "Smazat definici"

@@ -143,7 +143,7 @@ void xsane_get_bounds(const SANE_Option_Descriptor *opt, double *minp, double *m
     case SANE_CONSTRAINT_RANGE:
       min = opt->constraint.range->min;
       max = opt->constraint.range->max;
-      break;
+     break;
 
     case SANE_CONSTRAINT_WORD_LIST:
       min =  INF;
@@ -372,7 +372,7 @@ void xsane_set_all_resolutions(void)
       {
         printer_resolution = preferences.printer[preferences.printernr]->grayscale_resolution;
       }
-    break;
+     break;
 
     case SANE_FRAME_RGB:
     case SANE_FRAME_RED:
@@ -380,7 +380,7 @@ void xsane_set_all_resolutions(void)
     case SANE_FRAME_BLUE:
     default:
       printer_resolution = preferences.printer[preferences.printernr]->color_resolution;
-    break;
+     break;
   }
 
   xsane.zoom   = xsane.resolution   / printer_resolution;
@@ -899,22 +899,25 @@ GtkWidget *xsane_button_new_with_pixmap(GdkWindow *window, GtkWidget *parent, co
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static int xsane_option_menu_lookup(GSGMenuItem menu_items[], const char *string)
+static int xsane_option_menu_lookup(MenuItem menu_items[], const char *string)
 {
  int i;
 
   DBG(DBG_proc, "xsane_option_menu_lookup\n");
 
-  for (i = 0; strcmp(menu_items[i].label, string) != 0; ++i);
-  return i;
+  for (i = 0; (menu_items[i].label) && strcmp(menu_items[i].label, string); ++i)
+  {
+  }
+
+ return i;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 static void xsane_option_menu_callback(GtkWidget *widget, gpointer data)
 {
- GSGMenuItem *menu_item = data;
- GSGDialogElement *elem = menu_item->elem;
+ MenuItem *menu_item = data;
+ DialogElement *elem = menu_item->elem;
  const SANE_Option_Descriptor *opt;
  int opt_num;
  double dval;
@@ -929,20 +932,20 @@ static void xsane_option_menu_callback(GtkWidget *widget, gpointer data)
   {
     case SANE_TYPE_INT:
       sscanf(menu_item->label, "%d", &val);
-      break;
+     break;
 
     case SANE_TYPE_FIXED:
       sscanf(menu_item->label, "%lg", &dval);
       val = SANE_FIX(dval);
-      break;
+     break;
 
     case SANE_TYPE_STRING:
       valp = menu_item->label;
-      break;
+     break;
 
     default:
       DBG(DBG_error, "xsane_option_menu_callback: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
-      break;
+     break;
   }
   xsane_back_gtk_set_option(opt_num, valp, SANE_ACTION_SET_VALUE);
 }
@@ -953,16 +956,19 @@ void xsane_option_menu_new(GtkWidget *parent, char *str_list[], const char *val,
                            void *option_menu_callback, SANE_Int settable, const gchar *widget_name)
 {
  GtkWidget *option_menu, *menu, *item;
- GSGMenuItem *menu_items;
- GSGDialogElement *elem;
+ MenuItem *menu_items;
+ DialogElement *elem;
  int i, num_items;
 
   DBG(DBG_proc, "xsane_option_menu_new\n");
 
   elem = xsane.element + option_number;
 
-  for (num_items = 0; str_list[num_items]; ++num_items);
-  menu_items = malloc(num_items * sizeof(menu_items[0]));
+  for (num_items = 0; str_list[num_items]; ++num_items)
+  {
+  }
+
+  menu_items = malloc((num_items + 1) * sizeof(menu_items[0]));
 
   menu = gtk_menu_new();
   if (widget_name)
@@ -990,6 +996,11 @@ void xsane_option_menu_new(GtkWidget *parent, char *str_list[], const char *val,
     menu_items[i].elem  = elem;
     menu_items[i].index = i;
   }
+
+  /* add empty element as end of list marker */
+  menu_items[i].label = NULL;
+  menu_items[i].elem  = NULL;
+  menu_items[i].index = 0;
 
   option_menu = gtk_option_menu_new();
   xsane_back_gtk_set_tooltip(xsane.tooltips, option_menu, desc);
@@ -1057,7 +1068,7 @@ void xsane_range_new(GtkBox *parent, char *labeltext, const char *desc,
  GtkWidget *spinbutton;
  GtkWidget *value_label;
 
-  DBG(DBG_proc, "xsane_slider_new\n");
+  DBG(DBG_proc, "xsane_range_new\n");
 
   hbox = gtk_hbox_new(FALSE, 5);
   gtk_box_pack_start(parent, hbox, FALSE, FALSE, 2);
@@ -1226,7 +1237,7 @@ void xsane_range_new_with_pixmap(GdkWindow *window, GtkBox *parent, const char *
 
   if (option)
   {
-   GSGDialogElement *elem;
+   DialogElement *elem;
 
     elem=xsane.element + option;
     elem->data    = *data;
@@ -2251,7 +2262,7 @@ void xsane_display_gpl(void)
 
 void xsane_window_get_position(GtkWidget *gtk_window, gint *x, gint *y)
 {
-#ifdef HAVE_GTK2
+#ifdef USE_GTK2_WINDOW_GET_POSITION
   gtk_window_get_position(GTK_WINDOW(gtk_window), x, y);
 #else
   if (xsane.get_deskrelative_origin)
@@ -2271,7 +2282,7 @@ void xsane_window_get_position(GtkWidget *gtk_window, gint *x, gint *y)
 
 void xsane_widget_test_uposition(GtkWidget *gtk_window)
 {
-#ifndef HAVE_GTK2
+#ifndef USE_GTK2_WINDOW_GET_POSITION
  gint x, y, x_orig, y_orig;
 
   DBG(DBG_proc, "xsane_widget_test_uposition\n");
@@ -2308,3 +2319,108 @@ void xsane_widget_test_uposition(GtkWidget *gtk_window)
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
+
+static int xsane_front_gtk_getname_button;
+                                                                                                                                 
+static void xsane_front_gtk_getname_button_callback(GtkWidget *widget, gpointer data)
+{
+  DBG(DBG_proc, "xsane_front_gtk_getname_button_callback\n");
+                                                                                                                                 
+  xsane_front_gtk_getname_button = (int) data;
+}
+                                                                                                                                 
+/* ---------------------------------------------------------------------------------------------------------------------- */
+                                                                                                                                 
+int xsane_front_gtk_getname_dialog(const char *dialog_title, const char *desc_text, char *oldname, char **newname)
+{
+ GtkWidget *getname_dialog;
+ GtkWidget *text;
+ GtkWidget *button;
+ GtkWidget *vbox, *hbox;
+ GtkAccelGroup *accelerator_group;
+ char buf[256];
+                                                                                                                                 
+  DBG(DBG_proc, "xsane_getname_dialog, oldname = %s\n", oldname);
+                                                                                                                                 
+  getname_dialog = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  xsane_set_window_icon(getname_dialog, 0);
+                                                                                                                                 
+  /* set getname dialog */
+  gtk_window_set_position(GTK_WINDOW(getname_dialog), GTK_WIN_POS_CENTER);
+  gtk_window_set_resizable(GTK_WINDOW(getname_dialog), FALSE);
+  snprintf(buf, sizeof(buf), "%s %s", xsane.prog_name, dialog_title);
+  gtk_window_set_title(GTK_WINDOW(getname_dialog), buf);
+  g_signal_connect(GTK_OBJECT(getname_dialog), "delete_event", (GtkSignalFunc) xsane_front_gtk_getname_button_callback, (void *) -1);
+  gtk_widget_show(getname_dialog);
+                                                                                                                                 
+  /* set the main vbox */
+  vbox = gtk_vbox_new(FALSE, 0);
+  gtk_container_set_border_width(GTK_CONTAINER(vbox), 0);
+  gtk_container_add(GTK_CONTAINER(getname_dialog), vbox);
+  gtk_widget_show(vbox);
+                                                                                                                                 
+  /* set the main hbox */
+  hbox = gtk_hbox_new(FALSE, 0);
+  xsane_separator_new(vbox, 2);
+  gtk_box_pack_end(GTK_BOX(vbox), hbox, FALSE, FALSE, 5);
+  gtk_container_set_border_width(GTK_CONTAINER(hbox), 5);
+  gtk_widget_show(hbox);
+                                                                                                                                 
+  text = gtk_entry_new_with_max_length(64);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, text, desc_text);
+  gtk_entry_set_text(GTK_ENTRY(text), oldname);
+  gtk_widget_set_size_request(text, 300, -1);
+  gtk_box_pack_start(GTK_BOX(vbox), text, TRUE, TRUE, 4);
+  gtk_widget_show(text);
+                                                                                                                                 
+  accelerator_group = gtk_accel_group_new();
+  gtk_window_add_accel_group(GTK_WINDOW(getname_dialog), accelerator_group);
+                                                                                                                                 
+#ifdef HAVE_GTK2
+  button = gtk_button_new_from_stock(GTK_STOCK_OK);
+#else
+  button = gtk_button_new_with_label(BUTTON_OK);
+#endif
+  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_front_gtk_getname_button_callback, (void *) 1);
+  GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
+  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
+  gtk_widget_show(button);
+                                                                                                                                 
+#ifdef HAVE_GTK2
+  button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
+#else
+  button = gtk_button_new_with_label(BUTTON_CANCEL);
+#endif
+  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_front_gtk_getname_button_callback, (void *) -1);
+  gtk_widget_add_accelerator(button, "clicked", accelerator_group, GDK_Escape, 0, DEF_GTK_ACCEL_LOCKED); /* ESC */
+  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
+  gtk_widget_show(button);
+                                                                                                                                 
+  xsane_front_gtk_getname_button = 0;
+                                                                                                                                 
+  while (xsane_front_gtk_getname_button == 0)
+  {
+    while (gtk_events_pending())
+    {
+      DBG(DBG_info, "xsane_getname_dialog: calling gtk_main_iteration\n");
+      gtk_main_iteration();
+    }
+  }
+                                                                                                                                 
+  *newname = strdup(gtk_entry_get_text(GTK_ENTRY(text)));
+                                                                                                                                 
+  gtk_widget_destroy(getname_dialog);
+                                                                                                                                 
+  xsane_set_sensitivity(TRUE);
+                                                                                                                                 
+  if (xsane_front_gtk_getname_button == 1) /* OK button has been pressed */
+  {
+    DBG(DBG_info, "renaming %s to %s\n", oldname, *newname);
+   return 0; /* OK */
+  }
+                                                                                                                                 
+ return 1; /* Escape */
+}
+                                                                                                                                 
+/* ---------------------------------------------------------------------------------------------------------------------- */
+                                                                                                                                 

@@ -127,7 +127,7 @@ typedef struct
     char   *ocr_gui_outfd_option;	/* option for progress pipe filedeskriptor */
     char   *ocr_progress_keyword;	/* keyword for progress value in gui pipe */
 
-    char   *doc_viewer;			/* doc viewer for helpfiles */
+    char   *browser;			/* doc viewer for helpfiles */
 
     double jpeg_quality;		/* quality when saving image as jpeg */
     double png_compression;		/* compression when saving image as pnm */
@@ -196,5 +196,8 @@ extern Preferences preferences;
 
 extern void preferences_save (int fd);
 extern void preferences_restore (int fd);
+
+extern void preferences_save_media (int fd);
+extern void preferences_restore_media (int fd);
 
 #endif /* preferences_h */

@@ -277,12 +277,64 @@ static int xsane_batch_scan_read_parameters(Wire *w, Batch_Scan_Parameters *para
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_batch_scan_load_list(void)
+/* returns 0 if OK, -1 if file could not be loaded */
+int xsane_batch_scan_load_list_from_file(char *filename)
 {
  Batch_Scan_Parameters *parameters = NULL;
  int fd;
  int eof = 0;
  Wire w;
+
+  DBG(DBG_proc, "xsane_batch_scan_load_list_from_file(%s)\n", filename);
+
+  xsane_batch_scan_empty_list();
+
+  fd = open(filename, O_RDONLY);
+
+  if (fd > 0)
+  {
+    w.io.fd = fd;
+    w.io.read = read;
+    w.io.write = write;
+    xsane_rc_io_w_init(&w);
+    xsane_rc_io_w_set_dir(&w, WIRE_DECODE);
+
+    while (!eof)
+    {
+      eof = 1;
+
+      parameters = calloc(1, sizeof(Batch_Scan_Parameters));
+
+      if (parameters)
+      {
+        eof = xsane_batch_scan_read_parameters(&w, parameters);
+
+        if (!eof)
+        {
+          xsane_batch_scan_create_list_entry(parameters);
+        }
+      }
+    }
+    free(parameters); /* last one is unused */
+
+    xsane_rc_io_w_exit(&w);
+
+    close(fd);
+
+    /* scroll list to beginning */
+    gtk_adjustment_set_value(xsane.batch_scan_vadjustment, xsane.batch_scan_vadjustment->lower);
+    gtk_adjustment_value_changed(xsane.batch_scan_vadjustment);
+
+   return 0;
+  }
+
+ return -1;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_batch_scan_load_list(void)
+{
  char filename[PATH_MAX];
  char windowname[256];
 
@@ -295,41 +347,7 @@ static void xsane_batch_scan_load_list(void)
 
   if (!xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, NULL, FALSE, FALSE, FALSE, FALSE))
   {
-    xsane_batch_scan_empty_list();
-
-    fd = open(filename, O_RDONLY);
-
-    if (fd > 0)
-    {
-      w.io.fd = fd;
-      w.io.read = read;
-      w.io.write = write;
-      xsane_rc_io_w_init(&w);
-      xsane_rc_io_w_set_dir(&w, WIRE_DECODE);
-
-      while (!eof)
-      {
-        eof = 1;
-
-        parameters = calloc(1, sizeof(Batch_Scan_Parameters));
-
-        if (parameters)
-        {
-          eof = xsane_batch_scan_read_parameters(&w, parameters);
-
-          if (!eof)
-          {
-            xsane_batch_scan_create_list_entry(parameters);
-          }
-        }
-      }
-      free(parameters); /* last one is unused */
-
-      xsane_rc_io_w_exit(&w);
-
-      close(fd);
-    }
-    else
+    if (xsane_batch_scan_load_list_from_file(filename)) /* error while loading file ? */
     {
      char buf[256];
 
@@ -337,10 +355,6 @@ static void xsane_batch_scan_load_list(void)
       xsane_back_gtk_error(buf, TRUE);
     }
   }
-
-  /* scroll list to beginning */
-  gtk_adjustment_set_value(xsane.batch_scan_vadjustment, xsane.batch_scan_vadjustment->lower);
-  gtk_adjustment_value_changed(xsane.batch_scan_vadjustment);
 
   xsane_set_sensitivity(TRUE);
 }

@@ -2422,3 +2422,63 @@ xsane-0.92 -> 0.93:
 
  - po/Makefile.in: added test for msgfmt, gmsgfmt, gencat
 
+xsane-0.93 -> 0.94:
+-------------------
+
+ - changed "µs" to UTF8 codeset
+
+ - added test and warning message if option is defined without name (NULL)
+   to xsane_panel_build
+
+ - added handling for options with of SANE_TYPE_INT and SANE_TYPE FIXED
+   with CONSTRAINT_TYPE_NONE , uses spinbutton, no sliders
+
+ - changed default medium definition of Slide from highlight=30% to highlight=40%
+
+ - xsane_[back_gtk_]option_menu_new: added empty element to end of list
+   xsane_[back_gtk_]option_menu_lookup: test for existing element before comparision
+
+ - moved media defintions from xsane.rc to xsane.mdf
+
+ - preview: preset area: added definition name to context menu items
+
+ - preview: add preset area: you can change the suggested name now
+
+ - medium definitions: added same context menue like in preset area menu,
+   removed buttons "add medium" and "delete medium", they are in the
+   contect menu now
+
+ - added documentation how to use a medium and how to define a medium
+
+ - improved documentation how to edit the preset area definitions
+
+ - in edit medium definition mode autmatic scanarea selection and automatic
+   color correction is disbaled
+
+ - docs: replaced www.mostang.com/sane by www.sane-project.org
+         and sane-devel@mostang.com by sane-devel@lists.alioth.debian.org
+
+ - batch_scan default list is loaded at program startup
+
+ - added test for BUGGY_GDK_INPUT_EXECEPTION in xsane.c and xsane-preview.c
+   when gdk_input_add shall be used
+
+ - changed order in xsane.h: system includes are moved to the beginning of
+   the file. This way it is possible to test for operating system header files
+   to decide how some #defines are made
+
+ - added m4 makro test for msnative struct for windows
+
+ - BUGGY_GDK_INPUT_EXCEPTION is defined for windows
+
+ - src/Makefile.in: removed both "\" in
+   -DPATH_XSANE_DOC_DIR=\$(xsanedocdir) -DPATH_SANE_DATA_DIR=\$(sanedatadir)
+
+ - created new xsane-WIN32-compilation.txt
+
+ - for windows the GTK1 version of xsane_window_get_position is used
+
+ - xsane_back_gtk_get_filename: directory is prepared with ending SLASH
+   instead of ending "/.", this does work with windows now when SLASH is \
+
+

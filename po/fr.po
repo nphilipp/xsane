@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.93\n"
-"POT-Creation-Date: 2004-04-20 18:54+0200\n"
+"POT-Creation-Date: 2004-05-08 23:55+0200\n"
 "PO-Revision-Date: 2000-02-09 21:00+01:00\n"
 "Last-Translator: Laurent Grawet <laurent.grawet@ibelgique.com>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -90,6 +90,21 @@ msgstr "Insérer un fichier dans le message"
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
 msgstr "Renommer l'aire de présélection"
+
+#. WINDOW_PRESET_AREA_ADD
+#, fuzzy
+msgid "add preset area"
+msgstr "Renommer l'aire de présélection"
+
+#. WINDOW_MEDIUM_RENAME
+#, fuzzy
+msgid "rename medium"
+msgstr "Enregistre la définition du support"
+
+#. WINDOW_MEDIUM_ADD
+#, fuzzy
+msgid "add new medium"
+msgstr "Enregistre la définition du support"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -982,6 +997,9 @@ msgstr "groupe"
 msgid "all"
 msgstr "tous"
 
+msgid "new media"
+msgstr ""
+
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
 msgstr "Enregistrer"
@@ -1206,20 +1224,29 @@ msgstr "par ext"
 msgid "Add selection to list"
 msgstr "Ajouter la sélection à la liste"
 
-#. MENU_ITEM_PRESET_AREA_RENAME
-msgid "Rename definiton"
-msgstr "Renommer la définition"
+#. MENU_ITEM_MEDIUM_ADD
+#, fuzzy
+msgid "Add medium definition"
+msgstr "Editer la définition du support"
 
-#. MENU_ITEM_PRESET_AREA_DELETE
-msgid "Delete definition"
-msgstr "Effacer la définition"
+#. MENU_ITEM_RENAME
+#, fuzzy
+msgid "Rename item"
+msgstr "Renommer l'image"
 
-#. MENU_ITEM_PRESET_AREA_MOVE_UP
-msgid "Move up"
+#. MENU_ITEM_DELETE
+#, fuzzy
+msgid "Delete item"
+msgstr "Enlever une imprimante"
+
+#. MENU_ITEM_MOVE_UP
+#, fuzzy
+msgid "Move item up"
 msgstr "Haut"
 
-#. MENU_ITEM_PRESET_AREA_MOVE_DWN
-msgid "Move down"
+#. MENU_ITEM_MOVE_DWN
+#, fuzzy
+msgid "Move item down"
 msgstr "Bas"
 
 #. PROGRESS_SCANNING
@@ -1300,8 +1327,13 @@ msgstr ""
 "poster-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
-msgid "Select source medium type\n"
-msgstr "Sélectionne le type de support de la source\n"
+msgid ""
+"Select source medium type.\n"
+"To rename, reorder or delete an entry use context menu (right mouse "
+"button).\n"
+"To create a medium enable the option edit medium definition in preferences "
+"menu."
+msgstr ""
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1351,12 +1383,22 @@ msgstr "Entrez l'adresse e-mail"
 msgid "Enter subject of email"
 msgstr "Entrez le sujet de l'e-mail"
 
-#. DESC_PRESET_AREA_NAME
+#. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
 msgstr "Entrez un nom pour la présélection"
 
-#. DESC_MEDIUM_DEFINITION_NAME
+#. DESC_PRESET_AREA_ADD
+#, fuzzy
+msgid "Enter name for new preset area"
+msgstr "Entrez un nom pour la présélection"
+
+#. DESC_MEDIUM_RENAME
 msgid "Enter new name for medium definition"
+msgstr "Entrez un nom pour la définition du support"
+
+#. DESC_MEDIUM_ADD
+#, fuzzy
+msgid "Enter name for new medium definition"
 msgstr "Entrez un nom pour la définition du support"
 
 #. DESC_PRINTER_SELECT
@@ -1952,8 +1994,11 @@ msgid "Delete preview image cache"
 msgstr "Effacer le cache de l'aperçu"
 
 #. DESC_PRESET_AREA
-msgid "Preset area"
-msgstr "Aire de présélection"
+msgid ""
+"Preset area:\n"
+"To add new area or edit an existing area use contect menu (right mouse "
+"button)."
+msgstr ""
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -2168,6 +2213,14 @@ msgstr "type inconnu"
 #. ERR_UNKNOWN_CONSTRAINT_TYPE
 msgid "unknown constraint type"
 msgstr "type de restriction inconnu"
+
+#. ERR_OPTION_NAME_NULL
+msgid "Option has empty name (NULL)."
+msgstr ""
+
+#. ERR_BACKEND_BUG
+msgid "This is a backend bug. Please inform the author of the backend!"
+msgstr ""
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
@@ -2637,3 +2690,15 @@ msgstr "Dépassement de mémoire"
 
 msgid "Access to resource has been denied"
 msgstr "Accès à la ressource refusé"
+
+#~ msgid "Preset area"
+#~ msgstr "Aire de présélection"
+
+#~ msgid "Select source medium type\n"
+#~ msgstr "Sélectionne le type de support de la source\n"
+
+#~ msgid "Rename definiton"
+#~ msgstr "Renommer la définition"
+
+#~ msgid "Delete definition"
+#~ msgstr "Effacer la définition"

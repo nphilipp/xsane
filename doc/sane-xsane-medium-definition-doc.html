@@ -5,7 +5,7 @@
    <meta name="GENERATOR" content="Mozilla/4.74 [en] (X11; U; Linux 2.2.18 i686) [Netscape]">
    <meta name="Author" content="Oliver Rauch">
    <meta name="Description" content="scan, photocopy and fax frontend for SANE">
-   <title>XSane - Standrad options window</title>
+   <title>XSane - Medium selection and definition</title>
 </head>
 <body text="#000000" bgcolor="#FFFFFF" link="#0000EF" vlink="#51188E" alink="#FF0000">
 
@@ -17,7 +17,7 @@
 </td>
 <td>
 <blockquote>
-<h1><font color="#009900">Standard options window</font></h1>
+<h1><u><font color="#009900">Medium selection and definition</font></u></h1>
 </blockquote>
 </td>
 </tr>
@@ -120,18 +120,136 @@
 
 
 <td VALIGN=TOP BGCOLOR="#FFFFFF">
+<br>
 <blockquote>
+<img SRC="xsane-medium.jpg" alt="medium-selection">
+&nbsp;&nbsp;
+<a NAME="MEDIUMSELECTION"></a><b>Medium selection:</b>
 <br>
-<center><img SRC="xsane-standard.jpg" alt="standard-options-window"></center>
-<br>
-<br>
-<br>
-The standard options window contains general scanner options. XSane
-does not now anything about these options, it only creates this dialog
-to give the user the possibility to take control of these options.
+Select the medium from which you want to acquire an image.
+For reflective scans (photos, magazines, etc.) select <i>full color range</i>.
+XSane comes with some predefined media. With some luck you can use such
+a predefined media, but in general you have to create your own media
+definitions because each scanner model generates slightly different colors.
+Especially for negatives you have to define a media for each negative type
+because they all have a different color of the film mask.
 <p>
-Please read the backend manual if you need any information about
-the functions you find in this window.
+When you change the selection then it may be necessary to
+do a new preview scan to get correct colors in the preview window.
+The small point left of the <i>Acquire Preview</i> button in the
+preview window tells you if the preview is correct or not.
+<p>
+Set the color correction sliders to default before you do a preview scan.
+With a correct media definition you should get a preview with more or
+less natural colors. But you have to apply a color correction afterwards.
+You can not expect that the results are ok without a fine correction of the
+colors. You can start with an automatic correction but especially for
+negatives it is good to do a manual fine correction before the final scan.
+<p>
+<br>
+<a NAME="MEDIUMDEFINITION"></a><b>Create or edit a medium definition:</b>
+<br>
+You can create and store your own definitions for different source media.
+<p>
+In the <i>preferences</i> menu there is an item <i>edit medium definition</i>.
+<br>
+<br>
+<img SRC="xsane-medium-definition-menu.jpg" alt="medium-definition-menu">
+<br>
+<br>
+When you enable this item then the icon before the
+slection menu of the medium gets a little slider on its right side:
+<p>
+
+<img SRC="xsane-edit-medium.jpg" alt="edit-medium-definition">
+&nbsp;&nbsp;
+<a NAME="MEDIUMDEFINITION"></a><b>Edit medium definition:</b>
+<br>
+<b>When this icon is visible then you can edit and create medium definitions.
+Do not use this mode to scan images, xsane will not behave like you expect
+when you try to scan images in this mode.</b>
+<br>
+
+<ol>
+
+<li>
+<img SRC="xsane-rgb-default.jpg" alt="rgb-default">
+To define a medium for color scan disable the <i>RGB default</i> button
+then you have sliders for each color separately.
+</li>
+
+<li>
+<img SRC="xsane-negative.jpg" alt="neagtive">
+When you want to define a medium definition for a negative
+then activate the <i>negative</i> button.
+</li>
+
+<li>
+Now do some preview scans from the medium you like to define.
+Set the color correction sliders <i>brightness</i>
+and <i>contrast</i> so that you cut almost all unused color levels.
+Do not cut any used color levels. It is better to keep a little
+safety distance to the used colors. You can do a color correction
+later in the preview window to cut unused colors, but
+when your medium definition cuts colors that are used in your images
+then you are not able to get these colors back.
+<br>
+For negatives it is a good idea to select a part of the frame around the
+image, but if possible do not select any holes. The frame around the image
+defines the color of the film mask. In general the image does not contain 
+such a color but you can be sure that this mask defines one end of the used
+color range.
+</li>
+
+<li>
+Set the <i>gamma</i> sliders so that you get natural colors. If you are unsure better
+leave the gamma value close to 1.0, you can apply the gamma correction later.
+</li>
+
+<li>To save the new definition or to rename, delete or reorder existing definitions:
+
+<ol type="a">
+<li>open the medium menu with a short click with the left mouse button.</li>
+<li>Move the mouse pointer to the entry that you want to edit or where you
+want to add the new entry.</li>
+<li>Press and hold the right mouse button to open the context menu.</li>
+<li>Select a function in the context menu:
+<br>
+<br>
+<img SRC="xsane-medium-add.jpg" alt="add medium">
+<br>
+<br>
+<span style="font-size:14pt">
+Remark: The item <i>add medium definition</i> is only available in the context menu
+when <i>edit medium definition</i> in the <i>preferneces</i> menu is enabled.
+</span>
+</li>
+<li>When you save new media definitions then please use the manufacturer and
+the type of the medium as name.</li>
+</ol>
+</li>
+
+<li>
+Disable <i>edit medium definition</i> in the <i>preferences</i> menu.
+</li>
+
+<li>
+Test the newly created medium definition. It may be necessary to repeat these steps
+some times for fine correction to get a usable definition.
+</li>
+
+</ol>
+
+<b>
+When you created good medium definitions please send the
+file <i>~/.sane/xsane/xsane.mdf</i> to
+<a href="mailto:Oliver.Rauch@xsane.org">Oliver Rauch</a>
+and please tell me the name of the scanner that was used
+to create the medium definitions.
+I hope we can generate a database of medium definitions
+for different scanners.
+</b>
+
 </blockquote>
 </td>
 </tr>
@@ -145,3 +263,4 @@ Author: <a href="mailto:Oliver.Rauch@xsane.org">Oliver Rauch</a>
 
 </body>
 </html>
+

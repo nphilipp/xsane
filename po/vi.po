@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.91\n"
-"POT-Creation-Date: 2004-04-20 18:54+0200\n"
+"POT-Creation-Date: 2004-05-08 23:55+0200\n"
 "PO-Revision-Date: 2003-05-20 15:30+0700\n"
 "Last-Translator: Trinh Minh Thanh <tmthanh@yahoo.com>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
@@ -89,6 +89,21 @@ msgstr "chèn tập tin vào thư"
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
 msgstr "đổi tên vùng lập trước"
+
+#. WINDOW_PRESET_AREA_ADD
+#, fuzzy
+msgid "add preset area"
+msgstr "đổi tên vùng lập trước"
+
+#. WINDOW_MEDIUM_RENAME
+#, fuzzy
+msgid "rename medium"
+msgstr "Thiết bị lưu trữ"
+
+#. WINDOW_MEDIUM_ADD
+#, fuzzy
+msgid "add new medium"
+msgstr "Thiết bị lưu trữ"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -976,6 +991,9 @@ msgstr "nhóm"
 msgid "all"
 msgstr "toàn bộ"
 
+msgid "new media"
+msgstr ""
+
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
 msgstr "Lưu"
@@ -1200,20 +1218,29 @@ msgstr "theo phần mở rộng"
 msgid "Add selection to list"
 msgstr "Thêm việc chọn vào danh sách"
 
-#. MENU_ITEM_PRESET_AREA_RENAME
-msgid "Rename definiton"
-msgstr "Đổi tên định nghĩa"
+#. MENU_ITEM_MEDIUM_ADD
+#, fuzzy
+msgid "Add medium definition"
+msgstr "Biên soạn định nghĩa phương tiện"
 
-#. MENU_ITEM_PRESET_AREA_DELETE
-msgid "Delete definition"
-msgstr "Xóa định nghĩa"
+#. MENU_ITEM_RENAME
+#, fuzzy
+msgid "Rename item"
+msgstr "Đổi tên ảnh"
 
-#. MENU_ITEM_PRESET_AREA_MOVE_UP
-msgid "Move up"
+#. MENU_ITEM_DELETE
+#, fuzzy
+msgid "Delete item"
+msgstr "Xóa máy in"
+
+#. MENU_ITEM_MOVE_UP
+#, fuzzy
+msgid "Move item up"
 msgstr "Chuyển lên"
 
-#. MENU_ITEM_PRESET_AREA_MOVE_DWN
-msgid "Move down"
+#. MENU_ITEM_MOVE_DWN
+#, fuzzy
+msgid "Move item down"
 msgstr "Chuyển xuống"
 
 #. PROGRESS_SCANNING
@@ -1293,8 +1320,13 @@ msgstr ""
 "lưu-<Ctrl-s>, xem-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> hay thư-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
-msgid "Select source medium type\n"
-msgstr "Chọn loại phương tiện nguồn\n"
+msgid ""
+"Select source medium type.\n"
+"To rename, reorder or delete an entry use context menu (right mouse "
+"button).\n"
+"To create a medium enable the option edit medium definition in preferences "
+"menu."
+msgstr ""
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1344,12 +1376,22 @@ msgstr "Nhập địa chỉ thư"
 msgid "Enter subject of email"
 msgstr "Nhập chủ đề thư"
 
-#. DESC_PRESET_AREA_NAME
+#. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
 msgstr "Nhập tên mới cho vùng lập trước"
 
-#. DESC_MEDIUM_DEFINITION_NAME
+#. DESC_PRESET_AREA_ADD
+#, fuzzy
+msgid "Enter name for new preset area"
+msgstr "Nhập tên mới cho vùng lập trước"
+
+#. DESC_MEDIUM_RENAME
 msgid "Enter new name for medium definition"
+msgstr "Nhập tên mới cho định nghĩa phương tiện"
+
+#. DESC_MEDIUM_ADD
+#, fuzzy
+msgid "Enter name for new medium definition"
 msgstr "Nhập tên mới cho định nghĩa phương tiện"
 
 #. DESC_PRINTER_SELECT
@@ -1916,8 +1958,11 @@ msgid "Delete preview image cache"
 msgstr "Xóa cache ảnh xem trước"
 
 #. DESC_PRESET_AREA
-msgid "Preset area"
-msgstr "Lập trước vùng"
+msgid ""
+"Preset area:\n"
+"To add new area or edit an existing area use contect menu (right mouse "
+"button)."
+msgstr ""
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -2132,6 +2177,14 @@ msgstr "loại không xác định"
 #. ERR_UNKNOWN_CONSTRAINT_TYPE
 msgid "unknown constraint type"
 msgstr "Kiểu tự chủ không xác định"
+
+#. ERR_OPTION_NAME_NULL
+msgid "Option has empty name (NULL)."
+msgstr ""
+
+#. ERR_BACKEND_BUG
+msgid "This is a backend bug. Please inform the author of the backend!"
+msgstr ""
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
@@ -2603,3 +2656,15 @@ msgstr "Hết bộ nhớ"
 
 msgid "Access to resource has been denied"
 msgstr "Truy cập đến nguồn bị từ chối"
+
+#~ msgid "Preset area"
+#~ msgstr "Lập trước vùng"
+
+#~ msgid "Select source medium type\n"
+#~ msgstr "Chọn loại phương tiện nguồn\n"
+
+#~ msgid "Rename definiton"
+#~ msgstr "Đổi tên định nghĩa"
+
+#~ msgid "Delete definition"
+#~ msgstr "Xóa định nghĩa"

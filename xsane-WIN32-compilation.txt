@@ -1,142 +1,64 @@
-This is the list of what I did to compile and install xsane-win32.
-Some parts may not be exact because I wrote them down from my mind.
+To compile xsane on WIN32/CYGWIN
 
+- install cygwin with several packages like gcc...
+  don´t ask me what packages exactly are needed, I
+  simply installed the complete thing.
 
-I) Needed installation of cygwin:
+- install gtk+-2.2.x with all necessary libraries:
+  - atk
+  - glib
+  - gmodules
+  - gobject
+  - gthread
+  - gdk
+  - gdk-pixbuf
+  - pango, pangowin32
 
-    I.1) go to http://cygwin.com
-    I.2) click the install cygwin button
-    I.3) follow the instructions (I installed all packages
-         but not all packages are necessary)
-         - install to c:\cygwin
-         - use preselected options
-    I.4) mkdir c:/sane
+- install libiconv-1.8-w32-1 (or may be newer)
 
-    I.5) cp /bin/cygwin1.dll c:/sane
-    I.6) cp /bin/cygjpeg*.dll c:/sane
-    I.7) cp /bin/cygpng*.dll c:/sane
-    I.8) cp /bin/cygtiff*.dll c:/sane
-    I.9) cp /bin/cygz.dll c:/sane
-    I.a) cp /bin/cygintl.dll c:/sane
+- mkdir c:/sane
+- mkdir c:/sane/bin
+- mkdir c:/sane/etc
 
+- cp /bin/cygwin-1.dll   c:/sane/bin
+- cp /bin/cygiconv-2.dll c:/sane/bin
+- cp /bin/cygintl-2.dll  c:/sane/bin
+- cp /bin/cygjpeg-62.dll c:/sane/bin
+- cp /bin/cygjpeg6b.dll  c:/sane/bin
+- cp /bin/cygpng2.dll    c:/sane/bin
+- cp /bin/cygpng10.dll   c:/sane/bin
+- cp /bin/cygpng12.dll   c:/sane/bin
+- cp /bin/cygtiff4.dll   c:/sane/bin
+- cp /bin/cygz.dll       c:/sane/bin
+- cp /bin/libintl-1.dll  c:/sane/bin
 
+- cp -a /etc/pango       c:/sane/etc/
+- cp -a /etc/gtk-2.0     c:/sane/etc/
 
-II) Needed gtk+ and glib:
+May be with different source path:
+- cp /libiconv-1.8-w32-1/iconv.dll c:/sane/bin
 
-   II.1) get glib-dev-*.zip and gtk+-dev-*.zip and iconv-dev*.zip
-         from http://user.sgic.fi/~tml/gimp/win32/
+- compile and install sane backends-1.0.15 or later
+  - ./configure --prefix=c:/sane
+  - make
+  - make install
 
-   II.2) start cygwin bash shell
-   II.3) mkdir /src
+- compile and install xsane:
+  - export SANE_CONFIG=c:/sane/bin/sane-config
+  - ./configure --prefix=c:/sane
+  - edit src/Makefile and replace
+	-DLOCALEDIR=$(datadir)/locale
+    by
+	-DLOCALEDIR=/cygdrive/c/sane/share/locale
+    comment: some libraries and programs need the directories as c:\...,
+             some libraries work with c:\... and /cygdrive/c/...,
+             libintl only works with /cygdrive/c/...
+  - cp po/UTF8/* po	(may be this is not necessary any more)
+  - make
+  - make install
+  - cp src/*.ico c:/sane/bin
 
-   II.4) unpack gtk+, glib and iconv to c:\cygwin
-
-   II.5) cd /src/glib
-   II.6) cp *.h /usr/include
-   II.7) cp libglib*.a /usr/lib
-   II.8) cp glib-*.dll c:/sane
-
-   II.9) cd /src/gtk+/gdk
-   II.a) mkdir /usr/include/gdk
-   II.b) cp *.h /usr/include/gdk
-   II.c) cp libgdk-*.a /usr/lib
-   II.d) cp gdk-*.dll c:/sane
-
-   II.e) cd /src/gtk+/gtk
-   II.f) mkdir /usr/include/gtk
-   II.g) cp *.h /usr/include/gtk
-   II.h) cp libgtk-*.a /usr/lib
-   II.i) cp gtk-*.dll c:/sane
-
-   II.j) cd /src/libiconv*/src
-   II.k) cp iconv*.dll c:/sane
-
-
-IIb) If GIMP-Plugin shall be compiled (otherwise skip this section):
-
-  IIb.1) get gimp-dev-*.zip
-         from http://user.sgic.fi/~tml/gimp/win32/
-
-  IIb.2) unpack gimp-dev to c:\cygwin
-  IIb.3) cd /src/gimp/libgimp
-  IIb.4) mkdir /usr/include/libgimp
-  IIb.5) cp *.h /usr/include/libgimp
-  IIb.6) cp gimp-*.dll c:/sane
-  IIb.7) cp libgimp-*.a /usr/lib
-
-
-III) Needed sane-parts:
-
-  III.1) copy sane-source-package to /src
-  III.2) cd /src
-  III.3) tar xvzf sane-*.tar.gz
-  III.4) cd /src/sane-*
-  III.5) edit backend/net.c and change sanei_backend.h to sanei_backend_win32.h
-  III.6) cp src/sane-*/include/sane/sanei_backend.h to include/sane/sanei_backend_win32.h
-  III.7) remove all lines containing "ENTRY" from sane/include/sanei_backend_win32.h
-  III.8) call ./configure --prefix=/cygdrive/c/sane
-         (do not use c:/sane because ":" is used as path separator)
-  III.9) edit backend/Makefile
-          - remove all backends but net from PRELOADABLE_BACKENDS
-          - remove dll from ALL_BACKENDS
-          - add net to DLL_PRELOAD
-          - remove dll.lo dll-s.lo from line beginning with "libsane.la:"
-  III.a) Remove lines with isfdtype and vsyslog from sanei/sanei_init_debug.c
-  III.b) compile sane (in directory sane-1.0.*) (call make)
-           this should create a file backend/.libs/libsane.a and frontend/scanimage.exe
-  III.c) mkdir /usr/include/sane
-  III.d) cp include/sane/sane.h /usr/include/sane
-  III.e) cp include/sane/saneopts.h /usr/include/sane
-  III.f) cp backend/.libs/libsane.a /usr/lib
-  III.g) cp frontend/scanimage.exe /sane
-
-
-
-IV) compiling xsane:
-
-   IV.1) copy xsane-source-package to /src
-   IV.2) cd /src
-   IV.3) tar xvzf xsane-*.tar.gz
-   IV.4) cd /xsane-*
-   IV.5) edit configure and remove "exit" after "ERROR: SANE" and "ERROR: GTK"
-   IV.6) copy src/Makefile.in.WIN32 to src/Makefile.in
-   IV.7) call ./configure --prefix=c:/sane
-              ignore errors about missing gtk, gimp and sane
-   IV.8) In src/Makefile do:
-         - check GTK-DLL names, GDK-DLL names in GTK_LIBS:
-           GTK_LIBS = -lgtk-1.3 -lgdk-1.3
-           and name of gimp-library:
-           GIMP_LIBS = -lgimp-1.2 -lglib-1.3
-         - When you want to compile xsane without gimp support:
-           comment out GIMP_LIBS ... with a "#"
-         - When you want to compile xsane with debug output,
-           remove "-mwindows" from the CC=... line
-           (this creates a Dosbox when xsane is started,
-           XSANE_DEBUG=128 and SANE_DEBUG_NET=128 enables
-           debug messages)
-   IV.9) compile xsane (in directory xsane-0.*/) (call make)
-   IV.a) make install
-
-
-
-
-V)  set up correct environment
-
-    V.1) mkdir c:/sane/etc
-    V.2) mkdir c:/sane/etc/sane.d
-    V.3) vi c:/sane/etc/sane.d/net.conf
-         and enter a list of NetBEUI names or of IP-addresses
-         of machines you want to connect to. On some Windows
-         system IP-addresses are not accepted; if you experience
-         any problems try the NetBUI names.
-
-         example for net.conf:
-          myhost1
-          myhost2.mydomain.com
-          192.168.0.1
-          192.169.1.73
-    V.4) mkdir c:/sane/home
-    V.5) mkdir c:/sane/home/xsane
-
-
-
+- setup sane:
+  - edit c:/sane/etc/sane.d/dll.conf
+  - edit c:/sane/etc/sane.d/net.conf
+  

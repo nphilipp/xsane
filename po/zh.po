@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.90\n"
-"POT-Creation-Date: 2004-04-20 18:54+0200\n"
+"POT-Creation-Date: 2004-05-08 23:55+0200\n"
 "PO-Revision-Date: 2003-03-27 12:00+0100\n"
 "Last-Translator: leolarrel Wang <leolarrel@yahoo.com.tw>\n"
 "Language-Team: zh_TW<zh_TW@li.org>\n"
@@ -90,6 +90,20 @@ msgstr "插入檔案到電子郵件"
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
 msgstr "更名預設區"
+
+#. WINDOW_PRESET_AREA_ADD
+#, fuzzy
+msgid "add preset area"
+msgstr "更名預設區"
+
+#. WINDOW_MEDIUM_RENAME
+#, fuzzy
+msgid "rename medium"
+msgstr "更名電子郵件專案"
+
+#. WINDOW_MEDIUM_ADD
+msgid "add new medium"
+msgstr ""
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -962,6 +976,9 @@ msgstr "群組"
 msgid "all"
 msgstr "所有"
 
+msgid "new media"
+msgstr ""
+
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
 msgstr "儲存"
@@ -1188,20 +1205,29 @@ msgstr ""
 msgid "Add selection to list"
 msgstr "增加選擇到列表"
 
-#. MENU_ITEM_PRESET_AREA_RENAME
-msgid "Rename definiton"
-msgstr "更名定義"
+#. MENU_ITEM_MEDIUM_ADD
+#, fuzzy
+msgid "Add medium definition"
+msgstr "儲存環境設定"
 
-#. MENU_ITEM_PRESET_AREA_DELETE
-msgid "Delete definition"
-msgstr "刪除定義"
+#. MENU_ITEM_RENAME
+#, fuzzy
+msgid "Rename item"
+msgstr "更名影像"
 
-#. MENU_ITEM_PRESET_AREA_MOVE_UP
-msgid "Move up"
+#. MENU_ITEM_DELETE
+#, fuzzy
+msgid "Delete item"
+msgstr "刪除列表機"
+
+#. MENU_ITEM_MOVE_UP
+#, fuzzy
+msgid "Move item up"
 msgstr "往上移動"
 
-#. MENU_ITEM_PRESET_AREA_MOVE_DWN
-msgid "Move down"
+#. MENU_ITEM_MOVE_DWN
+#, fuzzy
+msgid "Move item down"
 msgstr "往下移動"
 
 #. PROGRESS_SCANNING
@@ -1280,9 +1306,13 @@ msgid ""
 msgstr ""
 
 #. DESC_XSANE_MEDIUM
-#, fuzzy
-msgid "Select source medium type\n"
-msgstr "選擇來源環境型態"
+msgid ""
+"Select source medium type.\n"
+"To rename, reorder or delete an entry use context menu (right mouse "
+"button).\n"
+"To create a medium enable the option edit medium definition in preferences "
+"menu."
+msgstr ""
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1330,13 +1360,23 @@ msgstr "輸入郵件位址"
 msgid "Enter subject of email"
 msgstr "輸入郵件的標題"
 
-#. DESC_PRESET_AREA_NAME
+#. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
 msgstr "輸入預設區的新名稱"
 
-#. DESC_MEDIUM_DEFINITION_NAME
+#. DESC_PRESET_AREA_ADD
+#, fuzzy
+msgid "Enter name for new preset area"
+msgstr "輸入預設區的新名稱"
+
+#. DESC_MEDIUM_RENAME
 #, fuzzy
 msgid "Enter new name for medium definition"
+msgstr "儲存環境設定"
+
+#. DESC_MEDIUM_ADD
+#, fuzzy
+msgid "Enter name for new medium definition"
 msgstr "儲存環境設定"
 
 #. DESC_PRINTER_SELECT
@@ -1877,8 +1917,11 @@ msgid "Delete preview image cache"
 msgstr "刪除預覽影像快取"
 
 #. DESC_PRESET_AREA
-msgid "Preset area"
-msgstr "預設區"
+msgid ""
+"Preset area:\n"
+"To add new area or edit an existing area use contect menu (right mouse "
+"button)."
+msgstr ""
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -2091,6 +2134,14 @@ msgstr "未知的型態"
 
 #. ERR_UNKNOWN_CONSTRAINT_TYPE
 msgid "unknown constraint type"
+msgstr ""
+
+#. ERR_OPTION_NAME_NULL
+msgid "Option has empty name (NULL)."
+msgstr ""
+
+#. ERR_BACKEND_BUG
+msgid "This is a backend bug. Please inform the author of the backend!"
 msgstr ""
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
@@ -2516,3 +2567,16 @@ msgstr "記憶體不足"
 
 msgid "Access to resource has been denied"
 msgstr ""
+
+#~ msgid "Preset area"
+#~ msgstr "預設區"
+
+#, fuzzy
+#~ msgid "Select source medium type\n"
+#~ msgstr "選擇來源環境型態"
+
+#~ msgid "Rename definiton"
+#~ msgstr "更名定義"
+
+#~ msgid "Delete definition"
+#~ msgstr "刪除定義"

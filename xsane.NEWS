@@ -1,6 +1,11 @@
 
  NEWS:
 
+  The medium definitions are stored in xsane.mdf instead
+  of xsane.rc now. There is no automatic transformation.
+  When you send your xsane.rc file (remove your mail password)
+  to me then I will create a xsane.mdf file for you.
+
   no special you have to care about to get xsane to work.
   Read xsane.CHANGES if you are interested in details of
   what has changed.

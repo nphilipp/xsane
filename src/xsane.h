@@ -27,59 +27,6 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#if 0
-#define DEF_GTK_ACCEL_LOCKED 0
-#else
-#define DEF_GTK_ACCEL_LOCKED GTK_ACCEL_LOCKED
-#endif
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-/* #define XSANE_TEST */
-/* #define SUPPORT_RGBA */
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-#define XSANE_VERSION		"0.93"
-#define XSANE_AUTHOR		"Oliver Rauch"
-#define XSANE_COPYRIGHT		"Oliver Rauch"
-#define XSANE_DATE		"1998-2004"
-#define XSANE_EMAIL		"Oliver.Rauch@xsane.org"
-#define XSANE_HOMEPAGE		"http://www.xsane.org"
-#define XSANE_COPYRIGHT_TXT	XSANE_DATE " " XSANE_COPYRIGHT
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-#define XSANE_DEBUG_ENVIRONMENT "XSANE_DEBUG"
-
-#define XSANE_DEFAULT_UMASK 0007
-#define XSANE_HOLD_TIME 200
-#define XSANE_CONTINUOUS_HOLD_TIME 10
-#define XSANE_DEFAULT_DEVICE "SANE_DEFAULT_DEVICE"
-#define XSANE_3PASS_BUFFER_RGB_SIZE 1024
-
-#ifndef SLASH
-# define SLASH '/'
-#endif 
-
-#ifndef XSANE_FIXED_HOME_PATH
-# define XSANE_FIXED_HOME_PATH /tmp
-#endif
-
-#ifndef ENVIRONMENT_HOME_DIR_NAME
-# define ENVIRONMENT_HOME_DIR_NAME HOME
-#endif
-
-#ifndef ENVIRONMENT_TEMP_DIR_NAME
-# define ENVIRONMENT_TEMP_DIR_NAME TMP
-#endif
-
-#ifndef ENVIRONMENT_BROWSER_NAME
-# define ENVIRONMENT_BROWSER_NAME BROWSER
-#endif
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
 /* needed for most of the xsane sources: */
 
 #ifdef _AIX
@@ -118,19 +65,164 @@
 #include "../include/config.h"
 #include "../include/sanei_signal.h"
 
-#include "xsane-text.h"
-#include "xsane-fixedtext.h"
-#include "xsane-icons.h"
-#include "xsane-viewer.h"
-
 #include <gdk/gdkkeysyms.h>
 #include <gdk/gdk.h>
 #include <gtk/gtk.h>
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+#if 0
+#define DEF_GTK_ACCEL_LOCKED 0
+#else
+#define DEF_GTK_ACCEL_LOCKED GTK_ACCEL_LOCKED
+#endif
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+/* #define XSANE_TEST */
+/* #define SUPPORT_RGBA */
+/* #define HAVE_WORKING_GTK_GAMMACURVE */
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+#define XSANE_VERSION		"0.94"
+#define XSANE_AUTHOR		"Oliver Rauch"
+#define XSANE_COPYRIGHT		"Oliver Rauch"
+#define XSANE_DATE		"1998-2004"
+#define XSANE_EMAIL		"Oliver.Rauch@xsane.org"
+#define XSANE_HOMEPAGE		"http://www.xsane.org"
+#define XSANE_COPYRIGHT_TXT	XSANE_DATE " " XSANE_COPYRIGHT
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+#define XSANE_DEBUG_ENVIRONMENT	"XSANE_DEBUG"
+
+#define XSANE_DEFAULT_UMASK		0007
+#define XSANE_HOLD_TIME			200
+#define XSANE_CONTINUOUS_HOLD_TIME	10
+#define XSANE_DEFAULT_DEVICE		"SANE_DEFAULT_DEVICE"
+#define XSANE_3PASS_BUFFER_RGB_SIZE	1024
+
+#ifdef HAVE_WINDOWS_H
+# define BUGGY_GDK_INPUT_EXCEPTION
+# define _WIN32
+#endif
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+#ifndef SLASH
+# ifdef _WIN32
+#  define SLASH '\\'
+# elif defined(HAVE_OS2_H)
+#  define SLASH '\\'
+# else
+#  define SLASH '/'
+# endif
+#endif
+
+/* *** NOT USED IN THE MOMENT. MAY BE USED LATER *** */
+/* ************************************************* */
+#ifndef XSANE_FIXED_HOME_DIR
+# ifdef _WIN32
+#  define XSANE_FIXED_HOME_DIR c:\\SANE-Images
+# elif defined(HAVE_OS2_H)
+#  define XSANE_FIXED_HOME_DIR c:\\SANE-Images
+# else
+#  define XSANE_FIXED_HOME_DIR /tmp
+# endif
+#endif
+
+/* *** FIXED_APPDATA_DIR is used when the environment variable *** */
+/* *** ENVIRONMENT_APPDATA_DIR_NAME does not exist. It is used *** */
+/* *** to store the configuration files of xsane.              *** */
+/* *************************************************************** */
+#ifndef XSANE_FIXED_APPDATA_DIR
+# ifdef _WIN32
+#  define XSANE_FIXED_APPDATA_DIR c:\\SANE
+# elif defined(HAVE_OS2_H)
+#  define XSANE_FIXED_APPDATA_DIR c:\\SANE
+# else
+#  define XSANE_FIXED_APPDATA_DIR /tmp
+# endif
+#endif
+
+/* *** NOT USED IN THE MOMENT. MAY BE USED LATER *** */
+/* ************************************************* */
+#ifndef ENVIRONMENT_HOME_DIR_NAME
+# ifdef _WIN32
+#  define ENVIRONMENT_HOME_DIR_NAME HOME
+# elif defined(HAVE_OS2_H)
+#  define ENVIRONMENT_HOME_DIR_NAME HOME
+# else
+#  define ENVIRONMENT_HOME_DIR_NAME HOME
+# endif
+#endif
+
+/* *** ENVIRONMENT_APPDATA_DIR_NAME is used to store the       *** */
+/* *** configuration files of xsane.                           *** */
+/* *************************************************************** */
+#ifndef ENVIRONMENT_APPDATA_DIR_NAME
+# ifdef _WIN32
+#  define ENVIRONMENT_APPDATA_DIR_NAME APPDATA
+# elif defined(HAVE_OS2_H)
+#  define ENVIRONMENT_APPDATA_DIR_NAME HOME
+# else
+#  define ENVIRONMENT_APPDATA_DIR_NAME HOME
+# endif
+#endif
+
+/* *** NOT USED IN THE MOMENT. MAY BE USED LATER *** */
+/* ************************************************* */
+#ifndef ENVIRONMENT_SYSTEMROOT_DIR_NAME
+# ifdef _WIN32
+/* SYSTEMROOT is used on WIN2K and WINXP */
+#  define ENVIRONMENT_SYSTEMROOT_DIR_NAME_1 SYSTEMROOT
+#  define ENVIRONMENT_SYSTEMROOT_DIR_NAME_2 WINDIR
+/* WINDIR is used on WIN98 and WINME */
+# elif defined(HAVE_OS2_H)
+#  define ENVIRONMENT_SYSTEMROOT_DIR_NAME_1 NONE
+#  define ENVIRONMENT_SYSTEMROOT_DIR_NAME_2 NONE
+# else
+#  define ENVIRONMENT_SYSTEMROOT_DIR_NAME_1 NONE
+#  define ENVIRONMENT_SYSTEMROOT_DIR_NAME_2 NONE
+# endif
+#endif
+
+#ifndef ENVIRONMENT_TEMP_DIR_NAME
+# define ENVIRONMENT_TEMP_DIR_NAME TMP
+#endif
+
+#ifndef ENVIRONMENT_BROWSER_NAME
+# define ENVIRONMENT_BROWSER_NAME BROWSER
+#endif
+
+/* *** DEFAULT_BROWSER is used when environment variable       *** */
+/* *** BROWSER is not defined at first startup of xsane.       *** */
+/* *************************************************************** */
+#ifndef DEFAULT_BROWSER
+# ifdef _WIN32
+#  define DEFAULT_BROWSER "iexplore.exe"
+# elif defined(HAVE_OS2_H)
+#  define DEFAULT_BROWSER "netscape"
+# else
+#  define DEFAULT_BROWSER "netscape"
+# endif
+#endif
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+#include "xsane-text.h"
+#include "xsane-fixedtext.h"
+#include "xsane-icons.h"
+#include "xsane-viewer.h"
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 #if GTK_MAJOR_VERSION == 2
 # define HAVE_GTK2
+# ifndef _WIN32
+#  define USE_GTK2_WINDOW_GET_POSITION
+# endif
 #endif
 
 #ifdef HAVE_GTK2
@@ -227,29 +319,29 @@ typedef struct
     int batch_scan_end;
     int batch_scan_next_tl_y;
   }
-GSGWellKnownOptions;
+WellKnownOptions;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 typedef struct
   {
     gchar *label;
-    struct GSGDialogElement *elem;
+    struct DialogElement *elem;
     gint index;
   }
-GSGMenuItem;
+MenuItem;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-typedef struct GSGDialogElement
+typedef struct DialogElement
   {
     GtkWidget *widget;
     GtkWidget *widget2;
     GtkObject *data;
     int menu_size;		/* # of items in menu (if any) */
-    GSGMenuItem *menu;
+    MenuItem *menu;
   }
-GSGDialogElement;
+DialogElement;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -361,8 +453,7 @@ extern void xsane_batch_scan_add(void);
 #define OCROUTPUTFILEOPT	"-o"
 #define OCROUTFDOPT		"-x"
 #define OCRPROGRESSKEY		""
-#define DOCVIEWER_NETSCAPE	"netscape"
-#define DOCVIEWER 	 	DOCVIEWER_NETSCAPE
+#define BROWSER_NETSCAPE	"netscape"
 
 #define XSANE_MEDIUM_CALIB_BRIGHTNESS_MIN	-1000.0
 #define XSANE_MEDIUM_CALIB_BRIGHTNESS_MAX	 1000.0
@@ -490,14 +581,16 @@ typedef struct Xsane
 
     SANE_Handle *dev;
     const char *dev_name;
-    GSGWellKnownOptions well_known;
+    WellKnownOptions well_known;
     int num_elements;
-    GSGDialogElement *element;
+    DialogElement *element;
     u_int rebuild : 1;
     int pixelcolor;
     int scanning;
     int reading_data;
     int cancel_scan;
+
+    int batch_scan_load_default_list;	/* load default list at program startup flag */
     int batch_loop; /* is set when batch scanning and not last scan */
     int batch_scan_use_stored_scanmode;
     int batch_scan_use_stored_resolution;
@@ -573,7 +666,7 @@ typedef struct Xsane
     int main_window_fixed;
     int mode_selection;
 
-#ifndef HAVE_GTK2
+#ifndef USE_GTK2_WINDOW_GET_POSITION
     int get_deskrelative_origin;
 #endif
 
@@ -853,7 +946,7 @@ typedef struct XsaneSetup
   GtkWidget *disable_gimp_preview_gamma_button;
   GtkWidget *preview_oversampling_entry;
   GtkWidget *preview_own_cmap_button;
-  GtkWidget *doc_viewer_entry;
+  GtkWidget *browser_entry;
 
   GtkWidget *fax_command_entry;
   GtkWidget *fax_receiver_option_entry;

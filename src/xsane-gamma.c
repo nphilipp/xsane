@@ -55,7 +55,8 @@ void xsane_update_sliders(void);
 static gint xsane_slider_callback(GtkWidget *widget, GdkEvent *event, XsaneSlider *slider);
 void xsane_create_slider(XsaneSlider *slider);
 void xsane_create_histogram(GtkWidget *parent, const char *title, int width, int height, XsanePixmap *hist);
-void xsane_get_free_gamma_curve(gfloat *free_color_gamma_data, SANE_Int *gammadata,
+/* void xsane_get_free_gamma_curve(gfloat *free_color_gamma_data, SANE_Int *gammadata, */
+void xsane_get_free_gamma_curve(gfloat *free_color_gamma_data, u_char *gammadata,
                                 int negative, double gamma, double brightness, double contrast,
                                 int len, int maxout);
 static void xsane_calculate_auto_enhancement(SANE_Int *count_raw,
@@ -2322,7 +2323,8 @@ void xsane_create_histogram_dialog(const char *devicetext)
 #ifdef HAVE_WORKING_GTK_GAMMACURVE
 /* xsane_get_free_gamma_curve transforms gamma table with 65536 entries and value range 0.0-1.0 to requested gamma table */
 /* it combines the color gamma table given by gamma_widget and the gray gamma table (xsane.gamma_curve_gray) */
-void xsane_get_free_gamma_curve(gfloat *free_color_gamma_data, SANE_Int *gammadata,
+/* void xsane_get_free_gamma_curve(gfloat *free_color_gamma_data, SANE_Int *gammadata, */
+void xsane_get_free_gamma_curve(gfloat *free_color_gamma_data, u_char *gammadata,
                                 int negative, double gamma, double brightness, double contrast,
                                 int len, int maxout)
 {

@@ -460,11 +460,11 @@ static void xsane_setup_display_apply_changes(GtkWidget *widget, gpointer data)
 
   xsane_update_double(xsane_setup.preview_oversampling_entry,      &preferences.preview_oversampling);
 
-  if (preferences.doc_viewer)
+  if (preferences.browser)
   {
-    free((void *) preferences.doc_viewer);
+    free((void *) preferences.browser);
   }
-  preferences.doc_viewer = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.doc_viewer_entry)));
+  preferences.browser = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.browser_entry)));
 
   xsane_update_gamma_curve(TRUE /* update raw */);
 
@@ -2710,11 +2710,11 @@ static void xsane_display_notebook(GtkWidget *notebook)
   text = gtk_entry_new();
   xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_DOC_VIEWER);
   gtk_widget_set_size_request(text, 250, -1);
-  gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.doc_viewer);
+  gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.browser);
   gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
   gtk_widget_show(text);
   gtk_widget_show(hbox);
-  xsane_setup.doc_viewer_entry = text;
+  xsane_setup.browser_entry = text;
 
 
   xsane_separator_new(vbox, 4);

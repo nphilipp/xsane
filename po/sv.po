@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE pre 0.92\n"
-"POT-Creation-Date: 2004-04-20 18:54+0200\n"
+"POT-Creation-Date: 2004-05-08 23:55+0200\n"
 "PO-Revision-Date: 2003-08-03 14:12+01:00\n"
 "Last-Translator: Johan Bengtsson <jb@goteborg.bostream.se>\n"
 "Language-Team: LANGUAGE <sv@li.org>\n"
@@ -90,6 +90,21 @@ msgstr "infoga fil i brev"
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
 msgstr "byt namn på det förinställda området"
+
+#. WINDOW_PRESET_AREA_ADD
+#, fuzzy
+msgid "add preset area"
+msgstr "byt namn på det förinställda området"
+
+#. WINDOW_MEDIUM_RENAME
+#, fuzzy
+msgid "rename medium"
+msgstr "Lagra medium"
+
+#. WINDOW_MEDIUM_ADD
+#, fuzzy
+msgid "add new medium"
+msgstr "Lagra medium"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -981,6 +996,9 @@ msgstr "grupp"
 msgid "all"
 msgstr "alla"
 
+msgid "new media"
+msgstr ""
+
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
 msgstr "Spara"
@@ -1205,20 +1223,29 @@ msgstr "filändelse"
 msgid "Add selection to list"
 msgstr "Lägg till utvalt område i listan"
 
-#. MENU_ITEM_PRESET_AREA_RENAME
-msgid "Rename definiton"
-msgstr "Byt namn på inställning"
+#. MENU_ITEM_MEDIUM_ADD
+#, fuzzy
+msgid "Add medium definition"
+msgstr "Ändra mediedefinition"
 
-#. MENU_ITEM_PRESET_AREA_DELETE
-msgid "Delete definition"
-msgstr "Ta bort inställning"
+#. MENU_ITEM_RENAME
+#, fuzzy
+msgid "Rename item"
+msgstr "Byt namn på bild"
 
-#. MENU_ITEM_PRESET_AREA_MOVE_UP
-msgid "Move up"
+#. MENU_ITEM_DELETE
+#, fuzzy
+msgid "Delete item"
+msgstr "Ta bort skrivare"
+
+#. MENU_ITEM_MOVE_UP
+#, fuzzy
+msgid "Move item up"
 msgstr "Flytta upp"
 
-#. MENU_ITEM_PRESET_AREA_MOVE_DWN
-msgid "Move down"
+#. MENU_ITEM_MOVE_DWN
+#, fuzzy
+msgid "Move item down"
 msgstr "Flytta ner"
 
 #. PROGRESS_SCANNING
@@ -1299,8 +1326,13 @@ msgstr ""
 "<Ctrl-"
 
 #. DESC_XSANE_MEDIUM
-msgid "Select source medium type\n"
-msgstr "Välj typ av källmedium\n"
+msgid ""
+"Select source medium type.\n"
+"To rename, reorder or delete an entry use context menu (right mouse "
+"button).\n"
+"To create a medium enable the option edit medium definition in preferences "
+"menu."
+msgstr ""
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1349,12 +1381,22 @@ msgstr "Skriv in epost adress"
 msgid "Enter subject of email"
 msgstr "Skriv in ämne för epost"
 
-#. DESC_PRESET_AREA_NAME
+#. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
 msgstr "Skriv in nytt namn för förinställt område"
 
-#. DESC_MEDIUM_DEFINITION_NAME
+#. DESC_PRESET_AREA_ADD
+#, fuzzy
+msgid "Enter name for new preset area"
+msgstr "Skriv in nytt namn för förinställt område"
+
+#. DESC_MEDIUM_RENAME
 msgid "Enter new name for medium definition"
+msgstr "Skriv in nytt namn för mediedefinition"
+
+#. DESC_MEDIUM_ADD
+#, fuzzy
+msgid "Enter name for new medium definition"
 msgstr "Skriv in nytt namn för mediedefinition"
 
 #. DESC_PRINTER_SELECT
@@ -1937,8 +1979,11 @@ msgid "Delete preview image cache"
 msgstr "Ta bort förhandsgransknings bildcache"
 
 #. DESC_PRESET_AREA
-msgid "Preset area"
-msgstr "Förinställt område"
+msgid ""
+"Preset area:\n"
+"To add new area or edit an existing area use contect menu (right mouse "
+"button)."
+msgstr ""
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -2153,6 +2198,14 @@ msgstr "okänd typ"
 #. ERR_UNKNOWN_CONSTRAINT_TYPE
 msgid "unknown constraint type"
 msgstr "unknown constraint type"
+
+#. ERR_OPTION_NAME_NULL
+msgid "Option has empty name (NULL)."
+msgstr ""
+
+#. ERR_BACKEND_BUG
+msgid "This is a backend bug. Please inform the author of the backend!"
+msgstr ""
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
@@ -2623,3 +2676,15 @@ msgstr "Slut på minne"
 
 msgid "Access to resource has been denied"
 msgstr "Tillgång till resurs nekas"
+
+#~ msgid "Preset area"
+#~ msgstr "Förinställt område"
+
+#~ msgid "Select source medium type\n"
+#~ msgstr "Välj typ av källmedium\n"
+
+#~ msgid "Rename definiton"
+#~ msgstr "Byt namn på inställning"
+
+#~ msgid "Delete definition"
+#~ msgstr "Ta bort inställning"

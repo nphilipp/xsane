@@ -2441,7 +2441,7 @@ int xsane_save_ps(FILE *outfile, FILE *imagefile, Image_info *image_info, float 
 typedef struct
 {
   struct jpeg_error_mgr pub;/* "public" fields */
-  int *cancel_save; // XXXX
+  int *cancel_save; 
 } xsane_jpeg_error_mgr;
 
 typedef xsane_jpeg_error_mgr *xsane_jpeg_error_mgr_ptr;

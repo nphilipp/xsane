@@ -1320,7 +1320,14 @@ static void preview_restore_option(Preview *p, int option, void *saved_value, in
   {
     char buf[256];
     opt = xsane_get_option_descriptor(dev, option);
-    snprintf(buf, sizeof(buf), "%s %s: %s.", ERR_SET_OPTION, opt->name, XSANE_STRSTATUS(status));
+    if (opt && opt->name)
+    {
+      snprintf(buf, sizeof(buf), "%s %s: %s.", ERR_SET_OPTION, opt->name, XSANE_STRSTATUS(status));
+    }
+    else
+    {
+      snprintf(buf, sizeof(buf), "%s %d: %s.", ERR_SET_OPTION, option, XSANE_STRSTATUS(status));
+    }
     xsane_back_gtk_error(buf, TRUE);
   }
 }
@@ -1866,7 +1873,7 @@ static void preview_scan_done(Preview *p, int save_image)
 
   sane_get_parameters(xsane.dev, &xsane.param); /* update xsane.param */
 
-  if ( (preferences.preselect_scanarea) && (!p->startimage))
+  if ((preferences.preselect_scanarea) && (!p->startimage) && (!xsane.medium_calibration))
   {
     preview_autoselect_scanarea(p, p->selection.coordinate); /* get autoselection coordinates */
     preview_draw_selection(p); 
@@ -1874,7 +1881,7 @@ static void preview_scan_done(Preview *p, int save_image)
     xsane_update_histogram(TRUE /* update_raw */); /* update histogram (necessary because overwritten by preview_update_surface) */
   }
 
-  if (preferences.auto_correct_colors)
+  if ((preferences.auto_correct_colors) && (!xsane.medium_calibration))
   {
     xsane_calculate_raw_histogram();
     xsane_set_auto_enhancement();
@@ -2043,11 +2050,13 @@ static void preview_scan_start(Preview *p)
   p->selection.active = FALSE;
   p->previous_selection_maximum.active = FALSE;
 
+#ifndef BUGGY_GDK_INPUT_EXCEPTION
   if ((sane_set_io_mode(dev, SANE_TRUE) == SANE_STATUS_GOOD) && (sane_get_select_fd(dev, &fd) == SANE_STATUS_GOOD))
   {
     p->input_tag = gdk_input_add(fd, GDK_INPUT_READ | GDK_INPUT_EXCEPTION, preview_read_image_data, p);
   }
   else
+#endif
   {
     preview_read_image_data(p, -1, GDK_INPUT_READ);
   }
@@ -5680,31 +5689,14 @@ static void preview_delete_images_callback(GtkWidget *widget, gpointer call_data
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-int xsane_preset_area_entry_rename;
- 
-static void xsane_preset_area_entry_rename_button_callback(GtkWidget *widget, gpointer data)
-{
-  DBG(DBG_proc, "xsane_preset_area_entry_rename\n");
- 
-  xsane_preset_area_entry_rename = (int) data;                                                          
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
 static gint preview_preset_area_rename_callback(GtkWidget *widget, GtkWidget *preset_area_widget)
 {
  int selection;
  char *oldname;
  char *newname;
  Preview *p;
- GtkWidget *rename_dialog;
- GtkWidget *text;
- GtkWidget *button;
- GtkWidget *vbox, *hbox;
  GtkWidget *old_preset_area_menu;
- char buf[256];
  int old_selection;
-
 
   DBG(DBG_proc, "preview_preset_area_rename_callback\n");
 
@@ -5713,71 +5705,15 @@ static gint preview_preset_area_rename_callback(GtkWidget *widget, GtkWidget *pr
 
   DBG(DBG_info ,"rename %s\n", preferences.preset_area[selection]->name);
 
+  /* set menu in correct state, is a bit strange this way but I do not have a better idea */
   old_preset_area_menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(p->preset_area_option_menu));
   old_selection = (int) gtk_object_get_data(GTK_OBJECT(gtk_menu_get_active(GTK_MENU(old_preset_area_menu))), "Selection");  
-
   gtk_menu_popdown(GTK_MENU(old_preset_area_menu));
-  /* set menu in correct state, is a bit strange this way but I do not have a better idea */
   gtk_option_menu_set_history(GTK_OPTION_MENU(p->preset_area_option_menu), old_selection);
 
   oldname = strdup(preferences.preset_area[selection]->name);
 
-  rename_dialog = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-  xsane_set_window_icon(rename_dialog, 0);
-
-  /* set rename dialog */ 
-  gtk_window_set_position(GTK_WINDOW(rename_dialog), GTK_WIN_POS_CENTER);
-  gtk_window_set_resizable(GTK_WINDOW(rename_dialog), FALSE);
-  snprintf(buf, sizeof(buf), "%s %s", xsane.prog_name, WINDOW_PRESET_AREA_RENAME);
-  gtk_window_set_title(GTK_WINDOW(rename_dialog), buf);
-  g_signal_connect(GTK_OBJECT(rename_dialog), "delete_event", (GtkSignalFunc) xsane_preset_area_entry_rename_button_callback, (void *) -1);
-  gtk_widget_show(rename_dialog);
- 
-  /* set the main vbox */
-  vbox = gtk_vbox_new(FALSE, 0);
-  gtk_container_set_border_width(GTK_CONTAINER(vbox), 0);
-  gtk_container_add(GTK_CONTAINER(rename_dialog), vbox);
-  gtk_widget_show(vbox);
-
-  /* set the main hbox */
-  hbox = gtk_hbox_new(FALSE, 0);
-  xsane_separator_new(vbox, 2);
-  gtk_box_pack_end(GTK_BOX(vbox), hbox, FALSE, FALSE, 5);
-  gtk_container_set_border_width(GTK_CONTAINER(hbox), 5);
-  gtk_widget_show(hbox);
- 
-  text = gtk_entry_new_with_max_length(64);
-  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_PRESET_AREA_NAME);
-  gtk_entry_set_text(GTK_ENTRY(text), oldname);
-  gtk_widget_set_size_request(text, 300, -1);
-  gtk_box_pack_start(GTK_BOX(vbox), text, TRUE, TRUE, 4);
-  gtk_widget_show(text);
- 
- 
-  button = gtk_button_new_with_label("OK");
-  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_preset_area_entry_rename_button_callback, (void *) 1);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
-  gtk_widget_show(button);
- 
-  button = gtk_button_new_with_label("Cancel");
-  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_preset_area_entry_rename_button_callback, (void *) -1);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
-  gtk_widget_show(button);
-
-  xsane_preset_area_entry_rename = 0;
- 
-  while (xsane_preset_area_entry_rename == 0)
-  {
-    while (gtk_events_pending())
-    {
-      DBG(DBG_info, "preview_preset_area_rename_callback: calling gtk_main_iteration\n");
-      gtk_main_iteration();
-    }
-  }
- 
-  newname = strdup(gtk_entry_get_text(GTK_ENTRY(text)));
- 
-  if (xsane_preset_area_entry_rename == 1) /* OK button has been pressed */
+  if (!xsane_front_gtk_getname_dialog(WINDOW_PRESET_AREA_RENAME, DESC_PRESET_AREA_RENAME, oldname, &newname))
   {
     gtk_option_menu_remove_menu(GTK_OPTION_MENU(p->preset_area_option_menu));
 
@@ -5796,8 +5732,6 @@ static gint preview_preset_area_rename_callback(GtkWidget *widget, GtkWidget *pr
   free(oldname);
   free(newname);
  
-  gtk_widget_destroy(rename_dialog);
- 
   xsane_set_sensitivity(TRUE);
 
   return TRUE; /* event is handled */
@@ -5809,6 +5743,9 @@ static gint preview_preset_area_add_callback(GtkWidget *widget, GtkWidget *prese
 {
  int selection, i, old_selection = 0;
  Preview *p;
+ float coord[4];
+ char suggested_name[256];
+ char *newname;
  GtkWidget *old_preset_area_menu;
 
   DBG(DBG_proc, "preview_preset_area_add_callback\n");
@@ -5816,11 +5753,18 @@ static gint preview_preset_area_add_callback(GtkWidget *widget, GtkWidget *prese
   selection = (int) gtk_object_get_data(GTK_OBJECT(preset_area_widget), "Selection");
   p = (Preview *) gtk_object_get_data(GTK_OBJECT(preset_area_widget), "Preview"); 
 
-  if (selection < preferences.preset_area_definitions)
-  {
-   char buf[256];
-   float coord[4];
+  /* set menu in correct state, is a bit strange this way but I do not have a better idea */
+  old_preset_area_menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(p->preset_area_option_menu));
+  old_selection = (int) gtk_object_get_data(GTK_OBJECT(gtk_menu_get_active(GTK_MENU(old_preset_area_menu))), "Selection");  
+  gtk_menu_popdown(GTK_MENU(old_preset_area_menu));
+  gtk_option_menu_set_history(GTK_OPTION_MENU(p->preset_area_option_menu), old_selection);
 
+  /* sugggest name = size in mm */ 
+  preview_rotate_previewsurface_to_devicesurface(p->rotation, p->selection.coordinate, coord);
+  snprintf(suggested_name, sizeof(suggested_name), "%d mm x %d mm", (int) (coord[2]-coord[0]), (int) (coord[3]-coord[1]));
+
+  if (!xsane_front_gtk_getname_dialog(WINDOW_PRESET_AREA_ADD, DESC_PRESET_AREA_ADD, suggested_name, &newname))
+  {
     preferences.preset_area = realloc(preferences.preset_area, (preferences.preset_area_definitions+1) * sizeof(void *));
 
     /* shift all items after selection */
@@ -5829,31 +5773,17 @@ static gint preview_preset_area_add_callback(GtkWidget *widget, GtkWidget *prese
       preferences.preset_area[i+1] = preferences.preset_area[i];
     }
 
-    /* insert new item behind selected item, name is size in mm */ 
-    preview_rotate_previewsurface_to_devicesurface(p->rotation, p->selection.coordinate, coord);
-    snprintf(buf, sizeof(buf), "%d mm x %d mm", (int) (coord[2]-coord[0]), (int) (coord[3]-coord[1]));
+    /* insert new item behind selected item */
     preferences.preset_area[selection+1] = calloc(sizeof(Preferences_preset_area_t), 1);
-    preferences.preset_area[selection+1]->name    = strdup(buf);
+    preferences.preset_area[selection+1]->name    = strdup(newname);
     preferences.preset_area[selection+1]->xoffset = coord[0];
     preferences.preset_area[selection+1]->yoffset = coord[1];
     preferences.preset_area[selection+1]->width   = coord[2] - coord[0];
     preferences.preset_area[selection+1]->height  = coord[3] - coord[1];
 
-    DBG(DBG_proc, "added %s\n", buf);
+    DBG(DBG_proc, "added %s\n", newname);
 
     preferences.preset_area_definitions++;
-
-    old_preset_area_menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(p->preset_area_option_menu));
-
-    gtk_option_menu_remove_menu(GTK_OPTION_MENU(p->preset_area_option_menu));
-    old_selection = (int) gtk_object_get_data(GTK_OBJECT(gtk_menu_get_active(GTK_MENU(old_preset_area_menu))), "Selection");  
-
-    if (old_selection > selection) /* we are moving the selected surface */
-    {
-      old_selection++;
-    }
-
-    gtk_widget_destroy(old_preset_area_menu);
 
     preview_create_preset_area_menu(p, old_selection);
   }
@@ -6009,6 +5939,7 @@ static gint preview_preset_area_context_menu_callback(GtkWidget *widget, GdkEven
  GtkWidget *menu_item;
  GdkEventButton *event_button;
  int selection;
+ char buf[256];
 
   DBG(DBG_proc, "preview_preset_area_context_menu_callback\n");
 
@@ -6028,8 +5959,14 @@ static gint preview_preset_area_context_menu_callback(GtkWidget *widget, GdkEven
       gtk_container_add(GTK_CONTAINER(menu), menu_item);
       g_signal_connect(GTK_OBJECT(menu_item), "activate", (GtkSignalFunc) preview_preset_area_add_callback, widget);
 
+      /* add separator */
+      menu_item = gtk_menu_item_new();
+      gtk_widget_show(menu_item);
+      gtk_container_add(GTK_CONTAINER(menu), menu_item);
+
       /* rename preset area */
-      menu_item = gtk_menu_item_new_with_label(MENU_ITEM_PRESET_AREA_RENAME);
+      snprintf(buf, sizeof(buf), "%s: %s", preferences.preset_area[selection]->name, MENU_ITEM_RENAME);
+      menu_item = gtk_menu_item_new_with_label(buf);
       gtk_widget_show(menu_item);
       gtk_container_add(GTK_CONTAINER(menu), menu_item);
       g_signal_connect(GTK_OBJECT(menu_item), "activate", (GtkSignalFunc) preview_preset_area_rename_callback, widget);
@@ -6037,7 +5974,8 @@ static gint preview_preset_area_context_menu_callback(GtkWidget *widget, GdkEven
       if (selection) /* not available for "full area" */
       {
         /* delete preset area */
-        menu_item = gtk_menu_item_new_with_label(MENU_ITEM_PRESET_AREA_DELETE);
+        snprintf(buf, sizeof(buf), "%s: %s", preferences.preset_area[selection]->name, MENU_ITEM_DELETE);
+        menu_item = gtk_menu_item_new_with_label(buf);
         gtk_widget_show(menu_item);
         gtk_container_add(GTK_CONTAINER(menu), menu_item);
         g_signal_connect(GTK_OBJECT(menu_item), "activate", (GtkSignalFunc) preview_preset_area_delete_callback, widget);
@@ -6046,7 +5984,8 @@ static gint preview_preset_area_context_menu_callback(GtkWidget *widget, GdkEven
       if (selection>1) /* available from 3rd item */
       {
         /* move up */
-        menu_item = gtk_menu_item_new_with_label(MENU_ITEM_PRESET_AREA_MOVE_UP);
+        snprintf(buf, sizeof(buf), "%s: %s", preferences.preset_area[selection]->name, MENU_ITEM_MOVE_UP);
+        menu_item = gtk_menu_item_new_with_label(buf);
         gtk_widget_show(menu_item);
         gtk_container_add(GTK_CONTAINER(menu), menu_item);
         g_signal_connect(GTK_OBJECT(menu_item), "activate", (GtkSignalFunc) preview_preset_area_move_up_callback, widget);
@@ -6055,13 +5994,14 @@ static gint preview_preset_area_context_menu_callback(GtkWidget *widget, GdkEven
       if ((selection) && (selection < preferences.preset_area_definitions-1))
       {
         /* move down */
-        menu_item = gtk_menu_item_new_with_label(MENU_ITEM_PRESET_AREA_MOVE_DWN);
+        snprintf(buf, sizeof(buf), "%s: %s", preferences.preset_area[selection]->name, MENU_ITEM_MOVE_DWN);
+        menu_item = gtk_menu_item_new_with_label(buf);
         gtk_widget_show(menu_item);
         gtk_container_add(GTK_CONTAINER(menu), menu_item);
         g_signal_connect(GTK_OBJECT(menu_item), "activate", (GtkSignalFunc) preview_preset_area_move_down_callback, widget);
       }
 
-      gtk_widget_show(menu);
+/*      gtk_widget_show(menu); */
       gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event_button->button, event_button->time);
 
      return TRUE; /* event is handled */

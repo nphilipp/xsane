@@ -50,6 +50,9 @@
 #define WINDOW_MAIL_RENAME		_("rename mail image")
 #define WINDOW_MAIL_INSERT		_("insert file into mail")
 #define WINDOW_PRESET_AREA_RENAME	_("rename preset area")
+#define WINDOW_PRESET_AREA_ADD		_("add preset area")
+#define WINDOW_MEDIUM_RENAME		_("rename medium")
+#define WINDOW_MEDIUM_ADD		_("add new medium")
 #define WINDOW_SETUP			_("setup")
 #define WINDOW_HISTOGRAM		_("Histogram")
 #define WINDOW_GAMMA			_("Gamma curve")
@@ -305,6 +308,7 @@
 #define TEXT_SETUP_PERMISSION_USER	_("user")
 #define TEXT_SETUP_PERMISSION_GROUP	_("group")
 #define TEXT_SETUP_PERMISSION_ALL	_("all")
+#define	TEXT_NEW_MEDIA_NAME		_("new media")
 
 #define NOTEBOOK_SAVING_OPTIONS		_("Save")
 #define NOTEBOOK_IMAGE_OPTIONS		_("Image")
@@ -375,10 +379,12 @@
 #define MENU_ITEM_FILETYPE_BY_EXT	_("by ext")
 
 #define MENU_ITEM_PRESET_AREA_ADD_SEL	_("Add selection to list")
-#define MENU_ITEM_PRESET_AREA_RENAME	_("Rename definiton")
-#define MENU_ITEM_PRESET_AREA_DELETE	_("Delete definition")
-#define MENU_ITEM_PRESET_AREA_MOVE_UP	_("Move up")
-#define MENU_ITEM_PRESET_AREA_MOVE_DWN	_("Move down")
+#define MENU_ITEM_MEDIUM_ADD		_("Add medium definition")
+
+#define MENU_ITEM_RENAME		_("Rename item")
+#define MENU_ITEM_DELETE		_("Delete item")
+#define MENU_ITEM_MOVE_UP		_("Move item up")
+#define MENU_ITEM_MOVE_DWN		_("Move item down")
 
 #define PROGRESS_SCANNING		_("Scanning")
 #define PROGRESS_RECEIVING_FRAME_DATA	_("Receiving %s data")
@@ -401,7 +407,9 @@
 #define DESC_PREVIEW_CANCEL		_("Cancel preview scan <Alt-ESC>")
 #define DESC_XSANE_MODE			_("save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, " \
 					  "fax-<Ctrl-f> or mail-<Ctrl-m>")
-#define DESC_XSANE_MEDIUM		_("Select source medium type\n")
+#define DESC_XSANE_MEDIUM		_("Select source medium type.\n" \
+					  "To rename, reorder or delete an entry use context menu (right mouse button).\n"\
+					  "To create a medium enable the option edit medium definition in preferences menu.")
 
 #define DESC_FILENAME_COUNTER_STEP	_("Value that is added to filenamecounter after scan")
 #define DESC_BROWSE_FILENAME		_("Browse for image filename")
@@ -414,8 +422,10 @@
 #define DESC_MAILIMAGENAME		_("Enter new name for mail image")
 #define DESC_MAILRECEIVER		_("Enter email address")
 #define DESC_MAILSUBJECT		_("Enter subject of email")
-#define DESC_PRESET_AREA_NAME		_("Enter new name for preset area")
-#define DESC_MEDIUM_DEFINITION_NAME	_("Enter new name for medium definition")
+#define DESC_PRESET_AREA_RENAME		_("Enter new name for preset area")
+#define DESC_PRESET_AREA_ADD		_("Enter name for new preset area")
+#define DESC_MEDIUM_RENAME		_("Enter new name for medium definition")
+#define DESC_MEDIUM_ADD			_("Enter name for new medium definition")
 
 #define DESC_PRINTER_SELECT		_("Select printerdefinition <Shift-F1/F2/...>")
 
@@ -576,7 +586,8 @@
 #define DESC_AUTORAISE_SCANAREA		_("Autoraise scanarea")
 #define DESC_DELETE_IMAGES		_("Delete preview image cache")
 
-#define DESC_PRESET_AREA		_("Preset area")
+#define DESC_PRESET_AREA		_("Preset area:\n" \
+					  "To add new area or edit an existing area use contect menu (right mouse button).")
 #define DESC_ROTATION			_("Rotate preview and scan")
 #define DESC_RATIO			_("Aspect ratio of selection")
 #define DESC_PAPER_ORIENTATION		_("Define image position for printing")
@@ -636,6 +647,8 @@
 #define ERR_LIBJPEG			_("LIBJPEG reports error")
 #define ERR_UNKNOWN_TYPE		_("unknown type")
 #define ERR_UNKNOWN_CONSTRAINT_TYPE	_("unknown constraint type")
+#define ERR_OPTION_NAME_NULL		_("Option has empty name (NULL).")
+#define ERR_BACKEND_BUG			_("This is a backend bug. Please inform the author of the backend!")
 #define ERR_FAILED_EXEC_DOC_VIEWER	_("Failed to execute documentation viewer:")
 #define ERR_FAILED_EXEC_FAX_VIEWER	_("Failed to execute fax viewer:")
 #define ERR_FAILED_EXEC_FAX_CMD		_("Failed to execute fax command:")

@@ -223,7 +223,7 @@ const char *xsane_back_gtk_unit_string(SANE_Unit unit)
 	return "in";
       }
       return "mm";
-    case SANE_UNIT_MICROSECOND:	return "\265s";
+    case SANE_UNIT_MICROSECOND:	return "\302\265s"; /* UTF8 µs */
   }
   return 0;
 }
@@ -252,13 +252,13 @@ int xsane_back_gtk_make_path(size_t buf_size, char *buf, const char *prog_name, 
 
   if (location == XSANE_PATH_LOCAL_SANE) /* make path to local file */
   {
-    if (getenv(STRINGIFY(ENVIRONMENT_HOME_DIR_NAME)) != NULL)
+    if (getenv(STRINGIFY(ENVIRONMENT_APPDATA_DIR_NAME)) != NULL)
     {
-      snprintf(buf, buf_size-2, "%s%c.sane", getenv(STRINGIFY(ENVIRONMENT_HOME_DIR_NAME)), SLASH);
+      snprintf(buf, buf_size-2, "%s%c.sane", getenv(STRINGIFY(ENVIRONMENT_APPDATA_DIR_NAME)), SLASH);
     }
     else
     {
-      snprintf(buf, buf_size-2, "%s", STRINGIFY(XSANE_FIXED_HOME_PATH));
+      snprintf(buf, buf_size-2, "%s", STRINGIFY(XSANE_FIXED_APPDATA_DIR));
     }
     mkdir(buf, 0777);	/* ensure ~/.sane directory exists */
   }
@@ -333,7 +333,7 @@ int xsane_back_gtk_make_path(size_t buf_size, char *buf, const char *prog_name, 
 
   if (dev_name)
   {
-      /* Turn devicename into valid filename by replacing slashes by "_", "_" gets "__", spaces are erased  */
+      /* Turn devicename into valid filename by replacing slashes and other forbidden characters by "_", "_" gets "__", spaces are erased  */
 
     for (i = 0; dev_name[i]; ++i)
     {
@@ -1136,7 +1136,7 @@ int xsane_back_gtk_get_filename(const char *label, const char *default_name, siz
     {
      char directory_name[PATH_MAX];
 
-      snprintf(directory_name, sizeof(directory_name), "%s/.", default_name);
+      snprintf(directory_name, sizeof(directory_name), "%s%c", default_name, SLASH);
       DBG(DBG_info, "xsane_back_gtk_get_filename: directory_name =%s\n", directory_name);
       gtk_file_selection_set_filename(GTK_FILE_SELECTION(fileselection), (char *) directory_name);
     }
@@ -1272,7 +1272,7 @@ int xsane_back_gtk_get_filename(const char *label, const char *default_name, siz
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-static gint xsane_back_gtk_autobutton_update(GtkWidget *widget, GSGDialogElement *elem)
+static gint xsane_back_gtk_autobutton_update(GtkWidget *widget, DialogElement *elem)
 {
  int opt_num = elem - xsane.element;
  const SANE_Option_Descriptor *opt;
@@ -1316,7 +1316,7 @@ static gint xsane_back_gtk_autobutton_update(GtkWidget *widget, GSGDialogElement
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_back_gtk_autobutton_new(GtkWidget *parent, GSGDialogElement *elem,
+static void xsane_back_gtk_autobutton_new(GtkWidget *parent, DialogElement *elem,
 		GtkTooltips *tooltips)
 {
  GtkWidget *button;
@@ -1335,7 +1335,7 @@ static void xsane_back_gtk_autobutton_new(GtkWidget *parent, GSGDialogElement *e
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-static gint xsane_back_gtk_button_update(GtkWidget * widget, GSGDialogElement * elem)
+static gint xsane_back_gtk_button_update(GtkWidget * widget, DialogElement * elem)
 {
  int opt_num = elem - xsane.element;
  const SANE_Option_Descriptor *opt;
@@ -1356,7 +1356,7 @@ static gint xsane_back_gtk_button_update(GtkWidget * widget, GSGDialogElement * 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
 void xsane_back_gtk_button_new(GtkWidget * parent, const char *name, SANE_Word val,
-	    GSGDialogElement * elem, GtkTooltips *tooltips, const char *desc, SANE_Int settable)
+	    DialogElement * elem, GtkTooltips *tooltips, const char *desc, SANE_Int settable)
 {
  GtkWidget *button;
 
@@ -1376,14 +1376,15 @@ void xsane_back_gtk_button_new(GtkWidget * parent, const char *name, SANE_Word v
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_back_gtk_range_update(GtkAdjustment * adj_data, GSGDialogElement * elem)
+/* called from xsane_back_gtk_value_new and xsane_back_gtk_range_new */
+static void xsane_back_gtk_value_update(GtkAdjustment *adj_data, DialogElement *elem)
 {
  const SANE_Option_Descriptor *opt;
  SANE_Word val, new_val;
  int opt_num;
  double d;
 
-  DBG(DBG_proc, "xsane_back_gtk_range_update\n");
+  DBG(DBG_proc, "xsane_back_gtk_value_update\n");
 
   opt_num = elem - xsane.element;
   opt = xsane_get_option_descriptor(xsane.dev, opt_num);
@@ -1391,7 +1392,7 @@ static void xsane_back_gtk_range_update(GtkAdjustment * adj_data, GSGDialogEleme
   {
     case SANE_TYPE_INT:
       val = adj_data->value + 0.5;
-      break;
+     break;
 
     case SANE_TYPE_FIXED:
       d = adj_data->value;
@@ -1400,46 +1401,41 @@ static void xsane_back_gtk_range_update(GtkAdjustment * adj_data, GSGDialogEleme
 	d *= preferences.length_unit;
       }
       val = SANE_FIX(d);
-      break;
+     break;
 
     default:
-      DBG(DBG_error, "xsane_back_gtk_range_update: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
-      return;
+      DBG(DBG_error, "xsane_back_gtk_value_update: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
+     return;
   }
 
   xsane_back_gtk_set_option(opt_num, &val, SANE_ACTION_SET_VALUE);
   xsane_control_option(xsane.dev, opt_num, SANE_ACTION_GET_VALUE, &new_val, 0);
+
   if (new_val != val)
   {
     val = new_val;
-    goto value_changed;
-  }
- return;			/* value didn't change */
-
-value_changed:
-  switch(opt->type)
+    switch(opt->type)
     {
-    case SANE_TYPE_INT:
-      adj_data->value = val;
-      break;
+      case SANE_TYPE_INT:
+        adj_data->value = val;
+       break;
 
-    case SANE_TYPE_FIXED:
-      d = SANE_UNFIX(val);
-      if (opt->unit == SANE_UNIT_MM)
-      {
-	d /= preferences.length_unit;
-      }
-      adj_data->value = d;
-      break;
+      case SANE_TYPE_FIXED:
+        d = SANE_UNFIX(val);
+        if (opt->unit == SANE_UNIT_MM)
+        {
+          d /= preferences.length_unit;
+        }
+        adj_data->value = d;
+       break;
 
-    default:
-      break;
+      default:
+       break;
     }
-  /* Let widget know that value changed _again_.  This must converge
-     quickly---otherwise things would get very slow very quickly (as
-     in "infinite recursion"): */
-  g_signal_emit_by_name(GTK_OBJECT(adj_data), "value_changed");
- return;
+    g_signal_emit_by_name(GTK_OBJECT(adj_data), "value_changed");
+  }
+
+ return;			/* value didn't change */
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
@@ -1458,7 +1454,7 @@ static void xsane_back_gtk_range_display_value_right_callback(GtkAdjustment *adj
 
 void xsane_back_gtk_range_new(GtkWidget *parent, const char *name, gfloat val,
 	   gfloat min, gfloat max, gfloat quant, int automatic,
-	   GSGDialogElement *elem, GtkTooltips *tooltips, const char *desc, SANE_Int settable)
+	   DialogElement *elem, GtkTooltips *tooltips, const char *desc, SANE_Int settable)
 {
  GtkWidget *hbox, *label, *slider = NULL, *spinbutton, *value_label;
  int digits;
@@ -1471,7 +1467,7 @@ void xsane_back_gtk_range_new(GtkWidget *parent, const char *name, gfloat val,
   }
   else
   {
-    digits = (int) (log10(1/quant)+0.8); /* set number of digits in dependacne of quantization */
+    digits = (int) (log10(1/quant)+0.8); /* set number of digits in dependance of quantization */
   }
 
   if (digits < 0)
@@ -1558,7 +1554,7 @@ void xsane_back_gtk_range_new(GtkWidget *parent, const char *name, gfloat val,
     xsane_back_gtk_autobutton_new(hbox, elem, tooltips);
   }
 
-  g_signal_connect(elem->data, "value_changed", (GtkSignalFunc) xsane_back_gtk_range_update, elem);
+  g_signal_connect(elem->data, "value_changed", (GtkSignalFunc) xsane_back_gtk_value_update, elem);
 
   gtk_widget_show(label);
   gtk_widget_show(hbox);
@@ -1575,9 +1571,79 @@ void xsane_back_gtk_range_new(GtkWidget *parent, const char *name, gfloat val,
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
+void xsane_back_gtk_value_new(GtkWidget *parent, const char *name, gfloat val,
+	   gfloat quant, int automatic,
+	   DialogElement *elem, GtkTooltips *tooltips, const char *desc, SANE_Int settable)
+{
+ GtkWidget *hbox, *label, *spinbutton;
+ int digits;
+
+  DBG(DBG_proc, "xsane_back_gtk_value_new(%s)\n", name);
+
+  if (quant - (int) quant == 0.0)
+  {
+    digits = 0;
+  }
+  else
+  {
+    digits = (int) (log10(1/quant)+0.8); /* set number of digits in dependance of quantization */
+  }
+
+  if (digits < 0)
+  {
+    digits = 0;
+  }
+
+  hbox = gtk_hbox_new(FALSE, 2);
+  gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
+  gtk_box_pack_start(GTK_BOX(parent), hbox, FALSE, FALSE, 0);
+
+  label = gtk_label_new((char *) name);
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+
+  elem->data = gtk_adjustment_new(val, -1e29, 1e29, 1, 10, 1e-30);
+
+  /* spinbutton */
+#ifndef HAVE_GTK2
+  if (digits > 5)
+  {
+    digits = 5;
+  }
+#endif
+  spinbutton = gtk_spin_button_new(GTK_ADJUSTMENT(elem->data), 0, digits);
+
+  if (preferences.show_range_mode & 3) /* sliders are visible */
+  {
+    gtk_widget_set_size_request(spinbutton, 70, -1);
+  }
+  else /* sliders not visible */
+  {
+    gtk_widget_set_size_request(spinbutton, 100, -1);
+  }
+
+  xsane_back_gtk_set_tooltip(xsane.tooltips, spinbutton, desc);
+  gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(spinbutton), FALSE);
+  gtk_box_pack_end(GTK_BOX(hbox), spinbutton, FALSE, FALSE, 5); /* make spinbutton not sizeable */
+  gtk_widget_show(spinbutton);
+  gtk_widget_set_sensitive(spinbutton, settable);
+  elem->widget = spinbutton;
+
+  if (automatic)
+  {
+    xsane_back_gtk_autobutton_new(hbox, elem, tooltips);
+  }
+
+  g_signal_connect(elem->data, "value_changed", (GtkSignalFunc) xsane_back_gtk_value_update, elem);
+
+  gtk_widget_show(label);
+  gtk_widget_show(hbox);
+}
+
+/* ----------------------------------------------------------------------------------------------------------------- */
+
 void xsane_back_gtk_push_button_callback(GtkWidget * widget, gpointer data)
 {
- GSGDialogElement *elem = data;
+ DialogElement *elem = data;
  int opt_num;
 
   DBG(DBG_proc, "xsane_back_gtk_push_button_callback\n");
@@ -1588,13 +1654,13 @@ void xsane_back_gtk_push_button_callback(GtkWidget * widget, gpointer data)
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-static int xsane_back_gtk_option_menu_lookup(GSGMenuItem menu_items[], const char *string)
+static int xsane_back_gtk_option_menu_lookup(MenuItem menu_items[], const char *string)
 {
  int i;
 
   DBG(DBG_proc, "xsane_back_gtk_option_menu_lookup\n");
 
-  for (i = 0; strcmp(menu_items[i].label, string) != 0; ++i);
+  for (i = 0; (menu_items[i].label) && strcmp(menu_items[i].label, string) != 0; ++i);
 
  return i;
 }
@@ -1603,8 +1669,8 @@ static int xsane_back_gtk_option_menu_lookup(GSGMenuItem menu_items[], const cha
 
 static void xsane_back_gtk_option_menu_callback(GtkWidget * widget, gpointer data)
 {
- GSGMenuItem *menu_item = data;
- GSGDialogElement *elem = menu_item->elem;
+ MenuItem *menu_item = data;
+ DialogElement *elem = menu_item->elem;
  const SANE_Option_Descriptor *opt;
  int opt_num;
  double dval;
@@ -1619,20 +1685,20 @@ static void xsane_back_gtk_option_menu_callback(GtkWidget * widget, gpointer dat
   {
     case SANE_TYPE_INT:
       sscanf(menu_item->label, "%d", &val);
-      break;
+     break;
 
     case SANE_TYPE_FIXED:
       sscanf(menu_item->label, "%lg", &dval);
       val = SANE_FIX(dval);
-      break;
+     break;
 
     case SANE_TYPE_STRING:
       valp = menu_item->label;
-      break;
+     break;
 
     default:
       DBG(DBG_error, "xsane_back_gtk_option_menu_callback: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
-      break;
+     break;
   }
   xsane_back_gtk_set_option(opt_num, valp, SANE_ACTION_SET_VALUE);
 }
@@ -1640,11 +1706,11 @@ static void xsane_back_gtk_option_menu_callback(GtkWidget * widget, gpointer dat
 /* ----------------------------------------------------------------------------------------------------------------- */
 
 void xsane_back_gtk_option_menu_new(GtkWidget *parent, const char *name, char *str_list[],
-		 const char *val, GSGDialogElement * elem,
+		 const char *val, DialogElement *elem,
 		 GtkTooltips *tooltips, const char *desc, SANE_Int settable)
 {
  GtkWidget *hbox, *label, *option_menu, *menu, *item;
- GSGMenuItem *menu_items;
+ MenuItem *menu_items;
  int i, num_items;
 
   DBG(DBG_proc, "xsane_back_gtk_option_menu_new(%s)\n", name);
@@ -1656,8 +1722,11 @@ void xsane_back_gtk_option_menu_new(GtkWidget *parent, const char *name, char *s
   label = gtk_label_new((char *) name);
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
 
-  for (num_items = 0; str_list[num_items]; ++num_items);
-  menu_items = malloc(num_items * sizeof(menu_items[0]));
+  for (num_items = 0; str_list[num_items]; ++num_items)
+  {
+  }
+
+  menu_items = malloc((num_items + 1) * sizeof(menu_items[0]));
 
   menu = gtk_menu_new();
   for (i = 0; i < num_items; ++i)
@@ -1672,6 +1741,11 @@ void xsane_back_gtk_option_menu_new(GtkWidget *parent, const char *name, char *s
     menu_items[i].elem = elem;
     menu_items[i].index = i;
   }
+
+  /* add empty element as end of list marker */
+  menu_items[i].label = NULL;
+  menu_items[i].elem = NULL;
+  menu_items[i].index = 0;
 
   option_menu = gtk_option_menu_new();
   gtk_box_pack_end(GTK_BOX(hbox), option_menu, FALSE, FALSE, 2);
@@ -1694,7 +1768,7 @@ void xsane_back_gtk_option_menu_new(GtkWidget *parent, const char *name, char *s
 
 static void xsane_back_gtk_text_entry_callback(GtkWidget *w, gpointer data)
 {
- GSGDialogElement *elem = data;
+ DialogElement *elem = data;
  const SANE_Option_Descriptor *opt;
  const gchar *text;
  int opt_num;
@@ -1725,7 +1799,7 @@ static void xsane_back_gtk_text_entry_callback(GtkWidget *w, gpointer data)
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-void xsane_back_gtk_text_entry_new(GtkWidget * parent, const char *name, const char *val, GSGDialogElement *elem,
+void xsane_back_gtk_text_entry_new(GtkWidget * parent, const char *name, const char *val, DialogElement *elem,
 		        GtkTooltips *tooltips, const char *desc, SANE_Int settable)
 {
  GtkWidget *hbox, *text, *label;
@@ -1790,7 +1864,7 @@ static void tooltips_destroy(void)
 static void xsane_back_gtk_panel_destroy(void)
 {
  const SANE_Option_Descriptor *opt;
- GSGDialogElement *elem;
+ DialogElement *elem;
  int i, j;
 
   DBG(DBG_proc, "xsane_back_gtk_panel_destroy\n");
@@ -1836,12 +1910,6 @@ static void xsane_back_gtk_panel_destroy(void)
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-/* When an setting an option changes the dialog, everything may
-   change: the option titles, the activity-status of the option, its
-   constraints or what not.  Thus, rather than trying to be clever in
-   detecting what exactly changed, we use a brute-force method of
-   rebuilding the entire dialog.  */
-
 static void xsane_back_gtk_panel_rebuild(void)
 {
   DBG(DBG_proc, "xsane_back_gtk_panel_rebuild\n");
@@ -1866,7 +1934,7 @@ void xsane_back_gtk_update_scan_window(void)
 {
  const SANE_Option_Descriptor *opt;
  double old_val, new_val;
- GSGDialogElement *elem;
+ DialogElement *elem;
  SANE_Status status;
  SANE_Word word;
  int i, optnum;
@@ -1931,65 +1999,6 @@ void xsane_back_gtk_update_scan_window(void)
 	 break;
       }
     }
-  }
-}
-
-/* ----------------------------------------------------------------------------------------------------------------- */
-
-/* Ensure sure the device has up-to-date option values.  Except for
-   vectors, all option values are kept current.  Vectors are
-   downloaded into the device during this call.  */
-void xsane_back_gtk_sync(void)
-{
- const SANE_Option_Descriptor *opt;
- gfloat val, *vector;
- SANE_Word *optval;
- int i, j, optlen;
- GtkWidget *curve;
-
-  DBG(DBG_proc, "xsane_back_gtk_sync\n");
-
-  for (i = 1; i < xsane.num_elements; ++i)
-  {
-    opt = xsane_get_option_descriptor(xsane.dev, i);
-
-    if (!SANE_OPTION_IS_ACTIVE(opt->cap))
-    {
-      continue;
-    }
-
-    if (opt->type != SANE_TYPE_INT && opt->type != SANE_TYPE_FIXED)
-    {
-      continue;
-    }
-
-    if (opt->size == sizeof(SANE_Word))
-    {
-      continue;
-    }
-
-    /* ok, we're dealing with an active vector */
-
-    optlen = opt->size / sizeof(SANE_Word);
-    optval = alloca(optlen * sizeof(optval[0]));
-    vector = alloca(optlen * sizeof(vector[0]));
-
-    curve = GTK_GAMMA_CURVE(xsane.element[i].widget)->curve;
-    gtk_curve_get_vector(GTK_CURVE(curve), optlen, vector);
-    for (j = 0; j < optlen; ++j)
-    {
-      val = vector[j];
-      if (opt->type == SANE_TYPE_FIXED)
-      {
-        optval[j] = SANE_FIX(val);
-      }
-      else
-      {
-        optval[j] = val + 0.5;
-      }
-    }
-
-    xsane_back_gtk_set_option(i, optval, SANE_ACTION_SET_VALUE);
   }
 }
 

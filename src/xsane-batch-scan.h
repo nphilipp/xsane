@@ -69,5 +69,6 @@ extern void xsane_batch_scan_add();
 extern void xsane_create_batch_scan_dialog(const char *devicetext);
 extern void xsane_batch_scan_update_label_list(void);
 extern void xsane_batch_scan_update_icon_list(void);
+extern int xsane_batch_scan_load_list_from_file(char *filename);
 
 #endif /* batch_scan_h */

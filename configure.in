@@ -6,7 +6,7 @@ AC_CONFIG_HEADER(include/config.h)
 
 # version code:
 V_MAJOR=0
-V_MINOR=93
+V_MINOR=94
 
 PACKAGE=xsane
 
@@ -89,9 +89,14 @@ if test "${ac_cv_prog_gcc}" = "yes"; then
   CFLAGS="${CFLAGS} -Wall"
 fi
 
+AC_GCC_MSNATIVE_STRUCT
+if test "${ac_cv_header_windows_h}" = "yes"; then
+  LDFLAGS="${LDFLAGS} -mwindows"
+fi
+
 dnl Checks for header files.
 AC_HEADER_STDC
-AC_CHECK_HEADERS(os2.h fcntl.h unistd.h libc.h sys/time.h sys/types.h zlib.h)
+AC_CHECK_HEADERS(windows.h os2.h fcntl.h unistd.h libc.h sys/time.h sys/types.h zlib.h)
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST

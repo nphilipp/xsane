@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2004-04-20 18:54+0200\n"
+"POT-Creation-Date: 2004-05-08 23:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -91,6 +91,18 @@ msgstr ""
 
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
+msgstr ""
+
+#. WINDOW_PRESET_AREA_ADD
+msgid "add preset area"
+msgstr ""
+
+#. WINDOW_MEDIUM_RENAME
+msgid "rename medium"
+msgstr ""
+
+#. WINDOW_MEDIUM_ADD
+msgid "add new medium"
 msgstr ""
 
 #. WINDOW_SETUP
@@ -956,6 +968,9 @@ msgstr ""
 msgid "all"
 msgstr ""
 
+msgid "new media"
+msgstr ""
+
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
 msgstr ""
@@ -1180,20 +1195,24 @@ msgstr ""
 msgid "Add selection to list"
 msgstr ""
 
-#. MENU_ITEM_PRESET_AREA_RENAME
-msgid "Rename definiton"
+#. MENU_ITEM_MEDIUM_ADD
+msgid "Add medium definition"
 msgstr ""
 
-#. MENU_ITEM_PRESET_AREA_DELETE
-msgid "Delete definition"
+#. MENU_ITEM_RENAME
+msgid "Rename item"
 msgstr ""
 
-#. MENU_ITEM_PRESET_AREA_MOVE_UP
-msgid "Move up"
+#. MENU_ITEM_DELETE
+msgid "Delete item"
 msgstr ""
 
-#. MENU_ITEM_PRESET_AREA_MOVE_DWN
-msgid "Move down"
+#. MENU_ITEM_MOVE_UP
+msgid "Move item up"
+msgstr ""
+
+#. MENU_ITEM_MOVE_DWN
+msgid "Move item down"
 msgstr ""
 
 #. PROGRESS_SCANNING
@@ -1272,7 +1291,12 @@ msgid ""
 msgstr ""
 
 #. DESC_XSANE_MEDIUM
-msgid "Select source medium type\n"
+msgid ""
+"Select source medium type.\n"
+"To rename, reorder or delete an entry use context menu (right mouse "
+"button).\n"
+"To create a medium enable the option edit medium definition in preferences "
+"menu."
 msgstr ""
 
 #. DESC_FILENAME_COUNTER_STEP
@@ -1321,12 +1345,20 @@ msgstr ""
 msgid "Enter subject of email"
 msgstr ""
 
-#. DESC_PRESET_AREA_NAME
+#. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
 msgstr ""
 
-#. DESC_MEDIUM_DEFINITION_NAME
+#. DESC_PRESET_AREA_ADD
+msgid "Enter name for new preset area"
+msgstr ""
+
+#. DESC_MEDIUM_RENAME
 msgid "Enter new name for medium definition"
+msgstr ""
+
+#. DESC_MEDIUM_ADD
+msgid "Enter name for new medium definition"
 msgstr ""
 
 #. DESC_PRINTER_SELECT
@@ -1866,7 +1898,10 @@ msgid "Delete preview image cache"
 msgstr ""
 
 #. DESC_PRESET_AREA
-msgid "Preset area"
+msgid ""
+"Preset area:\n"
+"To add new area or edit an existing area use contect menu (right mouse "
+"button)."
 msgstr ""
 
 #. DESC_ROTATION
@@ -2080,6 +2115,14 @@ msgstr ""
 
 #. ERR_UNKNOWN_CONSTRAINT_TYPE
 msgid "unknown constraint type"
+msgstr ""
+
+#. ERR_OPTION_NAME_NULL
+msgid "Option has empty name (NULL)."
+msgstr ""
+
+#. ERR_BACKEND_BUG
+msgid "This is a backend bug. Please inform the author of the backend!"
 msgstr ""
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
