@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.72\n"
-"POT-Creation-Date: 2001-04-03 00:36+0200\n"
-"PO-Revision-Date: 2001-02-17 14:33+01:00\n"
+"Project-Id-Version: XSANE 0.76\n"
+"POT-Creation-Date: 2001-04-22 11:23+0200\n"
+"PO-Revision-Date: 2001-04-11 13:27+02:00\n"
 "Last-Translator: Stanislav Brabec <utx@penguin.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 #. Please translate this to the correct directory name (eg. german=>de)
 #. XSANE_LANGUAGE_DIR
 msgid "language_dir"
-msgstr ""
+msgstr "cs"
 
 #. XSANE_COPYRIGHT_SIGN
 msgid "(c)"
@@ -58,6 +58,10 @@ msgstr "pøejmenovat faxovou stránku"
 #. WINDOW_FAX_INSERT
 msgid "insert ps-file into fax"
 msgstr "zadat ps-soubor pro fax"
+
+#. WINDOW_PRESET_AREA_RENAME
+msgid "rename preset area"
+msgstr "pøejmenovat pøedvolenou oblast"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -169,7 +173,7 @@ msgstr "Zru¹it"
 
 #. BUTTON_REDUCE
 msgid "Reduce"
-msgstr ""
+msgstr "Redukovat"
 
 #. BUTTON_CONT_AT_OWN_RISK
 msgid "Continue at your own risk"
@@ -241,7 +245,7 @@ msgstr "Nalézt re¾im"
 
 #. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device preferences at exit"
-msgstr ""
+msgstr "Pøi skonèení zapsat pøedvolby zaøízení"
 
 #. RADIO_BUTTON_OVERWRITE_WARNING
 msgid "Overwrite warning"
@@ -250,6 +254,10 @@ msgstr "Varování o pøepsání"
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
 msgid "Skip existing filenames"
 msgstr "Pøeskoèit existující jména souborù"
+
+#. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
+msgid "Reduce 16 bit image to 8 bit"
+msgstr ""
 
 #. RADIO_BUTTON_WINDOW_FIXED
 msgid "Main window size fixed"
@@ -268,13 +276,12 @@ msgid "Autoenhance gamma"
 msgstr "Automaticky upravit gama"
 
 #. RADIO_BUTTON_PRESELECT_SCANAREA
-#, fuzzy
 msgid "Preselect scanarea"
-msgstr "Automatický výbìr skenovací plochy"
+msgstr "Pøedvolba skenovací plochy"
 
 #. RADIO_BUTTON_AUTOCORRECT_COLORS
 msgid "Autocorrect colors"
-msgstr ""
+msgstr "Automatická korekce barev"
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
@@ -377,12 +384,16 @@ msgid ""
 "Gimp does not support depth 16 bits/color.\n"
 "Do you want to reduce the depth to 8 bits/color?"
 msgstr ""
+"GIMP nepodporuje hloubku 16 bitù/barvu.\n"
+"Chcete redukovat hloubku na 8 bitù/barvu?"
 
 #. TEXT_REDUCE_16BIT_TO_8BIT
 msgid ""
 "Bit depth 16 bits/color is not supported for this output format.\n"
 "Do you want to reduce the depth to 8 bits/color?"
 msgstr ""
+"Tento výstupní formát nepodporuje hloubku 16 bitù/barvu.\n"
+"Chcete redukovat hloubku na 8 bitù/barvu?<"
 
 #. TEXT_AUTHORIZATION_REQ
 msgid "Authorization required for"
@@ -700,6 +711,11 @@ msgstr "Volby kopírování"
 msgid "Saving options"
 msgstr "Volby zápisu"
 
+#. NOTEBOOK_IMAGE_OPTIONS
+#, fuzzy
+msgid "Image options"
+msgstr "Pøedvolby XSane"
+
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display options"
 msgstr "Volby zobrazování"
@@ -876,6 +892,26 @@ msgstr "(nic)"
 msgid "by ext"
 msgstr "Pøípona"
 
+#. MENU_ITEM_PRESET_AREA_ADD_SEL
+msgid "Add selection to list"
+msgstr "Pøidat výbìr do seznamu"
+
+#. MENU_ITEM_PRESET_AREA_RENAME
+msgid "Rename definiton"
+msgstr "Pøejmenovat definici"
+
+#. MENU_ITEM_PRESET_AREA_DELETE
+msgid "Delete definition"
+msgstr "Smazat definici"
+
+#. MENU_OTEM_PRESET_AREA_MOVE_UP
+msgid "Move up"
+msgstr "Pøesun vý¹"
+
+#. MENU_OTEM_PRESET_AREA_MOVE_DWN
+msgid "Move down"
+msgstr "Pøesun ní¾"
+
 #. PROGRESS_SCANNING
 msgid "Scanning"
 msgstr "Skenuje se"
@@ -886,9 +922,8 @@ msgid "Receiving %s data"
 msgstr "Pøijímají se data typu %s"
 
 #. PROGRESS_TRANSFERING_DATA
-#, fuzzy
 msgid "Transfering image"
-msgstr "Zapisuje se obrázek"
+msgstr "Pøená¹í se obrázek"
 
 #. PROGRESS_ROTATING_DATA
 msgid "Rotating image"
@@ -953,6 +988,10 @@ msgstr "Zadání jména faxové strany"
 #. DESC_FAXRECEIVER
 msgid "Enter receiver phone number or address"
 msgstr "Zadání telefonního èísla nebo adresy pøíjemce"
+
+#. DESC_PRESET_AREA_NAME
+msgid "Enter new name for preset area"
+msgstr "Zadejte nové jméno pro pøedvolenou oblast"
 
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
@@ -1210,6 +1249,7 @@ msgstr "Typ komprese, je-li obrázek zapisován jako TIFF èárová grafika"
 #. DESC_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device dependant preferences in default file at exit of xsane"
 msgstr ""
+"Pøi skonèení zapsat do standardního souboru pøedvolby závislé na zaøízení"
 
 #. DESC_OVERWRITE_WARNING
 msgid "Warn before overwriting an existing file"
@@ -1220,6 +1260,10 @@ msgid ""
 "If filename counter is automatically increased, used numbers are skipped"
 msgstr ""
 "Je-li èítaè souborù automaticky zvìt¹ován, pou¾itá èísla jsou pøeskoèena"
+
+#. DESC_REDUCE_16BIT_TO_8BIT
+msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
+msgstr ""
 
 #. DESC_PSFILE_WIDTH
 msgid "Width of paper in mm for postscript files"
@@ -1337,11 +1381,11 @@ msgstr "Zmìna gama hodnoty, je li tlaèítko automatické úpravy stisknuto"
 
 #. DESC_PRESELECT_SCANAREA
 msgid "Select scanarea after preview scan has finished"
-msgstr ""
+msgstr "Po naskenování náhledu vyberte skenovací oblast"
 
 #. DESC_AUTOCORRECT_COLORS
-msgid "Do color correcten after preview scan has finished"
-msgstr ""
+msgid "Do color correction after preview scan has finished"
+msgstr "Po naskenování náhledu provést barevnou korekci"
 
 #. DESC_FAX_COMMAND
 msgid "Enter command to be executed in fax mode"
@@ -1422,8 +1466,8 @@ msgid "Autoselect scanarea"
 msgstr "Automatický výbìr skenovací plochy"
 
 #. DESC_PRESET_AREA
-msgid "Reduce scan area"
-msgstr "Redukce skenovací plochy"
+msgid "Preset area"
+msgstr "Pøedvolená oblast"
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -1474,9 +1518,9 @@ msgid "Can't handle depth"
 msgstr "Nelze zpracovat hloubku"
 
 #. ERR_GIMP_BAD_DEPTH
-#, fuzzy, c-format
+#, c-format
 msgid "GIMP can't handle depth %d bits/color"
-msgstr "GIMP neumí zpracovat hloubku"
+msgstr "GIMP nepodporuje hloubku %d bitù/barvu"
 
 #. ERR_UNKNOWN_SAVING_FORMAT
 msgid "Unknown file format for saving"
@@ -1577,7 +1621,7 @@ msgstr "Selhalo získání pamìti pro obrázek:"
 
 #. ERR_PREVIEW_BAD_DEPTH
 msgid "Preview cannot handle bit depth"
-msgstr "Náhled neumí obslou¾it bitovou hloubku"
+msgstr "Náhled nepodporuje bitovou hloubku"
 
 #. ERR_GIMP_SUPPORT_MISSING
 msgid "GIMP support missing"
@@ -1585,11 +1629,11 @@ msgstr "Chybí podpora programu GIMP"
 
 #. ERR_CREATE_PREVIEW_FILE
 msgid "Could not create temporary preview files"
-msgstr ""
+msgstr "Nelze vytvoøit pracovní náhledové soubory"
 
 #. ERR_CREATE_PREVIEW_FILENAME
 msgid "Could not create filenames for preview files"
-msgstr ""
+msgstr "Nelze vytvoøit jména náhledových souborù"
 
 #. WARN_COUNTER_UNDERRUN
 msgid "Filename counter underrun"
@@ -1810,6 +1854,22 @@ msgstr "ÈSN A5 stoj."
 msgid "DIN A5 land."
 msgstr "ÈSN A5 le¾."
 
+#. MENU_ITEM_SURFACE_13cmx18cm
+msgid "13cm x 18cm"
+msgstr "13cm × 18cm"
+
+#. MENU_ITEM_SURFACE_18cmx13cm
+msgid "18cm x 13cm"
+msgstr "18cm × 13cm"
+
+#. MENU_ITEM_SURFACE_10cmx14cm
+msgid "10cm x 14cm"
+msgstr "10cm × 14cm"
+
+#. MENU_ITEM_SURFACE_14cmx10cm
+msgid "14cm x 10cm"
+msgstr "14cm × 10cm"
+
 #. MENU_ITEM_SURFACE_9cmx13cm
 msgid "9cm x 13cm"
 msgstr "9cm × 13cm"
@@ -1888,3 +1948,6 @@ msgstr "Nedostatek pamìti"
 
 msgid "Access to resource has been denied"
 msgstr "Pøístup ke zdroji byl odmítnut"
+
+#~ msgid "Reduce scan area"
+#~ msgstr "Redukce skenovací plochy"

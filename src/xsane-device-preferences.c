@@ -641,11 +641,12 @@ void xsane_device_preferences_load(void)
   sprintf(windowname, "%s %s %s", xsane.prog_name, WINDOW_LOAD_SETTINGS, xsane.device_text);
   xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", 0, 0, xsane.device_set_filename, ".drc", XSANE_PATH_LOCAL_SANE);
 
-  if (!xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, FALSE, FALSE))
+  if (!xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, FALSE, FALSE, FALSE))
   {
     xsane_device_preferences_load_file(filename);
   }
   xsane_set_sensitivity(TRUE);
+  xsane_update_histogram(TRUE /* update raw */);
 }        
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -753,13 +754,13 @@ void xsane_device_preferences_save(void)
   sprintf(windowname, "%s %s %s", xsane.prog_name, WINDOW_SAVE_SETTINGS, xsane.device_text);
   xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", 0, 0, xsane.device_set_filename, ".drc", XSANE_PATH_LOCAL_SANE);
 
-  if (!xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, FALSE, FALSE))
+  if (!xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, FALSE, FALSE, FALSE))
   {
     xsane_device_preferences_save_file(filename);
   }
 
   xsane_set_sensitivity(TRUE);
-  xsane_enhancement_by_gamma();
+  xsane_update_histogram(TRUE /* update raw */);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------- */

@@ -51,6 +51,19 @@ typedef struct
   }
 Preferences_printer_t;
 
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+typedef struct
+  {
+    char *name;
+    double xoffset;
+    double yoffset;
+    double width;
+    double height;
+  } Preferences_preset_area_t;
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 typedef struct
   {
     char   *xsane_version_str;		/* xsane-version string */
@@ -81,6 +94,7 @@ typedef struct
     int    save_devprefs_at_exit;	/* save device preferences at exit */
     int    overwrite_warning;		/* warn if file exists */
     int    skip_existing_numbers;	/* skip used filenames when automatically increase counter */
+    int    reduce_16bit_to_8bit;	/* reduce images with 16 bits/color to 8 bits/color */
     int    filename_counter_step;	/* filename_counter += filename_counter_step; */
     int    filename_counter_len;	/* minimum length of filename_counter */
     double psfile_width;		/* width of psfile in mm */
@@ -103,6 +117,7 @@ typedef struct
     double preview_gamma_green;		/* green gamma value for previews */
     double preview_gamma_blue;		/* blue gamma value for previews */
     int    disable_gimp_preview_gamma;	/* fixed (1) or scrolled (0) main window */
+    int    preview_gamma_input_bits;	/* handle preview gamma and histogram with # bits */
     int    preview_pipette_range;	/* dimension of a square that is used to pick pipette color */
     double xsane_gamma;
     double xsane_gamma_red;
@@ -128,6 +143,8 @@ typedef struct
     int    printernr;			/* number of printers */
     int    printerdefinitions;
     Preferences_printer_t **printer;
+    int    preset_area_definitions;
+    Preferences_preset_area_t **preset_area;
   }
 Preferences;
 

@@ -18,7 +18,7 @@ INSTALL_DATA = @INSTALL_DATA@
 CC = @CC@ -mwindows
 INCLUDES = -I. -I$(srcdir) -I$(top_builddir)/include -I$(top_srcdir)/include \
 	   @GTK_CFLAGS@ @INCLUDES@ -I/usr/include -I/usr/include/gdk
-DEFS = @DEFS@ -DXSANE_FIXED_HOME_PATH=$(sanedir)'\\'home -DTEMP_PATH=c:'\\'temp -DSLASH=92 -DBUGGY_GDK_INPUT_EXCEPTION -DLOCALEDIR=$(datadir)'\\'locale
+DEFS = @DEFS@ -D_WIN32 -DXSANE_FIXED_HOME_PATH=$(sanedir)'\\'home -DTEMP_PATH=c:'\\'temp -DSLASH=92 -DBUGGY_GDK_INPUT_EXCEPTION -DLOCALEDIR=share/locale
 CPPFLAGS = @CPPFLAGS@
 CFLAGS = @CFLAGS@ -fnative-struct
 LDFLAGS = @LDFLAGS@
@@ -57,7 +57,7 @@ install: $(PROGRAMS)
 	$(INSTALL_DATA) $(srcdir)/xsane-startimage.pnm $(sanedatadir)/xsane/xsane-startimage.pnm
 	$(INSTALL_DATA) $(srcdir)/xsane-calibration.pnm $(sanedatadir)/xsane/xsane-calibration.pnm
 	$(INSTALL_DATA) $(srcdir)/xsane-logo.xpm $(sanedatadir)/xsane/xsane-logo.xpm
-        $(INSTALL_DATA) $(srcdir)/xsane-license.txt $(sanedatadir)/xsane/xsane-license.txt
+	$(INSTALL_DATA) $(srcdir)/xsane-license.txt $(sanedatadir)/xsane/xsane-license.txt
 	@for logo in *-logo.xpm; do \
 	  echo installing $(sanedatadir)/xsane/$${logo}; \
 	  $(INSTALL_DATA) $(srcdir)/$${logo} $(sanedatadir)/xsane/$${logo}; \

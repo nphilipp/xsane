@@ -4,8 +4,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.62\n"
-"POT-Creation-Date: 2001-04-03 00:36+0200\n"
+"Project-Id-Version: XSANE 0.76\n"
+"POT-Creation-Date: 2001-04-22 11:23+0200\n"
 "PO-Revision-Date: 2000-09-29  23:48+0100\n"
 "Last-Translator: Colorio Mauro <linuxbox@interfree.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -60,6 +60,11 @@ msgstr "rinomina pagina fax"
 #, fuzzy
 msgid "insert ps-file into fax"
 msgstr "Inserire il nome del progetto fax"
+
+#. WINDOW_PRESET_AREA_RENAME
+#, fuzzy
+msgid "rename preset area"
+msgstr "rinomina pagina fax"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -256,6 +261,10 @@ msgstr "Attenzione sovrascrittura"
 #, fuzzy
 msgid "Skip existing filenames"
 msgstr "Salta numeri esistenti"
+
+#. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
+msgid "Reduce 16 bit image to 8 bit"
+msgstr ""
 
 #. RADIO_BUTTON_WINDOW_FIXED
 msgid "Main window size fixed"
@@ -703,6 +712,11 @@ msgstr "Copia opzioni"
 msgid "Saving options"
 msgstr "Salva opzioni"
 
+#. NOTEBOOK_IMAGE_OPTIONS
+#, fuzzy
+msgid "Image options"
+msgstr "Opzioni XSane"
+
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display options"
 msgstr "Opzioni display"
@@ -882,6 +896,27 @@ msgstr "nessuno"
 msgid "by ext"
 msgstr "per est"
 
+#. MENU_ITEM_PRESET_AREA_ADD_SEL
+msgid "Add selection to list"
+msgstr ""
+
+#. MENU_ITEM_PRESET_AREA_RENAME
+msgid "Rename definiton"
+msgstr ""
+
+#. MENU_ITEM_PRESET_AREA_DELETE
+#, fuzzy
+msgid "Delete definition"
+msgstr "Selezionare la definizione da cambiare"
+
+#. MENU_OTEM_PRESET_AREA_MOVE_UP
+msgid "Move up"
+msgstr ""
+
+#. MENU_OTEM_PRESET_AREA_MOVE_DWN
+msgid "Move down"
+msgstr ""
+
 #. PROGRESS_SCANNING
 msgid "Scanning"
 msgstr "Acquisizione"
@@ -962,6 +997,11 @@ msgstr "Inserire il nuovo nome per la pagina del fax"
 #. DESC_FAXRECEIVER
 msgid "Enter receiver phone number or address"
 msgstr "Inserire il numero telefonico o l'indirizzo del ricevente"
+
+#. DESC_PRESET_AREA_NAME
+#, fuzzy
+msgid "Enter new name for preset area"
+msgstr "Inserire il nuovo nome per la pagina del fax"
 
 #. DESC_PRINTER_SELECT
 #, fuzzy
@@ -1247,6 +1287,10 @@ msgstr ""
 "Il contatore nomefile viene automaticamente incrementato, i numeri usati "
 "vengono saltati"
 
+#. DESC_REDUCE_16BIT_TO_8BIT
+msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
+msgstr ""
+
 #. DESC_PSFILE_WIDTH
 msgid "Width of paper in mm for postscript files"
 msgstr "Larghezza della carta in mm per i file postscript"
@@ -1381,7 +1425,7 @@ msgid "Select scanarea after preview scan has finished"
 msgstr ""
 
 #. DESC_AUTOCORRECT_COLORS
-msgid "Do color correcten after preview scan has finished"
+msgid "Do color correction after preview scan has finished"
 msgstr ""
 
 #. DESC_FAX_COMMAND
@@ -1466,7 +1510,7 @@ msgstr "Usa tutta l'area di scan"
 
 #. DESC_PRESET_AREA
 #, fuzzy
-msgid "Reduce scan area"
+msgid "Preset area"
 msgstr "Usa tutta l'area di scan"
 
 #. DESC_ROTATION
@@ -1853,6 +1897,22 @@ msgstr ""
 msgid "DIN A5 land."
 msgstr ""
 
+#. MENU_ITEM_SURFACE_13cmx18cm
+msgid "13cm x 18cm"
+msgstr ""
+
+#. MENU_ITEM_SURFACE_18cmx13cm
+msgid "18cm x 13cm"
+msgstr ""
+
+#. MENU_ITEM_SURFACE_10cmx14cm
+msgid "10cm x 14cm"
+msgstr ""
+
+#. MENU_ITEM_SURFACE_14cmx10cm
+msgid "14cm x 10cm"
+msgstr ""
+
 #. MENU_ITEM_SURFACE_9cmx13cm
 msgid "9cm x 13cm"
 msgstr ""
@@ -1932,6 +1992,10 @@ msgstr "Memoria esaurita"
 
 msgid "Access to resource has been denied"
 msgstr "Acesso alla risorsa negato"
+
+#, fuzzy
+#~ msgid "Reduce scan area"
+#~ msgstr "Usa tutta l'area di scan"
 
 #~ msgid ""
 #~ "This program is distributed under the terms\n"

@@ -118,7 +118,8 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
 
   if ( (xsane.param.depth == 1) || (xsane.param.depth == 8) )
   {
-   static unsigned char buf8[2*32768];
+   unsigned char buf8[2*32768];
+   unsigned char *buf8ptr;
 
     DBG(DBG_info, "depth = 1 or 8 bit\n");
 
@@ -192,25 +193,50 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
 
             if ((!xsane.scanner_gamma_gray) && (xsane.param.depth > 1))
             {
-              for (i=0; i < len; ++i)
+              buf8ptr = buf8;
+
+              for (i=0; i < len; ++i) /* do gamma correction by xsane */
               {
-                val = xsane.gamma_data[(int) buf8[i]];
-                fwrite(&val, 1, 1, xsane.out);
+                *buf8ptr = xsane.gamma_data[(int) (*buf8ptr)];
+                buf8ptr++;
               }
+
+              fwrite(buf8, 1, len, xsane.out); /* write gamma corrected data */
             }
             else if ((xsane.param.depth == 1) && (xsane.expand_lineart_to_grayscale)) 
             {
+             unsigned char *expanded_buf8;
+             unsigned char *expanded_buf8ptr;
+ 
               /* if we want to do any postprocessing (e.g. rotation) */
               /* we save lineart images in grayscale mode */
+              /* to speed up transformation and saving the transformed  expanded (1bit->1byte) */
+              /* is written in a buffer and saved as full buffer */
+ 
+              expanded_buf8 = malloc(len * 8); /* one byte for each pixel (bit) */
+              if (!expanded_buf8)
+              {
+                xsane_scan_done(-1); /* -1 = error */
+                snprintf(buf, sizeof(buf), "%s", ERR_NO_MEM);
+                xsane_back_gtk_error(buf, TRUE);
+               return;
+              }
+ 
+              expanded_buf8ptr = expanded_buf8;
+              buf8ptr = buf8;
+ 
               for (i = 0; i < len; ++i)
               {
-                val = buf8[i];
+                val = *buf8ptr;
                 for (j = 7; j >= 0; --j)
                 {
-                  u_char gl = (val & (1 << j)) ? 0x00 : 0xff;
-                  fwrite(&gl, 1, 1, xsane.out);
-                }     
-              }  
+                  *expanded_buf8ptr = (val & (1 << j)) ? 0x00 : 0xff;
+                  expanded_buf8ptr++;
+                }
+                buf8ptr++;
+              }
+              fwrite(expanded_buf8, 1, len*8, xsane.out);
+              free(expanded_buf8);
             }
             else /* save direct to the file */
             {
@@ -222,35 +248,38 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
         case SANE_FRAME_RGB:
           {
            int i;
-           char val;
 
             DBG(DBG_info, "1 pass color\n");
 
-            if (!xsane.scanner_gamma_color) /* gamma correction by xsane */
+            if (!xsane.scanner_gamma_color) /* do gamma correction by xsane */
             {
+              buf8ptr = buf8;
               for (i=0; i < len; ++i)
               {
                 if (xsane.pixelcolor == 0)
                 {
-                  val = xsane.gamma_data_red[(int) buf8[i]];
+                  *buf8ptr = xsane.gamma_data_red[(int) (*buf8ptr)];
+                  buf8ptr++;
                   xsane.pixelcolor++;
                 }
                 else if (xsane.pixelcolor == 1)
                 {
-                  val = xsane.gamma_data_green[(int) buf8[i]];
+                  *buf8ptr = xsane.gamma_data_green[(int) (*buf8ptr)];
+                  buf8ptr++;
                   xsane.pixelcolor++;
                 }
                 else
                 {
-                  val = xsane.gamma_data_blue[(int) buf8[i]];
+                  *buf8ptr = xsane.gamma_data_blue[(int) (*buf8ptr)];
+                  buf8ptr++;
                   xsane.pixelcolor = 0;
                 }
-                fwrite(&val, 1, 1, xsane.out);
               }
+              fwrite(buf8, 1, len, xsane.out); /* write buffer */
             }
             else /* gamma correction has been done by scanner */
             {
-              fwrite(buf8, 1, len, xsane.out);
+              fwrite(buf8, 1, len, xsane.out); /* write buffer */
             }
           }
          break;
@@ -282,7 +311,11 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
               for (i = 0; i < len; ++i)
               {
                 val = gamma[(int) buf8[i]];
+#if 0
                 fwrite(&val, 1, 1, xsane.out);
+#else
+                fputc(val, xsane.out);
+#endif
                 fseek(xsane.out, 2, SEEK_CUR);
               }
             }
@@ -290,7 +323,11 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
             {
               for (i = 0; i < len; ++i)
               {
+#if 0
                 fwrite(&buf8[i], 1, 1, xsane.out);
+#else
+                fputc(buf8[i], xsane.out);
+#endif
                 fseek(xsane.out, 2, SEEK_CUR);
               }
             }
@@ -307,30 +344,37 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
 
             if (!xsane.scanner_gamma_color) /* gamma correction by xsane */
             {
+              buf8ptr = buf8;
+
               for (i=0; i < len; ++i)
               {
                 if (xsane.pixelcolor == 0)
                 {
-                  val = xsane.gamma_data_red[(int) buf8[i]];
+                  *buf8ptr = xsane.gamma_data_red[(int) (*buf8ptr)];
+                  buf8ptr++;
                   xsane.pixelcolor++;
                 }
                 else if (xsane.pixelcolor == 1)
                 {
-                  val = xsane.gamma_data_green[(int) buf8[i]];
+                  *buf8ptr = xsane.gamma_data_green[(int) (*buf8ptr)];
+                  buf8ptr++;
                   xsane.pixelcolor++;
                 }
                 else if (xsane.pixelcolor == 2)
                 {
-                  val = xsane.gamma_data_blue[(int) buf8[i]];
+                  *buf8ptr = xsane.gamma_data_blue[(int) (*buf8ptr)];
+                  buf8ptr++;
                   xsane.pixelcolor++;
                 }
                 else
                 {
-                  val = buf8[i]; /* no gamma table for infrared channel */
+                  /* no gamma table for infrared channel */
+                  buf8ptr++;
                   xsane.pixelcolor = 0;
                 }
-                fwrite(&val, 1, 1, xsane.out);
               }
+
+              fwrite(buf8, 1, len, xsane.out);
             }
             else /* gamma correction has been done by scanner */
             {
@@ -350,7 +394,10 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
   }
   else if ( xsane.param.depth == 16 )
   {
-   static guint16 buf16[32768];
+   guint16 buf16[32768];
+   guint16 *buf16ptr;
+   unsigned char *buf8 = (unsigned char *) buf16;
+   unsigned char *buf8ptr;
    char buf[255];
    char last = 0;
    int offset = 0;
@@ -439,42 +486,52 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
         case SANE_FRAME_GRAY:
           {
            int i;
-           guint16 val;
 
-            if (xsane.reduce_16bit_image_to_8bit) /* reduce 16 bit image to 8 bit */
+            if (xsane.reduce_16bit_to_8bit) /* reduce 16 bit image to 8 bit */
             {
-             char val8;
-
               DBG(DBG_info, "reducing 16 bit image to 8 bit\n");
 
               if (!xsane.scanner_gamma_gray) /* gamma correction by xsane */
               {
+                buf8ptr = buf8;
+                buf16ptr = buf16;
+
                 for (i=0; i < len/2; ++i)
                 {
-                  val = xsane.gamma_data[buf16[i]];
-                  val8 = val/256; /* reduce to 8 bit */
-                  fwrite(&val8, 1, 1, xsane.out);
+                  *buf8ptr = (xsane.gamma_data[(*buf16ptr)]) >> 8; /* reduce to 8 bit */
+                  buf8ptr++;
+                  buf16ptr++;
                 }
+
+                fwrite(buf8, 1, len/2, xsane.out);
               }
               else /* gamma correction by scanner */
               {
+                buf8ptr = buf8;
+                buf16ptr = buf16;
+
                 for (i=0; i < len/2; ++i)
                 {
-                  val = buf16[i];
-                  val8 = val/256; /* reduce to 8 bit */
-                  fwrite(&val8, 1, 1, xsane.out);
+                  *buf8ptr = (*buf16ptr) >> 8; /* reduce to 8 bit */
+                  buf8ptr++;
+                  buf16ptr++;
                 }
+
+                fwrite(buf8, 1, len/2, xsane.out);
               }
             }
             else /* save as 16 bit image */
             {
               if (!xsane.scanner_gamma_gray) /* gamma correction by xsane */
               {
+                buf16ptr = buf16;
+
                 for (i=0; i < len/2; ++i)
                 {
-                  val = xsane.gamma_data[buf16[i]];
-                  fwrite(&val, 2, 1, xsane.out);
+                  *buf16ptr = xsane.gamma_data[(*buf16ptr)];
+                  buf16ptr++;
                 }
+                fwrite(buf16, 2, len/2, xsane.out);
               }
               else /* gamma correction by scanner */
               {
@@ -487,73 +544,85 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
         case SANE_FRAME_RGB:
           {
            int i;
-           guint16 val;
 
-            if (xsane.reduce_16bit_image_to_8bit) /* reduce 16 bit image to 8 bit */
+            if (xsane.reduce_16bit_to_8bit) /* reduce 16 bit image to 8 bit */
             {
-             char val8;
-
               DBG(DBG_info, "reducing 16 bit image to 8 bit\n");
 
               if (!xsane.scanner_gamma_color) /* gamma correction by xsane */
               {
+                buf8ptr = buf8;
+                buf16ptr = buf16;
+
                 for (i=0; i < len/2; ++i)
                 {
                   if (xsane.pixelcolor == 0)
                   {
-                    val = xsane.gamma_data_red[buf16[i]];
-                    val8 = val/256; /* reduce to 8 bit */
+                    *buf8ptr = (xsane.gamma_data_red[(*buf16ptr)]) >> 8; /* reduce to 8 bit */
+                    buf8ptr++;
+                    buf16ptr++;
                     xsane.pixelcolor++;
                   }
                   else if (xsane.pixelcolor == 1)
                   {
-                    val = xsane.gamma_data_green[buf16[i]];
-                    val8 = val/256; /* reduce to 8 bit */
+                    *buf8ptr = (xsane.gamma_data_green[(*buf16ptr)]) >> 8; /* reduce to 8 bit */
+                    buf8ptr++;
+                    buf16ptr++;
                     xsane.pixelcolor++;
                   }
                   else
                   {
-                    val = xsane.gamma_data_blue[buf16[i]];
-                    val8 = val/256; /* reduce to 8 bit */
+                    *buf8ptr = (xsane.gamma_data_blue[(*buf16ptr)]) >> 8; /* reduce to 8 bit */
+                    buf8ptr++;
+                    buf16ptr++;
                     xsane.pixelcolor = 0;
                   }
-                  fwrite(&val8, 1, 1, xsane.out);
                 }
+                fwrite(buf8, 1, len/2, xsane.out);
               }
               else /* gamma correction by scanner */
               {
+                buf8ptr = buf8;
+                buf16ptr = buf16;
+
                 for (i=0; i < len/2; ++i)
                 {
-                  val = buf16[i];
-                  val8 = val/256; /* reduce to 8 bit */
+                  *buf8ptr = (*buf16ptr) >> 8; /* reduce to 8 bit */
+                  buf8ptr++;
+                  buf16ptr++;
                   xsane.pixelcolor++;
-                  fwrite(&val8, 1, 1, xsane.out);
                 }
+                fwrite(buf8, 1, len/2, xsane.out);
               }
             }
             else /* save as 16 bit image */
             {
               if (!xsane.scanner_gamma_color) /* gamma correction by xsane */
               {
+                buf16ptr = buf16;
+
                 for (i=0; i < len/2; ++i)
                 {
                   if (xsane.pixelcolor == 0)
                   {
-                    val = xsane.gamma_data_red[buf16[i]];
+                    *buf16ptr = xsane.gamma_data_red[(*buf16ptr)];
+                    buf16ptr++;
                     xsane.pixelcolor++;
                   }
                   else if (xsane.pixelcolor == 1)
                   {
-                    val = xsane.gamma_data_green[buf16[i]];
+                    *buf16ptr = xsane.gamma_data_green[(*buf16ptr)];
+                    buf16ptr++;
                     xsane.pixelcolor++;
                   }
                   else
                   {
-                    val = xsane.gamma_data_blue[buf16[i]];
+                    *buf16ptr = xsane.gamma_data_blue[(*buf16ptr)];
+                    buf16ptr++;
                     xsane.pixelcolor = 0;
                   }
-                  fwrite(&val, 2, 1, xsane.out);
                 }
+                fwrite(buf16, 2, len/2, xsane.out);
               }
               else /* gamma correction by scanner */
               {
@@ -586,81 +655,100 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
            int i;
            guint16 val;
 
-            if (xsane.reduce_16bit_image_to_8bit) /* reduce 16 bit image to 8 bit */
+            if (xsane.reduce_16bit_to_8bit) /* reduce 16 bit image to 8 bit */
             {
-             char val8;
-
               DBG(DBG_info, "reducing 16 bit image to 8 bit\n");
 
               if (!xsane.scanner_gamma_color)
               {
+                buf8ptr = buf8;
+                buf16ptr = buf16;
+
                 for (i=0; i < len/2; ++i)
                 {
                   if (xsane.pixelcolor == 0)
                   {
-                    val = xsane.gamma_data_red[buf16[i]];
-                    val8 = val/256; /* reduce to 8 bit */
+                    *buf8ptr = (xsane.gamma_data_red[(*buf16ptr)]) >> 8; /* reduce to 8 bit */
+                    buf8ptr++;
+                    buf16ptr++;
                     xsane.pixelcolor++;
                   }
                   else if (xsane.pixelcolor == 1)
                   {
-                    val = xsane.gamma_data_green[buf16[i]];
-                    val8 = val/256; /* reduce to 8 bit */
+                    *buf8ptr = (xsane.gamma_data_green[(*buf16ptr)]) >> 8; /* reduce to 8 bit */
+                    buf8ptr++;
+                    buf16ptr++;
                     xsane.pixelcolor++;
                   }
                   else if (xsane.pixelcolor == 2)
                   {
-                    val = xsane.gamma_data_blue[buf16[i]];
-                    val8 = val/256; /* reduce to 8 bit */
+                    *buf8ptr = (xsane.gamma_data_blue[(*buf16ptr)]) >> 8; /* reduce to 8 bit */
+                    buf8ptr++;
+                    buf16ptr++;
                     xsane.pixelcolor++;
                   }
                   else
                   {
-                    val = buf16[i]; /* no gamma table for infrared channel */
-                    val8 = val/256; /* reduce to 8 bit */
+                    /* no gamma table for infrared channel */
+                    *buf8ptr = (*buf16ptr) >> 8; /* reduce to 8 bit */
+                    buf8ptr++;
+                    buf16ptr++;
                     xsane.pixelcolor = 0;
                   }
-                  fwrite(&val8, 1, 1, xsane.out);
                 }
+
+                fwrite(buf8, 1, len, xsane.out);
               }
               else /* gamma correction done by scanner */
               {
+                buf8ptr = buf8;
+                buf16ptr = buf16;
+
                 for (i=0; i < len/2; ++i)
                 {
-                  val = buf16[i];
-                  val8 = val/256; /* reduce to 8 bit */
-                  fwrite(&val8, 1, 1, xsane.out);
+                  *buf8ptr = (*buf16ptr) >> 8; /* reduce to 8 bit */
+                  buf8ptr++;
+                  buf16ptr++;
                 }
+
+                fwrite(buf8, 1, len, xsane.out);
               }
             }
             else /* save as 16 bit image */
             {
               if (!xsane.scanner_gamma_color)
               {
+                buf16ptr = buf16;
+
                 for (i=0; i < len/2; ++i)
                 {
                   if (xsane.pixelcolor == 0)
                   {
-                    val = xsane.gamma_data_red[buf16[i]];
+                    *buf16ptr = xsane.gamma_data_red[(*buf16ptr)];
+                    buf16ptr++;
                     xsane.pixelcolor++;
                   }
                   else if (xsane.pixelcolor == 1)
                   {
-                    val = xsane.gamma_data_green[buf16[i]];
+                    *buf16ptr = xsane.gamma_data_green[(*buf16ptr)];
+                    buf16ptr++;
                     xsane.pixelcolor++;
                   }
                   else if (xsane.pixelcolor == 2)
                   {
-                    val = xsane.gamma_data_blue[buf16[i]];
+                    *buf16ptr = xsane.gamma_data_blue[(*buf16ptr)];
+                    buf16ptr++;
                     xsane.pixelcolor++;
                   }
                   else
                   {
-                    val = buf16[i]; /* no gamma table for infrared channel */
+                    /* no gamma table for infrared channel */
+                    buf16ptr++;
                     xsane.pixelcolor = 0;
                   }
-                  fwrite(&val, 2, 1, xsane.out);
                 }
+
+                fwrite(buf16, 2, len/2, xsane.out);
               }
               else /* gamma correction done by scanner */
               {
@@ -806,7 +894,7 @@ void xsane_scan_done(SANE_Status status)
     {
       DBG(DBG_info, "correcting image height to %d lines\n", pixel_height);
       xsane.param.lines = pixel_height;
-      xsane_write_pnm_header(xsane.out, xsane.param.pixels_per_line, xsane.param.lines, xsane.param.depth);
+      xsane_write_pnm_header(xsane.out, xsane.param.pixels_per_line, xsane.param.lines, xsane.depth);
     }
 
     DBG(DBG_info, "closing output file\n");
@@ -856,7 +944,7 @@ void xsane_scan_done(SANE_Status status)
 
         if (outfile)
         {
-          if (xsane_save_rotate_image(outfile, infile, xsane.xsane_color, xsane.param.depth,
+          if (xsane_save_rotate_image(outfile, infile, xsane.xsane_color, xsane.depth,
                                       &pixel_width, &pixel_height, xsane.preview->rotation))
           {
             abort = 1;
@@ -891,7 +979,7 @@ void xsane_scan_done(SANE_Status status)
       {
         xsane_set_sensitivity(TRUE);		/* reactivate buttons etc */
         sane_cancel(xsane.dev); /* stop scanning */
-        xsane_update_histogram();
+        xsane_update_histogram(TRUE /* update raw */);
         xsane_update_param(0);
         xsane.header_size = 0;
         return;
@@ -969,7 +1057,7 @@ void xsane_scan_done(SANE_Status status)
         {
           xsane_set_sensitivity(TRUE);		/* reactivate buttons etc */
           sane_cancel(xsane.dev); /* stop scanning */
-          xsane_update_histogram();
+          xsane_update_histogram(TRUE /* update raw */);
           xsane_update_param(0);
           xsane.header_size = 0;
           return;
@@ -1016,7 +1104,7 @@ void xsane_scan_done(SANE_Status status)
 #ifdef HAVE_LIBGIMP_GIMP_H
           if (xsane.mode == XSANE_GIMP_EXTENSION)	/* xsane runs as gimp plugin */
           {
-            xsane_transfer_to_gimp(infile, xsane.xsane_color, xsane.param.depth, pixel_width, pixel_height);
+            xsane_transfer_to_gimp(infile, xsane.xsane_color, xsane.depth, pixel_width, pixel_height);
           }
           else
 #endif /* HAVE_LIBGIMP_GIMP_H */
@@ -1025,7 +1113,7 @@ void xsane_scan_done(SANE_Status status)
           {
             remove(xsane.output_filename);
             umask((mode_t) preferences.image_umask); /* define image file permissions */   
-            xsane_save_tiff(xsane.output_filename, infile, xsane.xsane_color, xsane.param.depth, pixel_width, pixel_height,
+            xsane_save_tiff(xsane.output_filename, infile, xsane.xsane_color, xsane.depth, pixel_width, pixel_height,
                             preferences.jpeg_quality);
             umask(XSANE_DEFAULT_UMASK); /* define new file permissions */   
           }
@@ -1043,7 +1131,7 @@ void xsane_scan_done(SANE_Status status)
               {
 #ifdef HAVE_LIBJPEG
                 case XSANE_JPEG:
-                  xsane_save_jpeg(outfile, infile, xsane.xsane_color, xsane.param.depth, pixel_width, pixel_height,
+                  xsane_save_jpeg(outfile, infile, xsane.xsane_color, xsane.depth, pixel_width, pixel_height,
                                   preferences.jpeg_quality);
                  break; /* switch format == XSANE_JPEG */
 #endif
@@ -1051,14 +1139,14 @@ void xsane_scan_done(SANE_Status status)
 #ifdef HAVE_LIBPNG
 #ifdef HAVE_LIBZ
                 case XSANE_PNG:
-                  if (xsane.param.depth <= 8)
+                  if (xsane.depth <= 8)
                   {
-                    xsane_save_png(outfile, infile, xsane.xsane_color, xsane.param.depth, pixel_width, pixel_height,
+                    xsane_save_png(outfile, infile, xsane.xsane_color, xsane.depth, pixel_width, pixel_height,
                                    preferences.png_compression);
                   }
                   else
                   {
-                    xsane_save_png_16(outfile, infile, xsane.xsane_color, xsane.param.depth, pixel_width, pixel_height,
+                    xsane_save_png_16(outfile, infile, xsane.xsane_color, xsane.depth, pixel_width, pixel_height,
                                       preferences.png_compression);
                   }
                  break; /* switch format == XSANE_PNG */
@@ -1066,7 +1154,7 @@ void xsane_scan_done(SANE_Status status)
 #endif
 
                 case XSANE_PNM16:
-                  xsane_save_pnm_16(outfile, infile, xsane.xsane_color, xsane.param.depth, pixel_width, pixel_height);
+                  xsane_save_pnm_16(outfile, infile, xsane.xsane_color, xsane.depth, pixel_width, pixel_height);
                  break; /* switch fomat == XSANE_PNM16 */
 
                 case XSANE_PS: /* save postscript, use original size */
@@ -1078,7 +1166,7 @@ void xsane_scan_done(SANE_Status status)
                   {
                     xsane_save_ps(outfile, infile,
                                   xsane.xsane_color /* gray, color */,
-                                  xsane.param.depth /* bits */,
+                                  xsane.depth /* bits */,
                                   pixel_width, pixel_height,
                                   (preferences.psfile_bottomoffset + preferences.psfile_height) * 36.0/MM_PER_INCH - imagewidth * 36.0, /* left edge */
                                   (preferences.psfile_leftoffset   + preferences.psfile_width)  * 36.0/MM_PER_INCH - imageheight * 36.0, /* bottom edge */
@@ -1091,7 +1179,7 @@ void xsane_scan_done(SANE_Status status)
                   {
                     xsane_save_ps(outfile, infile,
                                   xsane.xsane_color /* gray, color */,
-                                  xsane.param.depth /* bits */,
+                                  xsane.depth /* bits */,
                                   pixel_width, pixel_height,
                                   (preferences.psfile_leftoffset   + preferences.psfile_width)  * 36.0/MM_PER_INCH - imagewidth * 36.0,
                                   (preferences.psfile_bottomoffset + preferences.psfile_height) * 36.0/MM_PER_INCH - imageheight * 36.0,
@@ -1175,7 +1263,7 @@ void xsane_scan_done(SANE_Status status)
          switch (xsane.param.format)
          {
            case SANE_FRAME_GRAY:
-             if (xsane.param.depth == 1)
+             if (xsane.depth == 1)
              {
                printer_resolution = preferences.printer[preferences.printernr]->lineart_resolution;
              }
@@ -1208,7 +1296,7 @@ void xsane_scan_done(SANE_Status status)
          {
            xsane_save_ps(outfile, infile,
                          xsane.xsane_color /* gray, color */,
-                         xsane.param.depth /* bits */,
+                         xsane.depth /* bits */,
                          pixel_width, pixel_height,
                          (preferences.printer[preferences.printernr]->bottomoffset +
                           preferences.printer[preferences.printernr]->height) * 36.0/MM_PER_INCH - imagewidth * 36.0, /* left edge */
@@ -1225,7 +1313,7 @@ void xsane_scan_done(SANE_Status status)
          {
            xsane_save_ps(outfile, infile,
                          xsane.xsane_color /* gray, color */,
-                         xsane.param.depth /* bits */,
+                         xsane.depth /* bits */,
                          pixel_width, pixel_height,
                          (preferences.printer[preferences.printernr]->leftoffset +
                           preferences.printer[preferences.printernr]->width) * 36.0/MM_PER_INCH - imagewidth * 36.0, /* left edge */
@@ -1313,7 +1401,7 @@ void xsane_scan_done(SANE_Status status)
            {
              xsane_save_ps(outfile, infile,
                            xsane.xsane_color /* gray, color */,
-                           xsane.param.depth /* bits */,
+                           xsane.depth /* bits */,
                            pixel_width, pixel_height,
                            (preferences.fax_bottomoffset + preferences.fax_height) * 36.0/MM_PER_INCH - imagewidth * 36.0, /* left edge */
                            (preferences.fax_leftoffset   + preferences.fax_width)  * 36.0/MM_PER_INCH - imageheight * 36.0, /* bottom edge */
@@ -1326,7 +1414,7 @@ void xsane_scan_done(SANE_Status status)
            {
              xsane_save_ps(outfile, infile,
                            xsane.xsane_color /* gray, color */,
-                           xsane.param.depth /* bits */,
+                           xsane.depth /* bits */,
                            pixel_width, pixel_height,
                            (preferences.fax_leftoffset   + preferences.fax_width)  * 36.0/MM_PER_INCH - imagewidth * 36.0,
                            (preferences.fax_bottomoffset + preferences.fax_height) * 36.0/MM_PER_INCH - imageheight * 36.0,
@@ -1441,7 +1529,7 @@ void xsane_scan_done(SANE_Status status)
   {
     xsane_set_sensitivity(TRUE);		/* reactivate buttons etc */
     sane_cancel(xsane.dev); /* stop scanning */
-    xsane_update_histogram();
+    xsane_update_histogram(TRUE /* update raw */);
     xsane_update_param(0);
   }
 }
@@ -1510,6 +1598,8 @@ static void xsane_start_scan(void)
     return;
   }
 
+  xsane.depth = xsane.param.depth; /* bit depth for saving, can be changed: 1->8, 16->8 */
+
   xsane.num_bytes = xsane.param.lines * xsane.param.bytes_per_line;
   xsane.bytes_read = 0;
   xsane.expand_lineart_to_grayscale = 0;
@@ -1559,14 +1649,12 @@ static void xsane_start_scan(void)
         return;
       }
 
-      if ( (xsane.expand_lineart_to_grayscale) || (xsane.reduce_16bit_image_to_8bit) )
+      if ( (xsane.expand_lineart_to_grayscale) || (xsane.reduce_16bit_to_8bit) )
       {
-        xsane_write_pnm_header(xsane.out, xsane.param.pixels_per_line, xsane.param.lines, 8);
+        xsane.depth = 8;
       }
-      else
-      {
-        xsane_write_pnm_header(xsane.out, xsane.param.pixels_per_line, xsane.param.lines, xsane.param.depth);
-      }
+
+      xsane_write_pnm_header(xsane.out, xsane.param.pixels_per_line, xsane.param.lines, xsane.depth);
 
       fflush(xsane.out);
       xsane.header_size = ftell(xsane.out);
@@ -1612,7 +1700,7 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
 
   DBG(DBG_proc, "xsane_scan_dialog\n");
 
-  xsane.reduce_16bit_image_to_8bit = 0;
+  xsane.reduce_16bit_to_8bit = preferences.reduce_16bit_to_8bit; /* reduce 16 bit image to 8 bit ? */
 
   sane_get_parameters(xsane.dev, &xsane.param); /* update xsane.param */
 
@@ -1657,8 +1745,9 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
         xsane_back_gtk_error(buf, TRUE);
         return;
       }
-      else if ( ( (xsane.xsane_output_format == XSANE_JPEG) && xsane.param.depth == 16) ||
-                ( (xsane.xsane_output_format == XSANE_PS) && xsane.param.depth == 16) )
+      else if ( ( ( (xsane.xsane_output_format == XSANE_JPEG) && xsane.param.depth == 16) ||
+                  ( (xsane.xsane_output_format == XSANE_PS)   && xsane.param.depth == 16) ) &&
+                ( !xsane.reduce_16bit_to_8bit) )
                 
       {
         snprintf(buf, sizeof(buf), TEXT_REDUCE_16BIT_TO_8BIT);
@@ -1666,7 +1755,7 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
         {
           return;
         }
-        xsane.reduce_16bit_image_to_8bit = 1;
+        xsane.reduce_16bit_to_8bit = TRUE;
       }
       
 #ifdef SUPPORT_RGBA
@@ -1714,20 +1803,23 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
   {
     if ((xsane.param.depth != 1) && (xsane.param.depth != 8)) /* not support bit depth ? */
     {
-      if (xsane.param.depth == 16) /* 16 bit can be reduced to 8 bit */
+      if (!xsane.reduce_16bit_to_8bit) /* ask if reduce 16 to 8 bit */
       {
-        snprintf(buf, sizeof(buf), TEXT_GIMP_REDUCE_16BIT_TO_8BIT);
-        if (xsane_back_gtk_decision(ERR_HEADER_INFO, (gchar **) info_xpm, buf, BUTTON_REDUCE, BUTTON_CANCEL, TRUE /* wait */) == FALSE)
+        if (xsane.param.depth == 16)
         {
-          return;
+          snprintf(buf, sizeof(buf), TEXT_GIMP_REDUCE_16BIT_TO_8BIT);
+          if (xsane_back_gtk_decision(ERR_HEADER_INFO, (gchar **) info_xpm, buf, BUTTON_REDUCE, BUTTON_CANCEL, TRUE /* wait */) == FALSE)
+          {
+            return;
+          }
+          xsane.reduce_16bit_to_8bit = TRUE;
         }
-        xsane.reduce_16bit_image_to_8bit = 1;
-      }
-      else /* unsupported bit depth */
-      {
-        snprintf(buf, sizeof(buf), ERR_GIMP_BAD_DEPTH, xsane.param.depth);
-        xsane_back_gtk_error(buf, TRUE);
-       return;
+        else /* unsupported bit depth */
+        {
+          snprintf(buf, sizeof(buf), ERR_GIMP_BAD_DEPTH, xsane.param.depth);
+          xsane_back_gtk_error(buf, TRUE);
+         return;
+        }
       }
     }
   }

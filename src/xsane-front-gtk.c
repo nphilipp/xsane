@@ -684,7 +684,7 @@ gint xsane_authorization_callback(SANE_String_Const resource,
 
 void xsane_progress_cancel(GtkWidget *widget, gpointer data)
 {
- GtkSignalFunc callback = data;
+ GtkSignalFunc callback = (GtkSignalFunc) data;
 
   DBG(DBG_proc, "xsane_progress_cancel\n");
 
@@ -1169,13 +1169,31 @@ void xsane_update_param(void *arg)
   if (sane_get_parameters(xsane.dev, &xsane.param) == SANE_STATUS_GOOD)
   {
    float size = xsane.param.bytes_per_line * xsane.param.lines;
+   int depth = xsane.param.depth;
+
+    if ( (depth == 16) && (preferences.reduce_16bit_to_8bit) )
+    {
+      depth = 8;
+      size /= 2;
+    }
 
     unit = "B";
 
     if (xsane.param.format >= SANE_FRAME_RED && xsane.param.format <= SANE_FRAME_BLUE)
     {
       size *= 3.0;
+      depth *= 3;
     }
+    else if (xsane.param.format == SANE_FRAME_RGB)
+    {
+      depth *= 3;
+    }
+#ifdef SUPPORT_RGBA
+    else if (xsane.param.format == SANE_FRAME_RGBA)
+    {
+      depth *= 4;
+    }
+#endif
 
     if (size >= 1024.0 * 1024.0)
     {
@@ -1187,7 +1205,7 @@ void xsane_update_param(void *arg)
       size /= 1024.0;
       unit = "KB";
     }
-    snprintf(buf, sizeof(buf), "%d x %d (%1.1f %s)", xsane.param.pixels_per_line, xsane.param.lines, size, unit);
+    snprintf(buf, sizeof(buf), "%d*%d*%d (%1.1f %s)", xsane.param.pixels_per_line, xsane.param.lines, depth, size, unit);
 
     if (xsane.param.format == SANE_FRAME_GRAY)
     {
@@ -1225,7 +1243,7 @@ void xsane_update_param(void *arg)
     gtk_progress_set_format_string(GTK_PROGRESS(xsane.progress_bar), buf);
   }
 
-  xsane_update_histogram();
+  xsane_update_histogram(TRUE);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1356,7 +1374,7 @@ void xsane_change_working_directory(void)
   sprintf(windowname, "%s %s %s", xsane.prog_name, WINDOW_CHANGE_WORKING_DIR, xsane.device_text);
   if (getcwd(filename, sizeof(filename)))
   {
-    xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, FALSE, FALSE);
+    xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, TRUE, FALSE, TRUE);
     if (chdir(filename))
     {
      char buf[256];

@@ -153,7 +153,7 @@ int xsane_check_bound_double(double value, double min, double max)
 
 const SANE_Option_Descriptor *xsane_get_option_descriptor(SANE_Handle handle, SANE_Int option)
 {
-  DBG(DBG_proc, "xsane_get_option_descriptor(%d)\n", option);
+  DBG(DBG_optdesc, "xsane_get_option_descriptor(%d)\n", option);
 
   if (option >= 0)
   {
@@ -475,7 +475,7 @@ void xsane_back_gtk_decision_callback(GtkWidget * widget, gpointer data)
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-gint xsane_back_gtk_decision(gchar *title, gchar **xpm_d,  gchar *message, gchar *oktext, gchar *rejecttext, gint wait)
+gint xsane_back_gtk_decision(gchar *title, gchar **xpm_d,  gchar *message, gchar *oktext, gchar *rejecttext, int wait)
 {
  GtkWidget *main_vbox, *hbox, *label, *button;
  GdkPixmap *pixmap;
@@ -578,7 +578,7 @@ gint xsane_back_gtk_decision(gchar *title, gchar **xpm_d,  gchar *message, gchar
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-void xsane_back_gtk_message(gchar *title, gchar **icon_xpm, gchar *message, gint wait)
+void xsane_back_gtk_message(gchar *title, gchar **icon_xpm, gchar *message, int wait)
 {
   DBG(DBG_proc, "xsane_back_gtk_message\n");
 
@@ -587,7 +587,7 @@ void xsane_back_gtk_message(gchar *title, gchar **icon_xpm, gchar *message, gint
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-void xsane_back_gtk_error(gchar *error, gint wait)
+void xsane_back_gtk_error(gchar *error, int wait)
 {
   DBG(DBG_proc, "xsane_back_gtk_error: %s\n", error);
 
@@ -607,7 +607,7 @@ void xsane_back_gtk_error(gchar *error, gint wait)
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-void xsane_back_gtk_warning(gchar *warning, gint wait)
+void xsane_back_gtk_warning(gchar *warning, int wait)
 {
   DBG(DBG_proc, "xsane_back_gtk_warning: %s\n", warning);
 
@@ -627,7 +627,7 @@ void xsane_back_gtk_warning(gchar *warning, gint wait)
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-void xsane_back_gtk_info(gchar *info, gint wait)
+void xsane_back_gtk_info(gchar *info, int wait)
 {
   DBG(DBG_proc, "xsane_back_gtk_info: %s\n", info);
 
@@ -657,7 +657,8 @@ static void xsane_back_gtk_get_filename_button_clicked(GtkWidget *w, gpointer da
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-int xsane_back_gtk_get_filename(const char *label, const char *default_name, size_t max_len, char *filename, int show_fileopts, int shorten_path)
+int xsane_back_gtk_get_filename(const char *label, const char *default_name, size_t max_len, char *filename,
+                                int show_fileopts, int shorten_path, int hide_file_list)
 {
  int cancel = 0, ok = 0, destroy = 0;
  GtkWidget *fileselection;
@@ -684,6 +685,13 @@ int xsane_back_gtk_get_filename(const char *label, const char *default_name, siz
   {
     DBG(DBG_info, "xsane_back_gtk_get_filename: default_name =%s\n", default_name);
     gtk_file_selection_set_filename(GTK_FILE_SELECTION(fileselection), (char *) default_name);
+  }
+
+  if (hide_file_list)
+  {
+    DBG(DBG_info, "xsane_back_gtk_get_filename: hiding file-list and delete-file-widget\n");
+    gtk_widget_hide(GTK_FILE_SELECTION(fileselection)->file_list->parent);
+    gtk_widget_hide(GTK_FILE_SELECTION(fileselection)->fileop_del_file);
   }
 
   if (show_fileopts)

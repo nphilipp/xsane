@@ -40,6 +40,7 @@
 #define PFIELD(p,offset,type)	(*((type *)(((char *)(p)) + (offset))))
 
 #define PRTOFFSET(field)	((char *) &((Preferences_printer_t *) 0)->field - (char *) 0)
+#define PAREAOFFSET(field)	((char *) &((Preferences_preset_area_t *) 0)->field - (char *) 0)
 
 /* --------------------------------------------------------------------- */
 
@@ -72,6 +73,7 @@ Preferences preferences =
        1,		/* save_devprefs_at_exit */
        1,		/* overwrite_warning */
        1,		/* skip_existing_numbers */
+       0,		/* reduce_16bit_to_8bit */
        1,		/* filename_counter_step */
        4,		/* filename_counter_len */
      210.0,             /* psfile_width:  width of psfile in mm */
@@ -93,6 +95,7 @@ Preferences preferences =
        1.0,		/* preview_gamma_green */
        1.0,		/* preview_gamma_blue */
        1,		/* disable_gimp_preview_gamma */
+       12,		/* preview_gamma_input_bits */
        3,		/* preview_pipette_range */
        1.6,		/* gamma */
        1.0,		/* gamma red */
@@ -113,6 +116,7 @@ Preferences preferences =
        1,		/* auto_correct_colors after preview scan */
  GTK_UPDATE_DISCONTINUOUS, /* update policy for gtk frontend sliders */
        0,		/* psrotate: rotate in postscript mode (landscape) */
+       0,		/* preset_area_definitions */
        0,		/* printernr */
        0		/* printerdefinitions */
   };
@@ -152,6 +156,7 @@ desc[] =
     {"save-devprefs-at-exit",		xsane_rc_pref_int,	POFFSET(save_devprefs_at_exit)},
     {"overwrite-warning",		xsane_rc_pref_int,	POFFSET(overwrite_warning)},
     {"skip-existing-numbers",		xsane_rc_pref_int,	POFFSET(skip_existing_numbers)},
+    {"reduce-16bit-to8bit",		xsane_rc_pref_int,	POFFSET(reduce_16bit_to_8bit)},
     {"filename-counter-step",		xsane_rc_pref_int,	POFFSET(filename_counter_step)},
     {"filename-counter-len",		xsane_rc_pref_int,	POFFSET(filename_counter_len)},
     {"psfile-width",			xsane_rc_pref_double,	POFFSET(psfile_width)},
@@ -173,6 +178,7 @@ desc[] =
     {"preview-gamma-green",		xsane_rc_pref_double,	POFFSET(preview_gamma_green)},
     {"preview-gamma-blue",		xsane_rc_pref_double,	POFFSET(preview_gamma_blue)},
     {"disable-gimp-preview-gamma",	xsane_rc_pref_int,	POFFSET(disable_gimp_preview_gamma)},
+    {"preview-gamma-input-bits",	xsane_rc_pref_int,	POFFSET(preview_gamma_input_bits)},
     {"preview-pipette-range",		xsane_rc_pref_int,	POFFSET(preview_pipette_range)},
     {"gamma",				xsane_rc_pref_double,	POFFSET(xsane_gamma)},
     {"gamma-red",			xsane_rc_pref_double,	POFFSET(xsane_gamma_red)},
@@ -193,6 +199,7 @@ desc[] =
     {"auto-correct-colors",		xsane_rc_pref_int,	POFFSET(auto_correct_colors)},
     {"gtk-update-policy",		xsane_rc_pref_int,	POFFSET(gtk_update_policy)},
     {"postscript-rotate",		xsane_rc_pref_int,	POFFSET(psrotate)},
+    {"preset-area-definitions",		xsane_rc_pref_int,	POFFSET(preset_area_definitions)},
     {"printernr",			xsane_rc_pref_int,	POFFSET(printernr)},
     {"printerdefinitions",		xsane_rc_pref_int,	POFFSET(printerdefinitions)}
   };
@@ -225,6 +232,23 @@ desc_printer[] =
 
 /* --------------------------------------------------------------------- */
 
+static struct
+  {
+    SANE_String name;
+    void (*codec) (Wire *w, void *p, long offset);
+    long offset;
+  }
+desc_preset_area[] =
+  {
+    {"preset-area-name",		xsane_rc_pref_string,	PAREAOFFSET(name)},
+    {"preset-area-xoffset",		xsane_rc_pref_double,	PAREAOFFSET(xoffset)},
+    {"preset-area-yoffset",		xsane_rc_pref_double,	PAREAOFFSET(yoffset)},
+    {"preset-area-width",		xsane_rc_pref_double,	PAREAOFFSET(width)},
+    {"preset-area-height",		xsane_rc_pref_double,	PAREAOFFSET(height)}
+  };
+
+/* --------------------------------------------------------------------- */
+
 void preferences_save(int fd)
 {
  Wire w;
@@ -240,14 +264,18 @@ void preferences_save(int fd)
 
   for (i = 0; i < NELEMS(desc); ++i)
   {
+    DBG(DBG_info2, "saving preferences value for %s\n", desc[i].name);
     xsane_rc_io_w_string(&w, &desc[i].name);
     (*desc[i].codec) (&w, &preferences, desc[i].offset);
   }
+
+  /* save printers */
 
   n=0;
 
   while (n < preferences.printerdefinitions)
   {
+    DBG(DBG_info2, "saving preferences printer definition %s\n", preferences.printer[n]->name);
     for (i = 0; i < NELEMS(desc_printer); ++i)
     {
       xsane_rc_io_w_string(&w, &desc_printer[i].name);
@@ -255,6 +283,22 @@ void preferences_save(int fd)
     }
     n++;
   }
+
+  /* save preset areas */
+
+  n=1; /* start with number 1, number 0 (full size) is not saved */
+
+  while (n < preferences.preset_area_definitions)
+  {
+    DBG(DBG_info2, "saving preferences preset area definition %s\n", preferences.preset_area[n]->name);
+    for (i = 0; i < NELEMS(desc_preset_area); ++i)
+    {
+      xsane_rc_io_w_string(&w, &desc_preset_area[i].name);
+      (*desc_preset_area[i].codec) (&w, preferences.preset_area[n], desc_preset_area[i].offset);
+    }
+    n++;
+  }
+
 
   xsane_rc_io_w_set_dir(&w, WIRE_DECODE);	/* flush it out */
 }
@@ -275,7 +319,6 @@ void preferences_restore(int fd)
   xsane_rc_io_w_init(&w);
   xsane_rc_io_w_set_dir(&w, WIRE_DECODE);
 
-
   while (1)
   {
     xsane_rc_io_w_space(&w, 3);
@@ -294,6 +337,7 @@ void preferences_restore(int fd)
     {
       if (strcmp(name, desc[i].name) == 0)
       {
+        DBG(DBG_info2, "reading preferences value for %s\n", desc[i].name);
         (*desc[i].codec) (&w, &preferences, desc[i].offset);
         break;
       }
@@ -311,7 +355,7 @@ void preferences_restore(int fd)
     preferences.printer[n] = calloc(sizeof(Preferences_printer_t), 1);
     for (i = 0; i < NELEMS(desc_printer); ++i)
     {
-      xsane_rc_io_w_space (&w, 3);
+      xsane_rc_io_w_space(&w, 3);
       if (w.status)
       {
         return;
@@ -332,7 +376,50 @@ void preferences_restore(int fd)
         break;
       }
     }
+    DBG(DBG_info2, "preferences printer definition %s read\n", preferences.printer[n]->name);
     n++;
   }
 
+  if (preferences.preset_area_definitions)
+  {
+    preferences.preset_area = calloc(preferences.preset_area_definitions, sizeof(void *)); 
+
+    preferences.preset_area[0] = calloc(sizeof(Preferences_preset_area_t), 1);
+    preferences.preset_area[0]->name    = strdup(_(MENU_ITEM_SURFACE_FULL_SIZE));
+    preferences.preset_area[0]->xoffset = 0.0;
+    preferences.preset_area[0]->yoffset = 0.0;
+    preferences.preset_area[0]->width   = INF;
+    preferences.preset_area[0]->height  = INF;
+
+    n=1;
+    while (n < preferences.preset_area_definitions)
+    {
+      preferences.preset_area[n] = calloc(sizeof(Preferences_preset_area_t), 1);
+      for (i = 0; i < NELEMS(desc_preset_area); ++i)
+      {
+        xsane_rc_io_w_space(&w, 3);
+        if (w.status)
+        {
+          return;
+        }
+
+        xsane_rc_io_w_string(&w, &name);
+        if (w.status || !name)
+        {
+          return;
+        }
+
+        if (strcmp(name, desc_preset_area[i].name) == 0)
+        {
+          (*desc_preset_area[i].codec) (&w, preferences.preset_area[n], desc_preset_area[i].offset);
+        }
+        else
+        {
+          break;
+        }
+      }
+      DBG(DBG_info2, "preferences preset area definition %s read\n", preferences.preset_area[n]->name);
+      n++;
+    }
+  }
 }

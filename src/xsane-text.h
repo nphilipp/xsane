@@ -42,6 +42,7 @@
 #define WINDOW_FAX_PROJECT		_("fax project")
 #define WINDOW_FAX_RENAME		_("rename fax page")
 #define WINDOW_FAX_INSERT		_("insert ps-file into fax")
+#define WINDOW_PRESET_AREA_RENAME	_("rename preset area")
 #define WINDOW_SETUP			_("setup")
 #define WINDOW_HISTOGRAM		_("Histogram")
 #define WINDOW_GAMMA			_("Gamma curve")
@@ -96,6 +97,7 @@
 #define RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT _("Save device preferences at exit")
 #define RADIO_BUTTON_OVERWRITE_WARNING	_("Overwrite warning")
 #define RADIO_BUTTON_SKIP_EXISTING_NRS	_("Skip existing filenames")
+#define RADIO_BUTTON_REDUCE_16BIT_TO_8BIT _("Reduce 16 bit image to 8 bit")
 #define RADIO_BUTTON_WINDOW_FIXED	_("Main window size fixed")
 #define RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA	_("Disable gimp preview gamma")
 #define RADIO_BUTTON_PRIVATE_COLORMAP	_("Use private colormap")
@@ -226,6 +228,7 @@
 
 #define NOTEBOOK_COPY_OPTIONS		_("Copy options")
 #define NOTEBOOK_SAVING_OPTIONS		_("Saving options")
+#define NOTEBOOK_IMAGE_OPTIONS		_("Image options")
 #define NOTEBOOK_DISPLAY_OPTIONS	_("Display options")
 #define NOTEBOOK_ENHANCE_OPTIONS	_("Enhancement options")
 #define NOTEBOOK_FAX_OPTIONS		_("Fax options")
@@ -278,6 +281,12 @@
 
 #define MENU_ITEM_FILETYPE_BY_EXT	_("by ext")
 
+#define MENU_ITEM_PRESET_AREA_ADD_SEL	_("Add selection to list")
+#define MENU_ITEM_PRESET_AREA_RENAME	_("Rename definiton")
+#define MENU_ITEM_PRESET_AREA_DELETE	_("Delete definition")
+#define MENU_OTEM_PRESET_AREA_MOVE_UP	_("Move up")
+#define MENU_OTEM_PRESET_AREA_MOVE_DWN	_("Move down")
+
 #define PROGRESS_SCANNING		_("Scanning")
 #define PROGRESS_RECEIVING_FRAME_DATA	_("Receiving %s data")
 
@@ -300,6 +309,7 @@
 #define DESC_FAXPROJECT			_("Enter name of fax project")
 #define DESC_FAXPAGENAME		_("Enter new name for faxpage")
 #define DESC_FAXRECEIVER		_("Enter receiver phone number or address")
+#define DESC_PRESET_AREA_NAME		_("Enter new name for preset area")
 
 #define DESC_PRINTER_SELECT		_("Select printerdefinition <Shift-F1/F2/...>")
 
@@ -377,6 +387,7 @@
 #define DESC_SAVE_DEVPREFS_AT_EXIT	_("Save device dependant preferences in default file at exit of xsane")
 #define DESC_OVERWRITE_WARNING		_("Warn before overwriting an existing file")
 #define DESC_SKIP_EXISTING		_("If filename counter is automatically increased, used numbers are skipped")
+#define DESC_REDUCE_16BIT_TO_8BIT	_("If scanner sends image with 16 bits/color save image with 8 bits/color")
 #define DESC_PSFILE_WIDTH		_("Width of paper in mm for postscript files")
 #define DESC_PSFILE_HEIGHT		_("Height of paper in mm for postscript files")
 #define DESC_PSFILE_LEFTOFFSET		_("Left offset from the edge of the paper to the usable area in mm for postscript files")
@@ -403,7 +414,7 @@
 #define DESC_DOC_VIEWER			_("Enter command to be executed to display helpfiles, must be a html-viewer!")
 #define DESC_AUTOENHANCE_GAMMA		_("Change gamma value when autoenhancement button is pressed")
 #define DESC_PRESELECT_SCANAREA		_("Select scanarea after preview scan has finished")
-#define DESC_AUTOCORRECT_COLORS		_("Do color correcten after preview scan has finished")
+#define DESC_AUTOCORRECT_COLORS		_("Do color correction after preview scan has finished")
 
 #define DESC_FAX_COMMAND		_("Enter command to be executed in fax mode")
 #define DESC_FAX_RECEIVER_OPT		_("Enter option to specify receiver")
@@ -433,7 +444,7 @@
 #define DESC_FULL_PREVIEW_AREA		_("Select visible area")
 #define DESC_AUTOSELECT_SCANAREA	_("Autoselect scanarea")
 
-#define DESC_PRESET_AREA		_("Reduce scan area")
+#define DESC_PRESET_AREA		_("Preset area")
 #define DESC_ROTATION			_("Rotate preview and scan")
 
 
@@ -558,6 +569,10 @@ The format of [DEVICE] is backendname:devicefile (e.g. umax:/dev/scanner).\n\
 #define MENU_ITEM_SURFACE_DIN_A4L	N_("DIN A4 land.")
 #define MENU_ITEM_SURFACE_DIN_A5P	N_("DIN A5 port.")
 #define MENU_ITEM_SURFACE_DIN_A5L	N_("DIN A5 land.")
+#define MENU_ITEM_SURFACE_13cmx18cm	N_("13cm x 18cm")
+#define MENU_ITEM_SURFACE_18cmx13cm	N_("18cm x 13cm")
+#define MENU_ITEM_SURFACE_10cmx14cm	N_("10cm x 14cm")
+#define MENU_ITEM_SURFACE_14cmx10cm	N_("14cm x 10cm")
 #define MENU_ITEM_SURFACE_9cmx13cm	N_("9cm x 13cm")
 #define MENU_ITEM_SURFACE_13cmx9cm	N_("13cm x 9cm")
 #define MENU_ITEM_SURFACE_legal_P	N_("legal port.")

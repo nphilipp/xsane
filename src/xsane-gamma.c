@@ -60,13 +60,14 @@ void xsane_get_free_gamma_curve(gfloat *free_color_gamma_data, SANE_Int *gammada
                                 int len, int maxout);
 static void xsane_calculate_auto_enhancement(int negative,
               SANE_Int *count_raw, SANE_Int *count_raw_red, SANE_Int *count_raw_green, SANE_Int *count_raw_blue);
-void xsane_calculate_histogram(void);
-void xsane_update_histogram(void);
+void xsane_calculate_raw_histogram(void);
+void xsane_calculate_enh_histogram(void);
+void xsane_update_histogram(int update_raw);
 void xsane_histogram_toggle_button_callback(GtkWidget *widget, gpointer data);
-void xsane_create_threshold_curve(SANE_Int *gammadata, double threshold, int numbers, int maxout);
+void xsane_create_preview_threshold_curve(u_char *gammadata, double threshold, int numbers);
 void xsane_create_gamma_curve(SANE_Int *gammadata, int negative, double gamma,
                               double brightness, double contrast, int numbers, int maxout);
-void xsane_update_gamma_curve(void);
+void xsane_update_gamma_curve(int update_raw);
 static void xsane_enhancement_update(void);
 static void xsane_gamma_to_histogram(double *min, double *mid, double *max,
                                      double contrast, double brightness, double gamma);
@@ -78,7 +79,9 @@ static int xsane_histogram_to_gamma(XsaneSlider *slider, double *contrast, doubl
 void xsane_enhancement_by_histogram(int update_gamma);
 static gint xsane_histogram_win_delete(GtkWidget *widget, gpointer data);
 void xsane_create_histogram_dialog(const char *devicetext);
+#ifdef HAVE_WORKING_GTK_GAMMACURVE
 static gint xsane_gamma_win_delete(GtkWidget *widget, gpointer data);
+#endif
 void xsane_create_gamma_dialog(const char *devicetext);
 void xsane_update_gamma_dialog(void);
 void xsane_set_auto_enhancement(void);
@@ -518,10 +521,16 @@ static gint xsane_slider_hold_event()
 {
   DBG(DBG_proc, "xsane_slider_hold_event\n");
 
+  xsane_enhancement_by_histogram(TRUE);
+
   gtk_timeout_remove(xsane.slider_timer);
   xsane.slider_timer = 0;
 
-  xsane_enhancement_by_histogram(TRUE);
+  if (xsane.slider_timer_restart)
+  {
+    xsane.slider_timer = gtk_timeout_add(XSANE_CONTINUOUS_HOLD_TIME, xsane_slider_hold_event, 0);
+    xsane.slider_timer_restart = FALSE;
+  }
 
  return FALSE;
 }
@@ -535,7 +544,6 @@ static gint xsane_slider_callback(GtkWidget *widget, GdkEvent *event, XsaneSlide
  int distance;
  int i = 0;
  static int update = FALSE;
- static int event_count = 0;
  static int x;
 
   DBG(DBG_proc, "xsane_slider_callback\n");
@@ -544,8 +552,6 @@ static gint xsane_slider_callback(GtkWidget *widget, GdkEvent *event, XsaneSlide
   {
     return 0;
   }
-
-  event_count++;
 
   switch(event->type)
   {
@@ -581,11 +587,6 @@ static gint xsane_slider_callback(GtkWidget *widget, GdkEvent *event, XsaneSlide
 
     case GDK_MOTION_NOTIFY:
 
-      if (xsane.slider_timer) /* hold timer active? then remove it, we had a motion */
-      {
-        gtk_timeout_remove(xsane.slider_timer);
-        xsane.slider_timer = 0;
-      }          
       motion_event = (GdkEventMotion *) event;
       gdk_window_get_pointer(widget->window, &x, 0, 0);
       update = TRUE;
@@ -620,24 +621,28 @@ static gint xsane_slider_callback(GtkWidget *widget, GdkEvent *event, XsaneSlide
     }
     xsane_set_slider(slider, slider->value[0], slider->value[1], slider->value[2]);
 
-    if ((preferences.gtk_update_policy == GTK_UPDATE_CONTINUOUS) && (event_count == 1))
+    if (preferences.gtk_update_policy == GTK_UPDATE_CONTINUOUS)
     {
-      xsane_enhancement_by_histogram(TRUE);
+      /* call xsane_enhancement_by_histogram by event handler */
+      if (!xsane.slider_timer)
+      {
+        xsane.slider_timer = gtk_timeout_add(XSANE_CONTINUOUS_HOLD_TIME, xsane_slider_hold_event, 0);
+      }
+      else
+      {
+        xsane.slider_timer_restart = TRUE;
+      }
     }
-    else if ((preferences.gtk_update_policy == GTK_UPDATE_DELAYED) && (event_count == 1))
+    else if (preferences.gtk_update_policy == GTK_UPDATE_DELAYED)
     {
+      if (xsane.slider_timer) /* hold timer active? then remove it, we had a motion */
+      {
+        gtk_timeout_remove(xsane.slider_timer);
+      }          
       /* call xsane_slider_hold_event if mouse is not moved for ??? ms */
       xsane.slider_timer = gtk_timeout_add(XSANE_HOLD_TIME, xsane_slider_hold_event, 0);
     }
   }
-#if 0
-  while (gtk_events_pending())
-  {
-    gtk_main_iteration();
-  }
-#endif
-
-  event_count--;
 
  return 0;
 }
@@ -882,23 +887,17 @@ static void xsane_calculate_auto_enhancement(int negative,
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void xsane_calculate_histogram(void)
+void xsane_calculate_raw_histogram(void)
 {
  SANE_Int *count_raw;
  SANE_Int *count_raw_red;
  SANE_Int *count_raw_green;
  SANE_Int *count_raw_blue;
- SANE_Int *count_enh;
- SANE_Int *count_enh_red;
- SANE_Int *count_enh_green;
- SANE_Int *count_enh_blue;
  int i;
  int maxval_raw;
- int maxval_enh;
- int maxval;
- double scale;
+ double scale_raw;
 
-  DBG(DBG_proc, "xsane_calculate_histogram\n");
+  DBG(DBG_proc, "xsane_calculate_raw_histogram\n");
 
   /* at first reset auto enhancement values */
 
@@ -924,13 +923,8 @@ void xsane_calculate_histogram(void)
     count_raw_red   = calloc(256, sizeof(SANE_Int));
     count_raw_green = calloc(256, sizeof(SANE_Int));
     count_raw_blue  = calloc(256, sizeof(SANE_Int));
-    count_enh       = calloc(256, sizeof(SANE_Int));
-    count_enh_red   = calloc(256, sizeof(SANE_Int));
-    count_enh_green = calloc(256, sizeof(SANE_Int));
-    count_enh_blue  = calloc(256, sizeof(SANE_Int));
 
-    preview_calculate_histogram(xsane.preview, count_raw, count_raw_red, count_raw_green, count_raw_blue,
-                                count_enh, count_enh_red, count_enh_green, count_enh_blue);
+    preview_calculate_raw_histogram(xsane.preview, count_raw, count_raw_red, count_raw_green, count_raw_blue);
 
     if (xsane.param.depth > 1)
     {
@@ -945,16 +939,10 @@ void xsane_calculate_histogram(void)
         count_raw_red[i]   = (int) (50*log(1.0 + count_raw_red[i]));
         count_raw_green[i] = (int) (50*log(1.0 + count_raw_green[i]));
         count_raw_blue[i]  = (int) (50*log(1.0 + count_raw_blue[i]));
-
-        count_enh[i]       = (int) (50*log(1.0 + count_enh[i]));
-        count_enh_red[i]   = (int) (50*log(1.0 + count_enh_red[i]));
-        count_enh_green[i] = (int) (50*log(1.0 + count_enh_green[i]));
-        count_enh_blue[i]  = (int) (50*log(1.0 + count_enh_blue[i]));
       }
     }
 
     maxval_raw = 0;
-    maxval_enh = 0;
 
     /* first and last 10 values are not used for calculating maximum value */
     for (i = 10 ; i < HIST_WIDTH - 10; i++)
@@ -963,39 +951,22 @@ void xsane_calculate_histogram(void)
       if (count_raw_red[i]   > maxval_raw) { maxval_raw = count_raw_red[i]; }
       if (count_raw_green[i] > maxval_raw) { maxval_raw = count_raw_green[i]; }
       if (count_raw_blue[i]  > maxval_raw) { maxval_raw = count_raw_blue[i]; }
-      if (count_enh[i]       > maxval_enh) { maxval_enh = count_enh[i]; }
-      if (count_enh_red[i]   > maxval_enh) { maxval_enh = count_enh_red[i]; }
-      if (count_enh_green[i] > maxval_enh) { maxval_enh = count_enh_green[i]; }
-      if (count_enh_blue[i]  > maxval_enh) { maxval_enh = count_enh_blue[i]; }
     }
-    maxval = ((maxval_enh > maxval_raw) ? maxval_enh : maxval_raw);
-    scale = 100.0/maxval;
+    scale_raw = 100.0/maxval_raw;
 
     if (xsane.histogram_lines)
     {
       xsane_draw_histogram_with_lines(&xsane.histogram_raw, xsane.negative,
                          count_raw, count_raw_red, count_raw_green, count_raw_blue,
-                        xsane.histogram_red, xsane.histogram_green, xsane.histogram_blue, xsane.histogram_int, scale);
-
-      xsane_draw_histogram_with_lines(&xsane.histogram_enh, 0 /* negative is done by gamma table */,
-                        count_enh, count_enh_red, count_enh_green, count_enh_blue,
-                        xsane.histogram_red, xsane.histogram_green, xsane.histogram_blue, xsane.histogram_int, scale);
+                        xsane.histogram_red, xsane.histogram_green, xsane.histogram_blue, xsane.histogram_int, scale_raw);
     }
     else
     {
       xsane_draw_histogram_with_points(&xsane.histogram_raw, xsane.negative,
                         count_raw, count_raw_red, count_raw_green, count_raw_blue,
-                        xsane.histogram_red, xsane.histogram_green, xsane.histogram_blue, xsane.histogram_int, scale);
-
-      xsane_draw_histogram_with_points(&xsane.histogram_enh, 0 /*negative is done by gamma table */,
-                        count_enh, count_enh_red, count_enh_green, count_enh_blue,
-                        xsane.histogram_red, xsane.histogram_green, xsane.histogram_blue, xsane.histogram_int, scale);
+                        xsane.histogram_red, xsane.histogram_green, xsane.histogram_blue, xsane.histogram_int, scale_raw);
     }
 
-    free(count_enh_blue);
-    free(count_enh_green);
-    free(count_enh_red);
-    free(count_enh);
     free(count_raw_blue);
     free(count_raw_green);
     free(count_raw_red);
@@ -1004,19 +975,93 @@ void xsane_calculate_histogram(void)
   else
   {
     xsane_clear_histogram(&xsane.histogram_raw);
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void xsane_calculate_enh_histogram(void)
+{
+ SANE_Int *count_enh;
+ SANE_Int *count_enh_red;
+ SANE_Int *count_enh_green;
+ SANE_Int *count_enh_blue;
+ int i;
+ int maxval_enh;
+ double scale_enh;
+
+  DBG(DBG_proc, "xsane_calculate_enh_histogram\n");
+
+  if (xsane.preview) /* preview window exists? */
+  {
+    count_enh       = calloc(256, sizeof(SANE_Int));
+    count_enh_red   = calloc(256, sizeof(SANE_Int));
+    count_enh_green = calloc(256, sizeof(SANE_Int));
+    count_enh_blue  = calloc(256, sizeof(SANE_Int));
+
+    preview_calculate_enh_histogram(xsane.preview, count_enh, count_enh_red, count_enh_green, count_enh_blue);
+
+    if (xsane.histogram_log) /* logarithmical display */
+    {
+      for (i=0; i<=255; i++)
+      {
+        count_enh[i]       = (int) (50*log(1.0 + count_enh[i]));
+        count_enh_red[i]   = (int) (50*log(1.0 + count_enh_red[i]));
+        count_enh_green[i] = (int) (50*log(1.0 + count_enh_green[i]));
+        count_enh_blue[i]  = (int) (50*log(1.0 + count_enh_blue[i]));
+      }
+    }
+
+    maxval_enh = 0;
+
+    /* first and last 10 values are not used for calculating maximum value */
+    for (i = 10 ; i < HIST_WIDTH - 10; i++)
+    {
+      if (count_enh[i]       > maxval_enh) { maxval_enh = count_enh[i]; }
+      if (count_enh_red[i]   > maxval_enh) { maxval_enh = count_enh_red[i]; }
+      if (count_enh_green[i] > maxval_enh) { maxval_enh = count_enh_green[i]; }
+      if (count_enh_blue[i]  > maxval_enh) { maxval_enh = count_enh_blue[i]; }
+    }
+    scale_enh = 100.0/maxval_enh;
+
+    if (xsane.histogram_lines)
+    {
+      xsane_draw_histogram_with_lines(&xsane.histogram_enh, 0 /* negative is done by gamma table */,
+                        count_enh, count_enh_red, count_enh_green, count_enh_blue,
+                        xsane.histogram_red, xsane.histogram_green, xsane.histogram_blue, xsane.histogram_int, scale_enh);
+    }
+    else
+    {
+      xsane_draw_histogram_with_points(&xsane.histogram_enh, 0 /*negative is done by gamma table */,
+                        count_enh, count_enh_red, count_enh_green, count_enh_blue,
+                        xsane.histogram_red, xsane.histogram_green, xsane.histogram_blue, xsane.histogram_int, scale_enh);
+    }
+
+    free(count_enh_blue);
+    free(count_enh_green);
+    free(count_enh_red);
+    free(count_enh);
+  }
+  else
+  {
     xsane_clear_histogram(&xsane.histogram_enh);
   }
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void xsane_update_histogram()
+void xsane_update_histogram(int update_raw)
 {
   DBG(DBG_proc, "xsane_update_histogram\n");
 
   if (preferences.show_histogram)
   {
-    xsane_calculate_histogram();
+    if (update_raw)
+    {
+      xsane_calculate_raw_histogram();
+    }
+    xsane_calculate_enh_histogram();
+
     gtk_widget_show(xsane.histogram_dialog);
   }
 }
@@ -1030,18 +1075,18 @@ void xsane_histogram_toggle_button_callback(GtkWidget *widget, gpointer data)
   DBG(DBG_proc, "xsane_histogram_toggle_button_callback\n");
 
   *valuep = (GTK_TOGGLE_BUTTON(widget)->active != 0);
-  xsane_update_histogram();
+  xsane_update_histogram(TRUE);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void xsane_create_threshold_curve(SANE_Int *gammadata, double threshold, int numbers, int maxout)
+void xsane_create_preview_threshold_curve(u_char *gammadata, double threshold, int numbers)
 {
  int i;
  int maxin = numbers-1;
  int threshold_level;
 
-  DBG(DBG_proc, "xsane_create_threshold_curve\n");
+  DBG(DBG_proc, "xsane_create_preview_threshold_curve\n");
 
   xsane_bound_double(&threshold, 0.0, 100.0);
   threshold_level = maxin * threshold / 100.0;
@@ -1053,7 +1098,56 @@ void xsane_create_threshold_curve(SANE_Int *gammadata, double threshold, int num
 
   for (i=threshold_level; i <= maxin; i++)
   {
-    gammadata[i] = maxout;
+    gammadata[i] = 255;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void xsane_create_preview_gamma_curve(u_char *gammadata, int negative, double gamma,
+                                      double brightness, double contrast, int numbers)
+{
+ int i;
+ double midin;
+ double val;
+ double m;
+ double b;
+ int maxin = numbers-1;
+
+  DBG(DBG_proc, "xsane_create_preview_gamma_curve(neg=%d, gam=%3.2f, bri=%3.2f, ctr=%3.2f, nrs=%d)\n",
+                 negative, gamma, brightness, contrast, numbers);
+
+  if (contrast < -100.0)
+  {
+    contrast = -100.0;
+  }
+
+  midin = (int)(numbers / 2.0);
+
+  m = 1.0 + contrast/100.0;
+  b = (1.0 + brightness/100.0) * midin;
+
+  if (negative)
+  {
+    for (i=0; i <= maxin; i++)
+    {
+      val = ((double) (maxin - i)) - midin;
+      val = val * m + b;
+      xsane_bound_double(&val, 0.0, maxin);
+
+      gammadata[i] = (u_char) (0.5 + 255 * pow( val/maxin, (1.0/gamma) ));
+    }
+  }
+  else /* positive */
+  {
+    for (i=0; i <= maxin; i++)
+    {
+      val = ((double) i) - midin;
+      val = val * m + b;
+      xsane_bound_double(&val, 0.0, maxin);
+
+      gammadata[i] = (u_char) (0.5 + 255 * pow( val/maxin, (1.0/gamma) ));
+    }
   }
 }
 
@@ -1108,7 +1202,7 @@ void xsane_create_gamma_curve(SANE_Int *gammadata, int negative, double gamma,
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void xsane_update_gamma_curve(void)
+void xsane_update_gamma_curve(int update_raw)
 {
   DBG(DBG_proc, "xsane_update_gamma_curve\n");
 
@@ -1116,13 +1210,15 @@ void xsane_update_gamma_curve(void)
   {
     if (!xsane.preview_gamma_data_red)
     {
-      xsane.preview_gamma_data_red   = malloc(256 * sizeof(SANE_Int));
-      xsane.preview_gamma_data_green = malloc(256 * sizeof(SANE_Int));
-      xsane.preview_gamma_data_blue  = malloc(256 * sizeof(SANE_Int));
+      xsane.preview_gamma_size = pow(2, preferences.preview_gamma_input_bits);
 
-      xsane.histogram_gamma_data_red   = malloc(256 * sizeof(SANE_Int));
-      xsane.histogram_gamma_data_green = malloc(256 * sizeof(SANE_Int));
-      xsane.histogram_gamma_data_blue  = malloc(256 * sizeof(SANE_Int));
+      xsane.preview_gamma_data_red   = malloc(xsane.preview_gamma_size);
+      xsane.preview_gamma_data_green = malloc(xsane.preview_gamma_size);
+      xsane.preview_gamma_data_blue  = malloc(xsane.preview_gamma_size);
+
+      xsane.histogram_gamma_data_red   = malloc(xsane.preview_gamma_size);
+      xsane.histogram_gamma_data_green = malloc(xsane.preview_gamma_size);
+      xsane.histogram_gamma_data_blue  = malloc(xsane.preview_gamma_size);
     }
 
     if (xsane.preview->calibration)
@@ -1135,19 +1231,19 @@ void xsane_update_gamma_curve(void)
       pgamma_green = preferences.preview_gamma * preferences.preview_gamma_green;
       pgamma_blue  = preferences.preview_gamma * preferences.preview_gamma_blue;
 
-      xsane_create_gamma_curve(xsane.preview_gamma_data_red,   0, pgamma_red,   0.0, 0.0, 256, 255);
-      xsane_create_gamma_curve(xsane.preview_gamma_data_green, 0, pgamma_green, 0.0, 0.0, 256, 255);
-      xsane_create_gamma_curve(xsane.preview_gamma_data_blue,  0, pgamma_blue,  0.0, 0.0, 256, 255);
+      xsane_create_preview_gamma_curve(xsane.preview_gamma_data_red,   0, pgamma_red,   0.0, 0.0, xsane.preview_gamma_size);
+      xsane_create_preview_gamma_curve(xsane.preview_gamma_data_green, 0, pgamma_green, 0.0, 0.0, xsane.preview_gamma_size);
+      xsane_create_preview_gamma_curve(xsane.preview_gamma_data_blue,  0, pgamma_blue,  0.0, 0.0, xsane.preview_gamma_size);
     }
     else if (xsane.param.depth == 1) /* for lineart mode with grayscale preview scan */
     {
-      xsane_create_threshold_curve(xsane.preview_gamma_data_red,   xsane.threshold, 256, 255);
-      xsane_create_threshold_curve(xsane.preview_gamma_data_green, xsane.threshold, 256, 255);
-      xsane_create_threshold_curve(xsane.preview_gamma_data_blue,  xsane.threshold, 256, 255);
+      xsane_create_preview_threshold_curve(xsane.preview_gamma_data_red,   xsane.threshold, xsane.preview_gamma_size);
+      xsane_create_preview_threshold_curve(xsane.preview_gamma_data_green, xsane.threshold, xsane.preview_gamma_size);
+      xsane_create_preview_threshold_curve(xsane.preview_gamma_data_blue,  xsane.threshold, xsane.preview_gamma_size);
 
-      xsane_create_threshold_curve(xsane.histogram_gamma_data_red,   xsane.threshold, 256, 255);
-      xsane_create_threshold_curve(xsane.histogram_gamma_data_green, xsane.threshold, 256, 255);
-      xsane_create_threshold_curve(xsane.histogram_gamma_data_blue,  xsane.threshold, 256, 255);
+      xsane_create_preview_threshold_curve(xsane.histogram_gamma_data_red,   xsane.threshold, xsane.preview_gamma_size);
+      xsane_create_preview_threshold_curve(xsane.histogram_gamma_data_green, xsane.threshold, xsane.preview_gamma_size);
+      xsane_create_preview_threshold_curve(xsane.histogram_gamma_data_blue,  xsane.threshold, xsane.preview_gamma_size);
     }
     else /* multi bit mode */
     {
@@ -1198,73 +1294,73 @@ void xsane_update_gamma_curve(void)
       xsane_get_free_gamma_curve(xsane.free_gamma_data_red, xsane.preview_gamma_data_red, xsane.negative,
                                  xsane.gamma * xsane.gamma_red * pgamma_red,
                                  xsane.brightness + xsane.brightness_red,
-                                 xsane.contrast + xsane.contrast_red, 256, 255);  
+                                 xsane.contrast + xsane.contrast_red, xsane.preview_gamma_size, 255);  
 
       xsane_get_free_gamma_curve(xsane.free_gamma_data_green, xsane.preview_gamma_data_green, xsane.negative,
                                  xsane.gamma * xsane.gamma_green * pgamma_green,
                                  xsane.brightness + xsane.brightness_green,
-                                 xsane.contrast + xsane.contrast_green, 256, 255);
+                                 xsane.contrast + xsane.contrast_green, xsane.preview_gamma_size, 255);
 
       xsane_get_free_gamma_curve(xsane.free_gamma_data_blue, xsane.preview_gamma_data_blue, xsane.negative,
                                  xsane.gamma * xsane.gamma_blue * pgamma_blue,
                                  xsane.brightness + xsane.brightness_blue,
-                                 xsane.contrast + xsane.contrast_blue , 256, 255);               
+                                 xsane.contrast + xsane.contrast_blue , xsane.preview_gamma_size, 255);               
 
 
       xsane_get_free_gamma_curve(xsane.free_gamma_data_red, xsane.histogram_gamma_data_red, xsane.negative,
                                  xsane.gamma * xsane.gamma_red,
                                  xsane.brightness + xsane.brightness_red,
-                                 xsane.contrast + xsane.contrast_red, 256, 255);  
+                                 xsane.contrast + xsane.contrast_red, xsane.preview_gamma_size, 255);  
 
       xsane_get_free_gamma_curve(xsane.free_gamma_data_green, xsane.histogram_gamma_data_green, xsane.negative,
                                  xsane.gamma * xsane.gamma_green,
                                  xsane.brightness + xsane.brightness_green,
-                                 xsane.contrast + xsane.contrast_green, 256, 255);
+                                 xsane.contrast + xsane.contrast_green, xsane.preview_gamma_size, 255);
 
       xsane_get_free_gamma_curve(xsane.free_gamma_data_blue, xsane.histogram_gamma_data_blue, xsane.negative,
                                  xsane.gamma * xsane.gamma_blue,
                                  xsane.brightness + xsane.brightness_blue,
-                                 xsane.contrast + xsane.contrast_blue , 256, 255);               
+                                 xsane.contrast + xsane.contrast_blue , xsane.preview_gamma_size, 255);               
 #else
-      xsane_create_gamma_curve(xsane.preview_gamma_data_red, xsane.negative,
-                               xsane.gamma * xsane.gamma_red * pgamma_red,
-                               xsane.brightness + xsane.brightness_red,
-                               xsane.contrast + xsane.contrast_red, 256, 255);
+      xsane_create_preview_gamma_curve(xsane.preview_gamma_data_red, xsane.negative,
+                                       xsane.gamma * xsane.gamma_red * pgamma_red,
+                                       xsane.brightness + xsane.brightness_red,
+                                       xsane.contrast + xsane.contrast_red, xsane.preview_gamma_size);
 
-      xsane_create_gamma_curve(xsane.preview_gamma_data_green, xsane.negative,
-                               xsane.gamma * xsane.gamma_green * pgamma_green,
-                               xsane.brightness + xsane.brightness_green,
-                               xsane.contrast + xsane.contrast_green, 256, 255);
+      xsane_create_preview_gamma_curve(xsane.preview_gamma_data_green, xsane.negative,
+                                      xsane.gamma * xsane.gamma_green * pgamma_green,
+                                      xsane.brightness + xsane.brightness_green,
+                                      xsane.contrast + xsane.contrast_green, xsane.preview_gamma_size);
 
-      xsane_create_gamma_curve(xsane.preview_gamma_data_blue, xsane.negative,
-                               xsane.gamma * xsane.gamma_blue * pgamma_blue,
-                               xsane.brightness + xsane.brightness_blue,
-                               xsane.contrast + xsane.contrast_blue , 256, 255);
+      xsane_create_preview_gamma_curve(xsane.preview_gamma_data_blue, xsane.negative,
+                                       xsane.gamma * xsane.gamma_blue * pgamma_blue,
+                                       xsane.brightness + xsane.brightness_blue,
+                                       xsane.contrast + xsane.contrast_blue, xsane.preview_gamma_size);
 
 
-      xsane_create_gamma_curve(xsane.histogram_gamma_data_red, xsane.negative,
-                               xsane.gamma * xsane.gamma_red,
-                               xsane.brightness + xsane.brightness_red,
-                               xsane.contrast + xsane.contrast_red, 256, 255);
+      xsane_create_preview_gamma_curve(xsane.histogram_gamma_data_red, xsane.negative,
+                                       xsane.gamma * xsane.gamma_red,
+                                       xsane.brightness + xsane.brightness_red,
+                                       xsane.contrast + xsane.contrast_red, xsane.preview_gamma_size);
 
-      xsane_create_gamma_curve(xsane.histogram_gamma_data_green, xsane.negative,
-                               xsane.gamma * xsane.gamma_green,
-                               xsane.brightness + xsane.brightness_green,
-                               xsane.contrast + xsane.contrast_green, 256, 255);
+      xsane_create_preview_gamma_curve(xsane.histogram_gamma_data_green, xsane.negative,
+                                       xsane.gamma * xsane.gamma_green,
+                                       xsane.brightness + xsane.brightness_green,
+                                       xsane.contrast + xsane.contrast_green, xsane.preview_gamma_size);
 
-      xsane_create_gamma_curve(xsane.histogram_gamma_data_blue, xsane.negative,
-                               xsane.gamma * xsane.gamma_blue,
-                               xsane.brightness + xsane.brightness_blue,
-                               xsane.contrast + xsane.contrast_blue , 256, 255);
+      xsane_create_preview_gamma_curve(xsane.histogram_gamma_data_blue, xsane.negative,
+                                       xsane.gamma * xsane.gamma_blue,
+                                       xsane.brightness + xsane.brightness_blue,
+                                       xsane.contrast + xsane.contrast_blue , xsane.preview_gamma_size);
 #endif
     }
 
-    preview_gamma_correction(xsane.preview,
+    preview_gamma_correction(xsane.preview, preferences.preview_gamma_input_bits,
                              xsane.preview_gamma_data_red, xsane.preview_gamma_data_green, xsane.preview_gamma_data_blue,
                              xsane.histogram_gamma_data_red, xsane.histogram_gamma_data_green, xsane.histogram_gamma_data_blue);
 
   }
-  xsane_update_histogram();
+  xsane_update_histogram(update_raw);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1421,7 +1517,7 @@ void xsane_enhancement_by_gamma(void)
 
 
   xsane_enhancement_update();
-  xsane_update_gamma_curve();
+  xsane_update_gamma_curve(FALSE);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

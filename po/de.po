@@ -4,8 +4,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.72\n"
-"POT-Creation-Date: 2001-04-03 00:36+0200\n"
+"Project-Id-Version: XSANE 0.76\n"
+"POT-Creation-Date: 2001-04-22 11:23+0200\n"
 "PO-Revision-Date: 2000-01-21 15:51+01:00\n"
 "Last-Translator: Oliver Rauch <Oliver.Rauch@rauch-domain.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -58,6 +58,10 @@ msgstr "Faxseite umbenennen"
 #. WINDOW_FAX_INSERT
 msgid "insert ps-file into fax"
 msgstr "ps-Datei einfügen in Fax"
+
+#. WINDOW_PRESET_AREA_RENAME
+msgid "rename preset area"
+msgstr "Bereichsvoreinstellung umbenennen"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -250,6 +254,10 @@ msgstr "Überschreibwarnung"
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
 msgid "Skip existing filenames"
 msgstr "Existierende Dateinamen überspringen"
+
+#. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
+msgid "Reduce 16 bit image to 8 bit"
+msgstr "Reduziere 16 Bit Bild auf 8 Bit"
 
 #. RADIO_BUTTON_WINDOW_FIXED
 msgid "Main window size fixed"
@@ -704,13 +712,17 @@ msgstr "Photokopie"
 msgid "Saving options"
 msgstr "Speichern"
 
+#. NOTEBOOK_IMAGE_OPTIONS
+msgid "Image options"
+msgstr "Bild"
+
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display options"
 msgstr "Darstellung"
 
 #. NOTEBOOK_ENHANCE_OPTIONS
 msgid "Enhancement options"
-msgstr "Verbesserungs-Optionen"
+msgstr "Verbesserungen"
 
 #. NOTEBOOK_FAX_OPTIONS
 msgid "Fax options"
@@ -880,6 +892,26 @@ msgstr "(nichts)"
 msgid "by ext"
 msgstr "nach Erw"
 
+#. MENU_ITEM_PRESET_AREA_ADD_SEL
+msgid "Add selection to list"
+msgstr "Auswahl zur Liste hinzufuegen"
+
+#. MENU_ITEM_PRESET_AREA_RENAME
+msgid "Rename definiton"
+msgstr "Definition umbenennen"
+
+#. MENU_ITEM_PRESET_AREA_DELETE
+msgid "Delete definition"
+msgstr "Definition löschen"
+
+#. MENU_OTEM_PRESET_AREA_MOVE_UP
+msgid "Move up"
+msgstr "Nach oben schieben"
+
+#. MENU_OTEM_PRESET_AREA_MOVE_DWN
+msgid "Move down"
+msgstr "Nach unten schieben"
+
 #. PROGRESS_SCANNING
 msgid "Scanning"
 msgstr "Scanne"
@@ -956,6 +988,10 @@ msgstr "Name der Faxseite eingeben"
 #. DESC_FAXRECEIVER
 msgid "Enter receiver phone number or address"
 msgstr "Telephonnummer des Empfängers eingeben"
+
+#. DESC_PRESET_AREA_NAME
+msgid "Enter new name for preset area"
+msgstr "Name der Gebietsvoreinstellung eingeben"
 
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
@@ -1229,6 +1265,10 @@ msgstr ""
 "Wenn der Dateinamenzähler automatisch erhöht wird, werden benutzte "
 "Dateinummern übersprungen"
 
+#. DESC_REDUCE_16BIT_TO_8BIT
+msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
+msgstr "Wenn der Scanner das Bild mit 16 Bits/Farbe liefert wird das Bild mot 8 Bits/Farbe gespeichert"
+
 #. DESC_PSFILE_WIDTH
 msgid "Width of paper in mm for postscript files"
 msgstr "Breite des druckbaren Bereichs für Postscript in mm"
@@ -1357,7 +1397,7 @@ msgid "Select scanarea after preview scan has finished"
 msgstr "Scanbereich nach Vorschauscan automatisch auswählen"
 
 #. DESC_AUTOCORRECT_COLORS
-msgid "Do color correcten after preview scan has finished"
+msgid "Do color correction after preview scan has finished"
 msgstr "Farbkorrektur nach Vorschauscan ausführen"
 
 #. DESC_FAX_COMMAND
@@ -1441,8 +1481,8 @@ msgid "Autoselect scanarea"
 msgstr "Scanbereich automatisch wählen"
 
 #. DESC_PRESET_AREA
-msgid "Reduce scan area"
-msgstr "Reduziere Scanbereich"
+msgid "Preset area"
+msgstr "Bereichsvoreinstellung"
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -1824,6 +1864,22 @@ msgstr "DIN A5 hoch"
 msgid "DIN A5 land."
 msgstr "DIN A5 quer"
 
+#. MENU_ITEM_SURFACE_13cmx18cm
+msgid "13cm x 18cm"
+msgstr ""
+
+#. MENU_ITEM_SURFACE_18cmx13cm
+msgid "18cm x 13cm"
+msgstr ""
+
+#. MENU_ITEM_SURFACE_10cmx14cm
+msgid "10cm x 14cm"
+msgstr ""
+
+#. MENU_ITEM_SURFACE_14cmx10cm
+msgid "14cm x 10cm"
+msgstr ""
+
 #. MENU_ITEM_SURFACE_9cmx13cm
 msgid "9cm x 13cm"
 msgstr ""
@@ -1902,3 +1958,4 @@ msgstr "Kein Speicher"
 
 msgid "Access to resource has been denied"
 msgstr "Zugang zum Gerät wurde verweigert"
+

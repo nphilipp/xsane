@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.70\n"
-"POT-Creation-Date: 2001-04-03 00:36+0200\n"
-"PO-Revision-Date: 2001-02-18 21:33+09:00\n"
+"Project-Id-Version: XSANE 0.76\n"
+"POT-Creation-Date: 2001-04-22 11:23+0200\n"
+"PO-Revision-Date: 2001-04-13 0:15+09:00\n"
 "Last-Translator: Kimizuka Tomokazu <sgtom@pluto.dti.ne.jp>\n"
 "Language-Team: Japanese <Kdeveloper@kde.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 #. Please translate this to the correct directory name (eg. german=>de)
 #. XSANE_LANGUAGE_DIR
 msgid "language_dir"
-msgstr ""
+msgstr "¸À¸ì¥Ç¥£¥ì¥¯¥È¥ê"
 
 #. XSANE_COPYRIGHT_SIGN
 msgid "(c)"
@@ -58,6 +58,10 @@ msgstr "FAX¥Ú¡¼¥¸¤ò¥ê¥Í¡¼¥à"
 #. WINDOW_FAX_INSERT
 msgid "insert ps-file into fax"
 msgstr "PS¥Õ¥¡¥¤¥ë¤òFAX¤ËÁÞÆþ"
+
+#. WINDOW_PRESET_AREA_RENAME
+msgid "rename preset area"
+msgstr "¥×¥ê¥»¥Ã¥ÈÎÎ°è¤ò¥ê¥Í¡¼¥à"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -169,7 +173,7 @@ msgstr "¥­¥ã¥ó¥»¥ë"
 
 #. BUTTON_REDUCE
 msgid "Reduce"
-msgstr ""
+msgstr "½Ì¾®"
 
 #. BUTTON_CONT_AT_OWN_RISK
 msgid "Continue at your own risk"
@@ -241,7 +245,7 @@ msgstr "¥Õ¥¡¥¤¥ó¥â¡¼¥É"
 
 #. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device preferences at exit"
-msgstr ""
+msgstr "½ªÎ»»þ¤Ë¥Ç¥Ð¥¤¥¹ÀßÄê¤òÊÝÂ¸"
 
 #. RADIO_BUTTON_OVERWRITE_WARNING
 msgid "Overwrite warning"
@@ -250,6 +254,10 @@ msgstr "¾å½ñ¤­¤Î·Ù¹ð"
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
 msgid "Skip existing filenames"
 msgstr "¸½ºß¤Î¥Õ¥¡¥¤¥ëÌ¾¤ò¥¹¥­¥Ã¥×"
+
+#. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
+msgid "Reduce 16 bit image to 8 bit"
+msgstr ""
 
 #. RADIO_BUTTON_WINDOW_FIXED
 msgid "Main window size fixed"
@@ -268,13 +276,12 @@ msgid "Autoenhance gamma"
 msgstr "¼«Æ°¶¯Ä´¡Ê¥¬¥ó¥Þ¡Ë"
 
 #. RADIO_BUTTON_PRESELECT_SCANAREA
-#, fuzzy
 msgid "Preselect scanarea"
-msgstr "¥¹¥­¥ã¥óÎÎ°è¤Î¼«Æ°ÁªÂò"
+msgstr "¥¹¥­¥ã¥óÎÎ°è¤ÎÀè¹Ô»ØÄê"
 
 #. RADIO_BUTTON_AUTOCORRECT_COLORS
 msgid "Autocorrect colors"
-msgstr ""
+msgstr "¿§ºÌ¤Î¼«Æ°ÊäÀµ"
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
@@ -377,12 +384,16 @@ msgid ""
 "Gimp does not support depth 16 bits/color.\n"
 "Do you want to reduce the depth to 8 bits/color?"
 msgstr ""
+"GIMP¤Ï16¥Ó¥Ã¥È¥«¥é¡¼¤ò¥µ¥Ý¡¼¥È¤·¤Æ¤¤¤Þ¤»¤ó¡£\n"
+"8¥Ó¥Ã¥È¥«¥é¡¼¤Ë¸º¿§¤·¤Þ¤¹¤«?"
 
 #. TEXT_REDUCE_16BIT_TO_8BIT
 msgid ""
 "Bit depth 16 bits/color is not supported for this output format.\n"
 "Do you want to reduce the depth to 8 bits/color?"
 msgstr ""
+"¤³¤Î½ÐÎÏ¥Õ¥©¡¼¥Þ¥Ã¥È¤Ï16¥Ó¥Ã¥È¥«¥é¡¼¤ò¥µ¥Ý¡¼¥È¤·¤Æ¤¤¤Þ¤»¤ó¡£\n"
+"8¥Ó¥Ã¥È¥«¥é¡¼¤Ë¸º¿§¤·¤Þ¤¹¤«?"
 
 #. TEXT_AUTHORIZATION_REQ
 msgid "Authorization required for"
@@ -390,7 +401,7 @@ msgstr "¥¢¥¯¥»¥¹¸¢¸Â¤¬É¬Í×¤Ç¤¹¡§"
 
 #. TEXT_AUTHORIZATION_SECURE
 msgid "Password transmission is secure"
-msgstr "¥Ñ¥¹¥ï¡¼¥ÉÆ©²á¤Ï°ÂÁ´¤Ç¤¹"
+msgstr "¥Ñ¥¹¥ï¡¼¥ÉÆ©²áÀ­¤Ï°ÂÁ´¤Ç¤¹"
 
 #. TEXT_AUTHORIZATION_INSECURE
 msgid "Backend requests plain-text password"
@@ -446,18 +457,18 @@ msgid ""
 "WITHOUT ANY WARRANTY; without even the implied warranty of\n"
 "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
-"XSane¡¢¤ÏFree Software Foundation¤¬¸øÉ½¤·¤¿GNU°ìÈÌ¸øÍ­»ÈÍÑµöÂú¤Î\n"
-"¡Ö¥Ð¡¼¥¸¥ç¥ó£²¡×°¿¤¤¤Ï¤½¤ì°Ê¹ß¤Î³Æ¥Ð¡¼¥¸¥ç¥ó¤ÎÃæ¤«¤é¤¤¤º¤ì¤«¤òÁªÂò¤·¡¢¤½¤Î¥Ð¡"
-"¼¥¸¥ç¥ó¤¬\n"
-"Äê¤á¤ë¾ò¹à¤Ë½¾¤Ã¤ÆËÜ¥×¥í¥°¥é¥à¤òºÆÈÒÉÛ¤Þ¤¿¤ÏÊÑ¹¹¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤¹¡£\n"
+"XSane¤Ï¡¢Free Software Foundation¤¬¸øÉ½¤·¤¿GNU°ìÈÌ¸øÍ­»ÈÍÑµöÂú¤Î\n"
+"¡Ö¥Ð¡¼¥¸¥ç¥ó£²¡×°¿¤¤¤Ï¤½¤ì°Ê¹ß¤Î³Æ¥Ð¡¼¥¸¥ç¥ó¤ÎÃæ¤«¤é¤¤¤º¤ì¤«¤òÁªÂò¤·¡¢¤½¤Î\n"
+"¥Ð¡¼¥¸¥ç¥ó¤¬Äê¤á¤ë¾ò¹à¤Ë½¾¤Ã¤ÆËÜ¥×¥í¥°¥é¥à¤òºÆÈÒÉÛ¤Þ¤¿¤ÏÊÑ¹¹¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤"
+"¹¡£\n"
 "\n"
-"ËÜ¥×¥í¥°¥é¥à¤ÏÍ­ÍÑ¤È¤Ï»×¤¤¤Þ¤¹¤¬¡¢ÈÒÉÛ¤Ë¤¢¤¿¤Ã¤Æ¤Ï¡¢»Ô¾ìÀ­µÚ¤ÓÆÃÄêÌÜÅªÅ¬¹çÀ­¤"
-"Ë¤Ä¤¤¤Æ¤Î°ÅÌÛ\n"
-"¤ÎÊÝ¾Ú¤ò´Þ¤á¤Æ¡¢¤¤¤«¤Ê¤ëÊÝ¾Ú¤â¹Ô¤Ê¤¤¤Þ¤»¤ó¡£\n"
+"ËÜ¥×¥í¥°¥é¥à¤ÏÍ­ÍÑ¤È¤Ï»×¤¤¤Þ¤¹¤¬¡¢ÈÒÉÛ¤Ë¤¢¤¿¤Ã¤Æ¤Ï¡¢»Ô¾ìÀ­µÚ¤ÓÆÃÄêÌÜÅªÅ¬¹çÀ­"
+"\n"
+"¤Ë¤Ä¤¤¤Æ¤Î°ÅÌÛ¤ÎÊÝ¾Ú¤ò´Þ¤á¤Æ¡¢¤¤¤«¤Ê¤ëÊÝ¾Ú¤â¹Ô¤Ê¤¤¤Þ¤»¤ó¡£\n"
 
 #. TEXT_EMAIL
 msgid "Email:"
-msgstr "¥á¡¼¥ë¥¢¥É¥ì¥¹¡§"
+msgstr "¥á¡¼¥ë¡§"
 
 #. TEXT_HOMEPAGE
 msgid "Homepage:"
@@ -701,6 +712,11 @@ msgstr "¥³¥Ô¡¼¤Î¥ª¥×¥·¥ç¥ó"
 msgid "Saving options"
 msgstr "ÊÝÂ¸¥ª¥×¥·¥ç¥ó"
 
+#. NOTEBOOK_IMAGE_OPTIONS
+#, fuzzy
+msgid "Image options"
+msgstr "XSane¤Î¥ª¥×¥·¥ç¥ó"
+
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display options"
 msgstr "É½¼¨¥ª¥×¥·¥ç¥ó"
@@ -877,6 +893,26 @@ msgstr "¡Ê¤Ê¤·¡Ë"
 msgid "by ext"
 msgstr "³ÈÄ¥»Ò¤´¤È"
 
+#. MENU_ITEM_PRESET_AREA_ADD_SEL
+msgid "Add selection to list"
+msgstr "ÁªÂòÆâÍÆ¤ò°ìÍ÷¤ËÄÉ²Ã"
+
+#. MENU_ITEM_PRESET_AREA_RENAME
+msgid "Rename definiton"
+msgstr "ÄêµÁ¤ò¥ê¥Í¡¼¥à"
+
+#. MENU_ITEM_PRESET_AREA_DELETE
+msgid "Delete definition"
+msgstr "ÄêµÁ¤òºï½ü"
+
+#. MENU_OTEM_PRESET_AREA_MOVE_UP
+msgid "Move up"
+msgstr "¾å¤Ø°ÜÆ°"
+
+#. MENU_OTEM_PRESET_AREA_MOVE_DWN
+msgid "Move down"
+msgstr "²¼¤Ø°ÜÆ°"
+
 #. PROGRESS_SCANNING
 msgid "Scanning"
 msgstr "¥¹¥­¥ã¥ó¤·¤Æ¤¤¤Þ¤¹"
@@ -887,9 +923,8 @@ msgid "Receiving %s data"
 msgstr "¥Ç¡¼¥¿ %s ¤ò¼õ¿®¤·¤Æ¤¤¤Þ¤¹"
 
 #. PROGRESS_TRANSFERING_DATA
-#, fuzzy
 msgid "Transfering image"
-msgstr "²èÁü¤òÊÝÂ¸Ãæ"
+msgstr "²èÁü¤òÊÑ´¹Ãæ"
 
 #. PROGRESS_ROTATING_DATA
 msgid "Rotating image"
@@ -952,6 +987,10 @@ msgstr "FAX¥Ú¡¼¥¸¤Ë¤Ä¤±¤ë¥Õ¥¡¥¤¥ëÌ¾¤òÆþÎÏ"
 #. DESC_FAXRECEIVER
 msgid "Enter receiver phone number or address"
 msgstr "FAX¼õ¿®µ¡¤ÎÅÅÏÃÈÖ¹æ¤«¥¢¥É¥ì¥¹¤òÆþÎÏ"
+
+#. DESC_PRESET_AREA_NAME
+msgid "Enter new name for preset area"
+msgstr "¥×¥ê¥»¥Ã¥ÈÎÎ°è¤Ë¤Ä¤±¤ëÌ¾Á°¤ò¿·µ¬ÆþÎÏ"
 
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
@@ -1202,7 +1241,7 @@ msgstr "¥é¥¤¥ó¥¢¡¼¥È²èÁü¤¬TIFF¤ÇÊÝÂ¸¤µ¤ì¤Æ¤¤¤ë¾ì¹ç¤Î°µ½Ì¥¿¥¤¥×"
 
 #. DESC_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device dependant preferences in default file at exit of xsane"
-msgstr ""
+msgstr "XSane½ªÎ»»þ¤Ë¥Ç¥Ð¥¤¥¹°ÍÂ¸¤ÎÀßÄê¤ò´ûÄêÃÍ¤È¤·¤Æ¥Õ¥¡¥¤¥ëÊÝÂ¸"
 
 #. DESC_OVERWRITE_WARNING
 msgid "Warn before overwriting an existing file"
@@ -1212,6 +1251,10 @@ msgstr "¸½ºß¤Î¥Õ¥¡¥¤¥ë¤Ë¾å½ñ¤­¤¹¤ëÁ°¤Î·Ù¹ð"
 msgid ""
 "If filename counter is automatically increased, used numbers are skipped"
 msgstr "¥Õ¥¡¥¤¥ëÌ¾¤Î¥«¥¦¥ó¥¿¤¬¼«Æ°Åª¤ËÁý²Ã¤¹¤ëºÝ¡¢»ÈÍÑºÑ¤ß¤ÎÈÖ¹æ¤Ï¤È¤Ð¤µ¤ì¤Þ¤¹"
+
+#. DESC_REDUCE_16BIT_TO_8BIT
+msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
+msgstr ""
 
 #. DESC_PSFILE_WIDTH
 msgid "Width of paper in mm for postscript files"
@@ -1277,8 +1320,8 @@ msgid ""
 "when transformation from grayscale to lineart is enabled"
 msgstr ""
 "¥°¥ì¡¼¥¹¥±¡¼¥ë¤Î¥¹¥­¥ã¥ó¥â¡¼¥É¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£¤³¤Î¥¹¥­¥ã¥ó¥â¡¼¥É¤Ï¥°¥ì¡¼¥"
-"¹¥±¡¼¥ë¤«¤é¥é¥¤¥ó¥¢¡¼¥È¤Ø¤ÎÊÑ´¹¤¬¥ª¥ó¤ÎºÝ¤Ë¡¢¥é¥¤¥ó¥¢¡¼¥È¤Î¥¹¥­¥ã¥ó¥×¥ì¥Ó¥å¡¼"
-"¤ËÅ¬ÍÑ¤µ¤ì¤Þ¤¹¡£"
+"¹¥±¡¼¥ë¤«¤é¥é¥¤¥ó¥¢¡¼¥È¤Ø¤ÎÊÑ´¹¤¬²ÄÇ½¤Ê¾ì¹ç¡¢¥é¥¤¥ó¥¢¡¼¥È¤Ç¤Î¥×¥ì¥Ó¥å¡¼¥¹¥­¥ã"
+"¥ó¤ËÅ¬ÍÑ¤µ¤ì¤Þ¤¹¡£"
 
 #. DESC_PREVIEW_THRESHOLD_MIN
 #, no-c-format
@@ -1323,11 +1366,11 @@ msgstr "¼«Æ°¶¯Ä´¥Ü¥¿¥ó²¡²¼»þ¤Ë¥¬¥ó¥ÞÃÍ¤òÊÑ¹¹"
 
 #. DESC_PRESELECT_SCANAREA
 msgid "Select scanarea after preview scan has finished"
-msgstr ""
+msgstr "¥×¥ì¥Ó¥å¡¼¥¹¥­¥ã¥ó½ªÎ»¸å¤Î¥¹¥­¥ã¥óÎÎ°è¤òÁªÂò"
 
 #. DESC_AUTOCORRECT_COLORS
-msgid "Do color correcten after preview scan has finished"
-msgstr ""
+msgid "Do color correction after preview scan has finished"
+msgstr "¥×¥ì¥Ó¥å¡¼¥¹¥­¥ã¥ó½ªÎ»¸å¤Ë¿§ºÌÊäÀµ¤ò¹Ô¤¦"
 
 #. DESC_FAX_COMMAND
 msgid "Enter command to be executed in fax mode"
@@ -1407,8 +1450,8 @@ msgid "Autoselect scanarea"
 msgstr "¥¹¥­¥ã¥óÎÎ°è¤Î¼«Æ°ÁªÂò"
 
 #. DESC_PRESET_AREA
-msgid "Reduce scan area"
-msgstr "¥¹¥­¥ã¥óÎÎ°è¤ò½Ì¾®"
+msgid "Preset area"
+msgstr "¥×¥ê¥»¥Ã¥ÈÎÎ°è"
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -1459,9 +1502,9 @@ msgid "Can't handle depth"
 msgstr "¿¼ÅÙ¤¬¼èÆÀ¤Ç¤­¤Þ¤»¤ó"
 
 #. ERR_GIMP_BAD_DEPTH
-#, fuzzy, c-format
+#, c-format
 msgid "GIMP can't handle depth %d bits/color"
-msgstr "GIMP¤¬¿¼ÅÙ¼èÆÀ¤Ç¤­¤Þ¤»¤ó"
+msgstr "GIMP¤¬%d¥Ó¥Ã¥È¥«¥é¡¼¤ò¼èÆÀ¤Ç¤­¤Þ¤»¤ó"
 
 #. ERR_UNKNOWN_SAVING_FORMAT
 msgid "Unknown file format for saving"
@@ -1532,10 +1575,10 @@ msgid "unable to set resolution"
 msgstr "²òÁüÅÙ¤ò¥»¥Ã¥È¤Ç¤­¤Þ¤»¤ó"
 
 #. ERR_PASSWORD_FILE_INSECURE
-#, fuzzy, c-format
+#, c-format
 msgid "Password file (%s) is insecure, use permission x00\n"
 msgstr ""
-"¥Ñ¥¹¥ï¡¼¥É¥Õ¥¡¥¤¥ë¡Ê%s¡Ë¤Ï°ÂÁ´¤Ç¤Ï¤¢¤ê¤Þ¤»¤ó¡£µö²ÄÂ°À­¤òx00¤Ë¤·¤Æ¤¯¤À¤µ¤¤"
+"¥Ñ¥¹¥ï¡¼¥É¥Õ¥¡¥¤¥ë¡Ê%s¡Ë¤Ï°ÂÁ´¤Ç¤Ï¤¢¤ê¤Þ¤»¤ó¡£µö²ÄÂ°À­x00¤òÅ¬ÍÑ¤·¤Æ¤¯¤À¤µ¤¤\n"
 
 #. ERR_ERROR
 msgid "error"
@@ -1555,7 +1598,7 @@ msgstr "¥Ð¥Ã¥¯¥¨¥ó¥É¤Î¥á¥¸¥ã¡¼¥Ð¡¼¥¸¥ç¥ó¤Ï"
 
 #. ERR_PROGRAM_ABORTED
 msgid "*** PROGRAM ABORTED ***"
-msgstr "*** ¥×¥í¥°¥é¥à¤¬Íî¤Á¤Þ¤·¤¿ ***"
+msgstr "*** ¥×¥í¥°¥é¥à¤Î°Û¾ï½ªÎ» ***"
 
 #. ERR_FAILED_ALLOCATE_IMAGE
 msgid "Failed to allocate image memory:"
@@ -1571,11 +1614,11 @@ msgstr "GIMP¥µ¥Ý¡¼¥È¤¬¸«¤Ä¤«¤ê¤Þ¤»¤ó"
 
 #. ERR_CREATE_PREVIEW_FILE
 msgid "Could not create temporary preview files"
-msgstr ""
+msgstr "°ì»þ¥×¥ì¥Ó¥å¡¼¥Õ¥¡¥¤¥ë¤òºî¤ì¤Þ¤»¤ó"
 
 #. ERR_CREATE_PREVIEW_FILENAME
 msgid "Could not create filenames for preview files"
-msgstr ""
+msgstr "°ì»þ¥×¥ì¥Ó¥å¡¼¥Õ¥¡¥¤¥ëÌ¾¤òºî¤ì¤Þ¤»¤ó"
 
 #. WARN_COUNTER_UNDERRUN
 msgid "Filename counter underrun"
@@ -1649,9 +1692,9 @@ msgid "File %s already exists"
 msgstr "¥Õ¥¡¥¤¥ë %s ¤Ï´û¤ËÂ¸ºß¤·¤Æ¤¤¤Þ¤¹"
 
 #. ERR_FILE_NOT_EXISTS
-#, fuzzy, c-format
+#, c-format
 msgid "File %s does not exist"
-msgstr "¥Õ¥¡¥¤¥ë %s ¤Ï´û¤ËÂ¸ºß¤·¤Æ¤¤¤Þ¤¹"
+msgstr "¥Õ¥¡¥¤¥ë %s ¤ÏÂ¸ºß¤·¤Þ¤»¤ó"
 
 #. ERR_FILE_NOT_POSTSCRIPT
 #, c-format
@@ -1795,6 +1838,22 @@ msgstr "DIN A5 ½Ä"
 msgid "DIN A5 land."
 msgstr "DIN A5 ²£"
 
+#. MENU_ITEM_SURFACE_13cmx18cm
+msgid "13cm x 18cm"
+msgstr "13cm X 18cm"
+
+#. MENU_ITEM_SURFACE_18cmx13cm
+msgid "18cm x 13cm"
+msgstr "18cm X 13cm"
+
+#. MENU_ITEM_SURFACE_10cmx14cm
+msgid "10cm x 14cm"
+msgstr "10cm X 14cm"
+
+#. MENU_ITEM_SURFACE_14cmx10cm
+msgid "14cm x 10cm"
+msgstr "14cm X 10cm"
+
 #. MENU_ITEM_SURFACE_9cmx13cm
 msgid "9cm x 13cm"
 msgstr "9cm X 13cm"
@@ -1873,3 +1932,6 @@ msgstr "¥ª¡¼¥Ð¡¼¥Õ¥í¡¼"
 
 msgid "Access to resource has been denied"
 msgstr "¥ê¥½¡¼¥¹¤Ø¤Î¥¢¥¯¥»¥¹¤¬µñÈÝ¤µ¤ì¤Þ¤·¤¿"
+
+#~ msgid "Reduce scan area"
+#~ msgstr "¥¹¥­¥ã¥óÎÎ°è¤ò½Ì¾®"

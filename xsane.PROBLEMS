@@ -2,12 +2,12 @@ READ THIS FILE IF YOU EXPERIENCE ANY PROBLEM
 
  - there is a html documentation for xsane.
    If you have problems compiling xsane call
-     netscape /xsane-0.??/doc/sane-xsane-doc.html
+     netscape xsane-0.??/doc/sane-xsane-doc.html
 
    If you can start xsane you can open the online helpfile via the menu
    help->XSane doc
 
- - If you get segmentation faults or unexpected problems:
+ - If you get segmentation faults or unexpected problems (device not found):
    - make sure there is only one sane version installed before
      you compile xsane
      (try as root: $find / -name "*sane*" | less)
@@ -32,14 +32,15 @@ READ THIS FILE IF YOU EXPERIENCE ANY PROBLEM
      /etc/ld.so.conf and call ldconfig (as root).
    - For sane-1.0.1 you have to add a line with the path to the SANE libraries
      (normally /usr/local/lib/sane) to /etc/ld.so.conf and call ldconfig (as
-     root). For sane-1.0.2 (and later versions) the path to the SANE libs MUST
-     NOT be listed in /etc/ld.so.conf    
-   - If all that does not help, make sure that libsane.so.* are symbolic links
-     to ./sane/libsane-dll.so.*
+     root). For sane-1.0.2 (and later versions) the path to the SANE libs
+     (normally /usr/local/lib/sane) MUST NOT be listed in /etc/ld.so.conf.
+     (don`t mix it with /usr/local/lib that has to be listed in /etc/ld.so.conf).
+   - If all that does not help, make sure that /usr/local/lib/libsane.so.* are symbolic
+     links to /usr/local/lib/sane/libsane-dll.so.* or ./sane/libsane-dll.so.*
 
    short explaination:
-     xsane does not search itself for the library, that is done by the dynamic
-     library loader of your system.
+     xsane does not search itself for the library libsane.so, that is done by the
+     dynamic library loader of your system.
      For linux: Edit /etc/ld.so.conf and call ldconfig to tell your
      dynamic library loader where it shall search for dlls.
      On other systems this is configured in other ways. Some systems use the
@@ -51,6 +52,10 @@ READ THIS FILE IF YOU EXPERIENCE ANY PROBLEM
      (call ldconfig after changing that file).
      In /usr/local/lib there are some links "libsane.so*" that point
      to the subdirectory ./sane to the fitting files "libsane-dll.so*".
+
+     The libraries that are placed in ..../lib/sane are not accessed by the
+     system´s dynamic library loader also not by xsane directly. These libraries
+     are loaded by sane´s dynamic library loader (sane-dll).
 
  - The online-help-viewer is selectable.
    If you use kde you can enter kdehelp in setup/display.
@@ -81,13 +86,8 @@ READ THIS FILE IF YOU EXPERIENCE ANY PROBLEM
  - If make aborts with missing library "-lintl" try
      make distclean
      ./configure --with-included-gettext
-
- - If configure does not find sane.h, find out if/where sane.h is installed:
-     find / -name "sane.h"
-   if it is not installed SANE was not installed complete, if you installed
-   SANE as binary package take a look if there is a "sane-devel" package.
-   If you found it you have to tell the configure script where it has to
-   look for it, do "./configure --help" for more info about that.
+     or
+     ./configure --disable-nls
 
  - If gtk+ is compiled with NLS/gettext, you have to use the same
    gettext version for xsane. So if gtk+ is compiled with gettext in libc

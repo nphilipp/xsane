@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-04-03 00:36+0200\n"
+"POT-Creation-Date: 2001-04-22 11:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -58,6 +58,10 @@ msgstr ""
 
 #. WINDOW_FAX_INSERT
 msgid "insert ps-file into fax"
+msgstr ""
+
+#. WINDOW_PRESET_AREA_RENAME
+msgid "rename preset area"
 msgstr ""
 
 #. WINDOW_SETUP
@@ -250,6 +254,10 @@ msgstr ""
 
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
 msgid "Skip existing filenames"
+msgstr ""
+
+#. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
+msgid "Reduce 16 bit image to 8 bit"
 msgstr ""
 
 #. RADIO_BUTTON_WINDOW_FIXED
@@ -690,6 +698,10 @@ msgstr ""
 msgid "Saving options"
 msgstr ""
 
+#. NOTEBOOK_IMAGE_OPTIONS
+msgid "Image options"
+msgstr ""
+
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display options"
 msgstr ""
@@ -866,6 +878,26 @@ msgstr ""
 msgid "by ext"
 msgstr ""
 
+#. MENU_ITEM_PRESET_AREA_ADD_SEL
+msgid "Add selection to list"
+msgstr ""
+
+#. MENU_ITEM_PRESET_AREA_RENAME
+msgid "Rename definiton"
+msgstr ""
+
+#. MENU_ITEM_PRESET_AREA_DELETE
+msgid "Delete definition"
+msgstr ""
+
+#. MENU_OTEM_PRESET_AREA_MOVE_UP
+msgid "Move up"
+msgstr ""
+
+#. MENU_OTEM_PRESET_AREA_MOVE_DWN
+msgid "Move down"
+msgstr ""
+
 #. PROGRESS_SCANNING
 msgid "Scanning"
 msgstr ""
@@ -939,6 +971,10 @@ msgstr ""
 
 #. DESC_FAXRECEIVER
 msgid "Enter receiver phone number or address"
+msgstr ""
+
+#. DESC_PRESET_AREA_NAME
+msgid "Enter new name for preset area"
 msgstr ""
 
 #. DESC_PRINTER_SELECT
@@ -1190,6 +1226,10 @@ msgid ""
 "If filename counter is automatically increased, used numbers are skipped"
 msgstr ""
 
+#. DESC_REDUCE_16BIT_TO_8BIT
+msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
+msgstr ""
+
 #. DESC_PSFILE_WIDTH
 msgid "Width of paper in mm for postscript files"
 msgstr ""
@@ -1296,7 +1336,7 @@ msgid "Select scanarea after preview scan has finished"
 msgstr ""
 
 #. DESC_AUTOCORRECT_COLORS
-msgid "Do color correcten after preview scan has finished"
+msgid "Do color correction after preview scan has finished"
 msgstr ""
 
 #. DESC_FAX_COMMAND
@@ -1377,7 +1417,7 @@ msgid "Autoselect scanarea"
 msgstr ""
 
 #. DESC_PRESET_AREA
-msgid "Reduce scan area"
+msgid "Preset area"
 msgstr ""
 
 #. DESC_ROTATION
@@ -1725,6 +1765,22 @@ msgstr ""
 
 #. MENU_ITEM_SURFACE_DIN_A5L
 msgid "DIN A5 land."
+msgstr ""
+
+#. MENU_ITEM_SURFACE_13cmx18cm
+msgid "13cm x 18cm"
+msgstr ""
+
+#. MENU_ITEM_SURFACE_18cmx13cm
+msgid "18cm x 13cm"
+msgstr ""
+
+#. MENU_ITEM_SURFACE_10cmx14cm
+msgid "10cm x 14cm"
+msgstr ""
+
+#. MENU_ITEM_SURFACE_14cmx10cm
+msgid "14cm x 10cm"
 msgstr ""
 
 #. MENU_ITEM_SURFACE_9cmx13cm

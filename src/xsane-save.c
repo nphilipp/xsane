@@ -397,6 +397,7 @@ int xsane_save_grayscale_image_as_lineart(FILE *outfile, FILE *imagefile, int pi
 
   xsane_write_pnm_header(outfile, pixel_width, pixel_height, 1 /* bits */);
   xsane.header_size = ftell(outfile);
+  xsane.depth = 1; /* our new depth is 1 bit/pixel */
 
   for (y = 0; y < pixel_height; y++)
   {
@@ -483,7 +484,7 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, int color, int bits,
   }
 
 #ifdef HAVE_MMAP
-  mmaped_imagefile = mmap(NULL, pixel_width * pixel_height * bytespp, PROT_READ, MAP_PRIVATE, fileno(imagefile), pos0);
+  mmaped_imagefile = mmap(NULL, pixel_width * pixel_height * bytespp + pos0, PROT_READ, MAP_PRIVATE, fileno(imagefile), 0);
   if (mmaped_imagefile == (void *) -1) /* mmap failed */
   {
     DBG(DBG_info, "xsane_save_rotate_image: unable to memory map image file, using standard file access\n");
@@ -521,7 +522,7 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, int color, int bits,
 #ifdef HAVE_MMAP
           if (mmaped_imagefile)
           {
-           char *p = mmaped_imagefile + bytespp * (x + y * pixel_width); /* calculate correct position */
+           char *p = mmaped_imagefile + pos0 + bytespp * (x + y * pixel_width); /* calculate correct position */
 
             for (i=0; i<bytespp; i++)
             {
@@ -697,7 +698,7 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, int color, int bits,
 #ifdef HAVE_MMAP
           if (mmaped_imagefile)
           {
-           char *p = mmaped_imagefile + bytespp * (x + y * pixel_width); /* calculate correct position */
+           char *p = mmaped_imagefile + pos0 + bytespp * (x + y * pixel_width); /* calculate correct position */
 
             for (i=0; i<bytespp; i++)
             {
@@ -814,7 +815,7 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, int color, int bits,
 #ifdef HAVE_MMAP
   if (mmaped_imagefile)
   {
-    munmap(mmaped_imagefile, pixel_width * pixel_height * bytespp);
+    munmap(mmaped_imagefile, pos0 + pixel_width * pixel_height * bytespp);
   }
 #endif
 
@@ -1058,7 +1059,7 @@ void xsane_save_jpeg(FILE *outfile, FILE *imagefile,
                      int pixel_width, int pixel_height,
                      int quality)
 {
- char *data;
+ unsigned char *data;
  char buf[256];
  int x,y;
  int components = 1;
@@ -1310,7 +1311,7 @@ void xsane_save_png(FILE *outfile, FILE *imagefile,
  png_infop png_info_ptr;
  png_bytep row_ptr;
  png_color_8 sig_bit;
- char *data;
+ unsigned char *data;
  char buf[256];
  int colortype, components, byte_width;
  int y;
@@ -1442,7 +1443,7 @@ void xsane_save_png_16(FILE *outfile, FILE *imagefile,
  png_infop png_info_ptr;
  png_bytep row_ptr;
  png_color_8 sig_bit; /* should be 16, but then I get a warning about wrong type */
- char *data;
+ unsigned char *data;
  char buf[256];
  int colortype, components;
  int x,y;

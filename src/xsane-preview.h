@@ -120,7 +120,8 @@ typedef struct
   int image_width;		/* width of preview image in pixels */
   int image_height;		/* height of preview image in pixel lines */
   int rotation;			/* rotation: 0=0, 1=90, 2=180, 3=270 degree, 4-7= rotation + mirror in x direction */
-  u_char *image_data_raw;	/* 3 * image_width * image_height bytes */
+  int gamma_functions_interruptable; /* bit that defines if gamma function can be interrupted */
+  guint16 *image_data_raw;	/* 3 * image_width * image_height bytes * 2 */
   u_char *image_data_enh;	/* 3 * image_width * image_height bytes */
 
   GdkGC *gc_selection;
@@ -167,10 +168,11 @@ Preview;
 /* ------------------------------------------------------------------------------------------------------ */
 
 extern Preview *preview_new(void);   /* Create a new preview based on the info in DIALOG.  */
+extern void preview_generate_preview_filenames(Preview *p); /* create new preview filenames */
 
-extern void preview_gamma_correction(Preview *p,		  /* Do gamma correction on preview data */
-                                     int gamma_red[], int gamma_green[], int gamma_blue[],
-                                     int gamma_red_hist[], int gamma_green_hist[], int gamma_blue_hist[]);
+extern void preview_gamma_correction(Preview *p, int gamma_input_bits,	  /* Do gamma correction on preview data */
+                                     u_char gamma_red[], u_char gamma_green[], u_char gamma_blue[],
+                                     u_char gamma_red_hist[], u_char gamma_green_hist[], u_char gamma_blue_hist[]);
 
 extern void preview_update_surface(Preview *p, int surface_changed);   /* params changed: update preview */
 
@@ -178,9 +180,8 @@ extern void preview_scan(Preview *p);			     /* Acquire a preview image and disp
 
 extern void preview_destroy(Preview *p);					  /* Destroy a preview.  */
 
-extern void preview_calculate_histogram(Preview *p,				  /* calculate histogram */
-	SANE_Int *count_raw, SANE_Int *count_raw_red, SANE_Int *count_raw_green, SANE_Int *count_raw_blue,
-	SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue);
+extern void preview_calculate_raw_histogram(Preview *p, SANE_Int *count_raw, SANE_Int *count_raw_red, SANE_Int *count_raw_green, SANE_Int *count_raw_blue);
+extern void preview_calculate_enh_histogram(Preview *p, SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue);
 
 extern void preview_area_resize(Preview *p);					/* redraw preview rulers */
 extern void preview_set_maximum_output_size(Preview *p, float width, float height);   /* set maximum outut size */

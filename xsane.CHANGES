@@ -1472,7 +1472,7 @@ xsane-0.74 -> 0.75:
 
  - added functions for mirroring preview and mirroring while rotating scan
 
- - moved saveing device preferences from xsane_quit() to xsane_scan_win_delete()
+ - moved saving device preferences from xsane_quit() to xsane_scan_win_delete()
    and replaced call to xsane_quit() by xsane_exit() in choose_device dialog
    (this could cause a segfault).
 
@@ -1481,4 +1481,91 @@ xsane-0.74 -> 0.75:
  - added xsane_bound_int(&mid, min, max) to xsane_calculate_auto_enhancement()
    a segfault could occur when autoenhancement was activated when only a few
    preview-pixels where available for calculation of autoenhancement values
+
+
+xsane-0.75 -> 0.76:
+-------------------
+
+ - rotoation routine: mmap does map the full image file (not only from pos0)
+
+ - added xsane.depth, it stores the depth of the scanned image,
+   it may differ from xsane.param.depth when lineart is converted to grayscale
+   or 16 bit image is reduced to 8 bit
+
+ - preview: preset_area list is read from xsane.rc
+
+ - added context menu to preview preset_area menu, the preset areas can
+   be changed by user now
+
+ - transformation 16->8 bits/color: replaced val/256 by val >> 8,
+   a user said that his compiler is too stupid for such an optimization
+
+ - updated translations: cs, de, fr, ja, sv
+
+ - calibration image is not rotated any more
+
+ - corrected exposure event handling (drawing of the selection frame)
+
+ - added call of preview_restore_image() at the beginning of preview_update_surface().
+   This way the correct image parameters are used for the calculation in
+   preview_update_surface(). preview_restore_image() does not paint the image any
+   more, this is done at the end of preview_update_surface() now.
+
+ - corrected bug in xsane_calculate_histogram() with zoomed and rotated preview
+   with angels 90 and 270 degree.
+
+ - info dialog does print sane version as #.#.# (instead of #.#) again.
+   sane-dll will return the version of the sane package from sane-1.0.5
+   so it is possible to find out the used library version in most cases.
+
+ - xsane-scan.c: scan data is not written with fwrite() in 1 byte steps
+   any more because it looks like some systems (at least HP 9000/B1000
+   (processor PA8500/300 MHz, 384 MB RAM) operating system HP-UX 10.20)
+   have problems with this. The data is stored in the read buffer when
+   any transformation (gamma, 16->8 bit) is needed, the complete
+   buffer that is read with sane_read is written in one part.
+
+ - added xsane.spec - created by Sebastian Wenzler <wenzler@techie.com>
+
+ - autoselection of scanarea is not done for startimage
+
+ - preview image files (level 0-2) are removed and recreated when
+   the temporary directory is changed in the saving setup
+   (Preview scan has to be reacquried after changing the temporary directory)
+
+ - directory selection dialogs (change working directory and select temporary directory)
+   do not display filelist and delete-file widgets.
+
+ - xsane-preview.c and xsane-gamma.c:
+   - raw preview data is stored with 16 bits/color
+   - gamma correction is done with (8-16) bit to 8 bit enhanced data
+     the gamma input bits is set to 12 (but could be changed if we
+     add a widget that can change this value)
+     12 bit = 4096 values for each gamma table, this is a good
+     compromise between image quality, speed and memory usage
+   - All this slows down gamma and histogram routines, because of this
+     I accelerated these routines again:
+     - replaced field indexes by optimized pointer routines
+     - preview_motion_event_handler improved: continuous mode does use
+       a timer function now. this way the selection has a higher priority
+       than displaying the histograms.
+     - the raw histogram is only recalculated and displayed when it has been changed.
+
+ - improved event handling of the histogram sliders:
+   when continuous mode is active xsane_enhancement_by_histogram() is not called
+   directly any more, it is called via the xsane_slider_hold_event handler now
+
+ - split setup notebook "saving options" into "saving options" and "image options"
+
+ - added option "reduce 16 bit image to 8 bit" to setup/image options
+   This way you can use the preview with the full bit depth the scanner
+   can output and save it as image with 8 bits/color.
+   This is interesting e.g. when you scan slides or negatives.
+
+ - changed ouput in parameter box from "width x height (size unit)" to
+   "witdh x height x depth (size unit)"
+
+ - filetype menu is displayed correct now when xsane main window is rebuild
+
+ - removed a bug in aclocal.m4 wehn gimp was not found
 

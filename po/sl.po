@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.71\n"
-"POT-Creation-Date: 2001-04-03 00:36+0200\n"
+"Project-Id-Version: XSANE 0.76\n"
+"POT-Creation-Date: 2001-04-22 11:23+0200\n"
 "PO-Revision-Date: 2001-02-25 14:06+01:00\n"
 "Last-Translator: Ales Kosir <ales.kosir@lugos.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -60,6 +60,11 @@ msgstr "preimenuj stran s faksom"
 #. WINDOW_FAX_INSERT
 msgid "insert ps-file into fax"
 msgstr ""
+
+#. WINDOW_PRESET_AREA_RENAME
+#, fuzzy
+msgid "rename preset area"
+msgstr "preimenuj stran s faksom"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -255,6 +260,10 @@ msgstr "Prepi¹i opozorilo"
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
 msgid "Skip existing filenames"
 msgstr "Preskoèi obstojeèe datoteke"
+
+#. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
+msgid "Reduce 16 bit image to 8 bit"
+msgstr ""
 
 #. RADIO_BUTTON_WINDOW_FIXED
 msgid "Main window size fixed"
@@ -700,6 +709,11 @@ msgstr "Izbire pri prepisovanju"
 msgid "Saving options"
 msgstr "Shranjujem izbire"
 
+#. NOTEBOOK_IMAGE_OPTIONS
+#, fuzzy
+msgid "Image options"
+msgstr "Izbire XSane"
+
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display options"
 msgstr "Prikaz izbir"
@@ -878,6 +892,27 @@ msgstr "(nobeno)"
 msgid "by ext"
 msgstr "po konènici"
 
+#. MENU_ITEM_PRESET_AREA_ADD_SEL
+msgid "Add selection to list"
+msgstr ""
+
+#. MENU_ITEM_PRESET_AREA_RENAME
+msgid "Rename definiton"
+msgstr ""
+
+#. MENU_ITEM_PRESET_AREA_DELETE
+#, fuzzy
+msgid "Delete definition"
+msgstr "Izbor tiskalnika za prilagoditev"
+
+#. MENU_OTEM_PRESET_AREA_MOVE_UP
+msgid "Move up"
+msgstr ""
+
+#. MENU_OTEM_PRESET_AREA_MOVE_DWN
+msgid "Move down"
+msgstr ""
+
 #. PROGRESS_SCANNING
 msgid "Scanning"
 msgstr "Skeniram"
@@ -956,6 +991,11 @@ msgstr "Vnesite novo ime za stran s faksom"
 #. DESC_FAXRECEIVER
 msgid "Enter receiver phone number or address"
 msgstr "Vnesite telefonsko ¹tevilko ali naslov prejemnika faksa"
+
+#. DESC_PRESET_AREA_NAME
+#, fuzzy
+msgid "Enter new name for preset area"
+msgstr "Vnesite novo ime za stran s faksom"
 
 #. DESC_PRINTER_SELECT
 #, fuzzy
@@ -1235,6 +1275,10 @@ msgid ""
 "If filename counter is automatically increased, used numbers are skipped"
 msgstr "Pri samodejnem poveèevanju ¹tevca datotek se zasedene oznake preskoèi"
 
+#. DESC_REDUCE_16BIT_TO_8BIT
+msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
+msgstr ""
+
 #. DESC_PSFILE_WIDTH
 msgid "Width of paper in mm for postscript files"
 msgstr "©irina papirja pri tiskanju v postscriptnem zapisu [mm]"
@@ -1354,7 +1398,7 @@ msgid "Select scanarea after preview scan has finished"
 msgstr ""
 
 #. DESC_AUTOCORRECT_COLORS
-msgid "Do color correcten after preview scan has finished"
+msgid "Do color correction after preview scan has finished"
 msgstr ""
 
 #. DESC_FAX_COMMAND
@@ -1435,8 +1479,9 @@ msgid "Autoselect scanarea"
 msgstr "Samodejno doloèi obmoèje skeniranja"
 
 #. DESC_PRESET_AREA
-msgid "Reduce scan area"
-msgstr "Zmanj¹aj obmoèje skeniranja"
+#, fuzzy
+msgid "Preset area"
+msgstr "Samodejno doloèi obmoèje skeniranja"
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -1824,6 +1869,26 @@ msgstr "vzdol¾no A5"
 msgid "DIN A5 land."
 msgstr "preèno A5"
 
+#. MENU_ITEM_SURFACE_13cmx18cm
+#, fuzzy
+msgid "13cm x 18cm"
+msgstr "13 cm x 9 cm"
+
+#. MENU_ITEM_SURFACE_18cmx13cm
+#, fuzzy
+msgid "18cm x 13cm"
+msgstr "9 cm x 13 cm"
+
+#. MENU_ITEM_SURFACE_10cmx14cm
+#, fuzzy
+msgid "10cm x 14cm"
+msgstr "9 cm x 13 cm"
+
+#. MENU_ITEM_SURFACE_14cmx10cm
+#, fuzzy
+msgid "14cm x 10cm"
+msgstr "9 cm x 13 cm"
+
 #. MENU_ITEM_SURFACE_9cmx13cm
 msgid "9cm x 13cm"
 msgstr "9 cm x 13 cm"
@@ -1902,6 +1967,9 @@ msgstr "Zmanjkalo je pomnilnika"
 
 msgid "Access to resource has been denied"
 msgstr "Dostop do vira je ni dovoljen."
+
+#~ msgid "Reduce scan area"
+#~ msgstr "Zmanj¹aj obmoèje skeniranja"
 
 #~ msgid "©"
 #~ msgstr "(C)"

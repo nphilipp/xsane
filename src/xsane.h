@@ -32,11 +32,11 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.75"
+#define XSANE_VERSION		"0.76"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2001"
-#define XSANE_EMAIL		"Oliver.Rauch@rauch-domain.de"
+#define XSANE_EMAIL		"Oliver.Rauch@xsane.org"
 #define XSANE_HOMEPAGE		"http://www.xsane.org"
 #define XSANE_COPYRIGHT_TXT	XSANE_DATE " " XSANE_COPYRIGHT
 
@@ -46,7 +46,9 @@
 
 #define XSANE_DEFAULT_UMASK 0007
 #define XSANE_HOLD_TIME 200
+#define XSANE_CONTINUOUS_HOLD_TIME 10
 #define XSANE_DEFAULT_DEVICE "SANE_DEFAULT_DEVICE"
+#define PREF_DEFAULT_PRESET_AREA_ITEMS 13
 
 #ifndef SLASH
 # define SLASH '/'
@@ -134,6 +136,15 @@ enum
 };
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
+
+typedef struct
+{
+  char *name;
+  float xoffset;
+  float yoffset;
+  float width;
+  float height;
+} pref_default_preset_area_t;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 typedef struct
@@ -401,12 +412,14 @@ typedef struct Xsane
     GtkObject *cancel_button;
     GtkSignalFunc cancel_callback;
     Preview   *preview;
+    int preview_gamma_size;
     int mode;
 
     int main_window_fixed;
     int mode_selection;
 
     /* various scanning related state: */
+    SANE_Int depth;
     size_t num_bytes;
     size_t bytes_read;
     GtkWidget *progress_bar;
@@ -420,12 +433,14 @@ typedef struct Xsane
     GtkWidget *fax_project_entry;
     GtkWidget *fax_receiver_entry;
     GtkWidget *filetype_option_menu;
+
+    /* saving and transformation values: */
     FILE *out;
     int xsane_mode;
     int xsane_output_format;
     long header_size;
     int expand_lineart_to_grayscale;
-    int reduce_16bit_image_to_8bit;
+    int reduce_16bit_to_8bit;
 
     /* histogram window */
     struct XsanePixmap histogram_raw;
@@ -435,7 +450,8 @@ typedef struct Xsane
     struct XsaneSlider slider_red;
     struct XsaneSlider slider_green;
     struct XsaneSlider slider_blue;
-    guint slider_timer; /* has to be guint */
+    guint  slider_timer; /* has to be guint */
+    int    slider_timer_restart;
 
     double auto_white;
     double auto_gray;
@@ -513,8 +529,8 @@ typedef struct Xsane
 
     gfloat *free_gamma_data, *free_gamma_data_red, *free_gamma_data_green, *free_gamma_data_blue;
     SANE_Int *gamma_data, *gamma_data_red, *gamma_data_green, *gamma_data_blue;
-    SANE_Int *preview_gamma_data_red, *preview_gamma_data_green, *preview_gamma_data_blue;
-    SANE_Int *histogram_gamma_data_red, *histogram_gamma_data_green, *histogram_gamma_data_blue;
+    u_char *preview_gamma_data_red, *preview_gamma_data_green, *preview_gamma_data_blue;
+    u_char *histogram_gamma_data_red, *histogram_gamma_data_green, *histogram_gamma_data_blue;
 
     char *fax_filename;
     char *fax_receiver;
@@ -620,6 +636,7 @@ typedef struct XsaneSetup
   GtkWidget *overwrite_warning_button;
   GtkWidget *increase_filename_counter_button;
   GtkWidget *skip_existing_numbers_button;
+  GtkWidget *reduce_16bit_to_8bit_button;
 
   GtkWidget *main_window_fixed_button;
 
@@ -708,7 +725,9 @@ extern int DBG_LEVEL;
 #define DBG_info2     4
 #define DBG_proc      5
 #define DBG_proc2     50
+#define DBG_optdesc   70	/* xsane_get_option_descriptor */
 #define DBG_proc3     100	/* for routines that are called very very often */
+#define DBG_wire      100	/* rc_io_w routines */
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 

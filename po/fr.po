@@ -4,8 +4,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.72\n"
-"POT-Creation-Date: 2001-04-03 00:36+0200\n"
+"Project-Id-Version: XSANE 0.76\n"
+"POT-Creation-Date: 2001-04-22 11:23+0200\n"
 "PO-Revision-Date: 2000-02-09 21:00+01:00\n"
 "Last-Translator: Laurent Grawet <laurent.grawet@ibelgique.com>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 #. Please translate this to the correct directory name (eg. german=>de)
 #. XSANE_LANGUAGE_DIR
 msgid "language_dir"
-msgstr ""
+msgstr "fr"
 
 #. XSANE_COPYRIGHT_SIGN
 msgid "(c)"
@@ -58,6 +58,10 @@ msgstr "Renommer la page de fax"
 #. WINDOW_FAX_INSERT
 msgid "insert ps-file into fax"
 msgstr "Importer un fichier ps dans un fax"
+
+#. WINDOW_PRESET_AREA_RENAME
+msgid "rename preset area"
+msgstr "Renommer l'aire de présélection"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -169,7 +173,7 @@ msgstr "Annuler"
 
 #. BUTTON_REDUCE
 msgid "Reduce"
-msgstr ""
+msgstr "Réduire"
 
 #. BUTTON_CONT_AT_OWN_RISK
 msgid "Continue at your own risk"
@@ -241,7 +245,7 @@ msgstr "Mode fin"
 
 #. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device preferences at exit"
-msgstr ""
+msgstr "Sauver les paramètres du périphérique à la sortie"
 
 #. RADIO_BUTTON_OVERWRITE_WARNING
 msgid "Overwrite warning"
@@ -250,6 +254,10 @@ msgstr "Avertissement en cas d'écrasement"
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
 msgid "Skip existing filenames"
 msgstr "Sauter les noms de fichiers existants"
+
+#. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
+msgid "Reduce 16 bit image to 8 bit"
+msgstr ""
 
 #. RADIO_BUTTON_WINDOW_FIXED
 msgid "Main window size fixed"
@@ -268,13 +276,12 @@ msgid "Autoenhance gamma"
 msgstr "Correction gamma automatique"
 
 #. RADIO_BUTTON_PRESELECT_SCANAREA
-#, fuzzy
 msgid "Preselect scanarea"
-msgstr "Sélection automatique de l'aire de numérisation"
+msgstr "Présélection de l'aire de numérisation"
 
 #. RADIO_BUTTON_AUTOCORRECT_COLORS
 msgid "Autocorrect colors"
-msgstr ""
+msgstr "Correction automatique des couleurs"
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
@@ -377,12 +384,16 @@ msgid ""
 "Gimp does not support depth 16 bits/color.\n"
 "Do you want to reduce the depth to 8 bits/color?"
 msgstr ""
+"Gimp ne supporte pas la définition 16 bits/couleur.\n"
+"Voulez-vous réduire la définition à 8 bits/couleur ?"
 
 #. TEXT_REDUCE_16BIT_TO_8BIT
 msgid ""
 "Bit depth 16 bits/color is not supported for this output format.\n"
 "Do you want to reduce the depth to 8 bits/color?"
 msgstr ""
+"La définition 16 bits/couleur n'est pas supportée par ce format de sortie.\n"
+"Voulez-vous réduire la définition à 8 bits/couleur ?"
 
 #. TEXT_AUTHORIZATION_REQ
 msgid "Authorization required for"
@@ -700,6 +711,11 @@ msgstr "Options d'impression"
 msgid "Saving options"
 msgstr "Options d'enregistrement"
 
+#. NOTEBOOK_IMAGE_OPTIONS
+#, fuzzy
+msgid "Image options"
+msgstr "Options de XSane"
+
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display options"
 msgstr "Options d'affichage"
@@ -876,6 +892,26 @@ msgstr "(aucun)"
 msgid "by ext"
 msgstr "par ext"
 
+#. MENU_ITEM_PRESET_AREA_ADD_SEL
+msgid "Add selection to list"
+msgstr "Ajouter la sélection à la liste"
+
+#. MENU_ITEM_PRESET_AREA_RENAME
+msgid "Rename definiton"
+msgstr "Renommer la définition"
+
+#. MENU_ITEM_PRESET_AREA_DELETE
+msgid "Delete definition"
+msgstr "Effacer la définition"
+
+#. MENU_OTEM_PRESET_AREA_MOVE_UP
+msgid "Move up"
+msgstr "Haut"
+
+#. MENU_OTEM_PRESET_AREA_MOVE_DWN
+msgid "Move down"
+msgstr "Bas"
+
 #. PROGRESS_SCANNING
 msgid "Scanning"
 msgstr "Numérisation..."
@@ -883,20 +919,19 @@ msgstr "Numérisation..."
 #. PROGRESS_RECEIVING_FRAME_DATA
 #, c-format
 msgid "Receiving %s data"
-msgstr "Réception des données %s"
+msgstr "Réception des données %s..."
 
 #. PROGRESS_TRANSFERING_DATA
-#, fuzzy
 msgid "Transfering image"
-msgstr "Enregistrement de l'image"
+msgstr "Transfert de l'image..."
 
 #. PROGRESS_ROTATING_DATA
 msgid "Rotating image"
-msgstr "Rotation de l'image"
+msgstr "Rotation de l'image..."
 
 #. PROGRESS_PACKING_DATA
 msgid "Packing image"
-msgstr "Compression de l'image"
+msgstr "Compression de l'image..."
 
 #. PROGRESS_CONVERTING_DATA
 msgid "Converting data"
@@ -954,6 +989,10 @@ msgstr "Entrez le nouveau nom pour la page de fax"
 #. DESC_FAXRECEIVER
 msgid "Enter receiver phone number or address"
 msgstr "Entrez le numéro de tél. ou l'adresse du destinataire"
+
+#. DESC_PRESET_AREA_NAME
+msgid "Enter new name for preset area"
+msgstr "Entrez un nom pour la présélection"
 
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
@@ -1224,6 +1263,10 @@ msgstr ""
 "Si un compteur de noms de fichiers est utilisé, les nombres déjà utilisés "
 "sont évités"
 
+#. DESC_REDUCE_16BIT_TO_8BIT
+msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
+msgstr ""
+
 #. DESC_PSFILE_WIDTH
 msgid "Width of paper in mm for postscript files"
 msgstr "Largeur du papier en mm pour les fichiers PostScript"
@@ -1345,7 +1388,7 @@ msgid ""
 "Enter command to be executed to display helpfiles, must be a html-viewer!"
 msgstr ""
 "Entrez la commande a exécuter pour afficher les fichiers d'aide ; doit être "
-"capable de lire du html!"
+"capable de lire du html !"
 
 #. DESC_AUTOENHANCE_GAMMA
 msgid "Change gamma value when autoenhancement button is pressed"
@@ -1354,10 +1397,13 @@ msgstr "Change la valeur gamma quand le bouton d'optimisation auto est pressé"
 #. DESC_PRESELECT_SCANAREA
 msgid "Select scanarea after preview scan has finished"
 msgstr ""
+"Sélectionne l'aire de numérisation une fois la prévisualisation terminée"
 
 #. DESC_AUTOCORRECT_COLORS
-msgid "Do color correcten after preview scan has finished"
+#, fuzzy
+msgid "Do color correction after preview scan has finished"
 msgstr ""
+"Effectue la correction des couleurs une fois la prévisualisation terminée"
 
 #. DESC_FAX_COMMAND
 msgid "Enter command to be executed in fax mode"
@@ -1439,8 +1485,8 @@ msgid "Autoselect scanarea"
 msgstr "Sélection automatique de l'aire de numérisation"
 
 #. DESC_PRESET_AREA
-msgid "Reduce scan area"
-msgstr "Réduit l'aire de numérisation"
+msgid "Preset area"
+msgstr "Aire de présélection"
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -1491,9 +1537,9 @@ msgid "Can't handle depth"
 msgstr "Ne supporte pas le mode"
 
 #. ERR_GIMP_BAD_DEPTH
-#, fuzzy, c-format
+#, c-format
 msgid "GIMP can't handle depth %d bits/color"
-msgstr "GIMP ne supporte pas le mode"
+msgstr "GIMP ne supporte pas la profondeur %d bits/color"
 
 #. ERR_UNKNOWN_SAVING_FORMAT
 msgid "Unknown file format for saving"
@@ -1604,11 +1650,12 @@ msgstr "le support pour GIMP est manquant"
 
 #. ERR_CREATE_PREVIEW_FILE
 msgid "Could not create temporary preview files"
-msgstr ""
+msgstr "Ne peut pas créer de fichiers temporaires de prévisualisation"
 
 #. ERR_CREATE_PREVIEW_FILENAME
 msgid "Could not create filenames for preview files"
 msgstr ""
+"Ne peut pas créer de noms de fichiers pour les fichiers de prévisualisation"
 
 #. WARN_COUNTER_UNDERRUN
 msgid "Filename counter underrun"
@@ -1830,6 +1877,22 @@ msgstr "DIN A5 portrait"
 msgid "DIN A5 land."
 msgstr "DIN A5 paysage"
 
+#. MENU_ITEM_SURFACE_13cmx18cm
+msgid "13cm x 18cm"
+msgstr ""
+
+#. MENU_ITEM_SURFACE_18cmx13cm
+msgid "18cm x 13cm"
+msgstr ""
+
+#. MENU_ITEM_SURFACE_10cmx14cm
+msgid "10cm x 14cm"
+msgstr ""
+
+#. MENU_ITEM_SURFACE_14cmx10cm
+msgid "14cm x 10cm"
+msgstr ""
+
 #. MENU_ITEM_SURFACE_9cmx13cm
 msgid "9cm x 13cm"
 msgstr ""
@@ -1908,3 +1971,6 @@ msgstr "Dépassement de mémoire"
 
 msgid "Access to resource has been denied"
 msgstr "Accès à la ressource refusé"
+
+#~ msgid "Reduce scan area"
+#~ msgstr "Réduit l'aire de numérisation"

@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.72\n"
-"POT-Creation-Date: 2001-04-03 00:36+0200\n"
-"PO-Revision-Date: 2001-02-18 13:00+01:00\n"
+"Project-Id-Version: XSANE 0.76\n"
+"POT-Creation-Date: 2001-04-22 11:23+0200\n"
+"PO-Revision-Date: 2001-04-08 20:45+01:00\n"
 "Last-Translator: FULL NAME <johanb@lls.se>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 #. Please translate this to the correct directory name (eg. german=>de)
 #. XSANE_LANGUAGE_DIR
 msgid "language_dir"
-msgstr ""
+msgstr "se"
 
 #. XSANE_COPYRIGHT_SIGN
 msgid "(c)"
@@ -58,6 +58,10 @@ msgstr "byt namn på faxsida"
 #. WINDOW_FAX_INSERT
 msgid "insert ps-file into fax"
 msgstr "infoga ps-fil i fax"
+
+#. WINDOW_PRESET_AREA_RENAME
+msgid "rename preset area"
+msgstr "byt namn på det förinställda området"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -169,7 +173,7 @@ msgstr "Avbryt"
 
 #. BUTTON_REDUCE
 msgid "Reduce"
-msgstr ""
+msgstr "Reducera"
 
 #. BUTTON_CONT_AT_OWN_RISK
 msgid "Continue at your own risk"
@@ -241,7 +245,7 @@ msgstr "Högkvalitetsläge"
 
 #. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device preferences at exit"
-msgstr ""
+msgstr "Spara inställningar när programmet avslutas"
 
 #. RADIO_BUTTON_OVERWRITE_WARNING
 msgid "Overwrite warning"
@@ -250,6 +254,10 @@ msgstr "Överskriftsvarning"
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
 msgid "Skip existing filenames"
 msgstr "Hoppa över existerande filnamn"
+
+#. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
+msgid "Reduce 16 bit image to 8 bit"
+msgstr ""
 
 #. RADIO_BUTTON_WINDOW_FIXED
 msgid "Main window size fixed"
@@ -268,13 +276,12 @@ msgid "Autoenhance gamma"
 msgstr "Automatisk gammainställning"
 
 #. RADIO_BUTTON_PRESELECT_SCANAREA
-#, fuzzy
 msgid "Preselect scanarea"
-msgstr "Automatisk val av inläsningsyta"
+msgstr "Förval av inläsningsyta"
 
 #. RADIO_BUTTON_AUTOCORRECT_COLORS
 msgid "Autocorrect colors"
-msgstr ""
+msgstr "Autokorrigera färger"
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
@@ -341,7 +348,6 @@ msgid "scanner"
 msgstr "bildläsare"
 
 #. TEXT_SOFTWARE_XSANE
-#, fuzzy
 msgid "software (XSane)"
 msgstr "mjukvara (XSane)"
 
@@ -378,12 +384,16 @@ msgid ""
 "Gimp does not support depth 16 bits/color.\n"
 "Do you want to reduce the depth to 8 bits/color?"
 msgstr ""
+"Gimp stöder inte 16 bits färgdjup. \n"
+"Vill du reducera till 8 bits färgdjup?"
 
 #. TEXT_REDUCE_16BIT_TO_8BIT
 msgid ""
 "Bit depth 16 bits/color is not supported for this output format.\n"
 "Do you want to reduce the depth to 8 bits/color?"
 msgstr ""
+"16 bits färgdjup stöds inte för detta utmatnings format.\n"
+"Vill du reducera till 8 bits färgdjup?"
 
 #. TEXT_AUTHORIZATION_REQ
 msgid "Authorization required for"
@@ -478,7 +488,6 @@ msgstr "Översättning:"
 #. by YOUR NAME\n
 #. Email: your.name@yourdomain.com\n
 #. TEXT_TRANSLATION_INFO
-#, fuzzy
 msgid ""
 "untranslated original english text\n"
 "by Oliver Rauch\n"
@@ -704,6 +713,11 @@ msgstr "Kopiator"
 msgid "Saving options"
 msgstr "Spara"
 
+#. NOTEBOOK_IMAGE_OPTIONS
+#, fuzzy
+msgid "Image options"
+msgstr "XSane-inställningar"
+
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display options"
 msgstr "Visa"
@@ -813,7 +827,6 @@ msgid "License"
 msgstr "Licens"
 
 #. MENU_ITEM_XSANE_DOC
-#, fuzzy
 msgid "XSane doc"
 msgstr "XSane doc"
 
@@ -881,6 +894,26 @@ msgstr "(ingen)"
 msgid "by ext"
 msgstr "filändelse"
 
+#. MENU_ITEM_PRESET_AREA_ADD_SEL
+msgid "Add selection to list"
+msgstr "Lägg till utvalt område i listan"
+
+#. MENU_ITEM_PRESET_AREA_RENAME
+msgid "Rename definiton"
+msgstr "Byt namn på inställning"
+
+#. MENU_ITEM_PRESET_AREA_DELETE
+msgid "Delete definition"
+msgstr "Ta bort inställning"
+
+#. MENU_OTEM_PRESET_AREA_MOVE_UP
+msgid "Move up"
+msgstr "Flytta upp"
+
+#. MENU_OTEM_PRESET_AREA_MOVE_DWN
+msgid "Move down"
+msgstr "Flytta ner"
+
 #. PROGRESS_SCANNING
 msgid "Scanning"
 msgstr "Läser in"
@@ -891,9 +924,8 @@ msgid "Receiving %s data"
 msgstr "Tar emot %s data"
 
 #. PROGRESS_TRANSFERING_DATA
-#, fuzzy
 msgid "Transfering image"
-msgstr "Sparar bild"
+msgstr "För över bild"
 
 #. PROGRESS_ROTATING_DATA
 msgid "Rotating image"
@@ -960,8 +992,11 @@ msgstr "Skriv in nytt namn för faxsida"
 msgid "Enter receiver phone number or address"
 msgstr "Skriv in mottagarens telefonnummer eller adress"
 
+#. DESC_PRESET_AREA_NAME
+msgid "Enter new name for preset area"
+msgstr "Skriv in nytt namn för förinställt område"
+
 #. DESC_PRINTER_SELECT
-#, fuzzy
 msgid "Select printerdefinition <Shift-F1/F2/...>"
 msgstr "Välj skrivardefinition <Shift-F1/F2/...>"
 
@@ -994,7 +1029,6 @@ msgid "Set number of copies"
 msgstr "Ställ in antal kopior"
 
 #. DESC_NEGATIVE
-#, fuzzy
 msgid "Negative: Invert colors for scanning negatives <Shift-n>"
 msgstr "Negativ: Invertera färger vid inläsning av negativ <Shift-n>"
 
@@ -1051,7 +1085,6 @@ msgid "Set threshold"
 msgstr "Ställ in tröskelvärde"
 
 #. DESC_RGB_DEFAULT
-#, fuzzy
 msgid ""
 "RGB default: Set enhancement values for red, green and blue to default "
 "values <Shift-b>:\n"
@@ -1066,60 +1099,50 @@ msgstr ""
 " kontrast = 0"
 
 #. DESC_ENH_AUTO
-#, fuzzy
 msgid "Autoadjust gamma, brightness and contrast <Shift-e>"
 msgstr "Autojustera gamma, ljus och kontrast <Shift-e>"
 
 #. DESC_ENH_DEFAULT
-#, fuzzy
 msgid ""
 "Set default enhancement values <Shift-d>:\n"
 "gamma = 1.0\n"
 "brightness = 0\n"
 "contrast = 0"
 msgstr ""
-"Sätt korrigering till standardvärden <Shift-d>:\n"
+"Ställ in standarvärden för bearbetning <Shift-d>:\n"
 "gamma = 1.0\n"
 "ljus = 0\n"
 "kontrast = 0"
 
 #. DESC_ENH_RESTORE
-#, fuzzy
 msgid "Restore enhancement values from preferences <Shift-r>"
 msgstr "Återställ korrigeringsvärden <Shift-r>"
 
 #. DESC_ENH_STORE
-#, fuzzy
 msgid "Store active enhancement values to preferences <Shift-m>"
 msgstr "Spara de aktiva korrigeringsvärdena <Shift-m>"
 
 #. DESC_HIST_INTENSITY
-#, fuzzy
 msgid "Show histogram of intensity/gray <Alt-i>"
 msgstr "Visa histogram för intensitet/gråvärde <Alt-i>"
 
 #. DESC_HIST_RED
-#, fuzzy
 msgid "Show histogram of red component <Alt-r>"
 msgstr "Visa histogram för den röda komponenten <Alt-r>"
 
 #. DESC_HIST_GREEN
-#, fuzzy
 msgid "Show histogram of green component <Alt-g>"
 msgstr "Visa histogram för den gröna komponenten <Alt-g>"
 
 #. DESC_HIST_BLUE
-#, fuzzy
 msgid "Show histogram of blue component <Alt-b>"
 msgstr "Visa histogram för den blåa komponenten <Alt-b>"
 
 #. DESC_HIST_PIXEL
-#, fuzzy
 msgid "Display mode: show histogram with lines instead of pixels <Alt-m>"
 msgstr "Visa histogram med linjer istället för pixlar <Alt-m>"
 
 #. DESC_HIST_LOG
-#, fuzzy
 msgid "Show logarithm of pixelcount <Alt-l>"
 msgstr "Visa pixelantal som logaritm <Alt-l>"
 
@@ -1132,7 +1155,6 @@ msgid "Define a name for the selection of this definition"
 msgstr "Definiera ett namn för den här inställningen"
 
 #. DESC_PRINTER_COMMAND
-#, fuzzy
 msgid "Enter command to be executed in copy mode (e.g. \"lpr\")"
 msgstr "Ange ett kommando att exekveras i kopierings läge (m.a.o. \"lpr -\")"
 
@@ -1225,7 +1247,7 @@ msgstr "Kompressionstyp om grafisk bild sparas som tiff"
 
 #. DESC_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device dependant preferences in default file at exit of xsane"
-msgstr ""
+msgstr "Spara enhetsberoende inställningar i standardfilen när xsane avslutas"
 
 #. DESC_OVERWRITE_WARNING
 msgid "Warn before overwriting an existing file"
@@ -1236,6 +1258,10 @@ msgid ""
 "If filename counter is automatically increased, used numbers are skipped"
 msgstr ""
 "Om filnamnsräknaren automatiskt uppdateras, så hoppas använda nummer över"
+
+#. DESC_REDUCE_16BIT_TO_8BIT
+msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
+msgstr ""
 
 #. DESC_PSFILE_WIDTH
 msgid "Width of paper in mm for postscript files"
@@ -1268,7 +1294,6 @@ msgstr ""
 "variabel storlek"
 
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
-#, fuzzy
 msgid "Disable preview gamma when XSane runs as gimp plugin"
 msgstr ""
 "Koppla bort förhandsgranskningsgamma när XSane körs som gimp insticksprogram"
@@ -1306,7 +1331,6 @@ msgstr ""
 "förhandsgranskningsbilden"
 
 #. DESC_LINEART_MODE
-#, fuzzy
 msgid "Define the way XSane shall handle the threshold option"
 msgstr "Tala om hur XSane skall hantera tröskelvärdesinställningen"
 
@@ -1329,20 +1353,17 @@ msgid "The scanner's maximum threshold level in %"
 msgstr "Bildläsarens maximala tröskelnivå i %"
 
 #. DESC_PREVIEW_THRESHOLD_MUL
-#, fuzzy
 msgid ""
 "Multiplier to make XSane threshold range and scanner threshold range the same"
 msgstr ""
 "Multiplikator som synkroniserar tröskelomfången från bildläsaren och XSane"
 
 #. DESC_PREVIEW_THRESHOLD_OFF
-#, fuzzy
 msgid ""
 "Offset to make XSane threshold range and scanner threshold range the same"
 msgstr "Offset som synkroniserar tröskelomfången från bildläsaren och XSane"
 
 #. DESC_ADF_MODE
-#, fuzzy
 msgid ""
 "Select scansource for Automatic Document feeder. If this scansource is "
 "selected XSane scans until \"out of paper\" or error."
@@ -1370,11 +1391,11 @@ msgstr "Ändra gammavärde när autoexponeringsknappen används"
 
 #. DESC_PRESELECT_SCANAREA
 msgid "Select scanarea after preview scan has finished"
-msgstr ""
+msgstr "Välj inläsningsområde efter förhandsgranskningen är klar"
 
 #. DESC_AUTOCORRECT_COLORS
-msgid "Do color correcten after preview scan has finished"
-msgstr ""
+msgid "Do color correction after preview scan has finished"
+msgstr "Gör färgkorrigering efter förhansgranskingen är klar"
 
 #. DESC_FAX_COMMAND
 msgid "Enter command to be executed in fax mode"
@@ -1454,8 +1475,8 @@ msgid "Autoselect scanarea"
 msgstr "Automatisk val av inläsningsyta"
 
 #. DESC_PRESET_AREA
-msgid "Reduce scan area"
-msgstr "Minska inläsningområdet"
+msgid "Preset area"
+msgstr "Förinställt område"
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -1506,9 +1527,9 @@ msgid "Can't handle depth"
 msgstr "Kan inte hantera bilddjup"
 
 #. ERR_GIMP_BAD_DEPTH
-#, fuzzy, c-format
+#, c-format
 msgid "GIMP can't handle depth %d bits/color"
-msgstr "GIMP kan inte hantera bilddjup"
+msgstr "GIMP kan inte hantera bilddjup med %d bits/färg"
 
 #. ERR_UNKNOWN_SAVING_FORMAT
 msgid "Unknown file format for saving"
@@ -1581,7 +1602,7 @@ msgstr "kunde inte sätta upplösning"
 #. ERR_PASSWORD_FILE_INSECURE
 #, c-format
 msgid "Password file (%s) is insecure, use permission x00\n"
-msgstr "Lösenordsfil (%s) är osäker, använd rättighet x00\n"
+msgstr "Lösenordsfil (%s) har säkerhetsproblem, använd rättighet x00\n"
 
 #. ERR_ERROR
 msgid "error"
@@ -1592,7 +1613,6 @@ msgid "Sane major version number mismatch!"
 msgstr "Save huvudversionsnummer stämmer inte!"
 
 #. ERR_XSANE_MAJOR_VERSION
-#, fuzzy
 msgid "XSane major version ="
 msgstr "XSane huvudversion ="
 
@@ -1618,11 +1638,11 @@ msgstr "Stöd för GIMP saknas"
 
 #. ERR_CREATE_PREVIEW_FILE
 msgid "Could not create temporary preview files"
-msgstr ""
+msgstr "Kunde inte skapa temporär förhandsgranskningsfil"
 
 #. ERR_CREATE_PREVIEW_FILENAME
 msgid "Could not create filenames for preview files"
-msgstr ""
+msgstr "Kunde inte skapa filnamn för förhandsgranskningsfiler"
 
 #. WARN_COUNTER_UNDERRUN
 msgid "Filename counter underrun"
@@ -1633,7 +1653,6 @@ msgid "warning: option has no value constraint"
 msgstr "varning: alternativet har ingen värdebegränsning"
 
 #. WARN_XSANE_AS_ROOT
-#, fuzzy
 msgid ""
 "You try to run XSane as ROOT, that really is DANGEROUS!\n"
 "\n"
@@ -1702,7 +1721,7 @@ msgid "File %s does not exist"
 msgstr "Fil %s existerar inte"
 
 #. ERR_FILE_NOT_POSTSCRIPT
-#, fuzzy, c-format
+#, c-format
 msgid "File %s is not a postscript file"
 msgstr "Fil %s är inte en postskriptfil"
 
@@ -1720,7 +1739,6 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[FLAGGA]... [ENHET]"
 
 #. TEXT_HELP
-#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -1840,6 +1858,22 @@ msgstr "DIN A5 portr."
 msgid "DIN A5 land."
 msgstr "DIN A5 landsk."
 
+#. MENU_ITEM_SURFACE_13cmx18cm
+msgid "13cm x 18cm"
+msgstr "13cm x 18cm"
+
+#. MENU_ITEM_SURFACE_18cmx13cm
+msgid "18cm x 13cm"
+msgstr "18cm x 13cm"
+
+#. MENU_ITEM_SURFACE_10cmx14cm
+msgid "10cm x 14cm"
+msgstr "10cm x 14cm"
+
+#. MENU_ITEM_SURFACE_14cmx10cm
+msgid "14cm x 10cm"
+msgstr "14cm x 10cm"
+
 #. MENU_ITEM_SURFACE_9cmx13cm
 msgid "9cm x 13cm"
 msgstr "9cm x 13cm"
@@ -1918,6 +1952,9 @@ msgstr "Slut på minne"
 
 msgid "Access to resource has been denied"
 msgstr "Tillgång till resurs nekas"
+
+#~ msgid "Reduce scan area"
+#~ msgstr "Minska inläsningområdet"
 
 #~ msgid "©"
 #~ msgstr "©"

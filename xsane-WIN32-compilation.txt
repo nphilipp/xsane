@@ -61,7 +61,8 @@ IIb) If GIMP-Plugin shall be compiled (otherwise skip this section):
   IIb.3) cd /src/gimp/libgimp
   IIb.4) mkdir /usr/include/libgimp
   IIb.5) cp *.h /usr/include/libgimp
-  IIb.6) cp libgimp/gimp-*.dll c:/sane
+  IIb.6) cp gimp-*.dll c:/sane
+  IIb.7) cp libgimp-*.a /usr/lib
 
 
 III) Needed sane-parts:
@@ -75,19 +76,19 @@ III) Needed sane-parts:
   III.7) remove all lines containing "ENTRY" from sane/include/sanei_backend_win32.h
   III.8) call ./configure --prefix=/cygdrive/c/sane
          (do not use c:/sane because ":" is used as path separator)
-  III.a) edit backend/Makefile
+  III.9) edit backend/Makefile
           - remove all backends but net from PRELOADABLE_BACKENDS
           - remove dll from ALL_BACKENDS
           - add net to DLL_PRELOAD
           - remove dll.lo dll-s.lo from line beginning with "libsane.la:"
-  III.b) Remove lines with isfdtype and vsyslog from sanei/sanei_init_debug.c
-  III.c) compile sane (in directory sane-1.0.*) (call make)
+  III.a) Remove lines with isfdtype and vsyslog from sanei/sanei_init_debug.c
+  III.b) compile sane (in directory sane-1.0.*) (call make)
            this should create a file backend/.libs/libsane.a and frontend/scanimage.exe
-  III.d) mkdir /usr/include/sane
-  III.e) cp include/sane/sane.h /usr/include/sane
-  III.f) cp include/sane/saneopts.h /usr/include/sane
-  III.g) cp backend/.libs/libsane.a /usr/lib
-  III.h) cp frontend/scanimage.exe /sane
+  III.c) mkdir /usr/include/sane
+  III.d) cp include/sane/sane.h /usr/include/sane
+  III.e) cp include/sane/saneopts.h /usr/include/sane
+  III.f) cp backend/.libs/libsane.a /usr/lib
+  III.g) cp frontend/scanimage.exe /sane
 
 
 

@@ -1,28 +1,31 @@
-<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <html>
 <head>
    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-   <meta name="GENERATOR" content="Mozilla/4.74 [en] (X11; U; Linux 2.2.18 i686) [Netscape]">
    <meta name="Author" content="Oliver Rauch">
    <meta name="Description" content="scan, photocopy and fax frontend for SANE">
-   <title>XSane - Advanced options window</title>
+   <title>XSane - Save setup</title>
 </head>
 <body text="#000000" bgcolor="#FFFFFF" link="#0000EF" vlink="#51188E" alink="#FF0000">
 
 
 <table>
+<tr>
 <td width=200>
-<img SRC="xsane-logo2.jpg" hspace=30 height=150 width=128 align=TOP>
+<img SRC="xsane-logo2.jpg" alt="XSane-logo" hspace=30 align=TOP>
 </td>
 <td>
-<h1><dd><font color="#009900">Advanced options window</font></dd></h1>
+<blockquote>
+<h1><font color="#009900">Image setup</font></h1>
+</blockquote>
 </td>
+</tr>
 </table>
 
 
 <hr WIDTH="100%">
 
 <table>
+<tr>
 <td valign=TOP width="200" bgcolor="#E0E0BA">
 <br>
 <a href="sane-xsane-doc.html">Index</a>
@@ -30,15 +33,15 @@
 <br>
 <br>
 <font color="#000000">Main window:</font>
-<blockquote>
+<ul>
 <li><a href="sane-xsane-scan-doc.html">Scan mode</a></li>
 <li><a href="sane-xsane-copy-doc.html">Copy mode</a></li>
 <li><a href="sane-xsane-fax-doc.html">Fax mode</a></li>
 <li><a href="sane-xsane-gimp-doc.html">Gimp plugin</a></li>
-</blockquote>
+</ul>
 <br>
 <a href="sane-xsane-color-correction-doc.html">Color correction:</a>
-<blockquote>
+<ul>
 <li><a href="sane-xsane-color-correction-doc.html#GAMMA">Gamma correction</a></li>
 <li><a href="sane-xsane-color-correction-doc.html#BRIGHTNESS">Brightness</a></li>
 <li><a href="sane-xsane-color-correction-doc.html#CONTRAST">Contrast</a></li>
@@ -51,7 +54,7 @@
 <li><a href="sane-xsane-color-correction-doc.html#STORE_ENHANCEMENT">Store</a></li>
 <li><a href="sane-xsane-histogram-doc.html">Histogram window</a></li>
 <li><a href="sane-xsane-preview-doc.html#PIPETTE_WHITE">Pipette functions</a></li>
-</blockquote>
+</ul>
 <br>
 <a href="sane-xsane-standard-doc.html">Standard options window</a>
 <br>
@@ -62,7 +65,7 @@
 <br>
 <br>
 <a href="sane-xsane-preview-doc.html">Preview:</a>
-<blockquote>
+<ul>
 <li><a href="sane-xsane-preview-doc.html#PIPETTE_WHITE">Pipette white</a></li>
 <li><a href="sane-xsane-preview-doc.html#PIPETTE_GRAY">Pipette gray</a></li>
 <li><a href="sane-xsane-preview-doc.html#PIPETTE_BLACK">Pipette black</a></li>
@@ -74,45 +77,64 @@
 <li><a href="sane-xsane-preview-doc.html#SELECT_VISIBLE_AREA">Select visible area</a></li>
 <li><a href="sane-xsane-preview-doc.html#SELECT_SCAN_AREA">Select scanarea</a></li>
 <li><a href="sane-xsane-preview-doc.html#MOVE_SCAN_AREA">Move scanarea</a></li>
-</blockquote>
+</ul>
 <br>
 <font color="#000000">Setup:</font>
-<blockquote>
+<ul>
 <li><a href="sane-xsane-setup-copy-doc.html">Copy setup</a></li>
 <li><a href="sane-xsane-setup-display-doc.html">Display setup</a></li>
 <li><a href="sane-xsane-setup-save-doc.html">Saving setup</a></li>
 <li><a href="sane-xsane-setup-image-doc.html">Image setup</a></li>
 <li><a href="sane-xsane-setup-fax-doc.html">Fax setup</a></li>
 <li><a href="sane-xsane-setup-enhancement-doc.html">Enhancement setup</a></li>
-</blockquote>
+</ul>
 </td>
 
 
 
 <td VALIGN=TOP BGCOLOR="#FFFFFF">
-
 <blockquote>
 <br>
-<center><img SRC="xsane-advanced.jpg" height=248 width=296></center>
+You open the setup window via the menu <i>preferences/setup</i> in the
+main window of xsane.
 <br>
 <br>
+<br>   
+<center><p><br><img SRC="xsane-setup-image.jpg" alt="XSane-setup-image-window"></center>
 <br>
-The advanced options window contains special scanner options
-that should be used by advanced users. XSane does not now anything about
-these options, it only creates this dialog to give the user the possibility
-to take control of these options.
-<p>
-Please read the backend manual if you need any information about
-the functions you find in this window.
+<br>
+<br>   
+<h4>JPEG IMAGE QUALITY:</h4>
+<blockquote>
+If the image is saved in <i>jpeg</i> format this value defines
+the quality of the image. Low values mean low quality and low file size,
+high values mean high quality and high file size.
+</blockquote>
+
+<h4>PNG IMAGE COMPRESSION:</h4>
+<blockquote>
+If the image is saved in <i>png</i> format this value defines
+the compression level. The quality of the image keeps the same, low values
+mean low compression, large files and low compression time. High values
+mean high compression, smaller files and high compression time.
+</blockquote>
+
+<h4>PRINT AREA (WIDTH, HEIGHT, LEFT OFFSET, BOTTOM OFFSET):</h4>
+<blockquote>
+Define size and position of printable area for saving postscript files.
+</blockquote>
+
 </blockquote>
 </td>
+</tr>
 </table>
 
 <hr WIDTH="100%">
 
 <blockquote>
-<font size=+1>Author: <a href="mailto:Oliver.Rauch@xsane.org">Oliver Rauch</a></font>
+Author: <a href="mailto:Oliver.Rauch@xsane.org">Oliver Rauch</a>
 </blockquote>
 
 </body>
 </html>
+

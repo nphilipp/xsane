@@ -102,43 +102,15 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define PRESET_AREA_ITEMS 14
-typedef struct
-{
-  char *name;
-  float xoffset;
-  float yoffset;
-  float width;
-  float height;
-} Preset_area;
+static u_char *preview_gamma_data_red   = 0;
+static u_char *preview_gamma_data_green = 0;
+static u_char *preview_gamma_data_blue  = 0;
 
-static const Preset_area preset_area[] =
-{
- { MENU_ITEM_SURFACE_FULL_SIZE,	0,	0,	INF,	INF },
- { MENU_ITEM_SURFACE_DIN_A3P,	0,	0,	296.98,	420.0 },
- { MENU_ITEM_SURFACE_DIN_A3L,	0,	0,	420.0,	296.98 },
- { MENU_ITEM_SURFACE_DIN_A4P,	0,	0,	210.0,	296.98 },
- { MENU_ITEM_SURFACE_DIN_A4L,	0,	0,	296.98,	210.0 },
- { MENU_ITEM_SURFACE_DIN_A5P,	0,	0,	148.5,	210.0 },
- { MENU_ITEM_SURFACE_DIN_A5L,	0,	0,	210.0,	148.5 },
- { MENU_ITEM_SURFACE_9cmx13cm,	0,	0,	90.0,	130.0 },
- { MENU_ITEM_SURFACE_13cmx9cm,	0,	0,	130.0,	90.0 },
- { MENU_ITEM_SURFACE_legal_P,	0,	0,	215.9,	355.6 },
- { MENU_ITEM_SURFACE_legal_L,	0,	0,	355.6,	215.9 },
- { MENU_ITEM_SURFACE_letter_P,	0,	0,	215.9,	279.4 },
- { MENU_ITEM_SURFACE_letter_L,	0,	0,	279.4,	215.9 },
- { "Test",			25,	25,	130,	90 }
-};
+static u_char *histogram_gamma_data_red   = 0;
+static u_char *histogram_gamma_data_green = 0;
+static u_char *histogram_gamma_data_blue  = 0;
 
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static SANE_Int *preview_gamma_data_red   = 0;
-static SANE_Int *preview_gamma_data_green = 0;
-static SANE_Int *preview_gamma_data_blue  = 0;
-
-static SANE_Int *histogram_gamma_data_red   = 0;
-static SANE_Int *histogram_gamma_data_green = 0;
-static SANE_Int *histogram_gamma_data_blue  = 0;
+static int preview_gamma_input_bits;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -173,7 +145,8 @@ static void preview_scan_done(Preview *p);
 static void preview_scan_start(Preview *p);
 static int preview_make_image_path(Preview *p, size_t filename_size, char *filename, int level);
 static void preview_restore_image(Preview *p);
-static gint preview_expose_event_handler(GtkWidget *window, GdkEvent *event, gpointer data);
+static gint preview_expose_event_handler_start(GtkWidget *window, GdkEvent *event, gpointer data);
+static gint preview_expose_event_handler_end(GtkWidget *window, GdkEvent *event, gpointer data);
 static gint preview_hold_event_handler(gpointer data);
 static gint preview_motion_event_handler(GtkWidget *window, GdkEvent *event, gpointer data);
 static gint preview_button_press_event_handler(GtkWidget *window, GdkEvent *event, gpointer data);
@@ -192,17 +165,22 @@ static void preview_pipette_gray(GtkWidget *window, gpointer data);
 static void preview_pipette_black(GtkWidget *window, gpointer data);
 void preview_select_full_preview_area(Preview *p);
 static void preview_full_preview_area_callback(GtkWidget *widget, gpointer call_data);
+static gint preview_preset_area_rename_callback(GtkWidget *widget, GtkWidget *preset_area_widget);
+static gint preview_preset_area_add_callback(GtkWidget *widget, GtkWidget *preset_area_widget);
+static gint preview_preset_area_delete_callback(GtkWidget *widget, GtkWidget *preset_area_widget);
+static gint preview_preset_area_move_up_callback(GtkWidget *widget, GtkWidget *preset_area_widget);
+static gint preview_preset_area_move_down_callback(GtkWidget *widget, GtkWidget *preset_area_widget);
+static gint preview_preset_area_context_menu_callback(GtkWidget *widget, GdkEvent *event);
 static void preview_preset_area_callback(GtkWidget *widget, gpointer call_data);
 static void preview_rotation_callback(GtkWidget *widget, gpointer call_data);
 static void preview_autoselect_scanarea_callback(GtkWidget *window, gpointer data);
 
 void preview_do_gamma_correction(Preview *p);
-void preview_calculate_histogram(Preview *p,
-  SANE_Int *count_raw, SANE_Int *count_raw_red, SANE_Int *count_raw_green, SANE_Int *count_raw_blue,
-  SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue);
-void preview_gamma_correction(Preview *p,
-                              SANE_Int *gamma_red, SANE_Int *gamma_green, SANE_Int *gamma_blue,
-                              SANE_Int *gamma_red_hist, SANE_Int *gamma_green_hist, SANE_Int *gamma_blue_hist);
+void preview_calculate_raw_histogram(Preview *p, SANE_Int *count_raw, SANE_Int *count_raw_red, SANE_Int *count_raw_green, SANE_Int *count_raw_blue);
+void preview_calculate_enh_histogram(Preview *p, SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue);
+void preview_gamma_correction(Preview *p, int gamma_input_bits, 
+                              u_char *gamma_red, u_char *gamma_green, u_char *gamma_blue,
+                              u_char *gamma_red_hist, u_char *gamma_green_hist, u_char *gamma_blue_hist);
 void preview_area_resize(Preview *p);
 gint preview_area_resize_handler(GtkWidget *widget, GdkEvent *event, gpointer data);
 void preview_update_maximum_output_size(Preview *p);
@@ -587,10 +565,16 @@ static void preview_bound_selection(Preview *p)
 
   if (p->selection.active)
   {
+#if 0
     xsane_bound_float(&p->selection.coordinate[0], p->scanner_surface[0], p->scanner_surface[2]);
     xsane_bound_float(&p->selection.coordinate[2], p->scanner_surface[0], p->scanner_surface[2]);
     xsane_bound_float(&p->selection.coordinate[1], p->scanner_surface[1], p->scanner_surface[3]);
     xsane_bound_float(&p->selection.coordinate[3], p->scanner_surface[1], p->scanner_surface[3]);
+#endif
+    xsane_bound_float(&p->selection.coordinate[0], p->surface[0], p->surface[2]);
+    xsane_bound_float(&p->selection.coordinate[2], p->surface[0], p->surface[2]);
+    xsane_bound_float(&p->selection.coordinate[1], p->surface[1], p->surface[3]);
+    xsane_bound_float(&p->selection.coordinate[3], p->surface[1], p->surface[3]);
   }
 }
 
@@ -617,7 +601,7 @@ static void preview_draw_selection(Preview *p)
     return;
   }
 
-  if (p->show_selection == FALSE)
+  if ( (p->show_selection == FALSE) || (p->calibration) )
   {
     return;
   }
@@ -921,6 +905,7 @@ static void preview_paint_image(Preview *p)
 {
  float xscale, yscale, src_x, src_y;
  int dst_x, dst_y, height, x, y, old_y, src_offset, x_direction;
+ int rotation;
 
   DBG(DBG_proc, "preview_paint_image (rotation=%d)\n", p->rotation);
 
@@ -934,8 +919,10 @@ static void preview_paint_image(Preview *p)
   old_y = -1;
   height = 0;
 
-  if (p->calibration)
+  rotation = p->rotation;
+  if (p->calibration) /* do not rotate calibration image */
   {
+    p->rotation = 0;
     xscale=1.0;
     yscale=1.0;
   }
@@ -943,6 +930,7 @@ static void preview_paint_image(Preview *p)
   {
     preview_get_scale_window_to_image(p, &xscale, &yscale);
   }
+
 
   switch (p->rotation & 3)
   {
@@ -1198,6 +1186,15 @@ static void preview_paint_image(Preview *p)
       }
      break;
   }
+
+  if (p->calibration) /* do not rotate calibration image */
+  {
+    p->rotation = rotation;
+  }
+
+  /* image is redrawn, we have no visible selections */
+  p->previous_selection.active = FALSE;
+  p->previous_selection_maximum.active = FALSE;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1205,9 +1202,6 @@ static void preview_paint_image(Preview *p)
 static void preview_display_partial_image(Preview *p)
 {
   DBG(DBG_proc, "preview_display_partial_image\n");
-
-  p->previous_selection.active = FALSE; /* ok, old selections are overpainted */
-  p->previous_selection_maximum.active = FALSE;
 
   preview_paint_image(p);
 
@@ -1251,13 +1245,12 @@ static void preview_display_image(Preview *p)
   if (p->params.lines <= 0 && p->image_y < p->image_height)
   {
     p->image_height   = p->image_y;
-    p->image_data_raw = realloc(p->image_data_raw, 3 * p->image_width * p->image_height);
+
+    p->image_data_raw = realloc(p->image_data_raw, 6 * p->image_width * p->image_height);
     p->image_data_enh = realloc(p->image_data_enh, 3 * p->image_width * p->image_height);
     assert(p->image_data_raw);
     assert(p->image_data_enh);
   }
-
-  memcpy(p->image_data_raw, p->image_data_enh, 3 * p->image_width * p->image_height); /* store scanned preview in raw */
 
   preview_do_gamma_correction(p);
 }
@@ -1386,8 +1379,10 @@ static int preview_increment_image_y(Preview *p)
     offset = 3 * p->image_width*p->image_height;
     extra_size = 3 * 32 * p->image_width;
     p->image_height += 32;
-    p->image_data_raw = realloc(p->image_data_raw, offset + extra_size);
+
+    p->image_data_raw = realloc(p->image_data_raw, (offset + extra_size) * 2);
     p->image_data_enh = realloc(p->image_data_enh, offset + extra_size);
+
     if ( (!p->image_data_enh) || (!p->image_data_raw) )
     {
       snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_ALLOCATE_IMAGE, strerror(errno));
@@ -1498,7 +1493,9 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
           case 8:
             for (i = 0; i < len; ++i)
             {
+              p->image_data_raw[p->image_offset]   = buf[i] * 256;
               p->image_data_enh[p->image_offset++] = buf[i];
+
               if (p->image_offset%3 == 0)
               {
                 if (++p->image_x >= p->image_width && preview_increment_image_y(p) < 0)
@@ -1512,7 +1509,9 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
           case 16:
             for (i = 0; i < len/2; ++i)
             {
+              p->image_data_raw[p->image_offset]   = buf16[i];
               p->image_data_enh[p->image_offset++] = (u_char) (buf16[i]/256);
+
               if (p->image_offset%3 == 0)
               {
                 if (++p->image_x >= p->image_width && preview_increment_image_y(p) < 0)
@@ -1539,9 +1538,16 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
               for (j = 7; j >= 0; --j)
               {
                 u_char gl = (mask & (1 << j)) ? 0x00 : 0xff;
+
+                p->image_data_raw[p->image_offset]   = gl * 256;
                 p->image_data_enh[p->image_offset++] = gl;
+
+                p->image_data_raw[p->image_offset]   = gl * 256;
                 p->image_data_enh[p->image_offset++] = gl;
+
+                p->image_data_raw[p->image_offset]   = gl * 256;
                 p->image_data_enh[p->image_offset++] = gl;
+
                 if (++p->image_x >= p->image_width)
                 {
                   if (preview_increment_image_y(p) < 0)
@@ -1558,8 +1564,13 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
             for (i = 0; i < len; ++i)
             {
               u_char gray = buf[i];
+              p->image_data_raw[p->image_offset]   = gray * 256;
               p->image_data_enh[p->image_offset++] = gray;
+
+              p->image_data_raw[p->image_offset]   = gray * 256;
               p->image_data_enh[p->image_offset++] = gray;
+
+              p->image_data_raw[p->image_offset]   = gray * 256;
               p->image_data_enh[p->image_offset++] = gray;
               if (++p->image_x >= p->image_width && preview_increment_image_y(p) < 0)
 	      {
@@ -1572,9 +1583,15 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
             for (i = 0; i < len/2; ++i)
             {
               u_char gray = buf16[i]/256;
+              p->image_data_raw[p->image_offset]   = buf16[i];
               p->image_data_enh[p->image_offset++] = gray;
+
+              p->image_data_raw[p->image_offset]   = buf16[i];
               p->image_data_enh[p->image_offset++] = gray;
+
+              p->image_data_raw[p->image_offset]   = buf16[i];
               p->image_data_enh[p->image_offset++] = gray;
+
               if (++p->image_x >= p->image_width && preview_increment_image_y(p) < 0)
 	      {
                 return;
@@ -1601,7 +1618,10 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
                   {
                     u_char gl = (mask & 1) ? 0xff : 0x00;
                     mask >>= 1;
+
+                    p->image_data_raw[p->image_offset]   = gl * 256;
                     p->image_data_enh[p->image_offset++] = gl;
+
                     p->image_offset += 3;
                     if (++p->image_x >= p->image_width && preview_increment_image_y(p) < 0)
                     {
@@ -1614,7 +1634,9 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
               case 8:
                 for (i = 0; i < len; ++i)
                 {
+                  p->image_data_raw[p->image_offset] = buf[i] * 256;
                   p->image_data_enh[p->image_offset] = buf[i];
+
                   p->image_offset += 3;
                   if (++p->image_x >= p->image_width && preview_increment_image_y(p) < 0)
                   {
@@ -1626,7 +1648,9 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
               case 16:
                 for (i = 0; i < len/2; ++i)
                 {
+                  p->image_data_raw[p->image_offset] = buf16[i];
                   p->image_data_enh[p->image_offset] = (u_char) (buf16[i]/256);
+
                   p->image_offset += 3;
                   if (++p->image_x >= p->image_width && preview_increment_image_y(p) < 0)
                   {
@@ -1651,6 +1675,7 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
       preview_display_maybe(p);
       while (gtk_events_pending())
       {
+        DBG(DBG_info, "preview_read_image_data: calling gtk_main_iteration\n");
         gtk_main_iteration();
       }
     }
@@ -1705,24 +1730,25 @@ static void preview_scan_done(Preview *p)
 
   xsane.block_update_param = FALSE;
 
+  preview_update_selection(p);
+
   preview_update_surface(p, 1); /* if surface was not defined it's necessary to redefine it now */
 
-  preview_update_selection(p);
-  xsane_update_histogram();
+  xsane_update_histogram(TRUE /* update raw */);
 
   sane_get_parameters(xsane.dev, &xsane.param); /* update xsane.param */
 
-  if (preferences.preselect_scanarea)
+  if ( (preferences.preselect_scanarea) && (!p->startimage))
   {
     preview_autoselect_scanarea(p, p->selection.coordinate); /* get autoselection coordinates */
     preview_draw_selection(p); 
     preview_establish_selection(p); 
-    xsane_update_histogram(); /* update histogram (necessary because overwritten by preview_update_surface) */
+    xsane_update_histogram(TRUE /* update_raw */); /* update histogram (necessary because overwritten by preview_update_surface) */
   }
 
   if (preferences.auto_correct_colors)
   {
-    xsane_calculate_histogram();
+    xsane_calculate_raw_histogram();
     xsane_set_auto_enhancement();
     xsane_enhancement_by_histogram(preferences.auto_enhance_gamma);
   }
@@ -1754,8 +1780,8 @@ static int preview_get_memory(Preview *p)
     p->preview_row = 0;
   }
 
-  p->image_data_enh = malloc(3 * p->image_width * (p->image_height));
-  p->image_data_raw = malloc(3 * p->image_width * (p->image_height));
+  p->image_data_raw = malloc(6 * p->image_width * p->image_height);
+  p->image_data_enh = malloc(3 * p->image_width * p->image_height);
   p->preview_row    = malloc(3 * p->preview_window_width);
 
   if ( (!p->image_data_raw) || (!p->image_data_enh) || (!p->preview_row) )
@@ -1935,11 +1961,9 @@ static void preview_scan_start(Preview *p)
     }
   }
 
-/* XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */
-/* THIS IS A BIT STRANGE HERE */
+  /* we do not have any active selection (image is redrawn while scanning) */
   p->selection.active = FALSE;
   p->previous_selection_maximum.active = FALSE;
-/* XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */
 
   p->scanning = TRUE;
 
@@ -1978,13 +2002,14 @@ static int preview_restore_image_from_file(Preview *p, FILE *in, int min_quality
  u_int psurface_type, psurface_unit;
  int image_width, image_height;
  int xoffset, yoffset, width, height;
- int bit_depth;
+ int max_val;
  int quality = 0;
- int y;
+ int x, y;
  float psurface[4];
  float dsurface[4];
  size_t nread;
- char *imagep;
+ guint16 *imagep;
+ guint16 *imagepx;
  char buf[255];
 
   DBG(DBG_proc, "preview_restore_image_from_file\n");
@@ -1999,7 +2024,7 @@ static int preview_restore_image_from_file(Preview *p, FILE *in, int min_quality
 	      psurface + 0, psurface + 1, psurface + 2, psurface + 3,
 	      &psurface_type, &psurface_unit,
 	      &image_width, &image_height,
-              &bit_depth) != 9)
+              &max_val) != 9)
   {
     return min_quality;
   }
@@ -2043,7 +2068,7 @@ static int preview_restore_image_from_file(Preview *p, FILE *in, int min_quality
       return min_quality;
     }
   }
-  else /* read startimage */
+  else /* read startimage or calibrationimage */
   {
     xoffset = 0;
     yoffset = 0;
@@ -2051,27 +2076,60 @@ static int preview_restore_image_from_file(Preview *p, FILE *in, int min_quality
     height  = image_height;
   }
 
-  p->params.depth   = 8;
-  p->image_width    = width;
-  p->image_height   = height;
+  if (max_val == 65535)
+  {
+    p->params.depth = 16;
+  }
+  else
+  {
+    p->params.depth = 8;
+  }
+
+  p->image_width  = width;
+  p->image_height = height;
 
   if (preview_get_memory(p))
   {
     return min_quality; /* error allocating memory */
   }
 
-  fseek(in, yoffset * 3 * image_width, SEEK_CUR); /* skip unused lines */
-
-  imagep = p->image_data_enh;
-
-  for (y = yoffset; y < yoffset + height; y++)
+  if (p->params.depth == 16)
   {
-    fseek(in, xoffset * 3, SEEK_CUR); /* skip unused pixel left of area */
+    fseek(in, yoffset * image_width * 6, SEEK_CUR); /* skip unused lines */
 
-    nread = fread(imagep, 3, width, in);
-    imagep += width * 3;
+    imagep = p->image_data_raw;
 
-    fseek(in, (image_width - width - xoffset) * 3, SEEK_CUR); /* skip unused pixel right of area */
+    for (y = yoffset; y < yoffset + height; y++)
+    {
+      fseek(in, xoffset * 6, SEEK_CUR); /* skip unused pixel left of area */
+
+      nread = fread(imagep, 6, width, in);
+      imagep += width * 3; /* imagep is a pointer to a 2 byte value, so we use 3 instead 6 here */
+
+      fseek(in, (image_width - width - xoffset) * 6, SEEK_CUR); /* skip unused pixel right of area */
+    }
+  }
+  else /* depth = 8 */
+  {
+    fseek(in, yoffset * image_width * 3, SEEK_CUR); /* skip unused lines */
+
+    imagep = p->image_data_raw;
+
+    for (y = yoffset; y < yoffset + height; y++)
+    {
+      fseek(in, xoffset * 3, SEEK_CUR); /* skip unused pixel left of area */
+
+      imagepx = imagep;
+      for (x = 0; x < width; x++)
+      {
+        *imagepx++ = ((guint16) fgetc(in)) * 256; /* transfrom to 16 bit image with correct byte order */
+        *imagepx++ = ((guint16) fgetc(in)) * 256;
+        *imagepx++ = ((guint16) fgetc(in)) * 256;
+      }
+      imagep += width * 3; /* imagep is a pointer to a 2 byte value, so we use 3 instead 6 here */
+
+      fseek(in, (image_width - width - xoffset) * 3, SEEK_CUR); /* skip unused pixel right of area */
+    }
   }
 
   p->image_x = width;
@@ -2141,13 +2199,6 @@ static void preview_restore_image(Preview *p)
       p->startimage = 1;
     }
   }
-
-  memcpy(p->image_data_raw, p->image_data_enh, 3 * p->image_width * p->image_height);
-
-/* the following commands may be removed because they are done because a event is emmited */
-  preview_do_gamma_correction(p);
-  xsane_update_histogram();
-  preview_draw_selection(p);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -2158,11 +2209,13 @@ static gint preview_hold_event_handler(gpointer data)
 
   DBG(DBG_proc, "preview_hold_event_handler\n");
 
+  preview_draw_selection(p);
+  p->gamma_functions_interruptable = TRUE;
+  preview_establish_selection(p);
+  p->gamma_functions_interruptable = FALSE;
+
   gtk_timeout_remove(p->hold_timer);
   p->hold_timer = 0;
-
-  preview_draw_selection(p);
-  preview_establish_selection(p);
 
  return FALSE;
 }
@@ -2190,12 +2243,6 @@ static gint preview_motion_event_handler(GtkWidget *window, GdkEvent *event, gpo
 
   if (!p->scanning)
   {
-    if (p->hold_timer) /* hold timer active? then remove it, we had a motion */
-    {
-      gtk_timeout_remove(p->hold_timer);
-      p->hold_timer = 0;
-    }
-
     switch (((GdkEventMotion *)event)->state &
             GDK_Num_Lock & GDK_Caps_Lock & GDK_Shift_Lock & GDK_Scroll_Lock) /* mask all Locks */
     {
@@ -2214,12 +2261,21 @@ static gint preview_motion_event_handler(GtkWidget *window, GdkEvent *event, gpo
 
           if (preferences.gtk_update_policy == GTK_UPDATE_CONTINUOUS)
           {
+            if (!p->hold_timer) /* hold timer active? then remove it, we had a motion */
+            {
+              p->hold_timer = gtk_timeout_add(XSANE_CONTINUOUS_HOLD_TIME, preview_hold_event_handler, (gpointer *) p);
+            }
+            preview_update_maximum_output_size(p);
             preview_draw_selection(p);
-            preview_establish_selection(p);
           }
           else if (preferences.gtk_update_policy == GTK_UPDATE_DELAYED)
           {
             /* call preview_hold_event_hanlder if mouse is not moved for ??? ms */
+            if (p->hold_timer) /* hold timer active? then remove it, we had a motion */
+            {
+              gtk_timeout_remove(p->hold_timer);
+              p->hold_timer = 0;
+            }
             p->hold_timer = gtk_timeout_add(XSANE_HOLD_TIME, preview_hold_event_handler, (gpointer *) p);
             preview_update_maximum_output_size(p);
             preview_draw_selection(p);
@@ -2389,11 +2445,20 @@ static gint preview_motion_event_handler(GtkWidget *window, GdkEvent *event, gpo
 
           if (preferences.gtk_update_policy == GTK_UPDATE_CONTINUOUS)
           {
+            if (!p->hold_timer) /* hold timer active? then remove it, we had a motion */
+            {
+              p->hold_timer = gtk_timeout_add(XSANE_CONTINUOUS_HOLD_TIME, preview_hold_event_handler, (gpointer *) p);
+            }
+            preview_update_maximum_output_size(p);
             preview_draw_selection(p);
-            preview_establish_selection(p);
           }
           else if (preferences.gtk_update_policy == GTK_UPDATE_DELAYED)
           {
+            if (p->hold_timer) /* hold timer active? then remove it, we had a motion */
+            {
+              gtk_timeout_remove(p->hold_timer);
+              p->hold_timer = 0;
+            }
             p->hold_timer = gtk_timeout_add (XSANE_HOLD_TIME, preview_hold_event_handler, (gpointer *) p);
             preview_update_maximum_output_size(p);
             preview_draw_selection(p);
@@ -2473,12 +2538,6 @@ static gint preview_motion_event_handler(GtkWidget *window, GdkEvent *event, gpo
         }
        break;
     }
-  }
-
-  while (gtk_events_pending()) /* make sure all later events are handled */
-  {
-    DBG(DBG_info, "calling gtk_main_iteration\n");
-    gtk_main_iteration();
   }
 
  return FALSE;
@@ -2952,14 +3011,15 @@ static gint preview_button_release_event_handler(GtkWidget *window, GdkEvent *ev
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
+static int expose_event_selection_active, expose_event_selection_maximum_active;
 
-static gint preview_expose_event_handler(GtkWidget *window, GdkEvent *event, gpointer data)
+static gint preview_expose_event_handler_start(GtkWidget *window, GdkEvent *event, gpointer data)
 {
  Preview *p = data;
  GdkColor color;
  GdkColormap *colormap; 
 
-  DBG(DBG_proc, "preview_expose_event_handler\n");
+  DBG(DBG_proc, "preview_expose_event_handler_start\n");
 
   if (event->type == GDK_EXPOSE)
   {
@@ -2984,8 +3044,53 @@ static gint preview_expose_event_handler(GtkWidget *window, GdkEvent *event, gpo
     }
     else
     {
-      p->previous_selection.active = FALSE; /* ok, old selections are overpainted */
-      p->previous_selection_maximum.active = FALSE;
+      expose_event_selection_active         = p->selection.active;
+      expose_event_selection_maximum_active = p->selection_maximum.active;
+      p->selection_maximum.active = FALSE;
+      p->selection.active = FALSE; /* do not draw new selections */
+      p->selection_maximum.active = FALSE;
+      preview_draw_selection(p); /* undraw selections */
+    }
+  }
+
+ return FALSE;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static gint preview_expose_event_handler_end(GtkWidget *window, GdkEvent *event, gpointer data)
+{
+ Preview *p = data;
+ GdkColor color;
+ GdkColormap *colormap; 
+
+  DBG(DBG_proc, "preview_expose_event_handler_end\n");
+
+  if (event->type == GDK_EXPOSE)
+  {
+    if (!p->gc_selection)
+    {
+      DBG(DBG_info, "defining line styles for selection and page frames\n");
+      colormap = gdk_window_get_colormap(p->window->window);
+
+      p->gc_selection = gdk_gc_new(p->window->window);
+      gdk_gc_set_function(p->gc_selection, GDK_INVERT);
+      gdk_gc_set_line_attributes(p->gc_selection, 1, GDK_LINE_ON_OFF_DASH, GDK_CAP_BUTT, GDK_JOIN_MITER);
+
+      p->gc_selection_maximum = gdk_gc_new(p->window->window);
+      gdk_gc_set_function(p->gc_selection_maximum, GDK_XOR);
+      gdk_gc_set_line_attributes(p->gc_selection_maximum, 1, GDK_LINE_ON_OFF_DASH, GDK_CAP_BUTT, GDK_JOIN_MITER);
+
+      color.red   = 0;
+      color.green = 65535;
+      color.blue  = 30000;
+      gdk_color_alloc(colormap, &color);
+      gdk_gc_set_foreground(p->gc_selection_maximum, &color);   
+    }
+    else
+    {
+       p->selection.active         = expose_event_selection_active;
+       p->selection_maximum.active = expose_event_selection_maximum_active;
       preview_draw_selection(p); /* draw selections again */
     }
   }
@@ -3013,61 +3118,44 @@ static void preview_cancel_button_clicked(GtkWidget *widget, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-Preview *preview_new(void)
+static void preview_create_preset_area_menu(Preview *p, int selection)
 {
- GtkWidget *table, *frame;
- GtkSignalFunc signal_func;
- GtkWidgetClass *class;
- GtkWidget *vbox, *hbox;
- GdkCursor *cursor;
- GtkWidget *preset_area_option_menu, *preset_area_menu, *preset_area_item;
- GtkWidget *rotation_option_menu, *rotation_menu, *rotation_item;
- Preview *p;
  int i;
- char buf[256];
- char filename[PATH_MAX];
- int error_flag;
+ GtkWidget *preset_area_menu, *preset_area_item;
 
-  DBG(DBG_proc, "preview_new\n");
+  preset_area_menu = gtk_menu_new();
 
-  p = malloc(sizeof(*p));
-  if (!p)
+  for (i = 0; i < preferences.preset_area_definitions; ++i)
   {
-    return 0;
-  }
-  memset(p, 0, sizeof(*p));
+    preset_area_item = gtk_menu_item_new_with_label(preferences.preset_area[i]->name);
+    gtk_container_add(GTK_CONTAINER(preset_area_menu), preset_area_item);
+    gtk_signal_connect(GTK_OBJECT(preset_area_item), "button_press_event", (GtkSignalFunc) preview_preset_area_context_menu_callback, p);
+    gtk_signal_connect(GTK_OBJECT(preset_area_item), "activate", (GtkSignalFunc) preview_preset_area_callback, p);
+    gtk_object_set_data(GTK_OBJECT(preset_area_item), "Selection", (void *) i);  
+    gtk_object_set_data(GTK_OBJECT(preset_area_item), "Preview", (void *) p);  
 
-  p->mode        = MODE_NORMAL; /* no pipette functions etc */
-  p->calibration = 0; /* do not display calibration image */
-  p->input_tag   = -1;
-  p->rotation    = 0;
+    gtk_widget_show(preset_area_item);
+  }                  
 
-  p->index_xmin        = 0;
-  p->index_xmax        = 2;
-  p->index_ymin        = 1;
-  p->index_ymax        = 3;
+  gtk_option_menu_set_menu(GTK_OPTION_MENU(p->preset_area_option_menu), preset_area_menu);
+  gtk_option_menu_set_history(GTK_OPTION_MENU(p->preset_area_option_menu), selection); 
 
-  p->max_scanner_surface[0] = -INF;
-  p->max_scanner_surface[1] = -INF;
-  p->max_scanner_surface[2] = INF;
-  p->max_scanner_surface[3] = INF;
+  gtk_widget_show(preset_area_menu);
+  gtk_widget_queue_draw(p->preset_area_option_menu);
+}
 
-  p->scanner_surface[0] = -INF;
-  p->scanner_surface[1] = -INF;
-  p->scanner_surface[2] = INF;
-  p->scanner_surface[3] = INF;
+/* ---------------------------------------------------------------------------------------------------------------------- */
 
-  p->surface[0] = -INF;
-  p->surface[1] = -INF;
-  p->surface[2] = INF;
-  p->surface[3] = INF;
+void preview_generate_preview_filenames(Preview *p)
+{
+ char filename[PATH_MAX];
+ char buf[256];
+ int error_flag = 0;
+ int i;
 
-  gtk_preview_set_gamma(1.0);
-  gtk_preview_set_install_cmap(preferences.preview_own_cmap);
-
+  DBG(DBG_proc, "preview_generate_preview_filenames\n");
 
   umask(0177); /* create temporary file with "-rw-------" permissions */
-  error_flag = 0;
 
   for(i=0; i<=2; i++) /* create random filenames for previews */
   {
@@ -3109,6 +3197,64 @@ Preview *preview_new(void)
     snprintf(buf, sizeof(buf), ERR_CREATE_PREVIEW_FILENAME);
     xsane_back_gtk_error(buf, TRUE);
   }
+
+ return;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+Preview *preview_new(void)
+{
+ GtkWidget *table, *frame;
+ GtkSignalFunc signal_func;
+ GtkWidgetClass *class;
+ GtkWidget *vbox, *hbox;
+ GdkCursor *cursor;
+ GtkWidget *preset_area_option_menu;
+ GtkWidget *rotation_option_menu, *rotation_menu, *rotation_item;
+ Preview *p;
+ int i;
+ char buf[256];
+
+  DBG(DBG_proc, "preview_new\n");
+
+  p = malloc(sizeof(*p));
+  if (!p)
+  {
+    return 0;
+  }
+  memset(p, 0, sizeof(*p));
+
+  p->mode        = MODE_NORMAL; /* no pipette functions etc */
+  p->calibration = 0; /* do not display calibration image */
+  p->input_tag   = -1;
+  p->rotation    = 0;
+  p->gamma_functions_interruptable = FALSE;
+
+  p->index_xmin        = 0;
+  p->index_xmax        = 2;
+  p->index_ymin        = 1;
+  p->index_ymax        = 3;
+
+  p->max_scanner_surface[0] = -INF;
+  p->max_scanner_surface[1] = -INF;
+  p->max_scanner_surface[2] = INF;
+  p->max_scanner_surface[3] = INF;
+
+  p->scanner_surface[0] = -INF;
+  p->scanner_surface[1] = -INF;
+  p->scanner_surface[2] = INF;
+  p->scanner_surface[3] = INF;
+
+  p->surface[0] = -INF;
+  p->surface[1] = -INF;
+  p->surface[2] = INF;
+  p->surface[3] = INF;
+
+  gtk_preview_set_gamma(1.0);
+  gtk_preview_set_install_cmap(preferences.preview_own_cmap);
+
+  preview_generate_preview_filenames(p);
 
   p->preset_surface[0] = 0;
   p->preset_surface[1] = 0;
@@ -3175,27 +3321,13 @@ Preview *preview_new(void)
 
 
   /* select maximum scanarea */
-  preset_area_menu = gtk_menu_new();
-
-  for (i = 0; i < PRESET_AREA_ITEMS; ++i)
-  {
-    preset_area_item = gtk_menu_item_new_with_label(_(preset_area[i].name));
-    gtk_container_add(GTK_CONTAINER(preset_area_menu), preset_area_item);
-    gtk_signal_connect(GTK_OBJECT(preset_area_item), "activate", (GtkSignalFunc) preview_preset_area_callback, p);
-    gtk_object_set_data(GTK_OBJECT(preset_area_item), "Selection", (void *) i);  
-
-    gtk_widget_show(preset_area_item);
-  }                  
 
   preset_area_option_menu = gtk_option_menu_new();
   xsane_back_gtk_set_tooltip(xsane.tooltips, preset_area_option_menu, DESC_PRESET_AREA);
   gtk_box_pack_start(GTK_BOX(p->button_box), preset_area_option_menu, FALSE, FALSE, 0);
-  gtk_option_menu_set_menu(GTK_OPTION_MENU(preset_area_option_menu), preset_area_menu);
-  gtk_option_menu_set_history(GTK_OPTION_MENU(preset_area_option_menu), 0); /* full area */
-/*  xsane_back_gtk_set_tooltip(tooltips, preset_area_option_menu, desc); */
-
   gtk_widget_show(preset_area_option_menu);
   p->preset_area_option_menu = preset_area_option_menu;
+  preview_create_preset_area_menu(p, 0); /* build menu and set default to 0=full size */
 
 
   /* select rotation */
@@ -3271,14 +3403,14 @@ Preview *preview_new(void)
   gtk_widget_set_events(p->window, GDK_EXPOSURE_MASK | GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK |
 			GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK);
 
-  /* the first expose_event is responsible to draw the selection frame when the user moved/changed it */
-  gtk_signal_connect(GTK_OBJECT(p->window), "expose_event", (GtkSignalFunc) preview_expose_event_handler, p);
+  /* the first expose_event is responsible to undraw the selection frame */
+  gtk_signal_connect(GTK_OBJECT(p->window), "expose_event", (GtkSignalFunc) preview_expose_event_handler_start, p);
   gtk_signal_connect(GTK_OBJECT(p->window), "button_press_event",   (GtkSignalFunc) preview_button_press_event_handler, p);
   gtk_signal_connect(GTK_OBJECT(p->window), "motion_notify_event",  (GtkSignalFunc) preview_motion_event_handler, p);
   gtk_signal_connect(GTK_OBJECT(p->window), "button_release_event", (GtkSignalFunc) preview_button_release_event_handler, p);
   gtk_signal_connect_after(GTK_OBJECT(p->window), "size_allocate", (GtkSignalFunc) preview_area_resize_handler, p);
-  /* the second expose_event is responsible to draw the selection frame when the window was covered */
-  gtk_signal_connect_after(GTK_OBJECT(p->window), "expose_event",  (GtkSignalFunc) preview_expose_event_handler, p);
+  /* the second expose_event is responsible to redraw the selection frame */
+  gtk_signal_connect_after(GTK_OBJECT(p->window), "expose_event",  (GtkSignalFunc) preview_expose_event_handler_end, p);
 
   /* Connect the motion-notify events of the preview area with the rulers.  Nifty stuff!  */
   class = GTK_WIDGET_CLASS(GTK_OBJECT(p->hruler)->klass);
@@ -3349,7 +3481,7 @@ static void preview_area_correct(Preview *p)
 
   DBG(DBG_proc, "preview_area_correct\n");
 
-  if ( ((p->rotation & 3) == 0) || ((p->rotation & 3) == 2) )
+  if ( ((p->rotation & 3) == 0) || ((p->rotation & 3) == 2) || (p->calibration) )
   {
     aspect = p->aspect;
   }
@@ -3498,11 +3630,13 @@ void preview_update_surface(Preview *p, int surface_changed)
     p->surface_type = type;
   }
 
-  DBG(DBG_info, "preview_update_surface: calculate aspect ratio\n");
+
   if (surface_changed)
   {
     DBG(DBG_info, "preview_update_surface: surface_changed\n");
     /* guess the initial preview window size: */
+
+    preview_restore_image(p); /* load scanned image */
 
     width  = p->surface[p->index_xmax] - p->surface[p->index_xmin];
     height = p->surface[p->index_ymax] - p->surface[p->index_ymin];
@@ -3527,14 +3661,16 @@ void preview_update_surface(Preview *p, int surface_changed)
       }
     }
   }
+#if 0
   else if ( (p->image_height) && (p->image_width) ) /* we have an image so let´s calculate the correct aspect ratio */
   {
     p->aspect = fabs(p->image_width/(float) p->image_height);
   }
+#endif
 
   DBG(DBG_info, "preview_update_surface: aspect = %f\n", p->aspect);
 
-  if ( (surface_changed) && (p->preview_window_width == 0) )
+  if ( (surface_changed) && (p->preview_window_width == 0) ) /* window is new */
   {
     DBG(DBG_info, "preview_update_surface: defining size of preview window\n");
 
@@ -3543,19 +3679,21 @@ void preview_update_surface(Preview *p, int surface_changed)
     preview_area_correct(p); /* calculate preview_width and height */
     gtk_widget_set_usize(GTK_WIDGET(p->window), p->preview_width, p->preview_height);
   }
-  else
-  {
-    preview_area_correct(p); /* calculate preview_width and height */
-  }
-
-  if (surface_changed)
+  else if (surface_changed) /* establish new surface */
   {
     DBG(DBG_info, "preview_update_surface: establish new surface\n");
-    preview_area_resize(p);	/* correct rulers */
-    preview_bound_selection(p);	/* make sure selection is not larger than surface */
-    preview_restore_image(p);	/* draw selected surface of the image */
+    preview_area_correct(p); /* calculate preview_width and height */
+    preview_area_resize(p);   /* correct rulers */
+    preview_do_gamma_correction(p); /* draw preview */
+    xsane_update_histogram(TRUE /* update raw */);
+
+    p->previous_selection.active = FALSE;
+    p->previous_selection_maximum.active = FALSE;
+    preview_bound_selection(p);	 /* make sure selection is not larger than surface */
+    preview_draw_selection(p);   /* the selection is overpainted, we have to update it */
+    preview_establish_selection(p); /* send selection to backend, it may be changed */
   }
-  else
+  else /* leave everything like it is */
   {
     DBG(DBG_info, "preview_update_surface: surface unchanged\n");
     preview_update_selection(p);
@@ -3573,6 +3711,10 @@ void preview_scan(Preview *p)
  float dsurface[4];
 
   DBG(DBG_proc, "preview_scan\n");
+
+  /* we are overpainting the image, so we do not have any visible selections */
+  p->previous_selection.active = FALSE;
+  p->previous_selection_maximum.active = FALSE;
 
   xsane.block_update_param = TRUE; /* do not change parameters each time */
 
@@ -3694,12 +3836,12 @@ static void preview_save_image_file(Preview *p, FILE *out)
 
     preview_rotate_previewsurface_to_devicesurface(p->rotation, p->surface, dsurface);
 
-    /* always save it as a PPM image: */
-    fprintf(out, "P6\n# surface: %g %g %g %g %u %u\n%d %d\n255\n",
+    /* always save it as a 16 bit PPM image: */
+    fprintf(out, "P6\n# surface: %g %g %g %g %u %u\n%d %d\n65535\n",
                  dsurface[0], dsurface[1], dsurface[2], dsurface[3],
                  p->surface_type, p->surface_unit, p->image_width, p->image_height);
 
-    fwrite(p->image_data_raw, 3, p->image_width*p->image_height, out);
+    fwrite(p->image_data_raw, 6, p->image_width*p->image_height, out);
     fclose(out);
   }
 }
@@ -3713,7 +3855,7 @@ static void preview_save_image(Preview *p)
 
   DBG(DBG_proc, "preview_save_image\n");
 
-  if (!p->image_data_enh)
+  if (!p->image_data_raw)
   {
     return;
   }
@@ -3962,15 +4104,15 @@ static void preview_get_color(Preview *p, int x, int y, int range, int *red, int
  
           if (!xsane.negative) /* positive */
           {
-            *red   += p->image_data_raw[offset    ];
-            *green += p->image_data_raw[offset + 1];
-            *blue  += p->image_data_raw[offset + 2];
+            *red   += (p->image_data_raw[offset    ]) >> 8;
+            *green += (p->image_data_raw[offset + 1]) >> 8;
+            *blue  += (p->image_data_raw[offset + 2]) >> 8;
           }
           else /* negative */
           {
-            *red   += 255 - p->image_data_raw[offset    ];
-            *green += 255 - p->image_data_raw[offset + 1];
-            *blue  += 255 - p->image_data_raw[offset + 2];
+            *red   += 255 - (p->image_data_raw[offset    ] >> 8);
+            *green += 255 - (p->image_data_raw[offset + 1] >> 8);
+            *blue  += 255 - (p->image_data_raw[offset + 2] >> 8);
           }
         }
       }
@@ -4114,6 +4256,398 @@ static void preview_full_preview_area_callback(GtkWidget *widget, gpointer call_
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+int xsane_preset_area_entry_rename;
+ 
+static void xsane_preset_area_entry_rename_button_callback(GtkWidget *widget, gpointer data)
+{
+  DBG(DBG_proc, "xsane_preset_area_entry_rename\n");
+ 
+  xsane_preset_area_entry_rename = (int) data;                                                          
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static gint preview_preset_area_rename_callback(GtkWidget *widget, GtkWidget *preset_area_widget)
+{
+ int selection;
+ char *oldname;
+ char *newname;
+ Preview *p;
+ GtkWidget *rename_dialog;
+ GtkWidget *text;
+ GtkWidget *button;
+ GtkWidget *vbox, *hbox;
+ GtkWidget *old_preset_area_menu;
+ char buf[256];
+ int old_selection;
+
+
+  DBG(DBG_proc, "preview_preset_area_rename_callback\n");
+
+  selection = (int) gtk_object_get_data(GTK_OBJECT(preset_area_widget), "Selection");
+  p = (Preview *) gtk_object_get_data(GTK_OBJECT(preset_area_widget), "Preview"); 
+
+  DBG(DBG_info ,"rename %s\n", preferences.preset_area[selection]->name);
+
+  old_preset_area_menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(p->preset_area_option_menu));
+  old_selection = (int) gtk_object_get_data(GTK_OBJECT(gtk_menu_get_active(GTK_MENU(old_preset_area_menu))), "Selection");  
+
+  gtk_menu_popdown(GTK_MENU(old_preset_area_menu));
+  /* set menu in correct state, is a bit strange this way but I do not have a better idea */
+  gtk_option_menu_set_history(GTK_OPTION_MENU(p->preset_area_option_menu), old_selection);
+
+  oldname = strdup(preferences.preset_area[selection]->name);
+
+  rename_dialog = gtk_window_new(GTK_WINDOW_DIALOG);
+  xsane_set_window_icon(rename_dialog, 0);
+ 
+  /* set the main vbox */
+  vbox = gtk_vbox_new(FALSE, 0);
+  gtk_container_set_border_width(GTK_CONTAINER(vbox), 0);
+  gtk_container_add(GTK_CONTAINER(rename_dialog), vbox);
+  gtk_widget_show(vbox);
+
+  /* set the main hbox */
+  hbox = gtk_hbox_new(FALSE, 0);
+  xsane_separator_new(vbox, 2);
+  gtk_box_pack_end(GTK_BOX(vbox), hbox, FALSE, FALSE, 5);
+  gtk_container_set_border_width(GTK_CONTAINER(hbox), 5);
+  gtk_widget_show(hbox);
+ 
+  gtk_window_set_position(GTK_WINDOW(rename_dialog), GTK_WIN_POS_CENTER);
+  gtk_window_set_policy(GTK_WINDOW(rename_dialog), FALSE, FALSE, FALSE);
+  snprintf(buf, sizeof(buf), "%s %s", xsane.prog_name, WINDOW_PRESET_AREA_RENAME);
+  gtk_window_set_title(GTK_WINDOW(rename_dialog), buf);
+  gtk_signal_connect(GTK_OBJECT(rename_dialog), "delete_event", (GtkSignalFunc) xsane_preset_area_entry_rename_button_callback, (void *) -1);
+  gtk_widget_show(rename_dialog);
+ 
+  text = gtk_entry_new_with_max_length(64);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_PRESET_AREA_NAME);
+  gtk_entry_set_text(GTK_ENTRY(text), oldname);
+  gtk_widget_set_usize(text, 300, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), text, TRUE, TRUE, 4);
+  gtk_widget_show(text);
+ 
+ 
+  button = gtk_button_new_with_label("OK");
+  gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_preset_area_entry_rename_button_callback, (void *) 1);
+  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
+  gtk_widget_show(button);
+ 
+  button = gtk_button_new_with_label("Cancel");
+  gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_preset_area_entry_rename_button_callback, (void *) -1);
+  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
+  gtk_widget_show(button);
+
+  xsane_preset_area_entry_rename = 0;
+ 
+  while (xsane_preset_area_entry_rename == 0)
+  {
+    while (gtk_events_pending())
+    {
+      DBG(DBG_info, "preview_preset_area_rename_callback: calling gtk_main_iteration\n");
+      gtk_main_iteration();
+    }
+  }
+ 
+  newname = strdup(gtk_entry_get_text(GTK_ENTRY(text)));
+ 
+  if (xsane_preset_area_entry_rename == 1) /* OK button has been pressed */
+  {
+    gtk_option_menu_remove_menu(GTK_OPTION_MENU(p->preset_area_option_menu));
+
+    if (GTK_IS_WIDGET(old_preset_area_menu)) /* the menu normally is closed when we come here */
+    {
+      gtk_widget_destroy(old_preset_area_menu);
+    }
+
+    free(preferences.preset_area[selection]->name);
+    preferences.preset_area[selection]->name = strdup(newname);
+    DBG(DBG_info, "renaming %s to %s\n", oldname, newname);
+
+    preview_create_preset_area_menu(p, old_selection);
+  }
+ 
+  free(oldname);
+  free(newname);
+ 
+  gtk_widget_destroy(rename_dialog);
+ 
+  xsane_set_sensitivity(TRUE);
+
+  return TRUE; /* event is handled */
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static gint preview_preset_area_add_callback(GtkWidget *widget, GtkWidget *preset_area_widget)
+{
+ int selection, i, old_selection = 0;
+ Preview *p;
+ GtkWidget *old_preset_area_menu;
+
+  DBG(DBG_proc, "preview_preset_area_add_callback\n");
+
+  selection = (int) gtk_object_get_data(GTK_OBJECT(preset_area_widget), "Selection");
+  p = (Preview *) gtk_object_get_data(GTK_OBJECT(preset_area_widget), "Preview"); 
+
+  if (selection < preferences.preset_area_definitions)
+  {
+   char buf[256];
+   float coord[4];
+
+    preferences.preset_area = realloc(preferences.preset_area, (preferences.preset_area_definitions+1) * sizeof(void *));
+
+    /* shift all items after selection */
+    for (i = preferences.preset_area_definitions-1; i > selection; i--)
+    {
+      preferences.preset_area[i+1] = preferences.preset_area[i];
+    }
+
+    /* insert new item behind selected item, name is size in mm */ 
+    preview_rotate_previewsurface_to_devicesurface(p->rotation, p->selection.coordinate, coord);
+    snprintf(buf, sizeof(buf), "%d mm x %d mm", (int) (coord[2]-coord[0]), (int) (coord[3]-coord[1]));
+    preferences.preset_area[selection+1] = calloc(sizeof(Preferences_preset_area_t), 1);
+    preferences.preset_area[selection+1]->name    = strdup(buf);
+    preferences.preset_area[selection+1]->xoffset = coord[0];
+    preferences.preset_area[selection+1]->yoffset = coord[1];
+    preferences.preset_area[selection+1]->width   = coord[2] - coord[0];
+    preferences.preset_area[selection+1]->height  = coord[3] - coord[1];
+
+    DBG(DBG_proc, "added %s\n", buf);
+
+    preferences.preset_area_definitions++;
+
+    old_preset_area_menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(p->preset_area_option_menu));
+
+    gtk_option_menu_remove_menu(GTK_OPTION_MENU(p->preset_area_option_menu));
+    old_selection = (int) gtk_object_get_data(GTK_OBJECT(gtk_menu_get_active(GTK_MENU(old_preset_area_menu))), "Selection");  
+
+    if (old_selection > selection) /* we are moving the selected surface */
+    {
+      old_selection++;
+    }
+
+    gtk_widget_destroy(old_preset_area_menu);
+
+    preview_create_preset_area_menu(p, old_selection);
+  }
+
+  return TRUE; /* event is handled */
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static gint preview_preset_area_delete_callback(GtkWidget *widget, GtkWidget *preset_area_widget)
+{
+ int selection, i, old_selection = 0;
+ Preview *p;
+ GtkWidget *old_preset_area_menu;
+
+  DBG(DBG_proc, "preview_preset_area_delete_callback\n");
+
+  selection = (int) gtk_object_get_data(GTK_OBJECT(preset_area_widget), "Selection");
+  p = (Preview *) gtk_object_get_data(GTK_OBJECT(preset_area_widget), "Preview"); 
+
+
+  if (selection) /* full size can not be deleted */
+  {
+    DBG(DBG_info ,"deleting %s\n", preferences.preset_area[selection]->name);
+
+    free(preferences.preset_area[selection]);
+
+    for (i=selection; i<preferences.preset_area_definitions-1; i++)
+    {
+      preferences.preset_area[i] = preferences.preset_area[i+1];
+    }
+
+    preferences.preset_area_definitions--;
+
+    old_preset_area_menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(p->preset_area_option_menu));
+
+    gtk_option_menu_remove_menu(GTK_OPTION_MENU(p->preset_area_option_menu));
+    old_selection = (int) gtk_object_get_data(GTK_OBJECT(gtk_menu_get_active(GTK_MENU(old_preset_area_menu))), "Selection");  
+
+    if (old_selection == selection) /* we are deleting the selected surface */
+    {
+      old_selection = 0;
+    }
+    else if (old_selection > selection) /* we are deleting the selected surface */
+    {
+      old_selection--;
+    }
+
+    gtk_widget_destroy(old_preset_area_menu);
+
+    preview_create_preset_area_menu(p, old_selection); /* build menu and set default to 0=full size */
+  }
+
+  return TRUE; /* event is handled */
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static gint preview_preset_area_move_up_callback(GtkWidget *widget, GtkWidget *preset_area_widget)
+{
+ int selection, old_selection = 0;
+ Preview *p;
+ GtkWidget *old_preset_area_menu;
+
+  DBG(DBG_proc, "preview_preset_area_move_up_callback\n");
+
+  selection = (int) gtk_object_get_data(GTK_OBJECT(preset_area_widget), "Selection");
+  p = (Preview *) gtk_object_get_data(GTK_OBJECT(preset_area_widget), "Preview"); 
+
+  if (selection > 1) /* make sure "full area" stays at top */
+  {
+   Preferences_preset_area_t *help_area;
+
+    DBG(DBG_info ,"moving up %s\n", preferences.preset_area[selection]->name);
+
+    help_area = preferences.preset_area[selection-1];
+    preferences.preset_area[selection-1] = preferences.preset_area[selection];
+    preferences.preset_area[selection] = help_area;
+
+    old_preset_area_menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(p->preset_area_option_menu));
+
+    gtk_option_menu_remove_menu(GTK_OPTION_MENU(p->preset_area_option_menu));
+    old_selection = (int) gtk_object_get_data(GTK_OBJECT(gtk_menu_get_active(GTK_MENU(old_preset_area_menu))), "Selection");  
+
+    if (old_selection == selection)
+    {
+      old_selection--;
+    }
+    else if (old_selection == selection-1)
+    {
+      old_selection++;
+    }
+
+    gtk_widget_destroy(old_preset_area_menu);
+
+    preview_create_preset_area_menu(p, old_selection); /* build menu and set default to 0=full size */
+  }
+
+  return TRUE; /* event is handled */
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static gint preview_preset_area_move_down_callback(GtkWidget *widget, GtkWidget *preset_area_widget)
+{
+ int selection, old_selection = 0;
+ Preview *p;
+ GtkWidget *old_preset_area_menu;
+
+  DBG(DBG_proc, "preview_preset_area_move_down_callback\n");
+
+  selection = (int) gtk_object_get_data(GTK_OBJECT(preset_area_widget), "Selection");
+  p = (Preview *) gtk_object_get_data(GTK_OBJECT(preset_area_widget), "Preview"); 
+
+  /* full size can not moved down */
+  if ((selection) && (selection < preferences.preset_area_definitions-1))
+  {
+   Preferences_preset_area_t *help_area;
+
+    DBG(DBG_info ,"moving down %s\n", preferences.preset_area[selection]->name);
+
+    help_area = preferences.preset_area[selection];
+    preferences.preset_area[selection] = preferences.preset_area[selection+1];
+    preferences.preset_area[selection+1] = help_area;
+
+    old_preset_area_menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(p->preset_area_option_menu));
+
+    gtk_option_menu_remove_menu(GTK_OPTION_MENU(p->preset_area_option_menu));
+    old_selection = (int) gtk_object_get_data(GTK_OBJECT(gtk_menu_get_active(GTK_MENU(old_preset_area_menu))), "Selection");  
+
+    if (old_selection == selection)
+    {
+      old_selection++;
+    }
+    else if (old_selection == selection+1)
+    {
+      old_selection--;
+    }
+
+    gtk_widget_destroy(old_preset_area_menu);
+
+    preview_create_preset_area_menu(p, old_selection); /* build menu and set default to 0=full size */
+  }
+
+  return TRUE; /* event is handled */
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static gint preview_preset_area_context_menu_callback(GtkWidget *widget, GdkEvent *event)
+{
+ GtkWidget *menu;
+ GtkWidget *menu_item;
+ GdkEventButton *event_button;
+ int selection;
+
+  DBG(DBG_proc, "preview_preset_area_context_menu_callback\n");
+
+  selection = (int) gtk_object_get_data(GTK_OBJECT(widget), "Selection");
+
+  if (event->type == GDK_BUTTON_PRESS)
+  {
+    event_button = (GdkEventButton *) event;
+
+    if (event_button->button == 3)
+    {
+      menu = gtk_menu_new();
+
+      /** add selection */
+      menu_item = gtk_menu_item_new_with_label(MENU_ITEM_PRESET_AREA_ADD_SEL);
+      gtk_widget_show(menu_item);
+      gtk_container_add(GTK_CONTAINER(menu), menu_item);
+      gtk_signal_connect(GTK_OBJECT(menu_item), "activate", (GtkSignalFunc) preview_preset_area_add_callback, widget);
+
+      /* rename preset area */
+      menu_item = gtk_menu_item_new_with_label(MENU_ITEM_PRESET_AREA_RENAME);
+      gtk_widget_show(menu_item);
+      gtk_container_add(GTK_CONTAINER(menu), menu_item);
+      gtk_signal_connect(GTK_OBJECT(menu_item), "activate", (GtkSignalFunc) preview_preset_area_rename_callback, widget);
+
+      if (selection) /* not available for "full area" */
+      {
+        /* delete preset area */
+        menu_item = gtk_menu_item_new_with_label(MENU_ITEM_PRESET_AREA_DELETE);
+        gtk_widget_show(menu_item);
+        gtk_container_add(GTK_CONTAINER(menu), menu_item);
+        gtk_signal_connect(GTK_OBJECT(menu_item), "activate", (GtkSignalFunc) preview_preset_area_delete_callback, widget);
+      }
+
+      if (selection>1) /* available from 3rd item */
+      {
+        /* move up */
+        menu_item = gtk_menu_item_new_with_label(MENU_OTEM_PRESET_AREA_MOVE_UP);
+        gtk_widget_show(menu_item);
+        gtk_container_add(GTK_CONTAINER(menu), menu_item);
+        gtk_signal_connect(GTK_OBJECT(menu_item), "activate", (GtkSignalFunc) preview_preset_area_move_up_callback, widget);
+      }
+
+      if ((selection) && (selection < preferences.preset_area_definitions-1))
+      {
+        /* move down */
+        menu_item = gtk_menu_item_new_with_label(MENU_OTEM_PRESET_AREA_MOVE_DWN);
+        gtk_widget_show(menu_item);
+        gtk_container_add(GTK_CONTAINER(menu), menu_item);
+        gtk_signal_connect(GTK_OBJECT(menu_item), "activate", (GtkSignalFunc) preview_preset_area_move_down_callback, widget);
+      }
+
+      gtk_widget_show(menu);
+      gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event_button->button, event_button->time);
+
+     return TRUE; /* event is handled */
+    }
+  }
+
+ return FALSE;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void preview_preset_area_callback(GtkWidget *widget, gpointer call_data)
 {
  Preview *p = call_data;
@@ -4123,10 +4657,10 @@ static void preview_preset_area_callback(GtkWidget *widget, gpointer call_data)
 
   selection = (int) gtk_object_get_data(GTK_OBJECT(widget), "Selection");
 
-  p->preset_surface[0] = preset_area[selection].xoffset;
-  p->preset_surface[1] = preset_area[selection].yoffset;
-  p->preset_surface[2] = preset_area[selection].xoffset + preset_area[selection].width;
-  p->preset_surface[3] = preset_area[selection].yoffset + preset_area[selection].height;
+  p->preset_surface[0] = preferences.preset_area[selection]->xoffset;
+  p->preset_surface[1] = preferences.preset_area[selection]->yoffset;
+  p->preset_surface[2] = preferences.preset_area[selection]->xoffset + preferences.preset_area[selection]->width;
+  p->preset_surface[3] = preferences.preset_area[selection]->yoffset + preferences.preset_area[selection]->height;
 
   gtk_widget_set_sensitive(p->zoom_not,  TRUE); /* allow unzoom */
   gtk_widget_set_sensitive(p->zoom_undo, FALSE); /* forbid undo zoom */
@@ -4225,10 +4759,8 @@ static void preview_rotation_callback(GtkWidget *widget, gpointer call_data)
 
   p->rotation = rot;
 
-  preview_update_surface(p, 2); /* rotate surfaces */
-
   preview_update_selection(p); /* read selection from backend: correct rotation */
-  xsane_update_histogram(); /* update histogram (necessary because overwritten by preview_update_surface */
+  preview_update_surface(p, 2); /* rotate surfaces */
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -4240,7 +4772,7 @@ static void preview_autoselect_scanarea_callback(GtkWidget *window, gpointer dat
   preview_autoselect_scanarea(p, p->selection.coordinate); /* get autoselection coordinates */
   preview_draw_selection(p); 
   preview_establish_selection(p); 
-  xsane_update_histogram(); /* update histogram (necessary because overwritten by preview_update_surface */
+  xsane_update_histogram(TRUE /* update raw */); /* update histogram (necessary because overwritten by preview_update_surface */
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -4249,40 +4781,70 @@ void preview_do_gamma_correction(Preview *p)
 {
  int x,y;
  int offset;
+ u_char *image_data_enhp;
+ guint16 *image_data_rawp;
+ int rotate = 16 - preview_gamma_input_bits;
 
   DBG(DBG_proc, "preview_do_gamma_correction\n");
 
   if ((p->image_data_raw) && (p->params.depth > 1) && (preview_gamma_data_red))
   {
-    if ( (xsane.param.format == SANE_FRAME_RGB) ||
+    if ( (xsane.param.format == SANE_FRAME_RGB) || /* color preview */
          (xsane.param.format == SANE_FRAME_RED) ||
          (xsane.param.format == SANE_FRAME_GREEN) ||
          (xsane.param.format == SANE_FRAME_BLUE) )
     {
       for (y=0; y < p->image_height; y++)
       {
+        offset = 3 * (y * p->image_width);
+
+        image_data_rawp = p->image_data_raw + offset;
+        image_data_enhp = p->image_data_enh + offset;
+
         for (x=0; x < p->image_width; x++)
         {
-          offset = 3 * (y * p->image_width + x);
-          p->image_data_enh[offset    ] = preview_gamma_data_red  [p->image_data_raw[offset    ]];
-          p->image_data_enh[offset + 1] = preview_gamma_data_green[p->image_data_raw[offset + 1]];
-          p->image_data_enh[offset + 2] = preview_gamma_data_blue [p->image_data_raw[offset + 2]];
+          *image_data_enhp++ = preview_gamma_data_red  [(*image_data_rawp++) >> rotate];
+          *image_data_enhp++ = preview_gamma_data_green[(*image_data_rawp++) >> rotate];
+          *image_data_enhp++ = preview_gamma_data_blue [(*image_data_rawp++) >> rotate];
+        }
+
+        if (p->gamma_functions_interruptable)
+        {
+          while (gtk_events_pending())
+          {
+            DBG(DBG_info, "preview_read_image_data (raw): calling gtk_main_iteration\n");
+            gtk_main_iteration();
+          }
         }
       }
     }
-    else
+    else /* grayscale preview */
     {
      int level;
 
       for (y=0; y < p->image_height; y++)
       {
+        offset = 3 * (y * p->image_width);
+
+        image_data_rawp = p->image_data_raw + offset;
+        image_data_enhp = p->image_data_enh + offset;
+
         for (x=0; x < p->image_width; x++)
         {
-          offset = 3 * (y * p->image_width + x);
-          level = (p->image_data_raw[offset] + p->image_data_raw[offset+1] + p->image_data_raw[offset+2]) / 3;
-          p->image_data_enh[offset    ] = preview_gamma_data_red  [level];
-          p->image_data_enh[offset + 1] = preview_gamma_data_green[level];
-          p->image_data_enh[offset + 2] = preview_gamma_data_blue [level];
+          level = ((*image_data_rawp++) + (*image_data_rawp++) + (*image_data_rawp++)) / 3;
+          level >>= rotate;
+          *image_data_enhp++ = preview_gamma_data_red  [level]; /* use 12 bit gamma table */
+          *image_data_enhp++ = preview_gamma_data_green[level];
+          *image_data_enhp++ = preview_gamma_data_blue [level];
+        }
+
+        if (p->gamma_functions_interruptable)
+        {
+          while (gtk_events_pending())
+          {
+            DBG(DBG_info, "preview_read_image_data (raw): calling gtk_main_iteration\n");
+            gtk_main_iteration();
+          }
         }
       }
     }
@@ -4296,18 +4858,16 @@ void preview_do_gamma_correction(Preview *p)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void preview_calculate_histogram(Preview *p,
-  SANE_Int *count_raw, SANE_Int *count_raw_red, SANE_Int *count_raw_green, SANE_Int *count_raw_blue,
-  SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue)
+void preview_calculate_raw_histogram(Preview *p, SANE_Int *count_raw, SANE_Int *count_raw_red, SANE_Int *count_raw_green, SANE_Int *count_raw_blue)
 {
  int x, y;
  int offset;
  SANE_Int red_raw, green_raw, blue_raw;
- SANE_Int red, green, blue;
  SANE_Int min_x, max_x, min_y, max_y;
  float xscale, yscale;
+ guint16 *image_data_rawp;
  
-  DBG(DBG_proc, "preview_calculate_histogram\n");
+  DBG(DBG_proc, "preview_calculate_raw_histogram\n");
 
   preview_get_scale_device_to_image(p, &xscale, &yscale);
 
@@ -4322,10 +4882,10 @@ void preview_calculate_histogram(Preview *p,
      break;
 
     case 1: /* 90 degree */
-      min_x = (p->selection.coordinate[1] - p->surface[2]) * xscale;
-      min_y = (p->selection.coordinate[2] - p->surface[1]) * yscale;
-      max_x = (p->selection.coordinate[3] - p->surface[2]) * xscale;
-      max_y = (p->selection.coordinate[0] - p->surface[1]) * yscale;
+      min_x = (p->selection.coordinate[1] - p->surface[1]) * xscale;
+      min_y = (p->selection.coordinate[2] - p->surface[2]) * xscale;
+      max_x = (p->selection.coordinate[3] - p->surface[1]) * xscale;
+      max_y = (p->selection.coordinate[0] - p->surface[2]) * xscale;
      break;
 
     case 2: /* 180 degree */
@@ -4336,10 +4896,10 @@ void preview_calculate_histogram(Preview *p,
      break;
 
     case 3: /* 270 degree */
-      min_x = (p->selection.coordinate[3] - p->surface[0]) * xscale;
-      min_y = (p->selection.coordinate[0] - p->surface[3]) * yscale;
-      max_x = (p->selection.coordinate[1] - p->surface[0]) * xscale;
-      max_y = (p->selection.coordinate[2] - p->surface[3]) * yscale;
+      min_x = (p->selection.coordinate[3] - p->surface[3]) * xscale;
+      min_y = (p->selection.coordinate[0] - p->surface[0]) * yscale;
+      max_x = (p->selection.coordinate[1] - p->surface[3]) * xscale;
+      max_y = (p->selection.coordinate[2] - p->surface[0]) * yscale;
      break;
 
     case 4: /* 0 degree, x mirror */
@@ -4350,10 +4910,10 @@ void preview_calculate_histogram(Preview *p,
      break;
 
     case 5: /* 90 degree, x mirror */
-      min_x = (p->selection.coordinate[1] - p->surface[0]) * xscale;
-      min_y = (p->selection.coordinate[0] - p->surface[1]) * yscale;
-      max_x = (p->selection.coordinate[3] - p->surface[0]) * xscale;
-      max_y = (p->selection.coordinate[2] - p->surface[1]) * yscale;
+      min_x = (p->selection.coordinate[1] - p->surface[1]) * xscale;
+      min_y = (p->selection.coordinate[0] - p->surface[0]) * yscale;
+      max_x = (p->selection.coordinate[3] - p->surface[1]) * xscale;
+      max_y = (p->selection.coordinate[2] - p->surface[0]) * yscale;
      break;
 
     case 6: /* 180 degree, x mirror */
@@ -4364,10 +4924,10 @@ void preview_calculate_histogram(Preview *p,
      break;
 
     case 7: /* 270 degree, x mirror */
-      min_x = (p->selection.coordinate[3] - p->surface[2]) * xscale;
-      min_y = (p->selection.coordinate[2] - p->surface[3]) * yscale;
-      max_x = (p->selection.coordinate[1] - p->surface[2]) * xscale;
-      max_y = (p->selection.coordinate[0] - p->surface[3]) * yscale;
+      min_x = (p->selection.coordinate[3] - p->surface[3]) * xscale;
+      min_y = (p->selection.coordinate[2] - p->surface[2]) * yscale;
+      max_x = (p->selection.coordinate[1] - p->surface[3]) * xscale;
+      max_y = (p->selection.coordinate[0] - p->surface[2]) * yscale;
      break;
   }
 
@@ -4395,28 +4955,28 @@ void preview_calculate_histogram(Preview *p,
   {
     for (y = min_y; y <= max_y; y++)
     {
+      offset = 3 * (y * p->image_width + min_x);
+      image_data_rawp = p->image_data_raw + offset;
+
       for (x = min_x; x <= max_x; x++)
       {
-        offset = 3 * (y * p->image_width + x);
-        red_raw   = p->image_data_raw[offset    ];
-        green_raw = p->image_data_raw[offset + 1];
-        blue_raw  = p->image_data_raw[offset + 2];
+        red_raw   = (*image_data_rawp++) >> 8; /* reduce from 16 to 8 bits */
+        green_raw = (*image_data_rawp++) >> 8;
+        blue_raw  = (*image_data_rawp++) >> 8;
 
-        red   = histogram_gamma_data_red  [red_raw];
-        green = histogram_gamma_data_green[green_raw];
-        blue  = histogram_gamma_data_blue [blue_raw];
+        count_raw      [(u_char) ((red_raw + green_raw + blue_raw)/3)]++;
+        count_raw_red  [red_raw]++;
+        count_raw_green[green_raw]++;
+        count_raw_blue [blue_raw]++;
+      }
 
-/*	count_raw      [(int) sqrt((red_raw*red_raw + green_raw*green_raw + blue_raw*blue_raw)/3.0)]++; */
-	count_raw      [(int) ((red_raw + green_raw + blue_raw)/3)]++;
-	count_raw_red  [red_raw]++;
-	count_raw_green[green_raw]++;
-	count_raw_blue [blue_raw]++;
-
-/*	count      [(int) sqrt((red*red + green*green + blue*blue)/3.0)]++; */
-	count      [(int) ((red + green + blue)/3)]++;
-	count_red  [red]++;
-	count_green[green]++;
-	count_blue [blue]++;
+      if (p->gamma_functions_interruptable)
+      {
+        while (gtk_events_pending())
+        {
+          DBG(DBG_info, "preview_read_image_data (raw): calling gtk_main_iteration\n");
+          gtk_main_iteration();
+        }
       }
     }
   }
@@ -4430,11 +4990,6 @@ void preview_calculate_histogram(Preview *p,
       count_raw_red  [i] = 0;
       count_raw_green[i] = 0;
       count_raw_blue [i] = 0;
-
-      count      [i] = 0;
-      count_red  [i] = 0;
-      count_green[i] = 0;
-      count_blue [i] = 0;
     }
 
     count_raw      [0] = 10;
@@ -4442,15 +4997,153 @@ void preview_calculate_histogram(Preview *p,
     count_raw_green[0] = 10;
     count_raw_blue [0] = 10;
 
-    count      [0] = 10;
-    count_red  [0] = 10;
-    count_green[0] = 10;
-    count_blue [0] = 10;
-
     count_raw      [255] = 10;
     count_raw_red  [255] = 10;
     count_raw_green[255] = 10;
     count_raw_blue [255] = 10;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void preview_calculate_enh_histogram(Preview *p, SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue)
+{
+ int x, y;
+ int offset;
+ u_char red, green, blue;
+ SANE_Int min_x, max_x, min_y, max_y;
+ float xscale, yscale;
+ u_char *image_data_enhp;
+ 
+  DBG(DBG_proc, "preview_calculate_enh_histogram\n");
+
+  preview_get_scale_device_to_image(p, &xscale, &yscale);
+
+  switch (p->rotation)
+  {
+    case 0: /* 0 degree */
+    default:
+      min_x = (p->selection.coordinate[0] - p->surface[0]) * xscale;
+      min_y = (p->selection.coordinate[1] - p->surface[1]) * yscale;
+      max_x = (p->selection.coordinate[2] - p->surface[0]) * xscale;
+      max_y = (p->selection.coordinate[3] - p->surface[1]) * yscale;
+     break;
+
+    case 1: /* 90 degree */
+      min_x = (p->selection.coordinate[1] - p->surface[1]) * xscale;
+      min_y = (p->selection.coordinate[2] - p->surface[2]) * xscale;
+      max_x = (p->selection.coordinate[3] - p->surface[1]) * xscale;
+      max_y = (p->selection.coordinate[0] - p->surface[2]) * xscale;
+     break;
+
+    case 2: /* 180 degree */
+      min_x = (p->selection.coordinate[2] - p->surface[2]) * xscale;
+      min_y = (p->selection.coordinate[3] - p->surface[3]) * yscale;
+      max_x = (p->selection.coordinate[0] - p->surface[2]) * xscale;
+      max_y = (p->selection.coordinate[1] - p->surface[3]) * yscale;
+     break;
+
+    case 3: /* 270 degree */
+      min_x = (p->selection.coordinate[3] - p->surface[3]) * xscale;
+      min_y = (p->selection.coordinate[0] - p->surface[0]) * yscale;
+      max_x = (p->selection.coordinate[1] - p->surface[3]) * xscale;
+      max_y = (p->selection.coordinate[2] - p->surface[0]) * yscale;
+     break;
+
+    case 4: /* 0 degree, x mirror */
+      min_x = (p->selection.coordinate[2] - p->surface[2]) * xscale;
+      min_y = (p->selection.coordinate[1] - p->surface[1]) * yscale;
+      max_x = (p->selection.coordinate[0] - p->surface[2]) * xscale;
+      max_y = (p->selection.coordinate[3] - p->surface[1]) * yscale;
+     break;
+
+    case 5: /* 90 degree, x mirror */
+      min_x = (p->selection.coordinate[1] - p->surface[1]) * xscale;
+      min_y = (p->selection.coordinate[0] - p->surface[0]) * yscale;
+      max_x = (p->selection.coordinate[3] - p->surface[1]) * xscale;
+      max_y = (p->selection.coordinate[2] - p->surface[0]) * yscale;
+     break;
+
+    case 6: /* 180 degree, x mirror */
+      min_x = (p->selection.coordinate[0] - p->surface[0]) * xscale;
+      min_y = (p->selection.coordinate[3] - p->surface[3]) * yscale;
+      max_x = (p->selection.coordinate[2] - p->surface[0]) * xscale;
+      max_y = (p->selection.coordinate[1] - p->surface[3]) * yscale;
+     break;
+
+    case 7: /* 270 degree, x mirror */
+      min_x = (p->selection.coordinate[3] - p->surface[3]) * xscale;
+      min_y = (p->selection.coordinate[2] - p->surface[2]) * yscale;
+      max_x = (p->selection.coordinate[1] - p->surface[3]) * xscale;
+      max_y = (p->selection.coordinate[0] - p->surface[2]) * yscale;
+     break;
+  }
+
+  if (min_x < 0)
+  {
+    min_x = 0;
+  }
+   
+  if (max_x >= p->image_width)
+  {
+    max_x = p->image_width-1;
+  }
+   
+  if (min_y < 0)
+  {
+    min_y = 0;
+  }
+   
+  if (max_y >= p->image_height)
+  {
+    max_y = p->image_height-1;
+  }
+   
+  if ((p->image_data_raw) && (p->params.depth > 1) && (preview_gamma_data_red))
+  {
+    for (y = min_y; y <= max_y; y++)
+    {
+      offset = 3 * (y * p->image_width + min_x);
+      image_data_enhp = p->image_data_enh + offset;
+
+      for (x = min_x; x <= max_x; x++)
+      {
+        red   = (*image_data_enhp++);
+        green = (*image_data_enhp++);
+        blue  = (*image_data_enhp++);
+
+	count      [(u_char) ((red + green + blue)/3)]++;
+	count_red  [red]++;
+	count_green[green]++;
+	count_blue [blue]++;
+      }
+
+      if (p->gamma_functions_interruptable)
+      {
+        while (gtk_events_pending())
+        {
+          DBG(DBG_info, "preview_read_image_data (enh): calling gtk_main_iteration\n");
+          gtk_main_iteration();
+        }
+      }
+    }
+  }
+  else /* no preview image => all colors = 1 */
+  {
+   int i;
+
+    for (i = 1; i <= 254; i++)
+    {
+      count      [i] = 0;
+      count_red  [i] = 0;
+      count_green[i] = 0;
+      count_blue [i] = 0;
+    }
+
+    count      [0] = 10;
+    count_red  [0] = 10;
+    count_green[0] = 10;
+    count_blue [0] = 10;
 
     count      [255] = 10;
     count_red  [255] = 10;
@@ -4461,9 +5154,9 @@ void preview_calculate_histogram(Preview *p,
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void preview_gamma_correction(Preview *p,
-                              SANE_Int *gamma_red, SANE_Int *gamma_green, SANE_Int *gamma_blue,
-                              SANE_Int *gamma_red_hist, SANE_Int *gamma_green_hist, SANE_Int *gamma_blue_hist)
+void preview_gamma_correction(Preview *p, int gamma_input_bits, 
+                              u_char *gamma_red, u_char *gamma_green, u_char *gamma_blue,
+                              u_char *gamma_red_hist, u_char *gamma_green_hist, u_char *gamma_blue_hist)
 {
   DBG(DBG_proc, "preview_gamma_correction\n");
 
@@ -4474,6 +5167,8 @@ void preview_gamma_correction(Preview *p,
   histogram_gamma_data_red   = gamma_red_hist;
   histogram_gamma_data_green = gamma_green_hist;
   histogram_gamma_data_blue  = gamma_blue_hist;
+
+  preview_gamma_input_bits   = gamma_input_bits;
 
   preview_do_gamma_correction(p);
   preview_draw_selection(p);
@@ -4571,17 +5266,17 @@ void preview_area_resize(Preview *p)
   delta_y = max_y - min_y;
 
   gtk_ruler_set_range(GTK_RULER(p->vruler), min_y, min_y + delta_y*p->preview_window_height/p->preview_height, min_y, /* max_size */ 20);
-
-  preview_paint_image(p);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 gint preview_area_resize_handler(GtkWidget *widget, GdkEvent *event, gpointer data)
 {
+ Preview *p = (Preview *) data;
   DBG(DBG_proc, "preview_area_resize_handler\n");
 
-  preview_area_resize((Preview *) data);
+  preview_area_resize(p);
+  preview_paint_image(p);
  return FALSE;
 }
 

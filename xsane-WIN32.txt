@@ -16,7 +16,7 @@ This version supports:
 
 It does not support:
  - fax mode (no compatible faxsoftware)
- - internationalization not setup correct
+ - internationalization not set up correct
 
 
 Installation:

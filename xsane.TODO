@@ -5,8 +5,9 @@ If you have any suggestions: mail to Oliver.Rauch@rauch-domain.de
 
 first steps:
  * options:
+ - scan-function
+    - better postscript savings
  - fax-function:
-    + display scanned fax page in preview or new window?
     + add coverpage with simple text field or call editor
     - add send delayed option
     - add options for sender/receiver Name
@@ -19,23 +20,20 @@ first steps:
     - create a html mail - mail editor = ?
  - copy mode and scan mode into postscript file:
     + select image position on printer (centered/left/right/free) for copy
-      and show it in the preview.
  - preview:
-    - add 16bit to 8bit gamma correction
     - force aspect ratio of selection area
       - force size of scanarea in pixels (calculate resolution)
-    - userselectable predefined scanarea
  - batch scan function
     - select multiple scan areas before starting the scan
 
  * internal:
+   - display scanned image in preview or new window (?)
    + add range check / valid value when reading xsane.rc/*.drc files
    + add several defaults (fax=> mode=gray,...)
    - include much more parameters when saving images
-   - test memory after each call of malloc - partly done
+   + test memory after each call of malloc - partly done
    - more/better online helpfiles (mostly done)
-   - postscript/printer setup: geometry in inch/millimeter/centimeter
-   + delete/recreate preview files when temp directory is changed
+   + postscript/printer setup: geometry in inch/millimeter/centimeter
    - correct charset of tooltips for all national codepages
 
  + correct gtk custom gamma functions and include it

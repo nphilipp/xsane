@@ -47,7 +47,7 @@ void xsane_rc_io_w_space(Wire *w, size_t howmuch)
   int fd = w->io.fd;
   ssize_t nread, nwritten;
 
-  DBG(DBG_proc3, "xsane_rc_io_w_space\n");
+  DBG(DBG_wire, "xsane_rc_io_w_space\n");
 
   if (w->buffer.curr + howmuch > w->buffer.end)
   {
@@ -119,7 +119,7 @@ void xsane_rc_io_w_array(Wire *w, SANE_Word *len_ptr, void **v, WireCodecFunc w_
  char *val;
  int i;
 
-  DBG(DBG_proc2, "xsane_rc_io_w_array\n");
+  DBG(DBG_wire, "xsane_rc_io_w_array\n");
 
   if (w->direction == WIRE_FREE)
   {
@@ -169,7 +169,7 @@ void xsane_rc_io_w_ptr(Wire *w, void **v, WireCodecFunc w_value, size_t value_si
 {
  SANE_Word is_null;
 
-  DBG(DBG_proc2, "xsane_rc_io_w_ptr\n");
+  DBG(DBG_wire, "xsane_rc_io_w_ptr\n");
 
   if (w->direction == WIRE_FREE)
   {
@@ -214,7 +214,7 @@ void xsane_rc_io_w_status(Wire *w, SANE_Status *v)
 {
  SANE_Word word = *v;
 
-  DBG(DBG_proc2, "xsane_rc_io_w_status\n");
+  DBG(DBG_wire, "xsane_rc_io_w_status\n");
 
   xsane_rc_io_w_word(w, &word);
   if (w->direction == WIRE_DECODE)
@@ -229,7 +229,7 @@ void xsane_rc_io_w_bool(Wire *w, SANE_Bool *v)
 {
  SANE_Word word = *v;
 
-  DBG(DBG_proc2, "xsane_rc_io_w_bool\n");
+  DBG(DBG_wire, "xsane_rc_io_w_bool\n");
 
   xsane_rc_io_w_word(w, &word);
   if (w->direction == WIRE_DECODE)
@@ -255,7 +255,7 @@ void xsane_rc_io_w_value_type(Wire *w, SANE_Value_Type *v)
 {
  SANE_Word word = *v;
 
-  DBG(DBG_proc2, "xsane_rc_io_w_value_type\n");
+  DBG(DBG_wire, "xsane_rc_io_w_value_type\n");
 
   xsane_rc_io_w_word(w, &word);
   if (w->direction == WIRE_DECODE)
@@ -268,7 +268,7 @@ void xsane_rc_io_w_unit(Wire *w, SANE_Unit *v)
 {
  SANE_Word word = *v;
 
-  DBG(DBG_proc2, "xsane_rc_io_w_unit\n");
+  DBG(DBG_wire, "xsane_rc_io_w_unit\n");
 
   xsane_rc_io_w_word(w, &word);
   if (w->direction == WIRE_DECODE)
@@ -283,7 +283,7 @@ void xsane_rc_io_w_action(Wire *w, SANE_Action *v)
 {
  SANE_Word word = *v;
 
-  DBG(DBG_proc2, "xsane_rc_io_w_action\n");
+  DBG(DBG_wire, "xsane_rc_io_w_action\n");
 
   xsane_rc_io_w_word(w, &word);
   if (w->direction == WIRE_DECODE)
@@ -298,7 +298,7 @@ void xsane_rc_io_w_frame(Wire *w, SANE_Frame *v)
 {
  SANE_Word word = *v;
 
-  DBG(DBG_proc2, "xsane_rc_io_w_frame\n");
+  DBG(DBG_wire, "xsane_rc_io_w_frame\n");
 
   xsane_rc_io_w_word(w, &word);
   if (w->direction == WIRE_DECODE)
@@ -311,7 +311,7 @@ void xsane_rc_io_w_frame(Wire *w, SANE_Frame *v)
 
 void xsane_rc_io_w_range(Wire *w, SANE_Range *v)
 {
-  DBG(DBG_proc2, "xsane_rc_io_w_range\n");
+  DBG(DBG_wire, "xsane_rc_io_w_range\n");
 
   xsane_rc_io_w_word(w, &v->min);
   xsane_rc_io_w_word(w, &v->max);
@@ -322,7 +322,7 @@ void xsane_rc_io_w_range(Wire *w, SANE_Range *v)
 
 void xsane_rc_io_w_device(Wire *w, SANE_Device *v)
 {
-  DBG(DBG_proc2, "xsane_rc_io_w_device\n");
+  DBG(DBG_wire, "xsane_rc_io_w_device\n");
 
   xsane_rc_io_w_string(w, (SANE_String *) &v->name);
   xsane_rc_io_w_string(w, (SANE_String *) &v->vendor);
@@ -334,7 +334,7 @@ void xsane_rc_io_w_device(Wire *w, SANE_Device *v)
 
 void xsane_rc_io_w_device_ptr(Wire *w, SANE_Device **v)
 {
-  DBG(DBG_proc2, "xsane_rc_io_w_device_ptr\n");
+  DBG(DBG_wire, "xsane_rc_io_w_device_ptr\n");
 
   xsane_rc_io_w_ptr(w, (void **) v, (WireCodecFunc) xsane_rc_io_w_device, sizeof (**v));
 }
@@ -345,7 +345,7 @@ void xsane_rc_io_w_option_descriptor(Wire *w, SANE_Option_Descriptor *v)
 {
  SANE_Word len;
 
-  DBG(DBG_proc2, "xsane_rc_io_w_option_descriptor\n");
+  DBG(DBG_wire, "xsane_rc_io_w_option_descriptor\n");
 
   xsane_rc_io_w_string(w, (SANE_String *) &v->name);
   xsane_rc_io_w_string(w, (SANE_String *) &v->title);
@@ -386,7 +386,7 @@ void xsane_rc_io_w_option_descriptor(Wire *w, SANE_Option_Descriptor *v)
 
 void xsane_rc_io_w_option_descriptor_ptr(Wire *w, SANE_Option_Descriptor **v)
 {
-  DBG(DBG_proc2, "xsane_rc_io_w_option_descriptor_ptr\n");
+  DBG(DBG_wire, "xsane_rc_io_w_option_descriptor_ptr\n");
 
   xsane_rc_io_w_ptr(w, (void **) v, (WireCodecFunc) xsane_rc_io_w_option_descriptor, sizeof (**v));
 }
@@ -395,7 +395,7 @@ void xsane_rc_io_w_option_descriptor_ptr(Wire *w, SANE_Option_Descriptor **v)
 
 void xsane_rc_io_w_parameters(Wire *w, SANE_Parameters *v)
 {
-  DBG(DBG_proc2, "xsane_rc_io_w_paramters\n");
+  DBG(DBG_wire, "xsane_rc_io_w_paramters\n");
 
   xsane_rc_io_w_frame(w, &v->format);
   xsane_rc_io_w_bool(w, &v->last_frame);
@@ -409,7 +409,7 @@ void xsane_rc_io_w_parameters(Wire *w, SANE_Parameters *v)
 
 void xsane_rc_io_w_flush(Wire *w)
 {
-  DBG(DBG_proc2, "xsane_rc_io_w_flush\n");
+  DBG(DBG_wire, "xsane_rc_io_w_flush\n");
 
   w->status = 0;
 
@@ -427,7 +427,7 @@ void xsane_rc_io_w_flush(Wire *w)
 
 void xsane_rc_io_w_set_dir(Wire *w, WireDirection dir)
 {
-  DBG(DBG_proc2, "xsane_rc_io_w_set_dir\n");
+  DBG(DBG_wire, "xsane_rc_io_w_set_dir\n");
 
   xsane_rc_io_w_flush(w);
   w->direction = dir;
@@ -438,7 +438,7 @@ void xsane_rc_io_w_set_dir(Wire *w, WireDirection dir)
 
 void xsane_rc_io_w_call(Wire *w, SANE_Word procnum, WireCodecFunc w_arg, void *arg, WireCodecFunc w_reply, void *reply)
 {
-  DBG(DBG_proc2, "xsane_rc_io_w_call\n");
+  DBG(DBG_wire, "xsane_rc_io_w_call\n");
 
   w->status = 0;
   xsane_rc_io_w_set_dir(w, WIRE_ENCODE);
@@ -469,7 +469,7 @@ void xsane_rc_io_w_free(Wire *w, WireCodecFunc w_reply, void *reply)
 {
  WireDirection saved_dir = w->direction;
 
-  DBG(DBG_proc2, "xsane_rc_io_w_free\n");
+  DBG(DBG_wire, "xsane_rc_io_w_free\n");
 
   w->direction = WIRE_FREE;
   (*w_reply) (w, reply);
@@ -480,7 +480,7 @@ void xsane_rc_io_w_free(Wire *w, WireCodecFunc w_reply, void *reply)
 
 void xsane_rc_io_w_init(Wire *w)
 {
-  DBG(DBG_proc2, "xsane_rc_io_w_init\n");
+  DBG(DBG_wire, "xsane_rc_io_w_init\n");
 
   w->status = 0;
   w->direction = WIRE_ENCODE;
@@ -504,7 +504,7 @@ static const char *hexdigit = "0123456789abcdef";
 
 static void xsane_rc_io_skip_ws(Wire *w)
 {
-  DBG(DBG_proc2, "xsane_rc_io_skip_ws\n");
+  DBG(DBG_wire, "xsane_rc_io_skip_ws\n");
 
   while (1)
   {
@@ -528,7 +528,7 @@ static void xsane_rc_io_skip_ws(Wire *w)
 
 void xsane_rc_io_w_skip_newline(Wire *w)
 {
-  DBG(DBG_proc2, "xsane_rc_io_skip_newline\n");
+  DBG(DBG_wire, "xsane_rc_io_skip_newline\n");
 
   while (*w->buffer.curr != 10)
   {
@@ -549,7 +549,7 @@ static unsigned xsane_rc_io_get_digit(Wire *w)
 {
  unsigned digit;
 
-  DBG(DBG_proc2, "xsane_rc_io_get_digit\n");
+  DBG(DBG_wire, "xsane_rc_io_get_digit\n");
 
   xsane_rc_io_w_space(w, 1);
   digit = tolower(*w->buffer.curr++) - '0';
@@ -571,7 +571,7 @@ static unsigned xsane_rc_io_get_digit(Wire *w)
 
 static SANE_Byte xsane_rc_io_get_byte(Wire *w)
 {
-  DBG(DBG_proc2, "xsane_rc_io_get_byte\n");
+  DBG(DBG_wire, "xsane_rc_io_get_byte\n");
 
   return xsane_rc_io_get_digit(w) << 4 | xsane_rc_io_get_digit(w);
 }
@@ -582,7 +582,7 @@ void xsane_rc_io_w_byte(Wire *w, SANE_Byte *v)
 {
  SANE_Byte *b = v;
 
-  DBG(DBG_proc2, "xsane_rc_io_w_byte: %d\n", *v);
+  DBG(DBG_wire, "xsane_rc_io_w_byte: %d\n", *v);
 
   switch (w->direction)
   {
@@ -609,7 +609,7 @@ void xsane_rc_io_w_char(Wire *w, SANE_Char *v)
 {
  SANE_Char *c = v;
 
-  DBG(DBG_proc2, "xsane_rc_io_w_char: %c\n", *v);
+  DBG(DBG_wire, "xsane_rc_io_w_char: %c\n", *v);
 
   switch (w->direction)
   {
@@ -672,7 +672,7 @@ void xsane_rc_io_w_string(Wire *w, SANE_String *s)
       *w->buffer.curr++ = '"';
       str = *s;
 
-      DBG(DBG_proc2, "xsane_rc_io_w_string: encoding %s\n", str);
+      DBG(DBG_wire, "xsane_rc_io_w_string: encoding %s\n", str);
 
       while ((ch = *str++))
       {
@@ -762,7 +762,7 @@ void xsane_rc_io_w_string(Wire *w, SANE_String *s)
 
         str[len - 1] = '\0';
 
-        DBG(DBG_proc2, "xsane_rc_io_w_string: decoding %s\n", str);
+        DBG(DBG_wire, "xsane_rc_io_w_string: decoding %s\n", str);
 
         *s = realloc(str, len);
 
@@ -798,7 +798,7 @@ void xsane_rc_io_w_word(Wire *w, SANE_Word *v)
  int i, is_negative = 0;
  char buf[16];
 
-  DBG(DBG_proc2, "xsane_rc_io_w_word: %d\n", *v);
+  DBG(DBG_wire, "xsane_rc_io_w_word: %d\n", *v);
 
   switch (w->direction)
   {
@@ -874,12 +874,12 @@ void xsane_rc_pref_string(Wire *w, void *p, long offset)
 {
  SANE_String string;
 
-  DBG(DBG_proc2, "xsane_rc_pref_string\n");
+  DBG(DBG_wire, "xsane_rc_pref_string\n");
 
   if (w->direction == WIRE_ENCODE)
   {
     string = PFIELD(p, offset, char *);
-    DBG(DBG_info2, "xsane_rc_pref_string: encoding string = %s\n", string);
+    DBG(DBG_wire, "xsane_rc_pref_string: encoding string = %s\n", string);
   }
 
   xsane_rc_io_w_string(w, &string);
@@ -897,7 +897,7 @@ void xsane_rc_pref_string(Wire *w, void *p, long offset)
       }
       *field = string ? strdup (string) : 0;
     }
-    DBG(DBG_info2, "xsane_rc_pref_string: decoding string = %s\n", string);
+    DBG(DBG_wire, "xsane_rc_pref_string: decoding string = %s\n", string);
     xsane_rc_io_w_free(w, (WireCodecFunc) xsane_rc_io_w_string, &string);
   }
 }
@@ -909,12 +909,12 @@ void xsane_rc_pref_double(Wire *w, void *p, long offset)
  SANE_Word word;
  double val = 0;
 
-  DBG(DBG_proc2, "xsane_rc_pref_double\n");
+  DBG(DBG_wire, "xsane_rc_pref_double\n");
 
   if (w->direction == WIRE_ENCODE)
   {
     val = PFIELD (p, offset, double);
-    DBG(DBG_info2, "xsane_rc_pref_double: encoding double = %f\n", val);
+    DBG(DBG_wire, "xsane_rc_pref_double: encoding double = %f\n", val);
     word = SANE_FIX(val);
   }
 
@@ -928,7 +928,7 @@ void xsane_rc_pref_double(Wire *w, void *p, long offset)
       PFIELD(p, offset, double) = val;
     }
     xsane_rc_io_w_free(w, (WireCodecFunc) xsane_rc_io_w_word, &word);
-    DBG(DBG_info2, "xsane_rc_pref_double: decoding double = %f\n", val);
+    DBG(DBG_wire, "xsane_rc_pref_double: decoding double = %f\n", val);
   }
 }
 
@@ -938,7 +938,7 @@ void xsane_rc_pref_int(Wire *w, void *p, long offset)
 {
  SANE_Word word;
 
-  DBG(DBG_proc2, "xsane_rc_pref_int\n");
+  DBG(DBG_wire, "xsane_rc_pref_int\n");
 
   if (w->direction == WIRE_ENCODE)
   {

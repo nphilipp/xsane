@@ -66,6 +66,29 @@ struct option long_options[] =
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static const pref_default_preset_area_t pref_default_preset_area[] =
+{
+ { MENU_ITEM_SURFACE_FULL_SIZE, 0,      0,      INF,    INF },
+ { MENU_ITEM_SURFACE_DIN_A3P,   0,      0,      296.98, 420.0 },
+ { MENU_ITEM_SURFACE_DIN_A3L,   0,      0,      420.0,  296.98 },
+ { MENU_ITEM_SURFACE_DIN_A4P,   0,      0,      210.0,  296.98 },
+ { MENU_ITEM_SURFACE_DIN_A4L,   0,      0,      296.98, 210.0 },
+ { MENU_ITEM_SURFACE_DIN_A5P,   0,      0,      148.5,  210.0 },
+ { MENU_ITEM_SURFACE_DIN_A5L,   0,      0,      210.0,  148.5 },
+ { MENU_ITEM_SURFACE_13cmx18cm, 0,      0,      130.0,  180.0 },
+ { MENU_ITEM_SURFACE_18cmx13cm, 0,      0,      180.0,  130.0 },
+ { MENU_ITEM_SURFACE_10cmx14cm, 0,      0,      100.0,  140.0 },
+ { MENU_ITEM_SURFACE_14cmx10cm, 0,      0,      140.0,  100.0 },
+ { MENU_ITEM_SURFACE_9cmx13cm,  0,      0,      90.0,   130.0 },
+ { MENU_ITEM_SURFACE_13cmx9cm,  0,      0,      130.0,  90.0 },
+ { MENU_ITEM_SURFACE_legal_P,   0,      0,      215.9,  355.6 },
+ { MENU_ITEM_SURFACE_legal_L,   0,      0,      355.6,  215.9 },
+ { MENU_ITEM_SURFACE_letter_P,  0,      0,      215.9,  279.4 },
+ { MENU_ITEM_SURFACE_letter_L,  0,      0,      279.4,  215.9 },
+};
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 int DBG_LEVEL = 0;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -112,7 +135,9 @@ static void xsane_auto_enhancement_callback(GtkWidget *widget);
 static void xsane_show_standard_options_callback(GtkWidget *widget);
 static void xsane_show_advanced_options_callback(GtkWidget *widget);
 static void xsane_show_histogram_callback(GtkWidget *widget);
+#ifdef HAVE_WORKING_GTK_GAMMACURVE
 static void xsane_show_gamma_callback(GtkWidget *widget);
+#endif
 static void xsane_printer_callback(GtkWidget *widget, gpointer data);
 void xsane_pref_save(void);
 static int xsane_pref_restore(void);
@@ -468,7 +493,7 @@ static void xsane_browse_filename_callback(GtkWidget *widget, gpointer data)
   snprintf(windowname, sizeof(windowname), "%s %s %s", xsane.prog_name, WINDOW_OUTPUT_FILENAME, xsane.device_text);
 
   umask((mode_t) preferences.directory_umask); /* define new file permissions */    
-  xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, TRUE, TRUE);
+  xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, TRUE, TRUE, FALSE);
   umask(XSANE_DEFAULT_UMASK); /* define new file permissions */    
 
   if (preferences.filename)
@@ -503,6 +528,7 @@ static void xsane_outputfilename_new(GtkWidget *vbox)
  GtkWidget *xsane_label;
  gchar buf[200];
  int i,j;
+ int filetype_nr;
  int select_item = 0;
 
   DBG(DBG_proc, "xsane_outputfilename_new\n");
@@ -550,6 +576,7 @@ static void xsane_outputfilename_new(GtkWidget *vbox)
  
   xsane_filename_counter_step_menu = gtk_menu_new();
 
+  select_item = 0;
   j = -2;
   for (i=0; i < 5; i++)
   {
@@ -577,6 +604,8 @@ static void xsane_outputfilename_new(GtkWidget *vbox)
   gtk_signal_connect(GTK_OBJECT(xsane_filetype_item), "activate",
                      (GtkSignalFunc) xsane_filetype_callback, NULL);
   gtk_widget_show(xsane_filetype_item);
+  filetype_nr = 0;
+  select_item = 0;
 
 #ifdef HAVE_LIBJPEG
   xsane_filetype_item = gtk_menu_item_new_with_label(MENU_ITEM_FILETYPE_JPEG);
@@ -584,6 +613,11 @@ static void xsane_outputfilename_new(GtkWidget *vbox)
   gtk_signal_connect(GTK_OBJECT(xsane_filetype_item), "activate",
                      (GtkSignalFunc) xsane_filetype_callback, XSANE_FILETYPE_JPEG);
   gtk_widget_show(xsane_filetype_item);
+  filetype_nr++;
+  if ( (xsane.filetype) && (!strcasecmp(xsane.filetype, XSANE_FILETYPE_JPEG)) )
+  {
+    select_item = filetype_nr;
+  }
 #endif
 
 #ifdef HAVE_LIBPNG
@@ -593,6 +627,11 @@ static void xsane_outputfilename_new(GtkWidget *vbox)
   gtk_signal_connect(GTK_OBJECT(xsane_filetype_item), "activate",
                      (GtkSignalFunc) xsane_filetype_callback, XSANE_FILETYPE_PNG);
   gtk_widget_show(xsane_filetype_item);
+  filetype_nr++;
+  if ( (xsane.filetype) && (!strcasecmp(xsane.filetype, XSANE_FILETYPE_PNG)) )
+  {
+    select_item = filetype_nr;
+  }
 #endif
 #endif
 
@@ -601,18 +640,33 @@ static void xsane_outputfilename_new(GtkWidget *vbox)
   gtk_signal_connect(GTK_OBJECT(xsane_filetype_item), "activate",
                      (GtkSignalFunc) xsane_filetype_callback, XSANE_FILETYPE_PNM);
   gtk_widget_show(xsane_filetype_item);
+  filetype_nr++;
+  if ( (xsane.filetype) && (!strcasecmp(xsane.filetype, XSANE_FILETYPE_PNM)) )
+  {
+    select_item = filetype_nr;
+  }
 
   xsane_filetype_item = gtk_menu_item_new_with_label(MENU_ITEM_FILETYPE_PS);
   gtk_container_add(GTK_CONTAINER(xsane_filetype_menu), xsane_filetype_item);
   gtk_signal_connect(GTK_OBJECT(xsane_filetype_item), "activate",
                      (GtkSignalFunc) xsane_filetype_callback, XSANE_FILETYPE_PS);
   gtk_widget_show(xsane_filetype_item);
+  filetype_nr++;
+  if ( (xsane.filetype) && (!strcasecmp(xsane.filetype, XSANE_FILETYPE_PS)) )
+  {
+    select_item = filetype_nr;
+  }
 
   xsane_filetype_item = gtk_menu_item_new_with_label(MENU_ITEM_FILETYPE_RAW);
   gtk_container_add(GTK_CONTAINER(xsane_filetype_menu), xsane_filetype_item);
   gtk_signal_connect(GTK_OBJECT(xsane_filetype_item), "activate",
                      (GtkSignalFunc) xsane_filetype_callback, XSANE_FILETYPE_RAW);
   gtk_widget_show(xsane_filetype_item);
+  filetype_nr++;
+  if ( (xsane.filetype) && (!strcasecmp(xsane.filetype, XSANE_FILETYPE_RAW)) )
+  {
+    select_item = filetype_nr;
+  }
 
 #ifdef HAVE_LIBTIFF
   xsane_filetype_item = gtk_menu_item_new_with_label(MENU_ITEM_FILETYPE_TIFF);
@@ -620,13 +674,18 @@ static void xsane_outputfilename_new(GtkWidget *vbox)
   gtk_signal_connect(GTK_OBJECT(xsane_filetype_item), "activate",
                      (GtkSignalFunc) xsane_filetype_callback, XSANE_FILETYPE_TIFF);
   gtk_widget_show(xsane_filetype_item);
+  filetype_nr++;
+  if ( (xsane.filetype) && (!strcasecmp(xsane.filetype, XSANE_FILETYPE_TIFF)) )
+  {
+    select_item = filetype_nr;
+  }
 #endif
 
   xsane.filetype_option_menu = gtk_option_menu_new();
   xsane_back_gtk_set_tooltip(xsane.tooltips, xsane.filetype_option_menu, DESC_FILETYPE);
   gtk_box_pack_end(GTK_BOX(hbox), xsane.filetype_option_menu, FALSE, FALSE, 2);
   gtk_option_menu_set_menu(GTK_OPTION_MENU(xsane.filetype_option_menu), xsane_filetype_menu);
-  gtk_option_menu_set_history(GTK_OPTION_MENU(xsane.filetype_option_menu), 0);
+  gtk_option_menu_set_history(GTK_OPTION_MENU(xsane.filetype_option_menu), select_item);
   gtk_widget_show(xsane.filetype_option_menu);
 
   xsane_label = gtk_label_new(TEXT_FILETYPE); /* opposite order because of box_pack_end */
@@ -726,7 +785,7 @@ static void xsane_enhancement_rgb_default_callback(GtkWidget * widget)
   }
 
   xsane_update_sliders();
-  xsane_update_gamma_curve();
+  xsane_update_gamma_curve(FALSE);
   xsane_refresh_dialog();
 }
 
@@ -768,7 +827,7 @@ static void xsane_enhancement_negative_callback(GtkWidget * widget)
 
   xsane_update_sliders();
   xsane_enhancement_by_histogram(TRUE);
-  xsane_update_gamma_curve();
+  xsane_update_gamma_curve(TRUE /* update raw */);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -777,7 +836,7 @@ static void xsane_auto_enhancement_callback(GtkWidget * widget)
 {
   DBG(DBG_proc, "xsane_auto_enhancement_callback\n");
 
-  xsane_calculate_histogram();
+  xsane_calculate_raw_histogram();
 
   xsane_set_auto_enhancement();
 
@@ -847,7 +906,7 @@ static void xsane_show_histogram_callback(GtkWidget * widget)
   preferences.show_histogram = (GTK_CHECK_MENU_ITEM(widget)->active != 0);
   if (preferences.show_histogram)
   {
-    xsane_update_histogram();
+    xsane_update_histogram(TRUE /* update raw */);
     gtk_widget_show(xsane.histogram_dialog);
   }
   else
@@ -1867,7 +1926,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
                                         xsane_enhancement_store, NULL);
   gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_M, GDK_SHIFT_MASK, GTK_ACCEL_LOCKED);
 
-  xsane_update_histogram();
+  xsane_update_histogram(TRUE /* update raw */);
 #ifdef HAVE_WORKING_GTK_GAMMACURVE
   xsane_update_gamma_dialog();
 #endif
@@ -1911,6 +1970,7 @@ static int xsane_pref_restore(void)
  char filename[PATH_MAX];
  int fd;
  int result = TRUE;
+ int i;
 
   DBG(DBG_proc, "xsane_pref_restore\n");
 
@@ -1941,6 +2001,24 @@ static int xsane_pref_restore(void)
     {
       preferences_restore(fd);
       close(fd);
+    }
+  }
+
+  if (!preferences.preset_area_definitions)
+  {
+    DBG(DBG_info, "no preset area definitions in preferences file, using predefined list\n");
+ 
+    preferences.preset_area_definitions = PREF_DEFAULT_PRESET_AREA_ITEMS;
+    preferences.preset_area = calloc(preferences.preset_area_definitions, sizeof(void *));
+ 
+    for (i=0; i<preferences.preset_area_definitions; i++)
+    {
+      preferences.preset_area[i] = calloc(sizeof(Preferences_preset_area_t), 1);
+      preferences.preset_area[i]->name    = strdup(_(pref_default_preset_area[i].name));
+      preferences.preset_area[i]->xoffset = pref_default_preset_area[i].xoffset;
+      preferences.preset_area[i]->yoffset = pref_default_preset_area[i].yoffset;
+      preferences.preset_area[i]->width   = pref_default_preset_area[i].width;
+      preferences.preset_area[i]->height  = pref_default_preset_area[i].height;
     }
   }
 
@@ -2307,7 +2385,7 @@ static gint xsane_close_info_callback(GtkWidget *widget, gpointer data)
 
   xsane_set_sensitivity(TRUE);
 
-  xsane_update_histogram();
+  xsane_update_histogram(TRUE /* update raw */);
 #ifdef HAVE_WORKING_GTK_GAMMACURVE
   xsane_update_gamma_dialog();
 #endif
@@ -2401,8 +2479,9 @@ static void xsane_info_dialog(GtkWidget *widget, gpointer data)
 
   snprintf(buf, sizeof(buf), TEXT_SANE_VERSION);
   label = xsane_info_table_text_new(table, buf, 0, 5);
-  snprintf(buf, sizeof(buf), "%d.%d",SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
-                                SANE_VERSION_MINOR(xsane.sane_backend_versioncode));
+  snprintf(buf, sizeof(buf), "%d.%d.%d",SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
+                                SANE_VERSION_MINOR(xsane.sane_backend_versioncode),
+                                SANE_VERSION_BUILD(xsane.sane_backend_versioncode));
   label = xsane_info_table_text_new(table, buf, 1, 5);
 
 
@@ -3705,7 +3784,7 @@ static void xsane_fax_entry_insert_callback(GtkWidget *widget, gpointer list)
 
   umask((mode_t) preferences.directory_umask); /* define new file permissions */    
 
-  if (!xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, TRUE, FALSE)) /* filename is selected */
+  if (!xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, TRUE, FALSE, FALSE)) /* filename is selected */
   {
    FILE *sourcefile;
  
@@ -3780,7 +3859,7 @@ static void xsane_fax_entry_insert_callback(GtkWidget *widget, gpointer list)
   umask(XSANE_DEFAULT_UMASK); /* define new file permissions */    
 
   xsane_set_sensitivity(TRUE);
-  xsane_update_histogram();
+  xsane_update_histogram(TRUE /* update raw */);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -3947,7 +4026,7 @@ static void xsane_fax_send()
     }
 
     xsane_set_sensitivity(TRUE);
-    xsane_update_histogram();
+    xsane_update_histogram(TRUE /* update raw */);
   }
 }
 
@@ -4722,13 +4801,7 @@ void xsane_panel_build()
   gtk_container_add(GTK_CONTAINER(xsane.standard_window), xsane.standard_hbox);
   gtk_container_add(GTK_CONTAINER(xsane.advanced_window), xsane.advanced_hbox);
 
-  xsane_update_histogram();
-/*
-  xsane_draw_slider_level(&xsane.slider_gray);
-  xsane_draw_slider_level(&xsane.slider_red);
-  xsane_draw_slider_level(&xsane.slider_green);
-  xsane_draw_slider_level(&xsane.slider_blue);
-*/
+  xsane_update_histogram(TRUE /* update raw */);
   xsane_update_sliders();
 
   if (xsane.length_unit_widget)
@@ -5829,10 +5902,10 @@ int main(int argc, char **argv)
   xsane.histogram_int    = 1;
   xsane.histogram_log    = 1;
 
-  xsane.xsane_color                = TRUE;
-  xsane.scanner_gamma_color        = FALSE;
-  xsane.scanner_gamma_gray         = FALSE;
-  xsane.enhancement_rgb_default    = TRUE;
+  xsane.xsane_color             = TRUE;
+  xsane.scanner_gamma_color     = FALSE;
+  xsane.scanner_gamma_gray      = FALSE;
+  xsane.enhancement_rgb_default = TRUE;
 
   xsane.adf_page_counter = 0;
   xsane.print_filenames  = FALSE;

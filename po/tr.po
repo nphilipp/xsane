@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Xsane 0.72\n"
-"POT-Creation-Date: 2001-04-03 00:36+0200\n"
+"POT-Creation-Date: 2001-04-22 11:23+0200\n"
 "PO-Revision-Date: 2001-02-18 20:54GMT+02:00\n"
 "Last-Translator: Togan Müftüoðlu <toganm@yahoo.com>\n"
 "Language-Team: Turkish <Turkish team <kde-i18n-tr@kde.org>>\n"
@@ -59,6 +59,11 @@ msgstr "fax sayfasýný yeniden isimlendir"
 #. WINDOW_FAX_INSERT
 msgid "insert ps-file into fax"
 msgstr "ps-dosyasýný faxa yerleþtirin"
+
+#. WINDOW_PRESET_AREA_RENAME
+#, fuzzy
+msgid "rename preset area"
+msgstr "Sayfayý yeniden isimlendir"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -251,6 +256,10 @@ msgstr "Üzerine yazma uyarýsý"
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
 msgid "Skip existing filenames"
 msgstr "Varolan dosya isimlerini atla"
+
+#. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
+msgid "Reduce 16 bit image to 8 bit"
+msgstr ""
 
 #. RADIO_BUTTON_WINDOW_FIXED
 msgid "Main window size fixed"
@@ -701,6 +710,11 @@ msgstr "Kopyalama seçenkleri"
 msgid "Saving options"
 msgstr "Saklama seçenekleri"
 
+#. NOTEBOOK_IMAGE_OPTIONS
+#, fuzzy
+msgid "Image options"
+msgstr "Xsane seçenekleri"
+
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display options"
 msgstr "Ekran özellikleri:"
@@ -877,6 +891,27 @@ msgstr "(hiçbiri)"
 msgid "by ext"
 msgstr "dosya son takýsý"
 
+#. MENU_ITEM_PRESET_AREA_ADD_SEL
+msgid "Add selection to list"
+msgstr ""
+
+#. MENU_ITEM_PRESET_AREA_RENAME
+msgid "Rename definiton"
+msgstr ""
+
+#. MENU_ITEM_PRESET_AREA_DELETE
+#, fuzzy
+msgid "Delete definition"
+msgstr "Deðiþtirilecek tanýmý seçin"
+
+#. MENU_OTEM_PRESET_AREA_MOVE_UP
+msgid "Move up"
+msgstr ""
+
+#. MENU_OTEM_PRESET_AREA_MOVE_DWN
+msgid "Move down"
+msgstr ""
+
 #. PROGRESS_SCANNING
 msgid "Scanning"
 msgstr "tarýyor"
@@ -953,6 +988,11 @@ msgstr "Faks sayfasý için ad girin"
 #. DESC_FAXRECEIVER
 msgid "Enter receiver phone number or address"
 msgstr "Alýcýnýn telefon numrasýný veya adresini girin"
+
+#. DESC_PRESET_AREA_NAME
+#, fuzzy
+msgid "Enter new name for preset area"
+msgstr "Faks sayfasý için ad girin"
 
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
@@ -1220,6 +1260,10 @@ msgstr ""
 "Eðer dosya adý sayacý otomatik olarak artýrýlýyorsa, kullanýlan rakamlar "
 "atlanýr"
 
+#. DESC_REDUCE_16BIT_TO_8BIT
+msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
+msgstr ""
+
 #. DESC_PSFILE_WIDTH
 msgid "Width of paper in mm for postscript files"
 msgstr "Postscript dosyalar için kaðýt eni mm olarak"
@@ -1341,7 +1385,7 @@ msgid "Select scanarea after preview scan has finished"
 msgstr ""
 
 #. DESC_AUTOCORRECT_COLORS
-msgid "Do color correcten after preview scan has finished"
+msgid "Do color correction after preview scan has finished"
 msgstr ""
 
 #. DESC_FAX_COMMAND
@@ -1422,8 +1466,9 @@ msgid "Autoselect scanarea"
 msgstr "Tarama alanýný otomatik seç"
 
 #. DESC_PRESET_AREA
-msgid "Reduce scan area"
-msgstr "Tarama alanýný azalt"
+#, fuzzy
+msgid "Preset area"
+msgstr "Tarama alanýný otomatik seç"
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -1807,6 +1852,26 @@ msgstr "DIN A5 dikey"
 msgid "DIN A5 land."
 msgstr "DIN A5 yatay"
 
+#. MENU_ITEM_SURFACE_13cmx18cm
+#, fuzzy
+msgid "13cm x 18cm"
+msgstr "13cm x 9cm"
+
+#. MENU_ITEM_SURFACE_18cmx13cm
+#, fuzzy
+msgid "18cm x 13cm"
+msgstr "9cm x 13cm"
+
+#. MENU_ITEM_SURFACE_10cmx14cm
+#, fuzzy
+msgid "10cm x 14cm"
+msgstr "9cm x 13cm"
+
+#. MENU_ITEM_SURFACE_14cmx10cm
+#, fuzzy
+msgid "14cm x 10cm"
+msgstr "9cm x 13cm"
+
 #. MENU_ITEM_SURFACE_9cmx13cm
 msgid "9cm x 13cm"
 msgstr "9cm x 13cm"
@@ -1885,3 +1950,6 @@ msgstr "Yetersiz hafýza"
 
 msgid "Access to resource has been denied"
 msgstr "Kaynaða eriþim reddedildi"
+
+#~ msgid "Reduce scan area"
+#~ msgstr "Tarama alanýný azalt"
