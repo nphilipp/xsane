@@ -33,7 +33,8 @@
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 extern void xsane_get_bounds(const SANE_Option_Descriptor *opt, double *minp, double *maxp);
-extern int xsane_set_resolution(int well_known_option, int resolution);
+extern double xsane_find_best_resolution(int well_known_option, double dpi);
+extern int xsane_set_resolution(int well_known_option, double resolution);
 extern void xsane_set_all_resolutions(void);
 extern void xsane_define_maximum_output_size(); 
 extern void xsane_close_dialog_callback(GtkWidget *widget, gpointer data);

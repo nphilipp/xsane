@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.52\n"
+"Project-Id-Version: XSANE 0.53\n"
 "POT-Creation-Date: 2000-01-26 01:13+0100\n"
 "PO-Revision-Date: 2000-01-21 15:51+01:00\n"
 "Last-Translator: Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>\n"

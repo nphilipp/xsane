@@ -247,6 +247,7 @@ static void xsane_set_modus_defaults(void)
       xsane.resolution_x = xsane.zoom_x * preferences.printer[preferences.printernr]->resolution;
       xsane.resolution_y = xsane.zoom_y * preferences.printer[preferences.printernr]->resolution;
 
+      xsane_set_all_resolutions();
       xsane_define_maximum_output_size(); /* must come before select_full_preview_area */
       preview_select_full_preview_area(xsane.preview);
      break;
@@ -742,9 +743,9 @@ static void xsane_printer_callback(GtkWidget *widget, gpointer data)
   xsane.resolution_x = xsane.zoom_x * preferences.printer[preferences.printernr]->resolution;
   xsane.resolution_y = xsane.zoom_y * preferences.printer[preferences.printernr]->resolution;
 
-  xsane_back_gtk_refresh_dialog(dialog);
   xsane_set_all_resolutions();
   xsane_define_maximum_output_size();
+  xsane_back_gtk_refresh_dialog(dialog);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -843,13 +844,14 @@ static int xsane_resolution_widget_new(GtkWidget *parent, int well_known_option,
       {
         case SANE_CONSTRAINT_RANGE:
         {
-         SANE_Word quant=0;
-         SANE_Word min=0;
-         SANE_Word max=0;
-         SANE_Word val=0;
+         double quant= 0.0;
+         double min  = 0.0;
+         double max  = 0.0;
+         double val  = 0.0;
+         SANE_Word value;
 
           gtk_widget_set_sensitive(xsane.show_resolution_list_widget, TRUE); 
-          sane_control_option(dialog->dev, well_known_option, SANE_ACTION_GET_VALUE, &val, 0); 
+          sane_control_option(dialog->dev, well_known_option, SANE_ACTION_GET_VALUE, &value, 0); 
 
           switch (opt->type)
           {
@@ -857,28 +859,26 @@ static int xsane_resolution_widget_new(GtkWidget *parent, int well_known_option,
               min   = opt->constraint.range->min;
               max   = opt->constraint.range->max;
               quant = opt->constraint.range->quant;
+              val   = (int) value;
             break;
 
             case SANE_TYPE_FIXED:
               min   = SANE_UNFIX(opt->constraint.range->min);
               max   = SANE_UNFIX(opt->constraint.range->max);
               quant = SANE_UNFIX(opt->constraint.range->quant);
-              val   = SANE_UNFIX(val);
+              val   = SANE_UNFIX(value);
             break;
 
             default:
-              fprintf(stderr, "zoom_scale_update: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
+              fprintf(stderr, "resolution_widget_new: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
           }
 
           if (quant == 0)
           {
-            quant = 1;
+            quant = 1.0;
           }
 
-          if (!(*resolution)) /* no prefered value */
-          {
-            *resolution = val; /* set backend predefined value */
-          }
+          *resolution = val; /* set backend predefined value */
 
           if (!preferences.show_resolution_list) /* user wants slider */ 
           {
@@ -904,14 +904,9 @@ static int xsane_resolution_widget_new(GtkWidget *parent, int well_known_option,
               wanted_res = (int) SANE_UNFIX(wanted_res);
             }
 
-            if (*resolution) /* prefered value */
-            {
-              wanted_res = *resolution; /* set frontend prefered value */
-            }
- 
             str_list = malloc((max_items + 1) * sizeof(str_list[0]));
 
-            sprintf(str, "%d", max);
+            sprintf(str, "%d", (int) max);
             str_list[j++] = strdup(str);
 
             i=9;
@@ -921,6 +916,7 @@ static int xsane_resolution_widget_new(GtkWidget *parent, int well_known_option,
               res = (int) (max * mul);
               if  (res/mul == max)
               {
+                res = xsane_find_best_resolution(well_known_option, res);
                 sprintf(str, "%d", res);
                 str_list[j++] = strdup(str);
                 if (res >= wanted_res)
@@ -938,6 +934,7 @@ static int xsane_resolution_widget_new(GtkWidget *parent, int well_known_option,
               res = max * mul;
               if (res/mul  == max)
               {
+                res = xsane_find_best_resolution(well_known_option, res);
                 sprintf(str, "%d", res);
                 str_list[j++] = strdup(str);
                 if (res >= wanted_res)
@@ -3743,10 +3740,10 @@ void xsane_panel_build(GSGDialog *dialog)
                 for (j = 0; j < num_words; ++j)
                 {
                   sprintf(str, "%g", SANE_UNFIX(opt->constraint.word_list[j + 1]));
-                  str_list[j] = strdup (str);
+                  str_list[j] = strdup(str);
                 }
                 str_list[j] = 0;
-                sprintf(str, "%g", SANE_UNFIX (val));
+                sprintf(str, "%g", SANE_UNFIX(val));
                 xsane_back_gtk_option_menu_new(parent, title, str_list, str, elem, dialog->tooltips, _BGT(opt->desc), SANE_OPTION_IS_SETTABLE(opt->cap));
                 free (str_list);
                 gtk_widget_show(parent->parent);
@@ -4362,6 +4359,10 @@ static gint32 xsane_choose_device(void)
  char type[20];
  int j;
 
+#define TEXT_NO_VENDOR "no vendor\0"
+#define TEXT_NO_MODEL  "no model\0"
+#define TEXT_NO_TYPE   "no type\0"
+
   choose_device_dialog = gtk_dialog_new();
   gtk_window_set_position(GTK_WINDOW(choose_device_dialog), GTK_WIN_POS_CENTER);
   gtk_window_set_policy(GTK_WINDOW(choose_device_dialog), FALSE, FALSE, FALSE);
@@ -4408,21 +4409,45 @@ static gint32 xsane_choose_device(void)
   {
     adev = devlist[i];
 
-    strncpy(vendor, adev->vendor, sizeof(vendor)-1);
+    if (adev->vendor)
+    {
+      strncpy(vendor, adev->vendor, sizeof(vendor)-1);
+    }
+    else
+    {
+      strncpy(vendor, TEXT_NO_VENDOR, sizeof(vendor)-1);
+    }
+
     vendor[sizeof(vendor)-1] = 0;
     for (j = strlen(vendor); j < sizeof(vendor)-1; j++)
     {
       vendor[j] = ' ';
     }
 
-    strncpy(model, adev->model, sizeof(model)-1);
+    if (adev->model)
+    {
+      strncpy(model, adev->model, sizeof(model)-1);
+    }
+    else
+    {
+      strncpy(model, TEXT_NO_MODEL, sizeof(model)-1);
+    }
+
     model[sizeof(model)-1] = 0;
     for (j = strlen(model); j < sizeof(model)-1; j++)
     {
       model[j] = ' ';
     }
 
-    strncpy(type, _(adev->type), sizeof(type)-1); /* allow translation of device type */
+    if (adev->type)
+    {
+      strncpy(type, _(adev->type), sizeof(type)-1); /* allow translation of device type */
+    }
+    else
+    {
+      strncpy(type, TEXT_NO_TYPE, sizeof(type)-1);
+    }
+
     type[sizeof(type)-1] = 0;
     for (j = strlen(type); j < sizeof(type)-1; j++)
     {

@@ -21,65 +21,12 @@ The scan mode is to scan an image and save it to a file.
 <br>&nbsp;
 <br>&nbsp;</blockquote>
 
-<center><img SRC="sane-xsane.jpg" height=416 width=270></center>
+<center><img SRC="sane-xsane.jpg" height=441 width=270></center>
 
-<blockquote>&nbsp;</blockquote>
-
+<blockquote>&nbsp;
 <h3>
-<u><font color="#009900">Supported output formats:</font></u></h3>
-
-<blockquote>You can select the output format by the filename extension
-(menu = "by ext") or by selecting the file format in the menu. Possible
-are: <i>pnm, png, ps, jpeg, raw </i>and<i> tiff.</i></blockquote>
-
-<blockquote><i>Pnm</i> and <i>ps</i> (and raw) are always available. The
-other formats are only available if necessary libraries are present (at
-compilation time AND while xsane is executed). For <i>png</i> you need
-libpng and libz, for <i>jpeg</i> you need jpeglib, for <i>tiff</i> you
-need libtiff.</blockquote>
-
-<blockquote>The <i>raw</i> format is a 16 bit format comparable to 16 bit
-binary <i>pnm</i> format that is not defined, for <i>pnm</i> the 16 bit
-format only is defined as ascii mode which generates huge and slow files.</blockquote>
-
-<blockquote><b>The supported output formats depend on the bit depth of
-the scanned image:</b>
-<h4>
-<u><font color="#990000">1 bit/pixel black/white mode:</font></u></h4>
-
-<blockquote><font color="#000099">pnm = pbm, png</font>
-<br><font color="#000099">ps, jpeg and tiff are converted to 8 bit grayscale
-mode.</font></blockquote>
-
-<h4>
-<u><font color="#990000">8 bits/pixel grayscale mode:</font></u></h4>
-
-<blockquote><font color="#000099">pnm = pgm, png, ps, jpeg and tiff</font></blockquote>
-
-<h4>
-<u><font color="#990000">16 bits/pixel grayscale mode (9-16 bits):</font></u></h4>
-
-<blockquote><font color="#000099">pnm (ascii), png and raw</font></blockquote>
-
-<h4>
-<u><font color="#990000">24 bits/pixel RGB-color mode (8 bits/color):</font></u></h4>
-
-<blockquote><font color="#000099">pnm = ppm, png, ps, jpeg and tiff</font></blockquote>
-
-<h4>
-<u><font color="#990000">48 bits/pixel RGB-color mode (9-16 bits/color):</font></u></h4>
-
-<blockquote><font color="#000099">pnm (ascii), png and raw</font></blockquote>
-
-<h4>
-<u><font color="#990000">32 bits/pixel RGBA-color mode (8 bits/color):</font></u></h4>
-
-<blockquote><font color="#000099">rgba (raw) and png with alpha channel</font></blockquote>
-
-<h4>
-<u><font color="#990000">64 bits/pixel RGBA-color mode (9-16 bits/color):</font></u></h4>
-
-<blockquote><font color="#000099">rgba (raw) and png with alpha channel</font></blockquote>
+<u><font color="#009900"><a href="sane-xsane-output-formats-doc.html">Supported
+output formats</a></font></u></h3>
 </blockquote>
 
 <center>

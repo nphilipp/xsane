@@ -10,8 +10,6 @@ XSane uses gettext for supporting translation into different languages.
   make
 - Using "u" (untranslated) and "f" (fuzzy) in emacs po-mode for updating
    strings.
-- Filter old *.po files via sed '/^#/d' to remove comments
-
 
 
 SELECT YOUR LANGUAGE:

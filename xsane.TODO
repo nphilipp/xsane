@@ -19,7 +19,6 @@ first steps:
  - copy mode:
     + select image position on printer (centered/left/right/free) for copy
       and show it in the preview.
-    + selection of portrait/landscape for output
  - scan mode into postscript file:
     - define image position on paper the same way it is done in copy mode
     - add postscript definition to setup and handle it as printer
@@ -37,6 +36,7 @@ first steps:
     - move threshold in lineart-mode to main window ?
     - add grayscale preview scan -> gamma 0/255 -> displayed preview  for lineart mode
  + batch scan function
+    - select multiple scan areas before starting the scan
 
  * internal:
    + add range check / valid value when reading xsane.rc/*.drc files
@@ -58,4 +58,6 @@ second steps:
      - session management
    - drag and drop for preview image?
  + add color management - may be via xcmsdb
+ - average of a multi scan of the same image
+
 

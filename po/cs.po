@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.51\n"
+"Project-Id-Version: XSANE 0.52\n"
 "POT-Creation-Date: 2000-01-26 01:13+0100\n"
-"PO-Revision-Date: 2000-01-24 14:59+01:00\n"
+"PO-Revision-Date: 2000-01-29 19:16+01:00\n"
 "Last-Translator: Stanislav Brabec <utx@penguin.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -415,22 +415,19 @@ msgstr "Komprese jednobarevných TIFF obrázkù"
 
 #. TEXT_SETUP_PSFILE_WIDTH
 msgid "Width of paper for postscript [mm]:"
-msgstr ""
+msgstr "©íøka papíru pro postscript [mm]:"
 
 #. TEXT_SETUP_PSFILE_HEIGHT
-#, fuzzy
 msgid "Height of paper for postscript [mm]:"
-msgstr "Vý¹ka tisknutelné plochy v mm"
+msgstr "Vý¹ka papíru pro postscript [mm]:"
 
 #. TEXT_SETUP_PSFILE_LEFT
-#, fuzzy
 msgid "Left offset for postscript [mm]:"
-msgstr "Levý posun [mm]:"
+msgstr "Levý posun pro postscript [mm]:"
 
 #. TEXT_SETUP_PSFILE_BOTTOM
-#, fuzzy
 msgid "Bottom offset for postscript [mm]:"
-msgstr "Spodní posun [mm]:"
+msgstr "Spodní posun pro postscript [mm]:"
 
 #. TEXT_SETUP_PREVIEW_GAMMA
 msgid "Preview gamma:"
@@ -697,28 +694,24 @@ msgid "Set scan resolution"
 msgstr "Nastavení rozli¹ení skenování"
 
 #. DESC_RESOLUTION_X
-#, fuzzy
 msgid "Set scan resolution for x direction"
-msgstr "Nastavení rozli¹ení skenování"
+msgstr "Nastavení rozli¹ení ve smìru x"
 
 #. DESC_RESOLUTION_Y
-#, fuzzy
 msgid "Set scan resolution for y direction"
-msgstr "Nastavení rozli¹ení skenování"
+msgstr "Nastavení rozli¹ení ve smìru y"
 
 #. DESC_ZOOM
 msgid "Set zoomfactor"
 msgstr "Nastavení faktoru zmìny velikosti"
 
 #. DESC_ZOOM_X
-#, fuzzy
 msgid "Set zoomfactor for x direction"
-msgstr "Nastavení faktoru zmìny velikosti"
+msgstr "Nastavení faktoru zmìny velikosti ve smìru x"
 
 #. DESC_ZOOM_Y
-#, fuzzy
 msgid "Set zoomfactor for y direction"
-msgstr "Nastavení faktoru zmìny velikosti"
+msgstr "Nastavení faktoru zmìny velikosti ve smìru y"
 
 #. DESC_COPY_NUMBER
 msgid "Set number of copies"
@@ -936,25 +929,23 @@ msgstr ""
 
 #. DESC_PSFILE_WIDTH
 msgid "Width of paper in mm for postscript files"
-msgstr ""
+msgstr "©íøka papíru v mm pro postscriptové soubory"
 
 #. DESC_PSFILE_HEIGHT
 msgid "Height of paper in mm for postscript files"
-msgstr ""
+msgstr "Vý¹ka papíru v mm pro postscriptové soubory"
 
 #. DESC_PSFILE_LEFTOFFSET
-#, fuzzy
 msgid ""
 "Left offset from the edge of the paper to the usable area in mm for "
 "postscript files"
-msgstr "Posun od levého okraje papíru do tisknutelné plochy v mm"
+msgstr "Posun od levého okraje papíru do tisknutelné plochy v mm pro postscriptové soubory"
 
 #. DESC_PSFILE_BOTTOMOFFSET
-#, fuzzy
 msgid ""
 "Bottom offset from the edge of the paper to the usable area in mm for "
 "postscript files"
-msgstr "Posun od spodního okraje papíru do tisknutelné plochy v mm"
+msgstr "Posun od spodního okraje papíru do tisknutelné plochy v mm pro postscriptové soubory"
 
 #. DESC_MAIN_WINDOW_FIXED
 msgid "Use fixed main window size or scrolled, resizable main window"
@@ -1388,7 +1379,3 @@ msgstr "Nedostatek pamìti"
 
 msgid "Access to resource has been denied"
 msgstr "Pøístup ke zdroji byl odmítnut"
-
-#, fuzzy
-#~ msgid "About this"
-#~ msgstr "O programu"

@@ -42,7 +42,8 @@
 /* forward declarations: */
 
 void xsane_get_bounds(const SANE_Option_Descriptor *opt, double *minp, double *maxp);
-int xsane_set_resolution(int well_known_option, int resolution);
+double xsane_find_best_resolution(int well_known_option, double dpi);
+int xsane_set_resolution(int well_known_option, double resolution);
 void xsane_set_all_resolutions(void);
 void xsane_define_maximum_output_size();
 void xsane_close_dialog_callback(GtkWidget *widget, gpointer data);
@@ -133,15 +134,118 @@ void xsane_get_bounds(const SANE_Option_Descriptor *opt, double *minp, double *m
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-int xsane_set_resolution(int well_known_option, int resolution)
+double xsane_find_best_resolution(int well_known_option, double dpi)
 {
  const SANE_Option_Descriptor *opt;
+ double bestdpi;
+
+  opt = sane_get_option_descriptor(dialog->dev, well_known_option);
+
+  if (!opt)
+  {
+    return -1.0; /* option does not exits */
+  }
+
+  if (opt->constraint_type == SANE_CONSTRAINT_RANGE)
+  {
+   double quant=0;
+   double min=0;
+   double max=0;
+
+    switch (opt->type)
+    {
+      case SANE_TYPE_INT:
+        min   = opt->constraint.range->min;
+        max   = opt->constraint.range->max;
+        quant = opt->constraint.range->quant;
+      break;
+
+      case SANE_TYPE_FIXED:
+        min   = SANE_UNFIX(opt->constraint.range->min);
+        max   = SANE_UNFIX(opt->constraint.range->max);
+        quant = SANE_UNFIX(opt->constraint.range->quant);
+      break;
+
+      default:
+        fprintf(stderr, "find_best_resolution: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
+    }
+
+    bestdpi = dpi;
+
+    if (quant != 0) /* make sure selected value fits into quantisation */
+    {
+     int factor;
+     double diff;
+
+      factor = (int) (dpi - min) / quant;
+
+      diff = dpi - min - factor * quant;
+      bestdpi = min + factor * quant;
+
+      if (diff >quant/2.0)
+      {
+        bestdpi += quant;
+      }
+    }
+
+    if (bestdpi < min)
+    {
+      bestdpi = min;
+    }
+
+    if (bestdpi > max)
+    {
+      bestdpi = max;
+    }
+  }
+  else if (opt->constraint_type == SANE_CONSTRAINT_WORD_LIST)
+  {
+   SANE_Word diff;
+   SANE_Word val;
+   int items;
+   int i;
+
+    items = opt->constraint.word_list[0];
+
+    bestdpi = opt->constraint.word_list[1];
+    if (opt->type == SANE_TYPE_FIXED)
+    {
+      bestdpi = SANE_UNFIX(bestdpi);
+    }
+
+    diff = abs(bestdpi - dpi);
+
+    for (i=1; i<=items; i++)
+    {
+      val = opt->constraint.word_list[i];
+      if (opt->type == SANE_TYPE_FIXED)
+      {
+        val = SANE_UNFIX(val);
+      }
+
+      if (abs(val - dpi) < diff)
+      {
+        diff = abs(val - dpi);
+        bestdpi = val;
+      }
+    }
+  }
+  else
+  {
+    fprintf(stderr, "find_best_resolution: %s %d\n", ERR_UNKNOWN_CONSTRAINT_TYPE, opt->constraint_type);
+    return -1; /* error */
+  }
+
+  return bestdpi;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+int xsane_set_resolution(int well_known_option, double resolution)
+{
+ const SANE_Option_Descriptor *opt;
+ double bestdpi;
  SANE_Word dpi;
- SANE_Word bestdpi;
- SANE_Word diff;
- SANE_Word val;
- int items;
- int i;
 
   opt = sane_get_option_descriptor(dialog->dev, well_known_option);
 
@@ -150,64 +254,26 @@ int xsane_set_resolution(int well_known_option, int resolution)
     return -1; /* option does not exits */
   }
 
-  if (opt->constraint_type == SANE_CONSTRAINT_RANGE)
+  bestdpi = xsane_find_best_resolution(well_known_option, resolution);
+
+  if (bestdpi < 0)
   {
-    switch (opt->type)
-    {
-      case SANE_TYPE_INT:
-        dpi = resolution;
-      break;
-
-      case SANE_TYPE_FIXED:
-        dpi = SANE_FIX(resolution);
-      break;
-
-      default:
-       fprintf(stderr, "set_resolution: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
-      return 1; /* error */
-    }
+     fprintf(stderr, "set_resolution: %s\n", ERR_FAILED_SET_RESOLUTION);
+    return -1;
   }
-  else if (opt->constraint_type == SANE_CONSTRAINT_WORD_LIST)
+
+  switch (opt->type)
   {
-    switch (opt->type)
-    {
-      case SANE_TYPE_INT:
-        dpi = resolution;
-      break;
+    case SANE_TYPE_INT:
+      dpi = bestdpi;
+    break;
 
-      case SANE_TYPE_FIXED:
-        dpi = SANE_FIX(resolution);
-      break;
+    case SANE_TYPE_FIXED:
+      dpi = SANE_FIX(bestdpi);
+    break;
 
-      default:
-       fprintf(stderr, "set_resolution: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
-      return 1; /* error */
-    }
-    
-    items   = opt->constraint.word_list[0];
-    bestdpi = opt->constraint.word_list[1];
-    diff    = abs(bestdpi - dpi);
-
-    for (i=1; i<=items; i++)
-    {
-      val = opt->constraint.word_list[i];
-      if (abs(val - dpi) < diff)
-      {
-        diff = abs(val - dpi);
-        bestdpi = val;
-      }
-    }
-
-    if (bestdpi == -1)
-    {
-       fprintf(stderr, "set_resolution: %s\n", ERR_FAILED_SET_RESOLUTION);
-      return -1;
-    }
-    dpi = bestdpi;
-  }
-  else
-  {
-    fprintf(stderr, "set_resolution: %s %d\n", ERR_UNKNOWN_CONSTRAINT_TYPE, opt->constraint_type);
+    default:
+     fprintf(stderr, "set_resolution: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
     return 1; /* error */
   }
 
@@ -987,7 +1053,14 @@ void xsane_identify_output_format(char **ext)
 
   if (ext)
   {
-    ext = &extension;
+    if (extension)
+    {
+      *ext = strdup(extension);
+    }
+    else
+    {
+      *ext = 0;
+    }
   }
 }
 

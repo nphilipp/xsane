@@ -779,3 +779,31 @@ xsane-0.51 -> 0.52:
 
  - updated french translation file fr.po
 
+
+xsane-0.52 -> 0.53:
+-------------------
+
+ - added test if vendor, model and type strings do exists (pointer != 0)
+   otherwise "no vendor",... is printed
+
+ - changed
+     ext = &extension;
+   to
+     if (extension)
+     {
+       *ext = strdup(extension);
+     }
+     else
+     {
+       *ext = 0;
+     }
+   in xsane_identify_output_format - bad thing, I get old ;-)
+
+ - added new routine xsane_find_best_resolution that makes sure that the selected resolution
+   fits into range/quantization given by backend.
+   This is used by xsane_set_resolution and when resolution_list is created.
+
+ - added xsane_set_all_resolutions to xsane_set_modus_defaults
+
+ - xsane resolution can be changed by backend now
+

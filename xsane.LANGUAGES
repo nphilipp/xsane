@@ -1,6 +1,6 @@
 Since version 0.36 xsane supports NLS, you can add a translation
 file for your language now. If you want to add a new language to
-xsane please read the file po/README.ADD_NEW_LANGUAGE!
+xsane please read the file po/README
 
 Backend text translation is done by an own translation table for the
 backend sane-"backendname".mo that has to be made available by the backend!
