@@ -35,6 +35,12 @@ enum
   MODE_PIPETTE_BLACK
 };
 
+typedef struct Batch_selection
+{
+  float coord[4];
+  struct Batch_selection *next;
+} Batch_selection;
+
 typedef struct
   {
     int mode;
@@ -42,11 +48,15 @@ typedef struct
 
     SANE_Value_Type surface_type;
     SANE_Unit surface_unit;
-    float surface[4];		/* the corners of the selected surface (device coords) */
-    float old_surface[4];	/* the corners of the old selected surface (device coords) */
-    float scanner_surface[4];	/* the corners of the scanner surface (device coords) */
-    float image_surface[4];	/* the corners of the surface (device coords) of the scanned image */
-    float aspect;	/* the aspect ratio of the scan surface */
+    float surface[4];			/* the corners of the selected surface (device coords) */
+    float old_surface[4];		/* the corners of the old selected surface (device coords) */
+    float max_scanner_surface[4];	/* the scanner defined corners of the scanner surface (device coords) */
+    float scanner_surface[4];		/* the user defined corners of the scanner surface (device coords) */
+    float image_surface[4];		/* the corners of the surface (device coords) of the scanned image */
+    float aspect;			/* the aspect ratio of the scan surface */
+
+    float preset_width;			/* user selected maximum scan width */
+    float preset_height;		/* user selected maximum scan height */
 
     int saved_dpi_valid;
     SANE_Word saved_dpi;
@@ -84,11 +94,12 @@ typedef struct
     int selection_xedge;
     int selection_yedge;
     struct
-      {
-	int active;
-	int coord[4];
-      }
-    selection, previous_selection;
+    {
+      int active;
+      int coord[4];
+    } selection, previous_selection;
+
+    Batch_selection *batch_selection;
 
     GtkWidget *top;	/* top-level widget */
     GtkWidget *hruler;
@@ -104,6 +115,7 @@ typedef struct
     GtkWidget *zoom_out;
     GtkWidget *zoom_in;
     GtkWidget *zoom_undo;
+    GtkWidget *preset_area_option_menu;
   }
 Preview;
 

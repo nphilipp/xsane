@@ -1661,7 +1661,7 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
     }
     else if (xsane.scanner_gamma_gray) /* only scanner gray gamma function available */
     {
-     int gamma;
+     double gamma;
       /* ok, the scanner only supports gray gamma function */
       /* if we are doing a grayscale scan everyting is ok, */
       /* for a color scan the software has to do the gamma correction set by the component slider */
@@ -1731,7 +1731,7 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
 
       if (xsane.xsane_color == 0) /* no color scan */
       {
-       int gamma;
+       double gamma;
 
         if (xsane.xsane_mode == XSANE_COPY)
         {

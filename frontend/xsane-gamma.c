@@ -306,10 +306,10 @@ void xsane_establish_slider(XsaneSlider *slider)
   {
     pos = slider->position[0]-y/2;
     len = y;
-    if (pos<0)
+    if (pos<-2)
     {
-      len = len + pos;
-      pos = 0;
+      len = len + pos + 2;
+      pos = -2;
     }
     pos = pos * 3 + 6;
 
@@ -353,9 +353,9 @@ void xsane_establish_slider(XsaneSlider *slider)
 
     pos = slider->position[2]-y/2;
     len = y;
-    if (pos+len>255)
+    if (pos+len>257)
     {
-      len = 255- pos;
+      len = 257 - pos;
     }
     pos = pos * 3 + 6;
 

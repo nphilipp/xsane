@@ -725,6 +725,38 @@ const char *zoom_out_xpm[] =
 "                    ",
 };
 
+const char *full_preview_area_xpm[] =
+{
+/* width height num_colors chars_per_pixel */
+"    20    20        4            1",
+/* colors */
+"  none",
+". c #000000",
+"+ c #c0c0c0",
+"a c #ffffff",
+/* pixels */
+"                    ",
+" .................  ",
+" .               .  ",
+" .       .       .  ",
+" .      ...      .  ",
+" .     . . .     .  ",
+" .       .       .  ",
+" .       .       .  ",
+" .   .   .   .   .  ",
+" .  .    .    .  .  ",
+" . ............. .  ",
+" .  .    .    .  .  ",
+" .   .   .   .   .  ",
+" .       .       .  ",
+" .       .       .  ",
+" .     . . .     .  ",
+" .      ...      .  ",
+" .       .       .  ",
+" .................  ",
+"                    ",
+};
+
 const char *printer_xpm[] =
 {
 /* width height num_colors chars_per_pixel */

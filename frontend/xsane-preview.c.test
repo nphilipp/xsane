@@ -108,31 +108,6 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define PRESET_AREA_ITEMS 11
-typedef struct
-{
-  char *name;
-  float width;
-  float height;
-} Preset_area;
-
-static const Preset_area preset_area[] =
-{
- { "full size",	INF,	INF },
- { "DIN A3",	296.98,	420.0 },
- { "DIN A4",	210.0,	296.98 },
- { "DIN A4H",	296.98,	210.0 },
- { "DIN A5",	148.5,	210.0 },
- { "DIN A5H",	210.0,	148.5 },
- { "9x13 cm",	90.0,	130.0 },
- { "13x9 cm",	130.0,	90.0 },
- { "legal",	10.0,	10.0 },
- { "letter",	215.9,	279.4 },
- { "custom",	INF,	INF }
-};
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
 static SANE_Int *preview_gamma_data_red   = 0;
 static SANE_Int *preview_gamma_data_green = 0;
 static SANE_Int *preview_gamma_data_blue  = 0;
@@ -155,8 +130,6 @@ static void preview_get_color(Preview *p, int x, int y, int *red, int *green, in
 static void preview_pipette_white(GtkWidget *window, gpointer data);
 static void preview_pipette_gray(GtkWidget *window, gpointer data);
 static void preview_pipette_black(GtkWidget *window, gpointer data);
-static void preview_full_preview_area(GtkWidget *widget, gpointer call_data);
-static void preview_preset_area_callback(GtkWidget *widget, gpointer call_data);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -1343,7 +1316,7 @@ static void preview_scan_start(Preview *p)
   {
     p->previous_selection = p->selection;
     p->selection.active = FALSE;
-    preview_draw_selection(p);		/* undraw selection and mark selctions as not active */
+    preview_draw_selection(p);
   }
 
   p->scanning = TRUE;
@@ -1515,20 +1488,20 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
   int i, tmp;
 
   if (event->type == GDK_EXPOSE)
-  {
-    if (!p->gc)
     {
-      p->gc = gdk_gc_new(p->window->window);
-      gdk_gc_set_function(p->gc, GDK_INVERT);
-      gdk_gc_set_line_attributes(p->gc, 1, GDK_LINE_ON_OFF_DASH, GDK_CAP_BUTT, GDK_JOIN_MITER);
-      preview_paint_image(p);
+      if (!p->gc)
+	{
+	  p->gc = gdk_gc_new (p->window->window);
+	  gdk_gc_set_function (p->gc, GDK_INVERT);
+	  gdk_gc_set_line_attributes (p->gc, 1, GDK_LINE_ON_OFF_DASH, GDK_CAP_BUTT, GDK_JOIN_MITER);
+	  preview_paint_image(p);
+	}
+      else
+	{
+	  p->selection.active = FALSE;
+	  preview_draw_selection(p);
+	}
     }
-    else
-    {
-      p->selection.active = FALSE;
-      preview_draw_selection(p);
-    }
-  }
   else if (!p->scanning)
     switch (event->type)
       {
@@ -1872,14 +1845,19 @@ Preview *preview_new(GSGDialog *dialog)
   GdkCursor *cursor;
   GtkWidget *preset_area_option_menu, *preset_area_menu, *preset_area_item;
   Preview *p;
-  int i;
+  int i, num_items=3;
+  char *str_list[2];
+
+  str_list[0]="abc";
+  str_list[1]="def";
+  str_list[2]="ghi";
 
   p = malloc(sizeof(*p));
   if (!p)
   {
     return 0;
   }
-  memset(p, 0, sizeof(*p));
+  memset (p, 0, sizeof(*p));
 
   p->mode      = MODE_NORMAL; /* no pipette functions etc */
   p->dialog    = dialog;
@@ -1890,10 +1868,10 @@ Preview *preview_new(GSGDialog *dialog)
     first_time = 0;
     gtk_preview_set_gamma(1.0);
     gtk_preview_set_install_cmap(preferences.preview_own_cmap);
-  }
 
-  p->preset_width  = INF;	/* use full scanarea */
-  p->preset_height = INF;	/* use full scanarea */
+    p->preset_width  = INF;	/* use full scanarea */
+    p->preset_height = INF;	/* use full scanarea */
+  }
 
 #ifndef XSERVER_WITH_BUGGY_VISUALS
   gtk_widget_push_visual(gtk_preview_get_visual ());
@@ -1901,7 +1879,7 @@ Preview *preview_new(GSGDialog *dialog)
   gtk_widget_push_colormap(gtk_preview_get_cmap());
 
   p->top = gtk_dialog_new();
-  gtk_signal_connect(GTK_OBJECT(p->top), "destroy", GTK_SIGNAL_FUNC(preview_top_destroyed), p);
+  gtk_signal_connect(GTK_OBJECT(p->top), "destroy", GTK_SIGNAL_FUNC (preview_top_destroyed), p);
   gtk_window_set_title(GTK_WINDOW(p->top), "xsane preview");
   vbox = GTK_BOX(GTK_DIALOG(p->top)->vbox);
   hbox = GTK_BOX(GTK_DIALOG(p->top)->action_area);
@@ -1928,32 +1906,31 @@ Preview *preview_new(GSGDialog *dialog)
   gtk_widget_set_sensitive(p->zoom_out, FALSE); /* no zoom at this point, so no zoom out */
   gtk_widget_set_sensitive(p->zoom_undo, FALSE); /* no zoom at this point, so no zoom undo */
 
-
-
-  xsane_button_new_with_pixmap(top_hbox, full_preview_area_xpm, DESC_FULL_PREVIEW_AREA,
-                               (GtkSignalFunc) preview_full_preview_area, p);
-
+#if 0
   /* select maximum scanarea */
   preset_area_menu = gtk_menu_new();
 
-  for (i = 0; i < PRESET_AREA_ITEMS; ++i)
+  for (i = 0; i < num_items; ++i)
   {
-    preset_area_item = gtk_menu_item_new_with_label(preset_area[i].name);
+    preset_area_item = gtk_menu_item_new_with_label(str_list[i]);
     gtk_container_add(GTK_CONTAINER(preset_area_menu), preset_area_item);
-    gtk_signal_connect(GTK_OBJECT(preset_area_item), "activate", (GtkSignalFunc) preview_preset_area_callback, p);
-    gtk_object_set_data(GTK_OBJECT(preset_area_item), "Selection", (void *) i);  
+//    gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) option_menu_callback, menu_items + i);
 
     gtk_widget_show(preset_area_item);
   }                  
 
   preset_area_option_menu = gtk_option_menu_new();
+printf("1\n");
   gtk_box_pack_start(GTK_BOX(top_hbox), preset_area_option_menu, FALSE, FALSE, 2);
+printf("2\n");
   gtk_option_menu_set_menu(GTK_OPTION_MENU(preset_area_option_menu), preset_area_menu);
-  gtk_option_menu_set_history(GTK_OPTION_MENU(preset_area_option_menu), 0); /* full area */
+printf("3\n");
+//  gtk_option_menu_set_history(GTK_OPTION_MENU(preset_area_option_menu), 0);
 //  gsg_set_tooltip(tooltips, preset_area_option_menu, desc);
 
   gtk_widget_show(preset_area_option_menu);
-  p->preset_area_option_menu = preset_area_option_menu;
+printf("4\n");
+#endif
 
 #if 0 
   p->zoom_view = gtk_preview_new(GTK_PREVIEW_COLOR);
@@ -2145,20 +2122,17 @@ void preview_update_surface(Preview *p, int surface_changed)
     preset_height = max_height;
   }
 
-  if ( (width != preset_width) || (height != preset_height) )
+  if (width != preset_width)
   {
-    p->scanner_surface[GSG_TL_X] = p->scanner_surface[GSG_TL_X];
-    p->surface[GSG_TL_X]         = p->scanner_surface[GSG_TL_X];
-    p->image_surface[GSG_TL_X]   = p->scanner_surface[GSG_TL_X];
-
     p->scanner_surface[GSG_BR_X] = p->scanner_surface[GSG_TL_X] + preset_width;
     p->surface[GSG_BR_X]         = p->scanner_surface[GSG_TL_X] + preset_width;
     p->image_surface[GSG_BR_X]   = p->scanner_surface[GSG_TL_X] + preset_width;
 
-    p->scanner_surface[GSG_TL_Y] = p->scanner_surface[GSG_TL_Y];
-    p->surface[GSG_TL_Y]         = p->scanner_surface[GSG_TL_Y];
-    p->image_surface[GSG_TL_Y]   = p->scanner_surface[GSG_TL_Y];
+    surface_changed = 1;
+  }
 
+  if (height != preset_height)
+  {
     p->scanner_surface[GSG_BR_Y] = p->scanner_surface[GSG_TL_Y] + preset_height;
     p->surface[GSG_BR_Y]         = p->scanner_surface[GSG_TL_Y] + preset_height;
     p->image_surface[GSG_BR_Y]   = p->scanner_surface[GSG_TL_Y] + preset_height;
@@ -2170,15 +2144,6 @@ void preview_update_surface(Preview *p, int surface_changed)
   {
     surface_changed = 1;
     p->surface_unit = unit;
-  }
-
-  if (p->surface_unit == SANE_UNIT_MM)
-  {
-    gtk_widget_set_sensitive(p->preset_area_option_menu, TRUE); /* enable preset area */
-  }
-  else
-  {
-    gtk_widget_set_sensitive(p->preset_area_option_menu, FALSE); /* disable preset area */
   }
 
   if (p->surface_type != type)
@@ -2211,8 +2176,8 @@ void preview_update_surface(Preview *p, int surface_changed)
     }
     else
     {
-      width  += SANE_UNFIX(1.0);
-      height += SANE_UNFIX(1.0);
+      width  += SANE_UNFIX (1.0);
+      height += SANE_UNFIX (1.0);
     }
 
     assert(width > 0.0 && height > 0.0);
@@ -2242,17 +2207,18 @@ void preview_update_surface(Preview *p, int surface_changed)
   if (surface_changed)
   {
     gtk_widget_set_usize(GTK_WIDGET(p->window), p->preview_width, p->preview_height);
-    /* preview_area_resize is automatically called by signal handler */
+    if (GTK_WIDGET_DRAWABLE (p->window))
+    {
+      preview_area_resize(p->window);
+    }
 
     if (preferences.preserve_preview)
     {
       preview_restore_image(p);
     }
   }
-  else
-  {
-    preview_update_selection(p);
-  }
+
+  preview_update_selection(p);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -2414,12 +2380,6 @@ static void preview_zoom_not(GtkWidget *window, gpointer data)
   gtk_widget_set_sensitive(p->zoom_not, FALSE); /* forbid unzoom */
   gtk_widget_set_sensitive(p->zoom_out, FALSE); /* forbid zoom out */
   gtk_widget_set_sensitive(p->zoom_undo,TRUE);  /* allow zoom undo */
-
-  while (gtk_events_pending()) /* make sure all selection draw is done now */
-  {
-    gtk_main_iteration();
-  }
-
   preview_scan(p);
 }
 
@@ -2465,12 +2425,6 @@ static void preview_zoom_out(GtkWidget *window, gpointer data)
   preview_update_surface(p, 1);
   gtk_widget_set_sensitive(p->zoom_not, TRUE); /* allow unzoom */
   gtk_widget_set_sensitive(p->zoom_undo,TRUE); /* allow zoom undo */
-
-  while (gtk_events_pending()) /* make sure all selection draw is done now */
-  {
-    gtk_main_iteration();
-  }
-
   preview_scan(p);
 }
 
@@ -2513,12 +2467,6 @@ static void preview_zoom_in(GtkWidget *window, gpointer data)
   gtk_widget_set_sensitive(p->zoom_not, TRUE); /* allow unzoom */
   gtk_widget_set_sensitive(p->zoom_out, TRUE); /* allow zoom out */
   gtk_widget_set_sensitive(p->zoom_undo,TRUE); /* allow zoom undo */
-
-  while (gtk_events_pending()) /* make sure all selection draw is done now */
-  {
-    gtk_main_iteration();
-  }
-
   preview_scan(p);
 }
 
@@ -2538,12 +2486,6 @@ static void preview_zoom_undo(GtkWidget *window, gpointer data)
   gtk_widget_set_sensitive(p->zoom_not, TRUE);   /* allow unzoom */
   gtk_widget_set_sensitive(p->zoom_out, TRUE); /* allow zoom out */
   gtk_widget_set_sensitive(p->zoom_undo, FALSE); /* forbid zoom undo */
-
-  while (gtk_events_pending()) /* make sure all selection draw is done now */
-  {
-    gtk_main_iteration();
-  }
-
   preview_scan(p);
 }
 
@@ -2658,37 +2600,6 @@ static void preview_pipette_black(GtkWidget *window, gpointer data)
 
   gdk_window_set_cursor(p->window->window, cursor);
   gdk_cursor_destroy(cursor);
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void preview_full_preview_area(GtkWidget *widget, gpointer call_data)
-{
- Preview *p = call_data;
-
-  p->selection.active = TRUE;
-  p->selection.coord[0] = 0;
-  p->selection.coord[1] = 0;
-  p->selection.coord[2] = p->preview_width-1;
-  p->selection.coord[3] = p->preview_height-1;
-
-  preview_draw_selection(p);
-  preview_establish_selection(p);
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void preview_preset_area_callback(GtkWidget *widget, gpointer call_data)
-{
- Preview *p = call_data;
- int selection;
-
-  selection = (int) gtk_object_get_data(GTK_OBJECT(widget), "Selection");
-
-   p->preset_width  = preset_area[selection].width;
-   p->preset_height = preset_area[selection].height;
-
-  preview_update_surface(p, 0);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

@@ -6,7 +6,7 @@ AC_ARG_PROGRAM
 
 # version code:
 V_MAJOR=0
-V_MINOR=26\\337
+V_MINOR=27\\337
 
 PACKAGE=xsane
 SANE_V_MAJOR=1
@@ -40,8 +40,8 @@ dnl Checks for header files.
 AC_HEADER_STDC
 AC_CHECK_HEADERS(fcntl.h unistd.h libintl.h libc.h sys/dsreq.h sys/select.h \
     sys/time.h sys/scanio.h sys/socket.h sys/io.h asm/io.h gscdds.h sys/hw.h \
-    io/cam/cam.h camlib.h \
-    sys/types.h zlib.h png.h)
+    bsd/dev/scsireg.h io/cam/cam.h camlib.h \
+    sys/types.h zlib.h)
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
@@ -57,11 +57,11 @@ AC_CHECK_TYPE(u_long, unsigned long)
 dnl Checks for libraries.
 
 AC_CHECK_LIB(scsi, scsireq_enter)       # FreeBSD needs this 
+AC_CHECK_LIB(cam, cam_open_device)      # FreeBSD 3+ needs this
 AC_CHECK_LIB(m,sqrt)
 AC_CHECK_LIB(intl,gettext)
 AC_CHECK_LIB(jpeg,jpeg_start_decompress)
 AC_CHECK_LIB(z,deflateInit_)
-AC_CHECK_LIB(png,png_create_info_struct)
 AC_CHECK_LIB(tiff,TIFFOpen)
 
 dnl Checks for library functions.
@@ -109,6 +109,7 @@ saved_LIBS="${LIBS}"
 CPPFLAGS="${CPPFLAGS} ${GTK_CFLAGS}"
 LIBS="${LIBS} ${GTK_LIBS}"
 
+
 AC_CHECK_FUNCS(gtk_scrolled_window_add_with_viewport)
 AC_CHECK_FUNCS(gtk_tooltips_set_tips gtk_events_pending)
 if test "${ac_cv_func_gtk_events_pending}" = "no"; then
@@ -117,8 +118,14 @@ fi
 
 AC_CHECK_HEADERS(libgimp/gimp.h,GIMP_LIBS="-lgimp")
 
-CPPFLAGS="${saved_CPPFLAGS}"
 LIBS="${saved_LIBS}"
+
+# png test must stand behind X11-check because it is located in
+# the X11 directory on some systems
+# I placed it here because the CPPFLAGS are saved here
+AC_CHECK_HEADERS(png.h,
+ [AC_CHECK_LIB(png, png_create_info_struct,,, -L${x_libraries})])
+CPPFLAGS="${saved_CPPFLAGS}"
 
 AC_SUBST(INCLUDES)
 AC_SUBST(XSCAN)
@@ -129,11 +136,12 @@ CPPFLAGS="${CPPFLAGS} \
 	  -DPATH_SANE_DATA_DIR=\$(sanedatadir) \
 	  -DV_MAJOR=${V_MAJOR} -DV_MINOR=${V_MINOR} -DSANE_V_MAJOR=${SANE_V_MAJOR}"
 
-AC_CHECK_LIB(sane,sane_init)
+AC_CHECK_LIB(sane,sane_init,,, -L${x_libraries})
 if test "${ac_cv_lib_sane_sane_init}" = "no"; then
   echo "ERROR: SANE is needed for compiling xsane"
   exit -1
 fi
+
 AC_SUBST(V_MAJOR)
 AC_SUBST(V_MINOR)
 AC_SUBST(DLL_PRELOAD)

@@ -24,6 +24,7 @@ extern const char *zoom_not_xpm[];
 extern const char *zoom_out_xpm[];
 extern const char *zoom_in_xpm[];
 extern const char *zoom_undo_xpm[];
+extern const char *full_preview_area_xpm[];
 extern const char *printer_xpm[];
 extern const char *zoom_xpm[];
 extern const char *resolution_xpm[];

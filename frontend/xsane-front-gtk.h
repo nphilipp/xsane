@@ -46,6 +46,9 @@ extern void xsane_scale_new(GtkBox *parent, char *labeltext, const char *desc,
 extern void xsane_scale_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char *desc,
                                         float min, float max, float quant, float step, float xxx,
                                         int digits, double *val, GtkObject **data, int option, void *xsane_scale_callback);
+void xsane_option_menu_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char *desc,
+                                       char *str_list[], const char *val,
+                                       GtkObject **data, int option, void *xsane_scale_callback);
 extern void xsane_separator_new(GtkWidget *xsane_parent, int dist);
 extern GtkWidget *xsane_info_table_text_new(GtkWidget *table, gchar *text, int row, int colomn);
 extern GtkWidget *xsane_info_text_new(GtkWidget *parent, gchar *text);

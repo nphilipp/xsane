@@ -90,9 +90,12 @@
 #define DESC_PIPETTE_WHITE	"Pick white point"
 #define DESC_PIPETTE_GRAY	"Pick gray point"
 #define DESC_PIPETTE_BLACK	"Pick black point"
+
 #define DESC_ZOOM_FULL		"Use full scanarea"
 #define DESC_ZOOM_OUT		"Zoom 20% out"
 #define DESC_ZOOM_IN		"Zoom into selected area"
 #define DESC_ZOOM_UNDO		"Undo last zoom"
+
+#define DESC_FULL_PREVIEW_AREA	"Select visible area"
 
 #endif

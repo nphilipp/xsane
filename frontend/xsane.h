@@ -27,10 +27,11 @@
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 /* #define XSANE_TEST */
+#define XSANE_TEST
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION "0.26\337"
+#define XSANE_VERSION "0.27\337"
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -134,7 +135,8 @@ typedef struct XsaneProgress_t
 
 typedef struct XsanePixmap
 {
-  GtkWidget *frame;  GdkPixmap *pixmap;
+  GtkWidget *frame;
+  GdkPixmap *pixmap;
   GtkWidget *pixmapwid;
 } XsanePixmap;
 

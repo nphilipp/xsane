@@ -691,9 +691,9 @@ void gsg_option_menu_new (GtkWidget *parent, const char *name, char *str_list[],
 		 const char *val, GSGDialogElement * elem,
 		 GtkTooltips *tooltips, const char *desc)
 {
-  GtkWidget *hbox, *label, *option_menu, *menu, *item;
-  GSGMenuItem *menu_items;
-  int i, num_items;
+ GtkWidget *hbox, *label, *option_menu, *menu, *item;
+ GSGMenuItem *menu_items;
+ int i, num_items;
 
   hbox = gtk_hbox_new (FALSE, 2);
   gtk_container_border_width (GTK_CONTAINER (hbox), 0);
@@ -707,19 +707,17 @@ void gsg_option_menu_new (GtkWidget *parent, const char *name, char *str_list[],
 
   menu = gtk_menu_new ();
   for (i = 0; i < num_items; ++i)
-    {
-      item = gtk_menu_item_new_with_label (str_list[i]);
-      gtk_container_add (GTK_CONTAINER (menu), item);
-      gtk_signal_connect (GTK_OBJECT (item), "activate",
-			  (GtkSignalFunc) option_menu_callback,
-			  menu_items + i);
+  {
+    item = gtk_menu_item_new_with_label (str_list[i]);
+    gtk_container_add (GTK_CONTAINER (menu), item);
+    gtk_signal_connect (GTK_OBJECT (item), "activate", (GtkSignalFunc) option_menu_callback, menu_items + i);
 
-      gtk_widget_show (item);
+    gtk_widget_show (item);
 
-      menu_items[i].label = str_list[i];
-      menu_items[i].elem = elem;
-      menu_items[i].index = i;
-    }
+    menu_items[i].label = str_list[i];
+    menu_items[i].elem = elem;
+    menu_items[i].index = i;
+  }
 
   option_menu = gtk_option_menu_new ();
   gtk_box_pack_end (GTK_BOX (hbox), option_menu, FALSE, FALSE, 2);

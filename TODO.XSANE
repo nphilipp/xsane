@@ -18,21 +18,21 @@ first steps:
   - enhancement:
     - include invert (for negatives) into enhancement
     - store more than 1 enhancement and give names for it, may be in own files
+    - move threshold in lineart-mode to main window
  - may be email-function
  - batch scan function
 
  * internal:
+   - segfault if pipette pick out of preview image
+   - include much more parameters when saving images
    - test number of printers fit into field
-   - move threshold in lineart-mode to main window
    - test memory after all calls of malloc
    - make better backend-dependend option handling and error handling (mostly done!)
-   - other output formats for saving:
-     - gif ?
-     - postscript-output for 16 bpp (does postscript support it?)
+   - other output formats for saving
    - more online helpfiles
    - save all options to a file including preview-selection
    - if netscape-remote is docviewer, start netscape if not running
-   - make xsane work if resolution is not a range
+   - make xsane work if resolution is not a range!!!!!!
 
 
 second steps:

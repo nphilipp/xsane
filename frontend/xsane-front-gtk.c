@@ -86,6 +86,9 @@ void xsane_scale_new(GtkBox *parent, char *labeltext, const char *desc,
 void xsane_scale_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char *desc,
                                  float min, float max, float quant, float step, float xxx,
                                  int digits, double *val, GtkObject **data, int option, void *xsane_scale_callback);
+void xsane_option_menu_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char *desc,
+                                       char *str_list[], const char *val,
+                                       GtkObject **data, int option, void *xsane_scale_callback);
 void xsane_separator_new(GtkWidget *xsane_parent, int dist);
 GtkWidget *xsane_info_table_text_new(GtkWidget *table, gchar *text, int row, int colomn);
 GtkWidget *xsane_info_text_new(GtkWidget *parent, gchar *text);
@@ -430,21 +433,21 @@ void xsane_option_menu_new(GtkWidget *parent, char *str_list[], const char *val,
 
   menu = gtk_menu_new();
   for (i = 0; i < num_items; ++i)
+  {
+    item = gtk_menu_item_new_with_label(str_list[i]);
+    if (i == 0)
     {
-      item = gtk_menu_item_new_with_label(str_list[i]);
-      if (i == 0)
-      {
-        gtk_widget_set_usize(item, 60, 0);
-      }
-      gtk_container_add(GTK_CONTAINER(menu), item);
-      gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_option_menu_callback, menu_items + i);
-
-      gtk_widget_show(item);
-
-      menu_items[i].label = str_list[i];
-      menu_items[i].elem  = elem;
-      menu_items[i].index = i;
+      gtk_widget_set_usize(item, 60, 0);
     }
+    gtk_container_add(GTK_CONTAINER(menu), item);
+    gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_option_menu_callback, menu_items + i);
+
+    gtk_widget_show(item);
+
+    menu_items[i].label = str_list[i];
+    menu_items[i].elem  = elem;
+    menu_items[i].index = i;
+  }
 
   option_menu = gtk_option_menu_new();
   gsg_set_tooltip(dialog->tooltips, option_menu, desc);
@@ -544,6 +547,27 @@ void xsane_scale_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char
     elem->data   = *data;
     elem->widget = scale;
   }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void xsane_option_menu_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char *desc,
+                                       char *str_list[], const char *val,
+                                       GtkObject **data, int option, void *xsane_option_menu_callback)
+{
+ GtkWidget *hbox;
+ GtkWidget *pixmapwidget;
+ GdkBitmap *mask;
+ GdkPixmap *pixmap;
+
+  hbox = gtk_hbox_new(FALSE, 5);
+  gtk_box_pack_start(parent, hbox, FALSE, FALSE, 0);
+
+  pixmap = gdk_pixmap_create_from_xpm_d(xsane.shell->window, &mask, xsane.bg_trans, (gchar **) xpm_d);
+  pixmapwidget = gtk_pixmap_new(pixmap, mask);
+  gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
+
+  xsane_option_menu_new(hbox, str_list, val, option, desc);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

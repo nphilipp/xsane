@@ -245,3 +245,14 @@ xsane-0.25 -> 0.26:
  - moved the "Help" menu in the main dialog to the right
 
 
+xsane-0.26 -> 0.27:
+-------------------
+
+ - added scantips and index of backends to help menu
+ - changed configure.in, libpng should be found on (all ?) systems now
+ - black and white point sliders use the two additional pixels now
+ - user can preset (reduce) the preview area now
+ - added "Select visible area" button
+ - removed some bugs in gray gamma value calculation for real scan (preview was ok)
+ - setup of faxoptions: normal, fine and postscript option is saved now
+
