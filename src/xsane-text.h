@@ -55,11 +55,14 @@
 #define WINDOW_PREVIEW			_("Preview")
 #define WINDOW_VIEWER			_("Viewer")
 #define WINDOW_VIEWER_OUTPUT_FILENAME	_("Viewer: select output filename")
+#define WINDOW_OCR_OUTPUT_FILENAME	_("Select output filename for OCR text file")
 #define WINDOW_OUTPUT_FILENAME		_("select output filename")
 #define WINDOW_SAVE_SETTINGS		_("save device settings")
 #define WINDOW_LOAD_SETTINGS		_("load device settings")
 #define WINDOW_CHANGE_WORKING_DIR	_("change working directory")
 #define WINDOW_TMP_PATH			_("select temporary directory")
+#define WINDOW_DESPECKLE		_("Despeckle image")
+#define WINDOW_BLUR			_("Blur image")
 
 #define MENU_FILE			_("File")
 #define MENU_PREFERENCES		_("Preferences")
@@ -194,6 +197,10 @@
 #define TEXT_ATTACHMENTS		_("Attachments:")
 #define TEXT_MAIL_STATUS		_("Project status:")
 
+#define TEXT_VIEWER_IMAGE_INFO		_("Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s")
+#define TEXT_BLUR_RADIUS		_("Blur radius:")
+#define TEXT_DESPECKLE_RADIUS		_("Despeckle radius:")
+
 #define TEXT_SETUP_PRINTER_SEL		_("Printer selection:")
 #define TEXT_SETUP_PRINTER_NAME		_("Name:")
 #define TEXT_SETUP_PRINTER_CMD		_("Command:")
@@ -251,6 +258,9 @@
 #define TEXT_SETUP_POP3_USER		_("POP3 user:")
 #define TEXT_SETUP_POP3_PASS		_("POP3 password:")
 #define TEXT_SETUP_MAIL_VIEWER		_("Viewer (png):")
+#define TEXT_SETUP_OCR_COMMAND		_("OCR Command:")
+#define TEXT_SETUP_OCR_INPUTFILE_OPT	_("Inputfile option:")
+#define TEXT_SETUP_OCR_OUTPUTFILE_OPT	_("Outputfile option:")
 #define TEXT_SETUP_PERMISSION_USER	_("user")
 #define TEXT_SETUP_PERMISSION_GROUP	_("group")
 #define TEXT_SETUP_PERMISSION_ALL	_("all")
@@ -260,6 +270,7 @@
 #define NOTEBOOK_COPY_OPTIONS		_("Copy")
 #define NOTEBOOK_FAX_OPTIONS		_("Fax")
 #define NOTEBOOK_MAIL_OPTIONS		_("Mail")
+#define NOTEBOOK_OCR_OPTIONS		_("OCR")
 #define NOTEBOOK_DISPLAY_OPTIONS	_("Display")
 #define NOTEBOOK_ENHANCE_OPTIONS	_("Enhancement")
 
@@ -480,6 +491,9 @@
 #define DESC_POP3_PASS			_("password for POP3 server")
 #define DESC_MAIL_VIEWER		_("Enter command to be executed to view a mail image")
 #define DESC_HTML_MAIL			_("Mail is sent in html mode, images are displayed directly")
+#define DESC_OCR_COMMAND		_("Enter command to start ocr program")
+#define DESC_OCR_INPUTFILE_OPT		_("Enter option of the ocr program to define input file")
+#define DESC_OCR_OUTPUTFILE_OPT		_("Enter option of the ocr program to define output file")
 
 #define DESC_PERMISSION_READ		_("read")
 #define DESC_PERMISSION_WRITE		_("write")
@@ -502,6 +516,7 @@
 #define DESC_ROTATION			_("Rotate preview and scan")
 
 #define DESC_VIEWER_SAVE		_("Save image")
+#define DESC_VIEWER_OCR			_("Optical Character Recognition")
 #define DESC_VIEWER_CLONE		_("Clone image")
 #define DESC_VIEWER_DESPECKLE		_("Despeckle image")
 #define DESC_VIEWER_BLUR		_("Blur image")
@@ -542,6 +557,7 @@
 #define ERR_FAILED_EXEC_FAX_VIEWER	_("Failed to execute fax viewer:")
 #define ERR_FAILED_EXEC_FAX_CMD		_("Failed to execute fax command:")
 #define ERR_FAILED_EXEC_MAIL_VIEWER	_("Failed to execute mail image viewer:")
+#define ERR_FAILED_EXEC_OCR_CMD		_("Failed to execute ocr command:")
 #define ERR_BAD_FRAME_FORMAT		_("bad frame format")
 #define ERR_FAILED_SET_RESOLUTION	_("unable to set resolution")
 #define ERR_PASSWORD_FILE_INSECURE	_("Password file (%s) is insecure, use permission x00\n")
@@ -558,6 +574,8 @@
 
 #define ERR_CREATE_PREVIEW_FILE		_("Could not create temporary preview files")
 #define ERR_CREATE_PREVIEW_FILENAME	_("Could not create filenames for preview files")
+
+#define ERR_CREATE_FAX_PROJECT		_("Could not create faxproject")
 
 #define WARN_COUNTER_UNDERRUN		_("Filename counter underrun")
 #define WARN_NO_VALUE_CONSTRAINT	_("warning: option has no value constraint")

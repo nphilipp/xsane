@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.80\n"
-"POT-Creation-Date: 2001-10-03 12:19+0200\n"
+"POT-Creation-Date: 2001-11-11 17:41+0100\n"
 "PO-Revision-Date: 2001-08-10 01:05+0300\n"
 "Last-Translator: John Profic <profic@lrn.ru>\n"
 "Language-Team: RUSSIAN <RU@li.org>\n"
@@ -130,6 +130,14 @@ msgstr "изменить рабочий каталог"
 #. WINDOW_TMP_PATH
 msgid "select temporary directory"
 msgstr "изменить каталог для временных файлов"
+
+#. WINDOW_DESPECKLE
+msgid "Despeckle image"
+msgstr "Убрать растровый рисунок с изображения"
+
+#. WINDOW_BLUR
+msgid "Blur image"
+msgstr "Размыть изображение"
 
 #. MENU_FILE
 msgid "File"
@@ -582,6 +590,21 @@ msgstr "Изображения:"
 #. TEXT_MAIL_STATUS
 msgid "Project status:"
 msgstr "Статус проекта:"
+
+#. TEXT_VIEWER_IMAGE_INFO
+#, c-format
+msgid ""
+"Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
+msgstr ""
+
+#. TEXT_BLUR_RADIUS
+msgid "Blur radius:"
+msgstr ""
+
+#. TEXT_DESPECKLE_RADIUS
+#, fuzzy
+msgid "Despeckle radius:"
+msgstr "Убрать растр"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -1669,14 +1692,6 @@ msgstr "Поворот предварительного и окончательного сканирования"
 msgid "Clone image"
 msgstr "Дублировать изображение"
 
-#. DESC_VIEWER_DESPECKLE
-msgid "Despeckle image"
-msgstr "Убрать растровый рисунок с изображения"
-
-#. DESC_VIEWER_BLUR
-msgid "Blur image"
-msgstr "Размыть изображение"
-
 #. DESC_VIEWER_ROTATE90
 msgid "Rotate image 90 degree"
 msgstr "Поворот изображения на 90 градусов"
@@ -1870,6 +1885,11 @@ msgstr "Невозможно создать временный файл для предварительного сканирования"
 #. ERR_CREATE_PREVIEW_FILENAME
 msgid "Could not create filenames for preview files"
 msgstr "Невозможно сгенерировать имя файла для предварительного сканирования"
+
+#. ERR_CREATE_FAX_PROJECT
+#, fuzzy
+msgid "Could not create faxproject"
+msgstr "Создать проект"
 
 #. WARN_COUNTER_UNDERRUN
 msgid "Filename counter underrun"

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.76\n"
-"POT-Creation-Date: 2001-10-03 12:19+0200\n"
+"POT-Creation-Date: 2001-11-11 17:41+0100\n"
 "PO-Revision-Date: 2001-02-25 14:06+01:00\n"
 "Last-Translator: Ales Kosir <ales.kosir@lugos.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -137,6 +137,16 @@ msgstr "spremeni delovni imenik"
 #. WINDOW_TMP_PATH
 msgid "select temporary directory"
 msgstr "izberi imenik z zaèasnimi datotekami"
+
+#. WINDOW_DESPECKLE
+#, fuzzy
+msgid "Despeckle image"
+msgstr "Zbri¹i projekt"
+
+#. WINDOW_BLUR
+#, fuzzy
+msgid "Blur image"
+msgstr "Zbri¹i projekt"
 
 #. MENU_FILE
 msgid "File"
@@ -594,6 +604,21 @@ msgstr ""
 #. TEXT_MAIL_STATUS
 msgid "Project status:"
 msgstr ""
+
+#. TEXT_VIEWER_IMAGE_INFO
+#, c-format
+msgid ""
+"Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
+msgstr ""
+
+#. TEXT_BLUR_RADIUS
+msgid "Blur radius:"
+msgstr ""
+
+#. TEXT_DESPECKLE_RADIUS
+#, fuzzy
+msgid "Despeckle radius:"
+msgstr "Zbri¹i projekt"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -1717,16 +1742,6 @@ msgstr "Zasuèi preodgled in sliko"
 msgid "Clone image"
 msgstr "Zbri¹i projekt"
 
-#. DESC_VIEWER_DESPECKLE
-#, fuzzy
-msgid "Despeckle image"
-msgstr "Zbri¹i projekt"
-
-#. DESC_VIEWER_BLUR
-#, fuzzy
-msgid "Blur image"
-msgstr "Zbri¹i projekt"
-
 #. DESC_VIEWER_ROTATE90
 #, fuzzy
 msgid "Rotate image 90 degree"
@@ -1925,6 +1940,11 @@ msgstr ""
 #. ERR_CREATE_PREVIEW_FILENAME
 msgid "Could not create filenames for preview files"
 msgstr ""
+
+#. ERR_CREATE_FAX_PROJECT
+#, fuzzy
+msgid "Could not create faxproject"
+msgstr "Ustvari projekt"
 
 #. WARN_COUNTER_UNDERRUN
 msgid "Filename counter underrun"

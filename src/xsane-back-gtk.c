@@ -270,10 +270,10 @@ int xsane_back_gtk_make_path(size_t buf_size, char *buf, const char *prog_name, 
     memcpy(buf + len, prog_name, extra);
     len += extra;
 
-    buf[len++] = SLASH;
-
     buf[len] = '\0';
     mkdir(buf, 0777);	/* ensure ~/.sane/PROG_NAME directory exists */
+
+    buf[len++] = SLASH; /* OS/2 does not like slash at end of mktemp-path */
   }
   if (len >= buf_size)
   {
@@ -427,6 +427,8 @@ void xsane_back_gtk_set_option(int opt_num, void *val, SANE_Action action)
  SANE_Status status;
  SANE_Int info;
  char buf[256];
+ int old_colors = xsane.xsane_colors;
+ int update_gamma = FALSE;
 
   DBG(DBG_proc, "xsane_back_gtk_set_option\n");
 
@@ -447,11 +449,25 @@ void xsane_back_gtk_set_option(int opt_num, void *val, SANE_Action action)
   if (info & SANE_INFO_RELOAD_OPTIONS)
   {
     xsane_back_gtk_panel_rebuild();
+
     if (xsane.preview)
     {
       preview_update_surface(xsane.preview, 0);
-    }                                             
-    xsane_enhancement_by_gamma(); /* WARNING: THIS IS A TEST xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
+    }
+
+    update_gamma = TRUE; /* scanner gamma correction may have changed, medium may need update */
+  }
+
+  if (xsane.xsane_colors != old_colors)
+  {
+    /* we have to update gamma tables and histogram because medium settings */
+    /* may have changed */
+    update_gamma = TRUE;
+  }
+
+  if (update_gamma)
+  {
+    xsane_update_gamma_curve(TRUE);
   }
 }
 
@@ -541,7 +557,7 @@ gint xsane_back_gtk_decision(gchar *title, gchar **xpm_d,  gchar *message, gchar
   button = gtk_button_new_with_label(oktext);
   GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
   gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_back_gtk_decision_callback, (void *) 1 /* confirm */);
-  gtk_container_add(GTK_CONTAINER(hbox), button);
+  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 5);
   gtk_widget_grab_default(button);
   gtk_widget_show(button);
 
@@ -550,7 +566,7 @@ gint xsane_back_gtk_decision(gchar *title, gchar **xpm_d,  gchar *message, gchar
   {
     button = gtk_button_new_with_label(rejecttext);
     gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_back_gtk_decision_callback, (void *) -1 /* reject */);
-    gtk_container_add(GTK_CONTAINER(hbox), button);
+    gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 5);
     gtk_widget_show(button);
   }
   gtk_widget_show(hbox);

@@ -17,6 +17,8 @@ typedef struct Viewer
   int image_saved;
   int cancel_save;
 
+  int filter_radius;
+
   GtkWidget *top;
   GtkWidget *button_box;
 
@@ -24,6 +26,7 @@ typedef struct Viewer
   GtkWidget *window;
 
   GtkWidget *save;
+  GtkWidget *ocr;
   GtkWidget *clone;
 
   GtkWidget *despeckle;
@@ -35,6 +38,8 @@ typedef struct Viewer
 
   GtkWidget *mirror_x;
   GtkWidget *mirror_y;
+
+  GtkWidget *image_info_label;
 
   GtkProgressBar *progress_bar;
 }

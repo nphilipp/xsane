@@ -116,6 +116,10 @@ typedef struct
     char   *mail_project;		/* mail project */
     char   *mail_viewer;		/* mail viewer */
 
+    char   *ocr_command;		/* ocrcommand */
+    char   *ocr_inputfile_option;	/* option for input file */
+    char   *ocr_outputfile_option;	/* option for output file */
+
     char   *doc_viewer;			/* doc viewer for helpfiles */
 
     double jpeg_quality;		/* quality when saving image as jpeg */

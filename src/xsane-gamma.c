@@ -65,6 +65,10 @@ void xsane_calculate_enh_histogram(void);
 void xsane_update_histogram(int update_raw);
 void xsane_histogram_toggle_button_callback(GtkWidget *widget, gpointer data);
 void xsane_create_preview_threshold_curve(u_char *gammadata, double threshold, int numbers);
+void xsane_create_preview_gamma_curve(u_char *gammadata, int negative, double gamma,
+                                      double brightness, double contrast,
+                                      double medium_shadow, double medium_highlight, double medium_gamma, 
+                                      int numbers);
 void xsane_create_gamma_curve(SANE_Int *gammadata,
                               int negative, double gamma, double brightness, double contrast,
                               double medium_shadow, double medium_highlight, double medium_gamma, 
@@ -232,25 +236,33 @@ static void xsane_draw_histogram_with_lines(XsanePixmap *hist, int invert,
       }
 
       if (inten > HIST_HEIGHT)
-      inten = HIST_HEIGHT;
+      {
+        inten = HIST_HEIGHT;
+      }
 
       if (red > HIST_HEIGHT)
-      red = HIST_HEIGHT;
+      {
+        red = HIST_HEIGHT;
+      }
 
       if (green > HIST_HEIGHT)
-      green = HIST_HEIGHT;
+      {
+        green = HIST_HEIGHT;
+      }
 
       if (blue > HIST_HEIGHT)
-      blue = HIST_HEIGHT;
+      {
+        blue = HIST_HEIGHT;
+      }
 
       val[0] = red;   color[0] = 0;
       val[1] = green; color[1] = 1;
       val[2] = blue;  color[2] = 2;
       val[3] = inten; color[3] = 3;
 
-      for (j=0; j<3; j++)
+      for (j = 0; j < 3; j++)
       {
-        for (k=j+1; k<4; k++)
+        for (k = j + 1; k < 4; k++)
         {
           if (val[j] < val[k])
           {
@@ -263,12 +275,12 @@ static void xsane_draw_histogram_with_lines(XsanePixmap *hist, int invert,
 	  }
 	}
       }
-      val2[0]=val[1]+1;
-      val2[1]=val[2]+1;
-      val2[2]=val[3]+1;
-      val2[3]=0;
+      val2[0] = val[1] + 1;
+      val2[1] = val[2] + 1;
+      val2[2] = val[3] + 1;
+      val2[3] = 0;
 
-      for (j=0; j<4; j++)
+      for (j = 0; j < 4; j++)
       {
         switch(color[j])
 	{
@@ -307,7 +319,7 @@ void xsane_establish_slider(XsaneSlider *slider)
   buf[0] = buf[1] = buf[2] = 0;
   buf[3+0] = buf[3+1] = buf[3+2]= 0;
 
-  for (x=0; x<256; x++)
+  for (x = 0; x < 256; x++)
   {
     buf[3*x+0+6] = x * slider->r;
     buf[3*x+1+6] = x * slider->g;
@@ -322,7 +334,7 @@ void xsane_establish_slider(XsaneSlider *slider)
   buf[259*3+1] = 255 * slider->g;
   buf[259*3+2] = 255 * slider->b;
 
-  for (y=0; y<XSANE_SLIDER_HEIGHT; y++)
+  for (y = 0; y < XSANE_SLIDER_HEIGHT; y++)
   {
     pos = slider->position[0]-y/2;
     len = y;
@@ -333,7 +345,7 @@ void xsane_establish_slider(XsaneSlider *slider)
     }
     pos = pos * 3 + 6;
 
-    for (x=0; x<=len; x++)
+    for (x = 0; x <= len; x++)
     {
       if ((x == 0) || (x == len) || (y == XSANE_SLIDER_HEIGHT-1))
       {
@@ -354,7 +366,7 @@ void xsane_establish_slider(XsaneSlider *slider)
     len = y;
     pos = pos * 3 + 6;
 
-    for (x=0; x<=len; x++)
+    for (x = 0; x <= len; x++)
     {
       if ((x == 0) || (x == len) || (y == XSANE_SLIDER_HEIGHT-1))
       {
@@ -944,7 +956,7 @@ void xsane_calculate_raw_histogram(void)
       }
     }
 
-    maxval_raw = 0;
+    maxval_raw = 1; /* we do not use 0 here because we divide through this varaible later */
 
     /* first and last 10 values are not used for calculating maximum value */
     for (i = 10 ; i < HIST_WIDTH - 10; i++)
@@ -959,14 +971,16 @@ void xsane_calculate_raw_histogram(void)
     if (xsane.histogram_lines)
     {
       xsane_draw_histogram_with_lines(&xsane.histogram_raw, xsane.negative,
-                         count_raw, count_raw_red, count_raw_green, count_raw_blue,
-                        xsane.histogram_red, xsane.histogram_green, xsane.histogram_blue, xsane.histogram_int, scale_raw);
+                                      count_raw, count_raw_red, count_raw_green, count_raw_blue,
+                                      xsane.histogram_red, xsane.histogram_green, xsane.histogram_blue,
+                                      xsane.histogram_int, scale_raw);
     }
     else
     {
       xsane_draw_histogram_with_points(&xsane.histogram_raw, xsane.negative,
-                        count_raw, count_raw_red, count_raw_green, count_raw_blue,
-                        xsane.histogram_red, xsane.histogram_green, xsane.histogram_blue, xsane.histogram_int, scale_raw);
+                                       count_raw, count_raw_red, count_raw_green, count_raw_blue,
+                                       xsane.histogram_red, xsane.histogram_green, xsane.histogram_blue,
+                                       xsane.histogram_int, scale_raw);
     }
 
     free(count_raw_blue);
@@ -1014,7 +1028,7 @@ void xsane_calculate_enh_histogram(void)
       }
     }
 
-    maxval_enh = 0;
+    maxval_enh = 1;
 
     /* first and last 10 values are not used for calculating maximum value */
     for (i = 10 ; i < HIST_WIDTH - 10; i++)
@@ -1107,7 +1121,9 @@ void xsane_create_preview_threshold_curve(u_char *gammadata, double threshold, i
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 void xsane_create_preview_gamma_curve(u_char *gammadata, int negative, double gamma,
-                                      double brightness, double contrast, int numbers)
+                                      double brightness, double contrast,
+                                      double medium_shadow, double medium_highlight, double medium_gamma, 
+                                      int numbers)
 {
  int i;
  double midin;
@@ -1115,6 +1131,11 @@ void xsane_create_preview_gamma_curve(u_char *gammadata, int negative, double ga
  double m;
  double b;
  int maxin = numbers-1;
+ double medium_m;
+ double medium_mid;
+
+  medium_m   = 100.0/(medium_highlight - medium_shadow);
+  medium_mid = (medium_shadow + medium_highlight)/200.0 * maxin;
 
   DBG(DBG_proc, "xsane_create_preview_gamma_curve(neg=%d, gam=%3.2f, bri=%3.2f, ctr=%3.2f, nrs=%d)\n",
                  negative, gamma, brightness, contrast, numbers);
@@ -1133,7 +1154,17 @@ void xsane_create_preview_gamma_curve(u_char *gammadata, int negative, double ga
   {
     for (i=0; i <= maxin; i++)
     {
-      val = ((double) (maxin - i)) - midin;
+      val = ((double) i);
+
+      /* medium correction */
+      val = (val - medium_mid) * medium_m + midin;
+      xsane_bound_double(&val, 0.0, maxin);
+      val = maxin - val; /* invert */
+      val = maxin * pow( val/maxin, (1.0/medium_gamma) );
+
+      val = val - midin;
+
+      /* user correction */
       val = val * m + b;
       xsane_bound_double(&val, 0.0, maxin);
 
@@ -1144,7 +1175,16 @@ void xsane_create_preview_gamma_curve(u_char *gammadata, int negative, double ga
   {
     for (i=0; i <= maxin; i++)
     {
-      val = ((double) i) - midin;
+      val = ((double) i);
+
+      /* medium correction */
+      val = (val - medium_mid) * medium_m + midin;
+      xsane_bound_double(&val, 0.0, maxin);
+      val = maxin * pow( val/maxin, (1.0/medium_gamma) );
+
+      val = val - midin;
+
+      /* user correction */
       val = val * m + b;
       xsane_bound_double(&val, 0.0, maxin);
 
@@ -1249,6 +1289,10 @@ void xsane_update_gamma_curve(int update_raw)
       xsane.histogram_gamma_data_red   = malloc(xsane.preview_gamma_size);
       xsane.histogram_gamma_data_green = malloc(xsane.preview_gamma_size);
       xsane.histogram_gamma_data_blue  = malloc(xsane.preview_gamma_size);
+
+      xsane.histogram_medium_gamma_data_red   = malloc(xsane.preview_gamma_size);
+      xsane.histogram_medium_gamma_data_green = malloc(xsane.preview_gamma_size);
+      xsane.histogram_medium_gamma_data_blue  = malloc(xsane.preview_gamma_size);
     }
 
     if (xsane.preview->calibration)
@@ -1261,9 +1305,12 @@ void xsane_update_gamma_curve(int update_raw)
       pgamma_green = preferences.preview_gamma * preferences.preview_gamma_green;
       pgamma_blue  = preferences.preview_gamma * preferences.preview_gamma_blue;
 
-      xsane_create_preview_gamma_curve(xsane.preview_gamma_data_red,   0, pgamma_red,   0.0, 0.0, xsane.preview_gamma_size);
-      xsane_create_preview_gamma_curve(xsane.preview_gamma_data_green, 0, pgamma_green, 0.0, 0.0, xsane.preview_gamma_size);
-      xsane_create_preview_gamma_curve(xsane.preview_gamma_data_blue,  0, pgamma_blue,  0.0, 0.0, xsane.preview_gamma_size);
+      xsane_create_preview_gamma_curve(xsane.preview_gamma_data_red,   0, pgamma_red,
+                                       0.0, 0.0,  0.0, 100.0, 1.0, xsane.preview_gamma_size);
+      xsane_create_preview_gamma_curve(xsane.preview_gamma_data_green, 0, pgamma_green,
+                                       0.0, 0.0,  0.0, 100.0, 1.0, xsane.preview_gamma_size);
+      xsane_create_preview_gamma_curve(xsane.preview_gamma_data_blue,  0, pgamma_blue,
+                                       0.0, 0.0,  0.0, 100.0, 1.0, xsane.preview_gamma_size);
     }
     else if (xsane.param.depth == 1) /* for lineart mode with grayscale preview scan */
     {
@@ -1352,42 +1399,216 @@ void xsane_update_gamma_curve(int update_raw)
                                  xsane.brightness + xsane.brightness_blue,
                                  xsane.contrast + xsane.contrast_blue , xsane.preview_gamma_size, 255);               
 #else
-      xsane_create_preview_gamma_curve(xsane.preview_gamma_data_red, xsane.negative,
-                                       xsane.gamma * xsane.gamma_red * pgamma_red,
-                                       xsane.brightness + xsane.brightness_red,
-                                       xsane.contrast + xsane.contrast_red, xsane.preview_gamma_size);
+      if ( ( (xsane.xsane_colors > 1) && xsane.scanner_gamma_color ) || /* color scan and gamma table for red, green and blue available */
+           xsane.scanner_gamma_gray ) /* grayscale scan and gamma table for gray available */
+      {
+        DBG(DBG_info, "creating preview gamma tables without medium correction\n");
 
-      xsane_create_preview_gamma_curve(xsane.preview_gamma_data_green, xsane.negative,
-                                      xsane.gamma * xsane.gamma_green * pgamma_green,
-                                      xsane.brightness + xsane.brightness_green,
-                                      xsane.contrast + xsane.contrast_green, xsane.preview_gamma_size);
+        xsane_create_preview_gamma_curve(xsane.preview_gamma_data_red, xsane.negative,
+                                         xsane.gamma * xsane.gamma_red * pgamma_red,
+                                         xsane.brightness + xsane.brightness_red,
+                                         xsane.contrast + xsane.contrast_red,
+                                         0.0, 100.0, 1.0,
+                                         xsane.preview_gamma_size);
 
-      xsane_create_preview_gamma_curve(xsane.preview_gamma_data_blue, xsane.negative,
-                                       xsane.gamma * xsane.gamma_blue * pgamma_blue,
-                                       xsane.brightness + xsane.brightness_blue,
-                                       xsane.contrast + xsane.contrast_blue, xsane.preview_gamma_size);
+        xsane_create_preview_gamma_curve(xsane.preview_gamma_data_green, xsane.negative,
+                                         xsane.gamma * xsane.gamma_green * pgamma_green,
+                                         xsane.brightness + xsane.brightness_green,
+                                         xsane.contrast + xsane.contrast_green,
+                                         0.0, 100.0, 1.0,
+                                         xsane.preview_gamma_size);
+
+        xsane_create_preview_gamma_curve(xsane.preview_gamma_data_blue, xsane.negative,
+                                         xsane.gamma * xsane.gamma_blue * pgamma_blue,
+                                         xsane.brightness + xsane.brightness_blue,
+                                         xsane.contrast + xsane.contrast_blue,
+                                         0.0, 100.0, 1.0,
+                                         xsane.preview_gamma_size);
 
 
-      xsane_create_preview_gamma_curve(xsane.histogram_gamma_data_red, xsane.negative,
-                                       xsane.gamma * xsane.gamma_red,
-                                       xsane.brightness + xsane.brightness_red,
-                                       xsane.contrast + xsane.contrast_red, xsane.preview_gamma_size);
+        xsane_create_preview_gamma_curve(xsane.histogram_gamma_data_red, xsane.negative,
+                                         xsane.gamma * xsane.gamma_red,
+                                         xsane.brightness + xsane.brightness_red,
+                                         xsane.contrast + xsane.contrast_red,
+                                         0.0, 100.0, 1.0,
+                                         xsane.preview_gamma_size);
 
-      xsane_create_preview_gamma_curve(xsane.histogram_gamma_data_green, xsane.negative,
-                                       xsane.gamma * xsane.gamma_green,
-                                       xsane.brightness + xsane.brightness_green,
-                                       xsane.contrast + xsane.contrast_green, xsane.preview_gamma_size);
+        xsane_create_preview_gamma_curve(xsane.histogram_gamma_data_green, xsane.negative,
+                                         xsane.gamma * xsane.gamma_green,
+                                         xsane.brightness + xsane.brightness_green,
+                                         xsane.contrast + xsane.contrast_green,
+                                         0.0, 100.0, 1.0,
+                                         xsane.preview_gamma_size);
 
-      xsane_create_preview_gamma_curve(xsane.histogram_gamma_data_blue, xsane.negative,
-                                       xsane.gamma * xsane.gamma_blue,
-                                       xsane.brightness + xsane.brightness_blue,
-                                       xsane.contrast + xsane.contrast_blue , xsane.preview_gamma_size);
+        xsane_create_preview_gamma_curve(xsane.histogram_gamma_data_blue, xsane.negative,
+                                         xsane.gamma * xsane.gamma_blue,
+                                         xsane.brightness + xsane.brightness_blue,
+                                         xsane.contrast + xsane.contrast_blue,
+                                         0.0, 100.0, 1.0,
+                                         xsane.preview_gamma_size);
+
+        if (update_raw) /* to speed up things here */
+        {
+          xsane_create_preview_gamma_curve(xsane.histogram_medium_gamma_data_red, xsane.negative,
+                                           1.0, 0.0, 0.0, 0.0, 100.0, 1.0,
+                                           xsane.preview_gamma_size);
+
+          xsane_create_preview_gamma_curve(xsane.histogram_medium_gamma_data_green, xsane.negative,
+                                           1.0, 0.0, 0.0, 0.0, 100.0, 1.0,
+                                           xsane.preview_gamma_size);
+
+          xsane_create_preview_gamma_curve(xsane.histogram_medium_gamma_data_blue, xsane.negative,
+                                           1.0, 0.0, 0.0, 0.0, 100.0, 1.0,
+                                           xsane.preview_gamma_size);
+        }
+      }
+      else if (xsane.xsane_colors > 1) /* color scan, no color scanner gamma tables available */
+      {
+        DBG(DBG_info, "creating preview gamma tables with medium correction\n");
+
+        xsane.medium_changed = FALSE;
+
+        preview_display_valid(xsane.preview);
+
+        xsane_create_preview_gamma_curve(xsane.preview_gamma_data_red, xsane.negative != xsane.medium_negative,
+                                         xsane.gamma * xsane.gamma_red * pgamma_red,
+                                         xsane.brightness + xsane.brightness_red,
+                                         xsane.contrast + xsane.contrast_red,
+                                         xsane.medium_shadow_red, xsane.medium_highlight_red, xsane.medium_gamma_red,
+                                         xsane.preview_gamma_size);
+
+        xsane_create_preview_gamma_curve(xsane.preview_gamma_data_green, xsane.negative != xsane.medium_negative,
+                                         xsane.gamma * xsane.gamma_green * pgamma_green,
+                                         xsane.brightness + xsane.brightness_green,
+                                         xsane.contrast + xsane.contrast_green,
+                                         xsane.medium_shadow_green, xsane.medium_highlight_green, xsane.medium_gamma_green,
+                                         xsane.preview_gamma_size);
+
+        xsane_create_preview_gamma_curve(xsane.preview_gamma_data_blue, xsane.negative != xsane.medium_negative,
+                                         xsane.gamma * xsane.gamma_blue * pgamma_blue,
+                                         xsane.brightness + xsane.brightness_blue,
+                                         xsane.contrast + xsane.contrast_blue,
+                                         xsane.medium_shadow_blue, xsane.medium_highlight_blue, xsane.medium_gamma_blue,
+                                         xsane.preview_gamma_size);
+
+
+        xsane_create_preview_gamma_curve(xsane.histogram_gamma_data_red, xsane.negative != xsane.medium_negative,
+                                         xsane.gamma * xsane.gamma_red,
+                                         xsane.brightness + xsane.brightness_red,
+                                         xsane.contrast + xsane.contrast_red,
+                                         xsane.medium_shadow_red, xsane.medium_highlight_red, xsane.medium_gamma_red,
+                                         xsane.preview_gamma_size);
+
+        xsane_create_preview_gamma_curve(xsane.histogram_gamma_data_green, xsane.negative != xsane.medium_negative,
+                                         xsane.gamma * xsane.gamma_green,
+                                         xsane.brightness + xsane.brightness_green,
+                                         xsane.contrast + xsane.contrast_green,
+                                         xsane.medium_shadow_green, xsane.medium_highlight_green, xsane.medium_gamma_green,
+                                         xsane.preview_gamma_size);
+
+        xsane_create_preview_gamma_curve(xsane.histogram_gamma_data_blue, xsane.negative != xsane.medium_negative,
+                                         xsane.gamma * xsane.gamma_blue,
+                                         xsane.brightness + xsane.brightness_blue,
+                                         xsane.contrast + xsane.contrast_blue,
+                                         xsane.medium_shadow_blue, xsane.medium_highlight_blue, xsane.medium_gamma_blue,
+                                         xsane.preview_gamma_size);
+
+
+        if (update_raw) /* to speed up things here */
+        {
+          xsane_create_preview_gamma_curve(xsane.histogram_medium_gamma_data_red, xsane.negative != xsane.medium_negative,
+                                           1.0, 0.0, 0.0,
+                                           xsane.medium_shadow_red, xsane.medium_highlight_red, xsane.medium_gamma_red,
+                                           xsane.preview_gamma_size);
+
+          xsane_create_preview_gamma_curve(xsane.histogram_medium_gamma_data_green, xsane.negative != xsane.medium_negative,
+                                           1.0, 0.0, 0.0,
+                                           xsane.medium_shadow_green, xsane.medium_highlight_green, xsane.medium_gamma_green,
+                                           xsane.preview_gamma_size);
+
+          xsane_create_preview_gamma_curve(xsane.histogram_medium_gamma_data_blue, xsane.negative != xsane.medium_negative,
+                                           1.0, 0.0, 0.0,
+                                           xsane.medium_shadow_blue, xsane.medium_highlight_blue, xsane.medium_gamma_blue,
+                                           xsane.preview_gamma_size);
+        }
+      }
+      else /* grayscale scan, no gray scanner gamma table available */
+      {
+        DBG(DBG_info, "creating preview gamma tables with medium correction\n");
+
+        xsane.medium_changed = FALSE;
+
+        preview_display_valid(xsane.preview);
+
+        xsane_create_preview_gamma_curve(xsane.preview_gamma_data_red, xsane.negative != xsane.medium_negative,
+                                         xsane.gamma * xsane.gamma_red * pgamma_red,
+                                         xsane.brightness + xsane.brightness_red,
+                                         xsane.contrast + xsane.contrast_red,
+                                         xsane.medium_shadow_gray, xsane.medium_highlight_gray, xsane.medium_gamma_gray,
+                                         xsane.preview_gamma_size);
+
+        xsane_create_preview_gamma_curve(xsane.preview_gamma_data_green, xsane.negative != xsane.medium_negative,
+                                         xsane.gamma * xsane.gamma_green * pgamma_green,
+                                         xsane.brightness + xsane.brightness_green,
+                                         xsane.contrast + xsane.contrast_green,
+                                         xsane.medium_shadow_gray, xsane.medium_highlight_gray, xsane.medium_gamma_gray,
+                                         xsane.preview_gamma_size);
+
+        xsane_create_preview_gamma_curve(xsane.preview_gamma_data_blue, xsane.negative != xsane.medium_negative,
+                                         xsane.gamma * xsane.gamma_blue * pgamma_blue,
+                                         xsane.brightness + xsane.brightness_blue,
+                                         xsane.contrast + xsane.contrast_blue,
+                                         xsane.medium_shadow_gray, xsane.medium_highlight_gray, xsane.medium_gamma_gray,
+                                         xsane.preview_gamma_size);
+
+
+        xsane_create_preview_gamma_curve(xsane.histogram_gamma_data_red, xsane.negative != xsane.medium_negative,
+                                         xsane.gamma * xsane.gamma_red,
+                                         xsane.brightness + xsane.brightness_red,
+                                         xsane.contrast + xsane.contrast_red,
+                                         xsane.medium_shadow_gray, xsane.medium_highlight_gray, xsane.medium_gamma_gray,
+                                         xsane.preview_gamma_size);
+
+        xsane_create_preview_gamma_curve(xsane.histogram_gamma_data_green, xsane.negative != xsane.medium_negative,
+                                         xsane.gamma * xsane.gamma_green,
+                                         xsane.brightness + xsane.brightness_green,
+                                         xsane.contrast + xsane.contrast_green,
+                                         xsane.medium_shadow_gray, xsane.medium_highlight_gray, xsane.medium_gamma_gray,
+                                         xsane.preview_gamma_size);
+
+        xsane_create_preview_gamma_curve(xsane.histogram_gamma_data_blue, xsane.negative != xsane.medium_negative,
+                                         xsane.gamma * xsane.gamma_blue,
+                                         xsane.brightness + xsane.brightness_blue,
+                                         xsane.contrast + xsane.contrast_blue,
+                                         xsane.medium_shadow_gray, xsane.medium_highlight_gray, xsane.medium_gamma_gray,
+                                         xsane.preview_gamma_size);
+
+
+        if (update_raw) /* to speed up things here */
+        {
+          xsane_create_preview_gamma_curve(xsane.histogram_medium_gamma_data_red, xsane.negative != xsane.medium_negative,
+                                           1.0, 0.0, 0.0,
+                                           xsane.medium_shadow_gray, xsane.medium_highlight_gray, xsane.medium_gamma_gray,
+                                           xsane.preview_gamma_size);
+
+          xsane_create_preview_gamma_curve(xsane.histogram_medium_gamma_data_green, xsane.negative != xsane.medium_negative,
+                                           1.0, 0.0, 0.0,
+                                           xsane.medium_shadow_gray, xsane.medium_highlight_gray, xsane.medium_gamma_gray,
+                                           xsane.preview_gamma_size);
+
+          xsane_create_preview_gamma_curve(xsane.histogram_medium_gamma_data_blue, xsane.negative != xsane.medium_negative,
+                                           1.0, 0.0, 0.0,
+                                           xsane.medium_shadow_gray, xsane.medium_highlight_gray, xsane.medium_gamma_gray,
+                                           xsane.preview_gamma_size);
+        }
+      }
 #endif
     }
 
     preview_gamma_correction(xsane.preview, preferences.preview_gamma_input_bits,
                              xsane.preview_gamma_data_red, xsane.preview_gamma_data_green, xsane.preview_gamma_data_blue,
-                             xsane.histogram_gamma_data_red, xsane.histogram_gamma_data_green, xsane.histogram_gamma_data_blue);
+                             xsane.histogram_gamma_data_red, xsane.histogram_gamma_data_green, xsane.histogram_gamma_data_blue,
+                             xsane.histogram_medium_gamma_data_red, xsane.histogram_medium_gamma_data_green, xsane.histogram_medium_gamma_data_blue);
 
   }
   xsane_update_histogram(update_raw);
@@ -1919,8 +2140,7 @@ void xsane_create_histogram_dialog(const char *devicetext)
                                                &xsane.histogram_log, xsane_histogram_toggle_button_callback);
   gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_L, GDK_MOD1_MASK, GTK_ACCEL_LOCKED);
 
-  gtk_widget_show(xsane_color_hbox);         
-
+  gtk_widget_show(xsane_color_hbox);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -2207,26 +2427,21 @@ void xsane_set_medium(Preferences_medium_t *medium)
  
   DBG(DBG_proc, "xsane_set_medium: setting values for %s\n", medium->name);
 
-  if (xsane.xsane_colors > 1)
-  {
-    xsane.medium_gamma_red   = medium->gamma_red;
-    xsane.medium_gamma_green = medium->gamma_green;
-    xsane.medium_gamma_blue  = medium->gamma_blue;
+  xsane.medium_gamma_red   = medium->gamma_red;
+  xsane.medium_gamma_green = medium->gamma_green;
+  xsane.medium_gamma_blue  = medium->gamma_blue;
 
-    xsane.medium_shadow_red   = medium->shadow_red;
-    xsane.medium_shadow_green = medium->shadow_green;
-    xsane.medium_shadow_blue  = medium->shadow_blue;
+  xsane.medium_shadow_red   = medium->shadow_red;
+  xsane.medium_shadow_green = medium->shadow_green;
+  xsane.medium_shadow_blue  = medium->shadow_blue;
 
-    xsane.medium_highlight_red   = medium->highlight_red;
-    xsane.medium_highlight_green = medium->highlight_green;
-    xsane.medium_highlight_blue  = medium->highlight_blue;
-  } 
-  else
-  {
-    xsane.medium_gamma_gray      = medium->gamma_gray;
-    xsane.medium_shadow_gray     = medium->shadow_gray;
-    xsane.medium_highlight_gray  = medium->highlight_gray;
-  }
+  xsane.medium_highlight_red   = medium->highlight_red;
+  xsane.medium_highlight_green = medium->highlight_green;
+  xsane.medium_highlight_blue  = medium->highlight_blue;
+
+  xsane.medium_gamma_gray      = medium->gamma_gray;
+  xsane.medium_shadow_gray     = medium->shadow_gray;
+  xsane.medium_highlight_gray  = medium->highlight_gray;
  
   xsane.medium_negative = medium->negative;
  

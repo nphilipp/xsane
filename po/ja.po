@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.80\n"
-"POT-Creation-Date: 2001-10-03 12:19+0200\n"
+"POT-Creation-Date: 2001-11-11 17:41+0100\n"
 "PO-Revision-Date: 2001-10-06 09:37+09:00\n"
 "Last-Translator: Kimizuka Tomokazu <sgtom@pluto.dti.ne.jp>\n"
 "Language-Team: Japanese <Kdeveloper@kde.gr.jp>\n"
@@ -130,6 +130,14 @@ msgstr "作業ディレクトリを変更"
 #. WINDOW_TMP_PATH
 msgid "select temporary directory"
 msgstr "一時ディレクトリを選択"
+
+#. WINDOW_DESPECKLE
+msgid "Despeckle image"
+msgstr "画像のしみ取り"
+
+#. WINDOW_BLUR
+msgid "Blur image"
+msgstr "画像をにじませる"
 
 #. MENU_FILE
 msgid "File"
@@ -583,6 +591,21 @@ msgstr "添付"
 #. TEXT_MAIL_STATUS
 msgid "Project status:"
 msgstr "プロジェクトの状態："
+
+#. TEXT_VIEWER_IMAGE_INFO
+#, c-format
+msgid ""
+"Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
+msgstr ""
+
+#. TEXT_BLUR_RADIUS
+msgid "Blur radius:"
+msgstr ""
+
+#. TEXT_DESPECKLE_RADIUS
+#, fuzzy
+msgid "Despeckle radius:"
+msgstr "しみ取り"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -1639,14 +1662,6 @@ msgstr "プレビューを回転してスキャン"
 msgid "Clone image"
 msgstr "画像を複製"
 
-#. DESC_VIEWER_DESPECKLE
-msgid "Despeckle image"
-msgstr "画像のしみ取り"
-
-#. DESC_VIEWER_BLUR
-msgid "Blur image"
-msgstr "画像をにじませる"
-
 #. DESC_VIEWER_ROTATE90
 msgid "Rotate image 90 degree"
 msgstr "画像を90°回転中"
@@ -1841,6 +1856,11 @@ msgstr "一時プレビューファイルを作れません"
 #. ERR_CREATE_PREVIEW_FILENAME
 msgid "Could not create filenames for preview files"
 msgstr "一時プレビューファイル名を作れません"
+
+#. ERR_CREATE_FAX_PROJECT
+#, fuzzy
+msgid "Could not create faxproject"
+msgstr "プロジェクト作成"
 
 #. WARN_COUNTER_UNDERRUN
 msgid "Filename counter underrun"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.80\n"
-"POT-Creation-Date: 2001-10-03 12:19+0200\n"
+"POT-Creation-Date: 2001-11-11 17:41+0100\n"
 "PO-Revision-Date: 2000-01-21 15:51+01:00\n"
 "Last-Translator: Oliver Rauch <Oliver.Rauch@rauch-domain.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -130,6 +130,14 @@ msgstr "Temporäres Verzeichnis wechseln"
 #. WINDOW_TMP_PATH
 msgid "select temporary directory"
 msgstr "temporäres Verzeichnis auswählen"
+
+#. WINDOW_DESPECKLE
+msgid "Despeckle image"
+msgstr "Flecken entfernen"
+
+#. WINDOW_BLUR
+msgid "Blur image"
+msgstr "Bild weichzeichnen"
 
 #. MENU_FILE
 msgid "File"
@@ -292,9 +300,8 @@ msgid "Discard image"
 msgstr "Bild verwerfen"
 
 #. BUTTON_DISCARD_ALL_IMAGES
-#, fuzzy
 msgid "Discard all images"
-msgstr "Bild verwerfen"
+msgstr "alle Bilder verwerfen"
 
 #. BUTTON_DO_NOT_CLOSE
 msgid "Do not close"
@@ -584,6 +591,22 @@ msgstr "Anhang:"
 #. TEXT_MAIL_STATUS
 msgid "Project status:"
 msgstr "Projekt Status:"
+
+#. TEXT_VIEWER_IMAGE_INFO
+#, c-format
+msgid ""
+"Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
+msgstr ""
+"Größe %d x %d Punkte, %d Bit/Farbe, %d Farben, %1.0f dpi x %1.0f dpi, %1.1f "
+"%s"
+
+#. TEXT_BLUR_RADIUS
+msgid "Blur radius:"
+msgstr "Weichzeichnen Radius:"
+
+#. TEXT_DESPECKLE_RADIUS
+msgid "Despeckle radius:"
+msgstr "Entflecken Radius:"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -1679,14 +1702,6 @@ msgstr "Drehe Vorschau und Scan"
 msgid "Clone image"
 msgstr "Bild clonen"
 
-#. DESC_VIEWER_DESPECKLE
-msgid "Despeckle image"
-msgstr "Flecken entfernen"
-
-#. DESC_VIEWER_BLUR
-msgid "Blur image"
-msgstr "Bild weichzeichnen"
-
 #. DESC_VIEWER_ROTATE90
 msgid "Rotate image 90 degree"
 msgstr "Drehe Bild um 90 Grad"
@@ -1881,6 +1896,10 @@ msgstr "Konnte temporäre Vorschaudateien nicht erzeugen"
 msgid "Could not create filenames for preview files"
 msgstr "Konnte Dateinamen für Vorschaudateien nicht erzeugen"
 
+#. ERR_CREATE_FAX_PROJECT
+msgid "Could not create faxproject"
+msgstr "Konnte Faxprojekt nicht erstellen"
+
 #. WARN_COUNTER_UNDERRUN
 msgid "Filename counter underrun"
 msgstr "Dateinamenzähler Unterlauf"
@@ -1951,7 +1970,7 @@ msgstr "das kann zu Problemen führen!"
 #. WARN_UNSAVED_IMAGES
 #, c-format
 msgid "There are %d unsaved images"
-msgstr ""
+msgstr "Es gibt %d nicht gespeicherte Bilder"
 
 #. WARN_FILE_EXISTS
 #, c-format

@@ -601,6 +601,7 @@ void xsane_device_preferences_load_file(char *filename)
   gtk_widget_set_uposition(xsane.preview->top, xsane.preview_dialog_posx, xsane.preview_dialog_posy);
   gtk_window_set_default_size(GTK_WINDOW(xsane.preview->top), xsane.preview_dialog_width, xsane.preview_dialog_height);
 
+  xsane_update_param(0);
   xsane_refresh_dialog();
   xsane_enhancement_by_gamma();
 }

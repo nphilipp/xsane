@@ -294,6 +294,9 @@ void xsane_read_pnm_header(FILE *infile, Image_info *image_info)
   {
     filetype_nr = atoi(buf+1); /* get filetype number */
 
+    image_info->resolution_x = 72.0;
+    image_info->resolution_y = 72.0;
+
     while (strcmp(buf, "# XSANE data follows\n"))
     {
       fgets(buf, sizeof(buf)-1, infile);
@@ -820,6 +823,9 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
  int x, y, pos0, bytespp, i;
  int pixel_width  = image_info->image_width;
  int pixel_height = image_info->image_height;
+ float resolution_x = image_info->resolution_x;
+ float resolution_y = image_info->resolution_y;
+
 #ifdef HAVE_MMAP
  char *mmaped_imagefile = NULL;
 #endif
@@ -886,7 +892,6 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
           else
 #endif
           {
-//            fseek(imagefile, pos0 + bytespp * (x + y * pixel_width), SEEK_SET); /* go to the correct position */
             for (i = 0; i < bytespp; i++)
             {
               fputc(fgetc(imagefile), outfile);
@@ -904,6 +909,9 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
     case 1: /* 90 degree */
       image_info->image_width  = pixel_height;
       image_info->image_height = pixel_width;
+
+      image_info->resolution_x = resolution_y;
+      image_info->resolution_y = resolution_x;
 
       xsane_write_pnm_header(outfile, image_info);
 
@@ -991,6 +999,9 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
       image_info->image_width  = pixel_height;
       image_info->image_height = pixel_width;
 
+      image_info->resolution_x = resolution_y;
+      image_info->resolution_y = resolution_x;
+
       xsane_write_pnm_header(outfile, image_info);
 
       for (x = pixel_width-1; x >= 0; x--)
@@ -1075,6 +1086,9 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
     case 5: /* 90 degree, x mirror */
       image_info->image_width  = pixel_height;
       image_info->image_height = pixel_width;
+
+      image_info->resolution_x = resolution_y;
+      image_info->resolution_y = resolution_x;
 
       xsane_write_pnm_header(outfile, image_info);
 
@@ -1161,6 +1175,9 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
     case 7: /* 270 degree, x mirror */
       image_info->image_width  = pixel_height;
       image_info->image_height = pixel_width;
+
+      image_info->resolution_x = resolution_y;
+      image_info->resolution_y = resolution_x;
 
       xsane_write_pnm_header(outfile, image_info);
 
@@ -2180,8 +2197,10 @@ int xsane_save_image_as(char *input_filename, char *output_filename, int output_
 
         case XSANE_PS: /* save postscript, use original size */
         { 
-         float imagewidth  = image_info.image_width/image_info.resolution_x; /* width in inch */
-         float imageheight = image_info.image_height/image_info.resolution_y; /* height in inch */
+         float imagewidth, imageheight;
+
+           imagewidth  = image_info.image_width/image_info.resolution_x; /* width in inch */
+           imageheight = image_info.image_height/image_info.resolution_y; /* height in inch */
 
             xsane_save_ps(outfile, infile,
                           &image_info,

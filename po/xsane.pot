@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-10-03 12:19+0200\n"
+"POT-Creation-Date: 2001-11-11 17:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -130,6 +130,14 @@ msgstr ""
 
 #. WINDOW_TMP_PATH
 msgid "select temporary directory"
+msgstr ""
+
+#. WINDOW_DESPECKLE
+msgid "Despeckle image"
+msgstr ""
+
+#. WINDOW_BLUR
+msgid "Blur image"
 msgstr ""
 
 #. MENU_FILE
@@ -568,6 +576,20 @@ msgstr ""
 
 #. TEXT_MAIL_STATUS
 msgid "Project status:"
+msgstr ""
+
+#. TEXT_VIEWER_IMAGE_INFO
+#, c-format
+msgid ""
+"Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
+msgstr ""
+
+#. TEXT_BLUR_RADIUS
+msgid "Blur radius:"
+msgstr ""
+
+#. TEXT_DESPECKLE_RADIUS
+msgid "Despeckle radius:"
 msgstr ""
 
 #. TEXT_SETUP_PRINTER_SEL
@@ -1612,14 +1634,6 @@ msgstr ""
 msgid "Clone image"
 msgstr ""
 
-#. DESC_VIEWER_DESPECKLE
-msgid "Despeckle image"
-msgstr ""
-
-#. DESC_VIEWER_BLUR
-msgid "Blur image"
-msgstr ""
-
 #. DESC_VIEWER_ROTATE90
 msgid "Rotate image 90 degree"
 msgstr ""
@@ -1812,6 +1826,10 @@ msgstr ""
 
 #. ERR_CREATE_PREVIEW_FILENAME
 msgid "Could not create filenames for preview files"
+msgstr ""
+
+#. ERR_CREATE_FAX_PROJECT
+msgid "Could not create faxproject"
 msgstr ""
 
 #. WARN_COUNTER_UNDERRUN

@@ -1765,3 +1765,61 @@ xsane-0.79 -> 0.80:
 
  - updated translations: cs, de, fr, ja, ru, tr
 
+
+xsane-0.80 -> 0.81:
+-------------------
+
+ - xsane-gamma.c:
+     void xsane_calculate_raw_histogram(void): changed "maxval_raw = 0;" to "... = 1;"
+     void xsane_calculate_enh_histogram(void): changed "maxval_enh = 0;" to "... = 1;"
+   this avoids a floating point exception on some systems
+
+ - xsane-viewer.c: set default viewer size from 400, 400 to
+   0.3 * screen_width, 0.5 * screen height
+
+ - xsane-save.c: xsane_save_rotate_image() swaps x and y resolution when
+   rotation 90 or 270 degree
+
+ - removed slash at end of mkdir("~/.sane/xsane/"), OS/2 did not like this
+
+ - when temporary direcotry is not defined (xsane.rc does not exist)
+   then xsane at first tries to read the environment variable
+   defined by ENVIRONMENT_TEMP_DIR_NAME (default TMP) and if that
+   does not exist it uses a predefined (TEMP_PATH) path.
+   When xsane.rc does exist the temporary directory stored in xsane.rc is used.
+
+ - added blur and despeckle selction dialog to select filter radius
+
+ - changed viewer and preview window type from GTK_WINDOW_DIALOG to GTK_WINDOW_TOPLEVEL
+
+ - preview gamma does not have any effect to the enhanced histogram any more
+
+ - preview does medium gamma correction now when scanner does not support
+   gamma tables
+
+ - medium selection is disabled for lineart mode, gamma table is set to default
+   in this case. This guarentees that advanced lineart preview (by grayscale scan)
+   does work conform to the real scan.
+
+ - default resolution set to 72 dpi (if no resolution is defined by backend)
+
+ - added scanning/valid/incomplete/invalid pixmap to preview action area
+
+ - preview cancel does call preview_get_image_data after canceling the
+   scan, this makes sure that xsane does detect a cancled scan when
+   gdk_input does not detect closing the select_fd (what happens when
+   the backend does close the select_fd too early (what is allowed by
+   the sane standard))
+
+ - scan cancel does make sure that xsane_read_image_data is run
+   after sane_cancel is called
+
+ - added SIGTERM handler: xsane_quit() is called on SIGTERM
+
+ - when faxproject/xsane-fax-list can not be created an error
+   message is printed and the creation of the project is aborted
+
+ - in saving mode temporary conversion file is removed after conversion
+
+ - corrected wrong filenames while saving mail image after scanning
+

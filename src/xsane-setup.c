@@ -74,6 +74,7 @@ static void xsane_setup_fax_apply_changes(GtkWidget *widget, gpointer data);
 #ifdef XSANE_ACTIVATE_MAIL
 static void xsane_setup_mail_apply_changes(GtkWidget *widget, gpointer data);
 #endif
+static void xsane_setup_ocr_apply_changes(GtkWidget *widget, gpointer data);
 static void xsane_setup_options_ok_callback(GtkWidget *widget, gpointer data);
 
 static void xsane_printer_notebook(GtkWidget *notebook);
@@ -659,6 +660,31 @@ static void xsane_setup_mail_apply_changes(GtkWidget *widget, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static void xsane_setup_ocr_apply_changes(GtkWidget *widget, gpointer data)
+{
+  DBG(DBG_proc, "xsane_setup_ocr_apply_changes\n");
+
+  if (preferences.ocr_command)
+  {
+    free((void *) preferences.ocr_command);
+  }
+  preferences.ocr_command = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.ocr_command_entry)));
+
+  if (preferences.ocr_inputfile_option)
+  {
+    free((void *) preferences.ocr_inputfile_option);
+  }
+  preferences.ocr_inputfile_option = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.ocr_inputfile_option_entry)));
+
+  if (preferences.ocr_outputfile_option)
+  {
+    free((void *) preferences.ocr_outputfile_option);
+  }
+  preferences.ocr_outputfile_option = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.ocr_outputfile_option_entry)));
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void xsane_setup_options_ok_callback(GtkWidget *widget, gpointer data)
 {
   DBG(DBG_proc, "xsane_setup_options_ok_callback\n");
@@ -672,6 +698,7 @@ static void xsane_setup_options_ok_callback(GtkWidget *widget, gpointer data)
 #ifdef XSANE_ACTIVATE_MAIL
   xsane_setup_mail_apply_changes(0, 0);
 #endif
+  xsane_setup_ocr_apply_changes(0, 0);
 
   if (xsane_setup.grayscale_scanmode)
   {
@@ -2190,6 +2217,89 @@ static void xsane_mail_notebook(GtkWidget *notebook)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static void xsane_ocr_notebook(GtkWidget *notebook)
+{
+ GtkWidget *setup_vbox, *vbox, *hbox, *label, *text, *frame;
+
+  DBG(DBG_proc, "xsane_ocr_notebook\n");
+
+  /* OCR options notebook page */
+
+  setup_vbox = gtk_vbox_new(FALSE, 5);
+
+  label = gtk_label_new(NOTEBOOK_OCR_OPTIONS);
+  gtk_notebook_append_page(GTK_NOTEBOOK(notebook), setup_vbox, label);
+  gtk_widget_show(setup_vbox);
+
+  frame = gtk_frame_new(0);
+  gtk_container_set_border_width(GTK_CONTAINER(frame), 4);
+  gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_ETCHED_IN);
+  gtk_box_pack_start(GTK_BOX(setup_vbox), frame, TRUE, TRUE, 0); /* sizeable framehight */
+  gtk_widget_show(frame);
+
+  vbox = gtk_vbox_new(FALSE, 1);
+  gtk_container_add(GTK_CONTAINER(frame), vbox);
+  gtk_widget_show(vbox);
+
+  /* ocrcommand : */
+
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+
+  label = gtk_label_new(TEXT_SETUP_OCR_COMMAND);
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_widget_show(label);
+
+  text = gtk_entry_new();
+  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_OCR_COMMAND);
+  gtk_widget_set_usize(text, 250, 0);
+  gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.ocr_command);
+  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
+  gtk_widget_show(text);
+  gtk_widget_show(hbox);
+  xsane_setup.ocr_command_entry = text;
+
+
+  /* ocrinputfileoption : */
+
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+
+  label = gtk_label_new(TEXT_SETUP_OCR_INPUTFILE_OPT);
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_widget_show(label);
+
+  text = gtk_entry_new();
+  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_OCR_INPUTFILE_OPT);
+  gtk_widget_set_usize(text, 250, 0);
+  gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.ocr_inputfile_option);
+  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
+  gtk_widget_show(text);
+  gtk_widget_show(hbox);
+  xsane_setup.ocr_inputfile_option_entry = text;
+
+
+  /* ocroutputfileoption : */
+
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+
+  label = gtk_label_new(TEXT_SETUP_OCR_OUTPUTFILE_OPT);
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_widget_show(label);
+
+  text = gtk_entry_new();
+  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_OCR_OUTPUTFILE_OPT);
+  gtk_widget_set_usize(text, 250, 0);
+  gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.ocr_outputfile_option);
+  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
+  gtk_widget_show(text);
+  gtk_widget_show(hbox);
+  xsane_setup.ocr_outputfile_option_entry = text;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void xsane_display_notebook(GtkWidget *notebook)
 {
  GtkWidget *setup_vbox, *vbox, *hbox, *button, *label, *text, *frame;
@@ -2921,6 +3031,7 @@ void xsane_setup_dialog(GtkWidget *widget, gpointer data)
 #ifdef XSANE_ACTIVATE_MAIL
   xsane_mail_notebook(notebook);
 #endif
+  xsane_ocr_notebook(notebook);
   xsane_display_notebook(notebook);
   xsane_enhance_notebook(notebook);
 

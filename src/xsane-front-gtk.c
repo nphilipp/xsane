@@ -42,6 +42,7 @@
 
 /* forward declarations: */
 
+int xsane_parse_options(char *options, char *argv[]);
 void xsane_get_bounds(const SANE_Option_Descriptor *opt, double *minp, double *maxp);
 double xsane_find_best_resolution(int well_known_option, double dpi);
 int xsane_set_resolution(int well_known_option, double resolution);
@@ -81,6 +82,48 @@ void xsane_set_sensitivity(SANE_Int sensitivity);
 void xsane_update_param(void *arg);
 void xsane_define_output_filename(void);
 int xsane_identify_output_format(char *filename, char **ext);
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+int xsane_parse_options(char *options, char *argv[])
+{
+ int optpos = 0;
+ int bufpos = 0;
+ int arg    = 0;
+ char buf[256];
+ 
+  DBG(DBG_proc, "xsane_parse_options\n");
+ 
+  while (options[optpos] != 0)
+  {
+    switch(options[optpos])
+    {
+      case ' ':
+        buf[bufpos] = 0;
+        argv[arg++] = strdup(buf);
+        bufpos = 0;
+        optpos++;
+       break;
+ 
+      case '\"':
+        optpos++; /* skip " */
+        while ((options[optpos] != 0) && (options[optpos] != '\"'))
+        {
+          buf[bufpos++] = options[optpos++];
+        }
+        optpos++; /* skip " */
+       break;
+ 
+      default:
+        buf[bufpos++] = options[optpos++];
+       break;
+    }
+  }
+  buf[bufpos] = 0;
+  argv[arg++] = strdup(buf);
+
+ return arg;
+}
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -1241,7 +1284,9 @@ void xsane_update_param(void *arg)
     gtk_progress_set_format_string(GTK_PROGRESS(xsane.progress_bar), buf);
   }
 
-  xsane_update_histogram(TRUE);
+  xsane_update_histogram(TRUE /* update raw */);
+
+  preview_display_valid(xsane.preview);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.77\n"
-"POT-Creation-Date: 2001-10-03 12:19+0200\n"
-"PO-Revision-Date: 2001-05-21 21:30+01:00\n"
-"Last-Translator: FULL NAME <johanb@lls.se>\n"
+"Project-Id-Version: XSANE 0.80\n"
+"POT-Creation-Date: 2001-11-11 17:41+0100\n"
+"PO-Revision-Date: 2001-11-11 21:30+01:00\n"
+"Last-Translator: Johan Bengtsson <johanb@lls.se>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -60,19 +60,16 @@ msgid "insert ps-file into fax"
 msgstr "infoga ps-fil i fax"
 
 #. WINDOW_MAIL_PROJECT
-#, fuzzy
 msgid "mail project"
-msgstr "faxprojekt"
+msgstr "brevprojekt"
 
 #. WINDOW_MAIL_RENAME
-#, fuzzy
 msgid "rename mail image"
-msgstr "byt namn på faxsida"
+msgstr "byt namn på brevbild"
 
 #. WINDOW_MAIL_INSERT
-#, fuzzy
 msgid "insert file into mail"
-msgstr "infoga ps-fil i fax"
+msgstr "infoga fil i brev"
 
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
@@ -107,14 +104,12 @@ msgid "Preview"
 msgstr "Förhandsgranskning"
 
 #. WINDOW_VIEWER
-#, fuzzy
 msgid "Viewer"
-msgstr "Visa"
+msgstr "Visare"
 
 #. WINDOW_VIEWER_OUTPUT_FILENAME
-#, fuzzy
 msgid "Viewer: select output filename"
-msgstr "till filnamn"
+msgstr "Visare: välj utmatningsfilnamn"
 
 #. WINDOW_OUTPUT_FILENAME
 msgid "select output filename"
@@ -136,6 +131,14 @@ msgstr "ändra arbetskatalog"
 msgid "select temporary directory"
 msgstr "välj temporär katalog"
 
+#. WINDOW_DESPECKLE
+msgid "Despeckle image"
+msgstr "Damma av bild"
+
+#. WINDOW_BLUR
+msgid "Blur image"
+msgstr "Sudda till bild"
+
 #. MENU_FILE
 msgid "File"
 msgstr "Arkiv"
@@ -153,9 +156,8 @@ msgid "Help"
 msgstr "Hjälp"
 
 #. MENU_FILTERS
-#, fuzzy
 msgid "Filters"
-msgstr "Arkiv"
+msgstr "Filter"
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
@@ -170,9 +172,8 @@ msgid "Quit"
 msgstr "Avsluta"
 
 #. MENU_ITEM_SAVE_IMAGE
-#, fuzzy
 msgid "Save image"
-msgstr "Obearbetad bild"
+msgstr "Spara bild"
 
 #. MENU_ITEM_CLOSE
 msgid "Close"
@@ -180,11 +181,11 @@ msgstr "Stäng"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
-msgstr ""
+msgstr "Damma av"
 
 #. MENU_ITEM_BLUR
 msgid "Blur"
-msgstr ""
+msgstr "Sudda till"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -251,19 +252,16 @@ msgid "Rename page"
 msgstr "Byt namn på sida"
 
 #. BUTTON_IMAGE_DELETE
-#, fuzzy
 msgid "Delete image"
-msgstr "Ta bort sida"
+msgstr "Ta bort bild"
 
 #. BUTTON_IMAGE_SHOW
-#, fuzzy
 msgid "Show image"
-msgstr "Visa sida"
+msgstr "Visa bild"
 
 #. BUTTON_IMAGE_RENAME
-#, fuzzy
 msgid "Rename image"
-msgstr "Byt namn på sida"
+msgstr "Byt namn på bild"
 
 #. BUTTON_FILE_INSERT
 msgid "Insert file"
@@ -290,28 +288,24 @@ msgid "Delete printer"
 msgstr "Ta bort skrivare"
 
 #. BUTTON_PREVIEW_ACQUIRE
-#, fuzzy
 msgid "Acquire preview"
-msgstr "Hämta in förhandsgranskning"
+msgstr "Hämta förhandsgranskning"
 
 #. BUTTON_PREVIEW_CANCEL
-#, fuzzy
 msgid "Cancel preview"
 msgstr "Avbryt förhandsgranskning"
 
 #. BUTTON_DISCARD_IMAGE
-#, fuzzy
 msgid "Discard image"
-msgstr "Ta bort sida"
+msgstr "Ta bort bild"
 
 #. BUTTON_DISCARD_ALL_IMAGES
-#, fuzzy
 msgid "Discard all images"
-msgstr "Ta bort sida"
+msgstr "Ta bort alla bilder"
 
 #. BUTTON_DO_NOT_CLOSE
 msgid "Do not close"
-msgstr ""
+msgstr "Avsluta inte"
 
 #. RADIO_BUTTON_FINE_MODE
 msgid "Fine mode"
@@ -319,7 +313,7 @@ msgstr "Högkvalitetsläge"
 
 #. RADIO_BUTTON_HTML_MAIL
 msgid "HTML mail"
-msgstr ""
+msgstr "HTML brev"
 
 #. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device preferences at exit"
@@ -335,7 +329,7 @@ msgstr "Hoppa över existerande filnamn"
 
 #. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
 msgid "Reduce 16 bit image to 8 bit"
-msgstr ""
+msgstr "Reducera 16 bits bild till 8 bitar"
 
 #. RADIO_BUTTON_WINDOW_FIXED
 msgid "Main window size fixed"
@@ -363,7 +357,7 @@ msgstr "Autokorrigera färger"
 
 #. RADIO_BUTTON_POP3_AUTHENTIFICATION
 msgid "POP3 authentification"
-msgstr ""
+msgstr "POP3 autentisering"
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
@@ -575,9 +569,9 @@ msgid ""
 "by Oliver Rauch\n"
 "Email: Oliver.Rauch@rauch-domain.de\n"
 msgstr ""
-"Oöversatt engelsk originaltext\n"
-"av Oliver Rauch\n"
-"E-post: Oliver.Rauch@Wolfsburg.DE\n"
+"Svensk översättning\n"
+"av Johan Bengtsson\n"
+"E-post: johanb@lls.se\n"
 
 #. TEXT_INFO_BOX
 msgid "0x0: 0KB"
@@ -588,17 +582,31 @@ msgid "Scanned pages: "
 msgstr "Inlästa sidor: "
 
 #. TEXT_MAIL_TEXT
-#, fuzzy
 msgid "Email text:"
-msgstr "Epost:"
+msgstr "Epost text:"
 
 #. TEXT_ATTACHMENTS
 msgid "Attachments:"
-msgstr ""
+msgstr "Bilagor:"
 
 #. TEXT_MAIL_STATUS
 msgid "Project status:"
+msgstr "Projekt status:"
+
+#. TEXT_VIEWER_IMAGE_INFO
+#, c-format
+msgid ""
+"Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
 msgstr ""
+
+#. TEXT_BLUR_RADIUS
+msgid "Blur radius:"
+msgstr ""
+
+#. TEXT_DESPECKLE_RADIUS
+#, fuzzy
+msgid "Despeckle radius:"
+msgstr "Damma av"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -774,41 +782,39 @@ msgstr "Visare (Postscript):"
 
 #. TEXT_SETUP_SMTP_SERVER
 msgid "SMTP server:"
-msgstr ""
+msgstr "SMTP server"
 
 #. TEXT_SETUP_SMTP_PORT
 msgid "SMTP port:"
-msgstr ""
+msgstr "SMTP port"
 
 #. TEXT_SETUP_MAIL_FROM
 msgid "From:"
-msgstr ""
+msgstr "Från:"
 
 #. TEXT_SETUP_MAIL_REPLY_TO
 msgid "Reply to:"
-msgstr ""
+msgstr "Svara till:"
 
 #. TEXT_SETUP_POP3_SERVER
 msgid "POP3 server:"
-msgstr ""
+msgstr "POP3 server:"
 
 #. TEXT_SETUP_POP3_PORT
 msgid "POP3 port:"
-msgstr ""
+msgstr "POP3 port:"
 
 #. TEXT_SETUP_POP3_USER
 msgid "POP3 user:"
-msgstr ""
+msgstr "POP3 användare:"
 
 #. TEXT_SETUP_POP3_PASS
-#, fuzzy
 msgid "POP3 password:"
-msgstr "Lösenord:"
+msgstr "POP3 lösenord:"
 
 #. TEXT_SETUP_MAIL_VIEWER
-#, fuzzy
 msgid "Viewer (png):"
-msgstr "Visare (Postscript):"
+msgstr "Visare (png):"
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
@@ -824,11 +830,11 @@ msgstr "Alla"
 
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
-msgstr ""
+msgstr "Spara"
 
 #. NOTEBOOK_IMAGE_OPTIONS
 msgid "Image"
-msgstr ""
+msgstr "Bild"
 
 #. NOTEBOOK_COPY_OPTIONS
 msgid "Copy"
@@ -839,9 +845,8 @@ msgid "Fax"
 msgstr "Faxa"
 
 #. NOTEBOOK_MAIL_OPTIONS
-#, fuzzy
 msgid "Mail"
-msgstr "Epost:"
+msgstr "Post"
 
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display"
@@ -852,9 +857,8 @@ msgid "Enhancement"
 msgstr "Bearbetning"
 
 #. MENU_ITEM_MAIL
-#, fuzzy
 msgid "Email"
-msgstr "Epost:"
+msgstr "Epost"
 
 #. MENU_ITEM_SHOW_TOOLTIPS
 msgid "Show tooltips"
@@ -1046,38 +1050,32 @@ msgid "Rotating image"
 msgstr "Roterar bild"
 
 #. PROGRESS_MIRRORING_DATA
-#, fuzzy
 msgid "Mirroring image"
-msgstr "Roterar bild"
+msgstr "Speglar bild"
 
 #. PROGRESS_PACKING_DATA
 msgid "Packing image"
 msgstr "Packar bild"
 
 #. PROGRESS_CONVERTING_DATA
-#, fuzzy
 msgid "Converting image"
 msgstr "Konverterar data...."
 
 #. PROGRESS_SAVING_DATA
-#, fuzzy
 msgid "Saving image"
-msgstr "Obearbetad bild"
+msgstr "Sparar bild"
 
 #. PROGRESS_CLONING_DATA
-#, fuzzy
 msgid "Cloning image"
-msgstr "Roterar bild"
+msgstr "Klonar bild"
 
 #. PROGRESS_DESPECKLING_DATA
-#, fuzzy
 msgid "Despeckling image"
-msgstr "Ta bort sida"
+msgstr "Damma av bild"
 
 #. PROGRESS_BLURING_DATA
-#, fuzzy
 msgid "Bluring image"
-msgstr "Ta bort sida"
+msgstr "Sudda till bild"
 
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
@@ -1103,7 +1101,7 @@ msgstr ""
 
 #. DESC_XSANE_MEDIUM
 msgid "Select source medium type"
-msgstr ""
+msgstr "Välj typ av källmedium"
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1137,22 +1135,20 @@ msgid "Enter receiver phone number or address"
 msgstr "Skriv in mottagarens telefonnummer eller adress"
 
 #. DESC_MAILPROJECT
-#, fuzzy
 msgid "Enter name of mail project"
-msgstr "Skriv in namn för faxprojekt"
+msgstr "Skriv in namn för brevprojekt"
 
 #. DESC_MAILIMAGENAME
-#, fuzzy
 msgid "Enter new name for mail image"
-msgstr "Skriv in nytt namn för faxsida"
+msgstr "Skriv in nytt namn för brevbild"
 
 #. DESC_MAILRECEIVER
 msgid "Enter email address"
-msgstr ""
+msgstr "Skriv in epost adress"
 
 #. DESC_MAILSUBJECT
 msgid "Enter subject of email"
-msgstr ""
+msgstr "Skriv in ämne för epost"
 
 #. DESC_PRESET_AREA_NAME
 msgid "Enter new name for preset area"
@@ -1423,7 +1419,7 @@ msgstr ""
 
 #. DESC_REDUCE_16BIT_TO_8BIT
 msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
-msgstr ""
+msgstr "Spara bild med 8/bits färg om bildläsare skickar bild med 16 bits/färg"
 
 #. DESC_PSFILE_WIDTH
 msgid "Width of paper for postscript files"
@@ -1589,48 +1585,47 @@ msgstr "Skicka fax med hög vertikal upplösning (196 lpi istället för 98 lpi)"
 
 #. DESC_SMTP_SERVER
 msgid "IP Address or Domain name of SMTP server"
-msgstr ""
+msgstr "SMTP serverns IP adress eller domän"
 
 #. DESC_SMTP_PORT
 msgid "port to connect to SMTP server"
-msgstr ""
+msgstr "port som kopplar upp mot SMTP server"
 
 #. DESC_MAIL_FROM
 msgid "enter your email address"
-msgstr ""
+msgstr "skriv in din epost adress"
 
 #. DESC_MAIL_REPLY_TO
 msgid "enter email address for replied emails"
-msgstr ""
+msgstr "skriv in epost adress för besvarad epost"
 
 #. DESC_POP3_AUTHENTIFICATION
 msgid "Authentificate at POP3 server before sending mail"
-msgstr ""
+msgstr "Autentiserna mot POP3 server innan post skickas"
 
 #. DESC_POP3_SERVER
 msgid "IP Address or Domain name of POP3 server"
-msgstr ""
+msgstr "POP3 serverns IP adress eller domän"
 
 #. DESC_POP3_PORT
 msgid "port to connect to POP3 server"
-msgstr ""
+msgstr "port som kopplar upp mot POP3 server"
 
 #. DESC_POP3_USER
 msgid "user name for POP3 server"
-msgstr ""
+msgstr "användarnamn för POP3 server"
 
 #. DESC_POP3_PASS
 msgid "password for POP3 server"
-msgstr ""
+msgstr "lösenord för POP3 server"
 
 #. DESC_MAIL_VIEWER
-#, fuzzy
 msgid "Enter command to be executed to view a mail image"
-msgstr "Kommando som körs för att visa ett fax"
+msgstr "Kommando som körs för att visa en brevbild"
 
 #. DESC_HTML_MAIL
 msgid "Mail is sent in html mode, images are displayed directly"
-msgstr ""
+msgstr "Post sänds i htmlläge, bilder visas direkt"
 
 #. DESC_PERMISSION_READ
 msgid "read"
@@ -1682,9 +1677,8 @@ msgid "Autoselect scanarea"
 msgstr "Automatisk val av inläsningsyta"
 
 #. DESC_DELETE_IMAGES
-#, fuzzy
 msgid "Delete preview image cache"
-msgstr "Rotera förhandsgranskning och inläsning"
+msgstr "Ta bort förhandsgransknings bildcache"
 
 #. DESC_PRESET_AREA
 msgid "Preset area"
@@ -1695,45 +1689,32 @@ msgid "Rotate preview and scan"
 msgstr "Rotera förhandsgranskning och inläsning"
 
 #. DESC_VIEWER_CLONE
-#, fuzzy
 msgid "Clone image"
-msgstr "Ta bort sida"
-
-#. DESC_VIEWER_DESPECKLE
-#, fuzzy
-msgid "Despeckle image"
-msgstr "Ta bort sida"
-
-#. DESC_VIEWER_BLUR
-#, fuzzy
-msgid "Blur image"
-msgstr "Ta bort sida"
+msgstr "Klona bild"
 
 #. DESC_VIEWER_ROTATE90
-#, fuzzy
 msgid "Rotate image 90 degree"
-msgstr "Roterar bild"
+msgstr "Rotera bild 90 grader"
 
 #. DESC_VIEWER_ROTATE180
 msgid "Rotate image 180 degree"
-msgstr ""
+msgstr "Rotera bild 180 grader"
 
 #. DESC_VIEWER_ROTATE270
 msgid "Rotate image 270 degree"
-msgstr ""
+msgstr "Rotera bild 270 grader"
 
 #. DESC_VIEWER_MIRROR_X
 msgid "Mirror image at vertical axis"
-msgstr ""
+msgstr "Spegla bild vid vertikal axel"
 
 #. DESC_VIEWER_MIRROR_Y
 msgid "Mirror image at horizontal axis"
-msgstr ""
+msgstr "Spegla bild vid horisontell axel"
 
 #. DESC_VIEWER_ZOOM
-#, fuzzy
 msgid "Zoom image"
-msgstr "Visa sida"
+msgstr "Zooma bild"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -1818,7 +1799,7 @@ msgstr "slut på minne"
 
 #. ERR_TOO_MUCH_DATA
 msgid "Backend sends more image data than it defined in parameters"
-msgstr ""
+msgstr "Drivrutin skickar mer bilddata än den definierade i sina parametrar"
 
 #. ERR_LIBTIFF
 msgid "LIBTIFF reports error"
@@ -1845,14 +1826,12 @@ msgid "Failed to execute fax viewer:"
 msgstr "Kunde inte starta faxvisare:"
 
 #. ERR_FAILED_EXEC_FAX_CMD
-#, fuzzy
 msgid "Failed to execute fax command:"
 msgstr "Kunde inte exekvera faxkommando:"
 
 #. ERR_FAILED_EXEC_MAIL_VIEWER
-#, fuzzy
 msgid "Failed to execute mail image viewer:"
-msgstr "Kunde inte starta faxvisare:"
+msgstr "Kunde inte starta brevbildsvisare:"
 
 #. ERR_BAD_FRAME_FORMAT
 msgid "bad frame format"
@@ -1906,6 +1885,11 @@ msgstr "Kunde inte skapa temporär förhandsgranskningsfil"
 #. ERR_CREATE_PREVIEW_FILENAME
 msgid "Could not create filenames for preview files"
 msgstr "Kunde inte skapa filnamn för förhandsgranskningsfiler"
+
+#. ERR_CREATE_FAX_PROJECT
+#, fuzzy
+msgid "Could not create faxproject"
+msgstr "Skapa projekt"
 
 #. WARN_COUNTER_UNDERRUN
 msgid "Filename counter underrun"
@@ -1976,7 +1960,7 @@ msgstr "detta kan orsaka problem!"
 #. WARN_UNSAVED_IMAGES
 #, c-format
 msgid "There are %d unsaved images"
-msgstr ""
+msgstr "Det finns %d osparade bilder"
 
 #. WARN_FILE_EXISTS
 #, c-format
@@ -2000,7 +1984,7 @@ msgstr "%d-bit utmatningsformat som inte stöds: %s"
 
 #. WARN_VIEWER_IMAGE_NOT_SAVED
 msgid "viewer image is not saved"
-msgstr ""
+msgstr "visarbild sparas inte"
 
 #. TEXT_USAGE
 msgid "Usage:"
@@ -2011,7 +1995,6 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[FLAGGA]... [ENHET]"
 
 #. TEXT_HELP
-#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2062,6 +2045,7 @@ msgstr ""
 "-s, --scan                   starta med bildläsarläge aktivt\n"
 "-c, --copy                   starta med kopiatorläge aktivt\n"
 "-f, --fax                    starta med faxläge aktivt\n"
+" -m, --mail                   starta med postläge aktivt\n"
 "-n, --no-mode-selection      visa inte meny för XSane lägesval\n"
 "\n"
 "-F, --Fixed                  fast storlek på huvudfönster (skriv över "
@@ -2069,6 +2053,9 @@ msgstr ""
 "-R, --Resizeable             justerbart fönster med rullningslist (skriv "
 "över preferensvärde)\n"
 "\n"
+" -p, --print-filenames        skriv ut filnamn skapade av XSane\n"
+" -N, --force-filename name    sätt filnamn och ignorera filnamn som "
+"användaren väljer\n"
 "--display X11-display        omdirigera utmatning till X11-display\n"
 "--no-xshm                    använd inte delat minne\n"
 "--sync                       kalla på en synkron förbindelse med X11 servern"
@@ -2089,19 +2076,19 @@ msgstr ""
 #. Menu path must not be translated, this is done by the gimp. Only translate the text behind the last "/"
 #. XSANE_GIMP_MENU_DIALOG
 msgid "<Toolbox>/File/Acquire/XSane: Device dialog..."
-msgstr "<Verktyg>/Arkiv/Hämta in/XSane: Enhets dialog..."
+msgstr "<Toolbox>/File/Acquire/XSane: Enhets dialog..."
 
 #. XSANE_GIMP_MENU
 msgid "<Toolbox>/File/Acquire/XSane: "
-msgstr "<Verktyg>/Arkiv/Hämta in/XSane: "
+msgstr "<Toolbox>/File/Acquire/XSane: "
 
 #. XSANE_GIMP_MENU_DIALOG_OLD
 msgid "<Toolbox>/Xtns/XSane/Device dialog..."
-msgstr "<Verktyg>/Insticksprogram/XSane/Enhets dialog..."
+msgstr "<Toolbox>/Xtns/XSane/Enhets dialog..."
 
 #. XSANE_GIMP_MENU_OLD
 msgid "<Toolbox>/Xtns/XSane/"
-msgstr "<Verktyg>/Insticksprogram/XSane/"
+msgstr "<Toolbox>/Xtns/XSane/"
 
 #. strings that are used in structures, so it is not allowed to use _()/gettext() here
 #. gettext_noop does mark these texts but does not change the string
@@ -2142,14 +2129,12 @@ msgid "18cm x 13cm"
 msgstr "18cm x 13cm"
 
 #. MENU_ITEM_SURFACE_10cmx15cm
-#, fuzzy
 msgid "10cm x 15cm"
-msgstr "10cm x 14cm"
+msgstr "10cm x 15cm"
 
 #. MENU_ITEM_SURFACE_15cmx10cm
-#, fuzzy
 msgid "15cm x 10cm"
-msgstr "14cm x 10cm"
+msgstr "15cm x 10cm"
 
 #. MENU_ITEM_SURFACE_9cmx13cm
 msgid "9cm x 13cm"
@@ -2245,6 +2230,5 @@ msgstr "Tillgång till resurs nekas"
 #~ msgid "Scan"
 #~ msgstr "Läs in"
 
-#, fuzzy
 #~ msgid "Failed to execute mail command:"
-#~ msgstr "Kunde inte exekvera faxkommando:"
+#~ msgstr "Kunde inte exekvera postkommando:"

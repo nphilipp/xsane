@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.80\n"
-"POT-Creation-Date: 2001-10-03 12:19+0200\n"
-"PO-Revision-Date: 2001-10-03 23:09+0200\n"
+"POT-Creation-Date: 2001-11-11 17:41+0100\n"
+"PO-Revision-Date: 2001-10-04 14:14+0200\n"
 "Last-Translator: Stanislav Brabec <utx@penguin.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -131,6 +131,14 @@ msgstr "zmìna pracovního adresáøe"
 msgid "select temporary directory"
 msgstr "výbìr pomocného adresáøe"
 
+#. WINDOW_DESPECKLE
+msgid "Despeckle image"
+msgstr "Vyèistit obrázek"
+
+#. WINDOW_BLUR
+msgid "Blur image"
+msgstr "Rozostøit obrázek"
+
 #. MENU_FILE
 msgid "File"
 msgstr "Soubor"
@@ -165,7 +173,7 @@ msgstr "Konec"
 
 #. MENU_ITEM_SAVE_IMAGE
 msgid "Save image"
-msgstr "Zapsat obrázek"
+msgstr "Zápis obrázku"
 
 #. MENU_ITEM_CLOSE
 msgid "Close"
@@ -582,6 +590,21 @@ msgstr "Pøílohy:"
 #. TEXT_MAIL_STATUS
 msgid "Project status:"
 msgstr "Stav projektu:"
+
+#. TEXT_VIEWER_IMAGE_INFO
+#, c-format
+msgid ""
+"Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
+msgstr ""
+
+#. TEXT_BLUR_RADIUS
+msgid "Blur radius:"
+msgstr ""
+
+#. TEXT_DESPECKLE_RADIUS
+#, fuzzy
+msgid "Despeckle radius:"
+msgstr "Vyèistit"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -1042,7 +1065,7 @@ msgstr "Obrázek se zapisuje"
 
 #. PROGRESS_CLONING_DATA
 msgid "Cloning image"
-msgstr "Razítkuje se obrázek"
+msgstr "Duplikuje se obrázek"
 
 #. PROGRESS_DESPECKLING_DATA
 msgid "Despeckling image"
@@ -1658,15 +1681,7 @@ msgstr "Rotace náhledu a skenování"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
-msgstr "Razítkovat obrázek"
-
-#. DESC_VIEWER_DESPECKLE
-msgid "Despeckle image"
-msgstr "Vyèistit obrázek"
-
-#. DESC_VIEWER_BLUR
-msgid "Blur image"
-msgstr "Rozostøit obrázek"
+msgstr "Duplikovat obrázek"
 
 #. DESC_VIEWER_ROTATE90
 msgid "Rotate image 90 degree"
@@ -1861,6 +1876,11 @@ msgstr "Nelze vytvoøit pracovní náhledové soubory"
 #. ERR_CREATE_PREVIEW_FILENAME
 msgid "Could not create filenames for preview files"
 msgstr "Nelze vytvoøit jména náhledových souborù"
+
+#. ERR_CREATE_FAX_PROJECT
+#, fuzzy
+msgid "Could not create faxproject"
+msgstr "Vytvoøit projekt"
 
 #. WARN_COUNTER_UNDERRUN
 msgid "Filename counter underrun"

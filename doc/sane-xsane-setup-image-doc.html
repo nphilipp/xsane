@@ -34,7 +34,8 @@
 <br>
 <font color="#000000">Main window:</font>
 <ul>
-<li><a href="sane-xsane-scan-doc.html">Scan mode</a></li>
+<li><a href="sane-xsane-save-doc.html">Save mode</a></li>
+<li><a href="sane-xsane-viewer-doc.html">Viewer mode</a></li>
 <li><a href="sane-xsane-copy-doc.html">Copy mode</a></li>
 <li><a href="sane-xsane-fax-doc.html">Fax mode</a></li>
 <li><a href="sane-xsane-mail-doc.html">Mail mode</a></li>
@@ -107,6 +108,12 @@ main window of xsane.
 <br>
 <br>
 <br>   
+<h4>REDUCE 16 BIT IMAGE TO 8 BIT:</h4>
+<blockquote>
+When the image is scanned with 16 bit/color then xsane does reduce the
+color depth to 8 bit/color before saving the image.
+</blockquote>
+
 <h4>JPEG IMAGE QUALITY:</h4>
 <blockquote>
 If the image is saved in <i>jpeg</i> format this value defines
@@ -122,9 +129,26 @@ mean low compression, large files and low compression time. High values
 mean high compression, smaller files and high compression time.
 </blockquote>
 
-<h4>PRINT AREA (WIDTH, HEIGHT, LEFT OFFSET, BOTTOM OFFSET):</h4>
+<h4>TIFF 16 BIT IMAGE COMPRESSION:</h4>
 <blockquote>
-Define size and position of printable area for saving postscript files.
+If the image is saved in 16 bit/color <i>tiff</i> format this selection defines
+if xsane does <i>pack bits</i> or <i>no compression</i> is used.
+</blockquote>
+
+<h4>TIFF 8 BIT IMAGE COMPRESSION:</h4>
+<blockquote>
+If the image is saved in 8 bit/color <i>tiff</i> format this selection defines
+if xsane does <i>pack bits</i>, use <i>JPEG DCT compression</i> or <i>no compression</i>
+is used.
+</blockquote>
+
+<h4>TIFF lineart IMAGE COMPRESSION:</h4>
+<blockquote>
+If the image is saved in lineart <i>tiff</i> format this selection defines
+if xsane does <i>pack bits</i>, use <i>CCIT Group 4 Fax compression</i>,
+<i>CCIT Group 3 Fax compression</i>, <i>CCIT 1D Huffman compression</i>,
+<i>JPEG DCT compression</i> or <i>no compression</i>
+is used.
 </blockquote>
 
 </blockquote>

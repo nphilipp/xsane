@@ -3,11 +3,14 @@ If you have any suggestions: mail to Oliver.Rauch@rauch-domain.de
 
 Sign explaination:
  # planned for XSane-1.0.0
- + planned to do this soon/higher priority
+ + planned to do this soon/higher priority (but not promised for XSane-1.0)
  - comes later/lower priority
 
 
  fax-function:
+    # use internal viewer to display images
+      # while scanning save image as pnm
+      # convtert all images to one postscript file when sending fax
     + create lock file or information while spooling fax
     + add coverpage with edit like mail function
     - add send delayed option
@@ -18,10 +21,10 @@ Sign explaination:
     + select image position on printer (centered/left/right/free) for copy
 
  email-function:
-    # image types other than png? (user selectable?)
-
- ocr-function:
-    - add ocr function, e.g. via gocr
+    # use internal viewer to display images
+      # while scanning save image as pnm
+      # convtert image to target format when sending email
+      # add new image types to email fileformat: tiff, jpeg
 
  medium selection:
     # add: add, edit, delete medium definition
@@ -34,13 +37,20 @@ Sign explaination:
     # select multiple scan areas before starting the scan
 
  gamma:
+    # add target gamma (e.g. for web publishing)
     # correct gtk custom gamma functions and include it
       may be write an own gamma curve widget
 
  viewer:
-    # crop function after scanning
-    # add some filters
+    # add more filters
+      suggestions? - ONLY REALLY IMPORTANT FILTERS,
+      FOR OTHER IMAGE MANIPULATION THERE IS THE GIMP
     # add scaling function
+    # crop
+    # what about automatic increase of filename counter???
+      this is not simple because there may be several
+      viewers opend at the same time
+    # add ocr function, e.g. via gocr
 
  internal:
     + add range check / valid value when reading xsane.rc/*.drc files
@@ -50,6 +60,7 @@ Sign explaination:
     - more/better online helpfiles (mostly done)
     - added infrared filter for transmisse rgbi scans:
       use next neighbour with high transmission(i) value
+      (may be to viewer)
 
  - include special functions for GNOME/KDE
    *** DOES ANYONE HAVE ANY SUGGESTIONS TO THIS ? ***

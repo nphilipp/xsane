@@ -4,7 +4,7 @@
    <meta name="GENERATOR" content="Mozilla/4.74 [en] (X11; U; Linux 2.2.18 i686) [Netscape]">
    <meta name="Author" content="Oliver Rauch">
    <meta name="Description" content="scan, photocopy and fax frontend for SANE">
-   <title>XSane - Copy mode</title>
+   <title>XSane - Scan mode</title>
 </head>
 <body text="#000000" bgcolor="#FFFFFF" link="#0000EF" vlink="#51188E" alink="#FF0000">
 
@@ -16,7 +16,7 @@
 </td>
 <td>
 <blockquote>
-<h1><font color="#009900">Main window in copy mode</font></h1>
+<h1><font color="#009900">Main window in save mode</font></h1>
 </blockquote>
 </td>
 </tr>
@@ -100,20 +100,21 @@
 <td VALIGN=TOP BGCOLOR="#FFFFFF">
 <blockquote>
 <br>
-In Copy mode, the scanned image is sent directly to the selected printer.
+In the save mode an image is scanned and saved to a file.
 <br>
 <br>
 <br>
-<center><img SRC="xsane-copy.jpg" alt="XSane-main-window"></center>
+<center><img SRC="xsane-save.jpg" alt="XSane-main-window"></center>
 <br>
 <br>
+
 <img SRC="xsane-colormode.jpg" alt="colormode">
 &nbsp;&nbsp;
 <b>Scanmode:</b>
 <blockquote>
 Select scanmode, e.g.: color, grayscale, halftone, lineart.
 </blockquote>
- 
+
 <img SRC="xsane-scansource.jpg" alt="scansource">
 &nbsp;&nbsp;
 <b>Scansource:</b>
@@ -127,30 +128,115 @@ Select scansource, e.g.: Flatbed, Transparency, Automatic Document Feeder.
 <blockquote>
 Select scanmedium, e.g.: <i>slide</i>, <i>standard negative</i>,
 <i>Agfa negative</i>, ... or <i>Full range</i>.
-</blockquote>                                                                                                           
+</blockquote>
 
-<img SRC="xsane-printer.jpg" alt="printer">
+<img SRC="xsane-resolution.jpg" alt="resolution">
 &nbsp;&nbsp;
-<b>Printer:</b>
+<b>Scan resolution:</b>
 <blockquote>
-Select the printer on which the scanned image shall be printed. In the box
-with the number you can select the number of copies that shall be created.
+Select resolution that is used for scanning. If the backends makes available a
+range of resolutions (e.g. 100-600 dpi) XSane can display a slider or a
+list of resolutions. You select this via <i>Preferences/Show resolution list</i>.
+<br>
+The backend can define a list of resolutions insted of a range, in this
+case it is not possible to enable the slider.
+<p>
+To select exact resolutions with the slider click the slider with the mouse pointer
+and use the cursor keys to change the value in steps of 1, if you press <i>ctrl</i>
+and a cursor key the step is 10.
 </blockquote>
- 
- 
-<img SRC="xsane-zoom.jpg" alt="zoom">
+
+
+<img SRC="xsane-disk.jpg" alt="disk">
 &nbsp;&nbsp;
-<b>Zoom factor:</b>
+<b>Select filename:</b>
 <blockquote>
-Select the zoom factor for the photocopy. XSane automatically selects the
-correct scan resolution in dependance of the zoom factor and the defined
-printer resolutions.
+If you press the disk icon a browse dialog is opened where you can select the name
+of the image file that is created when the next scan is done.
+You also can enter the filename directly to the text box right to the disk icon.
+If no path is entered XSane saves the file into the directory selected in
+<i>Preferences/Change directory</i>.
+<p>
+<b>Step:</b>
+<blockquote>
+If there is a counter in the filename (image-0001.jpg) the counter is increased by
+the number selected in this box.
+</blockquote>
+
+<b>Type:</b>
+<blockquote>
+<i>by ext</i> means that the filetype is selected by the extension of the filename.
+When you select a filetype in this box XSane automatically appends the correct
+extension to the filename, you should not append a file extension in this case.
+</blockquote>
+
+
+<b>Supported filetypes:</b>
+
+<blockquote>
+<i>Pnm</i> and <i>ps</i> (and raw) are always available. The
+other formats are only available if necessary libraries are present and
+support is compiled in. For <i>png</i> you need libpng and libz, for
+<i>jpeg</i> you need jpeglib, for <i>tiff</i> you need libtiff.
+</blockquote>
+
+<blockquote>
+The <i>raw</i> format is a 16 bit binary format. Some programs can read
+<i>raw</i> files as <i>pnm</i>-format. For the <i>pnm</i> format
+only 8 bit binary and ascii and 16 bit ascii are defined. We suggest
+not to use the <i>raw</i> format for storing images you want to view, it is
+meant for post-processing with programs you write yourself. The advantage
+is that this format produces much smaller files than the 16 bit ascii
+<i>pnm</i> format does.
+</blockquote>
+
+<blockquote>
+<b>The supported output formats depend on the bit depth of the scanned image:</b>
+<p>
+<b><u>1 bit/pixel black/white mode:</u></b>
+<blockquote>
+<font color="#000099">pnm = pbm, png</font><br>
+<font color="#000099">ps, jpeg and tiff are converted to 8 bit grayscale mode.</font>
+</blockquote>
+<p>
+<b><u>8 bits/pixel grayscale mode:</u></b>
+<blockquote>
+<font color="#000099">pnm = pgm, png, ps, jpeg and tiff</font>
+</blockquote>
+<p>
+<b><u>16 bits/pixel grayscale mode (9-16 bits):</u></b>
+<blockquote>
+<font color="#000099">pnm (ascii), png, raw and tiff</font>
+</blockquote>
+<p>
+<b><u>24 bits/pixel RGB-color mode (8 bits/color):</u></b>
+<blockquote>
+<font color="#000099">pnm = ppm, png, ps, jpeg and tiff</font>
+</blockquote>
+<p>
+<b><u>48 bits/pixel RGB-color mode (9-16 bits/color):</u></b>
+<blockquote>
+<font color="#000099">pnm (ascii), png, raw and tiff</font>
+</blockquote>
 
 </blockquote>
-</blockquote>
+
+<b><u><font color="#009900">optional: (default: not compiled in)</font></u></b>
+
 <blockquote>
-The options of the printer and the printer command can be set in the menu
-<a href="sane-xsane-setup-copy-doc.html">Preferences/Setup</a>
+<b><u>32 bits/pixel RGBA-color mode (8 bits/color):</u></b>
+<blockquote>
+<font color="#000099">rgba (raw) and png with alpha channel</font>
+</blockquote>
+
+<b><u>64 bits/pixel RGBA-color mode (9-16 bits/color):</u></b>
+<blockquote>
+<font color="#000099">rgba (raw) and png with alpha channel</font>
+</blockquote>
+
+</blockquote>
+
+</blockquote>
 </blockquote>
 </td>
 </tr>
@@ -164,3 +250,4 @@ Author: <a href="mailto:Oliver.Rauch@xsane.org">Oliver Rauch</a>
 
 </body>
 </html>
+

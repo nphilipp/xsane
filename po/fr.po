@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.80\n"
-"POT-Creation-Date: 2001-10-03 12:19+0200\n"
+"POT-Creation-Date: 2001-11-11 17:41+0100\n"
 "PO-Revision-Date: 2000-02-09 21:00+01:00\n"
 "Last-Translator: Laurent Grawet <laurent.grawet@ibelgique.com>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -130,6 +130,14 @@ msgstr "Change le répertoire de travail"
 #. WINDOW_TMP_PATH
 msgid "select temporary directory"
 msgstr "Choisissez un répertoire temporaire"
+
+#. WINDOW_DESPECKLE
+msgid "Despeckle image"
+msgstr "Déparasiter l'image"
+
+#. WINDOW_BLUR
+msgid "Blur image"
+msgstr "Adoucir l'image"
 
 #. MENU_FILE
 msgid "File"
@@ -583,6 +591,21 @@ msgstr "Pièces attachées:"
 #. TEXT_MAIL_STATUS
 msgid "Project status:"
 msgstr "Statut du projet:"
+
+#. TEXT_VIEWER_IMAGE_INFO
+#, c-format
+msgid ""
+"Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
+msgstr ""
+
+#. TEXT_BLUR_RADIUS
+msgid "Blur radius:"
+msgstr ""
+
+#. TEXT_DESPECKLE_RADIUS
+#, fuzzy
+msgid "Despeckle radius:"
+msgstr "Déparasitage"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -1682,14 +1705,6 @@ msgstr "Pivote l'aperçu et la numérisation"
 msgid "Clone image"
 msgstr "Cloner l'image"
 
-#. DESC_VIEWER_DESPECKLE
-msgid "Despeckle image"
-msgstr "Déparasiter l'image"
-
-#. DESC_VIEWER_BLUR
-msgid "Blur image"
-msgstr "Adoucir l'image"
-
 #. DESC_VIEWER_ROTATE90
 msgid "Rotate image 90 degree"
 msgstr "Rotation à 90° de l'image"
@@ -1886,6 +1901,11 @@ msgstr "Ne peut pas créer de fichiers temporaires de prévisualisation"
 msgid "Could not create filenames for preview files"
 msgstr ""
 "Ne peut pas créer de noms de fichiers pour les fichiers de prévisualisation"
+
+#. ERR_CREATE_FAX_PROJECT
+#, fuzzy
+msgid "Could not create faxproject"
+msgstr "Créer un projet"
 
 #. WARN_COUNTER_UNDERRUN
 msgid "Filename counter underrun"

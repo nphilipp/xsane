@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.76\n"
-"POT-Creation-Date: 2001-10-03 12:19+0200\n"
+"POT-Creation-Date: 2001-11-11 17:41+0100\n"
 "PO-Revision-Date: 2000-09-29  23:48+0100\n"
 "Last-Translator: Colorio Mauro <linuxbox@interfree.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -138,6 +138,16 @@ msgstr "cambia directory di lavoro"
 #. WINDOW_TMP_PATH
 msgid "select temporary directory"
 msgstr "seleziona directory temporanea"
+
+#. WINDOW_DESPECKLE
+#, fuzzy
+msgid "Despeckle image"
+msgstr "Cancella progetto"
+
+#. WINDOW_BLUR
+#, fuzzy
+msgid "Blur image"
+msgstr "Cancella progetto"
 
 #. MENU_FILE
 msgid "File"
@@ -596,6 +606,21 @@ msgstr ""
 #. TEXT_MAIL_STATUS
 msgid "Project status:"
 msgstr ""
+
+#. TEXT_VIEWER_IMAGE_INFO
+#, c-format
+msgid ""
+"Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
+msgstr ""
+
+#. TEXT_BLUR_RADIUS
+msgid "Blur radius:"
+msgstr ""
+
+#. TEXT_DESPECKLE_RADIUS
+#, fuzzy
+msgid "Despeckle radius:"
+msgstr "Cancella progetto"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -1748,16 +1773,6 @@ msgstr ""
 msgid "Clone image"
 msgstr "Cancella progetto"
 
-#. DESC_VIEWER_DESPECKLE
-#, fuzzy
-msgid "Despeckle image"
-msgstr "Cancella progetto"
-
-#. DESC_VIEWER_BLUR
-#, fuzzy
-msgid "Blur image"
-msgstr "Cancella progetto"
-
 #. DESC_VIEWER_ROTATE90
 #, fuzzy
 msgid "Rotate image 90 degree"
@@ -1956,6 +1971,11 @@ msgstr ""
 #. ERR_CREATE_PREVIEW_FILENAME
 msgid "Could not create filenames for preview files"
 msgstr ""
+
+#. ERR_CREATE_FAX_PROJECT
+#, fuzzy
+msgid "Could not create faxproject"
+msgstr "Crea progetto"
 
 #. WARN_COUNTER_UNDERRUN
 #, fuzzy

@@ -1,8 +1,5 @@
 ----------------------------------------------------------------------------------
 
- - do not try to save inactive option settings to device rc file,
-   some backends do not answer with status invalid in this case.
-
  - preview selection does not fit exact the scanned image? (I can not reproduce
    this)
 
@@ -10,8 +7,6 @@
    - saving as png -> coredump
      it looks like this is caused by wrong png versions
      (old bug report, does anyown still have this problem?)
-
- - xsane crashes when backend sends more lines than reported while preview scanning
 
 If you have one of the problem above please contact me and tell me:
  - used xsane version
@@ -24,9 +19,9 @@ If you have one of the problem above please contact me and tell me:
  - used scanner
  - bit depth (lineart, 8bits/color or 16bits/color)
  - local scanner or via net backend
- - does the problem also occure when you do the same
+ - does the problem also occur when you do the same
    (if possible) with xscanimage?
 
-Mail to: Oliver.Rauch@rauch-domain.de
+Mail to: Oliver.Rauch@xsane.org
 
 ----------------------------------------------------------------------------------

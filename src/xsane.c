@@ -133,7 +133,6 @@ int xsane_scanmode_number[] = { XSANE_SAVE, XSANE_VIEWER, XSANE_COPY, XSANE_FAX,
 /* forward declarations: */
 
 static int xsane_option_defined(char *string);
-static int xsane_parse_options(char *options, char *argv[]);
 static void xsane_zoom_update(GtkAdjustment *adj_data, double *val);
 static void xsane_resolution_scale_update(GtkAdjustment *adj_data, double *val);
 static void xsane_threshold_changed(void);
@@ -157,6 +156,7 @@ static void xsane_show_gamma_callback(GtkWidget *widget);
 static void xsane_printer_callback(GtkWidget *widget, gpointer data);
 void xsane_pref_save(void);
 static int xsane_pref_restore(void);
+static RETSIGTYPE xsane_quit_handler(int signal);
 static void xsane_quit(void);
 static void xsane_exit(void);
 static gint xsane_standard_option_win_delete(GtkWidget *widget, gpointer data);
@@ -263,47 +263,6 @@ static int xsane_option_defined(char *string)
     }
   }
   return 0;
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static int xsane_parse_options(char *options, char *argv[])
-{
- int optpos = 0;
- int bufpos = 0;
- int arg    = 0;
- char buf[256];
-
-  DBG(DBG_proc, "xsane_parse_options\n");
-
-  while (options[optpos] != 0)
-  {
-    switch(options[optpos])
-    {
-      case ' ':
-        buf[bufpos] = 0;
-        argv[arg++] = strdup(buf);
-        bufpos = 0;
-        optpos++;
-       break;
-
-      case '\"':
-        optpos++; /* skip " */
-        while ((options[optpos] != 0) && (options[optpos] != '\"'))
-        {
-          buf[bufpos++] = options[optpos++];
-        }
-        optpos++; /* skip " */
-       break;
-
-      default:
-        buf[bufpos++] = options[optpos++];
-       break;
-    }
-  }
-  buf[bufpos] = 0;
-  argv[arg++] = strdup(buf);
-  return arg;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1668,7 +1627,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
    int i;
 
 
-    /* colormode */
+    /* scanmode */
     opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.scanmode);
     if (opt)
     {
@@ -1748,38 +1707,47 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
     }
 
 
-    /* medium selection */
-    hbox = gtk_hbox_new(FALSE, 2);
-    gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
-    gtk_box_pack_start(GTK_BOX(xsane_vbox_xsane_modus), hbox, FALSE, FALSE, 2);
-
-    pixmap = gdk_pixmap_create_from_xpm_d(xsane.histogram_dialog->window, &mask, xsane.bg_trans, (gchar **) medium_xpm);
-    pixmapwidget = gtk_pixmap_new(pixmap, mask);
-    gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
-    gdk_pixmap_unref(pixmap);
-    gtk_widget_show(pixmapwidget);
-
-    xsane_medium_menu = gtk_menu_new();
-
-    for (i=0; i<preferences.medium_definitions; i++)
+    if (xsane.param.depth != 1) /* show medium selection of not lineart mode */
     {
-      xsane_medium_item = gtk_menu_item_new_with_label(preferences.medium[i]->name);
-      gtk_menu_append(GTK_MENU(xsane_medium_menu), xsane_medium_item);
-      gtk_signal_connect(GTK_OBJECT(xsane_medium_item), "activate", (GtkSignalFunc) xsane_set_medium_callback, (void *)i);
-      gtk_widget_show(xsane_medium_item);
+      /* medium selection */
+      hbox = gtk_hbox_new(FALSE, 2);
+      gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
+      gtk_box_pack_start(GTK_BOX(xsane_vbox_xsane_modus), hbox, FALSE, FALSE, 2);
+
+      pixmap = gdk_pixmap_create_from_xpm_d(xsane.histogram_dialog->window, &mask, xsane.bg_trans, (gchar **) medium_xpm);
+      pixmapwidget = gtk_pixmap_new(pixmap, mask);
+      gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
+      gdk_pixmap_unref(pixmap);
+      gtk_widget_show(pixmapwidget);
+
+      xsane_medium_menu = gtk_menu_new();
+
+      for (i=0; i<preferences.medium_definitions; i++)
+      {
+        xsane_medium_item = gtk_menu_item_new_with_label(preferences.medium[i]->name);
+        gtk_menu_append(GTK_MENU(xsane_medium_menu), xsane_medium_item);
+        gtk_signal_connect(GTK_OBJECT(xsane_medium_item), "activate", (GtkSignalFunc) xsane_set_medium_callback, (void *)i);
+        gtk_widget_show(xsane_medium_item);
+      }
+
+      gtk_widget_show(xsane_medium_menu);
+
+      xsane_medium_option_menu = gtk_option_menu_new();
+      xsane_back_gtk_set_tooltip(xsane.tooltips, xsane_medium_option_menu, DESC_XSANE_MEDIUM);
+      gtk_box_pack_end(GTK_BOX(hbox), xsane_medium_option_menu, FALSE, FALSE, 2);
+      gtk_option_menu_set_menu(GTK_OPTION_MENU(xsane_medium_option_menu), xsane_medium_menu);
+      gtk_option_menu_set_history(GTK_OPTION_MENU(xsane_medium_option_menu), xsane.medium_nr);
+      gtk_widget_show(xsane_medium_option_menu);
+      gtk_widget_show(hbox);
+
+      xsane.medium_widget = xsane_medium_option_menu;
+
+      xsane_set_medium(preferences.medium[xsane.medium_nr]); /* set selected medium */
     }
-
-    gtk_widget_show(xsane_medium_menu);
-
-    xsane_medium_option_menu = gtk_option_menu_new();
-    xsane_back_gtk_set_tooltip(xsane.tooltips, xsane_medium_option_menu, DESC_XSANE_MEDIUM);
-    gtk_box_pack_end(GTK_BOX(hbox), xsane_medium_option_menu, FALSE, FALSE, 2);
-    gtk_option_menu_set_menu(GTK_OPTION_MENU(xsane_medium_option_menu), xsane_medium_menu);
-    gtk_option_menu_set_history(GTK_OPTION_MENU(xsane_medium_option_menu), xsane.medium_nr);
-    gtk_widget_show(xsane_medium_option_menu);
-    gtk_widget_show(hbox);
-
-    xsane.medium_widget = xsane_medium_option_menu;
+    else /* no medium selextion for lineart mode: use Full range gamma curve */
+    {
+      xsane_set_medium(preferences.medium[0]); /* make sure Full range is active */
+    }
   }
 
 
@@ -2189,7 +2157,17 @@ static int xsane_pref_restore(void)
 
   if (!preferences.tmp_path)
   {
-    preferences.tmp_path = strdup(STRINGIFY(TEMP_PATH));
+    if (getenv(STRINGIFY(ENVIRONMENT_TEMP_DIR_NAME))) /* if possible get temp path from environment */
+    {
+      preferences.tmp_path = strdup(getenv(STRINGIFY(ENVIRONMENT_TEMP_DIR_NAME)));
+      DBG(DBG_info, "setting temporary directory by environment variable %s: %s\n",
+          STRINGIFY(ENVIRONMENT_TEMP_DIR_NAME), preferences.tmp_path);
+    }
+    else /* otherwise use predefined path */
+    {
+      preferences.tmp_path = strdup(STRINGIFY(TEMP_PATH));
+      DBG(DBG_info, "setting temporary directory to %s\n", preferences.tmp_path);
+    }
   }
 
   if (!preferences.filename)
@@ -2280,6 +2258,20 @@ static int xsane_pref_restore(void)
   }
 #endif
 
+  if (!preferences.ocr_command)
+  {
+    preferences.ocr_command = strdup(OCRCOMMAND);
+  }
+
+  if (!preferences.ocr_inputfile_option)
+  {
+    preferences.ocr_inputfile_option = strdup(OCRINPUTFILEOPT);
+  }
+
+  if (!preferences.ocr_outputfile_option)
+  {
+    preferences.ocr_outputfile_option = strdup(OCROUTPUTFILEOPT);
+  }
 
   if (!preferences.doc_viewer)
   {
@@ -2291,6 +2283,16 @@ static int xsane_pref_restore(void)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static RETSIGTYPE xsane_quit_handler(int signal)
+{
+  DBG(DBG_proc, "xsane_quit_handler\n");
+
+  xsane_quit();
+}
+
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void xsane_quit(void)
 {
   DBG(DBG_proc, "xsane_quit\n");
@@ -2299,7 +2301,9 @@ static void xsane_quit(void)
   {
    Viewer *next_viewer = xsane.viewer_list->next_viewer; /* store pointer to next viewer */
 
+    DBG(DBG_info, "removing viewer image %s\n", xsane.viewer_list->filename);
     remove(xsane.viewer_list->filename); /* remove image file */
+
     gtk_widget_destroy(xsane.viewer_list->top); /* destroy the viewer window */
     free(xsane.viewer_list); /* free memory of struct Viewer */
 
@@ -2526,11 +2530,21 @@ static GtkWidget *xsane_files_build_menu(void)
 
 static void xsane_set_medium_callback(GtkWidget *widget, gpointer data)
 {
-  int medium_nr = (int) data;
+ int medium_nr = (int) data;
+
+  if (medium_nr != xsane.medium_nr)
+  {
+    xsane.medium_changed = TRUE;
+  }
 
   xsane.medium_nr = medium_nr;
 
   xsane_set_medium(preferences.medium[medium_nr]);
+
+  xsane_update_gamma_curve(TRUE); /* if necessary update preview gamma */
+
+  preview_display_valid(xsane.preview); /* update valid status of preview image */
+  /* the valid status depends on gamma handling an medium change */
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -3630,6 +3644,13 @@ void xsane_fax_project_save()
   projectfile = fopen(buf, "wb"); /* write binary (b for win32) */
   umask(XSANE_DEFAULT_UMASK); /* define new file permissions */    
 
+  if (!projectfile)
+  {
+    xsane_back_gtk_error(ERR_CREATE_FAX_PROJECT, TRUE);
+
+   return;
+  }
+
   if (xsane.fax_receiver)
   {
     fprintf(projectfile, "%s\n", xsane.fax_receiver); /* first line is receiver phone number or address */
@@ -4182,6 +4203,7 @@ static void xsane_fax_send()
     {
       free(arg[i]);
     }
+
     while (pid)
     {
      int status = 0;
@@ -6975,6 +6997,7 @@ static void xsane_device_dialog(void)
   xsane_device_preferences_restore();	/* restore device-settings */
   xsane_set_modus_defaults();
   xsane_update_param(0);
+  xsane_update_gamma_curve(TRUE);
 
   gtk_widget_realize(xsane.standard_options_shell); /* is needed for saving window geometry */
   gtk_widget_realize(xsane.advanced_options_shell);
@@ -7418,6 +7441,7 @@ static int xsane_init(int argc, char **argv)
     }
   }
 
+#ifndef HAVE_OS2_H
   if (!getuid()) /* root ? */
   {
     if (xsane_back_gtk_decision(ERR_HEADER_WARNING, (gchar **) warning_xpm, WARN_XSANE_AS_ROOT,
@@ -7426,6 +7450,7 @@ static int xsane_init(int argc, char **argv)
       return 2; /* User selected CANCEL */
     } 
   }
+#endif
 
   sane_init(&xsane.sane_backend_versioncode, (void *) xsane_authorization_callback);
 
@@ -7523,6 +7548,8 @@ static int xsane_init(int argc, char **argv)
 
 void xsane_interface(int argc, char **argv)
 {
+ struct SIGACTION act;
+
   DBG(DBG_proc, "xsane_interface\n");
 
   xsane.info_label = NULL;
@@ -7562,6 +7589,12 @@ void xsane_interface(int argc, char **argv)
     }
   }
 
+  /* define SIGTERM-handler to make sure that e.g. all temporary files are deleted */
+  /* when xsane gets a SIGTERM signal */
+  memset(&act, 0, sizeof(act));
+  act.sa_handler = xsane_quit_handler;
+  sigaction(SIGTERM, &act, 0);
+
   gtk_main();
   sane_exit();
 }
@@ -7599,9 +7632,9 @@ int main(int argc, char **argv)
   xsane.zoom             = 1.0;
   xsane.zoom_x           = 1.0;
   xsane.zoom_y           = 1.0;
-  xsane.resolution       = 0.0;
-  xsane.resolution_x     = 0.0;
-  xsane.resolution_y     = 0.0;
+  xsane.resolution       = 72.0;
+  xsane.resolution_x     = 72.0;
+  xsane.resolution_y     = 72.0;
   xsane.copy_number      = 1;
 
   xsane.medium_shadow_gray     = 0.0;
@@ -7617,6 +7650,7 @@ int main(int argc, char **argv)
   xsane.medium_gamma_green     = 1.0;
   xsane.medium_gamma_blue      = 1.0;
   xsane.medium_negative        = 0;
+  xsane.medium_changed         = FALSE;
 
   xsane.gamma            = 1.0;
   xsane.gamma_red        = 1.0;
@@ -7655,7 +7689,7 @@ int main(int argc, char **argv)
   xsane.histogram_int    = 1;
   xsane.histogram_log    = 1;
 
-  xsane.xsane_colors            = 3;
+  xsane.xsane_colors            = -1; /* unused value to make sure that change of this vlaue is detected */
   xsane.scanner_gamma_color     = FALSE;
   xsane.scanner_gamma_gray      = FALSE;
   xsane.enhancement_rgb_default = TRUE;

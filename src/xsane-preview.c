@@ -110,6 +110,11 @@ static u_char *histogram_gamma_data_red   = 0;
 static u_char *histogram_gamma_data_green = 0;
 static u_char *histogram_gamma_data_blue  = 0;
 
+/* histogram_medium_gamma_data_* is used when medium correction is done after preview-scan by xsane */
+static u_char *histogram_medium_gamma_data_red   = 0;
+static u_char *histogram_medium_gamma_data_green = 0;
+static u_char *histogram_medium_gamma_data_blue  = 0;
+
 static int preview_gamma_input_bits;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -180,14 +185,16 @@ static void preview_autoselect_scanarea_callback(GtkWidget *window, gpointer dat
 void preview_do_gamma_correction(Preview *p);
 void preview_calculate_raw_histogram(Preview *p, SANE_Int *count_raw, SANE_Int *count_raw_red, SANE_Int *count_raw_green, SANE_Int *count_raw_blue);
 void preview_calculate_enh_histogram(Preview *p, SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue);
-void preview_gamma_correction(Preview *p, int gamma_input_bits, 
+void preview_gamma_correction(Preview *p, int gamma_input_bits,
                               u_char *gamma_red, u_char *gamma_green, u_char *gamma_blue,
-                              u_char *gamma_red_hist, u_char *gamma_green_hist, u_char *gamma_blue_hist);
+                              u_char *gamma_red_hist, u_char *gamma_green_hist, u_char *gamma_blue_hist,
+                              u_char *medium_gamma_red_hist, u_char *medium_gamma_green_hist, u_char *medium_gamma_blue_hist);
 void preview_area_resize(Preview *p);
 gint preview_area_resize_handler(GtkWidget *widget, GdkEvent *event, gpointer data);
 void preview_update_maximum_output_size(Preview *p);
 void preview_set_maximum_output_size(Preview *p, float width, float height);
 void preview_autoselect_scanarea(Preview *p, float *autoselect_coord);
+void preview_display_valid(Preview *p);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -1473,12 +1480,19 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
     }
 
 
+    if (!p->scanning) /* preview scan may have been canceled while sane_read was executed */
+    {
+      return; /* ok, the scan has been canceled */
+    }
+
+
     if (status != SANE_STATUS_GOOD)
     {
       if (status == SANE_STATUS_EOF)
       {
         if (p->params.last_frame) /* got all preview image data */
         {
+          p->invalid = FALSE; /* preview is valid now */
           preview_scan_done(p, 1);     /* scan is done, save image */
          return; /* ok, all finished */
         }
@@ -1495,6 +1509,8 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
       }
       else if (status == SANE_STATUS_CANCELLED)
       {
+        p->invalid = FALSE; /* preview is valid now - although it is cancled */
+        p->scan_incomplete = TRUE; /* preview is incomplete */
         preview_scan_done(p, 1); /* save scanned part of the preview */
         snprintf(buf, sizeof(buf), "%s", XSANE_STRSTATUS(status));
         xsane_back_gtk_info(buf, TRUE);
@@ -1519,34 +1535,6 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
         switch (p->params.depth)
         {
           case 8:
-#if 0
-            if (!xsane.scanner_gamma_gray) /* medium gamma correction has to be done by xsane */
-            {
-             int val;
-
-              for (i = 0; i < len; ++i)
-              {
-                if (preview_test_image_y(p))
-                {
-                  return; /* backend sends too much image data */
-                }
-
-                val = p->gamma_data_gray[(int) buf[i]*256];
-
-                p->image_data_raw[p->image_offset]   = val;
-                p->image_data_enh[p->image_offset++] = (uchar) (val / 256);
-
-                if (p->image_offset%3 == 0)
-                {
-                  if (++p->image_x >= p->image_width && preview_increment_image_y(p) < 0)
-                  {
-                    return;
-                  }
-                }
-              }
-            }
-            else /* medium gamma correction is done by scanner */
-#endif
             {
               for (i = 0; i < len; ++i)
               {
@@ -1570,45 +1558,6 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
             break;
 
           case 16:
-#if 0
-            if (!xsane.scanner_gamma_color) /* medium gamma correction has to be done by xsane */
-            {
-             int val;
-
-              for (i = 0; i < len/2; ++i)
-              {
-                if (preview_test_image_y(p))
-                {
-                  return; /* backend sends too much image data */
-                }
-
-                if (p->image_offset%3 == 0)
-                {
-                  val = p->gamma_data_red[(int) buf16[i]];
-                }
-                else if (p->image_offset%3 == 1)
-                {
-                  val = p->gamma_data_green[(int) buf16[i]];
-                }
-                else
-                {
-                  val = p->gamma_data_blue[(int) buf16[i]];
-                }
-  
-                p->image_data_raw[p->image_offset]   = val;
-                p->image_data_enh[p->image_offset++] = (u_char) (val/256);
-  
-                if (p->image_offset%3 == 0)
-                {
-                  if (++p->image_x >= p->image_width && preview_increment_image_y(p) < 0)
-                  {
-                    return;
-                  }
-                }
-              }
-            }
-            else /* medium gamma correction is done by scanner */
-#endif
             {
               for (i = 0; i < len/2; ++i)
               {
@@ -1989,6 +1938,10 @@ static void preview_scan_start(Preview *p)
 
   DBG(DBG_proc, "preview_scan_start\n");
 
+  xsane.medium_changed = FALSE;
+
+  preview_display_valid(p);
+
   p->startimage = 0; /* we start the scan so lets say the startimage is not displayed any more */
 
   p->image_surface[0]   = p->surface[p->index_xmin];
@@ -2143,11 +2096,9 @@ static void preview_scan_start(Preview *p)
   p->selection.active = FALSE;
   p->previous_selection_maximum.active = FALSE;
 
-  p->scanning = TRUE;
-
 #ifndef BUGGY_GDK_INPUT_EXCEPTION
   /* for unix */
-  if (sane_set_io_mode(dev, SANE_TRUE) == SANE_STATUS_GOOD && sane_get_select_fd(dev, &fd) == SANE_STATUS_GOOD)
+  if ((sane_set_io_mode(dev, SANE_TRUE) == SANE_STATUS_GOOD) && (sane_get_select_fd(dev, &fd) == SANE_STATUS_GOOD))
   {
     p->input_tag = gdk_input_add(fd, GDK_INPUT_READ | GDK_INPUT_EXCEPTION, preview_read_image_data, p);
   }
@@ -3319,9 +3270,18 @@ static void preview_cancel_button_clicked(GtkWidget *widget, gpointer data)
  Preview *p = (Preview *) data;
 
   DBG(DBG_proc, "preview_cancel_button_clicked\n");
-  
+
   sane_cancel(xsane.dev);
   gtk_widget_set_sensitive(p->cancel, FALSE); /* disable cancel button */
+
+  /* we have to make sure that xsane does detect that the scan has been cancled */
+  /* but the select_fd does not make sure that preview_read_image_data is called */
+  /* when the select_fd is closed by the backend, so we have to make sure that */
+  /* preview_read_image_data is called */
+  preview_read_image_data(p, -1, GDK_INPUT_READ);
+
+  p->scan_incomplete = TRUE;
+  preview_display_valid(p);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -3421,6 +3381,8 @@ Preview *preview_new(void)
  GtkWidget *preset_area_option_menu;
  GtkWidget *rotation_option_menu, *rotation_menu, *rotation_item;
  GtkWidget *delete_images;
+ GdkBitmap *mask;
+ GdkPixmap *pixmap = NULL;
  Preview *p;
  int i;
  char buf[256];
@@ -3473,13 +3435,16 @@ Preview *preview_new(void)
   p->maximum_output_width  = INF; /* full output with */
   p->maximum_output_height = INF; /* full output height */
 
+  p->preview_colors = -1;
+  p->invalid = TRUE; /* no valid preview */
+
 #ifndef XSERVER_WITH_BUGGY_VISUALS
   gtk_widget_push_visual(gtk_preview_get_visual());
 #endif
   gtk_widget_push_colormap(gtk_preview_get_cmap());
 
   snprintf(buf, sizeof(buf), "%s %s", WINDOW_PREVIEW, xsane.device_text);
-  p->top = gtk_window_new(GTK_WINDOW_DIALOG);
+  p->top = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   gtk_window_set_title(GTK_WINDOW(p->top), buf);
   xsane_set_window_icon(p->top, 0);
   gtk_accel_group_attach(xsane.accelerator_group, GTK_OBJECT(p->top));
@@ -3648,18 +3613,43 @@ Preview *preview_new(void)
 
   /* fill in action area: */
 
+  /* the (in)valid pixmaps */
+  pixmap = gdk_pixmap_create_from_xpm_d(p->top->window, &mask, xsane.bg_trans, (gchar **) valid_xpm);
+  p->valid_pixmap = gtk_pixmap_new(pixmap, mask);
+  gtk_box_pack_start(GTK_BOX(hbox), p->valid_pixmap, FALSE, FALSE, 0);
+  gtk_widget_show(p->valid_pixmap);
+  gdk_pixmap_unref(pixmap);
+
+  pixmap = gdk_pixmap_create_from_xpm_d(p->top->window, &mask, xsane.bg_trans, (gchar **) scanning_xpm);
+  p->scanning_pixmap = gtk_pixmap_new(pixmap, mask);
+  gtk_box_pack_start(GTK_BOX(hbox), p->scanning_pixmap, FALSE, FALSE, 0);
+  gtk_widget_show(p->scanning_pixmap);
+  gdk_pixmap_unref(pixmap);
+
+  pixmap = gdk_pixmap_create_from_xpm_d(p->top->window, &mask, xsane.bg_trans, (gchar **) incomplete_xpm);
+  p->incomplete_pixmap = gtk_pixmap_new(pixmap, mask);
+  gtk_box_pack_start(GTK_BOX(hbox), p->incomplete_pixmap, FALSE, FALSE, 0);
+  gtk_widget_show(p->incomplete_pixmap);
+  gdk_pixmap_unref(pixmap);
+
+  pixmap = gdk_pixmap_create_from_xpm_d(p->top->window, &mask, xsane.bg_trans, (gchar **) invalid_xpm);
+  p->invalid_pixmap = gtk_pixmap_new(pixmap, mask);
+  gtk_box_pack_start(GTK_BOX(hbox), p->invalid_pixmap, FALSE, FALSE, 0);
+  gtk_widget_show(p->invalid_pixmap);
+  gdk_pixmap_unref(pixmap);
+
   /* Start button */
   p->start = gtk_button_new_with_label(BUTTON_PREVIEW_ACQUIRE);
   xsane_back_gtk_set_tooltip(xsane.tooltips, p->start, DESC_PREVIEW_ACQUIRE);
   gtk_signal_connect(GTK_OBJECT(p->start), "clicked", (GtkSignalFunc) preview_start_button_clicked, p);
-  gtk_box_pack_start(GTK_BOX(hbox), p->start, TRUE, TRUE, 0);
+  gtk_box_pack_start(GTK_BOX(hbox), p->start, TRUE, TRUE, 10);
   gtk_widget_add_accelerator(p->start, "clicked", xsane.accelerator_group, GDK_P, GDK_MOD1_MASK, GTK_ACCEL_LOCKED); /* Alt P */
 
   /* Cancel button */
   p->cancel = gtk_button_new_with_label(BUTTON_PREVIEW_CANCEL);
   xsane_back_gtk_set_tooltip(xsane.tooltips, p->cancel, DESC_PREVIEW_CANCEL);
   gtk_signal_connect(GTK_OBJECT(p->cancel), "clicked", (GtkSignalFunc) preview_cancel_button_clicked, p);
-  gtk_box_pack_start(GTK_BOX(hbox), p->cancel, TRUE, TRUE, 0);
+  gtk_box_pack_start(GTK_BOX(hbox), p->cancel, TRUE, TRUE, 10);
   gtk_widget_add_accelerator(p->cancel, "clicked", xsane.accelerator_group, GDK_Escape, GDK_MOD1_MASK, GTK_ACCEL_LOCKED); /* Alt ESC */
   gtk_widget_set_sensitive(p->cancel, FALSE);
 
@@ -3684,6 +3674,9 @@ Preview *preview_new(void)
 #endif
 
   preview_update_surface(p, 0);
+
+  preview_display_valid(p);
+
   return p;
 }
 
@@ -3966,8 +3959,9 @@ void preview_scan(Preview *p)
 
   preview_save_option(p, xsane.well_known.bit_depth, &p->saved_bit_depth, &p->saved_bit_depth_valid);
 
-
+#if 0
   xsane_set_medium(preferences.medium[xsane.medium_nr]); /* make sure medium gamma values are up to date */
+#endif
 
   /* determine dpi, if necessary: */
 
@@ -4058,9 +4052,17 @@ void preview_scan(Preview *p)
 #endif
 
   xsane.block_update_param = FALSE;
+  p->preview_colors  = xsane.xsane_colors;
+  p->scan_incomplete = FALSE;
+  p->invalid = TRUE; /* no valid preview */
+  p->scanning = TRUE;
+
+  preview_display_valid(p);
+
 
   xsane_clear_histogram(&xsane.histogram_raw);
   xsane_clear_histogram(&xsane.histogram_enh);
+
 
   /* OK, all set to go */
   preview_scan_start(p);
@@ -4524,6 +4526,8 @@ static void preview_delete_images_callback(GtkWidget *widget, gpointer call_data
   DBG(DBG_proc, "preview_delete_images_callback\n");
 
   preview_delete_images(p);
+  p->invalid = TRUE;
+  preview_display_valid(p);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -5230,16 +5234,35 @@ void preview_calculate_raw_histogram(Preview *p, SANE_Int *count_raw, SANE_Int *
       offset = 3 * (y * p->image_width + min_x);
       image_data_rawp = p->image_data_raw + offset;
 
-      for (x = min_x; x <= max_x; x++)
+      if (!histogram_medium_gamma_data_red) /* no medium gamma table for histogran */
       {
-        red_raw   = (*image_data_rawp++) >> 8; /* reduce from 16 to 8 bits */
-        green_raw = (*image_data_rawp++) >> 8;
-        blue_raw  = (*image_data_rawp++) >> 8;
+        for (x = min_x; x <= max_x; x++)
+        {
+          red_raw   = (*image_data_rawp++) >> 8; /* reduce from 16 to 8 bits */
+          green_raw = (*image_data_rawp++) >> 8;
+          blue_raw  = (*image_data_rawp++) >> 8;
 
-        count_raw      [(u_char) ((red_raw + green_raw + blue_raw)/3)]++;
-        count_raw_red  [red_raw]++;
-        count_raw_green[green_raw]++;
-        count_raw_blue [blue_raw]++;
+          count_raw      [(u_char) ((red_raw + green_raw + blue_raw)/3)]++;
+          count_raw_red  [red_raw]++;
+          count_raw_green[green_raw]++;
+          count_raw_blue [blue_raw]++;
+        }
+      }
+      else /* use medium gamma table for raw histogram */
+      {
+       int rotate = 16 - preview_gamma_input_bits;
+
+        for (x = min_x; x <= max_x; x++)
+        {
+          red_raw   = histogram_medium_gamma_data_red  [(*image_data_rawp++) >> rotate];
+          green_raw = histogram_medium_gamma_data_green[(*image_data_rawp++) >> rotate];
+          blue_raw  = histogram_medium_gamma_data_blue [(*image_data_rawp++) >> rotate];
+
+          count_raw      [(u_char) ((red_raw + green_raw + blue_raw)/3)]++;
+          count_raw_red  [red_raw]++;
+          count_raw_green[green_raw]++;
+          count_raw_blue [blue_raw]++;
+        }
       }
 
       if (p->gamma_functions_interruptable)
@@ -5285,7 +5308,8 @@ void preview_calculate_enh_histogram(Preview *p, SANE_Int *count, SANE_Int *coun
  u_char red, green, blue;
  SANE_Int min_x, max_x, min_y, max_y;
  float xscale, yscale;
- u_char *image_data_enhp;
+ guint16 *image_data_rawp;
+ int rotate = 16 - preview_gamma_input_bits;
  
   DBG(DBG_proc, "preview_calculate_enh_histogram\n");
 
@@ -5376,13 +5400,13 @@ void preview_calculate_enh_histogram(Preview *p, SANE_Int *count, SANE_Int *coun
     for (y = min_y; y <= max_y; y++)
     {
       offset = 3 * (y * p->image_width + min_x);
-      image_data_enhp = p->image_data_enh + offset;
+      image_data_rawp = p->image_data_raw + offset;
 
       for (x = min_x; x <= max_x; x++)
       {
-        red   = (*image_data_enhp++);
-        green = (*image_data_enhp++);
-        blue  = (*image_data_enhp++);
+        red   = histogram_gamma_data_red  [(*image_data_rawp++) >> rotate];
+        green = histogram_gamma_data_green[(*image_data_rawp++) >> rotate];
+        blue  = histogram_gamma_data_blue [(*image_data_rawp++) >> rotate];
 
 	count      [(u_char) ((red + green + blue)/3)]++;
 	count_red  [red]++;
@@ -5428,7 +5452,8 @@ void preview_calculate_enh_histogram(Preview *p, SANE_Int *count, SANE_Int *coun
 
 void preview_gamma_correction(Preview *p, int gamma_input_bits, 
                               u_char *gamma_red, u_char *gamma_green, u_char *gamma_blue,
-                              u_char *gamma_red_hist, u_char *gamma_green_hist, u_char *gamma_blue_hist)
+                              u_char *gamma_red_hist, u_char *gamma_green_hist, u_char *gamma_blue_hist,
+                              u_char *medium_gamma_red_hist, u_char *medium_gamma_green_hist, u_char *medium_gamma_blue_hist)
 {
   DBG(DBG_proc, "preview_gamma_correction\n");
 
@@ -5439,6 +5464,10 @@ void preview_gamma_correction(Preview *p, int gamma_input_bits,
   histogram_gamma_data_red   = gamma_red_hist;
   histogram_gamma_data_green = gamma_green_hist;
   histogram_gamma_data_blue  = gamma_blue_hist;
+
+  histogram_medium_gamma_data_red   = medium_gamma_red_hist;
+  histogram_medium_gamma_data_green = medium_gamma_green_hist;
+  histogram_medium_gamma_data_blue  = medium_gamma_blue_hist;
 
   preview_gamma_input_bits   = gamma_input_bits;
 
@@ -5883,6 +5912,50 @@ void preview_autoselect_scanarea(Preview *p, float *autoselect_coord)
     *(autoselect_coord+3) = p->image_surface[1] + right / xscale;
     *(autoselect_coord+0) = p->image_surface[0] + top / yscale;
     *(autoselect_coord+2) = p->image_surface[0] + bottom / yscale;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void preview_display_valid(Preview *p)
+{
+  DBG(DBG_proc, "preview_display_valid\n");
+
+  if (p->scanning)/* we are just scanning the preview */
+  {
+    DBG(DBG_info, "preview scanning\n");
+
+    gtk_widget_show(p->scanning_pixmap);
+    gtk_widget_hide(p->incomplete_pixmap);
+    gtk_widget_hide(p->valid_pixmap);
+    gtk_widget_hide(p->invalid_pixmap);
+  }
+  else if ((xsane.medium_changed) || (xsane.xsane_colors != p->preview_colors) || (p->invalid) ) /* preview is not valid */
+  {
+    DBG(DBG_info, "preview not vaild\n");
+
+    gtk_widget_show(p->invalid_pixmap);
+    gtk_widget_hide(p->scanning_pixmap);
+    gtk_widget_hide(p->incomplete_pixmap);
+    gtk_widget_hide(p->valid_pixmap);
+  }
+  else if (p->scan_incomplete)/* preview scan has been cancled */
+  {
+    DBG(DBG_info, "preview incomplete\n");
+
+    gtk_widget_show(p->incomplete_pixmap);
+    gtk_widget_hide(p->scanning_pixmap);
+    gtk_widget_hide(p->valid_pixmap);
+    gtk_widget_hide(p->invalid_pixmap);
+  }
+  else /* preview is valid */
+  {
+    DBG(DBG_info, "preview vaild\n");
+
+    gtk_widget_show(p->valid_pixmap);
+    gtk_widget_hide(p->scanning_pixmap);
+    gtk_widget_hide(p->incomplete_pixmap);
+    gtk_widget_hide(p->invalid_pixmap);
   }
 }
 

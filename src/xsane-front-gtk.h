@@ -32,6 +32,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+extern int xsane_parse_options(char *options, char *argv[]);
 extern void xsane_get_bounds(const SANE_Option_Descriptor *opt, double *minp, double *maxp);
 extern double xsane_find_best_resolution(int well_known_option, double dpi);
 extern int xsane_set_resolution(int well_known_option, double resolution);

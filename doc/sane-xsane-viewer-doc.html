@@ -1,9 +1,10 @@
 <html>
 <head>
    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.74 [en] (X11; U; Linux 2.2.18 i686) [Netscape]">
    <meta name="Author" content="Oliver Rauch">
    <meta name="Description" content="scan, photocopy and fax frontend for SANE">
-   <title>XSane - Enhancement setup</title>
+   <title>XSane - Scan mode</title>
 </head>
 <body text="#000000" bgcolor="#FFFFFF" link="#0000EF" vlink="#51188E" alink="#FF0000">
 
@@ -11,11 +12,11 @@
 <table>
 <tr>
 <td width=200>
-<img SRC="xsane-logo2.jpg" alt="XSane-logo" hspace=30 align=TOP>
+<img SRC="xsane-logo2.jpg" alt="XSane-logo" hspace=30 height=150 width=128 align=TOP>
 </td>
 <td>
 <blockquote>
-<h1><font color="#009900">Enhancement setup</font></h1>
+<h1><font color="#009900">Main window in viewer mode</font></h1>
 </blockquote>
 </td>
 </tr>
@@ -99,85 +100,106 @@
 <td VALIGN=TOP BGCOLOR="#FFFFFF">
 <blockquote>
 <br>
-You open the setup window via the menu <i>preferences/setup</i> in the
-main window of xsane.
-<br>
-<br>   
-<br>
-<center><img SRC="xsane-setup-enhancement.jpg" alt="XSane-setup-enhancement-window"></center>
+In the viewer mode an image is scanned and displayed in the viewer.
 <br>
 <br>
-<h4>THRESHOLD OPTION:</h4>
+<br>
+<center><img SRC="xsane-viewer.jpg" alt="XSane-main-window"></center>
+<br>
+<br>
+
+<img SRC="xsane-colormode.jpg" alt="colormode">
+&nbsp;&nbsp;
+<b>Scanmode:</b>
 <blockquote>
-There are three options available:
-<ul>
-<li><b>Standard options window (lineart)</b></li>
-</ul>
-<blockquote>
-The threshold option is kept untouched. If the backend makes
-available a "threshold" option you find it in the standard or advanced
-options window. You have to do a new preview scan to see changes of the
-threshold value.
+Select scanmode, e.g.: color, grayscale, halftone, lineart.
 </blockquote>
 
-<ul>
-<li><b>XSane main window (lineart)</b></li>
-</ul>
+<img SRC="xsane-scansource.jpg" alt="scansource">
+&nbsp;&nbsp;
+<b>Scansource:</b>
 <blockquote>
-If the backend makes available a "threshold" option it is moved
-to the main window. The value range is normalized (see
-<i>THRESHOLD MINIMUM, MAXIMUM, MULTIPLIER, OFFSET</i>).
-You have to do a new preview scan to see changes of the threshold value.
+Select scansource, e.g.: Flatbed, Transparency, Automatic Document Feeder.
 </blockquote>
 
-<ul>
-<li><b>XSane main window (grayscale->lineart)</b></li>
-</ul>
+<img SRC="xsane-medium.jpg" alt="medium">
+&nbsp;&nbsp;
+<b>Scanmedium:</b>
 <blockquote>
-If the backend makes available a "threshold" option it is moved
-to the main window. The preview scan is done in grayscale mode (see
-<i>NAME OF GRAYSCALE SCANMODE</i>) and transformed to black/white. Changes
-of the threshold value are visible in the preview window without a new preview
-scan. The value range of the threshold option is normalized (see
-<i>THRESHOLD MINIMUM, MAXIMUM, MULTIPLIER, OFFSET</i>).
+Select scanmedium, e.g.: <i>slide</i>, <i>standard negative</i>,
+<i>Agfa negative</i>, ... or <i>Full range</i>.
+</blockquote>                                                                                                           
+
+<img SRC="xsane-resolution.jpg" alt="resolution">
+&nbsp;&nbsp;
+<b>Scan resolution:</b>
+<blockquote>
+Select resolution that is used for scanning. If the backends makes available a
+range of resolutions (e.g. 100-600 dpi) XSane can display a slider or a
+list of resolutions. You select this via <i>Preferences/Show resolution list</i>.
+<br>
+The backend can define a list of resolutions insted of a range, in this
+case it is not possible to enable the slider.
+<p>
+To select exact resolutions with the slider click the slider with the mouse pointer
+and use the cursor keys to change the value in steps of 1, if you press <i>ctrl</i>
+and a cursor key the step is 10.
 </blockquote>
-</blockquote>
+<br>
+<br>
+<b>The viewer window:</b>
+<blockquote>
+When the image is scanned it is displayed in the viewer window:
 </blockquote>
 
-<h4>THRESHOLD MINIMUM, MAXIMUM, MULTIPLIER, OFFSET:</h4>
+<center><img SRC="xsane-viewer-window.jpg" alt="XSane-viewer-window"></center>
+<br>
+<br>
+<img SRC="xsane-disk.jpg" alt="save image">
+&nbsp;&nbsp;
+<b>Save image:</b>
 <blockquote>
-These values are used to make the threshold function of the
-backends work the same way XSane does handle it. This is:
-<b>the threshold value defines the brightness level in % that is needed
-to get a white point.  A value of 0% creates a totally white image, a value
-of 100% creates a totally black image.</b>
-<br>
-If the threshold function of the backend does not cover the full range
-(0-100% = white...black), you can reduce the range with the values MINIMUM
-and MAXIMUM. If the backend defines another value range (e.g 0-255 ) you
-have to enter a MULTIPLIER (2.55 for rang 0-255), with the OFFSET value
-you can shift the range linear.
-<br>
-<br>
-<b>The calculation is:</b>
-<blockquote>
-<b>backend_threshold = OFFSET + MULTIPLIER * xsane_threshold</b>
-</blockquote>
-<b>where the user can select xsane_threshold in the range from MINIMUM to MAXIMUM.</b>
+Save image to disk. If the path, filename and filetype is not defined, a dialog
+opens that allows selecting path, filename and filetype.
 </blockquote>
 
-<h4>NAME OF GRAYSCALE SCANMODE:</h4>
+<img SRC="xsane-clone.jpg" alt="clone image">
+&nbsp;&nbsp;
+<b>Clone image:</b>
 <blockquote>
-If you want to do a grayscale previewscan when lineart scanmode
-is selected, you have to tell xsane the name of the grayscale mode. This
-is because the scanmode is defined by the backend and differen backends
-may use different names. You have to enter the original name (not translated)
-case sensitive (take a look at the scanmode selection menu in the xsane
-main window).
-<br>
-The name should be something like
+Creates a new viewer window with a copy of the displayed image.
+</blockquote>
+
+<img SRC="xsane-despeckle.jpg" alt="despeckle image">
+&nbsp;&nbsp;
+<b>Despeckle image:</b>
 <blockquote>
-<b><i>Gray</i></b>
+Removes spots from the displayed image that is scanned from a rastered original
+like a magazine.
+</blockquote>
+
+<img SRC="xsane-blur.jpg" alt="blur image">
+&nbsp;&nbsp;
+<b>Blur image:</b>
+<blockquote>
+Blur displayed image.
+</blockquote>
+
+<img SRC="xsane-rotate-90.jpg" alt="rotate image 90 degree">
+<img SRC="xsane-rotate-180.jpg" alt="rotate image 180 degree">
+<img SRC="xsane-rotate-270.jpg" alt="rotate image 270 degree">
+&nbsp;&nbsp;
+<b>Rotate image 90, 180, 270 degree:</b>
+<blockquote>
+Rotates the image by 90, 180 or 270 degree (clockwise).
+</blockquote>
+
+<img SRC="xsane-mirror-x.jpg" alt="mirror image at vertical axis">
+<img SRC="xsane-mirror-y.jpg" alt="mirror image at horizontal axis">
+&nbsp;&nbsp;
+<b>Mirror image at vertical or horizontal axis:</b>
+<blockquote>
+Mirrors the image at vertical or horizonral axis.
 </blockquote>
 
 </blockquote>
@@ -193,3 +215,4 @@ Author: <a href="mailto:Oliver.Rauch@xsane.org">Oliver Rauch</a>
 
 </body>
 </html>
+

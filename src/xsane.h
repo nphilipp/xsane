@@ -32,7 +32,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.80"
+#define XSANE_VERSION		"0.81"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2001"
@@ -61,6 +61,10 @@
 
 #ifndef ENVIRONMENT_HOME_DIR_NAME
 # define ENVIRONMENT_HOME_DIR_NAME HOME
+#endif
+
+#ifndef ENVIRONMENT_TEMP_DIR_NAME
+# define ENVIRONMENT_TEMP_DIR_NAME TMP
 #endif
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -312,6 +316,9 @@ extern void xsane_mail_project_save(void);
 #define MAILPROJECT 	    	"mailproject"
 #define MAILCOMMAND 	 	"sendmail"
 #define MAILVIEWER 	 	"xv"
+#define OCRCOMMAND 	 	"gocr"
+#define OCRINPUTFILEOPT	 	"-i"
+#define OCROUTPUTFILEOPT	"-o"
 #define DOCVIEWER_NETSCAPE	"netscape"
 #define DOCVIEWER 	 	DOCVIEWER_NETSCAPE
 
@@ -430,6 +437,9 @@ typedef struct Xsane
     GSGDialogElement *element;
     u_int rebuild : 1;
     int pixelcolor;
+    int scanning;
+    int reading_data;
+    int cancel_scan;
 
 /* free gamma curve widgets */
     GtkWidget *gamma_curve_gray;
@@ -608,6 +618,7 @@ typedef struct Xsane
     SANE_Int *gamma_data, *gamma_data_red, *gamma_data_green, *gamma_data_blue;
     u_char *preview_gamma_data_red, *preview_gamma_data_green, *preview_gamma_data_blue;
     u_char *histogram_gamma_data_red, *histogram_gamma_data_green, *histogram_gamma_data_blue;
+    u_char *histogram_medium_gamma_data_red, *histogram_medium_gamma_data_green, *histogram_medium_gamma_data_blue;
 
     char *fax_filename;
     char *fax_receiver;
@@ -665,6 +676,8 @@ typedef struct Xsane
     double medium_highlight_blue;
 
     int medium_negative;
+
+    int medium_changed;
 
     double gamma;
     double gamma_red;
@@ -772,6 +785,10 @@ typedef struct XsaneSetup
   GtkWidget *mail_pop3_user_entry;
   GtkWidget *mail_pop3_pass_entry;
   GtkWidget *mail_viewer_entry;
+
+  GtkWidget *ocr_command_entry;
+  GtkWidget *ocr_inputfile_option_entry;
+  GtkWidget *ocr_outputfile_option_entry;
 
   int filename_counter_len;
 

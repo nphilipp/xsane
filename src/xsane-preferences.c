@@ -76,6 +76,9 @@ Preferences preferences =
        0,               /* no default pop3 passsword */
        0,		/* no mail project */
        0,		/* no mail viewer */
+       0,		/* no default ocrcommand */
+       0,		/* no default ocr input file option */
+       0,		/* no default ocr output file option */
        0,		/* no doc viewer */
       80.0,		/* jpeg_quality */
        7.0,		/* png_compression */
@@ -166,6 +169,9 @@ desc[] =
     {"mail-pop3-pass",			xsane_rc_pref_string,	POFFSET(mail_pop3_pass)},
     {"mail-project",			xsane_rc_pref_string,	POFFSET(mail_project)},
     {"mail-viewert",			xsane_rc_pref_string,	POFFSET(mail_viewer)},
+    {"ocr-command",			xsane_rc_pref_string,	POFFSET(ocr_command)},
+    {"ocr-inputfile-option",		xsane_rc_pref_string,	POFFSET(ocr_inputfile_option)},
+    {"ocr-outputfile-options",		xsane_rc_pref_string,	POFFSET(ocr_outputfile_option)},
     {"doc-viewer",			xsane_rc_pref_string,	POFFSET(doc_viewer)},
     {"jpeg-quality",			xsane_rc_pref_double,	POFFSET(jpeg_quality)},
     {"png-compression",			xsane_rc_pref_double, 	POFFSET(png_compression)},

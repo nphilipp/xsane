@@ -120,6 +120,8 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
 
   DBG(DBG_proc, "xsane_read_image_data\n");
 
+  xsane.reading_data = TRUE;
+
   if ( (xsane.param.depth == 1) || (xsane.param.depth == 8) )
   {
    unsigned char buf8[2*32768];
@@ -129,6 +131,11 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
 
     while (1)
     {
+      if (xsane.cancel_scan)
+      {
+        break; /* leave while loop */
+      }
+
       status = sane_read(dev, (SANE_Byte *) buf8, sizeof(buf8), &len);
 
       DBG(DBG_info, "sane_read returned with status %s\n", XSANE_STRSTATUS(status));
@@ -169,7 +176,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
         return;
       }
 
-      if (!len)
+      if (!len) /* nothing read */
       {
         break; /* out of data for now, leave while loop */
       }
@@ -177,6 +184,8 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
       xsane.bytes_read += len;
       xsane_progress_update(xsane.bytes_read / (gfloat) xsane.num_bytes);
 
+      /* it is not allowed to call gtk_main_iteration when we have gdk_input active */
+      /* because xsan_read_image_data will be called several times */
       if (xsane.input_tag < 0)
       {
         while (gtk_events_pending())
@@ -315,11 +324,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
               for (i = 0; i < len; ++i)
               {
                 val = gamma[(int) buf8[i]];
-#if 0
-                fwrite(&val, 1, 1, xsane.out);
-#else
                 fputc(val, xsane.out);
-#endif
                 fseek(xsane.out, 2, SEEK_CUR);
               }
             }
@@ -327,11 +332,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
             {
               for (i = 0; i < len; ++i)
               {
-#if 0
-                fwrite(&buf8[i], 1, 1, xsane.out);
-#else
                 fputc(buf8[i], xsane.out);
-#endif
                 fseek(xsane.out, 2, SEEK_CUR);
               }
             }
@@ -410,6 +411,11 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
 
     while (1)
     {
+      if (xsane.cancel_scan)
+      {
+        break; /* leave while loop */
+      }
+
       if (offset) /* if we have had an odd number of bytes */
       {
         buf16[0] = last;  /* ATTENTION: that is wrong! */
@@ -423,6 +429,13 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
       {
         status = sane_read(dev, (SANE_Byte *) buf16, sizeof(buf16), &len);
       }
+
+
+      if (!xsane.scanning) /* scan may have been canceled while sane_read was executed */
+      {
+        return; /* ok, the scan has been canceled */
+      }
+
 
       if (len % 2) /* odd number of bytes */
       {
@@ -779,7 +792,16 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
     return;
   }
 
-  return;
+  if (xsane.cancel_scan)
+  {
+    xsane.cancel_scan = FALSE; /* make sure we do not get an infinite loop */
+    
+    xsane_read_image_data(0, -1, GDK_INPUT_READ);
+  }
+
+  xsane.reading_data = FALSE;
+
+ return;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -895,6 +917,14 @@ void xsane_scan_done(SANE_Status status)
  Image_info image_info;
 
   DBG(DBG_proc, "xsane_scan_done\n");
+
+  if (!xsane.scanning)
+  {
+    return;
+  }
+
+  xsane.reading_data = FALSE;
+  xsane.scanning = FALSE; /* set marker that sane_start is called */
 
   if (xsane.input_tag >= 0)
   {
@@ -1131,6 +1161,8 @@ void xsane_scan_done(SANE_Status status)
         { 
           gtk_main_iteration();
         }
+
+        remove(xsane.dummy_filename);
       }
     }
     else if (xsane.xsane_mode == XSANE_COPY)
@@ -1139,140 +1171,140 @@ void xsane_scan_done(SANE_Status status)
      FILE *infile;
      char buf[256];
 
-       DBG(DBG_info, "XSANE_COPY\n");
+      DBG(DBG_info, "XSANE_COPY\n");
 
-       xsane_update_int(xsane.copy_number_entry, &xsane.copy_number); /* get number of copies */
-       if (xsane.copy_number < 1)
-       {
-         xsane.copy_number = 1;
-       }
+      xsane_update_int(xsane.copy_number_entry, &xsane.copy_number); /* get number of copies */
+      if (xsane.copy_number < 1)
+      {
+        xsane.copy_number = 1;
+      }
 
-       /* open progressbar */
-       xsane_progress_new(PROGRESS_CONVERTING_DATA, PROGRESS_TRANSFERING_DATA, (GtkSignalFunc) xsane_cancel_save, &xsane.cancel_save);
+      /* open progressbar */
+      xsane_progress_new(PROGRESS_CONVERTING_DATA, PROGRESS_TRANSFERING_DATA, (GtkSignalFunc) xsane_cancel_save, &xsane.cancel_save);
 
-       while (gtk_events_pending())
-       {
-         gtk_main_iteration();
-       }
+      while (gtk_events_pending())
+      {
+        gtk_main_iteration();
+      }
 
-       xsane.broken_pipe = 0;
-       infile = fopen(xsane.dummy_filename, "rb"); /* read binary (b for win32) */
+      xsane.broken_pipe = 0;
+      infile = fopen(xsane.dummy_filename, "rb"); /* read binary (b for win32) */
 
-       snprintf(buf, sizeof(buf), "%s %s%d", preferences.printer[preferences.printernr]->command,
-                                             preferences.printer[preferences.printernr]->copy_number_option,
-                                             xsane.copy_number);
-       outfile = popen(buf, "w");
-/*       outfile = popen(preferences.printer[preferences.printernr]->command, "w"); */
-       if ((outfile != 0) && (infile != 0)) /* copy mode, use zoom size */
-       {
-        struct SIGACTION act;
-        float imagewidth, imageheight;
-        int printer_resolution;
+      snprintf(buf, sizeof(buf), "%s %s%d", preferences.printer[preferences.printernr]->command,
+                                            preferences.printer[preferences.printernr]->copy_number_option,
+                                            xsane.copy_number);
+      outfile = popen(buf, "w");
+/*      outfile = popen(preferences.printer[preferences.printernr]->command, "w"); */
+      if ((outfile != 0) && (infile != 0)) /* copy mode, use zoom size */
+      {
+       struct SIGACTION act;
+       float imagewidth, imageheight;
+       int printer_resolution;
 
          switch (xsane.param.format)
-         {
-           case SANE_FRAME_GRAY:
-             if (xsane.depth == 1)
-             {
-               printer_resolution = preferences.printer[preferences.printernr]->lineart_resolution;
-             }
-             else
-             {
-               printer_resolution = preferences.printer[preferences.printernr]->grayscale_resolution;
-             }
-           break; /* switch format == SANE_FRAME_GRAY */
+        {
+          case SANE_FRAME_GRAY:
+            if (xsane.depth == 1)
+            {
+              printer_resolution = preferences.printer[preferences.printernr]->lineart_resolution;
+            }
+            else
+            {
+              printer_resolution = preferences.printer[preferences.printernr]->grayscale_resolution;
+            }
+          break; /* switch format == SANE_FRAME_GRAY */
 
-           case SANE_FRAME_RGB:
-           case SANE_FRAME_RED:
-           case SANE_FRAME_GREEN:
-           case SANE_FRAME_BLUE:
-           default:
-             printer_resolution = preferences.printer[preferences.printernr]->color_resolution;
-           break; /* switch format == SANE_FRAME_{color} */
-         }        
+          case SANE_FRAME_RGB:
+          case SANE_FRAME_RED:
+          case SANE_FRAME_GREEN:
+          case SANE_FRAME_BLUE:
+          default:
+            printer_resolution = preferences.printer[preferences.printernr]->color_resolution;
+          break; /* switch format == SANE_FRAME_{color} */
+        }        
 
-         xsane_read_pnm_header(infile, &image_info);
+        xsane_read_pnm_header(infile, &image_info);
 
-         imagewidth  = image_info.image_width/(float)printer_resolution; /* width in inch */
-         imageheight = image_info.image_height/(float)printer_resolution; /* height in inch */
+        imagewidth  = image_info.image_width/(float)printer_resolution; /* width in inch */
+        imageheight = image_info.image_height/(float)printer_resolution; /* height in inch */
 
-         memset (&act, 0, sizeof (act)); /* define broken pipe handler */
-         act.sa_handler = xsane_sigpipe_handler;
-         sigaction (SIGPIPE, &act, 0);
+        memset (&act, 0, sizeof (act)); /* define broken pipe handler */
+        act.sa_handler = xsane_sigpipe_handler;
+        sigaction (SIGPIPE, &act, 0);
 
 
-         if (preferences.psrotate) /* rotate: landscape */
-         {
-           xsane_save_ps(outfile, infile,
-                         &image_info,
-                         (preferences.printer[preferences.printernr]->bottomoffset +
-                          preferences.printer[preferences.printernr]->height) * 36.0/MM_PER_INCH - imagewidth * 36.0, /* left edge */
-                         (preferences.printer[preferences.printernr]->leftoffset +
-                          preferences.printer[preferences.printernr]->width) * 36.0/MM_PER_INCH - imageheight * 36.0, /* bottom edge */
-                          imagewidth, imageheight,
-                         (preferences.printer[preferences.printernr]->leftoffset +
-                          preferences.printer[preferences.printernr]->width ) * 72.0/MM_PER_INCH,  /* paperwidth */
-                         (preferences.printer[preferences.printernr]->bottomoffset +
-                          preferences.printer[preferences.printernr]->height) * 72.0/MM_PER_INCH, /* paperheight */
-                         1 /* landscape */,
-                         xsane.progress_bar,
-                         &xsane.cancel_save);
-         }
-         else /* do not rotate: portrait */
-         {
-           xsane_save_ps(outfile, infile,
-                         &image_info,
-                         (preferences.printer[preferences.printernr]->leftoffset +
-                          preferences.printer[preferences.printernr]->width) * 36.0/MM_PER_INCH - imagewidth * 36.0, /* left edge */
-                         (preferences.printer[preferences.printernr]->bottomoffset +
-                          preferences.printer[preferences.printernr]->height) * 36.0/MM_PER_INCH - imageheight * 36.0, /* bottom edge */
-                         imagewidth, imageheight,
-                         (preferences.printer[preferences.printernr]->leftoffset +
-                          preferences.printer[preferences.printernr]->width ) * 72.0/MM_PER_INCH,  /* paperwidth */
-                         (preferences.printer[preferences.printernr]->bottomoffset +
-                          preferences.printer[preferences.printernr]->height) * 72.0/MM_PER_INCH, /* paperheight */
-                         0 /* portrait */,
-                         xsane.progress_bar,
-                         &xsane.cancel_save);
-         }
-       }
-       else
-       {
-        char buf[256];
+        if (preferences.psrotate) /* rotate: landscape */
+        {
+          xsane_save_ps(outfile, infile,
+                        &image_info,
+                        (preferences.printer[preferences.printernr]->bottomoffset +
+                         preferences.printer[preferences.printernr]->height) * 36.0/MM_PER_INCH - imagewidth * 36.0, /* left edge */
+                        (preferences.printer[preferences.printernr]->leftoffset +
+                         preferences.printer[preferences.printernr]->width) * 36.0/MM_PER_INCH - imageheight * 36.0, /* bottom edge */
+                        imagewidth, imageheight,
+                        (preferences.printer[preferences.printernr]->leftoffset +
+                         preferences.printer[preferences.printernr]->width ) * 72.0/MM_PER_INCH,  /* paperwidth */
+                        (preferences.printer[preferences.printernr]->bottomoffset +
+                         preferences.printer[preferences.printernr]->height) * 72.0/MM_PER_INCH, /* paperheight */
+                        1 /* landscape */,
+                        xsane.progress_bar,
+                        &xsane.cancel_save);
+        }
+        else /* do not rotate: portrait */
+        {
+          xsane_save_ps(outfile, infile,
+                        &image_info,
+                        (preferences.printer[preferences.printernr]->leftoffset +
+                         preferences.printer[preferences.printernr]->width) * 36.0/MM_PER_INCH - imagewidth * 36.0, /* left edge */
+                        (preferences.printer[preferences.printernr]->bottomoffset +
+                         preferences.printer[preferences.printernr]->height) * 36.0/MM_PER_INCH - imageheight * 36.0, /* bottom edge */
+                        imagewidth, imageheight,
+                        (preferences.printer[preferences.printernr]->leftoffset +
+                         preferences.printer[preferences.printernr]->width ) * 72.0/MM_PER_INCH,  /* paperwidth */
+                        (preferences.printer[preferences.printernr]->bottomoffset +
+                         preferences.printer[preferences.printernr]->height) * 72.0/MM_PER_INCH, /* paperheight */
+                        0 /* portrait */,
+                        xsane.progress_bar,
+                        &xsane.cancel_save);
+        }
+      }
+      else
+      {
+       char buf[256];
 
-         if (!infile)
-         {
-           snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, xsane.output_filename, strerror(errno));
-           xsane_back_gtk_error(buf, TRUE);
-         }
-         else if (!outfile)
-         {
-           xsane_back_gtk_error(ERR_FAILED_PRINTER_PIPE, TRUE);
-         }
-       }
+        if (!infile)
+        {
+          snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, xsane.output_filename, strerror(errno));
+          xsane_back_gtk_error(buf, TRUE);
+        }
+        else if (!outfile)
+        {
+          xsane_back_gtk_error(ERR_FAILED_PRINTER_PIPE, TRUE);
+        }
+      }
 
-       if (xsane.broken_pipe)
-       {
-         snprintf(buf, sizeof(buf), "%s \"%s\"", ERR_FAILED_EXEC_PRINTER_CMD, preferences.printer[preferences.printernr]->command);
-         xsane_back_gtk_error(buf, TRUE);
-       }
+      if (xsane.broken_pipe)
+      {
+        snprintf(buf, sizeof(buf), "%s \"%s\"", ERR_FAILED_EXEC_PRINTER_CMD, preferences.printer[preferences.printernr]->command);
+        xsane_back_gtk_error(buf, TRUE);
+      }
 
-       xsane_progress_clear();
-       while (gtk_events_pending())
-       {
-         gtk_main_iteration();
-       }
+      xsane_progress_clear();
+      while (gtk_events_pending())
+      {
+        gtk_main_iteration();
+      }
 
-       if (infile)
-       {
-         fclose(infile);
-         remove(xsane.dummy_filename);
-       }
+      if (infile)
+      {
+        fclose(infile);
+        remove(xsane.dummy_filename);
+      }
 
-       if (outfile)
-       {
-         pclose(outfile);
-       }
+      if (outfile)
+      {
+        pclose(outfile);
+      }
     }
     else if (xsane.xsane_mode == XSANE_FAX)
     {
@@ -1382,7 +1414,7 @@ void xsane_scan_done(SANE_Status status)
        {
          xsane_read_pnm_header(infile, &image_info);
 
-         xsane_save_image_as(xsane.mail_filename, xsane.output_filename, XSANE_PNG, xsane.progress_bar, &xsane.cancel_save);
+         xsane_save_image_as(xsane.dummy_filename, xsane.mail_filename, XSANE_PNG, xsane.progress_bar, &xsane.cancel_save);
 
          fclose(infile);
          remove(xsane.dummy_filename);
@@ -1391,9 +1423,9 @@ void xsane_scan_done(SANE_Status status)
        {
         char buf[256];
 
-         DBG(DBG_info, "open of mailfile `%s'failed : %s\n", xsane.mail_filename, strerror(errno));
+         DBG(DBG_info, "open of mailfile `%s'failed : %s\n", xsane.dummy_filename, strerror(errno));
 
-         snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, xsane.mail_filename, strerror(errno));
+         snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, xsane.dummy_filename, strerror(errno));
          xsane_back_gtk_error(buf, TRUE);
        }
        xsane_progress_clear();
@@ -1512,11 +1544,32 @@ void xsane_scan_done(SANE_Status status)
 void xsane_cancel(void)
 {
   DBG(DBG_proc, "xsane_cancel\n");
+
+  if (!xsane.scanning)
+  {
+    return;
+  }
+
   sane_cancel(xsane.dev);
+
+  /* we have to make sure that xsane does detect that the scan has been cancled */
+  /* but the select_fd does not make sure that preview_read_image_data is called */
+  /* when the select_fd is closed by the backend, so we have to make sure that */
+  /* preview_read_image_data is called */
+
+  if (xsane.reading_data) /* we are still reading data, set flag for cancel */
+  {
+    xsane.cancel_scan = TRUE;
+  }
+  else /* we are not reading image data, so we have to call it now */
+  {
+    xsane_read_image_data(0, -1, GDK_INPUT_READ);
+  }
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+/* xsane_start_scan is called 3 times in 3 pass scanning mode */
 static void xsane_start_scan(void)
 {
  SANE_Status status;
@@ -1528,9 +1581,10 @@ static void xsane_start_scan(void)
 
   DBG(DBG_proc, "xsane_start_scan\n");
 
-  xsane_clear_histogram(&xsane.histogram_raw);
-  xsane_clear_histogram(&xsane.histogram_enh);    
-  xsane_set_sensitivity(FALSE);
+  while (gtk_events_pending())
+  {
+    gtk_main_iteration();
+  }
 
   status = sane_start(dev);
   DBG(DBG_info, "sane_start returned with status %s\n", XSANE_STRSTATUS(status));
@@ -1541,7 +1595,7 @@ static void xsane_start_scan(void)
     snprintf(buf, sizeof(buf), "%s %d", TEXT_ADF_PAGES_SCANNED, xsane.adf_page_counter);
     xsane_back_gtk_info(buf, FALSE);
     xsane.adf_page_counter = 0;
-    return;
+   return;
   }
   else if (status != SANE_STATUS_GOOD) /* error */
   {
@@ -1549,7 +1603,7 @@ static void xsane_start_scan(void)
     snprintf(buf, sizeof(buf), "%s %s", ERR_FAILED_START_SCANNER, XSANE_STRSTATUS(status));
     xsane_back_gtk_error(buf, TRUE);
     xsane.adf_page_counter = 0;
-    return;
+   return;
   }
 
   status = sane_get_parameters(dev, &xsane.param);
@@ -1559,7 +1613,7 @@ static void xsane_start_scan(void)
     snprintf(buf, sizeof(buf), "%s %s", ERR_FAILED_GET_PARAMS, XSANE_STRSTATUS(status));
     xsane_back_gtk_error(buf, TRUE);
     xsane.adf_page_counter = 0;
-    return;
+   return;
   }
 
   xsane.depth = xsane.param.depth; /* bit depth for saving, can be changed: 1->8, 16->8 */
@@ -1666,11 +1720,16 @@ static void xsane_start_scan(void)
   snprintf(buf, sizeof(buf), PROGRESS_RECEIVING_FRAME_DATA, _(frame_type));
   xsane_progress_new(buf, PROGRESS_SCANNING, (GtkSignalFunc) xsane_cancel, NULL);
 
+  while (gtk_events_pending())
+  {
+    gtk_main_iteration();
+  }
+
   xsane.input_tag = -1;
 
 #ifndef BUGGY_GDK_INPUT_EXCEPTION
   /* for unix */
-  if (sane_set_io_mode(dev, SANE_TRUE) == SANE_STATUS_GOOD && sane_get_select_fd(dev, &fd) == SANE_STATUS_GOOD)
+  if ((sane_set_io_mode(dev, SANE_TRUE) == SANE_STATUS_GOOD) && (sane_get_select_fd(dev, &fd) == SANE_STATUS_GOOD))
   {
     DBG(DBG_info, "gdk_input_add\n");
     xsane.input_tag = gdk_input_add(fd, GDK_INPUT_READ | GDK_INPUT_EXCEPTION, xsane_read_image_data, 0);
@@ -1699,8 +1758,6 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
   xsane.reduce_16bit_to_8bit = preferences.reduce_16bit_to_8bit; /* reduce 16 bit image to 8 bit ? */
 
   sane_get_parameters(xsane.dev, &xsane.param); /* update xsane.param */
-
-  xsane_set_medium(preferences.medium[xsane.medium_nr]); /* make sure medium gamma values are up to date */
 
   if ( (xsane.mode == XSANE_STANDALONE) && (xsane.xsane_mode == XSANE_SAVE) )
   {
@@ -1976,10 +2033,18 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
     xsane.gamma_data = 0;
   }
 
+  xsane_clear_histogram(&xsane.histogram_raw);
+  xsane_clear_histogram(&xsane.histogram_enh);    
+  xsane_set_sensitivity(FALSE);
+
   while (gtk_events_pending())
   {
     gtk_main_iteration();
   }
+
+  xsane.reading_data = FALSE;
+
+  xsane.scanning = TRUE; /* set marker that scan has been initiated */
 
   xsane_start_scan();
 }

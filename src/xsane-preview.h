@@ -111,6 +111,9 @@ typedef struct
   u_char *preview_row;
 
   int scanning;
+  int scan_incomplete;
+  int invalid;
+  int preview_colors;
   time_t image_last_time_updated;
   gint input_tag;
   SANE_Parameters params;
@@ -163,6 +166,10 @@ typedef struct
   GtkWidget *autoselect;	/* autoselect scanarea */
   GtkWidget *preset_area_option_menu;	/* menu for selection of preview area */
   GtkWidget *rotation_option_menu;	/* menu for selection of rotation */
+  GtkWidget *scanning_pixmap;	/* pixmap that shows preview is in scanning progress */
+  GtkWidget *valid_pixmap;	/* pixmap that shows preview is valid */
+  GtkWidget *invalid_pixmap;	/* pixmap that shows preview is invalid */
+  GtkWidget *incomplete_pixmap;	/* pixmap that shows preview is incomplete */
 }
 Preview;
 
@@ -171,9 +178,10 @@ Preview;
 extern Preview *preview_new(void);   /* Create a new preview based on the info in DIALOG.  */
 extern void preview_generate_preview_filenames(Preview *p); /* create new preview filenames */
 
-extern void preview_gamma_correction(Preview *p, int gamma_input_bits,	  /* Do gamma correction on preview data */
-                                     u_char gamma_red[], u_char gamma_green[], u_char gamma_blue[],
-                                     u_char gamma_red_hist[], u_char gamma_green_hist[], u_char gamma_blue_hist[]);
+extern void preview_gamma_correction(Preview *p, int gamma_input_bits,
+                                     u_char *gamma_red, u_char *gamma_green, u_char *gamma_blue,
+                                     u_char *gamma_red_hist, u_char *gamma_green_hist, u_char *gamma_blue_hist,
+                                     u_char *medium_gamma_red_hist, u_char *medium_gamma_green_hist, u_char *medium_gamma_blue_hist);
 
 extern void preview_update_surface(Preview *p, int surface_changed);   /* params changed: update preview */
 
@@ -187,6 +195,7 @@ extern void preview_calculate_enh_histogram(Preview *p, SANE_Int *count, SANE_In
 extern void preview_area_resize(Preview *p);					/* redraw preview rulers */
 extern void preview_set_maximum_output_size(Preview *p, float width, float height);   /* set maximum outut size */
 extern void preview_select_full_preview_area(Preview *p);
+extern void preview_display_valid(Preview *p);
 
 /* ------------------------------------------------------------------------------------------------------ */
 
