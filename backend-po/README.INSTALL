@@ -1,0 +1,9 @@
+
+How to install a new backend translation:
+-----------------------------------------
+You must copy the sane-*.mo files to the position where the xsane.mo files are
+placed.  This can be e.g. /usr/local/share/locale/de/LC_MESSAGES for the german
+translations
+
+e.g.:
+cp de/sane-umax.mo /usr/local/share/locale/de/LC_MESSAGES

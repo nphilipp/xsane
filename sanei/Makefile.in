@@ -56,7 +56,7 @@ all:	$(TARGETS)
 libsanei.a: $(LIBSANEI_OBJS)
 	ar r $@ $(LIBSANEI_OBJS)
 
-install:
+install: all
 
 check: test_wire
 	./test_wire

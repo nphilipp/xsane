@@ -58,7 +58,7 @@ all:	$(TARGETS)
 liblib.a: $(LIBLIB_OBJS)
 	ar r $@ $(LIBLIB_OBJS)
 
-install:
+install: all
 
 check:
 

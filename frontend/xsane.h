@@ -31,7 +31,11 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION "0.37"
+#define XSANE_VERSION	"0.38"
+#define XSANE_AUTHOR	"Oliver Rauch"
+#define XSANE_COPYRIGHT	"Oliver Rauch"
+#define XSANE_DATE	"1998/1999"
+#define XSANE_EMAIL	"Oliver.Rauch@Wolfsburg.DE"
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -66,6 +70,8 @@
 
 #ifdef HAVE_LIBGIMP_GIMPFEATURES_H
 #include <libgimp/gimpfeatures.h>
+#else
+#define GIMP_CHECK_VERSION(major,m minor, micro) 0
 #endif /* HAVE_LIBGIMP_GIMPFEATURES_H */
 
 #endif /* HAVE_LIBGIMP_GIMP_H */
@@ -116,11 +122,11 @@ extern int xsane_scanmode_number[];
 #define DOCVIEWERNETSCAPEREMOTE	"netscape-remote"
 #define DOCVIEWER 	 	DOCVIEWERNETSCAPEREMOTE	
 
-#define XSANE_BRIGHTNESS_MIN	-300.0
-#define XSANE_BRIGHTNESS_MAX	300.0
+#define XSANE_BRIGHTNESS_MIN	-400.0
+#define XSANE_BRIGHTNESS_MAX	400.0
 #define XSANE_CONTRAST_GRAY_MIN	-100.0
-#define XSANE_CONTRAST_MIN	-300.0
-#define XSANE_CONTRAST_MAX	300.0
+#define XSANE_CONTRAST_MIN	-400.0
+#define XSANE_CONTRAST_MAX	400.0
 #define XSANE_GAMMA_MIN		0.3
 #define XSANE_GAMMA_MAX		3.0
 
@@ -133,8 +139,8 @@ extern int xsane_scanmode_number[];
 #define XSANE_DIALOG_POS_Y	50
 #define XSANE_DIALOG_POS_Y2	528
 
-#define XSANE_SLIDER_ACTIVE	-1
-#define XSANE_SLIDER_INACTIVE	-2
+#define XSANE_SLIDER_ACTIVE	0
+#define XSANE_SLIDER_INACTIVE	4
 #define XSANE_SLIDER_WIDTH	260
 #define XSANE_SLIDER_HEIGHT	10
 #define XSANE_SLIDER_OFFSET	2
@@ -202,6 +208,8 @@ typedef struct Xsane
     SANE_Int sane_backend_versioncode;
     char *backend;
     char *device_set_filename;
+
+    SANE_Int sensitivity;
 
     /* dialogs */
     GtkWidget *shell;
@@ -296,6 +304,12 @@ typedef struct Xsane
     double resolution;
 
     GtkWidget *length_unit_widget;
+    GtkWidget *length_unit_mm;
+    GtkWidget *length_unit_cm;
+    GtkWidget *length_unit_in;
+    GtkWidget *update_policy_continu;
+    GtkWidget *update_policy_discont;
+    GtkWidget *update_policy_delayed;
     GtkWidget *show_preview_widget;
     GtkWidget *show_histogram_widget;
     GtkWidget *show_standard_options_widget;

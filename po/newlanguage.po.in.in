@@ -72,6 +72,10 @@ msgstr ""
 _MENU_PREFERENCES
 msgstr ""
 
+# original text: MENU_VIEW
+_MENU_VIEW
+msgstr ""
+
 # original text: MENU_HELP
 _MENU_HELP
 msgstr ""
@@ -292,8 +296,24 @@ msgstr ""
 _TEXT_PACKAGE
 msgstr ""
 
+# original text: TEXT_WITH_GIMP_SUPPORT
+_TEXT_WITH_GIMP_SUPPORT
+msgstr ""
+
+# original text: TEXT_WITHOUT_GIMP_SUPPORT
+_TEXT_WITHOUT_GIMP_SUPPORT
+msgstr ""
+
+# original text: TEXT_GIMP_VERSION
+_TEXT_GIMP_VERSION
+msgstr ""
+
 # original text: TEXT_UNKNOWN
 _TEXT_UNKNOWN
+msgstr ""
+
+# original text: TEXT_EMAIL
+_TEXT_EMAIL
 msgstr ""
 
 # original text: TEXT_INFO_BOX
@@ -930,6 +950,10 @@ msgstr ""
 _ERR_BAD_DEPTH
 msgstr ""
 
+# original text: ERR_GIMP_BAD_DEPTH
+_ERR_GIMP_BAD_DEPTH
+msgstr ""
+
 # original text: ERR_UNKNOWN_SAVING_FORMAT
 _ERR_UNKNOWN_SAVING_FORMAT
 msgstr ""
@@ -1062,6 +1086,29 @@ msgstr ""
 _TEXT_HELP			
 msgstr ""
 
+# original text: XSANE_GIMP_INSTALL_BLURB
+_XSANE_GIMP_INSTALL_BLURB
+msgstr ""
+
+# original text: XSANE_GIMP_INSTALL_HELP
+_XSANE_GIMP_INSTALL_HELP
+msgstr ""
+
+# original text: XSANE_GIMP_MENU
+_XSANE_GIMP_MENU
+msgstr ""
+
+# original text: XSANE_GIMP_MENU_OLD
+_XSANE_GIMP_MENU_OLD
+msgstr ""
+
+# original text: XSANE_GIMP_MENU_DIALOG
+_XSANE_GIMP_MENU_DIALOG
+msgstr ""
+
+# original text: XSANE_GIMP_MENU_DIALOG_OLD
+_XSANE_GIMP_MENU_DIALOG_OLD
+msgstr ""
 
 _"flatbed scanner"
 msgstr ""

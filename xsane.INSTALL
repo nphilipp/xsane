@@ -26,8 +26,13 @@ DO THE FOLLOWING AS ROOT:
 DO THE FOLLOWING AS NORMAL USER:
 - Call xsane. 
 
-
-
+- If you get an error message  that libsane-dll.so.1 is not found, you have to
+  tell your system where the SANE-libraries are installed.
+   For linux: edit /etc/ld.so.conf and add a line with the path to the
+   libraries (normally /usr/local/lib/sane), then call ldconfig.
+   THIS MUST BE DONE A ROOT!
+   If you use a SuSE linux, edit /etc/ld.so.conf.in instead and call
+   SuSEconfig instead of ldconfig. 
 
 If something does not work like expected read file xsane.PROBLEMS
 

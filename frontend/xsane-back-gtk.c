@@ -51,6 +51,7 @@ extern void panel_build(GSGDialog * dialog);
 
 /* forward declarations: */
 static void panel_rebuild (GSGDialog * dialog);
+void xsane_set_sensitivity(SANE_Int sensitivity);
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
@@ -59,7 +60,7 @@ const char * gsg_unit_string (SANE_Unit unit)
   double d;
 
   switch (unit)
-    {
+  {
     case SANE_UNIT_NONE:	return "none";
     case SANE_UNIT_PIXEL:	return "pixel";
     case SANE_UNIT_BIT:		return "bit";
@@ -68,12 +69,16 @@ const char * gsg_unit_string (SANE_Unit unit)
     case SANE_UNIT_MM:
       d = preferences.length_unit;
       if (d > 9.9 && d < 10.1)
+      {
 	return "cm";
+      }
       else if (d > 25.3 && d < 25.5)
+      {
 	return "in";
+      }
       return "mm";
     case SANE_UNIT_MICROSECOND:	return "\265s";
-    }
+  }
   return 0;
 }
 
@@ -102,97 +107,113 @@ int gsg_make_path(size_t buf_size, char *buf,
   /* first, make sure ~/.sane exists: */
   pw = getpwuid(getuid());
   if (!pw)
-    {
-      snprintf (buf, buf_size, "%s %s", ERR_HOME_DIR, strerror (errno));
-      gsg_error (buf);
-      return -1;
-    }
+  {
+    snprintf(buf, buf_size, "%s %s", ERR_HOME_DIR, strerror (errno));
+    gsg_error(buf, FALSE);
+    return -1;
+  }
   snprintf (buf, buf_size, "%s/.sane", pw->pw_dir);
   mkdir (buf, 0777);	/* ensure ~/.sane directory exists */
 
   len = strlen (buf);
 
   if (prog_name)
+  {
+    extra = strlen (prog_name);
+    if (len + extra + 1 >= buf_size)
     {
-      extra = strlen (prog_name);
-      if (len + extra + 1 >= buf_size)
-	goto filename_too_long;
-
-      buf[len++] = '/';
-      memcpy (buf + len, prog_name, extra);
-      len += extra;
-      buf[len] = '\0';
-      mkdir (buf, 0777);	/* ensure ~/.sane/PROG_NAME directory exists */
+      goto filename_too_long;
     }
+
+    buf[len++] = '/';
+    memcpy (buf + len, prog_name, extra);
+    len += extra;
+    buf[len] = '\0';
+    mkdir (buf, 0777);	/* ensure ~/.sane/PROG_NAME directory exists */
+  }
   if (len >= buf_size)
+  {
     goto filename_too_long;
+  }
 
   buf[len++] = '/';
 
 
   if (dir_name)
+  {
+    extra = strlen (dir_name);
+    if (len + extra + 1 >= buf_size)
     {
-      extra = strlen (dir_name);
-      if (len + extra + 1 >= buf_size)
-	goto filename_too_long;
-
-      buf[len++] = '/';
-      memcpy(buf + len, dir_name, extra);
-      len += extra;
-      buf[len] = '\0';
-      mkdir (buf, 0777);	/* ensure ~/.sane/PROG_NAME/DIR_NAME directory exists */
+      goto filename_too_long;
     }
+
+    buf[len++] = '/';
+    memcpy(buf + len, dir_name, extra);
+    len += extra;
+    buf[len] = '\0';
+    mkdir (buf, 0777);	/* ensure ~/.sane/PROG_NAME/DIR_NAME directory exists */
+  }
+
   if (len >= buf_size)
+  {
     goto filename_too_long;
+  }
 
   buf[len++] = '/';
 
 
   if (prefix)
+  {
+    extra = strlen (prefix);
+    if (len + extra >= buf_size)
     {
-      extra = strlen (prefix);
-      if (len + extra >= buf_size)
-	goto filename_too_long;
-
-      memcpy (buf + len, prefix, extra);
-      len += extra;
+      goto filename_too_long;
     }
+
+    memcpy (buf + len, prefix, extra);
+    len += extra;
+  }
 
   if (dev_name)
-    {
+  {
       /* Turn devicename into valid filename by replacing slashes by "_", "_" gets "__", spaces are erased  */
 
-      for (i = 0; dev_name[i]; ++i)
-	{
-	  if (len + 2 >= buf_size)
-	    goto filename_too_long;
+    for (i = 0; dev_name[i]; ++i)
+    {
+      if (len + 2 >= buf_size)
+      {
+        goto filename_too_long;
+      }
 
-	  switch (dev_name[i])
-	    {
-	    case '/':				/* "/" -> "_" */
-	      buf[len++] = '_'; 
-	      break;
+      switch (dev_name[i])
+      {
+        case '/':	/* "/" -> "_" */
+          buf[len++] = '_'; 
+         break;
 
-            case ' ':				/* erase " " */
-	      break;
+        case ' ':	/* erase " " */
+         break;
 
-	    case '_':				/* "_" -> "__" */
-	      buf[len++] = '_';
-	    default:
-	      buf[len++] = dev_name[i];
-	      break;
-	    }
-	}
+        case '_':	/* "_" -> "__" */
+          buf[len++] = '_';
+          /* fall through */
+        default:
+          buf[len++] = dev_name[i];
+         break;
+      }
     }
+  }
 
   if (postfix)
+  {
+    extra = strlen (postfix);
+    if (len + extra >= buf_size)
     {
-      extra = strlen (postfix);
-      if (len + extra >= buf_size)
-	goto filename_too_long;
-      memcpy (buf + len, postfix, extra);
-      len += extra;
+      goto filename_too_long;
     }
+    memcpy (buf + len, postfix, extra);
+    len += extra;
+  }
   if (len >= buf_size)
     goto filename_too_long;
 
@@ -200,7 +221,7 @@ int gsg_make_path(size_t buf_size, char *buf,
   return 0;
 
 filename_too_long:
-  gsg_error(ERR_FILENAME_TOO_LONG);
+  gsg_error(ERR_FILENAME_TOO_LONG, FALSE);
   errno = E2BIG;
   return -1;
 }
@@ -218,7 +239,7 @@ void gsg_set_option(GSGDialog * dialog, int opt_num, void *val, SANE_Action acti
   {
     snprintf(buf, sizeof (buf), "%s %s: %s.", ERR_SET_OPTION, sane_get_option_descriptor (dialog->dev, opt_num)->name,
              XSANE_STRSTATUS(status));
-    gsg_error(buf);
+    gsg_error(buf, FALSE);
     return;
   }
 
@@ -340,23 +361,45 @@ gint gsg_decision(gchar *title, gchar *message, gchar *oktext, gchar *rejecttext
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-void gsg_message(gchar *title, gchar *message)
+void gsg_message(gchar *title, gchar *message, gint wait)
 {
-  gsg_decision(title, message, ERR_BUTTON_OK, 0 /* no reject text */, 0 /* do not wait */);
+  gsg_decision(title, message, ERR_BUTTON_OK, 0 /* no reject text */, wait);
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-void gsg_error(gchar * error)
+void gsg_error(gchar *error, gint wait)
 {
-  gsg_message(ERR_HEADER_ERROR, error);
+  if (wait)
+  {
+   SANE_Int old_sensitivity = xsane.sensitivity;
+
+    xsane_set_sensitivity(FALSE);
+    gsg_message(ERR_HEADER_ERROR, error, wait);
+    xsane_set_sensitivity(old_sensitivity);
+  }
+  else
+  {
+    gsg_message(ERR_HEADER_ERROR, error, wait);
+  }
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-void gsg_warning(gchar * warning)
+void gsg_warning(gchar *warning, gint wait)
 {
-  gsg_message(ERR_HEADER_WARNING, warning);
+  if (wait)
+  {
+   SANE_Int old_sensitivity = xsane.sensitivity;
+
+    xsane_set_sensitivity(FALSE);
+    gsg_message(ERR_HEADER_WARNING, warning, wait);
+    xsane_set_sensitivity(old_sensitivity);
+  }
+  else
+  {
+    gsg_message(ERR_HEADER_WARNING, warning, wait);
+  }
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
@@ -439,17 +482,19 @@ static gint autobutton_update(GtkWidget * widget, GSGDialogElement * elem)
 
   opt = sane_get_option_descriptor(dialog->dev, opt_num);
   if (GTK_TOGGLE_BUTTON(widget)->active)
+  {
     gsg_set_option(dialog, opt_num, 0, SANE_ACTION_SET_AUTO);
+  }
   else
+  {
+    status = sane_control_option(dialog->dev, opt_num, SANE_ACTION_GET_VALUE, &val, 0);
+    if (status != SANE_STATUS_GOOD)
     {
-      status = sane_control_option(dialog->dev, opt_num, SANE_ACTION_GET_VALUE, &val, 0);
-      if (status != SANE_STATUS_GOOD)
-      {
-        snprintf (buf, sizeof (buf), "%s %s: %s.", ERR_GET_OPTION, opt->name, XSANE_STRSTATUS(status));
-        gsg_error(buf);
-      }
-      gsg_set_option(dialog, opt_num, &val, SANE_ACTION_SET_VALUE);
+      snprintf (buf, sizeof (buf), "%s %s: %s.", ERR_GET_OPTION, opt->name, XSANE_STRSTATUS(status));
+      gsg_error(buf, FALSE);
     }
+    gsg_set_option(dialog, opt_num, &val, SANE_ACTION_SET_VALUE);
+  }
   return FALSE;
 }
 
@@ -487,15 +532,18 @@ static gint button_update(GtkWidget * widget, GSGDialogElement * elem)
 
   opt = sane_get_option_descriptor(dialog->dev, opt_num);
   if (GTK_TOGGLE_BUTTON(widget)->active)
+  {
     val = SANE_TRUE;
+  }
   gsg_set_option(dialog, opt_num, &val, SANE_ACTION_SET_VALUE);
+
   return FALSE;
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
 void gsg_button_new(GtkWidget * parent, const char *name, SANE_Word val,
-	    GSGDialogElement * elem, GtkTooltips *tooltips, const char *desc)
+	    GSGDialogElement * elem, GtkTooltips *tooltips, const char *desc, SANE_Int settable)
 {
   GtkWidget *button;
 
@@ -505,6 +553,8 @@ void gsg_button_new(GtkWidget * parent, const char *name, SANE_Word val,
   gtk_box_pack_start(GTK_BOX(parent), button, FALSE, TRUE, 0);
   gtk_widget_show(button);
   gsg_set_tooltip(tooltips, button, desc);
+
+  gtk_widget_set_sensitive(button, settable);
 
   elem->widget = button;
 }
@@ -522,7 +572,7 @@ static void scale_update(GtkAdjustment * adj_data, GSGDialogElement * elem)
   opt_num = elem - dialog->element;
   opt = sane_get_option_descriptor(dialog->dev, opt_num);
   switch(opt->type)
-    {
+  {
     case SANE_TYPE_INT:
       val = adj_data->value + 0.5;
       break;
@@ -530,23 +580,25 @@ static void scale_update(GtkAdjustment * adj_data, GSGDialogElement * elem)
     case SANE_TYPE_FIXED:
       d = adj_data->value;
       if (opt->unit == SANE_UNIT_MM)
+      {
 	d *= preferences.length_unit;
+      }
       val = SANE_FIX(d);
       break;
 
     default:
       fprintf(stderr, "scale_update: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
       return;
-    }
+  }
+
   gsg_set_option(dialog, opt_num, &val, SANE_ACTION_SET_VALUE);
-  sane_control_option(dialog->dev, opt_num, SANE_ACTION_GET_VALUE, &new_val,
-		       0);
+  sane_control_option(dialog->dev, opt_num, SANE_ACTION_GET_VALUE, &new_val, 0);
   if (new_val != val)
-    {
-      val = new_val;
-      goto value_changed;
-    }
-  return;			/* value didn't change */
+  {
+    val = new_val;
+    goto value_changed;
+  }
+ return;			/* value didn't change */
 
 value_changed:
   switch(opt->type)
@@ -558,7 +610,9 @@ value_changed:
     case SANE_TYPE_FIXED:
       d = SANE_UNFIX(val);
       if (opt->unit == SANE_UNIT_MM)
+      {
 	d /= preferences.length_unit;
+      }
       adj_data->value = d;
       break;
 
@@ -569,14 +623,14 @@ value_changed:
      quickly---otherwise things would get very slow very quickly (as
      in "infinite recursion"): */
   gtk_signal_emit_by_name(GTK_OBJECT(adj_data), "value_changed");
-  return;
+ return;
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
 void gsg_scale_new(GtkWidget * parent, const char *name, gfloat val,
 	   gfloat min, gfloat max, gfloat quant, int automatic,
-	   GSGDialogElement * elem, GtkTooltips *tooltips, const char *desc)
+	   GSGDialogElement * elem, GtkTooltips *tooltips, const char *desc, SANE_Int settable)
 {
   GtkWidget *hbox, *label, *scale;
 
@@ -605,16 +659,22 @@ void gsg_scale_new(GtkWidget * parent, const char *name, gfloat val,
   gtk_range_set_update_policy(GTK_RANGE(scale), GTK_UPDATE_CONTINUOUS);
   gtk_scale_set_value_pos(GTK_SCALE(scale), GTK_POS_TOP);
   if (quant - (int) quant == 0.0)
+  {
     gtk_scale_set_digits(GTK_SCALE(scale), 0);
+  }
   else
+  {
     /* one place behind decimal point */
     gtk_scale_set_digits(GTK_SCALE(scale), 1);
+  }
 
   gtk_signal_connect(elem->data, "value_changed", (GtkSignalFunc) scale_update, elem);
 
   gtk_widget_show(label);
   gtk_widget_show(scale);
   gtk_widget_show(hbox);
+
+  gtk_widget_set_sensitive(scale, settable);
 
   elem->widget = scale;
 }
@@ -638,7 +698,8 @@ static int option_menu_lookup(GSGMenuItem menu_items[], const char *string)
   int i;
 
   for (i = 0; strcmp(menu_items[i].label, string) != 0; ++i);
-  return i;
+
+ return i;
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
@@ -657,7 +718,7 @@ static void option_menu_callback(GtkWidget * widget, gpointer data)
   opt_num = elem - dialog->element;
   opt = sane_get_option_descriptor(dialog->dev, opt_num);
   switch(opt->type)
-    {
+  {
     case SANE_TYPE_INT:
       sscanf(menu_item->label, "%d", &val);
       break;
@@ -674,7 +735,7 @@ static void option_menu_callback(GtkWidget * widget, gpointer data)
     default:
       fprintf(stderr, "option_menu_callback: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
       break;
-    }
+  }
   gsg_set_option(dialog, opt_num, valp, SANE_ACTION_SET_VALUE);
 }
 
@@ -682,7 +743,7 @@ static void option_menu_callback(GtkWidget * widget, gpointer data)
 
 void gsg_option_menu_new(GtkWidget *parent, const char *name, char *str_list[],
 		 const char *val, GSGDialogElement * elem,
-		 GtkTooltips *tooltips, const char *desc)
+		 GtkTooltips *tooltips, const char *desc, SANE_Int settable)
 {
  GtkWidget *hbox, *label, *option_menu, *menu, *item;
  GSGMenuItem *menu_items;
@@ -722,6 +783,8 @@ void gsg_option_menu_new(GtkWidget *parent, const char *name, char *str_list[],
   gtk_widget_show(option_menu);
   gtk_widget_show(hbox);
 
+  gtk_widget_set_sensitive(option_menu, settable);
+
   elem->widget = option_menu;
   elem->menu_size = num_items;
   elem->menu = menu_items;
@@ -753,16 +816,16 @@ static void text_entry_callback(GtkWidget *w, gpointer data)
 
   gsg_set_option(dialog, opt_num, buf, SANE_ACTION_SET_VALUE);
 
-  if (strcmp(buf, text) != 0)
-    /* the backend modified the option value; update widget: */
+  if (strcmp(buf, text) != 0) /* the backend modified the option value; update widget: */
+  {
     gtk_entry_set_text(GTK_ENTRY(elem->widget), buf);
+  }
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-void gsg_text_entry_new(GtkWidget * parent, const char *name, const char *val,
-		GSGDialogElement * elem,
-		GtkTooltips *tooltips, const char *desc)
+void gsg_text_entry_new(GtkWidget * parent, const char *name, const char *val, GSGDialogElement *elem,
+		        GtkTooltips *tooltips, const char *desc, SANE_Int settable)
 {
   GtkWidget *hbox, *text, *label;
 
@@ -783,6 +846,8 @@ void gsg_text_entry_new(GtkWidget * parent, const char *name, const char *val,
   gtk_widget_show(hbox);
   gtk_widget_show(label);
   gtk_widget_show(text);
+
+  gtk_widget_set_sensitive(text, settable);
 
   elem->widget = text;
 }
@@ -828,7 +893,7 @@ static GtkWidget* curve_new(GSGDialog *dialog, int optnum)
 
   min = max = 0;
   switch(opt->constraint_type)
-    {
+  {
     case SANE_CONSTRAINT_RANGE:
       min = opt->constraint.range->min;
       max = opt->constraint.range->max;
@@ -836,54 +901,65 @@ static GtkWidget* curve_new(GSGDialog *dialog, int optnum)
 
     case SANE_CONSTRAINT_WORD_LIST:
       if (opt->constraint.word_list[0] > 1)
-	{
-	  min = max = opt->constraint.word_list[1];
-	  for (i = 2; i < opt->constraint.word_list[0]; ++i)
-	    {
-	      if (opt->constraint.word_list[i] < min)
-		min = opt->constraint.word_list[i];
-	      if (opt->constraint.word_list[i] > max)
-		max = opt->constraint.word_list[i];
-	    }
-	}
+      {
+        min = max = opt->constraint.word_list[1];
+        for (i = 2; i < opt->constraint.word_list[0]; ++i)
+        {
+          if (opt->constraint.word_list[i] < min)
+          {
+            min = opt->constraint.word_list[i];
+          }
+
+	  if (opt->constraint.word_list[i] > max)
+          {
+            max = opt->constraint.word_list[i];
+          }
+        }
+      }
       break;
 
     default:
       break;
-    }
+  }
   if (min == max)
-    {
-      fprintf(stderr, "curve_new: %s: `%s'\n", WARN_NO_VALUE_CONSTRAINT, opt->name);
-      fmin = 0;
-      fmax = 255;
-    }
+  {
+    fprintf(stderr, "curve_new: %s: `%s'\n", WARN_NO_VALUE_CONSTRAINT, opt->name);
+    fmin = 0;
+    fmax = 255;
+  }
   else if (opt->type == SANE_TYPE_FIXED)
-    {
-      fmin = SANE_UNFIX(min);
-      fmax = SANE_UNFIX(max);
-    }
+  {
+    fmin = SANE_UNFIX(min);
+    fmax = SANE_UNFIX(max);
+  }
   else
-    {
-      fmin = min;
-      fmax = max;
-    }
+  {
+    fmin = min;
+    fmax = max;
+  }
   gtk_curve_set_range(GTK_CURVE(curve), 0, optlen - 1, fmin, fmax);
 
   status = sane_control_option(dev, optnum, SANE_ACTION_GET_VALUE, optval, 0);
   if (status == SANE_STATUS_GOOD)
+  {
+    for (i = 0; i < optlen; ++i)
     {
-      for (i = 0; i < optlen; ++i)
-	{
-	  if (opt->type == SANE_TYPE_FIXED)
-	    val = SANE_UNFIX(optval[i]);
-	  else
-	    val = optval[i];
-	  vector[i] = val;
-	}
-      gtk_curve_set_vector(GTK_CURVE(curve), optlen, vector);
+      if (opt->type == SANE_TYPE_FIXED)
+      {
+        val = SANE_UNFIX(optval[i]);
+      }
+      else
+      {
+        val = optval[i];
+      }
+      vector[i] = val;
     }
+    gtk_curve_set_vector(GTK_CURVE(curve), optlen, vector);
+  }
   else
+  {
     gtk_widget_set_sensitive(gamma, FALSE);
+  }
 
   return gamma;
 }
@@ -901,22 +977,22 @@ static void vector_new(GSGDialog * dialog, GtkWidget *vbox, int num_vopts, int *
   gtk_box_pack_start(GTK_BOX(vbox), notebook, TRUE, TRUE, 0);
 
   for (i = 0; i < num_vopts; ++i)
-    {
-      opt = sane_get_option_descriptor(dialog->dev, vopts[i]);
+  {
+    opt = sane_get_option_descriptor(dialog->dev, vopts[i]);
 
-      label = gtk_label_new((char *) opt->title);
-      vbox = gtk_vbox_new(/* homogeneous */ FALSE, 0);
-      gtk_notebook_append_page(GTK_NOTEBOOK(notebook), vbox, label);
-      gtk_widget_show(vbox);
-      gtk_widget_show(label);
+    label = gtk_label_new((char *) opt->title);
+    vbox = gtk_vbox_new(/* homogeneous */ FALSE, 0);
+    gtk_notebook_append_page(GTK_NOTEBOOK(notebook), vbox, label);
+    gtk_widget_show(vbox);
+    gtk_widget_show(label);
 
-      curve = curve_new(dialog, vopts[i]);
-      gtk_container_set_border_width(GTK_CONTAINER(curve), 4);
-      gtk_box_pack_start(GTK_BOX(vbox), curve, TRUE, TRUE, 0);
-      gtk_widget_show(curve);
+    curve = curve_new(dialog, vopts[i]);
+    gtk_container_set_border_width(GTK_CONTAINER(curve), 4);
+    gtk_box_pack_start(GTK_BOX(vbox), curve, TRUE, TRUE, 0);
+    gtk_widget_show(curve);
 
-      dialog->element[vopts[i]].widget = curve;
-    }
+    dialog->element[vopts[i]].widget = curve;
+  }
   gtk_widget_show(notebook);
 }
 #endif
@@ -984,7 +1060,9 @@ void gsg_refresh_dialog(GSGDialog *dialog)
 {
   panel_rebuild(dialog);
   if (dialog->param_change_callback)
+  {
     (*dialog->param_change_callback) (dialog, dialog->param_change_arg);
+  }
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
@@ -1000,51 +1078,63 @@ void gsg_update_scan_window(GSGDialog *dialog)
   char str[64];
 
   for (i = 0; i < 4; ++i)
+  {
     if (dialog->well_known.coord[i] > 0)
+    {
+      optnum = dialog->well_known.coord[i];
+      elem = dialog->element + optnum;
+      opt = sane_get_option_descriptor(dialog->dev, optnum);
+
+      status = sane_control_option(dialog->dev, optnum, SANE_ACTION_GET_VALUE, &word, 0);
+      if (status != SANE_STATUS_GOOD)
       {
-	optnum = dialog->well_known.coord[i];
-	elem = dialog->element + optnum;
-	opt = sane_get_option_descriptor(dialog->dev, optnum);
-
-	status = sane_control_option(dialog->dev, optnum, SANE_ACTION_GET_VALUE, &word, 0);
-	if (status != SANE_STATUS_GOOD)
-	  continue;	/* sliently ignore errors */
-
-	switch(opt->constraint_type)
-	  {
-	  case SANE_CONSTRAINT_RANGE:
-	    if (opt->type == SANE_TYPE_INT)
-	      {
-		old_val = GTK_ADJUSTMENT(elem->data)->value;
-		new_val = word;
-		GTK_ADJUSTMENT(elem->data)->value = new_val;
-	      }
-	    else
-	      {
-		old_val = GTK_ADJUSTMENT(elem->data)->value;
-		new_val = SANE_UNFIX(word);
-		if (opt->unit == SANE_UNIT_MM)
-		  new_val /= preferences.length_unit;
-		GTK_ADJUSTMENT(elem->data)->value = new_val;
-	      }
-	    if (old_val != new_val)
-	      gtk_signal_emit_by_name(GTK_OBJECT(elem->data),
-				       "value_changed");
-	    break;
-
-	  case SANE_CONSTRAINT_WORD_LIST:
-	    if (opt->type == SANE_TYPE_INT)
-	      sprintf(str, "%d", word);
-	    else
-	      sprintf(str, "%g", SANE_UNFIX(word));
-	    /* XXX maybe we should call this only when the value changes... */
-	    gtk_option_menu_set_history(GTK_OPTION_MENU(elem->widget), option_menu_lookup(elem->menu, str));
-	    break;
-
-	  default:
-	    break;
-	  }
+         continue; /* sliently ignore errors */
       }
+
+      switch(opt->constraint_type)
+      {
+        case SANE_CONSTRAINT_RANGE:
+          if (opt->type == SANE_TYPE_INT)
+          {
+            old_val = GTK_ADJUSTMENT(elem->data)->value;
+            new_val = word;
+            GTK_ADJUSTMENT(elem->data)->value = new_val;
+          }
+          else
+          {
+            old_val = GTK_ADJUSTMENT(elem->data)->value;
+            new_val = SANE_UNFIX(word);
+	    if (opt->unit == SANE_UNIT_MM)
+            {
+              new_val /= preferences.length_unit;
+            }
+            GTK_ADJUSTMENT(elem->data)->value = new_val;
+          }
+
+          if (old_val != new_val)
+          {
+	      gtk_signal_emit_by_name(GTK_OBJECT(elem->data), "value_changed");
+          }
+         break;
+
+	case SANE_CONSTRAINT_WORD_LIST:
+	  if (opt->type == SANE_TYPE_INT)
+          {
+	    sprintf(str, "%d", word);
+          }
+	  else
+          {
+	    sprintf(str, "%g", SANE_UNFIX(word));
+          }
+	  /* XXX maybe we should call this only when the value changes... */
+	  gtk_option_menu_set_history(GTK_OPTION_MENU(elem->widget), option_menu_lookup(elem->menu, str));
+	 break;
+
+	default:
+	 break;
+      }
+    }
+  }
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
@@ -1061,36 +1151,47 @@ void gsg_sync(GSGDialog *dialog)
   GtkWidget *curve;
 
   for (i = 1; i < dialog->num_elements; ++i)
+  {
+    opt = sane_get_option_descriptor(dialog->dev, i);
+
+    if (!SANE_OPTION_IS_ACTIVE(opt->cap))
     {
-      opt = sane_get_option_descriptor(dialog->dev, i);
-      if (!SANE_OPTION_IS_ACTIVE(opt->cap))
-	continue;
-
-      if (opt->type != SANE_TYPE_INT && opt->type != SANE_TYPE_FIXED)
-	continue;
-
-      if (opt->size == sizeof(SANE_Word))
-	continue;
-
-      /* ok, we're dealing with an active vector */
-
-      optlen = opt->size / sizeof(SANE_Word);
-      optval = alloca(optlen * sizeof(optval[0]));
-      vector = alloca(optlen * sizeof(vector[0]));
-
-      curve = GTK_GAMMA_CURVE(dialog->element[i].widget)->curve;
-      gtk_curve_get_vector(GTK_CURVE(curve), optlen, vector);
-      for (j = 0; j < optlen; ++j)
-	{
-	  val = vector[j];
-	  if (opt->type == SANE_TYPE_FIXED)
-	    optval[j] = SANE_FIX(val);
-	  else
-	    optval[j] = val + 0.5;
-	}
-
-      gsg_set_option(dialog, i, optval, SANE_ACTION_SET_VALUE);
+      continue;
     }
+
+    if (opt->type != SANE_TYPE_INT && opt->type != SANE_TYPE_FIXED)
+    {
+      continue;
+    }
+
+    if (opt->size == sizeof(SANE_Word))
+    {
+      continue;
+    }
+
+    /* ok, we're dealing with an active vector */
+
+    optlen = opt->size / sizeof(SANE_Word);
+    optval = alloca(optlen * sizeof(optval[0]));
+    vector = alloca(optlen * sizeof(vector[0]));
+
+    curve = GTK_GAMMA_CURVE(dialog->element[i].widget)->curve;
+    gtk_curve_get_vector(GTK_CURVE(curve), optlen, vector);
+    for (j = 0; j < optlen; ++j)
+    {
+      val = vector[j];
+      if (opt->type == SANE_TYPE_FIXED)
+      {
+        optval[j] = SANE_FIX(val);
+      }
+      else
+      {
+        optval[j] = val + 0.5;
+      }
+    }
+
+    gsg_set_option(dialog, i, optval, SANE_ACTION_SET_VALUE);
+  }
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
@@ -1107,13 +1208,19 @@ void gsg_update_vector(GSGDialog *dialog, int opt_num, SANE_Int *vector)
 
   opt = sane_get_option_descriptor(dialog->dev, opt_num);
   if (!SANE_OPTION_IS_ACTIVE(opt->cap))
+  {
     return; /* inactive */
+  }
 
   if (opt->type != SANE_TYPE_INT && opt->type != SANE_TYPE_FIXED)
+  {
     return;
+  }
 
   if (opt->size == sizeof(SANE_Word))
+  {
     return;
+  }
 
   /* ok, we're dealing with an active vector */
 
@@ -1123,9 +1230,13 @@ void gsg_update_vector(GSGDialog *dialog, int opt_num, SANE_Int *vector)
   {
     val = vector[j];
     if (opt->type == SANE_TYPE_FIXED)
+    {
       optval[j] = SANE_FIX(val);
+    }
     else
+    {
       optval[j] = val + 0.5;
+    }
   }
 
   gsg_set_option(dialog, opt_num, optval, SANE_ACTION_SET_VALUE);
@@ -1136,12 +1247,18 @@ void gsg_update_vector(GSGDialog *dialog, int opt_num, SANE_Int *vector)
 void gsg_set_tooltips(GSGDialog *dialog, int enable)
 {
   if (!dialog->tooltips)
+  {
     return;
+  }
 
   if (enable)
+  {
     gtk_tooltips_enable(dialog->tooltips);
+  }
   else
+  {
     gtk_tooltips_disable(dialog->tooltips);
+  }
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
@@ -1155,11 +1272,16 @@ void gsg_set_sensitivity(GSGDialog *dialog, int sensitive)
   {
     opt = sane_get_option_descriptor(dialog->dev, i);
 
-    if (!SANE_OPTION_IS_ACTIVE(opt->cap) || opt->type == SANE_TYPE_GROUP || !dialog->element[i].widget)
+    if (!SANE_OPTION_IS_ACTIVE(opt->cap) || !SANE_OPTION_IS_SETTABLE(opt->cap) ||
+        opt->type == SANE_TYPE_GROUP || !dialog->element[i].widget)
+    {
       continue;
+    }
 
     if (!(opt->cap & SANE_CAP_ALWAYS_SETTABLE))
+    {
       gtk_widget_set_sensitive(dialog->element[i].widget, sensitive);
+    }
   }
 
   if (dialog)
@@ -1169,6 +1291,42 @@ void gsg_set_sensitivity(GSGDialog *dialog, int sensitive)
       gtk_widget_set_sensitive(dialog->xsanemode_widget, sensitive); 
     }
   }
+}
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void xsane_set_sensitivity(SANE_Int sensitivity)
+{
+  if (xsane.shell)
+  {
+    gtk_widget_set_sensitive(xsane.shell, sensitivity);
+    gtk_widget_set_sensitive(xsane.standard_options_shell, sensitivity);
+    gtk_widget_set_sensitive(xsane.advanced_options_shell, sensitivity);
+    gtk_widget_set_sensitive(xsane.histogram_dialog, sensitivity);
+  }
+
+  if (xsane.preview)
+  {
+    gtk_widget_set_sensitive(xsane.preview->button_box, sensitivity);   /* button box at top of window */
+    gtk_widget_set_sensitive(xsane.preview->viewport, sensitivity);     /* Preview image selection */
+    gtk_widget_set_sensitive(xsane.preview->start, sensitivity);        /* Acquire preview button */
+  }
+
+  if (xsane.fax_dialog)
+  {
+    gtk_widget_set_sensitive(xsane.fax_dialog, sensitivity);
+  }
+
+  if (dialog)
+  {
+    gsg_set_sensitivity(dialog, sensitivity);
+  }
+
+  while (gtk_events_pending()) /* make sure set_sensitivity is displayed */
+  {
+    gtk_main_iteration();
+  }
+
+  xsane.sensitivity = sensitivity;
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */

@@ -81,16 +81,16 @@ void xsane_toggle_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[],
 GtkWidget *xsane_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[], const char *desc,
                                         void *xsane_button_callback, gpointer data);
 void xsane_option_menu_new(GtkWidget *parent, char *str_list[], const char *val, int option_number, const char *desc,
-                           void *option_menu_callback);
-void xsane_scale_new(GtkBox *parent, char *labeltext, const char *desc,
-                     float min, float max, float quant, float step, float xxx,
-                     int digits, double *val, GtkObject **data, void *xsane_scale_callback);
-void xsane_scale_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char *desc,
-                                 float min, float max, float quant, float step, float xxx,
-                                 int digits, double *val, GtkObject **data, int option, void *xsane_scale_callback);
+                           void *option_menu_callback, SANE_Int settable);
 void xsane_option_menu_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char *desc,
                                        char *str_list[], const char *val,
-                                       GtkObject **data, int option, void *option_menu_callback);
+                                       GtkObject **data, int option, void *option_menu_callback, SANE_Int settable);
+void xsane_scale_new(GtkBox *parent, char *labeltext, const char *desc,
+                     float min, float max, float quant, float step, float xxx,
+                     int digits, double *val, GtkObject **data, void *xsane_scale_callback, SANE_Int settable);
+void xsane_scale_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char *desc,
+                                 float min, float max, float quant, float step, float xxx, int digits,
+                                 double *val, GtkObject **data, int option, void *xsane_scale_callback, SANE_Int settable);
 void xsane_separator_new(GtkWidget *xsane_parent, int dist);
 GtkWidget *xsane_info_table_text_new(GtkWidget *table, gchar *text, int row, int colomn);
 GtkWidget *xsane_info_text_new(GtkWidget *parent, gchar *text);
@@ -528,7 +528,7 @@ static void xsane_option_menu_callback(GtkWidget *widget, gpointer data)
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 void xsane_option_menu_new(GtkWidget *parent, char *str_list[], const char *val, int option_number, const char *desc,
-                           void *option_menu_callback)
+                           void *option_menu_callback, SANE_Int settable)
 {
  GtkWidget *option_menu, *menu, *item;
  GSGMenuItem *menu_items;
@@ -570,6 +570,8 @@ void xsane_option_menu_new(GtkWidget *parent, char *str_list[], const char *val,
 
   gtk_widget_show(option_menu);
 
+  gtk_widget_set_sensitive(option_menu, settable);
+
   elem->widget = option_menu;
   elem->menu_size = num_items;
   elem->menu = menu_items;
@@ -577,9 +579,32 @@ void xsane_option_menu_new(GtkWidget *parent, char *str_list[], const char *val,
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+void xsane_option_menu_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char *desc,
+                                       char *str_list[], const char *val,
+                                       GtkObject **data, int option, void *option_menu_callback, SANE_Int settable)
+{
+ GtkWidget *hbox;
+ GtkWidget *pixmapwidget;
+ GdkBitmap *mask;
+ GdkPixmap *pixmap;
+
+  hbox = gtk_hbox_new(FALSE, 5);
+  gtk_box_pack_start(parent, hbox, FALSE, FALSE, 0);
+
+  pixmap = gdk_pixmap_create_from_xpm_d(xsane.histogram_dialog->window, &mask, xsane.bg_trans, (gchar **) xpm_d);
+  pixmapwidget = gtk_pixmap_new(pixmap, mask);
+  gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
+  gtk_widget_show(pixmapwidget);
+
+  xsane_option_menu_new(hbox, str_list, val, option, desc, option_menu_callback, settable);
+  gtk_widget_show(hbox);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 void xsane_scale_new(GtkBox *parent, char *labeltext, const char *desc,
                      float min, float max, float quant, float step, float xxx,
-                     int digits, double *val, GtkObject **data, void *xsane_scale_callback)
+                     int digits, double *val, GtkObject **data, void *xsane_scale_callback, SANE_Int settable)
 {
  GtkWidget *hbox;
  GtkWidget *label;
@@ -595,7 +620,7 @@ void xsane_scale_new(GtkBox *parent, char *labeltext, const char *desc,
   scale = gtk_hscale_new(GTK_ADJUSTMENT(*data));
   gsg_set_tooltip(dialog->tooltips, scale, desc);
   gtk_widget_set_usize(scale, 201, 0); /* minimum scale with = 201 pixels */
-  gtk_range_set_update_policy(GTK_RANGE(scale), GTK_UPDATE_DISCONTINUOUS);
+  gtk_range_set_update_policy(GTK_RANGE(scale), preferences.gtk_update_policy);
   /* GTK_UPDATE_CONTINUOUS, GTK_UPDATE_DISCONTINUOUS, GTK_UPDATE_DELAYED */
   gtk_scale_set_value_pos(GTK_SCALE(scale), GTK_POS_TOP);
   gtk_scale_set_digits(GTK_SCALE(scale), digits);
@@ -610,13 +635,15 @@ void xsane_scale_new(GtkBox *parent, char *labeltext, const char *desc,
   gtk_widget_show(scale);
   gtk_widget_show(hbox);
 
+  gtk_widget_set_sensitive(scale, settable);  
+
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 void xsane_scale_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char *desc,
-                                 float min, float max, float quant, float step, float xxx,
-                                 int digits, double *val, GtkObject **data, int option, void *xsane_scale_callback)
+                                 float min, float max, float quant, float step, float xxx, int digits,
+                                 double *val, GtkObject **data, int option, void *xsane_scale_callback, SANE_Int settable)
 {
  GtkWidget *hbox;
  GtkWidget *scale;
@@ -635,7 +662,7 @@ void xsane_scale_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char
   scale = gtk_hscale_new(GTK_ADJUSTMENT(*data));
   gsg_set_tooltip(dialog->tooltips, scale, desc);
   gtk_widget_set_usize(scale, 201, 0); /* minimum scale with = 201 pxiels */
-  gtk_range_set_update_policy(GTK_RANGE(scale), GTK_UPDATE_DISCONTINUOUS);
+  gtk_range_set_update_policy(GTK_RANGE(scale), preferences.gtk_update_policy);
   /* GTK_UPDATE_CONTINUOUS, GTK_UPDATE_DISCONTINUOUS, GTK_UPDATE_DELAYED */
   gtk_scale_set_value_pos(GTK_SCALE(scale), GTK_POS_TOP);
   gtk_scale_set_digits(GTK_SCALE(scale), digits);
@@ -650,6 +677,8 @@ void xsane_scale_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char
   gtk_widget_show(scale);
   gtk_widget_show(hbox);
 
+  gtk_widget_set_sensitive(scale, settable);  
+
   gdk_pixmap_unref(pixmap);
 
   if ( (dialog) && (option) )
@@ -660,29 +689,6 @@ void xsane_scale_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char
     elem->data   = *data;
     elem->widget = scale;
   }
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-void xsane_option_menu_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char *desc,
-                                       char *str_list[], const char *val,
-                                       GtkObject **data, int option, void *option_menu_callback)
-{
- GtkWidget *hbox;
- GtkWidget *pixmapwidget;
- GdkBitmap *mask;
- GdkPixmap *pixmap;
-
-  hbox = gtk_hbox_new(FALSE, 5);
-  gtk_box_pack_start(parent, hbox, FALSE, FALSE, 0);
-
-  pixmap = gdk_pixmap_create_from_xpm_d(xsane.histogram_dialog->window, &mask, xsane.bg_trans, (gchar **) xpm_d);
-  pixmapwidget = gtk_pixmap_new(pixmap, mask);
-  gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
-  gtk_widget_show(pixmapwidget);
-
-  xsane_option_menu_new(hbox, str_list, val, option, desc, option_menu_callback);
-  gtk_widget_show(hbox);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -735,33 +741,5 @@ void xsane_refresh_dialog(void *nothing)
 {
   gsg_refresh_dialog(dialog);
 }                    
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-void xsane_set_sensitivity(SANE_Int sensitivity)
-{
-  gtk_widget_set_sensitive(xsane.shell, sensitivity);
-  gtk_widget_set_sensitive(xsane.standard_options_shell, sensitivity);
-  gtk_widget_set_sensitive(xsane.advanced_options_shell, sensitivity);
-  gtk_widget_set_sensitive(xsane.histogram_dialog, sensitivity);
-
-  if (xsane.preview)
-  {
-    gtk_widget_set_sensitive(xsane.preview->button_box, sensitivity);   /* button box at top of window */
-    gtk_widget_set_sensitive(xsane.preview->viewport, sensitivity);     /* Preview image selection */
-    gtk_widget_set_sensitive(xsane.preview->start, sensitivity);        /* Acquire preview button */
-  } 
-
-  if (xsane.fax_dialog)
-  {
-    gtk_widget_set_sensitive(xsane.fax_dialog, sensitivity);
-  }    
-  gsg_set_sensitivity(dialog, sensitivity);
-
-  while (gtk_events_pending()) /* make sure set_sensitivity is displayed */
-  {
-    gtk_main_iteration();
-  }       
-}
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

@@ -80,6 +80,7 @@ Preferences preferences =
      0.0,		/* contrast blue */
      1,			/* rgb default */
      0,			/* negative */
+     GTK_UPDATE_DISCONTINUOUS, /* update policy for gtk frontend sliders */
      0,			/* printernr */
      0			/* printerdefinitions */
   };
@@ -141,6 +142,7 @@ desc[] =
     {"contrast-blue",			w_double,	POFFSET(xsane_contrast_blue)},
     {"rgb-default",			w_int,		POFFSET(xsane_rgb_default)},
     {"negative",			w_int,		POFFSET(xsane_negative)},
+    {"gtk-update-policy",		w_int,		POFFSET(gtk_update_policy)},
     {"printernr",			w_int,		POFFSET(printernr)},
     {"printerdefinitions",		w_int,		POFFSET(printerdefinitions)}
   };

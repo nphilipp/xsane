@@ -41,20 +41,19 @@ extern GtkWidget *xsane_button_new_with_pixmap(GtkWidget *parent, const char *xp
                                                void *xsane_button_callback, gpointer data);
 extern void xsane_pixmap_new(GtkWidget *parent, char *title, int width, int height, XsanePixmap *hist);
 extern void xsane_option_menu_new(GtkWidget *parent, char *str_list[], const char *val, int option_number, const char *desc,
-                                  void *option_menu_callback);
-extern void xsane_scale_new(GtkBox *parent, char *labeltext, const char *desc,
-                            float min, float max, float quant, float step, float xxx,
-                            int digits, double *val, GtkObject **data, void *xsane_scale_callback);
-extern void xsane_scale_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char *desc,
-                                        float min, float max, float quant, float step, float xxx,
-                                        int digits, double *val, GtkObject **data, int option, void *xsane_scale_callback);
+                                  void *option_menu_callback, SANE_Int settable);
 extern void xsane_option_menu_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char *desc,
                                               char *str_list[], const char *val,
-                                              GtkObject **data, int option, void *option_menu_callback);
+                                              GtkObject **data, int option, void *option_menu_callback, SANE_Int settable);
+extern void xsane_scale_new(GtkBox *parent, char *labeltext, const char *desc,
+                            float min, float max, float quant, float step, float xxx,
+                            int digits, double *val, GtkObject **data, void *xsane_scale_callback, SANE_Int settable);
+extern void xsane_scale_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char *desc,
+                                        float min, float max, float quant, float step, float xxx, int digits,
+                                        double *val, GtkObject **data, int option, void *xsane_scale_callback, SANE_Int settable);
 extern void xsane_separator_new(GtkWidget *xsane_parent, int dist);
 extern GtkWidget *xsane_info_table_text_new(GtkWidget *table, gchar *text, int row, int colomn);
 extern GtkWidget *xsane_info_text_new(GtkWidget *parent, gchar *text);
 extern void xsane_refresh_dialog(void *nothing);
-extern void xsane_set_sensitivity(SANE_Int sensitivity);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

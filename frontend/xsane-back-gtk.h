@@ -102,40 +102,41 @@ extern int gsg_message_dialog_active;
    If PROG_NAME is NULL, an empty string is used and the leading slash
    is removed.  On success, 0 is returned, on error a negative number and
    ERRNO is set to the appropriate value.  */
-extern int gsg_make_path (size_t max_len, char *filename_ret,
-			  const char *prog_name,
-			  const char *dir_name,
-			  const char *prefix, const char *dev_name,
-			  const char *postfix);
+extern int gsg_make_path(size_t max_len, char *filename_ret,
+			 const char *prog_name,
+			 const char *dir_name,
+			 const char *prefix, const char *dev_name,
+			 const char *postfix);
 extern gint gsg_decision(gchar *title, gchar *message, gchar *oktext, gchar *rejecttext, gint wait);
-extern void gsg_message (gchar *title, gchar * message);
-extern void gsg_error (gchar * error_message);
-extern void gsg_warning (gchar * warning_message);
-extern int gsg_get_filename (const char *label, const char *default_name,
-			     size_t max_len, char *filename);
+extern void gsg_message(gchar *title, gchar *message, gint wait);
+extern void gsg_error(gchar *error_message, gint wait);
+extern void gsg_warning(gchar *warning_message, gint wait);
+extern int gsg_get_filename(const char *label, const char *default_name,
+			    size_t max_len, char *filename);
 
-extern void gsg_sync (GSGDialog *dialog);
+extern void gsg_sync(GSGDialog *dialog);
 extern void gsg_update_vector(GSGDialog *dialog, int opt_num, SANE_Int *vector);
-extern void gsg_refresh_dialog (GSGDialog *dialog);
-extern void gsg_update_scan_window (GSGDialog *dialog);
-extern void gsg_set_advanced (GSGDialog *dialog, int advanced);
-extern void gsg_set_tooltips (GSGDialog *dialog, int enable);
-extern void gsg_set_tooltip (GtkTooltips *tooltips, GtkWidget *widget, const char *desc);
-extern void gsg_set_sensitivity (GSGDialog *dialog, int sensitive);
-extern void gsg_destroy_dialog (GSGDialog * dialog);
-extern void gsg_set_option (GSGDialog * dialog, int opt_num, void *val, SANE_Action action);
-extern GtkWidget * gsg_group_new (GtkWidget *parent, const char * title);
-extern void gsg_button_new (GtkWidget * parent, const char *name, SANE_Word val,
-            GSGDialogElement * elem, GtkTooltips *tooltips, const char *desc);
-extern void gsg_scale_new (GtkWidget * parent, const char *name, gfloat val,
+extern void gsg_refresh_dialog(GSGDialog *dialog);
+extern void gsg_update_scan_window(GSGDialog *dialog);
+extern void gsg_set_advanced(GSGDialog *dialog, int advanced);
+extern void gsg_set_tooltips(GSGDialog *dialog, int enable);
+extern void gsg_set_tooltip(GtkTooltips *tooltips, GtkWidget *widget, const char *desc);
+extern void gsg_set_sensitivity(GSGDialog *dialog, int sensitive);
+extern void xsane_set_sensitivity(SANE_Int sensitivity);
+extern void gsg_destroy_dialog(GSGDialog *dialog);
+extern void gsg_set_option(GSGDialog * dialog, int opt_num, void *val, SANE_Action action);
+extern GtkWidget *gsg_group_new (GtkWidget *parent, const char * title);
+extern void gsg_button_new(GtkWidget * parent, const char *name, SANE_Word val,
+            GSGDialogElement *elem, GtkTooltips *tooltips, const char *desc, SANE_Int settable);
+extern void gsg_scale_new(GtkWidget * parent, const char *name, gfloat val,
            gfloat min, gfloat max, gfloat quant, int automatic,
-	   GSGDialogElement * elem, GtkTooltips *tooltips, const char *desc);
-extern void gsg_option_menu_new (GtkWidget *parent, const char *name, char *str_list[],
-           const char *val, GSGDialogElement * elem, GtkTooltips *tooltips, const char *desc);
-extern void gsg_text_entry_new (GtkWidget * parent, const char *name, const char *val,
-                GSGDialogElement * elem, GtkTooltips *tooltips, const char *desc);
-extern void gsg_push_button_callback (GtkWidget * widget, gpointer data);
-extern const char * gsg_unit_string (SANE_Unit unit);
+	   GSGDialogElement *elem, GtkTooltips *tooltips, const char *desc, SANE_Int settable);
+extern void gsg_option_menu_new(GtkWidget *parent, const char *name, char *str_list[],
+           const char *val, GSGDialogElement * elem, GtkTooltips *tooltips, const char *desc, SANE_Int settable);
+extern void gsg_text_entry_new(GtkWidget *parent, const char *name, const char *val,
+                GSGDialogElement *elem, GtkTooltips *tooltips, const char *desc, SANE_Int settable);
+extern void gsg_push_button_callback(GtkWidget * widget, gpointer data);
+extern const char *gsg_unit_string(SANE_Unit unit);
 
 #define gsg_dialog_get_device(dialog)	((dialog)->dev)
 

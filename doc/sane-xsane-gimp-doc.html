@@ -20,8 +20,6 @@ automatically is transfered to the Gimp.</font>
 <br>&nbsp;
 <br>&nbsp;
 <br>&nbsp;
-<br>&nbsp;
-<br>&nbsp;
 <br>&nbsp;</blockquote>
 
 <center><img SRC="sane-xsane-gimp.jpg" height=350 width=270></center>
@@ -37,9 +35,10 @@ if you use gimp-1.1.x, you have to do:
 <blockquote>
 <pre>ln -s /usr/local/bin/xsane ~/.gimp-1.1/plug-ins/</pre>
 </blockquote>
-You can start xsane from the GIMP via the menu <i>Xtns/Xsane.</i> It contains
-short-cuts to the SANE devices that were available at the time xsane was
-queried.</blockquote>
+You can start xsane from the GIMP menu <i>Xtns/Xsane </i>if GIMP-version
+&lt; 1.1.9, since GIMP-version-1.1.9 you can start xsane from the GIMP
+menu<i> File/Acquire.</i> It contains short-cuts to the SANE devices that
+were available at the time xsane was queried.</blockquote>
 
 <blockquote>Note that gimp(1) caches these short-cuts in ~/.gimp/pluginrc.
 Thus, when the list of&nbsp; available devices changes (e.g., a new scanner

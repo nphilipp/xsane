@@ -2,333 +2,6 @@
 #define _(x) x
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #nls translation file for xsane
 #language: newlanguage (abbreviation)
 
@@ -398,6 +71,10 @@ msgstr ""
 
 #original text:  "Preferences"   
 msgid MENU_PREFERENCES
+msgstr ""
+
+#original text:  "View"   
+msgid MENU_VIEW
 msgstr ""
 
 #original text:  "Help"   
@@ -620,8 +297,24 @@ msgstr ""
 msgid TEXT_PACKAGE
 msgstr ""
 
+#original text:  "with GIMP support"   
+msgid TEXT_WITH_GIMP_SUPPORT
+msgstr ""
+
+#original text:  "without GIMP support"   
+msgid TEXT_WITHOUT_GIMP_SUPPORT
+msgstr ""
+
+#original text:  "compiled with GIMP-"   
+msgid TEXT_GIMP_VERSION
+msgstr ""
+
 #original text:  "unknown"   
 msgid TEXT_UNKNOWN
+msgstr ""
+
+#original text:  "Email:"   
+msgid TEXT_EMAIL
 msgstr ""
 
 #original text:  "0x0: 0KB"   
@@ -1006,7 +699,7 @@ msgstr ""
 msgid DESC_RGB_DEFAULT
 msgstr ""
 
-#original text:  "Autoadjust gamma, brightness and contrast in dependance " "of selected area (rgb-values are set to default)"   
+#original text:  "Autoadjust gamma, brightness and contrast in dependance of selected area"   
 msgid DESC_ENH_AUTO
 msgstr ""
 
@@ -1018,7 +711,7 @@ msgstr ""
 msgid DESC_ENH_RESTORE
 msgstr ""
 
-#original text:  "Store active enhancemnt values to preferences"   
+#original text:  "Store active enhancement values to preferences"   
 msgid DESC_ENH_STORE
 msgstr ""
 
@@ -1254,8 +947,12 @@ msgstr ""
 msgid ERR_DURING_SAVE
 msgstr ""
 
-#original text:  "Cannot handle depth"   
+#original text:  "Can't handle depth"   
 msgid ERR_BAD_DEPTH
+msgstr ""
+
+#original text:  "GIMP can't handle depth"   
+msgid ERR_GIMP_BAD_DEPTH
 msgstr ""
 
 #original text:  "Unknown file format for saving"   
@@ -1390,6 +1087,29 @@ msgstr ""
 msgid TEXT_HELP			
 msgstr ""
 
+#original text:  "Front-end to the SANE interface"   
+msgid XSANE_GIMP_INSTALL_BLURB
+msgstr ""
+
+#original text:  "This function provides access to scanners and other image acquisition devices through the SANE (Scanner Access Now Easy) interface."   
+msgid XSANE_GIMP_INSTALL_HELP
+msgstr ""
+
+#original text:  "<Toolbox>/File/Acquire/XSane: "   
+msgid XSANE_GIMP_MENU
+msgstr ""
+
+#original text:  "<Toolbox>/Xtns/XSane/"   
+msgid XSANE_GIMP_MENU_OLD
+msgstr ""
+
+#original text:  "<Toolbox>/File/Acquire/XSane: Device dialog..."   
+msgid XSANE_GIMP_MENU_DIALOG
+msgstr ""
+
+#original text:  "<Toolbox>/Xtns/XSane/Device dialog..."   
+msgid XSANE_GIMP_MENU_DIALOG_OLD
+msgstr ""
 
 msgid "flatbed scanner"
 msgstr ""

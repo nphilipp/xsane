@@ -41,4 +41,9 @@
 - If make aborts with missing library "-lintl" try
   ./configure --with-included-gettext
 
+- If gtk+ is compiled with NLS/gettext, you have to use the same
+  gettext version. So if gtk+ is compiled with gettext in libc
+  do NOT compile xsane with included gettext!
+
+
 

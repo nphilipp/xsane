@@ -22,6 +22,7 @@
 
 #define MENU_FILE			_("File")
 #define MENU_PREFERENCES		_("Preferences")
+#define MENU_VIEW			_("View")
 #define MENU_HELP			_("Help")
 
 #define MENU_ITEM_ABOUT			_("About")
@@ -82,7 +83,11 @@
 #define TEXT_INVALID_PARAMS		_("Invalid parameters.")
 #define TEXT_VERSION			_("version:")
 #define TEXT_PACKAGE			_("package")
+#define TEXT_WITH_GIMP_SUPPORT		_("with GIMP support")
+#define TEXT_WITHOUT_GIMP_SUPPORT	_("without GIMP support")
+#define TEXT_GIMP_VERSION		_("compiled with GIMP-")
 #define TEXT_UNKNOWN			_("unknown")
+#define TEXT_EMAIL			_("Email:")
 
 #define TEXT_INFO_BOX			_("0x0: 0KB")
 
@@ -131,11 +136,16 @@
 #define MENU_ITEM_SHOW_STANDARDOPTIONS	_("Show standard options")
 #define MENU_ITEM_SHOW_ADVANCEDOPTIONS	_("Show advanced options")
 #define MENU_ITEM_SHOW_RESOLUTIONLIST	_("Show resolution list")
-#define MENU_ITEM_LENGTH_UNIT		_("Length unit")
 
+#define MENU_ITEM_LENGTH_UNIT		_("Length unit")
 #define SUBMENU_ITEM_LENGTH_MILLIMETERS	_("millimeters")
 #define SUBMENU_ITEM_LENGTH_CENTIMETERS	_("centimeters")
 #define SUBMENU_ITEM_LENGTH_INCHES	_("inches")
+
+#define MENU_ITEM_UPDATE_POLICY		_("Update policy")
+#define SUBMENU_ITEM_POLICY_CONTINUOUS	_("continuous")
+#define SUBMENU_ITEM_POLICY_DISCONTINU	_("dscontinuous")
+#define SUBMENU_ITEM_POLICY_DELAYED	_("delayed")
 
 #define MENU_ITEM_SAVE_DEVICE_SETTINGS	_("Save device settings")
 #define MENU_ITEM_LOAD_DEVICE_SETTINGS	_("Load device settings")
@@ -210,14 +220,13 @@
 						" brightness = 0\n" \
 						" contrast = 0")
 
-#define DESC_ENH_AUTO			_("Autoadjust gamma, brightness and contrast in dependance " \
-						"of selected area (rgb-values are set to default)")
+#define DESC_ENH_AUTO			_("Autoadjust gamma, brightness and contrast in dependance of selected area")
 #define DESC_ENH_DEFAULT		_("Set default enhancement values:\n" \
 						"gamma = 1.0\n" \
 						"brightness = 0\n" \
 						"contrast = 0")
 #define DESC_ENH_RESTORE		_("Restore enhancement values from preferences")
-#define DESC_ENH_STORE			_("Store active enhancemnt values to preferences")
+#define DESC_ENH_STORE			_("Store active enhancement values to preferences")
 
 #define DESC_HIST_INTENSITY		_("Show histogram of intensity/gray")
 #define DESC_HIST_RED			_("Show histogram of red component")
@@ -286,7 +295,8 @@
 #define ERR_NO_DEVICES			_("no devices available")
 #define ERR_DURING_READ			_("Error during read:")
 #define ERR_DURING_SAVE			_("Error during save:")
-#define ERR_BAD_DEPTH			_("Cannot handle depth")
+#define ERR_BAD_DEPTH			_("Can't handle depth")
+#define ERR_GIMP_BAD_DEPTH		_("GIMP can't handle depth")
 #define ERR_UNKNOWN_SAVING_FORMAT	_("Unknown file format for saving")
 #define ERR_OPEN_FAILED			_("Failed to open")
 #define ERR_FAILED_PRINTER_PIPE		_("Failed to open pipe for executing printercommand")
@@ -351,5 +361,14 @@
 --no-xshm                    do not use shared memory images\n\
 --sync                       request a synchronous connection with the X11 server\
 ")
+
+/* strings for gimp plugin */
+
+#define XSANE_GIMP_INSTALL_BLURB	_("Front-end to the SANE interface")
+#define XSANE_GIMP_INSTALL_HELP		_("This function provides access to scanners and other image acquisition devices through the SANE (Scanner Access Now Easy) interface.")
+#define XSANE_GIMP_MENU_DIALOG		_("<Toolbox>/File/Acquire/XSane: Device dialog...")
+#define XSANE_GIMP_MENU			_("<Toolbox>/File/Acquire/XSane: ")
+#define XSANE_GIMP_MENU_DIALOG_OLD	_("<Toolbox>/Xtns/XSane/Device dialog...")
+#define XSANE_GIMP_MENU_OLD		_("<Toolbox>/Xtns/XSane/")
 
 #endif

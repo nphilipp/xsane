@@ -1,15 +1,14 @@
-Hi,
 
-if you are interested in adding a new language to xsane
-please read this text:
+How to add a new language to xsane:
+-----------------------------------
+
+SHORT DESCRIPTION:
+------------------
 
 XSane uses gettext for supporting translation into different languages.
 *** BUT ***:
 I don`t use the standard routines to create the empty translation(*.po) file.
 My way is more flexible when changes in the original textes are made:
-
-SHORT DESCRIPTION:
-------------------
 
 All texts that are printed from xsane are #DEFINEd in xsane-text.h.
 Every text that is added to xsane will be added in frontend/xsane-text.h
@@ -27,6 +26,8 @@ original (up to date) text and creates the *.po files.
 
 make_newlanguage.po.in creates the file newlanguage.po.in, the gcc preprocessor
 is used to add the recent original texts as comments.
+
+
 
 WHAT DO YOU HAVE TO DO TO CREATE ADD A NEW LANGUAGE?
 ----------------------------------------------------

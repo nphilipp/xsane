@@ -187,7 +187,7 @@ void xsane_increase_counter_in_filename(char *filename, int skip)
 
     if (!( (*position_counter >= '0') && (*position_counter <='9') )) /* overflow */
     {
-      gsg_warning(WARN_COUNTER_OVERFLOW);
+      gsg_warning(WARN_COUNTER_OVERFLOW, FALSE);
       break; /* last available number ("999") */
     }
 
@@ -454,7 +454,7 @@ void xsane_save_jpeg(FILE *outfile, FILE *imagefile,
   if (!data)
   {
     snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_NO_MEM);
-    gsg_error(buf);
+    gsg_error(buf, TRUE);
     return;
   }
 
@@ -555,7 +555,7 @@ void xsane_save_tiff(const char *outfilename, FILE *imagefile,
   if (!tiffile)
   {
     snprintf(buf, sizeof(buf), "%s %s %s\n",ERR_DURING_SAVE, ERR_OPEN_FAILED, outfilename);
-    gsg_error(buf);
+    gsg_error(buf, TRUE);
     return;
   }
 
@@ -564,7 +564,7 @@ void xsane_save_tiff(const char *outfilename, FILE *imagefile,
   if (!data)
   {
     snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_NO_MEM);
-    gsg_error(buf);
+    gsg_error(buf, TRUE);
     return;
   }
   
@@ -654,7 +654,7 @@ void xsane_save_png(FILE *outfile, FILE *imagefile,
   if (!png_ptr)
   {
     snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_LIBTIFF);
-    gsg_error(buf);
+    gsg_error(buf, TRUE);
     return;
   }
 
@@ -662,14 +662,14 @@ void xsane_save_png(FILE *outfile, FILE *imagefile,
   if (!png_info_ptr)
   {
     snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_LIBTIFF);
-    gsg_error(buf);
+    gsg_error(buf, TRUE);
     return;
   }
 
   if (setjmp(png_ptr->jmpbuf))
   {
     snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_LIBPNG);
-    gsg_error(buf);
+    gsg_error(buf, TRUE);
     png_destroy_write_struct(&png_ptr, (png_infopp) 0);
     return;
   }
@@ -711,7 +711,7 @@ void xsane_save_png(FILE *outfile, FILE *imagefile,
   if (!data)
   {
     snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_NO_MEM);
-    gsg_error(buf);
+    gsg_error(buf, TRUE);
     png_destroy_write_struct(&png_ptr, (png_infopp) 0);
     return;
   }
@@ -767,7 +767,7 @@ void xsane_save_png_16(FILE *outfile, FILE *imagefile,
   if (!png_ptr)
   {
     snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_LIBPNG);
-    gsg_error(buf);
+    gsg_error(buf, TRUE);
     return;
   }
 
@@ -775,14 +775,14 @@ void xsane_save_png_16(FILE *outfile, FILE *imagefile,
   if (!png_info_ptr)
   {
     snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_LIBPNG);
-    gsg_error(buf);
+    gsg_error(buf, TRUE);
     return;
   }
 
   if (setjmp(png_ptr->jmpbuf))
   {
     snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_LIBPNG);
-    gsg_error(buf);
+    gsg_error(buf, TRUE);
     png_destroy_write_struct(&png_ptr, (png_infopp) 0);
     return;
   }
@@ -824,7 +824,7 @@ void xsane_save_png_16(FILE *outfile, FILE *imagefile,
   if (!data)
   {
     snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_NO_MEM);
-    gsg_error(buf);
+    gsg_error(buf, TRUE);
     png_destroy_write_struct(&png_ptr, (png_infopp) 0);
     return;
   }

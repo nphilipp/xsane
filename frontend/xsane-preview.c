@@ -145,6 +145,8 @@ static SANE_Int *histogram_gamma_data_blue  = 0;
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 /* forward declarations */
+static void preview_order_selection(Preview *p);
+static void preview_bound_selection(Preview *p);
 static void preview_draw_rect(Preview *p, GdkWindow *win, GdkGC *gc, float coord[4]);
 static void preview_draw_selection(Preview *p);
 static void preview_update_selection(Preview *p);
@@ -192,6 +194,71 @@ void preview_gamma_correction(Preview *p,
                               SANE_Int *gamma_red, SANE_Int *gamma_green, SANE_Int *gamma_blue,
                               SANE_Int *gamma_red_hist, SANE_Int *gamma_green_hist, SANE_Int *gamma_blue_hist);
 void preview_area_resize(GtkWidget *widget);
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void preview_order_selection(Preview *p)
+{
+ float tmp_coordinate;
+
+  p->selection.active = (p->selection.coordinate[0] != p->selection.coordinate[2] ||
+                         p->selection.coordinate[1] != p->selection.coordinate[3]);
+
+
+  if (p->selection.active)
+  {
+    if (p->selection.coordinate[0] > p->selection.coordinate[2])
+    {
+      tmp_coordinate = p->selection.coordinate[0];
+      p->selection.coordinate[0] = p->selection.coordinate[2];
+      p->selection.coordinate[2] = tmp_coordinate;
+
+      p->selection_xedge = (p->selection_xedge + 2) & 3;
+    }
+
+    if (p->selection.coordinate[1] > p->selection.coordinate[3])
+    {
+      tmp_coordinate = p->selection.coordinate[1];
+      p->selection.coordinate[1] = p->selection.coordinate[3];
+      p->selection.coordinate[3] = tmp_coordinate;
+
+      p->selection_yedge = (p->selection_yedge + 2) & 3;
+    }
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void preview_bound_selection(Preview *p)
+{
+
+  p->selection.active = (p->selection.coordinate[0] != p->selection.coordinate[2] ||
+                         p->selection.coordinate[1] != p->selection.coordinate[3]);
+
+
+  if (p->selection.active)
+  {
+    if (p->selection.coordinate[0] < p->scanner_surface[0])
+    {
+      p->selection.coordinate[0] = p->scanner_surface[0];
+    }
+
+    if (p->selection.coordinate[1] < p->scanner_surface[1])
+    {
+      p->selection.coordinate[1] =  p->scanner_surface[1];
+    }
+
+    if (p->selection.coordinate[2] > p->scanner_surface[2])
+    {
+      p->selection.coordinate[2] = p->scanner_surface[2];
+    }
+
+    if (p->selection.coordinate[3] > p->scanner_surface[3])
+    {
+      p->selection.coordinate[3] = p->scanner_surface[3];
+    }
+  }
+}
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -323,6 +390,8 @@ static void preview_establish_selection(Preview *p)
   /* This routine only shall be called if the preview area really is changed. */
 
   int i;
+
+  preview_order_selection(p);
 
   xsane.block_update_param = TRUE; /* do not change parameters each time */
 
@@ -625,7 +694,7 @@ static void preview_restore_option(Preview *p, int option, SANE_Word saved_value
     char buf[256];
     opt = sane_get_option_descriptor(dev, option);
     snprintf(buf, sizeof(buf), "%s %s: %s.", ERR_SET_OPTION, opt->name, XSANE_STRSTATUS(status));
-    gsg_error(buf);
+    gsg_error(buf, TRUE);
   }
 }
 
@@ -701,7 +770,7 @@ static int preview_increment_image_y(Preview *p)
     if ( (!p->image_data_enh) || (!p->image_data_raw) )
     {
       snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_ALLOCATE_IMAGE, strerror(errno));
-      gsg_error(buf);
+      gsg_error(buf, TRUE);
       preview_scan_done(p);
       return -1;
     }
@@ -742,7 +811,7 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
       else
       {
         snprintf(buf, sizeof(buf), "%s %s.", ERR_DURING_READ, XSANE_STRSTATUS(status));
-        gsg_error(buf);
+        gsg_error(buf, TRUE);
       }
       preview_scan_done(p);
       return;
@@ -880,7 +949,7 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
 
 bad_depth:
   snprintf(buf, sizeof(buf), "%s %d.", ERR_PREVIEW_BAD_DEPTH, p->params.depth);
-  gsg_error(buf);
+  gsg_error(buf, TRUE);
   preview_scan_done(p);
   return;
 }
@@ -1028,7 +1097,7 @@ static void preview_scan_start(Preview *p)
   if (status != SANE_STATUS_GOOD)
   {
     snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_START_SCANNER, XSANE_STRSTATUS(status));
-    gsg_error(buf);
+    gsg_error(buf, TRUE);
     preview_scan_done(p);
     return;
   }
@@ -1037,7 +1106,7 @@ static void preview_scan_start(Preview *p)
   if (status != SANE_STATUS_GOOD)
   {
     snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_GET_PARAMS, XSANE_STRSTATUS(status));
-    gsg_error(buf);
+    gsg_error(buf, TRUE);
     preview_scan_done(p);
     return;
   }
@@ -1083,7 +1152,7 @@ static void preview_scan_start(Preview *p)
       { free(p->image_data_raw); }
 
       snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_ALLOCATE_IMAGE, strerror(errno));
-      gsg_error(buf);
+      gsg_error(buf, TRUE);
       preview_scan_done(p);
       return;
     }
@@ -1178,7 +1247,7 @@ static void preview_restore_image(Preview *p)
     }
 
     snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_ALLOCATE_IMAGE, strerror(errno));
-    gsg_error(buf);
+    gsg_error(buf, TRUE);
     return;
   }
 
@@ -1210,12 +1279,13 @@ static gint preview_expose_handler(GtkWidget *window, GdkEvent *event, gpointer 
 
 static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer data)
 {
-  Preview *p = data;
-  GdkCursor *cursor;
-  int i;
-  float preview_selection[4];
-  float tmp_coordinate;
-  float xscale, yscale;
+ Preview *p = data;
+ GdkCursor *cursor;
+ float preview_selection[4];
+ float xscale, yscale;
+ static int event_count = 0;
+
+  event_count++;
 
   preview_get_scale_device_to_preview(p, &xscale, &yscale);
 
@@ -1240,8 +1310,9 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
     }
   }
   else if (!p->scanning)
+  {
     switch (event->type)
-      {
+    {
       case GDK_UNMAP:
       case GDK_MAP:
 	break;
@@ -1564,6 +1635,8 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
                 }
                 else /* select new area */
                 {
+                  p->selection_xedge = 2;
+                  p->selection_yedge = 3;
                   p->selection.coordinate[0] = p->surface[0] + event->button.x / xscale;
                   p->selection.coordinate[1] = p->surface[1] + event->button.y / yscale;
                   p->selection_drag = TRUE;
@@ -1600,56 +1673,15 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
 
               if (((GdkEventButton *)event)->button == 1) /* left button */
               {
-                if (p->selection_drag_edge)
-                {
-                  p->selection.coordinate[p->selection_xedge] = p->surface[0] + event->button.x / xscale;
-                  p->selection.coordinate[p->selection_yedge] = p->surface[1] + event->button.y / yscale;
-                  p->selection_drag_edge = FALSE;
-                }
-                else
-                {
-                  p->selection.coordinate[2] = p->surface[0] + event->button.x / xscale;
-                  p->selection.coordinate[3] = p->surface[1] + event->button.y / yscale;
-                }
+                p->selection.coordinate[p->selection_xedge] = p->surface[0] + event->button.x / xscale;
+                p->selection.coordinate[p->selection_yedge] = p->surface[1] + event->button.y / yscale;
               }
 
+              p->selection_drag_edge = FALSE;
               p->selection_drag = FALSE;
 
-              p->selection.active = (p->selection.coordinate[0] != p->selection.coordinate[2] ||
-                                     p->selection.coordinate[1] != p->selection.coordinate[3]);
-
-              if (p->selection.active)
-              {
-                for (i = 0; i < 2; i += 1)
-                {
-                  if (p->selection.coordinate[i] > p->selection.coordinate[i + 2])
-                  {
-                    tmp_coordinate = p->selection.coordinate[i];
-                    p->selection.coordinate[i] = p->selection.coordinate[i + 2];
-                    p->selection.coordinate[i + 2] = tmp_coordinate;
-                  }
-                }
-
-                if (p->selection.coordinate[0] < p->scanner_surface[0])
-                {
-                  p->selection.coordinate[0] = p->scanner_surface[0];
-                }
-
-                if (p->selection.coordinate[1] < p->scanner_surface[1])
-                {
-                  p->selection.coordinate[1] =  p->scanner_surface[1];
-                }
-
-                if (p->selection.coordinate[2] > p->scanner_surface[2])
-                {
-                  p->selection.coordinate[2] = p->scanner_surface[2];
-                }
-
-                if (p->selection.coordinate[3] > p->scanner_surface[3])
-                {
-                  p->selection.coordinate[3] = p->scanner_surface[3];
-                }
-              }
+              preview_order_selection(p);
+              preview_bound_selection(p);
               preview_draw_selection(p);
               preview_establish_selection(p);
             }
@@ -1667,15 +1699,39 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
               p->selection.active = TRUE;
               p->selection.coordinate[p->selection_xedge] = p->surface[0] + event->button.x / xscale;
               p->selection.coordinate[p->selection_yedge] = p->surface[1] + event->button.y / yscale;
+
+              preview_order_selection(p);
+              preview_bound_selection(p);
               preview_draw_selection(p);
+
+              if ((preferences.gtk_update_policy == GTK_UPDATE_CONTINUOUS) && (event_count == 1))
+              {
+                preview_establish_selection(p);
+              }
+              else if ((preferences.gtk_update_policy == GTK_UPDATE_DELAYED) && (event_count == 1))
+              {
+                preview_establish_selection(p);
+              }
             }
 
             if (p->selection_drag)
             {
               p->selection.active = TRUE;
-              p->selection.coordinate[2] = p->surface[0] + event->motion.x / xscale;
-              p->selection.coordinate[3] = p->surface[1] + event->motion.y / yscale;
+              p->selection.coordinate[p->selection_xedge] = p->surface[0] + event->motion.x / xscale;
+              p->selection.coordinate[p->selection_yedge] = p->surface[1] + event->motion.y / yscale;
+
+              preview_order_selection(p);
+              preview_bound_selection(p);
               preview_draw_selection(p);
+
+              if ((preferences.gtk_update_policy == GTK_UPDATE_CONTINUOUS) && (event_count == 1))
+              {
+                preview_establish_selection(p);
+              }
+              else if ((preferences.gtk_update_policy == GTK_UPDATE_DELAYED) && (event_count == 1))
+              {
+                preview_establish_selection(p);
+              }
             }
            break;
 
@@ -1696,7 +1752,18 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
               p->selection.coordinate[1] -= dy / yscale;
               p->selection.coordinate[2] -= dx / xscale;
               p->selection.coordinate[3] -= dy / yscale;
+
+              preview_bound_selection(p);
               preview_draw_selection(p);
+
+              if ((preferences.gtk_update_policy == GTK_UPDATE_CONTINUOUS) && (event_count == 1))
+              {
+                preview_establish_selection(p);
+              }
+              else if ((preferences.gtk_update_policy == GTK_UPDATE_DELAYED) && (event_count == 1))
+              {
+                preview_establish_selection(p);
+              }
             }
            break;
           default:
@@ -1709,8 +1776,17 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
 	fprintf(stderr, "preview_event_handler: unhandled event type %d\n", event->type);
 #endif
 	break;
-      }
-  return FALSE;
+    }
+  }
+
+  while (gtk_events_pending()) /* make sure all selection draw is done now */
+  {
+    gtk_main_iteration();
+  }
+
+  event_count--;
+
+ return FALSE;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

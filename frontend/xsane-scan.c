@@ -262,20 +262,23 @@ static void xsane_gimp_query(void)
   size_t len;
   int i, j;
 
-  gimp_install_procedure(
-      "xsane",
-      "Front-end to the SANE interface",
-      "This function provides access to scanners and other image acquisition "
-      "devices through the SANE (Scanner Access Now Easy) interface.",
-       "Oliver Rauch",
-       "Oliver Rauch",
-      "1998/1999",
-      "<Toolbox>/Xtns/XSane/Device dialog...",
-/*      "<Toolbox>/File/Acquire/XSane: Device dialog...", */
-      "RGB, GRAY",
-      PROC_EXTENSION,
-      nargs, nreturn_vals,
-      args, return_vals);
+  snprintf(name, sizeof(name), "%s", prog_name);
+#if GIMP_CHECK_VERSION(1,1,9)
+  snprintf(mpath, sizeof(mpath), "%s", XSANE_GIMP_MENU_DIALOG);
+#else
+  snprintf(mpath, sizeof(mpath), "%s", XSANE_GIMP_MENU_DIALOG_OLD);
+#endif
+  gimp_install_procedure(name,
+			 XSANE_GIMP_INSTALL_BLURB,
+			 XSANE_GIMP_INSTALL_HELP,
+			 XSANE_AUTHOR,
+			 XSANE_COPYRIGHT,
+			 XSANE_DATE,
+			 mpath,
+			 "RGB, GRAY",
+			 PROC_EXTENSION,
+			 nargs, nreturn_vals,
+			 args, return_vals);
 
   sane_init(&xsane.sane_backend_versioncode, (void *) xsane_authorization_callback);
   if (SANE_VERSION_MAJOR(xsane.sane_backend_versioncode) != SANE_V_MAJOR)
@@ -298,12 +301,17 @@ static void xsane_gimp_query(void)
 
   for (i = 0; devlist[i]; ++i)
     {
-      strcpy(name, "xsane-");
+      snprintf(name, sizeof(name), "%s-", prog_name);
       if (xsane_encode_devname(devlist[i]->name, sizeof(name) - 6, name + 6) < 0)
+      {
 	continue;	/* name too long... */
+      }
 
-      strncpy(mpath, "<Toolbox>/Xtns/XSane/", sizeof(mpath));
-/*      strncpy(mpath, "<Toolbox>/File/Acquire/XSane: ", sizeof(mpath)); */
+#if GIMP_CHECK_VERSION(1,1,9)
+      snprintf(mpath, sizeof(mpath), "%s", XSANE_GIMP_MENU);
+#else
+      snprintf(mpath, sizeof(mpath), "%s", XSANE_GIMP_MENU_OLD);
+#endif
       len = strlen(mpath);
       for (j = 0; devlist[i]->name[j]; ++j)
 	{
@@ -314,15 +322,17 @@ static void xsane_gimp_query(void)
 	}
       mpath[len++] = '\0';
 
-      gimp_install_procedure
-	(name, "Front-end to the SANE interface",
-	 "This function provides access to scanners and other image "
-	 "acquisition devices through the SANE (Scanner Access Now Easy) "
-	 "interface.",
-         "Oliver Rauch",
-         "Oliver Rauch",
-	 "1998/1999", mpath, "RGB, GRAY", PROC_EXTENSION,
-	 nargs, nreturn_vals, args, return_vals);
+  gimp_install_procedure(name,
+			 XSANE_GIMP_INSTALL_BLURB,
+			 XSANE_GIMP_INSTALL_HELP,
+			 XSANE_AUTHOR,
+			 XSANE_COPYRIGHT,
+			 XSANE_DATE,
+			 mpath,
+			 "RGB, GRAY",
+			 PROC_EXTENSION,
+			 nargs, nreturn_vals,
+			 args, return_vals);
     }
   sane_exit();
 }
@@ -459,7 +469,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
       {
         xsane_scan_done(status); /* status = return of sane_read */
         snprintf(buf, sizeof(buf), "%s %s.", ERR_DURING_READ, XSANE_STRSTATUS(status));
-        gsg_error(buf);
+        gsg_error(buf, TRUE);
         return;
       }
 
@@ -645,6 +655,10 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
                   }
                 }
                break;
+
+              default:
+                goto bad_depth;
+               break;
             }
           }
 #endif /* HAVE_LIBGIMP_GIMP_H */
@@ -695,6 +709,10 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
                   xsane.tile_offset += 3;
                   xsane_gimp_advance();
                 }
+               break;
+
+              default:
+                goto bad_depth;
                break;
             }
           }
@@ -856,7 +874,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
       {
         xsane_scan_done(status); /* status = return of sane_read */
         snprintf(buf, sizeof(buf), "%s %s.", ERR_DURING_READ, XSANE_STRSTATUS(status));
-        gsg_error(buf);
+        gsg_error(buf, TRUE);
         return;
       }
 
@@ -1001,7 +1019,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
   {
     xsane_scan_done(-1); /* -1 = error */
     snprintf(buf, sizeof(buf), "%s %d.", ERR_BAD_DEPTH, xsane.param.depth);
-    gsg_error(buf);
+    gsg_error(buf, TRUE);
     return;
   }
 
@@ -1014,7 +1032,7 @@ bad_depth:
 
   xsane_scan_done(-1); /* -1 = error */
   snprintf(buf, sizeof(buf), "%s %d.", ERR_BAD_DEPTH, xsane.param.depth);
-  gsg_error(buf);
+  gsg_error(buf, TRUE);
   return;
 #endif
 }
@@ -1183,13 +1201,13 @@ void xsane_scan_done(SANE_Status status)
                                        xsane.param.lines, preferences.png_compression);
                    }
                   break;
+#endif
+#endif
 
                  case XSANE_PNM16:
                    xsane_save_pnm_16(outfile, infile, xsane.xsane_color, xsane.param.depth, xsane.param.pixels_per_line,
                                      xsane.param.lines);
                   break;
-#endif
-#endif
 
                  case XSANE_PS: /* save postscript, use original size */
                  { 
@@ -1209,7 +1227,7 @@ void xsane_scan_done(SANE_Status status)
 
                  default:
                    snprintf(buf, sizeof(buf),"%s", ERR_UNKNOWN_SAVING_FORMAT);
-                   gsg_error(buf);
+                   gsg_error(buf, TRUE);
                   break;
                }
                fclose(outfile);
@@ -1219,7 +1237,7 @@ void xsane_scan_done(SANE_Status status)
               char buf[256];
 
                snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, preferences.filename, strerror(errno));
-               gsg_error(buf);
+               gsg_error(buf, TRUE);
              }
            }
            fclose(infile);
@@ -1229,7 +1247,7 @@ void xsane_scan_done(SANE_Status status)
          {
           char buf[256];
            snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, preferences.filename, strerror(errno));
-           gsg_error(buf);
+           gsg_error(buf, TRUE);
          }
          xsane_progress_free(xsane.progress);
          xsane.progress = 0;
@@ -1295,18 +1313,18 @@ void xsane_scan_done(SANE_Status status)
            if (!infile)
            {
              snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, preferences.filename, strerror(errno));
-             gsg_error(buf);
+             gsg_error(buf, TRUE);
            }
            else if (!outfile)
            {
-             gsg_error(ERR_FAILED_PRINTER_PIPE);
+             gsg_error(ERR_FAILED_PRINTER_PIPE, TRUE);
            }
          }
 
          if (xsane.broken_pipe)
          {
            snprintf(buf, sizeof(buf), "%s \"%s\"", ERR_FAILED_EXEC_PRINTER_CMD, preferences.printer[preferences.printernr]->command);
-           gsg_error(buf);
+           gsg_error(buf, TRUE);
          }
 
          xsane_progress_free(xsane.progress);
@@ -1368,7 +1386,7 @@ void xsane_scan_done(SANE_Status status)
               char buf[256];
 
                snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, xsane.fax_filename, strerror(errno));
-               gsg_error(buf);
+               gsg_error(buf, TRUE);
              }
            }
            fclose(infile);
@@ -1378,7 +1396,7 @@ void xsane_scan_done(SANE_Status status)
          {
           char buf[256];
            snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, xsane.fax_filename, strerror(errno));
-           gsg_error(buf);
+           gsg_error(buf, TRUE);
          }
          xsane_progress_free(xsane.progress);
          xsane.progress = 0;
@@ -1534,7 +1552,7 @@ static void xsane_start_scan(void)
   {
     xsane_scan_done(status);
     snprintf(buf, sizeof(buf), "%s %s", ERR_FAILED_START_SCANNER, XSANE_STRSTATUS(status));
-    gsg_error(buf);
+    gsg_error(buf, TRUE);
     return;
   }
 
@@ -1545,7 +1563,7 @@ static void xsane_start_scan(void)
   {
     xsane_scan_done(-1); /* -1 = error */
     snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, preferences.filename, strerror(errno));
-    gsg_error(buf);
+    gsg_error(buf, TRUE);
     return;
   }
 
@@ -1554,7 +1572,7 @@ static void xsane_start_scan(void)
   {
     xsane_scan_done(status);
     snprintf(buf, sizeof(buf), "%s %s", ERR_FAILED_GET_PARAMS, XSANE_STRSTATUS(status));
-    gsg_error(buf);
+    gsg_error(buf, TRUE);
     return;
   }
 
@@ -1783,7 +1801,7 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
 
         fclose(testfile);
         snprintf(buf, sizeof(buf), "File %s already exists\n", preferences.filename);
-        if (gsg_decision("Warning:", buf, "Overwrite", "Cancel", 1 /* wait */) == FALSE)
+        if (gsg_decision("Warning:", buf, "Overwrite", "Cancel", TRUE /* wait */) == FALSE)
         {
           return;
         }
@@ -1882,14 +1900,14 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
         {
           snprintf(buf, sizeof(buf), "%s", ERR_NO_OUTPUT_FORMAT);
         }
-        gsg_error(buf);
+        gsg_error(buf, TRUE);
         return;
       }
 #ifdef SUPPORT_RGBA
       else if ((xsane.xsane_output_format == XSANE_RGBA) && (xsane.param.format != SANE_FRAME_RGBA))
       {
         snprintf(buf, sizeof(buf), "No RGBA data format !!!"); /* user selected output format RGBA, scanner uses other format */
-        gsg_error(buf);
+        gsg_error(buf, TRUE);
         return;
       }
 #endif
@@ -1898,7 +1916,7 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
     else if (xsane.param.format == SANE_FRAME_RGBA) /* no scanmode but format=rgba */
     {
       snprintf(buf, sizeof(buf), "Special format RGBA only supported in scan mode !!!");
-      gsg_error(buf);
+      gsg_error(buf, TRUE);
       return;
     }
 #endif
@@ -1909,7 +1927,7 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
       if ( (xsane.xsane_output_format != XSANE_RGBA) && (xsane.xsane_output_format != XSANE_PNG) )
       {
         snprintf(buf, sizeof(buf), "Image data of type SANE_FRAME_RGBA\ncan only be saved in rgba or png format");
-        gsg_error(buf);
+        gsg_error(buf, TRUE);
         return;
       }
     }
@@ -1920,6 +1938,17 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
       mkdir(preferences.fax_project, 7*64 + 0*8 + 0);
     }
   }
+#ifdef HAVE_LIBGIMP_GIMP_H
+  else	/* We are running in gimp mode */
+  {
+    if ((xsane.param.depth != 1) && (xsane.param.depth != 8)) /* not support bit depth ? */
+    {
+      snprintf(buf, sizeof(buf), "%s %d.", ERR_GIMP_BAD_DEPTH, xsane.param.depth);
+      gsg_error(buf, TRUE);
+     return;
+    }
+  }
+#endif
 
   if (xsane.dummy_filename) /* no dummy filename defined - necessary if an error occurs */
   {

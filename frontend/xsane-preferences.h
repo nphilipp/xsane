@@ -2,6 +2,7 @@
 #define xsanepreferences_h
 
 #include <sane/sane.h>
+#include <gtk/gtk.h>
 
 
 typedef struct
@@ -67,6 +68,7 @@ typedef struct
     double xsane_contrast_blue;
     int xsane_rgb_default;
     int xsane_negative;
+    GtkUpdateType gtk_update_policy;
     int printernr;
     int printerdefinitions;
     Preferences_printer_t *printer[10];

@@ -440,8 +440,39 @@ xsane-0.36 -> 0.37:
    translation of backend options
  - added translation for backend options:
    Backend translation is done with translation table sane-BACKENDNAME.mo 
- - removed bug in preview_update_selection() (forgotten p->selection.active = TRUE)
+ - removed bug in preview_update_selection()
+   (forgotten p->selection.active = TRUE)
    The selection box is updated correct now
  - removed bug in aclocal.m4: not fount "-lintl" when gettext is in glibc
 
+
+xsane-0.37 -> 0.38:
+-------------------
+
+ - changed STANDALONE -> XSANE_STANDALONE and
+   GIMP_EXTENSION ->  XSANE_GIMP_EXTENSION because GIMP_EXTENSION
+   now (gimp-1.1.10) is used in the Gimp
+ - changed brightness and contrast range maximum form 300 to 400 %
+ - moved gimp installation texts to xsane-text.h
+   added entries to po/newlamguage*
+ - xsane -g now does not print anything and does not abort if gimp
+   support is compiled in
+ - changed lib/Makefile.in and sanei/Makefile in, make install should
+   work without a previous make now
+ - xsane gimp-plugin is selected via file/acquire now when
+   gimp-version >= 1.1.9
+ - . removed ../intl/libintl.a form frontend/Makefile.in and
+   . added CATOBJEXT=UNKNOWN and XGETTEXT=":" in if "gettext is in libc"
+     to aclocal.m4
+   hope this solves problems with missing "-lintl" now on all systems
+ - moved "show xxx" menu items form menu "Preferences" to menu "View"
+ - added continuous update to histogram sliders and preview selection
+ - added preferences menu item "Update policy"
+ - now options are only changable if SANE_CAP_SOFT_SELECT is set
+ - added test for bitdepth in xsane_scan_dialog for GIMP mode,
+   error message pops up when unsupported bit depths are selectd
+ - moved case XSANE_PNM16 out of a #ifdef HAVE_LIBPNG block
+ - position of all windows and size of main window and preview window
+   is save in device settings, setting preview window geometry
+   does not work because window does not exist at relevant times.
 

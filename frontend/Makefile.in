@@ -29,7 +29,7 @@ INSTALL_DATA = @INSTALL_DATA@
 
 CC = @CC@
 INCLUDES = -I. -I$(srcdir) -I$(top_builddir)/include -I$(top_srcdir)/include \
-	   -I $(top_srcdir)/intl @GTK_CFLAGS@ @INCLUDES@ \
+	   @GTK_CFLAGS@ @INCLUDES@ \
 	   -DLOCALEDIR=\""$(datadir)/locale"\"
 DEFS = @DEFS@
 CPPFLAGS = @CPPFLAGS@

@@ -1,0 +1,10 @@
+if [ $# != 1 ]
+then
+echo "Usage: remake_backend.po.in file[.po.in]"
+exit -1
+fi   
+cat $1.po.in | sed -e "/#original text/D" -e "/msgid/P" -e "s/msgid /_/g" - | sed -e "s/msgid/#original text:/g" >$1.po.in.tmp
+gcc -E -P - <$1.po.in.tmp | sed -e "s/^_/msgid /g" - | cat newbackend.po.in.header - >$1.po.in
+rm $1.po.in.tmp
+
+

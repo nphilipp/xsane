@@ -1,0 +1,8 @@
+To update the lines
+#original text: "*"
+in file.po.in call remake_language.po.in file[.po.in]
+
+To update file.po call 
+po.in2po file
+
+

@@ -18,16 +18,13 @@
 <u><font color="#009900">Enhancement</font></u></h1>
 XSane uses a gamma table to do the following enhancement functions. If
 the scanner supports a custom gamma table (and the option is enabled) XSane
-uses the scanner internal gamma table with the scanner's maximum bit depth.
-<br>&nbsp;
-<br>&nbsp;
-<br>&nbsp;</blockquote>
+uses the scanner internal gamma table with the scanner's maximum bit depth.</blockquote>
 
 <center><img SRC="sane-xsane.jpg" height=416 width=270></center>
 
 <blockquote>&nbsp;
 <dt>
-<img SRC="gamma.jpg" height=21 width=22>&nbsp;&nbsp;&nbsp;<b> Gamma correction:</b></dt>
+<img SRC="gamma.jpg" height=21 width=22><a NAME="GAMMA"></a><b> Gamma correction:</b></dt>
 
 <blockquote>The gamma correction is a non linear correction. Black keeps
 black and white keeps white
@@ -37,14 +34,14 @@ are brightned
 </blockquote>
 
 <dt>
-<img SRC="brightness.jpg" height=21 width=22>&nbsp;&nbsp;&nbsp; <b>Brightness:</b></dt>
+<img SRC="brightness.jpg" height=21 width=22><a NAME="BRIGHTNESS"></a><b> Brightness:</b></dt>
 
 <blockquote>positive values increase the brightness of the image. All values
 are increased by the same value. 100% means a shift of the half value range
 (on 8 bits (256 values) this means a shift of 128).</blockquote>
 
 <dt>
-<img SRC="contrast.jpg" height=21 width=22>&nbsp;&nbsp;&nbsp; <b>Contrast:</b></dt>
+<img SRC="contrast.jpg" height=21 width=22><a NAME="CONTRAST"></a><b> Contrast:</b></dt>
 
 <blockquote>positive values increase the contrast of the image. Medium
 gray keeps medium gray (8 bits: 128)
@@ -54,7 +51,7 @@ doubled</blockquote>
 </blockquote>
 
 <dt>
-<img SRC="rgb-default.jpg" height=26 width=26><b>&nbsp; RGB default:</b></dt>
+<img SRC="rgb-default.jpg" height=26 width=26><a NAME="RGB_DEFAULT"></a><b> RGB default:</b></dt>
 
 <blockquote>if RGB default is activated, all values for the color components
 (red, green and blue) are set to the default values (gamma=1.0, brightness=0%,
@@ -62,45 +59,42 @@ contrast=0%). If you deactivate it, you can set different enhancement values
 for each color.</blockquote>
 
 <dt>
-<img SRC="negative.jpg" height=26 width=26><b>&nbsp; Negative:</b></dt>
+<img SRC="negative.jpg" height=26 width=26><a NAME="NEGATIVE"></a><b> Negative:</b></dt>
 
-<blockquote>This option inverts the intensities (black &lt;-> white). It
-is for scanning negatives.
-<p>Negatives do not only have inverted colors, it also is necessary to
-do a color correction for each color component because the negatives have
-very different color ranges for each color.
-<br>&nbsp;</blockquote>
+<blockquote>This option inverts the intensities (black &lt;-> white).
+It is for scanning negatives.
+<p>Negatives do not only have inverted colors, it also is necessary
+to do a color correction for each color component because the negatives
+have very different color ranges for each color.</blockquote>
 
 <dt>
-<img SRC="autoenhance.jpg" height=26 width=26><b>&nbsp; Auto:</b></dt>
+<img SRC="autoenhance.jpg" height=26 width=26><a NAME="AUTO_ENHANCEMENT"></a><b> Autoenhancement:</b></dt>
 
-<blockquote>If you press this button XSane tries to set good values for
-brightness, contrast and gamma correction independance of the selected
+<blockquote>If you press this button XSane tries to set good values
+for brightness, contrast and gamma correction independance of the selected
 part in the preview window. This does work quiet well for brightness and
-contrast, but the gamma correction normally has to be corrected manually.
-<br>If RGB default is disabled, the components for each color are set individually.</blockquote>
-<img SRC="default.jpg" height=26 width=26><b>&nbsp; Default:</b>
+contrast, but the gamma correction normally has to be corrected manually.</b>
+<br>If RGB default is disabled, the components for each color are set
+individually.</blockquote>
+
+<img SRC="default.jpg" height=26 width=26><a NAME="ENHANCEMENT_DEFAULT"></a><b> Enhancement default:</b>
 <blockquote>Sets the enhancement values to default: gamma=1.0, brightness=0%,
 contrast=0%.</blockquote>
 
 <dt>
-<img SRC="restore.jpg" height=26 width=26><b>&nbsp; Restore:</b></dt>
+<img SRC="restore.jpg" height=26 width=26><a NAME="RESTORE_ENHANCEMENT"></a><b> Restore enhancement:</b></dt>
 
 <blockquote>Restores the enhancement values from preferences.</blockquote>
 
 <dt>
-<img SRC="store.jpg" height=26 width=26><b>&nbsp; Store:</b></dt>
+<img SRC="store.jpg" height=26 width=26><a NAME="MEMORY_ENHANCEMENT"></a><b> Store enhancement (Memory):</b></dt>
 
-<blockquote>Store selected enhancement values to preferences.</blockquote>
-</blockquote>
-
-<blockquote>
-<blockquote>&nbsp;</blockquote>
+<blockquote>tore selected enhancement values to preferences.</blockquote>
 </blockquote>
 
 <center>
 <hr WIDTH="100%">
-<br><a href="sane-xsane-doc.html">INDEX</a></center>
+<br><b><a href="../../c/sane/xsane/doc/sane-xsane-doc.html">INDEX</a></b></center>
 
 <p><br>
 </body>

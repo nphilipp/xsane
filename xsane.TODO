@@ -3,6 +3,9 @@ If you have any suggestions: mail to Oliver.Rauch@Wolfsburg.DE
 
 (+ planned to do this soon, - comes later)
 
+errors:
+ + autoenhancement crashes if selected area is totally white
+
 first steps:
  + configure options:
    --disable-gimp-support
