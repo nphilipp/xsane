@@ -286,7 +286,7 @@ static void xsane_update_param(GSGDialog *dialog, void *arg)
   gtk_label_set(GTK_LABEL(xsane.info_label), buf);
 
 
-  if (xsane.preview) preview_update(xsane.preview);
+  if (xsane.preview) preview_update_surface(xsane.preview, 0);
 
   xsane_update_histogram();
 }
@@ -1090,7 +1090,7 @@ static void xsane_update_preview(GSGDialog *dialog, void *arg)
 {
   if (xsane.preview)
   {
-    preview_update(xsane.preview);
+    preview_update_surface(xsane.preview, 0);
   }
 }
 
@@ -1401,7 +1401,6 @@ static void xsane_pref_set_unit_callback(GtkWidget *widget, gpointer data)
   xsane_refresh_dialog(dialog);
   if (xsane.preview)
   {
-/*    preview_update(xsane.preview); */
     preview_area_resize(xsane.preview->window);
   }
 
@@ -3363,6 +3362,7 @@ static void xsane_device_dialog(void)
   /* "Help" submenu: */
   menubar_item = gtk_menu_item_new_with_label("Help");
   gtk_container_add(GTK_CONTAINER(menubar), menubar_item);
+  gtk_menu_item_right_justify((GtkMenuItem *) menubar_item);
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(menubar_item), xsane_help_build_menu());
   gtk_widget_show(menubar_item);
 

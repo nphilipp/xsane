@@ -204,7 +204,7 @@ xsane-0.23 -> 0.24:
 
  - removed some bugs in gamma value calculation for real scan (preview was ok)
  - added activation for some windows after scan error
- - remvoed bugs in startup if no device is available or selected,
+ - removed bugs in startup if no device is available or selected,
    the xsane.rc-file keeps untouched now
 
 
@@ -223,4 +223,25 @@ xsane-0.24 -> 0.25:
  - moved creation of histogram dialog to xsane-gamma.c
  - removed some bugs in the preview, resizing the preview window should work now
  - added an experimental zoom for the preview
+
+
+xsane-0.25 -> 0.26:
+-------------------
+
+ - removed some preview_update calls or replaced them by preview_update_selection
+ - renamed preview_update to preview_update_surface and made surface_changed a parameter
+ - ruler scaling is now ok in resized windows and zoomed previews
+ - added some range checks in preview_calculate_histogram
+ - parts in the preview window that are not part of the scan area are painted gray now
+ - added image_surface to preview structure, it stands for the surface of the scanned preview image
+ - renamed preview_get_image_scale to preview_get_scale_preview_to_image
+ - added routine preview_get_scale_device_to_preview
+ - added Zoom 20% out routine
+ - the selected area can be larger than the viewable preview now
+ - added Pipette functions (pick black, gray and white) - mouse pointer does change to pipetty icon
+ - p->aspect is calculated by image-size now if the surface is not defined (INF) in
+   preview_update_surface
+ - preview_update_surface is called now after preview scan and preview_restore_image
+ - moved the "Help" menu in the main dialog to the right
+
 

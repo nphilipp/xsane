@@ -123,9 +123,15 @@ static SANE_Int *histogram_gamma_data_blue  = 0;
 /* forward declarations */
 static void preview_scan_start(Preview *p);
 static void preview_scan_done(Preview *p);
+static void preview_area_correct(Preview *p);
 static void preview_zoom_not(GtkWidget *window, gpointer data);
 static void preview_zoom_out(GtkWidget *window, gpointer data);
 static void preview_zoom_in(GtkWidget *window, gpointer data);
+static void preview_zoom_undo(GtkWidget *window, gpointer data);
+static void preview_get_color(Preview *p, int x, int y, int *red, int *green, int *blue);
+static void preview_pipette_white(GtkWidget *window, gpointer data);
+static void preview_pipette_gray(GtkWidget *window, gpointer data);
+static void preview_pipette_black(GtkWidget *window, gpointer data);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -177,7 +183,7 @@ static void preview_draw_selection(Preview *p)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void preview_update_selection (Preview *p)
+static void preview_update_selection(Preview *p)
 {
  float min, max, normal, dev_selection[4];
  const SANE_Option_Descriptor *opt;
@@ -262,41 +268,67 @@ static void preview_update_selection (Preview *p)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void preview_get_image_scale(Preview *p, float *xscalep, float *yscalep)
+static void preview_get_scale_device_to_preview(Preview *p, float *xscalep, float *yscalep)
 {
- float xscale, yscale;
+ float device_width, device_height;
+ float xscale = 1.0;
+ float yscale = 1.0;
 
-  if (p->image_width == 0)
+  device_width  = fabs(p->image_surface[2] - p->image_surface[0]);
+  device_height = fabs(p->image_surface[3] - p->image_surface[1]);
+
+  if ( (device_width >0) && (device_width < INF) )
   {
-    xscale = 1.0;
+    xscale = p->preview_width / device_width;
   }
-  else
+
+  if ( (device_height >0) && (device_height < INF) )
   {
-    xscale = p->image_width/(float) p->preview_width;
-    if (p->image_height > 0 && p->preview_height * xscale < p->image_height)
+    yscale = p->preview_height / device_height;
+  }
+
+  if (p->surface_unit == SANE_UNIT_PIXEL)
+  {
+    if (xscale > yscale)
     {
-      xscale = p->image_height/(float) p->preview_height;
+      yscale = xscale;
+    }
+    else
+    {
+      xscale = yscale;
     }
   }
 
-  yscale = xscale;
+  *xscalep = xscale;
+  *yscalep = yscale;
+}
 
-  if (p->surface_unit == SANE_UNIT_PIXEL && p->image_width <= p->preview_width && p->image_height <= p->preview_height)
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void preview_get_scale_preview_to_image(Preview *p, float *xscalep, float *yscalep)
+{
+ float xscale = 1.0;
+ float yscale = 1.0;
+
+  if (p->image_width > 0)
   {
-    float swidth, sheight;
+    xscale = p->image_width / (float) p->preview_width;
+  }
 
-    assert(p->surface_type == SANE_TYPE_INT);
-    swidth  = (p->surface[GSG_BR_X] - p->surface[GSG_TL_X] + 1);
-    sheight = (p->surface[GSG_BR_Y] - p->surface[GSG_TL_Y] + 1);
-    xscale = 1.0;
-    yscale = 1.0;
-    if (p->image_width > 0 && swidth < INF)
+  if (p->image_height > 0)
+  {
+    yscale = p->image_height / (float) p->preview_height;
+  }
+
+  if (p->surface_unit == SANE_UNIT_PIXEL)
+  {
+    if (xscale > yscale)
     {
-      xscale = p->image_width/swidth;
+      yscale = xscale;
     }
-    if (p->image_height > 0 && sheight < INF)
+    else
     {
-      yscale = p->image_height/sheight;
+      xscale = yscale;
     }
   }
 
@@ -309,15 +341,11 @@ static void preview_get_image_scale(Preview *p, float *xscalep, float *yscalep)
 static void preview_paint_image(Preview *p)
 {
  float xscale, yscale, src_x, src_y;
- int dst_x, dst_y, height, x, y, src_offset;
- gint gwidth, gheight;
+ int dst_x, dst_y, height, x, y, old_y, src_offset;
 
-  gwidth  = p->preview_width;
-  gheight = p->preview_height;
+  preview_get_scale_preview_to_image(p, &xscale, &yscale);
 
-  preview_get_image_scale(p, &xscale, &yscale);
-
-  memset(p->preview_row, 0xff, 3*gwidth);
+  memset(p->preview_row, 0x80, 3*p->preview_window_width);
 
   /* don't draw last line unless it's complete: */
   height = p->image_y;
@@ -330,33 +358,46 @@ static void preview_paint_image(Preview *p)
   /* for now, use simple nearest-neighbor interpolation: */
   src_offset = 0;
   src_x = src_y = 0.0;
+  old_y = -1;
 
-  for (dst_y = 0; dst_y < gheight; ++dst_y)
+  for (dst_y = 0; dst_y < p->preview_height; ++dst_y)
   {
     y = (int) (src_y + 0.5);
     if (y >= height)
     {
       break;
     }
-    src_offset = y*3*p->image_width;
+    src_offset = y * 3 * p->image_width;
 
-    if (p->image_data_enh)
-    for (dst_x = 0; dst_x < gwidth; ++dst_x)
+    if ((p->image_data_enh) && (old_y != y))
     {
-      x = (int) (src_x + 0.5);
-      if (x >= p->image_width)
+      old_y = y;
+      for (dst_x = 0; dst_x < p->preview_width; ++dst_x)
       {
-        break;
-      }
+        x = (int) (src_x + 0.5);
+        if (x >= p->image_width)
+        {
+          break;
+        }
 
-      p->preview_row[3*dst_x + 0] = p->image_data_enh[src_offset + 3*x + 0];
-      p->preview_row[3*dst_x + 1] = p->image_data_enh[src_offset + 3*x + 1];
-      p->preview_row[3*dst_x + 2] = p->image_data_enh[src_offset + 3*x + 2];
-      src_x += xscale;
+        p->preview_row[3*dst_x + 0] = p->image_data_enh[src_offset + 3*x + 0];
+        p->preview_row[3*dst_x + 1] = p->image_data_enh[src_offset + 3*x + 1];
+        p->preview_row[3*dst_x + 2] = p->image_data_enh[src_offset + 3*x + 2];
+        src_x += xscale;
+      }
     }
-    gtk_preview_draw_row(GTK_PREVIEW(p->window), p->preview_row, 0, dst_y, gwidth);
+    gtk_preview_draw_row(GTK_PREVIEW(p->window), p->preview_row, 0, dst_y, p->preview_window_width);
     src_x = 0.0;
     src_y += yscale;
+  }
+
+  if (dst_y >= p->preview_height-5)
+  {
+    memset(p->preview_row, 0x80, 3*p->preview_window_width);
+    for (dst_y = p->preview_height-1; dst_y < p->preview_window_height; ++dst_y)
+    {
+      gtk_preview_draw_row(GTK_PREVIEW(p->window), p->preview_row, 0, dst_y, p->preview_window_width);
+    }
   }
 }
 
@@ -420,21 +461,42 @@ void preview_do_gamma_correction(Preview *p)
 
 void preview_calculate_histogram(Preview *p,
   SANE_Int *count_raw, SANE_Int *count_raw_red, SANE_Int *count_raw_green, SANE_Int *count_raw_blue,
-  SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue,
-  SANE_Int min_x, SANE_Int min_y, SANE_Int max_x, SANE_Int max_y)
+  SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue)
 {
  int x, y;
  int offset;
  SANE_Int red_raw, green_raw, blue_raw;
  SANE_Int red, green, blue;
- float xscale, yscale;
+ SANE_Int min_x, max_x, min_y, max_y;
+ float xscale_p2i, yscale_p2i;
  
-  preview_get_image_scale(p, &xscale, &yscale);
-  min_x = min_x * xscale;
-  max_x = max_x * xscale;
-  min_y = min_y * yscale;
-  max_y = max_y * yscale;
+  preview_get_scale_preview_to_image(p, &xscale_p2i, &yscale_p2i);
 
+  min_x = p->selection.coord[0] * xscale_p2i;
+  max_x = p->selection.coord[2] * xscale_p2i;
+  min_y = p->selection.coord[1] * yscale_p2i;
+  max_y = p->selection.coord[3] * yscale_p2i;
+
+  if (min_x < 0)
+  {
+    min_x = 0;
+  }
+   
+  if (max_x >= p->image_width)
+  {
+    max_x = p->image_width-1;
+  }
+   
+  if (min_y < 0)
+  {
+    min_y = 0;
+  }
+   
+  if (max_y >= p->image_height)
+  {
+    max_y = p->image_height-1;
+  }
+   
   if ((p->image_data_raw) && (p->params.depth > 1) && (preview_gamma_data_red))
   {
     for (y = min_y; y <= max_y; y++)
@@ -546,21 +608,28 @@ static void preview_display_image(Preview *p)
 
 void preview_area_resize(GtkWidget *widget)
 {
- float min_x, max_x, min_y, max_y, xscale, yscale, f;
+ float min_x, max_x, delta_x;
+ float min_y, max_y, delta_y;
+ float xscale, yscale, f;
  Preview *p;
 
   p = gtk_object_get_data(GTK_OBJECT(widget), "PreviewPointer");
 
-  p->preview_width  = widget->allocation.width;
-  p->preview_height = widget->allocation.height;
+  p->preview_window_width  = widget->allocation.width;
+  p->preview_window_height = widget->allocation.height;
+
+  p->preview_width         = widget->allocation.width;
+  p->preview_height        = widget->allocation.height;
+
+  preview_area_correct(p); /* set preview dimensions (with right aspect) that they fit into the window */
 
   if (p->preview_row)
   {
-    p->preview_row = realloc(p->preview_row, 3 * p->preview_width);
+    p->preview_row = realloc(p->preview_row, 3 * p->preview_window_width);
   }
   else
   {
-    p->preview_row = malloc(3*p->preview_width);
+    p->preview_row = malloc(3*p->preview_window_width);
   }
 
   /* set the ruler ranges: */
@@ -574,7 +643,7 @@ void preview_area_resize(GtkWidget *widget)
   max_x = p->surface[GSG_BR_X];
   if (max_x >=  INF)
   {
-    max_x = p->preview_width - 1;
+    max_x = p->image_width - 1;
   }
 
   min_y = p->surface[GSG_TL_Y];
@@ -586,24 +655,24 @@ void preview_area_resize(GtkWidget *widget)
   max_y = p->surface[GSG_BR_Y];
   if (max_y >=  INF)
   {
-    max_y = p->preview_height - 1;
+    max_y = p->image_height - 1;
   }
 
   /* convert mm to inches if that's what the user wants: */
 
   if (p->surface_unit == SANE_UNIT_MM)
   {
-    double factor = 1.0/preferences.length_unit;
-    min_x *= factor; max_x *= factor; min_y *= factor; max_y *= factor;
+   double factor = 1.0/preferences.length_unit;
+
+    min_x *= factor;
+    max_x *= factor;
+    min_y *= factor;
+    max_y *= factor;
   }
 
-  preview_get_image_scale(p, &xscale, &yscale);
+  preview_get_scale_preview_to_image(p, &xscale, &yscale);
 
-  if (p->surface_unit == SANE_UNIT_PIXEL)
-  {
-    f = 1.0 / xscale;
-  }
-  else if (p->image_width)
+  if (p->image_width > 0)
   {
     f = xscale * p->preview_width / p->image_width;
   }
@@ -612,13 +681,14 @@ void preview_area_resize(GtkWidget *widget)
     f = 1.0;
   }
 
-  gtk_ruler_set_range(GTK_RULER(p->hruler), f*min_x, f*max_x, f*min_x, /* max_size */ 20);
+  min_x *= f;
+  max_x *= f;
+  delta_x = max_x - min_x;
 
-  if (p->surface_unit == SANE_UNIT_PIXEL)
-  {
-    f = 1.0 / yscale;
-  }
-  else if (p->image_height)
+  gtk_ruler_set_range(GTK_RULER(p->hruler), min_x, min_x + delta_x*p->preview_window_width/p->preview_width,
+                      min_x, /* max_size */ 20);
+
+  if (p->image_height > 0)
   {
     f = yscale * p->preview_height / p->image_height;
   }
@@ -627,10 +697,14 @@ void preview_area_resize(GtkWidget *widget)
     f = 1.0;
   }
 
-  gtk_ruler_set_range(GTK_RULER(p->vruler), f*min_y, f*max_y, f*min_y, /* max_size */ 20);
+  min_y *= f;
+  max_y *= f;
+  delta_y = max_y - min_y;
+
+  gtk_ruler_set_range(GTK_RULER(p->vruler), min_y, min_y + delta_y*p->preview_window_height/p->preview_height,
+                      min_y, /* max_size */ 20);
 
   preview_paint_image(p);
-  preview_update(p);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1018,7 +1092,9 @@ static void preview_scan_done(Preview *p)
 
   xsane.block_update_param = FALSE;
 
-  preview_update(p);
+  preview_update_surface(p, 0); /* if surface was not defined it's necessary to redefine it now */
+
+  preview_update_selection(p);
   xsane_update_histogram();
 }
 
@@ -1029,7 +1105,7 @@ static void preview_scan_start(Preview *p)
  SANE_Handle dev = p->dialog->dev;
  SANE_Status status;
  char buf[256];
- int fd, y;
+ int fd, y, i;
  int gamma_gray_size  = 256; /* set this values to image depth for more than 8bpp input support!!! */
  int gamma_red_size   = 256;
  int gamma_green_size = 256;
@@ -1038,6 +1114,11 @@ static void preview_scan_start(Preview *p)
  int gamma_red_max    = 255;
  int gamma_green_max  = 255;
  int gamma_blue_max   = 255;
+
+  for (i=0; i<4; i++)
+  {
+    p->image_surface[i] = p->surface[i];
+  }
 
   gtk_widget_set_sensitive(p->cancel, TRUE);
   gsg_set_sensitivity(p->dialog, FALSE);
@@ -1159,8 +1240,8 @@ static void preview_scan_start(Preview *p)
       p->image_height = 32;	/* may have to adjust as we go... */
     }
 
-    p->image_data_enh = malloc(3*p->image_width*p->image_height);
-    p->image_data_raw = malloc(3*p->image_width*p->image_height);
+    p->image_data_enh = malloc(3 * p->image_width * p->image_height);
+    p->image_data_raw = malloc(3 * p->image_width * p->image_height);
 
     if ( (!p->image_data_raw) || (!p->image_data_enh) )
     {
@@ -1322,6 +1403,11 @@ static void preview_restore_image(Preview *p)
   p->image_y = nread / width;
   p->image_x = nread % width;
   memcpy(p->image_data_raw, p->image_data_enh, 3 * p->image_width * p->image_height);
+
+  preview_update_surface(p, 0); /* if surface was not defined it's necessary to redefine it now */
+
+  preview_update_selection(p);
+  xsane_update_histogram();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1341,6 +1427,7 @@ static gint preview_expose_handler(GtkWidget *window, GdkEvent *event, gpointer 
 static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer data)
 {
   Preview *p = data;
+  GdkCursor *cursor;
   int i, tmp;
 
   if (event->type == GDK_EXPOSE)
@@ -1366,62 +1453,180 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
 	break;
 
       case GDK_BUTTON_PRESS:
-        switch (((GdkEventButton *)event)->button)
+        switch (p->mode)
         {
-          case 1: /* left putton */
-            p->selection_xedge = -1;
-            if ( (p->selection.coord[0] - SELECTION_RANGE < event->button.x) &&
-                 (event->button.x < p->selection.coord[0] + SELECTION_RANGE) ) 
+          case MODE_PIPETTE_WHITE:
+          {
+            if ((((GdkEventButton *)event)->button == 1) && (p->image_data_raw) ) /* left buttom */
             {
-              p->selection_xedge = 0;
-            }
-            else if ( (p->selection.coord[2] - SELECTION_RANGE < event->button.x) &&
-                      (event->button.x < p->selection.coord[2] + SELECTION_RANGE) )
-            {
-              p->selection_xedge = 2;
+             int r,g,b;
+
+              preview_get_color(p, event->button.x, event->button.y, &r, &g, &b);
+
+              xsane.slider_gray.value[2] = sqrt( (r*r+g*g+b*b) / 3)/2.55;
+
+              if (xsane.slider_gray.value[2] < 2)
+              {
+                xsane.slider_gray.value[2] = 2;
+              }
+ 
+              if (xsane.slider_gray.value[1] >= xsane.slider_gray.value[2])
+              {
+                xsane.slider_gray.value[1] = xsane.slider_gray.value[2]-1;
+                if (xsane.slider_gray.value[0] >= xsane.slider_gray.value[1])
+                {
+                  xsane.slider_gray.value[0] = xsane.slider_gray.value[1]-1;
+                }
+              }
+
+              xsane_enhancement_by_histogram();
             }
 
-            p->selection_yedge = -1;
-            if ( (p->selection.coord[1] - SELECTION_RANGE < event->button.y) &&
-                 (event->button.y < p->selection.coord[1] + SELECTION_RANGE) )
+            p->mode = MODE_NORMAL;
+
+            cursor = gdk_cursor_new(XSANE_CURSOR_PREVIEW);
+            gdk_window_set_cursor(p->window->window, cursor);
+            gdk_cursor_destroy(cursor);
+          }
+          break;
+
+          case MODE_PIPETTE_GRAY:
+          {
+            if ((((GdkEventButton *)event)->button == 1) && (p->image_data_raw) ) /* left buttom */
             {
-              p->selection_yedge = 1;
-            }
-            else if ( (p->selection.coord[3] - SELECTION_RANGE < event->button.y) &&
-                      (event->button.y < p->selection.coord[3] + SELECTION_RANGE) )
-            {
-              p->selection_yedge = 3;
+             int r,g,b;
+
+              preview_get_color(p, event->button.x, event->button.y, &r, &g, &b);
+
+              xsane.slider_gray.value[1] = sqrt( (r*r+g*g+b*b) / 3)/2.55;
+
+              if (xsane.slider_gray.value[1] == 0)
+              {
+                xsane.slider_gray.value[1] += 1;
+              }
+
+              if (xsane.slider_gray.value[1] == 100)
+              {
+                xsane.slider_gray.value[1] -= 1;
+              }
+
+              if (xsane.slider_gray.value[1] >= xsane.slider_gray.value[2])
+              {
+                xsane.slider_gray.value[2] = xsane.slider_gray.value[1]+1;
+              }
+
+              if (xsane.slider_gray.value[1] <= xsane.slider_gray.value[0])
+              {
+                xsane.slider_gray.value[0] = xsane.slider_gray.value[1]-1;
+              }
+
+              xsane_enhancement_by_histogram();
             }
 
-            if ( (p->selection_xedge != -1) && (p->selection_yedge != -1) ) /* move edge */
-            {
-              p->selection_drag_edge = TRUE;
-              p->selection.coord[p->selection_xedge] = event->button.x;
-              p->selection.coord[p->selection_yedge] = event->button.y;
-            }
-            else /* select new area */
-            {
-              p->selection.coord[0] = event->button.x;
-              p->selection.coord[1] = event->button.y;
-              p->selection_drag = TRUE;
-            }
-	   break;
+            p->mode = MODE_NORMAL;
 
-          case 2: /* middle button */
-          case 3: /* right button */
-            if ( (p->selection.coord[0] - SELECTION_RANGE < event->button.x) &&
-                 (p->selection.coord[2] + SELECTION_RANGE > event->button.x) &&
-                 (p->selection.coord[1] - SELECTION_RANGE < event->button.y) &&
-                 (p->selection.coord[3] + SELECTION_RANGE > event->button.y) )
+            cursor = gdk_cursor_new(XSANE_CURSOR_PREVIEW);
+            gdk_window_set_cursor(p->window->window, cursor);
+            gdk_cursor_destroy(cursor);
+          }
+          break;
+
+          case MODE_PIPETTE_BLACK:
+          {
+            if ((((GdkEventButton *)event)->button == 1) && (p->image_data_raw) ) /* left buttom */
             {
-              p->selection_drag = TRUE;
-              p->selection_xpos = event->button.x;
-              p->selection_ypos = event->button.y;
+             int r,g,b;
+
+              preview_get_color(p, event->button.x, event->button.y, &r, &g, &b);
+
+              xsane.slider_gray.value[0] = sqrt( (r*r+g*g+b*b) / 3)/2.55;
+
+              if (xsane.slider_gray.value[0] > 98)
+              {
+                xsane.slider_gray.value[0] = 98;
+              }
+
+              if (xsane.slider_gray.value[1] <= xsane.slider_gray.value[0])
+              {
+                xsane.slider_gray.value[1] = xsane.slider_gray.value[0]+1;
+                if (xsane.slider_gray.value[2] <= xsane.slider_gray.value[1])
+                {
+                  xsane.slider_gray.value[2] = xsane.slider_gray.value[1]+1;
+                }
+              }
+
+              xsane_enhancement_by_histogram();
             }
-	   break;
-          default:
+
+            p->mode = MODE_NORMAL;
+
+            cursor = gdk_cursor_new(XSANE_CURSOR_PREVIEW);
+            gdk_window_set_cursor(p->window->window, cursor);
+            gdk_cursor_destroy(cursor);
+          }
+          break;
+
+          case MODE_NORMAL:
+          {
+            switch (((GdkEventButton *)event)->button)
+            {
+              case 1: /* left button */
+                p->selection_xedge = -1;
+                if ( (p->selection.coord[0] - SELECTION_RANGE < event->button.x) &&
+                     (event->button.x < p->selection.coord[0] + SELECTION_RANGE) ) 
+                {
+                  p->selection_xedge = 0;
+                }
+                else if ( (p->selection.coord[2] - SELECTION_RANGE < event->button.x) &&
+                          (event->button.x < p->selection.coord[2] + SELECTION_RANGE) )
+                {
+                  p->selection_xedge = 2;
+                }
+  
+                p->selection_yedge = -1;
+                if ( (p->selection.coord[1] - SELECTION_RANGE < event->button.y) &&
+                     (event->button.y < p->selection.coord[1] + SELECTION_RANGE) )
+                {
+                  p->selection_yedge = 1;
+                }
+                else if ( (p->selection.coord[3] - SELECTION_RANGE < event->button.y) &&
+                          (event->button.y < p->selection.coord[3] + SELECTION_RANGE) )
+                {
+                  p->selection_yedge = 3;
+                }
+
+                if ( (p->selection_xedge != -1) && (p->selection_yedge != -1) ) /* move edge */
+                {
+                  p->selection_drag_edge = TRUE;
+                  p->selection.coord[p->selection_xedge] = event->button.x;
+                  p->selection.coord[p->selection_yedge] = event->button.y;
+                  preview_draw_selection(p);
+                }
+                else /* select new area */
+                {
+                  p->selection.coord[0] = event->button.x;
+                  p->selection.coord[1] = event->button.y;
+                  p->selection_drag = TRUE;
+                }
+               break;
+
+              case 2: /* middle button */
+              case 3: /* right button */
+                if ( (p->selection.coord[0] - SELECTION_RANGE < event->button.x) &&
+                     (p->selection.coord[2] + SELECTION_RANGE > event->button.x) &&
+                     (p->selection.coord[1] - SELECTION_RANGE < event->button.y) &&
+                     (p->selection.coord[3] + SELECTION_RANGE > event->button.y) )
+                {
+                  p->selection_drag = TRUE;
+                  p->selection_xpos = event->button.x;
+                  p->selection_ypos = event->button.y;
+                }
+               break;
+              default:
+            }
+          }
         }
-	break;
+       break;
 
       case GDK_BUTTON_RELEASE:
         switch (((GdkEventButton *)event)->button)
@@ -1432,7 +1637,7 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
             if ( (p->selection_drag) || (p->selection_drag_edge) )
             {
 
-              if (((GdkEventButton *)event)->button == 1) /* left putton */
+              if (((GdkEventButton *)event)->button == 1) /* left button */
               {
                 if (p->selection_drag_edge)
                 {
@@ -1454,6 +1659,8 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
 
               if (p->selection.active)
               {
+               float xscale, yscale;
+
                 for (i = 0; i < 2; i += 1)
                 {
                   if (p->selection.coord[i] > p->selection.coord[i + 2])
@@ -1464,21 +1671,23 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
                   }
                 }
 
-                if (p->selection.coord[0] < 0)
+                preview_get_scale_device_to_preview(p, &xscale, &yscale);
+
+                if (p->selection.coord[0] < (p->scanner_surface[0]-p->surface[0])*xscale)
                 {
-                  p->selection.coord[0] = 0;
+                  p->selection.coord[0] = (p->scanner_surface[0]-p->surface[0])*xscale;
                 }
-                if (p->selection.coord[1] < 0)
+                if (p->selection.coord[1] <  (p->scanner_surface[1]-p->surface[1])*yscale )
                 {
-                  p->selection.coord[1] = 0;
+                  p->selection.coord[1] =  (p->scanner_surface[1]-p->surface[1])*yscale;
                 }
-                if (p->selection.coord[2] >= p->preview_width)
+                if (p->selection.coord[2] >=  (p->scanner_surface[2]-p->surface[0])*xscale)
                 {
-                  p->selection.coord[2] = p->preview_width - 1;
+                  p->selection.coord[2] =  (p->scanner_surface[2]-p->surface[0])*xscale - 1;
                 }
-                if (p->selection.coord[3] >= p->preview_height)
+                if (p->selection.coord[3] >=  (p->scanner_surface[3]-p->surface[1])*yscale)
                 {
-                  p->selection.coord[3] = p->preview_height - 1;
+                  p->selection.coord[3] =  (p->scanner_surface[3]-p->surface[1])*yscale - 1;
                 }
               }
               preview_draw_selection(p);
@@ -1492,7 +1701,7 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
       case GDK_MOTION_NOTIFY:
         switch (((GdkEventMotion *)event)->state)
         {
-          case 256: /* left putton */
+          case 256: /* left button */
             if (p->selection_drag_edge)
             {
               p->selection.active = TRUE;
@@ -1576,6 +1785,7 @@ Preview *preview_new(GSGDialog *dialog)
   GtkWidgetClass *class;
   GtkBox *vbox, *hbox;
   GtkWidget *top_hbox;
+  GdkCursor *cursor;
   Preview *p;
 
   p = malloc(sizeof(*p));
@@ -1585,7 +1795,8 @@ Preview *preview_new(GSGDialog *dialog)
   }
   memset (p, 0, sizeof(*p));
 
-  p->dialog = dialog;
+  p->mode      = MODE_NORMAL; /* no pipette functions etc */
+  p->dialog    = dialog;
   p->input_tag = -1;
 
   if (first_time)
@@ -1598,7 +1809,7 @@ Preview *preview_new(GSGDialog *dialog)
 #ifndef XSERVER_WITH_BUGGY_VISUALS
   gtk_widget_push_visual(gtk_preview_get_visual ());
 #endif
-  gtk_widget_push_colormap(gtk_preview_get_cmap ());
+  gtk_widget_push_colormap(gtk_preview_get_cmap());
 
   p->top = gtk_dialog_new();
   gtk_signal_connect(GTK_OBJECT(p->top), "destroy", GTK_SIGNAL_FUNC (preview_top_destroyed), p);
@@ -1614,21 +1825,25 @@ Preview *preview_new(GSGDialog *dialog)
   gtk_box_pack_start(GTK_BOX(vbox), top_hbox, FALSE, FALSE, 0);
 
   /* White, gray and black pipette button */
-  p->pipette_white = xsane_button_new_with_pixmap(top_hbox, pipette_white_xpm, DESC_PIPETTE_WHITE, (GtkSignalFunc) 0, p);
-  p->pipette_gray  = xsane_button_new_with_pixmap(top_hbox, pipette_gray_xpm,  DESC_PIPETTE_GRAY,  (GtkSignalFunc) 0, p);
-  p->pipette_black = xsane_button_new_with_pixmap(top_hbox, pipette_black_xpm, DESC_PIPETTE_BLACK, (GtkSignalFunc) 0, p);
+  p->pipette_white = xsane_button_new_with_pixmap(top_hbox, pipette_white_xpm, DESC_PIPETTE_WHITE, (GtkSignalFunc) preview_pipette_white, p);
+  p->pipette_gray  = xsane_button_new_with_pixmap(top_hbox, pipette_gray_xpm,  DESC_PIPETTE_GRAY,  (GtkSignalFunc) preview_pipette_gray,  p);
+  p->pipette_black = xsane_button_new_with_pixmap(top_hbox, pipette_black_xpm, DESC_PIPETTE_BLACK, (GtkSignalFunc) preview_pipette_black, p);
 
   /* Zoom not, zoom out and zoom in button */
-  p->zoom_not = xsane_button_new_with_pixmap(top_hbox, zoom_not_xpm, DESC_ZOOM_FULL, (GtkSignalFunc) preview_zoom_not, p);
-  p->zoom_out = xsane_button_new_with_pixmap(top_hbox, zoom_out_xpm, DESC_ZOOM_OUT,  (GtkSignalFunc) preview_zoom_out, p);
-  p->zoom_in  = xsane_button_new_with_pixmap(top_hbox, zoom_in_xpm,  DESC_ZOOM_IN,   (GtkSignalFunc) preview_zoom_in,  p);
-
-gtk_widget_set_sensitive(p->pipette_white, FALSE); /* xxxxxxxxxxxxxxxxxxxxx remove this when ready */
-gtk_widget_set_sensitive(p->pipette_gray,  FALSE);
-gtk_widget_set_sensitive(p->pipette_black, FALSE);
+  p->zoom_not  = xsane_button_new_with_pixmap(top_hbox, zoom_not_xpm,  DESC_ZOOM_FULL, (GtkSignalFunc) preview_zoom_not,   p);
+  p->zoom_out  = xsane_button_new_with_pixmap(top_hbox, zoom_out_xpm,  DESC_ZOOM_OUT,  (GtkSignalFunc) preview_zoom_out,   p);
+  p->zoom_in   = xsane_button_new_with_pixmap(top_hbox, zoom_in_xpm,   DESC_ZOOM_IN,   (GtkSignalFunc) preview_zoom_in,    p);
+  p->zoom_undo = xsane_button_new_with_pixmap(top_hbox, zoom_undo_xpm, DESC_ZOOM_UNDO, (GtkSignalFunc) preview_zoom_undo,  p);
 
   gtk_widget_set_sensitive(p->zoom_not, FALSE); /* no zoom at this point, so no zoom not */
   gtk_widget_set_sensitive(p->zoom_out, FALSE); /* no zoom at this point, so no zoom out */
+  gtk_widget_set_sensitive(p->zoom_undo, FALSE); /* no zoom at this point, so no zoom undo */
+
+#if 0 
+  p->zoom_view = gtk_preview_new(GTK_PREVIEW_COLOR);
+  gtk_box_pack_end(GTK_BOX(top_hbox), p->zoom_view, FALSE, FALSE, 0);
+  gtk_widget_show(p->zoom_view);
+#endif
 
   gtk_widget_show(top_hbox);
 
@@ -1684,7 +1899,7 @@ gtk_widget_set_sensitive(p->pipette_black, FALSE);
 		   GTK_FILL | GTK_EXPAND | GTK_SHRINK,
 		   GTK_FILL | GTK_EXPAND | GTK_SHRINK, 0, 0);
 
-  preview_update(p);
+  preview_update_surface(p, 0);
 
   /* fill in action area: */
 
@@ -1709,6 +1924,10 @@ gtk_widget_set_sensitive(p->pipette_black, FALSE);
   gtk_widget_show(table);
   gtk_widget_show(p->top);
 
+  cursor = gdk_cursor_new(XSANE_CURSOR_PREVIEW);	/* set default curosr */
+  gdk_window_set_cursor(p->window->window, cursor);
+  gdk_cursor_destroy(cursor);
+
   gtk_widget_pop_colormap();
 #ifndef XSERVER_WITH_BUGGY_VISUALS
   gtk_widget_pop_visual();
@@ -1719,16 +1938,39 @@ gtk_widget_set_sensitive(p->pipette_black, FALSE);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void preview_update(Preview *p)
+static void preview_area_correct(Preview *p)
 {
- float val, width, height, max_width, max_height;
+ float width, height, max_width, max_height;
+
+  width      = p->preview_width;
+  height     = p->preview_height;
+  max_width  = p->preview_window_width;
+  max_height = p->preview_window_height;
+
+  width  = max_width;
+  height = width / p->aspect;
+
+  if (height > max_height)
+  {
+    height = max_height;
+    width  = height * p->aspect;
+  }
+
+  p->preview_width  = width + 0.5;
+  p->preview_height = height + 0.5;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void preview_update_surface(Preview *p, int surface_changed)
+{
+ float val, width, height;
  const SANE_Option_Descriptor *opt;
- int i, surface_changed;
+ int i;
  SANE_Value_Type type;
  SANE_Unit unit;
  float min, max;
 
-  surface_changed = 0;
   unit = SANE_UNIT_PIXEL;
   type = SANE_TYPE_INT;
 
@@ -1760,6 +2002,7 @@ void preview_update(Preview *p)
        surface_changed = 1;
        p->scanner_surface[i] = val;
        p->surface[i] = val;
+       p->image_surface[i] = val;
     }
   }
 
@@ -1785,83 +2028,47 @@ void preview_update(Preview *p)
     p->image_height = 0;
   }
 
-  /* guess the initial preview window size: */
-
-  width  = p->surface[GSG_BR_X] - p->surface[GSG_TL_X];
-  height = p->surface[GSG_BR_Y] - p->surface[GSG_TL_Y];
-
-  if (p->surface_type == SANE_TYPE_INT)
+  if (surface_changed) /* calculate p->aspect if surface has changed */
   {
-    width  += 1.0;
-    height += 1.0;
-  }
-  else
-  {
-    width  += SANE_UNFIX (1.0);
-    height += SANE_UNFIX (1.0);
-  }
+    /* guess the initial preview window size: */
 
-  assert(width > 0.0 && height > 0.0);
+    width  = p->surface[GSG_BR_X] - p->surface[GSG_TL_X];
+    height = p->surface[GSG_BR_Y] - p->surface[GSG_TL_Y];
 
-  if (width >= INF || height >= INF)
-  {
-    p->aspect = 1.0;
-  }
-  else
-  {
-    p->aspect = width/height;
-  }
-
-  if (surface_changed)
-  {
-    max_width  = 0.5 * gdk_screen_width();
-    max_height = 0.5 * gdk_screen_height();
-  }
-  else
-  {
-    max_width  = p->window->allocation.width;
-    max_height = p->window->allocation.height;
-  }
-
-  if (p->surface_unit != SANE_UNIT_PIXEL)
-  {
-    width  = max_width;
-    height = width / p->aspect;
-
-    if (height > max_height)
+    if (p->surface_type == SANE_TYPE_INT)
     {
-      height = max_height;
-      width  = height * p->aspect;
+      width  += 1.0;
+      height += 1.0;
     }
-  }
-  else /* unit = pixel */
-  {
-    if (width > max_width)
+    else
     {
-      width  = max_width;
+      width  += SANE_UNFIX (1.0);
+      height += SANE_UNFIX (1.0);
     }
 
-    if (height > max_height)
-    {
-      height = max_height;
-    }
+    assert(width > 0.0 && height > 0.0);
 
-    /* re-adjust so we maintain aspect without exceeding max size: */
-    if (width/height != p->aspect)
+    if (width >= INF || height >= INF)
     {
-      if (p->aspect > 1.0)
-      {
-        height = width / p->aspect;
-      }
-      else
-      {
-        width  = height * p->aspect;
-      }
+      p->aspect = 1.0;
+    }
+    else
+    {
+      p->aspect = width/height;
     }
   }
+  else if ( (p->image_height) && (p->image_width) )
+  {
+    p->aspect = p->image_width/(float) p->image_height;
+  }
 
-  p->preview_width  = width + 0.5;
-  p->preview_height = height + 0.5;
+  if ( (surface_changed) && (p->preview_window_width == 0) )
+  {
+    p->preview_window_width  = 0.5 * gdk_screen_width();
+    p->preview_window_height = 0.5 * gdk_screen_height();
+  }
+
+  preview_area_correct(p);
 
   if (surface_changed)
   {
@@ -2034,10 +2241,11 @@ static void preview_zoom_not(GtkWidget *window, gpointer data)
   {
     p->surface[i] = p->scanner_surface[i];
   }
-  preview_update(p);
-  preview_area_resize(p->window);
-  gtk_widget_set_sensitive(p->zoom_out, FALSE); /* forbid zoom out */
+
+  preview_update_surface(p, 1);
   gtk_widget_set_sensitive(p->zoom_not, FALSE); /* forbid unzoom */
+  gtk_widget_set_sensitive(p->zoom_out, FALSE); /* forbid zoom out */
+  gtk_widget_set_sensitive(p->zoom_undo,TRUE);  /* allow zoom undo */
   preview_scan(p);
 }
 
@@ -2047,15 +2255,42 @@ static void preview_zoom_out(GtkWidget *window, gpointer data)
 {
  Preview *p=data;
  int i;
+ float delta_width  = (p->surface[2] - p->surface[0]) * 0.2;
+ float delta_height = (p->surface[3] - p->surface[1]) * 0.2;
 
   for (i=0; i<4; i++)
   {
-    p->surface[i] = p->old_surface[i];
+    p->old_surface[i] = p->surface[i];
   }
-  preview_update(p);
-  preview_area_resize(p->window);
-  gtk_widget_set_sensitive(p->zoom_out, FALSE); /* forbid zoom out */
+
+  p->surface[0] -= delta_width;
+  p->surface[1] -= delta_height;
+  p->surface[2] += delta_width;
+  p->surface[3] += delta_height;
+
+  if (p->surface[0] < p->scanner_surface[0])
+  {
+    p->surface[0] = p->scanner_surface[0];
+  } 
+
+  if (p->surface[1] < p->scanner_surface[1])
+  {
+    p->surface[1] = p->scanner_surface[1];
+  } 
+
+  if (p->surface[2] > p->scanner_surface[2])
+  {
+    p->surface[2] = p->scanner_surface[2];
+  } 
+
+  if (p->surface[3] > p->scanner_surface[3])
+  {
+    p->surface[3] = p->scanner_surface[3];
+  } 
+
+  preview_update_surface(p, 1);
   gtk_widget_set_sensitive(p->zoom_not, TRUE); /* allow unzoom */
+  gtk_widget_set_sensitive(p->zoom_undo,TRUE); /* allow zoom undo */
   preview_scan(p);
 }
 
@@ -2094,11 +2329,143 @@ static void preview_zoom_in(GtkWidget *window, gpointer data)
     }
   }
 
-  preview_update(p);
-  preview_area_resize(p->window);
-  gtk_widget_set_sensitive(p->zoom_out, TRUE); /* allow zoom out */
+  preview_update_surface(p, 1);
   gtk_widget_set_sensitive(p->zoom_not, TRUE); /* allow unzoom */
+  gtk_widget_set_sensitive(p->zoom_out, TRUE); /* allow zoom out */
+  gtk_widget_set_sensitive(p->zoom_undo,TRUE); /* allow zoom undo */
   preview_scan(p);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void preview_zoom_undo(GtkWidget *window, gpointer data)
+{
+ Preview *p=data;
+ int i;
+
+  for (i=0; i<4; i++)
+  {
+    p->surface[i] = p->old_surface[i];
+  }
+
+  preview_update_surface(p, 1);
+  gtk_widget_set_sensitive(p->zoom_not, TRUE);   /* allow unzoom */
+  gtk_widget_set_sensitive(p->zoom_out, TRUE); /* allow zoom out */
+  gtk_widget_set_sensitive(p->zoom_undo, FALSE); /* forbid zoom undo */
+  preview_scan(p);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void preview_get_color(Preview *p, int x, int y, int *red, int *green, int *blue)
+{
+ int image_x, image_y;
+ float xscale_p2i, yscale_p2i;
+ int offset;
+
+  if (p->image_data_raw)
+  {
+    preview_get_scale_preview_to_image(p, &xscale_p2i, &yscale_p2i);
+
+    image_x = x * xscale_p2i;
+    image_y = y * yscale_p2i;
+
+    offset = 3 * (image_y * p->image_width + image_x);
+
+    *red   = p->image_data_raw[offset    ];
+    *green = p->image_data_raw[offset + 1];
+    *blue  = p->image_data_raw[offset + 2];
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void preview_pipette_white(GtkWidget *window, gpointer data)
+{
+ Preview *p=data;
+ GdkCursor *cursor;
+ GdkColor fg;
+ GdkColor bg;
+ GdkPixmap *pixmap;
+ GdkPixmap *mask;
+
+  p->mode = MODE_PIPETTE_WHITE;
+
+  pixmap = gdk_bitmap_create_from_data(p->top->window, cursor_pipette_white, CURSOR_PIPETTE_WIDTH, CURSOR_PIPETTE_HEIGHT);
+  mask   = gdk_bitmap_create_from_data(p->top->window, cursor_pipette_mask,  CURSOR_PIPETTE_WIDTH, CURSOR_PIPETTE_HEIGHT);
+
+  fg.red   = 0;
+  fg.green = 0;
+  fg.blue  = 0;
+
+  bg.red   = 65535;
+  bg.green = 65535;
+  bg.blue  = 65535;
+
+  cursor = gdk_cursor_new_from_pixmap(pixmap, mask, &fg, &bg, CURSOR_PIPETTE_HOT_X, CURSOR_PIPETTE_HOT_Y);
+
+  gdk_window_set_cursor(p->window->window, cursor);
+  gdk_cursor_destroy(cursor);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void preview_pipette_gray(GtkWidget *window, gpointer data)
+{
+ Preview *p=data;
+ GdkCursor *cursor;
+ GdkColor fg;
+ GdkColor bg;
+ GdkPixmap *pixmap;
+ GdkPixmap *mask;
+
+  p->mode = MODE_PIPETTE_GRAY;
+
+  pixmap = gdk_bitmap_create_from_data(p->top->window, cursor_pipette_gray, CURSOR_PIPETTE_WIDTH, CURSOR_PIPETTE_HEIGHT);
+  mask   = gdk_bitmap_create_from_data(p->top->window, cursor_pipette_mask, CURSOR_PIPETTE_WIDTH, CURSOR_PIPETTE_HEIGHT);
+
+  fg.red   = 0;
+  fg.green = 0;
+  fg.blue  = 0;
+
+  bg.red   = 65535;
+  bg.green = 65535;
+  bg.blue  = 65535;
+
+  cursor = gdk_cursor_new_from_pixmap(pixmap, mask, &fg, &bg, CURSOR_PIPETTE_HOT_X, CURSOR_PIPETTE_HOT_Y);
+
+  gdk_window_set_cursor(p->window->window, cursor);
+  gdk_cursor_destroy(cursor);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void preview_pipette_black(GtkWidget *window, gpointer data)
+{
+ Preview *p=data;
+ GdkCursor *cursor;
+ GdkColor fg;
+ GdkColor bg;
+ GdkPixmap *pixmap;
+ GdkPixmap *mask;
+
+  p->mode = MODE_PIPETTE_BLACK;
+
+  pixmap = gdk_bitmap_create_from_data(p->top->window, cursor_pipette_black, CURSOR_PIPETTE_WIDTH, CURSOR_PIPETTE_HEIGHT);
+  mask   = gdk_bitmap_create_from_data(p->top->window, cursor_pipette_mask , CURSOR_PIPETTE_WIDTH, CURSOR_PIPETTE_HEIGHT);
+
+  fg.red   = 0;
+  fg.green = 0;
+  fg.blue  = 0;
+
+  bg.red   = 65535;
+  bg.green = 65535;
+  bg.blue  = 65535;
+
+  cursor = gdk_cursor_new_from_pixmap(pixmap, mask, &fg, &bg, CURSOR_PIPETTE_HOT_X, CURSOR_PIPETTE_HOT_Y);
+
+  gdk_window_set_cursor(p->window->window, cursor);
+  gdk_cursor_destroy(cursor);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

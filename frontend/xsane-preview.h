@@ -26,9 +26,18 @@
 #include <sane/sane.h>
 
 #define SELECTION_RANGE 15
+#define XSANE_CURSOR_PREVIEW GDK_LEFT_PTR
+enum
+{
+  MODE_NORMAL,
+  MODE_PIPETTE_WHITE,
+  MODE_PIPETTE_GRAY,
+  MODE_PIPETTE_BLACK
+};
 
 typedef struct
   {
+    int mode;
     GSGDialog *dialog;	/* the dialog for this preview */
 
     SANE_Value_Type surface_type;
@@ -36,6 +45,7 @@ typedef struct
     float surface[4];		/* the corners of the selected surface (device coords) */
     float old_surface[4];	/* the corners of the old selected surface (device coords) */
     float scanner_surface[4];	/* the corners of the scanner surface (device coords) */
+    float image_surface[4];	/* the corners of the surface (device coords) of the scanned image */
     float aspect;	/* the aspect ratio of the scan surface */
 
     int saved_dpi_valid;
@@ -50,6 +60,8 @@ typedef struct
     /* desired/user-selected preview-window size: */
     int preview_width;
     int preview_height;
+    int preview_window_width;
+    int preview_window_height;
     u_char *preview_row;
 
     int scanning;
@@ -83,6 +95,7 @@ typedef struct
     GtkWidget *vruler;
     GtkWidget *viewport;
     GtkWidget *window;	/* the preview window */
+    GtkWidget *zoom_view; /* the zoom view */
     GtkWidget *cancel;	/* the cancel button */
     GtkWidget *pipette_white;
     GtkWidget *pipette_gray;
@@ -90,6 +103,7 @@ typedef struct
     GtkWidget *zoom_not;
     GtkWidget *zoom_out;
     GtkWidget *zoom_in;
+    GtkWidget *zoom_undo;
   }
 Preview;
 
@@ -102,7 +116,7 @@ extern void preview_gamma_correction(Preview *p,
                                      int gamma_red_hist[], int gamma_green_hist[], int gamma_blue_hist[]);
 
 /* Some of the parameters may have changed---update the preview.  */
-extern void preview_update(Preview *p);
+extern void preview_update_surface(Preview *p, int surface_changed);
 
 /* Acquire a preview image and display it.  */
 extern void preview_scan(Preview *p);
@@ -113,8 +127,7 @@ extern void preview_destroy(Preview *p);
 /* calculate histogram */
 extern void preview_calculate_histogram(Preview *p,
 SANE_Int *count_raw, SANE_Int *count_raw_red, SANE_Int *count_raw_green, SANE_Int *count_raw_blue,
-SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue,
-SANE_Int left_x, SANE_Int top_y, SANE_Int right_x, SANE_Int bottom_y);
+SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue);
 
 /* redraw preview rulers */
 extern void preview_area_resize(GtkWidget *widget);

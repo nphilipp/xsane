@@ -703,7 +703,6 @@ void xsane_calculate_histogram(void)
  SANE_Int *count_enh_red;
  SANE_Int *count_enh_green;
  SANE_Int *count_enh_blue;
- int x_min, x_max, y_min, y_max;
  int i;
  int maxval_raw;
  int maxval_enh;
@@ -721,13 +720,8 @@ void xsane_calculate_histogram(void)
     count_enh_green = calloc(256, sizeof(SANE_Int));
     count_enh_blue  = calloc(256, sizeof(SANE_Int));
 
-    x_min = ((double)xsane.preview->selection.coord[0]);
-    x_max = ((double)xsane.preview->selection.coord[2]);
-    y_min = ((double)xsane.preview->selection.coord[1]);
-    y_max = ((double)xsane.preview->selection.coord[3]);
-
     preview_calculate_histogram(xsane.preview, count_raw, count_raw_red, count_raw_green, count_raw_blue,
-                                count_enh, count_enh_red, count_enh_green, count_enh_blue, x_min, y_min, x_max, y_max);
+                                count_enh, count_enh_red, count_enh_green, count_enh_blue);
 
     if (xsane.param.depth > 1)
     {

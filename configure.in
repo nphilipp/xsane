@@ -6,7 +6,7 @@ AC_ARG_PROGRAM
 
 # version code:
 V_MAJOR=0
-V_MINOR=25\\337
+V_MINOR=26\\337
 
 PACKAGE=xsane
 SANE_V_MAJOR=1
@@ -40,6 +40,7 @@ dnl Checks for header files.
 AC_HEADER_STDC
 AC_CHECK_HEADERS(fcntl.h unistd.h libintl.h libc.h sys/dsreq.h sys/select.h \
     sys/time.h sys/scanio.h sys/socket.h sys/io.h asm/io.h gscdds.h sys/hw.h \
+    io/cam/cam.h camlib.h \
     sys/types.h zlib.h png.h)
 
 dnl Checks for typedefs, structures, and compiler characteristics.
@@ -55,6 +56,7 @@ AC_CHECK_TYPE(u_long, unsigned long)
 
 dnl Checks for libraries.
 
+AC_CHECK_LIB(scsi, scsireq_enter)       # FreeBSD needs this 
 AC_CHECK_LIB(m,sqrt)
 AC_CHECK_LIB(intl,gettext)
 AC_CHECK_LIB(jpeg,jpeg_start_decompress)

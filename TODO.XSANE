@@ -13,8 +13,8 @@ first steps:
     - more than one copy of one scan
   - If automatic document feeder: scan until error (out of paper, jammed, ...)
   - preview:
-    - improve zoom
-    - pick white, gray and black point
+    - improve handling of saved previews
+    - may be zoom in without a new preview scan
   - enhancement:
     - include invert (for negatives) into enhancement
     - store more than 1 enhancement and give names for it, may be in own files
@@ -32,10 +32,12 @@ first steps:
    - more online helpfiles
    - save all options to a file including preview-selection
    - if netscape-remote is docviewer, start netscape if not running
+   - make xsane work if resolution is not a range
+
 
 second steps:
  - correct gtk custom gamma functions and include it
- - include special functions for GNOME/KDE
+ - include special functions for GNOME/KDE - *** DOES ANYONE HAVE ANY SUGGESTIONS TO THIS ? ***
 
 more ideas:
  - preview always in greyscale or always in color
