@@ -570,4 +570,26 @@ xsane-0.44 -> 0.45:
    and moved them to xsane-device-preferences.c
 
 
+xsane-0.45 -> 0.46:
+-------------------
 
+ - changed xsane_rc_io_w_space: returns ENODATA instead of EINVAL at EOF
+
+ - added xsane_rc_io_w_skip_newline
+
+ - changed xsane_device_preferences_load_values:
+   - begin at start of file is only inciated if w.status == ENODATA 
+   - if w.status is an other error, the line is skipped
+
+ - moved and renamed w_string, w_int, w_double from xsane-preferences.c
+   to xsane_rc_pref_* in xsane-rc-io.c
+
+ - repleaced fprintf/fscanf for reading xsane device preferences by
+   xsane_rc_io_w_* routines
+   This way the floating point values (xsane- gamma, brightness and contrast)
+   are saved different and the *.drc-files are incompatible in that point.
+
+ - added test for lineart mode (depth == 1) in xsane_enhancement_update
+   solves segmentation fault problem when device settings with lineart enabled
+   are loaded
+ 

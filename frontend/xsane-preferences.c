@@ -85,12 +85,6 @@ Preferences preferences =
 
 /* --------------------------------------------------------------------- */
 
-static void w_string (Wire *w, void *p, long offset);
-static void w_double (Wire *w, void *p, long offset);
-static void w_int (Wire *w, void *p, long offset);
-
-/* --------------------------------------------------------------------- */
-
 static struct
   {
     SANE_String name;
@@ -99,52 +93,52 @@ static struct
   }
 desc[] =
   {
-    {"filename",			w_string,	POFFSET(filename)},
-    {"fax-project",			w_string,	POFFSET(fax_project)},
-    {"fax-command",			w_string,	POFFSET(fax_command)},
-    {"fax-receiver-option",		w_string,	POFFSET(fax_receiver_option)},
-    {"fax-postscript-option",		w_string,	POFFSET(fax_postscript_option)},
-    {"fax-normal-option",		w_string,	POFFSET(fax_normal_option)},
-    {"fax-fine-option",			w_string,	POFFSET(fax_fine_option)},
-    {"fax-viewer",			w_string,	POFFSET(fax_viewer)},
-    {"doc-viewer",			w_string,	POFFSET(doc_viewer)},
-    {"overwrite-warning",		w_int,		POFFSET(overwrite_warning)},
-    {"increase-filename-counter",	w_int,		POFFSET(increase_filename_counter)},
-    {"skip-existing-numbers",		w_int,		POFFSET(skip_existing_numbers)},
-    {"jpeg-quality",			w_double,	POFFSET(jpeg_quality)},
-    {"png-compression",			w_double, 	POFFSET(png_compression)},
-    {"tiff-compression_nr",		w_int,	 	POFFSET(tiff_compression_nr)},
-    {"tiff-compression_1_nr",		w_int,	 	POFFSET(tiff_compression_1_nr)},
-    {"tool-tips",			w_int,		POFFSET(tooltips_enabled)},
-    {"show-histogram",			w_int,		POFFSET(show_histogram)},
-    {"show-standard-options",		w_int,		POFFSET(show_standard_options)},
-    {"show-advanced-options",		w_int,		POFFSET(show_advanced_options)},
-    {"show-resolution-list",		w_int,		POFFSET(show_resolution_list)},
-    {"length-unit",			w_double,	POFFSET(length_unit)},
-    {"main-window-fixed",		w_int,		POFFSET(main_window_fixed)},
-    {"preserve-preview",		w_int,		POFFSET(preserve_preview)},
-    {"preview-own-cmap",		w_int,		POFFSET(preview_own_cmap)},
-    {"preview-gamma",			w_double,	POFFSET(preview_gamma)},
-    {"preview-gamma-red",		w_double,	POFFSET(preview_gamma_red)},
-    {"preview-gamma-green",		w_double,	POFFSET(preview_gamma_green)},
-    {"preview-gamma-blue",		w_double,	POFFSET(preview_gamma_blue)},
-    {"gamma",				w_double,	POFFSET(xsane_gamma)},
-    {"gamma-red",			w_double,	POFFSET(xsane_gamma_red)},
-    {"gamma-green",			w_double,	POFFSET(xsane_gamma_green)},
-    {"gamma-blue",			w_double,	POFFSET(xsane_gamma_blue)},
-    {"brightness",			w_double,	POFFSET(xsane_brightness)},
-    {"brightness-red",			w_double,	POFFSET(xsane_brightness_red)},
-    {"brightness-green",		w_double,	POFFSET(xsane_brightness_green)},
-    {"brightness-blue",			w_double,	POFFSET(xsane_brightness_blue)},
-    {"contrast",			w_double,	POFFSET(xsane_contrast)},
-    {"contrast-red",			w_double,	POFFSET(xsane_contrast_red)},
-    {"contrast-green",			w_double,	POFFSET(xsane_contrast_green)},
-    {"contrast-blue",			w_double,	POFFSET(xsane_contrast_blue)},
-    {"rgb-default",			w_int,		POFFSET(xsane_rgb_default)},
-    {"negative",			w_int,		POFFSET(xsane_negative)},
-    {"gtk-update-policy",		w_int,		POFFSET(gtk_update_policy)},
-    {"printernr",			w_int,		POFFSET(printernr)},
-    {"printerdefinitions",		w_int,		POFFSET(printerdefinitions)}
+    {"filename",			xsane_rc_pref_string,	POFFSET(filename)},
+    {"fax-project",			xsane_rc_pref_string,	POFFSET(fax_project)},
+    {"fax-command",			xsane_rc_pref_string,	POFFSET(fax_command)},
+    {"fax-receiver-option",		xsane_rc_pref_string,	POFFSET(fax_receiver_option)},
+    {"fax-postscript-option",		xsane_rc_pref_string,	POFFSET(fax_postscript_option)},
+    {"fax-normal-option",		xsane_rc_pref_string,	POFFSET(fax_normal_option)},
+    {"fax-fine-option",			xsane_rc_pref_string,	POFFSET(fax_fine_option)},
+    {"fax-viewer",			xsane_rc_pref_string,	POFFSET(fax_viewer)},
+    {"doc-viewer",			xsane_rc_pref_string,	POFFSET(doc_viewer)},
+    {"overwrite-warning",		xsane_rc_pref_int,	POFFSET(overwrite_warning)},
+    {"increase-filename-counter",	xsane_rc_pref_int,	POFFSET(increase_filename_counter)},
+    {"skip-existing-numbers",		xsane_rc_pref_int,	POFFSET(skip_existing_numbers)},
+    {"jpeg-quality",			xsane_rc_pref_double,	POFFSET(jpeg_quality)},
+    {"png-compression",			xsane_rc_pref_double, 	POFFSET(png_compression)},
+    {"tiff-compression_nr",		xsane_rc_pref_int, 	POFFSET(tiff_compression_nr)},
+    {"tiff-compression_1_nr",		xsane_rc_pref_int, 	POFFSET(tiff_compression_1_nr)},
+    {"tool-tips",			xsane_rc_pref_int,	POFFSET(tooltips_enabled)},
+    {"show-histogram",			xsane_rc_pref_int,	POFFSET(show_histogram)},
+    {"show-standard-options",		xsane_rc_pref_int,	POFFSET(show_standard_options)},
+    {"show-advanced-options",		xsane_rc_pref_int,	POFFSET(show_advanced_options)},
+    {"show-resolution-list",		xsane_rc_pref_int,	POFFSET(show_resolution_list)},
+    {"length-unit",			xsane_rc_pref_double,	POFFSET(length_unit)},
+    {"main-window-fixed",		xsane_rc_pref_int,	POFFSET(main_window_fixed)},
+    {"preserve-preview",		xsane_rc_pref_int,	POFFSET(preserve_preview)},
+    {"preview-own-cmap",		xsane_rc_pref_int,	POFFSET(preview_own_cmap)},
+    {"preview-gamma",			xsane_rc_pref_double,	POFFSET(preview_gamma)},
+    {"preview-gamma-red",		xsane_rc_pref_double,	POFFSET(preview_gamma_red)},
+    {"preview-gamma-green",		xsane_rc_pref_double,	POFFSET(preview_gamma_green)},
+    {"preview-gamma-blue",		xsane_rc_pref_double,	POFFSET(preview_gamma_blue)},
+    {"gamma",				xsane_rc_pref_double,	POFFSET(xsane_gamma)},
+    {"gamma-red",			xsane_rc_pref_double,	POFFSET(xsane_gamma_red)},
+    {"gamma-green",			xsane_rc_pref_double,	POFFSET(xsane_gamma_green)},
+    {"gamma-blue",			xsane_rc_pref_double,	POFFSET(xsane_gamma_blue)},
+    {"brightness",			xsane_rc_pref_double,	POFFSET(xsane_brightness)},
+    {"brightness-red",			xsane_rc_pref_double,	POFFSET(xsane_brightness_red)},
+    {"brightness-green",		xsane_rc_pref_double,	POFFSET(xsane_brightness_green)},
+    {"brightness-blue",			xsane_rc_pref_double,	POFFSET(xsane_brightness_blue)},
+    {"contrast",			xsane_rc_pref_double,	POFFSET(xsane_contrast)},
+    {"contrast-red",			xsane_rc_pref_double,	POFFSET(xsane_contrast_red)},
+    {"contrast-green",			xsane_rc_pref_double,	POFFSET(xsane_contrast_green)},
+    {"contrast-blue",			xsane_rc_pref_double,	POFFSET(xsane_contrast_blue)},
+    {"rgb-default",			xsane_rc_pref_int,	POFFSET(xsane_rgb_default)},
+    {"negative",			xsane_rc_pref_int,	POFFSET(xsane_negative)},
+    {"gtk-update-policy",		xsane_rc_pref_int,	POFFSET(gtk_update_policy)},
+    {"printernr",			xsane_rc_pref_int,	POFFSET(printernr)},
+    {"printerdefinitions",		xsane_rc_pref_int,	POFFSET(printerdefinitions)}
   };
 
 /* --------------------------------------------------------------------- */
@@ -157,95 +151,19 @@ static struct
   }
 desc_printer[] =
   {
-    {"printer-name",			w_string,	PRTOFFSET(name)},
-    {"printer-command",			w_string,	PRTOFFSET(command)},
-    {"printer-copy-number-option",	w_string,	PRTOFFSET(copy_number_option)},
-    {"printer-resolution",		w_int,		PRTOFFSET(resolution)},
-    {"printer-width",			w_int,		PRTOFFSET(width)},
-    {"printer-height",			w_int,		PRTOFFSET(height)},
-    {"printer-left-offset",		w_int,		PRTOFFSET(leftoffset)},
-    {"printer-bottom-offset",		w_int,		PRTOFFSET(bottomoffset)},
-    {"printer-gamma",			w_double,	PRTOFFSET(gamma)},
-    {"printer-gamma-red",		w_double,	PRTOFFSET(gamma_red)},
-    {"printer-gamma-green",		w_double,	PRTOFFSET(gamma_green)},
-    {"printer-gamma-blue",		w_double,	PRTOFFSET(gamma_blue)}
+    {"printer-name",			xsane_rc_pref_string,	PRTOFFSET(name)},
+    {"printer-command",			xsane_rc_pref_string,	PRTOFFSET(command)},
+    {"printer-copy-number-option",	xsane_rc_pref_string,	PRTOFFSET(copy_number_option)},
+    {"printer-resolution",		xsane_rc_pref_int,	PRTOFFSET(resolution)},
+    {"printer-width",			xsane_rc_pref_int,	PRTOFFSET(width)},
+    {"printer-height",			xsane_rc_pref_int,	PRTOFFSET(height)},
+    {"printer-left-offset",		xsane_rc_pref_int,	PRTOFFSET(leftoffset)},
+    {"printer-bottom-offset",		xsane_rc_pref_int,	PRTOFFSET(bottomoffset)},
+    {"printer-gamma",			xsane_rc_pref_double,	PRTOFFSET(gamma)},
+    {"printer-gamma-red",		xsane_rc_pref_double,	PRTOFFSET(gamma_red)},
+    {"printer-gamma-green",		xsane_rc_pref_double,	PRTOFFSET(gamma_green)},
+    {"printer-gamma-blue",		xsane_rc_pref_double,	PRTOFFSET(gamma_blue)}
   };
-
-/* --------------------------------------------------------------------- */
-
-static void w_string(Wire *w, void *p, long offset)
-{
-  SANE_String string;
-
-  if (w->direction == WIRE_ENCODE)
-  {
-    string = PFIELD(p, offset, char *);
-  }
-
-  xsane_rc_io_w_string(w, &string);
-
-  if (w->direction == WIRE_DECODE)
-  {
-    if (w->status == 0)
-    {
-     const char **field;
-
-      field = &PFIELD(p, offset, const char *);
-      if (*field)
-      {
-        free((char *) *field);
-      }
-      *field = string ? strdup (string) : 0;
-    }
-    xsane_rc_io_w_free(w, (WireCodecFunc) xsane_rc_io_w_string, &string);
-  }
-}
-
-/* --------------------------------------------------------------------- */
-
-static void w_double(Wire *w, void *p, long offset)
-{
-  SANE_Word word;
-
-  if (w->direction == WIRE_ENCODE)
-  {
-    word = SANE_FIX(PFIELD (p, offset, double));
-  }
-
-  xsane_rc_io_w_word (w, &word);
-
-  if (w->direction == WIRE_DECODE)
-  {
-    if (w->status == 0)
-    {
-      PFIELD(p, offset, double) = SANE_UNFIX (word);
-    }
-    xsane_rc_io_w_free(w, (WireCodecFunc) xsane_rc_io_w_word, &word);
-  }
-}
-
-/* --------------------------------------------------------------------- */
-
-static void w_int(Wire *w, void *p, long offset)
-{
-  SANE_Word word;
-
-  if (w->direction == WIRE_ENCODE)
-  {
-    word = PFIELD(p, offset, int);
-  }
-
-  xsane_rc_io_w_word (w, &word);
-
-  if (w->direction == WIRE_DECODE)
-  {
-    if (w->status == 0)
-    {
-      PFIELD(p, offset, int) = word;
-    }
-    xsane_rc_io_w_free(w, (WireCodecFunc) xsane_rc_io_w_word, &word);
-  }
-}
 
 /* --------------------------------------------------------------------- */
 
@@ -312,7 +230,7 @@ void preferences_restore(int fd)
 
     for (i = 0; i < NELEMS (desc); ++i)
     {
-      if (strcmp (name, desc[i].name) == 0)
+      if (strcmp(name, desc[i].name) == 0)
       {
         (*desc[i].codec) (&w, &preferences, desc[i].offset);
         break;

@@ -1,0 +1,10 @@
+----------------------------------------------------------------
+ NEWS:
+ The format of the *.drc files has changed from xsane-0.45 to
+ xsane-0.46. Use xsane-convert-to-0.46 to convert the files
+ ~/.sane/xsane/*.drc BEFORE you start xsane!
+
+ To compile it call
+ make xsane-convert-to-0.46
+----------------------------------------------------------------
+

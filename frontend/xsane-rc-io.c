@@ -89,7 +89,8 @@ void xsane_rc_io_w_space(Wire *w, size_t howmuch)
           {
             if (nread == 0)
             {
-              errno = EINVAL;
+/*              errno = EINVAL; */
+              errno = ENODATA; /* EOF */
             }
             w->status = errno;
             return;
@@ -379,8 +380,10 @@ void xsane_rc_io_w_parameters(Wire *w, SANE_Parameters *v)
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 
-static void flush(Wire *w)
+void xsane_rc_io_w_flush(Wire *w)
 {
+  w->status = 0;
+
   if (w->direction == WIRE_ENCODE)
   {
     xsane_rc_io_w_space(w, w->buffer.size + 1);
@@ -395,9 +398,9 @@ static void flush(Wire *w)
 
 void xsane_rc_io_w_set_dir(Wire *w, WireDirection dir)
 {
-  flush(w);
+  xsane_rc_io_w_flush(w);
   w->direction = dir;
-  flush(w);
+  xsane_rc_io_w_flush(w);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------- */
@@ -424,7 +427,7 @@ void xsane_rc_io_w_reply(Wire *w, WireCodecFunc w_reply, void *reply)
   w->status = 0;
   xsane_rc_io_w_set_dir(w, WIRE_ENCODE);
   (*w_reply) (w, reply);
-  flush(w);
+  xsane_rc_io_w_flush(w);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------- */
@@ -480,6 +483,23 @@ static void xsane_rc_io_skip_ws(Wire *w)
 
     ++w->buffer.curr;
   }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------- */
+
+void xsane_rc_io_w_skip_newline(Wire *w)
+{
+  while (*w->buffer.curr != 10)
+  {
+    xsane_rc_io_w_space(w, 1);
+
+    if (w->status != 0)
+    {
+      return;
+    }
+    ++w->buffer.curr;
+  }
+  ++w->buffer.curr;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------- */
@@ -587,10 +607,9 @@ void xsane_rc_io_w_char(Wire *w, SANE_Char *v)
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 
-void xsane_rc_io_w_string(Wire *w, SANE_String *v)
+void xsane_rc_io_w_string(Wire *w, SANE_String *s)
 {
  size_t len, alloced_len;
- SANE_String *s = v;
  char * str, ch;
  int done;
 
@@ -630,6 +649,13 @@ void xsane_rc_io_w_string(Wire *w, SANE_String *v)
     case WIRE_DECODE:
       xsane_rc_io_skip_ws(w);
       xsane_rc_io_w_space(w, 1);
+
+      if (w->status != 0)
+      {
+        *s = 0; /* make sure pointer does not point to an invalid address */
+        return;
+      }
+
       ch = *w->buffer.curr++;
       if (ch == '"')
       {
@@ -795,3 +821,82 @@ void xsane_rc_io_w_word(Wire *w, SANE_Word *v)
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 
+#define PFIELD(p,offset,type)	(*((type *)(((char *)(p)) + (offset))))
+
+/* ---------------------------------------------------------------------------------------------------------------- */
+
+void xsane_rc_pref_string(Wire *w, void *p, long offset)
+{
+  SANE_String string;
+
+  if (w->direction == WIRE_ENCODE)
+  {
+    string = PFIELD(p, offset, char *);
+  }
+
+  xsane_rc_io_w_string(w, &string);
+
+  if (w->direction == WIRE_DECODE)
+  {
+    if (w->status == 0)
+    {
+     const char **field;
+
+      field = &PFIELD(p, offset, const char *);
+      if (*field)
+      {
+        free((char *) *field);
+      }
+      *field = string ? strdup (string) : 0;
+    }
+    xsane_rc_io_w_free(w, (WireCodecFunc) xsane_rc_io_w_string, &string);
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------- */
+
+void xsane_rc_pref_double(Wire *w, void *p, long offset)
+{
+  SANE_Word word;
+
+  if (w->direction == WIRE_ENCODE)
+  {
+    word = SANE_FIX(PFIELD (p, offset, double));
+  }
+
+  xsane_rc_io_w_word (w, &word);
+
+  if (w->direction == WIRE_DECODE)
+  {
+    if (w->status == 0)
+    {
+      PFIELD(p, offset, double) = SANE_UNFIX (word);
+    }
+    xsane_rc_io_w_free(w, (WireCodecFunc) xsane_rc_io_w_word, &word);
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------- */
+
+void xsane_rc_pref_int(Wire *w, void *p, long offset)
+{
+  SANE_Word word;
+
+  if (w->direction == WIRE_ENCODE)
+  {
+    word = PFIELD(p, offset, int);
+  }
+
+  xsane_rc_io_w_word (w, &word);
+
+  if (w->direction == WIRE_DECODE)
+  {
+    if (w->status == 0)
+    {
+      PFIELD(p, offset, int) = word;
+    }
+    xsane_rc_io_w_free(w, (WireCodecFunc) xsane_rc_io_w_word, &word);
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------- */

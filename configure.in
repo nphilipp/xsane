@@ -6,7 +6,7 @@ AC_CONFIG_HEADER(include/sane/config.h)
 
 # version code:
 V_MAJOR=0
-V_MINOR=45
+V_MINOR=46
 
 PACKAGE=xsane
 
@@ -298,3 +298,4 @@ echo "* ------------------------------------------------------------ *"
 echo "* ... PLEASE READ SANE DOCUMENTATION BEFORE STARTING XSANE ... *"
 echo "* ------------------------------------------------------------ *"
 echo "****************************************************************"
+cat xsane.NEWS

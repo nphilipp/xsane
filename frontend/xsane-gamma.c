@@ -1100,7 +1100,14 @@ void xsane_update_gamma(void)
 
 static void xsane_enhancement_update(void)
 {
- guint sig_changed = gtk_signal_lookup("changed", GTK_OBJECT_TYPE(xsane.gamma_widget));
+ guint sig_changed=0;
+
+  if (xsane.param.depth == 1) /* lineart? no gamma */
+  {
+    return;
+  } 
+
+  sig_changed = gtk_signal_lookup("changed", GTK_OBJECT_TYPE(xsane.gamma_widget));
 
   GTK_ADJUSTMENT(xsane.gamma_widget)->value      = xsane.gamma;
   GTK_ADJUSTMENT(xsane.brightness_widget)->value = xsane.brightness;
@@ -1131,6 +1138,7 @@ static void xsane_enhancement_update(void)
     gtk_signal_emit(xsane.contrast_red_widget,     sig_changed); 
     gtk_signal_emit(xsane.contrast_green_widget,   sig_changed); 
     gtk_signal_emit(xsane.contrast_blue_widget,    sig_changed); 
+    
   }
 
   gtk_signal_emit(xsane.gamma_widget,      sig_changed); 
@@ -1138,6 +1146,7 @@ static void xsane_enhancement_update(void)
   gtk_signal_emit(xsane.contrast_widget,   sig_changed); 
 
   xsane_update_sliders(); /* update histogram slider */
+
   while (gtk_events_pending())
   {
     gtk_main_iteration();

@@ -31,7 +31,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION	"0.45"
+#define XSANE_VERSION	"0.46"
 #define XSANE_AUTHOR	"Oliver Rauch"
 #define XSANE_COPYRIGHT	"Oliver Rauch"
 #define XSANE_DATE	"1998/1999"
@@ -265,6 +265,22 @@ typedef struct Xsane
     GtkWidget *histogram_dialog;
     GtkWidget *fax_dialog;
     GtkWidget *fax_list;
+
+    /* window position and geometry */
+    SANE_Int shell_posx;
+    SANE_Int shell_posy;
+    SANE_Int shell_height;
+    SANE_Int shell_width;
+    SANE_Int standard_options_shell_posx;
+    SANE_Int standard_options_shell_posy;
+    SANE_Int advanced_options_shell_posx;
+    SANE_Int advanced_options_shell_posy;
+    SANE_Int histogram_dialog_posx;
+    SANE_Int histogram_dialog_posy;
+    SANE_Int preview_dialog_posx;
+    SANE_Int preview_dialog_posy;
+    SANE_Int preview_dialog_width;
+    SANE_Int preview_dialog_height;
 
     GtkWidget *hruler;
     GtkWidget *vruler;

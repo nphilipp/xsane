@@ -78,6 +78,7 @@ Wire;
 
 extern void xsane_rc_io_w_init(Wire *w);
 extern void xsane_rc_io_w_space(Wire *w, size_t howmuch);
+extern void xsane_rc_io_w_skip_newline(Wire *w);
 extern void xsane_rc_io_w_void(Wire *w);
 extern void xsane_rc_io_w_byte(Wire *w, SANE_Byte *v);
 extern void xsane_rc_io_w_char(Wire *w, SANE_Char *v);
@@ -97,14 +98,15 @@ extern void xsane_rc_io_w_option_descriptor(Wire *w, SANE_Option_Descriptor *v);
 extern void xsane_rc_io_w_option_descriptor_ptr(Wire *w, SANE_Option_Descriptor **v);
 extern void xsane_rc_io_w_parameters(Wire *w, SANE_Parameters *v);
 extern void xsane_rc_io_w_array(Wire *w, SANE_Word *len, void **v, WireCodecFunc w_element, size_t element_size);
+extern void xsane_rc_io_w_flush(Wire *w);
 extern void xsane_rc_io_w_set_dir(Wire *w, WireDirection dir);
 extern void xsane_rc_io_w_call(Wire *w, SANE_Word proc_num, WireCodecFunc w_arg, void *arg, WireCodecFunc w_reply, void *reply);
 extern void xsane_rc_io_w_reply(Wire *w, WireCodecFunc w_reply, void *reply);
 extern void xsane_rc_io_w_free(Wire *w, WireCodecFunc w_reply, void *reply);
-extern void xsane_rc_io_codec_ascii_init(Wire *w);
 
-extern int xsane_rc_io_load_values(int fd, SANE_Handle device); 
-extern int xsane_rc_io_save_values(int fd, SANE_Handle device);
+extern void xsane_rc_pref_string(Wire *w, void *p, long offset);
+extern void xsane_rc_pref_double(Wire *w, void *p, long offset);
+extern void xsane_rc_pref_int(Wire *w, void *p, long offset);
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 
