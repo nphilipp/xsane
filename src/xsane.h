@@ -3,7 +3,7 @@
    xsane.h
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2004 Oliver Rauch
+   Copyright (C) 1998-2005 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -85,10 +85,10 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.96"
+#define XSANE_VERSION		"0.97"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
-#define XSANE_DATE		"1998-2004"
+#define XSANE_DATE		"1998-2005"
 #define XSANE_EMAIL		"Oliver.Rauch@xsane.org"
 #define XSANE_HOMEPAGE		"http://www.xsane.org"
 #define XSANE_COPYRIGHT_TXT	XSANE_DATE " " XSANE_COPYRIGHT

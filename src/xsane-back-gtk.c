@@ -3,7 +3,7 @@
    xsane-back-gtk.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2004 Oliver Rauch
+   Copyright (C) 1998-2005 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -1202,10 +1202,7 @@ int xsane_back_gtk_get_filename(const char *label, const char *default_name, siz
   DBG(DBG_info, "xsane_back_gtk_get_filename: waiting for user action\n");
   while (!cancel && !ok && !destroy)
   {
-    if (gtk_events_pending())
-    {
-      gtk_main_iteration();
-    }
+    gtk_main_iteration();
   }
 
   if (ok)

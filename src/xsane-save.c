@@ -3,7 +3,7 @@
    xsane-save.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2004 Oliver Rauch
+   Copyright (C) 1998-2005 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -718,9 +718,6 @@ int xsane_copy_file(FILE *outfile, FILE *infile, GtkProgressBar *progress_bar, i
 
   fflush(outfile);
 
-  fclose(infile);
-  fclose(outfile);
-
   if (size != bytes_sum)
   {
     DBG(DBG_info, "copy errro, not complete, %d bytes of %d bytes copied\n", bytes_sum, size);
@@ -766,6 +763,9 @@ int xsane_copy_file_by_name(char *output_filename, char *input_filename, GtkProg
   }
 
   xsane_copy_file(outfile, infile, progress_bar, cancel_save);
+
+  fclose(infile);
+  fclose(outfile);
 
   gtk_progress_set_format_string(GTK_PROGRESS(progress_bar), "");
   gtk_progress_bar_update(GTK_PROGRESS_BAR(progress_bar), 0.0);
@@ -4942,7 +4942,7 @@ int write_smtp_footer(int fd_socket)
  char buf[1024];
  int len;
 
-  snprintf(buf, sizeof(buf), ".\r\n");
+  snprintf(buf, sizeof(buf), "\r\n.\r\n");
   DBG(DBG_info2, "> %s", buf);
   write(fd_socket, buf, strlen(buf));
   len = read(fd_socket, buf, sizeof(buf));

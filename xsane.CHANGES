@@ -2648,3 +2648,30 @@ xsane-0.95 -> 0.96:
  - xsane-preferences.c: when identifier is unknown or not a string then
    the parser does not abort or crash any more.
    XSane now should not have any problems with old config files.
+
+
+xsane-0.96 -> 0.97:
+-------------------
+
+ - write_smtp_footer(): changed ".\r\n" by "\r\n.\r\n", this
+   solves problems with microsoft exchange servers.
+
+ - translations: U=updated, N=not updated, A=added/new
+   cs da de es fr hu it ja nl pl pt pt_BR ro ru sk sl sr sv tr vi zh
+   N  N  N  N  N  N  U  N  N  A  N  N     N  N  N  N  N  N  N  N  U
+
+ - xsane-save.c: xsane_copy_file(): removed fclose(infile) and fclose(outfile)
+   this bug caused the error "*** glibc detected *** double free or corruption (!prev): 0x........ ***"
+   with new gelibc versions
+   xsane-save.c: xsane_copy_file_by_name(): added fclose(infile) and fclose(outfile)
+
+ - rmoved gtk_events_pending() from the waiting loop in xsane_back_gtk_get_filename,
+   it looks like gtk_events_pending() increases CPU load very much.
+
+ - xsane-scan.c: function xsane_reduce_to_lineart(): corrected order of filenames in
+   xsane_save_image_as_lineart()
+
+ - xsane_device_dialog(...): uses sane_control_option instead of xsane_control_option
+   to read option number 0. This means that it is not needed that SANE_CAP_SOFT_DETECT
+   is set for option number 0 
+

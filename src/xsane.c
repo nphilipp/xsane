@@ -3,7 +3,7 @@
    xsane.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2004 Oliver Rauch
+   Copyright (C) 1998-2005 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -6771,6 +6771,54 @@ static void xsane_show_doc_via_nsr(GtkWidget *widget, gpointer data) /* show via
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
+#if 0
+/* may be used to parse command lines for execvp like popen does  */
+static char **xsane_parse_command(char *command_line, char *url)
+{
+ char **argv = NULL;
+ //char *command = strdup(command_line);
+ char command[1024];
+ char *command_pos = command;
+ char *arg_end;
+ int size = 0;
+
+  snprintf(command, sizeof(command), command_line, url);
+
+  argv = malloc(sizeof(char *) * 2);
+
+  while (command_pos)
+  {
+    argv = realloc(argv, sizeof(char *) * (size+2));
+
+    arg_end = strchr(command_pos, ' ');
+    if (arg_end)
+    {
+      *arg_end = 0;
+    }
+
+    argv[size] = strdup(command_pos);
+ 
+    if (arg_end)
+    {
+      command_pos = arg_end + 1;
+    }
+    else
+    {
+      command_pos = NULL;
+    }
+   
+    size++;
+  }
+
+  argv[size] = NULL;
+
+  free(command);
+
+ return (argv);
+}
+#endif
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
 
 static void xsane_show_doc(GtkWidget *widget, gpointer data)
 {
@@ -7806,7 +7854,7 @@ static void xsane_device_dialog(void)
     /* will never come to here */
   }
 
-  if (xsane_control_option(xsane.dev, 0, SANE_ACTION_GET_VALUE, &xsane.num_elements, 0) != SANE_STATUS_GOOD)
+  if (sane_control_option(xsane.dev, 0, SANE_ACTION_GET_VALUE, &xsane.num_elements, 0) != SANE_STATUS_GOOD)
   {
     xsane_back_gtk_error(ERR_OPTION_COUNT, TRUE);
     sane_close(xsane.dev);

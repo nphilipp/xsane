@@ -3,7 +3,7 @@
    xsaneopts.h
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2004 Oliver Rauch
+   Copyright (C) 1998-2005 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify

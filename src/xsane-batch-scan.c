@@ -3,7 +3,7 @@
    xsane-batch-scan.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2004 Oliver Rauch
+   Copyright (C) 1998-2005 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -505,10 +505,14 @@ static void xsane_batch_scan_scan_list(void)
 
     while (xsane.scanning)
     {
+#if 0
       if (gtk_events_pending())
       {
         gtk_main_iteration();
       }
+#elseif
+      gtk_main_iteration();
+#endif
     }
 
     if ( (xsane.status_of_last_scan != SANE_STATUS_GOOD) && (xsane.status_of_last_scan != SANE_STATUS_EOF) )
