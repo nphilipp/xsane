@@ -382,7 +382,7 @@ static void xsane_browse_filename_callback(GtkWidget *widget, gpointer data)
 
   snprintf(windowname, sizeof(windowname), "%s %s %s", prog_name, WINDOW_OUTPUT_FILENAME, device_text);
 
-  umask(preferences.directory_umask); /* define new file permissions */    
+  umask((mode_t) preferences.directory_umask); /* define new file permissions */    
   xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, TRUE);
   umask(XSANE_DEFAULT_UMASK); /* define new file permissions */    
 
@@ -2705,11 +2705,11 @@ void xsane_fax_project_save()
  GList *list = (GList *) GTK_LIST(xsane.fax_list)->children;
  GtkObject *list_item;
 
-  umask(preferences.directory_umask); /* define new file permissions */    
+  umask((mode_t) preferences.directory_umask); /* define new file permissions */    
   mkdir(preferences.fax_project, 0777); /* make sure directory exists */
 
   snprintf(buf, sizeof(buf), "%s/project-list", preferences.fax_project);
-  umask(preferences.image_umask); /* define image file permissions */
+  umask((mode_t) preferences.image_umask); /* define image file permissions */
   projectfile = fopen(buf, "w");
   umask(XSANE_DEFAULT_UMASK); /* define new file permissions */    
 

@@ -362,6 +362,8 @@ static void xsane_setup_saving_apply_changes(GtkWidget *widget, gpointer data)
   xsane_update_double(xsane_setup.psfile_bottomoffset_entry, &preferences.psfile_bottomoffset);
   xsane_update_double(xsane_setup.psfile_width_entry,        &preferences.psfile_width);
   xsane_update_double(xsane_setup.psfile_height_entry,       &preferences.psfile_height);
+
+  xsane_define_maximum_output_size();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -383,6 +385,8 @@ static void xsane_setup_fax_apply_changes(GtkWidget *widget, gpointer data)
   xsane_update_double(xsane_setup.fax_bottomoffset_entry, &preferences.fax_bottomoffset);
   xsane_update_double(xsane_setup.fax_width_entry,        &preferences.fax_width);
   xsane_update_double(xsane_setup.fax_height_entry,       &preferences.fax_height);
+
+  xsane_define_maximum_output_size();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

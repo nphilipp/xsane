@@ -599,11 +599,12 @@ static gint xsane_slider_callback(GtkWidget *widget, GdkEvent *event, XsaneSlide
       xsane_enhancement_by_histogram();
     }
   }
-
+#if 0
   while (gtk_events_pending())
   {
     gtk_main_iteration();
   }
+#endif
 
   event_count--;
 
@@ -1119,11 +1120,6 @@ static void xsane_enhancement_update(void)
   gtk_signal_emit(xsane.contrast_widget,   sig_changed); 
 
   xsane_update_sliders(); /* update histogram slider */
-
-  while (gtk_events_pending())
-  {
-    gtk_main_iteration();
-  }
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

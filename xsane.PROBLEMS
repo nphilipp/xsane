@@ -6,6 +6,9 @@ READ THIS FILE IF YOU EXPERIENCE ANY PROBLEM
      (try as root: $find / -name "*sane*" | less)
    - If you compiled xsane/gtk/glib with the egcs compiler try
      recompiling all with the "normal" gcc compiler (test with gcc -v)!
+   - If you used an earlier version of xsane before remove the configuration
+     directory: rm -rf ~/.sane/xsane
+     (you have to enter all configurations again afterwards).
 
  - If you get an error message  that libsane-dll.so.1 is not found, you have to
    tell your system where the SANE-libraries are installed.
@@ -15,7 +18,7 @@ READ THIS FILE IF YOU EXPERIENCE ANY PROBLEM
     If you use a SuSE linux, edit /etc/ld.so.conf.in instead and call
     SuSEconfig instead of ldconfig.
 
- - The online-help-viewer is now selectable.
+ - The online-help-viewer is selectable.
    If you use kde you can enter kdehelp in setup/display.
    Preselected is netscape with usage of remote commands.
 
@@ -37,7 +40,7 @@ READ THIS FILE IF YOU EXPERIENCE ANY PROBLEM
     update to gimp-1.0.4 or newer!  
 
  - If the compilation aborts with
-      sanei_wire.c:49: sane/sane.h: No such file or directory
+      ...: sane/sane.h: No such file or directory
    you did not install sane-devel.rpm!  Get sane-devel.rpm from
    the site you got sane.rpm and install it!
 
@@ -49,7 +52,7 @@ READ THIS FILE IF YOU EXPERIENCE ANY PROBLEM
      ./configure --enable-intl-patch
 
  - If gtk+ is compiled with NLS/gettext, you have to use the same
-   gettext version. So if gtk+ is compiled with gettext in libc
+   gettext version for xsane. So if gtk+ is compiled with gettext in libc
    do NOT compile xsane with included gettext!
    Otherwise gtk will crash when gtk texts shall be translated.
 

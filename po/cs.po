@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.52\n"
-"POT-Creation-Date: 2000-01-26 01:13+0100\n"
+"POT-Creation-Date: 2000-02-03 23:16+0100\n"
 "PO-Revision-Date: 2000-01-29 19:16+01:00\n"
 "Last-Translator: Stanislav Brabec <utx@penguin.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -617,45 +617,23 @@ msgstr "bitové pakování"
 msgid "by ext"
 msgstr "podle pøípony"
 
-#. PROGRESS_SAVING
-msgid "Saving image"
-msgstr "Zapisuje se obrázek"
-
-#. PROGRESS_SAVING_FAX
-msgid "Saving fax image"
-msgstr "Zapisuje se faxový obrázek"
-
-#. PROGRESS_CONVERTING_DATA
-msgid "Converting data...."
-msgstr "Konvertují se data..."
-
-#. PROGRESS_CONVERTING_PS
-msgid "Converting to postscript"
-msgstr "Konvertuje se do Postscriptu"
-
 #. PROGRESS_SCANNING
 msgid "Scanning"
 msgstr "Skenuje se"
 
-#. PROGRESS_RECEIVING_SCAN
-#, c-format
-msgid "Receiving %s data for `%s'..."
+#. PROGRESS_RECEIVING_FRAME_DATA
+#, fuzzy, c-format
+msgid "Receiving %s data"
 msgstr "Snímají se data typu %s pro `%s'..."
 
-#. PROGRESS_RECEIVING_COPY
-#, c-format
-msgid "Receiving %s data for photocopy ..."
-msgstr "Snímají se data typu %s pro fotokopii..."
+#. PROGRESS_SAVING_DATA
+msgid "Saving image"
+msgstr "Zapisuje se obrázek"
 
-#. PROGRESS_RECEIVING_FAX
-#, c-format
-msgid "Receiving %s data for fax ..."
-msgstr "Snímají se data typu %s pro fax..."
-
-#. PROGRESS_RECEIVING_GIMP
-#, c-format
-msgid "Receiving %s data for GIMP..."
-msgstr "Snímají se data typu %s pro GIMP..."
+#. PROGRESS_CONVERTING_DATA
+#, fuzzy
+msgid "Converting data"
+msgstr "Konvertují se data..."
 
 #. DESC_XSANE_MODE
 msgid "Use XSane for SCANning, photoCOPYing, FAXing..."
@@ -939,13 +917,17 @@ msgstr "Vý¹ka papíru v mm pro postscriptové soubory"
 msgid ""
 "Left offset from the edge of the paper to the usable area in mm for "
 "postscript files"
-msgstr "Posun od levého okraje papíru do tisknutelné plochy v mm pro postscriptové soubory"
+msgstr ""
+"Posun od levého okraje papíru do tisknutelné plochy v mm pro postscriptové "
+"soubory"
 
 #. DESC_PSFILE_BOTTOMOFFSET
 msgid ""
 "Bottom offset from the edge of the paper to the usable area in mm for "
 "postscript files"
-msgstr "Posun od spodního okraje papíru do tisknutelné plochy v mm pro postscriptové soubory"
+msgstr ""
+"Posun od spodního okraje papíru do tisknutelné plochy v mm pro postscriptové "
+"soubory"
 
 #. DESC_MAIN_WINDOW_FIXED
 msgid "Use fixed main window size or scrolled, resizable main window"
@@ -1236,6 +1218,16 @@ msgstr "má být pou¾it pro zaøízení"
 msgid "this may cause problems!"
 msgstr "to mù¾e zpùsobit problémy!"
 
+#. WARN_FILE_EXISTS
+#, c-format
+msgid "File %s already exists"
+msgstr ""
+
+#. ERR_UNSUPPORTED_OUTPUT_FORMAT
+#, fuzzy, c-format
+msgid "Unsupported %d-bit output format: %s"
+msgstr "8bitové výstupní formáty:"
+
 #. TEXT_USAGE
 msgid "Usage:"
 msgstr "U¾ití:"
@@ -1379,3 +1371,18 @@ msgstr "Nedostatek pamìti"
 
 msgid "Access to resource has been denied"
 msgstr "Pøístup ke zdroji byl odmítnut"
+
+#~ msgid "Saving fax image"
+#~ msgstr "Zapisuje se faxový obrázek"
+
+#~ msgid "Converting to postscript"
+#~ msgstr "Konvertuje se do Postscriptu"
+
+#~ msgid "Receiving %s data for photocopy ..."
+#~ msgstr "Snímají se data typu %s pro fotokopii..."
+
+#~ msgid "Receiving %s data for fax ..."
+#~ msgstr "Snímají se data typu %s pro fax..."
+
+#~ msgid "Receiving %s data for GIMP..."
+#~ msgstr "Snímají se data typu %s pro GIMP..."

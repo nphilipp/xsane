@@ -807,3 +807,25 @@ xsane-0.52 -> 0.53:
 
  - xsane resolution can be changed by backend now
 
+
+xsane-0.53 -> 0.54:
+-------------------
+
+ - updated french translation table
+
+ - updated german translation table
+
+ - changed type of umask in preferences from mode_t to int because
+   sizeof(mode_t) is on some machines only 2 bytes what cause problems.
+   all calls of umask(foo) are changed to umask((mode_t) foo)
+
+ - changed preferences update_policy from GtkUpdateType to int.
+
+ - selection box can not be moved out of the preview window, the
+   size of the selection keeps unchanged in that case now.
+
+ - removed some gtk_main_iteration and reordered some selection drawing routines.
+
+ - removed unused files/directories from package:
+   sanei, include/sane/sanei_(some).h, po_old
+

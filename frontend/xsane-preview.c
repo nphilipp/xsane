@@ -309,11 +309,6 @@ static void preview_draw_selection(Preview *p)
     return;
   }
 
-  while (gtk_events_pending()) /* make sure all drawing actions are finished */
-  {
-    gtk_main_iteration();
-  }
-
   if (p->previous_selection.active)
   {
     preview_draw_rect(p, p->window->window, p->gc_selection, p->previous_selection.coordinate);
@@ -412,6 +407,7 @@ static void preview_update_selection(Preview *p)
                           (p->selection.coordinate[1] != p->selection.coordinate[3]) &&
                            p->selection.active );
 
+  preview_update_maximum_output_size(p);
   preview_draw_selection(p);
 }
 
@@ -1440,11 +1436,6 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
     }
     else
     {
-      while (gtk_events_pending()) /* make sure image is updated */
-      {
-        gtk_main_iteration();
-      }
-
       p->previous_selection.active = FALSE; /* ok, old selections are overpainted */
       p->previous_selection_maximum.active = FALSE;
       preview_draw_selection(p); /* draw selections again */
@@ -1830,24 +1821,11 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
               p->cursornr = cursornr;
             }
 
-            if ( (p->selection_drag) || (p->selection_drag_edge) )
-            {
+            preview_draw_selection(p);
+            preview_establish_selection(p);
 
-              if (((GdkEventButton *)event)->button == 1) /* left button */
-              {
-                p->selection.coordinate[p->selection_xedge] = p->surface[0] + event->button.x / xscale;
-                p->selection.coordinate[p->selection_yedge] = p->surface[1] + event->button.y / yscale;
-              }
-
-              p->selection_drag_edge = FALSE;
-              p->selection_drag = FALSE;
-
-              preview_order_selection(p);
-              preview_bound_selection(p);
-              preview_update_maximum_output_size(p);
-              preview_draw_selection(p);
-              preview_establish_selection(p);
-            }
+            p->selection_drag_edge = FALSE;
+            p->selection_drag = FALSE;
           default:
          break;
         }
@@ -1857,28 +1835,7 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
         switch (((GdkEventMotion *)event)->state)
         {
           case 256: /* left button */
-            if (p->selection_drag_edge)
-            {
-              p->selection.active = TRUE;
-              p->selection.coordinate[p->selection_xedge] = p->surface[0] + event->button.x / xscale;
-              p->selection.coordinate[p->selection_yedge] = p->surface[1] + event->button.y / yscale;
-
-              preview_order_selection(p);
-              preview_bound_selection(p);
-              preview_update_maximum_output_size(p);
-              preview_draw_selection(p);
-
-              if ((preferences.gtk_update_policy == GTK_UPDATE_CONTINUOUS) && (event_count == 1))
-              {
-                preview_establish_selection(p);
-              }
-              else if ((preferences.gtk_update_policy == GTK_UPDATE_DELAYED) && (event_count == 1))
-              {
-                preview_establish_selection(p);
-              }
-            }
-
-            if (p->selection_drag)
+            if ( (p->selection_drag) || (p->selection_drag_edge) )
             {
               p->selection.active = TRUE;
               p->selection.coordinate[p->selection_xedge] = p->surface[0] + event->motion.x / xscale;
@@ -1886,38 +1843,51 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
 
               preview_order_selection(p);
               preview_bound_selection(p);
-              preview_update_maximum_output_size(p);
-              preview_draw_selection(p);
 
-              if ((preferences.gtk_update_policy == GTK_UPDATE_CONTINUOUS) && (event_count == 1))
+              if (preferences.gtk_update_policy == GTK_UPDATE_CONTINUOUS)
               {
+                preview_draw_selection(p);
                 preview_establish_selection(p);
               }
-              else if ((preferences.gtk_update_policy == GTK_UPDATE_DELAYED) && (event_count == 1))
+              else if (preferences.gtk_update_policy == GTK_UPDATE_DELAYED)
               {
+                preview_draw_selection(p);
                 preview_establish_selection(p);
+              }
+              else /* discontinous */
+              {
+                preview_update_maximum_output_size(p);
+                preview_draw_selection(p);
               }
             }
 
             cursornr = p->cursornr;
 
-            if ( ( (preview_selection[0] - SELECTION_RANGE_OUT < event->button.x) && (event->button.x < preview_selection[0] + SELECTION_RANGE_IN) ) && /* left  */
-                 ( (preview_selection[1] - SELECTION_RANGE_OUT < event->button.y) && (event->button.y < preview_selection[1] + SELECTION_RANGE_IN) ) ) /* top */
+            if ( ( (preview_selection[0] - SELECTION_RANGE_OUT < event->button.x) &&
+                   (event->button.x < preview_selection[0] + SELECTION_RANGE_IN) ) && /* left  */
+                 ( (preview_selection[1] - SELECTION_RANGE_OUT < event->button.y) &&
+                   (event->button.y < preview_selection[1] + SELECTION_RANGE_IN) ) ) /* top */
             {
               cursornr = GDK_TOP_LEFT_CORNER;
             }
-            else if ( ( (preview_selection[2] - SELECTION_RANGE_IN < event->button.x) && (event->button.x < preview_selection[2] + SELECTION_RANGE_OUT) ) && /* right */
-                      ( (preview_selection[1] - SELECTION_RANGE_OUT < event->button.y) && (event->button.y < preview_selection[1] + SELECTION_RANGE_IN) ) ) /* top */
+            else if ( ( (preview_selection[2] - SELECTION_RANGE_IN < event->button.x) &&
+                        (event->button.x < preview_selection[2] + SELECTION_RANGE_OUT) ) && /* right */
+                      ( (preview_selection[1] - SELECTION_RANGE_OUT < event->button.y) &&
+                        (event->button.y < preview_selection[1] + SELECTION_RANGE_IN) ) ) /* top */
             {
               cursornr = GDK_TOP_RIGHT_CORNER;
             }
-            else if ( ( (preview_selection[0] - SELECTION_RANGE_OUT < event->button.x) && (event->button.x < preview_selection[0] + SELECTION_RANGE_IN) ) && /* left  */
-                      ( (preview_selection[3] - SELECTION_RANGE_IN < event->button.y) && (event->button.y < preview_selection[3] + SELECTION_RANGE_OUT) ) ) /* bottom */
+            else if ( ( (preview_selection[0] - SELECTION_RANGE_OUT < event->button.x) &&
+                        (event->button.x < preview_selection[0] + SELECTION_RANGE_IN) ) && /* left  */
+                      ( (preview_selection[3] - SELECTION_RANGE_IN < event->button.y) &&
+                        (event->button.y < preview_selection[3] + SELECTION_RANGE_OUT) ) ) /* bottom */
             {
               cursornr = GDK_BOTTOM_LEFT_CORNER;
             }
-            else if ( ( (preview_selection[2] - SELECTION_RANGE_IN < event->button.x) && (event->button.x < preview_selection[2] + SELECTION_RANGE_OUT) ) && /* right */
-                      ( (preview_selection[3] - SELECTION_RANGE_IN < event->button.y) && (event->button.y < preview_selection[3] + SELECTION_RANGE_OUT) ) ) /* bottom */
+            else if ( ( (preview_selection[2] - SELECTION_RANGE_IN < event->button.x) &&
+                        (event->button.x < preview_selection[2] + SELECTION_RANGE_OUT) ) && /* right */
+                      ( (preview_selection[3] - SELECTION_RANGE_IN < event->button.y) &&
+                        (event->button.y < preview_selection[3] + SELECTION_RANGE_OUT) ) ) /* bottom */
             {
               cursornr = GDK_BOTTOM_RIGHT_CORNER;
             }
@@ -1935,53 +1905,84 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
           case 1024: /* right button */
             if (p->selection_drag)
             {
-             int dx, dy;
+             double dx, dy;
 
-              dx = p->selection_xpos - event->motion.x;
-              dy = p->selection_ypos - event->motion.y;
+              dx = (p->selection_xpos - event->motion.x) / xscale;
+              dy = (p->selection_ypos - event->motion.y) / yscale;
 
               p->selection_xpos = event->motion.x;
               p->selection_ypos = event->motion.y;
 
-              p->selection.active = TRUE;
-              p->selection.coordinate[0] -= dx / xscale;
-              p->selection.coordinate[1] -= dy / yscale;
-              p->selection.coordinate[2] -= dx / xscale;
-              p->selection.coordinate[3] -= dy / yscale;
-
-              preview_bound_selection(p);
-              preview_update_maximum_output_size(p);
-              preview_draw_selection(p);
-
-              if ((preferences.gtk_update_policy == GTK_UPDATE_CONTINUOUS) && (event_count == 1))
+              if (dx > p->selection.coordinate[0] - p->scanner_surface[0]) 
               {
+                dx = p->selection.coordinate[0] - p->scanner_surface[0];
+              }
+
+              if (dy > p->selection.coordinate[1] - p->scanner_surface[1])
+              {
+                dy = p->selection.coordinate[1] - p->scanner_surface[1];
+              }
+
+              if (dx < p->selection.coordinate[2] - p->scanner_surface[2])
+              { 
+                dx = p->selection.coordinate[2] - p->scanner_surface[2];
+              }
+
+              if (dy < p->selection.coordinate[3] - p->scanner_surface[3])
+              {
+                dy = p->selection.coordinate[3] - p->scanner_surface[3];
+              }
+
+              p->selection.active = TRUE;
+              p->selection.coordinate[0] -= dx;
+              p->selection.coordinate[1] -= dy;
+              p->selection.coordinate[2] -= dx;
+              p->selection.coordinate[3] -= dy;
+
+              if (preferences.gtk_update_policy == GTK_UPDATE_CONTINUOUS)
+              {
+                preview_draw_selection(p);
                 preview_establish_selection(p);
               }
-              else if ((preferences.gtk_update_policy == GTK_UPDATE_DELAYED) && (event_count == 1))
+              else if (preferences.gtk_update_policy == GTK_UPDATE_DELAYED)
               {
+                preview_draw_selection(p);
                 preview_establish_selection(p);
+              }
+              else /* discontinuous */
+              {
+                preview_update_maximum_output_size(p);
+                preview_draw_selection(p);
               }
             }
            break;
 
           default:
-            if ( ( (preview_selection[0] - SELECTION_RANGE_OUT < event->button.x) && (event->button.x < preview_selection[0] + SELECTION_RANGE_IN) ) && /* left  */
-                 ( (preview_selection[1] - SELECTION_RANGE_OUT < event->button.y) && (event->button.y < preview_selection[1] + SELECTION_RANGE_IN) ) ) /* top */
+            if ( ( (preview_selection[0] - SELECTION_RANGE_OUT < event->button.x) &&
+                   (event->button.x < preview_selection[0] + SELECTION_RANGE_IN) ) && /* left  */
+                 ( (preview_selection[1] - SELECTION_RANGE_OUT < event->button.y) &&
+                   (event->button.y < preview_selection[1] + SELECTION_RANGE_IN) ) ) /* top */
             {
               cursornr = GDK_TOP_LEFT_CORNER;
             }
-            else if ( ( (preview_selection[2] - SELECTION_RANGE_IN < event->button.x) && (event->button.x < preview_selection[2] + SELECTION_RANGE_OUT) ) && /* right */
-                      ( (preview_selection[1] - SELECTION_RANGE_OUT < event->button.y) && (event->button.y < preview_selection[1] + SELECTION_RANGE_IN) ) ) /* top */
+            else if ( ( (preview_selection[2] - SELECTION_RANGE_IN < event->button.x) &&
+                        (event->button.x < preview_selection[2] + SELECTION_RANGE_OUT) ) && /* right */
+                      ( (preview_selection[1] - SELECTION_RANGE_OUT < event->button.y) &&
+                        (event->button.y < preview_selection[1] + SELECTION_RANGE_IN) ) ) /* top */
             {
               cursornr = GDK_TOP_RIGHT_CORNER;
             }
-            else if ( ( (preview_selection[0] - SELECTION_RANGE_OUT < event->button.x) && (event->button.x < preview_selection[0] + SELECTION_RANGE_IN) ) && /* left  */
-                      ( (preview_selection[3] - SELECTION_RANGE_IN < event->button.y) && (event->button.y < preview_selection[3] + SELECTION_RANGE_OUT) ) ) /* bottom */
+            else if ( ( (preview_selection[0] - SELECTION_RANGE_OUT < event->button.x) &&
+                        (event->button.x < preview_selection[0] + SELECTION_RANGE_IN) ) && /* left  */
+                      ( (preview_selection[3] - SELECTION_RANGE_IN < event->button.y) &&
+                        (event->button.y < preview_selection[3] + SELECTION_RANGE_OUT) ) ) /* bottom */
             {
               cursornr = GDK_BOTTOM_LEFT_CORNER;
             }
-            else if ( ( (preview_selection[2] - SELECTION_RANGE_IN < event->button.x) && (event->button.x < preview_selection[2] + SELECTION_RANGE_OUT) ) && /* right */
-                      ( (preview_selection[3] - SELECTION_RANGE_IN < event->button.y) && (event->button.y < preview_selection[3] + SELECTION_RANGE_OUT) ) ) /* bottom */
+            else if ( ( (preview_selection[2] - SELECTION_RANGE_IN < event->button.x) &&
+                        (event->button.x < preview_selection[2] + SELECTION_RANGE_OUT) ) && /* right */
+                      ( (preview_selection[3] - SELECTION_RANGE_IN < event->button.y) &&
+                        (event->button.y < preview_selection[3] + SELECTION_RANGE_OUT) ) ) /* bottom */
             {
               cursornr = GDK_BOTTOM_RIGHT_CORNER;
             }
@@ -2220,6 +2221,12 @@ Preview *preview_new(GSGDialog *dialog)
 #ifndef XSERVER_WITH_BUGGY_VISUALS
   gtk_widget_pop_visual();
 #endif
+
+  while (gtk_events_pending()) /* make sure all selection draw is done now */
+  {
+    gtk_main_iteration();
+  }
+  preview_update_surface(p, 0);
   return p;
 }
 

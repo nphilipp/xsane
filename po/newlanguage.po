@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE VERSION\n"
-"POT-Creation-Date: 2000-01-26 01:13+0100\n"
+"POT-Creation-Date: 2000-02-03 23:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -618,44 +618,21 @@ msgstr ""
 msgid "by ext"
 msgstr ""
 
-#. PROGRESS_SAVING
-msgid "Saving image"
-msgstr ""
-
-#. PROGRESS_SAVING_FAX
-msgid "Saving fax image"
-msgstr ""
-
-#. PROGRESS_CONVERTING_DATA
-msgid "Converting data...."
-msgstr ""
-
-#. PROGRESS_CONVERTING_PS
-msgid "Converting to postscript"
-msgstr ""
-
 #. PROGRESS_SCANNING
 msgid "Scanning"
 msgstr ""
 
-#. PROGRESS_RECEIVING_SCAN
+#. PROGRESS_RECEIVING_FRAME_DATA
 #, c-format
-msgid "Receiving %s data for `%s'..."
+msgid "Receiving %s data"
 msgstr ""
 
-#. PROGRESS_RECEIVING_COPY
-#, c-format
-msgid "Receiving %s data for photocopy ..."
+#. PROGRESS_SAVING_DATA
+msgid "Saving image"
 msgstr ""
 
-#. PROGRESS_RECEIVING_FAX
-#, c-format
-msgid "Receiving %s data for fax ..."
-msgstr ""
-
-#. PROGRESS_RECEIVING_GIMP
-#, c-format
-msgid "Receiving %s data for GIMP..."
+#. PROGRESS_CONVERTING_DATA
+msgid "Converting data"
 msgstr ""
 
 #. DESC_XSANE_MODE
@@ -1214,6 +1191,16 @@ msgstr ""
 
 #. ERR_MAY_CAUSE_PROBLEMS
 msgid "this may cause problems!"
+msgstr ""
+
+#. WARN_FILE_EXISTS
+#, c-format
+msgid "File %s already exists"
+msgstr ""
+
+#. ERR_UNSUPPORTED_OUTPUT_FORMAT
+#, c-format
+msgid "Unsupported %d-bit output format: %s"
 msgstr ""
 
 #. TEXT_USAGE

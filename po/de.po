@@ -4,8 +4,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.53\n"
-"POT-Creation-Date: 2000-01-26 01:13+0100\n"
+"Project-Id-Version: XSANE 0.54\n"
+"POT-Creation-Date: 2000-02-03 23:16+0100\n"
 "PO-Revision-Date: 2000-01-21 15:51+01:00\n"
 "Last-Translator: Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>\n"
 "Language-Team: German <de@li.org>\n"
@@ -617,45 +617,22 @@ msgstr "gepackte Bits"
 msgid "by ext"
 msgstr "nach Erw"
 
-#. PROGRESS_SAVING
-msgid "Saving image"
-msgstr "Speichere Bild"
-
-#. PROGRESS_SAVING_FAX
-msgid "Saving fax image"
-msgstr "Speichere Faxbild"
-
-#. PROGRESS_CONVERTING_DATA
-msgid "Converting data...."
-msgstr "Konvertiere Daten..."
-
-#. PROGRESS_CONVERTING_PS
-msgid "Converting to postscript"
-msgstr "Konvertiere nach Postscript"
-
 #. PROGRESS_SCANNING
 msgid "Scanning"
 msgstr "Scanne"
 
-#. PROGRESS_RECEIVING_SCAN
+#. PROGRESS_RECEIVING_FRAME_DATA
 #, c-format
-msgid "Receiving %s data for `%s'..."
-msgstr "Empfange %s Daten für `%s'..."
+msgid "Receiving %s data"
+msgstr "Empfange %s Daten"
 
-#. PROGRESS_RECEIVING_COPY
-#, c-format
-msgid "Receiving %s data for photocopy ..."
-msgstr "Empfange %s Daten für Photokopie"
+#. PROGRESS_SAVING_DATA
+msgid "Saving image"
+msgstr "Speichere Bild"
 
-#. PROGRESS_RECEIVING_FAX
-#, c-format
-msgid "Receiving %s data for fax ..."
-msgstr "Empfange %s Daten für Fax ..."
-
-#. PROGRESS_RECEIVING_GIMP
-#, c-format
-msgid "Receiving %s data for GIMP..."
-msgstr "Empfange %s Daten für GIMP..."
+#. PROGRESS_CONVERTING_DATA
+msgid "Converting data"
+msgstr "Konvertiere Daten..."
 
 #. DESC_XSANE_MODE
 msgid "Use XSane for SCANning, photoCOPYing, FAXing..."
@@ -1244,6 +1221,16 @@ msgstr "wird benutzt für das Gerät"
 msgid "this may cause problems!"
 msgstr "das kann zu Problemen führen!"
 
+#. WARN_FILE_EXISTS
+#, c-format
+msgid "File %s already exists"
+msgstr "Datei %s exisitiert bereits"
+
+#. ERR_UNSUPPORTED_OUTPUT_FORMAT
+#, c-format
+msgid "Unsupported %d-bit output format: %s"
+msgstr "Nicht unterstütztes %d-bit Ausgabeformat: %s"
+
 #. TEXT_USAGE
 msgid "Usage:"
 msgstr "Gebrauch:"
@@ -1381,7 +1368,3 @@ msgstr "Kein Speicher"
 
 msgid "Access to resource has been denied"
 msgstr "Zugang zum Gerät wurde verweigert"
-
-#, fuzzy
-#~ msgid "About this"
-#~ msgstr "Über"

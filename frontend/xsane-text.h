@@ -201,15 +201,11 @@
 
 #define MENU_ITEM_FILETYPE_BY_EXT	_("by ext")
 
-#define PROGRESS_SAVING			_("Saving image")
-#define PROGRESS_SAVING_FAX		_("Saving fax image")
-#define PROGRESS_CONVERTING_DATA	_("Converting data....")
-#define PROGRESS_CONVERTING_PS		_("Converting to postscript")
 #define PROGRESS_SCANNING		_("Scanning")
-#define PROGRESS_RECEIVING_SCAN		_("Receiving %s data for `%s'...")
-#define PROGRESS_RECEIVING_COPY		_("Receiving %s data for photocopy ...")
-#define PROGRESS_RECEIVING_FAX		_("Receiving %s data for fax ...")
-#define PROGRESS_RECEIVING_GIMP		_("Receiving %s data for GIMP...")
+#define PROGRESS_RECEIVING_FRAME_DATA	_("Receiving %s data")
+
+#define PROGRESS_SAVING_DATA		_("Saving image")
+#define PROGRESS_CONVERTING_DATA	_("Converting data")
 
 
 #define DESC_XSANE_MODE			_("Use XSane for SCANning, photoCOPYing, FAXing...")
@@ -383,6 +379,9 @@
 #define ERR_CREATED_FOR_DEVICE		_("has been created for device")
 #define ERR_USED_FOR_DEVICE		_("you want to use it for device")
 #define ERR_MAY_CAUSE_PROBLEMS		_("this may cause problems!")
+
+#define WARN_FILE_EXISTS		_("File %s already exists")
+#define ERR_UNSUPPORTED_OUTPUT_FORMAT	_("Unsupported %d-bit output format: %s")
 
 #define TEXT_USAGE			_("Usage:")
 #define TEXT_USAGE_OPTIONS		_("[OPTION]... [DEVICE]")

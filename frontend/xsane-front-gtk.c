@@ -776,7 +776,7 @@ void xsane_scale_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char
   *data = gtk_adjustment_new(*val, min, max, quant, page_step, page_size);
   scale = gtk_hscale_new(GTK_ADJUSTMENT(*data));
   xsane_back_gtk_set_tooltip(dialog->tooltips, scale, desc);
-  gtk_widget_set_usize(scale, 201, 0); /* minimum scale with = 201 pxiels */
+  gtk_widget_set_usize(scale, 201, 0); /* minimum scale with = 201 pixels */
   gtk_range_set_update_policy(GTK_RANGE(scale), preferences.gtk_update_policy);
   /* GTK_UPDATE_CONTINUOUS, GTK_UPDATE_DISCONTINUOUS, GTK_UPDATE_DELAYED */
   gtk_scale_set_value_pos(GTK_SCALE(scale), GTK_POS_TOP);

@@ -1199,8 +1199,7 @@ void xsane_scan_done(SANE_Status status)
        char buf[256];
 
          /* open progressbar */
-         snprintf(buf, sizeof(buf), PROGRESS_SAVING);
-         xsane_progress_new(PROGRESS_CONVERTING_DATA, buf, (GtkSignalFunc) xsane_cancel_save);
+         xsane_progress_new(PROGRESS_CONVERTING_DATA, PROGRESS_SAVING_DATA, (GtkSignalFunc) xsane_cancel_save);
          while (gtk_events_pending())
          {
            gtk_main_iteration();
@@ -1217,7 +1216,7 @@ void xsane_scan_done(SANE_Status status)
              if (xsane.param.depth != 1)
              {
                remove(xsane.output_filename);
-               umask(preferences.image_umask); /* define image file permissions */   
+               umask((mode_t) preferences.image_umask); /* define image file permissions */   
                xsane_save_tiff(xsane.output_filename, infile, xsane.xsane_color, xsane.param.depth, xsane.param.pixels_per_line,
                                xsane.param.lines, preferences.tiff_compression_nr, preferences.jpeg_quality);
                umask(XSANE_DEFAULT_UMASK); /* define new file permissions */   
@@ -1225,7 +1224,7 @@ void xsane_scan_done(SANE_Status status)
              else
              {
                remove(xsane.output_filename);
-               umask(preferences.image_umask); /* define image file permissions */   
+               umask((mode_t) preferences.image_umask); /* define image file permissions */   
                xsane_save_tiff(xsane.output_filename, infile, xsane.xsane_color, xsane.param.depth, xsane.param.pixels_per_line,
                                xsane.param.lines, preferences.tiff_compression_1_nr, preferences.jpeg_quality);
                umask(XSANE_DEFAULT_UMASK); /* define new file permissions */   
@@ -1235,7 +1234,7 @@ void xsane_scan_done(SANE_Status status)
 #endif
            {
              remove(xsane.output_filename);
-             umask(preferences.image_umask); /* define image file permissions */   
+             umask((mode_t) preferences.image_umask); /* define image file permissions */   
              outfile = fopen(xsane.output_filename, "w");
              umask(XSANE_DEFAULT_UMASK); /* define new file permissions */   
 
@@ -1351,8 +1350,8 @@ void xsane_scan_done(SANE_Status status)
          }
 
          /* open progressbar */
-         snprintf(buf, sizeof(buf), PROGRESS_CONVERTING_PS);
-         xsane_progress_new(PROGRESS_CONVERTING_DATA, buf, (GtkSignalFunc) xsane_cancel_save);
+         xsane_progress_new(PROGRESS_CONVERTING_DATA, PROGRESS_SAVING_DATA, (GtkSignalFunc) xsane_cancel_save);
+
          while (gtk_events_pending())
          {
            gtk_main_iteration();
@@ -1456,11 +1455,10 @@ void xsane_scan_done(SANE_Status status)
       {
        FILE *outfile;
        FILE *infile;
-       char buf[256];
 
          /* open progressbar */
-         snprintf(buf, sizeof(buf), PROGRESS_SAVING_FAX);
-         xsane_progress_new(PROGRESS_CONVERTING_DATA, buf, (GtkSignalFunc) xsane_cancel_save);
+         xsane_progress_new(PROGRESS_CONVERTING_DATA, PROGRESS_SAVING_DATA, (GtkSignalFunc) xsane_cancel_save);
+
          while (gtk_events_pending())
          {
            gtk_main_iteration();
@@ -1471,7 +1469,7 @@ void xsane_scan_done(SANE_Status status)
          {
            fseek(infile, xsane.header_size, SEEK_SET);
 
-           umask(preferences.image_umask); /* define image file permissions */   
+           umask((mode_t) preferences.image_umask); /* define image file permissions */   
            outfile = fopen(xsane.fax_filename, "w");
            umask(XSANE_DEFAULT_UMASK); /* define new file permissions */   
            if (outfile != 0)
@@ -1618,6 +1616,7 @@ void xsane_scan_done(SANE_Status status)
     xsane_set_sensitivity(TRUE);		/* reactivate buttons etc */
     sane_cancel(xsane_back_gtk_dialog_get_device(dialog)); /* stop scanning */
     xsane_update_histogram();
+    xsane_update_param(dialog, 0);
   }
 
   xsane.header_size = 0;
@@ -1725,7 +1724,7 @@ static void xsane_start_scan(void)
     else
     {
       /* no temporary file */
-      umask(preferences.image_umask); /* define image file permissions */   
+      umask((mode_t) preferences.image_umask); /* define image file permissions */   
     }
 
     if (!xsane.header_size) /* first pass of multi pass scan */
@@ -1803,19 +1802,6 @@ static void xsane_start_scan(void)
       if (xsane.param.format >= SANE_FRAME_RED && xsane.param.format <= SANE_FRAME_BLUE)
       {
 	fseek(xsane.out, xsane.header_size + xsane.param.format - SANE_FRAME_RED, SEEK_SET);
-      }
-
-      if (xsane.xsane_mode == XSANE_SCAN)
-      {
-        snprintf(buf, sizeof(buf), PROGRESS_RECEIVING_SCAN, _(frame_type), xsane.output_filename);
-      }
-      else if (xsane.xsane_mode == XSANE_COPY)
-      {
-        snprintf(buf, sizeof(buf), PROGRESS_RECEIVING_COPY, _(frame_type));
-      }
-      else if (xsane.xsane_mode == XSANE_FAX)
-      {
-        snprintf(buf, sizeof(buf), PROGRESS_RECEIVING_FAX, _(frame_type));
       }
   }
 #ifdef HAVE_LIBGIMP_GIMP_H
@@ -1898,14 +1884,13 @@ static void xsane_start_scan(void)
       {
 	xsane.tile_offset = xsane.param.format - SANE_FRAME_RED;
       }
-
-      snprintf(buf, sizeof(buf), PROGRESS_RECEIVING_GIMP, _(frame_type));
     }
 #endif /* HAVE_LIBGIMP_GIMP_H */
 
   dialog->pixelcolor = 0;
 
-  xsane_progress_new(PROGRESS_SCANNING, buf, (GtkSignalFunc) xsane_cancel);
+  snprintf(buf, sizeof(buf), PROGRESS_RECEIVING_FRAME_DATA, _(frame_type));
+  xsane_progress_new(buf, PROGRESS_SCANNING, (GtkSignalFunc) xsane_cancel);
 
   xsane.input_tag = -1;
 
@@ -1945,7 +1930,7 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
        char buf[256];
 
         fclose(testfile);
-        snprintf(buf, sizeof(buf), "File %s already exists\n", xsane.output_filename);
+        snprintf(buf, sizeof(buf), WARN_FILE_EXISTS, xsane.output_filename);
         if (xsane_back_gtk_decision(ERR_HEADER_WARNING, (gchar **) warning_xpm, buf, BUTTON_OVERWRITE, BUTTON_CANCEL, TRUE /* wait */) == FALSE)
         {
           return;
@@ -1961,7 +1946,7 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
       {
         if (extension)
         {
-          snprintf(buf, sizeof(buf), "Unsupported %d-bit output format: %s", xsane.param.depth, extension);
+          snprintf(buf, sizeof(buf), ERR_UNSUPPORTED_OUTPUT_FORMAT, xsane.param.depth, extension);
         }
         else
         {
