@@ -6,14 +6,14 @@ AC_CONFIG_HEADER(include/config.h)
 
 # version code:
 V_MAJOR=0
-V_MINOR=81
+V_MINOR=82
 
 PACKAGE=xsane
 
 BINPROGS="xsane"
 
 # languages
-ALL_LINGUAS="cs de fr ru sl sv it ja tr"
+ALL_LINGUAS="cs de es fr nl ru sl sv it ja tr"
 
 SANE_V_MAJOR=1
 VERSION=${V_MAJOR}.${V_MINOR}
@@ -25,6 +25,7 @@ AC_SUBST(PACKAGE)
 AC_SUBST(VERSION)
 AC_SUBST(PACKAGE_VERSION)
 AC_SUBST(SANE_MAJOR)
+
 
 dnl Check args
 

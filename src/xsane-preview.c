@@ -3323,8 +3323,6 @@ void preview_generate_preview_filenames(Preview *p)
 
   DBG(DBG_proc, "preview_generate_preview_filenames\n");
 
-  umask(0177); /* create temporary file with "-rw-------" permissions */
-
   for(i=0; i<=2; i++) /* create random filenames for previews */
   {
     if (preview_make_image_path(p, sizeof(filename), filename, i)>=0)
@@ -3352,8 +3350,6 @@ void preview_generate_preview_filenames(Preview *p)
       error_flag = 2;
     }
   }
-
-  umask(XSANE_DEFAULT_UMASK);	/* define new file permissions */
 
   if (error_flag == 1)
   {
@@ -4131,9 +4127,7 @@ static void preview_save_image(Preview *p)
   if (p->filename[level])
   {
     /* save preview image */
-    umask(0177); /* create temporary file with "-rw-------" permissions */
     out = fopen(p->filename[level], "wb"); /* b = binary mode for win32*/
-    umask(XSANE_DEFAULT_UMASK); /* define new file permissions */
 
     preview_save_image_file(p, out);
   }

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.76\n"
-"POT-Creation-Date: 2001-11-11 17:41+0100\n"
+"POT-Creation-Date: 2001-12-07 16:40+0100\n"
 "PO-Revision-Date: 2001-02-25 14:06+01:00\n"
 "Last-Translator: Ales Kosir <ales.kosir@lugos.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -118,6 +118,11 @@ msgstr "Pogled"
 msgid "Viewer: select output filename"
 msgstr "izbiranje izhodne datoteke"
 
+#. WINDOW_OCR_OUTPUT_FILENAME
+#, fuzzy
+msgid "Select output filename for OCR text file"
+msgstr "izbiranje izhodne datoteke"
+
 #. WINDOW_OUTPUT_FILENAME
 msgid "select output filename"
 msgstr "izbiranje izhodne datoteke"
@@ -137,6 +142,11 @@ msgstr "spremeni delovni imenik"
 #. WINDOW_TMP_PATH
 msgid "select temporary directory"
 msgstr "izberi imenik z zaèasnimi datotekami"
+
+#. WINDOW_SCALE
+#, fuzzy
+msgid "Scale image"
+msgstr "Surova slika"
 
 #. WINDOW_DESPECKLE
 #, fuzzy
@@ -189,6 +199,16 @@ msgstr "Surova slika"
 #. MENU_ITEM_CLOSE
 msgid "Close"
 msgstr "Zapri"
+
+#. MENU_ITEM_CLONE
+#, fuzzy
+msgid "Clone"
+msgstr "Zapri"
+
+#. MENU_ITEM_SCALE
+#, fuzzy
+msgid "Scale"
+msgstr "Skeniraj"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
@@ -326,6 +346,10 @@ msgstr "Zbri¹i projekt"
 
 #. BUTTON_DO_NOT_CLOSE
 msgid "Do not close"
+msgstr ""
+
+#. BUTTON_SCALE_BIND
+msgid "Bind scale"
 msgstr ""
 
 #. RADIO_BUTTON_FINE_MODE
@@ -611,14 +635,24 @@ msgid ""
 "Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
 msgstr ""
 
-#. TEXT_BLUR_RADIUS
-msgid "Blur radius:"
-msgstr ""
+#. TEXT_X_SCALE_FACTOR
+#, fuzzy
+msgid "X-Scale factor:"
+msgstr "Nastavitev stopnje poveèave"
+
+#. TEXT_Y_SCALE_FACTOR
+#, fuzzy
+msgid "Y-Scale factor:"
+msgstr "Nastavitev stopnje poveèave"
 
 #. TEXT_DESPECKLE_RADIUS
 #, fuzzy
 msgid "Despeckle radius:"
 msgstr "Zbri¹i projekt"
+
+#. TEXT_BLUR_RADIUS
+msgid "Blur radius:"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -834,6 +868,21 @@ msgstr "Geslo:"
 msgid "Viewer (png):"
 msgstr "Ogledovalnik za zapis postscript"
 
+#. TEXT_SETUP_OCR_COMMAND
+#, fuzzy
+msgid "OCR Command:"
+msgstr "Ukaz:"
+
+#. TEXT_SETUP_OCR_INPUTFILE_OPT
+#, fuzzy
+msgid "Inputfile option:"
+msgstr "Izbire pri postscriptni datoteki:"
+
+#. TEXT_SETUP_OCR_OUTPUTFILE_OPT
+#, fuzzy
+msgid "Outputfile option:"
+msgstr "Izbire pri postscriptni datoteki:"
+
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
 msgstr "uporabnik"
@@ -866,6 +915,10 @@ msgstr "Faks"
 #, fuzzy
 msgid "Mail"
 msgstr "Epo¹ta:"
+
+#. NOTEBOOK_OCR_OPTIONS
+msgid "OCR"
+msgstr ""
 
 #. NOTEBOOK_DISPLAY_OPTIONS
 #, fuzzy
@@ -1674,6 +1727,18 @@ msgstr "Podajte ukaz za prikaz faksa"
 msgid "Mail is sent in html mode, images are displayed directly"
 msgstr ""
 
+#. DESC_OCR_COMMAND
+msgid "Enter command to start ocr program"
+msgstr ""
+
+#. DESC_OCR_INPUTFILE_OPT
+msgid "Enter option of the ocr program to define input file"
+msgstr ""
+
+#. DESC_OCR_OUTPUTFILE_OPT
+msgid "Enter option of the ocr program to define output file"
+msgstr ""
+
 #. DESC_PERMISSION_READ
 msgid "read"
 msgstr "beriljiva"
@@ -1737,6 +1802,10 @@ msgstr "Samodejno doloèi obmoèje skeniranja"
 msgid "Rotate preview and scan"
 msgstr "Zasuèi preodgled in sliko"
 
+#. DESC_VIEWER_OCR
+msgid "Optical Character Recognition"
+msgstr ""
+
 #. DESC_VIEWER_CLONE
 #, fuzzy
 msgid "Clone image"
@@ -1779,6 +1848,11 @@ msgstr "Sprememba domaèega imenika se ni posreèila:"
 #. ERR_FILENAME_TOO_LONG
 msgid "Filename too long"
 msgstr "Predolgo ime datoteke"
+
+#. ERR_CREATE_TEMP_FILE
+#, fuzzy
+msgid "Could not create temporary file"
+msgstr "Ustvari projekt"
 
 #. ERR_SET_OPTION
 msgid "Failed to set value of option"
@@ -1824,6 +1898,10 @@ msgstr "Neznan zapis za shranjevanje"
 #. ERR_OPEN_FAILED
 msgid "Failed to open"
 msgstr "Napaka pri odpiranju"
+
+#. ERR_CREATE_SECURE_FILE
+msgid "Could not create secure file (may be a link does exist):"
+msgstr ""
 
 #. ERR_FAILED_PRINTER_PIPE
 msgid "Failed to open pipe for executing printercommand"
@@ -1886,6 +1964,11 @@ msgstr "Napaka pri zagonu ukaza za faskiranje:"
 #, fuzzy
 msgid "Failed to execute mail image viewer:"
 msgstr "Napaka pri zagonu pregledovalnika faksov:"
+
+#. ERR_FAILED_EXEC_OCR_CMD
+#, fuzzy
+msgid "Failed to execute ocr command:"
+msgstr "Napaka pri zagonu ukaza za faskiranje:"
 
 #. ERR_BAD_FRAME_FORMAT
 msgid "bad frame format"
@@ -2220,6 +2303,37 @@ msgstr "vzdol¾no pisemsko"
 msgid "letter land."
 msgstr "preèno pisemsko"
 
+#. MENU_ITEM_MEDIUM_FULL_RANGE
+msgid "Full range"
+msgstr ""
+
+#. MENU_ITEM_MEDIUM_SLIDE
+msgid "Slide"
+msgstr ""
+
+#. MENU_ITEM_MEDIUM_STANDARD_NEG
+#, fuzzy
+msgid "Standard negative"
+msgstr "Obièajne izbire"
+
+#. MENU_ITEM_MEDIUM_AGFA_NEG
+msgid "Agfa negative"
+msgstr ""
+
+#. MENU_ITEM_MEDIUM_FUJI_NEG
+#, fuzzy
+msgid "Fuji negative"
+msgstr "nedejaven"
+
+#. MENU_ITEM_MEDIUM_KODAK_NEG
+msgid "Kodak negative"
+msgstr ""
+
+#. MENU_ITEM_MEDIUM_KONICA_NEG
+#, fuzzy
+msgid "Konica negative"
+msgstr "nedejaven"
+
 #. Sane backend messages
 msgid "flatbed scanner"
 msgstr "ploski skener"
@@ -2290,9 +2404,6 @@ msgstr "Dostop do vira je ni dovoljen."
 #, fuzzy
 #~ msgid "Bottom offset for postscript"
 #~ msgstr "Spodnji odmik pri zapisu postscript [mm]:"
-
-#~ msgid "Scan"
-#~ msgstr "Skeniraj"
 
 #, fuzzy
 #~ msgid "Failed to execute mail command:"

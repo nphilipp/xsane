@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.80\n"
-"POT-Creation-Date: 2001-11-11 17:41+0100\n"
+"POT-Creation-Date: 2001-12-07 16:40+0100\n"
 "PO-Revision-Date: 2000-01-21 15:51+01:00\n"
 "Last-Translator: Oliver Rauch <Oliver.Rauch@rauch-domain.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -111,6 +111,10 @@ msgstr "Betrachter"
 msgid "Viewer: select output filename"
 msgstr "Betrachter: Ausgabedatei auswählen"
 
+#. WINDOW_OCR_OUTPUT_FILENAME
+msgid "Select output filename for OCR text file"
+msgstr "Dateinamen für OCR Text auswählen"
+
 #. WINDOW_OUTPUT_FILENAME
 msgid "select output filename"
 msgstr "Ausgabedatei auswählen"
@@ -130,6 +134,11 @@ msgstr "Temporäres Verzeichnis wechseln"
 #. WINDOW_TMP_PATH
 msgid "select temporary directory"
 msgstr "temporäres Verzeichnis auswählen"
+
+#. WINDOW_SCALE
+#, fuzzy
+msgid "Scale image"
+msgstr "Bild speichern"
 
 #. WINDOW_DESPECKLE
 msgid "Despeckle image"
@@ -178,6 +187,16 @@ msgstr "Bild speichern"
 #. MENU_ITEM_CLOSE
 msgid "Close"
 msgstr "Schließen"
+
+#. MENU_ITEM_CLONE
+#, fuzzy
+msgid "Clone"
+msgstr "Schließen"
+
+#. MENU_ITEM_SCALE
+#, fuzzy
+msgid "Scale"
+msgstr "Speichern"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
@@ -306,6 +325,10 @@ msgstr "alle Bilder verwerfen"
 #. BUTTON_DO_NOT_CLOSE
 msgid "Do not close"
 msgstr "nicht schliessen"
+
+#. BUTTON_SCALE_BIND
+msgid "Bind scale"
+msgstr ""
 
 #. RADIO_BUTTON_FINE_MODE
 msgid "Fine mode"
@@ -600,13 +623,23 @@ msgstr ""
 "Größe %d x %d Punkte, %d Bit/Farbe, %d Farben, %1.0f dpi x %1.0f dpi, %1.1f "
 "%s"
 
-#. TEXT_BLUR_RADIUS
-msgid "Blur radius:"
-msgstr "Weichzeichnen Radius:"
+#. TEXT_X_SCALE_FACTOR
+#, fuzzy
+msgid "X-Scale factor:"
+msgstr "Bestimmt den Vergrößerungsfaktor"
+
+#. TEXT_Y_SCALE_FACTOR
+#, fuzzy
+msgid "Y-Scale factor:"
+msgstr "Bestimmt den Vergrößerungsfaktor"
 
 #. TEXT_DESPECKLE_RADIUS
 msgid "Despeckle radius:"
 msgstr "Entflecken Radius:"
+
+#. TEXT_BLUR_RADIUS
+msgid "Blur radius:"
+msgstr "Weichzeichnen Radius:"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -816,6 +849,18 @@ msgstr "POP3 Passwort:"
 msgid "Viewer (png):"
 msgstr "Betrachter (png):"
 
+#. TEXT_SETUP_OCR_COMMAND
+msgid "OCR Command:"
+msgstr "OCR Befehl:"
+
+#. TEXT_SETUP_OCR_INPUTFILE_OPT
+msgid "Inputfile option:"
+msgstr "Option für Eingabedatei:"
+
+#. TEXT_SETUP_OCR_OUTPUTFILE_OPT
+msgid "Outputfile option:"
+msgstr "Option für Ausgabedatei:"
+
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
 msgstr "Benutzer"
@@ -847,6 +892,10 @@ msgstr "Fax"
 #. NOTEBOOK_MAIL_OPTIONS
 msgid "Mail"
 msgstr "E-Mail"
+
+#. NOTEBOOK_OCR_OPTIONS
+msgid "OCR"
+msgstr ""
 
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display"
@@ -1637,6 +1686,18 @@ msgstr "Befehl, der ausgeführt werden soll, um Mail-Bilder anzuzeigen"
 msgid "Mail is sent in html mode, images are displayed directly"
 msgstr "E-Mail wird im hmtl Modus gesandt"
 
+#. DESC_OCR_COMMAND
+msgid "Enter command to start ocr program"
+msgstr ""
+
+#. DESC_OCR_INPUTFILE_OPT
+msgid "Enter option of the ocr program to define input file"
+msgstr ""
+
+#. DESC_OCR_OUTPUTFILE_OPT
+msgid "Enter option of the ocr program to define output file"
+msgstr ""
+
 #. DESC_PERMISSION_READ
 msgid "read"
 msgstr "lesen"
@@ -1698,6 +1759,10 @@ msgstr "Bereichsvoreinstellung"
 msgid "Rotate preview and scan"
 msgstr "Drehe Vorschau und Scan"
 
+#. DESC_VIEWER_OCR
+msgid "Optical Character Recognition"
+msgstr ""
+
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
 msgstr "Bild clonen"
@@ -1737,6 +1802,10 @@ msgstr "Konnte Verzeichnis nicht wechseln"
 #. ERR_FILENAME_TOO_LONG
 msgid "Filename too long"
 msgstr "Dateiname zu lang"
+
+#. ERR_CREATE_TEMP_FILE
+msgid "Could not create temporary file"
+msgstr "Konnte temporäre Datei nicht erzeugen"
 
 #. ERR_SET_OPTION
 msgid "Failed to set value of option"
@@ -1782,6 +1851,11 @@ msgstr "Unbekanntes Ausgabedateiformat"
 #. ERR_OPEN_FAILED
 msgid "Failed to open"
 msgstr "Fehler beim Öffnen von"
+
+#. ERR_CREATE_SECURE_FILE
+#, fuzzy
+msgid "Could not create secure file (may be a link does exist):"
+msgstr "Konnte Dateinamen für Vorschaudateien nicht erzeugen"
 
 #. ERR_FAILED_PRINTER_PIPE
 msgid "Failed to open pipe for executing printercommand"
@@ -1842,6 +1916,10 @@ msgstr "Konnte Faxbefehl nicht ausführen:"
 #. ERR_FAILED_EXEC_MAIL_VIEWER
 msgid "Failed to execute mail image viewer:"
 msgstr "Konnte E-Mail Bildbetrachter nicht ausführen:"
+
+#. ERR_FAILED_EXEC_OCR_CMD
+msgid "Failed to execute ocr command:"
+msgstr "Konnte OCR-Befehl nicht ausführen:"
 
 #. ERR_BAD_FRAME_FORMAT
 msgid "bad frame format"
@@ -2166,6 +2244,34 @@ msgstr "letter hoch"
 #. MENU_ITEM_SURFACE_letter_L
 msgid "letter land."
 msgstr "letter quer"
+
+#. MENU_ITEM_MEDIUM_FULL_RANGE
+msgid "Full range"
+msgstr "Voller Bereich"
+
+#. MENU_ITEM_MEDIUM_SLIDE
+msgid "Slide"
+msgstr "Dia"
+
+#. MENU_ITEM_MEDIUM_STANDARD_NEG
+msgid "Standard negative"
+msgstr "Standard Negativ"
+
+#. MENU_ITEM_MEDIUM_AGFA_NEG
+msgid "Agfa negative"
+msgstr "Agfa Negativ"
+
+#. MENU_ITEM_MEDIUM_FUJI_NEG
+msgid "Fuji negative"
+msgstr "Fuji Negativ"
+
+#. MENU_ITEM_MEDIUM_KODAK_NEG
+msgid "Kodak negative"
+msgstr "Kodak Negativ"
+
+#. MENU_ITEM_MEDIUM_KONICA_NEG
+msgid "Konica negative"
+msgstr "Konica Negativ"
 
 #. Sane backend messages
 msgid "flatbed scanner"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.80\n"
-"POT-Creation-Date: 2001-11-11 17:41+0100\n"
+"POT-Creation-Date: 2001-12-07 16:40+0100\n"
 "PO-Revision-Date: 2001-08-10 01:05+0300\n"
 "Last-Translator: John Profic <profic@lrn.ru>\n"
 "Language-Team: RUSSIAN <RU@li.org>\n"
@@ -111,6 +111,11 @@ msgstr "Просмотр"
 msgid "Viewer: select output filename"
 msgstr "Просмотр: выберите конечное имя файла"
 
+#. WINDOW_OCR_OUTPUT_FILENAME
+#, fuzzy
+msgid "Select output filename for OCR text file"
+msgstr "выберите конечное имя файла"
+
 #. WINDOW_OUTPUT_FILENAME
 msgid "select output filename"
 msgstr "выберите конечное имя файла"
@@ -130,6 +135,11 @@ msgstr "изменить рабочий каталог"
 #. WINDOW_TMP_PATH
 msgid "select temporary directory"
 msgstr "изменить каталог для временных файлов"
+
+#. WINDOW_SCALE
+#, fuzzy
+msgid "Scale image"
+msgstr "Сохранить избражение"
 
 #. WINDOW_DESPECKLE
 msgid "Despeckle image"
@@ -178,6 +188,16 @@ msgstr "Сохранить избражение"
 #. MENU_ITEM_CLOSE
 msgid "Close"
 msgstr "Закрыть"
+
+#. MENU_ITEM_CLONE
+#, fuzzy
+msgid "Clone"
+msgstr "Закрыть"
+
+#. MENU_ITEM_SCALE
+#, fuzzy
+msgid "Scale"
+msgstr "Файл"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
@@ -307,6 +327,10 @@ msgstr "Удалить изображение"
 #. BUTTON_DO_NOT_CLOSE
 msgid "Do not close"
 msgstr "Не закрывать"
+
+#. BUTTON_SCALE_BIND
+msgid "Bind scale"
+msgstr ""
 
 #. RADIO_BUTTON_FINE_MODE
 msgid "Fine mode"
@@ -597,14 +621,24 @@ msgid ""
 "Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
 msgstr ""
 
-#. TEXT_BLUR_RADIUS
-msgid "Blur radius:"
-msgstr ""
+#. TEXT_X_SCALE_FACTOR
+#, fuzzy
+msgid "X-Scale factor:"
+msgstr "Процент увеличения"
+
+#. TEXT_Y_SCALE_FACTOR
+#, fuzzy
+msgid "Y-Scale factor:"
+msgstr "Процент увеличения"
 
 #. TEXT_DESPECKLE_RADIUS
 #, fuzzy
 msgid "Despeckle radius:"
 msgstr "Убрать растр"
+
+#. TEXT_BLUR_RADIUS
+msgid "Blur radius:"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -814,6 +848,21 @@ msgstr "Пароль POP3:"
 msgid "Viewer (png):"
 msgstr "Программа просмотра PNG файлов:"
 
+#. TEXT_SETUP_OCR_COMMAND
+#, fuzzy
+msgid "OCR Command:"
+msgstr "Комманда:"
+
+#. TEXT_SETUP_OCR_INPUTFILE_OPT
+#, fuzzy
+msgid "Inputfile option:"
+msgstr "Параметр для PostScript файла"
+
+#. TEXT_SETUP_OCR_OUTPUTFILE_OPT
+#, fuzzy
+msgid "Outputfile option:"
+msgstr "Параметр для PostScript файла"
+
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
 msgstr "владелец"
@@ -845,6 +894,10 @@ msgstr "Факс"
 #. NOTEBOOK_MAIL_OPTIONS
 msgid "Mail"
 msgstr "Письмо"
+
+#. NOTEBOOK_OCR_OPTIONS
+msgid "OCR"
+msgstr ""
 
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display"
@@ -1627,6 +1680,18 @@ msgid "Mail is sent in html mode, images are displayed directly"
 msgstr ""
 "Письмо отправляется в виде HTML-документа, изображения отображаются напрямую"
 
+#. DESC_OCR_COMMAND
+msgid "Enter command to start ocr program"
+msgstr ""
+
+#. DESC_OCR_INPUTFILE_OPT
+msgid "Enter option of the ocr program to define input file"
+msgstr ""
+
+#. DESC_OCR_OUTPUTFILE_OPT
+msgid "Enter option of the ocr program to define output file"
+msgstr ""
+
 #. DESC_PERMISSION_READ
 msgid "read"
 msgstr "чтение"
@@ -1688,6 +1753,10 @@ msgstr "Заданные области"
 msgid "Rotate preview and scan"
 msgstr "Поворот предварительного и окончательного сканирования"
 
+#. DESC_VIEWER_OCR
+msgid "Optical Character Recognition"
+msgstr ""
+
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
 msgstr "Дублировать изображение"
@@ -1727,6 +1796,11 @@ msgstr "Невозможно изменить каталог на:"
 #. ERR_FILENAME_TOO_LONG
 msgid "Filename too long"
 msgstr "Имя файла слишком длинное"
+
+#. ERR_CREATE_TEMP_FILE
+#, fuzzy
+msgid "Could not create temporary file"
+msgstr "Невозможно создать временный файл для предварительного сканирования"
 
 #. ERR_SET_OPTION
 msgid "Failed to set value of option"
@@ -1772,6 +1846,11 @@ msgstr "Неизвестный формат файла для записи"
 #. ERR_OPEN_FAILED
 msgid "Failed to open"
 msgstr "Невозможно открыть"
+
+#. ERR_CREATE_SECURE_FILE
+#, fuzzy
+msgid "Could not create secure file (may be a link does exist):"
+msgstr "Невозможно сгенерировать имя файла для предварительного сканирования"
 
 #. ERR_FAILED_PRINTER_PIPE
 msgid "Failed to open pipe for executing printercommand"
@@ -1832,6 +1911,11 @@ msgstr "Невозможно выполнить комманду отправки факса"
 #. ERR_FAILED_EXEC_MAIL_VIEWER
 msgid "Failed to execute mail image viewer:"
 msgstr "Невозможно вызвать программу для почтовых изображений"
+
+#. ERR_FAILED_EXEC_OCR_CMD
+#, fuzzy
+msgid "Failed to execute ocr command:"
+msgstr "Невозможно выполнить комманду отправки факса"
 
 #. ERR_BAD_FRAME_FORMAT
 msgid "bad frame format"
@@ -2162,6 +2246,37 @@ msgstr "Letter портрет"
 #. MENU_ITEM_SURFACE_letter_L
 msgid "letter land."
 msgstr "Letter альбом"
+
+#. MENU_ITEM_MEDIUM_FULL_RANGE
+msgid "Full range"
+msgstr ""
+
+#. MENU_ITEM_MEDIUM_SLIDE
+msgid "Slide"
+msgstr ""
+
+#. MENU_ITEM_MEDIUM_STANDARD_NEG
+#, fuzzy
+msgid "Standard negative"
+msgstr "Стандартные параметры"
+
+#. MENU_ITEM_MEDIUM_AGFA_NEG
+msgid "Agfa negative"
+msgstr ""
+
+#. MENU_ITEM_MEDIUM_FUJI_NEG
+#, fuzzy
+msgid "Fuji negative"
+msgstr "не активно"
+
+#. MENU_ITEM_MEDIUM_KODAK_NEG
+msgid "Kodak negative"
+msgstr ""
+
+#. MENU_ITEM_MEDIUM_KONICA_NEG
+#, fuzzy
+msgid "Konica negative"
+msgstr "не активно"
 
 #. Sane backend messages
 msgid "flatbed scanner"

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-11-11 17:41+0100\n"
+"POT-Creation-Date: 2001-12-07 16:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -112,6 +112,10 @@ msgstr ""
 msgid "Viewer: select output filename"
 msgstr ""
 
+#. WINDOW_OCR_OUTPUT_FILENAME
+msgid "Select output filename for OCR text file"
+msgstr ""
+
 #. WINDOW_OUTPUT_FILENAME
 msgid "select output filename"
 msgstr ""
@@ -130,6 +134,10 @@ msgstr ""
 
 #. WINDOW_TMP_PATH
 msgid "select temporary directory"
+msgstr ""
+
+#. WINDOW_SCALE
+msgid "Scale image"
 msgstr ""
 
 #. WINDOW_DESPECKLE
@@ -178,6 +186,14 @@ msgstr ""
 
 #. MENU_ITEM_CLOSE
 msgid "Close"
+msgstr ""
+
+#. MENU_ITEM_CLONE
+msgid "Clone"
+msgstr ""
+
+#. MENU_ITEM_SCALE
+msgid "Scale"
 msgstr ""
 
 #. MENU_ITEM_DESPECKLE
@@ -306,6 +322,10 @@ msgstr ""
 
 #. BUTTON_DO_NOT_CLOSE
 msgid "Do not close"
+msgstr ""
+
+#. BUTTON_SCALE_BIND
+msgid "Bind scale"
 msgstr ""
 
 #. RADIO_BUTTON_FINE_MODE
@@ -584,12 +604,20 @@ msgid ""
 "Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
 msgstr ""
 
-#. TEXT_BLUR_RADIUS
-msgid "Blur radius:"
+#. TEXT_X_SCALE_FACTOR
+msgid "X-Scale factor:"
+msgstr ""
+
+#. TEXT_Y_SCALE_FACTOR
+msgid "Y-Scale factor:"
 msgstr ""
 
 #. TEXT_DESPECKLE_RADIUS
 msgid "Despeckle radius:"
+msgstr ""
+
+#. TEXT_BLUR_RADIUS
+msgid "Blur radius:"
 msgstr ""
 
 #. TEXT_SETUP_PRINTER_SEL
@@ -800,6 +828,18 @@ msgstr ""
 msgid "Viewer (png):"
 msgstr ""
 
+#. TEXT_SETUP_OCR_COMMAND
+msgid "OCR Command:"
+msgstr ""
+
+#. TEXT_SETUP_OCR_INPUTFILE_OPT
+msgid "Inputfile option:"
+msgstr ""
+
+#. TEXT_SETUP_OCR_OUTPUTFILE_OPT
+msgid "Outputfile option:"
+msgstr ""
+
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
 msgstr ""
@@ -830,6 +870,10 @@ msgstr ""
 
 #. NOTEBOOK_MAIL_OPTIONS
 msgid "Mail"
+msgstr ""
+
+#. NOTEBOOK_OCR_OPTIONS
+msgid "OCR"
 msgstr ""
 
 #. NOTEBOOK_DISPLAY_OPTIONS
@@ -1569,6 +1613,18 @@ msgstr ""
 msgid "Mail is sent in html mode, images are displayed directly"
 msgstr ""
 
+#. DESC_OCR_COMMAND
+msgid "Enter command to start ocr program"
+msgstr ""
+
+#. DESC_OCR_INPUTFILE_OPT
+msgid "Enter option of the ocr program to define input file"
+msgstr ""
+
+#. DESC_OCR_OUTPUTFILE_OPT
+msgid "Enter option of the ocr program to define output file"
+msgstr ""
+
 #. DESC_PERMISSION_READ
 msgid "read"
 msgstr ""
@@ -1630,6 +1686,10 @@ msgstr ""
 msgid "Rotate preview and scan"
 msgstr ""
 
+#. DESC_VIEWER_OCR
+msgid "Optical Character Recognition"
+msgstr ""
+
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
 msgstr ""
@@ -1668,6 +1728,10 @@ msgstr ""
 
 #. ERR_FILENAME_TOO_LONG
 msgid "Filename too long"
+msgstr ""
+
+#. ERR_CREATE_TEMP_FILE
+msgid "Could not create temporary file"
 msgstr ""
 
 #. ERR_SET_OPTION
@@ -1713,6 +1777,10 @@ msgstr ""
 
 #. ERR_OPEN_FAILED
 msgid "Failed to open"
+msgstr ""
+
+#. ERR_CREATE_SECURE_FILE
+msgid "Could not create secure file (may be a link does exist):"
 msgstr ""
 
 #. ERR_FAILED_PRINTER_PIPE
@@ -1773,6 +1841,10 @@ msgstr ""
 
 #. ERR_FAILED_EXEC_MAIL_VIEWER
 msgid "Failed to execute mail image viewer:"
+msgstr ""
+
+#. ERR_FAILED_EXEC_OCR_CMD
+msgid "Failed to execute ocr command:"
 msgstr ""
 
 #. ERR_BAD_FRAME_FORMAT
@@ -2062,6 +2134,34 @@ msgstr ""
 
 #. MENU_ITEM_SURFACE_letter_L
 msgid "letter land."
+msgstr ""
+
+#. MENU_ITEM_MEDIUM_FULL_RANGE
+msgid "Full range"
+msgstr ""
+
+#. MENU_ITEM_MEDIUM_SLIDE
+msgid "Slide"
+msgstr ""
+
+#. MENU_ITEM_MEDIUM_STANDARD_NEG
+msgid "Standard negative"
+msgstr ""
+
+#. MENU_ITEM_MEDIUM_AGFA_NEG
+msgid "Agfa negative"
+msgstr ""
+
+#. MENU_ITEM_MEDIUM_FUJI_NEG
+msgid "Fuji negative"
+msgstr ""
+
+#. MENU_ITEM_MEDIUM_KODAK_NEG
+msgid "Kodak negative"
+msgstr ""
+
+#. MENU_ITEM_MEDIUM_KONICA_NEG
+msgid "Konica negative"
 msgstr ""
 
 #. Sane backend messages

@@ -47,11 +47,13 @@ static int xsane_viewer_zoom[] = {35, 50, 71, 100, 141, 200, 282, 400 };
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 static gint xsane_viewer_close_callback(GtkWidget *window, gpointer data);
+static void xsane_viewer_dialog_cancel(GtkWidget *window, gpointer data);
 static void xsane_viewer_save_callback(GtkWidget *window, gpointer data);
 static void xsane_viewer_ocr_callback(GtkWidget *window, gpointer data);
 static void xsane_viewer_clone_callback(GtkWidget *window, gpointer data);
 static void xsane_viewer_despeckle_callback(GtkWidget *window, gpointer data);
 static void xsane_viewer_blur_callback(GtkWidget *window, gpointer data);
+static void xsane_viewer_scale_image(GtkWidget *window, gpointer data);
 static void xsane_viewer_despeckle_image(GtkWidget *window, gpointer data);
 static void xsane_viewer_blur_image(GtkWidget *window, gpointer data);
 static void xsane_viewer_rotate(Viewer *v, int rotation);
@@ -114,6 +116,15 @@ static gint xsane_viewer_close_callback(GtkWidget *widget, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static void xsane_viewer_dialog_cancel(GtkWidget *window, gpointer data)
+{
+ Viewer *v = (Viewer *) data;
+
+  gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void xsane_viewer_save_callback(GtkWidget *window, gpointer data)
 {
  Viewer *v = (Viewer *) data;
@@ -170,33 +181,59 @@ static void xsane_viewer_save_callback(GtkWidget *window, gpointer data)
 
   inputfilename = strdup(v->filename);
 
+  output_format = xsane_identify_output_format(outputfilename, 0);
+
   if (v->reduce_to_lineart) /* reduce grayscale image to lineart before saving */
   {
    char dummyfilename[1024];
 
-    xsane_back_gtk_make_path(sizeof(dummyfilename), dummyfilename, 0, 0, "conversion-", xsane.dev_name, ".ppm", XSANE_PATH_TMP);
+    if (output_format != XSANE_PNM)
+    {
+      xsane_back_gtk_make_path(sizeof(dummyfilename), dummyfilename, 0, 0, "xsane-viewer-", xsane.dev_name, ".ppm", XSANE_PATH_TMP);
+    }
+    else /* pbm: no further conversion, we save to destination filename */
+    {
+      snprintf(dummyfilename, sizeof(dummyfilename), "%s", outputfilename);
+      if (xsane_create_secure_file(dummyfilename)) /* remove possibly existing symbolic links for security */
+      {
+       char buf[256];
+
+        snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_CREATE_SECURE_FILE, dummyfilename);
+        xsane_back_gtk_error(buf, TRUE);
+       return; /* error */
+      }
+    }
 
     gtk_progress_set_format_string(GTK_PROGRESS(v->progress_bar), PROGRESS_PACKING_DATA);
     gtk_progress_bar_update(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
 
+    /* the outputfile always is a temporary file, so we do not have to care about symlinks here */
     xsane_save_image_as_lineart(v->filename, dummyfilename, v->progress_bar, &v->cancel_save);
-
-    remove(dummyfilename);
 
     free(inputfilename);
     inputfilename = strdup(dummyfilename);
   }
 
 
-  gtk_progress_set_format_string(GTK_PROGRESS(v->progress_bar), PROGRESS_SAVING_DATA);
-  gtk_progress_bar_update(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
+  if ((!v->reduce_to_lineart) || (output_format != XSANE_PNM)) /* pbm already is saved above, otherwise save now */
+  {
+    gtk_progress_set_format_string(GTK_PROGRESS(v->progress_bar), PROGRESS_SAVING_DATA);
+    gtk_progress_bar_update(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
 
-  output_format = xsane_identify_output_format(outputfilename, 0);
+    if (xsane_create_secure_file(outputfilename)) /* remove possibly existing symbolic links for security */
+    {
+     char buf[256];
 
-  xsane_save_image_as(v->filename, outputfilename, output_format, v->progress_bar, &v->cancel_save);
+      snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_CREATE_SECURE_FILE, outputfilename);
+      xsane_back_gtk_error(buf, TRUE);
+     return; /* error */
+    }
 
-  gtk_progress_set_format_string(GTK_PROGRESS(v->progress_bar), "");
-  gtk_progress_bar_update(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
+    xsane_save_image_as(inputfilename, outputfilename, output_format, v->progress_bar, &v->cancel_save);
+
+    gtk_progress_set_format_string(GTK_PROGRESS(v->progress_bar), "");
+    gtk_progress_bar_update(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
+  }
 
   free(inputfilename);
 
@@ -319,7 +356,7 @@ static void xsane_viewer_clone_callback(GtkWidget *window, gpointer data)
 
   DBG(DBG_info, "cloning image %s with geometry: %d x %d x %d, %d colors\n", v->filename, image_info.image_width, image_info.image_height, image_info.depth, image_info.colors);
 
-  xsane_back_gtk_make_path(sizeof(outfilename), outfilename, 0, 0, "conversion-", xsane.dev_name, ".ppm", XSANE_PATH_TMP);
+  xsane_back_gtk_make_path(sizeof(outfilename), outfilename, 0, 0, "xsane-viewer-", xsane.dev_name, ".ppm", XSANE_PATH_TMP);
 
   outfile = fopen(outfilename, "wb");
   if (!outfile)
@@ -348,11 +385,128 @@ static void xsane_viewer_clone_callback(GtkWidget *window, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static void xsane_viewer_spinbutton_float_changed(GtkWidget *spinbutton, gpointer data)
+{
+ float *val = (float *) data;
+
+  *val = gtk_spin_button_get_value_as_float((GtkSpinButton *) spinbutton);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void xsane_viewer_spinbutton_int_changed(GtkWidget *spinbutton, gpointer data)
 {
  int *val = (int *) data;
 
   *val = gtk_spin_button_get_value_as_int((GtkSpinButton *) spinbutton);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_viewer_scale_callback(GtkWidget *window, gpointer data)
+{
+ Viewer *v = (Viewer *) data;
+ GtkWidget *selection_dialog;
+ GtkWidget *hbox, *vbox;
+ GtkWidget *label, *spinbutton, *button;
+ GtkAdjustment *adjustment;
+ char buf[256];
+
+  DBG(DBG_proc, "xsane_viewer_scale_callback\n");
+
+  gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), FALSE);
+
+  if (v->output_filename)
+  {
+    snprintf(buf, sizeof(buf), "%s: %s", WINDOW_SCALE, v->output_filename); 
+  }
+  else
+  {
+    snprintf(buf, sizeof(buf), WINDOW_SCALE); 
+  }
+
+  selection_dialog = gtk_window_new(GTK_WINDOW_DIALOG);
+  gtk_window_set_position(GTK_WINDOW(selection_dialog), GTK_WIN_POS_MOUSE);
+  gtk_window_set_title(GTK_WINDOW(selection_dialog), buf);
+  xsane_set_window_icon(selection_dialog, 0);
+
+  v->active_dialog = selection_dialog;
+
+  vbox = gtk_vbox_new(FALSE, 5);
+  gtk_container_add(GTK_CONTAINER(selection_dialog), vbox);
+  gtk_widget_show(vbox);
+
+#if 0
+  /* bind scale */
+
+  button = gtk_check_button_new_with_label(BUTTON_SCALE_BIND);
+  gtk_box_pack_start(GTK_BOX(vbox), button, FALSE, FALSE, 5);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), TRUE);
+  gtk_widget_show(button);
+#endif
+
+  /* x_scale factor: <-> */
+
+  v->x_scale_factor = 1.0;
+
+  hbox = gtk_hbox_new(FALSE, 2);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 5);
+  gtk_widget_show(hbox);
+
+  label = gtk_label_new(TEXT_X_SCALE_FACTOR); 
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 10);
+  gtk_widget_show(label);
+
+  adjustment = (GtkAdjustment *) gtk_adjustment_new(1.0, 0.01, 2.0, 0.01, 0.1, 0.0);
+  spinbutton = gtk_spin_button_new(adjustment, 0, 2);
+  gtk_signal_connect(GTK_OBJECT(spinbutton), "changed", (GtkSignalFunc) xsane_viewer_spinbutton_float_changed, (void *) &v->x_scale_factor);
+  gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(spinbutton), TRUE);
+  gtk_spin_button_set_shadow_type(GTK_SPIN_BUTTON(spinbutton), GTK_SHADOW_OUT);
+  gtk_box_pack_end(GTK_BOX(hbox), spinbutton, FALSE, FALSE, 10);
+  gtk_widget_show(spinbutton);
+
+  /* y_scale factor: <-> */
+
+  v->y_scale_factor = 1.0;
+
+  hbox = gtk_hbox_new(FALSE, 2);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 5);
+  gtk_widget_show(hbox);
+
+  label = gtk_label_new(TEXT_Y_SCALE_FACTOR); 
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 10);
+  gtk_widget_show(label);
+
+  adjustment = (GtkAdjustment *) gtk_adjustment_new(1.0, 0.01, 2.0, 0.01, 0.1, 0.0);
+  spinbutton = gtk_spin_button_new(adjustment, 0, 2);
+  gtk_signal_connect(GTK_OBJECT(spinbutton), "changed", (GtkSignalFunc) xsane_viewer_spinbutton_float_changed, (void *) &v->y_scale_factor);
+  gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(spinbutton), TRUE);
+  gtk_spin_button_set_shadow_type(GTK_SPIN_BUTTON(spinbutton), GTK_SHADOW_OUT);
+  gtk_box_pack_end(GTK_BOX(hbox), spinbutton, FALSE, FALSE, 10);
+  gtk_widget_show(spinbutton);
+
+  /* Apply Cancel */
+
+  hbox = gtk_hbox_new(FALSE, 0);
+  gtk_container_set_border_width(GTK_CONTAINER(hbox), 4); 
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+  gtk_widget_show(hbox);
+
+  button = gtk_button_new_with_label(BUTTON_APPLY);
+  GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
+  gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_viewer_scale_image, (void *) v);
+  gtk_signal_connect_object(GTK_OBJECT(button), "clicked", (GtkSignalFunc) gtk_widget_destroy, (GtkObject *) selection_dialog);
+  gtk_container_add(GTK_CONTAINER(hbox), button);
+  gtk_widget_grab_default(button);
+  gtk_widget_show(button);
+
+  button = gtk_button_new_with_label(BUTTON_CANCEL);
+  gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_viewer_dialog_cancel, (void *) v);
+  gtk_signal_connect_object(GTK_OBJECT(button), "clicked", (GtkSignalFunc) gtk_widget_destroy, (GtkObject *) selection_dialog);
+  gtk_container_add(GTK_CONTAINER(hbox), button);
+  gtk_widget_show(button);
+
+  gtk_widget_show(selection_dialog);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -368,6 +522,8 @@ static void xsane_viewer_despeckle_callback(GtkWidget *window, gpointer data)
 
   DBG(DBG_proc, "xsane_viewer_despeckle_callback\n");
 
+  gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), FALSE);
+
   if (v->output_filename)
   {
     snprintf(buf, sizeof(buf), "%s: %s", WINDOW_DESPECKLE, v->output_filename); 
@@ -382,11 +538,15 @@ static void xsane_viewer_despeckle_callback(GtkWidget *window, gpointer data)
   gtk_window_set_title(GTK_WINDOW(selection_dialog), buf);
   xsane_set_window_icon(selection_dialog, 0);
 
+  v->active_dialog = selection_dialog;
+
   vbox = gtk_vbox_new(FALSE, 5);
   gtk_container_add(GTK_CONTAINER(selection_dialog), vbox);
   gtk_widget_show(vbox);
 
   /* Despeckle radius: <-> */
+
+  v->filter_radius = 2;
 
   hbox = gtk_hbox_new(FALSE, 2);
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 5);
@@ -396,7 +556,7 @@ static void xsane_viewer_despeckle_callback(GtkWidget *window, gpointer data)
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 10);
   gtk_widget_show(label);
 
-  adjustment = (GtkAdjustment *) gtk_adjustment_new(1.0, 1.0, 9.0, 1.0, 5.0, 0.0);
+  adjustment = (GtkAdjustment *) gtk_adjustment_new(2.0, 2.0, 10.0, 1.0, 5.0, 0.0);
   spinbutton = gtk_spin_button_new(adjustment, 0, 0);
   gtk_signal_connect(GTK_OBJECT(spinbutton), "changed", (GtkSignalFunc) xsane_viewer_spinbutton_int_changed, (void *) &v->filter_radius);
   gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(spinbutton), TRUE);
@@ -420,6 +580,7 @@ static void xsane_viewer_despeckle_callback(GtkWidget *window, gpointer data)
   gtk_widget_show(button);
 
   button = gtk_button_new_with_label(BUTTON_CANCEL);
+  gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_viewer_dialog_cancel, (void *) v);
   gtk_signal_connect_object(GTK_OBJECT(button), "clicked", (GtkSignalFunc) gtk_widget_destroy, (GtkObject *) selection_dialog);
   gtk_container_add(GTK_CONTAINER(hbox), button);
   gtk_widget_show(button);
@@ -440,6 +601,8 @@ static void xsane_viewer_blur_callback(GtkWidget *window, gpointer data)
 
   DBG(DBG_proc, "xsane_viewer_blur_callback\n");
 
+  gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), FALSE);
+
   if (v->output_filename)
   {
     snprintf(buf, sizeof(buf), "%s: %s", WINDOW_BLUR, v->output_filename); 
@@ -454,12 +617,16 @@ static void xsane_viewer_blur_callback(GtkWidget *window, gpointer data)
   gtk_window_set_title(GTK_WINDOW(selection_dialog), buf);
   xsane_set_window_icon(selection_dialog, 0);
 
+  v->active_dialog = selection_dialog;
+
   vbox = gtk_vbox_new(FALSE, 5);
   gtk_container_set_border_width(GTK_CONTAINER(vbox), 4); 
   gtk_container_add(GTK_CONTAINER(selection_dialog), vbox);
   gtk_widget_show(vbox);
 
   /* Blur radius: <-> */
+
+  v->filter_radius = 2;
 
   hbox = gtk_hbox_new(FALSE, 2);
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 5);
@@ -469,7 +636,7 @@ static void xsane_viewer_blur_callback(GtkWidget *window, gpointer data)
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 10);
   gtk_widget_show(label);
 
-  adjustment = (GtkAdjustment *) gtk_adjustment_new(1.0, 1.0, 9.0, 1.0, 5.0, 0.0);
+  adjustment = (GtkAdjustment *) gtk_adjustment_new(2.0, 2.0, 20.0, 1.0, 5.0, 0.0);
   spinbutton = gtk_spin_button_new(adjustment, 0, 0);
   gtk_signal_connect(GTK_OBJECT(spinbutton), "changed", (GtkSignalFunc) xsane_viewer_spinbutton_int_changed, (void *) &v->filter_radius);
   gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(spinbutton), TRUE);
@@ -487,17 +654,81 @@ static void xsane_viewer_blur_callback(GtkWidget *window, gpointer data)
   button = gtk_button_new_with_label(BUTTON_APPLY);
   GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
   gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_viewer_blur_image, (void *) v);
-  gtk_signal_connect_object(GTK_OBJECT(button), "clicked", (GtkSignalFunc) gtk_widget_destroy, (GtkObject *) selection_dialog);
   gtk_container_add(GTK_CONTAINER(hbox), button);
   gtk_widget_grab_default(button);
   gtk_widget_show(button);
 
   button = gtk_button_new_with_label(BUTTON_CANCEL);
+  gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_viewer_dialog_cancel, (void *) v);
   gtk_signal_connect_object(GTK_OBJECT(button), "clicked", (GtkSignalFunc) gtk_widget_destroy, (GtkObject *) selection_dialog);
   gtk_container_add(GTK_CONTAINER(hbox), button);
   gtk_widget_show(button);
 
   gtk_widget_show(selection_dialog);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_viewer_scale_image(GtkWidget *window, gpointer data)
+{
+ FILE *outfile;
+ FILE *infile;
+ char outfilename[256];
+ Viewer *v = (Viewer *) data;
+ Image_info image_info;
+
+  DBG(DBG_proc, "xsane_viewer_scale_image\n");
+
+  gtk_widget_destroy(v->active_dialog);
+
+  gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), FALSE);
+
+  infile = fopen(v->filename, "rb");
+  if (!infile)
+  {
+    DBG(DBG_error, "could not load file %s\n", v->filename);
+    gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
+
+   return;
+  }
+
+  xsane_read_pnm_header(infile, &image_info);
+
+  DBG(DBG_info, "scaling image %s with geometry: %d x %d x %d, %d colors\n", v->filename, image_info.image_width, image_info.image_height, image_info.depth, image_info.colors);
+
+  xsane_back_gtk_make_path(sizeof(outfilename), outfilename, 0, 0, "xsane-viewer-", xsane.dev_name, ".ppm", XSANE_PATH_TMP);
+
+  outfile = fopen(outfilename, "wb");
+  if (!outfile)
+  {
+    DBG(DBG_error, "could not save file %s\n", outfilename);
+    gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
+
+   return;
+  }
+
+  gtk_progress_set_format_string(GTK_PROGRESS(v->progress_bar), PROGRESS_SCALING_DATA);
+
+  gtk_progress_bar_update(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
+
+  xsane_save_scaled_image(outfile, infile, &image_info, v->x_scale_factor, v->y_scale_factor, v->progress_bar, &v->cancel_save);
+
+  fclose(infile);
+  fclose(outfile);
+
+  gtk_progress_set_format_string(GTK_PROGRESS(v->progress_bar), "");
+  gtk_progress_bar_update(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
+
+  DBG(DBG_info, "removing file %s\n", v->filename);
+  remove(v->filename);
+  free(v->filename);
+
+  v->filename = strdup(outfilename);
+  v->image_saved = FALSE;
+
+  xsane_viewer_read_image(v);
+
+  gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -511,6 +742,8 @@ static void xsane_viewer_despeckle_image(GtkWidget *window, gpointer data)
  Image_info image_info;
 
   DBG(DBG_proc, "xsane_viewer_despeckle_image\n");
+
+  gtk_widget_destroy(v->active_dialog);
 
   gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), FALSE);
 
@@ -527,7 +760,7 @@ static void xsane_viewer_despeckle_image(GtkWidget *window, gpointer data)
 
   DBG(DBG_info, "despeckling image %s with geometry: %d x %d x %d, %d colors\n", v->filename, image_info.image_width, image_info.image_height, image_info.depth, image_info.colors);
 
-  xsane_back_gtk_make_path(sizeof(outfilename), outfilename, 0, 0, "conversion-", xsane.dev_name, ".ppm", XSANE_PATH_TMP);
+  xsane_back_gtk_make_path(sizeof(outfilename), outfilename, 0, 0, "xsane-viewer-", xsane.dev_name, ".ppm", XSANE_PATH_TMP);
 
   outfile = fopen(outfilename, "wb");
   if (!outfile)
@@ -574,6 +807,8 @@ static void xsane_viewer_blur_image(GtkWidget *window, gpointer data)
 
   DBG(DBG_proc, "xsane_viewer_blur_image\n");
 
+  gtk_widget_destroy(v->active_dialog);
+
   gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), FALSE);
 
   infile = fopen(v->filename, "rb");
@@ -589,7 +824,7 @@ static void xsane_viewer_blur_image(GtkWidget *window, gpointer data)
 
   DBG(DBG_info, "bluring image %s with geometry: %d x %d x %d, %d colors\n", v->filename, image_info.image_width, image_info.image_height, image_info.depth, image_info.colors);
 
-  xsane_back_gtk_make_path(sizeof(outfilename), outfilename, 0, 0, "conversion-", xsane.dev_name, ".ppm", XSANE_PATH_TMP);
+  xsane_back_gtk_make_path(sizeof(outfilename), outfilename, 0, 0, "xsane-viewer-", xsane.dev_name, ".ppm", XSANE_PATH_TMP);
 
   outfile = fopen(outfilename, "wb");
   if (!outfile)
@@ -650,7 +885,7 @@ static void xsane_viewer_rotate(Viewer *v, int rotation)
 
   DBG(DBG_info, "rotating image %s with geometry: %d x %d x %d, %d colors\n", v->filename, image_info.image_width, image_info.image_height, image_info.depth, image_info.colors);
 
-  xsane_back_gtk_make_path(sizeof(outfilename), outfilename, 0, 0, "conversion-", xsane.dev_name, ".ppm", XSANE_PATH_TMP);
+  xsane_back_gtk_make_path(sizeof(outfilename), outfilename, 0, 0, "xsane-viewer-", xsane.dev_name, ".ppm", XSANE_PATH_TMP);
 
   outfile = fopen(outfilename, "wb");
   if (!outfile)
@@ -771,16 +1006,42 @@ static GtkWidget *xsane_viewer_files_build_menu(Viewer *v)
   /* XSane save dialog */
  
   item = gtk_menu_item_new_with_label(MENU_ITEM_SAVE_IMAGE);
-//  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_I, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
+#if 0
+  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_I, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
+#endif
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_viewer_save_callback, v);
   gtk_widget_show(item);
+
  
+  /* Clone */
+ 
+  item = gtk_menu_item_new_with_label(MENU_ITEM_CLONE);
+#if 0
+  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_I, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
+#endif
+  gtk_menu_append(GTK_MENU(menu), item);
+  gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_viewer_clone_callback, v);
+  gtk_widget_show(item);
+
+
+  /* Scale */
+ 
+  item = gtk_menu_item_new_with_label(MENU_ITEM_SCALE);
+#if 0
+  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_I, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
+#endif
+  gtk_menu_append(GTK_MENU(menu), item);
+  gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_viewer_scale_callback, v);
+  gtk_widget_show(item);
+
  
   /* Close */
  
   item = gtk_menu_item_new_with_label(MENU_ITEM_CLOSE);
-//  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_Q, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
+#if 0
+  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_Q, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
+#endif
   gtk_container_add(GTK_CONTAINER(menu), item);
   gtk_object_set_data(GTK_OBJECT(item), "Viewer", (void *) v);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_viewer_close_callback, v);
@@ -803,7 +1064,9 @@ static GtkWidget *xsane_viewer_filters_build_menu(Viewer *v)
   /* Despeckle */
  
   item = gtk_menu_item_new_with_label(MENU_ITEM_DESPECKLE);
-//  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_I, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
+#if 0
+  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_I, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
+#endif
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_viewer_despeckle_callback, v);
   gtk_widget_show(item);
@@ -812,7 +1075,9 @@ static GtkWidget *xsane_viewer_filters_build_menu(Viewer *v)
   /* Blur */
  
   item = gtk_menu_item_new_with_label(MENU_ITEM_BLUR);
-//  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_Q, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
+#if 0
+  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_Q, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
+#endif
   gtk_container_add(GTK_CONTAINER(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_viewer_blur_callback, v);
   gtk_widget_show(item);
@@ -1095,6 +1360,7 @@ Viewer *xsane_viewer_new(char *filename, int reduce_to_lineart, char *output_fil
   v->save      = xsane_button_new_with_pixmap(v->top->window, v->button_box, file_xpm,      DESC_VIEWER_SAVE,      (GtkSignalFunc) xsane_viewer_save_callback, v);
   v->ocr       = xsane_button_new_with_pixmap(v->top->window, v->button_box, ocr_xpm,       DESC_VIEWER_OCR,       (GtkSignalFunc) xsane_viewer_ocr_callback, v);
   v->clone     = xsane_button_new_with_pixmap(v->top->window, v->button_box, clone_xpm,     DESC_VIEWER_CLONE,     (GtkSignalFunc) xsane_viewer_clone_callback, v);
+  v->scale     = xsane_button_new_with_pixmap(v->top->window, v->button_box, scale_xpm,     DESC_VIEWER_SCALE,     (GtkSignalFunc) xsane_viewer_scale_callback, v);
   v->despeckle = xsane_button_new_with_pixmap(v->top->window, v->button_box, despeckle_xpm, DESC_VIEWER_DESPECKLE, (GtkSignalFunc) xsane_viewer_despeckle_callback, v);
   v->blur      = xsane_button_new_with_pixmap(v->top->window, v->button_box, blur_xpm,      DESC_VIEWER_BLUR,      (GtkSignalFunc) xsane_viewer_blur_callback, v);
   v->rotate90  = xsane_button_new_with_pixmap(v->top->window, v->button_box, rotate90_xpm,  DESC_VIEWER_ROTATE90,  (GtkSignalFunc) xsane_viewer_rotate90_callback, v);

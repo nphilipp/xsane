@@ -53,7 +53,7 @@ Preferences preferences =
        0,		/* default path to temporary directory (not defined here) */
        0,		/* no default filename */
        0137,		/* image umask (permission mask for -rw-r------) */
-       0027,		/* image umask (permission mask for -rwxr-x----) */
+       0027,		/* directory umask (permission mask for -rwxr-x----) */
        0,		/* no fax project */
        0,		/* no default faxcommand */
        0,		/* no default fax receiver option */

@@ -18,6 +18,8 @@ typedef struct Viewer
   int cancel_save;
 
   int filter_radius;
+  float x_scale_factor;
+  float y_scale_factor;
 
   GtkWidget *top;
   GtkWidget *button_box;
@@ -28,6 +30,7 @@ typedef struct Viewer
   GtkWidget *save;
   GtkWidget *ocr;
   GtkWidget *clone;
+  GtkWidget *scale;
 
   GtkWidget *despeckle;
   GtkWidget *blur;
@@ -42,6 +45,8 @@ typedef struct Viewer
   GtkWidget *image_info_label;
 
   GtkProgressBar *progress_bar;
+
+  GtkWidget *active_dialog;
 }
 Viewer;
 

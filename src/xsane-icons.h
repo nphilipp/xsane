@@ -36,6 +36,7 @@ extern const char *warning_xpm[];
 extern const char *info_xpm[];
 extern const char *file_xpm[];
 extern const char *ocr_xpm[];
+extern const char *scale_xpm[];
 extern const char *despeckle_xpm[];
 extern const char *blur_xpm[];
 extern const char *clone_xpm[];

@@ -315,40 +315,6 @@ int xsane_back_gtk_make_path(size_t buf_size, char *buf, const char *prog_name, 
     len += extra;
   }
 
-  if (location == XSANE_PATH_TMP) /* tmp dir, add uid */
-  {
-   char tmpbuf[256];
-   uid_t uid;
-   int rnd;
-
-    uid = getuid();
-    snprintf(tmpbuf, sizeof(tmpbuf), "%d-", uid);
-                                                             
-    extra = strlen(tmpbuf);
-    if (len + extra >= buf_size)
-    {
-      goto filename_too_long;
-    }
-
-    memcpy(buf + len, tmpbuf, extra);
-    len += extra;
-
-    if (len + 7 >= buf_size)
-    {
-      goto filename_too_long;
-    }
-
-    memcpy(buf + len, "XXXXXX", 6);		/* create unique filename */
-    len += 6;
-    buf[len] = '\0';
-    memcpy(buf, mktemp(buf), len);
-
-    rnd = random() & 65535;			/* add random number */
-    snprintf(tmpbuf, sizeof(tmpbuf), "%05d-", rnd);
-    memcpy(buf+len, tmpbuf, strlen(tmpbuf));
-    len += 6;
-  }
-
   if (dev_name)
   {
       /* Turn devicename into valid filename by replacing slashes by "_", "_" gets "__", spaces are erased  */
@@ -405,19 +371,69 @@ int xsane_back_gtk_make_path(size_t buf_size, char *buf, const char *prog_name, 
     memcpy(buf + len, postfix, extra);
     len += extra;
   }
-  if (len >= buf_size)
-    goto filename_too_long;
 
-  buf[len++] = '\0';
+  if (len >= buf_size)
+  {
+    goto filename_too_long;
+  }
+
+  if (location == XSANE_PATH_TMP) /* tmp dir, add uid */
+  {
+   char tmpbuf[256];
+   uid_t uid;
+   int fd;
+
+    uid = getuid();
+    snprintf(tmpbuf, sizeof(tmpbuf), "-%d-", uid);
+                                                             
+    extra = strlen(tmpbuf);
+    if (len + extra >= buf_size)
+    {
+      goto filename_too_long;
+    }
+
+    memcpy(buf + len, tmpbuf, extra);
+    len += extra;
+
+    if (len + 7 >= buf_size)
+    {
+      goto filename_too_long;
+    }
+
+    memcpy(buf + len, "XXXXXX", 6);		/* create unique filename */
+    len += 6;
+    buf[len] = '\0';
+
+#if 1
+    fd = mkstemp(buf); /* create unique filename and opens/creates the file */
+#else
+    mktemp(buf); /* not safe */
+    umask(0177);
+    fd = open(buf, O_WRONLY | O_EXCL | O_CREAT, 0600);
+    umask(XSANE_DEFAULT_UMASK); /* define new file permissions */
+#endif
+
+    if (fd == -1)
+    {
+      xsane_back_gtk_error(ERR_CREATE_TEMP_FILE, FALSE);
+     return -1;
+    }
+    close(fd); /* will be opened again later */
+  }
+  else
+  {
+    buf[len++] = '\0';
+  }
 
   DBG(DBG_proc, "path = \"%s\"\n", buf);
 
   return 0;
 
+
 filename_too_long:
   xsane_back_gtk_error(ERR_FILENAME_TOO_LONG, FALSE);
   errno = E2BIG;
-  return -1;
+ return -1;
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */

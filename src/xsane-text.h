@@ -61,6 +61,7 @@
 #define WINDOW_LOAD_SETTINGS		_("load device settings")
 #define WINDOW_CHANGE_WORKING_DIR	_("change working directory")
 #define WINDOW_TMP_PATH			_("select temporary directory")
+#define WINDOW_SCALE			_("Scale image")
 #define WINDOW_DESPECKLE		_("Despeckle image")
 #define WINDOW_BLUR			_("Blur image")
 
@@ -78,6 +79,8 @@
 #define MENU_ITEM_SAVE_IMAGE		_("Save image")
 #define MENU_ITEM_CLOSE			_("Close")
 
+#define MENU_ITEM_CLONE			_("Clone")
+#define MENU_ITEM_SCALE			_("Scale")
 #define MENU_ITEM_DESPECKLE		_("Despeckle")
 #define MENU_ITEM_BLUR			_("Blur")
 
@@ -113,6 +116,7 @@
 #define BUTTON_DISCARD_IMAGE		_("Discard image")
 #define BUTTON_DISCARD_ALL_IMAGES	_("Discard all images")
 #define BUTTON_DO_NOT_CLOSE		_("Do not close")
+#define BUTTON_SCALE_BIND		_("Bind scale")
 
 #define RADIO_BUTTON_FINE_MODE		_("Fine mode")
 #define RADIO_BUTTON_HTML_MAIL		_("HTML mail")
@@ -198,8 +202,10 @@
 #define TEXT_MAIL_STATUS		_("Project status:")
 
 #define TEXT_VIEWER_IMAGE_INFO		_("Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s")
-#define TEXT_BLUR_RADIUS		_("Blur radius:")
+#define TEXT_X_SCALE_FACTOR		_("X-Scale factor:")
+#define TEXT_Y_SCALE_FACTOR		_("Y-Scale factor:")
 #define TEXT_DESPECKLE_RADIUS		_("Despeckle radius:")
+#define TEXT_BLUR_RADIUS		_("Blur radius:")
 
 #define TEXT_SETUP_PRINTER_SEL		_("Printer selection:")
 #define TEXT_SETUP_PRINTER_NAME		_("Name:")
@@ -340,6 +346,7 @@
 #define PROGRESS_CONVERTING_DATA	_("Converting image")
 #define PROGRESS_SAVING_DATA		_("Saving image")
 #define PROGRESS_CLONING_DATA		_("Cloning image")
+#define PROGRESS_SCALING_DATA		_("Scaling image")
 #define PROGRESS_DESPECKLING_DATA	_("Despeckling image")
 #define PROGRESS_BLURING_DATA		_("Bluring image")
 
@@ -518,6 +525,7 @@
 #define DESC_VIEWER_SAVE		_("Save image")
 #define DESC_VIEWER_OCR			_("Optical Character Recognition")
 #define DESC_VIEWER_CLONE		_("Clone image")
+#define DESC_VIEWER_SCALE		_("Scale image")
 #define DESC_VIEWER_DESPECKLE		_("Despeckle image")
 #define DESC_VIEWER_BLUR		_("Blur image")
 #define DESC_VIEWER_ROTATE90		_("Rotate image 90 degree")
@@ -531,6 +539,7 @@
 #define ERR_HOME_DIR			_("Failed to determine home directory:")
 #define ERR_CHANGE_WORKING_DIR		_("Failed to change working directory to")
 #define ERR_FILENAME_TOO_LONG		_("Filename too long")
+#define ERR_CREATE_TEMP_FILE		_("Could not create temporary file")
 #define ERR_SET_OPTION			_("Failed to set value of option")
 #define ERR_GET_OPTION			_("Failed to obtain value of option")
 #define ERR_OPTION_COUNT		_("Error obtaining option count")
@@ -542,6 +551,7 @@
 #define ERR_GIMP_BAD_DEPTH		_("GIMP can't handle depth %d bits/color")
 #define ERR_UNKNOWN_SAVING_FORMAT	_("Unknown file format for saving")
 #define ERR_OPEN_FAILED			_("Failed to open")
+#define ERR_CREATE_SECURE_FILE		_("Could not create secure file (may be a link does exist):")
 #define ERR_FAILED_PRINTER_PIPE		_("Failed to open pipe for executing printercommand")
 #define ERR_FAILED_EXEC_PRINTER_CMD	_("Failed to execute printercommand:")
 #define ERR_FAILED_START_SCANNER	_("Failed to start scanner:")
@@ -669,5 +679,13 @@ The format of [DEVICE] is backendname:devicefile (e.g. umax:/dev/scanner).\n\
 #define MENU_ITEM_SURFACE_legal_L	N_("legal land.")
 #define MENU_ITEM_SURFACE_letter_P	N_("letter port.")
 #define MENU_ITEM_SURFACE_letter_L	N_("letter land.")
+
+#define MENU_ITEM_MEDIUM_FULL_RANGE	N_("Full range")
+#define MENU_ITEM_MEDIUM_SLIDE		N_("Slide")
+#define MENU_ITEM_MEDIUM_STANDARD_NEG	N_("Standard negative")
+#define MENU_ITEM_MEDIUM_AGFA_NEG	N_("Agfa negative")
+#define MENU_ITEM_MEDIUM_FUJI_NEG	N_("Fuji negative")
+#define MENU_ITEM_MEDIUM_KODAK_NEG	N_("Kodak negative")
+#define MENU_ITEM_MEDIUM_KONICA_NEG	N_("Konica negative")
 
 #endif

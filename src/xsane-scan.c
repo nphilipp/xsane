@@ -97,14 +97,14 @@ static int xsane_generate_dummy_filename(int conversion_level)
     xsane.dummy_filename = strdup(filename);
     DBG(DBG_info, "xsane.dummy_filename = %s\n", xsane.dummy_filename);
 
-    return TRUE;
+   return TRUE;
   }
   else /* no conversion following, save directly to the selected filename */
   {
     xsane.dummy_filename = strdup(xsane.output_filename);
     DBG(DBG_info, "xsane.dummy_filename = %s\n", xsane.dummy_filename);
 
-    return FALSE;
+   return FALSE;
   }
 }
 
@@ -880,18 +880,24 @@ static int xsane_reduce_to_lineart()
      file after that, so we must wait until the file is closed */
   old_dummy_filename = strdup(xsane.dummy_filename);
 
-  if (xsane_generate_dummy_filename(2)) /* create filename for packing */
-  {
-    /* temporary file */
-    umask(0177); /* creare temporary file with "-rw-------" permissions */   
-  }
-  else
+  /* temporary file is created with permission 0600 in xsane_generate_dummy_filename */
+  if (!xsane_generate_dummy_filename(2)) /* create filename for packing */
   {
     /* no temporary file */
-    umask((mode_t) preferences.image_umask); /* define image file permissions */   
+    if (xsane_create_secure_file(xsane.dummy_filename)) /* remove possibly existing symbolic links for security */
+    {
+     char buf[256];
+
+      snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_CREATE_SECURE_FILE, xsane.dummy_filename);
+      xsane_back_gtk_error(buf, TRUE);
+      abort = 1; /* abort scanning */
+    }
   }
 
-  abort = xsane_save_image_as_lineart(old_dummy_filename, xsane.dummy_filename, xsane.progress_bar, &xsane.cancel_save);
+  if (!abort)
+  {
+    abort = xsane_save_image_as_lineart(old_dummy_filename, xsane.dummy_filename, xsane.progress_bar, &xsane.cancel_save);
+  }
 
   if (abort)
   {
@@ -1037,39 +1043,45 @@ void xsane_scan_done(SANE_Status status)
            file after that, so we must wait until the file is closed */
         old_dummy_filename = strdup(xsane.dummy_filename);
 
-        if (xsane_generate_dummy_filename(1)) /* create filename for rotation */
-        {
-          /* temporary file */
-          umask(0177); /* creare temporary file with "-rw-------" permissions */   
-        }
-        else
+        /* temporary file is created with permission 0600 in xsane_generate_dummy_filename */
+        if (!xsane_generate_dummy_filename(1)) /* create filename for rotation */
         {
           /* no temporary file */
-          umask((mode_t) preferences.image_umask); /* define image file permissions */   
-        }
-
-        /* rotate image */
-        outfile = fopen(xsane.dummy_filename, "wb"); /* read binary (b for win32) */
-        umask(XSANE_DEFAULT_UMASK); /* define new file permissions */   
-
-        if (outfile)
-        {
-          if (xsane_save_rotate_image(outfile, infile, &image_info, xsane.preview->rotation, xsane.progress_bar, &xsane.cancel_save))
+          if (xsane_create_secure_file(xsane.dummy_filename)) /* remove possibly existing symbolic links for security */
           {
-            abort = 1;
+           char buf[256];
+
+            snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_CREATE_SECURE_FILE, xsane.dummy_filename);
+            xsane_back_gtk_error(buf, TRUE);
+            abort = 1; /* abort scanning */
           }
         }
-        else
+
+        if (!abort)
         {
-         char buf[256];
-          DBG(DBG_info, "open of file `%s'failed : %s\n", xsane.dummy_filename, strerror(errno));
-          snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, xsane.dummy_filename, strerror(errno));
-          xsane_back_gtk_error(buf, TRUE);
-          abort = 1;
+          /* rotate image */
+          outfile = fopen(xsane.dummy_filename, "wb"); /* read binary (b for win32) */
+
+          if (outfile)
+          {
+            if (xsane_save_rotate_image(outfile, infile, &image_info, xsane.preview->rotation, xsane.progress_bar, &xsane.cancel_save))
+            {
+              abort = 1;
+            }
+          }
+          else
+          {
+           char buf[256];
+            DBG(DBG_info, "open of file `%s'failed : %s\n", xsane.dummy_filename, strerror(errno));
+            snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, xsane.dummy_filename, strerror(errno));
+            xsane_back_gtk_error(buf, TRUE);
+            abort = 1;
+          }
+
+          fclose(outfile);
         }
 
         fclose(infile);
-        fclose(outfile);
         remove(old_dummy_filename); /* remove the unrotated image file */
 
         free(old_dummy_filename); /* release memory */
@@ -1108,7 +1120,7 @@ void xsane_scan_done(SANE_Status status)
     {
       if (xsane_reduce_to_lineart())
       {
-        return;
+        return; /* aborted */
       }
     }
 
@@ -1337,33 +1349,16 @@ void xsane_scan_done(SANE_Status status)
            DBG(DBG_info, "imagewidth  = %f\n", imagewidth);
            DBG(DBG_info, "imageheight = %f\n", imageheight);
 
-/* disabled ( 0 * ...) in the moment */
-           if (0 * preferences.psrotate) /* rotate: landscape */
-           {
-             xsane_save_ps(outfile, infile,
-                           &image_info,
-                           (preferences.fax_bottomoffset + preferences.fax_height) * 36.0/MM_PER_INCH - imagewidth * 36.0, /* left edge */
-                           (preferences.fax_leftoffset   + preferences.fax_width)  * 36.0/MM_PER_INCH - imageheight * 36.0, /* bottom edge */
-                            imagewidth, imageheight,
-                           (preferences.fax_leftoffset   + preferences.fax_width ) * 72.0/MM_PER_INCH, /* paperwidth */
-                           (preferences.fax_bottomoffset + preferences.fax_height) * 72.0/MM_PER_INCH, /* paperheight */
-                           1 /* landscape */,
-                           xsane.progress_bar,
-                           &xsane.cancel_save);
-           }
-           else /* do not rotate: portrait */
-           {
-             xsane_save_ps(outfile, infile,
-                           &image_info,
-                           (preferences.fax_leftoffset   + preferences.fax_width)  * 36.0/MM_PER_INCH - imagewidth * 36.0,
-                           (preferences.fax_bottomoffset + preferences.fax_height) * 36.0/MM_PER_INCH - imageheight * 36.0,
-                           imagewidth, imageheight,
-                           (preferences.fax_leftoffset   + preferences.fax_width ) * 72.0/MM_PER_INCH, /* paperwidth */
-                           (preferences.fax_bottomoffset + preferences.fax_height) * 72.0/MM_PER_INCH, /* paperheight */
-                           0 /* portrait */,
-                           xsane.progress_bar,
-                           &xsane.cancel_save);
-           }
+           xsane_save_ps(outfile, infile,
+                         &image_info,
+                         (preferences.fax_leftoffset   + preferences.fax_width)  * 36.0/MM_PER_INCH - imagewidth * 36.0,
+                         (preferences.fax_bottomoffset + preferences.fax_height) * 36.0/MM_PER_INCH - imageheight * 36.0,
+                         imagewidth, imageheight,
+                         (preferences.fax_leftoffset   + preferences.fax_width ) * 72.0/MM_PER_INCH, /* paperwidth */
+                         (preferences.fax_bottomoffset + preferences.fax_height) * 72.0/MM_PER_INCH, /* paperheight */
+                         0 /* portrait */,
+                         xsane.progress_bar,
+                         &xsane.cancel_save);
            fclose(outfile);
          }
          else
@@ -1649,20 +1644,20 @@ static void xsane_start_scan(void)
   {
     xsane_create_internal_gamma_tables(); /* create gamma tables that are not supported by scanner */
 
-    if (xsane_generate_dummy_filename(0)) /* create filename the scanned data is saved to */
-    {
-      /* temporary file */
-      umask(0177); /* creare temporary file with "-rw-------" permissions */   
-    }
-    else
+    /* temporary file is created with permission 0600 in xsane_generate_dummy_filename */
+    if (!xsane_generate_dummy_filename(0)) /* create filename the scanned data is saved to */
     {
       /* no temporary file */
-      umask((mode_t) preferences.image_umask); /* define image file permissions */   
+      if (xsane_create_secure_file(xsane.dummy_filename)) /* remove possibly existing symbolic links for security */
+      {
+        xsane_scan_done(-1); /* -1 = error */
+        snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_CREATE_SECURE_FILE, xsane.dummy_filename);
+        xsane_back_gtk_error(buf, TRUE);
+       return;
+      }
     }
 
-    remove(xsane.dummy_filename); /* remove existing file */
     xsane.out = fopen(xsane.dummy_filename, "wb"); /* b = binary mode for win32 */
-    umask(XSANE_DEFAULT_UMASK); /* define new file permissions */   
 
     if (!xsane.out) /* error while opening the dummy_file for writing */
     {
@@ -1670,7 +1665,7 @@ static void xsane_start_scan(void)
       DBG(DBG_info, "open of file `%s'failed : %s\n", xsane.dummy_filename, strerror(errno));
       snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, xsane.dummy_filename, strerror(errno));
       xsane_back_gtk_error(buf, TRUE);
-      return;
+     return;
     }
 
     if ( (xsane.expand_lineart_to_grayscale) || (xsane.reduce_16bit_to_8bit) )

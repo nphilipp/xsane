@@ -32,7 +32,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.81"
+#define XSANE_VERSION		"0.82"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2001"
@@ -48,8 +48,6 @@
 #define XSANE_HOLD_TIME 200
 #define XSANE_CONTINUOUS_HOLD_TIME 10
 #define XSANE_DEFAULT_DEVICE "SANE_DEFAULT_DEVICE"
-#define PREF_DEFAULT_PRESET_AREA_ITEMS 13
-#define PREF_DEFAULT_MEDIUM_ITEMS 7
 
 #ifndef SLASH
 # define SLASH '/'

@@ -42,10 +42,10 @@
 /* forward declarations: */
 
 void xsane_clear_histogram(XsanePixmap *hist);
-static void xsane_draw_histogram_with_points(XsanePixmap *hist, int invert,
+static void xsane_draw_histogram_with_points(XsanePixmap *hist,
                                              SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue,
                                              int show_red, int show_green, int show_blue, int show_inten, double scale);
-static void xsane_draw_histogram_with_lines(XsanePixmap *hist, int invert,
+static void xsane_draw_histogram_with_lines(XsanePixmap *hist, 
                                             SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue,
                                             int show_red, int show_green, int show_blue, int show_inten, double scale);
 void xsane_draw_slider_level(XsaneSlider *slider);
@@ -114,14 +114,13 @@ void xsane_clear_histogram(XsanePixmap *hist)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_draw_histogram_with_points(XsanePixmap *hist, int invert,
+static void xsane_draw_histogram_with_points(XsanePixmap *hist,
                                              SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue,
                                              int show_red, int show_green, int show_blue, int show_inten, double scale)
 {
  GdkRectangle rect;
  int i;
  int inten, red, green, blue;
- int colval;
 
   DBG(DBG_proc, "xsane_draw_histogram_with_points\n");
 
@@ -143,22 +142,13 @@ static void xsane_draw_histogram_with_points(XsanePixmap *hist, int invert,
 
     for (i=0; i < HIST_WIDTH; i++)
     {
-      if (invert)
-      {
-        colval = 255-i;
-      }
-      else
-      {
-        colval = i;
-      }
-
-      inten = show_inten * count[colval]       * scale;
+      inten = show_inten * count[i] * scale;
 
       if (xsane.xsane_colors > 1)
       {
-        red   = show_red   * count_red[colval]   * scale;
-        green = show_green * count_green[colval] * scale;
-        blue  = show_blue  * count_blue[colval]  * scale;
+        red   = show_red   * count_red[i]   * scale;
+        green = show_green * count_green[i] * scale;
+        blue  = show_blue  * count_blue[i]  * scale;
       }
 
       if (inten > HIST_HEIGHT)
@@ -185,7 +175,7 @@ static void xsane_draw_histogram_with_points(XsanePixmap *hist, int invert,
 }
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_draw_histogram_with_lines(XsanePixmap *hist, int invert,
+static void xsane_draw_histogram_with_lines(XsanePixmap *hist,
                                             SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue,
                                             int show_red, int show_green, int show_blue, int show_inten, double scale)
 {
@@ -198,7 +188,6 @@ static void xsane_draw_histogram_with_lines(XsanePixmap *hist, int invert,
  int color[4];
  int val_swap;
  int color_swap;
- int colval;
 
   DBG(DBG_proc, "xsane_draw_histogram_with_lines\n");
 
@@ -217,22 +206,13 @@ static void xsane_draw_histogram_with_lines(XsanePixmap *hist, int invert,
 
     for (i=0; i < HIST_WIDTH; i++)
     {
-      if (invert)
-      {
-        colval = 255-i;
-      }
-      else
-      {
-        colval = i;
-      }
-
-      inten = show_inten * count[colval]       * scale;
+      inten = show_inten * count[i] * scale;
 
       if (xsane.xsane_colors > 1)
       {
-        red   = show_red   * count_red[colval]   * scale;
-        green = show_green * count_green[colval] * scale;
-        blue  = show_blue  * count_blue[colval]  * scale;
+        red   = show_red   * count_red[i]   * scale;
+        green = show_green * count_green[i] * scale;
+        blue  = show_blue  * count_blue[i]  * scale;
       }
 
       if (inten > HIST_HEIGHT)
@@ -970,14 +950,14 @@ void xsane_calculate_raw_histogram(void)
 
     if (xsane.histogram_lines)
     {
-      xsane_draw_histogram_with_lines(&xsane.histogram_raw, xsane.negative,
+      xsane_draw_histogram_with_lines(&xsane.histogram_raw,
                                       count_raw, count_raw_red, count_raw_green, count_raw_blue,
                                       xsane.histogram_red, xsane.histogram_green, xsane.histogram_blue,
                                       xsane.histogram_int, scale_raw);
     }
     else
     {
-      xsane_draw_histogram_with_points(&xsane.histogram_raw, xsane.negative,
+      xsane_draw_histogram_with_points(&xsane.histogram_raw,
                                        count_raw, count_raw_red, count_raw_green, count_raw_blue,
                                        xsane.histogram_red, xsane.histogram_green, xsane.histogram_blue,
                                        xsane.histogram_int, scale_raw);
@@ -1042,13 +1022,13 @@ void xsane_calculate_enh_histogram(void)
 
     if (xsane.histogram_lines)
     {
-      xsane_draw_histogram_with_lines(&xsane.histogram_enh, 0 /* negative is done by gamma table */,
+      xsane_draw_histogram_with_lines(&xsane.histogram_enh,
                         count_enh, count_enh_red, count_enh_green, count_enh_blue,
                         xsane.histogram_red, xsane.histogram_green, xsane.histogram_blue, xsane.histogram_int, scale_enh);
     }
     else
     {
-      xsane_draw_histogram_with_points(&xsane.histogram_enh, 0 /*negative is done by gamma table */,
+      xsane_draw_histogram_with_points(&xsane.histogram_enh,
                         count_enh, count_enh_red, count_enh_green, count_enh_blue,
                         xsane.histogram_red, xsane.histogram_green, xsane.histogram_blue, xsane.histogram_int, scale_enh);
     }
@@ -1610,8 +1590,8 @@ void xsane_update_gamma_curve(int update_raw)
                              xsane.histogram_gamma_data_red, xsane.histogram_gamma_data_green, xsane.histogram_gamma_data_blue,
                              xsane.histogram_medium_gamma_data_red, xsane.histogram_medium_gamma_data_green, xsane.histogram_medium_gamma_data_blue);
 
+    xsane_update_histogram(update_raw);
   }
-  xsane_update_histogram(update_raw);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

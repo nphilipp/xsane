@@ -10,7 +10,8 @@ XSane uses gettext for supporting translation into different languages.
   make
 - Using "u" (untranslated) and "f" (fuzzy) in emacs po-mode for updating strings.
 - if you use other editors, search for keyword "fuzzy" and for \"\"
-- when you translated fuzzy fields, remove the "fuzzy" marker
+- when you translated fuzzy fields, remove the "fuzzy" marker, otherwise the
+  translation will NOT be used
 
 
 SELECT YOUR LANGUAGE:
@@ -22,6 +23,14 @@ You have to set the correct keyword. When you select
 LANG=fr you will select the french translated texts but
 not the correct fonts. Setting LANG=french works fine.
 
+Note that some texts are stored in the preferences file
+	~/.sane/xsane/xsane.rc
+When you select another language you may want to remove
+this file to also get these texts translated.
+
+Note that backend dependant texts may not be translated because
+there is possibly no translation table for selected language
+for the backend you use.
 
 
 NEW TRANSLATIONS:
@@ -35,6 +44,8 @@ your Name and Email-Adress, e.g.:
  "English translation\n"
  "by your name\n"
  "Email: your.email@address.domain\n"
+
+Note that it is NOT allowed to translate the menu paths of the gimp!
 
 To test/install your new translation:
  - edit xsane-0.*/configure, search for ALL_LINGUAS and add "language"

@@ -95,15 +95,15 @@ static const pref_default_preset_area_t pref_default_preset_area[] =
 
 static const Preferences_medium_t pref_default_medium[]=
 {
-/* medium		shadow                  highlight               gamma                negative */
-/* name			gray  red   green blue  gray  red   green blue   gray red  gren blue */
- { "Full range",	 0.0,  0.0,  0.0,  0.0, 100.0,100.0,100.0,100.0, 1.0, 1.0, 1.0, 1.0 , 0},
- { "Slide",		 0.0,  0.0,  0.0,  0.0,  30.0, 30.0, 30.0, 30.0, 1.0, 1.0, 1.0, 1.0 , 0},
- { "Standard negative",	 0.0,  7.0,  1.0,  0.0,  66.0, 66.0, 33.0, 16.0, 1.0, 1.0, 1.0, 1.0 , 1},
- { "Agfa negative",	 0.0,  6.0,  2.0,  0.0,  31.0, 61.0, 24.0, 13.0, 1.0, 1.0, 1.0, 1.0 , 1},
- { "Fuji negative",	 0.0,  7.0,  1.0,  0.0,  32.0, 64.0, 33.0, 16.0, 1.0, 1.0, 1.0, 1.0 , 1},
- { "Kodak negative",	 0.0,  9.0,  2.0,  0.0,  27.0, 54.0, 18.0, 12.0, 1.0, 1.0, 1.0, 1.0 , 1},
- { "Konica negative",	 0.0,  3.0,  0.0,  0.0,  25.0, 38.0, 21.0, 14.0, 1.0, 1.0, 1.0, 1.0 , 1}
+/* medium				shadow                  highlight               gamma                negative */
+/* name					gray  red   green blue  gray  red   green blue   gray red  gren blue */
+ { MENU_ITEM_MEDIUM_FULL_RANGE,		 0.0,  0.0,  0.0,  0.0, 100.0,100.0,100.0,100.0, 1.0, 1.0, 1.0, 1.0 , 0},
+ { MENU_ITEM_MEDIUM_SLIDE,		 0.0,  0.0,  0.0,  0.0,  30.0, 30.0, 30.0, 30.0, 1.0, 1.0, 1.0, 1.0 , 0},
+ { MENU_ITEM_MEDIUM_STANDARD_NEG,	 0.0,  7.0,  1.0,  0.0,  66.0, 66.0, 33.0, 16.0, 1.0, 1.0, 1.0, 1.0 , 1},
+ { MENU_ITEM_MEDIUM_AGFA_NEG,		 0.0,  6.0,  2.0,  0.0,  31.0, 61.0, 24.0, 13.0, 1.0, 1.0, 1.0, 1.0 , 1},
+ { MENU_ITEM_MEDIUM_FUJI_NEG,		 0.0,  7.0,  1.0,  0.0,  32.0, 64.0, 33.0, 16.0, 1.0, 1.0, 1.0, 1.0 , 1},
+ { MENU_ITEM_MEDIUM_KODAK_NEG,		 0.0,  9.0,  2.0,  0.0,  27.0, 54.0, 18.0, 12.0, 1.0, 1.0, 1.0, 1.0 , 1},
+ { MENU_ITEM_MEDIUM_KONICA_NEG,		 0.0,  3.0,  0.0,  0.0,  25.0, 38.0, 21.0, 14.0, 1.0, 1.0, 1.0, 1.0 , 1}
 };
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -2108,7 +2108,7 @@ static int xsane_pref_restore(void)
   {
     DBG(DBG_info, "no preset area definitions in preferences file, using predefined list\n");
  
-    preferences.preset_area_definitions = PREF_DEFAULT_PRESET_AREA_ITEMS;
+    preferences.preset_area_definitions = sizeof(pref_default_preset_area)/sizeof(pref_default_preset_area_t);
     preferences.preset_area = calloc(preferences.preset_area_definitions, sizeof(void *));
  
     for (i=0; i<preferences.preset_area_definitions; i++)
@@ -2126,7 +2126,7 @@ static int xsane_pref_restore(void)
   {
     DBG(DBG_info, "no medium definitions in preferences file, using predefined list\n");
  
-    preferences.medium_definitions = PREF_DEFAULT_MEDIUM_ITEMS;
+    preferences.medium_definitions = sizeof(pref_default_medium)/sizeof(Preferences_medium_t);
     preferences.medium = calloc(preferences.medium_definitions, sizeof(void *));
  
     for (i=0; i<preferences.medium_definitions; i++)
@@ -3630,7 +3630,7 @@ void xsane_fax_project_save()
 {
  FILE *projectfile;
  char *page;
- char buf[256];
+ char filename[256];
  GList *list = (GList *) GTK_LIST(xsane.fax_list)->children;
  GtkObject *list_item;
 
@@ -3639,10 +3639,18 @@ void xsane_fax_project_save()
   umask((mode_t) preferences.directory_umask); /* define new file permissions */    
   mkdir(preferences.fax_project, 0777); /* make sure directory exists */
 
-  snprintf(buf, sizeof(buf), "%s/xsane-fax-list", preferences.fax_project);
-  umask((mode_t) preferences.image_umask); /* define image file permissions */
-  projectfile = fopen(buf, "wb"); /* write binary (b for win32) */
-  umask(XSANE_DEFAULT_UMASK); /* define new file permissions */    
+  snprintf(filename, sizeof(filename), "%s/xsane-fax-list", preferences.fax_project);
+
+  if (xsane_create_secure_file(filename)) /* remove possibly existing symbolic links for security
+*/
+  {
+   char buf[256];
+
+    snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_CREATE_SECURE_FILE, filename);
+    xsane_back_gtk_error(buf, TRUE);
+   return; /* error */
+  }
+  projectfile = fopen(filename, "wb"); /* write binary (b for win32) */
 
   if (!projectfile)
   {
@@ -3984,7 +3992,17 @@ static void xsane_fax_entry_insert_callback(GtkWidget *widget, gpointer list)
        FILE *destfile;
 
         /* copy file to project directory */
+        if (xsane_create_secure_file(xsane.fax_filename)) /* remove possibly existing symbolic links for security
+*/
+        {
+          fclose(sourcefile);
+          snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_CREATE_SECURE_FILE, xsane.fax_filename);
+          xsane_back_gtk_error(buf, TRUE);
+         return; /* error */
+        }
+
         destfile = fopen(xsane.fax_filename, "wb"); /* write binary (b for win32) */
+
         if (destfile) /* file is created */
         {
          char *extension;
@@ -4758,15 +4776,15 @@ void xsane_mail_project_save()
  GList *list = (GList *) GTK_LIST(xsane.mail_list)->children;
  GtkObject *list_item;
  char *image;
- char buf[256];
  gchar *mail_text;
+ char filename[256];
 
   DBG(DBG_proc, "xsane_mail_project_save\n");
 
   umask((mode_t) preferences.directory_umask); /* define new file permissions */    
   mkdir(preferences.mail_project, 0777); /* make sure directory exists */
 
-  snprintf(buf, sizeof(buf), "%s/xsane-mail-list", preferences.mail_project);
+  snprintf(filename, sizeof(filename), "%s/xsane-mail-list", preferences.mail_project);
 
   if (xsane.mail_status)
   {
@@ -4776,14 +4794,21 @@ void xsane_mail_project_save()
     }
   }
 
-  umask((mode_t) preferences.image_umask); /* define image file permissions */
-  projectfile = fopen(buf, "wb"); /* write binary (b for win32) */
-  umask(XSANE_DEFAULT_UMASK); /* define new file permissions */    
+  if (xsane_create_secure_file(filename)) /* remove possibly existing symbolic links for security */
+  {
+   char buf[256];
+
+    snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_CREATE_SECURE_FILE, filename);
+    xsane_back_gtk_error(buf, TRUE);
+   return; /* error */
+  }
+
+  projectfile = fopen(filename, "wb"); /* write binary (b for win32) */
 
   if (xsane.mail_status)
   {
-    snprintf(buf, 32, "%s                               ", xsane.mail_status); /* fill 32 characters status line */
-    fprintf(projectfile, "%s\n", buf); /* first line is status of mail */
+    snprintf(filename, 32, "%s                               ", xsane.mail_status); /* fill 32 characters status line */
+    fprintf(projectfile, "%s\n", filename); /* first line is status of mail */
     gtk_label_set(GTK_LABEL(xsane.mail_status_label), _(xsane.mail_status));
   }
   else
@@ -5710,7 +5735,7 @@ static void xsane_show_doc(GtkWidget *widget, gpointer data)
   /* which there may be a translation of a documentation */
   language_dir = XSANE_LANGUAGE_DIR;
   snprintf(path, sizeof(path), "%s/%s/%s-doc.html", STRINGIFY(PATH_SANE_DATA_DIR), language_dir, name);  
-  if (stat(path, &st) != 0) /* trst if file does exist */
+  if (stat(path, &st) != 0) /* test if file does exist */
   {
     snprintf(path, sizeof(path), "%s/%s-doc.html", STRINGIFY(PATH_SANE_DATA_DIR), name); /* no, we use original doc */
   }

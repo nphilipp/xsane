@@ -6,6 +6,8 @@ Sign explaination:
  + planned to do this soon/higher priority (but not promised for XSane-1.0)
  - comes later/lower priority
 
+ save-function:
+    # filetype ".txt" => call ocr function
 
  fax-function:
     # use internal viewer to display images
@@ -28,13 +30,15 @@ Sign explaination:
 
  medium selection:
     # add: add, edit, delete medium definition
+    - medium definition in dependance of the scanner (?)
+      (I am not sure if this makes sense with color managemant)
 
  preview:
     - force aspect ratio of selection area
     - force size of scanarea in pixels (calculate resolution)
 
  batch scan function
-    # select multiple scan areas before starting the scan
+    - select multiple scan areas before starting the scan
 
  gamma:
     # add target gamma (e.g. for web publishing)
@@ -45,14 +49,15 @@ Sign explaination:
     # add more filters
       suggestions? - ONLY REALLY IMPORTANT FILTERS,
       FOR OTHER IMAGE MANIPULATION THERE IS THE GIMP
-    # add scaling function
     # crop
     # what about automatic increase of filename counter???
       this is not simple because there may be several
       viewers opend at the same time
-    # add ocr function, e.g. via gocr
 
  internal:
+    + add color management - may be via xcmsdb or scarse (www.scarse.org)
+      (not until xsane-1.0 I think)
+    - average of a multiple scan of the same image
     + add range check / valid value when reading xsane.rc/*.drc files
     + add several defaults (fax=> mode=gray,...)
     - include much more parameters when saving images
@@ -62,7 +67,7 @@ Sign explaination:
       use next neighbour with high transmission(i) value
       (may be to viewer)
 
- - include special functions for GNOME/KDE
+ include special functions for GNOME/KDE
    *** DOES ANYONE HAVE ANY SUGGESTIONS TO THIS ? ***
    - GNOME:
      - gnome-print support?
@@ -70,18 +75,14 @@ Sign explaination:
    - drag and drop for preview image?
    - other drag and drop functions?
 
- + add color management - may be via xcmsdb or scarse (www.scarse.org)
-   (not until xsane-1.0 I think)
- - average of a multiple scan of the same image
-
- - TWAIN:
+ TWAIN:
     - add a twain-win32 interface (for xsane-win32)
     - define a twain-unix interface in cooperation with TWAIN-group
       (first contact to TWAIN in summer 1999, TWAIN is intersted in
       creating a TWAIN-unix interface that uses sane as scanner driver API
     - add a twain-unix interface to xsane
  
- - WIN32 version of xsane/sane
+ WIN32 version of xsane/sane
     + make internationalization work (looks like a charset problem)
     - may be xsane-win32 without cygwin.dll on native win32 mode
     - may be later we make a sane-WIN32 version so that the backends do work too

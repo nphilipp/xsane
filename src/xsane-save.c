@@ -78,6 +78,86 @@ void null_print_func(gchar *msg);
 #endif /* HAVE_LIBGIMP_GIMP_H */
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
+/* why this routine ? 
+ Problem: link attack
+          Bad user wants to overwrite a file (mywork.txt) of good user.
+          File permissions of mywork.txt is 700 so that bad user can not
+          change or overwrite the file. Directory permissions allow bad user
+          to write into directory. Bad user sets symlink from a file that good
+          user will write soon (image.pnm) to mywork.txt.
+          ==> Good user overwrites his own file, he is allowed to do so.
+
+ Solution: If possible: test if output file is a symlink. If yes: remove symlink.
+           Create outputfile and make sure that it does not follow a symlink.
+
+           The file is created with the requested image-file permissions.
+
+ Note: This case is a bit curious because it is only a small part of a larger problem:
+ When other users have write access to the directory they simply can move
+ mywork.txt to image.pnm. If they do it in the right moment the file is
+ overwritten without any notice of good user. If they do it long before xsane
+ wants to write image.pnm then xsane will possibly ask if image.pnm shall be
+ overwritten. So the real solution is to make the direcoty permissions safe!!!
+ But some users asked for this and so I added this.
+
+
+ This routine shall not be called for temporary files because temp files shall not
+ be removed after they have been created safe. (Although a temporary file should
+ not be a symlink so there should be no problem with this)
+*/
+
+int xsane_create_secure_file(const char *filename)
+/* returns 0 on success, -1 on error */
+{
+ int fd;
+
+  DBG(DBG_proc, "xsane_create_secure_file\n");
+
+/* we need lstat because we need the information if a file is a symlink */
+/* stat() does return the info of the linked file not of the link itslef */
+#ifdef HAVE_LSTAT
+  {
+   struct stat st;
+
+    if (!lstat(filename, &st))
+    {
+      DBG(DBG_info, "file %s does exist\n", filename);
+ 
+      if (S_ISLNK(st.st_mode))
+      {
+        DBG(DBG_info, "file %s is a link: remove the link\n", filename);
+        remove(filename);
+      }
+    }
+    else
+    {
+      DBG(DBG_info, "file %s does not exist\n", filename);
+    }
+  }
+#else
+  DBG(DBG_info, "we do not have lstat\n");
+#endif
+
+  umask((mode_t) preferences.image_umask); /* define image file permissions */   
+  fd = open(filename, O_WRONLY | O_CREAT | O_EXCL, 0666);
+  umask(XSANE_DEFAULT_UMASK); /* define new file permissions */   
+
+
+  if (fd > 0)
+  {
+    DBG(DBG_info, "file %s is created and secure\n", filename);
+    close(fd);
+    fd = 0;
+  }
+  else
+  {
+    DBG(DBG_info, "could not create secure file %s\n", filename);
+  }
+
+ return fd; /* -1 means file is not safe !!! otherwise 0 */
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
 
 void xsane_cancel_save(int *cancel_save)
 {
@@ -562,16 +642,105 @@ int xsane_save_grayscale_image_as_lineart(FILE *outfile, FILE *imagefile, Image_
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_info, float x_scale, float y_scale, GtkProgressBar *progress_bar, int *cancel_save)
+{
+ float original_y;
+ int old_original_y;
+ int x, y, i;
+ int original_image_width  = image_info->image_width;
+ int new_image_width  = image_info->image_width * x_scale;
+ int new_image_height = image_info->image_height * y_scale;
+ unsigned char *original_line;
+ unsigned char *new_line;
+ int bytespp = 1;
+
+  DBG(DBG_proc, "xsane_save_scaled_image\n");
+
+  if (image_info->depth > 8)
+  {
+    bytespp = 2;
+  }
+
+  image_info->image_width  = new_image_width;
+  image_info->image_height = new_image_height;
+  image_info->resolution_x *= x_scale;
+  image_info->resolution_y *= y_scale;
+
+  original_line = malloc(original_image_width * image_info->colors * bytespp);
+  if (!original_line)
+  {
+    DBG(DBG_error, "xsane_save_scaled_image: out of memory\n");
+   return -1;
+  }
+
+  new_line = malloc(new_image_width * image_info->colors * bytespp);
+  if (!new_line)
+  {
+    free(original_line);
+    DBG(DBG_error, "xsane_save_scaled_image: out of memory\n");
+   return -1;
+  }
+
+  xsane_write_pnm_header(outfile, image_info);
+
+  original_y = 0.0;
+  old_original_y = -1;
+
+  for (y = 0; y < new_image_height; y++)
+  {
+    gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height);
+    while (gtk_events_pending())
+    {
+      gtk_main_iteration();
+    }
+
+    for (; ((int) original_y) - old_original_y; old_original_y += 1)
+    {
+      fread(original_line, original_image_width, image_info->colors * bytespp, imagefile); /* read one line */
+    }
+
+    for (x = 0; x < new_image_width; x++)
+    {
+      for (i = 0; i < image_info->colors * bytespp; i++)
+      {
+        new_line[x * image_info->colors + i] = original_line[((int) (x / x_scale)) * image_info->colors + i];
+      }
+    }
+
+    fwrite(new_line, new_image_width, image_info->colors * bytespp, outfile); /* write one line */
+
+    original_y += 1/y_scale;
+
+    if (*cancel_save)
+    {
+      break;
+    }
+  }
+
+  free(original_line);
+  free(new_line);
+
+  fflush(outfile);
+
+ return (*cancel_save);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 int xsane_save_despeckle_image(FILE *outfile, FILE *imagefile, Image_info *image_info, int radius, GtkProgressBar *progress_bar, int *cancel_save)
 {
  int x, y, sx, sy, i;
  int xmin, xmax;
  int ymin, ymax;
  int pos0;
- int val, count;
+ int count;
  unsigned char *line_cache;
- unsigned char *color_cache;
+ unsigned char *line_cache_ptr;
+ guint16 *color_cache;
+ guint16 *color_cache_ptr;
  int bytespp = 1;
+ int color_radius = radius * image_info->colors;
+ int color_width  = image_info->image_width * image_info->colors;
 
   if (image_info->depth > 8)
   {
@@ -582,18 +751,20 @@ int xsane_save_despeckle_image(FILE *outfile, FILE *imagefile, Image_info *image
 
   xsane_write_pnm_header(outfile, image_info);
 
-  line_cache = malloc(image_info->image_width * image_info->colors * bytespp * (2 * radius + 1));
+  line_cache = malloc(color_width * bytespp * (2 * radius + 1));
   if (!line_cache)
   {
     DBG(DBG_error, "xsane_despeckle_image: out of memory\n");
    return -1;
   }
 
-  fread(line_cache, image_info->image_width * image_info->colors * bytespp, (2 * radius + 1), imagefile);
+  fread(line_cache, color_width * bytespp, (2 * radius + 1), imagefile);
 
-  color_cache = malloc( (2 * radius + 1) * bytespp);
+  color_cache = malloc((size_t) sizeof(guint16) * (2*radius+1)*(2*radius+1));
+
   if (!color_cache)
   {
+    free(line_cache);
     DBG(DBG_error, "xsane_despeckle_image: out of memory\n");
    return -1;
   }
@@ -601,85 +772,125 @@ int xsane_save_despeckle_image(FILE *outfile, FILE *imagefile, Image_info *image
   for (y = 0; y < image_info->image_height; y++)
   {
     gtk_progress_bar_update(progress_bar, (float)  y / image_info->image_height);
+
     while (gtk_events_pending())
     {
       gtk_main_iteration();
     }
 
-    for (x = 0; x < image_info->image_width * image_info->colors; x++)
+    ymin = y - radius;
+    ymax = y + radius;
+
+    if (ymin < 0)
     {
-      xmin = x - radius * image_info->colors;
-      xmax = x + (radius+1) * image_info->colors;
+      ymin = 0;
+    }
+
+    if (ymax > image_info->image_height)
+    {
+      ymax = image_info->image_height;
+    }
+
+    for (x = 0; x < color_width; x++)
+    {
+      xmin = x - color_radius;
+      xmax = x + color_radius;
 
       if (xmin < 0)
       {
         xmin = x % image_info->colors;
       }
 
-      if (xmax > image_info->image_width * image_info->colors)
+      if (xmax > color_width)
       {
-        xmax = image_info->image_width * image_info->colors;
+        xmax = color_width;
       }
 
-      ymin = y - radius;
-      ymax = y + radius;
-
-      if (ymin < 0)
-      {
-        ymin = 0;
-      }
-
-      if (ymax > image_info->image_height)
-      {
-        ymax = image_info->image_height;
-      }
-
-      val = 0;
       count = 0;
+
+      color_cache_ptr = color_cache;
+
 
       if (bytespp == 1)
       {
-        for (sy = ymin; sy <= ymax; sy++)
+        for (sy = ymin; sy <= ymax; sy++) /* search area defined by radius  - y part */
         {
-          for (sx = xmin; sx <= xmax; sx+=image_info->colors)
+          line_cache_ptr = line_cache + (sy-ymin) * color_width + xmin;
+
+          for (sx = xmin; sx <= xmax; sx+=image_info->colors) /* x part */
           {
-            val = line_cache[(sy-ymin) * image_info->image_width * image_info->colors + sx];
+            *color_cache_ptr = *line_cache_ptr;
+            color_cache_ptr++;
+            line_cache_ptr += image_info->colors;
+          }
+        }
 
-            for (i = 0; i < count; i++) /* sort values */
+        /* sort color_cache */
+
+        count = color_cache_ptr - color_cache;
+
+        if (count > 1)
+        {
+         int d, j, val;
+
+          for (d = count / 2; d > 0; d = d / 2)
+          {
+            for (i = d; i < count; i++)
             {
-              if (line_cache[i] > val)
+              for (j = i - d, color_cache_ptr = color_cache + j; j >= 0 && color_cache_ptr[0] > color_cache_ptr[d]; j -= d, color_cache_ptr -= d)
               {
-                break;
-              }
-            }
-            count++;
-            for (; i < count; i++)
-            {
-             int val2 = line_cache[i];
-
-              line_cache[i] = val;
-              val = val2;
+                val                = color_cache_ptr[0];
+                color_cache_ptr[0] = color_cache_ptr[d];
+                color_cache_ptr[d] = val;
+              };
             }
           }
         }
-        fputc((char) (line_cache[radius+1]), outfile);
+
+        fputc((char) (color_cache[count/2]), outfile);
       }
-      else
+      else /* 16 bit/color */
       {
-       guint16 *line_cache16 = (guint16 *) line_cache;
        guint16 val16;
+       guint16 *line_cache16 = (guint16 *) line_cache;
+       guint16 *line_cache16_ptr;
        char *bytes16 = (char *) &val16;
 
         for (sy = ymin; sy <= ymax; sy++)
         {
+          line_cache16_ptr = line_cache16 + (sy-ymin) * color_width + xmin;
+
           for (sx = xmin; sx <= xmax; sx+=image_info->colors)
           {
-            val += line_cache16[(sy-ymin) * image_info->image_width * image_info->colors + sx];
-            count++;
+            *color_cache_ptr = *line_cache16_ptr;
+            color_cache_ptr++;
+            line_cache16_ptr += image_info->colors;
           }
         }
 
-        val16 = val / count;
+        /* sort color_cache */
+
+        count = color_cache_ptr - color_cache;
+
+        if (count > 1)
+        {
+         int d,j, val;
+
+          for (d = count / 2; d > 0; d = d / 2)
+          {
+            for (i = d; i < count; i++)
+            {
+              for (j = i - d, color_cache_ptr = color_cache + j; j >= 0 && color_cache_ptr[0] > color_cache_ptr[d]; j -= d, color_cache_ptr -= d)
+              {
+                val                = color_cache_ptr[0];
+                color_cache_ptr[0] = color_cache_ptr[d];
+                color_cache_ptr[d] = val;
+              };
+            }
+          }
+        }
+
+        val16 = color_cache[count/2];
         fputc(bytes16[0], outfile); /* write bytes in machine byte order */
         fputc(bytes16[1], outfile);
       }
@@ -687,14 +898,17 @@ int xsane_save_despeckle_image(FILE *outfile, FILE *imagefile, Image_info *image
 
     if ((y > radius) && (y < image_info->image_height - radius))
     {
-      memcpy(line_cache, line_cache + image_info->image_width * image_info->colors * bytespp, 
-             image_info->image_width * image_info->colors * bytespp * 2 * radius);
-      fread(line_cache + image_info->image_width * image_info->colors * bytespp * 2 * radius,
-            image_info->image_width * image_info->colors * bytespp, 1, imagefile);
+      memcpy(line_cache, line_cache + color_width * bytespp, 
+             color_width * bytespp * 2 * radius);
+      fread(line_cache + color_width * bytespp * 2 * radius,
+            color_width * bytespp, 1, imagefile);
     }
   }
 
+  fflush(outfile);
+
   free(line_cache);
+  free(color_cache);
 
  return 0;
 }
@@ -740,7 +954,7 @@ int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info
     for (x = 0; x < image_info->image_width * image_info->colors; x++)
     {
       xmin = x - radius * image_info->colors;
-      xmax = x + (radius+1) * image_info->colors;
+      xmax = x + radius * image_info->colors;
 
       if (xmin < 0)
       {
@@ -810,6 +1024,7 @@ int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info
     }
   }
 
+  fflush(outfile);
   free(line_cache);
 
  return 0;
@@ -1621,12 +1836,19 @@ int xsane_save_tiff(const char *outfilename, FILE *imagefile, Image_info *image_
     bytes = 2;
   }
 
+  if (xsane_create_secure_file(outfilename)) /* remove possibly existing symbolic links for security */
+  {
+    snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_CREATE_SECURE_FILE, outfilename);
+    xsane_back_gtk_error(buf, TRUE);
+   return -1; /* error */
+  }
+
   tiffile = TIFFOpen(outfilename, "w");
   if (!tiffile)
   {
-    snprintf(buf, sizeof(buf), "%s %s %s\n",ERR_DURING_SAVE, ERR_OPEN_FAILED, outfilename);
+    snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_OPEN_FAILED, outfilename);
     xsane_back_gtk_error(buf, TRUE);
-    return -1; /* error */
+   return -1; /* error */
   }
 
 #if 0
@@ -2090,6 +2312,15 @@ int xsane_save_image_as_lineart(char *input_filename, char *output_filename, Gtk
 
   *cancel_save = 0;
 
+  outfile = fopen(output_filename, "wb"); /* b = binary mode for win32 */
+
+  if (outfile == 0)
+  {
+    snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, output_filename, strerror(errno));
+    xsane_back_gtk_error(buf, TRUE);
+   return -2;
+  }
+
   infile = fopen(input_filename, "rb"); /* read binary (b for win32) */
   if (infile == 0)
   {
@@ -2097,29 +2328,22 @@ int xsane_save_image_as_lineart(char *input_filename, char *output_filename, Gtk
     snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, input_filename, strerror(errno));
     xsane_back_gtk_error(buf, TRUE);     
 
+    fclose(outfile);
+    remove(output_filename); /* remove already created output file */
    return -1;
   }
 
   xsane_read_pnm_header(infile, &image_info);
 
-  remove(output_filename);
-  umask((mode_t) preferences.image_umask); /* define image file permissions */   
-  outfile = fopen(output_filename, "wb"); /* b = binary mode for win32 */
-  umask(XSANE_DEFAULT_UMASK); /* define new file permissions */   
-
-  if (outfile == 0)
-  {
-    snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, output_filename, strerror(errno));
-    xsane_back_gtk_error(buf, TRUE);
-
-    fclose(infile);
-   return -2;
-  }
-
   xsane_save_grayscale_image_as_lineart(outfile, infile, &image_info, progress_bar, cancel_save);
 
   fclose(infile);
   fclose(outfile);
+
+  if (*cancel_save) /* remove output file if saving has been canceled */
+  {
+    remove(output_filename);
+  }
 
  return (*cancel_save);
 }
@@ -2149,18 +2373,19 @@ int xsane_save_image_as(char *input_filename, char *output_filename, int output_
 #ifdef HAVE_LIBTIFF
   if (output_format == XSANE_TIFF)		/* routines that want to have filename  for saving */
   {
-    remove(output_filename);
-    umask((mode_t) preferences.image_umask); /* define image file permissions */   
     xsane_save_tiff(output_filename, infile, &image_info, preferences.jpeg_quality, progress_bar, cancel_save);
-    umask(XSANE_DEFAULT_UMASK); /* define new file permissions */   
   }
   else							/* routines that want to have filedescriptor for saving */
 #endif /* HAVE_LIBTIFF */
   {
-    remove(output_filename);
-    umask((mode_t) preferences.image_umask); /* define image file permissions */   
+    if (xsane_create_secure_file(output_filename)) /* remove possibly existing symbolic links for security */
+    {
+      snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_CREATE_SECURE_FILE, output_filename);
+      xsane_back_gtk_error(buf, TRUE);
+     return -1; /* error */
+    }
+
     outfile = fopen(output_filename, "wb"); /* b = binary mode for win32 */
-    umask(XSANE_DEFAULT_UMASK); /* define new file permissions */   
 
     if (outfile != 0)
     {
@@ -2223,20 +2448,21 @@ int xsane_save_image_as(char *input_filename, char *output_filename, int output_
           fclose(outfile);
           fclose(infile);
 
+          remove(output_filename); /* no usable output: remove output file  */
+
          return -2;
          break; /* switch format == default */
       }
       fclose(outfile);
-     }
-     else
-     {
-       snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, output_filename, strerror(errno));
-       xsane_back_gtk_error(buf, TRUE);
+    }
+    else
+    {
+      snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, output_filename, strerror(errno));
+      xsane_back_gtk_error(buf, TRUE);
 
-       fclose(outfile);
-       fclose(infile);
-      return -2;
-     }
+      fclose(infile);
+     return -2;
+    }
   }
 
   fclose (infile);
