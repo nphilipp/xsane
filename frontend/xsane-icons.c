@@ -685,6 +685,38 @@ const char *contrast_blue_xpm[] =
 
 /* --------------------------------------------------- */
 
+const char *threshold_xpm[] =
+{
+/* width height num_colors chars_per_pixel */
+"    20    20        3            1",
+/* colors */
+". c #000000",
+"  none",
+"a c #ffffff",
+/* pixels */
+"                    ",
+"                    ",
+"                    ",
+"         .          ",
+"         .          ",
+"         .          ",
+"    .   ...   .     ",
+"     . .a... .      ",
+"      .aa....       ",
+"     .aaa.....      ",
+"    .aaaa......     ",
+" ....aaaa.........  ",
+"    .aaaa......     ",
+"     .aaa.....      ",
+"      .aa....       ",
+"     . .a... .      ",
+"    .   ...   .     ",
+"         .          ",
+"         .          ",
+"         .          ",
+};
+/* --------------------------------------------------- */
+
 const char *rgb_default_xpm[] =
 {
 /* width height num_colors chars_per_pixel */

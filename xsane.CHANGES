@@ -829,3 +829,27 @@ xsane-0.53 -> 0.54:
  - removed unused files/directories from package:
    sanei, include/sane/sanei_(some).h, po_old
 
+
+xsane-0.54 -> 0.55:
+-------------------
+
+ - added preview support for 16 bpp (transformed to 8bpp)
+
+ - added copyright line in devcie selection dialog
+
+ - preview selection frame is only active when backend supports coordinate selection
+
+ - added preview oversampling factor (multiplier for calculated preview resolution)
+
+ - added lineart enhancement: preview can be done in grayscale now,
+   threshold value change is displayed without a new preview scan.
+
+ - added "device options" to setup dialog:
+   - Scanner dependant options for grayscale->lineart conversion have
+     to be entered there.
+
+ - a color preview is now displayed gray when grayscale mode is selected
+
+ - updated de.po, cs.po, fr.po
+
+ - updated po/xsane-pot.sed

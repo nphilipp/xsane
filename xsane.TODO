@@ -9,54 +9,43 @@ first steps:
     - add send delayed option
     - add options for sender/receiver Name
     - what about faxprojects with mixed normal- and fine-mode pages?
-    - zoom ?
+    + zoom ?
  - email-function:
     - based on fax mode
     - image type = ?
     - resolution selectable
     - create a html mail
     - mail editor = ?
- - copy mode:
+ - copy mode and scan mode into postscript file:
     + select image position on printer (centered/left/right/free) for copy
       and show it in the preview.
- - scan mode into postscript file:
-    - define image position on paper the same way it is done in copy mode
-    - add postscript definition to setup and handle it as printer
-      like copy mode options:
-      - resolution
-      - with, height, dx, dy
  - preview:
-    + 16 bit preview scan, gamma conversion to 8 bit
-    + preview always in greyscale or always in color
     - force aspect ratio of selection area
-    - force size of selection area
-    - add oversampling factor for preview resolution to
-      improve zoomed previews without a new scan
- - enhancement:
-    - move threshold in lineart-mode to main window ?
-    - add grayscale preview scan -> gamma 0/255 -> displayed preview  for lineart mode
  + batch scan function
     - select multiple scan areas before starting the scan
+
+ - GIMP-plugin
+    - let user disable monitor gamma for gimp plugin
 
  * internal:
    + add range check / valid value when reading xsane.rc/*.drc files
    + correct image height after scanning in hand scanner mode 
-   + add several defaults (copy=>zoom=1.0, fax=> mode=gray,...)
+   + add several defaults (fax=> mode=gray,...)
    - include much more parameters when saving images
    - test memory after all calls of malloc - partly done
-   - make better backend-dependend option handling and error handling (mostly done!)
-   - other output formats for saving - *** which? ***
-     - gif will not be supported because of licence
    - more/better online helpfiles
-   - printer setup: geometry in inch/millimeter/centimeter
+   - postscript/printer setup: geometry in inch/millimeter/centimeter
 
 second steps:
  - correct gtk custom gamma functions and include it
- - include special functions for GNOME/KDE - *** DOES ANYONE HAVE ANY SUGGESTIONS TO THIS ? ***
+
+ - include special functions for GNOME/KDE
+   *** DOES ANYONE HAVE ANY SUGGESTIONS TO THIS ? ***
    - GNOME:
      - gnome-print support?
-     - session management
+     - session management ?
    - drag and drop for preview image?
+
  + add color management - may be via xcmsdb
  - average of a multi scan of the same image
 

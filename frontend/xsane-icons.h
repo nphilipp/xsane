@@ -49,6 +49,7 @@ extern const char *contrast_xpm[];
 extern const char *contrast_red_xpm[];
 extern const char *contrast_green_xpm[];
 extern const char *contrast_blue_xpm[];
+extern const char *threshold_xpm[];
 extern const char *rgb_default_xpm[];
 extern const char *negative_xpm[];
 extern const char *enhance_xpm[];

@@ -25,6 +25,7 @@
 #include "xsane.h"
 #include "xsane-back-gtk.h"
 #include "xsane-preferences.h"
+#include "xsane-gamma.h"
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
@@ -267,6 +268,7 @@ void xsane_back_gtk_set_option(GSGDialog * dialog, int opt_num, void *val, SANE_
     {
       (*dialog->option_reload_callback) (dialog, dialog->option_reload_arg);
     }
+    xsane_enhancement_by_gamma(); /* WARNING: THIS IS A TEST xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
   }
 }
 

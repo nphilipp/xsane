@@ -95,6 +95,7 @@ static int xsane_option_defined(char *string);
 static int xsane_parse_options(char *options, char *argv[]);
 static void xsane_zoom_update(GtkAdjustment *adj_data, double *val);
 static void xsane_resolution_scale_update(GtkAdjustment *adj_data, double *val);
+static void xsane_threshold_changed(void);
 static void xsane_gamma_changed(GtkAdjustment *adj_data, double *val);
 static void xsane_set_modus_defaults(void);
 static void xsane_modus_callback(GtkWidget *xsane_parent, int *num);
@@ -221,10 +222,41 @@ static int xsane_parse_options(char *options, char *argv[])
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static void xsane_threshold_changed()
+{
+  if (xsane.param.depth == 1) /* lineart mode */
+  {
+    if ( (xsane.lineart_mode == XSANE_LINEART_GRAYSCALE) || (xsane.lineart_mode == XSANE_LINEART_XSANE) )
+    {
+     const SANE_Option_Descriptor *opt = sane_get_option_descriptor(dialog->dev, dialog->well_known.threshold);
+
+      if (opt)
+      {
+       SANE_Word threshold_value;
+       double threshold = xsane.threshold * xsane.threshold_mul + xsane.threshold_off;
+
+        if (opt->type == SANE_TYPE_FIXED)
+        {
+          threshold_value = SANE_FIX(threshold);
+        }
+        else
+        {
+          threshold_value = (int) threshold;
+        }
+
+        xsane_back_gtk_set_option(dialog, dialog->well_known.threshold, &threshold_value, SANE_ACTION_SET_VALUE);
+      }
+    }
+  }
+}
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void xsane_gamma_changed(GtkAdjustment *adj_data, double *val)
 {
   *val = adj_data->value;
   xsane_enhancement_by_gamma();
+
+  xsane_threshold_changed();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1439,6 +1471,25 @@ GtkWidget *xsane_update_xsane_callback()
 
   if (xsane.param.depth == 1)
   {
+    switch (xsane.lineart_mode)
+    {
+      case XSANE_LINEART_STANDARD:
+        break;
+
+      case XSANE_LINEART_GRAYSCALE:
+      case XSANE_LINEART_XSANE:
+        if (dialog->well_known.threshold > 0)
+        {
+          xsane_scale_new_with_pixmap(GTK_BOX(xsane_vbox_xsane_modus), threshold_xpm, DESC_THRESHOLD,
+                                      xsane.threshold_min, xsane.threshold_max, 1.0, 10.0, 0.0, 0,
+                                      &xsane.threshold, &xsane.threshold_widget, 0, xsane_gamma_changed, TRUE);
+          xsane_threshold_changed();
+        }
+        break;
+
+      default:
+    }
+
     return(xsane_hbox);
   }
 
@@ -2257,7 +2308,7 @@ static void xsane_about_dialog(GtkWidget *widget, gpointer data)
   gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0);
   gtk_widget_show(label);
 
-  snprintf(buf, sizeof(buf), "(c) %s %s\n", XSANE_DATE, XSANE_COPYRIGHT);
+  snprintf(buf, sizeof(buf), "%s\n", XSANE_COPYRIGHT_TXT);
   label = gtk_label_new(buf);
   gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0);
   gtk_widget_show(label);
@@ -3519,6 +3570,7 @@ void xsane_panel_build(GSGDialog *dialog)
   dialog->well_known.gamma_vector_g  = -1;
   dialog->well_known.gamma_vector_b  = -1;
   dialog->well_known.bit_depth       = -1;
+  dialog->well_known.threshold       = -1;
 
 
   /* standard options */
@@ -3586,6 +3638,8 @@ void xsane_panel_build(GSGDialog *dialog)
             dialog->well_known.gamma_vector_b = i;
           else if (strcmp (opt->name, SANE_NAME_BIT_DEPTH) == 0)
             dialog->well_known.bit_depth = i;
+          else if (strcmp (opt->name, SANE_NAME_THRESHOLD) == 0)
+            dialog->well_known.threshold = i;
         }
 
       elem = dialog->element + i;
@@ -3702,7 +3756,10 @@ void xsane_panel_build(GSGDialog *dialog)
             case SANE_CONSTRAINT_RANGE:
               if ( (strcmp(opt->name, SANE_NAME_SCAN_RESOLUTION)  ) && /* do not show resolution */
                    (strcmp(opt->name, SANE_NAME_SCAN_X_RESOLUTION)) && /* do not show x-resolution */
-                   (strcmp(opt->name, SANE_NAME_SCAN_Y_RESOLUTION)) )  /* do not show y-resolution */
+                   (strcmp(opt->name, SANE_NAME_SCAN_Y_RESOLUTION)) && /* do not show y-resolution */
+                   ((strcmp(opt->name, SANE_NAME_THRESHOLD) || (xsane.lineart_mode == XSANE_LINEART_STANDARD)))
+                    /* do not show threshold if user wants the slider in the xsane main window */
+                 )
               {
                 /* use a scale */
                 dval   = SANE_UNFIX(val);
@@ -4345,7 +4402,7 @@ static void xsane_select_device_by_mouse_callback(GtkWidget * widget, GdkEventBu
 
 static gint32 xsane_choose_device(void)
 {
- GtkWidget *main_vbox, *vbox, *hbox, *button, *device_frame, *device_vbox, *pixmapwidget;
+ GtkWidget *main_vbox, *vbox, *hbox, *button, *device_frame, *device_vbox, *pixmapwidget, *label;
  GdkBitmap *mask;
  GdkPixmap *pixmap;
  GtkStyle *style;
@@ -4391,6 +4448,10 @@ static gint32 xsane_choose_device(void)
   gdk_pixmap_unref(pixmap);
 
   xsane_set_window_icon(choose_device_dialog, (gchar **) 0);
+
+  label = gtk_label_new(XSANE_COPYRIGHT_TXT);
+  gtk_widget_show(label);
+  gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 2);
 
   xsane_separator_new(vbox, 5);
 
@@ -4718,12 +4779,13 @@ int main(int argc, char **argv)
 
   xsane.mode                = XSANE_STANDALONE;
   xsane.xsane_mode          = XSANE_SCAN;
+  xsane.lineart_mode        = XSANE_LINEART_STANDARD;
   xsane.xsane_output_format = XSANE_PNM;
   xsane.mode_selection      = 1; /* enable selection of xsane mode */
 
   xsane.input_tag           = -1; /* no input tag */
 
-  xsane.histogram_lines = 1;
+  xsane.histogram_lines  = 1;
 
   xsane.zoom             = 1.0;
   xsane.zoom_x           = 1.0;
@@ -4745,6 +4807,8 @@ int main(int argc, char **argv)
   xsane.contrast_red     = 0.0;
   xsane.contrast_green   = 0.0;
   xsane.contrast_blue    = 0.0;
+  xsane.threshold        = 50.0;
+
   xsane.slider_gray.value[2]  = 100.0;
   xsane.slider_gray.value[1]  = 50.0;
   xsane.slider_gray.value[0]  = 0.0;
@@ -4757,6 +4821,7 @@ int main(int argc, char **argv)
   xsane.slider_blue.value[2]  = 100.0;
   xsane.slider_blue.value[1]  = 50.0;
   xsane.slider_blue.value[0]  = 0.0;
+
   xsane.auto_white       = 100.0;
   xsane.auto_gray        = 50.0;
   xsane.auto_black       = 0.0;

@@ -76,6 +76,14 @@ desc_xsane_device[] =
     {"xsane-contrast-green",          xsane_rc_pref_double,       DPOFFSET(contrast_green)},
     {"xsane-contrast-blue",           xsane_rc_pref_double,       DPOFFSET(contrast_blue)},
 
+    {"xsane-lineart-mode",            xsane_rc_pref_int,          DPOFFSET(lineart_mode)},
+    {"xsane-threshold",               xsane_rc_pref_double,       DPOFFSET(threshold)},
+    {"xsane-threshold-min",           xsane_rc_pref_double,       DPOFFSET(threshold_min)},
+    {"xsane-threshold-max",           xsane_rc_pref_double,       DPOFFSET(threshold_max)},
+    {"xsane-threshold-multiplier",    xsane_rc_pref_double,       DPOFFSET(threshold_mul)},
+    {"xsane-threshold-offset",        xsane_rc_pref_double,       DPOFFSET(threshold_off)},
+    {"xsane-grayscale-scanmode",      xsane_rc_pref_string,       DPOFFSET(grayscale_scanmode)},
+
     {"xsane-enhancement-rgb-default", xsane_rc_pref_int,          DPOFFSET(enhancement_rgb_default)},
     {"xsane-negative",                xsane_rc_pref_int,          DPOFFSET(negative)},
     {"xsane-show-preview",            xsane_rc_pref_int,          DPOFFSET(show_preview)},
@@ -378,6 +386,14 @@ void xsane_device_preferences_load_file(char *filename)
   xsane.contrast_red                = 0.0;
   xsane.contrast_green              = 0.0;
   xsane.contrast_blue               = 0.0;
+
+  xsane.lineart_mode                = 0;
+  xsane.grayscale_scanmode          = 0; /* Empty String => keeps lineart */
+  xsane.threshold                   = 50.0;
+  xsane.threshold_min               = 0.0;
+  xsane.threshold_max               = 100.0;
+  xsane.threshold_mul               = 1.0;
+  xsane.threshold_off               = 0.0;
 
   xsane.enhancement_rgb_default     = 1;
   xsane.negative                    = 0;

@@ -72,6 +72,7 @@ Preferences preferences =
        1,		/* main window fixed (1) or scrolled (0) */
        1,		/* preserve_preview */
        0,		/* preview_own_cmap */
+       1.5,		/* preview_oversampling */
        1.0,		/* preview_gamma */
        1.0,		/* preview_gamma_red */
        1.0,		/* preview_gamma_green */
@@ -141,6 +142,7 @@ desc[] =
     {"main-window-fixed",		xsane_rc_pref_int,	POFFSET(main_window_fixed)},
     {"preserve-preview",		xsane_rc_pref_int,	POFFSET(preserve_preview)},
     {"preview-own-cmap",		xsane_rc_pref_int,	POFFSET(preview_own_cmap)},
+    {"preview-oversampling",		xsane_rc_pref_double,	POFFSET(preview_oversampling)},
     {"preview-gamma",			xsane_rc_pref_double,	POFFSET(preview_gamma)},
     {"preview-gamma-red",		xsane_rc_pref_double,	POFFSET(preview_gamma_red)},
     {"preview-gamma-green",		xsane_rc_pref_double,	POFFSET(preview_gamma_green)},

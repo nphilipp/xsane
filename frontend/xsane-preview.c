@@ -150,11 +150,11 @@ static void preview_paint_image(Preview *p);
 static void preview_display_partial_image(Preview *p);
 static void preview_display_maybe(Preview *p);
 static void preview_display_image(Preview *p);
-static void preview_save_option(Preview *p, int option, SANE_Word *save_loc, int *valid);
-static void preview_restore_option(Preview *p, int option, SANE_Word saved_value, int valid);
+static void preview_save_option(Preview *p, int option, void *save_loc, int *valid);
+static void preview_restore_option(Preview *p, int option, void *saved_value, int valid);
+static void preview_set_option(Preview *p, int option, void *value);
 static void preview_set_option_float(Preview *p, int option, float value);
-static void preview_set_option_bool(Preview *p, int option, SANE_Bool value);
-static void preview_set_option_int(Preview *p, int option, SANE_Int value);
+static void preview_set_option_val(Preview *p, int option, SANE_Int value);
 static int  preview_increment_image_y(Preview *p);
 static void preview_read_image_data(gpointer data, gint source, GdkInputCondition cond);
 static void preview_scan_done(Preview *p);
@@ -309,6 +309,11 @@ static void preview_draw_selection(Preview *p)
     return;
   }
 
+  if (p->show_selection == FALSE)
+  {
+    return;
+  }
+
   if (p->previous_selection.active)
   {
     preview_draw_rect(p, p->window->window, p->gc_selection, p->previous_selection.coordinate);
@@ -352,8 +357,6 @@ static void preview_update_selection(Preview *p)
 
   p->previous_selection = p->selection;
 
-  p->selection.active = TRUE;
-
   for (i = 0; i < 4; ++i)
   {
     optnum = p->dialog->well_known.coord[i];
@@ -391,7 +394,6 @@ static void preview_update_selection(Preview *p)
           p->selection.coordinate[i] = p->preview_height;
          break;
       }
-      p->selection.active = FALSE;
     }
   }
 
@@ -404,8 +406,7 @@ static void preview_update_selection(Preview *p)
   }
 
   p->selection.active = ( (p->selection.coordinate[0] != p->selection.coordinate[2]) &&
-                          (p->selection.coordinate[1] != p->selection.coordinate[3]) &&
-                           p->selection.active );
+                          (p->selection.coordinate[1] != p->selection.coordinate[3]));
 
   preview_update_maximum_output_size(p);
   preview_draw_selection(p);
@@ -691,7 +692,7 @@ static void preview_display_image(Preview *p)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void preview_save_option(Preview *p, int option, SANE_Word *save_loc, int *valid)
+static void preview_save_option(Preview *p, int option, void *save_loc, int *valid)
 {
   SANE_Status status;
 
@@ -707,7 +708,7 @@ static void preview_save_option(Preview *p, int option, SANE_Word *save_loc, int
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void preview_restore_option(Preview *p, int option, SANE_Word saved_value, int valid)
+static void preview_restore_option(Preview *p, int option, void *saved_value, int valid)
 {
  const SANE_Option_Descriptor *opt;
  SANE_Status status;
@@ -719,7 +720,7 @@ static void preview_restore_option(Preview *p, int option, SANE_Word saved_value
   }
 
   dev = p->dialog->dev;
-  status = sane_control_option(dev, option, SANE_ACTION_SET_VALUE, &saved_value, 0);
+  status = sane_control_option(dev, option, SANE_ACTION_SET_VALUE, saved_value, 0);
 
   if (status != SANE_STATUS_GOOD)
   {
@@ -759,25 +760,29 @@ static void preview_set_option_float(Preview *p, int option, float value)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void preview_set_option_bool(Preview *p, int option, SANE_Bool value)
+static void preview_set_option(Preview *p, int option, void *value)
 {
  SANE_Handle dev;
 
   if (option <= 0)
+  {
     return;
+  }
 
   dev = p->dialog->dev;
-  sane_control_option(dev, option, SANE_ACTION_SET_VALUE, &value, 0);
+  sane_control_option(dev, option, SANE_ACTION_SET_VALUE, value, 0);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void preview_set_option_int(Preview *p, int option, SANE_Int value)
+static void preview_set_option_val(Preview *p, int option, SANE_Int value)
 {
  SANE_Handle dev;
 
   if (option <= 0)
+  {
     return;
+  }
 
   dev = p->dialog->dev;
   sane_control_option(dev, option, SANE_ACTION_SET_VALUE, &value, 0);
@@ -818,14 +823,49 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
  SANE_Status status;
  Preview *p = data;
  u_char buf[8192];
+ guint16 *buf16 = (guint16 *) buf;
  SANE_Handle dev;
  SANE_Int len;
  int i, j;
+ int offset = 0;
+ char last = 0;
 
   dev = p->dialog->dev;
   while (1)
   {
-    status = sane_read(dev, buf, sizeof(buf), &len);
+    if ((p->params.depth == 1) || (p->params.depth == 8))
+    {
+      status = sane_read(dev, buf, sizeof(buf), &len);
+    }
+    else if (p->params.depth == 16)
+    {
+      if (offset)
+      {
+        buf16[0] = last; /* ATTENTION: that is wrong! */
+        status = sane_read(dev, ((SANE_Byte *) buf16) + 1, sizeof(buf16) - 1, &len);
+      }
+      else
+      {
+        status = sane_read(dev, (SANE_Byte *) buf16, sizeof(buf16), &len);
+      }
+
+      if (len % 2) /* odd number of bytes */
+      {
+        len--;
+        last = buf16[len];
+        offset = 1;
+      }
+      else /* even number of bytes */
+      {
+        offset = 0;
+      }
+    }
+    else
+    {
+      goto bad_depth;
+    }
+
+
     if (status != SANE_STATUS_GOOD)
     {
       if (status == SANE_STATUS_EOF)
@@ -860,21 +900,38 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
     switch (p->params.format)
     {
       case SANE_FRAME_RGB:
-        if (p->params.depth != 8)
-	{
-          goto bad_depth;
-        }
-
-        for (i = 0; i < len; ++i)
+        switch (p->params.depth)
         {
-          p->image_data_enh[p->image_offset++] = buf[i];
-          if (p->image_offset%3 == 0)
-          {
-            if (++p->image_x >= p->image_width && preview_increment_image_y(p) < 0)
+          case 8:
+            for (i = 0; i < len; ++i)
             {
-              return;
+              p->image_data_enh[p->image_offset++] = buf[i];
+              if (p->image_offset%3 == 0)
+              {
+                if (++p->image_x >= p->image_width && preview_increment_image_y(p) < 0)
+                {
+                  return;
+                }
+              }
             }
-          }
+            break;
+
+          case 16:
+            for (i = 0; i < len/2; ++i)
+            {
+              p->image_data_enh[p->image_offset++] = (u_char) (buf16[i]/256);
+              if (p->image_offset%3 == 0)
+              {
+                if (++p->image_x >= p->image_width && preview_increment_image_y(p) < 0)
+                {
+                  return;
+                }
+              }
+            }
+            break;
+
+          default:
+            goto bad_depth;
         }
        break;
 
@@ -907,10 +964,24 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
           case 8:
             for (i = 0; i < len; ++i)
             {
-              u_char gl = buf[i];
-              p->image_data_enh[p->image_offset++] = gl;
-              p->image_data_enh[p->image_offset++] = gl;
-              p->image_data_enh[p->image_offset++] = gl;
+              u_char gray = buf[i];
+              p->image_data_enh[p->image_offset++] = gray;
+              p->image_data_enh[p->image_offset++] = gray;
+              p->image_data_enh[p->image_offset++] = gray;
+              if (++p->image_x >= p->image_width && preview_increment_image_y(p) < 0)
+	      {
+                return;
+              }
+            }
+           break;
+
+          case 16:
+            for (i = 0; i < len/2; ++i)
+            {
+              u_char gray = buf16[i]/256;
+              p->image_data_enh[p->image_offset++] = gray;
+              p->image_data_enh[p->image_offset++] = gray;
+              p->image_data_enh[p->image_offset++] = gray;
               if (++p->image_x >= p->image_width && preview_increment_image_y(p) < 0)
 	      {
                 return;
@@ -951,6 +1022,18 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
                 for (i = 0; i < len; ++i)
                 {
                   p->image_data_enh[p->image_offset] = buf[i];
+                  p->image_offset += 3;
+                  if (++p->image_x >= p->image_width && preview_increment_image_y(p) < 0)
+                  {
+                    return;
+                  }
+                }
+               break;
+
+              case 16:
+                for (i = 0; i < len/2; ++i)
+                {
+                  p->image_data_enh[p->image_offset] = (u_char) (buf16[i]/256);
                   p->image_offset += 3;
                   if (++p->image_x >= p->image_width && preview_increment_image_y(p) < 0)
                   {
@@ -1007,18 +1090,20 @@ static void preview_scan_done(Preview *p)
  
   xsane.block_update_param = TRUE; /* do not change parameters each time */
 
-  preview_restore_option(p, p->dialog->well_known.dpi,   p->saved_dpi,   p->saved_dpi_valid);
-  preview_restore_option(p, p->dialog->well_known.dpi_x, p->saved_dpi_x, p->saved_dpi_x_valid);
-  preview_restore_option(p, p->dialog->well_known.dpi_y, p->saved_dpi_y, p->saved_dpi_y_valid);
+  preview_restore_option(p, p->dialog->well_known.dpi,   &p->saved_dpi,   p->saved_dpi_valid);
+  preview_restore_option(p, p->dialog->well_known.dpi_x, &p->saved_dpi_x, p->saved_dpi_x_valid);
+  preview_restore_option(p, p->dialog->well_known.dpi_y, &p->saved_dpi_y, p->saved_dpi_y_valid);
 
   for (i = 0; i < 4; ++i)
   {
-    preview_restore_option(p, p->dialog->well_known.coord[i], p->saved_coord[i], p->saved_coord_valid[i]);
+    preview_restore_option(p, p->dialog->well_known.coord[i], &p->saved_coord[i], p->saved_coord_valid[i]);
   }
 
-  preview_restore_option(p, p->dialog->well_known.bit_depth, p->saved_bit_depth, p->saved_bit_depth_valid);
+  preview_restore_option(p, p->dialog->well_known.scanmode, &p->saved_scanmode, p->saved_scanmode_valid);
 
-  preview_set_option_bool(p, p->dialog->well_known.preview, SANE_FALSE);
+  preview_restore_option(p, p->dialog->well_known.bit_depth, &p->saved_bit_depth, p->saved_bit_depth_valid);
+
+  preview_set_option_val(p, p->dialog->well_known.preview, SANE_FALSE);
 
   gtk_widget_set_sensitive(p->cancel, FALSE);
   xsane_set_sensitivity(TRUE);
@@ -1734,100 +1819,110 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
 
           case MODE_NORMAL:
           {
-            switch (((GdkEventButton *)event)->button)
+            if (p->show_selection)
             {
-              case 1: /* left button */
-                p->selection_xedge = -1;
-                if ( (preview_selection[0] - SELECTION_RANGE_OUT < event->button.x) && (event->button.x < preview_selection[0] + SELECTION_RANGE_IN) ) /* left */
-                {
-                  p->selection_xedge = 0;
-                }
-                else if ( (preview_selection[2] - SELECTION_RANGE_IN < event->button.x) && (event->button.x < preview_selection[2] + SELECTION_RANGE_OUT) ) /* right */
-                {
-                  p->selection_xedge = 2;
-                }
+              switch (((GdkEventButton *)event)->button)
+              {
+                case 1: /* left button */
+                  p->selection_xedge = -1;
+                  if ( (preview_selection[0] - SELECTION_RANGE_OUT < event->button.x) &&
+                       (event->button.x < preview_selection[0] + SELECTION_RANGE_IN) ) /* left */
+                  {
+                    p->selection_xedge = 0;
+                  }
+                  else if ( (preview_selection[2] - SELECTION_RANGE_IN < event->button.x) &&
+                            (event->button.x < preview_selection[2] + SELECTION_RANGE_OUT) ) /* right */
+                  {
+                    p->selection_xedge = 2;
+                  }
   
-                p->selection_yedge = -1;
-                if ( (preview_selection[1] - SELECTION_RANGE_OUT < event->button.y) && (event->button.y < preview_selection[1] + SELECTION_RANGE_IN) ) /* top */
-                {
-                  p->selection_yedge = 1;
-                }
-                else if ( (preview_selection[3] - SELECTION_RANGE_IN < event->button.y) && (event->button.y < preview_selection[3] + SELECTION_RANGE_OUT) ) /* bottom */
-                {
-                  p->selection_yedge = 3;
-                }
+                  p->selection_yedge = -1;
+                  if ( (preview_selection[1] - SELECTION_RANGE_OUT < event->button.y) &&
+                       (event->button.y < preview_selection[1] + SELECTION_RANGE_IN) ) /* top */
+                  {
+                    p->selection_yedge = 1;
+                  }
+                  else if ( (preview_selection[3] - SELECTION_RANGE_IN < event->button.y) &&
+                            (event->button.y < preview_selection[3] + SELECTION_RANGE_OUT) ) /* bottom */
+                  {
+                    p->selection_yedge = 3;
+                  }
 
-                if ( (p->selection_xedge != -1) && (p->selection_yedge != -1) ) /* move edge */
-                {
-                  p->selection_drag_edge = TRUE;
-                  p->selection.coordinate[p->selection_xedge] = p->surface[0] + event->button.x / xscale;
-                  p->selection.coordinate[p->selection_yedge] = p->surface[1] + event->button.y / yscale;
-                  preview_draw_selection(p);
-                }
-                else /* select new area */
-                {
-                  p->selection_xedge = 2;
-                  p->selection_yedge = 3;
-                  p->selection.coordinate[0] = p->surface[0] + event->button.x / xscale;
-                  p->selection.coordinate[1] = p->surface[1] + event->button.y / yscale;
-                  p->selection_drag = TRUE;
+                  if ( (p->selection_xedge != -1) && (p->selection_yedge != -1) ) /* move edge */
+                  {
+                    p->selection_drag_edge = TRUE;
+                    p->selection.coordinate[p->selection_xedge] = p->surface[0] + event->button.x / xscale;
+                    p->selection.coordinate[p->selection_yedge] = p->surface[1] + event->button.y / yscale;
+                    preview_draw_selection(p);
+                  }
+                  else /* select new area */
+                  {
+                    p->selection_xedge = 2;
+                    p->selection_yedge = 3;
+                    p->selection.coordinate[0] = p->surface[0] + event->button.x / xscale;
+                    p->selection.coordinate[1] = p->surface[1] + event->button.y / yscale;
+                    p->selection_drag = TRUE;
 
-                  cursornr = GDK_CROSS;
-                  cursor = gdk_cursor_new(cursornr);	/* set curosr */
-                  gdk_window_set_cursor(p->window->window, cursor);
-                  gdk_cursor_destroy(cursor);
-                  p->cursornr = cursornr;
-                }
-               break;
+                    cursornr = GDK_CROSS;
+                    cursor = gdk_cursor_new(cursornr);	/* set curosr */
+                    gdk_window_set_cursor(p->window->window, cursor);
+                    gdk_cursor_destroy(cursor);
+                    p->cursornr = cursornr;
+                  }
+                 break;
 
-              case 2: /* middle button */
-              case 3: /* right button */
-                if ( (preview_selection[0]-SELECTION_RANGE_OUT < event->button.x) &&
-                     (preview_selection[2]+SELECTION_RANGE_OUT > event->button.x) &&
-                     (preview_selection[1]-SELECTION_RANGE_OUT < event->button.y) &&
-                     (preview_selection[3]+SELECTION_RANGE_OUT > event->button.y) )
-                {
-                  p->selection_drag = TRUE;
-                  p->selection_xpos = event->button.x;
-                  p->selection_ypos = event->button.y;
+                case 2: /* middle button */
+                case 3: /* right button */
+                  if ( (preview_selection[0]-SELECTION_RANGE_OUT < event->button.x) &&
+                       (preview_selection[2]+SELECTION_RANGE_OUT > event->button.x) &&
+                       (preview_selection[1]-SELECTION_RANGE_OUT < event->button.y) &&
+                       (preview_selection[3]+SELECTION_RANGE_OUT > event->button.y) )
+                  {
+                    p->selection_drag = TRUE;
+                    p->selection_xpos = event->button.x;
+                    p->selection_ypos = event->button.y;
 
-                  cursornr = GDK_HAND2;
-                  cursor = gdk_cursor_new(cursornr);	/* set curosr */
-                  gdk_window_set_cursor(p->window->window, cursor);
-                  gdk_cursor_destroy(cursor);
-                  p->cursornr = cursornr;
-                }
-               break;
+                    cursornr = GDK_HAND2;
+                    cursor = gdk_cursor_new(cursornr);	/* set curosr */
+                    gdk_window_set_cursor(p->window->window, cursor);
+                    gdk_cursor_destroy(cursor);
+                    p->cursornr = cursornr;
+                  }
+                 break;
 
-              default:
-               break;
+                default:
+                 break;
+              }
             }
           }
         }
        break;
 
       case GDK_BUTTON_RELEASE:
-        switch (((GdkEventButton *)event)->button)
+        if (p->show_selection)
         {
-          case 1: /* left button */
-          case 2: /* middle button */
-          case 3: /* right button */
-            if (p->selection_drag)
-            {
-              cursornr = XSANE_CURSOR_PREVIEW;
-              cursor = gdk_cursor_new(cursornr);	/* set curosr */
-              gdk_window_set_cursor(p->window->window, cursor);
-              gdk_cursor_destroy(cursor);
-              p->cursornr = cursornr;
-            }
+          switch (((GdkEventButton *)event)->button)
+          {
+            case 1: /* left button */
+            case 2: /* middle button */
+            case 3: /* right button */
+              if (p->selection_drag)
+              {
+                cursornr = XSANE_CURSOR_PREVIEW;
+                cursor = gdk_cursor_new(cursornr);	/* set curosr */
+                gdk_window_set_cursor(p->window->window, cursor);
+                gdk_cursor_destroy(cursor);
+                p->cursornr = cursornr;
+              }
 
-            preview_draw_selection(p);
-            preview_establish_selection(p);
+              preview_draw_selection(p);
+              preview_establish_selection(p);
 
-            p->selection_drag_edge = FALSE;
-            p->selection_drag = FALSE;
-          default:
-         break;
+              p->selection_drag_edge = FALSE;
+              p->selection_drag = FALSE;
+            default:
+           break;
+          }
         }
        break;
 
@@ -2272,6 +2367,8 @@ void preview_update_surface(Preview *p, int surface_changed)
   unit = SANE_UNIT_PIXEL;
   type = SANE_TYPE_INT;
 
+  p->show_selection = FALSE; /* at first let's say we have no corrdinate selection */
+
   for (i = 0; i < 4; ++i) /* test if surface (max vals of scanarea) has changed */
   {
 /*    val = (i & 2) ? INF : -INF; */
@@ -2283,6 +2380,7 @@ void preview_update_surface(Preview *p, int surface_changed)
       assert(opt->unit == SANE_UNIT_PIXEL || opt->unit == SANE_UNIT_MM);
       unit = opt->unit;
       type = opt->type;
+      p->show_selection = TRUE; /* ok, we have a coordinate selection */
 
       xsane_get_bounds(opt, &min, &max);
 
@@ -2444,14 +2542,16 @@ void preview_scan(Preview *p)
 
   xsane.block_update_param = TRUE; /* do not change parameters each time */
 
-  preview_save_option(p, p->dialog->well_known.dpi,   &p->saved_dpi,   &p->saved_dpi_valid);
-  preview_save_option(p, p->dialog->well_known.dpi_x, &p->saved_dpi_x, &p->saved_dpi_x_valid);
-  preview_save_option(p, p->dialog->well_known.dpi_y, &p->saved_dpi_y, &p->saved_dpi_y_valid);
+  preview_save_option(p, p->dialog->well_known.dpi,      &p->saved_dpi,      &p->saved_dpi_valid);
+  preview_save_option(p, p->dialog->well_known.dpi_x,    &p->saved_dpi_x,    &p->saved_dpi_x_valid);
+  preview_save_option(p, p->dialog->well_known.dpi_y,    &p->saved_dpi_y,    &p->saved_dpi_y_valid);
+  preview_save_option(p, p->dialog->well_known.scanmode, &p->saved_scanmode, &p->saved_scanmode_valid);
 
   for (i = 0; i < 4; ++i)
   {
     preview_save_option(p, p->dialog->well_known.coord[i], &p->saved_coord[i], p->saved_coord_valid + i);
   }
+
   preview_save_option(p, p->dialog->well_known.bit_depth, &p->saved_bit_depth, &p->saved_bit_depth_valid);
 
   /* determine dpi, if necessary: */
@@ -2491,6 +2591,8 @@ void preview_scan(Preview *p)
       }
     }
 
+    dpi = dpi * preferences.preview_oversampling; /* faktor for resolution */
+
     xsane_get_bounds(opt, &min, &max);
 
     if (dpi < min)
@@ -2515,12 +2617,19 @@ void preview_scan(Preview *p)
     preview_set_option_float(p, p->dialog->well_known.coord[i], p->surface[i]);
   }
 
-  preview_set_option_bool(p, p->dialog->well_known.preview, SANE_TRUE);
+  preview_set_option_val(p, p->dialog->well_known.preview, SANE_TRUE);
 
-  if ( (p->saved_bit_depth > 8) && (p->saved_bit_depth_valid) ) /* don't scan with more than 8bpp */
+  if ( (xsane.grayscale_scanmode) && (xsane.param.depth == 1) && (xsane.lineart_mode == XSANE_LINEART_GRAYSCALE) )
   {
-    preview_set_option_int(p, p->dialog->well_known.bit_depth, 8);
+    preview_set_option(p, p->dialog->well_known.scanmode, xsane.grayscale_scanmode);
   }
+
+#if 0
+  if ( (p->saved_bit_depth == 16) && (p->saved_bit_depth_valid) ) /* don't scan with 16 bpp */
+  {
+    preview_set_option_val(p, p->dialog->well_known.bit_depth, 8);
+  }
+#endif
 
   xsane.block_update_param = FALSE;
 
@@ -2971,14 +3080,33 @@ void preview_do_gamma_correction(Preview *p)
 
   if ((p->image_data_raw) && (p->params.depth > 1) && (preview_gamma_data_red))
   {
-    for (y=0; y < p->image_height; y++)
+    if (xsane.param.format == SANE_FRAME_RGB)
     {
-      for (x=0; x < p->image_width; x++)
+      for (y=0; y < p->image_height; y++)
       {
-        offset = 3 * (y * p->image_width + x);
-        p->image_data_enh[offset    ] = preview_gamma_data_red  [p->image_data_raw[offset    ]];
-        p->image_data_enh[offset + 1] = preview_gamma_data_green[p->image_data_raw[offset + 1]];
-        p->image_data_enh[offset + 2] = preview_gamma_data_blue [p->image_data_raw[offset + 2]];
+        for (x=0; x < p->image_width; x++)
+        {
+          offset = 3 * (y * p->image_width + x);
+          p->image_data_enh[offset    ] = preview_gamma_data_red  [p->image_data_raw[offset    ]];
+          p->image_data_enh[offset + 1] = preview_gamma_data_green[p->image_data_raw[offset + 1]];
+          p->image_data_enh[offset + 2] = preview_gamma_data_blue [p->image_data_raw[offset + 2]];
+        }
+      }
+    }
+    else
+    {
+     int level;
+
+      for (y=0; y < p->image_height; y++)
+      {
+        for (x=0; x < p->image_width; x++)
+        {
+          offset = 3 * (y * p->image_width + x);
+          level = (p->image_data_raw[offset] + p->image_data_raw[offset+1] + p->image_data_raw[offset+2]) / 3;
+          p->image_data_enh[offset    ] = preview_gamma_data_red  [level];
+          p->image_data_enh[offset + 1] = preview_gamma_data_green[level];
+          p->image_data_enh[offset + 2] = preview_gamma_data_blue [level];
+        }
       }
     }
   }
@@ -3217,6 +3345,76 @@ void preview_area_resize(GtkWidget *widget)
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
+#if 0
+void preview_update_maximum_output_size(Preview *p)
+{
+  if ( (p->maximum_output_width >= INF) || (p->maximum_output_height >= INF) )
+  {
+    if (p->selection_maximum.active)
+    {
+      p->selection_maximum.active = FALSE;
+    }
+  }
+  else
+  {
+    p->previous_selection_maximum = p->selection_maximum;
+
+    p->selection_maximum.active = TRUE;
+    p->selection_maximum.coordinate[0] = (p->selection.coordinate[0] + p->selection.coordinate[2] - p->maximum_output_width )/2.0;
+    p->selection_maximum.coordinate[1] = (p->selection.coordinate[1] + p->selection.coordinate[3] - p->maximum_output_height)/2.0;
+    p->selection_maximum.coordinate[2] = (p->selection.coordinate[0] + p->selection.coordinate[2] + p->maximum_output_width )/2.0;
+    p->selection_maximum.coordinate[3] = (p->selection.coordinate[1] + p->selection.coordinate[3] + p->maximum_output_height)/2.0;
+
+    if (p->selection_maximum.coordinate[0] < p->max_scanner_surface[0])
+    {
+      p->selection_maximum.coordinate[0] = p->max_scanner_surface[0];
+    }
+
+    if (p->selection_maximum.coordinate[1] < p->max_scanner_surface[1])
+    {
+      p->selection_maximum.coordinate[1] = p->max_scanner_surface[1];
+    }
+
+    if (p->selection_maximum.coordinate[2] > p->max_scanner_surface[2])
+    {
+      p->selection_maximum.coordinate[2] = p->max_scanner_surface[2];
+    }
+
+    if (p->selection_maximum.coordinate[3] > p->max_scanner_surface[3])
+    {
+      p->selection_maximum.coordinate[3] = p->max_scanner_surface[3];
+    }
+
+    if ( (p->selection.coordinate[0] < p->selection_maximum.coordinate[0]) ||
+         (p->selection.coordinate[1] < p->selection_maximum.coordinate[1]) ||
+         (p->selection.coordinate[2] > p->selection_maximum.coordinate[2]) ||
+         (p->selection.coordinate[3] > p->selection_maximum.coordinate[3]) )
+    {
+      if (p->selection.coordinate[0] < p->selection_maximum.coordinate[0])
+      {
+        p->selection.coordinate[0] = p->selection_maximum.coordinate[0];
+      }
+
+      if (p->selection.coordinate[1] < p->selection_maximum.coordinate[1])
+      {
+        p->selection.coordinate[1] = p->selection_maximum.coordinate[1];
+      }
+
+      if (p->selection.coordinate[2] > p->selection_maximum.coordinate[2])
+      {
+        p->selection.coordinate[2] = p->selection_maximum.coordinate[2];
+      }
+
+      if (p->selection.coordinate[3] > p->selection_maximum.coordinate[3])
+      {
+        p->selection.coordinate[3] = p->selection_maximum.coordinate[3];
+      }
+      preview_draw_selection(p);
+      preview_establish_selection(p);
+    }
+  }
+}
+#endif
 
 void preview_update_maximum_output_size(Preview *p)
 {
@@ -3266,7 +3464,6 @@ void preview_update_maximum_output_size(Preview *p)
     }
   }
 }
-
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 void preview_set_maximum_output_size(Preview *p, float width, float height)

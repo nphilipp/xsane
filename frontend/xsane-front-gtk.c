@@ -514,7 +514,7 @@ void xsane_progress_new(char *bar_text, char *info, GtkSignalFunc callback)
 
 void xsane_progress_clear()
 {
-  xsane_update_param(dialog, 0);
+  /* do not call xsane_update_param() here because it overrites the good scanning parameters with bad guessed ones */
   gtk_progress_set_format_string(GTK_PROGRESS(xsane.progress_bar), ""); 
   gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.progress_bar), 0.0);
   gtk_widget_set_sensitive(GTK_WIDGET(xsane.cancel_button), FALSE);
@@ -862,7 +862,6 @@ void xsane_refresh_dialog(void *nothing)
 /* Update the info line with the latest size information and update histogram.  */
 void xsane_update_param(GSGDialog *dialog, void *arg)
 {
- SANE_Parameters params;
  gchar buf[200];
  const char *unit;
 
@@ -881,13 +880,13 @@ void xsane_update_param(GSGDialog *dialog, void *arg)
     preview_update_surface(xsane.preview, 0);
   }
 
-  if (sane_get_parameters(xsane_back_gtk_dialog_get_device(dialog), &params) == SANE_STATUS_GOOD)
+  if (sane_get_parameters(xsane_back_gtk_dialog_get_device(dialog), &xsane.param) == SANE_STATUS_GOOD)
   {
-   float size = params.bytes_per_line * params.lines;
+   float size = xsane.param.bytes_per_line * xsane.param.lines;
 
     unit = "B";
 
-    if (params.format >= SANE_FRAME_RED && params.format <= SANE_FRAME_BLUE)
+    if (xsane.param.format >= SANE_FRAME_RED && xsane.param.format <= SANE_FRAME_BLUE)
     {
       size *= 3.0;
     }
@@ -902,14 +901,14 @@ void xsane_update_param(GSGDialog *dialog, void *arg)
       size /= 1024.0;
       unit = "KB";
     }
-    snprintf(buf, sizeof(buf), "%d px x %d px (%1.1f %s)", params.pixels_per_line, params.lines, size, unit);
+    snprintf(buf, sizeof(buf), "%d px x %d px (%1.1f %s)", xsane.param.pixels_per_line, xsane.param.lines, size, unit);
 
-    if (params.format == SANE_FRAME_GRAY)
+    if (xsane.param.format == SANE_FRAME_GRAY)
     {
       xsane.xsane_color = 0;
     }
 #ifdef SUPPORT_RGBA
-    else if (params.format == SANE_FRAME_RGBA)
+    else if (xsane.param.format == SANE_FRAME_RGBA)
     {
       xsane.xsane_color = 4;
     }

@@ -90,6 +90,7 @@ typedef struct
     int    main_window_fixed;		/* fixed (1) or scrolled (0) main window */
     int    preserve_preview;		/* save/restore preview image(s)? */
     int    preview_own_cmap;		/* install colormap for preview */
+    double preview_oversampling;	/* resolution faktor for previews */
     double preview_gamma;		/* gamma value for previews */
     double preview_gamma_red;		/* red gamma value for previews */
     double preview_gamma_green;		/* green gamma value for previews */

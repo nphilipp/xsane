@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.54\n"
-"POT-Creation-Date: 2000-02-03 23:16+0100\n"
+"POT-Creation-Date: 2000-02-08 21:46+0100\n"
 "PO-Revision-Date: 2000-01-21 15:51+01:00\n"
 "Last-Translator: Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>\n"
 "Language-Team: German <de@li.org>\n"
@@ -415,11 +415,11 @@ msgstr "TIFF lineart Bildkompression"
 
 #. TEXT_SETUP_PSFILE_WIDTH
 msgid "Width of paper for postscript [mm]:"
-msgstr "Breite des druckbaren Bereichs für Postscript [mm]"
+msgstr "Breite des druckbaren Bereichs für Postscript [mm]:"
 
 #. TEXT_SETUP_PSFILE_HEIGHT
 msgid "Height of paper for postscript [mm]:"
-msgstr "Höhe des druckbaren Bereichs für Postscript [mm]"
+msgstr "Höhe des druckbaren Bereichs für Postscript [mm]:"
 
 #. TEXT_SETUP_PSFILE_LEFT
 msgid "Left offset for postscript [mm]:"
@@ -428,6 +428,10 @@ msgstr "Linker Rand für Postscript [mm]:"
 #. TEXT_SETUP_PSFILE_BOTTOM
 msgid "Bottom offset for postscript [mm]:"
 msgstr "Unterer Rand für Postscript [mm]:"
+
+#. TEXT_SETUP_PREVIEW_OVERSAMPLING
+msgid "Preview oversampling:"
+msgstr "Vorschau Oversampling:"
 
 #. TEXT_SETUP_PREVIEW_GAMMA
 msgid "Preview gamma:"
@@ -444,6 +448,30 @@ msgstr "Vorschau Gamma grün:"
 #. TEXT_SETUP_PREVIEW_GAMMA_BLUE
 msgid "Preview gamma blue:"
 msgstr "Vorschau Gamma blau:"
+
+#. TEXT_SETUP_LINEART_MODE
+msgid "Threshold option:"
+msgstr "Grenzwert Option:"
+
+#. TEXT_SETUP_THRESHOLD_MIN
+msgid "Threshold minimum:"
+msgstr "Grenzwert Minimum:"
+
+#. TEXT_SETUP_THRESHOLD_MAX
+msgid "Threshold maximum:"
+msgstr "Grenzwert Maximum:"
+
+#. TEXT_SETUP_THRESHOLD_MUL
+msgid "Threshold multiplier:"
+msgstr "Grenzwert Multiplikator:"
+
+#. TEXT_SETUP_THRESHOLD_OFF
+msgid "Threshold offset:"
+msgstr "Grenzwert Verschiebung:"
+
+#. TEXT_SETUP_GRAYSCALE_SCANMODE
+msgid "Name of grayscale scanmode:"
+msgstr "Name des Scanodus \"Graustufen\":"
 
 #. TEXT_SETUP_HELPFILE_VIEWER
 msgid "Helpfile viewer (HTML):"
@@ -480,6 +508,10 @@ msgstr "Speichern"
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display options"
 msgstr "Darstellung"
+
+#. NOTEBOOK_DEVICE_OPTIONS
+msgid "Device options"
+msgstr "Geräteoptionen"
 
 #. NOTEBOOK_FAX_OPTIONS
 msgid "Fax options"
@@ -612,6 +644,18 @@ msgstr "JPEG DCT Kompression"
 #. MENU_ITEM_TIFF_COMP_PACKBITS
 msgid "pack bits"
 msgstr "gepackte Bits"
+
+#. MENU_ITEM_LINEART_MODE_STANDARD
+msgid "Standard options window (lineart)"
+msgstr "Standard Optionen Fenster (b/w)"
+
+#. MENU_ITEM_LINEART_MODE_XSANE
+msgid "XSane main window (lineart)"
+msgstr "XSane Hauptfenster (b/w)"
+
+#. MENU_ITEM_LINEART_MODE_GRAY
+msgid "XSane main window (grayscale->lineart)"
+msgstr "XSane Hauptfenster (grau->b/w)"
 
 #. MENU_ITEM_FILETYPE_BY_EXT
 msgid "by ext"
@@ -747,6 +791,10 @@ msgstr "Bestimmt Kontrast für grüne Komponente"
 #. DESC_CONTRAST_B
 msgid "Set contrast for blue component"
 msgstr "Bestimmt Kontrast für blaue Komponente"
+
+#. DESC_THRESHOLD
+msgid "Set threshold"
+msgstr "Bestimmt den Grenzwert"
 
 #. DESC_RGB_DEFAULT
 msgid ""
@@ -942,6 +990,10 @@ msgstr ""
 "Benutze eigene Farbpalette für Vorschaubild, wenn die Bildschirmfarbtiefe 8 "
 "Bit beträgt"
 
+#. DESC_PREVIEW_OVERSAMPLING
+msgid "Value with that the calculated preview resolution is multiplied"
+msgstr ""
+
 #. DESC_PREVIEW_GAMMA
 msgid "Set gamma correction value for preview image"
 msgstr "Bestimme Gammwert für Vorschaubild"
@@ -957,6 +1009,42 @@ msgstr "Bestimme Gammwert der grünen Komponente für Vorschaubild"
 #. DESC_PREVIEW_GAMMA_BLUE
 msgid "Set gamma correction value for blue component of preview image"
 msgstr "Bestimme Gammwert der blauen Komponente für Vorschaubild"
+
+#. DESC_LINEART_MODE
+msgid "Define the way xsane shall handle the threshold option"
+msgstr "Definiert die Art, wie die Grenzwert-Option behandelt werden soll"
+
+#. DESC_GRAYSCALE_SCANMODE
+msgid ""
+"Enter name of grayscale scanmode - for preview with transformation from "
+"grayscale to lineart"
+msgstr ""
+"Name des Scanmous \"Graustufen\" - für Vorschauscan mit Umwandlung von "
+"Graustufen in Schwarz/Weiß"
+
+#. DESC_PREVIEW_THRESHOLD_MIN
+#, no-c-format
+msgid "The scanner's minimum threshold level in %"
+msgstr "Minimaler Grenzwert des Scanners in %"
+
+#. DESC_PREVIEW_THRESHOLD_MAX
+#, no-c-format
+msgid "The scanner's maximum threshold level in %"
+msgstr "Maximaler Grenzwert des Scanners in %"
+
+#. DESC_PREVIEW_THRESHOLD_MUL
+msgid ""
+"Multiplier to make xsane threshold range and scanner threshold range the same"
+msgstr ""
+"Multiplikator um xsane's Grenzwertbereich und den Grenzwertbereich des "
+"Scanners aufeinander abzustimmen"
+
+#. DESC_PREVIEW_THRESHOLD_OFF
+msgid ""
+"Offset to make xsane threshold range and scanner threshold range the same"
+msgstr ""
+"Grenzwertverschiebung um xsane's Grenzwertbereich und den Grenzwertbereich "
+"des Scanners aufeinander abzustimmen"
 
 #. DESC_DOC_VIEWER
 msgid ""
@@ -1368,3 +1456,17 @@ msgstr "Kein Speicher"
 
 msgid "Access to resource has been denied"
 msgstr "Zugang zum Gerät wurde verweigert"
+
+#~ msgid "Lineart/threshold handling:"
+#~ msgstr "Strichzeichnung/Grenzwert Handhabung"
+
+#~ msgid "Lineart preview scanmode:"
+#~ msgstr "Vorschaumodus Strichzeichnung"
+
+#~ msgid "Grayscale preview"
+#~ msgstr "Grautstufen Vorschauscan"
+
+#~ msgid ""
+#~ "Select modus that shall be used for lineart previews (Lineart or Grayscale)"
+#~ msgstr ""
+#~ "Scanmodus für Strichzeichnungsvorschauscans auswählen (Lineart, Grayscale)"

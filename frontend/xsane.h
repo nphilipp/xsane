@@ -32,11 +32,12 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION	"0.54"
-#define XSANE_AUTHOR	"Oliver Rauch"
-#define XSANE_COPYRIGHT	"Oliver Rauch"
-#define XSANE_DATE	"1998-2000"
-#define XSANE_EMAIL	"Oliver.Rauch@Wolfsburg.DE"
+#define XSANE_VERSION		"0.55"
+#define XSANE_AUTHOR		"Oliver Rauch"
+#define XSANE_COPYRIGHT		"Oliver Rauch"
+#define XSANE_DATE		"1998-2000"
+#define XSANE_EMAIL		"Oliver.Rauch@Wolfsburg.DE"
+#define XSANE_COPYRIGHT_TXT	"\251 " XSANE_DATE " " XSANE_COPYRIGHT
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -121,6 +122,7 @@
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 enum { XSANE_SCAN, XSANE_COPY, XSANE_FAX };
+enum { XSANE_LINEART_STANDARD, XSANE_LINEART_XSANE, XSANE_LINEART_GRAYSCALE };
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -304,6 +306,7 @@ typedef struct Xsane
     GtkSignalFunc cancel_callback;
     Preview   *preview;
     gint32    mode;
+    gint32    lineart_mode;
 
     int main_window_fixed;
     int mode_selection;
@@ -348,6 +351,12 @@ typedef struct Xsane
     double contrast_red;
     double contrast_green;
     double contrast_blue;
+    double threshold;
+    double threshold_min;
+    double threshold_max;
+    double threshold_mul;
+    double threshold_off;
+    SANE_String grayscale_scanmode;
 
     double auto_white;
     double auto_gray;
@@ -411,6 +420,7 @@ typedef struct Xsane
     GtkObject *contrast_red_widget;
     GtkObject *contrast_green_widget;
     GtkObject *contrast_blue_widget;
+    GtkObject *threshold_widget;
 
     SANE_Int xsane_color;
     SANE_Bool show_preview;
@@ -476,6 +486,13 @@ typedef struct XsaneSetup
   GtkWidget *preview_gamma_red_entry;
   GtkWidget *preview_gamma_green_entry;
   GtkWidget *preview_gamma_blue_entry;
+  GtkWidget *preview_lineart_mode_entry;
+  GtkWidget *preview_grayscale_scanmode_entry;
+  GtkWidget *preview_threshold_min_entry;
+  GtkWidget *preview_threshold_max_entry;
+  GtkWidget *preview_threshold_mul_entry;
+  GtkWidget *preview_threshold_off_entry;
+  GtkWidget *preview_oversampling_entry;
   GtkWidget *preview_preserve_button;
   GtkWidget *preview_own_cmap_button;
   GtkWidget *doc_viewer_entry;
@@ -497,6 +514,8 @@ typedef struct XsaneSetup
 
   int tiff_compression_nr;
   int tiff_compression_1_nr;
+
+  int lineart_mode;
 
   int image_permissions;
   int directory_permissions;

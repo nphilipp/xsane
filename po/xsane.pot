@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-02-03 23:16+0100\n"
+"POT-Creation-Date: 2000-02-08 21:46+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -430,6 +430,10 @@ msgstr ""
 msgid "Bottom offset for postscript [mm]:"
 msgstr ""
 
+#. TEXT_SETUP_PREVIEW_OVERSAMPLING
+msgid "Preview oversampling:"
+msgstr ""
+
 #. TEXT_SETUP_PREVIEW_GAMMA
 msgid "Preview gamma:"
 msgstr ""
@@ -444,6 +448,30 @@ msgstr ""
 
 #. TEXT_SETUP_PREVIEW_GAMMA_BLUE
 msgid "Preview gamma blue:"
+msgstr ""
+
+#. TEXT_SETUP_LINEART_MODE
+msgid "Threshold option:"
+msgstr ""
+
+#. TEXT_SETUP_THRESHOLD_MIN
+msgid "Threshold minimum:"
+msgstr ""
+
+#. TEXT_SETUP_THRESHOLD_MAX
+msgid "Threshold maximum:"
+msgstr ""
+
+#. TEXT_SETUP_THRESHOLD_MUL
+msgid "Threshold multiplier:"
+msgstr ""
+
+#. TEXT_SETUP_THRESHOLD_OFF
+msgid "Threshold offset:"
+msgstr ""
+
+#. TEXT_SETUP_GRAYSCALE_SCANMODE
+msgid "Name of grayscale scanmode:"
 msgstr ""
 
 #. TEXT_SETUP_HELPFILE_VIEWER
@@ -480,6 +508,10 @@ msgstr ""
 
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display options"
+msgstr ""
+
+#. NOTEBOOK_DEVICE_OPTIONS
+msgid "Device options"
 msgstr ""
 
 #. NOTEBOOK_FAX_OPTIONS
@@ -612,6 +644,18 @@ msgstr ""
 
 #. MENU_ITEM_TIFF_COMP_PACKBITS
 msgid "pack bits"
+msgstr ""
+
+#. MENU_ITEM_LINEART_MODE_STANDARD
+msgid "Standard options window (lineart)"
+msgstr ""
+
+#. MENU_ITEM_LINEART_MODE_XSANE
+msgid "XSane main window (lineart)"
+msgstr ""
+
+#. MENU_ITEM_LINEART_MODE_GRAY
+msgid "XSane main window (grayscale->lineart)"
 msgstr ""
 
 #. MENU_ITEM_FILETYPE_BY_EXT
@@ -747,6 +791,10 @@ msgstr ""
 
 #. DESC_CONTRAST_B
 msgid "Set contrast for blue component"
+msgstr ""
+
+#. DESC_THRESHOLD
+msgid "Set threshold"
 msgstr ""
 
 #. DESC_RGB_DEFAULT
@@ -919,6 +967,10 @@ msgstr ""
 msgid "Use an own colormap for preview if display depth is 8 bpp"
 msgstr ""
 
+#. DESC_PREVIEW_OVERSAMPLING
+msgid "Value with that the calculated preview resolution is multiplied"
+msgstr ""
+
 #. DESC_PREVIEW_GAMMA
 msgid "Set gamma correction value for preview image"
 msgstr ""
@@ -933,6 +985,36 @@ msgstr ""
 
 #. DESC_PREVIEW_GAMMA_BLUE
 msgid "Set gamma correction value for blue component of preview image"
+msgstr ""
+
+#. DESC_LINEART_MODE
+msgid "Define the way xsane shall handle the threshold option"
+msgstr ""
+
+#. DESC_GRAYSCALE_SCANMODE
+msgid ""
+"Enter name of grayscale scanmode - for preview with transformation from "
+"grayscale to lineart"
+msgstr ""
+
+#. DESC_PREVIEW_THRESHOLD_MIN
+#, no-c-format
+msgid "The scanner's minimum threshold level in %"
+msgstr ""
+
+#. DESC_PREVIEW_THRESHOLD_MAX
+#, no-c-format
+msgid "The scanner's maximum threshold level in %"
+msgstr ""
+
+#. DESC_PREVIEW_THRESHOLD_MUL
+msgid ""
+"Multiplier to make xsane threshold range and scanner threshold range the same"
+msgstr ""
+
+#. DESC_PREVIEW_THRESHOLD_OFF
+msgid ""
+"Offset to make xsane threshold range and scanner threshold range the same"
 msgstr ""
 
 #. DESC_DOC_VIEWER

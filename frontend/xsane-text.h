@@ -141,10 +141,17 @@
 #define TEXT_SETUP_PSFILE_HEIGHT	_("Height of paper for postscript [mm]:")
 #define TEXT_SETUP_PSFILE_LEFT		_("Left offset for postscript [mm]:")
 #define TEXT_SETUP_PSFILE_BOTTOM	_("Bottom offset for postscript [mm]:")
+#define TEXT_SETUP_PREVIEW_OVERSAMPLING	_("Preview oversampling:")
 #define TEXT_SETUP_PREVIEW_GAMMA	_("Preview gamma:")
 #define TEXT_SETUP_PREVIEW_GAMMA_RED	_("Preview gamma red:")
 #define TEXT_SETUP_PREVIEW_GAMMA_GREEN	_("Preview gamma green:")
 #define TEXT_SETUP_PREVIEW_GAMMA_BLUE	_("Preview gamma blue:")
+#define TEXT_SETUP_LINEART_MODE         _("Threshold option:")
+#define TEXT_SETUP_THRESHOLD_MIN        _("Threshold minimum:")
+#define TEXT_SETUP_THRESHOLD_MAX        _("Threshold maximum:")
+#define TEXT_SETUP_THRESHOLD_MUL        _("Threshold multiplier:")
+#define TEXT_SETUP_THRESHOLD_OFF        _("Threshold offset:")
+#define TEXT_SETUP_GRAYSCALE_SCANMODE   _("Name of grayscale scanmode:")
 #define TEXT_SETUP_HELPFILE_VIEWER	_("Helpfile viewer (HTML):")
 #define TEXT_SETUP_FAX_COMMAND		_("Command:")
 #define TEXT_SETUP_FAX_RECEIVER_OPTION	_("Receiver option:")
@@ -160,6 +167,7 @@
 #define NOTEBOOK_COPY_OPTIONS		_("Copy options")
 #define NOTEBOOK_SAVING_OPTIONS		_("Saving options")
 #define NOTEBOOK_DISPLAY_OPTIONS	_("Display options")
+#define NOTEBOOK_DEVICE_OPTIONS		_("Device options")
 #define NOTEBOOK_FAX_OPTIONS		_("Fax options")
 
 #define MENU_ITEM_SCAN			_("Scan")
@@ -198,6 +206,10 @@
 #define MENU_ITEM_TIFF_COMP_CCITFAX4	_("CCITT Group 4 Fax compression")
 #define MENU_ITEM_TIFF_COMP_JPEG	_("JPEG DCT compression")
 #define MENU_ITEM_TIFF_COMP_PACKBITS	_("pack bits")
+
+#define MENU_ITEM_LINEART_MODE_STANDARD	_("Standard options window (lineart)")
+#define MENU_ITEM_LINEART_MODE_XSANE	_("XSane main window (lineart)")
+#define MENU_ITEM_LINEART_MODE_GRAY	_("XSane main window (grayscale->lineart)")
 
 #define MENU_ITEM_FILETYPE_BY_EXT	_("by ext")
 
@@ -244,6 +256,8 @@
 #define DESC_CONTRAST_R			_("Set contrast for red component")
 #define DESC_CONTRAST_G			_("Set contrast for green component")
 #define DESC_CONTRAST_B			_("Set contrast for blue component")
+
+#define DESC_THRESHOLD			_("Set threshold")
 
 #define DESC_RGB_DEFAULT		_("RGB default: Set enhancement values for red, green and blue to default values:\n" \
 						" gamma = 1.0\n" \
@@ -294,10 +308,18 @@
 #define DESC_MAIN_WINDOW_FIXED		_("Use fixed main window size or scrolled, resizable main window")
 #define DESC_PREVIEW_PRESERVE		_("Preserve preview image for next program start")
 #define DESC_PREVIEW_COLORMAP		_("Use an own colormap for preview if display depth is 8 bpp")
+#define DESC_PREVIEW_OVERSAMPLING	_("Value with that the calculated preview resolution is multiplied")
 #define DESC_PREVIEW_GAMMA		_("Set gamma correction value for preview image")
 #define DESC_PREVIEW_GAMMA_RED		_("Set gamma correction value for red component of preview image")
 #define DESC_PREVIEW_GAMMA_GREEN	_("Set gamma correction value for green component of preview image")
 #define DESC_PREVIEW_GAMMA_BLUE		_("Set gamma correction value for blue component of preview image")
+#define DESC_LINEART_MODE               _("Define the way xsane shall handle the threshold option")
+#define DESC_GRAYSCALE_SCANMODE         _("Enter name of grayscale scanmode" \
+                                          " - for preview with transformation from grayscale to lineart")
+#define DESC_PREVIEW_THRESHOLD_MIN      _("The scanner's minimum threshold level in %")
+#define DESC_PREVIEW_THRESHOLD_MAX      _("The scanner's maximum threshold level in %")
+#define DESC_PREVIEW_THRESHOLD_MUL      _("Multiplier to make xsane threshold range and scanner threshold range the same")
+#define DESC_PREVIEW_THRESHOLD_OFF      _("Offset to make xsane threshold range and scanner threshold range the same")
 #define DESC_DOC_VIEWER			_("Enter command to be executed to display helpfiles, must be a html-viewer!")
 
 #define DESC_FAX_COMMAND		_("Enter command to be executed in fax mode")

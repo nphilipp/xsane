@@ -96,6 +96,8 @@ typedef struct
   SANE_Word saved_custom_gamma;
   int saved_bit_depth_valid;
   SANE_Word saved_bit_depth;
+  int saved_scanmode_valid;
+  char saved_scanmode[64]; /* I hope that is enough or we will get segaults or strange effects */
 
     /* desired/user-selected preview-window size: */
   int preview_width;		/* used with for displaying the preview image */
@@ -129,6 +131,8 @@ typedef struct
   Tselection previous_selection;		/* previous ... */
   Tselection selection_maximum;			/* maximum selection size (photocopy) */
   Tselection previous_selection_maximum;	/* previous ... */
+
+  int show_selection;
 
   Batch_selection *batch_selection;
 

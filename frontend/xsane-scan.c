@@ -885,8 +885,8 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
     {
       if (offset) /* if we have had an odd number of bytes */
       {
-        buf16[0] = last;
-        status = sane_read(dev, (SANE_Byte *) (buf16 + 1), sizeof(buf16) - 1, &len);
+        buf16[0] = last;  /* ATTENTION: that is wrong! */
+        status = sane_read(dev, ((SANE_Byte *) buf16) + 1, sizeof(buf16) - 1, &len);
         if (len)
         {
           len++;

@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.52\n"
-"POT-Creation-Date: 2000-02-03 23:16+0100\n"
-"PO-Revision-Date: 2000-01-29 19:16+01:00\n"
+"Project-Id-Version: XSANE 0.55\n"
+"POT-Creation-Date: 2000-02-08 21:46+0100\n"
+"PO-Revision-Date: 2000-02-07 23:53+01:00\n"
 "Last-Translator: Stanislav Brabec <utx@penguin.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -429,6 +429,10 @@ msgstr "Levý posun pro postscript [mm]:"
 msgid "Bottom offset for postscript [mm]:"
 msgstr "Spodní posun pro postscript [mm]:"
 
+#. TEXT_SETUP_PREVIEW_OVERSAMPLING
+msgid "Preview oversampling:"
+msgstr "Pøevzorkování náhledu:"
+
 #. TEXT_SETUP_PREVIEW_GAMMA
 msgid "Preview gamma:"
 msgstr "Gama náhledu:"
@@ -444,6 +448,30 @@ msgstr "Zelená gama náhledu:"
 #. TEXT_SETUP_PREVIEW_GAMMA_BLUE
 msgid "Preview gamma blue:"
 msgstr "Modrá gama náhledu:"
+
+#. TEXT_SETUP_LINEART_MODE
+msgid "Threshold option:"
+msgstr "Volba prahu:"
+
+#. TEXT_SETUP_THRESHOLD_MIN
+msgid "Threshold minimum:"
+msgstr "Minimum prahu:"
+
+#. TEXT_SETUP_THRESHOLD_MAX
+msgid "Threshold maximum:"
+msgstr "Maximum prahu:"
+
+#. TEXT_SETUP_THRESHOLD_MUL
+msgid "Threshold multiplier:"
+msgstr "Èinitel prahu:"
+
+#. TEXT_SETUP_THRESHOLD_OFF
+msgid "Threshold offset:"
+msgstr "Posun prahu:"
+
+#. TEXT_SETUP_GRAYSCALE_SCANMODE
+msgid "Name of grayscale scanmode:"
+msgstr "Jméno skenovacího re¾imu v ¹edích:"
 
 #. TEXT_SETUP_HELPFILE_VIEWER
 msgid "Helpfile viewer (HTML):"
@@ -480,6 +508,10 @@ msgstr "Volby zápisu"
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display options"
 msgstr "Volby zobrazování"
+
+#. NOTEBOOK_DEVICE_OPTIONS
+msgid "Device options"
+msgstr "Volby zaøízení"
 
 #. NOTEBOOK_FAX_OPTIONS
 msgid "Fax options"
@@ -613,27 +645,38 @@ msgstr "Komprese JPEG DCT"
 msgid "pack bits"
 msgstr "bitové pakování"
 
+#. MENU_ITEM_LINEART_MODE_STANDARD
+msgid "Standard options window (lineart)"
+msgstr "Okno standardních voleb (jednobarevných)"
+
+#. MENU_ITEM_LINEART_MODE_XSANE
+msgid "XSane main window (lineart)"
+msgstr "Hlavní okno XSane (jednobarevnì)"
+
+#. MENU_ITEM_LINEART_MODE_GRAY
+msgid "XSane main window (grayscale->lineart)"
+msgstr "Hlavní okno XSane (¹edi -> jednobarevnì)"
+
 #. MENU_ITEM_FILETYPE_BY_EXT
 msgid "by ext"
-msgstr "podle pøípony"
+msgstr "Pøípona"
 
 #. PROGRESS_SCANNING
 msgid "Scanning"
 msgstr "Skenuje se"
 
 #. PROGRESS_RECEIVING_FRAME_DATA
-#, fuzzy, c-format
+#, c-format
 msgid "Receiving %s data"
-msgstr "Snímají se data typu %s pro `%s'..."
+msgstr "Pøijímají se data typu %s"
 
 #. PROGRESS_SAVING_DATA
 msgid "Saving image"
 msgstr "Zapisuje se obrázek"
 
 #. PROGRESS_CONVERTING_DATA
-#, fuzzy
 msgid "Converting data"
-msgstr "Konvertují se data..."
+msgstr "Konvertují se data"
 
 #. DESC_XSANE_MODE
 msgid "Use XSane for SCANning, photoCOPYing, FAXing..."
@@ -750,6 +793,10 @@ msgstr "Nastavení kontrastu zelené komponenty"
 #. DESC_CONTRAST_B
 msgid "Set contrast for blue component"
 msgstr "Nastavení kontrastu modré komponenty"
+
+#. DESC_THRESHOLD
+msgid "Set threshold"
+msgstr "Nastavení prahu"
 
 #. DESC_RGB_DEFAULT
 msgid ""
@@ -943,6 +990,10 @@ msgstr "Zachování náhledu pro pøí¹tí spu¹tìní programu"
 msgid "Use an own colormap for preview if display depth is 8 bpp"
 msgstr "Pou¾ití vlastní barevné mapy náhledu, je-li obrazová hloubka 8"
 
+#. DESC_PREVIEW_OVERSAMPLING
+msgid "Value with that the calculated preview resolution is multiplied"
+msgstr "Hodnota, kterou se násobí rozli¹ení náhledu"
+
 #. DESC_PREVIEW_GAMMA
 msgid "Set gamma correction value for preview image"
 msgstr "Nastavení gama korekce pro náhledová obrázek"
@@ -958,6 +1009,38 @@ msgstr "Nastavení gama korekce pro zelenou komponentu náhledového obrázku"
 #. DESC_PREVIEW_GAMMA_BLUE
 msgid "Set gamma correction value for blue component of preview image"
 msgstr "Nastavení gama korekce pro modrou komponentu náhledového obrázku"
+
+#. DESC_LINEART_MODE
+msgid "Define the way xsane shall handle the threshold option"
+msgstr "Definuje zpùsob, kterým má xsane pracovat s volbou prahu"
+
+#. DESC_GRAYSCALE_SCANMODE
+msgid ""
+"Enter name of grayscale scanmode - for preview with transformation from "
+"grayscale to lineart"
+msgstr ""
+"Zadejte název re¾imu v ¹edích - pro náhled s pøevodem z ¹edí do "
+"jednobarevného"
+
+#. DESC_PREVIEW_THRESHOLD_MIN
+#, no-c-format
+msgid "The scanner's minimum threshold level in %"
+msgstr "Minimální hodnota prahu v %"
+
+#. DESC_PREVIEW_THRESHOLD_MAX
+#, no-c-format
+msgid "The scanner's maximum threshold level in %"
+msgstr "Maximální hodnota prahu v %"
+
+#. DESC_PREVIEW_THRESHOLD_MUL
+msgid ""
+"Multiplier to make xsane threshold range and scanner threshold range the same"
+msgstr "Èinitel, který nastaví shodný rozsah prahù a rozsah prahù skeneru"
+
+#. DESC_PREVIEW_THRESHOLD_OFF
+msgid ""
+"Offset to make xsane threshold range and scanner threshold range the same"
+msgstr "Posun. který nastaví shodný rozsah prahù a rozsah prahù skeneru"
 
 #. DESC_DOC_VIEWER
 msgid ""
@@ -1221,12 +1304,12 @@ msgstr "to mù¾e zpùsobit problémy!"
 #. WARN_FILE_EXISTS
 #, c-format
 msgid "File %s already exists"
-msgstr ""
+msgstr "Soubor %s ji¾ existuje"
 
 #. ERR_UNSUPPORTED_OUTPUT_FORMAT
-#, fuzzy, c-format
+#, c-format
 msgid "Unsupported %d-bit output format: %s"
-msgstr "8bitové výstupní formáty:"
+msgstr "Nepodporované %dbitové výstupní formáty: %s"
 
 #. TEXT_USAGE
 msgid "Usage:"
@@ -1303,19 +1386,19 @@ msgstr ""
 #. Menu path must not be translated, this is done by the gimp. Only translate the text behind the last "/"
 #. XSANE_GIMP_MENU_DIALOG
 msgid "<Toolbox>/File/Acquire/XSane: Device dialog..."
-msgstr "<Toolbox>/Soubor/Získat/XSane: Dialog zaøízení..."
+msgstr "<Toolbox>/File/Acquire/XSane: Dialog zaøízení..."
 
 #. XSANE_GIMP_MENU
 msgid "<Toolbox>/File/Acquire/XSane: "
-msgstr "<Toolbox>/Soubor/Získat/XSane: "
+msgstr "<Toolbox>/File/Acquire/XSane: "
 
 #. XSANE_GIMP_MENU_DIALOG_OLD
 msgid "<Toolbox>/Xtns/XSane/Device dialog..."
-msgstr "<Toolbox>/Roz¹./XSane/Dialog zaøízení..."
+msgstr "<Toolbox>/Xtns/XSane/Dialog zaøízení..."
 
 #. XSANE_GIMP_MENU_OLD
 msgid "<Toolbox>/Xtns/XSane/"
-msgstr "<Toolbox>/Roz¹./XSane/"
+msgstr "<Toolbox>/Xtns/XSane/"
 
 #. Sane backend messages
 msgid "flatbed scanner"
@@ -1371,6 +1454,9 @@ msgstr "Nedostatek pamìti"
 
 msgid "Access to resource has been denied"
 msgstr "Pøístup ke zdroji byl odmítnut"
+
+#~ msgid "Grayscale preview"
+#~ msgstr "Náhled v ¹edích"
 
 #~ msgid "Saving fax image"
 #~ msgstr "Zapisuje se faxový obrázek"

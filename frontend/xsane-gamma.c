@@ -61,6 +61,7 @@ static void xsane_calculate_auto_enhancement(int negative,
 void xsane_calculate_histogram(void);
 void xsane_update_histogram(void);
 void xsane_histogram_toggle_button_callback(GtkWidget *widget, gpointer data);
+void xsane_create_threshold_curve(SANE_Int *gammadata, double threshold, int numbers, int maxout);
 void xsane_create_gamma_curve(SANE_Int *gammadata, int negative, double gamma,
                               double brightness, double contrast, int numbers, int maxout);
 void xsane_update_gamma(void);
@@ -971,6 +972,28 @@ void xsane_histogram_toggle_button_callback(GtkWidget *widget, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+void xsane_create_threshold_curve(SANE_Int *gammadata, double threshold, int numbers, int maxout)
+{
+ int i;
+ int maxin = numbers-1;
+ int threshold_level;
+
+  xsane_bound_double(&threshold, 0.0, 100.0);
+  threshold_level = maxin * threshold / 100.0;
+
+  for (i=0; i < threshold_level; i++)
+  {
+    gammadata[i] = 0;
+  }
+
+  for (i=threshold_level; i <= maxin; i++)
+  {
+    gammadata[i] = maxout;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 void xsane_create_gamma_curve(SANE_Int *gammadata, int negative, double gamma,
                               double brightness, double contrast, int numbers, int maxout)
 {
@@ -1032,35 +1055,48 @@ void xsane_update_gamma(void)
       xsane.histogram_gamma_data_blue  = malloc(256 * sizeof(SANE_Int));
     }
 
-    xsane_create_gamma_curve(xsane.preview_gamma_data_red, xsane.negative,
-		 	     xsane.gamma * xsane.gamma_red * preferences.preview_gamma * preferences.preview_gamma_red,
-			     xsane.brightness + xsane.brightness_red,
-			     xsane.contrast + xsane.contrast_red, 256, 255);
+    if (xsane.param.depth == 1) /* for lineart mode with grayscale preview scan */
+    {
+      xsane_create_threshold_curve(xsane.preview_gamma_data_red,   xsane.threshold, 256, 255);
+      xsane_create_threshold_curve(xsane.preview_gamma_data_green, xsane.threshold, 256, 255);
+      xsane_create_threshold_curve(xsane.preview_gamma_data_blue,  xsane.threshold, 256, 255);
 
-    xsane_create_gamma_curve(xsane.preview_gamma_data_green, xsane.negative,
-			     xsane.gamma * xsane.gamma_green * preferences.preview_gamma * preferences.preview_gamma_green,
-			     xsane.brightness + xsane.brightness_green,
-			     xsane.contrast + xsane.contrast_green, 256, 255);
+      xsane_create_threshold_curve(xsane.histogram_gamma_data_red,   xsane.threshold, 256, 255);
+      xsane_create_threshold_curve(xsane.histogram_gamma_data_green, xsane.threshold, 256, 255);
+      xsane_create_threshold_curve(xsane.histogram_gamma_data_blue,  xsane.threshold, 256, 255);
+    }
+    else /* multi bit mode */
+    {
+      xsane_create_gamma_curve(xsane.preview_gamma_data_red, xsane.negative,
+                               xsane.gamma * xsane.gamma_red * preferences.preview_gamma * preferences.preview_gamma_red,
+                               xsane.brightness + xsane.brightness_red,
+                               xsane.contrast + xsane.contrast_red, 256, 255);
 
-    xsane_create_gamma_curve(xsane.preview_gamma_data_blue, xsane.negative,
-			     xsane.gamma * xsane.gamma_blue * preferences.preview_gamma * preferences.preview_gamma_blue,
-			     xsane.brightness + xsane.brightness_blue,
-			     xsane.contrast + xsane.contrast_blue , 256, 255);
+      xsane_create_gamma_curve(xsane.preview_gamma_data_green, xsane.negative,
+                               xsane.gamma * xsane.gamma_green * preferences.preview_gamma * preferences.preview_gamma_green,
+                               xsane.brightness + xsane.brightness_green,
+                               xsane.contrast + xsane.contrast_green, 256, 255);
 
-    xsane_create_gamma_curve(xsane.histogram_gamma_data_red, xsane.negative,
-		 	     xsane.gamma * xsane.gamma_red,
-			     xsane.brightness + xsane.brightness_red,
-			     xsane.contrast + xsane.contrast_red, 256, 255);
+      xsane_create_gamma_curve(xsane.preview_gamma_data_blue, xsane.negative,
+                               xsane.gamma * xsane.gamma_blue * preferences.preview_gamma * preferences.preview_gamma_blue,
+                               xsane.brightness + xsane.brightness_blue,
+                               xsane.contrast + xsane.contrast_blue , 256, 255);
 
-    xsane_create_gamma_curve(xsane.histogram_gamma_data_green, xsane.negative,
-			     xsane.gamma * xsane.gamma_green,
-			     xsane.brightness + xsane.brightness_green,
-			     xsane.contrast + xsane.contrast_green, 256, 255);
+      xsane_create_gamma_curve(xsane.histogram_gamma_data_red, xsane.negative,
+                               xsane.gamma * xsane.gamma_red,
+                               xsane.brightness + xsane.brightness_red,
+                               xsane.contrast + xsane.contrast_red, 256, 255);
 
-    xsane_create_gamma_curve(xsane.histogram_gamma_data_blue, xsane.negative,
-			     xsane.gamma * xsane.gamma_blue,
-			     xsane.brightness + xsane.brightness_blue,
-			     xsane.contrast + xsane.contrast_blue , 256, 255);
+      xsane_create_gamma_curve(xsane.histogram_gamma_data_green, xsane.negative,
+                               xsane.gamma * xsane.gamma_green,
+                               xsane.brightness + xsane.brightness_green,
+                               xsane.contrast + xsane.contrast_green, 256, 255);
+
+      xsane_create_gamma_curve(xsane.histogram_gamma_data_blue, xsane.negative,
+                               xsane.gamma * xsane.gamma_blue,
+                               xsane.brightness + xsane.brightness_blue,
+                               xsane.contrast + xsane.contrast_blue , 256, 255);
+    }
 
     preview_gamma_correction(xsane.preview,
                              xsane.preview_gamma_data_red, xsane.preview_gamma_data_green, xsane.preview_gamma_data_blue,
