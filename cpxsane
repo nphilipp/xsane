@@ -14,7 +14,6 @@ read in
 if [ $in = "YES" ]
 then
 
-cp cpxsane $1/frontend
 cp xsane.c $1/frontend
 cp xsane.h $1/frontend
 cp xsanegtk.h $1/frontend
@@ -30,6 +29,9 @@ cp TODO.XSANE $1/frontend
 
 cp Makefile.in $1/frontend
 
+echo "TO COMPILE XSANE:"
+echo "-----------------"
+echo ""
 echo "enter "$1
 echo "and type"
 echo " make distclean"
@@ -38,9 +40,12 @@ echo " make"
 echo "and if everything worked, as root:"
 echo " make install"
 echo ""
-echo "to use xsane as gimp-plugin"
-echo "set symbolic link from xsane to ~/.gimp/plug-ins/xsane"
-echo "You get access from gimp to xsane via menu: Tools/XSane"
+echo ""
+echo "TO USE XSANE AS GIMP-PLUGIN:"
+echo "----------------------------"
+echo ""
+echo "Set symbolic link from /usr/local/bin/xsane to ~/.gimp/plug-ins/xsane"
+echo "You get access from gimp to xsane via menu: Xtns/XSane"
 else
 echo "ABORTED"
 fi

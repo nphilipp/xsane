@@ -345,13 +345,12 @@ void preview_do_gamma_correction(Preview *p)
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 void preview_calculate_histogram(Preview *p,
-SANE_Int *count_raw, SANE_Int *count_raw_red, SANE_Int *count_raw_green, SANE_Int *count_raw_blue,
-SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue,
-SANE_Int min_x, SANE_Int min_y, SANE_Int max_x, SANE_Int max_y, int hist_log)
+  SANE_Int *count_raw, SANE_Int *count_raw_red, SANE_Int *count_raw_green, SANE_Int *count_raw_blue,
+  SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue,
+  SANE_Int min_x, SANE_Int min_y, SANE_Int max_x, SANE_Int max_y)
 {
  int x, y;
  int offset;
- int i;
  SANE_Int red_raw, green_raw, blue_raw;
  SANE_Int red, green, blue;
  float xscale, yscale;
@@ -388,22 +387,6 @@ SANE_Int min_x, SANE_Int min_y, SANE_Int max_x, SANE_Int max_y, int hist_log)
 	count_red  [red]++;
 	count_green[green]++;
 	count_blue [blue]++;
-      }
-    }
-
-    if (hist_log)
-    {
-      for (i=0; i<=255; i++)
-      {
-        count_raw[i]       = (int) (50*log(1.0 + count_raw[i]));
-        count_raw_red[i]   = (int) (50*log(1.0 + count_raw_red[i]));
-        count_raw_green[i] = (int) (50*log(1.0 + count_raw_green[i]));
-        count_raw_blue[i]  = (int) (50*log(1.0 + count_raw_blue[i]));
-
-        count[i]       = (int) (50*log(1.0 + count[i]));
-        count_red[i]   = (int) (50*log(1.0 + count_red[i]));
-        count_green[i] = (int) (50*log(1.0 + count_green[i]));
-        count_blue[i]  = (int) (50*log(1.0 + count_blue[i]));
       }
     }
   }

@@ -2,6 +2,8 @@ This is a list of what I want to change/include for xsane.
 If you have any suggestions: mail to Oliver.Rauch@Wolfsburg.DE
 
 first steps:
+ - what happens if backend supports gamma table but does not
+   use "custom_gamma"-option and we do a preview scan with enhancement != default ?
  - dont erase tooltips if desroy_panel is called
  - make auto enhancement work if histogram is turned off
  - make better backend-dependend option handling and error handling
@@ -43,3 +45,8 @@ fourth steps:
  - zoom preview
  - correct gtk custom gamma functions and include it
 
+
+
+ideas:
+ - preview always in greyscale or always in color
+ - define preview size (for small pictures)
