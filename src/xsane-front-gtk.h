@@ -46,6 +46,7 @@ extern void xsane_progress_cancel(GtkWidget *widget, gpointer data);
 extern void xsane_progress_new(char *bar_text, char *info, GtkSignalFunc callback);
 extern void xsane_progress_update(gfloat newval);
 extern void xsane_progress_clear();
+extern GtkWidget *xsane_vendor_pixmap_new(GdkWindow *window, GtkWidget *parent); 
 extern GtkWidget *xsane_toggle_button_new_with_pixmap(GdkWindow *window, GtkWidget *parent, const char *xpm_d[], const char *desc,
                                                 int *state, void *xsane_toggle_button_callback);
 extern GtkWidget *xsane_button_new_with_pixmap(GdkWindow *window, GtkWidget *parent, const char *xpm_d[], const char *desc, 

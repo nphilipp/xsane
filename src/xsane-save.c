@@ -231,6 +231,271 @@ void xsane_increase_counter_in_filename(char *filename, int skip)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+void xsane_write_pnm_header(FILE *outfile, int pixel_width, int pixel_height, int bits)
+{
+  switch (xsane.param.format)
+  {
+    case SANE_FRAME_RGB:
+    case SANE_FRAME_RED:
+    case SANE_FRAME_GREEN:
+    case SANE_FRAME_BLUE:
+      switch (bits)
+      {
+         case 8: /* color 8 bit mode, write ppm header */
+           fprintf(outfile, "P6\n# SANE data follows\n%d %d\n255\n", pixel_width, pixel_height);
+          break;
+
+         default: /* color, but not 8 bit mode, write as raw data because this is not defined in pnm */
+           fprintf(outfile, "P6\n"
+                              "# This file is in a not public defined data format.\n"
+                              "# It is a 16 bit RGB binary format.\n"
+                              "# Some programs can read this as pnm/ppm format.\n"
+                              "# SANE data follows.\n"
+                              "%d %d\n"
+                              "65535\n", pixel_width, pixel_height);
+          break;
+      }
+      break;
+ 
+    case SANE_FRAME_GRAY:
+      switch (bits)
+      {
+         case 1: /* 1 bit lineart mode, write pbm header */
+           fprintf(outfile, "P4\n# SANE data follows\n%d %d\n", pixel_width, pixel_height);
+          break;
+
+         case 8: /* 8 bit grayscale mode, write pgm header */
+           fprintf(outfile, "P5\n# SANE data follows\n%d %d\n255\n", pixel_width, pixel_height);
+          break;
+
+         default: /* grayscale mode but not 1 or 8 bit, write as raw data because this is not defined in pnm */
+           fprintf(outfile, "P5\n"
+                              "# This file is in a not public defined data format.\n"
+                              "# It is a 16 bit gray binary format.\n"
+                              "# Some programs can read this as pnm/pgm format.\n"
+                              "# SANE data follows.\n"
+                              "%d %d\n"
+                              "65535\n", pixel_width, pixel_height);
+          break;
+      }
+      break;
+
+#ifdef SUPPORT_RGBA
+    case SANE_FRAME_RGBA:
+      switch (bits)
+      {
+         case 8: /* 8 bit RGBA mode */
+           fprintf(outfile, "SANE_RGBA\n%d %d\n255\n", pixel_width, pixel_height);
+          break;
+
+         default: /* 16 bit RGBA mode */
+           fprintf(outfile, "SANE_RGBA\n%d %d\n65535\n", pixel_width, pixel_height);
+          break;
+      }
+      break;
+#endif
+ 
+     default:
+     /* unknown file format, do not write header */
+      break;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+int xsane_save_grayscale_image_as_lineart(FILE *outfile, FILE *imagefile, int pixel_width, int pixel_height)
+{
+ int x, y, bit;
+ u_char bitval, packed;
+
+  cancel_save = 0;
+
+  xsane_write_pnm_header(outfile, pixel_width, pixel_height, 1 /* bits */);
+  xsane.header_size = ftell(outfile);
+
+  for (y = 0; y < pixel_height; y++)
+  {
+    bit = 128;
+    packed = 0;
+
+    for (x = 0; x < pixel_width; x++)
+    {
+      bitval = fgetc(imagefile);
+
+      if (!bitval) /* white gets 0 bit, black gets 1 bit */
+      {
+        packed |= bit;
+      }
+
+      if (bit == 1)
+      {
+        fputc(packed, outfile);
+        bit = 128;
+        packed = 0;
+      }
+      else
+      {
+        bit >>= 1;
+      }
+    }
+
+    if (bit != 128)
+    {
+      fputc(packed, outfile);
+      bit = 128;
+      packed = 0;
+    }
+
+    xsane_progress_update((float) y / pixel_height); /* update progress bar */
+    while (gtk_events_pending()) /* give gtk the chance to display the changes */
+    {
+      gtk_main_iteration();
+    }
+
+    if (cancel_save)
+    {
+      break;
+    }
+  }
+ 
+ return (cancel_save);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, int color, int bits,
+                            int *pixel_width_ptr, int *pixel_height_ptr, int rotation)
+/* returns true if operation was cancelled */
+{
+ int x, y, pos0, bytespp, i;
+ int pixel_width  = *pixel_width_ptr;
+ int pixel_height = *pixel_height_ptr;
+
+  DBG(DBG_proc, "xsane_save_rotate_image\n");
+
+  cancel_save = 0;
+
+  pos0 = xsane.header_size; /* mark position to skip header */
+
+  bytespp = 1;
+
+  if (color)
+  {
+    bytespp *= 3;
+  }
+
+  if (bits > 8)
+  {
+    bytespp *= 2;
+  }
+
+  if (bits < 8) /* lineart images are expanded to grayscale until transformation is done */
+  {
+    bits = 8; /* so we have at least 8 bits/pixel here */
+  }
+
+  switch (rotation)
+  {
+    default:
+     break;
+
+    case 1: /* 90 degree */
+      *pixel_width_ptr  = pixel_height;
+      *pixel_height_ptr = pixel_width;
+
+      xsane_write_pnm_header(outfile, *pixel_width_ptr, *pixel_height_ptr, bits);
+      xsane.header_size = ftell(outfile);
+
+      for (x=0; x<pixel_width; x++)
+      {
+        for (y=pixel_height-1; y>=0; y--)
+        {
+          fseek(imagefile, pos0 + bytespp * (x + y * pixel_width), SEEK_SET); /* go to the correct position */
+          for (i=0; i<bytespp; i++)
+          {
+            fputc(fgetc(imagefile), outfile);
+          }
+        }
+
+        xsane_progress_update((float) x / pixel_width);
+        while (gtk_events_pending())
+        {
+          gtk_main_iteration();
+        }
+
+        if (cancel_save)
+        {
+          break;
+        }
+      }
+
+     break;
+
+    case 2: /* 180 degree */
+      xsane_write_pnm_header(outfile, *pixel_width_ptr, *pixel_height_ptr, bits);
+      xsane.header_size = ftell(outfile);
+
+      for (y=pixel_height-1; y>=0; y--)
+      {
+        for (x=pixel_width-1; x>=0; x--)
+        {
+          fseek(imagefile, pos0 + bytespp * (x + y * pixel_width), SEEK_SET); /* go to the correct position */
+          for (i=0; i<bytespp; i++)
+          {
+            fputc(fgetc(imagefile), outfile);
+          }
+        }
+
+        xsane_progress_update((float) (pixel_height - y) / pixel_height);
+        while (gtk_events_pending())
+        {
+          gtk_main_iteration();
+        }
+
+        if (cancel_save)
+        {
+          break;
+        }
+      }
+     break;
+
+    case 3: /* 270 degree */
+      *pixel_width_ptr  = pixel_height;
+      *pixel_height_ptr = pixel_width;
+
+      xsane_write_pnm_header(outfile, *pixel_width_ptr, *pixel_height_ptr, bits);
+      xsane.header_size = ftell(outfile);
+
+      for (x=pixel_width-1; x>=0; x--)
+      {
+        for (y=0; y<pixel_height; y++)
+        {
+          fseek(imagefile, pos0 + bytespp * (x + y * pixel_width), SEEK_SET); /* go to the correct position */
+          for (i=0; i<bytespp; i++)
+          {
+            fputc(fgetc(imagefile), outfile);
+          }
+        }
+
+        xsane_progress_update((float) (pixel_width - x) / pixel_width);
+        while (gtk_events_pending())
+        {
+          gtk_main_iteration();
+        }
+
+        if (cancel_save)
+        {
+          break;
+        }
+      }
+     break;
+  }
+
+  return (cancel_save);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void xsane_save_ps_create_header(FILE *outfile, int color, int bits, int pixel_width, int pixel_height,
                                         int left, int bottom, float width, float height,
                                         int paperwidth, int paperheight, int rotate)

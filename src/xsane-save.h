@@ -30,8 +30,20 @@ void xsane_convert_text_to_filename(char **filename);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-
 void xsane_increase_counter_in_filename(char *filename, int skip);
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void xsane_write_pnm_header(FILE *outfile, int pixel_width, int pixel_height, int bits);
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+int xsane_save_grayscale_image_as_lineart(FILE *outfile, FILE *imagefile, int pixel_width, int pixel_height);
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, int color, int bits,
+                            int *pixel_width_ptr, int *pixel_height_ptr, int rotation);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 

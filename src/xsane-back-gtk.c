@@ -49,6 +49,54 @@ void xsane_set_sensitivity(SANE_Int sensitivity);
 void xsane_set_window_icon(GtkWidget *gtk_window, gchar **xpm_d);
 
 /* ----------------------------------------------------------------------------------------------------------------- */
+ 
+void xsane_bound_float(float *value, float min, float max)
+{
+  DBG(DBG_proc3, "xsane_bound_float\n");
+ 
+  if (min > max)
+  {
+    double help = min;
+    min = max;
+    max = help;
+  }
+ 
+  if (*value < min)
+  {
+    *value = min;
+  }
+ 
+  if (*value > max)
+  {
+    *value = max;
+  }
+}
+
+/* ----------------------------------------------------------------------------------------------------------------- */
+ 
+void xsane_bound_double(double *value, double min, double max)
+{
+  DBG(DBG_proc3, "xsane_bound_double\n");
+ 
+  if (min > max)
+  {
+    double help = min;
+    min = max;
+    max = help;
+  }
+ 
+  if (*value < min)
+  {
+    *value = min;
+  }
+ 
+  if (*value > max)
+  {
+    *value = max;
+  }
+}
+                       
+/* ----------------------------------------------------------------------------------------------------------------- */
 
 const SANE_Option_Descriptor *xsane_get_option_descriptor(SANE_Handle handle, SANE_Int option)
 {

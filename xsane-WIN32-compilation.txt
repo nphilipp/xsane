@@ -61,7 +61,7 @@ IIb) If GIMP-Plugin shall be compiled (otherwise skip this section):
   IIb.3) cd /src/gimp/libgimp
   IIb.4) mkdir /usr/include/libgimp
   IIb.5) cp *.h /usr/include/libgimp
-  IIb.6) cp libgimp-*.dll c:/sane
+  IIb.6) cp libgimp/gimp-*.dll c:/sane
 
 
 III) Needed sane-parts:
@@ -100,14 +100,42 @@ IV) compiling xsane:
    IV.5) edit configure and remove "exit" after "ERROR: SANE" and "ERROR: GTK"
    IV.6) copy src/Makefile.in.WIN32 to src/Makefile.in
    IV.7) call ./configure --prefix="c:'\\\\'sane"
-              ignore errors about missing gtk and missing xsane
+              ignore errors about missing gtk, gimp and sane
    IV.8) In src/Makefile do:
          - check GTK-DLL names, GDK-DLL names in GTK_LIBS:
            GTK_LIBS = -lgtk-1.3 -lgdk-1.3
+           and name of gimp-library:
+           GIMP_LIBS = -lgimp-1.2 -lglib-1.3
          - When you want to compile xsane without gimp support:
            comment out GIMP_LIBS ... with a "#"
+         - When you want to compile xsane with debug output,
+           remove "-mwindows" from the CC=... line
+           (this creates a Dosbox when xsane is started,
+           XSANE_DEBUG=128 and SANE_DEBUG_NET=128 enables
+           debug messages)
    IV.9) compile xsane (in directory xsane-0.*/) (call make)
    IV.a) make install
+
+
+
+
+V)  set up correct environment
+
+    V.1) mkdir c:/sane/etc
+    V.2) mkdir c:/sane/etc/sane.d
+    V.3) vi c:/sane/etc/sane.d/net.conf
+         and enter a list of NetBEUI names or of IP-addresses
+         of machines you want to connect to. On some Windows
+         system IP-addresses are not accepted; if you experience
+         any problems try the NetBUI names.
+
+         example for net.conf:
+          myhost1
+          myhost2.mydomain.com
+          192.168.0.1
+          192.169.1.73
+    V.4) mkdir c:/sane/home
+    V.5) mkdir c:/sane/home/xsane
 
 
 

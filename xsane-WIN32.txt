@@ -63,9 +63,11 @@ If you want to use copy mode, you need ghostscript for win32.
 You can download it e.g. from http://www.cs.wisc.edu/~ghost/
 Enter Setup/Copy options:
 enter as Command:
-	c:/gs/gs6.50/bin/gswin32c -sDEVICE=laserjet -dNOPAUSE -
+	c:/gs/gs6.50/bin/gswin32c -sDEVICE=mswinpr2 -dNOPAUSE -
 Pay attention: you have to use "/", don´t use "\".
-You have to enter the DEVICE name of your printer (laserjet).
+With sDEVICE=mswinpr2 you select the Printer Dialog of Windows.
+
+You also can enter DEVICE-name of your printer (e.g. laserjet).
 To get a list of available device names open a dos box,
 and call c:\gs\gs6.50\bin\gswin32c -h
 

@@ -1241,3 +1241,48 @@ xsane-0.68 -> 0.69:
    (getenv is usable for Win32 and unix, getpwuid makes problems on Win32)
    
 
+
+xsane-0.69 -> 0.70:
+-------------------
+
+ - removed some bugs in text for pipette in sane-xsane-preview-doc.html
+
+ - changed acloacal.m4: when gimp-config is not found we look for gimptool
+
+ - for WIN32 the filetypes listed in the filetype menu are ".jpg" and ".tif"
+   instead of ".jpeg" and ".tiff"
+
+ - added manufacturer image to bottom of standard and advanced options window.
+   The name of the image is "vendor"-logo.xpm" or "sane-"backend"-logo.xpm",
+   the size of the image should be 256x48 pixels with a transparent background.
+
+ - changed src/Makfile.in: *-logo.xpm are installed (make install) and
+   uninstalled (make uninstall) now
+
+ - changed src/Makfile.in.WIN32: *-logo.xpm are installed (make install)now
+
+ - several changes in xsane-preview.c for rotating preview by 0/90/180/270 degree 
+   the preview rotation is ready now
+
+ - added new routine xsane_save_rotate_image to xsane-save.c
+
+ - added new routine xsane_save_grayscale_image_as_lineart to xsane-save.c
+
+ - lineart images are saved in grayscale mode at first if transformation has to be done
+
+ - xsane_save_rotate_image is called beween scanning and saving image
+
+ - xsane_save_grayscale_image_as_lineart is called beween rotating and saving image
+
+ - aclocal.m4/configure: changed sane_major_version etc to SANE_CURRENT_MAJOR
+
+ - fileheader of raw format changed. This format is not defined, but some programs
+   can read it as 16 bit pnm binary data, so we use a compatible header now:
+     P5
+     # This file is in a not public defined data format.
+     # It is a 16 bit gray binary format.
+     # Some programs can read this as pnm/pgm format.
+     # SANE data follows.
+     100 100
+     65535
+

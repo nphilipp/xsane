@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Xsane 0.62\n"
-"POT-Creation-Date: 2000-12-10 13:12+0100\n"
+"POT-Creation-Date: 2001-01-14 13:53+0100\n"
 "PO-Revision-Date: 2000-10-04 13:09+0300\n"
 "Last-Translator: Togan Müftüoðlu <toganm@yahoo.com>\n"
 "Language-Team: Turkish <tr@li.org>\n"
@@ -791,6 +791,16 @@ msgstr "%s data alýyor"
 
 #. PROGRESS_SAVING_DATA
 msgid "Saving image"
+msgstr "Resmi saklýyor"
+
+#. PROGRESS_ROTATING_DATA
+#, fuzzy
+msgid "Rotating image"
+msgstr "Resmi saklýyor"
+
+#. PROGRESS_PACKING_DATA
+#, fuzzy
+msgid "Packing image"
 msgstr "Resmi saklýyor"
 
 #. PROGRESS_CONVERTING_DATA

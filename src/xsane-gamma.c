@@ -41,7 +41,6 @@
 
 /* forward declarations: */
 
-static void xsane_bound_double(double *value, double min, double max);
 void xsane_clear_histogram(XsanePixmap *hist);
 static void xsane_draw_histogram_with_points(XsanePixmap *hist, int invert,
                                              SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue,
@@ -82,23 +81,6 @@ void xsane_create_histogram_dialog(const char *devicetext);
 static gint xsane_gamma_win_delete(GtkWidget *widget, gpointer data);
 void xsane_create_gamma_dialog(const char *devicetext);
 void xsane_update_gamma_dialog(void);
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_bound_double(double *value, double min, double max)
-{
-  DBG(DBG_proc3, "xsane_bound_double\n");
-
-  if (*value < min)
-  {
-    *value = min;
-  }
-
-  if (*value > max)
-  {
-    *value = max;
-  }
-}
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 

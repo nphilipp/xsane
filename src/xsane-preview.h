@@ -74,12 +74,12 @@ typedef struct
 
   SANE_Value_Type surface_type;
   SANE_Unit surface_unit;
-  float surface[4];		/* the corners of the selected surface (device coords) */
-  float old_surface[4];		/* the corners of the old selected surface (device coords) */
   float orig_scanner_surface[4];/* the scanner defined corners of the scanner surface (device coords) */
-  float max_scanner_surface[4];	/* rotated corners of the scanner surface (device coords) */
-  float scanner_surface[4];	/* the user defined corners of the scanner surface (device coords) */
   float image_surface[4];	/* the corners of the surface (device coords) of the scanned image */
+  float max_scanner_surface[4];	/* rotated corners of the scanner surface (window coords) */
+  float scanner_surface[4];	/* the user defined corners of the scanner surface (window coords) */
+  float surface[4];		/* the corners of the selected surface (window coords) */
+  float old_surface[4];		/* the corners of the old selected surface (window coords) */
   float aspect;			/* the aspect ratio of the scan surface */
 
   float preset_width;		/* user selected maximum scan width */
@@ -87,6 +87,8 @@ typedef struct
 
   float maximum_output_width;	/* maximum output width (photocopy) */
   float maximum_output_height;	/* maximum output height (photocopy) */
+
+  int index_xmin, index_xmax, index_ymin, index_ymax; /* index numbers in dependance of p->rotation */
 
   int saved_dpi_valid;
   int saved_dpi_x_valid;

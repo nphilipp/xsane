@@ -3690,7 +3690,7 @@ static GtkWidget *xsane_view_build_menu(void)
   DBG(DBG_proc, "xsane_view_build_menu\n");
 
   menu = gtk_menu_new();
-  // gtk_menu_set_accel_group(GTK_MENU(menu), xsane.accelerator_group);
+  /*  gtk_menu_set_accel_group(GTK_MENU(menu), xsane.accelerator_group); */
 
   /* show tooltips */
 
@@ -4664,6 +4664,11 @@ static void xsane_device_dialog(void)
 
   gtk_widget_show(xsane_vbox_main);
 
+#if 0
+  /* add vendor´s logo */
+  xsane_vendor_pixmap_new(xsane.shell->window, xsane_window);
+#endif
+
 
   /* create the scanner standard options dialog box */
 
@@ -4680,16 +4685,18 @@ static void xsane_device_dialog(void)
   xsane_set_window_icon(xsane.standard_options_shell, 0);
   gtk_accel_group_attach(xsane.accelerator_group, GTK_OBJECT(xsane.standard_options_shell));
 
-  xsane_vbox_standard = gtk_vbox_new(TRUE, 5);
+  xsane_vbox_standard = gtk_vbox_new(FALSE, 5); /* has been TRUE before I added backend pixmap */
   gtk_container_set_border_width(GTK_CONTAINER(xsane_vbox_standard), 5);
   gtk_container_add(GTK_CONTAINER(xsane.standard_options_shell), xsane_vbox_standard);
   gtk_widget_show(xsane_vbox_standard);
+
+  /* add vendor´s logo */
+  xsane_vendor_pixmap_new(xsane.standard_options_shell->window, xsane_vbox_standard);
 
   /* create  a subwindow so the standard dialog keeps its position on rebuilds: */
   xsane.standard_window = gtk_hbox_new(/* homogeneous */ FALSE, 0);
   gtk_box_pack_start(GTK_BOX(xsane_vbox_standard), xsane.standard_window, TRUE, TRUE, 0);
   gtk_widget_show(xsane.standard_window);
-
 
 
   /* create the scanner advanced options dialog box */
@@ -4707,10 +4714,13 @@ static void xsane_device_dialog(void)
   xsane_set_window_icon(xsane.advanced_options_shell, 0);
   gtk_accel_group_attach(xsane.accelerator_group, GTK_OBJECT(xsane.advanced_options_shell));
 
-  xsane_vbox_advanced = gtk_vbox_new(TRUE, 5);
+  xsane_vbox_advanced = gtk_vbox_new(FALSE, 5); /* has been TRUE before I added backend pixmap */
   gtk_container_set_border_width(GTK_CONTAINER(xsane_vbox_advanced), 5);
   gtk_container_add(GTK_CONTAINER(xsane.advanced_options_shell), xsane_vbox_advanced);
   gtk_widget_show(xsane_vbox_advanced);
+
+  /* add vendor´s logo */
+  xsane_vendor_pixmap_new(xsane.advanced_options_shell->window, xsane_vbox_advanced);
 
   /* create  a subwindow so the advanced dialog keeps its position on rebuilds: */
   xsane.advanced_window = gtk_hbox_new(/* homogeneous */ FALSE, 0);
@@ -4787,10 +4797,9 @@ static void xsane_device_dialog(void)
   xsane_create_gamma_dialog(xsane.device_text); /* create the free gamma curve dialog */
 #endif
 
-
   /* The bottom area: info frame, progress bar, start and cancel button */
-  hbox = gtk_hbox_new(FALSE, 5);
   xsane_separator_new(xsane_window, 2);
+  hbox = gtk_hbox_new(FALSE, 5);
   gtk_box_pack_end(GTK_BOX(xsane_window), hbox, FALSE, FALSE, 5);
   gtk_container_set_border_width(GTK_CONTAINER(hbox), 5);
   gtk_widget_show(hbox);
@@ -4800,6 +4809,7 @@ static void xsane_device_dialog(void)
   vbox = gtk_vbox_new(FALSE, 5);
   gtk_box_pack_start(GTK_BOX(hbox), vbox, TRUE, TRUE, 0);
   gtk_widget_show(vbox);
+
 
   /* Info frame */
   frame = gtk_frame_new(0);

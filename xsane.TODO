@@ -21,7 +21,6 @@ first steps:
       and show it in the preview.
  - preview:
     - force aspect ratio of selection area
-    + rotate preview by 0/90/180/270 degree (work in progress)
     + autoselection of scanarea cropping black or white margins (work in progress)
     + define radius for pipette average
  - batch scan function

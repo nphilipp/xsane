@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-12-10 13:12+0100\n"
+"POT-Creation-Date: 2001-01-14 13:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -786,6 +786,14 @@ msgstr ""
 
 #. PROGRESS_SAVING_DATA
 msgid "Saving image"
+msgstr ""
+
+#. PROGRESS_ROTATING_DATA
+msgid "Rotating image"
+msgstr ""
+
+#. PROGRESS_PACKING_DATA
+msgid "Packing image"
 msgstr ""
 
 #. PROGRESS_CONVERTING_DATA

@@ -25,15 +25,18 @@
 #ifndef XSANE_FIXEDTEXT_H
 #define XSANE_FIXEDTEXT_H
 
-#define XSANE_STRSTATUS(status)		_(sane_strstatus(status))
-#define _BGT(text)			dgettext(xsane.backend, text)
+#ifdef _WIN32
+# define MENU_ITEM_FILETYPE_JPEG	".jpg"
+# define MENU_ITEM_FILETYPE_TIFF	".tif"
+#else
+# define MENU_ITEM_FILETYPE_JPEG	".jpeg"
+# define MENU_ITEM_FILETYPE_TIFF	".tiff"
+#endif
 
-#define MENU_ITEM_FILETYPE_JPEG		_(".jpeg")
-#define MENU_ITEM_FILETYPE_PNG		_(".png")
-#define MENU_ITEM_FILETYPE_PNM		_(".pnm")
-#define MENU_ITEM_FILETYPE_PS		_(".ps")
-#define MENU_ITEM_FILETYPE_RAW		_(".raw")
-#define MENU_ITEM_FILETYPE_TIFF		_(".tiff")
+#define MENU_ITEM_FILETYPE_PNG		".png"
+#define MENU_ITEM_FILETYPE_PNM		".pnm"
+#define MENU_ITEM_FILETYPE_PS		".ps"
+#define MENU_ITEM_FILETYPE_RAW		".raw"
 
 
 #endif

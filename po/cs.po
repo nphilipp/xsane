@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.64\n"
-"POT-Creation-Date: 2000-12-10 13:12+0100\n"
+"POT-Creation-Date: 2001-01-14 13:53+0100\n"
 "PO-Revision-Date: 2000-11-14 10:32+01:00\n"
 "Last-Translator: Stanislav Brabec <utx@penguin.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -791,6 +791,16 @@ msgstr "Pøijímají se data typu %s"
 
 #. PROGRESS_SAVING_DATA
 msgid "Saving image"
+msgstr "Zapisuje se obrázek"
+
+#. PROGRESS_ROTATING_DATA
+#, fuzzy
+msgid "Rotating image"
+msgstr "Zapisuje se obrázek"
+
+#. PROGRESS_PACKING_DATA
+#, fuzzy
+msgid "Packing image"
 msgstr "Zapisuje se obrázek"
 
 #. PROGRESS_CONVERTING_DATA

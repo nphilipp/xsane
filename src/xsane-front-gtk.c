@@ -56,6 +56,7 @@ void xsane_progress_cancel(GtkWidget *widget, gpointer data);
 void xsane_progress_new(char *bar_text, char *info, GtkSignalFunc callback);
 void xsane_progress_update(gfloat newval);
 void xsane_progress_clear();
+GtkWidget *xsane_vendor_pixmap_new(GdkWindow *window, GtkWidget *parent);
 GtkWidget *xsane_toggle_button_new_with_pixmap(GdkWindow *window, GtkWidget *parent, const char *xpm_d[], const char *desc,
                                          int *state, void *xsane_toggle_button_callback);
 GtkWidget *xsane_button_new_with_pixmap(GdkWindow *window, GtkWidget *parent, const char *xpm_d[], const char *desc,
@@ -728,7 +729,67 @@ void xsane_progress_update(gfloat newval)
 {
   DBG(DBG_proc, "xsane_progress_update\n");
 
+  if (newval < 0.0)
+  {
+    newval = 0.0;
+  }
+
+  if (newval > 1.0)
+  {
+    newval = 1.0;
+  }
+
   gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.progress_bar), newval);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+/* add the scanner vendor´s logo if available */
+/* when the logo is not available use the xsane logo */
+GtkWidget *xsane_vendor_pixmap_new(GdkWindow *window, GtkWidget *parent)
+{
+ char filename[PATH_MAX];
+ GtkWidget *hbox, *vbox;
+ GtkWidget *pixmapwidget = NULL;
+ GdkBitmap *mask;
+ GdkPixmap *pixmap = NULL;
+
+  if (xsane.devlist[xsane.selected_dev]->vendor)
+  {
+    xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", NULL, NULL, xsane.devlist[xsane.selected_dev]->vendor, "-logo.xpm", XSANE_PATH_SYSTEM);
+    pixmap = gdk_pixmap_create_from_xpm(window, &mask, xsane.bg_trans, filename);
+  }
+
+  if (!pixmap) /* vendor logo not available, use backend logo */
+  {
+    xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", NULL, NULL, xsane.backend, "-logo.xpm", XSANE_PATH_SYSTEM);
+    pixmap = gdk_pixmap_create_from_xpm(window, &mask, xsane.bg_trans, filename);
+  }
+
+  if (!pixmap) /* backend logo not available, use xsane logo */
+  {
+    xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", NULL, NULL, "sane-xsane", "-logo.xpm", XSANE_PATH_SYSTEM);
+    pixmap = gdk_pixmap_create_from_xpm(window, &mask, xsane.bg_trans, filename);
+  }
+
+  if (pixmap) /* ok, we have a pixmap, so let´s show it */
+  {
+    vbox = gtk_vbox_new(FALSE, 0);
+    gtk_box_pack_end(GTK_BOX(parent), vbox, FALSE, FALSE, 0);
+    gtk_widget_show(vbox);   
+
+    hbox = gtk_hbox_new(TRUE /* homogeneous */ , 2);
+    gtk_container_add(GTK_CONTAINER(vbox), hbox);
+    gtk_container_set_border_width(GTK_CONTAINER(hbox), 0);
+    gtk_widget_show(hbox);
+
+    pixmapwidget = gtk_pixmap_new(pixmap, mask); /* now add the pixmap */
+    gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE /* expand */, FALSE /* fill */, 2);
+    gdk_pixmap_unref(pixmap);
+    gtk_widget_show(pixmapwidget);
+  }
+
+ return pixmapwidget;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1157,8 +1218,8 @@ void xsane_update_param(void *arg)
 
     unit = xsane_back_gtk_unit_string(xsane.preview->surface_unit);
 
-    dx = (xsane.preview->selection.coordinate[2] - xsane.preview->selection.coordinate[0]) / preferences.length_unit;
-    dy = (xsane.preview->selection.coordinate[3] - xsane.preview->selection.coordinate[1]) / preferences.length_unit;
+    dx = fabs(xsane.preview->selection.coordinate[2] - xsane.preview->selection.coordinate[0]) / preferences.length_unit;
+    dy = fabs(xsane.preview->selection.coordinate[3] - xsane.preview->selection.coordinate[1]) / preferences.length_unit;
 
     snprintf(buf, sizeof(buf), "%1.2f %s x %1.2f %s", dx, unit, dy, unit);
     gtk_progress_set_format_string(GTK_PROGRESS(xsane.progress_bar), buf);

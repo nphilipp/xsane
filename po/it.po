@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.62\n"
-"POT-Creation-Date: 2000-12-10 13:12+0100\n"
+"POT-Creation-Date: 2001-01-14 13:53+0100\n"
 "PO-Revision-Date: 2000-09-29  23:48+0100\n"
 "Last-Translator: Colorio Mauro <linuxbox@interfree.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -790,6 +790,16 @@ msgstr "Ricezione %s dati"
 
 #. PROGRESS_SAVING_DATA
 msgid "Saving image"
+msgstr "Salvataggio immagine"
+
+#. PROGRESS_ROTATING_DATA
+#, fuzzy
+msgid "Rotating image"
+msgstr "Salvataggio immagine"
+
+#. PROGRESS_PACKING_DATA
+#, fuzzy
+msgid "Packing image"
 msgstr "Salvataggio immagine"
 
 #. PROGRESS_CONVERTING_DATA

@@ -46,6 +46,8 @@ extern int xsane_back_gtk_message_dialog_active;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+extern void xsane_bound_float(float *value, float min, float max);
+extern void xsane_bound_double(double *value, double min, double max);
 extern const SANE_Option_Descriptor *xsane_get_option_descriptor(SANE_Handle handle, SANE_Int option);
 extern SANE_Status xsane_control_option(SANE_Handle handle, SANE_Int option, SANE_Action action, void *val, SANE_Int *info); 
 extern int xsane_back_gtk_make_path(size_t max_len, char *filename_ret, const char *prog_name, const char *dir_name,
