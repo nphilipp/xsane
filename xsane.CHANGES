@@ -503,3 +503,15 @@ xsane-0.39 -> 0.40:
  - moved xsane_generate_dummy_filename and fopen() into if XSANE_STANDALONE block,
    there is no empty file created in gimp mode any more.
 
+
+xsane-0.40 -> 0.41:
+-------------------
+
+ - renamed xsane-incons.h -> xsane-icons.c and xsane-icons-def.h -> xsane-icons.h
+ - moved all includes that are needed by most xsane sources to xsane.h
+   problem with missing stdio.h is solved that way
+ - changed configure script:
+   - check for sane is moved to the end because of missing libintl,
+   - check for png is done with x_includes and x_libraries,
+     and libpng is added to lib after all checks are done
+

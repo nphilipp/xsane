@@ -6,7 +6,7 @@ AC_CONFIG_HEADER(include/sane/config.h)
 
 # version code:
 V_MAJOR=0
-V_MINOR=40
+V_MINOR=41
 
 PACKAGE=xsane
 
@@ -133,14 +133,6 @@ if test "$USE_NLS" = yes; then
   fi
 fi   
 
-# check for sane must stand after check for dl
-dnl Check for sane lib
-if test "${ADD_LIBINTL}" = "no"; then
-  AC_CHECK_HEADERS(sane/sane.h, AC_CHECK_LIB(sane,sane_init))
-else
-  AC_CHECK_HEADERS(sane/sane.h, AC_CHECK_LIB(sane,sane_init,,, -lintl))
-fi
-
 AC_SUBST(INTLSUB)
 
 #### Choose a window system.
@@ -165,22 +157,43 @@ CPPFLAGS="${CPPFLAGS} ${GTK_CFLAGS}"
 LIBS="${LIBS} ${GTK_LIBS}"
 
 if test "${USE_GIMP}" = "yes"; then
-  AC_CHECK_HEADERS(libgimp/gimp.h,GIMP_LIBS="-lgimp")
+  AC_CHECK_HEADERS(libgimp/gimp.h, GIMP_LIBS="-lgimp")
   AC_CHECK_HEADERS(libgimp/gimpfeatures.h)
 fi
 
 LIBS="${saved_LIBS}"
+CPPFLAGS="${saved_CPPFLAGS}"
 
 
-# png test must stand behind X11-check because it is located in
-# the X11 directory on some systems
-# I placed it here because the CPPFLAGS are saved here
 # png test must stand after test for zlib
+# png test must stand behind X11-check because it is located in
+#  the X11 directory on some systems
+#  so we have to use x_includes and x_libraries to test for png
+#  and all following checks (=sane)
+# saved_CPPFLAGS is still up to date
+CPPFLAGS="${CPPFLAGS} -I${x_includes}"
 if test "${USE_PNG}" = "yes"; then
-  AC_CHECK_HEADERS(png.h, [AC_CHECK_LIB(png, png_create_info_struct,,, -L${x_libraries})])
+  AC_CHECK_HEADERS(png.h, [AC_CHECK_LIB(png, png_create_info_struct, PNG_LIB="-lpng",, -L${x_libraries})])
+# remove libpng because if we do not remove it all following
+# checks could need x_libraries and x_includes
+  LIBS=`echo $LIBS | sed -e 's/-lpng//'`
+fi
+CPPFLAGS="${saved_CPPFLAGS}"
+
+# check for sane must stand after check for dl
+# check must stand at end of list because of the missing libintl in libsane.so
+# check needs x_libraries and x_includes because they may be needed by png
+dnl Check for sane lib
+if test "${ADD_LIBINTL}" = "no"; then
+  AC_CHECK_HEADERS(sane/sane.h, AC_CHECK_LIB(sane,sane_init))
+else
+  AC_CHECK_HEADERS(sane/sane.h, AC_CHECK_LIB(sane,sane_init,,, -lintl))
 fi
 
-CPPFLAGS="${saved_CPPFLAGS}"
+
+# this should be after all checks
+# add libpng again
+LIBS="${PNG_LIB} ${LIBS}"
 
 AC_SUBST(INCLUDES)
 AC_SUBST(BINPROGS)

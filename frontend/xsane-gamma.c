@@ -19,40 +19,12 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#ifdef _AIX
-# include <lalloca.h>   /* MUST come first for AIX! */
-#endif
-
-#include "sane/config.h"
-
-#include <lalloca.h>
-
-#include <assert.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <getopt.h>
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <signal.h>
-
-#include <sys/stat.h>
-
-#include <sane/sane.h>
-#include <sane/sanei.h>
-#include <sane/saneopts.h>
-
-#include "sane/sanei_signal.h"
+#include "xsane.h"
 #include "xsane-front-gtk.h"
 #include "xsane-back-gtk.h"
-#include "xsane.h"
 #include "xsane-preferences.h"
 #include "xsane-preview.h"
 #include "xsane-save.h"
-#include "xsane-icons-def.h"
-#include "xsane-text.h"
 
 #ifdef HAVE_LIBPNG
 #ifdef HAVE_LIBZ

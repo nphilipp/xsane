@@ -31,7 +31,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION	"0.40"
+#define XSANE_VERSION	"0.41"
 #define XSANE_AUTHOR	"Oliver Rauch"
 #define XSANE_COPYRIGHT	"Oliver Rauch"
 #define XSANE_DATE	"1998/1999"
@@ -39,10 +39,36 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+/* needed for most of the xsane sources: */
+
+#include <lalloca.h>
+#include <assert.h>
+#include <errno.h>
+#include <memory.h>
+#include <pwd.h>
+#include <fcntl.h>
 #include <getopt.h>
-#include <xsane-back-gtk.h>
-#include <xsane-preferences.h>
-#include <xsane-preview.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <signal.h>
+#include <getopt.h>
+#include <time.h>
+
+#include <sys/stat.h>
+#include <sys/types.h>
+
+#include <sane/sane.h>
+#include <sane/sanei.h>
+#include <sane/saneopts.h>
+
+#include "sane/config.h"
+#include "sane/sanei_signal.h"
+
+#include "xsane-text.h"
+#include "xsane-icons.h"
 
 #ifdef ENABLE_NLS
 #    include <libintl.h>
@@ -62,6 +88,13 @@
 #    define _(String) (String)
 #    define N_(String) (String)
 #endif
+
+/* ----------------------------- */
+
+/* needed for xsane.h */
+#include <xsane-back-gtk.h>
+#include <xsane-preferences.h>
+#include <xsane-preview.h>
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 

@@ -16,29 +16,10 @@
    along with this program; if not, write to the Free Software
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  */
 
-#ifdef _AIX
-# include <lalloca.h>	/* MUST come first for AIX! */
-#endif
+/* ----------------------------------------------------------------------------------------------------------------- */
 
-#include <sane/config.h>
-#include <lalloca.h>
-
-#include <assert.h>
-#include <errno.h>
-#include <memory.h>
-#include <pwd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-
-#include <sys/stat.h>
-#include <sys/types.h>
-
-#include <sane/sane.h>
-#include <sane/saneopts.h>
-
-#include "xsane-back-gtk.h"
 #include "xsane.h"
+#include "xsane-back-gtk.h"
 #include "xsane-preferences.h"
 #include "xsane-text.h"
 

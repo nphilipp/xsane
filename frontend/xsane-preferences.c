@@ -18,17 +18,14 @@
    Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-
-#include <sane/sane.h>
+/* --------------------------------------------------------------------- */
 
 #include "xsane.h"
 #include "xsane-preferences.h"
 #include "sane/sanei.h"
 #include "sane/sanei_wire.h"
 #include "sane/sanei_codec_ascii.h"
+#include "xsane.h"
 
 /* --------------------------------------------------------------------- */
 

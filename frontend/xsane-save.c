@@ -17,16 +17,11 @@
    along with this program; if not, write to the Free Software
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  */
 
-#include <sane/config.h>
-#include <xsane-back-gtk.h>
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
+/* ---------------------------------------------------------------------------------------------------------------------- */
 
 #include "xsane.h"
 #include "xsane-preview.h"
+#include <xsane-back-gtk.h>
 #include "xsane-front-gtk.h"
 #include "xsane-text.h"
 

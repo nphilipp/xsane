@@ -52,7 +52,7 @@ LIBSANEI = ../sanei/libsanei.a
 
 XSANE_OBJS = xsane-back-gtk.o xsane-front-gtk.o xsane-gamma.o \
              xsane-preview.o xsane-preferences.o \
-             xsane-setup.o xsane-save.o xsane-scan.o xsane.o
+             xsane-setup.o xsane-save.o xsane-scan.o xsane-icons.o xsane.o
 
 
 .c.o:
