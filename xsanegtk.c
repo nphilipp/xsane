@@ -36,7 +36,7 @@
 
 #include <xsanegtk.h>
 
-#include <preferences.h>
+#include <xsanepreferences.h>
 #include <sane/sane.h>
 #include <sane/saneopts.h>
 

@@ -77,7 +77,7 @@
 
 #include <xsanegtk.h>
 #include <xsanepreview.h>
-#include <preferences.h>
+#include <xsanepreferences.h>
 
 #ifndef PATH_MAX
 # define PATH_MAX	1024

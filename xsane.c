@@ -59,7 +59,7 @@
 
 #define OUTFILENAME     "out.pnm"
 #define PRINTERCOMMAND  "lpr -"
-#define XSANE_VERSION	"0.03 alpha"
+#define XSANE_VERSION	"0.04 alpha"
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -2353,6 +2353,10 @@ static void scan_dialog (GtkWidget * widget, gpointer call_data)
       free(xsane.gamma_data_red);
       free(xsane.gamma_data_green);
       free(xsane.gamma_data_blue);
+      xsane.gamma_data       = 0;
+      xsane.gamma_data_red   = 0;
+      xsane.gamma_data_green = 0;
+      xsane.gamma_data_blue  = 0;
     }
     else
     {
@@ -2364,6 +2368,7 @@ static void scan_dialog (GtkWidget * widget, gpointer call_data)
 
       gsg_update_vector(dialog, dialog->well_known.gamma_vector  , xsane.gamma_data);
       free(xsane.gamma_data);
+      xsane.gamma_data       = 0;
     }
   }
 

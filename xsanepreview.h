@@ -15,8 +15,8 @@
    You should have received a copy of the GNU General Public License
    along with sane; see the file COPYING.  If not, write to the Free
    Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  */
-#ifndef preview_h
-#define preview_h
+#ifndef xsanepreview_h
+#define xsanepreview_h
 
 #include <sys/types.h>
 

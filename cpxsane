@@ -32,7 +32,7 @@ echo "and type"
 echo " make distclean"
 echo " configure"
 echo " make"
-echo "and if everything worked, as root:
+echo "and if everything worked, as root:"
 echo " make install"
 
 else

@@ -1,5 +1,5 @@
-#ifndef preferences_h
-#define preferences_h
+#ifndef xsanepreferences_h
+#define xsanepreferences_h
 
 #include <sane/sane.h>
 
