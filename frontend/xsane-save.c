@@ -25,8 +25,8 @@
 #include <string.h>
 #include <unistd.h>
 
-#include <xsane.h>
-#include <xsane-preview.h>
+#include "xsane.h"
+#include "xsane-preview.h"
 
 #ifdef HAVE_LIBJPEG
 #include <jpeglib.h>

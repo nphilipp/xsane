@@ -20,6 +20,7 @@ mandir = @mandir@
 includedir = @includedir@
 oldincludedir = /usr/include
 configdir = ${sysconfdir}/sane.d
+sanedatadir = ${datadir}/sane
 
 INSTALL = @INSTALL@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@

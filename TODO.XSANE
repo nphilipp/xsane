@@ -2,6 +2,8 @@ This is a list of what I want to change/include for xsane.
 If you have any suggestions: mail to Oliver.Rauch@Wolfsburg.DE
 
 first steps:
+ - test number of printers fit into filed
+ - copy mode: select raster size (1x1,2x2,3x3,4x4,5x5)
  - If automatic document feeder: scan until error (out of paper, jammed, ...)
  - make png save with bit depth 9-15 work
  - move threshold in lineart-mode to main window
@@ -13,9 +15,8 @@ first steps:
    - pick white and black point
    - sizeable window
  - include invert (for negatives) into enhancement
- - let user add a list of printers for photocopy,
-   use different resolutons for lineart, gray, color, save
- - xsane_setup: select image position on printer (centered/left/right/...) for copy
+ - copy mode: use different resolutons for lineart, gray, color
+ - xsane_setup: select image position on printer (centered/left/right/free defined...) for copy
  - store more than 1 enhancement and give names for it, may be in own files
  - postscript-output for 10/12 bpp (does postscript support it?)
  - fax-function
@@ -23,7 +24,7 @@ first steps:
  - other output formats for saving:
    - gif ?
    - ...?
- - online help (netscape remote)
+ - write online helpfiles
  - save all options to a file including preview-selection
  - COPY: more than one copy of one scan
 

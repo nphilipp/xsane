@@ -20,7 +20,7 @@ mandir = @mandir@
 includedir = @includedir@
 oldincludedir = /usr/include
 configdir = ${sysconfdir}/sane.d
-datasanedir = ${datadir}/sane
+sanedatadir = ${datadir}/sane
 
 MKDIR = $(top_srcdir)/mkinstalldirs
 INSTALL = @INSTALL@
@@ -61,13 +61,13 @@ XSANE_OBJS = xsane.o xsane-preview.o xsane-preferences.o xsane-gtk.o xsane-save.
 all: $(PROGRAMS)
 
 install: $(PROGRAMS)
-	$(MKDIR) $(bindir) $(sbindir) $(datadir) $(datasanedir)
+	$(MKDIR) $(bindir) $(sbindir) $(datadir) $(sanedatadir)
 	@for program in $(BINPROGS); do \
 	  $(LIBTOOL) $(MINST) $(INSTALL_PROGRAM) $${program} \
 	    $(bindir)/$${program}; \
 	done
-	$(INSTALL_DATA) $(srcdir)/sane-style.rc $(datadir)/sane-style.rc
-	$(INSTALL_DATA) $(srcdir)/xsane-logo.xpm $(datasanedir)/xsane-logo.xpm
+	$(INSTALL_DATA) $(srcdir)/xsane-style.rc $(sanedatadir)/xsane-style.rc
+	$(INSTALL_DATA) $(srcdir)/xsane-logo.xpm $(sanedatadir)/xsane-logo.xpm
 
 xsane: $(XSANE_OBJS) $(LIBSANEI) $(LIBLIB)
 	@$(LIBTOOL) $(MLINK) $(LINK) $(XSANE_OBJS) $(LIBSANEI) \

@@ -42,15 +42,17 @@
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 #define OUTFILENAME     	"out.pnm"
+#define PRINTERNAME	  	"new printer"
 #define PRINTERCOMMAND  	"lpr -"
+#define FAXCOMMAND 	 	"sendfax ???"
 #define HIST_WIDTH		256
 #define HIST_HEIGHT		100
 #define XSANE_DIALOG_WIDTH	296
-#define XSANE_DIALOG_HEIGHT	416
+#define XSANE_DIALOG_HEIGHT	426
 #define XSANE_DIALOG_POS_X	10
 #define XSANE_DIALOG_POS_X2	316
 #define XSANE_DIALOG_POS_Y	50
-#define XSANE_DIALOG_POS_Y2	492
+#define XSANE_DIALOG_POS_Y2	502
 
 #define XSANE_SLIDER_ACTIVE	-1
 #define XSANE_SLIDER_INACTIVE	-2
@@ -185,6 +187,7 @@ struct
     int histogram_lines;
     int histogram_log;
 
+    GtkWidget *length_unit_widget;
     GtkWidget *show_histogram_widget;
     GtkWidget *show_standard_options_widget;
     GtkWidget *show_advanced_options_widget;
@@ -208,10 +211,15 @@ struct
     SANE_Bool scanner_gamma_gray;
     SANE_Bool enhancement_rgb_default;
 
+    SANE_Bool fax_fine_mode;
+
     GtkWidget *outputfilename_entry;
 
     SANE_Int *gamma_data, *gamma_data_red, *gamma_data_green, *gamma_data_blue;
     SANE_Int *preview_gamma_data_red, *preview_gamma_data_green, *preview_gamma_data_blue;
+    SANE_Int *histogram_gamma_data_red, *histogram_gamma_data_green, *histogram_gamma_data_blue;
+
+    int broken_pipe; /* for printercommand pipe */
 
 #ifdef HAVE_LIBGIMP_GIMP_H
     /* for GIMP mode: */
@@ -228,20 +236,32 @@ struct
 
 struct
 {
+  GtkWidget *printer_name_entry;
   GtkWidget *printer_command_entry;
   GtkWidget *printer_resolution_entry;
   GtkWidget *printer_leftoffset_entry;
   GtkWidget *printer_bottomoffset_entry;
+  GtkWidget *printer_gamma_entry;
+  GtkWidget *printer_gamma_red_entry;
+  GtkWidget *printer_gamma_green_entry;
+  GtkWidget *printer_gamma_blue_entry;
   GtkWidget *printer_width_entry;
   GtkWidget *printer_height_entry;
+
   GtkWidget *jpeg_image_quality_scale;
   GtkWidget *pnm_image_compression_scale;
   GtkWidget *overwrite_warning_button;
   GtkWidget *increase_filename_counter_button;
   GtkWidget *skip_existing_numbers_button;
+
   GtkWidget *preview_gamma_entry;
+  GtkWidget *preview_gamma_red_entry;
+  GtkWidget *preview_gamma_green_entry;
+  GtkWidget *preview_gamma_blue_entry;
   GtkWidget *preview_preserve_button;
   GtkWidget *preview_own_cmap_button;
+
+  GtkWidget *fax_command_entry;
 } xsane_setup;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

@@ -5,6 +5,8 @@
 
 #define DESC_FILENAME		"Enter filename for scanned image"
 
+#define DESC_PRINTER_SELECT	"Select printer definition"
+
 #define DESC_RESOLUTION		"Set scan resolution"
 #define DESC_ZOOM		"Set zoomfactor"
 
@@ -48,12 +50,18 @@
 #define DESC_HIST_PIXEL		"Display histogram with lines instead of pixels"
 #define DESC_HIST_LOG		"Show logarithm of pixelcount"
 
+#define DESC_PRINTER_SETUP	"Select definition to change"
+#define DESC_PRINTER_NAME	"Define a name for the selection of this definition"
 #define DESC_PRINTER_COMMAND	"Enter command to be executed in copy mode (e.g. \"lpr -\")"
 #define DESC_PRINTER_RESOLUTION	"Resolution with which images are printed and saved in postscript"
 #define DESC_PRINTER_WIDTH	"Width of printable area in 1/72 inch"
 #define DESC_PRINTER_HEIGHT	"Height of printable area in 1/72 inch"
 #define DESC_PRINTER_LEFTOFFSET	"Left offset from the edge of the paper to the printable area in 1/72 inch"
 #define DESC_PRINTER_BOTTOMOFFSET "Bottom offset from the edge of the paper to the printable area in 1/72 inch"
+#define DESC_PRINTER_GAMMA	"Additional gamma value for photocopy"
+#define DESC_PRINTER_GAMMA_RED	"Additional gamma value for red component for photocopy"
+#define DESC_PRINTER_GAMMA_GREEN "Additional gamma value for green component for photocopy"
+#define DESC_PRINTER_GAMMA_BLUE	"Additional gamma value for blue component for photocopy"
 #define DESC_JPEG_QUALITY	"Quality if image is saved as jpeg"
 #define DESC_PNG_COMPRESSION	"Compression if image is saved as png"
 #define DESC_OVERWRITE_WARNING	"Warn before overwriting an existing file"
@@ -63,5 +71,11 @@
 #define DESC_PREVIEW_PRESERVE	"Preserve preview image for next program start"
 #define DESC_PREVIEW_COLORMAP	"Use an own colormap for preview if display depth is 8 bpp"
 #define DESC_PREVIEW_GAMMA	"Set gamma correction value for preview image"
+#define DESC_PREVIEW_GAMMA_RED	"Set gamma correction value for red component of preview image"
+#define DESC_PREVIEW_GAMMA_GREEN "Set gamma correction value for green component of preview image"
+#define DESC_PREVIEW_GAMMA_BLUE	"Set gamma correction value for blue component of preview image"
+
+#define DESC_FAX_COMMAND	"Enter command to be executed in fax mode"
+#define DESC_FAX_FINE_MODE	"Use high vertical resolution (196 lpi instead of 98 lpi)"
 
 #endif

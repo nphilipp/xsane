@@ -34,12 +34,12 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-#include <xsane-gtk.h>
-#include <xsane.h>
-#include <xsane-preferences.h>
-
 #include <sane/sane.h>
 #include <sane/saneopts.h>
+
+#include "xsane-gtk.h"
+#include "xsane.h"
+#include "xsane-preferences.h"
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 

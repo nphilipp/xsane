@@ -26,64 +26,68 @@ The scan mode is to scan an image and save it to a file.
 
 <P>&nbsp;</BLOCKQUOTE>
 
-<CENTER><IMG SRC="sane-xsane.gif" HEIGHT=443 WIDTH=306></CENTER>
+<CENTER><IMG SRC="sane-xsane.gif" HEIGHT=453 WIDTH=306></CENTER>
 
 <BLOCKQUOTE>&nbsp;
 <BR>&nbsp;</BLOCKQUOTE>
 
 <H3>
 <U><FONT COLOR="#009900">Supported output formats:</FONT></U></H3>
-You select the output format by the filename extension.
 
-<P><B>Which formats are available depends on the compiled in support.</B>
-<BR>Possible are: <I>pnm, png, ps, jpeg, raw </I>and<I> tiff.</I>
+<BLOCKQUOTE>You select the output format by the filename extension.</BLOCKQUOTE>
 
-<P>Always available are <I>pnm</I> and <I>ps</I> (and raw).
+<BLOCKQUOTE><B>Which formats are available depends on the compiled in support.</B>
+<BR>Possible are: <I>pnm, png, ps, jpeg, raw </I>and<I> tiff.</I></BLOCKQUOTE>
 
-<P>The other formats are only available if necessary libraries are present
-(at compilation time AND while xsane is executed). For <I>png</I> you need
-libpng and libz, for <I>jpeg</I> you need jpeglib, for <I>tiff</I> you
-need libtiff.
+<BLOCKQUOTE>Always available are <I>pnm</I> and <I>ps</I> (and raw).</BLOCKQUOTE>
 
-<P>The <I>raw</I> format is a 16 bit format comparable to 16 bit binary
-<I>pnm</I> format that is not defined, for <I>pnm</I> the 16 bit format
-only is defined as ascii mode which generates huge and slow files.
+<BLOCKQUOTE>The other formats are only available if necessary libraries
+are present (at compilation time AND while xsane is executed). For <I>png</I>
+you need libpng and libz, for <I>jpeg</I> you need jpeglib, for <I>tiff</I>
+you need libtiff.</BLOCKQUOTE>
 
-<P><B>The supported output formats depend on the bit depth of the scanned
-image:</B>
+<BLOCKQUOTE>The <I>raw</I> format is a 16 bit format comparable to 16 bit
+binary <I>pnm</I> format that is not defined, for <I>pnm</I> the 16 bit
+format only is defined as ascii mode which generates huge and slow files.</BLOCKQUOTE>
+
+<BLOCKQUOTE><B>The supported output formats depend on the bit depth of
+the scanned image:</B>
 <H4>
 <U><FONT COLOR="#990000">1 bit/pixel black/white mode:</FONT></U></H4>
 
 <BLOCKQUOTE><FONT COLOR="#000099">pnm = pbm</FONT>
 <BR><FONT COLOR="#000099">png, ps, jpeg and tiff are converted to 8 bit
-grayscale mode.</FONT>
-<BR>&nbsp;</BLOCKQUOTE>
-
+grayscale mode.</FONT></BLOCKQUOTE>
+&nbsp;
 <H4>
 <U><FONT COLOR="#990000">8 bits/pixel grayscale mode:</FONT></U></H4>
 
-<BLOCKQUOTE><FONT COLOR="#000099">pnm = pgm, png, ps, jpeg and tiff</FONT>
-<BR>&nbsp;</BLOCKQUOTE>
-
+<BLOCKQUOTE><FONT COLOR="#000099">pnm = pgm, png, ps, jpeg and tiff</FONT></BLOCKQUOTE>
+&nbsp;
 <H4>
 <U><FONT COLOR="#990000">24 bits/pixel color mode:</FONT></U></H4>
 
-<BLOCKQUOTE><FONT COLOR="#000099">pnm = ppm, png, ps, jpeg and tiff</FONT>
-<BR>&nbsp;</BLOCKQUOTE>
-
+<BLOCKQUOTE><FONT COLOR="#000099">pnm = ppm, png, ps, jpeg and tiff</FONT></BLOCKQUOTE>
+&nbsp;
 <H4>
 <U><FONT COLOR="#990000">9-16 bits/pixel grayscale mode:</FONT></U></H4>
 
 <BLOCKQUOTE><FONT COLOR="#000099">pnm (ascii), png and raw&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-*** THIS IS EXPERIMENTAL ***</FONT>
-<BR>&nbsp;</BLOCKQUOTE>
-
+*** THIS IS EXPERIMENTAL ***</FONT></BLOCKQUOTE>
+&nbsp;
 <H4>
 <U><FONT COLOR="#990000">27-48 bits/pixel color mode:</FONT></U></H4>
 
 <BLOCKQUOTE><FONT COLOR="#000099">pnm (ascii), png and raw&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-*** THIS IS EXPERIMENTAL ***</FONT>
-<BR>&nbsp;</BLOCKQUOTE>
+*** THIS IS EXPERIMENTAL ***</FONT></BLOCKQUOTE>
+&nbsp;</BLOCKQUOTE>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="sane-xsane-doc.html">INDEX</A></CENTER>
+
+<CENTER>&nbsp;</CENTER>
 
 </BODY>
 </HTML>

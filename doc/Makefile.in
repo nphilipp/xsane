@@ -20,7 +20,7 @@ mandir = @mandir@
 includedir = @includedir@
 oldincludedir = /usr/include
 configdir = ${sysconfdir}/sane.d
-datasanedir = ${datadir}/sane
+sanedatadir = ${datadir}/sane
 
 MKDIR = $(top_srcdir)/mkinstalldirs
 INSTALL = @INSTALL@
@@ -53,8 +53,8 @@ install: $(MANPAGES)
 	  $(INSTALL_DATA) $${page} $(mandir)/man1/$${page} || exit 1; \
 	done
 	$(MKDIR) $(datadir)
-	$(INSTALL_DATA) sane-*-doc.html $(datasanedir)/
-	$(INSTALL_DATA) *.gif $(datasanedir)/
+	$(INSTALL_DATA) sane-*-doc.html $(sanedatadir)/
+	$(INSTALL_DATA) *.gif $(sanedatadir)/
 
 docs: ps html
 

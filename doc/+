@@ -1,0 +1,1371 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (X11; I; Linux 2.0.36 i586) [Netscape]">
+   <META NAME="Author" CONTENT="Oliver Rauch">
+   <META NAME="Keywords" CONTENT="umax,scanner,driver,linux,unix,os/2">
+   <TITLE>sane-umax documentation</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#0000EF" VLINK="#51188E" ALINK="#FF0000">
+
+<CENTER>
+<H1>
+<IMG SRC="sane-logo.gif" HEIGHT=300 WIDTH=256></H1></CENTER>
+
+<CENTER><IMG SRC="sane-umax-text.gif" HEIGHT=45 WIDTH=157></CENTER>
+
+<CENTER>&nbsp;</CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER>
+<H1>
+&nbsp;SUPPORTED SCANNERS</H1></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+&nbsp;
+<BLOCKQUOTE>The sane-umax library implements a <A HREF="http://www.mostang.com/sane/sane.html">SANE</A>
+backend that provides acces to several UMAX-SCSI-scanners, <B>parallel-
+and USB-scanners are not supported!</B> Here is a list of the UMAX-scanners
+and the UMAX-compatible scanners:</BLOCKQUOTE>
+&nbsp;
+<CENTER><TABLE BORDER WIDTH="700" NOSAVE >
+<TR BGCOLOR="#40E0D0" NOSAVE>
+<TD VALIGN=TOP COLSPAN="11" NOSAVE><B><FONT FACE="Arial">UMAX scanners</FONT></B></TD>
+</TR>
+
+<TR NOSAVE>
+<TD WIDTH="25%" NOSAVE><B><FONT FACE="Arial">Name</FONT></B></TD>
+
+<TD WIDTH="9%"><B><FONT FACE="Arial">Vendor</FONT></B></TD>
+
+<TD WIDTH="20%" NOSAVE><B><FONT FACE="Arial">SCSI-ID</FONT></B></TD>
+
+<TD WIDTH="7%"><B><FONT FACE="Arial">Versions</FONT></B></TD>
+
+<TD WIDTH="6%"><B><FONT FACE="Arial">Line- art</FONT></B></TD>
+
+<TD WIDTH="6%"><B><FONT FACE="Arial">Half- tone</FONT></B></TD>
+
+<TD WIDTH="6%"><B><FONT FACE="Arial">Gray- scale</FONT></B></TD>
+
+<TD WIDTH="6%"><B><FONT FACE="Arial">Color RGB</FONT></B></TD>
+
+<TD WIDTH="6%"><B><FONT FACE="Arial">Bits/pixel</FONT></B></TD>
+
+<TD WIDTH="9%"><B><FONT FACE="Arial">Optical resolution</FONT></B></TD>
+
+<TD><B>Maximum resolution</B></TD>
+</TR>
+
+<TR ALIGN=LEFT>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Vista S6</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UMAX</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Vista-S6</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>all</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>--</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8,24</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>300 x 600</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>300 x 600</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Vista S6E</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UMAX</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Vista-S6E</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>all</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>--</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>1,8,24</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>300 x 600</FONT></FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>300 x 600</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>Vista S6E</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UMAX</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>UMAX S-6E</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>all</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>--</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>1,8,24</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>300 x 600</FONT></FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>300 x 600</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>Vista S6E</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UMAX</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>UMAX S-6EG</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>all</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>--</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8,24</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>300 x 600</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>300 x 600</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Vista S8</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UMAX</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Vista-S8</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8,24</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>400 x 800</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>400 x 800</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Supervista S12</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UMAX</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Supervista S-12</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>all</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>--</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8,24</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>600 x 1200</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>1200 x 1200</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Supervista S12</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UMAX</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UMAX S-12G</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>all</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>--</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8,24</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>600 x 1200</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>1200 x 1200</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Supervista S12</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UMAX</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UMAX S-12</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>all</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>--</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8,24</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>600 x 1200</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>1200 x 1200</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Astra 600S</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UMAX</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Astra 600S</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>all</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>--</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8,24</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>300 x 600</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>300 x 600</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Astra 610S</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UMAX</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Astra 610S</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>all</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>--</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8,24</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>300 x 600</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>300 x 600</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Astra 1200S</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UMAX</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Astra 1200S</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>all</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>--</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8,24,30</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>600 x 1200</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>600 x 1200</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Astra 1220S</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UMAX</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Astra 1220S</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>all</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>--</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8,24,36</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>600 x 1200</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>600 x 1200</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Astra 2100SU</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UMAX</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>unknown</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>--</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8,24,36</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>600 x 1200</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>600 x 1200</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Astra 2400S</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UMAX</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>unknown</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>--</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8,24,36</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>600 x 2400</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>600 x 2400</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Mirage</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UMAX</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Mirage D-16L</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8,24,30</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>700 x 1400</FONT></FONT>&nbsp;
+<BR><FONT FACE="Arial"><FONT SIZE=-1>1400 x 2800</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>700 x 1400</FONT>&nbsp;
+<BR><FONT COLOR="#990000"><FONT SIZE=-1>**</FONT></FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT SIZE=-1>Mirage II</FONT></TD>
+
+<TD><FONT SIZE=-1>UMAX</FONT></TD>
+
+<TD><FONT SIZE=-1>Mirage II</FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>1,8,24,36</FONT></TD>
+
+<TD><FONT SIZE=-1>700 x 1400</FONT>&nbsp;
+<BR><FONT SIZE=-1>1400 x 2800</FONT></TD>
+
+<TD><FONT SIZE=-1>700 x 1400</FONT>&nbsp;
+<BR><FONT COLOR="#990000"><FONT SIZE=-1>**</FONT></FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT SIZE=-1>Mirage IIse</FONT></TD>
+
+<TD><FONT SIZE=-1>UMAX</FONT></TD>
+
+<TD><FONT SIZE=-1>Mirage IIse</FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>1,8,24,36</FONT></TD>
+
+<TD><FONT SIZE=-1>700 x 1400&nbsp;</FONT></TD>
+
+<TD><FONT SIZE=-1>700 x 1400</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>PageScan</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UMAX</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>PSD</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>all</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>--</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8,24</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>300 x 300</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>300 x 300</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT SIZE=-1>PowerLook</FONT></TD>
+
+<TD><FONT SIZE=-1>UMAX</FONT></TD>
+
+<TD><FONT SIZE=-1>unknown</FONT></TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>PowerLook II</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UMAX</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>PL-II</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#3333FF"><FONT SIZE=-1>some</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>--</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8,24,36</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>600 x 1200</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>600 x 1200</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT SIZE=-1>Power Look III</FONT></TD>
+
+<TD><FONT SIZE=-1>UMAX</FONT></TD>
+
+<TD><FONT SIZE=-1>Power Look III</FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>1,8,24,42</FONT></TD>
+
+<TD><FONT SIZE=-1>1200 x 2400</FONT></TD>
+
+<TD><FONT SIZE=-1>1200 x 2400</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT SIZE=-1>PowerLook 2000</FONT></TD>
+
+<TD><FONT SIZE=-1>UMAX</FONT></TD>
+
+<TD><FONT SIZE=-1>Power Look 2000</FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>1,8,24,36</FONT></TD>
+
+<TD><FONT SIZE=-1>1000 x 2000</FONT></TD>
+
+<TD><FONT SIZE=-1>1000 x 2000</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT SIZE=-1>PowerLook 3000</FONT></TD>
+
+<TD><FONT SIZE=-1>UMAX</FONT></TD>
+
+<TD><FONT SIZE=-1>Power Look 3000</FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>1,8,24,42</FONT></TD>
+
+<TD><FONT SIZE=-1>1220 x 3048</FONT>&nbsp;
+<BR><FONT SIZE=-1>3048 x 3048</FONT></TD>
+
+<TD><FONT SIZE=-1>1220 x 3048</FONT>&nbsp;
+<BR><FONT COLOR="#990000"><FONT SIZE=-1>**</FONT></FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT SIZE=-1>PowerLook 1600XL</FONT></TD>
+
+<TD><FONT SIZE=-1>UMAX</FONT></TD>
+
+<TD><FONT SIZE=-1>unknown</FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>1,8,24,42</FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>800 x 1600</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>800 x 1600</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Gemini D-16</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UMAX</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Gemini D-16</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8,24</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>400 x 800</FONT></FONT>&nbsp;
+<BR><FONT FACE="Arial"><FONT SIZE=-1>800 x 1600</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>400 x 800</FONT>&nbsp;
+<BR><FONT COLOR="#990000"><FONT SIZE=-1>**</FONT></FONT></TD>
+</TR>
+</TABLE></CENTER>
+
+<CENTER>&nbsp;<FONT COLOR="#990000">** Double Optical Resolution mode not
+supported from the current driver version!</FONT></CENTER>
+&nbsp;
+<BR>&nbsp;
+<CENTER><TABLE BORDER WIDTH="700" NOSAVE >
+<TR BGCOLOR="#40E0D0" NOSAVE>
+<TD VALIGN=TOP COLSPAN="11" NOSAVE><B><FONT FACE="Arial">Old UMAX scanners</FONT></B></TD>
+</TR>
+
+<TR NOSAVE>
+<TD WIDTH="25%" NOSAVE><B><FONT FACE="Arial">Name</FONT></B></TD>
+
+<TD WIDTH="9%"><B><FONT FACE="Arial">Vendor</FONT></B></TD>
+
+<TD WIDTH="20%" NOSAVE><B><FONT FACE="Arial">SCSI-ID</FONT></B></TD>
+
+<TD WIDTH="7%"><B><FONT FACE="Arial">Versions</FONT></B></TD>
+
+<TD WIDTH="6%"><B><FONT FACE="Arial">Line- art</FONT></B></TD>
+
+<TD WIDTH="6%"><B><FONT FACE="Arial">Half- tone</FONT></B></TD>
+
+<TD WIDTH="6%"><B><FONT FACE="Arial">Gray- scale</FONT></B></TD>
+
+<TD WIDTH="6%"><B><FONT FACE="Arial">Color RGB</FONT></B></TD>
+
+<TD WIDTH="6%"><B><FONT FACE="Arial">Bits/pixel</FONT></B></TD>
+
+<TD WIDTH="9%"><B><FONT FACE="Arial">Optical resolution</FONT></B></TD>
+
+<TD><B>Maximum resolution</B></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UC630</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UMAX</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UC630</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#0000FF"><FONT SIZE=-1>not 1.6 (?)</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF0000"><FONT SIZE=-1>bad</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF0000"><FONT SIZE=-1>bad</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8,24</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>300 x 300</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>300 x 300</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UC630</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UMAX</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UC630</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#0000FF"><FONT SIZE=-1>1.6 (?)</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8,24</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>300 x 300</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>300 x 300</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UG630</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UMAX</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UG630</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>all</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>--</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>300 x 300</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>300 x 300</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UG80</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UMAX</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UG80</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>all</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>--</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>300 x 300</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>300 x 300</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UC840</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UMAX</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UC840</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#0000FF"><FONT SIZE=-1>not 1.6</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF0000"><FONT SIZE=-1>bad</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF0000"><FONT SIZE=-1>bad</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8,24</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>400 x 400</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>400 x 400</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UC840</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UMAX</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UC840</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#0000FF"><FONT SIZE=-1>1.6</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8,24</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>400 x 400</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>400 x 400</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UC1200S</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UMAX</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UC1200S</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF0000"><FONT SIZE=-1>bad</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF0000"><FONT SIZE=-1>bad</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF0000"><FONT SIZE=-1>bad</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF0000"><FONT SIZE=-1>bad</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8,24</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>600 x 600</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>600 x 600</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UC1200SE</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UMAX</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UC1200SE</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8,24</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>600 x 600</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>600 x 600</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UC1260</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UMAX</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UC1260</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#0000FF"><FONT SIZE=-1>not 1.6</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8,24</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>600 x 1200</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>600 x 1200</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UC1260</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UMAX</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UC1260</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#0000FF"><FONT SIZE=-1>1.6</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8,24</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>600 x 1200</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>600 x 1200</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Vista T630</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UMAX</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Vista-T630</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#3333FF"><FONT SIZE=-1>some *</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>--</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8,24</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>300 x 600</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>300 x 600</FONT></TD>
+</TR>
+</TABLE></CENTER>
+
+<CENTER>&nbsp;<FONT COLOR="#000099">* if you have problems with your Vista
+T630 scanner and you have a UTA-V6 connected, try without UTA!</FONT></CENTER>
+&nbsp;
+<BLOCKQUOTE><FONT COLOR="#000099">The old UMAX scanners often make problems.
+That may have to do with the firmware version. The first firmware versions
+are not compatible with Windows95, so I think they will not work with this
+driver too. Some scanners can not be updated to work with Windows95. UMAX
+suggests to use the following firmware versions for Windows 95: for UC630:
+2.8, for UC840: 1.6, for UC1260: 1.6 and for UC1200S: 2.5. For Vista T630
+you should use the UC630 firmware (read on UMAX's german web site).</FONT></BLOCKQUOTE>
+&nbsp;
+<CENTER><TABLE BORDER WIDTH="700" NOSAVE >
+<TR BGCOLOR="#40E0D0" NOSAVE>
+<TD VALIGN=TOP COLSPAN="11" NOSAVE><B><FONT FACE="Arial">Linotype Hell
+scanners</FONT></B></TD>
+</TR>
+
+<TR NOSAVE>
+<TD WIDTH="25%" NOSAVE><B><FONT FACE="Arial">Name</FONT></B></TD>
+
+<TD WIDTH="9%"><B><FONT FACE="Arial">Vendor</FONT></B></TD>
+
+<TD WIDTH="20%" NOSAVE><B><FONT FACE="Arial">SCSI-ID</FONT></B></TD>
+
+<TD WIDTH="7%"><B><FONT FACE="Arial">Versions</FONT></B></TD>
+
+<TD WIDTH="6%"><B><FONT FACE="Arial">Line- art</FONT></B></TD>
+
+<TD WIDTH="6%"><B><FONT FACE="Arial">Half- tone</FONT></B></TD>
+
+<TD WIDTH="6%"><B><FONT FACE="Arial">Gray- scale</FONT></B></TD>
+
+<TD WIDTH="6%"><B><FONT FACE="Arial">Color RGB</FONT></B></TD>
+
+<TD WIDTH="6%"><B><FONT FACE="Arial">Bits/pixel</FONT></B></TD>
+
+<TD WIDTH="9%"><B><FONT FACE="Arial">Optical resolution</FONT></B></TD>
+
+<TD><B>Maximum resolution</B></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Jade</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>LinoHell</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Office</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>all</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>--</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8,24</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>600 x 1200</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>1200 x 1200</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Jade2</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>LinoHell</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Office2</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>all</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>--</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8,24,30</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>600 x 1200</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>600 x 1200</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT SIZE=-1>Saphir</FONT></TD>
+
+<TD><FONT SIZE=-1>LinoHell</FONT></TD>
+
+<TD><FONT SIZE=-1>unknown</FONT></TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Saphir2</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>LinoHell</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>SAPHIR2</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>all</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>--</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8,24,36</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>600 x 1200</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>600 x 1200</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Saphir Ultra</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>LinoHell</FONT></TD>
+
+<TD><FONT SIZE=-1>unknown</FONT></TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+
+<TD><FONT SIZE=-1>1,8,24,36</FONT></TD>
+
+<TD><FONT SIZE=-1>600 x 1200</FONT></TD>
+
+<TD><FONT SIZE=-1>600 x 1200</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Saphir Ultra II</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>LinoHell</FONT></TD>
+
+<TD><FONT SIZE=-1>unknown</FONT></TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+
+<TD><FONT SIZE=-1>1,8,24,42</FONT></TD>
+
+<TD><FONT SIZE=-1>1200 x 2400</FONT></TD>
+
+<TD><FONT SIZE=-1>1200 x 2400</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Saphir HiRes</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>LinoHell</FONT></TD>
+
+<TD><FONT SIZE=-1>unknown</FONT></TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+
+<TD><FONT SIZE=-1>1,8,24,42</FONT></TD>
+
+<TD><FONT SIZE=-1>1220 x 3048</FONT>&nbsp;
+<BR><FONT SIZE=-1>3048 x 3048</FONT></TD>
+
+<TD><FONT SIZE=-1>1220 x 3048</FONT>&nbsp;
+<BR><FONT COLOR="#990000"><FONT SIZE=-1>**</FONT></FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT SIZE=-1>Opal</FONT></TD>
+
+<TD><FONT SIZE=-1>LinoHell</FONT></TD>
+
+<TD><FONT SIZE=-1>unknown</FONT></TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+
+<TD><FONT SIZE=-1>1,8,24,30</FONT></TD>
+
+<TD><FONT SIZE=-1>700 x 1400</FONT></TD>
+
+<TD><FONT SIZE=-1>700 x 1400</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT SIZE=-1>Opal Ultra</FONT></TD>
+
+<TD><FONT SIZE=-1>LinoHell</FONT></TD>
+
+<TD><FONT SIZE=-1>unknown</FONT></TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+
+<TD>&nbsp;</TD>
+
+<TD><FONT SIZE=-1>1,8,24,36</FONT></TD>
+
+<TD><FONT SIZE=-1>700 x 1400</FONT>&nbsp;
+<BR><FONT SIZE=-1>1400 x 2800</FONT></TD>
+
+<TD><FONT SIZE=-1>700 x 1400</FONT>&nbsp;
+<BR><FONT COLOR="#990000"><FONT SIZE=-1>**</FONT></FONT></TD>
+</TR>
+</TABLE></CENTER>
+
+<CENTER><FONT COLOR="#990000">** Double Optical Resolution mode not supported
+from the current driver version!</FONT></CENTER>
+&nbsp;
+<CENTER><TABLE BORDER WIDTH="700" NOSAVE >
+<TR BGCOLOR="#40E0D0" NOSAVE>
+<TD VALIGN=TOP COLSPAN="11" NOSAVE><B><FONT FACE="Arial">Other umax-compatible
+scanners</FONT></B></TD>
+</TR>
+
+<TR NOSAVE>
+<TD WIDTH="25%" NOSAVE><B><FONT FACE="Arial">Name</FONT></B></TD>
+
+<TD WIDTH="9%"><B><FONT FACE="Arial">Vendor</FONT></B></TD>
+
+<TD WIDTH="20%" NOSAVE><B><FONT FACE="Arial">SCSI-ID</FONT></B></TD>
+
+<TD WIDTH="7%"><B><FONT FACE="Arial">Versions</FONT></B></TD>
+
+<TD WIDTH="6%"><B><FONT FACE="Arial">Line- art</FONT></B></TD>
+
+<TD WIDTH="6%"><B><FONT FACE="Arial">Half- tone</FONT></B></TD>
+
+<TD WIDTH="6%"><B><FONT FACE="Arial">Gray- scale</FONT></B></TD>
+
+<TD WIDTH="6%"><B><FONT FACE="Arial">Color RGB</FONT></B></TD>
+
+<TD WIDTH="6%"><B><FONT FACE="Arial">Bits/pixel</FONT></B></TD>
+
+<TD WIDTH="9%"><B><FONT FACE="Arial">Optical resolution</FONT></B></TD>
+
+<TD><B>Maximum resolution</B></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Vobis/Highscreen Scanboostar Premium</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>LinoHell</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Office2</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>all</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>--</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8,24,30</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>600 x 1200</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>600 x 1200</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Escom</FONT></FONT>&nbsp;
+<BR><FONT FACE="Arial"><FONT SIZE=-1>Image Scanner 256</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UMAX</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>UG80</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>all</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#FF1493"><FONT SIZE=-1>?</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>--</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>300 x 300</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>300 x 300</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Nikon AX-210</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>Nikon</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>AX-210</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>all(?)</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>--</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT COLOR="#000000"><FONT SIZE=-1>ok</FONT></FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>1,8,24</FONT></FONT></TD>
+
+<TD><FONT FACE="Arial"><FONT SIZE=-1>600 x 1200</FONT></FONT></TD>
+
+<TD><FONT SIZE=-1>1200 x 1200</FONT></TD>
+</TR>
+</TABLE></CENTER>
+&nbsp;
+<BR>&nbsp;
+<BLOCKQUOTE>If you own a UMAX-scanner other than the ones listed above,
+it may work with SANE. It depends on the informations the scanner returns
+to the umax-backend. If the data-block is large enough, the backend prints
+a <B>warning</B> and continues, but it is possible that not everything
+works fine. <B>I suggest you hold one hand on the power-button of the scanner
+while you try the first scans!</B></BLOCKQUOTE>
+
+<BLOCKQUOTE>Here you can find <A HREF="http://support.umax.co.uk/firmware/f107B.htm">informations
+about firmware versions</A>.</BLOCKQUOTE>
+&nbsp;
+<HR WIDTH="100%">
+<BLOCKQUOTE><FONT SIZE=+1>AUTHOR:&nbsp;&nbsp;&nbsp;&nbsp; <A HREF="mailto:Oliver.Rauch@Wolfsburg.DE">Oliver
+Rauch</A></FONT></BLOCKQUOTE>
+
+<HR WIDTH="100%">
+<CENTER><A HREF="sane-umax-doc.html">frontend functions and options</A>,
+<A HREF="sane-umax-config-doc.html">configuration</A></CENTER>
+
+<HR WIDTH="100%">
+<CENTER><A HREF="http://www.mostang.com/sane/">SANE-homepage</A>, <A HREF="http://www.mostang.com/sane/sane-backends.html">backends</A>,
+<A HREF="http://www.Wolfsburg.DE/~rauch">SANE-UMAX patches</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><FONT COLOR="#009900">This page has been changed on 28th.&nbsp;
+march 1999</FONT></CENTER>
+
+<CENTER>&nbsp;</CENTER>
+
+</BODY>
+</HTML>

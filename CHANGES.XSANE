@@ -133,3 +133,30 @@ xsane-0.18 -> 0.19:
    scan and preview scan to false
  - added some help(html) files to the doc directory
 
+
+xsane-0.19 -> 0.20:
+-------------------
+
+ - improved online help
+ - added own version number for xsane, there are three version
+   numbers now:
+   - xsane version
+   - sane version
+   - package version (e.g if there is a package of different frontends)
+ - added gamma value (gray, red, green, blue) for printer (copy mode)
+ - changed sane-style.rc -> xsane.style.rc
+ - changed PATH_SANE_DATA_DIR -> old PATH_SANE_DATA_DIR/sane
+ - preview gamma correction is done by the xsane gamma correction instead of
+   the Xserver gamma correction, there are also values for red, green and blue
+   now.
+ - spilt setup window into notebook pages
+ - replaced in xsane_pref_set_unit_callback preview_update by preview_area_resize,
+   the ruler units are updated now if unit is changed
+ - made menue length unit inactive is length unit is pixel
+ - added dialogs for batch scan list and fax page list, but not finished and disabled
+ - changed local includes from <...> to "..."
+ - test for filetype is only done in scanmode now
+ - added list of (up to 10) printers for photocopy mode 
+ - added error messages if failed to open files
+ - added sigpipe_handler for handling broken pipe while writing to printercommand
+

@@ -17,7 +17,7 @@ Install:
     For linux: edit /etc/ld.so.conf and add a line with the path to the
     libraries (normally /usr/local/lib/sane), then call ldconfig as root. 
 
-- If you are running on a recent SuSE-Linux, netscape may be called via a
+- If your computers system is a recent SuSE-Linux, netscape may be called via a
   script Netscape and "netscape" is not in the path. In that case you have
   to create a symblic link from Netscape to netscape, eg:
   ln -s /usr/X11R6/bin/Netscape /usr/X11R6/bin/netscape

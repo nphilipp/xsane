@@ -82,7 +82,9 @@ Preview;
 extern Preview *preview_new (GSGDialog *dialog);
 
 /* Do gamma correction on preview data */
-extern void preview_gamma_correction(Preview *p, int gamma_red[], int gamma_green[], int gamma_blue[]);
+extern void preview_gamma_correction(Preview *p,
+                                     int gamma_red[], int gamma_green[], int gamma_blue[],
+                                     int gamma_red_hist[], int gamma_green_hist[], int gamma_blue_hist[]);
 
 /* Some of the parameters may have changed---update the preview.  */
 extern void preview_update(Preview *p);
@@ -95,9 +97,11 @@ extern void preview_destroy(Preview *p);
 
 /* calculate histogram */
 extern void preview_calculate_histogram(Preview *p,
-
 SANE_Int *count_raw, SANE_Int *count_raw_red, SANE_Int *count_raw_green, SANE_Int *count_raw_blue,
 SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue,
 SANE_Int left_x, SANE_Int top_y, SANE_Int right_x, SANE_Int bottom_y);
+
+/* redraw preview rulers */
+extern void preview_area_resize(GtkWidget *widget);
 
 #endif /* preview_h */

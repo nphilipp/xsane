@@ -33,7 +33,6 @@ all: all-recursive
 
 
 install: install-recursive
-	$(MKDIR) $(includedir)/sane
 
 clean: clean-recursive
 

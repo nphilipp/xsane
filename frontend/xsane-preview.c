@@ -76,10 +76,10 @@
 
 #include <sys/param.h>
 
-#include <xsane-gtk.h>
-#include <xsane.h>
-#include <xsane-preview.h>
-#include <xsane-preferences.h>
+#include "xsane-gtk.h"
+#include "xsane.h"
+#include "xsane-preview.h"
+#include "xsane-preferences.h"
 
 #ifndef PATH_MAX
 # define PATH_MAX	1024
@@ -108,6 +108,10 @@
 static SANE_Int *preview_gamma_data_red   = 0;
 static SANE_Int *preview_gamma_data_green = 0;
 static SANE_Int *preview_gamma_data_blue  = 0;
+
+static SANE_Int *histogram_gamma_data_red   = 0;
+static SANE_Int *histogram_gamma_data_green = 0;
+static SANE_Int *histogram_gamma_data_blue  = 0;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -416,9 +420,9 @@ void preview_calculate_histogram(Preview *p,
         green_raw = p->image_data_raw[offset + 1];
         blue_raw  = p->image_data_raw[offset + 2];
 
-        red   = preview_gamma_data_red  [red_raw];
-        green = preview_gamma_data_green[green_raw];
-        blue  = preview_gamma_data_blue [blue_raw];
+        red   = histogram_gamma_data_red  [red_raw];
+        green = histogram_gamma_data_green[green_raw];
+        blue  = histogram_gamma_data_blue [blue_raw];
 
 /*	count_raw      [(int) sqrt((red_raw*red_raw + green_raw*green_raw + blue_raw*blue_raw)/3.0)]++; */
 	count_raw      [(int) ((red_raw + green_raw + blue_raw)/3)]++;
@@ -476,11 +480,17 @@ void preview_calculate_histogram(Preview *p,
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void preview_gamma_correction(Preview *p, SANE_Int *gamma_red, SANE_Int *gamma_green, SANE_Int *gamma_blue)
+void preview_gamma_correction(Preview *p,
+                              SANE_Int *gamma_red, SANE_Int *gamma_green, SANE_Int *gamma_blue,
+                              SANE_Int *gamma_red_hist, SANE_Int *gamma_green_hist, SANE_Int *gamma_blue_hist)
 {
   preview_gamma_data_red   = gamma_red;
   preview_gamma_data_green = gamma_green;
   preview_gamma_data_blue  = gamma_blue;
+
+  histogram_gamma_data_red   = gamma_red_hist;
+  histogram_gamma_data_green = gamma_green_hist;
+  histogram_gamma_data_blue  = gamma_blue_hist;
 
   preview_do_gamma_correction(p);
   p->previous_selection.active = FALSE;
@@ -508,7 +518,7 @@ static void preview_display_image(Preview *p)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void preview_area_resize(GtkWidget *widget)
+void preview_area_resize(GtkWidget *widget)
 {
  float min_x, max_x, min_y, max_y, xscale, yscale, f;
  Preview *p;
@@ -1426,7 +1436,8 @@ Preview *preview_new(GSGDialog *dialog)
   if (first_time)
   {
     first_time = 0;
-    gtk_preview_set_gamma(preferences.preview_gamma);
+/*    gtk_preview_set_gamma(preferences.preview_gamma); */
+    gtk_preview_set_gamma(1.0);
     gtk_preview_set_install_cmap(preferences.preview_own_cmap);
   }
 
