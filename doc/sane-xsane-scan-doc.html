@@ -1,93 +1,85 @@
-<HTML>
-<HEAD>
-   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
-   <META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (X11; I; Linux 2.0.36 i586) [Netscape]">
-   <META NAME="Author" CONTENT="Oliver Rauch">
-   <META NAME="Description" CONTENT="scan, photocopy and fax frontend for SANE">
-   <TITLE>SANE - XSane frontend</TITLE>
-</HEAD>
-<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#0000EF" VLINK="#51188E" ALINK="#FF0000">
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.51 [en] (X11; I; Linux 2.2.5 i586) [Netscape]">
+   <meta name="Author" content="Oliver Rauch">
+   <meta name="Description" content="scan, photocopy and fax frontend for SANE">
+   <title>SANE - XSane frontend</title>
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EF" vlink="#51188E" alink="#FF0000">
+&nbsp;
+<center>
+<dd>
+<img SRC="xsane-logo2.gif" height=150 width=128 align=LEFT></dd></center>
 
-<CENTER>&nbsp;</CENTER>
-
-<CENTER>
-<DD>
-<IMG SRC="xsane-logo2.gif" HEIGHT=150 WIDTH=128 ALIGN=LEFT></DD></CENTER>
-
-<CENTER>&nbsp;</CENTER>
-
-<BLOCKQUOTE>
-<H1>
-<U><FONT COLOR="#009900">Scan mode (stand alone)</FONT></U></H1>
+<p><br>
+<blockquote>
+<h1>
+<u><font color="#009900">Scan mode (stand alone)</font></u></h1>
 The scan mode is to scan an image and save it to a file.
-<BR>&nbsp;
-<BR>&nbsp;
-<BR>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;</blockquote>
 
-<P>&nbsp;</BLOCKQUOTE>
+<center><img SRC="sane-xsane.gif" height=454 width=304></center>
 
-<CENTER><IMG SRC="sane-xsane.gif" HEIGHT=453 WIDTH=306></CENTER>
+<blockquote>&nbsp;</blockquote>
 
-<BLOCKQUOTE>&nbsp;
-<BR>&nbsp;</BLOCKQUOTE>
+<h3>
+<u><font color="#009900">Supported output formats:</font></u></h3>
 
-<H3>
-<U><FONT COLOR="#009900">Supported output formats:</FONT></U></H3>
+<blockquote>You select the output format by the filename extension.</blockquote>
 
-<BLOCKQUOTE>You select the output format by the filename extension.</BLOCKQUOTE>
+<blockquote><b>Which formats are available depends on the compiled in support.</b>
+<br>Possible are: <i>pnm, png, ps, jpeg, raw </i>and<i> tiff.</i></blockquote>
 
-<BLOCKQUOTE><B>Which formats are available depends on the compiled in support.</B>
-<BR>Possible are: <I>pnm, png, ps, jpeg, raw </I>and<I> tiff.</I></BLOCKQUOTE>
+<blockquote>Always available are <i>pnm</i> and <i>ps</i> (and raw).</blockquote>
 
-<BLOCKQUOTE>Always available are <I>pnm</I> and <I>ps</I> (and raw).</BLOCKQUOTE>
+<blockquote>The other formats are only available if necessary libraries
+are present (at compilation time AND while xsane is executed). For <i>png</i>
+you need libpng and libz, for <i>jpeg</i> you need jpeglib, for <i>tiff</i>
+you need libtiff.</blockquote>
 
-<BLOCKQUOTE>The other formats are only available if necessary libraries
-are present (at compilation time AND while xsane is executed). For <I>png</I>
-you need libpng and libz, for <I>jpeg</I> you need jpeglib, for <I>tiff</I>
-you need libtiff.</BLOCKQUOTE>
+<blockquote>The <i>raw</i> format is a 16 bit format comparable to 16 bit
+binary <i>pnm</i> format that is not defined, for <i>pnm</i> the 16 bit
+format only is defined as ascii mode which generates huge and slow files.</blockquote>
 
-<BLOCKQUOTE>The <I>raw</I> format is a 16 bit format comparable to 16 bit
-binary <I>pnm</I> format that is not defined, for <I>pnm</I> the 16 bit
-format only is defined as ascii mode which generates huge and slow files.</BLOCKQUOTE>
+<blockquote><b>The supported output formats depend on the bit depth of
+the scanned image:</b>
+<h4>
+<u><font color="#990000">1 bit/pixel black/white mode:</font></u></h4>
 
-<BLOCKQUOTE><B>The supported output formats depend on the bit depth of
-the scanned image:</B>
-<H4>
-<U><FONT COLOR="#990000">1 bit/pixel black/white mode:</FONT></U></H4>
+<blockquote><font color="#000099">pnm = pbm, png</font>
+<br><font color="#000099">ps, jpeg and tiff are converted to 8 bit grayscale
+mode.</font></blockquote>
 
-<BLOCKQUOTE><FONT COLOR="#000099">pnm = pbm, png</FONT>
-<BR><FONT COLOR="#000099">ps, jpeg and tiff are converted to 8 bit
-grayscale mode.</FONT></BLOCKQUOTE>
-&nbsp;
-<H4>
-<U><FONT COLOR="#990000">8 bits/pixel grayscale mode:</FONT></U></H4>
+<h4>
+<u><font color="#990000">8 bits/pixel grayscale mode:</font></u></h4>
 
-<BLOCKQUOTE><FONT COLOR="#000099">pnm = pgm, png, ps, jpeg and tiff</FONT></BLOCKQUOTE>
-&nbsp;
-<H4>
-<U><FONT COLOR="#990000">24 bits/pixel color mode:</FONT></U></H4>
+<blockquote><font color="#000099">pnm = pgm, png, ps, jpeg and tiff</font></blockquote>
 
-<BLOCKQUOTE><FONT COLOR="#000099">pnm = ppm, png, ps, jpeg and tiff</FONT></BLOCKQUOTE>
-&nbsp;
-<H4>
-<U><FONT COLOR="#990000">9-16 bits/pixel grayscale mode:</FONT></U></H4>
+<h4>
+<u><font color="#990000">24 bits/pixel color mode:</font></u></h4>
 
-<BLOCKQUOTE><FONT COLOR="#000099">pnm (ascii), png and raw&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-*** THIS IS EXPERIMENTAL ***</FONT></BLOCKQUOTE>
-&nbsp;
-<H4>
-<U><FONT COLOR="#990000">27-48 bits/pixel color mode:</FONT></U></H4>
+<blockquote><font color="#000099">pnm = ppm, png, ps, jpeg and tiff</font></blockquote>
 
-<BLOCKQUOTE><FONT COLOR="#000099">pnm (ascii), png and raw&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-*** THIS IS EXPERIMENTAL ***</FONT></BLOCKQUOTE>
-&nbsp;</BLOCKQUOTE>
+<h4>
+<u><font color="#990000">9-16 bits/pixel grayscale mode:</font></u></h4>
 
-<CENTER>
-<HR WIDTH="100%"></CENTER>
+<blockquote><font color="#000099">pnm (ascii), png and raw</font></blockquote>
 
-<CENTER><A HREF="sane-xsane-doc.html">INDEX</A></CENTER>
+<h4>
+<u><font color="#990000">27-48 bits/pixel color mode:</font></u></h4>
 
-<CENTER>&nbsp;</CENTER>
+<blockquote><font color="#000099">pnm (ascii), png and raw</font></blockquote>
+</blockquote>
 
-</BODY>
-</HTML>
+<center>
+<hr WIDTH="100%">
+<br><a href="sane-xsane-doc.html">INDEX</a></center>
+
+<p><br>
+</body>
+</html>

@@ -120,6 +120,7 @@ void xsane_pref_save(void);
 static void xsane_new_printer(void);
 static void xsane_pref_restore(void);
 static void xsane_quit(void);
+static void xsane_exit(void);
 static gint xsane_standard_option_win_delete(GtkWidget *widget, gpointer data);
 static gint xsane_advanced_option_win_delete(GtkWidget *widget, gpointer data);
 static gint xsane_histogram_win_delete(GtkWidget *widget, gpointer data);
@@ -1201,20 +1202,22 @@ static void xsane_pref_restore(void)
 static void xsane_quit(void)
 {
   if (xsane.preview)
-    {
-      Preview *preview = xsane.preview;
-      xsane.preview = 0;
-      preview_destroy(preview);
-    }
+  {
+    Preview *preview = xsane.preview;
+    xsane.preview = 0;
+    preview_destroy(preview);
+  }
+
   while (gsg_message_dialog_active)
-    {
-      if (!gtk_events_pending ())
-	usleep(100000);
-      gtk_main_iteration();
-    }
-  xsane_pref_save();
+  {
+    gtk_main_iteration();
+  }
+
   if (dialog && gsg_dialog_get_device(dialog))
+  {
     sane_close(gsg_dialog_get_device(dialog));
+  }
+
   sane_exit();
   gtk_main_quit();
 
@@ -1223,6 +1226,7 @@ static void xsane_quit(void)
     free(xsane.preview_gamma_data_red);
     free(xsane.preview_gamma_data_green);
     free(xsane.preview_gamma_data_blue);
+
     xsane.preview_gamma_data_red   = 0;
     xsane.preview_gamma_data_green = 0;
     xsane.preview_gamma_data_blue  = 0;
@@ -1230,7 +1234,29 @@ static void xsane_quit(void)
 
 #ifdef HAVE_LIBGIMP_GIMP_H
   if (xsane.mode == GIMP_EXTENSION)
+  {
     gimp_quit();
+  }
+#endif
+  exit(0);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_exit(void) /* this is called when xsane exits before gtk_main is called */
+{
+  while (gsg_message_dialog_active)
+  {
+    gtk_main_iteration();
+  }
+
+  sane_exit();
+
+#ifdef HAVE_LIBGIMP_GIMP_H
+  if (xsane.mode == GIMP_EXTENSION)
+  {
+    gimp_quit();
+  }
 #endif
   exit(0);
 }
@@ -1270,6 +1296,7 @@ static gint xsane_histogram_win_delete(GtkWidget *widget, gpointer data)
 /* Invoked when window manager's "delete" (or "close") function is invoked.  */
 static gint xsane_scan_win_delete(GtkWidget *w, gpointer data)
 {
+  xsane_pref_save();
   xsane_quit();
   return FALSE;
 }
@@ -1340,6 +1367,7 @@ static void xsane_zoom_out_preview(GtkWidget * widget, gpointer data)
 
 static void xsane_files_exit_callback(GtkWidget *widget, gpointer data)
 {
+  xsane_pref_save();
   xsane_quit();
 }
 
@@ -3690,7 +3718,7 @@ static void xsane_device_dialog(void)
 
 static void xsane_choose_dialog_ok_callback(void)
 {
-  gtk_signal_disconnect_by_func(GTK_OBJECT(choose_device_dialog), GTK_SIGNAL_FUNC(xsane_files_exit_callback), 0);
+  gtk_signal_disconnect_by_func(GTK_OBJECT(choose_device_dialog), GTK_SIGNAL_FUNC(xsane_quit), 0);
   gtk_widget_destroy(choose_device_dialog);
   xsane_device_dialog();
 
@@ -3733,7 +3761,7 @@ static gint32 xsane_choose_device(void)
   choose_device_dialog = gtk_dialog_new();
   gtk_window_position(GTK_WINDOW(choose_device_dialog), GTK_WIN_POS_CENTER);
   gtk_window_set_policy(GTK_WINDOW(choose_device_dialog), FALSE, FALSE, FALSE);
-  gtk_signal_connect(GTK_OBJECT(choose_device_dialog), "destroy", GTK_SIGNAL_FUNC(xsane_files_exit_callback), 0);
+  gtk_signal_connect(GTK_OBJECT(choose_device_dialog), "destroy", GTK_SIGNAL_FUNC(xsane_quit), 0);
   snprintf(buf, sizeof(buf), "%s device selection",prog_name);
   gtk_window_set_title(GTK_WINDOW(choose_device_dialog), buf);
 
@@ -3813,7 +3841,7 @@ static gint32 xsane_choose_device(void)
 
   /* The Cancel button */
   button = gtk_button_new_with_label("Cancel");
-  gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_files_exit_callback, 0);
+  gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_quit, 0);
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
   gtk_widget_show(button);
 
@@ -3944,47 +3972,44 @@ void xsane_interface(int argc, char **argv)
 {
   xsane.info_label = 0;
 
-  xsane_init(argc, argv);
+  xsane_init(argc, argv); /* initialize xsane variables if command line option is given, set seldev */
 
-  for (ndevs = 0; devlist[ndevs]; ++ndevs);
+  for (ndevs = 0; devlist[ndevs]; ++ndevs); /* count available devices */
 
-  if (seldev >= 0)
+  if (seldev >= 0) /* device name is given on cammand line */
   {
-    if (seldev >= ndevs)
-    {
-      fprintf(stderr, "%s: device %d is unavailable.\n", prog_name, seldev);
-      xsane_quit();
-    }
-
-    xsane_device_dialog();
+    xsane_device_dialog(); /* open device seldev */
 
     if (!dialog)
     {
-      xsane_quit();
+      xsane_exit();
     }
   }
-  else
+  else /* no device name given on command line */
   {
-    if (ndevs > 0)
+    if (ndevs > 0) /* devices available */
     {
       seldev = 0;
       if (ndevs == 1)
       {
-        xsane_device_dialog();
+        xsane_device_dialog(); /* open device seldev */
         if (!dialog)
 	{
-	  xsane_quit();
+	  xsane_exit();
 	}
       }
       else
       {
-        xsane_choose_device();
+        xsane_choose_device(); /* open device selection window and get device */
       }
     }
-    else
+    else /* ndevs == 0, no devices available */
     {
-      fprintf(stderr, "%s: no devices available.\n", prog_name);
-      xsane_quit();
+     char buf[256];
+
+      snprintf(buf, sizeof(buf), "%s: no devices available.\n", prog_name);
+      gsg_error(buf);
+      xsane_exit();
     }
   }
 

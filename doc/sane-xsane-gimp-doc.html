@@ -1,59 +1,56 @@
-<HTML>
-<HEAD>
-   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
-   <META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (X11; I; Linux 2.0.36 i586) [Netscape]">
-   <META NAME="Author" CONTENT="Oliver Rauch">
-   <META NAME="Description" CONTENT="scan, photocopy and fax frontend for SANE">
-   <TITLE>SANE - XSane frontend</TITLE>
-</HEAD>
-<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#0000EF" VLINK="#51188E" ALINK="#FF0000">
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.51 [en] (X11; I; Linux 2.2.5 i586) [Netscape]">
+   <meta name="Author" content="Oliver Rauch">
+   <meta name="Description" content="scan, photocopy and fax frontend for SANE">
+   <title>SANE - XSane frontend</title>
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EF" vlink="#51188E" alink="#FF0000">
+&nbsp;
+<center>
+<dd>
+<img SRC="xsane-logo2.gif" height=150 width=128 align=LEFT></dd></center>
 
-<CENTER>&nbsp;</CENTER>
+<p><br>
+<blockquote>
+<h1>
+<u><font color="#009900">Xsane as Gimp plugin</font></u></h1>
+<font color="#000000">If xsane is started as Gimp plugin, the scanned image
+automatically is transfered to the Gimp.</font>
+<br>&nbsp;
+<br>&nbsp;</blockquote>
 
-<CENTER>
-<DD>
-<IMG SRC="xsane-logo2.gif" HEIGHT=150 WIDTH=128 ALIGN=LEFT></DD></CENTER>
+<center><img SRC="sane-xsane-gimp.gif" height=454 width=304></center>
 
-<CENTER>&nbsp;</CENTER>
-
-<BLOCKQUOTE>
-<H1>
-<U><FONT COLOR="#009900">Xsane as Gimp plugin</FONT></U></H1>
-<FONT COLOR="#000000">If xsane is started as Gimp plugin, the scanned image
-automatically is transfered to the Gimp.</FONT>
-<BR>&nbsp;
-<BR>&nbsp;
-
-<P>&nbsp;</BLOCKQUOTE>
-
-<CENTER><IMG SRC="sane-xsane-gimp.gif" HEIGHT=443 WIDTH=306></CENTER>
-
-<BLOCKQUOTE>
-<CENTER>&nbsp;</CENTER>
-
-<CENTER>&nbsp;</CENTER>
-To start xsane as a gimp plugin, you have to set a symbolic link from the
-xsane binary to a Gimp plug-ins directory. If xsane is located in /usr/local/bin
-do:
-<BLOCKQUOTE>
-<PRE>ln -s /usr/local/bin/xsane ~/.gimp/plug-ins/</PRE>
-</BLOCKQUOTE>
-You can start xsane from the Gimp via the menu <I>Xtns/Xsane.</I> It contains
+<blockquote>&nbsp;
+<p>To start xsane as a gimp plugin, you have to set a symbolic link from
+the xsane binary to a Gimp plug-ins directory. If xsane is located in /usr/local/bin&nbsp;
+and you use-gimp-1.0.x do:
+<blockquote>
+<pre>ln -s /usr/local/bin/xsane ~/.gimp/plug-ins/</pre>
+</blockquote>
+if you use gimp-1.1.x, you have to do:
+<blockquote>
+<pre>ln -s /usr/local/bin/xsane ~/.gimp-1.1/plug-ins/</pre>
+</blockquote>
+You can start xsane from the Gimp via the menu <i>Xtns/Xsane.</i> It contains
 short-cuts to the SANE devices that were available at the time xsane was
-queried.</BLOCKQUOTE>
+queried.</blockquote>
 
-<BLOCKQUOTE>Note that gimp(1) caches these short-cuts in ~/.gimp/pluginrc.
+<blockquote>Note that gimp(1) caches these short-cuts in ~/.gimp/pluginrc.
 Thus, when the list of&nbsp; available devices changes (e.g., a new scanner
 is installed or the device of the scanner has changed),&nbsp; then it is
 typically desirable to rebuild this cache. To do this, you can either&nbsp;
 touch(1) the xsane binary (e.g.,"touch&nbsp; /usr/local/bin/xsane") or
 delete the plugin cache (e.g.,&nbsp; "rm&nbsp; ~/.gimp/pluginrc"). Either
-way, invoking gimp(1) afterwards will cause the pluginrc to be rebuilt.</BLOCKQUOTE>
-&nbsp;
-<CENTER>
-<HR WIDTH="100%"><A HREF="sane-xsane-doc.html">INDEX</A></CENTER>
+way, invoking gimp(1) afterwards will cause the pluginrc to be rebuilt.</blockquote>
 
-<CENTER>&nbsp;</CENTER>
+<center>
+<p><br>
+<hr WIDTH="100%"><a href="sane-xsane-doc.html">INDEX</a></center>
 
-</BODY>
-</HTML>
+<p><br>
+</body>
+</html>

@@ -212,29 +212,35 @@ filename_too_long:
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-void gsg_set_option (GSGDialog * dialog, int opt_num, void *val, SANE_Action action)
+void gsg_set_option(GSGDialog * dialog, int opt_num, void *val, SANE_Action action)
 {
   SANE_Status status;
   SANE_Int info;
   char buf[256];
 
-  status = sane_control_option (dialog->dev, opt_num, action, val, &info);
+  status = sane_control_option(dialog->dev, opt_num, action, val, &info);
   if (status != SANE_STATUS_GOOD)
-    {
-      snprintf (buf, sizeof (buf), "Failed to set value of option %s: %s.",
-	       sane_get_option_descriptor (dialog->dev, opt_num)->name,
-	       sane_strstatus (status));
-      gsg_error (buf);
-      return;
-    }
+  {
+    snprintf(buf, sizeof (buf), "Failed to set value of option %s: %s.",
+             sane_get_option_descriptor (dialog->dev, opt_num)->name,
+             sane_strstatus (status));
+    gsg_error(buf);
+    return;
+  }
+
   if ((info & SANE_INFO_RELOAD_PARAMS) && dialog->param_change_callback)
+  {
     (*dialog->param_change_callback) (dialog, dialog->param_change_arg);
+  }
+
   if (info & SANE_INFO_RELOAD_OPTIONS)
+  {
+    panel_rebuild (dialog);
+    if (dialog->option_reload_callback)
     {
-      panel_rebuild (dialog);
-      if (dialog->option_reload_callback)
-	(*dialog->option_reload_callback) (dialog, dialog->option_reload_arg);
+      (*dialog->option_reload_callback) (dialog, dialog->option_reload_arg);
     }
+  }
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */

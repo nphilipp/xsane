@@ -198,3 +198,12 @@ xsane-0.22 -> 0.23:
  - changed definition of struct xsane and struct xsane_setup
  - added documentation-viewer-command to setup, netscaperemote is selected
    via the keyword "netscape-remote"
+
+xsane-0.23 -> 0.24:
+-------------------
+
+ - removed some bugs in gamma value calculation for real scan (preview was ok)
+ - added activation for some windows after scan error
+ - remvoed bugs in startup if no device is available or selected,
+   the xsane.rc-file keeps untouched now
+

@@ -1,195 +1,221 @@
-<HTML>
-<HEAD>
-   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
-   <META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (X11; I; Linux 2.0.36 i586) [Netscape]">
-   <META NAME="Author" CONTENT="Oliver Rauch">
-   <META NAME="Description" CONTENT="scan, photocopy and fax frontend for SANE">
-   <TITLE>SANE - XSane frontend</TITLE>
-</HEAD>
-<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#0000EF" VLINK="#51188E" ALINK="#FF0000">
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.51 [en] (X11; I; Linux 2.2.5 i586) [Netscape]">
+   <meta name="Author" content="Oliver Rauch">
+   <meta name="Description" content="scan, photocopy and fax frontend for SANE">
+   <title>SANE - XSane frontend</title>
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EF" vlink="#51188E" alink="#FF0000">
+&nbsp;
+<dd>
+<img SRC="xsane-logo2.gif" height=150 width=128 align=LEFT></dd>
 
-<CENTER>&nbsp;</CENTER>
-
-<DD>
-<IMG SRC="xsane-logo2.gif" HEIGHT=150 WIDTH=128 ALIGN=LEFT></DD>
-
-<CENTER>&nbsp;</CENTER>
-
-<BLOCKQUOTE>
-<H1>
-<U><FONT COLOR="#009900">Setup</FONT></U></H1>
+<blockquote>
+<h1>
+<u><font color="#009900">Setup</font></u></h1>
 In the setup window the options for printer, saving, preview and fax are
 set. The setup window is opened via the menu Preferences/setup.
-<BR>&nbsp;
-<BR>&nbsp;
-<BR>&nbsp;
-<BR>&nbsp;
-<CENTER>&nbsp;</CENTER>
-</BLOCKQUOTE>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;</blockquote>
 
-<H3>
-<FONT COLOR="#009900">Printer options:</FONT></H3>
+<h3>
+<font color="#009900">Printer options:</font></h3>
 
-<CENTER><IMG SRC="sane-xsane-setup-printer.gif" HEIGHT=473 WIDTH=359></CENTER>
+<center><img SRC="sane-xsane-setup-printer.gif" height=476 width=391></center>
 
-<CENTER>&nbsp;</CENTER>
+<p><br>
+<h3>
+&nbsp;</h3>
 
-<H3>
-&nbsp;</H3>
+<blockquote>
+<h4>
+COMMAND:</h4>
+</blockquote>
 
-<BLOCKQUOTE>
-<H4>
-COMMAND:</H4>
-</BLOCKQUOTE>
-
-<BLOCKQUOTE>
-<BLOCKQUOTE>Enter the command with which you print files. The command has
+<blockquote>
+<blockquote>Enter the command with which you print files. The command has
 to read the file from the standard input. If you use the bsd printing system,
 this is "lpr -", if you use the old printing system, this should be "lp
--".</BLOCKQUOTE>
-&nbsp;
-<H4>
-RESOLUTION:</H4>
+-".</blockquote>
 
-<BLOCKQUOTE>With <I>resolution</I> you specify the resolution that shall
+<h4>
+RESOLUTION:</h4>
+
+<blockquote>With <i>resolution</i> you specify the resolution that shall
 be used for printing. It is not always necessary to set this value to the
 resolution of the printer. Especally in grayscale and color mode it normally
 is good to set this value to the half or the quarter of the printer resolution
 because the printer needs a greater resolution to do the dithering. This
 value does not effect a change of the image size, the image size only depends
-on the given zoom factor.</BLOCKQUOTE>
-&nbsp;
-<H4>
-PRINT AREA (WIDTH, HEIGHT, LEFT OFFSET, BOTTOM OFFSET):</H4>
+on the given zoom factor.</blockquote>
 
-<BLOCKQUOTE>Each printer has it's own area size and position where it is
-able to print.</BLOCKQUOTE>
-&nbsp;
-<H4>
-PRINTER GAMMA VALUES:</H4>
+<h4>
+PRINT AREA (WIDTH, HEIGHT, LEFT OFFSET, BOTTOM OFFSET):</h4>
 
-<BLOCKQUOTE>Addidtional gamma value for printing. The <I>Printer gamma
-value</I> is used for grayscale and as common value for color mode. The
-red, green and blue values are for color correction.</BLOCKQUOTE>
-&nbsp;</BLOCKQUOTE>
+<blockquote>Each printer has it's own area size and position where it is
+able to print.</blockquote>
 
-<HR WIDTH="100%">
-<BLOCKQUOTE>&nbsp;</BLOCKQUOTE>
+<h4>
+PRINTER GAMMA VALUES:</h4>
 
-<H3>
-<FONT COLOR="#009900">Saving options:</FONT></H3>
+<blockquote>Addidtional gamma value for printing. The <i>Printer gamma
+value</i> is used for grayscale and as common value for color mode. The
+red, green and blue values are for color correction.</blockquote>
+</blockquote>
 
-<CENTER><IMG SRC="sane-xsane-setup-save.gif" HEIGHT=473 WIDTH=359></CENTER>
+<hr WIDTH="100%">
+<blockquote>&nbsp;</blockquote>
 
-<CENTER>&nbsp;</CENTER>
+<h3>
+<font color="#009900">Saving options:</font></h3>
 
-<CENTER>&nbsp;</CENTER>
+<center><img SRC="sane-xsane-setup-save.gif" height=476 width=391></center>
 
-<CENTER>&nbsp;</CENTER>
+<p><br>
+<br>&nbsp;
+<br>&nbsp;
+<blockquote>
+<h4>
+OVERWRITE WARNING:</h4>
+</blockquote>
 
-<BLOCKQUOTE>
-<H4>
-OVERWRITE WARNING:</H4>
-</BLOCKQUOTE>
+<blockquote>
+<blockquote>If enabled, a warning comes up before an existing file is overwritten.</blockquote>
 
-<BLOCKQUOTE>
-<BLOCKQUOTE>If enabled, a warning comes up before an existing file is overwritten.</BLOCKQUOTE>
-&nbsp;
-<H4>
-INCREASE FILENAME COUNTER:</H4>
+<h4>
+INCREASE FILENAME COUNTER:</h4>
 
-<BLOCKQUOTE>If enabled, the number in the filename of the following form
+<blockquote>If enabled, the number in the filename of the following form
 is automatically increased after a scan is completed:
-<BLOCKQUOTE><I>image-001.ext</I></BLOCKQUOTE>
+<blockquote><i>image-001.ext</i></blockquote>
 The number of digits is free and will not be changed, in case of an overflow,
-a warning is printed and the counter becomes 0.</BLOCKQUOTE>
-&nbsp;
-<BLOCKQUOTE>If an automatic document feeder is used the filename should
-contain a counter and this option should be enabled.</BLOCKQUOTE>
-&nbsp;
-<H4>
-SKIP EXISTING NUMBERS:</H4>
+a warning is printed and the counter becomes 0.</blockquote>
 
-<BLOCKQUOTE>If <I>increase filename counter</I> is enabled, filenames that
-already exist are skipped!</BLOCKQUOTE>
-&nbsp;
-<H4>
-JPEG IMAGE QUALITY:</H4>
+<blockquote>If an automatic document feeder is used the filename should
+contain a counter and this option should be enabled.</blockquote>
 
-<BLOCKQUOTE>If the image is saved in <I>jpeg</I> format this value defines
+<h4>
+SKIP EXISTING NUMBERS:</h4>
+
+<blockquote>If <i>increase filename counter</i> is enabled, filenames that
+already exist are skipped!</blockquote>
+
+<h4>
+JPEG IMAGE QUALITY:</h4>
+
+<blockquote>If the image is saved in <i>jpeg</i> format this value defines
 the quality of the image. Low values mean low quality and low file size,
-high values mean high quality and high file size.</BLOCKQUOTE>
-&nbsp;
-<H4>
-PNG IMAGE COMPRESSION:</H4>
+high values mean high quality and high file size.</blockquote>
 
-<BLOCKQUOTE>If the image is saved in <I>png</I> format this value defines
+<h4>
+PNG IMAGE COMPRESSION:</h4>
+
+<blockquote>If the image is saved in <i>png</i> format this value defines
 the compression level. The quality of the image keeps the same, low values
 mean low compression, large files and low compression time. High values
-mean high compression, smaller files and high compression time.</BLOCKQUOTE>
-&nbsp;</BLOCKQUOTE>
+mean high compression, smaller files and high compression time.</blockquote>
+</blockquote>
 
-<HR WIDTH="100%">
-<BLOCKQUOTE>&nbsp;
-<BR>&nbsp;</BLOCKQUOTE>
+<hr WIDTH="100%">
+<blockquote>&nbsp;</blockquote>
 
-<H3>
-<FONT COLOR="#009900">Preview options:</FONT></H3>
+<h3>
+<font color="#009900">Display options:</font></h3>
 
-<CENTER><IMG SRC="sane-xsane-setup-preview.gif" HEIGHT=473 WIDTH=359></CENTER>
-&nbsp;
-<BR>&nbsp;
-<BR>&nbsp;
-<BR>&nbsp;
-<BLOCKQUOTE>
-<H4>
-PRESERVE PREVIEW IMAGE:</H4>
-</BLOCKQUOTE>
+<center><img SRC="sane-xsane-setup-display.gif" height=476 width=391></center>
 
-<BLOCKQUOTE>
-<BLOCKQUOTE>Preserve the preview image for the next program start. The
+<p><br>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<blockquote>
+<h4>
+PRESERVE PREVIEW IMAGE:</h4>
+</blockquote>
+
+<blockquote>
+<blockquote>Preserve the preview image for the next program start. The
 last preview image is displayed on the next program start, you don`t need
-to redo the preview scan.</BLOCKQUOTE>
-&nbsp;
-<H4>
-USE PRIVATE COLORMAP:</H4>
+to redo the preview scan.</blockquote>
 
-<BLOCKQUOTE>If enabled and if the X server runs in 8 bit mode (256 colors)
-then the preview uses an own color map.</BLOCKQUOTE>
-&nbsp;
-<H4>
-PREVIEW GAMMA:</H4>
+<h4>
+USE PRIVATE COLORMAP:</h4>
 
-<BLOCKQUOTE>Set the gamma correction value for the preview image. This
-is to get correct colors on your monitor.
-<BR>&nbsp;
-<BR>&nbsp;
-<BR>&nbsp;</BLOCKQUOTE>
-</BLOCKQUOTE>
+<blockquote>If enabled and if the X server runs in 8 bit mode (256 colors)
+then the preview uses an own color map.</blockquote>
 
-<HR WIDTH="100%">
-<BR>&nbsp;
-<BR>&nbsp;
-<BR>&nbsp;
-<BR>&nbsp;
-<H3>
-<FONT COLOR="#009900">Fax options:</FONT></H3>
+<h4>
+PREVIEW GAMMA:</h4>
 
-<CENTER><IMG SRC="sane-xsane-setup-fax.gif" HEIGHT=473 WIDTH=359></CENTER>
+<blockquote>Set the gamma correction value for the preview image. This
+is to get correct colors on your monitor.</blockquote>
 
-<CENTER>&nbsp;</CENTER>
+<h4>
+HELPFILE&nbsp;VIEWER:</h4>
 
-<BLOCKQUOTE>
-<H4>
-COMMAND:</H4>
+<blockquote>Enter a program to show the helpfiles. It must be a html-viewer.
+If you enter the keywrod "netscape-remote", xsane uses a already running
+netscape to show the onlinehelp. If you run kde, you may want to enter
+"kdehelp" here.
+<br>&nbsp;</blockquote>
+</blockquote>
 
-<BLOCKQUOTE>Enter command to send postscript fax files.</BLOCKQUOTE>
-</BLOCKQUOTE>
-&nbsp;
-<HR WIDTH="100%">
-<CENTER><A HREF="sane-xsane-doc.html">INDEX</A></CENTER>
+<hr WIDTH="100%">
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<h3>
+<font color="#009900">Fax options:</font></h3>
 
-<CENTER>&nbsp;</CENTER>
+<center><img SRC="sane-xsane-setup-fax.gif" height=476 width=391></center>
 
-</BODY>
-</HTML>
+<p><br>
+<blockquote>
+<h4>
+COMMAND:</h4>
+
+<blockquote>Enter command to send/spool faxfiles. E.g. this can be the
+command "sendfax" from hylafax or mgetty+sendfax.</blockquote>
+
+<h4>
+RECEIVER OPTION:</h4>
+
+<blockquote>Option to set receiver phone number or address.</blockquote>
+
+<h4>
+POSTSCRIPTFILE OPTION:</h4>
+
+<blockquote>If there is an option that must be set before the filenames
+of the faxfile or if it is necessary to specify an option for files in
+postscript format, enter this option - otherwise let this field free.</blockquote>
+
+<h4>
+NORMAL MODE OPTION:</h4>
+
+<blockquote>If there is an option to set normal mode (98lpi) then enter
+this option - otherise let this field free.</blockquote>
+
+<h4>
+FINE MODE OPTION:</h4>
+
+<blockquote>If there is an option to set fine mode (196lpi) then enter
+this option - otherise let this field free.</blockquote>
+
+<h4>
+VIEWER:</h4>
+
+<blockquote>Enter a program to show the postscript fax files on the screen.
+E.g. this can be ghostscript or xv.</blockquote>
+</blockquote>
+
+<hr WIDTH="100%">
+<center><a href="sane-xsane-doc.html">INDEX</a></center>
+
+<p><br>
+</body>
+</html>

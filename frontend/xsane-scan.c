@@ -1247,6 +1247,8 @@ static void xsane_start_scan(void)
   if (status != SANE_STATUS_GOOD)
   {
     gsg_set_sensitivity(dialog, TRUE);
+    gtk_widget_set_sensitive(xsane.shell, TRUE);
+    gtk_widget_set_sensitive(xsane.histogram_dialog, TRUE);
 
     snprintf(buf, sizeof(buf), "Failed to start scanner: %s", sane_strstatus(status));
     gsg_error(buf);
@@ -1257,6 +1259,8 @@ static void xsane_start_scan(void)
   if (status != SANE_STATUS_GOOD)
   {
     gsg_set_sensitivity(dialog, TRUE);
+    gtk_widget_set_sensitive(xsane.shell, TRUE);
+    gtk_widget_set_sensitive(xsane.histogram_dialog, TRUE);
 
     snprintf(buf, sizeof(buf), "Failed to get parameters: %s", sane_strstatus(status));
     gsg_error(buf);
@@ -1583,7 +1587,7 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
 
     if (xsane.scanner_gamma_color) /* gamma table for red, green and blue available */
     {
-     int gamma_red, gamma_green, gamma_blue;
+     double gamma_red, gamma_green, gamma_blue;
 
       /* ok, scanner color gamma function is supported, so we do all conversions about that */
       /* we do not need any gamma tables while scanning, so we can free them after sending */
@@ -1686,7 +1690,7 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
 	/* but we only have to use color slider values, because gray slider value */
 	/* is used by scanner gray gamma */
 
-       int gamma_red, gamma_green, gamma_blue;
+       double gamma_red, gamma_green, gamma_blue;
 
         xsane.gamma_data_red   = malloc(gamma_red_size   * sizeof(SANE_Int));
         xsane.gamma_data_green = malloc(gamma_green_size * sizeof(SANE_Int));
@@ -1694,15 +1698,15 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
 
         if (xsane.xsane_mode == XSANE_COPY)
         {
-          gamma_red   = xsane.gamma * xsane.gamma_red   * preferences.printer[preferences.printernr]->gamma * preferences.printer[preferences.printernr]->gamma_red;
-          gamma_green = xsane.gamma * xsane.gamma_green * preferences.printer[preferences.printernr]->gamma * preferences.printer[preferences.printernr]->gamma_green;
-          gamma_blue  = xsane.gamma * xsane.gamma_blue  * preferences.printer[preferences.printernr]->gamma * preferences.printer[preferences.printernr]->gamma_blue;
+          gamma_red   = xsane.gamma_red   * preferences.printer[preferences.printernr]->gamma_red;
+          gamma_green = xsane.gamma_green * preferences.printer[preferences.printernr]->gamma_green;
+          gamma_blue  = xsane.gamma_blue  * preferences.printer[preferences.printernr]->gamma_blue;
         }
         else
         {
-          gamma_red   = xsane.gamma * xsane.gamma_red;
-          gamma_green = xsane.gamma * xsane.gamma_green;
-          gamma_blue  = xsane.gamma * xsane.gamma_blue;
+          gamma_red   = xsane.gamma_red;
+          gamma_green = xsane.gamma_green;
+          gamma_blue  = xsane.gamma_blue;
         }
       
         xsane_create_gamma_curve(xsane.gamma_data_red,
@@ -1747,7 +1751,7 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
       }
       else /* color scan */
       {
-       int gamma_red, gamma_green, gamma_blue;
+       double gamma_red, gamma_green, gamma_blue;
         /* ok, we have to combin gray and color slider values */
 
         xsane.gamma_data_red   = malloc(gamma_red_size   * sizeof(SANE_Int));
@@ -1756,9 +1760,9 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
 
         if (xsane.xsane_mode == XSANE_COPY)
         {
-          gamma_red   = xsane.gamma * xsane.gamma_red   * preferences.printer[preferences.printernr]->gamma;
-          gamma_green = xsane.gamma * xsane.gamma_green * preferences.printer[preferences.printernr]->gamma;
-          gamma_blue  = xsane.gamma * xsane.gamma_blue  * preferences.printer[preferences.printernr]->gamma;
+          gamma_red   = xsane.gamma * xsane.gamma_red   * preferences.printer[preferences.printernr]->gamma * preferences.printer[preferences.printernr]->gamma_red;
+          gamma_green = xsane.gamma * xsane.gamma_green * preferences.printer[preferences.printernr]->gamma * preferences.printer[preferences.printernr]->gamma_green;
+          gamma_blue  = xsane.gamma * xsane.gamma_blue  * preferences.printer[preferences.printernr]->gamma * preferences.printer[preferences.printernr]->gamma_blue;
         }
         else
         {
