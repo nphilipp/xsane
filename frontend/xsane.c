@@ -1843,14 +1843,6 @@ static GtkWidget *xsane_files_build_menu(void)
   gtk_widget_show(item);
 
 
-  /* XSane about dialog */
-
-  item = gtk_menu_item_new_with_label(MENU_ITEM_ABOUT);
-  gtk_menu_append(GTK_MENU(menu), item);
-  gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_about_dialog, 0);
-  gtk_widget_show(item);
-
-
   /* XSane info dialog */
 
   item = gtk_menu_item_new_with_label(MENU_ITEM_INFO);
@@ -3492,6 +3484,21 @@ static GtkWidget *xsane_help_build_menu(void)
 
   menu = gtk_menu_new();
 
+
+  /* XSane about dialog */
+
+  item = gtk_menu_item_new_with_label(MENU_ITEM_ABOUT);
+  gtk_menu_append(GTK_MENU(menu), item);
+  gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_about_dialog, 0);
+  gtk_widget_show(item);
+
+  item = gtk_menu_item_new();
+  gtk_menu_append(GTK_MENU(menu), item);
+  gtk_widget_show(item);
+
+
+  /* XSane doc -> html viewer */
+
   item = gtk_menu_item_new_with_label(MENU_ITEM_XSANE_DOC);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_doc, (void *) "sane-xsane");
@@ -3501,6 +3508,9 @@ static GtkWidget *xsane_help_build_menu(void)
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_widget_show(item);
 
+
+  /* Backend doc -> html viewer */
+
   if (xsane.backend)
   {
     item = gtk_menu_item_new_with_label(MENU_ITEM_BACKEND_DOC);
@@ -3509,10 +3519,16 @@ static GtkWidget *xsane_help_build_menu(void)
     gtk_widget_show(item);
   }
 
+
+  /* available backends -> html viewer */
+
   item = gtk_menu_item_new_with_label(MENU_ITEM_AVAILABLE_BACKENDS);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_doc, (void *) "sane-backends");
   gtk_widget_show(item);
+
+  
+  /* problems -> html viewer */
 
   item = gtk_menu_item_new_with_label(MENU_ITEM_PROBLEMS);
   gtk_menu_append(GTK_MENU(menu), item);
@@ -3522,6 +3538,9 @@ static GtkWidget *xsane_help_build_menu(void)
   item = gtk_menu_item_new();
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_widget_show(item);
+
+
+  /* scantips -> html viewer */
 
   item = gtk_menu_item_new_with_label(MENU_ITEM_SCANTIPS);
   gtk_menu_append(GTK_MENU(menu), item);

@@ -1,21 +1,43 @@
-The following backends are known to work
+The following backends are known to work with xsane
 
-backend		version		reported xsane-version
-=======================================================
-sane-artec	0.5			0.46
-sane-avision	0.2			0.49
-sane-canon	?			0.47
-sane-coolscan	0.42			0.50
-sane-epson	sane-1.0.1, >=0.13	0.50		problems setting resolution
-sane-fujitsu	?			?		new backend: http://www.aa.net/~bentson/sane-fujitsu.tgz
-sane-hp		0.83			0.50
-sane-microtek	?			?
-sane-microtek2	0.8, pre0.9.020100	0.50 and earlier
-sane-mustek	?			0.48, 0.50
-sane-musteka4s2	?			0.42
-sane-pnm	sane-1.0.1		0.52 and earlier
-sane-sharp	?			0.47
-sane-tamarack	?			0.40
-sane-umax 	1.0-build-*		all
-sane-v4l2	?			0.51
+backend			version		reported xsane-version	remark
+=========================================================================================
+ sane-artec		0.5			0.46
+ sane-avision		0.2			0.49
+ sane-canon		?			0.47
+ sane-coolscan		0.42			0.50
+ sane-dll
+ sane-epson		sane-1.0.1, >=0.13	0.50
+ sane-fujitsu		?			?		new backend: http://www.aa.net/~bentson/sane-fujitsu.tgz
+ sane-hp		0.83			0.50
+ sane-microtek		?			?
+ sane-microtek2		0.8, pre0.9.020100	0.50 and earlier
+ sane-mustek		?			0.48, 0.50
+ sane-musteka4s2	?			0.42
+ sane-net
+ sane-pnm		sane-1.0.1		0.52 and earlier
+ sane-sharp		?			0.47
+ sane-tamarack		?			0.40
+ sane-umax 		1.0-build-*		all
+ sane-v4l2		?			0.51		not in the sane package
+
+
+unknown state:
+--------------
+ sane-abaton
+ sane-agfafocus
+ sane-apple
+ sane-dc210
+ sane-dc25
+ sane-dmc
+ sane-m3096g
+ sane-pint
+ sane-plustek
+ sane-qcam
+ sane-ricoh
+ sane-sagitta
+ sane-snapscan
+ sane-st400
+ sane-s9036
+ sane-sp15c  
 

@@ -69,6 +69,8 @@ typedef struct
 
   int cursornr;
 
+  guint timer;
+
   SANE_Value_Type surface_type;
   SANE_Unit surface_unit;
   float surface[4];		/* the corners of the selected surface (device coords) */

@@ -32,7 +32,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.55"
+#define XSANE_VERSION		"0.56"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2000"
@@ -43,6 +43,7 @@
 
 #define PATH_SANE_TMP	"/tmp"
 #define XSANE_DEFAULT_UMASK 0007
+#define XSANE_HOLD_TIME 200
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -337,6 +338,7 @@ typedef struct Xsane
     struct XsaneSlider slider_red;
     struct XsaneSlider slider_green;
     struct XsaneSlider slider_blue;
+    guint slider_timer;
 
     int negative;
     double gamma;

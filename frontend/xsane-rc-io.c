@@ -718,20 +718,7 @@ void xsane_rc_io_w_string(Wire *w, SANE_String *s)
           return;
         }
       }
-      else if (ch == '(')
-      {
-        *s = 0; /* make sure pointer does not point to an invalid address */
-        xsane_rc_io_w_space(w, 4);
-        if (   *w->buffer.curr++ != 'n'
-            || *w->buffer.curr++ != 'i'
-            || *w->buffer.curr++ != 'l'
-            || *w->buffer.curr++ != ')')
-        {
-          w->status = EINVAL;
-          return;
-        }
-      }
-      else
+      else /* string does not begin with a " */
       {
         w->status = EINVAL;
         *s = 0; /* make sure pointer does not point to an invalid address */

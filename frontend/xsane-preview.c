@@ -162,6 +162,7 @@ static void preview_scan_start(Preview *p);
 static int preview_make_image_path(Preview *p, size_t filename_size, char *filename, int level);
 static void preview_restore_image(Preview *p);
 static gint preview_expose_handler(GtkWidget *window, GdkEvent *event, gpointer data);
+static gint xsane_preview_hold_event(gpointer data);
 static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer data);
 static void preview_start_button_clicked(GtkWidget *widget, gpointer data);
 static void preview_cancel_button_clicked(GtkWidget *widget, gpointer data);
@@ -1477,6 +1478,21 @@ static gint preview_expose_handler(GtkWidget *window, GdkEvent *event, gpointer 
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static gint xsane_preview_hold_event(gpointer data)
+{
+ Preview *p = data;
+
+  gtk_timeout_remove(p->timer);
+  p->timer = 0;
+
+  preview_draw_selection(p);
+  preview_establish_selection(p);
+
+ return FALSE;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer data)
 {
  Preview *p = data;
@@ -1927,6 +1943,12 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
        break;
 
       case GDK_MOTION_NOTIFY:
+        if (p->timer) /* hold timer active? then remove it, we had a motion */
+        {
+          gtk_timeout_remove(p->timer);
+          p->timer = 0;
+        }
+
         switch (((GdkEventMotion *)event)->state)
         {
           case 256: /* left button */
@@ -1946,13 +1968,15 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
               }
               else if (preferences.gtk_update_policy == GTK_UPDATE_DELAYED)
               {
+                /* call xsane_preview_hold_event if mouse is not moved for ??? ms */
+                p->timer = gtk_timeout_add(XSANE_HOLD_TIME, xsane_preview_hold_event, (gpointer *) p);
+                preview_update_maximum_output_size(p);
                 preview_draw_selection(p);
-                preview_establish_selection(p);
               }
               else /* discontinous */
               {
                 preview_update_maximum_output_size(p);
-                preview_draw_selection(p);
+                preview_draw_selection(p); /* only draw selection, do not update backend geometry options */
               }
             }
 
@@ -2041,8 +2065,9 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
               }
               else if (preferences.gtk_update_policy == GTK_UPDATE_DELAYED)
               {
+                p->timer = gtk_timeout_add (XSANE_HOLD_TIME, xsane_preview_hold_event, (gpointer *) p);
+                preview_update_maximum_output_size(p);
                 preview_draw_selection(p);
-                preview_establish_selection(p);
               }
               else /* discontinuous */
               {

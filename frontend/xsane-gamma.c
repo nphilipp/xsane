@@ -507,6 +507,18 @@ void xsane_update_sliders()
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static gint xsane_slider_hold_event()
+{
+  gtk_timeout_remove(xsane.slider_timer);
+  xsane.slider_timer = 0;
+
+  xsane_enhancement_by_histogram();
+
+ return FALSE;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static gint xsane_slider_callback(GtkWidget *widget, GdkEvent *event, XsaneSlider *slider)
 {
  GdkEventButton *button_event;
@@ -557,6 +569,12 @@ static gint xsane_slider_callback(GtkWidget *widget, GdkEvent *event, XsaneSlide
      break;
 
     case GDK_MOTION_NOTIFY:
+
+      if (xsane.slider_timer) /* hold timer active? then remove it, we had a motion */
+      {
+        gtk_timeout_remove(xsane.slider_timer);
+        xsane.slider_timer = 0;
+      }          
       motion_event = (GdkEventMotion *) event;
       gdk_window_get_pointer(widget->window, &x, 0, 0);
       update = TRUE;
@@ -597,7 +615,8 @@ static gint xsane_slider_callback(GtkWidget *widget, GdkEvent *event, XsaneSlide
     }
     else if ((preferences.gtk_update_policy == GTK_UPDATE_DELAYED) && (event_count == 1))
     {
-      xsane_enhancement_by_histogram();
+      /* call xsane_slider_hold_event if mouse is not moved for ??? ms */
+      xsane.slider_timer = gtk_timeout_add(XSANE_HOLD_TIME, xsane_slider_hold_event, 0);
     }
   }
 #if 0
