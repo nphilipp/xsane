@@ -642,6 +642,7 @@ void xsane_save_png(FILE *outfile, FILE *imagefile,
  char buf[256];
  int colortype, components;
  int y;
+ int byte_width = pixel_width;
 
   cancel_save = 0;
 
@@ -690,16 +691,32 @@ void xsane_save_png(FILE *outfile, FILE *imagefile,
   png_set_IHDR(png_ptr, png_info_ptr, pixel_width, pixel_height, bits,
                colortype, PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_BASE, PNG_FILTER_TYPE_BASE);
 
-  sig_bit.red   = bits;
-  sig_bit.green = bits;
-  sig_bit.blue  = bits;
-  sig_bit.alpha = bits;
-  sig_bit.gray  = bits;
+  if (color >=3)
+  {
+    sig_bit.red   = bits;
+    sig_bit.green = bits;
+    sig_bit.blue  = bits;
+
+    if (color ==4)
+    {
+      sig_bit.alpha = bits;
+    }
+
+  }
+  else
+  {
+    sig_bit.gray  = bits;
+
+    if (bits == 1)
+    {
+      byte_width = pixel_width/8;
+      png_set_invert_mono(png_ptr);
+    }
+  }
 
   png_set_sBIT(png_ptr, png_info_ptr, &sig_bit);
   png_write_info(png_ptr, png_info_ptr);
   png_set_shift(png_ptr, &sig_bit);
-  png_set_packing(png_ptr);
 
   data = malloc(pixel_width * components);
 
@@ -719,7 +736,7 @@ void xsane_save_png(FILE *outfile, FILE *imagefile,
       gtk_main_iteration();
     }
 
-    fread(data, components, pixel_width, imagefile);
+    fread(data, components, byte_width, imagefile);
 
     row_ptr = data;
     png_write_rows(png_ptr, &row_ptr, 1);

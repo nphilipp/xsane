@@ -1,8 +1,1 @@
-xsane-gamma.c line 1169:
-function static void xsane_enhancement_update(void)
-#if 0 /* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
-  while (gtk_events_pending())
-  {
-    gtk_main_iteration();
-  }
-#endif   
+No special tests in the moment

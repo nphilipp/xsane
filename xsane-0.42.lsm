@@ -1,7 +1,7 @@
 Begin3
 Title:          XSANE
-Version:        0.41
-Entered-date:   25OCT1999
+Version:        0.42
+Entered-date:   03NOV1999
 Description:    XSANE is a gtk based X11 frontend for 
 		SANE (Scanner Access Now Easy)
 Keywords:       scanner, graphical user interface, GUI

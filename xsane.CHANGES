@@ -515,3 +515,17 @@ xsane-0.40 -> 0.41:
    - check for png is done with x_includes and x_libraries,
      and libpng is added to lib after all checks are done
 
+
+xsane-0.41 -> 0.42:
+-------------------
+
+ - changed configure.in, error message about missing sane is also printed if sane.h
+   is not found.
+ - changed info row (size box, start button): the start button is made smaller when
+   the info box needs more place
+ - changed calculateion of size in info row from unisgned long to float
+   because unsigned long / 10 were to small to fit A4 with 1200x1200 dpi
+ - changed png part of configure, HAVE_LIBPNG is now defined again
+ - corrected png lineart saving
+
+

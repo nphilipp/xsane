@@ -227,25 +227,25 @@ static void xsane_update_param(GSGDialog *dialog, void *arg)
 
   if (sane_get_parameters(gsg_dialog_get_device(dialog), &params) == SANE_STATUS_GOOD)
     {
-      u_long size = 10 * params.bytes_per_line * params.lines;
+      float size = params.bytes_per_line * params.lines;
       const char *unit = "B";
 
       if (params.format >= SANE_FRAME_RED && params.format <= SANE_FRAME_BLUE)
       {
-	size *= 3;
+	size *= 3.0;
       }
 
-      if (size >= 10 * 1024 * 1024)
+      if (size >= 1024.0 * 1024.0)
       {
-        size /= 1024 * 1024;
+        size /= 1024.0 * 1024.0;
         unit = "MB";
       }
-      else if (size >= 10 * 1024)
+      else if (size >= 1024.0)
       {
-        size /= 1024;
+        size /= 1024.0;
         unit = "KB";
       }
-      snprintf(buf, sizeof(buf), "%dx%d: %lu.%01lu %s", params.pixels_per_line, params.lines, size / 10, size % 10, unit);
+      snprintf(buf, sizeof(buf), "(%d x %d): %5.1f %s", params.pixels_per_line, params.lines, size, unit);
 
       if (params.format == SANE_FRAME_GRAY)
       {
@@ -4354,11 +4354,21 @@ static void xsane_device_dialog(void)
 
   /* The bottom row of info and start button */
 
+#if 0
   hbox = GTK_DIALOG(xsane.shell)->action_area;
+#endif
 
+  hbox = gtk_hbox_new(FALSE, 5);
+  gtk_box_pack_start(GTK_BOX(GTK_DIALOG(xsane.shell)->action_area), hbox, TRUE, TRUE, 0);
+  gtk_widget_show(hbox);
+
+  /* Info frame */
   frame = gtk_frame_new(0);
   gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
+#if 0
   gtk_box_pack_start(GTK_BOX(hbox), frame, FALSE, FALSE, 0);
+#endif
+  gtk_box_pack_start(GTK_BOX(hbox), frame, TRUE, TRUE, 0);
   gtk_widget_show(frame);
 
   infobox = gtk_hbox_new(FALSE, 5);
@@ -4368,12 +4378,10 @@ static void xsane_device_dialog(void)
 
   xsane.info_label = gtk_label_new(TEXT_INFO_BOX);
   gtk_box_pack_start(GTK_BOX(infobox), xsane.info_label, FALSE, FALSE, 0);
+#if 0
+  gtk_box_pack_start(GTK_BOX(infobox), xsane.info_label, TRUE, TRUE, 0);
+#endif
   gtk_widget_show(xsane.info_label);
-
-
-
-  /* The bottom row of buttons */
-  hbox = GTK_DIALOG(xsane.shell)->action_area;
 
 
   /* The Scan button */
@@ -4382,6 +4390,8 @@ static void xsane_device_dialog(void)
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
   gtk_widget_show(button);
   xsane.start_button = GTK_OBJECT(button);
+
+
 
   xsane_pref_device_restore();	/* restore device-settings */
 

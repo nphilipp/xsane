@@ -6,7 +6,7 @@ AC_CONFIG_HEADER(include/sane/config.h)
 
 # version code:
 V_MAJOR=0
-V_MINOR=41
+V_MINOR=42
 
 PACKAGE=xsane
 
@@ -173,10 +173,13 @@ CPPFLAGS="${saved_CPPFLAGS}"
 # saved_CPPFLAGS is still up to date
 CPPFLAGS="${CPPFLAGS} -I${x_includes}"
 if test "${USE_PNG}" = "yes"; then
-  AC_CHECK_HEADERS(png.h, [AC_CHECK_LIB(png, png_create_info_struct, PNG_LIB="-lpng",, -L${x_libraries})])
+  AC_CHECK_HEADERS(png.h, [AC_CHECK_LIB(png, png_create_info_struct,,, -L${x_libraries})])
+  if test "${ac_cv_lib_png_png_create_info_struct}" = "yes"; then
 # remove libpng because if we do not remove it all following
 # checks could need x_libraries and x_includes
   LIBS=`echo $LIBS | sed -e 's/-lpng//'`
+  PNG_LIB="-lpng"
+  fi
 fi
 CPPFLAGS="${saved_CPPFLAGS}"
 
@@ -205,7 +208,7 @@ CPPFLAGS="${CPPFLAGS} \
 	  -DV_MAJOR=${V_MAJOR} -DV_MINOR=${V_MINOR} -DSANE_V_MAJOR=${SANE_V_MAJOR}"
 
 dnl Print error message if sane or gtk is missing
-if test "${ac_cv_lib_sane_sane_init}" = "no"; then
+if test "${ac_cv_lib_sane_sane_init}" != "yes"; then
   echo "****************************************************************"
   echo "ERROR: SANE is needed for compiling xsane"
   echo "     - if you installed SANE as rpm make sure you also included"
@@ -230,6 +233,14 @@ fi
 AC_SUBST(V_MAJOR)
 AC_SUBST(V_MINOR)
 AC_SUBST(DLL_PRELOAD)
+
+AC_ARG_ENABLE(foo1, [
+Used environment variables that can be set by user:
+  CFLAGS, CPPFLAGS, DEFS, LDFLAGS, LIBS])
+
+AC_ARG_ENABLE(foo2, [
+To add include or library paths call:
+  [env] CPPFLAGS=\"-I/path/to/foo/include\" LDFLAGS=\"-L/path/to/foo/libs\" ./configure])
 
 AC_OUTPUT([Makefile intl/Makefile po/Makefile lib/Makefile sanei/Makefile
 	   frontend/Makefile include/Makefile doc/Makefile],)

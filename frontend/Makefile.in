@@ -22,7 +22,7 @@ oldincludedir = /usr/include
 configdir = ${sysconfdir}/sane.d
 sanedatadir = ${datadir}/sane
 
-MKDIR = $(top_srcdir)/mkinstalldirs
+MKINSTALLDIRS = @MKINSTALLDIRS@
 INSTALL = @INSTALL@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_DATA = @INSTALL_DATA@
@@ -61,10 +61,9 @@ XSANE_OBJS = xsane-back-gtk.o xsane-front-gtk.o xsane-gamma.o \
 all: $(PROGRAMS)
 
 install: $(PROGRAMS)
-	$(MKDIR) $(bindir) $(sbindir) $(datadir) $(sanedatadir)
+	$(MKINSTALLDIRS) $(bindir) $(sbindir) $(datadir) $(sanedatadir)
 	@for program in $(BINPROGS); do \
-	  $(INSTALL_PROGRAM) $${program} \
-	    $(bindir)/$${program}; \
+	  $(INSTALL_PROGRAM) $${program} $(bindir)/$${program}; \
 	done
 	$(INSTALL_DATA) $(srcdir)/xsane-style.rc $(sanedatadir)/xsane-style.rc
 	$(INSTALL_DATA) $(srcdir)/xsane-logo.xpm $(sanedatadir)/xsane-logo.xpm
