@@ -6,7 +6,7 @@ If you have any suggestions: mail to Oliver.Rauch@rauch-domain.de
 first steps:
  * options:
  - fax-function:
-    + display scanned fax page in preview window?
+    + display scanned fax page in preview or new window?
     + add coverpage with simple text field or call editor
     - add send delayed option
     - add options for sender/receiver Name
@@ -21,14 +21,15 @@ first steps:
     + select image position on printer (centered/left/right/free) for copy
       and show it in the preview.
  - preview:
+    - add 16bit to 8bit gamma correction
     - force aspect ratio of selection area
-    - predefined reduced scanarea with size and position, userselectable
+      - force size of scanarea in pixels (calculate resolution)
+    - userselectable predefined scanarea
  - batch scan function
     - select multiple scan areas before starting the scan
 
  * internal:
    + add range check / valid value when reading xsane.rc/*.drc files
-   + correct image height after scanning in hand scanner mode 
    + add several defaults (fax=> mode=gray,...)
    - include much more parameters when saving images
    - test memory after each call of malloc - partly done

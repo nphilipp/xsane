@@ -730,7 +730,6 @@ void xsane_device_preferences_save_file(char *filename)
 void xsane_device_preferences_store(void)
 {
  char filename[PATH_MAX];
- struct stat st; 
 
   DBG(DBG_proc, "xsane_device_preferences_store\n");
 

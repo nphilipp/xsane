@@ -77,13 +77,11 @@ typedef struct
   float orig_scanner_surface[4];/* the scanner defined corners of the scanner surface (device coords) */
   float image_surface[4];	/* the corners of the surface (device coords) of the scanned image */
   float max_scanner_surface[4];	/* rotated corners of the scanner surface (window coords) */
+  float preset_surface[4];	/* the corners of the reduced (by user) surface (window coords) */
   float scanner_surface[4];	/* the user defined corners of the scanner surface (window coords) */
   float surface[4];		/* the corners of the selected surface (window coords) */
   float old_surface[4];		/* the corners of the old selected surface (window coords) */
   float aspect;			/* the aspect ratio of the scan surface */
-
-  float preset_width;		/* user selected maximum scan width */
-  float preset_height;		/* user selected maximum scan height */
 
   float maximum_output_width;	/* maximum output width (photocopy) */
   float maximum_output_height;	/* maximum output height (photocopy) */
@@ -121,7 +119,7 @@ typedef struct
   int image_y;
   int image_width;		/* width of preview image in pixels */
   int image_height;		/* height of preview image in pixel lines */
-  int rotation;
+  int rotation;			/* rotation: 0=0, 1=90, 2=180, 3=270 degree, 4-7= rotation + mirror in x direction */
   u_char *image_data_raw;	/* 3 * image_width * image_height bytes */
   u_char *image_data_enh;	/* 3 * image_width * image_height bytes */
 
@@ -159,6 +157,8 @@ typedef struct
   GtkWidget *zoom_out;		/* zoom out button */
   GtkWidget *zoom_in;		/* zoom in button */
   GtkWidget *zoom_undo;		/* zoom undo button */
+  GtkWidget *full_area;		/* select full scanarea */
+  GtkWidget *autoselect;	/* autoselect scanarea */
   GtkWidget *preset_area_option_menu;	/* menu for selection of preview area */
   GtkWidget *rotation_option_menu;	/* menu for selection of rotation */
 }

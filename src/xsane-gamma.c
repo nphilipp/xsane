@@ -74,7 +74,7 @@ void xsane_enhancement_by_gamma(void);
 void xsane_enhancement_restore_default(void);
 void xsane_enhancement_restore(void);
 void xsane_enhancement_store(void);
-static void xsane_histogram_to_gamma(XsaneSlider *slider, double *contrast, double *brightness, double *gamma);
+static int xsane_histogram_to_gamma(XsaneSlider *slider, double *contrast, double contrast_offset, double *brightness, double brightness_offset, double *gamma, double gamma_multiplier);
 void xsane_enhancement_by_histogram(int update_gamma);
 static gint xsane_histogram_win_delete(GtkWidget *widget, gpointer data);
 void xsane_create_histogram_dialog(const char *devicetext);
@@ -736,6 +736,8 @@ static void xsane_calculate_auto_enhancement(int negative,
       val += 10 * log(1 + count_raw[mid] + count_raw_red[mid] + count_raw_green[mid] + count_raw_blue[mid]);
     }
 
+    xsane_bound_int(&mid, min, max);
+
     /* ----- red ----- */
 
     min_red = -1;
@@ -763,6 +765,8 @@ static void xsane_calculate_auto_enhancement(int negative,
       mid_red++;
       val += 10 * log(1 + count_raw_red[mid_red]);
     }
+
+    xsane_bound_int(&mid_red, min_red, max_red);
 
     /* ----- green ----- */
 
@@ -792,6 +796,8 @@ static void xsane_calculate_auto_enhancement(int negative,
       val += 10 * log(1 + count_raw_green[mid_green]);
     }
 
+    xsane_bound_int(&mid_green, min_green, max_green);
+
     /* ----- blue ----- */
 
     min_blue = -1;
@@ -819,6 +825,8 @@ static void xsane_calculate_auto_enhancement(int negative,
       mid_blue++;
       val += 10 * log(1 + count_raw_blue[mid_blue]);
     }
+
+    xsane_bound_int(&mid_blue, min_blue, max_blue);
 
     if (negative)
     {
@@ -1365,11 +1373,13 @@ void xsane_enhancement_by_gamma(void)
   brightness = xsane.brightness + xsane.brightness_red;
   gamma      = xsane.gamma * xsane.gamma_red;
 
-  xsane_bound_double(&contrast, -100.0, XSANE_CONTRAST_MAX);
-  xsane_bound_double(&brightness, XSANE_BRIGHTNESS_MIN, XSANE_BRIGHTNESS_MAX);
-  xsane_bound_double(&gamma, XSANE_GAMMA_MIN, XSANE_GAMMA_MAX);
+  if (contrast < -100)
+  {
+    contrast = -100;
+  }
 
   xsane_gamma_to_histogram(&min, &mid, &max, contrast, brightness, gamma);
+
 
   xsane.slider_red.value[0] = min;
   xsane.slider_red.value[1] = mid;
@@ -1381,9 +1391,10 @@ void xsane_enhancement_by_gamma(void)
   brightness = xsane.brightness + xsane.brightness_green;
   gamma      = xsane.gamma * xsane.gamma_green;
 
-  xsane_bound_double(&contrast, -100.0, XSANE_CONTRAST_MAX);
-  xsane_bound_double(&brightness, XSANE_BRIGHTNESS_MIN, XSANE_BRIGHTNESS_MAX);
-  xsane_bound_double(&gamma, XSANE_GAMMA_MIN, XSANE_GAMMA_MAX);
+  if (contrast < -100)
+  {
+    contrast = -100;
+  }
 
   xsane_gamma_to_histogram(&min, &mid, &max, contrast, brightness, gamma);
 
@@ -1397,14 +1408,12 @@ void xsane_enhancement_by_gamma(void)
   brightness = xsane.brightness + xsane.brightness_blue;
   gamma      = xsane.gamma * xsane.gamma_blue;
 
-  xsane_bound_double(&contrast, -100.0, XSANE_CONTRAST_MAX);
-  xsane_bound_double(&brightness, XSANE_BRIGHTNESS_MIN, XSANE_BRIGHTNESS_MAX);
-  xsane_bound_double(&gamma, XSANE_GAMMA_MIN, XSANE_GAMMA_MAX);
+  if (contrast < -100)
+  {
+    contrast = -100;
+  }
 
-  xsane_gamma_to_histogram(&min, &mid, &max,
-                           xsane.contrast + xsane.contrast_blue,
-                           xsane.brightness + xsane.brightness_blue,
-                           xsane.gamma * xsane.gamma_blue);
+  xsane_gamma_to_histogram(&min, &mid, &max, contrast, brightness, gamma);
 
   xsane.slider_blue.value[0] = min;
   xsane.slider_blue.value[1] = mid;
@@ -1494,24 +1503,45 @@ void xsane_enhancement_store()
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_histogram_to_gamma(XsaneSlider *slider, double *contrast, double *brightness, double *gamma)
+static int xsane_histogram_to_gamma(XsaneSlider *slider,
+                                    double *contrast,   double contrast_offset,
+                                    double *brightness, double brightness_offset,
+                                    double *gamma,      double gamma_multiplier)
 {
  double mid;
  double range;
+ int correct_bound = ((slider->active == XSANE_SLIDER_ACTIVE) || (slider->active == XSANE_SLIDER_INACTIVE)); /* slider not moved */
 
-  DBG(DBG_proc, "xsane_histogram_to_gamma\n");
+  DBG(DBG_proc, "xsane_histogram_to_gamma(correct_bound = %d)\n", correct_bound);
 
-  *contrast   = (10000.0 / (slider->value[2] - slider->value[0]) - 100.0);
+  *contrast = (10000.0 / (slider->value[2] - slider->value[0]) - 100.0);
+  if (correct_bound)
+  {
+    xsane_bound_double(contrast, -100.0 + contrast_offset, XSANE_CONTRAST_MAX + contrast_offset);
+  }
+
   *brightness = - (slider->value[0] - 50.0) * (*contrast + 100.0)/50.0 - 100.0;
+  if (correct_bound)
+  {
+    xsane_bound_double(brightness, XSANE_BRIGHTNESS_MIN + brightness_offset, XSANE_BRIGHTNESS_MAX + brightness_offset);
+  }
 
   mid   = slider->value[1] - slider->value[0];
   range = slider->value[2] - slider->value[0];
 
   *gamma = log(mid/range) / log(0.5);
-
-  xsane_bound_double(contrast, -100.0, XSANE_CONTRAST_MAX);
-  xsane_bound_double(brightness, XSANE_BRIGHTNESS_MIN, XSANE_BRIGHTNESS_MAX);
-  xsane_bound_double(gamma, XSANE_GAMMA_MIN, XSANE_GAMMA_MAX);
+  if (correct_bound)
+  {
+    xsane_bound_double(gamma, XSANE_GAMMA_MIN * gamma_multiplier, XSANE_GAMMA_MAX * gamma_multiplier);
+    return 1; /* in bound */
+  }
+  else if (xsane_check_bound_double(*contrast, -100.0 + contrast_offset, XSANE_CONTRAST_MAX + contrast_offset) &&
+           xsane_check_bound_double(*brightness, XSANE_BRIGHTNESS_MIN + brightness_offset, XSANE_BRIGHTNESS_MAX + brightness_offset) &&
+           xsane_check_bound_double(*gamma, XSANE_GAMMA_MIN * gamma_multiplier, XSANE_GAMMA_MAX * gamma_multiplier))
+  {
+    return 1; /* in bound */
+  }
+  return 0; /* out of bound */
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1527,59 +1557,59 @@ void xsane_enhancement_by_histogram(int update_gamma)
 
   DBG(DBG_proc, "xsane_enhancement_by_histogram\n");
 
-  xsane_histogram_to_gamma(&xsane.slider_gray, &gray_contrast, &gray_brightness, &gray_gamma);
-
-  if (update_gamma)
+  if (xsane_histogram_to_gamma(&xsane.slider_gray, &gray_contrast, 0, &gray_brightness, 0, &gray_gamma, 1.0))
   {
-    xsane.gamma      = gray_gamma;
-  }
+    if (update_gamma)
+    {
+      xsane.gamma = gray_gamma;
+    }
 
-  xsane.brightness = gray_brightness;
-  xsane.contrast   = gray_contrast;
+    xsane.brightness = gray_brightness;
+    xsane.contrast   = gray_contrast;
+  }
 
   if ( (xsane.xsane_color) && (!xsane.enhancement_rgb_default) ) /* rgb sliders active */
   {
     if ((xsane.slider_gray.active == XSANE_SLIDER_ACTIVE) ||
         (xsane.slider_gray.active == XSANE_SLIDER_INACTIVE)) /* gray slider not moved */
     {
-      xsane_histogram_to_gamma(&xsane.slider_red, &contrast, &brightness, &gamma);
-
-      if (update_gamma)
+      /* red */
+      if (xsane_histogram_to_gamma(&xsane.slider_red, &contrast, gray_contrast, &brightness, gray_brightness, &gamma, gray_gamma))
       {
-        xsane.gamma_red        = gamma / gray_gamma;
+        if (update_gamma)
+        {
+          xsane.gamma_red = gamma / gray_gamma;
+        }
+        xsane.brightness_red = brightness - gray_brightness;
+        xsane.contrast_red   = contrast - gray_contrast;
       }
-      xsane.brightness_red   = brightness - gray_brightness;
-      xsane.contrast_red     = contrast - gray_contrast;
 
-      xsane_histogram_to_gamma(&xsane.slider_green, &contrast, &brightness, &gamma);
-
-      if (update_gamma)
+      /* green */
+      if (xsane_histogram_to_gamma(&xsane.slider_green, &contrast, gray_contrast, &brightness, gray_brightness, &gamma, gray_gamma))
       {
-        xsane.gamma_green      = gamma / gray_gamma;
+        if (update_gamma)
+        {
+          xsane.gamma_green = gamma / gray_gamma;
+        }
+        xsane.brightness_green = brightness - gray_brightness;
+        xsane.contrast_green   = contrast - gray_contrast;
       }
-      xsane.brightness_green = brightness - gray_brightness;
-      xsane.contrast_green   = contrast - gray_contrast;
 
-      xsane_histogram_to_gamma(&xsane.slider_blue, &contrast, &brightness, &gamma);
-
-      if (update_gamma)
+      /* blue */
+      if (xsane_histogram_to_gamma(&xsane.slider_blue, &contrast, gray_contrast, &brightness, gray_brightness, &gamma, gray_gamma))
       {
-        xsane.gamma_blue       = gamma / gray_gamma;
+        if (update_gamma)
+        {
+          xsane.gamma_blue = gamma / gray_gamma;
+        }
+        xsane.brightness_blue = brightness - gray_brightness;
+        xsane.contrast_blue   = contrast - gray_contrast;
       }
-      xsane.brightness_blue  = brightness - gray_brightness;
-      xsane.contrast_blue    = contrast - gray_contrast;
 
-      xsane_enhancement_by_gamma();
-    }
-    else /* gray slider was moved in rgb-mode */
-    {
-      xsane_enhancement_by_gamma();
     }
   }
-  else /* rgb sliders not active */
-  {
-    xsane_enhancement_by_gamma();
-  }
+
+  xsane_enhancement_by_gamma();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

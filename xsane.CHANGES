@@ -1434,3 +1434,51 @@ xsane-0.72 -> 0.73:
 
  - now using always gdk_window_get_root_origin() to get a position of a window on desktop
 
+
+xsane-0.73 -> 0.74:
+-------------------
+
+ - transfering data to gimp plugin now is handled like saving to a special file format.
+   this way it is possibe to support handheld scanners and to get advance of
+   some xsane features like image rotation.
+
+ - corrected mmap() part in xsane-save.c/rotation: 
+   data is mmaped with offset pos0, the offset pos0 is removed from pointer calculation
+   
+ - changed xsane_enhancement_by_histogram() and xsane_histogram_to_gamma(): the ranges
+   for gamma, brightness and contrast are checked correct now
+
+ - added function preview_transform_coordinate_window_to_image(), it is used in
+   preview_get_color(). Pipette functions do work with rotated preview now.
+
+ - corrected bug in ruler calculation. The rulers do work correct now with rotated preview
+
+ - corrected bug in reading 16 bit preview data: sizeof(buf16)-> sizeof(buf)
+   now preview transformation from 16 to 8 bit is as fast as 8 bit preview
+
+ - preset areas are defined with position (new) and size (old) now.
+
+ - surface changes (size and rotation) do not change the selected preview area
+   any more if possible
+
+
+xsane-0.74 -> 0.75:
+-------------------
+
+ - xsane_read_image_data() does reduce 16 bit images to 8 bit when necessary/requested
+
+ - when scanning with 16 bits/color in gimp mode, to jpeg-file or postscript-file
+   xsane does ask if the image should be reduced to 8 bits/color
+
+ - added functions for mirroring preview and mirroring while rotating scan
+
+ - moved saveing device preferences from xsane_quit() to xsane_scan_win_delete()
+   and replaced call to xsane_quit() by xsane_exit() in choose_device dialog
+   (this could cause a segfault).
+
+ - corrected a bug in calculation of histogram for rotation of 270 degree
+
+ - added xsane_bound_int(&mid, min, max) to xsane_calculate_auto_enhancement()
+   a segfault could occur when autoenhancement was activated when only a few
+   preview-pixels where available for calculation of autoenhancement values
+

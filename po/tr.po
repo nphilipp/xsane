@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Xsane 0.72\n"
-"POT-Creation-Date: 2001-03-18 22:43+0100\n"
+"POT-Creation-Date: 2001-04-03 00:36+0200\n"
 "PO-Revision-Date: 2001-02-18 20:54GMT+02:00\n"
 "Last-Translator: Togan Müftüoðlu <toganm@yahoo.com>\n"
 "Language-Team: Turkish <Turkish team <kde-i18n-tr@kde.org>>\n"
@@ -167,6 +167,10 @@ msgstr "Uygula"
 #. BUTTON_CANCEL
 msgid "Cancel"
 msgstr "Vazgeç"
+
+#. BUTTON_REDUCE
+msgid "Reduce"
+msgstr ""
 
 #. BUTTON_CONT_AT_OWN_RISK
 msgid "Continue at your own risk"
@@ -368,6 +372,18 @@ msgstr "8 bit çýktý formatlarý:"
 #. TEXT_16BIT_FORMATS
 msgid "16 bit output formats:"
 msgstr "16 bit formatlarý:"
+
+#. TEXT_GIMP_REDUCE_16BIT_TO_8BIT
+msgid ""
+"Gimp does not support depth 16 bits/color.\n"
+"Do you want to reduce the depth to 8 bits/color?"
+msgstr ""
+
+#. TEXT_REDUCE_16BIT_TO_8BIT
+msgid ""
+"Bit depth 16 bits/color is not supported for this output format.\n"
+"Do you want to reduce the depth to 8 bits/color?"
+msgstr ""
 
 #. TEXT_AUTHORIZATION_REQ
 msgid "Authorization required for"
@@ -870,8 +886,9 @@ msgstr "tarýyor"
 msgid "Receiving %s data"
 msgstr "%s data alýyor"
 
-#. PROGRESS_SAVING_DATA
-msgid "Saving image"
+#. PROGRESS_TRANSFERING_DATA
+#, fuzzy
+msgid "Transfering image"
 msgstr "Resmi saklýyor"
 
 #. PROGRESS_ROTATING_DATA
@@ -1457,7 +1474,8 @@ msgid "Can't handle depth"
 msgstr "Derinliði kullanamaz"
 
 #. ERR_GIMP_BAD_DEPTH
-msgid "GIMP can't handle depth"
+#, fuzzy, c-format
+msgid "GIMP can't handle depth %d bits/color"
 msgstr "GIMP derinliði kullanamaz"
 
 #. ERR_UNKNOWN_SAVING_FORMAT

@@ -74,6 +74,7 @@
 #define BUTTON_NOT_ACCEPT		_("Not accept")
 #define BUTTON_APPLY			_("Apply")
 #define BUTTON_CANCEL			_("Cancel")
+#define BUTTON_REDUCE			_("Reduce")
 #define BUTTON_CONT_AT_OWN_RISK		_("Continue at your own risk")
 #define BUTTON_BROWSE			_("Browse")
 #define BUTTON_CLOSE			_("Close")
@@ -126,6 +127,10 @@
 #define TEXT_OUTPUT_FORMATS		_("XSane output formats:")
 #define TEXT_8BIT_FORMATS		_("8 bit output formats:")
 #define TEXT_16BIT_FORMATS		_("16 bit output formats:")
+#define TEXT_GIMP_REDUCE_16BIT_TO_8BIT	_("Gimp does not support depth 16 bits/color.\n" \
+                                          "Do you want to reduce the depth to 8 bits/color?")
+#define TEXT_REDUCE_16BIT_TO_8BIT	_("Bit depth 16 bits/color is not supported for this output format.\n" \
+                                          "Do you want to reduce the depth to 8 bits/color?")
 #define TEXT_AUTHORIZATION_REQ		_("Authorization required for")
 #define TEXT_AUTHORIZATION_SECURE	_("Password transmission is secure")
 #define TEXT_AUTHORIZATION_INSECURE	_("Backend requests plain-text password")
@@ -276,7 +281,7 @@
 #define PROGRESS_SCANNING		_("Scanning")
 #define PROGRESS_RECEIVING_FRAME_DATA	_("Receiving %s data")
 
-#define PROGRESS_SAVING_DATA		_("Saving image")
+#define PROGRESS_TRANSFERING_DATA	_("Transfering image")
 #define PROGRESS_ROTATING_DATA		_("Rotating image")
 #define PROGRESS_PACKING_DATA		_("Packing image")
 #define PROGRESS_CONVERTING_DATA	_("Converting data")
@@ -443,7 +448,7 @@
 #define ERR_DURING_READ			_("Error during read:")
 #define ERR_DURING_SAVE			_("Error during save:")
 #define ERR_BAD_DEPTH			_("Can't handle depth")
-#define ERR_GIMP_BAD_DEPTH		_("GIMP can't handle depth")
+#define ERR_GIMP_BAD_DEPTH		_("GIMP can't handle depth %d bits/color")
 #define ERR_UNKNOWN_SAVING_FORMAT	_("Unknown file format for saving")
 #define ERR_OPEN_FAILED			_("Failed to open")
 #define ERR_FAILED_PRINTER_PIPE		_("Failed to open pipe for executing printercommand")

@@ -32,7 +32,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.73"
+#define XSANE_VERSION		"0.75"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2001"
@@ -425,6 +425,7 @@ typedef struct Xsane
     int xsane_output_format;
     long header_size;
     int expand_lineart_to_grayscale;
+    int reduce_16bit_image_to_8bit;
 
     /* histogram window */
     struct XsanePixmap histogram_raw;

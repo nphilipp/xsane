@@ -1276,81 +1276,57 @@ void xsane_identify_output_format(char **ext)
 
   xsane.xsane_output_format = XSANE_UNKNOWN;
 
-  if (xsane.param.depth <= 8)
+  if (extension)
   {
-    if (extension)
+    if (!strcasecmp(extension, "raw"))
     {
-      if ( (!strcasecmp(extension, "pnm")) || (!strcasecmp(extension, "ppm")) ||
-           (!strcasecmp(extension, "pgm")) || (!strcasecmp(extension, "pbm")) )
-      {
-        xsane.xsane_output_format = XSANE_PNM;
-      }
-#ifdef HAVE_LIBPNG
-#ifdef HAVE_LIBZ
-      else if (!strcasecmp(extension, "png"))
-      {
-        xsane.xsane_output_format = XSANE_PNG;
-      }
-#endif
-#endif
-#ifdef HAVE_LIBJPEG
-      else if ( (!strcasecmp(extension, "jpg")) || (!strcasecmp(extension, "jpeg")) )
-      {
-        xsane.xsane_output_format = XSANE_JPEG;
-      }
-#endif
-      else if (!strcasecmp(extension, "ps"))
-      {
-        xsane.xsane_output_format = XSANE_PS;
-      }
-#ifdef HAVE_LIBTIFF
-      else if ( (!strcasecmp(extension, "tif")) || (!strcasecmp(extension, "tiff")) )
-      {
-        xsane.xsane_output_format = XSANE_TIFF;
-      }
-#endif
-#ifdef SUPPORT_RGBA
-      else if (!strcasecmp(extension, "rgba"))
-      {
-        xsane.xsane_output_format = XSANE_RGBA;
-      }
-#endif
-    }
-  }
-  else /* depth >8 bpp */
-  {
-    if (extension)
-    {
-      if (!strcasecmp(extension, "raw"))
+      if (xsane.param.depth == 16)
       {
         xsane.xsane_output_format = XSANE_RAW16;
       }
-      else if ( (!strcasecmp(extension, "pnm")) || (!strcasecmp(extension, "ppm")) ||
-           (!strcasecmp(extension, "pgm")) || (!strcasecmp(extension, "pbm")) )
+    }
+    else if ( (!strcasecmp(extension, "pnm")) || (!strcasecmp(extension, "ppm")) ||
+              (!strcasecmp(extension, "pgm")) || (!strcasecmp(extension, "pbm")) )
+    {
+      if (xsane.param.depth == 16)
       {
         xsane.xsane_output_format = XSANE_PNM16;
       }
+      else
+      {
+        xsane.xsane_output_format = XSANE_PNM;
+      }
+    }
 #ifdef HAVE_LIBPNG
 #ifdef HAVE_LIBZ
-      else if (!strcasecmp(extension, "png"))
-      {
-        xsane.xsane_output_format = XSANE_PNG;
-      }
+    else if (!strcasecmp(extension, "png"))
+    {
+      xsane.xsane_output_format = XSANE_PNG;
+    }
 #endif
 #endif
+#ifdef HAVE_LIBJPEG
+    else if ( (!strcasecmp(extension, "jpg")) || (!strcasecmp(extension, "jpeg")) )
+    {
+      xsane.xsane_output_format = XSANE_JPEG;
+    }
+#endif
+    else if (!strcasecmp(extension, "ps"))
+    {
+      xsane.xsane_output_format = XSANE_PS;
+    }
 #ifdef HAVE_LIBTIFF
-      else if ( (!strcasecmp(extension, "tif")) || (!strcasecmp(extension, "tiff")) )
-      {
-        xsane.xsane_output_format = XSANE_TIFF;
-      }
+    else if ( (!strcasecmp(extension, "tif")) || (!strcasecmp(extension, "tiff")) )
+    {
+      xsane.xsane_output_format = XSANE_TIFF;
+    }
 #endif
 #ifdef SUPPORT_RGBA
-      else if (!strcasecmp(extension, "rgba"))
-      {
-        xsane.xsane_output_format = XSANE_RGBA;
-      }
-#endif
+    else if (!strcasecmp(extension, "rgba"))
+    {
+      xsane.xsane_output_format = XSANE_RGBA;
     }
+#endif
   }
 
   if (ext)

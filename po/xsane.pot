@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-03-18 22:43+0100\n"
+"POT-Creation-Date: 2001-04-03 00:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -166,6 +166,10 @@ msgstr ""
 
 #. BUTTON_CANCEL
 msgid "Cancel"
+msgstr ""
+
+#. BUTTON_REDUCE
+msgid "Reduce"
 msgstr ""
 
 #. BUTTON_CONT_AT_OWN_RISK
@@ -366,6 +370,18 @@ msgstr ""
 
 #. TEXT_16BIT_FORMATS
 msgid "16 bit output formats:"
+msgstr ""
+
+#. TEXT_GIMP_REDUCE_16BIT_TO_8BIT
+msgid ""
+"Gimp does not support depth 16 bits/color.\n"
+"Do you want to reduce the depth to 8 bits/color?"
+msgstr ""
+
+#. TEXT_REDUCE_16BIT_TO_8BIT
+msgid ""
+"Bit depth 16 bits/color is not supported for this output format.\n"
+"Do you want to reduce the depth to 8 bits/color?"
 msgstr ""
 
 #. TEXT_AUTHORIZATION_REQ
@@ -859,8 +875,8 @@ msgstr ""
 msgid "Receiving %s data"
 msgstr ""
 
-#. PROGRESS_SAVING_DATA
-msgid "Saving image"
+#. PROGRESS_TRANSFERING_DATA
+msgid "Transfering image"
 msgstr ""
 
 #. PROGRESS_ROTATING_DATA
@@ -1413,7 +1429,8 @@ msgid "Can't handle depth"
 msgstr ""
 
 #. ERR_GIMP_BAD_DEPTH
-msgid "GIMP can't handle depth"
+#, c-format
+msgid "GIMP can't handle depth %d bits/color"
 msgstr ""
 
 #. ERR_UNKNOWN_SAVING_FORMAT

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.72\n"
-"POT-Creation-Date: 2001-03-18 22:43+0100\n"
+"POT-Creation-Date: 2001-04-03 00:36+0200\n"
 "PO-Revision-Date: 2000-01-21 15:51+01:00\n"
 "Last-Translator: Oliver Rauch <Oliver.Rauch@rauch-domain.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -166,6 +166,10 @@ msgstr "Anwenden"
 #. BUTTON_CANCEL
 msgid "Cancel"
 msgstr "Abbrechen"
+
+#. BUTTON_REDUCE
+msgid "Reduce"
+msgstr "Reduzieren"
 
 #. BUTTON_CONT_AT_OWN_RISK
 msgid "Continue at your own risk"
@@ -366,6 +370,22 @@ msgstr "8 Bit Ausgabeformate:"
 #. TEXT_16BIT_FORMATS
 msgid "16 bit output formats:"
 msgstr "16 Bit Ausgabeformate:"
+
+#. TEXT_GIMP_REDUCE_16BIT_TO_8BIT
+msgid ""
+"Gimp does not support depth 16 bits/color.\n"
+"Do you want to reduce the depth to 8 bits/color?"
+msgstr ""
+"Gimp unterstützt die Bittiefe 16Bits/Farbe nicht.\n"
+"Möchten Sie die Bittiefe auf 8 Bits/Farbe reduzieren?"
+
+#. TEXT_REDUCE_16BIT_TO_8BIT
+msgid ""
+"Bit depth 16 bits/color is not supported for this output format.\n"
+"Do you want to reduce the depth to 8 bits/color?"
+msgstr ""
+"Die Bittiefe 16Bits/Farbe wird von diesem Ausgabeformat nicht unterstützt.\n"
+"Möchten Sie die Bittiefe auf 8 Bits/Farbe reduzieren?"
 
 #. TEXT_AUTHORIZATION_REQ
 msgid "Authorization required for"
@@ -869,9 +889,9 @@ msgstr "Scanne"
 msgid "Receiving %s data"
 msgstr "Empfange %s Daten"
 
-#. PROGRESS_SAVING_DATA
-msgid "Saving image"
-msgstr "Speichere Bild"
+#. PROGRESS_TRANSFERING_DATA
+msgid "Transfering image"
+msgstr "Übertrage Bild"
 
 #. PROGRESS_ROTATING_DATA
 msgid "Rotating image"
@@ -1194,7 +1214,9 @@ msgstr "Kompression wenn lineart Bild im TIFF-Format gespeichert wird"
 
 #. DESC_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device dependant preferences in default file at exit of xsane"
-msgstr "Geräteabhängige Einstellungen werden in der Default-Datei beim Beenden von xsane gespeichert"
+msgstr ""
+"Geräteabhängige Einstellungen werden in der Default-Datei beim Beenden von "
+"xsane gespeichert"
 
 #. DESC_OVERWRITE_WARNING
 msgid "Warn before overwriting an existing file"
@@ -1471,8 +1493,9 @@ msgid "Can't handle depth"
 msgstr "Nicht unterstützte Bittiefe"
 
 #. ERR_GIMP_BAD_DEPTH
-msgid "GIMP can't handle depth"
-msgstr "GIMP Modus: nicht unterstützt Bittieffe"
+#, c-format
+msgid "GIMP can't handle depth %d bits/color"
+msgstr "GIMP unterstützt Bittieffe %d Bits/Farbe nicht"
 
 #. ERR_UNKNOWN_SAVING_FORMAT
 msgid "Unknown file format for saving"
