@@ -5,6 +5,7 @@ srcdir = @srcdir@
 top_srcdir = @top_srcdir@
 top_builddir = ..
 
+sane_prefix = @SANE_PREFIX@
 prefix = @prefix@
 exec_prefix = @exec_prefix@
 bindir = @bindir@
@@ -28,13 +29,13 @@ INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_DATA = @INSTALL_DATA@
 
 CC = @CC@
-INCLUDES = -I. -I$(srcdir) -I$(top_builddir)/include -I$(top_srcdir)/include \
-	   @GTK_CFLAGS@ @INCLUDES@
+INCLUDES = -I. -I$(srcdir) -I$(top_builddir)/include -I$(top_srcdir)/include @GTK_CFLAGS@ @INCLUDES@
 DEFS = @DEFS@ -DLOCALEDIR=$(datadir)/locale
 CPPFLAGS = @CPPFLAGS@
 CFLAGS = @CFLAGS@
 LDFLAGS = @LDFLAGS@
 LIBS = @INTLLIBS@ @LIBS@
+SANE_LIBS = @SANE_LIBS@
 GTK_LIBS = @GTK_LIBS@
 GIMP_LIBS = @GIMP_LIBS@
 
@@ -68,9 +69,23 @@ install: $(PROGRAMS)
 	$(INSTALL_DATA) $(srcdir)/xsane-calibration.pnm $(sanedatadir)/xsane/xsane-calibration.pnm
 	$(INSTALL_DATA) $(srcdir)/xsane-logo.xpm $(sanedatadir)/xsane/xsane-logo.xpm
 
+uninstall:
+	@for program in $(BINPROGS); do \
+	  echo uninstalling $(bindir)/$${program}...; \
+	  rm -f $(bindir)/$${program}; \
+	done
+	echo uninstalling $(sanedatadir)/xsane/xsane-style.rc...
+	rm -f $(sanedatadir)/xsane/xsane-style.rc
+	echo uninstalling $(sanedatadir)/xsane/xsane-startimage.pnm...
+	rm -f $(sanedatadir)/xsane/xsane-startimage.pnm
+	echo uninstalling $(sanedatadir)/xsane/xsane-calibration.pnm...
+	rm -f $(sanedatadir)/xsane/xsane-calibration.pnm
+	echo uninstalling $(sanedatadir)/xsane/xsane-logo.xpm...
+	rm -f $(sanedatadir)/xsane/xsane-logo.xpm
+
 xsane: $(XSANE_OBJS) $(LIBLIB)
 	$(LINK) $(XSANE_OBJS) \
-	        $(LIBLIB) $(GIMP_LIBS) $(GTK_LIBS) $(LIBS)
+	        $(LIBLIB) $(GIMP_LIBS) $(GTK_LIBS) $(LIBS) $(SANE_LIBS)
 
 
 clean:

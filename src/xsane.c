@@ -5343,17 +5343,29 @@ int main(int argc, char **argv)
 #ifdef HAVE_LIBGIMP_GIMP_H
   {
     GPrintFunc old_print_func;
+    GPrintFunc old_printerr_func;
     int result;
 
     /* Temporarily install a print function that discards all output.
        This is to avoid annoying "you must run this program under
        gimp" messages when xsane gets invoked in stand-alone
        mode.  */
-    old_print_func = g_set_print_handler((GPrintFunc) null_print_func);
+    old_print_func    = g_set_print_handler((GPrintFunc) null_print_func);
+    old_printerr_func = g_set_printerr_handler((GPrintFunc) null_print_func);
 
     /* gimp_main() returns 1 if xsane wasn't invoked by GIMP */
     result = gimp_main(argc, argv);
+
+#if 0
+    /* this is the old version that seems to use the compatibility functions */
     g_set_message_handler(old_print_func);
+    g_set_error_handler(old_printerr_func);
+#else
+    /* this is the new version that I think is the one that should be used */
+    g_set_print_handler(old_print_func);
+    g_set_printerr_handler(old_printerr_func);
+#endif
+
     if (result)
     {
       xsane_interface(argc, argv);

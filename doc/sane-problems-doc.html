@@ -30,19 +30,40 @@ with SANE or XSane please read this before you write any mails.</font></font></b
 <b><font color="#000000">The SANE frontend (like xsane or xscanimage) does
 not start or aborts with a segmentation fault.</font></b></li>
 
-<p><br><font color="#000000">Edit /usr/local/etc/sane.d/dll.conf (or /usr/etc/sane.d/dll.conf)
+<ul>
+<li>
+<font color="#000000">Edit /usr/local/etc/sane.d/dll.conf (or /usr/etc/sane.d/dll.conf)
 and comment out all but the backend you need. To do this add a "#" at the
-beginning of the relevant lines.</font><font color="#000000"></font>
-<p><font color="#000000">If that does not help try to find out where the
-error occurs:</font>
-<br><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gdb
-xscanimage</font>
-<br><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r
-&lt;enter></font>
-<br><font color="#000000">after the frontend returned:</font>
-<br><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; backtrace
-&lt;enter></font>
-<br>&nbsp;
+beginning of the relevant lines.</font></li>
+
+<li>
+make sure there is only one sane version installed before you compile xsane
+(try as root: $find / -name "*sane*" | less)</li>
+
+<li>
+If you used an earlier version of xsane before remove the configuration
+directory: rm -rf ~/.sane/xsane (you have to enter all configurations again
+afterwards).</li>
+
+<li>
+make sure there is only one gtk-config and only one gimp-config file on
+your system (find / -name "g*-config").</li>
+
+<li>
+Do not install any self compiled source package over binary packages, in
+most cases the installation paths are different so the old versions are
+not overwritten!</li>
+
+<li>
+<font color="#000000">If that does not help try to find out where the error
+occurs:</font></li>
+
+<br><font color="#000000">&nbsp;&nbsp;&nbsp; gdb xscanimage</font>
+<br><font color="#000000">&nbsp;&nbsp;&nbsp; r &lt;enter></font>
+<br><font color="#000000">&nbsp;&nbsp;&nbsp; after the frontend returned:</font>
+<br><font color="#000000">&nbsp;&nbsp;&nbsp; backtrace &lt;enter></font><br>
+<BR></ul>
+
 <li>
 <b><font color="#000000">The scanner starts the scan but it stops while
 scanning</font></b></li>
@@ -101,10 +122,39 @@ of scsi card.</font>
 <li>
 <font color="#000000">May be your scanner/firmware does not work correct
 with the backend you use. Update the backend version or contact the author
-of the backend.</font></li>
+of the backend.</font><br>
+<br>
+<BR></li>
 </blockquote>
-<font color="#000000"></font>
-<br>&nbsp;
+
+<li>
+<b><font color="#000000">If you get an error message&nbsp; that libsane-dll.so.1
+or libsane-so.1 is not found, you have to tell your system where the SANE-libraries
+are installed.</font></b></li>
+
+<blockquote>
+<li>
+<font color="#000000">For linux and sane-1.0.1 you have to edit /etc/ld.so.conf
+and add a line with the path to the SANE libraries (normally /usr/local/lib/sane),
+then call ldconfig.</font></li>
+
+<li>
+<font color="#000000">For linux and sane-1.0.2 and later versions the path
+to the SANE libs MUST NOT be listed in /etc/ld.so.conf, if it has been
+listed, remove the path and call ldconfig, then reinstall SANE.</font></li>
+
+<li>
+<font color="#000000">On some systems "/usr/local/lib" is not searched
+for libraries, it may be necessary to add this path. For linux make sure
+that "/usr/local/lib" is listed in /etc/ld.so.conf, call ldconfig as root
+after changing /etc/ld.so.conf.</font></li>
+
+<li>
+<font color="#000000">If all that does not help, make sure that libsane.so.*
+are symbolic links to ./sane/libsane-dll.so.*</font><br>
+<BR></li>
+</blockquote>
+
 <li>
 <b>Please read the documentation of the backend you use</b></li>
 </blockquote>

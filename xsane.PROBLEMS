@@ -11,8 +11,6 @@ READ THIS FILE IF YOU EXPERIENCE ANY PROBLEM
    - make sure there is only one sane version installed before
      you compile xsane
      (try as root: $find / -name "*sane*" | less)
-   - If you compiled xsane/gtk/glib with the egcs compiler try
-     recompiling all with the "normal" gcc compiler (test with gcc -v)!
    - If you used an earlier version of xsane before remove the configuration
      directory: rm -rf ~/.sane/xsane
      (you have to enter all configurations again afterwards).
@@ -24,11 +22,29 @@ READ THIS FILE IF YOU EXPERIENCE ANY PROBLEM
 
 - If you get an error message  that libsane-dll.so.1 or libsane-so.1 is not found, you have to
   tell your system where the SANE-libraries are installed.
-   - For sane-1.0.1 you have to edit /etc/ld.so.conf and add a line with the path to the SANE
-     libraries (normally /usr/local/lib/sane), then call ldconfig.
-     THIS MUST BE DONE AS ROOT!
-   - For sane-1.0.2 (and later versions) the path to the SANE libs MUST NOT be listed
-     in /etc/ld.so.conf
+   - On some systems the library directory "/usr/local/lib" is not searched by the
+     systems dynamic library loader.  If SANE is installed in "/usr/local/..."
+     you have to tell your systems dynamic library loader to search in "/usr/local/lib".
+     For linux: add the path "/usr/local/lib" to /etc/ld.so.conf and call ldconfig (as root).
+   - For sane-1.0.1 you have to add a line with the path to the SANE libraries
+     (normally /usr/local/lib/sane) to /etc/ld.so.conf and call ldconfig (as root).
+     For sane-1.0.2 (and later versions) the path to the SANE libs MUST NOT be listed
+     in /etc/ld.so.conf    
+   - If all that does not help, make sure that libsane.so.* are symbolic links to
+     ./sane/libsane-dll.so.*
+
+   short explaination:
+     xsane does not search itself for the library, that is done by the dynamic
+     library loader of your system.
+     For linux: Edit /etc/ld.so.conf and call ldconfig to tell your
+     dynamic library loader where it shall search for dlls.
+
+     When sane is installed in "/usr/local/....."
+     the libraries are placed in "/usr/local/lib/sane/".
+     The path "/usr/local/lib" has to be listed in /etc/ld.so.conf
+     (call ldconfig after changing that file).
+     In /usr/local/lib there are some links "libsane.so*" that point
+     to the subdirectory ./sane to the fitting files "libsane-dll.so*".
 
  - The online-help-viewer is selectable.
    If you use kde you can enter kdehelp in setup/display.
@@ -62,6 +78,13 @@ READ THIS FILE IF YOU EXPERIENCE ANY PROBLEM
 
  - If configure does not find libsane, try
      ./configure --enable-intl-patch
+
+ - If configure does not find sane.h, find out if/where sane.h is installed:
+     find / -name "sane.h"
+   if it is not installed SANE was not installed complete, if you installed
+   SANE as binary package take a look if there is a "sane-devel" package.
+   If you found it you have to tell the configure script where it has to
+   look for it, do "./configure --help" for more info about that.
 
  - If gtk+ is compiled with NLS/gettext, you have to use the same
    gettext version for xsane. So if gtk+ is compiled with gettext in libc

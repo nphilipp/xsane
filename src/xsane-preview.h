@@ -28,8 +28,6 @@
 /* ------------------------------------------------------------------------------------------------------ */
 
 #include <sys/types.h>
-
-#include <sane/config.h>
 #include <sane/sane.h>
 
 #define SELECTION_RANGE_IN  4

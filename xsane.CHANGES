@@ -1098,3 +1098,20 @@ xsane-0.61 -> 0.62:
 
  - p->startimage is set to 0 in preview_scan_start
 
+
+xsane-0.62 -> 0.63:
+-------------------
+
+ - added turkish translation (thanks to Togan Muftuoglu <toganm@turk.net>)
+
+ - changed gimp interface from 1.0 to 1.1.2x (GParam->GimpParam etc),
+   added xsane-oldgimp.h that adds #defines for the old gimp interface
+
+ - added "make uninstall"
+
+ - changed confiure.in, added test for x_includes before it is used,
+   renamed it to configure.old
+
+ - new configure.in file that does use "sane-config" now to find the sane libraries
+
+

@@ -65,6 +65,22 @@ install: $(MANPAGES)
 	  $(INSTALL_DATA) $${image} $(sanedatadir)/$${image} || exit 1; \
 	done
 
+uninstall:
+	@for page in $(SECT1); do \
+	  echo uninstalling $(mandir)/man1/$${page}...; \
+	  rm -f $(mandir)/man1/$${page} || exit 1; \
+	done
+
+	@for page in *.html; do\
+	  echo uninstalling $(sanedatadir)/$${page}...; \
+	  rm -f $(sanedatadir)/$${page} || exit 1; \
+	done
+
+	@for image in *.jpg; do\
+	  echo uninstalling $${image} in $(sanedatadir)/$${image}...; \
+	  rm -f $(sanedatadir)/$${image} || exit 1; \
+	done
+
 docs: ps html
 
 html-man: $(MANPAGES)

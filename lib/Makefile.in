@@ -60,6 +60,8 @@ liblib.a: $(LIBLIB_OBJS)
 
 install: all
 
+uninstall:
+
 check:
 
 depend:

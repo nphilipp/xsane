@@ -35,6 +35,8 @@ all: all-recursive
 
 install: install-recursive
 
+uninstall: uninstall-recursive
+
 clean: clean-recursive
 
 distclean: clean distclean-recursive
@@ -44,7 +46,7 @@ distclean: clean distclean-recursive
 
 depend: depend-recursive
 
-all-recursive install-recursive clean-recursive distclean-recursive \
+all-recursive install-recursive uninstall-recursive clean-recursive distclean-recursive \
 depend-recursive:
 	for subdir in $(SUBDIRS); do		\
 	  target=`echo $@ | sed s/-recursive//`; \

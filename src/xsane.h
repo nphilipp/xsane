@@ -32,7 +32,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.62"
+#define XSANE_VERSION		"0.63"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2000"
@@ -83,8 +83,8 @@
 #include <sane/sane.h>
 #include <sane/saneopts.h>
 
-#include "sane/config.h"
-#include "sane/sanei_signal.h"
+#include "../include/sane/config.h"
+#include "../include/sane/sanei_signal.h"
 
 #include "xsane-text.h"
 #include "xsane-fixedtext.h"
@@ -181,6 +181,18 @@ GSGDialogElement;
 # else
 #  define GIMP_CHECK_VERSION(major, minor, micro) 0
 # endif /* HAVE_LIBGIMP_GIMPFEATURES_H */
+
+# ifdef GIMP_CHECK_VERSION
+#  if GIMP_CHECK_VERSION(1,1,25)
+/* ok, we have the new gimp interface */
+#  else
+/* we have the old gimp interface and need the compatibility header file */
+#   include "xsane-oldgimp.h" 
+#  endif
+# else
+/* we have the old gimp interface and need the compatibility header file */
+#  include "xsane-oldgimp.h" 
+# endif
 
 #endif /* HAVE_LIBGIMP_GIMP_H */
 
@@ -559,10 +571,10 @@ typedef struct Xsane
 #ifdef HAVE_LIBGIMP_GIMP_H
     /* for GIMP mode: */
     gint32 image_ID; /* has to be gint32 */
-    GDrawable *drawable;
+    GimpDrawable *drawable;
     guchar *tile;
     unsigned tile_offset;
-    GPixelRgn region;
+    GimpPixelRgn region;
     int first_frame;		/* used for RED/GREEN/BLUE frames */
 #endif
 } Xsane;

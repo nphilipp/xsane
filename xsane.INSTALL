@@ -21,8 +21,11 @@ DO THE FOLLOWING AS NORMAL USER, NOT AS ROOT:
 - Unpack the xsane archiv in a directory of your choice. 
 - Enter xsane-0.xx directory. 
 - To compile call ./configure and make.
-  - If you use kwm (KDE window manager), call configure with environment
-    variable CPPFLAGS set to
+  - If you want to compile xsane with sane-1.0 or sane-1.0.1
+    use configure.old, but I strongly suggest to update SANE
+    to the recent version!
+  - If you use an old version of kwm (KDE window manager),
+    call configure with environment variable CPPFLAGS set to
     "-DXSANE_BUGGY_WINDOWMANAGER_WINDOW_POSITION".
   - When you already called ./configure it may be good to do a
        make distclean
@@ -38,10 +41,13 @@ DO THE FOLLOWING AS NORMAL USER:
 
 - If you get an error message  that libsane-dll.so.1 or libsane-so.1 is not found, you have to
   tell your system where the SANE-libraries are installed.
-   - For sane-1.0.1 you have to edit /etc/ld.so.conf and add a line with the path to the SANE
-     libraries (normally /usr/local/lib/sane), then call ldconfig.
-     THIS MUST BE DONE AS ROOT!
-   - For sane-1.0.2 (and later versions) the path to the SANE libs MUST NOT be listed
+   - On some systems the library directory "/usr/local/lib" is not searched by the
+     systems dynamic library loader.  If SANE is installed in "/usr/local/..."
+     you have to tell your systems dynamic library loader to search in "/usr/local/lib".
+     For linux: add the path "/usr/local/lib" to /etc/ld.so.conf and call ldconfig (as root).
+   - For sane-1.0.1 you have to add a line with the path to the SANE libraries
+     (normally /usr/local/lib/sane) to /etc/ld.so.conf and call ldconfig (as root).
+     For sane-1.0.2 (and later versions) the path to the SANE libs MUST NOT be listed
      in /etc/ld.so.conf
 
 If something does not work like expected read file xsane.PROBLEMS

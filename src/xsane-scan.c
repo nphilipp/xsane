@@ -45,9 +45,9 @@
 #include <libgimp/gimp.h>
 
 static void xsane_gimp_query(void);
-static void xsane_gimp_run(char *name, int nparams, GParam * param, int *nreturn_vals, GParam ** return_vals);
+static void xsane_gimp_run(char *name, int nparams, GimpParam * param, int *nreturn_vals, GimpParam ** return_vals);
 
-GPlugInInfo PLUG_IN_INFO =
+GimpPlugInInfo PLUG_IN_INFO =
 {
   NULL,                         /* init_proc */
   NULL,                         /* quit_proc */
@@ -241,11 +241,11 @@ static int xsane_encode_devname(const char *devname, int n, char *buf)
 
 static void xsane_gimp_query(void)
 {
- static GParamDef args[] =
+ static GimpParamDef args[] =
  {
-     {PARAM_INT32, "run_mode", "Interactive, non-interactive"},
+     {GIMP_PDB_INT32, "run_mode", "Interactive, non-interactive"},
  };
- static GParamDef *return_vals = NULL;
+ static GimpParamDef *return_vals = NULL;
  static int nargs = sizeof(args) / sizeof(args[0]);
  static int nreturn_vals = 0;
  char mpath[1024];
@@ -273,7 +273,7 @@ static void xsane_gimp_query(void)
 			 XSANE_DATE,
 			 mpath,
 			 0, /* "RGB, GRAY", */
-			 PROC_EXTENSION,
+			 GIMP_EXTENSION,
 			 nargs, nreturn_vals,
 			 args, return_vals);
 
@@ -297,53 +297,58 @@ static void xsane_gimp_query(void)
   sane_get_devices(&xsane.devlist, SANE_FALSE);
 
   for (i = 0; xsane.devlist[i]; ++i)
+  {
+    snprintf(name, sizeof(name), "%s-", xsane.prog_name);
+    if (xsane_encode_devname(xsane.devlist[i]->name, sizeof(name) - 6, name + 6) < 0)
     {
-      snprintf(name, sizeof(name), "%s-", xsane.prog_name);
-      if (xsane_encode_devname(xsane.devlist[i]->name, sizeof(name) - 6, name + 6) < 0)
-      {
-	continue;	/* name too long... */
-      }
+      continue;	/* name too long... */
+    }
 
 #ifdef GIMP_CHECK_VERSION
 # if GIMP_CHECK_VERSION(1,1,9)
-      snprintf(mpath, sizeof(mpath), "%s", XSANE_GIMP_MENU);
+    snprintf(mpath, sizeof(mpath), "%s", XSANE_GIMP_MENU);
 # else
-      snprintf(mpath, sizeof(mpath), "%s", XSANE_GIMP_MENU_OLD);
+    snprintf(mpath, sizeof(mpath), "%s", XSANE_GIMP_MENU_OLD);
 # endif
 #else
-      snprintf(mpath, sizeof(mpath), "%s", XSANE_GIMP_MENU_OLD);
+    snprintf(mpath, sizeof(mpath), "%s", XSANE_GIMP_MENU_OLD);
 #endif
-      len = strlen(mpath);
-      for (j = 0; xsane.devlist[i]->name[j]; ++j)
-	{
-	  if (xsane.devlist[i]->name[j] == '/')
-	    mpath[len++] = '\'';
-	  else
-	    mpath[len++] = xsane.devlist[i]->name[j];
-	}
-      mpath[len++] = '\0';
-
-  gimp_install_procedure(name,
-			 XSANE_GIMP_INSTALL_BLURB,
-			 XSANE_GIMP_INSTALL_HELP,
-			 XSANE_AUTHOR,
-			 XSANE_COPYRIGHT,
-			 XSANE_DATE,
-			 mpath,
-			 0, /* "RGB, GRAY", */
-			 PROC_EXTENSION,
-			 nargs, nreturn_vals,
-			 args, return_vals);
+    len = strlen(mpath);
+    for (j = 0; xsane.devlist[i]->name[j]; ++j)
+    {
+      if (xsane.devlist[i]->name[j] == '/')
+      {
+        mpath[len++] = '\'';
+      }
+      else
+      {
+        mpath[len++] = xsane.devlist[i]->name[j];
+      }
     }
+    mpath[len++] = '\0';
+
+    gimp_install_procedure(name,
+                           XSANE_GIMP_INSTALL_BLURB,
+                           XSANE_GIMP_INSTALL_HELP,
+                           XSANE_AUTHOR,
+                           XSANE_COPYRIGHT,
+                           XSANE_DATE,
+                           mpath,
+                           0, /* "RGB, GRAY", */
+                           GIMP_EXTENSION,
+                           nargs, nreturn_vals,
+                           args, return_vals);
+  }
+
   sane_exit();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_gimp_run(char *name, int nparams, GParam * param, int *nreturn_vals, GParam ** return_vals)
+static void xsane_gimp_run(char *name, int nparams, GimpParam * param, int *nreturn_vals, GimpParam ** return_vals)
 {
- static GParam values[2];
- GRunModeType run_mode;
+ static GimpParam values[2];
+ GimpRunModeType run_mode;
  char devname[1024];
  char *args[2];
  int nargs;
@@ -356,8 +361,8 @@ static void xsane_gimp_run(char *name, int nparams, GParam * param, int *nreturn
   *nreturn_vals = 1;
   *return_vals = values;
 
-  values[0].type = PARAM_STATUS;
-  values[0].data.d_status = STATUS_CALLING_ERROR;
+  values[0].type = GIMP_PDB_STATUS;
+  values[0].data.d_status = GIMP_PDB_CALLING_ERROR;
 
   nargs = 0;
   args[nargs++] = "xsane";
@@ -374,16 +379,16 @@ static void xsane_gimp_run(char *name, int nparams, GParam * param, int *nreturn
 
   switch (run_mode)
   {
-    case RUN_INTERACTIVE:
+    case GIMP_RUN_INTERACTIVE:
       xsane_interface(nargs, args);
-      values[0].data.d_status = STATUS_SUCCESS;
+      values[0].data.d_status = GIMP_PDB_SUCCESS;
       break;
 
-    case RUN_NONINTERACTIVE:
+    case GIMP_RUN_NONINTERACTIVE:
       /*  Make sure all the arguments are there!  */
       break;
 
-    case RUN_WITH_LAST_VALS:
+    case GIMP_RUN_WITH_LAST_VALS:
       /*  Possibly retrieve data  */
       break;
 
@@ -1931,20 +1936,20 @@ static void xsane_start_scan(void)
       }
       else
 	{
-	  GImageType image_type = RGB;
-	  GDrawableType drawable_type = RGB_IMAGE;
+	  GimpImageType image_type = GIMP_RGB;
+	  GimpImageType drawable_type = GIMP_RGB_IMAGE;
 	  gint32 layer_ID;
 
 	  if (xsane.param.format == SANE_FRAME_GRAY)
 	  {
-	    image_type = GRAY;
-	    drawable_type = GRAY_IMAGE;
+	    image_type = GIMP_GRAY;
+	    drawable_type = GIMP_GRAY_IMAGE;
 	  }
 #ifdef SUPPORT_RGBA
           else if (xsane.param.format == SANE_FRAME_RGBA)
           {
-            image_type = RGB;
-            drawable_type = RGBA_IMAGE; /* interpret infrared as alpha */
+            image_type = GIMP_RGB;
+            drawable_type = GIMP_RGBA_IMAGE; /* interpret infrared as alpha */
           }
 #endif
                             
@@ -1963,7 +1968,7 @@ static void xsane_start_scan(void)
 	  layer_ID = gimp_layer_new(xsane.image_ID, "Background",
 				     xsane.param.pixels_per_line,
 				     xsane.param.lines,
-				     drawable_type, 100.0, NORMAL_MODE);
+				     drawable_type, 100.0, GIMP_NORMAL_MODE);
 	  gimp_image_add_layer(xsane.image_ID, layer_ID, 0);
 
 	  xsane.drawable = gimp_drawable_get(layer_ID);

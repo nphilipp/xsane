@@ -23,14 +23,12 @@
 /* ---------------------------------------------------------------------------------------------------------------- */
 
 #include "xsane.h"
-#include <sane/config.h>
 
 #include <errno.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
 #include <sane/sane.h>
-#include <sane/config.h>
 #include <ctype.h>
 #include <unistd.h>
 

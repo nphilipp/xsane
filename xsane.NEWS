@@ -4,7 +4,7 @@
   no special you should care about.
 
   If you experience any problems after you upgraded xsane 
-  it may help to remove the setup and preferneces files
+  it may help to remove the setup and preferences files
   of xsane:
 
   rm -rf ~/.sane/xsane
