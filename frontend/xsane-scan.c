@@ -59,7 +59,7 @@ GPlugInInfo PLUG_IN_INFO =
 
 /* forward declarations: */
 
-static void xsane_generate_dummy_filename();
+static int xsane_generate_dummy_filename();
 #ifdef HAVE_LIBGIMP_GIMP_H
 static int xsane_decode_devname(const char *encoded_devname, int n, char *buf);
 static int xsane_encode_devname(const char *devname, int n, char *buf);
@@ -76,8 +76,9 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_generate_dummy_filename()
+static int xsane_generate_dummy_filename()
 {
+ /* returns TRUE if file is a temporary file */
 
   if (xsane.dummy_filename)
   {
@@ -90,12 +91,14 @@ static void xsane_generate_dummy_filename()
   {
    char filename[PATH_MAX];
 
-    xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", 0, "conversion", dialog->dev_name, ".tmp");
+    xsane_back_gtk_make_path(sizeof(filename), filename, 0, 0, "conversion-", dialog->dev_name, ".ppm", XSANE_PATH_TMP);
     xsane.dummy_filename = strdup(filename);
+    return TRUE;
   }
   else /* no conversion following, save directly to the selected filename */
   {
     xsane.dummy_filename = strdup(xsane.output_filename);
+    return FALSE;
   }
 }
 
@@ -1145,19 +1148,29 @@ void xsane_scan_done(SANE_Status status)
            {
              if (xsane.param.depth != 1)
              {
+               remove(xsane.output_filename);
+               umask(preferences.image_umask); /* define image file permissions */   
                xsane_save_tiff(xsane.output_filename, infile, xsane.xsane_color, xsane.param.depth, xsane.param.pixels_per_line,
                                xsane.param.lines, preferences.tiff_compression_nr, preferences.jpeg_quality);
+               umask(XSANE_DEFAULT_UMASK); /* define new file permissions */   
              }
              else
              {
+               remove(xsane.output_filename);
+               umask(preferences.image_umask); /* define image file permissions */   
                xsane_save_tiff(xsane.output_filename, infile, xsane.xsane_color, xsane.param.depth, xsane.param.pixels_per_line,
                                xsane.param.lines, preferences.tiff_compression_1_nr, preferences.jpeg_quality);
+               umask(XSANE_DEFAULT_UMASK); /* define new file permissions */   
              }
            }
            else							/* routines that want to have filedescriptor for saving */
 #endif
            {
+             remove(xsane.output_filename);
+             umask(preferences.image_umask); /* define image file permissions */   
              outfile = fopen(xsane.output_filename, "w");
+             umask(XSANE_DEFAULT_UMASK); /* define new file permissions */   
+
              if (outfile != 0)
              {
                switch(xsane.xsane_output_format)
@@ -1348,7 +1361,9 @@ void xsane_scan_done(SANE_Status status)
            fseek(infile, xsane.header_size, SEEK_SET);
 
            {
+             umask(preferences.image_umask); /* define image file permissions */   
              outfile = fopen(xsane.fax_filename, "w");
+             umask(XSANE_DEFAULT_UMASK); /* define new file permissions */   
              if (outfile != 0)
              {
               float imagewidth  = xsane.param.pixels_per_line/(float)xsane.resolution; /* width in inch */
@@ -1571,8 +1586,20 @@ static void xsane_start_scan(void)
 
   if (xsane.mode == XSANE_STANDALONE)
   {				/* We are running in standalone mode */
-    xsane_generate_dummy_filename(); /* create filename the scanned data is saved to */
+    if (xsane_generate_dummy_filename()) /* create filename the scanned data is saved to */
+    {
+      /* temporary file */
+      umask(0177); /* creare temporary file with "-rw-------" permissions */   
+    }
+    else
+    {
+      /* no temporary file */
+      umask(preferences.image_umask); /* define image file permissions */   
+    }
+
+    remove(xsane.dummy_filename); /* remove existing file */
     xsane.out = fopen(xsane.dummy_filename, "w");
+    umask(XSANE_DEFAULT_UMASK); /* define new file permissions */   
 
     if (!xsane.out) /* error while opening the dummy_file for writing */
     {
@@ -1807,7 +1834,7 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
 
         fclose(testfile);
         snprintf(buf, sizeof(buf), "File %s already exists\n", xsane.output_filename);
-        if (xsane_back_gtk_decision("Warning:", buf, BUTTON_OVERWRITE, BUTTON_CANCEL, TRUE /* wait */) == FALSE)
+        if (xsane_back_gtk_decision(ERR_HEADER_WARNING, (gchar **) warning_xpm, buf, BUTTON_OVERWRITE, BUTTON_CANCEL, TRUE /* wait */) == FALSE)
         {
           return;
         }

@@ -60,11 +60,11 @@ XSANE_OBJS = xsane-back-gtk.o xsane-front-gtk.o xsane-gamma.o xsane-preview.o \
 all: $(PROGRAMS)
 
 install: $(PROGRAMS)
-	$(MKINSTALLDIRS) $(bindir) $(sbindir) $(datadir) $(sanedatadir)
+	$(MKINSTALLDIRS) $(bindir) $(sbindir) $(datadir) $(sanedatadir) $(sanedatadir)/xsane
 	@for program in $(BINPROGS); do \
 	  $(INSTALL_PROGRAM) $${program} $(bindir)/$${program}; \
 	done
-	$(INSTALL_DATA) $(srcdir)/xsane-style.rc $(sanedatadir)/xsane-style.rc
+	$(INSTALL_DATA) $(srcdir)/xsane-style.rc $(sanedatadir)/xsane/xsane-style.rc
 	$(INSTALL_DATA) $(srcdir)/xsane-logo.xpm $(sanedatadir)/xsane-logo.xpm
 
 xsane: $(XSANE_OBJS) $(LIBLIB)

@@ -31,6 +31,7 @@
 
 extern void xsane_get_bounds(const SANE_Option_Descriptor *opt, double *minp, double *maxp);
 extern void xsane_set_resolution(int resolution);
+extern void xsane_define_maximum_output_size(); 
 extern void xsane_close_dialog_callback(GtkWidget *widget, gpointer data);
 extern void xsane_authorization_button_callback(GtkWidget *widget, gpointer data);
 extern gint xsane_authorization_callback(SANE_String_Const resource,

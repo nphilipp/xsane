@@ -31,11 +31,17 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION	"0.47"
+#define XSANE_VERSION	"0.48"
 #define XSANE_AUTHOR	"Oliver Rauch"
 #define XSANE_COPYRIGHT	"Oliver Rauch"
 #define XSANE_DATE	"1998/1999"
 #define XSANE_EMAIL	"Oliver.Rauch@Wolfsburg.DE"
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+#define PATH_SANE_TMP	"/tmp"
+// #define XSANE_DEFAULT_UMASK 0157
+#define XSANE_DEFAULT_UMASK 0007
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -168,12 +174,20 @@ extern int xsane_scanmode_number[];
 
 #define HIST_WIDTH		256
 #define HIST_HEIGHT		100
-#define XSANE_DIALOG_WIDTH	296
-#define XSANE_DIALOG_HEIGHT	451
-#define XSANE_DIALOG_POS_X	10
-#define XSANE_DIALOG_POS_X2	316
-#define XSANE_DIALOG_POS_Y	50
-#define XSANE_DIALOG_POS_Y2	528
+#define XSANE_SHELL_WIDTH	296
+#define XSANE_SHELL_HEIGHT	451
+#define XSANE_SHELL_POS_X	1
+#define XSANE_SHELL_POS_Y	50
+#define XSANE_HISTOGRAM_POS_X	280
+#define XSANE_HISTOGRAM_POS_Y	50
+#define XSANE_STD_OPTIONS_POS_X	1
+#define XSANE_STD_OPTIONS_POS_Y	400
+#define XSANE_ADV_OPTIONS_POS_X	280
+#define XSANE_ADV_OPTIONS_POS_Y	420
+#define XSANE_PREVIEW_POS_X	560
+#define XSANE_PREVIEW_POS_Y	50
+#define XSANE_PREVIEW_WIDTH	100
+#define XSANE_PREVIEW_HEIGHT	100
 
 #define XSANE_SLIDER_ACTIVE	0
 #define XSANE_SLIDER_INACTIVE	4
@@ -184,6 +198,7 @@ extern int xsane_scanmode_number[];
 				GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | \
 				GDK_BUTTON1_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK
 #define INF			5.0e9
+#define MM_PER_INCH		25.4
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -269,6 +284,9 @@ typedef struct Xsane
     GtkWidget *fax_project_box;
     GtkWidget *fax_project_exists;
     GtkWidget *fax_project_not_exists;
+
+    GdkPixmap *window_icon_pixmap;
+    GdkBitmap *window_icon_mask;        
 
     /* window position and geometry */
     SANE_Int shell_posx;
@@ -474,6 +492,10 @@ typedef struct XsaneSetup
 
   int tiff_compression_nr;
   int tiff_compression_1_nr;
+
+  int image_permissions;
+  int directory_permissions;
+
 } XsaneSetup;
 
 extern struct XsaneSetup xsane_setup;

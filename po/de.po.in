@@ -426,7 +426,7 @@ msgstr "Befehl:"
 
 #original text:  "Receiver option:"   
 msgid TEXT_SETUP_FAX_RECEIVER_OPTION
-msgstr "Option für Empfäangernummer"
+msgstr "Option für Empfängernummer"
 
 #original text:  "Postscriptfile option:"   
 msgid TEXT_SETUP_FAX_POSTSCRIPT_OPT
@@ -446,19 +446,19 @@ msgstr "Betrachter (Postscript):"
 
 #original text:  "Copy options"   
 msgid NOTEBOOK_COPY_OPTIONS
-msgstr "Kopier Optionen"
+msgstr "Photokopie"
 
 #original text:  "Saving options"   
 msgid NOTEBOOK_SAVING_OPTIONS
-msgstr "Speichern Optionen"
+msgstr "Speichern"
 
 #original text:  "Display options"   
 msgid NOTEBOOK_DISPLAY_OPTIONS
-msgstr "Darstellungsoptionen"
+msgstr "Darstellung"
 
 #original text:  "Fax options"   
 msgid NOTEBOOK_FAX_OPTIONS
-msgstr "Fax Optionen"
+msgstr "Fax"
 
 #original text:  "Scan"   
 msgid MENU_ITEM_SCAN
@@ -554,11 +554,11 @@ msgstr "CCITT 1D Huffman Kompression"
 
 #original text:  "CCITT Group 3 Fax compression"   
 msgid MENU_ITEM_TIFF_COMP_CCITFAX3
-msgstr "CCITT Group 3 Fax Kompression"
+msgstr "CCITT Gruppe 3 Fax Kompression"
 
 #original text:  "CCITT Group 4 Fax compression"   
 msgid MENU_ITEM_TIFF_COMP_CCITFAX4
-msgstr "CCITT Group 4 Fax Kompression"
+msgstr "CCITT Gruppe 4 Fax Kompression"
 
 #original text:  "JPEG DCT compression"   
 msgid MENU_ITEM_TIFF_COMP_JPEG
@@ -598,7 +598,7 @@ msgstr "Empfange %s Daten für `%s'..."
 
 #original text:  "Receiving %s data for photocopy ..."   
 msgid PROGRESS_RECEIVING_COPY
-msgstr "Empfange %s Daten für Photocopie"
+msgstr "Empfange %s Daten für Photokopie"
 
 #original text:  "Receiving %s data for fax ..."   
 msgid PROGRESS_RECEIVING_FAX
@@ -718,11 +718,11 @@ msgstr "Setze Standardwerte für Farbverbesserung:\n" "Gamma = 1.0\n" "Helligkeit
 
 #original text:  "Restore enhancement values from preferences"   
 msgid DESC_ENH_RESTORE
-msgstr "Lade Farbverbesserung aus Einstellungen"
+msgstr "Lade Farbverbesserungswerte aus Einstellungen"
 
 #original text:  "Store active enhancement values to preferences"   
 msgid DESC_ENH_STORE
-msgstr "Speichere Farbverbesserung in Einstellungen"
+msgstr "Speichere Farbverbesserungswerte in Einstellungen"
 
 #original text:  "Show histogram of intensity/gray"   
 msgid DESC_HIST_INTENSITY
@@ -870,7 +870,7 @@ msgstr "Option, mit der die Empfängertelephonnumer angegeben wird"
 
 #original text:  "Enter option to specify postscript files following"   
 msgid DESC_FAX_POSTSCRIPT_OPT
-msgstr "Option, mit der angegeben wird, dass der Dateiname eine Postscriptdatei folgt"
+msgstr "Option, mit der angegeben wird, dass der Dateiname einer Postscriptdatei folgt"
 
 #original text:  "Enter option to specify normal mode (low resolution)"   
 msgid DESC_FAX_NORMAL_OPT
@@ -1086,7 +1086,7 @@ msgstr "Warnung"
 
 #original text:  "Failed to create file:"   
 msgid ERR_FAILED_CREATE_FILE
-msgstr "Fehler beim Erstellen des Files:"
+msgstr "Fehler beim Erstellen der Datei:"
 
 #original text:  "Error while loading device settings:"   
 msgid ERR_LOAD_DEVICE_SETTINGS
@@ -1155,7 +1155,7 @@ msgstr "<Toolbox>/Xtns/XSane/Geräteauswahl"
 
 #original text: "flatbed scanner"
 msgid "flatbed scanner"
-msgstr "Flachbett Scanner"
+msgstr "Flachbettscanner"
 
 #original text: "frame grabber"
 msgid "frame grabber"
@@ -1167,11 +1167,11 @@ msgstr "Handscanner"
 
 #original text: "still camera"
 msgid "still camera"
-msgstr "Photocamera"
+msgstr "Photokamera"
 
 #original text: "video camera"
 msgid "video camera"
-msgstr "Videocamera"
+msgstr "Videokamera"
 
 #original text: "virtual device"
 msgid "virtual device"

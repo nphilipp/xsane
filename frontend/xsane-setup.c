@@ -41,6 +41,11 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+#define XSANE_GTK_NAME_IMAGE_PERMISSIONS     "gtk_toggle_button_image_permissions"
+#define XSANE_GTK_NAME_DIRECTORY_PERMISSIONS "gtk_toggle_button_directory_permissions"
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 struct XsaneSetup xsane_setup;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -239,6 +244,8 @@ static void xsane_setup_printer_apply_changes(GtkWidget *widget, gpointer data)
   {
     xsane_setup_printer_menu_build(option_menu);
   }
+
+  xsane_define_maximum_output_size();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -345,6 +352,8 @@ static void xsane_setup_saving_apply_changes(GtkWidget *widget, gpointer data)
   xsane_update_bool(xsane_setup.overwrite_warning_button,         &preferences.overwrite_warning);
   xsane_update_bool(xsane_setup.increase_filename_counter_button, &preferences.increase_filename_counter);
   xsane_update_bool(xsane_setup.skip_existing_numbers_button,     &preferences.skip_existing_numbers);
+  preferences.image_umask     = 0777 - xsane_setup.image_permissions;
+  preferences.directory_umask = 0777 - xsane_setup.directory_permissions;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -372,23 +381,204 @@ static void xsane_setup_options_ok_callback(GtkWidget *widget, gpointer data)
   xsane_setup_saving_apply_changes(0, 0);
   xsane_setup_fax_apply_changes(0, 0);
 
-  gtk_widget_destroy((GtkWidget *)data);
   xsane_pref_save();
 
-  xsane_set_sensitivity(TRUE);
-  xsane_back_gtk_refresh_dialog(dialog);
+  gtk_widget_destroy((GtkWidget *)data); /* => xsane_destroy_setup_dialog_callback */
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void xsane_close_setup_dialog_callback(GtkWidget *widget, gpointer data)
+void xsane_destroy_setup_dialog_callback(GtkWidget *widget, gpointer data)
 {
- GtkWidget *dialog = data;
-
   xsane_set_sensitivity(TRUE);
-  gtk_widget_destroy(dialog);
+  xsane_back_gtk_refresh_dialog(dialog);
 }
                 
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void xsane_close_setup_dialog_callback(GtkWidget *widget, gpointer data)
+{
+  gtk_widget_destroy((GtkWidget *)data); /* => xsane_destroy_setup_dialog_callback */
+}
+                
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_permission_toggled(GtkWidget *widget, gpointer data)
+{
+ int mask = (int) data;
+ int *permission = 0;
+ gchar *name = gtk_widget_get_name(widget);
+
+  if (!strcmp(name, XSANE_GTK_NAME_IMAGE_PERMISSIONS))
+  {
+    permission = &xsane_setup.image_permissions;
+  }
+  else if (!strcmp(name, XSANE_GTK_NAME_DIRECTORY_PERMISSIONS))
+  {
+    permission = &xsane_setup.directory_permissions;
+  }
+
+  if (permission)
+  {
+    if (GTK_TOGGLE_BUTTON(widget)->active) /* set bit */
+    {
+      *permission = *permission | mask;
+    }
+    else /* erase bit */
+    {
+      *permission = *permission & (0777-mask);
+    }
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_permission_box(GtkWidget *parent, gchar *name, gchar *description, int *permission,
+                                 int header, int x_sensitivity, int user_sensitivity)
+{
+ GtkWidget *hbox, *button, *label, *hspace;
+
+
+  if (header)
+  {
+    hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(parent), hbox, FALSE, FALSE, 2);
+
+    label = gtk_label_new("user");
+    gtk_widget_set_usize(label, 75, 0);
+    gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+    gtk_widget_show(label);
+
+    label = gtk_label_new("group");
+    gtk_widget_set_usize(label, 75, 0);
+    gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+    gtk_widget_show(label);
+
+    label = gtk_label_new("all");
+    gtk_widget_set_usize(label, 75, 0);
+    gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+    gtk_widget_show(label);
+
+    gtk_widget_show(hbox);
+  }
+
+
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(parent), hbox, FALSE, FALSE, 2);
+
+  button = gtk_toggle_button_new_with_label("r");
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *permission & 256 );
+  gtk_widget_set_usize(button, 21, 0);
+  gtk_widget_set_name(button, name);
+  gtk_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_permission_toggled, (void *) 256);
+  gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 1);
+  gtk_widget_show(button);
+  gtk_widget_set_sensitive(button, user_sensitivity);
+
+  button = gtk_toggle_button_new_with_label("w");
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *permission & 128 );
+  gtk_widget_set_usize(button, 21, 0);
+  gtk_widget_set_name(button, name);
+  gtk_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_permission_toggled, (void *) 128);
+  gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 1);
+  gtk_widget_show(button);
+  gtk_widget_set_sensitive(button, user_sensitivity);
+
+  button = gtk_toggle_button_new_with_label("x");
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *permission & 64 );
+  gtk_widget_set_usize(button, 21, 0);
+  gtk_widget_set_name(button, name);
+  gtk_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_permission_toggled, (void *) 64);
+  gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 1);
+  gtk_widget_show(button);
+  gtk_widget_set_sensitive(button, x_sensitivity & user_sensitivity);
+
+
+
+  hspace = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(hbox), hspace, FALSE, FALSE, 6);
+  gtk_widget_show(hspace);
+
+
+
+  button = gtk_toggle_button_new_with_label("r");
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *permission & 32 );
+  gtk_widget_set_usize(button, 21, 0);
+  gtk_widget_set_name(button, name);
+  gtk_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_permission_toggled, (void *) 32);
+  gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 1);
+  gtk_widget_show(button);
+
+  button = gtk_toggle_button_new_with_label("w");
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *permission & 16 );
+  gtk_widget_set_usize(button, 21, 0);
+  gtk_widget_set_name(button, name);
+  gtk_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_permission_toggled, (void *) 16);
+  gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 1);
+  gtk_widget_show(button);
+
+  button = gtk_toggle_button_new_with_label("x");
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *permission & 8 );
+  gtk_widget_set_usize(button, 21, 0);
+  gtk_widget_set_name(button, name);
+  gtk_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_permission_toggled, (void *) 8);
+  gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 1);
+  gtk_widget_show(button);
+  gtk_widget_set_sensitive(button, x_sensitivity);
+
+
+
+  hspace = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(hbox), hspace, FALSE, FALSE, 6);
+  gtk_widget_show(hspace);
+
+
+
+  button = gtk_toggle_button_new_with_label("r");
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *permission & 4 );
+  gtk_widget_set_usize(button, 21, 0);
+  gtk_widget_set_name(button, name);
+  gtk_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_permission_toggled, (void *) 4);
+  gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 1);
+  gtk_widget_show(button);
+
+  button = gtk_toggle_button_new_with_label("w");
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *permission & 2 );
+  gtk_widget_set_usize(button, 21, 0);
+  gtk_widget_set_name(button, name);
+  gtk_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_permission_toggled, (void *) 2);
+  gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 1);
+  gtk_widget_show(button);
+
+  button = gtk_toggle_button_new_with_label("x");
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *permission & 1 );
+  gtk_widget_set_usize(button, 21, 0);
+  gtk_widget_set_name(button, name);
+  gtk_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_permission_toggled, (void *) 1);
+  gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 1);
+  gtk_widget_show(button);
+  gtk_widget_set_sensitive(button, x_sensitivity);
+
+
+
+  hspace = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(hbox), hspace, FALSE, FALSE, 5);
+  gtk_widget_show(hspace);
+
+
+
+  label = gtk_label_new(description);
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_widget_show(label);
+
+  gtk_widget_show(hbox);
+
+  while (gtk_events_pending())
+  {
+   gtk_main_iteration();
+  }                      
+}
+
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 void xsane_setup_dialog(GtkWidget *widget, gpointer data)
@@ -432,7 +622,8 @@ void xsane_setup_dialog(GtkWidget *widget, gpointer data)
   setup_dialog = gtk_dialog_new();
   snprintf(buf, sizeof(buf), "%s %s", prog_name, WINDOW_SETUP);
   gtk_window_set_title(GTK_WINDOW(setup_dialog), buf);
-  gtk_signal_connect(GTK_OBJECT(setup_dialog), "destroy", (GtkSignalFunc) xsane_close_setup_dialog_callback, setup_dialog);
+  gtk_signal_connect(GTK_OBJECT(setup_dialog), "destroy", (GtkSignalFunc) xsane_destroy_setup_dialog_callback, setup_dialog);
+  xsane_set_window_icon(setup_dialog, 0);
 
   setup_vbox = GTK_DIALOG(setup_dialog)->vbox;
 
@@ -743,7 +934,7 @@ void xsane_setup_dialog(GtkWidget *widget, gpointer data)
 
   /* Saving options notebook page */
 
-  setup_vbox =  gtk_vbox_new(FALSE, 5);
+  setup_vbox = gtk_vbox_new(FALSE, 5);
 
   label = gtk_label_new(NOTEBOOK_SAVING_OPTIONS);
   gtk_notebook_append_page(GTK_NOTEBOOK(notebook), setup_vbox, label);
@@ -758,6 +949,17 @@ void xsane_setup_dialog(GtkWidget *widget, gpointer data)
   vbox = gtk_vbox_new(FALSE, 1);
   gtk_container_add(GTK_CONTAINER(frame), vbox);
   gtk_widget_show(vbox);
+
+  xsane_setup.image_permissions     = 0777-preferences.image_umask;
+  xsane_permission_box(vbox, XSANE_GTK_NAME_IMAGE_PERMISSIONS, "Image-file permissions", &xsane_setup.image_permissions,
+                       TRUE /* header */, FALSE /* x sens */, FALSE /* user sens */);
+
+  xsane_setup.directory_permissions = 0777-preferences.directory_umask;
+  xsane_permission_box(vbox, XSANE_GTK_NAME_DIRECTORY_PERMISSIONS, "Directory permissions", &xsane_setup.directory_permissions,
+                       FALSE /* header */, TRUE /* x sens */, FALSE /* user sens */);
+
+  xsane_separator_new(vbox, 4);
+
 
   /* overwrite warning */
   hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
@@ -792,6 +994,19 @@ void xsane_setup_dialog(GtkWidget *widget, gpointer data)
   gtk_widget_show(hbox);
   xsane_setup.skip_existing_numbers_button = button;
 
+#ifdef HAVE_LIBJPEG 
+  xsane_separator_new(vbox, 4);
+#else
+#ifdef HAVE_LIBTIFF
+  xsane_separator_new(vbox, 4);
+#else
+#ifdef HAVE_LIBPNG
+#ifdef HAVE_LIBZ
+  xsane_separator_new(vbox, 4);
+#endif
+#endif
+#endif
+#endif
 
 #ifdef HAVE_LIBJPEG 
   xsane_scale_new(GTK_BOX(vbox), TEXT_SETUP_JPEG_QUALITY, DESC_JPEG_QUALITY, 0.0, 100.0, 1.0, 1.0, 0.0, 0,

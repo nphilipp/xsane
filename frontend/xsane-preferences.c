@@ -36,6 +36,8 @@
 Preferences preferences =
   {
        0,		/* no default filename */
+       0137,		/* image umask (permission mask for -rw-r------) */
+       0027,		/* image umask (permission mask for -rwxr-x----) */
        0,		/* no fax project */
        0,		/* no default faxcommand */
        0,		/* no default fax receiver option */
@@ -94,6 +96,8 @@ static struct
 desc[] =
   {
     {"filename",			xsane_rc_pref_string,	POFFSET(filename)},
+    {"image-umask",			xsane_rc_pref_int,	POFFSET(image_umask)},
+    {"directory-umask",			xsane_rc_pref_int,	POFFSET(directory_umask)},
     {"fax-project",			xsane_rc_pref_string,	POFFSET(fax_project)},
     {"fax-command",			xsane_rc_pref_string,	POFFSET(fax_command)},
     {"fax-receiver-option",		xsane_rc_pref_string,	POFFSET(fax_receiver_option)},

@@ -33,6 +33,7 @@ extern void xsane_panel_build(GSGDialog *dialog);
 /* forward declarations: */
 static void xsane_back_gtk_panel_rebuild(GSGDialog *dialog);
 void xsane_set_sensitivity(SANE_Int sensitivity);
+void xsane_set_window_icon(GtkWidget *gtk_window, gchar **xpm_d);
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
@@ -79,22 +80,34 @@ int xsane_back_gtk_make_path(size_t buf_size, char *buf,
 	       const char *prog_name,
 	       const char *dir_name,
 	       const char *prefix, const char *dev_name,
-	       const char *postfix)
+	       const char *postfix,
+               int location)
 {
   struct passwd *pw;
   size_t len, extra;
   int i;
 
-  /* first, make sure ~/.sane exists: */
-  pw = getpwuid(getuid());
-  if (!pw)
+  if (location == XSANE_PATH_LOCAL_SANE) /* make path to local file */
   {
-    snprintf(buf, buf_size, "%s %s", ERR_HOME_DIR, strerror(errno));
-    xsane_back_gtk_error(buf, FALSE);
-    return -1;
+    pw = getpwuid(getuid()); /* get homedirectory */
+    if (!pw)
+    {
+      snprintf(buf, buf_size, "%s %s", ERR_HOME_DIR, strerror(errno));
+      xsane_back_gtk_error(buf, FALSE);
+      return -1;
+    }
+
+    snprintf(buf, buf_size, "%s/.sane", pw->pw_dir);
+    mkdir(buf, 0777);	/* ensure ~/.sane directory exists */
   }
-  snprintf(buf, buf_size, "%s/.sane", pw->pw_dir);
-  mkdir(buf, 0777);	/* ensure ~/.sane directory exists */
+  else if (location == XSANE_PATH_SYSTEM) /* make path to system file */
+  {
+    snprintf(buf, buf_size, "%s", STRINGIFY(PATH_SANE_DATA_DIR));
+  }
+  else /* make path to temporary file */
+  {
+    snprintf(buf, buf_size, "%s", PATH_SANE_TMP);
+  }
 
   len = strlen(buf);
 
@@ -132,7 +145,7 @@ int xsane_back_gtk_make_path(size_t buf_size, char *buf,
     memcpy(buf + len, dir_name, extra);
     len += extra;
     buf[len] = '\0';
-    mkdir(buf, 0777);	/* ensure ~/.sane/PROG_NAME/DIR_NAME directory exists */
+    mkdir(buf, 0777);	/* ensure DIR_NAME directory exists */
   }
 
   if (len >= buf_size)
@@ -152,6 +165,24 @@ int xsane_back_gtk_make_path(size_t buf_size, char *buf,
     }
 
     memcpy(buf + len, prefix, extra);
+    len += extra;
+  }
+
+  if (location == XSANE_PATH_TMP) /* system tmp dir, add uid */
+  {
+   char uid_prefix[256];
+   uid_t uid;
+
+    uid = getuid();
+    snprintf(uid_prefix, sizeof(uid_prefix), "%d-", uid);
+                                                             
+    extra = strlen(uid_prefix);
+    if (len + extra >= buf_size)
+    {
+      goto filename_too_long;
+    }
+
+    memcpy(buf + len, uid_prefix, extra);
     len += extra;
   }
 
@@ -261,9 +292,12 @@ void xsane_back_gtk_decision_callback(GtkWidget * widget, gpointer data)
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-gint xsane_back_gtk_decision(gchar *title, gchar *message, gchar *oktext, gchar *rejecttext, gint wait)
+gint xsane_back_gtk_decision(gchar *title, gchar **xpm_d,  gchar *message, gchar *oktext, gchar *rejecttext, gint wait)
 {
-  GtkWidget *main_vbox, *hbox, *label, *button;
+ GtkWidget *main_vbox, *hbox, *label, *button;
+ GdkPixmap *pixmap;
+ GdkBitmap *mask;
+ GtkWidget *pixmapwidget;
 
   if (xsane_back_gtk_message_dialog_active)
   {
@@ -277,6 +311,7 @@ gint xsane_back_gtk_decision(gchar *title, gchar *message, gchar *oktext, gchar 
   gtk_signal_connect(GTK_OBJECT(decision_dialog), "delete_event",
                      GTK_SIGNAL_FUNC(xsane_back_gtk_decision_callback), (void *) -1); /* -1 = cancel */
 
+  xsane_set_window_icon(decision_dialog, 0);
 
   /* create the main vbox */
   main_vbox = gtk_vbox_new(TRUE, 5);
@@ -285,10 +320,26 @@ gint xsane_back_gtk_decision(gchar *title, gchar *message, gchar *oktext, gchar 
 
   gtk_container_add(GTK_CONTAINER(decision_dialog), main_vbox);
 
+  hbox = gtk_hbox_new(FALSE, 2);
+  gtk_container_set_border_width(GTK_CONTAINER(hbox), 4);
+  gtk_box_pack_start(GTK_BOX(main_vbox), hbox, FALSE, FALSE, 0);
+
+  /* the info icon */
+  if (xpm_d)
+  {
+    pixmap = gdk_pixmap_create_from_xpm_d(decision_dialog->window, &mask, xsane.bg_trans, xpm_d);
+    pixmapwidget = gtk_pixmap_new(pixmap, mask);
+    gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 10);
+    gtk_widget_show(pixmapwidget);
+    gdk_pixmap_unref(pixmap);
+  }
+
   /* the message */
   label = gtk_label_new(message);
-  gtk_container_add(GTK_CONTAINER(main_vbox), label);
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 0);
   gtk_widget_show(label);
+
+  gtk_widget_show(hbox);
 
 
   hbox = gtk_hbox_new(FALSE, 2);
@@ -342,9 +393,9 @@ gint xsane_back_gtk_decision(gchar *title, gchar *message, gchar *oktext, gchar 
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-void xsane_back_gtk_message(gchar *title, gchar *message, gint wait)
+void xsane_back_gtk_message(gchar *title, gchar **icon_xpm, gchar *message, gint wait)
 {
-  xsane_back_gtk_decision(title, message, ERR_BUTTON_OK, 0 /* no reject text */, wait);
+  xsane_back_gtk_decision(title, icon_xpm, message, ERR_BUTTON_OK, 0 /* no reject text */, wait);
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
@@ -356,12 +407,12 @@ void xsane_back_gtk_error(gchar *error, gint wait)
    SANE_Int old_sensitivity = xsane.sensitivity;
 
     xsane_set_sensitivity(FALSE);
-    xsane_back_gtk_message(ERR_HEADER_ERROR, error, wait);
+    xsane_back_gtk_message(ERR_HEADER_ERROR, (gchar**) error_xpm, error, wait);
     xsane_set_sensitivity(old_sensitivity);
   }
   else
   {
-    xsane_back_gtk_message(ERR_HEADER_ERROR, error, wait);
+    xsane_back_gtk_message(ERR_HEADER_ERROR, (gchar **) error_xpm, error, wait);
   }
 }
 
@@ -374,12 +425,12 @@ void xsane_back_gtk_warning(gchar *warning, gint wait)
    SANE_Int old_sensitivity = xsane.sensitivity;
 
     xsane_set_sensitivity(FALSE);
-    xsane_back_gtk_message(ERR_HEADER_WARNING, warning, wait);
+    xsane_back_gtk_message(ERR_HEADER_WARNING, (gchar**) warning_xpm, warning, wait);
     xsane_set_sensitivity(old_sensitivity);
   }
   else
   {
-    xsane_back_gtk_message(ERR_HEADER_WARNING, warning, wait);
+    xsane_back_gtk_message(ERR_HEADER_WARNING, (gchar**) warning_xpm, warning, wait);
   }
 }
 
@@ -393,7 +444,7 @@ static void xsane_back_gtk_get_filename_button_clicked(GtkWidget *w, gpointer da
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-int xsane_back_gtk_get_filename(const char *label, const char *default_name, size_t max_len, char *filename)
+int xsane_back_gtk_get_filename(const char *label, const char *default_name, size_t max_len, char *filename, int show_fileopts)
 {
   int cancel = 0, ok = 0, destroy = 0;
   GtkWidget *fileselection;
@@ -409,6 +460,15 @@ int xsane_back_gtk_get_filename(const char *label, const char *default_name, siz
   if (default_name)
   {
     gtk_file_selection_set_filename(GTK_FILE_SELECTION(fileselection), (char *) default_name);
+  }
+
+  if (show_fileopts)
+  {
+    gtk_file_selection_show_fileop_buttons(GTK_FILE_SELECTION(fileselection));
+  }
+  else
+  {
+    gtk_file_selection_hide_fileop_buttons(GTK_FILE_SELECTION(fileselection));
   }
 
   gtk_widget_show(fileselection);
@@ -1273,6 +1333,11 @@ void xsane_back_gtk_set_sensitivity(GSGDialog *dialog, int sensitive)
       gtk_widget_set_sensitive(dialog->xsanemode_widget, sensitive); 
     }
   }
+
+  while (gtk_events_pending())
+  {
+   gtk_main_iteration();
+  }   
 }
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -1289,7 +1354,9 @@ void xsane_set_sensitivity(SANE_Int sensitivity)
   if (xsane.preview)
   {
     gtk_widget_set_sensitive(xsane.preview->button_box, sensitivity);   /* button box at top of window */
+#if 0
     gtk_widget_set_sensitive(xsane.preview->viewport, sensitivity);     /* Preview image selection */
+#endif
     gtk_widget_set_sensitive(xsane.preview->start, sensitivity);        /* Acquire preview button */
   }
 
@@ -1324,3 +1391,32 @@ void xsane_back_gtk_destroy_dialog(GSGDialog * dialog)
 
   sane_close(dev);
 }
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void xsane_set_window_icon(GtkWidget *gtk_window, gchar **xpm_d)
+{
+ GdkPixmap *pixmap;
+ GdkBitmap *mask;
+
+  gtk_widget_realize(gtk_window);
+  if (xpm_d)
+  {
+    pixmap = gdk_pixmap_create_from_xpm_d(gtk_window->window, &mask, xsane.bg_trans, xpm_d);
+  }
+  else
+  {
+    if (xsane.window_icon_pixmap)
+    {
+      pixmap = xsane.window_icon_pixmap;
+      mask   = xsane.window_icon_mask;
+    }
+    else
+    {
+      pixmap = gdk_pixmap_create_from_xpm_d(gtk_window->window, &mask, xsane.bg_trans, (gchar **) xsane_window_icon_xpm);
+    }
+  }
+
+  gdk_window_set_icon(gtk_window->window, 0, pixmap, mask);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */ 

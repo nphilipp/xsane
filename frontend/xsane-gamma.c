@@ -53,7 +53,6 @@ void xsane_update_sliders(void);
 static gint xsane_slider_callback(GtkWidget *widget, GdkEvent *event, XsaneSlider *slider);
 void xsane_create_slider(XsaneSlider *slider);
 void xsane_create_histogram(GtkWidget *parent, const char *title, int width, int height, XsanePixmap *hist);
-void xsane_destroy_histogram(void);
 static void xsane_calculate_auto_enhancement(int negative,
               SANE_Int *count_raw, SANE_Int *count_raw_red, SANE_Int *count_raw_green, SANE_Int *count_raw_blue);
 void xsane_calculate_histogram(void);
@@ -634,35 +633,6 @@ void xsane_create_histogram(GtkWidget *parent, const char *title, int width, int
    gtk_widget_show(hist->pixmapwid);
    gtk_widget_show(hist->frame);
  }                           
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-#if 0
-void xsane_destroy_histogram()
-{
-  if (xsane.histogram_dialog)
-  {
-    gtk_widget_destroy(xsane.histogram_dialog);
-
-    if (xsane.histogram_raw.pixmap)
-    {
-      gdk_pixmap_unref(xsane.histogram_raw.pixmap);
-      xsane.histogram_raw.pixmap    = 0;
-      xsane.histogram_raw.pixmapwid = 0;
-    }
-
-    if (xsane.histogram_enh.pixmap)
-    {
-      gdk_pixmap_unref(xsane.histogram_enh.pixmap);
-      xsane.histogram_enh.pixmap    = 0;
-      xsane.histogram_enh.pixmapwid = 0;
-    }
-
-    xsane.histogram_dialog = 0;
-  }
-  preferences.show_histogram = FALSE;
-  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_histogram_widget), preferences.show_histogram);
-}
-#endif
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -1423,10 +1393,11 @@ void xsane_create_histogram_dialog(const char *devicetext)
 
   xsane.histogram_dialog = gtk_window_new(GTK_WINDOW_DIALOG);
   gtk_window_set_policy(GTK_WINDOW(xsane.histogram_dialog), FALSE, FALSE, FALSE);
-  gtk_widget_set_uposition(xsane.histogram_dialog, XSANE_DIALOG_POS_X2, XSANE_DIALOG_POS_Y);
+  gtk_widget_set_uposition(xsane.histogram_dialog, XSANE_HISTOGRAM_POS_X, XSANE_HISTOGRAM_POS_Y);
   gtk_signal_connect(GTK_OBJECT(xsane.histogram_dialog), "delete_event", GTK_SIGNAL_FUNC(xsane_histogram_win_delete), 0);
   sprintf(windowname, "%s %s", WINDOW_HISTOGRAM, devicetext);
   gtk_window_set_title(GTK_WINDOW(xsane.histogram_dialog), windowname);
+  xsane_set_window_icon(xsane.histogram_dialog, 0);
 
   xsane_histogram_vbox = gtk_vbox_new(FALSE, 0);
   gtk_container_set_border_width(GTK_CONTAINER(xsane_histogram_vbox), 5);

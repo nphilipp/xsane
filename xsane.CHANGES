@@ -611,3 +611,41 @@ xsane-0.46 -> 0.47:
    xsane_rc_io_w_array(w, &len, (void **) &word_array, (WireCodecFunc) xsane_rc_io_w_word, sizeof(SANE_Word));
    that cause segmentation fault when writing bool, int or fixpoint arrays.
  
+
+xsane-0.47 -> 0.48:
+-------------------
+
+ - "START" button is made insensitive in fax mode if project does not exist.
+
+ - Preview window is created at the same time as the main dialog and it is destroyed
+   at program end. Disabling "show preview" hides the preview window. This way the preview
+   window placement does work correct.
+
+ - set default values in xsane_device_preferences_load_file(char *filename)
+   before reading the saved values, show_preview default = true
+
+ - Mouse pointers display relevant mode icons in preview window now.
+
+ - In copy mode the maximum selectable size that fits to the selected printer is drawn
+   by a rect now. Selection is limited to the printer size.
+
+ - if no local xsane.rc, xsane-style.rc or DEVICE.drc file exists it is loaded from SANE_DATA_DIR/xsane
+
+ - all xsane rc files are placed in a subdirectory xsane now (~/.sane/xsane, SANE_DATA/DIR/xsane)
+
+ - temporary files (previews, conversions) are saved in /tmp (defined in SANE_PATH_TMP in xsane.h) now
+
+ - added window decoration icon (top left) to each xsane window (does work with kwm, does not work with fvwm2)
+
+ - added warning icon and error icon
+
+ - removed xsane_files_exit_callback, now xsane_scan_win_delete is used for all exit program calls
+
+ - conversion-* and preview-* files are created with permission "-rw-------",
+   images- and project-files are created with "preferences.image_umask"
+   xsane.rc and *.drc are created with XSANE_DEFAULT_UMASK defined in xsane.h
+
+ - added file permission selection in preferences/saving options for image file and for directory (faxproject)
+
+ - disabled fileoptions (mkdir, rm, mv) in loading/saving preferences
+

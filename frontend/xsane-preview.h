@@ -29,7 +29,8 @@
 #include <sane/config.h>
 #include <sane/sane.h>
 
-#define SELECTION_RANGE 15
+#define SELECTION_RANGE_IN  4
+#define SELECTION_RANGE_OUT 8
 #define XSANE_CURSOR_PREVIEW GDK_LEFT_PTR
 
 /* ------------------------------------------------------------------------------------------------------ */
@@ -50,12 +51,20 @@ typedef struct Batch_selection
   struct Batch_selection *next;
 } Batch_selection;
 
+typedef struct
+{
+  int active;
+  float coordinate[4]; /* selection coordinate (device coord) */
+} Tselection;
+
 /* ------------------------------------------------------------------------------------------------------ */
 
 typedef struct
 {
   int mode;
   GSGDialog *dialog;	/* the dialog for this preview */
+
+  int cursornr;
 
   SANE_Value_Type surface_type;
   SANE_Unit surface_unit;
@@ -68,6 +77,9 @@ typedef struct
 
   float preset_width;		/* user selected maximum scan width */
   float preset_height;		/* user selected maximum scan height */
+
+  float maximum_output_width;	/* maximum output width (photocopy) */
+  float maximum_output_height;	/* maximum output height (photocopy) */
 
   int saved_dpi_valid;
   SANE_Word saved_dpi;
@@ -97,7 +109,8 @@ typedef struct
   u_char *image_data_raw;	/* 3 * image_width * image_height bytes */
   u_char *image_data_enh;	/* 3 * image_width * image_height bytes */
 
-  GdkGC *gc;
+  GdkGC *gc_selection;
+  GdkGC *gc_selection_maximum;
   int selection_drag;
   int selection_drag_edge;
   int selection_xpos;
@@ -105,11 +118,10 @@ typedef struct
   int selection_xedge;
   int selection_yedge;
 
-  struct
-  {
-    int active;
-    float coordinate[4]; /* selection coordinate (device coord) */
-  } selection, previous_selection;
+  Tselection selection;				/* selected area to scan */
+  Tselection previous_selection;		/* previous ... */
+  Tselection selection_maximum;			/* maximum selection size (photocopy) */
+  Tselection previous_selection_maximum;	/* previous ... */
 
   Batch_selection *batch_selection;
 
@@ -153,6 +165,7 @@ extern void preview_calculate_histogram(Preview *p,				  /* calculate histogram 
 	SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue);
 
 extern void preview_area_resize(GtkWidget *widget);				/* redraw preview rulers */
+void preview_set_maximum_output_size(Preview *p, float width, float height);   /* set maximum outut size */
 
 /* ------------------------------------------------------------------------------------------------------ */
 

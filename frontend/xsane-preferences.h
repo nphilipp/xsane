@@ -49,6 +49,8 @@ Preferences_printer_t;
 typedef struct
   {
     char *filename;		/* default filename */
+    mode_t image_umask;         /* image umask (permisson mask) */
+    mode_t directory_umask;     /* directory umask (permisson mask) */
     char *fax_project;		/* fax project */
     char *fax_command;		/* faxcommand */
     char *fax_receiver_option;	/* fax receiver option */

@@ -41,6 +41,7 @@
 
 void xsane_get_bounds(const SANE_Option_Descriptor *opt, double *minp, double *maxp);
 void xsane_set_resolution(int resolution);
+void xsane_define_maximum_output_size();
 void xsane_close_dialog_callback(GtkWidget *widget, gpointer data);
 void xsane_authorization_button_callback(GtkWidget *widget, gpointer data);
 gint xsane_authorization_callback(SANE_String_Const resource,
@@ -203,6 +204,26 @@ void xsane_set_resolution(int resolution)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+void xsane_define_maximum_output_size()
+{
+ const SANE_Option_Descriptor *opt;
+
+  opt = sane_get_option_descriptor(dialog->dev, dialog->well_known.coord[0]);
+
+  if ( (opt) && (opt->unit== SANE_UNIT_MM) )
+  {
+    preview_set_maximum_output_size(xsane.preview,
+                                    MM_PER_INCH * preferences.printer[preferences.printernr]->width  / xsane.zoom / 72.0,
+                                    MM_PER_INCH * preferences.printer[preferences.printernr]->height / xsane.zoom / 72.0);
+  }
+  else
+  {
+    preview_set_maximum_output_size(xsane.preview, INF, INF);
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 void xsane_close_dialog_callback(GtkWidget *widget, gpointer data)
 {
   GtkWidget *dialog = data;
@@ -238,6 +259,7 @@ gint xsane_authorization_callback(SANE_String_Const resource,
                      GTK_SIGNAL_FUNC(xsane_authorization_button_callback), (void *) -1); /* -1 = cancel */
   snprintf(buf, sizeof(buf), "%s %s", prog_name, WINDOW_AUTHORIZE);
   gtk_window_set_title(GTK_WINDOW(authorize_dialog), buf);
+  xsane_set_window_icon(authorize_dialog, 0);
 
   vbox = gtk_vbox_new(/* not homogeneous */ FALSE, 10); /* y-space between all box items */
   gtk_container_add(GTK_CONTAINER(authorize_dialog), vbox);
@@ -353,6 +375,9 @@ XsaneProgress_t *xsane_progress_new(char *title, char *text, GtkSignalFunc callb
   p->shell = gtk_dialog_new();
   gtk_widget_set_uposition(p->shell, progress_x, progress_y);
   gtk_window_set_title(GTK_WINDOW (p->shell), title);
+
+  xsane_set_window_icon(p->shell, 0);
+
   vbox = GTK_BOX(GTK_DIALOG(p->shell)->vbox);
   hbox = GTK_BOX(GTK_DIALOG(p->shell)->action_area);
 

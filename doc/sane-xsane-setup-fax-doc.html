@@ -33,38 +33,67 @@
 <h4>
 COMMAND:</h4>
 
-<blockquote>Enter command to send/spool faxfiles. E.g. this can be the
-command "sendfax" from hylafax or mgetty+sendfax.</blockquote>
+<blockquote>Enter command to send/spool faxfiles.
+<dd>
+<b>hylafax: "sendfax"</b></dd>
+
+<dd>
+<b>mgetty+sendfax: "faxspool"</b></dd>
+</blockquote>
 
 <h4>
 RECEIVER OPTION:</h4>
 
-<blockquote>Option to set receiver phone number or address.</blockquote>
+<blockquote>Option to set receiver phone number or address.
+<dd>
+<b>hylafax: "-d"</b></dd>
+
+<dd>
+<b>mgetty+sendfax: leave free</b></dd>
+</blockquote>
 
 <h4>
 POSTSCRIPTFILE OPTION:</h4>
 
 <blockquote>If there is an option that must be set before the filenames
 of the faxfile or if it is necessary to specify an option for files in
-postscript format, enter this option - otherwise let this field free.</blockquote>
+postscript format, enter this option - otherwise let this field free.
+<dd>
+<b>hylafax: leave free</b></dd>
+
+<dd>
+<b>mgetty+sendfax: leave free</b></dd>
+</blockquote>
 
 <h4>
 NORMAL MODE OPTION:</h4>
 
 <blockquote>If there is an option to set normal mode (98lpi) then enter
-this option - otherise let this field free.</blockquote>
+this option - otherwise let this field free.
+<dd>
+<b>hylafax: "-l"</b></dd>
+
+<dd>
+<b>mgetty+sendfax: "-n"</b></dd>
+</blockquote>
 
 <h4>
 FINE MODE OPTION:</h4>
 
 <blockquote>If there is an option to set fine mode (196lpi) then enter
-this option - otherise let this field free.</blockquote>
+this option - otherwise let this field free.
+<dd>
+<b>hylafax: "-m"</b></dd>
+
+<dd>
+<b>mgetty+sendfax: leave free</b></dd>
+</blockquote>
 
 <h4>
 VIEWER:</h4>
 
 <blockquote>Enter a program to show the postscript fax files on the screen.
-E.g. this can be ghostscript or xv.</blockquote>
+<br>E.g. this can be "ghostscript" or "xv".</blockquote>
 </blockquote>
 
 <hr WIDTH="100%">

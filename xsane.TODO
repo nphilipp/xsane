@@ -5,39 +5,44 @@ If you have any suggestions: mail to Oliver.Rauch@Wolfsburg.DE
 
 errors:
  + autoenhancement crashes if selected area is totally white
+ + segfault if pipette pick out of preview image
 
 first steps:
  * options:
  - fax-function
+    - disable send button if project does not exist
     - add send delayed option
     - add options for sender/receiver Name
     - what about faxprojects with normal- and fine-mode pages?
-  - copy mode:
-    - select raster size (1x1,2x2,3x3,4x4,5x5) (?)
-    - use different resolutions for lineart, gray, color
+ - email-function
+    - based on fax mode
+    - image type == ?
+    - resolution selectable
+    - create a html mail
+    - mail editor ?
+ - copy mode:
     - select image position on printer (centered/left/right/free) for copy
-  - preview:
+      and show it in the preview.
+ - preview:
     - improve handling of saved previews
     - may be zoom in without a new preview scan
     + 16 bit preview scan, gamma conversion to 8 bit
     + preview always in greyscale or always in color
-  - enhancement:
+ - enhancement:
     - move threshold in lineart-mode to main window ?
     - add grayscale preview scan -> gamma 0/255 -> displayed preview  for lineart mode
- - may be email-function (based on faxproject)
  + batch scan function
  + add support for different x/y resolutions
 
  * internal:
    - make three pass scan work
-   - segfault if pipette pick out of preview image
    - include much more parameters when saving images
    - test memory after all calls of malloc
    - make better backend-dependend option handling and error handling (mostly done!)
    - other output formats for saving - *** which? ***
      - gif will not be supported because of licence
-   - more online helpfiles
-   - if netscape-remote is docviewer, start netscape if not running
+   - more/better online helpfiles
+   - printer setup: geometry in inch/millimeter/centimeter
 
 second steps:
  - correct gtk custom gamma functions and include it
@@ -45,6 +50,6 @@ second steps:
    - GNOME:
      - gnome-print support?
      - session management
-   - add little xsane icon in the top left edge of the window
+   - drag and drop for preview image?
  + add color management - may be via xcmsdb
 

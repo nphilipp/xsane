@@ -31,10 +31,23 @@
 #include <sane/config.h>
 #include <sane/sane.h>
 
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+enum
+{
+  XSANE_PATH_LOCAL_SANE = 0,
+  XSANE_PATH_SYSTEM,
+  XSANE_PATH_TMP
+};
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 struct GSGDialog;
 
 typedef void (*GSGCallback) (struct GSGDialog *dialog, void *arg);
 typedef GtkWidget *(*XSANECallback) (void);
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
 
 typedef enum
   {
@@ -44,6 +57,8 @@ typedef enum
     xsane_back_gtk_BR_Y	/* bottom-right y */
   }
 GSGCornerCoordinates;
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
 
 typedef struct
   {
@@ -129,13 +144,14 @@ extern int xsane_back_gtk_make_path(size_t max_len, char *filename_ret,
 			 const char *prog_name,
 			 const char *dir_name,
 			 const char *prefix, const char *dev_name,
-			 const char *postfix);
-extern gint xsane_back_gtk_decision(gchar *title, gchar *message, gchar *oktext, gchar *rejecttext, gint wait);
-extern void xsane_back_gtk_message(gchar *title, gchar *message, gint wait);
+			 const char *postfix,
+                         int local);
+extern gint xsane_back_gtk_decision(gchar *title, gchar** icon_xpm, gchar *message, gchar *oktext, gchar *rejecttext, gint wait);
+extern void xsane_back_gtk_message(gchar *title, gchar** icon_xpm, gchar *message, gint wait);
 extern void xsane_back_gtk_error(gchar *error_message, gint wait);
 extern void xsane_back_gtk_warning(gchar *warning_message, gint wait);
 extern int xsane_back_gtk_get_filename(const char *label, const char *default_name,
-			    size_t max_len, char *filename);
+			    size_t max_len, char *filename, int show_fileopts);
 
 extern void xsane_back_gtk_sync(GSGDialog *dialog);
 extern void xsane_back_gtk_update_vector(GSGDialog *dialog, int opt_num, SANE_Int *vector);
@@ -160,6 +176,7 @@ extern void xsane_back_gtk_text_entry_new(GtkWidget *parent, const char *name, c
                 GSGDialogElement *elem, GtkTooltips *tooltips, const char *desc, SANE_Int settable);
 extern void xsane_back_gtk_push_button_callback(GtkWidget * widget, gpointer data);
 extern const char *xsane_back_gtk_unit_string(SANE_Unit unit);
+void xsane_set_window_icon(GtkWidget *gtk_window, gchar **xpm_d);
 
 #define xsane_back_gtk_dialog_get_device(dialog)	((dialog)->dev)
 

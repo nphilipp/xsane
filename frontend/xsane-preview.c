@@ -83,8 +83,6 @@ extern const char *device_text;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define MM_PER_INCH	25.4
-
 /* Cut fp conversion routines some slack: */
 #define GROSSLY_DIFFERENT(f1,f2)	(fabs ((f1) - (f2)) > 1e-3)
 
@@ -163,7 +161,6 @@ static gint preview_expose_handler(GtkWidget *window, GdkEvent *event, gpointer 
 static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer data);
 static void preview_start_button_clicked(GtkWidget *widget, gpointer data);
 static void preview_cancel_button_clicked(GtkWidget *widget, gpointer data);
-static void preview_top_destroyed(GtkWidget *widget, gpointer call_data);
 static void preview_area_correct(Preview *p);
 static void preview_zoom_not(GtkWidget *window, gpointer data);
 static void preview_zoom_out(GtkWidget *window, gpointer data);
@@ -184,6 +181,8 @@ void preview_gamma_correction(Preview *p,
                               SANE_Int *gamma_red, SANE_Int *gamma_green, SANE_Int *gamma_blue,
                               SANE_Int *gamma_red_hist, SANE_Int *gamma_green_hist, SANE_Int *gamma_blue_hist);
 void preview_area_resize(GtkWidget *widget);
+void preview_update_maximum_output_size(Preview *p);
+void preview_set_maximum_output_size(Preview *p, float width, float height);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -292,22 +291,41 @@ static void preview_draw_rect(Preview *p, GdkWindow *win, GdkGC *gc, float coord
 
 static void preview_draw_selection(Preview *p)
 {
-  if (!p->gc) /* window isn't mapped yet */
+  if (!p->gc_selection) /* window isn't mapped yet */
   {
     return;
   }
 
   if (p->previous_selection.active)
   {
-    preview_draw_rect(p, p->window->window, p->gc, p->previous_selection.coordinate);
+    preview_draw_rect(p, p->window->window, p->gc_selection, p->previous_selection.coordinate);
   }
 
   if (p->selection.active)
   {
-    preview_draw_rect(p, p->window->window, p->gc, p->selection.coordinate);
+    preview_draw_rect(p, p->window->window, p->gc_selection, p->selection.coordinate);
   }
 
   p->previous_selection = p->selection;
+
+
+  if (!p->gc_selection_maximum) /* window isn't mapped yet */
+  {
+    return;
+  }
+
+
+  if (p->previous_selection_maximum.active)
+  {
+    preview_draw_rect(p, p->window->window, p->gc_selection_maximum, p->previous_selection_maximum.coordinate);
+  }
+
+  if (p->selection_maximum.active)
+  {
+    preview_draw_rect(p, p->window->window, p->gc_selection_maximum, p->selection_maximum.coordinate);
+  }
+
+  p->previous_selection_maximum = p->selection_maximum;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -407,7 +425,7 @@ static void preview_update_batch_selection(Preview *p)
 {
  Batch_selection *batch_selection;
 
-  if (!p->gc) /* window isn't mapped yet */
+  if (!p->gc_selection) /* window isn't mapped yet */
   {
     return;
   }
@@ -416,7 +434,7 @@ static void preview_update_batch_selection(Preview *p)
 
   while (batch_selection)
   {
-    preview_draw_rect(p, p->window->window, p->gc, batch_selection->coordinate);
+    preview_draw_rect(p, p->window->window, p->gc_selection, batch_selection->coordinate);
 
     batch_selection = batch_selection->next;
   }
@@ -1149,12 +1167,11 @@ static void preview_scan_start(Preview *p)
     memset(p->image_data_enh, 0xff, 3*p->image_width*p->image_height);
   }
 
-  if (p->selection.active)
-  {
-    p->previous_selection = p->selection;
-    p->selection.active = FALSE;
-    preview_draw_selection(p);		/* undraw selection and mark selctions as not active */
-  }
+/* XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */
+/* THIS IS A BIT STRANGE HERE */
+  p->selection.active = FALSE;
+  p->previous_selection_maximum.active = FALSE;
+/* XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */
 
   p->scanning = TRUE;
 
@@ -1172,7 +1189,7 @@ static void preview_scan_start(Preview *p)
 
 static int preview_make_image_path(Preview *p, size_t filename_size, char *filename)
 {
-  return xsane_back_gtk_make_path(filename_size, filename, 0, 0, "preview-", p->dialog->dev_name, ".ppm");
+  return xsane_back_gtk_make_path(filename_size, filename, 0, 0, "preview-", p->dialog->dev_name, ".ppm", XSANE_PATH_TMP);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1260,8 +1277,12 @@ static gint preview_expose_handler(GtkWidget *window, GdkEvent *event, gpointer 
 {
   Preview *p = data;
 
+  p->selection_maximum.active = FALSE;
+  preview_update_maximum_output_size(p);
+
   p->selection.active = FALSE;
   preview_update_selection(p);
+
   return FALSE;
 }
 
@@ -1271,9 +1292,12 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
 {
  Preview *p = data;
  GdkCursor *cursor;
+ GdkColor color;
+ GdkColormap *colormap; 
  float preview_selection[4];
  float xscale, yscale;
  static int event_count = 0;
+ int cursornr;
 
   event_count++;
 
@@ -1286,16 +1310,29 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
 
   if (event->type == GDK_EXPOSE)
   {
-    if (!p->gc)
+    if (!p->gc_selection)
     {
-      p->gc = gdk_gc_new(p->window->window);
-      gdk_gc_set_function(p->gc, GDK_INVERT);
-      gdk_gc_set_line_attributes(p->gc, 1, GDK_LINE_ON_OFF_DASH, GDK_CAP_BUTT, GDK_JOIN_MITER);
+      colormap = gdk_window_get_colormap(p->window->window);
+
+      p->gc_selection = gdk_gc_new(p->window->window);
+      gdk_gc_set_function(p->gc_selection, GDK_INVERT);
+      gdk_gc_set_line_attributes(p->gc_selection, 1, GDK_LINE_ON_OFF_DASH, GDK_CAP_BUTT, GDK_JOIN_MITER);
+
+      p->gc_selection_maximum = gdk_gc_new(p->window->window);
+      gdk_gc_set_function(p->gc_selection_maximum, GDK_XOR);
+      gdk_gc_set_line_attributes(p->gc_selection_maximum, 1, GDK_LINE_ON_OFF_DASH, GDK_CAP_BUTT, GDK_JOIN_MITER);
+      color.red   = 0;
+      color.green = 65535;
+      color.blue  = 30000;
+      gdk_color_alloc(colormap, &color);
+      gdk_gc_set_foreground(p->gc_selection_maximum, &color);   
+
       preview_paint_image(p);
     }
     else
     {
       p->selection.active = FALSE;
+      p->selection_maximum.active = FALSE;
       preview_draw_selection(p);
     }
   }
@@ -1394,6 +1431,7 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
             cursor = gdk_cursor_new(XSANE_CURSOR_PREVIEW);
             gdk_window_set_cursor(p->window->window, cursor);
             gdk_cursor_destroy(cursor);
+            p->cursornr = XSANE_CURSOR_PREVIEW;
           }
           break;
 
@@ -1497,6 +1535,7 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
             cursor = gdk_cursor_new(XSANE_CURSOR_PREVIEW);
             gdk_window_set_cursor(p->window->window, cursor);
             gdk_cursor_destroy(cursor);
+            p->cursornr = XSANE_CURSOR_PREVIEW;
           }
           break;
 
@@ -1584,6 +1623,7 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
             cursor = gdk_cursor_new(XSANE_CURSOR_PREVIEW);
             gdk_window_set_cursor(p->window->window, cursor);
             gdk_cursor_destroy(cursor);
+            p->cursornr = XSANE_CURSOR_PREVIEW;
           }
           break;
 
@@ -1593,25 +1633,21 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
             {
               case 1: /* left button */
                 p->selection_xedge = -1;
-                if ( (preview_selection[0] - SELECTION_RANGE < event->button.x) &&
-                     (event->button.x < preview_selection[0] + SELECTION_RANGE) ) 
+                if ( (preview_selection[0] - SELECTION_RANGE_OUT < event->button.x) && (event->button.x < preview_selection[0] + SELECTION_RANGE_IN) ) /* left */
                 {
                   p->selection_xedge = 0;
                 }
-                else if ( (preview_selection[2] - SELECTION_RANGE < event->button.x) &&
-                          (event->button.x < preview_selection[2] + SELECTION_RANGE) )
+                else if ( (preview_selection[2] - SELECTION_RANGE_IN < event->button.x) && (event->button.x < preview_selection[2] + SELECTION_RANGE_OUT) ) /* right */
                 {
                   p->selection_xedge = 2;
                 }
   
                 p->selection_yedge = -1;
-                if ( (preview_selection[1] - SELECTION_RANGE < event->button.y) &&
-                     (event->button.y < preview_selection[1] + SELECTION_RANGE) )
+                if ( (preview_selection[1] - SELECTION_RANGE_OUT < event->button.y) && (event->button.y < preview_selection[1] + SELECTION_RANGE_IN) ) /* top */
                 {
                   p->selection_yedge = 1;
                 }
-                else if ( (preview_selection[3] - SELECTION_RANGE < event->button.y) &&
-                          (event->button.y < preview_selection[3] + SELECTION_RANGE) )
+                else if ( (preview_selection[3] - SELECTION_RANGE_IN < event->button.y) && (event->button.y < preview_selection[3] + SELECTION_RANGE_OUT) ) /* bottom */
                 {
                   p->selection_yedge = 3;
                 }
@@ -1630,21 +1666,34 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
                   p->selection.coordinate[0] = p->surface[0] + event->button.x / xscale;
                   p->selection.coordinate[1] = p->surface[1] + event->button.y / yscale;
                   p->selection_drag = TRUE;
+
+                  cursornr = GDK_CROSS;
+                  cursor = gdk_cursor_new(cursornr);	/* set curosr */
+                  gdk_window_set_cursor(p->window->window, cursor);
+                  gdk_cursor_destroy(cursor);
+                  p->cursornr = cursornr;
                 }
                break;
 
               case 2: /* middle button */
               case 3: /* right button */
-                if ( (preview_selection[0] - SELECTION_RANGE < event->button.x) &&
-                     (preview_selection[2] + SELECTION_RANGE > event->button.x) &&
-                     (preview_selection[1] - SELECTION_RANGE < event->button.y) &&
-                     (preview_selection[3] + SELECTION_RANGE > event->button.y) )
+                if ( (preview_selection[0]-SELECTION_RANGE_OUT < event->button.x) &&
+                     (preview_selection[2]+SELECTION_RANGE_OUT > event->button.x) &&
+                     (preview_selection[1]-SELECTION_RANGE_OUT < event->button.y) &&
+                     (preview_selection[3]+SELECTION_RANGE_OUT > event->button.y) )
                 {
                   p->selection_drag = TRUE;
                   p->selection_xpos = event->button.x;
                   p->selection_ypos = event->button.y;
+
+                  cursornr = GDK_HAND2;
+                  cursor = gdk_cursor_new(cursornr);	/* set curosr */
+                  gdk_window_set_cursor(p->window->window, cursor);
+                  gdk_cursor_destroy(cursor);
+                  p->cursornr = cursornr;
                 }
                break;
+
               default:
                break;
             }
@@ -1658,6 +1707,15 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
           case 1: /* left button */
           case 2: /* middle button */
           case 3: /* right button */
+            if (p->selection_drag)
+            {
+              cursornr = XSANE_CURSOR_PREVIEW;
+              cursor = gdk_cursor_new(cursornr);	/* set curosr */
+              gdk_window_set_cursor(p->window->window, cursor);
+              gdk_cursor_destroy(cursor);
+              p->cursornr = cursornr;
+            }
+
             if ( (p->selection_drag) || (p->selection_drag_edge) )
             {
 
@@ -1672,6 +1730,7 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
 
               preview_order_selection(p);
               preview_bound_selection(p);
+              preview_update_maximum_output_size(p);
               preview_draw_selection(p);
               preview_establish_selection(p);
             }
@@ -1692,6 +1751,7 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
 
               preview_order_selection(p);
               preview_bound_selection(p);
+              preview_update_maximum_output_size(p);
               preview_draw_selection(p);
 
               if ((preferences.gtk_update_policy == GTK_UPDATE_CONTINUOUS) && (event_count == 1))
@@ -1712,6 +1772,7 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
 
               preview_order_selection(p);
               preview_bound_selection(p);
+              preview_update_maximum_output_size(p);
               preview_draw_selection(p);
 
               if ((preferences.gtk_update_policy == GTK_UPDATE_CONTINUOUS) && (event_count == 1))
@@ -1722,6 +1783,37 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
               {
                 preview_establish_selection(p);
               }
+            }
+
+            cursornr = p->cursornr;
+
+            if ( ( (preview_selection[0] - SELECTION_RANGE_OUT < event->button.x) && (event->button.x < preview_selection[0] + SELECTION_RANGE_IN) ) && /* left  */
+                 ( (preview_selection[1] - SELECTION_RANGE_OUT < event->button.y) && (event->button.y < preview_selection[1] + SELECTION_RANGE_IN) ) ) /* top */
+            {
+              cursornr = GDK_TOP_LEFT_CORNER;
+            }
+            else if ( ( (preview_selection[2] - SELECTION_RANGE_IN < event->button.x) && (event->button.x < preview_selection[2] + SELECTION_RANGE_OUT) ) && /* right */
+                      ( (preview_selection[1] - SELECTION_RANGE_OUT < event->button.y) && (event->button.y < preview_selection[1] + SELECTION_RANGE_IN) ) ) /* top */
+            {
+              cursornr = GDK_TOP_RIGHT_CORNER;
+            }
+            else if ( ( (preview_selection[0] - SELECTION_RANGE_OUT < event->button.x) && (event->button.x < preview_selection[0] + SELECTION_RANGE_IN) ) && /* left  */
+                      ( (preview_selection[3] - SELECTION_RANGE_IN < event->button.y) && (event->button.y < preview_selection[3] + SELECTION_RANGE_OUT) ) ) /* bottom */
+            {
+              cursornr = GDK_BOTTOM_LEFT_CORNER;
+            }
+            else if ( ( (preview_selection[2] - SELECTION_RANGE_IN < event->button.x) && (event->button.x < preview_selection[2] + SELECTION_RANGE_OUT) ) && /* right */
+                      ( (preview_selection[3] - SELECTION_RANGE_IN < event->button.y) && (event->button.y < preview_selection[3] + SELECTION_RANGE_OUT) ) ) /* bottom */
+            {
+              cursornr = GDK_BOTTOM_RIGHT_CORNER;
+            }
+
+            if (cursornr != p->cursornr)
+            {
+              cursor = gdk_cursor_new(cursornr);	/* set curosr */
+              gdk_window_set_cursor(p->window->window, cursor);
+              gdk_cursor_destroy(cursor);
+              p->cursornr = cursornr;
             }
            break;
 
@@ -1744,6 +1836,7 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
               p->selection.coordinate[3] -= dy / yscale;
 
               preview_bound_selection(p);
+              preview_update_maximum_output_size(p);
               preview_draw_selection(p);
 
               if ((preferences.gtk_update_policy == GTK_UPDATE_CONTINUOUS) && (event_count == 1))
@@ -1756,7 +1849,40 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
               }
             }
            break;
+
           default:
+            if ( ( (preview_selection[0] - SELECTION_RANGE_OUT < event->button.x) && (event->button.x < preview_selection[0] + SELECTION_RANGE_IN) ) && /* left  */
+                 ( (preview_selection[1] - SELECTION_RANGE_OUT < event->button.y) && (event->button.y < preview_selection[1] + SELECTION_RANGE_IN) ) ) /* top */
+            {
+              cursornr = GDK_TOP_LEFT_CORNER;
+            }
+            else if ( ( (preview_selection[2] - SELECTION_RANGE_IN < event->button.x) && (event->button.x < preview_selection[2] + SELECTION_RANGE_OUT) ) && /* right */
+                      ( (preview_selection[1] - SELECTION_RANGE_OUT < event->button.y) && (event->button.y < preview_selection[1] + SELECTION_RANGE_IN) ) ) /* top */
+            {
+              cursornr = GDK_TOP_RIGHT_CORNER;
+            }
+            else if ( ( (preview_selection[0] - SELECTION_RANGE_OUT < event->button.x) && (event->button.x < preview_selection[0] + SELECTION_RANGE_IN) ) && /* left  */
+                      ( (preview_selection[3] - SELECTION_RANGE_IN < event->button.y) && (event->button.y < preview_selection[3] + SELECTION_RANGE_OUT) ) ) /* bottom */
+            {
+              cursornr = GDK_BOTTOM_LEFT_CORNER;
+            }
+            else if ( ( (preview_selection[2] - SELECTION_RANGE_IN < event->button.x) && (event->button.x < preview_selection[2] + SELECTION_RANGE_OUT) ) && /* right */
+                      ( (preview_selection[3] - SELECTION_RANGE_IN < event->button.y) && (event->button.y < preview_selection[3] + SELECTION_RANGE_OUT) ) ) /* bottom */
+            {
+              cursornr = GDK_BOTTOM_RIGHT_CORNER;
+            }
+            else
+            {
+              cursornr = XSANE_CURSOR_PREVIEW;
+            }
+
+            if ((cursornr != p->cursornr) && (p->cursornr != -1))
+            {
+              cursor = gdk_cursor_new(cursornr);	/* set curosr */
+              gdk_window_set_cursor(p->window->window, cursor);
+              gdk_cursor_destroy(cursor);
+              p->cursornr = cursornr;
+            }
            break;
         }
 	break;
@@ -1795,27 +1921,18 @@ static void preview_cancel_button_clicked(GtkWidget *widget, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void preview_top_destroyed(GtkWidget *widget, gpointer call_data)
-{
-  Preview *p = call_data;
-
-  p->top = NULL;
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
 Preview *preview_new(GSGDialog *dialog)
 {
-  static int first_time = 1;
-  GtkWidget *table, *frame;
-  GtkSignalFunc signal_func;
-  GtkWidgetClass *class;
-  GtkBox *vbox, *hbox;
-  GdkCursor *cursor;
-  GtkWidget *preset_area_option_menu, *preset_area_menu, *preset_area_item;
-  Preview *p;
-  int i;
-  char buf[256];
+ static int first_time = 1;
+ GtkWidget *table, *frame;
+ GtkSignalFunc signal_func;
+ GtkWidgetClass *class;
+ GtkBox *vbox, *hbox;
+ GdkCursor *cursor;
+ GtkWidget *preset_area_option_menu, *preset_area_menu, *preset_area_item;
+ Preview *p;
+ int i;
+ char buf[256];
 
   p = malloc(sizeof(*p));
   if (!p)
@@ -1838,6 +1955,9 @@ Preview *preview_new(GSGDialog *dialog)
   p->preset_width  = INF;	/* use full scanarea */
   p->preset_height = INF;	/* use full scanarea */
 
+  p->maximum_output_width  = INF; /* full output with */
+  p->maximum_output_height = INF; /* full output height */
+
 #ifndef XSERVER_WITH_BUGGY_VISUALS
   gtk_widget_push_visual(gtk_preview_get_visual());
 #endif
@@ -1845,12 +1965,11 @@ Preview *preview_new(GSGDialog *dialog)
 
   snprintf(buf, sizeof(buf), "%s %s", WINDOW_PREVIEW, device_text);
   p->top = gtk_dialog_new();
-  gtk_signal_connect(GTK_OBJECT(p->top), "destroy", GTK_SIGNAL_FUNC(preview_top_destroyed), p);
   gtk_window_set_title(GTK_WINDOW(p->top), buf);
   vbox = GTK_BOX(GTK_DIALOG(p->top)->vbox);
   hbox = GTK_BOX(GTK_DIALOG(p->top)->action_area);
 
-
+  xsane_set_window_icon(p->top, 0);
 
   /* top hbox for pipette buttons */
   p->button_box = gtk_hbox_new(FALSE, 5);
@@ -1987,6 +2106,7 @@ Preview *preview_new(GSGDialog *dialog)
   cursor = gdk_cursor_new(XSANE_CURSOR_PREVIEW);	/* set default curosr */
   gdk_window_set_cursor(p->window->window, cursor);
   gdk_cursor_destroy(cursor);
+  p->cursornr = XSANE_CURSOR_PREVIEW;
 
   gtk_widget_pop_colormap();
 #ifndef XSERVER_WITH_BUGGY_VISUALS
@@ -2299,29 +2419,48 @@ void preview_scan(Preview *p)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void preview_destroy(Preview *p)
+static void preview_save_image(Preview *p)
 {
-  char filename[PATH_MAX];
-  FILE *out;
+ char filename[PATH_MAX];
+ FILE *out;
 
-  if (p->scanning)
+  if ((!preferences.preserve_preview) ||  (!p->image_data_enh))
   {
-    preview_scan_done(p);		/* don't save partial window */
+    return;
   }
-  else if (preferences.preserve_preview && p->image_data_enh && preview_make_image_path(p, sizeof(filename), filename) >= 0)
+
+  if (preview_make_image_path(p, sizeof(filename), filename) >= 0)
   {
     /* save preview image */
+    remove(filename); /* remove existing preview */
+    umask(0177); /* creare temporary file with "-rw-------" permissions */
     out = fopen(filename, "w");
+    umask(XSANE_DEFAULT_UMASK); /* define new file permissions */
+
     if (out)
     {
       /* always save it as a PPM image: */
       fprintf(out, "P6\n# surface: %g %g %g %g %u %u\n%d %d\n255\n",
 		  p->surface[0], p->surface[1], p->surface[2], p->surface[3],
-		  p->surface_type, p->surface_unit,
-		  p->image_width, p->image_height);
+		  p->surface_type, p->surface_unit, p->image_width, p->image_height);
+
       fwrite(p->image_data_raw, 3, p->image_width*p->image_height, out);
       fclose(out);
     }
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void preview_destroy(Preview *p)
+{
+  if (p->scanning)
+  {
+    preview_scan_done(p);		/* don't save partial window */
+  }
+  else
+  {
+    preview_save_image(p);
   }
 
   if (p->image_data_enh)
@@ -2339,9 +2478,14 @@ void preview_destroy(Preview *p)
     free(p->preview_row);
   }
 
-  if (p->gc)
+  if (p->gc_selection)
   {
-    gdk_gc_destroy(p->gc);
+    gdk_gc_destroy(p->gc_selection);
+  }
+
+  if (p->gc_selection_maximum)
+  {
+    gdk_gc_destroy(p->gc_selection_maximum);
   }
 
   if (p->top)
@@ -2560,6 +2704,7 @@ static void preview_pipette_white(GtkWidget *window, gpointer data)
 
   gdk_window_set_cursor(p->window->window, cursor);
   gdk_cursor_destroy(cursor);
+  p->cursornr = -1;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -2590,6 +2735,7 @@ static void preview_pipette_gray(GtkWidget *window, gpointer data)
 
   gdk_window_set_cursor(p->window->window, cursor);
   gdk_cursor_destroy(cursor);
+  p->cursornr = -1;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -2620,6 +2766,7 @@ static void preview_pipette_black(GtkWidget *window, gpointer data)
 
   gdk_window_set_cursor(p->window->window, cursor);
   gdk_cursor_destroy(cursor);
+  p->cursornr = -1;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -2636,6 +2783,7 @@ static void preview_full_preview_area(GtkWidget *widget, gpointer call_data)
     p->selection.coordinate[i] = p->surface[i];
   }
 
+  preview_update_maximum_output_size(p);
   preview_draw_selection(p);
   preview_establish_selection(p);
 }
@@ -2802,6 +2950,7 @@ void preview_gamma_correction(Preview *p,
 
   preview_do_gamma_correction(p);
   p->previous_selection.active = FALSE;
+  p->previous_selection_maximum.active = FALSE;
   preview_draw_selection(p);
 }
 
@@ -2906,6 +3055,70 @@ void preview_area_resize(GtkWidget *widget)
                       min_y, /* max_size */ 20);
 
   preview_paint_image(p);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void preview_update_maximum_output_size(Preview *p)
+{
+  if ( (p->maximum_output_width >= INF) || (p->maximum_output_height >= INF) )
+  {
+    if (p->selection_maximum.active)
+    {
+      p->selection_maximum.active = FALSE;
+    }
+  }
+  else
+  {
+    p->previous_selection_maximum = p->selection_maximum;
+
+    p->selection_maximum.active = TRUE;
+    p->selection_maximum.coordinate[0] = p->selection.coordinate[0];
+    p->selection_maximum.coordinate[1] = p->selection.coordinate[1];
+    p->selection_maximum.coordinate[2] = p->selection.coordinate[0] + p->maximum_output_width;
+    p->selection_maximum.coordinate[3] = p->selection.coordinate[1] + p->maximum_output_height;
+
+    if (p->selection_maximum.coordinate[2] > p->max_scanner_surface[2])
+    {
+      p->selection_maximum.coordinate[2] = p->max_scanner_surface[2];
+    }
+
+    if (p->selection_maximum.coordinate[3] > p->max_scanner_surface[3])
+    {
+      p->selection_maximum.coordinate[3] = p->max_scanner_surface[3];
+    }
+
+    if ( (p->selection.coordinate[0] < p->selection_maximum.coordinate[0]) ||
+         (p->selection.coordinate[1] < p->selection_maximum.coordinate[1]) ||
+         (p->selection.coordinate[2] > p->selection_maximum.coordinate[2]) ||
+         (p->selection.coordinate[3] > p->selection_maximum.coordinate[3]) )
+    {
+      if (p->selection.coordinate[2] > p->selection_maximum.coordinate[2])
+      {
+        p->selection.coordinate[2] = p->selection_maximum.coordinate[2];
+      }
+
+      if (p->selection.coordinate[3] > p->selection_maximum.coordinate[3])
+      {
+        p->selection.coordinate[3] = p->selection_maximum.coordinate[3];
+      }
+      preview_draw_selection(p);
+      preview_establish_selection(p);
+    }
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void preview_set_maximum_output_size(Preview *p, float width, float height)
+{
+ /* witdh and height in device units */
+
+  p->maximum_output_width  = width;
+  p->maximum_output_height = height;
+
+  preview_update_maximum_output_size(p);
+  preview_draw_selection(p);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

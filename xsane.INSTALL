@@ -21,11 +21,14 @@ DO THE FOLLOWING AS NORMAL USER, NOT AS ROOT:
 - Unpack the xsane archiv in a directory of your choice. 
 - Enter xsane-0.xx directory. 
 - To compile call ./configure and make.
-  When you already called ./configure it may be good to do a
-    make distclean
-  before you call ./configure again.
-  If that does not work, remove config.cache:
-    rm -f config.cache
+  - If you use kwm (KDE window manager), call configure with environment
+    variable CPPFLAGS set to
+    "-DXSANE_BUGGY_WINDOWMANAGER_WINDOW_POSITION".
+  - When you already called ./configure it may be good to do a
+       make distclean
+    before you call ./configure again.
+    If that does not work, remove config.cache:
+      rm -f config.cache
 
 DO THE FOLLOWING AS ROOT:
 - Call make install 

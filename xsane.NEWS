@@ -1,5 +1,11 @@
 ----------------------------------------------------------------
  NEWS:
+xsane-0.48:
+  If you use KDE (kwm), call configure with environment
+    variable CPPFLAGS set to
+    "-DXSANE_BUGGY_WINDOWMANAGER_WINDOW_POSITION"
+
+xsane-0.46:
  The format of the *.drc files has changed from xsane-0.45 to
  xsane-0.46. Use xsane-convert-to-0.46 to convert the files
  ~/.sane/xsane/*.drc BEFORE you start xsane!
