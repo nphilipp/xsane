@@ -24,14 +24,47 @@
 #ifndef XSANE_H
 #define XSANE_H
 
-#include <xsane-gtk.h>
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+/* #define XSANE_TEST */
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+#define XSANE_VERSION "0.22\337"
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+#include <getopt.h>
+#include <xsane-back-gtk.h>
 #include <xsane-preferences.h>
 #include <xsane-preview.h>
 
-
 #ifdef HAVE_LIBGIMP_GIMP_H
-# include <libgimp/gimp.h>
-#endif
+#include <libgimp/gimp.h>
+#endif /* HAVE_LIBGIMP_GIMP_H */
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+enum { XSANE_SCAN, XSANE_COPY, XSANE_FAX };
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+extern void xsane_pref_save(void);
+extern void xsane_interface(int argc, char **argv);
+extern void xsane_fax_project_save(void);
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+extern const char *prog_name;
+extern GtkWidget *choose_device_dialog;
+extern GSGDialog *dialog;
+extern const SANE_Device **devlist;
+extern gint seldev;        /* The selected device */
+extern gint ndevs;              /* The number of available devices */
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+extern int xsane_scanmode_number[];
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -42,9 +75,16 @@
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 #define OUTFILENAME     	"out.pnm"
+#define FAXPROJECT 	    	"faxproject"
+#define FAXFILENAME     	"page-001.fax"
 #define PRINTERNAME	  	"new printer"
 #define PRINTERCOMMAND  	"lpr -"
-#define FAXCOMMAND 	 	"sendfax ???"
+#define FAXCOMMAND 	 	"sendfax"
+#define FAXRECEIVEROPT		"-d"
+#define FAXPOSTSCRIPTOPT	""
+#define FAXNORMALOPT		"-l"
+#define FAXFINEOPT		"-m"
+#define FAXVIEWER 	 	"xv"
 #define HIST_WIDTH		256
 #define HIST_HEIGHT		100
 #define XSANE_DIALOG_WIDTH	296
@@ -80,6 +120,24 @@ enum
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+typedef struct XsaneProgress_t
+{
+    GtkSignalFunc callback;
+    gpointer callback_data;
+    GtkWidget *shell;
+    GtkWidget *pbar;
+} XsaneProgress_t;
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+typedef struct XsanePixmap
+{
+  GtkWidget *frame;  GdkPixmap *pixmap;
+  GtkWidget *pixmapwid;
+} XsanePixmap;
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 typedef struct XsaneSlider
 {
   int position[3];
@@ -89,25 +147,6 @@ typedef struct XsaneSlider
   GtkWidget *preview;
   int r, g, b;
 } XsaneSlider;
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-typedef struct XsanePixmap
-{
-  GtkWidget *frame;
-  GdkPixmap *pixmap;
-  GtkWidget *pixmapwid;
-} XsanePixmap;
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-typedef struct XsaneProgress_t
-{
-    GtkSignalFunc callback;
-    gpointer callback_data;
-    GtkWidget *shell;
-    GtkWidget *pbar;
-} XsaneProgress_t;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -121,6 +160,9 @@ struct
     GtkWidget *advanced_options_shell;
     GtkWidget *main_dialog_scrolled;
     GtkWidget *histogram_dialog;
+    GtkWidget *fax_dialog;
+
+    GtkWidget *fax_list;
 
     GtkWidget *hruler;
     GtkWidget *vruler;
@@ -138,6 +180,8 @@ struct
 
     /* for standalone mode: */
     GtkWidget *filename_entry;
+    GtkWidget *fax_project_entry;
+    GtkWidget *fax_receiver_entry;
     FILE *out;
     int xsane_mode;
     int xsane_output_format;
@@ -219,6 +263,9 @@ struct
     SANE_Int *preview_gamma_data_red, *preview_gamma_data_green, *preview_gamma_data_blue;
     SANE_Int *histogram_gamma_data_red, *histogram_gamma_data_green, *histogram_gamma_data_blue;
 
+    char *fax_filename;
+    char *fax_receiver;
+
     int broken_pipe; /* for printercommand pipe */
 
 #ifdef HAVE_LIBGIMP_GIMP_H
@@ -262,18 +309,13 @@ struct
   GtkWidget *preview_own_cmap_button;
 
   GtkWidget *fax_command_entry;
+  GtkWidget *fax_receiver_option_entry;
+  GtkWidget *fax_postscript_option_entry;
+  GtkWidget *fax_normal_option_entry;
+  GtkWidget *fax_fine_option_entry;
+  GtkWidget *fax_viewer_entry;
 } xsane_setup;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-enum { XSANE_SCAN, XSANE_COPY, XSANE_FAX };
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-extern void xsane_progress_update(XsaneProgress_t *p, gfloat newval);
-extern void xsane_update_histogram();
-extern void xsane_create_gamma_curve(SANE_Int *gammadata, double gamma,
-                                     double brightness, double contrast, int numbers, int maxout);
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
 #endif

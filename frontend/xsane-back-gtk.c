@@ -37,7 +37,7 @@
 #include <sane/sane.h>
 #include <sane/saneopts.h>
 
-#include "xsane-gtk.h"
+#include "xsane-back-gtk.h"
 #include "xsane.h"
 #include "xsane-preferences.h"
 
@@ -91,8 +91,9 @@ void gsg_set_tooltip (GtkTooltips *tooltips, GtkWidget *widget, const char *desc
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-int gsg_make_path (size_t buf_size, char *buf,
+int gsg_make_path(size_t buf_size, char *buf,
 	       const char *prog_name,
+	       const char *dir_name,
 	       const char *prefix, const char *dev_name,
 	       const char *postfix)
 {
@@ -130,6 +131,25 @@ int gsg_make_path (size_t buf_size, char *buf,
 
   buf[len++] = '/';
 
+
+  if (dir_name)
+    {
+      extra = strlen (dir_name);
+      if (len + extra + 1 >= buf_size)
+	goto filename_too_long;
+
+      buf[len++] = '/';
+      memcpy(buf + len, dir_name, extra);
+      len += extra;
+      buf[len] = '\0';
+      mkdir (buf, 0777);	/* ensure ~/.sane/PROG_NAME/DIR_NAME directory exists */
+    }
+  if (len >= buf_size)
+    goto filename_too_long;
+
+  buf[len++] = '/';
+
+
   if (prefix)
     {
       extra = strlen (prefix);
@@ -142,9 +162,8 @@ int gsg_make_path (size_t buf_size, char *buf,
 
   if (dev_name)
     {
-      /* Turn devicename into valid filename by replacing slashes by
-	 "+-".  A lonely `+' gets translated into "++" so we can tell
-	 it from a substituted slash.  */
+      /* Turn devicename into valid filename by replacing slashes by "+-".  A lonely `+' gets translated into "++" so we can tell
+	 it from a substituted slash. Spaces are replaces by "_"  */
 
       for (i = 0; dev_name[i]; ++i)
 	{
@@ -156,6 +175,10 @@ int gsg_make_path (size_t buf_size, char *buf,
 	    case '/':
 	      buf[len++] = '+';
 	      buf[len++] = '-';
+	      break;
+
+            case ' ':
+	      buf[len++] = '_';
 	      break;
 
 	    case '+':

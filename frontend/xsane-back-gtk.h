@@ -104,6 +104,7 @@ extern int gsg_message_dialog_active;
    ERRNO is set to the appropriate value.  */
 extern int gsg_make_path (size_t max_len, char *filename_ret,
 			  const char *prog_name,
+			  const char *dir_name,
 			  const char *prefix, const char *dev_name,
 			  const char *postfix);
 extern gint gsg_decision(gchar *title, gchar *message, gchar *oktext, gchar *rejecttext, gint wait);

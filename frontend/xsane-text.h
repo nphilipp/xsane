@@ -3,7 +3,10 @@
 
 #define DESC_XSANE_MODE		"Use XSane for SCANning, photoCOPYing, FAXing..."
 
-#define DESC_FILENAME		"Enter filename for scanned image"
+#define DESC_FILENAME		"Filename for scanned image"
+#define DESC_FAXPROJECT		"Enter name of fax project"
+#define DESC_FAXPAGENAME	"Enter new name for faxpage"
+#define DESC_FAXRECEIVER	"Enter receiver phone number or address"
 
 #define DESC_PRINTER_SELECT	"Select printer definition"
 
@@ -76,6 +79,11 @@
 #define DESC_PREVIEW_GAMMA_BLUE	"Set gamma correction value for blue component of preview image"
 
 #define DESC_FAX_COMMAND	"Enter command to be executed in fax mode"
+#define DESC_FAX_RECEIVER_OPT	"Enter option to specify receiver"
+#define DESC_FAX_POSTSCRIPT_OPT	"Enter option to specify postscript files following"
+#define DESC_FAX_NORMAL_OPT	"Enter option to specify normal mode (low resolution)"
+#define DESC_FAX_FINE_OPT	"Enter option to specify fine mode (high resolution)"
+#define DESC_FAX_VIEWER		"Enter command to be executed to view a fax"
 #define DESC_FAX_FINE_MODE	"Use high vertical resolution (196 lpi instead of 98 lpi)"
 
 #endif

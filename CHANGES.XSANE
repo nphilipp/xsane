@@ -163,6 +163,7 @@ xsane-0.19 -> 0.20:
 
 xsane-0.20 -> 0.21:
 -------------------
+
  - in xsane-preview.c if backend does not use scanareaselection dev_selection[i]
    is set to width/height of image
  - replaced most sprintf by snprintf
@@ -171,3 +172,18 @@ xsane-0.20 -> 0.21:
  - 1 bit/pixel png file is saved with 1 bit/pixel instead of 8 bit/pixel now
  - added support for gtk-1.2
  - font are set in xsane-style.rc now
+
+
+xsane-0.21 -> 0.22:
+-------------------
+
+ - split xsane.c in:
+   - xsane.c
+   - xsane-setup.c
+   - xsane-gamma.c
+   - xsane-front-gtk.c
+   - xsane-scan.c
+ - renamed xsane-gtk.c to xsane-back-gtk.c
+ - removed libtool from package
+ - added experimental fax support
+

@@ -18,7 +18,7 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  */
 
 #include <sane/config.h>
-#include <xsane-gtk.h>
+#include <xsane-back-gtk.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,6 +27,7 @@
 
 #include "xsane.h"
 #include "xsane-preview.h"
+#include "xsane-front-gtk.h"
 
 #ifdef HAVE_LIBJPEG
 #include <jpeglib.h>
@@ -56,6 +57,98 @@ void xsane_cancel_save()
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+void xsane_convert_text_to_filename(char **text)
+{
+  if (text)
+  {
+   char *filename = *text;
+   char buf[256];
+   int buflen=0;
+   int txtlen=0;
+
+    while((filename[txtlen] != 0) && (buflen<253))
+    {
+      switch (filename[txtlen])
+      {
+        case ' ':
+          buf[buflen++] = ':';
+          buf[buflen++] = '_';
+          txtlen++;
+          break;
+
+        case '/':
+          buf[buflen++] = ':';
+          buf[buflen++] = '%';
+          txtlen++;
+          break;
+
+        case '*':
+          buf[buflen++] = ':';
+          buf[buflen++] = '#';
+          txtlen++;
+          break;
+
+        case '?':
+          buf[buflen++] = ':';
+          buf[buflen++] = 'q';
+          txtlen++;
+          break;
+
+        case '\\':
+          buf[buflen++] = ':';
+          buf[buflen++] = '=';
+          txtlen++;
+          break;
+
+        case ';':
+          buf[buflen++] = ':';
+          buf[buflen++] = '!';
+          txtlen++;
+          break;
+
+        case '&':
+          buf[buflen++] = ':';
+          buf[buflen++] = '+';
+          txtlen++;
+          break;
+
+        case '<':
+          buf[buflen++] = ':';
+          buf[buflen++] = 's';
+          txtlen++;
+          break;
+
+        case '>':
+          buf[buflen++] = ':';
+          buf[buflen++] = 'g';
+          txtlen++;
+          break;
+
+        case '|':
+          buf[buflen++] = ':';
+          buf[buflen++] = 'p';
+          txtlen++;
+          break;
+
+        case ':':
+          buf[buflen++] = ':';
+          buf[buflen++] = ':';
+          txtlen++;
+          break;
+
+        default:
+          buf[buflen++] = filename[txtlen++];
+          break;
+      }
+    }
+    buf[buflen] = 0;
+    free(filename);
+    *text = strdup(buf);
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 void xsane_increase_counter_in_filename(char *filename, int skip)
 {
  char *position_point;
@@ -66,7 +159,14 @@ void xsane_increase_counter_in_filename(char *filename, int skip)
   while (1)
   { 
     position_point = strrchr(filename, '.');
-    position_counter = position_point-1;
+    if (position_point)
+    {
+      position_counter = position_point-1;
+    }
+    else
+    {
+      position_counter = filename + strlen(filename) - 1;
+    }
   
     if (!( (*position_counter >= '0') && (*position_counter <='9') ))
     {

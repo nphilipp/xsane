@@ -1,10 +1,12 @@
 Requirements:
 - You need sane-1.x installed!
-- You need gtk+-1.0.x installed, gtk+-1.1 and gtk+-1.2 do not work!
+- You need gtk+-1.0.x or gtk+-1.2
 - For png support you need libz and lipng installed!
 - For jpeg support you need jpeglib installed!
 - For tiff support you need libtiff installed!
 - For online help you need netscape
+- If you use gtk+-1.2, update to gimp-1.0.4
+
 
 Install:
 - Unpack archiv. 
@@ -16,8 +18,18 @@ Install:
   tell your system where the SANE-libraries are installed.
     For linux: edit /etc/ld.so.conf and add a line with the path to the
     libraries (normally /usr/local/lib/sane), then call ldconfig as root. 
+    If you use a SuSE linux, edit /etc/ld.so.conf.in instead and call
+    SuSEconfig instead of ldconfig
 
 - If your computers system is a recent SuSE-Linux, netscape may be called via a
   script Netscape and "netscape" is not in the path. In that case you have
   to create a symblic link from Netscape to netscape, eg:
   ln -s /usr/X11R6/bin/Netscape /usr/X11R6/bin/netscape
+
+- If the compilation aborts with
+      /usr/lib/libgimp.so: undefined reference to `g_debug' 
+      /usr/lib/libgimp.so: undefined reference to `g_message' 
+      /usr/lib/libgimp.so: undefined reference to `g_warning' 
+      /usr/lib/libgimp.so: undefined reference to `g_error'
+  update to gimp-1.0.4 or newer!
+

@@ -25,7 +25,6 @@ sanedatadir = ${datadir}/sane
 INSTALL = @INSTALL@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_DATA = @INSTALL_DATA@
-RANLIB = @RANLIB@
 
 CC = @CC@
 INCLUDES = -I. -I$(srcdir) \
@@ -37,9 +36,6 @@ LIBS = @LIBS@
 DEFS = @DEFS@
 
 COMPILE = $(CC) -c $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS)
-LIBTOOL = ../libtool
-MCOMP	= --mode=compile
-MLINK	= --mode=link
 
 @SET_MAKE@
 
@@ -54,14 +50,13 @@ TARGETS = liblib.a
 .SUFFIXES:
 .SUFFIXES: .c .o
 .c.o:
-	@$(LIBTOOL) $(MCOMP) $(COMPILE) $<
+	$(COMPILE) $<
 	@test -f $@ || $(COMPILE) $<
 
 all:	$(TARGETS)
 
 liblib.a: $(LIBLIB_OBJS)
 	ar r $@ $(LIBLIB_OBJS)
-	$(RANLIB) $@
 
 install:
 

@@ -38,7 +38,13 @@ Preferences preferences =
   {
        0,		/* no preferred device (must be 0 or malloced!) */
        0,		/* no default filename */
+       0,		/* no fax project */
        0,		/* no default faxcommand */
+       0,		/* no default fax receiver option */
+       0,		/* no default fax postscript option */
+       0,		/* no default fax normal option */
+       0,		/* no default fax fine option */
+       0,		/* no fax viewer */
       80.0,		/* jpeg_quality */
       7.0,		/* png_compression */
        1,		/* overwrite_warning */
@@ -86,7 +92,10 @@ desc[] =
   {
     {"device",				w_string,	POFFSET(device)},
     {"filename",			w_string,	POFFSET(filename)},
-    {"fax-cmd",				w_string,	POFFSET(fax_command)},
+    {"fax-project",			w_string,	POFFSET(fax_project)},
+    {"fax-command",			w_string,	POFFSET(fax_command)},
+    {"fax-receiver-option",		w_string,	POFFSET(fax_receiver_option)},
+    {"fax-viewer",			w_string,	POFFSET(fax_viewer)},
     {"overwrite-warning",		w_int,		POFFSET(overwrite_warning)},
     {"increase-filename-counter",	w_int,		POFFSET(increase_filename_counter)},
     {"skip-existing-numbers",		w_int,		POFFSET(skip_existing_numbers)},

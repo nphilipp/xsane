@@ -38,9 +38,6 @@ LIBS = @LIBS@
 GTK_LIBS = @GTK_LIBS@
 GIMP_LIBS = @GIMP_LIBS@
 
-LIBTOOL = ../libtool
-MINST	= --mode=install
-MLINK	= --mode=link
 XSCAN	= @XSCAN@
 
 COMPILE = $(CC) -c $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS)
@@ -53,7 +50,10 @@ PROGRAMS = $(BINPROGS)
 LIBLIB = ../lib/liblib.a
 LIBSANEI = ../sanei/libsanei.a
 
-XSANE_OBJS = xsane.o xsane-preview.o xsane-preferences.o xsane-gtk.o xsane-save.o
+XSANE_OBJS = xsane-back-gtk.o xsane-front-gtk.o xsane-gamma.o \
+             xsane-preview.o xsane-preferences.o \
+             xsane-setup.o xsane-save.o xsane-scan.o xsane.o
+
 
 .c.o:
 	$(COMPILE) $<
@@ -63,14 +63,14 @@ all: $(PROGRAMS)
 install: $(PROGRAMS)
 	$(MKDIR) $(bindir) $(sbindir) $(datadir) $(sanedatadir)
 	@for program in $(BINPROGS); do \
-	  $(LIBTOOL) $(MINST) $(INSTALL_PROGRAM) $${program} \
+	  $(INSTALL_PROGRAM) $${program} \
 	    $(bindir)/$${program}; \
 	done
 	$(INSTALL_DATA) $(srcdir)/xsane-style.rc $(sanedatadir)/xsane-style.rc
 	$(INSTALL_DATA) $(srcdir)/xsane-logo.xpm $(sanedatadir)/xsane-logo.xpm
 
 xsane: $(XSANE_OBJS) $(LIBSANEI) $(LIBLIB)
-	@$(LIBTOOL) $(MLINK) $(LINK) $(XSANE_OBJS) $(LIBSANEI) \
+	$(LINK) $(XSANE_OBJS) $(LIBSANEI) \
 	        $(LIBLIB) $(GIMP_LIBS) $(GTK_LIBS) $(LIBS)
 
 

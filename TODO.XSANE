@@ -2,46 +2,38 @@ This is a list of what I want to change/include for xsane.
 If you have any suggestions: mail to Oliver.Rauch@Wolfsburg.DE
 
 first steps:
- - test number of printers fit into filed
- - copy mode: select raster size (1x1,2x2,3x3,4x4,5x5)
- - If automatic document feeder: scan until error (out of paper, jammed, ...)
- - move threshold in lineart-mode to main window
- - improve support for 16/48 bpp mode
- - test memory after all calls of malloc
- - make better backend-dependend option handling and error handling (mostly done!)
- - program better preview
-   - zoom preview
-   - pick white and black point
-   - sizeable window
- - include invert (for negatives) into enhancement
- - copy mode: use different resolutons for lineart, gray, color
- - xsane_setup: select image position on printer (centered/left/right/free defined...) for copy
- - store more than 1 enhancement and give names for it, may be in own files
- - postscript-output for 10/12 bpp (does postscript support it?)
+ * options:
  - fax-function
+    - add send delayed option
+  - copy mode:
+    - select raster size (1x1,2x2,3x3,4x4,5x5)
+    - use different resolutons for lineart, gray, color
+    - select image position on printer (centered/left/right/free) for copy
+    - more than one copy of one scan
+  - If automatic document feeder: scan until error (out of paper, jammed, ...)
+  - preview:
+    - zoom preview
+    - pick white and black point
+    - sizeable window
+  - enhancement:
+    - include invert (for negatives) into enhancement
+    - store more than 1 enhancement and give names for it, may be in own files
  - may be email-function
- - other output formats for saving:
-   - gif ?
-   - ...?
- - write online helpfiles
- - save all options to a file including preview-selection
- - COPY: more than one copy of one scan
+ - batch scan function
 
-second steps: 
- - let user select whether (dont know if this is practicable)
-   - analog gamma
-   - highlight
-   - shadow
-   - brightness
-   - contrast
-   should be used prefered before digital correction.
+ * internal:
+   - test number of printers fit into field
+   - move threshold in lineart-mode to main window
+   - improve support for 16/48 bpp mode
+   - test memory after all calls of malloc
+   - make better backend-dependend option handling and error handling (mostly done!)
+   - other output formats for saving:
+     - gif ?
+     - postscript-output for 16 bpp (does postscript support it?)
+   - more online helpfiles
+   - save all options to a file including preview-selection
 
-   - Change calculation of gamma curve for it
-   - do preview with selected values set to default
-   - input multiplicators in xsane-setup to make
-     scanner dependend values compatible to xsane-values
-
-third steps:
+second steps:
  - correct gtk custom gamma functions and include it
  - include special functions for GNOME/KDE
 

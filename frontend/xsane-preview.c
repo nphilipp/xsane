@@ -76,10 +76,11 @@
 
 #include <sys/param.h>
 
-#include "xsane-gtk.h"
+#include "xsane-back-gtk.h"
 #include "xsane.h"
 #include "xsane-preview.h"
 #include "xsane-preferences.h"
+#include "xsane-gamma.h"
 
 #ifndef PATH_MAX
 # define PATH_MAX	1024
@@ -1233,7 +1234,7 @@ static void preview_establish_selection(Preview *p)
 
 static int preview_make_image_path(Preview *p, size_t filename_size, char *filename)
 {
-  return gsg_make_path(filename_size, filename, 0, "preview-", p->dialog->dev_name, ".ppm");
+  return gsg_make_path(filename_size, filename, 0, 0, "preview-", p->dialog->dev_name, ".ppm");
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

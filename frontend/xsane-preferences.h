@@ -24,7 +24,13 @@ typedef struct
   {
     const char *device;		/* name of preferred device (or NULL) */
     char *filename;		/* default filename */
+    char *fax_project;		/* fax project */
     char *fax_command;		/* faxcommand */
+    char *fax_receiver_option;	/* fax receiver option */
+    char *fax_postscript_option; /* fax postscript option */
+    char *fax_normal_option;	/* fax normal mode option */
+    char *fax_fine_option;	/* fax fine mode option */
+    char *fax_viewer;		/* fax viewer */
     double jpeg_quality;	/* quality when saving image as jpeg */
     double png_compression;	/* compression when saving image as pnm */
     int overwrite_warning;	/* warn if file exists */

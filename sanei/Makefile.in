@@ -25,7 +25,6 @@ sanedatadir = ${datadir}/sane
 INSTALL = @INSTALL@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_DATA = @INSTALL_DATA@
-RANLIB = @RANLIB@
 
 CC = @CC@
 INCLUDES = -I. -I$(srcdir) -I$(top_builddir)/include -I$(top_srcdir)/include
@@ -36,9 +35,6 @@ LIBS = @LIBS@
 DEFS = @DEFS@
 
 COMPILE = $(CC) -c $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS)
-LIBTOOL = ../libtool
-MCOMP	= --mode=compile
-MLINK	= --mode=link
 
 @SET_MAKE@
 
@@ -52,14 +48,13 @@ TESTPROGRAMS = test_wire
 .SUFFIXES:
 .SUFFIXES: .c .o
 .c.o:
-	@$(LIBTOOL) $(MCOMP) $(COMPILE) $<
+	$(COMPILE) $<
 	@test -f $@ || $(COMPILE) $<
 
 all:	$(TARGETS)
 
 libsanei.a: $(LIBSANEI_OBJS)
 	ar r $@ $(LIBSANEI_OBJS)
-	$(RANLIB) $@
 
 install:
 
@@ -67,7 +62,7 @@ check: test_wire
 	./test_wire
 
 test_wire: test_wire.o libsanei.a
-	@$(LIBTOOL) $(MLINK) $(CC) -o $@ test_wire.o $(LDFLAGS) libsanei.a
+	$(CC) -o $@ test_wire.o $(LDFLAGS) libsanei.a
 
 test_wire.o: test_wire.c
 	$(COMPILE) $<
