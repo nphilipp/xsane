@@ -104,6 +104,10 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+extern void xsane_update_histogram();
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static SANE_Int *preview_gamma_data_red   = 0;
 static SANE_Int *preview_gamma_data_green = 0;
 static SANE_Int *preview_gamma_data_blue  = 0;
@@ -1099,6 +1103,7 @@ static gint event_handler (GtkWidget *window, GdkEvent *event, gpointer data)
 static void start_button_clicked (GtkWidget *widget, gpointer data)
 {
   preview_scan (data);
+  xsane_update_histogram();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

@@ -15,6 +15,8 @@ typedef struct
     int printer_bottomoffset;	/* printer bottom offset in 1/72inch  */
     int tooltips_enabled;	/* should tooltips be disabled? */
     int show_histogram;		/* show histogram ? */
+    int show_standard_options;	/* show standard options ? */
+    int show_advanced_options;	/* show advanced options ? */
     double length_unit;		/* 1.0==mm, 10.0==cm, 25.4==inches, etc. */
     int preserve_preview;	/* save/restore preview image(s)? */
     int preview_own_cmap;	/* install colormap for preview */

@@ -3,7 +3,6 @@ If you have any suggestions: mail to Oliver.Rauch@Wolfsburg.DE
 
 first steps:
  - set resolution in copy-mode at beginning
- - call update_histogram after new preview
  - what happens if backend supports gamma table but does not
    use "custom_gamma"-option and we do a preview scan with enhancement != default ?
  - make better backend-dependend option handling and error handling (mostly done!)

@@ -43,6 +43,8 @@ Preferences preferences =
       10,		/* printer_bottomoffset */
        1,		/* tooltips enabled */
        0,		/* (dont) show histogram */
+       0,		/* (dont) show standard options */
+       0,		/* (dont) show advanced options */
     10.0,		/* length unit */
        1,		/* preserve_preview */
        0,		/* preview_own_cmap */
@@ -81,6 +83,8 @@ desc[] =
     {"printer-bottomoffset", w_int, POFFSET(printer_bottomoffset)},
     {"tool-tips", w_int, POFFSET(tooltips_enabled)},
     {"show-histogram", w_int, POFFSET(show_histogram)},
+    {"show-standard-options", w_int, POFFSET(show_standard_options)},
+    {"show-advanced-options", w_int, POFFSET(show_advanced_options)},
     {"length-unit", w_double, POFFSET(length_unit)},
     {"preserve-preview", w_int, POFFSET(preserve_preview)},
     {"preview-own-cmap", w_int, POFFSET(preview_own_cmap)},

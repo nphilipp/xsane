@@ -511,9 +511,14 @@ void gsg_scale_new (GtkWidget * parent, const char *name, gfloat val,
   gtk_widget_set_usize (scale, 150, 0);
 
   if (automatic)
+  {
     autobutton_new (hbox, elem, scale, tooltips);
+  }
   else
-    gtk_box_pack_end (GTK_BOX (hbox), scale, FALSE, FALSE, 0);
+  {
+    gtk_box_pack_end (GTK_BOX (hbox), scale, FALSE, FALSE, 0); /* make scales fixed */
+/*    gtk_box_pack_end (GTK_BOX (hbox), scale, TRUE, TRUE, 0); */ /* make scales sizeable */
+  }
 
   gtk_range_set_update_policy (GTK_RANGE (scale), GTK_UPDATE_CONTINUOUS);
   gtk_scale_set_value_pos (GTK_SCALE (scale), GTK_POS_TOP);
@@ -691,7 +696,8 @@ void gsg_text_entry_new (GtkWidget * parent, const char *name, const char *val,
 
   text = gtk_entry_new ();
   gtk_entry_set_text (GTK_ENTRY (text), (char *) val);
-  gtk_box_pack_start (GTK_BOX (hbox), text, FALSE, TRUE, 0);
+/*  gtk_box_pack_start (GTK_BOX (hbox), text, FALSE, TRUE, 0); */ /* text entry fixed */
+  gtk_box_pack_start (GTK_BOX (hbox), text, TRUE, TRUE, 0); /* text entry sizeable */
   gtk_signal_connect (GTK_OBJECT (text), "changed",
 		      (GtkSignalFunc) text_entry_callback, elem);
   gsg_set_tooltip (tooltips, text, desc);
