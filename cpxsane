@@ -25,10 +25,15 @@ cp xsanepreferences.c $1/frontend
 
 cp README-PATCH $1/frontend
 
-cp Makefile $1/frontend
+cp Makefile.in $1/frontend
 
 echo "enter "$1
-echo "and type make, then make install as root"
+echo "and type"
+echo " make distclean"
+echo " configure"
+echo " make"
+echo "and if everything worked, as root:
+echo " make install"
 
 else
 echo "ABORTED"

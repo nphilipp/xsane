@@ -34,7 +34,8 @@ Preferences preferences =
   {
        0,		/* no preferred device (must be 0 or malloced!) */
        0,		/* no default filename */
-       0,		/* advanced user */
+       0,		/* no default printercommand */
+     300,		/* printerresolution */
        1,		/* tooltips enabled */
     10.0,		/* length unit */
        1,		/* preserve_preview */
@@ -68,7 +69,8 @@ desc[] =
   {
     {"device", w_string, POFFSET(device)},
     {"filename", w_string, POFFSET(filename)},
-    {"advanced", w_int, POFFSET(advanced)},
+    {"printer-cmd", w_string, POFFSET(printercommand)},
+    {"printer-res", w_int, POFFSET(printerresolution)},
     {"tool-tips", w_int, POFFSET(tooltips_enabled)},
     {"length-unit", w_double, POFFSET(length_unit)},
     {"preserve-preview", w_int, POFFSET(preserve_preview)},

@@ -7,7 +7,8 @@ typedef struct
   {
     const char *device;		/* name of preferred device (or NULL) */
     const char *filename;	/* default filename */
-    int advanced;		/* advanced user? */
+    const char *printercommand;	/* default printercommand */
+    int printerresolution;	/* printer resolution for copy mode  */
     int tooltips_enabled;	/* should tooltips be disabled? */
     double length_unit;		/* 1.0==mm, 10.0==cm, 25.4==inches, etc. */
     int preserve_preview;	/* save/restore preview image(s)? */
