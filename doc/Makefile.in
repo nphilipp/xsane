@@ -53,8 +53,16 @@ install: $(MANPAGES)
 	  $(INSTALL_DATA) $${page} $(mandir)/man1/$${page} || exit 1; \
 	done
 	$(MKDIR) $(datadir)
-	$(INSTALL_DATA) $(srcdir)/sane-*-doc.html $(sanedatadir)/
-	$(INSTALL_DATA) $(srcdir)/*.jpg $(sanedatadir)/
+
+	@for page in *.html; do\
+	  echo installing $${page} in $(sanedatadir)/$${page}...; \
+	  $(INSTALL_DATA) $${page} $(sanedatadir)/$${page} || exit 1; \
+	done
+
+	@for image in *.jpg; do\
+	  echo installing $${image} in $(sanedatadir)/$${image}...; \
+	  $(INSTALL_DATA) $${image} $(sanedatadir)/$${image} || exit 1; \
+	done
 
 docs: ps html
 

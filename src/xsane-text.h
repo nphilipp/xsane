@@ -28,6 +28,8 @@
 #define XSANE_STRSTATUS(status)		_(sane_strstatus(status))
 #define _BGT(text)			dgettext(xsane.backend, text)
 
+#define XSANE_COPYRIGHT_SIGN		_("\251")
+
 #define WINDOW_ABOUT			_("About")
 #define WINDOW_AUTHORIZE		_("authorization")
 #define WINDOW_INFO			_("info")
@@ -40,9 +42,10 @@
 #define WINDOW_ADVANCED_OPTIONS		_("Advanced options")
 #define WINDOW_DEVICE_SELECTION		_("device selection")
 #define WINDOW_PREVIEW			_("Preview")
-#define WINDOW_OUTPUT_FILENAME		_("output filename")
+#define WINDOW_OUTPUT_FILENAME		_("select output filename")
 #define WINDOW_SAVE_SETTINGS		_("save device settings")
 #define WINDOW_LOAD_SETTINGS		_("load device settings")
+#define WINDOW_TMP_PATH			_("select temporary directory")
 
 #define MENU_FILE			_("File")
 #define MENU_PREFERENCES		_("Preferences")
@@ -60,6 +63,8 @@
 #define BUTTON_OK			_("Ok")
 #define BUTTON_APPLY			_("Apply")
 #define BUTTON_CANCEL			_("Cancel")
+#define BUTTON_CONT_AT_OWN_RISK		_("Continue at your own risk")
+#define BUTTON_BROWSE			_("Browse")
 #define BUTTON_CLOSE			_("Close")
 #define BUTTON_OVERWRITE		_("Overwrite")
 #define BUTTON_ADD_AREA			_("Add area")
@@ -79,7 +84,6 @@
 #define RADIO_BUTTON_INCREASE_COUNTER	_("Increase filename counter")
 #define RADIO_BUTTON_SKIP_EXISTING_NRS	_("Skip existing numbers")
 #define RADIO_BUTTON_WINDOW_FIXED	_("Main window size fixed")
-#define RADIO_BUTTON_PRESERVE_PRVIEW	_("Preserve preview image")
 #define RADIO_BUTTON_PRIVATE_COLORMAP	_("Use private colormap")
 
 #define TEXT_AVAILABLE_DEVICES		_("Available devices:")
@@ -111,6 +115,7 @@
 #define TEXT_PACKAGE			_("package")
 #define TEXT_WITH_GIMP_SUPPORT		_("with GIMP support")
 #define TEXT_WITHOUT_GIMP_SUPPORT	_("without GIMP support")
+#define TEXT_GTK_VERSION		_("compiled with GTK-")
 #define TEXT_GIMP_VERSION		_("compiled with GIMP-")
 #define TEXT_UNKNOWN			_("unknown")
 #define TEXT_EMAIL			_("Email:")
@@ -131,6 +136,7 @@
 #define TEXT_SETUP_PRINTER_GAMMA_RED	_("Printer gamma red:")
 #define TEXT_SETUP_PRINTER_GAMMA_GREEN	_("Printer gamma green:")
 #define TEXT_SETUP_PRINTER_GAMMA_BLUE	_("Printer gamma blue:")
+#define TEXT_SETUP_TMP_PATH		_("Temporary directory")
 #define TEXT_SETUP_IMAGE_PERMISSION	_("Image-file permissions")
 #define TEXT_SETUP_DIR_PERMISSION	_("Directory permissions")
 #define TEXT_SETUP_JPEG_QUALITY		_("JPEG image quality")
@@ -292,6 +298,8 @@
 #define DESC_PRINTER_GAMMA_RED		_("Additional gamma value for red component for photocopy")
 #define DESC_PRINTER_GAMMA_GREEN	_("Additional gamma value for green component for photocopy")
 #define DESC_PRINTER_GAMMA_BLUE		_("Additional gamma value for blue component for photocopy")
+#define DESC_TMP_PATH			_("Path to temp directory")
+#define DESC_BUTTON_TMP_PATH_BROWSE	_("Browse for temporary directory")
 #define DESC_JPEG_QUALITY		_("Quality in percent if image is saved as jpeg or tiff with jpeg compression")
 #define DESC_PNG_COMPRESSION		_("Compression if image is saved as png")
 #define DESC_TIFF_COMPRESSION		_("Compression type if multi bit image is saved as tiff")
@@ -306,7 +314,6 @@
 #define DESC_PSFILE_LEFTOFFSET		_("Left offset from the edge of the paper to the usable area in mm for postscript files")
 #define DESC_PSFILE_BOTTOMOFFSET	_("Bottom offset from the edge of the paper to the usable area in mm for postscript files")
 #define DESC_MAIN_WINDOW_FIXED		_("Use fixed main window size or scrolled, resizable main window")
-#define DESC_PREVIEW_PRESERVE		_("Preserve preview image for next program start")
 #define DESC_PREVIEW_COLORMAP		_("Use an own colormap for preview if display depth is 8 bpp")
 #define DESC_PREVIEW_OVERSAMPLING	_("Value with that the calculated preview resolution is multiplied")
 #define DESC_PREVIEW_GAMMA		_("Set gamma correction value for preview image")
@@ -387,8 +394,12 @@
 
 #define WARN_COUNTER_OVERFLOW		_("Filename counter overflow")
 #define WARN_NO_VALUE_CONSTRAINT	_("warning: option has no value constraint")
+#define WARN_XSANE_AS_ROOT		_("You try to run xsane as ROOT, that really is DANGEROUS!\n\n\
+Do not send any bug reports when you\n\
+have any problem while running xsane as root:\n\
+YOU ARE ALONE!\
+")
 
-#define ERR_BUTTON_OK			_("Ok")
 #define ERR_HEADER_ERROR		_("Error")
 #define ERR_HEADER_WARNING		_("Warning")
 

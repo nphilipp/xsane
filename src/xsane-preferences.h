@@ -51,6 +51,7 @@ Preferences_printer_t;
 
 typedef struct
   {
+    char   *tmp_path;			/* path to temporary directory */
     char   *filename;			/* default filename */
     int    image_umask;			/* image umask (permisson mask) */
     int    directory_umask;		/* directory umask (permisson mask) */
@@ -88,7 +89,6 @@ typedef struct
     int    show_resolution_list;	/* show resolution list instead of slider ? */
     double length_unit;			/* 1.0==mm, 10.0==cm, 25.4==inches, etc. */
     int    main_window_fixed;		/* fixed (1) or scrolled (0) main window */
-    int    preserve_preview;		/* save/restore preview image(s)? */
     int    preview_own_cmap;		/* install colormap for preview */
     double preview_oversampling;	/* resolution faktor for previews */
     double preview_gamma;		/* gamma value for previews */

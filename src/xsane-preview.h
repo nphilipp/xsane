@@ -69,7 +69,9 @@ typedef struct
 
   int cursornr;
 
-  guint timer;
+  guint hold_timer;
+
+  char *filename[3];		/* filenames for preview level 0,1,2 */
 
   SANE_Value_Type surface_type;
   SANE_Unit surface_unit;

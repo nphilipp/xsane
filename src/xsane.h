@@ -32,16 +32,15 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.57"
+#define XSANE_VERSION		"0.58"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2000"
 #define XSANE_EMAIL		"Oliver.Rauch@Wolfsburg.DE"
-#define XSANE_COPYRIGHT_TXT	"\251 " XSANE_DATE " " XSANE_COPYRIGHT
+#define XSANE_COPYRIGHT_TXT	XSANE_DATE " " XSANE_COPYRIGHT
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define PATH_SANE_TMP	"/tmp"
 #define XSANE_DEFAULT_UMASK 0007
 #define XSANE_HOLD_TIME 200
 
@@ -508,7 +507,6 @@ typedef struct XsaneSetup
   GtkWidget *preview_threshold_mul_entry;
   GtkWidget *preview_threshold_off_entry;
   GtkWidget *preview_oversampling_entry;
-  GtkWidget *preview_preserve_button;
   GtkWidget *preview_own_cmap_button;
   GtkWidget *doc_viewer_entry;
 
@@ -526,6 +524,7 @@ typedef struct XsaneSetup
   GtkWidget *psfile_leftoffset_entry;
   GtkWidget *psfile_bottomoffset_entry;
   GtkWidget *psfile_height_entry;
+  GtkWidget *tmp_path_entry;
 
   int tiff_compression_nr;
   int tiff_compression_1_nr;

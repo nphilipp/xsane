@@ -20,6 +20,8 @@ mandir = @mandir@
 includedir = @includedir@
 oldincludedir = /usr/include
 
+sanedatadir = @datadir@/sane
+
 MKDIR = $(top_srcdir)/mkinstalldirs
 INSTALL = @INSTALL@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -27,12 +29,16 @@ INSTALL_DATA = @INSTALL_DATA@
 
 @SET_MAKE@
 
-SUBDIRS	= lib @INTLSUB@ frontend @POSUB@ doc
+SUBDIRS	= lib @INTLSUB@ src @POSUB@ doc
 
-all: all-recursive
+all: all-recursive xsanehelp
 
+xsanehelp:
+	echo "netscape ${sanedatadir}/sane-xsane-doc.html" >xsane-help
+	chmod +x xsane-help
 
 install: install-recursive
+	$(INSTALL_PROGRAM) xsane-help $(bindir)/xsane-help
 
 clean: clean-recursive
 

@@ -1,19 +1,7 @@
 
  NEWS:
 
-****************************************************************
-*                                                              *
-* xsane-0.49:                                                  *
-*  The format of the xsane.rc file has changed: the printer    *
-*  geometry values are saved in mm instead of 1/72 inch now.   *
-*  Use xsane-convert-to-0.49 to convert xsane.rc BEFORE you    *
-*  start xsane!                                                *
-*  To compile it call                                          *
-*  make xsane-convert-to-0.49                                  *
-*                                                              *
-****************************************************************
-
-   if you update from a version before xsane-0.48 please
+   if you update from a version before xsane-0.49 please
    read xsane.OLDER_NEWS
 
 

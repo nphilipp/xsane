@@ -448,7 +448,7 @@ void xsane_device_preferences_load_file(char *filename)
                                      ERR_CREATED_FOR_DEVICE, name,
                                      ERR_USED_FOR_DEVICE, xsane.device_set_filename,
                                      ERR_MAY_CAUSE_PROBLEMS);
-          if (xsane_back_gtk_decision(ERR_HEADER_WARNING, (gchar **) error_xpm, buf, ERR_BUTTON_OK, BUTTON_CANCEL, TRUE) == FALSE)
+          if (xsane_back_gtk_decision(ERR_HEADER_WARNING, (gchar **) error_xpm, buf, BUTTON_OK, BUTTON_CANCEL, TRUE) == FALSE)
           { /* cancel */
             close(fd);
             return; 

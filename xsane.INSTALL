@@ -4,7 +4,7 @@ REQUIREMENTS:
   If you installed sane from an rpm binary, you also have to install sane-devel.rpm !!!
   Pay attention the sane-rpm and sane-devel-rpm are of the same version.
   Sane-0.xx is NOT SUPPORTED!
-- You need gtk+-1.2.x and suitable glib-1.2.x
+- You need gtk+-1.2.x and suitable glib-1.2.x (I suggest to use gtk+-1.2.5 or newer)
 - For png support you need libz and libpng installed!
 - For jpeg support you need jpeglib installed!
 - For tiff support you need libtiff installed!
@@ -36,7 +36,7 @@ THE FOLLOWING POSSIBLY HAS TO BE DONE AS ROOT:
 DO THE FOLLOWING AS NORMAL USER:
 - Call xsane. 
 
-- If you get an error message  that libsane-dll.so.1 is not found, you have to
+- If you get an error message  that libsane-dll.so.1 or libsane-so.1 is not found, you have to
   tell your system where the SANE-libraries are installed.
    For linux: edit /etc/ld.so.conf and add a line with the path to the
    libraries (normally /usr/local/lib/sane), then call ldconfig.

@@ -6,13 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-02-08 21:46+0100\n"
+"POT-Creation-Date: 2000-03-06 23:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: ENCODING\n"
+
+#. XSANE_COPYRIGHT_SIGN
+msgid "©"
+msgstr ""
 
 #. WINDOW_ABOUT, MENU_ITEM_ABOUT
 msgid "About"
@@ -63,7 +67,7 @@ msgid "Preview"
 msgstr ""
 
 #. WINDOW_OUTPUT_FILENAME
-msgid "output filename"
+msgid "select output filename"
 msgstr ""
 
 #. WINDOW_SAVE_SETTINGS
@@ -72,6 +76,10 @@ msgstr ""
 
 #. WINDOW_LOAD_SETTINGS
 msgid "load device settings"
+msgstr ""
+
+#. WINDOW_TMP_PATH
+msgid "select temporary directory"
 msgstr ""
 
 #. MENU_FILE
@@ -120,6 +128,14 @@ msgstr ""
 
 #. BUTTON_CANCEL
 msgid "Cancel"
+msgstr ""
+
+#. BUTTON_CONT_AT_OWN_RISK
+msgid "Continue at your own risk"
+msgstr ""
+
+#. BUTTON_BROWSE
+msgid "Browse"
 msgstr ""
 
 #. BUTTON_CLOSE
@@ -318,6 +334,10 @@ msgstr ""
 msgid "without GIMP support"
 msgstr ""
 
+#. TEXT_GTK_VERSION
+msgid "compiled with GTK-"
+msgstr ""
+
 #. TEXT_GIMP_VERSION
 msgid "compiled with GIMP-"
 msgstr ""
@@ -388,6 +408,10 @@ msgstr ""
 
 #. TEXT_SETUP_PRINTER_GAMMA_BLUE
 msgid "Printer gamma blue:"
+msgstr ""
+
+#. TEXT_SETUP_TMP_PATH
+msgid "Temporary directory"
 msgstr ""
 
 #. TEXT_SETUP_IMAGE_PERMISSION
@@ -903,6 +927,14 @@ msgstr ""
 msgid "Additional gamma value for blue component for photocopy"
 msgstr ""
 
+#. DESC_TMP_PATH
+msgid "Path to temp directory"
+msgstr ""
+
+#. DESC_BUTTON_TMP_PATH_BROWSE
+msgid "Browse for temporary directory"
+msgstr ""
+
 #. DESC_JPEG_QUALITY
 msgid ""
 "Quality in percent if image is saved as jpeg or tiff with jpeg compression"
@@ -1233,6 +1265,15 @@ msgstr ""
 
 #. WARN_NO_VALUE_CONSTRAINT
 msgid "warning: option has no value constraint"
+msgstr ""
+
+#. WARN_XSANE_AS_ROOT
+msgid ""
+"You try to run xsane as ROOT, that really is DANGEROUS!\n"
+"\n"
+"Do not send any bug reports when you\n"
+"have any problem while running xsane as root:\n"
+"YOU ARE ALONE!"
 msgstr ""
 
 #. ERR_HEADER_ERROR

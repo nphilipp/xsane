@@ -1,0 +1,102 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.6 [en] (X11; I; Linux 2.2.11 i586) [Netscape]">
+   <meta name="Author" content="Oliver Rauch">
+   <meta name="Description" content="scan, photocopy and fax frontend for SANE">
+   <title>XSane - Setup</title>
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EF" vlink="#51188E" alink="#FF0000">
+&nbsp;
+<dd>
+<img SRC="xsane-logo2.jpg" height=150 width=128 align=LEFT></dd>
+
+<blockquote>
+<h1>
+<u><font color="#009900">Device setup</font></u></h1>
+&nbsp;
+<p>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;</blockquote>
+
+<center><img SRC="sane-xsane-setup-device.jpg" height=593 width=418></center>
+
+<p><br>
+<blockquote>
+<h4>
+THRESHOLD OPTION:</h4>
+
+<blockquote>There are three options available:
+<blockquote>
+<li>
+<b>Standard options window (lineart)</b></li>
+
+<blockquote>The threshold option is kept untouched. If the backend makes
+available a "threshold" option you find it in the standard or advanced
+options window. You have to do a new preview scan to see changes of the
+threshold value.</blockquote>
+
+<li>
+<b>XSane main window (lineart)</b></li>
+
+<blockquote>If the backend makes available a "threshold" option it is moved
+to the main window. The value range is normalized (see <i>THRESHOLD MINIMUM,
+MAXIMUM, MULTIPLIER, OFFSET</i>). You have to do a new preview scan to
+see changes of the threshold value.</blockquote>
+
+<li>
+<b>XSane main window (grayscale->lineart)</b></li>
+
+<blockquote>If the backend makes available a "threshold" option it is moved
+to the main window. The preview scan is done in grayscale mode (see <i>NAME
+OF GRAYSCALE SCANMODE</i>) and transformed to black/white. Changes of the
+threshold value are visible in the preview window without a new preview
+scan. The value range of the threshold option is normalized (see <i>THRESHOLD
+MINIMUM, MAXIMUM, MULTIPLIER, OFFSET</i>).</blockquote>
+</blockquote>
+</blockquote>
+
+<h4>
+THRESHOLD MINIMUM, MAXIMUM, MULTIPLIER, OFFSET:</h4>
+
+<blockquote>These values are used to make the threshold function of the
+backends work the same way XSane does handle it. This is: <b>the threshold
+value defines the brightness level in % that is needed to get a white point.
+A value of 0% creates a totally white image, a value of 100% creates a
+totally black image.</b>
+<br>If the threshold function of the backend does not cover the full range
+(0-100% = white...black), you can reduce the range with the values MINIMUM
+and MAXIMUM. If the backend defines another value range (e.g 0-255 ) you
+have to enter a MULTIPLIER (2.55 for rang 0-255), with the OFFSET value
+you can shift the range linear.
+<p><b>The calculation is:</b>
+<blockquote><b>backend_threshold = OFFSET + MULTIPLIER * xsane_threshold</b></blockquote>
+<b>where the user can select xsane_threshold in the range from MINIMUM
+to MAXIMUM.</b>
+<dd>
+</dd>
+</blockquote>
+
+<h4>
+NAME OF GRAYSCALE SCANMODE:</h4>
+
+<blockquote>If you want to do a grayscale previewscan when lineart scanmode
+is selected, you have to tell xsane the name of the grayscale mode. This
+is because the scanmode is defined by the backend and differen backends
+may use different names. You have to enter the original name (not translated)
+case sensitive (take a look at the scanmode selection menu in the xsane
+main window).
+<br>The name should be something like
+<blockquote><b><i>Gray</i></b></blockquote>
+
+<p><br>
+<hr WIDTH="100%"></blockquote>
+</blockquote>
+
+<center><a href="sane-xsane-doc.html">INDEX</a></center>
+
+<p><br>
+</body>
+</html>

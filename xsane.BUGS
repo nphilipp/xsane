@@ -1,3 +1,6 @@
+----------------------------------------------------------------------------------
+
+1)
 
  - on some systems it is reported that:
    - loading an old preview sometimes produces wrong colors
@@ -21,8 +24,9 @@ Mail to: Oliver.Rauch@Wolfsburg.DE
 
 ----------------------------------------------------------------------------------
 
+2)
+
 - other known bugs:
-  - if you increase the preview size very quick the selection frame is only redrawn
-    in the area of the old, smaller window.
+  - nothing known in the moment
 
-
+----------------------------------------------------------------------------------

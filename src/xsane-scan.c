@@ -444,6 +444,8 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
       {
         if (!xsane.param.last_frame)
         {
+          gdk_input_remove(xsane.input_tag);
+          xsane.input_tag = -1;
           xsane_start_scan();
           break; /* leave while loop */
         }
@@ -1601,6 +1603,8 @@ void xsane_scan_done(SANE_Status status)
     xsane.output_filename = 0;
   }
 
+  xsane.header_size = 0;
+
   if ( ( (status == SANE_STATUS_GOOD) || (status == SANE_STATUS_EOF) ) && (xsane_test_multi_scan()) )
   {
     /* multi scan (eg ADF): scan again			*/
@@ -1618,8 +1622,6 @@ void xsane_scan_done(SANE_Status status)
     xsane_update_histogram();
     xsane_update_param(dialog, 0);
   }
-
-  xsane.header_size = 0;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

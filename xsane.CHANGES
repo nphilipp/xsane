@@ -898,3 +898,46 @@ xsane-0.56 -> 0.57:
    they make problems in the redrawing order and can cause display problems
 
 
+xsane-0.57 -> 0.58:
+-------------------
+
+ - split the preview_event_handler into
+   - preview_press_button_event_handler
+   - preview_motion_event_handler
+   - preview_release_button_event_handler
+
+ - the preview_expose_event_handler now is called twice,
+   the second call has been placed in the preview_event_handler_before
+
+ - reactivated gtk_main_iteration after at the end of motion_event
+
+ - added warning window when xsane is started as root
+
+ - added selection of temporary directory in preferences/setup/saving options
+
+ - added gdk_input_remove(xsane.input_tag); before xsane_start_scan is called
+   in 3-pass scanning mode (suggestion from Heiko_Schroeder@t-online.de)
+
+ - changed output of "xsane -v"
+
+ - in xsane_scan_done moved xsane.header_size = 0; before test for ADF
+   Thanks to Russell Coggrave for the info about it.
+
+ - added gtk_set_locale() before gtk_init()
+
+ - added copright sign "(c)" to translated texts because it is not available on all charsets
+
+ - temporary filenames are created random and unique (mktemp + random number)
+   due to security problems with fixed/calculateable tempfiles.
+
+ - the preview-files are created (empty) at program startuo now
+
+ - when program exits the previews are erased
+   there is no way to store the preview images any more when the program is closed
+
+ - preview_restore_image() creates the xsane-startimage if no preview is stored
+
+ - renamed directory frontend to src
+
+ - create xsane-help script that opens online helpfile
+

@@ -49,4 +49,7 @@ second steps:
  + add color management - may be via xcmsdb
  - average of a multi scan of the same image
 
+ - WIN32 version of xsane
+   - at first for network scanning
+   - may be later we make a sane-WIN32 version so that the backends do work too
 

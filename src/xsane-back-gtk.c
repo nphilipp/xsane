@@ -134,7 +134,7 @@ int xsane_back_gtk_make_path(size_t buf_size, char *buf, const char *prog_name, 
   }
   else /* make path to temporary file */
   {
-    snprintf(buf, buf_size, "%s", PATH_SANE_TMP);
+    snprintf(buf, buf_size, "%s", preferences.tmp_path);
   }
 
   len = strlen(buf);
@@ -196,22 +196,38 @@ int xsane_back_gtk_make_path(size_t buf_size, char *buf, const char *prog_name, 
     len += extra;
   }
 
-  if (location == XSANE_PATH_TMP) /* system tmp dir, add uid */
+  if (location == XSANE_PATH_TMP) /* tmp dir, add uid */
   {
-   char uid_prefix[256];
+   char tmpbuf[256];
    uid_t uid;
+   int rnd;
 
     uid = getuid();
-    snprintf(uid_prefix, sizeof(uid_prefix), "%d-", uid);
+    snprintf(tmpbuf, sizeof(tmpbuf), "%d-", uid);
                                                              
-    extra = strlen(uid_prefix);
+    extra = strlen(tmpbuf);
     if (len + extra >= buf_size)
     {
       goto filename_too_long;
     }
 
-    memcpy(buf + len, uid_prefix, extra);
+    memcpy(buf + len, tmpbuf, extra);
     len += extra;
+
+    if (len + 7 >= buf_size)
+    {
+      goto filename_too_long;
+    }
+
+    memcpy(buf + len, "XXXXXX", 6);		/* create unique filename */
+    len += 6;
+    buf[len] = '\0';
+    memcpy(buf, mktemp(buf), len);
+
+    rnd = random() & 65535;			/* add random number */
+    snprintf(tmpbuf, sizeof(tmpbuf), "%05d-", rnd);
+    memcpy(buf+len, tmpbuf, strlen(tmpbuf));
+    len += 6;
   }
 
   if (dev_name)
@@ -424,7 +440,7 @@ gint xsane_back_gtk_decision(gchar *title, gchar **xpm_d,  gchar *message, gchar
 
 void xsane_back_gtk_message(gchar *title, gchar **icon_xpm, gchar *message, gint wait)
 {
-  xsane_back_gtk_decision(title, icon_xpm, message, ERR_BUTTON_OK, 0 /* no reject text */, wait);
+  xsane_back_gtk_decision(title, icon_xpm, message, BUTTON_OK, 0 /* no reject text */, wait);
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */

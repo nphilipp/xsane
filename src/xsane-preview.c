@@ -162,9 +162,11 @@ static void preview_scan_done(Preview *p);
 static void preview_scan_start(Preview *p);
 static int preview_make_image_path(Preview *p, size_t filename_size, char *filename, int level);
 static void preview_restore_image(Preview *p);
-static gint preview_expose_handler(GtkWidget *window, GdkEvent *event, gpointer data);
-static gint xsane_preview_hold_event(gpointer data);
-static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer data);
+static gint preview_expose_event_handler(GtkWidget *window, GdkEvent *event, gpointer data);
+static gint preview_hold_event_handler(gpointer data);
+static gint preview_motion_event_handler(GtkWidget *window, GdkEvent *event, gpointer data);
+static gint preview_button_press_event_handler(GtkWidget *window, GdkEvent *event, gpointer data);
+static gint preview_button_release_event_handler(GtkWidget *window, GdkEvent *event, gpointer data);
 static void preview_start_button_clicked(GtkWidget *widget, gpointer data);
 static void preview_cancel_button_clicked(GtkWidget *widget, gpointer data);
 static void preview_area_correct(Preview *p);
@@ -882,6 +884,8 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
         }
         else
         {
+          gdk_input_remove(p->input_tag);
+          p->input_tag = -1;
           preview_scan_start(p);
           break;
         }
@@ -1354,7 +1358,7 @@ static int preview_restore_image_from_file(Preview *p, FILE *in, int min_quality
  u_int psurface_type, psurface_unit;
  int image_width, image_height;
  int xoffset, yoffset, width, height;
- int quality;
+ int quality = 0;
  int y;
  float psurface[4];
  size_t nread;
@@ -1375,27 +1379,38 @@ static int preview_restore_image_from_file(Preview *p, FILE *in, int min_quality
     return min_quality;
   }
 
-  if ((psurface_type != p->surface_type) || (psurface_unit != p->surface_unit))
+
+  if (min_quality >= 0) /* read real preview */
   {
-    return min_quality;
+    if ((psurface_type != p->surface_type) || (psurface_unit != p->surface_unit))
+    {
+      return min_quality;
+    }
+
+    xoffset = (p->surface[0] -  psurface[0])/(psurface[2]  - psurface[0]) * image_width;
+    yoffset = (p->surface[1] -  psurface[1])/(psurface[3]  - psurface[1]) * image_height;
+    width   = (p->surface[2] - p->surface[0])/(psurface[2] - psurface[0]) * image_width;
+    height  = (p->surface[3] - p->surface[1])/(psurface[3] - psurface[1]) * image_height;
+    quality = width;
+
+    if ((xoffset < 0) || (yoffset < 0) ||
+        (xoffset+width > image_width) || (yoffset+height > image_height) ||
+        (width == 0) || (height == 0))
+    {
+      return min_quality;
+    }
+
+    if (quality < min_quality)
+    {
+      return min_quality;
+    }
   }
-
-  xoffset = (p->surface[0] -  psurface[0])/(psurface[2]  - psurface[0]) * image_width;
-  yoffset = (p->surface[1] -  psurface[1])/(psurface[3]  - psurface[1]) * image_height;
-  width   = (p->surface[2] - p->surface[0])/(psurface[2] - psurface[0]) * image_width;
-  height  = (p->surface[3] - p->surface[1])/(psurface[3] - psurface[1]) * image_height;
-  quality = width;
-
-  if ((xoffset < 0) || (yoffset < 0) ||
-      (xoffset+width > image_width) || (yoffset+height > image_height) ||
-      (width == 0) || (height == 0))
+  else /* read startimage */
   {
-    return min_quality;
-  }
-
-  if (quality < min_quality)
-  {
-    return min_quality;
+    xoffset = 0;
+    yoffset = 0;
+    width   = image_width;
+    height  = image_height;
   }
 
   p->params.depth   = 8;
@@ -1421,8 +1436,8 @@ static int preview_restore_image_from_file(Preview *p, FILE *in, int min_quality
     fseek(in, (image_width - width - xoffset) * 3, SEEK_CUR); /* skip unused pixel right of area */
   }
 
-  p->image_y = height;
   p->image_x = width;
+  p->image_y = height;
 
   p->image_surface[0] = p->surface[0];
   p->image_surface[1] = p->surface[1];
@@ -1436,26 +1451,37 @@ static int preview_restore_image_from_file(Preview *p, FILE *in, int min_quality
 
 static void preview_restore_image(Preview *p)
 {
- char filename[PATH_MAX];
  FILE *in;
- int status;
  int quality = 0;
  int level;
 
   /* See whether there is a saved preview and load it if present: */
-
   for(level = 2; level >= 0; level--)
   {
-    status = preview_make_image_path(p, sizeof(filename), filename, level);
-    if (status >= 0)
+    if (p->filename[level])
     {
-      in = fopen(filename, "r");
+      in = fopen(p->filename[level], "r");
       if (in)
       {
         quality = preview_restore_image_from_file(p, in, quality);
+        fclose(in);
       }
     }
   }
+
+  if (quality == 0) /* no image found, read startimage */
+  {
+   char filename[PATH_MAX];
+
+    xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", 0, "xsane-startimage", 0, ".pnm", XSANE_PATH_SYSTEM);
+    in = fopen(filename, "r");
+    if (in)
+    {
+      quality = preview_restore_image_from_file(p, in, -1);
+      fclose(in);
+    }
+  }
+
   memcpy(p->image_data_raw, p->image_data_enh, 3 * p->image_width * p->image_height);
 
 /* the following commands may be removed because they are done because a event is emmited */
@@ -1466,26 +1492,12 @@ static void preview_restore_image(Preview *p)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-/* This is executed _after_ the gtkpreview's expose routine.  */
-static gint preview_expose_handler(GtkWidget *window, GdkEvent *event, gpointer data)
+static gint preview_hold_event_handler(gpointer data)
 {
  Preview *p = data;
 
-  p->previous_selection.active = FALSE; /* ok, old selections are overpainted */
-  p->previous_selection_maximum.active = FALSE;
-  preview_draw_selection(p); /* draw selections again */
-
-  return FALSE;
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static gint xsane_preview_hold_event(gpointer data)
-{
- Preview *p = data;
-
-  gtk_timeout_remove(p->timer);
-  p->timer = 0;
+  gtk_timeout_remove(p->hold_timer);
+  p->hold_timer = 0;
 
   preview_draw_selection(p);
   preview_establish_selection(p);
@@ -1495,18 +1507,13 @@ static gint xsane_preview_hold_event(gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer data)
+static gint preview_motion_event_handler(GtkWidget *window, GdkEvent *event, gpointer data)
 {
  Preview *p = data;
  GdkCursor *cursor;
- GdkColor color;
- GdkColormap *colormap; 
  float preview_selection[4];
  float xscale, yscale;
- static int event_count = 0;
  int cursornr;
-
-  event_count++;
 
   preview_get_scale_device_to_preview(p, &xscale, &yscale);
 
@@ -1514,6 +1521,640 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
   preview_selection[1] = yscale * (p->selection.coordinate[1] - p->surface[1]);
   preview_selection[2] = xscale * (p->selection.coordinate[2] - p->surface[0]);
   preview_selection[3] = yscale * (p->selection.coordinate[3] - p->surface[1]);
+
+  if (!p->scanning)
+  {
+    if (p->hold_timer) /* hold timer active? then remove it, we had a motion */
+    {
+      gtk_timeout_remove(p->hold_timer);
+      p->hold_timer = 0;
+    }
+
+    switch (((GdkEventMotion *)event)->state &
+            GDK_Num_Lock & GDK_Caps_Lock & GDK_Shift_Lock & GDK_Scroll_Lock) /* mask all Locks */
+    {
+      case 256: /* left button */
+        if ( (p->selection_drag) || (p->selection_drag_edge) )
+        {
+          p->selection.active = TRUE;
+          p->selection.coordinate[p->selection_xedge] = p->surface[0] + event->motion.x / xscale;
+          p->selection.coordinate[p->selection_yedge] = p->surface[1] + event->motion.y / yscale;
+
+          preview_order_selection(p);
+          preview_bound_selection(p);
+
+          if (preferences.gtk_update_policy == GTK_UPDATE_CONTINUOUS)
+          {
+            preview_draw_selection(p);
+            preview_establish_selection(p);
+          }
+          else if (preferences.gtk_update_policy == GTK_UPDATE_DELAYED)
+          {
+            /* call preview_hold_event_hanlder if mouse is not moved for ??? ms */
+            p->hold_timer = gtk_timeout_add(XSANE_HOLD_TIME, preview_hold_event_handler, (gpointer *) p);
+            preview_update_maximum_output_size(p);
+            preview_draw_selection(p);
+          }
+          else /* discontinous */
+          {
+            preview_update_maximum_output_size(p);
+            preview_draw_selection(p); /* only draw selection, do not update backend geometry options */
+          }
+        }
+
+        cursornr = p->cursornr;
+
+        if ( ( (preview_selection[0] - SELECTION_RANGE_OUT < event->button.x) &&
+               (event->button.x < preview_selection[0] + SELECTION_RANGE_IN) ) && /* left  */
+             ( (preview_selection[1] - SELECTION_RANGE_OUT < event->button.y) &&
+               (event->button.y < preview_selection[1] + SELECTION_RANGE_IN) ) ) /* top */
+        {
+          cursornr = GDK_TOP_LEFT_CORNER;
+        }
+        else if ( ( (preview_selection[2] - SELECTION_RANGE_IN < event->button.x) &&
+                    (event->button.x < preview_selection[2] + SELECTION_RANGE_OUT) ) && /* right */
+                  ( (preview_selection[1] - SELECTION_RANGE_OUT < event->button.y) &&
+                    (event->button.y < preview_selection[1] + SELECTION_RANGE_IN) ) ) /* top */
+        {
+          cursornr = GDK_TOP_RIGHT_CORNER;
+        }
+        else if ( ( (preview_selection[0] - SELECTION_RANGE_OUT < event->button.x) &&
+                    (event->button.x < preview_selection[0] + SELECTION_RANGE_IN) ) && /* left  */
+                  ( (preview_selection[3] - SELECTION_RANGE_IN < event->button.y) &&
+                    (event->button.y < preview_selection[3] + SELECTION_RANGE_OUT) ) ) /* bottom */
+        {
+          cursornr = GDK_BOTTOM_LEFT_CORNER;
+        }
+        else if ( ( (preview_selection[2] - SELECTION_RANGE_IN < event->button.x) &&
+                    (event->button.x < preview_selection[2] + SELECTION_RANGE_OUT) ) && /* right */
+                  ( (preview_selection[3] - SELECTION_RANGE_IN < event->button.y) &&
+                    (event->button.y < preview_selection[3] + SELECTION_RANGE_OUT) ) ) /* bottom */
+        {
+          cursornr = GDK_BOTTOM_RIGHT_CORNER;
+        }
+
+        if (cursornr != p->cursornr)
+        {
+          cursor = gdk_cursor_new(cursornr);	/* set curosr */
+          gdk_window_set_cursor(p->window->window, cursor);
+          gdk_cursor_destroy(cursor);
+          p->cursornr = cursornr;
+        }
+       break;
+
+      case 512: /* middle button */
+      case 1024: /* right button */
+        if (p->selection_drag)
+        {
+         double dx, dy;
+
+          dx = (p->selection_xpos - event->motion.x) / xscale;
+          dy = (p->selection_ypos - event->motion.y) / yscale;
+
+          p->selection_xpos = event->motion.x;
+          p->selection_ypos = event->motion.y;
+
+          if (dx > p->selection.coordinate[0] - p->scanner_surface[0]) 
+          {
+            dx = p->selection.coordinate[0] - p->scanner_surface[0];
+          }
+
+          if (dy > p->selection.coordinate[1] - p->scanner_surface[1])
+          {
+            dy = p->selection.coordinate[1] - p->scanner_surface[1];
+          }
+
+          if (dx < p->selection.coordinate[2] - p->scanner_surface[2])
+          { 
+            dx = p->selection.coordinate[2] - p->scanner_surface[2];
+          }
+
+          if (dy < p->selection.coordinate[3] - p->scanner_surface[3])
+          {
+            dy = p->selection.coordinate[3] - p->scanner_surface[3];
+          }
+
+          p->selection.active = TRUE;
+          p->selection.coordinate[0] -= dx;
+          p->selection.coordinate[1] -= dy;
+          p->selection.coordinate[2] -= dx;
+          p->selection.coordinate[3] -= dy;
+
+          if (preferences.gtk_update_policy == GTK_UPDATE_CONTINUOUS)
+          {
+            preview_draw_selection(p);
+            preview_establish_selection(p);
+          }
+          else if (preferences.gtk_update_policy == GTK_UPDATE_DELAYED)
+          {
+            p->hold_timer = gtk_timeout_add (XSANE_HOLD_TIME, preview_hold_event_handler, (gpointer *) p);
+            preview_update_maximum_output_size(p);
+            preview_draw_selection(p);
+          }
+          else /* discontinuous */
+          {
+            preview_update_maximum_output_size(p);
+            preview_draw_selection(p);
+          }
+        }
+       break;
+
+      default:
+        if ( ( (preview_selection[0] - SELECTION_RANGE_OUT < event->button.x) &&
+               (event->button.x < preview_selection[0] + SELECTION_RANGE_IN) ) && /* left  */
+             ( (preview_selection[1] - SELECTION_RANGE_OUT < event->button.y) &&
+               (event->button.y < preview_selection[1] + SELECTION_RANGE_IN) ) ) /* top */
+        {
+          cursornr = GDK_TOP_LEFT_CORNER;
+        }
+        else if ( ( (preview_selection[2] - SELECTION_RANGE_IN < event->button.x) &&
+                    (event->button.x < preview_selection[2] + SELECTION_RANGE_OUT) ) && /* right */
+                  ( (preview_selection[1] - SELECTION_RANGE_OUT < event->button.y) &&
+                    (event->button.y < preview_selection[1] + SELECTION_RANGE_IN) ) ) /* top */
+        {
+          cursornr = GDK_TOP_RIGHT_CORNER;
+        }
+        else if ( ( (preview_selection[0] - SELECTION_RANGE_OUT < event->button.x) &&
+                    (event->button.x < preview_selection[0] + SELECTION_RANGE_IN) ) && /* left  */
+                  ( (preview_selection[3] - SELECTION_RANGE_IN < event->button.y) &&
+                    (event->button.y < preview_selection[3] + SELECTION_RANGE_OUT) ) ) /* bottom */
+        {
+          cursornr = GDK_BOTTOM_LEFT_CORNER;
+        }
+        else if ( ( (preview_selection[2] - SELECTION_RANGE_IN < event->button.x) &&
+                    (event->button.x < preview_selection[2] + SELECTION_RANGE_OUT) ) && /* right */
+                  ( (preview_selection[3] - SELECTION_RANGE_IN < event->button.y) &&
+                    (event->button.y < preview_selection[3] + SELECTION_RANGE_OUT) ) ) /* bottom */
+        {
+          cursornr = GDK_BOTTOM_RIGHT_CORNER;
+        }
+        else
+        {
+          cursornr = XSANE_CURSOR_PREVIEW;
+        }
+
+        if ((cursornr != p->cursornr) && (p->cursornr != -1))
+        {
+          cursor = gdk_cursor_new(cursornr);	/* set curosr */
+          gdk_window_set_cursor(p->window->window, cursor);
+          gdk_cursor_destroy(cursor);
+          p->cursornr = cursornr;
+        }
+       break;
+    }
+  }
+
+  while (gtk_events_pending()) /* make sure all later events are handled */
+  {
+    gtk_main_iteration();
+  }
+
+ return FALSE;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static gint preview_button_press_event_handler(GtkWidget *window, GdkEvent *event, gpointer data)
+{
+ Preview *p = data;
+ GdkCursor *cursor;
+ float preview_selection[4];
+ float xscale, yscale;
+ int cursornr;
+
+
+  preview_get_scale_device_to_preview(p, &xscale, &yscale);
+
+  preview_selection[0] = xscale * (p->selection.coordinate[0] - p->surface[0]);
+  preview_selection[1] = yscale * (p->selection.coordinate[1] - p->surface[1]);
+  preview_selection[2] = xscale * (p->selection.coordinate[2] - p->surface[0]);
+  preview_selection[3] = yscale * (p->selection.coordinate[3] - p->surface[1]);
+
+  if (!p->scanning)
+  {
+    switch (p->mode)
+    {
+      case MODE_PIPETTE_WHITE:
+      {
+        if ( ( (((GdkEventButton *)event)->button == 1) || (((GdkEventButton *)event)->button == 2) ) && (p->image_data_raw) ) /* left or middle button */
+        {
+         int r,g,b;
+
+          preview_get_color(p, event->button.x, event->button.y, &r, &g, &b);
+
+          xsane.slider_gray.value[2]  = sqrt( (r*r+g*g+b*b) / 3)/2.55;
+
+          if ( (!xsane.enhancement_rgb_default) && (((GdkEventButton *)event)->button == 2) ) /* middle button */
+          {
+            xsane.slider_red.value[2]   = r/2.55;
+            xsane.slider_green.value[2] = g/2.55;
+            xsane.slider_blue.value[2]  = b/2.55;
+          }
+          else
+          {
+            xsane.slider_red.value[2]   = xsane.slider_gray.value[2];
+            xsane.slider_green.value[2] = xsane.slider_gray.value[2];
+            xsane.slider_blue.value[2]  = xsane.slider_gray.value[2];
+          }
+
+          if (xsane.slider_gray.value[2] < 2)
+          {
+            xsane.slider_gray.value[2] = 2;
+          }
+          if (xsane.slider_gray.value[1] >= xsane.slider_gray.value[2])
+          {
+            xsane.slider_gray.value[1] = xsane.slider_gray.value[2]-1;
+            if (xsane.slider_gray.value[0] >= xsane.slider_gray.value[1])
+            {
+              xsane.slider_gray.value[0] = xsane.slider_gray.value[1]-1;
+            }
+          }
+
+          if (xsane.slider_red.value[2] < 2)
+          {
+            xsane.slider_red.value[2] = 2;
+          }
+          if (xsane.slider_red.value[1] >= xsane.slider_red.value[2])
+          {
+            xsane.slider_red.value[1] = xsane.slider_red.value[2]-1;
+            if (xsane.slider_red.value[0] >= xsane.slider_red.value[1])
+            {
+              xsane.slider_red.value[0] = xsane.slider_red.value[1]-1;
+            }
+          }
+
+          if (xsane.slider_green.value[2] < 2)
+          {
+            xsane.slider_green.value[2] = 2;
+          }
+          if (xsane.slider_green.value[1] >= xsane.slider_green.value[2])
+          {
+            xsane.slider_green.value[1] = xsane.slider_green.value[2]-1;
+            if (xsane.slider_green.value[0] >= xsane.slider_green.value[1])
+            {
+              xsane.slider_green.value[0] = xsane.slider_green.value[1]-1;
+            }
+          }
+
+          if (xsane.slider_blue.value[2] < 2)
+          {
+            xsane.slider_blue.value[2] = 2;
+          }
+          if (xsane.slider_blue.value[1] >= xsane.slider_blue.value[2])
+          {
+            xsane.slider_blue.value[1] = xsane.slider_blue.value[2]-1;
+            if (xsane.slider_blue.value[0] >= xsane.slider_blue.value[1])
+            {
+              xsane.slider_blue.value[0] = xsane.slider_blue.value[1]-1;
+            }
+          }
+
+          xsane_enhancement_by_histogram();
+        }
+
+        p->mode = MODE_NORMAL;
+
+        cursor = gdk_cursor_new(XSANE_CURSOR_PREVIEW);
+        gdk_window_set_cursor(p->window->window, cursor);
+        gdk_cursor_destroy(cursor);
+        p->cursornr = XSANE_CURSOR_PREVIEW;
+      }
+      break;
+
+      case MODE_PIPETTE_GRAY:
+      {
+        if ( ( (((GdkEventButton *)event)->button == 1) || (((GdkEventButton *)event)->button == 2) ) && (p->image_data_raw) ) /* left or middle button */
+        {
+         int r,g,b;
+
+          preview_get_color(p, event->button.x, event->button.y, &r, &g, &b);
+
+          xsane.slider_gray.value[1] = sqrt( (r*r+g*g+b*b) / 3)/2.55;
+
+          if ( (!xsane.enhancement_rgb_default) && (((GdkEventButton *)event)->button == 2) ) /* middle button */
+          {
+            xsane.slider_red.value[1]   = r/2.55;
+            xsane.slider_green.value[1] = g/2.55;
+            xsane.slider_blue.value[1]  = b/2.55;
+          }
+          else
+          {
+            xsane.slider_red.value[1]   = xsane.slider_gray.value[1];
+            xsane.slider_green.value[1] = xsane.slider_gray.value[1];
+            xsane.slider_blue.value[1]  = xsane.slider_gray.value[1];
+          }
+
+          if (xsane.slider_gray.value[1] == 0)
+          {
+            xsane.slider_gray.value[1] += 1;
+          }
+          if (xsane.slider_gray.value[1] == 100)
+          {
+            xsane.slider_gray.value[1] -= 1;
+          }
+          if (xsane.slider_gray.value[1] >= xsane.slider_gray.value[2])
+          {
+            xsane.slider_gray.value[2] = xsane.slider_gray.value[1]+1;
+          }
+          if (xsane.slider_gray.value[1] <= xsane.slider_gray.value[0])
+          {
+            xsane.slider_gray.value[0] = xsane.slider_gray.value[1]-1;
+          }
+
+          if (xsane.slider_red.value[1] == 0)
+          {
+            xsane.slider_red.value[1] += 1;
+          }
+          if (xsane.slider_red.value[1] == 100)
+          {
+            xsane.slider_red.value[1] -= 1;
+          }
+          if (xsane.slider_red.value[1] >= xsane.slider_red.value[2])
+          {
+            xsane.slider_red.value[2] = xsane.slider_red.value[1]+1;
+          }
+          if (xsane.slider_red.value[1] <= xsane.slider_red.value[0])
+          {
+            xsane.slider_red.value[0] = xsane.slider_red.value[1]-1;
+          }
+
+          if (xsane.slider_green.value[1] == 0)
+          {
+            xsane.slider_green.value[1] += 1;
+          }
+          if (xsane.slider_green.value[1] == 100)
+          {
+            xsane.slider_green.value[1] -= 1;
+          }
+          if (xsane.slider_green.value[1] >= xsane.slider_green.value[2])
+          {
+            xsane.slider_green.value[2] = xsane.slider_green.value[1]+1;
+          }
+          if (xsane.slider_green.value[1] <= xsane.slider_green.value[0])
+          {
+            xsane.slider_green.value[0] = xsane.slider_green.value[1]-1;
+          }
+
+          if (xsane.slider_blue.value[1] == 0)
+          {
+            xsane.slider_blue.value[1] += 1;
+          }
+          if (xsane.slider_blue.value[1] == 100)
+          {
+            xsane.slider_blue.value[1] -= 1;
+          }
+          if (xsane.slider_blue.value[1] >= xsane.slider_blue.value[2])
+          {
+            xsane.slider_blue.value[2] = xsane.slider_blue.value[1]+1;
+          }
+          if (xsane.slider_blue.value[1] <= xsane.slider_blue.value[0])
+          {
+            xsane.slider_blue.value[0] = xsane.slider_blue.value[1]-1;
+          }
+
+          xsane_enhancement_by_histogram();
+        }
+
+        p->mode = MODE_NORMAL;
+
+        cursor = gdk_cursor_new(XSANE_CURSOR_PREVIEW);
+        gdk_window_set_cursor(p->window->window, cursor);
+        gdk_cursor_destroy(cursor);
+        p->cursornr = XSANE_CURSOR_PREVIEW;
+      }
+      break;
+
+      case MODE_PIPETTE_BLACK:
+      {
+        if ( ( (((GdkEventButton *)event)->button == 1) || (((GdkEventButton *)event)->button == 2) ) &&
+             (p->image_data_raw) ) /* left or middle button */
+        {
+         int r,g,b;
+
+          preview_get_color(p, event->button.x, event->button.y, &r, &g, &b);
+
+          xsane.slider_gray.value[0] = sqrt( (r*r+g*g+b*b) / 3)/2.55;
+
+          if ( (!xsane.enhancement_rgb_default) && (((GdkEventButton *)event)->button == 2) ) /* middle button */
+          {
+            xsane.slider_red.value[0]   = r/2.55;
+            xsane.slider_green.value[0] = g/2.55;
+            xsane.slider_blue.value[0]  = b/2.55;
+          }
+          else
+          {
+            xsane.slider_red.value[0]   = xsane.slider_gray.value[0];
+            xsane.slider_green.value[0] = xsane.slider_gray.value[0];
+            xsane.slider_blue.value[0]  = xsane.slider_gray.value[0];
+          }
+
+          if (xsane.slider_gray.value[0] > 98)
+          {
+            xsane.slider_gray.value[0] = 98;
+          }
+          if (xsane.slider_gray.value[1] <= xsane.slider_gray.value[0])
+          {
+            xsane.slider_gray.value[1] = xsane.slider_gray.value[0]+1;
+            if (xsane.slider_gray.value[2] <= xsane.slider_gray.value[1])
+            {
+              xsane.slider_gray.value[2] = xsane.slider_gray.value[1]+1;
+            }
+          }
+
+          if (xsane.slider_red.value[0] > 98)
+          {
+            xsane.slider_red.value[0] = 98;
+          }
+          if (xsane.slider_red.value[1] <= xsane.slider_red.value[0])
+          {
+            xsane.slider_red.value[1] = xsane.slider_red.value[0]+1;
+            if (xsane.slider_red.value[2] <= xsane.slider_red.value[1])
+            {
+              xsane.slider_red.value[2] = xsane.slider_red.value[1]+1;
+            }
+          }
+
+          if (xsane.slider_green.value[0] > 98)
+          {
+            xsane.slider_green.value[0] = 98;
+          }
+          if (xsane.slider_green.value[1] <= xsane.slider_green.value[0])
+          {
+            xsane.slider_green.value[1] = xsane.slider_green.value[0]+1;
+            if (xsane.slider_green.value[2] <= xsane.slider_green.value[1])
+            {
+              xsane.slider_green.value[2] = xsane.slider_green.value[1]+1;
+            }
+          }
+
+          if (xsane.slider_blue.value[0] > 98)
+          {
+            xsane.slider_blue.value[0] = 98;
+          }
+          if (xsane.slider_blue.value[1] <= xsane.slider_blue.value[0])
+          {
+            xsane.slider_blue.value[1] = xsane.slider_blue.value[0]+1;
+            if (xsane.slider_blue.value[2] <= xsane.slider_blue.value[1])
+            {
+              xsane.slider_blue.value[2] = xsane.slider_blue.value[1]+1;
+            }
+          }
+
+          xsane_enhancement_by_histogram();
+        }
+
+        p->mode = MODE_NORMAL;
+
+        cursor = gdk_cursor_new(XSANE_CURSOR_PREVIEW);
+        gdk_window_set_cursor(p->window->window, cursor);
+        gdk_cursor_destroy(cursor);
+        p->cursornr = XSANE_CURSOR_PREVIEW;
+      }
+      break;
+
+      case MODE_NORMAL:
+      {
+        if (p->show_selection)
+        {
+          switch (((GdkEventButton *)event)->button)
+          {
+            case 1: /* left button */
+              p->selection_xedge = -1;
+              if ( (preview_selection[0] - SELECTION_RANGE_OUT < event->button.x) &&
+                   (event->button.x < preview_selection[0] + SELECTION_RANGE_IN) ) /* left */
+              {
+                p->selection_xedge = 0;
+              }
+              else if ( (preview_selection[2] - SELECTION_RANGE_IN < event->button.x) &&
+                        (event->button.x < preview_selection[2] + SELECTION_RANGE_OUT) ) /* right */
+              {
+                p->selection_xedge = 2;
+              }
+
+              p->selection_yedge = -1;
+              if ( (preview_selection[1] - SELECTION_RANGE_OUT < event->button.y) &&
+                   (event->button.y < preview_selection[1] + SELECTION_RANGE_IN) ) /* top */
+              {
+                p->selection_yedge = 1;
+              }
+              else if ( (preview_selection[3] - SELECTION_RANGE_IN < event->button.y) &&
+                        (event->button.y < preview_selection[3] + SELECTION_RANGE_OUT) ) /* bottom */
+              {
+                p->selection_yedge = 3;
+              }
+
+              if ( (p->selection_xedge != -1) && (p->selection_yedge != -1) ) /* move edge */
+              {
+                p->selection_drag_edge = TRUE;
+                p->selection.coordinate[p->selection_xedge] = p->surface[0] + event->button.x / xscale;
+                p->selection.coordinate[p->selection_yedge] = p->surface[1] + event->button.y / yscale;
+                preview_draw_selection(p);
+              }
+              else /* select new area */
+              {
+                p->selection_xedge = 2;
+                p->selection_yedge = 3;
+                p->selection.coordinate[0] = p->surface[0] + event->button.x / xscale;
+                p->selection.coordinate[1] = p->surface[1] + event->button.y / yscale;
+                p->selection_drag = TRUE;
+
+                cursornr = GDK_CROSS;
+                cursor = gdk_cursor_new(cursornr);	/* set curosr */
+                gdk_window_set_cursor(p->window->window, cursor);
+                gdk_cursor_destroy(cursor);
+                p->cursornr = cursornr;
+              }
+             break;
+
+            case 2: /* middle button */
+            case 3: /* right button */
+              if ( (preview_selection[0]-SELECTION_RANGE_OUT < event->button.x) &&
+                   (preview_selection[2]+SELECTION_RANGE_OUT > event->button.x) &&
+                   (preview_selection[1]-SELECTION_RANGE_OUT < event->button.y) &&
+                   (preview_selection[3]+SELECTION_RANGE_OUT > event->button.y) )
+              {
+                p->selection_drag = TRUE;
+                p->selection_xpos = event->button.x;
+                p->selection_ypos = event->button.y;
+
+                cursornr = GDK_HAND2;
+                cursor = gdk_cursor_new(cursornr);	/* set curosr */
+                gdk_window_set_cursor(p->window->window, cursor);
+                gdk_cursor_destroy(cursor);
+                p->cursornr = cursornr;
+              }
+             break;
+
+            default:
+             break;
+          }
+        }
+      }
+    }
+  }
+
+ return FALSE;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static gint preview_button_release_event_handler(GtkWidget *window, GdkEvent *event, gpointer data)
+{
+ Preview *p = data;
+ GdkCursor *cursor;
+ float preview_selection[4];
+ float xscale, yscale;
+ int cursornr;
+
+
+  preview_get_scale_device_to_preview(p, &xscale, &yscale);
+
+  preview_selection[0] = xscale * (p->selection.coordinate[0] - p->surface[0]);
+  preview_selection[1] = yscale * (p->selection.coordinate[1] - p->surface[1]);
+  preview_selection[2] = xscale * (p->selection.coordinate[2] - p->surface[0]);
+  preview_selection[3] = yscale * (p->selection.coordinate[3] - p->surface[1]);
+
+  if (!p->scanning)
+  {
+    if (p->show_selection)
+    {
+      switch (((GdkEventButton *)event)->button)
+      {
+        case 1: /* left button */
+        case 2: /* middle button */
+        case 3: /* right button */
+          if (p->selection_drag)
+          {
+            cursornr = XSANE_CURSOR_PREVIEW;
+            cursor = gdk_cursor_new(cursornr);	/* set curosr */
+            gdk_window_set_cursor(p->window->window, cursor);
+            gdk_cursor_destroy(cursor);
+            p->cursornr = cursornr;
+          }
+
+          preview_draw_selection(p);
+          preview_establish_selection(p);
+
+          p->selection_drag_edge = FALSE;
+          p->selection_drag = FALSE;
+        break;
+
+        default:
+         break;
+      }
+    }
+  }
+
+ return FALSE;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static gint preview_expose_event_handler(GtkWidget *window, GdkEvent *event, gpointer data)
+{
+ Preview *p = data;
+ GdkColor color;
+ GdkColormap *colormap; 
 
   if (event->type == GDK_EXPOSE)
   {
@@ -1534,8 +2175,6 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
       color.blue  = 30000;
       gdk_color_alloc(colormap, &color);
       gdk_gc_set_foreground(p->gc_selection_maximum, &color);   
-
-      preview_paint_image(p);
     }
     else
     {
@@ -1544,604 +2183,6 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
       preview_draw_selection(p); /* draw selections again */
     }
   }
-  else if (!p->scanning)
-  {
-    switch (event->type)
-    {
-      case GDK_UNMAP:
-      case GDK_MAP:
-	break;
-
-      case GDK_BUTTON_PRESS:
-        switch (p->mode)
-        {
-          case MODE_PIPETTE_WHITE:
-          {
-            if ( ( (((GdkEventButton *)event)->button == 1) || (((GdkEventButton *)event)->button == 2) ) &&
-                 (p->image_data_raw) ) /* left or middle button */
-            {
-             int r,g,b;
-
-              preview_get_color(p, event->button.x, event->button.y, &r, &g, &b);
-
-              xsane.slider_gray.value[2]  = sqrt( (r*r+g*g+b*b) / 3)/2.55;
-
-              if ( (!xsane.enhancement_rgb_default) && (((GdkEventButton *)event)->button == 2) ) /* middle button */
-              {
-                xsane.slider_red.value[2]   = r/2.55;
-                xsane.slider_green.value[2] = g/2.55;
-                xsane.slider_blue.value[2]  = b/2.55;
-              }
-              else
-              {
-                xsane.slider_red.value[2]   = xsane.slider_gray.value[2];
-                xsane.slider_green.value[2] = xsane.slider_gray.value[2];
-                xsane.slider_blue.value[2]  = xsane.slider_gray.value[2];
-              }
-
-              if (xsane.slider_gray.value[2] < 2)
-              {
-                xsane.slider_gray.value[2] = 2;
-              }
-              if (xsane.slider_gray.value[1] >= xsane.slider_gray.value[2])
-              {
-                xsane.slider_gray.value[1] = xsane.slider_gray.value[2]-1;
-                if (xsane.slider_gray.value[0] >= xsane.slider_gray.value[1])
-                {
-                  xsane.slider_gray.value[0] = xsane.slider_gray.value[1]-1;
-                }
-              }
-
-              if (xsane.slider_red.value[2] < 2)
-              {
-                xsane.slider_red.value[2] = 2;
-              }
-              if (xsane.slider_red.value[1] >= xsane.slider_red.value[2])
-              {
-                xsane.slider_red.value[1] = xsane.slider_red.value[2]-1;
-                if (xsane.slider_red.value[0] >= xsane.slider_red.value[1])
-                {
-                  xsane.slider_red.value[0] = xsane.slider_red.value[1]-1;
-                }
-              }
-
-              if (xsane.slider_green.value[2] < 2)
-              {
-                xsane.slider_green.value[2] = 2;
-              }
-              if (xsane.slider_green.value[1] >= xsane.slider_green.value[2])
-              {
-                xsane.slider_green.value[1] = xsane.slider_green.value[2]-1;
-                if (xsane.slider_green.value[0] >= xsane.slider_green.value[1])
-                {
-                  xsane.slider_green.value[0] = xsane.slider_green.value[1]-1;
-                }
-              }
-
-              if (xsane.slider_blue.value[2] < 2)
-              {
-                xsane.slider_blue.value[2] = 2;
-              }
-              if (xsane.slider_blue.value[1] >= xsane.slider_blue.value[2])
-              {
-                xsane.slider_blue.value[1] = xsane.slider_blue.value[2]-1;
-                if (xsane.slider_blue.value[0] >= xsane.slider_blue.value[1])
-                {
-                  xsane.slider_blue.value[0] = xsane.slider_blue.value[1]-1;
-                }
-              }
-
-              xsane_enhancement_by_histogram();
-            }
-
-            p->mode = MODE_NORMAL;
-
-            cursor = gdk_cursor_new(XSANE_CURSOR_PREVIEW);
-            gdk_window_set_cursor(p->window->window, cursor);
-            gdk_cursor_destroy(cursor);
-            p->cursornr = XSANE_CURSOR_PREVIEW;
-          }
-          break;
-
-          case MODE_PIPETTE_GRAY:
-          {
-            if ( ( (((GdkEventButton *)event)->button == 1) || (((GdkEventButton *)event)->button == 2) ) &&
-                 (p->image_data_raw) ) /* left or middle button */
-            {
-             int r,g,b;
-
-              preview_get_color(p, event->button.x, event->button.y, &r, &g, &b);
-
-              xsane.slider_gray.value[1] = sqrt( (r*r+g*g+b*b) / 3)/2.55;
-
-              if ( (!xsane.enhancement_rgb_default) && (((GdkEventButton *)event)->button == 2) ) /* middle button */
-              {
-                xsane.slider_red.value[1]   = r/2.55;
-                xsane.slider_green.value[1] = g/2.55;
-                xsane.slider_blue.value[1]  = b/2.55;
-              }
-              else
-              {
-                xsane.slider_red.value[1]   = xsane.slider_gray.value[1];
-                xsane.slider_green.value[1] = xsane.slider_gray.value[1];
-                xsane.slider_blue.value[1]  = xsane.slider_gray.value[1];
-              }
-
-              if (xsane.slider_gray.value[1] == 0)
-              {
-                xsane.slider_gray.value[1] += 1;
-              }
-              if (xsane.slider_gray.value[1] == 100)
-              {
-                xsane.slider_gray.value[1] -= 1;
-              }
-              if (xsane.slider_gray.value[1] >= xsane.slider_gray.value[2])
-              {
-                xsane.slider_gray.value[2] = xsane.slider_gray.value[1]+1;
-              }
-              if (xsane.slider_gray.value[1] <= xsane.slider_gray.value[0])
-              {
-                xsane.slider_gray.value[0] = xsane.slider_gray.value[1]-1;
-              }
-
-              if (xsane.slider_red.value[1] == 0)
-              {
-                xsane.slider_red.value[1] += 1;
-              }
-              if (xsane.slider_red.value[1] == 100)
-              {
-                xsane.slider_red.value[1] -= 1;
-              }
-              if (xsane.slider_red.value[1] >= xsane.slider_red.value[2])
-              {
-                xsane.slider_red.value[2] = xsane.slider_red.value[1]+1;
-              }
-              if (xsane.slider_red.value[1] <= xsane.slider_red.value[0])
-              {
-                xsane.slider_red.value[0] = xsane.slider_red.value[1]-1;
-              }
-
-              if (xsane.slider_green.value[1] == 0)
-              {
-                xsane.slider_green.value[1] += 1;
-              }
-              if (xsane.slider_green.value[1] == 100)
-              {
-                xsane.slider_green.value[1] -= 1;
-              }
-              if (xsane.slider_green.value[1] >= xsane.slider_green.value[2])
-              {
-                xsane.slider_green.value[2] = xsane.slider_green.value[1]+1;
-              }
-              if (xsane.slider_green.value[1] <= xsane.slider_green.value[0])
-              {
-                xsane.slider_green.value[0] = xsane.slider_green.value[1]-1;
-              }
-
-              if (xsane.slider_blue.value[1] == 0)
-              {
-                xsane.slider_blue.value[1] += 1;
-              }
-              if (xsane.slider_blue.value[1] == 100)
-              {
-                xsane.slider_blue.value[1] -= 1;
-              }
-              if (xsane.slider_blue.value[1] >= xsane.slider_blue.value[2])
-              {
-                xsane.slider_blue.value[2] = xsane.slider_blue.value[1]+1;
-              }
-              if (xsane.slider_blue.value[1] <= xsane.slider_blue.value[0])
-              {
-                xsane.slider_blue.value[0] = xsane.slider_blue.value[1]-1;
-              }
-
-              xsane_enhancement_by_histogram();
-            }
-
-            p->mode = MODE_NORMAL;
-
-            cursor = gdk_cursor_new(XSANE_CURSOR_PREVIEW);
-            gdk_window_set_cursor(p->window->window, cursor);
-            gdk_cursor_destroy(cursor);
-            p->cursornr = XSANE_CURSOR_PREVIEW;
-          }
-          break;
-
-          case MODE_PIPETTE_BLACK:
-          {
-            if ( ( (((GdkEventButton *)event)->button == 1) || (((GdkEventButton *)event)->button == 2) ) &&
-                 (p->image_data_raw) ) /* left or middle button */
-            {
-             int r,g,b;
-
-              preview_get_color(p, event->button.x, event->button.y, &r, &g, &b);
-
-              xsane.slider_gray.value[0] = sqrt( (r*r+g*g+b*b) / 3)/2.55;
-
-              if ( (!xsane.enhancement_rgb_default) && (((GdkEventButton *)event)->button == 2) ) /* middle button */
-              {
-                xsane.slider_red.value[0]   = r/2.55;
-                xsane.slider_green.value[0] = g/2.55;
-                xsane.slider_blue.value[0]  = b/2.55;
-              }
-              else
-              {
-                xsane.slider_red.value[0]   = xsane.slider_gray.value[0];
-                xsane.slider_green.value[0] = xsane.slider_gray.value[0];
-                xsane.slider_blue.value[0]  = xsane.slider_gray.value[0];
-              }
-
-              if (xsane.slider_gray.value[0] > 98)
-              {
-                xsane.slider_gray.value[0] = 98;
-              }
-              if (xsane.slider_gray.value[1] <= xsane.slider_gray.value[0])
-              {
-                xsane.slider_gray.value[1] = xsane.slider_gray.value[0]+1;
-                if (xsane.slider_gray.value[2] <= xsane.slider_gray.value[1])
-                {
-                  xsane.slider_gray.value[2] = xsane.slider_gray.value[1]+1;
-                }
-              }
-
-              if (xsane.slider_red.value[0] > 98)
-              {
-                xsane.slider_red.value[0] = 98;
-              }
-              if (xsane.slider_red.value[1] <= xsane.slider_red.value[0])
-              {
-                xsane.slider_red.value[1] = xsane.slider_red.value[0]+1;
-                if (xsane.slider_red.value[2] <= xsane.slider_red.value[1])
-                {
-                  xsane.slider_red.value[2] = xsane.slider_red.value[1]+1;
-                }
-              }
-
-              if (xsane.slider_green.value[0] > 98)
-              {
-                xsane.slider_green.value[0] = 98;
-              }
-              if (xsane.slider_green.value[1] <= xsane.slider_green.value[0])
-              {
-                xsane.slider_green.value[1] = xsane.slider_green.value[0]+1;
-                if (xsane.slider_green.value[2] <= xsane.slider_green.value[1])
-                {
-                  xsane.slider_green.value[2] = xsane.slider_green.value[1]+1;
-                }
-              }
-
-              if (xsane.slider_blue.value[0] > 98)
-              {
-                xsane.slider_blue.value[0] = 98;
-              }
-              if (xsane.slider_blue.value[1] <= xsane.slider_blue.value[0])
-              {
-                xsane.slider_blue.value[1] = xsane.slider_blue.value[0]+1;
-                if (xsane.slider_blue.value[2] <= xsane.slider_blue.value[1])
-                {
-                  xsane.slider_blue.value[2] = xsane.slider_blue.value[1]+1;
-                }
-              }
-
-              xsane_enhancement_by_histogram();
-            }
-
-            p->mode = MODE_NORMAL;
-
-            cursor = gdk_cursor_new(XSANE_CURSOR_PREVIEW);
-            gdk_window_set_cursor(p->window->window, cursor);
-            gdk_cursor_destroy(cursor);
-            p->cursornr = XSANE_CURSOR_PREVIEW;
-          }
-          break;
-
-          case MODE_NORMAL:
-          {
-            if (p->show_selection)
-            {
-              switch (((GdkEventButton *)event)->button)
-              {
-                case 1: /* left button */
-                  p->selection_xedge = -1;
-                  if ( (preview_selection[0] - SELECTION_RANGE_OUT < event->button.x) &&
-                       (event->button.x < preview_selection[0] + SELECTION_RANGE_IN) ) /* left */
-                  {
-                    p->selection_xedge = 0;
-                  }
-                  else if ( (preview_selection[2] - SELECTION_RANGE_IN < event->button.x) &&
-                            (event->button.x < preview_selection[2] + SELECTION_RANGE_OUT) ) /* right */
-                  {
-                    p->selection_xedge = 2;
-                  }
-  
-                  p->selection_yedge = -1;
-                  if ( (preview_selection[1] - SELECTION_RANGE_OUT < event->button.y) &&
-                       (event->button.y < preview_selection[1] + SELECTION_RANGE_IN) ) /* top */
-                  {
-                    p->selection_yedge = 1;
-                  }
-                  else if ( (preview_selection[3] - SELECTION_RANGE_IN < event->button.y) &&
-                            (event->button.y < preview_selection[3] + SELECTION_RANGE_OUT) ) /* bottom */
-                  {
-                    p->selection_yedge = 3;
-                  }
-
-                  if ( (p->selection_xedge != -1) && (p->selection_yedge != -1) ) /* move edge */
-                  {
-                    p->selection_drag_edge = TRUE;
-                    p->selection.coordinate[p->selection_xedge] = p->surface[0] + event->button.x / xscale;
-                    p->selection.coordinate[p->selection_yedge] = p->surface[1] + event->button.y / yscale;
-                    preview_draw_selection(p);
-                  }
-                  else /* select new area */
-                  {
-                    p->selection_xedge = 2;
-                    p->selection_yedge = 3;
-                    p->selection.coordinate[0] = p->surface[0] + event->button.x / xscale;
-                    p->selection.coordinate[1] = p->surface[1] + event->button.y / yscale;
-                    p->selection_drag = TRUE;
-
-                    cursornr = GDK_CROSS;
-                    cursor = gdk_cursor_new(cursornr);	/* set curosr */
-                    gdk_window_set_cursor(p->window->window, cursor);
-                    gdk_cursor_destroy(cursor);
-                    p->cursornr = cursornr;
-                  }
-                 break;
-
-                case 2: /* middle button */
-                case 3: /* right button */
-                  if ( (preview_selection[0]-SELECTION_RANGE_OUT < event->button.x) &&
-                       (preview_selection[2]+SELECTION_RANGE_OUT > event->button.x) &&
-                       (preview_selection[1]-SELECTION_RANGE_OUT < event->button.y) &&
-                       (preview_selection[3]+SELECTION_RANGE_OUT > event->button.y) )
-                  {
-                    p->selection_drag = TRUE;
-                    p->selection_xpos = event->button.x;
-                    p->selection_ypos = event->button.y;
-
-                    cursornr = GDK_HAND2;
-                    cursor = gdk_cursor_new(cursornr);	/* set curosr */
-                    gdk_window_set_cursor(p->window->window, cursor);
-                    gdk_cursor_destroy(cursor);
-                    p->cursornr = cursornr;
-                  }
-                 break;
-
-                default:
-                 break;
-              }
-            }
-          }
-        }
-       break;
-
-      case GDK_BUTTON_RELEASE:
-        if (p->show_selection)
-        {
-          switch (((GdkEventButton *)event)->button)
-          {
-            case 1: /* left button */
-            case 2: /* middle button */
-            case 3: /* right button */
-              if (p->selection_drag)
-              {
-                cursornr = XSANE_CURSOR_PREVIEW;
-                cursor = gdk_cursor_new(cursornr);	/* set curosr */
-                gdk_window_set_cursor(p->window->window, cursor);
-                gdk_cursor_destroy(cursor);
-                p->cursornr = cursornr;
-              }
-
-              preview_draw_selection(p);
-              preview_establish_selection(p);
-
-              p->selection_drag_edge = FALSE;
-              p->selection_drag = FALSE;
-            default:
-           break;
-          }
-        }
-       break;
-
-      case GDK_MOTION_NOTIFY:
-        if (p->timer) /* hold timer active? then remove it, we had a motion */
-        {
-          gtk_timeout_remove(p->timer);
-          p->timer = 0;
-        }
-
-        switch (((GdkEventMotion *)event)->state &
-                GDK_Num_Lock & GDK_Caps_Lock & GDK_Shift_Lock & GDK_Scroll_Lock) /* mask all Locks */
-        {
-          case 256: /* left button */
-            if ( (p->selection_drag) || (p->selection_drag_edge) )
-            {
-              p->selection.active = TRUE;
-              p->selection.coordinate[p->selection_xedge] = p->surface[0] + event->motion.x / xscale;
-              p->selection.coordinate[p->selection_yedge] = p->surface[1] + event->motion.y / yscale;
-
-              preview_order_selection(p);
-              preview_bound_selection(p);
-
-              if (preferences.gtk_update_policy == GTK_UPDATE_CONTINUOUS)
-              {
-                preview_draw_selection(p);
-                preview_establish_selection(p);
-              }
-              else if (preferences.gtk_update_policy == GTK_UPDATE_DELAYED)
-              {
-                /* call xsane_preview_hold_event if mouse is not moved for ??? ms */
-                p->timer = gtk_timeout_add(XSANE_HOLD_TIME, xsane_preview_hold_event, (gpointer *) p);
-                preview_update_maximum_output_size(p);
-                preview_draw_selection(p);
-              }
-              else /* discontinous */
-              {
-                preview_update_maximum_output_size(p);
-                preview_draw_selection(p); /* only draw selection, do not update backend geometry options */
-              }
-            }
-
-            cursornr = p->cursornr;
-
-            if ( ( (preview_selection[0] - SELECTION_RANGE_OUT < event->button.x) &&
-                   (event->button.x < preview_selection[0] + SELECTION_RANGE_IN) ) && /* left  */
-                 ( (preview_selection[1] - SELECTION_RANGE_OUT < event->button.y) &&
-                   (event->button.y < preview_selection[1] + SELECTION_RANGE_IN) ) ) /* top */
-            {
-              cursornr = GDK_TOP_LEFT_CORNER;
-            }
-            else if ( ( (preview_selection[2] - SELECTION_RANGE_IN < event->button.x) &&
-                        (event->button.x < preview_selection[2] + SELECTION_RANGE_OUT) ) && /* right */
-                      ( (preview_selection[1] - SELECTION_RANGE_OUT < event->button.y) &&
-                        (event->button.y < preview_selection[1] + SELECTION_RANGE_IN) ) ) /* top */
-            {
-              cursornr = GDK_TOP_RIGHT_CORNER;
-            }
-            else if ( ( (preview_selection[0] - SELECTION_RANGE_OUT < event->button.x) &&
-                        (event->button.x < preview_selection[0] + SELECTION_RANGE_IN) ) && /* left  */
-                      ( (preview_selection[3] - SELECTION_RANGE_IN < event->button.y) &&
-                        (event->button.y < preview_selection[3] + SELECTION_RANGE_OUT) ) ) /* bottom */
-            {
-              cursornr = GDK_BOTTOM_LEFT_CORNER;
-            }
-            else if ( ( (preview_selection[2] - SELECTION_RANGE_IN < event->button.x) &&
-                        (event->button.x < preview_selection[2] + SELECTION_RANGE_OUT) ) && /* right */
-                      ( (preview_selection[3] - SELECTION_RANGE_IN < event->button.y) &&
-                        (event->button.y < preview_selection[3] + SELECTION_RANGE_OUT) ) ) /* bottom */
-            {
-              cursornr = GDK_BOTTOM_RIGHT_CORNER;
-            }
-
-            if (cursornr != p->cursornr)
-            {
-              cursor = gdk_cursor_new(cursornr);	/* set curosr */
-              gdk_window_set_cursor(p->window->window, cursor);
-              gdk_cursor_destroy(cursor);
-              p->cursornr = cursornr;
-            }
-           break;
-
-          case 512: /* middle button */
-          case 1024: /* right button */
-            if (p->selection_drag)
-            {
-             double dx, dy;
-
-              dx = (p->selection_xpos - event->motion.x) / xscale;
-              dy = (p->selection_ypos - event->motion.y) / yscale;
-
-              p->selection_xpos = event->motion.x;
-              p->selection_ypos = event->motion.y;
-
-              if (dx > p->selection.coordinate[0] - p->scanner_surface[0]) 
-              {
-                dx = p->selection.coordinate[0] - p->scanner_surface[0];
-              }
-
-              if (dy > p->selection.coordinate[1] - p->scanner_surface[1])
-              {
-                dy = p->selection.coordinate[1] - p->scanner_surface[1];
-              }
-
-              if (dx < p->selection.coordinate[2] - p->scanner_surface[2])
-              { 
-                dx = p->selection.coordinate[2] - p->scanner_surface[2];
-              }
-
-              if (dy < p->selection.coordinate[3] - p->scanner_surface[3])
-              {
-                dy = p->selection.coordinate[3] - p->scanner_surface[3];
-              }
-
-              p->selection.active = TRUE;
-              p->selection.coordinate[0] -= dx;
-              p->selection.coordinate[1] -= dy;
-              p->selection.coordinate[2] -= dx;
-              p->selection.coordinate[3] -= dy;
-
-              if (preferences.gtk_update_policy == GTK_UPDATE_CONTINUOUS)
-              {
-                preview_draw_selection(p);
-                preview_establish_selection(p);
-              }
-              else if (preferences.gtk_update_policy == GTK_UPDATE_DELAYED)
-              {
-                p->timer = gtk_timeout_add (XSANE_HOLD_TIME, xsane_preview_hold_event, (gpointer *) p);
-                preview_update_maximum_output_size(p);
-                preview_draw_selection(p);
-              }
-              else /* discontinuous */
-              {
-                preview_update_maximum_output_size(p);
-                preview_draw_selection(p);
-              }
-            }
-           break;
-
-          default:
-            if ( ( (preview_selection[0] - SELECTION_RANGE_OUT < event->button.x) &&
-                   (event->button.x < preview_selection[0] + SELECTION_RANGE_IN) ) && /* left  */
-                 ( (preview_selection[1] - SELECTION_RANGE_OUT < event->button.y) &&
-                   (event->button.y < preview_selection[1] + SELECTION_RANGE_IN) ) ) /* top */
-            {
-              cursornr = GDK_TOP_LEFT_CORNER;
-            }
-            else if ( ( (preview_selection[2] - SELECTION_RANGE_IN < event->button.x) &&
-                        (event->button.x < preview_selection[2] + SELECTION_RANGE_OUT) ) && /* right */
-                      ( (preview_selection[1] - SELECTION_RANGE_OUT < event->button.y) &&
-                        (event->button.y < preview_selection[1] + SELECTION_RANGE_IN) ) ) /* top */
-            {
-              cursornr = GDK_TOP_RIGHT_CORNER;
-            }
-            else if ( ( (preview_selection[0] - SELECTION_RANGE_OUT < event->button.x) &&
-                        (event->button.x < preview_selection[0] + SELECTION_RANGE_IN) ) && /* left  */
-                      ( (preview_selection[3] - SELECTION_RANGE_IN < event->button.y) &&
-                        (event->button.y < preview_selection[3] + SELECTION_RANGE_OUT) ) ) /* bottom */
-            {
-              cursornr = GDK_BOTTOM_LEFT_CORNER;
-            }
-            else if ( ( (preview_selection[2] - SELECTION_RANGE_IN < event->button.x) &&
-                        (event->button.x < preview_selection[2] + SELECTION_RANGE_OUT) ) && /* right */
-                      ( (preview_selection[3] - SELECTION_RANGE_IN < event->button.y) &&
-                        (event->button.y < preview_selection[3] + SELECTION_RANGE_OUT) ) ) /* bottom */
-            {
-              cursornr = GDK_BOTTOM_RIGHT_CORNER;
-            }
-            else
-            {
-              cursornr = XSANE_CURSOR_PREVIEW;
-            }
-
-            if ((cursornr != p->cursornr) && (p->cursornr != -1))
-            {
-              cursor = gdk_cursor_new(cursornr);	/* set curosr */
-              gdk_window_set_cursor(p->window->window, cursor);
-              gdk_cursor_destroy(cursor);
-              p->cursornr = cursornr;
-            }
-           break;
-        }
-	break;
-
-      default:
-#if 0
-	fprintf(stderr, "preview_event_handler: unhandled event type %d\n", event->type);
-#endif
-	break;
-    }
-  }
-
-/* 1=> speed but errors while drawing selection frame */
-#if 0
-  while (gtk_events_pending()) /* make sure all selection draw is done now */
-  {
-    gtk_main_iteration();
-  }
-#endif
-
-  event_count--;
 
  return FALSE;
 }
@@ -2164,7 +2205,6 @@ static void preview_cancel_button_clicked(GtkWidget *widget, gpointer data)
 
 Preview *preview_new(GSGDialog *dialog)
 {
- static int first_time = 1;
  GtkWidget *table, *frame;
  GtkSignalFunc signal_func;
  GtkWidgetClass *class;
@@ -2174,6 +2214,7 @@ Preview *preview_new(GSGDialog *dialog)
  Preview *p;
  int i;
  char buf[256];
+ char filename[PATH_MAX];
 
   p = malloc(sizeof(*p));
   if (!p)
@@ -2186,11 +2227,24 @@ Preview *preview_new(GSGDialog *dialog)
   p->dialog    = dialog;
   p->input_tag = -1;
 
-  if (first_time)
+  gtk_preview_set_gamma(1.0);
+  gtk_preview_set_install_cmap(preferences.preview_own_cmap);
+
+
+  for(i=0; i<=2; i++) /* create random filenames for previews */
   {
-    first_time = 0;
-    gtk_preview_set_gamma(1.0);
-    gtk_preview_set_install_cmap(preferences.preview_own_cmap);
+    if (preview_make_image_path(p, sizeof(filename), filename, i)>=0)
+    {
+      umask(0177);			/* create temporary file with "-rw-------" permissions */
+      fclose(fopen(filename, "w"));	/* make sure file exists */
+      umask(XSANE_DEFAULT_UMASK);	/* define new file permissions */
+      p->filename[i] = strdup(filename);/* store filename */
+    }
+    else
+    {
+      fprintf(stderr, "could not create filename for preview-level %d\n", i);
+      p->filename[i] = NULL;
+    }
   }
 
   p->preset_width  = INF;	/* use full scanarea */
@@ -2284,34 +2338,36 @@ Preview *preview_new(GSGDialog *dialog)
   gtk_table_attach(GTK_TABLE(table), p->vruler, 0, 1, 1, 2, 0, GTK_FILL, 0, 0);
 
   /* the preview area */
-
   p->window = gtk_preview_new(GTK_PREVIEW_COLOR);
   gtk_preview_set_expand(GTK_PREVIEW(p->window), TRUE);
-  gtk_widget_set_events(p->window,
-			GDK_EXPOSURE_MASK | GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK |
+
+  gtk_widget_set_events(p->window, GDK_EXPOSURE_MASK | GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK |
 			GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK);
-  gtk_signal_connect(GTK_OBJECT(p->window), "event", (GtkSignalFunc) preview_event_handler, p);
-  gtk_signal_connect_after(GTK_OBJECT(p->window), "expose_event",  (GtkSignalFunc) preview_expose_handler, p);
+
+  /* the first expose_event is responsible to draw the selection frame when the user moved/changed it */
+  gtk_signal_connect(GTK_OBJECT(p->window), "expose_event", (GtkSignalFunc) preview_expose_event_handler, p);
+  gtk_signal_connect(GTK_OBJECT(p->window), "button_press_event",   (GtkSignalFunc) preview_button_press_event_handler, p);
+  gtk_signal_connect(GTK_OBJECT(p->window), "motion_notify_event",  (GtkSignalFunc) preview_motion_event_handler, p);
+  gtk_signal_connect(GTK_OBJECT(p->window), "button_release_event", (GtkSignalFunc) preview_button_release_event_handler, p);
   gtk_signal_connect_after(GTK_OBJECT(p->window), "size_allocate", (GtkSignalFunc) preview_area_resize_handler, p);
-  gtk_object_set_data(GTK_OBJECT(p->window), "PreviewPointer", p);
+  /* the second expose_event is responsible to draw the selection frame when the window was covered */
+  gtk_signal_connect_after(GTK_OBJECT(p->window), "expose_event",  (GtkSignalFunc) preview_expose_event_handler, p);
 
   /* Connect the motion-notify events of the preview area with the rulers.  Nifty stuff!  */
-
   class = GTK_WIDGET_CLASS(GTK_OBJECT(p->hruler)->klass);
   signal_func = (GtkSignalFunc) class->motion_notify_event;
   gtk_signal_connect_object(GTK_OBJECT(p->window), "motion_notify_event", signal_func, GTK_OBJECT(p->hruler));
-
   class = GTK_WIDGET_CLASS(GTK_OBJECT(p->vruler)->klass);
   signal_func = (GtkSignalFunc) class->motion_notify_event;
   gtk_signal_connect_object(GTK_OBJECT(p->window), "motion_notify_event", signal_func, GTK_OBJECT(p->vruler));
+
 
   p->viewport = gtk_frame_new(/* label */ 0);
   gtk_frame_set_shadow_type(GTK_FRAME(p->viewport), GTK_SHADOW_IN);
   gtk_container_add(GTK_CONTAINER(p->viewport), p->window);
 
   gtk_table_attach(GTK_TABLE(table), p->viewport, 1, 2, 1, 2,
-		   GTK_FILL | GTK_EXPAND | GTK_SHRINK,
-		   GTK_FILL | GTK_EXPAND | GTK_SHRINK, 0, 0);
+		   GTK_FILL | GTK_EXPAND | GTK_SHRINK, GTK_FILL | GTK_EXPAND | GTK_SHRINK, 0, 0);
 
   preview_update_surface(p, 0);
 
@@ -2548,9 +2604,9 @@ void preview_update_surface(Preview *p, int surface_changed)
 
   if (surface_changed)
   {
-    preview_area_resize(p); /* correct rulers */
-    preview_bound_selection(p); /* make sure selection is not larger than surface */
-    preview_restore_image(p); /* draw selected surface of the image */
+    preview_area_resize(p);	/* correct rulers */
+    preview_bound_selection(p);	/* make sure selection is not larger than surface */
+    preview_restore_image(p);	/* draw selected surface of the image */
   }
   else
   {
@@ -2684,9 +2740,8 @@ static void preview_save_image_file(Preview *p, FILE *out)
 
 static void preview_save_image(Preview *p)
 {
- char filename[PATH_MAX];
  FILE *out;
- int status;
+ int level=0;
 
   if (!p->image_data_enh)
   {
@@ -2698,26 +2753,26 @@ static void preview_save_image(Preview *p)
        GROSSLY_EQUAL(p->max_scanner_surface[2], p->surface[2]) &&
        GROSSLY_EQUAL(p->max_scanner_surface[3], p->surface[3]) )
   {
-    status = preview_make_image_path(p, sizeof(filename), filename, 0);
+    level = 0;
   }
   else if ( GROSSLY_EQUAL(p->scanner_surface[0], p->surface[0]) && /* user defined surface */
             GROSSLY_EQUAL(p->scanner_surface[1], p->surface[1]) &&
             GROSSLY_EQUAL(p->scanner_surface[2], p->surface[2]) &&
             GROSSLY_EQUAL(p->scanner_surface[3], p->surface[3]) )
   {
-    status = preview_make_image_path(p, sizeof(filename), filename, 1);
+    level = 1;
   }
   else /* zoom area */
   {
-    status = preview_make_image_path(p, sizeof(filename), filename, 2);
+    level = 2;
   }
 
-  if (status >= 0)
+  if (p->filename[level])
   {
     /* save preview image */
-    remove(filename); /* remove existing preview */
-    umask(0177); /* creare temporary file with "-rw-------" permissions */
-    out = fopen(filename, "w");
+//    remove(p->filename[level]); /* remove existing preview */
+    umask(0177); /* create temporary file with "-rw-------" permissions */
+    out = fopen(p->filename[level], "w");
     umask(XSANE_DEFAULT_UMASK); /* define new file permissions */
 
     preview_save_image_file(p, out);
@@ -2729,8 +2784,6 @@ static void preview_save_image(Preview *p)
 void preview_destroy(Preview *p)
 {
  int level;
- int status;
- char filename[PATH_MAX];
 
   if (p->scanning)
   {
@@ -2741,15 +2794,11 @@ void preview_destroy(Preview *p)
     preview_save_image(p);
   }
 
-  if (!preferences.preserve_preview)
+  for(level = 0; level <= 2; level++)
   {
-    for(level = 0; level <= 2; level++)
+    if (p->filename[level])
     {
-      status = preview_make_image_path(p, sizeof(filename), filename, level);
-      if (status >= 0)
-      {
-        remove(filename); /* remove existing preview */
-      }
+      remove(p->filename[level]); /* remove existing preview */
     }
   }
 

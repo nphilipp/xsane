@@ -17,6 +17,7 @@ backend			version		reported xsane-version	remark
  sane-net
  sane-pnm		sane-1.0.1		0.52 and earlier
  sane-sharp		?			0.47
+ sane-snapscan					0.57, <0.57 makes problems
  sane-tamarack		?			0.40
  sane-umax 		1.0-build-*		all
  sane-v4l2		?			0.51		not in the sane package
@@ -36,7 +37,6 @@ unknown state:
  sane-qcam
  sane-ricoh
  sane-sagitta
- sane-snapscan
  sane-st400
  sane-s9036
  sane-sp15c  

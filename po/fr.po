@@ -5,13 +5,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.55\n"
-"POT-Creation-Date: 2000-02-08 21:46+0100\n"
+"POT-Creation-Date: 2000-03-06 23:48+0100\n"
 "PO-Revision-Date: 2000-02-09 21:00+01:00\n"
 "Last-Translator: Laurent Grawet <laurent.grawet@europe.com>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#. XSANE_COPYRIGHT_SIGN
+msgid "©"
+msgstr ""
 
 #. WINDOW_ABOUT, MENU_ITEM_ABOUT
 msgid "About"
@@ -62,7 +66,8 @@ msgid "Preview"
 msgstr "Aperçu"
 
 #. WINDOW_OUTPUT_FILENAME
-msgid "output filename"
+#, fuzzy
+msgid "select output filename"
 msgstr "nom du fichier de sortie"
 
 #. WINDOW_SAVE_SETTINGS
@@ -72,6 +77,11 @@ msgstr "enregistrer les paramètres du périphérique"
 #. WINDOW_LOAD_SETTINGS
 msgid "load device settings"
 msgstr "charger les paramètres du périphérique"
+
+#. WINDOW_TMP_PATH
+#, fuzzy
+msgid "select temporary directory"
+msgstr "Impossible de déterminer le répertoire personnel"
 
 #. MENU_FILE
 msgid "File"
@@ -120,6 +130,14 @@ msgstr "Appliquer"
 #. BUTTON_CANCEL
 msgid "Cancel"
 msgstr "Annuler"
+
+#. BUTTON_CONT_AT_OWN_RISK
+msgid "Continue at your own risk"
+msgstr ""
+
+#. BUTTON_BROWSE
+msgid "Browse"
+msgstr ""
 
 #. BUTTON_CLOSE
 msgid "Close"
@@ -317,6 +335,11 @@ msgstr "avec support GIMP"
 msgid "without GIMP support"
 msgstr "sans support GIMP"
 
+#. TEXT_GTK_VERSION
+#, fuzzy
+msgid "compiled with GTK-"
+msgstr "compilé avec GIMP-"
+
 #. TEXT_GIMP_VERSION
 msgid "compiled with GIMP-"
 msgstr "compilé avec GIMP-"
@@ -388,6 +411,11 @@ msgstr "Gamma vert de l'imprimante:"
 #. TEXT_SETUP_PRINTER_GAMMA_BLUE
 msgid "Printer gamma blue:"
 msgstr "Gamma bleu de l'imprimante:"
+
+#. TEXT_SETUP_TMP_PATH
+#, fuzzy
+msgid "Temporary directory"
+msgstr "Impossible de déterminer le répertoire personnel"
 
 #. TEXT_SETUP_IMAGE_PERMISSION
 msgid "Image-file permissions"
@@ -918,6 +946,15 @@ msgstr "Gamma additionnel pour la composante verte pour photocopie"
 msgid "Additional gamma value for blue component for photocopy"
 msgstr "Gamma additionnel pour la composante bleue pour photocopie"
 
+#. DESC_TMP_PATH
+#, fuzzy
+msgid "Path to temp directory"
+msgstr "Impossible de déterminer le répertoire personnel"
+
+#. DESC_BUTTON_TMP_PATH_BROWSE
+msgid "Browse for temporary directory"
+msgstr ""
+
 #. DESC_JPEG_QUALITY
 msgid ""
 "Quality in percent if image is saved as jpeg or tiff with jpeg compression"
@@ -1276,6 +1313,15 @@ msgstr "Dépassement du compteur de nom de fichier"
 
 #. WARN_NO_VALUE_CONSTRAINT
 msgid "warning: option has no value constraint"
+msgstr ""
+
+#. WARN_XSANE_AS_ROOT
+msgid ""
+"You try to run xsane as ROOT, that really is DANGEROUS!\n"
+"\n"
+"Do not send any bug reports when you\n"
+"have any problem while running xsane as root:\n"
+"YOU ARE ALONE!"
 msgstr ""
 
 #. ERR_HEADER_ERROR

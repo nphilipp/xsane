@@ -50,7 +50,7 @@ GMOFILES = @GMOFILES@
 DISTFILES = ChangeLog Makefile.in xsane-pot.sed sane-text.h $(PACKAGE).pot \
 $(POFILES) $(GMOFILES) $(SOURCES)
 
-POTFILES = $(top_srcdir)/frontend/xsane-text.h $(srcdir)/sane-text.h
+POTFILES = $(top_srcdir)/src/xsane-text.h $(srcdir)/sane-text.h
 
 CATALOGS = @CATALOGS@
 CATOBJEXT = @CATOBJEXT@

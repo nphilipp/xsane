@@ -37,6 +37,7 @@
 
 Preferences preferences =
   {
+       "/tmp/",		/* default path to temporary directory */
        0,		/* no default filename */
        0137,		/* image umask (permission mask for -rw-r------) */
        0027,		/* image umask (permission mask for -rwxr-x----) */
@@ -70,7 +71,6 @@ Preferences preferences =
        0,		/* (dont) show resolution list */
       10.0,		/* length unit */
        1,		/* main window fixed (1) or scrolled (0) */
-       1,		/* preserve_preview */
        0,		/* preview_own_cmap */
        1.5,		/* preview_oversampling */
        1.0,		/* preview_gamma */
@@ -107,6 +107,7 @@ static struct
   }
 desc[] =
   {
+    {"tmp-path",			xsane_rc_pref_string,	POFFSET(tmp_path)},
     {"filename",			xsane_rc_pref_string,	POFFSET(filename)},
     {"image-umask",			xsane_rc_pref_int,	POFFSET(image_umask)},
     {"directory-umask",			xsane_rc_pref_int,	POFFSET(directory_umask)},
@@ -140,7 +141,6 @@ desc[] =
     {"show-resolution-list",		xsane_rc_pref_int,	POFFSET(show_resolution_list)},
     {"length-unit",			xsane_rc_pref_double,	POFFSET(length_unit)},
     {"main-window-fixed",		xsane_rc_pref_int,	POFFSET(main_window_fixed)},
-    {"preserve-preview",		xsane_rc_pref_int,	POFFSET(preserve_preview)},
     {"preview-own-cmap",		xsane_rc_pref_int,	POFFSET(preview_own_cmap)},
     {"preview-oversampling",		xsane_rc_pref_double,	POFFSET(preview_oversampling)},
     {"preview-gamma",			xsane_rc_pref_double,	POFFSET(preview_gamma)},

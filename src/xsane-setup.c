@@ -324,7 +324,6 @@ static void xsane_setup_tiff_compression_1_callback(GtkWidget *widget, gpointer 
 static void xsane_setup_display_apply_changes(GtkWidget *widget, gpointer data)
 {
   xsane_update_bool(xsane_setup.main_window_fixed_button,         &preferences.main_window_fixed);
-  xsane_update_bool(xsane_setup.preview_preserve_button,          &preferences.preserve_preview);
   xsane_update_bool(xsane_setup.preview_own_cmap_button,          &preferences.preview_own_cmap);
 
   xsane_update_double(xsane_setup.preview_gamma_entry,            &preferences.preview_gamma);
@@ -385,6 +384,12 @@ static void xsane_setup_saving_apply_changes(GtkWidget *widget, gpointer data)
   preferences.tiff_compression_nr   = xsane_setup.tiff_compression_nr;
   preferences.tiff_compression_1_nr = xsane_setup.tiff_compression_1_nr;
 #endif
+
+  if (preferences.tmp_path)
+  {
+    free((void *) preferences.tmp_path);
+  }
+  preferences.tmp_path = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.tmp_path_entry)));
 
   xsane_update_bool(xsane_setup.overwrite_warning_button,         &preferences.overwrite_warning);
   xsane_update_bool(xsane_setup.increase_filename_counter_button, &preferences.increase_filename_counter);
@@ -936,6 +941,23 @@ static void xsane_printer_notebook(GtkWidget *notebook)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static void xsane_setup_browse_tmp_path_callback(GtkWidget *widget, gpointer data)
+{
+ gchar *old_tmp_path;
+ char tmp_path[256];
+ char windowname[256];
+
+  old_tmp_path = gtk_entry_get_text(GTK_ENTRY(xsane_setup.tmp_path_entry));
+  strncpy(tmp_path, old_tmp_path, sizeof(tmp_path));
+
+  snprintf(windowname, sizeof(windowname), "%s %s", prog_name, WINDOW_TMP_PATH);
+  xsane_back_gtk_get_filename(windowname, tmp_path, sizeof(tmp_path), tmp_path, TRUE);
+
+  gtk_entry_set_text(GTK_ENTRY(xsane_setup.tmp_path_entry), tmp_path);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void xsane_saving_notebook(GtkWidget *notebook)
 {
  GtkWidget *setup_vbox, *vbox, *hbox, *button, *label, *text, *frame;
@@ -981,7 +1003,6 @@ static void xsane_saving_notebook(GtkWidget *notebook)
 
 
   /* Saving options notebook page */
-
   setup_vbox = gtk_vbox_new(FALSE, 5);
 
   label = gtk_label_new(NOTEBOOK_SAVING_OPTIONS);
@@ -998,6 +1019,36 @@ static void xsane_saving_notebook(GtkWidget *notebook)
   gtk_container_add(GTK_CONTAINER(frame), vbox);
   gtk_widget_show(vbox);
 
+
+
+  /* tmp path : */
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+
+  label = gtk_label_new(TEXT_SETUP_TMP_PATH);
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_widget_show(label);
+
+  text = gtk_entry_new_with_max_length(255);
+  gtk_widget_set_usize(text, 70, 0); /* set minimum size */
+  xsane_back_gtk_set_tooltip(dialog->tooltips, text, DESC_TMP_PATH);
+  gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.tmp_path);
+  gtk_box_pack_start(GTK_BOX(hbox), text, TRUE, TRUE, 4);
+  gtk_widget_show(text);
+  xsane_setup.tmp_path_entry = text;
+
+  button = gtk_button_new_with_label(BUTTON_BROWSE); 
+  gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_browse_tmp_path_callback, NULL);
+  gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 2);
+  xsane_back_gtk_set_tooltip(dialog->tooltips, button, DESC_BUTTON_TMP_PATH_BROWSE);
+  gtk_widget_show(button);
+
+  gtk_widget_show(hbox);
+
+  xsane_separator_new(vbox, 4);
+
+
+  /* permissions */
   xsane_setup.image_permissions     = 0777-preferences.image_umask;
   xsane_permission_box(vbox, XSANE_GTK_NAME_IMAGE_PERMISSIONS, TEXT_SETUP_IMAGE_PERMISSION, &xsane_setup.image_permissions,
                        TRUE /* header */, FALSE /* x sens */, FALSE /* user sens */);
@@ -1515,20 +1566,6 @@ static void xsane_display_notebook(GtkWidget *notebook)
   gtk_widget_show(button);
   gtk_widget_show(hbox);
   xsane_setup.main_window_fixed_button = button;
-
-
-  /* preserve preview image: */
-
-  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
-  button = gtk_check_button_new_with_label(RADIO_BUTTON_PRESERVE_PRVIEW);
-  xsane_back_gtk_set_tooltip(dialog->tooltips, button, DESC_PREVIEW_PRESERVE);
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), preferences.preserve_preview);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 2);
-  gtk_widget_show(button);
-  gtk_widget_show(hbox);
-  xsane_setup.preview_preserve_button = button;
-
 
   /* private colormap: */
 

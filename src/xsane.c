@@ -2300,7 +2300,7 @@ static void xsane_about_dialog(GtkWidget *widget, gpointer data)
   gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0);
   gtk_widget_show(label);
 
-  snprintf(buf, sizeof(buf), "%s\n", XSANE_COPYRIGHT_TXT);
+  snprintf(buf, sizeof(buf), "%s %s\n", XSANE_COPYRIGHT_SIGN, XSANE_COPYRIGHT_TXT);
   label = gtk_label_new(buf);
   gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0);
   gtk_widget_show(label);
@@ -4469,7 +4469,8 @@ static void xsane_choose_device(void)
 
   xsane_set_window_icon(choose_device_dialog, (gchar **) 0);
 
-  label = gtk_label_new(XSANE_COPYRIGHT_TXT);
+  snprintf(buf, sizeof(buf), "%s %s\n", XSANE_COPYRIGHT_SIGN, XSANE_COPYRIGHT_TXT);
+  label = gtk_label_new(buf);
   gtk_widget_show(label);
   gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 2);
 
@@ -4582,7 +4583,9 @@ static void xsane_init(int argc, char **argv)
   char filename[PATH_MAX];
   struct stat st;
 
+  gtk_set_locale();
   gtk_init(&argc, &argv);
+
 #ifdef HAVE_LIBGIMP_GIMP_H
   gtk_rc_parse(gimp_gtkrc());
 
@@ -4639,27 +4642,44 @@ static void xsane_init(int argc, char **argv)
          break;
 
         case 'v': /* --version */
+          printf("%s-%s\n", prog_name, XSANE_VERSION);
+          printf("  %s %s\n", TEXT_PACKAGE, PACKAGE_VERSION);
+          printf("  SANE-%d.%d\n", SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
+                                 SANE_VERSION_MINOR(xsane.sane_backend_versioncode));
+
+          printf("  %s%d.%d.%d\n", TEXT_GTK_VERSION, GTK_MAJOR_VERSION, GTK_MINOR_VERSION, GTK_MICRO_VERSION);
+
 #ifdef HAVE_LIBGIMP_GIMP_H
-          printf("%s-%s, %s \"%s\", SANE-%d.%d, %s, %s%s\n",
-                 prog_name,
-                 XSANE_VERSION, 
-                 TEXT_PACKAGE,
-                 PACKAGE_VERSION,
-                 SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
-                 SANE_VERSION_MINOR(xsane.sane_backend_versioncode),
-                 TEXT_WITH_GIMP_SUPPORT,
-                 TEXT_GIMP_VERSION,
-                 GIMP_VERSION);
+          printf("  %s, %s%s\n", TEXT_WITH_GIMP_SUPPORT, TEXT_GIMP_VERSION, GIMP_VERSION);
 #else
-          printf("%s-%s, %s \"%s\", SANE-%d.%d, %s\n",
-                 prog_name,
-                 XSANE_VERSION, 
-                 TEXT_PACKAGE,
-                 PACKAGE_VERSION,
-                 SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
-                 SANE_VERSION_MINOR(xsane.sane_backend_versioncode),
-                 TEXT_WITHOUT_GIMP_SUPPORT);
+          printf("  %s\n", TEXT_WITHOUT_GIMP_SUPPORT);
 #endif
+
+          printf("  %s ", TEXT_OUTPUT_FORMATS);
+
+#ifdef HAVE_LIBJPEG
+          printf("jpeg, ");
+#endif
+
+#ifdef HAVE_LIBPNG
+#ifdef HAVE_LIBZ
+          printf("png, ");
+#endif
+#endif
+
+          printf("pnm, ");
+          printf("ps, ");
+          printf("raw");
+
+#ifdef SUPPORT_RGBA
+          printf(", rgba");
+#endif
+
+#ifdef HAVE_LIBTIFF
+          printf(", tiff");
+#endif
+          printf("\n");
+
           exit(0);
 
         case 'd': /* --device-settings */
@@ -4738,6 +4758,15 @@ void xsane_interface(int argc, char **argv)
   xsane.info_label = NULL;
 
   xsane_init(argc, argv); /* initialize xsane variables if command line option is given, set selected_dev */
+
+  if (!getuid()) /* root ? */
+  {
+    if (xsane_back_gtk_decision(ERR_HEADER_WARNING, (gchar **) warning_xpm, WARN_XSANE_AS_ROOT,
+        BUTTON_CANCEL, BUTTON_CONT_AT_OWN_RISK, TRUE /* wait */) == TRUE)
+    {
+      return; /* User selected CANCEL */
+    } 
+  }
 
   for (num_of_devs = 0; devlist[num_of_devs]; ++num_of_devs); /* count available devices */
 
@@ -4864,12 +4893,14 @@ int main(int argc, char **argv)
   {
     prog_name = argv[0];
   }
+
 #if 0
   bindtextdomain(PACKAGE, LOCALEDIR);
   textdomain(PACKAGE);         
-#endif
+#else
   bindtextdomain(prog_name, LOCALEDIR);
-  textdomain(prog_name);         
+  textdomain(prog_name);
+#endif
 
 #ifdef HAVE_LIBGIMP_GIMP_H
   {

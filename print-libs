@@ -1,0 +1,17 @@
+echo "TEST FOR SANE:"
+find / -name "sane.h" 2>/dev/null
+find / -name "libsane-dll*" 2>/dev/null
+echo ""
+echo "TEST FOR GTK:"
+find / -name "gtk-config" 2>/dev/null
+find / -name "gtk.h" 2>/dev/null
+find / -name "libgtk*" 2>/dev/null
+echo ""
+echo "TEST FOR GDK:"
+find / -name "gdk.h" 2>/dev/null
+find / -name "libgdk*" 2>/dev/null
+echo ""
+echo "TEST FOR GIMP:"
+find / -name "gimp-config" 2>/dev/null
+find / -name "gimp.h" 2>/dev/null
+find / -name "libgimp*" 2>/dev/null
