@@ -10,6 +10,7 @@ first steps:
     - add options for sender/receiver Name
     - what about faxprojects with mixed normal- and fine-mode pages?
     + zoom ?
+    - include external postscript files, update filelist (read directory contents)
  - email-function:
     - based on fax mode
     - image type = ?
@@ -21,7 +22,8 @@ first steps:
       and show it in the preview.
  - preview:
     - force aspect ratio of selection area
- + batch scan function
+    + rotate preview by 0/90/180/270 degree (work in progress)
+ - batch scan function
     - select multiple scan areas before starting the scan
 
  * internal:
@@ -32,6 +34,8 @@ first steps:
    - test memory after all calls of malloc - partly done
    - more/better online helpfiles
    - postscript/printer setup: geometry in inch/millimeter/centimeter
+   - keyboard shortcuts for some functions
+   - delete/recreate preview files when temp directory is changed
 
 second steps:
  - correct gtk custom gamma functions and include it

@@ -3,8 +3,6 @@
 1)
 
  - on some systems it is reported that:
-   - loading an old preview sometimes produces wrong colors
-   - scanning in colormode with "custom gamma" disabled produces bad images
    - saving as png -> coredump
 
 On my system all this works fine. If you have one of the problem above please

@@ -435,7 +435,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
 
   if ( (xsane.param.depth == 1) || (xsane.param.depth == 8) )
   {
-    static unsigned char buf8[32768];
+    static unsigned char buf8[8*32768]; // xxxxxxxxxxxxxxxxxxxx
 
     while (1)
     {
@@ -1587,7 +1587,8 @@ void xsane_scan_done(SANE_Status status)
     if ( (preferences.increase_filename_counter) && (xsane.xsane_mode == XSANE_SCAN) && (xsane.mode == XSANE_STANDALONE) )
     {
       xsane_increase_counter_in_filename(preferences.filename, preferences.skip_existing_numbers);
-      gtk_entry_set_text(GTK_ENTRY(xsane.outputfilename_entry), (char *) preferences.filename);
+      gtk_entry_set_text(GTK_ENTRY(xsane.outputfilename_entry), (char *) preferences.filename); /* update filename in entry */
+      gtk_entry_set_position(GTK_ENTRY(xsane.outputfilename_entry), strlen(preferences.filename)); /* set cursor to right position of filename */
     }
     else if (xsane.xsane_mode == XSANE_FAX)
     {

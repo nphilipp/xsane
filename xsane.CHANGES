@@ -945,10 +945,6 @@ xsane-0.57 -> 0.58:
 xsane-0.58 -> 0.59:
 -------------------
 
- - added "%*[\n]" to the end of the scanf command in xsane-preview.c:
-     fscanf(in, "P6\n# surface: %g %g %g %g %u %u\n%d %d\n255%*[\n]",
-   otherwise we got problems when the image data began with low values (black)
-
  - preview_do_gamma_correction does test for 3 pass scanner color mode
 
  - changed fax x-resolution and standard resolution from 98 ppi to 204 ppi
@@ -969,7 +965,7 @@ xsane-0.58 -> 0.59:
 
  - removed xsane internal callbacks from dialog struct, the functions are called directly now
 
- - changed the reading of the preview image header again. The last newline character before the image
+ - changed the reading of the preview image header. The last newline character before the image
    data starts again made some problems, this seems to depend on the data that follows. So I added
    a fgets() command to skip the newline character - this seems to work.
 
@@ -977,4 +973,38 @@ xsane-0.58 -> 0.59:
    is the counter
 
  - reduced size of src/xsane-startimage.pnm (1MB => 0.6MB)
+
+
+xsane-0.59 -> 0.60:
+-------------------
+
+ - after filename counter is increased the cursor in the outputfilename entry is moved to the right
+
+ - in preview_read_image_data when image is complete:
+    preview_update_surface(p, 0);
+   is called before
+    preview_display_image(p);
+   this way the geometry of the first preview scan is correct.
+
+ - moved xsane_set_all_resolutions in xsane_update_xsane_callback(),
+   it now also is called when the backend only uses one reesolution
+
+ - added calibration image (xsane-calibration.pnm) that is loaded when setup window is created.
+   The xsane enhancement functions are disabled in calibration mode, the image can not be
+   resized (xscale = yscale = 1.0).
+   The previsous image is reloaded when the setup window is closed again.
+
+ - enviornment variable SANE_DEFAULT_DEVICE is used to activate the radiobutton in the
+   device selection menu
+
+ - removed unused item "custom" from preview surface menu
+
+ - cahnged preview surface menu items:
+   A3  -> A3P (portrait)
+   A4  -> A4P (portrait)
+   A4H -> A4L (landscape)
+   A5  -> A5P (portrait)
+   A5H -> A5L (landscape)
+
+ - removed script xsane-help, necessary command now is listed in xsane.PROBLEMS
 

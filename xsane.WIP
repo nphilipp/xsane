@@ -2,3 +2,6 @@
 - Added quantization in xsane_resolution_scale_update(GtkAdjustment *adj_data, double *val)
   in xsane-front-gtk.c, this quantisation is not done by gtk, so xsane has to do it.
 
+- Added first routines for rotating preview image - NOT READY
+
+

@@ -1074,7 +1074,21 @@ void xsane_update_gamma(void)
       xsane.histogram_gamma_data_blue  = malloc(256 * sizeof(SANE_Int));
     }
 
-    if (xsane.param.depth == 1) /* for lineart mode with grayscale preview scan */
+    if (xsane.preview->calibration)
+    {
+     double pgamma_red;
+     double pgamma_green;
+     double pgamma_blue;
+
+      pgamma_red   = preferences.preview_gamma * preferences.preview_gamma_red;
+      pgamma_green = preferences.preview_gamma * preferences.preview_gamma_green;
+      pgamma_blue  = preferences.preview_gamma * preferences.preview_gamma_blue;
+
+      xsane_create_gamma_curve(xsane.preview_gamma_data_red,   0, pgamma_red,   0.0, 0.0, 256, 255);
+      xsane_create_gamma_curve(xsane.preview_gamma_data_green, 0, pgamma_green, 0.0, 0.0, 256, 255);
+      xsane_create_gamma_curve(xsane.preview_gamma_data_blue,  0, pgamma_blue,  0.0, 0.0, 256, 255);
+    }
+    else if (xsane.param.depth == 1) /* for lineart mode with grayscale preview scan */
     {
       xsane_create_threshold_curve(xsane.preview_gamma_data_red,   xsane.threshold, 256, 255);
       xsane_create_threshold_curve(xsane.preview_gamma_data_green, xsane.threshold, 256, 255);

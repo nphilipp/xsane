@@ -254,6 +254,11 @@ int xsane_set_resolution(int well_known_option, double resolution)
     return -1; /* option does not exits */
   }
 
+  if (!SANE_OPTION_IS_ACTIVE(opt->cap))
+  {
+    return -1; /* option is not active */
+  }
+
   bestdpi = xsane_find_best_resolution(well_known_option, resolution);
 
   if (bestdpi < 0)
@@ -287,6 +292,7 @@ void xsane_set_all_resolutions(void)
 {
  int printer_resolution;
 
+#if 0
   xsane_set_resolution(dialog->well_known.dpi_y, xsane.resolution_y); /* set y resolution if possible */
   if (xsane_set_resolution(dialog->well_known.dpi_x, xsane.resolution_x)) /* set x resolution if possible */
   {
@@ -294,6 +300,18 @@ void xsane_set_all_resolutions(void)
     xsane.resolution_x = xsane.resolution;
     xsane.resolution_y = xsane.resolution;
   }
+#else
+  if (xsane_set_resolution(dialog->well_known.dpi_y, xsane.resolution_y)) /* set y resolution if possible */
+  {
+    xsane_set_resolution(dialog->well_known.dpi, xsane.resolution); /* set common resolution if necessary */
+    xsane.resolution_x = xsane.resolution;
+    xsane.resolution_y = xsane.resolution;
+  }
+  else
+  {
+    xsane_set_resolution(dialog->well_known.dpi_x, xsane.resolution_x); /* set x resolution if possible */
+  }
+#endif
 
   switch (xsane.param.format)
   {

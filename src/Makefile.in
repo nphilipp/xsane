@@ -66,6 +66,7 @@ install: $(PROGRAMS)
 	done
 	$(INSTALL_DATA) $(srcdir)/xsane-style.rc $(sanedatadir)/xsane/xsane-style.rc
 	$(INSTALL_DATA) $(srcdir)/xsane-startimage.pnm $(sanedatadir)/xsane/xsane-startimage.pnm
+	$(INSTALL_DATA) $(srcdir)/xsane-calibration.pnm $(sanedatadir)/xsane/xsane-calibration.pnm
 	$(INSTALL_DATA) $(srcdir)/xsane-logo.xpm $(sanedatadir)/xsane-logo.xpm
 
 xsane: $(XSANE_OBJS) $(LIBLIB)

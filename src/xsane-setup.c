@@ -458,6 +458,10 @@ static void xsane_setup_options_ok_callback(GtkWidget *widget, gpointer data)
 
 void xsane_destroy_setup_dialog_callback(GtkWidget *widget, gpointer data)
 {
+  xsane.preview->calibration = 0;
+  xsane_update_gamma();
+  preview_update_surface(xsane.preview, 2);
+
   xsane_set_sensitivity(TRUE);
   xsane_back_gtk_refresh_dialog(dialog);
 }
@@ -1786,6 +1790,10 @@ static void xsane_display_notebook(GtkWidget *notebook)
   gtk_widget_show(button);
 
   gtk_widget_show(hbox);
+
+  xsane.preview->calibration = 1;
+  xsane_update_gamma();
+  preview_update_surface(xsane.preview, 2);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

@@ -31,14 +31,9 @@ INSTALL_DATA = @INSTALL_DATA@
 
 SUBDIRS	= lib @INTLSUB@ src @POSUB@ doc
 
-all: all-recursive xsanehelp
-
-xsanehelp:
-	echo "netscape ${sanedatadir}/sane-xsane-doc.html" >xsane-help
-	chmod +x xsane-help
+all: all-recursive
 
 install: install-recursive
-	$(INSTALL_PROGRAM) xsane-help $(bindir)/xsane-help
 
 clean: clean-recursive
 

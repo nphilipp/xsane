@@ -40,6 +40,7 @@
 
 #ifdef HAVE_LIBTIFF
 #include <tiffio.h>
+#include <time.h>
 #endif
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -542,6 +543,10 @@ void xsane_save_tiff(const char *outfilename, FILE *imagefile,
  char buf[256];
  int y, w;
  int components;
+#if 0
+ struct tm *ptm;
+ time_t now;
+#endif
 
   cancel_save = 0;
 
@@ -580,9 +585,13 @@ void xsane_save_tiff(const char *outfilename, FILE *imagefile,
   TIFFSetField(tiffile, TIFFTAG_SAMPLESPERPIXEL, components);
   TIFFSetField(tiffile, TIFFTAG_SOFTWARE, "xsane");
 #if 0
-  TIFFSetField(tiffile, TIFFTAG_DATATIME, "0.0.1900,0:0:00");
-  TIFFSetField(tiffile, TIFFTAG_XRESOLUTION, 100);
-  TIFFSetField(tiffile, TIFFTAG_YRESOLUTION, 100);
+  time(&now);
+  ptm = localtime(&now);
+  sprintf(buf, "%04d:%02d:%02d %02d:%02d:%02d", 1900+ptm->tm_year, ptm->tm_mon+1, ptm->tm_mday, ptm->tm_hour, ptm->tm_min, ptm->tm_sec);
+  TIFFSetField(tiffile, TIFFTAG_DATETIME, buf);
+  TIFFSetField(tiffile, TIFFTAG_RESOLUTIONUNIT, RESUNIT_INCH);
+  TIFFSetField(tiffile, TIFFTAG_XRESOLUTION, xsane.resolution_x);
+  TIFFSetField(tiffile, TIFFTAG_YRESOLUTION, xsane.resolution_y);   
 #endif
 
   if (compression == COMPRESSION_JPEG)

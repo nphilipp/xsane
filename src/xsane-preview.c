@@ -101,7 +101,7 @@ extern const char *device_text;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define PRESET_AREA_ITEMS 11
+#define PRESET_AREA_ITEMS 10
 typedef struct
 {
   char *name;
@@ -112,16 +112,15 @@ typedef struct
 static const Preset_area preset_area[] =
 {
  { "full size",	INF,	INF },
- { "DIN A3",	296.98,	420.0 },
- { "DIN A4",	210.0,	296.98 },
- { "DIN A4H",	296.98,	210.0 },
- { "DIN A5",	148.5,	210.0 },
- { "DIN A5H",	210.0,	148.5 },
+ { "DIN A3P",	296.98,	420.0 },
+ { "DIN A4P",	210.0,	296.98 },
+ { "DIN A4L",	296.98,	210.0 },
+ { "DIN A5P",	148.5,	210.0 },
+ { "DIN A5L",	210.0,	148.5 },
  { "9x13 cm",	90.0,	130.0 },
  { "13x9 cm",	130.0,	90.0 },
  { "legal",	215.9,	355.6 },
- { "letter",	215.9,	279.4 },
- { "custom",	INF,	INF }
+ { "letter",	215.9,	279.4 }
 };
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -137,6 +136,9 @@ static SANE_Int *histogram_gamma_data_blue  = 0;
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 /* forward declarations */
+static void preview_rotate_dsurface_to_psurface(int rotation, float dsurface[4], float *psurface);
+static void preview_rotate_psurface_to_dsurface(int rotation, float psurface[4], float *dsurface);
+static void preview_transform_coordinate_preview_to_window(Preview *p, float dcoordinate[4], float *pcoordinate);
 static void preview_order_selection(Preview *p);
 static void preview_bound_selection(Preview *p);
 static void preview_draw_rect(Preview *p, GdkWindow *win, GdkGC *gc, float coord[4]);
@@ -182,6 +184,7 @@ static void preview_pipette_black(GtkWidget *window, gpointer data);
 void preview_select_full_preview_area(Preview *p);
 static void preview_full_preview_area_callback(GtkWidget *widget, gpointer call_data);
 static void preview_preset_area_callback(GtkWidget *widget, gpointer call_data);
+static void preview_rotation_callback(GtkWidget *widget, gpointer call_data);
 
 void preview_do_gamma_correction(Preview *p);
 void preview_calculate_histogram(Preview *p,
@@ -194,6 +197,174 @@ void preview_area_resize(Preview *p);
 gint preview_area_resize_handler(GtkWidget *widget, GdkEvent *event, gpointer data);
 void preview_update_maximum_output_size(Preview *p);
 void preview_set_maximum_output_size(Preview *p, float width, float height);
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void preview_rotate_dsurface_to_psurface(int rotation, float dsurface[4], float *psurface)
+{
+  switch (rotation)
+  {
+    case 0: /* 0 degree */
+    default:
+      *(psurface+0) = dsurface[0];
+      *(psurface+1) = dsurface[1];
+      *(psurface+2) = dsurface[2];
+      *(psurface+3) = dsurface[3];
+     break;
+
+    case 1: /* 90 degree */
+      *(psurface+0) = dsurface[3];
+      *(psurface+1) = dsurface[0];
+      *(psurface+2) = dsurface[1];
+      *(psurface+3) = dsurface[2];
+     break;
+
+    case 2: /* 180 degree */
+      *(psurface+0) = dsurface[2];
+      *(psurface+1) = dsurface[3];
+      *(psurface+2) = dsurface[0];
+      *(psurface+3) = dsurface[1];
+     break;
+
+    case 3: /* 270 degree */
+      *(psurface+0) = dsurface[1];
+      *(psurface+1) = dsurface[2];
+      *(psurface+2) = dsurface[3];
+      *(psurface+3) = dsurface[0];
+     break;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void preview_rotate_psurface_to_dsurface(int rotation, float psurface[4], float *dsurface)
+{
+  switch (rotation)
+  {
+    case 0: /* 0 degree */
+    default:
+      *(dsurface+0) = psurface[0];
+      *(dsurface+1) = psurface[1];
+      *(dsurface+2) = psurface[2];
+      *(dsurface+3) = psurface[3];
+     break;
+
+    case 1: /* 90 degree */
+      *(dsurface+0) = psurface[3];
+      *(dsurface+1) = psurface[0];
+      *(dsurface+2) = psurface[1];
+      *(dsurface+3) = psurface[2];
+     break;
+
+    case 2: /* 180 degree */
+      *(dsurface+0) = psurface[2];
+      *(dsurface+1) = psurface[3];
+      *(dsurface+2) = psurface[0];
+      *(dsurface+3) = psurface[1];
+     break;
+
+    case 3: /* 270 degree */
+      *(dsurface+0) = psurface[1];
+      *(dsurface+1) = psurface[2];
+      *(dsurface+2) = psurface[3];
+      *(dsurface+3) = psurface[0];
+     break;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void preview_transform_coordinate_preview_to_window(Preview *p, float dcoordinate[4], float *pcoordinate)
+{
+  float minx, maxx, miny, maxy;
+  float xscale, yscale;
+
+  preview_get_scale_device_to_preview(p, &xscale, &yscale);
+
+  minx = dcoordinate[0];
+  miny = dcoordinate[1];
+  maxx = dcoordinate[2];
+  maxy = dcoordinate[3];
+
+  if (minx > maxx)
+  {
+   float val = minx;
+    minx = maxx;
+    maxx = val;
+  }
+
+  if (miny > maxy)
+  {
+   float val = miny;
+    miny = maxy;
+    maxy = val;
+  }
+
+  switch (p->rotation)
+  {
+    case 0: /* 0 degree */
+    default:
+      *(pcoordinate+0) = xscale * (minx - p->surface[0]);
+      *(pcoordinate+1) = yscale * (miny - p->surface[1]);
+      *(pcoordinate+2) = xscale * (maxx - p->surface[0]);
+      *(pcoordinate+3) = yscale * (maxy - p->surface[1]);
+     break;
+
+    case 1: /* 90 degree */
+      *(pcoordinate+0) = xscale * (minx - p->surface[0]);
+      *(pcoordinate+1) = yscale * (miny - p->surface[1]);
+      *(pcoordinate+2) = xscale * (maxx - p->surface[0]);
+      *(pcoordinate+3) = yscale * (maxy - p->surface[1]);
+     break;
+
+    case 2: /* 180 degree */
+      *(pcoordinate+0) = xscale * (p->surface[0] - maxx);
+      *(pcoordinate+1) = yscale * (p->surface[1] - maxy);
+      *(pcoordinate+2) = xscale * (p->surface[0] - minx);
+      *(pcoordinate+3) = yscale * (p->surface[1] - miny);
+     break;
+
+    case 3: /* 270 degree */
+      *(pcoordinate+0) = xscale * (minx - p->surface[0]);
+      *(pcoordinate+1) = yscale * (miny - p->surface[1]);
+      *(pcoordinate+2) = xscale * (maxx - p->surface[0]);
+      *(pcoordinate+3) = yscale * (maxy - p->surface[1]);
+     break;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void preview_transform_coordinate_window_to_preview(Preview *p, float winx, float winy, float *previewx, float *previewy)
+{
+  float xscale, yscale;
+
+  preview_get_scale_device_to_preview(p, &xscale, &yscale);
+
+  switch (p->rotation)
+  {
+    case 0: /* 0 degree */
+    default:
+      *previewx = p->surface[0] + winx / xscale;
+      *previewy = p->surface[1] + winy / yscale;
+     break;
+
+    case 1: /* 90 degree */
+      *previewx = p->surface[0] + winx / xscale;
+      *previewy = p->surface[1] + winy / yscale;
+     break;
+
+    case 2: /* 180 degree */
+      *previewx = p->surface[0] + winx / xscale;
+      *previewy = p->surface[1] + winy / yscale;
+     break;
+
+    case 3: /* 270 degree */
+      *previewx = p->surface[0] + winx / xscale;
+      *previewy = p->surface[1] + winy / yscale;
+     break;
+  }
+}
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -264,45 +435,10 @@ static void preview_bound_selection(Preview *p)
 
 static void preview_draw_rect(Preview *p, GdkWindow *win, GdkGC *gc, float coordinate[4])
 {
-  float xscale, yscale;
-  float x, y, w, h;
-  gint xi, yi, wi, hi;
+ float pcoord[4];
 
-  x = coordinate[0];
-  y = coordinate[1];
-  w = coordinate[2] - x;
-  h = coordinate[3] - y;
-
-  if (w < 0)
-  {
-    x = coordinate[2];
-    w = -w;
-  }
-
-  if (h < 0)
-  {
-    y = coordinate[3];
-    h = -h;
-  }
-
-  preview_get_scale_device_to_preview(p, &xscale, &yscale);
-
-  x = x - p->surface[0];
-  y = y - p->surface[1];
-
-  xi = (gint) (x * xscale + 0.5);
-  yi = (gint) (y * yscale + 0.5);
-  wi = (gint) (w * xscale + 0.5);
-  hi = (gint) (h * yscale + 0.5);
-
-#if 1
-  gdk_draw_rectangle(win, gc, FALSE, xi, yi, wi + 1, hi + 1);
-#else
-  gdk_draw_line(win, gc, xi     , yi     , xi+wi+1, yi);
-  gdk_draw_line(win, gc, xi     , yi+hi+1, xi+wi+1, yi+hi+1);
-  gdk_draw_line(win, gc, xi     , yi     , xi     , yi+hi+1);
-  gdk_draw_line(win, gc, xi+wi+1, yi     , xi+wi+1, yi+hi+1);
-#endif
+  preview_transform_coordinate_preview_to_window(p, coordinate, pcoord);
+  gdk_draw_rectangle(win, gc, FALSE, pcoord[0], pcoord[1], pcoord[2]-pcoord[0] + 1, pcoord[3] - pcoord[1] + 1);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -359,6 +495,7 @@ static void preview_update_selection(Preview *p)
  SANE_Status status;
  SANE_Word val;
  int i, optnum;
+ float coord[4];
 
   p->previous_selection = p->selection;
 
@@ -375,11 +512,11 @@ static void preview_update_selection(Preview *p)
       }
       if (opt->type == SANE_TYPE_FIXED)
       {
-        p->selection.coordinate[i] = SANE_UNFIX(val);
+        coord[i] = SANE_UNFIX(val);
       }
       else
       {
-        p->selection.coordinate[i] = val;
+        coord[i] = val;
       }
     }
     else /* backend does not use scanarea options */
@@ -388,20 +525,23 @@ static void preview_update_selection(Preview *p)
       {
         case 0:
         case 1:
-          p->selection.coordinate[i] = 0;
+          coord[i] = 0;
          break;
-  
+
         case 2:
-          p->selection.coordinate[i] = p->preview_width;
+          coord[i] = p->preview_width;
          break;
 
         case 3:
-          p->selection.coordinate[i] = p->preview_height;
+          coord[i] = p->preview_height;
          break;
       }
     }
   }
 
+  preview_rotate_dsurface_to_psurface(p->rotation, coord, p->selection.coordinate);
+
+#if 0
   for (i = 0; i < 2; ++i)
   {
     if (p->selection.coordinate[i + 2] < p->selection.coordinate[i])
@@ -409,6 +549,7 @@ static void preview_update_selection(Preview *p)
       p->selection.coordinate[i + 2] = p->selection.coordinate[i];
     }
   }
+#endif
 
   p->selection.active = ( (p->selection.coordinate[0] != p->selection.coordinate[2]) &&
                           (p->selection.coordinate[1] != p->selection.coordinate[3]));
@@ -424,14 +565,17 @@ static void preview_establish_selection(Preview *p)
   /* This routine only shall be called if the preview area really is changed. */
 
   int i;
+  float coord[4];
 
   preview_order_selection(p);
 
   xsane.block_update_param = TRUE; /* do not change parameters each time */
 
+  preview_rotate_psurface_to_dsurface(p->rotation, p->selection.coordinate, coord);
+
   for (i = 0; i < 4; ++i)
   {
-    preview_set_option_float(p, p->dialog->well_known.coord[i], p->selection.coordinate[i]);
+    preview_set_option_float(p, p->dialog->well_known.coord[i], coord[i]);
   }
 
   xsane_back_gtk_update_scan_window(p->dialog);
@@ -578,61 +722,227 @@ static void preview_paint_image(Preview *p)
  float xscale, yscale, src_x, src_y;
  int dst_x, dst_y, height, x, y, old_y, src_offset;
 
-  preview_get_scale_preview_to_image(p, &xscale, &yscale);
+  if (!p->image_data_enh)
+  {
+    return; /* no image data */
+  }
 
   memset(p->preview_row, 0x80, 3 * p->preview_window_width);
 
-  /* don't draw last line unless it's complete: */
-  height = p->image_y;
+  old_y = -1;
+  height = 0;
 
-  if (p->image_x == 0 && height < p->image_height)
+  if (p->calibration)
   {
-    ++height;
+    xscale=1.0;
+    yscale=1.0;
+  }
+  else
+  {
+    preview_get_scale_preview_to_image(p, &xscale, &yscale);
   }
 
-  /* for now, use simple nearest-neighbor interpolation: */
-  src_offset = 0;
-  src_x = src_y = 0.0;
-  old_y = -1;
-
-  for (dst_y = 0; dst_y < p->preview_height; ++dst_y)
+  switch (p->rotation)
   {
-    y = (int) (src_y + 0.5);
-    if (y >= height)
-    {
-      break;
-    }
-    src_offset = y * 3 * p->image_width;
+    case 0: /* do not rotate - 0 degree */
+    default:
 
-    if ((p->image_data_enh) && (old_y != y))
-    {
-      old_y = y;
-      for (dst_x = 0; dst_x < p->preview_width; ++dst_x)
+      /* don't draw last line unless it's complete: */
+      height = p->image_y;
+
+      if (p->image_x == 0 && height < p->image_height)
       {
-        x = (int) (src_x + 0.5);
-        if (x >= p->image_width)
+        ++height;
+      }
+
+      src_y = 0.0;
+
+      for (dst_y = 0; dst_y < p->preview_height; ++dst_y)
+      {
+        y = (int) (src_y + 0.5);
+        if (y >= height)
         {
           break;
         }
+        src_offset = y * 3 * p->image_width;
 
-        p->preview_row[3*dst_x + 0] = p->image_data_enh[src_offset + 3*x + 0];
-        p->preview_row[3*dst_x + 1] = p->image_data_enh[src_offset + 3*x + 1];
-        p->preview_row[3*dst_x + 2] = p->image_data_enh[src_offset + 3*x + 2];
-        src_x += xscale;
+        if (old_y != y) /* create new line ? - not necessary if the same line is used several times */
+        {
+          old_y = y;
+          src_x = 0.0;
+
+          for (dst_x = 0; dst_x < p->preview_width; ++dst_x)
+          {
+            x = (int) (src_x + 0.5);
+            if (x >= p->image_width)
+            {
+              break;
+            }
+
+            p->preview_row[3*dst_x + 0] = p->image_data_enh[src_offset + 3*x + 0];
+            p->preview_row[3*dst_x + 1] = p->image_data_enh[src_offset + 3*x + 1];
+            p->preview_row[3*dst_x + 2] = p->image_data_enh[src_offset + 3*x + 2];
+            src_x += xscale;
+          }
+        }
+
+        gtk_preview_draw_row(GTK_PREVIEW(p->window), p->preview_row, 0, dst_y, p->preview_window_width);
+        src_y += yscale;
       }
-    }
-    gtk_preview_draw_row(GTK_PREVIEW(p->window), p->preview_row, 0, dst_y, p->preview_window_width);
-    src_x = 0.0;
-    src_y += yscale;
-  }
 
-  if (dst_y >= p->preview_height-5)
-  {
-    memset(p->preview_row, 0x80, 3*p->preview_window_width);
-    for (dst_y = p->preview_height-1; dst_y < p->preview_window_height; ++dst_y)
-    {
-      gtk_preview_draw_row(GTK_PREVIEW(p->window), p->preview_row, 0, dst_y, p->preview_window_width);
-    }
+      memset(p->preview_row, 0x80, 3*p->preview_window_width);
+      for (; dst_y < p->preview_window_height; ++dst_y)
+      {
+        gtk_preview_draw_row(GTK_PREVIEW(p->window), p->preview_row, 0, dst_y, p->preview_window_width);
+      }
+     break;
+
+
+    case 1: /* 90 degree */
+      /* because we run in x direction we have to draw all rows all the time */
+
+      src_y = 0.0;
+
+      for (dst_y = 0; dst_y < p->preview_height; ++dst_y)
+      {
+        y = (int) (src_y + 0.5);
+        if (y >= p->image_width)
+        {
+          break;
+        }
+        src_offset = y * 3;
+
+        if (old_y != y) /* create new line ? - not necessary if the same line is used several times */
+        {
+          old_y = y;
+          src_x = p->image_height - 1;
+
+          for (dst_x = 0; dst_x < p->preview_width; ++dst_x)
+          {
+            x = (int) (src_x + 0.5);
+            if (x < 0)
+            {
+              break;
+            }
+
+            p->preview_row[3*dst_x + 0] = p->image_data_enh[src_offset + 3*x*p->image_width + 0];
+            p->preview_row[3*dst_x + 1] = p->image_data_enh[src_offset + 3*x*p->image_width + 1];
+            p->preview_row[3*dst_x + 2] = p->image_data_enh[src_offset + 3*x*p->image_width + 2];
+            src_x -= xscale;
+          }
+        }
+
+        gtk_preview_draw_row(GTK_PREVIEW(p->window), p->preview_row, 0, dst_y, p->preview_window_width);
+        src_y += yscale;
+      }
+
+      memset(p->preview_row, 0x80, 3*p->preview_window_width);
+      for (; dst_y < p->preview_window_height; ++dst_y)
+      {
+        gtk_preview_draw_row(GTK_PREVIEW(p->window), p->preview_row, 0, dst_y, p->preview_window_width);
+      }
+     break;
+
+
+    case 2: /* 180 degree */
+
+      /* don't draw last line unless it's complete: */
+      height = p->image_y;
+
+      if (p->image_x == 0 && height < p->image_height)
+      {
+        ++height;
+      }
+
+      src_y = 0;
+
+      for (dst_y = p->preview_height-1; dst_y >0; --dst_y)
+      {
+        y = (int) (src_y + 0.5);
+        if (y <= height)
+        {
+//          break;
+        }
+
+        src_offset = y * 3 * p->image_width;
+
+        if (old_y != y) /* create new line ? - not necessary if the same line is used several times */
+        {
+          old_y = y;
+          src_x = p->image_width - 1;
+
+          for (dst_x = 0; dst_x < p->preview_width; ++dst_x)
+          {
+            x = (int) (src_x + 0.5);
+            if (x < 0)
+            {
+              break;
+            }
+
+            p->preview_row[3*dst_x + 0] = p->image_data_enh[src_offset + 3*x + 0];
+            p->preview_row[3*dst_x + 1] = p->image_data_enh[src_offset + 3*x + 1];
+            p->preview_row[3*dst_x + 2] = p->image_data_enh[src_offset + 3*x + 2];
+            src_x -= xscale;
+          }
+        }
+
+        gtk_preview_draw_row(GTK_PREVIEW(p->window), p->preview_row, 0, dst_y, p->preview_window_width);
+        src_y += yscale;
+      }
+      dst_y = p->preview_height;
+
+      memset(p->preview_row, 0x80, 3*p->preview_window_width);
+      for (; dst_y < p->preview_window_height; ++dst_y)
+      {
+        gtk_preview_draw_row(GTK_PREVIEW(p->window), p->preview_row, 0, dst_y, p->preview_window_width);
+      }
+     break;
+
+
+    case 3: /* 270 degree */
+      /* because we run in x direction we have to draw all rows all the time */
+
+      src_y = 0.0;
+
+      for (dst_y = 0; dst_y < p->preview_height; ++dst_y)
+      {
+        y = (int) (src_y + 0.5);
+        if (y >= p->image_width)
+        {
+          break;
+        }
+        src_offset = (p->image_width - y - 1) * 3;
+
+        if (old_y != y) /* create new line ? - not necessary if the same line is used several times */
+        {
+          old_y = y;
+          src_x = 0.0;
+
+          for (dst_x = 0; dst_x < p->preview_width; ++dst_x)
+          {
+            x = (int) (src_x + 0.5);
+            if (x >= p->image_height)
+            {
+              break;
+            }
+
+            p->preview_row[3*dst_x + 0] = p->image_data_enh[src_offset + 3*x*p->image_width + 0];
+            p->preview_row[3*dst_x + 1] = p->image_data_enh[src_offset + 3*x*p->image_width + 1];
+            p->preview_row[3*dst_x + 2] = p->image_data_enh[src_offset + 3*x*p->image_width + 2];
+            src_x += xscale;
+          }
+        }
+
+        gtk_preview_draw_row(GTK_PREVIEW(p->window), p->preview_row, 0, dst_y, p->preview_window_width);
+        src_y += yscale;
+      }
+
+      memset(p->preview_row, 0x80, 3*p->preview_window_width);
+      for (; dst_y < p->preview_window_height; ++dst_y)
+      {
+        gtk_preview_draw_row(GTK_PREVIEW(p->window), p->preview_row, 0, dst_y, p->preview_window_width);
+      }
+     break;
   }
 }
 
@@ -874,7 +1184,8 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
       {
         if (p->params.last_frame) /* got all preview image data */
         {
-          preview_display_image(p); /* display preview image */
+          preview_update_surface(p, 0);
+          preview_display_image(p); /* must come after preview_update_surface */
           preview_save_image(p);    /* save preview image */
           preview_scan_done(p);     /* scan is done */
           return; /* ok, all finished */
@@ -1359,6 +1670,7 @@ static int preview_restore_image_from_file(Preview *p, FILE *in, int min_quality
  int quality = 0;
  int y;
  float psurface[4];
+ float dsurface[4];
  size_t nread;
  char *imagep;
  char buf[255];
@@ -1388,10 +1700,12 @@ static int preview_restore_image_from_file(Preview *p, FILE *in, int min_quality
       return min_quality;
     }
 
-    xoffset = (p->surface[0] -  psurface[0])/(psurface[2]  - psurface[0]) * image_width;
-    yoffset = (p->surface[1] -  psurface[1])/(psurface[3]  - psurface[1]) * image_height;
-    width   = (p->surface[2] - p->surface[0])/(psurface[2] - psurface[0]) * image_width;
-    height  = (p->surface[3] - p->surface[1])/(psurface[3] - psurface[1]) * image_height;
+    preview_rotate_psurface_to_dsurface(p->rotation, p->surface, dsurface);
+
+    xoffset = (dsurface[0] - psurface[0])/(psurface[2] - psurface[0]) * image_width;
+    yoffset = (dsurface[1] - psurface[1])/(psurface[3] - psurface[1]) * image_height;
+    width   = (dsurface[2] - dsurface[0])/(psurface[2] - psurface[0]) * image_width;
+    height  = (dsurface[3] - dsurface[1])/(psurface[3] - psurface[1]) * image_height;
     quality = width;
 
     if ((xoffset < 0) || (yoffset < 0) ||
@@ -1456,30 +1770,45 @@ static void preview_restore_image(Preview *p)
  int quality = 0;
  int level;
 
-  /* See whether there is a saved preview and load it if present: */
-  for(level = 2; level >= 0; level--)
-  {
-    if (p->filename[level])
-    {
-      in = fopen(p->filename[level], "r");
-      if (in)
-      {
-        quality = preview_restore_image_from_file(p, in, quality);
-        fclose(in);
-      }
-    }
-  }
-
-  if (quality == 0) /* no image found, read startimage */
+  if (p->calibration)
   {
    char filename[PATH_MAX];
 
-    xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", 0, "xsane-startimage", 0, ".pnm", XSANE_PATH_SYSTEM);
+    xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", 0, "xsane-calibration", 0, ".pnm", XSANE_PATH_SYSTEM);
     in = fopen(filename, "r");
     if (in)
     {
       quality = preview_restore_image_from_file(p, in, -1);
       fclose(in);
+    }
+  }
+  else
+  {
+    /* See whether there is a saved preview and load it if present: */
+    for(level = 2; level >= 0; level--)
+    {
+      if (p->filename[level])
+      {
+        in = fopen(p->filename[level], "r");
+        if (in)
+        {
+          quality = preview_restore_image_from_file(p, in, quality);
+          fclose(in);
+        }
+      }
+    }
+
+    if (quality == 0) /* no image found, read startimage */
+    {
+     char filename[PATH_MAX];
+
+      xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", 0, "xsane-startimage", 0, ".pnm", XSANE_PATH_SYSTEM);
+      in = fopen(filename, "r");
+      if (in)
+      {
+        quality = preview_restore_image_from_file(p, in, -1);
+        fclose(in);
+      }
     }
   }
 
@@ -1513,15 +1842,17 @@ static gint preview_motion_event_handler(GtkWidget *window, GdkEvent *event, gpo
  Preview *p = data;
  GdkCursor *cursor;
  float preview_selection[4];
+ float preview_x, preview_y;
  float xscale, yscale;
  int cursornr;
 
-  preview_get_scale_device_to_preview(p, &xscale, &yscale);
+  /* preview selection (device) -> cursor-position (window) */
+  preview_transform_coordinate_preview_to_window(p, p->selection.coordinate, preview_selection);
 
-  preview_selection[0] = xscale * (p->selection.coordinate[0] - p->surface[0]);
-  preview_selection[1] = yscale * (p->selection.coordinate[1] - p->surface[1]);
-  preview_selection[2] = xscale * (p->selection.coordinate[2] - p->surface[0]);
-  preview_selection[3] = yscale * (p->selection.coordinate[3] - p->surface[1]);
+  /* cursor-prosition (window) -> preview coordinate (device) */
+  preview_transform_coordinate_window_to_preview(p, event->button.x, event->button.y, &preview_x, &preview_y);
+
+  preview_get_scale_device_to_preview(p, &xscale, &yscale);
 
   if (!p->scanning)
   {
@@ -1538,8 +1869,8 @@ static gint preview_motion_event_handler(GtkWidget *window, GdkEvent *event, gpo
         if ( (p->selection_drag) || (p->selection_drag_edge) )
         {
           p->selection.active = TRUE;
-          p->selection.coordinate[p->selection_xedge] = p->surface[0] + event->motion.x / xscale;
-          p->selection.coordinate[p->selection_yedge] = p->surface[1] + event->motion.y / yscale;
+          p->selection.coordinate[p->selection_xedge] = preview_x;
+          p->selection.coordinate[p->selection_yedge] = preview_y;
 
           preview_order_selection(p);
           preview_bound_selection(p);
@@ -1720,16 +2051,14 @@ static gint preview_button_press_event_handler(GtkWidget *window, GdkEvent *even
  Preview *p = data;
  GdkCursor *cursor;
  float preview_selection[4];
- float xscale, yscale;
+ float preview_x, preview_y;
  int cursornr;
 
+  /* preview selection (device) -> cursor-position (window) */
+  preview_transform_coordinate_preview_to_window(p, p->selection.coordinate, preview_selection);
 
-  preview_get_scale_device_to_preview(p, &xscale, &yscale);
-
-  preview_selection[0] = xscale * (p->selection.coordinate[0] - p->surface[0]);
-  preview_selection[1] = yscale * (p->selection.coordinate[1] - p->surface[1]);
-  preview_selection[2] = xscale * (p->selection.coordinate[2] - p->surface[0]);
-  preview_selection[3] = yscale * (p->selection.coordinate[3] - p->surface[1]);
+  /* cursor-prosition (window) -> preview coordinate (device) */
+  preview_transform_coordinate_window_to_preview(p, event->button.x, event->button.y, &preview_x, &preview_y);
 
   if (!p->scanning)
   {
@@ -2047,16 +2376,16 @@ static gint preview_button_press_event_handler(GtkWidget *window, GdkEvent *even
               if ( (p->selection_xedge != -1) && (p->selection_yedge != -1) ) /* move edge */
               {
                 p->selection_drag_edge = TRUE;
-                p->selection.coordinate[p->selection_xedge] = p->surface[0] + event->button.x / xscale;
-                p->selection.coordinate[p->selection_yedge] = p->surface[1] + event->button.y / yscale;
+                p->selection.coordinate[p->selection_xedge] = preview_x;
+                p->selection.coordinate[p->selection_yedge] = preview_y;
                 preview_draw_selection(p);
               }
               else /* select new area */
               {
                 p->selection_xedge = 2;
                 p->selection_yedge = 3;
-                p->selection.coordinate[0] = p->surface[0] + event->button.x / xscale;
-                p->selection.coordinate[1] = p->surface[1] + event->button.y / yscale;
+                p->selection.coordinate[0] = preview_x;
+                p->selection.coordinate[1] = preview_y;
                 p->selection_drag = TRUE;
 
                 cursornr = GDK_CROSS;
@@ -2104,16 +2433,10 @@ static gint preview_button_release_event_handler(GtkWidget *window, GdkEvent *ev
  Preview *p = data;
  GdkCursor *cursor;
  float preview_selection[4];
- float xscale, yscale;
  int cursornr;
 
-
-  preview_get_scale_device_to_preview(p, &xscale, &yscale);
-
-  preview_selection[0] = xscale * (p->selection.coordinate[0] - p->surface[0]);
-  preview_selection[1] = yscale * (p->selection.coordinate[1] - p->surface[1]);
-  preview_selection[2] = xscale * (p->selection.coordinate[2] - p->surface[0]);
-  preview_selection[3] = yscale * (p->selection.coordinate[3] - p->surface[1]);
+  /* preview selection (device) -> cursor-position (window) */
+  preview_transform_coordinate_preview_to_window(p, p->selection.coordinate, preview_selection);
 
   if (!p->scanning)
   {
@@ -2212,6 +2535,7 @@ Preview *preview_new(GSGDialog *dialog)
  GtkBox *vbox, *hbox;
  GdkCursor *cursor;
  GtkWidget *preset_area_option_menu, *preset_area_menu, *preset_area_item;
+ GtkWidget *rotation_option_menu, *rotation_menu, *rotation_item;
  Preview *p;
  int i;
  char buf[256];
@@ -2224,9 +2548,11 @@ Preview *preview_new(GSGDialog *dialog)
   }
   memset(p, 0, sizeof(*p));
 
-  p->mode      = MODE_NORMAL; /* no pipette functions etc */
-  p->dialog    = dialog;
-  p->input_tag = -1;
+  p->mode        = MODE_NORMAL; /* no pipette functions etc */
+  p->calibration = 0; /* do not display calibration image */
+  p->dialog      = dialog;
+  p->input_tag   = -1;
+  p->rotation    = 0;
 
   gtk_preview_set_gamma(1.0);
   gtk_preview_set_install_cmap(preferences.preview_own_cmap);
@@ -2313,6 +2639,35 @@ Preview *preview_new(GSGDialog *dialog)
 
   gtk_widget_show(preset_area_option_menu);
   p->preset_area_option_menu = preset_area_option_menu;
+
+
+  /* select rotation */
+  rotation_menu = gtk_menu_new();
+
+  for (i = 0; i < 4; ++i)
+  {
+   char buffer[256];
+
+    snprintf(buffer, sizeof(buffer), "%d°", i*90);  
+    rotation_item = gtk_menu_item_new_with_label(buffer);
+    gtk_container_add(GTK_CONTAINER(rotation_menu), rotation_item);
+    gtk_signal_connect(GTK_OBJECT(rotation_item), "activate", (GtkSignalFunc) preview_rotation_callback, p);
+    gtk_object_set_data(GTK_OBJECT(rotation_item), "Selection", (void *) i);  
+
+    gtk_widget_show(rotation_item);
+  }                  
+
+  rotation_option_menu = gtk_option_menu_new();
+  gtk_box_pack_start(GTK_BOX(p->button_box), rotation_option_menu, FALSE, FALSE, 2);
+  gtk_option_menu_set_menu(GTK_OPTION_MENU(rotation_option_menu), rotation_menu);
+  gtk_option_menu_set_history(GTK_OPTION_MENU(rotation_option_menu), p->rotation); /* set rotation */
+/*  xsane_back_gtk_set_tooltip(tooltips, rotation_option_menu, desc); */
+
+#ifdef ORAUCH
+  gtk_widget_show(rotation_option_menu);
+#endif
+  p->rotation_option_menu = rotation_option_menu;
+
 
   gtk_widget_show(p->button_box);
 
@@ -2478,15 +2833,17 @@ void preview_update_surface(Preview *p, int surface_changed)
       }
     }
 
-    if (p->max_scanner_surface[i] != val)
+    if (p->orig_scanner_surface[i] != val)
     {
        surface_changed = 2;
-       p->max_scanner_surface[i] = val;
+       p->orig_scanner_surface[i] = val;
     }
   }
 
   if (surface_changed == 2) /* redefine all surface subparts */
   {
+    preview_rotate_dsurface_to_psurface(p->rotation, p->orig_scanner_surface, p->max_scanner_surface);
+
     for (i = 0; i < 4; i++)
     {
        val = p->max_scanner_surface[i];
@@ -2494,7 +2851,7 @@ void preview_update_surface(Preview *p, int surface_changed)
        p->surface[i]             = val;
        p->image_surface[i]       = val;
     }
-  }
+  } 
 
   max_width  = p->max_scanner_surface[xsane_back_gtk_BR_X] - p->max_scanner_surface[xsane_back_gtk_TL_X];
   max_height = p->max_scanner_surface[xsane_back_gtk_BR_Y] - p->max_scanner_surface[xsane_back_gtk_TL_Y];
@@ -2575,9 +2932,11 @@ void preview_update_surface(Preview *p, int surface_changed)
       height += SANE_UNFIX(1.0);
     }
 
-    assert(width > 0.0 && height > 0.0);
-
-    if (width >= INF || height >= INF)
+    if (p->calibration)
+    {
+      p->aspect = p->image_width/(float) p->image_height;
+    }
+    else if (width >= INF || height >= INF)
     {
       p->aspect = 1.0;
     }
@@ -2623,6 +2982,7 @@ void preview_scan(Preview *p)
  const SANE_Option_Descriptor *opt;
  gint gwidth, gheight;
  int i;
+ float dsurface[4];
 
   xsane.block_update_param = TRUE; /* do not change parameters each time */
 
@@ -2656,7 +3016,7 @@ void preview_scan(Preview *p)
       height = width / p->aspect;
     }
 
-    swidth = (p->surface[xsane_back_gtk_BR_X] - p->surface[xsane_back_gtk_TL_X]);
+    swidth = fabs(p->surface[xsane_back_gtk_BR_X] - p->surface[xsane_back_gtk_TL_X]);
 
     if (swidth < INF)
     {
@@ -2664,7 +3024,7 @@ void preview_scan(Preview *p)
     }
     else
     {
-      sheight = (p->surface[xsane_back_gtk_BR_Y] - p->surface[xsane_back_gtk_TL_Y]);
+      sheight = fabs(p->surface[xsane_back_gtk_BR_Y] - p->surface[xsane_back_gtk_TL_Y]);
       if (sheight < INF)
       {
         dpi = MM_PER_INCH * height/sheight;
@@ -2694,11 +3054,11 @@ void preview_scan(Preview *p)
     xsane_set_resolution(p->dialog->well_known.dpi_y, dpi); /* set resolution to dpi or next higher value that is available */
   }
 
-  /* set the scan window (necessary since backends may default to non-maximum size):  */
+  preview_rotate_psurface_to_dsurface(p->rotation, p->surface, dsurface);
 
   for (i = 0; i < 4; ++i)
   {
-    preview_set_option_float(p, p->dialog->well_known.coord[i], p->surface[i]);
+    preview_set_option_float(p, p->dialog->well_known.coord[i], dsurface[i]);
   }
 
   preview_set_option_val(p, p->dialog->well_known.preview, SANE_TRUE);
@@ -2727,9 +3087,13 @@ static void preview_save_image_file(Preview *p, FILE *out)
 {
   if (out)
   {
+   float dsurface[4];
+
+    preview_rotate_psurface_to_dsurface(p->rotation, p->surface, dsurface);
+
     /* always save it as a PPM image: */
     fprintf(out, "P6\n# surface: %g %g %g %g %u %u\n%d %d\n255\n",
-                 p->surface[0], p->surface[1], p->surface[2], p->surface[3],
+                 dsurface[0], dsurface[1], dsurface[2], dsurface[3],
                  p->surface_type, p->surface_unit, p->image_width, p->image_height);
 
     fwrite(p->image_data_raw, 3, p->image_width*p->image_height, out);
@@ -2907,34 +3271,12 @@ static void preview_zoom_out(GtkWidget *window, gpointer data)
 static void preview_zoom_in(GtkWidget *window, gpointer data)
 {
  Preview *p=data;
- const SANE_Option_Descriptor *opt;
- SANE_Status status;
- SANE_Word val;
- int i, optnum;
+ int i;
 
   for (i=0; i<4; i++)
   {
     p->old_surface[i] = p->surface[i];
-
-    optnum = p->dialog->well_known.coord[i];
-    if (optnum > 0)
-    {
-      opt = xsane_get_option_descriptor(p->dialog->dev, optnum);
-      status = xsane_control_option(p->dialog->dev, optnum, SANE_ACTION_GET_VALUE, &val, 0);
-      if (status != SANE_STATUS_GOOD)
-      {
-        continue;
-      }
-
-      if (opt->type == SANE_TYPE_FIXED)
-      {
-        p->surface[i] = SANE_UNFIX(val);
-      }
-      else
-      {
-        p->surface[i] = val;
-      }
-    }
+    p->surface[i]     = p->selection.coordinate[i];
   }
 
   preview_update_surface(p, 1);
@@ -3126,6 +3468,18 @@ static void preview_preset_area_callback(GtkWidget *widget, gpointer call_data)
   p->preset_height = preset_area[selection].height;
 
   preview_update_surface(p, 0);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void preview_rotation_callback(GtkWidget *widget, gpointer call_data)
+{
+ Preview *p = call_data;
+ int rot;
+ rot = (int) gtk_object_get_data(GTK_OBJECT(widget), "Selection");
+
+  p->rotation = rot;
+  preview_update_surface(p, 2);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

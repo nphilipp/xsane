@@ -2,8 +2,7 @@ READ THIS FILE IF YOU EXPERIENCE ANY PROBLEM
 
  - there is a html documentation for xsane.
    If you have problems compiling xsane call
-      make xsanehelp
-   then you get a script xsane-help that opens the onlinehelp for xsane.
+     netscape /xsane-0.??/doc/sane-xsane-doc.html
 
    If you can start xsane you can open the online helpfile via the menu
    help->XSane doc
@@ -23,13 +22,13 @@ READ THIS FILE IF YOU EXPERIENCE ANY PROBLEM
      in most cases the installation paths are different so the old versions
      are not overwritten!
 
- - If you get an error message  that libsane-dll.so.1 or libsane.so.1 is not found, you have to
-   tell your system where the SANE-libraries are installed.
-    For linux: edit /etc/ld.so.conf and add a line with the path to the
-    libraries (normally /usr/local/lib/sane), then call ldconfig.
-    THIS MUST BE DONE A ROOT!
-    If you use a SuSE linux, edit /etc/ld.so.conf.in instead and call
-    SuSEconfig instead of ldconfig.
+- If you get an error message  that libsane-dll.so.1 or libsane-so.1 is not found, you have to
+  tell your system where the SANE-libraries are installed.
+   - For sane-1.0.1 you have to edit /etc/ld.so.conf and add a line with the path to the
+     libraries (normally /usr/local/lib/sane), then call ldconfig.
+     THIS MUST BE DONE AS ROOT!
+   - For sane-1.0.2 (and later versions) the path to the xsane libs MUST NOT be listed
+     in /etc/ld.so.conf
 
  - The online-help-viewer is selectable.
    If you use kde you can enter kdehelp in setup/display.
@@ -69,7 +68,7 @@ READ THIS FILE IF YOU EXPERIENCE ANY PROBLEM
    do NOT compile xsane with included gettext!
    Otherwise gtk will crash when gtk texts shall be translated.
 
- - If you have any problems with gtk/gdk/gimp, please call find-libs.
+ - If you have any problems with gtk/gdk/gimp, please call print-libs.
    It prints all libs/includes etc. that are relevant for xsane.
    Make sure that you do not have installed more than one version of
    each lib!

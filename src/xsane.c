@@ -1625,10 +1625,9 @@ GtkWidget *xsane_update_xsane_callback()
           xsane.resolution_x = 204;
           xsane.resolution_y = 196;
         }
-
-        xsane_set_all_resolutions();
       }
     }
+    xsane_set_all_resolutions();
     xsane_fax_dialog();
   }
 
@@ -4620,10 +4619,25 @@ static void xsane_choose_device(void)
  char model[17];
  char type[20];
  int j;
+ char *xsane_default_device = NULL;
+ int ndevs;
 
 #define TEXT_NO_VENDOR "no vendor\0"
 #define TEXT_NO_MODEL  "no model\0"
 #define TEXT_NO_TYPE   "no type\0"
+
+  xsane_default_device = getenv(XSANE_DEFAULT_DEVICE);
+  if (xsane_default_device)
+  {
+    for (ndevs = 0; devlist[ndevs]; ++ndevs)
+    {
+      if (!strncmp(devlist[ndevs]->name, xsane_default_device, strlen(xsane_default_device)))
+      {
+        selected_dev = ndevs;
+        break; 
+      }
+    }
+  }
 
   choose_device_dialog = gtk_dialog_new();
   gtk_window_set_position(GTK_WINDOW(choose_device_dialog), GTK_WIN_POS_CENTER);
@@ -4730,6 +4744,11 @@ static void xsane_choose_device(void)
     gtk_box_pack_start(GTK_BOX(device_vbox), button, TRUE, TRUE, 0);
     gtk_widget_show(button);
     owner = gtk_radio_button_group(GTK_RADIO_BUTTON(button));;
+
+    if (i == selected_dev)
+    {
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON (button), TRUE);
+    }
   }
   gtk_widget_show(device_vbox);
 

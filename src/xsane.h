@@ -32,7 +32,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.59"
+#define XSANE_VERSION		"0.60"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2000"
@@ -44,6 +44,7 @@
 
 #define XSANE_DEFAULT_UMASK 0007
 #define XSANE_HOLD_TIME 200
+#define XSANE_DEFAULT_DEVICE "SANE_DEFAULT_DEVICE"
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
