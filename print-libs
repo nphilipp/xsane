@@ -1,3 +1,4 @@
+#!/bin/sh
 echo "TEST FOR SANE:"
 find / -name "sane.h" 2>/dev/null
 find / -name "libsane-dll*" 2>/dev/null

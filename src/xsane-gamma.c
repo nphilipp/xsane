@@ -23,8 +23,8 @@
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 #include "xsane.h"
-#include "xsane-front-gtk.h"
 #include "xsane-back-gtk.h"
+#include "xsane-front-gtk.h"
 #include "xsane-preferences.h"
 #include "xsane-preview.h"
 #include "xsane-save.h"
@@ -64,7 +64,7 @@ void xsane_histogram_toggle_button_callback(GtkWidget *widget, gpointer data);
 void xsane_create_threshold_curve(SANE_Int *gammadata, double threshold, int numbers, int maxout);
 void xsane_create_gamma_curve(SANE_Int *gammadata, int negative, double gamma,
                               double brightness, double contrast, int numbers, int maxout);
-void xsane_update_gamma(void);
+void xsane_update_gamma_curve(void);
 static void xsane_enhancement_update(void);
 static void xsane_gamma_to_histogram(double *min, double *mid, double *max,
                                      double contrast, double brightness, double gamma);
@@ -76,11 +76,16 @@ static void xsane_histogram_to_gamma(XsaneSlider *slider, double *contrast, doub
 void xsane_enhancement_by_histogram(int update_gamma);
 static gint xsane_histogram_win_delete(GtkWidget *widget, gpointer data);
 void xsane_create_histogram_dialog(const char *devicetext);
+static gint xsane_gamma_win_delete(GtkWidget *widget, gpointer data);
+void xsane_create_gamma_dialog(const char *devicetext);
+void xsane_update_gamma_dialog(void);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 static void xsane_bound_double(double *value, double min, double max)
 {
+  DBG(DBG_proc3, "xsane_bound_double\n");
+
   if (*value < min)
   {
     *value = min;
@@ -97,6 +102,8 @@ static void xsane_bound_double(double *value, double min, double max)
 void xsane_clear_histogram(XsanePixmap *hist)
 {
  GdkRectangle rect;
+
+  DBG(DBG_proc, "xsane_clear_histogram\n");
 
   if(hist->pixmap)
   {
@@ -120,6 +127,8 @@ static void xsane_draw_histogram_with_points(XsanePixmap *hist, int invert,
  int i;
  int inten, red, green, blue;
  int colval;
+
+  DBG(DBG_proc, "xsane_draw_histogram_with_points\n");
 
 #define XD 1
 #define YD 2
@@ -195,6 +204,8 @@ static void xsane_draw_histogram_with_lines(XsanePixmap *hist, int invert,
  int val_swap;
  int color_swap;
  int colval;
+
+  DBG(DBG_proc, "xsane_draw_histogram_with_lines\n");
 
   if (hist->pixmap)
   {
@@ -299,6 +310,8 @@ void xsane_establish_slider(XsaneSlider *slider)
  int x, y, pos, len;
  guchar buf[XSANE_SLIDER_WIDTH*3];
  GdkRectangle rect;
+
+  DBG(DBG_proc, "xsane_establish_slider\n");
 
   buf[0] = buf[1] = buf[2] = 0;
   buf[3+0] = buf[3+1] = buf[3+2]= 0;
@@ -410,6 +423,8 @@ void xsane_draw_slider_level(XsaneSlider *slider)
  guchar buf[XSANE_SLIDER_WIDTH*3];
  GdkRectangle rect;
 
+  DBG(DBG_proc, "xsane_draw_slider_level\n");
+
   buf[0] = buf[1] = buf[2] = 0;
   buf[3+0] = buf[3+1] = buf[3+2]= 0;
 
@@ -444,6 +459,8 @@ void xsane_draw_slider_level(XsaneSlider *slider)
 
 static void xsane_set_slider(XsaneSlider *slider, double min, double mid, double max)
 {
+  DBG(DBG_proc, "xsane_set_slider\n");
+
   slider->value[0] = min;
   slider->value[1] = mid;
   slider->value[2] = max;
@@ -459,6 +476,8 @@ static void xsane_set_slider(XsaneSlider *slider, double min, double mid, double
 
 void xsane_update_slider(XsaneSlider *slider)
 {
+  DBG(DBG_proc, "xsane_update_slider\n");
+
   slider->position[0] = 2.55 * slider->value[0];
   slider->position[1] = 2.55 * slider->value[1];
   slider->position[2] = 2.55 * slider->value[2];
@@ -470,6 +489,8 @@ void xsane_update_slider(XsaneSlider *slider)
 
 void xsane_update_sliders()
 {
+  DBG(DBG_proc, "xsane_update_sliders\n");
+
   xsane_update_slider(&xsane.slider_gray);
 
   if ( (xsane.xsane_color) && (!xsane.enhancement_rgb_default) )
@@ -509,6 +530,8 @@ void xsane_update_sliders()
 
 static gint xsane_slider_hold_event()
 {
+  DBG(DBG_proc, "xsane_slider_hold_event\n");
+
   gtk_timeout_remove(xsane.slider_timer);
   xsane.slider_timer = 0;
 
@@ -528,6 +551,8 @@ static gint xsane_slider_callback(GtkWidget *widget, GdkEvent *event, XsaneSlide
  static int update = FALSE;
  static int event_count = 0;
  static int x;
+
+  DBG(DBG_proc, "xsane_slider_callback\n");
 
   if (slider->active == XSANE_SLIDER_INACTIVE)
   {
@@ -635,6 +660,8 @@ static gint xsane_slider_callback(GtkWidget *widget, GdkEvent *event, XsaneSlide
 
 void xsane_create_slider(XsaneSlider *slider)
 {
+  DBG(DBG_proc, "xsane_create_slider\n");
+
   slider->preview = gtk_preview_new(GTK_PREVIEW_COLOR);
   gtk_preview_size(GTK_PREVIEW(slider->preview), XSANE_SLIDER_WIDTH, XSANE_SLIDER_HEIGHT);
   gtk_widget_set_events(slider->preview, XSANE_SLIDER_EVENTS);
@@ -646,6 +673,8 @@ void xsane_create_slider(XsaneSlider *slider)
 void xsane_create_histogram(GtkWidget *parent, const char *title, int width, int height, XsanePixmap *hist)
 {
   GdkBitmap *mask=NULL;
+
+  DBG(DBG_proc, "xsane_create_histogram\n");
 
    hist->frame     = gtk_frame_new(title);
    hist->pixmap    = gdk_pixmap_new(xsane.histogram_dialog->window, width, height, -1);
@@ -671,6 +700,8 @@ static void xsane_calculate_auto_enhancement(int negative,
  int min_blue, mid_blue, max_blue;
  int val;
  int i;
+
+  DBG(DBG_proc, "xsane_calculate_auto_enhancement\n");
 
   if (xsane.preview)
   {
@@ -840,6 +871,19 @@ static void xsane_calculate_auto_enhancement(int negative,
       xsane.auto_black_blue = min_blue/2.55;
     }
   }
+
+  DBG(DBG_proc, "xsane.auto_white       = %f\n", xsane.auto_white);
+  DBG(DBG_proc, "xsane.auto_gray        = %f\n", xsane.auto_gray);
+  DBG(DBG_proc, "xsane.auto_black       = %f\n", xsane.auto_black);
+  DBG(DBG_proc, "xsane.auto_white_red   = %f\n", xsane.auto_white_red);
+  DBG(DBG_proc, "xsane.auto_gray_red    = %f\n", xsane.auto_gray_red);
+  DBG(DBG_proc, "xsane.auto_black_red   = %f\n", xsane.auto_black_red);
+  DBG(DBG_proc, "xsane.auto_white_green = %f\n", xsane.auto_white_green);
+  DBG(DBG_proc, "xsane.auto_gray_green  = %f\n", xsane.auto_gray_green);
+  DBG(DBG_proc, "xsane.auto_black_green = %f\n", xsane.auto_black_green);
+  DBG(DBG_proc, "xsane.auto_white_blue  = %f\n", xsane.auto_white_blue);
+  DBG(DBG_proc, "xsane.auto_gray_blue   = %f\n", xsane.auto_gray_blue);
+  DBG(DBG_proc, "xsane.auto_black_blue  = %f\n", xsane.auto_black_blue);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -859,6 +903,8 @@ void xsane_calculate_histogram(void)
  int maxval_enh;
  int maxval;
  double scale;
+
+  DBG(DBG_proc, "xsane_calculate_histogram\n");
 
   /* at first reset auto enhancement values */
 
@@ -972,6 +1018,8 @@ void xsane_calculate_histogram(void)
 
 void xsane_update_histogram()
 {
+  DBG(DBG_proc, "xsane_update_histogram\n");
+
   if (preferences.show_histogram)
   {
     xsane_calculate_histogram();
@@ -985,6 +1033,8 @@ void xsane_histogram_toggle_button_callback(GtkWidget *widget, gpointer data)
 {
   int *valuep = data;
 
+  DBG(DBG_proc, "xsane_histogram_toggle_button_callback\n");
+
   *valuep = (GTK_TOGGLE_BUTTON(widget)->active != 0);
   xsane_update_histogram();
 }
@@ -996,6 +1046,8 @@ void xsane_create_threshold_curve(SANE_Int *gammadata, double threshold, int num
  int i;
  int maxin = numbers-1;
  int threshold_level;
+
+  DBG(DBG_proc, "xsane_create_threshold_curve\n");
 
   xsane_bound_double(&threshold, 0.0, 100.0);
   threshold_level = maxin * threshold / 100.0;
@@ -1022,6 +1074,9 @@ void xsane_create_gamma_curve(SANE_Int *gammadata, int negative, double gamma,
  double m;
  double b;
  int maxin = numbers-1;
+
+  DBG(DBG_proc, "xsane_create_gamma_curve(negative = %d, gamma = %f, brightness = %f, contrast = %f, number = %d, maxout = %d\n",
+                 negative, gamma, brightness, contrast, numbers, maxout);
 
   if (contrast < -100.0)
   {
@@ -1059,8 +1114,10 @@ void xsane_create_gamma_curve(SANE_Int *gammadata, int negative, double gamma,
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void xsane_update_gamma(void)
+void xsane_update_gamma_curve(void)
 {
+  DBG(DBG_proc, "xsane_update_gamma_curve\n");
+
   if (xsane.preview)
   {
     if (!xsane.preview_gamma_data_red)
@@ -1156,6 +1213,8 @@ static void xsane_enhancement_update(void)
 {
  guint sig_changed=0;
 
+  DBG(DBG_proc, "xsane_enhancement_update\n");
+
   if (xsane.param.depth == 1) /* lineart? no gamma */
   {
     return;
@@ -1210,6 +1269,8 @@ static void xsane_gamma_to_histogram(double *min, double *mid, double *max,
  double m;
  double b;
 
+  DBG(DBG_proc, "xsane_gamma_to_histogram\n");
+
   m = 1.0 + contrast/100.0;
   b = (1.0 + brightness/100.0) * 50.0;
 
@@ -1237,6 +1298,8 @@ void xsane_enhancement_by_gamma(void)
 {
  double min, mid, max;
  double contrast, brightness, gamma;
+
+  DBG(DBG_proc, "xsane_enhancement_by_gamma\n");
 
   xsane_gamma_to_histogram(&min, &mid, &max, xsane.contrast, xsane.brightness, xsane.gamma);
 
@@ -1297,13 +1360,15 @@ void xsane_enhancement_by_gamma(void)
 
 
   xsane_enhancement_update();
-  xsane_update_gamma();
+  xsane_update_gamma_curve();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 void xsane_enhancement_restore_default()
 {
+  DBG(DBG_proc, "xsane_enhancement_restore_default\n");
+
   xsane.gamma            = 1.0;
   xsane.gamma_red        = 1.0;
   xsane.gamma_green      = 1.0;
@@ -1326,6 +1391,8 @@ void xsane_enhancement_restore_default()
 
 void xsane_enhancement_restore()
 {
+  DBG(DBG_proc, "xsane_enhancement_restore\n");
+
   xsane.gamma            = preferences.xsane_gamma;
   xsane.gamma_red        = preferences.xsane_gamma_red;
   xsane.gamma_green      = preferences.xsane_gamma_green;
@@ -1344,7 +1411,7 @@ void xsane_enhancement_restore()
   xsane.enhancement_rgb_default = preferences.xsane_rgb_default;
   xsane.negative                = preferences.xsane_negative;
 
-  xsane_refresh_dialog(dialog);
+  xsane_refresh_dialog();
   xsane_enhancement_by_gamma();
 }
 
@@ -1352,6 +1419,8 @@ void xsane_enhancement_restore()
 
 void xsane_enhancement_store()
 {
+  DBG(DBG_proc, "xsane_enhancement_store\n");
+
   preferences.xsane_gamma            = xsane.gamma;
   preferences.xsane_gamma_red        = xsane.gamma_red;
   preferences.xsane_gamma_green      = xsane.gamma_green;
@@ -1378,6 +1447,8 @@ static void xsane_histogram_to_gamma(XsaneSlider *slider, double *contrast, doub
  double mid;
  double range;
 
+  DBG(DBG_proc, "xsane_histogram_to_gamma\n");
+
   *contrast   = (10000.0 / (slider->value[2] - slider->value[0]) - 100.0);
   *brightness = - (slider->value[0] - 50.0) * (*contrast + 100.0)/50.0 - 100.0;
 
@@ -1401,6 +1472,8 @@ void xsane_enhancement_by_histogram(int update_gamma)
  double brightness;
  double contrast;
  double gamma;
+
+  DBG(DBG_proc, "xsane_enhancement_by_histogram\n");
 
   xsane_histogram_to_gamma(&xsane.slider_gray, &gray_contrast, &gray_brightness, &gray_gamma);
 
@@ -1461,6 +1534,8 @@ void xsane_enhancement_by_histogram(int update_gamma)
 
 static gint xsane_histogram_win_delete(GtkWidget *widget, gpointer data)
 {
+  DBG(DBG_proc, "xsane_histogram_win_delete\n");
+
   gtk_widget_hide(widget);
   preferences.show_histogram = FALSE;
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_histogram_widget), preferences.show_histogram);
@@ -1481,6 +1556,8 @@ void xsane_create_histogram_dialog(const char *devicetext)
  GdkColor color_backg;
  GdkColormap *colormap;
  GtkStyle *style;
+
+  DBG(DBG_proc, "xsane_create_histogram_dialog\n");
 
   xsane.histogram_dialog = gtk_window_new(GTK_WINDOW_DIALOG);
   gtk_window_set_policy(GTK_WINDOW(xsane.histogram_dialog), FALSE, FALSE, FALSE);
@@ -1626,4 +1703,56 @@ void xsane_create_histogram_dialog(const char *devicetext)
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
+#ifdef HAVE_WORKING_GTK_GAMMACURVE
+static gint xsane_gamma_win_delete(GtkWidget *widget, gpointer data)
+{
+  DBG(DBG_proc, "xsane_gamma_win_delete\n");
 
+  gtk_widget_hide(widget);
+  preferences.show_histogram = FALSE;
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_gamma_widget), preferences.show_gamma);
+  return TRUE;
+}                                    
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void xsane_create_gamma_dialog(const char *devicetext)
+{
+ char windowname[255];
+ GtkWidget *xsane_vbox_gamma;
+
+  DBG(DBG_proc, "xsane_create_free_gamma_dialog\n");
+
+  xsane.gamma_dialog = gtk_window_new(GTK_WINDOW_DIALOG);
+  gtk_window_set_policy(GTK_WINDOW(xsane.gamma_dialog), FALSE, FALSE, FALSE);
+  gtk_widget_set_uposition(xsane.gamma_dialog, XSANE_GAMMA_POS_X, XSANE_GAMMA_POS_Y);
+  gtk_signal_connect(GTK_OBJECT(xsane.gamma_dialog), "delete_event", GTK_SIGNAL_FUNC(xsane_gamma_win_delete), NULL);
+  sprintf(windowname, "%s %s", WINDOW_GAMMA, devicetext);
+  gtk_window_set_title(GTK_WINDOW(xsane.gamma_dialog), windowname);
+  xsane_set_window_icon(xsane.gamma_dialog, 0);
+
+  xsane_vbox_gamma = gtk_vbox_new(TRUE, 5);
+  gtk_container_set_border_width(GTK_CONTAINER(xsane_vbox_gamma), 5);
+  gtk_container_add(GTK_CONTAINER(xsane.gamma_dialog), xsane_vbox_gamma);
+  gtk_widget_show(xsane_vbox_gamma);
+
+  /* create  a subwindow so the gamma dialog keeps its position on rebuilds: */
+  xsane.gamma_window = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(xsane_vbox_gamma), xsane.gamma_window, TRUE, TRUE, 0);
+  gtk_widget_show(xsane.gamma_window);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void xsane_update_gamma_dialog()
+{
+  DBG(DBG_proc, "xsane_update_gamma_dialog\n");
+
+  if (preferences.show_gamma)
+  {
+    gtk_widget_show(xsane.gamma_dialog);
+  }
+}
+#endif
+
+/* ---------------------------------------------------------------------------------------------------------------------- */

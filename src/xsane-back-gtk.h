@@ -18,37 +18,16 @@
 
    You should have received a copy of the GNU General Public License
    along with this program; if not, write to the Free Software
-   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  */
+   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  */ 
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#ifndef xsane_back_gtk_h
-#define xsane_back_gtk_h
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
- 
-#include <sys/types.h>
-
-#include <gtk/gtk.h>
-
-#include <sane/config.h>
-#include <sane/sane.h>
+#ifndef XSANE_BACK_GTK_H
+#define XSANE_BACK_GTK_H
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-enum
-{
-  XSANE_PATH_LOCAL_SANE = 0,
-  XSANE_PATH_SYSTEM,
-  XSANE_PATH_TMP
-};
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-struct GSGDialog;
-
-typedef void (*GSGCallback) (struct GSGDialog *dialog, void *arg);
-typedef GtkWidget *(*XSANECallback) (void);
+#include "xsane.h"
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -60,76 +39,6 @@ typedef enum
     xsane_back_gtk_BR_Y	/* bottom-right y */
   }
 GSGCornerCoordinates;
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-typedef struct
-  {
-    /* The option number of the well-known options.  Each of these may
-       be -1 in case the backend doesn't define the respective option.  */
-    int scanmode;
-    int scansource;
-    int preview;
-    int dpi;
-    int dpi_x;
-    int dpi_y;
-    int coord[4];
-    int gamma_vector;
-    int gamma_vector_r;
-    int gamma_vector_g;
-    int gamma_vector_b;
-    int bit_depth;
-    int threshold;
-  }
-GSGWellKnownOptions;
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-typedef struct
-  {
-    gchar *label;
-    struct GSGDialogElement *elem;
-    gint index;
-  }
-GSGMenuItem;
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-typedef struct GSGDialogElement
-  {
-    struct GSGDialog *dialog;	/* wasteful, but is there a better solution? */
-    GtkWidget *automatic;	/* auto button for options that support this */
-    GtkWidget *widget;
-    GtkObject *data;
-    int menu_size;		/* # of items in menu (if any) */
-    GSGMenuItem *menu;
-  }
-GSGDialogElement;
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-typedef struct GSGDialog
-  {
-    GtkWidget *xsane_window;
-    GtkWidget *standard_window;
-    GtkWidget *advanced_window;
-    GtkWidget *xsane_hbox;
-    GtkWidget *standard_hbox;
-    GtkWidget *advanced_hbox;
-    GtkWidget *xsanemode_widget;
-    GtkTooltips *tooltips;
-    GdkColor tooltips_fg;
-    GdkColor tooltips_bg;
-    SANE_Handle *dev;
-    const char *dev_name;
-    GSGWellKnownOptions well_known;
-    int num_elements;
-    GSGDialogElement *element;
-    gint idle_id;
-    u_int rebuild : 1;
-    int pixelcolor;
-  }
-GSGDialog;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -148,17 +57,18 @@ extern void xsane_back_gtk_warning(gchar *warning_message, gint wait);
 extern int xsane_back_gtk_get_filename(const char *label, const char *default_name,
 			    size_t max_len, char *filename, int show_fileopts);
 
-extern void xsane_back_gtk_sync(GSGDialog *dialog);
-extern void xsane_back_gtk_update_vector(GSGDialog *dialog, int opt_num, SANE_Int *vector);
-extern void xsane_back_gtk_refresh_dialog(GSGDialog *dialog);
-extern void xsane_back_gtk_update_scan_window(GSGDialog *dialog);
-extern void xsane_back_gtk_set_advanced(GSGDialog *dialog, int advanced);
-extern void xsane_back_gtk_set_tooltips(GSGDialog *dialog, int enable);
+extern void xsane_back_gtk_sync(void);
+extern void xsane_back_gtk_update_vector(int opt_num, SANE_Int *vector);
+extern void xsane_back_gtk_refresh_dialog(void);
+extern void xsane_back_gtk_vector_new(GtkWidget *box, int num_vopts, int *vopts);
+extern void xsane_back_gtk_update_scan_window(void);
+extern void xsane_back_gtk_set_advanced(int advanced);
+extern void xsane_back_gtk_set_tooltips(int enable);
 extern void xsane_back_gtk_set_tooltip(GtkTooltips *tooltips, GtkWidget *widget, const char *desc);
-extern void xsane_back_gtk_set_sensitivity(GSGDialog *dialog, int sensitive);
+extern void xsane_back_gtk_set_sensitivity(int sensitive);
 extern void xsane_set_sensitivity(SANE_Int sensitivity);
-extern void xsane_back_gtk_destroy_dialog(GSGDialog *dialog);
-extern void xsane_back_gtk_set_option(GSGDialog * dialog, int opt_num, void *val, SANE_Action action);
+extern void xsane_back_gtk_destroy_dialog(void);
+extern void xsane_back_gtk_set_option(int opt_num, void *val, SANE_Action action);
 extern GtkWidget *xsane_back_gtk_group_new (GtkWidget *parent, const char * title);
 extern void xsane_back_gtk_button_new(GtkWidget * parent, const char *name, SANE_Word val,
             GSGDialogElement *elem, GtkTooltips *tooltips, const char *desc, SANE_Int settable);
@@ -173,6 +83,4 @@ extern void xsane_back_gtk_push_button_callback(GtkWidget * widget, gpointer dat
 extern const char *xsane_back_gtk_unit_string(SANE_Unit unit);
 void xsane_set_window_icon(GtkWidget *gtk_window, gchar **xpm_d);
 
-#define xsane_back_gtk_dialog_get_device(dialog)	((dialog)->dev)
-
-#endif /* gtkglue_h */
+#endif

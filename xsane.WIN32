@@ -1,0 +1,75 @@
+
+This is an early Version of xsane (pre 0.61) for win32.
+=======================================================
+It may have several bugs. It is not tested very well
+but short tests looked very good.
+
+This version supports:
+ - preview scan, preview zoom
+ - scan and save to pnm, ps and raw file, if compiled in also jpeg and png
+ - handling of all backend options
+
+I does not support:
+ - copy mode (no printing)
+ - fax mode (no compatible faxsoftware)
+ - helpfiles
+ - tiff as output file format
+
+Unknown / not supported in the moment:
+ - gimp-plugin not tested/not compiled with gimp support
+
+
+Installation:
+=============
+ - unpack the archiv to c:\
+   that creates the directory c:\Sane with several files
+   you do not need to copy any files,
+   simply call xsane or scanimage
+ - make sure c:\Sane\home\xsane does exist
+ - make sure c:\Sane\xsane does exist
+
+
+Configuration:
+==============
+ edit c:\Sane\net.conf
+ and enter a list of IP-Adresses of machines you want to connect to.
+
+example for net.conf:
+192.168.0.1
+192.169.1.73
+
+ you also can start xsane with backend and decice given as command line option:
+ xsane 192.168.0.1:umax:/dev/scanner
+
+
+Support:
+========
+ There is no special support for xsane for win32.
+ I develop xsane on a linux machine and will make a binary version
+ for win32 from time to time.
+
+Licence:
+========
+ xsane, xsane for win32 stand under the term of
+ the gnu general public licence (GPL).
+ You can find the sourcecode for xsane at:
+  http://www.wolfsburg.de/~rauch/sane/sane-xsane.html
+
+ The dll-libraries that come with xsane also do stand under the terms of the
+ general public licence and may be also some other licences (cygwini1.dll)
+ - as far as I know. For location of sourcecode and information about the
+ dlls read xsane.WIN32-compilation.
+
+ Libraries of jpeg, png and tiff and possibly linked statically.
+ They have their own licences who allow free private and may be
+ free commercial usage.
+
+Contact:
+========
+ You can contact me via email: Oliver.Rauch@Wolfsburg.DE
+ but don`t ask for support for xsane-win32, I do not have the
+ time to give support to it and want to use my free time to
+ work on the code - please understand that.
+
+Oliver Rauch
+

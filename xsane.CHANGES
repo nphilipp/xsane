@@ -999,7 +999,7 @@ xsane-0.59 -> 0.60:
 
  - removed unused item "custom" from preview surface menu
 
- - cahnged preview surface menu items:
+ - changed preview surface menu items:
    A3  -> A3P (portrait)
    A4  -> A4P (portrait)
    A4H -> A4L (landscape)
@@ -1008,3 +1008,46 @@ xsane-0.59 -> 0.60:
 
  - removed script xsane-help, necessary command now is listed in xsane.PROBLEMS
 
+ - after filename counter is increased the cursor in the outputfilename entry is moved to the right
+
+
+xsane-0.60 -> 0.61:
+-------------------
+
+ - added debug output function and messages
+
+ - moved all global variables and struct GSGdialog to global struct xsane
+
+ - cleaned up some variable names
+
+ - added free gamma curve dialog (not ready)
+
+ - prepared xsane for win32:
+   - when BUGGY_GDK_INPUT_EXCEPTION is defined only blocking mode is used
+     (needed because GDK input exception does not work on win32)
+   - on win32 you cannot get a homedirectory, for this
+     XSANE_FIXED_HOME_PATH has to be set to the path that shall be
+     used as homedirectory
+   - replaced all gtk_dialog_new by gtk_window_new and added hbox and vbox to the window
+     (gtk_dialog_new does not work on WIN32)
+   - added xsane.WIN32 and xsane.WIN32-compilation that describes how xsane
+     is build on WIN32 with CYGWIN
+   - replaced "/" in all paths, added label SLASH that is predefined to '/' if it is
+     not defined by compiler option. For WIN32 it is set to '\' by compiler option
+   - all fopen functions use argument "rb" or "wb" now (b=binary). This is needed for WIN32
+     and the b is ignored on unix systems.
+   - published binary version xsane-win32-0v01 and xsane-win32-0v02 based on
+     xsane-pre0.61 versions
+
+ - removed an ugly bug: in struct Preferences there was predefined a string ("/tmp/")
+   that caused a bad memory state when the string memory was freed,
+   instead the string is defined in xsane_pref_restore now
+
+ - changes for tiff format:
+   - added support for 16 bit tiff format.
+   - predefined tiff-compression is changed from 5 to PACKBITS(16bit), JPEG(8bit), FAXG3(1bit).
+   - add resoultion-tags and datetime-tag to tiff files.
+
+ - added "change directory" entry to preferences menu
+
+ - added "scanning for devices" dialog

@@ -4,4 +4,6 @@
 
 - Added first routines for rotating preview image - NOT READY
 
+- preparing xsane to run on win32 with cygwin and gtk
+
 

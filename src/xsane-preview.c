@@ -82,11 +82,6 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-extern const char *prog_name;
-extern const char *device_text;
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
 /* Cut fp conversion routines some slack: */
 #define GROSSLY_DIFFERENT(f1,f2)	(fabs ((f1) - (f2)) > 1e-3)
 #define GROSSLY_EQUAL(f1,f2)		(fabs ((f1) - (f2)) < 1e-3) 
@@ -202,6 +197,8 @@ void preview_set_maximum_output_size(Preview *p, float width, float height);
 
 static void preview_rotate_dsurface_to_psurface(int rotation, float dsurface[4], float *psurface)
 {
+  DBG(DBG_proc, "preview_rotate_dsurface_to_psurface(rotation = %d)\n", rotation);
+
   switch (rotation)
   {
     case 0: /* 0 degree */
@@ -239,6 +236,8 @@ static void preview_rotate_dsurface_to_psurface(int rotation, float dsurface[4],
 
 static void preview_rotate_psurface_to_dsurface(int rotation, float psurface[4], float *dsurface)
 {
+  DBG(DBG_proc, "preview_rotate_psurface_to_dsurface(rotation = %d)\n", rotation);
+
   switch (rotation)
   {
     case 0: /* 0 degree */
@@ -276,8 +275,10 @@ static void preview_rotate_psurface_to_dsurface(int rotation, float psurface[4],
 
 static void preview_transform_coordinate_preview_to_window(Preview *p, float dcoordinate[4], float *pcoordinate)
 {
-  float minx, maxx, miny, maxy;
-  float xscale, yscale;
+ float minx, maxx, miny, maxy;
+ float xscale, yscale;
+
+  DBG(DBG_proc, "preview_transform_coordinate_preview_to_window\n");
 
   preview_get_scale_device_to_preview(p, &xscale, &yscale);
 
@@ -337,7 +338,9 @@ static void preview_transform_coordinate_preview_to_window(Preview *p, float dco
 
 static void preview_transform_coordinate_window_to_preview(Preview *p, float winx, float winy, float *previewx, float *previewy)
 {
-  float xscale, yscale;
+ float xscale, yscale;
+
+  DBG(DBG_proc, "preview_transform_coordinate_window_to_preview\n");
 
   preview_get_scale_device_to_preview(p, &xscale, &yscale);
 
@@ -372,6 +375,8 @@ static void preview_order_selection(Preview *p)
 {
  float tmp_coordinate;
 
+  DBG(DBG_proc, "preview_order_selection\n");
+
   p->selection.active = ( (p->selection.coordinate[0] != p->selection.coordinate[2]) &&
                           (p->selection.coordinate[1] != p->selection.coordinate[3]) );
 
@@ -402,6 +407,7 @@ static void preview_order_selection(Preview *p)
 
 static void preview_bound_selection(Preview *p)
 {
+  DBG(DBG_proc, "preview_bound_selection\n");
 
   p->selection.active = ( (p->selection.coordinate[0] != p->selection.coordinate[2]) &&
                           (p->selection.coordinate[1] != p->selection.coordinate[3]) );
@@ -437,6 +443,8 @@ static void preview_draw_rect(Preview *p, GdkWindow *win, GdkGC *gc, float coord
 {
  float pcoord[4];
 
+  DBG(DBG_proc, "preview_draw_rect\n");
+
   preview_transform_coordinate_preview_to_window(p, coordinate, pcoord);
   gdk_draw_rectangle(win, gc, FALSE, pcoord[0], pcoord[1], pcoord[2]-pcoord[0] + 1, pcoord[3] - pcoord[1] + 1);
 }
@@ -445,6 +453,8 @@ static void preview_draw_rect(Preview *p, GdkWindow *win, GdkGC *gc, float coord
 
 static void preview_draw_selection(Preview *p)
 {
+  DBG(DBG_proc, "preview_draw_selection\n");
+
   if (!p->gc_selection) /* window isn't mapped yet */
   {
     return;
@@ -497,15 +507,17 @@ static void preview_update_selection(Preview *p)
  int i, optnum;
  float coord[4];
 
+  DBG(DBG_proc, "preview_update_selection\n");
+
   p->previous_selection = p->selection;
 
   for (i = 0; i < 4; ++i)
   {
-    optnum = p->dialog->well_known.coord[i];
+    optnum = xsane.well_known.coord[i];
     if (optnum > 0)
     {
-      opt = xsane_get_option_descriptor(p->dialog->dev, optnum);
-      status = xsane_control_option(p->dialog->dev, optnum, SANE_ACTION_GET_VALUE, &val, 0);
+      opt = xsane_get_option_descriptor(xsane.dev, optnum);
+      status = xsane_control_option(xsane.dev, optnum, SANE_ACTION_GET_VALUE, &val, 0);
       if (status != SANE_STATUS_GOOD)
       {
         continue;
@@ -563,9 +575,10 @@ static void preview_update_selection(Preview *p)
 static void preview_establish_selection(Preview *p)
 {
   /* This routine only shall be called if the preview area really is changed. */
+ int i;
+ float coord[4];
 
-  int i;
-  float coord[4];
+  DBG(DBG_proc, "preview_establish_selection\n");
 
   preview_order_selection(p);
 
@@ -575,14 +588,14 @@ static void preview_establish_selection(Preview *p)
 
   for (i = 0; i < 4; ++i)
   {
-    preview_set_option_float(p, p->dialog->well_known.coord[i], coord[i]);
+    preview_set_option_float(p, xsane.well_known.coord[i], coord[i]);
   }
 
-  xsane_back_gtk_update_scan_window(p->dialog);
+  xsane_back_gtk_update_scan_window();
 
   xsane.block_update_param = FALSE;
 
-  xsane_update_param(dialog, 0); 
+  xsane_update_param(0); 
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -591,6 +604,8 @@ static void preview_establish_selection(Preview *p)
 static void preview_update_batch_selection(Preview *p)
 {
  Batch_selection *batch_selection;
+
+  DBG(DBG_proc, "preview_update_batch_selection\n");
 
   if (!p->gc_selection) /* window isn't mapped yet */
   {
@@ -615,6 +630,8 @@ static void preview_get_scale_device_to_image(Preview *p, float *xscalep, float 
  float device_width, device_height;
  float xscale = 1.0;
  float yscale = 1.0;
+
+  DBG(DBG_proc, "preview_get_scale_device_to_image\n");
 
   device_width  = fabs(p->image_surface[2] - p->image_surface[0]);
   device_height = fabs(p->image_surface[3] - p->image_surface[1]);
@@ -643,6 +660,9 @@ static void preview_get_scale_device_to_image(Preview *p, float *xscalep, float 
 
   *xscalep = xscale;
   *yscalep = yscale;
+
+  DBG(DBG_info2, "preview_get_scale_device_to_image: xscale = %f\n", xscale);
+  DBG(DBG_info2, "preview_get_scale_device_to_image: yscale = %f\n", yscale);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -652,6 +672,8 @@ static void preview_get_scale_device_to_preview(Preview *p, float *xscalep, floa
  float device_width, device_height;
  float xscale = 1.0;
  float yscale = 1.0;
+
+  DBG(DBG_proc, "preview_get_scale_device_to_preview\n");
 
   device_width  = fabs(p->image_surface[2] - p->image_surface[0]);
   device_height = fabs(p->image_surface[3] - p->image_surface[1]);
@@ -680,6 +702,9 @@ static void preview_get_scale_device_to_preview(Preview *p, float *xscalep, floa
 
   *xscalep = xscale;
   *yscalep = yscale;
+
+  DBG(DBG_info2, "preview_get_scale_device_to_preview: xscale = %f\n", xscale);
+  DBG(DBG_info2, "preview_get_scale_device_to_preview: yscale = %f\n", yscale);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -688,6 +713,8 @@ static void preview_get_scale_preview_to_image(Preview *p, float *xscalep, float
 {
  float xscale = 1.0;
  float yscale = 1.0;
+
+  DBG(DBG_proc, "preview_get_scale_preview_to_image\n");
 
   if (p->image_width > 0)
   {
@@ -713,6 +740,9 @@ static void preview_get_scale_preview_to_image(Preview *p, float *xscalep, float
 
   *xscalep = xscale;
   *yscalep = yscale;
+
+  DBG(DBG_info2, "preview_get_scale_preview_to_image: xscale = %f\n", xscale);
+  DBG(DBG_info2, "preview_get_scale_preview_to_image: yscale = %f\n", yscale);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -721,6 +751,8 @@ static void preview_paint_image(Preview *p)
 {
  float xscale, yscale, src_x, src_y;
  int dst_x, dst_y, height, x, y, old_y, src_offset;
+
+  DBG(DBG_proc, "preview_paint_image\n");
 
   if (!p->image_data_enh)
   {
@@ -950,6 +982,8 @@ static void preview_paint_image(Preview *p)
 
 static void preview_display_partial_image(Preview *p)
 {
+  DBG(DBG_proc, "preview_display_partial_image\n");
+
   p->previous_selection.active = FALSE; /* ok, old selections are overpainted */
   p->previous_selection_maximum.active = FALSE;
 
@@ -974,6 +1008,8 @@ static void preview_display_maybe(Preview *p)
 {
  time_t now;
 
+  DBG(DBG_proc, "preview_display_maybe\n");
+
   time(&now);
 
   if (now > p->image_last_time_updated) /* wait at least one secone */
@@ -987,6 +1023,8 @@ static void preview_display_maybe(Preview *p)
 
 static void preview_display_image(Preview *p)
 {
+  DBG(DBG_proc, "preview_display_image\n");
+
   /* if image height was unknown and got larger than expected get missing memory */
   if (p->params.lines <= 0 && p->image_y < p->image_height)
   {
@@ -1006,7 +1044,9 @@ static void preview_display_image(Preview *p)
 
 static void preview_save_option(Preview *p, int option, void *save_loc, int *valid)
 {
-  SANE_Status status;
+ SANE_Status status;
+
+  DBG(DBG_proc, "preview_save_option\n");
 
   if (option <= 0)
   {
@@ -1014,7 +1054,7 @@ static void preview_save_option(Preview *p, int option, void *save_loc, int *val
     return;
   }
 
-  status = xsane_control_option(p->dialog->dev, option, SANE_ACTION_GET_VALUE, save_loc, 0);
+  status = xsane_control_option(xsane.dev, option, SANE_ACTION_GET_VALUE, save_loc, 0);
   *valid = (status == SANE_STATUS_GOOD);
 }
 
@@ -1026,12 +1066,14 @@ static void preview_restore_option(Preview *p, int option, void *saved_value, in
  SANE_Status status;
  SANE_Handle dev;
 
+  DBG(DBG_proc, "preview_restore_option\n");
+
   if (!valid)
   {
     return;
   }
 
-  dev = p->dialog->dev;
+  dev = xsane.dev;
   status = xsane_control_option(dev, option, SANE_ACTION_SET_VALUE, saved_value, 0);
 
   if (status != SANE_STATUS_GOOD)
@@ -1051,12 +1093,14 @@ static void preview_set_option_float(Preview *p, int option, float value)
  SANE_Handle dev;
  SANE_Word word;
 
+  DBG(DBG_proc, "preview_set_option_float\n");
+
   if (option <= 0 || value <= -INF || value >= INF)
   {
     return;
   }
 
-  dev = p->dialog->dev;
+  dev = xsane.dev;
   opt = xsane_get_option_descriptor(dev, option);
   if (opt->type == SANE_TYPE_FIXED)
   {
@@ -1076,12 +1120,14 @@ static void preview_set_option(Preview *p, int option, void *value)
 {
  SANE_Handle dev;
 
+  DBG(DBG_proc, "preview_set_option\n");
+
   if (option <= 0)
   {
     return;
   }
 
-  dev = p->dialog->dev;
+  dev = xsane.dev;
   xsane_control_option(dev, option, SANE_ACTION_SET_VALUE, value, 0);
 }
 
@@ -1091,12 +1137,14 @@ static void preview_set_option_val(Preview *p, int option, SANE_Int value)
 {
  SANE_Handle dev;
 
+  DBG(DBG_proc, "preview_set_option_val\n");
+
   if (option <= 0)
   {
     return;
   }
 
-  dev = p->dialog->dev;
+  dev = xsane.dev;
   xsane_control_option(dev, option, SANE_ACTION_SET_VALUE, &value, 0);
 }
 
@@ -1106,6 +1154,8 @@ static int preview_increment_image_y(Preview *p)
 {
  size_t extra_size, offset;
  char buf[256];
+
+  DBG(DBG_proc, "preview_increment_image_y\n");
 
   p->image_x = 0;
   ++p->image_y;
@@ -1142,7 +1192,9 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
  int offset = 0;
  char last = 0;
 
-  dev = p->dialog->dev;
+  DBG(DBG_proc, "preview_read_image_data\n");
+
+  dev = xsane.dev;
   while (1)
   {
     if ((p->params.depth == 1) || (p->params.depth == 8))
@@ -1192,8 +1244,11 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
         }
         else
         {
-          gdk_input_remove(p->input_tag);
-          p->input_tag = -1;
+          if (p->input_tag >= 0)
+          {
+            gdk_input_remove(p->input_tag);
+            p->input_tag = -1;
+          }
           preview_scan_start(p);
           break;
         }
@@ -1393,6 +1448,8 @@ static void preview_scan_done(Preview *p)
 {
  int i;
 
+  DBG(DBG_proc, "preview_scan_done\n");
+
   p->scanning = FALSE;
 
   if (p->input_tag >= 0)
@@ -1401,24 +1458,24 @@ static void preview_scan_done(Preview *p)
     p->input_tag = -1;
   }
 
-  sane_cancel(p->dialog->dev);
+  sane_cancel(xsane.dev);
  
   xsane.block_update_param = TRUE; /* do not change parameters each time */
 
-  preview_restore_option(p, p->dialog->well_known.dpi,   &p->saved_dpi,   p->saved_dpi_valid);
-  preview_restore_option(p, p->dialog->well_known.dpi_x, &p->saved_dpi_x, p->saved_dpi_x_valid);
-  preview_restore_option(p, p->dialog->well_known.dpi_y, &p->saved_dpi_y, p->saved_dpi_y_valid);
+  preview_restore_option(p, xsane.well_known.dpi,   &p->saved_dpi,   p->saved_dpi_valid);
+  preview_restore_option(p, xsane.well_known.dpi_x, &p->saved_dpi_x, p->saved_dpi_x_valid);
+  preview_restore_option(p, xsane.well_known.dpi_y, &p->saved_dpi_y, p->saved_dpi_y_valid);
 
   for (i = 0; i < 4; ++i)
   {
-    preview_restore_option(p, p->dialog->well_known.coord[i], &p->saved_coord[i], p->saved_coord_valid[i]);
+    preview_restore_option(p, xsane.well_known.coord[i], &p->saved_coord[i], p->saved_coord_valid[i]);
   }
 
-  preview_restore_option(p, p->dialog->well_known.scanmode, &p->saved_scanmode, p->saved_scanmode_valid);
+  preview_restore_option(p, xsane.well_known.scanmode, &p->saved_scanmode, p->saved_scanmode_valid);
 
-  preview_restore_option(p, p->dialog->well_known.bit_depth, &p->saved_bit_depth, p->saved_bit_depth_valid);
+  preview_restore_option(p, xsane.well_known.bit_depth, &p->saved_bit_depth, p->saved_bit_depth_valid);
 
-  preview_set_option_val(p, p->dialog->well_known.preview, SANE_FALSE);
+  preview_set_option_val(p, xsane.well_known.preview, SANE_FALSE);
 
   gtk_widget_set_sensitive(p->cancel, FALSE);
   xsane_set_sensitivity(TRUE);
@@ -1436,6 +1493,8 @@ static void preview_scan_done(Preview *p)
 static int preview_get_memory(Preview *p)
 {
  char buf[256];
+
+  DBG(DBG_proc, "preview_get_memory\n");
 
   if (p->image_data_enh)
   {
@@ -1479,6 +1538,7 @@ static int preview_get_memory(Preview *p)
       p->preview_row = 0;
     }
 
+    DBG(DBG_error, "failed to allocate image buffer: %s", strerror(errno));
     snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_ALLOCATE_IMAGE, strerror(errno));
     xsane_back_gtk_error(buf, TRUE);
 
@@ -1494,7 +1554,7 @@ static int preview_get_memory(Preview *p)
 
 static void preview_scan_start(Preview *p)
 {
- SANE_Handle dev = p->dialog->dev;
+ SANE_Handle dev = xsane.dev;
  SANE_Status status;
  char buf[256];
  int fd, y, i;
@@ -1506,6 +1566,8 @@ static void preview_scan_start(Preview *p)
  int gamma_red_max    = 255;
  int gamma_green_max  = 255;
  int gamma_blue_max   = 255;
+
+  DBG(DBG_proc, "preview_scan_start\n");
 
   for (i=0; i<4; i++)
   {
@@ -1529,44 +1591,44 @@ static void preview_scan_start(Preview *p)
     p->input_tag = -1;
   }
 
-  if (p->dialog->well_known.gamma_vector >0)
+  if (xsane.well_known.gamma_vector >0)
   {
    const SANE_Option_Descriptor *opt;
  
-    opt = xsane_get_option_descriptor(p->dialog->dev, p->dialog->well_known.gamma_vector);
+    opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector);
     if (SANE_OPTION_IS_ACTIVE(opt->cap))
     {
      SANE_Int *gamma_data;
 
-      opt = xsane_get_option_descriptor(p->dialog->dev, p->dialog->well_known.gamma_vector);
+      opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector);
       gamma_gray_size = opt->size / sizeof(opt->type);
       gamma_gray_max  = opt->constraint.range->max;
 
       gamma_data = malloc(gamma_gray_size  * sizeof(SANE_Int));
       xsane_create_gamma_curve(gamma_data, 0, 1.0, 0.0, 0.0, gamma_gray_size, gamma_gray_max);
-      xsane_back_gtk_update_vector(p->dialog, p->dialog->well_known.gamma_vector, gamma_data);
+      xsane_back_gtk_update_vector(xsane.well_known.gamma_vector, gamma_data);
       free(gamma_data);
     }
   }
 
-  if (p->dialog->well_known.gamma_vector_r >0)
+  if (xsane.well_known.gamma_vector_r >0)
   {
    const SANE_Option_Descriptor *opt;
 
-    opt = xsane_get_option_descriptor(p->dialog->dev, p->dialog->well_known.gamma_vector_r);
+    opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector_r);
     if (SANE_OPTION_IS_ACTIVE(opt->cap))
     {
      SANE_Int *gamma_data_red, *gamma_data_green, *gamma_data_blue;
 
-      opt = xsane_get_option_descriptor(p->dialog->dev, p->dialog->well_known.gamma_vector_r);
+      opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector_r);
       gamma_red_size = opt->size / sizeof(opt->type);
       gamma_red_max  = opt->constraint.range->max;
 
-      opt = xsane_get_option_descriptor(p->dialog->dev, p->dialog->well_known.gamma_vector_g);
+      opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector_g);
       gamma_green_size = opt->size / sizeof(opt->type);
       gamma_green_max  = opt->constraint.range->max;
 
-      opt = xsane_get_option_descriptor(p->dialog->dev, p->dialog->well_known.gamma_vector_b);
+      opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector_b);
       gamma_blue_size = opt->size / sizeof(opt->type);
       gamma_blue_max  = opt->constraint.range->max;
 
@@ -1578,9 +1640,9 @@ static void preview_scan_start(Preview *p)
       xsane_create_gamma_curve(gamma_data_green, 0, 1.0, 0.0, 0.0, gamma_green_size, gamma_green_max);
       xsane_create_gamma_curve(gamma_data_blue,  0, 1.0, 0.0, 0.0, gamma_blue_size,  gamma_blue_max);
 
-      xsane_back_gtk_update_vector(p->dialog, p->dialog->well_known.gamma_vector_r, gamma_data_red);
-      xsane_back_gtk_update_vector(p->dialog, p->dialog->well_known.gamma_vector_g, gamma_data_green);
-      xsane_back_gtk_update_vector(p->dialog, p->dialog->well_known.gamma_vector_b, gamma_data_blue);
+      xsane_back_gtk_update_vector(xsane.well_known.gamma_vector_r, gamma_data_red);
+      xsane_back_gtk_update_vector(xsane.well_known.gamma_vector_g, gamma_data_green);
+      xsane_back_gtk_update_vector(xsane.well_known.gamma_vector_b, gamma_data_blue);
 
       free(gamma_data_red);
       free(gamma_data_green);
@@ -1639,11 +1701,17 @@ static void preview_scan_start(Preview *p)
 
   p->scanning = TRUE;
 
+#ifndef BUGGY_GDK_INPUT_EXCEPTION
+  /* for unix */
   if (sane_set_io_mode(dev, SANE_TRUE) == SANE_STATUS_GOOD && sane_get_select_fd(dev, &fd) == SANE_STATUS_GOOD)
   {
     p->input_tag = gdk_input_add(fd, GDK_INPUT_READ | GDK_INPUT_EXCEPTION, preview_read_image_data, p);
   }
   else
+#else
+  /* for win32 */
+  sane_set_io_mode(dev, SANE_FALSE);
+#endif
   {
     preview_read_image_data(p, -1, GDK_INPUT_READ);
   }
@@ -1655,8 +1723,10 @@ static int preview_make_image_path(Preview *p, size_t filename_size, char *filen
 {
  char buf[256];
 
+  DBG(DBG_proc, "preview_make_image_path\n");
+
   snprintf(buf, sizeof(buf), "preview-level-%d-", level);
-  return xsane_back_gtk_make_path(filename_size, filename, 0, 0, buf, p->dialog->dev_name, ".ppm", XSANE_PATH_TMP);
+  return xsane_back_gtk_make_path(filename_size, filename, 0, 0, buf, xsane.dev_name, ".ppm", XSANE_PATH_TMP);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1674,6 +1744,8 @@ static int preview_restore_image_from_file(Preview *p, FILE *in, int min_quality
  size_t nread;
  char *imagep;
  char buf[255];
+
+  DBG(DBG_proc, "preview_restore_image_from_file\n");
 
   if (!in)
   {
@@ -1770,12 +1842,15 @@ static void preview_restore_image(Preview *p)
  int quality = 0;
  int level;
 
+  DBG(DBG_proc, "preview_restore_image\n");
+
   if (p->calibration)
   {
    char filename[PATH_MAX];
 
+    DBG(DBG_proc, "calibration mode\n");
     xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", 0, "xsane-calibration", 0, ".pnm", XSANE_PATH_SYSTEM);
-    in = fopen(filename, "r");
+    in = fopen(filename, "rb"); /* read binary (b for win32) */
     if (in)
     {
       quality = preview_restore_image_from_file(p, in, -1);
@@ -1789,7 +1864,7 @@ static void preview_restore_image(Preview *p)
     {
       if (p->filename[level])
       {
-        in = fopen(p->filename[level], "r");
+        in = fopen(p->filename[level], "rb"); /* read binary (b for win32) */
         if (in)
         {
           quality = preview_restore_image_from_file(p, in, quality);
@@ -1802,8 +1877,9 @@ static void preview_restore_image(Preview *p)
     {
      char filename[PATH_MAX];
 
+      DBG(DBG_proc, "no suitable image available, using startimage\n");
       xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", 0, "xsane-startimage", 0, ".pnm", XSANE_PATH_SYSTEM);
-      in = fopen(filename, "r");
+      in = fopen(filename, "rb"); /* read binary (b for win32) */
       if (in)
       {
         quality = preview_restore_image_from_file(p, in, -1);
@@ -1826,6 +1902,8 @@ static gint preview_hold_event_handler(gpointer data)
 {
  Preview *p = data;
 
+  DBG(DBG_proc, "preview_hold_event_handler\n");
+
   gtk_timeout_remove(p->hold_timer);
   p->hold_timer = 0;
 
@@ -1845,6 +1923,8 @@ static gint preview_motion_event_handler(GtkWidget *window, GdkEvent *event, gpo
  float preview_x, preview_y;
  float xscale, yscale;
  int cursornr;
+
+  DBG(DBG_proc, "preview_motion_event_handler\n");
 
   /* preview selection (device) -> cursor-position (window) */
   preview_transform_coordinate_preview_to_window(p, p->selection.coordinate, preview_selection);
@@ -1866,6 +1946,9 @@ static gint preview_motion_event_handler(GtkWidget *window, GdkEvent *event, gpo
             GDK_Num_Lock & GDK_Caps_Lock & GDK_Shift_Lock & GDK_Scroll_Lock) /* mask all Locks */
     {
       case 256: /* left button */
+
+        DBG(DBG_info2, "left button\n");
+
         if ( (p->selection_drag) || (p->selection_drag_edge) )
         {
           p->selection.active = TRUE;
@@ -1936,6 +2019,8 @@ static gint preview_motion_event_handler(GtkWidget *window, GdkEvent *event, gpo
 
       case 512: /* middle button */
       case 1024: /* right button */
+        DBG(DBG_info2, "middle or right button\n");
+
         if (p->selection_drag)
         {
          double dx, dy;
@@ -2038,6 +2123,7 @@ static gint preview_motion_event_handler(GtkWidget *window, GdkEvent *event, gpo
 
   while (gtk_events_pending()) /* make sure all later events are handled */
   {
+    DBG(DBG_info, "calling gtk_main_iteration\n");
     gtk_main_iteration();
   }
 
@@ -2054,6 +2140,8 @@ static gint preview_button_press_event_handler(GtkWidget *window, GdkEvent *even
  float preview_x, preview_y;
  int cursornr;
 
+  DBG(DBG_proc, "preview_button_press_event_handler\n");
+
   /* preview selection (device) -> cursor-position (window) */
   preview_transform_coordinate_preview_to_window(p, p->selection.coordinate, preview_selection);
 
@@ -2066,6 +2154,7 @@ static gint preview_button_press_event_handler(GtkWidget *window, GdkEvent *even
     {
       case MODE_PIPETTE_WHITE:
       {
+        DBG(DBG_info, "pipette white mode\n");
         if ( ( (((GdkEventButton *)event)->button == 1) || (((GdkEventButton *)event)->button == 2) ) && (p->image_data_raw) ) /* left or middle button */
         {
          int r,g,b;
@@ -2153,6 +2242,8 @@ static gint preview_button_press_event_handler(GtkWidget *window, GdkEvent *even
 
       case MODE_PIPETTE_GRAY:
       {
+        DBG(DBG_info, "pipette gray mode\n");
+
         if ( ( (((GdkEventButton *)event)->button == 1) || (((GdkEventButton *)event)->button == 2) ) && (p->image_data_raw) ) /* left or middle button */
         {
          int r,g,b;
@@ -2256,6 +2347,8 @@ static gint preview_button_press_event_handler(GtkWidget *window, GdkEvent *even
 
       case MODE_PIPETTE_BLACK:
       {
+        DBG(DBG_info, "pipette black mode\n");
+
         if ( ( (((GdkEventButton *)event)->button == 1) || (((GdkEventButton *)event)->button == 2) ) &&
              (p->image_data_raw) ) /* left or middle button */
         {
@@ -2344,11 +2437,15 @@ static gint preview_button_press_event_handler(GtkWidget *window, GdkEvent *even
 
       case MODE_NORMAL:
       {
+        DBG(DBG_info, "normal mode\n");
+
         if (p->show_selection)
         {
           switch (((GdkEventButton *)event)->button)
           {
             case 1: /* left button */
+              DBG(DBG_info, "left button\n");
+
               p->selection_xedge = -1;
               if ( (preview_selection[0] - SELECTION_RANGE_OUT < event->button.x) &&
                    (event->button.x < preview_selection[0] + SELECTION_RANGE_IN) ) /* left */
@@ -2398,6 +2495,8 @@ static gint preview_button_press_event_handler(GtkWidget *window, GdkEvent *even
 
             case 2: /* middle button */
             case 3: /* right button */
+              DBG(DBG_info, "middle or right button\n");
+
               if ( (preview_selection[0]-SELECTION_RANGE_OUT < event->button.x) &&
                    (preview_selection[2]+SELECTION_RANGE_OUT > event->button.x) &&
                    (preview_selection[1]-SELECTION_RANGE_OUT < event->button.y) &&
@@ -2434,6 +2533,8 @@ static gint preview_button_release_event_handler(GtkWidget *window, GdkEvent *ev
  GdkCursor *cursor;
  float preview_selection[4];
  int cursornr;
+
+  DBG(DBG_proc, "preview_button_release_event_handler\n");
 
   /* preview selection (device) -> cursor-position (window) */
   preview_transform_coordinate_preview_to_window(p, p->selection.coordinate, preview_selection);
@@ -2480,10 +2581,13 @@ static gint preview_expose_event_handler(GtkWidget *window, GdkEvent *event, gpo
  GdkColor color;
  GdkColormap *colormap; 
 
+  DBG(DBG_proc, "preview_expose_event_handler\n");
+
   if (event->type == GDK_EXPOSE)
   {
     if (!p->gc_selection)
     {
+      DBG(DBG_info, "defining line styles for selection and page frames\n");
       colormap = gdk_window_get_colormap(p->window->window);
 
       p->gc_selection = gdk_gc_new(p->window->window);
@@ -2515,6 +2619,8 @@ static gint preview_expose_event_handler(GtkWidget *window, GdkEvent *event, gpo
 
 static void preview_start_button_clicked(GtkWidget *widget, gpointer data)
 {
+  DBG(DBG_proc, "preview_start_button_clicked\n");
+
   preview_scan(data);
 }
 
@@ -2522,17 +2628,19 @@ static void preview_start_button_clicked(GtkWidget *widget, gpointer data)
 
 static void preview_cancel_button_clicked(GtkWidget *widget, gpointer data)
 {
+  DBG(DBG_proc, "preview_cancel_button_clicked\n");
+
   preview_scan_done(data);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-Preview *preview_new(GSGDialog *dialog)
+Preview *preview_new(void)
 {
  GtkWidget *table, *frame;
  GtkSignalFunc signal_func;
  GtkWidgetClass *class;
- GtkBox *vbox, *hbox;
+ GtkWidget *vbox, *hbox;
  GdkCursor *cursor;
  GtkWidget *preset_area_option_menu, *preset_area_menu, *preset_area_item;
  GtkWidget *rotation_option_menu, *rotation_menu, *rotation_item;
@@ -2540,6 +2648,8 @@ Preview *preview_new(GSGDialog *dialog)
  int i;
  char buf[256];
  char filename[PATH_MAX];
+
+  DBG(DBG_proc, "preview_new\n");
 
   p = malloc(sizeof(*p));
   if (!p)
@@ -2550,7 +2660,6 @@ Preview *preview_new(GSGDialog *dialog)
 
   p->mode        = MODE_NORMAL; /* no pipette functions etc */
   p->calibration = 0; /* do not display calibration image */
-  p->dialog      = dialog;
   p->input_tag   = -1;
   p->rotation    = 0;
 
@@ -2563,7 +2672,7 @@ Preview *preview_new(GSGDialog *dialog)
     if (preview_make_image_path(p, sizeof(filename), filename, i)>=0)
     {
       umask(0177);			/* create temporary file with "-rw-------" permissions */
-      fclose(fopen(filename, "w"));	/* make sure file exists */
+      fclose(fopen(filename, "wb"));	/* make sure file exists, b = binary mode for win32 */
       umask(XSANE_DEFAULT_UMASK);	/* define new file permissions */
       p->filename[i] = strdup(filename);/* store filename */
     }
@@ -2585,13 +2694,24 @@ Preview *preview_new(GSGDialog *dialog)
 #endif
   gtk_widget_push_colormap(gtk_preview_get_cmap());
 
-  snprintf(buf, sizeof(buf), "%s %s", WINDOW_PREVIEW, device_text);
-  p->top = gtk_dialog_new();
+  snprintf(buf, sizeof(buf), "%s %s", WINDOW_PREVIEW, xsane.device_text);
+  p->top = gtk_window_new(GTK_WINDOW_DIALOG);
   gtk_window_set_title(GTK_WINDOW(p->top), buf);
-  vbox = GTK_BOX(GTK_DIALOG(p->top)->vbox);
-  hbox = GTK_BOX(GTK_DIALOG(p->top)->action_area);
-
   xsane_set_window_icon(p->top, 0);
+
+  /* set the main vbox */
+  vbox = gtk_vbox_new(FALSE, 0);
+  gtk_container_set_border_width(GTK_CONTAINER(vbox), 0);
+  gtk_container_add(GTK_CONTAINER(p->top), vbox);
+  gtk_widget_show(vbox);     
+
+  /* set the main hbox */
+  hbox = gtk_hbox_new(FALSE, 0);
+  xsane_separator_new(vbox, 2);
+  gtk_box_pack_end(GTK_BOX(vbox), hbox, FALSE, FALSE, 5);
+  gtk_container_set_border_width(GTK_CONTAINER(hbox), 5);
+  gtk_widget_show(hbox);
+
 
   /* top hbox for pipette buttons */
   p->button_box = gtk_hbox_new(FALSE, 5);
@@ -2678,7 +2798,7 @@ Preview *preview_new(GSGDialog *dialog)
   gtk_table_set_col_spacing(GTK_TABLE(table), 0, 1);
   gtk_table_set_row_spacing(GTK_TABLE(table), 0, 1);
   gtk_container_set_border_width(GTK_CONTAINER(table), 2);
-  gtk_box_pack_start(vbox, table, /* expand */ TRUE, /* fill */ TRUE, /* padding */ 0);
+  gtk_box_pack_start(GTK_BOX(vbox), table, /* expand */ TRUE, /* fill */ TRUE, /* padding */ 0);
 
   /* the empty box in the top-left corner */
   frame = gtk_frame_new(/* label */ 0);
@@ -2771,6 +2891,8 @@ static void preview_area_correct(Preview *p)
 {
  float width, height, max_width, max_height;
 
+  DBG(DBG_proc, "preview_area_correct\n");
+
   width      = p->preview_width;
   height     = p->preview_height;
   max_width  = p->preview_window_width;
@@ -2803,6 +2925,8 @@ void preview_update_surface(Preview *p, int surface_changed)
  SANE_Unit unit;
  double min, max;
 
+  DBG(DBG_proc, "preview_update_surface\n");
+
   unit = SANE_UNIT_PIXEL;
   type = SANE_TYPE_INT;
 
@@ -2813,9 +2937,9 @@ void preview_update_surface(Preview *p, int surface_changed)
 /*    val = (i & 2) ? INF : -INF; */
     val = (i & 2) ? INF : 0;
 
-    if (p->dialog->well_known.coord[i] > 0)
+    if (xsane.well_known.coord[i] > 0)
     {
-      opt = xsane_get_option_descriptor(p->dialog->dev, p->dialog->well_known.coord[i]);
+      opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.coord[i]);
       assert(opt->unit == SANE_UNIT_PIXEL || opt->unit == SANE_UNIT_MM);
       unit = opt->unit;
       type = opt->type;
@@ -2916,6 +3040,7 @@ void preview_update_surface(Preview *p, int surface_changed)
 
   if (surface_changed)
   {
+    DBG(DBG_info, "surface_changed\n");
     /* guess the initial preview window size: */
 
     width  = p->surface[xsane_back_gtk_BR_X] - p->surface[xsane_back_gtk_TL_X];
@@ -2952,6 +3077,8 @@ void preview_update_surface(Preview *p, int surface_changed)
 
   if ( (surface_changed) && (p->preview_window_width == 0) )
   {
+    DBG(DBG_info, "defining size of preview window\n");
+
     p->preview_window_width  = 0.5 * gdk_screen_width();
     p->preview_window_height = 0.5 * gdk_screen_height();
     preview_area_correct(p);
@@ -2984,25 +3111,27 @@ void preview_scan(Preview *p)
  int i;
  float dsurface[4];
 
+  DBG(DBG_proc, "preview_scan\n");
+
   xsane.block_update_param = TRUE; /* do not change parameters each time */
 
-  preview_save_option(p, p->dialog->well_known.dpi,      &p->saved_dpi,      &p->saved_dpi_valid);
-  preview_save_option(p, p->dialog->well_known.dpi_x,    &p->saved_dpi_x,    &p->saved_dpi_x_valid);
-  preview_save_option(p, p->dialog->well_known.dpi_y,    &p->saved_dpi_y,    &p->saved_dpi_y_valid);
-  preview_save_option(p, p->dialog->well_known.scanmode, &p->saved_scanmode, &p->saved_scanmode_valid);
+  preview_save_option(p, xsane.well_known.dpi,      &p->saved_dpi,      &p->saved_dpi_valid);
+  preview_save_option(p, xsane.well_known.dpi_x,    &p->saved_dpi_x,    &p->saved_dpi_x_valid);
+  preview_save_option(p, xsane.well_known.dpi_y,    &p->saved_dpi_y,    &p->saved_dpi_y_valid);
+  preview_save_option(p, xsane.well_known.scanmode, &p->saved_scanmode, &p->saved_scanmode_valid);
 
   for (i = 0; i < 4; ++i)
   {
-    preview_save_option(p, p->dialog->well_known.coord[i], &p->saved_coord[i], p->saved_coord_valid + i);
+    preview_save_option(p, xsane.well_known.coord[i], &p->saved_coord[i], p->saved_coord_valid + i);
   }
 
-  preview_save_option(p, p->dialog->well_known.bit_depth, &p->saved_bit_depth, &p->saved_bit_depth_valid);
+  preview_save_option(p, xsane.well_known.bit_depth, &p->saved_bit_depth, &p->saved_bit_depth_valid);
 
   /* determine dpi, if necessary: */
 
-  if (p->dialog->well_known.dpi > 0)
+  if (xsane.well_known.dpi > 0)
   {
-    opt = xsane_get_option_descriptor(p->dialog->dev, p->dialog->well_known.dpi);
+    opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.dpi);
 
     gwidth  = p->preview_width;
     gheight = p->preview_height;
@@ -3049,29 +3178,29 @@ void preview_scan(Preview *p)
       dpi = max;
     }
 
-    xsane_set_resolution(p->dialog->well_known.dpi,   dpi); /* set resolution to dpi or next higher value that is available */
-    xsane_set_resolution(p->dialog->well_known.dpi_x, dpi); /* set resolution to dpi or next higher value that is available */
-    xsane_set_resolution(p->dialog->well_known.dpi_y, dpi); /* set resolution to dpi or next higher value that is available */
+    xsane_set_resolution(xsane.well_known.dpi,   dpi); /* set resolution to dpi or next higher value that is available */
+    xsane_set_resolution(xsane.well_known.dpi_x, dpi); /* set resolution to dpi or next higher value that is available */
+    xsane_set_resolution(xsane.well_known.dpi_y, dpi); /* set resolution to dpi or next higher value that is available */
   }
 
   preview_rotate_psurface_to_dsurface(p->rotation, p->surface, dsurface);
 
   for (i = 0; i < 4; ++i)
   {
-    preview_set_option_float(p, p->dialog->well_known.coord[i], dsurface[i]);
+    preview_set_option_float(p, xsane.well_known.coord[i], dsurface[i]);
   }
 
-  preview_set_option_val(p, p->dialog->well_known.preview, SANE_TRUE);
+  preview_set_option_val(p, xsane.well_known.preview, SANE_TRUE);
 
   if ( (xsane.grayscale_scanmode) && (xsane.param.depth == 1) && (xsane.lineart_mode == XSANE_LINEART_GRAYSCALE) )
   {
-    preview_set_option(p, p->dialog->well_known.scanmode, xsane.grayscale_scanmode);
+    preview_set_option(p, xsane.well_known.scanmode, xsane.grayscale_scanmode);
   }
 
 #if 0
   if ( (p->saved_bit_depth == 16) && (p->saved_bit_depth_valid) ) /* don't scan with 16 bpp */
   {
-    preview_set_option_val(p, p->dialog->well_known.bit_depth, 8);
+    preview_set_option_val(p, xsane.well_known.bit_depth, 8);
   }
 #endif
 
@@ -3085,6 +3214,8 @@ void preview_scan(Preview *p)
 
 static void preview_save_image_file(Preview *p, FILE *out)
 {
+  DBG(DBG_proc, "preview_save_image_file\n");
+
   if (out)
   {
    float dsurface[4];
@@ -3107,6 +3238,8 @@ static void preview_save_image(Preview *p)
 {
  FILE *out;
  int level=0;
+
+  DBG(DBG_proc, "preview_save_image\n");
 
   if (!p->image_data_enh)
   {
@@ -3137,7 +3270,7 @@ static void preview_save_image(Preview *p)
     /* save preview image */
 //    remove(p->filename[level]); /* remove existing preview */
     umask(0177); /* create temporary file with "-rw-------" permissions */
-    out = fopen(p->filename[level], "w");
+    out = fopen(p->filename[level], "wb"); /* b = binary mode for win32*/
     umask(XSANE_DEFAULT_UMASK); /* define new file permissions */
 
     preview_save_image_file(p, out);
@@ -3149,6 +3282,8 @@ static void preview_save_image(Preview *p)
 void preview_destroy(Preview *p)
 {
  int level;
+
+  DBG(DBG_proc, "preview_destroy\n");
 
   if (p->scanning)
   {
@@ -3211,6 +3346,8 @@ static void preview_zoom_not(GtkWidget *window, gpointer data)
  Preview *p=data;
  int i;
 
+  DBG(DBG_proc, "preview_zoom_not\n");
+
   for (i=0; i<4; i++)
   {
     p->surface[i] = p->scanner_surface[i];
@@ -3230,6 +3367,8 @@ static void preview_zoom_out(GtkWidget *window, gpointer data)
  int i;
  float delta_width  = (p->surface[2] - p->surface[0]) * 0.2;
  float delta_height = (p->surface[3] - p->surface[1]) * 0.2;
+
+  DBG(DBG_proc, "preview_zoom_out\n");
 
   for (i=0; i<4; i++)
   {
@@ -3273,6 +3412,8 @@ static void preview_zoom_in(GtkWidget *window, gpointer data)
  Preview *p=data;
  int i;
 
+  DBG(DBG_proc, "preview_zoom_in\n");
+
   for (i=0; i<4; i++)
   {
     p->old_surface[i] = p->surface[i];
@@ -3292,6 +3433,8 @@ static void preview_zoom_undo(GtkWidget *window, gpointer data)
  Preview *p=data;
  int i;
 
+  DBG(DBG_proc, "preview_zoom_undo\n");
+
   for (i=0; i<4; i++)
   {
     p->surface[i] = p->old_surface[i];
@@ -3310,6 +3453,8 @@ static void preview_get_color(Preview *p, int x, int y, int *red, int *green, in
  int image_x, image_y;
  float xscale_p2i, yscale_p2i;
  int offset;
+
+  DBG(DBG_proc, "preview_get_color\n");
 
   if (p->image_data_raw)
   {
@@ -3346,6 +3491,8 @@ static void preview_pipette_white(GtkWidget *window, gpointer data)
  GdkPixmap *pixmap;
  GdkPixmap *mask;
 
+  DBG(DBG_proc, "preview_pipette_white\n");
+
   p->mode = MODE_PIPETTE_WHITE;
 
   pixmap = gdk_bitmap_create_from_data(p->top->window, cursor_pipette_white, CURSOR_PIPETTE_WIDTH, CURSOR_PIPETTE_HEIGHT);
@@ -3376,6 +3523,8 @@ static void preview_pipette_gray(GtkWidget *window, gpointer data)
  GdkColor bg;
  GdkPixmap *pixmap;
  GdkPixmap *mask;
+
+  DBG(DBG_proc, "preview_pipette_gray\n");
 
   p->mode = MODE_PIPETTE_GRAY;
 
@@ -3408,6 +3557,8 @@ static void preview_pipette_black(GtkWidget *window, gpointer data)
  GdkPixmap *pixmap;
  GdkPixmap *mask;
 
+  DBG(DBG_proc, "preview_pipette_black\n");
+
   p->mode = MODE_PIPETTE_BLACK;
 
   pixmap = gdk_bitmap_create_from_data(p->top->window, cursor_pipette_black, CURSOR_PIPETTE_WIDTH, CURSOR_PIPETTE_HEIGHT);
@@ -3434,6 +3585,8 @@ void preview_select_full_preview_area(Preview *p)
 {
  int i;
 
+  DBG(DBG_proc, "preview_select_full_preview_area\n");
+
   p->selection.active = TRUE;
 
   for (i=0; i<4; i++)
@@ -3452,6 +3605,8 @@ static void preview_full_preview_area_callback(GtkWidget *widget, gpointer call_
 {
  Preview *p = call_data;
 
+  DBG(DBG_proc, "preview_full_preview_area_callback\n");
+
   preview_select_full_preview_area(p);
 }
 
@@ -3461,6 +3616,8 @@ static void preview_preset_area_callback(GtkWidget *widget, gpointer call_data)
 {
  Preview *p = call_data;
  int selection;
+
+  DBG(DBG_proc, "preview_preset_area_callback\n");
 
   selection = (int) gtk_object_get_data(GTK_OBJECT(widget), "Selection");
 
@@ -3476,7 +3633,10 @@ static void preview_rotation_callback(GtkWidget *widget, gpointer call_data)
 {
  Preview *p = call_data;
  int rot;
- rot = (int) gtk_object_get_data(GTK_OBJECT(widget), "Selection");
+
+  DBG(DBG_proc, "preview_rotation_callback\n");
+
+  rot = (int) gtk_object_get_data(GTK_OBJECT(widget), "Selection");
 
   p->rotation = rot;
   preview_update_surface(p, 2);
@@ -3488,6 +3648,8 @@ void preview_do_gamma_correction(Preview *p)
 {
  int x,y;
  int offset;
+
+  DBG(DBG_proc, "preview_do_gamma_correction\n");
 
   if ((p->image_data_raw) && (p->params.depth > 1) && (preview_gamma_data_red))
   {
@@ -3544,6 +3706,8 @@ void preview_calculate_histogram(Preview *p,
  SANE_Int min_x, max_x, min_y, max_y;
  float xscale, yscale;
  
+  DBG(DBG_proc, "preview_calculate_histogram\n");
+
   preview_get_scale_device_to_image(p, &xscale, &yscale);
 
   min_x = (p->selection.coordinate[0] - p->surface[0]) * xscale;
@@ -3645,6 +3809,8 @@ void preview_gamma_correction(Preview *p,
                               SANE_Int *gamma_red, SANE_Int *gamma_green, SANE_Int *gamma_blue,
                               SANE_Int *gamma_red_hist, SANE_Int *gamma_green_hist, SANE_Int *gamma_blue_hist)
 {
+  DBG(DBG_proc, "preview_gamma_correction\n");
+
   preview_gamma_data_red   = gamma_red;
   preview_gamma_data_green = gamma_green;
   preview_gamma_data_blue  = gamma_blue;
@@ -3664,6 +3830,8 @@ void preview_area_resize(Preview *p)
  float min_x, max_x, delta_x;
  float min_y, max_y, delta_y;
  float xscale, yscale, f;
+
+  DBG(DBG_proc, "preview_area_resize\n");
 
   p->preview_window_width  = p->window->allocation.width;
   p->preview_window_height = p->window->allocation.height;
@@ -3759,6 +3927,8 @@ void preview_area_resize(Preview *p)
 
 gint preview_area_resize_handler(GtkWidget *widget, GdkEvent *event, gpointer data)
 {
+  DBG(DBG_proc, "preview_area_resize_handler\n");
+
   preview_area_resize((Preview *) data);
  return FALSE;
 }
@@ -3767,6 +3937,8 @@ gint preview_area_resize_handler(GtkWidget *widget, GdkEvent *event, gpointer da
 #if 0
 void preview_update_maximum_output_size(Preview *p)
 {
+  DBG(DBG_proc, "preview_update_maximum_output_size\n");
+
   if ( (p->maximum_output_width >= INF) || (p->maximum_output_height >= INF) )
   {
     if (p->selection_maximum.active)
@@ -3888,6 +4060,7 @@ void preview_update_maximum_output_size(Preview *p)
 void preview_set_maximum_output_size(Preview *p, float width, float height)
 {
  /* witdh and height in device units */
+  DBG(DBG_proc, "preview_set_maximum_output_size\n");
 
   p->maximum_output_width  = width;
   p->maximum_output_height = height;

@@ -60,17 +60,10 @@ struct option long_options[] =
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-int xsane_back_gtk_message_dialog_active = 0;
+int DBG_LEVEL = 0;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-const char   *prog_name            = NULL;	/* name of this program, normally "xsane" */
-const char   *device_text          = NULL;	/* name of the selected device */
-GtkWidget    *choose_device_dialog = NULL;	/* the widget of the device selection dialog */
-GSGDialog    *dialog               = NULL;	/* the xsane-back-gtk dialog */
-const SANE_Device **devlist        = NULL;	/* the list of available devices */
-int          selected_dev          = -1;	/* the selected device */
-int          num_of_devs;			/* the number of available devices */
 struct Xsane xsane;				/* most xsane dependant values */
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -112,6 +105,7 @@ static void xsane_auto_enhancement_callback(GtkWidget *widget);
 static void xsane_show_standard_options_callback(GtkWidget *widget);
 static void xsane_show_advanced_options_callback(GtkWidget *widget);
 static void xsane_show_histogram_callback(GtkWidget *widget);
+static void xsane_show_gamma_callback(GtkWidget *widget);
 static void xsane_printer_callback(GtkWidget *widget, gpointer data);
 void xsane_pref_save(void);
 static void xsane_pref_restore(void);
@@ -189,6 +183,8 @@ static int xsane_parse_options(char *options, char *argv[])
  int arg    = 0;
  char buf[256];
 
+  DBG(DBG_proc, "xsane_parse_options\n");
+
   while (options[optpos] != 0)
   {
     switch(options[optpos])
@@ -223,11 +219,13 @@ static int xsane_parse_options(char *options, char *argv[])
 
 static void xsane_threshold_changed()
 {
+  DBG(DBG_proc, "xsane_threshold_changed\n");
+
   if (xsane.param.depth == 1) /* lineart mode */
   {
     if ( (xsane.lineart_mode == XSANE_LINEART_GRAYSCALE) || (xsane.lineart_mode == XSANE_LINEART_XSANE) )
     {
-     const SANE_Option_Descriptor *opt = xsane_get_option_descriptor(dialog->dev, dialog->well_known.threshold);
+     const SANE_Option_Descriptor *opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.threshold);
 
       if (opt)
       {
@@ -243,7 +241,7 @@ static void xsane_threshold_changed()
           threshold_value = (int) threshold;
         }
 
-        xsane_back_gtk_set_option(dialog, dialog->well_known.threshold, &threshold_value, SANE_ACTION_SET_VALUE);
+        xsane_back_gtk_set_option(xsane.well_known.threshold, &threshold_value, SANE_ACTION_SET_VALUE);
       }
     }
   }
@@ -252,6 +250,8 @@ static void xsane_threshold_changed()
 
 static void xsane_gamma_changed(GtkAdjustment *adj_data, double *val)
 {
+  DBG(DBG_proc, "xsane_gamma_changed\n");
+
   *val = adj_data->value;
   xsane_enhancement_by_gamma();
 
@@ -262,6 +262,8 @@ static void xsane_gamma_changed(GtkAdjustment *adj_data, double *val)
 
 static void xsane_set_modus_defaults(void)
 {
+  DBG(DBG_proc, "xsane_set_modus_defaults\n");
+
   switch(xsane.xsane_mode)
   {
     case XSANE_SCAN:
@@ -322,6 +324,7 @@ static void xsane_set_modus_defaults(void)
 
 static void xsane_modus_callback(GtkWidget *xsane_parent, int *num)
 {
+  DBG(DBG_proc, "xsane_modus_callback\n");
 
   if (xsane.filetype) /* add extension to filename */
   {
@@ -337,7 +340,7 @@ static void xsane_modus_callback(GtkWidget *xsane_parent, int *num)
   xsane.xsane_mode = *num;
 
   xsane_set_modus_defaults(); /* set defaults and maximum output size */
-  xsane_refresh_dialog(dialog);
+  xsane_refresh_dialog();
 
   if (xsane.xsane_mode != XSANE_FAX)
   {
@@ -350,6 +353,8 @@ static void xsane_modus_callback(GtkWidget *xsane_parent, int *num)
 
 static void xsane_filetype_callback(GtkWidget *widget, gpointer data)
 {
+  DBG(DBG_proc, "xsane_filetype_callback\n");
+
   if (data)
   {
    char *extension, *filename;
@@ -396,6 +401,8 @@ static void xsane_filetype_callback(GtkWidget *widget, gpointer data)
 
 static void xsane_outputfilename_changed_callback(GtkWidget *widget, gpointer data)
 {
+  DBG(DBG_proc, "xsane_outputfilename_changed_callback\n");
+
   if (preferences.filename)
   {
     free((void *) preferences.filename);
@@ -411,6 +418,8 @@ static void xsane_browse_filename_callback(GtkWidget *widget, gpointer data)
 {
  char filename[1024];
  char windowname[256];
+
+  DBG(DBG_proc, "xsane_browse_filename_callback\n");
 
   xsane_set_sensitivity(FALSE);
 
@@ -432,10 +441,10 @@ static void xsane_browse_filename_callback(GtkWidget *widget, gpointer data)
   }
   else /* no filename given, take standard filename */
   {
-    strcpy(filename, OUTFILENAME);
+    strcpy(filename, OUT_FILENAME);
   }
 
-  snprintf(windowname, sizeof(windowname), "%s %s %s", prog_name, WINDOW_OUTPUT_FILENAME, device_text);
+  snprintf(windowname, sizeof(windowname), "%s %s %s", xsane.prog_name, WINDOW_OUTPUT_FILENAME, xsane.device_text);
 
   umask((mode_t) preferences.directory_umask); /* define new file permissions */    
   xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, TRUE);
@@ -465,6 +474,8 @@ static void xsane_outputfilename_new(GtkWidget *vbox)
  GtkWidget *button;
  GtkWidget *xsane_filetype_menu, *xsane_filetype_item;
 
+  DBG(DBG_proc, "xsane_outputfilename_new\n");
+
   hbox = gtk_hbox_new(FALSE, 2);
   gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
@@ -473,7 +484,7 @@ static void xsane_outputfilename_new(GtkWidget *vbox)
 
   text = gtk_entry_new_with_max_length(255);
   gtk_widget_set_usize(text, 80, 0); /* set minimum size */
-  xsane_back_gtk_set_tooltip(dialog->tooltips, text, DESC_FILENAME);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_FILENAME);
   gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.filename);
   gtk_box_pack_start(GTK_BOX(hbox), text, TRUE, TRUE, 4);
   gtk_signal_connect(GTK_OBJECT(text), "changed", (GtkSignalFunc) xsane_outputfilename_changed_callback, NULL);
@@ -533,7 +544,7 @@ static void xsane_outputfilename_new(GtkWidget *vbox)
 #endif
 
   xsane.filetype_option_menu = gtk_option_menu_new();
-  xsane_back_gtk_set_tooltip(dialog->tooltips, xsane.filetype_option_menu, DESC_FILETYPE);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, xsane.filetype_option_menu, DESC_FILETYPE);
   gtk_box_pack_end(GTK_BOX(hbox), xsane.filetype_option_menu, FALSE, FALSE, 2);
   gtk_option_menu_set_menu(GTK_OPTION_MENU(xsane.filetype_option_menu), xsane_filetype_menu);
   gtk_option_menu_set_history(GTK_OPTION_MENU(xsane.filetype_option_menu), 0);
@@ -547,6 +558,8 @@ static void xsane_outputfilename_new(GtkWidget *vbox)
 
 static void xsane_faxreceiver_changed_callback(GtkWidget *widget, gpointer data)
 {
+  DBG(DBG_proc, "xsane_faxreceiver_changed_callback\n");
+
   if (xsane.fax_receiver)
   {
     free((void *) xsane.fax_receiver);
@@ -560,6 +573,8 @@ static void xsane_faxreceiver_changed_callback(GtkWidget *widget, gpointer data)
 
 static void xsane_faxproject_changed_callback(GtkWidget *widget, gpointer data)
 {
+  DBG(DBG_proc, "xsane_faxproject_changed_callback\n");
+
   if (preferences.fax_project)
   {
     free((void *) preferences.fax_project);
@@ -573,6 +588,8 @@ static void xsane_faxproject_changed_callback(GtkWidget *widget, gpointer data)
 
 static void xsane_fax_fine_mode_callback(GtkWidget * widget)
 {
+  DBG(DBG_proc, "xsane_fax_fine_mode_callback\n");
+
   xsane.fax_fine_mode = (GTK_TOGGLE_BUTTON(widget)->active != 0);
 
   if (xsane.fax_fine_mode)
@@ -590,13 +607,15 @@ static void xsane_fax_fine_mode_callback(GtkWidget * widget)
 
   xsane_set_all_resolutions();
 
-  xsane_update_param(dialog, 0);
+  xsane_update_param(0);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 static void xsane_enhancement_rgb_default_callback(GtkWidget * widget)
 {
+  DBG(DBG_proc, "xsane_enhancement_rgb_default_callback\n");
+
   xsane.enhancement_rgb_default = (GTK_TOGGLE_BUTTON(widget)->active != 0);
 
   if (xsane.enhancement_rgb_default)
@@ -641,8 +660,8 @@ static void xsane_enhancement_rgb_default_callback(GtkWidget * widget)
   }
 
   xsane_update_sliders();
-  xsane_update_gamma();
-  xsane_refresh_dialog(dialog);
+  xsane_update_gamma_curve();
+  xsane_refresh_dialog();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -650,6 +669,8 @@ static void xsane_enhancement_rgb_default_callback(GtkWidget * widget)
 static void xsane_enhancement_negative_callback(GtkWidget * widget)
 {
  double v0;
+
+  DBG(DBG_proc, "xsane_enhancement_negative_callback\n");
 
   if (xsane.negative != (GTK_TOGGLE_BUTTON(widget)->active != 0));
   {
@@ -681,13 +702,15 @@ static void xsane_enhancement_negative_callback(GtkWidget * widget)
 
   xsane_update_sliders();
   xsane_enhancement_by_histogram(TRUE);
-  xsane_update_gamma();
+  xsane_update_gamma_curve();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 static void xsane_auto_enhancement_callback(GtkWidget * widget)
 {
+  DBG(DBG_proc, "xsane_auto_enhancement_callback\n");
+
   xsane_calculate_histogram();
 
   xsane.slider_gray.value[0] = xsane.auto_black;
@@ -730,6 +753,8 @@ static void xsane_auto_enhancement_callback(GtkWidget * widget)
 
 static void xsane_show_standard_options_callback(GtkWidget * widget)
 {
+  DBG(DBG_proc, "xsane_show_standard_options_callback\n");
+
   preferences.show_standard_options = (GTK_CHECK_MENU_ITEM(widget)->active != 0);
   if (preferences.show_standard_options)
   {
@@ -745,6 +770,8 @@ static void xsane_show_standard_options_callback(GtkWidget * widget)
 
 static void xsane_show_advanced_options_callback(GtkWidget * widget)
 {
+  DBG(DBG_proc, "xsane_show_advanced_options_callback\n");
+
   preferences.show_advanced_options = (GTK_CHECK_MENU_ITEM(widget)->active != 0);
   if (preferences.show_advanced_options)
   {
@@ -760,14 +787,18 @@ static void xsane_show_advanced_options_callback(GtkWidget * widget)
 
 static void xsane_show_resolution_list_callback(GtkWidget *widget)
 {
+  DBG(DBG_proc, "xsane_show_resolution_list_callback\n");
+
   preferences.show_resolution_list = (GTK_CHECK_MENU_ITEM(widget)->active != 0);
-  xsane_refresh_dialog(0);
+  xsane_refresh_dialog();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 static void xsane_page_rotate_callback(GtkWidget *widget)
 {
+  DBG(DBG_proc, "xsane_page_rotate_callback\n");
+
   preferences.psrotate = (GTK_CHECK_MENU_ITEM(widget)->active != 0);
   xsane_define_maximum_output_size();
 }
@@ -776,6 +807,8 @@ static void xsane_page_rotate_callback(GtkWidget *widget)
 
 static void xsane_show_histogram_callback(GtkWidget * widget)
 {
+  DBG(DBG_proc, "xsane_show_histogram_callback\n");
+
   preferences.show_histogram = (GTK_CHECK_MENU_ITEM(widget)->active != 0);
   if (preferences.show_histogram)
   {
@@ -790,9 +823,31 @@ static void xsane_show_histogram_callback(GtkWidget * widget)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+#ifdef HAVE_WORKING_GTK_GAMMACURVE
+static void xsane_show_gamma_callback(GtkWidget * widget)
+{
+  DBG(DBG_proc, "xsane_show_gamma_callback\n");
+
+  preferences.show_gamma = (GTK_CHECK_MENU_ITEM(widget)->active != 0);
+  if (preferences.show_gamma)
+  {
+    xsane_update_gamma_dialog();
+    gtk_widget_show(xsane.gamma_dialog);
+  }
+  else
+  {
+    gtk_widget_hide(xsane.gamma_dialog);
+  }
+}
+#endif
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void xsane_printer_callback(GtkWidget *widget, gpointer data)
 {
  int printer_resolution; 
+
+  DBG(DBG_proc, "xsane_printer_callback\n");
 
   preferences.printernr = (int) data;
 
@@ -824,7 +879,7 @@ static void xsane_printer_callback(GtkWidget *widget, gpointer data)
 
   xsane_set_all_resolutions();
   xsane_define_maximum_output_size();
-  xsane_back_gtk_refresh_dialog(dialog);
+  xsane_back_gtk_refresh_dialog();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -836,6 +891,8 @@ static void xsane_resolution_scale_update(GtkAdjustment *adj_data, double *val)
 #if 1
 /* gtk does not make sure that the value is quantisized correct */
   float diff, old, new, quant;
+
+  DBG(DBG_proc, "xsane_resolution_scale_update\n");
 
   quant = adj_data->step_increment;
 
@@ -849,6 +906,8 @@ static void xsane_resolution_scale_update(GtkAdjustment *adj_data, double *val)
     adj_data->value = *val;
   }
 #else
+  DBG(DBG_proc, "xsane_resolution_scale_update\n");
+
   *val = adj_data->value;
 #endif
 
@@ -876,7 +935,7 @@ static void xsane_resolution_scale_update(GtkAdjustment *adj_data, double *val)
 
   xsane_set_all_resolutions();
 
-  xsane_update_param(dialog, 0);
+  xsane_update_param(0);
   xsane.zoom   = xsane.resolution   / printer_resolution;
   xsane.zoom_x = xsane.resolution_x / printer_resolution;
   xsane.zoom_y = xsane.resolution_y / printer_resolution;
@@ -887,11 +946,11 @@ static void xsane_resolution_scale_update(GtkAdjustment *adj_data, double *val)
 static void xsane_resolution_list_callback(GtkWidget *widget, gpointer data)
 {
  GSGMenuItem *menu_item = data;
- GSGDialogElement *elem = menu_item->elem;
- GSGDialog *dialog = elem->dialog;
  SANE_Word val;
  gchar *name = gtk_widget_get_name(widget->parent);
  int printer_resolution; 
+
+  DBG(DBG_proc, "xsane_resolution_list_callback\n");
 
   switch (xsane.param.format)
   {
@@ -923,9 +982,9 @@ static void xsane_resolution_list_callback(GtkWidget *widget, gpointer data)
     xsane.resolution_x = val;
     xsane.resolution_y = val;
 
-    xsane_set_resolution(dialog->well_known.dpi,   xsane.resolution);
-    xsane_set_resolution(dialog->well_known.dpi_x, xsane.resolution_x);
-    xsane_set_resolution(dialog->well_known.dpi_y, xsane.resolution_y);
+    xsane_set_resolution(xsane.well_known.dpi,   xsane.resolution);
+    xsane_set_resolution(xsane.well_known.dpi_x, xsane.resolution_x);
+    xsane_set_resolution(xsane.well_known.dpi_y, xsane.resolution_y);
 
     xsane.zoom   = xsane.resolution   / printer_resolution;
     xsane.zoom_x = xsane.resolution_x / printer_resolution;
@@ -935,17 +994,17 @@ static void xsane_resolution_list_callback(GtkWidget *widget, gpointer data)
   {
     xsane.resolution   = val;
     xsane.resolution_x = val;
-    xsane_set_resolution(dialog->well_known.dpi_x, xsane.resolution_x);
+    xsane_set_resolution(xsane.well_known.dpi_x, xsane.resolution_x);
     xsane.zoom = xsane.resolution / printer_resolution;
   }
   else if (!strcmp(name, XSANE_GTK_NAME_Y_RESOLUTION))
   {
     xsane.resolution_y = val;
-    xsane_set_resolution(dialog->well_known.dpi_y, xsane.resolution_y);
+    xsane_set_resolution(xsane.well_known.dpi_y, xsane.resolution_y);
     xsane.zoom = xsane.resolution / printer_resolution;
   }
 
-  xsane_update_param(dialog, 0);
+  xsane_update_param(0);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -956,7 +1015,9 @@ static int xsane_resolution_widget_new(GtkWidget *parent, int well_known_option,
  GtkObject *resolution_widget;
  const SANE_Option_Descriptor *opt;
 
-  opt = xsane_get_option_descriptor(dialog->dev, well_known_option);
+  DBG(DBG_proc, "xsane_resolution_widget_new\n");
+
+  opt = xsane_get_option_descriptor(xsane.dev, well_known_option);
 
   if (!opt)
   {
@@ -977,7 +1038,7 @@ static int xsane_resolution_widget_new(GtkWidget *parent, int well_known_option,
          SANE_Word value;
 
           gtk_widget_set_sensitive(xsane.show_resolution_list_widget, TRUE); 
-          xsane_control_option(dialog->dev, well_known_option, SANE_ACTION_GET_VALUE, &value, 0); 
+          xsane_control_option(xsane.dev, well_known_option, SANE_ACTION_GET_VALUE, &value, 0); 
 
           switch (opt->type)
           {
@@ -1024,7 +1085,7 @@ static int xsane_resolution_widget_new(GtkWidget *parent, int well_known_option,
            int res = max;
            double mul;
 
-            xsane_control_option(dialog->dev, well_known_option, SANE_ACTION_GET_VALUE, &wanted_res, 0); 
+            xsane_control_option(xsane.dev, well_known_option, SANE_ACTION_GET_VALUE, &wanted_res, 0); 
             if (opt->type == SANE_TYPE_FIXED)
             {
               wanted_res = (int) SANE_UNFIX(wanted_res);
@@ -1106,7 +1167,7 @@ static int xsane_resolution_widget_new(GtkWidget *parent, int well_known_option,
                 str_list[j] = strdup(str);
               }
               str_list[j] = 0;
-              xsane_control_option(dialog->dev, well_known_option, SANE_ACTION_GET_VALUE, &val, 0); 
+              xsane_control_option(xsane.dev, well_known_option, SANE_ACTION_GET_VALUE, &val, 0); 
               sprintf(str, "%d", (int) val);
             break;
 
@@ -1117,7 +1178,7 @@ static int xsane_resolution_widget_new(GtkWidget *parent, int well_known_option,
                 str_list[j] = strdup(str);
                }
               str_list[j] = 0;
-              xsane_control_option(dialog->dev, well_known_option, SANE_ACTION_GET_VALUE, &val, 0); 
+              xsane_control_option(xsane.dev, well_known_option, SANE_ACTION_GET_VALUE, &val, 0); 
               sprintf(str, "%d", (int) SANE_UNFIX(val));
             break;
 
@@ -1152,6 +1213,8 @@ static void xsane_zoom_update(GtkAdjustment *adj_data, double *val)
 {
  int printer_resolution;
 
+  DBG(DBG_proc, "xsane_zoom_update\n");
+
   *val=adj_data->value;
 
   switch (xsane.param.format)
@@ -1183,7 +1246,7 @@ static void xsane_zoom_update(GtkAdjustment *adj_data, double *val)
 
   xsane_set_all_resolutions();
 
-  xsane_update_param(dialog, 0);
+  xsane_update_param(0);
 
   xsane_define_maximum_output_size();
 }
@@ -1195,6 +1258,8 @@ static int xsane_zoom_widget_new(GtkWidget *parent, int well_known_option, doubl
 {
  const SANE_Option_Descriptor *opt;
  int printer_resolution;
+
+  DBG(DBG_proc, "xsane_zoom_widget_new\n");
 
   switch (xsane.param.format)
   {
@@ -1218,7 +1283,7 @@ static int xsane_zoom_widget_new(GtkWidget *parent, int well_known_option, doubl
     break;
   }       
 
-  opt = xsane_get_option_descriptor(dialog->dev, well_known_option);
+  opt = xsane_get_option_descriptor(xsane.dev, well_known_option);
   if (!opt)
   {
     return -1; /* option not available */
@@ -1231,7 +1296,7 @@ static int xsane_zoom_widget_new(GtkWidget *parent, int well_known_option, doubl
      double max = 0.0;
      SANE_Word val = 0.0;
 
-      xsane_control_option(dialog->dev, well_known_option, SANE_ACTION_GET_VALUE, &val, 0); 
+      xsane_control_option(xsane.dev, well_known_option, SANE_ACTION_GET_VALUE, &val, 0); 
 
       switch (opt->constraint_type)
       {
@@ -1287,19 +1352,19 @@ static void xsane_scanmode_menu_callback(GtkWidget *widget, gpointer data)
  GSGMenuItem *menu_item = data;
  GSGDialogElement *elem = menu_item->elem;
  const SANE_Option_Descriptor *opt;
- GSGDialog *dialog = elem->dialog;
  int opt_num;
  int printer_resolution;
  double zoom, zoom_x, zoom_y;
 
+  DBG(DBG_proc, "xsane_scanmode_menu_callback\n");
 
   zoom   = xsane.zoom;
   zoom_x = xsane.zoom_x;
   zoom_y = xsane.zoom_y;
 
-  opt_num = elem - dialog->element;
-  opt = xsane_get_option_descriptor(dialog->dev, opt_num);
-  xsane_back_gtk_set_option(dialog, opt_num, menu_item->label, SANE_ACTION_SET_VALUE);
+  opt_num = elem - xsane.element;
+  opt = xsane_get_option_descriptor(xsane.dev, opt_num);
+  xsane_back_gtk_set_option(opt_num, menu_item->label, SANE_ACTION_SET_VALUE);
 
   if (xsane.xsane_mode == XSANE_COPY)
   {
@@ -1325,34 +1390,34 @@ static void xsane_scanmode_menu_callback(GtkWidget *widget, gpointer data)
       break;
     }
 
-    xsane.resolution   = xsane_find_best_resolution(dialog->well_known.dpi,   zoom   * printer_resolution);
-    xsane.resolution_x = xsane_find_best_resolution(dialog->well_known.dpi_x, zoom_x * printer_resolution);
-    xsane.resolution_y = xsane_find_best_resolution(dialog->well_known.dpi_y, zoom_y * printer_resolution);
+    xsane.resolution   = xsane_find_best_resolution(xsane.well_known.dpi,   zoom   * printer_resolution);
+    xsane.resolution_x = xsane_find_best_resolution(xsane.well_known.dpi_x, zoom_x * printer_resolution);
+    xsane.resolution_y = xsane_find_best_resolution(xsane.well_known.dpi_y, zoom_y * printer_resolution);
 
     xsane_set_all_resolutions(); /* make sure resolution, resolution_x and resolution_y are up to date */
-    xsane_back_gtk_refresh_dialog(dialog); /* update resolution - a bit overkill, any better idea? */
+    xsane_back_gtk_refresh_dialog(); /* update resolution - a bit overkill, any better idea? */
     xsane_define_maximum_output_size(); /* draw maximum output frame in preview window if necessary */
   }
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-GtkWidget *xsane_update_xsane_callback()
+GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
 {
-  /* creates the XSane option window */
+ GtkWidget *xsane_vbox, *xsane_hbox;
+ GtkWidget *xsane_modus_menu;
+ GtkWidget *xsane_modus_item;
+ GtkWidget *xsane_modus_option_menu;
+ GtkWidget *xsane_vbox_xsane_modus;
+ GtkWidget *xsane_hbox_xsane_modus;
+ GtkWidget *xsane_label;
+ GtkWidget *xsane_text;
+ GtkWidget *xsane_hbox_xsane_enhancement;
+ GtkWidget *xsane_frame;
+ GtkWidget *xsane_button;
+ gchar buf[200];
 
-  GtkWidget *xsane_vbox, *xsane_hbox;
-  GtkWidget *xsane_modus_menu;
-  GtkWidget *xsane_modus_item;
-  GtkWidget *xsane_modus_option_menu;
-  GtkWidget *xsane_vbox_xsane_modus;
-  GtkWidget *xsane_hbox_xsane_modus;
-  GtkWidget *xsane_label;
-  GtkWidget *xsane_text;
-  GtkWidget *xsane_hbox_xsane_enhancement;
-  GtkWidget *xsane_frame;
-  GtkWidget *xsane_button;
-  gchar buf[200];
+  DBG(DBG_proc, "xsane_update_xsane_callback\n");
 
   /* xsane main options */
 
@@ -1411,14 +1476,14 @@ GtkWidget *xsane_update_xsane_callback()
     gtk_widget_show(xsane_modus_item);
 
     xsane_modus_option_menu = gtk_option_menu_new();
-    xsane_back_gtk_set_tooltip(dialog->tooltips, xsane_modus_option_menu, DESC_XSANE_MODE);
+    xsane_back_gtk_set_tooltip(xsane.tooltips, xsane_modus_option_menu, DESC_XSANE_MODE);
     gtk_box_pack_end(GTK_BOX(xsane_hbox_xsane_modus), xsane_modus_option_menu, FALSE, FALSE, 2);
     gtk_option_menu_set_menu(GTK_OPTION_MENU(xsane_modus_option_menu), xsane_modus_menu);
     gtk_option_menu_set_history(GTK_OPTION_MENU(xsane_modus_option_menu), xsane.xsane_mode);
     gtk_widget_show(xsane_modus_option_menu);
     gtk_widget_show(xsane_hbox_xsane_modus);
 
-    dialog->xsanemode_widget = xsane_modus_option_menu;
+    xsane.xsanemode_widget = xsane_modus_option_menu;
   }
 
   {
@@ -1430,7 +1495,7 @@ GtkWidget *xsane_update_xsane_callback()
 
 
     /* colormode */
-    opt = xsane_get_option_descriptor(dialog->dev, dialog->well_known.scanmode);
+    opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.scanmode);
     if (opt)
     {
       if (SANE_OPTION_IS_ACTIVE(opt->cap))
@@ -1454,9 +1519,9 @@ GtkWidget *xsane_update_xsane_callback()
 
             /* use a "list-selection" widget */
             set = malloc(opt->size);
-            status = xsane_control_option(dialog->dev, dialog->well_known.scanmode, SANE_ACTION_GET_VALUE, set, 0);
+            status = xsane_control_option(xsane.dev, xsane.well_known.scanmode, SANE_ACTION_GET_VALUE, set, 0);
 
-            xsane_option_menu_new(hbox, (char **) opt->constraint.string_list, set, dialog->well_known.scanmode,
+            xsane_option_menu_new(hbox, (char **) opt->constraint.string_list, set, xsane.well_known.scanmode,
                                   _BGT(opt->desc), xsane_scanmode_menu_callback, SANE_OPTION_IS_SETTABLE(opt->cap), 0);
           }
            break;
@@ -1470,7 +1535,7 @@ GtkWidget *xsane_update_xsane_callback()
 
 
     /* input selection */
-    opt = xsane_get_option_descriptor(dialog->dev, dialog->well_known.scansource);
+    opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.scansource);
     if (opt)
     {
       if (SANE_OPTION_IS_ACTIVE(opt->cap))
@@ -1494,9 +1559,9 @@ GtkWidget *xsane_update_xsane_callback()
 
             /* use a "list-selection" widget */
             set = malloc(opt->size);
-            status = xsane_control_option(dialog->dev, dialog->well_known.scansource, SANE_ACTION_GET_VALUE, set, 0);
+            status = xsane_control_option(xsane.dev, xsane.well_known.scansource, SANE_ACTION_GET_VALUE, set, 0);
 
-            xsane_option_menu_new(hbox, (char **) opt->constraint.string_list, set, dialog->well_known.scansource,
+            xsane_option_menu_new(hbox, (char **) opt->constraint.string_list, set, xsane.well_known.scansource,
                                   _BGT(opt->desc), 0, SANE_OPTION_IS_SETTABLE(opt->cap), 0);
            }
            break;
@@ -1520,15 +1585,15 @@ GtkWidget *xsane_update_xsane_callback()
     }
 
     /* resolution selection */
-    if (!xsane_resolution_widget_new(xsane_vbox_xsane_modus, dialog->well_known.dpi_x, &xsane.resolution_x, resolution_x_xpm,
+    if (!xsane_resolution_widget_new(xsane_vbox_xsane_modus, xsane.well_known.dpi_x, &xsane.resolution_x, resolution_x_xpm,
                                      DESC_RESOLUTION_X, XSANE_GTK_NAME_X_RESOLUTION)) /* draw x resolution widget if possible */
     {
-      xsane_resolution_widget_new(xsane_vbox_xsane_modus, dialog->well_known.dpi_y, &xsane.resolution_y, resolution_y_xpm,
+      xsane_resolution_widget_new(xsane_vbox_xsane_modus, xsane.well_known.dpi_y, &xsane.resolution_y, resolution_y_xpm,
                                   DESC_RESOLUTION_Y, XSANE_GTK_NAME_Y_RESOLUTION); /* ok, also draw y resolution widget */
     }
     else /* no x resolution, so lets draw common resolution widget */
     {
-      xsane_resolution_widget_new(xsane_vbox_xsane_modus, dialog->well_known.dpi, &xsane.resolution, resolution_xpm,
+      xsane_resolution_widget_new(xsane_vbox_xsane_modus, xsane.well_known.dpi, &xsane.resolution, resolution_xpm,
                                   DESC_RESOLUTION, XSANE_GTK_NAME_RESOLUTION); 
     }
   }
@@ -1560,7 +1625,7 @@ GtkWidget *xsane_update_xsane_callback()
     }
 
     xsane_printer_option_menu = gtk_option_menu_new();
-    xsane_back_gtk_set_tooltip(dialog->tooltips, xsane_printer_option_menu, DESC_PRINTER_SELECT);
+    xsane_back_gtk_set_tooltip(xsane.tooltips, xsane_printer_option_menu, DESC_PRINTER_SELECT);
     gtk_box_pack_end(GTK_BOX(hbox), xsane_printer_option_menu, FALSE, FALSE, 2);
     gtk_widget_show(xsane_printer_option_menu);
     gtk_widget_show(hbox);
@@ -1570,7 +1635,7 @@ GtkWidget *xsane_update_xsane_callback()
 
     /* number of copies */
     xsane_text = gtk_entry_new();
-    xsane_back_gtk_set_tooltip(dialog->tooltips, xsane_text, DESC_COPY_NUMBER);
+    xsane_back_gtk_set_tooltip(xsane.tooltips, xsane_text, DESC_COPY_NUMBER);
     gtk_widget_set_usize(xsane_text, 25, 0);
     snprintf(buf, sizeof(buf), "%d", xsane.copy_number);    
     gtk_entry_set_text(GTK_ENTRY(xsane_text), (char *) buf);
@@ -1580,15 +1645,15 @@ GtkWidget *xsane_update_xsane_callback()
     xsane.copy_number_entry = xsane_text;
 
     /* zoom selection */
-    if (!xsane_zoom_widget_new(xsane_vbox_xsane_modus, dialog->well_known.dpi_x, &xsane.zoom_x,
+    if (!xsane_zoom_widget_new(xsane_vbox_xsane_modus, xsane.well_known.dpi_x, &xsane.zoom_x,
                                xsane.resolution_x, zoom_x_xpm, DESC_ZOOM_X))
     {
-      xsane_zoom_widget_new(xsane_vbox_xsane_modus, dialog->well_known.dpi_y, &xsane.zoom_y,
+      xsane_zoom_widget_new(xsane_vbox_xsane_modus, xsane.well_known.dpi_y, &xsane.zoom_y,
                             xsane.resolution_y, zoom_y_xpm, DESC_ZOOM_Y);
     }
     else
     {
-      xsane_zoom_widget_new(xsane_vbox_xsane_modus, dialog->well_known.dpi, &xsane.zoom,
+      xsane_zoom_widget_new(xsane_vbox_xsane_modus, xsane.well_known.dpi, &xsane.zoom,
                             xsane.resolution, zoom_xpm, DESC_ZOOM);
     }
   }
@@ -1601,19 +1666,19 @@ GtkWidget *xsane_update_xsane_callback()
     xsane.resolution_x = 204;
     xsane.resolution_y = 98;
 
-    opt = xsane_get_option_descriptor(dialog->dev, dialog->well_known.dpi);
+    opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.dpi);
     if (!opt)
     {
-      opt = xsane_get_option_descriptor(dialog->dev, dialog->well_known.dpi_x);
+      opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.dpi_x);
     }
-    opt = xsane_get_option_descriptor(dialog->dev, dialog->well_known.dpi_y);
+    opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.dpi_y);
 
     if (opt)
     {
       if (SANE_OPTION_IS_ACTIVE(opt->cap))
       {
         xsane_button = gtk_check_button_new_with_label(RADIO_BUTTON_FINE_MODE);
-        xsane_back_gtk_set_tooltip(dialog->tooltips, xsane_button, DESC_FAX_FINE_MODE);
+        xsane_back_gtk_set_tooltip(xsane.tooltips, xsane_button, DESC_FAX_FINE_MODE);
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(xsane_button), xsane.fax_fine_mode);
         gtk_box_pack_start(GTK_BOX(xsane_vbox_xsane_modus), xsane_button, FALSE, FALSE, 2);
         gtk_widget_show(xsane_button);
@@ -1634,11 +1699,11 @@ GtkWidget *xsane_update_xsane_callback()
    /* test if scanner gamma table is selected */
 
    xsane.scanner_gamma_gray  = FALSE;
-   if (dialog->well_known.gamma_vector >0)
+   if (xsane.well_known.gamma_vector >0)
    {
     const SANE_Option_Descriptor *opt;
 
-     opt = xsane_get_option_descriptor(dialog->dev, dialog->well_known.gamma_vector);
+     opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector);
      if (SANE_OPTION_IS_ACTIVE(opt->cap))
      {
        xsane.scanner_gamma_gray  = TRUE;
@@ -1646,11 +1711,11 @@ GtkWidget *xsane_update_xsane_callback()
    }
 
    xsane.scanner_gamma_color  = FALSE;
-   if (dialog->well_known.gamma_vector_r >0)
+   if (xsane.well_known.gamma_vector_r >0)
    {
     const SANE_Option_Descriptor *opt;
 
-     opt = xsane_get_option_descriptor(dialog->dev, dialog->well_known.gamma_vector_r);
+     opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector_r);
      if (SANE_OPTION_IS_ACTIVE(opt->cap))
      {
        xsane.scanner_gamma_color  = TRUE;
@@ -1661,7 +1726,7 @@ GtkWidget *xsane_update_xsane_callback()
 
   /* XSane Frame Enhancement */
 
-  sane_get_parameters(dialog->dev, &xsane.param); /* update xsane.param */
+  sane_get_parameters(xsane.dev, &xsane.param); /* update xsane.param */
 
   if (xsane.param.depth == 1)
   {
@@ -1672,7 +1737,7 @@ GtkWidget *xsane_update_xsane_callback()
 
       case XSANE_LINEART_GRAYSCALE:
       case XSANE_LINEART_XSANE:
-        if (dialog->well_known.threshold > 0)
+        if (xsane.well_known.threshold > 0)
         {
           xsane_scale_new_with_pixmap(GTK_BOX(xsane_vbox_xsane_modus), threshold_xpm, DESC_THRESHOLD,
                                       xsane.threshold_min, xsane.threshold_max, 1.0, 10.0, 0.0, 0,
@@ -1777,6 +1842,9 @@ GtkWidget *xsane_update_xsane_callback()
                                xsane_enhancement_store, NULL);
 
   xsane_update_histogram();
+#ifdef HAVE_WORKING_GTK_GAMMACURVE
+  xsane_update_gamma_dialog();
+#endif
 
  return(xsane_hbox);
 }
@@ -1785,11 +1853,16 @@ GtkWidget *xsane_update_xsane_callback()
 
 void xsane_pref_save(void)
 {
-  char filename[PATH_MAX];
-  int fd;
+ char filename[PATH_MAX];
+ int fd;
+
+  DBG(DBG_proc, "xsane_pref_save\n");
 
   /* first save xsane-specific preferences: */
   xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", NULL, "xsane", NULL, ".rc", XSANE_PATH_LOCAL_SANE);
+
+  DBG(DBG_info2, "saving preferences to \"%s\"\n", filename);
+
   umask(XSANE_DEFAULT_UMASK); /* define new file permissions */    
   fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0666);
   if (fd < 0)
@@ -1808,8 +1881,10 @@ void xsane_pref_save(void)
 
 static void xsane_pref_restore(void)
 {
-  char filename[PATH_MAX];
-  int fd;
+ char filename[PATH_MAX];
+ int fd;
+
+  DBG(DBG_proc, "xsane_pref_restore\n");
 
   xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", NULL, "xsane", NULL, ".rc", XSANE_PATH_LOCAL_SANE);
   fd = open(filename, O_RDONLY);
@@ -1831,9 +1906,14 @@ static void xsane_pref_restore(void)
     }
   }
 
+  if (!preferences.tmp_path)
+  {
+    preferences.tmp_path = strdup(STRINGIFY(TEMP_PATH));
+  }
+
   if (!preferences.filename)
   {
-    preferences.filename = strdup(OUTFILENAME);
+    preferences.filename = strdup(OUT_FILENAME);
   }
 
   if (preferences.printerdefinitions == 0)
@@ -1886,6 +1966,8 @@ static void xsane_pref_restore(void)
 
 static void xsane_quit(void)
 {
+  DBG(DBG_proc, "xsane_quit\n");
+
   if (xsane.preview)
   {
     Preview *preview = xsane.preview;
@@ -1893,14 +1975,14 @@ static void xsane_quit(void)
     preview_destroy(preview);
   }
 
-  while (xsane_back_gtk_message_dialog_active)
+  while (xsane.back_gtk_message_dialog_active)
   {
     gtk_main_iteration();
   }
 
-  if (dialog && xsane_back_gtk_dialog_get_device(dialog))
+  if (xsane.dev)
   {
-    sane_close(xsane_back_gtk_dialog_get_device(dialog));
+    sane_close(xsane.dev);
   }
 
   sane_exit();
@@ -1930,8 +2012,11 @@ static void xsane_quit(void)
 
 static void xsane_exit(void) /* this is called when xsane exits before gtk_main is called */
 {
-  while (xsane_back_gtk_message_dialog_active)
+  DBG(DBG_proc, "xsane_exit\n");
+
+  while (xsane.back_gtk_message_dialog_active)
   {
+    DBG(DBG_info, "calling gtk_main_iteration\n");
     gtk_main_iteration();
   }
 
@@ -1950,6 +2035,8 @@ static void xsane_exit(void) /* this is called when xsane exits before gtk_main 
 
 static gint xsane_standard_option_win_delete(GtkWidget *widget, gpointer data)
 {
+  DBG(DBG_proc, "xsane_standard_option_win_delete\n");
+
   gtk_widget_hide(widget);
   preferences.show_standard_options = FALSE;
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_standard_options_widget), preferences.show_standard_options);
@@ -1960,6 +2047,8 @@ static gint xsane_standard_option_win_delete(GtkWidget *widget, gpointer data)
 
 static gint xsane_advanced_option_win_delete(GtkWidget *widget, gpointer data)
 {
+  DBG(DBG_proc, "xsane_advanced_option_win_delete\n");
+
   gtk_widget_hide(widget);
   preferences.show_advanced_options = FALSE;
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_advanced_options_widget), preferences.show_advanced_options);
@@ -1971,6 +2060,8 @@ static gint xsane_advanced_option_win_delete(GtkWidget *widget, gpointer data)
 /* Invoked when window manager's "delete" (or "close") function is invoked.  */
 static gint xsane_scan_win_delete(GtkWidget *w, gpointer data)
 {
+  DBG(DBG_proc, "xsane_scan_win_delete\n");
+
   xsane_scan_done(-1); /* stop scanner when still scanning */
 
   if (xsane.filetype) /* add extension to filename */
@@ -1993,6 +2084,8 @@ static gint xsane_scan_win_delete(GtkWidget *w, gpointer data)
 
 static gint xsane_preview_window_destroyed(GtkWidget *widget, gpointer call_data)
 {
+  DBG(DBG_proc, "xsane_preview_window_destroyed\n");
+
   gtk_widget_hide(widget);
   xsane.show_preview = FALSE;
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_preview_widget), FALSE);
@@ -2003,6 +2096,8 @@ static gint xsane_preview_window_destroyed(GtkWidget *widget, gpointer call_data
 
 static void xsane_show_preview_callback(GtkWidget * widget, gpointer call_data)
 {
+  DBG(DBG_proc, "xsane_show_preview_callback\n");
+
   if (GTK_CHECK_MENU_ITEM(widget)->active)
   {
     gtk_widget_show(xsane.preview->top);
@@ -2019,7 +2114,9 @@ static void xsane_show_preview_callback(GtkWidget * widget, gpointer call_data)
 
 static GtkWidget *xsane_files_build_menu(void)
 {
-  GtkWidget *menu, *item;
+ GtkWidget *menu, *item;
+
+  DBG(DBG_proc, "xsane_files_build_menu\n");
 
   menu = gtk_menu_new();
 
@@ -2053,6 +2150,8 @@ static void xsane_set_pref_unit_callback(GtkWidget *widget, gpointer data)
  const char *unit = data;
  double unit_conversion_factor = 1.0;
 
+  DBG(DBG_proc, "xsane_set_pref_unit_callback\n");
+
   gtk_signal_handler_block_by_func(GTK_OBJECT(xsane.length_unit_mm), (GtkSignalFunc) xsane_set_pref_unit_callback, "mm");
   gtk_signal_handler_block_by_func(GTK_OBJECT(xsane.length_unit_cm), (GtkSignalFunc) xsane_set_pref_unit_callback, "cm");
   gtk_signal_handler_block_by_func(GTK_OBJECT(xsane.length_unit_in), (GtkSignalFunc) xsane_set_pref_unit_callback, "in");
@@ -2084,7 +2183,7 @@ static void xsane_set_pref_unit_callback(GtkWidget *widget, gpointer data)
 
   preferences.length_unit = unit_conversion_factor;
 
-  xsane_refresh_dialog(dialog);
+  xsane_refresh_dialog();
   if (xsane.preview)
   {
     preview_area_resize(xsane.preview); /* redraw rulers */
@@ -2098,6 +2197,8 @@ static void xsane_set_pref_unit_callback(GtkWidget *widget, gpointer data)
 static void xsane_set_update_policy_callback(GtkWidget *widget, gpointer data)
 {
  GtkUpdateType policy = (GtkUpdateType) data;
+
+  DBG(DBG_proc, "xsane_set_update_policy_callback\n");
 
   gtk_signal_handler_block_by_func(GTK_OBJECT(xsane.update_policy_continu), (GtkSignalFunc) xsane_set_update_policy_callback,
                                    (void *) GTK_UPDATE_CONTINUOUS);
@@ -2135,20 +2236,25 @@ static void xsane_set_update_policy_callback(GtkWidget *widget, gpointer data)
   preferences.gtk_update_policy = policy;
   xsane_pref_save();
 
-  xsane_back_gtk_refresh_dialog(dialog);
+  xsane_back_gtk_refresh_dialog();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 static gint xsane_close_info_callback(GtkWidget *widget, gpointer data)
 {
-  GtkWidget *dialog = data;
+ GtkWidget *dialog_widget = data;
 
-  gtk_widget_destroy(dialog);
+  DBG(DBG_proc, "xsane_close_info_callback\n");
+
+  gtk_widget_destroy(dialog_widget);
 
   xsane_set_sensitivity(TRUE);
 
   xsane_update_histogram();
+#ifdef HAVE_WORKING_GTK_GAMMACURVE
+  xsane_update_gamma_dialog();
+#endif
 
  return FALSE;
 }
@@ -2161,13 +2267,15 @@ static void xsane_info_dialog(GtkWidget *widget, gpointer data)
  char buf[256];
  char *bufptr;
 
-  sane_get_parameters(dialog->dev, &xsane.param); /* update xsane.param */
+  DBG(DBG_proc, "xsane_info_dialog\n");
+
+  sane_get_parameters(xsane.dev, &xsane.param); /* update xsane.param */
 
   info_dialog = gtk_window_new(GTK_WINDOW_DIALOG);
   gtk_window_set_position(GTK_WINDOW(info_dialog), GTK_WIN_POS_CENTER);
   gtk_window_set_policy(GTK_WINDOW(info_dialog), FALSE, FALSE, FALSE);
   gtk_signal_connect(GTK_OBJECT(info_dialog), "destroy", GTK_SIGNAL_FUNC(xsane_close_info_callback), info_dialog);
-  snprintf(buf, sizeof(buf), "%s %s %s", prog_name, WINDOW_INFO, device_text);
+  snprintf(buf, sizeof(buf), "%s %s %s", xsane.prog_name, WINDOW_INFO, xsane.device_text);
   gtk_window_set_title(GTK_WINDOW(info_dialog), buf);
 
   xsane_set_window_icon(info_dialog, 0);
@@ -2195,33 +2303,33 @@ static void xsane_info_dialog(GtkWidget *widget, gpointer data)
 
   snprintf(buf, sizeof(buf), TEXT_VENDOR);
   label = xsane_info_table_text_new(table, buf, 0, 0);
-  snprintf(buf, sizeof(buf), "%s", devlist[selected_dev]->vendor);
+  snprintf(buf, sizeof(buf), "%s", xsane.devlist[xsane.selected_dev]->vendor);
   label = xsane_info_table_text_new(table, buf, 1, 0);
 
   snprintf(buf, sizeof(buf), TEXT_MODEL);
   label = xsane_info_table_text_new(table, buf, 0, 1);
-  snprintf(buf, sizeof(buf), "%s", devlist[selected_dev]->model);
+  snprintf(buf, sizeof(buf), "%s", xsane.devlist[xsane.selected_dev]->model);
   label = xsane_info_table_text_new(table, buf, 1, 1);
 
   snprintf(buf, sizeof(buf), TEXT_TYPE);
   label = xsane_info_table_text_new(table, buf, 0, 2);
-  snprintf(buf, sizeof(buf), "%s", devlist[selected_dev]->type);
+  snprintf(buf, sizeof(buf), "%s", xsane.devlist[xsane.selected_dev]->type);
   label = xsane_info_table_text_new(table, buf, 1, 2);
 
   snprintf(buf, sizeof(buf), TEXT_DEVICE);
   label = xsane_info_table_text_new(table, buf, 0, 3);
-  bufptr = strrchr(devlist[selected_dev]->name, ':');
+  bufptr = strrchr(xsane.devlist[xsane.selected_dev]->name, ':');
   if (bufptr)
   {
     snprintf(buf, sizeof(buf), "%s", bufptr+1);
   }
   else
   {
-    snprintf(buf, sizeof(buf), devlist[selected_dev]->name);
+    snprintf(buf, sizeof(buf), xsane.devlist[xsane.selected_dev]->name);
   }
   label = xsane_info_table_text_new(table, buf, 1, 3);
 
-  snprintf(buf, sizeof(buf), "%s", devlist[selected_dev]->name);
+  snprintf(buf, sizeof(buf), "%s", xsane.devlist[xsane.selected_dev]->name);
   bufptr = strrchr(buf, ':');
   if (bufptr)
   {
@@ -2265,7 +2373,7 @@ static void xsane_info_dialog(GtkWidget *widget, gpointer data)
     snprintf(buf, sizeof(buf), TEXT_SCANNER);
     label = xsane_info_table_text_new(table, buf, 1, 0);
 
-    opt = xsane_get_option_descriptor(dialog->dev, dialog->well_known.gamma_vector_r);
+    opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector_r);
 
     snprintf(buf, sizeof(buf), TEXT_GAMMA_INPUT_DEPTH);
     label = xsane_info_table_text_new(table, buf, 0, 1);
@@ -2286,7 +2394,7 @@ static void xsane_info_dialog(GtkWidget *widget, gpointer data)
     snprintf(buf, sizeof(buf), TEXT_SCANNER);
     label = xsane_info_table_text_new(table, buf, 1, 0);
     
-    opt = xsane_get_option_descriptor(dialog->dev, dialog->well_known.gamma_vector);
+    opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector);
 
     snprintf(buf, sizeof(buf), TEXT_GAMMA_INPUT_DEPTH);
     label = xsane_info_table_text_new(table, buf, 0, 1);
@@ -2445,18 +2553,20 @@ static void xsane_about_dialog(GtkWidget *widget, gpointer data)
 {
  GtkWidget *about_dialog, *vbox, *button, *label;
  char buf[256];
+ char filename[PATH_MAX];
  GtkWidget *pixmapwidget;
  GdkBitmap *mask;
  GdkPixmap *pixmap;
  GtkStyle *style;
  GdkColor *bg_trans;
 
+  DBG(DBG_proc, "xsane_about_dialog\n");
 
   about_dialog = gtk_window_new(GTK_WINDOW_DIALOG);
   gtk_window_set_position(GTK_WINDOW(about_dialog), GTK_WIN_POS_CENTER);
   gtk_window_set_policy(GTK_WINDOW(about_dialog), FALSE, FALSE, FALSE);
   gtk_signal_connect(GTK_OBJECT(about_dialog), "destroy", GTK_SIGNAL_FUNC(xsane_close_info_callback), about_dialog);
-  snprintf(buf, sizeof(buf), "%s %s", WINDOW_ABOUT, prog_name);
+  snprintf(buf, sizeof(buf), "%s %s", WINDOW_ABOUT, xsane.prog_name);
   gtk_window_set_title(GTK_WINDOW(about_dialog), buf);
 
   xsane_set_window_icon(about_dialog, 0);
@@ -2471,8 +2581,8 @@ static void xsane_about_dialog(GtkWidget *widget, gpointer data)
   style = gtk_widget_get_style(about_dialog);
   bg_trans = &style->bg[GTK_STATE_NORMAL];
 
-  snprintf(buf, sizeof(buf), "%s/xsane-logo.xpm", STRINGIFY(PATH_SANE_DATA_DIR));  
-  pixmap = gdk_pixmap_create_from_xpm(about_dialog->window, &mask, bg_trans, buf);
+  xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", 0, "xsane-logo", 0, ".xpm", XSANE_PATH_SYSTEM);
+  pixmap = gdk_pixmap_create_from_xpm(about_dialog->window, &mask, bg_trans, filename);
   pixmapwidget = gtk_pixmap_new(pixmap, mask);
   gtk_box_pack_start(GTK_BOX(vbox), pixmapwidget, FALSE, FALSE, 2);
   gtk_widget_show(pixmapwidget);
@@ -2519,14 +2629,16 @@ static SANE_Status xsane_get_area_value(int option, float *val, SANE_Int *unit)
  SANE_Handle dev;
  SANE_Word word;
 
+  DBG(DBG_proc, "xsane_get_area_value\n");
+
   if (option <= 0)
   {
     return -1;
   }
 
-  if (xsane_control_option(dialog->dev, option, SANE_ACTION_GET_VALUE, &word, 0) == SANE_STATUS_GOOD)
+  if (xsane_control_option(xsane.dev, option, SANE_ACTION_GET_VALUE, &word, 0) == SANE_STATUS_GOOD)
   {
-    dev = dialog->dev;
+    dev = xsane.dev;
     opt = xsane_get_option_descriptor(dev, option);
 
     if (unit)
@@ -2572,11 +2684,12 @@ static void xsane_batch_scan_add_callback(GtkWidget *widget, gpointer list)
  SANE_Int unit;
  char buf[255];
  
+  DBG(DBG_proc, "xsane_batch_scan_add_callback\n");
 
-  xsane_get_area_value(dialog->well_known.coord[0], &tlx, &unit);
-  xsane_get_area_value(dialog->well_known.coord[1], &tly, &unit);
-  xsane_get_area_value(dialog->well_known.coord[2], &brx, &unit);
-  xsane_get_area_value(dialog->well_known.coord[3], &bry, &unit);
+  xsane_get_area_value(xsane.well_known.coord[0], &tlx, &unit);
+  xsane_get_area_value(xsane.well_known.coord[1], &tly, &unit);
+  xsane_get_area_value(xsane.well_known.coord[2], &brx, &unit);
+  xsane_get_area_value(xsane.well_known.coord[3], &bry, &unit);
 
   if (unit == SANE_UNIT_MM)
   {
@@ -2597,14 +2710,29 @@ static void xsane_batch_scan_add_callback(GtkWidget *widget, gpointer list)
 
 static void xsane_batch_scan_dialog(GtkWidget *widget, gpointer data)
 {
-  GtkWidget *batch_scan_dialog, *batch_scan_vbox, *hbox, *button, *scrolled_window, *list;
-  char buf[64];
+ GtkWidget *batch_scan_dialog, *batch_scan_vbox, *hbox, *button, *scrolled_window, *list;
+ char buf[64];
 
-  batch_scan_dialog = gtk_dialog_new();
-  snprintf(buf, sizeof(buf), "%s %s", prog_name, WINDOW_BATCH_SCAN);
+  DBG(DBG_proc, "xsane_batch_scan_dialog\n");
+
+  batch_scan_dialog = gtk_window_new(GTK_WINDOW_DIALOG);
+  xsane_set_window_icon(batch_scan_dialog, 0);
+
+  snprintf(buf, sizeof(buf), "%s %s", xsane.prog_name, WINDOW_BATCH_SCAN);
   gtk_window_set_title(GTK_WINDOW(batch_scan_dialog), buf);
 
-  batch_scan_vbox = GTK_DIALOG(batch_scan_dialog)->vbox;
+  /* set the main vbox */
+  batch_scan_vbox = gtk_vbox_new(FALSE, 0);
+  gtk_container_set_border_width(GTK_CONTAINER(batc_scan_vbox), 0);
+  gtk_container_add(GTK_CONTAINER(batch_scan_dialog), batch_scan_vbox);
+  gtk_widget_show(batch_scan_vbox);
+
+  /* set the main hbox */
+  hbox = gtk_hbox_new(FALSE, 0);
+  xsane_separator_new(vbox, 2);
+  gtk_box_pack_end(GTK_BOX(batch_scan_vbox), hbox, FALSE, FALSE, 5);
+  gtk_container_set_border_width(GTK_CONTAINER(hbox), 5);
+  gtk_widget_show(hbox); 
 
   scrolled_window = gtk_scrolled_window_new(0, 0);
   gtk_widget_set_usize(scrolled_window, 400, 200);
@@ -2617,9 +2745,6 @@ static void xsane_batch_scan_dialog(GtkWidget *widget, gpointer data)
 
   gtk_widget_show(list);
 
-
-  /* fill in action area: */
-  hbox = GTK_DIALOG(batch_scan_dialog)->action_area;
 
   button = gtk_button_new_with_label(BUTTON_OK);
   GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
@@ -2659,19 +2784,27 @@ static void xsane_fax_dialog()
  GdkBitmap *mask;
  GdkPixmap *pixmap;
 
+  DBG(DBG_proc, "xsane_fax_dialog\n");
 
   if (xsane.fax_dialog) 
   {
     return; /* window already is open */
   }
 
-  fax_dialog = gtk_dialog_new();
-  snprintf(buf, sizeof(buf), "%s %s", prog_name, WINDOW_FAX_PROJECT);
+  /* GTK_WINDOW_DIALOG looks better but does not place it nice*/
+  fax_dialog = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  gtk_window_set_title(GTK_WINDOW(fax_dialog), buf);
+
+  snprintf(buf, sizeof(buf), "%s %s", xsane.prog_name, WINDOW_FAX_PROJECT);
   gtk_window_set_title(GTK_WINDOW(fax_dialog), buf);
   gtk_signal_connect(GTK_OBJECT(fax_dialog), "delete_event", (GtkSignalFunc) xsane_fax_dialog_delete, NULL);
   xsane_set_window_icon(fax_dialog, 0);
 
-  fax_scan_vbox = GTK_DIALOG(fax_dialog)->vbox;
+  /* set the main vbox */
+  fax_scan_vbox = gtk_vbox_new(FALSE, 0);
+  gtk_container_set_border_width(GTK_CONTAINER(fax_scan_vbox), 0);
+  gtk_container_add(GTK_CONTAINER(fax_dialog), fax_scan_vbox);
+  gtk_widget_show(fax_scan_vbox);
 
   hbox = gtk_hbox_new(FALSE, 2);
   gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
@@ -2683,7 +2816,7 @@ static void xsane_fax_dialog()
   gdk_pixmap_unref(pixmap);
 
   text = gtk_entry_new_with_max_length(128);
-  xsane_back_gtk_set_tooltip(dialog->tooltips, text, DESC_FAXPROJECT);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_FAXPROJECT);
   gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.fax_project);
   gtk_box_pack_start(GTK_BOX(hbox), text, TRUE, TRUE, 4);
   gtk_signal_connect(GTK_OBJECT(text), "changed", (GtkSignalFunc) xsane_faxproject_changed_callback, NULL);
@@ -2710,7 +2843,7 @@ static void xsane_fax_dialog()
   gdk_pixmap_unref(pixmap);
 
   text = gtk_entry_new_with_max_length(128);
-  xsane_back_gtk_set_tooltip(dialog->tooltips, text, DESC_FAXRECEIVER);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_FAXRECEIVER);
   gtk_box_pack_start(GTK_BOX(hbox), text, TRUE, TRUE, 4);
   gtk_signal_connect(GTK_OBJECT(text), "changed", (GtkSignalFunc) xsane_faxreceiver_changed_callback, NULL);
 
@@ -2762,8 +2895,13 @@ static void xsane_fax_dialog()
 
   xsane.fax_project_box = fax_project_vbox;
 
-  /* fill in action area: */
-  hbox = GTK_DIALOG(fax_dialog)->action_area;
+  /* set the main hbox */
+  hbox = gtk_hbox_new(FALSE, 0);
+  xsane_separator_new(fax_project_vbox, 2);
+  gtk_box_pack_end(GTK_BOX(fax_scan_vbox), hbox, FALSE, FALSE, 5);
+  gtk_container_set_border_width(GTK_CONTAINER(hbox), 5);
+  gtk_widget_show(hbox);     
+
 
   fax_project_exists_hbox = gtk_hbox_new(FALSE, 2);
   gtk_box_pack_start(GTK_BOX(hbox), fax_project_exists_hbox, TRUE, TRUE, 0);
@@ -2797,6 +2935,8 @@ static void xsane_fax_dialog()
 
 static void xsane_fax_dialog_close()
 {
+  DBG(DBG_proc, "xsane_fax_dialog_close\n");
+
   if (xsane.fax_dialog == NULL)
   {
     return;
@@ -2819,11 +2959,13 @@ static void xsane_fax_project_load()
  int i;
  char c;
 
+  DBG(DBG_proc, "xsane_fax_project_load\n");
+
   gtk_signal_disconnect_by_func(GTK_OBJECT(xsane.fax_receiver_entry), GTK_SIGNAL_FUNC(xsane_faxreceiver_changed_callback), 0);
   gtk_list_remove_items(GTK_LIST(xsane.fax_list), GTK_LIST(xsane.fax_list)->children);
 
   snprintf(buf, sizeof(buf), "%s/project-list", preferences.fax_project);
-  projectfile = fopen(buf, "r");
+  projectfile = fopen(buf, "rb"); /* read binary (b for win32) */
 
   if ((!projectfile) || (feof(projectfile)))
   {
@@ -2908,6 +3050,8 @@ static void xsane_fax_project_delete()
  GList *list = (GList *) GTK_LIST(xsane.fax_list)->children;
  GtkObject *list_item;
 
+  DBG(DBG_proc, "xsane_fax_project_delete\n");
+
   while (list)
   {
     list_item = GTK_OBJECT(list->data);
@@ -2936,12 +3080,14 @@ void xsane_fax_project_save()
  GList *list = (GList *) GTK_LIST(xsane.fax_list)->children;
  GtkObject *list_item;
 
+  DBG(DBG_proc, "xsane_fax_project_save\n");
+
   umask((mode_t) preferences.directory_umask); /* define new file permissions */    
   mkdir(preferences.fax_project, 0777); /* make sure directory exists */
 
   snprintf(buf, sizeof(buf), "%s/project-list", preferences.fax_project);
   umask((mode_t) preferences.image_umask); /* define image file permissions */
-  projectfile = fopen(buf, "w");
+  projectfile = fopen(buf, "wb"); /* write binary (b for win32) */
   umask(XSANE_DEFAULT_UMASK); /* define new file permissions */    
 
   if (xsane.fax_receiver)
@@ -2977,6 +3123,8 @@ void xsane_fax_project_save()
 
 static void xsane_fax_project_create()
 {
+  DBG(DBG_proc, "xsane_fax_project_create\n");
+
   if (strlen(preferences.fax_project))
   {
     xsane_fax_project_save();
@@ -2988,8 +3136,10 @@ static void xsane_fax_project_create()
 
 static void xsane_pref_toggle_tooltips(GtkWidget *widget, gpointer data)
 {
+  DBG(DBG_proc, "xsane_pref_toggle_tooltips\n");
+
   preferences.tooltips_enabled = (GTK_CHECK_MENU_ITEM(widget)->active != 0);
-  xsane_back_gtk_set_tooltips(dialog, preferences.tooltips_enabled);
+  xsane_back_gtk_set_tooltips(preferences.tooltips_enabled);
   xsane_pref_save();
 }
 
@@ -3003,8 +3153,10 @@ static void xsane_show_doc_via_nsr(GtkWidget *widget, gpointer data) /* show via
  pid_t pid;
  char *arg[3];
 
+  DBG(DBG_proc, "xsane_show_doc_via_nsr(%s)\n", name);
+
   snprintf(buf, sizeof(buf), "netscape -no-about-splash -remote \"openFile(%s/%s-doc.html)\" 2>&1", STRINGIFY(PATH_SANE_DATA_DIR), name);  
-  ns_pipe = popen(buf, "r");
+  ns_pipe = popen(buf, "rb"); /* read binary (b for win32) */
 
   if (ns_pipe)
   {
@@ -3060,6 +3212,8 @@ static void xsane_show_doc(GtkWidget *widget, gpointer data)
  pid_t pid;
  char *arg[3];
 
+  DBG(DBG_proc, "xsane_show_doc(%s)\n", name);
+
   if (!strcmp(preferences.doc_viewer, DOCVIEWERNETSCAPEREMOTE))
   {
     xsane_show_doc_via_nsr(widget, data);
@@ -3089,6 +3243,8 @@ static void xsane_fax_entrys_swap(GtkWidget *list_item_1, GtkWidget *list_item_2
  char *text1;
  char *text2;
 
+  DBG(DBG_proc, "xsane_fax_entrys_swap\n");
+
   text1 = (char *) gtk_object_get_data(GTK_OBJECT(list_item_1), "list_item_data");
   text2 = (char *) gtk_object_get_data(GTK_OBJECT(list_item_2), "list_item_data");
 
@@ -3108,6 +3264,8 @@ static void xsane_fax_entry_move_up_callback(GtkWidget *widget, gpointer list)
  GtkWidget *list_item_2;
  int position;
  int newpos;
+
+  DBG(DBG_proc, "xsane_fax_entry_move_up\n");
 
   select = GTK_LIST(list)->selection;
   if (select)
@@ -3148,6 +3306,8 @@ static void xsane_fax_entry_move_down_callback(GtkWidget *widget, gpointer list)
  int position;
  int newpos;
 
+  DBG(DBG_proc, "xsane_fax_entry_move_down\n");
+
   select = GTK_LIST(list)->selection;
   if (select)
   {
@@ -3182,7 +3342,9 @@ int xsane_fax_entry_rename;
 
 static void xsane_fax_entry_rename_button_callback(GtkWidget *widget, gpointer data)
 {
- xsane_fax_entry_rename = (int) data;
+  DBG(DBG_proc, "xsane_fax_entry_rename\n");
+
+  xsane_fax_entry_rename = (int) data;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -3195,6 +3357,8 @@ static void xsane_fax_entry_rename_callback(GtkWidget *widget, gpointer list)
  char *newpage;
  char oldfile[256];
  char newfile[256];
+
+  DBG(DBG_proc, "xsane_fax_entry_rename_callback\n");
 
   select = GTK_LIST(list)->selection;
   if (select)
@@ -3210,25 +3374,36 @@ static void xsane_fax_entry_rename_callback(GtkWidget *widget, gpointer list)
 
     xsane_set_sensitivity(FALSE);
 
-    rename_dialog = gtk_dialog_new();
+    rename_dialog = gtk_window_new(GTK_WINDOW_DIALOG);
+    xsane_set_window_icon(rename_dialog, 0);
+
+    /* set the main vbox */
+    vbox = gtk_vbox_new(FALSE, 0);
+    gtk_container_set_border_width(GTK_CONTAINER(vbox), 0);
+    gtk_container_add(GTK_CONTAINER(rename_dialog), vbox);
+    gtk_widget_show(vbox);
+
+    /* set the main hbox */
+    hbox = gtk_hbox_new(FALSE, 0);
+    xsane_separator_new(vbox, 2);
+    gtk_box_pack_end(GTK_BOX(vbox), hbox, FALSE, FALSE, 5);
+    gtk_container_set_border_width(GTK_CONTAINER(hbox), 5);
+    gtk_widget_show(hbox); 
+
     gtk_window_set_position(GTK_WINDOW(rename_dialog), GTK_WIN_POS_CENTER);
     gtk_window_set_policy(GTK_WINDOW(rename_dialog), FALSE, FALSE, FALSE);
-    snprintf(buf, sizeof(buf), "%s %s", prog_name, WINDOW_FAX_RENAME);
+    snprintf(buf, sizeof(buf), "%s %s", xsane.prog_name, WINDOW_FAX_RENAME);
     gtk_window_set_title(GTK_WINDOW(rename_dialog), buf);
     gtk_signal_connect(GTK_OBJECT(rename_dialog), "delete_event", (GtkSignalFunc) xsane_fax_entry_rename_button_callback, (void *) -1);
     gtk_widget_show(rename_dialog);
 
-    vbox = GTK_DIALOG(rename_dialog)->vbox;
-
     text = gtk_entry_new_with_max_length(64);
-    xsane_back_gtk_set_tooltip(dialog->tooltips, text, DESC_FAXPAGENAME);
+    xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_FAXPAGENAME);
     gtk_entry_set_text(GTK_ENTRY(text), oldpage);
     gtk_widget_set_usize(text, 300, 0);
     gtk_box_pack_start(GTK_BOX(vbox), text, TRUE, TRUE, 4);
     gtk_widget_show(text);
 
-
-    hbox = GTK_DIALOG(rename_dialog)->action_area;
 
     button = gtk_button_new_with_label("OK");
     gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_fax_entry_rename_button_callback, (void *) 1);
@@ -3286,6 +3461,8 @@ static void xsane_fax_entry_delete_callback(GtkWidget *widget, gpointer list)
  char *page;
  char file[256];
 
+  DBG(DBG_proc, "xsane_fax_entry_delete_callback\n");
+
   select = GTK_LIST(list)->selection;
   if (select)
   {
@@ -3311,6 +3488,8 @@ static void xsane_fax_show_callback(GtkWidget *widget, gpointer list)
  char *page;
  char buf[256];
  int argnr;
+
+  DBG(DBG_proc, "xsane_fax_entry_show_callback\n");
 
   select = GTK_LIST(list)->selection;
   if (select)
@@ -3349,6 +3528,8 @@ static void xsane_fax_send()
  char buf[256];
  int argnr = 0;
  int i;
+
+  DBG(DBG_proc, "xsane_fax_send\n");
 
   if (list)
   {
@@ -3420,10 +3601,11 @@ static void xsane_fax_send()
 
 static GtkWidget *xsane_view_build_menu(void)
 {
-  GtkWidget *menu, *item;
+ GtkWidget *menu, *item;
+
+  DBG(DBG_proc, "xsane_view_build_menu\n");
 
   menu = gtk_menu_new();
-
 
   /* show tooltips */
 
@@ -3457,6 +3639,17 @@ static GtkWidget *xsane_view_build_menu(void)
   gtk_signal_connect(GTK_OBJECT(xsane.show_histogram_widget), "toggled", (GtkSignalFunc) xsane_show_histogram_callback, NULL);
 
   
+#ifdef HAVE_WORKING_GTK_GAMMACURVE
+  /* show gamma */
+
+  xsane.show_gamma_widget = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_GAMMA);
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_gamma_widget), preferences.show_gamma);
+  gtk_menu_append(GTK_MENU(menu), xsane.show_gamma_widget);
+  gtk_widget_show(xsane.show_gamma_widget);
+  gtk_signal_connect(GTK_OBJECT(xsane.show_gamma_widget), "toggled", (GtkSignalFunc) xsane_show_gamma_callback, NULL);
+#endif
+
+  
   /* show standard options */
 
   xsane.show_standard_options_widget = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_STANDARDOPTIONS);
@@ -3483,7 +3676,9 @@ static GtkWidget *xsane_view_build_menu(void)
 
 static GtkWidget *xsane_pref_build_menu(void)
 {
-  GtkWidget *menu, *item, *submenu, *subitem;
+ GtkWidget *menu, *item, *submenu, *subitem;
+
+  DBG(DBG_proc, "xsane_pref_build_menu\n");
 
   menu = gtk_menu_new();
 
@@ -3662,6 +3857,19 @@ static GtkWidget *xsane_pref_build_menu(void)
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_device_preferences_load, NULL);
   gtk_widget_show(item);
 
+  /* insert separator: */
+
+  item = gtk_menu_item_new();
+  gtk_menu_append(GTK_MENU(menu), item);
+  gtk_widget_show(item);
+
+  /* change working directory */
+
+  item = gtk_menu_item_new_with_label(MENU_ITEM_CHANGE_WORKING_DIR);
+  gtk_menu_append(GTK_MENU(menu), item);
+  gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_change_working_directory, NULL);
+  gtk_widget_show(item);
+
   return menu;
 }
 
@@ -3669,7 +3877,9 @@ static GtkWidget *xsane_pref_build_menu(void)
 
 static GtkWidget *xsane_help_build_menu(void)
 {
-  GtkWidget *menu, *item;
+ GtkWidget *menu, *item;
+
+  DBG(DBG_proc, "xsane_help_build_menu\n");
 
   menu = gtk_menu_new();
 
@@ -3741,67 +3951,74 @@ static GtkWidget *xsane_help_build_menu(void)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void xsane_panel_build(GSGDialog *dialog)
+void xsane_panel_build()
 {
-  GtkWidget *xsane_hbox;
-  GtkWidget *standard_hbox, *standard_vbox;
-  GtkWidget *advanced_hbox, *advanced_vbox;
-  GtkWidget *parent, *vbox, *button, *label;
-  const SANE_Option_Descriptor *opt;
-  SANE_Handle dev = dialog->dev;
-  double dval, dmin, dmax, dquant;
-  char *buf, str[16], title[256];
-  GSGDialogElement *elem;
-  SANE_Word quant, val;
-  SANE_Status status;
-  SANE_Int num_words;
-  char **str_list;
-  int i, j;
-  int num_vector_opts = 0;
-  int *vector_opts;
+ GtkWidget *standard_vbox;
+ GtkWidget *advanced_vbox;
+ GtkWidget *gamma_vbox;
+ GtkWidget *parent, *vbox, *button, *label;
+ const SANE_Option_Descriptor *opt;
+ SANE_Handle dev = xsane.dev;
+ double dval, dmin, dmax, dquant;
+ char *buf, str[16], title[256];
+ GSGDialogElement *elem;
+ SANE_Word quant, val;
+ SANE_Status status;
+ SANE_Int num_words;
+ char **str_list;
+ int i, j;
+ int num_vector_opts = 0;
+ int *vector_opts;
 
-   xsane_hbox = NULL;
+  DBG(DBG_proc, "xsane_panel_build\n");
 
   /* reset well-known options: */
-  dialog->well_known.scanmode        = -1;
-  dialog->well_known.scansource      = -1;
-  dialog->well_known.preview         = -1;
-  dialog->well_known.dpi             = -1;
-  dialog->well_known.dpi_x           = -1;
-  dialog->well_known.dpi_y           = -1;
-  dialog->well_known.coord[xsane_back_gtk_TL_X] = -1;
-  dialog->well_known.coord[xsane_back_gtk_TL_Y] = -1;
-  dialog->well_known.coord[xsane_back_gtk_BR_X] = -1;
-  dialog->well_known.coord[xsane_back_gtk_BR_Y] = -1;
-  dialog->well_known.gamma_vector    = -1;
-  dialog->well_known.gamma_vector_r  = -1;
-  dialog->well_known.gamma_vector_g  = -1;
-  dialog->well_known.gamma_vector_b  = -1;
-  dialog->well_known.bit_depth       = -1;
-  dialog->well_known.threshold       = -1;
+  xsane.well_known.scanmode        = -1;
+  xsane.well_known.scansource      = -1;
+  xsane.well_known.preview         = -1;
+  xsane.well_known.dpi             = -1;
+  xsane.well_known.dpi_x           = -1;
+  xsane.well_known.dpi_y           = -1;
+  xsane.well_known.coord[xsane_back_gtk_TL_X] = -1;
+  xsane.well_known.coord[xsane_back_gtk_TL_Y] = -1;
+  xsane.well_known.coord[xsane_back_gtk_BR_X] = -1;
+  xsane.well_known.coord[xsane_back_gtk_BR_Y] = -1;
+  xsane.well_known.gamma_vector    = -1;
+  xsane.well_known.gamma_vector_r  = -1;
+  xsane.well_known.gamma_vector_g  = -1;
+  xsane.well_known.gamma_vector_b  = -1;
+  xsane.well_known.bit_depth       = -1;
+  xsane.well_known.threshold       = -1;
 
 
   /* standard options */
-  standard_hbox = gtk_hbox_new(FALSE, 2);
-  gtk_widget_show(standard_hbox);
+  xsane.standard_hbox = gtk_hbox_new(FALSE, 2);
+  gtk_widget_show(xsane.standard_hbox);
   standard_vbox = gtk_vbox_new(/* homogeneous */ FALSE, 0);
   gtk_widget_show(standard_vbox);
-/*  gtk_box_pack_start(GTK_BOX(standard_hbox), standard_vbox, FALSE, FALSE, 0); */ /* make frame fixed */
-  gtk_box_pack_start(GTK_BOX(standard_hbox), standard_vbox, TRUE, TRUE, 0); /* make frame sizeable */
+/*  gtk_box_pack_start(GTK_BOX(xsane.standard_hbox), standard_vbox, FALSE, FALSE, 0); */ /* make frame fixed */
+  gtk_box_pack_start(GTK_BOX(xsane.standard_hbox), standard_vbox, TRUE, TRUE, 0); /* make frame sizeable */
 
   /* advanced options */
-  advanced_hbox = gtk_hbox_new(FALSE, 2);
-  gtk_widget_show(advanced_hbox);
+  xsane.advanced_hbox = gtk_hbox_new(FALSE, 2);
+  gtk_widget_show(xsane.advanced_hbox);
   advanced_vbox = gtk_vbox_new(/* homogeneous */ FALSE, 0);
   gtk_widget_show(advanced_vbox);
-/*   gtk_box_pack_start(GTK_BOX(advanced_hbox), advanced_vbox, FALSE, FALSE, 0); */ /* make frame fixed */
-  gtk_box_pack_start(GTK_BOX(advanced_hbox), advanced_vbox, TRUE, TRUE, 0); /* make frame sizeable */
+/*   gtk_box_pack_start(GTK_BOX(xsane.advanced_hbox), advanced_vbox, FALSE, FALSE, 0); */ /* make frame fixed */
+  gtk_box_pack_start(GTK_BOX(xsane.advanced_hbox), advanced_vbox, TRUE, TRUE, 0); /* make frame sizeable */
 
+  /* free gamma curve */
+  xsane.gamma_hbox = gtk_hbox_new(FALSE, 2);
+  gtk_widget_show(xsane.gamma_hbox);
+  gamma_vbox = gtk_vbox_new(/* homogeneous */ FALSE, 0);
+  gtk_widget_show(gamma_vbox);
+/*   gtk_box_pack_start(GTK_BOX(xsane.gamma_hbox), gamma_vbox, FALSE, FALSE, 0); */ /* make frame fixed */
+  gtk_box_pack_start(GTK_BOX(xsane.gamma_hbox), gamma_vbox, TRUE, TRUE, 0); /* make frame sizeable */
 
-  vector_opts = alloca(dialog->num_elements * sizeof (int));
+  vector_opts = alloca(xsane.num_elements * sizeof (int));
 
   parent = standard_vbox;
-  for (i = 1; i < dialog->num_elements; ++i)
+  for (i = 1; i < xsane.num_elements; ++i)
     {
       opt = xsane_get_option_descriptor(dev, i);
       if (!SANE_OPTION_IS_ACTIVE(opt->cap))
@@ -3812,47 +4029,45 @@ void xsane_panel_build(GSGDialog *dialog)
         {
           if (strcmp(opt->name, SANE_NAME_PREVIEW) == 0 && opt->type == SANE_TYPE_BOOL)
           {
-            dialog->well_known.preview = i;
+            xsane.well_known.preview = i;
             continue;
           }
           else if (strcmp(opt->name, SANE_NAME_SCAN_RESOLUTION) == 0
                    && opt->unit == SANE_UNIT_DPI && (opt->type == SANE_TYPE_INT || opt->type == SANE_TYPE_FIXED))
-            dialog->well_known.dpi = i;
+            xsane.well_known.dpi = i;
           else if (strcmp(opt->name, SANE_NAME_SCAN_X_RESOLUTION) == 0
                    && opt->unit == SANE_UNIT_DPI && (opt->type == SANE_TYPE_INT || opt->type == SANE_TYPE_FIXED))
-            dialog->well_known.dpi_x = i;
+            xsane.well_known.dpi_x = i;
           else if (strcmp(opt->name, SANE_NAME_SCAN_Y_RESOLUTION) == 0
                    && opt->unit == SANE_UNIT_DPI && (opt->type == SANE_TYPE_INT || opt->type == SANE_TYPE_FIXED))
-            dialog->well_known.dpi_y = i;
+            xsane.well_known.dpi_y = i;
           else if (strcmp (opt->name, SANE_NAME_SCAN_MODE) == 0)
-            dialog->well_known.scanmode = i;
+            xsane.well_known.scanmode = i;
           else if (strcmp (opt->name, SANE_NAME_SCAN_SOURCE) == 0)
-            dialog->well_known.scansource = i;
+            xsane.well_known.scansource = i;
           else if (strcmp (opt->name, SANE_NAME_SCAN_TL_X) == 0)
-            dialog->well_known.coord[xsane_back_gtk_TL_X] = i;
+            xsane.well_known.coord[xsane_back_gtk_TL_X] = i;
           else if (strcmp (opt->name, SANE_NAME_SCAN_TL_Y) == 0)
-            dialog->well_known.coord[xsane_back_gtk_TL_Y] = i;
+            xsane.well_known.coord[xsane_back_gtk_TL_Y] = i;
           else if (strcmp (opt->name, SANE_NAME_SCAN_BR_X) == 0)
-            dialog->well_known.coord[xsane_back_gtk_BR_X] = i;
+            xsane.well_known.coord[xsane_back_gtk_BR_X] = i;
           else if (strcmp (opt->name, SANE_NAME_SCAN_BR_Y) == 0)
-            dialog->well_known.coord[xsane_back_gtk_BR_Y] = i;
+            xsane.well_known.coord[xsane_back_gtk_BR_Y] = i;
           else if (strcmp (opt->name, SANE_NAME_GAMMA_VECTOR) == 0)
-            dialog->well_known.gamma_vector = i;
+            xsane.well_known.gamma_vector = i;
           else if (strcmp (opt->name, SANE_NAME_GAMMA_VECTOR_R) == 0)
-            dialog->well_known.gamma_vector_r = i;
+            xsane.well_known.gamma_vector_r = i;
           else if (strcmp (opt->name, SANE_NAME_GAMMA_VECTOR_G) == 0)
-            dialog->well_known.gamma_vector_g = i;
+            xsane.well_known.gamma_vector_g = i;
           else if (strcmp (opt->name, SANE_NAME_GAMMA_VECTOR_B) == 0)
-            dialog->well_known.gamma_vector_b = i;
+            xsane.well_known.gamma_vector_b = i;
           else if (strcmp (opt->name, SANE_NAME_BIT_DEPTH) == 0)
-            dialog->well_known.bit_depth = i;
+            xsane.well_known.bit_depth = i;
           else if (strcmp (opt->name, SANE_NAME_THRESHOLD) == 0)
-            dialog->well_known.threshold = i;
+            xsane.well_known.threshold = i;
         }
 
-      elem = dialog->element + i;
-      elem->dialog = dialog;
-
+      elem = xsane.element + i;
 
       if (opt->unit == SANE_UNIT_NONE)
       {
@@ -3878,12 +4093,12 @@ void xsane_panel_build(GSGDialog *dialog)
 
         case SANE_TYPE_BOOL:
           assert(opt->size == sizeof(SANE_Word));
-          status = xsane_control_option(dialog->dev, i, SANE_ACTION_GET_VALUE, &val, 0);
+          status = xsane_control_option(xsane.dev, i, SANE_ACTION_GET_VALUE, &val, 0);
           if (status != SANE_STATUS_GOOD)
           {
             goto get_value_failed;
           }
-          xsane_back_gtk_button_new(parent, title, val, elem, dialog->tooltips, _BGT(opt->desc), SANE_OPTION_IS_SETTABLE(opt->cap));
+          xsane_back_gtk_button_new(parent, title, val, elem, xsane.tooltips, _BGT(opt->desc), SANE_OPTION_IS_SETTABLE(opt->cap));
           gtk_widget_show(parent->parent);
           break;
 
@@ -3893,7 +4108,7 @@ void xsane_panel_build(GSGDialog *dialog)
             vector_opts[num_vector_opts++] = i;
             break;
           }
-          status = xsane_control_option(dialog->dev, i, SANE_ACTION_GET_VALUE, &val, 0);
+          status = xsane_control_option(xsane.dev, i, SANE_ACTION_GET_VALUE, &val, 0);
           if (status != SANE_STATUS_GOOD)
           {
             goto get_value_failed;
@@ -3914,7 +4129,7 @@ void xsane_panel_build(GSGDialog *dialog)
                 }
 
                 xsane_back_gtk_scale_new(parent, title, val, opt->constraint.range->min, opt->constraint.range->max, quant,
-                          (opt->cap & SANE_CAP_AUTOMATIC), elem, dialog->tooltips, _BGT(opt->desc), SANE_OPTION_IS_SETTABLE(opt->cap));
+                          (opt->cap & SANE_CAP_AUTOMATIC), elem, xsane.tooltips, _BGT(opt->desc), SANE_OPTION_IS_SETTABLE(opt->cap));
                 gtk_widget_show(parent->parent);
               }
               break;
@@ -3934,7 +4149,7 @@ void xsane_panel_build(GSGDialog *dialog)
                 }
                 str_list[j] = 0;
                 sprintf(str, "%d", val);
-                xsane_back_gtk_option_menu_new(parent, title, str_list, str, elem, dialog->tooltips, _BGT(opt->desc),
+                xsane_back_gtk_option_menu_new(parent, title, str_list, str, elem, xsane.tooltips, _BGT(opt->desc),
                                     SANE_OPTION_IS_SETTABLE(opt->cap));
                 free(str_list);
                 gtk_widget_show(parent->parent);
@@ -3953,7 +4168,7 @@ void xsane_panel_build(GSGDialog *dialog)
             vector_opts[num_vector_opts++] = i;
             break;
           }
-          status = xsane_control_option(dialog->dev, i, SANE_ACTION_GET_VALUE, &val, 0);
+          status = xsane_control_option(xsane.dev, i, SANE_ACTION_GET_VALUE, &val, 0);
           if (status != SANE_STATUS_GOOD)
           {
             goto get_value_failed;
@@ -3989,7 +4204,7 @@ void xsane_panel_build(GSGDialog *dialog)
                 }
 
                 xsane_back_gtk_scale_new(parent, title, dval, dmin, dmax, dquant, (opt->cap & SANE_CAP_AUTOMATIC), elem,
-                              dialog->tooltips, _BGT(opt->desc), SANE_OPTION_IS_SETTABLE(opt->cap));
+                              xsane.tooltips, _BGT(opt->desc), SANE_OPTION_IS_SETTABLE(opt->cap));
                 gtk_widget_show(parent->parent);
               }
               break;
@@ -4009,7 +4224,7 @@ void xsane_panel_build(GSGDialog *dialog)
                 }
                 str_list[j] = 0;
                 sprintf(str, "%g", SANE_UNFIX(val));
-                xsane_back_gtk_option_menu_new(parent, title, str_list, str, elem, dialog->tooltips, _BGT(opt->desc), SANE_OPTION_IS_SETTABLE(opt->cap));
+                xsane_back_gtk_option_menu_new(parent, title, str_list, str, elem, xsane.tooltips, _BGT(opt->desc), SANE_OPTION_IS_SETTABLE(opt->cap));
                 free (str_list);
                 gtk_widget_show(parent->parent);
               }
@@ -4023,7 +4238,7 @@ void xsane_panel_build(GSGDialog *dialog)
 
         case SANE_TYPE_STRING:
           buf = malloc (opt->size);
-          status = xsane_control_option(dialog->dev, i, SANE_ACTION_GET_VALUE, buf, 0);
+          status = xsane_control_option(xsane.dev, i, SANE_ACTION_GET_VALUE, buf, 0);
           if (status != SANE_STATUS_GOOD)
           {
             free (buf);
@@ -4038,13 +4253,13 @@ void xsane_panel_build(GSGDialog *dialog)
               {
                 /* use a "list-selection" widget */
                 xsane_back_gtk_option_menu_new(parent, title, (char **) opt->constraint.string_list, buf,
-                                    elem, dialog->tooltips, _BGT(opt->desc), SANE_OPTION_IS_SETTABLE(opt->cap));
+                                    elem, xsane.tooltips, _BGT(opt->desc), SANE_OPTION_IS_SETTABLE(opt->cap));
                 gtk_widget_show (parent->parent);
               }
               break;
 
             case SANE_CONSTRAINT_NONE:
-              xsane_back_gtk_text_entry_new(parent, title, buf, elem, dialog->tooltips, _BGT(opt->desc), SANE_OPTION_IS_SETTABLE(opt->cap));
+              xsane_back_gtk_text_entry_new(parent, title, buf, elem, xsane.tooltips, _BGT(opt->desc), SANE_OPTION_IS_SETTABLE(opt->cap));
               gtk_widget_show (parent->parent);
               break;
 
@@ -4058,7 +4273,7 @@ void xsane_panel_build(GSGDialog *dialog)
         case SANE_TYPE_BUTTON:
           button = gtk_button_new();
           gtk_signal_connect(GTK_OBJECT (button), "clicked", (GtkSignalFunc) xsane_back_gtk_push_button_callback, elem);
-          xsane_back_gtk_set_tooltip(dialog->tooltips, button, _BGT(opt->desc));
+          xsane_back_gtk_set_tooltip(xsane.tooltips, button, _BGT(opt->desc));
 
           label = gtk_label_new(title);
           gtk_container_add(GTK_CONTAINER (button), label);
@@ -4089,20 +4304,19 @@ void xsane_panel_build(GSGDialog *dialog)
       }
     }
 
-  if ((dialog->well_known.dpi_x == -1) && (dialog->well_known.dpi_y != -1))
+  if ((xsane.well_known.dpi_x == -1) && (xsane.well_known.dpi_y != -1))
   {
-    dialog->well_known.dpi_x = dialog->well_known.dpi;
+    xsane.well_known.dpi_x = xsane.well_known.dpi;
   }
 
-  xsane_hbox = xsane_update_xsane_callback();
+  xsane.xsane_hbox = xsane_update_xsane_callback();
 
-  gtk_container_add(GTK_CONTAINER(dialog->xsane_window), xsane_hbox);
-  gtk_container_add(GTK_CONTAINER(dialog->standard_window), standard_hbox);
-  gtk_container_add(GTK_CONTAINER(dialog->advanced_window), advanced_hbox);
-
-  dialog->xsane_hbox    = xsane_hbox;
-  dialog->standard_hbox = standard_hbox;
-  dialog->advanced_hbox = advanced_hbox;
+  gtk_container_add(GTK_CONTAINER(xsane.xsane_window),    xsane.xsane_hbox);
+  gtk_container_add(GTK_CONTAINER(xsane.standard_window), xsane.standard_hbox);
+  gtk_container_add(GTK_CONTAINER(xsane.advanced_window), xsane.advanced_hbox);
+#ifdef HAVE_WORKING_GTK_GAMMACURVE
+  gtk_container_add(GTK_CONTAINER(xsane.gamma_window),    xsane.gamma_hbox);
+#endif
 
   xsane_update_histogram();
 /*
@@ -4117,7 +4331,7 @@ void xsane_panel_build(GSGDialog *dialog)
   {
    int unit;
 
-    status = xsane_get_area_value(dialog->well_known.coord[0], 0, &unit);
+    status = xsane_get_area_value(xsane.well_known.coord[0], 0, &unit);
 
     if ( (unit == SANE_UNIT_PIXEL) || (status) )
     {
@@ -4130,20 +4344,33 @@ void xsane_panel_build(GSGDialog *dialog)
   }
 
   /* now add in vector editor, if necessary: */
-/*
+#ifdef HAVE_WORKING_GTK_GAMMACURVE
   if (num_vector_opts)
-    vector_new (dialog, custom_gamma_vbox, num_vector_opts, vector_opts);
-*/
+  {
+    xsane_back_gtk_vector_new(gamma_vbox, num_vector_opts, vector_opts);
+  }
+  xsane_update_gamma_dialog();
+#endif
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-/* Create the main dialog box.  */
+/* connect to backend and create main dialogs:
+ - sane_open
+ - create dialog xsane.shell
+ -   build menues
+ - create dialog xsane.standard_options_shell
+ - create dialog xsane.advanced_options_shell
+ - create tooltip style
+ - create dialog xsane.histogram_dialog
+ - create dialog xsane.gamma_dialog
+ - panel_build()
+ - create dialog xsane.preview
+*/
 
 static void xsane_device_dialog(void)
 {
  GtkWidget *vbox, *hbox, *button, *frame, *infobox;
- GtkWidget *main_dialog_window, *standard_dialog_window, *advanced_dialog_window;
  GtkWidget *menubar, *menubar_item;
  const gchar *devname;
  char buf[256];
@@ -4155,29 +4382,30 @@ static void xsane_device_dialog(void)
  GtkWidget *xsane_vbox_standard;
  GtkWidget *xsane_vbox_advanced;
  GdkColormap *colormap;
- SANE_Int num_elements;
  SANE_Status status;
- SANE_Handle dev;
 
+  DBG(DBG_proc, "xsane_device_dialog\n");
 
-  devname = devlist[selected_dev]->name;
+  devname = xsane.devlist[xsane.selected_dev]->name;
 
-  status = sane_open(devname, &dev);
+  status = sane_open(devname, (SANE_Handle *) &xsane.dev);
   if (status != SANE_STATUS_GOOD)
   {
     snprintf(buf, sizeof(buf), "%s `%s':\n %s.", ERR_DEVICE_OPEN_FAILED, devname, XSANE_STRSTATUS(status));
     xsane_back_gtk_error(buf, TRUE);
-    return;
+    xsane_exit();
+    /* will never come to here */
   }
 
-  if (xsane_control_option(dev, 0, SANE_ACTION_GET_VALUE, &num_elements, 0) != SANE_STATUS_GOOD)
+  if (xsane_control_option(xsane.dev, 0, SANE_ACTION_GET_VALUE, &xsane.num_elements, 0) != SANE_STATUS_GOOD)
   {
     xsane_back_gtk_error(ERR_OPTION_COUNT, TRUE);
-    sane_close(dev);
-    return;
+    sane_close(xsane.dev);
+    xsane_exit();
+    /* will never come to here */
   }
 
-  snprintf(buf, sizeof(buf), "%s", devlist[selected_dev]->name);	/* generate "sane-BACKENDNAME" */
+  snprintf(buf, sizeof(buf), "%s", xsane.devlist[xsane.selected_dev]->name);	/* generate "sane-BACKENDNAME" */
   textptr = strrchr(buf, ':'); /* format is midend:midend:midend:backend:device or backend:device */
   if (textptr)
   {
@@ -4195,12 +4423,12 @@ static void xsane_device_dialog(void)
     xsane.backend = malloc(strlen(textptr)+6);
     sprintf(xsane.backend, "sane-%s", textptr); /* add "sane-" */
 
-    bindtextdomain(xsane.backend, LOCALEDIR); /* set path for backend translation texts */
+    bindtextdomain(xsane.backend, STRINGIFY(LOCALEDIR)); /* set path for backend translation texts */
   }
 
   /* create device-text for window titles */
 
-  snprintf(devicetext, sizeof(devicetext), "%s", devlist[selected_dev]->model);
+  snprintf(devicetext, sizeof(devicetext), "%s", xsane.devlist[xsane.selected_dev]->model);
   textptr = devicetext + strlen(devicetext);
   while (*(textptr-1) == ' ') /* erase spaces at end of text */
   {
@@ -4221,20 +4449,20 @@ static void xsane_device_dialog(void)
   snprintf(buf, sizeof(buf), "/%s", (strrchr(buf, ':')+1));
   sprintf(textptr, (strrchr(buf, '/')+1));
 
-  device_text = strdup(devicetext);
+  xsane.device_text = strdup(devicetext);
 
 
   /* if no preferences filename is given on commandline create one from devicenaname */
  
   if (!xsane.device_set_filename)
   {
-    if (!strcmp(devlist[selected_dev]->vendor, TEXT_UNKNOWN))
+    if (!strcmp(xsane.devlist[xsane.selected_dev]->vendor, TEXT_UNKNOWN))
     {
-      snprintf(buf, sizeof(buf), "%s",  devlist[selected_dev]->name);
+      snprintf(buf, sizeof(buf), "%s",  xsane.devlist[xsane.selected_dev]->name);
     }
     else
     {
-      snprintf(buf, sizeof(buf), "%s:%s", devlist[selected_dev]->vendor, devlist[selected_dev]->model);
+      snprintf(buf, sizeof(buf), "%s:%s", xsane.devlist[xsane.selected_dev]->vendor, xsane.devlist[xsane.selected_dev]->model);
     }
     xsane.device_set_filename = strdup(buf); /* set preferences filename */
   }
@@ -4250,18 +4478,19 @@ static void xsane_device_dialog(void)
 
   /* create the xsane dialog box */
 
-  xsane.shell = gtk_dialog_new();
+  xsane.shell = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   gtk_widget_set_uposition(xsane.shell, XSANE_SHELL_POS_X, XSANE_SHELL_POS_Y);
-  sprintf(windowname, "%s %s %s", prog_name, XSANE_VERSION, device_text);
+  sprintf(windowname, "%s %s %s", xsane.prog_name, XSANE_VERSION, xsane.device_text);
   gtk_window_set_title(GTK_WINDOW(xsane.shell), (char *) windowname);
   gtk_signal_connect(GTK_OBJECT(xsane.shell), "delete_event", GTK_SIGNAL_FUNC(xsane_scan_win_delete), NULL);
 
   xsane_set_window_icon(xsane.shell, 0);
 
   /* set the main vbox */
-
-  xsane_window = GTK_DIALOG(xsane.shell)->vbox;
-  gtk_widget_show(xsane_window); /* normally not necessary, but to be sure */
+  xsane_window = gtk_vbox_new(FALSE, 0);
+  gtk_container_set_border_width(GTK_CONTAINER(xsane_window), 0);
+  gtk_container_add(GTK_CONTAINER(xsane.shell), xsane_window);
+  gtk_widget_show(xsane_window);
 
 
   /* create the menubar */
@@ -4326,10 +4555,10 @@ static void xsane_device_dialog(void)
     gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(xsane.main_dialog_scrolled), xsane_vbox_main);
   }
 
-  /* create  a subwindow so the standard dialog keeps its position on rebuilds: */
-  main_dialog_window = gtk_hbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(xsane_vbox_main), main_dialog_window, TRUE, TRUE, 0);
-  gtk_widget_show(main_dialog_window);
+  /* create  a subwindow so the main dialog keeps its position on rebuilds: */
+  xsane.xsane_window = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(xsane_vbox_main), xsane.xsane_window, TRUE, TRUE, 0);
+  gtk_widget_show(xsane.xsane_window);
 
   gtk_widget_show(xsane_vbox_main);
 
@@ -4338,7 +4567,7 @@ static void xsane_device_dialog(void)
 
   xsane.standard_options_shell = gtk_window_new(GTK_WINDOW_DIALOG);
   gtk_widget_set_uposition(xsane.standard_options_shell, XSANE_STD_OPTIONS_POS_X, XSANE_STD_OPTIONS_POS_Y);
-  sprintf(windowname, "%s %s", WINDOW_STANDARD_OPTIONS, device_text);
+  sprintf(windowname, "%s %s", WINDOW_STANDARD_OPTIONS, xsane.device_text);
   gtk_window_set_title(GTK_WINDOW(xsane.standard_options_shell), (char *) windowname);
 
                                                                /* shrink grow  auto_shrink */
@@ -4354,9 +4583,9 @@ static void xsane_device_dialog(void)
   gtk_widget_show(xsane_vbox_standard);
 
   /* create  a subwindow so the standard dialog keeps its position on rebuilds: */
-  standard_dialog_window = gtk_hbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(xsane_vbox_standard), standard_dialog_window, TRUE, TRUE, 0);
-  gtk_widget_show(standard_dialog_window);
+  xsane.standard_window = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(xsane_vbox_standard), xsane.standard_window, TRUE, TRUE, 0);
+  gtk_widget_show(xsane.standard_window);
 
 
 
@@ -4364,7 +4593,7 @@ static void xsane_device_dialog(void)
 
   xsane.advanced_options_shell = gtk_window_new(GTK_WINDOW_DIALOG);
   gtk_widget_set_uposition(xsane.advanced_options_shell, XSANE_ADV_OPTIONS_POS_X, XSANE_ADV_OPTIONS_POS_Y);
-  sprintf(windowname, "%s %s",WINDOW_ADVANCED_OPTIONS, device_text);
+  sprintf(windowname, "%s %s",WINDOW_ADVANCED_OPTIONS, xsane.device_text);
   gtk_window_set_title(GTK_WINDOW(xsane.advanced_options_shell), (char *) windowname);
 
                                                                /* shrink grow  auto_shrink */
@@ -4380,33 +4609,16 @@ static void xsane_device_dialog(void)
   gtk_widget_show(xsane_vbox_advanced);
 
   /* create  a subwindow so the advanced dialog keeps its position on rebuilds: */
-  advanced_dialog_window = gtk_hbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(xsane_vbox_advanced), advanced_dialog_window, TRUE, TRUE, 0);
-  gtk_widget_show(advanced_dialog_window);
+  xsane.advanced_window = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(xsane_vbox_advanced), xsane.advanced_window, TRUE, TRUE, 0);
+  gtk_widget_show(xsane.advanced_window);
 
-
-  dialog = malloc(sizeof (*dialog));
-  if (!dialog)
-  {
-    printf("Could not create dialog\n");
-    return;
-  }
 
   /* fill in dialog structure */
 
-  memset(dialog, 0, sizeof(*dialog));
-
-  dialog->xsane_window           = main_dialog_window;
-  dialog->standard_window        = standard_dialog_window;
-  dialog->advanced_window        = advanced_dialog_window;
-  dialog->dev                    = dev;
-  dialog->dev_name               = strdup(devname);
-  dialog->num_elements           = num_elements;
-
-  dialog->element = malloc(num_elements * sizeof(dialog->element[0]));
-  memset(dialog->element, 0, num_elements * sizeof(dialog->element[0]));
-
-
+  xsane.dev_name = strdup(devname);
+  xsane.element  = malloc(xsane.num_elements * sizeof(xsane.element[0]));
+  memset(xsane.element, 0, xsane.num_elements * sizeof(xsane.element[0]));
 
 
   /* realize xsane main dialog */
@@ -4426,49 +4638,57 @@ static void xsane_device_dialog(void)
   }
 
 
+
   /* define tooltips colors */
 
-  dialog->tooltips = gtk_tooltips_new();
+  xsane.tooltips = gtk_tooltips_new();
   colormap = gdk_window_get_colormap(xsane.shell->window);
 
 /* I don`t know why the following does not work with gtk-1.2.x */
 /* but the gimp has the same problems ;-) */
   /* use black as foreground: */
-  dialog->tooltips_fg.red   = 0;
-  dialog->tooltips_fg.green = 0;
-  dialog->tooltips_fg.blue  = 0;
-  gdk_color_alloc(colormap, &dialog->tooltips_fg);
+  xsane.tooltips_fg.red   = 0;
+  xsane.tooltips_fg.green = 0;
+  xsane.tooltips_fg.blue  = 0;
+  gdk_color_alloc(colormap, &xsane.tooltips_fg);
 
   /* postit yellow (khaki) as background: */
-  dialog->tooltips_bg.red   = 61669;
-  dialog->tooltips_bg.green = 59113;
-  dialog->tooltips_bg.blue  = 35979;
-  gdk_color_alloc(colormap, &dialog->tooltips_bg);
+  xsane.tooltips_bg.red   = 61669;
+  xsane.tooltips_bg.green = 59113;
+  xsane.tooltips_bg.blue  = 35979;
+  gdk_color_alloc(colormap, &xsane.tooltips_bg);
 
 /* as long as gtk_tooltips_set_colors() does not work : */
 #if 1
-  gtk_tooltips_force_window(dialog->tooltips);
+  gtk_tooltips_force_window(xsane.tooltips);
   {
-   GtkStyle *current_style = gtk_style_copy(gtk_widget_get_style(dialog->tooltips->tip_window));
+   GtkStyle *current_style = gtk_style_copy(gtk_widget_get_style(xsane.tooltips->tip_window));
 
-     current_style->bg[GTK_STATE_NORMAL] = dialog->tooltips_bg;
-     current_style->fg[GTK_STATE_NORMAL] = dialog->tooltips_fg;
-     gtk_widget_set_style(dialog->tooltips->tip_window, current_style);  
+     current_style->bg[GTK_STATE_NORMAL] = xsane.tooltips_bg;
+     current_style->fg[GTK_STATE_NORMAL] = xsane.tooltips_fg;
+     gtk_widget_set_style(xsane.tooltips->tip_window, current_style);  
   }
 #else
-  gtk_tooltips_set_colors(dialog->tooltips, &dialog->tooltips_bg, &dialog->tooltips_fg);
+  gtk_tooltips_set_colors(xsane.tooltips, &xsane.tooltips_bg, &xsane.tooltips_fg);
 #endif
-  xsane_back_gtk_set_tooltips(dialog, preferences.tooltips_enabled);
+  xsane_back_gtk_set_tooltips(preferences.tooltips_enabled);
 
 
 
   /* create histogram dialog and set colors */
-  xsane_create_histogram_dialog(device_text); /* create the histogram dialog */
+  xsane_create_histogram_dialog(xsane.device_text); /* create the histogram dialog */
+
+#ifdef HAVE_WORKING_GTK_GAMMACURVE
+  /* create gamma dialog and set colors */
+  xsane_create_gamma_dialog(xsane.device_text); /* create the free gamma curve dialog */
+#endif
 
 
   /* The bottom area: info frame, progress bar, start and cancel button */
   hbox = gtk_hbox_new(FALSE, 5);
-  gtk_box_pack_end(GTK_BOX(GTK_DIALOG(xsane.shell)->action_area), hbox, TRUE, TRUE, 0);
+  xsane_separator_new(xsane_window, 2);
+  gtk_box_pack_end(GTK_BOX(xsane_window), hbox, FALSE, FALSE, 5);
+  gtk_container_set_border_width(GTK_CONTAINER(hbox), 5);
   gtk_widget_show(hbox);
 
 
@@ -4521,17 +4741,17 @@ static void xsane_device_dialog(void)
 
 
   /* create backend dependend options */
-  xsane_panel_build(dialog);
+  xsane_panel_build();
 
 
   /* create preview dialog */
-  xsane.preview = preview_new(dialog);
+  xsane.preview = preview_new();
   gtk_signal_connect(GTK_OBJECT(xsane.preview->top), "delete_event", GTK_SIGNAL_FUNC(xsane_preview_window_destroyed), NULL);
 
 
   xsane_device_preferences_restore();	/* restore device-settings */
   xsane_set_modus_defaults();
-  xsane_update_param(dialog, 0);
+  xsane_update_param(0);
 
   gtk_widget_realize(xsane.standard_options_shell); /* is needed for saving window geometry */
   gtk_widget_realize(xsane.advanced_options_shell);
@@ -4567,35 +4787,36 @@ static void xsane_device_dialog(void)
 
   xsane_set_all_resolutions(); /* make sure resolution, resolution_x and resolution_y are up to date */
   xsane_define_maximum_output_size(); /* draw maximum output frame in preview window if necessary */
-  xsane_refresh_dialog(dialog);
+  xsane_refresh_dialog();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 static void xsane_choose_dialog_ok_callback(void)
 {
-  gtk_signal_disconnect_by_func(GTK_OBJECT(choose_device_dialog), GTK_SIGNAL_FUNC(xsane_quit), 0);
-  gtk_widget_destroy(choose_device_dialog);
-  xsane_device_dialog();
+  DBG(DBG_proc, "xsane_choose_dialog_ok_callback\n");
 
-  if (!dialog)
-  {
-    xsane_quit();
-  }
+  gtk_signal_disconnect_by_func(GTK_OBJECT(xsane.choose_device_dialog), GTK_SIGNAL_FUNC(xsane_quit), 0);
+  gtk_widget_destroy(xsane.choose_device_dialog);
+  xsane_device_dialog();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 static void xsane_select_device_by_key_callback(GtkWidget * widget, gpointer data)
 {
-  selected_dev = (int) data;
+  DBG(DBG_proc, "xsane_select_device_by_key_callback\n");
+
+  xsane.selected_dev = (int) data;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 static void xsane_select_device_by_mouse_callback(GtkWidget * widget, GdkEventButton *event, gpointer data)
 {
-  selected_dev = (int) data;
+  DBG(DBG_proc, "xsane_select_device_by_mouse_callback\n");
+
+  xsane.selected_dev = (int) data;
   if (event->type == GDK_2BUTTON_PRESS && event->button == 1)
   {
     xsane_choose_dialog_ok_callback();
@@ -4618,6 +4839,7 @@ static void xsane_choose_device(void)
  char vendor[9];
  char model[17];
  char type[20];
+ char filename[PATH_MAX];
  int j;
  char *xsane_default_device = NULL;
  int ndevs;
@@ -4626,27 +4848,32 @@ static void xsane_choose_device(void)
 #define TEXT_NO_MODEL  "no model\0"
 #define TEXT_NO_TYPE   "no type\0"
 
+  DBG(DBG_proc, "xsane_choose_device\n");
+
   xsane_default_device = getenv(XSANE_DEFAULT_DEVICE);
   if (xsane_default_device)
   {
-    for (ndevs = 0; devlist[ndevs]; ++ndevs)
+    for (ndevs = 0; xsane.devlist[ndevs]; ++ndevs)
     {
-      if (!strncmp(devlist[ndevs]->name, xsane_default_device, strlen(xsane_default_device)))
+      if (!strncmp(xsane.devlist[ndevs]->name, xsane_default_device, strlen(xsane_default_device)))
       {
-        selected_dev = ndevs;
+        xsane.selected_dev = ndevs;
         break; 
       }
     }
   }
 
-  choose_device_dialog = gtk_dialog_new();
-  gtk_window_set_position(GTK_WINDOW(choose_device_dialog), GTK_WIN_POS_CENTER);
-  gtk_window_set_policy(GTK_WINDOW(choose_device_dialog), FALSE, FALSE, FALSE);
-  gtk_signal_connect(GTK_OBJECT(choose_device_dialog), "destroy", GTK_SIGNAL_FUNC(xsane_quit), NULL);
-  snprintf(buf, sizeof(buf), "%s %s %s", prog_name, XSANE_VERSION, WINDOW_DEVICE_SELECTION);
-  gtk_window_set_title(GTK_WINDOW(choose_device_dialog), buf);
+  xsane.choose_device_dialog = gtk_window_new(GTK_WINDOW_DIALOG);
+  gtk_window_set_position(GTK_WINDOW(xsane.choose_device_dialog), GTK_WIN_POS_CENTER);
+  gtk_window_set_policy(GTK_WINDOW(xsane.choose_device_dialog), FALSE, FALSE, FALSE);
+  gtk_signal_connect(GTK_OBJECT(xsane.choose_device_dialog), "destroy", GTK_SIGNAL_FUNC(xsane_quit), NULL);
+  snprintf(buf, sizeof(buf), "%s %s %s", xsane.prog_name, XSANE_VERSION, WINDOW_DEVICE_SELECTION);
+  gtk_window_set_title(GTK_WINDOW(xsane.choose_device_dialog), buf);
 
-  main_vbox = GTK_DIALOG(choose_device_dialog)->vbox;
+  main_vbox = gtk_vbox_new(FALSE, 0);
+  gtk_container_set_border_width(GTK_CONTAINER(main_vbox), 0);
+  gtk_container_add(GTK_CONTAINER(xsane.choose_device_dialog), main_vbox);
+  gtk_widget_show(main_vbox);
 
   vbox = gtk_vbox_new(FALSE, 5);
   gtk_container_set_border_width(GTK_CONTAINER(vbox), 3);
@@ -4654,19 +4881,19 @@ static void xsane_choose_device(void)
   gtk_widget_show(vbox);
 
   /* xsane logo */
-  gtk_widget_realize(choose_device_dialog);
+  gtk_widget_realize(xsane.choose_device_dialog);
 
-  style = gtk_widget_get_style(choose_device_dialog);
+  style = gtk_widget_get_style(xsane.choose_device_dialog);
   bg_trans = &style->bg[GTK_STATE_NORMAL];
 
-  snprintf(buf, sizeof(buf), "%s/xsane-logo.xpm", STRINGIFY(PATH_SANE_DATA_DIR));  
-  pixmap = gdk_pixmap_create_from_xpm(choose_device_dialog->window, &mask, bg_trans, buf);
+  xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", 0, "xsane-logo", 0, ".xpm", XSANE_PATH_SYSTEM);
+  pixmap = gdk_pixmap_create_from_xpm(xsane.choose_device_dialog->window, &mask, bg_trans, filename);
   pixmapwidget = gtk_pixmap_new(pixmap, mask);
   gtk_box_pack_start(GTK_BOX(vbox), pixmapwidget, FALSE, FALSE, 2);
   gtk_widget_show(pixmapwidget);
   gdk_pixmap_unref(pixmap);
 
-  xsane_set_window_icon(choose_device_dialog, (gchar **) 0);
+  xsane_set_window_icon(xsane.choose_device_dialog, (gchar **) 0);
 
   snprintf(buf, sizeof(buf), "%s %s\n", XSANE_COPYRIGHT_SIGN, XSANE_COPYRIGHT_TXT);
   label = gtk_label_new(buf);
@@ -4686,9 +4913,9 @@ static void xsane_choose_device(void)
   gtk_container_add(GTK_CONTAINER(device_frame), device_vbox);
 
   owner = 0;
-  for (i = 0; i < num_of_devs; i++)
+  for (i = 0; i < xsane.num_of_devs; i++)
   {
-    adev = devlist[i];
+    adev = xsane.devlist[i];
 
     if (adev->vendor)
     {
@@ -4745,7 +4972,7 @@ static void xsane_choose_device(void)
     gtk_widget_show(button);
     owner = gtk_radio_button_group(GTK_RADIO_BUTTON(button));;
 
-    if (i == selected_dev)
+    if (i == xsane.selected_dev)
     {
       gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON (button), TRUE);
     }
@@ -4753,7 +4980,11 @@ static void xsane_choose_device(void)
   gtk_widget_show(device_vbox);
 
   /* The bottom row of buttons */
-  hbox = GTK_DIALOG(choose_device_dialog)->action_area;
+  hbox = gtk_hbox_new(FALSE, 5);
+  xsane_separator_new(main_vbox, 5);
+  gtk_box_pack_end(GTK_BOX(main_vbox), hbox, FALSE, FALSE, 5);
+  gtk_container_set_border_width(GTK_CONTAINER(hbox), 5);
+  gtk_widget_show(hbox);
 
   /* The OK button */
   button = gtk_button_new_with_label(BUTTON_OK);
@@ -4769,14 +5000,14 @@ static void xsane_choose_device(void)
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
   gtk_widget_show(button);
 
-  gtk_widget_show(choose_device_dialog);
+  gtk_widget_show(xsane.choose_device_dialog);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 static void xsane_usage(void)
 {
-  printf("%s %s %s\n", TEXT_USAGE, prog_name, TEXT_USAGE_OPTIONS);
+  printf("%s %s %s\n", TEXT_USAGE, xsane.prog_name, TEXT_USAGE_OPTIONS);
   printf("\n%s\n\n", TEXT_HELP);
 }
 
@@ -4784,8 +5015,14 @@ static void xsane_usage(void)
 
 static void xsane_init(int argc, char **argv)
 {
-  char filename[PATH_MAX];
-  struct stat st;
+ GtkWidget *device_scanning_dialog;
+ GtkWidget *main_vbox;
+ GtkWidget *label;
+ struct stat st;
+ char filename[PATH_MAX];
+ char buf[256];
+
+  DBG(DBG_proc, "xsane_init\n");
 
   gtk_set_locale();
   gtk_init(&argc, &argv);
@@ -4820,7 +5057,7 @@ static void xsane_init(int argc, char **argv)
                     "  %s %d\n"
                     "  %s %d\n"
                     "%s\n\n",
-                    prog_name, ERR_ERROR,
+                    xsane.prog_name, ERR_ERROR,
                     ERR_MAJOR_VERSION_NR_CONFLICT,
                     ERR_XSANE_MAJOR_VERSION, SANE_V_MAJOR,
                     ERR_BACKEND_MAJOR_VERSION, SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
@@ -4847,7 +5084,7 @@ static void xsane_init(int argc, char **argv)
          break;
 
         case 'v': /* --version */
-          printf("%s-%s\n", prog_name, XSANE_VERSION);
+          printf("%s-%s\n", xsane.prog_name, XSANE_VERSION);
           printf("  %s %s\n", TEXT_PACKAGE, PACKAGE_VERSION);
           printf("  SANE-%d.%d\n", SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
                                  SANE_VERSION_MINOR(xsane.sane_backend_versioncode));
@@ -4923,23 +5160,55 @@ static void xsane_init(int argc, char **argv)
     }
   }
 
-  sane_get_devices(&devlist, SANE_FALSE /* local and network devices */);
+  device_scanning_dialog = gtk_window_new(GTK_WINDOW_DIALOG);
+  gtk_window_set_position(GTK_WINDOW(device_scanning_dialog), GTK_WIN_POS_CENTER);
+  gtk_window_set_policy(GTK_WINDOW(device_scanning_dialog), FALSE, FALSE, FALSE);
+  snprintf(buf, sizeof(buf), "%s %s", xsane.prog_name, XSANE_VERSION);
+  gtk_window_set_title(GTK_WINDOW(device_scanning_dialog), buf);
+
+  main_vbox = gtk_vbox_new(FALSE, 0);
+  gtk_container_set_border_width(GTK_CONTAINER(main_vbox), 20);
+  gtk_container_add(GTK_CONTAINER(device_scanning_dialog), main_vbox);
+  gtk_widget_show(main_vbox);
+
+  snprintf(buf, sizeof(buf), "%s", TEXT_SCANNING_DEVICES );
+  label = gtk_label_new(buf);
+  gtk_box_pack_start(GTK_BOX(main_vbox), label, FALSE, FALSE, 2);
+  gtk_widget_show(label);
+  
+  gtk_widget_show(device_scanning_dialog);
+
+  while (gtk_events_pending())
+  {
+    gtk_main_iteration();
+  }
+
+
+  sane_get_devices(&xsane.devlist, SANE_FALSE /* local and network devices */);
+
+
+  gtk_widget_destroy(device_scanning_dialog);
+
+  while (gtk_events_pending())
+  {
+    gtk_main_iteration();
+  }
 
   /* if devicename is given try to identify it, if not found, open device list */
   if (optind < argc) 
   {
    int ndevs;
 
-    for (ndevs = 0; devlist[ndevs]; ++ndevs)
+    for (ndevs = 0; xsane.devlist[ndevs]; ++ndevs)
     {
-      if (!strncmp(devlist[ndevs]->name, argv[argc - 1], strlen(argv[argc - 1])))
+      if (!strncmp(xsane.devlist[ndevs]->name, argv[argc - 1], strlen(argv[argc - 1])))
       {
-        selected_dev = ndevs;
+        xsane.selected_dev = ndevs;
         break; 
       }
     }
 
-    if ((selected_dev < 0) && (argc > 1))
+    if ((xsane.selected_dev < 0) && (argc > 1))
     {
      static SANE_Device dev;
      static const SANE_Device *device_list[] = { &dev, 0 };
@@ -4950,8 +5219,8 @@ static void xsane_init(int argc, char **argv)
       dev.type   = TEXT_UNKNOWN;
       dev.model  = TEXT_UNKNOWN;
 
-      devlist = device_list;
-      selected_dev = 0;
+      xsane.devlist = device_list;
+      xsane.selected_dev = 0;
     }
   }
 }
@@ -4960,9 +5229,11 @@ static void xsane_init(int argc, char **argv)
 
 void xsane_interface(int argc, char **argv)
 {
+  DBG(DBG_proc, "xsane_interface\n");
+
   xsane.info_label = NULL;
 
-  xsane_init(argc, argv); /* initialize xsane variables if command line option is given, set selected_dev */
+  xsane_init(argc, argv); /* initialize xsane variables if command line option is given, set xsane.selected_dev */
 
   if (!getuid()) /* root ? */
   {
@@ -4973,40 +5244,31 @@ void xsane_interface(int argc, char **argv)
     } 
   }
 
-  for (num_of_devs = 0; devlist[num_of_devs]; ++num_of_devs); /* count available devices */
+  for (xsane.num_of_devs = 0; xsane.devlist[xsane.num_of_devs]; ++xsane.num_of_devs); /* count available devices */
 
-  if (selected_dev >= 0) /* device name is given on cammand line */
+  if (xsane.selected_dev >= 0) /* device name is given on cammand line */
   {
-    xsane_device_dialog(); /* open device selected_dev */
-
-    if (!dialog)
-    {
-      xsane_exit();
-    }
+    xsane_device_dialog(); /* open device xsane.selected_dev */
   }
   else /* no device name given on command line */
   {
-    if (num_of_devs > 0) /* devices available */
+    if (xsane.num_of_devs > 0) /* devices available */
     {
-      selected_dev = 0;
-      if (num_of_devs == 1)
+      xsane.selected_dev = 0;
+      if (xsane.num_of_devs == 1)
       {
-        xsane_device_dialog(); /* open device selected_dev */
-        if (!dialog)
-	{
-	  xsane_exit();
-	}
+        xsane_device_dialog(); /* open device xsane.selected_dev */
       }
       else
       {
         xsane_choose_device(); /* open device selection window and get device */
       }
     }
-    else /* num_of_devs == 0, no devices available */
+    else /* xsane.num_of_devs == 0, no devices available */
     {
      char buf[256];
 
-      snprintf(buf, sizeof(buf), "%s: %s\n", prog_name, ERR_NO_DEVICES);
+      snprintf(buf, sizeof(buf), "%s: %s\n", xsane.prog_name, ERR_NO_DEVICES);
       xsane_back_gtk_error(buf, TRUE);
       xsane_exit();
     }
@@ -5020,10 +5282,15 @@ void xsane_interface(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
-  dialog = NULL;
+  DBG_init();
+
+  DBG(DBG_error, "This is xsane version %s\n", XSANE_VERSION);
+
   memset(&xsane, 0, sizeof(xsane)); /* set all values in xsane to 0 */
 
   umask(XSANE_DEFAULT_UMASK); /* define permissions of new files */ 
+
+  xsane.selected_dev        = -1;	/* no selected device */
 
   xsane.sensitivity         = TRUE;
 
@@ -5089,22 +5356,22 @@ int main(int argc, char **argv)
   xsane.scanner_gamma_gray         = FALSE;
   xsane.enhancement_rgb_default    = TRUE;
 
-  prog_name = strrchr(argv[0], '/');
-  if (prog_name)
+  xsane.prog_name = strrchr(argv[0], '/');
+  if (xsane.prog_name)
   {
-    ++prog_name;
+    ++xsane.prog_name;
   }
   else
   {
-    prog_name = argv[0];
+    xsane.prog_name = argv[0];
   }
 
 #if 0
-  bindtextdomain(PACKAGE, LOCALEDIR);
+  bindtextdomain(PACKAGE, STRINGIFY(LOCALEDIR));
   textdomain(PACKAGE);         
 #else
-  bindtextdomain(prog_name, LOCALEDIR);
-  textdomain(prog_name);
+  bindtextdomain(xsane.prog_name, STRINGIFY(LOCALEDIR));
+  textdomain(xsane.prog_name);
 #endif
 
 #ifdef HAVE_LIBGIMP_GIMP_H

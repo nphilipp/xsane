@@ -15,14 +15,14 @@ first steps:
     - based on fax mode
     - image type = ?
     - resolution selectable
-    - create a html mail
-    - mail editor = ?
+    - create a html mail - mail editor = ?
  - copy mode and scan mode into postscript file:
     + select image position on printer (centered/left/right/free) for copy
       and show it in the preview.
  - preview:
     - force aspect ratio of selection area
     + rotate preview by 0/90/180/270 degree (work in progress)
+    - autoselection cropping black or white margins
  - batch scan function
     - select multiple scan areas before starting the scan
 
@@ -31,14 +31,15 @@ first steps:
    + correct image height after scanning in hand scanner mode 
    + add several defaults (fax=> mode=gray,...)
    - include much more parameters when saving images
-   - test memory after all calls of malloc - partly done
+   - test memory after each call of malloc - partly done
    - more/better online helpfiles
    - postscript/printer setup: geometry in inch/millimeter/centimeter
    - keyboard shortcuts for some functions
    - delete/recreate preview files when temp directory is changed
 
+ + correct gtk custom gamma functions and include it
+
 second steps:
- - correct gtk custom gamma functions and include it
 
  - include special functions for GNOME/KDE
    *** DOES ANYONE HAVE ANY SUGGESTIONS TO THIS ? ***
@@ -46,13 +47,20 @@ second steps:
      - gnome-print support?
      - session management ?
    - drag and drop for preview image?
+   - other drag and drop functions?
 
  + add color management - may be via xcmsdb
  - average of a multi scan of the same image
 
+ - TWAIN:
+   - add a twain-win32 interface
+   - define a twain-unix interface in cooperation with TWAIN-group
+     (first contact to TWAIN in summer 1999, TWAIN is intersted in
+     creating a TWAIN-unix interface that uses sane as scanner driver API
+   - add a twain-unix interface to xsane
+
  - WIN32 version of xsane
-   - at first for network scanning
+   + at first for network scanning (work in progress, mostly done)
    - may be later we make a sane-WIN32 version so that the backends do work too
-   - then we need a WIN32 TWAIN interface for xsane
 
 

@@ -32,7 +32,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.60"
+#define XSANE_VERSION		"0.61"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2000"
@@ -42,9 +42,15 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+#define XSANE_DEBUG_ENVIRONMENT "XSANE_DEBUG"
+
 #define XSANE_DEFAULT_UMASK 0007
 #define XSANE_HOLD_TIME 200
 #define XSANE_DEFAULT_DEVICE "SANE_DEFAULT_DEVICE"
+
+#ifndef SLASH
+# define SLASH '/'
+#endif 
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -103,10 +109,65 @@
 #    define N_(String) (String)
 #endif
 
-/* ----------------------------- */
+/* ---------------------------------------------------------------------------------------------------------------------- */
 
-/* needed for xsane.h */
-#include "xsane-back-gtk.h"
+#include <gtk/gtk.h>
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+enum
+{
+  XSANE_PATH_LOCAL_SANE = 0,
+  XSANE_PATH_SYSTEM,
+  XSANE_PATH_TMP
+};
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+typedef struct
+  {
+    /* The option number of the well-known options.  Each of these may
+       be -1 in case the backend doesn't define the respective option.  */
+    int scanmode;
+    int scansource;
+    int preview;
+    int dpi;
+    int dpi_x;
+    int dpi_y;
+    int coord[4];
+    int gamma_vector;
+    int gamma_vector_r;
+    int gamma_vector_g;
+    int gamma_vector_b;
+    int bit_depth;
+    int threshold;
+  }
+GSGWellKnownOptions;
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+typedef struct
+  {
+    gchar *label;
+    struct GSGDialogElement *elem;
+    gint index;
+  }
+GSGMenuItem;
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+typedef struct GSGDialogElement
+  {
+    GtkWidget *automatic;	/* auto button for options that support this */
+    GtkWidget *widget;
+    GtkObject *data;
+    int menu_size;		/* # of items in menu (if any) */
+    GSGMenuItem *menu;
+  }
+GSGDialogElement;
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
 #include "xsane-preferences.h"
 #include "xsane-preview.h"
 
@@ -136,26 +197,16 @@ extern void xsane_fax_project_save(void);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-extern const char *prog_name;
-extern const char *device_text;
-extern GtkWidget *choose_device_dialog;
-extern GSGDialog *dialog;
-extern const SANE_Device **devlist;
-extern int selected_dev;        /* The selected device */
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-extern int xsane_scanmode_number[];
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
 #ifndef PATH_MAX
 # define PATH_MAX	1024
 #endif
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
+#ifndef TEMP_PATH
+# define TEMP_PATH		/tmp/
+#endif
 
-#define OUTFILENAME     	"out.pnm"
+#define OUT_FILENAME     	"out.pnm"
 #define FAXPROJECT 	    	"faxproject"
 #define FAXFILENAME     	"page-001.fax"
 #define PRINTERNAME	  	"new printer"
@@ -186,6 +237,8 @@ extern int xsane_scanmode_number[];
 #define XSANE_SHELL_POS_Y	50
 #define XSANE_HISTOGRAM_POS_X	280
 #define XSANE_HISTOGRAM_POS_Y	50
+#define XSANE_GAMMA_POS_X	280
+#define XSANE_GAMMA_POS_Y	420
 #define XSANE_STD_OPTIONS_POS_X	1
 #define XSANE_STD_OPTIONS_POS_Y	400
 #define XSANE_ADV_OPTIONS_POS_X	280
@@ -268,6 +321,37 @@ typedef struct Xsane
 
     SANE_Int sensitivity;
 
+/* previos this was the dialog struct */
+    GtkWidget *xsane_window;
+    GtkWidget *standard_window;
+    GtkWidget *advanced_window;
+    GtkWidget *gamma_window;
+    GtkWidget *xsane_hbox;
+    GtkWidget *standard_hbox;
+    GtkWidget *advanced_hbox;
+    GtkWidget *gamma_hbox;
+    GtkWidget *xsanemode_widget;
+    GtkTooltips *tooltips;
+    GdkColor tooltips_fg;
+    GdkColor tooltips_bg;
+    SANE_Handle *dev;
+    const char *dev_name;
+    GSGWellKnownOptions well_known;
+    int num_elements;
+    GSGDialogElement *element;
+    u_int rebuild : 1;
+    int pixelcolor;
+
+/* previous global stand alone varaibales */
+    const char   *prog_name;      /* name of this program, normally "xsane" */
+    const char   *device_text;      /* name of the selected device */
+    GtkWidget    *choose_device_dialog;      /* the widget of the device selection dialog */
+    const SANE_Device **devlist;      /* the list of available devices */
+    int          selected_dev;        /* the selected device */
+    int          num_of_devs;
+    int          back_gtk_message_dialog_active;
+
+
     /* dialogs */
     GtkWidget *shell;
     GtkWidget *menubar;
@@ -275,6 +359,7 @@ typedef struct Xsane
     GtkWidget *advanced_options_shell;
     GtkWidget *main_dialog_scrolled;
     GtkWidget *histogram_dialog;
+    GtkWidget *gamma_dialog;
     GtkWidget *fax_dialog;
     GtkWidget *fax_list;
 
@@ -371,6 +456,7 @@ typedef struct Xsane
     GtkWidget *update_policy_delayed;
     GtkWidget *show_preview_widget;
     GtkWidget *show_histogram_widget;
+    GtkWidget *show_gamma_widget;
     GtkWidget *show_standard_options_widget;
     GtkWidget *show_advanced_options_widget;
     GtkWidget *show_resolution_list_widget;
@@ -428,6 +514,8 @@ typedef struct Xsane
     int advanced_options_shell_posy;
     int histogram_dialog_posx;
     int histogram_dialog_posy;
+    int gamma_dialog_posx;
+    int gamma_dialog_posy;
     int preview_dialog_posx;
     int preview_dialog_posy;
     int preview_dialog_width;
@@ -534,8 +622,9 @@ typedef struct XsaneSetup
   GtkWidget *psfile_height_entry;
   GtkWidget *tmp_path_entry;
 
-  int tiff_compression_nr;
-  int tiff_compression_1_nr;
+  int tiff_compression16_nr;
+  int tiff_compression8_nr;
+  int tiff_compression1_nr;
 
   int lineart_mode;
 
@@ -545,6 +634,38 @@ typedef struct XsaneSetup
 } XsaneSetup;
 
 extern struct XsaneSetup xsane_setup;
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+extern int DBG_LEVEL;
+
+# define DBG(level, msg, args...)                \
+  {                                              \
+    if (DBG_LEVEL >= (level))                    \
+    {                                            \
+      fprintf (stderr, "[xsane] " msg, ##args);  \
+      fflush(stderr);                            \
+    }                                            \
+  }
+
+# define DBG_init()                                          \
+  {                                                          \
+   char *dbg_level_string = getenv(XSANE_DEBUG_ENVIRONMENT); \
+                                                             \
+    if (dbg_level_string)                                    \
+    {                                                        \
+      DBG_LEVEL = atoi(dbg_level_string);                    \
+      DBG(1, "Setting debug level to %d\n", DBG_LEVEL);      \
+    }                                                        \
+  }
+
+#define DBG_error     1
+#define DBG_warning   2
+#define DBG_info      3
+#define DBG_info2     4
+#define DBG_proc      5
+#define DBG_proc2     50
+#define DBG_proc3     100	/* for routines that are called very very often */
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 

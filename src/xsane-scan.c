@@ -82,6 +82,8 @@ static int xsane_generate_dummy_filename()
 {
  /* returns TRUE if file is a temporary file */
 
+  DBG(DBG_proc, "xsane_generate_dummy_filename\n");
+
   if (xsane.dummy_filename)
   {
     free(xsane.dummy_filename);
@@ -93,13 +95,19 @@ static int xsane_generate_dummy_filename()
   {
    char filename[PATH_MAX];
 
-    xsane_back_gtk_make_path(sizeof(filename), filename, 0, 0, "conversion-", dialog->dev_name, ".ppm", XSANE_PATH_TMP);
+    xsane_back_gtk_make_path(sizeof(filename), filename, 0, 0, "conversion-", xsane.dev_name, ".ppm", XSANE_PATH_TMP);
     xsane.dummy_filename = strdup(filename);
+
+    DBG(DBG_info, "xsane.dummy_filename = %s\n", xsane.dummy_filename);
+
     return TRUE;
   }
   else /* no conversion following, save directly to the selected filename */
   {
     xsane.dummy_filename = strdup(xsane.output_filename);
+
+    DBG(DBG_info, "xsane.dummy_filename = %s\n", xsane.dummy_filename);
+
     return FALSE;
   }
 }
@@ -109,9 +117,11 @@ static int xsane_generate_dummy_filename()
 #ifdef HAVE_LIBGIMP_GIMP_H
 static int xsane_decode_devname(const char *encoded_devname, int n, char *buf)
 {
-  char *dst, *limit;
-  const char *src;
-  char ch, val;
+ char *dst, *limit;
+ const char *src;
+ char ch, val;
+
+  DBG(DBG_proc, "xsane_decode_devname\n");
 
   limit = buf + n;
   for (src = encoded_devname, dst = buf; *src; ++dst)
@@ -176,10 +186,12 @@ static int xsane_decode_devname(const char *encoded_devname, int n, char *buf)
 
 static int xsane_encode_devname(const char *devname, int n, char *buf)
 {
-  static const char hexdigit[] = "0123456789abcdef";
-  char *dst, *limit;
-  const char *src;
-  char ch;
+ static const char hexdigit[] = "0123456789abcdef";
+ char *dst, *limit;
+ const char *src;
+ char ch;
+
+  DBG(DBG_proc, "xsane_encode_devname\n");
 
   limit = buf + n;
   for (src = devname, dst = buf; *src; ++src)
@@ -229,19 +241,21 @@ static int xsane_encode_devname(const char *devname, int n, char *buf)
 
 static void xsane_gimp_query(void)
 {
-  static GParamDef args[] =
-  {
-      {PARAM_INT32, "run_mode", "Interactive, non-interactive"},
-  };
-  static GParamDef *return_vals = NULL;
-  static int nargs = sizeof(args) / sizeof(args[0]);
-  static int nreturn_vals = 0;
-  char mpath[1024];
-  char name[1024];
-  size_t len;
-  int i, j;
+ static GParamDef args[] =
+ {
+     {PARAM_INT32, "run_mode", "Interactive, non-interactive"},
+ };
+ static GParamDef *return_vals = NULL;
+ static int nargs = sizeof(args) / sizeof(args[0]);
+ static int nreturn_vals = 0;
+ char mpath[1024];
+ char name[1024];
+ size_t len;
+ int i, j;
 
-  snprintf(name, sizeof(name), "%s", prog_name);
+  DBG(DBG_proc, "xsane_gimp_query\n");
+
+  snprintf(name, sizeof(name), "%s", xsane.prog_name);
 #ifdef GIMP_CHECK_VERSION
 # if GIMP_CHECK_VERSION(1,1,9)
   snprintf(mpath, sizeof(mpath), "%s", XSANE_GIMP_MENU_DIALOG);
@@ -272,7 +286,7 @@ static void xsane_gimp_query(void)
                     "  %s %d\n"
                     "  %s %d\n"
                     "%s\n\n",
-                    prog_name, ERR_ERROR,
+                    xsane.prog_name, ERR_ERROR,
                     ERR_MAJOR_VERSION_NR_CONFLICT,
                     ERR_XSANE_MAJOR_VERSION, SANE_V_MAJOR,
                     ERR_BACKEND_MAJOR_VERSION, SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
@@ -280,12 +294,12 @@ static void xsane_gimp_query(void)
     return;
   }
 
-  sane_get_devices(&devlist, SANE_FALSE);
+  sane_get_devices(&xsane.devlist, SANE_FALSE);
 
-  for (i = 0; devlist[i]; ++i)
+  for (i = 0; xsane.devlist[i]; ++i)
     {
-      snprintf(name, sizeof(name), "%s-", prog_name);
-      if (xsane_encode_devname(devlist[i]->name, sizeof(name) - 6, name + 6) < 0)
+      snprintf(name, sizeof(name), "%s-", xsane.prog_name);
+      if (xsane_encode_devname(xsane.devlist[i]->name, sizeof(name) - 6, name + 6) < 0)
       {
 	continue;	/* name too long... */
       }
@@ -300,12 +314,12 @@ static void xsane_gimp_query(void)
       snprintf(mpath, sizeof(mpath), "%s", XSANE_GIMP_MENU_OLD);
 #endif
       len = strlen(mpath);
-      for (j = 0; devlist[i]->name[j]; ++j)
+      for (j = 0; xsane.devlist[i]->name[j]; ++j)
 	{
-	  if (devlist[i]->name[j] == '/')
+	  if (xsane.devlist[i]->name[j] == '/')
 	    mpath[len++] = '\'';
 	  else
-	    mpath[len++] = devlist[i]->name[j];
+	    mpath[len++] = xsane.devlist[i]->name[j];
 	}
       mpath[len++] = '\0';
 
@@ -328,11 +342,13 @@ static void xsane_gimp_query(void)
 
 static void xsane_gimp_run(char *name, int nparams, GParam * param, int *nreturn_vals, GParam ** return_vals)
 {
-  static GParam values[2];
-  GRunModeType run_mode;
-  char devname[1024];
-  char *args[2];
-  int nargs;
+ static GParam values[2];
+ GRunModeType run_mode;
+ char devname[1024];
+ char *args[2];
+ int nargs;
+
+  DBG(DBG_proc, "xsane_gimp_run\n");
 
   run_mode = param[0].data.d_int32;
   xsane.mode = XSANE_GIMP_EXTENSION;
@@ -346,7 +362,7 @@ static void xsane_gimp_run(char *name, int nparams, GParam * param, int *nreturn
   nargs = 0;
   args[nargs++] = "xsane";
 
-  selected_dev = -1;
+  xsane.selected_dev = -1;
   if (strncmp(name, "xsane-", 6) == 0)
   {
     if (xsane_decode_devname(name + 6, sizeof(devname), devname) < 0)
@@ -386,6 +402,8 @@ void null_print_func(gchar *msg)
 
 static void xsane_gimp_advance(void)
 {
+  DBG(DBG_proc, "xsane_gimp_advance\n");
+
   if (++xsane.x >= xsane.param.pixels_per_line)
   {
    int tile_height = gimp_tile_height();
@@ -427,25 +445,38 @@ static void xsane_gimp_advance(void)
 
 static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition cond)
 {
-  SANE_Handle dev = xsane_back_gtk_dialog_get_device (dialog);
-  SANE_Status status;
-  SANE_Int len;
-  int i;
-  char buf[255];
+ SANE_Handle dev = xsane.dev;
+ SANE_Status status;
+ SANE_Int len;
+ int i;
+ char buf[255];
+
+  DBG(DBG_proc, "xsane_read_image_data\n");
 
   if ( (xsane.param.depth == 1) || (xsane.param.depth == 8) )
   {
-    static unsigned char buf8[8*32768]; // xxxxxxxxxxxxxxxxxxxx
+   static unsigned char buf8[2*32768];
+
+    DBG(DBG_info, "depth = 1 or 8 bit\n");
 
     while (1)
     {
       status = sane_read(dev, (SANE_Byte *) buf8, sizeof(buf8), &len);
+
+      DBG(DBG_info, "sane_read returned with status %s\n", XSANE_STRSTATUS(status));
+      DBG(DBG_info, "sane_read: len = %d\n", len);
+
       if (status == SANE_STATUS_EOF)
       {
         if (!xsane.param.last_frame)
         {
-          gdk_input_remove(xsane.input_tag);
-          xsane.input_tag = -1;
+          DBG(DBG_info, "last frame\n");
+
+          if (xsane.input_tag >= 0)
+          {
+            gdk_input_remove(xsane.input_tag);
+            xsane.input_tag = -1;
+          }
           xsane_start_scan();
           break; /* leave while loop */
         }
@@ -482,6 +513,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
       {
         while (gtk_events_pending())
         {
+          DBG(DBG_info, "calling gtk_main_iteration\n");
           gtk_main_iteration();
         }
       }
@@ -510,9 +542,13 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
 #ifdef HAVE_LIBGIMP_GIMP_H
           else /* GIMP MODE GRAY 8 bit */
           {
+            DBG(DBG_info, "gimp mode\n");
+
             switch (xsane.param.depth)
             {
               case 1:
+                DBG(DBG_info, "depth = 1 bit\n");
+
                 for (i = 0; i < len; ++i)
                 {
                  u_char mask;
@@ -533,6 +569,8 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
                break;
 
               case 8:
+                DBG(DBG_info, "depth = 8 bit\n");
+
                 if (!xsane.scanner_gamma_gray)
                 {
                   for (i = 0; i < len; ++i)
@@ -556,29 +594,32 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
          break;
 
         case SANE_FRAME_RGB:
+
           if (xsane.mode == XSANE_STANDALONE)
           {
            int i;
            char val;
 
+            DBG(DBG_info, "XSANE_STANDALONE, 1 pass color\n");
+
             if (!xsane.scanner_gamma_color) /* gamma correction by xsane */
             {
               for (i=0; i < len; ++i)
               {
-                if (dialog->pixelcolor == 0)
+                if (xsane.pixelcolor == 0)
                 {
                   val = xsane.gamma_data_red[(int) buf8[i]];
-                  dialog->pixelcolor++;
+                  xsane.pixelcolor++;
                 }
-                else if (dialog->pixelcolor == 1)
+                else if (xsane.pixelcolor == 1)
                 {
                   val = xsane.gamma_data_green[(int) buf8[i]];
-                  dialog->pixelcolor++;
+                  xsane.pixelcolor++;
                 }
                 else
                 {
                   val = xsane.gamma_data_blue[(int) buf8[i]];
-                  dialog->pixelcolor = 0;
+                  xsane.pixelcolor = 0;
                 }
                 fwrite(&val, 1, 1, xsane.out);
               }
@@ -591,6 +632,8 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
 #ifdef HAVE_LIBGIMP_GIMP_H
           else /* GIMP MODE RGB 8 bit */
           {
+            DBG(DBG_info, "XSANE_GIMP_EXTENSION\n");
+
             switch (xsane.param.depth)
             {
               case 1:
@@ -666,6 +709,8 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
         case SANE_FRAME_BLUE:
           if (xsane.mode == XSANE_STANDALONE)
           {
+            DBG(DBG_info, "XSANE_STANDALONE, 3 pass color\n");
+
             if (!xsane.scanner_gamma_color) /* gamma correction by xsane */
             {
              char val;
@@ -703,6 +748,8 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
 #ifdef HAVE_LIBGIMP_GIMP_H
           else /* GIMP MODE RED, GREEN, BLUE (3PASS) 8 bit */
           {
+            DBG(DBG_info, "XSANE_GIMP_EXTENSION, 3 pass color\n");
+
             switch (xsane.param.depth)
             {
               case 1:
@@ -782,25 +829,25 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
             {
               for (i=0; i < len; ++i)
               {
-                if (dialog->pixelcolor == 0)
+                if (xsane.pixelcolor == 0)
                 {
                   val = xsane.gamma_data_red[(int) buf8[i]];
-                  dialog->pixelcolor++;
+                  xsane.pixelcolor++;
                 }
-                else if (dialog->pixelcolor == 1)
+                else if (xsane.pixelcolor == 1)
                 {
                   val = xsane.gamma_data_green[(int) buf8[i]];
-                  dialog->pixelcolor++;
+                  xsane.pixelcolor++;
                 }
-                else if (dialog->pixelcolor == 2)
+                else if (xsane.pixelcolor == 2)
                 {
                   val = xsane.gamma_data_blue[(int) buf8[i]];
-                  dialog->pixelcolor++;
+                  xsane.pixelcolor++;
                 }
                 else
                 {
                   val = buf8[i]; /* no gamma table for infrared channel */
-                  dialog->pixelcolor = 0;
+                  xsane.pixelcolor = 0;
                 }
                 fwrite(&val, 1, 1, xsane.out);
               }
@@ -813,8 +860,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
 #ifdef HAVE_LIBGIMP_GIMP_H
           else /* GIMP MODE RGBA 8 bit */
           {
-            int i;
-
+           int i;
 
             switch (xsane.param.depth)
             {
@@ -878,10 +924,12 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
   }
   else if ( xsane.param.depth == 16 )
   {
-    static guint16 buf16[32768];
-    char buf[255];
-    char last = 0;
-    int offset = 0;
+   static guint16 buf16[32768];
+   char buf[255];
+   char last = 0;
+   int offset = 0;
+
+    DBG(DBG_info, "depth = 16 bit\n");
 
     while (1)
     {
@@ -987,20 +1035,20 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
             {
               for (i=0; i < len/2; ++i)
               {
-                if (dialog->pixelcolor == 0)
+                if (xsane.pixelcolor == 0)
                 {
                   val = xsane.gamma_data_red[buf16[i]];
-                  dialog->pixelcolor++;
+                  xsane.pixelcolor++;
                 }
-                else if (dialog->pixelcolor == 1)
+                else if (xsane.pixelcolor == 1)
                 {
                   val = xsane.gamma_data_green[buf16[i]];
-                  dialog->pixelcolor++;
+                  xsane.pixelcolor++;
                 }
                 else
                 {
                   val = xsane.gamma_data_blue[buf16[i]];
-                  dialog->pixelcolor = 0;
+                  xsane.pixelcolor = 0;
                 }
                 fwrite(&val, 2, 1, xsane.out);
               }
@@ -1036,25 +1084,25 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
             {
               for (i=0; i < len/2; ++i)
               {
-                if (dialog->pixelcolor == 0)
+                if (xsane.pixelcolor == 0)
                 {
                   val = xsane.gamma_data_red[buf16[i]];
-                  dialog->pixelcolor++;
+                  xsane.pixelcolor++;
                 }
-                else if (dialog->pixelcolor == 1)
+                else if (xsane.pixelcolor == 1)
                 {
                   val = xsane.gamma_data_green[buf16[i]];
-                  dialog->pixelcolor++;
+                  xsane.pixelcolor++;
                 }
-                else if (dialog->pixelcolor == 2)
+                else if (xsane.pixelcolor == 2)
                 {
                   val = xsane.gamma_data_blue[buf16[i]];
-                  dialog->pixelcolor++;
+                  xsane.pixelcolor++;
                 }
                 else
                 {
                   val = buf16[i]; /* no gamma table for infrared channel */
-                  dialog->pixelcolor = 0;
+                  xsane.pixelcolor = 0;
                 }
                 fwrite(&val, 2, 1, xsane.out);
               }
@@ -1102,6 +1150,8 @@ bad_depth:
 static RETSIGTYPE xsane_sigpipe_handler(int signal)
 /* this is to catch a broken pipe while writing to printercommand */
 {
+  DBG(DBG_proc, "xsane_sigpipe_handler\n");
+
   xsane_cancel_save(0);
   xsane.broken_pipe = 1;
 }
@@ -1114,7 +1164,9 @@ static int xsane_test_multi_scan(void)
  SANE_Status status;
  const SANE_Option_Descriptor *opt;
 
-  opt = xsane_get_option_descriptor(dialog->dev, dialog->well_known.scansource);
+  DBG(DBG_proc, "xsane_test_multi_scan\n");
+
+  opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.scansource);
   if (opt)
   {
     if (SANE_OPTION_IS_ACTIVE(opt->cap))
@@ -1122,7 +1174,7 @@ static int xsane_test_multi_scan(void)
       if (opt->constraint_type == SANE_CONSTRAINT_STRING_LIST)
       {
         set = malloc(opt->size);
-        status = xsane_control_option(dialog->dev, dialog->well_known.scansource, SANE_ACTION_GET_VALUE, set, 0);
+        status = xsane_control_option(xsane.dev, xsane.well_known.scansource, SANE_ACTION_GET_VALUE, set, 0);
 
         if (status == SANE_STATUS_GOOD)
         {
@@ -1150,6 +1202,8 @@ static int xsane_test_multi_scan(void)
 
 void xsane_scan_done(SANE_Status status)
 {
+  DBG(DBG_proc, "xsane_scan_done\n");
+
   if (xsane.input_tag >= 0)
   {
     gdk_input_remove(xsane.input_tag);
@@ -1160,6 +1214,7 @@ void xsane_scan_done(SANE_Status status)
 
   while(gtk_events_pending())	/* let gtk remove the progress bar and update everything that needs it */
   {
+    DBG(DBG_info, "calling gtk_main_iteration\n");
     gtk_main_iteration();
   }
 
@@ -1168,12 +1223,16 @@ void xsane_scan_done(SANE_Status status)
   
   if (xsane.gamma_data) 
   {
+    DBG(DBG_info, "freeing gray gamma table\n");
+
     free(xsane.gamma_data);
     xsane.gamma_data = 0;
   }
 
   if (xsane.gamma_data_red)
   {
+    DBG(DBG_info, "freeing color gamma tables\n");
+
     free(xsane.gamma_data_red);
     free(xsane.gamma_data_green);
     free(xsane.gamma_data_blue);
@@ -1185,6 +1244,8 @@ void xsane_scan_done(SANE_Status status)
 
   if (xsane.out) /* close file - this is dummy_file but if there is no conversion it is the wanted file */
   {
+    DBG(DBG_info, "closing output file\n");
+
     fclose(xsane.out);
     xsane.out = 0;
   }
@@ -1207,7 +1268,7 @@ void xsane_scan_done(SANE_Status status)
            gtk_main_iteration();
          }
 
-         infile = fopen(xsane.dummy_filename, "r");
+         infile = fopen(xsane.dummy_filename, "rb"); /* read binary (b for win32) */
          if (infile != 0)
          {
            fseek(infile, xsane.header_size, SEEK_SET);
@@ -1215,29 +1276,18 @@ void xsane_scan_done(SANE_Status status)
 #ifdef HAVE_LIBTIFF
            if (xsane.xsane_output_format == XSANE_TIFF)		/* routines that want to have filename  for saving */
            {
-             if (xsane.param.depth != 1)
-             {
-               remove(xsane.output_filename);
-               umask((mode_t) preferences.image_umask); /* define image file permissions */   
-               xsane_save_tiff(xsane.output_filename, infile, xsane.xsane_color, xsane.param.depth, xsane.param.pixels_per_line,
-                               xsane.param.lines, preferences.tiff_compression_nr, preferences.jpeg_quality);
-               umask(XSANE_DEFAULT_UMASK); /* define new file permissions */   
-             }
-             else
-             {
-               remove(xsane.output_filename);
-               umask((mode_t) preferences.image_umask); /* define image file permissions */   
-               xsane_save_tiff(xsane.output_filename, infile, xsane.xsane_color, xsane.param.depth, xsane.param.pixels_per_line,
-                               xsane.param.lines, preferences.tiff_compression_1_nr, preferences.jpeg_quality);
-               umask(XSANE_DEFAULT_UMASK); /* define new file permissions */   
-             }
+             remove(xsane.output_filename);
+             umask((mode_t) preferences.image_umask); /* define image file permissions */   
+             xsane_save_tiff(xsane.output_filename, infile, xsane.xsane_color, xsane.param.depth, xsane.param.pixels_per_line,
+                             xsane.param.lines, preferences.jpeg_quality);
+             umask(XSANE_DEFAULT_UMASK); /* define new file permissions */   
            }
            else							/* routines that want to have filedescriptor for saving */
 #endif
            {
              remove(xsane.output_filename);
              umask((mode_t) preferences.image_umask); /* define image file permissions */   
-             outfile = fopen(xsane.output_filename, "w");
+             outfile = fopen(xsane.output_filename, "wb"); /* b = binary mode for win32 */
              umask(XSANE_DEFAULT_UMASK); /* define new file permissions */   
 
              if (outfile != 0)
@@ -1345,6 +1395,8 @@ void xsane_scan_done(SANE_Status status)
        FILE *infile;
        char buf[256];
 
+         DBG(DBG_info, "XSANE_COPY\n");
+
          xsane_update_int(xsane.copy_number_entry, &xsane.copy_number); /* get number of copies */
          if (xsane.copy_number < 1)
          {
@@ -1360,7 +1412,7 @@ void xsane_scan_done(SANE_Status status)
          }
 
          xsane.broken_pipe = 0;
-         infile = fopen(xsane.dummy_filename, "r");
+         infile = fopen(xsane.dummy_filename, "rb"); /* read binary (b for win32) */
 
          snprintf(buf, sizeof(buf), "%s %s%d", preferences.printer[preferences.printernr]->command,
                                                preferences.printer[preferences.printernr]->copy_number_option,
@@ -1491,13 +1543,13 @@ void xsane_scan_done(SANE_Status status)
            gtk_main_iteration();
          }
 
-         infile = fopen(xsane.dummy_filename, "r");
+         infile = fopen(xsane.dummy_filename, "rb"); /* read binary (b for win32) */
          if (infile != 0)
          {
            fseek(infile, xsane.header_size, SEEK_SET);
 
            umask((mode_t) preferences.image_umask); /* define image file permissions */   
-           outfile = fopen(xsane.fax_filename, "w");
+           outfile = fopen(xsane.fax_filename, "wb"); /* b = binary mode for win32 */
            umask(XSANE_DEFAULT_UMASK); /* define new file permissions */   
            if (outfile != 0)
            {
@@ -1505,6 +1557,9 @@ void xsane_scan_done(SANE_Status status)
 
              imagewidth  = xsane.param.pixels_per_line/xsane.resolution_x; /* width in inch */
              imageheight = xsane.param.lines/xsane.resolution_y; /* height in inch */
+
+             DBG(DBG_info, "imagewidth  = %f\n", imagewidth);
+             DBG(DBG_info, "imageheight = %f\n", imageheight);
 
 /* disabled ( 0 * ...) in the moment */
              if (0 * preferences.psrotate) /* rotate: landscape */
@@ -1539,6 +1594,8 @@ void xsane_scan_done(SANE_Status status)
            {
             char buf[256];
 
+             DBG(DBG_info, "open of faxfile `%s'failed : %s\n", xsane.fax_filename, strerror(errno));
+
              snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, xsane.fax_filename, strerror(errno));
              xsane_back_gtk_error(buf, TRUE);
            }
@@ -1549,6 +1606,9 @@ void xsane_scan_done(SANE_Status status)
          else
          {
           char buf[256];
+
+           DBG(DBG_info, "open of faxfile `%s'failed : %s\n", xsane.fax_filename, strerror(errno));
+
            snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, xsane.fax_filename, strerror(errno));
            xsane_back_gtk_error(buf, TRUE);
          }
@@ -1556,6 +1616,7 @@ void xsane_scan_done(SANE_Status status)
 
          while (gtk_events_pending())
          {
+           DBG(DBG_info, "calling gtk_main_iteration");
            gtk_main_iteration();
          }
       }
@@ -1644,9 +1705,9 @@ void xsane_scan_done(SANE_Status status)
   else /* last scan: update histogram */
   {
     xsane_set_sensitivity(TRUE);		/* reactivate buttons etc */
-    sane_cancel(xsane_back_gtk_dialog_get_device(dialog)); /* stop scanning */
+    sane_cancel(xsane.dev); /* stop scanning */
     xsane_update_histogram();
-    xsane_update_param(dialog, 0);
+    xsane_update_param(0);
   }
 }
 
@@ -1654,18 +1715,21 @@ void xsane_scan_done(SANE_Status status)
 
 void xsane_cancel(void)
 {
-  sane_cancel(xsane_back_gtk_dialog_get_device(dialog));
+  DBG(DBG_proc, "xsane_cancel\n");
+  sane_cancel(xsane.dev);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 static void xsane_start_scan(void)
 {
-  SANE_Status status;
-  SANE_Handle dev = xsane_back_gtk_dialog_get_device(dialog);
-  const char *frame_type = 0;
-  char buf[256];
-  int fd;
+ SANE_Status status;
+ SANE_Handle dev = xsane.dev;
+ const char *frame_type = 0;
+ char buf[256];
+ int fd;
+
+  DBG(DBG_proc, "xsane_start_scan\n");
 
   xsane_clear_histogram(&xsane.histogram_raw);
   xsane_clear_histogram(&xsane.histogram_enh);    
@@ -1703,6 +1767,7 @@ static void xsane_start_scan(void)
   xsane.x = xsane.y = 0;
 
   status = sane_start(dev);
+  DBG(DBG_info, "sane_start returned with status %s\n", XSANE_STRSTATUS(status));
 
   if (status == SANE_STATUS_NO_DOCS) /* ADF out of docs */
   {
@@ -1758,7 +1823,7 @@ static void xsane_start_scan(void)
     if (!xsane.header_size) /* first pass of multi pass scan */
     {
       remove(xsane.dummy_filename); /* remove existing file */
-      xsane.out = fopen(xsane.dummy_filename, "w");
+      xsane.out = fopen(xsane.dummy_filename, "wb"); /* b = binary mode for win32 */
       umask(XSANE_DEFAULT_UMASK); /* define new file permissions */   
 
       if (!xsane.out) /* error while opening the dummy_file for writing */
@@ -1915,18 +1980,25 @@ static void xsane_start_scan(void)
     }
 #endif /* HAVE_LIBGIMP_GIMP_H */
 
-  dialog->pixelcolor = 0;
+  xsane.pixelcolor = 0;
 
   snprintf(buf, sizeof(buf), PROGRESS_RECEIVING_FRAME_DATA, _(frame_type));
   xsane_progress_new(buf, PROGRESS_SCANNING, (GtkSignalFunc) xsane_cancel);
 
   xsane.input_tag = -1;
 
+#ifndef BUGGY_GDK_INPUT_EXCEPTION
+  /* for unix */
   if (sane_set_io_mode(dev, SANE_TRUE) == SANE_STATUS_GOOD && sane_get_select_fd(dev, &fd) == SANE_STATUS_GOOD)
   {
+    DBG(DBG_info, "gdk_input_add\n");
     xsane.input_tag = gdk_input_add(fd, GDK_INPUT_READ | GDK_INPUT_EXCEPTION, xsane_read_image_data, 0);
   }
   else
+#else
+  /* for win32 */
+  sane_set_io_mode(dev, SANE_FALSE);
+#endif
   {
     xsane_read_image_data(0, -1, GDK_INPUT_READ);
   }
@@ -1940,7 +2012,9 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
 {
  char buf[256];
 
-  sane_get_parameters(dialog->dev, &xsane.param); /* update xsane.param */
+  DBG(DBG_proc, "xsane_scan_dialog\n");
+
+  sane_get_parameters(xsane.dev, &xsane.param); /* update xsane.param */
 
   xsane_define_output_filename(); /* make xsane.output_filename up to date */
 
@@ -1952,7 +2026,7 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
     {
      FILE *testfile;
 
-      testfile = fopen(xsane.output_filename, "r");
+      testfile = fopen(xsane.output_filename, "rb"); /* read binary (b for win32) */
       if (testfile) /* filename used: skip */
       {
        char buf[256];
@@ -2062,7 +2136,7 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
 
     if (xsane.scanner_gamma_gray) /* gamma table for gray available */
     {
-      opt = xsane_get_option_descriptor(dialog->dev, dialog->well_known.gamma_vector);
+      opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector);
       gamma_gray_size = opt->size / sizeof(opt->type);
       gamma_gray_max  = opt->constraint.range->max;
     }
@@ -2080,20 +2154,20 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
       {
         xsane.gamma_data = malloc(gamma_gray_size  * sizeof(SANE_Int));
         xsane_create_gamma_curve(xsane.gamma_data, 0, 1.0, 0.0, 0.0, gamma_gray_size, gamma_gray_max);
-        xsane_back_gtk_update_vector(dialog, dialog->well_known.gamma_vector, xsane.gamma_data);
+        xsane_back_gtk_update_vector(xsane.well_known.gamma_vector, xsane.gamma_data);
         free(xsane.gamma_data);
         xsane.gamma_data = 0;
       }
 
-      opt = xsane_get_option_descriptor(dialog->dev, dialog->well_known.gamma_vector_r);
+      opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector_r);
       gamma_red_size = opt->size / sizeof(opt->type);
       gamma_red_max  = opt->constraint.range->max;
 
-      opt = xsane_get_option_descriptor(dialog->dev, dialog->well_known.gamma_vector_g);
+      opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector_g);
       gamma_green_size = opt->size / sizeof(opt->type);
       gamma_green_max  = opt->constraint.range->max;
 
-      opt = xsane_get_option_descriptor(dialog->dev, dialog->well_known.gamma_vector_b);
+      opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector_b);
       gamma_blue_size = opt->size / sizeof(opt->type);
       gamma_blue_max  = opt->constraint.range->max;
 
@@ -2129,9 +2203,9 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
 			       xsane.brightness + xsane.brightness_blue,
 			       xsane.contrast + xsane.contrast_blue , gamma_blue_size, gamma_blue_max);
 
-      xsane_back_gtk_update_vector(dialog, dialog->well_known.gamma_vector_r, xsane.gamma_data_red);
-      xsane_back_gtk_update_vector(dialog, dialog->well_known.gamma_vector_g, xsane.gamma_data_green);
-      xsane_back_gtk_update_vector(dialog, dialog->well_known.gamma_vector_b, xsane.gamma_data_blue);
+      xsane_back_gtk_update_vector(xsane.well_known.gamma_vector_r, xsane.gamma_data_red);
+      xsane_back_gtk_update_vector(xsane.well_known.gamma_vector_g, xsane.gamma_data_green);
+      xsane_back_gtk_update_vector(xsane.well_known.gamma_vector_b, xsane.gamma_data_blue);
 
       free(xsane.gamma_data_red);
       free(xsane.gamma_data_green);
@@ -2162,7 +2236,7 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
                                gamma, xsane.brightness, xsane.contrast,
                                gamma_gray_size, gamma_gray_max);
 
-      xsane_back_gtk_update_vector(dialog, dialog->well_known.gamma_vector, xsane.gamma_data);
+      xsane_back_gtk_update_vector(xsane.well_known.gamma_vector, xsane.gamma_data);
       free(xsane.gamma_data);
       xsane.gamma_data = 0;
 

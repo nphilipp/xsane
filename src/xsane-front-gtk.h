@@ -66,10 +66,11 @@ extern void xsane_scale_new_with_pixmap(GtkBox *parent, const char *xpm_d[], con
 extern void xsane_separator_new(GtkWidget *xsane_parent, int dist);
 extern GtkWidget *xsane_info_table_text_new(GtkWidget *table, gchar *text, int row, int colomn);
 extern GtkWidget *xsane_info_text_new(GtkWidget *parent, gchar *text);
-extern void xsane_refresh_dialog(void *nothing);
-extern void xsane_update_param(GSGDialog *dialog, void *arg);
+extern void xsane_refresh_dialog(void);
+extern void xsane_update_param(void *arg);
 extern void xsane_define_output_filename(void);
 extern void xsane_identify_output_format(char **ext);
+extern void xsane_change_working_directory(void);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 

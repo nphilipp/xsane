@@ -67,8 +67,6 @@ typedef struct
   int mode;
   int calibration;
 
-  GSGDialog *dialog;	/* the dialog for this preview */
-
   int cursornr;
 
   guint hold_timer;
@@ -167,7 +165,7 @@ Preview;
 
 /* ------------------------------------------------------------------------------------------------------ */
 
-extern Preview *preview_new (GSGDialog *dialog);   /* Create a new preview based on the info in DIALOG.  */
+extern Preview *preview_new(void);   /* Create a new preview based on the info in DIALOG.  */
 
 extern void preview_gamma_correction(Preview *p,		  /* Do gamma correction on preview data */
                                      int gamma_red[], int gamma_green[], int gamma_blue[],

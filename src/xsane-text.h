@@ -28,7 +28,11 @@
 #define XSANE_STRSTATUS(status)		_(sane_strstatus(status))
 #define _BGT(text)			dgettext(xsane.backend, text)
 
+#ifdef _WIN32
+#define XSANE_COPYRIGHT_SIGN		_("(c)")
+#else
 #define XSANE_COPYRIGHT_SIGN		_("\251")
+#endif
 
 #define WINDOW_ABOUT			_("About")
 #define WINDOW_AUTHORIZE		_("authorization")
@@ -38,6 +42,7 @@
 #define WINDOW_FAX_RENAME		_("rename fax page")
 #define WINDOW_SETUP			_("setup")
 #define WINDOW_HISTOGRAM		_("Histogram")
+#define WINDOW_GAMMA			_("Gamma curve")
 #define WINDOW_STANDARD_OPTIONS		_("Standard options")
 #define WINDOW_ADVANCED_OPTIONS		_("Advanced options")
 #define WINDOW_DEVICE_SELECTION		_("device selection")
@@ -45,6 +50,7 @@
 #define WINDOW_OUTPUT_FILENAME		_("select output filename")
 #define WINDOW_SAVE_SETTINGS		_("save device settings")
 #define WINDOW_LOAD_SETTINGS		_("load device settings")
+#define WINDOW_CHANGE_WORKING_DIR	_("change working directory")
 #define WINDOW_TMP_PATH			_("select temporary directory")
 
 #define MENU_FILE			_("File")
@@ -88,6 +94,7 @@
 #define RADIO_BUTTON_PRIVATE_COLORMAP	_("Use private colormap")
 #define RADIO_BUTTON_AUTOENHANCE_GAMMA  _("Autoenhance gamma")
 
+#define TEXT_SCANNING_DEVICES		_("scanning for devices")
 #define TEXT_AVAILABLE_DEVICES		_("Available devices:")
 #define TEXT_XSANE_OPTIONS		_("XSane options")
 #define TEXT_XSANE_MODE			_("XSane mode")
@@ -148,7 +155,8 @@
 #define TEXT_SETUP_DIR_PERMISSION	_("Directory permissions")
 #define TEXT_SETUP_JPEG_QUALITY		_("JPEG image quality")
 #define TEXT_SETUP_PNG_COMPRESSION	_("PNG image compression")
-#define TEXT_SETUP_TIFF_COMPRESSION	_("TIFF multi bit image compression")
+#define TEXT_SETUP_TIFF_COMPRESSION_16	_("TIFF 16 bit image compression")
+#define TEXT_SETUP_TIFF_COMPRESSION_8	_("TIFF 8 bit image compression")
 #define TEXT_SETUP_TIFF_COMPRESSION_1	_("TIFF lineart image compression")
 #define TEXT_SETUP_PSFILE_WIDTH		_("Width of paper for postscript [mm]:")
 #define TEXT_SETUP_PSFILE_HEIGHT	_("Height of paper for postscript [mm]:")
@@ -190,6 +198,7 @@
 #define MENU_ITEM_SHOW_TOOLTIPS		_("Show tooltips")
 #define MENU_ITEM_SHOW_PREVIEW		_("Show preview")
 #define MENU_ITEM_SHOW_HISTOGRAM	_("Show histogram")
+#define MENU_ITEM_SHOW_GAMMA		_("Show gamma curve")
 #define MENU_ITEM_SHOW_STANDARDOPTIONS	_("Show standard options")
 #define MENU_ITEM_SHOW_ADVANCEDOPTIONS	_("Show advanced options")
 
@@ -206,6 +215,7 @@
 #define MENU_ITEM_PAGE_ROTATE		_("Rotate postscript")
 #define MENU_ITEM_SAVE_DEVICE_SETTINGS	_("Save device settings")
 #define MENU_ITEM_LOAD_DEVICE_SETTINGS	_("Load device settings")
+#define MENU_ITEM_CHANGE_WORKING_DIR	_("Change directory")
 
 #define MENU_ITEM_XSANE_DOC		_("Xsane doc")
 #define MENU_ITEM_BACKEND_DOC		_("Backend doc")
@@ -311,7 +321,8 @@
 #define DESC_BUTTON_TMP_PATH_BROWSE	_("Browse for temporary directory")
 #define DESC_JPEG_QUALITY		_("Quality in percent if image is saved as jpeg or tiff with jpeg compression")
 #define DESC_PNG_COMPRESSION		_("Compression if image is saved as png")
-#define DESC_TIFF_COMPRESSION		_("Compression type if multi bit image is saved as tiff")
+#define DESC_TIFF_COMPRESSION_16	_("Compression type if 16 bit image is saved as tiff")
+#define DESC_TIFF_COMPRESSION_8		_("Compression type if 8 bit image is saved as tiff")
 #define DESC_TIFF_COMPRESSION_1		_("Compression type if lineart image is saved as tiff")
 #define DESC_OVERWRITE_WARNING		_("Warn before overwriting an existing file")
 #define DESC_INCREASE_COUNTER		_("If the filename is of the form \"name-001.ext\" " \
@@ -365,6 +376,7 @@
 
 
 #define ERR_HOME_DIR			_("Failed to determine home directory:")
+#define ERR_CHANGE_WORKING_DIR		_("Failed to change working directory to")
 #define ERR_FILENAME_TOO_LONG		_("Filename too long")
 #define ERR_SET_OPTION			_("Failed to set value of option")
 #define ERR_GET_OPTION			_("Failed to obtain value of option")

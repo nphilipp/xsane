@@ -51,6 +51,7 @@ static int cancel_save;
 
 void xsane_cancel_save()
 {
+  DBG(DBG_proc, "xsane_cancel_save\n");
   cancel_save = 1;
 }
 
@@ -58,6 +59,8 @@ void xsane_cancel_save()
 
 void xsane_convert_text_to_filename(char **text)
 {
+  DBG(DBG_proc, "xsane_convert_text_to_filename\n");
+
   if (text)
   {
    char *filename = *text;
@@ -143,6 +146,7 @@ void xsane_convert_text_to_filename(char **text)
     buf[buflen] = 0;
     free(filename);
     *text = strdup(buf);
+    DBG(DBG_info, "filename = \"%s\"\n", *text);
   }
 }
 
@@ -155,6 +159,8 @@ void xsane_increase_counter_in_filename(char *filename, int skip)
  char counter;
  int  overflow = 0;
  FILE *testfile;
+
+  DBG(DBG_proc, "xsane_increase_counter_in_filename\n");
 
   while (1)
   { 
@@ -202,7 +208,7 @@ void xsane_increase_counter_in_filename(char *filename, int skip)
 
     if (skip) /* test if filename already used */
     {
-      testfile = fopen(filename, "r");
+      testfile = fopen(filename, "rb"); /* read binary (b for win32) */
       if (testfile) /* filename used: skip */
       {
         fclose(testfile);
@@ -226,6 +232,8 @@ static void xsane_save_ps_create_header(FILE *outfile, int color, int bits, int 
                                         int paperwidth, int paperheight, int rotate)
 {
  int degree, position_left, position_bottom, box_left, box_bottom, box_right, box_top;
+
+  DBG(DBG_proc, "xsane_save_ps_create_header\n");
 
   if (rotate) /* roatet with 90 degrees - eg for landscape mode */
   {
@@ -296,6 +304,8 @@ static void xsane_save_ps_bw(FILE *outfile, FILE *imagefile, int pixel_width, in
  int x, y, count;
  int bytes_per_line = (pixel_width+7)/8;
 
+  DBG(DBG_proc, "xsane_save_ps_bw\n");
+
   cancel_save = 0;
 
   count = 0;
@@ -330,6 +340,8 @@ static void xsane_save_ps_gray(FILE *outfile, FILE *imagefile, int pixel_width, 
 {
  int x, y, count;
 
+  DBG(DBG_proc, "xsane_save_ps_gray\n");
+
   cancel_save = 0;
 
   count = 0;
@@ -363,6 +375,8 @@ static void xsane_save_ps_gray(FILE *outfile, FILE *imagefile, int pixel_width, 
 static void xsane_save_ps_color(FILE *outfile, FILE *imagefile, int pixel_width, int pixel_height)
 {
  int x, y, count;
+
+  DBG(DBG_proc, "xsane_save_ps_color\n");
 
   cancel_save = 0;
  
@@ -404,6 +418,8 @@ void xsane_save_ps(FILE *outfile, FILE *imagefile,
                    float width, float height,
                    int paperheight, int paperwidth, int rotate)
 {
+  DBG(DBG_proc, "xsane_save_ps\n");
+
   xsane_save_ps_create_header(outfile, color, bits, pixel_width, pixel_height,
                               left, bottom, width, height, paperheight, paperwidth, rotate);
 
@@ -445,6 +461,8 @@ void xsane_save_jpeg(FILE *outfile, FILE *imagefile,
  struct jpeg_compress_struct cinfo;
  struct jpeg_error_mgr jerr;
  JSAMPROW row_pointer[1];
+
+  DBG(DBG_proc, "xsane_save_jpeg\n");
 
   cancel_save = 0;
 
@@ -535,20 +553,35 @@ void xsane_save_jpeg(FILE *outfile, FILE *imagefile,
 #ifdef HAVE_LIBTIFF
 void xsane_save_tiff(const char *outfilename, FILE *imagefile,
                      int color, int bits,
-                     int pixel_width, int pixel_height,
-                     int compression, int quality)
+                     int pixel_width, int pixel_height, int quality)
 {
  TIFF *tiffile;
  char *data;
  char buf[256];
  int y, w;
  int components;
-#if 0
+ int compression;
+ int bytes;
  struct tm *ptm;
  time_t now;
-#endif
+
+  DBG(DBG_proc, "xsane_save_tiff\n");
 
   cancel_save = 0;
+
+  if (bits == 1)
+  {
+    compression = preferences.tiff_compression1_nr;
+  }
+  else if (bits == 8)
+  {
+    compression = preferences.tiff_compression8_nr;
+  }
+  else
+  {
+    compression = preferences.tiff_compression16_nr;
+  }
+
 
   if (color)
   {
@@ -559,6 +592,15 @@ void xsane_save_tiff(const char *outfilename, FILE *imagefile,
     components = 1;
   }
 
+  if (bits <= 8)
+  {
+    bytes = 1;
+  }
+  else
+  {
+    bytes = 2;
+  }
+
   tiffile = TIFFOpen(outfilename, "w");
   if (!tiffile)
   {
@@ -567,7 +609,11 @@ void xsane_save_tiff(const char *outfilename, FILE *imagefile,
     return;
   }
 
-  data = malloc(pixel_width * components);
+#if 0
+  data = malloc(pixel_width * components * bytes);
+#else
+  data = (char *)_TIFFmalloc(pixel_width * components * bytes);
+#endif
 
   if (!data)
   {
@@ -584,19 +630,20 @@ void xsane_save_tiff(const char *outfilename, FILE *imagefile,
   TIFFSetField(tiffile, TIFFTAG_COMPRESSION, compression);
   TIFFSetField(tiffile, TIFFTAG_SAMPLESPERPIXEL, components);
   TIFFSetField(tiffile, TIFFTAG_SOFTWARE, "xsane");
-#if 0
+
   time(&now);
   ptm = localtime(&now);
   sprintf(buf, "%04d:%02d:%02d %02d:%02d:%02d", 1900+ptm->tm_year, ptm->tm_mon+1, ptm->tm_mday, ptm->tm_hour, ptm->tm_min, ptm->tm_sec);
   TIFFSetField(tiffile, TIFFTAG_DATETIME, buf);
+
   TIFFSetField(tiffile, TIFFTAG_RESOLUTIONUNIT, RESUNIT_INCH);
   TIFFSetField(tiffile, TIFFTAG_XRESOLUTION, xsane.resolution_x);
   TIFFSetField(tiffile, TIFFTAG_YRESOLUTION, xsane.resolution_y);   
-#endif
 
   if (compression == COMPRESSION_JPEG)
   {
     TIFFSetField(tiffile, TIFFTAG_JPEGQUALITY, quality);
+    TIFFSetField(tiffile, TIFFTAG_JPEGCOLORMODE, JPEGCOLORMODE_RAW); /* should be default, but to be sure */
   }
 
   if (color)
@@ -638,7 +685,11 @@ void xsane_save_tiff(const char *outfilename, FILE *imagefile,
   }
 
   TIFFClose(tiffile);
+#if 0
   free(data);
+#else
+  _TIFFfree(data);
+#endif
 }
 #endif
 
@@ -659,6 +710,8 @@ void xsane_save_png(FILE *outfile, FILE *imagefile,
  char buf[256];
  int colortype, components, byte_width;
  int y;
+
+  DBG(DBG_proc, "xsane_save_png\n");
 
   cancel_save = 0;
 
@@ -791,6 +844,8 @@ void xsane_save_png_16(FILE *outfile, FILE *imagefile,
  int x,y;
  guint16 val;
 
+  DBG(DBG_proc, "xsane_save_png16\n");
+
   cancel_save = 0;
 
   png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, 0, 0, 0);
@@ -897,6 +952,8 @@ void xsane_save_pnm_16_gray(FILE *outfile, FILE *imagefile, int bits, int pixel_
  guint16 val;
  int count = 0;
 
+  DBG(DBG_proc, "xsane_save_pnm_16_gray\n");
+
   cancel_save = 0;
 
   /* write pgm ascii > 8 bpp */
@@ -937,6 +994,8 @@ void xsane_save_pnm_16_color(FILE *outfile, FILE *imagefile, int bits, int pixel
  int x,y;
  guint16 val;
  int count = 0;
+
+  DBG(DBG_proc, "xsane_save_pnm_16_color\n");
 
   cancel_save = 0;
 
@@ -981,6 +1040,8 @@ void xsane_save_pnm_16_color(FILE *outfile, FILE *imagefile, int bits, int pixel
 
 void xsane_save_pnm_16(FILE *outfile, FILE *imagefile, int color, int bits, int pixel_width, int pixel_height)
 {
+  DBG(DBG_proc, "xsane_save_pnm_16\n");
+
   if (color)
   {
     xsane_save_pnm_16_color(outfile, imagefile, bits, pixel_width, pixel_height);

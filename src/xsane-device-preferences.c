@@ -24,6 +24,7 @@
 
 #include "xsane.h"
 #include "xsane-rc-io.h"
+#include "xsane-back-gtk.h"
 #include "xsane-front-gtk.h"
 #include "xsane-gamma.h"
 
@@ -56,6 +57,8 @@ desc_xsane_device[] =
     {"xsane-advanced-options-window-y-position", xsane_rc_pref_int, DPOFFSET(advanced_options_shell_posy)},
     {"xsane-histogram-window-x-position",        xsane_rc_pref_int, DPOFFSET(histogram_dialog_posx)},
     {"xsane-histogram-window-y-position",        xsane_rc_pref_int, DPOFFSET(histogram_dialog_posy)},
+    {"xsane-gamma-window-x-position",            xsane_rc_pref_int, DPOFFSET(gamma_dialog_posx)},
+    {"xsane-gamma-window-y-position",            xsane_rc_pref_int, DPOFFSET(gamma_dialog_posy)},
     {"xsane-preview-window-x-position",          xsane_rc_pref_int, DPOFFSET(preview_dialog_posx)},
     {"xsane-preview-window-y-position",          xsane_rc_pref_int, DPOFFSET(preview_dialog_posy)},
     {"xsane-preview-window-width",               xsane_rc_pref_int, DPOFFSET(preview_dialog_width)},
@@ -93,6 +96,7 @@ desc_xsane_device[] =
 
 static void xsane_widget_get_uposition(GtkWidget *gtk_window, gint *x, gint *y)
 {
+  DBG(DBG_proc, "xsane_widget_get_uposition\n");
 #ifdef XSANE_BUGGY_WINDOWMANAGER_WINDOW_POSITION
   gdk_window_get_root_origin(gtk_window->window, x, y);
 #else
@@ -116,6 +120,8 @@ static int xsane_device_preferences_load_values(Wire *w, SANE_Handle device)
  off_t offset;
  size_t size;
  char *buf;
+
+  DBG(DBG_proc, "xsane_device_preferences_load_values\n");
 
   lseek(w->io.fd, 1, SEEK_SET); /* rewind file */
   xsane_rc_io_w_flush(w);
@@ -234,6 +240,8 @@ static int xsane_device_preferences_save_values(Wire *w, SANE_Handle device)
  SANE_Word word;
  int i;
 
+  DBG(DBG_proc, "xsane_device_preferences_save_values\n");
+
   for (i = 0; (opt = xsane_get_option_descriptor(device, i)); ++i)
   {
     if ((opt->cap & (SANE_CAP_SOFT_SELECT | SANE_CAP_SOFT_DETECT)) != (SANE_CAP_SOFT_SELECT | SANE_CAP_SOFT_DETECT) || !opt->name)
@@ -351,6 +359,8 @@ void xsane_device_preferences_load_file(char *filename)
  Wire w;
  SANE_String name;
  int i;
+
+  DBG(DBG_proc, "xsane_device_preferences_load_file\n");
 
   /* set geometry and position to standard values */
   xsane.shell_posx                  = XSANE_SHELL_POS_X;
@@ -540,21 +550,21 @@ void xsane_device_preferences_load_file(char *filename)
       w.status = 0;
     }                 
 
-    xsane_device_preferences_load_values(&w, dialog->dev); /* read device preferences */
+    xsane_device_preferences_load_values(&w, xsane.dev); /* read device preferences */
     close(fd); 
 
-    if (dialog->well_known.dpi > 0)
+    if (xsane.well_known.dpi > 0)
     {
      const SANE_Option_Descriptor *opt;
 
-      opt = xsane_get_option_descriptor(dialog->dev, dialog->well_known.dpi);
+      opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.dpi);
   
       switch (opt->type)
       {
         case SANE_TYPE_INT:
         {
          SANE_Int dpi;
-          xsane_control_option(dialog->dev, dialog->well_known.dpi, SANE_ACTION_GET_VALUE, &dpi, 0);
+          xsane_control_option(xsane.dev, xsane.well_known.dpi, SANE_ACTION_GET_VALUE, &dpi, 0);
           xsane.resolution = dpi;
         }
         break;
@@ -562,7 +572,7 @@ void xsane_device_preferences_load_file(char *filename)
         case SANE_TYPE_FIXED:
         {
          SANE_Fixed dpi;
-          xsane_control_option(dialog->dev, dialog->well_known.dpi, SANE_ACTION_GET_VALUE, &dpi, 0);
+          xsane_control_option(xsane.dev, xsane.well_known.dpi, SANE_ACTION_GET_VALUE, &dpi, 0);
           xsane.resolution = (int) SANE_UNFIX(dpi);
         }
         break;
@@ -582,7 +592,7 @@ void xsane_device_preferences_load_file(char *filename)
   gtk_widget_set_uposition(xsane.preview->top, xsane.preview_dialog_posx, xsane.preview_dialog_posy);
   gtk_window_set_default_size(GTK_WINDOW(xsane.preview->top), xsane.preview_dialog_width, xsane.preview_dialog_height);
 
-  xsane_refresh_dialog(dialog);
+  xsane_refresh_dialog();
   xsane_enhancement_by_gamma();
 }
 
@@ -590,8 +600,10 @@ void xsane_device_preferences_load_file(char *filename)
 
 void xsane_device_preferences_restore(void)
 {
-  char filename[PATH_MAX];
-  struct stat st; 
+ char filename[PATH_MAX];
+ struct stat st; 
+
+  DBG(DBG_proc, "xsane_device_preferences_restore\n");
 
   xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", 0, 0, xsane.device_set_filename, ".drc", XSANE_PATH_LOCAL_SANE);
 
@@ -610,14 +622,16 @@ void xsane_device_preferences_restore(void)
 
 void xsane_device_preferences_load(void)
 {
-  char filename[PATH_MAX];
-  char windowname[256];
+ char filename[PATH_MAX];
+ char windowname[256];
+
+  DBG(DBG_proc, "xsane_device_preferences_load\n");
 
   xsane_clear_histogram(&xsane.histogram_raw);
   xsane_clear_histogram(&xsane.histogram_enh);
   xsane_set_sensitivity(FALSE);
 
-  sprintf(windowname, "%s %s %s", prog_name, WINDOW_LOAD_SETTINGS, device_text);
+  sprintf(windowname, "%s %s %s", xsane.prog_name, WINDOW_LOAD_SETTINGS, xsane.device_text);
   xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", 0, 0, xsane.device_set_filename, ".drc", XSANE_PATH_LOCAL_SANE);
   xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, FALSE);
   xsane_device_preferences_load_file(filename);
@@ -638,11 +652,13 @@ void xsane_device_preferences_save(GtkWidget *widget, gpointer data)
  Wire w;
  int i;
 
+  DBG(DBG_proc, "xsane_device_preferences_save\n");
+
   xsane_clear_histogram(&xsane.histogram_raw);
   xsane_clear_histogram(&xsane.histogram_enh);
   xsane_set_sensitivity(FALSE);
 
-  sprintf(windowname, "%s %s %s", prog_name, WINDOW_SAVE_SETTINGS, device_text);
+  sprintf(windowname, "%s %s %s", xsane.prog_name, WINDOW_SAVE_SETTINGS, xsane.device_text);
   xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", 0, 0, xsane.device_set_filename, ".drc", XSANE_PATH_LOCAL_SANE);
   xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, FALSE);
 
@@ -694,7 +710,7 @@ void xsane_device_preferences_save(GtkWidget *widget, gpointer data)
     gtk_window_set_default_size(GTK_WINDOW(xsane.preview->top), xsane.preview_dialog_width, xsane.preview_dialog_height);
   }
 
-  xsane_device_preferences_save_values(&w, dialog->dev);
+  xsane_device_preferences_save_values(&w, xsane.dev);
 
   for (i = 0; i < NELEMS(desc_xsane_device); ++i) /* save device preferences xsane values */
   {

@@ -74,8 +74,9 @@ typedef struct
 
     double jpeg_quality;		/* quality when saving image as jpeg */
     double png_compression;		/* compression when saving image as pnm */
-    int    tiff_compression_nr;		/* compression type nr when saving multi bit image as tiff */
-    int    tiff_compression_1_nr;	/* compression type nr when saving one bit image as tiff */
+    int    tiff_compression16_nr;	/* compression type nr when saving 16i bit image as tiff */
+    int    tiff_compression8_nr;	/* compression type nr when saving 8 bit image as tiff */
+    int    tiff_compression1_nr;	/* compression type nr when saving 1 bit image as tiff */
     int    overwrite_warning;		/* warn if file exists */
     int    increase_filename_counter;	/* automatically increase counter */
     int    skip_existing_numbers;	/* automatically increase counter */
@@ -86,6 +87,7 @@ typedef struct
 
     int    tooltips_enabled;		/* should tooltips be disabled? */
     int    show_histogram;		/* show histogram ? */
+    int    show_gamma;			/* show gamma curve ? */
     int    show_standard_options;	/* show standard options ? */
     int    show_advanced_options;	/* show advanced options ? */
     int    show_resolution_list;	/* show resolution list instead of slider ? */

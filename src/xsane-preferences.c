@@ -26,6 +26,14 @@
 #include "xsane-preferences.h"
 #include "xsane-rc-io.h"
 
+#ifdef HAVE_LIBTIFF
+# include <tiffio.h>
+#else
+# define COMPRESSION_PACKBITS	32773
+# define COMPRESSION_JPEG	7
+# define COMPRESSION_CCITTFAX3	2
+#endif
+
 /* --------------------------------------------------------------------- */
 
 #define POFFSET(field)	((char *) &((Preferences *) 0)->field - (char *) 0)
@@ -35,9 +43,11 @@
 
 /* --------------------------------------------------------------------- */
 
+/* *** ATTENTION *** : DO NOT ENTER STRINGS HERE !!! */
+
 Preferences preferences =
   {
-       "/tmp/",		/* default path to temporary directory */
+       0,		/* default path to temporary directory (not defined here) */
        0,		/* no default filename */
        0137,		/* image umask (permission mask for -rw-r------) */
        0027,		/* image umask (permission mask for -rwxr-x----) */
@@ -55,8 +65,9 @@ Preferences preferences =
        0,		/* no doc viewer */
       80.0,		/* jpeg_quality */
        7.0,		/* png_compression */
-       5,		/* tiff_compression_nr */
-       5,		/* tiff_compression_1_nr */
+ COMPRESSION_PACKBITS,	/* tiff_compression16_nr */
+ COMPRESSION_JPEG,	/* tiff_compression8_nr */
+ COMPRESSION_CCITTFAX3,	/* tiff_compression1_nr */
        1,		/* overwrite_warning */
        1,		/* increase_filename_counter */
        1,		/* skip_existing_numbers */
@@ -66,6 +77,7 @@ Preferences preferences =
        0.0,             /* psfile_bottomoffset */
        1,		/* tooltips enabled */
        0,		/* (dont) show histogram */
+       0,		/* (dont) show gamma */
        0,		/* (dont) show standard options */
        0,		/* (dont) show advanced options */
        0,		/* (dont) show resolution list */
@@ -134,10 +146,12 @@ desc[] =
     {"psfile-height",			xsane_rc_pref_double,	POFFSET(psfile_height)},
     {"jpeg-quality",			xsane_rc_pref_double,	POFFSET(jpeg_quality)},
     {"png-compression",			xsane_rc_pref_double, 	POFFSET(png_compression)},
-    {"tiff-compression_nr",		xsane_rc_pref_int, 	POFFSET(tiff_compression_nr)},
-    {"tiff-compression_1_nr",		xsane_rc_pref_int, 	POFFSET(tiff_compression_1_nr)},
+    {"tiff-compression16_nr",		xsane_rc_pref_int, 	POFFSET(tiff_compression16_nr)},
+    {"tiff-compression8_nr",		xsane_rc_pref_int, 	POFFSET(tiff_compression8_nr)},
+    {"tiff-compression1_nr",		xsane_rc_pref_int, 	POFFSET(tiff_compression1_nr)},
     {"tool-tips",			xsane_rc_pref_int,	POFFSET(tooltips_enabled)},
     {"show-histogram",			xsane_rc_pref_int,	POFFSET(show_histogram)},
+    {"show-gamma",			xsane_rc_pref_int,	POFFSET(show_gamma)},
     {"show-standard-options",		xsane_rc_pref_int,	POFFSET(show_standard_options)},
     {"show-advanced-options",		xsane_rc_pref_int,	POFFSET(show_advanced_options)},
     {"show-resolution-list",		xsane_rc_pref_int,	POFFSET(show_resolution_list)},
@@ -204,6 +218,8 @@ void preferences_save(int fd)
  Wire w;
  int i, n;
 
+  DBG(DBG_proc, "preferences_save\n");
+
   w.io.fd = fd;
   w.io.read = read;
   w.io.write = write;
@@ -238,6 +254,8 @@ void preferences_restore(int fd)
  SANE_String name;
  Wire w;
  int i, n;
+
+  DBG(DBG_proc, "preferences_restore\n");
 
   w.io.fd = fd;
   w.io.read = read;

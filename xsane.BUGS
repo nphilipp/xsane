@@ -1,6 +1,8 @@
 ----------------------------------------------------------------------------------
 
-1)
+ - With umax astra 1220s an transparency adapter it is
+   reported that flatbed/transparency mode has to be toggled
+   each time before a preview scan to get the correct preview area
 
  - on some systems it is reported that:
    - saving as png -> coredump
