@@ -31,7 +31,6 @@ typedef struct
     int preview;
     int dpi;
     int coord[4];
-    int custom_gamma;
     int gamma_vector;
     int gamma_vector_r;
     int gamma_vector_g;

@@ -60,6 +60,10 @@
 #endif
 #endif
 
+#ifdef HAVE_LIBTIFF
+#include <tiffio.h>
+#endif
+
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 #ifndef PATH_MAX
@@ -70,7 +74,7 @@
 
 #define OUTFILENAME     	"out.pnm"
 #define PRINTERCOMMAND  	"lpr -"
-#define XSANE_VERSION		"0.12 beta"
+#define XSANE_VERSION		"0.13 beta"
 #define HIST_WIDTH		256
 #define HIST_HEIGHT		100
 #define XSANE_DIALOG_WIDTH	296
@@ -467,13 +471,13 @@ static void xsane_save_ps(FILE *outfile, FILE *imagefile,
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 void xsane_save_jpeg(FILE *outfile, FILE *imagefile,
-                     int color,
-                     int bits,
+                     int color, int bits,
                      int pixel_width, int pixel_height,
                      int quality)
 {
 #ifdef HAVE_LIBJPEG
  char *data;
+ char buf[256];
  int x,y;
  int components = 1;
  struct jpeg_compress_struct cinfo;
@@ -486,6 +490,13 @@ void xsane_save_jpeg(FILE *outfile, FILE *imagefile,
   }
 
   data = malloc(pixel_width * components);
+
+  if (!data)
+  {
+    snprintf(buf, sizeof(buf), "Error during save: out of memory\n");
+    gsg_error(buf);
+    return;
+  }
 
   cinfo.err = jpeg_std_error(&jerr);
   jpeg_create_compress(&cinfo);
@@ -515,26 +526,27 @@ void xsane_save_jpeg(FILE *outfile, FILE *imagefile,
 
     if (bits == 1)
     {
-      for (x = 0; x < ((pixel_width + 7)/8) * components; x++)
+     int byte = 0;
+     int mask = 128;
+
+      for (x = 0; x < pixel_width; x++)
       {
-       int bit;
-       int byte;
-       int mask = 128;
 
-        byte = fgetc(imagefile);
+        if ( (x % 8) == 0)
+	{
+          byte = fgetc(imagefile);
+          mask = 128;
+	}
 
-        for (bit = 7; bit >= 0; bit--)
+        if (byte & mask)
         {
-	  if (byte & mask)
-          {
-            data[x*8+7-bit] = 0;
-          }
-	  else
-          {
-            data[x*8+7-bit] = 255;
-          }
-	  mask >>= 1;
+          data[x] = 0;
         }
+        else
+        {
+          data[x] = 255;
+        }
+        mask >>= 1;
       }
     }
     else
@@ -552,9 +564,113 @@ void xsane_save_jpeg(FILE *outfile, FILE *imagefile,
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+void xsane_save_tiff(const char *outfilename, FILE *imagefile,
+                     int color, int bits,
+                     int pixel_width, int pixel_height,
+                     int compression)
+{
+#ifdef HAVE_LIBTIFF
+ TIFF *tiffile;
+ char *data;
+ char buf[256];
+ int x, y, w;
+ int components;
+
+  if (color)
+  {
+    components = 3;
+  }
+  else
+  {
+    components = 1;
+  }
+
+  tiffile = TIFFOpen(outfilename, "w");
+  if (!tiffile)
+  {
+    snprintf(buf, sizeof(buf), "Error during save: TIFFOpen did not open file %s\n", outfilename);
+    gsg_error(buf);
+    return;
+  }
+
+  data = malloc(pixel_width * components);
+
+  if (!data)
+  {
+    snprintf(buf, sizeof(buf), "Error during save: out of memory\n");
+    gsg_error(buf);
+    return;
+  }
+  
+  TIFFSetField(tiffile, TIFFTAG_IMAGEWIDTH, pixel_width);
+  TIFFSetField(tiffile, TIFFTAG_IMAGELENGTH, pixel_height);
+  TIFFSetField(tiffile, TIFFTAG_ORIENTATION, ORIENTATION_TOPLEFT);
+  TIFFSetField(tiffile, TIFFTAG_BITSPERSAMPLE, 8); /* change this if >8 bits is supported */
+  TIFFSetField(tiffile, TIFFTAG_PLANARCONFIG, PLANARCONFIG_CONTIG);
+  TIFFSetField(tiffile, TIFFTAG_COMPRESSION, COMPRESSION_LZW);
+  TIFFSetField(tiffile, TIFFTAG_SAMPLESPERPIXEL, components);
+
+  if (color)
+  {
+    TIFFSetField(tiffile, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_RGB);
+  }
+  else
+  {
+    TIFFSetField(tiffile, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_MINISBLACK);
+  }
+
+  w = TIFFScanlineSize(tiffile);
+  TIFFSetField(tiffile, TIFFTAG_ROWSPERSTRIP, TIFFDefaultStripSize(tiffile, -1));
+
+  for (y = 0; y < pixel_height; y++)
+  {
+    progress_update(xsane.progress, (float) y / pixel_height);
+    while (gtk_events_pending())
+    {
+      gtk_main_iteration();
+    }
+    
+    if (bits == 1)
+    {
+     int byte = 0;
+     int mask = 128;
+
+      for (x = 0; x < pixel_width; x++)
+      {
+
+        if ( (x % 8) == 0)
+	{
+          byte = fgetc(imagefile);
+          mask = 128;
+	}
+
+        if (byte & mask)
+        {
+          data[x] = 0;
+        }
+        else
+        {
+          data[x] = 255;
+        }
+        mask >>= 1;
+      }
+    }
+    else
+    {
+      fread(data, components, pixel_width, imagefile);
+    }
+    TIFFWriteScanline(tiffile, data, y, 0);
+  }
+
+  TIFFClose(tiffile);
+  free(data);
+#endif
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 void xsane_save_png(FILE *outfile, FILE *imagefile,
-                    int color,
-                    int bits,
+                    int color, int bits,
                     int pixel_width, int pixel_height,
                     int compression)
 {
@@ -565,26 +681,30 @@ void xsane_save_png(FILE *outfile, FILE *imagefile,
  png_bytep row_ptr;
  png_color_8 sig_bit;
  char *data;
+ char buf[256];
  int colortype, components;
  int x,y;
 
   png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, 0, 0, 0);
   if (!png_ptr)
   {
-    fprintf(stderr,"xsane_save_png: could not create png write structure\n");
+    snprintf(buf, sizeof(buf), "Error during save: could not create png write structure\n");
+    gsg_error(buf);
     return;
   }
 
   png_info_ptr = png_create_info_struct(png_ptr);
   if (!png_info_ptr)
   {
-    fprintf(stderr,"xsane_save_png: could not create png info structure\n");
+    snprintf(buf, sizeof(buf), "Error during save: could not create png info structure\n");
+    gsg_error(buf);
     return;
   }
 
   if (setjmp(png_ptr->jmpbuf))
   {
-    fprintf(stderr,"xsane_save_png: could not setjmp\n");
+    snprintf(buf, sizeof(buf), "Error during save: could not setjmp for png routine\n");
+    gsg_error(buf);
     png_destroy_write_struct(&png_ptr, (png_infopp) 0);
     return;
   }
@@ -619,7 +739,8 @@ void xsane_save_png(FILE *outfile, FILE *imagefile,
 
   if (!data)
   {
-    fprintf(stderr,"xsane_save_png: out of memory\n");
+    snprintf(buf, sizeof(buf), "Error during save: out of memory\n");
+    gsg_error(buf);
     png_destroy_write_struct(&png_ptr, (png_infopp) 0);
     return;
   }
@@ -634,26 +755,27 @@ void xsane_save_png(FILE *outfile, FILE *imagefile,
 
     if (bits == 1)
     {
-      for (x = 0; x < ((pixel_width + 7)/8) * components; x++)
+     int byte = 0;
+     int mask = 128;
+
+      for (x = 0; x < pixel_width; x++)
       {
-       int bit;
-       int byte;
-       int mask = 128;
 
-        byte = fgetc(imagefile);
+        if ( (x % 8) == 0)
+	{
+          byte = fgetc(imagefile);
+          mask = 128;
+	}
 
-        for (bit = 7; bit >= 0; bit--)
+        if (byte & mask)
         {
-	  if (byte & mask)
-          {
-            data[x*8+7-bit] = 0;
-          }
-	  else
-          {
-            data[x*8+7-bit] = 1;
-          }
-	  mask >>= 1;
+          data[x] = 0;
         }
+        else
+        {
+          data[x] = 255;
+        }
+        mask >>= 1;
       }
     }
     else
@@ -676,8 +798,7 @@ void xsane_save_png(FILE *outfile, FILE *imagefile,
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 void xsane_save_png_16(FILE *outfile, FILE *imagefile,
-                       int color,
-                       int bits,
+                       int color, int bits,
                        int pixel_width, int pixel_height,
                        int compression)
 {
@@ -688,26 +809,30 @@ void xsane_save_png_16(FILE *outfile, FILE *imagefile,
  png_bytep row_ptr;
  png_color_8 sig_bit;
  char *data;
+ char buf[256];
  int colortype, components;
  int x,y;
 
   png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, 0, 0, 0);
   if (!png_ptr)
   {
-    fprintf(stderr,"xsane_save_png: could not create png write structure\n");
+    snprintf(buf, sizeof(buf), "Error during save: could not create png write structure\n");
+    gsg_error(buf);
     return;
   }
 
   png_info_ptr = png_create_info_struct(png_ptr);
   if (!png_info_ptr)
   {
-    fprintf(stderr,"xsane_save_png: could not create png info structure\n");
+    snprintf(buf, sizeof(buf), "Error during save: could not create png info structure\n");
+    gsg_error(buf);
     return;
   }
 
   if (setjmp(png_ptr->jmpbuf))
   {
-    fprintf(stderr,"xsane_save_png: could not setjmp\n");
+    snprintf(buf, sizeof(buf), "Error during save: could not setjmp for png routine\n");
+    gsg_error(buf);
     png_destroy_write_struct(&png_ptr, (png_infopp) 0);
     return;
   }
@@ -742,7 +867,8 @@ void xsane_save_png_16(FILE *outfile, FILE *imagefile,
 
   if (!data)
   {
-    fprintf(stderr,"xsane_save_png: out of memory\n");
+    snprintf(buf, sizeof(buf), "Error during save: out of memory\n");
+    gsg_error(buf);
     png_destroy_write_struct(&png_ptr, (png_infopp) 0);
     return;
   }
@@ -1200,8 +1326,8 @@ static void xsane_histogram_toggle_button_callback(GtkWidget *widget, gpointer d
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_create_gamma_curve(SANE_Int *gammadata, double gamma,
-                                     double brightness, double contrast, int numbers, int maxout)
+void xsane_create_gamma_curve(SANE_Int *gammadata, double gamma,
+                              double brightness, double contrast, int numbers, int maxout)
 {
  int i;
  double midin;
@@ -2867,259 +2993,274 @@ static void input_available(gpointer data, gint source, GdkInputCondition cond)
   int i;
 
   while (1)
+  {
+    status = sane_read(dev, buf, sizeof(buf), &len);
+    if (status != SANE_STATUS_GOOD)
     {
-      status = sane_read(dev, buf, sizeof(buf), &len);
-      if (status != SANE_STATUS_GOOD)
-	{
-	  if (status == SANE_STATUS_EOF)
-	    {
-	      if (!xsane.param.last_frame)
-		{
-		  scan_start();
-		  break;
-		}
-	    }
-	  else
-	    {
-	      snprintf(buf, sizeof(buf), "Error during read: %s.", sane_strstatus (status));
-	      gsg_error(buf);
-	    }
-	  scan_done();
-	  return;
-	}
-      if (!len)
-	break;			/* out of data for now */
-
-      xsane.bytes_read += len;
-      progress_update(xsane.progress, xsane.bytes_read / (gfloat) xsane.num_bytes);
-
-      if (xsane.input_tag < 0)
-	while (gtk_events_pending())
-	  gtk_main_iteration();
-
-      switch (xsane.param.format)
-	{
-	case SANE_FRAME_GRAY:
-	  if (xsane.mode == STANDALONE)
-	  {
-	   int i;
-	   char val;
-
-            if (!xsane.scanner_gamma_gray)
-	    {
-	      for (i=0; i < len; ++i)
-	      {
-	        val = xsane.gamma_data[(int) buf[i]];
-	        fwrite(&val, 1, 1, xsane.out);
-	      }
-	    }
-	    else
-	    {
-	      fwrite(buf, 1, len, xsane.out);
-	    }
-          }
-#ifdef HAVE_LIBGIMP_GIMP_H
-	  else
-	    {
-	      switch (xsane.param.depth)
-		{
-		case 1:
-		  for (i = 0; i < len; ++i)
-		    {
-		      u_char mask;
-		      int j;
-
-		      mask = buf[i];
-		      for (j = 7; j >= 0; --j)
-			{
-			  u_char gl = (mask & (1 << j)) ? 0x00 : 0xff;
-			  xsane.tile[xsane.tile_offset++] = gl;
-			  advance();
-			  if (xsane.x == 0)
-			    break;
-			}
-		    }
-		  break;
-
-		case 8:
-                  if (!xsane.scanner_gamma_gray)
-		  {
-		    for (i = 0; i < len; ++i)
-		    {
-		      xsane.tile[xsane.tile_offset++] = xsane.gamma_data[(int) buf[i]];
-		      advance();
-		    }
-		  }
-		  else
-		  {
-		    for (i = 0; i < len; ++i)
-		    {
-		      xsane.tile[xsane.tile_offset++] = buf[i];
-		      advance();
-		    }
-		  }
-		  break;
-
-		default:
-		  goto bad_depth;
-		}
-	    }
-#endif /* HAVE_LIBGIMP_GIMP_H */
-	  break;
-
-	case SANE_FRAME_RGB:
-	  if (xsane.mode == STANDALONE)
-	  {
-	   int i;
-	   char val;
-
-            if (!xsane.scanner_gamma_color)
-	    {
-	      for (i=0; i < len; ++i)
-	      {
-	        if (dialog->pixelcolor == 0)
-	        {
-	          val = xsane.gamma_data_red[(int) buf[i]];
-		  dialog->pixelcolor++;
-	        }
-                else if (dialog->pixelcolor == 1)
-	        {
-	          val = xsane.gamma_data_green[(int) buf[i]];
-		  dialog->pixelcolor++;
-	        }
-                else
-	        {
-	          val = xsane.gamma_data_blue[(int) buf[i]];
-		  dialog->pixelcolor = 0;
-	        }
-	        fwrite(&val, 1, 1, xsane.out);
-	      }
-	    }
-            else
-	    {
-	      fwrite(buf, 1, len, xsane.out);
-	    }
-          }
-#ifdef HAVE_LIBGIMP_GIMP_H
-	  else
-	    {
-	      switch (xsane.param.depth)
-		{
-		case 1:
-		  if (xsane.param.format == SANE_FRAME_RGB)
-		    goto bad_depth;
-		  for (i = 0; i < len; ++i)
-		    {
-		      u_char mask;
-		      int j;
-
-		      mask = buf[i];
-		      for (j = 0; j < 8; ++j)
-			{
-			  u_char gl = (mask & 1) ? 0xff : 0x00;
-			  mask >>= 1;
-			  xsane.tile[xsane.tile_offset++] = gl;
-			  advance();
-			  if (xsane.x == 0)
-			    break;
-			}
-		    }
-		  break;
-
-		case 8:
-                  if (!xsane.scanner_gamma_color)
-	          {
-		    for (i = 0; i < len; ++i)
-		    {
-
-	              if (xsane.tile_offset % 3 == 0)
-	              {
-		        xsane.tile[xsane.tile_offset++] = xsane.gamma_data_red[(int) buf[i]];
-	              }
-                      else if (xsane.tile_offset % 3 == 1)
-	              {
-		        xsane.tile[xsane.tile_offset++] = xsane.gamma_data_green[(int) buf[i]];
-	              }
-                      else
-                      {
-		        xsane.tile[xsane.tile_offset++] = xsane.gamma_data_blue[(int) buf[i]];
-		      }
-
-		      if (xsane.tile_offset % 3 == 0)
-			advance();
-		    }
-	          }
-		  else
-		  {
-		    for (i = 0; i < len; ++i)
-		    {
-		      xsane.tile[xsane.tile_offset++] = buf[i];
-		      if (xsane.tile_offset % 3 == 0)
-			advance();
-		    }
-		  }
-		  break;
-
-		default:
-		  goto bad_depth;
-		}
-	    }
-#endif /* HAVE_LIBGIMP_GIMP_H */
-	  break;
-
-	case SANE_FRAME_RED:
-	case SANE_FRAME_GREEN:
-	case SANE_FRAME_BLUE:
-	  if (xsane.mode == STANDALONE)
-	    for (i = 0; i < len; ++i)
-	      {
-		fwrite(buf + i, 1, 1, xsane.out);
-		fseek(xsane.out, 2, SEEK_CUR);
-	      }
-#ifdef HAVE_LIBGIMP_GIMP_H
-	  else
-	    {
-	      switch (xsane.param.depth)
-		{
-		case 1:
-		  for (i = 0; i < len; ++i)
-		    {
-		      u_char mask;
-		      int j;
-
-		      mask = buf[i];
-		      for (j = 0; j < 8; ++j)
-			{
-			  u_char gl = (mask & 1) ? 0xff : 0x00;
-			  mask >>= 1;
-			  xsane.tile[xsane.tile_offset] = gl;
-			  xsane.tile_offset += 3;
-			  advance();
-			  if (xsane.x == 0)
-			    break;
-			}
-		    }
-		  break;
-
-		case 8:
-		  for (i = 0; i < len; ++i)
-		    {
-		      xsane.tile[xsane.tile_offset] = buf[i];
-		      xsane.tile_offset += 3;
-		      advance();
-		    }
-		  break;
-		}
-	    }
-#endif /* HAVE_LIBGIMP_GIMP_H */
-	  break;
-
-	default:
-	  fprintf (stderr, "%s.input_available: bad frame format %d\n", prog_name, xsane.param.format);
-	  scan_done();
-	  return;
-	}
+      if (status == SANE_STATUS_EOF)
+      {
+        if (!xsane.param.last_frame)
+        {
+          scan_start();
+          break;
+        }
+      }
+      else
+      {
+        snprintf(buf, sizeof(buf), "Error during read: %s.", sane_strstatus (status));
+        gsg_error(buf);
+      }
+      scan_done();
+      return;
     }
+    if (!len)
+    {
+      break;			/* out of data for now */
+    }
+
+    xsane.bytes_read += len;
+    progress_update(xsane.progress, xsane.bytes_read / (gfloat) xsane.num_bytes);
+
+    if (xsane.input_tag < 0)
+    while (gtk_events_pending())
+    {
+      gtk_main_iteration();
+    }
+
+    switch (xsane.param.format)
+    {
+      case SANE_FRAME_GRAY:
+        if (xsane.mode == STANDALONE)
+        {
+         int i;
+         char val;
+
+          if ((!xsane.scanner_gamma_gray) && (xsane.param.depth > 1))
+          {
+            for (i=0; i < len; ++i)
+            {
+              val = xsane.gamma_data[(int) buf[i]];
+              fwrite(&val, 1, 1, xsane.out);
+            }
+          }
+          else
+          {
+            fwrite(buf, 1, len, xsane.out);
+          }
+        }
+#ifdef HAVE_LIBGIMP_GIMP_H
+        else
+        {
+          switch (xsane.param.depth)
+          {
+            case 1:
+              for (i = 0; i < len; ++i)
+              {
+               u_char mask;
+               int j;
+
+                mask = buf[i];
+                for (j = 7; j >= 0; --j)
+                {
+                  u_char gl = (mask & (1 << j)) ? 0x00 : 0xff;
+                  xsane.tile[xsane.tile_offset++] = gl;
+                  advance();
+                  if (xsane.x == 0)
+		  {
+                    break;
+                  }
+                }
+              }
+             break;
+
+            case 8:
+              if (!xsane.scanner_gamma_gray)
+              {
+                for (i = 0; i < len; ++i)
+                {
+                  xsane.tile[xsane.tile_offset++] = xsane.gamma_data[(int) buf[i]];
+                  advance();
+                }
+              }
+              else
+              {
+                for (i = 0; i < len; ++i)
+                {
+                  xsane.tile[xsane.tile_offset++] = buf[i];
+                  advance();
+                }
+              }
+             break;
+
+            default:
+              goto bad_depth;
+          }
+        }
+#endif /* HAVE_LIBGIMP_GIMP_H */
+       break;
+
+      case SANE_FRAME_RGB:
+        if (xsane.mode == STANDALONE)
+        {
+         int i;
+         char val;
+
+          if (!xsane.scanner_gamma_color)
+          {
+            for (i=0; i < len; ++i)
+            {
+              if (dialog->pixelcolor == 0)
+              {
+                val = xsane.gamma_data_red[(int) buf[i]];
+                dialog->pixelcolor++;
+              }
+              else if (dialog->pixelcolor == 1)
+              {
+                val = xsane.gamma_data_green[(int) buf[i]];
+                dialog->pixelcolor++;
+              }
+              else
+              {
+                val = xsane.gamma_data_blue[(int) buf[i]];
+                dialog->pixelcolor = 0;
+              }
+              fwrite(&val, 1, 1, xsane.out);
+            }
+          }
+          else
+          {
+            fwrite(buf, 1, len, xsane.out);
+          }
+        }
+#ifdef HAVE_LIBGIMP_GIMP_H
+        else
+        {
+          switch (xsane.param.depth)
+          {
+            case 1:
+              if (xsane.param.format == SANE_FRAME_RGB)
+              {
+                goto bad_depth;
+              }
+              for (i = 0; i < len; ++i)
+              {
+               u_char mask;
+               int j;
+
+                mask = buf[i];
+                for (j = 0; j < 8; ++j)
+                {
+                  u_char gl = (mask & 1) ? 0xff : 0x00;
+                  mask >>= 1;
+                  xsane.tile[xsane.tile_offset++] = gl;
+                  advance();
+                  if (xsane.x == 0)
+                 break;
+                }
+              }
+             break;
+
+            case 8:
+              if (!xsane.scanner_gamma_color)
+              {
+                for (i = 0; i < len; ++i)
+                {
+                  if (xsane.tile_offset % 3 == 0)
+                  {
+                    xsane.tile[xsane.tile_offset++] = xsane.gamma_data_red[(int) buf[i]];
+                  }
+                  else if (xsane.tile_offset % 3 == 1)
+                  {
+                    xsane.tile[xsane.tile_offset++] = xsane.gamma_data_green[(int) buf[i]];
+                  }
+                  else
+                  {
+                    xsane.tile[xsane.tile_offset++] = xsane.gamma_data_blue[(int) buf[i]];
+                  }
+
+                  if (xsane.tile_offset % 3 == 0)
+                  {
+                    advance();
+                  }
+                }
+              }
+              else
+              {
+                for (i = 0; i < len; ++i)
+                {
+                  xsane.tile[xsane.tile_offset++] = buf[i];
+                  if (xsane.tile_offset % 3 == 0)
+                  {
+                    advance();
+                  }
+                }
+              }
+             break;
+
+            default:
+              goto bad_depth;
+          }
+        }
+#endif /* HAVE_LIBGIMP_GIMP_H */
+       break;
+
+      case SANE_FRAME_RED:
+      case SANE_FRAME_GREEN:
+      case SANE_FRAME_BLUE:
+        if (xsane.mode == STANDALONE)
+	{
+          for (i = 0; i < len; ++i)
+          {
+            fwrite(buf + i, 1, 1, xsane.out);
+            fseek(xsane.out, 2, SEEK_CUR);
+          }
+        }
+#ifdef HAVE_LIBGIMP_GIMP_H
+        else
+        {
+          switch (xsane.param.depth)
+          {
+            case 1:
+              for (i = 0; i < len; ++i)
+              {
+               u_char mask;
+               int j;
+
+                mask = buf[i];
+                for (j = 0; j < 8; ++j)
+                {
+                  u_char gl = (mask & 1) ? 0xff : 0x00;
+                  mask >>= 1;
+                  xsane.tile[xsane.tile_offset] = gl;
+                  xsane.tile_offset += 3;
+                  advance();
+                  if (xsane.x == 0)
+                  {
+                    break;
+                  }
+                }
+              }
+             break;
+
+            case 8:
+              for (i = 0; i < len; ++i)
+              {
+                xsane.tile[xsane.tile_offset] = buf[i];
+                xsane.tile_offset += 3;
+                advance();
+              }
+             break;
+          }
+        }
+#endif /* HAVE_LIBGIMP_GIMP_H */
+       break;
+
+      default:
+        fprintf (stderr, "%s.input_available: bad frame format %d\n", prog_name, xsane.param.format);
+        scan_done();
+        return;
+    }
+  }
   return;
 
 #ifdef HAVE_LIBGIMP_GIMP_H
@@ -3196,48 +3337,60 @@ static void scan_done(void)
 
          gsg_make_path(sizeof(copyfilename), copyfilename, "xsane", "conversion", dialog->dev_name, ".tmp");
          infile = fopen(copyfilename, "r");
-         outfile = fopen(preferences.filename, "w");
-	 if ((outfile != 0) && (infile != 0))
+	 if (infile != 0)
 	 {
 	   fseek(infile, xsane.header_size, SEEK_SET);
-	   switch(xsane.xsane_output_format)
+
+	   if (xsane.xsane_output_format == XSANE_TIFF)		/* routines that want to have filename  for saving */
 	   {
-	     case XSANE_JPEG:
-               xsane_save_jpeg(outfile, infile, xsane.xsane_color, xsane.param.depth, xsane.param.pixels_per_line, xsane.param.lines,
-                               preferences.jpeg_quality);
-              break;
+             xsane_save_tiff(preferences.filename, infile, xsane.xsane_color, xsane.param.depth, xsane.param.pixels_per_line, xsane.param.lines,
+                             preferences.png_compression);
+           }
+	   else							/* routines that want to have filedescriptor for saving */
+           {
+             outfile = fopen(preferences.filename, "w");
+             if (outfile != 0)
+             {
+               switch(xsane.xsane_output_format)
+               {
+	         case XSANE_JPEG:
+                   xsane_save_jpeg(outfile, infile, xsane.xsane_color, xsane.param.depth, xsane.param.pixels_per_line, xsane.param.lines,
+                                   preferences.jpeg_quality);
+                  break;
 
-	     case XSANE_PNG:
-               xsane_save_png(outfile, infile, xsane.xsane_color, xsane.param.depth, xsane.param.pixels_per_line, xsane.param.lines,
-                              preferences.png_compression);
-              break;
+                 case XSANE_PNG:
+                   xsane_save_png(outfile, infile, xsane.xsane_color, xsane.param.depth, xsane.param.pixels_per_line, xsane.param.lines,
+                                  preferences.png_compression);
+                  break;
 
-	     case XSANE_PS:
-	      {
-                float imagewidth  = xsane.param.pixels_per_line/(float)preferences.printerresolution; /* width in inch */
-                float imageheight = xsane.param.lines/(float)preferences.printerresolution; /* height in inch */
-                xsane_save_ps(outfile, infile,
-                              xsane.xsane_color /* gray, color */,
-                              xsane.param.depth /* bits */,
-                              xsane.param.pixels_per_line, xsane.param.lines,
-                              preferences.printer_leftoffset + preferences.printer_width/2 - imagewidth*36,
-                              preferences.printer_bottomoffset + preferences.printer_height/2 - imageheight*36,
-                              imagewidth, imageheight);
-              }
-              break;
+	         case XSANE_PS:
+                 {
+                    float imagewidth  = xsane.param.pixels_per_line/(float)preferences.printerresolution; /* width in inch */
+                    float imageheight = xsane.param.lines/(float)preferences.printerresolution; /* height in inch */
+                    xsane_save_ps(outfile, infile,
+                                  xsane.xsane_color /* gray, color */,
+                                  xsane.param.depth /* bits */,
+                                  xsane.param.pixels_per_line, xsane.param.lines,
+                                  preferences.printer_leftoffset + preferences.printer_width/2 - imagewidth*36,
+                                  preferences.printer_bottomoffset + preferences.printer_height/2 - imageheight*36,
+                                  imagewidth, imageheight);
+                  }
+                  break;
 
 
-	     default:
-               fprintf(stderr, "ERROR: Unknown file format for saving!\n");
-	   }
-           fclose(outfile);
+                 default:
+                   fprintf(stderr, "ERROR: Unknown file format for saving!\n");
+	       }
+	     }
+             fclose(outfile);
+           }
 	 }
          progress_free(xsane.progress);
          xsane.progress = 0;
          while (gtk_events_pending())
-	 {
+         {
            gtk_main_iteration();
-	 }
+         }
 
 	 fclose(infile);
 	 remove(copyfilename);
@@ -3511,17 +3664,21 @@ static void scan_dialog(GtkWidget * widget, gpointer call_data)
 
     if (extension)
     {
-      if (!strcmp(extension, "png"))
+      if (!strcasecmp(extension, "png"))
       {
         xsane.xsane_output_format = XSANE_PNG;
       }
-      else if ( (!strcmp(extension, "jpg")) || (!strcmp(extension, "jpeg")) )
+      else if ( (!strcasecmp(extension, "jpg")) || (!strcasecmp(extension, "jpeg")) )
       {
         xsane.xsane_output_format = XSANE_JPEG;
       }
-      else if (!strcmp(extension, "ps"))
+      else if (!strcasecmp(extension, "ps"))
       {
         xsane.xsane_output_format = XSANE_PS;
+      }
+      else if ( (!strcasecmp(extension, "tif")) || (!strcasecmp(extension, "tiff")) )
+      {
+        xsane.xsane_output_format = XSANE_TIFF;
       }
     }
 
@@ -4073,12 +4230,12 @@ static void xsane_setup_dialog(GtkWidget *widget, gpointer data)
   xsane_separator_new(vbox);
 
 #ifdef HAVE_LIBJPEG
-  xsane_scale_new(GTK_BOX(vbox), "JPEG image quality", "Quality if image is saved as jpeg", 0.0, 100.0, 1.0, 1.0, 0.0, 0,
+  xsane_scale_new(GTK_BOX(vbox), "JPEG image quality", DESC_JPEG_QUALITY, 0.0, 100.0, 1.0, 1.0, 0.0, 0,
                   &preferences.jpeg_quality, &scale, xsane_quality_changed);
 #endif
 
 #ifdef HAVE_LIBPNG
-  xsane_scale_new(GTK_BOX(vbox), "PNG image compression", "Compression if image is saved as png", 0.0, Z_BEST_COMPRESSION, 1.0, 1.0, 0.0, 0,
+  xsane_scale_new(GTK_BOX(vbox), "PNG image compression", DESC_PNG_COMPRESSION, 0.0, Z_BEST_COMPRESSION, 1.0, 1.0, 0.0, 0,
                   &preferences.png_compression, &scale, xsane_quality_changed);
 #endif
 
@@ -4329,7 +4486,6 @@ void panel_build(GSGDialog * dialog)
   dialog->well_known.coord[GSG_TL_Y] = -1;
   dialog->well_known.coord[GSG_BR_X] = -1;
   dialog->well_known.coord[GSG_BR_Y] = -1;
-  dialog->well_known.custom_gamma    = -1;
   dialog->well_known.gamma_vector    = -1;
   dialog->well_known.gamma_vector_r  = -1;
   dialog->well_known.gamma_vector_g  = -1;
@@ -4386,8 +4542,6 @@ void panel_build(GSGDialog * dialog)
             dialog->well_known.coord[GSG_BR_X] = i;
           else if (strcmp (opt->name, SANE_NAME_SCAN_BR_Y) == 0)
             dialog->well_known.coord[GSG_BR_Y] = i;
-          else if (strcmp (opt->name, SANE_NAME_CUSTOM_GAMMA) == 0)
-            dialog->well_known.custom_gamma = i;
           else if (strcmp (opt->name, SANE_NAME_GAMMA_VECTOR) == 0)
             dialog->well_known.gamma_vector = i;
           else if (strcmp (opt->name, SANE_NAME_GAMMA_VECTOR_R) == 0)
@@ -5073,6 +5227,7 @@ static void device_dialog(void)
 
 static void ok_choose_dialog_callback(void)
 {
+  gtk_signal_disconnect_by_func(GTK_OBJECT(choose_device_dialog), GTK_SIGNAL_FUNC(files_exit_callback), NULL);
   gtk_widget_destroy(choose_device_dialog);
   device_dialog();
 }
@@ -5090,7 +5245,7 @@ static void select_device_callback(GtkWidget * widget, GdkEventButton *event, gp
 
 static gint32 choose_device(void)
 {
- GtkWidget *main_vbox, *vbox, *hbox, *button;
+ GtkWidget *main_vbox, *vbox, *hbox, *button, *device_frame, *device_vbox;
  GSList *owner;
  const SANE_Device *adev;
  gint i;
@@ -5100,10 +5255,17 @@ static gint32 choose_device(void)
  GdkPixmap *pixmap;
  GtkStyle *style;
  GdkColor *bg_trans;
+ GdkFont *newfont=0;
+ GdkFont *oldfont=0;
+ char vendor[9];
+ char model[17];
+ char type[20];
+ int j;
 
   choose_device_dialog = gtk_dialog_new();
   gtk_window_position(GTK_WINDOW(choose_device_dialog), GTK_WIN_POS_CENTER);
   gtk_window_set_policy(GTK_WINDOW(choose_device_dialog), FALSE, FALSE, FALSE);
+  gtk_signal_connect(GTK_OBJECT(choose_device_dialog), "destroy", GTK_SIGNAL_FUNC(files_exit_callback), NULL);
   sprintf(buf, "%s device selection",prog_name);
   gtk_window_set_title(GTK_WINDOW(choose_device_dialog), buf);
 
@@ -5127,22 +5289,56 @@ static gint32 choose_device(void)
   gtk_widget_show(pixmapwidget);
   gdk_pixmap_unref(pixmap);
 
+
   xsane_separator_new(vbox);
 
-  /* The list of drivers */
-  /* The radio buttons */
+
+  /* list the drivers with radiobuttons */
+  device_frame = gtk_frame_new("Available devices:");
+  gtk_box_pack_start(GTK_BOX(vbox), device_frame, FALSE, FALSE, 2);
+  gtk_widget_show(device_frame);
+
+  device_vbox = gtk_vbox_new(FALSE, 5);
+  gtk_container_border_width(GTK_CONTAINER(device_vbox), 3);
+  gtk_container_add(GTK_CONTAINER(device_frame), device_vbox);
+
+  gtk_widget_realize(device_vbox);
+  style = gtk_widget_get_style(device_vbox);
+  newfont = gdk_font_load("-misc-fixed-medium-r-semicondensed--13-100-*");
+  if (newfont)
+  {
+    oldfont = style->font;
+    style->font = newfont;
+  }
+
   owner = NULL;
   for (i = 0; i < ndevs; i++)
   {
     adev = devlist[i];
 
-    sprintf(buf, "%s	%s	%s	[%s]", adev->vendor, adev->model, adev->type, adev->name);
+    strncpy(vendor, adev->vendor, sizeof(vendor)-1);
+    for (j = strlen(vendor); j < sizeof(vendor)-1; j++)
+    { vendor[j]=' '; }
+    vendor[j]=0;
+
+    strncpy(model, adev->model, sizeof(model)-1);
+    for (j = strlen(model); j < sizeof(model)-1; j++)
+    { model[j]=' '; }
+    model[j]=0;
+
+    strncpy(type, adev->type, sizeof(type)-1);
+    for (j = strlen(type); j < sizeof(type)-1; j++)
+    { type[j]=' '; }
+    type[j]=0;
+
+    sprintf(buf, "%s %s %s [%s]", vendor, model, type, adev->name);
     button = gtk_radio_button_new_with_label(owner, (char *) buf);
     gtk_signal_connect(GTK_OBJECT(button), "button_press_event", (GtkSignalFunc) select_device_callback, (void *) (long) i);
-    gtk_box_pack_start(GTK_BOX(vbox), button, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(device_vbox), button, TRUE, TRUE, 0);
     gtk_widget_show(button);
     owner = gtk_radio_button_group(GTK_RADIO_BUTTON(button));;
   }
+  gtk_widget_show(device_vbox);
 
   /* The bottom row of buttons */
   hbox = GTK_DIALOG(choose_device_dialog)->action_area;
@@ -5162,6 +5358,12 @@ static gint32 choose_device(void)
   gtk_widget_show(button);
 
   gtk_widget_show(choose_device_dialog);
+
+  if (oldfont) /* I think this is not the planned way to do it, but otherwise I get a sigseg */
+  {
+    style->font = oldfont;
+    gdk_font_unref(newfont);
+  }
   return 0;
 }
 

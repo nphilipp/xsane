@@ -48,9 +48,12 @@
 #define DESC_HIST_PIXEL		"Display histogram with lines instead of pixels"
 #define DESC_HIST_LOG		"Show logarithm of pixelcount"
 
+#define DESC_JPEG_QUALITY	"Quality if image is saved as jpeg"
+#define DESC_PNG_COMPRESSION	"Compression if image is saved as png"
+
 enum
 {
- XSANE_PNM, XSANE_JPEG, XSANE_PNG, XSANE_PS
+ XSANE_PNM, XSANE_JPEG, XSANE_PNG, XSANE_PS, XSANE_TIFF
 };
 
 #endif

@@ -2,19 +2,17 @@ This is a list of what I want to change/include for xsane.
 If you have any suggestions: mail to Oliver.Rauch@Wolfsburg.DE
 
 first steps:
+ - test memory after all calls of malloc
  - set resolution in copy-mode at beginning
  - program cancel_handler for data conversion
- - what happens if backend supports gamma table but does not
-   use "custom_gamma"-option and we do a preview scan with enhancement != default ?
  - make better backend-dependend option handling and error handling (mostly done!)
  - program better preview
    - zoom preview
    - pick white and black point
    - sizeable window
- - gamma correction for all modes with 8/10/12 bpp and if scanner does not support gamma table (partly done)
  - include invert (for negatives) into enhancement
  - let user add a list of printers for photocopy
- - print info about used (hidden) parametres (software/scanner gamma, analog gamma ...)
+ - print info about used (hidden) parametres (used scanner and device, software/scanner gamma, analog gamma ...)
  - xsane_setup: select image position on printer (centered/left/right/...) for copy
  - store more than 1 enhancement and give names for it, may be in own files
  - postscript-output for 10/12 bpp (does postscript support it?)
@@ -22,7 +20,6 @@ first steps:
  - may be email-function
  - other output formats for saving:
    - gif ?
-   - tiff ?
    - ...?
  - online help (netscape remote)
  - save all options to a file including preview-selection
