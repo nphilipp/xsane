@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE pre 0.92\n"
-"POT-Creation-Date: 2003-08-05 22:36+0200\n"
+"POT-Creation-Date: 2004-04-20 18:54+0200\n"
 "PO-Revision-Date: 2003-08-03 14:12+01:00\n"
 "Last-Translator: Johan Bengtsson <jb@goteborg.bostream.se>\n"
 "Language-Team: LANGUAGE <sv@li.org>\n"

@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.90\n"
-"POT-Creation-Date: 2002-12-13 19:46+0100\n"
-"PO-Revision-Date: 2002-12-11 12:50+0100\n"
+"POT-Creation-Date: 2004-04-20 18:54+0200\n"
+"PO-Revision-Date: 2004-04-21 14:17+0200\n"
 "Last-Translator: Stanislav Brabec <sbrabec@suse.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1088,6 +1088,10 @@ msgstr "Zobrazovat seznam rozlišení"
 msgid "Rotate postscript"
 msgstr "Rotovat postscript"
 
+#. MENU_ITEM_EDIT_MEDIUM_DEF
+msgid "Edit medium definition"
+msgstr "Upravit definici média"
+
 #. MENU_ITEM_SAVE_DEVICE_SETTINGS
 msgid "Save device settings"
 msgstr "Zapsat nastavení zařízení"
@@ -1294,8 +1298,8 @@ msgstr ""
 "pošta-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
-msgid "Select source medium type"
-msgstr "Zvolte typ zdrojového média"
+msgid "Select source medium type\n"
+msgstr "Zvolte typ zdrojového média\n"
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1348,6 +1352,10 @@ msgstr "Zadejte předmět zprávy"
 msgid "Enter new name for preset area"
 msgstr "Zadejte nové jméno pro předvolenou oblast"
 
+#. DESC_MEDIUM_DEFINITION_NAME
+msgid "Enter new name for medium definition"
+msgstr "Zadejte nové jméno pro definici média"
+
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
 msgstr "Volba definice tiskárny <Přeřaďovač-F1/F2/...>"
@@ -1381,8 +1389,8 @@ msgid "Set number of copies"
 msgstr "Nastavení počtu kopií"
 
 #. DESC_NEGATIVE
-msgid "Negative: Invert colors for scanning negatives <Shift-n>"
-msgstr "Negativ: Invertuje barvy pro skenování negativů <Přeřaďovač-n>"
+msgid "Negative: Invert colors for scanning negatives <Ctrl-n>"
+msgstr "Negativ: Invertuje barvy pro skenování negativů <Ctrl-n>"
 
 #. DESC_GAMMA
 msgid "Set gamma value"
@@ -1439,40 +1447,40 @@ msgstr "Nastavení prahu"
 #. DESC_RGB_DEFAULT
 msgid ""
 "RGB default: Set enhancement values for red, green and blue to default "
-"values <Shift-b>:\n"
+"values <Ctrl-b>:\n"
 " gamma = 1.0\n"
 " brightness = 0\n"
 " contrast = 0"
 msgstr ""
 "Implicitní RGB: Nastavení implicitních hodnot pro zpracování červené, zelené "
-"a modré <Přeřaďovač-b>:\n"
+"a modré <Ctrl-b>:\n"
 " gama = 1.0\n"
 " jas = 0\n"
 " kontrast = 0"
 
 #. DESC_ENH_AUTO
-msgid "Autoadjust gamma, brightness and contrast <Shift-e>"
-msgstr "Automatické nastavení gamy, jasu a kontrastu <Přeřaďovač-e>"
+msgid "Autoadjust gamma, brightness and contrast <Ctrl-e>"
+msgstr "Automatické nastavení gamy, jasu a kontrastu <Ctrl-e>"
 
 #. DESC_ENH_DEFAULT
 msgid ""
-"Set default enhancement values <Shift-d>:\n"
+"Set default enhancement values <Ctrl-0>:\n"
 "gamma = 1.0\n"
 "brightness = 0\n"
 "contrast = 0"
 msgstr ""
-"Nastavení implicitních hodnot zpracování  <Přeřaďovač-d>:\n"
+"Nastavení implicitních hodnot zpracování <Ctrl-0>:\n"
 "gama = 1.0\n"
 "jas = 0\n"
 "kontrast = 0"
 
 #. DESC_ENH_RESTORE
-msgid "Restore enhancement values from preferences <Shift-r>"
-msgstr "Obnovení hodnot zpracování z předvoleb  <Přeřaďovač-r>"
+msgid "Restore enhancement values from preferences <Ctrl-r>"
+msgstr "Obnovení hodnot zpracování z předvoleb <Ctrl-r>"
 
 #. DESC_ENH_STORE
-msgid "Store active enhancement values to preferences <Shift-m>"
-msgstr "Uložení aktivních hodnot zpracování do předvoleb  <Přeřaďovač-m>"
+msgid "Store active enhancement values to preferences <Ctrl-+>"
+msgstr "Uložení aktivních hodnot zpracování do předvoleb <Ctrl-+>"
 
 #. DESC_HIST_INTENSITY
 msgid "Show histogram of intensity/gray <Alt-i>"
@@ -1932,7 +1940,7 @@ msgstr "Rotace náhledu a skenování"
 
 #. DESC_RATIO
 msgid "Aspect ratio of selection"
-msgstr ""
+msgstr "Poměr stran výběru"
 
 #. DESC_PAPER_ORIENTATION
 msgid "Define image position for printing"
@@ -1992,11 +2000,11 @@ msgstr "Faktoru změny velikosti Y"
 
 #. DESC_SCALE_WIDTH
 msgid "Scale image to width [in pixel]"
-msgstr ""
+msgstr "Zmenit velikost obrázku na šířku [v pixelech]"
 
 #. DESC_SCALE_HEIGHT
 msgid "Scale image to height [in pixel]"
-msgstr ""
+msgstr "Zmenit velikost obrázku na výšku [v pixelech]"
 
 #. DESC_BATCH_LIST_EMPTY
 msgid "Empty batch list"
@@ -2021,6 +2029,10 @@ msgstr "Přidat vybranou náhledovou oblast do seznamu dávek"
 #. DESC_BATCH_DEL
 msgid "Delete selected area from batch list"
 msgstr "Přidat vybranou oblast ze seznamu dávek"
+
+#. DESC_AUTOMATIC
+msgid "Turns on automatic mode"
+msgstr "Zapne automatický režim"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2122,6 +2134,10 @@ msgstr "LIBTIFF hlásí chybu"
 #. ERR_LIBPNG
 msgid "LIBPNG reports error"
 msgstr "LIBPNG hlásí chybu"
+
+#. ERR_LIBJPEG
+msgid "LIBJPEG reports error"
+msgstr "LIBJPEG hlásí chybu"
 
 #. ERR_UNKNOWN_TYPE
 msgid "unknown type"
@@ -2336,8 +2352,6 @@ msgid ""
 " -m, --mail                   start with mail-mode active\n"
 " -n, --no-mode-selection      disable menu for XSane mode selection\n"
 "\n"
-" -M, --Medium-calibration     enable medium calibration mode\n"
-"\n"
 " -F, --Fixed                  fixed main window size (overwrite preferences "
 "value)\n"
 " -R, --Resizeable             resizable, scrolled main window (overwrite "
@@ -2352,8 +2366,8 @@ msgid ""
 " --sync                       request a synchronous connection with the X11 "
 "server"
 msgstr ""
-"Spuštění grafického rozhraní pro přístup k SANE zařízením.\n"
-"(SANE = Scanner Access Now Easy - přístup ke skeneru je nyní snadný)\n"
+"Spuštění grafického rozhraní pro přístup k SANE zařízením\n"
+"(SANE = Scanner Access Now Easy - přístup ke skeneru je nyní snadný).\n"
 "\n"
 "Formát [ZAŘÍZENÍ] je jméno_ovladače:jméno_zařízení (např. umax:/dev/"
 "scanner).\n"
@@ -2365,21 +2379,20 @@ msgstr ""
 " -d, --device-settings soubor  načte nastavení zařízení ze souboru (bez \"."
 "drc\")\n"
 "\n"
-" -s, --save                    spustí se v režimu zípisu\n"
 " -V, --viewer                  spustí se v režimu prohlížeče (implicitní)\n"
+" -s, --save                    spustí se v režimu zápisu\n"
 " -c, --copy                    spustí se v režimu kopírování\n"
 " -f, --fax                     spustí se v režimu faxování\n"
 " -m, --mail                    spustí se v režimu pošty\n"
 " -n, --no-mode-selection       zakáže menu volby režimu XSane\n"
-"\n"
-" -M, --Medium-calibration      povolit režim kalibrace média\n"
 "\n"
 " -F, --Fixed                   použije pevnou velikost hlavního okna\n"
 "                               (přepíše hodnotu předvolby)\n"
 " -R, --Resizeable              použije hlavní okno s posuvníky a proměnnou "
 "velikostí\n"
 "                               (přepíše hodnotu předvolby)\n"
-" -p, --print-filenames         vypíše jména souborů s vytvořenými obrázky\n"
+"\n"
+" -p, --print-filenames         vypíše jména souborů vytvořená XSane\n"
 " -N, --force-filename name     vnutí jméno souboru a vypne volbu jména "
 "souboru\n"
 "\n"

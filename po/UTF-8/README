@@ -1,0 +1,7 @@
+The UTF8 files are created from the files in the parent directory xsane-?.??/po
+by callink "make utf8" (you need the program "recode",
+e.g. from http://recode.progiciels-bpi.ca/).
+In the moment the utf8 files are only used for
+xsane-win32. May be they will be also used for the unix version one day.
+
+Oliver Rauch

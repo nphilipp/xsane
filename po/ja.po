@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.89\n"
-"POT-Creation-Date: 2003-08-05 22:36+0200\n"
+"POT-Creation-Date: 2004-04-20 18:54+0200\n"
 "PO-Revision-Date: 2002-10-11 21:54+900\n"
 "Last-Translator: Kimizuka Tomokazu <sgtom@pluto.dti.ne.jp>\n"
 "Language-Team: Japanese <Kdeveloper@kde.gr.jp>\n"

@@ -3,7 +3,7 @@
    xsane-save.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2002 Oliver Rauch
+   Copyright (C) 1998-2004 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -62,12 +62,16 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#ifdef HAVE_LIBGIMP_GIMP_H
+#ifdef HAVE_ANY_GIMP
  
 #include <libgimp/gimp.h>
  
 static void xsane_gimp_query(void);
-static void xsane_gimp_run(char *name, int nparams, GimpParam * param, int *nreturn_vals, GimpParam ** return_vals);
+#ifdef HAVE_GIMP_2
+static void xsane_gimp_run(const gchar *name, gint nparams, const GimpParam *param, gint *nreturn_vals, GimpParam **return_vals);
+#else
+static void xsane_gimp_run(char *name, int nparams, GimpParam *param, int *nreturn_vals, GimpParam **return_vals);
+#endif
  
 GimpPlugInInfo PLUG_IN_INFO =
 {
@@ -83,7 +87,7 @@ char *buf);
 static int xsane_encode_devname(const char *devname, int n, char *buf);
 void null_print_func(gchar *msg);
  
-#endif /* HAVE_LIBGIMP_GIMP_H */
+#endif /* HAVE_ANY_GIMP */
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 /* why this routine ? 
@@ -3614,7 +3618,7 @@ int xsane_save_image_as(char *input_filename, char *output_filename, int output_
 /* ---------------------------------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#ifdef HAVE_LIBGIMP_GIMP_H
+#ifdef HAVE_ANY_GIMP
 static int xsane_decode_devname(const char *encoded_devname, int n, char *buf)
 {
  char *dst, *limit;
@@ -3845,10 +3849,17 @@ static void xsane_gimp_query(void)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_gimp_run(char *name, int nparams, GimpParam * param, int *nreturn_vals, GimpParam ** return_vals)
+#ifdef HAVE_GIMP_2
+static void xsane_gimp_run(const gchar *name, gint nparams, const GimpParam *param, gint *nreturn_vals, GimpParam **return_vals)
 {
- static GimpParam values[2];
+ GimpRunMode run_mode;
+#else /* GIMP-1.x */
+static void xsane_gimp_run(char *name, int nparams, GimpParam *param, int *nreturn_vals, GimpParam **return_vals)
+{
  GimpRunModeType run_mode;
+#endif
+
+ static GimpParam values[2];
  char devname[1024];
  char *args[2];
  int nargs;
@@ -3881,6 +3892,9 @@ static void xsane_gimp_run(char *name, int nparams, GimpParam * param, int *nret
   switch (run_mode)
   {
     case GIMP_RUN_INTERACTIVE:
+#ifdef HAVE_GIMP_2
+      gimp_extension_ack();
+#endif
       xsane_interface(nargs, args);
       values[0].data.d_status = GIMP_PDB_SUCCESS;
       break;
@@ -4179,7 +4193,7 @@ int xsane_transfer_to_gimp(char *input_filename, GtkProgressBar *progress_bar, i
 
  return 0;
 }
-#endif /* HAVE_LIBGIMP_GIMP_H */ 
+#endif /* HAVE_ANY_GIMP */ 
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------------------------------- */

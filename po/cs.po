@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.90\n"
-"POT-Creation-Date: 2003-08-05 22:36+0200\n"
-"PO-Revision-Date: 2002-12-11 12:50+0100\n"
+"POT-Creation-Date: 2004-04-20 18:54+0200\n"
+"PO-Revision-Date: 2004-04-21 14:17+0200\n"
 "Last-Translator: Stanislav Brabec <sbrabec@suse.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1089,9 +1089,8 @@ msgid "Rotate postscript"
 msgstr "Rotovat postscript"
 
 #. MENU_ITEM_EDIT_MEDIUM_DEF
-#, fuzzy
 msgid "Edit medium definition"
-msgstr "Ulo¾it definici média"
+msgstr "Upravit definici média"
 
 #. MENU_ITEM_SAVE_DEVICE_SETTINGS
 msgid "Save device settings"
@@ -1299,9 +1298,8 @@ msgstr ""
 "po¹ta-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
-#, fuzzy
 msgid "Select source medium type\n"
-msgstr "Zvolte typ zdrojového média"
+msgstr "Zvolte typ zdrojového média\n"
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1355,9 +1353,8 @@ msgid "Enter new name for preset area"
 msgstr "Zadejte nové jméno pro pøedvolenou oblast"
 
 #. DESC_MEDIUM_DEFINITION_NAME
-#, fuzzy
 msgid "Enter new name for medium definition"
-msgstr "Ulo¾it definici média"
+msgstr "Zadejte nové jméno pro definici média"
 
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
@@ -1392,9 +1389,8 @@ msgid "Set number of copies"
 msgstr "Nastavení poètu kopií"
 
 #. DESC_NEGATIVE
-#, fuzzy
 msgid "Negative: Invert colors for scanning negatives <Ctrl-n>"
-msgstr "Negativ: Invertuje barvy pro skenování negativù <Pøeøaïovaè-n>"
+msgstr "Negativ: Invertuje barvy pro skenování negativù <Ctrl-n>"
 
 #. DESC_GAMMA
 msgid "Set gamma value"
@@ -1449,7 +1445,6 @@ msgid "Set threshold"
 msgstr "Nastavení prahu"
 
 #. DESC_RGB_DEFAULT
-#, fuzzy
 msgid ""
 "RGB default: Set enhancement values for red, green and blue to default "
 "values <Ctrl-b>:\n"
@@ -1458,38 +1453,34 @@ msgid ""
 " contrast = 0"
 msgstr ""
 "Implicitní RGB: Nastavení implicitních hodnot pro zpracování èervené, zelené "
-"a modré <Pøeøaïovaè-b>:\n"
+"a modré <Ctrl-b>:\n"
 " gama = 1.0\n"
 " jas = 0\n"
 " kontrast = 0"
 
 #. DESC_ENH_AUTO
-#, fuzzy
 msgid "Autoadjust gamma, brightness and contrast <Ctrl-e>"
-msgstr "Automatické nastavení gamy, jasu a kontrastu <Pøeøaïovaè-e>"
+msgstr "Automatické nastavení gamy, jasu a kontrastu <Ctrl-e>"
 
 #. DESC_ENH_DEFAULT
-#, fuzzy
 msgid ""
 "Set default enhancement values <Ctrl-0>:\n"
 "gamma = 1.0\n"
 "brightness = 0\n"
 "contrast = 0"
 msgstr ""
-"Nastavení implicitních hodnot zpracování  <Pøeøaïovaè-d>:\n"
+"Nastavení implicitních hodnot zpracování <Ctrl-0>:\n"
 "gama = 1.0\n"
 "jas = 0\n"
 "kontrast = 0"
 
 #. DESC_ENH_RESTORE
-#, fuzzy
 msgid "Restore enhancement values from preferences <Ctrl-r>"
-msgstr "Obnovení hodnot zpracování z pøedvoleb  <Pøeøaïovaè-r>"
+msgstr "Obnovení hodnot zpracování z pøedvoleb <Ctrl-r>"
 
 #. DESC_ENH_STORE
-#, fuzzy
 msgid "Store active enhancement values to preferences <Ctrl-+>"
-msgstr "Ulo¾ení aktivních hodnot zpracování do pøedvoleb  <Pøeøaïovaè-m>"
+msgstr "Ulo¾ení aktivních hodnot zpracování do pøedvoleb <Ctrl-+>"
 
 #. DESC_HIST_INTENSITY
 msgid "Show histogram of intensity/gray <Alt-i>"
@@ -1949,7 +1940,7 @@ msgstr "Rotace náhledu a skenování"
 
 #. DESC_RATIO
 msgid "Aspect ratio of selection"
-msgstr ""
+msgstr "Pomìr stran výbìru"
 
 #. DESC_PAPER_ORIENTATION
 msgid "Define image position for printing"
@@ -2009,11 +2000,11 @@ msgstr "Faktoru zmìny velikosti Y"
 
 #. DESC_SCALE_WIDTH
 msgid "Scale image to width [in pixel]"
-msgstr ""
+msgstr "Zmenit velikost obrázku na ¹íøku [v pixelech]"
 
 #. DESC_SCALE_HEIGHT
 msgid "Scale image to height [in pixel]"
-msgstr ""
+msgstr "Zmenit velikost obrázku na vý¹ku [v pixelech]"
 
 #. DESC_BATCH_LIST_EMPTY
 msgid "Empty batch list"
@@ -2041,7 +2032,7 @@ msgstr "Pøidat vybranou oblast ze seznamu dávek"
 
 #. DESC_AUTOMATIC
 msgid "Turns on automatic mode"
-msgstr ""
+msgstr "Zapne automatický re¾im"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2145,9 +2136,8 @@ msgid "LIBPNG reports error"
 msgstr "LIBPNG hlásí chybu"
 
 #. ERR_LIBJPEG
-#, fuzzy
 msgid "LIBJPEG reports error"
-msgstr "LIBPNG hlásí chybu"
+msgstr "LIBJPEG hlásí chybu"
 
 #. ERR_UNKNOWN_TYPE
 msgid "unknown type"
@@ -2342,7 +2332,6 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[VOLBA]... [ZAØÍZENÍ]"
 
 #. TEXT_HELP
-#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2377,8 +2366,8 @@ msgid ""
 " --sync                       request a synchronous connection with the X11 "
 "server"
 msgstr ""
-"Spu¹tìní grafického rozhraní pro pøístup k SANE zaøízením.\n"
-"(SANE = Scanner Access Now Easy - pøístup ke skeneru je nyní snadný)\n"
+"Spu¹tìní grafického rozhraní pro pøístup k SANE zaøízením\n"
+"(SANE = Scanner Access Now Easy - pøístup ke skeneru je nyní snadný).\n"
 "\n"
 "Formát [ZAØÍZENÍ] je jméno_ovladaèe:jméno_zaøízení (napø. umax:/dev/"
 "scanner).\n"
@@ -2390,21 +2379,20 @@ msgstr ""
 " -d, --device-settings soubor  naète nastavení zaøízení ze souboru (bez \"."
 "drc\")\n"
 "\n"
-" -s, --save                    spustí se v re¾imu zípisu\n"
 " -V, --viewer                  spustí se v re¾imu prohlí¾eèe (implicitní)\n"
+" -s, --save                    spustí se v re¾imu zápisu\n"
 " -c, --copy                    spustí se v re¾imu kopírování\n"
 " -f, --fax                     spustí se v re¾imu faxování\n"
 " -m, --mail                    spustí se v re¾imu po¹ty\n"
 " -n, --no-mode-selection       zaká¾e menu volby re¾imu XSane\n"
-"\n"
-" -M, --Medium-calibration      povolit re¾im kalibrace média\n"
 "\n"
 " -F, --Fixed                   pou¾ije pevnou velikost hlavního okna\n"
 "                               (pøepí¹e hodnotu pøedvolby)\n"
 " -R, --Resizeable              pou¾ije hlavní okno s posuvníky a promìnnou "
 "velikostí\n"
 "                               (pøepí¹e hodnotu pøedvolby)\n"
-" -p, --print-filenames         vypí¹e jména souborù s vytvoøenými obrázky\n"
+"\n"
+" -p, --print-filenames         vypí¹e jména souborù vytvoøená XSane\n"
 " -N, --force-filename name     vnutí jméno souboru a vypne volbu jména "
 "souboru\n"
 "\n"

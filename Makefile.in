@@ -48,6 +48,12 @@ distclean: clean distclean-recursive
 	rm -f *~ include/*~ include/sane/*~ *.log *.bak libtool
 	rm -f include/sane/config.h Makefile config.cache config.status
 	rm -f intl/Makefile
+	rm -rf autom4te.cache
+
+autoconfig: autoconfig-recursive 
+	aclocal -I m4
+	autoconf configure.in >configure
+	rm -rf autom4te.cache
 
 depend: depend-recursive
 
@@ -60,5 +66,5 @@ depend-recursive rpm-recursive:
 	   || case "$(MFLAGS)" in *k*) fail=yes;; *) exit 1;; esac; \
 	done && test -z "$$fail"
 
-.PHONY: all clean depend \
-	all-recursive install-recursive clean-recursive depend-recursive
+.PHONY: all clean depend rpm autoconfig \
+	all-recursive install-recursive clean-recursive depend-recursive autoconfig-recursive

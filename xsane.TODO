@@ -40,7 +40,7 @@ Sign explaination:
  gamma function:
     # add target gamma (e.g. for web publishing)
     # correct gtk custom gamma functions and include it
-      may be write an own gamma curve widget
+      or better: write an own gamma curve widget
 
  medium selection:
     - medium definition in dependance of the scanner (?)
@@ -74,7 +74,7 @@ Sign explaination:
       use next neighbour with high transmission(i) value
       (may be to viewer)
    + test if file is writable before scan is started
-   ? show histogram of scanned image?
+   ? show histogram of scanned image (viewer?)?
    ? show scanned image in save mode or automatically save image in viewer mode?
    ? project save/load with preview image, scanmode, .... ???
 
@@ -91,7 +91,7 @@ Sign explaination:
     - add a twain-win32 interface (for xsane-win32)
     - define a twain-unix interface in cooperation with TWAIN-group
       (first contact to TWAIN in summer 1999, TWAIN is intersted in
-      creating a TWAIN-unix interface that uses sane as scanner driver API
+      creating a TWAIN-unix interface that uses sane as scanner driver API)
     - add a twain-unix interface to xsane
  
  WIN32 version of xsane/sane

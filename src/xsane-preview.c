@@ -3,7 +3,7 @@
    xsane-preview.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2002 Oliver Rauch
+   Copyright (C) 1998-2004 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -6332,7 +6332,10 @@ void preview_do_gamma_correction(Preview *p)
 
         for (x=0; x < p->image_width; x++)
         {
-          level = ((*image_data_rawp++) + (*image_data_rawp++) + (*image_data_rawp++)) / 3;
+          level = (*image_data_rawp++); /* red */
+          level += (*image_data_rawp++); /* green */
+          level += (*image_data_rawp++); /* blue */
+          level /= 3;
           level >>= rotate;
           *image_data_enhp++ = preview_gamma_data_red  [level]; /* use 12 bit gamma table */
           *image_data_enhp++ = preview_gamma_data_green[level];

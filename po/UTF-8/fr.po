@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.90\n"
-"POT-Creation-Date: 2002-12-13 19:46+0100\n"
+"POT-Creation-Date: 2004-04-20 18:54+0200\n"
 "PO-Revision-Date: 2000-02-09 21:00+01:00\n"
 "Last-Translator: Laurent Grawet <laurent.grawet@ibelgique.com>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -1090,6 +1090,11 @@ msgstr "Afficher la liste des résolutions"
 msgid "Rotate postscript"
 msgstr "Rotation PostScript"
 
+#. MENU_ITEM_EDIT_MEDIUM_DEF
+#, fuzzy
+msgid "Edit medium definition"
+msgstr "Enregister la définition du support"
+
 #. MENU_ITEM_SAVE_DEVICE_SETTINGS
 msgid "Save device settings"
 msgstr "Enregistrer les paramètres du périphérique"
@@ -1296,7 +1301,8 @@ msgstr ""
 "poster-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
-msgid "Select source medium type"
+#, fuzzy
+msgid "Select source medium type\n"
 msgstr "Sélectionne le type de media de la source"
 
 #. DESC_FILENAME_COUNTER_STEP
@@ -1351,6 +1357,11 @@ msgstr "Entrez le sujet de l'e-mail"
 msgid "Enter new name for preset area"
 msgstr "Entrez un nom pour la présélection"
 
+#. DESC_MEDIUM_DEFINITION_NAME
+#, fuzzy
+msgid "Enter new name for medium definition"
+msgstr "Enregister la définition du support"
+
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
 msgstr "Sélectionne l'imprimante <Shift-F1/F2/...>"
@@ -1384,7 +1395,8 @@ msgid "Set number of copies"
 msgstr "Entrez le nombre de copies"
 
 #. DESC_NEGATIVE
-msgid "Negative: Invert colors for scanning negatives <Shift-n>"
+#, fuzzy
+msgid "Negative: Invert colors for scanning negatives <Ctrl-n>"
 msgstr ""
 "Négatif: Inverse les couleurs pour la numérisation de négatifs <Shift-n>"
 
@@ -1441,9 +1453,10 @@ msgid "Set threshold"
 msgstr "Change le seuil"
 
 #. DESC_RGB_DEFAULT
+#, fuzzy
 msgid ""
 "RGB default: Set enhancement values for red, green and blue to default "
-"values <Shift-b>:\n"
+"values <Ctrl-b>:\n"
 " gamma = 1.0\n"
 " brightness = 0\n"
 " contrast = 0"
@@ -1455,12 +1468,14 @@ msgstr ""
 " contraste = 0"
 
 #. DESC_ENH_AUTO
-msgid "Autoadjust gamma, brightness and contrast <Shift-e>"
+#, fuzzy
+msgid "Autoadjust gamma, brightness and contrast <Ctrl-e>"
 msgstr "Ajuste automatiquement gamma, luminosité et contraste <Shift-e>"
 
 #. DESC_ENH_DEFAULT
+#, fuzzy
 msgid ""
-"Set default enhancement values <Shift-d>:\n"
+"Set default enhancement values <Ctrl-0>:\n"
 "gamma = 1.0\n"
 "brightness = 0\n"
 "contrast = 0"
@@ -1471,11 +1486,13 @@ msgstr ""
 " contraste = 0"
 
 #. DESC_ENH_RESTORE
-msgid "Restore enhancement values from preferences <Shift-r>"
+#, fuzzy
+msgid "Restore enhancement values from preferences <Ctrl-r>"
 msgstr "Restaure les optimisations des préférences <Shift-r>"
 
 #. DESC_ENH_STORE
-msgid "Store active enhancement values to preferences <Shift-m>"
+#, fuzzy
+msgid "Store active enhancement values to preferences <Ctrl-+>"
 msgstr "Enregistre les optimisations actives dans les préférences <Shift-m>"
 
 #. DESC_HIST_INTENSITY
@@ -2043,6 +2060,10 @@ msgstr "Ajoute la sélection de la prévisualisation à la liste"
 msgid "Delete selected area from batch list"
 msgstr "Supprime l'aire sélectionnée de la liste"
 
+#. DESC_AUTOMATIC
+msgid "Turns on automatic mode"
+msgstr ""
+
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
 msgstr "Impossible de déterminer le répertoire personnel:"
@@ -2143,6 +2164,11 @@ msgstr "LIBTIFF a reporté une erreur"
 
 #. ERR_LIBPNG
 msgid "LIBPNG reports error"
+msgstr "LIBPNG a reporté une erreur"
+
+#. ERR_LIBJPEG
+#, fuzzy
+msgid "LIBJPEG reports error"
 msgstr "LIBPNG a reporté une erreur"
 
 #. ERR_UNKNOWN_TYPE
@@ -2340,6 +2366,7 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[OPTION]... [PERIPHERIQUE]"
 
 #. TEXT_HELP
+#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2359,8 +2386,6 @@ msgid ""
 " -f, --fax                    start with fax-mode active\n"
 " -m, --mail                   start with mail-mode active\n"
 " -n, --no-mode-selection      disable menu for XSane mode selection\n"
-"\n"
-" -M, --Medium-calibration     enable medium calibration mode\n"
 "\n"
 " -F, --Fixed                  fixed main window size (overwrite preferences "
 "value)\n"

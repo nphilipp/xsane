@@ -3,7 +3,7 @@
    xsane-scan.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2002 Oliver Rauch
+   Copyright (C) 1998-2004 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -1220,13 +1220,13 @@ void xsane_scan_done(SANE_Status status)
         }
 
 
-#ifdef HAVE_LIBGIMP_GIMP_H
+#ifdef HAVE_ANY_GIMP
         if (xsane.mode == XSANE_GIMP_EXTENSION)	/* xsane runs as gimp plugin */
         {
           xsane_transfer_to_gimp(xsane.dummy_filename, xsane.progress_bar, &xsane.cancel_save);
         }
         else
-#endif /* HAVE_LIBGIMP_GIMP_H */
+#endif /* HAVE_ANY_GIMP */
         {
           xsane_save_image_as(xsane.dummy_filename, xsane.output_filename, xsane.xsane_output_format, xsane.progress_bar, &xsane.cancel_save);
         }
@@ -1925,7 +1925,7 @@ void xsane_scan_dialog(void)
       free(extension);
     }
   }
-#ifdef HAVE_LIBGIMP_GIMP_H
+#ifdef HAVE_ANY_GIMP
   else	/* We are running in gimp mode */
   {
     if ((xsane.param.depth != 1) && (xsane.param.depth != 8)) /* not support bit depth ? */

@@ -31,10 +31,10 @@ MKINSTALLDIRS = $(top_srcdir)/@MKINSTALLDIRS@
 
 CC = @CC@
 GENCAT = @GENCAT@
-GMSGFMT = PATH=../src:$$PATH @GMSGFMT@
+GMSGFMT = @GMSGFMT@
 MSGFMT = @MSGFMT@
-XGETTEXT = PATH=../src:$$PATH @XGETTEXT@
-MSGMERGE = PATH=../src:$$PATH msgmerge
+XGETTEXT = @XGETTEXT@
+MSGMERGE = msgmerge
 
 DEFS = @DEFS@
 CFLAGS = @CFLAGS@
@@ -63,25 +63,37 @@ INSTOBJEXT = @INSTOBJEXT@
 	$(COMPILE) $<
 
 .po.pox:
-	$(MAKE) $(PACKAGE).pot
-	$(MSGMERGE) $< $(srcdir)/$(PACKAGE).pot -o $*.pox
+	if test "${MSGMERGE}" != "no"; then \
+	  $(MAKE) $(PACKAGE).pot; \
+	  $(MSGMERGE) $< $(srcdir)/$(PACKAGE).pot -o $*.pox; \
+	fi
 
 .po.mo:
-	$(MSGFMT) -o $@ $<
+	@if test "${MSGFMT}" != "no"; then \
+	  echo "creating $@" ; \
+	  $(MSGFMT) -o $@ $< ; \
+	fi
 
 .po.gmo:
-	file=$(srcdir)/`echo $* | sed 's,.*/,,'`.gmo \
-	  && rm -f $$file && $(GMSGFMT) -o $$file $<
+	@if test "${GMSGFMT}" != "no"; then \
+	  echo "creating $@" ; \
+	  file=$(srcdir)/`echo $* | sed 's,.*/,,'`.gmo \
+	    && rm -f $$file && $(GMSGFMT) -o $$file $< ; \
+	fi
 
 .po.cat:
-	sed -f ../intl/po2msg.sed < $< > $*.msg \
-	  && rm -f $@ && $(GENCAT) $@ $*.msg
+	if test "${GENCAT}" != "no"; then \
+	  echo "creating $@" ; \
+	  sed -f ../intl/po2msg.sed < $< > $*.msg \
+	    && rm -f $@ && $(GENCAT) $@ $*.msg; \
+	fi
 
 
 all: all-@USE_NLS@
 
 all-yes: $(CATALOGS)
 all-no:
+	@echo "*** Nationalziation is disabled! ***"
 
 $(srcdir)/$(PACKAGE).pot: $(srcdir)/xsane-pot.sed $(srcdir)/sane-text.h $(POTFILES)
 	cat $(POTFILES) | \

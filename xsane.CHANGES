@@ -2385,3 +2385,40 @@ xsane-0.91 -> 0.92:
 
  - updated translations: sv
 
+
+xsane-0.92 -> 0.93:
+-------------------
+
+ - added ranlib to lib/Makefile.in to process liblib.a
+
+ - added 2 calls xsane_find_best_resolution() in xsane_resolution_widget_new()
+   to make sure that active value really is selectable in a list of resolutions
+
+ - added range values 9-25% to scaling list of xsane-viewer: 9, 13, 18, 25, 35, 50, 71, 100, 141, 200, 282, 400
+
+ - when no docviewer is defined at xsane startup (generally when xsane is started the first time) then
+   xsane tries to read the environment variable $BROWSER, if this fails it sets docviewer to netscape.
+
+ - xsane-preferences.c: mail dependant entries are only used when mail is activated
+
+ - replaced label HAVE_LIBGIMP_GIMP_H by HAVE_ANY_GIMP
+   HAVE_ANY_GIMP is defined in configure.in when HAVE_GIMP=yes
+
+ - added HAVE_GIMP_2 parts to xsane.c, xsane.h and xsane-save.c
+   HAVE_GIMP_2 is defined by configure.in when GIMP-2.0 was found
+
+ - created subdirectory m4 and put self written macros from aclocal.m4 to m4/*.m4,
+   copied gtk.m4, gtk-2.0.m4 and gimp-2.0.m4 from aclocal installation to m4 subdirectory,
+   gimp-orauch.m4 contains a modified gimp.m4 that also can handle gimp-1.0.x
+   (the original script only does work when gimptool is installed, gimp-1.0.x comes without it)
+   a new aclocal.m4 can be created with "aclocal -I m4/."
+
+ - configure.in: changed AM_FUNC_ALLOCA to AC_FUNC_ALLOCA
+
+ - configure.in + src/xsane.c: changed PACKAGE_VERSION to XSANE_PACKAGE_VERSION
+   because PACKAGE_VERSION did not work any more, looks like a new feature of aclocal or autoconf
+
+ - updated translations: de, it, da, cs, nl, es, sk, ro, fr
+
+ - po/Makefile.in: added test for msgfmt, gmsgfmt, gencat
+

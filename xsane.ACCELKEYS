@@ -29,7 +29,7 @@ Ctl 1		Show Tooltips
 Ctl 2		Show preview
 Ctl 3		Show Histogram
 Ctl 3		(Show Gamma Dialog)
-Ctl 4		Show Advanced Options
+Ctl 4		Show Standard Options
 Ctl 5		Show Advanced Options
 
 Ctl B		Browse Filename

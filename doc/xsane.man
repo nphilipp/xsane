@@ -55,8 +55,10 @@ backendname:devicefile (eg: umax:/dev/sga).
 To run
 .B xsane
 under the
-.BR gimp (1),
-simply set a symbolic link from the xsane-binary to one of the
+.BR gimp (1), you should at first make sure that xsane is
+compiled with gimp support by entering "xsane -v" on a shell.
+If xsane is compiled with gimp support then simply set a
+symbolic link from the xsane-binary to one of the
 .BR gimp (1)
 plug-ins directories.  For example, for gimp-1.0.x the command
 .PP
@@ -64,10 +66,16 @@ plug-ins directories.  For example, for gimp-1.0.x the command
 ln -s @BINDIR@/xsane ~/.gimp/plug-ins/
 .RE
 .PP
-and for gimp 1.2.x the command:
+for gimp 1.2.x the command:
 .PP
 .RS
 ln -s @BINDIR@/xsane ~/.gimp-1.2/plug-ins/
+.RE
+.PP
+and for gimp 2.0.x the command:
+.PP
+.RS
+ln -s @BINDIR@/xsane ~/.gimp-2.0/plug-ins/
 .RE
 .PP
 adds a symlink for the
@@ -78,10 +86,10 @@ will be queried by
 .BR gimp (1)
 the next time it's invoked.  From then on,
 .B xsane
-can be invoked through "Xtns->XSane->Device dialog..." or through
-"File->Acquire->XSane->Device dialog..." menu entry.
+can be invoked through "Xtns->XSane->Device dialog..." (gimp-1.0.x) or through
+"File->Acquire->XSane->Device dialog..." (gimp-1.2.x and 2.0.x) menu entry.
 
-You'll also find that the "Xtns->XSane"/"File->Acquire->XSane" menu contains
+You'll also find that the "Xtns->XSane" or "File->Acquire->XSane" menu contains
 short-cuts to the SANE devices that were available at the time the
 .B xsane
 was queried. 

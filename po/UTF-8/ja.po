@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.89\n"
-"POT-Creation-Date: 2002-12-13 19:46+0100\n"
+"POT-Creation-Date: 2004-04-20 18:54+0200\n"
 "PO-Revision-Date: 2002-10-11 21:54+900\n"
 "Last-Translator: Kimizuka Tomokazu <sgtom@pluto.dti.ne.jp>\n"
 "Language-Team: Japanese <Kdeveloper@kde.gr.jp>\n"
@@ -1088,6 +1088,11 @@ msgstr "解像度リストを表示"
 msgid "Rotate postscript"
 msgstr "PostScriptを回転"
 
+#. MENU_ITEM_EDIT_MEDIUM_DEF
+#, fuzzy
+msgid "Edit medium definition"
+msgstr "触媒の定義を保存"
+
 #. MENU_ITEM_SAVE_DEVICE_SETTINGS
 msgid "Save device settings"
 msgstr "デバイス設定を保存"
@@ -1294,7 +1299,8 @@ msgstr ""
 "メール-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
-msgid "Select source medium type"
+#, fuzzy
+msgid "Select source medium type\n"
 msgstr "素材のメディアタイプ選択"
 
 #. DESC_FILENAME_COUNTER_STEP
@@ -1347,6 +1353,11 @@ msgstr "メールの表題を入力"
 msgid "Enter new name for preset area"
 msgstr "プリセット領域につける名前を新規入力"
 
+#. DESC_MEDIUM_DEFINITION_NAME
+#, fuzzy
+msgid "Enter new name for medium definition"
+msgstr "触媒の定義を保存"
+
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
 msgstr "プリンタの解像度を選択 <Shift-F1/F2/...>"
@@ -1380,7 +1391,8 @@ msgid "Set number of copies"
 msgstr "コピー枚数をセット"
 
 #. DESC_NEGATIVE
-msgid "Negative: Invert colors for scanning negatives <Shift-n>"
+#, fuzzy
+msgid "Negative: Invert colors for scanning negatives <Ctrl-n>"
 msgstr "裏焼き：色彩を裏焼き状態でスキャン <Shift-n>"
 
 #. DESC_GAMMA
@@ -1436,9 +1448,10 @@ msgid "Set threshold"
 msgstr "閾値をセット"
 
 #. DESC_RGB_DEFAULT
+#, fuzzy
 msgid ""
 "RGB default: Set enhancement values for red, green and blue to default "
-"values <Shift-b>:\n"
+"values <Ctrl-b>:\n"
 " gamma = 1.0\n"
 " brightness = 0\n"
 " contrast = 0"
@@ -1449,14 +1462,16 @@ msgstr ""
 "コントラスト = 0"
 
 #. DESC_ENH_AUTO
-msgid "Autoadjust gamma, brightness and contrast <Shift-e>"
+#, fuzzy
+msgid "Autoadjust gamma, brightness and contrast <Ctrl-e>"
 msgstr ""
 "選択されたスキャン領域に応じて、ガンマ値、明度、コントラストを自動調整 "
 "<Shift-e>"
 
 #. DESC_ENH_DEFAULT
+#, fuzzy
 msgid ""
-"Set default enhancement values <Shift-d>:\n"
+"Set default enhancement values <Ctrl-0>:\n"
 "gamma = 1.0\n"
 "brightness = 0\n"
 "contrast = 0"
@@ -1467,11 +1482,13 @@ msgstr ""
 "コントラスト = 0"
 
 #. DESC_ENH_RESTORE
-msgid "Restore enhancement values from preferences <Shift-r>"
+#, fuzzy
+msgid "Restore enhancement values from preferences <Ctrl-r>"
 msgstr "設定した強調値を復元 <Shift-r>"
 
 #. DESC_ENH_STORE
-msgid "Store active enhancement values to preferences <Shift-m>"
+#, fuzzy
+msgid "Store active enhancement values to preferences <Ctrl-+>"
 msgstr "設定した強調値を保存 <Shift-m>"
 
 #. DESC_HIST_INTENSITY
@@ -2002,6 +2019,10 @@ msgstr "選択プレビュー領域をバッチリストに追加"
 msgid "Delete selected area from batch list"
 msgstr "選択領域をバッチリストから削除"
 
+#. DESC_AUTOMATIC
+msgid "Turns on automatic mode"
+msgstr ""
+
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
 msgstr "ホームディレクトリの確定に失敗しました："
@@ -2101,6 +2122,11 @@ msgstr "LIBTIFFがエラーを返してきました"
 
 #. ERR_LIBPNG
 msgid "LIBPNG reports error"
+msgstr "LIBPNGがエラーを返してきました"
+
+#. ERR_LIBJPEG
+#, fuzzy
+msgid "LIBJPEG reports error"
 msgstr "LIBPNGがエラーを返してきました"
 
 #. ERR_UNKNOWN_TYPE
@@ -2297,6 +2323,7 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[オプション]...[デバイス]"
 
 #. TEXT_HELP
+#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2316,8 +2343,6 @@ msgid ""
 " -f, --fax                    start with fax-mode active\n"
 " -m, --mail                   start with mail-mode active\n"
 " -n, --no-mode-selection      disable menu for XSane mode selection\n"
-"\n"
-" -M, --Medium-calibration     enable medium calibration mode\n"
 "\n"
 " -F, --Fixed                  fixed main window size (overwrite preferences "
 "value)\n"

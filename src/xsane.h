@@ -3,7 +3,7 @@
    xsane.h
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2002 Oliver Rauch
+   Copyright (C) 1998-2004 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -40,10 +40,10 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.92"
+#define XSANE_VERSION		"0.93"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
-#define XSANE_DATE		"1998-2003"
+#define XSANE_DATE		"1998-2004"
 #define XSANE_EMAIL		"Oliver.Rauch@xsane.org"
 #define XSANE_HOMEPAGE		"http://www.xsane.org"
 #define XSANE_COPYRIGHT_TXT	XSANE_DATE " " XSANE_COPYRIGHT
@@ -72,6 +72,10 @@
 
 #ifndef ENVIRONMENT_TEMP_DIR_NAME
 # define ENVIRONMENT_TEMP_DIR_NAME TMP
+#endif
+
+#ifndef ENVIRONMENT_BROWSER_NAME
+# define ENVIRONMENT_BROWSER_NAME BROWSER
 #endif
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -285,30 +289,34 @@ Image_info;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#ifdef HAVE_LIBGIMP_GIMP_H
+#ifdef HAVE_ANY_GIMP
 # include <libgimp/gimp.h>
 
-# ifdef HAVE_LIBGIMP_GIMPFEATURES_H
-#  include <libgimp/gimpfeatures.h>
+# ifdef HAVE_GIMP_2
+#     define GIMP_HAVE_RESOLUTION_INFO
 # else
-#  define GIMP_CHECK_VERSION(major, minor, micro) 0
-# endif /* HAVE_LIBGIMP_GIMPFEATURES_H */
+#  ifdef HAVE_LIBGIMP_GIMPFEATURES_H
+#   include <libgimp/gimpfeatures.h>
+#  else
+#   define GIMP_CHECK_VERSION(major, minor, micro) 0
+#  endif /* HAVE_LIBGIMP_GIMPFEATURES_H */
+# endif
 
 # ifdef GIMP_CHECK_VERSION
 #  if GIMP_CHECK_VERSION(1,1,25)
-/* ok, we have the new gimp interface */
+/* ok, we have the gimp-1.2 or gimp-2.0 interface */
 #  else
-/* we have the old gimp interface and need the compatibility header file */
+/* we have the gimp-1.0 interface and need the compatibility header file */
 #   include "xsane-gimp-1_0-compat.h" 
 #  endif
 # else
-/* we have the old gimp interface and need the compatibility header file */
+/* we have the gimp-1.0 interface and need the compatibility header file */
 #  include "xsane-gimp-1_0-compat.h" 
 # endif
 
   extern GimpPlugInInfo PLUG_IN_INFO; /* needed for win32 */
 
-#endif /* HAVE_LIBGIMP_GIMP_H */
+#endif /* HAVE_ANY_GIMP */
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 

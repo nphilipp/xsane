@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.76\n"
-"POT-Creation-Date: 2003-08-05 22:36+0200\n"
+"POT-Creation-Date: 2004-04-20 18:54+0200\n"
 "PO-Revision-Date: 2002-01-17 00:47GMT\n"
 "Last-Translator: Rusmir Duško <drusmir@gmx.ch>\n"
 "Language-Team: srpski <sr@li.org>\n"

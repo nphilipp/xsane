@@ -3,7 +3,7 @@
    xsane.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2002 Oliver Rauch
+   Copyright (C) 1998-2004 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -206,11 +206,10 @@ static void xsane_mail_entry_move_down_callback(GtkWidget *widget, gpointer list
 static void xsane_mail_entry_rename_callback(GtkWidget *widget, gpointer list);
 static void xsane_mail_entry_delete_callback(GtkWidget *widget, gpointer list);
 static void xsane_mail_show_callback(GtkWidget *widget, gpointer data);
+static void xsane_mail_send_process(void);
 static void xsane_mail_send(void);
 #endif
 static void xsane_pref_toggle_tooltips(GtkWidget *widget, gpointer data);
-static void xsane_mail_send_process(void);
-static void xsane_mail_send(void);
 static void xsane_show_eula(GtkWidget *widget, gpointer data);
 static void xsane_show_gpl(GtkWidget *widget, gpointer data);
 static void xsane_show_doc(GtkWidget *widget, gpointer data);
@@ -1199,6 +1198,7 @@ static int xsane_resolution_widget_new(GtkWidget *parent, int well_known_option,
               }
               str_list[j] = 0;
               xsane_control_option(xsane.dev, well_known_option, SANE_ACTION_GET_VALUE, &val, 0); 
+              val = xsane_find_best_resolution(well_known_option, val); /* when backends uses default value not in list or range */
               sprintf(str, "%d", (int) val);
             break;
 
@@ -1210,6 +1210,7 @@ static int xsane_resolution_widget_new(GtkWidget *parent, int well_known_option,
                }
               str_list[j] = 0;
               xsane_control_option(xsane.dev, well_known_option, SANE_ACTION_GET_VALUE, &val, 0); 
+              val = xsane_find_best_resolution(well_known_option, val); /* when backends uses default value not in list or range */
               sprintf(str, "%d", (int) SANE_UNFIX(val));
             break;
 
@@ -2340,7 +2341,14 @@ static int xsane_pref_restore(void)
 
   if (!preferences.doc_viewer)
   {
-    preferences.doc_viewer = strdup(DOCVIEWER);
+    if (getenv(STRINGIFY(ENVIRONMENT_BROWSER_NAME)))
+    {
+      preferences.doc_viewer = getenv(STRINGIFY(ENVIRONMENT_BROWSER_NAME));
+    }
+    else
+    {
+      preferences.doc_viewer = strdup(DOCVIEWER);
+    }
   }
 
  return result;
@@ -2476,7 +2484,7 @@ static void xsane_quit(void)
     xsane.preview_gamma_data_blue  = 0;
   }
 
-#ifdef HAVE_LIBGIMP_GIMP_H
+#ifdef HAVE_ANY_GIMP
   if (xsane.mode == XSANE_GIMP_EXTENSION)
   {
     gimp_quit();
@@ -2505,7 +2513,7 @@ static void xsane_exit(void) /* this is called when xsane exits before gtk_main 
 
   sane_exit();
 
-#ifdef HAVE_LIBGIMP_GIMP_H
+#ifdef HAVE_ANY_GIMP
   if (xsane.mode == XSANE_GIMP_EXTENSION)
   {
     gimp_quit();
@@ -7592,10 +7600,15 @@ static int xsane_init(int argc, char **argv)
   gtk_init(&argc, &argv);
   setlocale(LC_NUMERIC, "C");
 
-#ifdef HAVE_LIBGIMP_GIMP_H
+#ifdef HAVE_ANY_GIMP
   gtk_rc_parse(gimp_gtkrc());
 
+# ifdef HAVE_GIMP_2
+  gdk_set_use_xshm(TRUE);
+# else 
   gdk_set_use_xshm(gimp_use_xshm());
+# endif
+
 #endif
 
   /* before we open any windows we have to read the style file */
@@ -7627,7 +7640,7 @@ static int xsane_init(int argc, char **argv)
                   /* GIMP. If xsane is compiled without GIMP support */
                   /* then you get the error message when GIMP does */
                   /* query or tries to start the xsane plugin! */
-#ifndef HAVE_LIBGIMP_GIMP_H
+#ifndef HAVE_ANY_GIMP
           printf("%s: %s\n", argv[0], ERR_GIMP_SUPPORT_MISSING);
           exit(0);
 #endif
@@ -7636,10 +7649,10 @@ static int xsane_init(int argc, char **argv)
         case 'v': /* --version */
           printf("%s-%s %s %s\n", xsane.prog_name, XSANE_VERSION, XSANE_COPYRIGHT_SIGN, XSANE_COPYRIGHT_TXT);
           printf("  %s %s\n", TEXT_EMAIL, XSANE_EMAIL);
-          printf("  %s %s\n", TEXT_PACKAGE, PACKAGE_VERSION);
+          printf("  %s %s\n", TEXT_PACKAGE, XSANE_PACKAGE_VERSION);
           printf("  %s%d.%d.%d\n", TEXT_GTK_VERSION, GTK_MAJOR_VERSION, GTK_MINOR_VERSION, GTK_MICRO_VERSION);
 
-#ifdef HAVE_LIBGIMP_GIMP_H
+#ifdef HAVE_ANY_GIMP
           printf("  %s, %s%s\n", TEXT_WITH_GIMP_SUPPORT, TEXT_GIMP_VERSION, GIMP_VERSION);
 #else
           printf("  %s\n", TEXT_WITHOUT_GIMP_SUPPORT);
@@ -8089,7 +8102,7 @@ int main(int argc, char **argv)
 #endif
 #endif
 
-#ifdef HAVE_LIBGIMP_GIMP_H
+#ifdef HAVE_ANY_GIMP
   {
     GPrintFunc old_print_func;
     GPrintFunc old_printerr_func;
@@ -8111,8 +8124,14 @@ int main(int argc, char **argv)
     /* don`t know why, but os2 does need this one, a bit different to WIN32 */
     set_gimp_PLUG_IN_INFO(&PLUG_IN_INFO);
 #endif
+
+#ifdef HAVE_GIMP_2
+    /* gimp_main() returns 1 if xsane wasn't invoked by GIMP */
+    result = gimp_main(&PLUG_IN_INFO, argc, argv);
+#else
     /* gimp_main() returns 1 if xsane wasn't invoked by GIMP */
     result = gimp_main(argc, argv);
+#endif
 
 #if 0
     /* this is the old version that seems to use the compatibility functions */

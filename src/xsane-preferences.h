@@ -3,7 +3,7 @@
    xsane-preferences.h
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2002 Oliver Rauch
+   Copyright (C) 1998-2004 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -106,6 +106,7 @@ typedef struct
     double fax_leftoffset;		/* left offset of fax paper in mm */
     double fax_bottomoffset;		/* bottom offset of fax paper in mm */
 
+#ifdef XSANE_ACTIVATE_MAIL
     char   *mail_from;			/* email address of sender */
     char   *mail_reply_to;		/* email address for replied emails */
     char   *mail_smtp_server;		/* ip address or domain name of smtp server */
@@ -117,6 +118,7 @@ typedef struct
     char   *mail_pop3_pass;		/* password for pop3 server */
     char   *mail_project;		/* mail project */
     char   *mail_viewer;		/* mail viewer */
+#endif
 
     char   *ocr_command;		/* ocrcommand */
     char   *ocr_inputfile_option;	/* option for input file */

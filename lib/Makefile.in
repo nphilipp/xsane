@@ -26,6 +26,8 @@ INSTALL = @INSTALL@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_DATA = @INSTALL_DATA@
 
+RANLIB = @RANLIB@
+
 CC = @CC@
 INCLUDES = -I. -I$(srcdir) \
 	-I$(top_builddir)/include/sane -I$(top_srcdir)/include
@@ -57,6 +59,7 @@ all:	$(TARGETS)
 
 liblib.a: $(LIBLIB_OBJS)
 	ar r $@ $(LIBLIB_OBJS)
+	$(RANLIB) $@
 
 install: all
 

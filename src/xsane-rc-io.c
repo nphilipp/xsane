@@ -3,7 +3,7 @@
    xsane-rc-io.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2002 Oliver Rauch
+   Copyright (C) 1998-2004 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -717,12 +717,18 @@ void xsane_rc_io_w_string(Wire *w, SANE_String *s)
     }
     else
     {
+#if 0
       xsane_rc_io_w_space(w, 5);
       *w->buffer.curr++ = '(';
       *w->buffer.curr++ = 'n';
       *w->buffer.curr++ = 'i';
       *w->buffer.curr++ = 'l';
       *w->buffer.curr++ = ')';
+#else
+      xsane_rc_io_w_space(w, 2);
+      *w->buffer.curr++ = '"';
+      *w->buffer.curr++ = '"';
+#endif
     }
 
     xsane_rc_io_w_space(w, 1);

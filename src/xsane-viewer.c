@@ -3,7 +3,7 @@
    xsane-viewer.c
  
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2002 Oliver Rauch
+   Copyright (C) 1998-2004 Oliver Rauch
    This file is part of the XSANE package.
  
    This program is free software; you can redistribute it and/or modify
@@ -40,7 +40,7 @@
  
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static int xsane_viewer_zoom[] = {35, 50, 71, 100, 141, 200, 282, 400 };
+static int xsane_viewer_zoom[] = {9, 13, 18, 25, 35, 50, 71, 100, 141, 200, 282, 400 };
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 

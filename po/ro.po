@@ -1,18 +1,20 @@
+# translation of ro.po to Romanian
 #  Xsane 0.87
-# Copyright (C) 2002 Free Software Foundation, Inc.
+# Copyright (C) 2002, 2004 Free Software Foundation, Inc.
 # Harald Ersch <hersch@romatsa.ro>,2002.
+# Harald Ersch <harald@ersch.ro>, 2004.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSane 0.89\n"
-"POT-Creation-Date: 2003-08-05 22:36+0200\n"
-"PO-Revision-Date: 2002-12-10 08:38+0200\n"
-"Last-Translator: Harald Ersch <hersch@romatsa.ro>\n"
+"Project-Id-Version: ro\n"
+"POT-Creation-Date: 2004-04-20 18:54+0200\n"
+"PO-Revision-Date: 2004-04-23 08:36+0300\n"
+"Last-Translator: Harald Ersch <harald@ersch.ro>\n"
 "Language-Team: Romanian <rtfs-project@sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.9.6\n"
+"X-Generator: KBabel 1.0.2\n"
 
 #. Please translate this to the correct directory name (eg. german=>de)
 #. XSANE_LANGUAGE_DIR
@@ -1093,9 +1095,8 @@ msgid "Rotate postscript"
 msgstr "Roteºte postscript"
 
 #. MENU_ITEM_EDIT_MEDIUM_DEF
-#, fuzzy
 msgid "Edit medium definition"
-msgstr "Stocare definiþie mediu"
+msgstr "Editare definiþie mediu"
 
 #. MENU_ITEM_SAVE_DEVICE_SETTINGS
 msgid "Save device settings"
@@ -1303,9 +1304,8 @@ msgstr ""
 "mail-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
-#, fuzzy
 msgid "Select source medium type\n"
-msgstr "Selectare tip mediu sursã"
+msgstr "Selectare tip mediu sursã\n"
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1360,9 +1360,8 @@ msgid "Enter new name for preset area"
 msgstr "Introduceþi numele noii zone predefinite"
 
 #. DESC_MEDIUM_DEFINITION_NAME
-#, fuzzy
 msgid "Enter new name for medium definition"
-msgstr "Stocare definiþie mediu"
+msgstr "Introduceþi noul nume pt. definiþia mediului"
 
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
@@ -1397,9 +1396,8 @@ msgid "Set number of copies"
 msgstr "Seteazã numãr copii"
 
 #. DESC_NEGATIVE
-#, fuzzy
 msgid "Negative: Invert colors for scanning negatives <Ctrl-n>"
-msgstr "Negativ: inverseazã culorile pentru scanare negative <Shift-n>"
+msgstr "Negativ: inverseazã culorile pentru scanare negative <Ctrl-n>"
 
 #. DESC_GAMMA
 msgid "Set gamma value"
@@ -1454,7 +1452,6 @@ msgid "Set threshold"
 msgstr "Seteazã prag"
 
 #. DESC_RGB_DEFAULT
-#, fuzzy
 msgid ""
 "RGB default: Set enhancement values for red, green and blue to default "
 "values <Ctrl-b>:\n"
@@ -1462,40 +1459,36 @@ msgid ""
 " brightness = 0\n"
 " contrast = 0"
 msgstr ""
-"Setare valori RGB implicite pt. îmbunãtãþire canale roºu, verde, albastru "
-"<Shift-b>:\n"
+"Setare valori RGB implicite pt. îmbunãtãþire: canale roºu, verde, albastru "
+"<Ctrl-b>:\n"
 " gamma = 1.0\n"
 " strãlucire = 0\n"
 " contrast = 0"
 
 #. DESC_ENH_AUTO
-#, fuzzy
 msgid "Autoadjust gamma, brightness and contrast <Ctrl-e>"
-msgstr "Ajustare automatã pt. gamma, strãlucire, contrast <Shift-e>"
+msgstr "Ajustare automatã pt. gamma, strãlucire, contrast <Ctrl-e>"
 
 #. DESC_ENH_DEFAULT
-#, fuzzy
 msgid ""
 "Set default enhancement values <Ctrl-0>:\n"
 "gamma = 1.0\n"
 "brightness = 0\n"
 "contrast = 0"
 msgstr ""
-"Setare valori implicite pt. îmbunãtãþire <Shift-d>:\n"
+"Setare valori implicite pt. îmbunãtãþire <Ctrl-0>:\n"
 "gamma = 1.0\n"
 "strãlucire = 0\n"
 "contrast = 0"
 
 #. DESC_ENH_RESTORE
-#, fuzzy
 msgid "Restore enhancement values from preferences <Ctrl-r>"
 msgstr ""
-"Restaureazã valorile implicite pt. îmbunãtãþire din preferinþe <Shift-r>"
+"Restaureazã valorile implicite pt. îmbunãtãþire din preferinþe <Ctrl-r>"
 
 #. DESC_ENH_STORE
-#, fuzzy
 msgid "Store active enhancement values to preferences <Ctrl-+>"
-msgstr "Salveazã valorile curente pt. îmbunãtãþire în preferinþe <Shift-r>"
+msgstr "Salveazã valorile curente pt. îmbunãtãþire în preferinþe <Ctrl-+>"
 
 #. DESC_HIST_INTENSITY
 msgid "Show histogram of intensity/gray <Alt-i>"
@@ -2034,11 +2027,11 @@ msgstr "Factor scalare Y"
 
 #. DESC_SCALE_WIDTH
 msgid "Scale image to width [in pixel]"
-msgstr ""
+msgstr "Scalare imagine (la lãþime) [în pixeli]"
 
 #. DESC_SCALE_HEIGHT
 msgid "Scale image to height [in pixel]"
-msgstr ""
+msgstr "Scalare imagine (la înãlþime) [în pixeli]"
 
 #. DESC_BATCH_LIST_EMPTY
 msgid "Empty batch list"
@@ -2066,7 +2059,7 @@ msgstr "ªterge zona selectatã din lista cu loturi"
 
 #. DESC_AUTOMATIC
 msgid "Turns on automatic mode"
-msgstr ""
+msgstr "Activeazã modul automat"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2171,9 +2164,8 @@ msgid "LIBPNG reports error"
 msgstr "libpng raporteazã o eroare"
 
 #. ERR_LIBJPEG
-#, fuzzy
 msgid "LIBJPEG reports error"
-msgstr "libpng raporteazã o eroare"
+msgstr "LIBJPEG raporteazã o eroare"
 
 #. ERR_UNKNOWN_TYPE
 msgid "unknown type"
@@ -2368,7 +2360,6 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[OPÞIUNE]... [DISPOZITIV]"
 
 #. TEXT_HELP
-#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2422,8 +2413,6 @@ msgstr ""
 " -m, --mail                   porneºte în modul poºtã\n"
 " -n, --no-mode-selection      dezactiveazã meniul de selectare a modului "
 "XSane\n"
-" -M, --Medium-calibration     activeazã modul de calibrare medie\n"
-"\n"
 " -F, --Fixed                  marime fixã a ferestrei principale (suprascrie "
 "valorile din preferinþe)\n"
 " -R, --Resizeable       fereastrã principalã redimensionabilã (suprascrie "

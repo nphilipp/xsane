@@ -4,8 +4,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.90\n"
-"POT-Creation-Date: 2003-08-05 22:36+0200\n"
+"Project-Id-Version: XSANE 0.93\n"
+"POT-Creation-Date: 2004-04-20 18:54+0200\n"
 "PO-Revision-Date: 2000-02-09 21:00+01:00\n"
 "Last-Translator: Laurent Grawet <laurent.grawet@ibelgique.com>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -1091,9 +1091,8 @@ msgid "Rotate postscript"
 msgstr "Rotation PostScript"
 
 #. MENU_ITEM_EDIT_MEDIUM_DEF
-#, fuzzy
 msgid "Edit medium definition"
-msgstr "Enregister la définition du support"
+msgstr "Editer la définition du support"
 
 #. MENU_ITEM_SAVE_DEVICE_SETTINGS
 msgid "Save device settings"
@@ -1301,9 +1300,8 @@ msgstr ""
 "poster-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
-#, fuzzy
 msgid "Select source medium type\n"
-msgstr "Sélectionne le type de media de la source"
+msgstr "Sélectionne le type de support de la source\n"
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1358,9 +1356,8 @@ msgid "Enter new name for preset area"
 msgstr "Entrez un nom pour la présélection"
 
 #. DESC_MEDIUM_DEFINITION_NAME
-#, fuzzy
 msgid "Enter new name for medium definition"
-msgstr "Enregister la définition du support"
+msgstr "Entrez un nom pour la définition du support"
 
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
@@ -1395,10 +1392,9 @@ msgid "Set number of copies"
 msgstr "Entrez le nombre de copies"
 
 #. DESC_NEGATIVE
-#, fuzzy
 msgid "Negative: Invert colors for scanning negatives <Ctrl-n>"
 msgstr ""
-"Négatif: Inverse les couleurs pour la numérisation de négatifs <Shift-n>"
+"Négatif: Inverse les couleurs pour la numérisation de négatifs <Ctrl-n>"
 
 #. DESC_GAMMA
 msgid "Set gamma value"
@@ -1453,7 +1449,6 @@ msgid "Set threshold"
 msgstr "Change le seuil"
 
 #. DESC_RGB_DEFAULT
-#, fuzzy
 msgid ""
 "RGB default: Set enhancement values for red, green and blue to default "
 "values <Ctrl-b>:\n"
@@ -1462,38 +1457,34 @@ msgid ""
 " contrast = 0"
 msgstr ""
 "Défaults RGB: Place les optimisations pour le rouge, vert et bleu à leurs "
-"valeurs par défaut <Shift-b>:\n"
+"valeurs par défaut <Ctrl-b>:\n"
 " gamma = 1.0\n"
 " luminosité = 0\n"
 " contraste = 0"
 
 #. DESC_ENH_AUTO
-#, fuzzy
 msgid "Autoadjust gamma, brightness and contrast <Ctrl-e>"
-msgstr "Ajuste automatiquement gamma, luminosité et contraste <Shift-e>"
+msgstr "Ajuste automatiquement gamma, luminosité et contraste <Ctrl-e>"
 
 #. DESC_ENH_DEFAULT
-#, fuzzy
 msgid ""
 "Set default enhancement values <Ctrl-0>:\n"
 "gamma = 1.0\n"
 "brightness = 0\n"
 "contrast = 0"
 msgstr ""
-"Place les optimisations à leurs valeurs par défaut <Shift-d>:\n"
+"Place les optimisations à leurs valeurs par défaut <Ctrl-0>:\n"
 " gamma = 1.0\n"
 " luminosité = 0\n"
 " contraste = 0"
 
 #. DESC_ENH_RESTORE
-#, fuzzy
 msgid "Restore enhancement values from preferences <Ctrl-r>"
-msgstr "Restaure les optimisations des préférences <Shift-r>"
+msgstr "Restaure les optimisations des préférences <Ctrl-r>"
 
 #. DESC_ENH_STORE
-#, fuzzy
 msgid "Store active enhancement values to preferences <Ctrl-+>"
-msgstr "Enregistre les optimisations actives dans les préférences <Shift-m>"
+msgstr "Enregistre les optimisations actives dans les préférences <Ctrl-+>"
 
 #. DESC_HIST_INTENSITY
 msgid "Show histogram of intensity/gray <Alt-i>"
@@ -2167,9 +2158,8 @@ msgid "LIBPNG reports error"
 msgstr "LIBPNG a reporté une erreur"
 
 #. ERR_LIBJPEG
-#, fuzzy
 msgid "LIBJPEG reports error"
-msgstr "LIBPNG a reporté une erreur"
+msgstr "LIBJPEG a reporté une erreur"
 
 #. ERR_UNKNOWN_TYPE
 msgid "unknown type"
@@ -2366,7 +2356,6 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[OPTION]... [PERIPHERIQUE]"
 
 #. TEXT_HELP
-#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"

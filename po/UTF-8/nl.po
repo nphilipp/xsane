@@ -1,17 +1,20 @@
 # Translations for XSane English->Dutch
 # Copyright (C) 2001 Free Software Foundation, Inc.
-# W. Sinke <sinke@wirehub.nl>, 2001, 2002.
+# W. Sinke <sinke@wirehub.nl>, 2001, 2002,2004.
+#  <>, 2004.
+# 
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.90\n"
-"POT-Creation-Date: 2002-12-13 19:46+0100\n"
-"PO-Revision-Date: 2002-12-11 20:57+0100\n"
-"Last-Translator:  <>\n"
-"Language-Team: \n"
+"Project-Id-Version: XSANE 0.93\n"
+"POT-Creation-Date: 2004-04-20 18:54+0200\n"
+"PO-Revision-Date: 2004-04-21 08:39+0200\n"
+"Last-Translator: Wim Sinke <sinke@wirehub.nl>\n"
+"Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
 
 #. Please translate this to the correct directory name (eg. german=>de)
 #. XSANE_LANGUAGE_DIR
@@ -1097,6 +1100,10 @@ msgstr "Laat resolutie lijst zien"
 msgid "Rotate postscript"
 msgstr "Draai PostScript"
 
+#. MENU_ITEM_EDIT_MEDIUM_DEF
+msgid "Edit medium definition"
+msgstr "Verander mediumdefinitie"
+
 #. MENU_ITEM_SAVE_DEVICE_SETTINGS
 msgid "Save device settings"
 msgstr "Bewaar apparaatinstellingen"
@@ -1303,8 +1310,8 @@ msgstr ""
 "<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
-msgid "Select source medium type"
-msgstr "Kies bronmedium type"
+msgid "Select source medium type\n"
+msgstr "Kies bronmedium type\n"
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1358,6 +1365,10 @@ msgstr "E-mail onderwerp"
 msgid "Enter new name for preset area"
 msgstr "Geef naam voor gebied"
 
+#. DESC_MEDIUM_DEFINITION_NAME
+msgid "Enter new name for medium definition"
+msgstr "Geef nieuwe naam voor mediumdefinitie"
+
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
 msgstr "Kies printerdefinitie <Shift-F1/F2/...>"
@@ -1391,8 +1402,8 @@ msgid "Set number of copies"
 msgstr "Aantal kopiën"
 
 #. DESC_NEGATIVE
-msgid "Negative: Invert colors for scanning negatives <Shift-n>"
-msgstr "Negatief: Inverteer de kleuren van een negatief <Shift-n>"
+msgid "Negative: Invert colors for scanning negatives <Ctrl-n>"
+msgstr "Negatief: Inverteer de kleuren van een negatief <Ctrl-n>"
 
 #. DESC_GAMMA
 msgid "Set gamma value"
@@ -1449,40 +1460,40 @@ msgstr "Kies drempelwaarde"
 #. DESC_RGB_DEFAULT
 msgid ""
 "RGB default: Set enhancement values for red, green and blue to default "
-"values <Shift-b>:\n"
+"values <Ctrl-b>:\n"
 " gamma = 1.0\n"
 " brightness = 0\n"
 " contrast = 0"
 msgstr ""
 "RGB standaard: Zet de aanpassingswaarden voor rood, groen en blauw op de "
-"standaardwaarden <Shift-b>:\n"
+"standaardwaarden <Ctrl-b>:\n"
 " gamma = 1.0\n"
 " helderheid = 0\n"
 " contrast = 0"
 
 #. DESC_ENH_AUTO
-msgid "Autoadjust gamma, brightness and contrast <Shift-e>"
-msgstr "Automatische aanpassing van gamma, helderheid en contrast <Shift-e>"
+msgid "Autoadjust gamma, brightness and contrast <Ctrl-e>"
+msgstr "Automatische aanpassing van gamma, helderheid en contrast <Ctrl-e>"
 
 #. DESC_ENH_DEFAULT
 msgid ""
-"Set default enhancement values <Shift-d>:\n"
+"Set default enhancement values <Ctrl-0>:\n"
 "gamma = 1.0\n"
 "brightness = 0\n"
 "contrast = 0"
 msgstr ""
-"Kies de standaardwaarden <Shift-d>:\n"
+"Kies de standaardwaarden <Ctrl-d>:\n"
 "gamma = 1.0\n"
 "helderheid = 0\n"
 "contrast = 0"
 
 #. DESC_ENH_RESTORE
-msgid "Restore enhancement values from preferences <Shift-r>"
-msgstr "Gebruik aanpassingswaarden van de configuratie <Shift-r>"
+msgid "Restore enhancement values from preferences <Ctrl-r>"
+msgstr "Gebruik aanpassingswaarden van de configuratie <Ctrl-r>"
 
 #. DESC_ENH_STORE
-msgid "Store active enhancement values to preferences <Shift-m>"
-msgstr "Bewaar aanpassingswaarden in de configuratie <Shift-m>"
+msgid "Store active enhancement values to preferences <Ctrl-+>"
+msgstr "Bewaar huidige aanpassingswaarden in de configuratie <Ctrl-m>"
 
 #. DESC_HIST_INTENSITY
 msgid "Show histogram of intensity/gray <Alt-i>"
@@ -1932,7 +1943,7 @@ msgstr "Draai preview en scan"
 
 #. DESC_RATIO
 msgid "Aspect ratio of selection"
-msgstr ""
+msgstr "Aspectratio van selectie"
 
 #. DESC_PAPER_ORIENTATION
 msgid "Define image position for printing"
@@ -1992,11 +2003,11 @@ msgstr "Vergroting in y-richting"
 
 #. DESC_SCALE_WIDTH
 msgid "Scale image to width [in pixel]"
-msgstr ""
+msgstr "Schaal afbeelding naar breedte [in pixels]"
 
 #. DESC_SCALE_HEIGHT
 msgid "Scale image to height [in pixel]"
-msgstr ""
+msgstr "Schaal afbeelding naar hoogte [in pixels]"
 
 #. DESC_BATCH_LIST_EMPTY
 msgid "Empty batch list"
@@ -2021,6 +2032,10 @@ msgstr "Voeg geselecteerde gebied toe aan batch lijst"
 #. DESC_BATCH_DEL
 msgid "Delete selected area from batch list"
 msgstr "Verwijder geselecteerde gebied van de batch lijst"
+
+#. DESC_AUTOMATIC
+msgid "Turns on automatic mode"
+msgstr "Activeer de automatische mode"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2122,6 +2137,10 @@ msgstr "LIBTIFF geeft fout"
 #. ERR_LIBPNG
 msgid "LIBPNG reports error"
 msgstr "LIBPNG geeft fout"
+
+#. ERR_LIBJPEG
+msgid "LIBJPEG reports error"
+msgstr "LIBJPEG geeft foutmelding"
 
 #. ERR_UNKNOWN_TYPE
 msgid "unknown type"
@@ -2337,8 +2356,6 @@ msgid ""
 " -m, --mail                   start with mail-mode active\n"
 " -n, --no-mode-selection      disable menu for XSane mode selection\n"
 "\n"
-" -M, --Medium-calibration     enable medium calibration mode\n"
-"\n"
 " -F, --Fixed                  fixed main window size (overwrite preferences "
 "value)\n"
 " -R, --Resizeable             resizable, scrolled main window (overwrite "
@@ -2371,17 +2388,16 @@ msgstr ""
 " -c, --copy                   begin in kopieer-mode\n"
 " -f, --fax                    begin in fax-mode\n"
 " -m, --mail                   begin in e-mail-mode\n"
-" -n, --no-mode-selection      mode mag niet veranderd worden door gebruiker\n"
-"\n"
-" -M, --Medium-calibration     maak medium calibreren mogelijk\n"
+" -n, --no-mode-selection      deactiveer menu voor XSane-mode selectie\n"
 "\n"
 " -F, --Fixed                  vaste grootte hoofdvenster (overschrijft "
 "voorkeurinstellingen\n"
 " -R, --Resizeable             geen vaste grootte hoofdvenster (overschrijft "
 "voorkeurinstellingen\n"
 "\n"
-" -p, --print-filenames        print bestandnamen door XSane gemaakt\n"
-" -N, --force-filename naam    forceer een bestandsnaam\n"
+" -p, --print-filenames        print bestandnamen die-door XSane gemaakt\n"
+" -N, --force-filename naam    forceer een bestandsnaam en deactiveer "
+"filename selectie door gebruiker\n"
 "\n"
 " --display X11-display        output naar X11-display\n"
 " --no-xshm                    gebruik geen shared memory afbeeldingen\n"
@@ -2434,7 +2450,7 @@ msgstr ""
 "3) Je hebt geen permissie om het apparaat te gebruiken, probeer als root\n"
 "4) De backend is niet geladen door SANE (man sane-dll)\n"
 "5) De backend is niet goed geconfigureerd (man sane-<backendnaam>)\n"
-"6) Misschien is er meer dan één versie van SANE geīnstalleerd"
+"6) Misschien is er meer dan één versie van SANE geïnstalleerd"
 
 #. strings that are used in structures, so it is not allowed to use _()/gettext() here
 #. gettext_noop does mark these texts but does not change the string

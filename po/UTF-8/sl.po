@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.84\n"
-"POT-Creation-Date: 2002-12-13 19:46+0100\n"
+"POT-Creation-Date: 2004-04-20 18:54+0200\n"
 "PO-Revision-Date: 2001-02-25 14:06+01:00\n"
 "Last-Translator: Ales Kosir <ales.kosir@lugos.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -1123,6 +1123,11 @@ msgstr "Prikaži seznam ločljivosti"
 msgid "Rotate postscript"
 msgstr "Zasuči postscript"
 
+#. MENU_ITEM_EDIT_MEDIUM_DEF
+#, fuzzy
+msgid "Edit medium definition"
+msgstr "Izbor tiskalnika za prilagoditev"
+
 #. MENU_ITEM_SAVE_DEVICE_SETTINGS
 msgid "Save device settings"
 msgstr "Shrani nastavitve naprave"
@@ -1340,8 +1345,9 @@ msgid ""
 msgstr ""
 
 #. DESC_XSANE_MEDIUM
-msgid "Select source medium type"
-msgstr ""
+#, fuzzy
+msgid "Select source medium type\n"
+msgstr "Izbor tiskalnika za prilagoditev"
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1396,6 +1402,11 @@ msgstr ""
 msgid "Enter new name for preset area"
 msgstr "Vnesite novo ime za stran s faksom"
 
+#. DESC_MEDIUM_DEFINITION_NAME
+#, fuzzy
+msgid "Enter new name for medium definition"
+msgstr "Izbor tiskalnika za prilagoditev"
+
 #. DESC_PRINTER_SELECT
 #, fuzzy
 msgid "Select printerdefinition <Shift-F1/F2/...>"
@@ -1431,7 +1442,7 @@ msgstr "Nastavitev števila kopij"
 
 #. DESC_NEGATIVE
 #, fuzzy
-msgid "Negative: Invert colors for scanning negatives <Shift-n>"
+msgid "Negative: Invert colors for scanning negatives <Ctrl-n>"
 msgstr ""
 "Negativ: invertiranje barv za pripravo negativov\n"
 "na primer z zamenjavo bele in črne barve"
@@ -1492,7 +1503,7 @@ msgstr "Nastavitev praga"
 #, fuzzy
 msgid ""
 "RGB default: Set enhancement values for red, green and blue to default "
-"values <Shift-b>:\n"
+"values <Ctrl-b>:\n"
 " gamma = 1.0\n"
 " brightness = 0\n"
 " contrast = 0"
@@ -1505,7 +1516,7 @@ msgstr ""
 
 #. DESC_ENH_AUTO
 #, fuzzy
-msgid "Autoadjust gamma, brightness and contrast <Shift-e>"
+msgid "Autoadjust gamma, brightness and contrast <Ctrl-e>"
 msgstr ""
 "Samonastavi vrednost gama, svetlost in kontrast v odvisnosti od izbranega "
 "območja"
@@ -1513,7 +1524,7 @@ msgstr ""
 #. DESC_ENH_DEFAULT
 #, fuzzy
 msgid ""
-"Set default enhancement values <Shift-d>:\n"
+"Set default enhancement values <Ctrl-0>:\n"
 "gamma = 1.0\n"
 "brightness = 0\n"
 "contrast = 0"
@@ -1525,12 +1536,12 @@ msgstr ""
 
 #. DESC_ENH_RESTORE
 #, fuzzy
-msgid "Restore enhancement values from preferences <Shift-r>"
+msgid "Restore enhancement values from preferences <Ctrl-r>"
 msgstr "Obnovi vrednosti za obdelavo slike iz shranjenih vrednosti"
 
 #. DESC_ENH_STORE
 #, fuzzy
-msgid "Store active enhancement values to preferences <Shift-m>"
+msgid "Store active enhancement values to preferences <Ctrl-+>"
 msgstr "Shrani vrednosti za obdelavo slike"
 
 #. DESC_HIST_INTENSITY
@@ -2097,6 +2108,10 @@ msgstr "Zasuči preodgled in sliko"
 msgid "Delete selected area from batch list"
 msgstr ""
 
+#. DESC_AUTOMATIC
+msgid "Turns on automatic mode"
+msgstr ""
+
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
 msgstr "Določitev domačega imenika se ni posrečila:"
@@ -2197,6 +2212,11 @@ msgstr "LIBTIFF sporoča napako"
 
 #. ERR_LIBPNG
 msgid "LIBPNG reports error"
+msgstr "LIBPNG sporoča napako"
+
+#. ERR_LIBJPEG
+#, fuzzy
+msgid "LIBJPEG reports error"
 msgstr "LIBPNG sporoča napako"
 
 #. ERR_UNKNOWN_TYPE
@@ -2417,8 +2437,6 @@ msgid ""
 " -f, --fax                    start with fax-mode active\n"
 " -m, --mail                   start with mail-mode active\n"
 " -n, --no-mode-selection      disable menu for XSane mode selection\n"
-"\n"
-" -M, --Medium-calibration     enable medium calibration mode\n"
 "\n"
 " -F, --Fixed                  fixed main window size (overwrite preferences "
 "value)\n"

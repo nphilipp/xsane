@@ -3,7 +3,7 @@
    xsane-preferences.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2002 Oliver Rauch
+   Copyright (C) 1998-2004 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -67,6 +67,7 @@ Preferences preferences =
      296.98,		/* fax_height: height of fax paper in mm */
        0.0,             /* fax_leftoffset */
        0.0,             /* fax_bottomoffset */
+#ifdef XSANE_ACTIVATE_MAIL
        0,               /* no default from email address */
        0,               /* no default reply to email address */
        0,               /* no default smtp server */
@@ -78,6 +79,7 @@ Preferences preferences =
        0,               /* no default pop3 passsword */
        0,		/* no mail project */
        0,		/* no mail viewer */
+#endif
        0,		/* no default ocrcommand */
        0,		/* no default ocr input file option */
        0,		/* no default ocr output file option */
@@ -168,6 +170,7 @@ desc[] =
     {"fax-height",			xsane_rc_pref_double,	POFFSET(fax_height)},
     {"fax-left-offset",			xsane_rc_pref_double,	POFFSET(fax_leftoffset)},
     {"fax-bottom-offset",		xsane_rc_pref_double,	POFFSET(fax_bottomoffset)},
+#ifdef XSANE_ACTIVATE_MAIL
     {"mail-from",			xsane_rc_pref_string,	POFFSET(mail_from)},
     {"mail-reply-to",			xsane_rc_pref_string,	POFFSET(mail_reply_to)},
     {"mail-smtp-server",		xsane_rc_pref_string,	POFFSET(mail_smtp_server)},
@@ -178,7 +181,8 @@ desc[] =
     {"mail-pop3-user",			xsane_rc_pref_string,	POFFSET(mail_pop3_user)},
     {"mail-pop3-pass",			xsane_rc_pref_string,	POFFSET(mail_pop3_pass)},
     {"mail-project",			xsane_rc_pref_string,	POFFSET(mail_project)},
-    {"mail-viewert",			xsane_rc_pref_string,	POFFSET(mail_viewer)},
+    {"mail-viewer",			xsane_rc_pref_string,	POFFSET(mail_viewer)},
+#endif
     {"ocr-command",			xsane_rc_pref_string,	POFFSET(ocr_command)},
     {"ocr-inputfile-option",		xsane_rc_pref_string,	POFFSET(ocr_inputfile_option)},
     {"ocr-outputfile-options",		xsane_rc_pref_string,	POFFSET(ocr_outputfile_option)},
