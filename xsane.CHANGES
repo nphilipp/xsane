@@ -1630,5 +1630,81 @@ xsane-0.77 -> 0.78:
 
  - added mail setup dialog
 
- - added routines for sening images by mail (base64encoding, mail headers, smtp headers)
+ - added routines for sending images by mail (base64encoding, mail headers, smtp headers)
+
+
+xsane-0.78 -> 0.79:
+-------------------
+
+ - added test for lstat in configure/configure.in/config.h.in
+
+ - when lstat is available it is used for testing netscape lock file,
+   otherwise stat is used
+
+ - changed order of include lines in xsane-save.c
+
+ - for OS/2: in xsane_back_gtk_make_path() a colon ":" is replacte by "_"
+
+ - changed last argument of xsane_back_gtk_set_tooltip from char to gchar
+
+ - added function xsane_widget_test_uposition(GtkWidget *gtk_window)
+   that does test if gdk_window_get_deskrelative_origin or
+   gdk_window_get_root_origin gives the correct positions.
+   test is done with "scanning for devices" window.
+
+ - in xsane.c changed #if 1 to #ifdef BUGGY_GTK_TOOLTIPS_SET_COLORS
+
+ - split preview_increment_image_y in ... and preview_test_image_y,
+   test is called before a byte is copied into the buffer
+
+ - xsane-preview.c: preview_scan_start: preview image memory is only cleaned for
+   single pass mode and 1 pass of 3 pass mode (3 pass preview does work again)
+
+ - mail is sent in subprocess
+
+ - added "MIME-Version: 1.0" to mail header
+
+ - added mail status in mailfile, error messages while sending are stored in this file too
+
+ - aclocal.m4 test for gimp: moved saving of GTK_* to beginning of routine,
+   the GTK_* things should be set correct now when gimp-config is not found
+
+ - xsane.h: mail is deactivated when png is not available
+
+ - added preferences menu item "Medium":
+   The highlight/shadow/gamma values are defined to the intensity range
+   of the selected medium (e.g. agfa negative).
+   If possible the analog highlight/shadow function is used,
+   if not then the scanner internal digital gamma table is used
+   in bot then xsane´s internal gamma correction is used.
+   When the correct medium is selected it only is necessary to
+   do "soft" color corrections. Because of this the 400% values
+   in brightness/contrast have been reduced to 100% values now.
+   This is a typically range that e.g. also is used by the gimp.
+   If someone needs the larger ranges, change the following definitions
+   in sane.h:
+   #define XSANE_BRIGHTNESS_MIN    -100.0
+   #define XSANE_BRIGHTNESS_MAX    100.0
+   #define XSANE_CONTRAST_GRAY_MIN -100.0
+   #define XSANE_CONTRAST_MIN      -100.0
+   #define XSANE_CONTRAST_MAX      100.0
+
+ - moved call xsane_update_counter_in_filename as correction for counter length from
+   xsane_start_scan to xsane_scan_dialog (before open command), this way the
+   counter also is correct when the file is not transformed (pnm).
+
+ - corrected xsane_update_counter_in_filename: removed some pointer bugs when skipping
+   exisiting filenames 
+
+ - added test for os2.h to configure/configure.in
+
+ - added set_gimp_PLUG_IN_INFO(&PLUG_IN_INFO); for os2
+
+ - removed "+0.5" in calculation of negative preview gamma table. A gamma value of 1.000 does
+   not change the image data any more
+
+ - effective user id is set to real user id in all subprocesses
+
+ - cancel preview does now only call sane_cancel and tests for SANE_STATUS_CANCELLED while
+   reading image data.
 

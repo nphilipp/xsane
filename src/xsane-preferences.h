@@ -65,6 +65,26 @@ typedef struct
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 typedef struct
+{
+  gchar *name;
+  double shadow_gray;
+  double shadow_red;
+  double shadow_green;
+  double shadow_blue;
+  double highlight_gray;
+  double highlight_red;
+  double highlight_green;
+  double highlight_blue;
+  double gamma_gray;
+  double gamma_red;
+  double gamma_green;
+  double gamma_blue;
+  int negative;
+} Preferences_medium_t;                                                         
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+typedef struct
   {
     char   *xsane_version_str;		/* xsane-version string */
     char   *tmp_path;			/* path to temporary directory */
@@ -157,6 +177,8 @@ typedef struct
     Preferences_printer_t **printer;
     int    preset_area_definitions;
     Preferences_preset_area_t **preset_area;
+    int    medium_definitions;
+    Preferences_medium_t **medium;
   }
 Preferences;
 

@@ -39,8 +39,10 @@ extern void xsane_calculate_raw_histogram(void);
 extern void xsane_calculate_end_histogram(void);
 extern void xsane_update_histogram(int update_raw);
 extern void xsane_histogram_toggle_button_callback(GtkWidget *widget, gpointer data);
-extern void xsane_create_gamma_curve(SANE_Int *gammadata, int negative, double gamma, 
-                                     double brightness, double contrast, int numbers, int maxout);
+extern void xsane_create_gamma_curve(SANE_Int *gammadata,
+                                     int negative, double gamma, double brightness, double contrast,
+                                     double medium_shadow, double medium_highlight, double medium_gamma,
+                                     int numbers, int maxout);
 extern void xsane_update_gamma_curve(int update_raw);
 extern void xsane_enhancement_by_gamma(void);
 extern void xsane_enhancement_restore_default(void);

@@ -65,8 +65,10 @@ void xsane_calculate_enh_histogram(void);
 void xsane_update_histogram(int update_raw);
 void xsane_histogram_toggle_button_callback(GtkWidget *widget, gpointer data);
 void xsane_create_preview_threshold_curve(u_char *gammadata, double threshold, int numbers);
-void xsane_create_gamma_curve(SANE_Int *gammadata, int negative, double gamma,
-                              double brightness, double contrast, int numbers, int maxout);
+void xsane_create_gamma_curve(SANE_Int *gammadata,
+                              int negative, double gamma, double brightness, double contrast,
+                              double medium_shadow, double medium_highlight, double medium_gamma, 
+                              int numbers, int maxout);
 void xsane_update_gamma_curve(int update_raw);
 static void xsane_enhancement_update(void);
 static void xsane_gamma_to_histogram(double *min, double *mid, double *max,
@@ -1135,7 +1137,7 @@ void xsane_create_preview_gamma_curve(u_char *gammadata, int negative, double ga
       val = val * m + b;
       xsane_bound_double(&val, 0.0, maxin);
 
-      gammadata[i] = (u_char) (0.5 + 255 * pow( val/maxin, (1.0/gamma) ));
+      gammadata[i] = (u_char) (255 * pow( val/maxin, (1.0/gamma) ));
     }
   }
   else /* positive */
@@ -1153,25 +1155,36 @@ void xsane_create_preview_gamma_curve(u_char *gammadata, int negative, double ga
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void xsane_create_gamma_curve(SANE_Int *gammadata, int negative, double gamma,
-                              double brightness, double contrast, int numbers, int maxout)
+void xsane_create_gamma_curve(SANE_Int *gammadata,
+                              int negative, double gamma, double brightness, double contrast,
+                              double medium_shadow, double medium_highlight, double medium_gamma, 
+                              int numbers, int maxout)
 {
  int i;
  double midin;
  double val;
  double m;
  double b;
+ double medium_m;
+ double medium_mid;
  int maxin = numbers-1;
 
-  DBG(DBG_proc, "xsane_create_gamma_curve(neg=%d, gam=%3.2f, bri=%3.2f, ctr=%3.2f, nrs=%d, max=%d)\n",
-                 negative, gamma, brightness, contrast, numbers, maxout);
+  DBG(DBG_proc, "xsane_create_gamma_curve(neg=%d, gam=%3.2f, bri=%3.2f, ctr=%3.2f, "
+                "mshd=%3.2f, mhig=%3.2f, mgam=%3.2f, "
+                "nrs=%d, max=%d)\n",
+                 negative, gamma, brightness, contrast,
+                 medium_shadow, medium_highlight, medium_gamma,
+                 numbers, maxout);
+
+  midin = (int)(numbers / 2.0);
 
   if (contrast < -100.0)
   {
     contrast = -100.0;
   }
 
-  midin = (int)(numbers / 2.0);
+  medium_m   = 100.0/(medium_highlight - medium_shadow);
+  medium_mid = (medium_shadow + medium_highlight)/200.0 * maxin;
 
   m = 1.0 + contrast/100.0;
   b = (1.0 + brightness/100.0) * midin;
@@ -1180,21 +1193,38 @@ void xsane_create_gamma_curve(SANE_Int *gammadata, int negative, double gamma,
   {
     for (i=0; i <= maxin; i++)
     {
-      val = ((double) (maxin - i)) - midin;
+      val = ((double) i);
+
+      /* medium correction */
+      val = (val - medium_mid) * medium_m + midin;
+      xsane_bound_double(&val, 0.0, maxin);
+      val = maxin * pow( val/maxin, (1.0/medium_gamma) );
+
+      val = maxin - val; /* invert */
+      val = val - midin;
+
+      /* user correction */
       val = val * m + b;
       xsane_bound_double(&val, 0.0, maxin);
-
-      gammadata[i] = 0.5 + maxout * pow( val/maxin, (1.0/gamma) );
+      gammadata[i] = maxout * pow( val/maxin, (1.0/gamma) );
     }
   }
   else /* positive */
   {
     for (i=0; i <= maxin; i++)
     {
-      val = ((double) i) - midin;
+      val = ((double) i);
+
+      /* medium correction */
+      val = (val - medium_mid) * medium_m + midin;
+      xsane_bound_double(&val, 0.0, maxin);
+      val = maxin * pow( val/maxin, (1.0/medium_gamma) );
+
+      val = val - midin;
+
+      /* user correction */
       val = val * m + b;
       xsane_bound_double(&val, 0.0, maxin);
-
       gammadata[i] = maxout * pow( val/maxin, (1.0/gamma) );
     }
   }
@@ -1910,7 +1940,7 @@ void xsane_get_free_gamma_curve(gfloat *free_color_gamma_data, SANE_Int *gammada
  int maxin = len-1;
 
   DBG(DBG_proc, "xsane_get_free_gamma_curve\n");
-  DBG(DBG_proc, "xsane_create_gamma_curve(neg=%d, gam=%3.2f, bri=%3.2f, ctr=%3.2f, nrs=%d, max=%d\n",
+  DBG(DBG_proc, "xsane_get_free_gamma_curve(neg=%d, gam=%3.2f, bri=%3.2f, ctr=%3.2f, nrs=%d, max=%d\n",
                  negative, gamma, brightness, contrast, len, maxout);
 
   if (contrast < -100.0)

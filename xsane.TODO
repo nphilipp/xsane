@@ -1,42 +1,56 @@
 This is a list of what I want to change/include for xsane.
 If you have any suggestions: mail to Oliver.Rauch@rauch-domain.de
 
-(+ planned to do this soon/higher priority, - comes later/lower priority)
+Sign explaination:
+ # planned for XSane-1.0.0
+ + planned to do this soon/higher priority
+ - comes later/lower priority
 
-first steps:
- * options:
- - scan-function
-    - better postscript savings
- - fax-function:
+
+ scan-function
+    # better postscript savings
+
+ fax-function:
+    + create lock file or information while spooling fax
     + add coverpage with edit like mail function
     - add send delayed option
     - add options for sender/receiver Name
     + zoom ?
- - email-function:
-    - send with sendmail?
-    - fork() for smtp send?
-    - image types other than png? (user selectable?)
- - copy mode and scan mode into postscript file:
+
+ copy-function:
     + select image position on printer (centered/left/right/free) for copy
- - preview:
+
+ email-function:
+    # image types other than png? (user selectable?)
+
+ ocr-function:
+    - add ocr function, e.g. via gocr
+
+ medium selection:
+    - add: add, edit, delete medium definition
+
+ preview:
     - force aspect ratio of selection area
-      - force size of scanarea in pixels (calculate resolution)
- - batch scan function
-    - select multiple scan areas before starting the scan
+    - force size of scanarea in pixels (calculate resolution)
 
- * internal:
-   - display scanned image in preview or new window (?)
-   + add range check / valid value when reading xsane.rc/*.drc files
-   + add several defaults (fax=> mode=gray,...)
-   - include much more parameters when saving images
-   + test memory after each call of malloc - partly done
-   - more/better online helpfiles (mostly done)
-   - correct charset of tooltips for all national codepages
+ batch scan function
+    # select multiple scan areas before starting the scan
 
- + correct gtk custom gamma functions and include it
-   may be write an own gamma curve widget
+ gamma:
+    # correct gtk custom gamma functions and include it
+      may be write an own gamma curve widget
 
-second steps:
+ internal:
+    - display scanned image in preview or new window (?)
+    - crop function after scanning?
+    - add some filters?
+    + add range check / valid value when reading xsane.rc/*.drc files
+    + add several defaults (fax=> mode=gray,...)
+    - include much more parameters when saving images
+    + test memory after each call of malloc - partly done
+    - more/better online helpfiles (mostly done)
+    - added infrared filter for transmisse rgbi scans:
+      use next neighbour with high transmission(i) value
 
  - include special functions for GNOME/KDE
    *** DOES ANYONE HAVE ANY SUGGESTIONS TO THIS ? ***
@@ -51,15 +65,15 @@ second steps:
  - average of a multiple scan of the same image
 
  - TWAIN:
-   - add a twain-win32 interface (for xsane-win32)
-   - define a twain-unix interface in cooperation with TWAIN-group
-     (first contact to TWAIN in summer 1999, TWAIN is intersted in
-     creating a TWAIN-unix interface that uses sane as scanner driver API
-   - add a twain-unix interface to xsane
-
+    - add a twain-win32 interface (for xsane-win32)
+    - define a twain-unix interface in cooperation with TWAIN-group
+      (first contact to TWAIN in summer 1999, TWAIN is intersted in
+      creating a TWAIN-unix interface that uses sane as scanner driver API
+    - add a twain-unix interface to xsane
+ 
  - WIN32 version of xsane/sane
-   + make internationalization work (looks like a charset problem)
-   - may be xsane-win32 without cygwin.dll on native win32 mode
-   - may be later we make a sane-WIN32 version so that the backends do work too
+    + make internationalization work (looks like a charset problem)
+    - may be xsane-win32 without cygwin.dll on native win32 mode
+    - may be later we make a sane-WIN32 version so that the backends do work too
 
 

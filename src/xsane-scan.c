@@ -1646,16 +1646,6 @@ static void xsane_start_scan(void)
 
   DBG(DBG_proc, "xsane_start_scan\n");
 
-  if ( (xsane.mode == XSANE_STANDALONE) && (xsane.xsane_mode == XSANE_SCAN) )
-  {
-    /* correct length of filename counter if it is shorter than minimum length */
-    if (!xsane.force_filename)
-    {
-      xsane_update_counter_in_filename(&preferences.filename, FALSE, 0, preferences.filename_counter_len);
-      gtk_entry_set_text(GTK_ENTRY(xsane.outputfilename_entry), preferences.filename); 
-    }
-  }
-
   xsane_clear_histogram(&xsane.histogram_raw);
   xsane_clear_histogram(&xsane.histogram_enh);    
   xsane_set_sensitivity(FALSE);
@@ -1796,6 +1786,16 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
   xsane.reduce_16bit_to_8bit = preferences.reduce_16bit_to_8bit; /* reduce 16 bit image to 8 bit ? */
 
   sane_get_parameters(xsane.dev, &xsane.param); /* update xsane.param */
+
+  if ( (xsane.mode == XSANE_STANDALONE) && (xsane.xsane_mode == XSANE_SCAN) )
+  {
+    /* correct length of filename counter if it is shorter than minimum length */
+    if (!xsane.force_filename)
+    {
+      xsane_update_counter_in_filename(&preferences.filename, FALSE, 0, preferences.filename_counter_len);
+      gtk_entry_set_text(GTK_ENTRY(xsane.outputfilename_entry), preferences.filename); 
+    }
+  }
 
   xsane_define_output_filename(); /* make xsane.output_filename up to date */
 
@@ -1948,7 +1948,7 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
       gamma_gray_max  = opt->constraint.range->max;
 
       xsane.gamma_data = malloc(gamma_gray_size  * sizeof(SANE_Int));
-      xsane_create_gamma_curve(xsane.gamma_data, 0, 1.0, 0.0, 0.0, gamma_gray_size, gamma_gray_max);
+      xsane_create_gamma_curve(xsane.gamma_data, 0, 1.0, 0.0, 0.0, 0.0, 100.0, 1.0, gamma_gray_size, gamma_gray_max);
       xsane_back_gtk_update_vector(xsane.well_known.gamma_vector, xsane.gamma_data);
       free(xsane.gamma_data);
       xsane.gamma_data = 0;
@@ -1983,20 +1983,26 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
       gamma_blue  = xsane.gamma * xsane.gamma_blue;
     }
 
-    xsane_create_gamma_curve(xsane.gamma_data_red, xsane.negative,
+    xsane_create_gamma_curve(xsane.gamma_data_red, xsane.negative != xsane.medium_negative,
 		 	       gamma_red,
 			       xsane.brightness + xsane.brightness_red,
-			       xsane.contrast + xsane.contrast_red, gamma_red_size, gamma_red_max);
+			       xsane.contrast + xsane.contrast_red,
+                               xsane.medium_shadow_red, xsane.medium_highlight_red, xsane.medium_gamma_red, 
+                               gamma_red_size, gamma_red_max);
 
-    xsane_create_gamma_curve(xsane.gamma_data_green, xsane.negative,
+    xsane_create_gamma_curve(xsane.gamma_data_green, xsane.negative != xsane.medium_negative,
 			       gamma_green,
 			       xsane.brightness + xsane.brightness_green,
-			       xsane.contrast + xsane.contrast_green, gamma_green_size, gamma_green_max);
+			       xsane.contrast + xsane.contrast_green,
+                               xsane.medium_shadow_green, xsane.medium_highlight_green, xsane.medium_gamma_green, 
+                               gamma_green_size, gamma_green_max);
 
-    xsane_create_gamma_curve(xsane.gamma_data_blue, xsane.negative,
+    xsane_create_gamma_curve(xsane.gamma_data_blue, xsane.negative != xsane.medium_negative,
 			       gamma_blue,
 			       xsane.brightness + xsane.brightness_blue,
-			       xsane.contrast + xsane.contrast_blue , gamma_blue_size, gamma_blue_max);
+			       xsane.contrast + xsane.contrast_blue,
+                               xsane.medium_shadow_blue, xsane.medium_highlight_blue, xsane.medium_gamma_blue, 
+                               gamma_blue_size, gamma_blue_max);
 
     xsane_back_gtk_update_vector(xsane.well_known.gamma_vector_r, xsane.gamma_data_red);
     xsane_back_gtk_update_vector(xsane.well_known.gamma_vector_g, xsane.gamma_data_green);
@@ -2010,7 +2016,7 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
     xsane.gamma_data_green = 0;
     xsane.gamma_data_blue  = 0;
   }
-  else if (xsane.scanner_gamma_gray) /* only scanner gray gamma function available */
+  else if (xsane.scanner_gamma_gray) /* only scanner gray gamma function available or grayscale scan */
   {
    /* ok, the scanner only supports gray gamma function */
    /* if we are doing a grayscale scan everyting is ok, */
@@ -2034,9 +2040,21 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
     }
 
     xsane.gamma_data = malloc(gamma_gray_size * sizeof(SANE_Int));
-    xsane_create_gamma_curve(xsane.gamma_data, xsane.negative,
-                             gamma, xsane.brightness, xsane.contrast,
-                             gamma_gray_size, gamma_gray_max);
+
+    if (xsane.xsane_color) /* color scan */
+    {
+      xsane_create_gamma_curve(xsane.gamma_data, xsane.negative,
+                               gamma, xsane.brightness, xsane.contrast,
+                               0.0, 100.0, 1.0, /* medium correction is done by xsane internal gamma correction */
+                               gamma_gray_size, gamma_gray_max);
+    }
+    else
+    {
+      xsane_create_gamma_curve(xsane.gamma_data, xsane.negative != xsane.medium_negative,
+                               gamma, xsane.brightness, xsane.contrast,
+                               xsane.medium_shadow_gray, xsane.medium_highlight_gray, xsane.medium_gamma_gray, 
+                               gamma_gray_size, gamma_gray_max);
+    }
 
     xsane_back_gtk_update_vector(xsane.well_known.gamma_vector, xsane.gamma_data);
     free(xsane.gamma_data);
@@ -2089,11 +2107,20 @@ static void xsane_create_internal_gamma_tables(void)
         gamma_blue  = xsane.gamma_blue;
       }
     
-      xsane_create_gamma_curve(xsane.gamma_data_red, 0, gamma_red, xsane.brightness_red, xsane.contrast_red, size, maxval);
+      xsane_create_gamma_curve(xsane.gamma_data_red, xsane.medium_negative,
+                               gamma_red, xsane.brightness_red, xsane.contrast_red,
+                               xsane.medium_shadow_red, xsane.medium_highlight_red, xsane.medium_gamma_red, 
+                               size, maxval);
 
-      xsane_create_gamma_curve(xsane.gamma_data_green, 0, gamma_green, xsane.brightness_green, xsane.contrast_green, size, maxval);
+      xsane_create_gamma_curve(xsane.gamma_data_green, xsane.medium_negative,
+                               gamma_green, xsane.brightness_green, xsane.contrast_green,
+                               xsane.medium_shadow_green, xsane.medium_highlight_green, xsane.medium_gamma_green, 
+                               size, maxval);
 
-      xsane_create_gamma_curve(xsane.gamma_data_blue, 0, gamma_blue, xsane.brightness_blue, xsane.contrast_blue, size, maxval);
+      xsane_create_gamma_curve(xsane.gamma_data_blue, xsane.medium_negative,
+                               gamma_blue, xsane.brightness_blue, xsane.contrast_blue,
+                               xsane.medium_shadow_blue, xsane.medium_highlight_blue, xsane.medium_gamma_blue, 
+                               size, maxval);
 
       /* gamma tables are freed after scan */
     }
@@ -2121,20 +2148,26 @@ static void xsane_create_internal_gamma_tables(void)
         gamma_blue  = xsane.gamma * xsane.gamma_blue;
       }
 
-      xsane_create_gamma_curve(xsane.gamma_data_red, xsane.negative,
+      xsane_create_gamma_curve(xsane.gamma_data_red, xsane.negative != xsane.medium_negative,
                                gamma_red,
                                xsane.brightness + xsane.brightness_red,
-                               xsane.contrast + xsane.contrast_red, size, maxval);
+                               xsane.contrast + xsane.contrast_red,
+                               xsane.medium_shadow_red, xsane.medium_highlight_red, xsane.medium_gamma_red, 
+                               size, maxval);
 
-      xsane_create_gamma_curve(xsane.gamma_data_green, xsane.negative,
+      xsane_create_gamma_curve(xsane.gamma_data_green, xsane.negative != xsane.medium_negative,
                                gamma_green,
                                xsane.brightness + xsane.brightness_green,
-                               xsane.contrast + xsane.contrast_green, size, maxval);
+                               xsane.contrast + xsane.contrast_green,
+                               xsane.medium_shadow_green, xsane.medium_highlight_green, xsane.medium_gamma_green, 
+                               size, maxval);
 
-      xsane_create_gamma_curve(xsane.gamma_data_blue, xsane.negative,
+      xsane_create_gamma_curve(xsane.gamma_data_blue, xsane.negative != xsane.medium_negative,
                                gamma_blue,
                                xsane.brightness + xsane.brightness_blue,
-                               xsane.contrast + xsane.contrast_blue , size, maxval);
+                               xsane.contrast + xsane.contrast_blue,
+                               xsane.medium_shadow_blue, xsane.medium_highlight_blue, xsane.medium_gamma_blue, 
+                               size, maxval);
 
       /* gamma tables are freed after scan */
     }
@@ -2157,8 +2190,10 @@ static void xsane_create_internal_gamma_tables(void)
       }
 
       xsane.gamma_data = malloc(size * sizeof(SANE_Int));
-      xsane_create_gamma_curve(xsane.gamma_data, xsane.negative,
-                               gamma, xsane.brightness, xsane.contrast, size, maxval);
+      xsane_create_gamma_curve(xsane.gamma_data, xsane.negative != xsane.medium_negative,
+                               gamma, xsane.brightness, xsane.contrast,
+                               xsane.medium_shadow_gray, xsane.medium_highlight_gray, xsane.medium_gamma_gray, 
+                               size, maxval);
 
       /* gamma table is freed after scan */
     }

@@ -102,17 +102,6 @@ desc_xsane_device[] =
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_widget_get_uposition(GtkWidget *gtk_window, gint *x, gint *y)
-{
-  DBG(DBG_proc, "xsane_widget_get_uposition\n");
-  gdk_window_get_root_origin(gtk_window->window, x, y);
-#if 0
-  gdk_window_get_deskrelative_origin(gtk_window->window, x, y);
-#endif
-}
-
-/* ---------------------------------------------------------------------------------------------------------------- */
-
 static int xsane_device_preferences_load_values(Wire *w, SANE_Handle device)
 {
  const SANE_Option_Descriptor *opt;

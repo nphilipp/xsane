@@ -180,6 +180,7 @@
 
 #define TEXT_MAIL_TEXT			_("Email text:")
 #define TEXT_ATTACHMENTS		_("Attachments:")
+#define TEXT_MAIL_STATUS		_("Project status:")
 
 #define TEXT_SETUP_PRINTER_SEL		_("Printer selection:")
 #define TEXT_SETUP_PRINTER_NAME		_("Name:")
@@ -271,6 +272,7 @@
 #define SUBMENU_ITEM_LENGTH_MILLIMETERS	_("millimeters")
 #define SUBMENU_ITEM_LENGTH_CENTIMETERS	_("centimeters")
 #define SUBMENU_ITEM_LENGTH_INCHES	_("inches")
+#define MENU_ITEM_MEDIUM		_("Medium (Highlight/Shadow)")
 #define MENU_ITEM_UPDATE_POLICY		_("Update policy")
 #define SUBMENU_ITEM_POLICY_CONTINUOUS	_("continuous")
 #define SUBMENU_ITEM_POLICY_DISCONTINU	_("discontinuous")

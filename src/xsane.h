@@ -29,11 +29,10 @@
 
 /* #define XSANE_TEST */
 /* #define SUPPORT_RGBA */
-#define XSANE_ACTIVATE_MAIL
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.78"
+#define XSANE_VERSION		"0.79"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2001"
@@ -50,6 +49,7 @@
 #define XSANE_CONTINUOUS_HOLD_TIME 10
 #define XSANE_DEFAULT_DEVICE "SANE_DEFAULT_DEVICE"
 #define PREF_DEFAULT_PRESET_AREA_ITEMS 13
+#define PREF_DEFAULT_MEDIUM_ITEMS 7
 
 #ifndef SLASH
 # define SLASH '/'
@@ -94,8 +94,8 @@
 #include <sane/sane.h>
 #include <sane/saneopts.h>
 
-#include "../include/sane/config.h"
-#include "../include/sane/sanei_signal.h"
+#include "../include/config.h"
+#include "../include/sanei_signal.h"
 
 #include "xsane-text.h"
 #include "xsane-fixedtext.h"
@@ -103,6 +103,7 @@
 
 #include <gdk/gdkkeysyms.h>
 #include <gdk/gdk.h>
+#include <gtk/gtk.h>
 
 #ifdef ENABLE_NLS
 #    include <libintl.h>
@@ -125,7 +126,15 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#include <gtk/gtk.h>
+#ifdef HAVE_LIBPNG
+#ifdef HAVE_LIBZ
+# define XSANE_ACTIVATE_MAIL
+#endif
+#endif
+
+#ifdef _WIN32
+# define BUGGY_GTK_TOOLTIPS_SET_COLORS
+#endif
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -165,6 +174,14 @@ typedef struct
     int gamma_vector_b;
     int bit_depth;
     int threshold;
+    int highlight;
+    int highlight_r;
+    int highlight_g;
+    int highlight_b;
+    int shadow;
+    int shadow_r;
+    int shadow_g;
+    int shadow_b;
   }
 GSGWellKnownOptions;
 
@@ -261,11 +278,11 @@ extern void xsane_mail_project_save(void);
 #define DOCVIEWER_NETSCAPE	"netscape"
 #define DOCVIEWER 	 	DOCVIEWER_NETSCAPE
 
-#define XSANE_BRIGHTNESS_MIN	-400.0
-#define XSANE_BRIGHTNESS_MAX	400.0
+#define XSANE_BRIGHTNESS_MIN	-100.0
+#define XSANE_BRIGHTNESS_MAX	100.0
 #define XSANE_CONTRAST_GRAY_MIN	-100.0
-#define XSANE_CONTRAST_MIN	-400.0
-#define XSANE_CONTRAST_MAX	400.0
+#define XSANE_CONTRAST_MIN	-100.0
+#define XSANE_CONTRAST_MAX	100.0
 #define XSANE_GAMMA_MIN		0.3
 #define XSANE_GAMMA_MAX		3.0
 
@@ -355,7 +372,6 @@ typedef struct Xsane
 
     SANE_Int sensitivity;
 
-/* previos this was the dialog struct */
     GtkWidget *xsane_window;
     GtkWidget *standard_window;
     GtkWidget *advanced_window;
@@ -364,10 +380,12 @@ typedef struct Xsane
     GtkWidget *standard_hbox;
     GtkWidget *advanced_hbox;
     GtkWidget *xsanemode_widget;
+
     GtkAccelGroup *accelerator_group;
     GtkTooltips *tooltips;
     GdkColor tooltips_fg;
     GdkColor tooltips_bg;
+
     SANE_Handle *dev;
     const char *dev_name;
     GSGWellKnownOptions well_known;
@@ -419,6 +437,7 @@ typedef struct Xsane
     GtkWidget *mail_subject_entry;
     GtkWidget *mail_text_widget;
     GtkWidget *mail_html_mode_widget;
+    GtkWidget *mail_status_label;
 
     GdkPixmap *window_icon_pixmap;
     GdkBitmap *window_icon_mask;        
@@ -435,6 +454,8 @@ typedef struct Xsane
 
     int main_window_fixed;
     int mode_selection;
+
+    int get_deskrelative_origin;
 
     /* various scanning related state: */
     SANE_Int depth;
@@ -506,6 +527,7 @@ typedef struct Xsane
     double resolution_x;
     double resolution_y;
 
+    GtkWidget *medium_widget;
     GtkWidget *length_unit_mm;
     GtkWidget *length_unit_cm;
     GtkWidget *length_unit_in;
@@ -552,6 +574,7 @@ typedef struct Xsane
     char *fax_filename;
     char *fax_receiver;
 
+    char *mail_status;
     char *mail_filename;
     char *mail_receiver;
     char *mail_subject;
@@ -585,6 +608,23 @@ typedef struct Xsane
     int preview_dialog_posy;
     int preview_dialog_width;
     int preview_dialog_height;
+
+    double medium_gamma_gray;
+    double medium_gamma_red;
+    double medium_gamma_green;
+    double medium_gamma_blue;
+
+    double medium_shadow_gray;
+    double medium_shadow_red;
+    double medium_shadow_green;
+    double medium_shadow_blue;
+
+    double medium_highlight_gray;
+    double medium_highlight_red;
+    double medium_highlight_green;
+    double medium_highlight_blue;
+
+    int medium_negative;
 
     double gamma;
     double gamma_red;

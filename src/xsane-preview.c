@@ -1367,6 +1367,24 @@ static void preview_set_option_val(Preview *p, int option, SANE_Int value)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static int preview_test_image_y(Preview *p)
+{
+  if (p->image_y >= p->image_height) /* make sure backend does not send more data then expected */
+  {
+   char buf[256];
+
+    --p->image_y;
+    preview_scan_done(p, 1);
+    snprintf(buf, sizeof(buf), "%s", ERR_TOO_MUCH_DATA);
+    xsane_back_gtk_error(buf, TRUE);
+   return -1;
+  }
+
+ return 0;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static int preview_increment_image_y(Preview *p)
 {
  size_t extra_size, offset;
@@ -1394,17 +1412,6 @@ static int preview_increment_image_y(Preview *p)
      return -1;
     }
     memset(p->image_data_enh + offset, 0xff, extra_size);
-  }
-  else /* backend defined image geometry at sane_start */
-  {
-    if (p->image_y > p->image_height) /* make sure backend does not send more data then expected */
-    {
-      --p->image_y;
-      preview_scan_done(p, 1);
-      snprintf(buf, sizeof(buf), "%s", ERR_TOO_MUCH_DATA);
-      xsane_back_gtk_error(buf, TRUE);
-     return -1;
-    }
   }
 
   return 0;
@@ -1486,8 +1493,15 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
           break; /* exit while loop, display_maybe */
         }
       }
+      else if (status == SANE_STATUS_CANCELLED)
+      {
+        preview_scan_done(p, 1); /* save scanned part of the preview */
+        snprintf(buf, sizeof(buf), "%s", XSANE_STRSTATUS(status));
+        xsane_back_gtk_info(buf, TRUE);
+       return;
+      }
 
-      /* not SANE_STATUS_GOOD and not SANE_STATUS_EOF */
+      /* not SANE_STATUS_GOOD and not SANE_STATUS_EOF and not SANE_STATUS_CANCELLED */
       preview_scan_done(p, 0);
       snprintf(buf, sizeof(buf), "%s %s.", ERR_DURING_READ, XSANE_STRSTATUS(status));
       xsane_back_gtk_error(buf, TRUE);
@@ -1507,6 +1521,11 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
           case 8:
             for (i = 0; i < len; ++i)
             {
+              if (preview_test_image_y(p))
+              {
+                return; /* backend sends too much image data */
+              }
+
               p->image_data_raw[p->image_offset]   = buf[i] * 256;
               p->image_data_enh[p->image_offset++] = buf[i];
 
@@ -1523,6 +1542,11 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
           case 16:
             for (i = 0; i < len/2; ++i)
             {
+              if (preview_test_image_y(p))
+              {
+                return; /* backend sends too much image data */
+              }
+
               p->image_data_raw[p->image_offset]   = buf16[i];
               p->image_data_enh[p->image_offset++] = (u_char) (buf16[i]/256);
 
@@ -1552,6 +1576,11 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
             {
               u_char mask = buf[i];
 
+              if (preview_test_image_y(p))
+              {
+                return; /* backend sends too much image data */
+              }
+
               for (j = 7; j >= 0; --j)
               {
                 u_char gl = (mask & (1 << j)) ? 0x00 : 0xff;
@@ -1580,7 +1609,13 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
           case 8:
             for (i = 0; i < len; ++i)
             {
-              u_char gray = buf[i];
+             u_char gray = buf[i];
+
+              if (preview_test_image_y(p))
+              {
+                return; /* backend sends too much image data */
+              }
+
               p->image_data_raw[p->image_offset]   = gray * 256;
               p->image_data_enh[p->image_offset++] = gray;
 
@@ -1599,7 +1634,13 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
           case 16:
             for (i = 0; i < len/2; ++i)
             {
-              u_char gray = buf16[i]/256;
+             u_char gray = buf16[i]/256;
+
+              if (preview_test_image_y(p))
+              {
+                return; /* backend sends too much image data */
+              }
+
               p->image_data_raw[p->image_offset]   = buf16[i];
               p->image_data_enh[p->image_offset++] = gray;
 
@@ -1632,7 +1673,12 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
               case 1:
                 for (i = 0; i < len; ++i)
                 {
-                  u_char mask = buf[i];
+                 u_char mask = buf[i];
+
+                  if (preview_test_image_y(p))
+                  {
+                    return; /* backend sends too much image data */
+                  }
 
                   for (j = 0; j < 8; ++j)
                   {
@@ -1654,6 +1700,11 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
               case 8:
                 for (i = 0; i < len; ++i)
                 {
+                  if (preview_test_image_y(p))
+                  {
+                    return; /* backend sends too much image data */
+                  }
+
                   p->image_data_raw[p->image_offset] = buf[i] * 256;
                   p->image_data_enh[p->image_offset] = buf[i];
 
@@ -1668,6 +1719,11 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
               case 16:
                 for (i = 0; i < len/2; ++i)
                 {
+                  if (preview_test_image_y(p))
+                  {
+                    return; /* backend sends too much image data */
+                  }
+
                   p->image_data_raw[p->image_offset] = buf16[i];
                   p->image_data_enh[p->image_offset] = (u_char) (buf16[i]/256);
 
@@ -1902,7 +1958,7 @@ static void preview_scan_start(Preview *p)
       gamma_gray_max  = opt->constraint.range->max;
 
       gamma_data = malloc(gamma_gray_size  * sizeof(SANE_Int));
-      xsane_create_gamma_curve(gamma_data, 0, 1.0, 0.0, 0.0, gamma_gray_size, gamma_gray_max);
+      xsane_create_gamma_curve(gamma_data, 0, 1.0, 0.0, 0.0, 0.0, 100.0, 1.0, gamma_gray_size, gamma_gray_max);
       xsane_back_gtk_update_vector(xsane.well_known.gamma_vector, gamma_data);
       free(gamma_data);
     }
@@ -1933,9 +1989,15 @@ static void preview_scan_start(Preview *p)
       gamma_data_green = malloc(gamma_green_size * sizeof(SANE_Int));
       gamma_data_blue  = malloc(gamma_blue_size  * sizeof(SANE_Int));
 
-      xsane_create_gamma_curve(gamma_data_red,   0, 1.0, 0.0, 0.0, gamma_red_size,   gamma_red_max);
-      xsane_create_gamma_curve(gamma_data_green, 0, 1.0, 0.0, 0.0, gamma_green_size, gamma_green_max);
-      xsane_create_gamma_curve(gamma_data_blue,  0, 1.0, 0.0, 0.0, gamma_blue_size,  gamma_blue_max);
+      xsane_create_gamma_curve(gamma_data_red,   xsane.medium_negative, 1.0, 0.0, 0.0,
+                               xsane.medium_shadow_red, xsane.medium_highlight_red, xsane.medium_gamma_red,
+                               gamma_red_size,   gamma_red_max);
+      xsane_create_gamma_curve(gamma_data_green, xsane.medium_negative, 1.0, 0.0, 0.0,
+                               xsane.medium_shadow_green, xsane.medium_highlight_green, xsane.medium_gamma_green,
+                               gamma_green_size, gamma_green_max);
+      xsane_create_gamma_curve(gamma_data_blue,  xsane.medium_negative, 1.0, 0.0, 0.0,
+                               xsane.medium_shadow_blue, xsane.medium_highlight_blue, xsane.medium_gamma_blue,
+                               gamma_blue_size,  gamma_blue_max);
 
       xsane_back_gtk_update_vector(xsane.well_known.gamma_vector_r, gamma_data_red);
       xsane_back_gtk_update_vector(xsane.well_known.gamma_vector_g, gamma_data_green);
@@ -1991,7 +2053,7 @@ static void preview_scan_start(Preview *p)
      return;
     }
   }
-  else
+  else if (p->scanning == FALSE) /* single pass scan or first run in 3 pass mode */
   {
     memset(p->image_data_raw, 0x80, 6*p->image_width*p->image_height); /* clean memory */
     memset(p->image_data_enh, 0x80, 3*p->image_width*p->image_height); /* clean memory */
@@ -3178,7 +3240,8 @@ static void preview_cancel_button_clicked(GtkWidget *widget, gpointer data)
 
   DBG(DBG_proc, "preview_cancel_button_clicked\n");
   
-  preview_scan_done(p, 1);
+  sane_cancel(xsane.dev);
+  gtk_widget_set_sensitive(p->cancel, FALSE); /* disable cancel button */
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

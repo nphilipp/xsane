@@ -22,14 +22,14 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <netdb.h>
-
 #include "xsane.h"
 #include "xsane-preview.h"
 #include "xsane-back-gtk.h"
 #include "xsane-front-gtk.h"
+
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netdb.h>
 
 #ifdef HAVE_LIBJPEG
 #include <jpeglib.h>
@@ -198,36 +198,35 @@ void xsane_update_counter_in_filename(char **filename, int skip, int step, int m
 
   DBG(DBG_proc, "xsane_update_counter_in_filename\n");
 
-  if (!xsane.filetype) /* no filetype: serach "." */
+  while (1) /* may  be we have to skip existing files */
   {
-    position_point = strrchr(*filename, '.');
-  }
-
-  if (!position_point) /* nothing usable ? */
-  {
-    position_point = *filename + strlen(*filename); /* here is no point, but position - 1 is last character */
-  }
-
-  if (position_point)
-  {
-    position_counter = position_point-1; /* go to last number of counter (if xounter exists) */
-
-    /* search non numeric char */
-    while ( (position_counter >= *filename) && (*position_counter >= '0') && (*position_counter <='9') )
+    if (!xsane.filetype) /* no filetype: serach "." */
     {
-      position_counter--; /* search fisrt numeric character */
+      position_point = strrchr(*filename, '.');
     }
 
-    position_counter++; /* go to first numeric charcter */
-
-    counter_len = position_point - position_counter;
-
-    if (counter_len) /* we have a counter */
+    if (!position_point) /* nothing usable ? */
     {
-      sscanf(position_counter, "%d", &counter);
+      position_point = *filename + strlen(*filename); /* here is no point, but position - 1 is last character */
+    }
 
-      while (1) /* may  be we have to skip existing files */
+    if (position_point)
+    {
+      position_counter = position_point-1; /* go to last number of counter (if counter exists) */
+
+      /* search non numeric char */
+      while ( (position_counter >= *filename) && (*position_counter >= '0') && (*position_counter <='9') )
       {
+        position_counter--; /* search fisrt numeric character */
+      }
+
+      position_counter++; /* go to first numeric charcter */
+
+      counter_len = position_point - position_counter;
+
+      if (counter_len) /* we have a counter */
+      {
+        sscanf(position_counter, "%d", &counter);
         counter += step; /* update counter */
 
         if (counter < 0)
@@ -253,7 +252,16 @@ void xsane_update_counter_in_filename(char **filename, int skip, int step, int m
 
         if (skip) /* test if filename already used */
         {
-          testfile = fopen(*filename, "rb"); /* read binary (b for win32) */
+          if (xsane.filetype) /* add filetype to filename */
+          {
+            snprintf(buf, sizeof(buf), "%s%s", *filename, xsane.filetype);
+            testfile = fopen(buf, "rb"); /* read binary (b for win32) */
+          }
+          else /* filetype in filename */
+          {
+            testfile = fopen(*filename, "rb"); /* read binary (b for win32) */
+          }
+
           if (testfile) /* filename used: skip */
           {
             fclose(testfile);
@@ -267,6 +275,10 @@ void xsane_update_counter_in_filename(char **filename, int skip, int step, int m
         {
           break; /* filename ok */
         }
+      }
+      else /* no counter */
+      {
+        break; /* no counter */
       }
     }
   }
@@ -2301,6 +2313,8 @@ void write_mail_header(int fd_socket, char *from, char *reply_to, char *to, char
   snprintf(buf, sizeof(buf), "Subject: %s\n", subject);
   write(fd_socket, buf, strlen(buf));
 
+  snprintf(buf, sizeof(buf), "MIME-Version: 1.0\n");
+  write(fd_socket, buf, strlen(buf));
 
   if (related) /* related means that we need a special link in the html part to display the image */
   {
@@ -2435,8 +2449,8 @@ void write_mail_attach_file(int fd_socket, char *boundary, FILE *infile, char *f
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
-/* returns fd_socket if sucessfull, < 0 when error occured */
 
+/* returns fd_socket if sucessfull, < 0 when error occured */
 int open_socket(char *server, int port)
 {
  int fd_socket;
@@ -2491,8 +2505,9 @@ int open_socket(char *server, int port)
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
-/* returns 0 if success */
 
+/* returns 0 if success */
+/* not only a write routine, also reads data */
 int pop3_login(int fd_socket, char *user, char *passwd)
 {
  char buf[1024];
@@ -2548,6 +2563,7 @@ int pop3_login(int fd_socket, char *user, char *passwd)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+/* not only a write routine, also reads data */
 int write_smtp_header(int fd_socket, char *from, char *to)
 {
  char buf[1024];
@@ -2605,6 +2621,7 @@ int write_smtp_header(int fd_socket, char *from, char *to)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+/* not only a write routine, also reads data */
 int write_smtp_footer(int fd_socket)
 {
  char buf[1024];

@@ -1561,3 +1561,53 @@ int xsane_display_license(int ask_for_accept)
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
+
+void xsane_widget_get_uposition(GtkWidget *gtk_window, gint *x, gint *y)
+{
+  if (xsane.get_deskrelative_origin)
+  {
+    DBG(DBG_proc, "xsane_widget_get_uposition(deskrelative)\n");
+    gdk_window_get_deskrelative_origin(gtk_window->window, x, y);
+  }
+  else
+  {
+    DBG(DBG_proc, "xsane_widget_get_uposition(root)\n");
+    gdk_window_get_root_origin(gtk_window->window, x, y);
+  }
+}   
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void xsane_widget_test_uposition(GtkWidget *gtk_window)
+{
+ gint x, y, x_orig, y_orig;
+
+  DBG(DBG_proc, "xsane_widget_test_uposition\n");
+
+  gtk_widget_realize(gtk_window);
+
+  while (gtk_events_pending())
+  {
+    gtk_main_iteration();
+  }
+
+  xsane_widget_get_uposition(gtk_window, &x, &y);
+  DBG(DBG_info, "xsane_widget_test_uposition: original position = %d, %d\n", x, y);
+  x_orig = x;
+  y_orig = y;
+  gtk_widget_set_uposition(gtk_window, x, y);
+  xsane_widget_get_uposition(gtk_window, &x, &y);
+  DBG(DBG_info, "xsane_widget_test_uposition: new position = %d, %d\n", x, y);
+
+  if ( (x != x_orig) || (y != y_orig) )
+  {
+    DBG(DBG_proc, "xsane_widget_test_uposition: using deskrelative function\n");
+    xsane.get_deskrelative_origin = 1;
+  }
+  else
+  {
+    DBG(DBG_proc, "xsane_widget_test_uposition: using root function\n");
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */

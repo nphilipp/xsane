@@ -41,6 +41,7 @@
 
 #define PRTOFFSET(field)	((char *) &((Preferences_printer_t *) 0)->field - (char *) 0)
 #define PAREAOFFSET(field)	((char *) &((Preferences_preset_area_t *) 0)->field - (char *) 0)
+#define PMEDIUMOFFSET(field)	((char *) &((Preferences_medium_t *) 0)->field - (char *) 0)
 
 /* --------------------------------------------------------------------- */
 
@@ -222,6 +223,7 @@ desc[] =
     {"gtk-update-policy",		xsane_rc_pref_int,	POFFSET(gtk_update_policy)},
     {"postscript-rotate",		xsane_rc_pref_int,	POFFSET(psrotate)},
     {"preset-area-definitions",		xsane_rc_pref_int,	POFFSET(preset_area_definitions)},
+    {"medium-definitions",		xsane_rc_pref_int,	POFFSET(medium_definitions)},
     {"printernr",			xsane_rc_pref_int,	POFFSET(printernr)},
     {"printerdefinitions",		xsane_rc_pref_int,	POFFSET(printerdefinitions)}
   };
@@ -267,6 +269,32 @@ desc_preset_area[] =
     {"preset-area-yoffset",		xsane_rc_pref_double,	PAREAOFFSET(yoffset)},
     {"preset-area-width",		xsane_rc_pref_double,	PAREAOFFSET(width)},
     {"preset-area-height",		xsane_rc_pref_double,	PAREAOFFSET(height)}
+  };
+
+/* --------------------------------------------------------------------- */
+
+static struct
+  {
+    SANE_String name;
+    void (*codec) (Wire *w, void *p, long offset);
+    long offset;
+  }
+desc_medium[] =
+  {
+    {"medium-name",			xsane_rc_pref_string,	PMEDIUMOFFSET(name)},
+    {"medium-shadow-gray",		xsane_rc_pref_double,	PMEDIUMOFFSET(shadow_gray)},
+    {"medium-shadow-red",		xsane_rc_pref_double,	PMEDIUMOFFSET(shadow_red)},
+    {"medium-shadow-green",		xsane_rc_pref_double,	PMEDIUMOFFSET(shadow_green)},
+    {"medium-shadow-blue",		xsane_rc_pref_double,	PMEDIUMOFFSET(shadow_blue)},
+    {"medium-highlight-gray",		xsane_rc_pref_double,	PMEDIUMOFFSET(highlight_gray)},
+    {"medium-highlight-red",		xsane_rc_pref_double,	PMEDIUMOFFSET(highlight_red)},
+    {"medium-highlight-green",		xsane_rc_pref_double,	PMEDIUMOFFSET(highlight_green)},
+    {"medium-highlight-blue",		xsane_rc_pref_double,	PMEDIUMOFFSET(highlight_blue)},
+    {"medium-gamma-gray",		xsane_rc_pref_double,	PMEDIUMOFFSET(gamma_gray)},
+    {"medium-gamma-red",		xsane_rc_pref_double,	PMEDIUMOFFSET(gamma_red)},
+    {"medium-gamma-green",		xsane_rc_pref_double,	PMEDIUMOFFSET(gamma_green)},
+    {"medium-gamma-blue",		xsane_rc_pref_double,	PMEDIUMOFFSET(gamma_blue)},
+    {"medium-negative",			xsane_rc_pref_int,	PMEDIUMOFFSET(negative)}
   };
 
 /* --------------------------------------------------------------------- */
@@ -320,6 +348,22 @@ void preferences_save(int fd)
     }
     n++;
   }
+
+  /* save mediums */
+
+  n=0;
+
+  while (n < preferences.medium_definitions)
+  {
+    DBG(DBG_info2, "saving preferences medium definition %s\n", preferences.medium[n]->name);
+    for (i = 0; i < NELEMS(desc_medium); ++i)
+    {
+      xsane_rc_io_w_string(&w, &desc_medium[i].name);
+      (*desc_medium[i].codec) (&w, preferences.medium[n], desc_medium[i].offset);
+    }
+    n++;
+  }
+
 
 
   xsane_rc_io_w_set_dir(&w, WIRE_DECODE);	/* flush it out */
@@ -448,6 +492,44 @@ void preferences_restore(int fd)
         }
       }
       DBG(DBG_info2, "preferences preset area definition %s read\n", preferences.preset_area[n]->name);
+      n++;
+    }
+  }
+
+  if (preferences.medium_definitions)
+  {
+    preferences.medium = calloc(preferences.medium_definitions, sizeof(void *)); 
+
+    n=0;
+    while (n < preferences.medium_definitions)
+    {
+      preferences.medium[n] = calloc(sizeof(Preferences_medium_t), 1);
+      for (i = 0; i < NELEMS(desc_medium); ++i)
+      {
+        xsane_rc_io_w_space(&w, 3);
+        if (w.status)
+        {
+          xsane_rc_io_w_exit(&w);
+         return;
+        }
+
+        xsane_rc_io_w_string(&w, &name);
+        if (w.status || !name)
+        {
+          xsane_rc_io_w_exit(&w);
+         return;
+        }
+
+        if (strcmp(name, desc_medium[i].name) == 0)
+        {
+          (*desc_medium[i].codec) (&w, preferences.medium[n], desc_medium[i].offset);
+        }
+        else
+        {
+          break;
+        }
+      }
+      DBG(DBG_info2, "preferences medium definition %s read\n", preferences.medium[n]->name);
       n++;
     }
   }

@@ -73,6 +73,8 @@ extern void xsane_define_output_filename(void);
 extern void xsane_identify_output_format(char **ext);
 extern void xsane_change_working_directory(void);
 extern int xsane_display_license(int ask_for_accept);
+extern void xsane_widget_get_uposition(GtkWidget *gtk_window, gint *x, gint *y);
+extern void xsane_widget_test_uposition(GtkWidget *gtk_window);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 

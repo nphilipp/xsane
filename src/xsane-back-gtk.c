@@ -39,7 +39,7 @@ extern void xsane_panel_build(void);
 SANE_Status xsane_control_option(SANE_Handle handle, SANE_Int option, SANE_Action action, void *val, SANE_Int *info);
 const SANE_Option_Descriptor *xsane_get_option_descriptor(SANE_Handle handle, SANE_Int option);
 const char *xsane_back_gtk_unit_string(SANE_Unit unit);
-void xsane_back_gtk_set_tooltip(GtkTooltips *tooltips, GtkWidget *widget, const char *desc);
+void xsane_back_gtk_set_tooltip(GtkTooltips *tooltips, GtkWidget *widget, const gchar *desc);
 int xsane_back_gtk_make_path(size_t buf_size, char *buf, const char *prog_name, const char *dir_name,
                              const char *prefix, const char *dev_name, const char *postfix, int location);
 void xsane_back_gtk_set_option(int opt_num, void *val, SANE_Action action);
@@ -214,7 +214,7 @@ const char *xsane_back_gtk_unit_string(SANE_Unit unit)
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-void xsane_back_gtk_set_tooltip(GtkTooltips *tooltips, GtkWidget *widget, const char *desc)
+void xsane_back_gtk_set_tooltip(GtkTooltips *tooltips, GtkWidget *widget, const gchar *desc)
 {
   DBG(DBG_proc, "xsane_back_gtk_set_tooltip\n");
 
@@ -362,7 +362,7 @@ int xsane_back_gtk_make_path(size_t buf_size, char *buf, const char *prog_name, 
 
       switch (dev_name[i])
       {
-        case '\\':	/* "/" -> "_" */
+        case '\\':	/* "\" -> "_" */
           buf[len++] = '_'; 
          break;
 
@@ -371,6 +371,12 @@ int xsane_back_gtk_make_path(size_t buf_size, char *buf, const char *prog_name, 
          break;
 
 #ifdef _WIN32
+        case ':':	/* ":" -> "_" */
+          buf[len++] = '_'; 
+         break;
+#endif
+
+#ifdef HAVE_OS2_H
         case ':':	/* ":" -> "_" */
           buf[len++] = '_'; 
          break;
