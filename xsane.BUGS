@@ -1,0 +1,28 @@
+
+ - on some systems it is reported that:
+   - loading an old preview sometimes produces wrong colors
+   - scanning in colormode with "custom gamma" disabled produces bad images
+   - saving as png -> coredump
+
+On my system all this works fine. If you have one of the problem above please
+contact me and tell me:
+ - used xsane version
+ - cpu
+ - operating system
+ - byteorder of the cpu - if you know
+ - ram size
+ - used sane version
+ - used backend and version
+ - used scanner
+ - bit depth (8bits/color or 16bits/color)
+ - local scanner or via net backend
+
+Mail to: Oliver.Rauch@Wolfsburg.DE
+
+----------------------------------------------------------------------------------
+
+- other known bugs:
+  - if you increase the preview size very quick the selection frame is only redrawn
+    in the area of the old, smaller window.
+
+

@@ -30,7 +30,7 @@ DO THE FOLLOWING AS NORMAL USER, NOT AS ROOT:
     If that does not work, remove config.cache:
       rm -f config.cache
 
-DO THE FOLLOWING AS ROOT:
+THE FOLLOWING POSSIBLY HAS TO BE DONE AS ROOT:
 - Call make install 
 
 DO THE FOLLOWING AS NORMAL USER:
@@ -46,3 +46,4 @@ DO THE FOLLOWING AS NORMAL USER:
 
 If something does not work like expected read file xsane.PROBLEMS
 
+DO NOT RUN XSANE AS ROOT!

@@ -73,6 +73,7 @@
 #include "xsane-preview.h"
 #include "xsane-preferences.h"
 #include "xsane-gamma.h"
+#include <gdk/gdkkeysyms.h>
 
 
 #ifndef PATH_MAX
@@ -187,7 +188,8 @@ void preview_calculate_histogram(Preview *p,
 void preview_gamma_correction(Preview *p,
                               SANE_Int *gamma_red, SANE_Int *gamma_green, SANE_Int *gamma_blue,
                               SANE_Int *gamma_red_hist, SANE_Int *gamma_green_hist, SANE_Int *gamma_blue_hist);
-void preview_area_resize(GtkWidget *widget);
+void preview_area_resize(Preview *p);
+gint preview_area_resize_handler(GtkWidget *widget, GdkEvent *event, gpointer data);
 void preview_update_maximum_output_size(Preview *p);
 void preview_set_maximum_output_size(Preview *p, float width, float height);
 
@@ -363,8 +365,8 @@ static void preview_update_selection(Preview *p)
     optnum = p->dialog->well_known.coord[i];
     if (optnum > 0)
     {
-      opt = sane_get_option_descriptor(p->dialog->dev, optnum);
-      status = sane_control_option(p->dialog->dev, optnum, SANE_ACTION_GET_VALUE, &val, 0);
+      opt = xsane_get_option_descriptor(p->dialog->dev, optnum);
+      status = xsane_control_option(p->dialog->dev, optnum, SANE_ACTION_GET_VALUE, &val, 0);
       if (status != SANE_STATUS_GOOD)
       {
         continue;
@@ -703,7 +705,7 @@ static void preview_save_option(Preview *p, int option, void *save_loc, int *val
     return;
   }
 
-  status = sane_control_option(p->dialog->dev, option, SANE_ACTION_GET_VALUE, save_loc, 0);
+  status = xsane_control_option(p->dialog->dev, option, SANE_ACTION_GET_VALUE, save_loc, 0);
   *valid = (status == SANE_STATUS_GOOD);
 }
 
@@ -721,12 +723,12 @@ static void preview_restore_option(Preview *p, int option, void *saved_value, in
   }
 
   dev = p->dialog->dev;
-  status = sane_control_option(dev, option, SANE_ACTION_SET_VALUE, saved_value, 0);
+  status = xsane_control_option(dev, option, SANE_ACTION_SET_VALUE, saved_value, 0);
 
   if (status != SANE_STATUS_GOOD)
   {
     char buf[256];
-    opt = sane_get_option_descriptor(dev, option);
+    opt = xsane_get_option_descriptor(dev, option);
     snprintf(buf, sizeof(buf), "%s %s: %s.", ERR_SET_OPTION, opt->name, XSANE_STRSTATUS(status));
     xsane_back_gtk_error(buf, TRUE);
   }
@@ -746,7 +748,7 @@ static void preview_set_option_float(Preview *p, int option, float value)
   }
 
   dev = p->dialog->dev;
-  opt = sane_get_option_descriptor(dev, option);
+  opt = xsane_get_option_descriptor(dev, option);
   if (opt->type == SANE_TYPE_FIXED)
   {
     word = SANE_FIX(value) + 0.5;
@@ -756,7 +758,7 @@ static void preview_set_option_float(Preview *p, int option, float value)
     word = value + 0.5;
   }
 
-  sane_control_option(dev, option, SANE_ACTION_SET_VALUE, &word, 0);
+  xsane_control_option(dev, option, SANE_ACTION_SET_VALUE, &word, 0);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -771,7 +773,7 @@ static void preview_set_option(Preview *p, int option, void *value)
   }
 
   dev = p->dialog->dev;
-  sane_control_option(dev, option, SANE_ACTION_SET_VALUE, value, 0);
+  xsane_control_option(dev, option, SANE_ACTION_SET_VALUE, value, 0);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -786,7 +788,7 @@ static void preview_set_option_val(Preview *p, int option, SANE_Int value)
   }
 
   dev = p->dialog->dev;
-  sane_control_option(dev, option, SANE_ACTION_SET_VALUE, &value, 0);
+  xsane_control_option(dev, option, SANE_ACTION_SET_VALUE, &value, 0);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1219,12 +1221,12 @@ static void preview_scan_start(Preview *p)
   {
    const SANE_Option_Descriptor *opt;
  
-    opt = sane_get_option_descriptor(p->dialog->dev, p->dialog->well_known.gamma_vector);
+    opt = xsane_get_option_descriptor(p->dialog->dev, p->dialog->well_known.gamma_vector);
     if (SANE_OPTION_IS_ACTIVE(opt->cap))
     {
      SANE_Int *gamma_data;
 
-      opt = sane_get_option_descriptor(p->dialog->dev, p->dialog->well_known.gamma_vector);
+      opt = xsane_get_option_descriptor(p->dialog->dev, p->dialog->well_known.gamma_vector);
       gamma_gray_size = opt->size / sizeof(opt->type);
       gamma_gray_max  = opt->constraint.range->max;
 
@@ -1239,20 +1241,20 @@ static void preview_scan_start(Preview *p)
   {
    const SANE_Option_Descriptor *opt;
 
-    opt = sane_get_option_descriptor(p->dialog->dev, p->dialog->well_known.gamma_vector_r);
+    opt = xsane_get_option_descriptor(p->dialog->dev, p->dialog->well_known.gamma_vector_r);
     if (SANE_OPTION_IS_ACTIVE(opt->cap))
     {
      SANE_Int *gamma_data_red, *gamma_data_green, *gamma_data_blue;
 
-      opt = sane_get_option_descriptor(p->dialog->dev, p->dialog->well_known.gamma_vector_r);
+      opt = xsane_get_option_descriptor(p->dialog->dev, p->dialog->well_known.gamma_vector_r);
       gamma_red_size = opt->size / sizeof(opt->type);
       gamma_red_max  = opt->constraint.range->max;
 
-      opt = sane_get_option_descriptor(p->dialog->dev, p->dialog->well_known.gamma_vector_g);
+      opt = xsane_get_option_descriptor(p->dialog->dev, p->dialog->well_known.gamma_vector_g);
       gamma_green_size = opt->size / sizeof(opt->type);
       gamma_green_max  = opt->constraint.range->max;
 
-      opt = sane_get_option_descriptor(p->dialog->dev, p->dialog->well_known.gamma_vector_b);
+      opt = xsane_get_option_descriptor(p->dialog->dev, p->dialog->well_known.gamma_vector_b);
       gamma_blue_size = opt->size / sizeof(opt->type);
       gamma_blue_max  = opt->constraint.range->max;
 
@@ -1949,7 +1951,8 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
           p->timer = 0;
         }
 
-        switch (((GdkEventMotion *)event)->state)
+        switch (((GdkEventMotion *)event)->state &
+                GDK_Num_Lock & GDK_Caps_Lock & GDK_Shift_Lock & GDK_Scroll_Lock) /* mask all Locks */
         {
           case 256: /* left button */
             if ( (p->selection_drag) || (p->selection_drag_edge) )
@@ -2130,10 +2133,13 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
     }
   }
 
+/* 1=> speed but errors while drawing selection frame */
+#if 0
   while (gtk_events_pending()) /* make sure all selection draw is done now */
   {
     gtk_main_iteration();
   }
+#endif
 
   event_count--;
 
@@ -2285,8 +2291,8 @@ Preview *preview_new(GSGDialog *dialog)
 			GDK_EXPOSURE_MASK | GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK |
 			GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK);
   gtk_signal_connect(GTK_OBJECT(p->window), "event", (GtkSignalFunc) preview_event_handler, p);
-  gtk_signal_connect_after(GTK_OBJECT(p->window), "expose_event", (GtkSignalFunc) preview_expose_handler, p);
-  gtk_signal_connect_after(GTK_OBJECT(p->window), "size_allocate", (GtkSignalFunc) preview_area_resize, 0);
+  gtk_signal_connect_after(GTK_OBJECT(p->window), "expose_event",  (GtkSignalFunc) preview_expose_handler, p);
+  gtk_signal_connect_after(GTK_OBJECT(p->window), "size_allocate", (GtkSignalFunc) preview_area_resize_handler, p);
   gtk_object_set_data(GTK_OBJECT(p->window), "PreviewPointer", p);
 
   /* Connect the motion-notify events of the preview area with the rulers.  Nifty stuff!  */
@@ -2342,10 +2348,6 @@ Preview *preview_new(GSGDialog *dialog)
   gtk_widget_pop_visual();
 #endif
 
-  while (gtk_events_pending()) /* make sure all selection draw is done now */
-  {
-    gtk_main_iteration();
-  }
   preview_update_surface(p, 0);
   return p;
 }
@@ -2401,7 +2403,7 @@ void preview_update_surface(Preview *p, int surface_changed)
 
     if (p->dialog->well_known.coord[i] > 0)
     {
-      opt = sane_get_option_descriptor(p->dialog->dev, p->dialog->well_known.coord[i]);
+      opt = xsane_get_option_descriptor(p->dialog->dev, p->dialog->well_known.coord[i]);
       assert(opt->unit == SANE_UNIT_PIXEL || opt->unit == SANE_UNIT_MM);
       unit = opt->unit;
       type = opt->type;
@@ -2546,7 +2548,7 @@ void preview_update_surface(Preview *p, int surface_changed)
 
   if (surface_changed)
   {
-    preview_area_resize(p->window); /* correct rules */
+    preview_area_resize(p); /* correct rulers */
     preview_bound_selection(p); /* make sure selection is not larger than surface */
     preview_restore_image(p); /* draw selected surface of the image */
   }
@@ -2583,7 +2585,7 @@ void preview_scan(Preview *p)
 
   if (p->dialog->well_known.dpi > 0)
   {
-    opt = sane_get_option_descriptor(p->dialog->dev, p->dialog->well_known.dpi);
+    opt = xsane_get_option_descriptor(p->dialog->dev, p->dialog->well_known.dpi);
 
     gwidth  = p->preview_width;
     gheight = p->preview_height;
@@ -2804,11 +2806,6 @@ static void preview_zoom_not(GtkWidget *window, gpointer data)
   gtk_widget_set_sensitive(p->zoom_not, FALSE); /* forbid unzoom */
   gtk_widget_set_sensitive(p->zoom_out, FALSE); /* forbid zoom out */
   gtk_widget_set_sensitive(p->zoom_undo,TRUE);  /* allow zoom undo */
-
-  while (gtk_events_pending()) /* make sure all selection draw is done now */
-  {
-    gtk_main_iteration();
-  }
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -2853,11 +2850,6 @@ static void preview_zoom_out(GtkWidget *window, gpointer data)
   preview_update_surface(p, 1);
   gtk_widget_set_sensitive(p->zoom_not, TRUE); /* allow unzoom */
   gtk_widget_set_sensitive(p->zoom_undo,TRUE); /* allow zoom undo */
-
-  while (gtk_events_pending()) /* make sure all selection draw is done now */
-  {
-    gtk_main_iteration();
-  }
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -2877,8 +2869,8 @@ static void preview_zoom_in(GtkWidget *window, gpointer data)
     optnum = p->dialog->well_known.coord[i];
     if (optnum > 0)
     {
-      opt = sane_get_option_descriptor(p->dialog->dev, optnum);
-      status = sane_control_option(p->dialog->dev, optnum, SANE_ACTION_GET_VALUE, &val, 0);
+      opt = xsane_get_option_descriptor(p->dialog->dev, optnum);
+      status = xsane_control_option(p->dialog->dev, optnum, SANE_ACTION_GET_VALUE, &val, 0);
       if (status != SANE_STATUS_GOOD)
       {
         continue;
@@ -2899,11 +2891,6 @@ static void preview_zoom_in(GtkWidget *window, gpointer data)
   gtk_widget_set_sensitive(p->zoom_not, TRUE); /* allow unzoom */
   gtk_widget_set_sensitive(p->zoom_out, TRUE); /* allow zoom out */
   gtk_widget_set_sensitive(p->zoom_undo,TRUE); /* allow zoom undo */
-
-  while (gtk_events_pending()) /* make sure all selection draw is done now */
-  {
-    gtk_main_iteration();
-  }
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -2922,11 +2909,6 @@ static void preview_zoom_undo(GtkWidget *window, gpointer data)
   gtk_widget_set_sensitive(p->zoom_not, TRUE);   /* allow unzoom */
   gtk_widget_set_sensitive(p->zoom_out, TRUE); /* allow zoom out */
   gtk_widget_set_sensitive(p->zoom_undo, FALSE); /* forbid zoom undo */
-
-  while (gtk_events_pending()) /* make sure all selection draw is done now */
-  {
-    gtk_main_iteration();
-  }
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -3270,20 +3252,17 @@ void preview_gamma_correction(Preview *p,
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void preview_area_resize(GtkWidget *widget)
+void preview_area_resize(Preview *p)
 {
  float min_x, max_x, delta_x;
  float min_y, max_y, delta_y;
  float xscale, yscale, f;
- Preview *p;
 
-  p = gtk_object_get_data(GTK_OBJECT(widget), "PreviewPointer");
+  p->preview_window_width  = p->window->allocation.width;
+  p->preview_window_height = p->window->allocation.height;
 
-  p->preview_window_width  = widget->allocation.width;
-  p->preview_window_height = widget->allocation.height;
-
-  p->preview_width         = widget->allocation.width;
-  p->preview_height        = widget->allocation.height;
+  p->preview_width         = p->window->allocation.width;
+  p->preview_height        = p->window->allocation.height;
 
   preview_area_correct(p); /* set preview dimensions (with right aspect) that it fits into the window */
 
@@ -3367,6 +3346,14 @@ void preview_area_resize(GtkWidget *widget)
   gtk_ruler_set_range(GTK_RULER(p->vruler), min_y, min_y + delta_y*p->preview_window_height/p->preview_height, min_y, /* max_size */ 20);
 
   preview_paint_image(p);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+gint preview_area_resize_handler(GtkWidget *widget, GdkEvent *event, gpointer data)
+{
+  preview_area_resize((Preview *) data);
+ return FALSE;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

@@ -32,7 +32,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.56"
+#define XSANE_VERSION		"0.57"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2000"
@@ -138,8 +138,7 @@ extern const char *device_text;
 extern GtkWidget *choose_device_dialog;
 extern GSGDialog *dialog;
 extern const SANE_Device **devlist;
-extern gint seldev;        /* The selected device */
-extern gint ndevs;              /* The number of available devices */
+extern int selected_dev;        /* The selected device */
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -283,22 +282,6 @@ typedef struct Xsane
     GdkPixmap *window_icon_pixmap;
     GdkBitmap *window_icon_mask;        
 
-    /* window position and geometry */
-    SANE_Int shell_posx;
-    SANE_Int shell_posy;
-    SANE_Int shell_height;
-    SANE_Int shell_width;
-    SANE_Int standard_options_shell_posx;
-    SANE_Int standard_options_shell_posy;
-    SANE_Int advanced_options_shell_posx;
-    SANE_Int advanced_options_shell_posy;
-    SANE_Int histogram_dialog_posx;
-    SANE_Int histogram_dialog_posy;
-    SANE_Int preview_dialog_posx;
-    SANE_Int preview_dialog_posy;
-    SANE_Int preview_dialog_width;
-    SANE_Int preview_dialog_height;
-
     GtkWidget *hruler;
     GtkWidget *vruler;
     GtkWidget *info_label;
@@ -306,8 +289,7 @@ typedef struct Xsane
     GtkObject *cancel_button;
     GtkSignalFunc cancel_callback;
     Preview   *preview;
-    gint32    mode;
-    gint32    lineart_mode;
+    int mode;
 
     int main_window_fixed;
     int mode_selection;
@@ -338,27 +320,7 @@ typedef struct Xsane
     struct XsaneSlider slider_red;
     struct XsaneSlider slider_green;
     struct XsaneSlider slider_blue;
-    guint slider_timer;
-
-    int negative;
-    double gamma;
-    double gamma_red;
-    double gamma_green;
-    double gamma_blue;
-    double brightness;
-    double brightness_red;
-    double brightness_green;
-    double brightness_blue;
-    double contrast;
-    double contrast_red;
-    double contrast_green;
-    double contrast_blue;
-    double threshold;
-    double threshold_min;
-    double threshold_max;
-    double threshold_mul;
-    double threshold_off;
-    SANE_String grayscale_scanmode;
+    guint slider_timer; /* has to be guint */
 
     double auto_white;
     double auto_gray;
@@ -425,12 +387,10 @@ typedef struct Xsane
     GtkObject *threshold_widget;
 
     SANE_Int xsane_color;
-    SANE_Bool show_preview;
     SANE_Bool scanner_gamma_color;
     SANE_Bool scanner_gamma_gray;
-    SANE_Bool enhancement_rgb_default;
 
-    SANE_Bool fax_fine_mode;
+    int fax_fine_mode;
 
     GtkWidget *outputfilename_entry;
     GtkWidget *copy_number_entry;
@@ -446,9 +406,62 @@ typedef struct Xsane
 
     int broken_pipe; /* for printercommand pipe */
 
+/* -------------------------------------------------- */
+
+/* device preferences: */
+
+/* we have to use double and int here, gint or SANE_Word
+   is not allowed because we need a defined size for
+   rc_io-routintes that are based on double, int, ... */
+
+    /* window position and geometry */
+    int shell_posx;
+    int shell_posy;
+    int shell_height;
+    int shell_width;
+    int standard_options_shell_posx;
+    int standard_options_shell_posy;
+    int advanced_options_shell_posx;
+    int advanced_options_shell_posy;
+    int histogram_dialog_posx;
+    int histogram_dialog_posy;
+    int preview_dialog_posx;
+    int preview_dialog_posy;
+    int preview_dialog_width;
+    int preview_dialog_height;
+
+    double gamma;
+    double gamma_red;
+    double gamma_green;
+    double gamma_blue;
+
+    double brightness;
+    double brightness_red;
+    double brightness_green;
+    double brightness_blue;
+
+    double contrast;
+    double contrast_red;
+    double contrast_green;
+    double contrast_blue;
+
+    int lineart_mode;
+    double threshold;
+    double threshold_min;
+    double threshold_max;
+    double threshold_mul;
+    double threshold_off;
+    SANE_String grayscale_scanmode;
+
+    int enhancement_rgb_default;
+    int negative;
+    int show_preview;
+
+/* -------------------------------------------------- */
+
 #ifdef HAVE_LIBGIMP_GIMP_H
     /* for GIMP mode: */
-    gint32 image_ID;
+    gint32 image_ID; /* has to be gint32 */
     GDrawable *drawable;
     guchar *tile;
     unsigned tile_offset;

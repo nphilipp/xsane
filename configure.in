@@ -6,7 +6,7 @@ AC_CONFIG_HEADER(include/sane/config.h)
 
 # version code:
 V_MAJOR=0
-V_MINOR=56
+V_MINOR=57
 
 PACKAGE=xsane
 
@@ -289,9 +289,7 @@ echo "****************************************************************"
 echo "*                                                              *"
 echo "* To compile XSANE:                                            *"
 echo "* -----------------                                            *"
-echo "* enter as normal user:                                        *"
 echo "*   make                                                       *"
-echo "* and as root:                                                 *"
 echo "*   make install                                               *"
 echo "*                                                              *"
 echo "* ------------------------------------------------------------ *"

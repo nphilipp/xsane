@@ -35,9 +35,40 @@ extern void xsane_panel_build(GSGDialog *dialog);
 /* ----------------------------------------------------------------------------------------------------------------- */
 
 /* forward declarations: */
+SANE_Status xsane_control_option(SANE_Handle handle, SANE_Int option, SANE_Action action, void *val, SANE_Int *info);
+const SANE_Option_Descriptor *xsane_get_option_descriptor(SANE_Handle handle, SANE_Int option);
+const char *xsane_back_gtk_unit_string(SANE_Unit unit);
+void xsane_back_gtk_set_tooltip(GtkTooltips *tooltips, GtkWidget *widget, const char *desc);
+int xsane_back_gtk_make_path(size_t buf_size, char *buf, const char *prog_name, const char *dir_name,
+                             const char *prefix, const char *dev_name, const char *postfix, int location);
+void xsane_back_gtk_set_option(GSGDialog * dialog, int opt_num, void *val, SANE_Action action);
+
 static void xsane_back_gtk_panel_rebuild(GSGDialog *dialog);
 void xsane_set_sensitivity(SANE_Int sensitivity);
 void xsane_set_window_icon(GtkWidget *gtk_window, gchar **xpm_d);
+
+/* ----------------------------------------------------------------------------------------------------------------- */
+
+const SANE_Option_Descriptor *xsane_get_option_descriptor(SANE_Handle handle, SANE_Int option)
+{
+  if (option >= 0)
+  {
+    return sane_get_option_descriptor(handle, option);
+  }
+ return NULL;
+}
+
+/* ----------------------------------------------------------------------------------------------------------------- */
+
+SANE_Status xsane_control_option(SANE_Handle handle, SANE_Int option, SANE_Action action, void *val, SANE_Int *info)
+{
+  if (option >= 0)
+  {
+    return sane_control_option(handle, option, action, val, info);
+  }
+
+ return SANE_STATUS_INVAL;
+}
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
@@ -77,12 +108,8 @@ void xsane_back_gtk_set_tooltip(GtkTooltips *tooltips, GtkWidget *widget, const 
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-int xsane_back_gtk_make_path(size_t buf_size, char *buf,
-	       const char *prog_name,
-	       const char *dir_name,
-	       const char *prefix, const char *dev_name,
-	       const char *postfix,
-               int location)
+int xsane_back_gtk_make_path(size_t buf_size, char *buf, const char *prog_name, const char *dir_name,
+                             const char *prefix, const char *dev_name, const char *postfix, int location)
 {
   struct passwd *pw;
   size_t len, extra;
@@ -247,10 +274,10 @@ void xsane_back_gtk_set_option(GSGDialog * dialog, int opt_num, void *val, SANE_
   SANE_Int info;
   char buf[256];
 
-  status = sane_control_option(dialog->dev, opt_num, action, val, &info);
+  status = xsane_control_option(dialog->dev, opt_num, action, val, &info);
   if (status != SANE_STATUS_GOOD)
   {
-    snprintf(buf, sizeof(buf), "%s %s: %s.", ERR_SET_OPTION, sane_get_option_descriptor(dialog->dev, opt_num)->name,
+    snprintf(buf, sizeof(buf), "%s %s: %s.", ERR_SET_OPTION, xsane_get_option_descriptor(dialog->dev, opt_num)->name,
              XSANE_STRSTATUS(status));
     xsane_back_gtk_error(buf, FALSE);
     return;
@@ -523,14 +550,14 @@ static gint xsane_back_gtk_autobutton_update(GtkWidget *widget, GSGDialogElement
   SANE_Word val;
   char buf[256];
 
-  opt = sane_get_option_descriptor(dialog->dev, opt_num);
+  opt = xsane_get_option_descriptor(dialog->dev, opt_num);
   if (GTK_TOGGLE_BUTTON(widget)->active)
   {
     xsane_back_gtk_set_option(dialog, opt_num, 0, SANE_ACTION_SET_AUTO);
   }
   else
   {
-    status = sane_control_option(dialog->dev, opt_num, SANE_ACTION_GET_VALUE, &val, 0);
+    status = xsane_control_option(dialog->dev, opt_num, SANE_ACTION_GET_VALUE, &val, 0);
     if (status != SANE_STATUS_GOOD)
     {
       snprintf(buf, sizeof(buf), "%s %s: %s.", ERR_GET_OPTION, opt->name, XSANE_STRSTATUS(status));
@@ -573,7 +600,7 @@ static gint xsane_back_gtk_button_update(GtkWidget * widget, GSGDialogElement * 
   const SANE_Option_Descriptor *opt;
   SANE_Word val = SANE_FALSE;
 
-  opt = sane_get_option_descriptor(dialog->dev, opt_num);
+  opt = xsane_get_option_descriptor(dialog->dev, opt_num);
   if (GTK_TOGGLE_BUTTON(widget)->active)
   {
     val = SANE_TRUE;
@@ -613,7 +640,7 @@ static void xsane_back_gtk_scale_update(GtkAdjustment * adj_data, GSGDialogEleme
   double d;
 
   opt_num = elem - dialog->element;
-  opt = sane_get_option_descriptor(dialog->dev, opt_num);
+  opt = xsane_get_option_descriptor(dialog->dev, opt_num);
   switch(opt->type)
   {
     case SANE_TYPE_INT:
@@ -635,7 +662,7 @@ static void xsane_back_gtk_scale_update(GtkAdjustment * adj_data, GSGDialogEleme
   }
 
   xsane_back_gtk_set_option(dialog, opt_num, &val, SANE_ACTION_SET_VALUE);
-  sane_control_option(dialog->dev, opt_num, SANE_ACTION_GET_VALUE, &new_val, 0);
+  xsane_control_option(dialog->dev, opt_num, SANE_ACTION_GET_VALUE, &new_val, 0);
   if (new_val != val)
   {
     val = new_val;
@@ -760,7 +787,7 @@ static void xsane_back_gtk_option_menu_callback(GtkWidget * widget, gpointer dat
   void *valp = &val;
 
   opt_num = elem - dialog->element;
-  opt = sane_get_option_descriptor(dialog->dev, opt_num);
+  opt = xsane_get_option_descriptor(dialog->dev, opt_num);
   switch(opt->type)
   {
     case SANE_TYPE_INT:
@@ -846,7 +873,7 @@ static void xsane_back_gtk_text_entry_callback(GtkWidget *w, gpointer data)
   char *buf;
 
   opt_num = elem - dialog->element;
-  opt = sane_get_option_descriptor(dialog->dev, opt_num);
+  opt = xsane_get_option_descriptor(dialog->dev, opt_num);
 
   buf = alloca(opt->size);
   buf[0] = '\0';
@@ -930,7 +957,7 @@ static GtkWidget* xsane_back_gtk_curve_new(GSGDialog *dialog, int optnum)
   curve = GTK_GAMMA_CURVE(gamma)->curve;
   dev = dialog->dev;
 
-  opt    = sane_get_option_descriptor(dev, optnum);
+  opt    = xsane_get_option_descriptor(dev, optnum);
   optlen = opt->size / sizeof(SANE_Word);
   vector = alloca(optlen * (sizeof(vector[0]) + sizeof(optval[0])));
   optval = (SANE_Word *) (vector + optlen);
@@ -983,7 +1010,7 @@ static GtkWidget* xsane_back_gtk_curve_new(GSGDialog *dialog, int optnum)
   }
   gtk_curve_set_range(GTK_CURVE(curve), 0, optlen - 1, fmin, fmax);
 
-  status = sane_control_option(dev, optnum, SANE_ACTION_GET_VALUE, optval, 0);
+  status = xsane_control_option(dev, optnum, SANE_ACTION_GET_VALUE, optval, 0);
   if (status == SANE_STATUS_GOOD)
   {
     for (i = 0; i < optlen; ++i)
@@ -1022,7 +1049,7 @@ static void xsane_back_gtk_vector_new(GSGDialog * dialog, GtkWidget *vbox, int n
 
   for (i = 0; i < num_vopts; ++i)
   {
-    opt = sane_get_option_descriptor(dialog->dev, vopts[i]);
+    opt = xsane_get_option_descriptor(dialog->dev, vopts[i]);
 
     label = gtk_label_new((char *) opt->title);
     vbox = gtk_vbox_new(/* homogeneous */ FALSE, 0);
@@ -1065,7 +1092,7 @@ static void xsane_back_gtk_panel_destroy(GSGDialog * dialog)
   {
     if (dialog->element[i].menu)
     {
-      opt = sane_get_option_descriptor(dialog->dev, i);
+      opt = xsane_get_option_descriptor(dialog->dev, i);
       elem = dialog->element + i;
       if (opt->type != SANE_TYPE_STRING)
       {
@@ -1128,9 +1155,9 @@ void xsane_back_gtk_update_scan_window(GSGDialog *dialog)
     {
       optnum = dialog->well_known.coord[i];
       elem = dialog->element + optnum;
-      opt = sane_get_option_descriptor(dialog->dev, optnum);
+      opt = xsane_get_option_descriptor(dialog->dev, optnum);
 
-      status = sane_control_option(dialog->dev, optnum, SANE_ACTION_GET_VALUE, &word, 0);
+      status = xsane_control_option(dialog->dev, optnum, SANE_ACTION_GET_VALUE, &word, 0);
       if (status != SANE_STATUS_GOOD)
       {
          continue; /* sliently ignore errors */
@@ -1197,7 +1224,7 @@ void xsane_back_gtk_sync(GSGDialog *dialog)
 
   for (i = 1; i < dialog->num_elements; ++i)
   {
-    opt = sane_get_option_descriptor(dialog->dev, i);
+    opt = xsane_get_option_descriptor(dialog->dev, i);
 
     if (!SANE_OPTION_IS_ACTIVE(opt->cap))
     {
@@ -1251,7 +1278,7 @@ void xsane_back_gtk_update_vector(GSGDialog *dialog, int opt_num, SANE_Int *vect
   if (opt_num < 1)
     return; /* not defined */
 
-  opt = sane_get_option_descriptor(dialog->dev, opt_num);
+  opt = xsane_get_option_descriptor(dialog->dev, opt_num);
   if (!SANE_OPTION_IS_ACTIVE(opt->cap))
   {
     return; /* inactive */
@@ -1315,7 +1342,7 @@ void xsane_back_gtk_set_sensitivity(GSGDialog *dialog, int sensitive)
 
   for (i = 0; i < dialog->num_elements; ++i)
   {
-    opt = sane_get_option_descriptor(dialog->dev, i);
+    opt = xsane_get_option_descriptor(dialog->dev, i);
 
     if (!SANE_OPTION_IS_ACTIVE(opt->cap) || !SANE_OPTION_IS_SETTABLE(opt->cap) ||
         opt->type == SANE_TYPE_GROUP || !dialog->element[i].widget)

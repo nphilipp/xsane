@@ -139,7 +139,7 @@ double xsane_find_best_resolution(int well_known_option, double dpi)
  const SANE_Option_Descriptor *opt;
  double bestdpi;
 
-  opt = sane_get_option_descriptor(dialog->dev, well_known_option);
+  opt = xsane_get_option_descriptor(dialog->dev, well_known_option);
 
   if (!opt)
   {
@@ -247,7 +247,7 @@ int xsane_set_resolution(int well_known_option, double resolution)
  double bestdpi;
  SANE_Word dpi;
 
-  opt = sane_get_option_descriptor(dialog->dev, well_known_option);
+  opt = xsane_get_option_descriptor(dialog->dev, well_known_option);
 
   if (!opt)
   {
@@ -277,7 +277,7 @@ int xsane_set_resolution(int well_known_option, double resolution)
     return 1; /* error */
   }
 
-  sane_control_option(dialog->dev, well_known_option, SANE_ACTION_SET_VALUE, &dpi, 0);
+  xsane_control_option(dialog->dev, well_known_option, SANE_ACTION_SET_VALUE, &dpi, 0);
   return 0; /* everything is ok */
 }
 
@@ -304,7 +304,7 @@ void xsane_define_maximum_output_size()
 {
  const SANE_Option_Descriptor *opt;
 
-  opt = sane_get_option_descriptor(dialog->dev, dialog->well_known.coord[0]);
+  opt = xsane_get_option_descriptor(dialog->dev, dialog->well_known.coord[0]);
 
   if ( (opt) && (opt->unit== SANE_UNIT_MM) )
   {
@@ -553,7 +553,7 @@ void xsane_toggle_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[],
   gdk_pixmap_unref(pixmap);
 
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *state);
-  gtk_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_toggle_button_callback, (GtkObject *)state);
+  gtk_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_toggle_button_callback, (GtkObject *) state);
   gtk_box_pack_start(GTK_BOX(parent), button, FALSE, FALSE, 0);
   gtk_widget_show(button);
 }
@@ -611,7 +611,7 @@ static void xsane_option_menu_callback(GtkWidget *widget, gpointer data)
   void *valp = &val;
 
   opt_num = elem - dialog->element;
-  opt = sane_get_option_descriptor(dialog->dev, opt_num);
+  opt = xsane_get_option_descriptor(dialog->dev, opt_num);
   switch (opt->type)
   {
     case SANE_TYPE_INT:

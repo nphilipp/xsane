@@ -346,7 +346,7 @@ static void xsane_gimp_run(char *name, int nparams, GParam * param, int *nreturn
   nargs = 0;
   args[nargs++] = "xsane";
 
-  seldev = -1;
+  selected_dev = -1;
   if (strncmp(name, "xsane-", 6) == 0)
   {
     if (xsane_decode_devname(name + 6, sizeof(devname), devname) < 0)
@@ -1112,7 +1112,7 @@ static int xsane_test_multi_scan(void)
  SANE_Status status;
  const SANE_Option_Descriptor *opt;
 
-  opt = sane_get_option_descriptor(dialog->dev, dialog->well_known.scansource);
+  opt = xsane_get_option_descriptor(dialog->dev, dialog->well_known.scansource);
   if (opt)
   {
     if (SANE_OPTION_IS_ACTIVE(opt->cap))
@@ -1120,7 +1120,7 @@ static int xsane_test_multi_scan(void)
       if (opt->constraint_type == SANE_CONSTRAINT_STRING_LIST)
       {
         set = malloc(opt->size);
-        status = sane_control_option(dialog->dev, dialog->well_known.scansource, SANE_ACTION_GET_VALUE, set, 0);
+        status = xsane_control_option(dialog->dev, dialog->well_known.scansource, SANE_ACTION_GET_VALUE, set, 0);
 
         if (status == SANE_STATUS_GOOD)
         {
@@ -2034,7 +2034,7 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
 
     if (xsane.scanner_gamma_gray) /* gamma table for gray available */
     {
-      opt = sane_get_option_descriptor(dialog->dev, dialog->well_known.gamma_vector);
+      opt = xsane_get_option_descriptor(dialog->dev, dialog->well_known.gamma_vector);
       gamma_gray_size = opt->size / sizeof(opt->type);
       gamma_gray_max  = opt->constraint.range->max;
     }
@@ -2057,15 +2057,15 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
         xsane.gamma_data = 0;
       }
 
-      opt = sane_get_option_descriptor(dialog->dev, dialog->well_known.gamma_vector_r);
+      opt = xsane_get_option_descriptor(dialog->dev, dialog->well_known.gamma_vector_r);
       gamma_red_size = opt->size / sizeof(opt->type);
       gamma_red_max  = opt->constraint.range->max;
 
-      opt = sane_get_option_descriptor(dialog->dev, dialog->well_known.gamma_vector_g);
+      opt = xsane_get_option_descriptor(dialog->dev, dialog->well_known.gamma_vector_g);
       gamma_green_size = opt->size / sizeof(opt->type);
       gamma_green_max  = opt->constraint.range->max;
 
-      opt = sane_get_option_descriptor(dialog->dev, dialog->well_known.gamma_vector_b);
+      opt = xsane_get_option_descriptor(dialog->dev, dialog->well_known.gamma_vector_b);
       gamma_blue_size = opt->size / sizeof(opt->type);
       gamma_blue_max  = opt->constraint.range->max;
 

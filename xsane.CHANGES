@@ -869,3 +869,32 @@ xsane-0.55 -> 0.56:
  - removed bug in xsane_rc_io_w_string, it returns EINVAL now each time when the string
    does not begin with "
 
+
+xsane-0.56 -> 0.57:
+-------------------
+
+ - made xsane_choose_device return type to void (was gint32)
+
+ - arranged device-preferences in struct xsane in the order they are used
+   as device preferences, made sure that all variable types are correct:
+   - changed type of xsane.mode from gint32 to int
+   - changed type of xsane.lineart_mode from gint32 to int
+   - changed type of xsane.show_preview from SANE_Bool to int
+   - changed type of xsane.enhancement_rgb_default from SANE_Bool to int
+   - changed type of xsane.fax_finemode from SANE_Bool to int
+
+ - added mask for *_lock in preview motion_notify_event handling
+   Preview selection can be done with locks activated now
+
+ - histogram is cleared before/redrawn after saving/loading device settings
+
+ - added xsane_control_option() that tests if option >= 0 and returns SANE_STATUS_INVAL if not
+
+ - added xsane_get_option_descriptor() that tests if option >= 0 and returns NULL if not
+
+ - changed parameters of preview_area_resize and added preview_area_resize_handler
+
+ - removed a lot of gtk_main_iterations from xsane_preview.c
+   they make problems in the redrawing order and can cause display problems
+
+

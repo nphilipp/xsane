@@ -176,7 +176,7 @@ extern void preview_calculate_histogram(Preview *p,				  /* calculate histogram 
 	SANE_Int *count_raw, SANE_Int *count_raw_red, SANE_Int *count_raw_green, SANE_Int *count_raw_blue,
 	SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue);
 
-extern void preview_area_resize(GtkWidget *widget);				/* redraw preview rulers */
+extern void preview_area_resize(Preview *p);					/* redraw preview rulers */
 extern void preview_set_maximum_output_size(Preview *p, float width, float height);   /* set maximum outut size */
 extern void preview_select_full_preview_area(Preview *p);
 

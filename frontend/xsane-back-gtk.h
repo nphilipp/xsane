@@ -83,6 +83,8 @@ typedef struct
   }
 GSGWellKnownOptions;
 
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 typedef struct
   {
     gchar *label;
@@ -90,6 +92,8 @@ typedef struct
     gint index;
   }
 GSGMenuItem;
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
 
 typedef struct GSGDialogElement
   {
@@ -101,6 +105,8 @@ typedef struct GSGDialogElement
     GSGMenuItem *menu;
   }
 GSGDialogElement;
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
 
 typedef struct GSGDialog
   {
@@ -135,23 +141,16 @@ typedef struct GSGDialog
   }
 GSGDialog;
 
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 extern int xsane_back_gtk_message_dialog_active;
 
-/* Construct the path and return it in filename_ret (this buffer must
-   be at least max_len bytes long).  The path is constructed as
-   follows:
+/* ---------------------------------------------------------------------------------------------------------------------- */
 
-      ~/.sane/${PROG_NAME}/${PREFIX}${DEV_NAME}${POSTFIX}
-
-   If PROG_NAME is NULL, an empty string is used and the leading slash
-   is removed.  On success, 0 is returned, on error a negative number and
-   ERRNO is set to the appropriate value.  */
-extern int xsane_back_gtk_make_path(size_t max_len, char *filename_ret,
-			 const char *prog_name,
-			 const char *dir_name,
-			 const char *prefix, const char *dev_name,
-			 const char *postfix,
-                         int local);
+extern const SANE_Option_Descriptor *xsane_get_option_descriptor(SANE_Handle handle, SANE_Int option);
+extern SANE_Status xsane_control_option(SANE_Handle handle, SANE_Int option, SANE_Action action, void *val, SANE_Int *info); 
+extern int xsane_back_gtk_make_path(size_t max_len, char *filename_ret, const char *prog_name, const char *dir_name,
+                                    const char *prefix, const char *dev_name, const char *postfix, int local);
 extern gint xsane_back_gtk_decision(gchar *title, gchar** icon_xpm, gchar *message, gchar *oktext, gchar *rejecttext, gint wait);
 extern void xsane_back_gtk_message(gchar *title, gchar** icon_xpm, gchar *message, gint wait);
 extern void xsane_back_gtk_error(gchar *error_message, gint wait);

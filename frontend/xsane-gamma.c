@@ -1447,7 +1447,7 @@ void xsane_create_histogram_dialog(const char *devicetext)
   xsane.histogram_dialog = gtk_window_new(GTK_WINDOW_DIALOG);
   gtk_window_set_policy(GTK_WINDOW(xsane.histogram_dialog), FALSE, FALSE, FALSE);
   gtk_widget_set_uposition(xsane.histogram_dialog, XSANE_HISTOGRAM_POS_X, XSANE_HISTOGRAM_POS_Y);
-  gtk_signal_connect(GTK_OBJECT(xsane.histogram_dialog), "delete_event", GTK_SIGNAL_FUNC(xsane_histogram_win_delete), 0);
+  gtk_signal_connect(GTK_OBJECT(xsane.histogram_dialog), "delete_event", GTK_SIGNAL_FUNC(xsane_histogram_win_delete), NULL);
   sprintf(windowname, "%s %s", WINDOW_HISTOGRAM, devicetext);
   gtk_window_set_title(GTK_WINDOW(xsane.histogram_dialog), windowname);
   xsane_set_window_icon(xsane.histogram_dialog, 0);
