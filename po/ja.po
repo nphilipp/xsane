@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.80\n"
 "POT-Creation-Date: 2001-10-03 12:19+0200\n"
-"PO-Revision-Date: 2001-10-04 01:00+09:00\n"
+"PO-Revision-Date: 2001-10-06 09:37+09:00\n"
 "Last-Translator: Kimizuka Tomokazu <sgtom@pluto.dti.ne.jp>\n"
 "Language-Team: Japanese <Kdeveloper@kde.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -294,7 +294,7 @@ msgstr "▓ш┴№дЄ║я╜№"
 #. BUTTON_DISCARD_ALL_IMAGES
 #, fuzzy
 msgid "Discard all images"
-msgstr "▓ш┴№дЄ║я╜№"
+msgstr "д╣д┘д╞д╬▓ш┴№дЄ║я╜№"
 
 #. BUTTON_DO_NOT_CLOSE
 msgid "Do not close"
@@ -526,12 +526,13 @@ msgid ""
 "WITHOUT ANY WARRANTY; without even the implied warranty of\n"
 "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
-"XSaneд╧бвFree Software Foundationдм╕°╔╜д╖д┐GNU░ь╚╠╕°═н╗╚═╤╡Ў┬·д╬\n"
-"б╓е╨б╝е╕ечеєг▓б╫░┐ддд╧д╜дь░╩╣▀д╬│╞е╨б╝е╕ечеєд╬├цдлдщддд║дьдлдЄ┴к┬Єд╖бвд╜д╬\n"
-"е╨б╝е╕ечеєдм─ъдсды╛Є╣рд╦╜╛д├д╞╦▄е╫еэе░ещердЄ║╞╚╥╔█д▐д┐д╧╩╤╣╣д╣дыд│д╚дмд╟дн\n"
-"д▐д╣бг╦▄е╫еэе░ещерд╧═н═╤д╚д╧╗╫ддд▐д╣дмбв╚╥╔█д╦двд┐д├д╞д╧бв╗╘╛ь└н╡┌д╙╞├─ъ╠▄┼к┼"
-"м╣ч└н\n"
-"д╦д─ддд╞д╬░┼╠█д╬╩▌╛┌дЄ┤▐дсд╞бвдддлд╩ды╩▌╛┌дт╣╘д╩ддд▐д╗дєбг\n"
+"XSaneд╧бвFree Software Foundationдм╕°╔╜д╖д┐GNU░ь╚╠╕°═н╗╚═╤╡Ў┬·\n"
+"д╬б╓е╨б╝е╕ечеєг▓б╫░┐ддд╧д╜дь░╩╣▀д╬│╞е╨б╝е╕ечеєд╬├цдлдщддд║дьдл\n"
+"дЄ┴к┬Єд╖бвд╜д╬е╨б╝е╕ечеєдм─ъдсды╛Є╣рд╦╜╛д├д╞╦▄е╫еэе░ещердЄ║╞╚╥\n"
+"╔█д▐д┐д╧╩╤╣╣д╣дыд│д╚дмд╟днд▐д╣бг\n"
+"╦▄е╫еэе░ещерд╧═н═╤д╚д╧╗╫ддд▐д╣дмбв╚╥╔█д╦двд┐д├д╞д╧бв╗╘╛ь└н╡┌д╙\n"
+"╞├─ъ╠▄┼к┼м╣ч└нд╦д─ддд╞д╬░┼╠█д╬╩▌╛┌дЄ┤▐дсд╞бвдддлд╩ды╩▌╛┌дт╣╘д╩\n"
+"ддд▐д╗дєбг\n"
 
 #. TEXT_EMAIL
 msgid "Email:"
@@ -1910,7 +1911,7 @@ msgstr "д│дьд╧╠ф┬ъд╬╝яд╦д╩дыдлдт!"
 #. WARN_UNSAVED_IMAGES
 #, c-format
 msgid "There are %d unsaved images"
-msgstr ""
+msgstr "%d╕─д╬▓ш┴№дм╠д╩▌┬╕д╟д╣"
 
 #. WARN_FILE_EXISTS
 #, c-format
