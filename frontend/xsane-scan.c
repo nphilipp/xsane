@@ -91,7 +91,6 @@ void null_print_func(gchar *msg);
 static void xsane_gimp_advance(void);
 static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition cond);
 static RETSIGTYPE xsane_sigpipe_handler(int signal);
-static int xsane_test_adf(void);
 static void xsane_scan_done(SANE_Status status);
 void xsane_cancel(void);
 static void xsane_start_scan(void);
@@ -386,27 +385,43 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
     while (1)
     {
       status = sane_read(dev, (SANE_Byte *) buf8, sizeof(buf8), &len);
+      if (status == SANE_STATUS_EOF)
+      {
+/* I THINK THIS SHOULD BE REMOVED: */
+        if (!xsane.param.last_frame)
+        {
+          xsane_start_scan();
+          break; /* leave while loop */
+        }
+
+        xsane_scan_done(SANE_STATUS_EOF); /* image complete, stop scanning */
+        return;
+      }
+
       if (status != SANE_STATUS_GOOD)
       {
-        if (status == SANE_STATUS_EOF)
-        {
-          if (!xsane.param.last_frame)
-          {
-            xsane_start_scan();
-            break; /* leave while loop */
-          }
-        }
-        else
         {
           snprintf(buf, sizeof(buf), "Error during read: %s.", sane_strstatus(status));
           gsg_error(buf);
         }
-        xsane_scan_done(status);
+        xsane_scan_done(status); /* status = return of sane_read */
         return;
       }
 
       if (!len)
       {
+        if (xsane.bytes_read >= xsane.num_bytes) /* image or frame is complete */
+        {
+          if (!xsane.param.last_frame) /* more frames for this image ? */
+          {
+            xsane_start_scan(); /* get next frame of this image */
+            break; /* leave while loop */
+          }
+
+          xsane_scan_done(SANE_STATUS_GOOD); /* image complete, get next one */
+          return;
+        }
+
         break; /* out of data for now, leave while loop */
       }
 
@@ -730,8 +745,10 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
                   }
                 }
                break;
-           default:
-             goto bad_depth;
+
+              default:
+                goto bad_depth;
+               break;
             }
           }
 #endif /* HAVE_LIBGIMP_GIMP_H */
@@ -740,8 +757,9 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
 
         default:
           fprintf(stderr, "%s.xsane_read_image_data: bad frame format %d\n", prog_name, xsane.param.format);
-          xsane_scan_done(-1);
+          xsane_scan_done(-1); /* -1 = error */
           return;
+         break;
       }
     }
   }
@@ -779,28 +797,41 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
         offset = 0;
       }
 
-
-      if (status != SANE_STATUS_GOOD)
+      if (status == SANE_STATUS_EOF)
       {
-        if (status == SANE_STATUS_EOF)
+/* I THINK THIS SHOULD BE REMOVED: */
+        if (!xsane.param.last_frame)
         {
-          if (!xsane.param.last_frame)
-          {
-            xsane_start_scan();
-            break; /* leave while loop */
-          }
+          xsane_start_scan();
+          break; /* leave while loop */
         }
-        else
-        {
-          snprintf(buf, sizeof(buf), "Error during read: %s.", sane_strstatus(status));
-          gsg_error(buf);
-        }
-        xsane_scan_done(status);
+
+        xsane_scan_done(SANE_STATUS_EOF); /* image complete, stop scanning */
         return;
       }
 
-      if (!len)
+      if (status != SANE_STATUS_GOOD)
       {
+        snprintf(buf, sizeof(buf), "Error during read: %s.", sane_strstatus(status));
+        gsg_error(buf);
+        xsane_scan_done(status); /* status = return of sane_read */
+        return;
+      }
+
+      if (!len) /* nothing read */
+      {
+        if (xsane.bytes_read >= xsane.num_bytes) /* image or frame is complete */
+        {
+          if (!xsane.param.last_frame) /* more frames for this image ? */
+          {
+            xsane_start_scan(); /* get next frame of this image */
+            break; /* leave while loop */
+          }
+
+          xsane_scan_done(SANE_STATUS_GOOD); /* image complete, get next one */
+          return;
+        }
+
         break; /* out of data for now, leave while loop */
       }
 
@@ -930,8 +961,9 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
 
         default:
           fprintf(stderr, "%s.xsane_read_image_data: bad frame format %d\n", prog_name, xsane.param.format);
-          xsane_scan_done(-1);
+          xsane_scan_done(-1); /* -1 = error */
           return;
+         break;
       }
     }
   }
@@ -939,7 +971,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
   {
     snprintf(buf, sizeof(buf), "Cannot handle depth %d.", xsane.param.depth);
     gsg_error(buf);
-    xsane_scan_done(-1);
+    xsane_scan_done(-1); /* -1 = error */
   }
 
   return;
@@ -949,7 +981,7 @@ bad_depth:
 
   snprintf(buf, sizeof(buf), "Cannot handle depth %d.", xsane.param.depth);
   gsg_error(buf);
-  xsane_scan_done(-1);
+  xsane_scan_done(-1); /* -1 = error */
   return;
 #endif
 }
@@ -965,44 +997,8 @@ static RETSIGTYPE xsane_sigpipe_handler(int signal)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static int xsane_test_adf(void)
-{
- char *set;
- SANE_Status status;
- const SANE_Option_Descriptor *opt;       
-
-  opt = sane_get_option_descriptor(dialog->dev, dialog->well_known.scansource);
-  if (opt)
-  {
-    if (SANE_OPTION_IS_ACTIVE(opt->cap))
-    {                              
-      if (opt->constraint_type == SANE_CONSTRAINT_STRING_LIST)
-      {
-        set = malloc(opt->size);
-        status = sane_control_option(dialog->dev, dialog->well_known.scansource, SANE_ACTION_GET_VALUE, set, 0);    
-
-        if (status == SANE_STATUS_GOOD)
-        {
-          if (!strcmp(set, SANE_NAME_DOCUMENT_FEEDER))
-          {
-            return TRUE;
-          }
-        }
-        free(set);
-      }
-    }
-  }
-  return FALSE;
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
 static void xsane_scan_done(SANE_Status status)
 {
-  gtk_widget_set_sensitive(xsane.shell, TRUE);
-  gtk_widget_set_sensitive(xsane.histogram_dialog, TRUE);
-  gsg_set_sensitivity(dialog, TRUE);
-
   if (xsane.input_tag >= 0)
   {
     gdk_input_remove(xsane.input_tag);
@@ -1133,6 +1129,7 @@ static void xsane_scan_done(SANE_Status status)
                default:
                  snprintf(buf, sizeof(buf),"Unknown file format for saving!\n" );
                  gsg_error(buf);
+                break;
              }
              fclose(outfile);
            }
@@ -1342,7 +1339,7 @@ static void xsane_scan_done(SANE_Status status)
 #endif /* HAVE_LIBGIMP_GIMP_H */
 
   xsane.header_size = 0;
-  sane_cancel(gsg_dialog_get_device(dialog));
+//  sane_cancel(gsg_dialog_get_device(dialog));
   
   if ( (preferences.increase_filename_counter) && (xsane.xsane_mode == XSANE_SCAN) && (xsane.mode == STANDALONE) )
   {
@@ -1371,12 +1368,16 @@ static void xsane_scan_done(SANE_Status status)
     free(page);
   }
 
-  if ( ( (status == SANE_STATUS_GOOD) || (status == SANE_STATUS_EOF) ) && (xsane_test_adf()))
+  if (status == SANE_STATUS_GOOD)
   {
-    gtk_signal_emit_by_name(xsane.start_button, "clicked"); /* Automatic document feeder: scan until error */
+    gtk_signal_emit_by_name(xsane.start_button, "clicked"); /* multi image (eg ADF): scan until error */
   }
   else /* last scan: update histogram */
   {
+    gtk_widget_set_sensitive(xsane.shell, TRUE);
+    gtk_widget_set_sensitive(xsane.histogram_dialog, TRUE);
+    gsg_set_sensitivity(dialog, TRUE);
+    sane_cancel(gsg_dialog_get_device(dialog));
     xsane_update_histogram();
   }
 }
@@ -1493,6 +1494,7 @@ static void xsane_start_scan(void)
 
 		default: /* color, but not 8 bit mode, write as raw data because this is not defined in pnm */ 
                   fprintf(xsane.out, "SANE_RGB_RAW\n%d %d\n65535\n", xsane.param.pixels_per_line, xsane.param.lines);
+                 break;
               }
              break;
 
@@ -1509,6 +1511,7 @@ static void xsane_start_scan(void)
 
                 default: /* grayscale mode but not 1 or 8 bit, write as raw data because this is not defined in pnm */
                   fprintf(xsane.out, "SANE_GRAYSCALE_RAW\n%d %d\n65535\n", xsane.param.pixels_per_line, xsane.param.lines);
+                 break;
               }
 	     break;
 
@@ -1529,6 +1532,7 @@ static void xsane_start_scan(void)
 
 	    default:
             /* unknown file format, do not write header */
+             break;
           }
 	  xsane.header_size = ftell(xsane.out);
       }
@@ -1575,6 +1579,7 @@ static void xsane_start_scan(void)
          break;
 #endif
         default:
+         break;
       }
 
       if (xsane.tile)

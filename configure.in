@@ -1,12 +1,12 @@
 dnl Process this file with autoconf to produce a configure script. -*-sh-*-
 AC_INIT(include/sane/config.h.in)
 AC_CONFIG_HEADER(include/sane/config.h)
-AC_PREREQ(2.10)dnl		dnl Minimum Autoconf version required.
-AC_ARG_PROGRAM
+# AC_PREREQ(2.10)dnl		dnl Minimum Autoconf version required.
+# AC_ARG_PROGRAM
 
 # version code:
 V_MAJOR=0
-V_MINOR=31\\337
+V_MINOR=32
 
 PACKAGE=xsane
 SANE_V_MAJOR=1
@@ -22,13 +22,14 @@ AC_SUBST(SANE_MAJOR)
 
 dnl Checks for programs.
 AC_PROG_CC
+AC_AIX
+AC_MINIX
+AC_ISC_POSIX
+AM_PROG_CC_STDC
 AC_PROG_INSTALL
 AC_PROG_MAKE_SET
 AC_PROG_CPP
 AC_PROG_GCC_TRADITIONAL
-AC_AIX
-AC_MINIX
-AC_ISC_POSIX
 
 INCLUDES="${INCLUDES} -I/usr/local/include"
 CPPFLAGS="${CPPFLAGS} -D_GNU_SOURCE"

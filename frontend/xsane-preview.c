@@ -1393,9 +1393,7 @@ static void preview_restore_image(Preview *p)
     return;
   }
 
-  /* Be careful about consuming too many bytes after the final newline
-     (e.g., consider an image whose first image byte is 13 (`\r').  */
-  if (fscanf (in, "P6\n# surface: %g %g %g %g %u %u\n%d %d\n255%*[\n]",
+  if (fscanf (in, "P6\n# surface: %g %g %g %g %u %u\n%d %d\n255\n",
 	      psurface + 0, psurface + 1, psurface + 2, psurface + 3,
 	      &psurface_type, &psurface_unit,
 	      &width, &height) != 8)
@@ -1824,6 +1822,7 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
                 }
                break;
               default:
+               break;
             }
           }
         }
@@ -1941,6 +1940,7 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
             }
            break;
           default:
+           break;
         }
 	break;
 

@@ -225,7 +225,7 @@ static void xsane_save_ps_bw(FILE *outfile, FILE *imagefile,
   cancel_save = 0;
 
   fprintf(outfile, "%%!PS-Adobe-2.0 EPSF-2.0\n");
-  fprintf(outfile, "%%%%Creator: XSane Version %s (sane %d.%d)\n", VERSION,
+  fprintf(outfile, "%%%%Creator: xsane version %s (sane %d.%d)\n", VERSION,
                                                                    SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
                                                                    SANE_VERSION_MINOR(xsane.sane_backend_versioncode));
   fprintf(outfile, "%%%%BoundingBox: %d %d %d %d\n",
@@ -290,7 +290,7 @@ static void xsane_save_ps_gray(FILE *outfile, FILE *imagefile,
   cancel_save = 0;
 
   fprintf(outfile, "%%!PS-Adobe-2.0 EPSF-2.0\n");
-  fprintf(outfile, "%%%%Creator: XSane Version %s (sane %d.%d)\n", VERSION,
+  fprintf(outfile, "%%%%Creator: xsane version %s (sane %d.%d)\n", VERSION,
                                                                    SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
                                                                    SANE_VERSION_MINOR(xsane.sane_backend_versioncode));
   fprintf(outfile, "%%%%BoundingBox: %d %d %d %d\n",
@@ -352,7 +352,7 @@ static void xsane_save_ps_color(FILE *outfile, FILE *imagefile,
   cancel_save = 0;
 
   fprintf(outfile, "%%!PS-Adobe-2.0 EPSF-2.0\n");
-  fprintf(outfile, "%%%%Creator: XSane Version %s (sane %d.%d)\n", VERSION,
+  fprintf(outfile, "%%%%Creator: xsane version %s (sane %d.%d)\n", VERSION,
                                                                    SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
                                                                    SANE_VERSION_MINOR(xsane.sane_backend_versioncode));
   fprintf(outfile, "%%%%BoundingBox: %d %d %d %d\n",

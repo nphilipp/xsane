@@ -73,6 +73,7 @@ struct option long_options[] =
   {"device-settings", required_argument, 0, 'd'},
   {"scan", no_argument, 0, 's'},
   {"copy", no_argument, 0, 'c'},
+  {"no-mode-selection", no_argument, 0, 'n'},
   {"fax", no_argument, 0, 'f'},
   {"Fixed", no_argument, 0, 'F'},
   {"Resizeable", no_argument, 0, 'R'},
@@ -687,7 +688,7 @@ GtkWidget *xsane_update_xsane_callback()
 
 /* scan copy fax selection */
 
-  if (xsane.mode == STANDALONE)
+  if ( (xsane.mode == STANDALONE) && (xsane.mode_selection) ) /* display xsane mode selection menu */
   {
     xsane_hbox_xsane_modus = gtk_hbox_new(FALSE, 2);
     gtk_container_set_border_width(GTK_CONTAINER(xsane_hbox_xsane_modus), 2);
@@ -728,10 +729,6 @@ GtkWidget *xsane_update_xsane_callback()
 
 
     dialog->xsanemode_widget = xsane_modus_option_menu;
-  }
-  else
-  {
-    xsane.xsane_mode = XSANE_SCAN;
   }
 
   {
@@ -1005,7 +1002,8 @@ GtkWidget *xsane_update_xsane_callback()
           }
           break;
 
-         default:
+          default:
+           break;
         }	/* constraint type */
       }		/* if resolution option active */
     } /* if (opt) */
@@ -1952,7 +1950,7 @@ static void xsane_about_dialog(GtkWidget *widget, gpointer data)
 
   xsane_separator_new(vbox, 5);
 
-  snprintf(buf, sizeof(buf), "XSane " TEXT_VERSION " %s\n", XSANE_VERSION);
+  snprintf(buf, sizeof(buf), "XSane %s %s\n", TEXT_VERSION, XSANE_VERSION);
   label = gtk_label_new(buf);
   gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0);
   gtk_widget_show(label);
@@ -4185,6 +4183,7 @@ Start up graphical user interface to access SANE (Scanner Access Now Easy) devic
 -s, --scan                   start with scan-mode active\n\
 -c, --copy                   start with copy-mode active\n\
 -f, --fax                    start with fax-mode active\n\
+-n, --no-mode-selection      disable menu for xsane mode selection\n\
 \n\
 -F, --Fixed                  fixed main window size (overwrite preferences value)\n\
 -R, --Resizeable             resizable, scrolled main window (overwrite preferences value)\n\
@@ -4241,7 +4240,7 @@ static void xsane_init(int argc, char **argv)
   {
     int ch;
 
-    while((ch = getopt_long(argc, argv, "cd:fghsvFR", long_options, 0)) != EOF)
+    while((ch = getopt_long(argc, argv, "cd:fghnsvFR", long_options, 0)) != EOF)
     {
       switch(ch)
       {
@@ -4270,16 +4269,20 @@ static void xsane_init(int argc, char **argv)
           xsane.xsane_mode = XSANE_COPY;
          break;
 
+        case 'n': /* --No-modes-election */
+           xsane.mode_selection = 0;
+         break;
+
         case 'f': /* --fax */
           xsane.xsane_mode = XSANE_FAX;
          break;
 
         case 'F': /* --Fixed */
-           xsane.main_window_fixed   = 1;
+           xsane.main_window_fixed = 1;
          break;
 
         case 'R': /* --Resizeable */
-           xsane.main_window_fixed   = 0;
+           xsane.main_window_fixed = 0;
          break;
 
         case 'h': /* --help */
@@ -4386,6 +4389,7 @@ int main(int argc, char **argv)
   xsane.mode                = STANDALONE;
   xsane.xsane_mode          = XSANE_SCAN;
   xsane.xsane_output_format = XSANE_PNM;
+  xsane.mode_selection      = 1; /* enable selection of xsane mode */
 
   xsane.histogram_lines = 1;
 

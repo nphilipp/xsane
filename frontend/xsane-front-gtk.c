@@ -262,14 +262,14 @@ gint xsane_authorization_callback(SANE_String_Const resource,
   gtk_window_set_policy(GTK_WINDOW(authorize_dialog), FALSE, FALSE, FALSE);
   gtk_signal_connect(GTK_OBJECT(authorize_dialog), "delete_event",
                      GTK_SIGNAL_FUNC(xsane_authorization_button_callback), (void *) -1); /* -1 = cancel */
-  snprintf(buf, sizeof(buf), "%s " WINDOW_AUTHORIZE, prog_name);
+  snprintf(buf, sizeof(buf), "%s %s", prog_name, WINDOW_AUTHORIZE);
   gtk_window_set_title(GTK_WINDOW(authorize_dialog), buf);
 
   vbox = gtk_vbox_new(/* not homogeneous */ FALSE, 10);
   gtk_container_add(GTK_CONTAINER(authorize_dialog), vbox);
   gtk_widget_show(vbox);
 
-  snprintf(buf, sizeof(buf), "\n\n" TEXT_AUTORIZATION_REQ " %s\n", resource);
+  snprintf(buf, sizeof(buf), "\n\n%s %s\n", TEXT_AUTHORIZATION_REQ, resource);
   label = gtk_label_new(buf);
   gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0);
   gtk_widget_show(label);

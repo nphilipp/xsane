@@ -1,4 +1,4 @@
-.TH xsane 1 "31 Jul 1999"
+.TH xsane 1 "02 Aug 1999"
 .IX xsane
 .SH NAME
 xsane - scanner frontend for SANE
@@ -12,6 +12,7 @@ xsane - scanner frontend for SANE
 .RB [ --scan | -s ]
 .RB [ --copy | -c ]
 .RB [ --fax | -f ]
+.RB [ --no-mode-selection | -n ]
 .RB [ --Fixed | -F ]
 .RB [ --Scrolled | -S ]
 .RB [ --display
@@ -109,6 +110,12 @@ The
 or
 .B -c
 flag forces xsane to start in fax mode.
+.PP
+The
+.B --no-mode-selection
+or
+.B -n
+flag disables the menu for xsane mode selection (scan, copy, fax).
 .PP
 The
 .B --device-settings

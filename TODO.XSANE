@@ -17,12 +17,12 @@ first steps:
     - improve handling of saved previews
     - may be zoom in without a new preview scan
     + 16 bit preview scan, gamma conversion to 8 bit
-    - preview always in greyscale or always in color
+    + preview always in greyscale or always in color
   - enhancement:
     - move threshold in lineart-mode to main window ?
  - may be email-function
  + batch scan function
- - add support for different x/y resolutions
+ + add support for different x/y resolutions
 
  * internal:
    - segfault if pipette pick out of preview image
@@ -34,10 +34,11 @@ first steps:
    - more online helpfiles
    - if netscape-remote is docviewer, start netscape if not running
    - four pass RGBA scan
+   + create xsane_set_senitive(int status)
 
 second steps:
  - support NLS/gettext
  - correct gtk custom gamma functions and include it
  - include special functions for GNOME/KDE - *** DOES ANYONE HAVE ANY SUGGESTIONS TO THIS ? ***
- - add color management - may be via xcmsdb
+ + add color management - may be via xcmsdb
 

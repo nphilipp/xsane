@@ -341,3 +341,22 @@ xsane-0.30 -> 0.31:
    now with keyboard
  - xsane info window prints gamma depth "none" in 1 bit modes
 
+
+xsane-0.31 -> 0.32:
+-------------------
+
+ - added option --no-mode-selection/-s to disable menu for
+   xsane mode selection
+ - prepared text outputs (in xsane-text.h) for NLS/gettext support
+ - multiple \n in scanf while reading saved preview image removed
+ - added AM_PROG_CC_STDC to configure.in for HP/UX and defined macro
+   for it in aclocal.m4 - taken from aclocal.m4 from gtk+-1.2.3
+ - added a break statement after each default in switch block
+ - changed test for multiple image scan, when sane_read returned with
+   SANE_STATUS_GOOD when the image is finished we start a new scan,
+   SANE_STATUS_EOF is expected when scanning should be stopped.
+   This way the Automatic Document Feeder is supported a way
+   like planned in the sane standard, the backend says
+   if the frontend shall call sane_start repeatadly.
+
+

@@ -31,7 +31,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION "0.31\337"
+#define XSANE_VERSION "0.32"
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -119,12 +119,6 @@ extern int xsane_scanmode_number[];
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#ifndef SANE_NAME_DOCUMENT_FEEDER
-#define SANE_NAME_DOCUMENT_FEEDER "Automatic Document Feeder"
-#endif
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
 enum
 {
  XSANE_UNKNOWN, XSANE_PNM, XSANE_JPEG, XSANE_PNG, XSANE_PS, XSANE_TIFF, XSANE_RGBA,
@@ -194,6 +188,7 @@ typedef struct Xsane
     gint32    mode;
 
     int main_window_fixed;
+    int mode_selection;
 
     /* various scanning related state: */
     size_t num_bytes;

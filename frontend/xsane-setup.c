@@ -385,7 +385,7 @@ void xsane_setup_dialog(GtkWidget *widget, gpointer data)
  char buf[64];
 
   setup_dialog = gtk_dialog_new();
-  snprintf(buf, sizeof(buf), "%s " WINDOW_SETUP, prog_name);
+  snprintf(buf, sizeof(buf), "%s %s", prog_name, WINDOW_SETUP);
   gtk_window_set_title(GTK_WINDOW(setup_dialog), buf);
 
   setup_vbox = GTK_DIALOG(setup_dialog)->vbox;
