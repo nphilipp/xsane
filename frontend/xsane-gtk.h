@@ -35,6 +35,7 @@ typedef struct
     int gamma_vector_r;
     int gamma_vector_g;
     int gamma_vector_b;
+    int bit_depth;
   }
 GSGWellKnownOptions;
 

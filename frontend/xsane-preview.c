@@ -732,6 +732,19 @@ static void preview_set_option_bool(Preview *p, int option, SANE_Bool value)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static void preview_set_option_int(Preview *p, int option, SANE_Int value)
+{
+ SANE_Handle dev;
+
+  if (option <= 0)
+    return;
+
+  dev = p->dialog->dev;
+  sane_control_option (dev, option, SANE_ACTION_SET_VALUE, &value, 0);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static int preview_increment_image_y(Preview *p)
 {
  size_t extra_size, offset;
@@ -954,6 +967,8 @@ static void preview_scan_done(Preview *p)
   {
     preview_restore_option(p, p->dialog->well_known.coord[i], p->saved_coord[i], p->saved_coord_valid[i]);
   }
+
+  preview_restore_option(p, p->dialog->well_known.bit_depth, p->saved_bit_depth, p->saved_bit_depth_valid);
 
   preview_set_option_bool(p, p->dialog->well_known.preview, SANE_FALSE);
   gtk_widget_set_sensitive (p->cancel, FALSE);
@@ -1663,6 +1678,7 @@ void preview_scan(Preview *p)
   {
     preview_save_option(p, p->dialog->well_known.coord[i], &p->saved_coord[i], p->saved_coord_valid + i);
   }
+  preview_save_option(p, p->dialog->well_known.bit_depth, &p->saved_bit_depth, &p->saved_bit_depth_valid);
 
   /* determine dpi, if necessary: */
 
@@ -1717,11 +1733,18 @@ void preview_scan(Preview *p)
   }
 
   /* set the scan window (necessary since backends may default to non-maximum size):  */
+
   for (i = 0; i < 4; ++i)
   {
     preview_set_option_float(p, p->dialog->well_known.coord[i], p->surface[i]);
   }
+
   preview_set_option_bool(p, p->dialog->well_known.preview, SANE_TRUE);
+
+   if ( (p->saved_bit_depth > 8) && (p->saved_bit_depth_valid) ) /* don't scan with more than 8bpp */
+   {
+     preview_set_option_int(p, p->dialog->well_known.bit_depth, 8);
+   }
 
   /* OK, all set to go */
   preview_scan_start(p);

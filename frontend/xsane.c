@@ -821,6 +821,67 @@ static void xsane_destroy_histogram()
 #endif
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static void xsane_calculate_auto_enhancement(SANE_Int *count_raw,
+              SANE_Int *count_raw_red, SANE_Int *count_raw_green, SANE_Int *count_raw_blue)
+{	 /* calculate white, medium and black values for auto enhancement */
+ int limit;
+ int points;
+ int min;
+ int mid;
+ int max;
+ int val;
+ int i;
+
+    points = 0;
+    for (i=0; i<256; i++)
+    {
+/*      points += count_raw[i] + count_raw_red[i] + count_raw_green[i] + count_raw_blue[i]; */
+      points += log(1 + count_raw[i] + count_raw_red[i] + count_raw_green[i] + count_raw_blue[i]);
+    }
+
+    limit = points / 500;
+
+    if (limit < 10)
+    {
+      limit = 10;
+    }
+
+    min = -1;
+    val = 0;
+    while ( (val < limit) && (min < 254) )
+    {
+      min++;
+/*      val += count_raw[min] + count_raw_red[min] + count_raw_green[min] + count_raw_blue[min]; */
+      val += log(1 + count_raw[min] + count_raw_red[min] + count_raw_green[min] + count_raw_blue[min]);
+    }
+
+    max = HIST_WIDTH;
+    val = 0;
+    while ( (val < limit) && (max > min + 1) )
+    {
+      max--;
+/*      val += count_raw[max] + count_raw_red[max] + count_raw_green[max] + count_raw_blue[max]; */
+      val += log(1 + count_raw[max] + count_raw_red[max] + count_raw_green[max] + count_raw_blue[max]);
+    }
+
+    limit = points / 2.0;
+
+    mid = -1;
+    val = 0;
+    while ( (val < limit) && (mid < max - 1) )
+    {
+      mid++;
+/*      val += count_raw[mid] + count_raw_red[mid] + count_raw_green[mid] + count_raw_blue[mid]; */
+      val += log(1 + count_raw[mid] + count_raw_red[mid] + count_raw_green[mid] + count_raw_blue[mid]);
+    }
+
+    xsane.auto_white = max/2.55;
+    xsane.auto_gray  = mid/2.55;
+    xsane.auto_black = min/2.55;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void xsane_calculate_histogram()
 {
  SANE_Int *count_raw;
@@ -833,12 +894,6 @@ static void xsane_calculate_histogram()
  SANE_Int *count_enh_blue;
  int x_min, x_max, y_min, y_max;
  int i;
- int min;
- int mid;
- int max;
- int val;
- int limit;
- int points;
  int maxval_raw;
  int maxval_enh;
  int maxval;
@@ -863,55 +918,10 @@ static void xsane_calculate_histogram()
     preview_calculate_histogram(xsane.preview, count_raw, count_raw_red, count_raw_green, count_raw_blue,
                                 count_enh, count_enh_red, count_enh_green, count_enh_blue, x_min, y_min, x_max, y_max);
 
-
-    /* calculate white, medium and black values for auto enhancement */
-
-    points = 0;
-    for (i=0; i<256; i++)
+    if (xsane.param.depth > 1)
     {
-/*      points += count_raw[i] + count_raw_red[i] + count_raw_green[i] + count_raw_blue[i]; */
-      points += log(1 + count_raw[i] + count_raw_red[i] + count_raw_green[i] + count_raw_blue[i]);
+      xsane_calculate_auto_enhancement(count_raw, count_raw_red, count_raw_green, count_raw_blue);
     }
-
-    limit = points / 500;
-
-    if (limit < 10)
-    {
-      limit = 10;
-    }
-
-    min = -1;
-    val = 0;
-    while (val < limit)
-    {
-      min++;
-/*      val += count_raw[min] + count_raw_red[min] + count_raw_green[min] + count_raw_blue[min]; */
-      val += log(1 + count_raw[min] + count_raw_red[min] + count_raw_green[min] + count_raw_blue[min]);
-    }
-
-    max = HIST_WIDTH;
-    val = 0;
-    while (val < limit)
-    {
-      max--;
-/*      val += count_raw[max] + count_raw_red[max] + count_raw_green[max] + count_raw_blue[max]; */
-      val += log(1 + count_raw[max] + count_raw_red[max] + count_raw_green[max] + count_raw_blue[max]);
-    }
-
-    limit = points / 2.0;
-
-    mid = -1;
-    val = 0;
-    while (val < limit)
-    {
-      mid++;
-/*      val += count_raw[mid] + count_raw_red[mid] + count_raw_green[mid] + count_raw_blue[mid]; */
-      val += log(1 + count_raw[mid] + count_raw_red[mid] + count_raw_green[mid] + count_raw_blue[mid]);
-    }
-
-    xsane.auto_white = max/2.55;
-    xsane.auto_gray  = mid/2.55;
-    xsane.auto_black = min/2.55;
 
     if (xsane.histogram_log)
     {
@@ -3239,23 +3249,29 @@ static void xsane_scan_done(void)
 	 {
 	   fseek(infile, xsane.header_size, SEEK_SET);
 
+#ifdef HAVE_LIBTIFF
 	   if (xsane.xsane_output_format == XSANE_TIFF)		/* routines that want to have filename  for saving */
 	   {
              xsane_save_tiff(preferences.filename, infile, xsane.xsane_color, xsane.param.depth, xsane.param.pixels_per_line,
                              xsane.param.lines, preferences.png_compression);
            }
 	   else							/* routines that want to have filedescriptor for saving */
+#endif
            {
              outfile = fopen(preferences.filename, "w");
              if (outfile != 0)
              {
                switch(xsane.xsane_output_format)
                {
+#ifdef HAVE_LIBJPEG
 	         case XSANE_JPEG:
                    xsane_save_jpeg(outfile, infile, xsane.xsane_color, xsane.param.depth, xsane.param.pixels_per_line,
                                    xsane.param.lines, preferences.jpeg_quality);
                   break;
+#endif
 
+#ifdef HAVE_LIBPNG
+#ifdef HAVE_LIBZ
                  case XSANE_PNG:
                    if (xsane.param.depth <= 8)
 		   {
@@ -3273,6 +3289,8 @@ static void xsane_scan_done(void)
                    xsane_save_pnm_16(outfile, infile, xsane.xsane_color, xsane.param.depth, xsane.param.pixels_per_line,
                                      xsane.param.lines);
                   break;
+#endif
+#endif
 
 	         case XSANE_PS:
                  {
@@ -3628,10 +3646,12 @@ static void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
           xsane.xsane_output_format = XSANE_PNM;
         }
 #ifdef HAVE_LIBPNG
+#ifdef HAVE_LIBZ
         else if (!strcasecmp(extension, "png"))
         {
           xsane.xsane_output_format = XSANE_PNG;
         }
+#endif
 #endif
 #ifdef HAVE_LIBJPEG
         else if ( (!strcasecmp(extension, "jpg")) || (!strcasecmp(extension, "jpeg")) )
@@ -3665,10 +3685,12 @@ static void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
           xsane.xsane_output_format = XSANE_PNM16;
         }
 #ifdef HAVE_LIBPNG
+#ifdef HAVE_LIBZ
         else if (!strcasecmp(extension, "png"))
         {
           xsane.xsane_output_format = XSANE_PNG;
         }
+#endif
 #endif
       }
     }
@@ -4290,8 +4312,10 @@ static void xsane_info_dialog(GtkWidget *widget, gpointer data)
 #endif
 
 #ifdef HAVE_LIBPNG
+#ifdef HAVE_LIBZ
   sprintf(bufptr, "PNG, ");
   bufptr += strlen(bufptr);
+#endif
 #endif
 
   sprintf(bufptr, "PNM, ");
@@ -4320,8 +4344,10 @@ static void xsane_info_dialog(GtkWidget *widget, gpointer data)
   bufptr += strlen(bufptr);
 
 #ifdef HAVE_LIBPNG
+#ifdef HAVE_LIBZ
   sprintf(bufptr, "PNG, ");
   bufptr += strlen(bufptr);
+#endif
 #endif
 
   sprintf(bufptr, "PNM, ");
@@ -4560,8 +4586,10 @@ static void xsane_setup_dialog(GtkWidget *widget, gpointer data)
 #endif
 
 #ifdef HAVE_LIBPNG
+#ifdef HAVE_LIBZ
   xsane_scale_new(GTK_BOX(vbox), "PNG image compression", DESC_PNG_COMPRESSION, 0.0, Z_BEST_COMPRESSION, 1.0, 1.0, 0.0, 0,
                   &preferences.png_compression, &scale, xsane_quality_changed);
+#endif
 #endif
 
   xsane_separator_new(vbox, 0);
@@ -4634,7 +4662,7 @@ static void xsane_setup_dialog(GtkWidget *widget, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void pref_device_save(GtkWidget *widget, gpointer data)
+static void xsane_pref_device_save(GtkWidget *widget, gpointer data)
 {
   char filename[PATH_MAX];
   int fd;
@@ -4655,7 +4683,7 @@ static void pref_device_save(GtkWidget *widget, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void pref_device_restore(void)
+static void xsane_pref_device_restore(void)
 {
   char filename[PATH_MAX];
   int fd;
@@ -4771,12 +4799,12 @@ static GtkWidget *xsane_pref_build_menu(void)
 
   item = gtk_menu_item_new_with_label("Save device settings");
   gtk_menu_append(GTK_MENU(menu), item);
-  gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) pref_device_save, 0);
+  gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_pref_device_save, 0);
   gtk_widget_show(item);
 
   item = gtk_menu_item_new_with_label("Restore device settings");
   gtk_menu_append(GTK_MENU(menu), item);
-  gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) pref_device_restore, 0);
+  gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_pref_device_restore, 0);
   gtk_widget_show(item);
 
   return menu;
@@ -4815,6 +4843,7 @@ void panel_build(GSGDialog * dialog)
   dialog->well_known.gamma_vector_r  = -1;
   dialog->well_known.gamma_vector_g  = -1;
   dialog->well_known.gamma_vector_b  = -1;
+  dialog->well_known.bit_depth       = -1;
 
 
   /* standard options */
@@ -4875,6 +4904,8 @@ void panel_build(GSGDialog * dialog)
             dialog->well_known.gamma_vector_g = i;
           else if (strcmp (opt->name, SANE_NAME_GAMMA_VECTOR_B) == 0)
             dialog->well_known.gamma_vector_b = i;
+          else if (strcmp (opt->name, SANE_NAME_BIT_DEPTH) == 0)
+            dialog->well_known.bit_depth = i;
         }
 
       elem = dialog->element + i;
@@ -5526,7 +5557,7 @@ static void xsane_device_dialog(void)
   gtk_widget_show(button);
 #endif
 
-  pref_device_restore();	/* restore device-settings */
+  xsane_pref_device_restore();	/* restore device-settings */
 
   xsane_update_param(dialog, 0);
 

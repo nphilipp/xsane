@@ -92,3 +92,13 @@ xsane-0.15 -> 0.16:
  - added 16 bit routines to xsane_read_image_data, added 16 bit gamma software support
 
 
+xsane-0.16 -> 0.17:
+-------------------
+
+ - xsane-gtk.c moved free(elem->menu); elem->menu = 0; in panel_destroy out of
+   the for-loop
+ - added some #ifdefs #endifs around saveing routines for TIFF, PNG and JPEG
+ - added BIT_DEPTH as well known option, preview sets this value to 8 if it is greater than 8
+ - added range checks in calculation for auto enhancement values
+ - calculation of auto enhancement values is not called in lineart mode any more
+

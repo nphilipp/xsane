@@ -884,9 +884,9 @@ static void panel_destroy(GSGDialog * dialog)
             free(elem->menu[j].label);
             elem->menu[j].label = 0;
           }
-          free(elem->menu);
-          elem->menu = 0;
         }
+        free(elem->menu);
+        elem->menu = 0;
       }
     }
   }

@@ -40,6 +40,8 @@ typedef struct
     SANE_Word saved_coord[4];
     int saved_custom_gamma_valid;
     SANE_Word saved_custom_gamma;
+    int saved_bit_depth_valid;
+    SANE_Word saved_bit_depth;
 
     /* desired/user-selected preview-window size: */
     int preview_width;
