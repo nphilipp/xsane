@@ -46,21 +46,21 @@ extern void xsane_progress_cancel(GtkWidget *widget, gpointer data);
 extern void xsane_progress_new(char *bar_text, char *info, GtkSignalFunc callback);
 extern void xsane_progress_update(gfloat newval);
 extern void xsane_progress_clear();
-extern GtkWidget *xsane_toggle_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[], const char *desc,
+extern GtkWidget *xsane_toggle_button_new_with_pixmap(GdkWindow *window, GtkWidget *parent, const char *xpm_d[], const char *desc,
                                                 int *state, void *xsane_toggle_button_callback);
-extern GtkWidget *xsane_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[], const char *desc, 
+extern GtkWidget *xsane_button_new_with_pixmap(GdkWindow *window, GtkWidget *parent, const char *xpm_d[], const char *desc, 
                                                void *xsane_button_callback, gpointer data);
 extern void xsane_pixmap_new(GtkWidget *parent, char *title, int width, int height, XsanePixmap *hist);
 extern void xsane_option_menu_new(GtkWidget *parent, char *str_list[], const char *val, int option_number, const char *desc,
                                   void *option_menu_callback, SANE_Int settable, const gchar *widget_name);
-extern void xsane_option_menu_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char *desc,
+extern void xsane_option_menu_new_with_pixmap(GdkWindow *window, GtkBox *parent, const char *xpm_d[], const char *desc,
                                               char *str_list[], const char *val,
                                               GtkObject **data, int option,
                                               void *option_menu_callback, SANE_Int settable, const gchar *widget_name);
 extern void xsane_scale_new(GtkBox *parent, char *labeltext, const char *desc,
                             float min, float max, float quant, float page_step, float page_size,
                             int digits, double *val, GtkObject **data, void *xsane_scale_callback, SANE_Int settable);
-extern void xsane_scale_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char *desc,
+extern void xsane_scale_new_with_pixmap(GdkWindow *window, GtkBox *parent, const char *xpm_d[], const char *desc,
                                         float min, float max, float quant, float page_step, float page_size, int digits,
                                         double *val, GtkObject **data, int option, void *xsane_scale_callback, SANE_Int settable);
 extern void xsane_separator_new(GtkWidget *xsane_parent, int dist);

@@ -483,7 +483,7 @@ static void xsane_outputfilename_new(GtkWidget *vbox)
   gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
 
-  button = xsane_button_new_with_pixmap(hbox, file_xpm, DESC_BROWSE_FILENAME, (GtkSignalFunc) xsane_browse_filename_callback, NULL);
+  button = xsane_button_new_with_pixmap(xsane.xsane_window->window, hbox, file_xpm, DESC_BROWSE_FILENAME, (GtkSignalFunc) xsane_browse_filename_callback, NULL);
   gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_B, GDK_CONTROL_MASK, GTK_ACCEL_LOCKED);
 
   text = gtk_entry_new_with_max_length(255);
@@ -1056,7 +1056,7 @@ static int xsane_resolution_widget_new(GtkWidget *parent, int well_known_option,
 
           if (!preferences.show_resolution_list) /* user wants slider */ 
           {
-            xsane_scale_new_with_pixmap(GTK_BOX(parent), image_xpm, desc,
+            xsane_scale_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(parent), image_xpm, desc,
                                         min, max, quant, quant*10, 0, 0, resolution, &resolution_widget,
                                         well_known_option, xsane_resolution_scale_update, SANE_OPTION_IS_SETTABLE(opt->cap));
           }
@@ -1122,7 +1122,7 @@ static int xsane_resolution_widget_new(GtkWidget *parent, int well_known_option,
             str_list[j] = 0;
             sprintf(str, "%d", (int) val);
 
-            xsane_option_menu_new_with_pixmap(GTK_BOX(parent), image_xpm, desc, str_list, str, &resolution_widget, well_known_option,
+            xsane_option_menu_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(parent), image_xpm, desc, str_list, str, &resolution_widget, well_known_option,
                                               xsane_resolution_list_callback, SANE_OPTION_IS_SETTABLE(opt->cap), widget_name);
 
             free(str_list);
@@ -1174,7 +1174,7 @@ static int xsane_resolution_widget_new(GtkWidget *parent, int well_known_option,
           }
 
 
-          xsane_option_menu_new_with_pixmap(GTK_BOX(parent), image_xpm, desc,
+          xsane_option_menu_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(parent), image_xpm, desc,
                                             str_list, str, &resolution_widget, well_known_option,
                                             xsane_resolution_list_callback, SANE_OPTION_IS_SETTABLE(opt->cap), widget_name);
           free(str_list);
@@ -1323,7 +1323,7 @@ static int xsane_zoom_widget_new(GtkWidget *parent, int well_known_option, doubl
 
       *zoom = resolution / printer_resolution;
 
-      xsane_scale_new_with_pixmap(GTK_BOX(parent), image_xpm, desc, min, max, 0.01, 0.1, 0.1, 2,
+      xsane_scale_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(parent), image_xpm, desc, min, max, 0.01, 0.1, 0.1, 2,
                                   zoom, &xsane.zoom_widget, well_known_option, xsane_zoom_update,
                                   SANE_OPTION_IS_SETTABLE(opt->cap));
 
@@ -1707,7 +1707,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
       case XSANE_LINEART_XSANE:
         if (xsane.well_known.threshold > 0)
         {
-          xsane_scale_new_with_pixmap(GTK_BOX(xsane_vbox_xsane_modus), threshold_xpm, DESC_THRESHOLD,
+          xsane_scale_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(xsane_vbox_xsane_modus), threshold_xpm, DESC_THRESHOLD,
                                       xsane.threshold_min, xsane.threshold_max, 1.0, 10.0, 0.0, 0,
                                       &xsane.threshold, &xsane.threshold_widget, 0, xsane_gamma_changed, TRUE);
           xsane_threshold_changed();
@@ -1728,54 +1728,54 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
     xsane_separator_new(xsane_vbox_xsane_modus, 2);
   }
 
-  xsane_scale_new_with_pixmap(GTK_BOX(xsane_vbox_xsane_modus), Gamma_xpm, DESC_GAMMA,
+  xsane_scale_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(xsane_vbox_xsane_modus), Gamma_xpm, DESC_GAMMA,
                               XSANE_GAMMA_MIN, XSANE_GAMMA_MAX, 0.01, 0.1, 0.0, 2,
                               &xsane.gamma, &xsane.gamma_widget, 0, xsane_gamma_changed, TRUE);
   if ( (xsane.xsane_color) && (!xsane.enhancement_rgb_default) )
   {
-    xsane_scale_new_with_pixmap(GTK_BOX(xsane_vbox_xsane_modus), Gamma_red_xpm, DESC_GAMMA_R,
+    xsane_scale_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(xsane_vbox_xsane_modus), Gamma_red_xpm, DESC_GAMMA_R,
                                 XSANE_GAMMA_MIN, XSANE_GAMMA_MAX, 0.01, 0.1, 0.0, 2,
                                 &xsane.gamma_red  , &xsane.gamma_red_widget, 0, xsane_gamma_changed, TRUE);
-    xsane_scale_new_with_pixmap(GTK_BOX(xsane_vbox_xsane_modus), Gamma_green_xpm, DESC_GAMMA_G,
+    xsane_scale_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(xsane_vbox_xsane_modus), Gamma_green_xpm, DESC_GAMMA_G,
                                 XSANE_GAMMA_MIN, XSANE_GAMMA_MAX, 0.01, 0.1, 0.0, 2,
                                 &xsane.gamma_green, &xsane.gamma_green_widget, 0, xsane_gamma_changed, TRUE);
-    xsane_scale_new_with_pixmap(GTK_BOX(xsane_vbox_xsane_modus), Gamma_blue_xpm, DESC_GAMMA_B,
+    xsane_scale_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(xsane_vbox_xsane_modus), Gamma_blue_xpm, DESC_GAMMA_B,
                                 XSANE_GAMMA_MIN, XSANE_GAMMA_MAX, 0.01, 0.1, 0.0, 2,
                                 &xsane.gamma_blue , &xsane.gamma_blue_widget, 0, xsane_gamma_changed, TRUE);
 
     xsane_separator_new(xsane_vbox_xsane_modus, 2);
   }
 
-  xsane_scale_new_with_pixmap(GTK_BOX(xsane_vbox_xsane_modus), brightness_xpm, DESC_BRIGHTNESS,
+  xsane_scale_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(xsane_vbox_xsane_modus), brightness_xpm, DESC_BRIGHTNESS,
                               XSANE_BRIGHTNESS_MIN, XSANE_BRIGHTNESS_MAX, 1.0, 10.0, 0.0, 0,
                               &xsane.brightness, &xsane.brightness_widget, 0, xsane_gamma_changed, TRUE);
   if ( (xsane.xsane_color) && (!xsane.enhancement_rgb_default) )
   {
-    xsane_scale_new_with_pixmap(GTK_BOX(xsane_vbox_xsane_modus), brightness_red_xpm, DESC_BRIGHTNESS_R,
+    xsane_scale_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(xsane_vbox_xsane_modus), brightness_red_xpm, DESC_BRIGHTNESS_R,
                                 XSANE_BRIGHTNESS_MIN, XSANE_BRIGHTNESS_MAX, 1.0, 10.0, 0.0, 0,
                                 &xsane.brightness_red  , &xsane.brightness_red_widget, 0, xsane_gamma_changed, TRUE);
-    xsane_scale_new_with_pixmap(GTK_BOX(xsane_vbox_xsane_modus), brightness_green_xpm, DESC_BRIGHTNESS_G,
+    xsane_scale_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(xsane_vbox_xsane_modus), brightness_green_xpm, DESC_BRIGHTNESS_G,
                                 XSANE_BRIGHTNESS_MIN, XSANE_BRIGHTNESS_MAX, 1.0, 10.0, 0.0, 0,
                                 &xsane.brightness_green, &xsane.brightness_green_widget, 0, xsane_gamma_changed, TRUE);
-    xsane_scale_new_with_pixmap(GTK_BOX(xsane_vbox_xsane_modus), brightness_blue_xpm, DESC_BRIGHTNESS_B,
+    xsane_scale_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(xsane_vbox_xsane_modus), brightness_blue_xpm, DESC_BRIGHTNESS_B,
                                 XSANE_BRIGHTNESS_MIN, XSANE_BRIGHTNESS_MAX, 1.0, 10.0, 0.0, 0,
                                 &xsane.brightness_blue,  &xsane.brightness_blue_widget, 0, xsane_gamma_changed, TRUE);
 
     xsane_separator_new(xsane_vbox_xsane_modus, 2);
   }
 
-  xsane_scale_new_with_pixmap(GTK_BOX(xsane_vbox_xsane_modus), contrast_xpm, DESC_CONTRAST,
+  xsane_scale_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(xsane_vbox_xsane_modus), contrast_xpm, DESC_CONTRAST,
                               XSANE_CONTRAST_GRAY_MIN, XSANE_CONTRAST_MAX, 1.0, 10.0, 0.0, 0,
                               &xsane.contrast, &xsane.contrast_widget, 0, xsane_gamma_changed, TRUE);
   if ( (xsane.xsane_color) && (!xsane.enhancement_rgb_default) )
   {
-    xsane_scale_new_with_pixmap(GTK_BOX(xsane_vbox_xsane_modus), contrast_red_xpm, DESC_CONTRAST_R,
+    xsane_scale_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(xsane_vbox_xsane_modus), contrast_red_xpm, DESC_CONTRAST_R,
                                 XSANE_CONTRAST_MIN, XSANE_CONTRAST_MAX, 1.0, 10.0, 0.0, 0,
                                 &xsane.contrast_red  , &xsane.contrast_red_widget, 0, xsane_gamma_changed, TRUE);
-    xsane_scale_new_with_pixmap(GTK_BOX(xsane_vbox_xsane_modus), contrast_green_xpm, DESC_CONTRAST_G,
+    xsane_scale_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(xsane_vbox_xsane_modus), contrast_green_xpm, DESC_CONTRAST_G,
                                 XSANE_CONTRAST_MIN, XSANE_CONTRAST_MAX, 1.0, 10.0, 0.0, 0,
                                 &xsane.contrast_green, &xsane.contrast_green_widget, 0, xsane_gamma_changed, TRUE);
-    xsane_scale_new_with_pixmap(GTK_BOX(xsane_vbox_xsane_modus), contrast_blue_xpm, DESC_CONTRAST_B,
+    xsane_scale_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(xsane_vbox_xsane_modus), contrast_blue_xpm, DESC_CONTRAST_B,
                                 XSANE_CONTRAST_MIN, XSANE_CONTRAST_MAX, 1.0, 10.0, 0.0, 0,
                                 &xsane.contrast_blue,  &xsane.contrast_blue_widget, 0, xsane_gamma_changed, TRUE);
   }
@@ -1790,28 +1790,28 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
 
   if (xsane.xsane_color)
   {
-    button = xsane_toggle_button_new_with_pixmap(xsane_hbox_xsane_enhancement, rgb_default_xpm, DESC_RGB_DEFAULT,
+    button = xsane_toggle_button_new_with_pixmap(xsane.xsane_window->window, xsane_hbox_xsane_enhancement, rgb_default_xpm, DESC_RGB_DEFAULT,
                                                  &xsane.enhancement_rgb_default, xsane_enhancement_rgb_default_callback);
     gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_B, GDK_SHIFT_MASK, GTK_ACCEL_LOCKED);
   }
 
-  button = xsane_toggle_button_new_with_pixmap(xsane_hbox_xsane_enhancement, negative_xpm, DESC_NEGATIVE,
+  button = xsane_toggle_button_new_with_pixmap(xsane.xsane_window->window, xsane_hbox_xsane_enhancement, negative_xpm, DESC_NEGATIVE,
                                                &xsane.negative, xsane_enhancement_negative_callback);
   gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_N, GDK_SHIFT_MASK, GTK_ACCEL_LOCKED);
 
-  button = xsane_button_new_with_pixmap(xsane_hbox_xsane_enhancement, enhance_xpm, DESC_ENH_AUTO,
+  button = xsane_button_new_with_pixmap(xsane.xsane_window->window, xsane_hbox_xsane_enhancement, enhance_xpm, DESC_ENH_AUTO,
                                         xsane_auto_enhancement_callback, NULL);
   gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_E, GDK_SHIFT_MASK, GTK_ACCEL_LOCKED);
 
-  button = xsane_button_new_with_pixmap(xsane_hbox_xsane_enhancement, default_enhancement_xpm, DESC_ENH_DEFAULT,
+  button = xsane_button_new_with_pixmap(xsane.xsane_window->window, xsane_hbox_xsane_enhancement, default_enhancement_xpm, DESC_ENH_DEFAULT,
                                         xsane_enhancement_restore_default, NULL);
   gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_D, GDK_SHIFT_MASK, GTK_ACCEL_LOCKED);
 
-  button = xsane_button_new_with_pixmap(xsane_hbox_xsane_enhancement, restore_enhancement_xpm, DESC_ENH_RESTORE,
+  button = xsane_button_new_with_pixmap(xsane.xsane_window->window, xsane_hbox_xsane_enhancement, restore_enhancement_xpm, DESC_ENH_RESTORE,
                                        xsane_enhancement_restore, NULL);
   gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_R, GDK_SHIFT_MASK, GTK_ACCEL_LOCKED);
 
-  button = xsane_button_new_with_pixmap(xsane_hbox_xsane_enhancement, store_enhancement_xpm, DESC_ENH_STORE,
+  button = xsane_button_new_with_pixmap(xsane.xsane_window->window, xsane_hbox_xsane_enhancement, store_enhancement_xpm, DESC_ENH_STORE,
                                         xsane_enhancement_store, NULL);
   gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_M, GDK_SHIFT_MASK, GTK_ACCEL_LOCKED);
 
@@ -2959,8 +2959,8 @@ static void xsane_fax_dialog()
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
   gtk_widget_show(button);
 
-  xsane_button_new_with_pixmap(hbox, move_up_xpm,   0, (GtkSignalFunc) xsane_fax_entry_move_up_callback,   list);
-  xsane_button_new_with_pixmap(hbox, move_down_xpm, 0, (GtkSignalFunc) xsane_fax_entry_move_down_callback, list);
+  xsane_button_new_with_pixmap(fax_dialog->window, hbox, move_up_xpm,   0, (GtkSignalFunc) xsane_fax_entry_move_up_callback,   list);
+  xsane_button_new_with_pixmap(fax_dialog->window, hbox, move_down_xpm, 0, (GtkSignalFunc) xsane_fax_entry_move_down_callback, list);
 
   gtk_widget_show(hbox);
 

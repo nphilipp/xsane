@@ -32,12 +32,9 @@ CC = @CC@
 INCLUDES = -I. -I$(srcdir) -I$(top_builddir)/include -I$(top_srcdir)/include @GTK_CFLAGS@ @INCLUDES@
 DEFS = @DEFS@ -DLOCALEDIR=$(datadir)/locale
 CPPFLAGS = @CPPFLAGS@
-CFLAGS = @CFLAGS@
-LDFLAGS = @LDFLAGS@
-LIBS = @INTLLIBS@ @LIBS@
-SANE_LIBS = @SANE_LIBS@
-GTK_LIBS = @GTK_LIBS@
-GIMP_LIBS = @GIMP_LIBS@
+CFLAGS   = @CFLAGS@ @SANE_CFLAGS@ @GTK_CFLAGS@
+LDFLAGS  = @LDFLAGS@ @SANE_LDFLAGS@
+LIBS     = @GIMP_LIBS@ @SANE_LIBS@ @GTK_LIBS@ @INTLLIBS@ @LIBS@
 
 COMPILE = $(CC) -c $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS)
 LINK = $(CC) $(LDFLAGS) -o $@
@@ -85,7 +82,7 @@ uninstall:
 
 xsane: $(XSANE_OBJS) $(LIBLIB)
 	$(LINK) $(XSANE_OBJS) \
-	        $(LIBLIB) $(GIMP_LIBS) $(GTK_LIBS) $(LIBS) $(SANE_LIBS)
+	        $(LIBLIB) $(LIBS) $(SANE_LIBS)
 
 
 clean:

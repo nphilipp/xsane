@@ -1008,8 +1008,6 @@ xsane-0.59 -> 0.60:
 
  - removed script xsane-help, necessary command now is listed in xsane.PROBLEMS
 
- - after filename counter is increased the cursor in the outputfilename entry is moved to the right
-
 
 xsane-0.60 -> 0.61:
 -------------------
@@ -1144,4 +1142,24 @@ xsane-0.63 -> 0.64:
  - added options "-N name", "--force-filename name", if set the user filename selection
    is disabled and the given name is used as filename. The filename should be of the
    form "basename-00001.filetype". The size of the counter has to be suffisunt large.
+
+ - some changes in configure script (missing libs needed by sane are not linked any more)
+
+
+xsane-0.64 -> 0.65:
+-------------------
+
+ - src/Makefile.in: added usage of SANE_CFLAGS and GTK_CFLAGS
+
+ - added secure password transmission for authorisation (md5digest)
+
+ - ~/.sane/pass is used for reading user:password:resource from file before asking the user
+
+ - configure: removed test for X (AC_PATH_X), this is done in GTK (gtk-config)
+   gtk includes and libs are used for png test (because png often is in X directories)
+
+ - changed xsane_*_with_pixmap:
+   old status: routines used xsane.histogram_dialog->window as window for gdk_pixmap_create_from_xpm_d()
+     this made problems with preview window if X default color depth differd from X color depth
+   new status: routines are called with parameter GdkWindow *window now.
 

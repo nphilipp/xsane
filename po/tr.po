@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Xsane 0.62\n"
-"POT-Creation-Date: 2000-11-12 01:25+0100\n"
+"POT-Creation-Date: 2000-11-23 20:47+0100\n"
 "PO-Revision-Date: 2000-10-04 13:09+0300\n"
 "Last-Translator: Togan Müftüoðlu <toganm@yahoo.com>\n"
 "Language-Team: Turkish <tr@li.org>\n"
@@ -332,6 +332,14 @@ msgstr "16 bit formatlarý:"
 #. TEXT_AUTHORIZATION_REQ
 msgid "Authorization required for"
 msgstr "Otorizayon gerekli :"
+
+#. TEXT_AUTHORIZATION_SECURE
+msgid "Password transmission is secure"
+msgstr ""
+
+#. TEXT_AUTHORIZATION_INSECURE
+msgid "Backend requests plain-text password"
+msgstr ""
 
 #. TEXT_USERNAME
 msgid "Username :"
@@ -1356,6 +1364,11 @@ msgstr "kötü kare formatý"
 #. ERR_FAILED_SET_RESOLUTION
 msgid "unable to set resolution"
 msgstr "çözünürlüðü ayarlayamadý"
+
+#. ERR_PASSWORD_FILE_INSECURE
+#, c-format
+msgid "Password file (%s) is insecure, use permission x00\n"
+msgstr ""
 
 #. ERR_ERROR
 msgid "error"

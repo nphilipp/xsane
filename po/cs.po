@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.62\n"
-"POT-Creation-Date: 2000-11-12 01:25+0100\n"
-"PO-Revision-Date: 2000-10-02 16:18+02:00\n"
+"Project-Id-Version: XSANE 0.64\n"
+"POT-Creation-Date: 2000-11-23 20:47+0100\n"
+"PO-Revision-Date: 2000-11-14 10:32+01:00\n"
 "Last-Translator: Stanislav Brabec <utx@penguin.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -22,14 +22,12 @@ msgid "©"
 msgstr "(c)"
 
 #. WINDOW_ABOUT_XSANE
-#, fuzzy
 msgid "About"
 msgstr "O programu"
 
 #. WINDOW_ABOUT_TRANSLATION, MENU_ITEM_ABOUT_TRANSLATION
-#, fuzzy
 msgid "About translation"
-msgstr "Volba prahu:"
+msgstr "O pøekladu"
 
 #. WINDOW_AUTHORIZE
 msgid "authorization"
@@ -116,9 +114,8 @@ msgid "Help"
 msgstr "Nápovìda"
 
 #. MENU_ITEM_ABOUT_XSANE
-#, fuzzy
 msgid "About XSane"
-msgstr "O programu"
+msgstr "O XSane"
 
 #. MENU_ITEM_INFO
 msgid "Info"
@@ -126,7 +123,7 @@ msgstr "Informace"
 
 #. MENU_ITEM_QUIT
 msgid "Quit"
-msgstr ""
+msgstr "Konec"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -336,6 +333,14 @@ msgstr "16bitové výstupní formáty:"
 msgid "Authorization required for"
 msgstr "Je vy¾adovaná autorizace"
 
+#. TEXT_AUTHORIZATION_SECURE
+msgid "Password transmission is secure"
+msgstr ""
+
+#. TEXT_AUTHORIZATION_INSECURE
+msgid "Backend requests plain-text password"
+msgstr ""
+
 #. TEXT_USERNAME
 msgid "Username :"
 msgstr "U¾ivatel: "
@@ -397,9 +402,8 @@ msgid "File:"
 msgstr "Soubor:"
 
 #. TEXT_TRANSLATION
-#, fuzzy
 msgid "Translation:"
-msgstr "Volba prahu:"
+msgstr "Pøeklad:"
 
 #. TEXT_TRANSLATION_INFO
 msgid ""
@@ -407,15 +411,17 @@ msgid ""
 "by Oliver Rauch\n"
 "Email: Oliver.Rauch@Wolfsburg.DE\n"
 msgstr ""
+"èeský pøeklad\n"
+"Stanislav Brabec\n"
+"e-mail: utx@penguin.cz\n"
 
 #. TEXT_INFO_BOX
 msgid "0x0: 0KB"
 msgstr "0 × 0: 0 KB"
 
 #. TEXT_ADF_PAGES_SCANNED
-#, fuzzy
 msgid "Scanned pages: "
-msgstr "Skener a ovladaè:"
+msgstr "Skenované stránky: "
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -916,11 +922,11 @@ msgstr ""
 " kontrast = 0"
 
 #. DESC_ENH_AUTO
-#, fuzzy
 msgid ""
 "Autoadjust gamma, brightness and contrast in dependance of selected scan area"
 msgstr ""
-"Automatické nastavení gamy, jasu a kontrastu v závislosti na vybrané oblasti"
+"Automatické nastavení gamy, jasu a kontrastu v závislosti na vybrané "
+"skenovací oblasti"
 
 #. DESC_ENH_DEFAULT
 msgid ""
@@ -1361,6 +1367,11 @@ msgstr "¹patný formát rámce"
 msgid "unable to set resolution"
 msgstr "nepodaøilo se nastavit rozli¹ení"
 
+#. ERR_PASSWORD_FILE_INSECURE
+#, c-format
+msgid "Password file (%s) is insecure, use permission x00\n"
+msgstr ""
+
 #. ERR_ERROR
 msgid "error"
 msgstr "chyba"
@@ -1425,7 +1436,7 @@ msgstr "Varování"
 
 #. ERR_HEADER_INFO
 msgid "Information"
-msgstr ""
+msgstr "Informace"
 
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"

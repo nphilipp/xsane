@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.62\n"
-"POT-Creation-Date: 2000-11-12 01:25+0100\n"
+"POT-Creation-Date: 2000-11-23 20:47+0100\n"
 "PO-Revision-Date: 2000-09-29  23:48+0100\n"
 "Last-Translator: Colorio Mauro <linuxbox@interfree.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -22,14 +22,12 @@ msgid "©"
 msgstr ""
 
 #. WINDOW_ABOUT_XSANE
-#, fuzzy
 msgid "About"
 msgstr "Informazioni su"
 
 #. WINDOW_ABOUT_TRANSLATION, MENU_ITEM_ABOUT_TRANSLATION
-#, fuzzy
 msgid "About translation"
-msgstr "Opzione soglia:"
+msgstr "Traduzioni:"
 
 #. WINDOW_AUTHORIZE
 msgid "authorization"
@@ -41,7 +39,7 @@ msgstr "info"
 
 #. WINDOW_BATCH_SCAN
 msgid "batch scan"
-msgstr ""
+msgstr "scan automatico"
 
 #. WINDOW_FAX_PROJECT
 msgid "fax project"
@@ -53,7 +51,7 @@ msgstr "rinomina pagina fax"
 
 #. WINDOW_SETUP
 msgid "setup"
-msgstr ""
+msgstr "setup"
 
 #. WINDOW_HISTOGRAM
 msgid "Histogram"
@@ -116,17 +114,16 @@ msgid "Help"
 msgstr "Aiuto"
 
 #. MENU_ITEM_ABOUT_XSANE
-#, fuzzy
 msgid "About XSane"
-msgstr "Informazioni su"
+msgstr "Informazioni su XSane"
 
 #. MENU_ITEM_INFO
 msgid "Info"
-msgstr ""
+msgstr "Info"
 
 #. MENU_ITEM_QUIT
 msgid "Quit"
-msgstr ""
+msgstr "Esci"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -336,6 +333,14 @@ msgstr "Formati output 16 bit:"
 msgid "Authorization required for"
 msgstr "Autorizzazione richiesta per"
 
+#. TEXT_AUTHORIZATION_SECURE
+msgid "Password transmission is secure"
+msgstr ""
+
+#. TEXT_AUTHORIZATION_INSECURE
+msgid "Backend requests plain-text password"
+msgstr ""
+
 #. TEXT_USERNAME
 msgid "Username :"
 msgstr "Utente :"
@@ -410,12 +415,12 @@ msgstr ""
 
 #. TEXT_INFO_BOX
 msgid "0x0: 0KB"
-msgstr ""
+msgstr "0x0: 0KB"
 
 #. TEXT_ADF_PAGES_SCANNED
 #, fuzzy
 msgid "Scanned pages: "
-msgstr "Scanner e backend:"
+msgstr "Pagine scannerizzate:"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -527,7 +532,7 @@ msgstr "Margine inferiore per postscript [mm]:"
 
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
-msgstr ""
+msgstr "Anteprima oversampling:"
 
 #. TEXT_SETUP_PREVIEW_GAMMA
 msgid "Preview gamma:"
@@ -747,7 +752,7 @@ msgstr "Compressione JPEG DCT"
 
 #. MENU_ITEM_TIFF_COMP_PACKBITS
 msgid "pack bits"
-msgstr ""
+msgstr "compressione bit"
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
 msgid "Standard options window (lineart)"
@@ -1245,7 +1250,7 @@ msgstr "Usa tutta l'area di scan"
 #. DESC_ZOOM_OUT
 #, no-c-format
 msgid "Zoom 20% out"
-msgstr ""
+msgstr "Zoom -20%"
 
 #. DESC_ZOOM_IN
 msgid "Zoom into selected area"
@@ -1375,6 +1380,11 @@ msgstr "formato frame sbagliato"
 msgid "unable to set resolution"
 msgstr "impossibile definire la risoluzione"
 
+#. ERR_PASSWORD_FILE_INSECURE
+#, c-format
+msgid "Password file (%s) is insecure, use permission x00\n"
+msgstr ""
+
 #. ERR_ERROR
 msgid "error"
 msgstr "errore"
@@ -1427,7 +1437,7 @@ msgstr ""
 "\n"
 "Non inviare messaggi di errore quando\n"
 "si hanno problemi utilizzando xsane come root:\n"
-"SEI DA SOLO!"
+"SEI STATO AVVISATO!"
 
 #. ERR_HEADER_ERROR
 msgid "Error"
@@ -1439,7 +1449,7 @@ msgstr "Attenzione"
 
 #. ERR_HEADER_INFO
 msgid "Information"
-msgstr ""
+msgstr "Informazione"
 
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
@@ -1579,20 +1589,20 @@ msgstr "<Toolbox>/Xtns/Xsane/Finestra dispositivo..."
 
 #. XSANE_GIMP_MENU_OLD
 msgid "<Toolbox>/Xtns/XSane/"
-msgstr ""
+msgstr "<Toolbox>/Xtns/XSane/"
 
 #. Sane backend messages
 msgid "flatbed scanner"
-msgstr ""
+msgstr "flatbed scanner"
 
 msgid "frame grabber"
-msgstr ""
+msgstr "frame grabber"
 
 msgid "handheld scanner"
-msgstr ""
+msgstr "handheld scanner"
 
 msgid "still camera"
-msgstr ""
+msgstr "still camera"
 
 msgid "video camera"
 msgstr "video camera"

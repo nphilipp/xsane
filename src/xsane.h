@@ -32,7 +32,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.64"
+#define XSANE_VERSION		"0.65"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2000"
@@ -685,6 +685,7 @@ extern int DBG_LEVEL;
     }                                                        \
   }
 
+#define DBG_error0    0
 #define DBG_error     1
 #define DBG_warning   2
 #define DBG_info      3

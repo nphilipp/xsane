@@ -6,7 +6,7 @@ AC_CONFIG_HEADER(include/sane/config.h)
 
 # version code:
 V_MAJOR=0
-V_MINOR=64
+V_MINOR=65
 
 PACKAGE=xsane
 
@@ -116,51 +116,37 @@ fi
 
 AC_SUBST(INTLSUB)
 
-#### Choose a window system.
-
-AC_PATH_X
-if test "$no_x" = yes; then
-  window_system=none
-else
-  window_system=x11
-fi
-
 AM_PATH_SANE(1.0.0, HAVE_SANE=yes, )
 
 AM_PATH_GTK(1.2.0, HAVE_GTK=yes, )
 
-# Change CFLAGS temporarily so that C_SWITCH_X_SITE gets used
-# for the tests that follow.  We set it back to REAL_CFLAGS later on.
-
-# According to Owen Taylor, GTK_CFLAGS is _guaranteed_ to contain
-# -D and -I flags only, i.e., it really is GTK_CPPFLAGS...
-saved_CPPFLAGS="${CPPFLAGS}"
-saved_LIBS="${LIBS}"
-CPPFLAGS="${CPPFLAGS} ${GTK_CFLAGS}"
-LIBS="${LIBS} ${GTK_LIBS}"
+#if test "${USE_GIMP}" = "yes"; then
+#  AM_PATH_GIMP(1.0.0, HAVE_GIMP=yes)
+#  if test "${HAVE_GIMP}" = "yes"; then
+#    AC_CHECK_HEADERS(libgimp/gimp.h)
+#    AC_CHECK_HEADERS(libgimp/gimpfeatures.h)
+#  fi
+#fi
 
 if test "${USE_GIMP}" = "yes"; then
   AC_CHECK_HEADERS(libgimp/gimp.h, GIMP_LIBS="-lgimp")
   AC_CHECK_HEADERS(libgimp/gimpfeatures.h)
-fi
-
-LIBS="${saved_LIBS}"
-CPPFLAGS="${saved_CPPFLAGS}"
-
+fi 
 
 # png test must stand after test for zlib
-# png test must stand behind X11-check because it is located in
-#  the X11 directory on some systems
-#  so we have to use x_includes and x_libraries to test for png
-#  and all following checks (=sane)
-# saved_CPPFLAGS is still up to date
-if test -n "${x_includes}" ; then
-  CPPFLAGS="${CPPFLAGS} -I${x_includes}"
-fi
+# png test must stand behind GTK-check (X-Window-check)
+#  because png.h is located in the X11 directory on some systems
+#  so we have to use GTK_CFLAGS and GTK_LIBS to test for png
 if test "${USE_PNG}" = "yes"; then
-  AC_CHECK_HEADERS(png.h, [AC_CHECK_LIB(png, png_create_info_struct,,, -L${x_libraries})])
+  saved_CPPFLAGS="${CPPFLAGS}"
+
+  if test "x${HAVE_GTK}" != "x"; then
+    CPPFLAGS="${CPPFLAGS} ${GTK_CFLAGS}"
+  fi
+
+  AC_CHECK_HEADERS(png.h, [AC_CHECK_LIB(png, png_create_info_struct,,, ${GTK_LIBS})])
+  CPPFLAGS="${saved_CPPFLAGS}"
 fi
-CPPFLAGS="${saved_CPPFLAGS}"
 
 
 AC_SUBST(INCLUDES)
@@ -173,24 +159,24 @@ CPPFLAGS="${CPPFLAGS} \
 	  -DV_MAJOR=${V_MAJOR} -DV_MINOR=${V_MINOR} -DSANE_V_MAJOR=${SANE_V_MAJOR}"
 
 dnl Print error message if sane or gtk is missing
-if test "${HAVE_SANE}" = "no"; then
+if test "x${HAVE_SANE}" = "x"; then
   echo "****************************************************************"
   echo "ERROR: SANE-1.0.0 or newer is needed for compiling xsane"
   echo "     - if you installed SANE as rpm make sure you also included"
   echo "       sane-devel"
   echo "****************************************************************"
   rm -f $cache_file
-  exit -1
+  exit
 fi
 
-if test "${HAVE_GTK}" = "no"; then
+if test "x${HAVE_GTK}" = "x"; then
   echo "****************************************************************"
   echo "ERROR: GTK-1.2.0 or newer is needed for compiling xsane"
   echo "       if you installed gtk as rpm make sure you also included"
   echo "       gtk-devel"
   echo "****************************************************************"
   rm -f $cache_file
-  exit -1
+  exit
 fi
 
 

@@ -119,6 +119,8 @@
 #define TEXT_8BIT_FORMATS		_("8 bit output formats:")
 #define TEXT_16BIT_FORMATS		_("16 bit output formats:")
 #define TEXT_AUTHORIZATION_REQ		_("Authorization required for")
+#define TEXT_AUTHORIZATION_SECURE	_("Password transmission is secure")
+#define TEXT_AUTHORIZATION_INSECURE	_("Backend requests plain-text password")
 #define TEXT_USERNAME			_("Username :")
 #define TEXT_PASSWORD			_("Password :")
 #define TEXT_INVALID_PARAMS		_("Invalid parameters.")
@@ -412,6 +414,7 @@
 #define ERR_FAILED_EXEC_FAX_CMD		_("Failed to execute faxcommand:")
 #define ERR_BAD_FRAME_FORMAT		_("bad frame format")
 #define ERR_FAILED_SET_RESOLUTION	_("unable to set resolution")
+#define ERR_PASSWORD_FILE_INSECURE	_("Password file (%s) is insecure, use permission x00\n")
 
 #define ERR_ERROR			_("error")
 #define ERR_MAJOR_VERSION_NR_CONFLICT	_("Sane major version number mismatch!")

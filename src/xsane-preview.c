@@ -2866,15 +2866,15 @@ Preview *preview_new(void)
   gtk_box_pack_start(GTK_BOX(vbox), p->button_box, FALSE, FALSE, 0);
 
   /* White, gray and black pipette button */
-  p->pipette_white = xsane_button_new_with_pixmap(p->button_box, pipette_white_xpm, DESC_PIPETTE_WHITE, (GtkSignalFunc) preview_pipette_white, p);
-  p->pipette_gray  = xsane_button_new_with_pixmap(p->button_box, pipette_gray_xpm,  DESC_PIPETTE_GRAY,  (GtkSignalFunc) preview_pipette_gray,  p);
-  p->pipette_black = xsane_button_new_with_pixmap(p->button_box, pipette_black_xpm, DESC_PIPETTE_BLACK, (GtkSignalFunc) preview_pipette_black, p);
+  p->pipette_white = xsane_button_new_with_pixmap(p->top->window, p->button_box, pipette_white_xpm, DESC_PIPETTE_WHITE, (GtkSignalFunc) preview_pipette_white, p);
+  p->pipette_gray  = xsane_button_new_with_pixmap(p->top->window, p->button_box, pipette_gray_xpm,  DESC_PIPETTE_GRAY,  (GtkSignalFunc) preview_pipette_gray,  p);
+  p->pipette_black = xsane_button_new_with_pixmap(p->top->window, p->button_box, pipette_black_xpm, DESC_PIPETTE_BLACK, (GtkSignalFunc) preview_pipette_black, p);
 
   /* Zoom not, zoom out and zoom in button */
-  p->zoom_not  = xsane_button_new_with_pixmap(p->button_box, zoom_not_xpm,  DESC_ZOOM_FULL, (GtkSignalFunc) preview_zoom_not,   p);
-  p->zoom_out  = xsane_button_new_with_pixmap(p->button_box, zoom_out_xpm,  DESC_ZOOM_OUT,  (GtkSignalFunc) preview_zoom_out,   p);
-  p->zoom_in   = xsane_button_new_with_pixmap(p->button_box, zoom_in_xpm,   DESC_ZOOM_IN,   (GtkSignalFunc) preview_zoom_in,    p);
-  p->zoom_undo = xsane_button_new_with_pixmap(p->button_box, zoom_undo_xpm, DESC_ZOOM_UNDO, (GtkSignalFunc) preview_zoom_undo,  p);
+  p->zoom_not  = xsane_button_new_with_pixmap(p->top->window, p->button_box, zoom_not_xpm,  DESC_ZOOM_FULL, (GtkSignalFunc) preview_zoom_not,   p);
+  p->zoom_out  = xsane_button_new_with_pixmap(p->top->window, p->button_box, zoom_out_xpm,  DESC_ZOOM_OUT,  (GtkSignalFunc) preview_zoom_out,   p);
+  p->zoom_in   = xsane_button_new_with_pixmap(p->top->window, p->button_box, zoom_in_xpm,   DESC_ZOOM_IN,   (GtkSignalFunc) preview_zoom_in,    p);
+  p->zoom_undo = xsane_button_new_with_pixmap(p->top->window, p->button_box, zoom_undo_xpm, DESC_ZOOM_UNDO, (GtkSignalFunc) preview_zoom_undo,  p);
 
   gtk_widget_set_sensitive(p->zoom_not, FALSE); /* no zoom at this point, so no zoom not */
   gtk_widget_set_sensitive(p->zoom_out, FALSE); /* no zoom at this point, so no zoom out */
@@ -2882,7 +2882,7 @@ Preview *preview_new(void)
 
 
 
-  xsane_button_new_with_pixmap(p->button_box, full_preview_area_xpm, DESC_FULL_PREVIEW_AREA,
+  xsane_button_new_with_pixmap(p->top->window, p->button_box, full_preview_area_xpm, DESC_FULL_PREVIEW_AREA,
                                (GtkSignalFunc) preview_full_preview_area_callback, p);
 
   /* select maximum scanarea */

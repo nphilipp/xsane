@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-11-12 01:25+0100\n"
+"POT-Creation-Date: 2000-11-23 20:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -328,6 +328,14 @@ msgstr "16 bits utmatningsformat:"
 #. TEXT_AUTHORIZATION_REQ
 msgid "Authorization required for"
 msgstr "Tillstånd krävs för"
+
+#. TEXT_AUTHORIZATION_SECURE
+msgid "Password transmission is secure"
+msgstr ""
+
+#. TEXT_AUTHORIZATION_INSECURE
+msgid "Backend requests plain-text password"
+msgstr ""
 
 #. TEXT_USERNAME
 msgid "Username :"
@@ -1362,6 +1370,11 @@ msgstr "fel frameformat"
 #. ERR_FAILED_SET_RESOLUTION
 msgid "unable to set resolution"
 msgstr "kunde inte sätta upplösning"
+
+#. ERR_PASSWORD_FILE_INSECURE
+#, c-format
+msgid "Password file (%s) is insecure, use permission x00\n"
+msgstr ""
 
 #. ERR_ERROR
 msgid "error"

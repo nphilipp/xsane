@@ -1756,27 +1756,27 @@ void xsane_create_histogram_dialog(const char *devicetext)
   gtk_container_add(GTK_CONTAINER(xsane_histogram_vbox), xsane_color_hbox);
   gtk_widget_show(xsane_color_hbox);
 
-  button = xsane_toggle_button_new_with_pixmap(xsane_color_hbox, intensity_xpm, DESC_HIST_INTENSITY,
+  button = xsane_toggle_button_new_with_pixmap(xsane.histogram_dialog->window, xsane_color_hbox, intensity_xpm, DESC_HIST_INTENSITY,
                                                &xsane.histogram_int,   xsane_histogram_toggle_button_callback);
   gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_I, GDK_MOD1_MASK, GTK_ACCEL_LOCKED);
 
-  button = xsane_toggle_button_new_with_pixmap(xsane_color_hbox, red_xpm, DESC_HIST_RED,
+  button = xsane_toggle_button_new_with_pixmap(xsane.histogram_dialog->window, xsane_color_hbox, red_xpm, DESC_HIST_RED,
                                                &xsane.histogram_red,   xsane_histogram_toggle_button_callback);
   gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_R, GDK_MOD1_MASK, GTK_ACCEL_LOCKED);
 
-  button = xsane_toggle_button_new_with_pixmap(xsane_color_hbox, green_xpm, DESC_HIST_GREEN,
+  button = xsane_toggle_button_new_with_pixmap(xsane.histogram_dialog->window, xsane_color_hbox, green_xpm, DESC_HIST_GREEN,
                                                &xsane.histogram_green, xsane_histogram_toggle_button_callback);
   gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_G, GDK_MOD1_MASK, GTK_ACCEL_LOCKED);
 
-  button = xsane_toggle_button_new_with_pixmap(xsane_color_hbox, blue_xpm, DESC_HIST_BLUE,
+  button = xsane_toggle_button_new_with_pixmap(xsane.histogram_dialog->window, xsane_color_hbox, blue_xpm, DESC_HIST_BLUE,
                                                &xsane.histogram_blue,  xsane_histogram_toggle_button_callback);
   gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_B, GDK_MOD1_MASK, GTK_ACCEL_LOCKED);
 
-  button = xsane_toggle_button_new_with_pixmap(xsane_color_hbox, pixel_xpm, DESC_HIST_PIXEL,
+  button = xsane_toggle_button_new_with_pixmap(xsane.histogram_dialog->window, xsane_color_hbox, pixel_xpm, DESC_HIST_PIXEL,
                                                &xsane.histogram_lines, xsane_histogram_toggle_button_callback);
   gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_M, GDK_MOD1_MASK, GTK_ACCEL_LOCKED);
 
-  button = xsane_toggle_button_new_with_pixmap(xsane_color_hbox, log_xpm, DESC_HIST_LOG,
+  button = xsane_toggle_button_new_with_pixmap(xsane.histogram_dialog->window, xsane_color_hbox, log_xpm, DESC_HIST_LOG,
                                                &xsane.histogram_log, xsane_histogram_toggle_button_callback);
   gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_L, GDK_MOD1_MASK, GTK_ACCEL_LOCKED);
 

@@ -40,9 +40,9 @@ COMPILE = $(CC) -c $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS)
 @SET_MAKE@
 
 LIBLIB_OBJS	= alloca.o getopt.o getopt1.o strndup.o \
-		  strdup.o strsep.o snprintf.o usleep.o
+		  strdup.o strsep.o snprintf.o usleep.o md5.o
 LIBLIB_LTOBJS	= alloca.lo getopt.lo getopt1.lo strndup.lo \
-		  strdup.lo strsep.lo snprintf.lo usleep.lo
+		  strdup.lo strsep.lo snprintf.lo usleep.lo md5.lo
 
 TARGETS = $(LIBLIB_OBJS)
 TARGETS = liblib.a

@@ -29,6 +29,7 @@
 #include "xsane-save.h"
 #include "xsane-gamma.h"
 #include "xsane-setup.h"
+#include <md5.h>
 
 #ifdef HAVE_LIBPNG
 #ifdef HAVE_LIBZ
@@ -55,20 +56,20 @@ void xsane_progress_cancel(GtkWidget *widget, gpointer data);
 void xsane_progress_new(char *bar_text, char *info, GtkSignalFunc callback);
 void xsane_progress_update(gfloat newval);
 void xsane_progress_clear();
-GtkWidget *xsane_toggle_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[], const char *desc,
+GtkWidget *xsane_toggle_button_new_with_pixmap(GdkWindow *window, GtkWidget *parent, const char *xpm_d[], const char *desc,
                                          int *state, void *xsane_toggle_button_callback);
-GtkWidget *xsane_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[], const char *desc,
+GtkWidget *xsane_button_new_with_pixmap(GdkWindow *window, GtkWidget *parent, const char *xpm_d[], const char *desc,
                                         void *xsane_button_callback, gpointer data);
 void xsane_option_menu_new(GtkWidget *parent, char *str_list[], const char *val, int option_number, const char *desc,
                            void *option_menu_callback, SANE_Int settable, const gchar *widget_name);
-void xsane_option_menu_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char *desc,
+void xsane_option_menu_new_with_pixmap(GdkWindow *window, GtkBox *parent, const char *xpm_d[], const char *desc,
                                        char *str_list[], const char *val,
                                        GtkObject **data, int option,
                                        void *option_menu_callback, SANE_Int settable, const gchar *widget_name);
 void xsane_scale_new(GtkBox *parent, char *labeltext, const char *desc,
                      float min, float max, float quant, float step, float page_step,
                      int digits, double *val, GtkObject **data, void *xsane_scale_callback, SANE_Int settable);
-void xsane_scale_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char *desc,
+void xsane_scale_new_with_pixmap(GdkWindow *window, GtkBox *parent, const char *xpm_d[], const char *desc,
                                  float min, float max, float quant, float step, float page_step, int digits,
                                  double *val, GtkObject **data, int option, void *xsane_scale_callback, SANE_Int settable);
 void xsane_separator_new(GtkWidget *xsane_parent, int dist);
@@ -443,107 +444,236 @@ gint xsane_authorization_callback(SANE_String_Const resource,
 {
  GtkWidget *authorize_dialog, *vbox, *hbox, *button, *label;
  GtkWidget *username_widget, *password_widget;
- char buf[256];
+ char buf[SANE_MAX_PASSWORD_LEN+SANE_MAX_USERNAME_LEN+128];
  char *input;
+ char *resource_string;
  int len;
+ int resource_len;
+ int secure_password_transmission = 0;
+ char password_filename[PATH_MAX];
+ struct stat password_stat;
+ FILE *password_file;
+ unsigned char md5digest[16];
+ int query_user = 1;
 
   DBG(DBG_proc, "xsane_authorization_callback\n");
 
-  authorize_dialog = gtk_window_new(GTK_WINDOW_DIALOG);
-  gtk_window_set_position(GTK_WINDOW(authorize_dialog), GTK_WIN_POS_CENTER);
-  gtk_window_set_policy(GTK_WINDOW(authorize_dialog), FALSE, FALSE, FALSE);
-  gtk_signal_connect(GTK_OBJECT(authorize_dialog), "delete_event",
-                     GTK_SIGNAL_FUNC(xsane_authorization_button_callback), (void *) -1); /* -1 = cancel */
-  snprintf(buf, sizeof(buf), "%s %s", xsane.prog_name, WINDOW_AUTHORIZE);
-  gtk_window_set_title(GTK_WINDOW(authorize_dialog), buf);
-  xsane_set_window_icon(authorize_dialog, 0);
-
-  vbox = gtk_vbox_new(/* not homogeneous */ FALSE, 10); /* y-space between all box items */
-  gtk_container_add(GTK_CONTAINER(authorize_dialog), vbox);
-  gtk_widget_show(vbox);
-
-  snprintf(buf, sizeof(buf), "\n\n%s %s\n", TEXT_AUTHORIZATION_REQ, resource);
-  label = gtk_label_new(buf);
-  gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0); /* y-space around authorization text */
-  gtk_widget_show(label);
-
-  /* ask for username */
-  hbox = gtk_hbox_new(FALSE, 10); /* x-space between label and input filed */
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0); /* y-space around inner items */
-
-  label = gtk_label_new(TEXT_USERNAME);
-  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 10); /* x-space around label */
-  gtk_widget_show(label);
-
-  username_widget = gtk_entry_new_with_max_length(SANE_MAX_USERNAME_LEN-1);
-  gtk_widget_set_usize(username_widget, 250, 0);
-  gtk_entry_set_text(GTK_ENTRY(username_widget), "");
-  gtk_box_pack_end(GTK_BOX(hbox), username_widget, FALSE, FALSE, 10); /* x-space around input filed */
-  gtk_widget_show(username_widget);
-  gtk_widget_show(hbox);
-
-
-  /* ask for password */
-  hbox = gtk_hbox_new(FALSE, 10); /* x-space between label and input filed */
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0); /* y-space around inner items */
-
-  label = gtk_label_new(TEXT_PASSWORD);
-  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 10); /* x-space around label */
-  gtk_widget_show(label);
-
-  password_widget = gtk_entry_new_with_max_length(SANE_MAX_PASSWORD_LEN-1);
-  gtk_entry_set_visibility(GTK_ENTRY(password_widget), FALSE); /* make entered text invisible */
-  gtk_widget_set_usize(password_widget, 250, 0);
-  gtk_entry_set_text(GTK_ENTRY(password_widget), "");
-  gtk_box_pack_end(GTK_BOX(hbox), password_widget, FALSE, FALSE, 10); /* x-space around input filed */
-  gtk_widget_show(password_widget);
-  gtk_widget_show(hbox);
-
-  /* buttons */
-  hbox = gtk_hbox_new(TRUE, 10); /* x-space between buttons */
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 10);  /* y-space around buttons */
-
-  button = gtk_button_new_with_label(BUTTON_OK);
-  GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
-  gtk_signal_connect(GTK_OBJECT(button), "clicked", GTK_SIGNAL_FUNC(xsane_authorization_button_callback), (void *) 1);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 10); /* x-space around OK-button */
-  gtk_widget_grab_default(button);
-  gtk_widget_show(button);
-
-  button = gtk_button_new_with_label(BUTTON_CANCEL);
-  gtk_signal_connect(GTK_OBJECT(button), "clicked", GTK_SIGNAL_FUNC(xsane_authorization_button_callback), (void *) -1);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 10); /* x-space around cancel-button */
-  gtk_widget_show(button);
-
-  gtk_widget_show(hbox);
-
-  gtk_widget_show(authorize_dialog);
-
-
-  username[0]=0;
-  password[0]=0;
-
-  authorization_flag = 0;
-
-  /* wait for ok or cancel */
-  while (authorization_flag == 0)
+  if (strstr(resource, "$MD5$") != NULL) /* secure password authorisation */
   {
-    gtk_main_iteration();
+    DBG(DBG_info, "xsane_authorization_callback: secure (MD5) password transmission requested\n");
+    secure_password_transmission = 1;
+    resource_len = strstr(resource, "$MD5$") - resource;
+  }
+  else
+  {
+    DBG(DBG_info, "xsane_authorization_callback: insecure password transmission requested\n");
+    resource_len = strlen(resource);
+  }
+  resource_string = alloca(resource_len+1);
+  snprintf(resource_string, resource_len+1, "%s", resource);
+
+  xsane_back_gtk_make_path(sizeof(password_filename), password_filename, NULL, NULL, "pass", NULL, NULL, XSANE_PATH_LOCAL_SANE);
+
+  /* if password transmission is secure and file ~/.sane/pass exists and it's permissions are x00 then
+     try to read username and pasword for resource from that file */
+  if ((stat(password_filename, &password_stat) == 0) && (secure_password_transmission))
+  {
+    if ((password_stat.st_mode & 63) != 0) /* 63 = 0x077 */
+    {
+      snprintf(buf, sizeof(buf), ERR_PASSWORD_FILE_INSECURE, password_filename);
+      xsane_back_gtk_error(buf, TRUE);
+    }
+    else /* ok, password file has secure permissions, we can use it */
+    {
+      password_file = fopen(password_filename, "r");
+
+      if (password_file)
+      {
+        DBG(DBG_info, "xsane authorization: opened %s as password file\n", password_filename);
+
+        while (fgets(buf, sizeof(buf), password_file))
+        {
+         char *stored_username;
+         char *stored_password;
+         char *stored_resource;
+         char *marker;
+
+          marker = strrchr(buf, '\n');
+          if (marker)
+          {
+            *marker = 0; /* remove \n at end of read line */
+          }
+
+          marker = strrchr(buf, '\r');
+          if (marker)
+          {
+            *marker = 0; /* remove \r at end of read line (eg for windows file) */
+          }
+
+          marker = strchr(buf, ':');
+          if (marker)
+          {
+            stored_username = buf;
+            *marker = 0; /* set \0 to end of stored_username */
+            stored_password = marker + 1;
+
+            marker = strchr(stored_password, ':');
+            if (marker)
+            {
+              *marker = 0; /* set \0 to end of stroed_password */
+              stored_resource = marker + 1;
+
+              if (strcmp(stored_resource, resource_string) == 0) /* password file resource equals requested resource */
+              {
+                strcpy(username, stored_username);
+                strcpy(password, stored_password);
+                query_user = 0;
+              }
+            }
+          }
+        }
+
+        fclose(password_file);
+      }
+      else
+      {
+        DBG(DBG_info, "xsane authorization: could not open existing password file %s\n", password_filename);
+      }
+    }
+  }
+  else
+  {
+    DBG(DBG_info, "xsane authorization: password file %s does not exist\n", password_filename);
   }
 
-  if (authorization_flag == 1) /* 1=ok, -1=cancel */
+  if (query_user)
   {
-    input = gtk_entry_get_text(GTK_ENTRY(username_widget));
-    len = strlen(input);
-    memcpy(username, input, len);
-    username[len] = 0;
+    authorize_dialog = gtk_window_new(GTK_WINDOW_DIALOG);
+    gtk_window_set_position(GTK_WINDOW(authorize_dialog), GTK_WIN_POS_CENTER);
+    gtk_window_set_policy(GTK_WINDOW(authorize_dialog), FALSE, FALSE, FALSE);
+    gtk_signal_connect(GTK_OBJECT(authorize_dialog), "delete_event",
+                       GTK_SIGNAL_FUNC(xsane_authorization_button_callback), (void *) -1); /* -1 = cancel */
+    snprintf(buf, sizeof(buf), "%s %s", xsane.prog_name, WINDOW_AUTHORIZE);
+    gtk_window_set_title(GTK_WINDOW(authorize_dialog), buf);
+    xsane_set_window_icon(authorize_dialog, 0);
 
-    input = gtk_entry_get_text(GTK_ENTRY(password_widget));
-    len = strlen(input);
-    memcpy(password, input, len);
-    password[len] = 0;
+    vbox = gtk_vbox_new(/* not homogeneous */ FALSE, 10); /* y-space between all box items */
+    gtk_container_add(GTK_CONTAINER(authorize_dialog), vbox);
+    gtk_widget_show(vbox);
+
+    /* print resourece string */
+    snprintf(buf, sizeof(buf), "\n\n%s %s", TEXT_AUTHORIZATION_REQ, resource_string);
+    label = gtk_label_new(buf);
+    gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0); /* y-space around authorization text */
+    gtk_widget_show(label);
+
+    /* print securety of password transmission */
+    if (secure_password_transmission)
+    {
+      snprintf(buf, sizeof(buf), "%s\n", TEXT_AUTHORIZATION_SECURE);
+    }
+    else
+    {
+      snprintf(buf, sizeof(buf), "%s\n", TEXT_AUTHORIZATION_INSECURE);
+    }
+    label = gtk_label_new(buf);
+    gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0); /* y-space around authorization text */
+    gtk_widget_show(label);
+
+    /* ask for username */
+    hbox = gtk_hbox_new(FALSE, 10); /* x-space between label and input filed */
+    gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0); /* y-space around inner items */
+
+    label = gtk_label_new(TEXT_USERNAME);
+    gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 10); /* x-space around label */
+    gtk_widget_show(label);
+
+    username_widget = gtk_entry_new_with_max_length(SANE_MAX_USERNAME_LEN-1);
+    gtk_widget_set_usize(username_widget, 250, 0);
+    gtk_entry_set_text(GTK_ENTRY(username_widget), "");
+    gtk_box_pack_end(GTK_BOX(hbox), username_widget, FALSE, FALSE, 10); /* x-space around input filed */
+    gtk_widget_show(username_widget);
+    gtk_widget_show(hbox);
+
+
+    /* ask for password */
+    hbox = gtk_hbox_new(FALSE, 10); /* x-space between label and input filed */
+    gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0); /* y-space around inner items */
+
+    label = gtk_label_new(TEXT_PASSWORD);
+    gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 10); /* x-space around label */
+    gtk_widget_show(label);
+
+    password_widget = gtk_entry_new_with_max_length(SANE_MAX_PASSWORD_LEN-1);
+    gtk_entry_set_visibility(GTK_ENTRY(password_widget), FALSE); /* make entered text invisible */
+    gtk_widget_set_usize(password_widget, 250, 0);
+    gtk_entry_set_text(GTK_ENTRY(password_widget), "");
+    gtk_box_pack_end(GTK_BOX(hbox), password_widget, FALSE, FALSE, 10); /* x-space around input filed */
+    gtk_widget_show(password_widget);
+    gtk_widget_show(hbox);
+
+    /* buttons */
+    hbox = gtk_hbox_new(TRUE, 10); /* x-space between buttons */
+    gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 10);  /* y-space around buttons */
+
+    button = gtk_button_new_with_label(BUTTON_OK);
+    GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
+    gtk_signal_connect(GTK_OBJECT(button), "clicked", GTK_SIGNAL_FUNC(xsane_authorization_button_callback), (void *) 1);
+    gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 10); /* x-space around OK-button */
+    gtk_widget_grab_default(button);
+    gtk_widget_show(button);
+
+    button = gtk_button_new_with_label(BUTTON_CANCEL);
+    gtk_signal_connect(GTK_OBJECT(button), "clicked", GTK_SIGNAL_FUNC(xsane_authorization_button_callback), (void *) -1);
+    gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 10); /* x-space around cancel-button */
+    gtk_widget_show(button);
+
+    gtk_widget_show(hbox);
+
+    gtk_widget_show(authorize_dialog);
+
+
+    username[0]=0;
+    password[0]=0;
+
+    authorization_flag = 0;
+
+    /* wait for ok or cancel */
+    while (authorization_flag == 0)
+    {
+      gtk_main_iteration();
+    }
+
+    if (authorization_flag == 1) /* 1=ok, -1=cancel */
+    {
+      input = gtk_entry_get_text(GTK_ENTRY(username_widget));
+      len = strlen(input);
+      memcpy(username, input, len);
+      username[len] = 0;
+
+      input = gtk_entry_get_text(GTK_ENTRY(password_widget));
+      len = strlen(input);
+      memcpy(password, input, len);
+      password[len] = 0;
+    }
+    gtk_widget_destroy(authorize_dialog);
   }
-  gtk_widget_destroy(authorize_dialog);
+
+  if (secure_password_transmission)
+  {
+    DBG(DBG_info, "xsane authorization: calculating md5digest of password\n");
+
+    snprintf(buf, sizeof(buf), "%s%s", (strstr(resource, "$MD5$")) + 5, password); /* random string from backend + password */
+    md5_buffer(buf, strlen(buf), md5digest); /* calculate md5digest */
+    memset(password, 0, SANE_MAX_PASSWORD_LEN); /* clear password */
+
+    sprintf(password, "$MD5$%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+            md5digest[0],  md5digest[1],  md5digest[2],  md5digest[3],
+            md5digest[4],  md5digest[5],  md5digest[6],  md5digest[7],
+            md5digest[8],  md5digest[9],  md5digest[10], md5digest[11],
+            md5digest[12], md5digest[13], md5digest[14], md5digest[15]);
+  }         
+
   return TRUE;
 }
 
@@ -601,7 +731,7 @@ void xsane_progress_update(gfloat newval)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-GtkWidget *xsane_toggle_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[], const char *desc,
+GtkWidget *xsane_toggle_button_new_with_pixmap(GdkWindow *window, GtkWidget *parent, const char *xpm_d[], const char *desc,
                                          int *state, void *xsane_toggle_button_callback)
 {
  GtkWidget *button;
@@ -614,7 +744,7 @@ GtkWidget *xsane_toggle_button_new_with_pixmap(GtkWidget *parent, const char *xp
   button = gtk_toggle_button_new();
   xsane_back_gtk_set_tooltip(xsane.tooltips, button, desc);
 
-  pixmap = gdk_pixmap_create_from_xpm_d(xsane.histogram_dialog->window, &mask, xsane.bg_trans, (gchar **) xpm_d);
+  pixmap = gdk_pixmap_create_from_xpm_d(window, &mask, xsane.bg_trans, (gchar **) xpm_d);
   pixmapwidget = gtk_pixmap_new(pixmap, mask);
   gtk_container_add(GTK_CONTAINER(button), pixmapwidget);
   gtk_widget_show(pixmapwidget);
@@ -630,7 +760,7 @@ GtkWidget *xsane_toggle_button_new_with_pixmap(GtkWidget *parent, const char *xp
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-GtkWidget *xsane_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[], const char *desc,
+GtkWidget *xsane_button_new_with_pixmap(GdkWindow *window, GtkWidget *parent, const char *xpm_d[], const char *desc,
                                   void *xsane_button_callback, gpointer data)
 {
  GtkWidget *button;
@@ -643,7 +773,7 @@ GtkWidget *xsane_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[], 
   button = gtk_button_new();
   xsane_back_gtk_set_tooltip(xsane.tooltips, button, desc);
 
-  pixmap = gdk_pixmap_create_from_xpm_d(xsane.histogram_dialog->window, &mask, xsane.bg_trans, (gchar **) xpm_d);
+  pixmap = gdk_pixmap_create_from_xpm_d(window, &mask, xsane.bg_trans, (gchar **) xpm_d);
   pixmapwidget = gtk_pixmap_new(pixmap, mask);
   gtk_container_add(GTK_CONTAINER(button), pixmapwidget);
   gtk_widget_show(pixmapwidget);
@@ -770,7 +900,7 @@ void xsane_option_menu_new(GtkWidget *parent, char *str_list[], const char *val,
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void xsane_option_menu_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char *desc,
+void xsane_option_menu_new_with_pixmap(GdkWindow *window, GtkBox *parent, const char *xpm_d[], const char *desc,
                                        char *str_list[], const char *val,
                                        GtkObject **data, int option,
                                        void *option_menu_callback, SANE_Int settable, const gchar *widget_name)
@@ -785,7 +915,7 @@ void xsane_option_menu_new_with_pixmap(GtkBox *parent, const char *xpm_d[], cons
   hbox = gtk_hbox_new(FALSE, 5);
   gtk_box_pack_start(parent, hbox, FALSE, FALSE, 0);
 
-  pixmap = gdk_pixmap_create_from_xpm_d(xsane.histogram_dialog->window, &mask, xsane.bg_trans, (gchar **) xpm_d);
+  pixmap = gdk_pixmap_create_from_xpm_d(window, &mask, xsane.bg_trans, (gchar **) xpm_d);
   pixmapwidget = gtk_pixmap_new(pixmap, mask);
   gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
   gtk_widget_show(pixmapwidget);
@@ -837,7 +967,7 @@ void xsane_scale_new(GtkBox *parent, char *labeltext, const char *desc,
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void xsane_scale_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char *desc,
+void xsane_scale_new_with_pixmap(GdkWindow *window, GtkBox *parent, const char *xpm_d[], const char *desc,
                                  float min, float max, float quant, float page_step, float page_size,
                                  int digits, double *val, GtkObject **data, int option, void *xsane_scale_callback, SANE_Int settable)
 {
@@ -852,7 +982,7 @@ void xsane_scale_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char
   hbox = gtk_hbox_new(FALSE, 5);
   gtk_box_pack_start(parent, hbox, FALSE, FALSE, 0);
 
-  pixmap = gdk_pixmap_create_from_xpm_d(xsane.histogram_dialog->window, &mask, xsane.bg_trans, (gchar **) xpm_d);
+  pixmap = gdk_pixmap_create_from_xpm_d(window, &mask, xsane.bg_trans, (gchar **) xpm_d);
   pixmapwidget = gtk_pixmap_new(pixmap, mask);
   gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
 

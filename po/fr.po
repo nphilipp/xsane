@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.62\n"
-"POT-Creation-Date: 2000-11-12 01:25+0100\n"
+"POT-Creation-Date: 2000-11-23 20:47+0100\n"
 "PO-Revision-Date: 2000-02-09 21:00+01:00\n"
 "Last-Translator: Laurent Grawet <laurent.grawet@ibelgique.com>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -22,14 +22,12 @@ msgid "©"
 msgstr ""
 
 #. WINDOW_ABOUT_XSANE
-#, fuzzy
 msgid "About"
 msgstr "A propos"
 
 #. WINDOW_ABOUT_TRANSLATION, MENU_ITEM_ABOUT_TRANSLATION
-#, fuzzy
 msgid "About translation"
-msgstr "Option seuil:"
+msgstr "Concernant la traduction"
 
 #. WINDOW_AUTHORIZE
 msgid "authorization"
@@ -116,9 +114,8 @@ msgid "Help"
 msgstr "Aide"
 
 #. MENU_ITEM_ABOUT_XSANE
-#, fuzzy
 msgid "About XSane"
-msgstr "A propos"
+msgstr "A propos de XSane"
 
 #. MENU_ITEM_INFO
 msgid "Info"
@@ -126,7 +123,7 @@ msgstr "Info"
 
 #. MENU_ITEM_QUIT
 msgid "Quit"
-msgstr ""
+msgstr "Quitter"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -336,6 +333,14 @@ msgstr "Formats de sortie 16 bits:"
 msgid "Authorization required for"
 msgstr "Autorisation requise pour"
 
+#. TEXT_AUTHORIZATION_SECURE
+msgid "Password transmission is secure"
+msgstr ""
+
+#. TEXT_AUTHORIZATION_INSECURE
+msgid "Backend requests plain-text password"
+msgstr ""
+
 #. TEXT_USERNAME
 msgid "Username :"
 msgstr "Utilisateur:"
@@ -397,9 +402,8 @@ msgid "File:"
 msgstr "Fichier:"
 
 #. TEXT_TRANSLATION
-#, fuzzy
 msgid "Translation:"
-msgstr "Option seuil:"
+msgstr "Traduction:"
 
 #. TEXT_TRANSLATION_INFO
 msgid ""
@@ -407,15 +411,17 @@ msgid ""
 "by Oliver Rauch\n"
 "Email: Oliver.Rauch@Wolfsburg.DE\n"
 msgstr ""
+"traduit en français\n"
+"par Laurent Grawet\n"
+"E-mail: laurent.grawet@ibelgique.com\n"
 
 #. TEXT_INFO_BOX
 msgid "0x0: 0KB"
 msgstr "0x0: 0KB"
 
 #. TEXT_ADF_PAGES_SCANNED
-#, fuzzy
 msgid "Scanned pages: "
-msgstr "Scanner et backend:"
+msgstr "Pages numérisées:"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -917,12 +923,11 @@ msgstr ""
 " contraste = 0"
 
 #. DESC_ENH_AUTO
-#, fuzzy
 msgid ""
 "Autoadjust gamma, brightness and contrast in dependance of selected scan area"
 msgstr ""
-"Ajuste automatiquement gamma, luminosité et contraste pour la sélection en "
-"cours"
+"Ajuste automatiquement gamma, luminosité et contraste en fonction de la zone "
+"de numérisation sélectionnée"
 
 #. DESC_ENH_DEFAULT
 msgid ""
@@ -1378,6 +1383,11 @@ msgstr "Mauvais format de frame"
 msgid "unable to set resolution"
 msgstr "Impossible d'attribuer la résolution"
 
+#. ERR_PASSWORD_FILE_INSECURE
+#, c-format
+msgid "Password file (%s) is insecure, use permission x00\n"
+msgstr ""
+
 #. ERR_ERROR
 msgid "error"
 msgstr "Erreur"
@@ -1419,7 +1429,6 @@ msgid "warning: option has no value constraint"
 msgstr "attention: l'option n'a pas de restriction"
 
 #. WARN_XSANE_AS_ROOT
-#, fuzzy
 msgid ""
 "You try to run xsane as ROOT, that really is DANGEROUS!\n"
 "\n"
@@ -1427,10 +1436,10 @@ msgid ""
 "have any problem while running xsane as root:\n"
 "YOU ARE ALONE!"
 msgstr ""
-"Vous exécutez XSane en tant que ROOT, c'est réellement DANGEREUX!\n"
+"Vous exécutez XSane en tant que ROOT, c'est réellement DANGEREUX !\n"
 "N'envoyez pas de rapports de bug si vous rencontrez\n"
 "des problèmes en utilisant XSane en tant que root:\n"
-"VOUS ETES SEUL!"
+"VOUS ETES SEUL !"
 
 #. ERR_HEADER_ERROR
 msgid "Error"
@@ -1495,7 +1504,6 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[OPTION]... [PERIPHERIQUE]"
 
 #. TEXT_HELP
-#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -1548,12 +1556,15 @@ msgstr ""
 "                             tenir compte des préférences)\n"
 "-R, --Resizeable             taille de la fenêtre principale variable (sans\n"
 "                             tenir compte des préférences)\n"
-"--display affichage-X11      redirige l'affichage vers un autre affichage\n"
-"                             X11\n"
+"-p, --print-filenames        affiche le nom des images créées par XSane\n"
+"-N, --force-filename name    force le nom de fichier et désactive la "
+"sélection\n"
+"                             utilisateur\n"
+"--display affichage-X11      redirige l'affichage vers un autre affichage "
+"X11\n"
 "--no-xshm                    n'utilise pas la mémoire partagée\n"
-"--sync                       demande une connexion synchrone avec le "
-"serveur\n"
-"                             X"
+"--sync                       demande une connexion synchrone avec le serveur "
+"X"
 
 #. strings for gimp plugin
 #. XSANE_GIMP_INSTALL_BLURB
