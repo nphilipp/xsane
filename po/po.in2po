@@ -1,8 +1,0 @@
-if [ $# != 1 ]
-then
-echo "Usage: po.in2po language-abrevation"
-echo "eg: po.in2po fr"
-exit -1
-fi
-gcc -E -P - <$1.po.in >$1.po
-

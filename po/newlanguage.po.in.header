@@ -1,2 +1,0 @@
-#include "../frontend/xsane-text.h"
-#define _(x) x

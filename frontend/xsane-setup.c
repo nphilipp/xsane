@@ -28,7 +28,6 @@
 #include "xsane-preferences.h"
 #include "xsane-preview.h"
 #include "xsane-save.h"
-#include "xsane-text.h"
 #include "xsane-gamma.h"
 
 #ifdef HAVE_LIBPNG
@@ -358,6 +357,11 @@ static void xsane_setup_saving_apply_changes(GtkWidget *widget, gpointer data)
   xsane_update_bool(xsane_setup.skip_existing_numbers_button,     &preferences.skip_existing_numbers);
   preferences.image_umask     = 0777 - xsane_setup.image_permissions;
   preferences.directory_umask = 0777 - xsane_setup.directory_permissions;
+
+  xsane_update_double(xsane_setup.psfile_leftoffset_entry,   &preferences.psfile_leftoffset);
+  xsane_update_double(xsane_setup.psfile_bottomoffset_entry, &preferences.psfile_bottomoffset);
+  xsane_update_double(xsane_setup.psfile_width_entry,        &preferences.psfile_width);
+  xsane_update_double(xsane_setup.psfile_height_entry,       &preferences.psfile_height);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -968,11 +972,11 @@ void xsane_setup_dialog(GtkWidget *widget, gpointer data)
   gtk_widget_show(vbox);
 
   xsane_setup.image_permissions     = 0777-preferences.image_umask;
-  xsane_permission_box(vbox, XSANE_GTK_NAME_IMAGE_PERMISSIONS, "Image-file permissions", &xsane_setup.image_permissions,
+  xsane_permission_box(vbox, XSANE_GTK_NAME_IMAGE_PERMISSIONS, TEXT_SETUP_IMAGE_PERMISSION, &xsane_setup.image_permissions,
                        TRUE /* header */, FALSE /* x sens */, FALSE /* user sens */);
 
   xsane_setup.directory_permissions = 0777-preferences.directory_umask;
-  xsane_permission_box(vbox, XSANE_GTK_NAME_DIRECTORY_PERMISSIONS, "Directory permissions", &xsane_setup.directory_permissions,
+  xsane_permission_box(vbox, XSANE_GTK_NAME_DIRECTORY_PERMISSIONS, TEXT_SETUP_DIR_PERMISSION, &xsane_setup.directory_permissions,
                        FALSE /* header */, TRUE /* x sens */, FALSE /* user sens */);
 
   xsane_separator_new(vbox, 4);
@@ -1117,6 +1121,84 @@ void xsane_setup_dialog(GtkWidget *widget, gpointer data)
   xsane_setup.tiff_compression_1_nr = preferences.tiff_compression_1_nr;
 
 #endif
+
+  xsane_separator_new(vbox, 4);
+
+  /* psfile width: */
+
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+
+  label = gtk_label_new(TEXT_SETUP_PSFILE_WIDTH);
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_widget_show(label);
+
+  text = gtk_entry_new();
+  xsane_back_gtk_set_tooltip(dialog->tooltips, text, DESC_PSFILE_WIDTH);
+  gtk_widget_set_usize(text, 50, 0);
+  snprintf(buf, sizeof(buf), "%3.2f", preferences.psfile_width);
+  gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
+  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
+  gtk_widget_show(text);
+  gtk_widget_show(hbox);
+  xsane_setup.psfile_width_entry = text;
+
+  /* psfile height: */
+
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+
+  label = gtk_label_new(TEXT_SETUP_PSFILE_HEIGHT);
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_widget_show(label);
+
+  text = gtk_entry_new();
+  xsane_back_gtk_set_tooltip(dialog->tooltips, text, DESC_PSFILE_HEIGHT);
+  gtk_widget_set_usize(text, 50, 0);
+  snprintf(buf, sizeof(buf), "%3.2f", preferences.psfile_height);
+  gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
+  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
+  gtk_widget_show(text);
+  gtk_widget_show(hbox);
+  xsane_setup.psfile_height_entry = text;
+
+  /* psfile left offset : */
+
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+
+  label = gtk_label_new(TEXT_SETUP_PSFILE_LEFT);
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_widget_show(label);
+
+  text = gtk_entry_new();
+  xsane_back_gtk_set_tooltip(dialog->tooltips, text, DESC_PSFILE_LEFTOFFSET);
+  gtk_widget_set_usize(text, 50, 0);
+  snprintf(buf, sizeof(buf), "%3.2f", preferences.psfile_leftoffset);
+  gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
+  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
+  gtk_widget_show(text);
+  gtk_widget_show(hbox);
+  xsane_setup.psfile_leftoffset_entry = text;
+
+  /* psfile bottom offset : */
+
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+
+  label = gtk_label_new(TEXT_SETUP_PSFILE_BOTTOM);
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_widget_show(label);
+
+  text = gtk_entry_new();
+  xsane_back_gtk_set_tooltip(dialog->tooltips, text, DESC_PSFILE_BOTTOMOFFSET);
+  gtk_widget_set_usize(text, 50, 0);
+  snprintf(buf, sizeof(buf), "%3.2f", preferences.psfile_bottomoffset);
+  gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
+  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
+  gtk_widget_show(text);
+  gtk_widget_show(hbox);
+  xsane_setup.psfile_bottomoffset_entry = text;
 
   xsane_separator_new(vbox, 4);
 

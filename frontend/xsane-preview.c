@@ -175,7 +175,8 @@ static void preview_get_color(Preview *p, int x, int y, int *red, int *green, in
 static void preview_pipette_white(GtkWidget *window, gpointer data);
 static void preview_pipette_gray(GtkWidget *window, gpointer data);
 static void preview_pipette_black(GtkWidget *window, gpointer data);
-static void preview_full_preview_area(GtkWidget *widget, gpointer call_data);
+void preview_select_full_preview_area(Preview *p);
+static void preview_full_preview_area_callback(GtkWidget *widget, gpointer call_data);
 static void preview_preset_area_callback(GtkWidget *widget, gpointer call_data);
 
 void preview_do_gamma_correction(Preview *p);
@@ -1119,7 +1120,6 @@ static void preview_scan_start(Preview *p)
   xsane_clear_histogram(&xsane.histogram_enh);
   gtk_widget_set_sensitive(p->cancel, TRUE);
   xsane_set_sensitivity(FALSE);
-
   /* clear old preview: */
   memset(p->preview_row, 0xff, 3*p->preview_width);
   for (y = 0; y < p->preview_height; ++y)
@@ -1245,7 +1245,7 @@ static void preview_scan_start(Preview *p)
 
   if (sane_set_io_mode(dev, SANE_TRUE) == SANE_STATUS_GOOD && sane_get_select_fd(dev, &fd) == SANE_STATUS_GOOD)
   {
-    p->input_tag = gdk_input_add(fd, GDK_INPUT_READ, preview_read_image_data, p);
+    p->input_tag = gdk_input_add(fd, GDK_INPUT_READ | GDK_INPUT_EXCEPTION, preview_read_image_data, p);
   }
   else
   {
@@ -2108,7 +2108,7 @@ Preview *preview_new(GSGDialog *dialog)
 
 
   xsane_button_new_with_pixmap(p->button_box, full_preview_area_xpm, DESC_FULL_PREVIEW_AREA,
-                               (GtkSignalFunc) preview_full_preview_area, p);
+                               (GtkSignalFunc) preview_full_preview_area_callback, p);
 
   /* select maximum scanarea */
   preset_area_menu = gtk_menu_new();
@@ -2915,9 +2915,8 @@ static void preview_pipette_black(GtkWidget *window, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void preview_full_preview_area(GtkWidget *widget, gpointer call_data)
+void preview_select_full_preview_area(Preview *p)
 {
- Preview *p = call_data;
  int i;
 
   p->selection.active = TRUE;
@@ -2930,6 +2929,15 @@ static void preview_full_preview_area(GtkWidget *widget, gpointer call_data)
   preview_update_maximum_output_size(p);
   preview_draw_selection(p);
   preview_establish_selection(p);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void preview_full_preview_area_callback(GtkWidget *widget, gpointer call_data)
+{
+ Preview *p = call_data;
+
+  preview_select_full_preview_area(p);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

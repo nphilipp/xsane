@@ -1,3 +1,0 @@
-gcc -E -P - <newlanguage.po.in.in | sed -e "s/^_/msgid /g" - | cat newlanguage.po.in.header - >newlanguage.po.in
-
-

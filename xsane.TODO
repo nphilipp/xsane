@@ -39,8 +39,11 @@ first steps:
  + batch scan function
 
  * internal:
+   + add range check / valid value when reading xsane.rc/*.drc files
+   + correct image height after scanning in hand scanner mode 
+   + add several defaults (copy=>zoom=1.0, fax=> mode=gray,...)
    - include much more parameters when saving images
-   - test memory after all calls of malloc
+   - test memory after all calls of malloc - partly done
    - make better backend-dependend option handling and error handling (mostly done!)
    - other output formats for saving - *** which? ***
      - gif will not be supported because of licence

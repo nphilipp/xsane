@@ -59,6 +59,10 @@ Preferences preferences =
        1,		/* overwrite_warning */
        1,		/* increase_filename_counter */
        1,		/* skip_existing_numbers */
+     210.0,             /* psfile_width:  width of psfile in mm */
+     296.98,		/* psfile_height: height of psfile in mm */
+       0.0,             /* psfile_leftoffset */
+       0.0,             /* psfile_bottomoffset */
        1,		/* tooltips enabled */
        0,		/* (dont) show histogram */
        0,		/* (dont) show standard options */
@@ -120,6 +124,10 @@ desc[] =
     {"overwrite-warning",		xsane_rc_pref_int,	POFFSET(overwrite_warning)},
     {"increase-filename-counter",	xsane_rc_pref_int,	POFFSET(increase_filename_counter)},
     {"skip-existing-numbers",		xsane_rc_pref_int,	POFFSET(skip_existing_numbers)},
+    {"psfile-left-offset",		xsane_rc_pref_double,	POFFSET(psfile_leftoffset)},
+    {"psfile-bottom-offset",		xsane_rc_pref_double,	POFFSET(psfile_bottomoffset)},
+    {"psfile-width",			xsane_rc_pref_double,	POFFSET(psfile_width)},
+    {"psfile-height",			xsane_rc_pref_double,	POFFSET(psfile_height)},
     {"jpeg-quality",			xsane_rc_pref_double,	POFFSET(jpeg_quality)},
     {"png-compression",			xsane_rc_pref_double, 	POFFSET(png_compression)},
     {"tiff-compression_nr",		xsane_rc_pref_int, 	POFFSET(tiff_compression_nr)},

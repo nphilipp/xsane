@@ -76,6 +76,10 @@ typedef struct
     int overwrite_warning;	/* warn if file exists */
     int increase_filename_counter;	/* automatically increase counter */
     int skip_existing_numbers;	/* automatically increase counter */
+    double psfile_width;	/* width of psfile in mm */
+    double psfile_height;	/* height of psfile in mm */
+    double psfile_leftoffset;	/* left offset of psfile in mm */
+    double psfile_bottomoffset;	/* bottom offset of psfile in mm */
 
     int tooltips_enabled;	/* should tooltips be disabled? */
     int show_histogram;		/* show histogram ? */

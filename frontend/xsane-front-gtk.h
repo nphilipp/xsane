@@ -67,6 +67,8 @@ extern GtkWidget *xsane_info_table_text_new(GtkWidget *table, gchar *text, int r
 extern GtkWidget *xsane_info_text_new(GtkWidget *parent, gchar *text);
 extern void xsane_refresh_dialog(void *nothing);
 extern void xsane_update_param(GSGDialog *dialog, void *arg);
+extern void xsane_define_output_filename(void);
+extern void xsane_identify_output_format(char **ext);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 

@@ -26,7 +26,6 @@
 #include "xsane-preview.h"
 #include "xsane-back-gtk.h"
 #include "xsane-front-gtk.h"
-#include "xsane-text.h"
 
 #ifdef HAVE_LIBJPEG
 #include <jpeglib.h>

@@ -96,6 +96,7 @@ static int xsane_parse_options(char *options, char *argv[]);
 static void xsane_zoom_update(GtkAdjustment *adj_data, double *val);
 static void xsane_resolution_scale_update(GtkAdjustment *adj_data, double *val);
 static void xsane_gamma_changed(GtkAdjustment *adj_data, double *val);
+static void xsane_set_modus_defaults(void);
 static void xsane_modus_callback(GtkWidget *xsane_parent, int *num);
 static void xsane_filetype_callback(GtkWidget *widget, gpointer data);
 static void xsane_outputfilename_changed_callback(GtkWidget *widget, gpointer data);
@@ -228,6 +229,41 @@ static void xsane_gamma_changed(GtkAdjustment *adj_data, double *val)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static void xsane_set_modus_defaults(void)
+{
+  switch(xsane.xsane_mode)
+  {
+    case XSANE_SCAN:
+      xsane_define_maximum_output_size();
+     break;
+
+    case XSANE_COPY:
+      /* set zoomfactor to 1.0 and select full preview area */
+      xsane.zoom   = 1.0;
+      xsane.zoom_x = 1.0;
+      xsane.zoom_y = 1.0;
+
+      xsane.resolution   = xsane.zoom   * preferences.printer[preferences.printernr]->resolution;
+      xsane.resolution_x = xsane.zoom_x * preferences.printer[preferences.printernr]->resolution;
+      xsane.resolution_y = xsane.zoom_y * preferences.printer[preferences.printernr]->resolution;
+
+      xsane_define_maximum_output_size(); /* must come before select_full_preview_area */
+      preview_select_full_preview_area(xsane.preview);
+     break;
+
+    case XSANE_FAX:
+      /* select full preview area */
+      xsane_define_maximum_output_size(); /* must come before select_full_preview_area */
+      preview_select_full_preview_area(xsane.preview);
+     break;
+
+    default:
+      xsane_define_maximum_output_size();
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void xsane_modus_callback(GtkWidget *xsane_parent, int *num)
 {
 
@@ -243,6 +279,8 @@ static void xsane_modus_callback(GtkWidget *xsane_parent, int *num)
   }
 
   xsane.xsane_mode = *num;
+
+  xsane_set_modus_defaults(); /* set defaults and maximum output size */
   xsane_refresh_dialog(dialog);
 
   if (xsane.xsane_mode != XSANE_FAX)
@@ -250,8 +288,6 @@ static void xsane_modus_callback(GtkWidget *xsane_parent, int *num)
     xsane_fax_dialog_close();
     gtk_widget_set_sensitive(GTK_WIDGET(xsane.start_button), TRUE); 
   }
-
-  xsane_define_maximum_output_size();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -297,6 +333,7 @@ static void xsane_filetype_callback(GtkWidget *widget, gpointer data)
   }
 
   gtk_entry_set_text(GTK_ENTRY(xsane.outputfilename_entry), preferences.filename);
+  xsane_define_maximum_output_size(); /* is necessary in postscript mode */
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -308,6 +345,8 @@ static void xsane_outputfilename_changed_callback(GtkWidget *widget, gpointer da
     free((void *) preferences.filename);
   }
   preferences.filename = strdup(gtk_entry_get_text(GTK_ENTRY(widget)));
+
+  xsane_define_maximum_output_size(); /* is necessary in postscript mode */
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
@@ -358,6 +397,7 @@ static void xsane_browse_filename_callback(GtkWidget *widget, gpointer data)
   preferences.filename = strdup(filename);
 
   gtk_option_menu_set_history(GTK_OPTION_MENU(xsane.filetype_option_menu), 0); /* set menu to "by ext" */
+  xsane_define_maximum_output_size(); /* is necessary in postscript mode */
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -697,6 +737,11 @@ static void xsane_show_histogram_callback(GtkWidget * widget)
 static void xsane_printer_callback(GtkWidget *widget, gpointer data)
 {
   preferences.printernr = (int) data;
+
+  xsane.resolution   = xsane.zoom   * preferences.printer[preferences.printernr]->resolution;
+  xsane.resolution_x = xsane.zoom_x * preferences.printer[preferences.printernr]->resolution;
+  xsane.resolution_y = xsane.zoom_y * preferences.printer[preferences.printernr]->resolution;
+
   xsane_back_gtk_refresh_dialog(dialog);
   xsane_set_all_resolutions();
   xsane_define_maximum_output_size();
@@ -4217,7 +4262,6 @@ static void xsane_device_dialog(void)
   xsane.cancel_button = GTK_OBJECT(button);
 
 
-
   /* create backend dependend options */
   xsane_panel_build(dialog);
 
@@ -4228,7 +4272,7 @@ static void xsane_device_dialog(void)
 
 
   xsane_device_preferences_restore();	/* restore device-settings */
-
+  xsane_set_modus_defaults();
   xsane_update_param(dialog, 0);
 
   gtk_widget_realize(xsane.standard_options_shell); /* is needed for saving window geometry */
@@ -4251,8 +4295,6 @@ static void xsane_device_dialog(void)
     gtk_main_iteration();
   }
 
-  xsane_device_preferences_restore();	/* restore device-settings */
-
   xsane_update_sliders();
 
   if (xsane.show_preview)
@@ -4266,6 +4308,8 @@ static void xsane_device_dialog(void)
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_preview_widget), xsane.show_preview);
 
   xsane_set_all_resolutions(); /* make sure resolution, resolution_x and resolution_y are up to date */
+  xsane_define_maximum_output_size(); /* draw maximum output frame in preview window if necessary */
+  xsane_refresh_dialog(dialog);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

@@ -28,7 +28,6 @@
 #include "xsane-preferences.h"
 #include "xsane-preview.h"
 #include "xsane-save.h"
-#include "xsane-text.h"
 #include "xsane-gamma.h"
 #include "xsane-setup.h"
 
@@ -317,7 +316,7 @@ static void xsane_gimp_query(void)
 			 XSANE_COPYRIGHT,
 			 XSANE_DATE,
 			 mpath,
-			 "RGB, GRAY",
+			 0, /* "RGB, GRAY", */
 			 PROC_EXTENSION,
 			 nargs, nreturn_vals,
 			 args, return_vals);
@@ -1284,15 +1283,11 @@ void xsane_scan_done(SANE_Status status)
                                    xsane.xsane_color /* gray, color */,
                                    xsane.param.depth /* bits */,
                                    xsane.param.pixels_per_line, xsane.param.lines, /* pixel_width, pixel_height */
-                                   (preferences.printer[preferences.printernr]->bottomoffset +
-                                    preferences.printer[preferences.printernr]->height) * 36.0/MM_PER_INCH - imagewidth * 36.0, /* left edge */
-                                   (preferences.printer[preferences.printernr]->leftoffset +
-                                    preferences.printer[preferences.printernr]->width) * 36.0/MM_PER_INCH - imageheight * 36.0, /* bottom edge */
+                                   (preferences.psfile_bottomoffset + preferences.psfile_height) * 36.0/MM_PER_INCH - imagewidth * 36.0, /* left edge */
+                                   (preferences.psfile_leftoffset   + preferences.psfile_width)  * 36.0/MM_PER_INCH - imageheight * 36.0, /* bottom edge */
                                     imagewidth, imageheight,
-                                   (preferences.printer[preferences.printernr]->leftoffset +
-                                    preferences.printer[preferences.printernr]->width ) * 72.0/MM_PER_INCH,  /* paperwidth */
-                                   (preferences.printer[preferences.printernr]->bottomoffset +
-                                    preferences.printer[preferences.printernr]->height) * 72.0/MM_PER_INCH, /* paperheight */
+                                   (preferences.psfile_leftoffset   + preferences.psfile_width ) * 72.0/MM_PER_INCH,  /* paperwidth */
+                                   (preferences.psfile_bottomoffset + preferences.psfile_height) * 72.0/MM_PER_INCH, /* paperheight */
                                    1 /* landscape */);
                    }
                    else /* do not rotate: portrait */
@@ -1301,15 +1296,11 @@ void xsane_scan_done(SANE_Status status)
                                    xsane.xsane_color /* gray, color */,
                                    xsane.param.depth /* bits */,
                                    xsane.param.pixels_per_line, xsane.param.lines, /* pixel_width, pixel_height */
-                                   (preferences.printer[preferences.printernr]->leftoffset +
-                                    preferences.printer[preferences.printernr]->width) * 36.0/MM_PER_INCH - imagewidth * 36.0,
-                                   (preferences.printer[preferences.printernr]->bottomoffset +
-                                    preferences.printer[preferences.printernr]->height) * 36.0/MM_PER_INCH - imageheight * 36.0,
+                                   (preferences.psfile_leftoffset   + preferences.psfile_width)  * 36.0/MM_PER_INCH - imagewidth * 36.0,
+                                   (preferences.psfile_bottomoffset + preferences.psfile_height) * 36.0/MM_PER_INCH - imageheight * 36.0,
                                    imagewidth, imageheight,
-                                   (preferences.printer[preferences.printernr]->leftoffset +
-                                    preferences.printer[preferences.printernr]->width ) * 72.0/MM_PER_INCH, /* paperwidth */
-                                   (preferences.printer[preferences.printernr]->bottomoffset +
-                                    preferences.printer[preferences.printernr]->height) * 72.0/MM_PER_INCH, /* paperheight */
+                                   (preferences.psfile_leftoffset   + preferences.psfile_width ) * 72.0/MM_PER_INCH, /* paperwidth */
+                                   (preferences.psfile_bottomoffset + preferences.psfile_height) * 72.0/MM_PER_INCH, /* paperheight */
                                    0 /* portrait */);
                    }
                  }
@@ -1920,7 +1911,7 @@ static void xsane_start_scan(void)
 
   if (sane_set_io_mode(dev, SANE_TRUE) == SANE_STATUS_GOOD && sane_get_select_fd(dev, &fd) == SANE_STATUS_GOOD)
   {
-    xsane.input_tag = gdk_input_add(fd, GDK_INPUT_READ, xsane_read_image_data, 0);
+    xsane.input_tag = gdk_input_add(fd, GDK_INPUT_READ | GDK_INPUT_EXCEPTION, xsane_read_image_data, 0);
   }
   else
   {
@@ -1938,23 +1929,7 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
 
   sane_get_parameters(dialog->dev, &xsane.param); /* update xsane.param */
 
-  if (xsane.output_filename)
-  {
-    free(xsane.output_filename);
-    xsane.output_filename = 0;
-  }
-
-  if (xsane.filetype)
-  {
-   char buffer[256];
-
-    snprintf(buffer, sizeof(buffer), "%s%s", preferences.filename, xsane.filetype);
-    xsane.output_filename = strdup(buffer);
-  }
-  else
-  {
-    xsane.output_filename = strdup(preferences.filename);
-  }
+  xsane_define_output_filename(); /* make xsane.output_filename up to date */
 
   if (xsane.mode == XSANE_STANDALONE)  				/* We are running in standalone mode */
   {
@@ -1978,85 +1953,7 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
       }
     }
 
-
-    extension = strrchr(xsane.output_filename, '.');
-    if (extension)
-    {
-      extension++; /* skip "." */
-    }
-
-    xsane.xsane_output_format = XSANE_UNKNOWN;
-
-    if (xsane.param.depth <= 8)
-    {
-      if (extension)
-      {
-        if ( (!strcasecmp(extension, "pnm")) || (!strcasecmp(extension, "ppm")) ||
-             (!strcasecmp(extension, "pgm")) || (!strcasecmp(extension, "pbm")) )
-        {
-          xsane.xsane_output_format = XSANE_PNM;
-        }
-#ifdef HAVE_LIBPNG
-#ifdef HAVE_LIBZ
-        else if (!strcasecmp(extension, "png"))
-        {
-          xsane.xsane_output_format = XSANE_PNG;
-        }
-#endif
-#endif
-#ifdef HAVE_LIBJPEG
-        else if ( (!strcasecmp(extension, "jpg")) || (!strcasecmp(extension, "jpeg")) )
-        {
-          xsane.xsane_output_format = XSANE_JPEG;
-        }
-#endif
-        else if (!strcasecmp(extension, "ps"))
-        {
-          xsane.xsane_output_format = XSANE_PS;
-        }
-#ifdef HAVE_LIBTIFF
-        else if ( (!strcasecmp(extension, "tif")) || (!strcasecmp(extension, "tiff")) )
-        {
-          xsane.xsane_output_format = XSANE_TIFF;
-        }
-#endif
-#ifdef SUPPORT_RGBA
-        else if (!strcasecmp(extension, "rgba"))
-        {
-          xsane.xsane_output_format = XSANE_RGBA;
-        }
-#endif
-      }
-    }
-    else /* depth >8 bpp */
-    {
-      if (extension)
-      {
-        if (!strcasecmp(extension, "raw"))
-        {
-          xsane.xsane_output_format = XSANE_RAW16;
-        }
-        else if ( (!strcasecmp(extension, "pnm")) || (!strcasecmp(extension, "ppm")) ||
-             (!strcasecmp(extension, "pgm")) || (!strcasecmp(extension, "pbm")) )
-        {
-          xsane.xsane_output_format = XSANE_PNM16;
-        }
-#ifdef HAVE_LIBPNG
-#ifdef HAVE_LIBZ
-        else if (!strcasecmp(extension, "png"))
-        {
-          xsane.xsane_output_format = XSANE_PNG;
-        }
-#endif
-#endif
-#ifdef SUPPORT_RGBA
-        else if (!strcasecmp(extension, "rgba"))
-        {
-          xsane.xsane_output_format = XSANE_RGBA;
-        }
-#endif
-      }
-    }
+    xsane_identify_output_format(&extension); /* set xsane.xsane_output_format */
 
     if (xsane.xsane_mode == XSANE_SCAN)
     {
@@ -2106,6 +2003,11 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
     if (xsane.xsane_mode == XSANE_FAX)
     {
       mkdir(preferences.fax_project, 7*64 + 0*8 + 0);
+    }
+
+    if (extension)
+    {
+      free(extension);
     }
   }
 #ifdef HAVE_LIBGIMP_GIMP_H

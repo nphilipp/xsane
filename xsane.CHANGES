@@ -737,7 +737,45 @@ xsane-0.50 -> 0.51:
  - in scales the number of digits is defined by quantization now, if no quantization is given
    by backend (quant=0, SANE_TYPE_FIXED) x.2 digits are displayed
 
- - corrected page_setp for scales
+ - corrected page_step for scales
 
  - selection_active is reset in preview_display_partial_image instead of preview_paint_image
+
+ - updated czech translation file cs.po.in - thanks to Stansislav Brabec
+
+
+xsane-0.51 -> 0.52:
+-------------------
+
+ - changed gimp_install_procedure(...) for specified device: "RGB, GRAY" -> 0
+
+ - in xsane-scan.c and xsane-preview.c added " | GDK_INPUT_EXCEPTION" to
+   gdk_input_add(fd, GDK_INPUT_READ | GDK_INPUT_EXCEPTION, preview_read_image_data, p);
+
+ - added static int xsane_set_modus_defaults(void)
+   zoomfactor is set to 1.0 if copy mode is selected
+   full preview area is selected if copy or fax mode is selected
+
+ - removed a second xsane_device_preferences_restore(); in static void xsane_device_dialog(void)
+
+ - zoom factor keeps unchanged when printer is changed
+
+ - added psfile-geometry to setup/saving options, it is used when saving postscript in scanmode
+
+ - moved exisiting routines to open functions to xsane-front-gtk.c:
+   void xsane_define_output_filename(void);
+   void xsane_identify_output_format(char **ext);
+
+ - define_maximum_output_size is called in each routine that changes filename or fileextension
+   because the output frame is also drawn in scanmode with filetype postscript now
+
+ - included Stanislav Brabec's <utx@penguin.cz> sed-scripts and changes for Makefile.in in xsane-*/po
+
+ - added creation of newlanguage.po in po/Makefile.in
+
+ - updated german translation file de.po
+
+ - updated czech translation file cs.po - thanks to Stanislav Brabec <utx@k332.feld.cvut.cz>
+
+ - updated french translation file fr.po
 

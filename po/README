@@ -1,0 +1,42 @@
+
+SHORT DESCRIPTION:
+------------------
+
+XSane uses gettext for supporting translation into different languages. 
+
+- To remake the *.po files when the original texts have changed or new texts have been added:
+  make update-po
+- To create the translation tables:
+  make
+- Using "u" (untranslated) and "f" (fuzzy) in emacs po-mode for updating
+   strings.
+- Filter old *.po files via sed '/^#/d' to remove comments
+
+
+
+SELECT YOUR LANGUAGE:
+---------------------
+
+set environment variable LANG to your language
+(eg. export LANG=de) and call xsane
+
+
+
+NEW TRANSLATIONS:
+-----------------
+
+If you want to make your translation public
+please send your "language".po file to:
+Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>
+
+
+
+THANKS:
+-------
+
+Thanks to Stanislav Brabec <utx@k332.feld.cvut.cz> for his sed scripts
+and Changes in Makefile.in to simplify the rebuild of *.po files
+
+
+Bye
+Oliver Rauch 

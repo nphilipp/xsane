@@ -32,7 +32,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION	"0.51"
+#define XSANE_VERSION	"0.52"
 #define XSANE_AUTHOR	"Oliver Rauch"
 #define XSANE_COPYRIGHT	"Oliver Rauch"
 #define XSANE_DATE	"1998-2000"
@@ -41,7 +41,6 @@
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 #define PATH_SANE_TMP	"/tmp"
-// #define XSANE_DEFAULT_UMASK 0157
 #define XSANE_DEFAULT_UMASK 0007
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -77,6 +76,7 @@
 #include "sane/sanei_signal.h"
 
 #include "xsane-text.h"
+#include "xsane-fixedtext.h"
 #include "xsane-icons.h"
 
 #ifdef ENABLE_NLS
@@ -490,6 +490,10 @@ typedef struct XsaneSetup
   GtkWidget *fax_leftoffset_entry;
   GtkWidget *fax_bottomoffset_entry;
   GtkWidget *fax_height_entry;
+  GtkWidget *psfile_width_entry;
+  GtkWidget *psfile_leftoffset_entry;
+  GtkWidget *psfile_bottomoffset_entry;
+  GtkWidget *psfile_height_entry;
 
   int tiff_compression_nr;
   int tiff_compression_1_nr;

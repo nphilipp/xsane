@@ -25,7 +25,6 @@
 #include "xsane.h"
 #include "xsane-back-gtk.h"
 #include "xsane-preferences.h"
-#include "xsane-text.h"
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 

@@ -27,7 +27,6 @@
 #include "xsane-preferences.h"
 #include "xsane-preview.h"
 #include "xsane-save.h"
-#include "xsane-text.h"
 #include "xsane-gamma.h"
 #include "xsane-setup.h"
 
@@ -77,6 +76,8 @@ GtkWidget *xsane_info_text_new(GtkWidget *parent, gchar *text);
 void xsane_refresh_dialog(void *nothing);
 void xsane_set_sensitivity(SANE_Int sensitivity);
 void xsane_update_param(GSGDialog *dialog, void *arg);
+void xsane_define_output_filename(void);
+void xsane_identify_output_format(char **ext);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -241,28 +242,51 @@ void xsane_define_maximum_output_size()
 
   if ( (opt) && (opt->unit== SANE_UNIT_MM) )
   {
-    if (xsane.xsane_mode == XSANE_COPY)
+    switch(xsane.xsane_mode)
     {
-      if (preferences.psrotate) /* rotate: landscape */
-      {
-        preview_set_maximum_output_size(xsane.preview,
-                                        preferences.printer[preferences.printernr]->height / xsane.zoom_y,
-                                        preferences.printer[preferences.printernr]->width  / xsane.zoom_x);
-      }
-      else /* do not rotate: portrait */
-      {
-        preview_set_maximum_output_size(xsane.preview,
-                                        preferences.printer[preferences.printernr]->width  / xsane.zoom_x,
-                                        preferences.printer[preferences.printernr]->height / xsane.zoom_y);
-      }
-    }
-    else if (xsane.xsane_mode == XSANE_FAX)
-    {
-      preview_set_maximum_output_size(xsane.preview, preferences.fax_width, preferences.fax_height);
-    }
-    else
-    {
-      preview_set_maximum_output_size(xsane.preview, INF, INF);
+      case XSANE_SCAN:
+
+        xsane_define_output_filename();
+        xsane_identify_output_format(0);
+
+        if (xsane.xsane_output_format == XSANE_PS) 
+        {
+          if (preferences.psrotate) /* rotate: landscape */
+          {
+            preview_set_maximum_output_size(xsane.preview, preferences.psfile_height, preferences.psfile_width);
+          }
+          else /* do not rotate: portrait */
+          {
+            preview_set_maximum_output_size(xsane.preview, preferences.psfile_width, preferences.psfile_height);
+          }
+        }
+        else
+        {
+          preview_set_maximum_output_size(xsane.preview, INF, INF);
+        }
+       break;
+
+      case XSANE_COPY:
+        if (preferences.psrotate) /* rotate: landscape */
+        {
+          preview_set_maximum_output_size(xsane.preview,
+                                          preferences.printer[preferences.printernr]->height / xsane.zoom_y,
+                                          preferences.printer[preferences.printernr]->width  / xsane.zoom_x);
+        }
+        else /* do not rotate: portrait */
+        {
+          preview_set_maximum_output_size(xsane.preview,
+                                          preferences.printer[preferences.printernr]->width  / xsane.zoom_x,
+                                          preferences.printer[preferences.printernr]->height / xsane.zoom_y);
+        }
+       break;
+
+      case XSANE_FAX:
+        preview_set_maximum_output_size(xsane.preview, preferences.fax_width, preferences.fax_height);
+       break;
+
+      default:
+        preview_set_maximum_output_size(xsane.preview, INF, INF);
     }
   }
   else
@@ -851,6 +875,120 @@ void xsane_update_param(GSGDialog *dialog, void *arg)
   }
 
   xsane_update_histogram();
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void xsane_define_output_filename(void)
+{
+ char buffer[256];
+
+  if (xsane.output_filename)
+  {
+    free(xsane.output_filename);
+    xsane.output_filename = 0;
+  }
+
+  if (xsane.filetype)
+  {
+    snprintf(buffer, sizeof(buffer), "%s%s", preferences.filename, xsane.filetype);
+    xsane.output_filename = strdup(buffer);
+  }
+  else
+  {
+    xsane.output_filename = strdup(preferences.filename);
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void xsane_identify_output_format(char **ext)
+{
+ char *extension;
+
+  extension = strrchr(xsane.output_filename, '.');
+  if (extension)
+  {
+    extension++; /* skip "." */
+  }
+
+  xsane.xsane_output_format = XSANE_UNKNOWN;
+
+  if (xsane.param.depth <= 8)
+  {
+    if (extension)
+    {
+      if ( (!strcasecmp(extension, "pnm")) || (!strcasecmp(extension, "ppm")) ||
+           (!strcasecmp(extension, "pgm")) || (!strcasecmp(extension, "pbm")) )
+      {
+        xsane.xsane_output_format = XSANE_PNM;
+      }
+#ifdef HAVE_LIBPNG
+#ifdef HAVE_LIBZ
+      else if (!strcasecmp(extension, "png"))
+      {
+        xsane.xsane_output_format = XSANE_PNG;
+      }
+#endif
+#endif
+#ifdef HAVE_LIBJPEG
+      else if ( (!strcasecmp(extension, "jpg")) || (!strcasecmp(extension, "jpeg")) )
+      {
+        xsane.xsane_output_format = XSANE_JPEG;
+      }
+#endif
+      else if (!strcasecmp(extension, "ps"))
+      {
+        xsane.xsane_output_format = XSANE_PS;
+      }
+#ifdef HAVE_LIBTIFF
+      else if ( (!strcasecmp(extension, "tif")) || (!strcasecmp(extension, "tiff")) )
+      {
+        xsane.xsane_output_format = XSANE_TIFF;
+      }
+#endif
+#ifdef SUPPORT_RGBA
+      else if (!strcasecmp(extension, "rgba"))
+      {
+        xsane.xsane_output_format = XSANE_RGBA;
+      }
+#endif
+    }
+  }
+  else /* depth >8 bpp */
+  {
+    if (extension)
+    {
+      if (!strcasecmp(extension, "raw"))
+      {
+        xsane.xsane_output_format = XSANE_RAW16;
+      }
+      else if ( (!strcasecmp(extension, "pnm")) || (!strcasecmp(extension, "ppm")) ||
+           (!strcasecmp(extension, "pgm")) || (!strcasecmp(extension, "pbm")) )
+      {
+        xsane.xsane_output_format = XSANE_PNM16;
+      }
+#ifdef HAVE_LIBPNG
+#ifdef HAVE_LIBZ
+      else if (!strcasecmp(extension, "png"))
+      {
+        xsane.xsane_output_format = XSANE_PNG;
+      }
+#endif
+#endif
+#ifdef SUPPORT_RGBA
+      else if (!strcasecmp(extension, "rgba"))
+      {
+        xsane.xsane_output_format = XSANE_RGBA;
+      }
+#endif
+    }
+  }
+
+  if (ext)
+  {
+    ext = &extension;
+  }
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
