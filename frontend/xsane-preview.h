@@ -1,4 +1,4 @@
-/* xsane
+/* xsane preview
    Copyright (C) 1997 David Mosberger-Tang
    Copyright (C) 1999 Oliver Rauch
    This file is part of the XSANE package.

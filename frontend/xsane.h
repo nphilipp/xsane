@@ -31,7 +31,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION	"0.44"
+#define XSANE_VERSION	"0.45"
 #define XSANE_AUTHOR	"Oliver Rauch"
 #define XSANE_COPYRIGHT	"Oliver Rauch"
 #define XSANE_DATE	"1998/1999"
@@ -41,7 +41,10 @@
 
 /* needed for most of the xsane sources: */
 
-#include <lalloca.h>
+#ifdef _AIX
+# include <lalloca.h>
+#endif
+
 #include <assert.h>
 #include <errno.h>
 #include <memory.h>
@@ -61,7 +64,6 @@
 #include <sys/types.h>
 
 #include <sane/sane.h>
-#include <sane/sanei.h>
 #include <sane/saneopts.h>
 
 #include "sane/config.h"
@@ -92,20 +94,20 @@
 /* ----------------------------- */
 
 /* needed for xsane.h */
-#include <xsane-back-gtk.h>
-#include <xsane-preferences.h>
-#include <xsane-preview.h>
+#include "xsane-back-gtk.h"
+#include "xsane-preferences.h"
+#include "xsane-preview.h"
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 #ifdef HAVE_LIBGIMP_GIMP_H
-#include <libgimp/gimp.h>
+# include <libgimp/gimp.h>
 
-#ifdef HAVE_LIBGIMP_GIMPFEATURES_H
-#include <libgimp/gimpfeatures.h>
-#else
-#define GIMP_CHECK_VERSION(major,m minor, micro) 0
-#endif /* HAVE_LIBGIMP_GIMPFEATURES_H */
+# ifdef HAVE_LIBGIMP_GIMPFEATURES_H
+#  include <libgimp/gimpfeatures.h>
+# else
+#  define GIMP_CHECK_VERSION(major, minor, micro) 0
+# endif /* HAVE_LIBGIMP_GIMPFEATURES_H */
 
 #endif /* HAVE_LIBGIMP_GIMP_H */
 
@@ -122,6 +124,7 @@ extern void xsane_fax_project_save(void);
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 extern const char *prog_name;
+extern const char *device_text;
 extern GtkWidget *choose_device_dialog;
 extern GSGDialog *dialog;
 extern const SANE_Device **devlist;
@@ -187,6 +190,13 @@ extern int xsane_scanmode_number[];
 #ifndef SANE_NAME_DOCUMENT_FEEDER
 #define SANE_NAME_DOCUMENT_FEEDER "Automatic Document Feeder"
 #endif 
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+#define STRINGIFY1(x)   #x
+#define STRINGIFY(x)    STRINGIFY1(x)
+
+#define NELEMS(a)       ((int)(sizeof (a) / sizeof (a[0])))
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 

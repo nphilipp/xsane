@@ -27,7 +27,7 @@ INSTALL_DATA = @INSTALL_DATA@
 
 @SET_MAKE@
 
-SUBDIRS	= lib sanei @INTLSUB@ frontend @POSUB@ doc
+SUBDIRS	= lib @INTLSUB@ frontend @POSUB@ doc
 
 all: all-recursive
 

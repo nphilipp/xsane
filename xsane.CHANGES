@@ -547,3 +547,27 @@ xsane-0.43 -> 0.44:
  - added functions around "by ext" menu
  - all functions in xsane-back-gtk.c are named with xsane_back_gtk_* now
 
+
+xsane-0.44 -> 0.45:
+-------------------
+
+ - added *s = 0; in sanei_codec_ascii.c when reading a string that
+   does not start with '"'
+
+ - added test "if (!w.status)" when reading a string in sanei_load_values.c
+   the missing test caused a segfault when a string was expected but
+   the line did not start with '"'
+
+ - merged together all needed sanei_* routines in xsane-rc-io.c
+   and renamed all sanei_* to xsane_rc_io_*, removed subdir sanei
+   and changed xsane.c and xsane-preferences.c to use xsane-rc-io.[ch]
+   and reprogrammed some things.
+
+ - renamed all xsane_pref_device_* to xsane_device_preferences_*
+   and moved them to xsane-device-preferences.c
+
+ - renamed sanei_w_[load|save]_values to xsane_device_preferencs_[load|save]_values
+   and moved them to xsane-device-preferences.c
+
+
+

@@ -6,7 +6,7 @@ AC_CONFIG_HEADER(include/sane/config.h)
 
 # version code:
 V_MAJOR=0
-V_MINOR=44
+V_MINOR=45
 
 PACKAGE=xsane
 
@@ -242,7 +242,7 @@ AC_ARG_ENABLE(foo2, [
 To add include or library paths call:
   [env] CPPFLAGS=\"-I/path/to/foo/include\" LDFLAGS=\"-L/path/to/foo/libs\" ./configure])
 
-AC_OUTPUT([Makefile intl/Makefile po/Makefile lib/Makefile sanei/Makefile
+AC_OUTPUT([Makefile intl/Makefile po/Makefile lib/Makefile
 	   frontend/Makefile include/Makefile doc/Makefile],)
 
 echo "****************************************************************"

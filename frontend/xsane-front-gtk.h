@@ -24,6 +24,11 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+#ifndef xsane_front_gtk_h
+#define xsane_front_gtk_h
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 extern void xsane_get_bounds(const SANE_Option_Descriptor *opt, double *minp, double *maxp);
 extern void xsane_set_resolution(int resolution);
 extern void xsane_close_dialog_callback(GtkWidget *widget, gpointer data);
@@ -57,3 +62,6 @@ extern GtkWidget *xsane_info_text_new(GtkWidget *parent, gchar *text);
 extern void xsane_refresh_dialog(void *nothing);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
+
+#endif
+
