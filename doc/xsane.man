@@ -22,7 +22,7 @@ program.  In the former case,
 .B xsane
 acts as a stand-alone program that saves acquired images in a suitable
 PNM format (PBM for black-and-white images, PGM for grayscale images,
-and PPM for color images) or converts the image to JPGE, PNG, PS or TIFF.
+and PPM for color images) or converts the image to JPEG, PNG, PS or TIFF.
 In the latter case, the images are directly passed to The GIMP for further
 processing.
 
@@ -71,8 +71,8 @@ to rebuild this cache.  To do this, you can either
 .BR touch (1)
 the
 .B xsane
-binary (e.g., "touch @BINDIR@/xsane") or delete the plug-ins cache
-(e.g., "rm ~/.gimp/plug-ins").  Either way, invoking
+binary (e.g., "touch @BINDIR@/xsane") or delete the plugin cache
+(e.g., "rm ~/.gimp/pluginrc").  Either way, invoking
 .BR gimp (1)
 afterwards will cause the pluginrc to be rebuilt.
 .SH OPTIONS
@@ -90,13 +90,6 @@ flag requests not to use shared memory images.  Shared memory images
 usually enhance performance but cause problems with some buggy X11
 servers.  Unless your X11 server dies when running this program, there
 is no need or advantage to specify this flag.
-.PP
-The
-.B --show-events
-flag requests the display of X11 events.  This is for
-debugging only.  Flag
-.B --no-show-events
-turns off the display of X11 events.
 .PP
 The
 .B --sync

@@ -5,7 +5,7 @@
 
 #define DESC_FILENAME		"Enter filename for scanned image"
 
-#define DESC_RESOLUTION		"Set scanresolution"
+#define DESC_RESOLUTION		"Set scan resolution"
 #define DESC_ZOOM		"Set zoomfactor"
 
 #define DESC_GAMMA		"Set gamma value"
@@ -49,7 +49,7 @@
 #define DESC_HIST_LOG		"Show logarithm of pixelcount"
 
 #define DESC_PRINTER_COMMAND	"Enter command to be executed in copy mode (e.g. \"lpr -\")"
-#define DESC_PRINTER_RESOLUTION	"Resolution in which images are printed and saved in postscript"
+#define DESC_PRINTER_RESOLUTION	"Resolution with which images are printed and saved in postscript"
 #define DESC_PRINTER_WIDTH	"Width of printable area in 1/72 inch"
 #define DESC_PRINTER_HEIGHT	"Height of printable area in 1/72 inch"
 #define DESC_PRINTER_LEFTOFFSET	"Left offset from the edge of the paper to the printable area in 1/72 inch"

@@ -119,3 +119,17 @@ xsane-0.17 -> 0.18:
  - added overwrite warning
  - postscript images are saved in original size in scan mode now
 
+
+xsane-0.18 -> 0.19:
+-------------------
+
+ - added cancel callback routine for conversion/saving routines
+ - printer_resolution now is set if OK is pressed in setup
+ - overwrite warning is not shown in copy mode any more
+ - changed fclose to pclose for closing pipe to printer command
+ - restored xsane.resolution in xsane_pref_device_restore
+ - added Help menu, called Netscape -remote to open help-files
+ - set sensetivity of xsane dialog and histogram dialog while
+   scan and preview scan to false
+ - added some help(html) files to the doc directory
+

@@ -45,6 +45,17 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static int cancel_save;
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void xsane_cancel_save()
+{
+  cancel_save = 1;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 void xsane_increase_counter_in_filename(char *filename, int skip)
 {
  char *position_point;
@@ -111,6 +122,8 @@ static void xsane_save_ps_bw(FILE *outfile, FILE *imagefile,
  int x, y, count;
  int bytes_per_line = (pixel_width+7)/8;
 
+  cancel_save = 0;
+
   fprintf(outfile, "%%!PS-Adobe-2.0 EPSF-2.0\n");
   fprintf(outfile, "%%%%Creator: XSane Version %s (sane %d.%d)\n", VERSION,
                                                                    SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
@@ -151,6 +164,10 @@ static void xsane_save_ps_bw(FILE *outfile, FILE *imagefile,
     {
       gtk_main_iteration();
     }
+    if (cancel_save)
+    {
+      break;
+    }
   }
   fprintf(outfile, "\n");
   fprintf(outfile, "showpage\n");
@@ -169,6 +186,8 @@ static void xsane_save_ps_gray(FILE *outfile, FILE *imagefile,
                                float width, float height)
 {
  int x, y, count;
+
+  cancel_save = 0;
 
   fprintf(outfile, "%%!PS-Adobe-2.0 EPSF-2.0\n");
   fprintf(outfile, "%%%%Creator: XSane Version %s (sane %d.%d)\n", VERSION,
@@ -207,6 +226,10 @@ static void xsane_save_ps_gray(FILE *outfile, FILE *imagefile,
     {
       gtk_main_iteration();
     }
+    if (cancel_save)
+    {
+      break;
+    }
   }
   fprintf(outfile, "\n");
   fprintf(outfile, "showpage\n");
@@ -225,6 +248,8 @@ static void xsane_save_ps_color(FILE *outfile, FILE *imagefile,
                                 float width, float height)
 {
  int x, y, count;
+
+  cancel_save = 0;
 
   fprintf(outfile, "%%!PS-Adobe-2.0 EPSF-2.0\n");
   fprintf(outfile, "%%%%Creator: XSane Version %s (sane %d.%d)\n", VERSION,
@@ -265,6 +290,10 @@ static void xsane_save_ps_color(FILE *outfile, FILE *imagefile,
     while (gtk_events_pending())
     {
       gtk_main_iteration();
+    }
+    if (cancel_save)
+    {
+      break;
     }
   }
   fprintf(outfile, "\n");
@@ -314,6 +343,8 @@ void xsane_save_jpeg(FILE *outfile, FILE *imagefile,
  struct jpeg_compress_struct cinfo;
  struct jpeg_error_mgr jerr;
  JSAMPROW row_pointer[1];
+
+  cancel_save = 0;
 
   if (color)
   {
@@ -386,6 +417,10 @@ void xsane_save_jpeg(FILE *outfile, FILE *imagefile,
     }
     row_pointer[0] = data;
     jpeg_write_scanlines(&cinfo, row_pointer, 1);
+    if (cancel_save)
+    {
+      break;
+    }
   }
 
   jpeg_finish_compress(&cinfo);
@@ -406,6 +441,8 @@ void xsane_save_tiff(const char *outfilename, FILE *imagefile,
  char buf[256];
  int x, y, w;
  int components;
+
+  cancel_save = 0;
 
   if (color)
   {
@@ -491,6 +528,10 @@ void xsane_save_tiff(const char *outfilename, FILE *imagefile,
       fread(data, components, pixel_width, imagefile);
     }
     TIFFWriteScanline(tiffile, data, y, 0);
+    if (cancel_save)
+    {
+      break;
+    }
   }
 
   TIFFClose(tiffile);
@@ -515,6 +556,8 @@ void xsane_save_png(FILE *outfile, FILE *imagefile,
  char buf[256];
  int colortype, components;
  int x,y;
+
+  cancel_save = 0;
 
   png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, 0, 0, 0);
   if (!png_ptr)
@@ -616,6 +659,10 @@ void xsane_save_png(FILE *outfile, FILE *imagefile,
 
     row_ptr = data;
     png_write_rows(png_ptr, &row_ptr, 1);
+    if (cancel_save)
+    {
+      break;
+    }
   }
 
   free(data);
@@ -644,6 +691,8 @@ void xsane_save_png_16(FILE *outfile, FILE *imagefile,
  int colortype, components;
  int x,y;
  guint16 val;
+
+  cancel_save = 0;
 
   png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, 0, 0, 0);
   if (!png_ptr)
@@ -722,6 +771,10 @@ void xsane_save_png_16(FILE *outfile, FILE *imagefile,
 
     row_ptr = data;
     png_write_rows(png_ptr, &row_ptr, 1);
+    if (cancel_save)
+    {
+      break;
+    }
   }
 
   free(data);
@@ -738,6 +791,8 @@ void xsane_save_pnm_16_gray(FILE *outfile, FILE *imagefile, int bits, int pixel_
  int x,y;
  guint16 val;
  int count = 0;
+
+  cancel_save = 0;
 
   /* write pgm ascii > 8 bpp */
   fprintf(outfile, "P2\n# SANE data follows\n%d %d\n%d\n", pixel_width, pixel_height, (int) pow(2, bits) - 1);
@@ -763,6 +818,10 @@ void xsane_save_pnm_16_gray(FILE *outfile, FILE *imagefile, int bits, int pixel_
     {
       gtk_main_iteration();
     }
+    if (cancel_save)
+    {
+      break;
+    }
   }
 }
 
@@ -773,6 +832,8 @@ void xsane_save_pnm_16_color(FILE *outfile, FILE *imagefile, int bits, int pixel
  int x,y;
  guint16 val;
  int count = 0;
+
+  cancel_save = 0;
 
   /* write ppm ascii > 8 bpp */
   fprintf(outfile, "P3\n# SANE data follows\n%d %d\n%d\n", pixel_width, pixel_height, (int) pow(2, bits) - 1);
@@ -803,6 +864,10 @@ void xsane_save_pnm_16_color(FILE *outfile, FILE *imagefile, int bits, int pixel
     while (gtk_events_pending())
     {
       gtk_main_iteration();
+    }
+    if (cancel_save)
+    {
+      break;
     }
   }
 }

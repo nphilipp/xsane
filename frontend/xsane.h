@@ -112,6 +112,7 @@ typedef struct XsaneProgress_t
 struct
 {
     SANE_Int sane_backend_versioncode;
+    char *backend;
 
     GtkWidget *shell;
     GtkWidget *standard_options_shell;

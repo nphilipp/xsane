@@ -4,6 +4,7 @@ Requirements:
 - For png support you need libz and lipng installed!
 - For jpeg support you need jpeglib installed!
 - For tiff support you need libtiff installed!
+- For online help you need netscape
 
 Install:
 - Unpack archiv. 
@@ -15,3 +16,8 @@ Install:
   tell your system where the SANE-libraries are installed.
     For linux: edit /etc/ld.so.conf and add a line with the path to the
     libraries (normally /usr/local/lib/sane), then call ldconfig as root. 
+
+- If you are running on a recent SuSE-Linux, netscape may be called via a
+  script Netscape and "netscape" is not in the path. In that case you have
+  to create a symblic link from Netscape to netscape, eg:
+  ln -s /usr/X11R6/bin/Netscape /usr/X11R6/bin/netscape

@@ -29,7 +29,7 @@ INSTALL_DATA = @INSTALL_DATA@
 
 CC = @CC@
 INCLUDES = -I. -I$(srcdir) -I$(top_builddir)/include -I$(top_srcdir)/include \
-	@INCLUDES@ @GTK_CFLAGS@
+	@GTK_CFLAGS@ @INCLUDES@
 DEFS = @DEFS@
 CPPFLAGS = @CPPFLAGS@
 CFLAGS = @CFLAGS@

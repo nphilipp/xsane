@@ -2528,13 +2528,13 @@ static void xsane_pref_save(void)
   gsg_make_path(sizeof(filename), filename, "xsane", "xsane", 0, ".rc");
   fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0666);
   if (fd < 0)
-    {
-      char buf[256];
+  {
+   char buf[256];
 
-      snprintf(buf, sizeof(buf), "Failed to create file: %s.", strerror(errno));
-      gsg_error(buf);
-      return;
-    }
+    snprintf(buf, sizeof(buf), "Failed to create file: %s.", strerror(errno));
+    gsg_error(buf);
+    return;
+  }
   preferences_save(fd);
   close(fd);
 }
@@ -2549,15 +2549,19 @@ static void xsane_pref_restore(void)
   gsg_make_path(sizeof(filename), filename, "xsane", "xsane", 0, ".rc");
   fd = open(filename, O_RDONLY);
   if (fd >= 0)
-    {
-      preferences_restore(fd);
-      close(fd);
-    }
+  {
+    preferences_restore(fd);
+    close(fd);
+  }
   if (!preferences.filename)
+  {
     preferences.filename = strdup(OUTFILENAME);
+  }
 
   if (!preferences.printer_command)
+  {
     preferences.printer_command = strdup(PRINTERCOMMAND);
+  }
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -3167,6 +3171,8 @@ bad_depth:
 
 static void xsane_scan_done(void)
 {
+  gtk_widget_set_sensitive(xsane.shell, TRUE);
+  gtk_widget_set_sensitive(xsane.histogram_dialog, TRUE);
   gsg_set_sensitivity(dialog, TRUE);
 
   if (xsane.input_tag >= 0)
@@ -3224,7 +3230,7 @@ static void xsane_scan_done(void)
 
          /* open progressbar */
          snprintf(buf, sizeof(buf), "Saving image");
-         xsane.progress = xsane_progress_new("Converting data....", buf, 0, 0);
+         xsane.progress = xsane_progress_new("Converting data....", buf, (GtkSignalFunc) xsane_cancel_save, 0);
          xsane_progress_update(xsane.progress, 0);
          while (gtk_events_pending())
          {
@@ -3324,7 +3330,7 @@ static void xsane_scan_done(void)
 
          /* open progressbar */
          snprintf(buf, sizeof(buf), "converting to postscript");
-         xsane.progress = xsane_progress_new("Converting data....", buf, 0, 0);
+         xsane.progress = xsane_progress_new("Converting data....", buf, (GtkSignalFunc) xsane_cancel_save, 0);
          xsane_progress_update(xsane.progress, 0);
          while (gtk_events_pending())
          {
@@ -3347,7 +3353,7 @@ static void xsane_scan_done(void)
                          preferences.printer_leftoffset + preferences.printer_width/2 - imagewidth*36,
                          preferences.printer_bottomoffset + preferences.printer_height/2 - imageheight*36,
                          imagewidth, imageheight);
-           fclose(outfile);
+           pclose(outfile);
 	 }
          xsane_progress_free(xsane.progress);
          xsane.progress = 0;
@@ -3367,7 +3373,9 @@ static void xsane_scan_done(void)
 
       /* GIMP mode */
       if (xsane.y > xsane.param.lines)
+      {
 	xsane.y = xsane.param.lines;
+      }
 
       remaining = xsane.y % gimp_tile_height();
       if (remaining)
@@ -3410,6 +3418,8 @@ static void xsane_start_scan(void)
   int fd;
 
   gsg_set_sensitivity(dialog, FALSE); /* turn off buttons and sliders ... */
+  gtk_widget_set_sensitive(xsane.shell, FALSE);
+  gtk_widget_set_sensitive(xsane.histogram_dialog, FALSE);
 
 #ifdef HAVE_LIBGIMP_GIMP_H
   if (xsane.mode == GIMP_EXTENSION && xsane.tile)
@@ -3624,7 +3634,7 @@ static void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
   {
    char *extension;
 
-    if (preferences.overwrite_warning) /* test if filename already used */
+    if ( (xsane.xsane_mode == XSANE_SCAN) && (preferences.overwrite_warning) ) /* test if filename already used */
     {
      FILE *testfile;
 
@@ -4085,6 +4095,7 @@ static void xsane_setup_options_ok_callback(GtkWidget *widget, gpointer data)
   }
   preferences.printer_command = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.printer_command_entry)));
 
+  xsane_update_int(xsane_setup.printer_resolution_entry, &preferences.printer_resolution);
   xsane_update_int(xsane_setup.printer_width_entry, &preferences.printer_width);
   xsane_update_int(xsane_setup.printer_height_entry, &preferences.printer_height);
   xsane_update_int(xsane_setup.printer_leftoffset_entry, &preferences.printer_leftoffset);
@@ -4783,13 +4794,13 @@ static void xsane_pref_device_save(GtkWidget *widget, gpointer data)
   gsg_make_path(sizeof(filename), filename, "xsane", 0, dialog->dev_name, ".rc");
   fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0666);
   if (fd < 0)
-    {
-      char buf[256];
+  {
+    char buf[256];
 
-      snprintf(buf, sizeof(buf), "Failed to create file: %s.", strerror(errno));
-      gsg_error(buf);
-      return;
-    }
+    snprintf(buf, sizeof(buf), "Failed to create file: %s.", strerror(errno));
+    gsg_error(buf);
+    return;
+  }
   sanei_save_values(fd, dialog->dev);
   close(fd);
 }
@@ -4804,9 +4815,42 @@ static void xsane_pref_device_restore(void)
   gsg_make_path(sizeof(filename), filename, "xsane", 0, dialog->dev_name, ".rc");
   fd = open(filename, O_RDONLY);
   if (fd < 0)
+  {
     return;
+  }
   sanei_load_values(fd, dialog->dev);
   close(fd);
+
+  if (dialog->well_known.dpi > 0)
+  {
+   const SANE_Option_Descriptor *opt;
+
+    opt = sane_get_option_descriptor(dialog->dev, dialog->well_known.dpi);
+  
+  switch (opt->type)
+  {
+    case SANE_TYPE_INT:
+    {
+     SANE_Int dpi;
+      sane_control_option(dialog->dev, dialog->well_known.dpi, SANE_ACTION_GET_VALUE, &dpi, 0);
+      xsane.resolution = dpi;
+    }
+    break;
+
+    case SANE_TYPE_FIXED:
+    {
+     SANE_Fixed dpi;
+      sane_control_option(dialog->dev, dialog->well_known.dpi, SANE_ACTION_GET_VALUE, &dpi, 0);
+      xsane.resolution = (int) SANE_UNFIX(dpi);
+    }
+    break;
+
+    default:
+     fprintf(stderr, "xsane_pref_device_restore: unknown type %d\n", opt->type);
+    return;
+  }
+  }
+
 
   xsane_refresh_dialog(dialog);
 }
@@ -4822,6 +4866,52 @@ static void xsane_pref_toggle_tooltips(GtkWidget *widget, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static void xsane_show_doc(GtkWidget *widget, gpointer data)
+{
+ char *name = (char *) data;
+ char buf[256];
+ FILE *ns_pipe;
+
+  sprintf(buf, "netscape -no-about-splash -remote \"openFile(%s/sane/sane-%s-doc.html)\" 2>&1",
+               STRINGIFY(PATH_SANE_DATA_DIR), name);  
+  ns_pipe = popen(buf, "r");
+
+  if (ns_pipe)
+  {
+    while (!feof(ns_pipe))
+    {
+      while (gtk_events_pending())
+      {
+        gtk_main_iteration();
+      }
+      fgetc(ns_pipe); /* remove char from pipe */
+    }
+
+    while (gtk_events_pending())
+    {
+      gtk_main_iteration();
+    }
+
+    if (pclose(ns_pipe))
+    {
+      sprintf(buf,"Ensure netscape is running!");
+      gsg_error(buf);
+    }
+  }
+  else
+  {
+    sprintf(buf,"Unable to execute netscape!");
+    gsg_error(buf);
+  }
+
+  while (gtk_events_pending())
+  {
+    gtk_main_iteration();
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static GtkWidget *xsane_pref_build_menu(void)
 {
   GtkWidget *menu, *item, *submenu, *subitem;
@@ -4831,7 +4921,7 @@ static GtkWidget *xsane_pref_build_menu(void)
 
   /* XSane setup dialog */
 
-  item = gtk_menu_item_new_with_label("XSane setup");
+  item = gtk_menu_item_new_with_label("Setup");
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_setup_dialog, 0);
   gtk_widget_show(item);
@@ -4840,9 +4930,10 @@ static GtkWidget *xsane_pref_build_menu(void)
 
   item = gtk_menu_item_new();
   gtk_menu_append(GTK_MENU(menu), item);
+  gtk_widget_show(item);
 
 
-  /* tooltips submenu: */
+  /* show tooltips */
 
   item = gtk_check_menu_item_new_with_label("Show tooltips");
   gtk_check_menu_item_set_state(GTK_CHECK_MENU_ITEM(item), preferences.tooltips_enabled);
@@ -4877,8 +4968,14 @@ static GtkWidget *xsane_pref_build_menu(void)
   gtk_widget_show(xsane.show_advanced_options_widget);
   gtk_signal_connect(GTK_OBJECT(xsane.show_advanced_options_widget), "toggled", (GtkSignalFunc) xsane_show_advanced_options_callback, 0);
 
+  /* insert separator: */
 
-  /* length unit submenu: */
+  item = gtk_menu_item_new();
+  gtk_menu_append(GTK_MENU(menu), item);
+  gtk_widget_show(item);
+
+
+  /* length unit */
 
   item = gtk_menu_item_new_with_label("Length unit");
   gtk_menu_append(GTK_MENU(menu), item);
@@ -4910,14 +5007,59 @@ static GtkWidget *xsane_pref_build_menu(void)
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_widget_show(item);
 
+  /* Save device setting */
+
   item = gtk_menu_item_new_with_label("Save device settings");
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_pref_device_save, 0);
   gtk_widget_show(item);
 
+  /* Restore device setting */
+
   item = gtk_menu_item_new_with_label("Restore device settings");
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_pref_device_restore, 0);
+  gtk_widget_show(item);
+
+  return menu;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static GtkWidget *xsane_help_build_menu(void)
+{
+  GtkWidget *menu, *item;
+  char buf[256];
+  char *bufptr;
+
+  menu = gtk_menu_new();
+
+  sprintf(buf, "%s", devlist[seldev]->name);
+  bufptr = strrchr(buf, ':');
+  if (bufptr)
+  {
+    *bufptr = 0; 
+    bufptr = strrchr(buf, ':');
+    if (bufptr)
+    {
+      bufptr++;
+    }
+    else
+    {
+      bufptr = buf;
+    }
+
+    xsane.backend = strdup(bufptr);
+
+    item = gtk_menu_item_new_with_label("Show backend doc");
+    gtk_menu_append(GTK_MENU(menu), item);
+    gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_doc, (void *) xsane.backend);
+    gtk_widget_show(item);
+  }
+
+  item = gtk_menu_item_new_with_label("Show xsane doc");
+  gtk_menu_append(GTK_MENU(menu), item);
+  gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_doc, (void *) "xsane");
   gtk_widget_show(item);
 
   return menu;
@@ -5381,6 +5523,12 @@ static void xsane_device_dialog(void)
   menubar_item = gtk_menu_item_new_with_label("Preferences");
   gtk_container_add(GTK_CONTAINER(menubar), menubar_item);
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(menubar_item), xsane_pref_build_menu());
+  gtk_widget_show(menubar_item);
+
+  /* "Help" submenu: */
+  menubar_item = gtk_menu_item_new_with_label("Help");
+  gtk_container_add(GTK_CONTAINER(menubar), menubar_item);
+  gtk_menu_item_set_submenu(GTK_MENU_ITEM(menubar_item), xsane_help_build_menu());
   gtk_widget_show(menubar_item);
 
   gtk_widget_show(menubar);

@@ -6,7 +6,7 @@ AC_ARG_PROGRAM
 
 # version code:
 V_MAJOR=0
-V_MINOR=18\\337
+V_MINOR=19\\337
 
 PACKAGE=xsane
 SANE_V_MAJOR=1

@@ -2,11 +2,11 @@ This is a list of what I want to change/include for xsane.
 If you have any suggestions: mail to Oliver.Rauch@Wolfsburg.DE
 
 first steps:
+ - If automatic document feeder: scan until error (out of paper, jammed, ...)
  - make png save with bit depth 9-15 work
  - move threshold in lineart-mode to main window
  - improve support for 16/48 bpp mode
  - test memory after all calls of malloc
- - program cancel_handler for data conversion
  - make better backend-dependend option handling and error handling (mostly done!)
  - program better preview
    - zoom preview

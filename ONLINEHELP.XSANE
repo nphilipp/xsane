@@ -1,0 +1,5 @@
+The onlinehelp is done via netscape remote commands.
+Netscape must be running.
+The files are located in PATH_SANE_DATA_DIR/sane/
+(this is typlically /usr/local/share/sane)
+and the names hvae to be sane-backendname-doc.html

@@ -971,8 +971,12 @@ static void preview_scan_done(Preview *p)
   preview_restore_option(p, p->dialog->well_known.bit_depth, p->saved_bit_depth, p->saved_bit_depth_valid);
 
   preview_set_option_bool(p, p->dialog->well_known.preview, SANE_FALSE);
+
+  gtk_widget_set_sensitive(xsane.shell, TRUE);
+  gtk_widget_set_sensitive(xsane.histogram_dialog, TRUE);
   gtk_widget_set_sensitive (p->cancel, FALSE);
   gsg_set_sensitivity (p->dialog, TRUE);
+
   preview_update(p);
   xsane_update_histogram();
 }
@@ -996,6 +1000,8 @@ static void preview_scan_start(Preview *p)
 
   gtk_widget_set_sensitive(p->cancel, TRUE);
   gsg_set_sensitivity(p->dialog, FALSE);
+  gtk_widget_set_sensitive(xsane.shell, FALSE);
+  gtk_widget_set_sensitive(xsane.histogram_dialog, FALSE);
 
   /* clear old preview: */
   memset(p->preview_row, 0xff, 3*p->preview_width);
