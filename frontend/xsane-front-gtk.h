@@ -24,7 +24,8 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-extern void xsane_set_resolution(void);
+extern void xsane_get_bounds(const SANE_Option_Descriptor *opt, double *minp, double *maxp);
+extern void xsane_set_resolution(int resolution);
 extern void xsane_close_dialog_callback(GtkWidget *widget, gpointer data);
 extern void xsane_authorization_button_callback(GtkWidget *widget, gpointer data);
 extern gint xsane_authorization_callback(SANE_String_Const resource,
@@ -39,16 +40,17 @@ extern void xsane_toggle_button_new_with_pixmap(GtkWidget *parent, const char *x
 extern GtkWidget *xsane_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[], const char *desc, 
                                                void *xsane_button_callback, gpointer data);
 extern void xsane_pixmap_new(GtkWidget *parent, char *title, int width, int height, XsanePixmap *hist);
-extern void xsane_option_menu_new(GtkWidget *parent, char *str_list[], const char *val, int option_number, const char *desc);
+extern void xsane_option_menu_new(GtkWidget *parent, char *str_list[], const char *val, int option_number, const char *desc,
+                                  void *option_menu_callback);
 extern void xsane_scale_new(GtkBox *parent, char *labeltext, const char *desc,
                             float min, float max, float quant, float step, float xxx,
                             int digits, double *val, GtkObject **data, void *xsane_scale_callback);
 extern void xsane_scale_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char *desc,
                                         float min, float max, float quant, float step, float xxx,
                                         int digits, double *val, GtkObject **data, int option, void *xsane_scale_callback);
-void xsane_option_menu_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char *desc,
-                                       char *str_list[], const char *val,
-                                       GtkObject **data, int option, void *xsane_scale_callback);
+extern void xsane_option_menu_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char *desc,
+                                              char *str_list[], const char *val,
+                                              GtkObject **data, int option, void *option_menu_callback);
 extern void xsane_separator_new(GtkWidget *xsane_parent, int dist);
 extern GtkWidget *xsane_info_table_text_new(GtkWidget *table, gchar *text, int row, int colomn);
 extern GtkWidget *xsane_info_text_new(GtkWidget *parent, gchar *text);

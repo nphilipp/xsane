@@ -1,6 +1,59 @@
 #ifndef XSANE_TEXT_H
 #define XSANE_TEXT_H
 
+#define WINDOW_ABOUT		"About"
+
+#define MENU_FILE		"File"
+#define MENU_PREFERENCES	"Preferences"
+#define MENU_HELP		"Help"
+
+#define MENU_ITEM_ABOUT		"About"
+#define MENU_ITEM_INFO		"Info"
+#define MENU_ITEM_EXIT		"Exit"
+
+#define BUTTON_START		"Start"
+#define BUTTON_PREVIEW		"Preview Window"
+#define BUTTON_OK		"Ok"
+#define BUTTON_CANCEL		"Cancel"
+#define BUTTON_BROWSE		"Browse"
+#define BUTTON_AUTO		"Auto"
+#define BUTTON_DEFAULT		"Default"
+#define BUTTON_RESTORE		"Restore"
+#define BUTTON_SAVE		"Save"
+#define BUTTON_CLOSE		"Close"
+
+#define RADIO_BUTTON_FINE_MODE	"Fine mode"
+#define RADIO_BUTTON_RGB_DEFAULT "RGB default"
+#define RADIO_BUTTON_NEGATIVE	"Negative"
+
+#define TEXT_AVAILABLE_DEVICES	"Available devices:"
+#define TEXT_OUTPUT_FILENAME	"Output filename"
+#define TEXT_XSANE_OPTIONS	"XSane options"
+#define TEXT_XSANE_MODE		"XSane mode"
+#define TEXT_SET_ENHANCEMENT	"Set enhancement:"
+#define TEXT_SCANNER_BACKEND	"Scanner and backend:"
+#define TEXT_VENDOR		"Vendor:"
+#define TEXT_MODEL		"Model:"
+#define TEXT_TYPE		"Type:"
+#define TEXT_DEVICE		"Device:"
+#define TEXT_LOADED_BACKEND	"Loaded backend:"
+#define TEXT_SANE_VERSION	"Sane version:"
+#define TEXT_RECENT_VALUES	"Recent values:"
+#define TEXT_GAMMA_CORR_BY	"Gamma correction by:"
+#define TEXT_SCANNER		"scanner"
+#define TEXT_SOFTWARE_XSANE	"software (xsane)"
+#define TEXT_GAMMA_INPUT_DEPTH	"Gamma input depth:"
+#define TEXT_GAMMA_OUTPUT_DEPTH	"Gamma output depth:"
+#define TEXT_SCANNER_OUTPUT_DEPTH "Scanner output depth:"
+#define TEXT_OUTPUT_FORMATS	"XSane output formats:"
+#define TEXT_8BIT_FORMATS	"8 bit output formats:"
+#define TEXT_16BIT_FORMATS	"16 bit output formats:"
+
+#define MENU_ITEM_SCAN		"Scan"
+#define MENU_ITEM_COPY		"Copy"
+#define MENU_ITEM_FAX		"Fax"
+
+
 #define DESC_XSANE_MODE		"Use XSane for SCANning, photoCOPYing, FAXing..."
 
 #define DESC_FILENAME		"Filename for scanned image"

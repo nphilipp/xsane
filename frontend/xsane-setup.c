@@ -369,7 +369,6 @@ static void xsane_setup_options_ok_callback(GtkWidget *widget, gpointer data)
   gtk_widget_destroy((GtkWidget *)data);
   xsane_pref_save();
 
-//  xsane_update_gamma();
   gsg_refresh_dialog(dialog);
 }
 
@@ -745,8 +744,6 @@ void xsane_setup_dialog(GtkWidget *widget, gpointer data)
 
 
 #ifdef HAVE_LIBJPEG
-//  xsane_scale_new(GTK_BOX(vbox), "JPEG image quality", DESC_JPEG_QUALITY, 0.0, 100.0, 1.0, 1.0, 0.0, 0,
-//                  &preferences.jpeg_quality, &scale, xsane_quality_changed);
   xsane_scale_new(GTK_BOX(vbox), "JPEG image quality", DESC_JPEG_QUALITY, 0.0, 100.0, 1.0, 1.0, 0.0, 0,
                   &preferences.jpeg_quality, (GtkObject **) &xsane_setup.jpeg_image_quality_scale, 0);
 #endif

@@ -27,11 +27,10 @@
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 /* #define XSANE_TEST */
-#define XSANE_TEST
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION "0.28\337"
+#define XSANE_VERSION "0.29\337"
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -106,6 +105,7 @@ extern int xsane_scanmode_number[];
 #define XSANE_SLIDER_EVENTS	GDK_EXPOSURE_MASK | GDK_ENTER_NOTIFY_MASK | \
 				GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | \
 				GDK_BUTTON1_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK
+#define INF			5.0e9
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -243,6 +243,7 @@ typedef struct Xsane
     GtkWidget *show_histogram_widget;
     GtkWidget *show_standard_options_widget;
     GtkWidget *show_advanced_options_widget;
+    GtkWidget *show_resolution_list_widget;
     GtkObject *zoom_widget;
     GtkObject *resolution_widget;
     GtkObject *gamma_widget;

@@ -269,3 +269,11 @@ xsane-0.27 -> 0.28:
 
  - added selection for number of copies in copy mode
 
+
+xsane-0.28 -> 0.29:
+-------------------
+
+ - removed bug in xsane_set_resolution that could cause a segmentation fault
+ - added support for resolution of type CONSTRAINT_WORD_LIST 
+ - xsane-mode (scan, copy, fax) can be selected as command line option (-s, -c, -f) now
+ - most texts that are defined in xsane are defined in xsane-text now

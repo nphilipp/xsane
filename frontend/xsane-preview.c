@@ -90,9 +90,6 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-/* Anything bigger than 2G will do, since SANE coordinates are 32 bit values.  */
-#define INF		5.0e9
-
 #define MM_PER_INCH	25.4
 
 /* Cut fp conversion routines some slack: */
@@ -785,58 +782,6 @@ void preview_area_resize(GtkWidget *widget)
                       min_y, /* max_size */ 20);
 
   preview_paint_image(p);
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void preview_get_bounds(const SANE_Option_Descriptor *opt, float *minp, float *maxp)
-{
- float min, max;
- int i;
-
-  min = -INF;
-  max =  INF;
-  switch (opt->constraint_type)
-  {
-    case SANE_CONSTRAINT_RANGE:
-      min = opt->constraint.range->min;
-      max = opt->constraint.range->max;
-      break;
-
-    case SANE_CONSTRAINT_WORD_LIST:
-      min =  INF;
-      max = -INF;
-
-      for (i = 1; i <= opt->constraint.word_list[0]; ++i)
-      {
-        if (opt->constraint.word_list[i] < min)
-        {
-          min = opt->constraint.word_list[i];
-        }
-        if (opt->constraint.word_list[i] > max)
-        {
-          max = opt->constraint.word_list[i];
-        }
-      }
-     break;
-
-    default:
-     break;
-  }
-
-  if (opt->type == SANE_TYPE_FIXED)
-  {
-    if (min > -INF && min < INF)
-    {
-      min = SANE_UNFIX (min);
-    }
-    if (max > -INF && max < INF)
-    {
-      max = SANE_UNFIX (max);
-    }
-  }
-  *minp = min;
-  *maxp = max;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1950,7 +1895,7 @@ Preview *preview_new(GSGDialog *dialog)
   gtk_box_pack_start(GTK_BOX(top_hbox), preset_area_option_menu, FALSE, FALSE, 2);
   gtk_option_menu_set_menu(GTK_OPTION_MENU(preset_area_option_menu), preset_area_menu);
   gtk_option_menu_set_history(GTK_OPTION_MENU(preset_area_option_menu), 0); /* full area */
-//  gsg_set_tooltip(tooltips, preset_area_option_menu, desc);
+/*  gsg_set_tooltip(tooltips, preset_area_option_menu, desc); */
 
   gtk_widget_show(preset_area_option_menu);
   p->preset_area_option_menu = preset_area_option_menu;
@@ -2088,7 +2033,7 @@ void preview_update_surface(Preview *p, int surface_changed)
  int i;
  SANE_Value_Type type;
  SANE_Unit unit;
- float min, max;
+ double min, max;
 
   unit = SANE_UNIT_PIXEL;
   type = SANE_TYPE_INT;
@@ -2104,7 +2049,7 @@ void preview_update_surface(Preview *p, int surface_changed)
       unit = opt->unit;
       type = opt->type;
 
-      preview_get_bounds(opt, &min, &max);
+      xsane_get_bounds(opt, &min, &max);
 
       if (i & 2)
       {
@@ -2267,7 +2212,7 @@ void preview_update_surface(Preview *p, int surface_changed)
 
 void preview_scan(Preview *p)
 {
- float min, max, swidth, sheight, width, height, dpi = 0;
+ double min, max, swidth, sheight, width, height, dpi = 0;
  const SANE_Option_Descriptor *opt;
  gint gwidth, gheight;
  int i;
@@ -2317,7 +2262,7 @@ void preview_scan(Preview *p)
       }
     }
 
-    preview_get_bounds(opt, &min, &max);
+    xsane_get_bounds(opt, &min, &max);
 
     if (dpi < min)
     {
@@ -2329,7 +2274,7 @@ void preview_scan(Preview *p)
       dpi = max;
     }
 
-    preview_set_option_float(p, p->dialog->well_known.dpi, dpi);
+    xsane_set_resolution(dpi); /* set resolution to dpi or next higher value that is available */
   }
 
   /* set the scan window (necessary since backends may default to non-maximum size):  */

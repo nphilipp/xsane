@@ -65,7 +65,8 @@
 
 /* forward declarations: */
 
-void xsane_set_resolution(void);
+void xsane_get_bounds(const SANE_Option_Descriptor *opt, double *minp, double *maxp);
+void xsane_set_resolution(int resolution);
 void xsane_close_dialog_callback(GtkWidget *widget, gpointer data);
 void xsane_authorization_button_callback(GtkWidget *widget, gpointer data);
 gint xsane_authorization_callback(SANE_String_Const resource,
@@ -79,7 +80,8 @@ void xsane_toggle_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[],
                                          int *state, void *xsane_toggle_button_callback);
 GtkWidget *xsane_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[], const char *desc,
                                         void *xsane_button_callback, gpointer data);
-void xsane_option_menu_new(GtkWidget *parent, char *str_list[], const char *val, int option_number, const char *desc);
+void xsane_option_menu_new(GtkWidget *parent, char *str_list[], const char *val, int option_number, const char *desc,
+                           void *option_menu_callback);
 void xsane_scale_new(GtkBox *parent, char *labeltext, const char *desc,
                      float min, float max, float quant, float step, float xxx,
                      int digits, double *val, GtkObject **data, void *xsane_scale_callback);
@@ -88,14 +90,66 @@ void xsane_scale_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char
                                  int digits, double *val, GtkObject **data, int option, void *xsane_scale_callback);
 void xsane_option_menu_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char *desc,
                                        char *str_list[], const char *val,
-                                       GtkObject **data, int option, void *xsane_scale_callback);
+                                       GtkObject **data, int option, void *option_menu_callback);
 void xsane_separator_new(GtkWidget *xsane_parent, int dist);
 GtkWidget *xsane_info_table_text_new(GtkWidget *table, gchar *text, int row, int colomn);
 GtkWidget *xsane_info_text_new(GtkWidget *parent, gchar *text);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void xsane_set_resolution(void)
+void xsane_get_bounds(const SANE_Option_Descriptor *opt, double *minp, double *maxp)
+{
+ double min, max;
+ int i;
+
+  min = -INF;
+  max =  INF;
+  switch (opt->constraint_type)
+  {
+    case SANE_CONSTRAINT_RANGE:
+      min = opt->constraint.range->min;
+      max = opt->constraint.range->max;
+      break;
+
+    case SANE_CONSTRAINT_WORD_LIST:
+      min =  INF;
+      max = -INF;
+
+      for (i = 1; i <= opt->constraint.word_list[0]; ++i)
+      {
+        if (opt->constraint.word_list[i] < min)
+        {
+          min = opt->constraint.word_list[i];
+        }
+        if (opt->constraint.word_list[i] > max)
+        {
+          max = opt->constraint.word_list[i];
+        }
+      }
+     break;
+
+    default:
+     break;
+  }
+
+  if (opt->type == SANE_TYPE_FIXED)
+  {
+    if (min > -INF && min < INF)
+    {
+      min = SANE_UNFIX (min);
+    }
+    if (max > -INF && max < INF)
+    {
+      max = SANE_UNFIX (max);
+    }
+  }
+  *minp = min;
+  *maxp = max;
+}                                                        
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void xsane_set_resolution(int resolution)
 {
  const SANE_Option_Descriptor *opt;
  SANE_Word dpi;
@@ -107,16 +161,16 @@ void xsane_set_resolution(void)
 
   opt = sane_get_option_descriptor(dialog->dev, dialog->well_known.dpi);
 
-  if (opt->constraint_type == SANE_CONSTRAINT_WORD_LIST)
+  if (opt->constraint_type == SANE_CONSTRAINT_RANGE)
   {
     switch (opt->type)
     {
       case SANE_TYPE_INT:
-        dpi = xsane.resolution;
+        dpi = resolution;
       break;
 
       case SANE_TYPE_FIXED:
-        dpi = SANE_FIX(xsane.resolution);
+        dpi = SANE_FIX(resolution);
       break;
 
       default:
@@ -124,16 +178,16 @@ void xsane_set_resolution(void)
       return;
     }
   }
-  else if (opt->constraint_type == SANE_CONSTRAINT_RANGE)
+  else if (opt->constraint_type == SANE_CONSTRAINT_WORD_LIST)
   {
     switch (opt->type)
     {
       case SANE_TYPE_INT:
-        dpi = xsane.resolution;
+        dpi = resolution;
       break;
 
       case SANE_TYPE_FIXED:
-        dpi = SANE_FIX(xsane.resolution);
+        dpi = SANE_FIX(resolution);
       break;
 
       default:
@@ -435,7 +489,7 @@ static int xsane_option_menu_lookup(GSGMenuItem menu_items[], const char *string
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_option_menu_callback(GtkWidget * widget, gpointer data)
+static void xsane_option_menu_callback(GtkWidget *widget, gpointer data)
 {
   GSGMenuItem *menu_item = data;
   GSGDialogElement *elem = menu_item->elem;
@@ -449,7 +503,7 @@ static void xsane_option_menu_callback(GtkWidget * widget, gpointer data)
   opt_num = elem - dialog->element;
   opt = sane_get_option_descriptor(dialog->dev, opt_num);
   switch (opt->type)
-    {
+  {
     case SANE_TYPE_INT:
       sscanf(menu_item->label, "%d", &val);
       break;
@@ -466,13 +520,14 @@ static void xsane_option_menu_callback(GtkWidget * widget, gpointer data)
     default:
       fprintf(stderr, "xsane_option_menu_callback: unexpected type %d\n", opt->type);
       break;
-    }
+  }
   gsg_set_option(dialog, opt_num, valp, SANE_ACTION_SET_VALUE);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void xsane_option_menu_new(GtkWidget *parent, char *str_list[], const char *val, int option_number, const char *desc)
+void xsane_option_menu_new(GtkWidget *parent, char *str_list[], const char *val, int option_number, const char *desc,
+                           void *option_menu_callback)
 {
  GtkWidget *option_menu, *menu, *item;
  GSGMenuItem *menu_items;
@@ -493,7 +548,15 @@ void xsane_option_menu_new(GtkWidget *parent, char *str_list[], const char *val,
       gtk_widget_set_usize(item, 60, 0);
     }
     gtk_container_add(GTK_CONTAINER(menu), item);
-    gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_option_menu_callback, menu_items + i);
+
+    if (option_menu_callback)
+    {
+      gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) option_menu_callback, menu_items + i);
+    }
+    else
+    {
+      gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_option_menu_callback, menu_items + i);
+    }
 
     gtk_widget_show(item);
 
@@ -606,7 +669,7 @@ void xsane_scale_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char
 
 void xsane_option_menu_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char *desc,
                                        char *str_list[], const char *val,
-                                       GtkObject **data, int option, void *xsane_option_menu_callback)
+                                       GtkObject **data, int option, void *option_menu_callback)
 {
  GtkWidget *hbox;
  GtkWidget *pixmapwidget;
@@ -619,8 +682,10 @@ void xsane_option_menu_new_with_pixmap(GtkBox *parent, const char *xpm_d[], cons
   pixmap = gdk_pixmap_create_from_xpm_d(xsane.shell->window, &mask, xsane.bg_trans, (gchar **) xpm_d);
   pixmapwidget = gtk_pixmap_new(pixmap, mask);
   gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
+  gtk_widget_show(pixmapwidget);
 
-  xsane_option_menu_new(hbox, str_list, val, option, desc);
+  xsane_option_menu_new(hbox, str_list, val, option, desc, option_menu_callback);
+  gtk_widget_show(hbox);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

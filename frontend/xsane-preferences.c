@@ -55,6 +55,7 @@ Preferences preferences =
        0,		/* (dont) show histogram */
        0,		/* (dont) show standard options */
        0,		/* (dont) show advanced options */
+       0,		/* (dont) show resolution list */
     10.0,		/* length unit */
        1,		/* preserve_preview */
        0,		/* preview_own_cmap */
@@ -110,6 +111,7 @@ desc[] =
     {"show-histogram",			w_int,		POFFSET(show_histogram)},
     {"show-standard-options",		w_int,		POFFSET(show_standard_options)},
     {"show-advanced-options",		w_int,		POFFSET(show_advanced_options)},
+    {"show-resolution-list",		w_int,		POFFSET(show_resolution_list)},
     {"length-unit",			w_double,	POFFSET(length_unit)},
     {"preserve-preview",		w_int,		POFFSET(preserve_preview)},
     {"preview-own-cmap",		w_int,		POFFSET(preview_own_cmap)},
