@@ -206,7 +206,7 @@ void xsane_increase_counter_in_filename(char *filename, int skip)
 
     if (overflow) /* overflow */
     {
-      xsane_back_gtk_warning(WARN_COUNTER_OVERFLOW, FALSE);
+      xsane_back_gtk_warning(WARN_COUNTER_OVERFLOW, TRUE);
       break; /* last available number ("..999") */
     }
 

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-10-01 13:09+0200\n"
+"POT-Creation-Date: 2000-11-12 01:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,8 +22,12 @@ msgstr ""
 msgid "©"
 msgstr ""
 
-#. WINDOW_ABOUT, MENU_ITEM_ABOUT
+#. WINDOW_ABOUT_XSANE
 msgid "About"
+msgstr ""
+
+#. WINDOW_ABOUT_TRANSLATION, MENU_ITEM_ABOUT_TRANSLATION
+msgid "About translation"
 msgstr ""
 
 #. WINDOW_AUTHORIZE
@@ -110,12 +114,16 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
+#. MENU_ITEM_ABOUT_XSANE
+msgid "About XSane"
+msgstr ""
+
 #. MENU_ITEM_INFO
 msgid "Info"
 msgstr ""
 
-#. MENU_ITEM_EXIT
-msgid "Exit"
+#. MENU_ITEM_QUIT
+msgid "Quit"
 msgstr ""
 
 #. FRAME_RAW_IMAGE
@@ -384,8 +392,23 @@ msgstr ""
 msgid "File:"
 msgstr ""
 
+#. TEXT_TRANSLATION
+msgid "Translation:"
+msgstr ""
+
+#. TEXT_TRANSLATION_INFO
+msgid ""
+"untranslated original english text\n"
+"by Oliver Rauch\n"
+"Email: Oliver.Rauch@Wolfsburg.DE\n"
+msgstr ""
+
 #. TEXT_INFO_BOX
 msgid "0x0: 0KB"
+msgstr ""
+
+#. TEXT_ADF_PAGES_SCANNED
+msgid "Scanned pages: "
 msgstr ""
 
 #. TEXT_SETUP_PRINTER_SEL
@@ -882,7 +905,7 @@ msgstr ""
 
 #. DESC_ENH_AUTO
 msgid ""
-"Autoadjust gamma, brightness and contrast in dependance of selected area"
+"Autoadjust gamma, brightness and contrast in dependance of selected scan area"
 msgstr ""
 
 #. DESC_ENH_DEFAULT
@@ -1356,6 +1379,10 @@ msgstr ""
 msgid "Warning"
 msgstr ""
 
+#. ERR_HEADER_INFO
+msgid "Information"
+msgstr ""
+
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
 msgstr ""
@@ -1428,6 +1455,10 @@ msgid ""
 "value)\n"
 " -R, --Resizeable             resizable, scrolled main window (overwrite "
 "preferences value)\n"
+"\n"
+" -p, --print-filenames        print image filenames created by xsane\n"
+" -N, --force-filename name    force filename and disable user filename "
+"selection\n"
 "\n"
 " --display X11-display        redirect output to X11-display\n"
 " --no-xshm                    do not use shared memory images\n"

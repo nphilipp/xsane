@@ -1115,3 +1115,33 @@ xsane-0.62 -> 0.63:
  - new configure.in file that does use "sane-config" now to find the sane libraries
 
 
+xsane-0.63 -> 0.64:
+-------------------
+
+ - changed xsane-oldgimp.h to work with gimp-1.0.4
+
+ - added info icon (green triangle with explanation mark)
+
+ - added info window function: xsane_back_gtk_info
+
+ - ADF mode: if first  scan fails with NO_DOCS => error message: no docs
+             if another scan ends with NO_DOCS => info message: scanned pages: #
+
+ - added some accelerator keys. The key definitions may change any time,
+   this is a first test version. The key-definitions are listed in xsane.ACCELKEYS
+
+ - added grab_default for close buttton in info and about dialog
+
+ - changed test for sane-libs in aclocal.m4, "-lintl" is removed from
+   the output of "sane-config --libs"
+   (this caused segfaults when gettext is included in libc)
+
+ - added about translation dialog
+
+ - added options "-p", "--print-filenames", if enabled and xsane runs in scanmode it
+   prints names of produced image files to stdout 
+
+ - added options "-N name", "--force-filename name", if set the user filename selection
+   is disabled and the given name is used as filename. The filename should be of the
+   form "basename-00001.filetype". The size of the counter has to be suffisunt large.
+

@@ -55,7 +55,7 @@ void xsane_progress_cancel(GtkWidget *widget, gpointer data);
 void xsane_progress_new(char *bar_text, char *info, GtkSignalFunc callback);
 void xsane_progress_update(gfloat newval);
 void xsane_progress_clear();
-void xsane_toggle_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[], const char *desc,
+GtkWidget *xsane_toggle_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[], const char *desc,
                                          int *state, void *xsane_toggle_button_callback);
 GtkWidget *xsane_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[], const char *desc,
                                         void *xsane_button_callback, gpointer data);
@@ -601,7 +601,7 @@ void xsane_progress_update(gfloat newval)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void xsane_toggle_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[], const char *desc,
+GtkWidget *xsane_toggle_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[], const char *desc,
                                          int *state, void *xsane_toggle_button_callback)
 {
  GtkWidget *button;
@@ -624,6 +624,8 @@ void xsane_toggle_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[],
   gtk_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_toggle_button_callback, (GtkObject *) state);
   gtk_box_pack_start(GTK_BOX(parent), button, FALSE, FALSE, 0);
   gtk_widget_show(button);
+
+ return button;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1047,14 +1049,21 @@ void xsane_define_output_filename(void)
     xsane.output_filename = 0;
   }
 
-  if (xsane.filetype)
+  if (!xsane.force_filename)
   {
-    snprintf(buffer, sizeof(buffer), "%s%s", preferences.filename, xsane.filetype);
-    xsane.output_filename = strdup(buffer);
+    if (xsane.filetype)
+    {
+      snprintf(buffer, sizeof(buffer), "%s%s", preferences.filename, xsane.filetype);
+      xsane.output_filename = strdup(buffer);
+    }
+    else
+    {
+      xsane.output_filename = strdup(preferences.filename);
+    }
   }
   else
   {
-    xsane.output_filename = strdup(preferences.filename);
+      xsane.output_filename = strdup(xsane.external_filename);
   }
 }
 

@@ -29,7 +29,6 @@ first steps:
  - rotate scan by 0/90/180/270 degree
 
  * internal:
-   + use sane-config
    + add range check / valid value when reading xsane.rc/*.drc files
    + correct image height after scanning in hand scanner mode 
    + add several defaults (fax=> mode=gray,...)
@@ -37,7 +36,6 @@ first steps:
    - test memory after each call of malloc - partly done
    - more/better online helpfiles
    - postscript/printer setup: geometry in inch/millimeter/centimeter
-   - keyboard shortcuts for some functions
    + delete/recreate preview files when temp directory is changed
    - correct charset of tooltips for all national codepages
 

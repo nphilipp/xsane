@@ -34,7 +34,8 @@
 #define XSANE_COPYRIGHT_SIGN		_("\251")
 #endif
 
-#define WINDOW_ABOUT			_("About")
+#define WINDOW_ABOUT_XSANE		_("About")
+#define WINDOW_ABOUT_TRANSLATION	_("About translation")
 #define WINDOW_AUTHORIZE		_("authorization")
 #define WINDOW_INFO			_("info")
 #define WINDOW_BATCH_SCAN		_("batch scan")
@@ -58,9 +59,10 @@
 #define MENU_VIEW			_("View")
 #define MENU_HELP			_("Help")
 
-#define MENU_ITEM_ABOUT			_("About")
+#define MENU_ITEM_ABOUT_XSANE		_("About XSane")
+#define MENU_ITEM_ABOUT_TRANSLATION	_("About translation")
 #define MENU_ITEM_INFO			_("Info")
-#define MENU_ITEM_EXIT			_("Exit")
+#define MENU_ITEM_QUIT			_("Quit")
 
 #define FRAME_RAW_IMAGE			_("Raw image")
 #define FRAME_ENHANCED_IMAGE		_("Enhanced image")
@@ -132,8 +134,14 @@
 #define TEXT_EMAIL			_("Email:")
 #define TEXT_HOMEPAGE			_("Homepage:")
 #define TEXT_FILE			_("File:")
+#define TEXT_TRANSLATION		_("Translation:")
+#define TEXT_TRANSLATION_INFO		_("untranslated original english text\n" \
+					  "by Oliver Rauch\n" \
+					  "Email: Oliver.Rauch@Wolfsburg.DE\n")
 
 #define TEXT_INFO_BOX			_("0x0: 0KB")
+
+#define TEXT_ADF_PAGES_SCANNED		_("Scanned pages: ")
 
 #define TEXT_SETUP_PRINTER_SEL		_("Printer selection:")
 #define TEXT_SETUP_PRINTER_NAME		_("Name:")
@@ -287,7 +295,7 @@
 						" brightness = 0\n" \
 						" contrast = 0")
 
-#define DESC_ENH_AUTO			_("Autoadjust gamma, brightness and contrast in dependance of selected area")
+#define DESC_ENH_AUTO			_("Autoadjust gamma, brightness and contrast in dependance of selected scan area")
 #define DESC_ENH_DEFAULT		_("Set default enhancement values:\n" \
 						"gamma = 1.0\n" \
 						"brightness = 0\n" \
@@ -425,6 +433,7 @@ YOU ARE ALONE!\
 
 #define ERR_HEADER_ERROR		_("Error")
 #define ERR_HEADER_WARNING		_("Warning")
+#define ERR_HEADER_INFO			_("Information")
 
 #define ERR_FAILED_CREATE_FILE		_("Failed to create file:")
 #define ERR_LOAD_DEVICE_SETTINGS	_("Error while loading device settings:")
@@ -458,6 +467,9 @@ The format of [DEVICE] is backendname:devicefile (e.g. umax:/dev/scanner).\n\
 \n\
  -F, --Fixed                  fixed main window size (overwrite preferences value)\n\
  -R, --Resizeable             resizable, scrolled main window (overwrite preferences value)\n\
+\n\
+ -p, --print-filenames        print image filenames created by xsane\n\
+ -N, --force-filename name    force filename and disable user filename selection\n\
 \n\
  --display X11-display        redirect output to X11-display\n\
  --no-xshm                    do not use shared memory images\n\

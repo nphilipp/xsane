@@ -54,6 +54,7 @@ extern gint xsane_back_gtk_decision(gchar *title, gchar** icon_xpm, gchar *messa
 extern void xsane_back_gtk_message(gchar *title, gchar** icon_xpm, gchar *message, gint wait);
 extern void xsane_back_gtk_error(gchar *error_message, gint wait);
 extern void xsane_back_gtk_warning(gchar *warning_message, gint wait);
+extern void xsane_back_gtk_info(gchar *info_message, gint wait);
 extern int xsane_back_gtk_get_filename(const char *label, const char *default_name,
 			    size_t max_len, char *filename, int show_fileopts);
 

@@ -1,0 +1,49 @@
+In general:
+Ctl: Main Window
+Shift: Main Window
+Alt: alternative windows
+
+Ctl S		Scanmode
+Ctl C		Copymode
+Ctl F		Faxmode
+
+Ctl ENTER	Start Scan
+ESC		Cancel Scan
+
+Ctl I		Info Dialog
+Ctl Q		Quit
+
+Ctl L		Resolution List
+Ctl R		Rotoate Postscript
+Ctl P		Save Device Settings (Put)
+Ctl G		Load Device Settings (Get)
+Ctl D		Change Directory
+
+Ctl 1		Show Tooltips
+Ctl 2		Show preview
+Ctl 3		Show Histogram
+Ctl 3		(Show Gamma Dialog)
+Ctl 4		Show Advanced Options
+Ctl 5		Show Advanced Options
+
+Ctl B		Browse Filename
+
+Shift Fi	Printer selection in copy mode
+
+Shift B		Bind RGB
+Shift N		negative
+Shift E		AutoEnhance
+Shift D		Default
+Shift R		Restore Settings
+Shift M		Memory (store) settings
+Shift S		Setup
+
+Alt P		Start Preview Scan
+Alt ESC		Cancel Preview Scan
+
+Alt I		Histogram lines for intensity
+Alt R		Histogram lines for red
+Alt G		Histogram lines for green
+Alt B		Histogram lines for blue
+Alt M		Histogram lines mode (line/pixel)
+Alt L		Histogram lines logarithm

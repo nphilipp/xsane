@@ -33,6 +33,7 @@
 extern const char *xsane_window_icon_xpm[];
 extern const char *error_xpm[];
 extern const char *warning_xpm[];
+extern const char *info_xpm[];
 extern const char *file_xpm[];
 extern const char *fax_xpm[];
 extern const char *faxreceiver_xpm[];

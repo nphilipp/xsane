@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.62\n"
-"POT-Creation-Date: 2000-10-01 13:09+0200\n"
+"POT-Creation-Date: 2000-11-12 01:25+0100\n"
 "PO-Revision-Date: 2000-09-29  23:48+0100\n"
 "Last-Translator: Colorio Mauro <linuxbox@interfree.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -21,9 +21,15 @@ msgstr ""
 msgid "©"
 msgstr ""
 
-#. WINDOW_ABOUT, MENU_ITEM_ABOUT
+#. WINDOW_ABOUT_XSANE
+#, fuzzy
 msgid "About"
 msgstr "Informazioni su"
+
+#. WINDOW_ABOUT_TRANSLATION, MENU_ITEM_ABOUT_TRANSLATION
+#, fuzzy
+msgid "About translation"
+msgstr "Opzione soglia:"
 
 #. WINDOW_AUTHORIZE
 msgid "authorization"
@@ -109,13 +115,18 @@ msgstr "Visualizza"
 msgid "Help"
 msgstr "Aiuto"
 
+#. MENU_ITEM_ABOUT_XSANE
+#, fuzzy
+msgid "About XSane"
+msgstr "Informazioni su"
+
 #. MENU_ITEM_INFO
 msgid "Info"
 msgstr ""
 
-#. MENU_ITEM_EXIT
-msgid "Exit"
-msgstr "Esci"
+#. MENU_ITEM_QUIT
+msgid "Quit"
+msgstr ""
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -385,9 +396,26 @@ msgstr ""
 msgid "File:"
 msgstr "File:"
 
+#. TEXT_TRANSLATION
+#, fuzzy
+msgid "Translation:"
+msgstr "Opzione soglia:"
+
+#. TEXT_TRANSLATION_INFO
+msgid ""
+"untranslated original english text\n"
+"by Oliver Rauch\n"
+"Email: Oliver.Rauch@Wolfsburg.DE\n"
+msgstr ""
+
 #. TEXT_INFO_BOX
 msgid "0x0: 0KB"
 msgstr ""
+
+#. TEXT_ADF_PAGES_SCANNED
+#, fuzzy
+msgid "Scanned pages: "
+msgstr "Scanner e backend:"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -889,8 +917,9 @@ msgstr ""
 " contrasto = 0"
 
 #. DESC_ENH_AUTO
+#, fuzzy
 msgid ""
-"Autoadjust gamma, brightness and contrast in dependance of selected area"
+"Autoadjust gamma, brightness and contrast in dependance of selected scan area"
 msgstr ""
 "Autocalibro gamma, brillantezza e contrasto dipendente dall'area selezionata"
 
@@ -1097,7 +1126,9 @@ msgstr ""
 
 #. DESC_PREVIEW_OVERSAMPLING
 msgid "Value with that the calculated preview resolution is multiplied"
-msgstr "Valore per il quale viene moltiplicata la risoluzione calcolata per l'anteprima"
+msgstr ""
+"Valore per il quale viene moltiplicata la risoluzione calcolata per "
+"l'anteprima"
 
 #. DESC_PREVIEW_GAMMA
 msgid "Set gamma correction value for preview image"
@@ -1164,7 +1195,8 @@ msgstr ""
 
 #. DESC_AUTOENHANCE_GAMMA
 msgid "Change gamma value when autoenhancement button is pressed"
-msgstr "Cambia il valore gamma quando viene premusto il bottone dell'auto accentuo "
+msgstr ""
+"Cambia il valore gamma quando viene premusto il bottone dell'auto accentuo "
 
 #. DESC_FAX_COMMAND
 msgid "Enter command to be executed in fax mode"
@@ -1405,6 +1437,10 @@ msgstr "Errore"
 msgid "Warning"
 msgstr "Attenzione"
 
+#. ERR_HEADER_INFO
+msgid "Information"
+msgstr ""
+
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
 msgstr "Impossibile creare il file:"
@@ -1456,6 +1492,7 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[OPZIONE]...[DISPOSITIVO]"
 
 #. TEXT_HELP
+#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -1478,6 +1515,10 @@ msgid ""
 " -R, --Resizeable             resizable, scrolled main window (overwrite "
 "preferences value)\n"
 "\n"
+" -p, --print-filenames        print image filenames created by xsane\n"
+" -N, --force-filename name    force filename and disable user filename "
+"selection\n"
+"\n"
 " --display X11-display        redirect output to X11-display\n"
 " --no-xshm                    do not use shared memory images\n"
 " --sync                       request a synchronous connection with the X11 "
@@ -1486,7 +1527,8 @@ msgstr ""
 "Lancia l'interfaccia grafica per accedere ai dispositivi SANE (Scanner "
 "Access Now Easy) \n"
 "\n"
-"La forma di [DISPOSITIVO] è nomebackend:filedispositivo (es. umax:/dev/scanner).\n"
+"La forma di [DISPOSITIVO] è nomebackend:filedispositivo (es. "
+"umax:/dev/scanner).\n"
 "[OPZIONE]... può essere una combinazione delle seguenti:\n"
 "-h, --help                   visualizza questo messaggio di help\n"
 "-v, --version                stampa le informazioni sulla versione\n"
@@ -1593,6 +1635,9 @@ msgstr "Memoria esaurita"
 
 msgid "Access to resource has been denied"
 msgstr "Acesso alla risorsa negato"
+
+#~ msgid "Exit"
+#~ msgstr "Esci"
 
 #~ msgid "Preserve preview image"
 #~ msgstr "Preserva immagine anteprima"

@@ -32,7 +32,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.63"
+#define XSANE_VERSION		"0.64"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2000"
@@ -89,6 +89,9 @@
 #include "xsane-text.h"
 #include "xsane-fixedtext.h"
 #include "xsane-icons.h"
+
+#include <gdk/gdkkeysyms.h>
+#include <gdk/gdk.h>
 
 #ifdef ENABLE_NLS
 #    include <libintl.h>
@@ -342,6 +345,7 @@ typedef struct Xsane
     GtkWidget *standard_hbox;
     GtkWidget *advanced_hbox;
     GtkWidget *xsanemode_widget;
+    GtkAccelGroup *accelerator_group;
     GtkTooltips *tooltips;
     GdkColor tooltips_fg;
     GdkColor tooltips_bg;
@@ -406,6 +410,7 @@ typedef struct Xsane
     int input_tag;
     SANE_Parameters param;
     int x, y;
+    int adf_page_counter;
 
     /* for standalone mode: */
     GtkWidget *filename_entry;
@@ -565,6 +570,9 @@ typedef struct Xsane
     int enhancement_rgb_default;
     int negative;
     int show_preview;
+    int print_filenames;
+    int force_filename;
+    char *external_filename;
 
 /* -------------------------------------------------- */
 

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.62\n"
-"POT-Creation-Date: 2000-10-01 13:09+0200\n"
+"POT-Creation-Date: 2000-11-12 01:25+0100\n"
 "PO-Revision-Date: 2000-01-21 15:51+01:00\n"
 "Last-Translator: Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>\n"
 "Language-Team: German <de@li.org>\n"
@@ -21,9 +21,13 @@ msgstr ""
 msgid "©"
 msgstr ""
 
-#. WINDOW_ABOUT, MENU_ITEM_ABOUT
+#. WINDOW_ABOUT_XSANE
 msgid "About"
 msgstr "Über"
+
+#. WINDOW_ABOUT_TRANSLATION, MENU_ITEM_ABOUT_TRANSLATION
+msgid "About translation"
+msgstr "Über Übersetzung"
 
 #. WINDOW_AUTHORIZE
 msgid "authorization"
@@ -55,7 +59,7 @@ msgstr "Histogramm"
 
 #. WINDOW_GAMMA
 msgid "Gamma curve"
-msgstr ""
+msgstr "Gamma Kurve"
 
 #. WINDOW_STANDARD_OPTIONS
 msgid "Standard options"
@@ -109,12 +113,16 @@ msgstr "Ansicht"
 msgid "Help"
 msgstr "Hilfe"
 
+#. MENU_ITEM_ABOUT_XSANE
+msgid "About XSane"
+msgstr "Über XSane"
+
 #. MENU_ITEM_INFO
 msgid "Info"
 msgstr "Informationen"
 
-#. MENU_ITEM_EXIT
-msgid "Exit"
+#. MENU_ITEM_QUIT
+msgid "Quit"
 msgstr "Beenden"
 
 #. FRAME_RAW_IMAGE
@@ -147,7 +155,7 @@ msgstr "Auf eigenes Risiko fortfahren"
 
 #. BUTTON_BROWSE
 msgid "Browse"
-msgstr ""
+msgstr "Durchsuchen"
 
 #. BUTTON_CLOSE
 msgid "Close"
@@ -370,7 +378,7 @@ msgid ""
 "This program is distributed under the terms\n"
 "of the GNU General Public License\n"
 msgstr ""
-"Dieses Programm wird unter den Bedinungen\n"
+"Dieses Programm wird unter den Bedingungen\n"
 "der GNU General Public Licence veröffentlicht\n"
 
 #. TEXT_EMAIL
@@ -385,9 +393,27 @@ msgstr ""
 msgid "File:"
 msgstr "Datei:"
 
+#. TEXT_TRANSLATION
+msgid "Translation:"
+msgstr "Übersetzung:"
+
+#. TEXT_TRANSLATION_INFO
+msgid ""
+"untranslated original english text\n"
+"by Oliver Rauch\n"
+"Email: Oliver.Rauch@Wolfsburg.DE\n"
+msgstr ""
+"Übersetzung ins Deutsche\n"
+"von Oliver Rauch\n"
+"Email: Oliver.Rauch@Wolfsburg.DE\n"
+
 #. TEXT_INFO_BOX
 msgid "0x0: 0KB"
 msgstr "0x0: 0KB"
+
+#. TEXT_ADF_PAGES_SCANNED
+msgid "Scanned pages: "
+msgstr "gescannte Seiten: "
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -888,10 +914,10 @@ msgstr ""
 
 #. DESC_ENH_AUTO
 msgid ""
-"Autoadjust gamma, brightness and contrast in dependance of selected area"
+"Autoadjust gamma, brightness and contrast in dependance of selected scan area"
 msgstr ""
 "Automatische Berechnung für Gamma, Helligkeit und Kontrast in Abhängigkeit "
-"vom ausgewählten Bereich"
+"vom ausgewählten Scanbereich"
 
 #. DESC_ENH_DEFAULT
 msgid ""
@@ -1403,6 +1429,10 @@ msgstr "Fehler"
 msgid "Warning"
 msgstr "Warnung"
 
+#. ERR_HEADER_INFO
+msgid "Information"
+msgstr ""
+
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
 msgstr "Fehler beim Erstellen der Datei:"
@@ -1476,6 +1506,10 @@ msgid ""
 " -R, --Resizeable             resizable, scrolled main window (overwrite "
 "preferences value)\n"
 "\n"
+" -p, --print-filenames        print image filenames created by xsane\n"
+" -N, --force-filename name    force filename and disable user filename "
+"selection\n"
+"\n"
 " --display X11-display        redirect output to X11-display\n"
 " --no-xshm                    do not use shared memory images\n"
 " --sync                       request a synchronous connection with the X11 "
@@ -1483,24 +1517,29 @@ msgid ""
 msgstr ""
 "Startet graphisches Benutzerinterface für SANE (Scanner Access Now Easy)\n"
 "\n"
-"Das Fromat von [DEVICE] ist Backendname:Gerätedatei (z.B. umax:/dev/scanner)\n"
+"Das Fromat von [DEVICE] ist Backendname:Gerätedatei (z.B. "
+"umax:/dev/scanner)\n"
 "[OPTION]... kann eine Kombination aus den folgenden Bezeichnern sein:\n"
-"-h, --help                   zeigt diesen Hilfetext\n"
-"-v, --version                gibt Versionsinformation aus\n"
+" -h, --help                   zeigt diesen Hilfetext\n"
+" -v, --version                gibt Versionsinformation aus\n"
 "\n"
-"-d, --device-settings datei  lädt Geräteeinstellungen von datei\n"
+" -d, --device-settings datei  lädt Geräteeinstellungen von datei\n"
 "\n"
-"-s, --scan                   starte im Scanmodus\n"
-"-c, --copy                   starte im Kopiermodus\n"
-"-f, --fax                    starte im Faxmodus\n"
-"-n, --no-mode-selection      deaktiviere Modusauswahl\n"
+" -s, --scan                   starte im Scanmodus\n"
+" -c, --copy                   starte im Kopiermodus\n"
+" -f, --fax                    starte im Faxmodus\n"
+" -n, --no-mode-selection      deaktiviere Modusauswahl\n"
 "\n"
-"-F, --Fixed                  Hauptfenstergröße ist fest\n"
-"-R, --Resizeable             Hauptfenstergröße ist veränderbar\n"
+" -F, --Fixed                  Hauptfenstergröße ist fest\n"
+" -R, --Resizeable             Hauptfenstergröße ist veränderbar\n"
 "\n"
-"--display X11-display        lenkt X-Ausgabe auf X11-display um\n"
-"--no-xshm                    keine shared memory Bilder benutzen\n"
-"--sync                       fordert synchrone Verbindung zum X-Server an"
+" -p, --print-filenames        gibt Dateinamen erzeugter Bilder aus\n"
+" -N, --force-filename name    benutze name als Dateinamen,\n"
+"                              deaktiviere Auswahl für Dateinamen\n"
+"\n"
+" --display X11-display        lenkt X-Ausgabe auf X11-display um\n"
+" --no-xshm                    keine shared memory Bilder benutzen\n"
+" --sync                       fordert synchrone Verbindung zum X-Server an"
 
 #. strings for gimp plugin
 #. XSANE_GIMP_INSTALL_BLURB
@@ -1586,6 +1625,9 @@ msgstr "Kein Speicher"
 
 msgid "Access to resource has been denied"
 msgstr "Zugang zum Gerät wurde verweigert"
+
+#~ msgid "Exit"
+#~ msgstr "Beenden"
 
 #~ msgid "Preserve preview image"
 #~ msgstr "Behalte Vorschaubild"

@@ -55,6 +55,8 @@ struct option long_options[] =
   {"fax", no_argument, 0, 'f'},
   {"Fixed", no_argument, 0, 'F'},
   {"Resizeable", no_argument, 0, 'R'},
+  {"print-filenames", no_argument, 0, 'p'},
+  {"force-filename", required_argument, 0, 'N'},
   {0, }
 };
 
@@ -122,6 +124,7 @@ static void xsane_set_update_policy_callback(GtkWidget *widget, gpointer data);
 static gint xsane_close_info_callback(GtkWidget *widget, gpointer data);
 static void xsane_info_dialog(GtkWidget *widget, gpointer data);
 static void xsane_about_dialog(GtkWidget *widget, gpointer data);
+static void xsane_about_translation_dialog(GtkWidget *widget, gpointer data);
 static SANE_Status xsane_get_area_value(int option, float *val, SANE_Int *unit);
 #ifdef XSANE_TEST
 static void xsane_batch_scan_delete_callback(GtkWidget *widget, gpointer list);
@@ -481,6 +484,7 @@ static void xsane_outputfilename_new(GtkWidget *vbox)
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
 
   button = xsane_button_new_with_pixmap(hbox, file_xpm, DESC_BROWSE_FILENAME, (GtkSignalFunc) xsane_browse_filename_callback, NULL);
+  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_B, GDK_CONTROL_MASK, GTK_ACCEL_LOCKED);
 
   text = gtk_entry_new_with_max_length(255);
   gtk_widget_set_usize(text, 80, 0); /* set minimum size */
@@ -1397,6 +1401,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
  GtkWidget *xsane_text;
  GtkWidget *xsane_hbox_xsane_enhancement;
  GtkWidget *xsane_frame;
+ GtkWidget *button;
  gchar buf[200];
 
   DBG(DBG_proc, "xsane_update_xsane_callback\n");
@@ -1436,9 +1441,14 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
     gtk_box_pack_start(GTK_BOX(xsane_hbox_xsane_modus), xsane_label, FALSE, FALSE, 2);
     gtk_widget_show(xsane_label);
 
+
     xsane_modus_menu = gtk_menu_new();
+    gtk_menu_set_accel_group(GTK_MENU(xsane_modus_menu), xsane.accelerator_group);
+
 
     xsane_modus_item = gtk_menu_item_new_with_label(MENU_ITEM_SCAN);
+    gtk_widget_add_accelerator(xsane_modus_item, "activate", xsane.accelerator_group, GDK_S, GDK_CONTROL_MASK, GTK_ACCEL_LOCKED);
+    gtk_widget_lock_accelerators(xsane_modus_item);
     gtk_widget_set_usize(xsane_modus_item, 60, 0);
     gtk_container_add(GTK_CONTAINER(xsane_modus_menu), xsane_modus_item);
     gtk_signal_connect(GTK_OBJECT(xsane_modus_item), "activate",
@@ -1446,12 +1456,14 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
     gtk_widget_show(xsane_modus_item);
 
     xsane_modus_item = gtk_menu_item_new_with_label(MENU_ITEM_COPY);
+    gtk_widget_add_accelerator(xsane_modus_item, "activate", xsane.accelerator_group, GDK_C, GDK_CONTROL_MASK, GTK_ACCEL_LOCKED);
     gtk_container_add(GTK_CONTAINER(xsane_modus_menu), xsane_modus_item);
     gtk_signal_connect(GTK_OBJECT(xsane_modus_item), "activate",
                        (GtkSignalFunc) xsane_modus_callback, &xsane_scanmode_number[XSANE_COPY]);
     gtk_widget_show(xsane_modus_item);
 
     xsane_modus_item = gtk_menu_item_new_with_label(MENU_ITEM_FAX);
+    gtk_widget_add_accelerator(xsane_modus_item, "activate", xsane.accelerator_group, GDK_F, GDK_CONTROL_MASK, GTK_ACCEL_LOCKED);
     gtk_container_add(GTK_CONTAINER(xsane_modus_menu), xsane_modus_item);
     gtk_signal_connect(GTK_OBJECT(xsane_modus_item), "activate",
                        (GtkSignalFunc) xsane_modus_callback, &xsane_scanmode_number[XSANE_FAX]);
@@ -1561,7 +1573,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
   {
     xsane.copy_number_entry = 0;
 
-    if (xsane.mode == XSANE_STANDALONE)
+    if ( (xsane.mode == XSANE_STANDALONE) && (!xsane.force_filename) )
     {
       xsane_outputfilename_new(xsane_vbox_xsane_modus);
     }
@@ -1601,6 +1613,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
     for (i=0; i < preferences.printerdefinitions; i++)
     {
       xsane_printer_item = gtk_menu_item_new_with_label(preferences.printer[i]->name);
+      gtk_widget_add_accelerator(xsane_printer_item, "activate", xsane.accelerator_group, GDK_F1+i, GDK_SHIFT_MASK, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
       gtk_container_add(GTK_CONTAINER(xsane_printer_menu), xsane_printer_item);
       gtk_signal_connect(GTK_OBJECT(xsane_printer_item), "activate", (GtkSignalFunc) xsane_printer_callback, (void *) i);
       gtk_widget_show(xsane_printer_item);
@@ -1777,24 +1790,30 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
 
   if (xsane.xsane_color)
   {
-    xsane_toggle_button_new_with_pixmap(xsane_hbox_xsane_enhancement, rgb_default_xpm, DESC_RGB_DEFAULT,
-                                        &xsane.enhancement_rgb_default, xsane_enhancement_rgb_default_callback);
+    button = xsane_toggle_button_new_with_pixmap(xsane_hbox_xsane_enhancement, rgb_default_xpm, DESC_RGB_DEFAULT,
+                                                 &xsane.enhancement_rgb_default, xsane_enhancement_rgb_default_callback);
+    gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_B, GDK_SHIFT_MASK, GTK_ACCEL_LOCKED);
   }
 
-  xsane_toggle_button_new_with_pixmap(xsane_hbox_xsane_enhancement, negative_xpm, DESC_NEGATIVE,
-                                      &xsane.negative, xsane_enhancement_negative_callback);
+  button = xsane_toggle_button_new_with_pixmap(xsane_hbox_xsane_enhancement, negative_xpm, DESC_NEGATIVE,
+                                               &xsane.negative, xsane_enhancement_negative_callback);
+  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_N, GDK_SHIFT_MASK, GTK_ACCEL_LOCKED);
 
-  xsane_button_new_with_pixmap(xsane_hbox_xsane_enhancement, enhance_xpm, DESC_ENH_AUTO,
-                               xsane_auto_enhancement_callback, NULL);
+  button = xsane_button_new_with_pixmap(xsane_hbox_xsane_enhancement, enhance_xpm, DESC_ENH_AUTO,
+                                        xsane_auto_enhancement_callback, NULL);
+  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_E, GDK_SHIFT_MASK, GTK_ACCEL_LOCKED);
 
-  xsane_button_new_with_pixmap(xsane_hbox_xsane_enhancement, default_enhancement_xpm, DESC_ENH_DEFAULT,
-                               xsane_enhancement_restore_default, NULL);
+  button = xsane_button_new_with_pixmap(xsane_hbox_xsane_enhancement, default_enhancement_xpm, DESC_ENH_DEFAULT,
+                                        xsane_enhancement_restore_default, NULL);
+  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_D, GDK_SHIFT_MASK, GTK_ACCEL_LOCKED);
 
-  xsane_button_new_with_pixmap(xsane_hbox_xsane_enhancement, restore_enhancement_xpm, DESC_ENH_RESTORE,
-                               xsane_enhancement_restore, NULL);
+  button = xsane_button_new_with_pixmap(xsane_hbox_xsane_enhancement, restore_enhancement_xpm, DESC_ENH_RESTORE,
+                                       xsane_enhancement_restore, NULL);
+  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_R, GDK_SHIFT_MASK, GTK_ACCEL_LOCKED);
 
-  xsane_button_new_with_pixmap(xsane_hbox_xsane_enhancement, store_enhancement_xpm, DESC_ENH_STORE,
-                               xsane_enhancement_store, NULL);
+  button = xsane_button_new_with_pixmap(xsane_hbox_xsane_enhancement, store_enhancement_xpm, DESC_ENH_STORE,
+                                        xsane_enhancement_store, NULL);
+  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_M, GDK_SHIFT_MASK, GTK_ACCEL_LOCKED);
 
   xsane_update_histogram();
 #ifdef HAVE_WORKING_GTK_GAMMACURVE
@@ -2083,14 +2102,16 @@ static GtkWidget *xsane_files_build_menu(void)
   /* XSane info dialog */
 
   item = gtk_menu_item_new_with_label(MENU_ITEM_INFO);
+  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_I, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_info_dialog, NULL);
   gtk_widget_show(item);
 
   
-  /* Exit */
+  /* Quit */
 
-  item = gtk_menu_item_new_with_label(MENU_ITEM_EXIT);
+  item = gtk_menu_item_new_with_label(MENU_ITEM_QUIT);
+  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_Q, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
   gtk_container_add(GTK_CONTAINER(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_scan_win_delete, NULL);
   gtk_widget_show(item);
@@ -2495,8 +2516,10 @@ static void xsane_info_dialog(GtkWidget *widget, gpointer data)
 /*  gtk_label_set((GtkLabel *)label, "HALLO"); */
 
   button = gtk_button_new_with_label(BUTTON_CLOSE);
+  GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
   gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_close_info_callback, info_dialog);
   gtk_box_pack_start(GTK_BOX(vbox), button, FALSE, FALSE, 0);
+  gtk_widget_grab_default(button);
   gtk_widget_show(button);
 
   gtk_widget_show(info_dialog);
@@ -2512,7 +2535,7 @@ static void xsane_info_dialog(GtkWidget *widget, gpointer data)
 static void xsane_about_dialog(GtkWidget *widget, gpointer data)
 {
  GtkWidget *about_dialog, *vbox, *button, *label;
- char buf[256];
+ char buf[512];
  char filename[PATH_MAX];
  GtkWidget *pixmapwidget;
  GdkBitmap *mask;
@@ -2526,7 +2549,7 @@ static void xsane_about_dialog(GtkWidget *widget, gpointer data)
   gtk_window_set_position(GTK_WINDOW(about_dialog), GTK_WIN_POS_CENTER);
   gtk_window_set_policy(GTK_WINDOW(about_dialog), FALSE, FALSE, FALSE);
   gtk_signal_connect(GTK_OBJECT(about_dialog), "destroy", GTK_SIGNAL_FUNC(xsane_close_info_callback), about_dialog);
-  snprintf(buf, sizeof(buf), "%s %s", WINDOW_ABOUT, xsane.prog_name);
+  snprintf(buf, sizeof(buf), "%s %s", WINDOW_ABOUT_XSANE, xsane.prog_name);
   gtk_window_set_title(GTK_WINDOW(about_dialog), buf);
 
   xsane_set_window_icon(about_dialog, 0);
@@ -2548,7 +2571,9 @@ static void xsane_about_dialog(GtkWidget *widget, gpointer data)
   gtk_widget_show(pixmapwidget);
   gdk_pixmap_unref(pixmap);
 
+
   xsane_separator_new(vbox, 5);
+
 
   snprintf(buf, sizeof(buf), "XSane %s %s\n"
                              "%s %s\n"
@@ -2564,16 +2589,89 @@ static void xsane_about_dialog(GtkWidget *widget, gpointer data)
                              TEXT_HOMEPAGE,
                              XSANE_HOMEPAGE,
                              TEXT_EMAIL, XSANE_EMAIL);
+
   label = gtk_label_new(buf);
   gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0);
   gtk_widget_show(label);
 
+
   button = gtk_button_new_with_label(BUTTON_CLOSE);
+  GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
   gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_close_info_callback, about_dialog);
   gtk_box_pack_start(GTK_BOX(vbox), button, FALSE, FALSE, 0);
+  gtk_widget_grab_default(button);
   gtk_widget_show(button);
 
   gtk_widget_show(about_dialog);
+
+  xsane_clear_histogram(&xsane.histogram_raw);
+  xsane_clear_histogram(&xsane.histogram_enh); 
+
+  xsane_set_sensitivity(FALSE);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_about_translation_dialog(GtkWidget *widget, gpointer data)
+{
+ GtkWidget *about_translation_dialog, *vbox, *button, *label;
+ char buf[512];
+ char filename[PATH_MAX];
+ GtkWidget *pixmapwidget;
+ GdkBitmap *mask;
+ GdkPixmap *pixmap;
+ GtkStyle *style;
+ GdkColor *bg_trans;
+
+  DBG(DBG_proc, "xsane_about_translation_dialog\n");
+
+  about_translation_dialog = gtk_window_new(GTK_WINDOW_DIALOG);
+  gtk_window_set_position(GTK_WINDOW(about_translation_dialog), GTK_WIN_POS_CENTER);
+  gtk_window_set_policy(GTK_WINDOW(about_translation_dialog), FALSE, FALSE, FALSE);
+  gtk_signal_connect(GTK_OBJECT(about_translation_dialog), "destroy", GTK_SIGNAL_FUNC(xsane_close_info_callback), about_translation_dialog);
+  snprintf(buf, sizeof(buf), "%s %s", WINDOW_ABOUT_TRANSLATION, xsane.prog_name);
+  gtk_window_set_title(GTK_WINDOW(about_translation_dialog), buf);
+
+  xsane_set_window_icon(about_translation_dialog, 0);
+
+  vbox = gtk_vbox_new(/* not homogeneous */ FALSE, 5);
+  gtk_container_add(GTK_CONTAINER(about_translation_dialog), vbox);
+  gtk_widget_show(vbox);
+
+  /* xsane logo */
+  gtk_widget_realize(about_translation_dialog);
+
+  style = gtk_widget_get_style(about_translation_dialog);
+  bg_trans = &style->bg[GTK_STATE_NORMAL];
+
+  xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", 0, "xsane-logo", 0, ".xpm", XSANE_PATH_SYSTEM);
+  pixmap = gdk_pixmap_create_from_xpm(about_translation_dialog->window, &mask, bg_trans, filename);
+  pixmapwidget = gtk_pixmap_new(pixmap, mask);
+  gtk_box_pack_start(GTK_BOX(vbox), pixmapwidget, FALSE, FALSE, 2);
+  gtk_widget_show(pixmapwidget);
+  gdk_pixmap_unref(pixmap);
+
+
+  xsane_separator_new(vbox, 5);
+
+  snprintf(buf, sizeof(buf), "%s\n"
+                             "%s",
+                             TEXT_TRANSLATION,
+                             TEXT_TRANSLATION_INFO);
+
+  label = gtk_label_new(buf);
+  gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0);
+  gtk_widget_show(label);
+
+
+  button = gtk_button_new_with_label(BUTTON_CLOSE);
+  GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
+  gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_close_info_callback, about_translation_dialog);
+  gtk_box_pack_start(GTK_BOX(vbox), button, FALSE, FALSE, 0);
+  gtk_widget_grab_default(button);
+  gtk_widget_show(button);
+
+  gtk_widget_show(about_translation_dialog);
 
   xsane_clear_histogram(&xsane.histogram_raw);
   xsane_clear_histogram(&xsane.histogram_enh); 
@@ -2759,6 +2857,7 @@ static void xsane_fax_dialog()
   gtk_window_set_title(GTK_WINDOW(fax_dialog), buf);
   gtk_signal_connect(GTK_OBJECT(fax_dialog), "delete_event", (GtkSignalFunc) xsane_fax_dialog_delete, NULL);
   xsane_set_window_icon(fax_dialog, 0);
+  gtk_accel_group_attach(xsane.accelerator_group, GTK_OBJECT(fax_dialog));
 
   /* set the main vbox */
   fax_scan_vbox = gtk_vbox_new(FALSE, 0);
@@ -2914,6 +3013,7 @@ static void xsane_fax_dialog_close()
     return;
   }
 
+  gtk_accel_group_detach(xsane.accelerator_group, GTK_OBJECT(xsane.fax_dialog));
   gtk_widget_destroy(xsane.fax_dialog);
 
   xsane.fax_dialog = NULL;
@@ -3578,10 +3678,12 @@ static GtkWidget *xsane_view_build_menu(void)
   DBG(DBG_proc, "xsane_view_build_menu\n");
 
   menu = gtk_menu_new();
+  // gtk_menu_set_accel_group(GTK_MENU(menu), xsane.accelerator_group);
 
   /* show tooltips */
 
   item = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_TOOLTIPS);
+  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_1, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), preferences.tooltips_enabled);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_widget_show(item);
@@ -3598,6 +3700,7 @@ static GtkWidget *xsane_view_build_menu(void)
   /* show preview */
 
   xsane.show_preview_widget = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_PREVIEW);
+  gtk_widget_add_accelerator(xsane.show_preview_widget, "activate", xsane.accelerator_group, GDK_2, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
   gtk_menu_append(GTK_MENU(menu), xsane.show_preview_widget);
   gtk_widget_show(xsane.show_preview_widget);
   gtk_signal_connect(GTK_OBJECT(xsane.show_preview_widget), "toggled", (GtkSignalFunc) xsane_show_preview_callback, NULL);
@@ -3605,6 +3708,7 @@ static GtkWidget *xsane_view_build_menu(void)
   /* show histogram */
 
   xsane.show_histogram_widget = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_HISTOGRAM);
+  gtk_widget_add_accelerator(xsane.show_histogram_widget, "activate", xsane.accelerator_group, GDK_3, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_histogram_widget), preferences.show_histogram);
   gtk_menu_append(GTK_MENU(menu), xsane.show_histogram_widget);
   gtk_widget_show(xsane.show_histogram_widget);
@@ -3615,6 +3719,7 @@ static GtkWidget *xsane_view_build_menu(void)
   /* show gamma */
 
   xsane.show_gamma_widget = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_GAMMA);
+  gtk_widget_add_accelerator(xsane.show_gamma_widget, "activate", xsane.accelerator_group, GDK_4, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_gamma_widget), preferences.show_gamma);
   gtk_menu_append(GTK_MENU(menu), xsane.show_gamma_widget);
   gtk_widget_show(xsane.show_gamma_widget);
@@ -3625,6 +3730,7 @@ static GtkWidget *xsane_view_build_menu(void)
   /* show standard options */
 
   xsane.show_standard_options_widget = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_STANDARDOPTIONS);
+  gtk_widget_add_accelerator(xsane.show_standard_options_widget, "activate", xsane.accelerator_group, GDK_5, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_standard_options_widget), preferences.show_standard_options);
   gtk_menu_append(GTK_MENU(menu), xsane.show_standard_options_widget);
   gtk_widget_show(xsane.show_standard_options_widget);
@@ -3635,6 +3741,7 @@ static GtkWidget *xsane_view_build_menu(void)
   /* show advanced options */
 
   xsane.show_advanced_options_widget = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_ADVANCEDOPTIONS);
+  gtk_widget_add_accelerator(xsane.show_advanced_options_widget, "activate", xsane.accelerator_group, GDK_6, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_advanced_options_widget), preferences.show_advanced_options);
   gtk_menu_append(GTK_MENU(menu), xsane.show_advanced_options_widget);
   gtk_widget_show(xsane.show_advanced_options_widget);
@@ -3658,6 +3765,7 @@ static GtkWidget *xsane_pref_build_menu(void)
   /* XSane setup dialog */
 
   item = gtk_menu_item_new_with_label(MENU_ITEM_SETUP);
+  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_S, GDK_SHIFT_MASK, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_setup_dialog, NULL);
   gtk_widget_show(item);
@@ -3785,6 +3893,7 @@ static GtkWidget *xsane_pref_build_menu(void)
   /* show resolution list */
 
   xsane.show_resolution_list_widget = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_RESOLUTIONLIST);
+  gtk_widget_add_accelerator(xsane.show_resolution_list_widget, "activate", xsane.accelerator_group, GDK_L, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_resolution_list_widget), preferences.show_resolution_list);
   gtk_menu_append(GTK_MENU(menu), xsane.show_resolution_list_widget);
   gtk_widget_show(xsane.show_resolution_list_widget);
@@ -3802,6 +3911,7 @@ static GtkWidget *xsane_pref_build_menu(void)
   /* page orientation */
 
   item = gtk_check_menu_item_new_with_label(MENU_ITEM_PAGE_ROTATE);
+  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_R, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), preferences.psrotate);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_widget_show(item);
@@ -3818,6 +3928,7 @@ static GtkWidget *xsane_pref_build_menu(void)
   /* Save device setting */
 
   item = gtk_menu_item_new_with_label(MENU_ITEM_SAVE_DEVICE_SETTINGS);
+  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_P, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_device_preferences_save, NULL);
   gtk_widget_show(item);
@@ -3825,6 +3936,7 @@ static GtkWidget *xsane_pref_build_menu(void)
   /* Load device setting */
 
   item = gtk_menu_item_new_with_label(MENU_ITEM_LOAD_DEVICE_SETTINGS);
+  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_G, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_device_preferences_load, NULL);
   gtk_widget_show(item);
@@ -3838,6 +3950,7 @@ static GtkWidget *xsane_pref_build_menu(void)
   /* change working directory */
 
   item = gtk_menu_item_new_with_label(MENU_ITEM_CHANGE_WORKING_DIR);
+  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_D, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_change_working_directory, NULL);
   gtk_widget_show(item);
@@ -3858,10 +3971,19 @@ static GtkWidget *xsane_help_build_menu(void)
 
   /* XSane about dialog */
 
-  item = gtk_menu_item_new_with_label(MENU_ITEM_ABOUT);
+  item = gtk_menu_item_new_with_label(MENU_ITEM_ABOUT_XSANE);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_about_dialog, NULL);
   gtk_widget_show(item);
+
+  /* XSane about translation dialog */
+
+  item = gtk_menu_item_new_with_label(MENU_ITEM_ABOUT_TRANSLATION);
+  gtk_menu_append(GTK_MENU(menu), item);
+  gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_about_translation_dialog, NULL);
+  gtk_widget_show(item);
+
+  /* separator */
 
   item = gtk_menu_item_new();
   gtk_menu_append(GTK_MENU(menu), item);
@@ -4450,12 +4572,16 @@ static void xsane_device_dialog(void)
 
   xsane_set_window_icon(xsane.shell, 0);
 
+  /* create the xsane main window accelerator table */
+  xsane.accelerator_group = gtk_accel_group_new();
+  gtk_accel_group_attach(xsane.accelerator_group, GTK_OBJECT(xsane.shell));
+
+
   /* set the main vbox */
   xsane_window = gtk_vbox_new(FALSE, 0);
   gtk_container_set_border_width(GTK_CONTAINER(xsane_window), 0);
   gtk_container_add(GTK_CONTAINER(xsane.shell), xsane_window);
   gtk_widget_show(xsane_window);
-
 
   /* create the menubar */
   menubar = gtk_menu_bar_new();
@@ -4540,6 +4666,7 @@ static void xsane_device_dialog(void)
                      GTK_SIGNAL_FUNC(xsane_standard_option_win_delete), NULL);
 
   xsane_set_window_icon(xsane.standard_options_shell, 0);
+  gtk_accel_group_attach(xsane.accelerator_group, GTK_OBJECT(xsane.standard_options_shell));
 
   xsane_vbox_standard = gtk_vbox_new(TRUE, 5);
   gtk_container_set_border_width(GTK_CONTAINER(xsane_vbox_standard), 5);
@@ -4566,6 +4693,7 @@ static void xsane_device_dialog(void)
                      GTK_SIGNAL_FUNC(xsane_advanced_option_win_delete), NULL);
 
   xsane_set_window_icon(xsane.advanced_options_shell, 0);
+  gtk_accel_group_attach(xsane.accelerator_group, GTK_OBJECT(xsane.advanced_options_shell));
 
   xsane_vbox_advanced = gtk_vbox_new(TRUE, 5);
   gtk_container_set_border_width(GTK_CONTAINER(xsane_vbox_advanced), 5);
@@ -4691,6 +4819,7 @@ static void xsane_device_dialog(void)
 
   /* The Scan button */
   button = gtk_button_new_with_label(BUTTON_START);
+  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_Return, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
   gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_scan_dialog, NULL);
   gtk_box_pack_start(GTK_BOX(vbox), button, FALSE, FALSE, 0);
   gtk_widget_show(button);
@@ -4698,6 +4827,7 @@ static void xsane_device_dialog(void)
 
   /* The Cancel button */
   button = gtk_button_new_with_label(BUTTON_CANCEL);
+  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_Escape, 0, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
   gtk_box_pack_start(GTK_BOX(vbox), button, FALSE, FALSE, 0);
   gtk_widget_show(button);
   gtk_widget_set_sensitive(GTK_WIDGET(button), FALSE); 
@@ -5033,7 +5163,7 @@ static void xsane_init(int argc, char **argv)
   {
     int ch;
 
-    while((ch = getopt_long(argc, argv, "cd:fghnsvFR", long_options, 0)) != EOF)
+    while((ch = getopt_long(argc, argv, "cd:fghnpsvFN:R", long_options, 0)) != EOF)
     {
       switch(ch)
       {
@@ -5100,7 +5230,7 @@ static void xsane_init(int argc, char **argv)
           xsane.xsane_mode = XSANE_COPY;
          break;
 
-        case 'n': /* --No-modes-election */
+        case 'n': /* --No-mode-selection */
            xsane.mode_selection = 0;
          break;
 
@@ -5114,6 +5244,15 @@ static void xsane_init(int argc, char **argv)
 
         case 'R': /* --Resizeable */
            xsane.main_window_fixed = 0;
+         break;
+
+        case 'N': /* --No-filenameselection filename */
+           xsane.force_filename = TRUE;
+           xsane.external_filename  = strdup(optarg);
+         break;
+
+        case 'p': /* --Resizeable */
+           xsane.print_filenames = TRUE;
          break;
 
         case 'h': /* --help */
@@ -5321,6 +5460,10 @@ int main(int argc, char **argv)
   xsane.scanner_gamma_color        = FALSE;
   xsane.scanner_gamma_gray         = FALSE;
   xsane.enhancement_rgb_default    = TRUE;
+
+  xsane.adf_page_counter = 0;
+  xsane.print_filenames  = FALSE;
+  xsane.force_filename   = FALSE;
 
   xsane.prog_name = strrchr(argv[0], '/');
   if (xsane.prog_name)

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-10-01 13:09+0200\n"
+"POT-Creation-Date: 2000-11-12 01:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11,15 +11,19 @@ msgstr ""
 
 #. XSANE_COPYRIGHT_SIGN
 msgid "(c)"
-msgstr ""
+msgstr "(c)"
 
 #. XSANE_COPYRIGHT_SIGN
 msgid "©"
-msgstr ""
+msgstr "©"
 
-#. WINDOW_ABOUT, MENU_ITEM_ABOUT
+#. WINDOW_ABOUT_XSANE
 msgid "About"
 msgstr "Om"
+
+#. WINDOW_ABOUT_TRANSLATION, MENU_ITEM_ABOUT_TRANSLATION
+msgid "About translation"
+msgstr "Om översättningen"
 
 #. WINDOW_AUTHORIZE
 msgid "authorization"
@@ -51,7 +55,7 @@ msgstr "Histogram"
 
 #. WINDOW_GAMMA
 msgid "Gamma curve"
-msgstr ""
+msgstr "Gammakurva"
 
 #. WINDOW_STANDARD_OPTIONS
 msgid "Standard options"
@@ -70,7 +74,6 @@ msgid "Preview"
 msgstr "Förhandsgranskning"
 
 #. WINDOW_OUTPUT_FILENAME
-#, fuzzy
 msgid "select output filename"
 msgstr "till filnamn"
 
@@ -83,14 +86,12 @@ msgid "load device settings"
 msgstr "hämta enhetsinställningar"
 
 #. WINDOW_CHANGE_WORKING_DIR
-#, fuzzy
 msgid "change working directory"
-msgstr "Kunde inte hitta hemkatalogen:"
+msgstr "ändra arbetskatalog"
 
 #. WINDOW_TMP_PATH
-#, fuzzy
 msgid "select temporary directory"
-msgstr "Kunde inte hitta hemkatalogen:"
+msgstr "välj temporär katalog"
 
 #. MENU_FILE
 msgid "File"
@@ -108,12 +109,16 @@ msgstr "Visa"
 msgid "Help"
 msgstr "Hjälp"
 
+#. MENU_ITEM_ABOUT_XSANE
+msgid "About XSane"
+msgstr "Om XSane"
+
 #. MENU_ITEM_INFO
 msgid "Info"
 msgstr "Info"
 
-#. MENU_ITEM_EXIT
-msgid "Exit"
+#. MENU_ITEM_QUIT
+msgid "Quit"
 msgstr "Avsluta"
 
 #. FRAME_RAW_IMAGE
@@ -142,11 +147,11 @@ msgstr "Avbryt"
 
 #. BUTTON_CONT_AT_OWN_RISK
 msgid "Continue at your own risk"
-msgstr ""
+msgstr "Fortsätt på egen risk"
 
 #. BUTTON_BROWSE
 msgid "Browse"
-msgstr ""
+msgstr "Bläddra"
 
 #. BUTTON_CLOSE
 msgid "Close"
@@ -221,9 +226,8 @@ msgid "Main window size fixed"
 msgstr "Fixerad storlek på huvudfönster"
 
 #. RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA
-#, fuzzy
 msgid "Disable gimp preview gamma"
-msgstr "Förhandsgranskningsgamma:"
+msgstr "Koppla bort förhandsgranskningsgamma"
 
 #. RADIO_BUTTON_PRIVATE_COLORMAP
 msgid "Use private colormap"
@@ -231,11 +235,11 @@ msgstr "Använd egen färgpalett"
 
 #. RADIO_BUTTON_AUTOENHANCE_GAMMA
 msgid "Autoenhance gamma"
-msgstr ""
+msgstr "Automatisk gammainställning"
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
-msgstr ""
+msgstr "letar efter enheter"
 
 #. TEXT_AVAILABLE_DEVICES
 msgid "Available devices:"
@@ -251,7 +255,7 @@ msgstr "XSane-läge"
 
 #. TEXT_SCANNER_BACKEND
 msgid "Scanner and backend:"
-msgstr "Scanner och drivrutin:"
+msgstr "Bildläsare och drivrutin:"
 
 #. TEXT_VENDOR
 msgid "Vendor:"
@@ -287,7 +291,7 @@ msgstr "Gamma korrektion av:"
 
 #. TEXT_SCANNER
 msgid "scanner"
-msgstr "scanner"
+msgstr "bildläsare"
 
 #. TEXT_SOFTWARE_XSANE
 msgid "software (xsane)"
@@ -307,7 +311,7 @@ msgstr "Gammautmatningsdjup:"
 
 #. TEXT_SCANNER_OUTPUT_DEPTH
 msgid "Scanner output depth:"
-msgstr "Scannerns utmatningsdjup:"
+msgstr "Bildläsarens utmatningsdjup:"
 
 #. TEXT_OUTPUT_FORMATS
 msgid "XSane output formats:"
@@ -354,9 +358,8 @@ msgid "without GIMP support"
 msgstr "utan GIMP-support"
 
 #. TEXT_GTK_VERSION
-#, fuzzy
 msgid "compiled with GTK-"
-msgstr "kompilerad med GIMP-"
+msgstr "kompilerad med GTK-"
 
 #. TEXT_GIMP_VERSION
 msgid "compiled with GIMP-"
@@ -371,6 +374,8 @@ msgid ""
 "This program is distributed under the terms\n"
 "of the GNU General Public License\n"
 msgstr ""
+"Detta program omfattas av\n"
+"GNU General Public License\n"
 
 #. TEXT_EMAIL
 msgid "Email:"
@@ -378,15 +383,33 @@ msgstr "E-post:"
 
 #. TEXT_HOMEPAGE
 msgid "Homepage:"
-msgstr ""
+msgstr "Hemsida:"
 
 #. TEXT_FILE
 msgid "File:"
 msgstr "Fil:"
 
+#. TEXT_TRANSLATION
+msgid "Translation:"
+msgstr "Översättning:"
+
+#. TEXT_TRANSLATION_INFO
+msgid ""
+"untranslated original english text\n"
+"by Oliver Rauch\n"
+"Email: Oliver.Rauch@Wolfsburg.DE\n"
+msgstr ""
+"Översättning av engelsk originaltext\n"
+"av Johan Bengtsson\n"
+"E-post: johanb@lls.se\n"
+
 #. TEXT_INFO_BOX
 msgid "0x0: 0KB"
 msgstr "0x0: 0KB"
+
+#. TEXT_ADF_PAGES_SCANNED
+msgid "Scanned pages: "
+msgstr "Inlästa sidor: "
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -405,19 +428,16 @@ msgid "Copy number option:"
 msgstr "Flagga för kopienummer:"
 
 #. TEXT_SETUP_PRINTER_LINEART_RES
-#, fuzzy
 msgid "Lineart resolution (dpi):"
-msgstr "Upplösning (dpi):"
+msgstr "Upplösning i grafikläge (dpi):"
 
 #. TEXT_SETUP_PRINTER_GRAYSCALE_RES
-#, fuzzy
 msgid "Grayscale resolution (dpi):"
-msgstr "Upplösning (dpi):"
+msgstr "Upplösning i svartvit läge (dpi):"
 
 #. TEXT_SETUP_PRINTER_COLOR_RES
-#, fuzzy
 msgid "Color resolution (dpi):"
-msgstr "Upplösning (dpi):"
+msgstr "Upplösning i färgläge (dpi):"
 
 #. TEXT_SETUP_PRINTER_WIDTH
 msgid "Width [mm]:"
@@ -452,9 +472,8 @@ msgid "Printer gamma blue:"
 msgstr "Skrivargamma blå:"
 
 #. TEXT_SETUP_TMP_PATH
-#, fuzzy
 msgid "Temporary directory"
-msgstr "Kunde inte hitta hemkatalogen:"
+msgstr "Temporär katalog"
 
 #. TEXT_SETUP_IMAGE_PERMISSION
 msgid "Image-file permissions"
@@ -473,14 +492,12 @@ msgid "PNG image compression"
 msgstr "PNG bildkompression"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_16
-#, fuzzy
 msgid "TIFF 16 bit image compression"
-msgstr "TIFF multibit bildkompression"
+msgstr "TIFF 16 bit bildkompression"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_8
-#, fuzzy
 msgid "TIFF 8 bit image compression"
-msgstr "TIFF multibit bildkompression"
+msgstr "TIFF 8 bit bildkompression"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_1
 msgid "TIFF lineart image compression"
@@ -488,23 +505,23 @@ msgstr "TIFF lineart-bildkompression"
 
 #. TEXT_SETUP_PSFILE_WIDTH
 msgid "Width of paper for postscript [mm]:"
-msgstr ""
+msgstr "Pappersbredd för postscript [mm]:"
 
 #. TEXT_SETUP_PSFILE_HEIGHT
 msgid "Height of paper for postscript [mm]:"
-msgstr "Utskriftsbara områdets höjd i mm"
+msgstr "Pappershöjd för postscript [mm]:"
 
 #. TEXT_SETUP_PSFILE_LEFT
 msgid "Left offset for postscript [mm]:"
-msgstr "Vänster marginal [mm]:"
+msgstr "Vänster marginal för postscript [mm]:"
 
 #. TEXT_SETUP_PSFILE_BOTTOM
 msgid "Bottom offset for postscript [mm]:"
-msgstr "Marginal från botten [mm]:"
+msgstr "Marginal från botten för postscript [mm]:"
 
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
-msgstr "Förhandsgranskningsgamma:"
+msgstr "Översampling vid förhandsgranskning:"
 
 #. TEXT_SETUP_PREVIEW_GAMMA
 msgid "Preview gamma:"
@@ -528,39 +545,39 @@ msgstr "Flagga för högkvalitetsläge:"
 
 #. TEXT_SETUP_THRESHOLD_MIN
 msgid "Threshold minimum:"
-msgstr ""
+msgstr "Tröskelvärdes minimum:"
 
 #. TEXT_SETUP_THRESHOLD_MAX
 msgid "Threshold maximum:"
-msgstr ""
+msgstr "Tröskelvärdes maximum:"
 
 #. TEXT_SETUP_THRESHOLD_MUL
 msgid "Threshold multiplier:"
-msgstr ""
+msgstr "Tröskelvärdes multiplikator:"
 
 #. TEXT_SETUP_THRESHOLD_OFF
 msgid "Threshold offset:"
-msgstr ""
+msgstr "Tröskelvärdes offset:"
 
 #. TEXT_SETUP_GRAYSCALE_SCANMODE
 msgid "Name of grayscale scanmode:"
-msgstr ""
+msgstr "Namn på scanläge för svartvit"
 
 #. TEXT_SETUP_HELPFILE_VIEWER
 msgid "Helpfile viewer (HTML):"
-msgstr "Hjälpfils visare (HTML):"
+msgstr "Hjälpfilsvisare (HTML):"
 
 #. TEXT_SETUP_FAX_RECEIVER_OPTION
 msgid "Receiver option:"
-msgstr "Mottagarflagga:"
+msgstr "Flagga för mottagare:"
 
 #. TEXT_SETUP_FAX_POSTSCRIPT_OPT
 msgid "Postscriptfile option:"
-msgstr "postscriptfilsflagga:"
+msgstr "Flagga för postscriptsfil:"
 
 #. TEXT_SETUP_FAX_NORMAL_MODE_OPT
 msgid "Normal mode option:"
-msgstr "Normallägesflagga:"
+msgstr "Flagga för normalläge:"
 
 #. TEXT_SETUP_FAX_FINE_MODE_OPT
 msgid "Fine mode option:"
@@ -568,11 +585,11 @@ msgstr "Flagga för högkvalitetsläge:"
 
 #. TEXT_SETUP_FAX_VIEWER
 msgid "Viewer (Postscript):"
-msgstr "Visare (postscript):"
+msgstr "Visare (Postscript):"
 
 #. NOTEBOOK_COPY_OPTIONS
 msgid "Copy options"
-msgstr "Kopiera"
+msgstr "Kopiator"
 
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Saving options"
@@ -580,12 +597,11 @@ msgstr "Spara"
 
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display options"
-msgstr "Display"
+msgstr "Visa"
 
 #. NOTEBOOK_ENHANCE_OPTIONS
-#, fuzzy
 msgid "Enhancement options"
-msgstr "XSane-inställningar"
+msgstr "Bearbetning"
 
 #. NOTEBOOK_FAX_OPTIONS
 msgid "Fax options"
@@ -593,7 +609,7 @@ msgstr "Fax"
 
 #. MENU_ITEM_SCAN
 msgid "Scan"
-msgstr "Scanna in"
+msgstr "Läsa in"
 
 #. MENU_ITEM_COPY
 msgid "Copy"
@@ -616,9 +632,8 @@ msgid "Show histogram"
 msgstr "Visa histogram"
 
 #. MENU_ITEM_SHOW_GAMMA
-#, fuzzy
 msgid "Show gamma curve"
-msgstr "Ställ in gammavärde"
+msgstr "Visa gammavärdeskurva"
 
 #. MENU_ITEM_SHOW_STANDARDOPTIONS
 msgid "Show standard options"
@@ -681,13 +696,12 @@ msgid "Load device settings"
 msgstr "Hämta enhetsinställningar"
 
 #. MENU_ITEM_CHANGE_WORKING_DIR
-#, fuzzy
 msgid "Change directory"
-msgstr "Kunde inte hitta hemkatalogen:"
+msgstr "Byt katalog"
 
 #. MENU_ITEM_XSANE_DOC
 msgid "Xsane doc"
-msgstr "Xsane-doc"
+msgstr "Xsane doc"
 
 #. MENU_ITEM_BACKEND_DOC
 msgid "Backend doc"
@@ -699,7 +713,7 @@ msgstr "Tillgängliga drivrutiner"
 
 #. MENU_ITEM_SCANTIPS
 msgid "Scantips"
-msgstr "Scantips"
+msgstr "Bildinläsningstips"
 
 #. MENU_ITEM_PROBLEMS
 msgid "Problems?"
@@ -715,11 +729,11 @@ msgstr "CCITT 1D Huffmankompression"
 
 #. MENU_ITEM_TIFF_COMP_CCITFAX3
 msgid "CCITT Group 3 Fax compression"
-msgstr "CCITT Grupp 3 Faxkompression"
+msgstr "CCITT Grupp 3 faxkompression"
 
 #. MENU_ITEM_TIFF_COMP_CCITFAX4
 msgid "CCITT Group 4 Fax compression"
-msgstr "CCITT Grupp 4 Faxkompression"
+msgstr "CCITT Grupp 4 faxkompression"
 
 #. MENU_ITEM_TIFF_COMP_JPEG
 msgid "JPEG DCT compression"
@@ -731,15 +745,15 @@ msgstr "packbits"
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
 msgid "Standard options window (lineart)"
-msgstr "Standardinställningar"
+msgstr "Standardinställningar (grafik)"
 
 #. MENU_ITEM_LINEART_MODE_XSANE
 msgid "XSane main window (lineart)"
-msgstr ""
+msgstr "XSane huvudfönster (grafik)"
 
 #. MENU_ITEM_LINEART_MODE_GRAY
 msgid "XSane main window (grayscale->lineart)"
-msgstr ""
+msgstr "XSane huvudfönster (svartvit->grafik)"
 
 #. MENU_ITEM_FILETYPE_BY_EXT
 msgid "by ext"
@@ -747,12 +761,12 @@ msgstr "filändelse"
 
 #. PROGRESS_SCANNING
 msgid "Scanning"
-msgstr "Scannar"
+msgstr "Läser in"
 
 #. PROGRESS_RECEIVING_FRAME_DATA
 #, c-format
 msgid "Receiving %s data"
-msgstr "Mottar %s data för `%s'..."
+msgstr "Tar emot %s data"
 
 #. PROGRESS_SAVING_DATA
 msgid "Saving image"
@@ -764,7 +778,7 @@ msgstr "Konverterar data...."
 
 #. DESC_XSANE_MODE
 msgid "Use XSane for SCANning, photoCOPYing, FAXing..."
-msgstr "Scanna, faxa och gör fotokopior med XSane..."
+msgstr "Läs in bilder, faxa och gör fotokopior med XSane..."
 
 #. DESC_BROWSE_FILENAME
 msgid "Browse for image filename"
@@ -772,7 +786,7 @@ msgstr "Bläddra efter filnamn"
 
 #. DESC_FILENAME
 msgid "Filename for scanned image"
-msgstr "Filnamn för inscannad bild"
+msgstr "Filnamn för inläst bild"
 
 #. DESC_FILETYPE
 msgid "Filename extension and type of image format"
@@ -796,15 +810,15 @@ msgstr "Välj skrivardefinition"
 
 #. DESC_RESOLUTION
 msgid "Set scan resolution"
-msgstr "Ställ in scannerupplösning"
+msgstr "Ställ in bildläsarupplösning"
 
 #. DESC_RESOLUTION_X
 msgid "Set scan resolution for x direction"
-msgstr "Ställ in scannerupplösning"
+msgstr "Ställ in bildläsarupplösning x inriktning"
 
 #. DESC_RESOLUTION_Y
 msgid "Set scan resolution for y direction"
-msgstr "Ställ in scannerupplösning"
+msgstr "Ställ in bildläsarupplösning"
 
 #. DESC_ZOOM
 msgid "Set zoomfactor"
@@ -880,7 +894,7 @@ msgstr "Ställ in ljusstyrka för den blåa komponenten"
 
 #. DESC_THRESHOLD
 msgid "Set threshold"
-msgstr ""
+msgstr "Ställ in tröskelvärde"
 
 #. DESC_RGB_DEFAULT
 msgid ""
@@ -898,10 +912,10 @@ msgstr ""
 
 #. DESC_ENH_AUTO
 msgid ""
-"Autoadjust gamma, brightness and contrast in dependance of selected area"
+"Autoadjust gamma, brightness and contrast in dependance of selected scan area"
 msgstr ""
 "Autojustera gamma, ljus och kontrast i överenstämmelse med det markerade "
-"området"
+"inläsningsområdet"
 
 #. DESC_ENH_DEFAULT
 msgid ""
@@ -965,21 +979,20 @@ msgid "Enter option for copy numbers"
 msgstr "Skriv in flagga för kopienummer"
 
 #. DESC_PRINTER_LINEART_RESOLUTION
-#, fuzzy
 msgid ""
 "Resolution with which lineart images are printed and saved in postscript"
-msgstr "Upplösning med vilken bilder skrivs ut och sparas i postscript"
+msgstr ""
+"Upplösning med vilken grafiska bilder skrivs ut och sparas i postscript"
 
 #. DESC_PRINTER_GRAYSCALE_RESOLUTION
-#, fuzzy
 msgid ""
 "Resolution with which grayscale images are printed and saved in postscript"
-msgstr "Upplösning med vilken bilder skrivs ut och sparas i postscript"
+msgstr ""
+"Upplösning med vilken svartvita bilder skrivs ut och sparas i postscript"
 
 #. DESC_PRINTER_COLOR_RESOLUTION
-#, fuzzy
 msgid "Resolution with which color images are printed and saved in postscript"
-msgstr "Upplösning med vilken bilder skrivs ut och sparas i postscript"
+msgstr "Upplösning med vilken färgbilder skrivs ut och sparas i postscript"
 
 #. DESC_PRINTER_WIDTH
 msgid "Width of printable area in mm"
@@ -1015,13 +1028,12 @@ msgid "Additional gamma value for blue component for photocopy"
 msgstr "Extra gammavärde för den blåa komponeneten vid fotokopiering"
 
 #. DESC_TMP_PATH
-#, fuzzy
 msgid "Path to temp directory"
-msgstr "Kunde inte hitta hemkatalogen:"
+msgstr "Sökväg till temporärkatalogen"
 
 #. DESC_BUTTON_TMP_PATH_BROWSE
 msgid "Browse for temporary directory"
-msgstr ""
+msgstr "Bläddra efter temporär katalog"
 
 #. DESC_JPEG_QUALITY
 msgid ""
@@ -1034,14 +1046,12 @@ msgid "Compression if image is saved as png"
 msgstr "Kompression om bilden sparas som png"
 
 #. DESC_TIFF_COMPRESSION_16
-#, fuzzy
 msgid "Compression type if 16 bit image is saved as tiff"
-msgstr "Kompressionstyp om multibitsbild sparas som tiff"
+msgstr "Kompressionstyp om 16-bits bild sparas som tiff"
 
 #. DESC_TIFF_COMPRESSION_8
-#, fuzzy
 msgid "Compression type if 8 bit image is saved as tiff"
-msgstr "Kompressionstyp om multibitsbild sparas som tiff"
+msgstr "Kompressionstyp om 8-bits bild sparas som tiff"
 
 #. DESC_TIFF_COMPRESSION_1
 msgid "Compression type if lineart image is saved as tiff"
@@ -1067,24 +1077,27 @@ msgstr ""
 
 #. DESC_PSFILE_WIDTH
 msgid "Width of paper in mm for postscript files"
-msgstr ""
+msgstr "Pappersbredd i mm för postscript filer"
 
 #. DESC_PSFILE_HEIGHT
 msgid "Height of paper in mm for postscript files"
-msgstr ""
+msgstr "Pappershöjd i mm för postscript filer"
 
 #. DESC_PSFILE_LEFTOFFSET
 msgid ""
 "Left offset from the edge of the paper to the usable area in mm for "
 "postscript files"
 msgstr ""
-"Marginal från den vänstra sidan av pappret till det utskrivbara området i mm"
+"Marginal från den vänstra sidan av pappret till det utskrivbara området i "
+"mmför postscriptfiler"
 
 #. DESC_PSFILE_BOTTOMOFFSET
 msgid ""
 "Bottom offset from the edge of the paper to the usable area in mm for "
 "postscript files"
-msgstr "Marginal från botten av pappret till det utskrivbara området i mm"
+msgstr ""
+"Marginal från botten av pappret till det utskrivbara området i mmför "
+"postscriptfiler"
 
 #. DESC_MAIN_WINDOW_FIXED
 msgid "Use fixed main window size or scrolled, resizable main window"
@@ -1095,6 +1108,7 @@ msgstr ""
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
 msgid "Disable preview gamma when xsane runs as gimp plugin"
 msgstr ""
+"Koppla bort förhandsgranskningsgamma när xsane körs som gimp insticksprogram"
 
 #. DESC_PREVIEW_COLORMAP
 msgid "Use an own colormap for preview if display depth is 8 bpp"
@@ -1104,6 +1118,7 @@ msgstr ""
 #. DESC_PREVIEW_OVERSAMPLING
 msgid "Value with that the calculated preview resolution is multiplied"
 msgstr ""
+"Värde som den kalkylerade förhandsgranskningsupplösningen multipliceras med"
 
 #. DESC_PREVIEW_GAMMA
 msgid "Set gamma correction value for preview image"
@@ -1129,33 +1144,36 @@ msgstr ""
 
 #. DESC_LINEART_MODE
 msgid "Define the way xsane shall handle the threshold option"
-msgstr ""
+msgstr "Tala om hur xsane skall hantera tröskelvärdesinställningen"
 
 #. DESC_GRAYSCALE_SCANMODE
 msgid ""
 "Enter name of grayscale scanmode - for preview with transformation from "
 "grayscale to lineart"
 msgstr ""
+"Skriv in namn på svartvit scanläge - för förhandsgranskning med överföring "
+"från svartvit till grafik"
 
 #. DESC_PREVIEW_THRESHOLD_MIN
 #, no-c-format
 msgid "The scanner's minimum threshold level in %"
-msgstr ""
+msgstr "Bildläsarens minimala tröskelnivå i %"
 
 #. DESC_PREVIEW_THRESHOLD_MAX
 #, no-c-format
 msgid "The scanner's maximum threshold level in %"
-msgstr ""
+msgstr "Bildläsarens maximala tröskelnivå i %"
 
 #. DESC_PREVIEW_THRESHOLD_MUL
 msgid ""
 "Multiplier to make xsane threshold range and scanner threshold range the same"
 msgstr ""
+"Multiplikator som synkroniserar tröskelomfången från bildläsaren och xsane"
 
 #. DESC_PREVIEW_THRESHOLD_OFF
 msgid ""
 "Offset to make xsane threshold range and scanner threshold range the same"
-msgstr ""
+msgstr "Offset som synkroniserar tröskelomfången från bildläsaren och xsane"
 
 #. DESC_DOC_VIEWER
 msgid ""
@@ -1166,7 +1184,7 @@ msgstr ""
 
 #. DESC_AUTOENHANCE_GAMMA
 msgid "Change gamma value when autoenhancement button is pressed"
-msgstr ""
+msgstr "Ändra gammavärde när autoexponeringsknappen används"
 
 #. DESC_FAX_COMMAND
 msgid "Enter command to be executed in fax mode"
@@ -1193,9 +1211,8 @@ msgid "Enter command to be executed to view a fax"
 msgstr "Kommando som körs för att visa ett fax"
 
 #. DESC_FAX_FINE_MODE
-#, fuzzy
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
-msgstr "Använd hög vertikal upplösning (196 lpi istället för 98 lpi)"
+msgstr "Skicka fax med hög vertikal upplösning (196 lpi istället för 98 lpi)"
 
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
@@ -1235,9 +1252,8 @@ msgid "Failed to determine home directory:"
 msgstr "Kunde inte hitta hemkatalogen:"
 
 #. ERR_CHANGE_WORKING_DIR
-#, fuzzy
 msgid "Failed to change working directory to"
-msgstr "Kunde inte hitta hemkatalogen:"
+msgstr "Kunde inte ändra arbetskatalog till:"
 
 #. ERR_FILENAME_TOO_LONG
 msgid "Filename too long"
@@ -1297,7 +1313,7 @@ msgstr "Kunde inte köra skrivarkommando:"
 
 #. ERR_FAILED_START_SCANNER
 msgid "Failed to start scanner:"
-msgstr "Kunde inte starta scanner:"
+msgstr "Kunde inte starta bildläsare:"
 
 #. ERR_FAILED_GET_PARAMS
 msgid "Failed to get parameters:"
@@ -1395,6 +1411,11 @@ msgid ""
 "have any problem while running xsane as root:\n"
 "YOU ARE ALONE!"
 msgstr ""
+"Du kan försöka köra xsane som root, men det är FARLIGT!\n"
+"\n"
+"Skicka inte in några bugrapporter om du\n"
+"har några problem medan du kör xsane som root:\n"
+"DU FÅR KLARA DIG SJÄLV!"
 
 #. ERR_HEADER_ERROR
 msgid "Error"
@@ -1403,6 +1424,10 @@ msgstr "Fel"
 #. ERR_HEADER_WARNING
 msgid "Warning"
 msgstr "Varning"
+
+#. ERR_HEADER_INFO
+msgid "Information"
+msgstr "Information"
 
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
@@ -1439,12 +1464,12 @@ msgstr "detta kan orsaka problem!"
 #. WARN_FILE_EXISTS
 #, c-format
 msgid "File %s already exists"
-msgstr ""
+msgstr "Fil %s existerar redan"
 
 #. ERR_UNSUPPORTED_OUTPUT_FORMAT
 #, c-format
 msgid "Unsupported %d-bit output format: %s"
-msgstr "8 bits utmatningsformat:"
+msgstr "%d-bit utmatningsformat som inte stöds: %s"
 
 #. TEXT_USAGE
 msgid "Usage:"
@@ -1478,6 +1503,10 @@ msgid ""
 " -R, --Resizeable             resizable, scrolled main window (overwrite "
 "preferences value)\n"
 "\n"
+" -p, --print-filenames        print image filenames created by xsane\n"
+" -N, --force-filename name    force filename and disable user filename "
+"selection\n"
+"\n"
 " --display X11-display        redirect output to X11-display\n"
 " --no-xshm                    do not use shared memory images\n"
 " --sync                       request a synchronous connection with the X11 "
@@ -1486,16 +1515,19 @@ msgstr ""
 "Startar grafiskt användargränssnitt till SANE (Scanner Access Now Easy) "
 "enheter.\n"
 "\n"
+"Formatet för [ENHET] är drivrutinsnamn:enhetsfil (m.a.o. umax:/dev/scanner). "
+"\n"
+"[FLAGGA] ... kan vara en kombination av följande flaggor:\n"
 "-h, --help                   visa detta hjälpmeddelande och avsluta\n"
 "-v, --version                visa versionsinformation\n"
 "\n"
 "-d, --device-settings file   hämta enhetsinställningar från en fil (utan "
 "\".drc\")\n"
 "\n"
-"-s, --scan                   starta med scannerläge aktivt\n"
+"-s, --scan                   starta med bildläsarläge aktivt\n"
 "-c, --copy                   starta med kopiatorläge aktivt\n"
-"-f, --fax                    start with fax-mode active\n"
-"-n, --no-mode-selection      visa inte meny för xsane läges val\n"
+"-f, --fax                    starta med faxläge aktivt\n"
+"-n, --no-mode-selection      visa inte meny för xsane lägesval\n"
 "\n"
 "-F, --Fixed                  fast storlek på huvudfönster (skriv över "
 "preferensvärde)\n"
@@ -1509,14 +1541,14 @@ msgstr ""
 #. strings for gimp plugin
 #. XSANE_GIMP_INSTALL_BLURB
 msgid "Front-end to the SANE interface"
-msgstr "Grafiskt interface för SANE scannerprogram"
+msgstr "Grafiskt interface för SANE bildläsarprogram"
 
 #. XSANE_GIMP_INSTALL_HELP
 msgid ""
 "This function provides access to scanners and other image acquisition "
 "devices through the SANE (Scanner Access Now Easy) interface."
 msgstr ""
-"Den här funktionen ger tillgång till scanners och andra inläsnings enheter "
+"Den här funktionen ger tillgång till bildläsare och andra inläsningsenheter "
 "genom SANE (Scanner Access Now Easy) gränssnittet."
 
 #. Menu path must not be translated, this is done by the gimp. Only translate the text behind the last "/"
@@ -1538,13 +1570,13 @@ msgstr "<Verktyg>/Insticksprogram/XSane/"
 
 #. Sane backend messages
 msgid "flatbed scanner"
-msgstr "flatbädds scanner"
+msgstr "flatbäddsbildläsare"
 
 msgid "frame grabber"
 msgstr "frame grabber"
 
 msgid "handheld scanner"
-msgstr "handscanner"
+msgstr "handhållen bildläsare"
 
 msgid "still camera"
 msgstr "stillbildskamera"
@@ -1580,7 +1612,7 @@ msgid "Document feeder out of documents"
 msgstr "Dokumentmataren har slut på dokument"
 
 msgid "Scanner cover is open"
-msgstr "Scannerlocket är öppet"
+msgstr "Bildläsarlocket är öppet"
 
 msgid "Error during device I/O"
 msgstr "Fel under enhets I/O"
@@ -1590,6 +1622,9 @@ msgstr "Slut på minne"
 
 msgid "Access to resource has been denied"
 msgstr "Tillgång till resurs nekas"
+
+#~ msgid "Exit"
+#~ msgstr "Avsluta"
 
 #~ msgid "Preserve preview image"
 #~ msgstr "Bevara förhandsgranskningsbild"

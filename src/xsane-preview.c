@@ -2844,6 +2844,7 @@ Preview *preview_new(void)
   p->top = gtk_window_new(GTK_WINDOW_DIALOG);
   gtk_window_set_title(GTK_WINDOW(p->top), buf);
   xsane_set_window_icon(p->top, 0);
+  gtk_accel_group_attach(xsane.accelerator_group, GTK_OBJECT(p->top));
 
   /* set the main vbox */
   vbox = gtk_vbox_new(FALSE, 0);
@@ -2999,11 +3000,13 @@ Preview *preview_new(void)
   p->start = gtk_button_new_with_label(BUTTON_PREVIEW_ACQUIRE);
   gtk_signal_connect(GTK_OBJECT(p->start), "clicked", (GtkSignalFunc) preview_start_button_clicked, p);
   gtk_box_pack_start(GTK_BOX(hbox), p->start, TRUE, TRUE, 0);
+  gtk_widget_add_accelerator(p->start, "clicked", xsane.accelerator_group, GDK_P, GDK_MOD1_MASK, GTK_ACCEL_LOCKED); /* Alt P */
 
   /* Cancel button */
   p->cancel = gtk_button_new_with_label(BUTTON_PREVIEW_CANCEL);
   gtk_signal_connect(GTK_OBJECT(p->cancel), "clicked", (GtkSignalFunc) preview_cancel_button_clicked, p);
   gtk_box_pack_start(GTK_BOX(hbox), p->cancel, TRUE, TRUE, 0);
+  gtk_widget_add_accelerator(p->cancel, "clicked", xsane.accelerator_group, GDK_Escape, GDK_MOD1_MASK, GTK_ACCEL_LOCKED); /* Alt ESC */
   gtk_widget_set_sensitive(p->cancel, FALSE);
 
   gtk_widget_show(p->cancel);

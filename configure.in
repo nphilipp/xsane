@@ -6,7 +6,7 @@ AC_CONFIG_HEADER(include/sane/config.h)
 
 # version code:
 V_MAJOR=0
-V_MINOR=63
+V_MINOR=64
 
 PACKAGE=xsane
 
@@ -72,9 +72,7 @@ fi
 
 dnl Checks for header files.
 AC_HEADER_STDC
-AC_CHECK_HEADERS(fcntl.h unistd.h libc.h sys/dsreq.h sys/select.h \
-    sys/time.h sys/scanio.h sys/socket.h sys/io.h asm/io.h gscdds.h sys/hw.h \
-    bsd/dev/scsireg.h io/cam/cam.h camlib.h sys/types.h zlib.h)
+AC_CHECK_HEADERS(fcntl.h unistd.h libc.h sys/time.h sys/types.h zlib.h)
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
@@ -104,12 +102,6 @@ dnl Checks for library functions.
 AM_FUNC_ALLOCA
 AC_FUNC_MMAP
 AC_CHECK_FUNCS(atexit mkdir sigprocmask strdup strndup strftime strstr strsep strtod snprintf usleep strcasecmp strncasecmp)
-
-dnl standard dll handling
-AC_CHECK_HEADERS(dlfcn.h, [AC_CHECK_LIB(dl,dlopen) AC_CHECK_FUNCS(dlopen, enable_dynamic=yes,)],)
-
-dnl HP/UX DLL handling
-AC_CHECK_HEADERS(dl.h, [AC_CHECK_LIB(dld,shl_load) AC_CHECK_FUNCS(shl_load, enable_dynamic=yes,)],)
 
 dnl Check for NLS/gettext
 AM_GNU_GETTEXT

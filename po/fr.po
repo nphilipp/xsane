@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.62\n"
-"POT-Creation-Date: 2000-10-01 13:09+0200\n"
+"POT-Creation-Date: 2000-11-12 01:25+0100\n"
 "PO-Revision-Date: 2000-02-09 21:00+01:00\n"
 "Last-Translator: Laurent Grawet <laurent.grawet@ibelgique.com>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -21,9 +21,15 @@ msgstr ""
 msgid "©"
 msgstr ""
 
-#. WINDOW_ABOUT, MENU_ITEM_ABOUT
+#. WINDOW_ABOUT_XSANE
+#, fuzzy
 msgid "About"
 msgstr "A propos"
+
+#. WINDOW_ABOUT_TRANSLATION, MENU_ITEM_ABOUT_TRANSLATION
+#, fuzzy
+msgid "About translation"
+msgstr "Option seuil:"
 
 #. WINDOW_AUTHORIZE
 msgid "authorization"
@@ -109,13 +115,18 @@ msgstr "Afficher"
 msgid "Help"
 msgstr "Aide"
 
+#. MENU_ITEM_ABOUT_XSANE
+#, fuzzy
+msgid "About XSane"
+msgstr "A propos"
+
 #. MENU_ITEM_INFO
 msgid "Info"
 msgstr "Info"
 
-#. MENU_ITEM_EXIT
-msgid "Exit"
-msgstr "Quitter"
+#. MENU_ITEM_QUIT
+msgid "Quit"
+msgstr ""
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -385,9 +396,26 @@ msgstr ""
 msgid "File:"
 msgstr "Fichier:"
 
+#. TEXT_TRANSLATION
+#, fuzzy
+msgid "Translation:"
+msgstr "Option seuil:"
+
+#. TEXT_TRANSLATION_INFO
+msgid ""
+"untranslated original english text\n"
+"by Oliver Rauch\n"
+"Email: Oliver.Rauch@Wolfsburg.DE\n"
+msgstr ""
+
 #. TEXT_INFO_BOX
 msgid "0x0: 0KB"
 msgstr "0x0: 0KB"
+
+#. TEXT_ADF_PAGES_SCANNED
+#, fuzzy
+msgid "Scanned pages: "
+msgstr "Scanner et backend:"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -889,8 +917,9 @@ msgstr ""
 " contraste = 0"
 
 #. DESC_ENH_AUTO
+#, fuzzy
 msgid ""
-"Autoadjust gamma, brightness and contrast in dependance of selected area"
+"Autoadjust gamma, brightness and contrast in dependance of selected scan area"
 msgstr ""
 "Ajuste automatiquement gamma, luminosité et contraste pour la sélection en "
 "cours"
@@ -1390,11 +1419,12 @@ msgid "warning: option has no value constraint"
 msgstr "attention: l'option n'a pas de restriction"
 
 #. WARN_XSANE_AS_ROOT
+#, fuzzy
 msgid ""
 "You try to run xsane as ROOT, that really is DANGEROUS!\n"
 "\n"
 "Do not send any bug reports when you\n"
-"have any problem while running XSane as root:\n"
+"have any problem while running xsane as root:\n"
 "YOU ARE ALONE!"
 msgstr ""
 "Vous exécutez XSane en tant que ROOT, c'est réellement DANGEREUX!\n"
@@ -1409,6 +1439,10 @@ msgstr "Erreur"
 #. ERR_HEADER_WARNING
 msgid "Warning"
 msgstr "Avertissement"
+
+#. ERR_HEADER_INFO
+msgid "Information"
+msgstr ""
 
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
@@ -1461,6 +1495,7 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[OPTION]... [PERIPHERIQUE]"
 
 #. TEXT_HELP
+#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -1476,12 +1511,16 @@ msgid ""
 " -s, --scan                   start with scan-mode active\n"
 " -c, --copy                   start with copy-mode active\n"
 " -f, --fax                    start with fax-mode active\n"
-" -n, --no-mode-selection      disable menu for XSane mode selection\n"
+" -n, --no-mode-selection      disable menu for xsane mode selection\n"
 "\n"
 " -F, --Fixed                  fixed main window size (overwrite preferences "
 "value)\n"
 " -R, --Resizeable             resizable, scrolled main window (overwrite "
 "preferences value)\n"
+"\n"
+" -p, --print-filenames        print image filenames created by xsane\n"
+" -N, --force-filename name    force filename and disable user filename "
+"selection\n"
 "\n"
 " --display X11-display        redirect output to X11-display\n"
 " --no-xshm                    do not use shared memory images\n"
@@ -1512,7 +1551,8 @@ msgstr ""
 "--display affichage-X11      redirige l'affichage vers un autre affichage\n"
 "                             X11\n"
 "--no-xshm                    n'utilise pas la mémoire partagée\n"
-"--sync                       demande une connexion synchrone avec le serveur\n"
+"--sync                       demande une connexion synchrone avec le "
+"serveur\n"
 "                             X"
 
 #. strings for gimp plugin
@@ -1600,6 +1640,9 @@ msgstr "Dépassement de mémoire"
 msgid "Access to resource has been denied"
 msgstr "Accès à la ressource refusé"
 
+#~ msgid "Exit"
+#~ msgstr "Quitter"
+
 #~ msgid "Preserve preview image"
 #~ msgstr "Préserver l'image de l'aperçu"
 
@@ -1623,6 +1666,3 @@ msgstr "Accès à la ressource refusé"
 
 #~ msgid "Receiving %s data for GIMP..."
 #~ msgstr "Réception des données %s pour GIMP..."
-
-#~ msgid "About this"
-#~ msgstr "A propos"

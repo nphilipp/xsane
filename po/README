@@ -8,8 +8,9 @@ XSane uses gettext for supporting translation into different languages.
   make update-po
 - To create the translation tables:
   make
-- Using "u" (untranslated) and "f" (fuzzy) in emacs po-mode for updating
-   strings.
+- Using "u" (untranslated) and "f" (fuzzy) in emacs po-mode for updating strings.
+- if you use other editors, search for keyword "fuzzy" and for \"\"
+- when you translated fuzzy fields, remove the "fuzzy" marker
 
 
 SELECT YOUR LANGUAGE:
@@ -25,6 +26,12 @@ NEW TRANSLATIONS:
 
 To create a new translation for a new language
 copy xsane.pot to "language".po and edit "language".po
+
+The field TEXT_TRANSLATION_INFO is meant for you to enter
+your Name and Email-Adress, e.g.:
+ "English translation\n"
+ "by your name\n"
+ "Email: your.email@address.domain\n"
 
 To test/install your new translation:
  - edit xsane-0.*/configure, search for ALL_LINGUAS and add "language"

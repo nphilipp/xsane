@@ -496,7 +496,7 @@ void xsane_back_gtk_message(gchar *title, gchar **icon_xpm, gchar *message, gint
 
 void xsane_back_gtk_error(gchar *error, gint wait)
 {
-  DBG(DBG_proc, "xsane_back_gtk_error\n");
+  DBG(DBG_proc, "xsane_back_gtk_error: %s\n", error);
 
   if (wait)
   {
@@ -516,7 +516,7 @@ void xsane_back_gtk_error(gchar *error, gint wait)
 
 void xsane_back_gtk_warning(gchar *warning, gint wait)
 {
-  DBG(DBG_proc, "xsane_back_gtk_warning\n");
+  DBG(DBG_proc, "xsane_back_gtk_warning: %s\n", warning);
 
   if (wait)
   {
@@ -529,6 +529,26 @@ void xsane_back_gtk_warning(gchar *warning, gint wait)
   else
   {
     xsane_back_gtk_message(ERR_HEADER_WARNING, (gchar**) warning_xpm, warning, wait);
+  }
+}
+
+/* ----------------------------------------------------------------------------------------------------------------- */
+
+void xsane_back_gtk_info(gchar *info, gint wait)
+{
+  DBG(DBG_proc, "xsane_back_gtk_info: %s\n", info);
+
+  if (wait)
+  {
+   SANE_Int old_sensitivity = xsane.sensitivity;
+
+    xsane_set_sensitivity(FALSE);
+    xsane_back_gtk_message(ERR_HEADER_INFO, (gchar**) info_xpm, info, wait);
+    xsane_set_sensitivity(old_sensitivity);
+  }
+  else
+  {
+    xsane_back_gtk_message(ERR_HEADER_INFO, (gchar**) info_xpm, info, wait);
   }
 }
 

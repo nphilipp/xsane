@@ -2,10 +2,10 @@
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # TOGAN MUFTUOGLU  <toganm@yahoo.com>, 2000.
 #
-msgid""
-msgstr""
+msgid ""
+msgstr ""
 "Project-Id-Version: Xsane 0.62\n"
-"POT-Creation-Date: 2000-10-01 13:09+0200\n"
+"POT-Creation-Date: 2000-11-12 01:25+0100\n"
 "PO-Revision-Date: 2000-10-04 13:09+0300\n"
 "Last-Translator: Togan Müftüoðlu <toganm@yahoo.com>\n"
 "Language-Team: Turkish <tr@li.org>\n"
@@ -21,9 +21,13 @@ msgstr "(c)"
 msgid "©"
 msgstr "©"
 
-#. WINDOW_ABOUT, MENU_ITEM_ABOUT
+#. WINDOW_ABOUT_XSANE
 msgid "About"
 msgstr "Hakkýnda"
+
+#. WINDOW_ABOUT_TRANSLATION, MENU_ITEM_ABOUT_TRANSLATION
+msgid "About translation"
+msgstr "Tercüme hakkýnda"
 
 #. WINDOW_AUTHORIZE
 msgid "authorization"
@@ -109,13 +113,17 @@ msgstr "Gör"
 msgid "Help"
 msgstr "Yardým"
 
+#. MENU_ITEM_ABOUT_XSANE
+msgid "About XSane"
+msgstr "Xsane hakkýnda"
+
 #. MENU_ITEM_INFO
 msgid "Info"
 msgstr "Bilgi"
 
-#. MENU_ITEM_EXIT
-msgid "Exit"
-msgstr "Çýkýþ"
+#. MENU_ITEM_QUIT
+msgid "Quit"
+msgstr " Son"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -147,7 +155,7 @@ msgstr "Kendi riskiniz altýnda devam edin"
 
 #. BUTTON_BROWSE
 msgid "Browse"
-msgstr "Gozlemle"
+msgstr "Gözlemle"
 
 #. BUTTON_CLOSE
 msgid "Close"
@@ -255,35 +263,35 @@ msgstr "Tarayýcý ve sürücü "
 
 #. TEXT_VENDOR
 msgid "Vendor:"
-msgstr "Üretici"
+msgstr "Üretici:"
 
 #. TEXT_MODEL
 msgid "Model:"
-msgstr "Model"
+msgstr "Model:"
 
 #. TEXT_TYPE
 msgid "Type:"
-msgstr "Tip"
+msgstr "Tip:"
 
 #. TEXT_DEVICE
 msgid "Device:"
-msgstr "Aygýt"
+msgstr "Aygýt:"
 
 #. TEXT_LOADED_BACKEND
 msgid "Loaded backend:"
-msgstr "Yüklenen sürücü"
+msgstr "Yüklenen sürücü:"
 
 #. TEXT_SANE_VERSION
 msgid "Sane version:"
-msgstr "Sane sürümü"
+msgstr "Sane sürümü:"
 
 #. TEXT_RECENT_VALUES
 msgid "Recent values:"
-msgstr "Son deðerler"
+msgstr "Son deðerler:"
 
 #. TEXT_GAMMA_CORR_BY
 msgid "Gamma correction by:"
-msgstr "Gamma düzeltmesi"
+msgstr "Gamma düzeltmesi:"
 
 #. TEXT_SCANNER
 msgid "scanner"
@@ -311,15 +319,15 @@ msgstr "Tarayýcý çýktý derinliði"
 
 #. TEXT_OUTPUT_FORMATS
 msgid "XSane output formats:"
-msgstr "Xsane çýktý formatlarý "
+msgstr "Xsane çýktý formatlarý: "
 
 #. TEXT_8BIT_FORMATS
 msgid "8 bit output formats:"
-msgstr "8 bit çýktý formatlarý"
+msgstr "8 bit çýktý formatlarý:"
 
 #. TEXT_16BIT_FORMATS
 msgid "16 bit output formats:"
-msgstr "16 bit formatlarý"
+msgstr "16 bit formatlarý:"
 
 #. TEXT_AUTHORIZATION_REQ
 msgid "Authorization required for"
@@ -385,9 +393,27 @@ msgstr "Web adresi"
 msgid "File:"
 msgstr "Dosya"
 
+#. TEXT_TRANSLATION
+msgid "Translation:"
+msgstr "Tercüme:"
+
+#. TEXT_TRANSLATION_INFO
+msgid ""
+"untranslated original english text\n"
+"by Oliver Rauch\n"
+"Email: Oliver.Rauch@Wolfsburg.DE\n"
+msgstr ""
+" Türkçe'ye çevrim\n"
+"Togan Müftüoðlu\n"
+"Eposta: toganm@yahoo.com\n"
+
 #. TEXT_INFO_BOX
 msgid "0x0: 0KB"
 msgstr "0x0:0KB"
+
+#. TEXT_ADF_PAGES_SCANNED
+msgid "Scanned pages: "
+msgstr "Taranan sayfalar: "
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -882,17 +908,16 @@ msgid ""
 " brightness = 0\n"
 " contrast = 0"
 msgstr ""
-"RGB Öntanýmý: kýrmýzý,yeþil ve mavi için geliþtirme deðerlerini öntanýma ayarla"
-"deðerler:\n"
+"RGB Öntanýmý: kýrmýzý,yeþil ve mavi için geliþtirme deðerlerini öntanýma "
+"ayarladeðerler:\n"
 "gamma =1.0\n"
 "parlaklýk =0\n"
 "kontrast =0"
 
 #. DESC_ENH_AUTO
 msgid ""
-"Autoadjust gamma, brightness and contrast in dependance of selected area"
-msgstr ""
-"Seçilen alana baðlý olarak gamma, ýþýk ve kontrastý otomatik ayarla"
+"Autoadjust gamma, brightness and contrast in dependance of selected scan area"
+msgstr "Seçilen alana baðlý olarak gamma, ýþýk ve kontrastý otomatik ayarla"
 
 #. DESC_ENH_DEFAULT
 msgid ""
@@ -905,7 +930,6 @@ msgstr ""
 "gamma =1.0\n"
 "parlaklýk =0\n"
 "kontrast =0n"
-
 
 #. DESC_ENH_RESTORE
 msgid "Restore enhancement values from preferences"
@@ -1016,7 +1040,8 @@ msgstr "Geçici dizine göz at"
 msgid ""
 "Quality in percent if image is saved as jpeg or tiff with jpeg compression"
 msgstr ""
-"Eðer jpeg veya jpeg sýkýþtýrmalý tiff olarak saklanacaksa, resmin yüzde olarak kalitesi"
+"Eðer jpeg veya jpeg sýkýþtýrmalý tiff olarak saklanacaksa, resmin yüzde "
+"olarak kalitesi"
 
 #. DESC_PNG_COMPRESSION
 msgid "Compression if image is saved as png"
@@ -1043,14 +1068,15 @@ msgid ""
 "If the filename is of the form \"name-001.ext\" (where the number of digits "
 "is free) the number is increased after a scan is finished"
 msgstr ""
-"Eðer dosyaadý \"isim-001.taký\" þeklinde ise (rakam kullanýmý"
-"serbesttir)rakam tarama bittikten sonra arttýrýlýr"
+"Eðer dosyaadý \"isim-001.taký\" þeklinde ise (rakam "
+"kullanýmýserbesttir)rakam tarama bittikten sonra arttýrýlýr"
 
 #. DESC_SKIP_EXISTING
 msgid ""
 "If filename counter is automatically increased, used numbers are skipped"
 msgstr ""
-"Eðer dosya adý sayacý otomatik olarak artýrýlýyorsa, kullanýlan rakamlar atlanýr"
+"Eðer dosya adý sayacý otomatik olarak artýrýlýyorsa, kullanýlan rakamlar "
+"atlanýr"
 
 #. DESC_PSFILE_WIDTH
 msgid "Width of paper in mm for postscript files"
@@ -1065,20 +1091,20 @@ msgid ""
 "Left offset from the edge of the paper to the usable area in mm for "
 "postscript files"
 msgstr ""
-"Postsrcipt dosyalar için kullanýlabilen alana kaðýdýn sol boþluðu"
-"mm olarak"
+"Postsrcipt dosyalar için kullanýlabilen alana kaðýdýn sol boþluðumm olarak"
 
 #. DESC_PSFILE_BOTTOMOFFSET
 msgid ""
 "Bottom offset from the edge of the paper to the usable area in mm for "
 "postscript files"
 msgstr ""
-"Postsrcipt dosyalar için kullanýlabilen alana kaðýdýn alt boþluðu"
-"mm olarak"
+"Postsrcipt dosyalar için kullanýlabilen alana kaðýdýn alt boþluðumm olarak"
 
 #. DESC_MAIN_WINDOW_FIXED
 msgid "Use fixed main window size or scrolled, resizable main window"
-msgstr "Sabit ana pencere veya yeniden boyutlandýrýlabilir scrolled ana pencere kullan"
+msgstr ""
+"Sabit ana pencere veya yeniden boyutlandýrýlabilir scrolled ana pencere "
+"kullan"
 
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
 msgid "Disable preview gamma when xsane runs as gimp plugin"
@@ -1086,7 +1112,8 @@ msgstr "Xsane gimp plugini olarak çalýþtýrýlýrsa önizleme gammasýný iptal et"
 
 #. DESC_PREVIEW_COLORMAP
 msgid "Use an own colormap for preview if display depth is 8 bpp"
-msgstr "Eðer ekran derinliði 8 bpp ise öngösterim için kiþisel renk tablosunu kullan"
+msgstr ""
+"Eðer ekran derinliði 8 bpp ise öngösterim için kiþisel renk tablosunu kullan"
 
 #. DESC_PREVIEW_OVERSAMPLING
 msgid "Value with that the calculated preview resolution is multiplied"
@@ -1098,7 +1125,8 @@ msgstr "Öngösterim resmi için gamma düzeltme deðerini ayarla"
 
 #. DESC_PREVIEW_GAMMA_RED
 msgid "Set gamma correction value for red component of preview image"
-msgstr "Öngösterim resminin kýrmýzý bileþeni için gamma düzeltme deðerini ayarla"
+msgstr ""
+"Öngösterim resminin kýrmýzý bileþeni için gamma düzeltme deðerini ayarla"
 
 #. DESC_PREVIEW_GAMMA_GREEN
 msgid "Set gamma correction value for green component of preview image"
@@ -1117,8 +1145,7 @@ msgid ""
 "Enter name of grayscale scanmode - for preview with transformation from "
 "grayscale to lineart"
 msgstr ""
-"Grayscaleden lineart'a dönüþümlü önzizleme için Grayscale modunun"
-"adýný girin"
+"Grayscaleden lineart'a dönüþümlü önzizleme için Grayscale modununadýný girin"
 
 #. DESC_PREVIEW_THRESHOLD_MIN
 #, no-c-format
@@ -1146,7 +1173,8 @@ msgstr ""
 msgid ""
 "Enter command to be executed to display helpfiles, must be a html-viewer!"
 msgstr ""
-"yardým dosyalarýný göstermek için çalýþtýrýlacak komutu girin, html-göstericisi olmalýdýr!"
+"yardým dosyalarýný göstermek için çalýþtýrýlacak komutu girin, "
+"html-göstericisi olmalýdýr!"
 
 #. DESC_AUTOENHANCE_GAMMA
 msgid "Change gamma value when autoenhancement button is pressed"
@@ -1377,7 +1405,7 @@ msgid ""
 "have any problem while running xsane as root:\n"
 "YOU ARE ALONE!"
 msgstr ""
-"xsaneni ROOT olarak çalýþtýrmak istiyorsunuz, bu TEHLÝKELÝDÝR!\n"
+"Xsane'ni ROOT olarak çalýþtýrmak istiyorsunuz, bu TEHLÝKELÝDÝR!\n"
 "\n"
 "Root olarak xsane'i kullanýrken olacak hatalarý \n"
 "lütfen hata raporu olarak yollamayýn\n"
@@ -1391,9 +1419,13 @@ msgstr "Hata"
 msgid "Warning"
 msgstr "Uyarý"
 
+#. ERR_HEADER_INFO
+msgid "Information"
+msgstr "Bilgi"
+
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
-msgstr "dosya yaratmada hata:"
+msgstr "Dosya yaratmada hata:"
 
 #. ERR_LOAD_DEVICE_SETTINGS
 msgid "Error while loading device settings:"
@@ -1442,6 +1474,7 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[SEÇENEK]...[AYGIT]"
 
 #. TEXT_HELP
+#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -1464,37 +1497,39 @@ msgid ""
 " -R, --Resizeable             resizable, scrolled main window (overwrite "
 "preferences value)\n"
 "\n"
+" -p, --print-filenames        print image filenames created by xsane\n"
+" -N, --force-filename name    force filename and disable user filename "
+"selection\n"
+"\n"
 " --display X11-display        redirect output to X11-display\n"
 " --no-xshm                    do not use shared memory images\n"
 " --sync                       request a synchronous connection with the X11 "
 "server"
 msgstr ""
-"SANE (Scanner Access Now Easy) aygýtlarýna ulaþmak için grafik kullanýcý arayüzünü "
-"baþlat.\n"
+"SANE (Scanner Access Now Easy) aygýtlarýna ulaþmak için grafik kullanýcý "
+"arayüzünü baþlat.\n"
 "\n"
 "Kullaným þekli [AYGIT] sürücü:aygýtdosyasý (örn. umax:/dev/scanner).\n"
 "[SEÇENEK]... aþaðýdakilerin kombinasyonu olabilir:\n"
 " -h, --help                   yardým messajýný göster ve sonlandýr\n"
 " -v, --version                sürüm bilgisini yaz\n"
 "\n"
-" -d, --device-settings file   aygýt ayarlarýný dosyadan yükle "
-"(\".drc\" olmadan)\n"
+" -d, --device-settings file   aygýt ayarlarýný dosyadan yükle (\".drc\" "
+"olmadan)\n"
 "\n"
 " -s, --scan                   tarama modu aktif olarak baþla\n"
 " -c, --copy                   kopyalama modu aktif olarak baþla\n"
 " -f, --fax                    faks modu aktif olarak baþla\n"
 " -n, --no-mode-selection      xsane mod seçimi menüsünü pasif kýl\n"
 "\n"
-" -F, --Fixed                  sabit ana pencere boyutu (tercihler deðerinin yerine "
-"geçer)\n"
-" -R, --Resizeable             yeniden boyutlanadirýlabilir, scrolled ana pencere (tercihler deðerinin "
+" -F, --Fixed                  sabit ana pencere boyutu (tercihler deðerinin "
 "yerine geçer)\n"
+" -R, --Resizeable             yeniden boyutlanadirýlabilir, scrolled ana "
+"pencere (tercihler deðerinin yerine geçer)\n"
 "\n"
 " --display X11-display        çýktýyý X11-exkranýna yönelndir\n"
 " --no-xshm                    paylaþýlan hafýza resimleri kullanma\n"
-" --sync                       X11 sunucu ile senkronize baðlantý"
-"iste"
-
+" --sync                       X11 sunucu ile senkronize baðlantýiste"
 
 #. strings for gimp plugin
 #. XSANE_GIMP_INSTALL_BLURB
@@ -1506,8 +1541,8 @@ msgid ""
 "This function provides access to scanners and other image acquisition "
 "devices through the SANE (Scanner Access Now Easy) interface."
 msgstr ""
-"Bu fonksiyon tarayýcýlara ve diðer resim yakalama aygýtlarýna"
-"SANE (Scanner Access Now Easy) arabirimi ile ulaþmayý saðlar."
+"Bu fonksiyon tarayýcýlara ve diðer resim yakalama aygýtlarýnaSANE (Scanner "
+"Access Now Easy) arabirimi ile ulaþmayý saðlar."
 
 #. Menu path must not be translated, this is done by the gimp. Only translate the text behind the last "/"
 #. XSANE_GIMP_MENU_DIALOG
@@ -1580,3 +1615,6 @@ msgstr "Yetersiz hafýza"
 
 msgid "Access to resource has been denied"
 msgstr "Kaynaða eriþim reddedildi"
+
+#~ msgid "Exit"
+#~ msgstr "Çýkýþ"

@@ -1618,6 +1618,7 @@ void xsane_create_histogram_dialog(const char *devicetext)
  char windowname[255];
  GtkWidget *xsane_color_hbox;
  GtkWidget *xsane_histogram_vbox;  
+ GtkWidget *button;  
  GdkColor color_black;
  GdkColor color_red;
  GdkColor color_green;
@@ -1635,6 +1636,7 @@ void xsane_create_histogram_dialog(const char *devicetext)
   sprintf(windowname, "%s %s", WINDOW_HISTOGRAM, devicetext);
   gtk_window_set_title(GTK_WINDOW(xsane.histogram_dialog), windowname);
   xsane_set_window_icon(xsane.histogram_dialog, 0);
+  gtk_accel_group_attach(xsane.accelerator_group, GTK_OBJECT(xsane.histogram_dialog));
 
   xsane_histogram_vbox = gtk_vbox_new(FALSE, 0);
   gtk_container_set_border_width(GTK_CONTAINER(xsane_histogram_vbox), 5);
@@ -1754,18 +1756,29 @@ void xsane_create_histogram_dialog(const char *devicetext)
   gtk_container_add(GTK_CONTAINER(xsane_histogram_vbox), xsane_color_hbox);
   gtk_widget_show(xsane_color_hbox);
 
-  xsane_toggle_button_new_with_pixmap(xsane_color_hbox, intensity_xpm, DESC_HIST_INTENSITY,
-                         &xsane.histogram_int,   xsane_histogram_toggle_button_callback);
-  xsane_toggle_button_new_with_pixmap(xsane_color_hbox, red_xpm, DESC_HIST_RED,
-                         &xsane.histogram_red,   xsane_histogram_toggle_button_callback);
-  xsane_toggle_button_new_with_pixmap(xsane_color_hbox, green_xpm, DESC_HIST_GREEN,
-                         &xsane.histogram_green, xsane_histogram_toggle_button_callback);
-  xsane_toggle_button_new_with_pixmap(xsane_color_hbox, blue_xpm, DESC_HIST_BLUE,
-                         &xsane.histogram_blue,  xsane_histogram_toggle_button_callback);
-  xsane_toggle_button_new_with_pixmap(xsane_color_hbox, pixel_xpm, DESC_HIST_PIXEL,
-                         &xsane.histogram_lines, xsane_histogram_toggle_button_callback);
-  xsane_toggle_button_new_with_pixmap(xsane_color_hbox, log_xpm, DESC_HIST_LOG,
-                         &xsane.histogram_log, xsane_histogram_toggle_button_callback);
+  button = xsane_toggle_button_new_with_pixmap(xsane_color_hbox, intensity_xpm, DESC_HIST_INTENSITY,
+                                               &xsane.histogram_int,   xsane_histogram_toggle_button_callback);
+  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_I, GDK_MOD1_MASK, GTK_ACCEL_LOCKED);
+
+  button = xsane_toggle_button_new_with_pixmap(xsane_color_hbox, red_xpm, DESC_HIST_RED,
+                                               &xsane.histogram_red,   xsane_histogram_toggle_button_callback);
+  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_R, GDK_MOD1_MASK, GTK_ACCEL_LOCKED);
+
+  button = xsane_toggle_button_new_with_pixmap(xsane_color_hbox, green_xpm, DESC_HIST_GREEN,
+                                               &xsane.histogram_green, xsane_histogram_toggle_button_callback);
+  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_G, GDK_MOD1_MASK, GTK_ACCEL_LOCKED);
+
+  button = xsane_toggle_button_new_with_pixmap(xsane_color_hbox, blue_xpm, DESC_HIST_BLUE,
+                                               &xsane.histogram_blue,  xsane_histogram_toggle_button_callback);
+  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_B, GDK_MOD1_MASK, GTK_ACCEL_LOCKED);
+
+  button = xsane_toggle_button_new_with_pixmap(xsane_color_hbox, pixel_xpm, DESC_HIST_PIXEL,
+                                               &xsane.histogram_lines, xsane_histogram_toggle_button_callback);
+  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_M, GDK_MOD1_MASK, GTK_ACCEL_LOCKED);
+
+  button = xsane_toggle_button_new_with_pixmap(xsane_color_hbox, log_xpm, DESC_HIST_LOG,
+                                               &xsane.histogram_log, xsane_histogram_toggle_button_callback);
+  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_L, GDK_MOD1_MASK, GTK_ACCEL_LOCKED);
 
   gtk_widget_show(xsane_color_hbox);         
 
@@ -1944,6 +1957,7 @@ void xsane_create_gamma_dialog(const char *devicetext)
   sprintf(windowname, "%s %s", WINDOW_GAMMA, devicetext);
   gtk_window_set_title(GTK_WINDOW(xsane.gamma_dialog), windowname);
   xsane_set_window_icon(xsane.gamma_dialog, 0);
+  gtk_accel_group_attach(xsane.accelerator_group, GTK_OBJECT(xsane.gamma_dialog));
 
   xsane_vbox_gamma = gtk_vbox_new(TRUE, 5);
   gtk_container_set_border_width(GTK_CONTAINER(xsane_vbox_gamma), 5);

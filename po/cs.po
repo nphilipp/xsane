@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.62\n"
-"POT-Creation-Date: 2000-10-01 13:09+0200\n"
+"POT-Creation-Date: 2000-11-12 01:25+0100\n"
 "PO-Revision-Date: 2000-10-02 16:18+02:00\n"
 "Last-Translator: Stanislav Brabec <utx@penguin.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -21,9 +21,15 @@ msgstr "(c)"
 msgid "©"
 msgstr "(c)"
 
-#. WINDOW_ABOUT, MENU_ITEM_ABOUT
+#. WINDOW_ABOUT_XSANE
+#, fuzzy
 msgid "About"
 msgstr "O programu"
+
+#. WINDOW_ABOUT_TRANSLATION, MENU_ITEM_ABOUT_TRANSLATION
+#, fuzzy
+msgid "About translation"
+msgstr "Volba prahu:"
 
 #. WINDOW_AUTHORIZE
 msgid "authorization"
@@ -109,13 +115,18 @@ msgstr "Pohled"
 msgid "Help"
 msgstr "Nápovìda"
 
+#. MENU_ITEM_ABOUT_XSANE
+#, fuzzy
+msgid "About XSane"
+msgstr "O programu"
+
 #. MENU_ITEM_INFO
 msgid "Info"
 msgstr "Informace"
 
-#. MENU_ITEM_EXIT
-msgid "Exit"
-msgstr "Konec"
+#. MENU_ITEM_QUIT
+msgid "Quit"
+msgstr ""
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -385,9 +396,26 @@ msgstr "Domovská stránka:"
 msgid "File:"
 msgstr "Soubor:"
 
+#. TEXT_TRANSLATION
+#, fuzzy
+msgid "Translation:"
+msgstr "Volba prahu:"
+
+#. TEXT_TRANSLATION_INFO
+msgid ""
+"untranslated original english text\n"
+"by Oliver Rauch\n"
+"Email: Oliver.Rauch@Wolfsburg.DE\n"
+msgstr ""
+
 #. TEXT_INFO_BOX
 msgid "0x0: 0KB"
 msgstr "0 × 0: 0 KB"
+
+#. TEXT_ADF_PAGES_SCANNED
+#, fuzzy
+msgid "Scanned pages: "
+msgstr "Skener a ovladaè:"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -888,8 +916,9 @@ msgstr ""
 " kontrast = 0"
 
 #. DESC_ENH_AUTO
+#, fuzzy
 msgid ""
-"Autoadjust gamma, brightness and contrast in dependance of selected area"
+"Autoadjust gamma, brightness and contrast in dependance of selected scan area"
 msgstr ""
 "Automatické nastavení gamy, jasu a kontrastu v závislosti na vybrané oblasti"
 
@@ -1180,7 +1209,8 @@ msgstr "Nastavení pøíkazu k zobrazení faxu"
 
 #. DESC_FAX_FINE_MODE
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
-msgstr "U¾ití vysokého svislého rozli¹ení pøi odesílání faxu (196 dpi namísto 98 dpi)"
+msgstr ""
+"U¾ití vysokého svislého rozli¹ení pøi odesílání faxu (196 dpi namísto 98 dpi)"
 
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
@@ -1393,6 +1423,10 @@ msgstr "Chyba"
 msgid "Warning"
 msgstr "Varování"
 
+#. ERR_HEADER_INFO
+msgid "Information"
+msgstr ""
+
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
 msgstr "Vytvoøení souboru selhalo"
@@ -1444,6 +1478,7 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[VOLBA]... [ZAØÍZENÍ]"
 
 #. TEXT_HELP
+#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -1466,6 +1501,10 @@ msgid ""
 " -R, --Resizeable             resizable, scrolled main window (overwrite "
 "preferences value)\n"
 "\n"
+" -p, --print-filenames        print image filenames created by xsane\n"
+" -N, --force-filename name    force filename and disable user filename "
+"selection\n"
+"\n"
 " --display X11-display        redirect output to X11-display\n"
 " --no-xshm                    do not use shared memory images\n"
 " --sync                       request a synchronous connection with the X11 "
@@ -1474,12 +1513,14 @@ msgstr ""
 "Spu¹tìní grafického rozhraní pro pøístup k SANE zarízením.\n"
 "(SANE = Scanner Access Now Easy - pøístup ke skeneru je nyní snadný)\n"
 "\n"
-"Formát [ZAØÍZENÍ] je jméno_ovladaèe:jméno_zaøízení (napø. umax:/dev/scanner).\n"
+"Formát [ZAØÍZENÍ] je jméno_ovladaèe:jméno_zaøízení (napø. "
+"umax:/dev/scanner).\n"
 "[VOLBA]... mù¾e být kombinací následujících polo¾ek:\n"
 "-h, --help                    vypí¹e tuto nápovìdu a skonèí\n"
 "-v, --version                 vypí¹e oznaèení verze\n"
 "\n"
-"-d, --device-settings soubor  naète nastavení zaøízení ze souboru (bez \".drc\")\n"
+"-d, --device-settings soubor  naète nastavení zaøízení ze souboru (bez "
+"\".drc\")\n"
 "\n"
 "-s, --scan                    spustí se v re¾imu skenování\n"
 "-c, --copy                    spustí se v re¾imu kopírování\n"
@@ -1488,7 +1529,8 @@ msgstr ""
 "\n"
 "-F, --Fixed                   pou¾ije pevnou velikost hlavního okna\n"
 "                              (pøepí¹e hodnotu pøedvolby)\n"
-"-R, --Resizeable              pou¾ije hlavní okno s posuvníky a promìnnou velikostí\n"
+"-R, --Resizeable              pou¾ije hlavní okno s posuvníky a promìnnou "
+"velikostí\n"
 "                              (pøepí¹e hodnotu pøedvolby)\n"
 "\n"
 "--display X11-displej         pøesmìruje výstup na X11-displej\n"
@@ -1580,3 +1622,6 @@ msgstr "Nedostatek pamìti"
 
 msgid "Access to resource has been denied"
 msgstr "Pøístup ke zdroji byl odmítnut"
+
+#~ msgid "Exit"
+#~ msgstr "Konec"
