@@ -346,23 +346,21 @@ void preview_do_gamma_correction(Preview *p)
 void preview_calculate_histogram(Preview *p,
 SANE_Int *count_raw, SANE_Int *count_raw_red, SANE_Int *count_raw_green, SANE_Int *count_raw_blue,
 SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue,
-SANE_Int left_x, SANE_Int top_y, SANE_Int right_x, SANE_Int bottom_y)
+SANE_Int min_x, SANE_Int min_y, SANE_Int max_x, SANE_Int max_y)
 {
- int x, y, dx, dy;
+ int x, y;
  int offset;
  SANE_Int red_raw, green_raw, blue_raw;
  SANE_Int red, green, blue;
-
+ 
   if (p->image_data_raw)
   {
-    dx = abs(right_x - left_x) + 1;
-    dy = abs(bottom_y - top_y) + 1;
-
-    for (y=0; y < dy; y++)
+    for (y = min_y; y <= max_y; y++)
     {
-      for (x=0; x < dx; x++)
+      for (x = min_x; x <= max_x; x++)
       {
-        offset = 3 * ((top_y + y) * p->image_width + left_x + x);
+        offset = 3 * (y * p->image_width + x);
+//printf("x=%d, y=%d, offset=%d\n", x,y,offset);
         red_raw   = p->image_data_raw[offset    ];
         green_raw = p->image_data_raw[offset + 1];
         blue_raw  = p->image_data_raw[offset + 2];
@@ -371,12 +369,12 @@ SANE_Int left_x, SANE_Int top_y, SANE_Int right_x, SANE_Int bottom_y)
         green = preview_gamma_data_green[green_raw];
         blue  = preview_gamma_data_blue [blue_raw];
 
-	count_raw      [(int) sqrt(red_raw*red_raw + green_raw*green_raw + blue_raw*blue_raw)]++;
+	count_raw      [(int) sqrt((red_raw*red_raw + green_raw*green_raw + blue_raw*blue_raw)/3.0)]++;
 	count_raw_red  [red_raw]++;
 	count_raw_green[green_raw]++;
 	count_raw_blue [blue_raw]++;
 
-	count      [(int) sqrt(red*red + green*green + blue*blue)]++;
+	count      [(int) sqrt((red*red + green*green + blue*blue)/3.0)]++;
 	count_red  [red]++;
 	count_green[green]++;
 	count_blue [blue]++;
@@ -975,16 +973,16 @@ static void restore_preview_image (Preview *p)
 
   p->image_width = width;
   p->image_height = height;
-  p->image_data = malloc (3*width*height);
+  p->image_data = malloc (3 * width * height);
   if (!p->image_data)
     return;
 
-  nread = fread (p->image_data, 3, width*height, in);
+  nread = fread (p->image_data, 3, width * height, in);
 
   p->image_y = nread/width;
   p->image_x = nread%width;
-  p->image_data_raw = malloc(3*p->image_width*p->image_height);
-  memcpy(p->image_data_raw, p->image_data, 3*p->image_width*p->image_height);
+  p->image_data_raw = malloc(3 * p->image_width * p->image_height);
+  memcpy(p->image_data_raw, p->image_data, 3 * p->image_width * p->image_height);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
