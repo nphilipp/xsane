@@ -22,6 +22,10 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netdb.h>
+
 #include "xsane.h"
 #include "xsane-preview.h"
 #include "xsane-back-gtk.h"
@@ -2204,4 +2208,430 @@ void xsane_transfer_to_gimp(FILE *imagefile, int color, int bits, int pixel_widt
 #endif /* HAVE_LIBGIMP_GIMP_H */ 
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
+#ifdef XSANE_ACTIVATE_MAIL
+
+/* character base of base64 coding */
+static const char base64[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void write_3chars_as_base64(unsigned char c1, unsigned char c2, unsigned char c3, int pads, int fd_socket)
+{
+ char buf[4];
+
+  buf[0] = base64[c1>>2]; /* wirte bits 7-2 of first char */
+  buf[1] = base64[((c1 & 0x3)<< 4) | ((c2 & 0xF0) >> 4)]; /* write bits 1,0 of first and bits 7-4 of second char */
+
+  if (pads == 2) /* only one byte used */
+  {
+    buf[2] = '='; /* char not used */
+    buf[3] = '='; /* char not used */
+  }
+  else if (pads) /* only two bytes used */
+  {
+    buf[2] = base64[((c2 & 0xF) << 2)]; /* write bits 3-0 of second char */
+    buf[3] = '='; /* char not used */
+  }
+  else
+  {
+    buf[2] = base64[((c2 & 0xF) << 2) | ((c3 & 0xC0) >>6)]; /* write bits 3-0 of second and bits 7,6 of third char */
+    buf[3] = base64[c3 & 0x3F]; /* write bits 5-0 of third char as lsb */
+  }
+
+  write(fd_socket, buf, 4);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void write_base64(int fd_socket, FILE *infile) 
+{
+ int c1, c2, c3;
+ int pos=0;
+
+  while ((c1 = getc(infile)) != EOF)
+  {
+    c2 = getc(infile);
+    if (c2 == EOF)
+    {
+      write_3chars_as_base64(c1, 0, 0, 2, fd_socket);
+    }
+    else
+    {
+      c3 = getc(infile);
+      if (c3 == EOF)
+      {
+        write_3chars_as_base64(c1, c2, 0, 1, fd_socket);
+      }
+      else
+      {
+        write_3chars_as_base64(c1, c2, c3, 0, fd_socket);
+      }
+    }
+
+    pos += 4;
+    if (pos > 71)
+    {
+      write(fd_socket, "\n", 1);
+      
+      pos = 0;
+    }
+  }
+
+  if (pos)
+  {
+    write(fd_socket, "\n", 1);
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void write_mail_header(int fd_socket, char *from, char *reply_to, char *to, char *subject, char *boundary, int related)
+{
+ char buf[1024];
+
+  snprintf(buf, sizeof(buf), "From: %s\n", from);
+  write(fd_socket, buf, strlen(buf));
+
+  snprintf(buf, sizeof(buf), "Reply-To: %s\n", reply_to);
+  write(fd_socket, buf, strlen(buf));
+
+  snprintf(buf, sizeof(buf), "To: %s\n", to);
+  write(fd_socket, buf, strlen(buf));
+
+  snprintf(buf, sizeof(buf), "Subject: %s\n", subject);
+  write(fd_socket, buf, strlen(buf));
+
+
+  if (related) /* related means that we need a special link in the html part to display the image */
+  {
+    snprintf(buf, sizeof(buf), "Content-Type: multipart/related;\n");
+    write(fd_socket, buf, strlen(buf));
+  }
+  else
+  {
+    snprintf(buf, sizeof(buf), "Content-Type: multipart/mixed;\n");
+    write(fd_socket, buf, strlen(buf));
+  }
+
+  snprintf(buf, sizeof(buf), " boundary=\"%s\"\n\n", boundary);
+  write(fd_socket, buf, strlen(buf));
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void write_mail_footer(int fd_socket, char *boundary)
+{
+ char buf[1024];
+
+  snprintf(buf, sizeof(buf), "--%s--\n", boundary);
+  write(fd_socket, buf, strlen(buf));
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void write_mail_mime_ascii(int fd_socket, char *boundary)
+{
+ char buf[1024];
+
+  snprintf(buf, sizeof(buf), "--%s\n", boundary);
+  write(fd_socket, buf, strlen(buf));
+
+  snprintf(buf, sizeof(buf), "Content-Type: text/plain;\n");
+  write(fd_socket, buf, strlen(buf));
+
+  snprintf(buf, sizeof(buf), "        charset=\"iso-8859-1\"\n");
+  write(fd_socket, buf, strlen(buf));
+
+  snprintf(buf, sizeof(buf), "Content-Transfer-Encoding: 8bit\n\n");
+  write(fd_socket, buf, strlen(buf));
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void write_mail_mime_html(int fd_socket, char *boundary)
+{
+ char buf[1024];
+
+  snprintf(buf, sizeof(buf), "--%s\n", boundary);
+  write(fd_socket, buf, strlen(buf));
+
+  snprintf(buf, sizeof(buf), "Content-Type: text/html;\n");
+  write(fd_socket, buf, strlen(buf));
+
+  snprintf(buf, sizeof(buf), "        charset=\"us-ascii\"\n");
+  write(fd_socket, buf, strlen(buf));
+
+  snprintf(buf, sizeof(buf), "Content-Transfer-Encoding: 7bit\n\n");
+  write(fd_socket, buf, strlen(buf));
+
+  snprintf(buf, sizeof(buf), "<!doctype html public \"-//w3c//dtd html 4.0 transitional//en\">\n");
+  write(fd_socket, buf, strlen(buf));
+
+  snprintf(buf, sizeof(buf), "<html>\n");
+  write(fd_socket, buf, strlen(buf));
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void write_mail_attach_image_png(int fd_socket, char *boundary, char *content_id, FILE *infile, char *filename)
+{
+ char buf[1024];
+
+  snprintf(buf, sizeof(buf), "--%s\n", boundary);
+  write(fd_socket, buf, strlen(buf));
+
+  snprintf(buf, sizeof(buf), "Content-Type: image/png\n");
+  write(fd_socket, buf, strlen(buf));
+
+  if (content_id)
+  {
+    snprintf(buf, sizeof(buf), "Content-ID: <%s>\n", content_id);
+    write(fd_socket, buf, strlen(buf));
+  }
+
+  snprintf(buf, sizeof(buf), "Content-Transfer-Encoding: base64\n");
+  write(fd_socket, buf, strlen(buf));
+
+  snprintf(buf, sizeof(buf), "Content-Disposition: inline;\n");
+  write(fd_socket, buf, strlen(buf));
+
+  snprintf(buf, sizeof(buf), "        filename=\"%s\"\n", filename);
+  write(fd_socket, buf, strlen(buf));
+
+  snprintf(buf, sizeof(buf), "\n");
+  write(fd_socket, buf, strlen(buf));
+
+  write_base64(fd_socket, infile);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void write_mail_attach_file(int fd_socket, char *boundary, FILE *infile, char *filename)
+{
+ char buf[1024];
+
+  snprintf(buf, sizeof(buf), "--%s\n", boundary);
+  write(fd_socket, buf, strlen(buf));
+
+  snprintf(buf, sizeof(buf), "Content-Type: application/octet-stream\n");
+  write(fd_socket, buf, strlen(buf));
+
+  snprintf(buf, sizeof(buf), "        name=\"%s\"\n", filename);
+  write(fd_socket, buf, strlen(buf));
+
+  snprintf(buf, sizeof(buf), "Content-Transfer-Encoding: base64\n");
+  write(fd_socket, buf, strlen(buf));
+
+  snprintf(buf, sizeof(buf), "Content-Disposition: attachment;\n");
+  write(fd_socket, buf, strlen(buf));
+
+  snprintf(buf, sizeof(buf), "        filename=\"%s\"\n", filename);
+  write(fd_socket, buf, strlen(buf));
+
+  snprintf(buf, sizeof(buf), "\n");
+  write(fd_socket, buf, strlen(buf));
+
+  write_base64(fd_socket, infile);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+/* returns fd_socket if sucessfull, < 0 when error occured */
+
+int open_socket(char *server, int port)
+{
+ int fd_socket;
+ struct sockaddr_in sin;
+ struct hostent *he;
+
+  he = gethostbyname(server);
+  if (!he)
+  {
+    DBG(DBG_error, "open_socket: Could not get hostname of \"%s\"\n", server);
+   return -1;
+  }
+  else
+  {
+    DBG(DBG_info, "open_socket: connecting to \"%s\" = %d.%d.%d.%d\n",
+        he->h_name,
+        (unsigned char) he->h_addr_list[0][0],
+        (unsigned char) he->h_addr_list[0][1],
+        (unsigned char) he->h_addr_list[0][2],
+        (unsigned char) he->h_addr_list[0][3]);
+  }
+ 
+  if (he->h_addrtype != AF_INET)
+  {
+    DBG(DBG_error, "open_socket: Unknown address family: %d\n", he->h_addrtype);
+   return -1;
+  }
+
+  fd_socket = socket(AF_INET, SOCK_STREAM, 0);
+
+  if (fd_socket < 0)
+  {
+    DBG(DBG_error, "open_socket: Could not create socket: %s\n", strerror(errno));
+   return -1;
+  }
+
+/*  setsockopt (dev->ctl, level, TCP_NODELAY, &on, sizeof (on)); */
+
+  sin.sin_port = htons(port);
+  sin.sin_family = AF_INET;
+  memcpy(&sin.sin_addr, he->h_addr_list[0], he->h_length);
+
+  if (connect(fd_socket, &sin, sizeof(sin)))
+  {
+    DBG(DBG_error, "open_socket: Could not connect with port %d of socket: %s\n", ntohs(sin.sin_port), strerror(errno));
+   return -1;
+  }
+
+  DBG(DBG_info, "open_socket: Connected with port %d\n", ntohs(sin.sin_port));
+
+ return fd_socket;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+/* returns 0 if success */
+
+int pop3_login(int fd_socket, char *user, char *passwd)
+{
+ char buf[1024];
+ int len;
+
+  len = read(fd_socket, buf, sizeof(buf));
+  if (len >= 0)
+  {
+    buf[len] = 0;
+  }
+  DBG(DBG_info2, "< %s\n", buf);
+
+  snprintf(buf, sizeof(buf), "USER %s\r\n", user);
+  DBG(DBG_info2, "> USER xxx\n");
+  write(fd_socket, buf, strlen(buf));
+  len = read(fd_socket, buf, sizeof(buf));
+  if (len >= 0)
+  {
+    buf[len] = 0;
+  }
+  DBG(DBG_info2, "< %s\n", buf);
+  if (buf[0] != '+')
+  {
+    return -1;
+  }
+
+  snprintf(buf, sizeof(buf), "PASS %s\r\n", passwd);
+  DBG(DBG_info2, "> PASS xxx\n");
+  write(fd_socket, buf, strlen(buf));
+  len = read(fd_socket, buf, sizeof(buf));
+  if (len >= 0)
+  {
+    buf[len] = 0;
+  }
+  DBG(DBG_info2, "< %s\n", buf);
+  if (buf[0] != '+')
+  {
+    return -1;
+  }
+
+  snprintf(buf, sizeof(buf), "QUIT\r\n");
+  DBG(DBG_info2, "> QUIT\n");
+  write(fd_socket, buf, strlen(buf));
+  len = read(fd_socket, buf, sizeof(buf));
+  if (len >= 0)
+  {
+    buf[len] = 0;
+  }
+  DBG(DBG_info2, "< %s\n", buf);
+
+ return 0;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+int write_smtp_header(int fd_socket, char *from, char *to)
+{
+ char buf[1024];
+ int len;
+
+  len = read(fd_socket, buf, sizeof(buf));
+  if (len >= 0)
+  {
+    buf[len] = 0;
+  }
+  DBG(DBG_info2, "< %s\n", buf);
+
+  snprintf(buf, sizeof(buf), "helo localhost\r\n");
+  DBG(DBG_info2, "> %s", buf);
+  write(fd_socket, buf, strlen(buf));
+  len = read(fd_socket, buf, sizeof(buf));
+  if (len >= 0)
+  {
+    buf[len] = 0;
+  }
+  DBG(DBG_info2, "< %s\n", buf);
+
+  snprintf(buf, sizeof(buf), "MAIL FROM: %s\r\n", from);
+  DBG(DBG_info2, "> %s", buf);
+  write(fd_socket, buf, strlen(buf));
+  len = read(fd_socket, buf, sizeof(buf));
+  if (len >= 0)
+  {
+    buf[len] = 0;
+  }
+  DBG(DBG_info2, "< %s\n", buf);
+
+  snprintf(buf, sizeof(buf), "RCPT TO: %s\r\n", to);
+  DBG(DBG_info2, "> %s", buf);
+  write(fd_socket, buf, strlen(buf));
+  len = read(fd_socket, buf, sizeof(buf));
+  if (len >= 0)
+  {
+    buf[len] = 0;
+  }
+  DBG(DBG_info2, "< %s\n", buf);
+
+  snprintf(buf, sizeof(buf), "DATA\r\n");
+  DBG(DBG_info2, "> %s", buf);
+  write(fd_socket, buf, strlen(buf));
+  len = read(fd_socket, buf, sizeof(buf));
+  if (len >= 0)
+  {
+    buf[len] = 0;
+  }
+  DBG(DBG_info2, "< %s\n", buf);
+
+ return 0;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+int write_smtp_footer(int fd_socket)
+{
+ char buf[1024];
+ int len;
+
+  snprintf(buf, sizeof(buf), ".\r\n");
+  DBG(DBG_info2, "> %s", buf);
+  write(fd_socket, buf, strlen(buf));
+  len = read(fd_socket, buf, sizeof(buf));
+  if (len >= 0)
+  {
+    buf[len] = 0;
+  }
+  DBG(DBG_info2, "< %s\n", buf);
+
+  snprintf(buf, sizeof(buf), "QUIT\r\n");
+  DBG(DBG_info2, "> %s", buf);
+  write(fd_socket, buf, strlen(buf));
+  len = read(fd_socket, buf, sizeof(buf));
+  if (len >= 0)
+  {
+    buf[len] = 0;
+  }
+  DBG(DBG_info2, "< %s\n", buf);
+
+ return 0;
+}
+
+#endif
 /* ---------------------------------------------------------------------------------------------------------------------- */

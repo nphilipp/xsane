@@ -64,6 +64,17 @@ Preferences preferences =
      296.98,		/* fax_height: height of fax paper in mm */
        0.0,             /* fax_leftoffset */
        0.0,             /* fax_bottomoffset */
+       0,               /* no default from email address */
+       0,               /* no default reply to email address */
+       0,               /* no default smtp server */
+       25,              /* default smtp port */
+       0,               /* no pop3 authentification */
+       0,               /* no default pop3 server */
+       110,             /* default pop3 port */
+       0,               /* no default pop3 user */
+       0,               /* no default pop3 passsword */
+       0,		/* no mail project */
+       0,		/* no mail viewer */
        0,		/* no doc viewer */
       80.0,		/* jpeg_quality */
        7.0,		/* png_compression */
@@ -81,9 +92,9 @@ Preferences preferences =
        0.0,             /* psfile_leftoffset */
        0.0,             /* psfile_bottomoffset */
        1,		/* tooltips enabled */
-       0,		/* (dont) show histogram */
-       0,		/* (dont) show gamma */
-       0,		/* (dont) show standard options */
+       1,		/* (dont) show histogram */
+       1,		/* (dont) show gamma */
+       1,		/* (dont) show standard options */
        0,		/* (dont) show advanced options */
        0,		/* (dont) show resolution list */
       10.0,		/* length unit */
@@ -147,6 +158,17 @@ desc[] =
     {"fax-height",			xsane_rc_pref_double,	POFFSET(fax_height)},
     {"fax-left-offset",			xsane_rc_pref_double,	POFFSET(fax_leftoffset)},
     {"fax-bottom-offset",		xsane_rc_pref_double,	POFFSET(fax_bottomoffset)},
+    {"mail-from",			xsane_rc_pref_string,	POFFSET(mail_from)},
+    {"mail-reply-to",			xsane_rc_pref_string,	POFFSET(mail_reply_to)},
+    {"mail-smtp-server",		xsane_rc_pref_string,	POFFSET(mail_smtp_server)},
+    {"mail-smtp-port",			xsane_rc_pref_int,	POFFSET(mail_smtp_port)},
+    {"mail-pop3-authentification",	xsane_rc_pref_int,	POFFSET(mail_pop3_authentification)},
+    {"mail-pop3-server",		xsane_rc_pref_string,	POFFSET(mail_pop3_server)},
+    {"mail-pop3-port",			xsane_rc_pref_int,	POFFSET(mail_pop3_port)},
+    {"mail-pop3-user",			xsane_rc_pref_string,	POFFSET(mail_pop3_user)},
+    {"mail-pop3-pass",			xsane_rc_pref_string,	POFFSET(mail_pop3_pass)},
+    {"mail-project",			xsane_rc_pref_string,	POFFSET(mail_project)},
+    {"mail-viewert",			xsane_rc_pref_string,	POFFSET(mail_viewer)},
     {"doc-viewer",			xsane_rc_pref_string,	POFFSET(doc_viewer)},
     {"jpeg-quality",			xsane_rc_pref_double,	POFFSET(jpeg_quality)},
     {"png-compression",			xsane_rc_pref_double, 	POFFSET(png_compression)},
@@ -301,6 +323,7 @@ void preferences_save(int fd)
 
 
   xsane_rc_io_w_set_dir(&w, WIRE_DECODE);	/* flush it out */
+  xsane_rc_io_w_exit(&w);
 }
 
 /* --------------------------------------------------------------------- */
@@ -324,13 +347,15 @@ void preferences_restore(int fd)
     xsane_rc_io_w_space(&w, 3);
     if (w.status)
     {
-      return;
+      xsane_rc_io_w_exit(&w);
+     return;
     }
 
     xsane_rc_io_w_string(&w, &name);
     if (w.status || !name)
     {
-      return;
+      xsane_rc_io_w_exit(&w);
+     return;
     }
 
     for (i = 0; i < NELEMS (desc); ++i)
@@ -358,13 +383,15 @@ void preferences_restore(int fd)
       xsane_rc_io_w_space(&w, 3);
       if (w.status)
       {
-        return;
+        xsane_rc_io_w_exit(&w);
+       return;
       }
 
       xsane_rc_io_w_string(&w, &name);
       if (w.status || !name)
       {
-        return;
+        xsane_rc_io_w_exit(&w);
+       return;
       }
 
       if (strcmp(name, desc_printer[i].name) == 0)
@@ -400,13 +427,15 @@ void preferences_restore(int fd)
         xsane_rc_io_w_space(&w, 3);
         if (w.status)
         {
-          return;
+          xsane_rc_io_w_exit(&w);
+         return;
         }
 
         xsane_rc_io_w_string(&w, &name);
         if (w.status || !name)
         {
-          return;
+          xsane_rc_io_w_exit(&w);
+         return;
         }
 
         if (strcmp(name, desc_preset_area[i].name) == 0)
@@ -422,4 +451,6 @@ void preferences_restore(int fd)
       n++;
     }
   }
+
+  xsane_rc_io_w_exit(&w);
 }

@@ -53,6 +53,7 @@ install: $(PROGRAMS)
 	@for program in $(BINPROGS); do \
 	  $(INSTALL_PROGRAM) $${program} $(bindir)/$${program}; \
 	done
+	$(INSTALL_DATA) $(srcdir)/xsane-WIN32.txt $(sanedir)/xsane-WIN32.txt
 	$(INSTALL_DATA) $(srcdir)/xsane-style.rc $(sanedatadir)/xsane/xsane-style.rc
 	$(INSTALL_DATA) $(srcdir)/xsane-startimage.pnm $(sanedatadir)/xsane/xsane-startimage.pnm
 	$(INSTALL_DATA) $(srcdir)/xsane-calibration.pnm $(sanedatadir)/xsane/xsane-calibration.pnm

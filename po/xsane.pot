@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-05-18 23:04+0200\n"
+"POT-Creation-Date: 2001-06-10 10:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -58,6 +58,18 @@ msgstr ""
 
 #. WINDOW_FAX_INSERT
 msgid "insert ps-file into fax"
+msgstr ""
+
+#. WINDOW_MAIL_PROJECT
+msgid "mail project"
+msgstr ""
+
+#. WINDOW_MAIL_RENAME
+msgid "rename mail image"
+msgstr ""
+
+#. WINDOW_MAIL_INSERT
+msgid "insert file into mail"
 msgstr ""
 
 #. WINDOW_PRESET_AREA_RENAME
@@ -208,6 +220,18 @@ msgstr ""
 msgid "Rename page"
 msgstr ""
 
+#. BUTTON_IMAGE_DELETE
+msgid "Delete image"
+msgstr ""
+
+#. BUTTON_IMAGE_SHOW
+msgid "Show image"
+msgstr ""
+
+#. BUTTON_IMAGE_RENAME
+msgid "Rename image"
+msgstr ""
+
 #. BUTTON_FILE_INSERT
 msgid "Insert file"
 msgstr ""
@@ -242,6 +266,10 @@ msgstr ""
 
 #. RADIO_BUTTON_FINE_MODE
 msgid "Fine mode"
+msgstr ""
+
+#. RADIO_BUTTON_HTML_MAIL
+msgid "HTML mail"
 msgstr ""
 
 #. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
@@ -282,6 +310,10 @@ msgstr ""
 
 #. RADIO_BUTTON_AUTOCORRECT_COLORS
 msgid "Autocorrect colors"
+msgstr ""
+
+#. RADIO_BUTTON_POP3_AUTHENTIFICATION
+msgid "POP3 authentification"
 msgstr ""
 
 #. TEXT_SCANNING_DEVICES
@@ -490,6 +522,14 @@ msgstr ""
 msgid "Scanned pages: "
 msgstr ""
 
+#. TEXT_MAIL_TEXT
+msgid "Email text:"
+msgstr ""
+
+#. TEXT_ATTACHMENTS
+msgid "Attachments:"
+msgstr ""
+
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
 msgstr ""
@@ -678,6 +718,38 @@ msgstr ""
 msgid "Viewer (Postscript):"
 msgstr ""
 
+#. TEXT_SETUP_SMTP_SERVER
+msgid "SMTP server:"
+msgstr ""
+
+#. TEXT_SETUP_SMTP_PORT
+msgid "SMTP port:"
+msgstr ""
+
+#. TEXT_SETUP_MAIL_FROM
+msgid "From:"
+msgstr ""
+
+#. TEXT_SETUP_MAIL_REPLY_TO
+msgid "Reply to:"
+msgstr ""
+
+#. TEXT_SETUP_POP3_SERVER
+msgid "POP3 server:"
+msgstr ""
+
+#. TEXT_SETUP_POP3_PORT
+msgid "POP3 port:"
+msgstr ""
+
+#. TEXT_SETUP_POP3_USER
+msgid "POP3 user:"
+msgstr ""
+
+#. TEXT_SETUP_POP3_PASS
+msgid "POP3 password:"
+msgstr ""
+
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
 msgstr ""
@@ -706,6 +778,10 @@ msgstr ""
 msgid "Fax"
 msgstr ""
 
+#. NOTEBOOK_MAIL_OPTIONS
+msgid "Mail"
+msgstr ""
+
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display"
 msgstr ""
@@ -716,6 +792,10 @@ msgstr ""
 
 #. MENU_ITEM_SCAN
 msgid "Scan"
+msgstr ""
+
+#. MENU_ITEM_MAIL
+msgid "Email"
 msgstr ""
 
 #. MENU_ITEM_SHOW_TOOLTIPS
@@ -963,6 +1043,22 @@ msgstr ""
 
 #. DESC_FAXRECEIVER
 msgid "Enter receiver phone number or address"
+msgstr ""
+
+#. DESC_MAILPROJECT
+msgid "Enter name of mail project"
+msgstr ""
+
+#. DESC_MAILIMAGENAME
+msgid "Enter new name for mail image"
+msgstr ""
+
+#. DESC_MAILRECEIVER
+msgid "Enter email address"
+msgstr ""
+
+#. DESC_MAILSUBJECT
+msgid "Enter subject of email"
 msgstr ""
 
 #. DESC_PRESET_AREA_NAME
@@ -1359,6 +1455,46 @@ msgstr ""
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
 msgstr ""
 
+#. DESC_SMTP_SERVER
+msgid "IP Address or Domain name of SMTP server"
+msgstr ""
+
+#. DESC_SMTP_PORT
+msgid "port to connect to SMTP server"
+msgstr ""
+
+#. DESC_MAIL_FROM
+msgid "enter your email address"
+msgstr ""
+
+#. DESC_MAIL_REPLY_TO
+msgid "enter email address for replied emails"
+msgstr ""
+
+#. DESC_POP3_AUTHENTIFICATION
+msgid "Authentificate at POP3 server before sending mail"
+msgstr ""
+
+#. DESC_POP3_SERVER
+msgid "IP Address or Domain name of POP3 server"
+msgstr ""
+
+#. DESC_POP3_PORT
+msgid "port to connect to POP3 server"
+msgstr ""
+
+#. DESC_POP3_USER
+msgid "user name for POP3 server"
+msgstr ""
+
+#. DESC_POP3_PASS
+msgid "password for POP3 server"
+msgstr ""
+
+#. DESC_HTML_MAIL
+msgid "Mail is sent in html mode, images are displayed directly"
+msgstr ""
+
 #. DESC_PERMISSION_READ
 msgid "read"
 msgstr ""
@@ -1406,6 +1542,10 @@ msgstr ""
 
 #. DESC_AUTOSELECT_SCANAREA
 msgid "Autoselect scanarea"
+msgstr ""
+
+#. DESC_DELETE_IMAGES
+msgid "Delete preview image cache"
 msgstr ""
 
 #. DESC_PRESET_AREA
@@ -1497,6 +1637,10 @@ msgstr ""
 msgid "out of memory"
 msgstr ""
 
+#. ERR_TOO_MUCH_DATA
+msgid "Backend sends more image data than it defined in parameters"
+msgstr ""
+
 #. ERR_LIBTIFF
 msgid "LIBTIFF reports error"
 msgstr ""
@@ -1513,16 +1657,20 @@ msgstr ""
 msgid "unknown constraint type"
 msgstr ""
 
-#. ERR_FAILD_EXEC_DOC_VIEWER
+#. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
 msgstr ""
 
-#. ERR_FAILD_EXEC_FAX_VIEWER
+#. ERR_FAILED_EXEC_FAX_VIEWER
 msgid "Failed to execute fax viewer:"
 msgstr ""
 
 #. ERR_FAILED_EXEC_FAX_CMD
-msgid "Failed to execute faxcommand:"
+msgid "Failed to execute fax command:"
+msgstr ""
+
+#. ERR_FAILED_EXEC_MAIL_VIEWER
+msgid "Failed to execute mail image viewer:"
 msgstr ""
 
 #. ERR_BAD_FRAME_FORMAT
@@ -1684,6 +1832,7 @@ msgid ""
 " -s, --scan                   start with scan-mode active\n"
 " -c, --copy                   start with copy-mode active\n"
 " -f, --fax                    start with fax-mode active\n"
+" -m, --mail                   start with mail-mode active\n"
 " -n, --no-mode-selection      disable menu for XSane mode selection\n"
 "\n"
 " -F, --Fixed                  fixed main window size (overwrite preferences "

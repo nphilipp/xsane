@@ -84,6 +84,18 @@ typedef struct
     double fax_leftoffset;		/* left offset of fax paper in mm */
     double fax_bottomoffset;		/* bottom offset of fax paper in mm */
 
+    char   *mail_from;			/* email address of sender */
+    char   *mail_reply_to;		/* email address for replied emails */
+    char   *mail_smtp_server;		/* ip address or domain name of smtp server */
+    int    mail_smtp_port;		/* port to connect to smtp sever */
+    int    mail_pop3_authentification;  /* use pop3 login for authentification */
+    char   *mail_pop3_server;		/* ip address or domain name of pop3 server */
+    int    mail_pop3_port;		/* port to connect to pop3 server */
+    char   *mail_pop3_user;		/* user name for pop3 server */
+    char   *mail_pop3_pass;		/* password for pop3 server */
+    char   *mail_project;		/* mail project */
+    char   *mail_viewer;		/* mail viewer */
+
     char   *doc_viewer;			/* doc viewer for helpfiles */
 
     double jpeg_quality;		/* quality when saving image as jpeg */

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.77\n"
-"POT-Creation-Date: 2001-05-18 23:04+0200\n"
+"POT-Creation-Date: 2001-06-10 10:31+0200\n"
 "PO-Revision-Date: 2000-01-21 15:51+01:00\n"
 "Last-Translator: Oliver Rauch <Oliver.Rauch@rauch-domain.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -58,6 +58,18 @@ msgstr "Faxseite umbenennen"
 #. WINDOW_FAX_INSERT
 msgid "insert ps-file into fax"
 msgstr "ps-Datei einfügen in Fax"
+
+#. WINDOW_MAIL_PROJECT
+msgid "mail project"
+msgstr "Mailprojekt"
+
+#. WINDOW_MAIL_RENAME
+msgid "rename mail image"
+msgstr "E-Mail Bild umbenennen"
+
+#. WINDOW_MAIL_INSERT
+msgid "insert file into mail"
+msgstr "Bild in E-Mail einfügen"
 
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
@@ -207,6 +219,18 @@ msgstr "Seite anzeigen"
 msgid "Rename page"
 msgstr "Seite umbenennen"
 
+#. BUTTON_IMAGE_DELETE
+msgid "Delete image"
+msgstr "Bild löschen"
+
+#. BUTTON_IMAGE_SHOW
+msgid "Show image"
+msgstr "Bild anzeigen"
+
+#. BUTTON_IMAGE_RENAME
+msgid "Rename image"
+msgstr "Bild umbenennen"
+
 #. BUTTON_FILE_INSERT
 msgid "Insert file"
 msgstr "Datei einfügen"
@@ -242,6 +266,10 @@ msgstr "Vorschauscan abbrechen"
 #. RADIO_BUTTON_FINE_MODE
 msgid "Fine mode"
 msgstr "Fein-Modus"
+
+#. RADIO_BUTTON_HTML_MAIL
+msgid "HTML mail"
+msgstr ""
 
 #. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device preferences at exit"
@@ -282,6 +310,10 @@ msgstr "Scanbereich automatisch wählen"
 #. RADIO_BUTTON_AUTOCORRECT_COLORS
 msgid "Autocorrect colors"
 msgstr "Automatische Farbkorrektur"
+
+#. RADIO_BUTTON_POP3_AUTHENTIFICATION
+msgid "POP3 authentification"
+msgstr "POP3 Authentifizierung"
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
@@ -504,6 +536,14 @@ msgstr "0x0: 0KB"
 msgid "Scanned pages: "
 msgstr "gescannte Seiten: "
 
+#. TEXT_MAIL_TEXT
+msgid "Email text:"
+msgstr "E-Mail Text:"
+
+#. TEXT_ATTACHMENTS
+msgid "Attachments:"
+msgstr ""
+
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
 msgstr "Druckerauswahl:"
@@ -692,6 +732,38 @@ msgstr "Option für Feinmodus:"
 msgid "Viewer (Postscript):"
 msgstr "Betrachter (Postscript):"
 
+#. TEXT_SETUP_SMTP_SERVER
+msgid "SMTP server:"
+msgstr "SMTP Server:"
+
+#. TEXT_SETUP_SMTP_PORT
+msgid "SMTP port:"
+msgstr "SMTP Server:"
+
+#. TEXT_SETUP_MAIL_FROM
+msgid "From:"
+msgstr "Von:"
+
+#. TEXT_SETUP_MAIL_REPLY_TO
+msgid "Reply to:"
+msgstr "Antwort an:"
+
+#. TEXT_SETUP_POP3_SERVER
+msgid "POP3 server:"
+msgstr "POP3 Server:"
+
+#. TEXT_SETUP_POP3_PORT
+msgid "POP3 port:"
+msgstr "POP3 Port:"
+
+#. TEXT_SETUP_POP3_USER
+msgid "POP3 user:"
+msgstr "POP3 Benutzer:"
+
+#. TEXT_SETUP_POP3_PASS
+msgid "POP3 password:"
+msgstr "POP3 Passwort:"
+
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
 msgstr "Benutzer"
@@ -720,6 +792,10 @@ msgstr "Photokopie"
 msgid "Fax"
 msgstr "Fax"
 
+#. NOTEBOOK_MAIL_OPTIONS
+msgid "Mail"
+msgstr "E-Mail"
+
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display"
 msgstr "Darstellung"
@@ -731,6 +807,10 @@ msgstr "Verbesserungen"
 #. MENU_ITEM_SCAN
 msgid "Scan"
 msgstr "Scannen"
+
+#. MENU_ITEM_MAIL
+msgid "Email"
+msgstr "E-Mail"
 
 #. MENU_ITEM_SHOW_TOOLTIPS
 msgid "Show tooltips"
@@ -980,6 +1060,22 @@ msgstr "Name der Faxseite eingeben"
 #. DESC_FAXRECEIVER
 msgid "Enter receiver phone number or address"
 msgstr "Telephonnummer des Empfängers eingeben"
+
+#. DESC_MAILPROJECT
+msgid "Enter name of mail project"
+msgstr "Name des Mailprojekts"
+
+#. DESC_MAILIMAGENAME
+msgid "Enter new name for mail image"
+msgstr "neuen Name für E-Mail Bild eingeben"
+
+#. DESC_MAILRECEIVER
+msgid "Enter email address"
+msgstr ""
+
+#. DESC_MAILSUBJECT
+msgid "Enter subject of email"
+msgstr ""
 
 #. DESC_PRESET_AREA_NAME
 msgid "Enter new name for preset area"
@@ -1424,6 +1520,46 @@ msgstr ""
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
 msgstr "Sende Fax mit hoher vertikaler Auflösung (196 lpi anstatt 98 lpi)"
 
+#. DESC_SMTP_SERVER
+msgid "IP Address or Domain name of SMTP server"
+msgstr "IP Adresse oder Domain Name des SMTP Servers"
+
+#. DESC_SMTP_PORT
+msgid "port to connect to SMTP server"
+msgstr "Port, auf dem zum SMTP Server verbunden werden soll"
+
+#. DESC_MAIL_FROM
+msgid "enter your email address"
+msgstr "Geben Sie Ihre E-Mail Adresse ein"
+
+#. DESC_MAIL_REPLY_TO
+msgid "enter email address for replied emails"
+msgstr "Geben Sie die E-Mail Adresse für Antworten auf diese Mail ein"
+
+#. DESC_POP3_AUTHENTIFICATION
+msgid "Authentificate at POP3 server before sending mail"
+msgstr "Authehtifizierung über POP3 Server durchführen bevor mail gesendet wird"
+
+#. DESC_POP3_SERVER
+msgid "IP Address or Domain name of POP3 server"
+msgstr "IP ADresse oder Domain Name des POP3 Servers"
+
+#. DESC_POP3_PORT
+msgid "port to connect to POP3 server"
+msgstr "Port, auf dem zum POP3 Server verbunden werden soll"
+
+#. DESC_POP3_USER
+msgid "user name for POP3 server"
+msgstr "Benuter Name für den POP3 Server"
+
+#. DESC_POP3_PASS
+msgid "password for POP3 server"
+msgstr "Passwort für den POP3 Server"
+
+#. DESC_HTML_MAIL
+msgid "Mail is sent in html mode, images are displayed directly"
+msgstr "E-Mail wird im hmtl Modus gesandt"
+
 #. DESC_PERMISSION_READ
 msgid "read"
 msgstr "lesen"
@@ -1472,6 +1608,10 @@ msgstr "Sichtbaren Bereich auswählen"
 #. DESC_AUTOSELECT_SCANAREA
 msgid "Autoselect scanarea"
 msgstr "Scanbereich automatisch wählen"
+
+#. DESC_DELETE_IMAGES
+msgid "Delete preview image cache"
+msgstr "Vorschau Speicher loeschen"
 
 #. DESC_PRESET_AREA
 msgid "Preset area"
@@ -1562,6 +1702,10 @@ msgstr "Kein Ausgabedateiformat angegeben"
 msgid "out of memory"
 msgstr "Kein Speicher"
 
+#. ERR_TOO_MUCH_DATA
+msgid "Backend sends more image data than it defined in parameters"
+msgstr ""
+
 #. ERR_LIBTIFF
 msgid "LIBTIFF reports error"
 msgstr "LIBTIFF meldet Fehler"
@@ -1578,17 +1722,21 @@ msgstr "unbekannter Typ"
 msgid "unknown constraint type"
 msgstr "unbekannter verpflichtender Typ"
 
-#. ERR_FAILD_EXEC_DOC_VIEWER
+#. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
 msgstr "Konnte Hilfedateibetrachter nicht ausführen:"
 
-#. ERR_FAILD_EXEC_FAX_VIEWER
+#. ERR_FAILED_EXEC_FAX_VIEWER
 msgid "Failed to execute fax viewer:"
 msgstr "Konnte Faxbetrachter nicht ausführen:"
 
 #. ERR_FAILED_EXEC_FAX_CMD
-msgid "Failed to execute faxcommand:"
+msgid "Failed to execute fax command:"
 msgstr "Konnte Faxbefehl nicht ausführen:"
+
+#. ERR_FAILED_EXEC_MAIL_VIEWER
+msgid "Failed to execute mail image viewer:"
+msgstr "Konnte E-Mail Bildbetrachter nicht ausführen:"
 
 #. ERR_BAD_FRAME_FORMAT
 msgid "bad frame format"
@@ -1755,6 +1903,7 @@ msgid ""
 " -s, --scan                   start with scan-mode active\n"
 " -c, --copy                   start with copy-mode active\n"
 " -f, --fax                    start with fax-mode active\n"
+" -m, --mail                   start with mail-mode active\n"
 " -n, --no-mode-selection      disable menu for XSane mode selection\n"
 "\n"
 " -F, --Fixed                  fixed main window size (overwrite preferences "
@@ -1784,6 +1933,7 @@ msgstr ""
 " -s, --scan                   starte im Scanmodus\n"
 " -c, --copy                   starte im Kopiermodus\n"
 " -f, --fax                    starte im Faxmodus\n"
+" -m, --mail                   starte im E-Mailmodus\n"
 " -n, --no-mode-selection      deaktiviere Modusauswahl\n"
 "\n"
 " -F, --Fixed                  Hauptfenstergröße ist fest\n"

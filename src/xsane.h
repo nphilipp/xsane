@@ -29,10 +29,11 @@
 
 /* #define XSANE_TEST */
 /* #define SUPPORT_RGBA */
+#define XSANE_ACTIVATE_MAIL
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.77"
+#define XSANE_VERSION		"0.78"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2001"
@@ -222,7 +223,7 @@ GSGDialogElement;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-enum { XSANE_SCAN, XSANE_COPY, XSANE_FAX };
+enum { XSANE_SCAN, XSANE_COPY, XSANE_FAX, XSANE_MAIL };
 enum { XSANE_LINEART_STANDARD, XSANE_LINEART_XSANE, XSANE_LINEART_GRAYSCALE };
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -230,6 +231,7 @@ enum { XSANE_LINEART_STANDARD, XSANE_LINEART_XSANE, XSANE_LINEART_GRAYSCALE };
 extern void xsane_pref_save(void);
 extern void xsane_interface(int argc, char **argv);
 extern void xsane_fax_project_save(void);
+extern void xsane_mail_project_save(void);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -243,16 +245,19 @@ extern void xsane_fax_project_save(void);
 #endif
 
 #define OUT_FILENAME     	"out.pnm"
-#define FAXPROJECT 	    	"faxproject"
 #define PRINTERNAME	  	"new printer"
 #define PRINTERCOMMAND  	"lpr"
 #define PRINTERCOPYNUMBEROPTION "-#"
+#define FAXPROJECT 	    	"faxproject"
 #define FAXCOMMAND 	 	"sendfax"
 #define FAXRECEIVEROPT		"-d"
 #define FAXPOSTSCRIPTOPT	""
 #define FAXNORMALOPT		"-l"
 #define FAXFINEOPT		"-m"
 #define FAXVIEWER 	 	"gv"
+#define MAILPROJECT 	    	"mailproject"
+#define MAILCOMMAND 	 	"sendmail"
+#define MAILVIEWER 	 	"xv"
 #define DOCVIEWER_NETSCAPE	"netscape"
 #define DOCVIEWER 	 	DOCVIEWER_NETSCAPE
 
@@ -395,12 +400,25 @@ typedef struct Xsane
     GtkWidget *main_dialog_scrolled;
     GtkWidget *histogram_dialog;
     GtkWidget *gamma_dialog;
+
     GtkWidget *fax_dialog;
     GtkWidget *fax_list;
-
     GtkWidget *fax_project_box;
     GtkWidget *fax_project_exists;
     GtkWidget *fax_project_not_exists;
+    GtkWidget *fax_project_entry;
+    GtkWidget *fax_receiver_entry;
+
+    GtkWidget *mail_dialog;
+    GtkWidget *mail_list;
+    GtkWidget *mail_project_box;
+    GtkWidget *mail_project_exists;
+    GtkWidget *mail_project_not_exists;
+    GtkWidget *mail_project_entry;
+    GtkWidget *mail_receiver_entry;
+    GtkWidget *mail_subject_entry;
+    GtkWidget *mail_text_widget;
+    GtkWidget *mail_html_mode_widget;
 
     GdkPixmap *window_icon_pixmap;
     GdkBitmap *window_icon_mask;        
@@ -430,8 +448,6 @@ typedef struct Xsane
 
     /* for standalone mode: */
     GtkWidget *filename_entry;
-    GtkWidget *fax_project_entry;
-    GtkWidget *fax_receiver_entry;
     GtkWidget *filetype_option_menu;
 
     /* saving and transformation values: */
@@ -522,6 +538,8 @@ typedef struct Xsane
     SANE_Bool scanner_gamma_gray;
 
     int fax_fine_mode;
+    int mail_project_save;
+    int mail_html_mode;
 
     GtkWidget *outputfilename_entry;
     GtkWidget *copy_number_entry;
@@ -533,6 +551,10 @@ typedef struct Xsane
 
     char *fax_filename;
     char *fax_receiver;
+
+    char *mail_filename;
+    char *mail_receiver;
+    char *mail_subject;
 
     int block_update_param;
 
@@ -672,6 +694,17 @@ typedef struct XsaneSetup
   GtkWidget *psfile_bottomoffset_entry;
   GtkWidget *psfile_height_entry;
   GtkWidget *tmp_path_entry;
+
+  GtkWidget *mail_smtp_server_entry;
+  GtkWidget *mail_smtp_port_entry;
+  GtkWidget *mail_from_entry;
+  GtkWidget *mail_reply_to_entry;
+  GtkWidget *mail_pop3_authentification_entry;
+  GtkWidget *mail_pop3_server_entry;
+  GtkWidget *mail_pop3_port_entry;
+  GtkWidget *mail_pop3_user_entry;
+  GtkWidget *mail_pop3_pass_entry;
+  GtkWidget *mail_viewer_entry;
 
   int filename_counter_len;
 

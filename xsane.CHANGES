@@ -1602,3 +1602,33 @@ xsane-0.76 -> 0.77:
  - replaced all fprintf(stderr, ... by DBG(...
 
  - updated translations: cs, de, fr, ja, sv, tr
+
+
+xsane-0.77 -> 0.78:
+-------------------
+
+ - when the backend defines a new scanner surface it is updated correct now
+   when the reduced preview surface does not limit the new surface
+   (added expand_surface to preview_update_surface()
+
+ - preview scan is aborted when backend sends more image data than expected,
+   the preview image is saved in this case
+ 
+ - the preview image is saved now when the preview scan is canceld, so the
+   already scanned part of the preview keeps visible
+
+ - when two preview levels have comparable quality it is used the preview
+   that is more up to date (scanned later)
+
+ - applied sanei_wire.c patches from sane-backends-1.0.5 to xsane-rc-io.c
+
+ - changed default values: histogram, and standard options windows are visible by default now
+
+ - added function (pirate icon) to delete preview image cache
+
+ - added mail project dialog
+
+ - added mail setup dialog
+
+ - added routines for sening images by mail (base64encoding, mail headers, smtp headers)
+

@@ -8,19 +8,14 @@ first steps:
  - scan-function
     - better postscript savings
  - fax-function:
-    + add coverpage with simple text field or call editor
+    + add coverpage with edit like mail function
     - add send delayed option
     - add options for sender/receiver Name
-    - what about faxprojects with mixed normal- and fine-mode pages?
     + zoom ?
  - email-function:
-    - based on fax mode
-    - image type = png/jpeg ? (user selectable?)
-    - resolution selectable
-    - save as mail:
-      (a) ascii mail with base64 mime attachement (images are attached as file in the mail)
-      (b) html mail, images are loaded by the html code (images are visible in the mail)
-    - may be a little editor that allows to add some texts?!
+    - send with sendmail?
+    - fork() for smtp send?
+    - image types other than png? (user selectable?)
  - copy mode and scan mode into postscript file:
     + select image position on printer (centered/left/right/free) for copy
  - preview:
@@ -39,6 +34,7 @@ first steps:
    - correct charset of tooltips for all national codepages
 
  + correct gtk custom gamma functions and include it
+   may be write an own gamma curve widget
 
 second steps:
 

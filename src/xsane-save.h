@@ -39,5 +39,16 @@ extern void xsane_save_png_16(FILE *outfile, FILE *imagefile, int color, int bit
 extern void xsane_save_pnm_16(FILE *outfile, FILE *imagefile, int color, int bits, int pixel_width, int pixel_height);
 extern void null_print_func(gchar *msg);
 extern void xsane_transfer_to_gimp(FILE *imagefile, int color, int bits, int pixel_width, int pixel_height);
+extern void write_base64(int fd_socket, FILE *infile);
+extern void write_mail_header(int fd_socket, char *from, char *reply_to, char *to, char *subject, char *boundary, int related);
+extern void write_mail_footer(int fd_socket, char *boundary);
+extern void write_mail_mime_ascii(int fd_socket, char *boundary);
+extern void write_mail_mime_html(int fd_socket, char *boundary);
+extern void write_mail_attach_image_png(int fd_socket, char *boundary, char *content_id, FILE *infile, char *filename);
+extern void write_mail_attach_file(int fd_socket, char *boundary, FILE *infile, char *filename);
+extern int open_socket(char *server, int port);
+extern int pop3_login(int fd_socket, char *user, char *passwd);
+extern int write_smtp_header(int fd_socket, char *from, char *to);
+extern int write_smtp_footer(int fd_socket);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

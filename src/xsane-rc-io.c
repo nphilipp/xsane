@@ -49,6 +49,11 @@ void xsane_rc_io_w_space(Wire *w, size_t howmuch)
 
   DBG(DBG_wire, "xsane_rc_io_w_space\n");
 
+  if (w->status != 0)
+  {
+    return;  
+  }
+
   if (w->buffer.curr + howmuch > w->buffer.end)
   {
     switch (w->direction)
@@ -74,6 +79,12 @@ void xsane_rc_io_w_space(Wire *w, size_t howmuch)
 
       case WIRE_DECODE:
         left_over = w->buffer.end - w->buffer.curr;
+
+        if ((signed)left_over < 0)
+        {
+          return; 
+        }
+
         if (left_over)
         {
           memcpy(w->buffer.start, w->buffer.curr, left_over);
@@ -123,7 +134,16 @@ void xsane_rc_io_w_array(Wire *w, SANE_Word *len_ptr, void **v, WireCodecFunc w_
 
   if (w->direction == WIRE_FREE)
   {
-    free(*v);
+    if (*len_ptr && *v)
+    {
+      val = *v;
+      for (i = 0; i < *len_ptr; ++i)
+      {
+        (*w_element) (w, val);
+        val += element_size;
+      }
+      free (*v);
+    }  
     return;
   }
 
@@ -173,10 +193,11 @@ void xsane_rc_io_w_ptr(Wire *w, void **v, WireCodecFunc w_value, size_t value_si
 
   if (w->direction == WIRE_FREE)
   {
-    if (*v)
+    if (*v && value_size)
     {
-      free(*v);
-    }
+      (*w_value) (w, *v);
+      free (*v);
+    } 
     return;
   }
 
@@ -366,13 +387,15 @@ void xsane_rc_io_w_option_descriptor(Wire *w, SANE_Option_Descriptor *v)
       break;
 
     case SANE_CONSTRAINT_WORD_LIST:
-      if (w->direction == WIRE_ENCODE)
+      if (w->direction != WIRE_DECODE)
+      {
 	len = v->constraint.word_list[0] + 1;
+      }
       xsane_rc_io_w_array(w, &len, (void **) &v->constraint.word_list, w->codec.w_word, sizeof(SANE_Word));
       break;
 
     case SANE_CONSTRAINT_STRING_LIST:
-      if (w->direction == WIRE_ENCODE)
+      if (w->direction != WIRE_DECODE)
 	{
 	  for (len = 0; v->constraint.string_list[len]; ++len);
 	  ++len;	/* send NULL string, too */
@@ -494,6 +517,18 @@ void xsane_rc_io_w_init(Wire *w)
 
   w->buffer.curr = w->buffer.start;
   w->buffer.end = w->buffer.start + w->buffer.size;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------- */
+
+void xsane_rc_io_w_exit(Wire *w)
+{
+  if (w->buffer.start)
+  {
+    free(w->buffer.start);
+  }
+  w->buffer.start = 0;
+  w->buffer.size = 0;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------- */

@@ -141,7 +141,7 @@ static void preview_set_option_float(Preview *p, int option, float value);
 static void preview_set_option_val(Preview *p, int option, SANE_Int value);
 static int  preview_increment_image_y(Preview *p);
 static void preview_read_image_data(gpointer data, gint source, GdkInputCondition cond);
-static void preview_scan_done(Preview *p);
+static void preview_scan_done(Preview *p, int save_image);
 static void preview_scan_start(Preview *p);
 static int preview_make_image_path(Preview *p, size_t filename_size, char *filename, int level);
 static void preview_restore_image(Preview *p);
@@ -155,6 +155,7 @@ static void preview_start_button_clicked(GtkWidget *widget, gpointer data);
 static void preview_cancel_button_clicked(GtkWidget *widget, gpointer data);
 static void preview_area_correct(Preview *p);
 static void preview_save_image(Preview *p);
+static void preview_delete_images(Preview *p);
 static void preview_zoom_not(GtkWidget *window, gpointer data);
 static void preview_zoom_out(GtkWidget *window, gpointer data);
 static void preview_zoom_in(GtkWidget *window, gpointer data);
@@ -165,6 +166,7 @@ static void preview_pipette_gray(GtkWidget *window, gpointer data);
 static void preview_pipette_black(GtkWidget *window, gpointer data);
 void preview_select_full_preview_area(Preview *p);
 static void preview_full_preview_area_callback(GtkWidget *widget, gpointer call_data);
+static void preview_delete_images_callback(GtkWidget *widget, gpointer call_data);
 static gint preview_preset_area_rename_callback(GtkWidget *widget, GtkWidget *preset_area_widget);
 static gint preview_preset_area_add_callback(GtkWidget *widget, GtkWidget *preset_area_widget);
 static gint preview_preset_area_delete_callback(GtkWidget *widget, GtkWidget *preset_area_widget);
@@ -1374,7 +1376,8 @@ static int preview_increment_image_y(Preview *p)
 
   p->image_x = 0;
   ++p->image_y;
-  if (p->params.lines <= 0 && p->image_y >= p->image_height)
+
+  if (p->params.lines <= 0 && p->image_y >= p->image_height) /* backend said it does not know image height */
   {
     offset = 3 * p->image_width*p->image_height;
     extra_size = 3 * 32 * p->image_width;
@@ -1385,13 +1388,25 @@ static int preview_increment_image_y(Preview *p)
 
     if ( (!p->image_data_enh) || (!p->image_data_raw) )
     {
+      preview_scan_done(p, 0);
       snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_ALLOCATE_IMAGE, strerror(errno));
       xsane_back_gtk_error(buf, TRUE);
-      preview_scan_done(p);
-      return -1;
+     return -1;
     }
     memset(p->image_data_enh + offset, 0xff, extra_size);
   }
+  else /* backend defined image geometry at sane_start */
+  {
+    if (p->image_y > p->image_height) /* make sure backend does not send more data then expected */
+    {
+      --p->image_y;
+      preview_scan_done(p, 1);
+      snprintf(buf, sizeof(buf), "%s", ERR_TOO_MUCH_DATA);
+      xsane_back_gtk_error(buf, TRUE);
+     return -1;
+    }
+  }
+
   return 0;
 }
 
@@ -1444,7 +1459,10 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
     }
     else
     {
-      goto bad_depth;
+      preview_scan_done(p, 0);
+      snprintf(buf, sizeof(buf), "%s %d.", ERR_PREVIEW_BAD_DEPTH, p->params.depth);
+      xsane_back_gtk_error(buf, TRUE);
+     return;
     }
 
 
@@ -1454,11 +1472,8 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
       {
         if (p->params.last_frame) /* got all preview image data */
         {
-          preview_update_surface(p, 0);
-          preview_display_image(p); /* must come after preview_update_surface */
-          preview_save_image(p);    /* save preview image */
-          preview_scan_done(p);     /* scan is done */
-          return; /* ok, all finished */
+          preview_scan_done(p, 1);     /* scan is done, save image */
+         return; /* ok, all finished */
         }
         else
         {
@@ -1468,16 +1483,15 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
             p->input_tag = -1;
           }
           preview_scan_start(p);
-          break;
+          break; /* exit while loop, display_maybe */
         }
       }
-      else
-      {
-        snprintf(buf, sizeof(buf), "%s %s.", ERR_DURING_READ, XSANE_STRSTATUS(status));
-        xsane_back_gtk_error(buf, TRUE);
-      }
-      preview_scan_done(p);
-      return;
+
+      /* not SANE_STATUS_GOOD and not SANE_STATUS_EOF */
+      preview_scan_done(p, 0);
+      snprintf(buf, sizeof(buf), "%s %s.", ERR_DURING_READ, XSANE_STRSTATUS(status));
+      xsane_back_gtk_error(buf, TRUE);
+     return;
     }
 
     if (!len)
@@ -1523,7 +1537,10 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
             break;
 
           default:
-            goto bad_depth;
+            preview_scan_done(p, 0);
+            snprintf(buf, sizeof(buf), "%s %d.", ERR_PREVIEW_BAD_DEPTH, p->params.depth);
+            xsane_back_gtk_error(buf, TRUE);
+           return;
         }
        break;
 
@@ -1600,7 +1617,10 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
            break;
 
           default:
-            goto bad_depth;
+            preview_scan_done(p, 0);
+            snprintf(buf, sizeof(buf), "%s %d.", ERR_PREVIEW_BAD_DEPTH, p->params.depth);
+            xsane_back_gtk_error(buf, TRUE);
+           return;
         }
        break;
 
@@ -1660,14 +1680,18 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
                break;
 
               default:
-                goto bad_depth;
+                preview_scan_done(p, 0);
+                snprintf(buf, sizeof(buf), "%s %d.", ERR_PREVIEW_BAD_DEPTH, p->params.depth);
+                xsane_back_gtk_error(buf, TRUE);
+               return;
             }
            break;
 
           default:
-            DBG(DBG_error, "preview_read_image_data: %s %d\n", ERR_BAD_FRAME_FORMAT, p->params.format);
-            preview_scan_done(p);
-            return;
+            preview_scan_done(p, 0);
+            snprintf(buf, sizeof(buf), "%s %d.", ERR_BAD_FRAME_FORMAT, p->params.format);
+            xsane_back_gtk_error(buf, TRUE);
+           return;
     }
 
     if (p->input_tag < 0)
@@ -1681,18 +1705,13 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
     }
   }
   preview_display_maybe(p);
-  return;
 
-bad_depth:
-  snprintf(buf, sizeof(buf), "%s %d.", ERR_PREVIEW_BAD_DEPTH, p->params.depth);
-  xsane_back_gtk_error(buf, TRUE);
-  preview_scan_done(p);
-  return;
+ return;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void preview_scan_done(Preview *p)
+static void preview_scan_done(Preview *p, int save_image)
 {
  int i;
 
@@ -1707,7 +1726,7 @@ static void preview_scan_done(Preview *p)
   }
 
   sane_cancel(xsane.dev);
- 
+
   xsane.block_update_param = TRUE; /* do not change parameters each time */
 
   preview_restore_option(p, xsane.well_known.dpi,   &p->saved_dpi,   p->saved_dpi_valid);
@@ -1731,6 +1750,12 @@ static void preview_scan_done(Preview *p)
   xsane.block_update_param = FALSE;
 
   preview_update_selection(p);
+
+  if (save_image)
+  {
+    preview_save_image(p);    /* save preview image */
+    preview_display_image(p);
+  }
 
   preview_update_surface(p, 1); /* if surface was not defined it's necessary to redefine it now */
 
@@ -1811,7 +1836,8 @@ static int preview_get_memory(Preview *p)
     return -1; /* error */
   }
 
-  memset(p->image_data_enh, 0xff, 3*p->image_width*p->image_height); /* clean memory */
+  memset(p->image_data_raw, 0x80, 6*p->image_width*p->image_height); /* clean memory */
+  memset(p->image_data_enh, 0x80, 3*p->image_width*p->image_height); /* clean memory */
 
   return 0; /* ok */
 }
@@ -1844,10 +1870,13 @@ static void preview_scan_start(Preview *p)
 
   xsane_clear_histogram(&xsane.histogram_raw);
   xsane_clear_histogram(&xsane.histogram_enh);
+
   gtk_widget_set_sensitive(p->cancel, TRUE);
   xsane_set_sensitivity(FALSE);
+
   /* clear old preview: */
   memset(p->preview_row, 0xff, 3*p->preview_width);
+
   for (y = 0; y < p->preview_height; ++y)
   {
     gtk_preview_draw_row(GTK_PREVIEW(p->window), p->preview_row, 0, y, p->preview_width);
@@ -1921,19 +1950,19 @@ static void preview_scan_start(Preview *p)
   status = sane_start(dev);
   if (status != SANE_STATUS_GOOD)
   {
+    preview_scan_done(p, 0);
     snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_START_SCANNER, XSANE_STRSTATUS(status));
     xsane_back_gtk_error(buf, TRUE);
-    preview_scan_done(p);
-    return;
+   return;
   }
 
   status = sane_get_parameters(dev, &p->params);
   if (status != SANE_STATUS_GOOD)
   {
+    preview_scan_done(p, 0);
     snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_GET_PARAMS, XSANE_STRSTATUS(status));
     xsane_back_gtk_error(buf, TRUE);
-    preview_scan_done(p);
-    return;
+   return;
   }
 
   p->image_offset = p->image_x = p->image_y = 0;
@@ -1956,9 +1985,16 @@ static void preview_scan_start(Preview *p)
 
     if (preview_get_memory(p))
     {
-      preview_scan_done(p); /* error */
-      return;
+      preview_scan_done(p, 0); /* error */
+      snprintf(buf, sizeof(buf), "%s", ERR_NO_MEM);
+      xsane_back_gtk_error(buf, TRUE);
+     return;
     }
+  }
+  else
+  {
+    memset(p->image_data_raw, 0x80, 6*p->image_width*p->image_height); /* clean memory */
+    memset(p->image_data_enh, 0x80, 3*p->image_width*p->image_height); /* clean memory */
   }
 
   /* we do not have any active selection (image is redrawn while scanning) */
@@ -1997,7 +2033,7 @@ static int preview_make_image_path(Preview *p, size_t filename_size, char *filen
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static int preview_restore_image_from_file(Preview *p, FILE *in, int min_quality)
+static int preview_restore_image_from_file(Preview *p, FILE *in, int min_quality, int *min_time)
 {
  u_int psurface_type, psurface_unit;
  int image_width, image_height;
@@ -2005,6 +2041,7 @@ static int preview_restore_image_from_file(Preview *p, FILE *in, int min_quality
  int max_val;
  int quality = 0;
  int x, y;
+ int time;
  float psurface[4];
  float dsurface[4];
  size_t nread;
@@ -2020,12 +2057,17 @@ static int preview_restore_image_from_file(Preview *p, FILE *in, int min_quality
   }
 
   /* See whether there is a saved preview and load it if present: */
-  if (fscanf(in, "P6\n# surface: %g %g %g %g %u %u\n%d %d\n%d",
+  if (fscanf(in, "P6\n"
+                 "# surface: %g %g %g %g %u %u\n"
+                 "# time: %d\n"
+                 "%d %d\n%d",
 	      psurface + 0, psurface + 1, psurface + 2, psurface + 3,
 	      &psurface_type, &psurface_unit,
+              &time,
 	      &image_width, &image_height,
-              &max_val) != 9)
+              &max_val) != 10)
   {
+    DBG(DBG_info, "no preview image\n");
     return min_quality;
   }
 
@@ -2060,12 +2102,30 @@ static int preview_restore_image_from_file(Preview *p, FILE *in, int min_quality
         (xoffset+width > image_width) || (yoffset+height > image_height) ||
         (width == 0) || (height == 0))
     {
+      DBG(DBG_info, "image does not cover wanted surface part\n");
+      return min_quality; /* file does not cover wanted surface part */
+    }
+
+    DBG(DBG_info, "quality = %d\n", quality);
+
+    if ( ((float) min_quality / (quality+1)) > 1.05) /* already loaded image has better quality */
+    {
+      DBG(DBG_info, "already loaded image has higher quality\n");
       return min_quality;
     }
 
-    if (quality < min_quality)
+    if ( ((float) min_quality / (quality+1)) > 0.95) /* qualities are comparable */
     {
-      return min_quality;
+      if (*min_time > time) /* take more recent scan */
+      {
+        DBG(DBG_info, "images have comparable quality, already loaded is more up to date\n");
+        return min_quality;
+      }
+      DBG(DBG_info, "images have comparable quality, this image is more up to date\n");
+    }
+    else
+    {
+      DBG(DBG_info, "image has best quality\n");
     }
   }
   else /* read startimage or calibrationimage */
@@ -2140,6 +2200,8 @@ static int preview_restore_image_from_file(Preview *p, FILE *in, int min_quality
   p->image_surface[2]   = p->surface[p->index_xmax];
   p->image_surface[3]   = p->surface[p->index_ymax];
 
+  *min_time = time;
+
  return quality;
 }
 
@@ -2149,6 +2211,7 @@ static void preview_restore_image(Preview *p)
 {
  FILE *in;
  int quality = 0;
+ int time = 0;
  int level;
 
   DBG(DBG_proc, "preview_restore_image\n");
@@ -2164,7 +2227,7 @@ static void preview_restore_image(Preview *p)
     in = fopen(filename, "rb"); /* read binary (b for win32) */
     if (in)
     {
-      quality = preview_restore_image_from_file(p, in, -1);
+      quality = preview_restore_image_from_file(p, in, -1, &time);
       fclose(in);
     }
   }
@@ -2178,7 +2241,7 @@ static void preview_restore_image(Preview *p)
         in = fopen(p->filename[level], "rb"); /* read binary (b for win32) */
         if (in)
         {
-          quality = preview_restore_image_from_file(p, in, quality);
+          quality = preview_restore_image_from_file(p, in, quality, &time);
           fclose(in);
         }
       }
@@ -2193,7 +2256,7 @@ static void preview_restore_image(Preview *p)
       in = fopen(filename, "rb"); /* read binary (b for win32) */
       if (in)
       {
-        quality = preview_restore_image_from_file(p, in, -1);
+        quality = preview_restore_image_from_file(p, in, -1, &time);
         fclose(in);
       }
       p->startimage = 1;
@@ -3111,9 +3174,11 @@ static void preview_start_button_clicked(GtkWidget *widget, gpointer data)
 
 static void preview_cancel_button_clicked(GtkWidget *widget, gpointer data)
 {
-  DBG(DBG_proc, "preview_cancel_button_clicked\n");
+ Preview *p = (Preview *) data;
 
-  preview_scan_done(data);
+  DBG(DBG_proc, "preview_cancel_button_clicked\n");
+  
+  preview_scan_done(p, 1);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -3212,6 +3277,7 @@ Preview *preview_new(void)
  GdkCursor *cursor;
  GtkWidget *preset_area_option_menu;
  GtkWidget *rotation_option_menu, *rotation_menu, *rotation_item;
+ GtkWidget *delete_images;
  Preview *p;
  int i;
  char buf[256];
@@ -3304,7 +3370,8 @@ Preview *preview_new(void)
   p->zoom_in   = xsane_button_new_with_pixmap(p->top->window, p->button_box, zoom_in_xpm,   DESC_ZOOM_IN,   (GtkSignalFunc) preview_zoom_in,    p);
   p->zoom_undo = xsane_button_new_with_pixmap(p->top->window, p->button_box, zoom_undo_xpm, DESC_ZOOM_UNDO, (GtkSignalFunc) preview_zoom_undo,  p);
   p->full_area = xsane_button_new_with_pixmap(p->top->window, p->button_box, auto_select_preview_area_xpm, DESC_AUTOSELECT_SCANAREA, (GtkSignalFunc) preview_autoselect_scanarea_callback,  p);
-  p->autoselect = xsane_button_new_with_pixmap(p->top->window, p->button_box, full_preview_area_xpm, DESC_FULL_PREVIEW_AREA, (GtkSignalFunc) preview_full_preview_area_callback, p);
+  p->autoselect = xsane_button_new_with_pixmap(p->top->window, p->button_box, full_preview_area_xpm,       DESC_FULL_PREVIEW_AREA,   (GtkSignalFunc) preview_full_preview_area_callback,    p);
+  delete_images = xsane_button_new_with_pixmap(p->top->window, p->button_box, delete_images_xpm,           DESC_DELETE_IMAGES,       (GtkSignalFunc) preview_delete_images_callback,        p);
 
   gtk_widget_add_accelerator(p->zoom_not,  "clicked", xsane.accelerator_group, GDK_KP_Multiply, GDK_MOD1_MASK, GTK_ACCEL_LOCKED); /* Alt keypad_* */
   gtk_widget_add_accelerator(p->zoom_out,  "clicked", xsane.accelerator_group, GDK_KP_Subtract, GDK_MOD1_MASK, GTK_ACCEL_LOCKED); /* Alt keypad_- */
@@ -3312,6 +3379,7 @@ Preview *preview_new(void)
   gtk_widget_add_accelerator(p->zoom_undo, "clicked", xsane.accelerator_group, GDK_KP_Divide,   GDK_MOD1_MASK, GTK_ACCEL_LOCKED); /* Alt keypad_/ */
   gtk_widget_add_accelerator(p->full_area, "clicked", xsane.accelerator_group, GDK_A, GDK_MOD1_MASK, GTK_ACCEL_LOCKED); /* Alt keypad_* */
   gtk_widget_add_accelerator(p->autoselect, "clicked", xsane.accelerator_group, GDK_V, GDK_MOD1_MASK, GTK_ACCEL_LOCKED); /* Alt keypad_* */
+  gtk_widget_add_accelerator(delete_images, "clicked", xsane.accelerator_group, GDK_KP_Delete, GDK_MOD1_MASK, GTK_ACCEL_LOCKED); /* Alt keypad_* */
 
   gtk_widget_set_sensitive(p->zoom_not,   FALSE); /* no zoom at this point, so no zoom not */
   gtk_widget_set_sensitive(p->zoom_out,   FALSE); /* no zoom at this point, so no zoom out */
@@ -3523,6 +3591,7 @@ void preview_update_surface(Preview *p, int surface_changed)
  SANE_Value_Type type;
  SANE_Unit unit;
  double min, max;
+ int expand_surface = 0;
 
   DBG(DBG_proc, "preview_update_surface\n");
 
@@ -3573,7 +3642,21 @@ void preview_update_surface(Preview *p, int surface_changed)
 
     gtk_widget_set_sensitive(p->zoom_not,  TRUE); /* allow unzoom */
     gtk_widget_set_sensitive(p->zoom_undo, FALSE); /* forbid undo zoom */
+
+    expand_surface = 1;
+    for (i = 0; i < 4; i++)
+    {
+      if (p->surface[i] != p->scanner_surface[i])
+      {
+        expand_surface = 0;
+      }
+    }
   } 
+  else
+  {
+    expand_surface = 0;
+  }
+
 
   /* scanner_surface are the rotated coordinates of the reduced (preset) surface */
   preview_rotate_devicesurface_to_previewsurface(p->rotation, p->preset_surface, rotated_preset_surface);
@@ -3586,6 +3669,11 @@ void preview_update_surface(Preview *p, int surface_changed)
     {
       surface_changed = 1; 
       p->scanner_surface[i] = val;
+
+      if (expand_surface)
+      {
+        p->surface[i] = val;
+      }
     }
     DBG(DBG_info, "preview_update_surface: scanner_surface[%d] = %3.2f\n", i, val);
   }
@@ -3842,9 +3930,14 @@ static void preview_save_image_file(Preview *p, FILE *out)
     preview_rotate_previewsurface_to_devicesurface(p->rotation, p->surface, dsurface);
 
     /* always save it as a 16 bit PPM image: */
-    fprintf(out, "P6\n# surface: %g %g %g %g %u %u\n%d %d\n65535\n",
+    fprintf(out, "P6\n"
+                 "# surface: %g %g %g %g %u %u\n"
+                 "# time: %d\n"
+                 "%d %d\n65535\n",
                  dsurface[0], dsurface[1], dsurface[2], dsurface[3],
-                 p->surface_type, p->surface_unit, p->image_width, p->image_height);
+                 p->surface_type, p->surface_unit,
+                 (int) time(NULL),
+                 p->image_width, p->image_height);
 
     fwrite(p->image_data_raw, 6, p->image_width*p->image_height, out);
     fclose(out);
@@ -3897,6 +3990,24 @@ static void preview_save_image(Preview *p)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static void preview_delete_images(Preview *p)
+{
+ FILE *out;
+ int level=0;
+
+  DBG(DBG_proc, "preview_delete_images_file\n");
+
+  for (level = 0; level<3; level++)
+  {
+    out = fopen(p->filename[level], "wb"); /* b = binary mode for win32*/
+    if (out)
+    fclose(out);
+  }
+  preview_update_surface(p, 1);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 void preview_destroy(Preview *p)
 {
  int level;
@@ -3905,11 +4016,7 @@ void preview_destroy(Preview *p)
 
   if (p->scanning)
   {
-    preview_scan_done(p);		/* don't save partial window */
-  }
-  else
-  {
-    preview_save_image(p);
+    preview_scan_done(p, 0);		/* don't save partial window */
   }
 
   for(level = 0; level <= 2; level++)
@@ -4257,6 +4364,17 @@ static void preview_full_preview_area_callback(GtkWidget *widget, gpointer call_
   DBG(DBG_proc, "preview_full_preview_area_callback\n");
 
   preview_select_full_preview_area(p);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void preview_delete_images_callback(GtkWidget *widget, gpointer call_data)
+{
+ Preview *p = call_data;
+
+  DBG(DBG_proc, "preview_delete_images_callback\n");
+
+  preview_delete_images(p);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -4817,7 +4935,7 @@ void preview_do_gamma_correction(Preview *p)
         {
           while (gtk_events_pending())
           {
-            DBG(DBG_info, "preview_read_image_data (raw): calling gtk_main_iteration\n");
+            DBG(DBG_info, "preview_do_gamma_correction: calling gtk_main_iteration\n");
             gtk_main_iteration();
           }
         }
@@ -4979,7 +5097,7 @@ void preview_calculate_raw_histogram(Preview *p, SANE_Int *count_raw, SANE_Int *
       {
         while (gtk_events_pending())
         {
-          DBG(DBG_info, "preview_read_image_data (raw): calling gtk_main_iteration\n");
+          DBG(DBG_info, "preview_calculate_raw_histogram: calling gtk_main_iteration\n");
           gtk_main_iteration();
         }
       }
@@ -5127,7 +5245,7 @@ void preview_calculate_enh_histogram(Preview *p, SANE_Int *count, SANE_Int *coun
       {
         while (gtk_events_pending())
         {
-          DBG(DBG_info, "preview_read_image_data (enh): calling gtk_main_iteration\n");
+          DBG(DBG_info, "preview_calculate_enh_histogram: calling gtk_main_iteration\n");
           gtk_main_iteration();
         }
       }
@@ -5502,7 +5620,7 @@ void preview_autoselect_scanarea(Preview *p, float *autoselect_coord)
         }
       }
 
-      else if (color > 25 )
+      else if (color > 55 )
       {
         top = y;
         break;

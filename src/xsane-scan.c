@@ -82,6 +82,7 @@ static int xsane_generate_dummy_filename(int conversion_level)
 
   if ( (xsane.xsane_mode == XSANE_COPY) ||
        (xsane.xsane_mode == XSANE_FAX) ||
+       (xsane.xsane_mode == XSANE_MAIL) ||
        ( (xsane.xsane_mode == XSANE_SCAN)  && (xsane.xsane_output_format != XSANE_PNM) &&
          (xsane.xsane_output_format != XSANE_RAW16) && (xsane.xsane_output_format != XSANE_RGBA) ) )
   {
@@ -1456,6 +1457,73 @@ void xsane_scan_done(SANE_Status status)
          gtk_main_iteration();
        }
     }
+#ifdef XSANE_ACTIVATE_MAIL
+    else if (xsane.xsane_mode == XSANE_MAIL)
+    {
+     FILE *outfile;
+     FILE *infile;
+
+       /* open progressbar */
+       xsane_progress_new(PROGRESS_CONVERTING_DATA, PROGRESS_TRANSFERING_DATA, (GtkSignalFunc) xsane_cancel_save);
+
+       while (gtk_events_pending())
+       {
+         gtk_main_iteration();
+       }
+
+       infile = fopen(xsane.dummy_filename, "rb"); /* read binary (b for win32) */
+       if (infile != 0)
+       {
+         fseek(infile, xsane.header_size, SEEK_SET);
+
+         umask((mode_t) preferences.image_umask); /* define image file permissions */   
+         outfile = fopen(xsane.mail_filename, "wb"); /* b = binary mode for win32 */
+         umask(XSANE_DEFAULT_UMASK); /* define new file permissions */   
+         if (outfile != 0)
+         {
+           if (xsane.depth <= 8)
+           {
+             xsane_save_png(outfile, infile, xsane.xsane_color, xsane.depth, pixel_width, pixel_height,
+                            preferences.png_compression);
+           }
+           else
+           {
+             xsane_save_png_16(outfile, infile, xsane.xsane_color, xsane.depth, pixel_width, pixel_height,
+                               preferences.png_compression);
+           }
+           fclose(outfile);
+         }
+         else
+         {
+          char buf[256];
+
+           DBG(DBG_info, "open of mailfile `%s'failed : %s\n", xsane.mail_filename, strerror(errno));
+
+           snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, xsane.mail_filename, strerror(errno));
+           xsane_back_gtk_error(buf, TRUE);
+         }
+
+         fclose(infile);
+         remove(xsane.dummy_filename);
+       }
+       else
+       {
+        char buf[256];
+
+         DBG(DBG_info, "open of mailfile `%s'failed : %s\n", xsane.mail_filename, strerror(errno));
+
+         snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, xsane.mail_filename, strerror(errno));
+         xsane_back_gtk_error(buf, TRUE);
+       }
+       xsane_progress_clear();
+
+       while (gtk_events_pending())
+       {
+         DBG(DBG_info, "calling gtk_main_iteration");
+         gtk_main_iteration();
+       }
+    }
+#endif
 
     if ( (xsane.xsane_mode == XSANE_SCAN) && (xsane.mode == XSANE_STANDALONE) )
     {
@@ -1495,6 +1563,29 @@ void xsane_scan_done(SANE_Status status)
       xsane_fax_project_save();
       free(page);
     }
+#ifdef XSANE_ACTIVATE_MAIL
+    else if (xsane.xsane_mode == XSANE_MAIL)
+    {
+     GtkWidget *list_item;
+     char *image;
+     char *extension;
+
+      image = strdup(strrchr(xsane.mail_filename,'/')+1);
+      extension = strrchr(image, '.');
+      if (extension)
+      {
+        *extension = 0;
+      }
+      list_item = gtk_list_item_new_with_label(image);
+      gtk_object_set_data(GTK_OBJECT(list_item), "list_item_data", strdup(image));
+      gtk_container_add(GTK_CONTAINER(xsane.mail_list), list_item);
+      gtk_widget_show(list_item);
+
+      xsane_update_counter_in_filename(&xsane.mail_filename, TRUE, 1, preferences.filename_counter_len);
+      xsane_mail_project_save();
+      free(image);
+    }
+#endif
   }
   else /* an error occured, remove the dummy_file */
   {

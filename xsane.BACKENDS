@@ -19,7 +19,7 @@ backend			version		reported xsane-version	remark
  sane-plustek		0.37			0.62?
  sane-pnm		sane-1.0.1		0.52 and earlier
  sane-sharp		?			0.47
- sane-snapscan					0.57+		xsane < 0.57 makes problems
+ sane-snapscan					0.57+		some problems
  sane-sp15c		1.3 (sane-1.0.3)	0.60 (all?)
  sane-tamarack		?			0.40
  sane-umax 		1.0-build-*		all

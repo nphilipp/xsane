@@ -405,6 +405,10 @@ void xsane_define_maximum_output_size()
         preview_set_maximum_output_size(xsane.preview, preferences.fax_width, preferences.fax_height);
        break;
 
+      case XSANE_MAIL:
+        preview_set_maximum_output_size(xsane.preview, INF, INF);
+       break;
+
       default:
         preview_set_maximum_output_size(xsane.preview, INF, INF);
     }

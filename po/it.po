@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.76\n"
-"POT-Creation-Date: 2001-05-18 23:04+0200\n"
+"POT-Creation-Date: 2001-06-10 10:31+0200\n"
 "PO-Revision-Date: 2000-09-29  23:48+0100\n"
 "Last-Translator: Colorio Mauro <linuxbox@interfree.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -59,6 +59,21 @@ msgstr "rinomina pagina fax"
 #. WINDOW_FAX_INSERT
 #, fuzzy
 msgid "insert ps-file into fax"
+msgstr "Inserire il nome del progetto fax"
+
+#. WINDOW_MAIL_PROJECT
+#, fuzzy
+msgid "mail project"
+msgstr "progetto fax"
+
+#. WINDOW_MAIL_RENAME
+#, fuzzy
+msgid "rename mail image"
+msgstr "rinomina pagina fax"
+
+#. WINDOW_MAIL_INSERT
+#, fuzzy
+msgid "insert file into mail"
 msgstr "Inserire il nome del progetto fax"
 
 #. WINDOW_PRESET_AREA_RENAME
@@ -213,6 +228,21 @@ msgstr "Visualizza anteprima"
 msgid "Rename page"
 msgstr "rinomina pagina fax"
 
+#. BUTTON_IMAGE_DELETE
+#, fuzzy
+msgid "Delete image"
+msgstr "Cancella progetto"
+
+#. BUTTON_IMAGE_SHOW
+#, fuzzy
+msgid "Show image"
+msgstr "Visualizza anteprima"
+
+#. BUTTON_IMAGE_RENAME
+#, fuzzy
+msgid "Rename image"
+msgstr "rinomina pagina fax"
+
 #. BUTTON_FILE_INSERT
 msgid "Insert file"
 msgstr ""
@@ -248,6 +278,10 @@ msgstr "Annulla anteprima"
 #. RADIO_BUTTON_FINE_MODE
 msgid "Fine mode"
 msgstr "Modo fine"
+
+#. RADIO_BUTTON_HTML_MAIL
+msgid "HTML mail"
+msgstr ""
 
 #. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device preferences at exit"
@@ -289,6 +323,10 @@ msgstr "Usa tutta l'area di scan"
 
 #. RADIO_BUTTON_AUTOCORRECT_COLORS
 msgid "Autocorrect colors"
+msgstr ""
+
+#. RADIO_BUTTON_POP3_AUTHENTIFICATION
+msgid "POP3 authentification"
 msgstr ""
 
 #. TEXT_SCANNING_DEVICES
@@ -502,6 +540,15 @@ msgstr "0x0: 0KB"
 msgid "Scanned pages: "
 msgstr "Pagine scannerizzate:"
 
+#. TEXT_MAIL_TEXT
+#, fuzzy
+msgid "Email text:"
+msgstr "Email:"
+
+#. TEXT_ATTACHMENTS
+msgid "Attachments:"
+msgstr ""
+
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
 msgstr "Selezione stampante:"
@@ -700,6 +747,39 @@ msgstr "Opzioni modo fine:"
 msgid "Viewer (Postscript):"
 msgstr "Visualizzatore (Postscript):"
 
+#. TEXT_SETUP_SMTP_SERVER
+msgid "SMTP server:"
+msgstr ""
+
+#. TEXT_SETUP_SMTP_PORT
+msgid "SMTP port:"
+msgstr ""
+
+#. TEXT_SETUP_MAIL_FROM
+msgid "From:"
+msgstr ""
+
+#. TEXT_SETUP_MAIL_REPLY_TO
+msgid "Reply to:"
+msgstr ""
+
+#. TEXT_SETUP_POP3_SERVER
+msgid "POP3 server:"
+msgstr ""
+
+#. TEXT_SETUP_POP3_PORT
+msgid "POP3 port:"
+msgstr ""
+
+#. TEXT_SETUP_POP3_USER
+msgid "POP3 user:"
+msgstr ""
+
+#. TEXT_SETUP_POP3_PASS
+#, fuzzy
+msgid "POP3 password:"
+msgstr "Password :"
+
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
 msgstr ""
@@ -728,6 +808,11 @@ msgstr "Copia"
 msgid "Fax"
 msgstr "Fax"
 
+#. NOTEBOOK_MAIL_OPTIONS
+#, fuzzy
+msgid "Mail"
+msgstr "Email:"
+
 #. NOTEBOOK_DISPLAY_OPTIONS
 #, fuzzy
 msgid "Display"
@@ -741,6 +826,11 @@ msgstr "Opzioni di accentuo"
 #. MENU_ITEM_SCAN
 msgid "Scan"
 msgstr "Scanner"
+
+#. MENU_ITEM_MAIL
+#, fuzzy
+msgid "Email"
+msgstr "Email:"
 
 #. MENU_ITEM_SHOW_TOOLTIPS
 msgid "Show tooltips"
@@ -998,6 +1088,24 @@ msgstr "Inserire il nuovo nome per la pagina del fax"
 #. DESC_FAXRECEIVER
 msgid "Enter receiver phone number or address"
 msgstr "Inserire il numero telefonico o l'indirizzo del ricevente"
+
+#. DESC_MAILPROJECT
+#, fuzzy
+msgid "Enter name of mail project"
+msgstr "Inserire il nome del progetto fax"
+
+#. DESC_MAILIMAGENAME
+#, fuzzy
+msgid "Enter new name for mail image"
+msgstr "Inserire il nuovo nome per la pagina del fax"
+
+#. DESC_MAILRECEIVER
+msgid "Enter email address"
+msgstr ""
+
+#. DESC_MAILSUBJECT
+msgid "Enter subject of email"
+msgstr ""
 
 #. DESC_PRESET_AREA_NAME
 #, fuzzy
@@ -1465,6 +1573,46 @@ msgstr "Inserire il comando da eseguire per visualizzare un fax"
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
 msgstr "Utilizza un'alta risoluzione verticale (196 lpi invece di 98 lpi)"
 
+#. DESC_SMTP_SERVER
+msgid "IP Address or Domain name of SMTP server"
+msgstr ""
+
+#. DESC_SMTP_PORT
+msgid "port to connect to SMTP server"
+msgstr ""
+
+#. DESC_MAIL_FROM
+msgid "enter your email address"
+msgstr ""
+
+#. DESC_MAIL_REPLY_TO
+msgid "enter email address for replied emails"
+msgstr ""
+
+#. DESC_POP3_AUTHENTIFICATION
+msgid "Authentificate at POP3 server before sending mail"
+msgstr ""
+
+#. DESC_POP3_SERVER
+msgid "IP Address or Domain name of POP3 server"
+msgstr ""
+
+#. DESC_POP3_PORT
+msgid "port to connect to POP3 server"
+msgstr ""
+
+#. DESC_POP3_USER
+msgid "user name for POP3 server"
+msgstr ""
+
+#. DESC_POP3_PASS
+msgid "password for POP3 server"
+msgstr ""
+
+#. DESC_HTML_MAIL
+msgid "Mail is sent in html mode, images are displayed directly"
+msgstr ""
+
 #. DESC_PERMISSION_READ
 msgid "read"
 msgstr ""
@@ -1516,6 +1664,11 @@ msgstr "Seleziona l'area visibile"
 #, fuzzy
 msgid "Autoselect scanarea"
 msgstr "Usa tutta l'area di scan"
+
+#. DESC_DELETE_IMAGES
+#, fuzzy
+msgid "Delete preview image cache"
+msgstr "Preserva immagine anteprima"
 
 #. DESC_PRESET_AREA
 #, fuzzy
@@ -1607,6 +1760,10 @@ msgstr "Nessun formato di output "
 msgid "out of memory"
 msgstr "memoria esaurita"
 
+#. ERR_TOO_MUCH_DATA
+msgid "Backend sends more image data than it defined in parameters"
+msgstr ""
+
 #. ERR_LIBTIFF
 msgid "LIBTIFF reports error"
 msgstr "LIBTIFF ha riportato un errore"
@@ -1623,17 +1780,23 @@ msgstr "tipo sconosciuto"
 msgid "unknown constraint type"
 msgstr "tipo costante sconosciuto"
 
-#. ERR_FAILD_EXEC_DOC_VIEWER
+#. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
 msgstr "Impossibile eseguire il visualizzatore della documentazione:"
 
-#. ERR_FAILD_EXEC_FAX_VIEWER
+#. ERR_FAILED_EXEC_FAX_VIEWER
 msgid "Failed to execute fax viewer:"
 msgstr "Impossibile eseguire il visualizzatore di fax:"
 
 #. ERR_FAILED_EXEC_FAX_CMD
-msgid "Failed to execute faxcommand:"
+#, fuzzy
+msgid "Failed to execute fax command:"
 msgstr "Errore nell'esecuzione del comando fax:"
+
+#. ERR_FAILED_EXEC_MAIL_VIEWER
+#, fuzzy
+msgid "Failed to execute mail image viewer:"
+msgstr "Impossibile eseguire il visualizzatore di fax:"
 
 #. ERR_BAD_FRAME_FORMAT
 msgid "bad frame format"
@@ -1803,6 +1966,7 @@ msgid ""
 " -s, --scan                   start with scan-mode active\n"
 " -c, --copy                   start with copy-mode active\n"
 " -f, --fax                    start with fax-mode active\n"
+" -m, --mail                   start with mail-mode active\n"
 " -n, --no-mode-selection      disable menu for XSane mode selection\n"
 "\n"
 " -F, --Fixed                  fixed main window size (overwrite preferences "
@@ -2002,6 +2166,10 @@ msgstr "Memoria esaurita"
 msgid "Access to resource has been denied"
 msgstr "Acesso alla risorsa negato"
 
+#, fuzzy
+#~ msgid "Failed to execute mail command:"
+#~ msgstr "Errore nell'esecuzione del comando fax:"
+
 #~ msgid "Copy options"
 #~ msgstr "Copia opzioni"
 
@@ -2054,9 +2222,6 @@ msgstr "Acesso alla risorsa negato"
 
 #~ msgid "Exit"
 #~ msgstr "Esci"
-
-#~ msgid "Preserve preview image"
-#~ msgstr "Preserva immagine anteprima"
 
 #~ msgid "Device options"
 #~ msgstr "Opzioni dispositivo"

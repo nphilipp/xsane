@@ -42,6 +42,9 @@
 #define WINDOW_FAX_PROJECT		_("fax project")
 #define WINDOW_FAX_RENAME		_("rename fax page")
 #define WINDOW_FAX_INSERT		_("insert ps-file into fax")
+#define WINDOW_MAIL_PROJECT		_("mail project")
+#define WINDOW_MAIL_RENAME		_("rename mail image")
+#define WINDOW_MAIL_INSERT		_("insert file into mail")
 #define WINDOW_PRESET_AREA_RENAME	_("rename preset area")
 #define WINDOW_SETUP			_("setup")
 #define WINDOW_HISTOGRAM		_("Histogram")
@@ -84,6 +87,9 @@
 #define BUTTON_PAGE_DELETE		_("Delete page")
 #define BUTTON_PAGE_SHOW		_("Show page")
 #define BUTTON_PAGE_RENAME		_("Rename page")
+#define BUTTON_IMAGE_DELETE		_("Delete image")
+#define BUTTON_IMAGE_SHOW		_("Show image")
+#define BUTTON_IMAGE_RENAME		_("Rename image")
 #define BUTTON_FILE_INSERT		_("Insert file")
 #define BUTTON_CREATE_PROJECT		_("Create project")
 #define BUTTON_SEND_PROJECT		_("Send project")
@@ -94,6 +100,7 @@
 #define BUTTON_PREVIEW_CANCEL		_("Cancel Preview")
 
 #define RADIO_BUTTON_FINE_MODE		_("Fine mode")
+#define RADIO_BUTTON_HTML_MAIL		_("HTML mail")
 #define RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT _("Save device preferences at exit")
 #define RADIO_BUTTON_OVERWRITE_WARNING	_("Overwrite warning")
 #define RADIO_BUTTON_SKIP_EXISTING_NRS	_("Skip existing filenames")
@@ -104,6 +111,7 @@
 #define RADIO_BUTTON_AUTOENHANCE_GAMMA  _("Autoenhance gamma")
 #define RADIO_BUTTON_PRESELECT_SCANAREA _("Preselect scanarea")
 #define RADIO_BUTTON_AUTOCORRECT_COLORS _("Autocorrect colors")
+#define RADIO_BUTTON_POP3_AUTHENTIFICATION _("POP3 authentification")
 
 #define TEXT_SCANNING_DEVICES		_("scanning for devices")
 #define TEXT_AVAILABLE_DEVICES		_("Available devices:")
@@ -170,6 +178,9 @@
 
 #define TEXT_ADF_PAGES_SCANNED		_("Scanned pages: ")
 
+#define TEXT_MAIL_TEXT			_("Email text:")
+#define TEXT_ATTACHMENTS		_("Attachments:")
+
 #define TEXT_SETUP_PRINTER_SEL		_("Printer selection:")
 #define TEXT_SETUP_PRINTER_NAME		_("Name:")
 #define TEXT_SETUP_PRINTER_CMD		_("Command:")
@@ -222,6 +233,15 @@
 #define TEXT_SETUP_FAX_HEIGHT		_("Height")
 #define TEXT_SETUP_FAX_LEFT		_("Left offset")
 #define TEXT_SETUP_FAX_BOTTOM		_("Bottom offset")
+#define TEXT_SETUP_SMTP_SERVER		_("SMTP server:")
+#define TEXT_SETUP_SMTP_PORT		_("SMTP port:")
+#define TEXT_SETUP_MAIL_FROM		_("From:")
+#define TEXT_SETUP_MAIL_REPLY_TO	_("Reply to:")
+#define TEXT_SETUP_POP3_SERVER		_("POP3 server:")
+#define TEXT_SETUP_POP3_PORT		_("POP3 port:")
+#define TEXT_SETUP_POP3_USER		_("POP3 user:")
+#define TEXT_SETUP_POP3_PASS		_("POP3 password:")
+#define TEXT_SETUP_MAIL_VIEWER		_("Viewer (png):")
 #define TEXT_SETUP_PERMISSION_USER	_("user")
 #define TEXT_SETUP_PERMISSION_GROUP	_("group")
 #define TEXT_SETUP_PERMISSION_ALL	_("all")
@@ -230,12 +250,14 @@
 #define NOTEBOOK_IMAGE_OPTIONS		_("Image")
 #define NOTEBOOK_COPY_OPTIONS		_("Copy")
 #define NOTEBOOK_FAX_OPTIONS		_("Fax")
+#define NOTEBOOK_MAIL_OPTIONS		_("Mail")
 #define NOTEBOOK_DISPLAY_OPTIONS	_("Display")
 #define NOTEBOOK_ENHANCE_OPTIONS	_("Enhancement")
 
 #define MENU_ITEM_SCAN			_("Scan")
 #define MENU_ITEM_COPY			_("Copy")
 #define MENU_ITEM_FAX			_("Fax")
+#define MENU_ITEM_MAIL			_("Email")
 
 #define MENU_ITEM_SHOW_TOOLTIPS		_("Show tooltips")
 #define MENU_ITEM_SHOW_PREVIEW		_("Show preview")
@@ -309,6 +331,10 @@
 #define DESC_FAXPROJECT			_("Enter name of fax project")
 #define DESC_FAXPAGENAME		_("Enter new name for faxpage")
 #define DESC_FAXRECEIVER		_("Enter receiver phone number or address")
+#define DESC_MAILPROJECT		_("Enter name of mail project")
+#define DESC_MAILIMAGENAME		_("Enter new name for mail image")
+#define DESC_MAILRECEIVER		_("Enter email address")
+#define DESC_MAILSUBJECT		_("Enter subject of email")
 #define DESC_PRESET_AREA_NAME		_("Enter new name for preset area")
 
 #define DESC_PRINTER_SELECT		_("Select printerdefinition <Shift-F1/F2/...>")
@@ -427,6 +453,17 @@
 #define DESC_FAX_HEIGHT			_("Height of printable area")
 #define DESC_FAX_LEFTOFFSET		_("Left offset from the edge of the paper to the printable area")
 #define DESC_FAX_BOTTOMOFFSET		_("Bottom offset from the edge of the paper to the printable area")
+#define DESC_SMTP_SERVER		_("IP Address or Domain name of SMTP server")
+#define DESC_SMTP_PORT			_("port to connect to SMTP server")
+#define DESC_MAIL_FROM			_("enter your email address")
+#define DESC_MAIL_REPLY_TO		_("enter email address for replied emails")
+#define DESC_POP3_AUTHENTIFICATION	_("Authentificate at POP3 server before sending mail")
+#define DESC_POP3_SERVER		_("IP Address or Domain name of POP3 server")
+#define DESC_POP3_PORT			_("port to connect to POP3 server")
+#define DESC_POP3_USER			_("user name for POP3 server")
+#define DESC_POP3_PASS			_("password for POP3 server")
+#define DESC_MAIL_VIEWER		_("Enter command to be executed to view a mail image")
+#define DESC_HTML_MAIL			_("Mail is sent in html mode, images are displayed directly")
 
 #define DESC_PERMISSION_READ		_("read")
 #define DESC_PERMISSION_WRITE		_("write")
@@ -443,6 +480,7 @@
 
 #define DESC_FULL_PREVIEW_AREA		_("Select visible area")
 #define DESC_AUTOSELECT_SCANAREA	_("Autoselect scanarea")
+#define DESC_DELETE_IMAGES		_("Delete preview image cache")
 
 #define DESC_PRESET_AREA		_("Preset area")
 #define DESC_ROTATION			_("Rotate preview and scan")
@@ -468,13 +506,15 @@
 #define ERR_FAILED_GET_PARAMS		_("Failed to get parameters:")
 #define ERR_NO_OUTPUT_FORMAT		_("No output format given")
 #define ERR_NO_MEM			_("out of memory")
+#define ERR_TOO_MUCH_DATA		_("Backend sends more image data than it defined in parameters")
 #define ERR_LIBTIFF			_("LIBTIFF reports error")
 #define ERR_LIBPNG			_("LIBPNG reports error")
 #define ERR_UNKNOWN_TYPE		_("unknown type")
 #define ERR_UNKNOWN_CONSTRAINT_TYPE	_("unknown constraint type")
-#define ERR_FAILD_EXEC_DOC_VIEWER	_("Failed to execute documentation viewer:")
-#define ERR_FAILD_EXEC_FAX_VIEWER	_("Failed to execute fax viewer:")
-#define ERR_FAILED_EXEC_FAX_CMD		_("Failed to execute faxcommand:")
+#define ERR_FAILED_EXEC_DOC_VIEWER	_("Failed to execute documentation viewer:")
+#define ERR_FAILED_EXEC_FAX_VIEWER	_("Failed to execute fax viewer:")
+#define ERR_FAILED_EXEC_FAX_CMD		_("Failed to execute fax command:")
+#define ERR_FAILED_EXEC_MAIL_VIEWER	_("Failed to execute mail image viewer:")
 #define ERR_BAD_FRAME_FORMAT		_("bad frame format")
 #define ERR_FAILED_SET_RESOLUTION	_("unable to set resolution")
 #define ERR_PASSWORD_FILE_INSECURE	_("Password file (%s) is insecure, use permission x00\n")
@@ -535,6 +575,7 @@ The format of [DEVICE] is backendname:devicefile (e.g. umax:/dev/scanner).\n\
  -s, --scan                   start with scan-mode active\n\
  -c, --copy                   start with copy-mode active\n\
  -f, --fax                    start with fax-mode active\n\
+ -m, --mail                   start with mail-mode active\n\
  -n, --no-mode-selection      disable menu for XSane mode selection\n\
 \n\
  -F, --Fixed                  fixed main window size (overwrite preferences value)\n\

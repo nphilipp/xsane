@@ -87,6 +87,7 @@ Wire;
 /* ---------------------------------------------------------------------------------------------------------------- */
 
 extern void xsane_rc_io_w_init(Wire *w);
+extern void xsane_rc_io_w_exit(Wire *w);
 extern void xsane_rc_io_w_space(Wire *w, size_t howmuch);
 extern void xsane_rc_io_w_skip_newline(Wire *w);
 extern void xsane_rc_io_w_void(Wire *w);

@@ -551,6 +551,11 @@ gint xsane_back_gtk_decision(gchar *title, gchar **xpm_d,  gchar *message, gchar
 
   gtk_widget_show(decision_dialog);
 
+  while (gtk_events_pending())
+  {
+    gtk_main_iteration();
+  }
+
   if (!wait)
   {
     return TRUE;

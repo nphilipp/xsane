@@ -10,6 +10,8 @@
      it looks like this is caused by wrong png versions
      (old bug report, does anyown still have this problem?)
 
+ - xsane crashes when backend sends more lines than reported while preview scanning
+
 If you have one of the problem above please contact me and tell me:
  - used xsane version
  - cpu
