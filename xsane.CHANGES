@@ -1387,4 +1387,77 @@ xsane-0.71 -> 0.72:
    - french translation   - thanks to Laurent Grawet <laurent.grawet@ibelgique.com>
 
 
+xsane-0.72 -> 0.73:
+-------------------
+
+ - moved call to display license after test for command line options,
+   so it is not necessary to accept the license to print help/version/license
+
+ - added slowenian translation, thanks to Ales Kosir <ales.kosir@zaslon.com>
+
+ - an error message is printed when a preview file could not be created
+
+ - netscape is called with option new-window now
+
+ - rotating scanned image uses memory mapped image file if possible
+   thanks to Salvador Pinto Abreu <spa@di.uevora.pt> for his suggestions
+
+ - xsane windows are set insensitive while faxproject is generated/queued.
+   For this waitpid is called in a loop.
+
+ - before a html documentation is displayed xsane does test if the requetsted file
+   does exist in the subdirectory language_dir = gettext("language_dir")
+   (what e.g. gives "de" for german). If it does exist it is displayed, otherwise
+   the original english doc is displayed.
+   "language_dir" has to be part of the translation table, it should be
+   translated to the correct translation direcotry name, e.g. de for german
+
+ - preferences.printer momory is defined dynamicall now (has been defined to 10
+   pointers to printerdefinition before)
+
+ - chaged with of some setup fields - have been too small for large fonts
+
+ - xsane-scan:xsane_scan_dialog():
+   added test for color scan to the test if gamma tables for red, green and blue
+   exists (coolscan backend defines color gamma tables in grayscale mode
+   what caused segfault in xsane).
+
+ - added preselect scanarea after preview scan (selection in enhancment setup)
+
+ - added automatic color correction after preview scan (selection in enhancement setup)
+
+ - removed bug (that caused segfault when opening setup dialog) in xsane_enhance_notebook
+   while setting up menu itmes for grayscale scanmode selection:
+   replaced xsane.well_known.scanSOURCE xsane.well_known.scanMODE
+
+ - added option in prefences/setup saving options: save device preferences at exit
+
+ - now using always gdk_window_get_root_origin() to get a position of a window on desktop
+
+
+xsane-0.73 -> 0.74:
+-------------------
+
+ - transfering data to gimp plugin now is handled like saving to a special file format.
+   this way it is possibe to support handheld scanners and to get advance of
+   some xsane features like image rotation.
+
+ - corrected mmap() part in xsane-save.c/rotation: 
+   data is mmaped with offset pos0, the offset pos0 is removed from pointer calculation
+   
+ - changed xsane_enhancement_by_histogram() and xsane_histogram_to_gamma(): the ranges
+   for gamma, brightness and contrast are checked correct now
+
+ - added function preview_transform_coordinate_window_to_image(), it is used in
+   preview_get_color(). Pipette functions do work with rotated preview now.
+
+ - corrected bug in ruler calculation. The rulers do work correct now with rotated preview
+
+ - corrected bug in reading 16 bit preview data: sizeof(buf16)-> sizeof(buf)
+   now preview transformation from 16 to 8 bit is as fast as 8 bit preview
+
+ - preset areas are defined with position (new) and size (old) now.
+
+ - surface changes (size and rotation) do not change the selected preview area
+   any more if possible
 

@@ -25,6 +25,9 @@
 #ifndef XSANE_TEXT_H
 #define XSANE_TEXT_H
 
+/* Please translate this to the correct directory name (eg. german=>de) */
+#define XSANE_LANGUAGE_DIR		_("language_dir")
+
 #define XSANE_STRSTATUS(status)		_(sane_strstatus(status))
 #define _BGT(text)			dgettext(xsane.backend, text)
 
@@ -89,12 +92,15 @@
 #define BUTTON_PREVIEW_CANCEL		_("Cancel Preview")
 
 #define RADIO_BUTTON_FINE_MODE		_("Fine mode")
+#define RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT _("Save device preferences at exit")
 #define RADIO_BUTTON_OVERWRITE_WARNING	_("Overwrite warning")
 #define RADIO_BUTTON_SKIP_EXISTING_NRS	_("Skip existing filenames")
 #define RADIO_BUTTON_WINDOW_FIXED	_("Main window size fixed")
 #define RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA	_("Disable gimp preview gamma")
 #define RADIO_BUTTON_PRIVATE_COLORMAP	_("Use private colormap")
 #define RADIO_BUTTON_AUTOENHANCE_GAMMA  _("Autoenhance gamma")
+#define RADIO_BUTTON_PRESELECT_SCANAREA _("Preselect scanarea")
+#define RADIO_BUTTON_AUTOCORRECT_COLORS _("Autocorrect colors")
 
 #define TEXT_SCANNING_DEVICES		_("scanning for devices")
 #define TEXT_AVAILABLE_DEVICES		_("Available devices:")
@@ -144,6 +150,11 @@
 #define TEXT_HOMEPAGE			_("Homepage:")
 #define TEXT_FILE			_("File:")
 #define TEXT_TRANSLATION		_("Translation:")
+
+/* Please translate this to something like */
+/* translation to YOUR LANGUAGE\n */
+/* by YOUR NAME\n */
+/* Email: your.name@yourdomain.com\n */
 #define TEXT_TRANSLATION_INFO		_("untranslated original english text\n" \
 					  "by Oliver Rauch\n" \
 					  "Email: Oliver.Rauch@rauch-domain.de\n")
@@ -265,7 +276,7 @@
 #define PROGRESS_SCANNING		_("Scanning")
 #define PROGRESS_RECEIVING_FRAME_DATA	_("Receiving %s data")
 
-#define PROGRESS_SAVING_DATA		_("Saving image")
+#define PROGRESS_TRANSFERING_DATA	_("Transfering image")
 #define PROGRESS_ROTATING_DATA		_("Rotating image")
 #define PROGRESS_PACKING_DATA		_("Packing image")
 #define PROGRESS_CONVERTING_DATA	_("Converting data")
@@ -358,6 +369,7 @@
 #define DESC_TIFF_COMPRESSION_16	_("Compression type if 16 bit image is saved as tiff")
 #define DESC_TIFF_COMPRESSION_8		_("Compression type if 8 bit image is saved as tiff")
 #define DESC_TIFF_COMPRESSION_1		_("Compression type if lineart image is saved as tiff")
+#define DESC_SAVE_DEVPREFS_AT_EXIT	_("Save device dependant preferences in default file at exit of xsane")
 #define DESC_OVERWRITE_WARNING		_("Warn before overwriting an existing file")
 #define DESC_SKIP_EXISTING		_("If filename counter is automatically increased, used numbers are skipped")
 #define DESC_PSFILE_WIDTH		_("Width of paper in mm for postscript files")
@@ -385,6 +397,8 @@
 #define DESC_PREVIEW_PIPETTE_RANGE	_("dimension of square that is used to average color for pipette function")
 #define DESC_DOC_VIEWER			_("Enter command to be executed to display helpfiles, must be a html-viewer!")
 #define DESC_AUTOENHANCE_GAMMA		_("Change gamma value when autoenhancement button is pressed")
+#define DESC_PRESELECT_SCANAREA		_("Select scanarea after preview scan has finished")
+#define DESC_AUTOCORRECT_COLORS		_("Do color correcten after preview scan has finished")
 
 #define DESC_FAX_COMMAND		_("Enter command to be executed in fax mode")
 #define DESC_FAX_RECEIVER_OPT		_("Enter option to specify receiver")
@@ -458,6 +472,9 @@
 #define ERR_FAILED_ALLOCATE_IMAGE	_("Failed to allocate image memory:")
 #define ERR_PREVIEW_BAD_DEPTH		_("Preview cannot handle bit depth")
 #define ERR_GIMP_SUPPORT_MISSING	_("GIMP support missing")
+
+#define ERR_CREATE_PREVIEW_FILE		_("Could not create temporary preview files")
+#define ERR_CREATE_PREVIEW_FILENAME	_("Could not create filenames for preview files")
 
 #define WARN_COUNTER_UNDERRUN		_("Filename counter underrun")
 #define WARN_NO_VALUE_CONSTRAINT	_("warning: option has no value constraint")

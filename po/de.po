@@ -5,13 +5,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.72\n"
-"POT-Creation-Date: 2001-02-17 21:38+0100\n"
+"POT-Creation-Date: 2001-03-27 18:57+0200\n"
 "PO-Revision-Date: 2000-01-21 15:51+01:00\n"
 "Last-Translator: Oliver Rauch <Oliver.Rauch@rauch-domain.de>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#. Please translate this to the correct directory name (eg. german=>de)
+#. XSANE_LANGUAGE_DIR
+msgid "language_dir"
+msgstr "de"
 
 #. XSANE_COPYRIGHT_SIGN
 msgid "(c)"
@@ -230,6 +235,10 @@ msgstr "Vorschauscan abbrechen"
 msgid "Fine mode"
 msgstr "Fein-Modus"
 
+#. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
+msgid "Save device preferences at exit"
+msgstr "Geräteeinstellungen beim Verlassen speichern"
+
 #. RADIO_BUTTON_OVERWRITE_WARNING
 msgid "Overwrite warning"
 msgstr "Überschreibwarnung"
@@ -252,7 +261,15 @@ msgstr "Benutze eigene Farbpalette"
 
 #. RADIO_BUTTON_AUTOENHANCE_GAMMA
 msgid "Autoenhance gamma"
-msgstr "Autom. Gammakorrektur"
+msgstr "Automatische Gammakorrektur"
+
+#. RADIO_BUTTON_PRESELECT_SCANAREA
+msgid "Preselect scanarea"
+msgstr "Scanbereich automatisch wählen"
+
+#. RADIO_BUTTON_AUTOCORRECT_COLORS
+msgid "Autocorrect colors"
+msgstr "Automatische Farbkorrektur"
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
@@ -437,6 +454,10 @@ msgstr "Datei:"
 msgid "Translation:"
 msgstr "Übersetzung:"
 
+#. Please translate this to something like
+#. translation to YOUR LANGUAGE\n
+#. by YOUR NAME\n
+#. Email: your.name@yourdomain.com\n
 #. TEXT_TRANSLATION_INFO
 msgid ""
 "untranslated original english text\n"
@@ -848,9 +869,9 @@ msgstr "Scanne"
 msgid "Receiving %s data"
 msgstr "Empfange %s Daten"
 
-#. PROGRESS_SAVING_DATA
-msgid "Saving image"
-msgstr "Speichere Bild"
+#. PROGRESS_TRANSFERING_DATA
+msgid "Transfering image"
+msgstr "Übertrage Bild"
 
 #. PROGRESS_ROTATING_DATA
 msgid "Rotating image"
@@ -1171,6 +1192,12 @@ msgstr "Kompression wenn 8 bit Bild im TIFF-Format gespeichert wird"
 msgid "Compression type if lineart image is saved as tiff"
 msgstr "Kompression wenn lineart Bild im TIFF-Format gespeichert wird"
 
+#. DESC_SAVE_DEVPREFS_AT_EXIT
+msgid "Save device dependant preferences in default file at exit of xsane"
+msgstr ""
+"Geräteabhängige Einstellungen werden in der Default-Datei beim Beenden von "
+"xsane gespeichert"
+
 #. DESC_OVERWRITE_WARNING
 msgid "Warn before overwriting an existing file"
 msgstr "Warne vorm Überschreiben exisitierender Dateien"
@@ -1304,6 +1331,14 @@ msgid "Change gamma value when autoenhancement button is pressed"
 msgstr ""
 "Gamma Wert wird angepasst wenn Knopf für automatische Verbesserung gedrückt "
 "wird"
+
+#. DESC_PRESELECT_SCANAREA
+msgid "Select scanarea after preview scan has finished"
+msgstr "Scanbereich nach Vorschauscan automatisch auswählen"
+
+#. DESC_AUTOCORRECT_COLORS
+msgid "Do color correcten after preview scan has finished"
+msgstr "Farbkorrektur nach Vorschauscan ausführen"
 
 #. DESC_FAX_COMMAND
 msgid "Enter command to be executed in fax mode"
@@ -1546,6 +1581,14 @@ msgstr "Vorschau kann Bittiefe nicht handhaben:"
 msgid "GIMP support missing"
 msgstr "GIMP Unterstützung fehlt"
 
+#. ERR_CREATE_PREVIEW_FILE
+msgid "Could not create temporary preview files"
+msgstr "Konnte temporäre Vorschaudateien nicht erzeugen"
+
+#. ERR_CREATE_PREVIEW_FILENAME
+msgid "Could not create filenames for preview files"
+msgstr "Konnte Dateinamen für Vorschaudateien nicht erzeugen"
+
 #. WARN_COUNTER_UNDERRUN
 msgid "Filename counter underrun"
 msgstr "Dateinamenzähler Unterlauf"
@@ -1624,9 +1667,9 @@ msgid "File %s does not exist"
 msgstr "Datei %s exisitiert nicht"
 
 #. ERR_FILE_NOT_POSTSCRIPT
-#, fuzzy, c-format
+#, c-format
 msgid "File %s is not a postscript file"
-msgstr "Breite des druckbaren Bereichs für Postscript in mm"
+msgstr "Datei %s is keine Postscript Datei"
 
 #. ERR_UNSUPPORTED_OUTPUT_FORMAT
 #, c-format
@@ -1639,7 +1682,7 @@ msgstr "Gebrauch:"
 
 #. TEXT_USAGE_OPTIONS
 msgid "[OPTION]... [DEVICE]"
-msgstr "[OPTION]... [GERÄTEDATEI]"
+msgstr "[OPTION]... [GERÄT]"
 
 #. TEXT_HELP
 msgid ""
@@ -1676,8 +1719,7 @@ msgid ""
 msgstr ""
 "Startet graphisches Benutzerinterface für SANE (Scanner Access Now Easy)\n"
 "\n"
-"Das Fromat von [DEVICE] ist Backendname:Gerätedatei (z.B. "
-"umax:/dev/scanner)\n"
+"Das Fromat von [GERÄT] ist Backendname:Gerätedatei (z.B. umax:/dev/scanner)\n"
 "[OPTION]... kann eine Kombination aus den folgenden Bezeichnern sein:\n"
 " -h, --help                   zeigt diesen Hilfetext\n"
 " -v, --version                gibt Versionsinformationen aus\n"

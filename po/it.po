@@ -5,13 +5,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.62\n"
-"POT-Creation-Date: 2001-02-17 21:38+0100\n"
+"POT-Creation-Date: 2001-03-27 18:57+0200\n"
 "PO-Revision-Date: 2000-09-29  23:48+0100\n"
 "Last-Translator: Colorio Mauro <linuxbox@interfree.it>\n"
 "Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: ENCODING\n"
+
+#. Please translate this to the correct directory name (eg. german=>de)
+#. XSANE_LANGUAGE_DIR
+msgid "language_dir"
+msgstr ""
 
 #. XSANE_COPYRIGHT_SIGN
 msgid "(c)"
@@ -235,6 +240,10 @@ msgstr "Annulla anteprima"
 msgid "Fine mode"
 msgstr "Modo fine"
 
+#. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
+msgid "Save device preferences at exit"
+msgstr ""
+
 #. RADIO_BUTTON_OVERWRITE_WARNING
 msgid "Overwrite warning"
 msgstr "Attenzione sovrascrittura"
@@ -259,6 +268,15 @@ msgstr "Usa mappa colori privata"
 #. RADIO_BUTTON_AUTOENHANCE_GAMMA
 msgid "Autoenhance gamma"
 msgstr "Gamma auto accentuo"
+
+#. RADIO_BUTTON_PRESELECT_SCANAREA
+#, fuzzy
+msgid "Preselect scanarea"
+msgstr "Usa tutta l'area di scan"
+
+#. RADIO_BUTTON_AUTOCORRECT_COLORS
+msgid "Autocorrect colors"
+msgstr ""
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
@@ -439,6 +457,10 @@ msgstr "File:"
 msgid "Translation:"
 msgstr "Opzione soglia:"
 
+#. Please translate this to something like
+#. translation to YOUR LANGUAGE\n
+#. by YOUR NAME\n
+#. Email: your.name@yourdomain.com\n
 #. TEXT_TRANSLATION_INFO
 msgid ""
 "untranslated original english text\n"
@@ -853,8 +875,9 @@ msgstr "Acquisizione"
 msgid "Receiving %s data"
 msgstr "Ricezione %s dati"
 
-#. PROGRESS_SAVING_DATA
-msgid "Saving image"
+#. PROGRESS_TRANSFERING_DATA
+#, fuzzy
+msgid "Transfering image"
 msgstr "Salvataggio immagine"
 
 #. PROGRESS_ROTATING_DATA
@@ -1193,6 +1216,10 @@ msgstr "Tipo di compressione se l'immagine a 8 bit viene salvata come tiff"
 msgid "Compression type if lineart image is saved as tiff"
 msgstr "Tipo compressione se l'immagine lineart viene salvata come tiff"
 
+#. DESC_SAVE_DEVPREFS_AT_EXIT
+msgid "Save device dependant preferences in default file at exit of xsane"
+msgstr ""
+
 #. DESC_OVERWRITE_WARNING
 msgid "Warn before overwriting an existing file"
 msgstr "Segnale prima di sovrascrivere un file esistente"
@@ -1332,6 +1359,14 @@ msgstr ""
 msgid "Change gamma value when autoenhancement button is pressed"
 msgstr ""
 "Cambia il valore gamma quando viene premusto il bottone dell'auto accentuo "
+
+#. DESC_PRESELECT_SCANAREA
+msgid "Select scanarea after preview scan has finished"
+msgstr ""
+
+#. DESC_AUTOCORRECT_COLORS
+msgid "Do color correcten after preview scan has finished"
+msgstr ""
 
 #. DESC_FAX_COMMAND
 msgid "Enter command to be executed in fax mode"
@@ -1575,6 +1610,14 @@ msgstr "L'anteprima non può gestire il bit profondità"
 #. ERR_GIMP_SUPPORT_MISSING
 msgid "GIMP support missing"
 msgstr "Manca il supporto per GIMP"
+
+#. ERR_CREATE_PREVIEW_FILE
+msgid "Could not create temporary preview files"
+msgstr ""
+
+#. ERR_CREATE_PREVIEW_FILENAME
+msgid "Could not create filenames for preview files"
+msgstr ""
 
 #. WARN_COUNTER_UNDERRUN
 #, fuzzy

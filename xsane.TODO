@@ -6,6 +6,8 @@ If you have any suggestions: mail to Oliver.Rauch@rauch-domain.de
 first steps:
  * options:
  - fax-function:
+    + display scanned fax page in preview window?
+    + add coverpage with simple text field or call editor
     - add send delayed option
     - add options for sender/receiver Name
     - what about faxprojects with mixed normal- and fine-mode pages?
@@ -19,13 +21,17 @@ first steps:
     + select image position on printer (centered/left/right/free) for copy
       and show it in the preview.
  - preview:
+    - mirror function
     - force aspect ratio of selection area
+      - force size of scanarea in pixels (calculate resolution)
+    - predefined reduced scanarea with size and position, userselectable
  - batch scan function
     - select multiple scan areas before starting the scan
 
  * internal:
    + add range check / valid value when reading xsane.rc/*.drc files
-   + correct image height after scanning in hand scanner mode 
+   + correct image height after scanning in hand scanner mode as gimp plugin
+     may be change gimp plugin transfer as "save_gimp" transformation
    + add several defaults (fax=> mode=gray,...)
    - include much more parameters when saving images
    - test memory after each call of malloc - partly done
@@ -46,7 +52,8 @@ second steps:
    - drag and drop for preview image?
    - other drag and drop functions?
 
- + add color management - may be via xcmsdb (not until xsane-1.0 I think)
+ + add color management - may be via xcmsdb or scarse (www.scarse.org)
+   (not until xsane-1.0 I think)
  - average of a multiple scan of the same image
 
  - TWAIN:

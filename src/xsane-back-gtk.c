@@ -122,6 +122,35 @@ void xsane_bound_double(double *value, double min, double max)
                        
 /* ----------------------------------------------------------------------------------------------------------------- */
 
+/* returns 1 if value is in bounds */ 
+int xsane_check_bound_double(double value, double min, double max)
+{
+ int in_bounds = 1;
+
+  DBG(DBG_proc3, "xsane_check_bound_double\n");
+ 
+  if (min > max)
+  {
+    double help = min;
+    min = max;
+    max = help;
+  }
+ 
+  if (value < min)
+  {
+    in_bounds = 0;
+  }
+ 
+  if (value > max)
+  {
+    in_bounds = 0;
+  }
+
+ return (in_bounds);
+}
+
+/* ----------------------------------------------------------------------------------------------------------------- */
+
 const SANE_Option_Descriptor *xsane_get_option_descriptor(SANE_Handle handle, SANE_Int option)
 {
   DBG(DBG_proc, "xsane_get_option_descriptor(%d)\n", option);

@@ -1,0 +1,168 @@
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.74 [en] (X11; U; Linux 2.2.18 i686) [Netscape]">
+   <meta name="Author" content="Oliver Rauch">
+   <meta name="Description" content="scan, photocopy and fax frontend for SANE">
+   <title>XSane - Display setup</title>
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EF" vlink="#51188E" alink="#FF0000">
+
+
+<table>
+<tr>
+<td width=200>
+<img SRC="xsane-logo2.jpg" alt="XSane-logo" hspace=30 align=TOP>
+</td>
+<td>
+<blockquote>
+<h1><font color="#009900">Display setup</font></h1>
+</blockquote>
+</td>
+</tr>
+</table>
+
+
+<hr WIDTH="100%">
+
+<table>
+<tr>
+<td valign=TOP width="200" bgcolor="#E0E0BA">
+<br>
+<a href="sane-xsane-doc.html">Index</a>
+<br>
+<br>
+<br>
+<font color="#000000">Main window:</font>
+<ul>
+<li><a href="sane-xsane-scan-doc.html">Scan mode</a></li>
+<li><a href="sane-xsane-copy-doc.html">Copy mode</a></li>
+<li><a href="sane-xsane-fax-doc.html">Fax mode</a></li>
+<li><a href="sane-xsane-gimp-doc.html">Gimp plugin</a></li>
+</ul>
+<br>
+<a href="sane-xsane-color-correction-doc.html">Color correction:</a>
+<ul>
+<li><a href="sane-xsane-color-correction-doc.html#GAMMA">Gamma correction</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#BRIGHTNESS">Brightness</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#CONTRAST">Contrast</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#THRESHOLD">Threshold</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#RGB_DEFAULT">RGB default</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#NEGATIVE">Negative</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#AUTOENHANCEMENT">Autoenhancement</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#ENHANCEMENT_DEFAULT">Default</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#RESTORE_ENHANCEMENT">Restore</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#STORE_ENHANCEMENT">Store</a></li>
+<li><a href="sane-xsane-histogram-doc.html">Histogram window</a></li>
+<li><a href="sane-xsane-preview-doc.html#PIPETTE_WHITE">Pipette functions</a></li>
+</ul>
+<br>
+<a href="sane-xsane-standard-doc.html">Standard options window</a>
+<br>
+<br>
+<br>
+<a href="sane-xsane-advanced-doc.html">Advanced options window</a>
+<br>
+<br>
+<br>
+<a href="sane-xsane-preview-doc.html">Preview:</a>
+<ul>
+<li><a href="sane-xsane-preview-doc.html#PIPETTE_WHITE">Pipette white</a></li>
+<li><a href="sane-xsane-preview-doc.html#PIPETTE_GRAY">Pipette gray</a></li>
+<li><a href="sane-xsane-preview-doc.html#PIPETTE_BLACK">Pipette black</a></li>
+<li><a href="sane-xsane-preview-doc.html#UNZOOM">Unzoom</a></li>
+<li><a href="sane-xsane-preview-doc.html#ZOOM_OUT">Zoom out</a></li>
+<li><a href="sane-xsane-preview-doc.html#ZOOM_IN">Zoom in</a></li>
+<li><a href="sane-xsane-preview-doc.html#UNDO_ZOOM">Undo zoom</a></li>
+<li><a href="sane-xsane-preview-doc.html#AUTOSELECT">Autoselect scanarea</a></li>
+<li><a href="sane-xsane-preview-doc.html#SELECT_VISIBLE_AREA">Select visible area</a></li>
+<li><a href="sane-xsane-preview-doc.html#SELECT_SCAN_AREA">Select scanarea</a></li>
+<li><a href="sane-xsane-preview-doc.html#MOVE_SCAN_AREA">Move scanarea</a></li>
+</ul>
+<br>
+<font color="#000000">Setup:</font>
+<ul>
+<li><a href="sane-xsane-setup-copy-doc.html">Copy setup</a></li>
+<li><a href="sane-xsane-setup-display-doc.html">Display setup</a></li>
+<li><a href="sane-xsane-setup-save-doc.html">Saving setup</a></li>
+<li><a href="sane-xsane-setup-fax-doc.html">Fax setup</a></li>
+<li><a href="sane-xsane-setup-enhancement-doc.html">Enhancement setup</a></li>
+</ul>
+</td>
+
+
+
+<td VALIGN=TOP BGCOLOR="#FFFFFF">
+<blockquote>
+<br>
+You open the setup window via the menu <i>preferences/setup</i> in the
+main window of xsane.
+<br>
+<br>
+<br>
+<center><p><img SRC="xsane-setup-display.jpg" alt="XSane-setup-display-window"></center>
+<br>
+<br>
+<br>
+<h4>MAIN WINDOW SIZE FIXED:</h4>
+<blockquote>
+Select if the main window size shall be fixed (the window size
+is defined by xsane) or it shall be a resizable with scrollbars if necessary.
+The change of this option will take effect at the next start of xsane.
+The option can be overwritten by the command line options --Fixed/-F or
+--Resizeable/-R.
+</blockquote>
+
+<h4>USE PRIVATE COLORMAP:</h4>
+<blockquote>
+If enabled and if the X server runs in 8 bit mode (256 colors)
+then the preview uses an own color map.
+<br>I suggest you do <b>not</b> run the X server in 8 bit mode!
+</blockquote>
+
+<h4>PREVIEW OVERSAMPLING:</h4>
+
+<blockquote>
+Defines a multiplier for the preview scan resolution. A value
+of 1.0 means that the preview resolution is calculated that way that for
+each pixel in the preview window the scanner produces one pixel. If you
+want to be able to zoom into the preview and get a higher resolution without
+a new preview scan enter a factor (between 1.0 and 2.0) with that the calculated
+resolution shall be multiplied. But the handling of the preview gets much
+slower if you enter large values. So I suggest a value of 1.0 on slow computers
+and a value up to 2.0 on fast computers.
+</blockquote>
+
+<h4>PREVIEW GAMMA:</h4>
+<blockquote>
+Set the gamma correction value for the preview image. This is to get correct
+colors on your monitor.
+</blockquote>
+
+<h4>DISABLE&nbsp;GIMP PREVIEW GAMMA:</h4>
+<blockquote>
+When xsane is started as gimp plugin do not use preview gamma.
+</blockquote>
+
+<h4>HELPFILE VIEWER:</h4>
+<blockquote>
+Enter a program to show the helpfiles. It must be a html-viewer.
+If you enter the keywrod "netscape-remote", xsane uses a already running
+netscape to show the onlinehelp. If you run kde, you may want to enter
+"kdehelp" here.
+</blockquote>
+
+</blockquote>
+</td>
+</tr>
+</table>
+
+<hr WIDTH="100%">
+
+<blockquote>
+Author: <a href="mailto:Oliver.Rauch@xsane.org">Oliver Rauch</a>
+</blockquote>
+
+</body>
+</html>
+

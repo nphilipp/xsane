@@ -32,7 +32,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.72"
+#define XSANE_VERSION		"0.74"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2001"
@@ -615,6 +615,7 @@ typedef struct XsaneSetup
 
   GtkWidget *jpeg_image_quality_scale;
   GtkWidget *pnm_image_compression_scale;
+  GtkWidget *save_devprefs_at_exit_button;
   GtkWidget *overwrite_warning_button;
   GtkWidget *increase_filename_counter_button;
   GtkWidget *skip_existing_numbers_button;
@@ -632,6 +633,8 @@ typedef struct XsaneSetup
   GtkWidget *preview_threshold_mul_entry;
   GtkWidget *preview_threshold_off_entry;
   GtkWidget *auto_enhance_gamma_button;
+  GtkWidget *preselect_scanarea_button;
+  GtkWidget *auto_correct_colors_button;
   GtkWidget *disable_gimp_preview_gamma_button;
   GtkWidget *preview_oversampling_entry;
   GtkWidget *preview_own_cmap_button;

@@ -69,6 +69,7 @@ Preferences preferences =
  COMPRESSION_PACKBITS,	/* tiff_compression16_nr */
  COMPRESSION_JPEG,	/* tiff_compression8_nr */
  COMPRESSION_CCITTFAX3,	/* tiff_compression1_nr */
+       1,		/* save_devprefs_at_exit */
        1,		/* overwrite_warning */
        1,		/* skip_existing_numbers */
        1,		/* filename_counter_step */
@@ -107,7 +108,9 @@ Preferences preferences =
        0.0,		/* contrast blue */
        1,		/* rgb default */
        0,		/* negative */
-       1,		/* change gamma value with autoenhance button */
+       1,		/* autoenhance_gamma: change gamma value with autoenhance button */
+       1,		/* preselect_scanarea after preview scan */
+       1,		/* auto_correct_colors after preview scan */
  GTK_UPDATE_DISCONTINUOUS, /* update policy for gtk frontend sliders */
        0,		/* psrotate: rotate in postscript mode (landscape) */
        0,		/* printernr */
@@ -136,24 +139,25 @@ desc[] =
     {"fax-normal-option",		xsane_rc_pref_string,	POFFSET(fax_normal_option)},
     {"fax-fine-option",			xsane_rc_pref_string,	POFFSET(fax_fine_option)},
     {"fax-viewer",			xsane_rc_pref_string,	POFFSET(fax_viewer)},
-    {"fax-left-offset",			xsane_rc_pref_double,	POFFSET(fax_leftoffset)},
-    {"fax-bottom-offset",		xsane_rc_pref_double,	POFFSET(fax_bottomoffset)},
     {"fax-width",			xsane_rc_pref_double,	POFFSET(fax_width)},
     {"fax-height",			xsane_rc_pref_double,	POFFSET(fax_height)},
+    {"fax-left-offset",			xsane_rc_pref_double,	POFFSET(fax_leftoffset)},
+    {"fax-bottom-offset",		xsane_rc_pref_double,	POFFSET(fax_bottomoffset)},
     {"doc-viewer",			xsane_rc_pref_string,	POFFSET(doc_viewer)},
-    {"overwrite-warning",		xsane_rc_pref_int,	POFFSET(overwrite_warning)},
-    {"skip-existing-numbers",		xsane_rc_pref_int,	POFFSET(skip_existing_numbers)},
-    {"filename-counter-step",		xsane_rc_pref_int,	POFFSET(filename_counter_step)},
-    {"filename-counter-len",		xsane_rc_pref_int,	POFFSET(filename_counter_len)},
-    {"psfile-left-offset",		xsane_rc_pref_double,	POFFSET(psfile_leftoffset)},
-    {"psfile-bottom-offset",		xsane_rc_pref_double,	POFFSET(psfile_bottomoffset)},
-    {"psfile-width",			xsane_rc_pref_double,	POFFSET(psfile_width)},
-    {"psfile-height",			xsane_rc_pref_double,	POFFSET(psfile_height)},
     {"jpeg-quality",			xsane_rc_pref_double,	POFFSET(jpeg_quality)},
     {"png-compression",			xsane_rc_pref_double, 	POFFSET(png_compression)},
     {"tiff-compression16_nr",		xsane_rc_pref_int, 	POFFSET(tiff_compression16_nr)},
     {"tiff-compression8_nr",		xsane_rc_pref_int, 	POFFSET(tiff_compression8_nr)},
     {"tiff-compression1_nr",		xsane_rc_pref_int, 	POFFSET(tiff_compression1_nr)},
+    {"save-devprefs-at-exit",		xsane_rc_pref_int,	POFFSET(save_devprefs_at_exit)},
+    {"overwrite-warning",		xsane_rc_pref_int,	POFFSET(overwrite_warning)},
+    {"skip-existing-numbers",		xsane_rc_pref_int,	POFFSET(skip_existing_numbers)},
+    {"filename-counter-step",		xsane_rc_pref_int,	POFFSET(filename_counter_step)},
+    {"filename-counter-len",		xsane_rc_pref_int,	POFFSET(filename_counter_len)},
+    {"psfile-width",			xsane_rc_pref_double,	POFFSET(psfile_width)},
+    {"psfile-height",			xsane_rc_pref_double,	POFFSET(psfile_height)},
+    {"psfile-left-offset",		xsane_rc_pref_double,	POFFSET(psfile_leftoffset)},
+    {"psfile-bottom-offset",		xsane_rc_pref_double,	POFFSET(psfile_bottomoffset)},
     {"tool-tips",			xsane_rc_pref_int,	POFFSET(tooltips_enabled)},
     {"show-histogram",			xsane_rc_pref_int,	POFFSET(show_histogram)},
     {"show-gamma",			xsane_rc_pref_int,	POFFSET(show_gamma)},
@@ -185,6 +189,8 @@ desc[] =
     {"rgb-default",			xsane_rc_pref_int,	POFFSET(xsane_rgb_default)},
     {"negative",			xsane_rc_pref_int,	POFFSET(xsane_negative)},
     {"auto-enhance-gamma",		xsane_rc_pref_int,	POFFSET(auto_enhance_gamma)},
+    {"preselect-scanarea",		xsane_rc_pref_int,	POFFSET(preselect_scanarea)},
+    {"auto-correct-colors",		xsane_rc_pref_int,	POFFSET(auto_correct_colors)},
     {"gtk-update-policy",		xsane_rc_pref_int,	POFFSET(gtk_update_policy)},
     {"postscript-rotate",		xsane_rc_pref_int,	POFFSET(psrotate)},
     {"printernr",			xsane_rc_pref_int,	POFFSET(printernr)},
@@ -298,7 +304,7 @@ void preferences_restore(int fd)
     }
   }
 
-
+  preferences.printer = calloc(preferences.printerdefinitions, sizeof(void *)); 
   n=0;
   while (n < preferences.printerdefinitions)
   {

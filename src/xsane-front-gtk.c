@@ -491,7 +491,7 @@ gint xsane_authorization_callback(SANE_String_Const resource,
       if (password_file)
       {
         DBG(DBG_info, "xsane authorization: opened %s as password file\n", password_filename);
-
+        /* file format: "username:password:resource" */
         while (fgets(buf, sizeof(buf), password_file))
         {
          char *stored_username;

@@ -6,13 +6,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-02-17 21:38+0100\n"
+"POT-Creation-Date: 2001-03-27 18:57+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: ENCODING\n"
+
+#. Please translate this to the correct directory name (eg. german=>de)
+#. XSANE_LANGUAGE_DIR
+msgid "language_dir"
+msgstr ""
 
 #. XSANE_COPYRIGHT_SIGN
 msgid "(c)"
@@ -231,6 +236,10 @@ msgstr ""
 msgid "Fine mode"
 msgstr ""
 
+#. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
+msgid "Save device preferences at exit"
+msgstr ""
+
 #. RADIO_BUTTON_OVERWRITE_WARNING
 msgid "Overwrite warning"
 msgstr ""
@@ -253,6 +262,14 @@ msgstr ""
 
 #. RADIO_BUTTON_AUTOENHANCE_GAMMA
 msgid "Autoenhance gamma"
+msgstr ""
+
+#. RADIO_BUTTON_PRESELECT_SCANAREA
+msgid "Preselect scanarea"
+msgstr ""
+
+#. RADIO_BUTTON_AUTOCORRECT_COLORS
+msgid "Autocorrect colors"
 msgstr ""
 
 #. TEXT_SCANNING_DEVICES
@@ -430,6 +447,10 @@ msgstr ""
 msgid "Translation:"
 msgstr ""
 
+#. Please translate this to something like
+#. translation to YOUR LANGUAGE\n
+#. by YOUR NAME\n
+#. Email: your.name@yourdomain.com\n
 #. TEXT_TRANSLATION_INFO
 msgid ""
 "untranslated original english text\n"
@@ -838,8 +859,8 @@ msgstr ""
 msgid "Receiving %s data"
 msgstr ""
 
-#. PROGRESS_SAVING_DATA
-msgid "Saving image"
+#. PROGRESS_TRANSFERING_DATA
+msgid "Transfering image"
 msgstr ""
 
 #. PROGRESS_ROTATING_DATA
@@ -1140,6 +1161,10 @@ msgstr ""
 msgid "Compression type if lineart image is saved as tiff"
 msgstr ""
 
+#. DESC_SAVE_DEVPREFS_AT_EXIT
+msgid "Save device dependant preferences in default file at exit of xsane"
+msgstr ""
+
 #. DESC_OVERWRITE_WARNING
 msgid "Warn before overwriting an existing file"
 msgstr ""
@@ -1248,6 +1273,14 @@ msgstr ""
 
 #. DESC_AUTOENHANCE_GAMMA
 msgid "Change gamma value when autoenhancement button is pressed"
+msgstr ""
+
+#. DESC_PRESELECT_SCANAREA
+msgid "Select scanarea after preview scan has finished"
+msgstr ""
+
+#. DESC_AUTOCORRECT_COLORS
+msgid "Do color correcten after preview scan has finished"
 msgstr ""
 
 #. DESC_FAX_COMMAND
@@ -1486,6 +1519,14 @@ msgstr ""
 
 #. ERR_GIMP_SUPPORT_MISSING
 msgid "GIMP support missing"
+msgstr ""
+
+#. ERR_CREATE_PREVIEW_FILE
+msgid "Could not create temporary preview files"
+msgstr ""
+
+#. ERR_CREATE_PREVIEW_FILENAME
+msgid "Could not create filenames for preview files"
 msgstr ""
 
 #. WARN_COUNTER_UNDERRUN

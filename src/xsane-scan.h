@@ -26,7 +26,6 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-extern void null_print_func(gchar *msg);
 extern void xsane_scan_done(SANE_Status status);
 extern void xsane_cancel(void);
 extern void xsane_scan_dialog(GtkWidget * widget, gpointer call_data);

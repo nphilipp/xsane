@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Xsane 0.72\n"
-"POT-Creation-Date: 2001-02-17 21:38+0100\n"
+"POT-Creation-Date: 2001-03-27 18:57+0200\n"
 "PO-Revision-Date: 2001-02-18 20:54GMT+02:00\n"
 "Last-Translator: Togan Müftüoðlu <toganm@yahoo.com>\n"
 "Language-Team: Turkish <Turkish team <kde-i18n-tr@kde.org>>\n"
@@ -13,6 +13,11 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-9\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.8\n"
+
+#. Please translate this to the correct directory name (eg. german=>de)
+#. XSANE_LANGUAGE_DIR
+msgid "language_dir"
+msgstr ""
 
 #. XSANE_COPYRIGHT_SIGN
 msgid "(c)"
@@ -231,6 +236,10 @@ msgstr "Önizlemeyi iptal et"
 msgid "Fine mode"
 msgstr "Fine modu"
 
+#. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
+msgid "Save device preferences at exit"
+msgstr ""
+
 #. RADIO_BUTTON_OVERWRITE_WARNING
 msgid "Overwrite warning"
 msgstr "Üzerine yazma uyarýsý"
@@ -254,6 +263,15 @@ msgstr "Özel renk tablosu kullan"
 #. RADIO_BUTTON_AUTOENHANCE_GAMMA
 msgid "Autoenhance gamma"
 msgstr "Gamma otomatik düzenlensin"
+
+#. RADIO_BUTTON_PRESELECT_SCANAREA
+#, fuzzy
+msgid "Preselect scanarea"
+msgstr "Tarama alanýný otomatik seç"
+
+#. RADIO_BUTTON_AUTOCORRECT_COLORS
+msgid "Autocorrect colors"
+msgstr ""
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
@@ -437,6 +455,10 @@ msgstr "Dosya"
 msgid "Translation:"
 msgstr "Tercüme:"
 
+#. Please translate this to something like
+#. translation to YOUR LANGUAGE\n
+#. by YOUR NAME\n
+#. Email: your.name@yourdomain.com\n
 #. TEXT_TRANSLATION_INFO
 msgid ""
 "untranslated original english text\n"
@@ -848,8 +870,9 @@ msgstr "tarýyor"
 msgid "Receiving %s data"
 msgstr "%s data alýyor"
 
-#. PROGRESS_SAVING_DATA
-msgid "Saving image"
+#. PROGRESS_TRANSFERING_DATA
+#, fuzzy
+msgid "Transfering image"
 msgstr "Resmi saklýyor"
 
 #. PROGRESS_ROTATING_DATA
@@ -1166,6 +1189,10 @@ msgstr "Eðer 8 bit resim tiff olarak saklanacaksa sýkýþtýrma tipi"
 msgid "Compression type if lineart image is saved as tiff"
 msgstr "Eðer lineart resim tiff olarak saklanacaksa sýkýþtýrma tipi"
 
+#. DESC_SAVE_DEVPREFS_AT_EXIT
+msgid "Save device dependant preferences in default file at exit of xsane"
+msgstr ""
+
 #. DESC_OVERWRITE_WARNING
 msgid "Warn before overwriting an existing file"
 msgstr "Varolan dosyanýn üzerine yazarken uyar"
@@ -1292,6 +1319,14 @@ msgstr ""
 #. DESC_AUTOENHANCE_GAMMA
 msgid "Change gamma value when autoenhancement button is pressed"
 msgstr "otomatik geliþtirme tuþuna basýlýnca gamma deðerini deðiþtir"
+
+#. DESC_PRESELECT_SCANAREA
+msgid "Select scanarea after preview scan has finished"
+msgstr ""
+
+#. DESC_AUTOCORRECT_COLORS
+msgid "Do color correcten after preview scan has finished"
+msgstr ""
 
 #. DESC_FAX_COMMAND
 msgid "Enter command to be executed in fax mode"
@@ -1530,6 +1565,14 @@ msgstr "Önizleme bit derinliðini kullanamaz"
 #. ERR_GIMP_SUPPORT_MISSING
 msgid "GIMP support missing"
 msgstr "GIMP desteði kayýp"
+
+#. ERR_CREATE_PREVIEW_FILE
+msgid "Could not create temporary preview files"
+msgstr ""
+
+#. ERR_CREATE_PREVIEW_FILENAME
+msgid "Could not create filenames for preview files"
+msgstr ""
 
 #. WARN_COUNTER_UNDERRUN
 msgid "Filename counter underrun"

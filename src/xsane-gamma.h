@@ -49,5 +49,6 @@ extern void xsane_enhancement_by_histogram(int update_gamma);
 extern void xsane_create_histogram_dialog(const char *devicetext);
 extern void xsane_create_gamma_dialog(const char *devicetext);
 extern void xsane_update_gamma_dialog(void);
+extern void xsane_set_auto_enhancement(void);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

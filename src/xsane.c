@@ -42,6 +42,9 @@
 #endif
 #endif
 
+#include <sys/types.h>
+#include <sys/wait.h>
+
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 struct option long_options[] =
@@ -776,38 +779,7 @@ static void xsane_auto_enhancement_callback(GtkWidget * widget)
 
   xsane_calculate_histogram();
 
-  xsane.slider_gray.value[0] = xsane.auto_black;
-  xsane.slider_gray.value[1] = xsane.auto_gray;
-  xsane.slider_gray.value[2] = xsane.auto_white;
-
-  if (xsane.enhancement_rgb_default) /* set same values for color components */
-  {
-    xsane.slider_red.value[0] = xsane.auto_black;
-    xsane.slider_red.value[1] = xsane.auto_gray;
-    xsane.slider_red.value[2] = xsane.auto_white;
-  
-    xsane.slider_green.value[0] = xsane.auto_black;
-    xsane.slider_green.value[1] = xsane.auto_gray;
-    xsane.slider_green.value[2] = xsane.auto_white;
-  
-    xsane.slider_blue.value[0] = xsane.auto_black;
-    xsane.slider_blue.value[1] = xsane.auto_gray;
-    xsane.slider_blue.value[2] = xsane.auto_white;
-  }
-  else /* set different values for each color component */
-  {
-    xsane.slider_red.value[0] = xsane.auto_black_red;
-    xsane.slider_red.value[1] = xsane.auto_gray_red;
-    xsane.slider_red.value[2] = xsane.auto_white_red;
-  
-    xsane.slider_green.value[0] = xsane.auto_black_green;
-    xsane.slider_green.value[1] = xsane.auto_gray_green;
-    xsane.slider_green.value[2] = xsane.auto_white_green;
-  
-    xsane.slider_blue.value[0] = xsane.auto_black_blue;
-    xsane.slider_blue.value[1] = xsane.auto_gray_blue;
-    xsane.slider_blue.value[2] = xsane.auto_white_blue;
-  }
+  xsane_set_auto_enhancement();
 
   xsane_enhancement_by_histogram(preferences.auto_enhance_gamma);
 }
@@ -2042,6 +2014,11 @@ static void xsane_quit(void)
 {
   DBG(DBG_proc, "xsane_quit\n");
 
+  if (preferences.save_devprefs_at_exit)
+  {
+    xsane_device_preferences_store();
+  }
+
   if (xsane.preview)
   {
     Preview *preview = xsane.preview;
@@ -2079,6 +2056,12 @@ static void xsane_quit(void)
     gimp_quit();
   }
 #endif
+
+  if (preferences.printer)
+  {
+    free(preferences.printer);
+  }
+
   exit(0);
 }
 
@@ -2193,11 +2176,7 @@ static GtkWidget *xsane_files_build_menu(void)
   DBG(DBG_proc, "xsane_files_build_menu\n");
 
   menu = gtk_menu_new();
-
-  item = gtk_menu_item_new();
-  gtk_container_add(GTK_CONTAINER(menu), item);
-  gtk_widget_show(item);
-
+  gtk_accel_group_attach(xsane.accelerator_group, GTK_OBJECT(menu));
 
   /* XSane info dialog */
 
@@ -2421,9 +2400,8 @@ static void xsane_info_dialog(GtkWidget *widget, gpointer data)
 
   snprintf(buf, sizeof(buf), TEXT_SANE_VERSION);
   label = xsane_info_table_text_new(table, buf, 0, 5);
-  snprintf(buf, sizeof(buf), "%d.%d build %d",SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
-                                SANE_VERSION_MINOR(xsane.sane_backend_versioncode),
-                                SANE_VERSION_BUILD(xsane.sane_backend_versioncode));
+  snprintf(buf, sizeof(buf), "%d.%d",SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
+                                SANE_VERSION_MINOR(xsane.sane_backend_versioncode));
   label = xsane_info_table_text_new(table, buf, 1, 5);
 
 
@@ -3407,7 +3385,7 @@ static void xsane_show_doc_via_nsr(GtkWidget *widget, gpointer data) /* show via
   if ((strlen(netscape_lock_path) > 0) && (lstat(netscape_lock_path, &st) == 0)) /*  netscape is running */
   {
     DBG(DBG_proc, "xsane_show_doc_via_nsr: netscape is running\n");
-    snprintf(buf, sizeof(buf), "openFile(%s/%s-doc.html)", STRINGIFY(PATH_SANE_DATA_DIR), name);
+    snprintf(buf, sizeof(buf), "openFile(%s, new-window)", name);
     arg[0] = "netscape";
     arg[1] = "-no-about-splash";
     arg[2] = "-remote";
@@ -3426,9 +3404,8 @@ static void xsane_show_doc_via_nsr(GtkWidget *widget, gpointer data) /* show via
   else /* netscape not running */
   { 
     DBG(DBG_proc, "xsane_show_doc_via_nsr: netscape is not running, trying to start netscape\n");
-    snprintf(buf, sizeof(buf), "%s/%s-doc.html", STRINGIFY(PATH_SANE_DATA_DIR), name);
     arg[0] = "netscape";
-    arg[1] = buf;
+    arg[1] = name;
     arg[2] = 0;
  
     pid = fork();
@@ -3452,21 +3429,31 @@ static void xsane_show_doc_via_nsr(GtkWidget *widget, gpointer data) /* show via
 static void xsane_show_doc(GtkWidget *widget, gpointer data)
 {
  char *name = (char *) data;
- char buf[256];
+ char path[256];
  pid_t pid;
  char *arg[3];
+ struct stat st;
+ char *language_dir = NULL;
 
   DBG(DBG_proc, "xsane_show_doc(%s)\n", name);
 
+  /* translation of language_dir gives the name of the subdirectory in */
+  /* which there may be a translation of a documentation */
+  language_dir = XSANE_LANGUAGE_DIR;
+  snprintf(path, sizeof(path), "%s/%s/%s-doc.html", STRINGIFY(PATH_SANE_DATA_DIR), language_dir, name);  
+  if (stat(path, &st) != 0) /* trst if file does exist */
+  {
+    snprintf(path, sizeof(path), "%s/%s-doc.html", STRINGIFY(PATH_SANE_DATA_DIR), name); /* no, we use original doc */
+  }
+
   if (!strcmp(preferences.doc_viewer, DOCVIEWER_NETSCAPE))
   {
-    xsane_show_doc_via_nsr(widget, data);
+    xsane_show_doc_via_nsr(widget, (void *) path);
   }
   else
   {
-    snprintf(buf, sizeof(buf), "%s/%s-doc.html", STRINGIFY(PATH_SANE_DATA_DIR), name);  
     arg[0] = preferences.doc_viewer;
-    arg[1] = buf;
+    arg[1] = path;
     arg[2] = 0;
 
     pid = fork();
@@ -3707,6 +3694,9 @@ static void xsane_fax_entry_insert_callback(GtkWidget *widget, gpointer list)
 
   DBG(DBG_proc, "xsane_fax_entry_insert_callback\n");
 
+  xsane_clear_histogram(&xsane.histogram_raw);
+  xsane_clear_histogram(&xsane.histogram_enh); 
+
   xsane_set_sensitivity(FALSE);
 
   snprintf(windowname, sizeof(windowname), "%s %s %s", xsane.prog_name, WINDOW_FAX_INSERT, preferences.fax_project);
@@ -3789,6 +3779,7 @@ static void xsane_fax_entry_insert_callback(GtkWidget *widget, gpointer list)
   umask(XSANE_DEFAULT_UMASK); /* define new file permissions */    
 
   xsane_set_sensitivity(TRUE);
+  xsane_update_histogram();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -3879,6 +3870,11 @@ static void xsane_fax_send()
       return;
     }
 
+    xsane_clear_histogram(&xsane.histogram_raw);
+    xsane_clear_histogram(&xsane.histogram_enh); 
+
+    xsane_set_sensitivity(FALSE);
+
     argnr = xsane_parse_options(preferences.fax_command, arg);
 
     if (xsane.fax_fine_mode) /* fine mode */
@@ -3933,6 +3929,24 @@ static void xsane_fax_send()
     {
       free(arg[i]);
     }
+    while (pid)
+    {
+     int status = 0;
+     pid_t pid_status = waitpid(pid, &status, WNOHANG);
+  
+      if (pid == pid_status)
+      {
+        pid = 0; /* ok, child process has terminated */
+      }
+
+      while (gtk_events_pending())
+      {
+        gtk_main_iteration();
+      }
+    }
+
+    xsane_set_sensitivity(TRUE);
+    xsane_update_histogram();
   }
 }
 
@@ -3945,6 +3959,7 @@ static GtkWidget *xsane_view_build_menu(void)
   DBG(DBG_proc, "xsane_view_build_menu\n");
 
   menu = gtk_menu_new();
+  gtk_accel_group_attach(xsane.accelerator_group, GTK_OBJECT(menu));
   /*  gtk_menu_set_accel_group(GTK_MENU(menu), xsane.accelerator_group); */
 
   /* show tooltips */
@@ -4027,6 +4042,7 @@ static GtkWidget *xsane_pref_build_menu(void)
   DBG(DBG_proc, "xsane_pref_build_menu\n");
 
   menu = gtk_menu_new();
+  gtk_accel_group_attach(xsane.accelerator_group, GTK_OBJECT(menu));
 
 
   /* XSane setup dialog */
@@ -4234,6 +4250,7 @@ static GtkWidget *xsane_help_build_menu(void)
   DBG(DBG_proc, "xsane_help_build_menu\n");
 
   menu = gtk_menu_new();
+  gtk_accel_group_attach(xsane.accelerator_group, GTK_OBJECT(menu));
 
 
   /* XSane about dialog */
@@ -4241,6 +4258,7 @@ static GtkWidget *xsane_help_build_menu(void)
   item = gtk_menu_item_new_with_label(MENU_ITEM_ABOUT_XSANE);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_about_dialog, NULL);
+  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_F6, 0, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
   gtk_widget_show(item);
 
   /* XSane about translation dialog */
@@ -4248,6 +4266,7 @@ static GtkWidget *xsane_help_build_menu(void)
   item = gtk_menu_item_new_with_label(MENU_ITEM_ABOUT_TRANSLATION);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_about_translation_dialog, NULL);
+  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_F7, 0, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
   gtk_widget_show(item);
 
 
@@ -4263,6 +4282,7 @@ static GtkWidget *xsane_help_build_menu(void)
   item = gtk_menu_item_new_with_label(MENU_ITEM_XSANE_LICENSE);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_license, NULL);
+  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_F8, 0, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
   gtk_widget_show(item);
 
 
@@ -4278,6 +4298,7 @@ static GtkWidget *xsane_help_build_menu(void)
   item = gtk_menu_item_new_with_label(MENU_ITEM_XSANE_DOC);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_doc, (void *) "sane-xsane");
+  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_F1, 0, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
   gtk_widget_show(item);
 
 
@@ -4295,6 +4316,7 @@ static GtkWidget *xsane_help_build_menu(void)
     item = gtk_menu_item_new_with_label(MENU_ITEM_BACKEND_DOC);
     gtk_menu_append(GTK_MENU(menu), item);
     gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_doc, (void *) xsane.backend);
+    gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_F2, 0, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
     gtk_widget_show(item);
   }
 
@@ -4304,6 +4326,7 @@ static GtkWidget *xsane_help_build_menu(void)
   item = gtk_menu_item_new_with_label(MENU_ITEM_AVAILABLE_BACKENDS);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_doc, (void *) "sane-backends");
+  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_F3, 0, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
   gtk_widget_show(item);
 
   
@@ -4312,6 +4335,7 @@ static GtkWidget *xsane_help_build_menu(void)
   item = gtk_menu_item_new_with_label(MENU_ITEM_PROBLEMS);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_doc, (void *) "sane-problems");
+  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_F4, 0, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
   gtk_widget_show(item);
 
   item = gtk_menu_item_new();
@@ -4324,6 +4348,7 @@ static GtkWidget *xsane_help_build_menu(void)
   item = gtk_menu_item_new_with_label(MENU_ITEM_SCANTIPS);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_doc, (void *) "sane-scantips");
+  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_F5, 0, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
   gtk_widget_show(item);
 
   return menu;
@@ -4795,6 +4820,7 @@ static void xsane_device_dialog(void)
     xsane.backend = malloc(strlen(textptr)+6);
     sprintf(xsane.backend, "sane-%s", textptr); /* add "sane-" */
 
+    DBG(DBG_info, "Setting backend \"%s\" localedir: %s\n", xsane.backend, STRINGIFY(LOCALEDIR));
     bindtextdomain(xsane.backend, STRINGIFY(LOCALEDIR)); /* set path for backend translation texts */
   }
 
@@ -4874,18 +4900,21 @@ static void xsane_device_dialog(void)
   menubar_item = gtk_menu_item_new_with_label(MENU_FILE);
   gtk_container_add(GTK_CONTAINER(menubar), menubar_item);
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(menubar_item), xsane_files_build_menu());
+/*  gtk_widget_add_accelerator(menubar_item, "select", xsane.accelerator_group, GDK_F, 0, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED); */
   gtk_widget_show(menubar_item);
 
   /* "Preferences" submenu: */
   menubar_item = gtk_menu_item_new_with_label(MENU_PREFERENCES);
   gtk_container_add(GTK_CONTAINER(menubar), menubar_item);
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(menubar_item), xsane_pref_build_menu());
+/*  gtk_widget_add_accelerator(menubar_item, "select", xsane.accelerator_group, GDK_P, 0, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED); */
   gtk_widget_show(menubar_item);
 
   /* "View" submenu: */
   menubar_item = gtk_menu_item_new_with_label(MENU_VIEW);
   gtk_container_add(GTK_CONTAINER(menubar), menubar_item);
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(menubar_item), xsane_view_build_menu());
+/*  gtk_widget_add_accelerator(menubar_item, "select", xsane.accelerator_group, GDK_V, 0, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED); */
   gtk_widget_show(menubar_item);
 
 
@@ -4894,6 +4923,7 @@ static void xsane_device_dialog(void)
   gtk_container_add(GTK_CONTAINER(menubar), menubar_item);
   gtk_menu_item_right_justify((GtkMenuItem *) menubar_item);
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(menubar_item), xsane_help_build_menu());
+/*  gtk_widget_add_accelerator(menubar_item, "select", xsane.accelerator_group, GDK_H, 0, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED); */
   gtk_widget_show(menubar_item);
 
   gtk_widget_show(menubar);
@@ -5459,41 +5489,6 @@ static int xsane_init(int argc, char **argv)
     }
   }
 
-  if (xsane_pref_restore()) /* restore preferences, returns TRUE if license is not accpted yet */
-  {
-    if (xsane_display_license(1)) /* show license and ask for accept/not accept */
-    {
-      DBG(DBG_info, "user did not accept license, we abort\n");
-      return 1; /* User did not accept license */
-    }
-  }
-
-  if (!getuid()) /* root ? */
-  {
-    if (xsane_back_gtk_decision(ERR_HEADER_WARNING, (gchar **) warning_xpm, WARN_XSANE_AS_ROOT,
-        BUTTON_CANCEL, BUTTON_CONT_AT_OWN_RISK, TRUE /* wait */) == TRUE)
-    {
-      return 2; /* User selected CANCEL */
-    } 
-  }
-
-  sane_init(&xsane.sane_backend_versioncode, (void *) xsane_authorization_callback);
-  if (SANE_VERSION_MAJOR(xsane.sane_backend_versioncode) != SANE_V_MAJOR)
-  {
-    fprintf(stderr, "\n\n"
-                    "%s %s:\n"
-                    "  %s\n"
-                    "  %s %d\n"
-                    "  %s %d\n"
-                    "%s\n\n",
-                    xsane.prog_name, ERR_ERROR,
-                    ERR_MAJOR_VERSION_NR_CONFLICT,
-                    ERR_XSANE_MAJOR_VERSION, SANE_V_MAJOR,
-                    ERR_BACKEND_MAJOR_VERSION, SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
-                    ERR_PROGRAM_ABORTED);
-    return 3;
-  }
-
   if (argc > 1)
   {
     int ch;
@@ -5515,9 +5510,6 @@ static int xsane_init(int argc, char **argv)
         case 'v': /* --version */
           printf("%s-%s %s %s\n", xsane.prog_name, XSANE_VERSION, XSANE_COPYRIGHT_SIGN, XSANE_COPYRIGHT_TXT);
           printf("  %s %s\n", TEXT_PACKAGE, PACKAGE_VERSION);
-          printf("  SANE-%d.%d\n", SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
-                                 SANE_VERSION_MINOR(xsane.sane_backend_versioncode));
-
           printf("  %s%d.%d.%d\n", TEXT_GTK_VERSION, GTK_MAJOR_VERSION, GTK_MINOR_VERSION, GTK_MICRO_VERSION);
 
 #ifdef HAVE_LIBGIMP_GIMP_H
@@ -5602,6 +5594,42 @@ static int xsane_init(int argc, char **argv)
           exit(0);
       }
     }
+  }
+
+  if (xsane_pref_restore()) /* restore preferences, returns TRUE if license is not accpted yet */
+  {
+    if (xsane_display_license(1)) /* show license and ask for accept/not accept */
+    {
+      DBG(DBG_info, "user did not accept license, we abort\n");
+      return 1; /* User did not accept license */
+    }
+  }
+
+  if (!getuid()) /* root ? */
+  {
+    if (xsane_back_gtk_decision(ERR_HEADER_WARNING, (gchar **) warning_xpm, WARN_XSANE_AS_ROOT,
+        BUTTON_CANCEL, BUTTON_CONT_AT_OWN_RISK, TRUE /* wait */) == TRUE)
+    {
+      return 2; /* User selected CANCEL */
+    } 
+  }
+
+  sane_init(&xsane.sane_backend_versioncode, (void *) xsane_authorization_callback);
+
+  if (SANE_VERSION_MAJOR(xsane.sane_backend_versioncode) != SANE_V_MAJOR)
+  {
+    fprintf(stderr, "\n\n"
+                    "%s %s:\n"
+                    "  %s\n"
+                    "  %s %d\n"
+                    "  %s %d\n"
+                    "%s\n\n",
+                    xsane.prog_name, ERR_ERROR,
+                    ERR_MAJOR_VERSION_NR_CONFLICT,
+                    ERR_XSANE_MAJOR_VERSION, SANE_V_MAJOR,
+                    ERR_BACKEND_MAJOR_VERSION, SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
+                    ERR_PROGRAM_ABORTED);
+    return 3;
   }
 
   device_scanning_dialog = gtk_window_new(GTK_WINDOW_DIALOG);
@@ -5823,6 +5851,7 @@ int main(int argc, char **argv)
   bindtextdomain(PACKAGE, STRINGIFY(LOCALEDIR));
   textdomain(PACKAGE);         
 #else
+  DBG(DBG_info, "Setting xsane localedir: %s\n", STRINGIFY(LOCALEDIR));
   bindtextdomain(xsane.prog_name, STRINGIFY(LOCALEDIR));
   textdomain(xsane.prog_name);
 #endif

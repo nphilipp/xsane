@@ -3,6 +3,12 @@ Ctl: Main Window
 Shift: Main Window
 Alt: alternative windows
 
+F1-F8		Help functions
+F		Menu File
+P		Menu Preferences
+V		Menu View
+H		Menu Help
+
 Ctl S		Scanmode
 Ctl C		Copymode
 Ctl F		Faxmode

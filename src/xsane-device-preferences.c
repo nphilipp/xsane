@@ -105,9 +105,8 @@ desc_xsane_device[] =
 static void xsane_widget_get_uposition(GtkWidget *gtk_window, gint *x, gint *y)
 {
   DBG(DBG_proc, "xsane_widget_get_uposition\n");
-#ifdef XSANE_BUGGY_WINDOWMANAGER_WINDOW_POSITION
   gdk_window_get_root_origin(gtk_window->window, x, y);
-#else
+#if 0
   gdk_window_get_deskrelative_origin(gtk_window->window, x, y);
 #endif
 }
@@ -655,25 +654,16 @@ void xsane_device_preferences_load(void)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void xsane_device_preferences_save(GtkWidget *widget, gpointer data)
+void xsane_device_preferences_save_file(char *filename)
 {
- char filename[PATH_MAX];
- char windowname[256];
  int fd;
  Wire w;
  int i;
 
-  DBG(DBG_proc, "xsane_device_preferences_save\n");
-
-  xsane_clear_histogram(&xsane.histogram_raw);
-  xsane_clear_histogram(&xsane.histogram_enh);
-  xsane_set_sensitivity(FALSE);
-
-  sprintf(windowname, "%s %s %s", xsane.prog_name, WINDOW_SAVE_SETTINGS, xsane.device_text);
-  xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", 0, 0, xsane.device_set_filename, ".drc", XSANE_PATH_LOCAL_SANE);
-
-  if (!xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, FALSE, FALSE))
+  if (filename)
   {
+    DBG(DBG_info, "Saving device preferences to file %s\n", filename);
+
     umask(XSANE_DEFAULT_UMASK); /* define new file permissions */
     fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0666);
     if (fd < 0)
@@ -732,6 +722,40 @@ void xsane_device_preferences_save(GtkWidget *widget, gpointer data)
 
     xsane_rc_io_w_flush(&w);
     close(fd);
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void xsane_device_preferences_store(void)
+{
+ char filename[PATH_MAX];
+
+  DBG(DBG_proc, "xsane_device_preferences_store\n");
+
+  xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", 0, 0, xsane.device_set_filename, ".drc", XSANE_PATH_LOCAL_SANE);
+  xsane_device_preferences_save_file(filename);
+}
+                  
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void xsane_device_preferences_save(void)
+{
+ char filename[PATH_MAX];
+ char windowname[256];
+
+  DBG(DBG_proc, "xsane_device_preferences_save\n");
+
+  xsane_clear_histogram(&xsane.histogram_raw);
+  xsane_clear_histogram(&xsane.histogram_enh);
+  xsane_set_sensitivity(FALSE);
+
+  sprintf(windowname, "%s %s %s", xsane.prog_name, WINDOW_SAVE_SETTINGS, xsane.device_text);
+  xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", 0, 0, xsane.device_set_filename, ".drc", XSANE_PATH_LOCAL_SANE);
+
+  if (!xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, FALSE, FALSE))
+  {
+    xsane_device_preferences_save_file(filename);
   }
 
   xsane_set_sensitivity(TRUE);

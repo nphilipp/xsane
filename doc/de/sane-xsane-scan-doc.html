@@ -1,0 +1,244 @@
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.74 [en] (X11; U; Linux 2.2.18 i686) [Netscape]">
+   <meta name="Author" content="Oliver Rauch">
+   <meta name="Description" content="scan, photocopy and fax frontend for SANE">
+   <title>XSane - Scanmodus</title>
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EF" vlink="#51188E" alink="#FF0000">
+
+
+<table>
+<tr>
+<td width=200>
+<img SRC="xsane-logo2.jpg" alt="XSane-logo" hspace=30 height=150 width=128 align=TOP>
+</td>
+<td>
+<blockquote>
+<h1><font color="#009900">Hauptfenster im Scanmodus</font></h1>
+</blockquote>
+</td>
+</tr>
+</table>
+
+
+<hr WIDTH="100%">
+
+<table>
+<tr>
+<td valign=TOP width="200" bgcolor="#E0E0BA">
+<br>
+<a href="sane-xsane-doc.html">Index</a>
+<br>
+<br>
+<br>
+<font color="#000000">Hauptfenster:</font>
+<ul>
+<li><a href="sane-xsane-scan-doc.html">Scanmodus</a></li>
+<li><a href="sane-xsane-copy-doc.html">Kopiermodus</a></li>
+<li><a href="sane-xsane-fax-doc.html">Faxmodus</a></li>
+<li><a href="sane-xsane-gimp-doc.html">Gimp Plugin</a></li>
+</ul>
+<br>
+<a href="sane-xsane-color-correction-doc.html">Farb Korrektur:</a>
+<ul>
+<li><a href="sane-xsane-color-correction-doc.html#GAMMA">Gamma Korrektur</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#BRIGHTNESS">Helligkeit</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#CONTRAST">Kontrast</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#THRESHOLD">Schwellwert</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#RGB_DEFAULT">RGB Default</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#NEGATIVE">Negativ</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#AUTOENHANCEMENT">Autoverbesserung</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#ENHANCEMENT_DEFAULT">Default</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#RESTORE_ENHANCEMENT">Restore</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#STORE_ENHANCEMENT">Store</a></li>
+<li><a href="sane-xsane-histogram-doc.html">Histogramm Fenster</a></li>
+<li><a href="sane-xsane-preview-doc.html#PIPETTE_WHITE">Pipette Funktionen</a></li>
+</ul>
+<br>
+<a href="sane-xsane-standard-doc.html">Standard Optionen Fenster</a>
+<br>
+<br>
+<br>
+<a href="sane-xsane-advanced-doc.html">Erweiterte Optionen Fenster</a>
+<br>
+<br>
+<br>
+<a href="sane-xsane-preview-doc.html">Vorschau:</a>
+<ul>
+<li><a href="sane-xsane-preview-doc.html#PIPETTE_WHITE">Pipette weiss</a></li>
+<li><a href="sane-xsane-preview-doc.html#PIPETTE_GRAY">Pipette grau</a></li>
+<li><a href="sane-xsane-preview-doc.html#PIPETTE_BLACK">Pipette schwarz</a></li>
+<li><a href="sane-xsane-preview-doc.html#UNZOOM">Unzoom</a></li>
+<li><a href="sane-xsane-preview-doc.html#ZOOM_OUT">heraus zoomen</a></li>
+<li><a href="sane-xsane-preview-doc.html#ZOOM_IN">hinnein zoomen</a></li>
+<li><a href="sane-xsane-preview-doc.html#UNDO_ZOOM">Zoom rückgängig</a></li>
+<li><a href="sane-xsane-preview-doc.html#AUTOSELECT">Scanbereich automatisch wählen</a></li>
+<li><a href="sane-xsane-preview-doc.html#SELECT_VISIBLE_AREA">Sichtbaren Bereich wählen</a></li>
+<li><a href="sane-xsane-preview-doc.html#SELECT_SCAN_AREA">Scanbereich auswählen</a></li>
+<li><a href="sane-xsane-preview-doc.html#MOVE_SCAN_AREA">Scanbereich verschieben</a></li>
+</ul>
+<br>
+<font color="#000000">Einstellungen:</font>
+<ul>
+<li><a href="sane-xsane-setup-copy-doc.html">Kopier Einstellungen</a></li>
+<li><a href="sane-xsane-setup-display-doc.html">Darstellungs Einstellungen</a></li>
+<li><a href="sane-xsane-setup-save-doc.html">Datei Einstellungen</a></li>
+<li><a href="sane-xsane-setup-fax-doc.html">Fax Einstellungen</a></li>
+<li><a href="sane-xsane-setup-enhancement-doc.html">Verbesserungs Einstellungen</a></li>
+</ul>
+</td>
+
+
+<td VALIGN=TOP BGCOLOR="#FFFFFF">
+<blockquote>
+<br>
+Im Scanmodus werden Bilder eingescannt und in eine Datei gespeichert.
+<br>
+<br>
+<br>
+<center><img SRC="xsane.jpg" alt="XSane-Hauptfenster" height=507 width=270></center>
+<br>
+<br>
+
+<img SRC="xsane-colormode.jpg" alt="colormode">
+&nbsp;&nbsp;
+<b>Scanmodus:</b>
+<blockquote>
+Scanmodus auswählen: Farbe, Graustufen, Halbton, Strichzeichnung.
+</blockquote>
+
+<img SRC="xsane-scansource.jpg" alt="scansource">
+&nbsp;&nbsp;
+<b>Scanquelle:</b>
+<blockquote>
+Scanquelle auswählen, z.B.: Flachbett, Durchlicht, Automatischer Dokumenten Einzug.
+</blockquote>
+
+<img SRC="xsane-resolution.jpg" alt="resolution">
+&nbsp;&nbsp;
+<b>Scan Auflösung:</b>
+<blockquote>
+Auflösung auswählen, die zum Scannen benutzt werden soll. Wenn das Backend
+einen Bereich zur Auswahl stellt (z.B. 100-300 dpi), dann stellt XSane einen
+Schieber oder eine Liste zum Auswählen der Auflösung dar. Sie können dies unter
+<i>Einstellungen/Auflösungsliste zeigen</i> auswählen.
+<br>
+Das Backend kann eine Liste ansatt eines Bereichs zur Verfügung stellen.
+In diesem Fall kann der Schieber nicht aktiviert werden.
+<p>
+Um die Auflösung mit dem Schieber genau einzustellen, wählen Sie den Schieber
+mit der Maus an und benutzen Sie die Cursortasten um den Wert in Einer-Schritten
+zu verändern, wenn Sie dabei die <i>strg</i> Taste gedrückt halten verändert sich der
+Wert in Zehner-Schritten.
+</blockquote>
+
+
+<img SRC="xsane-disk.jpg" alt="disk">
+&nbsp;&nbsp;
+<b>Dateinamen auswählen:</b>
+<blockquote>
+Wenn Sie das Diskettensymbol drücken öffnet sich ein Suchdialog, in dem Sie
+den Namen der Datei, die beim nächsten Scan erzeugt wird, auswählen.
+Sie können den Dateinamen auch direkt in dem Katen rechts neben dem Diskettensymbol
+eingeben. Wenn kein Pfad eingegeben wurde, speichert XSane die Datei in dem Verzeichnis,
+das unter <i>Einstellungen/Arbeitsverzeichnis ändern</i> eingestellt wurde.
+<p>
+<b>Schritt:</b>
+<blockquote>
+Wenn ein Zähler im Dateinamen enthalten ist (Bild-0001.jpg), dann wird der
+Zähler nach dem Scannen um die Nummer, die in dem Kasten ausgewählt ist,
+erhöht.
+</blockquote>
+
+<b>Typ:</b>
+<blockquote>
+<i>nach erw</i> bedeutet, dass der Dateityp durch die Erweiterung des Dateinamens
+ausgewählt wird. Wenn Sie einen Dateityp auswählen hängt XSane automatisch die
+passende Erweiterung an den Dateinamen an, Sie sollten dann keine Erweiterung angeben.
+</blockquote>
+
+
+<b>Unterstützte Dateitypen:</b>
+
+<blockquote>
+<i>Pnm</i> und <i>ps</i> (und raw) stehen immer zur Verfügung.
+Die anderen Formate sind nur verfügbar, wenn die notwendigen
+Bibliotheken vorhanden sind und die Unterstützung eincompiliert wurde.
+Für <i>png</i> benötigen Sie libpng und libz, für
+<i>jpeg</i> wird die jpeglib benötigt, für <i>tiff</i> libtiff.
+</blockquote>
+
+<blockquote>
+Das <i>raw</i> Format ist ein 16 Bit Binär-Format. Einige Programme
+können <i>raw</i> Dateien als <i>pnm</i>-Format lesen. Für das <i>pnm</i>
+Format sind nur 8 Bit binär und ascii und 16 Bit ascii definiert.
+Wir schlagen vor, dieses Format nicht zum Speichern von Bildern zu verwenden,
+die Sie sich ansehen wollen. Das Format is für die Nachbearbeitung mit
+Programmen, die Sie selber schreiben, vorgesehen. Der Vorteil dieses
+Formats ist, dass deutlich kleinere Dateien erzeugt werden als im 16 Bit
+ascii <i>pnm</i> Format.
+</blockquote>
+
+<blockquote>
+<b>Die unterstützten Ausgabeformate hängen von der Farbtiefe des gescannten Bildes ab:</b>
+<p>
+<b><u>1 Bit/Pixel schwarz/weiss Modus:</u></b>
+<blockquote>
+<font color="#000099">pnm = pbm, png</font><br>
+<font color="#000099">ps, jpeg und tiff werden in 8 Bit graustufen gewandelt.</font>
+</blockquote>
+<p>
+<b><u>8 Bits/Pixel graustufen Modus:</u></b>
+<blockquote>
+<font color="#000099">pnm = pgm, png, ps, jpeg und tiff</font>
+</blockquote>
+<p>
+<b><u>16 Bits/Pixel graustufen Modus (9-16 Bits):</u></b>
+<blockquote>
+<font color="#000099">pnm (ascii), png, raw und tiff</font>
+</blockquote>
+<p>
+<b><u>24 Bits/Pixel RGB-Farb Modus (8 Bits/Farbe):</u></b>
+<blockquote>
+<font color="#000099">pnm = ppm, png, ps, jpeg und tiff</font>
+</blockquote>
+<p>
+<b><u>48 Bits/Pixel RGB-Farb Modus (9-16 Bits/Farbe):</u></b>
+<blockquote>
+<font color="#000099">pnm (ascii), png, raw und tiff</font>
+</blockquote>
+
+</blockquote>
+
+<b><u><font color="#009900">optional: (default: ncht eincompiliert)</font></u></b>
+
+<blockquote>
+<b><u>32 Bits/Pixel RGBA-Farb Modus (8 Bits/Farbe):</u></b>
+<blockquote>
+<font color="#000099">rgba (raw) und png mit alpha Kanal</font>
+</blockquote>
+
+<b><u>64 Bits/Pixel RGBA-Farb Modus (9-16 Bits/Farbe):</u></b>
+<blockquote>
+<font color="#000099">rgba (raw) und png mit alpha Kanal</font>
+</blockquote>
+
+</blockquote>
+
+</blockquote>
+</blockquote>
+</td>
+</tr>
+</table>
+
+<hr WIDTH="100%">
+
+<blockquote>
+Author: <a href="mailto:Oliver.Rauch@xsane.org">Oliver Rauch</a>
+</blockquote>
+
+</body>
+</html>
+

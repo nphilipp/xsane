@@ -78,6 +78,7 @@ typedef struct
     int    tiff_compression16_nr;	/* compression type nr when saving 16i bit image as tiff */
     int    tiff_compression8_nr;	/* compression type nr when saving 8 bit image as tiff */
     int    tiff_compression1_nr;	/* compression type nr when saving 1 bit image as tiff */
+    int    save_devprefs_at_exit;	/* save device preferences at exit */
     int    overwrite_warning;		/* warn if file exists */
     int    skip_existing_numbers;	/* skip used filenames when automatically increase counter */
     int    filename_counter_step;	/* filename_counter += filename_counter_step; */
@@ -118,13 +119,15 @@ typedef struct
 
     int    xsane_rgb_default;
     int    xsane_negative;
-    int    auto_enhance_gamma;
+    int    auto_enhance_gamma;		/* change gamma value with automatic color correction */
+    int    preselect_scanarea;		/* automatic selection of scanarea after preview scan */
+    int    auto_correct_colors;		/* automatic color correction after preview scan */
     int    gtk_update_policy;
 
     int    psrotate;			/* rotate by 90 degree in postscript mode - landscape */
     int    printernr;			/* number of printers */
     int    printerdefinitions;
-    Preferences_printer_t *printer[10];
+    Preferences_printer_t **printer;
   }
 Preferences;
 

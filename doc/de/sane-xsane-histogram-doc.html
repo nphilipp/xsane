@@ -1,0 +1,129 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.74 [en] (X11; U; Linux 2.2.18 i686) [Netscape]">
+   <meta name="Author" content="Oliver Rauch">
+   <meta name="Description" content="scan, photocopy and fax frontend for SANE">
+   <title>XSane - Histogram window</title>
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EF" vlink="#51188E" alink="#FF0000">
+
+
+<table>
+<td width=200>
+<img SRC="xsane-logo2.jpg" hspace=30 height=150 width=128 align=TOP>
+</td>
+<td>
+<h1><dd><font color="#009900">Histogram window</font></dd></h1>
+</td>
+</table>
+
+
+<hr WIDTH="100%">
+
+<table>
+<td valign=TOP width="200" bgcolor="#E0E0BA">
+<br>
+<a href="sane-xsane-doc.html">Index</a>
+<br>
+<br>
+<br>
+<font color="#000000">Main window:</font>
+<blockquote>
+<li><a href="sane-xsane-scan-doc.html">Scan mode</a></li>
+<li><a href="sane-xsane-copy-doc.html">Copy mode</a></li>
+<li><a href="sane-xsane-fax-doc.html">Fax mode</a></li>
+<li><a href="sane-xsane-gimp-doc.html">Gimp plugin</a></li>
+</blockquote>
+<br>
+<a href="sane-xsane-color-correction-doc.html">Color correction:</a>
+<blockquote>
+<li><a href="sane-xsane-color-correction-doc.html#GAMMA">Gamma correction</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#BRIGHTNESS">Brightness</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#CONTRAST">Contrast</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#THRESHOLD">Threshold</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#RGB_DEFAULT">RGB default</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#NEGATIVE">Negative</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#AUTOENHANCEMENT">Autoenhancement</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#ENHANCEMENT_DEFAULT">Default</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#RESTORE_ENHANCEMENT">Restore</a></li>
+<li><a href="sane-xsane-color-correction-doc.html#STORE_ENHANCEMENT">Store</a></li>
+<li><a href="sane-xsane-histogram-doc.html">Histogram window</a></li>
+<li><a href="sane-xsane-preview-doc.html#PIPETTE_WHITE">Pipette functions</a></li>
+</blockquote>
+<br>
+<a href="sane-xsane-standard-doc.html">Standard options window</a>
+<br>
+<br>
+<br>
+<a href="sane-xsane-advanced-doc.html">Advanced options window</a>
+<br>
+<br>
+<br>
+<a href="sane-xsane-preview-doc.html">Preview:</a>
+<blockquote>
+<li><a href="sane-xsane-preview-doc.html#PIPETTE_WHITE">Pipette white</a></li>
+<li><a href="sane-xsane-preview-doc.html#PIPETTE_GRAY">Pipette gray</a></li>
+<li><a href="sane-xsane-preview-doc.html#PIPETTE_BLACK">Pipette black</a></li>
+<li><a href="sane-xsane-preview-doc.html#UNZOOM">Unzoom</a></li>
+<li><a href="sane-xsane-preview-doc.html#ZOOM_OUT">Zoom out</a></li>
+<li><a href="sane-xsane-preview-doc.html#ZOOM_IN">Zoom in</a></li>
+<li><a href="sane-xsane-preview-doc.html#UNDO_ZOOM">Undo zoom</a></li>
+<li><a href="sane-xsane-preview-doc.html#AUTOSELECT">Autoselect scanarea</a></li>
+<li><a href="sane-xsane-preview-doc.html#SELECT_VISIBLE_AREA">Select visible area</a></li>
+<li><a href="sane-xsane-preview-doc.html#SELECT_SCAN_AREA">Select scanarea</a></li>
+<li><a href="sane-xsane-preview-doc.html#MOVE_SCAN_AREA">Move scanarea</a></li>
+</blockquote>
+<br>
+<font color="#000000">Setup:</font>
+<blockquote>
+<li><a href="sane-xsane-setup-copy-doc.html">Copy setup</a></li>
+<li><a href="sane-xsane-setup-display-doc.html">Display setup</a></li>
+<li><a href="sane-xsane-setup-save-doc.html">Saving setup</a></li>
+<li><a href="sane-xsane-setup-fax-doc.html">Fax setup</a></li>
+<li><a href="sane-xsane-setup-enhancement-doc.html">Enhancement setup</a></li>
+</blockquote>
+</td>
+
+
+
+<td VALIGN=TOP BGCOLOR="#FFFFFF">
+<br>
+<center><img SRC="xsane-histogram.jpg" height=366 width=278></center>
+<br>
+<br>
+<br>
+<blockquote>
+The histogram shows the color density of the area that is selected
+in the preview window. The top histogram represents the scanned raw image,
+the bottom histogram represents the enhanced image. In grayscale mode,
+there are three sliders in the gray range. The black slider defines the
+black point, the white silder the white point and the gray slider the gray
+point (gamma). If the <i>rgb default button</i> (in the xsane main window)
+is not selected in color mode there are also sliders in the red, the green
+and the blue range. In this case a move of a slider of the gray range also
+moves the sliders of the color ranges.
+<p>
+The <i>I</i>, <i>R</i>, <i>G</i> and <i>B</i> buttons define if the
+<i>intensity</i>, <i>red</i>, <i>green</i> and/or <i>blue</i>
+histogram components are shown.
+<p>
+The curve-type button defines if the histogram curves are shown with
+pixels or with lines.
+<p>
+The <i>LOG</i> button defines if the densities are displayed linear
+or logarithmical.
+</blockquote>
+
+</td>
+</table>
+
+<hr WIDTH="100%">
+
+<blockquote>
+<font size=+1>Author: <a href="mailto:Oliver.Rauch@xsane.org">Oliver Rauch</a></font>
+</blockquote>
+
+</body>
+</html>

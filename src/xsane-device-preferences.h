@@ -32,7 +32,9 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-extern void xsane_device_preferences_save(GtkWidget *widget, gpointer data);
+extern void xsane_device_preferences_store(void);
+extern void xsane_device_preferences_save(void);
+extern void xsane_device_preferences_save_file(char *filename);
 extern void xsane_device_preferences_restore(void);
 extern void xsane_device_preferences_load(void);
 extern void xsane_device_preferences_load_file(char *filename);

@@ -21,7 +21,7 @@ READ THIS FILE IF YOU EXPERIENCE ANY PROBLEM
      the correct one (./configure --help)
    - Do not install any self compiled source package over binary packages,
      in most cases the installation paths are different so the old versions
-     are not overwritten!
+     are not overwritten and you may have two versions installed!
 
 - If you get an error message  that libsane-dll.so.1 or libsane-so.1 is not found, you have to
   tell your system where the SANE-libraries are installed.
@@ -42,6 +42,8 @@ READ THIS FILE IF YOU EXPERIENCE ANY PROBLEM
      library loader of your system.
      For linux: Edit /etc/ld.so.conf and call ldconfig to tell your
      dynamic library loader where it shall search for dlls.
+     On other systems this is configured in other ways. Some systems use the
+     environment variable LD_LIBRARY_PATH for additional search paths.
 
      When sane is installed in "/usr/local/....."
      the libraries are placed in "/usr/local/lib/sane/".
@@ -69,7 +71,7 @@ READ THIS FILE IF YOU EXPERIENCE ANY PROBLEM
       /usr/lib/libgimp.so: undefined reference to `g_message'
       /usr/lib/libgimp.so: undefined reference to `g_warning'
       /usr/lib/libgimp.so: undefined reference to `g_error'
-    update to gimp-1.0.4 or newer!  
+    update to gimp-1.0.4 or newer! I suggest to use gimp-1.2.0 or newer. 
 
  - If the compilation aborts with
       ...: sane/sane.h: No such file or directory
