@@ -119,6 +119,7 @@ typedef struct
     char   *mail_pop3_pass;		/* password for pop3 server */
     char   *mail_project;		/* mail project */
     char   *mail_viewer;		/* mail viewer */
+    char   *mail_filetype;		/* mail filetype */
 #endif
 
     char   *ocr_command;		/* ocrcommand */

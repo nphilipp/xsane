@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2004-08-13 22:28+0200\n"
+"POT-Creation-Date: 2004-08-21 15:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -710,40 +710,8 @@ msgstr ""
 msgid "Project status:"
 msgstr ""
 
-#. TEXT_MAIL_STATUS_NOT_CREATED
-msgid "not created"
-msgstr ""
-
-#. TEXT_MAIL_STATUS_CREATED
-msgid "created"
-msgstr ""
-
-#. TEXT_MAIL_STATUS_CHANGED
-msgid "changed"
-msgstr ""
-
-#. TEXT_MAIL_STATUS_ERR_READ_PROJECT
-msgid "error reading mailproject"
-msgstr ""
-
-#. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
-msgid "POP3 connection failed"
-msgstr ""
-
-#. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
-msgid "POP3 login failed"
-msgstr ""
-
-#. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
-msgid "SMTP connection failed"
-msgstr ""
-
-#. TEXT_MAIL_STATUS_SENT
-msgid "sent"
-msgstr ""
-
-#. TEXT_MAIL_STATUS_SENDING
-msgid "sending"
+#. TEXT_MAIL_FILETYPE
+msgid "Mail image filetype:"
 msgstr ""
 
 #. TEXT_MEDIUM_DEFINITION_NAME
@@ -1423,6 +1391,10 @@ msgstr ""
 
 #. DESC_MAILSUBJECT
 msgid "Enter subject of email"
+msgstr ""
+
+#. DESC_MAIL_FILETYPE
+msgid "Select filetype for image attachments"
 msgstr ""
 
 #. DESC_PRESET_AREA_RENAME
@@ -2576,6 +2548,74 @@ msgstr ""
 
 #. MENU_ITEM_MEDIUM_ROSSMANN_NEG_HR_100
 msgid "Rossmann negative HR 100"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_NOT_CREATED
+msgid "Mail project not created"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_CREATED
+msgid "Mail project created"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_CHANGED
+msgid "Mail project changed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_ERR_READ_PROJECT
+msgid "Error reading mailproject"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
+msgid "POP3 connection failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
+msgid "POP3 login failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
+msgid "SMTP connection failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_FROM
+msgid "From entry not accepted"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_RCPT
+msgid "Receiver entry not accepted"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_DATA
+msgid "Mail data not accepted"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SENDING
+msgid "Sending mail"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SENT
+msgid "Mail has been sent"
+msgstr ""
+
+#. TEXT_FAX_STATUS_NOT_CREATED
+msgid "Fax project not created"
+msgstr ""
+
+#. TEXT_FAX_STATUS_CREATED
+msgid "Fax project created"
+msgstr ""
+
+#. TEXT_FAX_STATUS_CHANGED
+msgid "Fax project changed"
+msgstr ""
+
+#. TEXT_FAX_STATUS_QUEUEING_FAX
+msgid "Queueing Fax"
+msgstr ""
+
+#. TEXT_FAX_STATUS_FAX_QUEUED
+msgid "Fax is queued"
 msgstr ""
 
 #. Sane backend messages

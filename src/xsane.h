@@ -85,7 +85,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.95"
+#define XSANE_VERSION		"0.96"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2004"
@@ -107,6 +107,29 @@
 # define BUGGY_GDK_INPUT_EXCEPTION
 # define _WIN32
 #endif
+
+#ifdef HAVE_LIBPNG
+#ifdef HAVE_LIBZ
+# define XSANE_DEFAULT_MAILTYPE XSANE_FILETYPE_PNG
+#endif
+#endif
+
+#ifndef XSANE_DEFAULT_MAILTYPE
+#ifdef HAVE_LIBJPEG
+# define XSANE_DEFAULT_MAILTYPE XSANE_FILETYPE_JPEG
+#endif
+#endif
+
+#ifndef XSANE_DEFAULT_MAILTYPE
+#ifdef HAVE_LIBTIFF
+# define XSANE_DEFAULT_MAILTYPE XSANE_FILETYPE_TIFF
+#endif
+#endif
+
+#ifndef XSANE_DEFAULT_MAILTYPE
+# define XSANE_DEFAULT_MAILTYPE XSANE_FILETYPE_PNM
+#endif
+
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -637,6 +660,7 @@ typedef struct Xsane
     GtkWidget *fax_project_exists;
     GtkWidget *fax_project_not_exists;
     GtkWidget *fax_project_entry;
+    GtkWidget *fax_project_entry_box;
     GtkWidget *fax_receiver_entry;
     GtkProgressBar *fax_progress_bar;
 
@@ -646,6 +670,7 @@ typedef struct Xsane
     GtkWidget *mail_project_exists;
     GtkWidget *mail_project_not_exists;
     GtkWidget *mail_project_entry;
+    GtkWidget *mail_project_entry_box;
     GtkWidget *mail_receiver_entry;
     GtkWidget *mail_subject_entry;
     GtkWidget *mail_text_widget;
@@ -801,9 +826,13 @@ typedef struct Xsane
     u_char *histogram_gamma_data_red, *histogram_gamma_data_green, *histogram_gamma_data_blue;
     u_char *histogram_medium_gamma_data_red, *histogram_medium_gamma_data_green, *histogram_medium_gamma_data_blue;
 
+    char *fax_status;
     char *fax_filename;
     char *fax_receiver;
 
+    float mail_progress_val;
+    int   mail_progress_size;
+    int   mail_progress_bytes;
     char *mail_status;
     char *mail_filename;
     char *mail_receiver;

@@ -400,7 +400,7 @@ int xsane_back_gtk_make_path(size_t buf_size, char *buf, const char *prog_name, 
    int fd;
 
     uid = getuid();
-    snprintf(tmpbuf, sizeof(tmpbuf), "-%d-", uid);
+    snprintf(tmpbuf, sizeof(tmpbuf), "-%d-", (int) uid);
                                                              
     extra = strlen(tmpbuf);
     if (len + extra >= buf_size)
@@ -2112,7 +2112,7 @@ void xsane_back_gtk_set_sensitivity(int sensitive)
 
 void xsane_set_sensitivity(SANE_Int sensitivity)
 {
-  DBG(DBG_proc, "xsane_set_sensitivity\n");
+  DBG(DBG_proc, "xsane_set_sensitivity(%d)\n", sensitivity);
 
   if (xsane.shell)
   {
@@ -2150,22 +2150,26 @@ void xsane_set_sensitivity(SANE_Int sensitivity)
 
   if (xsane.fax_dialog)
   {
-    gtk_widget_set_sensitive(xsane.fax_dialog, sensitivity);
+    /* do not change sensitivity of fax_dialog, we want the progress bar */
+    /* to be sensitive */
+    gtk_widget_set_sensitive(xsane.fax_project_box, sensitivity);
+    gtk_widget_set_sensitive(xsane.fax_project_exists, sensitivity);
+    gtk_widget_set_sensitive(xsane.fax_project_entry_box, sensitivity);
+  }
+
+  if (xsane.mail_dialog)
+  {
+    /* do not change sensitivity of mail_dialog, we want the progress bar */
+    /* to be sensitive */
+    gtk_widget_set_sensitive(xsane.mail_project_box, sensitivity);
+    gtk_widget_set_sensitive(xsane.mail_project_exists, sensitivity);
+    gtk_widget_set_sensitive(xsane.mail_project_entry_box, sensitivity);
   }
 
   if (xsane.batch_scan_dialog)
   {
     gtk_widget_set_sensitive(xsane.batch_scan_button_box, sensitivity);
     gtk_widget_set_sensitive(xsane.batch_scan_action_box, sensitivity);
-  }
-
-#if 0
-  xsane_back_gtk_set_sensitivity(sensitivity);
-#endif
-
-  while (gtk_events_pending()) /* make sure set_sensitivity is displayed */
-  {
-    gtk_main_iteration();
   }
 
   xsane.sensitivity = sensitivity;

@@ -323,13 +323,8 @@ static void xsane_viewer_save_callback(GtkWidget *window, gpointer data)
 
   output_format = xsane_identify_output_format(v->output_filename, filetype, 0);
 
- // if ((!v->allow_reduction_to_lineart) && (output_format == XSANE_PNM)) /* save PNM but do not reduce to lineart (if lineart) */
-  if (output_format == XSANE_PNM) /* save PNM but do not reduce to lineart (if lineart) */
+  if ((!v->allow_reduction_to_lineart) && (output_format == XSANE_PNM)) /* save PNM but do not reduce to lineart (if lineart) */
   {
-   FILE *outfile;
-   FILE *infile;
-   Image_info image_info;
-
     if (xsane_create_secure_file(v->output_filename)) /* remove possibly existing symbolic links for security */
     {
      char buf[256];
@@ -339,44 +334,15 @@ static void xsane_viewer_save_callback(GtkWidget *window, gpointer data)
       xsane_viewer_set_sensitivity(v, TRUE);
      return; /* error */
     }
-#if 1
-    infile = fopen(v->filename, "rb");
-    if (!infile)
-    {
-      DBG(DBG_error, "could not load file %s\n", v->filename);
-      xsane_viewer_set_sensitivity(v, TRUE);
-     return;
-    }
-  
-    xsane_read_pnm_header(infile, &image_info);
-  
-    DBG(DBG_info, "saving image %s with geometry: %d x %d x %d, %d colors\n", v->filename, image_info.image_width, image_info.image_height, image_info.depth, image_info.colors);
-  
-    outfile = fopen(v->output_filename, "wb");
-    if (!outfile)
-    {
-      DBG(DBG_error, "could not save file %s\n", v->output_filename);
-      xsane_viewer_set_sensitivity(v, TRUE);
-     return;
-    }
-  
-    gtk_progress_set_format_string(GTK_PROGRESS(v->progress_bar), PROGRESS_SAVING_DATA);
-    gtk_progress_bar_update(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
-  
-    xsane_save_rotate_image(outfile, infile, &image_info, 0, v->progress_bar, &v->cancel_save);
-  
-    fclose(infile);
-    fclose(outfile);
-  
-    gtk_progress_set_format_string(GTK_PROGRESS(v->progress_bar), "");
-    gtk_progress_bar_update(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
-#else
-    xsane_copy_file(v->filename, v->output_filename, v->progress_bar, &v->cancel_save);
-#endif
+
+    snprintf(buf, sizeof(buf), "%s: %s", PROGRESS_SAVING_DATA, v->output_filename);
+    gtk_progress_set_format_string(GTK_PROGRESS(v->progress_bar), buf);
+
+    xsane_copy_file_by_name(v->output_filename, v->filename, v->progress_bar, &v->cancel_save);
   }
   else
   {
-    xsane_save_image_as(inputfilename, v->output_filename, output_format, v->progress_bar, &v->cancel_save);
+    xsane_save_image_as(v->output_filename, inputfilename, output_format, v->progress_bar, &v->cancel_save);
   }
 
   free(inputfilename);
@@ -439,7 +405,7 @@ static void xsane_viewer_ocr_callback(GtkWidget *window, gpointer data)
     gtk_main_iteration();
   }
 
-  xsane_save_image_as_text(v->filename, outputfilename, v->progress_bar, &v->cancel_save);
+  xsane_save_image_as_text(outputfilename, v->filename, v->progress_bar, &v->cancel_save);
 
   xsane_viewer_set_sensitivity(v, TRUE);
 }
@@ -449,10 +415,7 @@ static void xsane_viewer_ocr_callback(GtkWidget *window, gpointer data)
 static void xsane_viewer_clone_callback(GtkWidget *window, gpointer data)
 {
  Viewer *v = (Viewer *) data;
- FILE *outfile;
- FILE *infile;
  char outfilename[256];
- Image_info image_info;
 
   if (v->block_actions) /* actions blocked: return */
   {
@@ -465,39 +428,9 @@ static void xsane_viewer_clone_callback(GtkWidget *window, gpointer data)
 
   xsane_viewer_set_sensitivity(v, FALSE);
 
-  infile = fopen(v->filename, "rb");
-  if (!infile)
-  {
-    DBG(DBG_error, "could not load file %s\n", v->filename);
-    xsane_viewer_set_sensitivity(v, TRUE);
-
-   return;
-  }
-
-  xsane_read_pnm_header(infile, &image_info);
-
-  DBG(DBG_info, "cloning image %s with geometry: %d x %d x %d, %d colors\n", v->filename, image_info.image_width, image_info.image_height, image_info.depth, image_info.colors);
-
   xsane_back_gtk_make_path(sizeof(outfilename), outfilename, 0, 0, "xsane-viewer-", xsane.dev_name, ".ppm", XSANE_PATH_TMP);
-
-  outfile = fopen(outfilename, "wb");
-  if (!outfile)
-  {
-    DBG(DBG_error, "could not save file %s\n", outfilename);
-    xsane_viewer_set_sensitivity(v, TRUE);
-   return;
-  }
-
   gtk_progress_set_format_string(GTK_PROGRESS(v->progress_bar), PROGRESS_CLONING_DATA);
-  gtk_progress_bar_update(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
-
-  xsane_save_rotate_image(outfile, infile, &image_info, 0, v->progress_bar, &v->cancel_save);
-
-  fclose(infile);
-  fclose(outfile);
-
-  gtk_progress_set_format_string(GTK_PROGRESS(v->progress_bar), "");
-  gtk_progress_bar_update(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
+  xsane_copy_file_by_name(outfilename, v->filename, v->progress_bar, &v->cancel_save);
 
   xsane_viewer_set_sensitivity(v, TRUE);
 

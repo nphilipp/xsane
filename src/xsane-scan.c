@@ -1246,7 +1246,7 @@ void xsane_scan_done(SANE_Status status)
         else
 #endif /* HAVE_ANY_GIMP */
         {
-          xsane_save_image_as(xsane.dummy_filename, xsane.output_filename, xsane.xsane_output_format, xsane.progress_bar, &xsane.cancel_save);
+          xsane_save_image_as(xsane.output_filename, xsane.dummy_filename, xsane.xsane_output_format, xsane.progress_bar, &xsane.cancel_save);
         }
 
         xsane_progress_clear();
@@ -1424,6 +1424,17 @@ void xsane_scan_done(SANE_Status status)
       xsane_fax_project_save();
       free(page);
       free(type);
+
+      if (xsane.fax_status)
+      {
+        free(xsane.fax_status);
+      }
+      xsane.fax_status = strdup(TEXT_FAX_STATUS_CHANGED);
+
+      xsane_fax_project_save();
+
+      gtk_progress_set_format_string(GTK_PROGRESS(xsane.fax_progress_bar), _(xsane.fax_status));
+      gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.fax_progress_bar), 0.0);
     }
 #ifdef XSANE_ACTIVATE_MAIL
     else if (xsane.xsane_mode == XSANE_MAIL)
@@ -1455,6 +1466,17 @@ void xsane_scan_done(SANE_Status status)
       xsane_mail_project_save();
       free(page);
       free(type);
+
+      if (xsane.mail_status)
+      {
+        free(xsane.mail_status);
+      }
+      xsane.mail_status = strdup(TEXT_MAIL_STATUS_CHANGED);
+
+      xsane_mail_project_save();
+
+      gtk_progress_set_format_string(GTK_PROGRESS(xsane.mail_progress_bar), _(xsane.mail_status));
+      gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.mail_progress_bar), 0.0);
     }
 #endif
   }

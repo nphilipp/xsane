@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.90\n"
-"POT-Creation-Date: 2004-08-13 22:28+0200\n"
+"POT-Creation-Date: 2004-08-21 15:31+0200\n"
 "PO-Revision-Date: 2002-12-09 10:42+0200\n"
 "Last-Translator: Togan Muftuoglu <toganm@yahoo.com>\n"
 "Language-Team: Turkish <kde-i18n-tr@kde.org>\n"
@@ -741,44 +741,8 @@ msgstr "Ekler"
 msgid "Project status:"
 msgstr "Proje durumu"
 
-#. TEXT_MAIL_STATUS_NOT_CREATED
-#, fuzzy
-msgid "not created"
-msgstr "okuma"
-
-#. TEXT_MAIL_STATUS_CREATED
-#, fuzzy
-msgid "created"
-msgstr "okuma"
-
-#. TEXT_MAIL_STATUS_CHANGED
-msgid "changed"
-msgstr ""
-
-#. TEXT_MAIL_STATUS_ERR_READ_PROJECT
-#, fuzzy
-msgid "error reading mailproject"
-msgstr "E-Posta projesinin adýný girin"
-
-#. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
-msgid "POP3 connection failed"
-msgstr ""
-
-#. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
-msgid "POP3 login failed"
-msgstr ""
-
-#. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
-msgid "SMTP connection failed"
-msgstr ""
-
-#. TEXT_MAIL_STATUS_SENT
-#, fuzzy
-msgid "sent"
-msgstr "ayarlar"
-
-#. TEXT_MAIL_STATUS_SENDING
-msgid "sending"
+#. TEXT_MAIL_FILETYPE
+msgid "Mail image filetype:"
 msgstr ""
 
 #. TEXT_MEDIUM_DEFINITION_NAME
@@ -1471,6 +1435,10 @@ msgstr "E-posta adresi girin"
 #. DESC_MAILSUBJECT
 msgid "Enter subject of email"
 msgstr "E-Posta konusu girin"
+
+#. DESC_MAIL_FILETYPE
+msgid "Select filetype for image attachments"
+msgstr ""
 
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
@@ -2726,6 +2694,83 @@ msgstr "Konica negatif VX 100"
 msgid "Rossmann negative HR 100"
 msgstr "Rossmann negatif HR 100"
 
+#. TEXT_MAIL_STATUS_NOT_CREATED
+#, fuzzy
+msgid "Mail project not created"
+msgstr "okuma"
+
+#. TEXT_MAIL_STATUS_CREATED
+#, fuzzy
+msgid "Mail project created"
+msgstr "okuma"
+
+#. TEXT_MAIL_STATUS_CHANGED
+#, fuzzy
+msgid "Mail project changed"
+msgstr "Tarama alanýný önceden seç"
+
+#. TEXT_MAIL_STATUS_ERR_READ_PROJECT
+#, fuzzy
+msgid "Error reading mailproject"
+msgstr "E-Posta projesinin adýný girin"
+
+#. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
+msgid "POP3 connection failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
+msgid "POP3 login failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
+msgid "SMTP connection failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_FROM
+#, fuzzy
+msgid "From entry not accepted"
+msgstr "okuma"
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_RCPT
+#, fuzzy
+msgid "Receiver entry not accepted"
+msgstr "okuma"
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_DATA
+msgid "Mail data not accepted"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SENDING
+msgid "Sending mail"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SENT
+msgid "Mail has been sent"
+msgstr ""
+
+#. TEXT_FAX_STATUS_NOT_CREATED
+#, fuzzy
+msgid "Fax project not created"
+msgstr "okuma"
+
+#. TEXT_FAX_STATUS_CREATED
+#, fuzzy
+msgid "Fax project created"
+msgstr "okuma"
+
+#. TEXT_FAX_STATUS_CHANGED
+#, fuzzy
+msgid "Fax project changed"
+msgstr "Tarama alanýný önceden seç"
+
+#. TEXT_FAX_STATUS_QUEUEING_FAX
+msgid "Queueing Fax"
+msgstr ""
+
+#. TEXT_FAX_STATUS_FAX_QUEUED
+msgid "Fax is queued"
+msgstr ""
+
 #. Sane backend messages
 msgid "flatbed scanner"
 msgstr "flatbed tarayýcý"
@@ -2780,16 +2825,3 @@ msgstr "Yetersiz hafýza"
 
 msgid "Access to resource has been denied"
 msgstr "Kaynaða eriþim reddedildi"
-
-#~ msgid "Preset area"
-#~ msgstr "Alaný önceden seç"
-
-#, fuzzy
-#~ msgid "Select source medium type\n"
-#~ msgstr "Kaynak ortam tipini seçin"
-
-#~ msgid "Rename definiton"
-#~ msgstr "Tanýmý yeniden isimlendir"
-
-#~ msgid "Delete definition"
-#~ msgstr "Tanýmý silin"

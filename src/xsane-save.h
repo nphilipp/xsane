@@ -25,11 +25,14 @@
 extern int xsane_create_secure_file(const char *filename);
 extern void xsane_cancel_save();
 extern void xsane_convert_text_to_filename(char **filename);
+extern int xsane_get_filesize(char *filename);
 extern void xsane_ensure_counter_in_filename(char **filename, int counter_len);
 extern void xsane_update_counter_in_filename(char **filename, int skip, int step, int min_counter_len);
 extern void xsane_increase_counter_in_filename(char *filename, int skip);
-extern void xsane_read_pnm_header(FILE *infile, Image_info *image_info);
-extern void xsane_write_pnm_header(FILE *outfile, Image_info *image_info, int save_pnm16_as_ascii);
+extern void xsane_read_pnm_header(FILE *file, Image_info *image_info);
+extern void xsane_write_pnm_header(FILE *file, Image_info *image_info, int save_pnm16_as_ascii);
+extern int xsane_copy_file(FILE *outfile, FILE *infile, GtkProgressBar *progress_bar, int *cancel_save);
+extern int xsane_copy_file_by_name(char *output_filename, char *input_filename, GtkProgressBar *progress_bar, int *cancel_save);
 extern int xsane_save_grayscale_image_as_lineart(FILE *outfile, FILE *imagefile, Image_info *image_info, GtkProgressBar *progress_bar, int *cancel_save);
 extern int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_info, float x_scale, float y_scale, GtkProgressBar *progress_bar, int *cancel_save);
 extern int xsane_save_despeckle_image(FILE *outfile, FILE *imagefile, Image_info *image_info, int radius, GtkProgressBar *progress_bar, int *cancel_save);
@@ -44,9 +47,9 @@ extern void xsane_save_tiff(const char *outfilename, FILE *imagefile, Image_info
 extern void xsane_save_png(FILE *outfile, FILE *imagefile, Image_info *image_info, int compression, GtkProgressBar *progress_bar, int *cancel_save);
 extern void xsane_save_png_16(FILE *outfile, FILE *imagefile, Image_info *image_info, int compression, GtkProgressBar *progress_bar, int *cancel_save);
 extern void xsane_save_pnm_16(FILE *outfile, FILE *imagefile, Image_info *image_info, GtkProgressBar *progress_bar, int *cancel_save);
-extern int xsane_save_image_as_lineart(char *input_filename, char *output_filename, GtkProgressBar *progress_bar, int *cancel_save);
-extern int xsane_save_image_as_text(char *input_filename, char *output_filename, GtkProgressBar *progress_bar, int *cancel_save);
-extern int xsane_save_image_as(char *input_filename, char *output_filename, int output_format, GtkProgressBar *progress_bar, int *cancel_save);
+extern int xsane_save_image_as_lineart(char *output_filename, char *input_filename, GtkProgressBar *progress_bar, int *cancel_save);
+extern int xsane_save_image_as_text(char *output_filename, char *input_filename, GtkProgressBar *progress_bar, int *cancel_save);
+extern int xsane_save_image_as(char *output_filename, char *input_filename, int output_format, GtkProgressBar *progress_bar, int *cancel_save);
 extern void null_print_func(gchar *msg);
 extern int xsane_transfer_to_gimp(char *input_filename, GtkProgressBar *progress_bar, int *cancel_save);
 extern void write_base64(int fd_socket, FILE *infile);
@@ -54,13 +57,12 @@ extern void write_mail_header(int fd_socket, char *from, char *reply_to, char *t
 extern void write_mail_footer(int fd_socket, char *boundary);
 extern void write_mail_mime_ascii(int fd_socket, char *boundary);
 extern void write_mail_mime_html(int fd_socket, char *boundary);
-extern void write_mail_attach_image_png(int fd_socket, char *boundary, char *content_id, FILE *infile, char *filename);
+extern void write_mail_attach_image(int fd_socket, char *boundary, char *content_id, char *content_type, FILE *infile, char *filename);
 extern void write_mail_attach_file(int fd_socket, char *boundary, FILE *infile, char *filename);
 extern int open_socket(char *server, int port);
 extern int pop3_login(int fd_socket, char *user, char *passwd);
 extern int write_smtp_header(int fd_socket, char *from, char *to);
 extern int write_smtp_footer(int fd_socket);
-extern int xsane_copy_file(char *source_filename, char *destination_filename, GtkProgressBar *progress_bar, int *cancel_save);
 
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

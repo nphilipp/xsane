@@ -249,6 +249,30 @@ void xsane_convert_text_to_filename(char **text)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+int xsane_get_filesize(char *filename)
+{
+ FILE *infile;
+ int pos;
+ int size;
+
+  infile = fopen(filename, "rb"); /* read binary (b for win32) */
+  if (infile == NULL)
+  {
+   return 0;
+  }
+
+  pos = ftell(infile);
+  fseek(infile, 0, SEEK_END); /* get size */
+  size = ftell(infile);
+  fseek(infile, pos, SEEK_SET); /* go to previous position */
+
+  fclose(infile);
+
+ return size;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 void xsane_ensure_counter_in_filename(char **filename, int counter_len)
 {
  char *position_point = NULL;
@@ -389,12 +413,12 @@ void xsane_update_counter_in_filename(char **filename, int skip, int step, int m
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void xsane_read_pnm_header(FILE *infile, Image_info *image_info)
+void xsane_read_pnm_header(FILE *file, Image_info *image_info)
 {
  int max_val, filetype_nr;
  char buf[256];
 
-  fgets(buf, sizeof(buf)-1, infile);
+  fgets(buf, sizeof(buf)-1, file);
   DBG(DBG_info, "filetype header :%s", buf);
  
   if (buf[0] == 'P')
@@ -407,7 +431,7 @@ void xsane_read_pnm_header(FILE *infile, Image_info *image_info)
 
     while (strcmp(buf, "# XSANE data follows\n"))
     {
-      fgets(buf, sizeof(buf)-1, infile);
+      fgets(buf, sizeof(buf)-1, file);
 
       if (!strncmp(buf, "#  resolution_x    =", 20))
       {
@@ -463,13 +487,13 @@ void xsane_read_pnm_header(FILE *infile, Image_info *image_info)
       }
     }
 
-    fscanf(infile, "%d %d", &image_info->image_width, &image_info->image_height);
+    fscanf(file, "%d %d", &image_info->image_width, &image_info->image_height);
 
     image_info->depth = 1;
 
     if (filetype_nr != 4) /* P4 = lineart */
     {
-      fscanf(infile, "%d", &max_val);
+      fscanf(file, "%d", &max_val);
 
       if (max_val == 255)
       {
@@ -481,7 +505,7 @@ void xsane_read_pnm_header(FILE *infile, Image_info *image_info)
       }
     }
 
-    fgetc(infile); /* read exactly one newline character */
+    fgetc(file); /* read exactly one newline character */
     
 
     image_info->colors = 1;
@@ -494,8 +518,8 @@ void xsane_read_pnm_header(FILE *infile, Image_info *image_info)
 #ifdef SUPPORT_RGBA
   else if (buf[0] == 'S') /* RGBA format */
   {
-    fscanf(infile, "%d %d\n%d", &image_info->image_width, &image_info->image_height, &max_val);
-    fgetc(infile); /* read exactly one newline character */
+    fscanf(file, "%d %d\n%d", &image_info->image_width, &image_info->image_height, &max_val);
+    fgetc(file); /* read exactly one newline character */
 
     image_info->depth = 1;
 
@@ -519,13 +543,13 @@ void xsane_read_pnm_header(FILE *infile, Image_info *image_info)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void xsane_write_pnm_header(FILE *outfile, Image_info *image_info, int save_pnm16_as_ascii)
+void xsane_write_pnm_header(FILE *file, Image_info *image_info, int save_pnm16_as_ascii)
 {
  int maxval;
  int magic;
 
-  fflush(outfile);
-  rewind(outfile);
+  fflush(file);
+  rewind(file);
 
   if (image_info->depth > 8)
   {
@@ -552,7 +576,7 @@ void xsane_write_pnm_header(FILE *outfile, Image_info *image_info, int save_pnm1
     if (image_info->depth == 1)
     {
       /* do not touch the texts and length here, the reading routine needs to know the exact texts */
-      fprintf(outfile, "P4\n"
+      fprintf(file, "P4\n"
                        "# XSane settings:\n"
                        "#  resolution_x    = %6.1f\n"
                        "#  resolution_y    = %6.1f\n"
@@ -567,7 +591,7 @@ void xsane_write_pnm_header(FILE *outfile, Image_info *image_info, int save_pnm1
     else if (image_info->reduce_to_lineart)
     {
       /* do not touch the texts and length here, the reading routine needs to know the exact texts */
-      fprintf(outfile, "P%d\n"
+      fprintf(file, "P%d\n"
                        "# XSane settings:\n"
                        "#  resolution_x    = %6.1f\n"
                        "#  resolution_y    = %6.1f\n"
@@ -585,7 +609,7 @@ void xsane_write_pnm_header(FILE *outfile, Image_info *image_info, int save_pnm1
     }
     else
     {
-      fprintf(outfile, "P%d\n"
+      fprintf(file, "P%d\n"
                        "# XSane settings:\n"
                        "#  resolution_x    = %6.1f\n"
                        "#  resolution_y    = %6.1f\n"
@@ -607,7 +631,7 @@ void xsane_write_pnm_header(FILE *outfile, Image_info *image_info, int save_pnm1
   }
   else if (image_info->colors == 3)
   {
-    fprintf(outfile, "P%d\n"
+    fprintf(file, "P%d\n"
                      "# XSane settings:\n"
                      "#  resolution_x    = %6.1f\n"
                      "#  resolution_y    = %6.1f\n"
@@ -629,12 +653,129 @@ void xsane_write_pnm_header(FILE *outfile, Image_info *image_info, int save_pnm1
 #ifdef SUPPORT_RGBA
   else if (image_info->colors == 4)
   {
-        fprintf(outfile, "SANE_RGBA\n" \
+        fprintf(file, "SANE_RGBA\n" \
                          "%d %d\n" \
                          "%d\n",
                          image_info->image_width, image_info->image_height, maxval);
   }
 #endif
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+int xsane_copy_file(FILE *outfile, FILE *infile, GtkProgressBar *progress_bar, int *cancel_save)
+{
+ int size;
+ int bytes;
+ int bytes_sum = 0;
+ char buf[65536];
+
+  DBG(DBG_proc, "copying file\n");
+
+  fseek(infile, 0, SEEK_END);
+  size = ftell(infile);
+  fseek(infile, 0, SEEK_SET);
+
+  gtk_progress_bar_update(GTK_PROGRESS_BAR(progress_bar), 0.0);
+
+  while (gtk_events_pending())
+  {
+    gtk_main_iteration();
+  }
+
+  while (!feof(infile))
+  {
+    bytes = fread(buf, 1, sizeof(buf), infile);
+    if (bytes > 0)
+    {
+      fwrite(buf, 1, bytes, outfile);
+      bytes_sum += bytes;
+    }
+
+    gtk_progress_bar_update(progress_bar, (float) bytes_sum / size); /* update progress bar */
+
+    while (gtk_events_pending())
+    {
+      gtk_main_iteration();
+    }
+
+    if (ferror(outfile))
+    {
+     char buf[255];
+
+      snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+      DBG(DBG_error, "%s\n", buf);
+      xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+      *cancel_save = 1;
+     break;
+    }
+
+    if (*cancel_save)
+    {
+      break;
+    }
+  }
+
+  fflush(outfile);
+
+  fclose(infile);
+  fclose(outfile);
+
+  if (size != bytes_sum)
+  {
+    DBG(DBG_info, "copy errro, not complete, %d bytes of %d bytes copied\n", bytes_sum, size);
+    *cancel_save = 1;
+   return (*cancel_save);
+  }
+
+  DBG(DBG_info, "copy complete, %d bytes copied\n", bytes_sum);
+
+ return (*cancel_save);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+int xsane_copy_file_by_name(char *output_filename, char *input_filename, GtkProgressBar *progress_bar, int *cancel_save)
+{
+ FILE *infile;
+ FILE *outfile;
+
+  DBG(DBG_proc, "copying file %s to %s\n", input_filename, output_filename);
+
+  outfile = fopen(output_filename, "wb"); /* b = binary mode for win32 */
+
+  if (outfile == 0)
+  {
+   char buf[255];
+
+    snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, output_filename, strerror(errno));
+    xsane_back_gtk_error(buf, TRUE);
+   return -2;
+  }
+
+  infile = fopen(input_filename, "rb"); /* read binary (b for win32) */
+  if (infile == 0)
+  {
+   char buf[256];
+    snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, input_filename, strerror(errno));
+    xsane_back_gtk_error(buf, TRUE);     
+
+    fclose(outfile);
+    remove(output_filename); /* remove already created output file */
+   return -1;
+  }
+
+  xsane_copy_file(outfile, infile, progress_bar, cancel_save);
+
+  gtk_progress_set_format_string(GTK_PROGRESS(progress_bar), "");
+  gtk_progress_bar_update(GTK_PROGRESS_BAR(progress_bar), 0.0);
+
+  while (gtk_events_pending())
+  {
+    gtk_main_iteration();
+  }
+
+ return (*cancel_save);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -3294,7 +3435,7 @@ int xsane_save_pnm_16(FILE *outfile, FILE *imagefile, Image_info *image_info, Gt
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 /* 0=ok, <0=error, 1=canceled */
-int xsane_save_image_as_lineart(char *input_filename, char *output_filename, GtkProgressBar *progress_bar, int *cancel_save)
+int xsane_save_image_as_lineart(char *output_filename, char *input_filename, GtkProgressBar *progress_bar, int *cancel_save)
 {
  FILE *outfile;
  FILE *infile;
@@ -3341,7 +3482,7 @@ int xsane_save_image_as_lineart(char *input_filename, char *output_filename, Gtk
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
  
-int xsane_save_image_as_text(char *input_filename, char *output_filename, GtkProgressBar *progress_bar, int *cancel_save)
+int xsane_save_image_as_text(char *output_filename, char *input_filename, GtkProgressBar *progress_bar, int *cancel_save)
 {
  char *arg[1000];
  char buf[256];
@@ -3407,9 +3548,9 @@ int xsane_save_image_as_text(char *input_filename, char *output_filename, GtkPro
     }
  
     DBG(DBG_info, "trying to change user id for new subprocess:\n");
-    DBG(DBG_info, "old effective uid = %d\n", geteuid());
+    DBG(DBG_info, "old effective uid = %d\n", (int) geteuid());
     setuid(getuid());
-    DBG(DBG_info, "new effective uid = %d\n", geteuid());
+    DBG(DBG_info, "new effective uid = %d\n", (int) geteuid());
  
  
     execvp(arg[0], arg); /* does not return if successfully */
@@ -3516,7 +3657,7 @@ int xsane_save_image_as_text(char *input_filename, char *output_filename, GtkPro
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 /* save image in destination file format. lineart images that are stored as grayscale image are reduced to lineart! */
-int xsane_save_image_as(char *input_filename, char *output_filename, int output_format, GtkProgressBar *progress_bar, int *cancel_save)
+int xsane_save_image_as(char *output_filename, char *input_filename, int output_format, GtkProgressBar *progress_bar, int *cancel_save)
 {
  FILE *outfile;
  FILE *infile;
@@ -3525,7 +3666,7 @@ int xsane_save_image_as(char *input_filename, char *output_filename, int output_
  char lineart_filename[PATH_MAX];
  int remove_input_file = FALSE;
   
-  DBG(DBG_proc, "xsane_save_image_as(input_file=%s, output_file=%s, type=%d)\n", input_filename, output_filename, output_format);
+  DBG(DBG_proc, "xsane_save_image_as(output_file=%s, input_file=%s, type=%d)\n", output_filename, input_filename, output_format);
 
   *cancel_save = 0;
 
@@ -3557,7 +3698,7 @@ int xsane_save_image_as(char *input_filename, char *output_filename, int output_
       gtk_main_iteration();
     }
 
-    xsane_save_image_as_lineart(input_filename, lineart_filename, progress_bar, cancel_save);
+    xsane_save_image_as_lineart(lineart_filename, input_filename, progress_bar, cancel_save);
 
     input_filename = lineart_filename;
     remove_input_file = TRUE;
@@ -3614,7 +3755,8 @@ int xsane_save_image_as(char *input_filename, char *output_filename, int output_
           }
           else
           {
-            xsane_save_rotate_image(outfile, infile, &image_info, 0, progress_bar, cancel_save);
+            xsane_copy_file(outfile, infile, progress_bar, cancel_save);
+        //    xsane_save_rotate_image(outfile, infile, &image_info, 0, progress_bar, cancel_save);
           }
          break;
 
@@ -3665,7 +3807,7 @@ int xsane_save_image_as(char *input_filename, char *output_filename, int output_
 
         case XSANE_TEXT: /* save as text using ocr program like gocr/jocr */
         {
-          xsane_save_image_as_text(input_filename, output_filename, progress_bar, cancel_save);
+          xsane_save_image_as_text(output_filename, input_filename, progress_bar, cancel_save);
         }
         break; /* switch format == XSANE_TEXT */
 
@@ -4368,7 +4510,7 @@ static void write_3chars_as_base64(unsigned char c1, unsigned char c2, unsigned 
 void write_base64(int fd_socket, FILE *infile) 
 {
  int c1, c2, c3;
- int pos=0;
+ int pos = 0;
 
   while ((c1 = getc(infile)) != EOF)
   {
@@ -4397,12 +4539,22 @@ void write_base64(int fd_socket, FILE *infile)
       
       pos = 0;
     }
+
+    xsane.mail_progress_bytes += 3;
+    if ((int)  ((xsane.mail_progress_bytes * 100) / xsane.mail_progress_size) != (int) (xsane.mail_progress_val * 100))
+    {
+      xsane.mail_progress_val = (float) xsane.mail_progress_bytes / xsane.mail_progress_size;
+      xsane_front_gtk_mail_project_update_lockfile_status();
+    }
   }
 
   if (pos)
   {
     write(fd_socket, "\n", 1);
   }
+
+  xsane.mail_progress_val = 1.0;
+  xsane_front_gtk_mail_project_update_lockfile_status();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -4497,14 +4649,14 @@ void write_mail_mime_html(int fd_socket, char *boundary)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void write_mail_attach_image_png(int fd_socket, char *boundary, char *content_id, FILE *infile, char *filename)
+void write_mail_attach_image(int fd_socket, char *boundary, char *content_id, char *content_type, FILE *infile, char *filename)
 {
  char buf[1024];
 
   snprintf(buf, sizeof(buf), "--%s\n", boundary);
   write(fd_socket, buf, strlen(buf));
 
-  snprintf(buf, sizeof(buf), "Content-Type: image/png\n");
+  snprintf(buf, sizeof(buf), "Content-Type: %s\n", content_type);
   write(fd_socket, buf, strlen(buf));
 
   if (content_id)
@@ -4674,6 +4826,7 @@ int pop3_login(int fd_socket, char *user, char *passwd)
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 /* not only a write routine, also reads data */
+/* returns -1 on error, 0 when ok */
 int write_smtp_header(int fd_socket, char *from, char *to)
 {
  char buf[1024];
@@ -4696,6 +4849,19 @@ int write_smtp_header(int fd_socket, char *from, char *to)
   }
   DBG(DBG_info2, "< %s\n", buf);
 
+  if (buf[0] != '2')
+  {
+    DBG(DBG_info, "=> error\n");
+
+    if (xsane.mail_status)
+    {
+      free(xsane.mail_status);
+    }
+    xsane.mail_status = strdup(TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED);
+    xsane_front_gtk_mail_project_update_lockfile_status();
+   return -1;
+  }
+
   snprintf(buf, sizeof(buf), "MAIL FROM: %s\r\n", from);
   DBG(DBG_info2, "> %s", buf);
   write(fd_socket, buf, strlen(buf));
@@ -4705,6 +4871,20 @@ int write_smtp_header(int fd_socket, char *from, char *to)
     buf[len] = 0;
   }
   DBG(DBG_info2, "< %s\n", buf);
+
+  if (buf[0] != '2')
+  {
+    DBG(DBG_info, "=> error\n");
+
+    if (xsane.mail_status)
+    {
+      free(xsane.mail_status);
+    }
+    xsane.mail_status = strdup(TEXT_MAIL_STATUS_SMTP_ERR_FROM);
+    xsane_front_gtk_mail_project_update_lockfile_status();
+   return -1;
+  }
+  
 
   snprintf(buf, sizeof(buf), "RCPT TO: %s\r\n", to);
   DBG(DBG_info2, "> %s", buf);
@@ -4716,6 +4896,19 @@ int write_smtp_header(int fd_socket, char *from, char *to)
   }
   DBG(DBG_info2, "< %s\n", buf);
 
+  if (buf[0] != '2')
+  {
+    DBG(DBG_info, "=> error\n");
+
+    if (xsane.mail_status)
+    {
+      free(xsane.mail_status);
+    }
+    xsane.mail_status = strdup(TEXT_MAIL_STATUS_SMTP_ERR_RCPT);
+    xsane_front_gtk_mail_project_update_lockfile_status();
+   return -1;
+  }
+
   snprintf(buf, sizeof(buf), "DATA\r\n");
   DBG(DBG_info2, "> %s", buf);
   write(fd_socket, buf, strlen(buf));
@@ -4725,6 +4918,19 @@ int write_smtp_header(int fd_socket, char *from, char *to)
     buf[len] = 0;
   }
   DBG(DBG_info2, "< %s\n", buf);
+
+  if ((buf[0] != '2') && (buf[0] != '3'))
+  {
+    DBG(DBG_info, "=> error\n");
+
+    if (xsane.mail_status)
+    {
+      free(xsane.mail_status);
+    }
+    xsane.mail_status = strdup(TEXT_MAIL_STATUS_SMTP_ERR_DATA);
+    xsane_front_gtk_mail_project_update_lockfile_status();
+   return -1;
+  }
 
  return 0;
 }
@@ -4761,108 +4967,4 @@ int write_smtp_footer(int fd_socket)
 }
 
 #endif
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-int xsane_copy_file(char *source_filename, char *destination_filename, GtkProgressBar *progress_bar, int *cancel_save)
-{
- char buf[1024];
- FILE *infile;
- FILE *outfile;
- int size;
- int bytes;
- int bytes_sum = 0;
-
-
-  DBG(DBG_proc, "copying file %s to %s\n", source_filename, destination_filename);
-
-  outfile = fopen(destination_filename, "wb"); /* b = binary mode for win32 */
-
-  if (outfile == 0)
-  {
-    snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, destination_filename, strerror(errno));
-    xsane_back_gtk_error(buf, TRUE);
-   return -2;
-  }
-
-  infile = fopen(source_filename, "rb"); /* read binary (b for win32) */
-  if (infile == 0)
-  {
-   char buf[256];
-    snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, source_filename, strerror(errno));
-    xsane_back_gtk_error(buf, TRUE);     
-
-    fclose(outfile);
-    remove(destination_filename); /* remove already created output file */
-   return -1;
-  }
-
-  fseek(infile, 0, SEEK_END);
-  size = ftell(infile);
-  fseek(infile, 0, SEEK_SET);
-
-  snprintf(buf, sizeof(buf), "%s: %s", PROGRESS_SAVING_DATA, destination_filename);
-
-  gtk_progress_set_format_string(GTK_PROGRESS(progress_bar), buf);
-  gtk_progress_bar_update(GTK_PROGRESS_BAR(progress_bar), 0.0);
-
-  while (gtk_events_pending())
-  {
-    gtk_main_iteration();
-  }
-
-  while (!feof(infile))
-  {
-    bytes = fread(buf, 1, sizeof(buf), infile);
-    if (bytes > 0)
-    {
-      fwrite(buf, 1, bytes, outfile);
-      bytes_sum += bytes;
-    }
-
-    gtk_progress_bar_update(progress_bar, (float) bytes_sum / size); /* update progress bar */
-
-    while (gtk_events_pending())
-    {
-      gtk_main_iteration();
-    }
-
-    if (ferror(outfile))
-    {
-     char buf[255];
-
-      snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
-      DBG(DBG_error, "%s\n", buf);
-      xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
-      *cancel_save = 1;
-     break;
-    }
-
-    if (*cancel_save)
-    {
-      break;
-    }
-  }
-
-  fclose(infile);
-  fclose(outfile);
-
-  gtk_progress_set_format_string(GTK_PROGRESS(progress_bar), "");
-  gtk_progress_bar_update(GTK_PROGRESS_BAR(progress_bar), 0.0);
-
-  while (gtk_events_pending())
-  {
-    gtk_main_iteration();
-  }
-
-  if (size != bytes_sum)
-  {
-    DBG(DBG_info, "copy errro, not complete, %d bytes of %d bytes copied\n", bytes_sum, size);
-   return -3;
-  }
-
-  DBG(DBG_info, "copy complete, %d bytes copied\n", bytes_sum);
-
- return 0;
-}
-
 /* ---------------------------------------------------------------------------------------------------------------------- */

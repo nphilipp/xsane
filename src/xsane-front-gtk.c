@@ -2423,4 +2423,24 @@ int xsane_front_gtk_getname_dialog(const char *dialog_title, const char *desc_te
 }
                                                                                                                                  
 /* ---------------------------------------------------------------------------------------------------------------------- */
+                                                                                                                  
+void xsane_front_gtk_mail_project_update_lockfile_status()
+{
+ FILE *lockfile;
+ char filename[PATH_MAX];
+
+  snprintf(filename, sizeof(filename), "%s/lockfile", preferences.mail_project);
+  lockfile = fopen(filename, "wb");
+
+  if (lockfile)
+  {
+    fprintf(lockfile, "%s\n", xsane.mail_status); /* first line is status of mail */
+    fprintf(lockfile, "%3d\n", (int) (xsane.mail_progress_val * 100));
+  }
+
+  fclose(lockfile);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+                                                                                                                  
                                                                                                                                  

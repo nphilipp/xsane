@@ -2481,6 +2481,7 @@ xsane-0.93 -> 0.94:
  - xsane_back_gtk_get_filename: directory is prepared with ending SLASH
    instead of ending "/.", this does work with windows now when SLASH is \
 
+
 xsane-0.94 -> 0.95:
 -------------------
 
@@ -2552,7 +2553,7 @@ xsane-0.94 -> 0.95:
    - internal viewer is used now for pnm-fax files
    - faxviewer is used for ps files
    - before sending the fax pnm images are converted into ps images
-   - after sending the mail ps images are erased
+   - after sending the fax ps images are erased
 
  - changed e-mail mode:
    - scanned images are stored in pnm format
@@ -2579,4 +2580,60 @@ xsane-0.94 -> 0.95:
  - new translations: hu
 
  - updated translations: de, es, ja, pt, pt_BR, sk
+
+
+xsane-0.95 -> 0.96:
+-------------------
+
+ - fax progress bar does not change it's height any more when the fax dialog is resized
+
+ - mail progress bar does not change it's height any more when the mail dialog is resized
+
+ - added lockfile to mail project. The lockfile contains status and progress information
+   from the mail_send_process and is used to display a progress_bar
+
+ - mail status is only translated when it is displayed via gtk, in the data structures
+   the untranslated texts are used
+
+ - changed mail_attach_image_png to mail_attach_image, mime type is defined by parameter
+
+ - added filetype menu to mail dialog with filetypes PNG, JPEG and TIFF
+
+ - bugfix: viewer saves lineart PNM images again as lineart (bug in xsane-0.95)
+
+ - when image is saved as pnm and it is not reduced to lineart then the input file
+   is copied with xsane_copy_file => much faster
+  
+ - xsane-save.c: reordered function parameters for saving/conversion functions to
+   (outfile, infile,...) or (output_filename, input_filename, ...) 
+   (before we had sometimes infile at first and sometimes outfile at first)
+
+ - xsane_set_sensitivity: mail_dialog and fax_dialog:
+   the sensitivity off all but the progress_bar is set
+
+ - While mail is prepared (images are converted) the xsane sensitivity is set to
+   FALSE to make sure that the xsane mode is not changed in this case.
+   while sending the mail (after preparation) the xsane sensitivity is set to
+   TRUE and the project entry sensitivity is also TRUE, it is allowed to
+   changed xsane mode and to change the mailproject, because the
+   sending of the mail is done in a separate process, so there is no
+   influence by changing the mail project name.
+ 
+ - Comment:
+   When xsane is closed while sending one or more mails then xsane is closed
+   but the mail sending subprocesses are not terminated.
+
+ - added SMTP (HELO/FROM/RCPT/DATA) errors to mail status
+
+ - added xsane.fax_status, it is saved in the first line of the xsane-fax-list
+   this means that the fax project directories are incompatible to earlier versions!
+
+ - added mail_status and fax_status = ..._CHANGED when a new page is added to
+   the project
+
+ - updated images in documentation
+
+ - updated email modus in documentation
+
+ - email images are named "image-1" instead of "page-1"
 

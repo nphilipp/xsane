@@ -80,6 +80,7 @@ Preferences preferences =
        0,               /* no default pop3 passsword */
        0,		/* no mail project */
        0,		/* no mail viewer */
+       0,		/* no mail filetype */
 #endif
        0,		/* no default ocrcommand */
        0,		/* no default ocr input file option */
@@ -184,6 +185,7 @@ desc[] =
     {"mail-pop3-pass",			xsane_rc_pref_string,	POFFSET(mail_pop3_pass)},
     {"mail-project",			xsane_rc_pref_string,	POFFSET(mail_project)},
     {"mail-viewer",			xsane_rc_pref_string,	POFFSET(mail_viewer)},
+    {"mail-filetype",			xsane_rc_pref_string,	POFFSET(mail_filetype)},
 #endif
     {"ocr-command",			xsane_rc_pref_string,	POFFSET(ocr_command)},
     {"ocr-inputfile-option",		xsane_rc_pref_string,	POFFSET(ocr_inputfile_option)},

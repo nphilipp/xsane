@@ -6,12 +6,12 @@ Sign explaination:
  + planned to do this soon/higher priority (but not promised for XSane-1.0)
  - comes later/lower priority
 
- scan-function:
-    # allow additional image data after each row (is sane standard conform)
-
  save-function:
     - list of last used filenames
     - enable filters in save mode?
+
+ scan-routines:
+    # allow additional image data after each row (is sane standard conform)
 
  save-subroutines:
     # save several images into one file for:
@@ -20,19 +20,22 @@ Sign explaination:
       - may be pnm
 
  fax-function:
-    # convtert all images to one or more postscript/tiff/pbm/g3 files before sending fax
+++  # add new image types to fax fileformat: tiff/pbm/g3
     # delete page/project: create dialog "really remove?"
-    # cleanup user interface of fax function
+    # add possibility to create a multi page file that includes the complete fax
     + zoom ?
-    + create lock file, add information while spooling fax
+    + create lock file with information, add progress bar while spooling fax (how?)
     + add coverpage with editor like in mail function (may be same routines for mail and fax)
     - add send delayed option
     - add options for sender/receiver Name
+    - add cancel button while preparing fax pages
 
  email-function:
-    # add new image types to email fileformat: tiff, jpeg
     # delete image/project: create dialog "really remove?"
-    # cleanup user interface of email function
+    # test for existance of lockfile?
+    - ??? are there other ways than pop3 before smtp to identify yourself to
+      the smtp server? ???
+    - add cancel button while preparing mail images
 
  gamma function:
     # add target gamma (e.g. for web publishing)
@@ -52,35 +55,34 @@ Sign explaination:
       this will not produce exact results with some scanners!!!
 
  viewer function:
+++  # crop to new viewer
+++  # fill rectangular area (e.g. for masking unwanted parts of a scanned fax)
+    # print image
+    # show histogram of viewer image
     # add more filters (sharpen?)
       suggestions? - ONLY REALLY IMPORTANT FILTERS,
       FOR OTHER IMAGE MANIPULATION THERE IS THE GIMP
-    # crop to new viewer
-    # fill rectangular area (e.g. for masking unwanted parts of a scanned fax)
 
  internal:
-    # cleanup of configuration file handling, may be use libconfuse
-    # add range check / valid value when reading xsane.rc/*.drc files
+++  # cleanup of configuration file handling, may be use libconfuse
+++  # add range check / valid value when reading xsane.rc/*.drc files
     # test if file is writable before scan is started
     + add color management - may be via xcmsdb or scarse (www.scarse.org)
     + add several defaults (fax=> mode=gray,...)
     + test memory after each call of malloc - partly done
-      (not until xsane-1.0 I think)
     - average of a multiple scan of the same image
     - include much more parameters when saving images
-    - more/better online helpfiles (mostly done)
-    - add infrared filter for transmissive rgbi scans:
+    - add infrared filter for transmissive rgbi scans (sane-2):
       use next neighbour with high transmission(i) value
       (may be to viewer)
-    ? show histogram of scanned image (viewer?)?
     ? show scanned image in save mode or automatically save image in viewer mode?
     ? project save/load with preview image, scanmode, .... ???
 
 
  include special functions for GNOME/KDE
-   - drag and drop for preview or viewer image?
-   - other drag and drop functions?
-   - image copy/paste functions?
+     - drag and drop for preview or viewer image?
+     - other drag and drop functions?
+     - image copy/paste functions?
 
  TWAIN:
     - add a twain-win32 interface (for xsane-win32)

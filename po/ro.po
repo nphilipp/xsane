@@ -1,13 +1,12 @@
 # translation of ro.po to Romanian
-#  Xsane 0.87
 # Copyright (C) 2002, 2004 Free Software Foundation, Inc.
 # Harald Ersch <hersch@romatsa.ro>,2002.
 # Harald Ersch <harald@ersch.ro>, 2004.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ro\n"
-"POT-Creation-Date: 2004-08-13 22:28+0200\n"
+"Project-Id-Version: XSANE 0.87\n"
+"POT-Creation-Date: 2004-08-21 15:31+0200\n"
 "PO-Revision-Date: 2004-04-23 08:36+0300\n"
 "Last-Translator: Harald Ersch <harald@ersch.ro>\n"
 "Language-Team: Romanian <rtfs-project@sourceforge.net>\n"
@@ -746,44 +745,8 @@ msgstr "Ataºamente:"
 msgid "Project status:"
 msgstr "Stare proiect:"
 
-#. TEXT_MAIL_STATUS_NOT_CREATED
-#, fuzzy
-msgid "not created"
-msgstr "citire"
-
-#. TEXT_MAIL_STATUS_CREATED
-#, fuzzy
-msgid "created"
-msgstr "citire"
-
-#. TEXT_MAIL_STATUS_CHANGED
-msgid "changed"
-msgstr ""
-
-#. TEXT_MAIL_STATUS_ERR_READ_PROJECT
-#, fuzzy
-msgid "error reading mailproject"
-msgstr "Introduceþi numele proiectului mail"
-
-#. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
-msgid "POP3 connection failed"
-msgstr ""
-
-#. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
-msgid "POP3 login failed"
-msgstr ""
-
-#. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
-msgid "SMTP connection failed"
-msgstr ""
-
-#. TEXT_MAIL_STATUS_SENT
-#, fuzzy
-msgid "sent"
-msgstr "Configurare"
-
-#. TEXT_MAIL_STATUS_SENDING
-msgid "sending"
+#. TEXT_MAIL_FILETYPE
+msgid "Mail image filetype:"
 msgstr ""
 
 #. TEXT_MEDIUM_DEFINITION_NAME
@@ -1475,6 +1438,10 @@ msgstr "Introduceþi adresa de email"
 #. DESC_MAILSUBJECT
 msgid "Enter subject of email"
 msgstr "Introduceþi subiectul email-ului"
+
+#. DESC_MAIL_FILETYPE
+msgid "Select filetype for image attachments"
+msgstr ""
 
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
@@ -2739,6 +2706,83 @@ msgstr "Negativ KONICA VX 100"
 msgid "Rossmann negative HR 100"
 msgstr "Negativ Rossmann HR 100"
 
+#. TEXT_MAIL_STATUS_NOT_CREATED
+#, fuzzy
+msgid "Mail project not created"
+msgstr "citire"
+
+#. TEXT_MAIL_STATUS_CREATED
+#, fuzzy
+msgid "Mail project created"
+msgstr "citire"
+
+#. TEXT_MAIL_STATUS_CHANGED
+#, fuzzy
+msgid "Mail project changed"
+msgstr "Preselectare zonã de scanare"
+
+#. TEXT_MAIL_STATUS_ERR_READ_PROJECT
+#, fuzzy
+msgid "Error reading mailproject"
+msgstr "Introduceþi numele proiectului mail"
+
+#. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
+msgid "POP3 connection failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
+msgid "POP3 login failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
+msgid "SMTP connection failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_FROM
+#, fuzzy
+msgid "From entry not accepted"
+msgstr "citire"
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_RCPT
+#, fuzzy
+msgid "Receiver entry not accepted"
+msgstr "citire"
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_DATA
+msgid "Mail data not accepted"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SENDING
+msgid "Sending mail"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SENT
+msgid "Mail has been sent"
+msgstr ""
+
+#. TEXT_FAX_STATUS_NOT_CREATED
+#, fuzzy
+msgid "Fax project not created"
+msgstr "citire"
+
+#. TEXT_FAX_STATUS_CREATED
+#, fuzzy
+msgid "Fax project created"
+msgstr "citire"
+
+#. TEXT_FAX_STATUS_CHANGED
+#, fuzzy
+msgid "Fax project changed"
+msgstr "Preselectare zonã de scanare"
+
+#. TEXT_FAX_STATUS_QUEUEING_FAX
+msgid "Queueing Fax"
+msgstr ""
+
+#. TEXT_FAX_STATUS_FAX_QUEUED
+msgid "Fax is queued"
+msgstr ""
+
 #. Sane backend messages
 msgid "flatbed scanner"
 msgstr "Scanner staþionar"
@@ -2793,21 +2837,3 @@ msgstr "Nu am memorie suficientã."
 
 msgid "Access to resource has been denied"
 msgstr "Accesul la resursã a fost respins"
-
-#~ msgid "Preset area"
-#~ msgstr "Zonã predefinitã"
-
-#~ msgid "Select source medium type\n"
-#~ msgstr "Selectare tip mediu sursã\n"
-
-#~ msgid "Rename definiton"
-#~ msgstr "Redenumeºte definiþia"
-
-#~ msgid "Delete definition"
-#~ msgstr "ªterge definiþia"
-
-#~ msgid "Start"
-#~ msgstr "Porneºte"
-
-#~ msgid "Add area"
-#~ msgstr "Adaugã zonã"

@@ -4,8 +4,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE pre 0.92\n"
-"POT-Creation-Date: 2004-08-13 22:28+0200\n"
+"Project-Id-Version: XSANE 0.92\n"
+"POT-Creation-Date: 2004-08-21 15:31+0200\n"
 "PO-Revision-Date: 2003-08-03 14:12+01:00\n"
 "Last-Translator: Johan Bengtsson <jb@goteborg.bostream.se>\n"
 "Language-Team: LANGUAGE <sv@li.org>\n"
@@ -741,44 +741,8 @@ msgstr "Bilagor:"
 msgid "Project status:"
 msgstr "Projekt status:"
 
-#. TEXT_MAIL_STATUS_NOT_CREATED
-#, fuzzy
-msgid "not created"
-msgstr "läs"
-
-#. TEXT_MAIL_STATUS_CREATED
-#, fuzzy
-msgid "created"
-msgstr "läs"
-
-#. TEXT_MAIL_STATUS_CHANGED
-msgid "changed"
-msgstr ""
-
-#. TEXT_MAIL_STATUS_ERR_READ_PROJECT
-#, fuzzy
-msgid "error reading mailproject"
-msgstr "Skriv in namn för brevprojekt"
-
-#. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
-msgid "POP3 connection failed"
-msgstr ""
-
-#. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
-msgid "POP3 login failed"
-msgstr ""
-
-#. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
-msgid "SMTP connection failed"
-msgstr ""
-
-#. TEXT_MAIL_STATUS_SENT
-#, fuzzy
-msgid "sent"
-msgstr "inställningar"
-
-#. TEXT_MAIL_STATUS_SENDING
-msgid "sending"
+#. TEXT_MAIL_FILETYPE
+msgid "Mail image filetype:"
 msgstr ""
 
 #. TEXT_MEDIUM_DEFINITION_NAME
@@ -1469,6 +1433,10 @@ msgstr "Skriv in epost adress"
 #. DESC_MAILSUBJECT
 msgid "Enter subject of email"
 msgstr "Skriv in ämne för epost"
+
+#. DESC_MAIL_FILETYPE
+msgid "Select filetype for image attachments"
+msgstr ""
 
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
@@ -2717,6 +2685,83 @@ msgstr "Konica negativ VX 100"
 msgid "Rossmann negative HR 100"
 msgstr "Rossmann negativ HR 100"
 
+#. TEXT_MAIL_STATUS_NOT_CREATED
+#, fuzzy
+msgid "Mail project not created"
+msgstr "läs"
+
+#. TEXT_MAIL_STATUS_CREATED
+#, fuzzy
+msgid "Mail project created"
+msgstr "läs"
+
+#. TEXT_MAIL_STATUS_CHANGED
+#, fuzzy
+msgid "Mail project changed"
+msgstr "Förval av inläsningsyta"
+
+#. TEXT_MAIL_STATUS_ERR_READ_PROJECT
+#, fuzzy
+msgid "Error reading mailproject"
+msgstr "Skriv in namn för brevprojekt"
+
+#. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
+msgid "POP3 connection failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
+msgid "POP3 login failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
+msgid "SMTP connection failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_FROM
+#, fuzzy
+msgid "From entry not accepted"
+msgstr "läs"
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_RCPT
+#, fuzzy
+msgid "Receiver entry not accepted"
+msgstr "läs"
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_DATA
+msgid "Mail data not accepted"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SENDING
+msgid "Sending mail"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SENT
+msgid "Mail has been sent"
+msgstr ""
+
+#. TEXT_FAX_STATUS_NOT_CREATED
+#, fuzzy
+msgid "Fax project not created"
+msgstr "läs"
+
+#. TEXT_FAX_STATUS_CREATED
+#, fuzzy
+msgid "Fax project created"
+msgstr "läs"
+
+#. TEXT_FAX_STATUS_CHANGED
+#, fuzzy
+msgid "Fax project changed"
+msgstr "Förval av inläsningsyta"
+
+#. TEXT_FAX_STATUS_QUEUEING_FAX
+msgid "Queueing Fax"
+msgstr ""
+
+#. TEXT_FAX_STATUS_FAX_QUEUED
+msgid "Fax is queued"
+msgstr ""
+
 #. Sane backend messages
 msgid "flatbed scanner"
 msgstr "flatbäddsbildläsare"
@@ -2771,15 +2816,3 @@ msgstr "Slut på minne"
 
 msgid "Access to resource has been denied"
 msgstr "Tillgång till resurs nekas"
-
-#~ msgid "Preset area"
-#~ msgstr "Förinställt område"
-
-#~ msgid "Select source medium type\n"
-#~ msgstr "Välj typ av källmedium\n"
-
-#~ msgid "Rename definiton"
-#~ msgstr "Byt namn på inställning"
-
-#~ msgid "Delete definition"
-#~ msgstr "Ta bort inställning"
