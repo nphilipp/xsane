@@ -1465,7 +1465,7 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
 
 #ifdef HAVE_MMAP
   mmaped_imagefile = mmap(NULL, pixel_width * pixel_height * bytespp + pos0, PROT_READ, MAP_PRIVATE, fileno(imagefile), 0);
-  if (mmaped_imagefile == (void *) -1) /* mmap failed */
+  if (mmaped_imagefile == (char *) -1) /* mmap failed */
   {
     DBG(DBG_info, "xsane_save_rotate_image: unable to memory map image file, using standard file access\n");
     mmaped_imagefile = NULL;

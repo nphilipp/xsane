@@ -41,9 +41,6 @@ Sign explaination:
     - force aspect ratio of selection area
     - force size of scanarea in pixels (calculate resolution)
 
- batch scan function
-    - select multiple scan areas before starting the scan
-
  viewer function:
     # add more filters (sharpen?)
       suggestions? - ONLY REALLY IMPORTANT FILTERS,

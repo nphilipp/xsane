@@ -49,7 +49,7 @@ LIBLIB = ../lib/liblib.a
 
 XSANE_OBJS = xsane-back-gtk.o xsane-front-gtk.o xsane-gamma.o \
              xsane-preview.o xsane-viewer.o \
-             xsane-rc-io.o xsane-device-preferences.o \
+             xsane-rc-io.o xsane-device-preferences.o xsane-batch-scan.o \
              xsane-preferences.o xsane-setup.o xsane-save.o xsane-scan.o \
              xsane-icons.o xsane.o
 

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-06-30 19:11+0200\n"
+"POT-Creation-Date: 2002-09-13 08:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,8 +48,20 @@ msgstr ""
 msgid "info"
 msgstr ""
 
+#. WINDOW_LOAD_BATCH_LIST
+msgid "load batch list"
+msgstr ""
+
+#. WINDOW_SAVE_BATCH_LIST
+msgid "save batch list"
+msgstr ""
+
 #. WINDOW_BATCH_SCAN
 msgid "batch scan"
+msgstr ""
+
+#. WINDOW_BATCH_RENAME
+msgid "rename batch area"
 msgstr ""
 
 #. WINDOW_FAX_PROJECT
@@ -224,8 +236,8 @@ msgstr ""
 msgid "Enhanced image"
 msgstr ""
 
-#. BUTTON_START
-msgid "Start"
+#. BUTTON_SCAN
+msgid "Scan"
 msgstr ""
 
 #. BUTTON_OK
@@ -264,8 +276,12 @@ msgstr ""
 msgid "Overwrite"
 msgstr ""
 
-#. BUTTON_ADD_AREA
-msgid "Add area"
+#. BUTTON_BATCH_LIST_SCAN
+msgid "Scan batch list"
+msgstr ""
+
+#. BUTTON_BATCH_AREA_SCAN
+msgid "Scan selected area"
 msgstr ""
 
 #. BUTTON_PAGE_DELETE
@@ -647,6 +663,38 @@ msgstr ""
 msgid "Blur radius:"
 msgstr ""
 
+#. TEXT_BATCH_AREA_DEFAULT_NAME
+msgid "(no name)"
+msgstr ""
+
+#. TEXT_BATCH_LIST_AREANAME
+msgid "Area name:"
+msgstr ""
+
+#. TEXT_BATCH_LIST_SCANMODE
+msgid "Scanmode:"
+msgstr ""
+
+#. TEXT_BATCH_LIST_GEOMETRY_TL
+msgid "Top left:"
+msgstr ""
+
+#. TEXT_BATCH_LIST_GEOMETRY_SIZE
+msgid "Size:"
+msgstr ""
+
+#. TEXT_BATCH_LIST_RESOLUTION
+msgid "Resolution:"
+msgstr ""
+
+#. TEXT_BATCH_LIST_BIT_DEPTH
+msgid "Bit depth:"
+msgstr ""
+
+#. TEXT_BATCH_LIST_BY_GUI
+msgid "as selected"
+msgstr ""
+
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
 msgstr ""
@@ -945,6 +993,10 @@ msgstr ""
 
 #. MENU_ITEM_SHOW_GAMMA
 msgid "Show gamma curve"
+msgstr ""
+
+#. MENU_ITEM_SHOW_BATCH_SCAN
+msgid "Show batch scan"
 msgstr ""
 
 #. MENU_ITEM_SHOW_STANDARDOPTIONS
@@ -1731,6 +1783,10 @@ msgstr ""
 msgid "execute"
 msgstr ""
 
+#. DESC_ADD_BATCH
+msgid "Add selection for batch scan"
+msgstr ""
+
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
 msgstr ""
@@ -1796,23 +1852,23 @@ msgstr ""
 msgid "Clone image"
 msgstr ""
 
-#. DESC_VIEWER_ROTATE90
+#. DESC_ROTATE90
 msgid "Rotate image 90 degree"
 msgstr ""
 
-#. DESC_VIEWER_ROTATE180
+#. DESC_ROTATE180
 msgid "Rotate image 180 degree"
 msgstr ""
 
-#. DESC_VIEWER_ROTATE270
+#. DESC_ROTATE270
 msgid "Rotate image 270 degree"
 msgstr ""
 
-#. DESC_VIEWER_MIRROR_X
+#. DESC_MIRROR_X
 msgid "Mirror image at vertical axis"
 msgstr ""
 
-#. DESC_VIEWER_MIRROR_Y
+#. DESC_MIRROR_Y
 msgid "Mirror image at horizontal axis"
 msgstr ""
 
@@ -1838,6 +1894,30 @@ msgstr ""
 
 #. DESC_Y_SCALE_FACTOR
 msgid "Y-Scale factor"
+msgstr ""
+
+#. DESC_BATCH_LIST_EMPTY
+msgid "Empty batch list"
+msgstr ""
+
+#. DESC_BATCH_LIST_SAVE
+msgid "Save batch list"
+msgstr ""
+
+#. DESC_BATCH_LIST_LOAD
+msgid "Load batch list"
+msgstr ""
+
+#. DESC_BATCH_RENAME
+msgid "Rename area"
+msgstr ""
+
+#. DESC_BATCH_ADD
+msgid "Add selected preview area to batch list"
+msgstr ""
+
+#. DESC_BATCH_DEL
+msgid "Delete selected area from batch list"
 msgstr ""
 
 #. ERR_HOME_DIR
@@ -2264,8 +2344,8 @@ msgstr ""
 msgid "letter land."
 msgstr ""
 
-#. MENU_ITEM_MEDIUM_FULL_RANGE
-msgid "Full range"
+#. MENU_ITEM_MEDIUM_FULL_COLOR_RANGE
+msgid "Full color range"
 msgstr ""
 
 #. MENU_ITEM_MEDIUM_SLIDE

@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.87\n"
-"POT-Creation-Date: 2002-06-30 19:11+0200\n"
-"PO-Revision-Date: 2002-07-03 22:02+0200\n"
+"Project-Id-Version: XSANE 0.88\n"
+"POT-Creation-Date: 2002-09-13 08:34+0200\n"
+"PO-Revision-Date: 2002-09-15 22:33+0200\n"
 "Last-Translator: Stanislav Brabec <utx@penguin.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -47,9 +47,21 @@ msgstr "Licenèní smlouva pro koncového u¾ivatele"
 msgid "info"
 msgstr "informace"
 
+#. WINDOW_LOAD_BATCH_LIST
+msgid "load batch list"
+msgstr "naèíst seznam dávek"
+
+#. WINDOW_SAVE_BATCH_LIST
+msgid "save batch list"
+msgstr "zapsat seznam dávek"
+
 #. WINDOW_BATCH_SCAN
 msgid "batch scan"
 msgstr "dávkové skenování"
+
+#. WINDOW_BATCH_RENAME
+msgid "rename batch area"
+msgstr "pøejmenovat dávkovou oblast"
 
 #. WINDOW_FAX_PROJECT
 msgid "fax project"
@@ -223,9 +235,9 @@ msgstr "Pùvodní obrázek"
 msgid "Enhanced image"
 msgstr "Zpracovaný obrázek"
 
-#. BUTTON_START
-msgid "Start"
-msgstr "Start"
+#. BUTTON_SCAN
+msgid "Scan"
+msgstr "Skenovat"
 
 #. BUTTON_OK
 msgid "Ok"
@@ -263,9 +275,13 @@ msgstr "Procházet"
 msgid "Overwrite"
 msgstr "Pøepsat"
 
-#. BUTTON_ADD_AREA
-msgid "Add area"
-msgstr "Pøidat oblast"
+#. BUTTON_BATCH_LIST_SCAN
+msgid "Scan batch list"
+msgstr "Seznam skenovacích dávek"
+
+#. BUTTON_BATCH_AREA_SCAN
+msgid "Scan selected area"
+msgstr "Zvolená oblast skenování"
 
 #. BUTTON_PAGE_DELETE
 msgid "Delete page"
@@ -672,6 +688,44 @@ msgstr "Polomìr pro vyèistìní:"
 msgid "Blur radius:"
 msgstr "Polomìr rozostøení:"
 
+#. TEXT_BATCH_AREA_DEFAULT_NAME
+msgid "(no name)"
+msgstr "(beze jména)"
+
+#. TEXT_BATCH_LIST_AREANAME
+#, fuzzy
+msgid "Area name:"
+msgstr "U¾ivatel:"
+
+#. TEXT_BATCH_LIST_SCANMODE
+#, fuzzy
+msgid "Scanmode:"
+msgstr "Re¾im XSane"
+
+#. TEXT_BATCH_LIST_GEOMETRY_TL
+msgid "Top left:"
+msgstr ""
+
+#. TEXT_BATCH_LIST_GEOMETRY_SIZE
+#, fuzzy
+msgid "Size:"
+msgstr "Diapozitiv"
+
+#. TEXT_BATCH_LIST_RESOLUTION
+#, fuzzy
+msgid "Resolution:"
+msgstr "Volba prahu:"
+
+#. TEXT_BATCH_LIST_BIT_DEPTH
+#, fuzzy
+msgid "Bit depth:"
+msgstr "Vstupní hloubka gama:"
+
+#. TEXT_BATCH_LIST_BY_GUI
+#, fuzzy
+msgid "as selected"
+msgstr "Zvolená oblast skenování"
+
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
 msgstr "Výbìr tiskárny:"
@@ -971,6 +1025,10 @@ msgstr "Zobrazovat histogram"
 #. MENU_ITEM_SHOW_GAMMA
 msgid "Show gamma curve"
 msgstr "Zobrazit gama køivku"
+
+#. MENU_ITEM_SHOW_BATCH_SCAN
+msgid "Show batch scan"
+msgstr "Zobrazit dávkové skenování"
 
 #. MENU_ITEM_SHOW_STANDARDOPTIONS
 msgid "Show standard options"
@@ -1793,6 +1851,10 @@ msgstr "zápis"
 msgid "execute"
 msgstr "spu¹tìní"
 
+#. DESC_ADD_BATCH
+msgid "Add selection for batch scan"
+msgstr "Pøidat výbìr pro dávkové skenování"
+
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
 msgstr "Nasátí bílého bodu"
@@ -1858,23 +1920,23 @@ msgstr "Optické rozpoznávání znakù"
 msgid "Clone image"
 msgstr "Duplikovat obrázek"
 
-#. DESC_VIEWER_ROTATE90
+#. DESC_ROTATE90
 msgid "Rotate image 90 degree"
 msgstr "Rotovat obrázek o 90 stupòù"
 
-#. DESC_VIEWER_ROTATE180
+#. DESC_ROTATE180
 msgid "Rotate image 180 degree"
 msgstr "Rotovat obrázek o 180 stupòù"
 
-#. DESC_VIEWER_ROTATE270
+#. DESC_ROTATE270
 msgid "Rotate image 270 degree"
 msgstr "Rotovat obrázek o 270 stupòù"
 
-#. DESC_VIEWER_MIRROR_X
+#. DESC_MIRROR_X
 msgid "Mirror image at vertical axis"
 msgstr "Zrcadlit obrázek kolem svislé osy"
 
-#. DESC_VIEWER_MIRROR_Y
+#. DESC_MIRROR_Y
 msgid "Mirror image at horizontal axis"
 msgstr "Zrcadlit obrázek kolem vodorovné osy"
 
@@ -1901,6 +1963,30 @@ msgstr "Faktoru zmìny velikosti X"
 #. DESC_Y_SCALE_FACTOR
 msgid "Y-Scale factor"
 msgstr "Faktoru zmìny velikosti Y"
+
+#. DESC_BATCH_LIST_EMPTY
+msgid "Empty batch list"
+msgstr "Prázdný seznam dávek"
+
+#. DESC_BATCH_LIST_SAVE
+msgid "Save batch list"
+msgstr "Zapsat seznam dávek"
+
+#. DESC_BATCH_LIST_LOAD
+msgid "Load batch list"
+msgstr "Naèíst seznam dávek"
+
+#. DESC_BATCH_RENAME
+msgid "Rename area"
+msgstr "Pøejmenovat oblast"
+
+#. DESC_BATCH_ADD
+msgid "Add selected preview area to batch list"
+msgstr "Pøidat vybranou náhledovou oblast do seznamu dávek"
+
+#. DESC_BATCH_DEL
+msgid "Delete selected area from batch list"
+msgstr "Pøidat vybranou oblast ze seznamu dávek"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2368,9 +2454,9 @@ msgstr "letter stoj."
 msgid "letter land."
 msgstr "letter le¾."
 
-#. MENU_ITEM_MEDIUM_FULL_RANGE
-msgid "Full range"
-msgstr "Plný rozsah"
+#. MENU_ITEM_MEDIUM_FULL_COLOR_RANGE
+msgid "Full color range"
+msgstr "Plný rozsah barev"
 
 #. MENU_ITEM_MEDIUM_SLIDE
 msgid "Slide"
@@ -2466,38 +2552,3 @@ msgstr "Nedostatek pamìti"
 
 msgid "Access to resource has been denied"
 msgstr "Pøístup ke zdroji byl odmítnut"
-
-#~ msgid "license"
-#~ msgstr "licence"
-
-#~ msgid "License"
-#~ msgstr "Licence"
-
-#~ msgid ""
-#~ "Use XSane for: SCANning-<Ctrl-s> photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>"
-#~ msgstr ""
-#~ "XSane slou¾í pro: SKENování-<Ctrl-s> KOPírování-<Ctrl-c> FAXování-<Ctrl-f>"
-
-#~ msgid "Width of paper for postscript"
-#~ msgstr "©íøka papíru pro postscript"
-
-#~ msgid "Height of paper for postscript"
-#~ msgstr "Vý¹ka papíru pro postscript"
-
-#~ msgid "Left offset for postscript"
-#~ msgstr "Levý posun pro postscript"
-
-#~ msgid "Bottom offset for postscript"
-#~ msgstr "Spodní posun pro postscript"
-
-#~ msgid "Copy options"
-#~ msgstr "Volby kopírování"
-
-#~ msgid "Saving options"
-#~ msgstr "Volby zápisu"
-
-#~ msgid "Fax options"
-#~ msgstr "Volby faxu"
-
-#~ msgid "Reduce scan area"
-#~ msgstr "Redukce skenovací plochy"

@@ -536,6 +536,20 @@ void xsane_update_sliders()
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static gint xsane_batch_scan_gamma_event()
+{
+  DBG(DBG_proc, "xsane_batch_scan_gamma_event\n");
+
+  xsane_batch_scan_update_icon_list(); /* update gamma of batch scan icons */
+
+  gtk_timeout_remove(xsane.batch_scan_gamma_timer);
+  xsane.batch_scan_gamma_timer = 0;
+
+ return FALSE;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static gint xsane_slider_hold_event()
 {
   DBG(DBG_proc, "xsane_slider_hold_event\n");
@@ -1737,6 +1751,12 @@ void xsane_enhancement_by_gamma(void)
 
   xsane_enhancement_update();
   xsane_update_gamma_curve(FALSE);
+
+  if (xsane.batch_scan_gamma_timer)
+  {
+    gtk_timeout_remove(xsane.batch_scan_gamma_timer);
+  }
+  xsane.batch_scan_gamma_timer = gtk_timeout_add(XSANE_CONTINUOUS_HOLD_TIME * 4, xsane_batch_scan_gamma_event, 0);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -2362,6 +2382,7 @@ void xsane_set_auto_enhancement()
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
+
 void xsane_set_medium(Preferences_medium_t *medium)
 {
  const SANE_Option_Descriptor *opt;

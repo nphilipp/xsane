@@ -19,7 +19,7 @@ INSTALL_DATA = @INSTALL_DATA@
 CC = @CC@ -mwindows
 INCLUDES = -I. -I$(srcdir) -I$(top_builddir)/include -I$(top_srcdir)/include \
 	   @GTK_CFLAGS@ @INCLUDES@ -I/usr/include -I/usr/include/gdk
-DEFS = -D_WIN32 @DEFS@ -DXSANE_FIXED_HOME_PATH=$(sanedir)'\\'home -DTEMP_PATH=c:'\\'temp -DSLASH=92 -DBUGGY_GDK_INPUT_EXCEPTION -DLOCALEDIR=share/locale
+DEFS = -D_WIN32 @DEFS@ -DXSANE_FIXED_HOME_PATH=$(sanedir)'\\'home -DTEMP_PATH=c:'\\'temp -DSLASH=92 -DBUGGY_GDK_INPUT_EXCEPTION -DLOCALEDIR=/cygdrive/c/sane/share/locale
 CPPFLAGS = @CPPFLAGS@ -DPATH_XSANE_DOC_DIR=\$(xsanedocdir) -DPATH_SANE_DATA_DIR=\$(sanedatadir)
 CFLAGS = @CFLAGS@ -fnative-struct
 LDFLAGS = @LDFLAGS@
@@ -40,7 +40,7 @@ PROGRAMS = $(BINPROGS)
 LIBLIB = ../lib/liblib.a
 
 XSANE_OBJS = xsane-back-gtk.o xsane-front-gtk.o xsane-gamma.o xsane-preview.o \
-             xsane-viewer.o xsane-rc-io.o xsane-device-preferences.o \
+             xsane-viewer.o xsane-rc-io.o xsane-device-preferences.o xsane-batch-scan.o \
              xsane-preferences.o xsane-setup.o xsane-save.o xsane-scan.o \
              xsane-icons.o xsane.o
 

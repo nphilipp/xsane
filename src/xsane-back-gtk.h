@@ -28,6 +28,7 @@
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 #include "xsane.h"
+#include "xsane-batch-scan.h"
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -77,6 +78,11 @@ extern void xsane_back_gtk_set_sensitivity(int sensitive);
 extern void xsane_set_sensitivity(SANE_Int sensitivity);
 extern void xsane_back_gtk_destroy_dialog(void);
 extern void xsane_back_gtk_set_option(int opt_num, void *val, SANE_Action action);
+extern int xsane_back_gtk_set_option_double(int option, double value);
+extern int xsane_back_gtk_get_option_double(int option, double *val, SANE_Int *unit);
+extern void xsane_back_gtk_set_option(int opt_num, void *val, SANE_Action action);
+extern void xsane_back_gtk_get_batch_parameters(Batch_Scan_Parameters *parameters, SANE_Int *unit);
+extern void xsane_back_gtk_establish_batch_parameters(Batch_Scan_Parameters *parameters, int panel_rebuild, int set_scanmode, int set_resolution);
 extern GtkWidget *xsane_back_gtk_group_new (GtkWidget *parent, const char * title);
 extern void xsane_back_gtk_button_new(GtkWidget * parent, const char *name, SANE_Word val,
             GSGDialogElement *elem, GtkTooltips *tooltips, const char *desc, SANE_Int settable);

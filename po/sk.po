@@ -3,9 +3,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.84\n"
-"POT-Creation-Date: 2002-06-30 19:11+0200\n"
-"PO-Revision-Date: 2002-07-06 22:24+0100\n"
+"Project-Id-Version: XSANE 0.87\n"
+"POT-Creation-Date: 2002-09-13 08:34+0200\n"
+"PO-Revision-Date: 2002-07-11 18:08+0100\n"
 "Last-Translator: Zdenko Podobný <zdpo@mailbox.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -37,19 +37,32 @@ msgstr "autorizácia"
 
 #. WINDOW_GPL
 msgid "GPL - the license"
-msgstr ""
+msgstr "GPL -licencia"
 
 #. WINDOW_EULA
 msgid "End User License Agreement"
-msgstr ""
+msgstr "Licenèná zmluva s koncovým pou¾ívateµom"
 
 #. WINDOW_INFO
 msgid "info"
 msgstr "informácie"
 
+#. WINDOW_LOAD_BATCH_LIST
+msgid "load batch list"
+msgstr ""
+
+#. WINDOW_SAVE_BATCH_LIST
+msgid "save batch list"
+msgstr ""
+
 #. WINDOW_BATCH_SCAN
 msgid "batch scan"
 msgstr "dávkové skenovanie"
+
+#. WINDOW_BATCH_RENAME
+#, fuzzy
+msgid "rename batch area"
+msgstr "Zmaza» stránku"
 
 #. WINDOW_FAX_PROJECT
 msgid "fax project"
@@ -193,7 +206,7 @@ msgstr "Ulo¾i» obrázok"
 
 #. MENU_ITEM_OCR
 msgid "OCR - save as text"
-msgstr ""
+msgstr "OCR - ulo¾i» ako text"
 
 #. MENU_ITEM_CLONE
 msgid "Clone"
@@ -223,9 +236,10 @@ msgstr "Pôvodný obrázok"
 msgid "Enhanced image"
 msgstr "Spracovaný obrázok"
 
-#. BUTTON_START
-msgid "Start"
-msgstr "©tart"
+#. BUTTON_SCAN
+#, fuzzy
+msgid "Scan"
+msgstr "Skenujem"
 
 #. BUTTON_OK
 msgid "Ok"
@@ -263,9 +277,15 @@ msgstr "Prechádza»"
 msgid "Overwrite"
 msgstr "Prepísa»"
 
-#. BUTTON_ADD_AREA
-msgid "Add area"
-msgstr "Prida» oblas»"
+#. BUTTON_BATCH_LIST_SCAN
+#, fuzzy
+msgid "Scan batch list"
+msgstr "Tipy pre skenovanie"
+
+#. BUTTON_BATCH_AREA_SCAN
+#, fuzzy
+msgid "Scan selected area"
+msgstr "Priblí¾i» zvolenú oblas»"
 
 #. BUTTON_PAGE_DELETE
 msgid "Delete page"
@@ -393,7 +413,7 @@ msgstr "POP3 autentifikácia"
 
 #. RADIO_BUTTON_OCR_USE_GUI_PIPE
 msgid "Use GUI progress pipe"
-msgstr ""
+msgstr "Pou¾i» GUI rúru postupu"
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
@@ -560,7 +580,6 @@ msgid "unknown"
 msgstr "neznámy"
 
 #. TEXT_EULA
-#, fuzzy
 msgid ""
 "XSane is distributed under the terms of the GNU General Public License\n"
 "as published by the Free Software Foundation; either version 2 of the\n"
@@ -578,10 +597,13 @@ msgstr ""
 "tak ako boli publikované Free Software Foundation, verzia 2 alebo \n"
 "(ak Vám to vyhovuje) akejkoµvek neskor¹ej verzie.\n"
 "\n"
-"Tento program je distribuovaný v nádeji, ¾e bude u¾itoèný, ale\n"
-"BEZ AKEJKO¥VEK GARANCIE; okrem implicitnej garancie,\n"
-"ktorá sa týka OBCHODOVATE¥NOSTI alebo VHODNOSTI\n"
-"PRE KONKRÉTNY ÚÈEL.\n"
+"Tento program je roz¹irovaný v nádeji, ¾e bude u¾itoèný, av¹ak\n"
+"BEZ AKEJKO¥VEK ZÁRUKY. Neposkytujú sa ani odvodené záruky\n"
+"PREDAJNOSTI alebo VHODNOSTI PRE URÈITÝ ÚÈEL.\n"
+"Program by mohol dokáza» ako defektný, a mali by ste preto prevzia»\n"
+"v¹etky nevyhnutné náklady na servis, opravu a nápravu. Aby ste\n"
+"mohli pou¾íva» tento program, musíte si preèíta» a akceptova» nasledujúcu\n"
+"zmluvu \"Neposkytovaní záruky\".\n"
 
 #. TEXT_GPL
 msgid ""
@@ -671,6 +693,45 @@ msgstr "Polomer pre vyèistenie:"
 #. TEXT_BLUR_RADIUS
 msgid "Blur radius:"
 msgstr "Polomer rozostrenia:"
+
+#. TEXT_BATCH_AREA_DEFAULT_NAME
+#, fuzzy
+msgid "(no name)"
+msgstr "(¾iadny)"
+
+#. TEXT_BATCH_LIST_AREANAME
+#, fuzzy
+msgid "Area name:"
+msgstr "Pou¾ívateµ :"
+
+#. TEXT_BATCH_LIST_SCANMODE
+#, fuzzy
+msgid "Scanmode:"
+msgstr "XSane re¾im"
+
+#. TEXT_BATCH_LIST_GEOMETRY_TL
+msgid "Top left:"
+msgstr ""
+
+#. TEXT_BATCH_LIST_GEOMETRY_SIZE
+#, fuzzy
+msgid "Size:"
+msgstr "Diapozitív"
+
+#. TEXT_BATCH_LIST_RESOLUTION
+#, fuzzy
+msgid "Resolution:"
+msgstr "Nastavenie prahu:"
+
+#. TEXT_BATCH_LIST_BIT_DEPTH
+#, fuzzy
+msgid "Bit depth:"
+msgstr "Vstupná gama håbka:"
+
+#. TEXT_BATCH_LIST_BY_GUI
+#, fuzzy
+msgid "as selected"
+msgstr "Priblí¾i» zvolenú oblas»"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -769,9 +830,8 @@ msgid "TIFF lineart image compression"
 msgstr "Kompresia èiarovej grafiky TIFF obrázka"
 
 #. TEXT_SETUP_SHOW_RANGE_MODE
-#, fuzzy
 msgid "Show range as:"
-msgstr "Zobrazi» stránku"
+msgstr "Zobrazi» rozsah ako:"
 
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
@@ -899,16 +959,15 @@ msgstr "Nastavenie výstupného súboru:"
 
 #. TEXT_SETUP_OCR_USE_GUI_PIPE_OPT
 msgid "Use GUI progress pipe:"
-msgstr ""
+msgstr "Pou¾i» GUI rúru postupu:"
 
 #. TEXT_SETUP_OCR_OUTFD_OPT
-#, fuzzy
 msgid "GUI output-fd option:"
-msgstr "Nastavenie výstupného súboru:"
+msgstr ""
 
 #. TEXT_SETUP_OCR_PROGRESS_KEYWORD
 msgid "Progress keyword:"
-msgstr ""
+msgstr "Kµúèové slová postupu:"
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
@@ -973,6 +1032,11 @@ msgstr "Zobrazi» histogram"
 #. MENU_ITEM_SHOW_GAMMA
 msgid "Show gamma curve"
 msgstr "Zobrazi» gama krivku"
+
+#. MENU_ITEM_SHOW_BATCH_SCAN
+#, fuzzy
+msgid "Show batch scan"
+msgstr "dávkové skenovanie"
 
 #. MENU_ITEM_SHOW_STANDARDOPTIONS
 msgid "Show standard options"
@@ -1040,11 +1104,11 @@ msgstr "Zmeni» prieèinok"
 
 #. MENU_ITEM_XSANE_EULA
 msgid "Show EULA"
-msgstr ""
+msgstr "Zobrazi» LZKP (EULA)"
 
 #. MENU_ITEM_XSANE_GPL
 msgid "Show license (GPL)"
-msgstr ""
+msgstr "Zobrazi» licenciu (GPL)"
 
 #. MENU_ITEM_XSANE_DOC
 msgid "XSane doc"
@@ -1096,23 +1160,23 @@ msgstr "bitová kompresia"
 
 #. MENU_ITEM_RANGE_SCALE
 msgid "Slider (Scale)"
-msgstr ""
+msgstr "Behúò (Mierka)"
 
 #. MENU_ITEM_RANGE_SCROLLBAR
 msgid "Slider (Scrollbar)"
-msgstr ""
+msgstr "Behúò (Posuvník)"
 
 #. MENU_ITEM_RANGE_SPINBUTTON
 msgid "Spinbutton"
-msgstr ""
+msgstr "Otoèné tlaèítko"
 
 #. MENU_ITEM_RANGE_SCALE_SPIN
 msgid "Scale and Spinbutton"
-msgstr ""
+msgstr "Mierka a otoèné tlaèítko"
 
 #. MENU_ITEM_RANGE_SCROLL_SPIN
 msgid "Scrollbar and Spinbutton"
-msgstr ""
+msgstr "Posuvník a otoèné tlaèítko"
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
 msgid "Standard options window (lineart)"
@@ -1205,7 +1269,7 @@ msgstr "Rozostrovanie obrázka"
 
 #. PROGRESS_OCR
 msgid "OCR in progress"
-msgstr ""
+msgstr "Vykonáva sa OCR"
 
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
@@ -1597,7 +1661,7 @@ msgstr "Pou¾i» vlastnú farebnú mapu pre náhµad, ak håbka zobrazenia je 8bpp"
 
 #. DESC_SHOW_RANGE_MODE
 msgid "Select how a range is displayed"
-msgstr ""
+msgstr "Zvoli» ako sa zobrazí rozsah"
 
 #. DESC_PREVIEW_OVERSAMPLING
 msgid "Value with that the calculated preview resolution is multiplied"
@@ -1775,17 +1839,17 @@ msgstr "Zadajte voµbu pre ocr program na definovanie výstupného súboru"
 
 #. DESC_OCR_USE_GUI_PIPE_OPT
 msgid "Define if the ocr program supports gui progress pipe"
-msgstr ""
+msgstr "Urèenie, èi ocr program podporuje gui rúru postupu"
 
 #. DESC_OCR_OUTFD_OPT
-#, fuzzy
 msgid ""
 "Enter option of the ocr program to define output filedescripor in GUI mode"
-msgstr "Zadajte voµbu pre ocr program na definovanie výstupného súboru"
+msgstr ""
 
 #. DESC_OCR_PROGRESS_KEYWORD
 msgid "Define Keyword that is used to mark progress information"
 msgstr ""
+"Urèenie Kµúèového slova, ktoré sa pou¾ije na oznaèenie informácií o postupe"
 
 #. DESC_PERMISSION_READ
 msgid "read"
@@ -1798,6 +1862,11 @@ msgstr "zápis"
 #. DESC_PERMISSION_EXECUTE
 msgid "execute"
 msgstr "spustenie"
+
+#. DESC_ADD_BATCH
+#, fuzzy
+msgid "Add selection for batch scan"
+msgstr "Prida» výber do zoznamu"
 
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
@@ -1822,7 +1891,7 @@ msgstr "Zmen¹enie o 20%"
 
 #. DESC_ZOOM_IN
 msgid "Click at position to zoom to"
-msgstr ""
+msgstr "Kliknite na pozíciu pre zväè¹enie na"
 
 #. DESC_ZOOM_AREA
 msgid "Zoom into selected area"
@@ -1841,9 +1910,8 @@ msgid "Autoselect scanarea"
 msgstr "Automatický výber skenovanej oblasti"
 
 #. DESC_AUTORAISE_SCANAREA
-#, fuzzy
 msgid "Autoraise scanarea"
-msgstr "Automatický výber skenovanej oblasti"
+msgstr "Automatické zvý¹enie skenovanej oblasti"
 
 #. DESC_DELETE_IMAGES
 msgid "Delete preview image cache"
@@ -1865,23 +1933,23 @@ msgstr "Optické rozpoznávanie textu"
 msgid "Clone image"
 msgstr "Duplikovanie obrázka"
 
-#. DESC_VIEWER_ROTATE90
+#. DESC_ROTATE90
 msgid "Rotate image 90 degree"
 msgstr "Otoèenie obrázka o 90 stupòov"
 
-#. DESC_VIEWER_ROTATE180
+#. DESC_ROTATE180
 msgid "Rotate image 180 degree"
 msgstr "Otoèenie obrázka o 180 stupòov"
 
-#. DESC_VIEWER_ROTATE270
+#. DESC_ROTATE270
 msgid "Rotate image 270 degree"
 msgstr "Otoèenie obrázka o 270 stupòov"
 
-#. DESC_VIEWER_MIRROR_X
+#. DESC_MIRROR_X
 msgid "Mirror image at vertical axis"
 msgstr "Zrkadli» obrázok okolo zvislej osy"
 
-#. DESC_VIEWER_MIRROR_Y
+#. DESC_MIRROR_Y
 msgid "Mirror image at horizontal axis"
 msgstr "Zrkadli» obrázok okolo vodorovnej osy"
 
@@ -1898,19 +1966,43 @@ msgid "Delete active medium"
 msgstr "Zmaza» aktívne médium"
 
 #. DESC_SCALE_FACTOR
-#, fuzzy
 msgid "Scale factor"
-msgstr "Faktor zmeny veµkosti Y:"
+msgstr "Faktor zmeny"
 
 #. DESC_X_SCALE_FACTOR
-#, fuzzy
 msgid "X-Scale factor"
-msgstr "Faktor zmeny veµkosti X:"
+msgstr "Faktor zmeny veµkosti X"
 
 #. DESC_Y_SCALE_FACTOR
-#, fuzzy
 msgid "Y-Scale factor"
-msgstr "Faktor zmeny veµkosti Y:"
+msgstr "Faktor zmeny veµkosti Y"
+
+#. DESC_BATCH_LIST_EMPTY
+#, fuzzy
+msgid "Empty batch list"
+msgstr "Tipy pre skenovanie"
+
+#. DESC_BATCH_LIST_SAVE
+msgid "Save batch list"
+msgstr ""
+
+#. DESC_BATCH_LIST_LOAD
+msgid "Load batch list"
+msgstr ""
+
+#. DESC_BATCH_RENAME
+#, fuzzy
+msgid "Rename area"
+msgstr "Premenova» stránku"
+
+#. DESC_BATCH_ADD
+#, fuzzy
+msgid "Add selected preview area to batch list"
+msgstr "Prida» výber do zoznamu"
+
+#. DESC_BATCH_DEL
+msgid "Delete selected area from batch list"
+msgstr ""
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2134,7 +2226,7 @@ msgstr "Informácie"
 
 #. ERR_HEADER_CHILD_PROCESS_ERROR
 msgid "Child process error"
-msgstr ""
+msgstr "Chyba detského procesu"
 
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
@@ -2294,19 +2386,19 @@ msgstr ""
 #. Menu path must not be translated, this is done by the gimp. Only translate the text behind the last "/"
 #. XSANE_GIMP_MENU_DIALOG
 msgid "<Toolbox>/File/Acquire/XSane: Device dialog..."
-msgstr "<Toolbox>/File/Acquire»/XSane: dialóg zariadenia..."
+msgstr "<Toolbox>/Súbor/Získa»/XSane: dialóg zariadenia..."
 
 #. XSANE_GIMP_MENU
 msgid "<Toolbox>/File/Acquire/XSane: "
-msgstr "<Toolbox>/File/Acquire»/XSane: "
+msgstr "<Toolbox>/Súbor/Získa»/XSane: "
 
 #. XSANE_GIMP_MENU_DIALOG_OLD
 msgid "<Toolbox>/Xtns/XSane/Device dialog..."
-msgstr "<Toolbox>/Xtns/XSane/Dialóg zariadenia..."
+msgstr "<Toolbox>/Extra/XSane/Dialóg zariadenia..."
 
 #. XSANE_GIMP_MENU_OLD
 msgid "<Toolbox>/Xtns/XSane/"
-msgstr "<Toolbox>/Xtns/XSane/"
+msgstr "<Toolbox>/Extra/XSane/"
 
 #. strings that are used in structures, so it is not allowed to use _()/gettext() here
 #. gettext_noop does mark these texts but does not change the string
@@ -2378,8 +2470,9 @@ msgstr "letter na vý¹ku"
 msgid "letter land."
 msgstr "letter na ¹írku"
 
-#. MENU_ITEM_MEDIUM_FULL_RANGE
-msgid "Full range"
+#. MENU_ITEM_MEDIUM_FULL_COLOR_RANGE
+#, fuzzy
+msgid "Full color range"
 msgstr "Celý rozsah"
 
 #. MENU_ITEM_MEDIUM_SLIDE
@@ -2476,9 +2569,3 @@ msgstr "Mimo pamäte"
 
 msgid "Access to resource has been denied"
 msgstr "Prístup k zdroju bol odmietnutý"
-
-#~ msgid "license"
-#~ msgstr "licencia"
-
-#~ msgid "License"
-#~ msgstr "Licencia"

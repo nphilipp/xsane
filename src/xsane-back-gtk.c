@@ -493,6 +493,95 @@ void xsane_back_gtk_set_option(int opt_num, void *val, SANE_Action action)
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
+int xsane_back_gtk_get_option_double(int option, double *val, SANE_Int *unit)
+/* return values: */
+/*  0 = OK */
+/* -1 = option number < 0 */
+/* -2 = failed to set option */
+{
+ const SANE_Option_Descriptor *opt;
+ SANE_Handle dev;
+ SANE_Word word;
+
+  DBG(DBG_proc, "xsane_back_gtk_get_option_double\n");
+
+  if (option <= 0)
+  {
+    return -1;
+  }
+
+  if (xsane_control_option(xsane.dev, option, SANE_ACTION_GET_VALUE, &word, 0) == SANE_STATUS_GOOD)
+  {
+    dev = xsane.dev;
+    opt = xsane_get_option_descriptor(dev, option);
+
+    if (unit)
+    {
+      *unit = opt->unit;
+    }
+
+    if (val)
+    {
+      if (opt->type == SANE_TYPE_FIXED)
+      {
+        *val = (float) word / 65536.0;
+      }
+      else
+      {
+        *val = (float) word;
+      }
+    }
+
+   return 0;
+  }
+  else if (val)
+  {
+    *val = 0;
+  }
+  return -2;
+}
+
+/* ----------------------------------------------------------------------------------------------------------------- */
+
+int xsane_back_gtk_set_option_double(int option, double value)
+{
+ const SANE_Option_Descriptor *opt;
+ SANE_Word word;
+
+  DBG(DBG_proc, "xsane_set_option_double\n");
+
+  if (option <= 0 || value <= -INF || value >= INF)
+  {
+    return -1;
+  }
+
+  opt = xsane_get_option_descriptor(xsane.dev, option);
+  if (opt)
+  {
+    if (opt->type == SANE_TYPE_FIXED)
+    {
+      word = SANE_FIX(value);
+    }
+    else
+    {
+      word = value + 0.5;
+    }
+
+    if (xsane_control_option(xsane.dev, option, SANE_ACTION_SET_VALUE, &word, 0))
+    {
+      return -2;
+    }
+  }
+  else
+  {
+    return -1;
+  }
+
+ return 0;
+}
+
+/* ----------------------------------------------------------------------------------------------------------------- */
+
 void xsane_back_gtk_close_dialog_callback(GtkWidget * widget, gpointer data)
 {
   DBG(DBG_proc, "xsane_back_gtk_close_dialog_callback\n");
@@ -1354,6 +1443,11 @@ void xsane_back_gtk_range_new(GtkWidget * parent, const char *name, gfloat val,
     digits = (int) (log10(1/quant)+0.8); /* set number of digits in dependacne of quantization */
   }
 
+  if (digits < 0)
+  {
+    digits = 0;
+  }
+
   hbox = gtk_hbox_new(FALSE, 2);
   gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
   gtk_box_pack_start(GTK_BOX(parent), hbox, FALSE, FALSE, 0);
@@ -1386,6 +1480,12 @@ void xsane_back_gtk_range_new(GtkWidget * parent, const char *name, gfloat val,
   /* spinbutton */
   if (preferences.show_range_mode & 4)
   {
+#ifndef HAVE_GTK2
+    if (digits > 5)
+    {
+      digits = 5;
+    }
+#endif
     spinbutton = gtk_spin_button_new(GTK_ADJUSTMENT(elem->data), 0, digits);
 
     if (preferences.show_range_mode & 3) /* slider also visible */
@@ -1569,7 +1669,7 @@ static void xsane_back_gtk_text_entry_callback(GtkWidget *w, gpointer data)
 {
  GSGDialogElement *elem = data;
  const SANE_Option_Descriptor *opt;
- gchar *text;
+ const gchar *text;
  int opt_num;
  char *buf;
 
@@ -2004,6 +2104,12 @@ void xsane_set_sensitivity(SANE_Int sensitivity)
   if (xsane.fax_dialog)
   {
     gtk_widget_set_sensitive(xsane.fax_dialog, sensitivity);
+  }
+
+  if (xsane.batch_scan_dialog)
+  {
+    gtk_widget_set_sensitive(xsane.batch_scan_button_box, sensitivity);
+    gtk_widget_set_sensitive(xsane.batch_scan_action_box, sensitivity);
   }
 
 #if 0

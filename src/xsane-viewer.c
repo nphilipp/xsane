@@ -1401,17 +1401,17 @@ Viewer *xsane_viewer_new(char *filename, int reduce_to_lineart, char *output_fil
   gtk_box_pack_start(GTK_BOX(vbox), v->button_box, FALSE, FALSE, 0);
   gtk_widget_show(v->button_box);
 
-  v->save      = xsane_button_new_with_pixmap(v->top->window, v->button_box, file_xpm,      DESC_VIEWER_SAVE,      (GtkSignalFunc) xsane_viewer_save_callback, v);
+  v->save      = xsane_button_new_with_pixmap(v->top->window, v->button_box, save_xpm,      DESC_VIEWER_SAVE,      (GtkSignalFunc) xsane_viewer_save_callback, v);
   v->ocr       = xsane_button_new_with_pixmap(v->top->window, v->button_box, ocr_xpm,       DESC_VIEWER_OCR,       (GtkSignalFunc) xsane_viewer_ocr_callback, v);
   v->clone     = xsane_button_new_with_pixmap(v->top->window, v->button_box, clone_xpm,     DESC_VIEWER_CLONE,     (GtkSignalFunc) xsane_viewer_clone_callback, v);
   v->scale     = xsane_button_new_with_pixmap(v->top->window, v->button_box, scale_xpm,     DESC_VIEWER_SCALE,     (GtkSignalFunc) xsane_viewer_scale_callback, v);
   v->despeckle = xsane_button_new_with_pixmap(v->top->window, v->button_box, despeckle_xpm, DESC_VIEWER_DESPECKLE, (GtkSignalFunc) xsane_viewer_despeckle_callback, v);
   v->blur      = xsane_button_new_with_pixmap(v->top->window, v->button_box, blur_xpm,      DESC_VIEWER_BLUR,      (GtkSignalFunc) xsane_viewer_blur_callback, v);
-  v->rotate90  = xsane_button_new_with_pixmap(v->top->window, v->button_box, rotate90_xpm,  DESC_VIEWER_ROTATE90,  (GtkSignalFunc) xsane_viewer_rotate90_callback, v);
-  v->rotate180 = xsane_button_new_with_pixmap(v->top->window, v->button_box, rotate180_xpm, DESC_VIEWER_ROTATE180, (GtkSignalFunc) xsane_viewer_rotate180_callback, v);
-  v->rotate270 = xsane_button_new_with_pixmap(v->top->window, v->button_box, rotate270_xpm, DESC_VIEWER_ROTATE270, (GtkSignalFunc) xsane_viewer_rotate270_callback, v);
-  v->mirror_x  = xsane_button_new_with_pixmap(v->top->window, v->button_box, mirror_x_xpm,  DESC_VIEWER_MIRROR_X,  (GtkSignalFunc) xsane_viewer_mirror_x_callback, v);
-  v->mirror_y  = xsane_button_new_with_pixmap(v->top->window, v->button_box, mirror_y_xpm,  DESC_VIEWER_MIRROR_Y,  (GtkSignalFunc) xsane_viewer_mirror_y_callback, v);
+  v->rotate90  = xsane_button_new_with_pixmap(v->top->window, v->button_box, rotate90_xpm,  DESC_ROTATE90,         (GtkSignalFunc) xsane_viewer_rotate90_callback, v);
+  v->rotate180 = xsane_button_new_with_pixmap(v->top->window, v->button_box, rotate180_xpm, DESC_ROTATE180,        (GtkSignalFunc) xsane_viewer_rotate180_callback, v);
+  v->rotate270 = xsane_button_new_with_pixmap(v->top->window, v->button_box, rotate270_xpm, DESC_ROTATE270,        (GtkSignalFunc) xsane_viewer_rotate270_callback, v);
+  v->mirror_x  = xsane_button_new_with_pixmap(v->top->window, v->button_box, mirror_x_xpm,  DESC_MIRROR_X,         (GtkSignalFunc) xsane_viewer_mirror_x_callback, v);
+  v->mirror_y  = xsane_button_new_with_pixmap(v->top->window, v->button_box, mirror_y_xpm,  DESC_MIRROR_Y,         (GtkSignalFunc) xsane_viewer_mirror_y_callback, v);
 
 
   /* "Zoom" submenu: */

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.84\n"
-"POT-Creation-Date: 2002-06-30 19:11+0200\n"
+"POT-Creation-Date: 2002-09-13 08:34+0200\n"
 "PO-Revision-Date: 2000-09-29  23:48+0100\n"
 "Last-Translator: Colorio Mauro <linuxbox@interfree.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -47,9 +47,22 @@ msgstr ""
 msgid "info"
 msgstr "info"
 
+#. WINDOW_LOAD_BATCH_LIST
+msgid "load batch list"
+msgstr ""
+
+#. WINDOW_SAVE_BATCH_LIST
+msgid "save batch list"
+msgstr ""
+
 #. WINDOW_BATCH_SCAN
 msgid "batch scan"
 msgstr "scan automatico"
+
+#. WINDOW_BATCH_RENAME
+#, fuzzy
+msgid "rename batch area"
+msgstr "Cancella progetto"
 
 #. WINDOW_FAX_PROJECT
 msgid "fax project"
@@ -239,9 +252,10 @@ msgstr "Immagine Raw"
 msgid "Enhanced image"
 msgstr "Immagine accentuata"
 
-#. BUTTON_START
-msgid "Start"
-msgstr "Avvio"
+#. BUTTON_SCAN
+#, fuzzy
+msgid "Scan"
+msgstr "Acquisizione"
 
 #. BUTTON_OK
 msgid "Ok"
@@ -279,9 +293,15 @@ msgstr "Naviga"
 msgid "Overwrite"
 msgstr "Sovra scrivi"
 
-#. BUTTON_ADD_AREA
-msgid "Add area"
-msgstr "Aggiungi area"
+#. BUTTON_BATCH_LIST_SCAN
+#, fuzzy
+msgid "Scan batch list"
+msgstr "Scantips"
+
+#. BUTTON_BATCH_AREA_SCAN
+#, fuzzy
+msgid "Scan selected area"
+msgstr "Ingrandisce nell'area selezionata"
 
 #. BUTTON_PAGE_DELETE
 #, fuzzy
@@ -681,6 +701,45 @@ msgstr "Cancella progetto"
 msgid "Blur radius:"
 msgstr ""
 
+#. TEXT_BATCH_AREA_DEFAULT_NAME
+#, fuzzy
+msgid "(no name)"
+msgstr "nessuno"
+
+#. TEXT_BATCH_LIST_AREANAME
+#, fuzzy
+msgid "Area name:"
+msgstr "Utente :"
+
+#. TEXT_BATCH_LIST_SCANMODE
+#, fuzzy
+msgid "Scanmode:"
+msgstr "Modo XSane"
+
+#. TEXT_BATCH_LIST_GEOMETRY_TL
+msgid "Top left:"
+msgstr ""
+
+#. TEXT_BATCH_LIST_GEOMETRY_SIZE
+#, fuzzy
+msgid "Size:"
+msgstr "File:"
+
+#. TEXT_BATCH_LIST_RESOLUTION
+#, fuzzy
+msgid "Resolution:"
+msgstr "Opzione soglia:"
+
+#. TEXT_BATCH_LIST_BIT_DEPTH
+#, fuzzy
+msgid "Bit depth:"
+msgstr "Profondità gamma input:"
+
+#. TEXT_BATCH_LIST_BY_GUI
+#, fuzzy
+msgid "as selected"
+msgstr "Ingrandisce nell'area selezionata"
+
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
 msgstr "Selezione stampante:"
@@ -997,6 +1056,11 @@ msgstr "Visulizza istogramma"
 #. MENU_ITEM_SHOW_GAMMA
 msgid "Show gamma curve"
 msgstr "Visualizza curva gamma"
+
+#. MENU_ITEM_SHOW_BATCH_SCAN
+#, fuzzy
+msgid "Show batch scan"
+msgstr "scan automatico"
 
 #. MENU_ITEM_SHOW_STANDARDOPTIONS
 msgid "Show standard options"
@@ -1875,6 +1939,10 @@ msgstr "Sovra scrivi"
 msgid "execute"
 msgstr "Cancella"
 
+#. DESC_ADD_BATCH
+msgid "Add selection for batch scan"
+msgstr ""
+
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
 msgstr "Prende un punto bianco"
@@ -1945,24 +2013,24 @@ msgstr ""
 msgid "Clone image"
 msgstr "Cancella progetto"
 
-#. DESC_VIEWER_ROTATE90
+#. DESC_ROTATE90
 #, fuzzy
 msgid "Rotate image 90 degree"
 msgstr "Salvataggio immagine"
 
-#. DESC_VIEWER_ROTATE180
+#. DESC_ROTATE180
 msgid "Rotate image 180 degree"
 msgstr ""
 
-#. DESC_VIEWER_ROTATE270
+#. DESC_ROTATE270
 msgid "Rotate image 270 degree"
 msgstr ""
 
-#. DESC_VIEWER_MIRROR_X
+#. DESC_MIRROR_X
 msgid "Mirror image at vertical axis"
 msgstr ""
 
-#. DESC_VIEWER_MIRROR_Y
+#. DESC_MIRROR_Y
 msgid "Mirror image at horizontal axis"
 msgstr ""
 
@@ -1995,6 +2063,33 @@ msgstr "Impostare il fattore di zoom"
 #, fuzzy
 msgid "Y-Scale factor"
 msgstr "Impostare il fattore di zoom"
+
+#. DESC_BATCH_LIST_EMPTY
+#, fuzzy
+msgid "Empty batch list"
+msgstr "Scantips"
+
+#. DESC_BATCH_LIST_SAVE
+msgid "Save batch list"
+msgstr ""
+
+#. DESC_BATCH_LIST_LOAD
+msgid "Load batch list"
+msgstr ""
+
+#. DESC_BATCH_RENAME
+#, fuzzy
+msgid "Rename area"
+msgstr "rinomina pagina fax"
+
+#. DESC_BATCH_ADD
+#, fuzzy
+msgid "Add selected preview area to batch list"
+msgstr "Preserva immagine anteprima"
+
+#. DESC_BATCH_DEL
+msgid "Delete selected area from batch list"
+msgstr ""
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2463,8 +2558,8 @@ msgstr "Cancella progetto"
 msgid "letter land."
 msgstr ""
 
-#. MENU_ITEM_MEDIUM_FULL_RANGE
-msgid "Full range"
+#. MENU_ITEM_MEDIUM_FULL_COLOR_RANGE
+msgid "Full color range"
 msgstr ""
 
 #. MENU_ITEM_MEDIUM_SLIDE
@@ -2562,98 +2657,3 @@ msgstr "Memoria esaurita"
 
 msgid "Access to resource has been denied"
 msgstr "Acesso alla risorsa negato"
-
-#, fuzzy
-#~ msgid "license"
-#~ msgstr "pollici"
-
-#, fuzzy
-#~ msgid "License"
-#~ msgstr "pollici"
-
-#, fuzzy
-#~ msgid "Store Medium definition"
-#~ msgstr "Selezionare la definizione da cambiare"
-
-#, fuzzy
-#~ msgid ""
-#~ "Use XSane for: SCANning-<Ctrl-s> photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>"
-#~ msgstr "Usare XSane per acquisizioni, fotocopie , fax..."
-
-#, fuzzy
-#~ msgid "Width of paper for postscript"
-#~ msgstr "Larghezza della carta per postscript [mm]:"
-
-#, fuzzy
-#~ msgid "Height of paper for postscript"
-#~ msgstr "Altezza della carta per postscript [mm]:"
-
-#, fuzzy
-#~ msgid "Left offset for postscript"
-#~ msgstr "Margine sinistro per postscript [mm]:"
-
-#, fuzzy
-#~ msgid "Bottom offset for postscript"
-#~ msgstr "Margine inferiore per postscript [mm]:"
-
-#, fuzzy
-#~ msgid "Failed to execute mail command:"
-#~ msgstr "Errore nell'esecuzione del comando fax:"
-
-#~ msgid "Copy options"
-#~ msgstr "Copia opzioni"
-
-#~ msgid "Saving options"
-#~ msgstr "Salva opzioni"
-
-#, fuzzy
-#~ msgid "Image options"
-#~ msgstr "Opzioni XSane"
-
-#~ msgid "Fax options"
-#~ msgstr "Opzioni Fax"
-
-#, fuzzy
-#~ msgid "Reduce scan area"
-#~ msgstr "Usa tutta l'area di scan"
-
-#~ msgid ""
-#~ "This program is distributed under the terms\n"
-#~ "of the GNU General Public License\n"
-#~ msgstr ""
-#~ "Questo programma viene distribuito sotto \n"
-#~ "la GNU General Public License (GPL)\n"
-
-#~ msgid "Delete"
-#~ msgstr "Cancella"
-
-#~ msgid "Rename"
-#~ msgstr "Rinomina"
-
-#~ msgid "Increase filename counter"
-#~ msgstr "Incrementa contatore nome file"
-
-#~ msgid ""
-#~ "If the filename is of the form \"name-001.ext\" (where the number of "
-#~ "digits is free) the number is increased after a scan is finished"
-#~ msgstr ""
-#~ "Se il nome file è nella forma \"name-001.ext\" (dove il numero di cifre "
-#~ "è\n"
-#~ "libero) il numero è incrementato dopo che l'aquisizione è terminata"
-
-#~ msgid "Filename extension and type of image format"
-#~ msgstr "Estensione file e tipo formato dell'immagine"
-
-#, fuzzy
-#~ msgid "Filename counter step"
-#~ msgstr "Contatore dei nome file troppo grande"
-
-#~ msgid "Exit"
-#~ msgstr "Esci"
-
-#~ msgid "Device options"
-#~ msgstr "Opzioni dispositivo"
-
-#~ msgid "Preserve preview image for next program start"
-#~ msgstr ""
-#~ "Preserva l'immagine di anteprima per il prossimo avvio del programma"

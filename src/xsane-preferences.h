@@ -143,6 +143,7 @@ typedef struct
     int    tooltips_enabled;		/* should tooltips be disabled? */
     int    show_histogram;		/* show histogram ? */
     int    show_gamma;			/* show gamma curve ? */
+    int    show_batch_scan;		/* show batch scan dialog ? */
     int    show_standard_options;	/* show standard options ? */
     int    show_advanced_options;	/* show advanced options ? */
     int    show_resolution_list;	/* show resolution list instead of slider ? */

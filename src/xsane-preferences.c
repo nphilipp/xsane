@@ -98,11 +98,12 @@ Preferences preferences =
        4,		/* filename_counter_len */
        6,		/* show_range_mode */
        1,		/* tooltips enabled */
-       1,		/* (dont) show histogram */
-       1,		/* (dont) show gamma */
-       1,		/* (dont) show standard options */
-       0,		/* (dont) show advanced options */
-       0,		/* (dont) show resolution list */
+       1,		/* show histogram */
+       1,		/* show gamma */
+       0,		/* don't show batch scan */
+       1,		/* show standard options */
+       0,		/* don`t show advanced options */
+       0,		/* don`t show resolution list */
       10.0,		/* length unit */
        1,		/* main window fixed (1) or scrolled (0) */
        0,		/* preview_own_cmap */
@@ -199,6 +200,7 @@ desc[] =
     {"tool-tips",			xsane_rc_pref_int,	POFFSET(tooltips_enabled)},
     {"show-histogram",			xsane_rc_pref_int,	POFFSET(show_histogram)},
     {"show-gamma",			xsane_rc_pref_int,	POFFSET(show_gamma)},
+    {"show-batch-scan",			xsane_rc_pref_int,	POFFSET(show_batch_scan)},
     {"show-standard-options",		xsane_rc_pref_int,	POFFSET(show_standard_options)},
     {"show-advanced-options",		xsane_rc_pref_int,	POFFSET(show_advanced_options)},
     {"show-resolution-list",		xsane_rc_pref_int,	POFFSET(show_resolution_list)},

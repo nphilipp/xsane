@@ -477,7 +477,7 @@ gint xsane_authorization_callback(SANE_String_Const resource,
  GtkWidget *authorize_dialog, *vbox, *hbox, *button, *label;
  GtkWidget *username_widget, *password_widget;
  char buf[SANE_MAX_PASSWORD_LEN+SANE_MAX_USERNAME_LEN+128];
- char *input;
+ const gchar *input;
  char *resource_string;
  int len;
  int resource_len;
@@ -2187,7 +2187,7 @@ int xsane_display_gpl(void)
 void xsane_window_get_position(GtkWidget *gtk_window, gint *x, gint *y)
 {
 #ifdef HAVE_GTK2
-  gtk_window_get_position(gtk_window, x, y);
+  gtk_window_get_position(GTK_WINDOW(gtk_window), x, y);
 #else
   if (xsane.get_deskrelative_origin)
   {

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.87\n"
-"POT-Creation-Date: 2002-06-30 19:11+0200\n"
+"POT-Creation-Date: 2002-09-13 08:34+0200\n"
 "PO-Revision-Date: 2001-11-11 21:30+01:00\n"
 "Last-Translator: Johan Bengtsson <johanb@lls.se>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,9 +47,22 @@ msgstr "Licensavtal för slutanvändare"
 msgid "info"
 msgstr "info"
 
+#. WINDOW_LOAD_BATCH_LIST
+msgid "load batch list"
+msgstr ""
+
+#. WINDOW_SAVE_BATCH_LIST
+msgid "save batch list"
+msgstr ""
+
 #. WINDOW_BATCH_SCAN
 msgid "batch scan"
 msgstr "massinläsning"
+
+#. WINDOW_BATCH_RENAME
+#, fuzzy
+msgid "rename batch area"
+msgstr "Ta bort sida"
 
 #. WINDOW_FAX_PROJECT
 msgid "fax project"
@@ -223,9 +236,10 @@ msgstr "Obearbetad bild"
 msgid "Enhanced image"
 msgstr "Bearbetad bild"
 
-#. BUTTON_START
-msgid "Start"
-msgstr "Starta"
+#. BUTTON_SCAN
+#, fuzzy
+msgid "Scan"
+msgstr "Läser in"
 
 #. BUTTON_OK
 msgid "Ok"
@@ -263,9 +277,15 @@ msgstr "Bläddra"
 msgid "Overwrite"
 msgstr "Skriv över"
 
-#. BUTTON_ADD_AREA
-msgid "Add area"
-msgstr "Lägg till område"
+#. BUTTON_BATCH_LIST_SCAN
+#, fuzzy
+msgid "Scan batch list"
+msgstr "Bildinläsningstips"
+
+#. BUTTON_BATCH_AREA_SCAN
+#, fuzzy
+msgid "Scan selected area"
+msgstr "Zooma in det markerade området"
 
 #. BUTTON_PAGE_DELETE
 msgid "Delete page"
@@ -673,6 +693,45 @@ msgstr "Avdammningsradie:"
 msgid "Blur radius:"
 msgstr "Suddradie:"
 
+#. TEXT_BATCH_AREA_DEFAULT_NAME
+#, fuzzy
+msgid "(no name)"
+msgstr "(ingen)"
+
+#. TEXT_BATCH_LIST_AREANAME
+#, fuzzy
+msgid "Area name:"
+msgstr "Användarnamn:"
+
+#. TEXT_BATCH_LIST_SCANMODE
+#, fuzzy
+msgid "Scanmode:"
+msgstr "XSane-läge"
+
+#. TEXT_BATCH_LIST_GEOMETRY_TL
+msgid "Top left:"
+msgstr ""
+
+#. TEXT_BATCH_LIST_GEOMETRY_SIZE
+#, fuzzy
+msgid "Size:"
+msgstr "Linje"
+
+#. TEXT_BATCH_LIST_RESOLUTION
+#, fuzzy
+msgid "Resolution:"
+msgstr "Inställning av högkvalitetsläge:"
+
+#. TEXT_BATCH_LIST_BIT_DEPTH
+#, fuzzy
+msgid "Bit depth:"
+msgstr "Gammainmatningsdjup:"
+
+#. TEXT_BATCH_LIST_BY_GUI
+#, fuzzy
+msgid "as selected"
+msgstr "Zooma in det markerade området"
+
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
 msgstr "Välj skrivare:"
@@ -972,6 +1031,11 @@ msgstr "Visa histogram"
 #. MENU_ITEM_SHOW_GAMMA
 msgid "Show gamma curve"
 msgstr "Visa gammavärdeskurva"
+
+#. MENU_ITEM_SHOW_BATCH_SCAN
+#, fuzzy
+msgid "Show batch scan"
+msgstr "massinläsning"
 
 #. MENU_ITEM_SHOW_STANDARDOPTIONS
 msgid "Show standard options"
@@ -1799,6 +1863,11 @@ msgstr "skriv"
 msgid "execute"
 msgstr "exekvera"
 
+#. DESC_ADD_BATCH
+#, fuzzy
+msgid "Add selection for batch scan"
+msgstr "Lägg till utvalt område i listan"
+
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
 msgstr "Välj vitpunkt"
@@ -1864,23 +1933,23 @@ msgstr "Optisk Tecken Igenkännande"
 msgid "Clone image"
 msgstr "Klona bild"
 
-#. DESC_VIEWER_ROTATE90
+#. DESC_ROTATE90
 msgid "Rotate image 90 degree"
 msgstr "Rotera bild 90 grader"
 
-#. DESC_VIEWER_ROTATE180
+#. DESC_ROTATE180
 msgid "Rotate image 180 degree"
 msgstr "Rotera bild 180 grader"
 
-#. DESC_VIEWER_ROTATE270
+#. DESC_ROTATE270
 msgid "Rotate image 270 degree"
 msgstr "Rotera bild 270 grader"
 
-#. DESC_VIEWER_MIRROR_X
+#. DESC_MIRROR_X
 msgid "Mirror image at vertical axis"
 msgstr "Spegla bild vid vertikal axel"
 
-#. DESC_VIEWER_MIRROR_Y
+#. DESC_MIRROR_Y
 msgid "Mirror image at horizontal axis"
 msgstr "Spegla bild vid horisontell axel"
 
@@ -1907,6 +1976,33 @@ msgstr "X-skale fakor"
 #. DESC_Y_SCALE_FACTOR
 msgid "Y-Scale factor"
 msgstr "Y-Skale faktor"
+
+#. DESC_BATCH_LIST_EMPTY
+#, fuzzy
+msgid "Empty batch list"
+msgstr "Bildinläsningstips"
+
+#. DESC_BATCH_LIST_SAVE
+msgid "Save batch list"
+msgstr ""
+
+#. DESC_BATCH_LIST_LOAD
+msgid "Load batch list"
+msgstr ""
+
+#. DESC_BATCH_RENAME
+#, fuzzy
+msgid "Rename area"
+msgstr "Byt namn på sida"
+
+#. DESC_BATCH_ADD
+#, fuzzy
+msgid "Add selected preview area to batch list"
+msgstr "Lägg till utvalt område i listan"
+
+#. DESC_BATCH_DEL
+msgid "Delete selected area from batch list"
+msgstr ""
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2372,8 +2468,9 @@ msgstr "letter portr."
 msgid "letter land."
 msgstr "letter landsk."
 
-#. MENU_ITEM_MEDIUM_FULL_RANGE
-msgid "Full range"
+#. MENU_ITEM_MEDIUM_FULL_COLOR_RANGE
+#, fuzzy
+msgid "Full color range"
 msgstr "Fullt omfång"
 
 #. MENU_ITEM_MEDIUM_SLIDE

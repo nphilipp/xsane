@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.84\n"
-"POT-Creation-Date: 2002-06-30 19:11+0200\n"
+"POT-Creation-Date: 2002-09-13 08:34+0200\n"
 "PO-Revision-Date: 2001-02-25 14:06+01:00\n"
 "Last-Translator: Ales Kosir <ales.kosir@lugos.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -48,9 +48,22 @@ msgstr ""
 msgid "info"
 msgstr "podatki"
 
+#. WINDOW_LOAD_BATCH_LIST
+msgid "load batch list"
+msgstr ""
+
+#. WINDOW_SAVE_BATCH_LIST
+msgid "save batch list"
+msgstr ""
+
 #. WINDOW_BATCH_SCAN
 msgid "batch scan"
 msgstr "paketno skeniranje"
+
+#. WINDOW_BATCH_RENAME
+#, fuzzy
+msgid "rename batch area"
+msgstr "Zbri¹i projekt"
 
 #. WINDOW_FAX_PROJECT
 msgid "fax project"
@@ -238,9 +251,10 @@ msgstr "Surova slika"
 msgid "Enhanced image"
 msgstr "Obdelana slika"
 
-#. BUTTON_START
-msgid "Start"
-msgstr "Zagon"
+#. BUTTON_SCAN
+#, fuzzy
+msgid "Scan"
+msgstr "Skeniram"
 
 #. BUTTON_OK
 msgid "Ok"
@@ -278,9 +292,15 @@ msgstr "Brskaj"
 msgid "Overwrite"
 msgstr "Prepi¹i"
 
-#. BUTTON_ADD_AREA
-msgid "Add area"
-msgstr "Dodaj obmoèje"
+#. BUTTON_BATCH_LIST_SCAN
+#, fuzzy
+msgid "Scan batch list"
+msgstr "Namigi za skeniranje"
+
+#. BUTTON_BATCH_AREA_SCAN
+#, fuzzy
+msgid "Scan selected area"
+msgstr "Pribli¾aj izbrano obmoèje"
 
 #. BUTTON_PAGE_DELETE
 #, fuzzy
@@ -679,6 +699,45 @@ msgstr "Zbri¹i projekt"
 msgid "Blur radius:"
 msgstr ""
 
+#. TEXT_BATCH_AREA_DEFAULT_NAME
+#, fuzzy
+msgid "(no name)"
+msgstr "(nobeno)"
+
+#. TEXT_BATCH_LIST_AREANAME
+#, fuzzy
+msgid "Area name:"
+msgstr "Uporabnik:"
+
+#. TEXT_BATCH_LIST_SCANMODE
+#, fuzzy
+msgid "Scanmode:"
+msgstr "Naèin delovanja XSane"
+
+#. TEXT_BATCH_LIST_GEOMETRY_TL
+msgid "Top left:"
+msgstr ""
+
+#. TEXT_BATCH_LIST_GEOMETRY_SIZE
+#, fuzzy
+msgid "Size:"
+msgstr "Datoteka:"
+
+#. TEXT_BATCH_LIST_RESOLUTION
+#, fuzzy
+msgid "Resolution:"
+msgstr "Izbira praga:"
+
+#. TEXT_BATCH_LIST_BIT_DEPTH
+#, fuzzy
+msgid "Bit depth:"
+msgstr "Globina vhoda gama:"
+
+#. TEXT_BATCH_LIST_BY_GUI
+#, fuzzy
+msgid "as selected"
+msgstr "Pribli¾aj izbrano obmoèje"
+
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
 msgstr "Izbrani tiskalnik:"
@@ -993,6 +1052,11 @@ msgstr "Prika¾i histogram"
 #. MENU_ITEM_SHOW_GAMMA
 msgid "Show gamma curve"
 msgstr "Prika¾i krivuljo gama"
+
+#. MENU_ITEM_SHOW_BATCH_SCAN
+#, fuzzy
+msgid "Show batch scan"
+msgstr "paketno skeniranje"
 
 #. MENU_ITEM_SHOW_STANDARDOPTIONS
 msgid "Show standard options"
@@ -1845,6 +1909,10 @@ msgstr "pisljiva"
 msgid "execute"
 msgstr "izvedljiva"
 
+#. DESC_ADD_BATCH
+msgid "Add selection for batch scan"
+msgstr ""
+
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
 msgstr "Izberite toèko v beli barvi"
@@ -1914,24 +1982,24 @@ msgstr ""
 msgid "Clone image"
 msgstr "Zbri¹i projekt"
 
-#. DESC_VIEWER_ROTATE90
+#. DESC_ROTATE90
 #, fuzzy
 msgid "Rotate image 90 degree"
 msgstr "Suèem sliko"
 
-#. DESC_VIEWER_ROTATE180
+#. DESC_ROTATE180
 msgid "Rotate image 180 degree"
 msgstr ""
 
-#. DESC_VIEWER_ROTATE270
+#. DESC_ROTATE270
 msgid "Rotate image 270 degree"
 msgstr ""
 
-#. DESC_VIEWER_MIRROR_X
+#. DESC_MIRROR_X
 msgid "Mirror image at vertical axis"
 msgstr ""
 
-#. DESC_VIEWER_MIRROR_Y
+#. DESC_MIRROR_Y
 msgid "Mirror image at horizontal axis"
 msgstr ""
 
@@ -1964,6 +2032,33 @@ msgstr "Nastavitev stopnje poveèave"
 #, fuzzy
 msgid "Y-Scale factor"
 msgstr "Nastavitev stopnje poveèave"
+
+#. DESC_BATCH_LIST_EMPTY
+#, fuzzy
+msgid "Empty batch list"
+msgstr "Namigi za skeniranje"
+
+#. DESC_BATCH_LIST_SAVE
+msgid "Save batch list"
+msgstr ""
+
+#. DESC_BATCH_LIST_LOAD
+msgid "Load batch list"
+msgstr ""
+
+#. DESC_BATCH_RENAME
+#, fuzzy
+msgid "Rename area"
+msgstr "preimenuj stran s faksom"
+
+#. DESC_BATCH_ADD
+#, fuzzy
+msgid "Add selected preview area to batch list"
+msgstr "Zasuèi preodgled in sliko"
+
+#. DESC_BATCH_DEL
+msgid "Delete selected area from batch list"
+msgstr ""
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2437,8 +2532,8 @@ msgstr "vzdol¾no pisemsko"
 msgid "letter land."
 msgstr "preèno pisemsko"
 
-#. MENU_ITEM_MEDIUM_FULL_RANGE
-msgid "Full range"
+#. MENU_ITEM_MEDIUM_FULL_COLOR_RANGE
+msgid "Full color range"
 msgstr ""
 
 #. MENU_ITEM_MEDIUM_SLIDE
@@ -2539,72 +2634,3 @@ msgstr "Zmanjkalo je pomnilnika"
 
 msgid "Access to resource has been denied"
 msgstr "Dostop do vira je ni dovoljen."
-
-#, fuzzy
-#~ msgid "license"
-#~ msgstr "palci"
-
-#, fuzzy
-#~ msgid "License"
-#~ msgstr "palci"
-
-#, fuzzy
-#~ msgid "Store Medium definition"
-#~ msgstr "Izbor tiskalnika za prilagoditev"
-
-#, fuzzy
-#~ msgid ""
-#~ "Use XSane for: SCANning-<Ctrl-s> photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>"
-#~ msgstr "Uporabi XSane za skeniranje, fotokopiranje, faksiranje..."
-
-#, fuzzy
-#~ msgid "Width of paper for postscript"
-#~ msgstr "©irina papirja za zapis postscript [mm]:"
-
-#, fuzzy
-#~ msgid "Height of paper for postscript"
-#~ msgstr "Vi¹ina papirja za zapis postscript [mm]:"
-
-#, fuzzy
-#~ msgid "Left offset for postscript"
-#~ msgstr "Levi odmik pri zapisu postscript [mm]:"
-
-#, fuzzy
-#~ msgid "Bottom offset for postscript"
-#~ msgstr "Spodnji odmik pri zapisu postscript [mm]:"
-
-#, fuzzy
-#~ msgid "Failed to execute mail command:"
-#~ msgstr "Napaka pri zagonu ukaza za faskiranje:"
-
-#~ msgid "Copy options"
-#~ msgstr "Izbire pri prepisovanju"
-
-#~ msgid "Saving options"
-#~ msgstr "Shranjujem izbire"
-
-#, fuzzy
-#~ msgid "Image options"
-#~ msgstr "Izbire XSane"
-
-#~ msgid "Fax options"
-#~ msgstr "Nastavitve faksa"
-
-#~ msgid "Reduce scan area"
-#~ msgstr "Zmanj¹aj obmoèje skeniranja"
-
-#~ msgid "©"
-#~ msgstr "(C)"
-
-#~ msgid "Delete"
-#~ msgstr "Zbri¹i"
-
-#~ msgid "Rename"
-#~ msgstr "Preimenuj"
-
-#~ msgid ""
-#~ "This program is distributed under the terms\n"
-#~ "of the GNU General Public License\n"
-#~ msgstr ""
-#~ "Program se raz¹irja pod pogoji,\n"
-#~ "ki jih doloèa splo¹no dovoljenje za uporabo GNU General Public License\n"

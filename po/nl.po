@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.87\n"
-"POT-Creation-Date: 2002-06-30 19:11+0200\n"
+"POT-Creation-Date: 2002-09-13 08:34+0200\n"
 "PO-Revision-Date: 2002-07-04 10:55+0100\n"
 "Last-Translator: Wim Sinke <sinke@wirehub.nl>\n"
 "MIME-Version: 1.0\n"
@@ -46,10 +46,23 @@ msgstr "Eindgebruikersovereenkomst"
 msgid "info"
 msgstr "Informatie"
 
+#. WINDOW_LOAD_BATCH_LIST
+msgid "load batch list"
+msgstr ""
+
+#. WINDOW_SAVE_BATCH_LIST
+msgid "save batch list"
+msgstr ""
+
 # Goed genoeg?
 #. WINDOW_BATCH_SCAN
 msgid "batch scan"
 msgstr "batch scan"
+
+#. WINDOW_BATCH_RENAME
+#, fuzzy
+msgid "rename batch area"
+msgstr "Pagina verwijderen"
 
 #. WINDOW_FAX_PROJECT
 msgid "fax project"
@@ -223,9 +236,10 @@ msgstr "Ruwe afbeelding"
 msgid "Enhanced image"
 msgstr "Verbeterde afbeelding"
 
-#. BUTTON_START
-msgid "Start"
-msgstr "Start"
+#. BUTTON_SCAN
+#, fuzzy
+msgid "Scan"
+msgstr "Aan het scannen"
 
 #. BUTTON_OK
 msgid "Ok"
@@ -263,9 +277,15 @@ msgstr "Doorzoeken"
 msgid "Overwrite"
 msgstr "Overschrijven"
 
-#. BUTTON_ADD_AREA
-msgid "Add area"
-msgstr "Gebied toevoegen"
+#. BUTTON_BATCH_LIST_SCAN
+#, fuzzy
+msgid "Scan batch list"
+msgstr "Scantips"
+
+#. BUTTON_BATCH_AREA_SCAN
+#, fuzzy
+msgid "Scan selected area"
+msgstr "Zoom in het geselecteerde gebied"
 
 #. BUTTON_PAGE_DELETE
 msgid "Delete page"
@@ -679,6 +699,45 @@ msgstr "Ontvlekradius:"
 msgid "Blur radius:"
 msgstr "Vervagingsradius:"
 
+#. TEXT_BATCH_AREA_DEFAULT_NAME
+#, fuzzy
+msgid "(no name)"
+msgstr "(geen)"
+
+#. TEXT_BATCH_LIST_AREANAME
+#, fuzzy
+msgid "Area name:"
+msgstr "Gebruikersnaam:"
+
+#. TEXT_BATCH_LIST_SCANMODE
+#, fuzzy
+msgid "Scanmode:"
+msgstr "XSane doel"
+
+#. TEXT_BATCH_LIST_GEOMETRY_TL
+msgid "Top left:"
+msgstr ""
+
+#. TEXT_BATCH_LIST_GEOMETRY_SIZE
+#, fuzzy
+msgid "Size:"
+msgstr "Dia"
+
+#. TEXT_BATCH_LIST_RESOLUTION
+#, fuzzy
+msgid "Resolution:"
+msgstr "Drempelwaarde optie:"
+
+#. TEXT_BATCH_LIST_BIT_DEPTH
+#, fuzzy
+msgid "Bit depth:"
+msgstr "Bits in gamma invoer:"
+
+#. TEXT_BATCH_LIST_BY_GUI
+#, fuzzy
+msgid "as selected"
+msgstr "Zoom in het geselecteerde gebied"
+
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
 msgstr "Printerselectie"
@@ -978,6 +1037,12 @@ msgstr "Laat histogram zien"
 #. MENU_ITEM_SHOW_GAMMA
 msgid "Show gamma curve"
 msgstr "Laat gammakromme zien"
+
+# Goed genoeg?
+#. MENU_ITEM_SHOW_BATCH_SCAN
+#, fuzzy
+msgid "Show batch scan"
+msgstr "batch scan"
 
 #. MENU_ITEM_SHOW_STANDARDOPTIONS
 msgid "Show standard options"
@@ -1793,6 +1858,11 @@ msgstr "schrijven"
 msgid "execute"
 msgstr "uitvoeren"
 
+#. DESC_ADD_BATCH
+#, fuzzy
+msgid "Add selection for batch scan"
+msgstr "Voeg selectie toe aan lijst"
+
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
 msgstr "Kies wit punt"
@@ -1858,23 +1928,23 @@ msgstr "Tekstherkenning (OCR)"
 msgid "Clone image"
 msgstr "Kopiëer afbeelding"
 
-#. DESC_VIEWER_ROTATE90
+#. DESC_ROTATE90
 msgid "Rotate image 90 degree"
 msgstr "Draai 90 graden"
 
-#. DESC_VIEWER_ROTATE180
+#. DESC_ROTATE180
 msgid "Rotate image 180 degree"
 msgstr "Draai 180 graden"
 
-#. DESC_VIEWER_ROTATE270
+#. DESC_ROTATE270
 msgid "Rotate image 270 degree"
 msgstr "Draai 270 graden"
 
-#. DESC_VIEWER_MIRROR_X
+#. DESC_MIRROR_X
 msgid "Mirror image at vertical axis"
 msgstr "Spiegel in vertikale richting"
 
-#. DESC_VIEWER_MIRROR_Y
+#. DESC_MIRROR_Y
 msgid "Mirror image at horizontal axis"
 msgstr "Spiegel in horizontale richting"
 
@@ -1901,6 +1971,33 @@ msgstr "Vergroting in x-richting"
 #. DESC_Y_SCALE_FACTOR
 msgid "Y-Scale factor"
 msgstr "Vergroting in y-richting"
+
+#. DESC_BATCH_LIST_EMPTY
+#, fuzzy
+msgid "Empty batch list"
+msgstr "Scantips"
+
+#. DESC_BATCH_LIST_SAVE
+msgid "Save batch list"
+msgstr ""
+
+#. DESC_BATCH_LIST_LOAD
+msgid "Load batch list"
+msgstr ""
+
+#. DESC_BATCH_RENAME
+#, fuzzy
+msgid "Rename area"
+msgstr "Pagina hernoemen"
+
+#. DESC_BATCH_ADD
+#, fuzzy
+msgid "Add selected preview area to batch list"
+msgstr "Voeg selectie toe aan lijst"
+
+#. DESC_BATCH_DEL
+msgid "Delete selected area from batch list"
+msgstr ""
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2367,8 +2464,9 @@ msgstr "letter port."
 msgid "letter land."
 msgstr "letter land."
 
-#. MENU_ITEM_MEDIUM_FULL_RANGE
-msgid "Full range"
+#. MENU_ITEM_MEDIUM_FULL_COLOR_RANGE
+#, fuzzy
+msgid "Full color range"
 msgstr "Volledig bereik"
 
 #. MENU_ITEM_MEDIUM_SLIDE
@@ -2465,9 +2563,3 @@ msgstr "Geheugen vol"
 
 msgid "Access to resource has been denied"
 msgstr "Geen toegang tot apparaat"
-
-#~ msgid "license"
-#~ msgstr "licentie"
-
-#~ msgid "License"
-#~ msgstr "Licentie"

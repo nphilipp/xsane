@@ -29,6 +29,7 @@
 
 #include <sys/types.h>
 #include <sane/sane.h>
+#include "xsane-batch-scan.h"
 
 #define SELECTION_RANGE_IN  4
 #define SELECTION_RANGE_OUT 8
@@ -160,6 +161,7 @@ typedef struct
   GtkWidget *cancel;		/* the cancel button */
 
   GtkWidget *button_box;	/* hbox for the following buttons */
+  GtkWidget *add_batch;		/* add batch button */
   GtkWidget *pipette_white;	/* pipette white button */
   GtkWidget *pipette_gray;	/* pipette gray button */
   GtkWidget *pipette_black;	/* pipette black button */
@@ -203,6 +205,7 @@ extern void preview_area_resize(Preview *p);					/* redraw preview rulers */
 extern void preview_set_maximum_output_size(Preview *p, float width, float height);   /* set maximum outut size */
 extern void preview_select_full_preview_area(Preview *p);
 extern void preview_display_valid(Preview *p);
+extern void preview_create_batch_icon(Preview *p, Batch_Scan_Parameters *parameters);
 
 /* ------------------------------------------------------------------------------------------------------ */
 

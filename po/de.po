@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.87\n"
-"POT-Creation-Date: 2002-06-30 19:11+0200\n"
+"POT-Creation-Date: 2002-09-13 08:34+0200\n"
 "PO-Revision-Date: 2000-01-21 15:51+01:00\n"
 "Last-Translator: Oliver Rauch <Oliver.Rauch@rauch-domain.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -47,9 +47,21 @@ msgstr "Endbenutzervereinbarung (EULA)"
 msgid "info"
 msgstr "Informationen"
 
+#. WINDOW_LOAD_BATCH_LIST
+msgid "load batch list"
+msgstr "Stapelliste laden"
+
+#. WINDOW_SAVE_BATCH_LIST
+msgid "save batch list"
+msgstr "Stapelliste speichern"
+
 #. WINDOW_BATCH_SCAN
 msgid "batch scan"
 msgstr "Stapel Scan"
+
+#. WINDOW_BATCH_RENAME
+msgid "rename batch area"
+msgstr "Stapelscan Bereich umbenennen"
 
 #. WINDOW_FAX_PROJECT
 msgid "fax project"
@@ -223,9 +235,9 @@ msgstr "Rohbild"
 msgid "Enhanced image"
 msgstr "Verbessertes Bild"
 
-#. BUTTON_START
-msgid "Start"
-msgstr "Start"
+#. BUTTON_SCAN
+msgid "Scan"
+msgstr "Scannen"
 
 #. BUTTON_OK
 msgid "Ok"
@@ -263,9 +275,13 @@ msgstr "Durchsuchen"
 msgid "Overwrite"
 msgstr "Überschreiben"
 
-#. BUTTON_ADD_AREA
-msgid "Add area"
-msgstr "Bereich hinzufügen"
+#. BUTTON_BATCH_LIST_SCAN
+msgid "Scan batch list"
+msgstr "Stapelliste scannen"
+
+#. BUTTON_BATCH_AREA_SCAN
+msgid "Scan selected area"
+msgstr "Auswahl scannen"
 
 #. BUTTON_PAGE_DELETE
 msgid "Delete page"
@@ -675,6 +691,44 @@ msgstr "Entflecken Radius:"
 msgid "Blur radius:"
 msgstr "Weichzeichnen Radius:"
 
+#. TEXT_BATCH_AREA_DEFAULT_NAME
+msgid "(no name)"
+msgstr "(kein Name)"
+
+#. TEXT_BATCH_LIST_AREANAME
+#, fuzzy
+msgid "Area name:"
+msgstr "Benutzername:"
+
+#. TEXT_BATCH_LIST_SCANMODE
+#, fuzzy
+msgid "Scanmode:"
+msgstr "XSane Modus"
+
+#. TEXT_BATCH_LIST_GEOMETRY_TL
+msgid "Top left:"
+msgstr ""
+
+#. TEXT_BATCH_LIST_GEOMETRY_SIZE
+#, fuzzy
+msgid "Size:"
+msgstr "Dia"
+
+#. TEXT_BATCH_LIST_RESOLUTION
+#, fuzzy
+msgid "Resolution:"
+msgstr "Schwellwert Option:"
+
+#. TEXT_BATCH_LIST_BIT_DEPTH
+#, fuzzy
+msgid "Bit depth:"
+msgstr "Bittiefe Gammaeingabe:"
+
+#. TEXT_BATCH_LIST_BY_GUI
+#, fuzzy
+msgid "as selected"
+msgstr "Auswahl scannen"
+
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
 msgstr "Druckerauswahl:"
@@ -974,6 +1028,10 @@ msgstr "Zeige Histogramm"
 #. MENU_ITEM_SHOW_GAMMA
 msgid "Show gamma curve"
 msgstr "Zeige Gammakurve"
+
+#. MENU_ITEM_SHOW_BATCH_SCAN
+msgid "Show batch scan"
+msgstr "Zeige Stapelliste"
 
 #. MENU_ITEM_SHOW_STANDARDOPTIONS
 msgid "Show standard options"
@@ -1818,6 +1876,10 @@ msgstr "schreiben"
 msgid "execute"
 msgstr "ausführen"
 
+#. DESC_ADD_BATCH
+msgid "Add selection for batch scan"
+msgstr "Auswahl zur Stapelliste hinzufuegen"
+
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
 msgstr "Wähle weißen Punkt"
@@ -1883,23 +1945,23 @@ msgstr "Optische Zeichenerkennung (OCR)"
 msgid "Clone image"
 msgstr "Bild clonen"
 
-#. DESC_VIEWER_ROTATE90
+#. DESC_ROTATE90
 msgid "Rotate image 90 degree"
 msgstr "Drehe Bild um 90 Grad"
 
-#. DESC_VIEWER_ROTATE180
+#. DESC_ROTATE180
 msgid "Rotate image 180 degree"
 msgstr "Drehe Bild um 180 Grad"
 
-#. DESC_VIEWER_ROTATE270
+#. DESC_ROTATE270
 msgid "Rotate image 270 degree"
 msgstr "Drehe Bild um 270 Grad"
 
-#. DESC_VIEWER_MIRROR_X
+#. DESC_MIRROR_X
 msgid "Mirror image at vertical axis"
 msgstr "Bild an vertikaler Achse spiegeln"
 
-#. DESC_VIEWER_MIRROR_Y
+#. DESC_MIRROR_Y
 msgid "Mirror image at horizontal axis"
 msgstr "Bild an horizontaler Achse spiegeln"
 
@@ -1926,6 +1988,30 @@ msgstr "Vergrößerungsfaktor X:"
 #. DESC_Y_SCALE_FACTOR
 msgid "Y-Scale factor"
 msgstr "Vergrößerungsfaktor Y:"
+
+#. DESC_BATCH_LIST_EMPTY
+msgid "Empty batch list"
+msgstr "Stapelliste leeren"
+
+#. DESC_BATCH_LIST_SAVE
+msgid "Save batch list"
+msgstr "Stapelliste speichern"
+
+#. DESC_BATCH_LIST_LOAD
+msgid "Load batch list"
+msgstr "Stapelliste laden"
+
+#. DESC_BATCH_RENAME
+msgid "Rename area"
+msgstr "Bereich umbenennen"
+
+#. DESC_BATCH_ADD
+msgid "Add selected preview area to batch list"
+msgstr "Vorschau-Auswahl zur Stapelliste hinzufuegen"
+
+#. DESC_BATCH_DEL
+msgid "Delete selected area from batch list"
+msgstr "Ausgewählten Bereich aus Stapelliste löschen"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2389,9 +2475,9 @@ msgstr "letter hoch"
 msgid "letter land."
 msgstr "letter quer"
 
-#. MENU_ITEM_MEDIUM_FULL_RANGE
-msgid "Full range"
-msgstr "Voller Bereich"
+#. MENU_ITEM_MEDIUM_FULL_COLOR_RANGE
+msgid "Full color range"
+msgstr "Voller Farbumfang"
 
 #. MENU_ITEM_MEDIUM_SLIDE
 msgid "Slide"

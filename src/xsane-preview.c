@@ -76,6 +76,7 @@
 /* #include <sys/param.h> */
 #include "xsane-back-gtk.h"
 #include "xsane-front-gtk.h"
+#include "xsane-batch-scan.h"
 #include "xsane-preview.h"
 #include "xsane-preferences.h"
 #include "xsane-gamma.h"
@@ -168,6 +169,7 @@ static void preview_zoom_in(GtkWidget *window, gpointer data);
 static void preview_zoom_area(GtkWidget *window, gpointer data);
 static void preview_zoom_undo(GtkWidget *window, gpointer data);
 static void preview_get_color(Preview *p, int x, int y, int range, int *red, int *green, int *blue);
+static void preview_add_batch(GtkWidget *window, Preview *p);
 static void preview_pipette_white(GtkWidget *window, gpointer data);
 static void preview_pipette_gray(GtkWidget *window, gpointer data);
 static void preview_pipette_black(GtkWidget *window, gpointer data);
@@ -1857,6 +1859,8 @@ static void preview_scan_done(Preview *p, int save_image)
     xsane_set_auto_enhancement();
     xsane_enhancement_by_histogram(preferences.auto_enhance_gamma);
   }
+
+  xsane_batch_scan_update_icon_list();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -2145,6 +2149,308 @@ static int preview_make_image_path(Preview *p, size_t filename_size, char *filen
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+int preview_create_batch_icon_from_file(Preview *p, FILE *in, Batch_Scan_Parameters *parameters, int min_quality, int *min_time)
+{
+ u_int psurface_type, psurface_unit;
+ int image_width, image_height;
+ int xoffset, yoffset, width, height;
+ int max_val;
+ int x, y, dx, dy;
+ int time;
+ float psurface[4];
+ float dsurface[4];
+ char buf[255];
+ float scale;
+ int header = 0;
+ int rotate16 = 16 - preview_gamma_input_bits;
+ int rotate8 = preview_gamma_input_bits - 8;
+ guint16 r,g,b;
+ int c;
+ int maximum_size;
+ int quality = 0;
+
+  DBG(DBG_proc, "preview_create_batch_icon_from_file\n");
+
+  /* make unused parts white */
+  for (y=0; y < parameters->gdk_image_size; y++)
+  { 
+    for (x=0; x < parameters->gdk_image_size; x++)
+    {
+      gdk_image_put_pixel(parameters->gdk_image, x, y, 0xF0F0F0);
+    }
+  }
+
+  if (!in)
+  {
+    return min_quality;
+  }
+
+  /* See whether there is a saved preview and load it if present: */
+  if (fscanf(in, "P6\n"
+                 "# surface: %g %g %g %g %u %u\n"
+                 "# time: %d\n"
+                 "%d %d\n%d",
+	      psurface + 0, psurface + 1, psurface + 2, psurface + 3,
+	      &psurface_type, &psurface_unit,
+              &time,
+	      &image_width, &image_height,
+              &max_val) != 10)
+  {
+    DBG(DBG_info, "no preview image\n");
+   return min_quality;
+  }
+
+  fgets(buf, sizeof(buf), in); /* skip newline character. this made a lot of problems in the past, so I skip it this way */
+
+  header = ftell(in);
+
+  if (min_quality >= 0) /* read real preview */
+  {
+    if ((psurface_type != p->surface_type) || (psurface_unit != p->surface_unit))
+    {
+      DBG(DBG_info, "incompatible surface types %d <> %d\n", psurface_type, p->surface_type);
+     return min_quality;
+    }
+
+    preview_rotate_previewsurface_to_devicesurface(p->rotation, p->surface, dsurface);
+
+
+    DBG(DBG_info, "stored image surface = [%3.2f %3.2f %3.2f %3.2f]\n",
+                   psurface[0], psurface[1], psurface[2], psurface[3]);
+    DBG(DBG_info, "batch selection = [%3.2f %3.2f %3.2f %3.2f]\n",
+                   parameters->tl_x, parameters->tl_y, parameters->br_x, parameters->br_y);
+    DBG(DBG_info, "preview device surface    = [%3.2f %3.2f %3.2f %3.2f]\n",
+                   dsurface[0], dsurface[1], dsurface[2], dsurface[3]);
+
+    xoffset = (parameters->tl_x - psurface[0])/(psurface[2] - psurface[0]) * image_width;
+    yoffset = (parameters->tl_y - psurface[1])/(psurface[3] - psurface[1]) * image_height;
+    width   = (parameters->br_x - parameters->tl_x)/(psurface[2] - psurface[0]) * image_width;
+    height  = (parameters->br_y - parameters->tl_y)/(psurface[3] - psurface[1]) * image_height;
+
+    quality = width;
+
+    if ((xoffset < 0) || (yoffset < 0) ||
+        (xoffset+width > image_width) || (yoffset+height > image_height) ||
+        (width == 0) || (height == 0))
+    {
+      DBG(DBG_info, "image does not cover wanted surface part\n");
+     return min_quality;
+    }
+
+    DBG(DBG_info, "quality = %d\n", quality);
+
+    if ( ((float) min_quality / (quality+1)) > 1.05) /* already loaded image has better quality */
+    {
+      DBG(DBG_info, "already loaded image has higher quality\n");
+     return min_quality;
+    }
+
+    if ( ((float) min_quality / (quality+1)) > 0.95) /* qualities are comparable */
+    {
+      if (*min_time > time) /* take more recent scan */
+      {
+        DBG(DBG_info, "images have comparable quality, already loaded is more up to date\n");
+       return min_quality;
+      }
+      DBG(DBG_info, "images have comparable quality, this image is more up to date\n");
+    }
+    else
+    {
+      DBG(DBG_info, "image has best quality\n");
+    }
+  }
+  else
+  {
+    xoffset = 0;
+    yoffset = 0;
+    width   = image_width;
+    height  = image_height;
+  }
+
+
+  {
+    float xscale = (float)width / parameters->gdk_image_size;
+    float yscale = (float)height / parameters->gdk_image_size;
+
+    if (xscale > yscale)
+    {
+      scale = xscale;
+    }
+    else
+    {
+      scale = yscale;
+    }
+  }
+
+  width = width / scale;
+  height = height / scale;
+
+  if (width > parameters->gdk_image_size)
+  {
+    width = parameters->gdk_image_size;
+  }
+
+  if (height > parameters->gdk_image_size)
+  {
+    height = parameters->gdk_image_size;
+  }
+
+  maximum_size = parameters->gdk_image_size -1;
+
+  dx = (parameters->gdk_image_size - width) / 2;
+  dy = (parameters->gdk_image_size - height) / 2;
+
+
+  if (max_val == 65535)
+  {
+    for (y=0; y < height; y++)
+    { 
+      for (x=0; x < width; x++)
+      {
+        fseek(in, header + (xoffset + (int)(x * scale) + (yoffset + (int)(y * scale)) * image_width) * 6, SEEK_SET);
+
+        fread(&r, 2, 1, in); /* read 16 bit value in machines byte order */
+        r = preview_gamma_data_red[r >> rotate16];
+
+        fread(&g, 2, 1, in);
+        g = preview_gamma_data_green[g >> rotate16];
+
+        fread(&b, 2, 1, in);
+        b = preview_gamma_data_blue[b >> rotate16];
+
+        c = r * 65536 + g * 256 + b;
+
+        switch (parameters->rotation)
+          {
+            case 0: /* 0 degree */
+              gdk_image_put_pixel(parameters->gdk_image, x + dx, y + dy, c);
+            break;
+
+            case 1: /* 90 degree */
+              gdk_image_put_pixel(parameters->gdk_image, maximum_size - y - dy, x + dx, c);
+            break;
+
+            case 2: /* 180 degree */
+              gdk_image_put_pixel(parameters->gdk_image, maximum_size - x - dx, maximum_size - y - dy, c);
+            break;
+
+            case 3: /* 270 degree */
+              gdk_image_put_pixel(parameters->gdk_image, y + dy, maximum_size - x - dx, c);
+            break;
+
+            case 4: /* 0 degree, x-mirror */
+              gdk_image_put_pixel(parameters->gdk_image, maximum_size - x - dx, y + dy, c);
+            break;
+
+            case 5: /* 90 degree, x-mirror */
+              gdk_image_put_pixel(parameters->gdk_image, y + dy, x + dx, c);
+            break;
+
+            case 6: /* 180 degree, x-mirror */
+              gdk_image_put_pixel(parameters->gdk_image, x + dx, maximum_size - y - dy, c);
+            break;
+
+            case 7: /* 270 degree, x-mirror */
+              gdk_image_put_pixel(parameters->gdk_image, maximum_size - y - dy, maximum_size - x - dx, c);
+            break;
+          }
+      }
+    }
+  }
+  else /* depth = 8 */
+  {
+    for (y=0; y < height; y++)
+    { 
+      for (x=0; x < width; x++)
+      {
+       int r, g, b, c;
+
+        fseek(in, header + (xoffset + (int)(x * scale) + (yoffset + (int)(y * scale)) * image_width) * 3, SEEK_SET);
+
+        r = fgetc(in);
+        r = preview_gamma_data_red[r << rotate8];
+
+        g = fgetc(in);
+        g = preview_gamma_data_green[g << rotate8];
+
+        b = fgetc(in);
+        b = preview_gamma_data_blue[b << rotate8];
+
+        c = r * 65536 + g * 256 + b;
+
+        switch (parameters->rotation)
+          {
+            case 0: /* 0 degree */
+              gdk_image_put_pixel(parameters->gdk_image, x + dx, y + dy, c);
+            break;
+
+            case 1: /* 90 degree */
+              gdk_image_put_pixel(parameters->gdk_image, maximum_size - y - dy, x + dx, c);
+            break;
+
+            case 2: /* 180 degree */
+              gdk_image_put_pixel(parameters->gdk_image, maximum_size - x - dx, maximum_size - y - dy, c);
+            break;
+
+            case 3: /* 270 degree */
+              gdk_image_put_pixel(parameters->gdk_image, y + dy, maximum_size - x - dx, c);
+            break;
+
+            case 4: /* 0 degree, x-mirror */
+              gdk_image_put_pixel(parameters->gdk_image, maximum_size - x - dx, y + dy, c);
+            break;
+
+            case 5: /* 90 degree, x-mirror */
+              gdk_image_put_pixel(parameters->gdk_image, y + dy, x + dx, c);
+            break;
+
+            case 6: /* 180 degree, x-mirror */
+              gdk_image_put_pixel(parameters->gdk_image, x + dx, maximum_size - y - dy, c);
+            break;
+
+            case 7: /* 270 degree, x-mirror */
+              gdk_image_put_pixel(parameters->gdk_image, maximum_size - y - dy, maximum_size - x - dx, c);
+            break;
+          }
+      }
+    }
+  }
+
+ return quality;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void preview_create_batch_icon(Preview *p, Batch_Scan_Parameters *parameters)
+{
+ FILE *in;
+ int quality = 0;
+ int time = 0;
+
+  in = fopen(xsane.preview->filename[0], "rb");
+  quality = preview_create_batch_icon_from_file(xsane.preview, in, parameters, quality, &time);
+
+  if (quality <= 0)
+  {
+   char filename[PATH_MAX];
+
+    if (in)
+    {
+      fclose(in);
+    }
+
+    xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", 0, "xsane-startimage", 0, ".pnm", XSANE_PATH_SYSTEM);
+    in = fopen(filename, "rb"); /* read binary (b for win32) */
+    if (in)
+    {
+      preview_create_batch_icon_from_file(xsane.preview, in, parameters, -1, &time);
+    }
+  }
+  fclose(in);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static int preview_restore_image_from_file(Preview *p, FILE *in, int min_quality, int *min_time)
 {
  u_int psurface_type, psurface_unit;
@@ -2208,6 +2514,7 @@ static int preview_restore_image_from_file(Preview *p, FILE *in, int min_quality
     yoffset = (dsurface[1] - psurface[1])/(psurface[3] - psurface[1]) * image_height;
     width   = (dsurface[2] - dsurface[0])/(psurface[2] - psurface[0]) * image_width;
     height  = (dsurface[3] - dsurface[1])/(psurface[3] - psurface[1]) * image_height;
+
     quality = width;
 
     if ((xoffset < 0) || (yoffset < 0) ||
@@ -3548,6 +3855,9 @@ Preview *preview_new(void)
   gtk_container_set_border_width(GTK_CONTAINER(p->button_box), 1);
   gtk_box_pack_start(GTK_BOX(vbox), p->button_box, FALSE, FALSE, 0);
 
+  /* add new selection for batch scanning */
+  p->add_batch  = xsane_button_new_with_pixmap(p->top->window, p->button_box, add_batch_xpm, DESC_ADD_BATCH, (GtkSignalFunc) preview_add_batch, p);
+
   /* White, gray and black pipette button */
   p->pipette_white = xsane_button_new_with_pixmap(p->top->window, p->button_box, pipette_white_xpm, DESC_PIPETTE_WHITE, (GtkSignalFunc) preview_pipette_white, p);
   p->pipette_gray  = xsane_button_new_with_pixmap(p->top->window, p->button_box, pipette_gray_xpm,  DESC_PIPETTE_GRAY,  (GtkSignalFunc) preview_pipette_gray,  p);
@@ -4257,6 +4567,8 @@ static void preview_delete_images(Preview *p)
     fclose(out);
   }
   preview_update_surface(p, 1);
+
+  xsane_batch_scan_update_icon_list();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -4514,6 +4826,20 @@ static void preview_get_color(Preview *p, int x, int y, int range, int *red, int
       *blue  /= count;
     }
   }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void preview_add_batch(GtkWidget *window, Preview *data)
+{
+  DBG(DBG_proc, "preview_add_batch\n");
+
+  xsane_batch_scan_add(); /* add active settings to batch list */
+
+#if 0
+  preview_draw_selection(p); /* read selection from backend: correct rotation */
+  preview_establish_selection(p); /* read selection from backend: correct rotation */
+#endif
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -5232,6 +5558,7 @@ static void preview_rotation_callback(GtkWidget *widget, gpointer call_data)
 
   preview_update_selection(p); /* read selection from backend: correct rotation */
   preview_update_surface(p, 2); /* rotate surfaces */
+  xsane_batch_scan_update_icon_list(); /* rotate batch scan icons */
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

@@ -50,7 +50,7 @@ static int xsane_test_multi_scan(void);
 void xsane_scan_done(SANE_Status status);
 void xsane_cancel(void);
 static void xsane_start_scan(void);
-void xsane_scan_dialog(GtkWidget * widget, gpointer call_data);
+void xsane_scan_dialog(void);
 static void xsane_create_internal_gamma_tables(void);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -71,7 +71,7 @@ static int xsane_generate_dummy_filename(int conversion_level)
     free(xsane.dummy_filename);
   }
 
-  if ( (conversion_level == 0) && (xsane.preview->rotation) ) /* scan level with rotation */
+  if ( (conversion_level == 0) && (xsane.scan_rotation) ) /* scan level with rotation */
   {
     tempfile = TRUE;
   }
@@ -1025,7 +1025,7 @@ void xsane_scan_done(SANE_Status status)
   if ( (status == SANE_STATUS_GOOD) || (status == SANE_STATUS_EOF) ) /* no error, do conversion etc. */
   {
     /* do we have to rotate the image ? */
-    if (xsane.preview->rotation)
+    if (xsane.scan_rotation)
     {
      char *old_dummy_filename;
      int abort = 0;
@@ -1069,7 +1069,7 @@ void xsane_scan_done(SANE_Status status)
 
           if (outfile)
           {
-            if (xsane_save_rotate_image(outfile, infile, &image_info, xsane.preview->rotation, xsane.progress_bar, &xsane.cancel_save))
+            if (xsane_save_rotate_image(outfile, infile, &image_info, xsane.scan_rotation, xsane.progress_bar, &xsane.cancel_save))
             {
               abort = 1;
             }
@@ -1530,13 +1530,15 @@ void xsane_scan_done(SANE_Status status)
     xsane.adf_page_counter += 1;
     g_signal_emit_by_name(xsane.start_button, "clicked"); /* press START button */
   }
-  else /* last scan: update histogram */
+  else if ( (!xsane.batch_loop) || ( (status != SANE_STATUS_GOOD) && (status != SANE_STATUS_EOF) ) ) /* last scan: update histogram */
   {
     xsane_set_sensitivity(TRUE);		/* reactivate buttons etc */
     sane_cancel(xsane.dev); /* stop scanning */
     xsane_update_histogram(TRUE /* update raw */);
     xsane_update_param(0);
   }
+
+  xsane.status_of_last_scan = status;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1637,7 +1639,7 @@ static void xsane_start_scan(void)
     default:			frame_type = "unknown"; break;
   }
 
-  if ( (xsane.param.depth == 1) && (xsane.preview->rotation) )
+  if ( (xsane.param.depth == 1) && (xsane.scan_rotation) )
   {
     xsane.expand_lineart_to_grayscale = 1; /* We want to do transformation with lineart scan, so we save it as grayscale */
   }
@@ -1752,7 +1754,7 @@ static void xsane_start_scan(void)
 
 /* Invoked when the scan button is pressed */
 /* or by scan_done if automatic document feeder is selected */
-void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
+void xsane_scan_dialog(void)
 {
  char buf[256];
  const SANE_Option_Descriptor *opt;

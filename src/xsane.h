@@ -40,7 +40,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.87"
+#define XSANE_VERSION		"0.88"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2002"
@@ -81,7 +81,7 @@
 # include <lalloca.h>
 #endif
 
-#ifdef __hpux
+#if defined(__hpux) || defined(__sgi)
 # include <alloca.h>
 #endif
 
@@ -107,6 +107,7 @@
 
 #include <sane/sane.h>
 #include <sane/saneopts.h>
+#include "xsaneopts.h"
 
 #include "../include/config.h"
 #include "../include/sanei_signal.h"
@@ -182,6 +183,7 @@ typedef struct
 } pref_default_preset_area_t;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
+
 typedef struct
   {
     /* The option number of the well-known options.  Each of these may
@@ -207,6 +209,10 @@ typedef struct
     int shadow_r;
     int shadow_g;
     int shadow_b;
+    int batch_scan_start;
+    int batch_scan_loop;
+    int batch_scan_end;
+    int batch_scan_next_tl_y;
   }
 GSGWellKnownOptions;
 
@@ -306,6 +312,7 @@ extern void xsane_pref_save(void);
 extern void xsane_interface(int argc, char **argv);
 extern void xsane_fax_project_save(void);
 extern void xsane_mail_project_save(void);
+extern void xsane_batch_scan_add(void);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -471,6 +478,11 @@ typedef struct Xsane
     int scanning;
     int reading_data;
     int cancel_scan;
+    int batch_loop; /* is set when batch scanning and not last scan */
+    int batch_scan_use_stored_scanmode;
+    int batch_scan_use_stored_resolution;
+    int batch_scan_use_stored_bit_depth;
+    SANE_Status status_of_last_scan;
 
 /* free gamma curve widgets */
     GtkWidget *gamma_curve_gray;
@@ -496,6 +508,12 @@ typedef struct Xsane
     GtkWidget *main_dialog_scrolled;
     GtkWidget *histogram_dialog;
     GtkWidget *gamma_dialog;
+
+    GtkWidget *batch_scan_dialog;
+    GtkWidget *batch_scan_button_box;
+    GtkWidget *batch_scan_action_box;
+    GtkWidget *batch_scan_list;
+    GtkAdjustment *batch_scan_vadjustment;
 
     GtkWidget *fax_dialog;
     GtkWidget *fax_list;
@@ -550,6 +568,7 @@ typedef struct Xsane
     int input_tag;
     SANE_Parameters param;
     int adf_page_counter;
+    int scan_rotation;
 
     /* for standalone mode: */
     GtkWidget *filename_entry;
@@ -571,6 +590,7 @@ typedef struct Xsane
     struct XsaneSlider slider_red;
     struct XsaneSlider slider_green;
     struct XsaneSlider slider_blue;
+    guint  batch_scan_gamma_timer; /* has to be guint */
     guint  slider_timer; /* has to be guint */
     int    slider_timer_restart;
 
@@ -629,6 +649,7 @@ typedef struct Xsane
     GtkWidget *show_preview_widget;
     GtkWidget *show_histogram_widget;
     GtkWidget *show_gamma_widget;
+    GtkWidget *show_batch_scan_widget;
     GtkWidget *show_standard_options_widget;
     GtkWidget *show_advanced_options_widget;
     GtkWidget *show_resolution_list_widget;

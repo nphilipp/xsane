@@ -1,6 +1,6 @@
 /* xsane -- a graphical (X11, gtk) scanner-oriented SANE frontend
 
-   xsane-scan.h
+   xsane-batch-scan.h
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
    Copyright (C) 1998-2002 Oliver Rauch
@@ -22,12 +22,52 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+#ifndef xsane_batch_scan_h
+#define xsane_batch_scan_h
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 #include <sane/sane.h>
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-extern void xsane_scan_done(SANE_Status status);
-extern void xsane_cancel(void);
-extern void xsane_scan_dialog(void);
+typedef struct
+{
+  char *name;
+  char *scanmode;
+  double tl_x;
+  double tl_y;
+  double br_x;
+  double br_y;
+  SANE_Unit unit;
+  int rotation;
+  double resolution_x;
+  double resolution_y;
+  int bit_depth;
+  double gamma;
+  double gamma_red;
+  double gamma_green;
+  double gamma_blue;
+  double contrast;
+  double contrast_red;
+  double contrast_green;
+  double contrast_blue;
+  double brightness;
+  double brightness_red;
+  double brightness_green;
+  double brightness_blue;
+  int enhancement_rgb_default;
+  int negative;
+  GtkWidget *label;
+  GdkImage *gdk_image;
+  int gdk_image_size;
+} Batch_Scan_Parameters;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
+
+extern void xsane_batch_scan_add();
+extern void xsane_create_batch_scan_dialog(const char *devicetext);
+extern void xsane_batch_scan_update_label_list(void);
+extern void xsane_batch_scan_update_icon_list(void);
+
+#endif /* batch_scan_h */

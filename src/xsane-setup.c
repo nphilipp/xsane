@@ -148,7 +148,8 @@ void xsane_new_printer(void)
 
 void xsane_update_int(GtkWidget *widget, int *val)
 {
- char *start, *end;
+ const char *start;
+ char *end;
  int v;
 
   DBG(DBG_proc, "xsane_update_init\n");
@@ -186,7 +187,8 @@ static void xsane_update_scale(GtkWidget *widget, double *val)
 
 static void xsane_update_geometry_double(GtkWidget *widget, double *val, double length_multiplier)
 {
- char *start, *end;
+ const char *start;
+ char *end;
  double v;
 
   DBG(DBG_proc, "xsane_update_geometry_double\n");
@@ -209,7 +211,8 @@ static void xsane_update_geometry_double(GtkWidget *widget, double *val, double 
 /* returns 0 if value is unchaned */
 static int xsane_update_double(GtkWidget *widget, double *val)
 {
- char *start, *end;
+ const char *start;
+ char *end;
  double v;
  int value_changed = 0;
 
@@ -771,7 +774,7 @@ static void xsane_permission_toggled(GtkWidget *widget, gpointer data)
 {
  int mask = (int) data;
  int *permission = 0;
- gchar *name = gtk_widget_get_name(widget);
+ const gchar *name = gtk_widget_get_name(widget);
 
   DBG(DBG_proc, "xsane_permission_toggled\n");
 
@@ -1311,7 +1314,7 @@ static void xsane_printer_notebook(GtkWidget *notebook)
 
 static void xsane_setup_browse_tmp_path_callback(GtkWidget *widget, gpointer data)
 {
- gchar *old_tmp_path;
+ const gchar *old_tmp_path;
  char tmp_path[256];
  char windowname[256];
 
@@ -2336,7 +2339,7 @@ static void xsane_ocr_notebook(GtkWidget *notebook)
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
   button = gtk_check_button_new_with_label(RADIO_BUTTON_OCR_USE_GUI_PIPE);
 //  g_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_setup_ocr_use_gui_pipe_callback, (void *) pop3_vbox);
-  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_POP3_AUTHENTIFICATION);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_OCR_USE_GUI_PIPE_OPT);
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), preferences.ocr_use_gui_pipe);
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 2);
   gtk_widget_show(button);

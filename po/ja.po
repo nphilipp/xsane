@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.87\n"
-"POT-Creation-Date: 2002-06-30 19:11+0200\n"
-"PO-Revision-Date: 2002-07-03 00:28+900\n"
+"Project-Id-Version: XSANE 0.88\n"
+"POT-Creation-Date: 2002-09-13 08:34+0200\n"
+"PO-Revision-Date: 2002-09-12 22:18+900\n"
 "Last-Translator: Kimizuka Tomokazu <sgtom@pluto.dti.ne.jp>\n"
 "Language-Team: Japanese <Kdeveloper@kde.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr "言語ディレクトリ"
 
 #. XSANE_COPYRIGHT_SIGN
 msgid "(c)"
-msgstr ""
+msgstr "(c)"
 
 #. can be translated with \251
 #. WINDOW_ABOUT_XSANE
@@ -47,9 +47,21 @@ msgstr "エンドユーザー使用許諾"
 msgid "info"
 msgstr "情報"
 
+#. WINDOW_LOAD_BATCH_LIST
+msgid "load batch list"
+msgstr "バッチリストをロード"
+
+#. WINDOW_SAVE_BATCH_LIST
+msgid "save batch list"
+msgstr "バッチリストを保存"
+
 #. WINDOW_BATCH_SCAN
 msgid "batch scan"
 msgstr "バッチスキャン"
+
+#. WINDOW_BATCH_RENAME
+msgid "rename batch area"
+msgstr "バッチ領域をリネーム"
 
 #. WINDOW_FAX_PROJECT
 msgid "fax project"
@@ -223,9 +235,9 @@ msgstr "Rawイメージ"
 msgid "Enhanced image"
 msgstr "拡張イメージ"
 
-#. BUTTON_START
-msgid "Start"
-msgstr "スタート"
+#. BUTTON_SCAN
+msgid "Scan"
+msgstr "スキャン"
 
 #. BUTTON_OK
 msgid "Ok"
@@ -233,15 +245,15 @@ msgstr "OK"
 
 #. BUTTON_ACCEPT
 msgid "Accept"
-msgstr "はい"
+msgstr "受理する"
 
 #. BUTTON_NOT_ACCEPT
 msgid "Not accept"
-msgstr "いいえ"
+msgstr "受理しない"
 
 #. BUTTON_APPLY
 msgid "Apply"
-msgstr "了解"
+msgstr "適用"
 
 #. BUTTON_CANCEL
 msgid "Cancel"
@@ -263,9 +275,13 @@ msgstr "ブラウズ"
 msgid "Overwrite"
 msgstr "上書き"
 
-#. BUTTON_ADD_AREA
-msgid "Add area"
-msgstr "領域追加"
+#. BUTTON_BATCH_LIST_SCAN
+msgid "Scan batch list"
+msgstr "バッチリスト スキャン"
+
+#. BUTTON_BATCH_AREA_SCAN
+msgid "Scan selected area"
+msgstr "選択領域をスキャン"
 
 #. BUTTON_PAGE_DELETE
 msgid "Delete page"
@@ -661,7 +677,7 @@ msgstr "触媒名："
 #, c-format
 msgid ""
 "Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
-msgstr ""
+msgstr "%d x %d画素, %dビット/色, %d色, %1.0f dpi x %1.0f dpi, %1.1f %s"
 
 #. TEXT_DESPECKLE_RADIUS
 msgid "Despeckle radius:"
@@ -670,6 +686,44 @@ msgstr "しみ取り範囲："
 #. TEXT_BLUR_RADIUS
 msgid "Blur radius:"
 msgstr "にじみ範囲："
+
+#. TEXT_BATCH_AREA_DEFAULT_NAME
+msgid "(no name)"
+msgstr "（名前なし）"
+
+#. TEXT_BATCH_LIST_AREANAME
+#, fuzzy
+msgid "Area name:"
+msgstr "ユーザー名："
+
+#. TEXT_BATCH_LIST_SCANMODE
+#, fuzzy
+msgid "Scanmode:"
+msgstr "XSaneのモード"
+
+#. TEXT_BATCH_LIST_GEOMETRY_TL
+msgid "Top left:"
+msgstr ""
+
+#. TEXT_BATCH_LIST_GEOMETRY_SIZE
+#, fuzzy
+msgid "Size:"
+msgstr "スライド"
+
+#. TEXT_BATCH_LIST_RESOLUTION
+#, fuzzy
+msgid "Resolution:"
+msgstr "閾値オプション："
+
+#. TEXT_BATCH_LIST_BIT_DEPTH
+#, fuzzy
+msgid "Bit depth:"
+msgstr "ガンマ入力深度："
+
+#. TEXT_BATCH_LIST_BY_GUI
+#, fuzzy
+msgid "as selected"
+msgstr "選択領域をスキャン"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -970,6 +1024,10 @@ msgstr "ヒストグラムを表示"
 #. MENU_ITEM_SHOW_GAMMA
 msgid "Show gamma curve"
 msgstr "ガンマ曲線を表示"
+
+#. MENU_ITEM_SHOW_BATCH_SCAN
+msgid "Show batch scan"
+msgstr "バッチスキャンを表示"
 
 #. MENU_ITEM_SHOW_STANDARDOPTIONS
 msgid "Show standard options"
@@ -1772,6 +1830,10 @@ msgstr "書込み"
 msgid "execute"
 msgstr "実行"
 
+#. DESC_ADD_BATCH
+msgid "Add selection for batch scan"
+msgstr "選択内容をバッチスキャンに追加"
+
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
 msgstr "白点をピック"
@@ -1837,23 +1899,23 @@ msgstr "オプション文字の認識"
 msgid "Clone image"
 msgstr "画像を複製"
 
-#. DESC_VIEWER_ROTATE90
+#. DESC_ROTATE90
 msgid "Rotate image 90 degree"
 msgstr "画像を90°回転"
 
-#. DESC_VIEWER_ROTATE180
+#. DESC_ROTATE180
 msgid "Rotate image 180 degree"
 msgstr "画像を180°回転"
 
-#. DESC_VIEWER_ROTATE270
+#. DESC_ROTATE270
 msgid "Rotate image 270 degree"
 msgstr "画像を270°回転"
 
-#. DESC_VIEWER_MIRROR_X
+#. DESC_MIRROR_X
 msgid "Mirror image at vertical axis"
 msgstr "垂直鏡像"
 
-#. DESC_VIEWER_MIRROR_Y
+#. DESC_MIRROR_Y
 msgid "Mirror image at horizontal axis"
 msgstr "水平鏡像"
 
@@ -1880,6 +1942,30 @@ msgstr "X成分の倍率："
 #. DESC_Y_SCALE_FACTOR
 msgid "Y-Scale factor"
 msgstr "Y成分の倍率："
+
+#. DESC_BATCH_LIST_EMPTY
+msgid "Empty batch list"
+msgstr "空のバッチリスト"
+
+#. DESC_BATCH_LIST_SAVE
+msgid "Save batch list"
+msgstr "バッチリストを保存"
+
+#. DESC_BATCH_LIST_LOAD
+msgid "Load batch list"
+msgstr "バッチリストをロード"
+
+#. DESC_BATCH_RENAME
+msgid "Rename area"
+msgstr "領域をリネーム"
+
+#. DESC_BATCH_ADD
+msgid "Add selected preview area to batch list"
+msgstr "選択プレビュー領域をバッチリストに追加"
+
+#. DESC_BATCH_DEL
+msgid "Delete selected area from batch list"
+msgstr "選択領域をバッチリストから削除"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2346,9 +2432,9 @@ msgstr "レターサイズ 縦"
 msgid "letter land."
 msgstr "レターサイズ 横"
 
-#. MENU_ITEM_MEDIUM_FULL_RANGE
-msgid "Full range"
-msgstr "フルレンジ"
+#. MENU_ITEM_MEDIUM_FULL_COLOR_RANGE
+msgid "Full color range"
+msgstr "フルカラーレンジ"
 
 #. MENU_ITEM_MEDIUM_SLIDE
 msgid "Slide"
@@ -2444,9 +2530,3 @@ msgstr "オーバーフロー"
 
 msgid "Access to resource has been denied"
 msgstr "リソースへのアクセスが拒否されました"
-
-#~ msgid "license"
-#~ msgstr "ライセンス"
-
-#~ msgid "License"
-#~ msgstr "ライセンス"

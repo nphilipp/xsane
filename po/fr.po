@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.87\n"
-"POT-Creation-Date: 2002-06-30 19:11+0200\n"
+"POT-Creation-Date: 2002-09-13 08:34+0200\n"
 "PO-Revision-Date: 2000-02-09 21:00+01:00\n"
 "Last-Translator: Laurent Grawet <laurent.grawet@ibelgique.com>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -47,9 +47,22 @@ msgstr ""
 msgid "info"
 msgstr "Info"
 
+#. WINDOW_LOAD_BATCH_LIST
+msgid "load batch list"
+msgstr ""
+
+#. WINDOW_SAVE_BATCH_LIST
+msgid "save batch list"
+msgstr ""
+
 #. WINDOW_BATCH_SCAN
 msgid "batch scan"
 msgstr "Numérisation par lots"
+
+#. WINDOW_BATCH_RENAME
+#, fuzzy
+msgid "rename batch area"
+msgstr "Effacer la page"
 
 #. WINDOW_FAX_PROJECT
 msgid "fax project"
@@ -223,9 +236,10 @@ msgstr "Image brute"
 msgid "Enhanced image"
 msgstr "Image améliorée"
 
-#. BUTTON_START
-msgid "Start"
-msgstr "Départ"
+#. BUTTON_SCAN
+#, fuzzy
+msgid "Scan"
+msgstr "Numérisation..."
 
 #. BUTTON_OK
 msgid "Ok"
@@ -263,9 +277,15 @@ msgstr "Parcourir"
 msgid "Overwrite"
 msgstr "Ecraser"
 
-#. BUTTON_ADD_AREA
-msgid "Add area"
-msgstr "Ajouter une aire"
+#. BUTTON_BATCH_LIST_SCAN
+#, fuzzy
+msgid "Scan batch list"
+msgstr "Conseils de numérisation"
+
+#. BUTTON_BATCH_AREA_SCAN
+#, fuzzy
+msgid "Scan selected area"
+msgstr "Zoom l'aire sélectionnée"
 
 #. BUTTON_PAGE_DELETE
 msgid "Delete page"
@@ -674,6 +694,45 @@ msgstr "Niveau de déparasitage:"
 msgid "Blur radius:"
 msgstr "Niveau de flou:"
 
+#. TEXT_BATCH_AREA_DEFAULT_NAME
+#, fuzzy
+msgid "(no name)"
+msgstr "(aucun)"
+
+#. TEXT_BATCH_LIST_AREANAME
+#, fuzzy
+msgid "Area name:"
+msgstr "Utilisateur:"
+
+#. TEXT_BATCH_LIST_SCANMODE
+#, fuzzy
+msgid "Scanmode:"
+msgstr "Mode XSane"
+
+#. TEXT_BATCH_LIST_GEOMETRY_TL
+msgid "Top left:"
+msgstr ""
+
+#. TEXT_BATCH_LIST_GEOMETRY_SIZE
+#, fuzzy
+msgid "Size:"
+msgstr "Dia"
+
+#. TEXT_BATCH_LIST_RESOLUTION
+#, fuzzy
+msgid "Resolution:"
+msgstr "Option seuil:"
+
+#. TEXT_BATCH_LIST_BIT_DEPTH
+#, fuzzy
+msgid "Bit depth:"
+msgstr "Valeur gamma d'entrée:"
+
+#. TEXT_BATCH_LIST_BY_GUI
+#, fuzzy
+msgid "as selected"
+msgstr "Zoom l'aire sélectionnée"
+
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
 msgstr "Sélection de l'imprimante:"
@@ -973,6 +1032,11 @@ msgstr "Afficher l'histogramme"
 #. MENU_ITEM_SHOW_GAMMA
 msgid "Show gamma curve"
 msgstr "Afficher la courbe gamma"
+
+#. MENU_ITEM_SHOW_BATCH_SCAN
+#, fuzzy
+msgid "Show batch scan"
+msgstr "Numérisation par lots"
 
 #. MENU_ITEM_SHOW_STANDARDOPTIONS
 msgid "Show standard options"
@@ -1818,6 +1882,11 @@ msgstr "écriture"
 msgid "execute"
 msgstr "exécution"
 
+#. DESC_ADD_BATCH
+#, fuzzy
+msgid "Add selection for batch scan"
+msgstr "Ajouter la sélection à la liste"
+
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
 msgstr "Choisissez un point blanc"
@@ -1883,23 +1952,23 @@ msgstr "Reconnaissance Optique de Caractères"
 msgid "Clone image"
 msgstr "Cloner l'image"
 
-#. DESC_VIEWER_ROTATE90
+#. DESC_ROTATE90
 msgid "Rotate image 90 degree"
 msgstr "Rotation à 90° de l'image"
 
-#. DESC_VIEWER_ROTATE180
+#. DESC_ROTATE180
 msgid "Rotate image 180 degree"
 msgstr "Rotation à 180° de l'image"
 
-#. DESC_VIEWER_ROTATE270
+#. DESC_ROTATE270
 msgid "Rotate image 270 degree"
 msgstr "Rotation à 270° de l'image"
 
-#. DESC_VIEWER_MIRROR_X
+#. DESC_MIRROR_X
 msgid "Mirror image at vertical axis"
 msgstr "Effet mirroir à axe vertical"
 
-#. DESC_VIEWER_MIRROR_Y
+#. DESC_MIRROR_Y
 msgid "Mirror image at horizontal axis"
 msgstr "Effet mirroir à axe horizontal"
 
@@ -1926,6 +1995,33 @@ msgstr "Facteur d'échelle horizontal"
 #. DESC_Y_SCALE_FACTOR
 msgid "Y-Scale factor"
 msgstr "Facteur d'échelle vertical"
+
+#. DESC_BATCH_LIST_EMPTY
+#, fuzzy
+msgid "Empty batch list"
+msgstr "Conseils de numérisation"
+
+#. DESC_BATCH_LIST_SAVE
+msgid "Save batch list"
+msgstr ""
+
+#. DESC_BATCH_LIST_LOAD
+msgid "Load batch list"
+msgstr ""
+
+#. DESC_BATCH_RENAME
+#, fuzzy
+msgid "Rename area"
+msgstr "Renommer la page"
+
+#. DESC_BATCH_ADD
+#, fuzzy
+msgid "Add selected preview area to batch list"
+msgstr "Ajouter la sélection à la liste"
+
+#. DESC_BATCH_DEL
+msgid "Delete selected area from batch list"
+msgstr ""
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2397,8 +2493,9 @@ msgstr "Letter portrait"
 msgid "letter land."
 msgstr "Letter paysage"
 
-#. MENU_ITEM_MEDIUM_FULL_RANGE
-msgid "Full range"
+#. MENU_ITEM_MEDIUM_FULL_COLOR_RANGE
+#, fuzzy
+msgid "Full color range"
 msgstr "Pleine échelle"
 
 #. MENU_ITEM_MEDIUM_SLIDE
@@ -2495,18 +2592,3 @@ msgstr "Dépassement de mémoire"
 
 msgid "Access to resource has been denied"
 msgstr "Accès à la ressource refusé"
-
-#~ msgid "license"
-#~ msgstr "Licence"
-
-#~ msgid "License"
-#~ msgstr "Licence"
-
-#~ msgid "Store Medium definition"
-#~ msgstr "Enregistrer la définition du support"
-
-#~ msgid ""
-#~ "Use XSane for: SCANning-<Ctrl-s> photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>"
-#~ msgstr ""
-#~ "Utilisez XSane pour : SCANNER <Ctrl-s>, photoCOPIER <Ctrl-c>, FAXER <Ctrl-"
-#~ "f>"

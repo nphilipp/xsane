@@ -1,6 +1,6 @@
 /* xsane -- a graphical (X11, gtk) scanner-oriented SANE frontend
 
-   xsane-scan.h
+   xsaneopts.h
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
    Copyright (C) 1998-2002 Oliver Rauch
@@ -22,12 +22,31 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#include <sane/sane.h>
+#include <sane/saneopts.h>
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-extern void xsane_scan_done(SANE_Status status);
-extern void xsane_cancel(void);
-extern void xsane_scan_dialog(void);
+#ifndef XSANEOPTS_H
+#define XSANEOPTS_H
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
+
+#ifndef SANE_NAME_BATCH_SCAN_START
+# define SANE_NAME_BATCH_SCAN_START	"batch-scan-start"
+#endif
+
+#ifndef SANE_NAME_BATCH_SCAN_LOOP
+# define SANE_NAME_BATCH_SCAN_LOOP	"batch-scan-loop"
+#endif
+
+#ifndef SANE_NAME_BATCH_SCAN_END
+# define SANE_NAME_BATCH_SCAN_END	"batch-scan-end"
+#endif
+
+#ifndef SANE_NAME_BATCH_SCAN_NEXT_TL_Y
+# define SANE_NAME_BATCH_SCAN_NEXT_TL_Y	"batch-scan-next-tl-y"
+#endif
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+#endif /* XSANEOPTS_H */

@@ -1,19 +1,20 @@
 # translation of es.po to Castellano
-# XSane-0.87 Spanish .po file
+# XSane-0.88 Spanish .po file
 # Copyright (C) 2001,2002 Free Software Foundation, Inc.
-# Gustavo D. Vranjes <gvranjes@abaconet.com.ar>, 2001,2002
+# Gustavo D. Vranjes <gvranjes@SoftHome.net>, 2001,2002
+# Gustavo D. Vranjes <gvranjes@abaconet.com.ar>, 2002
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.87\n"
-"POT-Creation-Date: 2002-06-30 19:11+0200\n"
-"PO-Revision-Date: 2002-07-02 23:36GMT\n"
+"Project-Id-Version: es\n"
+"POT-Creation-Date: 2002-09-13 08:34+0200\n"
+"PO-Revision-Date: 2002-09-11 22:16GMT\n"
 "Last-Translator: Gustavo D. Vranjes <gvranjes@abaconet.com.ar>\n"
 "Language-Team: Castellano <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0beta1\n"
+"X-Generator: KBabel 1.0beta2\n"
 
 #. Please translate this to the correct directory name (eg. german=>de)
 #. XSANE_LANGUAGE_DIR
@@ -49,9 +50,21 @@ msgstr "Acuerdo de Licencia para Usuario Final"
 msgid "info"
 msgstr "información"
 
+#. WINDOW_LOAD_BATCH_LIST
+msgid "load batch list"
+msgstr "cargar lista de proceso por lotes"
+
+#. WINDOW_SAVE_BATCH_LIST
+msgid "save batch list"
+msgstr "guardar lista de proceso por lotes"
+
 #. WINDOW_BATCH_SCAN
 msgid "batch scan"
 msgstr "Escaneo por lotes"
+
+#. WINDOW_BATCH_RENAME
+msgid "rename batch area"
+msgstr "renombrar area de proceso por lotes"
 
 #. WINDOW_FAX_PROJECT
 msgid "fax project"
@@ -225,9 +238,9 @@ msgstr "Imagen Cruda"
 msgid "Enhanced image"
 msgstr "Imagen mejorada"
 
-#. BUTTON_START
-msgid "Start"
-msgstr "Comenzar"
+#. BUTTON_SCAN
+msgid "Scan"
+msgstr "Escanear"
 
 #. BUTTON_OK
 msgid "Ok"
@@ -265,9 +278,13 @@ msgstr "Explorar"
 msgid "Overwrite"
 msgstr "Sobreescribir"
 
-#. BUTTON_ADD_AREA
-msgid "Add area"
-msgstr "Añadir area"
+#. BUTTON_BATCH_LIST_SCAN
+msgid "Scan batch list"
+msgstr "Lista de escaneo por lotes"
+
+#. BUTTON_BATCH_AREA_SCAN
+msgid "Scan selected area"
+msgstr "Escanear área seleccionada"
 
 #. BUTTON_PAGE_DELETE
 msgid "Delete page"
@@ -677,6 +694,44 @@ msgstr "Radio de desparasitado"
 msgid "Blur radius:"
 msgstr "Radio de desenfoque de imagen:"
 
+#. TEXT_BATCH_AREA_DEFAULT_NAME
+msgid "(no name)"
+msgstr "(sin nombre)"
+
+#. TEXT_BATCH_LIST_AREANAME
+#, fuzzy
+msgid "Area name:"
+msgstr "Nombre de usuario:"
+
+#. TEXT_BATCH_LIST_SCANMODE
+#, fuzzy
+msgid "Scanmode:"
+msgstr "Modo de XSane"
+
+#. TEXT_BATCH_LIST_GEOMETRY_TL
+msgid "Top left:"
+msgstr ""
+
+#. TEXT_BATCH_LIST_GEOMETRY_SIZE
+#, fuzzy
+msgid "Size:"
+msgstr "Diapositiva"
+
+#. TEXT_BATCH_LIST_RESOLUTION
+#, fuzzy
+msgid "Resolution:"
+msgstr "Opción de umbral:"
+
+#. TEXT_BATCH_LIST_BIT_DEPTH
+#, fuzzy
+msgid "Bit depth:"
+msgstr "Profundidad de entrada de gamma:"
+
+#. TEXT_BATCH_LIST_BY_GUI
+#, fuzzy
+msgid "as selected"
+msgstr "Escanear área seleccionada"
+
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
 msgstr "Selección de impresora:"
@@ -976,6 +1031,10 @@ msgstr "Mostrar histograma"
 #. MENU_ITEM_SHOW_GAMMA
 msgid "Show gamma curve"
 msgstr "Mostrar curva de gamma"
+
+#. MENU_ITEM_SHOW_BATCH_SCAN
+msgid "Show batch scan"
+msgstr "Mostrar escaneo por lotes"
 
 #. MENU_ITEM_SHOW_STANDARDOPTIONS
 msgid "Show standard options"
@@ -1830,6 +1889,10 @@ msgstr "escribir"
 msgid "execute"
 msgstr "ejecutar"
 
+#. DESC_ADD_BATCH
+msgid "Add selection for batch scan"
+msgstr "Añadir selección para escaneo por lotes"
+
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
 msgstr "Tomar punto blanco"
@@ -1895,23 +1958,23 @@ msgstr "Reconocimiento Óptico de Caracteres"
 msgid "Clone image"
 msgstr "Clonar imagen"
 
-#. DESC_VIEWER_ROTATE90
+#. DESC_ROTATE90
 msgid "Rotate image 90 degree"
 msgstr "Rotar imagen 90 grados"
 
-#. DESC_VIEWER_ROTATE180
+#. DESC_ROTATE180
 msgid "Rotate image 180 degree"
 msgstr "Rotar imagen 180 grados"
 
-#. DESC_VIEWER_ROTATE270
+#. DESC_ROTATE270
 msgid "Rotate image 270 degree"
 msgstr "Rotar imagen 270 grados"
 
-#. DESC_VIEWER_MIRROR_X
+#. DESC_MIRROR_X
 msgid "Mirror image at vertical axis"
 msgstr "Espejar imagen sobre el eje vertical"
 
-#. DESC_VIEWER_MIRROR_Y
+#. DESC_MIRROR_Y
 msgid "Mirror image at horizontal axis"
 msgstr "Espejar imagen sobre el eje horizontal"
 
@@ -1938,6 +2001,30 @@ msgstr "Factor de Escala-X"
 #. DESC_Y_SCALE_FACTOR
 msgid "Y-Scale factor"
 msgstr "Factor de Escala Y"
+
+#. DESC_BATCH_LIST_EMPTY
+msgid "Empty batch list"
+msgstr "Vaciar lista de proceso por lotes"
+
+#. DESC_BATCH_LIST_SAVE
+msgid "Save batch list"
+msgstr "Guardar lista de proceso por lotes"
+
+#. DESC_BATCH_LIST_LOAD
+msgid "Load batch list"
+msgstr "Cargar lista de proceso por lotes"
+
+#. DESC_BATCH_RENAME
+msgid "Rename area"
+msgstr "Renombrar area"
+
+#. DESC_BATCH_ADD
+msgid "Add selected preview area to batch list"
+msgstr "Añadir vista previa seleccionada a la lista de proceso por lotes"
+
+#. DESC_BATCH_DEL
+msgid "Delete selected area from batch list"
+msgstr "Borrar area seleccionada de la lista de proceso por lotes"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2410,9 +2497,9 @@ msgstr "carta vert."
 msgid "letter land."
 msgstr "carta horiz."
 
-#. MENU_ITEM_MEDIUM_FULL_RANGE
-msgid "Full range"
-msgstr "Rango completo"
+#. MENU_ITEM_MEDIUM_FULL_COLOR_RANGE
+msgid "Full color range"
+msgstr "Rango de color completo"
 
 #. MENU_ITEM_MEDIUM_SLIDE
 msgid "Slide"
@@ -2508,9 +2595,3 @@ msgstr "Sin memoria"
 
 msgid "Access to resource has been denied"
 msgstr "Acceso al recurso fue prohibido"
-
-#~ msgid "license"
-#~ msgstr "licencia"
-
-#~ msgid "License"
-#~ msgstr "Licencia"

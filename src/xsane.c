@@ -98,7 +98,7 @@ static const Preferences_medium_t pref_default_medium[]=
 {
 /* medium				shadow                  highlight                gamma                negative */
 /* name					gray  red   green blue  gray  red   green blue   gray  red   gren  blue */
- { MENU_ITEM_MEDIUM_FULL_RANGE,		 0.0,  0.0,  0.0,  0.0, 100.0,100.0,100.0,100.0, 1.00, 1.00, 1.00, 1.00 , 0},
+ { MENU_ITEM_MEDIUM_FULL_COLOR_RANGE,	 0.0,  0.0,  0.0,  0.0, 100.0,100.0,100.0,100.0, 1.00, 1.00, 1.00, 1.00 , 0},
  { MENU_ITEM_MEDIUM_SLIDE,		 0.0,  0.0,  0.0,  0.0,  30.0, 30.0, 30.0, 30.0, 1.00, 1.00, 1.00, 1.00 , 0},
  { MENU_ITEM_MEDIUM_STANDARD_NEG,	 0.0,  7.0,  1.0,  0.0,  66.0, 66.0, 33.0, 16.0, 1.00, 1.00, 1.00, 1.00 , 1},
  { MENU_ITEM_MEDIUM_AGFA_NEG,		 0.0,  6.0,  2.0,  0.0,  31.0, 61.0, 24.0, 13.0, 1.00, 1.00, 1.00, 1.00 , 1},
@@ -153,6 +153,7 @@ static void xsane_show_histogram_callback(GtkWidget *widget);
 #ifdef HAVE_WORKING_GTK_GAMMACURVE
 static void xsane_show_gamma_callback(GtkWidget *widget);
 #endif
+static void xsane_show_batch_scan_callback(GtkWidget *widget);
 static void xsane_printer_callback(GtkWidget *widget, gpointer data);
 void xsane_pref_save(void);
 static int xsane_pref_restore(void);
@@ -173,12 +174,6 @@ static gint xsane_close_info_callback(GtkWidget *widget, gpointer data);
 static void xsane_info_dialog(GtkWidget *widget, gpointer data);
 static void xsane_about_dialog(GtkWidget *widget, gpointer data);
 static void xsane_about_translation_dialog(GtkWidget *widget, gpointer data);
-static SANE_Status xsane_get_area_value(int option, float *val, SANE_Int *unit);
-#ifdef XSANE_TEST
-static void xsane_batch_scan_delete_callback(GtkWidget *widget, gpointer list);
-static void xsane_batch_scan_add_callback(GtkWidget *widget, gpointer list);
-static void xsane_batch_scan_dialog(GtkWidget *widget, gpointer data);
-#endif
 static void xsane_fax_dialog(void);
 static void xsane_fax_dialog_close(void);
 static void xsane_fax_receiver_changed_callback(GtkWidget *widget, gpointer data);
@@ -251,7 +246,7 @@ void xsane_debug_message(int level, const char *fmt, ...)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_add_medium_definition(char *definition_name)
+static void xsane_add_medium_definition(const gchar *definition_name)
 {
  int i;
 
@@ -368,12 +363,20 @@ static void xsane_add_medium_definition_callback()
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
  
  
-  button = gtk_button_new_with_label("OK");
+#ifdef HAVE_GTK2
+  button = gtk_button_new_from_stock(GTK_STOCK_OK);
+#else
+  button = gtk_button_new_with_label(BUTTON_OK);
+#endif
   g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_add_medium_definition_button_callback, (void *) 1);
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
   gtk_widget_show(button);
  
-  button = gtk_button_new_with_label("Cancel");
+#ifdef HAVE_GTK2
+  button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
+#else
+  button = gtk_button_new_with_label(BUTTON_CANCEL);
+#endif
   g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_add_medium_definition_button_callback, (void *) -1);
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
   gtk_widget_show(button);
@@ -815,6 +818,23 @@ static void xsane_show_gamma_callback(GtkWidget *widget)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static void xsane_show_batch_scan_callback(GtkWidget * widget)
+{
+  DBG(DBG_proc, "xsane_show_batch_scan_callback\n");
+
+  preferences.show_batch_scan = (GTK_CHECK_MENU_ITEM(widget)->active != 0);
+  if (preferences.show_batch_scan)
+  {
+    gtk_widget_show(xsane.batch_scan_dialog);
+  }
+  else
+  {
+    gtk_widget_hide(xsane.batch_scan_dialog);
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void xsane_printer_callback(GtkWidget *widget, gpointer data)
 {
  int printer_resolution; 
@@ -940,7 +960,7 @@ static void xsane_resolution_list_callback(GtkWidget *widget, gpointer data)
 {
  GSGMenuItem *menu_item = data;
  SANE_Word val;
- gchar *name = gtk_widget_get_name(widget->parent);
+ const gchar *name = gtk_widget_get_name(widget->parent);
  int printer_resolution; 
 
   DBG(DBG_proc, "xsane_resolution_list_callback\n");
@@ -2231,10 +2251,12 @@ static RETSIGTYPE xsane_sigchld_handler(int signal)
 
   DBG(DBG_proc, "xsane_sigchld_handler\n");
 
+#ifdef XSANE_ACTIVATE_MAIL
   if (xsane.xsane_mode == XSANE_MAIL) /* make sure we still are in email mode */
   {
     xsane_mail_project_load(); /* update status of mail project */
   }
+#endif
 
 
   /* normally we would do a wait(&status); here, but some backends fork() a reader
@@ -2554,10 +2576,13 @@ static void xsane_set_pref_unit_callback(GtkWidget *widget, gpointer data)
   preferences.length_unit = unit_conversion_factor;
 
   xsane_refresh_dialog();
+
   if (xsane.preview)
   {
     preview_area_resize(xsane.preview); /* redraw rulers */
   }
+
+  xsane_batch_scan_update_label_list(); /* update units in batch scan list */
 
   xsane_pref_save();
 }
@@ -3133,152 +3158,6 @@ static void xsane_about_translation_dialog(GtkWidget *widget, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static SANE_Status xsane_get_area_value(int option, float *val, SANE_Int *unit)
-{
- const SANE_Option_Descriptor *opt;
- SANE_Handle dev;
- SANE_Word word;
-
-  DBG(DBG_proc, "xsane_get_area_value\n");
-
-  if (option <= 0)
-  {
-    return -1;
-  }
-
-  if (xsane_control_option(xsane.dev, option, SANE_ACTION_GET_VALUE, &word, 0) == SANE_STATUS_GOOD)
-  {
-    dev = xsane.dev;
-    opt = xsane_get_option_descriptor(dev, option);
-
-    if (unit)
-    {
-      *unit = opt->unit;
-    }
-
-    if (val)
-    {
-      if (opt->type == SANE_TYPE_FIXED)
-      {
-        *val = (float) word / 65536.0;
-      }
-      else
-      {
-        *val = (float) word;
-      }
-    }
-
-   return 0;
-  }
-  else if (val)
-  {
-    *val = 0;
-  }
-  return -2;
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-#ifdef XSANE_TEST
-static void xsane_batch_scan_delete_callback(GtkWidget *widget, gpointer list)
-{
-  gtk_list_remove_items(GTK_LIST(list), GTK_LIST(list)->selection);
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_batch_scan_add_callback(GtkWidget *widget, gpointer list)
-{
- GtkWidget *list_item;
- float tlx, tly, brx, bry;
- SANE_Int unit;
- char buf[255];
- 
-  DBG(DBG_proc, "xsane_batch_scan_add_callback\n");
-
-  xsane_get_area_value(xsane.well_known.coord[0], &tlx, &unit);
-  xsane_get_area_value(xsane.well_known.coord[1], &tly, &unit);
-  xsane_get_area_value(xsane.well_known.coord[2], &brx, &unit);
-  xsane_get_area_value(xsane.well_known.coord[3], &bry, &unit);
-
-  if (unit == SANE_UNIT_MM)
-  {
-    snprintf(buf, sizeof(buf), " top left (%7.2fmm, %7.2fmm), bottom right (%7.2fmm, %7.2fmm)", tlx, tly, brx, bry);
-  }
-  else
-  {
-    snprintf(buf, sizeof(buf), " top left (%5.0fpx, %5.0fpx), bottom right (%5.0fpx, %5.0fpx)", tlx, tly, brx, bry);
-  }
-
-  list_item = gtk_list_item_new_with_label(buf);
-  gtk_object_set_data(GTK_OBJECT(list_item), "list_item_data", strdup(buf));
-  gtk_container_add(GTK_CONTAINER(list), list_item);
-  gtk_widget_show(list_item);
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_batch_scan_dialog(GtkWidget *widget, gpointer data)
-{
- GtkWidget *batch_scan_dialog, *batch_scan_vbox, *hbox, *button, *scrolled_window, *list;
- char buf[64];
-
-  DBG(DBG_proc, "xsane_batch_scan_dialog\n");
-
-  batch_scan_dialog = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-  xsane_set_window_icon(batch_scan_dialog, 0);
-
-  snprintf(buf, sizeof(buf), "%s %s", xsane.prog_name, WINDOW_BATCH_SCAN);
-  gtk_window_set_title(GTK_WINDOW(batch_scan_dialog), buf);
-
-  /* set the main vbox */
-  batch_scan_vbox = gtk_vbox_new(FALSE, 0);
-  gtk_container_set_border_width(GTK_CONTAINER(batch_scan_vbox), 0);
-  gtk_container_add(GTK_CONTAINER(batch_scan_dialog), batch_scan_vbox);
-  gtk_widget_show(batch_scan_vbox);
-
-  /* set the main hbox */
-  hbox = gtk_hbox_new(FALSE, 0);
-  xsane_separator_new(vbox, 2);
-  gtk_box_pack_end(GTK_BOX(batch_scan_vbox), hbox, FALSE, FALSE, 5);
-  gtk_container_set_border_width(GTK_CONTAINER(hbox), 5);
-  gtk_widget_show(hbox); 
-
-  scrolled_window = gtk_scrolled_window_new(0, 0);
-  gtk_widget_set_size_request(scrolled_window, 400, 200);
-  gtk_container_add(GTK_CONTAINER(batch_scan_vbox), scrolled_window);
-  gtk_widget_show(scrolled_window);
-
-  list = gtk_list_new();
-
-  gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolled_window), list);
-
-  gtk_widget_show(list);
-
-
-  button = gtk_button_new_with_label(BUTTON_OK);
-  GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
-  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_close_dialog_callback, batch_scan_dialog);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
-  gtk_widget_grab_default(button);
-  gtk_widget_show(button);
-
-  button = gtk_button_new_with_label(BUTTON_ADD_AREA);
-  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_batch_scan_add_callback, list);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
-  gtk_widget_show(button);
-
-  button = gtk_button_new_with_label(BUTTON_DELETE);
-  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_batch_scan_delete_callback, list);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
-  gtk_widget_show(button);
-
-  gtk_widget_show(batch_scan_dialog);
-}
-#endif
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
 static void xsane_fax_dialog_delete()
 {
 }
@@ -3488,7 +3367,7 @@ static void xsane_fax_project_load()
  char buf[256];
  GtkWidget *list_item;
  int i;
- char c;
+ int c;
 
   DBG(DBG_proc, "xsane_fax_project_load\n");
 
@@ -3888,12 +3767,20 @@ static void xsane_fax_entry_rename_callback(GtkWidget *widget, gpointer list)
     gtk_widget_show(text);
 
 
-    button = gtk_button_new_with_label("OK");
+#ifdef HAVE_GTK2
+    button = gtk_button_new_from_stock(GTK_STOCK_OK);
+#else
+    button = gtk_button_new_with_label(BUTTON_OK);
+#endif
     g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_fax_entry_rename_button_callback, (void *) 1);
     gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
     gtk_widget_show(button);
 
-    button = gtk_button_new_with_label("Cancel");
+#ifdef HAVE_GTK2
+  button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
+#else
+  button = gtk_button_new_with_label(BUTTON_CANCEL);
+#endif
     g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_fax_entry_rename_button_callback, (void *) -1);
     gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
     gtk_widget_show(button);
@@ -4272,7 +4159,6 @@ static void xsane_mail_dialog()
  GtkWidget *hbox;
  GtkWidget *scrolled_window, *list;
  GtkWidget *pixmapwidget, *text;
- GtkWidget *vscrollbar;
  GtkWidget *attachment_frame, *text_frame;
  GtkWidget *label;
  GdkPixmap *pixmap;
@@ -4294,7 +4180,7 @@ static void xsane_mail_dialog()
   gtk_window_set_title(GTK_WINDOW(mail_dialog), buf);
   g_signal_connect(GTK_OBJECT(mail_dialog), "delete_event", (GtkSignalFunc) xsane_mail_dialog_delete, NULL);
   xsane_set_window_icon(mail_dialog, 0);
-  gtk_window_add_accel_group(GTK_WINDOW(mail_dialog), xsane.accelerator_group); 
+  /* do not add an accelerator table here or the user will not be able to enter valid texts */
 
   /* set the main vbox */
   mail_scan_vbox = gtk_vbox_new(FALSE, 0);
@@ -4410,23 +4296,27 @@ static void xsane_mail_dialog()
     gtk_widget_show(text_view);
  
     /* get the text_buffer widget and insert the text from file */
-    text_buffer = gtk_text_view_get_buffer(text_view);
+    text_buffer = (GtkWidget *) gtk_text_view_get_buffer(GTK_TEXT_VIEW(text_view));
 
     xsane.mail_text_widget = text_buffer;
   }
 #else 
-  /* Create the GtkText widget */
-  text = gtk_text_new(NULL, NULL);
-  gtk_text_set_editable(GTK_TEXT(text), TRUE); /* text is editable */
-  gtk_text_set_word_wrap(GTK_TEXT(text), TRUE); /* wrap complete words */
-  gtk_box_pack_start(GTK_BOX(hbox), text, TRUE, TRUE, 0);
-  gtk_widget_show(text);
-  xsane.mail_text_widget = text;
+  {
+    GtkWidget *vscrollbar;
+
+    /* Create the GtkText widget */
+    text = gtk_text_new(NULL, NULL);
+    gtk_text_set_editable(GTK_TEXT(text), TRUE); /* text is editable */
+    gtk_text_set_word_wrap(GTK_TEXT(text), TRUE); /* wrap complete words */
+    gtk_box_pack_start(GTK_BOX(hbox), text, TRUE, TRUE, 0);
+    gtk_widget_show(text);
+    xsane.mail_text_widget = text;
  
-  /* Add a vertical scrollbar to the GtkText widget */
-  vscrollbar = gtk_vscrollbar_new(GTK_TEXT(text)->vadj);
-  gtk_box_pack_start(GTK_BOX(hbox), vscrollbar, FALSE, FALSE, 0);
-  gtk_widget_show(vscrollbar); 
+    /* Add a vertical scrollbar to the GtkText widget */
+    vscrollbar = gtk_vscrollbar_new(GTK_TEXT(text)->vadj);
+    gtk_box_pack_start(GTK_BOX(hbox), vscrollbar, FALSE, FALSE, 0);
+    gtk_widget_show(vscrollbar); 
+  }
 #endif
 
 
@@ -4567,7 +4457,7 @@ static void xsane_mail_project_load()
  char buf[256];
  GtkWidget *list_item;
  int i;
- char c;
+ int c;
 
   DBG(DBG_proc, "xsane_mail_project_load\n");
 
@@ -5188,12 +5078,20 @@ static void xsane_mail_entry_rename_callback(GtkWidget *widget, gpointer list)
     gtk_widget_show(text);
 
 
-    button = gtk_button_new_with_label("OK");
+#ifdef HAVE_GTK2
+    button = gtk_button_new_from_stock(GTK_STOCK_OK);
+#else
+    button = gtk_button_new_with_label(BUTTON_OK);
+#endif
     g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_mail_entry_rename_button_callback, (void *) 1);
     gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
     gtk_widget_show(button);
 
-    button = gtk_button_new_with_label("Cancel");
+#ifdef HAVE_GTK2
+  button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
+#else
+  button = gtk_button_new_with_label(BUTTON_CANCEL);
+#endif
     g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_mail_entry_rename_button_callback,(void *) -1);
     gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
     gtk_widget_show(button);
@@ -5347,12 +5245,12 @@ static void xsane_create_mail(int fd)
  char *mail_text = NULL;
  char *mail_text_pos = NULL;
  char **attachment_filename = NULL;
- char c;
  char buf[256];
  char filename[256];
  char content_id[256];
  char image[256];
  int i, j;
+ int c;
  int attachments = 0;
  int use_attachment = 0;
  int mail_text_size = 0;
@@ -5917,6 +5815,14 @@ static void xsane_show_doc(GtkWidget *widget, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static void xsane_scan_callback(void)
+{
+  xsane.scan_rotation = xsane.preview->rotation;
+  xsane_scan_dialog();
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static GtkWidget *xsane_view_build_menu(void)
 {
  GtkWidget *menu, *item;
@@ -5972,11 +5878,21 @@ static GtkWidget *xsane_view_build_menu(void)
   g_signal_connect(GTK_OBJECT(xsane.show_gamma_widget), "toggled", (GtkSignalFunc) xsane_show_gamma_callback, NULL);
 #endif
 
+  /* show batch_scan */
+
+  xsane.show_batch_scan_widget = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_BATCH_SCAN);
+  gtk_widget_add_accelerator(xsane.show_batch_scan_widget, "activate", xsane.accelerator_group, GDK_5, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_batch_scan_widget), preferences.show_batch_scan);
+  gtk_menu_append(GTK_MENU(menu), xsane.show_batch_scan_widget);
+  gtk_widget_show(xsane.show_batch_scan_widget);
+  g_signal_connect(GTK_OBJECT(xsane.show_batch_scan_widget), "toggled", (GtkSignalFunc) xsane_show_batch_scan_callback, NULL);
+
+
   
   /* show standard options */
 
   xsane.show_standard_options_widget = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_STANDARDOPTIONS);
-  gtk_widget_add_accelerator(xsane.show_standard_options_widget, "activate", xsane.accelerator_group, GDK_5, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
+  gtk_widget_add_accelerator(xsane.show_standard_options_widget, "activate", xsane.accelerator_group, GDK_6, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_standard_options_widget), preferences.show_standard_options);
   gtk_menu_append(GTK_MENU(menu), xsane.show_standard_options_widget);
   gtk_widget_show(xsane.show_standard_options_widget);
@@ -5986,7 +5902,7 @@ static GtkWidget *xsane_view_build_menu(void)
   /* show advanced options */
 
   xsane.show_advanced_options_widget = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_ADVANCEDOPTIONS);
-  gtk_widget_add_accelerator(xsane.show_advanced_options_widget, "activate", xsane.accelerator_group, GDK_6, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
+  gtk_widget_add_accelerator(xsane.show_advanced_options_widget, "activate", xsane.accelerator_group, GDK_7, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_advanced_options_widget), preferences.show_advanced_options);
   gtk_menu_append(GTK_MENU(menu), xsane.show_advanced_options_widget);
   gtk_widget_show(xsane.show_advanced_options_widget);
@@ -6021,21 +5937,6 @@ static GtkWidget *xsane_pref_build_menu(void)
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_widget_show(item);
 
-
-#ifdef XSANE_TEST
-  /* XSane batch scan dialog */
-
-  item = gtk_menu_item_new_with_label("Batch scan");
-  gtk_menu_append(GTK_MENU(menu), item);
-  g_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_batch_scan_dialog, NULL);
-  gtk_widget_show(item);
-
-  /* insert separator: */
-
-  item = gtk_menu_item_new();
-  gtk_menu_append(GTK_MENU(menu), item);
-  gtk_widget_show(item);
-#endif
 
 
   /* length unit */
@@ -6461,6 +6362,14 @@ void xsane_panel_build()
             xsane.well_known.shadow_g = i;
           else if (strcmp (opt->name, SANE_NAME_SHADOW_B) == 0)
             xsane.well_known.shadow_b = i;
+          else if (strcmp (opt->name, SANE_NAME_BATCH_SCAN_START) == 0)
+            xsane.well_known.batch_scan_start = i;
+          else if (strcmp (opt->name, SANE_NAME_BATCH_SCAN_LOOP) == 0)
+            xsane.well_known.batch_scan_loop = i;
+          else if (strcmp (opt->name, SANE_NAME_BATCH_SCAN_END) == 0)
+            xsane.well_known.batch_scan_end = i;
+          else if (strcmp (opt->name, SANE_NAME_BATCH_SCAN_NEXT_TL_Y) == 0)
+            xsane.well_known.batch_scan_next_tl_y = i;
         }
 
       elem = xsane.element + i;
@@ -6488,14 +6397,19 @@ void xsane_panel_build()
           break;
 
         case SANE_TYPE_BOOL:
-          assert(opt->size == sizeof(SANE_Word));
-          status = xsane_control_option(xsane.dev, i, SANE_ACTION_GET_VALUE, &val, 0);
-          if (status != SANE_STATUS_GOOD)
+          if ( (strcmp(opt->name, SANE_NAME_BATCH_SCAN_START)  ) && /* do not show batch scan options */
+               (strcmp(opt->name, SANE_NAME_BATCH_SCAN_LOOP)  ) && 
+               (strcmp(opt->name, SANE_NAME_BATCH_SCAN_END)  ) )
           {
-            goto get_value_failed;
+            assert(opt->size == sizeof(SANE_Word));
+            status = xsane_control_option(xsane.dev, i, SANE_ACTION_GET_VALUE, &val, 0);
+            if (status != SANE_STATUS_GOOD)
+            {
+              goto get_value_failed;
+            }
+            xsane_back_gtk_button_new(parent, title, val, elem, xsane.tooltips, _BGT(opt->desc), SANE_OPTION_IS_SETTABLE(opt->cap));
+            gtk_widget_show(parent->parent);
           }
-          xsane_back_gtk_button_new(parent, title, val, elem, xsane.tooltips, _BGT(opt->desc), SANE_OPTION_IS_SETTABLE(opt->cap));
-          gtk_widget_show(parent->parent);
           break;
 
         case SANE_TYPE_INT:
@@ -6576,8 +6490,9 @@ void xsane_panel_build()
               if ( (strcmp(opt->name, SANE_NAME_SCAN_RESOLUTION)  ) && /* do not show resolution */
                    (strcmp(opt->name, SANE_NAME_SCAN_X_RESOLUTION)) && /* do not show x-resolution */
                    (strcmp(opt->name, SANE_NAME_SCAN_Y_RESOLUTION)) && /* do not show y-resolution */
-                   ((strcmp(opt->name, SANE_NAME_THRESHOLD) || (xsane.lineart_mode == XSANE_LINEART_STANDARD)))
+                   ((strcmp(opt->name, SANE_NAME_THRESHOLD) || (xsane.lineart_mode == XSANE_LINEART_STANDARD))) &&
                     /* do not show threshold if user wants the slider in the xsane main window */
+                   (strcmp(opt->name, SANE_NAME_BATCH_SCAN_NEXT_TL_Y)  ) /* do not show batch scan options */
                  )
               {
                 /* use a scale */
@@ -6730,6 +6645,7 @@ void xsane_panel_build()
  - create tooltip style
  - create dialog xsane.histogram_dialog
  - create dialog xsane.gamma_dialog
+ - create dialog xsane.batch_scan
  - panel_build()
  - create dialog xsane.preview
 */
@@ -7054,6 +6970,9 @@ static void xsane_device_dialog(void)
   xsane_create_gamma_dialog(xsane.device_text); /* create the free gamma curve dialog */
 #endif
 
+  /* create batch_scan dialog */
+  xsane_create_batch_scan_dialog(xsane.device_text);
+
   /* The bottom area: info frame, progress bar, start and cancel button */
   xsane_separator_new(xsane_window, 2);
   hbox = gtk_hbox_new(FALSE, 5);
@@ -7097,16 +7016,20 @@ static void xsane_device_dialog(void)
   gtk_widget_show(vbox);
 
   /* The Scan button */
-  button = gtk_button_new_with_label(BUTTON_START);
+  button = gtk_button_new_with_label(BUTTON_SCAN);
   xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_SCAN_START);
   gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_Return, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
-  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_scan_dialog, NULL);
+  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_scan_callback, NULL);
   gtk_box_pack_start(GTK_BOX(vbox), button, FALSE, FALSE, 0);
   gtk_widget_show(button);
   xsane.start_button = GTK_OBJECT(button);
 
   /* The Cancel button */
+#ifdef HAVE_GTK2
+  button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
+#else
   button = gtk_button_new_with_label(BUTTON_CANCEL);
+#endif
   xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_SCAN_CANCEL);
   gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_Escape, 0, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
   gtk_box_pack_start(GTK_BOX(vbox), button, FALSE, FALSE, 0);
@@ -7139,6 +7062,11 @@ static void xsane_device_dialog(void)
   if (preferences.show_advanced_options)
   {
     gtk_widget_show(xsane.advanced_options_shell);
+  }
+
+  if (preferences.show_batch_scan)
+  {
+    gtk_widget_show(xsane.batch_scan_dialog);
   }
 
   gtk_widget_show(xsane.shell); /* call as last so focus is on it */

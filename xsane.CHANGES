@@ -2079,7 +2079,7 @@ xsane-0.86 -> 0.87:
  
  - added xsane.ipc_pipefd and gdk_input_add(xsane.ipc_pipefd,...),
    a child process can write to the pipe and xsane displays the
-   text in an error dialog
+   text in an error dialog (not for win32)
  - added inter process communication pipe. When a child process
    wants to display an error message it can write the message to
    ipc_pipefd[1] and xsane will display the message in an error dialog
@@ -2145,3 +2145,32 @@ xsane-0.86 -> 0.87:
 
  - new translation: sk (slovakian), thanks to Zdenko Podobný <zdpo@mailbox.sk>
 
+ - changed configure script to support gtk2
+    
+
+xsane-0.87 -> 0.88:
+-------------------
+
+ - xsane_back_gtk_range_new: made sure that digits is not negative
+   and for gtk+-1 that digits<6
+
+ - xsane_load_mail_project: changed "char c" to "int c" to get a chance to
+   identify EOF
+
+ - xsane_load_fax_project: changed "char c" to "int c" to get a chance to
+   identify EOF
+
+ - xsane_resolution_list_callback: changed "gchar *name" to "const gchar *name"
+
+ - xsane_add_medium_definition: changed "char *definition_name" to "const gchar *definition_name"
+
+ - added xsane-batch-scan.[ch]
+
+ - added routine preview_create_batch_icon_from_file() to xsane-preview.c
+
+ - xsane_batch_scan_update_icon_list is called by xsane_enhancement_by_gamma via a timer
+   this way a gamma correction also is visible in the icon list
+
+ - added xsane.scan_rotation that is used by xsane-scan.c instead of xsane.preview->rotation
+
+ - updated translations: cs, de, es, ja, ru, tr
