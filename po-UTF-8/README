@@ -1,0 +1,72 @@
+
+SHORT DESCRIPTION:
+------------------
+
+XSane uses gettext for supporting translation into different languages. 
+
+- To remake the *.po files when the original texts have changed or new texts have been added:
+  make update-po
+- To create the translation tables:
+  make
+- Using "u" (untranslated) and "f" (fuzzy) in emacs po-mode for updating strings.
+- if you use other editors, search for keyword "fuzzy" and for \"\"
+- when you translated fuzzy fields, remove the "fuzzy" marker, otherwise the
+  translation will NOT be used
+
+
+SELECT YOUR LANGUAGE:
+---------------------
+
+set environment variable LANG to your language
+(eg. export LANG=german) and call xsane
+You have to set the correct keyword. When you select
+LANG=fr you will select the french translated texts but
+not the correct fonts. Setting LANG=french works fine.
+
+Note that some texts are stored in the preferences file
+	~/.sane/xsane/xsane.rc
+When you select another language you may want to remove
+this file to also get these texts translated.
+
+Note that backend dependant texts may not be translated because
+there is possibly no translation table for selected language
+for the backend you use.
+
+
+NEW TRANSLATIONS:
+-----------------
+
+To create a new translation for a new language
+copy xsane.pot to "language".po and edit "language".po
+
+The field TEXT_TRANSLATION_INFO is meant for you to enter
+your Name and Email-Adress, e.g.:
+ "English translation\n"
+ "by your name\n"
+ "Email: your.email@address.domain\n"
+
+Note that it is NOT allowed to translate the menu paths of the gimp!
+
+To test/install your new translation:
+ - edit xsane-0.*/configure, search for ALL_LINGUAS and add "language"
+ - enter xsane-0.*, do
+ - make distclean
+ - ./configure
+ - make
+ - make install
+
+If you want to make your translation public
+please send your "language".po file to:
+Oliver Rauch <Oliver.Rauch@rauch-domain.de>
+
+
+
+THANKS:
+-------
+
+Thanks to Stanislav Brabec <utx@k332.feld.cvut.cz> for his sed scripts
+and Changes in Makefile.in to simplify the rebuild of *.po files
+
+
+Bye
+Oliver Rauch 

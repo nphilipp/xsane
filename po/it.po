@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.84\n"
-"POT-Creation-Date: 2002-01-22 23:34+0100\n"
+"POT-Creation-Date: 2002-03-17 00:03+0100\n"
 "PO-Revision-Date: 2000-09-29  23:48+0100\n"
 "Last-Translator: Colorio Mauro <linuxbox@interfree.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -35,10 +35,13 @@ msgstr "Traduzioni:"
 msgid "authorization"
 msgstr "autorizzazione"
 
-#. WINDOW_LICENSE
-#, fuzzy
-msgid "license"
-msgstr "pollici"
+#. WINDOW_GPL
+msgid "GPL - the license"
+msgstr ""
+
+#. WINDOW_EULA
+msgid "End User License Agreement"
+msgstr ""
 
 #. WINDOW_INFO
 msgid "info"
@@ -202,9 +205,9 @@ msgstr "Esci"
 msgid "Save image"
 msgstr "Immagine Raw"
 
-#. MENU_ITEM_CLOSE
-msgid "Close"
-msgstr "Chiudi"
+#. MENU_ITEM_OCR
+msgid "OCR - save as text"
+msgstr ""
 
 #. MENU_ITEM_CLONE
 #, fuzzy
@@ -215,6 +218,10 @@ msgstr "Chiudi"
 #, fuzzy
 msgid "Scale"
 msgstr "Scanner"
+
+#. MENU_ITEM_CLOSE
+msgid "Close"
+msgstr "Chiudi"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
@@ -412,6 +419,10 @@ msgstr ""
 msgid "POP3 authentification"
 msgstr ""
 
+#. RADIO_BUTTON_OCR_USE_GUI_PIPE
+msgid "Use GUI progress pipe"
+msgstr ""
+
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
 msgstr "ricerca dei dispositivi"
@@ -574,6 +585,21 @@ msgstr "compilato con GIMP-"
 #. TEXT_UNKNOWN
 msgid "unknown"
 msgstr "sconosciuto"
+
+#. TEXT_EULA
+msgid ""
+"XSane is distributed under the terms of the GNU General Public License\n"
+"as published by the Free Software Foundation; either version 2 of the\n"
+"License, or (at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but\n"
+"WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+"Should the program prove defective, you assume the cost of all\n"
+"necessary servicing, repair or correction. To use this program you\n"
+"have to read, understand and accept the following\n"
+"\"NO WARRANTY\" agreement.\n"
+msgstr ""
 
 #. TEXT_GPL
 msgid ""
@@ -766,6 +792,11 @@ msgstr "Compressione immagine TIFF a 8 bit"
 msgid "TIFF lineart image compression"
 msgstr "Compressione immagine TIFF lineart"
 
+#. TEXT_SETUP_SHOW_RANGE_MODE
+#, fuzzy
+msgid "Show range as:"
+msgstr "Visualizza anteprima"
+
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
 msgstr "Anteprima oversampling:"
@@ -895,6 +926,19 @@ msgstr "Opzione file postscript:"
 #, fuzzy
 msgid "Outputfile option:"
 msgstr "Opzione file postscript:"
+
+#. TEXT_SETUP_OCR_USE_GUI_PIPE_OPT
+msgid "Use GUI progress pipe:"
+msgstr ""
+
+#. TEXT_SETUP_OCR_OUTFD_OPT
+#, fuzzy
+msgid "GUI output-fd option:"
+msgstr "Opzione file postscript:"
+
+#. TEXT_SETUP_OCR_PROGRESS_KEYWORD
+msgid "Progress keyword:"
+msgstr ""
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
@@ -1028,10 +1072,14 @@ msgstr "Carica settaggi dispositivo"
 msgid "Change directory"
 msgstr "Cambia directory"
 
-#. MENU_ITEM_XSANE_LICENSE
+#. MENU_ITEM_XSANE_EULA
 #, fuzzy
-msgid "License"
-msgstr "pollici"
+msgid "Show EULA"
+msgstr "Mostra"
+
+#. MENU_ITEM_XSANE_GPL
+msgid "Show license (GPL)"
+msgstr ""
 
 #. MENU_ITEM_XSANE_DOC
 #, fuzzy
@@ -1081,6 +1129,18 @@ msgstr "Compressione JPEG DCT"
 #. MENU_ITEM_TIFF_COMP_PACKBITS
 msgid "pack bits"
 msgstr "compressione bit"
+
+#. MENU_ITEM_SHOW_RANGE_SCALE
+msgid "Slider"
+msgstr ""
+
+#. MENU_ITEM_SHOW_RANGE_SPINBUTTON
+msgid "Spinbutton"
+msgstr ""
+
+#. MENU_ITEM_SHOW_RANGE_BOTH
+msgid "Slider and Spinbutton"
+msgstr ""
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
 msgid "Standard options window (lineart)"
@@ -1601,6 +1661,10 @@ msgstr ""
 "Usa una propria mappa dei colori per l'anteprima se la profondità del siplay "
 "è 8 bpp"
 
+#. DESC_SHOW_RANGE_MODE
+msgid "Select how a range is displayed"
+msgstr ""
+
 #. DESC_PREVIEW_OVERSAMPLING
 msgid "Value with that the calculated preview resolution is multiplied"
 msgstr ""
@@ -1780,6 +1844,19 @@ msgstr ""
 
 #. DESC_OCR_OUTPUTFILE_OPT
 msgid "Enter option of the ocr program to define output file"
+msgstr ""
+
+#. DESC_OCR_USE_GUI_PIPE_OPT
+msgid "Define if the ocr program supports gui progress pipe"
+msgstr ""
+
+#. DESC_OCR_OUTFD_OPT
+msgid ""
+"Enter option of the ocr program to define output filedescripor in GUI mode"
+msgstr ""
+
+#. DESC_OCR_PROGRESS_KEYWORD
+msgid "Define Keyword that is used to mark progress information"
 msgstr ""
 
 #. DESC_PERMISSION_READ
@@ -2457,6 +2534,14 @@ msgid "Access to resource has been denied"
 msgstr "Acesso alla risorsa negato"
 
 #, fuzzy
+#~ msgid "license"
+#~ msgstr "pollici"
+
+#, fuzzy
+#~ msgid "License"
+#~ msgstr "pollici"
+
+#, fuzzy
 #~ msgid "Store Medium definition"
 #~ msgstr "Selezionare la definizione da cambiare"
 
@@ -2511,9 +2596,6 @@ msgstr "Acesso alla risorsa negato"
 
 #~ msgid "Delete"
 #~ msgstr "Cancella"
-
-#~ msgid "Show"
-#~ msgstr "Mostra"
 
 #~ msgid "Rename"
 #~ msgstr "Rinomina"

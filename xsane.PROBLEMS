@@ -99,6 +99,11 @@ READ THIS FILE IF YOU EXPERIENCE ANY PROBLEM
    Make sure that you do not have installed more than one version of
    each lib!
 
+ - If you want to remove all sane files from your filesystem:
+   find / -mount -iname "*sane*" -exec rm -rf {} \;
+   pay attantion: this really removes all files containg "sane" in the
+   filename (caseinsensitive)
+
  - If you are running BSD and gtk-config is not in your path or is
    named gtk?.?-config, make sure environment variable GTK_CONFIG
    is set with full path to the config file that shall be used

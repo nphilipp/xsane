@@ -79,6 +79,9 @@ Preferences preferences =
        0,		/* no default ocrcommand */
        0,		/* no default ocr input file option */
        0,		/* no default ocr output file option */
+       0,		/* do not use progress pipe */
+       0,		/* no option for progress pipe filedeskriptor */
+       0,		/* no progress keyword */
        0,		/* no doc viewer */
       80.0,		/* jpeg_quality */
        7.0,		/* png_compression */
@@ -91,6 +94,7 @@ Preferences preferences =
        0,		/* reduce_16bit_to_8bit */
        1,		/* filename_counter_step */
        4,		/* filename_counter_len */
+       6,		/* show_range_mode */
        1,		/* tooltips enabled */
        1,		/* (dont) show histogram */
        1,		/* (dont) show gamma */
@@ -172,6 +176,9 @@ desc[] =
     {"ocr-command",			xsane_rc_pref_string,	POFFSET(ocr_command)},
     {"ocr-inputfile-option",		xsane_rc_pref_string,	POFFSET(ocr_inputfile_option)},
     {"ocr-outputfile-options",		xsane_rc_pref_string,	POFFSET(ocr_outputfile_option)},
+    {"ocr-use-gui-pipe",		xsane_rc_pref_int,	POFFSET(ocr_use_gui_pipe)},
+    {"ocr-gui-outfd-option",		xsane_rc_pref_string,	POFFSET(ocr_gui_outfd_option)},
+    {"ocr-progress-keyword",		xsane_rc_pref_string,	POFFSET(ocr_progress_keyword)},
     {"doc-viewer",			xsane_rc_pref_string,	POFFSET(doc_viewer)},
     {"jpeg-quality",			xsane_rc_pref_double,	POFFSET(jpeg_quality)},
     {"png-compression",			xsane_rc_pref_double, 	POFFSET(png_compression)},
@@ -184,6 +191,7 @@ desc[] =
     {"reduce-16bit-to8bit",		xsane_rc_pref_int,	POFFSET(reduce_16bit_to_8bit)},
     {"filename-counter-step",		xsane_rc_pref_int,	POFFSET(filename_counter_step)},
     {"filename-counter-len",		xsane_rc_pref_int,	POFFSET(filename_counter_len)},
+    {"show-range-mode",			xsane_rc_pref_int,	POFFSET(show_range_mode)},
     {"tool-tips",			xsane_rc_pref_int,	POFFSET(tooltips_enabled)},
     {"show-histogram",			xsane_rc_pref_int,	POFFSET(show_histogram)},
     {"show-gamma",			xsane_rc_pref_int,	POFFSET(show_gamma)},

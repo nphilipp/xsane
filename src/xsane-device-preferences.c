@@ -592,12 +592,12 @@ void xsane_device_preferences_load_file(char *filename)
       }
     }
   }
-  gtk_widget_set_uposition(xsane.shell, xsane.shell_posx, xsane.shell_posy);
+  gtk_window_move(GTK_WINDOW(xsane.shell), xsane.shell_posx, xsane.shell_posy);
   gtk_window_set_default_size(GTK_WINDOW(xsane.shell), xsane.shell_width, xsane.shell_height);
-  gtk_widget_set_uposition(xsane.standard_options_shell, xsane.standard_options_shell_posx, xsane.standard_options_shell_posy);
-  gtk_widget_set_uposition(xsane.advanced_options_shell, xsane.advanced_options_shell_posx, xsane.advanced_options_shell_posy);
-  gtk_widget_set_uposition(xsane.histogram_dialog, xsane.histogram_dialog_posx, xsane.histogram_dialog_posy);
-  gtk_widget_set_uposition(xsane.preview->top, xsane.preview_dialog_posx, xsane.preview_dialog_posy);
+  gtk_window_move(GTK_WINDOW(xsane.standard_options_shell), xsane.standard_options_shell_posx, xsane.standard_options_shell_posy);
+  gtk_window_move(GTK_WINDOW(xsane.advanced_options_shell), xsane.advanced_options_shell_posx, xsane.advanced_options_shell_posy);
+  gtk_window_move(GTK_WINDOW(xsane.histogram_dialog), xsane.histogram_dialog_posx, xsane.histogram_dialog_posy);
+  gtk_window_move(GTK_WINDOW(xsane.preview->top), xsane.preview_dialog_posx, xsane.preview_dialog_posy);
   gtk_window_set_default_size(GTK_WINDOW(xsane.preview->top), xsane.preview_dialog_width, xsane.preview_dialog_height);
 
   xsane_update_param(0);
@@ -693,25 +693,25 @@ void xsane_device_preferences_save_file(char *filename)
     XSANE_RC_IO_W_STRINGCONST(&w, XSANE_VERSION);
 
     /* make geometry and position values up to date */
-    xsane_widget_get_uposition(xsane.shell, &xsane.shell_posx, &xsane.shell_posy);
-    gdk_window_get_size(xsane.shell->window, &xsane.shell_width, &xsane.shell_height);
-    gtk_widget_set_uposition(xsane.shell, xsane.shell_posx, xsane.shell_posy); /* geometry used when window closed and opened again */
+    xsane_window_get_position(xsane.shell, &xsane.shell_posx, &xsane.shell_posy);
+    gdk_drawable_get_size(xsane.shell->window, &xsane.shell_width, &xsane.shell_height);
+    gtk_window_move(GTK_WINDOW(xsane.shell), xsane.shell_posx, xsane.shell_posy); /* geometry used when window closed and opened again */
     gtk_window_set_default_size(GTK_WINDOW(xsane.shell), xsane.shell_width, xsane.shell_height);
 
-    xsane_widget_get_uposition(xsane.standard_options_shell, &xsane.standard_options_shell_posx, &xsane.standard_options_shell_posy);
-    gtk_widget_set_uposition(xsane.standard_options_shell, xsane.standard_options_shell_posx, xsane.standard_options_shell_posy);
+    xsane_window_get_position(xsane.standard_options_shell, &xsane.standard_options_shell_posx, &xsane.standard_options_shell_posy);
+    gtk_window_move(GTK_WINDOW(xsane.standard_options_shell), xsane.standard_options_shell_posx, xsane.standard_options_shell_posy);
 
-    xsane_widget_get_uposition(xsane.advanced_options_shell, &xsane.advanced_options_shell_posx, &xsane.advanced_options_shell_posy);
-    gtk_widget_set_uposition(xsane.advanced_options_shell, xsane.advanced_options_shell_posx, xsane.advanced_options_shell_posy);
+    xsane_window_get_position(xsane.advanced_options_shell, &xsane.advanced_options_shell_posx, &xsane.advanced_options_shell_posy);
+    gtk_window_move(GTK_WINDOW(xsane.advanced_options_shell), xsane.advanced_options_shell_posx, xsane.advanced_options_shell_posy);
 
-    xsane_widget_get_uposition(xsane.histogram_dialog, &xsane.histogram_dialog_posx, &xsane.histogram_dialog_posy);
-    gtk_widget_set_uposition(xsane.histogram_dialog, xsane.histogram_dialog_posx, xsane.histogram_dialog_posy);
+    xsane_window_get_position(xsane.histogram_dialog, &xsane.histogram_dialog_posx, &xsane.histogram_dialog_posy);
+    gtk_window_move(GTK_WINDOW(xsane.histogram_dialog), xsane.histogram_dialog_posx, xsane.histogram_dialog_posy);
 
     if (xsane.preview)
     {
-      xsane_widget_get_uposition(xsane.preview->top, &xsane.preview_dialog_posx, &xsane.preview_dialog_posy);
-      gdk_window_get_size(xsane.preview->top->window, &xsane.preview_dialog_width, &xsane.preview_dialog_height);
-      gtk_widget_set_uposition(xsane.preview->top, xsane.preview_dialog_posx, xsane.preview_dialog_posy);
+      xsane_window_get_position(xsane.preview->top, &xsane.preview_dialog_posx, &xsane.preview_dialog_posy);
+      gdk_drawable_get_size(xsane.preview->top->window, &xsane.preview_dialog_width, &xsane.preview_dialog_height);
+      gtk_window_move(GTK_WINDOW(xsane.preview->top), xsane.preview_dialog_posx, xsane.preview_dialog_posy);
       gtk_window_set_default_size(GTK_WINDOW(xsane.preview->top), xsane.preview_dialog_width, xsane.preview_dialog_height);
     }
 

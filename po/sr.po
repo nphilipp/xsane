@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.76\n"
-"POT-Creation-Date: 2002-01-22 23:34+0100\n"
+"POT-Creation-Date: 2002-03-17 00:03+0100\n"
 "PO-Revision-Date: 2002-01-17 00:47GMT\n"
 "Last-Translator: Rusmir Duško <drusmir@gmx.ch>\n"
 "Language-Team: srpski <sr@li.org>\n"
@@ -37,9 +37,13 @@ msgstr "O prevodu"
 msgid "authorization"
 msgstr "autorizacija"
 
-#. WINDOW_LICENSE
-msgid "license"
-msgstr "licenca"
+#. WINDOW_GPL
+msgid "GPL - the license"
+msgstr ""
+
+#. WINDOW_EULA
+msgid "End User License Agreement"
+msgstr ""
 
 #. WINDOW_INFO
 msgid "info"
@@ -190,9 +194,9 @@ msgstr "Izlaz"
 msgid "Save image"
 msgstr "Zapamti sliku"
 
-#. MENU_ITEM_CLOSE
-msgid "Close"
-msgstr "Zatvori"
+#. MENU_ITEM_OCR
+msgid "OCR - save as text"
+msgstr ""
 
 #. MENU_ITEM_CLONE
 msgid "Clone"
@@ -201,6 +205,10 @@ msgstr "Kopiraj"
 #. MENU_ITEM_SCALE
 msgid "Scale"
 msgstr "Promeni veličinu"
+
+#. MENU_ITEM_CLOSE
+msgid "Close"
+msgstr "Zatvori"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
@@ -386,6 +394,10 @@ msgstr "Autokorektura boja"
 msgid "POP3 authentification"
 msgstr "POP3 autentifikacija"
 
+#. RADIO_BUTTON_OCR_USE_GUI_PIPE
+msgid "Use GUI progress pipe"
+msgstr ""
+
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
 msgstr "Skeniranje uređaja"
@@ -549,6 +561,21 @@ msgstr "prevedeno sa podrškom GIMP-a"
 #. TEXT_UNKNOWN
 msgid "unknown"
 msgstr "nepoznato"
+
+#. TEXT_EULA
+msgid ""
+"XSane is distributed under the terms of the GNU General Public License\n"
+"as published by the Free Software Foundation; either version 2 of the\n"
+"License, or (at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but\n"
+"WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+"Should the program prove defective, you assume the cost of all\n"
+"necessary servicing, repair or correction. To use this program you\n"
+"have to read, understand and accept the following\n"
+"\"NO WARRANTY\" agreement.\n"
+msgstr ""
 
 #. TEXT_GPL
 msgid ""
@@ -735,6 +762,11 @@ msgstr "TIFF 8 bitna kompresija slike"
 msgid "TIFF lineart image compression"
 msgstr "TIFF lineart kompresija slike"
 
+#. TEXT_SETUP_SHOW_RANGE_MODE
+#, fuzzy
+msgid "Show range as:"
+msgstr "Prikaži pregled"
+
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
 msgstr "Prekomerni uzorak pri pregledu:"
@@ -858,6 +890,19 @@ msgstr "Opcije za ulazni fajl:"
 #. TEXT_SETUP_OCR_OUTPUTFILE_OPT
 msgid "Outputfile option:"
 msgstr "Opcije za izlazni fajl:"
+
+#. TEXT_SETUP_OCR_USE_GUI_PIPE_OPT
+msgid "Use GUI progress pipe:"
+msgstr ""
+
+#. TEXT_SETUP_OCR_OUTFD_OPT
+#, fuzzy
+msgid "GUI output-fd option:"
+msgstr "Opcije za izlazni fajl:"
+
+#. TEXT_SETUP_OCR_PROGRESS_KEYWORD
+msgid "Progress keyword:"
+msgstr ""
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
@@ -987,9 +1032,13 @@ msgstr "Učitaj podešavanja uređaja"
 msgid "Change directory"
 msgstr "Promeni direktorijum"
 
-#. MENU_ITEM_XSANE_LICENSE
-msgid "License"
-msgstr "Licenca"
+#. MENU_ITEM_XSANE_EULA
+msgid "Show EULA"
+msgstr ""
+
+#. MENU_ITEM_XSANE_GPL
+msgid "Show license (GPL)"
+msgstr ""
 
 #. MENU_ITEM_XSANE_DOC
 msgid "XSane doc"
@@ -1038,6 +1087,19 @@ msgstr "JPEG DCT kompresija"
 #. MENU_ITEM_TIFF_COMP_PACKBITS
 msgid "pack bits"
 msgstr "zapakovani biti"
+
+#. MENU_ITEM_SHOW_RANGE_SCALE
+#, fuzzy
+msgid "Slider"
+msgstr "Dia"
+
+#. MENU_ITEM_SHOW_RANGE_SPINBUTTON
+msgid "Spinbutton"
+msgstr ""
+
+#. MENU_ITEM_SHOW_RANGE_BOTH
+msgid "Slider and Spinbutton"
+msgstr ""
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
 msgid "Standard options window (lineart)"
@@ -1508,6 +1570,10 @@ msgid "Use an own colormap for preview if display depth is 8 bpp"
 msgstr ""
 "Upotrebi svoju paletu boja za pregled ako se koristi dubina ekrana od 8 bpp"
 
+#. DESC_SHOW_RANGE_MODE
+msgid "Select how a range is displayed"
+msgstr ""
+
 #. DESC_PREVIEW_OVERSAMPLING
 msgid "Value with that the calculated preview resolution is multiplied"
 msgstr "Vrednost, sa kojom se pomnožava izračunata rezolucija pregleda"
@@ -1674,6 +1740,20 @@ msgstr "Opcija od OCR programa koja definiše ulazni fajl"
 #. DESC_OCR_OUTPUTFILE_OPT
 msgid "Enter option of the ocr program to define output file"
 msgstr "Opcija od OCR programa koja definiše izlazni fajl"
+
+#. DESC_OCR_USE_GUI_PIPE_OPT
+msgid "Define if the ocr program supports gui progress pipe"
+msgstr ""
+
+#. DESC_OCR_OUTFD_OPT
+#, fuzzy
+msgid ""
+"Enter option of the ocr program to define output filedescripor in GUI mode"
+msgstr "Opcija od OCR programa koja definiše izlazni fajl"
+
+#. DESC_OCR_PROGRESS_KEYWORD
+msgid "Define Keyword that is used to mark progress information"
+msgstr ""
 
 #. DESC_PERMISSION_READ
 msgid "read"
@@ -2343,6 +2423,12 @@ msgstr "Nedostatak memorije"
 
 msgid "Access to resource has been denied"
 msgstr "Dostup do resursa nije dozvoljen"
+
+#~ msgid "license"
+#~ msgstr "licenca"
+
+#~ msgid "License"
+#~ msgstr "Licenca"
 
 #~ msgid ""
 #~ "Use XSane for: SCANning-<Ctrl-s> photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>"

@@ -68,7 +68,8 @@ install: $(PROGRAMS)
 	$(INSTALL_DATA) $(srcdir)/xsane-startimage.pnm $(sanedatadir)/xsane/xsane-startimage.pnm
 	$(INSTALL_DATA) $(srcdir)/xsane-calibration.pnm $(sanedatadir)/xsane/xsane-calibration.pnm
 	$(INSTALL_DATA) $(srcdir)/xsane-logo.xpm $(sanedatadir)/xsane/xsane-logo.xpm
-	$(INSTALL_DATA) $(srcdir)/xsane-license.txt $(sanedatadir)/xsane/xsane-license.txt
+	$(INSTALL_DATA) $(srcdir)/xsane-gpl.txt $(sanedatadir)/xsane/xsane-gpl.txt
+	$(INSTALL_DATA) $(srcdir)/xsane-eula.txt $(sanedatadir)/xsane/xsane-eula.txt
 	@for logo in *-logo.xpm; do \
 	  echo installing $(sanedatadir)/xsane/$${logo}; \
 	  $(INSTALL_DATA) $(srcdir)/$${logo} $(sanedatadir)/xsane/$${logo}; \

@@ -169,6 +169,7 @@ static void preview_get_color(Preview *p, int x, int y, int range, int *red, int
 static void preview_pipette_white(GtkWidget *window, gpointer data);
 static void preview_pipette_gray(GtkWidget *window, gpointer data);
 static void preview_pipette_black(GtkWidget *window, gpointer data);
+static void preview_init_autoraise_scanarea(GtkWidget *window, gpointer data);
 void preview_select_full_preview_area(Preview *p);
 static void preview_full_preview_area_callback(GtkWidget *widget, gpointer call_data);
 static void preview_delete_images_callback(GtkWidget *widget, gpointer call_data);
@@ -193,6 +194,7 @@ void preview_area_resize(Preview *p);
 gint preview_area_resize_handler(GtkWidget *widget, GdkEvent *event, gpointer data);
 void preview_update_maximum_output_size(Preview *p);
 void preview_set_maximum_output_size(Preview *p, float width, float height);
+void preview_autoraise_scanarea(Preview *p, int preview_x, int preview_y, float *autoselect_coord);
 void preview_autoselect_scanarea(Preview *p, float *autoselect_coord);
 void preview_display_valid(Preview *p);
 
@@ -1435,8 +1437,6 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
  SANE_Handle dev;
  SANE_Int len;
  int i, j;
- int offset = 0;
- char last = 0;
 
   DBG(DBG_proc, "preview_read_image_data\n");
 
@@ -1449,11 +1449,12 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
     }
     else if (p->params.depth == 16)
     {
-      if (offset)
+      if (p->read_offset_16)
       {
-        buf16[0] = last; /* ATTENTION: that is wrong! */
-        /* use sizeof(buf) here because sizeof(buf16) returns the size of a pointer */
-        status = sane_read(dev, ((SANE_Byte *) buf16) + 1, sizeof(buf) - 1, &len);
+        buf[0] = p->last_offset_16_byte; 
+        /* use buf and sizeof(buf) here because sizeof(buf16) returns the size of a pointer */
+        status = sane_read(dev, buf+1, sizeof(buf) - 1, &len);
+        len++;
       }
       else
       {
@@ -1463,12 +1464,12 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
       if (len % 2) /* odd number of bytes */
       {
         len--;
-        last = buf16[len];
-        offset = 1;
+        p->last_offset_16_byte = buf16[len];
+        p->read_offset_16 = 1;
       }
       else /* even number of bytes */
       {
-        offset = 0;
+        p->read_offset_16 = 0;
       }
     }
     else /* bad bitdepth */
@@ -1705,8 +1706,8 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
                     u_char gl = (mask & 1) ? 0xff : 0x00;
                     mask >>= 1;
 
-                    p->image_data_raw[p->image_offset]   = gl * 256;
-                    p->image_data_enh[p->image_offset++] = gl;
+                    p->image_data_raw[p->image_offset] = gl * 256;
+                    p->image_data_enh[p->image_offset] = gl;
 
                     p->image_offset += 3;
                     if (++p->image_x >= p->image_width && preview_increment_image_y(p) < 0)
@@ -1935,6 +1936,8 @@ static void preview_scan_start(Preview *p)
  int gamma_red_max    = 255;
  int gamma_green_max  = 255;
  int gamma_blue_max   = 255;
+
+  p->read_offset_16 = 0;
 
   DBG(DBG_proc, "preview_scan_start\n");
 
@@ -2551,7 +2554,7 @@ static gint preview_motion_event_handler(GtkWidget *window, GdkEvent *event, gpo
         {
           cursor = gdk_cursor_new(cursornr);	/* set curosr */
           gdk_window_set_cursor(p->window->window, cursor);
-          gdk_cursor_destroy(cursor);
+          gdk_cursor_unref(cursor);
           p->cursornr = cursornr;
         }
        break;
@@ -2727,7 +2730,7 @@ static gint preview_motion_event_handler(GtkWidget *window, GdkEvent *event, gpo
         {
           cursor = gdk_cursor_new(cursornr);	/* set curosr */
           gdk_window_set_cursor(p->window->window, cursor);
-          gdk_cursor_destroy(cursor);
+          gdk_cursor_unref(cursor);
           p->cursornr = cursornr;
         }
        break;
@@ -2842,7 +2845,7 @@ static gint preview_button_press_event_handler(GtkWidget *window, GdkEvent *even
 
         cursor = gdk_cursor_new(XSANE_CURSOR_PREVIEW);
         gdk_window_set_cursor(p->window->window, cursor);
-        gdk_cursor_destroy(cursor);
+        gdk_cursor_unref(cursor);
         p->cursornr = XSANE_CURSOR_PREVIEW;
       }
       break;
@@ -2947,7 +2950,7 @@ static gint preview_button_press_event_handler(GtkWidget *window, GdkEvent *even
 
         cursor = gdk_cursor_new(XSANE_CURSOR_PREVIEW);
         gdk_window_set_cursor(p->window->window, cursor);
-        gdk_cursor_destroy(cursor);
+        gdk_cursor_unref(cursor);
         p->cursornr = XSANE_CURSOR_PREVIEW;
       }
       break;
@@ -3037,7 +3040,26 @@ static gint preview_button_press_event_handler(GtkWidget *window, GdkEvent *even
 
         cursor = gdk_cursor_new(XSANE_CURSOR_PREVIEW);
         gdk_window_set_cursor(p->window->window, cursor);
-        gdk_cursor_destroy(cursor);
+        gdk_cursor_unref(cursor);
+        p->cursornr = XSANE_CURSOR_PREVIEW;
+      }
+      break;
+
+      case MODE_AUTORAISE_SCANAREA:
+      {
+        DBG(DBG_info, "autoraise scanarea mode\n");
+
+        if ( ( (((GdkEventButton *)event)->button == 1) || (((GdkEventButton *)event)->button == 2) ) &&
+             (p->image_data_raw) ) /* left or middle button */
+        {
+          preview_autoraise_scanarea(p, event->button.x, event->button.y, p->selection.coordinate); /* raise selection area */
+        }
+
+        p->mode = MODE_NORMAL;
+
+        cursor = gdk_cursor_new(XSANE_CURSOR_PREVIEW);
+        gdk_window_set_cursor(p->window->window, cursor);
+        gdk_cursor_unref(cursor);
         p->cursornr = XSANE_CURSOR_PREVIEW;
       }
       break;
@@ -3117,7 +3139,7 @@ static gint preview_button_press_event_handler(GtkWidget *window, GdkEvent *even
                 cursornr = GDK_CROSS;
                 cursor = gdk_cursor_new(cursornr);	/* set curosr */
                 gdk_window_set_cursor(p->window->window, cursor);
-                gdk_cursor_destroy(cursor);
+                gdk_cursor_unref(cursor);
                 p->cursornr = cursornr;
               }
              break;
@@ -3139,7 +3161,7 @@ static gint preview_button_press_event_handler(GtkWidget *window, GdkEvent *even
                 cursornr = GDK_HAND2;
                 cursor = gdk_cursor_new(cursornr);	/* set curosr */
                 gdk_window_set_cursor(p->window->window, cursor);
-                gdk_cursor_destroy(cursor);
+                gdk_cursor_unref(cursor);
                 p->cursornr = cursornr;
               }
              break;
@@ -3184,7 +3206,7 @@ static gint preview_button_release_event_handler(GtkWidget *window, GdkEvent *ev
             cursornr = XSANE_CURSOR_PREVIEW;
             cursor = gdk_cursor_new(cursornr);	/* set curosr */
             gdk_window_set_cursor(p->window->window, cursor);
-            gdk_cursor_destroy(cursor);
+            gdk_cursor_unref(cursor);
             p->cursornr = cursornr;
           }
 
@@ -3220,7 +3242,7 @@ static gint preview_expose_event_handler_start(GtkWidget *window, GdkEvent *even
     if (!p->gc_selection)
     {
       DBG(DBG_info, "defining line styles for selection and page frames\n");
-      colormap = gdk_window_get_colormap(p->window->window);
+      colormap = gdk_drawable_get_colormap(p->window->window);
 
       p->gc_selection = gdk_gc_new(p->window->window);
       gdk_gc_set_function(p->gc_selection, GDK_INVERT);
@@ -3265,7 +3287,7 @@ static gint preview_expose_event_handler_end(GtkWidget *window, GdkEvent *event,
     if (!p->gc_selection)
     {
       DBG(DBG_info, "defining line styles for selection and page frames\n");
-      colormap = gdk_window_get_colormap(p->window->window);
+      colormap = gdk_drawable_get_colormap(p->window->window);
 
       p->gc_selection = gdk_gc_new(p->window->window);
       gdk_gc_set_function(p->gc_selection, GDK_INVERT);
@@ -3335,8 +3357,8 @@ static void preview_create_preset_area_menu(Preview *p, int selection)
   {
     preset_area_item = gtk_menu_item_new_with_label(preferences.preset_area[i]->name);
     gtk_container_add(GTK_CONTAINER(preset_area_menu), preset_area_item);
-    gtk_signal_connect(GTK_OBJECT(preset_area_item), "button_press_event", (GtkSignalFunc) preview_preset_area_context_menu_callback, p);
-    gtk_signal_connect(GTK_OBJECT(preset_area_item), "activate", (GtkSignalFunc) preview_preset_area_callback, p);
+    g_signal_connect(GTK_OBJECT(preset_area_item), "button_press_event", (GtkSignalFunc) preview_preset_area_context_menu_callback, p);
+    g_signal_connect(GTK_OBJECT(preset_area_item), "activate", (GtkSignalFunc) preview_preset_area_callback, p);
     gtk_object_set_data(GTK_OBJECT(preset_area_item), "Selection", (void *) i);  
     gtk_object_set_data(GTK_OBJECT(preset_area_item), "Preview", (void *) p);  
 
@@ -3473,7 +3495,7 @@ Preview *preview_new(void)
   p->invalid = TRUE; /* no valid preview */
 
 #ifndef XSERVER_WITH_BUGGY_VISUALS
-  gtk_widget_push_visual(gtk_preview_get_visual());
+  gtk_widget_push_visual(gtk_preview_get_visual()); /* this has no function for gtk+-2.0 */
 #endif
   gtk_widget_push_colormap(gtk_preview_get_cmap());
 
@@ -3481,7 +3503,7 @@ Preview *preview_new(void)
   p->top = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   gtk_window_set_title(GTK_WINDOW(p->top), buf);
   xsane_set_window_icon(p->top, 0);
-  gtk_accel_group_attach(xsane.accelerator_group, GTK_OBJECT(p->top));
+  gtk_window_add_accel_group(GTK_WINDOW(p->top), xsane.accelerator_group);
 
   /* set the main vbox */
   vbox = gtk_vbox_new(FALSE, 0);
@@ -3507,21 +3529,22 @@ Preview *preview_new(void)
   p->pipette_black = xsane_button_new_with_pixmap(p->top->window, p->button_box, pipette_black_xpm, DESC_PIPETTE_BLACK, (GtkSignalFunc) preview_pipette_black, p);
 
   /* Zoom not, zoom out and zoom in button */
-  p->zoom_not  = xsane_button_new_with_pixmap(p->top->window, p->button_box, zoom_not_xpm,  DESC_ZOOM_FULL, (GtkSignalFunc) preview_zoom_not,   p);
-  p->zoom_out  = xsane_button_new_with_pixmap(p->top->window, p->button_box, zoom_out_xpm,  DESC_ZOOM_OUT,  (GtkSignalFunc) preview_zoom_out,   p);
-  p->zoom_in   = xsane_button_new_with_pixmap(p->top->window, p->button_box, zoom_in_xpm,   DESC_ZOOM_IN,   (GtkSignalFunc) preview_zoom_in,    p);
-  p->zoom_undo = xsane_button_new_with_pixmap(p->top->window, p->button_box, zoom_undo_xpm, DESC_ZOOM_UNDO, (GtkSignalFunc) preview_zoom_undo,  p);
-  p->full_area = xsane_button_new_with_pixmap(p->top->window, p->button_box, auto_select_preview_area_xpm, DESC_AUTOSELECT_SCANAREA, (GtkSignalFunc) preview_autoselect_scanarea_callback,  p);
-  p->autoselect = xsane_button_new_with_pixmap(p->top->window, p->button_box, full_preview_area_xpm,       DESC_FULL_PREVIEW_AREA,   (GtkSignalFunc) preview_full_preview_area_callback,    p);
-  delete_images = xsane_button_new_with_pixmap(p->top->window, p->button_box, delete_images_xpm,           DESC_DELETE_IMAGES,       (GtkSignalFunc) preview_delete_images_callback,        p);
+  p->zoom_not   = xsane_button_new_with_pixmap(p->top->window, p->button_box, zoom_not_xpm,  DESC_ZOOM_FULL, (GtkSignalFunc) preview_zoom_not,   p);
+  p->zoom_out   = xsane_button_new_with_pixmap(p->top->window, p->button_box, zoom_out_xpm,  DESC_ZOOM_OUT,  (GtkSignalFunc) preview_zoom_out,   p);
+  p->zoom_in    = xsane_button_new_with_pixmap(p->top->window, p->button_box, zoom_in_xpm,   DESC_ZOOM_IN,   (GtkSignalFunc) preview_zoom_in,    p);
+  p->zoom_undo  = xsane_button_new_with_pixmap(p->top->window, p->button_box, zoom_undo_xpm, DESC_ZOOM_UNDO, (GtkSignalFunc) preview_zoom_undo,  p);
+  p->full_area  = xsane_button_new_with_pixmap(p->top->window, p->button_box, auto_select_preview_area_xpm, DESC_AUTOSELECT_SCANAREA, (GtkSignalFunc) preview_autoselect_scanarea_callback, p);
+  p->autoraise  = xsane_button_new_with_pixmap(p->top->window, p->button_box, auto_raise_preview_area_xpm,  DESC_AUTORAISE_SCANAREA,  (GtkSignalFunc) preview_init_autoraise_scanarea,      p);
+  p->autoselect = xsane_button_new_with_pixmap(p->top->window, p->button_box, full_preview_area_xpm,        DESC_FULL_PREVIEW_AREA,   (GtkSignalFunc) preview_full_preview_area_callback,   p);
+  delete_images = xsane_button_new_with_pixmap(p->top->window, p->button_box, delete_images_xpm,            DESC_DELETE_IMAGES,       (GtkSignalFunc) preview_delete_images_callback,       p);
 
-  gtk_widget_add_accelerator(p->zoom_not,  "clicked", xsane.accelerator_group, GDK_KP_Multiply, GDK_MOD1_MASK, GTK_ACCEL_LOCKED); /* Alt keypad_* */
-  gtk_widget_add_accelerator(p->zoom_out,  "clicked", xsane.accelerator_group, GDK_KP_Subtract, GDK_MOD1_MASK, GTK_ACCEL_LOCKED); /* Alt keypad_- */
-  gtk_widget_add_accelerator(p->zoom_in,   "clicked", xsane.accelerator_group, GDK_KP_Add,      GDK_MOD1_MASK, GTK_ACCEL_LOCKED); /* Alt keypad_+ */
-  gtk_widget_add_accelerator(p->zoom_undo, "clicked", xsane.accelerator_group, GDK_KP_Divide,   GDK_MOD1_MASK, GTK_ACCEL_LOCKED); /* Alt keypad_/ */
-  gtk_widget_add_accelerator(p->full_area, "clicked", xsane.accelerator_group, GDK_A, GDK_MOD1_MASK, GTK_ACCEL_LOCKED); /* Alt keypad_* */
-  gtk_widget_add_accelerator(p->autoselect, "clicked", xsane.accelerator_group, GDK_V, GDK_MOD1_MASK, GTK_ACCEL_LOCKED); /* Alt keypad_* */
-  gtk_widget_add_accelerator(delete_images, "clicked", xsane.accelerator_group, GDK_KP_Delete, GDK_MOD1_MASK, GTK_ACCEL_LOCKED); /* Alt keypad_* */
+  gtk_widget_add_accelerator(p->zoom_not,  "clicked", xsane.accelerator_group, GDK_KP_Multiply, GDK_MOD1_MASK, DEF_GTK_ACCEL_LOCKED); /* Alt keypad_* */
+  gtk_widget_add_accelerator(p->zoom_out,  "clicked", xsane.accelerator_group, GDK_KP_Subtract, GDK_MOD1_MASK, DEF_GTK_ACCEL_LOCKED); /* Alt keypad_- */
+  gtk_widget_add_accelerator(p->zoom_in,   "clicked", xsane.accelerator_group, GDK_KP_Add,      GDK_MOD1_MASK, DEF_GTK_ACCEL_LOCKED); /* Alt keypad_+ */
+  gtk_widget_add_accelerator(p->zoom_undo, "clicked", xsane.accelerator_group, GDK_KP_Divide,   GDK_MOD1_MASK, DEF_GTK_ACCEL_LOCKED); /* Alt keypad_/ */
+  gtk_widget_add_accelerator(p->full_area, "clicked", xsane.accelerator_group, GDK_A, GDK_MOD1_MASK, DEF_GTK_ACCEL_LOCKED); /* Alt keypad_* */
+  gtk_widget_add_accelerator(p->autoselect, "clicked", xsane.accelerator_group, GDK_V, GDK_MOD1_MASK, DEF_GTK_ACCEL_LOCKED); /* Alt keypad_* */
+  gtk_widget_add_accelerator(delete_images, "clicked", xsane.accelerator_group, GDK_KP_Delete, GDK_MOD1_MASK, DEF_GTK_ACCEL_LOCKED); /* Alt keypad_* */
 
   gtk_widget_set_sensitive(p->zoom_not,   FALSE); /* no zoom at this point, so no zoom not */
   gtk_widget_set_sensitive(p->zoom_out,   FALSE); /* no zoom at this point, so no zoom out */
@@ -3565,7 +3588,7 @@ Preview *preview_new(void)
     }
     rotation_item = gtk_menu_item_new_with_label(buffer);
     gtk_container_add(GTK_CONTAINER(rotation_menu), rotation_item);
-    gtk_signal_connect(GTK_OBJECT(rotation_item), "activate", (GtkSignalFunc) preview_rotation_callback, p);
+    g_signal_connect(GTK_OBJECT(rotation_item), "activate", (GtkSignalFunc) preview_rotation_callback, p);
     gtk_object_set_data(GTK_OBJECT(rotation_item), "Selection", (void *) rot);  
 
     gtk_widget_show(rotation_item);
@@ -3619,21 +3642,33 @@ Preview *preview_new(void)
 			GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK);
 
   /* the first expose_event is responsible to undraw the selection frame */
-  gtk_signal_connect(GTK_OBJECT(p->window), "expose_event", (GtkSignalFunc) preview_expose_event_handler_start, p);
-  gtk_signal_connect(GTK_OBJECT(p->window), "button_press_event",   (GtkSignalFunc) preview_button_press_event_handler, p);
-  gtk_signal_connect(GTK_OBJECT(p->window), "motion_notify_event",  (GtkSignalFunc) preview_motion_event_handler, p);
-  gtk_signal_connect(GTK_OBJECT(p->window), "button_release_event", (GtkSignalFunc) preview_button_release_event_handler, p);
-  gtk_signal_connect_after(GTK_OBJECT(p->window), "size_allocate", (GtkSignalFunc) preview_area_resize_handler, p);
+  g_signal_connect(GTK_OBJECT(p->window), "expose_event", (GtkSignalFunc) preview_expose_event_handler_start, p);
+  g_signal_connect(GTK_OBJECT(p->window), "button_press_event",   (GtkSignalFunc) preview_button_press_event_handler, p);
+  g_signal_connect(GTK_OBJECT(p->window), "motion_notify_event",  (GtkSignalFunc) preview_motion_event_handler, p);
+  g_signal_connect(GTK_OBJECT(p->window), "button_release_event", (GtkSignalFunc) preview_button_release_event_handler, p);
+  g_signal_connect_after(GTK_OBJECT(p->window), "size_allocate", (GtkSignalFunc) preview_area_resize_handler, p);
   /* the second expose_event is responsible to redraw the selection frame */
-  gtk_signal_connect_after(GTK_OBJECT(p->window), "expose_event",  (GtkSignalFunc) preview_expose_event_handler_end, p);
+  g_signal_connect_after(GTK_OBJECT(p->window), "expose_event",  (GtkSignalFunc) preview_expose_event_handler_end, p);
 
   /* Connect the motion-notify events of the preview area with the rulers.  Nifty stuff!  */
+
+#ifdef HAVE_GTK2
+  class = (GtkWidgetClass *) GTK_HSCROLLBAR_GET_CLASS(p->hruler);
+#else
   class = GTK_WIDGET_CLASS(GTK_OBJECT(p->hruler)->klass);
+#endif
+
   signal_func = (GtkSignalFunc) class->motion_notify_event;
-  gtk_signal_connect_object(GTK_OBJECT(p->window), "motion_notify_event", signal_func, GTK_OBJECT(p->hruler));
+  g_signal_connect_swapped(GTK_OBJECT(p->window), "motion_notify_event", signal_func, GTK_OBJECT(p->hruler));
+
+#ifdef HAVE_GTK2
+  class = (GtkWidgetClass *) GTK_VSCROLLBAR_GET_CLASS(p->vruler);
+#else
   class = GTK_WIDGET_CLASS(GTK_OBJECT(p->vruler)->klass);
+#endif
+
   signal_func = (GtkSignalFunc) class->motion_notify_event;
-  gtk_signal_connect_object(GTK_OBJECT(p->window), "motion_notify_event", signal_func, GTK_OBJECT(p->vruler));
+  g_signal_connect_swapped(GTK_OBJECT(p->window), "motion_notify_event", signal_func, GTK_OBJECT(p->vruler));
 
 
   p->viewport = gtk_frame_new(/* label */ 0);
@@ -3649,42 +3684,42 @@ Preview *preview_new(void)
 
   /* the (in)valid pixmaps */
   pixmap = gdk_pixmap_create_from_xpm_d(p->top->window, &mask, xsane.bg_trans, (gchar **) valid_xpm);
-  p->valid_pixmap = gtk_pixmap_new(pixmap, mask);
+  p->valid_pixmap = gtk_image_new_from_pixmap(pixmap, mask);
   gtk_box_pack_start(GTK_BOX(hbox), p->valid_pixmap, FALSE, FALSE, 0);
   gtk_widget_show(p->valid_pixmap);
-  gdk_pixmap_unref(pixmap);
+  gdk_drawable_unref(pixmap);
 
   pixmap = gdk_pixmap_create_from_xpm_d(p->top->window, &mask, xsane.bg_trans, (gchar **) scanning_xpm);
-  p->scanning_pixmap = gtk_pixmap_new(pixmap, mask);
+  p->scanning_pixmap = gtk_image_new_from_pixmap(pixmap, mask);
   gtk_box_pack_start(GTK_BOX(hbox), p->scanning_pixmap, FALSE, FALSE, 0);
   gtk_widget_show(p->scanning_pixmap);
-  gdk_pixmap_unref(pixmap);
+  gdk_drawable_unref(pixmap);
 
   pixmap = gdk_pixmap_create_from_xpm_d(p->top->window, &mask, xsane.bg_trans, (gchar **) incomplete_xpm);
-  p->incomplete_pixmap = gtk_pixmap_new(pixmap, mask);
+  p->incomplete_pixmap = gtk_image_new_from_pixmap(pixmap, mask);
   gtk_box_pack_start(GTK_BOX(hbox), p->incomplete_pixmap, FALSE, FALSE, 0);
   gtk_widget_show(p->incomplete_pixmap);
-  gdk_pixmap_unref(pixmap);
+  gdk_drawable_unref(pixmap);
 
   pixmap = gdk_pixmap_create_from_xpm_d(p->top->window, &mask, xsane.bg_trans, (gchar **) invalid_xpm);
-  p->invalid_pixmap = gtk_pixmap_new(pixmap, mask);
+  p->invalid_pixmap = gtk_image_new_from_pixmap(pixmap, mask);
   gtk_box_pack_start(GTK_BOX(hbox), p->invalid_pixmap, FALSE, FALSE, 0);
   gtk_widget_show(p->invalid_pixmap);
-  gdk_pixmap_unref(pixmap);
+  gdk_drawable_unref(pixmap);
 
   /* Start button */
   p->start = gtk_button_new_with_label(BUTTON_PREVIEW_ACQUIRE);
   xsane_back_gtk_set_tooltip(xsane.tooltips, p->start, DESC_PREVIEW_ACQUIRE);
-  gtk_signal_connect(GTK_OBJECT(p->start), "clicked", (GtkSignalFunc) preview_start_button_clicked, p);
+  g_signal_connect(GTK_OBJECT(p->start), "clicked", (GtkSignalFunc) preview_start_button_clicked, p);
   gtk_box_pack_start(GTK_BOX(hbox), p->start, TRUE, TRUE, 10);
-  gtk_widget_add_accelerator(p->start, "clicked", xsane.accelerator_group, GDK_P, GDK_MOD1_MASK, GTK_ACCEL_LOCKED); /* Alt P */
+  gtk_widget_add_accelerator(p->start, "clicked", xsane.accelerator_group, GDK_P, GDK_MOD1_MASK, DEF_GTK_ACCEL_LOCKED); /* Alt P */
 
   /* Cancel button */
   p->cancel = gtk_button_new_with_label(BUTTON_PREVIEW_CANCEL);
   xsane_back_gtk_set_tooltip(xsane.tooltips, p->cancel, DESC_PREVIEW_CANCEL);
-  gtk_signal_connect(GTK_OBJECT(p->cancel), "clicked", (GtkSignalFunc) preview_cancel_button_clicked, p);
+  g_signal_connect(GTK_OBJECT(p->cancel), "clicked", (GtkSignalFunc) preview_cancel_button_clicked, p);
   gtk_box_pack_start(GTK_BOX(hbox), p->cancel, TRUE, TRUE, 10);
-  gtk_widget_add_accelerator(p->cancel, "clicked", xsane.accelerator_group, GDK_Escape, GDK_MOD1_MASK, GTK_ACCEL_LOCKED); /* Alt ESC */
+  gtk_widget_add_accelerator(p->cancel, "clicked", xsane.accelerator_group, GDK_Escape, GDK_MOD1_MASK, DEF_GTK_ACCEL_LOCKED); /* Alt ESC */
   gtk_widget_set_sensitive(p->cancel, FALSE);
 
   gtk_widget_show(p->cancel);
@@ -3699,7 +3734,7 @@ Preview *preview_new(void)
 
   cursor = gdk_cursor_new(XSANE_CURSOR_PREVIEW);	/* set default curosr */
   gdk_window_set_cursor(p->window->window, cursor);
-  gdk_cursor_destroy(cursor);
+  gdk_cursor_unref(cursor);
   p->cursornr = XSANE_CURSOR_PREVIEW;
 
   gtk_widget_pop_colormap();
@@ -3942,7 +3977,7 @@ void preview_update_surface(Preview *p, int surface_changed)
     p->preview_window_width  = 0.3 * gdk_screen_width();
     p->preview_window_height = 0.5 * gdk_screen_height();
     preview_area_correct(p); /* calculate preview_width and height */
-    gtk_widget_set_usize(GTK_WIDGET(p->window), p->preview_width, p->preview_height);
+    gtk_widget_set_size_request(GTK_WIDGET(p->window), p->preview_width, p->preview_height);
   }
   else if (surface_changed) /* establish new surface */
   {
@@ -4232,12 +4267,12 @@ void preview_destroy(Preview *p)
 
   if (p->gc_selection)
   {
-    gdk_gc_destroy(p->gc_selection);
+    gdk_gc_unref(p->gc_selection);
   }
 
   if (p->gc_selection_maximum)
   {
-    gdk_gc_destroy(p->gc_selection_maximum);
+    gdk_gc_unref(p->gc_selection_maximum);
   }
 
   if (p->top)
@@ -4450,7 +4485,7 @@ static void preview_pipette_white(GtkWidget *window, gpointer data)
   cursor = gdk_cursor_new_from_pixmap(pixmap, mask, &fg, &bg, CURSOR_PIPETTE_HOT_X, CURSOR_PIPETTE_HOT_Y);
 
   gdk_window_set_cursor(p->window->window, cursor);
-  gdk_cursor_destroy(cursor);
+  gdk_cursor_unref(cursor);
   p->cursornr = -1;
 }
 
@@ -4483,7 +4518,7 @@ static void preview_pipette_gray(GtkWidget *window, gpointer data)
   cursor = gdk_cursor_new_from_pixmap(pixmap, mask, &fg, &bg, CURSOR_PIPETTE_HOT_X, CURSOR_PIPETTE_HOT_Y);
 
   gdk_window_set_cursor(p->window->window, cursor);
-  gdk_cursor_destroy(cursor);
+  gdk_cursor_unref(cursor);
   p->cursornr = -1;
 }
 
@@ -4516,7 +4551,40 @@ static void preview_pipette_black(GtkWidget *window, gpointer data)
   cursor = gdk_cursor_new_from_pixmap(pixmap, mask, &fg, &bg, CURSOR_PIPETTE_HOT_X, CURSOR_PIPETTE_HOT_Y);
 
   gdk_window_set_cursor(p->window->window, cursor);
-  gdk_cursor_destroy(cursor);
+  gdk_cursor_unref(cursor);
+  p->cursornr = -1;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void preview_init_autoraise_scanarea(GtkWidget *window, gpointer data)
+{
+ Preview *p=data;
+ GdkCursor *cursor;
+ GdkColor fg;
+ GdkColor bg;
+ GdkPixmap *pixmap;
+ GdkPixmap *mask;
+
+  DBG(DBG_proc, "preview_init_autoraise_scanarea\n");
+
+  p->mode = MODE_AUTORAISE_SCANAREA;
+
+  pixmap = gdk_bitmap_create_from_data(p->top->window, cursor_autoraise_scanarea,      CURSOR_AUTORAISE_SCANAREA_WIDTH, CURSOR_AUTORAISE_SCANAREA_HEIGHT);
+  mask   = gdk_bitmap_create_from_data(p->top->window, cursor_autoraise_scanarea_mask, CURSOR_AUTORAISE_SCANAREA_WIDTH, CURSOR_AUTORAISE_SCANAREA_HEIGHT);
+
+  fg.red   = 0;
+  fg.green = 0;
+  fg.blue  = 0;
+
+  bg.red   = 65535;
+  bg.green = 65535;
+  bg.blue  = 65535;
+
+  cursor = gdk_cursor_new_from_pixmap(pixmap, mask, &fg, &bg, CURSOR_AUTORAISE_SCANAREA_HOT_X, CURSOR_AUTORAISE_SCANAREA_HOT_Y);
+
+  gdk_window_set_cursor(p->window->window, cursor);
+  gdk_cursor_unref(cursor);
   p->cursornr = -1;
 }
 
@@ -4608,15 +4676,15 @@ static gint preview_preset_area_rename_callback(GtkWidget *widget, GtkWidget *pr
 
   oldname = strdup(preferences.preset_area[selection]->name);
 
-  rename_dialog = gtk_window_new(GTK_WINDOW_DIALOG);
+  rename_dialog = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   xsane_set_window_icon(rename_dialog, 0);
 
   /* set rename dialog */ 
   gtk_window_set_position(GTK_WINDOW(rename_dialog), GTK_WIN_POS_CENTER);
-  gtk_window_set_policy(GTK_WINDOW(rename_dialog), FALSE, FALSE, FALSE);
+  gtk_window_set_resizable(GTK_WINDOW(rename_dialog), FALSE);
   snprintf(buf, sizeof(buf), "%s %s", xsane.prog_name, WINDOW_PRESET_AREA_RENAME);
   gtk_window_set_title(GTK_WINDOW(rename_dialog), buf);
-  gtk_signal_connect(GTK_OBJECT(rename_dialog), "delete_event", (GtkSignalFunc) xsane_preset_area_entry_rename_button_callback, (void *) -1);
+  g_signal_connect(GTK_OBJECT(rename_dialog), "delete_event", (GtkSignalFunc) xsane_preset_area_entry_rename_button_callback, (void *) -1);
   gtk_widget_show(rename_dialog);
  
   /* set the main vbox */
@@ -4635,18 +4703,18 @@ static gint preview_preset_area_rename_callback(GtkWidget *widget, GtkWidget *pr
   text = gtk_entry_new_with_max_length(64);
   xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_PRESET_AREA_NAME);
   gtk_entry_set_text(GTK_ENTRY(text), oldname);
-  gtk_widget_set_usize(text, 300, 0);
+  gtk_widget_set_size_request(text, 300, -1);
   gtk_box_pack_start(GTK_BOX(vbox), text, TRUE, TRUE, 4);
   gtk_widget_show(text);
  
  
   button = gtk_button_new_with_label("OK");
-  gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_preset_area_entry_rename_button_callback, (void *) 1);
+  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_preset_area_entry_rename_button_callback, (void *) 1);
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
   gtk_widget_show(button);
  
   button = gtk_button_new_with_label("Cancel");
-  gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_preset_area_entry_rename_button_callback, (void *) -1);
+  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_preset_area_entry_rename_button_callback, (void *) -1);
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
   gtk_widget_show(button);
 
@@ -4912,13 +4980,13 @@ static gint preview_preset_area_context_menu_callback(GtkWidget *widget, GdkEven
       menu_item = gtk_menu_item_new_with_label(MENU_ITEM_PRESET_AREA_ADD_SEL);
       gtk_widget_show(menu_item);
       gtk_container_add(GTK_CONTAINER(menu), menu_item);
-      gtk_signal_connect(GTK_OBJECT(menu_item), "activate", (GtkSignalFunc) preview_preset_area_add_callback, widget);
+      g_signal_connect(GTK_OBJECT(menu_item), "activate", (GtkSignalFunc) preview_preset_area_add_callback, widget);
 
       /* rename preset area */
       menu_item = gtk_menu_item_new_with_label(MENU_ITEM_PRESET_AREA_RENAME);
       gtk_widget_show(menu_item);
       gtk_container_add(GTK_CONTAINER(menu), menu_item);
-      gtk_signal_connect(GTK_OBJECT(menu_item), "activate", (GtkSignalFunc) preview_preset_area_rename_callback, widget);
+      g_signal_connect(GTK_OBJECT(menu_item), "activate", (GtkSignalFunc) preview_preset_area_rename_callback, widget);
 
       if (selection) /* not available for "full area" */
       {
@@ -4926,7 +4994,7 @@ static gint preview_preset_area_context_menu_callback(GtkWidget *widget, GdkEven
         menu_item = gtk_menu_item_new_with_label(MENU_ITEM_PRESET_AREA_DELETE);
         gtk_widget_show(menu_item);
         gtk_container_add(GTK_CONTAINER(menu), menu_item);
-        gtk_signal_connect(GTK_OBJECT(menu_item), "activate", (GtkSignalFunc) preview_preset_area_delete_callback, widget);
+        g_signal_connect(GTK_OBJECT(menu_item), "activate", (GtkSignalFunc) preview_preset_area_delete_callback, widget);
       }
 
       if (selection>1) /* available from 3rd item */
@@ -4935,7 +5003,7 @@ static gint preview_preset_area_context_menu_callback(GtkWidget *widget, GdkEven
         menu_item = gtk_menu_item_new_with_label(MENU_OTEM_PRESET_AREA_MOVE_UP);
         gtk_widget_show(menu_item);
         gtk_container_add(GTK_CONTAINER(menu), menu_item);
-        gtk_signal_connect(GTK_OBJECT(menu_item), "activate", (GtkSignalFunc) preview_preset_area_move_up_callback, widget);
+        g_signal_connect(GTK_OBJECT(menu_item), "activate", (GtkSignalFunc) preview_preset_area_move_up_callback, widget);
       }
 
       if ((selection) && (selection < preferences.preset_area_definitions-1))
@@ -4944,7 +5012,7 @@ static gint preview_preset_area_context_menu_callback(GtkWidget *widget, GdkEven
         menu_item = gtk_menu_item_new_with_label(MENU_OTEM_PRESET_AREA_MOVE_DWN);
         gtk_widget_show(menu_item);
         gtk_container_add(GTK_CONTAINER(menu), menu_item);
-        gtk_signal_connect(GTK_OBJECT(menu_item), "activate", (GtkSignalFunc) preview_preset_area_move_down_callback, widget);
+        g_signal_connect(GTK_OBJECT(menu_item), "activate", (GtkSignalFunc) preview_preset_area_move_down_callback, widget);
       }
 
       gtk_widget_show(menu);
@@ -5752,6 +5820,241 @@ void preview_set_maximum_output_size(Preview *p, float width, float height)
 
   preview_update_maximum_output_size(p);
   preview_draw_selection(p);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+#define AUTORAISE_ERROR 30
+void preview_autoraise_scanarea(Preview *p, int preview_x, int preview_y, float *autoselect_coord)
+{
+ int x, y;
+ int image_x, image_y;
+ int offset;
+ float average_color_r, average_color_g, average_color_b;
+ int count;
+ float error;
+ int top, bottom, left, right;
+ int top_ok, bottom_ok, left_ok, right_ok;
+ float xscale, yscale;
+
+  DBG(DBG_proc, "preview_autoraise_scanarea\n");
+
+  preview_transform_coordinate_window_to_image(p, preview_x, preview_y, &image_x, &image_y);
+
+  top_ok    = FALSE;
+  bottom_ok = FALSE;
+  left_ok   = FALSE;
+  right_ok  = FALSE;
+
+  top    = image_y - 5;
+  bottom = image_y + 5;
+  left   = image_x - 5;
+  right  = image_x + 5;
+
+
+  while (!(top_ok && bottom_ok && left_ok && right_ok))
+  {
+    /* search top */
+    if (!top_ok)
+    {
+      top--;
+    }
+
+    top_ok = TRUE;
+
+    if (top <= 0)
+    {
+      top = 0;
+    }
+    else
+    {
+      average_color_r = average_color_g = average_color_b = 0;
+      count = 0;
+
+      for (x = left; x < right; x++)
+      {
+        offset = 3 * (top * p->image_width + x);
+        average_color_r += p->image_data_enh[offset + 0];
+        average_color_g += p->image_data_enh[offset + 1];
+        average_color_b += p->image_data_enh[offset + 2];
+        count++;
+      }
+
+      average_color_r /= count;
+      average_color_g /= count;
+      average_color_b /= count;
+
+      for (x = left; x < right; x++)
+      {
+        offset = 3 * (top * p->image_width + x);
+
+        error = fabs(p->image_data_enh[offset + 0] - average_color_r) +
+                fabs(p->image_data_enh[offset + 1] - average_color_g) +
+                fabs(p->image_data_enh[offset + 2] - average_color_b);
+
+        if (error > AUTORAISE_ERROR)
+        {
+          top_ok = FALSE;
+          break;
+        }
+      }
+    }
+
+    /* search bottom */
+    if (!bottom_ok)
+    {
+      bottom++;
+    }
+
+    bottom_ok = TRUE;
+
+    if (bottom >= p->image_height-1)
+    {
+      bottom = p->image_height-1;
+    }
+    else
+    {
+      average_color_r = average_color_g = average_color_b = 0;
+      count = 0;
+
+      for (x = left; x < right; x++)
+      {
+        offset = 3 * (bottom * p->image_width + x);
+        average_color_r += p->image_data_enh[offset + 0];
+        average_color_g += p->image_data_enh[offset + 1];
+        average_color_b += p->image_data_enh[offset + 2];
+        count++;
+      }
+
+      average_color_r /= count;
+      average_color_g /= count;
+      average_color_b /= count;
+
+      for (x = left; x < right; x++)
+      {
+        offset = 3 * (bottom * p->image_width + x);
+
+        error = fabs(p->image_data_enh[offset + 0] - average_color_r) +
+                fabs(p->image_data_enh[offset + 1] - average_color_g) +
+                fabs(p->image_data_enh[offset + 2] - average_color_b);
+
+        if (error > AUTORAISE_ERROR)
+        {
+          bottom_ok = FALSE;
+          break;
+        }
+      }
+    }
+
+    /* search left */
+    if (!left_ok)
+    {
+      left--;
+    }
+
+    left_ok = TRUE;
+
+    if (left <= 0)
+    {
+      left = 0;
+    }
+    else
+    {
+      average_color_r = average_color_g = average_color_b = 0;
+      count = 0;
+
+      for (y = top; y < bottom; y++)
+      {
+        offset = 3 * (left + y * p->image_width);
+        average_color_r += p->image_data_enh[offset + 0];
+        average_color_g += p->image_data_enh[offset + 1];
+        average_color_b += p->image_data_enh[offset + 2];
+        count++;
+      }
+
+      average_color_r /= count;
+      average_color_g /= count;
+      average_color_b /= count;
+
+      for (y = top; y < bottom; y++)
+      {
+        offset = 3 * (left + y * p->image_width);
+
+        error = fabs(p->image_data_enh[offset + 0] - average_color_r) +
+                fabs(p->image_data_enh[offset + 1] - average_color_g) +
+                fabs(p->image_data_enh[offset + 2] - average_color_b);
+
+        if (error > AUTORAISE_ERROR)
+        {
+          left_ok = FALSE;
+          break;
+        }
+      }
+    }
+
+    /* search right */
+    if (!right_ok)
+    {
+      right++;
+    }
+
+    right_ok = TRUE;
+
+    if (right >= p->image_width-1)
+    {
+      right = p->image_width-1;
+    }
+    else
+    {
+      average_color_r = average_color_g = average_color_b = 0;
+      count = 0;
+
+      for (y = top; y < bottom; y++)
+      {
+        offset = 3 * (right + y * p->image_width);
+        average_color_r += p->image_data_enh[offset + 0];
+        average_color_g += p->image_data_enh[offset + 1];
+        average_color_b += p->image_data_enh[offset + 2];
+        count++;
+      }
+
+      average_color_r /= count;
+      average_color_g /= count;
+      average_color_b /= count;
+
+      for (y = top; y < bottom; y++)
+      {
+        offset = 3 * (right + y * p->image_width);
+
+        error = fabs(p->image_data_enh[offset + 0] - average_color_r) +
+                fabs(p->image_data_enh[offset + 1] - average_color_g) +
+                fabs(p->image_data_enh[offset + 2] - average_color_b);
+
+        if (error > AUTORAISE_ERROR)
+        {
+          right_ok = FALSE;
+          break;
+        }
+      }
+    }
+  }
+
+
+  preview_get_scale_device_to_image(p, &xscale, &yscale);
+
+  if (((p->rotation & 3) == 0) || ((p->rotation & 3) == 2)) /* 0 or 180 degree */
+  {
+    *(autoselect_coord+0) = p->image_surface[0] + left / xscale;
+    *(autoselect_coord+2) = p->image_surface[0] + right / xscale;
+    *(autoselect_coord+1) = p->image_surface[1] + top / yscale;
+    *(autoselect_coord+3) = p->image_surface[1] + bottom / yscale;
+  }
+  else /* 90 or 270 degree */
+  {
+    *(autoselect_coord+1) = p->image_surface[1] + left / xscale;
+    *(autoselect_coord+3) = p->image_surface[1] + right / xscale;
+    *(autoselect_coord+0) = p->image_surface[0] + top / yscale;
+    *(autoselect_coord+2) = p->image_surface[0] + bottom / yscale;
+  }
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

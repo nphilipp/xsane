@@ -41,7 +41,9 @@ typedef struct Viewer
   int image_saved;
   int cancel_save;
 
-  int filter_radius;
+  int despeckle_radius;
+  float blur_radius;
+
   float x_scale_factor;
   float y_scale_factor;
 

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.84\n"
-"POT-Creation-Date: 2002-01-22 23:34+0100\n"
+"POT-Creation-Date: 2002-03-17 00:03+0100\n"
 "PO-Revision-Date: 2002-01-17 15:28+0900\n"
 "Last-Translator: Kimizuka Tomokazu <sgtom@pluto.dti.ne.jp>\n"
 "Language-Team: Japanese <Kdeveloper@kde.gr.jp>\n"
@@ -35,9 +35,13 @@ msgstr "翻訳について"
 msgid "authorization"
 msgstr "アクセス権限"
 
-#. WINDOW_LICENSE
-msgid "license"
-msgstr "ライセンス"
+#. WINDOW_GPL
+msgid "GPL - the license"
+msgstr ""
+
+#. WINDOW_EULA
+msgid "End User License Agreement"
+msgstr ""
 
 #. WINDOW_INFO
 msgid "info"
@@ -187,9 +191,9 @@ msgstr "終了"
 msgid "Save image"
 msgstr "イメージを保存"
 
-#. MENU_ITEM_CLOSE
-msgid "Close"
-msgstr "閉じる"
+#. MENU_ITEM_OCR
+msgid "OCR - save as text"
+msgstr ""
 
 #. MENU_ITEM_CLONE
 msgid "Clone"
@@ -198,6 +202,10 @@ msgstr "複製"
 #. MENU_ITEM_SCALE
 msgid "Scale"
 msgstr "倍率"
+
+#. MENU_ITEM_CLOSE
+msgid "Close"
+msgstr "閉じる"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
@@ -383,6 +391,10 @@ msgstr "色彩の自動補正"
 msgid "POP3 authentification"
 msgstr "POP3認証"
 
+#. RADIO_BUTTON_OCR_USE_GUI_PIPE
+msgid "Use GUI progress pipe"
+msgstr ""
+
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
 msgstr "デバイスをスキャンしています"
@@ -546,6 +558,29 @@ msgstr "コンパイルされています…GIMP-"
 #. TEXT_UNKNOWN
 msgid "unknown"
 msgstr "未知"
+
+#. TEXT_EULA
+#, fuzzy
+msgid ""
+"XSane is distributed under the terms of the GNU General Public License\n"
+"as published by the Free Software Foundation; either version 2 of the\n"
+"License, or (at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but\n"
+"WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+"Should the program prove defective, you assume the cost of all\n"
+"necessary servicing, repair or correction. To use this program you\n"
+"have to read, understand and accept the following\n"
+"\"NO WARRANTY\" agreement.\n"
+msgstr ""
+"XSaneは、Free Software Foundationが公表したGNU一般公有使用許諾\n"
+"の「バージョン２」或いはそれ以降の各バージョンの中からいずれか\n"
+"を選択し、そのバージョンが定める条項に従って本プログラムを再頒\n"
+"布または変更することができます。\n"
+"本プログラムは有用とは思いますが、頒布にあたっては、市場性及び\n"
+"特定目的適合性についての暗黙の保証を含めて、いかなる保証も行な\n"
+"いません。\n"
 
 #. TEXT_GPL
 msgid ""
@@ -737,6 +772,11 @@ msgstr "TIFF 8ビット画像圧縮"
 msgid "TIFF lineart image compression"
 msgstr "TIFF ラインアート画像圧縮"
 
+#. TEXT_SETUP_SHOW_RANGE_MODE
+#, fuzzy
+msgid "Show range as:"
+msgstr "ページを表示"
+
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
 msgstr "オーバーサンプリングをプレビュー："
@@ -860,6 +900,19 @@ msgstr "入力ファイルオプション："
 #. TEXT_SETUP_OCR_OUTPUTFILE_OPT
 msgid "Outputfile option:"
 msgstr "出力ファイルオプション："
+
+#. TEXT_SETUP_OCR_USE_GUI_PIPE_OPT
+msgid "Use GUI progress pipe:"
+msgstr ""
+
+#. TEXT_SETUP_OCR_OUTFD_OPT
+#, fuzzy
+msgid "GUI output-fd option:"
+msgstr "出力ファイルオプション："
+
+#. TEXT_SETUP_OCR_PROGRESS_KEYWORD
+msgid "Progress keyword:"
+msgstr ""
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
@@ -989,9 +1042,13 @@ msgstr "デバイス設定を読込み"
 msgid "Change directory"
 msgstr "ディレクトリ変更"
 
-#. MENU_ITEM_XSANE_LICENSE
-msgid "License"
-msgstr "ライセンス"
+#. MENU_ITEM_XSANE_EULA
+msgid "Show EULA"
+msgstr ""
+
+#. MENU_ITEM_XSANE_GPL
+msgid "Show license (GPL)"
+msgstr ""
 
 #. MENU_ITEM_XSANE_DOC
 msgid "XSane doc"
@@ -1040,6 +1097,19 @@ msgstr "JPEG DCT 圧縮"
 #. MENU_ITEM_TIFF_COMP_PACKBITS
 msgid "pack bits"
 msgstr "パックビット"
+
+#. MENU_ITEM_SHOW_RANGE_SCALE
+#, fuzzy
+msgid "Slider"
+msgstr "スライド"
+
+#. MENU_ITEM_SHOW_RANGE_SPINBUTTON
+msgid "Spinbutton"
+msgstr ""
+
+#. MENU_ITEM_SHOW_RANGE_BOTH
+msgid "Slider and Spinbutton"
+msgstr ""
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
 msgid "Standard options window (lineart)"
@@ -1502,6 +1572,10 @@ msgstr "XSaneがGIMPプラグインとして動作する時は、ガンマプレビューをオフにする"
 msgid "Use an own colormap for preview if display depth is 8 bpp"
 msgstr "ディスプレイ解像度が8ビットなら、プレビューに固有のカラーマップを使う"
 
+#. DESC_SHOW_RANGE_MODE
+msgid "Select how a range is displayed"
+msgstr ""
+
 #. DESC_PREVIEW_OVERSAMPLING
 msgid "Value with that the calculated preview resolution is multiplied"
 msgstr "プレビュー解像度に掛けられた計算値"
@@ -1664,6 +1738,20 @@ msgstr "入力ファイルを定義するOCRプログラムのオプションを入力"
 #. DESC_OCR_OUTPUTFILE_OPT
 msgid "Enter option of the ocr program to define output file"
 msgstr "出力ファイルを定義するOCRプログラムのオプションを入力"
+
+#. DESC_OCR_USE_GUI_PIPE_OPT
+msgid "Define if the ocr program supports gui progress pipe"
+msgstr ""
+
+#. DESC_OCR_OUTFD_OPT
+#, fuzzy
+msgid ""
+"Enter option of the ocr program to define output filedescripor in GUI mode"
+msgstr "出力ファイルを定義するOCRプログラムのオプションを入力"
+
+#. DESC_OCR_PROGRESS_KEYWORD
+msgid "Define Keyword that is used to mark progress information"
+msgstr ""
 
 #. DESC_PERMISSION_READ
 msgid "read"
@@ -2327,3 +2415,9 @@ msgstr "オーバーフロー"
 
 msgid "Access to resource has been denied"
 msgstr "リソースへのアクセスが拒否されました"
+
+#~ msgid "license"
+#~ msgstr "ライセンス"
+
+#~ msgid "License"
+#~ msgstr "ライセンス"

@@ -96,19 +96,12 @@ void xsane_set_auto_enhancement(void);
 
 void xsane_clear_histogram(XsanePixmap *hist)
 {
- GdkRectangle rect;
-
   DBG(DBG_proc, "xsane_clear_histogram\n");
 
   if(hist->pixmap)
   {
-    rect.x=0;
-    rect.y=0;
-    rect.width  = HIST_WIDTH;
-    rect.height = HIST_HEIGHT;
-
     gdk_draw_rectangle(hist->pixmap, xsane.gc_backg, TRUE, 0, 0, HIST_WIDTH, HIST_HEIGHT);
-    gtk_widget_draw(hist->pixmapwid, &rect);
+    gtk_widget_queue_draw(hist->pixmapwid);
   }
 }
 
@@ -118,7 +111,6 @@ static void xsane_draw_histogram_with_points(XsanePixmap *hist,
                                              SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue,
                                              int show_red, int show_green, int show_blue, int show_inten, double scale)
 {
- GdkRectangle rect;
  int i;
  int inten, red, green, blue;
 
@@ -129,11 +121,6 @@ static void xsane_draw_histogram_with_points(XsanePixmap *hist,
 
   if(hist->pixmap)
   {
-    rect.x=0;
-    rect.y=0;
-    rect.width  = HIST_WIDTH;
-    rect.height = HIST_HEIGHT;
-
     gdk_draw_rectangle(hist->pixmap, xsane.gc_backg, TRUE, 0, 0, HIST_WIDTH, HIST_HEIGHT);
 
     red   = 0;
@@ -170,7 +157,21 @@ static void xsane_draw_histogram_with_points(XsanePixmap *hist,
       gdk_draw_rectangle(hist->pixmap, xsane.gc_black, TRUE, i, HIST_HEIGHT - inten, XD, YD);
     }
 
-    gtk_widget_draw(hist->pixmapwid, &rect);
+#ifdef HAVE_GTK2
+    gtk_widget_queue_draw(hist->pixmapwid);
+    gdk_window_process_updates(hist->pixmapwid->window, FALSE);
+#else
+    {
+     GdkRectangle rect;
+
+      rect.x=0;
+      rect.y=0;
+      rect.width  = HIST_WIDTH;
+      rect.height = HIST_HEIGHT;
+
+      gtk_widget_draw(hist->pixmapwid, &rect);
+    }
+#endif
   }
 }
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -179,7 +180,6 @@ static void xsane_draw_histogram_with_lines(XsanePixmap *hist,
                                             SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue,
                                             int show_red, int show_green, int show_blue, int show_inten, double scale)
 {
- GdkRectangle rect;
  int i, j, k;
  int inten, red, green, blue;
  int inten0=0, red0=0, green0=0, blue0=0;
@@ -193,11 +193,6 @@ static void xsane_draw_histogram_with_lines(XsanePixmap *hist,
 
   if (hist->pixmap)
   {
-    rect.x=0;
-    rect.y=0;
-    rect.width  = HIST_WIDTH;
-    rect.height = HIST_HEIGHT;
-
     gdk_draw_rectangle(hist->pixmap, xsane.gc_backg, TRUE, 0, 0, HIST_WIDTH, HIST_HEIGHT);
 
     red   = 0;
@@ -282,7 +277,21 @@ static void xsane_draw_histogram_with_lines(XsanePixmap *hist,
       gdk_draw_line(hist->pixmap, xsane.gc_black, i, HIST_HEIGHT - inten, i, HIST_HEIGHT - inten0);
     }
 
-    gtk_widget_draw(hist->pixmapwid, &rect);
+#ifdef HAVE_GTK2
+    gtk_widget_queue_draw(hist->pixmapwid);
+    gdk_window_process_updates(hist->pixmapwid->window, FALSE);
+#else
+    {
+     GdkRectangle rect;
+
+      rect.x=0;
+      rect.y=0;
+      rect.width  = HIST_WIDTH;
+      rect.height = HIST_HEIGHT;
+
+      gtk_widget_draw(hist->pixmapwid, &rect);
+    }
+#endif
   }
 }
 
@@ -292,7 +301,6 @@ void xsane_establish_slider(XsaneSlider *slider)
 {
  int x, y, pos, len;
  guchar buf[XSANE_SLIDER_WIDTH*3];
- GdkRectangle rect;
 
   DBG(DBG_proc, "xsane_establish_slider\n");
 
@@ -390,12 +398,21 @@ void xsane_establish_slider(XsaneSlider *slider)
     gtk_preview_draw_row(GTK_PREVIEW(slider->preview),buf, 0, y, XSANE_SLIDER_WIDTH);
   }
 
-  rect.x=0;
-  rect.y=0;
-  rect.width  = XSANE_SLIDER_WIDTH;
-  rect.height = XSANE_SLIDER_HEIGHT;
+#ifdef HAVE_GTK2
+    gtk_widget_queue_draw(slider->preview);
+    gdk_window_process_updates(slider->preview->window, FALSE);
+#else
+    {
+     GdkRectangle rect;
 
-  gtk_widget_draw(slider->preview, &rect);
+      rect.x=0;
+      rect.y=0;
+      rect.width  = HIST_WIDTH;
+      rect.height = HIST_HEIGHT;
+
+      gtk_widget_draw(slider->preview, &rect);
+    }
+#endif
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -404,7 +421,6 @@ void xsane_draw_slider_level(XsaneSlider *slider)
 {
  int i;
  guchar buf[XSANE_SLIDER_WIDTH*3];
- GdkRectangle rect;
 
   DBG(DBG_proc, "xsane_draw_slider_level\n");
 
@@ -431,12 +447,21 @@ void xsane_draw_slider_level(XsaneSlider *slider)
     gtk_preview_draw_row(GTK_PREVIEW(slider->preview),buf, 0, i, XSANE_SLIDER_WIDTH);
   }
 
-  rect.x=0;
-  rect.y=0;
-  rect.width  = XSANE_SLIDER_WIDTH;
-  rect.height = XSANE_SLIDER_HEIGHT;
+#ifdef HAVE_GTK2
+    gtk_widget_queue_draw(slider->preview);
+    gdk_window_process_updates(slider->preview->window, FALSE);
+#else
+    {
+     GdkRectangle rect;
 
-  gtk_widget_draw(slider->preview, &rect);
+      rect.x=0;
+      rect.y=0;
+      rect.width  = HIST_WIDTH;
+      rect.height = HIST_HEIGHT;
+
+      gtk_widget_draw(slider->preview, &rect);
+    }
+#endif
 }
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -650,7 +675,7 @@ void xsane_create_slider(XsaneSlider *slider)
   slider->preview = gtk_preview_new(GTK_PREVIEW_COLOR);
   gtk_preview_size(GTK_PREVIEW(slider->preview), XSANE_SLIDER_WIDTH, XSANE_SLIDER_HEIGHT);
   gtk_widget_set_events(slider->preview, XSANE_SLIDER_EVENTS);
-  gtk_signal_connect(GTK_OBJECT(slider->preview), "event", GTK_SIGNAL_FUNC(xsane_slider_callback), slider);
+  g_signal_connect(GTK_OBJECT(slider->preview), "event", GTK_SIGNAL_FUNC(xsane_slider_callback), slider);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -663,7 +688,7 @@ void xsane_create_histogram(GtkWidget *parent, const char *title, int width, int
 
    hist->frame     = gtk_frame_new(title);
    hist->pixmap    = gdk_pixmap_new(xsane.histogram_dialog->window, width, height, -1);
-   hist->pixmapwid = gtk_pixmap_new(hist->pixmap, mask);
+   hist->pixmapwid = gtk_image_new_from_pixmap(hist->pixmap, mask);
    gtk_container_add(GTK_CONTAINER(hist->frame), hist->pixmapwid);
    gdk_draw_rectangle(hist->pixmap, xsane.gc_backg, TRUE, 0, 0, width, height);
 
@@ -1578,8 +1603,6 @@ void xsane_update_gamma_curve(int update_raw)
 
 static void xsane_enhancement_update(void)
 {
- guint sig_changed=0;
-
   DBG(DBG_proc, "xsane_enhancement_update\n");
 
   if (xsane.param.depth == 1) /* lineart? no gamma */
@@ -1587,43 +1610,28 @@ static void xsane_enhancement_update(void)
     return;
   } 
 
-  sig_changed = gtk_signal_lookup("changed", GTK_OBJECT_TYPE(xsane.gamma_widget));
+  xsane.block_enhancement_update = TRUE;
 
-  GTK_ADJUSTMENT(xsane.gamma_widget)->value      = xsane.gamma;
-  GTK_ADJUSTMENT(xsane.brightness_widget)->value = xsane.brightness;
-  GTK_ADJUSTMENT(xsane.contrast_widget)->value   = xsane.contrast;
+  gtk_adjustment_set_value(GTK_ADJUSTMENT(xsane.gamma_widget),      xsane.gamma);
+  gtk_adjustment_set_value(GTK_ADJUSTMENT(xsane.brightness_widget), xsane.brightness);
+  gtk_adjustment_set_value(GTK_ADJUSTMENT(xsane.contrast_widget),   xsane.contrast);
 
   if ( (xsane.xsane_colors > 1) && (!xsane.enhancement_rgb_default) )
   {
-    GTK_ADJUSTMENT(xsane.gamma_red_widget)->value    = xsane.gamma_red;
-    GTK_ADJUSTMENT(xsane.gamma_green_widget)->value  = xsane.gamma_green;
-    GTK_ADJUSTMENT(xsane.gamma_blue_widget)->value   = xsane.gamma_blue;
+    gtk_adjustment_set_value(GTK_ADJUSTMENT(xsane.gamma_red_widget),      xsane.gamma_red);
+    gtk_adjustment_set_value(GTK_ADJUSTMENT(xsane.brightness_red_widget), xsane.brightness_red);
+    gtk_adjustment_set_value(GTK_ADJUSTMENT(xsane.contrast_red_widget),   xsane.contrast_red);
 
-    GTK_ADJUSTMENT(xsane.brightness_red_widget)->value   = xsane.brightness_red;
-    GTK_ADJUSTMENT(xsane.brightness_green_widget)->value = xsane.brightness_green;
-    GTK_ADJUSTMENT(xsane.brightness_blue_widget)->value  = xsane.brightness_blue;
+    gtk_adjustment_set_value(GTK_ADJUSTMENT(xsane.gamma_green_widget),      xsane.gamma_green);
+    gtk_adjustment_set_value(GTK_ADJUSTMENT(xsane.brightness_green_widget), xsane.brightness_green);
+    gtk_adjustment_set_value(GTK_ADJUSTMENT(xsane.contrast_green_widget),   xsane.contrast_green);
 
-    GTK_ADJUSTMENT(xsane.contrast_red_widget)->value   = xsane.contrast_red;
-    GTK_ADJUSTMENT(xsane.contrast_green_widget)->value = xsane.contrast_green;
-    GTK_ADJUSTMENT(xsane.contrast_blue_widget)->value  = xsane.contrast_blue;
-
-    gtk_signal_emit(xsane.gamma_red_widget,        sig_changed); 
-    gtk_signal_emit(xsane.gamma_green_widget,      sig_changed); 
-    gtk_signal_emit(xsane.gamma_blue_widget,       sig_changed); 
-
-    gtk_signal_emit(xsane.brightness_red_widget,   sig_changed); 
-    gtk_signal_emit(xsane.brightness_green_widget, sig_changed); 
-    gtk_signal_emit(xsane.brightness_blue_widget,  sig_changed); 
-
-    gtk_signal_emit(xsane.contrast_red_widget,     sig_changed); 
-    gtk_signal_emit(xsane.contrast_green_widget,   sig_changed); 
-    gtk_signal_emit(xsane.contrast_blue_widget,    sig_changed); 
-    
+    gtk_adjustment_set_value(GTK_ADJUSTMENT(xsane.gamma_blue_widget),      xsane.gamma_blue);
+    gtk_adjustment_set_value(GTK_ADJUSTMENT(xsane.brightness_blue_widget), xsane.brightness_blue);
+    gtk_adjustment_set_value(GTK_ADJUSTMENT(xsane.contrast_blue_widget),   xsane.contrast_blue);
   }
 
-  gtk_signal_emit(xsane.gamma_widget,      sig_changed); 
-  gtk_signal_emit(xsane.brightness_widget, sig_changed); 
-  gtk_signal_emit(xsane.contrast_widget,   sig_changed); 
+  xsane.block_enhancement_update = FALSE;
 
   xsane_update_sliders(); /* update histogram slider */
 }
@@ -1949,14 +1957,14 @@ void xsane_create_histogram_dialog(const char *devicetext)
 
   DBG(DBG_proc, "xsane_create_histogram_dialog\n");
 
-  xsane.histogram_dialog = gtk_window_new(GTK_WINDOW_DIALOG);
-  gtk_window_set_policy(GTK_WINDOW(xsane.histogram_dialog), FALSE, FALSE, FALSE);
-  gtk_widget_set_uposition(xsane.histogram_dialog, XSANE_HISTOGRAM_POS_X, XSANE_HISTOGRAM_POS_Y);
-  gtk_signal_connect(GTK_OBJECT(xsane.histogram_dialog), "delete_event", GTK_SIGNAL_FUNC(xsane_histogram_win_delete), NULL);
+  xsane.histogram_dialog = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  gtk_window_set_resizable(GTK_WINDOW(xsane.histogram_dialog), FALSE);
+  gtk_window_move(GTK_WINDOW(xsane.histogram_dialog), XSANE_HISTOGRAM_POS_X, XSANE_HISTOGRAM_POS_Y);
+  g_signal_connect(GTK_OBJECT(xsane.histogram_dialog), "delete_event", GTK_SIGNAL_FUNC(xsane_histogram_win_delete), NULL);
   sprintf(windowname, "%s %s", WINDOW_HISTOGRAM, devicetext);
   gtk_window_set_title(GTK_WINDOW(xsane.histogram_dialog), windowname);
   xsane_set_window_icon(xsane.histogram_dialog, 0);
-  gtk_accel_group_attach(xsane.accelerator_group, GTK_OBJECT(xsane.histogram_dialog));
+  gtk_window_add_accel_group(GTK_WINDOW(xsane.histogram_dialog), xsane.accelerator_group);
 
   xsane_histogram_vbox = gtk_vbox_new(FALSE, 0);
   gtk_container_set_border_width(GTK_CONTAINER(xsane_histogram_vbox), 5);
@@ -1976,7 +1984,7 @@ void xsane_create_histogram_dialog(const char *devicetext)
   xsane.gc_trans = style->bg_gc[GTK_STATE_NORMAL];
   xsane.bg_trans = &style->bg[GTK_STATE_NORMAL];   
 
-  colormap = gdk_window_get_colormap(xsane.histogram_dialog->window);
+  colormap = gdk_drawable_get_colormap(xsane.histogram_dialog->window);
 
   xsane.gc_black  = gdk_gc_new(xsane.histogram_dialog->window);
   color_black.red   = 0;
@@ -2078,27 +2086,27 @@ void xsane_create_histogram_dialog(const char *devicetext)
 
   button = xsane_toggle_button_new_with_pixmap(xsane.histogram_dialog->window, xsane_color_hbox, intensity_xpm, DESC_HIST_INTENSITY,
                                                &xsane.histogram_int,   xsane_histogram_toggle_button_callback);
-  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_I, GDK_MOD1_MASK, GTK_ACCEL_LOCKED);
+  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_I, GDK_MOD1_MASK, DEF_GTK_ACCEL_LOCKED);
 
   button = xsane_toggle_button_new_with_pixmap(xsane.histogram_dialog->window, xsane_color_hbox, red_xpm, DESC_HIST_RED,
                                                &xsane.histogram_red,   xsane_histogram_toggle_button_callback);
-  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_R, GDK_MOD1_MASK, GTK_ACCEL_LOCKED);
+  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_R, GDK_MOD1_MASK, DEF_GTK_ACCEL_LOCKED);
 
   button = xsane_toggle_button_new_with_pixmap(xsane.histogram_dialog->window, xsane_color_hbox, green_xpm, DESC_HIST_GREEN,
                                                &xsane.histogram_green, xsane_histogram_toggle_button_callback);
-  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_G, GDK_MOD1_MASK, GTK_ACCEL_LOCKED);
+  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_G, GDK_MOD1_MASK, DEF_GTK_ACCEL_LOCKED);
 
   button = xsane_toggle_button_new_with_pixmap(xsane.histogram_dialog->window, xsane_color_hbox, blue_xpm, DESC_HIST_BLUE,
                                                &xsane.histogram_blue,  xsane_histogram_toggle_button_callback);
-  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_B, GDK_MOD1_MASK, GTK_ACCEL_LOCKED);
+  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_B, GDK_MOD1_MASK, DEF_GTK_ACCEL_LOCKED);
 
   button = xsane_toggle_button_new_with_pixmap(xsane.histogram_dialog->window, xsane_color_hbox, pixel_xpm, DESC_HIST_PIXEL,
                                                &xsane.histogram_lines, xsane_histogram_toggle_button_callback);
-  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_M, GDK_MOD1_MASK, GTK_ACCEL_LOCKED);
+  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_M, GDK_MOD1_MASK, DEF_GTK_ACCEL_LOCKED);
 
   button = xsane_toggle_button_new_with_pixmap(xsane.histogram_dialog->window, xsane_color_hbox, log_xpm, DESC_HIST_LOG,
                                                &xsane.histogram_log, xsane_histogram_toggle_button_callback);
-  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_L, GDK_MOD1_MASK, GTK_ACCEL_LOCKED);
+  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_L, GDK_MOD1_MASK, DEF_GTK_ACCEL_LOCKED);
 
   gtk_widget_show(xsane_color_hbox);
 }
@@ -2238,13 +2246,13 @@ GtkWidget* xsane_gamma_curve_notebook_page_new(GtkWidget *notebook, char *title)
   gtk_widget_show(label);
 
   gamma = gtk_gamma_curve_new();
-  gtk_widget_set_usize(gamma, 0, 256);
+  gtk_widget_set_size_request(gamma, -1, 256);
   curve = GTK_GAMMA_CURVE(gamma)->curve;
 
   vector = alloca(optlen * sizeof(vector[0]));
 
   gtk_curve_set_range(GTK_CURVE(curve), 0, optlen - 1, fmin, fmax);
-#if 1
+#if 0
   gtk_curve_maintain_accuracy(GTK_CURVE(curve), 1.0);
 #endif
 
@@ -2269,14 +2277,14 @@ void xsane_create_gamma_dialog(const char *devicetext)
   xsane.free_gamma_data_green = calloc(65536, sizeof(xsane.free_gamma_data_green[0]));
   xsane.free_gamma_data_blue  = calloc(65536, sizeof(xsane.free_gamma_data_green[0]));
 
-  xsane.gamma_dialog = gtk_window_new(GTK_WINDOW_DIALOG);
-  gtk_window_set_policy(GTK_WINDOW(xsane.gamma_dialog), FALSE, FALSE, FALSE);
-  gtk_widget_set_uposition(xsane.gamma_dialog, XSANE_GAMMA_POS_X, XSANE_GAMMA_POS_Y);
-  gtk_signal_connect(GTK_OBJECT(xsane.gamma_dialog), "delete_event", GTK_SIGNAL_FUNC(xsane_gamma_win_delete), NULL);
+  xsane.gamma_dialog = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  gtk_window_set_resizable(GTK_WINDOW(xsane.gamma_dialog), FALSE);
+  gtk_window_move(GTK_WINDOW(xsane.gamma_dialog), XSANE_GAMMA_POS_X, XSANE_GAMMA_POS_Y);
+  g_signal_connect(GTK_OBJECT(xsane.gamma_dialog), "delete_event", GTK_SIGNAL_FUNC(xsane_gamma_win_delete), NULL);
   sprintf(windowname, "%s %s", WINDOW_GAMMA, devicetext);
   gtk_window_set_title(GTK_WINDOW(xsane.gamma_dialog), windowname);
   xsane_set_window_icon(xsane.gamma_dialog, 0);
-  gtk_accel_group_attach(xsane.accelerator_group, GTK_OBJECT(xsane.gamma_dialog));
+  gtk_window_add_accel_group(GTK_WINDOW(xsane.gamma_dialog), xsane.accelerator_group);
 
   xsane_vbox_gamma = gtk_vbox_new(TRUE, 5);
   gtk_container_set_border_width(GTK_CONTAINER(xsane_vbox_gamma), 5);

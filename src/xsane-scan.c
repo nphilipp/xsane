@@ -115,12 +115,14 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
  SANE_Handle dev = xsane.dev;
  SANE_Status status;
  SANE_Int len;
- int i, j;
+ int i, j, x;
  char buf[255];
 
   DBG(DBG_proc, "xsane_read_image_data\n");
 
   xsane.reading_data = TRUE;
+
+  x = xsane.param.pixels_per_line;
 
   if ( (xsane.param.depth == 1) || (xsane.param.depth == 8) )
   {
@@ -185,7 +187,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
       xsane_progress_update(xsane.bytes_read / (gfloat) xsane.num_bytes);
 
       /* it is not allowed to call gtk_main_iteration when we have gdk_input active */
-      /* because xsan_read_image_data will be called several times */
+      /* because xsane_read_image_data will be called several times */
       if (xsane.input_tag < 0)
       {
         while (gtk_events_pending())
@@ -245,6 +247,12 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
                 {
                   *expanded_buf8ptr = (val & (1 << j)) ? 0x00 : 0xff;
                   expanded_buf8ptr++;
+                  x--;
+                  if (x <= 0)
+                  {
+                    x = xsane.param.pixels_per_line;
+                    break;
+                  }
                 }
                 buf8ptr++;
               }
@@ -404,8 +412,6 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
    unsigned char *buf8 = (unsigned char *) buf16;
    unsigned char *buf8ptr;
    char buf[255];
-   char last = 0;
-   int offset = 0;
 
     DBG(DBG_info, "depth = 16 bit\n");
 
@@ -416,9 +422,9 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
         break; /* leave while loop */
       }
 
-      if (offset) /* if we have had an odd number of bytes */
+      if (xsane.read_offset_16) /* if we have had an odd number of bytes */
       {
-        buf16[0] = last;  /* ATTENTION: that is wrong! */
+        buf8[0] = xsane.last_offset_16_byte;
         status = sane_read(dev, ((SANE_Byte *) buf16) + 1, sizeof(buf16) - 1, &len);
         if (len)
         {
@@ -440,12 +446,12 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
       if (len % 2) /* odd number of bytes */
       {
         len--;
-        last = buf16[len];
-        offset = 1;
+        xsane.last_offset_16_byte = buf16[len];
+        xsane.read_offset_16 = 1;
       }
       else /* even number of bytes */
       {
-        offset = 0;
+        xsane.read_offset_16 = 0;
       }
 
       if (status == SANE_STATUS_EOF)
@@ -1441,7 +1447,7 @@ void xsane_scan_done(SANE_Status status)
         {
           xsane_update_counter_in_filename(&preferences.filename, preferences.skip_existing_numbers,
                                            preferences.filename_counter_step, preferences.filename_counter_len);
-          gtk_entry_set_text(GTK_ENTRY(xsane.outputfilename_entry), (char *) preferences.filename); /* update filename in entry */
+          xsane_set_filename(preferences.filename); /* update filename in entry */
           gtk_entry_set_position(GTK_ENTRY(xsane.outputfilename_entry), strlen(preferences.filename)); /* set cursor to right position of filename */
         }
       }
@@ -1523,7 +1529,7 @@ void xsane_scan_done(SANE_Status status)
     /*  c) an error occurs 				*/
 
     xsane.adf_page_counter += 1;
-    gtk_signal_emit_by_name(xsane.start_button, "clicked"); /* press START button */
+    g_signal_emit_by_name(xsane.start_button, "clicked"); /* press START button */
   }
   else /* last scan: update histogram */
   {
@@ -1580,6 +1586,8 @@ static void xsane_start_scan(void)
   {
     gtk_main_iteration();
   }
+
+  xsane.read_offset_16 = 0; /* no last byte of old 16 bit data */
 
   status = sane_start(dev);
   DBG(DBG_info, "sane_start returned with status %s\n", XSANE_STRSTATUS(status));
@@ -1760,7 +1768,7 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
     if (!xsane.force_filename)
     {
       xsane_update_counter_in_filename(&preferences.filename, FALSE, 0, preferences.filename_counter_len);
-      gtk_entry_set_text(GTK_ENTRY(xsane.outputfilename_entry), preferences.filename); 
+      xsane_set_filename(preferences.filename); 
     }
   }
 

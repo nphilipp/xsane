@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.84\n"
-"POT-Creation-Date: 2002-01-22 23:34+0100\n"
+"POT-Creation-Date: 2002-03-17 00:03+0100\n"
 "PO-Revision-Date: 2000-02-09 21:00+01:00\n"
 "Last-Translator: Laurent Grawet <laurent.grawet@ibelgique.com>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -35,9 +35,13 @@ msgstr "Concernant la traduction"
 msgid "authorization"
 msgstr "Autorisation"
 
-#. WINDOW_LICENSE
-msgid "license"
-msgstr "Licence"
+#. WINDOW_GPL
+msgid "GPL - the license"
+msgstr ""
+
+#. WINDOW_EULA
+msgid "End User License Agreement"
+msgstr ""
 
 #. WINDOW_INFO
 msgid "info"
@@ -187,9 +191,9 @@ msgstr "Quitter"
 msgid "Save image"
 msgstr "Sauver l'image"
 
-#. MENU_ITEM_CLOSE
-msgid "Close"
-msgstr "Fermer"
+#. MENU_ITEM_OCR
+msgid "OCR - save as text"
+msgstr ""
 
 #. MENU_ITEM_CLONE
 msgid "Clone"
@@ -198,6 +202,10 @@ msgstr "Cloner"
 #. MENU_ITEM_SCALE
 msgid "Scale"
 msgstr "Redimensioner"
+
+#. MENU_ITEM_CLOSE
+msgid "Close"
+msgstr "Fermer"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
@@ -383,6 +391,10 @@ msgstr "Correction automatique des couleurs"
 msgid "POP3 authentification"
 msgstr "Authentification POP3"
 
+#. RADIO_BUTTON_OCR_USE_GUI_PIPE
+msgid "Use GUI progress pipe"
+msgstr ""
+
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
 msgstr "Recherche de périphériques..."
@@ -546,6 +558,29 @@ msgstr "compilé avec GIMP-"
 #. TEXT_UNKNOWN
 msgid "unknown"
 msgstr "inconnu"
+
+#. TEXT_EULA
+#, fuzzy
+msgid ""
+"XSane is distributed under the terms of the GNU General Public License\n"
+"as published by the Free Software Foundation; either version 2 of the\n"
+"License, or (at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but\n"
+"WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+"Should the program prove defective, you assume the cost of all\n"
+"necessary servicing, repair or correction. To use this program you\n"
+"have to read, understand and accept the following\n"
+"\"NO WARRANTY\" agreement.\n"
+msgstr ""
+"XSane est distribué selon les termes de la GNU \"General Public License\"\n"
+"comme publiée par la FSF \"Free Software Foundation\" ; soit la version 2\n"
+"de la Licence, ou (à votre choix) toute version ultérieure.\n"
+"\n"
+"Ce programme est distribué car potentiellement utile, mais SANS AUCUNNE\n"
+"GARANTIE, sans même les garanties de COMMERCIALISATION ou d'ADAPTATION\n"
+"DANS UN BUT SPECIFIQUE\n"
 
 #. TEXT_GPL
 msgid ""
@@ -739,6 +774,11 @@ msgstr "Compression des images TIFF 8 bit"
 msgid "TIFF lineart image compression"
 msgstr "Compression des images TIFF mode trait"
 
+#. TEXT_SETUP_SHOW_RANGE_MODE
+#, fuzzy
+msgid "Show range as:"
+msgstr "Afficher la page"
+
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
 msgstr "Suréchantillonage de prévisualisation:"
@@ -862,6 +902,19 @@ msgstr "Option de fichier d'entrée:"
 #. TEXT_SETUP_OCR_OUTPUTFILE_OPT
 msgid "Outputfile option:"
 msgstr "Option de fichier de sortie:"
+
+#. TEXT_SETUP_OCR_USE_GUI_PIPE_OPT
+msgid "Use GUI progress pipe:"
+msgstr ""
+
+#. TEXT_SETUP_OCR_OUTFD_OPT
+#, fuzzy
+msgid "GUI output-fd option:"
+msgstr "Option de fichier de sortie:"
+
+#. TEXT_SETUP_OCR_PROGRESS_KEYWORD
+msgid "Progress keyword:"
+msgstr ""
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
@@ -991,9 +1044,13 @@ msgstr "Charger les paramètres du périphérique"
 msgid "Change directory"
 msgstr "Changer de répertoire"
 
-#. MENU_ITEM_XSANE_LICENSE
-msgid "License"
-msgstr "Licence"
+#. MENU_ITEM_XSANE_EULA
+msgid "Show EULA"
+msgstr ""
+
+#. MENU_ITEM_XSANE_GPL
+msgid "Show license (GPL)"
+msgstr ""
 
 #. MENU_ITEM_XSANE_DOC
 msgid "XSane doc"
@@ -1041,6 +1098,19 @@ msgstr "Compression JPEG DCT"
 
 #. MENU_ITEM_TIFF_COMP_PACKBITS
 msgid "pack bits"
+msgstr ""
+
+#. MENU_ITEM_SHOW_RANGE_SCALE
+#, fuzzy
+msgid "Slider"
+msgstr "Dia"
+
+#. MENU_ITEM_SHOW_RANGE_SPINBUTTON
+msgid "Spinbutton"
+msgstr ""
+
+#. MENU_ITEM_SHOW_RANGE_BOTH
+msgid "Slider and Spinbutton"
 msgstr ""
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
@@ -1529,6 +1599,10 @@ msgstr ""
 "Utilise une palette de couleurs privée pour l'aperçu si l'affichage est en "
 "mode 8bits"
 
+#. DESC_SHOW_RANGE_MODE
+msgid "Select how a range is displayed"
+msgstr ""
+
 #. DESC_PREVIEW_OVERSAMPLING
 msgid "Value with that the calculated preview resolution is multiplied"
 msgstr ""
@@ -1710,6 +1784,20 @@ msgstr "Entrez l'option du programme d'OCR pour définir un fichier d'entrée"
 #. DESC_OCR_OUTPUTFILE_OPT
 msgid "Enter option of the ocr program to define output file"
 msgstr "Entrez l'option du programme d'OCR pour définir un fichier de sortie"
+
+#. DESC_OCR_USE_GUI_PIPE_OPT
+msgid "Define if the ocr program supports gui progress pipe"
+msgstr ""
+
+#. DESC_OCR_OUTFD_OPT
+#, fuzzy
+msgid ""
+"Enter option of the ocr program to define output filedescripor in GUI mode"
+msgstr "Entrez l'option du programme d'OCR pour définir un fichier de sortie"
+
+#. DESC_OCR_PROGRESS_KEYWORD
+msgid "Define Keyword that is used to mark progress information"
+msgstr ""
 
 #. DESC_PERMISSION_READ
 msgid "read"
@@ -2375,6 +2463,12 @@ msgstr "Dépassement de mémoire"
 
 msgid "Access to resource has been denied"
 msgstr "Accès à la ressource refusé"
+
+#~ msgid "license"
+#~ msgstr "Licence"
+
+#~ msgid "License"
+#~ msgstr "Licence"
 
 #~ msgid "Store Medium definition"
 #~ msgstr "Enregistrer la définition du support"

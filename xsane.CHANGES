@@ -1957,3 +1957,82 @@ xsane-0.83 -> 0.84:
 
  - added Plustek logo
 
+
+xsane-0.84 -> 0.85:
+-------------------
+
+ - replaced xsane_control_option by back_gtk_set_option in xsane_set_resolution.
+   if changing resolution causes a SANE_RELOAD_OPTIONS this is handled now.
+
+ - replaced xsane_save_scaled_image by a routine that does a blur over all covered pixel
+   insetad of using one pixel in the middle of the covered area
+
+ - changed radius definition of blur and despeckle, now r=1 means nothing happens
+
+ - extended blur routine, radius is now of type float, so you e.g. can blur with a 
+   radius of 1.3.
+
+ - replaced all xsane*_scale_new* by xsane*_range_new*, the range can be displayed as:
+   - slider (scale) + value on right
+   - slider (scrollbar) + value on right
+   - spinbutton
+   - scale + spinbutton
+   - scrollbar + spinbutton
+  the user can select, which disply mode he likes to use.
+
+ - added timeout callback for xsane_resolution to set correct quantisation
+
+ - Some people complained that the user has to accept the GPL to use the program.
+   In fact from the view of the GPL it is not necessary that the user accepts
+   the license to run the program. But it is important that the user reads
+   and accepts the "NO WARRANTY" part of the license. Due to this I created
+   two license dialogs:
+    - EULA-Dialog displays the "NO WARRANTY" part of the GPL
+    - GPL-Dialog displays the compelte GPL
+   To run the program the user has to accept the "NO WARRANTY" agreement
+   after installation and each update of xsane.
+   I hope this compromise is usable for every side. Please understand and
+   accept that it is necessary in some countries that the user accepts the
+   no warranty agreement to make sure that the authors and others do not
+   have to pay any compensation in the case of any damage
+
+ - removed bug in scan and in preview-scan 16 bit routines when
+   sane_read returned with odd number of bytes
+
+ - reduced maximum filename counter length from 10 digits to 9 digits.
+   (10 digits need more than long int, long long int is not portable (not ANSI C))
+
+ - update_counter_in_filename does not touch the counter when step = 0 and
+   min_length = 0
+
+ - added prview function autoraise_scanarea (may be the name is stupid?):
+   if you select this function and click to an image then the image
+   is selected as scanarea
+   
+ - colored preview pipette icons and zoom icons
+
+ - Changes/preparation for gtk+-2.0:
+
+   - added xsane-gtk-1_x-compat.h that wraps gtk+-2.0 functions to gtk+-1.x functions
+     when gtk+-1.x is used
+
+   - replaced all gtk_accel_group_attach() by gtk_window_add_accel_group() and
+     gtk_menu_set_accel_group()
+
+   - repleaced all GTK_WINDOW_DIALOG by GTK_WINDOW_TOPLEVEL
+
+   - addeded alternative part that uses gtk_text_view (gtk+-2.0) instead of gtk_text (gtk+-1.x)
+
+   - repleaced all gtk_signal_connect* by g_signal_connect* and defined makros for gtk+-1.x
+   - repleaced all gtk_signal_handler* by g_signal_handlers* and defined makros for gtk+-1.x
+
+   - repleaced (gtk+-1.x)
+       gtk_widget_draw(hist->pixmapwid, &rect);
+     for gtk+-2.0 by 
+       gtk_widget_queue_draw(hist->pixmapwid);
+       gdk_window_process_updates(hist->pixmapwid->window, FALSE); 
+
+   - filename entry is not set directly by gtk_entry_set_text(), it is set
+     by xsane_set_filename() now
+
+

@@ -36,7 +36,8 @@
 #define WINDOW_ABOUT_XSANE		_("About")
 #define WINDOW_ABOUT_TRANSLATION	_("About translation")
 #define WINDOW_AUTHORIZE		_("authorization")
-#define WINDOW_LICENSE			_("license")
+#define WINDOW_GPL			_("GPL - the license")
+#define WINDOW_EULA			_("End User License Agreement")
 #define WINDOW_INFO			_("info")
 #define WINDOW_BATCH_SCAN		_("batch scan")
 #define WINDOW_FAX_PROJECT		_("fax project")
@@ -78,10 +79,11 @@
 #define MENU_ITEM_QUIT			_("Quit")
 
 #define MENU_ITEM_SAVE_IMAGE		_("Save image")
-#define MENU_ITEM_CLOSE			_("Close")
-
+#define MENU_ITEM_OCR			_("OCR - save as text")
 #define MENU_ITEM_CLONE			_("Clone")
 #define MENU_ITEM_SCALE			_("Scale")
+#define MENU_ITEM_CLOSE			_("Close")
+
 #define MENU_ITEM_DESPECKLE		_("Despeckle")
 #define MENU_ITEM_BLUR			_("Blur")
 
@@ -132,6 +134,7 @@
 #define RADIO_BUTTON_PRESELECT_SCANAREA _("Preselect scanarea")
 #define RADIO_BUTTON_AUTOCORRECT_COLORS _("Autocorrect colors")
 #define RADIO_BUTTON_POP3_AUTHENTIFICATION _("POP3 authentification")
+#define RADIO_BUTTON_OCR_USE_GUI_PIPE	_("Use GUI progress pipe")
 
 #define TEXT_SCANNING_DEVICES		_("scanning for devices")
 #define TEXT_AVAILABLE_DEVICES		_("Available devices:")
@@ -174,6 +177,17 @@
 #define TEXT_GTK_VERSION		_("compiled with GTK-")
 #define TEXT_GIMP_VERSION		_("compiled with GIMP-")
 #define TEXT_UNKNOWN			_("unknown")
+#define TEXT_EULA			_( "XSane is distributed under the terms of the GNU General Public License\n" \
+                                          "as published by the Free Software Foundation; either version 2 of the\n" \
+                                          "License, or (at your option) any later version.\n" \
+                                          "\n" \
+                                          "This program is distributed in the hope that it will be useful, but\n" \
+                                          "WITHOUT ANY WARRANTY; without even the implied warranty of\n" \
+                                          "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n" \
+                                          "Should the program prove defective, you assume the cost of all\n" \
+                                          "necessary servicing, repair or correction. To use this program you\n" \
+                                          "have to read, understand and accept the following\n" \
+                                          "\"NO WARRANTY\" agreement.\n")
 #define TEXT_GPL			_("XSane is distributed under the terms of the GNU General Public License\n" \
                                           "as published by the Free Software Foundation; either version 2 of the\n" \
                                           "License, or (at your option) any later version.\n" \
@@ -234,6 +248,7 @@
 #define TEXT_SETUP_TIFF_COMPRESSION_16	_("TIFF 16 bit image compression")
 #define TEXT_SETUP_TIFF_COMPRESSION_8	_("TIFF 8 bit image compression")
 #define TEXT_SETUP_TIFF_COMPRESSION_1	_("TIFF lineart image compression")
+#define TEXT_SETUP_SHOW_RANGE_MODE	_("Show range as:")
 #define TEXT_SETUP_PREVIEW_OVERSAMPLING	_("Preview oversampling:")
 #define TEXT_SETUP_PREVIEW_GAMMA	_("Preview gamma:")
 #define TEXT_SETUP_PREVIEW_GAMMA_RED	_("Preview gamma red:")
@@ -270,6 +285,9 @@
 #define TEXT_SETUP_OCR_COMMAND		_("OCR Command:")
 #define TEXT_SETUP_OCR_INPUTFILE_OPT	_("Inputfile option:")
 #define TEXT_SETUP_OCR_OUTPUTFILE_OPT	_("Outputfile option:")
+#define TEXT_SETUP_OCR_USE_GUI_PIPE_OPT	_("Use GUI progress pipe:")
+#define TEXT_SETUP_OCR_OUTFD_OPT	_("GUI output-fd option:")
+#define TEXT_SETUP_OCR_PROGRESS_KEYWORD	_("Progress keyword:")
 #define TEXT_SETUP_PERMISSION_USER	_("user")
 #define TEXT_SETUP_PERMISSION_GROUP	_("group")
 #define TEXT_SETUP_PERMISSION_ALL	_("all")
@@ -311,7 +329,8 @@
 #define MENU_ITEM_LOAD_DEVICE_SETTINGS	_("Load device settings")
 #define MENU_ITEM_CHANGE_WORKING_DIR	_("Change directory")
 
-#define MENU_ITEM_XSANE_LICENSE		_("License")
+#define MENU_ITEM_XSANE_EULA		_("Show EULA")
+#define MENU_ITEM_XSANE_GPL		_("Show license (GPL)")
 #define MENU_ITEM_XSANE_DOC		_("XSane doc")
 #define MENU_ITEM_BACKEND_DOC		_("Backend doc")
 #define MENU_ITEM_AVAILABLE_BACKENDS	_("Available backends")
@@ -325,6 +344,12 @@
 #define MENU_ITEM_TIFF_COMP_CCITFAX4	_("CCITT Group 4 Fax compression")
 #define MENU_ITEM_TIFF_COMP_JPEG	_("JPEG DCT compression")
 #define MENU_ITEM_TIFF_COMP_PACKBITS	_("pack bits")
+
+#define MENU_ITEM_RANGE_SCALE		_("Slider (Scale)")
+#define MENU_ITEM_RANGE_SCROLLBAR	_("Slider (Scrollbar)")
+#define MENU_ITEM_RANGE_SPINBUTTON	_("Spinbutton")
+#define MENU_ITEM_RANGE_SCALE_SPIN	_("Scale and Spinbutton")
+#define MENU_ITEM_RANGE_SCROLL_SPIN	_("Scrollbar and Spinbutton")
 
 #define MENU_ITEM_LINEART_MODE_STANDARD	_("Standard options window (lineart)")
 #define MENU_ITEM_LINEART_MODE_XSANE	_("XSane main window (lineart)")
@@ -458,6 +483,7 @@
 #define DESC_MAIN_WINDOW_FIXED		_("Use fixed main window size or scrolled, resizable main window")
 #define DESC_DISABLE_GIMP_PREVIEW_GAMMA	_("Disable preview gamma when XSane runs as gimp plugin")
 #define DESC_PREVIEW_COLORMAP		_("Use an own colormap for preview if display depth is 8 bpp")
+#define DESC_SHOW_RANGE_MODE		_("Select how a range is displayed")
 #define DESC_PREVIEW_OVERSAMPLING	_("Value with that the calculated preview resolution is multiplied")
 #define DESC_PREVIEW_GAMMA		_("Set gamma correction value for preview image")
 #define DESC_PREVIEW_GAMMA_RED		_("Set gamma correction value for red component of preview image")
@@ -504,6 +530,9 @@
 #define DESC_OCR_COMMAND		_("Enter command to start ocr program")
 #define DESC_OCR_INPUTFILE_OPT		_("Enter option of the ocr program to define input file")
 #define DESC_OCR_OUTPUTFILE_OPT		_("Enter option of the ocr program to define output file")
+#define DESC_OCR_USE_GUI_PIPE_OPT	_("Define if the ocr program supports gui progress pipe")
+#define DESC_OCR_OUTFD_OPT		_("Enter option of the ocr program to define output filedescripor in GUI mode")
+#define DESC_OCR_PROGRESS_KEYWORD	_("Define Keyword that is used to mark progress information")
 
 #define DESC_PERMISSION_READ		_("read")
 #define DESC_PERMISSION_WRITE		_("write")
@@ -520,6 +549,7 @@
 
 #define DESC_FULL_PREVIEW_AREA		_("Select visible area")
 #define DESC_AUTOSELECT_SCANAREA	_("Autoselect scanarea")
+#define DESC_AUTORAISE_SCANAREA		_("Autoraise scanarea")
 #define DESC_DELETE_IMAGES		_("Delete preview image cache")
 
 #define DESC_PRESET_AREA		_("Preset area")

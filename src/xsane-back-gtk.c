@@ -473,6 +473,10 @@ void xsane_back_gtk_set_option(int opt_num, void *val, SANE_Action action)
 
     update_gamma = TRUE; /* scanner gamma correction may have changed, medium may need update */
   }
+  else if (info & SANE_INFO_INEXACT)
+  {
+    /* XXXXXXXXXXXXXX this also has to be handled XXXXXXXXXXXXXXX */
+  }
 
   if (xsane.xsane_colors != old_colors)
   {
@@ -528,11 +532,10 @@ gint xsane_back_gtk_decision(gchar *title, gchar **xpm_d,  gchar *message, gchar
     return TRUE;
   }
   xsane.back_gtk_message_dialog_active = 1;
-  decision_dialog = gtk_window_new(GTK_WINDOW_DIALOG);
+  decision_dialog = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   gtk_window_set_position(GTK_WINDOW(decision_dialog), GTK_WIN_POS_MOUSE);
   gtk_window_set_title(GTK_WINDOW(decision_dialog), title);
-  gtk_signal_connect(GTK_OBJECT(decision_dialog), "delete_event",
-                     GTK_SIGNAL_FUNC(xsane_back_gtk_decision_callback), (void *) -1); /* -1 = cancel */
+  g_signal_connect(GTK_OBJECT(decision_dialog), "delete_event", GTK_SIGNAL_FUNC(xsane_back_gtk_decision_callback), (void *) -1); /* -1 = cancel */
 
   xsane_set_window_icon(decision_dialog, 0);
 
@@ -551,10 +554,10 @@ gint xsane_back_gtk_decision(gchar *title, gchar **xpm_d,  gchar *message, gchar
   if (xpm_d)
   {
     pixmap = gdk_pixmap_create_from_xpm_d(decision_dialog->window, &mask, xsane.bg_trans, xpm_d);
-    pixmapwidget = gtk_pixmap_new(pixmap, mask);
+    pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
     gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 10);
     gtk_widget_show(pixmapwidget);
-    gdk_pixmap_unref(pixmap);
+    gdk_drawable_unref(pixmap);
   }
 
   /* the message */
@@ -572,7 +575,7 @@ gint xsane_back_gtk_decision(gchar *title, gchar **xpm_d,  gchar *message, gchar
   /* the confirmation button */
   button = gtk_button_new_with_label(oktext);
   GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
-  gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_back_gtk_decision_callback, (void *) 1 /* confirm */);
+  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_back_gtk_decision_callback, (void *) 1 /* confirm */);
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 5);
   gtk_widget_grab_default(button);
   gtk_widget_show(button);
@@ -581,7 +584,7 @@ gint xsane_back_gtk_decision(gchar *title, gchar **xpm_d,  gchar *message, gchar
   if (rejecttext) /* the rejection button */
   {
     button = gtk_button_new_with_label(rejecttext);
-    gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_back_gtk_decision_callback, (void *) -1 /* reject */);
+    g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_back_gtk_decision_callback, (void *) -1 /* reject */);
     gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 5);
     gtk_widget_show(button);
   }
@@ -712,18 +715,15 @@ int xsane_back_gtk_get_filename(const char *label, const char *default_name, siz
 
   fileselection = gtk_file_selection_new((char *) label);
   accelerator_group = gtk_accel_group_new();
-  gtk_accel_group_attach(accelerator_group, GTK_OBJECT(fileselection));
+  gtk_window_add_accel_group(GTK_WINDOW(fileselection), accelerator_group);
 
-  gtk_signal_connect(GTK_OBJECT(fileselection),
-                     "destroy", GTK_SIGNAL_FUNC(xsane_back_gtk_get_filename_button_clicked), &destroy);         
+  g_signal_connect(GTK_OBJECT(fileselection), "destroy", GTK_SIGNAL_FUNC(xsane_back_gtk_get_filename_button_clicked), &destroy);
 
-  gtk_signal_connect(GTK_OBJECT(GTK_FILE_SELECTION(fileselection)->cancel_button),
-		     "clicked", (GtkSignalFunc) xsane_back_gtk_get_filename_button_clicked, &cancel);
+  g_signal_connect(GTK_OBJECT(GTK_FILE_SELECTION(fileselection)->cancel_button), "clicked", (GtkSignalFunc) xsane_back_gtk_get_filename_button_clicked, &cancel);
   gtk_widget_add_accelerator(GTK_FILE_SELECTION(fileselection)->cancel_button, "clicked",
-                              accelerator_group, GDK_Escape, 0, GTK_ACCEL_LOCKED);
+                              accelerator_group, GDK_Escape, 0, DEF_GTK_ACCEL_LOCKED);
 
-  gtk_signal_connect(GTK_OBJECT(GTK_FILE_SELECTION(fileselection)->ok_button),
-		     "clicked", (GtkSignalFunc) xsane_back_gtk_get_filename_button_clicked, &ok);
+  g_signal_connect(GTK_OBJECT(GTK_FILE_SELECTION(fileselection)->ok_button), "clicked", (GtkSignalFunc) xsane_back_gtk_get_filename_button_clicked, &ok);
   if (default_name)
   {
     DBG(DBG_info, "xsane_back_gtk_get_filename: default_name =%s\n", default_name);
@@ -834,8 +834,8 @@ static void xsane_back_gtk_autobutton_new(GtkWidget *parent, GSGDialogElement *e
 
   button = gtk_check_button_new();
   gtk_container_set_border_width(GTK_CONTAINER(button), 0);
-  gtk_widget_set_usize(button, 20, 20);
-  gtk_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_back_gtk_autobutton_update, elem);
+  gtk_widget_set_size_request(button, 20, 20);
+  g_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_back_gtk_autobutton_update, elem);
   xsane_back_gtk_set_tooltip(tooltips, button, "Turns on automatic mode.");
 
   alignment = gtk_alignment_new(0.0, 1.0, 0.5, 0.5);
@@ -879,26 +879,26 @@ void xsane_back_gtk_button_new(GtkWidget * parent, const char *name, SANE_Word v
 
   button = gtk_check_button_new_with_label((char *) name);
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), val);
-  gtk_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_back_gtk_button_update, elem);
+  g_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_back_gtk_button_update, elem);
   gtk_box_pack_start(GTK_BOX(parent), button, FALSE, TRUE, 0);
   gtk_widget_show(button);
   xsane_back_gtk_set_tooltip(tooltips, button, desc);
 
   gtk_widget_set_sensitive(button, settable);
 
-  elem->widget = button;
+  elem->widget  = button;
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_back_gtk_scale_update(GtkAdjustment * adj_data, GSGDialogElement * elem)
+static void xsane_back_gtk_range_update(GtkAdjustment * adj_data, GSGDialogElement * elem)
 {
  const SANE_Option_Descriptor *opt;
  SANE_Word val, new_val;
  int opt_num;
  double d;
 
-  DBG(DBG_proc, "xsane_back_gtk_scale_update\n");
+  DBG(DBG_proc, "xsane_back_gtk_range_update\n");
 
   opt_num = elem - xsane.element;
   opt = xsane_get_option_descriptor(xsane.dev, opt_num);
@@ -918,7 +918,7 @@ static void xsane_back_gtk_scale_update(GtkAdjustment * adj_data, GSGDialogEleme
       break;
 
     default:
-      DBG(DBG_error, "xsane_back_gtk_scale_update: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
+      DBG(DBG_error, "xsane_back_gtk_range_update: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
       return;
   }
 
@@ -953,64 +953,132 @@ value_changed:
   /* Let widget know that value changed _again_.  This must converge
      quickly---otherwise things would get very slow very quickly (as
      in "infinite recursion"): */
-  gtk_signal_emit_by_name(GTK_OBJECT(adj_data), "value_changed");
+  g_signal_emit_by_name(GTK_OBJECT(adj_data), "value_changed");
  return;
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-void xsane_back_gtk_scale_new(GtkWidget * parent, const char *name, gfloat val,
+static void xsane_back_gtk_range_display_value_right_callback(GtkAdjustment *adjust, gpointer data)
+{
+ gchar buf[256];
+ int digits = (int) data;
+ GtkLabel *label;
+ 
+  snprintf(buf, sizeof(buf), "%1.*f", digits, adjust->value);
+  label = (GtkLabel *) gtk_object_get_data(GTK_OBJECT(adjust), "value-label");
+  gtk_label_set_text(label, buf);
+}                                                                                                                                
+/* ----------------------------------------------------------------------------------------------------------------- */
+
+void xsane_back_gtk_range_new(GtkWidget * parent, const char *name, gfloat val,
 	   gfloat min, gfloat max, gfloat quant, int automatic,
 	   GSGDialogElement * elem, GtkTooltips *tooltips, const char *desc, SANE_Int settable)
 {
- GtkWidget *hbox, *label, *scale;
+ GtkWidget *hbox, *label, *slider = NULL, *spinbutton, *value_label;
+ int digits;
 
-  DBG(DBG_proc, "xsane_back_gtk_scale_new(%s)\n", name);
+  DBG(DBG_proc, "xsane_back_gtk_range_new(%s)\n", name);
+
+  if (quant - (int) quant == 0.0)
+  {
+    digits = 0;
+  }
+  else
+  {
+    digits = (int) log10(1/quant)+0.8; /* set number of digits in dependacne of quantization */
+  }
 
   hbox = gtk_hbox_new(FALSE, 2);
-  gtk_container_set_border_width(GTK_CONTAINER(hbox), 0);
+  gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
   gtk_box_pack_start(GTK_BOX(parent), hbox, FALSE, FALSE, 0);
 
   label = gtk_label_new((char *) name);
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
 
-  elem->data = gtk_adjustment_new(val, min, max, quant, quant*10, 0.0);
-  scale = gtk_hscale_new(GTK_ADJUSTMENT(elem->data));
-  xsane_back_gtk_set_tooltip(tooltips, scale, desc);
-  gtk_widget_set_usize(scale, 150, 0);
+  elem->data = gtk_adjustment_new(val, min, max, quant, quant*10, (max-min) * 1e-40);
+  /* 1e-40 => hscrollbar has an unwanted side effect: the maximum is not the maximum */
+  /* of the given range, it is reduced by the page_size, so it has to be very small */
+
+  /* value label */
+  if (preferences.show_range_mode & 8)
+  {
+    value_label = gtk_label_new("");
+    gtk_widget_set_size_request(value_label, 45, -1);
+    gtk_box_pack_end(GTK_BOX(hbox), value_label, FALSE, FALSE, 1);
+ 
+    g_signal_connect(elem->data, "value_changed", (GtkSignalFunc) xsane_back_gtk_range_display_value_right_callback, (void *) digits);
+    gtk_object_set_data(GTK_OBJECT(elem->data), "value-label", value_label);
+    g_signal_emit_by_name(GTK_OBJECT(elem->data), "value_changed"); /* update value */
+
+    if (!automatic)
+    {
+      gtk_widget_show(value_label);
+      gtk_widget_set_sensitive(value_label, settable);
+    }
+  }
+ 
+  /* spinbutton */
+  if (preferences.show_range_mode & 4)
+  {
+    spinbutton = gtk_spin_button_new(GTK_ADJUSTMENT(elem->data), 0, digits);
+
+    if (preferences.show_range_mode & 3) /* slider also visible */
+    {
+      gtk_widget_set_size_request(spinbutton, 70, -1);
+    }
+    else /* slider not visible */
+    {
+      gtk_widget_set_size_request(spinbutton, 100, -1);
+    }
+
+    xsane_back_gtk_set_tooltip(xsane.tooltips, spinbutton, desc);
+    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(spinbutton), FALSE);
+    gtk_box_pack_end(GTK_BOX(hbox), spinbutton, FALSE, FALSE, 5); /* make spinbutton not sizeable */
+
+    if (!automatic)
+    {
+      gtk_widget_show(spinbutton);
+      gtk_widget_set_sensitive(spinbutton, settable);
+    }
+  }
+
+  /* slider */
+  if (preferences.show_range_mode & 3)
+  {
+    if (preferences.show_range_mode & 1) /* bit 0 (val 1) : scale */
+    {
+      slider = gtk_hscale_new(GTK_ADJUSTMENT(elem->data));
+      gtk_scale_set_draw_value(GTK_SCALE(slider), FALSE);
+    }
+    else /* bit 1 (val 2) : scrollbar */
+    {
+      slider = gtk_hscrollbar_new(GTK_ADJUSTMENT(elem->data));
+    }
+    xsane_back_gtk_set_tooltip(xsane.tooltips, slider, desc);
+    gtk_widget_set_size_request(slider, 140, -1);
+    /* GTK_UPDATE_CONTINUOUS, GTK_UPDATE_DISCONTINUOUS, GTK_UPDATE_DELAYED */
+    gtk_range_set_update_policy(GTK_RANGE(slider), preferences.gtk_update_policy);
+    gtk_box_pack_end(GTK_BOX(hbox), slider, FALSE, FALSE, 5); /* make slider not sizeable */
+
+    if (!automatic)
+    {
+      gtk_widget_show(slider);
+      gtk_widget_set_sensitive(slider, settable);
+    }
+  }
 
   if (automatic)
   {
-    xsane_back_gtk_autobutton_new(hbox, elem, scale, tooltips);
-  }
-  else
-  {
-    gtk_box_pack_end(GTK_BOX(hbox), scale, FALSE, FALSE, 0); /* make scales fixed */
-/*    gtk_box_pack_end(GTK_BOX(hbox), scale, TRUE, TRUE, 0); */ /* make scales sizeable */
+    xsane_back_gtk_autobutton_new(hbox, elem, slider, tooltips);
   }
 
-  gtk_range_set_update_policy(GTK_RANGE(scale), GTK_UPDATE_CONTINUOUS);
-  gtk_scale_set_value_pos(GTK_SCALE(scale), GTK_POS_TOP);
-
-  if (quant - (int) quant == 0.0)
-  {
-    gtk_scale_set_digits(GTK_SCALE(scale), 0);
-  }
-  else
-  {
-    /* set number of digits in dependacne of quantization */
-    gtk_scale_set_digits(GTK_SCALE(scale), (int) log10(1/quant)+0.8);
-  }
-
-  gtk_signal_connect(elem->data, "value_changed", (GtkSignalFunc) xsane_back_gtk_scale_update, elem);
+  g_signal_connect(elem->data, "value_changed", (GtkSignalFunc) xsane_back_gtk_range_update, elem);
 
   gtk_widget_show(label);
-  gtk_widget_show(scale);
   gtk_widget_show(hbox);
 
-  gtk_widget_set_sensitive(scale, settable);
-
-  elem->widget = scale;
+  elem->widget  = slider;
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
@@ -1104,7 +1172,7 @@ void xsane_back_gtk_option_menu_new(GtkWidget *parent, const char *name, char *s
   {
     item = gtk_menu_item_new_with_label(_BGT(str_list[i]));
     gtk_container_add(GTK_CONTAINER(menu), item);
-    gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_back_gtk_option_menu_callback, menu_items + i);
+    g_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_back_gtk_option_menu_callback, menu_items + i);
 
     gtk_widget_show(item);
 
@@ -1125,7 +1193,7 @@ void xsane_back_gtk_option_menu_new(GtkWidget *parent, const char *name, char *s
 
   gtk_widget_set_sensitive(option_menu, settable);
 
-  elem->widget = option_menu;
+  elem->widget  = option_menu;
   elem->menu_size = num_items;
   elem->menu = menu_items;
 }
@@ -1183,7 +1251,7 @@ void xsane_back_gtk_text_entry_new(GtkWidget * parent, const char *name, const c
   gtk_entry_set_text(GTK_ENTRY(text), (char *) val);
 /*  gtk_box_pack_start(GTK_BOX(hbox), text, FALSE, TRUE, 0); */ /* text entry fixed */
   gtk_box_pack_start(GTK_BOX(hbox), text, TRUE, TRUE, 0); /* text entry sizeable */
-  gtk_signal_connect(GTK_OBJECT(text), "changed", (GtkSignalFunc) xsane_back_gtk_text_entry_callback, elem);
+  g_signal_connect(GTK_OBJECT(text), "changed", (GtkSignalFunc) xsane_back_gtk_text_entry_callback, elem);
   xsane_back_gtk_set_tooltip(tooltips, text, desc);
 
   gtk_widget_show(hbox);
@@ -1192,7 +1260,7 @@ void xsane_back_gtk_text_entry_new(GtkWidget * parent, const char *name, const c
 
   gtk_widget_set_sensitive(text, settable);
 
-  elem->widget = text;
+  elem->widget  = text;
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
@@ -1340,7 +1408,7 @@ void xsane_back_gtk_update_scan_window(void)
 
           if (old_val != new_val)
           {
-	      gtk_signal_emit_by_name(GTK_OBJECT(elem->data), "value_changed");
+	      g_signal_emit_by_name(GTK_OBJECT(elem->data), "value_changed");
           }
          break;
 

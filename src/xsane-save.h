@@ -32,7 +32,7 @@ extern void xsane_write_pnm_header(FILE *outfile, Image_info *image_info);
 extern int xsane_save_grayscale_image_as_lineart(FILE *outfile, FILE *imagefile, Image_info *image_info, GtkProgressBar *progress_bar, int *cancel_save);
 extern int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_info, float x_scale, float y_scale, GtkProgressBar *progress_bar, int *cancel_save);
 extern int xsane_save_despeckle_image(FILE *outfile, FILE *imagefile, Image_info *image_info, int radius, GtkProgressBar *progress_bar, int *cancel_save);
-extern int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info, int radius, GtkProgressBar *progress_bar, int *cancel_save);
+extern int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info, float radius, GtkProgressBar *progress_bar, int *cancel_save);
 extern int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_info, int rotation, GtkProgressBar *progress_bar, int *cancel_save);
 extern void xsane_save_ps(FILE *outfile, FILE *imagefile, Image_info *image_info,
                           int left, int bottom, float width, float height,

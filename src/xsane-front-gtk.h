@@ -59,12 +59,14 @@ extern void xsane_option_menu_new_with_pixmap(GdkWindow *window, GtkBox *parent,
                                               char *str_list[], const char *val,
                                               GtkObject **data, int option,
                                               void *option_menu_callback, SANE_Int settable, const gchar *widget_name);
-extern void xsane_scale_new(GtkBox *parent, char *labeltext, const char *desc,
-                            float min, float max, float quant, float page_step, float page_size,
-                            int digits, double *val, GtkObject **data, void *xsane_scale_callback, SANE_Int settable);
-extern void xsane_scale_new_with_pixmap(GdkWindow *window, GtkBox *parent, const char *xpm_d[], const char *desc,
-                                        float min, float max, float quant, float page_step, float page_size, int digits,
-                                        double *val, GtkObject **data, int option, void *xsane_scale_callback, SANE_Int settable);
+extern void xsane_range_new(GtkBox *parent, char *labeltext, const char *desc,
+                            float min, float max, float quant, float page_step,
+                            int digits, double *val, GtkObject **data, void *xsane_range_callback, SANE_Int settable);
+extern void xsane_range_new_with_pixmap(GdkWindow *window, GtkBox *parent, const char *xpm_d[], const char *desc,
+                                        float min, float max, float quant, float page_step, int digits,
+                                        double *val, GtkObject **data, int option, void *xsane_range_callback, SANE_Int settable);
+extern void xsane_set_filename(gchar *filename);
+extern void xsane_outputfilename_new(GtkWidget *vbox);
 extern void xsane_separator_new(GtkWidget *xsane_parent, int dist);
 extern GtkWidget *xsane_info_table_text_new(GtkWidget *table, gchar *text, int row, int colomn);
 extern GtkWidget *xsane_info_text_new(GtkWidget *parent, gchar *text);
@@ -73,8 +75,9 @@ extern void xsane_update_param(void *arg);
 extern void xsane_define_output_filename(void);
 extern int xsane_identify_output_format(char *filename, char **ext);
 extern void xsane_change_working_directory(void);
-extern int xsane_display_license(int ask_for_accept);
-extern void xsane_widget_get_uposition(GtkWidget *gtk_window, gint *x, gint *y);
+extern int xsane_display_eula(int ask_for_accept);
+extern int xsane_display_gpl(void);
+extern void xsane_window_get_position(GtkWidget *gtk_window, gint *x, gint *y);
 extern void xsane_widget_test_uposition(GtkWidget *gtk_window);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

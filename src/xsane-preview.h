@@ -41,7 +41,8 @@ enum
   MODE_NORMAL,
   MODE_PIPETTE_WHITE,
   MODE_PIPETTE_GRAY,
-  MODE_PIPETTE_BLACK
+  MODE_PIPETTE_BLACK,
+  MODE_AUTORAISE_SCANAREA
 };
 
 /* ------------------------------------------------------------------------------------------------------ */
@@ -111,6 +112,8 @@ typedef struct
   u_char *preview_row;
 
   int scanning;
+  int read_offset_16;
+  char last_offset_16_byte;
   int scan_incomplete;
   int invalid;
   int preview_colors;
@@ -163,6 +166,7 @@ typedef struct
   GtkWidget *zoom_in;		/* zoom in button */
   GtkWidget *zoom_undo;		/* zoom undo button */
   GtkWidget *full_area;		/* select full scanarea */
+  GtkWidget *autoraise;		/* autoraise scanarea */
   GtkWidget *autoselect;	/* autoselect scanarea */
   GtkWidget *preset_area_option_menu;	/* menu for selection of preview area */
   GtkWidget *rotation_option_menu;	/* menu for selection of rotation */

@@ -27,12 +27,36 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+#if 0
+# define HAVE_GTK2
+# define HAVE_GTK_TEXT_VIEW_H
+#endif
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+#if 0
+#define DEF_GTK_ACCEL_LOCKED 0
+#else
+#define DEF_GTK_ACCEL_LOCKED GTK_ACCEL_LOCKED
+#endif
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+#ifndef HAVE_GTK2
+# include "xsane-gtk-1_x-compat.h"
+#else /* we have gtk+-2.0 */
+# define DEF_GTK_SIGNAL_SPINBUTTON_VALUE_CHANGED "value-changed"
+# define DEF_GTK_MENU_ACCEL_VISIBLE GTK_ACCEL_VISIBLE
+#endif
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 /* #define XSANE_TEST */
 /* #define SUPPORT_RGBA */
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.84"
+#define XSANE_VERSION		"0.85"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2002"
@@ -137,10 +161,6 @@
 #ifdef HAVE_LIBZ
 # define XSANE_ACTIVATE_MAIL
 #endif
-#endif
-
-#ifdef _WIN32
-# define BUGGY_GTK_TOOLTIPS_SET_COLORS
 #endif
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -317,6 +337,8 @@ extern void xsane_mail_project_save(void);
 #define OCRCOMMAND 	 	"gocr"
 #define OCRINPUTFILEOPT	 	"-i"
 #define OCROUTPUTFILEOPT	"-o"
+#define OCROUTFDOPT		"--gui-fdout"
+#define OCRPROGRESSKEY		"Progress:"
 #define DOCVIEWER_NETSCAPE	"netscape"
 #define DOCVIEWER 	 	DOCVIEWER_NETSCAPE
 
@@ -508,12 +530,16 @@ typedef struct Xsane
     int main_window_fixed;
     int mode_selection;
 
+#ifndef HAVE_GTK2
     int get_deskrelative_origin;
+#endif
 
     /* various scanning related state: */
     SANE_Int depth;
     size_t num_bytes;
     size_t bytes_read;
+    int read_offset_16;
+    char last_offset_16_byte;
     GtkProgressBar *progress_bar;
     int input_tag;
     SANE_Parameters param;
@@ -641,6 +667,7 @@ typedef struct Xsane
     char *mail_subject;
 
     int block_update_param;
+    int block_enhancement_update;
 
     int broken_pipe; /* for printercommand pipe */
 
@@ -801,6 +828,9 @@ typedef struct XsaneSetup
   GtkWidget *ocr_command_entry;
   GtkWidget *ocr_inputfile_option_entry;
   GtkWidget *ocr_outputfile_option_entry;
+  GtkWidget *ocr_use_gui_pipe_entry;
+  GtkWidget *ocr_gui_outfd_option_entry;
+  GtkWidget *ocr_progress_keyword_entry;
 
   int filename_counter_len;
 
@@ -808,6 +838,7 @@ typedef struct XsaneSetup
   int tiff_compression8_nr;
   int tiff_compression1_nr;
 
+  int show_range_mode;
   int lineart_mode;
 
   int image_permissions;

@@ -23,13 +23,17 @@
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 #include "xsane.h"
-#include "xsane-preview.h"
 #include "xsane-back-gtk.h"
 #include "xsane-front-gtk.h"
 
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <netdb.h>
+/* the following test is always false */
+#ifdef _native_WIN32
+# include <winsock.h>
+#else
+# include <sys/socket.h>
+# include <netinet/in.h>
+# include <netdb.h>
+#endif
 
 #ifdef HAVE_LIBJPEG
 #include <jpeglib.h>
@@ -249,6 +253,11 @@ void xsane_update_counter_in_filename(char **filename, int skip, int step, int m
 
   DBG(DBG_proc, "xsane_update_counter_in_filename\n");
 
+  if ( (!step) && (!min_counter_len) )
+  {
+    return; /* do not touch counter */
+  }
+
   while (1) /* may  be we have to skip existing files */
   {
     if (!xsane.filetype) /* no filetype: serach "." */
@@ -278,7 +287,7 @@ void xsane_update_counter_in_filename(char **filename, int skip, int step, int m
       if (counter_len) /* we have a counter */
       {
         sscanf(position_counter, "%d", &counter);
-        counter += step; /* update counter */
+        counter = counter + step; /* update counter */
 
         if (counter < 0)
         {
@@ -561,9 +570,6 @@ int xsane_save_grayscale_image_as_lineart(FILE *outfile, FILE *imagefile, Image_
   *cancel_save = 0;
 
   image_info->depth = 1;
-#if 0
-  xsane.depth = 1; /* our new depth is 1 bit/pixel */
-#endif
 
   xsane_write_pnm_header(outfile, image_info);
 
@@ -617,6 +623,216 @@ int xsane_save_grayscale_image_as_lineart(FILE *outfile, FILE *imagefile, Image_
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_info, float x_scale, float y_scale, GtkProgressBar *progress_bar, int *cancel_save)
+{
+ int original_image_width  = image_info->image_width;
+ int original_image_height = image_info->image_height;
+ int new_image_width  = image_info->image_width * x_scale;
+ int new_image_height = image_info->image_height * y_scale;
+ unsigned char *original_line;
+ guint16 *original_line16 = NULL;
+ unsigned char *new_line;
+ float *pixel_val;
+ float *pixel_norm;
+ int bytespp = 1;
+ float x, y;
+ int c;
+ int oldy;
+ int x_new, y_new;
+ float x_go, y_go;
+ float factor, x_factor, y_factor;
+ guint16 color;
+ int read_line;
+
+  DBG(DBG_proc, "xsane_save_scaled_image\n");
+
+  if (image_info->depth > 8)
+  {
+    bytespp = 2;
+  }
+
+  image_info->image_width  = new_image_width;
+  image_info->image_height = new_image_height;
+  image_info->resolution_x *= x_scale;
+  image_info->resolution_y *= y_scale;
+
+  original_line = malloc(original_image_width * image_info->colors * bytespp);
+  if (!original_line)
+  {
+    DBG(DBG_error, "xsane_save_scaled_image: out of memory\n");
+   return -1;
+  }
+
+  new_line = malloc(new_image_width * image_info->colors * bytespp);
+  if (!new_line)
+  {
+    free(original_line);
+    DBG(DBG_error, "xsane_save_scaled_image: out of memory\n");
+   return -1;
+  }
+
+  pixel_val = malloc(new_image_width * image_info->colors * sizeof(float));
+  if (!pixel_val)
+  {
+    free(original_line);
+    free(new_line);
+    DBG(DBG_error, "xsane_save_scaled_image: out of memory\n");
+   return -1;
+  }               
+
+  pixel_norm = malloc(new_image_width * image_info->colors * sizeof(float));
+  if (!pixel_norm)
+  {
+    free(original_line);
+    free(new_line);
+    free(pixel_val);
+    DBG(DBG_error, "xsane_save_scaled_image: out of memory\n");
+   return -1;
+  }               
+
+  xsane_write_pnm_header(outfile, image_info);
+
+  read_line = TRUE;
+
+  memset(pixel_val,  0, new_image_width * image_info->colors * sizeof(float));
+  memset(pixel_norm, 0, new_image_width * image_info->colors * sizeof(float));
+
+  y_new = 0;
+  y_go = 1.0 / y_scale;
+  y_factor = 1.0;
+  y = 0.0;
+
+  while (y < original_image_height)
+  {
+    DBG(DBG_info2, "xsane_save_scaled_image: original line %d, new line %d\n", (int) y, y_new);
+
+    gtk_progress_bar_update(progress_bar, (float) y / original_image_height);
+    while (gtk_events_pending())
+    {
+      gtk_main_iteration();
+    }
+
+    if (read_line)
+    {
+      DBG(DBG_info, "xsane_save_scaled_image: reading original line %d\n", (int) y);
+      fread(original_line, original_image_width, image_info->colors * bytespp, imagefile); /* read one line */
+      original_line16 = (guint16 *) original_line;
+    }
+
+    x_new = 0;
+    x_go = 1.0 / x_scale;
+    x = 0.0;
+    x_factor = 1.0;
+
+    while ( (x < original_image_width) && (x_new < new_image_width) ) /* add this line to anti aliasing buffer */
+
+    {
+      factor = x_factor * y_factor;
+
+      for (c = 0; c < image_info->colors; c++)
+      {
+        if (bytespp == 1)
+        {
+          color = original_line[((int) x) * image_info->colors + c];
+        }
+        else /* bytespp == 2 */
+        {
+          color = original_line16[((int) x) * image_info->colors + c];
+        }
+
+        pixel_val [x_new * image_info->colors + c] += factor * color;
+        pixel_norm[x_new * image_info->colors + c] += factor;
+      }
+
+      x_go -= x_factor;
+
+      if (x_go <= 0.0) /* change of pixel in new image */
+      {
+        x_new++;
+        x_go = 1.0 / x_scale;
+
+        x_factor = x - (int) x; /* use pixel rest */
+        if (x_factor > x_go)
+        {
+          x_factor = x_go;
+        }
+      }
+      else
+      {
+        x_factor = x_go;
+      }
+
+      if (x_factor > 1.0)
+      {
+        x_factor = 1.0;
+      }
+
+      x += x_factor;
+    }
+
+    y_go -= y_factor;
+
+    if (y_go <= 0.0) /* normalize one line and write to destination image file */
+    {
+      DBG(DBG_info2, "xsane_save_scaled_image: writing new line %d\n", y_new);
+
+      if (bytespp == 1)
+      {
+        for (x_new = 0; x_new < new_image_width * image_info->colors; x_new++)
+        {
+          new_line[x_new] = (int) (pixel_val[x_new] / pixel_norm[x_new]);
+        }
+      }
+      else /* bytespp == 2 */
+      {
+       guint16 *new_line16 = (guint16 *) new_line;
+
+        for (x_new = 0; x_new < new_image_width * image_info->colors; x_new++)
+        {
+          new_line16[x_new] = (int) (pixel_val[x_new] / pixel_norm[x_new]);
+        }
+      }
+
+      fwrite(new_line, new_image_width, image_info->colors * bytespp, outfile); /* write one line */
+
+      /* reset values and norm factors */
+      memset(pixel_val,  0, new_image_width * image_info->colors * sizeof(float));
+      memset(pixel_norm, 0, new_image_width * image_info->colors * sizeof(float));
+
+      y_new++;
+      y_go = 1.0 / y_scale;
+
+      y_factor = y - (int) y;
+      if (y_factor > y_go)
+      {
+        y_factor = y_go;
+      }
+    }
+    else
+    {
+      y_factor = y_go;
+    }
+
+    if (y_factor > 1.0)
+    {
+      y_factor = 1.0;
+    }
+
+    oldy = (int) y;
+    y += y_factor;
+    read_line = (oldy != (int) y);
+  }
+
+  free(original_line);
+  free(new_line);
+  free(pixel_val);
+  free(pixel_norm);
+
+ return (*cancel_save);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+#if 0
 int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_info, float x_scale, float y_scale, GtkProgressBar *progress_bar, int *cancel_save)
 {
  float original_y;
@@ -699,6 +915,7 @@ int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_in
 
  return (*cancel_save);
 }
+#endif
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -707,22 +924,28 @@ int xsane_save_despeckle_image(FILE *outfile, FILE *imagefile, Image_info *image
  int x, y, sx, sy, i;
  int xmin, xmax;
  int ymin, ymax;
- int pos0;
  int count;
  unsigned char *line_cache;
  unsigned char *line_cache_ptr;
  guint16 *color_cache;
  guint16 *color_cache_ptr;
  int bytespp = 1;
- int color_radius = radius * image_info->colors;
+ int color_radius;
  int color_width  = image_info->image_width * image_info->colors;
+
+  radius--; /* correct radius : 1 means nothing happens */
+
+  if (radius < 1)
+  {
+    radius = 1;
+  }
+
+  color_radius = radius * image_info->colors;
 
   if (image_info->depth > 8)
   {
     bytespp = 2;
   }
-
-  pos0 = ftell(imagefile); /* mark position to skip header */
 
   xsane_write_pnm_header(outfile, image_info);
 
@@ -890,6 +1113,209 @@ int xsane_save_despeckle_image(FILE *outfile, FILE *imagefile, Image_info *image
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info, float radius, GtkProgressBar *progress_bar)
+{
+ int x, y, sx, sy;
+ int xmin, xmax;
+ int ymin, ymax;
+ float val, norm;
+ unsigned char *line_cache;
+ int bytespp = 1;
+ int intradius;
+ float outer_factor;
+ int xmin_flag;
+ int xmax_flag;
+ int ymin_flag;
+ int ymax_flag;
+
+  intradius = (int) radius;
+
+  outer_factor = radius - (int) radius;
+
+  if (image_info->depth > 8)
+  {
+    bytespp = 2;
+  }
+
+  xsane_write_pnm_header(outfile, image_info);
+
+  line_cache = malloc(image_info->image_width * image_info->colors * bytespp * (2 * intradius + 1));
+  if (!line_cache)
+  {
+    DBG(DBG_error, "xsane_blur_image: out of memory\n");
+   return -1;
+  }
+
+  fread(line_cache, image_info->image_width * image_info->colors * bytespp, (2 * intradius + 1), imagefile);
+
+  for (y = 0; y < image_info->image_height; y++)
+  {
+    gtk_progress_bar_update(progress_bar, (float)  y / image_info->image_height);
+    while (gtk_events_pending())
+    {
+      gtk_main_iteration();
+    }
+
+    for (x = 0; x < image_info->image_width * image_info->colors; x++)
+    {
+      xmin_flag = xmax_flag = ymin_flag = ymax_flag = TRUE;
+
+      xmin = x - intradius * image_info->colors;
+      xmax = x + intradius * image_info->colors;
+
+      if (xmin < 0)
+      {
+        xmin = x % image_info->colors;
+        xmin_flag = FALSE;
+      }
+
+      if (xmax > image_info->image_width * image_info->colors)
+      {
+        xmax = image_info->image_width * image_info->colors;
+        xmax_flag = FALSE;
+      }
+
+      ymin = y - intradius;
+      ymax = y + intradius;
+
+      if (ymin < 0)
+      {
+        ymin = 0;
+        ymin_flag = FALSE;
+      }
+
+      if (ymax > image_info->image_height)
+      {
+        ymax = image_info->image_height;
+        ymax_flag = FALSE;
+      }
+
+      val  = 0.0;
+      norm = 0.0;
+
+      if (bytespp == 1)
+      {
+        if (xmin_flag) /* integrate over left margin */
+        {
+          for (sy = ymin+1; sy <= ymax-1 ; sy++)
+          {
+            val += outer_factor * line_cache[(sy-ymin) * image_info->image_width * image_info->colors + xmin];
+            norm += outer_factor;
+          }
+        }
+
+        if (xmax_flag) /* integrate over right margin */
+        {
+          for (sy = ymin+1; sy <= ymax-1 ; sy++)
+          {
+            val += outer_factor * line_cache[(sy-ymin) * image_info->image_width * image_info->colors + xmax];
+            norm += outer_factor;
+          }
+        }
+
+        if (ymin_flag) /* integrate over top margin */
+        {
+          for (sx = xmin+image_info->colors; sx <= xmax-image_info->colors ; sx += image_info->colors)
+          {
+            val += outer_factor * line_cache[sx];
+            norm += outer_factor;
+          }
+        }
+
+        if (ymax_flag) /* integrate over bottom margin */
+        {
+          for (sx = xmin+image_info->colors; sx <= xmax-image_info->colors ; sx += image_info->colors)
+          {
+            val += outer_factor * line_cache[(ymax-ymin) * image_info->image_width * image_info->colors + sx];
+            norm += outer_factor;
+          }
+        }
+
+        for (sy = ymin+1; sy <= ymax-1; sy++) /* integrate internal square */
+        {
+          for (sx = xmin+image_info->colors; sx <= xmax-image_info->colors; sx+=image_info->colors)
+          {
+            val += line_cache[(sy-ymin) * image_info->image_width * image_info->colors + sx];
+            norm += 1.0;
+          }
+        }
+        fputc((char) ((int) (val/norm)), outfile);
+      }
+      else
+      {
+       guint16 *line_cache16 = (guint16 *) line_cache;
+       guint16 val16;
+       char *bytes16 = (char *) &val16;
+
+        if (xmin_flag) /* integrate over left margin */
+        {
+          for (sy = ymin+1; sy <= ymax-1 ; sy++)
+          {
+            val += outer_factor * line_cache16[(sy-ymin) * image_info->image_width * image_info->colors + xmin];
+            norm += outer_factor;
+          }
+        }
+
+        if (xmax_flag) /* integrate over right margin */
+        {
+          for (sy = ymin+1; sy <= ymax-1 ; sy++)
+          {
+            val += outer_factor * line_cache16[(sy-ymin) * image_info->image_width * image_info->colors + xmax];
+            norm += outer_factor;
+          }
+        }
+
+        if (ymin_flag) /* integrate over top margin */
+        {
+          for (sx = xmin+image_info->colors; sx <= xmax-image_info->colors ; sx += image_info->colors)
+          {
+            val += outer_factor * line_cache16[sx];
+            norm += outer_factor;
+          }
+        }
+
+        if (ymax_flag) /* integrate over bottom margin */
+        {
+          for (sx = xmin+image_info->colors; sx <= xmax-image_info->colors ; sx += image_info->colors)
+          {
+            val += outer_factor * line_cache16[(ymax-ymin) * image_info->image_width * image_info->colors + sx];
+            norm += outer_factor;
+          }
+        }
+
+        for (sy = ymin; sy <= ymax; sy++) /* integrate internal square */
+        {
+          for (sx = xmin; sx <= xmax; sx+=image_info->colors)
+          {
+            val += line_cache16[(sy-ymin) * image_info->image_width * image_info->colors + sx];
+            norm += 1.0;
+          }
+        }
+
+        val16 = val / norm;
+        fputc(bytes16[0], outfile); /* write bytes in machine byte order */
+        fputc(bytes16[1], outfile);
+      }
+    }
+
+    if ((y > intradius) && (y < image_info->image_height - intradius))
+    {
+      memcpy(line_cache, line_cache + image_info->image_width * image_info->colors * bytespp, 
+             image_info->image_width * image_info->colors * bytespp * 2 * intradius);
+      fread(line_cache + image_info->image_width * image_info->colors * bytespp * 2 * intradius,
+            image_info->image_width * image_info->colors * bytespp, 1, imagefile);
+    }
+  }
+
+  fflush(outfile);
+  free(line_cache);
+
+ return 0;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+#if 0
 int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info, int radius, GtkProgressBar *progress_bar)
 {
  int x, y, sx, sy;
@@ -1004,6 +1430,7 @@ int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info
 
  return 0;
 }
+#endif
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -2149,7 +2576,7 @@ int xsane_save_png_16(FILE *outfile, FILE *imagefile, Image_info *image_info, in
     for (x = 0; x < image_info->image_width * components; x++) /* this must be changed in dependance of endianess */
     {
       fread(&val, 2, 1, imagefile);	/* get data in machine order */
-      data[x*2+0] = val/256;		/* write data in network order (MSB first) */
+      data[x*2+0] = val / 256;		/* write data in network order (MSB first) */
       data[x*2+1] = val & 255;
     }
 

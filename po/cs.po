@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.84\n"
-"POT-Creation-Date: 2002-01-22 23:34+0100\n"
-"PO-Revision-Date: 2002-01-14 18:03+0100\n"
+"POT-Creation-Date: 2002-03-17 00:03+0100\n"
+"PO-Revision-Date: 2002-03-13 13:43+0100\n"
 "Last-Translator: Stanislav Brabec <utx@penguin.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -35,9 +35,13 @@ msgstr "O pøekladu"
 msgid "authorization"
 msgstr "autorizace"
 
-#. WINDOW_LICENSE
-msgid "license"
-msgstr "licence"
+#. WINDOW_GPL
+msgid "GPL - the license"
+msgstr ""
+
+#. WINDOW_EULA
+msgid "End User License Agreement"
+msgstr ""
 
 #. WINDOW_INFO
 msgid "info"
@@ -187,9 +191,9 @@ msgstr "Konec"
 msgid "Save image"
 msgstr "Zápis obrázku"
 
-#. MENU_ITEM_CLOSE
-msgid "Close"
-msgstr "Zavøít"
+#. MENU_ITEM_OCR
+msgid "OCR - save as text"
+msgstr ""
 
 #. MENU_ITEM_CLONE
 msgid "Clone"
@@ -198,6 +202,10 @@ msgstr "Duplikovat"
 #. MENU_ITEM_SCALE
 msgid "Scale"
 msgstr "Zmìna velikosti"
+
+#. MENU_ITEM_CLOSE
+msgid "Close"
+msgstr "Zavøít"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
@@ -383,6 +391,10 @@ msgstr "Automatická korekce barev"
 msgid "POP3 authentification"
 msgstr "Authentifikace POP3"
 
+#. RADIO_BUTTON_OCR_USE_GUI_PIPE
+msgid "Use GUI progress pipe"
+msgstr ""
+
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
 msgstr "procházejí se zaøízení"
@@ -546,6 +558,29 @@ msgstr "kompilováno s GIMP-"
 #. TEXT_UNKNOWN
 msgid "unknown"
 msgstr "neznámý"
+
+#. TEXT_EULA
+#, fuzzy
+msgid ""
+"XSane is distributed under the terms of the GNU General Public License\n"
+"as published by the Free Software Foundation; either version 2 of the\n"
+"License, or (at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but\n"
+"WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+"Should the program prove defective, you assume the cost of all\n"
+"necessary servicing, repair or correction. To use this program you\n"
+"have to read, understand and accept the following\n"
+"\"NO WARRANTY\" agreement.\n"
+msgstr ""
+"Program XSane je ¹iøitelný v souladu s Obecnou veøejnou licencí GNU\n"
+"publikovanou Free Software Foundation; buï licencí verze 2 nebo\n"
+"(dle va¹i volby) jakoukoliv novìj¹í.\n"
+"\n"
+"Tento program je ¹íøen v nadìji, ¾e bude u¾iteèný, av¹ak\n"
+"BEZ JAKÉKOLI ZÁRUKY; neposkytují se ani odvozené záruky\n"
+"PRODEJNOSTI anebo VHODNOSTI PRO URÈITÝ ÚÈEL.\n"
 
 #. TEXT_GPL
 msgid ""
@@ -738,6 +773,11 @@ msgstr "Komprese 8bitových TIFF obrázkù"
 msgid "TIFF lineart image compression"
 msgstr "Komprese TIFF èárové grafiky"
 
+#. TEXT_SETUP_SHOW_RANGE_MODE
+#, fuzzy
+msgid "Show range as:"
+msgstr "Zobrazit stránku"
+
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
 msgstr "Pøevzorkování náhledu:"
@@ -861,6 +901,19 @@ msgstr "Volba pro vstupní soubor:"
 #. TEXT_SETUP_OCR_OUTPUTFILE_OPT
 msgid "Outputfile option:"
 msgstr "Volba pro výstupní soubor:"
+
+#. TEXT_SETUP_OCR_USE_GUI_PIPE_OPT
+msgid "Use GUI progress pipe:"
+msgstr ""
+
+#. TEXT_SETUP_OCR_OUTFD_OPT
+#, fuzzy
+msgid "GUI output-fd option:"
+msgstr "Volba pro výstupní soubor:"
+
+#. TEXT_SETUP_OCR_PROGRESS_KEYWORD
+msgid "Progress keyword:"
+msgstr ""
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
@@ -990,9 +1043,13 @@ msgstr "Naèíst nastavení zaøízení"
 msgid "Change directory"
 msgstr "Zmìnit adresáø"
 
-#. MENU_ITEM_XSANE_LICENSE
-msgid "License"
-msgstr "Licence"
+#. MENU_ITEM_XSANE_EULA
+msgid "Show EULA"
+msgstr ""
+
+#. MENU_ITEM_XSANE_GPL
+msgid "Show license (GPL)"
+msgstr ""
 
 #. MENU_ITEM_XSANE_DOC
 msgid "XSane doc"
@@ -1041,6 +1098,19 @@ msgstr "Komprese JPEG DCT"
 #. MENU_ITEM_TIFF_COMP_PACKBITS
 msgid "pack bits"
 msgstr "bitové pakování"
+
+#. MENU_ITEM_SHOW_RANGE_SCALE
+#, fuzzy
+msgid "Slider"
+msgstr "Diapozitiv"
+
+#. MENU_ITEM_SHOW_RANGE_SPINBUTTON
+msgid "Spinbutton"
+msgstr ""
+
+#. MENU_ITEM_SHOW_RANGE_BOTH
+msgid "Slider and Spinbutton"
+msgstr ""
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
 msgid "Standard options window (lineart)"
@@ -1520,6 +1590,10 @@ msgstr "Zakázat gama náhledu, bì¾í-li XSane jako gimp modul"
 msgid "Use an own colormap for preview if display depth is 8 bpp"
 msgstr "Pou¾ití vlastní barevné mapy náhledu, je-li obrazová hloubka 8"
 
+#. DESC_SHOW_RANGE_MODE
+msgid "Select how a range is displayed"
+msgstr ""
+
 #. DESC_PREVIEW_OVERSAMPLING
 msgid "Value with that the calculated preview resolution is multiplied"
 msgstr "Hodnota, kterou se násobí rozli¹ení náhledu"
@@ -1688,6 +1762,20 @@ msgstr "Zadejte volbu ocr programu pro zadání vstupního souboru"
 #. DESC_OCR_OUTPUTFILE_OPT
 msgid "Enter option of the ocr program to define output file"
 msgstr "Zadejte volbu ocr programu pro zadání výstupního souboru"
+
+#. DESC_OCR_USE_GUI_PIPE_OPT
+msgid "Define if the ocr program supports gui progress pipe"
+msgstr ""
+
+#. DESC_OCR_OUTFD_OPT
+#, fuzzy
+msgid ""
+"Enter option of the ocr program to define output filedescripor in GUI mode"
+msgstr "Zadejte volbu ocr programu pro zadání výstupního souboru"
+
+#. DESC_OCR_PROGRESS_KEYWORD
+msgid "Define Keyword that is used to mark progress information"
+msgstr ""
 
 #. DESC_PERMISSION_READ
 msgid "read"
@@ -2080,7 +2168,6 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[VOLBA]... [ZAØÍZENÍ]"
 
 #. TEXT_HELP
-#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2136,6 +2223,8 @@ msgstr ""
 " -f, --fax                     spustí se v re¾imu faxování\n"
 " -m, --mail                    spustí se v re¾imu po¹ty\n"
 " -n, --no-mode-selection       zaká¾e menu volby re¾imu XSane\n"
+"\n"
+" -M, --Medium-calibration      povolit re¾im kalibrace média\n"
 "\n"
 " -F, --Fixed                   pou¾ije pevnou velikost hlavního okna\n"
 "                               (pøepí¹e hodnotu pøedvolby)\n"
@@ -2349,6 +2438,12 @@ msgstr "Nedostatek pamìti"
 
 msgid "Access to resource has been denied"
 msgstr "Pøístup ke zdroji byl odmítnut"
+
+#~ msgid "license"
+#~ msgstr "licence"
+
+#~ msgid "License"
+#~ msgstr "Licence"
 
 #~ msgid ""
 #~ "Use XSane for: SCANning-<Ctrl-s> photoCOPYing-<Ctrl-c> FAXing-<Ctrl-f>"

@@ -119,6 +119,9 @@ typedef struct
     char   *ocr_command;		/* ocrcommand */
     char   *ocr_inputfile_option;	/* option for input file */
     char   *ocr_outputfile_option;	/* option for output file */
+    int    ocr_use_gui_pipe;		/* use progress pipe */
+    char   *ocr_gui_outfd_option;	/* option for progress pipe filedeskriptor */
+    char   *ocr_progress_keyword;	/* keyword for progress value in gui pipe */
 
     char   *doc_viewer;			/* doc viewer for helpfiles */
 
@@ -134,6 +137,7 @@ typedef struct
     int    filename_counter_step;	/* filename_counter += filename_counter_step; */
     int    filename_counter_len;	/* minimum length of filename_counter */
 
+    int    show_range_mode;		/* how to show a range */
     int    tooltips_enabled;		/* should tooltips be disabled? */
     int    show_histogram;		/* show histogram ? */
     int    show_gamma;			/* show gamma curve ? */

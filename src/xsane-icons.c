@@ -1524,11 +1524,14 @@ const char *default_enhancement_xpm[] =
 const char *pipette_white_xpm[] =
 {
 /* width height num_colors chars_per_pixel */
-"    20    20        3            1",
+"    20    20        6            1",
 /* colors */
 ". c #000000",
 "  none",
 "a c #ffffff",
+"r c #af8f8f",
+"g c #8fff8f",
+"b c #8f8fff",
 /* pixels */
 "                    ",
 "                    ",
@@ -1537,18 +1540,18 @@ const char *pipette_white_xpm[] =
 "             ...... ",
 "          ......... ",
 "            ......  ",
-"           .aaa..   ",
-"          .aaaa..   ",
-"         .aaaa. .   ",
-"        .aaaa.  .   ",
-"       .aaaa.       ",
-"      .aaaa.        ",
-"     .aaaa.         ",
-"    .aaaa.          ",
-"   .aaaa.           ",
-"  .aaaa.            ",
-" .aaaa.             ",
-" .aaa.              ",
+"           .abg..   ",
+"          .abgr..   ",
+"         .abgr. .   ",
+"        .abgr.  .   ",
+"       .abgr.       ",
+"      .abgr.        ",
+"     .abgr.         ",
+"    .abgr.          ",
+"   .abgr.           ",
+"  .abgr.            ",
+" .abgr.             ",
+" .bgr.              ",
 "  ...               ",
 };
 
@@ -1557,12 +1560,15 @@ const char *pipette_white_xpm[] =
 const char *pipette_gray_xpm[] =
 {
 /* width height num_colors chars_per_pixel */
-"    20    20        4            1",
+"    20    20        7            1",
 /* colors */
 ". c #000000",
 "  none",
 "a c #ffffff",
 "X c #808080",
+"r c #af8f8f",
+"g c #8fff8f",
+"b c #8f8fff",
 /* pixels */
 "                    ",
 "                    ",
@@ -1571,9 +1577,9 @@ const char *pipette_gray_xpm[] =
 "             ...... ",
 "          ......... ",
 "            ......  ",
-"           .aaa..   ",
-"          .aaaa..   ",
-"         .aaaa. .   ",
+"           .abg..   ",
+"          .abgr..   ",
+"         .abgr. .   ",
 "        .XXXX.  .   ",
 "       .XXXX.       ",
 "      .XXXX.        ",
@@ -1590,11 +1596,14 @@ const char *pipette_gray_xpm[] =
 const char *pipette_black_xpm[] =
 {
 /* width height num_colors chars_per_pixel */
-"    20    20        3            1",
+"    20    20        6            1",
 /* colors */
 ". c #000000",
 "  none",
 "a c #ffffff",
+"r c #af8f8f",
+"g c #8fff8f",
+"b c #8f8fff",
 /* pixels */
 "                    ",
 "                    ",
@@ -1603,9 +1612,9 @@ const char *pipette_black_xpm[] =
 "             ...... ",
 "          ......... ",
 "            ......  ",
-"           .aaa..   ",
-"          .aaaa..   ",
-"         .aaaa. .   ",
+"           .abg..   ",
+"          .abgr..   ",
+"         .abgr. .   ",
 "        ......  .   ",
 "       ......       ",
 "      ......        ",
@@ -1623,24 +1632,27 @@ const char *pipette_black_xpm[] =
 const char *zoom_in_xpm[] =
 {
 /* width height num_colors chars_per_pixel */
-"    20    20        4            1",
+"    20    20        7            1",
 /* colors */
 "  none",
 ". c #000000",
 "+ c #c0c0c0",
 "a c #ffffff",
+"r c #af8f8f",
+"g c #8fff8f",
+"b c #8f8fff",
 /* pixels */
 "                    ",
 "                    ",
 "     .....          ",
 "    .+aaaa.         ",
-"   .++aaaaa.        ",
-"  .+++aaaaaa.       ",
-"  .aaaaaaaaa.       ",
-"  .aaaaaaaaa.       ",
-"  .aaaaaaaaa.       ",
-"   .aaaaaaa.        ",
-"    .aaaaa.         ",
+"   .++aaaag.        ",
+"  .+++aabagr.       ",
+"  .aaaaabbgr.       ",
+"  .aabbbbbgr.       ",
+"  .aaaabbgrr.       ",
+"   .gggggrr.        ",
+"    .rrrrr.         ",
 "     .......        ",
 "          ...       ",
 "    .      ...      ",
@@ -1657,24 +1669,27 @@ const char *zoom_in_xpm[] =
 const char *zoom_not_xpm[] =
 {
 /* width height num_colors chars_per_pixel */
-"    20    20        4            1",
+"    20    20        7            1",
 /* colors */
 "  none",
 ". c #000000",
 "+ c #c0c0c0",
 "a c #ffffff",
+"r c #af8f8f",
+"g c #8fff8f",
+"b c #8f8fff",
 /* pixels */
 "                    ",
 "                    ",
 " ..  .....       .. ",
 "  ...+aaaa.     ..  ",
-"   ..+aaaaa.   ..   ",
-"  .+..aaaaaa. ..    ",
-"  .aa..aaaaa...     ",
-"  .aaa..aaaa..      ",
-"  .aaaa..aa..       ",
-"   .aaaa....        ",
-"    .aaaa..         ",
+"   ..+aaaag.   ..   ",
+"  .+..aabagr. ..    ",
+"  .aa..abbgr...     ",
+"  .aab..bbgr..      ",
+"  .aaaa..ag..       ",
+"   .gggg....        ",
+"    .rrrr..         ",
 "     .......        ",
 "       .. ...       ",
 "      ..   ...      ",
@@ -1691,24 +1706,27 @@ const char *zoom_not_xpm[] =
 const char *zoom_undo_xpm[] =
 {
 /* width height num_colors chars_per_pixel */
-"    20    20        4            1",
+"    20    20        7            1",
 /* colors */
 "  none",
 ". c #000000",
 "+ c #c0c0c0",
 "a c #ffffff",
+"r c #af8f8f",
+"g c #8fff8f",
+"b c #8f8fff",
 /* pixels */
 "                    ",
 "                    ",
 "     .....          ",
 "    .+aaaa.         ",
-"   .++aaaaa.        ",
-"  .+++aaaaaa.       ",
-"  .aaaaaaaaa.       ",
-"  .aaaaaaaaa.       ",
-"  .aaaaaaaaa.       ",
-"   .aaaaaaa.        ",
-"    .aaaaa.         ",
+"   .++aaaag.        ",
+"  .+++aabagr.       ",
+"  .aaaaabbgr.       ",
+"  .aabbbbbgr.       ",
+"  .aaaabbgrr.       ",
+"   .gggggrr.        ",
+"    .rrrrr.         ",
 "     .......        ",
 "          ...       ",
 "                    ",
@@ -1725,24 +1743,27 @@ const char *zoom_undo_xpm[] =
 const char *zoom_out_xpm[] =
 {
 /* width height num_colors chars_per_pixel */
-"    20    20        4            1",
+"    20    20        7            1",
 /* colors */
 "  none",
 ". c #000000",
 "+ c #c0c0c0",
 "a c #ffffff",
+"r c #af8f8f",
+"g c #8fff8f",
+"b c #8f8fff",
 /* pixels */
 "                    ",
 "                    ",
 "     .....          ",
 "    .+aaaa.         ",
-"   .++aaaaa.        ",
-"  .+++aaaaaa.       ",
-"  .aaaaaaaaa.       ",
-"  .aaaaaaaaa.       ",
-"  .aaaaaaaaa.       ",
-"   .aaaaaaa.        ",
-"    .aaaaa.         ",
+"   .++aaaag.        ",
+"  .+++aabagr.       ",
+"  .aaaaabbgr.       ",
+"  .aabbbbbgr.       ",
+"  .aaaabbgrr.       ",
+"   .gggggrr.        ",
+"    .rrrrr.         ",
 "     .......        ",
 "          ...       ",
 "           ...      ",
@@ -1763,27 +1784,61 @@ const char *full_preview_area_xpm[] =
 /* colors */
 "  none",
 ". c #000000",
-"+ c #c0c0c0",
+"+ c #208020",
+"a c #ffffff",
+/* pixels */
+"                    ",
+" .................  ",
+" .+++++++++++++++.  ",
+" .+      .      +.  ",
+" .+     ...     +.  ",
+" .+    . . .    +.  ",
+" .+      .      +.  ",
+" .+      .      +.  ",
+" .+  .   .   .  +.  ",
+" .+ .    .    . +.  ",
+" .+.............+.  ",
+" .+ .    .    . +.  ",
+" .+  .   .   .  +.  ",
+" .+      .      +.  ",
+" .+    . . .    +.  ",
+" .+     ...     +.  ",
+" .+      .      +.  ",
+" .+++++++++++++++.  ",
+" .................  ",
+"                    ",
+};
+
+/* --------------------------------------------------- */
+
+const char *auto_raise_preview_area_xpm[] =
+{
+/* width height num_colors chars_per_pixel */
+"    20    20        4            1",
+/* colors */
+"  none",
+". c #000000",
+"+ c #208020",
 "a c #ffffff",
 /* pixels */
 "                    ",
 " .................  ",
 " .               .  ",
-" .       .       .  ",
-" .      ...      .  ",
-" .     . . .     .  ",
-" .       .       .  ",
-" .       .       .  ",
-" .   .   .   .   .  ",
-" .  .    .    .  .  ",
-" . ............. .  ",
-" .  .    .    .  .  ",
-" .   .   .   .   .  ",
-" .       .       .  ",
-" .       .       .  ",
-" .     . . .     .  ",
-" .      ...      .  ",
-" .       .       .  ",
+" .               .  ",
+" .  +++++++++++  .  ",
+" .  +    .    +  .  ",
+" .  +   ...   +  .  ",
+" .  +    .    +  .  ",
+" .  +    .    +  .  ",
+" .  + .  .  . +  .  ",
+" .  +.........+  .  ",
+" .  + .  .  . +  .  ",
+" .  +    .    +  .  ",
+" .  +    .    +  .  ",
+" .  +   ...   +  .  ",
+" .  +    .    +  .  ",
+" .  +++++++++++  .  ",
+" .               .  ",
 " .................  ",
 "                    ",
 };
@@ -1797,7 +1852,7 @@ const char *auto_select_preview_area_xpm[] =
 /* colors */
 "  none",
 ". c #000000",
-"+ c #c0c0c0",
+"+ c #208020",
 "a c #ffffff",
 /* pixels */
 "                    ",
@@ -1806,14 +1861,14 @@ const char *auto_select_preview_area_xpm[] =
 " .     . . .     .  ",
 " .      ...      .  ",
 " .       .       .  ",
-" .    .......    .  ",
-" .    .     .    .  ",
-" . .  .     .  . .  ",
-" .  . .     . .  .  ",
-" ......     ......  ",
-" .  . .     . .  .  ",
-" . .  .     .  . .  ",
-" .    .......    .  ",
+" .    +++++++    .  ",
+" .    +     +    .  ",
+" . .  +     +  . .  ",
+" .  . +     + .  .  ",
+" .....+     +.....  ",
+" .  . +     + .  .  ",
+" . .  +     +  . .  ",
+" .    +++++++    .  ",
 " .       .       .  ",
 " .      ...      .  ",
 " .     . . .     .  ",
@@ -1837,16 +1892,16 @@ const char *delete_images_xpm[] =
 "      ........      ",
 "     ..........     ",
 "    ............    ",
-"   ...   ..   ...   ",
-"   ...   ..   ...   ",
+"   ..    ..    ..   ",
+"   ..    ..    ..   ",
 "   ..............   ",
-"    .....  .....    ",
+"    ....    ....    ",
+"     ....  ....     ",
 "     ..........     ",
-"      ........      ",
-"       ......       ",
-"       ......       ",
-"..     ......     ..",
-"....    ....    ....",
+"     ..........     ",
+"     ..........     ",
+"..    ........    ..",
+"....   ......   ....",
 "   ...        ...   ",
 "      ...  ...      ",
 "        ....        ",
@@ -2553,6 +2608,24 @@ const unsigned char cursor_pipette_mask[] =
    0x00, 0x70, 0x00, 0xf8, 0x80, 0xff, 0x00, 0xfe, 0x00, 0x7f, 0x80, 0x3f,
    0xc0, 0x1f, 0xe0, 0x17, 0xf0, 0x13, 0xf8, 0x01, 0xfc, 0x00, 0x7c, 0x00,
    0x3e, 0x00, 0x0f, 0x00, 0x04, 0x00, 0x00, 0x00
+};
+
+/* --------------------------------------------------- */
+
+const unsigned char cursor_autoraise_scanarea[] = 
+{
+   0x55, 0x55, 0x80, 0x00, 0xc1, 0x41, 0xe0, 0x03, 0x81, 0x40, 0x88, 0x08,
+   0x8d, 0x58, 0x7e, 0x3f, 0x8d, 0x58, 0x88, 0x08, 0x81, 0x40, 0xe0, 0x03,
+   0xc1, 0x41, 0x80, 0x00, 0x55, 0x55, 0x00, 0x00
+};
+
+/* --------------------------------------------------- */
+
+const unsigned char cursor_autoraise_scanarea_mask[] =
+{
+   0x55, 0x55, 0x80, 0x00, 0xc1, 0x41, 0xe0, 0x03, 0x81, 0x40, 0x88, 0x08,
+   0x8d, 0x58, 0x7e, 0x3f, 0x8d, 0x58, 0x88, 0x08, 0x81, 0x40, 0xe0, 0x03,
+   0xc1, 0x41, 0x80, 0x00, 0x55, 0x55, 0x00, 0x00
 };
 
 /* --------------------------------------------------- */

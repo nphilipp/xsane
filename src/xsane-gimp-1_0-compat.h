@@ -20,8 +20,8 @@
    along with this program; if not, write to the Free Software
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  */ 
 
-#ifndef XSANE_OLDGIMP_H
-#define XSANE_OLDGIMP_H
+#ifndef XSANE_GIMP_1_0_COMPAT_H
+#define XSANE_GIMP_1_0_COMPAT_H
 
 #define GimpPlugInInfo GPlugInInfo
 #define GimpParam GParam

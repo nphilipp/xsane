@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.84\n"
-"POT-Creation-Date: 2002-01-22 23:34+0100\n"
+"POT-Creation-Date: 2002-03-17 00:03+0100\n"
 "PO-Revision-Date: 2001-02-25 14:06+01:00\n"
 "Last-Translator: Ales Kosir <ales.kosir@lugos.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -36,10 +36,13 @@ msgstr "O prevodu"
 msgid "authorization"
 msgstr "avtorizacija"
 
-#. WINDOW_LICENSE
-#, fuzzy
-msgid "license"
-msgstr "palci"
+#. WINDOW_GPL
+msgid "GPL - the license"
+msgstr ""
+
+#. WINDOW_EULA
+msgid "End User License Agreement"
+msgstr ""
 
 #. WINDOW_INFO
 msgid "info"
@@ -201,9 +204,9 @@ msgstr "Izhod"
 msgid "Save image"
 msgstr "Surova slika"
 
-#. MENU_ITEM_CLOSE
-msgid "Close"
-msgstr "Zapri"
+#. MENU_ITEM_OCR
+msgid "OCR - save as text"
+msgstr ""
 
 #. MENU_ITEM_CLONE
 #, fuzzy
@@ -214,6 +217,10 @@ msgstr "Zapri"
 #, fuzzy
 msgid "Scale"
 msgstr "Skeniraj"
+
+#. MENU_ITEM_CLOSE
+msgid "Close"
+msgstr "Zapri"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
@@ -410,6 +417,10 @@ msgstr ""
 msgid "POP3 authentification"
 msgstr ""
 
+#. RADIO_BUTTON_OCR_USE_GUI_PIPE
+msgid "Use GUI progress pipe"
+msgstr ""
+
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
 msgstr "iskanje naprave"
@@ -570,6 +581,21 @@ msgstr "preveden s podporo za GIMP-"
 #. TEXT_UNKNOWN
 msgid "unknown"
 msgstr "neznano"
+
+#. TEXT_EULA
+msgid ""
+"XSane is distributed under the terms of the GNU General Public License\n"
+"as published by the Free Software Foundation; either version 2 of the\n"
+"License, or (at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but\n"
+"WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+"Should the program prove defective, you assume the cost of all\n"
+"necessary servicing, repair or correction. To use this program you\n"
+"have to read, understand and accept the following\n"
+"\"NO WARRANTY\" agreement.\n"
+msgstr ""
 
 #. TEXT_GPL
 msgid ""
@@ -763,6 +789,11 @@ msgstr "Stiskanje v 8-bitnem zapisu TIFF"
 msgid "TIFF lineart image compression"
 msgstr "Stiskanje v naèinu Lineart v zapisu TIFF"
 
+#. TEXT_SETUP_SHOW_RANGE_MODE
+#, fuzzy
+msgid "Show range as:"
+msgstr "Prika¾i predogled"
+
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
 msgstr "Prekomerno vzorèenje pri predogledu:"
@@ -891,6 +922,19 @@ msgstr "Izbire pri postscriptni datoteki:"
 #, fuzzy
 msgid "Outputfile option:"
 msgstr "Izbire pri postscriptni datoteki:"
+
+#. TEXT_SETUP_OCR_USE_GUI_PIPE_OPT
+msgid "Use GUI progress pipe:"
+msgstr ""
+
+#. TEXT_SETUP_OCR_OUTFD_OPT
+#, fuzzy
+msgid "GUI output-fd option:"
+msgstr "Izbire pri postscriptni datoteki:"
+
+#. TEXT_SETUP_OCR_PROGRESS_KEYWORD
+msgid "Progress keyword:"
+msgstr ""
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
@@ -1024,10 +1068,14 @@ msgstr "Nalo¾i nastavitve naprave"
 msgid "Change directory"
 msgstr "Spremeni imenik"
 
-#. MENU_ITEM_XSANE_LICENSE
+#. MENU_ITEM_XSANE_EULA
 #, fuzzy
-msgid "License"
-msgstr "palci"
+msgid "Show EULA"
+msgstr "Prika¾i"
+
+#. MENU_ITEM_XSANE_GPL
+msgid "Show license (GPL)"
+msgstr ""
 
 #. MENU_ITEM_XSANE_DOC
 #, fuzzy
@@ -1077,6 +1125,18 @@ msgstr "Stiskanje JPEG DCT"
 #. MENU_ITEM_TIFF_COMP_PACKBITS
 msgid "pack bits"
 msgstr "stisni bite"
+
+#. MENU_ITEM_SHOW_RANGE_SCALE
+msgid "Slider"
+msgstr ""
+
+#. MENU_ITEM_SHOW_RANGE_SPINBUTTON
+msgid "Spinbutton"
+msgstr ""
+
+#. MENU_ITEM_SHOW_RANGE_BOTH
+msgid "Slider and Spinbutton"
+msgstr ""
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
 msgid "Standard options window (lineart)"
@@ -1582,6 +1642,10 @@ msgstr "Onemogoèi pretvorbo z gamo, èe xsane uporabljamo kot vmesnik za gimp"
 msgid "Use an own colormap for preview if display depth is 8 bpp"
 msgstr "Uporabi lastno paleto za ogled slike pri 8-bitni globini"
 
+#. DESC_SHOW_RANGE_MODE
+msgid "Select how a range is displayed"
+msgstr ""
+
 #. DESC_PREVIEW_OVERSAMPLING
 msgid "Value with that the calculated preview resolution is multiplied"
 msgstr "Faktor prekomernega vzorèenja"
@@ -1752,6 +1816,19 @@ msgstr ""
 
 #. DESC_OCR_OUTPUTFILE_OPT
 msgid "Enter option of the ocr program to define output file"
+msgstr ""
+
+#. DESC_OCR_USE_GUI_PIPE_OPT
+msgid "Define if the ocr program supports gui progress pipe"
+msgstr ""
+
+#. DESC_OCR_OUTFD_OPT
+msgid ""
+"Enter option of the ocr program to define output filedescripor in GUI mode"
+msgstr ""
+
+#. DESC_OCR_PROGRESS_KEYWORD
+msgid "Define Keyword that is used to mark progress information"
 msgstr ""
 
 #. DESC_PERMISSION_READ
@@ -2434,6 +2511,14 @@ msgid "Access to resource has been denied"
 msgstr "Dostop do vira je ni dovoljen."
 
 #, fuzzy
+#~ msgid "license"
+#~ msgstr "palci"
+
+#, fuzzy
+#~ msgid "License"
+#~ msgstr "palci"
+
+#, fuzzy
 #~ msgid "Store Medium definition"
 #~ msgstr "Izbor tiskalnika za prilagoditev"
 
@@ -2483,9 +2568,6 @@ msgstr "Dostop do vira je ni dovoljen."
 
 #~ msgid "Delete"
 #~ msgstr "Zbri¹i"
-
-#~ msgid "Show"
-#~ msgstr "Prika¾i"
 
 #~ msgid "Rename"
 #~ msgstr "Preimenuj"

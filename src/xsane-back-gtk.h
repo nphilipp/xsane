@@ -77,7 +77,7 @@ extern void xsane_back_gtk_set_option(int opt_num, void *val, SANE_Action action
 extern GtkWidget *xsane_back_gtk_group_new (GtkWidget *parent, const char * title);
 extern void xsane_back_gtk_button_new(GtkWidget * parent, const char *name, SANE_Word val,
             GSGDialogElement *elem, GtkTooltips *tooltips, const char *desc, SANE_Int settable);
-extern void xsane_back_gtk_scale_new(GtkWidget * parent, const char *name, gfloat val,
+extern void xsane_back_gtk_range_new(GtkWidget * parent, const char *name, gfloat val,
            gfloat min, gfloat max, gfloat quant, int automatic,
 	   GSGDialogElement *elem, GtkTooltips *tooltips, const char *desc, SANE_Int settable);
 extern void xsane_back_gtk_option_menu_new(GtkWidget *parent, const char *name, char *str_list[],
