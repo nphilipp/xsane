@@ -1,0 +1,37 @@
+This is a list of what I want to change/include for xsane.
+If you have any suggestions: mail to Oliver.Rauch@Wolfsburg.DE
+
+first steps:
+ - xsane_setup: input printer page size
+ - copy: select position (centered/left/right/...)
+ - program better preview
+ - /gamma correction for all modes with 8/10/12 bpp and if scanner does not support gamma table
+ - /copy-function (printer setup, zoom)
+ - auto contrast/brightness
+ - pick white and black point -> contrast/brightness calculated
+ - include invert (for negatives) into enhancement
+
+second steps:
+ - store more than 1 enhancement and give names for it, may be in own files
+ - /postscript-output for 1/8/10/12 bpp
+ - fax-function
+ - other output formats
+ - online help (netscape remote)
+
+third steps:
+ - let user select weather
+   - analog gamma
+   - highlight
+   - shadow
+   - brightness
+   - contrast
+   should be used prefered before digital correction
+   and change calculation of gamma curve for it
+   and do preview with selected values set to default
+
+fourth steps:
+ - zoom preview
+ - correct gtk custom gamma functions and include it
+
+fifth steps:
+ - create graphic-based frontend (may be)

@@ -26,6 +26,8 @@ typedef struct
   {
     /* The option number of the well-known options.  Each of these may
        be -1 in case the backend doesn't define the respective option.  */
+    int scanmode;
+    int scansource;
     int preview;
     int dpi;
     int coord[4];
@@ -64,6 +66,7 @@ typedef struct GSGDialog
     GtkWidget *xsane_hbox;
     GtkWidget *standard_hbox;
     GtkWidget *advanced_hbox;
+    GtkWidget *xsanemode_widget;
     GtkTooltips *tooltips;
     GdkColor tooltips_fg;
     GdkColor tooltips_bg;
@@ -126,6 +129,7 @@ extern void gsg_set_advanced (GSGDialog *dialog, int advanced);
 extern void gsg_set_tooltips (GSGDialog *dialog, int enable);
 extern void gsg_set_sensitivity (GSGDialog *dialog, int sensitive);
 extern void gsg_destroy_dialog (GSGDialog * dialog);
+extern void gsg_set_option (GSGDialog * dialog, int opt_num, void *val, SANE_Action action);
 
 #define gsg_dialog_get_device(dialog)	((dialog)->dev)
 

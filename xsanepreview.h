@@ -93,7 +93,7 @@ extern void preview_destroy (Preview *p);
 extern void preview_calculate_histogram(Preview *p,
 SANE_Int *count_raw, SANE_Int *count_raw_red, SANE_Int *count_raw_green, SANE_Int *count_raw_blue,
 SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue,
-SANE_Int left_x, SANE_Int top_y, SANE_Int right_x, SANE_Int bottom_y);
+SANE_Int left_x, SANE_Int top_y, SANE_Int right_x, SANE_Int bottom_y, int log);
 
 
 #endif /* preview_h */

@@ -25,6 +25,7 @@ cp xsanepreferences.c $1/frontend
 cp xsane-icons.h $1/frontend
 
 cp README-PATCH $1/frontend
+cp TODO.XSANE $1/frontend
 
 cp Makefile.in $1/frontend
 
@@ -35,7 +36,10 @@ echo " configure"
 echo " make"
 echo "and if everything worked, as root:"
 echo " make install"
-
+echo ""
+echo "to use xsane as gimp-plugin, remove"
+echo "~/.gimp/plug-ins/xscanimage"
+echo "and set symbolic link from xsane to ~/.gimp/plug-ins/xsane"
 else
 echo "ABORTED"
 fi

@@ -31,6 +31,41 @@ static const char * file_xpm[] =
 "####################"
 };
 
+
+static const char *colormode_xpm[] = {
+/* width height num_colors chars_per_pixel */
+"    20    20        7            1",
+/* colors */
+". c #000000",
+"# c #0000ff",
+"a c #00ff00",
+"b c #7f7f7f",
+"c none",
+"d c #ff0000",
+"e c #ffffff",
+/* pixels */
+"cccccccccccccccccccc",
+"ceeeeecccccccccccccc",
+"ceeeee......cccccccc",
+"ceeeee......dddddddc",
+"ceeeee......dddddddc",
+"ceeeee......dddddddc",
+"ceeeee......dddddddc",
+"ceeeeebbbbbbdddddddc",
+"ceeeeebbbbbbdddddddc",
+"c.....bbbbbbaaaaaaac",
+"c.....bbbbbbaaaaaaac",
+"c.....bbbbbbaaaaaaac",
+"c.....eeeeeeaaaaaaac",
+"c.....eeeeeeaaaaaaac",
+"c.....eeeeee#######c",
+"c.....eeeeee#######c",
+"c.....eeeeee#######c",
+"cccccceeeeee#######c",
+"cccccccccccc#######c",
+"cccccccccccccccccccc"
+};
+
 static const char * Gamma_xpm[] =
 {
 /* width height num_colors chars_per_pixel */
