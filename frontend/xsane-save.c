@@ -555,7 +555,7 @@ void xsane_save_png(FILE *outfile, FILE *imagefile,
  char *data;
  char buf[256];
  int colortype, components;
- int x,y;
+ int y;
 
   cancel_save = 0;
 
@@ -627,35 +627,7 @@ void xsane_save_png(FILE *outfile, FILE *imagefile,
       gtk_main_iteration();
     }
 
-    if (bits == 1)
-    {
-     int byte = 0;
-     int mask = 128;
-
-      for (x = 0; x < pixel_width; x++)
-      {
-
-        if ( (x % 8) == 0)
-	{
-          byte = fgetc(imagefile);
-          mask = 128;
-	}
-
-        if (byte & mask)
-        {
-          data[x] = 0;
-        }
-        else
-        {
-          data[x] = 255;
-        }
-        mask >>= 1;
-      }
-    }
-    else
-    {
-      fread(data, components, pixel_width, imagefile);
-    }
+    fread(data, components, pixel_width, imagefile);
 
     row_ptr = data;
     png_write_rows(png_ptr, &row_ptr, 1);
@@ -685,7 +657,7 @@ void xsane_save_png_16(FILE *outfile, FILE *imagefile,
  png_structp png_ptr;
  png_infop png_info_ptr;
  png_bytep row_ptr;
- png_color_8 sig_bit;
+ png_color_8 sig_bit; /* should be 16, but then I get a warning about wrong type */
  char *data;
  char buf[256];
  int colortype, components;
@@ -731,7 +703,7 @@ void xsane_save_png_16(FILE *outfile, FILE *imagefile,
   
   png_init_io(png_ptr, outfile);
   png_set_compression_level(png_ptr, compression);
-  png_set_IHDR(png_ptr, png_info_ptr, pixel_width, pixel_height, bits,
+  png_set_IHDR(png_ptr, png_info_ptr, pixel_width, pixel_height, 16,
                colortype, PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_BASE, PNG_FILTER_TYPE_BASE);
 
   sig_bit.red   = bits;
@@ -795,7 +767,7 @@ void xsane_save_pnm_16_gray(FILE *outfile, FILE *imagefile, int bits, int pixel_
   cancel_save = 0;
 
   /* write pgm ascii > 8 bpp */
-  fprintf(outfile, "P2\n# SANE data follows\n%d %d\n%d\n", pixel_width, pixel_height, (int) pow(2, bits) - 1);
+  fprintf(outfile, "P2\n# SANE data follows\n%d %d\n65535\n", pixel_width, pixel_height);
 
   for (y=0; y<pixel_height; y++)
   {
@@ -836,7 +808,7 @@ void xsane_save_pnm_16_color(FILE *outfile, FILE *imagefile, int bits, int pixel
   cancel_save = 0;
 
   /* write ppm ascii > 8 bpp */
-  fprintf(outfile, "P3\n# SANE data follows\n%d %d\n%d\n", pixel_width, pixel_height, (int) pow(2, bits) - 1);
+  fprintf(outfile, "P3\n# SANE data follows\n%d %d\n65535\n", pixel_width, pixel_height);
 
   for (y=0; y<pixel_height; y++)
   {

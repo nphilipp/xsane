@@ -19,7 +19,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION "0.20\337"
+#define XSANE_VERSION "0.21\337"
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -51,8 +51,8 @@
 #include <sane/sane.h>
 #include <sane/sanei.h>
 #include <sane/saneopts.h>
-#include "sane/sanei_signal.h"
 
+#include "sane/sanei_signal.h"
 #include "xsane-gtk.h"
 #include "xsane.h"
 #include "xsane-preferences.h"
@@ -172,14 +172,14 @@ static gint xsane_authorization_callback(SANE_String_Const resource,
   gtk_window_set_policy(GTK_WINDOW(authorize_dialog), FALSE, FALSE, FALSE);
   gtk_signal_connect(GTK_OBJECT(authorize_dialog), "delete_event",
                      GTK_SIGNAL_FUNC(xsane_authorization_button_callback), (void *) -1); /* -1 = cancel */
-  sprintf(buf, "%s authorization", prog_name);
+  snprintf(buf, sizeof(buf), "%s authorization", prog_name);
   gtk_window_set_title(GTK_WINDOW(authorize_dialog), buf);
 
   vbox = gtk_vbox_new(/* not homogeneous */ FALSE, 10);
   gtk_container_add(GTK_CONTAINER(authorize_dialog), vbox);
   gtk_widget_show(vbox);
 
-  sprintf(buf,"\n\nAuthorization required for %s\n", resource);
+  snprintf(buf, sizeof(buf), "\n\nAuthorization required for %s\n", resource);
   label = gtk_label_new(buf);
   gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0);
   gtk_widget_show(label);
@@ -1328,7 +1328,7 @@ static void xsane_update_param(GSGDialog *dialog, void *arg)
 	  size /= 1024;
 	  unit = "KB";
 	}
-      sprintf (buf, "%dx%d: %lu.%01lu %s", params.pixels_per_line, params.lines, size / 10, size % 10, unit);
+      snprintf(buf, sizeof(buf), "%dx%d: %lu.%01lu %s", params.pixels_per_line, params.lines, size / 10, size % 10, unit);
 
       if (params.format == SANE_FRAME_GRAY)
       {
@@ -1340,7 +1340,7 @@ static void xsane_update_param(GSGDialog *dialog, void *arg)
       }
     }
   else
-    sprintf(buf, "Invalid parameters.");
+    snprintf(buf, sizeof(buf), "Invalid parameters.");
   gtk_label_set(GTK_LABEL(xsane.info_label), buf);
 
 
@@ -2852,7 +2852,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
   int i;
   char buf[255];
 
-  if (xsane.param.depth <= 8)
+  if ( (xsane.param.depth == 1) || (xsane.param.depth == 8) )
   {
     static unsigned char buf8[32768];
 
@@ -2958,9 +2958,6 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
                   }
                 }
                break;
-
-              default:
-                goto bad_depth;
             }
           }
 #endif /* HAVE_LIBGIMP_GIMP_H */
@@ -3063,9 +3060,6 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
                   }
                 }
                break;
-
-              default:
-                goto bad_depth;
             }
           }
 #endif /* HAVE_LIBGIMP_GIMP_H */
@@ -3129,7 +3123,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
       }
     }
   }
-  else
+  else if ( xsane.param.depth == 16 )
   {
     static guint16 buf16[32768];
     char buf[255];
@@ -3276,6 +3270,12 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
           return;
       }
     }
+  }
+  else
+  {
+    snprintf(buf, sizeof(buf), "Cannot handle depth %d.", xsane.param.depth);
+    gsg_error(buf);
+    xsane_scan_done();
   }
 
   return;
@@ -3688,8 +3688,8 @@ static void xsane_start_scan(void)
                  break;
 
 		default: /* color, but not 8 bit mode, write as raw data because this is not defined in pnm */ 
-                  fprintf(xsane.out, "SANE_RGB_RAW\n%d %d\n%d\n",
-                          xsane.param.pixels_per_line, xsane.param.lines, (int) pow(2, xsane.param.depth) - 1);
+                  fprintf(xsane.out, "SANE_RGB_RAW\n%d %d\n65535\n",
+                          xsane.param.pixels_per_line, xsane.param.lines);
               }
              break;
 
@@ -3707,8 +3707,8 @@ static void xsane_start_scan(void)
                  break;
 
                 default: /* grayscale mode but not 1 or 8 bit, write as raw data because this is not defined in pnm */
-                  fprintf(xsane.out, "SANE_GRAYSCALE_RAW\n%d %d\n%d\n",
-                          xsane.param.pixels_per_line, xsane.param.lines, (int) pow(2, xsane.param.depth) - 1);
+                  fprintf(xsane.out, "SANE_GRAYSCALE_RAW\n%d %d\n65535\n",
+                          xsane.param.pixels_per_line, xsane.param.lines);
               }
 	     break;
 	    }
@@ -3830,7 +3830,7 @@ static void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
        char buf[256];
 
         fclose(testfile);
-        sprintf(buf, "File %s already exists\n", preferences.filename);
+        snprintf(buf, sizeof(buf), "File %s already exists\n", preferences.filename);
         if (gsg_decision("Warning:", buf, "Overwrite", "Cancel", 1 /* wait */) == FALSE)
         {
           return;
@@ -4342,23 +4342,23 @@ static void xsane_setup_printer_update()
   gtk_entry_set_text(GTK_ENTRY(xsane_setup.printer_name_entry),    (char *) preferences.printer[preferences.printernr]->name);
   gtk_entry_set_text(GTK_ENTRY(xsane_setup.printer_command_entry), (char *) preferences.printer[preferences.printernr]->command);
 
-  sprintf(buf, "%d", preferences.printer[preferences.printernr]->resolution);
+  snprintf(buf, sizeof(buf), "%d", preferences.printer[preferences.printernr]->resolution);
   gtk_entry_set_text(GTK_ENTRY(xsane_setup.printer_resolution_entry), buf);
-  sprintf(buf, "%d", preferences.printer[preferences.printernr]->width);
+  snprintf(buf, sizeof(buf), "%d", preferences.printer[preferences.printernr]->width);
   gtk_entry_set_text(GTK_ENTRY(xsane_setup.printer_width_entry), buf);
-  sprintf(buf, "%d", preferences.printer[preferences.printernr]->height);
+  snprintf(buf, sizeof(buf), "%d", preferences.printer[preferences.printernr]->height);
   gtk_entry_set_text(GTK_ENTRY(xsane_setup.printer_height_entry), buf);
-  sprintf(buf, "%d", preferences.printer[preferences.printernr]->leftoffset);
+  snprintf(buf, sizeof(buf), "%d", preferences.printer[preferences.printernr]->leftoffset);
   gtk_entry_set_text(GTK_ENTRY(xsane_setup.printer_leftoffset_entry), buf);
-  sprintf(buf, "%d", preferences.printer[preferences.printernr]->bottomoffset);
+  snprintf(buf, sizeof(buf), "%d", preferences.printer[preferences.printernr]->bottomoffset);
   gtk_entry_set_text(GTK_ENTRY(xsane_setup.printer_bottomoffset_entry), buf);
-  sprintf(buf, "%1.3g", preferences.printer[preferences.printernr]->gamma);
+  snprintf(buf, sizeof(buf), "%1.3g", preferences.printer[preferences.printernr]->gamma);
   gtk_entry_set_text(GTK_ENTRY(xsane_setup.printer_gamma_entry), buf);
-  sprintf(buf, "%1.3g", preferences.printer[preferences.printernr]->gamma_red);
+  snprintf(buf, sizeof(buf), "%1.3g", preferences.printer[preferences.printernr]->gamma_red);
   gtk_entry_set_text(GTK_ENTRY(xsane_setup.printer_gamma_red_entry), buf);
-  sprintf(buf, "%1.3g", preferences.printer[preferences.printernr]->gamma_green);
+  snprintf(buf, sizeof(buf), "%1.3g", preferences.printer[preferences.printernr]->gamma_green);
   gtk_entry_set_text(GTK_ENTRY(xsane_setup.printer_gamma_green_entry), buf);
-  sprintf(buf, "%1.3g", preferences.printer[preferences.printernr]->gamma_blue);
+  snprintf(buf, sizeof(buf), "%1.3g", preferences.printer[preferences.printernr]->gamma_blue);
   gtk_entry_set_text(GTK_ENTRY(xsane_setup.printer_gamma_blue_entry), buf);
 }
 
@@ -4602,7 +4602,7 @@ static void xsane_info_dialog(GtkWidget *widget, gpointer data)
   gtk_window_position(GTK_WINDOW(info_dialog), GTK_WIN_POS_CENTER);
   gtk_window_set_policy(GTK_WINDOW(info_dialog), FALSE, FALSE, FALSE);
   gtk_signal_connect(GTK_OBJECT(info_dialog), "destroy", GTK_SIGNAL_FUNC(xsane_close_info_callback), info_dialog);
-  sprintf(buf, "%s info", prog_name);
+  snprintf(buf, sizeof(buf), "%s info", prog_name);
   gtk_window_set_title(GTK_WINDOW(info_dialog), buf);
 
   vbox = gtk_vbox_new(/* not homogeneous */ FALSE, 5);
@@ -4626,47 +4626,47 @@ static void xsane_info_dialog(GtkWidget *widget, gpointer data)
   gtk_box_pack_start(GTK_BOX(hbox), table, FALSE, FALSE, 5);
   gtk_widget_show(table);
 
-  sprintf(buf, "Vendor:");
+  snprintf(buf, sizeof(buf), "Vendor:");
   label = xsane_info_table_text_new(table, buf, 0, 0);
-  sprintf(buf, "%s", devlist[seldev]->vendor);
+  snprintf(buf, sizeof(buf), "%s", devlist[seldev]->vendor);
   label = xsane_info_table_text_new(table, buf, 1, 0);
 
-  sprintf(buf, "Model:");
+  snprintf(buf, sizeof(buf), "Model:");
   label = xsane_info_table_text_new(table, buf, 0, 1);
-  sprintf(buf, "%s", devlist[seldev]->model);
+  snprintf(buf, sizeof(buf), "%s", devlist[seldev]->model);
   label = xsane_info_table_text_new(table, buf, 1, 1);
 
-  sprintf(buf, "Type:");
+  snprintf(buf, sizeof(buf), "Type:");
   label = xsane_info_table_text_new(table, buf, 0, 2);
-  sprintf(buf, "%s", devlist[seldev]->type);
+  snprintf(buf, sizeof(buf), "%s", devlist[seldev]->type);
   label = xsane_info_table_text_new(table, buf, 1, 2);
 
-  sprintf(buf, "Device:");
+  snprintf(buf, sizeof(buf), "Device:");
   label = xsane_info_table_text_new(table, buf, 0, 3);
   bufptr = strrchr(devlist[seldev]->name, ':');
   if (bufptr)
   {
-    sprintf(buf, "%s", bufptr+1);
+    snprintf(buf, sizeof(buf), "%s", bufptr+1);
   }
   else
   {
-    sprintf(buf, devlist[seldev]->name);
+    snprintf(buf, sizeof(buf), devlist[seldev]->name);
   }
   label = xsane_info_table_text_new(table, buf, 1, 3);
 
-  sprintf(buf, "%s", devlist[seldev]->name);
+  snprintf(buf, sizeof(buf), "%s", devlist[seldev]->name);
   bufptr = strrchr(buf, ':');
   if (bufptr)
   {
     *bufptr = 0; 
     label = xsane_info_table_text_new(table, buf, 1, 4);
-    sprintf(buf, "Loaded backend:");
+    snprintf(buf, sizeof(buf), "Loaded backend:");
     label = xsane_info_table_text_new(table, buf, 0, 4);
   }
 
-  sprintf(buf, "Sane version:");
+  snprintf(buf, sizeof(buf), "Sane version:");
   label = xsane_info_table_text_new(table, buf, 0, 5);
-  sprintf(buf, "%d.%d build %d",SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
+  snprintf(buf, sizeof(buf), "%d.%d build %d",SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
                                 SANE_VERSION_MINOR(xsane.sane_backend_versioncode),
                                 SANE_VERSION_BUILD(xsane.sane_backend_versioncode));
   label = xsane_info_table_text_new(table, buf, 1, 5);
@@ -4693,66 +4693,66 @@ static void xsane_info_dialog(GtkWidget *widget, gpointer data)
   {
    const SANE_Option_Descriptor *opt;
 
-    sprintf(buf,"Gamma correction by:");
+    snprintf(buf, sizeof(buf), "Gamma correction by:");
     label = xsane_info_table_text_new(table, buf, 0, 0);
-    sprintf(buf, "scanner");
+    snprintf(buf, sizeof(buf), "scanner");
     label = xsane_info_table_text_new(table, buf, 1, 0);
 
     opt = sane_get_option_descriptor(dialog->dev, dialog->well_known.gamma_vector_r);
 
-    sprintf(buf,"Gamma input depth:");
+    snprintf(buf, sizeof(buf), "Gamma input depth:");
     label = xsane_info_table_text_new(table, buf, 0, 1);
-    sprintf(buf,"%d bit", (int) (0.5 + log((double)opt->size / sizeof(opt->type)) / log(2.0)));
+    snprintf(buf, sizeof(buf), "%d bit", (int) (0.5 + log((double)opt->size / sizeof(opt->type)) / log(2.0)));
     label = xsane_info_table_text_new(table, buf, 1, 1);
 
-    sprintf(buf, "Gamma output depth:");
+    snprintf(buf, sizeof(buf), "Gamma output depth:");
     label = xsane_info_table_text_new(table, buf, 0, 2);
-    sprintf(buf, "%d bit", (int) (0.5 + log(opt->constraint.range->max+1.0) / log(2.0)));
+    snprintf(buf, sizeof(buf), "%d bit", (int) (0.5 + log(opt->constraint.range->max+1.0) / log(2.0)));
     label = xsane_info_table_text_new(table, buf, 1, 2);
   }
   else if ((!xsane.xsane_color) && (xsane.scanner_gamma_gray))
   {
    const SANE_Option_Descriptor *opt;
 
-    sprintf(buf,"Gamma correction by:");
+    snprintf(buf, sizeof(buf), "Gamma correction by:");
     label = xsane_info_table_text_new(table, buf, 0, 0);
-    sprintf(buf, "scanner");
+    snprintf(buf, sizeof(buf), "scanner");
     label = xsane_info_table_text_new(table, buf, 1, 0);
     
     opt = sane_get_option_descriptor(dialog->dev, dialog->well_known.gamma_vector);
 
-    sprintf(buf,"Gamma input depth:");
+    snprintf(buf, sizeof(buf), "Gamma input depth:");
     label = xsane_info_table_text_new(table, buf, 0, 1);
-    sprintf(buf,"%d bit", (int) (0.5 + log((double)opt->size / sizeof(opt->type)) / log(2.0)));
+    snprintf(buf, sizeof(buf), "%d bit", (int) (0.5 + log((double)opt->size / sizeof(opt->type)) / log(2.0)));
     label = xsane_info_table_text_new(table, buf, 1, 1);
 
-    sprintf(buf, "Gamma output depth:");
+    snprintf(buf, sizeof(buf), "Gamma output depth:");
     label = xsane_info_table_text_new(table, buf, 0, 2);
-    sprintf(buf, "%d bit", (int) (0.5 + log(opt->constraint.range->max+1.0) / log(2.0)));
+    snprintf(buf, sizeof(buf), "%d bit", (int) (0.5 + log(opt->constraint.range->max+1.0) / log(2.0)));
     label = xsane_info_table_text_new(table, buf, 1, 2);
   }
   else
   {
-    sprintf(buf,"Gamma correction by:");
+    snprintf(buf, sizeof(buf), "Gamma correction by:");
     label = xsane_info_table_text_new(table, buf, 0, 0);
-    sprintf(buf, "software (xsane)");
+    snprintf(buf, sizeof(buf), "software (xsane)");
     label = xsane_info_table_text_new(table, buf, 1, 0);
 
-    sprintf(buf,"Gamma input depth:");
+    snprintf(buf, sizeof(buf), "Gamma input depth:");
     label = xsane_info_table_text_new(table, buf, 0, 1);
-    sprintf(buf, "%d bit", xsane.param.depth);
+    snprintf(buf, sizeof(buf), "%d bit", xsane.param.depth);
     label = xsane_info_table_text_new(table, buf, 1, 1);
 
-    sprintf(buf, "Gamma output depth:");
+    snprintf(buf, sizeof(buf), "Gamma output depth:");
     label = xsane_info_table_text_new(table, buf, 0, 2);
-/*    sprintf(buf, "%d bit", 8); */
-    sprintf(buf, "%d bit", xsane.param.depth); 
+/*    snprintf(buf, sizeof(buf), "%d bit", 8); */
+    snprintf(buf, sizeof(buf), "%d bit", xsane.param.depth); 
     label = xsane_info_table_text_new(table, buf, 1, 2);
   }
 
-  sprintf(buf,"Scanner output depth:");
+  snprintf(buf, sizeof(buf), "Scanner output depth:");
   label = xsane_info_table_text_new(table, buf, 0, 3);
-  sprintf(buf, "%d bit", xsane.param.depth);
+  snprintf(buf, sizeof(buf), "%d bit", xsane.param.depth);
   label = xsane_info_table_text_new(table, buf, 1, 3);
 
   frame = gtk_frame_new("Xsane output formats:");
@@ -4772,7 +4772,7 @@ static void xsane_info_dialog(GtkWidget *widget, gpointer data)
   gtk_box_pack_start(GTK_BOX(hbox), table, FALSE, FALSE, 5);
   gtk_widget_show(table);
 
-  sprintf(buf, "8 bit output formats: ");
+  snprintf(buf, sizeof(buf), "8 bit output formats: ");
   label = xsane_info_table_text_new(table, buf, 0, 0);
 
   bufptr=buf;
@@ -4806,7 +4806,7 @@ static void xsane_info_dialog(GtkWidget *widget, gpointer data)
 
   label = xsane_info_table_text_new(table, buf, 1, 0);
 
-  sprintf(buf, "16 bit output formats: ");
+  snprintf(buf, sizeof(buf), "16 bit output formats: ");
   label = xsane_info_table_text_new(table, buf, 0, 1);
 
   bufptr=buf;
@@ -4865,7 +4865,7 @@ static void xsane_about_dialog(GtkWidget *widget, gpointer data)
   gtk_window_position(GTK_WINDOW(about_dialog), GTK_WIN_POS_CENTER);
   gtk_window_set_policy(GTK_WINDOW(about_dialog), FALSE, FALSE, FALSE);
   gtk_signal_connect(GTK_OBJECT(about_dialog), "destroy", GTK_SIGNAL_FUNC(xsane_close_info_callback), about_dialog);
-  sprintf(buf, "About %s", prog_name);
+  snprintf(buf, sizeof(buf), "About %s", prog_name);
   gtk_window_set_title(GTK_WINDOW(about_dialog), buf);
 
   vbox = gtk_vbox_new(/* not homogeneous */ FALSE, 5);
@@ -4878,7 +4878,7 @@ static void xsane_about_dialog(GtkWidget *widget, gpointer data)
   style = gtk_widget_get_style(about_dialog);
   bg_trans = &style->bg[GTK_STATE_NORMAL];
 
-  sprintf(buf, "%s/xsane-logo.xpm", STRINGIFY(PATH_SANE_DATA_DIR));  
+  snprintf(buf, sizeof(buf), "%s/xsane-logo.xpm", STRINGIFY(PATH_SANE_DATA_DIR));  
   pixmap = gdk_pixmap_create_from_xpm(about_dialog->window, &mask, bg_trans, buf);
   pixmapwidget = gtk_pixmap_new(pixmap, mask);
   gtk_box_pack_start(GTK_BOX(vbox), pixmapwidget, FALSE, FALSE, 2);
@@ -4887,17 +4887,17 @@ static void xsane_about_dialog(GtkWidget *widget, gpointer data)
 
   xsane_separator_new(vbox, 5);
 
-  sprintf(buf,"XSane version: %s\n", XSANE_VERSION);
+  snprintf(buf, sizeof(buf), "XSane version: %s\n", XSANE_VERSION);
   label = gtk_label_new(buf);
   gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0);
   gtk_widget_show(label);
 
-  sprintf(buf,"1998-1999 by Oliver Rauch\n");
+  snprintf(buf, sizeof(buf), "1998-1999 by Oliver Rauch\n");
   label = gtk_label_new(buf);
   gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0);
   gtk_widget_show(label);
 
-  sprintf(buf,"Email: Oliver.Rauch@Wolfsburg.DE\n");
+  snprintf(buf, sizeof(buf), "Email: Oliver.Rauch@Wolfsburg.DE\n");
   label = gtk_label_new(buf);
   gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0);
   gtk_widget_show(label);
@@ -4917,7 +4917,7 @@ static void xsane_about_dialog(GtkWidget *widget, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_get_area_value(int option, float *val, SANE_Int *unit)
+static SANE_Status xsane_get_area_value(int option, float *val, SANE_Int *unit)
 {
  const SANE_Option_Descriptor *opt;
  SANE_Handle dev;
@@ -4925,13 +4925,13 @@ static void xsane_get_area_value(int option, float *val, SANE_Int *unit)
 
   if (option <= 0)
   {
-    return;
+    return -1;
   }
 
   if (sane_control_option(dialog->dev, option, SANE_ACTION_GET_VALUE, &word, 0) == SANE_STATUS_GOOD)
   {
     dev = dialog->dev;
-    opt = sane_get_option_descriptor (dev, option);
+    opt = sane_get_option_descriptor(dev, option);
 
     if (unit)
     {
@@ -4949,12 +4949,14 @@ static void xsane_get_area_value(int option, float *val, SANE_Int *unit)
         *val = (float) word;
       }
     }
+
+   return 0;
   }
   else if (val)
   {
     *val = 0;
   }
-
+  return -2;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -4981,11 +4983,11 @@ static void xsane_batch_scan_add_callback(GtkWidget *widget, gpointer list)
 
   if (unit == SANE_UNIT_MM)
   {
-    sprintf(buf, " top left (%7.2fmm, %7.2fmm), bottom right (%7.2fmm, %7.2fmm)", tlx, tly, brx, bry);
+    snprintf(buf, sizeof(buf), " top left (%7.2fmm, %7.2fmm), bottom right (%7.2fmm, %7.2fmm)", tlx, tly, brx, bry);
   }
   else
   {
-    sprintf(buf, " top left (%5.0fpx, %5.0fpx), bottom right (%5.0fpx, %5.0fpx)", tlx, tly, brx, bry);
+    snprintf(buf, sizeof(buf), " top left (%5.0fpx, %5.0fpx), bottom right (%5.0fpx, %5.0fpx)", tlx, tly, brx, bry);
   }
 
   list_item = gtk_list_item_new_with_label(buf);
@@ -5002,7 +5004,7 @@ static void xsane_batch_scan_dialog(GtkWidget *widget, gpointer data)
   char buf[64];
 
   batch_scan_dialog = gtk_dialog_new();
-  sprintf(buf, "%s batch scan", prog_name);
+  snprintf(buf, sizeof(buf), "%s batch scan", prog_name);
   gtk_window_set_title(GTK_WINDOW(batch_scan_dialog), buf);
 
   batch_scan_vbox = GTK_DIALOG(batch_scan_dialog)->vbox;
@@ -5013,7 +5015,15 @@ static void xsane_batch_scan_dialog(GtkWidget *widget, gpointer data)
   gtk_widget_show(scrolled_window);
 
   list = gtk_list_new();
+
+#ifdef HAVE_GTK_SCROLLED_WINDOW_ADD_WITH_VIEWPORT
+  /* we have new gtk version */
+  gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolled_window), list);
+#else
+  /* we have old gtk version */
   gtk_container_add(GTK_CONTAINER(scrolled_window), list);
+#endif
+
   gtk_widget_show(list);
 
 
@@ -5056,7 +5066,7 @@ static void xsane_fax_scan_dialog()
  char buf[64];
 
   fax_dialog = gtk_dialog_new();
-  sprintf(buf, "%s fax page list", prog_name);
+  snprintf(buf, sizeof(buf), "%s fax page list", prog_name);
   gtk_window_set_title(GTK_WINDOW(fax_dialog), buf);
 
   fax_scan_vbox = GTK_DIALOG(fax_dialog)->vbox;
@@ -5067,7 +5077,15 @@ static void xsane_fax_scan_dialog()
   gtk_widget_show(scrolled_window);
 
   list = gtk_list_new();
+
+#ifdef HAVE_GTK_SCROLLED_WINDOW_ADD_WITH_VIEWPORT
+  /* we have new gtk version */
+  gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolled_window), list);
+#else
+  /* we have old gtk version */
   gtk_container_add(GTK_CONTAINER(scrolled_window), list);
+#endif
+
   gtk_widget_show(list);
 
 
@@ -5098,7 +5116,7 @@ static void xsane_setup_dialog(GtkWidget *widget, gpointer data)
  char buf[64];
 
   setup_dialog = gtk_dialog_new();
-  sprintf(buf, "%s setup", prog_name);
+  snprintf(buf, sizeof(buf), "%s setup", prog_name);
   gtk_window_set_title(GTK_WINDOW(setup_dialog), buf);
 
   setup_vbox = GTK_DIALOG(setup_dialog)->vbox;
@@ -5195,7 +5213,7 @@ static void xsane_setup_dialog(GtkWidget *widget, gpointer data)
   text = gtk_entry_new();
   gsg_set_tooltip(dialog->tooltips, text, DESC_PRINTER_RESOLUTION);
   gtk_widget_set_usize(text, 50, 0);
-  sprintf(buf, "%d", preferences.printer[preferences.printernr]->resolution);
+  snprintf(buf, sizeof(buf), "%d", preferences.printer[preferences.printernr]->resolution);
   gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
   gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
   gtk_widget_show(text);
@@ -5218,7 +5236,7 @@ static void xsane_setup_dialog(GtkWidget *widget, gpointer data)
   text = gtk_entry_new();
   gsg_set_tooltip(dialog->tooltips, text, DESC_PRINTER_WIDTH);
   gtk_widget_set_usize(text, 50, 0);
-  sprintf(buf, "%d", preferences.printer[preferences.printernr]->width);
+  snprintf(buf, sizeof(buf), "%d", preferences.printer[preferences.printernr]->width);
   gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
   gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
   gtk_widget_show(text);
@@ -5237,7 +5255,7 @@ static void xsane_setup_dialog(GtkWidget *widget, gpointer data)
   text = gtk_entry_new();
   gsg_set_tooltip(dialog->tooltips, text, DESC_PRINTER_HEIGHT);
   gtk_widget_set_usize(text, 50, 0);
-  sprintf(buf, "%d", preferences.printer[preferences.printernr]->height);
+  snprintf(buf, sizeof(buf), "%d", preferences.printer[preferences.printernr]->height);
   gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
   gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
   gtk_widget_show(text);
@@ -5256,7 +5274,7 @@ static void xsane_setup_dialog(GtkWidget *widget, gpointer data)
   text = gtk_entry_new();
   gsg_set_tooltip(dialog->tooltips, text, DESC_PRINTER_LEFTOFFSET);
   gtk_widget_set_usize(text, 50, 0);
-  sprintf(buf, "%d", preferences.printer[preferences.printernr]->leftoffset);
+  snprintf(buf, sizeof(buf), "%d", preferences.printer[preferences.printernr]->leftoffset);
   gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
   gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
   gtk_widget_show(text);
@@ -5275,7 +5293,7 @@ static void xsane_setup_dialog(GtkWidget *widget, gpointer data)
   text = gtk_entry_new();
   gsg_set_tooltip(dialog->tooltips, text, DESC_PRINTER_BOTTOMOFFSET);
   gtk_widget_set_usize(text, 50, 0);
-  sprintf(buf, "%d", preferences.printer[preferences.printernr]->bottomoffset);
+  snprintf(buf, sizeof(buf), "%d", preferences.printer[preferences.printernr]->bottomoffset);
   gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
   gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
   gtk_widget_show(text);
@@ -5298,7 +5316,7 @@ static void xsane_setup_dialog(GtkWidget *widget, gpointer data)
   text = gtk_entry_new();
   gsg_set_tooltip(dialog->tooltips, text, DESC_PRINTER_GAMMA);
   gtk_widget_set_usize(text, 50, 0);
-  sprintf(buf, "%1.3g", preferences.printer[preferences.printernr]->gamma);
+  snprintf(buf, sizeof(buf), "%1.3g", preferences.printer[preferences.printernr]->gamma);
   gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
   gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
   gtk_widget_show(text);
@@ -5317,7 +5335,7 @@ static void xsane_setup_dialog(GtkWidget *widget, gpointer data)
   text = gtk_entry_new();
   gsg_set_tooltip(dialog->tooltips, text, DESC_PRINTER_GAMMA_RED);
   gtk_widget_set_usize(text, 50, 0);
-  sprintf(buf, "%1.3g", preferences.printer[preferences.printernr]->gamma_red);
+  snprintf(buf, sizeof(buf), "%1.3g", preferences.printer[preferences.printernr]->gamma_red);
   gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
   gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
   gtk_widget_show(text);
@@ -5336,7 +5354,7 @@ static void xsane_setup_dialog(GtkWidget *widget, gpointer data)
   text = gtk_entry_new();
   gsg_set_tooltip(dialog->tooltips, text, DESC_PRINTER_GAMMA_GREEN);
   gtk_widget_set_usize(text, 50, 0);
-  sprintf(buf, "%1.3g", preferences.printer[preferences.printernr]->gamma_green);
+  snprintf(buf, sizeof(buf), "%1.3g", preferences.printer[preferences.printernr]->gamma_green);
   gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
   gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
   gtk_widget_show(text);
@@ -5355,7 +5373,7 @@ static void xsane_setup_dialog(GtkWidget *widget, gpointer data)
   text = gtk_entry_new();
   gsg_set_tooltip(dialog->tooltips, text, DESC_PRINTER_GAMMA_BLUE);
   gtk_widget_set_usize(text, 50, 0);
-  sprintf(buf, "%1.3g", preferences.printer[preferences.printernr]->gamma_blue);
+  snprintf(buf, sizeof(buf), "%1.3g", preferences.printer[preferences.printernr]->gamma_blue);
   gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
   gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
   gtk_widget_show(text);
@@ -5532,7 +5550,7 @@ static void xsane_setup_dialog(GtkWidget *widget, gpointer data)
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
   gtk_widget_show(label);
 
-  sprintf(buf, "%1.3g", preferences.preview_gamma);
+  snprintf(buf, sizeof(buf), "%1.3g", preferences.preview_gamma);
   text = gtk_entry_new();
   gsg_set_tooltip(dialog->tooltips, text, DESC_PREVIEW_GAMMA);
   gtk_widget_set_usize(text, 50, 0);
@@ -5551,7 +5569,7 @@ static void xsane_setup_dialog(GtkWidget *widget, gpointer data)
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
   gtk_widget_show(label);
 
-  sprintf(buf, "%1.3g", preferences.preview_gamma_red);
+  snprintf(buf, sizeof(buf), "%1.3g", preferences.preview_gamma_red);
   text = gtk_entry_new();
   gsg_set_tooltip(dialog->tooltips, text, DESC_PREVIEW_GAMMA_RED);
   gtk_widget_set_usize(text, 50, 0);
@@ -5570,7 +5588,7 @@ static void xsane_setup_dialog(GtkWidget *widget, gpointer data)
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
   gtk_widget_show(label);
 
-  sprintf(buf, "%1.3g", preferences.preview_gamma_green);
+  snprintf(buf, sizeof(buf), "%1.3g", preferences.preview_gamma_green);
   text = gtk_entry_new();
   gsg_set_tooltip(dialog->tooltips, text, DESC_PREVIEW_GAMMA_GREEN);
   gtk_widget_set_usize(text, 50, 0);
@@ -5589,7 +5607,7 @@ static void xsane_setup_dialog(GtkWidget *widget, gpointer data)
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
   gtk_widget_show(label);
 
-  sprintf(buf, "%1.3g", preferences.preview_gamma_blue);
+  snprintf(buf, sizeof(buf), "%1.3g", preferences.preview_gamma_blue);
   text = gtk_entry_new();
   gsg_set_tooltip(dialog->tooltips, text, DESC_PREVIEW_GAMMA_BLUE);
   gtk_widget_set_usize(text, 50, 0);
@@ -5778,7 +5796,7 @@ static void xsane_show_doc(GtkWidget *widget, gpointer data)
  char buf[256];
  FILE *ns_pipe;
 
-  sprintf(buf, "netscape -no-about-splash -remote \"openFile(%s/sane-%s-doc.html)\" 2>&1",
+  snprintf(buf, sizeof(buf), "netscape -no-about-splash -remote \"openFile(%s/sane-%s-doc.html)\" 2>&1",
                STRINGIFY(PATH_SANE_DATA_DIR), name);  
   ns_pipe = popen(buf, "r");
 
@@ -5800,13 +5818,13 @@ static void xsane_show_doc(GtkWidget *widget, gpointer data)
 
     if (pclose(ns_pipe))
     {
-      sprintf(buf,"Ensure netscape is running!");
+      snprintf(buf, sizeof(buf), "Ensure netscape is running!");
       gsg_error(buf);
     }
   }
   else
   {
-    sprintf(buf,"Failed to execute netscape!");
+    snprintf(buf, sizeof(buf), "Failed to execute netscape!");
     gsg_error(buf);
   }
 
@@ -5959,7 +5977,7 @@ static GtkWidget *xsane_help_build_menu(void)
 
   menu = gtk_menu_new();
 
-  sprintf(buf, "%s", devlist[seldev]->name);
+  snprintf(buf, sizeof(buf), "%s", devlist[seldev]->name);
   bufptr = strrchr(buf, ':');
   if (bufptr)
   {
@@ -6147,11 +6165,11 @@ void panel_build(GSGDialog *dialog)
               str_list = malloc ((num_words + 1) * sizeof (str_list[0]));
               for (j = 0; j < num_words; ++j)
                 {
-                  sprintf (str, "%d", opt->constraint.word_list[j + 1]);
+                  sprintf(str, "%d", opt->constraint.word_list[j + 1]);
                   str_list[j] = strdup (str);
                 }
               str_list[j] = 0;
-              sprintf (str, "%d", val);
+              sprintf(str, "%d", val);
               gsg_option_menu_new (parent, title, str_list, str, elem, dialog->tooltips, opt->desc);
               free (str_list);
               gtk_widget_show (parent->parent);
@@ -6205,11 +6223,11 @@ void panel_build(GSGDialog *dialog)
               str_list = malloc ((num_words + 1) * sizeof (str_list[0]));
               for (j = 0; j < num_words; ++j)
               {
-                sprintf (str, "%g", SANE_UNFIX (opt->constraint.word_list[j + 1]));
+                sprintf(str, "%g", SANE_UNFIX (opt->constraint.word_list[j + 1]));
                 str_list[j] = strdup (str);
               }
               str_list[j] = 0;
-              sprintf (str, "%g", SANE_UNFIX (val));
+              sprintf(str, "%g", SANE_UNFIX (val));
               gsg_option_menu_new (parent, title, str_list, str, elem, dialog->tooltips, opt->desc);
               free (str_list);
               gtk_widget_show (parent->parent);
@@ -6283,7 +6301,7 @@ void panel_build(GSGDialog *dialog)
       {
         char msg[256];
 
-        sprintf(msg, "Failed to obtain value of option %s: %s.", opt->name, sane_strstatus (status));
+        sprintf(msg, "Failed to obtain value of option %s: %s.", opt->name, sane_strstatus(status));
         gsg_error(msg);
       }
     }
@@ -6310,9 +6328,9 @@ void panel_build(GSGDialog *dialog)
   {
    int unit;
 
-    xsane_get_area_value(dialog->well_known.coord[0], 0, &unit);
+    status = xsane_get_area_value(dialog->well_known.coord[0], 0, &unit);
 
-    if (unit == SANE_UNIT_PIXEL)
+    if ( (unit == SANE_UNIT_PIXEL) || (status) )
     {
       gtk_widget_set_sensitive(xsane.length_unit_widget, FALSE);
     }
@@ -6367,7 +6385,7 @@ static void xsane_device_dialog(void)
   status = sane_open(devname, &dev);
   if (status != SANE_STATUS_GOOD)
   {
-    sprintf(buf, "Failed to open device `%s': %s.", devname, sane_strstatus(status));
+    snprintf(buf, sizeof(buf), "Failed to open device `%s': %s.", devname, sane_strstatus(status));
     gsg_error(buf);
     return;
   }
@@ -6399,8 +6417,8 @@ static void xsane_device_dialog(void)
     textptr = devicetext + strlen(devicetext);
   }
 
-  sprintf(buf, ":%s", devname);
-  sprintf(buf, "/%s", (strrchr(buf, ':')+1));
+  snprintf(buf, sizeof(buf), ":%s", devname);
+  snprintf(buf, sizeof(buf), "/%s", (strrchr(buf, ':')+1));
   sprintf(textptr, (strrchr(buf, '/')+1));
 
 
@@ -6476,7 +6494,6 @@ static void xsane_device_dialog(void)
 
 
   /* xsane main window */
-
   xsane.main_dialog_scrolled = gtk_scrolled_window_new(NULL, NULL);
   gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(xsane.main_dialog_scrolled),
                                  GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
@@ -6486,7 +6503,15 @@ static void xsane_device_dialog(void)
 
   xsane_vbox_main = gtk_vbox_new(TRUE, 5);
   gtk_container_border_width(GTK_CONTAINER(xsane_vbox_main), 5);
+
+#ifdef HAVE_GTK_SCROLLED_WINDOW_ADD_WITH_VIEWPORT
+  /* we have new gtk version */
+  gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(xsane.main_dialog_scrolled), xsane_vbox_main);
+#else
+  /* we have old gtk version */
   gtk_container_add(GTK_CONTAINER(xsane.main_dialog_scrolled), xsane_vbox_main);
+#endif
+
   gtk_widget_show(xsane_vbox_main);
 
   /* create  a subwindow so the standard dialog keeps its position on rebuilds: */
@@ -6822,8 +6847,6 @@ static gint32 xsane_choose_device(void)
  GdkPixmap *pixmap;
  GtkStyle *style;
  GdkColor *bg_trans;
- GdkFont *newfont=0;
- GdkFont *oldfont=0;
  char vendor[9];
  char model[17];
  char type[20];
@@ -6833,7 +6856,7 @@ static gint32 xsane_choose_device(void)
   gtk_window_position(GTK_WINDOW(choose_device_dialog), GTK_WIN_POS_CENTER);
   gtk_window_set_policy(GTK_WINDOW(choose_device_dialog), FALSE, FALSE, FALSE);
   gtk_signal_connect(GTK_OBJECT(choose_device_dialog), "destroy", GTK_SIGNAL_FUNC(xsane_files_exit_callback), NULL);
-  sprintf(buf, "%s device selection",prog_name);
+  snprintf(buf, sizeof(buf), "%s device selection",prog_name);
   gtk_window_set_title(GTK_WINDOW(choose_device_dialog), buf);
 
   main_vbox = GTK_DIALOG(choose_device_dialog)->vbox;
@@ -6849,7 +6872,7 @@ static gint32 xsane_choose_device(void)
   style = gtk_widget_get_style(choose_device_dialog);
   bg_trans = &style->bg[GTK_STATE_NORMAL];
 
-  sprintf(buf, "%s/xsane-logo.xpm", STRINGIFY(PATH_SANE_DATA_DIR));  
+  snprintf(buf, sizeof(buf), "%s/xsane-logo.xpm", STRINGIFY(PATH_SANE_DATA_DIR));  
   pixmap = gdk_pixmap_create_from_xpm(choose_device_dialog->window, &mask, bg_trans, buf);
   pixmapwidget = gtk_pixmap_new(pixmap, mask);
   gtk_box_pack_start(GTK_BOX(vbox), pixmapwidget, FALSE, FALSE, 2);
@@ -6868,15 +6891,6 @@ static gint32 xsane_choose_device(void)
   device_vbox = gtk_vbox_new(FALSE, 5);
   gtk_container_border_width(GTK_CONTAINER(device_vbox), 3);
   gtk_container_add(GTK_CONTAINER(device_frame), device_vbox);
-
-  gtk_widget_realize(device_vbox);
-  style = gtk_widget_get_style(device_vbox);
-  newfont = gdk_font_load("-misc-fixed-medium-r-semicondensed--13-100-*");
-  if (newfont)
-  {
-    oldfont = style->font;
-    style->font = newfont;
-  }
 
   owner = NULL;
   for (i = 0; i < ndevs; i++)
@@ -6898,7 +6912,7 @@ static gint32 xsane_choose_device(void)
     { type[j]=' '; }
     type[j]=0;
 
-    sprintf(buf, "%s %s %s [%s]", vendor, model, type, adev->name);
+    snprintf(buf, sizeof(buf), "%s %s %s [%s]", vendor, model, type, adev->name);
     button = gtk_radio_button_new_with_label(owner, (char *) buf);
     gtk_signal_connect(GTK_OBJECT(button), "button_press_event",
                        (GtkSignalFunc) xsane_select_device_callback, (void *) (long) i);
@@ -6927,11 +6941,6 @@ static gint32 xsane_choose_device(void)
 
   gtk_widget_show(choose_device_dialog);
 
-  if (oldfont) /* I think this is not the planned way to do it, but otherwise I get a sigseg */
-  {
-    style->font = oldfont;
-    gdk_font_unref(newfont);
-  }
   return 0;
 }
 
@@ -7179,7 +7188,7 @@ int main(int argc, char **argv)
        This is to avoid annoying "you must run this program under
        gimp" messages when xsane gets invoked in stand-alone
        mode.  */
-    old_print_func = g_set_print_handler(null_print_func);
+    old_print_func = g_set_print_handler((GPrintFunc) null_print_func);
     /* gimp_main() returns 1 if xsane wasn't invoked by GIMP */
     result = gimp_main(argc, argv);
     g_set_message_handler(old_print_func);

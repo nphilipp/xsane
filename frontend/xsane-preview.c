@@ -201,6 +201,24 @@ static void preview_update_selection (Preview *p)
         dev_selection[i] = val;
       }
     }
+    else /* backend does not use scanarea options */
+    {
+      switch(i)
+      {
+        case 0:
+        case 1:
+          dev_selection[i] = 0;
+         break;
+  
+        case 2:
+          dev_selection[i] = p->preview_width;
+         break;
+
+        case 3:
+          dev_selection[i] = p->preview_height;
+         break;
+      }
+    }
   }
 
   for (i = 0; i < 2; ++i)
@@ -1571,6 +1589,7 @@ void preview_update(Preview *p)
         val = min;
       }
     }
+
     if (p->surface[i] != val)
     {
        surface_changed = 1;

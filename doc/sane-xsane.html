@@ -1,0 +1,204 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (X11; I; Linux 2.0.36 i586) [Netscape]">
+   <META NAME="Author" CONTENT="Oliver Rauch">
+   <META NAME="Description" CONTENT="scan, photocopy and fax frontend for SANE">
+   <TITLE>SANE - XSane frontend</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#0000EF" VLINK="#51188E" ALINK="#FF0000">
+
+<CENTER>&nbsp;</CENTER>
+
+<CENTER><IMG SRC="xsane-logo.gif" HEIGHT=300 WIDTH=256></CENTER>
+
+<BLOCKQUOTE>
+<H1>
+<U><FONT COLOR="#009900">What is XSane?</FONT></U></H1>
+<FONT SIZE=+1>XSane is a new improved frontend for <A HREF="http://www.mostang.com/sane">SANE</A>.</FONT>
+<BR><FONT SIZE=+1>&nbsp;</FONT>
+
+<P><IMG SRC="sane-xsane.gif" HEIGHT=453 WIDTH=306>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG SRC="sane-xsane-histogram.gif" HEIGHT=369 WIDTH=280>
+
+<P><IMG SRC="sane-xsane-standard.gif" HEIGHT=272 WIDTH=309>&nbsp;&nbsp;&nbsp;&nbsp;<IMG SRC="sane-xsane-advanced.gif" HEIGHT=235 WIDTH=287>
+<BR>&nbsp;
+<BR>&nbsp;
+<H1>
+<I><U><FONT COLOR="#CC0000">Whats new in XSane 0.20:</FONT></U></I></H1>
+
+<BLOCKQUOTE>
+<LI>
+<FONT COLOR="#990000">Improved Preferences/setup</FONT></LI>
+
+<LI>
+<FONT COLOR="#990000">Added selection of up to 10 printers in photocopy
+mode.</FONT></LI>
+
+<LI>
+<FONT COLOR="#990000">Added gamma correction for printer.</FONT></LI>
+
+<LI>
+<FONT COLOR="#990000">Improved gamma correction for preview (monitor).</FONT></LI>
+
+<LI>
+<FONT COLOR="#990000">If file could not saved an error message is printed.</FONT></LI>
+
+<LI>
+<FONT COLOR="#000099">For more news read <A HREF="CHANGES.XSANE">CHANGES.XSANE</A>.</FONT></LI>
+</BLOCKQUOTE>
+
+<H1>
+<I><U><FONT COLOR="#000099">Features:</FONT></U></I></H1>
+</BLOCKQUOTE>
+
+<BLOCKQUOTE>
+<BLOCKQUOTE>
+<LI>
+<FONT COLOR="#000099">Scan and photocopy function.</FONT></LI>
+
+<LI>
+<FONT COLOR="#000099">Works as GIMP-plugin.</FONT></LI>
+
+<LI>
+<FONT COLOR="#000099">Unique user interface for all scanners.</FONT></LI>
+
+<LI>
+<FONT COLOR="#000099">8 bit output formats: pnm, png, postscript, jpeg
+and tiff.</FONT></LI>
+
+<LI>
+<FONT COLOR="#000099">Experimental 16 bit support.</FONT></LI>
+
+<LI>
+<FONT COLOR="#000099">16 bit output formats: pnm(ascii), png and raw(comparable
+to pnm raw).</FONT></LI>
+
+<LI>
+<FONT COLOR="#000099">Automatic increase of filename counter (use filename
+of the form: <I>image-001.ext</I>)</FONT></LI>
+
+<LI>
+<FONT COLOR="#000099">Changes of color enhancement&nbsp; (gamma, brightness,
+contrast, white-, gray- and black point) are updated in preview window
+without a new preview-scan!</FONT></LI>
+
+<LI>
+<FONT COLOR="#000099">Gamma correction for preview (monitor) and printer.</FONT></LI>
+
+<LI>
+<FONT COLOR="#000099">Color enhancement for scanners/backends that do not
+support custom gamma.</FONT></LI>
+
+<LI>
+<FONT COLOR="#000099">Autoadjust-function for gamma, contrast and brightness.</FONT></LI>
+</BLOCKQUOTE>
+
+<H1>
+<I><U><FONT COLOR="#000099">Requirements:</FONT></U></I></H1>
+
+<BLOCKQUOTE>
+<LI>
+<FONT COLOR="#000099">sane-1.0 installed</FONT></LI>
+
+<LI>
+<FONT COLOR="#000099">gtk-1.0.x installed </FONT><FONT COLOR="#CC0000">(1.1.x
+and 1.2.x do not work)</FONT></LI>
+
+<LI>
+<FONT COLOR="#000099">for jpeg-support: jpeglib</FONT></LI>
+
+<LI>
+<FONT COLOR="#000099">for png-support: libpng and zlib</FONT></LI>
+
+<LI>
+<FONT COLOR="#000099">for tiff-support: libtiff</FONT></LI>
+
+<BR>&nbsp;</BLOCKQUOTE>
+
+<H1>
+<I><U><FONT COLOR="#000099">How to compile/install:</FONT></U></I></H1>
+
+<BLOCKQUOTE>
+<LI>
+<FONT COLOR="#000099">Unpack archiv.</FONT></LI>
+
+<LI>
+<FONT COLOR="#000099">Enter xsane-0.xx directory.</FONT></LI>
+
+<LI>
+<FONT COLOR="#000099">To compile call <I>./configure </I>and<I> make.</I></FONT></LI>
+
+<LI>
+<FONT COLOR="#000099">To install call <I>make install </I>as root.</FONT></LI>
+
+<LI>
+<FONT COLOR="#000099">Call <I>xsane</I>.</FONT></LI>
+
+<LI>
+<FONT COLOR="#000099">If you get an error message&nbsp; that <I>libsane-dll.so.1</I>
+is not found, you have to tell your system where the SANE-libraries are
+installed. For linux: edit /etc/ld.so.conf and add a line with the path
+to the libraries (normally /usr/local/lib/sane), then call <I>ldconfig</I>
+as root.</FONT></LI>
+
+<LI>
+<FONT COLOR="#000099">For online help you need netscape, on some SuSE systems
+there only is "Netscape" and no "netscape" in the path, in this case you
+have to set a symbolic link:</FONT></LI>
+
+<BLOCKQUOTE>
+<PRE><FONT COLOR="#000099">ln -s /usr/bin/Netscape /usr/bin/netscape</FONT></PRE>
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+
+<BLOCKQUOTE>
+<H1>
+<FONT COLOR="#FF0000"><B><I><U>Download</U></I></B>&nbsp;<FONT SIZE=+2>
+<A HREF="xsane-0.20.tar.gz">xsane-0.20.tar.gz</A></FONT></FONT></H1>
+
+<BLOCKQUOTE>
+<LI>
+<FONT COLOR="#CC0000">Bug-reports welcome!</FONT></LI>
+
+<LI>
+<FONT COLOR="#CC0000">Suggestions for options/functions/outfit are welcome!</FONT></LI>
+</BLOCKQUOTE>
+
+<H1>
+<I><U><FONT COLOR="#000099">Planned functions:</FONT></U></I></H1>
+
+<BLOCKQUOTE>
+<LI>
+<FONT COLOR="#009900">Pick black and white point form preview.</FONT></LI>
+
+<LI>
+<FONT COLOR="#009900">Improve preview (zoom, change window size).</FONT></LI>
+
+<LI>
+<FONT COLOR="#009900">Fax frontend.</FONT></LI>
+
+<LI>
+<FONT COLOR="#009900">Support automatic document feeder.</FONT></LI>
+
+<LI>
+<FONT COLOR="#009900">For more see: <A HREF="TODO.XSANE">TODO.XSANE</A></FONT></LI>
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+
+<HR WIDTH="100%">
+<CENTER>EMAIL: <A HREF="mailto:Oliver.Rauch@Wolfsburg.DE">Oliver.Rauch@Wolfsburg.DE</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="sane.html">back to informations and updates</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><FONT COLOR="#009900">This page has been changed on 5th.&nbsp;
+april 1999</FONT></CENTER>
+
+</BODY>
+</HTML>

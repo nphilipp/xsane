@@ -17,5 +17,18 @@ style "curve"
   fg[NORMAL] = { 58000, 0, 0 }			# red
 }
 
+style "font"
+{
+  font = "-*-helvetica-medium-r-*-*-10-*-*-*-*-*-*-*"
+}
+
+style "fixed font"
+{
+  font = "-misc-fixed-medium-r-semicondensed--13-*-*-*-*-*-*-*"
+}
+
 widget "*GtkCurve" style "curve"
 widget "*GtkProgressBar" style "progressbar"
+# widget "*" style "font"
+widget "*GtkRadioButton*" style "fixed font"
+

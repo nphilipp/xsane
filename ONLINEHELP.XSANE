@@ -7,4 +7,4 @@ the backend may use more html-files:
 sane-backendname-*-doc.html
 
 Images that are only for the backend helpfile should
-habe the name sane-backendname-*.*
+have the name sane-backendname-*.*

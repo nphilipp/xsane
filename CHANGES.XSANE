@@ -152,7 +152,7 @@ xsane-0.19 -> 0.20:
  - spilt setup window into notebook pages
  - replaced in xsane_pref_set_unit_callback preview_update by preview_area_resize,
    the ruler units are updated now if unit is changed
- - made menue length unit inactive is length unit is pixel
+ - made menue length unit inactive if length unit is pixel
  - added dialogs for batch scan list and fax page list, but not finished and disabled
  - changed local includes from <...> to "..."
  - test for filetype is only done in scanmode now
@@ -160,3 +160,14 @@ xsane-0.19 -> 0.20:
  - added error messages if failed to open files
  - added sigpipe_handler for handling broken pipe while writing to printercommand
 
+
+xsane-0.20 -> 0.21:
+-------------------
+ - in xsane-preview.c if backend does not use scanareaselection dev_selection[i]
+   is set to width/height of image
+ - replaced most sprintf by snprintf
+ - made menue length unit inactive if scanare is nut supported by the backend
+ - set maximum value in 16 bit saving routines to 16 bit/65535
+ - 1 bit/pixel png file is saved with 1 bit/pixel instead of 8 bit/pixel now
+ - added support for gtk-1.2
+ - font are set in xsane-style.rc now

@@ -6,7 +6,7 @@ AC_ARG_PROGRAM
 
 # version code:
 V_MAJOR=0
-V_MINOR=20\\337
+V_MINOR=21\\337
 
 PACKAGE=xsane
 SANE_V_MAJOR=1
@@ -108,6 +108,7 @@ if test "${HAVE_GTK}" = "yes"; then
   CPPFLAGS="${CPPFLAGS} ${GTK_CFLAGS}"
   LIBS="${LIBS} ${GTK_LIBS}"
 
+  AC_CHECK_FUNCS(gtk_scrolled_window_add_with_viewport)
   AC_CHECK_FUNCS(gtk_tooltips_set_tips gtk_events_pending)
   if test "${ac_cv_func_gtk_events_pending}" = "no"; then
     saved_CPPFLAGS="${saved_CPPFLAGS} -Dgtk_events_pending=gdk_events_pending"
