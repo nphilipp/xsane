@@ -1,0 +1,74 @@
+SHELL = /bin/sh
+
+VPATH = @srcdir@
+srcdir = @srcdir@
+top_srcdir = @top_srcdir@
+top_builddir = ..
+
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+bindir = @bindir@
+sbindir = @sbindir@
+libexecdir = @libexecdir@
+datadir = @datadir@
+sysconfdir = @sysconfdir@
+sharedstatedir = @sharedstatedir@
+localstatedir = @localstatedir@
+libdir = @libdir@
+infodir = @infodir@
+mandir = @mandir@
+includedir = @includedir@
+oldincludedir = /usr/include
+configdir = ${sysconfdir}/sane.d
+
+MKDIR = $(top_srcdir)/mkinstalldirs
+INSTALL = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@
+INSTALL_DATA = @INSTALL_DATA@
+
+@SET_MAKE@
+
+SECT1	= xsane.1
+MANPAGES = $(SECT1)
+LATEX	= TEXINPUTS=$(srcdir):$$TEXINPUTS latex
+DLH	= TEXINPUTS=$(srcdir):$$TEXINPUTS dlh
+MAN2HTML= nroff -man |\
+	  man2html -compress -title $${page} -cgiurl '$$title.$$section.html'|\
+	  sed 's,<BODY>,<BODY BGCOLOR=\#FFFFFF TEXT=\#000000><H1 ALIGN=CENTER><IMG SRC="../sane.gif" HEIGHT=117 WIDTH=346></H1>,'
+
+all: $(MANPAGES)
+
+%.1: %.man
+	sed -e 's|@DATADIR@|$(datadir)|g' \
+	    -e 's|@CONFIGDIR@|$(configdir)|g' \
+	    -e 's|@LIBDIR@|$(libdir)|g' \
+	    -e 's|@BINDIR@|$(bindir)|g' \
+	    -e 's|@SBINDIR@|$(sbindir)|g' $^ >$@
+
+install: $(MANPAGES)
+	$(MKDIR) $(mandir)/man1 
+	@for page in $(SECT1); do \
+	  echo installing $${page} in $(mandir)/man1/$${page}...; \
+	  $(INSTALL_DATA) $${page} $(mandir)/man1/$${page} || exit 1; \
+	done
+
+docs: ps html
+
+html-man: $(MANPAGES)
+	@for page in $(MANPAGES); do \
+	  echo "translating $${page} to $${page}.html..."; \
+	  cat $${page} | $(MAN2HTML) > $${page}.html; \
+	done
+
+
+clean:
+	rm -f *.toc *.aux *.log *.cp *.fn *.tp *.vr *.pg *.ky *.blg *.idx *.cb
+	rm -f *.ilg
+
+distclean: clean
+	rm -f $(MANPAGES)
+	rm -f Makefile *~
+
+depend:
+
+.PHONY: all install depend clean ps html htmlman sane-backends-html

@@ -2,6 +2,7 @@ This is a list of what I want to change/include for xsane.
 If you have any suggestions: mail to Oliver.Rauch@Wolfsburg.DE
 
 first steps:
+ - support for 16/48 bpp mode
  - test memory after all calls of malloc
  - set resolution in copy-mode at beginning
  - program cancel_handler for data conversion
@@ -12,7 +13,6 @@ first steps:
    - sizeable window
  - include invert (for negatives) into enhancement
  - let user add a list of printers for photocopy
- - print info about used (hidden) parametres (used scanner and device, software/scanner gamma, analog gamma ...)
  - xsane_setup: select image position on printer (centered/left/right/...) for copy
  - store more than 1 enhancement and give names for it, may be in own files
  - postscript-output for 10/12 bpp (does postscript support it?)
@@ -23,10 +23,10 @@ first steps:
    - ...?
  - online help (netscape remote)
  - save all options to a file including preview-selection
- - correct last byte in png- and jpeg- lineart-save
+ - COPY: more than one copy of one scan
 
-second steps:
- - let user select whether
+second steps: 
+ - let user select whether (dont know if this is practicable)
    - analog gamma
    - highlight
    - shadow
@@ -36,14 +36,14 @@ second steps:
 
    - Change calculation of gamma curve for it
    - do preview with selected values set to default
-   - input multiplactors in xsane-setup to make
-     scanner depend values compatible to xsane-values
+   - input multiplicators in xsane-setup to make
+     scanner dependend values compatible to xsane-values
 
 third steps:
  - correct gtk custom gamma functions and include it
+ - include special fnctions for GNOME/KDE
 
-
-ideas:
+more ideas:
  - preview always in greyscale or always in color
  - define preview area (for small pictures)
 

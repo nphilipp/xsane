@@ -3,7 +3,7 @@ SHELL = /bin/sh
 VPATH = @srcdir@
 srcdir = @srcdir@
 top_srcdir = @top_srcdir@
-top_builddir = ..
+top_builddir = .
 
 prefix = @prefix@
 exec_prefix = @exec_prefix@
@@ -19,98 +19,39 @@ infodir = @infodir@
 mandir = @mandir@
 includedir = @includedir@
 oldincludedir = /usr/include
-configdir = ${sysconfdir}/sane.d
-datasanedir = ${datadir}/sane
 
 MKDIR = $(top_srcdir)/mkinstalldirs
 INSTALL = @INSTALL@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_DATA = @INSTALL_DATA@
 
-CC = @CC@
-INCLUDES = -I. -I$(srcdir) -I$(top_builddir)/include -I$(top_srcdir)/include \
-	@INCLUDES@ @GTK_CFLAGS@
-DEFS = @DEFS@
-CPPFLAGS = @CPPFLAGS@
-CFLAGS = @CFLAGS@
-LDFLAGS = @LDFLAGS@
-LIBS = @LIBS@
-GTK_LIBS = @GTK_LIBS@
-GIMP_LIBS = @GIMP_LIBS@
-
-LIBTOOL = ../libtool
-MINST	= --mode=install
-MLINK	= --mode=link
-XSCAN	= @XSCAN@
-SANED	= @SANED@
-
-COMPILE = $(CC) -c $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS)
-LINK = $(CC) $(LDFLAGS) -o $@
-
 @SET_MAKE@
 
-BINPROGS = scanimage $(XSCAN)
-SBINPROGS = $(SANED)
-PROGRAMS = $(BINPROGS) $(SBINPROGS)
-TESTPROGRAMS = test
-LIBLIB = ../lib/liblib.a
-LIBSANE = ../backend/libsane.la
-LIBSANEI = ../sanei/libsanei.a
+SUBDIRS	= lib sanei frontend doc
 
-SCAN_OBJS = scanimage.o
-XSCAN_OBJS = xscanimage.o progress.o preview.o preferences.o gtkglue.o
-XCAM_OBJS = xcam.o preferences.o gtkglue.o
-XSANE_OBJS = xsane.o progress.o xsanepreview.o xsanepreferences.o xsanegtk.o
-
-.c.o:
-	$(COMPILE) $<
-
-all: $(PROGRAMS)
-
-install: $(PROGRAMS)
-	$(MKDIR) $(bindir) $(sbindir) $(datadir) $(datasanedir)
-	@for program in $(BINPROGS); do \
-	  $(LIBTOOL) $(MINST) $(INSTALL_PROGRAM) $${program} \
-	    $(bindir)/$${program}; \
-	done
-	@for program in $(SBINPROGS); do \
-	  $(LIBTOOL) $(MINST) $(INSTALL_PROGRAM) $${program} \
-	    $(sbindir)/$${program}; \
-	done
-	$(INSTALL_DATA) $(srcdir)/sane-style.rc $(datadir)/sane-style.rc
-	$(INSTALL_DATA) $(srcdir)/xsane-logo.xpm $(datasanedir)/xsane-logo.xpm
-
-test: test.o $(LIBSANE) $(LIBLIB)
-	@$(LIBTOOL) $(MLINK) $(LINK) test.o $(LIBSANE) $(LIBLIB) $(LIBS)
-
-saned: saned.o $(LIBSANEI) $(LIBSANE) $(LIBLIB)
-	@$(LIBTOOL) $(MLINK) $(LINK) saned.o $(LIBSANEI) $(LIBSANE) $(LIBLIB) \
-		$(LIBS)
-
-scanimage: $(SCAN_OBJS) $(LIBSANE) $(LIBLIB)
-	@$(LIBTOOL) $(MLINK) $(LINK) $(SCAN_OBJS) $(LIBSANE) $(LIBLIB) $(LIBS)
-
-xscanimage: $(XSCAN_OBJS) $(LIBSANEI) $(LIBSANE) $(LIBLIB)
-	@$(LIBTOOL) $(MLINK) $(LINK) $(XSCAN_OBJS) $(LIBSANEI) $(LIBSANE) \
-		$(LIBLIB) $(GIMP_LIBS) $(GTK_LIBS) $(LIBS)
-
-xcam: $(XCAM_OBJS) $(LIBSANE) $(LIBSANEI) $(LIBLIB)
-	@$(LIBTOOL) $(MLINK) $(LINK) $(XCAM_OBJS) $(LIBSANEI) $(LIBSANE) \
-		$(LIBLIB) $(GTK_LIBS) $(LIBS)
-
-xsane: $(XSANE_OBJS) $(LIBSANEI) $(LIBSANE) $(LIBLIB)
-	@$(LIBTOOL) $(MLINK) $(LINK) $(XSANE_OBJS) $(LIBSANEI) $(LIBSANE) \
-	        $(LIBLIB) $(GIMP_LIBS) $(GTK_LIBS) $(LIBS)
+all: all-recursive
 
 
-clean:
-	rm -f *.o *~ .*~ *.bak
-	rm -rf .libs
+install: install-recursive
+	$(MKDIR) $(includedir)/sane
 
-distclean: clean
-	rm -f Makefile $(PROGRAMS) $(TESTPROGRAMS)
+clean: clean-recursive
 
-depend:
-	makedepend $(INCLUDES) *.c
+distclean: clean distclean-recursive
+	rm -f *~ include/*~ include/sane/*~ *.log *.bak libtool
+	rm -f include/sane/config.h Makefile config.cache config.status
+	rm -f japi/Makefile
 
-.PHONY: all install depend clean distclean
+depend: depend-recursive
+
+all-recursive install-recursive clean-recursive distclean-recursive \
+depend-recursive:
+	for subdir in $(SUBDIRS); do		\
+	  target=`echo $@ | sed s/-recursive//`; \
+	  echo making $$target in $$subdir;	\
+	  (cd $$subdir && $(MAKE) $$target)	\
+	   || case "$(MFLAGS)" in *k*) fail=yes;; *) exit 1;; esac; \
+	done && test -z "$$fail"
+
+.PHONY: all clean depend \
+	all-recursive install-recursive clean-recursive depend-recursive

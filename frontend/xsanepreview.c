@@ -130,16 +130,19 @@ static void draw_rect(GdkWindow *win, GdkGC *gc, int coord[4])
   y = coord[1];
   w = coord[2] - x;
   h = coord[3] - y;
+
   if (w < 0)
   {
     x = coord[2];
     w = -w;
   }
+
   if (h < 0)
   {
     y = coord[3];
     h = -h;
   }
+
   gdk_draw_rectangle(win, gc, FALSE, x, y, w + 1, h + 1);
 }
 
@@ -169,15 +172,16 @@ static void draw_selection (Preview *p)
 
 static void update_selection (Preview *p)
 {
-  float min, max, normal, dev_selection[4];
-  const SANE_Option_Descriptor *opt;
-  SANE_Status status;
-  SANE_Word val;
-  int i, optnum;
+ float min, max, normal, dev_selection[4];
+ const SANE_Option_Descriptor *opt;
+ SANE_Status status;
+ SANE_Word val;
+ int i, optnum;
 
   p->previous_selection = p->selection;
 
   memcpy (dev_selection, p->surface, sizeof (dev_selection));
+
   for (i = 0; i < 4; ++i)
   {
     optnum = p->dialog->well_known.coord[i];
@@ -199,36 +203,43 @@ static void update_selection (Preview *p)
       }
     }
   }
+
   for (i = 0; i < 2; ++i)
   {
     min = p->surface[i];
+
     if (min <= -INF)
     {
       min = 0.0;
     }
+
     max = p->surface[i + 2];
+
     if (max >= INF)
     {
       max = p->preview_width;
     }
+
     normal = ((i == 0) ? p->preview_width : p->preview_height) - 1;
     normal /= (max - min);
     p->selection.active = TRUE;
     p->selection.coord[i]     = ((dev_selection[i] - min) * normal) + 0.5;
     p->selection.coord[i + 2] = ((dev_selection[i + 2] - min) * normal) + 0.5;
+
     if (p->selection.coord[i + 2] < p->selection.coord[i])
     {
       p->selection.coord[i + 2] = p->selection.coord[i];
     }
   }
-  draw_selection (p);
+
+  draw_selection(p);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void get_image_scale (Preview *p, float *xscalep, float *yscalep)
+static void get_image_scale(Preview *p, float *xscalep, float *yscalep)
 {
-  float xscale, yscale;
+ float xscale, yscale;
 
   if (p->image_width == 0)
   {
@@ -237,18 +248,19 @@ static void get_image_scale (Preview *p, float *xscalep, float *yscalep)
   else
   {
     xscale = p->image_width/(float) p->preview_width;
-    if (p->image_height > 0 && p->preview_height*xscale < p->image_height)
+    if (p->image_height > 0 && p->preview_height * xscale < p->image_height)
     {
       xscale = p->image_height/(float) p->preview_height;
     }
   }
+
   yscale = xscale;
 
   if (p->surface_unit == SANE_UNIT_PIXEL && p->image_width <= p->preview_width && p->image_height <= p->preview_height)
   {
     float swidth, sheight;
 
-    assert (p->surface_type == SANE_TYPE_INT);
+    assert(p->surface_type == SANE_TYPE_INT);
     swidth  = (p->surface[GSG_BR_X] - p->surface[GSG_TL_X] + 1);
     sheight = (p->surface[GSG_BR_Y] - p->surface[GSG_TL_Y] + 1);
     xscale = 1.0;
@@ -262,27 +274,29 @@ static void get_image_scale (Preview *p, float *xscalep, float *yscalep)
       yscale = p->image_height/sheight;
     }
   }
+
   *xscalep = xscale;
   *yscalep = yscale;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void paint_image (Preview *p)
+static void paint_image(Preview *p)
 {
-  float xscale, yscale, src_x, src_y;
-  int dst_x, dst_y, height, x, y, src_offset;
-  gint gwidth, gheight;
+ float xscale, yscale, src_x, src_y;
+ int dst_x, dst_y, height, x, y, src_offset;
+ gint gwidth, gheight;
 
   gwidth  = p->preview_width;
   gheight = p->preview_height;
 
-  get_image_scale (p, &xscale, &yscale);
+  get_image_scale(p, &xscale, &yscale);
 
-  memset (p->preview_row, 0xff, 3*gwidth);
+  memset(p->preview_row, 0xff, 3*gwidth);
 
   /* don't draw last line unless it's complete: */
   height = p->image_y;
+
   if (p->image_x == 0 && height < p->image_height)
   {
     ++height;
@@ -291,6 +305,7 @@ static void paint_image (Preview *p)
   /* for now, use simple nearest-neighbor interpolation: */
   src_offset = 0;
   src_x = src_y = 0.0;
+
   for (dst_y = 0; dst_y < gheight; ++dst_y)
   {
     y = (int) (src_y + 0.5);
@@ -322,13 +337,13 @@ static void paint_image (Preview *p)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void display_partial_image (Preview *p)
+static void display_partial_image(Preview *p)
 {
   paint_image (p);
 
-  if (GTK_WIDGET_DRAWABLE (p->window))
+  if (GTK_WIDGET_DRAWABLE(p->window))
   {
-    GtkPreview *preview = GTK_PREVIEW (p->window);
+    GtkPreview *preview = GTK_PREVIEW(p->window);
     int src_x, src_y;
 
     src_x = (p->window->allocation.width - preview->buffer_width)/2;
@@ -342,9 +357,10 @@ static void display_partial_image (Preview *p)
 
 static void display_maybe(Preview *p)
 {
-  time_t now;
+ time_t now;
 
   time (&now);
+
   if (now > p->image_last_time_updated)
   {
     p->image_last_time_updated = now;
@@ -359,7 +375,7 @@ void preview_do_gamma_correction(Preview *p)
  int x,y;
  int offset;
 
-  if (p->image_data_raw)
+  if ((p->image_data_raw) && (p->params.depth > 1))
   {
     for (y=0; y < p->image_height; y++)
     {
@@ -388,7 +404,7 @@ void preview_calculate_histogram(Preview *p,
  SANE_Int red, green, blue;
  float xscale, yscale;
  
-  get_image_scale (p, &xscale, &yscale);
+  get_image_scale(p, &xscale, &yscale);
   min_x = min_x * xscale;
   max_x = max_x * xscale;
   min_y = min_y * yscale;
@@ -409,13 +425,13 @@ void preview_calculate_histogram(Preview *p,
         green = preview_gamma_data_green[green_raw];
         blue  = preview_gamma_data_blue [blue_raw];
 
-//	count_raw      [(int) sqrt((red_raw*red_raw + green_raw*green_raw + blue_raw*blue_raw)/3.0)]++;
+/*	count_raw      [(int) sqrt((red_raw*red_raw + green_raw*green_raw + blue_raw*blue_raw)/3.0)]++; */
 	count_raw      [(int) ((red_raw + green_raw + blue_raw)/3)]++;
 	count_raw_red  [red_raw]++;
 	count_raw_green[green_raw]++;
 	count_raw_blue [blue_raw]++;
 
-//	count      [(int) sqrt((red*red + green*green + blue*blue)/3.0)]++;
+/*	count      [(int) sqrt((red*red + green*green + blue*blue)/3.0)]++; */
 	count      [(int) ((red + green + blue)/3)]++;
 	count_red  [red]++;
 	count_green[green]++;
@@ -438,28 +454,28 @@ void preview_gamma_correction(Preview *p, SANE_Int *gamma_red, SANE_Int *gamma_g
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void display_image (Preview *p)
+static void display_image(Preview *p)
 {
   if (p->params.lines <= 0 && p->image_y < p->image_height)
-    {
-      p->image_height   = p->image_y;
-      p->image_data     = realloc(p->image_data, 3*p->image_width*p->image_height);
-      p->image_data_raw = realloc(p->image_data_raw, 3*p->image_width*p->image_height);
-      assert (p->image_data);
-    }
+  {
+    p->image_height   = p->image_y;
+    p->image_data     = realloc(p->image_data, 3 * p->image_width * p->image_height);
+    p->image_data_raw = realloc(p->image_data_raw, 3 * p->image_width * p->image_height);
+    assert(p->image_data);
+  }
   display_partial_image (p);
 
-  memcpy(p->image_data_raw, p->image_data, 3*p->image_width*p->image_height);
+  memcpy(p->image_data_raw, p->image_data, 3*p->image_width * p->image_height);
   preview_do_gamma_correction(p);
-  scan_done (p);
+  scan_done(p);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 static void preview_area_resize(GtkWidget *widget)
 {
-  float min_x, max_x, min_y, max_y, xscale, yscale, f;
-  Preview *p;
+ float min_x, max_x, min_y, max_y, xscale, yscale, f;
+ Preview *p;
 
   p = gtk_object_get_data(GTK_OBJECT(widget), "PreviewPointer");
 
@@ -468,7 +484,7 @@ static void preview_area_resize(GtkWidget *widget)
 
   if (p->preview_row)
   {
-    p->preview_row = realloc(p->preview_row, 3*p->preview_width);
+    p->preview_row = realloc(p->preview_row, 3 * p->preview_width);
   }
   else
   {
@@ -479,19 +495,27 @@ static void preview_area_resize(GtkWidget *widget)
 
   min_x = p->surface[GSG_TL_X];
   if (min_x <= -INF)
+  {
     min_x = 0.0;
+  }
 
   max_x = p->surface[GSG_BR_X];
   if (max_x >=  INF)
+  {
     max_x = p->preview_width - 1;
+  }
 
   min_y = p->surface[GSG_TL_Y];
   if (min_y <= -INF)
+  {
     min_y = 0.0;
+  }
 
   max_y = p->surface[GSG_BR_Y];
   if (max_y >=  INF)
+  {
     max_y = p->preview_height - 1;
+  }
 
   /* convert mm to inches if that's what the user wants: */
 
@@ -505,42 +529,44 @@ static void preview_area_resize(GtkWidget *widget)
 
   if (p->surface_unit == SANE_UNIT_PIXEL)
   {
-    f = 1.0/xscale;
+    f = 1.0 / xscale;
   }
   else if (p->image_width)
   {
-    f = xscale*p->preview_width/p->image_width;
+    f = xscale * p->preview_width / p->image_width;
   }
   else
   {
     f = 1.0;
   }
-  gtk_ruler_set_range (GTK_RULER(p->hruler), f*min_x, f*max_x, f*min_x, /* max_size */ 20);
+
+  gtk_ruler_set_range(GTK_RULER(p->hruler), f*min_x, f*max_x, f*min_x, /* max_size */ 20);
 
   if (p->surface_unit == SANE_UNIT_PIXEL)
   {
-    f = 1.0/yscale;
+    f = 1.0 / yscale;
   }
   else if (p->image_height)
   {
-    f = yscale*p->preview_height/p->image_height;
+    f = yscale * p->preview_height / p->image_height;
   }
   else
   {
     f = 1.0;
   }
-  gtk_ruler_set_range (GTK_RULER(p->vruler), f*min_y, f*max_y, f*min_y, /* max_size */ 20);
 
-  paint_image (p);
-  update_selection (p);
+  gtk_ruler_set_range(GTK_RULER(p->vruler), f*min_y, f*max_y, f*min_y, /* max_size */ 20);
+
+  paint_image(p);
+  update_selection(p);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 static void get_bounds(const SANE_Option_Descriptor *opt, float *minp, float *maxp)
 {
-  float min, max;
-  int i;
+ float min, max;
+ int i;
 
   min = -INF;
   max =  INF;
@@ -554,18 +580,24 @@ static void get_bounds(const SANE_Option_Descriptor *opt, float *minp, float *ma
     case SANE_CONSTRAINT_WORD_LIST:
       min =  INF;
       max = -INF;
+
       for (i = 1; i <= opt->constraint.word_list[0]; ++i)
-	{
-	  if (opt->constraint.word_list[i] < min)
-	    min = opt->constraint.word_list[i];
-	  if (opt->constraint.word_list[i] > max)
-	    max = opt->constraint.word_list[i];
-	}
-      break;
+      {
+        if (opt->constraint.word_list[i] < min)
+        {
+          min = opt->constraint.word_list[i];
+        }
+        if (opt->constraint.word_list[i] > max)
+        {
+          max = opt->constraint.word_list[i];
+        }
+      }
+     break;
 
     default:
-      break;
+     break;
   }
+
   if (opt->type == SANE_TYPE_FIXED)
   {
     if (min > -INF && min < INF)
@@ -583,7 +615,7 @@ static void get_bounds(const SANE_Option_Descriptor *opt, float *minp, float *ma
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void save_option (Preview *p, int option, SANE_Word *save_loc, int *valid)
+static void save_option(Preview *p, int option, SANE_Word *save_loc, int *valid)
 {
   SANE_Status status;
 
@@ -592,7 +624,8 @@ static void save_option (Preview *p, int option, SANE_Word *save_loc, int *valid
     *valid = 0;
     return;
   }
-  status = sane_control_option (p->dialog->dev, option, SANE_ACTION_GET_VALUE, save_loc, 0);
+
+  status = sane_control_option(p->dialog->dev, option, SANE_ACTION_GET_VALUE, save_loc, 0);
   *valid = (status == SANE_STATUS_GOOD);
 }
 
@@ -600,9 +633,9 @@ static void save_option (Preview *p, int option, SANE_Word *save_loc, int *valid
 
 static void restore_option(Preview *p, int option, SANE_Word saved_value, int valid)
 {
-  const SANE_Option_Descriptor *opt;
-  SANE_Status status;
-  SANE_Handle dev;
+ const SANE_Option_Descriptor *opt;
+ SANE_Status status;
+ SANE_Handle dev;
 
   if (!valid)
   {
@@ -611,6 +644,7 @@ static void restore_option(Preview *p, int option, SANE_Word saved_value, int va
 
   dev = p->dialog->dev;
   status = sane_control_option (dev, option, SANE_ACTION_SET_VALUE, &saved_value, 0);
+
   if (status != SANE_STATUS_GOOD)
   {
     char buf[256];
@@ -624,9 +658,9 @@ static void restore_option(Preview *p, int option, SANE_Word saved_value, int va
 
 static void set_option_float (Preview *p, int option, float value)
 {
-  const SANE_Option_Descriptor *opt;
-  SANE_Handle dev;
-  SANE_Word word;
+ const SANE_Option_Descriptor *opt;
+ SANE_Handle dev;
+ SANE_Word word;
 
   if (option <= 0 || value <= -INF || value >= INF)
   {
@@ -643,6 +677,7 @@ static void set_option_float (Preview *p, int option, float value)
   {
     word = value + 0.5;
   }
+
   sane_control_option (dev, option, SANE_ACTION_SET_VALUE, &word, 0);
 }
 
@@ -650,7 +685,7 @@ static void set_option_float (Preview *p, int option, float value)
 
 static void set_option_bool (Preview *p, int option, SANE_Bool value)
 {
-  SANE_Handle dev;
+ SANE_Handle dev;
 
   if (option <= 0)
     return;
@@ -663,8 +698,8 @@ static void set_option_bool (Preview *p, int option, SANE_Bool value)
 
 static int increment_image_y (Preview *p)
 {
-  size_t extra_size, offset;
-  char buf[256];
+ size_t extra_size, offset;
+ char buf[256];
 
   p->image_x = 0;
   ++p->image_y;
@@ -691,12 +726,12 @@ static int increment_image_y (Preview *p)
 
 static void input_available (gpointer data, gint source, GdkInputCondition cond)
 {
-  SANE_Status status;
-  Preview *p = data;
-  u_char buf[8192];
-  SANE_Handle dev;
-  SANE_Int len;
-  int i, j;
+ SANE_Status status;
+ Preview *p = data;
+ u_char buf[8192];
+ SANE_Handle dev;
+ SANE_Int len;
+ int i, j;
 
   dev = p->dialog->dev;
   while (1)
@@ -724,6 +759,7 @@ static void input_available (gpointer data, gint source, GdkInputCondition cond)
       scan_done (p);
       return;
     }
+
     if (!len)
     {
       break;			/* out of data for now */
@@ -748,7 +784,7 @@ static void input_available (gpointer data, gint source, GdkInputCondition cond)
             }
           }
         }
-        break;
+       break;
 
       case SANE_FRAME_GRAY:
         switch (p->params.depth)
@@ -774,7 +810,7 @@ static void input_available (gpointer data, gint source, GdkInputCondition cond)
                 }
               }
             }
-            break;
+           break;
 
           case 8:
             for (i = 0; i < len; ++i)
@@ -788,12 +824,12 @@ static void input_available (gpointer data, gint source, GdkInputCondition cond)
                 return;
               }
             }
-            break;
+           break;
 
           default:
             goto bad_depth;
         }
-        break;
+       break;
 
           case SANE_FRAME_RED:
           case SANE_FRAME_GREEN:
@@ -817,7 +853,7 @@ static void input_available (gpointer data, gint source, GdkInputCondition cond)
                     }
                   }
                 }
-                break;
+               break;
 
               case 8:
                 for (i = 0; i < len; ++i)
@@ -829,24 +865,25 @@ static void input_available (gpointer data, gint source, GdkInputCondition cond)
                     return;
                   }
                 }
-                break;
+               break;
 
               default:
                 goto bad_depth;
             }
-            break;
+           break;
 
           default:
             fprintf (stderr, "preview.input_available: bad frame format %d\n", p->params.format);
             scan_done (p);
             return;
     }
+
     if (p->input_tag < 0)
     {
-      display_maybe (p);
-      while (gtk_events_pending ())
+      display_maybe(p);
+      while (gtk_events_pending())
       {
-        gtk_main_iteration ();
+        gtk_main_iteration();
       }
     }
   }
@@ -864,23 +901,25 @@ bad_depth:
 
 static void scan_done(Preview *p)
 {
-  int i;
+ int i;
 
   p->scanning = FALSE;
+
   if (p->input_tag >= 0)
   {
     gdk_input_remove (p->input_tag);
     p->input_tag = -1;
   }
-  sane_cancel (p->dialog->dev);
 
-  restore_option (p, p->dialog->well_known.dpi, p->saved_dpi, p->saved_dpi_valid);
+  sane_cancel(p->dialog->dev);
+  restore_option(p, p->dialog->well_known.dpi, p->saved_dpi, p->saved_dpi_valid);
+
   for (i = 0; i < 4; ++i)
   {
     restore_option (p, p->dialog->well_known.coord[i], p->saved_coord[i], p->saved_coord_valid[i]);
   }
-  set_option_bool (p, p->dialog->well_known.preview, SANE_FALSE);
 
+  set_option_bool(p, p->dialog->well_known.preview, SANE_FALSE);
   gtk_widget_set_sensitive (p->cancel, FALSE);
   gsg_set_sensitivity (p->dialog, TRUE);
   xsane_update_histogram();
@@ -890,18 +929,18 @@ static void scan_done(Preview *p)
 
 static void scan_start (Preview *p)
 {
-  SANE_Handle dev = p->dialog->dev;
-  SANE_Status status;
-  char buf[256];
-  int fd, y;
-  int gamma_gray_size  = 256; /* set this values to image depth for more than 8bpp input support!!! */
-  int gamma_red_size   = 256;
-  int gamma_green_size = 256;
-  int gamma_blue_size  = 256;
-  int gamma_gray_max   = 255; /* set this to to image depth for more than 8bpp output support */
-  int gamma_red_max    = 255;
-  int gamma_green_max  = 255;
-  int gamma_blue_max   = 255;
+ SANE_Handle dev = p->dialog->dev;
+ SANE_Status status;
+ char buf[256];
+ int fd, y;
+ int gamma_gray_size  = 256; /* set this values to image depth for more than 8bpp input support!!! */
+ int gamma_red_size   = 256;
+ int gamma_green_size = 256;
+ int gamma_blue_size  = 256;
+ int gamma_gray_max   = 255; /* set this to to image depth for more than 8bpp output support */
+ int gamma_red_max    = 255;
+ int gamma_green_max  = 255;
+ int gamma_blue_max   = 255;
 
   gtk_widget_set_sensitive(p->cancel, TRUE);
   gsg_set_sensitivity(p->dialog, FALSE);
@@ -1011,6 +1050,7 @@ static void scan_start (Preview *p)
     {
       free(p->image_data);
     }
+
     if (p->image_data_raw)
     {
       free(p->image_data_raw);
@@ -1018,12 +1058,14 @@ static void scan_start (Preview *p)
 
     p->image_width  = p->params.pixels_per_line;
     p->image_height = p->params.lines;
+
     if (p->image_height < 0)
     {
       p->image_height = 32;	/* may have to adjust as we go... */
     }
 
     p->image_data = malloc(3*p->image_width*p->image_height);
+
     if (!p->image_data)
     {
       snprintf(buf, sizeof(buf), "Failed to allocate image memory: %s.", strerror (errno));
@@ -1040,6 +1082,7 @@ static void scan_start (Preview *p)
     p->selection.active = FALSE;
     draw_selection (p);
   }
+
   p->scanning = TRUE;
 
   if (sane_set_io_mode(dev, SANE_TRUE) == SANE_STATUS_GOOD && sane_get_select_fd(dev, &fd) == SANE_STATUS_GOOD)
@@ -1061,25 +1104,40 @@ static void establish_selection(Preview *p)
 
   memcpy (dev_selection, p->surface, sizeof (dev_selection));
   if (p->selection.active)
+  {
     for (i = 0; i < 2; ++i)
-      {
-	min = p->surface[i];
-	if (min <= -INF)
-	  min = 0.0;
-	max = p->surface[i + 2];
-	if (max >= INF)
-	  max = p->preview_width;
+    {
+      min = p->surface[i];
 
-	normal = 1.0/(((i == 0) ? p->preview_width : p->preview_height) - 1);
-	normal *= (max - min);
-	dev_selection[i]     = p->selection.coord[i]*normal + min;
-	dev_selection[i + 2] = p->selection.coord[i + 2]*normal + min;
+      if (min <= -INF)
+      {
+	  min = 0.0;
       }
+
+      max = p->surface[i + 2];
+      if (max >= INF)
+      {
+        max = p->preview_width;
+      }
+
+      normal = 1.0/(((i == 0) ? p->preview_width : p->preview_height) - 1);
+      normal *= (max - min);
+      dev_selection[i]     = p->selection.coord[i]*normal + min;
+      dev_selection[i + 2] = p->selection.coord[i + 2]*normal + min;
+    }
+  }
+
   for (i = 0; i < 4; ++i)
+  {
     set_option_float (p, p->dialog->well_known.coord[i], dev_selection[i]);
+  }
+
   gsg_update_scan_window (p->dialog);
+
   if (p->dialog->param_change_callback)
+  {
     (*p->dialog->param_change_callback) (p->dialog, p->dialog->param_change_arg);
+  }
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1093,21 +1151,25 @@ static int make_preview_image_path(Preview *p, size_t filename_size, char *filen
 
 static void restore_preview_image(Preview *p)
 {
-  u_int psurface_type, psurface_unit;
-  char filename[PATH_MAX];
-  int width, height;
-  float psurface[4];
-  size_t nread;
-  FILE *in;
+ u_int psurface_type, psurface_unit;
+ char filename[PATH_MAX];
+ int width, height;
+ float psurface[4];
+ size_t nread;
+ FILE *in;
 
   /* See whether there is a saved preview and load it if present: */
 
   if (make_preview_image_path (p, sizeof (filename), filename) < 0)
+  {
     return;
+  }
 
   in = fopen (filename, "r");
   if (!in)
+  {
     return;
+  }
 
   /* Be careful about consuming too many bytes after the final newline
      (e.g., consider an image whose first image byte is 13 (`\r').  */
@@ -1115,7 +1177,9 @@ static void restore_preview_image(Preview *p)
 	      psurface + 0, psurface + 1, psurface + 2, psurface + 3,
 	      &psurface_type, &psurface_unit,
 	      &width, &height) != 8)
+  {
     return;
+  }
 
   if (GROSSLY_DIFFERENT (psurface[0], p->surface[0])
       || GROSSLY_DIFFERENT (psurface[1], p->surface[1])
@@ -1123,18 +1187,23 @@ static void restore_preview_image(Preview *p)
       || GROSSLY_DIFFERENT (psurface[3], p->surface[3])
       || psurface_type != p->surface_type || psurface_unit != p->surface_unit)
     /* ignore preview image that was acquired for/with a different surface */
+  {
     return;
+  }
 
+  p->params.depth = 8;
   p->image_width = width;
   p->image_height = height;
   p->image_data = malloc (3 * width * height);
   if (!p->image_data)
+  {
     return;
+  }
 
   nread = fread (p->image_data, 3, width * height, in);
 
-  p->image_y = nread/width;
-  p->image_x = nread%width;
+  p->image_y = nread / width;
+  p->image_x = nread % width;
   p->image_data_raw = malloc(3 * p->image_width * p->image_height);
   memcpy(p->image_data_raw, p->image_data, 3 * p->image_width * p->image_height);
 }
@@ -1286,102 +1355,99 @@ Preview *preview_new(GSGDialog *dialog)
   if (first_time)
   {
     first_time = 0;
-    gtk_preview_set_gamma (preferences.preview_gamma);
-    gtk_preview_set_install_cmap (preferences.preview_own_cmap);
+    gtk_preview_set_gamma(preferences.preview_gamma);
+    gtk_preview_set_install_cmap(preferences.preview_own_cmap);
   }
 
 #ifndef XSERVER_WITH_BUGGY_VISUALS
-  gtk_widget_push_visual (gtk_preview_get_visual ());
+  gtk_widget_push_visual(gtk_preview_get_visual ());
 #endif
-  gtk_widget_push_colormap (gtk_preview_get_cmap ());
+  gtk_widget_push_colormap(gtk_preview_get_cmap ());
 
-  p->top = gtk_dialog_new ();
-  gtk_signal_connect (GTK_OBJECT (p->top), "destroy", GTK_SIGNAL_FUNC (top_destroyed), p);
-  gtk_window_set_title (GTK_WINDOW (p->top), "XSane preview");
-  vbox = GTK_BOX (GTK_DIALOG (p->top)->vbox);
-  hbox = GTK_BOX (GTK_DIALOG (p->top)->action_area);
+  p->top = gtk_dialog_new();
+  gtk_signal_connect(GTK_OBJECT(p->top), "destroy", GTK_SIGNAL_FUNC (top_destroyed), p);
+  gtk_window_set_title(GTK_WINDOW(p->top), "XSane preview");
+  vbox = GTK_BOX(GTK_DIALOG(p->top)->vbox);
+  hbox = GTK_BOX(GTK_DIALOG(p->top)->action_area);
 
   /* construct the preview area (table with sliders & preview window) */
-  table = gtk_table_new (2, 2, /* homogeneous */ FALSE);
-  gtk_table_set_col_spacing (GTK_TABLE (table), 0, 1);
-  gtk_table_set_row_spacing (GTK_TABLE (table), 0, 1);
-  gtk_container_border_width (GTK_CONTAINER (table), 2);
-  gtk_box_pack_start (vbox, table, /* expand */ TRUE, /* fill */ TRUE, /* padding */ 0);
+  table = gtk_table_new(2, 2, /* homogeneous */ FALSE);
+  gtk_table_set_col_spacing(GTK_TABLE (table), 0, 1);
+  gtk_table_set_row_spacing(GTK_TABLE (table), 0, 1);
+  gtk_container_border_width(GTK_CONTAINER (table), 2);
+  gtk_box_pack_start(vbox, table, /* expand */ TRUE, /* fill */ TRUE, /* padding */ 0);
 
   /* the empty box in the top-left corner */
-  frame = gtk_frame_new (/* label */ 0);
-  gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_OUT);
-  gtk_table_attach (GTK_TABLE (table), frame, 0, 1, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
+  frame = gtk_frame_new(/* label */ 0);
+  gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_OUT);
+  gtk_table_attach(GTK_TABLE(table), frame, 0, 1, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
 
   /* the horizontal ruler */
   p->hruler = gtk_hruler_new ();
-  gtk_table_attach (GTK_TABLE (table), p->hruler, 1, 2, 0, 1, GTK_FILL, 0, 0, 0);
+  gtk_table_attach(GTK_TABLE(table), p->hruler, 1, 2, 0, 1, GTK_FILL, 0, 0, 0);
 
   /* the vertical ruler */
   p->vruler = gtk_vruler_new ();
-  gtk_table_attach (GTK_TABLE (table), p->vruler, 0, 1, 1, 2, 0, GTK_FILL, 0, 0);
+  gtk_table_attach(GTK_TABLE(table), p->vruler, 0, 1, 1, 2, 0, GTK_FILL, 0, 0);
 
   /* the preview area */
 
-  p->window = gtk_preview_new (GTK_PREVIEW_COLOR);
-  gtk_preview_set_expand (GTK_PREVIEW (p->window), TRUE);
-  gtk_widget_set_events (p->window,
-			 GDK_EXPOSURE_MASK |
-			 GDK_POINTER_MOTION_MASK |
-			 GDK_POINTER_MOTION_HINT_MASK |
-			 GDK_BUTTON_PRESS_MASK |
-			 GDK_BUTTON_RELEASE_MASK);
-  gtk_signal_connect (GTK_OBJECT (p->window), "event", (GtkSignalFunc) event_handler, p);
-  gtk_signal_connect_after (GTK_OBJECT (p->window), "expose_event", (GtkSignalFunc) expose_handler, p);
-  gtk_signal_connect_after (GTK_OBJECT (p->window), "size_allocate", (GtkSignalFunc) preview_area_resize, 0);
-  gtk_object_set_data (GTK_OBJECT (p->window), "PreviewPointer", p);
+  p->window = gtk_preview_new(GTK_PREVIEW_COLOR);
+  gtk_preview_set_expand(GTK_PREVIEW (p->window), TRUE);
+  gtk_widget_set_events(p->window,
+			GDK_EXPOSURE_MASK | GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK |
+			GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK);
+  gtk_signal_connect(GTK_OBJECT(p->window), "event", (GtkSignalFunc) event_handler, p);
+  gtk_signal_connect_after(GTK_OBJECT(p->window), "expose_event", (GtkSignalFunc) expose_handler, p);
+  gtk_signal_connect_after(GTK_OBJECT(p->window), "size_allocate", (GtkSignalFunc) preview_area_resize, 0);
+  gtk_object_set_data(GTK_OBJECT(p->window), "PreviewPointer", p);
 
   /* Connect the motion-notify events of the preview area with the rulers.  Nifty stuff!  */
 
-  class = GTK_WIDGET_CLASS (GTK_OBJECT (p->hruler)->klass);
+  class = GTK_WIDGET_CLASS(GTK_OBJECT(p->hruler)->klass);
   signal_func = (GtkSignalFunc) class->motion_notify_event;
-  gtk_signal_connect_object (GTK_OBJECT (p->window), "motion_notify_event", signal_func, GTK_OBJECT (p->hruler));
+  gtk_signal_connect_object(GTK_OBJECT(p->window), "motion_notify_event", signal_func, GTK_OBJECT (p->hruler));
 
-  class = GTK_WIDGET_CLASS (GTK_OBJECT (p->vruler)->klass);
+  class = GTK_WIDGET_CLASS(GTK_OBJECT(p->vruler)->klass);
   signal_func = (GtkSignalFunc) class->motion_notify_event;
-  gtk_signal_connect_object (GTK_OBJECT (p->window), "motion_notify_event", signal_func, GTK_OBJECT (p->vruler));
+  gtk_signal_connect_object(GTK_OBJECT(p->window), "motion_notify_event", signal_func, GTK_OBJECT (p->vruler));
 
-  p->viewport = gtk_frame_new (/* label */ 0);
-  gtk_frame_set_shadow_type (GTK_FRAME (p->viewport), GTK_SHADOW_IN);
-  gtk_container_add (GTK_CONTAINER (p->viewport), p->window);
+  p->viewport = gtk_frame_new(/* label */ 0);
+  gtk_frame_set_shadow_type(GTK_FRAME (p->viewport), GTK_SHADOW_IN);
+  gtk_container_add(GTK_CONTAINER (p->viewport), p->window);
 
-  gtk_table_attach (GTK_TABLE (table), p->viewport, 1, 2, 1, 2,
-		    GTK_FILL | GTK_EXPAND | GTK_SHRINK,
-		    GTK_FILL | GTK_EXPAND | GTK_SHRINK, 0, 0);
+  gtk_table_attach(GTK_TABLE (table), p->viewport, 1, 2, 1, 2,
+		   GTK_FILL | GTK_EXPAND | GTK_SHRINK,
+		   GTK_FILL | GTK_EXPAND | GTK_SHRINK, 0, 0);
 
-  preview_update (p);
+  preview_update(p);
 
   /* fill in action area: */
 
   /* Start button */
-  button = gtk_button_new_with_label ("Acquire Preview");
-  gtk_signal_connect (GTK_OBJECT (button), "clicked", (GtkSignalFunc) start_button_clicked, p);
-  gtk_box_pack_start (GTK_BOX (hbox), button, TRUE, TRUE, 0);
-  gtk_widget_show (button);
+  button = gtk_button_new_with_label("Acquire Preview");
+  gtk_signal_connect(GTK_OBJECT (button), "clicked", (GtkSignalFunc) start_button_clicked, p);
+  gtk_box_pack_start(GTK_BOX (hbox), button, TRUE, TRUE, 0);
+  gtk_widget_show(button);
 
   /* Cancel button */
-  p->cancel = gtk_button_new_with_label ("Cancel Preview");
-  gtk_signal_connect (GTK_OBJECT (p->cancel), "clicked", (GtkSignalFunc) cancel_button_clicked, p);
-  gtk_box_pack_start (GTK_BOX (hbox), p->cancel, TRUE, TRUE, 0);
-  gtk_widget_set_sensitive (p->cancel, FALSE);
+  p->cancel = gtk_button_new_with_label("Cancel Preview");
+  gtk_signal_connect(GTK_OBJECT (p->cancel), "clicked", (GtkSignalFunc) cancel_button_clicked, p);
+  gtk_box_pack_start(GTK_BOX (hbox), p->cancel, TRUE, TRUE, 0);
+  gtk_widget_set_sensitive(p->cancel, FALSE);
 
-  gtk_widget_show (p->cancel);
-  gtk_widget_show (p->viewport);
-  gtk_widget_show (p->window);
-  gtk_widget_show (p->hruler);
-  gtk_widget_show (p->vruler);
-  gtk_widget_show (frame);
-  gtk_widget_show (table);
-  gtk_widget_show (p->top);
+  gtk_widget_show(p->cancel);
+  gtk_widget_show(p->viewport);
+  gtk_widget_show(p->window);
+  gtk_widget_show(p->hruler);
+  gtk_widget_show(p->vruler);
+  gtk_widget_show(frame);
+  gtk_widget_show(table);
+  gtk_widget_show(p->top);
 
-  gtk_widget_pop_colormap ();
+  gtk_widget_pop_colormap();
 #ifndef XSERVER_WITH_BUGGY_VISUALS
-  gtk_widget_pop_visual ();
+  gtk_widget_pop_visual();
 #endif
   return p;
 }
@@ -1391,105 +1457,129 @@ Preview *preview_new(GSGDialog *dialog)
 
 void preview_update(Preview *p)
 {
-  float val, width, height, max_width, max_height;
-  const SANE_Option_Descriptor *opt;
-  int i, surface_changed;
-  SANE_Value_Type type;
-  SANE_Unit unit;
-  float min, max;
+ float val, width, height, max_width, max_height;
+ const SANE_Option_Descriptor *opt;
+ int i, surface_changed;
+ SANE_Value_Type type;
+ SANE_Unit unit;
+ float min, max;
 
   surface_changed = 0;
   unit = SANE_UNIT_PIXEL;
   type = SANE_TYPE_INT;
   for (i = 0; i < 4; ++i)
-    {
-      val = (i & 2) ? INF : -INF;
-      if (p->dialog->well_known.coord[i] > 0)
-	{
-	  opt = sane_get_option_descriptor (p->dialog->dev, p->dialog->well_known.coord[i]);
-	  assert (opt->unit == SANE_UNIT_PIXEL || opt->unit == SANE_UNIT_MM);
-	  unit = opt->unit;
-	  type = opt->type;
+  {
+    val = (i & 2) ? INF : -INF;
 
-	  get_bounds (opt, &min, &max);
-	  if (i & 2)
-	    val = max;
-	  else
-	    val = min;
-	}
-      if (p->surface[i] != val)
-	{
-	  surface_changed = 1;
-	  p->surface[i] = val;
-	}
+    if (p->dialog->well_known.coord[i] > 0)
+    {
+      opt = sane_get_option_descriptor(p->dialog->dev, p->dialog->well_known.coord[i]);
+      assert(opt->unit == SANE_UNIT_PIXEL || opt->unit == SANE_UNIT_MM);
+      unit = opt->unit;
+      type = opt->type;
+
+      get_bounds (opt, &min, &max);
+
+      if (i & 2)
+      {
+        val = max;
+      }
+      else
+      {
+        val = min;
+      }
     }
+    if (p->surface[i] != val)
+    {
+       surface_changed = 1;
+       p->surface[i] = val;
+    }
+  }
+
   if (p->surface_unit != unit)
-    {
-      surface_changed = 1;
-      p->surface_unit = unit;
-    }
+  {
+    surface_changed = 1;
+    p->surface_unit = unit;
+  }
+
   if (p->surface_type != type)
-    {
-      surface_changed = 1;
-      p->surface_type = type;
-    }
+  {
+    surface_changed = 1;
+    p->surface_type = type;
+  }
+
   if (surface_changed && p->image_data)
+  {
+    free (p->image_data);
+    if (p->image_data_raw)
     {
-      free (p->image_data);
-      if (p->image_data_raw)
-	free (p->image_data_raw);
-      p->image_data = 0;
-      p->image_width = 0;
-      p->image_height = 0;
+      free (p->image_data_raw);
     }
+    p->image_data = 0;
+    p->image_width = 0;
+    p->image_height = 0;
+  }
 
   /* guess the initial preview window size: */
 
   width  = p->surface[GSG_BR_X] - p->surface[GSG_TL_X];
   height = p->surface[GSG_BR_Y] - p->surface[GSG_TL_Y];
-  if (p->surface_type == SANE_TYPE_INT)
-    {
-      width  += 1.0;
-      height += 1.0;
-    }
-  else
-    {
-      width  += SANE_UNFIX (1.0);
-      height += SANE_UNFIX (1.0);
-    }
 
-  assert (width > 0.0 && height > 0.0);
+  if (p->surface_type == SANE_TYPE_INT)
+  {
+    width  += 1.0;
+    height += 1.0;
+  }
+  else
+  {
+    width  += SANE_UNFIX (1.0);
+    height += SANE_UNFIX (1.0);
+  }
+
+  assert(width > 0.0 && height > 0.0);
 
   if (width >= INF || height >= INF)
+  {
     p->aspect = 1.0;
+  }
   else
+  {
     p->aspect = width/height;
+  }
 
   max_width  = 0.5*gdk_screen_width ();
   max_height = 0.5*gdk_screen_height ();
 
   if (p->surface_unit != SANE_UNIT_PIXEL)
+  {
+    width  = max_width;
+    height = max_height;
+  }
+  else
+  {
+    if (width > max_width)
     {
       width  = max_width;
+    }
+
+    if (height > max_height)
+    {
       height = max_height;
     }
-  else
-    {
-      if (width > max_width)
-	width  = max_width;
-
-      if (height > max_height)
-	height = max_height;
-    }
+  }
 
   /* re-adjust so we maintain aspect without exceeding max size: */
   if (width/height != p->aspect)
+  {
+    if (p->aspect > 1.0)
     {
-      if (p->aspect > 1.0)
-	height = width/p->aspect;
-      else
-	width  = height*p->aspect;
+      height = width/p->aspect;
     }
+    else
+    {
+      width  = height*p->aspect;
+    }
+  }
 
   p->preview_width = width + 0.5;
   p->preview_height = height + 0.5;
@@ -1509,59 +1599,80 @@ void preview_update(Preview *p)
 
 void preview_scan(Preview *p)
 {
-  float min, max, swidth, sheight, width, height, dpi = 0;
-  const SANE_Option_Descriptor *opt;
-  gint gwidth, gheight;
-  int i;
+ float min, max, swidth, sheight, width, height, dpi = 0;
+ const SANE_Option_Descriptor *opt;
+ gint gwidth, gheight;
+ int i;
 
-  save_option (p, p->dialog->well_known.dpi, &p->saved_dpi, &p->saved_dpi_valid);
+  save_option(p, p->dialog->well_known.dpi, &p->saved_dpi, &p->saved_dpi_valid);
   for (i = 0; i < 4; ++i)
-    save_option (p, p->dialog->well_known.coord[i], &p->saved_coord[i], p->saved_coord_valid + i);
+  {
+    save_option(p, p->dialog->well_known.coord[i], &p->saved_coord[i], p->saved_coord_valid + i);
+  }
 
   /* determine dpi, if necessary: */
 
   if (p->dialog->well_known.dpi > 0)
+  {
+    opt = sane_get_option_descriptor(p->dialog->dev, p->dialog->well_known.dpi);
+
+    gwidth  = p->preview_width;
+    gheight = p->preview_height;
+
+    height = gheight;
+/*    width  = height*p->aspect; */
+    width  = gwidth*p->aspect;
+/*    width  = gwidth; */
+
+    if (width > gwidth)
     {
-      opt = sane_get_option_descriptor (p->dialog->dev, p->dialog->well_known.dpi);
-
-      gwidth  = p->preview_width;
-      gheight = p->preview_height;
-
-      height = gheight;
-      width  = gwidth*p->aspect;
-      if (width > gwidth)
-	{
-	  width  = gwidth;
-	  height = width/p->aspect;
-	}
-
-      swidth = (p->surface[GSG_BR_X] - p->surface[GSG_TL_X]);
-      if (swidth < INF)
-	dpi = MM_PER_INCH*width/swidth;
-      else
-	{
-	  sheight = (p->surface[GSG_BR_Y] - p->surface[GSG_TL_Y]);
-	  if (sheight < INF)
-	    dpi = MM_PER_INCH*height/sheight;
-	  else
-	    dpi = 18.0;
-	}
-      get_bounds (opt, &min, &max);
-      if (dpi < min)
-	dpi = min;
-      if (dpi > max)
-	dpi = max;
-
-      set_option_float (p, p->dialog->well_known.dpi, dpi);
+      width  = gwidth;
+      height = width / p->aspect;
     }
+
+    swidth = (p->surface[GSG_BR_X] - p->surface[GSG_TL_X]);
+
+    if (swidth < INF)
+    {
+	dpi = MM_PER_INCH * width/swidth;
+    }
+    else
+    {
+      sheight = (p->surface[GSG_BR_Y] - p->surface[GSG_TL_Y]);
+      if (sheight < INF)
+      {
+        dpi = MM_PER_INCH * height/sheight;
+      }
+      else
+      {
+        dpi = 18.0;
+      }
+    }
+
+    get_bounds(opt, &min, &max);
+
+    if (dpi < min)
+    {
+      dpi = min;
+    }
+
+    if (dpi > max)
+    {
+      dpi = max;
+    }
+
+    set_option_float(p, p->dialog->well_known.dpi, dpi);
+  }
 
   /* set the scan window (necessary since backends may default to non-maximum size):  */
   for (i = 0; i < 4; ++i)
-    set_option_float (p, p->dialog->well_known.coord[i], p->surface[i]);
-  set_option_bool (p, p->dialog->well_known.preview, SANE_TRUE);
+  {
+    set_option_float(p, p->dialog->well_known.coord[i], p->surface[i]);
+  }
+  set_option_bool(p, p->dialog->well_known.preview, SANE_TRUE);
 
   /* OK, all set to go */
-  scan_start (p);
+  scan_start(p);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1572,31 +1683,49 @@ void preview_destroy (Preview *p)
   FILE *out;
 
   if (p->scanning)
-    scan_done (p);		/* don't save partial window */
-  else if (preferences.preserve_preview && p->image_data
-	   && make_preview_image_path (p, sizeof (filename), filename) >= 0)
+  {
+    scan_done(p);		/* don't save partial window */
+  }
+  else if (preferences.preserve_preview && p->image_data && make_preview_image_path (p, sizeof (filename), filename) >= 0)
+  {
+    /* save preview image */
+    out = fopen (filename, "w");
+    if (out)
     {
-      /* save preview image */
-      out = fopen (filename, "w");
-      if (out)
-	{
-	  /* always save it as a PPM image: */
-	  fprintf (out, "P6\n# surface: %g %g %g %g %u %u\n%d %d\n255\n",
+      /* always save it as a PPM image: */
+      fprintf (out, "P6\n# surface: %g %g %g %g %u %u\n%d %d\n255\n",
 		   p->surface[0], p->surface[1], p->surface[2], p->surface[3],
 		   p->surface_type, p->surface_unit,
 		   p->image_width, p->image_height);
-	  fwrite (p->image_data_raw, 3, p->image_width*p->image_height, out);
-	  fclose (out);
-	}
+      fwrite (p->image_data_raw, 3, p->image_width*p->image_height, out);
+      fclose (out);
     }
+  }
+
   if (p->image_data)
-    free (p->image_data);
+  {
+    free(p->image_data);
+  }
+
+  if (p->image_data_raw)
+  {
+    free(p->image_data_raw);
+  }
+
   if (p->preview_row)
-    free (p->preview_row);
+  {
+    free(p->preview_row);
+  }
+
   if (p->gc)
-    gdk_gc_destroy (p->gc);
+  {
+    gdk_gc_destroy(p->gc);
+  }
+
   if (p->top)
-    gtk_widget_destroy (p->top);
-  free (p);
+  {
+    gtk_widget_destroy(p->top);
+  }
+  free(p);
 }
 

@@ -1,0 +1,11 @@
+umax		ok
+umax via net	ok
+pnm		ok
+pnm via net	not ok
+hp		ok
+hp via net	ok, but some crashes when rgb default is unswitched
+microtek2	ok
+
+
+
+linux, unixware

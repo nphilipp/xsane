@@ -105,8 +105,7 @@ int gsg_make_path (size_t buf_size, char *buf,
   pw = getpwuid (getuid ());
   if (!pw)
     {
-      snprintf (buf, buf_size, "Failed to determine home directory: %s.",
-		strerror (errno));
+      snprintf (buf, buf_size, "Failed to determine home directory: %s.", strerror (errno));
       gsg_error (buf);
       return -1;
     }
