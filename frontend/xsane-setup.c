@@ -606,24 +606,32 @@ void xsane_setup_dialog(GtkWidget *widget, gpointer data)
   int number;
  } tiff_compression;
 
- tiff_compression tiff_compression_strings[] =
- {
-	{ MENU_ITEM_TIFF_COMP_NONE,	COMPRESSION_NONE},
-	{ MENU_ITEM_TIFF_COMP_JPEG,	COMPRESSION_JPEG},
-	{ MENU_ITEM_TIFF_COMP_PACKBITS,	COMPRESSION_PACKBITS}
 #define TIFF_COMPRESSION_NUMBER 3
- };
-
- tiff_compression tiff_compression1_strings[] =
- {
-	{ MENU_ITEM_TIFF_COMP_NONE,	COMPRESSION_NONE},
-	{ MENU_ITEM_TIFF_COMP_CCITTRLE,	COMPRESSION_CCITTRLE},
-	{ MENU_ITEM_TIFF_COMP_CCITFAX3,	COMPRESSION_CCITTFAX3},
-	{ MENU_ITEM_TIFF_COMP_CCITFAX4,	COMPRESSION_CCITTFAX4},
-	{ MENU_ITEM_TIFF_COMP_JPEG,	COMPRESSION_JPEG},
-	{ MENU_ITEM_TIFF_COMP_PACKBITS,	COMPRESSION_PACKBITS}
 #define TIFF_COMPRESSION1_NUMBER 6
- };
+
+ tiff_compression tiff_compression_strings[TIFF_COMPRESSION_NUMBER];
+ tiff_compression tiff_compression1_strings[TIFF_COMPRESSION1_NUMBER];
+ 
+ tiff_compression_strings[0].name   = MENU_ITEM_TIFF_COMP_NONE;
+ tiff_compression_strings[0].number = COMPRESSION_NONE;
+ tiff_compression_strings[1].name   = MENU_ITEM_TIFF_COMP_JPEG;
+ tiff_compression_strings[1].number = COMPRESSION_JPEG;
+ tiff_compression_strings[2].name   = MENU_ITEM_TIFF_COMP_PACKBITS;
+ tiff_compression_strings[2].number = COMPRESSION_PACKBITS;
+
+ tiff_compression1_strings[0].name   = MENU_ITEM_TIFF_COMP_NONE;
+ tiff_compression1_strings[0].number = COMPRESSION_NONE;
+ tiff_compression1_strings[1].name   = MENU_ITEM_TIFF_COMP_CCITTRLE;
+ tiff_compression1_strings[1].number = COMPRESSION_CCITTRLE;
+ tiff_compression1_strings[2].name   = MENU_ITEM_TIFF_COMP_CCITFAX3;
+ tiff_compression1_strings[2].number = COMPRESSION_CCITTFAX3;
+ tiff_compression1_strings[3].name   = MENU_ITEM_TIFF_COMP_CCITFAX4;
+ tiff_compression1_strings[3].number = COMPRESSION_CCITTFAX4;
+ tiff_compression1_strings[4].name   = MENU_ITEM_TIFF_COMP_JPEG;
+ tiff_compression1_strings[4].number = COMPRESSION_JPEG;
+ tiff_compression1_strings[5].name   = MENU_ITEM_TIFF_COMP_PACKBITS;
+ tiff_compression1_strings[5].number = COMPRESSION_PACKBITS;
+
 #endif /* HAVE_LIBTIFF */
 
   xsane_set_sensitivity(FALSE);

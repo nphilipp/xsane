@@ -102,10 +102,13 @@ typedef struct
     double xsane_contrast_red;
     double xsane_contrast_green;
     double xsane_contrast_blue;
+
     int xsane_rgb_default;
     int xsane_negative;
     GtkUpdateType gtk_update_policy;
-    int printernr;
+
+    int psrotate; /* rotate by 90 degree in postscript mode - landscape */
+    int printernr; /* number of printers */
     int printerdefinitions;
     Preferences_printer_t *printer[10];
   }

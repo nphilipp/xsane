@@ -195,8 +195,8 @@ static void preview_order_selection(Preview *p)
 {
  float tmp_coordinate;
 
-  p->selection.active = (p->selection.coordinate[0] != p->selection.coordinate[2] ||
-                         p->selection.coordinate[1] != p->selection.coordinate[3]);
+  p->selection.active = ( (p->selection.coordinate[0] != p->selection.coordinate[2]) &&
+                          (p->selection.coordinate[1] != p->selection.coordinate[3]) );
 
 
   if (p->selection.active)
@@ -226,8 +226,8 @@ static void preview_order_selection(Preview *p)
 static void preview_bound_selection(Preview *p)
 {
 
-  p->selection.active = (p->selection.coordinate[0] != p->selection.coordinate[2] ||
-                         p->selection.coordinate[1] != p->selection.coordinate[3]);
+  p->selection.active = ( (p->selection.coordinate[0] != p->selection.coordinate[2]) &&
+                          (p->selection.coordinate[1] != p->selection.coordinate[3]) );
 
 
   if (p->selection.active)
@@ -301,6 +301,11 @@ static void preview_draw_selection(Preview *p)
     return;
   }
 
+  while (gtk_events_pending()) /* make sure all drawing actions are finished */
+  {
+    gtk_main_iteration();
+  }
+
   if (p->previous_selection.active)
   {
     preview_draw_rect(p, p->window->window, p->gc_selection, p->previous_selection.coordinate);
@@ -318,7 +323,6 @@ static void preview_draw_selection(Preview *p)
   {
     return;
   }
-
 
   if (p->previous_selection_maximum.active)
   {
@@ -392,7 +396,10 @@ static void preview_update_selection(Preview *p)
       p->selection.coordinate[i + 2] = p->selection.coordinate[i];
     }
   }
-  p->selection.active = TRUE;
+
+  p->selection.active = ( (p->selection.coordinate[0] != p->selection.coordinate[2]) &&
+                          (p->selection.coordinate[1] != p->selection.coordinate[3]) );
+
   preview_draw_selection(p);
 }
 
@@ -655,6 +662,7 @@ static void preview_display_maybe(Preview *p)
 
 static void preview_display_image(Preview *p)
 {
+  /* if image height was unknown and got larger than expected get missing memory */
   if (p->params.lines <= 0 && p->image_y < p->image_height)
   {
     p->image_height   = p->image_y;
@@ -664,9 +672,9 @@ static void preview_display_image(Preview *p)
     assert(p->image_data_enh);
   }
 
-  memcpy(p->image_data_raw, p->image_data_enh, 3*p->image_width * p->image_height);
+  memcpy(p->image_data_raw, p->image_data_enh, 3 * p->image_width * p->image_height);
+
   preview_do_gamma_correction(p);
-  preview_scan_done(p);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -814,6 +822,8 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
         {
           preview_display_image(p); /* display preview image */
           preview_save_image(p);    /* save preview image */
+          preview_scan_done(p);     /* scan is done */
+          return; /* ok, all finished */
         }
         else
         {
@@ -1011,6 +1021,65 @@ static void preview_scan_done(Preview *p)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static int preview_get_memory(Preview *p)
+{
+ char buf[256];
+
+  if (p->image_data_enh)
+  {
+    free(p->image_data_enh);
+    p->image_data_enh = 0;
+  }
+
+  if (p->image_data_raw)
+  {
+    free(p->image_data_raw);
+    p->image_data_raw = 0;
+  }
+
+  if (p->preview_row)
+  {
+    free(p->preview_row);
+    p->preview_row = 0;
+  }
+
+  p->image_data_enh = malloc(3 * p->image_width * (p->image_height));
+  p->image_data_raw = malloc(3 * p->image_width * (p->image_height));
+  p->preview_row    = malloc(3 * p->preview_window_width);
+
+  if ( (!p->image_data_raw) || (!p->image_data_enh) || (!p->preview_row) )
+  {
+    if (p->image_data_enh)
+    {
+      free(p->image_data_enh);
+      p->image_data_enh = 0;
+    }
+
+    if (p->image_data_raw)
+    {
+      free(p->image_data_raw);
+      p->image_data_raw = 0;
+    }
+
+    if (p->preview_row)
+    {
+      free(p->preview_row);
+      p->preview_row = 0;
+    }
+
+    snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_ALLOCATE_IMAGE, strerror(errno));
+    xsane_back_gtk_error(buf, TRUE);
+
+    return -1; /* error */
+  }
+
+  memset(p->image_data_enh, 0xff, 3*p->image_width*p->image_height); /* clean memory */
+
+  return 0; /* ok */
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void preview_scan_start(Preview *p)
 {
  SANE_Handle dev = p->dialog->dev;
@@ -1136,19 +1205,6 @@ static void preview_scan_start(Preview *p)
   if ( (!p->image_data_enh)  || (p->params.pixels_per_line != p->image_width)
       || ( (p->params.lines >= 0) && (p->params.lines != p->image_height) ) )
   {
-    /* image size changed */
-    if (p->image_data_enh)
-    {
-      free(p->image_data_enh);
-      p->image_data_enh = 0;
-    }
-
-    if (p->image_data_raw)
-    {
-      free(p->image_data_raw);
-      p->image_data_raw = 0;
-    }
-
     p->image_width  = p->params.pixels_per_line;
     p->image_height = p->params.lines;
 
@@ -1157,29 +1213,11 @@ static void preview_scan_start(Preview *p)
       p->image_height = 32;	/* may have to adjust as we go... */
     }
 
-    p->image_data_enh = malloc(3 * p->image_width * p->image_height);
-    p->image_data_raw = malloc(3 * p->image_width * p->image_height);
-
-    if ( (!p->image_data_raw) || (!p->image_data_enh) )
+    if (preview_get_memory(p))
     {
-      if (p->image_data_enh)
-      {
-        free(p->image_data_enh);
-        p->image_data_enh = 0;
-      }
-
-      if (p->image_data_raw)
-      {
-        free(p->image_data_raw);
-        p->image_data_raw = 0;
-      }
-
-      snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_ALLOCATE_IMAGE, strerror(errno));
-      xsane_back_gtk_error(buf, TRUE);
-      preview_scan_done(p);
+      preview_scan_done(p); /* error */
       return;
     }
-    memset(p->image_data_enh, 0xff, 3*p->image_width*p->image_height);
   }
 
 /* XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */
@@ -1261,43 +1299,13 @@ static int preview_restore_image_from_file(Preview *p, FILE *in, int min_quality
     return min_quality;
   }
 
-  if (p->image_data_enh)
-  {
-    free(p->image_data_enh);
-    p->image_data_enh = 0;
-  }
-
-  if (p->image_data_raw)
-  {
-    free(p->image_data_raw);
-    p->image_data_raw = 0;
-  }
-
   p->params.depth   = 8;
   p->image_width    = width;
   p->image_height   = height;
-  p->image_data_enh = malloc(3 * p->image_width * p->image_height);
-  p->image_data_raw = malloc(3 * p->image_width * p->image_height);
 
-  if ( (!p->image_data_raw) || (!p->image_data_enh) )
+  if (preview_get_memory(p))
   {
-   char buf[255];
-
-    if (p->image_data_enh)
-    {
-      free(p->image_data_enh);
-      p->image_data_enh = 0;
-    }
-
-    if (p->image_data_raw)
-    {
-      free(p->image_data_raw);
-      p->image_data_raw = 0;
-    }
-
-    snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_ALLOCATE_IMAGE, strerror(errno));
-    xsane_back_gtk_error(buf, TRUE);
-    return min_quality;
+    return min_quality; /* error allocating memory */
   }
 
   fseek(in, yoffset * 3 * image_width, SEEK_CUR); /* skip unused lines */
@@ -1351,8 +1359,10 @@ static void preview_restore_image(Preview *p)
   }
   memcpy(p->image_data_raw, p->image_data_enh, 3 * p->image_width * p->image_height);
 
+/* the following commands may be removed because they are done because a event is emmited */
   preview_do_gamma_correction(p);
   xsane_update_histogram();
+  preview_draw_selection(p);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1360,13 +1370,13 @@ static void preview_restore_image(Preview *p)
 /* This is executed _after_ the gtkpreview's expose routine.  */
 static gint preview_expose_handler(GtkWidget *window, GdkEvent *event, gpointer data)
 {
-  Preview *p = data;
+ Preview *p = data;
 
-  p->selection_maximum.active = FALSE;
-  preview_update_maximum_output_size(p);
-
-  p->selection.active = FALSE;
-  preview_update_selection(p);
+  p->previous_selection.active = FALSE; /* ok, old selections are overpainted */
+  p->previous_selection_maximum.active = FALSE;
+  p->selection.active = TRUE; /* ok, old selections are overpainted */
+  p->selection_maximum.active = TRUE;
+  preview_draw_selection(p); /* draw selections again */
 
   return FALSE;
 }
@@ -1416,9 +1426,14 @@ static gint preview_event_handler(GtkWidget *window, GdkEvent *event, gpointer d
     }
     else
     {
-      p->selection.active = FALSE;
-      p->selection_maximum.active = FALSE;
-      preview_draw_selection(p);
+      while (gtk_events_pending()) /* make sure image is updated */
+      {
+        gtk_main_iteration();
+      }
+
+      p->previous_selection.active = FALSE; /* ok, old selections are overpainted */
+      p->previous_selection_maximum.active = FALSE;
+      preview_draw_selection(p); /* draw selections again */
     }
   }
   else if (!p->scanning)
@@ -2103,12 +2118,6 @@ Preview *preview_new(GSGDialog *dialog)
   gtk_widget_show(preset_area_option_menu);
   p->preset_area_option_menu = preset_area_option_menu;
 
-#if 0 
-  p->zoom_view = gtk_preview_new(GTK_PREVIEW_COLOR);
-  gtk_box_pack_end(GTK_BOX(p->button_box), p->zoom_view, FALSE, FALSE, 0);
-  gtk_widget_show(p->zoom_view);
-#endif
-
   gtk_widget_show(p->button_box);
 
 
@@ -2242,7 +2251,7 @@ void preview_update_surface(Preview *p, int surface_changed)
   unit = SANE_UNIT_PIXEL;
   type = SANE_TYPE_INT;
 
-  for (i = 0; i < 4; ++i)
+  for (i = 0; i < 4; ++i) /* test if surface (max vals of scanarea) has changed */
   {
 /*    val = (i & 2) ? INF : -INF; */
     val = (i & 2) ? INF : 0;
@@ -2347,20 +2356,6 @@ void preview_update_surface(Preview *p, int surface_changed)
 
   if (surface_changed)
   {
-    if (p->image_data_enh)
-    {
-      free(p->image_data_enh);
-      p->image_data_enh = 0;
-    }
-
-    if (p->image_data_raw)
-    {
-      free(p->image_data_raw);
-      p->image_data_raw = 0;
-    }
-    p->image_width  = 0;
-    p->image_height = 0;
-
     /* guess the initial preview window size: */
 
     width  = p->surface[xsane_back_gtk_BR_X] - p->surface[xsane_back_gtk_TL_X];
@@ -2406,7 +2401,8 @@ void preview_update_surface(Preview *p, int surface_changed)
     gtk_widget_set_usize(GTK_WIDGET(p->window), p->preview_width, p->preview_height);
     /* preview_area_resize is automatically called by signal handler */
 
-    preview_restore_image(p);
+    preview_bound_selection(p); /* make sure selection is not larger than surface */
+    preview_restore_image(p); /* draw selected surface of the image */
   }
   else
   {
@@ -2656,9 +2652,6 @@ static void preview_zoom_not(GtkWidget *window, gpointer data)
   {
     gtk_main_iteration();
   }
-#if 0
-  preview_scan(p);
-#endif
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -2708,10 +2701,6 @@ static void preview_zoom_out(GtkWidget *window, gpointer data)
   {
     gtk_main_iteration();
   }
-
-#if 0
-  preview_scan(p);
-#endif
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -2758,10 +2747,6 @@ static void preview_zoom_in(GtkWidget *window, gpointer data)
   {
     gtk_main_iteration();
   }
-
-#if 0
-  preview_scan(p);
-#endif
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -2785,10 +2770,6 @@ static void preview_zoom_undo(GtkWidget *window, gpointer data)
   {
     gtk_main_iteration();
   }
-
-#if 0
-  preview_scan(p);
-#endif
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -2944,8 +2925,8 @@ static void preview_preset_area_callback(GtkWidget *widget, gpointer call_data)
 
   selection = (int) gtk_object_get_data(GTK_OBJECT(widget), "Selection");
 
-   p->preset_width  = preset_area[selection].width;
-   p->preset_height = preset_area[selection].height;
+  p->preset_width  = preset_area[selection].width;
+  p->preset_height = preset_area[selection].height;
 
   preview_update_surface(p, 0);
 }
@@ -2957,18 +2938,22 @@ void preview_do_gamma_correction(Preview *p)
  int x,y;
  int offset;
 
-  if ((p->image_data_raw) && (p->params.depth > 1) && (preview_gamma_data_red))
+  if (p->image_data_raw)
   {
-    for (y=0; y < p->image_height; y++)
+    if ((p->image_data_raw) && (p->params.depth > 1) && (preview_gamma_data_red))
     {
-      for (x=0; x < p->image_width; x++)
+      for (y=0; y < p->image_height; y++)
       {
-        offset = 3 * (y * p->image_width + x);
-        p->image_data_enh[offset    ] = preview_gamma_data_red  [p->image_data_raw[offset    ]];
-        p->image_data_enh[offset + 1] = preview_gamma_data_green[p->image_data_raw[offset + 1]];
-        p->image_data_enh[offset + 2] = preview_gamma_data_blue [p->image_data_raw[offset + 2]];
+        for (x=0; x < p->image_width; x++)
+        {
+          offset = 3 * (y * p->image_width + x);
+          p->image_data_enh[offset    ] = preview_gamma_data_red  [p->image_data_raw[offset    ]];
+          p->image_data_enh[offset + 1] = preview_gamma_data_green[p->image_data_raw[offset + 1]];
+          p->image_data_enh[offset + 2] = preview_gamma_data_blue [p->image_data_raw[offset + 2]];
+        }
       }
     }
+
     preview_display_partial_image(p);
 	
     p->previous_selection.active = FALSE; /* previous selection is not drawn */
@@ -3121,7 +3106,7 @@ void preview_area_resize(GtkWidget *widget)
 
   preview_area_correct(p); /* set preview dimensions (with right aspect) that they fit into the window */
 
-  if (p->preview_row)
+  if (p->preview_row) /* make sure preview_row is large enough for one line of the new size */
   {
     p->preview_row = realloc(p->preview_row, 3 * p->preview_window_width);
   }

@@ -39,7 +39,8 @@ void xsane_save_ps(FILE *outfile, FILE *imagefile,
                    int color, int bits,
                    int pixel_width, int pixel_height,
                    int left, int bottom,
-                   float width, float height);
+                   float width, float height,
+                   int paperwidth, int paperheight, int landscape);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 

@@ -32,7 +32,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION	"0.49"
+#define XSANE_VERSION	"0.50"
 #define XSANE_AUTHOR	"Oliver Rauch"
 #define XSANE_COPYRIGHT	"Oliver Rauch"
 #define XSANE_DATE	"1998-2000"

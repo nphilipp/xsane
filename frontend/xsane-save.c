@@ -210,37 +210,83 @@ void xsane_increase_counter_in_filename(char *filename, int skip)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_save_ps_bw(FILE *outfile, FILE *imagefile,
-                            int pixel_width, int pixel_height,
-                            int left, int bottom,
-                            float width, float height)
+static void xsane_save_ps_create_header(FILE *outfile, int color, int bits, int pixel_width, int pixel_height,
+                                        int left, int bottom, float width, float height,
+                                        int paperwidth, int paperheight, int rotate)
+{
+ int degree, position_left, position_bottom, box_left, box_bottom, box_right, box_top;
+
+  if (rotate) /* roatet with 90 degrees - eg for landscape mode */
+  {
+    degree = 90;
+    position_left   = left;
+    position_bottom = bottom - paperwidth;
+    box_left        = paperwidth - bottom - height * 72.0;
+    box_bottom      = left;
+    box_right       = (int) (box_left   + height * 72.0);
+    box_top         = (int) (box_bottom + width  * 72.0);
+  }
+  else /* do not rotate, eg for portrait mode */
+  {
+    degree = 0;
+    position_left   = left;
+    position_bottom = bottom;
+    box_left        = left;
+    box_bottom      = bottom;
+    box_right       = (int) (box_left   + width  * 72.0);
+    box_top         = (int) (box_bottom + height * 72.0);
+  }
+
+  fprintf(outfile, "%%!PS-Adobe-2.0 EPSF-2.0\n");
+  fprintf(outfile, "%%%%Creator: xsane version %s (sane %d.%d)\n", VERSION,
+                                                                   SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
+                                                                   SANE_VERSION_MINOR(xsane.sane_backend_versioncode));
+  fprintf(outfile, "%%%%BoundingBox: %d %d %d %d\n", box_left, box_bottom, box_right, box_top);
+  fprintf(outfile, "%%\n");
+  fprintf(outfile, "/origstate save def\n");
+  fprintf(outfile, "20 dict begin\n");
+
+  if (bits == 1)
+  {
+    fprintf(outfile, "/pix %d string def\n", (pixel_width+7)/8);
+    fprintf(outfile, "/grays %d string def\n", pixel_width);
+    fprintf(outfile, "/npixels 0 def\n");
+    fprintf(outfile, "/rgbindx 0 def\n");
+  }
+  else
+  {
+    fprintf(outfile, "/pix %d string def\n", pixel_width);
+  }
+
+
+  fprintf(outfile, "%d rotate\n", degree);
+  fprintf(outfile, "%d %d translate\n", position_left, position_bottom);
+  fprintf(outfile, "%f %f scale\n", width * 72.0, height * 72.0);
+  fprintf(outfile, "%d %d %d\n", pixel_width, pixel_height, bits);
+  fprintf(outfile, "[%d %d %d %d %d %d]\n", pixel_width, 0, 0, -pixel_height, 0 , pixel_height);
+  fprintf(outfile, "{currentfile pix readhexstring pop}\n");
+
+  if (color)
+  {
+    fprintf(outfile, "false 3 colorimage\n");
+    fprintf(outfile, "\n");
+  }
+  else
+  {
+    fprintf(outfile, "image\n");
+    fprintf(outfile, "\n");
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_save_ps_bw(FILE *outfile, FILE *imagefile, int pixel_width, int pixel_height)
 {
  int x, y, count;
  int bytes_per_line = (pixel_width+7)/8;
 
   cancel_save = 0;
 
-  fprintf(outfile, "%%!PS-Adobe-2.0 EPSF-2.0\n");
-  fprintf(outfile, "%%%%Creator: xsane version %s (sane %d.%d)\n", VERSION,
-                                                                   SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
-                                                                   SANE_VERSION_MINOR(xsane.sane_backend_versioncode));
-  fprintf(outfile, "%%%%BoundingBox: %d %d %d %d\n",
-          left, bottom,(int) (left + width * 72.0),(int) (bottom + height * 72.0));
-  fprintf(outfile, "%%\n");
-  fprintf(outfile, "/origstate save def\n");
-  fprintf(outfile, "20 dict begin\n");
-  fprintf(outfile, "/pix %d string def\n", (pixel_width+7)/8);
-  fprintf(outfile, "/grays %d string def\n", pixel_width);
-  fprintf(outfile, "/npixels 0 def\n");
-  fprintf(outfile, "/rgbindx 0 def\n");
-  fprintf(outfile, "%d %d translate\n", left, bottom);
-  fprintf(outfile, "%f %f scale\n", width * 72.0, height * 72.0);
-  fprintf(outfile, "%d %d 1\n", pixel_width, pixel_height);
-  fprintf(outfile, "[%d %d %d %d %d %d]\n",pixel_width, 0, 0, -pixel_height, 0 , pixel_height);
-  fprintf(outfile, "{currentfile pix readhexstring pop}\n");
-  fprintf(outfile, "image\n");
-  fprintf(outfile, "\n");
- 
   count = 0;
   for (y = 0; y < pixel_height; y++)
   {
@@ -265,44 +311,16 @@ static void xsane_save_ps_bw(FILE *outfile, FILE *imagefile,
       break;
     }
   }
-  fprintf(outfile, "\n");
-  fprintf(outfile, "showpage\n");
-  fprintf(outfile, "end\n");
-  fprintf(outfile, "origstate restore\n");
-  fprintf(outfile, "\n");
-
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_save_ps_gray(FILE *outfile, FILE *imagefile,
-                               int bits,
-                               int pixel_width, int pixel_height,
-                               int left, int bottom,
-                               float width, float height)
+static void xsane_save_ps_gray(FILE *outfile, FILE *imagefile, int pixel_width, int pixel_height)
 {
  int x, y, count;
 
   cancel_save = 0;
 
-  fprintf(outfile, "%%!PS-Adobe-2.0 EPSF-2.0\n");
-  fprintf(outfile, "%%%%Creator: xsane version %s (sane %d.%d)\n", VERSION,
-                                                                   SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
-                                                                   SANE_VERSION_MINOR(xsane.sane_backend_versioncode));
-  fprintf(outfile, "%%%%BoundingBox: %d %d %d %d\n",
-          left, bottom,(int) (left + width * 72.0),(int) (bottom + height * 72.0));
-  fprintf(outfile, "%%\n");
-  fprintf(outfile, "/origstate save def\n");
-  fprintf(outfile, "20 dict begin\n");
-  fprintf(outfile, "/pix %d string def\n", pixel_width);
-  fprintf(outfile, "%d %d translate\n", left, bottom);
-  fprintf(outfile, "%f %f scale\n", width * 72.0, height * 72.0);
-  fprintf(outfile, "%d %d %d\n", pixel_width, pixel_height, bits);
-  fprintf(outfile, "[%d %d %d %d %d %d]\n",pixel_width, 0, 0, -pixel_height, 0 , pixel_height);
-  fprintf(outfile, "{currentfile pix readhexstring pop}\n");
-  fprintf(outfile, "image\n");
-  fprintf(outfile, "\n");
- 
   count = 0;
   for (y=0; y<pixel_height; y++)
   {
@@ -327,43 +345,15 @@ static void xsane_save_ps_gray(FILE *outfile, FILE *imagefile,
       break;
     }
   }
-  fprintf(outfile, "\n");
-  fprintf(outfile, "showpage\n");
-  fprintf(outfile, "end\n");
-  fprintf(outfile, "origstate restore\n");
-  fprintf(outfile, "\n");
-
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_save_ps_color(FILE *outfile, FILE *imagefile,
-                                int bits,
-                                int pixel_width, int pixel_height,
-                                int left, int bottom,
-                                float width, float height)
+static void xsane_save_ps_color(FILE *outfile, FILE *imagefile, int pixel_width, int pixel_height)
 {
  int x, y, count;
 
   cancel_save = 0;
-
-  fprintf(outfile, "%%!PS-Adobe-2.0 EPSF-2.0\n");
-  fprintf(outfile, "%%%%Creator: xsane version %s (sane %d.%d)\n", VERSION,
-                                                                   SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
-                                                                   SANE_VERSION_MINOR(xsane.sane_backend_versioncode));
-  fprintf(outfile, "%%%%BoundingBox: %d %d %d %d\n",
-          left, bottom,(int) (left + width * 72.0),(int) (bottom + height * 72.0));
-  fprintf(outfile, "%%\n");
-  fprintf(outfile, "/origstate save def\n");
-  fprintf(outfile, "20 dict begin\n");
-  fprintf(outfile, "/pix %d string def\n", pixel_width * 3);
-  fprintf(outfile, "%d %d translate\n", left, bottom);
-  fprintf(outfile, "%f %f scale\n", width * 72.0, height * 72.0);
-  fprintf(outfile, "%d %d %d\n", pixel_width, pixel_height, bits);
-  fprintf(outfile, "[%d %d %d %d %d %d]\n",pixel_width, 0, 0, -pixel_height, 0 , pixel_height);
-  fprintf(outfile, "{currentfile pix readhexstring pop}\n");
-  fprintf(outfile, "false 3 colorimage\n");
-  fprintf(outfile, "\n");
  
   count = 0;
   for (y=0; y<pixel_height; y++)
@@ -392,11 +382,6 @@ static void xsane_save_ps_color(FILE *outfile, FILE *imagefile,
       break;
     }
   }
-  fprintf(outfile, "\n");
-  fprintf(outfile, "showpage\n");
-  fprintf(outfile, "end\n");
-  fprintf(outfile, "origstate restore\n");
-  fprintf(outfile, "\n");
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -405,23 +390,33 @@ void xsane_save_ps(FILE *outfile, FILE *imagefile,
                    int color, int bits,
                    int pixel_width, int pixel_height,
                    int left, int bottom,
-                   float width, float height)
+                   float width, float height,
+                   int paperheight, int paperwidth, int rotate)
 {
+  xsane_save_ps_create_header(outfile, color, bits, pixel_width, pixel_height,
+                              left, bottom, width, height, paperheight, paperwidth, rotate);
+
   if (color == 0) /* lineart, halftone, grayscale */
   {
     if (bits == 1) /* lineart, halftone */
     {
-      xsane_save_ps_bw(outfile, imagefile, pixel_width, pixel_height, left, bottom, width, height);
+      xsane_save_ps_bw(outfile, imagefile, pixel_width, pixel_height);
     }
     else /* grayscale */
     {
-      xsane_save_ps_gray(outfile, imagefile, bits, pixel_width, pixel_height, left, bottom, width, height);
+      xsane_save_ps_gray(outfile, imagefile, pixel_width, pixel_height);
     }
   }
   else /* color */
   {
-    xsane_save_ps_color(outfile, imagefile, bits, pixel_width, pixel_height, left, bottom, width, height);
+    xsane_save_ps_color(outfile, imagefile, pixel_width, pixel_height);
   }
+
+  fprintf(outfile, "\n");
+  fprintf(outfile, "showpage\n");
+  fprintf(outfile, "end\n");
+  fprintf(outfile, "origstate restore\n");
+  fprintf(outfile, "\n");
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

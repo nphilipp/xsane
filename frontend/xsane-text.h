@@ -160,24 +160,23 @@
 #define MENU_ITEM_COPY			_("Copy")
 #define MENU_ITEM_FAX			_("Fax")
 
-#define MENU_ITEM_SETUP			_("Setup")
 #define MENU_ITEM_SHOW_TOOLTIPS		_("Show tooltips")
 #define MENU_ITEM_SHOW_PREVIEW		_("Show preview")
 #define MENU_ITEM_SHOW_HISTOGRAM	_("Show histogram")
 #define MENU_ITEM_SHOW_STANDARDOPTIONS	_("Show standard options")
 #define MENU_ITEM_SHOW_ADVANCEDOPTIONS	_("Show advanced options")
-#define MENU_ITEM_SHOW_RESOLUTIONLIST	_("Show resolution list")
 
+#define MENU_ITEM_SETUP			_("Setup")
 #define MENU_ITEM_LENGTH_UNIT		_("Length unit")
 #define SUBMENU_ITEM_LENGTH_MILLIMETERS	_("millimeters")
 #define SUBMENU_ITEM_LENGTH_CENTIMETERS	_("centimeters")
 #define SUBMENU_ITEM_LENGTH_INCHES	_("inches")
-
 #define MENU_ITEM_UPDATE_POLICY		_("Update policy")
 #define SUBMENU_ITEM_POLICY_CONTINUOUS	_("continuous")
 #define SUBMENU_ITEM_POLICY_DISCONTINU	_("discontinuous")
 #define SUBMENU_ITEM_POLICY_DELAYED	_("delayed")
-
+#define MENU_ITEM_SHOW_RESOLUTIONLIST	_("Show resolution list")
+#define MENU_ITEM_PAGE_ROTATE		_("Rotate postscript")
 #define MENU_ITEM_SAVE_DEVICE_SETTINGS	_("Save device settings")
 #define MENU_ITEM_LOAD_DEVICE_SETTINGS	_("Load device settings")
 

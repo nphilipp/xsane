@@ -1,14 +1,14 @@
 Begin3
 Title:          XSANE
-Version:        0.49
-Entered-date:   19DEC1999
+Version:        0.50
+Entered-date:   11JAN2000
 Description:    XSANE is a gtk based X11 frontend for 
 		SANE (Scanner Access Now Easy)
 Keywords:       scanner, graphical user interface, GUI
 Author:         Oliver.Rauch@Wolfsburg.DE (Oliver.Rauch)
 Maintained-by:  Oliver.Rauch@Wolfsburg.DE (Oliver.Rauch)
 Primary-site:   http://www.wolfsburg.de/~rauch/sane/sane-xsane.html
-		626kB xsane-0.49.tar.gz
+		646kB xsane-0.50.tar.gz
 Alternate-site: 
 Platforms:      AIX, Digital Unix, HP Apollo Domain/OS, FreeBSD, HP-UX, IRIX,
 		Linux (Alpha, m68k, SPARC, x86), NetBSD, OpenStep (x86),

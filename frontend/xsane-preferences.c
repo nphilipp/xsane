@@ -87,6 +87,7 @@ Preferences preferences =
        1,		/* rgb default */
        0,		/* negative */
  GTK_UPDATE_DISCONTINUOUS, /* update policy for gtk frontend sliders */
+       0,		/* psrotate: rotate in postscript mode (landscape) */
        0,		/* printernr */
        0		/* printerdefinitions */
   };
@@ -151,6 +152,7 @@ desc[] =
     {"rgb-default",			xsane_rc_pref_int,	POFFSET(xsane_rgb_default)},
     {"negative",			xsane_rc_pref_int,	POFFSET(xsane_negative)},
     {"gtk-update-policy",		xsane_rc_pref_int,	POFFSET(gtk_update_policy)},
+    {"postscript-rotate",		xsane_rc_pref_int,	POFFSET(psrotate)},
     {"printernr",			xsane_rc_pref_int,	POFFSET(printernr)},
     {"printerdefinitions",		xsane_rc_pref_int,	POFFSET(printerdefinitions)}
   };

@@ -734,10 +734,18 @@ static void xsane_show_advanced_options_callback(GtkWidget * widget)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_show_resolution_list_callback(GtkWidget * widget)
+static void xsane_show_resolution_list_callback(GtkWidget *widget)
 {
   preferences.show_resolution_list = (GTK_CHECK_MENU_ITEM(widget)->active != 0);
   xsane_refresh_dialog(0);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_page_rotate_callback(GtkWidget *widget)
+{
+  preferences.psrotate = (GTK_CHECK_MENU_ITEM(widget)->active != 0);
+  xsane_define_maximum_output_size();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -3420,6 +3428,23 @@ static GtkWidget *xsane_pref_build_menu(void)
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_widget_show(item);
 
+
+  /* page orientation */
+
+  item = gtk_check_menu_item_new_with_label(MENU_ITEM_PAGE_ROTATE);
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), preferences.psrotate);
+  gtk_menu_append(GTK_MENU(menu), item);
+  gtk_widget_show(item);
+  gtk_signal_connect(GTK_OBJECT(item), "toggled", (GtkSignalFunc) xsane_page_rotate_callback, 0);
+
+
+
+  /* insert separator: */
+
+  item = gtk_menu_item_new();
+  gtk_menu_append(GTK_MENU(menu), item);
+  gtk_widget_show(item);
+
   /* Save device setting */
 
   item = gtk_menu_item_new_with_label(MENU_ITEM_SAVE_DEVICE_SETTINGS);
@@ -4179,7 +4204,19 @@ static void xsane_device_dialog(void)
   dialog->tooltips_bg.blue  = 35979;
   gdk_color_alloc(colormap, &dialog->tooltips_bg);
 
+/* as long as gtk_tooltips_set_colors() does not work : */
+#if 1
+  gtk_tooltips_force_window(dialog->tooltips);
+  {
+   GtkStyle *current_style = gtk_style_copy(gtk_widget_get_style(dialog->tooltips->tip_window));
+
+     current_style->bg[GTK_STATE_NORMAL] = dialog->tooltips_bg;
+     current_style->fg[GTK_STATE_NORMAL] = dialog->tooltips_fg;
+     gtk_widget_set_style(dialog->tooltips->tip_window, current_style);  
+  }
+#else
   gtk_tooltips_set_colors(dialog->tooltips, &dialog->tooltips_bg, &dialog->tooltips_fg);
+#endif
   xsane_back_gtk_set_tooltips(dialog, preferences.tooltips_enabled);
 
 
@@ -4275,6 +4312,7 @@ static void xsane_device_dialog(void)
   }
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_preview_widget), xsane.show_preview);
 
+  xsane_set_all_resolutions(); /* make sure resolution, resolution_x and resolution_y are up to date */
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

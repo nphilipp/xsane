@@ -1264,16 +1264,43 @@ void xsane_scan_done(SANE_Status status)
 
                  case XSANE_PS: /* save postscript, use original size */
                  { 
-                   float imagewidth  = xsane.param.pixels_per_line/xsane.resolution_x; /* width in inch */
-                   float imageheight = xsane.param.lines/xsane.resolution_y; /* height in inch */
+                  float imagewidth  = xsane.param.pixels_per_line/xsane.resolution_x; /* width in inch */
+                  float imageheight = xsane.param.lines/xsane.resolution_y; /* height in inch */
 
-                    xsane_save_ps(outfile, infile,
-                                  xsane.xsane_color /* gray, color */,
-                                  xsane.param.depth /* bits */,
-                                  xsane.param.pixels_per_line, xsane.param.lines,
-                                  (preferences.printer[preferences.printernr]->leftoffset  + preferences.printer[preferences.printernr]->width/2)*72.0/MM_PER_INCH - imagewidth*36,
-                                  (preferences.printer[preferences.printernr]->bottomoffset + preferences.printer[preferences.printernr]->height/2)*72.0/MM_PER_INCH - imageheight*36,
-                                  imagewidth, imageheight);
+                   if (preferences.psrotate) /* rotate: landscape */
+                   {
+                     xsane_save_ps(outfile, infile,
+                                   xsane.xsane_color /* gray, color */,
+                                   xsane.param.depth /* bits */,
+                                   xsane.param.pixels_per_line, xsane.param.lines, /* pixel_width, pixel_height */
+                                   (preferences.printer[preferences.printernr]->bottomoffset +
+                                    preferences.printer[preferences.printernr]->height) * 36.0/MM_PER_INCH - imagewidth * 36.0, /* left edge */
+                                   (preferences.printer[preferences.printernr]->leftoffset +
+                                    preferences.printer[preferences.printernr]->width) * 36.0/MM_PER_INCH - imageheight * 36.0, /* bottom edge */
+                                    imagewidth, imageheight,
+                                   (preferences.printer[preferences.printernr]->leftoffset +
+                                    preferences.printer[preferences.printernr]->width ) * 72.0/MM_PER_INCH,  /* paperwidth */
+                                   (preferences.printer[preferences.printernr]->bottomoffset +
+                                    preferences.printer[preferences.printernr]->height) * 72.0/MM_PER_INCH, /* paperheight */
+                                   1 /* landscape */);
+                   }
+                   else /* do not rotate: portrait */
+                   {
+                     xsane_save_ps(outfile, infile,
+                                   xsane.xsane_color /* gray, color */,
+                                   xsane.param.depth /* bits */,
+                                   xsane.param.pixels_per_line, xsane.param.lines, /* pixel_width, pixel_height */
+                                   (preferences.printer[preferences.printernr]->leftoffset +
+                                    preferences.printer[preferences.printernr]->width) * 36.0/MM_PER_INCH - imagewidth * 36.0,
+                                   (preferences.printer[preferences.printernr]->bottomoffset +
+                                    preferences.printer[preferences.printernr]->height) * 36.0/MM_PER_INCH - imageheight * 36.0,
+                                   imagewidth, imageheight,
+                                   (preferences.printer[preferences.printernr]->leftoffset +
+                                    preferences.printer[preferences.printernr]->width ) * 72.0/MM_PER_INCH, /* paperwidth */
+                                   (preferences.printer[preferences.printernr]->bottomoffset +
+                                    preferences.printer[preferences.printernr]->height) * 72.0/MM_PER_INCH, /* paperheight */
+                                   0 /* portrait */);
+                   }
                  }
                  break;
 
@@ -1351,13 +1378,41 @@ void xsane_scan_done(SANE_Status status)
 
 
            fseek(infile, xsane.header_size, SEEK_SET);
-           xsane_save_ps(outfile, infile,
-                         xsane.xsane_color /* gray, color */,
-                         xsane.param.depth /* bits */,
-                         xsane.param.pixels_per_line, xsane.param.lines,
-                         (preferences.printer[preferences.printernr]->leftoffset   + preferences.printer[preferences.printernr]->width/2)*72.0/MM_PER_INCH - imagewidth*36,
-                         (preferences.printer[preferences.printernr]->bottomoffset + preferences.printer[preferences.printernr]->height/2)*72.0/MM_PER_INCH - imageheight*36,
-                         imagewidth, imageheight);
+
+           if (preferences.psrotate) /* rotate: landscape */
+           {
+             xsane_save_ps(outfile, infile,
+                           xsane.xsane_color /* gray, color */,
+                           xsane.param.depth /* bits */,
+                           xsane.param.pixels_per_line, xsane.param.lines, /* pixel_width, pixel_height */
+                           (preferences.printer[preferences.printernr]->bottomoffset +
+                            preferences.printer[preferences.printernr]->height) * 36.0/MM_PER_INCH - imagewidth * 36.0, /* left edge */
+                           (preferences.printer[preferences.printernr]->leftoffset +
+                            preferences.printer[preferences.printernr]->width) * 36.0/MM_PER_INCH - imageheight * 36.0, /* bottom edge */
+                            imagewidth, imageheight,
+                           (preferences.printer[preferences.printernr]->leftoffset +
+                            preferences.printer[preferences.printernr]->width ) * 72.0/MM_PER_INCH,  /* paperwidth */
+                           (preferences.printer[preferences.printernr]->bottomoffset +
+                            preferences.printer[preferences.printernr]->height) * 72.0/MM_PER_INCH, /* paperheight */
+                           1 /* landscape */);
+           }
+           else /* do not rotate: portrait */
+           {
+             xsane_save_ps(outfile, infile,
+                           xsane.xsane_color /* gray, color */,
+                           xsane.param.depth /* bits */,
+                           xsane.param.pixels_per_line, xsane.param.lines, /* pixel_width, pixel_height */
+                           (preferences.printer[preferences.printernr]->leftoffset +
+                            preferences.printer[preferences.printernr]->width) * 36.0/MM_PER_INCH - imagewidth * 36.0, /* left edge */
+                           (preferences.printer[preferences.printernr]->bottomoffset +
+                            preferences.printer[preferences.printernr]->height) * 36.0/MM_PER_INCH - imageheight * 36.0, /* bottom edge */
+                           imagewidth, imageheight,
+                           (preferences.printer[preferences.printernr]->leftoffset +
+                            preferences.printer[preferences.printernr]->width ) * 72.0/MM_PER_INCH,  /* paperwidth */
+                           (preferences.printer[preferences.printernr]->bottomoffset +
+                            preferences.printer[preferences.printernr]->height) * 72.0/MM_PER_INCH, /* paperheight */
+                           0 /* portrait */);
+           }
          }
          else
          {
@@ -1428,13 +1483,33 @@ void xsane_scan_done(SANE_Status status)
              imagewidth  = xsane.param.pixels_per_line/xsane.resolution_x; /* width in inch */
              imageheight = xsane.param.lines/xsane.resolution_y; /* height in inch */
 
-             xsane_save_ps(outfile, infile,
-                           xsane.xsane_color /* gray, color */,
-                           xsane.param.depth /* bits */,
-                           xsane.param.pixels_per_line, xsane.param.lines,
-                           (preferences.fax_leftoffset   + preferences.fax_width/2)*72.0/MM_PER_INCH  - imagewidth*36,
-                           (preferences.fax_bottomoffset + preferences.fax_height/2)*72.0/MM_PER_INCH - imageheight*36,
-                           imagewidth, imageheight);
+/* disabled ( 0 * ...) in the moment */
+             if (0 * preferences.psrotate) /* rotate: landscape */
+             {
+               xsane_save_ps(outfile, infile,
+                             xsane.xsane_color /* gray, color */,
+                             xsane.param.depth /* bits */,
+                             xsane.param.pixels_per_line, xsane.param.lines, /* pixel_width, pixel_height */
+                             (preferences.fax_bottomoffset + preferences.fax_height) * 36.0/MM_PER_INCH - imagewidth * 36.0, /* left edge */
+                             (preferences.fax_leftoffset   + preferences.fax_width)  * 36.0/MM_PER_INCH - imageheight * 36.0, /* bottom edge */
+                              imagewidth, imageheight,
+                             (preferences.fax_leftoffset   + preferences.fax_width ) * 72.0/MM_PER_INCH, /* paperwidth */
+                             (preferences.fax_bottomoffset + preferences.fax_height) * 72.0/MM_PER_INCH, /* paperheight */
+                             1 /* landscape */);
+             }
+             else /* do not rotate: portrait */
+             {
+               xsane_save_ps(outfile, infile,
+                             xsane.xsane_color /* gray, color */,
+                             xsane.param.depth /* bits */,
+                             xsane.param.pixels_per_line, xsane.param.lines, /* pixel_width, pixel_height */
+                             (preferences.fax_leftoffset   + preferences.fax_width)  * 36.0/MM_PER_INCH - imagewidth * 36.0,
+                             (preferences.fax_bottomoffset + preferences.fax_height) * 36.0/MM_PER_INCH - imageheight * 36.0,
+                             imagewidth, imageheight,
+                             (preferences.fax_leftoffset   + preferences.fax_width ) * 72.0/MM_PER_INCH, /* paperwidth */
+                             (preferences.fax_bottomoffset + preferences.fax_height) * 72.0/MM_PER_INCH, /* paperheight */
+                             0 /* portrait */);
+             }
              fclose(outfile);
            }
            else

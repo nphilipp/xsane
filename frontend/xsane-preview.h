@@ -137,7 +137,6 @@ typedef struct
   GtkWidget *vruler;
   GtkWidget *viewport;
   GtkWidget *window;		/* the preview window */
-/*  GtkWidget *zoom_view; */ 	/* the zoom view */
   GtkWidget *start;		/* the start button */
   GtkWidget *cancel;		/* the cancel button */
 

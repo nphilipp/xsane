@@ -41,7 +41,6 @@ first steps:
     - move threshold in lineart-mode to main window ?
     - add grayscale preview scan -> gamma 0/255 -> displayed preview  for lineart mode
  + batch scan function
- + improve support for different x/y resolutions
 
  * internal:
    - include much more parameters when saving images

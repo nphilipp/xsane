@@ -242,9 +242,18 @@ void xsane_define_maximum_output_size()
   {
     if (xsane.xsane_mode == XSANE_COPY)
     {
-      preview_set_maximum_output_size(xsane.preview,
-                                      MM_PER_INCH * preferences.printer[preferences.printernr]->width  / xsane.zoom_x / 72.0,
-                                      MM_PER_INCH * preferences.printer[preferences.printernr]->height / xsane.zoom_y / 72.0);
+      if (preferences.psrotate) /* rotate: landscape */
+      {
+        preview_set_maximum_output_size(xsane.preview,
+                                        preferences.printer[preferences.printernr]->height / xsane.zoom_y,
+                                        preferences.printer[preferences.printernr]->width  / xsane.zoom_x);
+      }
+      else /* do not rotate: portrait */
+      {
+        preview_set_maximum_output_size(xsane.preview,
+                                        preferences.printer[preferences.printernr]->width  / xsane.zoom_x,
+                                        preferences.printer[preferences.printernr]->height / xsane.zoom_y);
+      }
     }
     else if (xsane.xsane_mode == XSANE_FAX)
     {

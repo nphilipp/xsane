@@ -689,3 +689,23 @@ xsane-0.48 -> 0.49:
 
  - added several missing routines for gamma correction in three pass scan
 
+
+xsane-0.49 -> 0.50:
+-------------------
+
+ - removed bug in calculation of paper size in copy and fax mode
+
+ - added support for rotate image in xsane_save_ps
+
+ - added support for rotate (landscape mode) in copy mode and save-ps mode
+   and added preferences menu "Rotate Postscript"
+
+ - added bugfix for gtk_tooltips_set_colors as long as it does not work in gtk
+
+ - improved memory allocation routines and error handling in preview
+
+ - after the main window is created the resolution, resolution_x amd resolution_y
+   are made up to date now
+
+ - changed dynamic menue list definition in xsane_setup for TIFF_COMPRESSION menu
+
