@@ -49,7 +49,7 @@ void xsane_save_jpeg(FILE *outfile, FILE *imagefile,
 void xsane_save_tiff(const char *outfilename, FILE *imagefile,
                      int color, int bits,
                      int pixel_width, int pixel_height,
-                     int compression);
+                     int compression, int quality);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 

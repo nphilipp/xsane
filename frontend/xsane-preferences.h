@@ -35,6 +35,8 @@ typedef struct
     char *doc_viewer;		/* doc viewer for helpfiles */
     double jpeg_quality;	/* quality when saving image as jpeg */
     double png_compression;	/* compression when saving image as pnm */
+    int tiff_compression_nr;	/* compression type nr when saving multi bit image as tiff */
+    int tiff_compression_1_nr;	/* compression type nr when saving one bit image as tiff */
     int overwrite_warning;	/* warn if file exists */
     int increase_filename_counter;	/* automatically increase counter */
     int skip_existing_numbers;	/* automatically increase counter */

@@ -1,0 +1,44 @@
+
+ If you get segmentation faults or unexpected problems,
+ try the following:
+
+ - make sure there is only one sane version installed before
+   you compile xsane
+   (try as root: $find / -name "*sane*" | less)
+
+ - If you have NativeLanguageSupport (NLS)/gettext installed,
+   make sure environment variable LANG is not set, xsane
+   does not support NLS!
+
+ - If you compiled  xsane/gtk/glib with the egcs compiler try
+   recompiling all with the "normal" gcc compiler!
+
+ - If you get an error message  that libsane-dll.so.1 is not found, you have to
+   tell your system where the SANE-libraries are installed.
+    For linux: edit /etc/ld.so.conf and add a line with the path to the
+    libraries (normally /usr/local/lib/sane), then call ldconfig.
+    THIS MUST BE DONE A ROOT!
+    If you use a SuSE linux, edit /etc/ld.so.conf.in instead and call
+    SuSEconfig instead of ldconfig.
+
+ - The online-help-viewer is now selectable.
+   If you use kde you can enter kdehelp in setup/display.
+   Preselected is netscape with usage of remote commands.
+
+    On some SuSE systems there only is "Netscape" and no "netscape" in the path,
+    in this case you have to set a symbolic link:
+
+      ln -s /usr/bin/Netscape /usr/bin/netscape
+
+ - If the compilation aborts with
+      /usr/lib/libgimp.so: undefined reference to `g_debug'
+      /usr/lib/libgimp.so: undefined reference to `g_message'
+      /usr/lib/libgimp.so: undefined reference to `g_warning'
+      /usr/lib/libgimp.so: undefined reference to `g_error'
+    update to gimp-1.0.4 or newer!  
+
+ - If the compilation aborts with
+      sanei_wire.c:49: sane/sane.h: No such file or directory
+   you did not install sane-devel.rpm!  Get sane-devel.rpm from
+   the site you got sane.rpm and install it!
+

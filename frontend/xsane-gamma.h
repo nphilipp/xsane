@@ -38,8 +38,8 @@ extern void xsane_create_gamma_curve(SANE_Int *gammadata, int negative, double g
 extern void xsane_update_gamma(void);
 extern void xsane_enhancement_by_gamma(void);
 extern void xsane_enhancement_restore_default(void);
-extern void xsane_enhancement_restore_saved(void);
-extern void xsane_enhancement_save(void);
+extern void xsane_enhancement_restore(void);
+extern void xsane_enhancement_store(void);
 extern void xsane_enhancement_by_histogram(void);
 extern void xsane_create_histogram_dialog(const char *devicetext);
 

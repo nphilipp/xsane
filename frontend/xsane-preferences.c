@@ -48,6 +48,8 @@ Preferences preferences =
        0,		/* no doc viewer */
       80.0,		/* jpeg_quality */
       7.0,		/* png_compression */
+       5,		/* tiff_compression_nr */
+       5,		/* tiff_compression_1_nr */
        1,		/* overwrite_warning */
        1,		/* increase_filename_counter */
        1,		/* skip_existing_numbers */
@@ -110,6 +112,8 @@ desc[] =
     {"skip-existing-numbers",		w_int,		POFFSET(skip_existing_numbers)},
     {"jpeg-quality",			w_double,	POFFSET(jpeg_quality)},
     {"png-compression",			w_double, 	POFFSET(png_compression)},
+    {"tiff-compression_nr",		w_int,	 	POFFSET(tiff_compression_nr)},
+    {"tiff-compression_1_nr",		w_int,	 	POFFSET(tiff_compression_1_nr)},
     {"tool-tips",			w_int,		POFFSET(tooltips_enabled)},
     {"show-histogram",			w_int,		POFFSET(show_histogram)},
     {"show-standard-options",		w_int,		POFFSET(show_standard_options)},

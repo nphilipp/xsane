@@ -371,53 +371,61 @@ static void get_filename_button_clicked (GtkWidget *w, gpointer data)
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-int gsg_get_filename (const char *label, const char *default_name,
-		  size_t max_len, char *filename)
+int gsg_get_filename (const char *label, const char *default_name, size_t max_len, char *filename)
 {
-  int cancel = 0, ok = 0;
-  GtkWidget *filesel;
+  int cancel = 0, ok = 0, destroy = 0;
+  GtkWidget *fileselection;
 
-  filesel = gtk_file_selection_new ((char *) label);
-  gtk_signal_connect (GTK_OBJECT (GTK_FILE_SELECTION (filesel)->cancel_button),
-		      "clicked", (GtkSignalFunc) get_filename_button_clicked,
-		      &cancel);
-  gtk_signal_connect (GTK_OBJECT (GTK_FILE_SELECTION (filesel)->ok_button),
-		      "clicked", (GtkSignalFunc) get_filename_button_clicked,
-		      &ok);
+  fileselection = gtk_file_selection_new ((char *) label);
+
+  gtk_signal_connect(GTK_OBJECT(fileselection),
+                     "destroy", GTK_SIGNAL_FUNC(get_filename_button_clicked), &destroy);         
+  gtk_signal_connect(GTK_OBJECT(GTK_FILE_SELECTION(fileselection)->cancel_button),
+		     "clicked", (GtkSignalFunc) get_filename_button_clicked, &cancel);
+  gtk_signal_connect(GTK_OBJECT(GTK_FILE_SELECTION(fileselection)->ok_button),
+		     "clicked", (GtkSignalFunc) get_filename_button_clicked, &ok);
   if (default_name)
-    gtk_file_selection_set_filename (GTK_FILE_SELECTION (filesel),
-				     (char *) default_name);
+  {
+    gtk_file_selection_set_filename (GTK_FILE_SELECTION(fileselection), (char *) default_name);
+  }
 
-  gtk_widget_show (filesel);
+  gtk_widget_show(fileselection);
 
-  while (!cancel && !ok)
+  while (!cancel && !ok && !destroy)
+  {
+    if (!gtk_events_pending())
     {
-      if (!gtk_events_pending ())
-	usleep (100000);
-      gtk_main_iteration ();
+      usleep (100000);
     }
+    gtk_main_iteration();
+  }
 
   if (ok)
+  {
+   size_t len, cwd_len;
+   char *cwd;
+
+    strncpy(filename, gtk_file_selection_get_filename(GTK_FILE_SELECTION(fileselection)), max_len - 1);
+    filename[max_len - 1] = '\0';
+
+    len = strlen (filename);
+    cwd = alloca (len + 2);
+    getcwd (cwd, len + 1);
+    cwd_len = strlen (cwd);
+    cwd[cwd_len++] = '/';
+    cwd[cwd_len] = '\0';
+    if (strncmp(filename, cwd, cwd_len) == 0)
     {
-      size_t len, cwd_len;
-      char *cwd;
-
-      strncpy (filename,
-	       gtk_file_selection_get_filename (GTK_FILE_SELECTION (filesel)),
-	       max_len - 1);
-      filename[max_len - 1] = '\0';
-
-      len = strlen (filename);
-      cwd = alloca (len + 2);
-      getcwd (cwd, len + 1);
-      cwd_len = strlen (cwd);
-      cwd[cwd_len++] = '/';
-      cwd[cwd_len] = '\0';
-      if (strncmp (filename, cwd, cwd_len) == 0)
-	memcpy (filename, filename + cwd_len, len - cwd_len + 1);
+      memcpy(filename, filename + cwd_len, len - cwd_len + 1);
     }
-  gtk_widget_destroy(filesel);
-  return cancel ? -1 : 0;
+  }
+
+  if (!destroy)
+  {
+    gtk_widget_destroy(fileselection);
+  }
+
+  return ok ? 0 : -1;
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */

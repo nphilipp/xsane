@@ -31,11 +31,12 @@ first steps:
    - test memory after all calls of malloc
    - make better backend-dependend option handling and error handling (mostly done!)
    - other output formats for saving - *** which? ***
+     - gif will not be supported because of licence
    - more online helpfiles
    - if netscape-remote is docviewer, start netscape if not running
 
 second steps:
- - support NLS/gettext
+ - support NLS/gettext, may be sane-2.0 will help a bit here
  - correct gtk custom gamma functions and include it
  - include special functions for GNOME/KDE - *** DOES ANYONE HAVE ANY SUGGESTIONS TO THIS ? ***
  + add color management - may be via xcmsdb

@@ -6,7 +6,7 @@ AC_CONFIG_HEADER(include/sane/config.h)
 
 # version code:
 V_MAJOR=0
-V_MINOR=34
+V_MINOR=35
 
 PACKAGE=xsane
 SANE_V_MAJOR=1
@@ -41,8 +41,7 @@ dnl Checks for header files.
 AC_HEADER_STDC
 AC_CHECK_HEADERS(fcntl.h unistd.h libintl.h libc.h sys/dsreq.h sys/select.h \
     sys/time.h sys/scanio.h sys/socket.h sys/io.h asm/io.h gscdds.h sys/hw.h \
-    bsd/dev/scsireg.h io/cam/cam.h camlib.h \
-    sys/types.h zlib.h)
+    bsd/dev/scsireg.h io/cam/cam.h camlib.h sys/types.h zlib.h)
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
@@ -111,6 +110,7 @@ CPPFLAGS="${CPPFLAGS} ${GTK_CFLAGS}"
 LIBS="${LIBS} ${GTK_LIBS}"
 
 AC_CHECK_HEADERS(libgimp/gimp.h,GIMP_LIBS="-lgimp")
+AC_CHECK_HEADERS(libgimp/gimpfeatures.h)
 
 LIBS="${saved_LIBS}"
 

@@ -389,3 +389,23 @@ xsane-0.33 -> 0.34:
  - transformed all gif files in directory doc to jpeg format because of
    all the trouble about the gif licence.  Will never use gif again!
 
+
+xsane-0.34 -> 0.35:
+-------------------
+
+ - corrected doc/Makefile.in for change gif->jpg
+ - added tiff compression type selection for multi bit and one bit images to setup:
+   none, CCITT 1D Huffman compression, CCITT Group 3 Fax compression,
+   CCITT Group 4 Fax compression, Lempel-Ziv & Welch, JPEG DCT compression, pack bits
+ - implemented real single-bit format for tiff
+ - setup/jpeg quality selection is enabled if jpeglib or libtiff is available
+ - added gimp_image_set_resolution(...) to gimp saving routine
+ - added test for libgimp/gimpfeatures.h to configure.in and config.h.in
+ - disabled sensetivity while filename browse window is open
+ - added handling if fileselection window was closed
+ - moved filename "Browse" button from the right to to the left with disk-image inside
+ - (added image filetype menu to the image filename line - not ready)
+ - replaced button-texts negative, rgb default, auto, default, store and
+   restore by icons
+
+

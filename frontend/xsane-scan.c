@@ -1137,8 +1137,16 @@ void xsane_scan_done(SANE_Status status)
 #ifdef HAVE_LIBTIFF
            if (xsane.xsane_output_format == XSANE_TIFF)		/* routines that want to have filename  for saving */
            {
-             xsane_save_tiff(preferences.filename, infile, xsane.xsane_color, xsane.param.depth, xsane.param.pixels_per_line,
-                             xsane.param.lines, preferences.png_compression);
+             if (xsane.param.depth != 1)
+             {
+               xsane_save_tiff(preferences.filename, infile, xsane.xsane_color, xsane.param.depth, xsane.param.pixels_per_line,
+                               xsane.param.lines, preferences.tiff_compression_nr, preferences.jpeg_quality);
+             }
+             else
+             {
+               xsane_save_tiff(preferences.filename, infile, xsane.xsane_color, xsane.param.depth, xsane.param.pixels_per_line,
+                               xsane.param.lines, preferences.tiff_compression_1_nr, preferences.jpeg_quality);
+             }
            }
            else							/* routines that want to have filedescriptor for saving */
 #endif
@@ -1693,6 +1701,16 @@ static void xsane_start_scan(void)
                             
 
 	  xsane.image_ID = gimp_image_new(xsane.param.pixels_per_line, xsane.param.lines, image_type);
+
+/* the following is supported since gimp-1.3.? */
+#ifdef GIMP_HAVE_RESOLUTION_INFO
+          if (xsane.resolution > 0)
+          {
+            gimp_image_set_resolution(xsane.image_ID, xsane.resolution /* xres */,xsane.resolution /* yres */);
+          }
+/*          gimp_image_set_unit(xsane.image_ID, unit?); */
+#endif
+
 	  layer_ID = gimp_layer_new(xsane.image_ID, "Background",
 				     xsane.param.pixels_per_line,
 				     xsane.param.lines,

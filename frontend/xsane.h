@@ -31,7 +31,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION "0.34"
+#define XSANE_VERSION "0.35"
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -42,6 +42,11 @@
 
 #ifdef HAVE_LIBGIMP_GIMP_H
 #include <libgimp/gimp.h>
+
+#ifdef HAVE_LIBGIMP_GIMPFEATURES_H
+#include <libgimp/gimpfeatures.h>
+#endif /* HAVE_LIBGIMP_GIMPFEATURES_H */
+
 #endif /* HAVE_LIBGIMP_GIMP_H */
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -364,6 +369,9 @@ typedef struct XsaneSetup
   GtkWidget *fax_normal_option_entry;
   GtkWidget *fax_fine_option_entry;
   GtkWidget *fax_viewer_entry;
+
+  int tiff_compression_nr;
+  int tiff_compression_1_nr;
 } XsaneSetup;
 
 extern struct XsaneSetup xsane_setup;

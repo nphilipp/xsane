@@ -534,12 +534,12 @@ void xsane_save_jpeg(FILE *outfile, FILE *imagefile,
 void xsane_save_tiff(const char *outfilename, FILE *imagefile,
                      int color, int bits,
                      int pixel_width, int pixel_height,
-                     int compression)
+                     int compression, int quality)
 {
  TIFF *tiffile;
  char *data;
  char buf[256];
- int x, y, w;
+ int y, w;
  int components;
 
   cancel_save = 0;
@@ -573,10 +573,21 @@ void xsane_save_tiff(const char *outfilename, FILE *imagefile,
   TIFFSetField(tiffile, TIFFTAG_IMAGEWIDTH, pixel_width);
   TIFFSetField(tiffile, TIFFTAG_IMAGELENGTH, pixel_height);
   TIFFSetField(tiffile, TIFFTAG_ORIENTATION, ORIENTATION_TOPLEFT);
-  TIFFSetField(tiffile, TIFFTAG_BITSPERSAMPLE, 8); /* change this if >8 bits is supported */
+  TIFFSetField(tiffile, TIFFTAG_BITSPERSAMPLE, bits); 
   TIFFSetField(tiffile, TIFFTAG_PLANARCONFIG, PLANARCONFIG_CONTIG);
-  TIFFSetField(tiffile, TIFFTAG_COMPRESSION, COMPRESSION_LZW);
+  TIFFSetField(tiffile, TIFFTAG_COMPRESSION, compression);
   TIFFSetField(tiffile, TIFFTAG_SAMPLESPERPIXEL, components);
+  TIFFSetField(tiffile, TIFFTAG_SOFTWARE, "xsane");
+#if 0
+  TIFFSetField(tiffile, TIFFTAG_DATATIME, "0.0.1900,0:0:00");
+  TIFFSetField(tiffile, TIFFTAG_XRESOLUTION, 100);
+  TIFFSetField(tiffile, TIFFTAG_YRESOLUTION, 100);
+#endif
+
+  if (compression == COMPRESSION_JPEG)
+  {
+    TIFFSetField(tiffile, TIFFTAG_JPEGQUALITY, quality);
+  }
 
   if (color)
   {
@@ -584,11 +595,19 @@ void xsane_save_tiff(const char *outfilename, FILE *imagefile,
   }
   else
   {
-    TIFFSetField(tiffile, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_MINISBLACK);
+    if (bits == 1) /* lineart */
+    {
+      TIFFSetField(tiffile, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_MINISWHITE);
+    }
+    else /* grayscale */
+    {
+      TIFFSetField(tiffile, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_MINISBLACK);
+    }
   }
 
-  w = TIFFScanlineSize(tiffile);
   TIFFSetField(tiffile, TIFFTAG_ROWSPERSTRIP, TIFFDefaultStripSize(tiffile, -1));
+
+  w = TIFFScanlineSize(tiffile);
 
   for (y = 0; y < pixel_height; y++)
   {
@@ -598,36 +617,10 @@ void xsane_save_tiff(const char *outfilename, FILE *imagefile,
       gtk_main_iteration();
     }
     
-    if (bits == 1)
-    {
-     int byte = 0;
-     int mask = 128;
+    fread(data, 1, w, imagefile);
 
-      for (x = 0; x < pixel_width; x++)
-      {
-
-        if ( (x % 8) == 0)
-	{
-          byte = fgetc(imagefile);
-          mask = 128;
-	}
-
-        if (byte & mask)
-        {
-          data[x] = 0;
-        }
-        else
-        {
-          data[x] = 255;
-        }
-        mask >>= 1;
-      }
-    }
-    else
-    {
-      fread(data, components, pixel_width, imagefile);
-    }
     TIFFWriteScanline(tiffile, data, y, 0);
+
     if (cancel_save)
     {
       break;

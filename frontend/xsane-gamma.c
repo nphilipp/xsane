@@ -95,8 +95,8 @@ static void xsane_gamma_to_histogram(double *min, double *mid, double *max,
                                      double contrast, double brightness, double gamma);
 void xsane_enhancement_by_gamma(void);
 void xsane_enhancement_restore_default(void);
-void xsane_enhancement_restore_saved(void);
-void xsane_enhancement_save(void);
+void xsane_enhancement_restore(void);
+void xsane_enhancement_store(void);
 static void xsane_histogram_to_gamma(XsaneSlider *slider, double *contrast, double *brightness, double *gamma);
 void xsane_enhancement_by_histogram(void);
 static gint xsane_histogram_win_delete(GtkWidget *widget, gpointer data);
@@ -1250,7 +1250,7 @@ void xsane_enhancement_restore_default()
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void xsane_enhancement_restore_saved()
+void xsane_enhancement_restore()
 {
   xsane.gamma            = preferences.xsane_gamma;
   xsane.gamma_red        = preferences.xsane_gamma_red;
@@ -1276,7 +1276,7 @@ void xsane_enhancement_restore_saved()
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void xsane_enhancement_save()
+void xsane_enhancement_store()
 {
   preferences.xsane_gamma            = xsane.gamma;
   preferences.xsane_gamma_red        = xsane.gamma_red;

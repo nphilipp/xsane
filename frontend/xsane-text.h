@@ -23,6 +23,9 @@
 #define WINDOW_ADVANCED_OPTIONS		gettext("Advanced options")
 #define WINDOW_DEVICE_SELECTION		gettext("device selection")
 #define WINDOW_PREVIEW			gettext("preview")
+#define WINDOW_OUTPUT_FILENAME		gettext("output filename")
+#define WINDOW_SAVE_SETTINGS		gettext("save device settings")
+#define WINDOW_LOAD_SETTINGS		gettext("load device settings")
 
 #define MENU_FILE			gettext("File")
 #define MENU_PREFERENCES		gettext("Preferences")
@@ -40,11 +43,6 @@
 #define BUTTON_OK			gettext("Ok")
 #define BUTTON_APPLY			gettext("Apply")
 #define BUTTON_CANCEL			gettext("Cancel")
-#define BUTTON_BROWSE			gettext("Browse")
-#define BUTTON_AUTO			gettext("Auto")
-#define BUTTON_DEFAULT			gettext("Default")
-#define BUTTON_RESTORE			gettext("Restore")
-#define BUTTON_STORE			gettext("Store")
 #define BUTTON_CLOSE			gettext("Close")
 #define BUTTON_ADD_AREA			gettext("Add area")
 #define BUTTON_DELETE			gettext("Delete")
@@ -58,8 +56,6 @@
 #define BUTTON_PREVIEW_CANCEL		gettext("Cancel Preview")
 
 #define RADIO_BUTTON_FINE_MODE		gettext("Fine mode")
-#define RADIO_BUTTON_RGB_DEFAULT	gettext("RGB default")
-#define RADIO_BUTTON_NEGATIVE		gettext("Negative")
 #define RADIO_BUTTON_OVERWRITE_WARNING	gettext("Overwrite warning")
 #define RADIO_BUTTON_INCREASE_COUNTER	gettext("Increase filename counter")
 #define RADIO_BUTTON_SKIP_EXISTING_NRS	gettext("Skip existing numbers")
@@ -68,7 +64,6 @@
 #define RADIO_BUTTON_PRIVATE_COLORMAP	gettext("Use private colormap")
 
 #define TEXT_AVAILABLE_DEVICES		gettext("Available devices:")
-#define TEXT_OUTPUT_FILENAME		gettext("Output filename")
 #define TEXT_XSANE_OPTIONS		gettext("XSane options")
 #define TEXT_XSANE_MODE			gettext("XSane mode")
 #define TEXT_SET_ENHANCEMENT		gettext("Set enhancement:")
@@ -90,8 +85,6 @@
 #define TEXT_OUTPUT_FORMATS		gettext("XSane output formats:")
 #define TEXT_8BIT_FORMATS		gettext("8 bit output formats:")
 #define TEXT_16BIT_FORMATS		gettext("16 bit output formats:")
-#define TEXT_SAVE_SETTINGS		gettext("Save device settings:")
-#define TEXT_LOAD_SETTINGS		gettext("Load device settings:")
 #define TEXT_AUTHORIZATION_REQ		gettext("Authorization required for")
 #define TEXT_USERNAME			gettext("Username :")
 #define TEXT_PASSWORD			gettext("Password :")
@@ -113,6 +106,8 @@
 #define TEXT_SETUP_PRINTER_GAMMA_BLUE	gettext("Printer gamma blue:")
 #define TEXT_SETUP_JPEG_QUALITY		gettext("JPEG image quality")
 #define TEXT_SETUP_PNG_COMPRESSION	gettext("PNG image compression")
+#define TEXT_SETUP_TIFF_COMPRESSION	gettext("TIFF multi bit image compression")
+#define TEXT_SETUP_TIFF_COMPRESSION_1	gettext("TIFF lineart image compression")
 #define TEXT_SETUP_PREVIEW_GAMMA	gettext("Preview gamma:")
 #define TEXT_SETUP_PREVIEW_GAMMA_RED	gettext("Preview gamma red:")
 #define TEXT_SETUP_PREVIEW_GAMMA_GREEN	gettext("Preview gamma green:")
@@ -134,10 +129,28 @@
 #define MENU_ITEM_COPY			gettext("Copy")
 #define MENU_ITEM_FAX			gettext("Fax")
 
+#define MENU_ITEM_TIFF_COMP_NONE	gettext("no compression")
+#define MENU_ITEM_TIFF_COMP_CCITTRLE	gettext("CCITT 1D Huffman compression")
+#define MENU_ITEM_TIFF_COMP_CCITFAX3	gettext("CCITT Group 3 Fax compression")
+#define MENU_ITEM_TIFF_COMP_CCITFAX4	gettext("CCITT Group 4 Fax compression")
+#define MENU_ITEM_TIFF_COMP_LZW		gettext("Lempel-Ziv & Welch compression")
+#define MENU_ITEM_TIFF_COMP_JPEG	gettext("JPEG DCT compression")
+#define MENU_ITEM_TIFF_COMP_PACKBITS	gettext("pack bits")
+
+#define MENU_ITEM_FILETYPE_JPEG		gettext(".jpeg")
+#define MENU_ITEM_FILETYPE_PNG		gettext(".png")
+#define MENU_ITEM_FILETYPE_PNM		gettext(".pnm")
+#define MENU_ITEM_FILETYPE_PS		gettext(".ps")
+#define MENU_ITEM_FILETYPE_RAW		gettext(".raw")
+#define MENU_ITEM_FILETYPE_TIFF		gettext(".tiff")
+#define MENU_ITEM_FILETYPE_BY_EXT	gettext("by ext")
+
 
 #define DESC_XSANE_MODE			gettext("Use XSane for SCANning, photoCOPYing, FAXing...")
 
+#define DESC_BROWSE_FILENAME		gettext("Browse for image filename")
 #define DESC_FILENAME			gettext("Filename for scanned image")
+#define DESC_FILETYPE			gettext("Define image file format")
 #define DESC_FAXPROJECT			gettext("Enter name of fax project")
 #define DESC_FAXPAGENAME		gettext("Enter new name for faxpage")
 #define DESC_FAXRECEIVER		gettext("Enter receiver phone number or address")
@@ -148,7 +161,8 @@
 #define DESC_ZOOM			gettext("Set zoomfactor")
 #define DESC_COPY_NUMBER		gettext("Set number of copies")
 
-#define DESC_NEGATIVE			gettext("Swap black and white, for scanning negatives")
+#define DESC_NEGATIVE			gettext("Negative: Invert colors for scanning negatives\n" \
+						"e.g. swap black and white")
 
 #define DESC_GAMMA			gettext("Set gamma value")
 #define DESC_GAMMA_R			gettext("Set gamma value for red component")
@@ -165,10 +179,10 @@
 #define DESC_CONTRAST_G			gettext("Set contrast for green component")
 #define DESC_CONTRAST_B			gettext("Set contrast for blue component")
 
-#define DESC_RGB_DEFAULT		gettext("Set enhancement values for red, green and blue to default values:\n" \
-						"gamma = 1.0\n" \
-						"brightness = 0\n" \
-						"contrast = 0")
+#define DESC_RGB_DEFAULT		gettext("RGB default: Set enhancement values for red, green and blue to default values:\n" \
+						" gamma = 1.0\n" \
+						" brightness = 0\n" \
+						" contrast = 0")
 
 #define DESC_WHITE			gettext("Define intensity that shall be transformed to white")
 #define DESC_GRAY			gettext("Define intensity that shall be transformed to medium gray")
@@ -181,7 +195,7 @@
 						"brightness = 0\n" \
 						"contrast = 0")
 #define DESC_ENH_RESTORE		gettext("Restore enhancement values from preferences")
-#define DESC_ENH_SAVE			gettext("Store active enhancemnt values to preferences")
+#define DESC_ENH_STORE			gettext("Store active enhancemnt values to preferences")
 
 #define DESC_HIST_INTENSITY		gettext("Show histogram of intensity/gray")
 #define DESC_HIST_RED			gettext("Show histogram of red component")
@@ -203,8 +217,10 @@
 #define DESC_PRINTER_GAMMA_RED		gettext("Additional gamma value for red component for photocopy")
 #define DESC_PRINTER_GAMMA_GREEN	gettext("Additional gamma value for green component for photocopy")
 #define DESC_PRINTER_GAMMA_BLUE		gettext("Additional gamma value for blue component for photocopy")
-#define DESC_JPEG_QUALITY		gettext("Quality if image is saved as jpeg")
+#define DESC_JPEG_QUALITY		gettext("Quality in percent if image is saved as jpeg or tiff with jpeg compression")
 #define DESC_PNG_COMPRESSION		gettext("Compression if image is saved as png")
+#define DESC_TIFF_COMPRESSION		gettext("Compression type if multi bit image is saved as tiff")
+#define DESC_TIFF_COMPRESSION_1		gettext("Compression type if lineart image is saved as tiff")
 #define DESC_OVERWRITE_WARNING		gettext("Warn before overwriting an existing file")
 #define DESC_INCREASE_COUNTER		gettext("If the filename is of the form \"name-001.ext\" " \
 						"(where the number of digits is free) " \

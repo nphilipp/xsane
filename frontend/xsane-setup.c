@@ -61,6 +61,10 @@
 #endif
 #endif
 
+#ifdef HAVE_LIBTIFF
+#include <tiff.h>
+#endif
+
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 struct XsaneSetup xsane_setup;
@@ -309,6 +313,22 @@ static void xsane_setup_printer_delete(GtkWidget *widget, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+#ifdef HAVE_LIBTIFF
+static void xsane_setup_tiff_compression_callback(GtkWidget *widget, gpointer data)
+{
+  xsane_setup.tiff_compression_nr = (int) data;
+}
+
+/* -------------------------------------- */
+
+static void xsane_setup_tiff_compression_1_callback(GtkWidget *widget, gpointer data)
+{
+  xsane_setup.tiff_compression_1_nr = (int) data;
+}
+#endif
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void xsane_setup_display_apply_changes(GtkWidget *widget, gpointer data)
 {
   xsane_update_bool(xsane_setup.main_window_fixed_button,         &preferences.main_window_fixed);
@@ -331,12 +351,21 @@ static void xsane_setup_saving_apply_changes(GtkWidget *widget, gpointer data)
 {
 #ifdef HAVE_LIBJPEG
   xsane_update_scale(xsane_setup.jpeg_image_quality_scale, &preferences.jpeg_quality);
+#else
+#ifdef HAVE_LIBTIFF
+  xsane_update_scale(xsane_setup.jpeg_image_quality_scale, &preferences.jpeg_quality);
+#endif
 #endif
 
 #ifdef HAVE_LIBPNG
 #ifdef HAVE_LIBZ
   xsane_update_scale(xsane_setup.pnm_image_compression_scale, &preferences.png_compression);
 #endif
+#endif
+
+#ifdef HAVE_LIBTIFF
+  preferences.tiff_compression_nr   = xsane_setup.tiff_compression_nr;
+  preferences.tiff_compression_1_nr = xsane_setup.tiff_compression_1_nr;
 #endif
 
   xsane_update_bool(xsane_setup.overwrite_warning_button,         &preferences.overwrite_warning);
@@ -392,7 +421,36 @@ void xsane_setup_dialog(GtkWidget *widget, gpointer data)
 {
  GtkWidget *setup_dialog, *setup_vbox, *vbox, *hbox, *button, *label, *text, *frame, *notebook;
  GtkWidget *printer_option_menu;
+ GtkWidget *tiff_compression_option_menu, *tiff_compression_menu, *tiff_compression_item;
+ int i, select = 1;
  char buf[64];
+
+typedef struct tiff_compression_t
+{
+ char *name;
+ int number;
+} tiff_compression;
+
+ tiff_compression tiff_compression_strings[] =
+ {
+	{ MENU_ITEM_TIFF_COMP_NONE,	COMPRESSION_NONE},
+	{ MENU_ITEM_TIFF_COMP_LZW,	COMPRESSION_LZW},
+	{ MENU_ITEM_TIFF_COMP_JPEG,	COMPRESSION_JPEG},
+	{ MENU_ITEM_TIFF_COMP_PACKBITS,	COMPRESSION_PACKBITS}
+#define TIFF_COMPRESSION_NUMBER 4
+ };
+
+ tiff_compression tiff_compression1_strings[] =
+ {
+	{ MENU_ITEM_TIFF_COMP_NONE,	COMPRESSION_NONE},
+	{ MENU_ITEM_TIFF_COMP_CCITTRLE,	COMPRESSION_CCITTRLE},
+	{ MENU_ITEM_TIFF_COMP_CCITFAX3,	COMPRESSION_CCITTFAX3},
+	{ MENU_ITEM_TIFF_COMP_CCITFAX4,	COMPRESSION_CCITTFAX4},
+	{ MENU_ITEM_TIFF_COMP_LZW,	COMPRESSION_LZW},
+	{ MENU_ITEM_TIFF_COMP_JPEG,	COMPRESSION_JPEG},
+	{ MENU_ITEM_TIFF_COMP_PACKBITS,	COMPRESSION_PACKBITS}
+#define TIFF_COMPRESSION1_NUMBER 7
+ };
 
   xsane_set_sensitivity(FALSE);
 
@@ -760,9 +818,14 @@ void xsane_setup_dialog(GtkWidget *widget, gpointer data)
   xsane_setup.skip_existing_numbers_button = button;
 
 
-#ifdef HAVE_LIBJPEG
+#ifdef HAVE_LIBJPEG 
   xsane_scale_new(GTK_BOX(vbox), TEXT_SETUP_JPEG_QUALITY, DESC_JPEG_QUALITY, 0.0, 100.0, 1.0, 1.0, 0.0, 0,
                   &preferences.jpeg_quality, (GtkObject **) &xsane_setup.jpeg_image_quality_scale, 0);
+#else
+#ifdef HAVE_LIBTIFF
+  xsane_scale_new(GTK_BOX(vbox), TEXT_SETUP_JPEG_QUALITY, DESC_JPEG_QUALITY, 0.0, 100.0, 1.0, 1.0, 0.0, 0,
+                  &preferences.jpeg_quality, (GtkObject **) &xsane_setup.jpeg_image_quality_scale, 0);
+#endif
 #endif
 
 #ifdef HAVE_LIBPNG
@@ -770,6 +833,82 @@ void xsane_setup_dialog(GtkWidget *widget, gpointer data)
   xsane_scale_new(GTK_BOX(vbox), TEXT_SETUP_PNG_COMPRESSION, DESC_PNG_COMPRESSION, 0.0, Z_BEST_COMPRESSION, 1.0, 1.0, 0.0, 0,
                   &preferences.png_compression, (GtkObject **) &xsane_setup.pnm_image_compression_scale, 0);
 #endif
+#endif
+
+#ifdef HAVE_LIBTIFF
+  /* TIFF MULTI BIT IMAGES COMPRESSION */
+
+  hbox = gtk_hbox_new(FALSE, 2);
+  gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
+
+  label = gtk_label_new(TEXT_SETUP_TIFF_COMPRESSION);
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_widget_show(label);
+
+  tiff_compression_option_menu = gtk_option_menu_new();
+  gsg_set_tooltip(dialog->tooltips, tiff_compression_option_menu, DESC_TIFF_COMPRESSION);
+  gtk_box_pack_end(GTK_BOX(hbox), tiff_compression_option_menu, FALSE, FALSE, 2);
+  gtk_widget_show(tiff_compression_option_menu);
+  gtk_widget_show(hbox);
+
+  tiff_compression_menu = gtk_menu_new();
+
+  for (i=1; i <= TIFF_COMPRESSION_NUMBER; i++)
+  {
+    tiff_compression_item = gtk_menu_item_new_with_label(tiff_compression_strings[i-1].name);
+    gtk_container_add(GTK_CONTAINER(tiff_compression_menu), tiff_compression_item);
+    gtk_signal_connect(GTK_OBJECT(tiff_compression_item), "activate",
+       (GtkSignalFunc) xsane_setup_tiff_compression_callback, (void *) tiff_compression_strings[i-1].number);
+    gtk_widget_show(tiff_compression_item);
+    if (tiff_compression_strings[i-1].number == preferences.tiff_compression_nr)
+    {
+      select = i-1;
+    }
+  }
+
+
+  gtk_option_menu_set_menu(GTK_OPTION_MENU(tiff_compression_option_menu), tiff_compression_menu);
+  gtk_option_menu_set_history(GTK_OPTION_MENU(tiff_compression_option_menu), select);
+  xsane_setup.tiff_compression_nr = preferences.tiff_compression_nr;
+
+
+  /* TIFF ONE BIT IMAGES COMPRESSION */
+
+  hbox = gtk_hbox_new(FALSE, 2);
+  gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
+
+  label = gtk_label_new(TEXT_SETUP_TIFF_COMPRESSION_1);
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_widget_show(label);
+
+  tiff_compression_option_menu = gtk_option_menu_new();
+  gsg_set_tooltip(dialog->tooltips, tiff_compression_option_menu, DESC_TIFF_COMPRESSION_1);
+  gtk_box_pack_end(GTK_BOX(hbox), tiff_compression_option_menu, FALSE, FALSE, 2);
+  gtk_widget_show(tiff_compression_option_menu);
+  gtk_widget_show(hbox);
+
+  tiff_compression_menu = gtk_menu_new();
+
+  for (i=1; i <= TIFF_COMPRESSION1_NUMBER; i++)
+  {
+    tiff_compression_item = gtk_menu_item_new_with_label(tiff_compression1_strings[i-1].name);
+    gtk_container_add(GTK_CONTAINER(tiff_compression_menu), tiff_compression_item);
+    gtk_signal_connect(GTK_OBJECT(tiff_compression_item), "activate",
+        (GtkSignalFunc) xsane_setup_tiff_compression_1_callback, (void *) tiff_compression1_strings[i-1].number);
+    gtk_widget_show(tiff_compression_item);
+    if (tiff_compression1_strings[i-1].number == preferences.tiff_compression_1_nr)
+    {
+      select = i-1;
+    }
+  }
+
+  gtk_option_menu_set_menu(GTK_OPTION_MENU(tiff_compression_option_menu), tiff_compression_menu);
+  gtk_option_menu_set_history(GTK_OPTION_MENU(tiff_compression_option_menu), select);
+
+  xsane_setup.tiff_compression_1_nr = preferences.tiff_compression_1_nr;
+
 #endif
 
   xsane_separator_new(vbox, 4);
