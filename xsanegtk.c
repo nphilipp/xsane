@@ -220,7 +220,7 @@ void gsg_set_option (GSGDialog * dialog, int opt_num, void *val, SANE_Action act
 
 void gsg_close_dialog_callback (GtkWidget * widget, gpointer data)
 {
-  gtk_widget_destroy (data);
+  gtk_widget_destroy(data);
   gsg_message_dialog_active = 0;
 }
 
@@ -333,7 +333,7 @@ int gsg_get_filename (const char *label, const char *default_name,
       if (strncmp (filename, cwd, cwd_len) == 0)
 	memcpy (filename, filename + cwd_len, len - cwd_len + 1);
     }
-  gtk_widget_destroy (filesel);
+  gtk_widget_destroy(filesel);
   return cancel ? -1 : 0;
 }
 
@@ -841,12 +841,8 @@ static void vector_new (GSGDialog * dialog, GtkWidget *vbox, int num_vopts, int 
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-static void panel_destroy (GSGDialog * dialog)
+static void tooltips_destroy(GSGDialog * dialog)
 {
-  const SANE_Option_Descriptor *opt;
-  GSGDialogElement *elem;
-  int i, j;
-
 #ifdef HAVE_GTK_TOOLTIPS_SET_TIPS
   /* pre 0.99.4: */
   gtk_tooltips_unref(dialog->tooltips);
@@ -854,29 +850,44 @@ static void panel_destroy (GSGDialog * dialog)
   gtk_object_unref(GTK_OBJECT(dialog->tooltips));
 #endif
 
+  dialog->tooltips = 0;
+}
+
+/* ----------------------------------------------------------------------------------------------------------------- */
+
+static void panel_destroy(GSGDialog * dialog)
+{
+  const SANE_Option_Descriptor *opt;
+  GSGDialogElement *elem;
+  int i, j;
+
   gtk_widget_destroy(dialog->xsane_hbox);
   gtk_widget_destroy(dialog->standard_hbox);
   gtk_widget_destroy(dialog->advanced_hbox);
 
   /* free the menu labels of integer/fix-point word-lists: */
   for (i = 0; i < dialog->num_elements; ++i)
+  {
+    if (dialog->element[i].menu)
     {
-      if (dialog->element[i].menu)
-	{
-	  opt = sane_get_option_descriptor(dialog->dev, i);
-	  elem = dialog->element + i;
-	  if (opt->type != SANE_TYPE_STRING)
-	    for (j = 0; j < elem->menu_size; ++j)
-	      if (elem->menu[j].label)
-		{
-		  free(elem->menu[j].label);
-		  elem->menu[j].label = 0;
-		}
-	  free(elem->menu);
-	  elem->menu = 0;
-	}
+      opt = sane_get_option_descriptor(dialog->dev, i);
+      elem = dialog->element + i;
+      if (opt->type != SANE_TYPE_STRING)
+      {
+        for (j = 0; j < elem->menu_size; ++j)
+        {
+          if (elem->menu[j].label)
+          {
+            free(elem->menu[j].label);
+            elem->menu[j].label = 0;
+          }
+          free(elem->menu);
+          elem->menu = 0;
+        }
+      }
     }
-  memset (dialog->element, 0, dialog->num_elements*sizeof (dialog->element[0]));
+  }
+  memset(dialog->element, 0, dialog->num_elements * sizeof(dialog->element[0]));
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
@@ -888,8 +899,8 @@ static void panel_destroy (GSGDialog * dialog)
    rebuilding the entire dialog.  */
 static void panel_rebuild (GSGDialog * dialog)
 {
-  panel_destroy (dialog);
-  panel_build (dialog);
+  panel_destroy(dialog);
+  panel_build(dialog);
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
@@ -1088,14 +1099,14 @@ void gsg_set_sensitivity (GSGDialog *dialog, int sensitive)
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-void gsg_destroy_dialog (GSGDialog * dialog)
+void gsg_destroy_dialog(GSGDialog * dialog)
 {
   SANE_Handle dev = dialog->dev;
 
-  panel_destroy (dialog);
-  free ((void *) dialog->dev_name);
-  free (dialog->element);
-  free (dialog);
+  panel_destroy(dialog);
+  free((void *) dialog->dev_name);
+  free(dialog->element);
+  free(dialog);
 
-  sane_close (dev);
+  sane_close(dev);
 }

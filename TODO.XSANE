@@ -2,32 +2,33 @@ This is a list of what I want to change/include for xsane.
 If you have any suggestions: mail to Oliver.Rauch@Wolfsburg.DE
 
 first steps:
+ - set resolution in copy-mode at beginning
+ - call update_histogram after new preview
  - what happens if backend supports gamma table but does not
    use "custom_gamma"-option and we do a preview scan with enhancement != default ?
- - dont erase tooltips if desroy_panel is called
- - make auto enhancement work if histogram is turned off
- - make better backend-dependend option handling and error handling
+ - make better backend-dependend option handling and error handling (mostly done!)
  - program better preview
- - gamma correction for all modes with 8/10/12 bpp and if scanner does not support gamma table
- - improve auto contrast/brightness
- - pick white and black point -> contrast/brightness calculated
+   - zoom preview
+   - pick white and black point
+   - sizeable window
+ - gamma correction for all modes with 8/10/12 bpp and if scanner does not support gamma table (partly done)
  - include invert (for negatives) into enhancement
  - let user add a list of printers for photocopy
- - print info about used (hidden) parametres (software/hardware gamma, analog gamma ...)
-
-second steps:
+ - print info about used (hidden) parametres (software/scanner gamma, analog gamma ...)
  - xsane_setup: select image position on printer (centered/left/right/...) for copy
  - store more than 1 enhancement and give names for it, may be in own files
  - postscript-output for 1/8/10/12 bpp
  - fax-function
  - may be email-function
- - other output formats:
+ - other output formats for saving:
    - png
+   - jpeg
+   - postscript
    - ...?
  - online help (netscape remote)
  - save all options to a file including preview-selection
 
-third steps:
+second steps:
  - let user select whether
    - analog gamma
    - highlight
@@ -41,12 +42,11 @@ third steps:
    - input multiplactors in xsane-setup to make
      scanner depend values compatible to xsane-values
 
-fourth steps:
- - zoom preview
+third steps:
  - correct gtk custom gamma functions and include it
-
 
 
 ideas:
  - preview always in greyscale or always in color
- - define preview size (for small pictures)
+ - define preview area (for small pictures)
+
