@@ -91,6 +91,7 @@ void null_print_func(gchar *msg);
 static void xsane_gimp_advance(void);
 static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition cond);
 static RETSIGTYPE xsane_sigpipe_handler(int signal);
+static int xsane_test_adf(void);
 static void xsane_scan_done(SANE_Status status);
 void xsane_cancel(void);
 static void xsane_start_scan(void);
@@ -387,7 +388,6 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
       status = sane_read(dev, (SANE_Byte *) buf8, sizeof(buf8), &len);
       if (status == SANE_STATUS_EOF)
       {
-/* I THINK THIS SHOULD BE REMOVED: */
         if (!xsane.param.last_frame)
         {
           xsane_start_scan();
@@ -410,18 +410,6 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
 
       if (!len)
       {
-        if (xsane.bytes_read >= xsane.num_bytes) /* image or frame is complete */
-        {
-          if (!xsane.param.last_frame) /* more frames for this image ? */
-          {
-            xsane_start_scan(); /* get next frame of this image */
-            break; /* leave while loop */
-          }
-
-          xsane_scan_done(SANE_STATUS_GOOD); /* image complete, get next one */
-          return;
-        }
-
         break; /* out of data for now, leave while loop */
       }
 
@@ -799,7 +787,6 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
 
       if (status == SANE_STATUS_EOF)
       {
-/* I THINK THIS SHOULD BE REMOVED: */
         if (!xsane.param.last_frame)
         {
           xsane_start_scan();
@@ -820,18 +807,6 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
 
       if (!len) /* nothing read */
       {
-        if (xsane.bytes_read >= xsane.num_bytes) /* image or frame is complete */
-        {
-          if (!xsane.param.last_frame) /* more frames for this image ? */
-          {
-            xsane_start_scan(); /* get next frame of this image */
-            break; /* leave while loop */
-          }
-
-          xsane_scan_done(SANE_STATUS_GOOD); /* image complete, get next one */
-          return;
-        }
-
         break; /* out of data for now, leave while loop */
       }
 
@@ -995,6 +970,38 @@ static RETSIGTYPE xsane_sigpipe_handler(int signal)
   xsane.broken_pipe = 1;
 }
 
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static int xsane_test_adf(void)
+{
+ char *set;
+ SANE_Status status;
+ const SANE_Option_Descriptor *opt;
+
+  opt = sane_get_option_descriptor(dialog->dev, dialog->well_known.scansource);
+  if (opt)
+  {
+    if (SANE_OPTION_IS_ACTIVE(opt->cap))
+    {
+      if (opt->constraint_type == SANE_CONSTRAINT_STRING_LIST)
+      {
+        set = malloc(opt->size);
+        status = sane_control_option(dialog->dev, dialog->well_known.scansource, SANE_ACTION_GET_VALUE, set, 0);
+
+        if (status == SANE_STATUS_GOOD)
+        {
+          if (!strcmp(set, SANE_NAME_DOCUMENT_FEEDER))
+          {
+            return TRUE;
+          }
+        }
+        free(set);
+      }
+    }
+  }
+  return FALSE;
+}
+                                    
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 static void xsane_scan_done(SANE_Status status)
@@ -1368,7 +1375,7 @@ static void xsane_scan_done(SANE_Status status)
     free(page);
   }
 
-  if (status == SANE_STATUS_GOOD)
+  if ( ( (status == SANE_STATUS_GOOD) || (status == SANE_STATUS_EOF) ) && (xsane_test_adf()) )
   {
     gtk_signal_emit_by_name(xsane.start_button, "clicked"); /* multi image (eg ADF): scan until error */
   }

@@ -349,8 +349,7 @@ xsane-0.31 -> 0.32:
    xsane mode selection
  - prepared text outputs (in xsane-text.h) for NLS/gettext support
  - multiple \n in scanf while reading saved preview image removed
- - added AM_PROG_CC_STDC to configure.in for HP/UX and defined macro
-   for it in aclocal.m4 - taken from aclocal.m4 from gtk+-1.2.3
+ - added AM_PROG_CC_STDC to configure.in for HP/UX
  - added a break statement after each default in switch block
  - changed test for multiple image scan, when sane_read returned with
    SANE_STATUS_GOOD when the image is finished we start a new scan,
@@ -359,4 +358,11 @@ xsane-0.31 -> 0.32:
    like planned in the sane standard, the backend says
    if the frontend shall call sane_start repeatadly.
 
+
+xsane-0.32 -> 0.33:
+-------------------
+
+ - removed change about SANE_STATUS_GOOD in multiple image mode.
+   Adf mode is detected by scanmode again. This would be better
+   selected by a mulit_image bit in the preferences block.
 

@@ -6,7 +6,7 @@ AC_CONFIG_HEADER(include/sane/config.h)
 
 # version code:
 V_MAJOR=0
-V_MINOR=32
+V_MINOR=33
 
 PACKAGE=xsane
 SANE_V_MAJOR=1
