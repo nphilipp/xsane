@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.90\n"
-"POT-Creation-Date: 2004-05-08 23:55+0200\n"
+"POT-Creation-Date: 2004-08-05 12:07+0200\n"
 "PO-Revision-Date: 2003-03-27 12:00+0100\n"
 "Last-Translator: leolarrel Wang <leolarrel@yahoo.com.tw>\n"
 "Language-Team: zh_TW<zh_TW@li.org>\n"
@@ -23,6 +23,10 @@ msgid "(c)"
 msgstr ""
 
 #. can be translated with \251
+#. FILENAME_PREFIX_CLONE_OF
+msgid "clone-of-"
+msgstr ""
+
 #. WINDOW_ABOUT_XSANE
 msgid "About"
 msgstr "有關"
@@ -197,13 +201,25 @@ msgstr "偏好設定"
 msgid "View"
 msgstr "檢視"
 
+#. MENU_WINDOW
+msgid "Window"
+msgstr ""
+
 #. MENU_HELP
 msgid "Help"
 msgstr "幫助"
 
+#. MENU_EDIT
+msgid "Edit"
+msgstr ""
+
 #. MENU_FILTERS
 msgid "Filters"
 msgstr "過濾器"
+
+#. MENU_GEOMETRY
+msgid "Geometry"
+msgstr ""
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
@@ -237,6 +253,10 @@ msgstr "調整"
 msgid "Close"
 msgstr "關閉"
 
+#. MENU_ITEM_UNDO
+msgid "Undo"
+msgstr ""
+
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
 msgstr ""
@@ -244,6 +264,30 @@ msgstr ""
 #. MENU_ITEM_BLUR
 msgid "Blur"
 msgstr "模糊"
+
+#. MENU_ITEM_ROTATE90
+msgid "Rotate 90"
+msgstr ""
+
+#. MENU_ITEM_ROTATE180
+#, fuzzy
+msgid "Rotate 180"
+msgstr "翻轉影像180度"
+
+#. MENU_ITEM_ROTATE270
+#, fuzzy
+msgid "Rotate 270"
+msgstr "翻轉影像270度"
+
+#. MENU_ITEM_MIRROR_X
+#, fuzzy
+msgid "Mirror |"
+msgstr "錯誤"
+
+#. MENU_ITEM_MIRROR_Y
+#, fuzzy
+msgid "Mirror -"
+msgstr "錯誤"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -1937,6 +1981,10 @@ msgstr ""
 
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
+msgstr ""
+
+#. DESC_VIEWER_UNDO
+msgid "Undo last change"
 msgstr ""
 
 #. DESC_VIEWER_CLONE

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.90\n"
-"POT-Creation-Date: 2004-05-08 23:55+0200\n"
+"POT-Creation-Date: 2004-08-05 12:07+0200\n"
 "PO-Revision-Date: 2002-12-23 02:48MSK\n"
 "Last-Translator: Vitaly Lipatov <lav@altlinux.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -24,6 +24,10 @@ msgid "(c)"
 msgstr "(c)"
 
 #. can be translated with \251
+#. FILENAME_PREFIX_CLONE_OF
+msgid "clone-of-"
+msgstr ""
+
 #. WINDOW_ABOUT_XSANE
 msgid "About"
 msgstr "О программе"
@@ -199,13 +203,25 @@ msgstr "Параметры"
 msgid "View"
 msgstr "Вид"
 
+#. MENU_WINDOW
+msgid "Window"
+msgstr ""
+
 #. MENU_HELP
 msgid "Help"
 msgstr "Помощь"
 
+#. MENU_EDIT
+msgid "Edit"
+msgstr ""
+
 #. MENU_FILTERS
 msgid "Filters"
 msgstr "Фильтры"
+
+#. MENU_GEOMETRY
+msgid "Geometry"
+msgstr ""
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
@@ -239,6 +255,10 @@ msgstr "Изменить размер"
 msgid "Close"
 msgstr "Закрыть"
 
+#. MENU_ITEM_UNDO
+msgid "Undo"
+msgstr ""
+
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
 msgstr "Убрать растр"
@@ -246,6 +266,30 @@ msgstr "Убрать растр"
 #. MENU_ITEM_BLUR
 msgid "Blur"
 msgstr "Размыть"
+
+#. MENU_ITEM_ROTATE90
+msgid "Rotate 90"
+msgstr ""
+
+#. MENU_ITEM_ROTATE180
+#, fuzzy
+msgid "Rotate 180"
+msgstr "Поворот изображения на 180 градусов"
+
+#. MENU_ITEM_ROTATE270
+#, fuzzy
+msgid "Rotate 270"
+msgstr "Поворот изображения на 270 градусов"
+
+#. MENU_ITEM_MIRROR_X
+#, fuzzy
+msgid "Mirror |"
+msgstr "ошибка"
+
+#. MENU_ITEM_MIRROR_Y
+#, fuzzy
+msgid "Mirror -"
+msgstr "ошибка"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -2023,6 +2067,11 @@ msgstr "Укажите расположения печатаемого изображения"
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
 msgstr "Распознавание текстов"
+
+#. DESC_VIEWER_UNDO
+#, fuzzy
+msgid "Undo last change"
+msgstr "Отменить последнее изменение масштаба"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"

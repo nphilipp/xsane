@@ -4,8 +4,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.90\n"
-"POT-Creation-Date: 2004-04-20 18:54+0200\n"
+"Project-Id-Version: XSANE 0.93\n"
+"POT-Creation-Date: 2004-08-05 12:07+0200\n"
 "PO-Revision-Date: 2000-02-09 21:00+01:00\n"
 "Last-Translator: Laurent Grawet <laurent.grawet@ibelgique.com>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -23,6 +23,10 @@ msgid "(c)"
 msgstr ""
 
 #. can be translated with \251
+#. FILENAME_PREFIX_CLONE_OF
+msgid "clone-of-"
+msgstr ""
+
 #. WINDOW_ABOUT_XSANE
 msgid "About"
 msgstr "A propos"
@@ -90,6 +94,21 @@ msgstr "Insérer un fichier dans le message"
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
 msgstr "Renommer l'aire de présélection"
+
+#. WINDOW_PRESET_AREA_ADD
+#, fuzzy
+msgid "add preset area"
+msgstr "Renommer l'aire de présélection"
+
+#. WINDOW_MEDIUM_RENAME
+#, fuzzy
+msgid "rename medium"
+msgstr "Enregistre la définition du support"
+
+#. WINDOW_MEDIUM_ADD
+#, fuzzy
+msgid "add new medium"
+msgstr "Enregistre la définition du support"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -183,13 +202,25 @@ msgstr "Préférences"
 msgid "View"
 msgstr "Afficher"
 
+#. MENU_WINDOW
+msgid "Window"
+msgstr ""
+
 #. MENU_HELP
 msgid "Help"
 msgstr "Aide"
 
+#. MENU_EDIT
+msgid "Edit"
+msgstr ""
+
 #. MENU_FILTERS
 msgid "Filters"
 msgstr "Filtres"
+
+#. MENU_GEOMETRY
+msgid "Geometry"
+msgstr ""
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
@@ -223,6 +254,10 @@ msgstr "Redimensioner"
 msgid "Close"
 msgstr "Fermer"
 
+#. MENU_ITEM_UNDO
+msgid "Undo"
+msgstr ""
+
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
 msgstr "Déparasitage"
@@ -230,6 +265,30 @@ msgstr "Déparasitage"
 #. MENU_ITEM_BLUR
 msgid "Blur"
 msgstr "Flou"
+
+#. MENU_ITEM_ROTATE90
+msgid "Rotate 90"
+msgstr ""
+
+#. MENU_ITEM_ROTATE180
+#, fuzzy
+msgid "Rotate 180"
+msgstr "Rotation à 180° de l'image"
+
+#. MENU_ITEM_ROTATE270
+#, fuzzy
+msgid "Rotate 270"
+msgstr "Rotation à 270° de l'image"
+
+#. MENU_ITEM_MIRROR_X
+#, fuzzy
+msgid "Mirror |"
+msgstr "Erreur"
+
+#. MENU_ITEM_MIRROR_Y
+#, fuzzy
+msgid "Mirror -"
+msgstr "Erreur"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -982,6 +1041,9 @@ msgstr "groupe"
 msgid "all"
 msgstr "tous"
 
+msgid "new media"
+msgstr ""
+
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
 msgstr "Enregistrer"
@@ -1091,9 +1153,8 @@ msgid "Rotate postscript"
 msgstr "Rotation PostScript"
 
 #. MENU_ITEM_EDIT_MEDIUM_DEF
-#, fuzzy
 msgid "Edit medium definition"
-msgstr "Enregister la définition du support"
+msgstr "Editer la définition du support"
 
 #. MENU_ITEM_SAVE_DEVICE_SETTINGS
 msgid "Save device settings"
@@ -1207,20 +1268,29 @@ msgstr "par ext"
 msgid "Add selection to list"
 msgstr "Ajouter la sélection à la liste"
 
-#. MENU_ITEM_PRESET_AREA_RENAME
-msgid "Rename definiton"
-msgstr "Renommer la définition"
+#. MENU_ITEM_MEDIUM_ADD
+#, fuzzy
+msgid "Add medium definition"
+msgstr "Editer la définition du support"
 
-#. MENU_ITEM_PRESET_AREA_DELETE
-msgid "Delete definition"
-msgstr "Effacer la définition"
+#. MENU_ITEM_RENAME
+#, fuzzy
+msgid "Rename item"
+msgstr "Renommer l'image"
 
-#. MENU_ITEM_PRESET_AREA_MOVE_UP
-msgid "Move up"
+#. MENU_ITEM_DELETE
+#, fuzzy
+msgid "Delete item"
+msgstr "Enlever une imprimante"
+
+#. MENU_ITEM_MOVE_UP
+#, fuzzy
+msgid "Move item up"
 msgstr "Haut"
 
-#. MENU_ITEM_PRESET_AREA_MOVE_DWN
-msgid "Move down"
+#. MENU_ITEM_MOVE_DWN
+#, fuzzy
+msgid "Move item down"
 msgstr "Bas"
 
 #. PROGRESS_SCANNING
@@ -1301,9 +1371,13 @@ msgstr ""
 "poster-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
-#, fuzzy
-msgid "Select source medium type\n"
-msgstr "Sélectionne le type de media de la source"
+msgid ""
+"Select source medium type.\n"
+"To rename, reorder or delete an entry use context menu (right mouse "
+"button).\n"
+"To create a medium enable the option edit medium definition in preferences "
+"menu."
+msgstr ""
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1353,14 +1427,23 @@ msgstr "Entrez l'adresse e-mail"
 msgid "Enter subject of email"
 msgstr "Entrez le sujet de l'e-mail"
 
-#. DESC_PRESET_AREA_NAME
+#. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
 msgstr "Entrez un nom pour la présélection"
 
-#. DESC_MEDIUM_DEFINITION_NAME
+#. DESC_PRESET_AREA_ADD
 #, fuzzy
+msgid "Enter name for new preset area"
+msgstr "Entrez un nom pour la présélection"
+
+#. DESC_MEDIUM_RENAME
 msgid "Enter new name for medium definition"
-msgstr "Enregister la définition du support"
+msgstr "Entrez un nom pour la définition du support"
+
+#. DESC_MEDIUM_ADD
+#, fuzzy
+msgid "Enter name for new medium definition"
+msgstr "Entrez un nom pour la définition du support"
 
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
@@ -1395,10 +1478,9 @@ msgid "Set number of copies"
 msgstr "Entrez le nombre de copies"
 
 #. DESC_NEGATIVE
-#, fuzzy
 msgid "Negative: Invert colors for scanning negatives <Ctrl-n>"
 msgstr ""
-"Négatif: Inverse les couleurs pour la numérisation de négatifs <Shift-n>"
+"Négatif: Inverse les couleurs pour la numérisation de négatifs <Ctrl-n>"
 
 #. DESC_GAMMA
 msgid "Set gamma value"
@@ -1453,7 +1535,6 @@ msgid "Set threshold"
 msgstr "Change le seuil"
 
 #. DESC_RGB_DEFAULT
-#, fuzzy
 msgid ""
 "RGB default: Set enhancement values for red, green and blue to default "
 "values <Ctrl-b>:\n"
@@ -1462,38 +1543,34 @@ msgid ""
 " contrast = 0"
 msgstr ""
 "Défaults RGB: Place les optimisations pour le rouge, vert et bleu à leurs "
-"valeurs par défaut <Shift-b>:\n"
+"valeurs par défaut <Ctrl-b>:\n"
 " gamma = 1.0\n"
 " luminosité = 0\n"
 " contraste = 0"
 
 #. DESC_ENH_AUTO
-#, fuzzy
 msgid "Autoadjust gamma, brightness and contrast <Ctrl-e>"
-msgstr "Ajuste automatiquement gamma, luminosité et contraste <Shift-e>"
+msgstr "Ajuste automatiquement gamma, luminosité et contraste <Ctrl-e>"
 
 #. DESC_ENH_DEFAULT
-#, fuzzy
 msgid ""
 "Set default enhancement values <Ctrl-0>:\n"
 "gamma = 1.0\n"
 "brightness = 0\n"
 "contrast = 0"
 msgstr ""
-"Place les optimisations à leurs valeurs par défaut <Shift-d>:\n"
+"Place les optimisations à leurs valeurs par défaut <Ctrl-0>:\n"
 " gamma = 1.0\n"
 " luminosité = 0\n"
 " contraste = 0"
 
 #. DESC_ENH_RESTORE
-#, fuzzy
 msgid "Restore enhancement values from preferences <Ctrl-r>"
-msgstr "Restaure les optimisations des préférences <Shift-r>"
+msgstr "Restaure les optimisations des préférences <Ctrl-r>"
 
 #. DESC_ENH_STORE
-#, fuzzy
 msgid "Store active enhancement values to preferences <Ctrl-+>"
-msgstr "Enregistre les optimisations actives dans les préférences <Shift-m>"
+msgstr "Enregistre les optimisations actives dans les préférences <Ctrl-+>"
 
 #. DESC_HIST_INTENSITY
 msgid "Show histogram of intensity/gray <Alt-i>"
@@ -1961,8 +2038,11 @@ msgid "Delete preview image cache"
 msgstr "Effacer le cache de l'aperçu"
 
 #. DESC_PRESET_AREA
-msgid "Preset area"
-msgstr "Aire de présélection"
+msgid ""
+"Preset area:\n"
+"To add new area or edit an existing area use contect menu (right mouse "
+"button)."
+msgstr ""
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -1979,6 +2059,11 @@ msgstr ""
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
 msgstr "Reconnaissance Optique de Caractères"
+
+#. DESC_VIEWER_UNDO
+#, fuzzy
+msgid "Undo last change"
+msgstr "Annule le dernier zoom"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
@@ -2167,9 +2252,8 @@ msgid "LIBPNG reports error"
 msgstr "LIBPNG a reporté une erreur"
 
 #. ERR_LIBJPEG
-#, fuzzy
 msgid "LIBJPEG reports error"
-msgstr "LIBPNG a reporté une erreur"
+msgstr "LIBJPEG a reporté une erreur"
 
 #. ERR_UNKNOWN_TYPE
 msgid "unknown type"
@@ -2178,6 +2262,14 @@ msgstr "type inconnu"
 #. ERR_UNKNOWN_CONSTRAINT_TYPE
 msgid "unknown constraint type"
 msgstr "type de restriction inconnu"
+
+#. ERR_OPTION_NAME_NULL
+msgid "Option has empty name (NULL)."
+msgstr ""
+
+#. ERR_BACKEND_BUG
+msgid "This is a backend bug. Please inform the author of the backend!"
+msgstr ""
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
@@ -2366,7 +2458,6 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[OPTION]... [PERIPHERIQUE]"
 
 #. TEXT_HELP
-#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2648,3 +2739,15 @@ msgstr "Dépassement de mémoire"
 
 msgid "Access to resource has been denied"
 msgstr "Accès à la ressource refusé"
+
+#~ msgid "Preset area"
+#~ msgstr "Aire de présélection"
+
+#~ msgid "Select source medium type\n"
+#~ msgstr "Sélectionne le type de support de la source\n"
+
+#~ msgid "Rename definiton"
+#~ msgstr "Renommer la définition"
+
+#~ msgid "Delete definition"
+#~ msgstr "Effacer la définition"

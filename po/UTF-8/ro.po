@@ -1,18 +1,20 @@
+# translation of ro.po to Romanian
 #  Xsane 0.87
-# Copyright (C) 2002 Free Software Foundation, Inc.
+# Copyright (C) 2002, 2004 Free Software Foundation, Inc.
 # Harald Ersch <hersch@romatsa.ro>,2002.
+# Harald Ersch <harald@ersch.ro>, 2004.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSane 0.89\n"
-"POT-Creation-Date: 2004-04-20 18:54+0200\n"
-"PO-Revision-Date: 2002-12-10 08:38+0200\n"
-"Last-Translator: Harald Ersch <hersch@romatsa.ro>\n"
+"Project-Id-Version: ro\n"
+"POT-Creation-Date: 2004-08-05 12:07+0200\n"
+"PO-Revision-Date: 2004-04-23 08:36+0300\n"
+"Last-Translator: Harald Ersch <harald@ersch.ro>\n"
 "Language-Team: Romanian <rtfs-project@sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.9.6\n"
+"X-Generator: KBabel 1.0.2\n"
 
 #. Please translate this to the correct directory name (eg. german=>de)
 #. XSANE_LANGUAGE_DIR
@@ -24,6 +26,10 @@ msgid "(c)"
 msgstr "(c)"
 
 #. can be translated with \251
+#. FILENAME_PREFIX_CLONE_OF
+msgid "clone-of-"
+msgstr ""
+
 #. WINDOW_ABOUT_XSANE
 msgid "About"
 msgstr "Despre"
@@ -91,6 +97,21 @@ msgstr "Introduce fişier în email"
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
 msgstr "Redenumeşte zone predefinite"
+
+#. WINDOW_PRESET_AREA_ADD
+#, fuzzy
+msgid "add preset area"
+msgstr "Redenumeşte zone predefinite"
+
+#. WINDOW_MEDIUM_RENAME
+#, fuzzy
+msgid "rename medium"
+msgstr "Stocare mediu"
+
+#. WINDOW_MEDIUM_ADD
+#, fuzzy
+msgid "add new medium"
+msgstr "Stocare mediu"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -184,13 +205,25 @@ msgstr "Preferinţe"
 msgid "View"
 msgstr "Vizualizare"
 
+#. MENU_WINDOW
+msgid "Window"
+msgstr ""
+
 #. MENU_HELP
 msgid "Help"
 msgstr "Ajutor"
 
+#. MENU_EDIT
+msgid "Edit"
+msgstr ""
+
 #. MENU_FILTERS
 msgid "Filters"
 msgstr "Filtre"
+
+#. MENU_GEOMETRY
+msgid "Geometry"
+msgstr ""
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
@@ -224,6 +257,10 @@ msgstr "Scalează"
 msgid "Close"
 msgstr "Închide"
 
+#. MENU_ITEM_UNDO
+msgid "Undo"
+msgstr ""
+
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
 msgstr "Scoate pete"
@@ -231,6 +268,30 @@ msgstr "Scoate pete"
 #. MENU_ITEM_BLUR
 msgid "Blur"
 msgstr "Difuzie"
+
+#. MENU_ITEM_ROTATE90
+msgid "Rotate 90"
+msgstr ""
+
+#. MENU_ITEM_ROTATE180
+#, fuzzy
+msgid "Rotate 180"
+msgstr "Roteşte imaginea cu 180°"
+
+#. MENU_ITEM_ROTATE270
+#, fuzzy
+msgid "Rotate 270"
+msgstr "Roteşte imaginea cu 270°"
+
+#. MENU_ITEM_MIRROR_X
+#, fuzzy
+msgid "Mirror |"
+msgstr "eroare"
+
+#. MENU_ITEM_MIRROR_Y
+#, fuzzy
+msgid "Mirror -"
+msgstr "eroare"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -984,6 +1045,9 @@ msgstr "grup"
 msgid "all"
 msgstr "toţi"
 
+msgid "new media"
+msgstr ""
+
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
 msgstr "Salvare"
@@ -1093,9 +1157,8 @@ msgid "Rotate postscript"
 msgstr "Roteşte postscript"
 
 #. MENU_ITEM_EDIT_MEDIUM_DEF
-#, fuzzy
 msgid "Edit medium definition"
-msgstr "Stocare definiţie mediu"
+msgstr "Editare definiţie mediu"
 
 #. MENU_ITEM_SAVE_DEVICE_SETTINGS
 msgid "Save device settings"
@@ -1209,20 +1272,29 @@ msgstr "după extensie"
 msgid "Add selection to list"
 msgstr "Adaugă selecţia la listă"
 
-#. MENU_ITEM_PRESET_AREA_RENAME
-msgid "Rename definiton"
-msgstr "Redenumeşte definiţia"
+#. MENU_ITEM_MEDIUM_ADD
+#, fuzzy
+msgid "Add medium definition"
+msgstr "Editare definiţie mediu"
 
-#. MENU_ITEM_PRESET_AREA_DELETE
-msgid "Delete definition"
-msgstr "Şterge definiţia"
+#. MENU_ITEM_RENAME
+#, fuzzy
+msgid "Rename item"
+msgstr "Redenumeşte imaginea"
 
-#. MENU_ITEM_PRESET_AREA_MOVE_UP
-msgid "Move up"
+#. MENU_ITEM_DELETE
+#, fuzzy
+msgid "Delete item"
+msgstr "Şterge imprimantă"
+
+#. MENU_ITEM_MOVE_UP
+#, fuzzy
+msgid "Move item up"
 msgstr "Mută în sus"
 
-#. MENU_ITEM_PRESET_AREA_MOVE_DWN
-msgid "Move down"
+#. MENU_ITEM_MOVE_DWN
+#, fuzzy
+msgid "Move item down"
 msgstr "Mută în jos"
 
 #. PROGRESS_SCANNING
@@ -1303,9 +1375,13 @@ msgstr ""
 "mail-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
-#, fuzzy
-msgid "Select source medium type\n"
-msgstr "Selectare tip mediu sursă"
+msgid ""
+"Select source medium type.\n"
+"To rename, reorder or delete an entry use context menu (right mouse "
+"button).\n"
+"To create a medium enable the option edit medium definition in preferences "
+"menu."
+msgstr ""
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1355,14 +1431,23 @@ msgstr "Introduceţi adresa de email"
 msgid "Enter subject of email"
 msgstr "Introduceţi subiectul email-ului"
 
-#. DESC_PRESET_AREA_NAME
+#. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
 msgstr "Introduceţi numele noii zone predefinite"
 
-#. DESC_MEDIUM_DEFINITION_NAME
+#. DESC_PRESET_AREA_ADD
 #, fuzzy
+msgid "Enter name for new preset area"
+msgstr "Introduceţi numele noii zone predefinite"
+
+#. DESC_MEDIUM_RENAME
 msgid "Enter new name for medium definition"
-msgstr "Stocare definiţie mediu"
+msgstr "Introduceţi noul nume pt. definiţia mediului"
+
+#. DESC_MEDIUM_ADD
+#, fuzzy
+msgid "Enter name for new medium definition"
+msgstr "Introduceţi noul nume pt. definiţia mediului"
 
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
@@ -1397,9 +1482,8 @@ msgid "Set number of copies"
 msgstr "Setează număr copii"
 
 #. DESC_NEGATIVE
-#, fuzzy
 msgid "Negative: Invert colors for scanning negatives <Ctrl-n>"
-msgstr "Negativ: inversează culorile pentru scanare negative <Shift-n>"
+msgstr "Negativ: inversează culorile pentru scanare negative <Ctrl-n>"
 
 #. DESC_GAMMA
 msgid "Set gamma value"
@@ -1454,7 +1538,6 @@ msgid "Set threshold"
 msgstr "Setează prag"
 
 #. DESC_RGB_DEFAULT
-#, fuzzy
 msgid ""
 "RGB default: Set enhancement values for red, green and blue to default "
 "values <Ctrl-b>:\n"
@@ -1462,40 +1545,36 @@ msgid ""
 " brightness = 0\n"
 " contrast = 0"
 msgstr ""
-"Setare valori RGB implicite pt. îmbunătăţire canale roşu, verde, albastru "
-"<Shift-b>:\n"
+"Setare valori RGB implicite pt. îmbunătăţire: canale roşu, verde, albastru "
+"<Ctrl-b>:\n"
 " gamma = 1.0\n"
 " strălucire = 0\n"
 " contrast = 0"
 
 #. DESC_ENH_AUTO
-#, fuzzy
 msgid "Autoadjust gamma, brightness and contrast <Ctrl-e>"
-msgstr "Ajustare automată pt. gamma, strălucire, contrast <Shift-e>"
+msgstr "Ajustare automată pt. gamma, strălucire, contrast <Ctrl-e>"
 
 #. DESC_ENH_DEFAULT
-#, fuzzy
 msgid ""
 "Set default enhancement values <Ctrl-0>:\n"
 "gamma = 1.0\n"
 "brightness = 0\n"
 "contrast = 0"
 msgstr ""
-"Setare valori implicite pt. îmbunătăţire <Shift-d>:\n"
+"Setare valori implicite pt. îmbunătăţire <Ctrl-0>:\n"
 "gamma = 1.0\n"
 "strălucire = 0\n"
 "contrast = 0"
 
 #. DESC_ENH_RESTORE
-#, fuzzy
 msgid "Restore enhancement values from preferences <Ctrl-r>"
 msgstr ""
-"Restaurează valorile implicite pt. îmbunătăţire din preferinţe <Shift-r>"
+"Restaurează valorile implicite pt. îmbunătăţire din preferinţe <Ctrl-r>"
 
 #. DESC_ENH_STORE
-#, fuzzy
 msgid "Store active enhancement values to preferences <Ctrl-+>"
-msgstr "Salvează valorile curente pt. îmbunătăţire în preferinţe <Shift-r>"
+msgstr "Salvează valorile curente pt. îmbunătăţire în preferinţe <Ctrl-+>"
 
 #. DESC_HIST_INTENSITY
 msgid "Show histogram of intensity/gray <Alt-i>"
@@ -1965,8 +2044,11 @@ msgid "Delete preview image cache"
 msgstr "Şterge imaginea previzualizată tampon"
 
 #. DESC_PRESET_AREA
-msgid "Preset area"
-msgstr "Zonă predefinită"
+msgid ""
+"Preset area:\n"
+"To add new area or edit an existing area use contect menu (right mouse "
+"button)."
+msgstr ""
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -1983,6 +2065,11 @@ msgstr "Defineşte poziţionarea imaginii pt. tipărire"
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
 msgstr "Recunoaştere optică a caracterelor (OCR)"
+
+#. DESC_VIEWER_UNDO
+#, fuzzy
+msgid "Undo last change"
+msgstr "Anulează ultima mărire"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
@@ -2034,11 +2121,11 @@ msgstr "Factor scalare Y"
 
 #. DESC_SCALE_WIDTH
 msgid "Scale image to width [in pixel]"
-msgstr ""
+msgstr "Scalare imagine (la lăţime) [în pixeli]"
 
 #. DESC_SCALE_HEIGHT
 msgid "Scale image to height [in pixel]"
-msgstr ""
+msgstr "Scalare imagine (la înălţime) [în pixeli]"
 
 #. DESC_BATCH_LIST_EMPTY
 msgid "Empty batch list"
@@ -2066,7 +2153,7 @@ msgstr "Şterge zona selectată din lista cu loturi"
 
 #. DESC_AUTOMATIC
 msgid "Turns on automatic mode"
-msgstr ""
+msgstr "Activează modul automat"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2171,9 +2258,8 @@ msgid "LIBPNG reports error"
 msgstr "libpng raportează o eroare"
 
 #. ERR_LIBJPEG
-#, fuzzy
 msgid "LIBJPEG reports error"
-msgstr "libpng raportează o eroare"
+msgstr "LIBJPEG raportează o eroare"
 
 #. ERR_UNKNOWN_TYPE
 msgid "unknown type"
@@ -2182,6 +2268,14 @@ msgstr "Tip necunoscut"
 #. ERR_UNKNOWN_CONSTRAINT_TYPE
 msgid "unknown constraint type"
 msgstr "tip constrângere necunoscut"
+
+#. ERR_OPTION_NAME_NULL
+msgid "Option has empty name (NULL)."
+msgstr ""
+
+#. ERR_BACKEND_BUG
+msgid "This is a backend bug. Please inform the author of the backend!"
+msgstr ""
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
@@ -2368,7 +2462,6 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[OPŢIUNE]... [DISPOZITIV]"
 
 #. TEXT_HELP
-#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2422,8 +2515,6 @@ msgstr ""
 " -m, --mail                   porneşte în modul poştă\n"
 " -n, --no-mode-selection      dezactivează meniul de selectare a modului "
 "XSane\n"
-" -M, --Medium-calibration     activează modul de calibrare medie\n"
-"\n"
 " -F, --Fixed                  marime fixă a ferestrei principale (suprascrie "
 "valorile din preferinţe)\n"
 " -R, --Resizeable       fereastră principală redimensionabilă (suprascrie "
@@ -2656,6 +2747,18 @@ msgstr "Nu am memorie suficientă."
 
 msgid "Access to resource has been denied"
 msgstr "Accesul la resursă a fost respins"
+
+#~ msgid "Preset area"
+#~ msgstr "Zonă predefinită"
+
+#~ msgid "Select source medium type\n"
+#~ msgstr "Selectare tip mediu sursă\n"
+
+#~ msgid "Rename definiton"
+#~ msgstr "Redenumeşte definiţia"
+
+#~ msgid "Delete definition"
+#~ msgstr "Şterge definiţia"
 
 #~ msgid "Start"
 #~ msgstr "Porneşte"

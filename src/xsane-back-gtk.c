@@ -1391,7 +1391,7 @@ static void xsane_back_gtk_value_update(GtkAdjustment *adj_data, DialogElement *
   switch(opt->type)
   {
     case SANE_TYPE_INT:
-      val = adj_data->value + 0.5;
+     val = adj_data->value; /* OLD:  + 0.5 but this mad problems with negative values */
      break;
 
     case SANE_TYPE_FIXED:

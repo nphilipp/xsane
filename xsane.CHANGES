@@ -2481,4 +2481,66 @@ xsane-0.93 -> 0.94:
  - xsane_back_gtk_get_filename: directory is prepared with ending SLASH
    instead of ending "/.", this does work with windows now when SLASH is \
 
+xsane-0.94 -> 0.95:
+-------------------
+
+ - For xsane-win32 the xsane icon is added to the windows ressource of xsane.exe:
+   added definition of XSANE_ICON=xsane-icon.opc to configure[.in]
+   added creation rule of xsane-icon.opc to src/Makefile[.in]
+   added @XSANE_ICON@ to XSANE_OBJS
+
+ - in xsane_back_gtk_value_update: removed rounding (+ 0.5) in case SANE_TYPE_INT
+
+ - new translations: hu
+
+ - changed menues in the xsane main dialog:
+   - added new menu "Window"
+   - moved Window menue entries form "View" to "Window"
+   - moved "Show resolution list" entry from menu "Preferences" to "View"
+   - moved "Update policy" entry from menu "Preferences" to "View"
+   - moved "Length unit" entry from menu "Preferences" to "View"
+
+ - added test if resolution list is displayed or scale is displayed in
+   xsane_resolution_timer_callback(). Without this test it sometimes
+   happened that pressing CTRL+L (Swap show resolution list) caused a
+   segfault because the callback was executed in a moment where the
+   adjustment is not valid
+
+ - added: if (abc->window)
+   before each: gdk_window_process_updates(abc->window)
+   in xsane-gamma.c, this made problems with gtk+2.x
+
+ - when a postscript file is added to a faxproject then the original name of the
+   file is also used in the faxproject now. The pagecounter is still increased!
+
+ - fax fine mode selection is stored in preferences now
+
+ - handling of viewer filenames changed:
+   - when an image is saved in the viewer then the viewer shows the filename in
+     the window title and the viewer remembers the filename
+   - when the image has been changed after it has been saved then the filename
+     in the window title is shown in brackets 
+   - when the filename ends with a number (counter) then the number is automatically
+     increased when the file is saved
+   - when a saved image is cloned then the suggested filename of the cloned image is
+     clone-of-"old-filename"
+
+ - viewer: added support for different modification restrictions
+   - VIEWER_NO_MODIFICATION (only view)
+   - VIEWER_NO_NAME_AND_SIZE_MODIFICATION (some filters allowed but keep size, e.g. fax)
+   - VIEWER_NO_NAME_MODIFICATION (use given name, e.g. fax, mail)
+   - VIEWER_FULL_MODIFICATION (normal mode)
+
+ - added undo function (1 step) to viewer
+
+ - changed menues in the xsane viewer dialog:
+   - added menu "Edit"
+   - added menu "Geometry"
+   - moved Scale function from menu "File" to menu "Geometry"
+   - added rotation and mirror functions to menu "Geometry"
+   - added undo function to menu "Edit"
+
+ - changed icons in the xsane viewer dialog:
+   - moved scale icon to geometry icons (rotation/mirror)
+   - added undo icon
 

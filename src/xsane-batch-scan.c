@@ -955,6 +955,7 @@ void xsane_create_batch_scan_dialog(const char *devicetext)
 
   xsane.batch_scan_dialog = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   xsane_set_window_icon(xsane.batch_scan_dialog, 0);
+  gtk_window_add_accel_group(GTK_WINDOW(xsane.batch_scan_dialog), xsane.accelerator_group);
 
   snprintf(buf, sizeof(buf), "%s %s", WINDOW_BATCH_SCAN, devicetext);
   gtk_window_set_title(GTK_WINDOW(xsane.batch_scan_dialog), buf);

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.84\n"
-"POT-Creation-Date: 2004-05-08 23:55+0200\n"
+"POT-Creation-Date: 2004-08-05 12:07+0200\n"
 "PO-Revision-Date: 2001-02-25 14:06+01:00\n"
 "Last-Translator: Ales Kosir <ales.kosir@lugos.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -24,6 +24,10 @@ msgid "(c)"
 msgstr "(c)"
 
 #. can be translated with \251
+#. FILENAME_PREFIX_CLONE_OF
+msgid "clone-of-"
+msgstr ""
+
 #. WINDOW_ABOUT_XSANE
 msgid "About"
 msgstr "O programu"
@@ -211,14 +215,26 @@ msgstr "Nastavitve"
 msgid "View"
 msgstr "Pogled"
 
+#. MENU_WINDOW
+msgid "Window"
+msgstr ""
+
 #. MENU_HELP
 msgid "Help"
 msgstr "Pomoè"
+
+#. MENU_EDIT
+msgid "Edit"
+msgstr ""
 
 #. MENU_FILTERS
 #, fuzzy
 msgid "Filters"
 msgstr "Datoteka"
+
+#. MENU_GEOMETRY
+msgid "Geometry"
+msgstr ""
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
@@ -255,6 +271,10 @@ msgstr "Skeniraj"
 msgid "Close"
 msgstr "Zapri"
 
+#. MENU_ITEM_UNDO
+msgid "Undo"
+msgstr ""
+
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
 msgstr ""
@@ -262,6 +282,28 @@ msgstr ""
 #. MENU_ITEM_BLUR
 msgid "Blur"
 msgstr ""
+
+#. MENU_ITEM_ROTATE90
+msgid "Rotate 90"
+msgstr ""
+
+#. MENU_ITEM_ROTATE180
+msgid "Rotate 180"
+msgstr ""
+
+#. MENU_ITEM_ROTATE270
+msgid "Rotate 270"
+msgstr ""
+
+#. MENU_ITEM_MIRROR_X
+#, fuzzy
+msgid "Mirror |"
+msgstr "napaka"
+
+#. MENU_ITEM_MIRROR_Y
+#, fuzzy
+msgid "Mirror -"
+msgstr "napaka"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -2056,6 +2098,11 @@ msgstr ""
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
 msgstr ""
+
+#. DESC_VIEWER_UNDO
+#, fuzzy
+msgid "Undo last change"
+msgstr "Preklièi zadnje pribli¾anje"
 
 #. DESC_VIEWER_CLONE
 #, fuzzy

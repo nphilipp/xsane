@@ -56,9 +56,13 @@ May be with different source path:
   - cp po/UTF8/* po	(may be this is not necessary any more)
   - make
   - make install
-  - cp src/*.ico c:/sane/bin
 
 - setup sane:
   - edit c:/sane/etc/sane.d/dll.conf
+    and make sure the backend you want to use is enabled
   - edit c:/sane/etc/sane.d/net.conf
-  
+    and enter the IP address or the NetBEUI name of the
+    server where the scanner is connected
+  - edit c:/sane/etc/sane.d/"backendname".conf
+    to configure the backend "backendname" 
+

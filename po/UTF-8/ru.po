@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.90\n"
-"POT-Creation-Date: 2004-04-20 18:54+0200\n"
+"POT-Creation-Date: 2004-08-05 12:07+0200\n"
 "PO-Revision-Date: 2002-12-23 02:48MSK\n"
 "Last-Translator: Vitaly Lipatov <lav@altlinux.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -24,6 +24,10 @@ msgid "(c)"
 msgstr "(c)"
 
 #. can be translated with \251
+#. FILENAME_PREFIX_CLONE_OF
+msgid "clone-of-"
+msgstr ""
+
 #. WINDOW_ABOUT_XSANE
 msgid "About"
 msgstr "О программе"
@@ -91,6 +95,21 @@ msgstr "добавить файл в послание"
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
 msgstr "переименование области"
+
+#. WINDOW_PRESET_AREA_ADD
+#, fuzzy
+msgid "add preset area"
+msgstr "переименование области"
+
+#. WINDOW_MEDIUM_RENAME
+#, fuzzy
+msgid "rename medium"
+msgstr "Сохранить тип носителя"
+
+#. WINDOW_MEDIUM_ADD
+#, fuzzy
+msgid "add new medium"
+msgstr "Сохранить тип носителя"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -184,13 +203,25 @@ msgstr "Параметры"
 msgid "View"
 msgstr "Вид"
 
+#. MENU_WINDOW
+msgid "Window"
+msgstr ""
+
 #. MENU_HELP
 msgid "Help"
 msgstr "Помощь"
 
+#. MENU_EDIT
+msgid "Edit"
+msgstr ""
+
 #. MENU_FILTERS
 msgid "Filters"
 msgstr "Фильтры"
+
+#. MENU_GEOMETRY
+msgid "Geometry"
+msgstr ""
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
@@ -224,6 +255,10 @@ msgstr "Изменить размер"
 msgid "Close"
 msgstr "Закрыть"
 
+#. MENU_ITEM_UNDO
+msgid "Undo"
+msgstr ""
+
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
 msgstr "Убрать растр"
@@ -231,6 +266,30 @@ msgstr "Убрать растр"
 #. MENU_ITEM_BLUR
 msgid "Blur"
 msgstr "Размыть"
+
+#. MENU_ITEM_ROTATE90
+msgid "Rotate 90"
+msgstr ""
+
+#. MENU_ITEM_ROTATE180
+#, fuzzy
+msgid "Rotate 180"
+msgstr "Поворот изображения на 180 градусов"
+
+#. MENU_ITEM_ROTATE270
+#, fuzzy
+msgid "Rotate 270"
+msgstr "Поворот изображения на 270 градусов"
+
+#. MENU_ITEM_MIRROR_X
+#, fuzzy
+msgid "Mirror |"
+msgstr "ошибка"
+
+#. MENU_ITEM_MIRROR_Y
+#, fuzzy
+msgid "Mirror -"
+msgstr "ошибка"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -985,6 +1044,9 @@ msgstr "группа"
 msgid "all"
 msgstr "прочие"
 
+msgid "new media"
+msgstr ""
+
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
 msgstr "Файл"
@@ -1210,20 +1272,29 @@ msgstr "по расширению"
 msgid "Add selection to list"
 msgstr "Добавить выделение"
 
-#. MENU_ITEM_PRESET_AREA_RENAME
-msgid "Rename definiton"
-msgstr "Переименовать область"
+#. MENU_ITEM_MEDIUM_ADD
+#, fuzzy
+msgid "Add medium definition"
+msgstr "Записать параметры носителя"
 
-#. MENU_ITEM_PRESET_AREA_DELETE
-msgid "Delete definition"
-msgstr "Удалить область"
+#. MENU_ITEM_RENAME
+#, fuzzy
+msgid "Rename item"
+msgstr "Переименовать изображение"
 
-#. MENU_ITEM_PRESET_AREA_MOVE_UP
-msgid "Move up"
+#. MENU_ITEM_DELETE
+#, fuzzy
+msgid "Delete item"
+msgstr "Удалить описание принтера"
+
+#. MENU_ITEM_MOVE_UP
+#, fuzzy
+msgid "Move item up"
 msgstr "На позицию вверх"
 
-#. MENU_ITEM_PRESET_AREA_MOVE_DWN
-msgid "Move down"
+#. MENU_ITEM_MOVE_DWN
+#, fuzzy
+msgid "Move item down"
 msgstr "На позицию вниз"
 
 #. PROGRESS_SCANNING
@@ -1304,9 +1375,13 @@ msgstr ""
 "факсу-<Ctrl-f> или отправить письмо-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
-#, fuzzy
-msgid "Select source medium type\n"
-msgstr "Тип носителя"
+msgid ""
+"Select source medium type.\n"
+"To rename, reorder or delete an entry use context menu (right mouse "
+"button).\n"
+"To create a medium enable the option edit medium definition in preferences "
+"menu."
+msgstr ""
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1357,13 +1432,23 @@ msgstr "Адрес электронной почты"
 msgid "Enter subject of email"
 msgstr "Тема письма"
 
-#. DESC_PRESET_AREA_NAME
+#. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
 msgstr "Новое название для области"
 
-#. DESC_MEDIUM_DEFINITION_NAME
+#. DESC_PRESET_AREA_ADD
+#, fuzzy
+msgid "Enter name for new preset area"
+msgstr "Новое название для области"
+
+#. DESC_MEDIUM_RENAME
 #, fuzzy
 msgid "Enter new name for medium definition"
+msgstr "Записать параметры носителя"
+
+#. DESC_MEDIUM_ADD
+#, fuzzy
+msgid "Enter name for new medium definition"
 msgstr "Записать параметры носителя"
 
 #. DESC_PRINTER_SELECT
@@ -1961,8 +2046,11 @@ msgid "Delete preview image cache"
 msgstr "Удалить кеш изображений предварительного просмотра"
 
 #. DESC_PRESET_AREA
-msgid "Preset area"
-msgstr "Заданные области"
+msgid ""
+"Preset area:\n"
+"To add new area or edit an existing area use contect menu (right mouse "
+"button)."
+msgstr ""
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -1979,6 +2067,11 @@ msgstr "Укажите расположения печатаемого изоб�
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
 msgstr "Распознавание текстов"
+
+#. DESC_VIEWER_UNDO
+#, fuzzy
+msgid "Undo last change"
+msgstr "Отменить последнее изменение масштаба"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
@@ -2177,6 +2270,14 @@ msgstr "неизвестный тип"
 #. ERR_UNKNOWN_CONSTRAINT_TYPE
 msgid "unknown constraint type"
 msgstr "неизвестный принуждённый тип"
+
+#. ERR_OPTION_NAME_NULL
+msgid "Option has empty name (NULL)."
+msgstr ""
+
+#. ERR_BACKEND_BUG
+msgid "This is a backend bug. Please inform the author of the backend!"
+msgstr ""
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
@@ -2653,3 +2754,16 @@ msgstr "Не хватает памяти"
 
 msgid "Access to resource has been denied"
 msgstr "Доступ к ресурсу запрещён"
+
+#~ msgid "Preset area"
+#~ msgstr "Заданные области"
+
+#, fuzzy
+#~ msgid "Select source medium type\n"
+#~ msgstr "Тип носителя"
+
+#~ msgid "Rename definiton"
+#~ msgstr "Переименовать область"
+
+#~ msgid "Delete definition"
+#~ msgstr "Удалить область"

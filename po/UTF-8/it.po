@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xsane-0.92_it\n"
-"POT-Creation-Date: 2004-04-20 18:54+0200\n"
+"POT-Creation-Date: 2004-08-05 12:07+0200\n"
 "PO-Revision-Date: 2003-12-24 08:54+0100\n"
 "Last-Translator: Kostantino <inverness1ATvirgilio.it>\n"
 "Language-Team: Italiano <it@li.org>\n"
@@ -27,6 +27,10 @@ msgid "(c)"
 msgstr "(c)"
 
 #. can be translated with \251
+#. FILENAME_PREFIX_CLONE_OF
+msgid "clone-of-"
+msgstr ""
+
 #. WINDOW_ABOUT_XSANE
 msgid "About"
 msgstr "Informazioni su"
@@ -94,6 +98,21 @@ msgstr "inserisci un file nella posta"
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
 msgstr "rinomina l'area predefinita"
+
+#. WINDOW_PRESET_AREA_ADD
+#, fuzzy
+msgid "add preset area"
+msgstr "rinomina l'area predefinita"
+
+#. WINDOW_MEDIUM_RENAME
+#, fuzzy
+msgid "rename medium"
+msgstr "Memorizza supporto"
+
+#. WINDOW_MEDIUM_ADD
+#, fuzzy
+msgid "add new medium"
+msgstr "Memorizza supporto"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -187,13 +206,25 @@ msgstr "Preferenze"
 msgid "View"
 msgstr "Visualizza"
 
+#. MENU_WINDOW
+msgid "Window"
+msgstr ""
+
 #. MENU_HELP
 msgid "Help"
 msgstr "Aiuto"
 
+#. MENU_EDIT
+msgid "Edit"
+msgstr ""
+
 #. MENU_FILTERS
 msgid "Filters"
 msgstr "Filtri"
+
+#. MENU_GEOMETRY
+msgid "Geometry"
+msgstr ""
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
@@ -227,6 +258,10 @@ msgstr "Ridimensiona"
 msgid "Close"
 msgstr "Chiudi"
 
+#. MENU_ITEM_UNDO
+msgid "Undo"
+msgstr ""
+
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
 msgstr "Filtro mediano"
@@ -234,6 +269,30 @@ msgstr "Filtro mediano"
 #. MENU_ITEM_BLUR
 msgid "Blur"
 msgstr "Sfoca"
+
+#. MENU_ITEM_ROTATE90
+msgid "Rotate 90"
+msgstr ""
+
+#. MENU_ITEM_ROTATE180
+#, fuzzy
+msgid "Rotate 180"
+msgstr "Ruota l'immagine di 180 gradi"
+
+#. MENU_ITEM_ROTATE270
+#, fuzzy
+msgid "Rotate 270"
+msgstr "Ruota l'immagine di 270 gradi"
+
+#. MENU_ITEM_MIRROR_X
+#, fuzzy
+msgid "Mirror |"
+msgstr "errore"
+
+#. MENU_ITEM_MIRROR_Y
+#, fuzzy
+msgid "Mirror -"
+msgstr "errore"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -987,6 +1046,9 @@ msgstr "gruppo"
 msgid "all"
 msgstr "tutti"
 
+msgid "new media"
+msgstr ""
+
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
 msgstr "Salva"
@@ -1211,20 +1273,29 @@ msgstr "per estensione"
 msgid "Add selection to list"
 msgstr "Aggiungi la selezione alla lista"
 
-#. MENU_ITEM_PRESET_AREA_RENAME
-msgid "Rename definiton"
-msgstr "Rinomina la definizione"
+#. MENU_ITEM_MEDIUM_ADD
+#, fuzzy
+msgid "Add medium definition"
+msgstr "Salva la definizione del supporto"
 
-#. MENU_ITEM_PRESET_AREA_DELETE
-msgid "Delete definition"
-msgstr "Elimina la definizione"
+#. MENU_ITEM_RENAME
+#, fuzzy
+msgid "Rename item"
+msgstr "Rinomina immagine"
 
-#. MENU_ITEM_PRESET_AREA_MOVE_UP
-msgid "Move up"
+#. MENU_ITEM_DELETE
+#, fuzzy
+msgid "Delete item"
+msgstr "Cancella stampante"
+
+#. MENU_ITEM_MOVE_UP
+#, fuzzy
+msgid "Move item up"
 msgstr "Sposta in su"
 
-#. MENU_ITEM_PRESET_AREA_MOVE_DWN
-msgid "Move down"
+#. MENU_ITEM_MOVE_DWN
+#, fuzzy
+msgid "Move item down"
 msgstr "Sposta in giù"
 
 #. PROGRESS_SCANNING
@@ -1305,8 +1376,13 @@ msgstr ""
 "invia come posta elettronica-<Ctrl-m> "
 
 #. DESC_XSANE_MEDIUM
-msgid "Select source medium type\n"
-msgstr "Seleziona il tipo di supporto\n"
+msgid ""
+"Select source medium type.\n"
+"To rename, reorder or delete an entry use context menu (right mouse "
+"button).\n"
+"To create a medium enable the option edit medium definition in preferences "
+"menu."
+msgstr ""
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1356,12 +1432,22 @@ msgstr "Inserisci l'indirizzo di posta elettronica"
 msgid "Enter subject of email"
 msgstr "Inserisci l'argomento della posta elettronica"
 
-#. DESC_PRESET_AREA_NAME
+#. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
 msgstr "Inserisci il nuovo nome per l'area di preselezione"
 
-#. DESC_MEDIUM_DEFINITION_NAME
+#. DESC_PRESET_AREA_ADD
+#, fuzzy
+msgid "Enter name for new preset area"
+msgstr "Inserisci il nuovo nome per l'area di preselezione"
+
+#. DESC_MEDIUM_RENAME
 msgid "Enter new name for medium definition"
+msgstr "Salva la definizione del supporto"
+
+#. DESC_MEDIUM_ADD
+#, fuzzy
+msgid "Enter name for new medium definition"
 msgstr "Salva la definizione del supporto"
 
 #. DESC_PRINTER_SELECT
@@ -1968,8 +2054,11 @@ msgid "Delete preview image cache"
 msgstr "Cancella l'immagine in cache dell'anteprima"
 
 #. DESC_PRESET_AREA
-msgid "Preset area"
-msgstr "Area predefinita"
+msgid ""
+"Preset area:\n"
+"To add new area or edit an existing area use contect menu (right mouse "
+"button)."
+msgstr ""
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -1986,6 +2075,11 @@ msgstr "Imposta la posizione dell'immagine per la stampa"
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
 msgstr "Riconoscimento Ottico di Caratteri (OCR)"
+
+#. DESC_VIEWER_UNDO
+#, fuzzy
+msgid "Undo last change"
+msgstr "Annulla l'ultimo ingrandimento"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
@@ -2183,6 +2277,14 @@ msgstr "tipo sconosciuto"
 #. ERR_UNKNOWN_CONSTRAINT_TYPE
 msgid "unknown constraint type"
 msgstr "vincolo di tipo sconosciuto"
+
+#. ERR_OPTION_NAME_NULL
+msgid "Option has empty name (NULL)."
+msgstr ""
+
+#. ERR_BACKEND_BUG
+msgid "This is a backend bug. Please inform the author of the backend!"
+msgstr ""
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
@@ -2664,3 +2766,15 @@ msgstr "La memoria è esaurita"
 
 msgid "Access to resource has been denied"
 msgstr "L'accesso alla risorsa è negato"
+
+#~ msgid "Preset area"
+#~ msgstr "Area predefinita"
+
+#~ msgid "Select source medium type\n"
+#~ msgstr "Seleziona il tipo di supporto\n"
+
+#~ msgid "Rename definiton"
+#~ msgstr "Rinomina la definizione"
+
+#~ msgid "Delete definition"
+#~ msgstr "Elimina la definizione"

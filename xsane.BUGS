@@ -1,3 +1,5 @@
+- preferecnes files are not read til the end when e.g. an unknown or old
+  varaiable name is found
 
 - xsane dies without error message when saveing file to full disk
 

@@ -85,7 +85,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.94"
+#define XSANE_VERSION		"0.95"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2004"
@@ -785,7 +785,6 @@ typedef struct Xsane
     SANE_Bool scanner_gamma_color;
     SANE_Bool scanner_gamma_gray;
 
-    int fax_fine_mode;
     int mail_project_save;
     int mail_html_mode;
 

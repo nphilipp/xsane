@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.90\n"
-"POT-Creation-Date: 2004-05-08 23:55+0200\n"
+"POT-Creation-Date: 2004-08-05 12:07+0200\n"
 "PO-Revision-Date: 2004-04-21 14:17+0200\n"
 "Last-Translator: Stanislav Brabec <sbrabec@suse.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -23,6 +23,10 @@ msgid "(c)"
 msgstr "(c)"
 
 #. can be translated with \251
+#. FILENAME_PREFIX_CLONE_OF
+msgid "clone-of-"
+msgstr ""
+
 #. WINDOW_ABOUT_XSANE
 msgid "About"
 msgstr "O programu"
@@ -198,13 +202,25 @@ msgstr "Nastavení"
 msgid "View"
 msgstr "Pohled"
 
+#. MENU_WINDOW
+msgid "Window"
+msgstr ""
+
 #. MENU_HELP
 msgid "Help"
 msgstr "Nápovìda"
 
+#. MENU_EDIT
+msgid "Edit"
+msgstr ""
+
 #. MENU_FILTERS
 msgid "Filters"
 msgstr "Filtry"
+
+#. MENU_GEOMETRY
+msgid "Geometry"
+msgstr ""
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
@@ -238,6 +254,10 @@ msgstr "Zmìna velikosti"
 msgid "Close"
 msgstr "Zavøít"
 
+#. MENU_ITEM_UNDO
+msgid "Undo"
+msgstr ""
+
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
 msgstr "Vyèistit"
@@ -245,6 +265,30 @@ msgstr "Vyèistit"
 #. MENU_ITEM_BLUR
 msgid "Blur"
 msgstr "Rozostøení"
+
+#. MENU_ITEM_ROTATE90
+msgid "Rotate 90"
+msgstr ""
+
+#. MENU_ITEM_ROTATE180
+#, fuzzy
+msgid "Rotate 180"
+msgstr "Rotovat obrázek o 180 stupòù"
+
+#. MENU_ITEM_ROTATE270
+#, fuzzy
+msgid "Rotate 270"
+msgstr "Rotovat obrázek o 270 stupòù"
+
+#. MENU_ITEM_MIRROR_X
+#, fuzzy
+msgid "Mirror |"
+msgstr "chyba"
+
+#. MENU_ITEM_MIRROR_Y
+#, fuzzy
+msgid "Mirror -"
+msgstr "chyba"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -1994,6 +2038,11 @@ msgstr "Definovat pozici obrázku pro tisk"
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
 msgstr "Optické rozpoznávání znakù"
+
+#. DESC_VIEWER_UNDO
+#, fuzzy
+msgid "Undo last change"
+msgstr "Vrácení posledního pøiblí¾ení"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"

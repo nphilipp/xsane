@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.89\n"
-"POT-Creation-Date: 2004-05-08 23:55+0200\n"
+"POT-Creation-Date: 2004-08-05 12:07+0200\n"
 "PO-Revision-Date: 2002-19-10 23:00+3\n"
 "Last-Translator: Yujo Rodrigues <yujo@alunos.ufu.br>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
@@ -23,6 +23,10 @@ msgid "(c)"
 msgstr ""
 
 #. can be translated with \251
+#. FILENAME_PREFIX_CLONE_OF
+msgid "clone-of-"
+msgstr ""
+
 #. WINDOW_ABOUT_XSANE
 msgid "About"
 msgstr "Sobre"
@@ -198,13 +202,25 @@ msgstr "Preferências"
 msgid "View"
 msgstr "Visualizar"
 
+#. MENU_WINDOW
+msgid "Window"
+msgstr ""
+
 #. MENU_HELP
 msgid "Help"
 msgstr "Ajuda"
 
+#. MENU_EDIT
+msgid "Edit"
+msgstr ""
+
 #. MENU_FILTERS
 msgid "Filters"
 msgstr "Filtros"
+
+#. MENU_GEOMETRY
+msgid "Geometry"
+msgstr ""
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
@@ -238,6 +254,10 @@ msgstr "Escala"
 msgid "Close"
 msgstr "Fechar"
 
+#. MENU_ITEM_UNDO
+msgid "Undo"
+msgstr ""
+
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
 msgstr ""
@@ -245,6 +265,30 @@ msgstr ""
 #. MENU_ITEM_BLUR
 msgid "Blur"
 msgstr "Embaçar"
+
+#. MENU_ITEM_ROTATE90
+msgid "Rotate 90"
+msgstr ""
+
+#. MENU_ITEM_ROTATE180
+#, fuzzy
+msgid "Rotate 180"
+msgstr "Rotaciona imagem em 180 graus"
+
+#. MENU_ITEM_ROTATE270
+#, fuzzy
+msgid "Rotate 270"
+msgstr "Rotaciona imagem em 270 graus"
+
+#. MENU_ITEM_MIRROR_X
+#, fuzzy
+msgid "Mirror |"
+msgstr "erro"
+
+#. MENU_ITEM_MIRROR_Y
+#, fuzzy
+msgid "Mirror -"
+msgstr "erro"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -2018,6 +2062,11 @@ msgstr ""
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
 msgstr "Reconhecimento Óptico de Caracteres"
+
+#. DESC_VIEWER_UNDO
+#, fuzzy
+msgid "Undo last change"
+msgstr "Desfazer último ampliamento"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"

@@ -33,6 +33,8 @@
 
 #define XSANE_COPYRIGHT_SIGN		_("(c)") /* can be translated with \251 */
 
+#define FILENAME_PREFIX_CLONE_OF	_("clone-of-")
+
 #define WINDOW_ABOUT_XSANE		_("About")
 #define WINDOW_ABOUT_TRANSLATION	_("About translation")
 #define WINDOW_AUTHORIZE		_("authorization")
@@ -77,8 +79,11 @@
 #define MENU_FILE			_("File")
 #define MENU_PREFERENCES		_("Preferences")
 #define MENU_VIEW			_("View")
+#define MENU_WINDOW			_("Window")
 #define MENU_HELP			_("Help")
+#define MENU_EDIT			_("Edit")
 #define MENU_FILTERS			_("Filters")
+#define MENU_GEOMETRY			_("Geometry")
 
 #define MENU_ITEM_ABOUT_XSANE		_("About XSane")
 #define MENU_ITEM_ABOUT_TRANSLATION	_("About translation")
@@ -91,8 +96,16 @@
 #define MENU_ITEM_SCALE			_("Scale")
 #define MENU_ITEM_CLOSE			_("Close")
 
+#define MENU_ITEM_UNDO			_("Undo")
+
 #define MENU_ITEM_DESPECKLE		_("Despeckle")
 #define MENU_ITEM_BLUR			_("Blur")
+
+#define MENU_ITEM_ROTATE90		_("Rotate 90")
+#define MENU_ITEM_ROTATE180		_("Rotate 180")
+#define MENU_ITEM_ROTATE270		_("Rotate 270")
+#define MENU_ITEM_MIRROR_X		_("Mirror |")
+#define MENU_ITEM_MIRROR_Y		_("Mirror -")
 
 #define FRAME_RAW_IMAGE			_("Raw image")
 #define FRAME_ENHANCED_IMAGE		_("Enhanced image")
@@ -594,6 +607,7 @@
 
 #define DESC_VIEWER_SAVE		_("Save image")
 #define DESC_VIEWER_OCR			_("Optical Character Recognition")
+#define DESC_VIEWER_UNDO		_("Undo last change")
 #define DESC_VIEWER_CLONE		_("Clone image")
 #define DESC_VIEWER_SCALE		_("Scale image")
 #define DESC_VIEWER_DESPECKLE		_("Despeckle image")

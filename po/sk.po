@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sane 0.93\n"
-"POT-Creation-Date: 2004-05-08 23:55+0200\n"
+"POT-Creation-Date: 2004-08-05 12:07+0200\n"
 "PO-Revision-Date: 2004-04-21 21:49+0100\n"
 "Last-Translator: Zdenko Podobný <zdpo@mailbox.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -24,6 +24,10 @@ msgid "(c)"
 msgstr "(c)"
 
 #. can be translated with \251
+#. FILENAME_PREFIX_CLONE_OF
+msgid "clone-of-"
+msgstr ""
+
 #. WINDOW_ABOUT_XSANE
 msgid "About"
 msgstr "O programe"
@@ -199,13 +203,25 @@ msgstr "Nastavenia"
 msgid "View"
 msgstr "Zobraziť"
 
+#. MENU_WINDOW
+msgid "Window"
+msgstr ""
+
 #. MENU_HELP
 msgid "Help"
 msgstr "Pomocník"
 
+#. MENU_EDIT
+msgid "Edit"
+msgstr ""
+
 #. MENU_FILTERS
 msgid "Filters"
 msgstr "Filtre"
+
+#. MENU_GEOMETRY
+msgid "Geometry"
+msgstr ""
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
@@ -239,6 +255,10 @@ msgstr "Zmena veľkosti"
 msgid "Close"
 msgstr "Zavrieť"
 
+#. MENU_ITEM_UNDO
+msgid "Undo"
+msgstr ""
+
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
 msgstr "Vyčistiť"
@@ -246,6 +266,30 @@ msgstr "Vyčistiť"
 #. MENU_ITEM_BLUR
 msgid "Blur"
 msgstr "Rozostriť"
+
+#. MENU_ITEM_ROTATE90
+msgid "Rotate 90"
+msgstr ""
+
+#. MENU_ITEM_ROTATE180
+#, fuzzy
+msgid "Rotate 180"
+msgstr "Otočenie obrázka o 180 stupňov"
+
+#. MENU_ITEM_ROTATE270
+#, fuzzy
+msgid "Rotate 270"
+msgstr "Otočenie obrázka o 270 stupňov"
+
+#. MENU_ITEM_MIRROR_X
+#, fuzzy
+msgid "Mirror |"
+msgstr "chyba"
+
+#. MENU_ITEM_MIRROR_Y
+#, fuzzy
+msgid "Mirror -"
+msgstr "chyba"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -2013,6 +2057,11 @@ msgstr "Definovanie pozície obrázku pre tlač"
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
 msgstr "Optické rozpoznávanie textu"
+
+#. DESC_VIEWER_UNDO
+#, fuzzy
+msgid "Undo last change"
+msgstr "Vrátiť späť poslednú zmenu"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"

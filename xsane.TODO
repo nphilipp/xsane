@@ -6,33 +6,38 @@ Sign explaination:
  + planned to do this soon/higher priority (but not promised for XSane-1.0)
  - comes later/lower priority
 
- batch scan:
- - load default list
-
  scan-function:
     # allow additional image data after each row (is sane standard conform)
 
  save-function:
     - list of last used filenames
-    - save several images into one file for:
+    - enable filters in save mode?
+
+ save-subroutines:
+    # save several images into one file for:
       - postscript
       - may be tiff
-    ? enable filters in save mode?
+      - may be pnm
 
  fax-function:
     # use internal viewer to display images
       # while scanning save image as pnm
-      # convtert all images to one postscript file when sending fax
+      # save linearts as grayscale (needed for viewer)
+      # viewer: copy file to dummy file, start viewer. The viewer saves back to original file
+      # convert to lineart before further processing when sending fax
+      # convtert all images to one or more postscript/tiff/pbm/g3 files when or before sending fax
+    # cleanup user interface of fax function
+    + zoom ?
     + create lock file, add information while spooling fax
-    + add coverpage with edit like mail function
+    + add coverpage with editor like in mail function (may be same routines for mail and fax)
     - add send delayed option
     - add options for sender/receiver Name
-    + zoom ?
-    # cleanup user interface of fax function
 
  email-function:
     # use internal viewer to display images
       # while scanning save image as pnm
+      # save linearts as grayscale (needed for viewer)
+      # viewer: copy file to dummy file, start viewer. The viewer saves back to original file
       # convtert image to target format when sending email
       # add new image types to email fileformat: tiff, jpeg
     # cleanup user interface of email function
@@ -46,6 +51,9 @@ Sign explaination:
     - medium definition in dependance of the scanner (?)
       (I am not sure if this makes sense with color managemant)
 
+ medium definition:
+    # make grayscale values do not influence color values
+
  preview function:
     # allow additional image data after each row (is sane standard conform)
     - force size of scanarea in pixels (calculate resolution)
@@ -55,37 +63,32 @@ Sign explaination:
     # add more filters (sharpen?)
       suggestions? - ONLY REALLY IMPORTANT FILTERS,
       FOR OTHER IMAGE MANIPULATION THERE IS THE GIMP
-    # crop
-    # what about automatic increase of filename counter???
-      this is not simple because there may be several
-      viewers opend at the same time and a file in the
-      viewer may be saved several times
+    # crop to new viewer
+    # fill rectangular area (e.g. for masking unwanted parts of a scanned fax)
 
  internal:
+    # cleanup of configuration file handling, may be use libconfuse
+    # add range check / valid value when reading xsane.rc/*.drc files
+    # test if file is writable before scan is started
     + add color management - may be via xcmsdb or scarse (www.scarse.org)
+    + add several defaults (fax=> mode=gray,...)
+    + test memory after each call of malloc - partly done
       (not until xsane-1.0 I think)
     - average of a multiple scan of the same image
-    + add range check / valid value when reading xsane.rc/*.drc files
-    + add several defaults (fax=> mode=gray,...)
     - include much more parameters when saving images
-    + test memory after each call of malloc - partly done
     - more/better online helpfiles (mostly done)
     - add infrared filter for transmissive rgbi scans:
       use next neighbour with high transmission(i) value
       (may be to viewer)
-   + test if file is writable before scan is started
-   ? show histogram of scanned image (viewer?)?
-   ? show scanned image in save mode or automatically save image in viewer mode?
-   ? project save/load with preview image, scanmode, .... ???
+    ? show histogram of scanned image (viewer?)?
+    ? show scanned image in save mode or automatically save image in viewer mode?
+    ? project save/load with preview image, scanmode, .... ???
 
 
  include special functions for GNOME/KDE
-   *** DOES ANYONE HAVE ANY SUGGESTIONS TO THIS ? ***
-   - GNOME:
-     - gnome-print support?
-     - session management ?
-   - drag and drop for preview image?
+   - drag and drop for preview or viewer image?
    - other drag and drop functions?
+   - image copy/paste functions?
 
  TWAIN:
     - add a twain-win32 interface (for xsane-win32)

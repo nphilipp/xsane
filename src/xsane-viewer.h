@@ -29,17 +29,28 @@
 #include <gdk/gdk.h>
 #include <gtk/gtk.h>
 
+typedef enum
+{
+  VIEWER_NO_MODIFICATION = 0,
+  VIEWER_NO_NAME_AND_SIZE_MODIFICATION,
+  VIEWER_NO_NAME_MODIFICATION,
+  VIEWER_FULL_MODIFICATION
+} viewer_modification;
+
 typedef struct Viewer
 {
   struct Viewer *next_viewer;
 
   char *filename;
   char *output_filename;
+  char *last_saved_filename;
+  char *undo_filename;
 
   int reduce_to_lineart;
   float zoom;
   int image_saved;
   int cancel_save;
+  viewer_modification allow_modification;
 
   int despeckle_radius;
   float blur_radius;
@@ -51,23 +62,34 @@ typedef struct Viewer
   GtkWidget *top;
   GtkWidget *button_box;
 
+  GtkWidget *file_button_box;
+  GtkWidget *filters_button_box;
+  GtkWidget *geometry_button_box;
+
+  GtkWidget *file_menu;
+  GtkWidget *edit_menu;
+  GtkWidget *filters_menu;
+  GtkWidget *geometry_menu;
+
   GtkWidget *viewport;
   GtkWidget *window;
 
+  GtkWidget *save_menu_item;
+  GtkWidget *ocr_menu_item;
+  GtkWidget *clone_menu_item;
+
+  GtkWidget *undo_menu_item;
+
+  GtkWidget *despeckle_menu_item;
+  GtkWidget *blur_menu_item;
+
   GtkWidget *save;
   GtkWidget *ocr;
+  GtkWidget *undo;
   GtkWidget *clone;
-  GtkWidget *scale;
 
   GtkWidget *despeckle;
   GtkWidget *blur;
-
-  GtkWidget *rotate90;
-  GtkWidget *rotate180;
-  GtkWidget *rotate270;
-
-  GtkWidget *mirror_x;
-  GtkWidget *mirror_y;
 
   GtkWidget *image_info_label;
 
@@ -79,6 +101,6 @@ typedef struct Viewer
 }
 Viewer;
 
-extern Viewer *xsane_viewer_new(char *filename, int reduce_to_lineart, char *output_filename);
+extern Viewer *xsane_viewer_new(char *filename, int reduce_to_lineart, char *output_filename, viewer_modification allow_modification);
 
 #endif

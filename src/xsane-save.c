@@ -2667,7 +2667,7 @@ int xsane_save_tiff(const char *outfilename, FILE *imagefile, Image_info *image_
   {
     snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_NO_MEM);
     xsane_back_gtk_error(buf, TRUE);
-    return -1; /* error */
+   return -1; /* error */
   }
   
   TIFFSetField(tiffile, TIFFTAG_IMAGEWIDTH, image_info->image_width);

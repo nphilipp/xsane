@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.84\n"
-"POT-Creation-Date: 2004-04-20 18:54+0200\n"
+"POT-Creation-Date: 2004-08-05 12:07+0200\n"
 "PO-Revision-Date: 2001-02-25 14:06+01:00\n"
 "Last-Translator: Ales Kosir <ales.kosir@lugos.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -24,6 +24,10 @@ msgid "(c)"
 msgstr "(c)"
 
 #. can be translated with \251
+#. FILENAME_PREFIX_CLONE_OF
+msgid "clone-of-"
+msgstr ""
+
 #. WINDOW_ABOUT_XSANE
 msgid "About"
 msgstr "O programu"
@@ -95,6 +99,21 @@ msgstr ""
 #, fuzzy
 msgid "rename preset area"
 msgstr "preimenuj stran s faksom"
+
+#. WINDOW_PRESET_AREA_ADD
+#, fuzzy
+msgid "add preset area"
+msgstr "preimenuj stran s faksom"
+
+#. WINDOW_MEDIUM_RENAME
+#, fuzzy
+msgid "rename medium"
+msgstr "Izbor tiskalnika za prilagoditev"
+
+#. WINDOW_MEDIUM_ADD
+#, fuzzy
+msgid "add new medium"
+msgstr "Izbor tiskalnika za prilagoditev"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -196,14 +215,26 @@ msgstr "Nastavitve"
 msgid "View"
 msgstr "Pogled"
 
+#. MENU_WINDOW
+msgid "Window"
+msgstr ""
+
 #. MENU_HELP
 msgid "Help"
 msgstr "Pomoč"
+
+#. MENU_EDIT
+msgid "Edit"
+msgstr ""
 
 #. MENU_FILTERS
 #, fuzzy
 msgid "Filters"
 msgstr "Datoteka"
+
+#. MENU_GEOMETRY
+msgid "Geometry"
+msgstr ""
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
@@ -240,6 +271,10 @@ msgstr "Skeniraj"
 msgid "Close"
 msgstr "Zapri"
 
+#. MENU_ITEM_UNDO
+msgid "Undo"
+msgstr ""
+
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
 msgstr ""
@@ -247,6 +282,28 @@ msgstr ""
 #. MENU_ITEM_BLUR
 msgid "Blur"
 msgstr ""
+
+#. MENU_ITEM_ROTATE90
+msgid "Rotate 90"
+msgstr ""
+
+#. MENU_ITEM_ROTATE180
+msgid "Rotate 180"
+msgstr ""
+
+#. MENU_ITEM_ROTATE270
+msgid "Rotate 270"
+msgstr ""
+
+#. MENU_ITEM_MIRROR_X
+#, fuzzy
+msgid "Mirror |"
+msgstr "napaka"
+
+#. MENU_ITEM_MIRROR_Y
+#, fuzzy
+msgid "Mirror -"
+msgstr "napaka"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -1010,6 +1067,9 @@ msgstr "skupina"
 msgid "all"
 msgstr "vsi"
 
+msgid "new media"
+msgstr ""
+
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
 msgstr ""
@@ -1242,21 +1302,27 @@ msgstr "po končnici"
 msgid "Add selection to list"
 msgstr ""
 
-#. MENU_ITEM_PRESET_AREA_RENAME
-msgid "Rename definiton"
-msgstr ""
-
-#. MENU_ITEM_PRESET_AREA_DELETE
+#. MENU_ITEM_MEDIUM_ADD
 #, fuzzy
-msgid "Delete definition"
+msgid "Add medium definition"
 msgstr "Izbor tiskalnika za prilagoditev"
 
-#. MENU_ITEM_PRESET_AREA_MOVE_UP
-msgid "Move up"
+#. MENU_ITEM_RENAME
+#, fuzzy
+msgid "Rename item"
+msgstr "preimenuj stran s faksom"
+
+#. MENU_ITEM_DELETE
+#, fuzzy
+msgid "Delete item"
+msgstr "Odstrani tiskalnik"
+
+#. MENU_ITEM_MOVE_UP
+msgid "Move item up"
 msgstr ""
 
-#. MENU_ITEM_PRESET_AREA_MOVE_DWN
-msgid "Move down"
+#. MENU_ITEM_MOVE_DWN
+msgid "Move item down"
 msgstr ""
 
 #. PROGRESS_SCANNING
@@ -1345,9 +1411,13 @@ msgid ""
 msgstr ""
 
 #. DESC_XSANE_MEDIUM
-#, fuzzy
-msgid "Select source medium type\n"
-msgstr "Izbor tiskalnika za prilagoditev"
+msgid ""
+"Select source medium type.\n"
+"To rename, reorder or delete an entry use context menu (right mouse "
+"button).\n"
+"To create a medium enable the option edit medium definition in preferences "
+"menu."
+msgstr ""
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1397,14 +1467,24 @@ msgstr ""
 msgid "Enter subject of email"
 msgstr ""
 
-#. DESC_PRESET_AREA_NAME
+#. DESC_PRESET_AREA_RENAME
 #, fuzzy
 msgid "Enter new name for preset area"
 msgstr "Vnesite novo ime za stran s faksom"
 
-#. DESC_MEDIUM_DEFINITION_NAME
+#. DESC_PRESET_AREA_ADD
+#, fuzzy
+msgid "Enter name for new preset area"
+msgstr "Vnesite novo ime za stran s faksom"
+
+#. DESC_MEDIUM_RENAME
 #, fuzzy
 msgid "Enter new name for medium definition"
+msgstr "Izbor tiskalnika za prilagoditev"
+
+#. DESC_MEDIUM_ADD
+#, fuzzy
+msgid "Enter name for new medium definition"
 msgstr "Izbor tiskalnika za prilagoditev"
 
 #. DESC_PRINTER_SELECT
@@ -1997,9 +2077,11 @@ msgid "Delete preview image cache"
 msgstr "Zasuči preodgled in sliko"
 
 #. DESC_PRESET_AREA
-#, fuzzy
-msgid "Preset area"
-msgstr "Samodejno določi območje skeniranja"
+msgid ""
+"Preset area:\n"
+"To add new area or edit an existing area use contect menu (right mouse "
+"button)."
+msgstr ""
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -2016,6 +2098,11 @@ msgstr ""
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
 msgstr ""
+
+#. DESC_VIEWER_UNDO
+#, fuzzy
+msgid "Undo last change"
+msgstr "Prekliči zadnje približanje"
 
 #. DESC_VIEWER_CLONE
 #, fuzzy
@@ -2226,6 +2313,14 @@ msgstr "neznana vrsta"
 #. ERR_UNKNOWN_CONSTRAINT_TYPE
 msgid "unknown constraint type"
 msgstr "neznana vrsta omejitve"
+
+#. ERR_OPTION_NAME_NULL
+msgid "Option has empty name (NULL)."
+msgstr ""
+
+#. ERR_BACKEND_BUG
+msgid "This is a backend bug. Please inform the author of the backend!"
+msgstr ""
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
@@ -2701,3 +2796,15 @@ msgstr "Zmanjkalo je pomnilnika"
 
 msgid "Access to resource has been denied"
 msgstr "Dostop do vira je ni dovoljen."
+
+#, fuzzy
+#~ msgid "Preset area"
+#~ msgstr "Samodejno določi območje skeniranja"
+
+#, fuzzy
+#~ msgid "Select source medium type\n"
+#~ msgstr "Izbor tiskalnika za prilagoditev"
+
+#, fuzzy
+#~ msgid "Delete definition"
+#~ msgstr "Izbor tiskalnika za prilagoditev"

@@ -1,5 +1,5 @@
 %define name xsane
-%define version 0.94
+%define version 0.95
 %define release 1
 %define prefix /usr
 

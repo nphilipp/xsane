@@ -67,6 +67,7 @@ Preferences preferences =
      296.98,		/* fax_height: height of fax paper in mm */
        0.0,             /* fax_leftoffset */
        0.0,             /* fax_bottomoffset */
+       1,               /* fax_fine_mode */
 #ifdef XSANE_ACTIVATE_MAIL
        0,               /* no default from email address */
        0,               /* no default reply to email address */
@@ -170,6 +171,7 @@ desc[] =
     {"fax-height",			xsane_rc_pref_double,	POFFSET(fax_height)},
     {"fax-left-offset",			xsane_rc_pref_double,	POFFSET(fax_leftoffset)},
     {"fax-bottom-offset",		xsane_rc_pref_double,	POFFSET(fax_bottomoffset)},
+    {"fax-fine-mode",			xsane_rc_pref_int,	POFFSET(fax_fine_mode)},
 #ifdef XSANE_ACTIVATE_MAIL
     {"mail-from",			xsane_rc_pref_string,	POFFSET(mail_from)},
     {"mail-reply-to",			xsane_rc_pref_string,	POFFSET(mail_reply_to)},

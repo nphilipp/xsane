@@ -1,17 +1,18 @@
-# xsane sk.po
-# Zdenko Podobný <zdpo@mailbox.sk>, 2001.
+# Slovak translation of sane
+# Copyright (C) 2003, 2004 Free Software Foundation, Inc.
+# Zdenko Podobný <zdpo@mailbox.sk>, 2001, 2004.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.90\n"
-"POT-Creation-Date: 2004-04-20 18:54+0200\n"
-"PO-Revision-Date: 2002-12-14 12:51+0100\n"
+"Project-Id-Version: sane 0.93\n"
+"POT-Creation-Date: 2004-08-05 12:07+0200\n"
+"PO-Revision-Date: 2004-04-21 21:49+0100\n"
 "Last-Translator: Zdenko Podobný <zdpo@mailbox.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.9.6\n"
+"X-Generator: KBabel 1.3\n"
 
 #. Please translate this to the correct directory name (eg. german=>de)
 #. XSANE_LANGUAGE_DIR
@@ -23,6 +24,10 @@ msgid "(c)"
 msgstr "(c)"
 
 #. can be translated with \251
+#. FILENAME_PREFIX_CLONE_OF
+msgid "clone-of-"
+msgstr ""
+
 #. WINDOW_ABOUT_XSANE
 msgid "About"
 msgstr "O programe"
@@ -90,6 +95,21 @@ msgstr "vložiť obrázok do pošty"
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
 msgstr "premenovať predvolaná oblasť"
+
+#. WINDOW_PRESET_AREA_ADD
+#, fuzzy
+msgid "add preset area"
+msgstr "premenovať predvolaná oblasť"
+
+#. WINDOW_MEDIUM_RENAME
+#, fuzzy
+msgid "rename medium"
+msgstr "Uložiť médium"
+
+#. WINDOW_MEDIUM_ADD
+#, fuzzy
+msgid "add new medium"
+msgstr "Uložiť médium"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -183,13 +203,25 @@ msgstr "Nastavenia"
 msgid "View"
 msgstr "Zobraziť"
 
+#. MENU_WINDOW
+msgid "Window"
+msgstr ""
+
 #. MENU_HELP
 msgid "Help"
 msgstr "Pomocník"
 
+#. MENU_EDIT
+msgid "Edit"
+msgstr ""
+
 #. MENU_FILTERS
 msgid "Filters"
 msgstr "Filtre"
+
+#. MENU_GEOMETRY
+msgid "Geometry"
+msgstr ""
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
@@ -223,6 +255,10 @@ msgstr "Zmena veľkosti"
 msgid "Close"
 msgstr "Zavrieť"
 
+#. MENU_ITEM_UNDO
+msgid "Undo"
+msgstr ""
+
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
 msgstr "Vyčistiť"
@@ -230,6 +266,30 @@ msgstr "Vyčistiť"
 #. MENU_ITEM_BLUR
 msgid "Blur"
 msgstr "Rozostriť"
+
+#. MENU_ITEM_ROTATE90
+msgid "Rotate 90"
+msgstr ""
+
+#. MENU_ITEM_ROTATE180
+#, fuzzy
+msgid "Rotate 180"
+msgstr "Otočenie obrázka o 180 stupňov"
+
+#. MENU_ITEM_ROTATE270
+#, fuzzy
+msgid "Rotate 270"
+msgstr "Otočenie obrázka o 270 stupňov"
+
+#. MENU_ITEM_MIRROR_X
+#, fuzzy
+msgid "Mirror |"
+msgstr "chyba"
+
+#. MENU_ITEM_MIRROR_Y
+#, fuzzy
+msgid "Mirror -"
+msgstr "chyba"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -501,7 +561,7 @@ msgstr "Výstupná gama hĺbka:"
 
 #. TEXT_SCANNER_OUTPUT_DEPTH
 msgid "Scanner output depth:"
-msgstr "Výstupná hĺbka skenera:"
+msgstr "Výstupná hĺbka skeneru:"
 
 #. TEXT_OUTPUT_FORMATS
 msgid "XSane output formats:"
@@ -982,6 +1042,9 @@ msgstr "skupina"
 msgid "all"
 msgstr "všetko"
 
+msgid "new media"
+msgstr ""
+
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
 msgstr "Ukladanie"
@@ -1090,10 +1153,10 @@ msgstr "Zobraziť zoznam rozlíšení"
 msgid "Rotate postscript"
 msgstr "Otočenie postscriptu"
 
+#  MENU_ITEM_EDIT_MEDIUM_DEF
 #. MENU_ITEM_EDIT_MEDIUM_DEF
-#, fuzzy
 msgid "Edit medium definition"
-msgstr "Uložiť definíciu média"
+msgstr "Upraviť definíciu média"
 
 #. MENU_ITEM_SAVE_DEVICE_SETTINGS
 msgid "Save device settings"
@@ -1207,20 +1270,30 @@ msgstr "podľa prípony"
 msgid "Add selection to list"
 msgstr "Pridať výber do zoznamu"
 
-#. MENU_ITEM_PRESET_AREA_RENAME
-msgid "Rename definiton"
-msgstr "Premenovať definíciu"
+#  MENU_ITEM_EDIT_MEDIUM_DEF
+#. MENU_ITEM_MEDIUM_ADD
+#, fuzzy
+msgid "Add medium definition"
+msgstr "Upraviť definíciu média"
 
-#. MENU_ITEM_PRESET_AREA_DELETE
-msgid "Delete definition"
-msgstr "Zmazať definíciu"
+#. MENU_ITEM_RENAME
+#, fuzzy
+msgid "Rename item"
+msgstr "Premenovať obrázka"
 
-#. MENU_ITEM_PRESET_AREA_MOVE_UP
-msgid "Move up"
+#. MENU_ITEM_DELETE
+#, fuzzy
+msgid "Delete item"
+msgstr "Zmazať tlačiareň"
+
+#. MENU_ITEM_MOVE_UP
+#, fuzzy
+msgid "Move item up"
 msgstr "Posunúť nahor"
 
-#. MENU_ITEM_PRESET_AREA_MOVE_DWN
-msgid "Move down"
+#. MENU_ITEM_MOVE_DWN
+#, fuzzy
+msgid "Move item down"
 msgstr "Posunúť nadol"
 
 #. PROGRESS_SCANNING
@@ -1301,9 +1374,13 @@ msgstr ""
 "pošta-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
-#, fuzzy
-msgid "Select source medium type\n"
-msgstr "Zvoľte typ zdrojového média"
+msgid ""
+"Select source medium type.\n"
+"To rename, reorder or delete an entry use context menu (right mouse "
+"button).\n"
+"To create a medium enable the option edit medium definition in preferences "
+"menu."
+msgstr ""
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1352,14 +1429,25 @@ msgstr "Vložte emailovú adresu"
 msgid "Enter subject of email"
 msgstr "Vložte predmet správy"
 
-#. DESC_PRESET_AREA_NAME
+#. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
 msgstr "Vložte nový názov pre predvolenú oblasť"
 
-#. DESC_MEDIUM_DEFINITION_NAME
+#. DESC_PRESET_AREA_ADD
 #, fuzzy
+msgid "Enter name for new preset area"
+msgstr "Vložte nový názov pre predvolenú oblasť"
+
+#  DESC_MEDIUM_DEFINITION_NAME
+#. DESC_MEDIUM_RENAME
 msgid "Enter new name for medium definition"
-msgstr "Uložiť definíciu média"
+msgstr "Vložte nový názov pre definíciu média"
+
+#  DESC_MEDIUM_DEFINITION_NAME
+#. DESC_MEDIUM_ADD
+#, fuzzy
+msgid "Enter name for new medium definition"
+msgstr "Vložte nový názov pre definíciu média"
 
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
@@ -1393,10 +1481,10 @@ msgstr "Nastavenie faktoru zväčšenia pre smer y"
 msgid "Set number of copies"
 msgstr "Nastavenie počtu kópií"
 
+#  DESC_NEGATIVE
 #. DESC_NEGATIVE
-#, fuzzy
 msgid "Negative: Invert colors for scanning negatives <Ctrl-n>"
-msgstr "Negatív: Invertuje farby pre skenovanie negatívov <Shift-n>"
+msgstr "Negatív: Invertuje farby pre skenovanie negatívov <Ctrl-n>"
 
 #. DESC_GAMMA
 msgid "Set gamma value"
@@ -1450,8 +1538,8 @@ msgstr "Nastavenie kontrastu pre modrý komponent"
 msgid "Set threshold"
 msgstr "Nastavenie prahu"
 
+#  DESC_RGB_DEFAULT
 #. DESC_RGB_DEFAULT
-#, fuzzy
 msgid ""
 "RGB default: Set enhancement values for red, green and blue to default "
 "values <Ctrl-b>:\n"
@@ -1460,38 +1548,38 @@ msgid ""
 " contrast = 0"
 msgstr ""
 "RGB štandard: Nastavenie štandardných hodnôt pre červenú, zelenú a modrú "
-"<Shift-b>:\n"
+"<Ctrl-b>:\n"
 " gama = 1.0\n"
 " jas = 0\n"
 " kontrast = 0"
 
+#  DESC_ENH_AUTO
 #. DESC_ENH_AUTO
-#, fuzzy
 msgid "Autoadjust gamma, brightness and contrast <Ctrl-e>"
-msgstr "Prispôsobenie gama, jasu a kontrastu <Shift-e>"
+msgstr "Automatické nastavenie gamy, jasu a kontrastu <Ctrl-e>"
 
+#  DESC_ENH_DEFAULT
 #. DESC_ENH_DEFAULT
-#, fuzzy
 msgid ""
 "Set default enhancement values <Ctrl-0>:\n"
 "gamma = 1.0\n"
 "brightness = 0\n"
 "contrast = 0"
 msgstr ""
-"Nastavenie štandardných hodnôt spracovávania <Shift-d>:\n"
+"Nastavenie štandardných hodnôt spracovávania <Ctrl-0>:\n"
 " gama = 1.0\n"
 " jas = 0\n"
 " kontrast = 0"
 
+#  DESC_ENH_RESTORE
 #. DESC_ENH_RESTORE
-#, fuzzy
 msgid "Restore enhancement values from preferences <Ctrl-r>"
-msgstr "Obnovenie štandardných hodnôt spracovávania <Shift-r>"
+msgstr "Obnovenie štandardných hodnôt spracovania <Ctrl-r>"
 
+#  DESC_ENH_STORE
 #. DESC_ENH_STORE
-#, fuzzy
 msgid "Store active enhancement values to preferences <Ctrl-+>"
-msgstr "Uloženie aktívnych hodnôt spracovávania do nastavení <Shift-m>"
+msgstr "Uloženie aktívnych hodnôt spracovania do nastavení <Ctrl-+>"
 
 #. DESC_HIST_INTENSITY
 msgid "Show histogram of intensity/gray <Alt-i>"
@@ -1731,22 +1819,22 @@ msgstr ""
 #. DESC_PREVIEW_THRESHOLD_MIN
 #, no-c-format
 msgid "The scanner's minimum threshold level in %"
-msgstr "Minimálna úroveň prahu skenera v %"
+msgstr "Minimálna úroveň prahu skeneru v %"
 
 #. DESC_PREVIEW_THRESHOLD_MAX
 #, no-c-format
 msgid "The scanner's maximum threshold level in %"
-msgstr "Maximálna úroveň prahu skenera v %"
+msgstr "Maximálna úroveň prahu skeneru v %"
 
 #. DESC_PREVIEW_THRESHOLD_MUL
 msgid ""
 "Multiplier to make XSane threshold range and scanner threshold range the same"
-msgstr "Násobiteľ, ktorý nastaví rovnaký rozsah prahov XSane a skenera"
+msgstr "Násobiteľ, ktorý nastaví rovnaký rozsah prahov XSane a skeneru"
 
 #. DESC_PREVIEW_THRESHOLD_OFF
 msgid ""
 "Offset to make XSane threshold range and scanner threshold range the same"
-msgstr "Posun, ktorý nastaví rovnaký rozsah prahu XSane a rozsah prahu skenera"
+msgstr "Posun, ktorý nastaví rovnaký rozsah prahu XSane a rozsah prahu skeneru"
 
 #. DESC_ADF_MODE
 msgid ""
@@ -1913,6 +2001,7 @@ msgstr "Výber čierneho bodu"
 msgid "Use full scanarea"
 msgstr "Použiť celú skenovaciu oblasť"
 
+#  DESC_ZOOM_OUT
 #. DESC_ZOOM_OUT
 #, no-c-format
 msgid "Zoom 20% out"
@@ -1947,8 +2036,11 @@ msgid "Delete preview image cache"
 msgstr "Zmazať pamäť náhľadu"
 
 #. DESC_PRESET_AREA
-msgid "Preset area"
-msgstr "Predvolená oblasť"
+msgid ""
+"Preset area:\n"
+"To add new area or edit an existing area use contect menu (right mouse "
+"button)."
+msgstr ""
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -1965,6 +2057,11 @@ msgstr "Definovanie pozície obrázku pre tlač"
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
 msgstr "Optické rozpoznávanie textu"
+
+#. DESC_VIEWER_UNDO
+#, fuzzy
+msgid "Undo last change"
+msgstr "Vrátiť späť poslednú zmenu"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
@@ -2014,13 +2111,15 @@ msgstr "Faktor zmeny veľkosti X"
 msgid "Y-Scale factor"
 msgstr "Faktor zmeny veľkosti Y"
 
+#  DESC_SCALE_WIDTH
 #. DESC_SCALE_WIDTH
 msgid "Scale image to width [in pixel]"
-msgstr ""
+msgstr "Zmeniť zväčšenie na šírky [v bodoch]"
 
+#  DESC_SCALE_HEIGHT
 #. DESC_SCALE_HEIGHT
 msgid "Scale image to height [in pixel]"
-msgstr ""
+msgstr "Zmeniť zväčšenie na výšku [v bodoch]"
 
 #. DESC_BATCH_LIST_EMPTY
 msgid "Empty batch list"
@@ -2046,9 +2145,10 @@ msgstr "Pridať zvolený náhľad oblasti do zoznamu"
 msgid "Delete selected area from batch list"
 msgstr "Zmazať zvolenú oblasť z dávkového zoznamu"
 
+#  DESC_AUTOMATIC
 #. DESC_AUTOMATIC
 msgid "Turns on automatic mode"
-msgstr ""
+msgstr "Zapne automatický režim"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2125,7 +2225,7 @@ msgstr "Zlyhalo spúšťanie tlačového príkazu:"
 
 #. ERR_FAILED_START_SCANNER
 msgid "Failed to start scanner:"
-msgstr "Zlyhalo spustenie skenera:"
+msgstr "Zlyhalo spustenie skeneru:"
 
 #. ERR_FAILED_GET_PARAMS
 msgid "Failed to get parameters:"
@@ -2151,8 +2251,8 @@ msgstr "LIBTIFF hlási chybu"
 msgid "LIBPNG reports error"
 msgstr "LIBPNG hlási chybu"
 
+#  ERR_LIBJPEG
 #. ERR_LIBJPEG
-#, fuzzy
 msgid "LIBJPEG reports error"
 msgstr "LIBPNG hlási chybu"
 
@@ -2163,6 +2263,14 @@ msgstr "neznámy typ"
 #. ERR_UNKNOWN_CONSTRAINT_TYPE
 msgid "unknown constraint type"
 msgstr "neznámy požadovaný typ"
+
+#. ERR_OPTION_NAME_NULL
+msgid "Option has empty name (NULL)."
+msgstr ""
+
+#. ERR_BACKEND_BUG
+msgid "This is a backend bug. Please inform the author of the backend!"
+msgstr ""
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
@@ -2348,8 +2456,8 @@ msgstr "Použitie:"
 msgid "[OPTION]... [DEVICE]"
 msgstr "[VOĽBA]... [ZARIADENIE]"
 
+#  TEXT_HELP
 #. TEXT_HELP
-#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2385,10 +2493,9 @@ msgid ""
 "server"
 msgstr ""
 "Spustenie grafického rozhrania pre prístup k SANE zariadeniam.\n"
-"(SANE = Scanner Access Now Easy - prístup k skeneru je teraz jednoduchý)\n"
 "\n"
-"Formát [ZARIADENIE] je názov_ovládača:názov zariadenia\n"
-"                        (napr. umax:/dev/scanner).\n"
+"Formát [ZARIADENIA] je názov_ovládača:názov zariadenia (napr. umax:/dev/"
+"scanner).\n"
 "[VOĽBA]... môže mať kombináciu nasledovných položiek:\n"
 " -h, --help                  zobrazí tohoto pomocníka a skončí\n"
 " -v, --version               vypíše informácie o verzií\n"
@@ -2404,12 +2511,10 @@ msgstr ""
 " -m, --mail                  spustí v režime emailu\n"
 " -n, --no-mode-selection     zakáže ponuku výberu režimu XSane\n"
 "\n"
-" -M, --Medium-calibration    povolí kalibračný režim média\n"
-"\n"
 " -F, --Fixed                 použije pevnú veľkosť hlavného okna (prepíše\n"
 "                             hodnotu v nastaveniach )\n"
-" -R, --Resizeable            použije hlavné okno s posuvníkmi a\n"
-"                             premenlivou veľkosťou (prepíše hodnotu\n"
+" -R, --Resizeable            použije hlavné okno s posuvníkmi\n"
+"                             a premenlivou veľkosťou (prepíše hodnotu\n"
 "                             v nastaveniach )\n"
 "\n"
 " -p, --print-filenames       vypíše názvy súborov vytvorených XSane\n"
@@ -2628,7 +2733,7 @@ msgid "Document feeder out of documents"
 msgstr "V podávači nie sú dokument"
 
 msgid "Scanner cover is open"
-msgstr "Veko skenera je otvorené"
+msgstr "Veko skeneru je otvorené"
 
 msgid "Error during device I/O"
 msgstr "Chyba počas V/V zariadenia"
@@ -2638,3 +2743,16 @@ msgstr "Mimo pamäte"
 
 msgid "Access to resource has been denied"
 msgstr "Prístup k zdroju bol odmietnutý"
+
+#~ msgid "Preset area"
+#~ msgstr "Predvolená oblasť"
+
+#  DESC_XSANE_MEDIUM
+#~ msgid "Select source medium type\n"
+#~ msgstr "Zvoľte typ zdrojového média\n"
+
+#~ msgid "Rename definiton"
+#~ msgstr "Premenovať definíciu"
+
+#~ msgid "Delete definition"
+#~ msgstr "Zmazať definíciu"

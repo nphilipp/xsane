@@ -4,8 +4,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.90\n"
-"POT-Creation-Date: 2004-05-08 23:55+0200\n"
+"Project-Id-Version: XSANE 0.95\n"
+"POT-Creation-Date: 2004-08-05 12:07+0200\n"
 "PO-Revision-Date: 2000-01-21 15:51+01:00\n"
 "Last-Translator: Oliver Rauch <Oliver.Rauch@rauch-domain.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -23,6 +23,10 @@ msgid "(c)"
 msgstr "©"
 
 #. can be translated with \251
+#. FILENAME_PREFIX_CLONE_OF
+msgid "clone-of-"
+msgstr "Duplikat-von-"
+
 #. WINDOW_ABOUT_XSANE
 msgid "About"
 msgstr "Über"
@@ -157,7 +161,7 @@ msgstr "Lade Geräteeinstellungen"
 
 #. WINDOW_CHANGE_WORKING_DIR
 msgid "change working directory"
-msgstr "Temporäres Verzeichnis wechseln"
+msgstr "Arbeitsverzeichnis wechseln"
 
 #. WINDOW_TMP_PATH
 msgid "select temporary directory"
@@ -195,13 +199,25 @@ msgstr "Einstellungen"
 msgid "View"
 msgstr "Ansicht"
 
+#. MENU_WINDOW
+msgid "Window"
+msgstr "Fenster"
+
 #. MENU_HELP
 msgid "Help"
 msgstr "Hilfe"
 
+#. MENU_EDIT
+msgid "Edit"
+msgstr "Bearbeiten"
+
 #. MENU_FILTERS
 msgid "Filters"
 msgstr "Filter"
+
+#. MENU_GEOMETRY
+msgid "Geometry"
+msgstr "Geometrie"
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
@@ -235,6 +251,10 @@ msgstr "Skalieren"
 msgid "Close"
 msgstr "Schließen"
 
+#. MENU_ITEM_UNDO
+msgid "Undo"
+msgstr "Rückgängig"
+
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
 msgstr "Entflecken"
@@ -242,6 +262,26 @@ msgstr "Entflecken"
 #. MENU_ITEM_BLUR
 msgid "Blur"
 msgstr "Weichzeichnen"
+
+#. MENU_ITEM_ROTATE90
+msgid "Rotate 90"
+msgstr "Drehen 90°"
+
+#. MENU_ITEM_ROTATE180
+msgid "Rotate 180"
+msgstr "Drehen 180°"
+
+#. MENU_ITEM_ROTATE270
+msgid "Rotate 270"
+msgstr "Drehen 270°"
+
+#. MENU_ITEM_MIRROR_X
+msgid "Mirror |"
+msgstr "Spiegeln |"
+
+#. MENU_ITEM_MIRROR_Y
+msgid "Mirror -"
+msgstr "Spiegeln -"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -1999,8 +2039,8 @@ msgid ""
 "button)."
 msgstr ""
 "Bereichsvoreinstellung:\n"
-"Um einen neuen Bereich hinzuzufügen oder exisitierende Voreinstellungen "
-"zu ändern verwenden Sie das Kontextmenü (rechter Mausknopf)."
+"Um einen neuen Bereich hinzuzufügen oder exisitierende Voreinstellungen zu "
+"ändern verwenden Sie das Kontextmenü (rechter Mausknopf)."
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -2017,6 +2057,10 @@ msgstr "Bildposition beim Drucken definieren"
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
 msgstr "Optische Zeichenerkennung (OCR)"
+
+#. DESC_VIEWER_UNDO
+msgid "Undo last change"
+msgstr "Letzte Änderung rückgängig machen"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
@@ -2691,22 +2735,3 @@ msgstr "Kein Speicher"
 
 msgid "Access to resource has been denied"
 msgstr "Zugang zum Gerät wurde verweigert"
-
-#~ msgid "Preset area"
-#~ msgstr "Bereichsvoreinstellung"
-
-#~ msgid "Select source medium type\n"
-#~ msgstr "Medientyp auswählen\n"
-
-#~ msgid "Rename definiton"
-#~ msgstr "Definition umbenennen"
-
-#~ msgid "Delete definition"
-#~ msgstr "Definition löschen"
-
-#~ msgid ""
-#~ "Select source medium type\n"
-#~ "To define a new medium type call \"xsane -M\""
-#~ msgstr ""
-#~ "Typ des Quellmediums auswählen\n"
-#~ "Um ein neues Medium zu definieren \"xsane -M\" aufrufen"

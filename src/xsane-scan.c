@@ -1174,7 +1174,7 @@ void xsane_scan_done(SANE_Status status)
 
     if (xsane.xsane_mode == XSANE_VIEWER)
     {
-      xsane_viewer_new(xsane.dummy_filename, xsane.expand_lineart_to_grayscale, 0);
+      xsane_viewer_new(xsane.dummy_filename, xsane.expand_lineart_to_grayscale, NULL, VIEWER_FULL_MODIFICATION);
       xsane.expand_lineart_to_grayscale = 0;
     }
 
@@ -1270,14 +1270,13 @@ void xsane_scan_done(SANE_Status status)
                                             preferences.printer[preferences.printernr]->copy_number_option,
                                             xsane.copy_number);
       outfile = popen(buf, "w");
-/*      outfile = popen(preferences.printer[preferences.printernr]->command, "w"); */
       if ((outfile != 0) && (infile != 0)) /* copy mode, use zoom size */
       {
        struct SIGACTION act;
        float imagewidth, imageheight;
        int printer_resolution;
 
-         switch (xsane.param.format)
+        switch (xsane.param.format)
         {
           case SANE_FRAME_GRAY:
             if (xsane.depth == 1)
@@ -1385,8 +1384,8 @@ void xsane_scan_done(SANE_Status status)
          {
           float imagewidth, imageheight;
 
-           imagewidth  = 72.0 * image_info.image_width/xsane.resolution_x; /* width in 1/72 inch */
-           imageheight = 72.0 * image_info.image_height/xsane.resolution_y; /* height in 1/72 inch */
+           imagewidth  = 72.0 * image_info.image_width /image_info.resolution_x; /* width in 1/72 inch */
+           imageheight = 72.0 * image_info.image_height/image_info.resolution_y; /* height in 1/72 inch */
 
            DBG(DBG_info, "imagewidth  = %f\n 1/72 inch", imagewidth);
            DBG(DBG_info, "imageheight = %f\n 1/72 inch", imageheight);
@@ -1684,12 +1683,12 @@ static void xsane_start_scan(void)
     default:			frame_type = "unknown"; break;
   }
 
-  if ( (xsane.param.depth == 1) && (xsane.scan_rotation) )
+  if ((xsane.param.depth == 1) && (xsane.scan_rotation))
   {
     xsane.expand_lineart_to_grayscale = 1; /* We want to do transformation with lineart scan, so we save it as grayscale */
   }
 
-  if ((xsane.xsane_mode == XSANE_VIEWER) && (xsane.param.depth == 1))
+  if ((xsane.param.depth == 1) && (xsane.xsane_mode == XSANE_VIEWER))
   {
     xsane.expand_lineart_to_grayscale = 1; /* we are using the viewer, lineart is not supported, so create grayscale */
   }

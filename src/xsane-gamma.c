@@ -160,7 +160,11 @@ static void xsane_draw_histogram_with_points(XsanePixmap *hist,
 
 #ifdef HAVE_GTK2
     gtk_widget_queue_draw(hist->pixmapwid);
-    gdk_window_process_updates(hist->pixmapwid->window, FALSE);
+
+    if (hist->pixmapwid->window)
+    {
+      gdk_window_process_updates(hist->pixmapwid->window, FALSE);
+    }
 #else
     {
      GdkRectangle rect;
@@ -280,7 +284,11 @@ static void xsane_draw_histogram_with_lines(XsanePixmap *hist,
 
 #ifdef HAVE_GTK2
     gtk_widget_queue_draw(hist->pixmapwid);
-    gdk_window_process_updates(hist->pixmapwid->window, FALSE);
+
+    if (hist->pixmapwid->window)
+    {
+      gdk_window_process_updates(hist->pixmapwid->window, FALSE);
+    }
 #else
     {
      GdkRectangle rect;
@@ -401,7 +409,11 @@ void xsane_establish_slider(XsaneSlider *slider)
 
 #ifdef HAVE_GTK2
     gtk_widget_queue_draw(slider->preview);
-    gdk_window_process_updates(slider->preview->window, FALSE);
+
+    if (slider->preview->window)
+    {
+      gdk_window_process_updates(slider->preview->window, FALSE);
+    }
 #else
     {
      GdkRectangle rect;
@@ -450,7 +462,11 @@ void xsane_draw_slider_level(XsaneSlider *slider)
 
 #ifdef HAVE_GTK2
     gtk_widget_queue_draw(slider->preview);
-    gdk_window_process_updates(slider->preview->window, FALSE);
+
+    if (slider->preview->window)
+    {
+      gdk_window_process_updates(slider->preview->window, FALSE);
+    }
 #else
     {
      GdkRectangle rect;

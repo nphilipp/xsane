@@ -105,6 +105,7 @@ typedef struct
     double fax_height;			/* height of fax paper in mm */
     double fax_leftoffset;		/* left offset of fax paper in mm */
     double fax_bottomoffset;		/* bottom offset of fax paper in mm */
+    int    fax_fine_mode;		/* use fine or normal mode */
 
 #ifdef XSANE_ACTIVATE_MAIL
     char   *mail_from;			/* email address of sender */

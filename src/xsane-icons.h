@@ -51,6 +51,7 @@ extern const char *ocr_xpm[];
 extern const char *scale_xpm[];
 extern const char *despeckle_xpm[];
 extern const char *blur_xpm[];
+extern const char *undo_xpm[];
 extern const char *clone_xpm[];
 extern const char *rotate90_xpm[];
 extern const char *rotate180_xpm[];

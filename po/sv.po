@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE pre 0.92\n"
-"POT-Creation-Date: 2004-05-08 23:55+0200\n"
+"POT-Creation-Date: 2004-08-05 12:07+0200\n"
 "PO-Revision-Date: 2003-08-03 14:12+01:00\n"
 "Last-Translator: Johan Bengtsson <jb@goteborg.bostream.se>\n"
 "Language-Team: LANGUAGE <sv@li.org>\n"
@@ -23,6 +23,10 @@ msgid "(c)"
 msgstr "(c)"
 
 #. can be translated with \251
+#. FILENAME_PREFIX_CLONE_OF
+msgid "clone-of-"
+msgstr ""
+
 #. WINDOW_ABOUT_XSANE
 msgid "About"
 msgstr "Om"
@@ -198,13 +202,25 @@ msgstr "Inställningar"
 msgid "View"
 msgstr "Visa"
 
+#. MENU_WINDOW
+msgid "Window"
+msgstr ""
+
 #. MENU_HELP
 msgid "Help"
 msgstr "Hjälp"
 
+#. MENU_EDIT
+msgid "Edit"
+msgstr ""
+
 #. MENU_FILTERS
 msgid "Filters"
 msgstr "Filter"
+
+#. MENU_GEOMETRY
+msgid "Geometry"
+msgstr ""
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
@@ -238,6 +254,10 @@ msgstr "Skala"
 msgid "Close"
 msgstr "Stäng"
 
+#. MENU_ITEM_UNDO
+msgid "Undo"
+msgstr ""
+
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
 msgstr "Damma av"
@@ -245,6 +265,30 @@ msgstr "Damma av"
 #. MENU_ITEM_BLUR
 msgid "Blur"
 msgstr "Sudda till"
+
+#. MENU_ITEM_ROTATE90
+msgid "Rotate 90"
+msgstr ""
+
+#. MENU_ITEM_ROTATE180
+#, fuzzy
+msgid "Rotate 180"
+msgstr "Rotera bild 180 grader"
+
+#. MENU_ITEM_ROTATE270
+#, fuzzy
+msgid "Rotate 270"
+msgstr "Rotera bild 270 grader"
+
+#. MENU_ITEM_MIRROR_X
+#, fuzzy
+msgid "Mirror |"
+msgstr "fel"
+
+#. MENU_ITEM_MIRROR_Y
+#, fuzzy
+msgid "Mirror -"
+msgstr "fel"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -2000,6 +2044,11 @@ msgstr "Definiera bildens position för utskrift"
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
 msgstr "Optisk Tecken Avläsning"
+
+#. DESC_VIEWER_UNDO
+#, fuzzy
+msgid "Undo last change"
+msgstr "Ångra senaste zoomningen"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"

@@ -113,6 +113,7 @@ static const Preferences_medium_t pref_default_medium[]=
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 int DBG_LEVEL = 0;
+static guint xsane_resolution_timer = 0;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -218,7 +219,8 @@ static void xsane_show_eula(GtkWidget *widget, gpointer data);
 static void xsane_show_gpl(GtkWidget *widget, gpointer data);
 static void xsane_show_doc(GtkWidget *widget, gpointer data);
 static GtkWidget *xsane_view_build_menu(void);
-static GtkWidget *xsane_pref_build_menu(void);
+static GtkWidget *xsane_window_build_menu(void);
+static GtkWidget *xsane_preferences_build_menu(void);
 static GtkWidget *xsane_help_build_menu(void);
 static void xsane_device_dialog(void);
 static void xsane_choose_dialog_ok_callback(void);
@@ -570,6 +572,7 @@ static void xsane_show_resolution_list_callback(GtkWidget *widget)
   DBG(DBG_proc, "xsane_show_resolution_list_callback\n");
 
   preferences.show_resolution_list = (GTK_CHECK_MENU_ITEM(widget)->active != 0);
+
   xsane_refresh_dialog();
 }
 
@@ -683,13 +686,16 @@ static void xsane_printer_callback(GtkWidget *widget, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static guint xsane_resolution_timer = 0;
 static void xsane_resolution_timer_callback(GtkAdjustment *adj)
 {
- float val = adj->value;
+  if ((adj) && (!preferences.show_resolution_list)) /* make sure adjustment is valid */
+  {
+   float val = adj->value;
 
-  adj->value += 1.0; /* we need this to make sure that set_vale really redraws the widgets */
-  gtk_adjustment_set_value(adj, val);
+    adj->value += 1.0; /* we need this to make sure that set_value really redraws the widgets */
+    gtk_adjustment_set_value(adj, val);
+  }
+
   gtk_timeout_remove(xsane_resolution_timer);
   xsane_resolution_timer = 0;
 }
@@ -3603,7 +3609,7 @@ static void xsane_fax_dialog()
   /* fine mode */
   button = gtk_check_button_new_with_label(RADIO_BUTTON_FINE_MODE);
   xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_FAX_FINE_MODE);
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), xsane.fax_fine_mode);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), preferences.fax_fine_mode);
   gtk_box_pack_start(GTK_BOX(fax_project_vbox), button, FALSE, FALSE, 2);
   gtk_widget_show(button);
   g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_fax_fine_mode_callback, NULL);
@@ -3944,7 +3950,7 @@ static void xsane_fax_fine_mode_callback(GtkWidget * widget)
 {
   DBG(DBG_proc, "xsane_fax_fine_mode_callback\n");
 
-  xsane.fax_fine_mode = (GTK_TOGGLE_BUTTON(widget)->active != 0);
+  preferences.fax_fine_mode = (GTK_TOGGLE_BUTTON(widget)->active != 0);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -4203,9 +4209,20 @@ static void xsane_fax_entry_insert_callback(GtkWidget *widget, gpointer list)
       if (!strncmp("%!PS", buf, 4))
       {
        FILE *destfile;
+       char destpath[1024];
+       char *destfilename;
+       char *extension;
 
+        destfilename = strdup(strrchr(filename, '/')+1);
+        extension = strrchr(destfilename, '.');
+        if (extension)
+        {
+          *extension = 0;
+        }
+        
+        snprintf(destpath, sizeof(destpath), "%s/%s.ps", preferences.fax_project, destfilename);
         /* copy file to project directory */
-        if (xsane_create_secure_file(xsane.fax_filename)) /* remove possibly existing symbolic links for security
+        if (xsane_create_secure_file(destpath)) /* remove possibly existing symbolic links for security
 */
         {
           fclose(sourcefile);
@@ -4214,13 +4231,10 @@ static void xsane_fax_entry_insert_callback(GtkWidget *widget, gpointer list)
          return; /* error */
         }
 
-        destfile = fopen(xsane.fax_filename, "wb"); /* write binary (b for win32) */
+        destfile = fopen(destpath, "wb"); /* write binary (b for win32) */
 
         if (destfile) /* file is created */
         {
-         char *extension;
-         char *page;
-
           fprintf(destfile, "%s\n", buf);
 
           while (!feof(sourcefile))
@@ -4233,21 +4247,14 @@ static void xsane_fax_entry_insert_callback(GtkWidget *widget, gpointer list)
 
 
           /* add filename to fax page list */
-          page = strdup(strrchr(xsane.fax_filename,'/')+1);
-          extension = strrchr(page, '.');
-          if (extension)
-          {
-            *extension = 0;
-          }
-
-          list_item = gtk_list_item_new_with_label(page);
-          gtk_object_set_data(GTK_OBJECT(list_item), "list_item_data", strdup(page));
+          list_item = gtk_list_item_new_with_label(destfilename);
+          gtk_object_set_data(GTK_OBJECT(list_item), "list_item_data", strdup(destfilename));
           gtk_container_add(GTK_CONTAINER(xsane.fax_list), list_item);
           gtk_widget_show(list_item);
 
           xsane_update_counter_in_filename(&xsane.fax_filename, TRUE, 1, preferences.filename_counter_len);
           xsane_fax_project_save();
-          free(page);
+          free(destfilename);
         }
         else /* file could not be created */
         {
@@ -4391,10 +4398,11 @@ static void xsane_fax_send()
     }
 
     xsane_set_sensitivity(FALSE);
+    /* gtk_widget_set_sensitive(xsane.fax_dialog, FALSE); */
 
     argnr = xsane_parse_options(preferences.fax_command, arg);
 
-    if (xsane.fax_fine_mode) /* fine mode */
+    if (preferences.fax_fine_mode) /* fine mode */
     {
       if (xsane_option_defined(preferences.fax_fine_option))
       {
@@ -4490,6 +4498,7 @@ static void xsane_fax_send()
     }
 
     xsane_set_sensitivity(TRUE);
+    /* gtk_widget_set_sensitive(xsane.fax_dialog, TRUE); */
   }
 }
 
@@ -6174,7 +6183,7 @@ static void xsane_scan_callback(void)
 
 static GtkWidget *xsane_view_build_menu(void)
 {
- GtkWidget *menu, *item;
+ GtkWidget *menu, *item, *submenu, *subitem;
 
   DBG(DBG_proc, "xsane_view_build_menu\n");
 
@@ -6184,7 +6193,7 @@ static GtkWidget *xsane_view_build_menu(void)
   /* show tooltips */
 
   item = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_TOOLTIPS);
-  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_1, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
+  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_T, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), preferences.tooltips_enabled);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_widget_show(item);
@@ -6198,85 +6207,15 @@ static GtkWidget *xsane_view_build_menu(void)
   gtk_widget_show(item);
 
 
-  /* show preview */
+  /* show resolution list */
 
-  xsane.show_preview_widget = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_PREVIEW);
-  gtk_widget_add_accelerator(xsane.show_preview_widget, "activate", xsane.accelerator_group, GDK_2, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
-  gtk_menu_append(GTK_MENU(menu), xsane.show_preview_widget);
-  gtk_widget_show(xsane.show_preview_widget);
-  g_signal_connect(GTK_OBJECT(xsane.show_preview_widget), "toggled", (GtkSignalFunc) xsane_show_preview_callback, NULL);
- 
-  /* show histogram */
+  xsane.show_resolution_list_widget = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_RESOLUTIONLIST);
+  gtk_widget_add_accelerator(xsane.show_resolution_list_widget, "activate", xsane.accelerator_group, GDK_L, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_resolution_list_widget), preferences.show_resolution_list);
+  gtk_menu_append(GTK_MENU(menu), xsane.show_resolution_list_widget);
+  gtk_widget_show(xsane.show_resolution_list_widget);
+  g_signal_connect(GTK_OBJECT(xsane.show_resolution_list_widget), "toggled", (GtkSignalFunc) xsane_show_resolution_list_callback, NULL);
 
-  xsane.show_histogram_widget = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_HISTOGRAM);
-  gtk_widget_add_accelerator(xsane.show_histogram_widget, "activate", xsane.accelerator_group, GDK_3, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
-  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_histogram_widget), preferences.show_histogram);
-  gtk_menu_append(GTK_MENU(menu), xsane.show_histogram_widget);
-  gtk_widget_show(xsane.show_histogram_widget);
-  g_signal_connect(GTK_OBJECT(xsane.show_histogram_widget), "toggled", (GtkSignalFunc) xsane_show_histogram_callback, NULL);
-
-  
-#ifdef HAVE_WORKING_GTK_GAMMACURVE
-  /* show gamma */
-
-  xsane.show_gamma_widget = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_GAMMA);
-  gtk_widget_add_accelerator(xsane.show_gamma_widget, "activate", xsane.accelerator_group, GDK_4, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
-  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_gamma_widget), preferences.show_gamma);
-  gtk_menu_append(GTK_MENU(menu), xsane.show_gamma_widget);
-  gtk_widget_show(xsane.show_gamma_widget);
-  g_signal_connect(GTK_OBJECT(xsane.show_gamma_widget), "toggled", (GtkSignalFunc) xsane_show_gamma_callback, NULL);
-#endif
-
-  /* show batch_scan */
-
-  xsane.show_batch_scan_widget = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_BATCH_SCAN);
-  gtk_widget_add_accelerator(xsane.show_batch_scan_widget, "activate", xsane.accelerator_group, GDK_5, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
-  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_batch_scan_widget), preferences.show_batch_scan);
-  gtk_menu_append(GTK_MENU(menu), xsane.show_batch_scan_widget);
-  gtk_widget_show(xsane.show_batch_scan_widget);
-  g_signal_connect(GTK_OBJECT(xsane.show_batch_scan_widget), "toggled", (GtkSignalFunc) xsane_show_batch_scan_callback, NULL);
-  
-  /* show standard options */
-
-  xsane.show_standard_options_widget = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_STANDARDOPTIONS);
-  gtk_widget_add_accelerator(xsane.show_standard_options_widget, "activate", xsane.accelerator_group, GDK_6, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
-  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_standard_options_widget), preferences.show_standard_options);
-  gtk_menu_append(GTK_MENU(menu), xsane.show_standard_options_widget);
-  gtk_widget_show(xsane.show_standard_options_widget);
-  g_signal_connect(GTK_OBJECT(xsane.show_standard_options_widget), "toggled", (GtkSignalFunc) xsane_show_standard_options_callback, NULL);
-
-
-  /* show advanced options */
-
-  xsane.show_advanced_options_widget = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_ADVANCEDOPTIONS);
-  gtk_widget_add_accelerator(xsane.show_advanced_options_widget, "activate", xsane.accelerator_group, GDK_7, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
-  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_advanced_options_widget), preferences.show_advanced_options);
-  gtk_menu_append(GTK_MENU(menu), xsane.show_advanced_options_widget);
-  gtk_widget_show(xsane.show_advanced_options_widget);
-  g_signal_connect(GTK_OBJECT(xsane.show_advanced_options_widget), "toggled", (GtkSignalFunc) xsane_show_advanced_options_callback, NULL);
-
-  return menu;
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static GtkWidget *xsane_pref_build_menu(void)
-{
- GtkWidget *menu, *item, *submenu, *subitem;
-
-  DBG(DBG_proc, "xsane_pref_build_menu\n");
-
-  menu = gtk_menu_new();
-  gtk_menu_set_accel_group(GTK_MENU(menu), xsane.accelerator_group);
-
-
-  /* XSane setup dialog */
-
-  item = gtk_menu_item_new_with_label(MENU_ITEM_SETUP);
-  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_S, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
-  gtk_menu_append(GTK_MENU(menu), item);
-  g_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_setup_dialog, NULL);
-  gtk_widget_show(item);
 
   /* insert separator: */
 
@@ -6284,53 +6223,6 @@ static GtkWidget *xsane_pref_build_menu(void)
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_widget_show(item);
 
-
-
-  /* length unit */
-
-  item = gtk_menu_item_new_with_label(MENU_ITEM_LENGTH_UNIT);
-  gtk_menu_append(GTK_MENU(menu), item);
-  gtk_widget_show(item);
-
-  submenu = gtk_menu_new();
-
-  subitem = gtk_check_menu_item_new_with_label(SUBMENU_ITEM_LENGTH_MILLIMETERS);
-  gtk_menu_append(GTK_MENU(submenu), subitem);
-  if ( (preferences.length_unit > 0.9) && (preferences.length_unit < 1.1))
-  {
-    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(subitem), TRUE);
-  }
-  g_signal_connect(GTK_OBJECT(subitem), "toggled", (GtkSignalFunc) xsane_set_pref_unit_callback, "mm");
-  gtk_widget_show(subitem);
-  xsane.length_unit_mm = subitem;
-
-  subitem = gtk_check_menu_item_new_with_label(SUBMENU_ITEM_LENGTH_CENTIMETERS);
-  gtk_menu_append(GTK_MENU(submenu), subitem);
-  if ( (preferences.length_unit > 9.9) && (preferences.length_unit < 10.1))
-  {
-    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(subitem), TRUE);
-  }
-  g_signal_connect(GTK_OBJECT(subitem), "toggled", (GtkSignalFunc) xsane_set_pref_unit_callback, "cm");
-  gtk_widget_show(subitem);
-  xsane.length_unit_cm = subitem;
-
-  subitem = gtk_check_menu_item_new_with_label(SUBMENU_ITEM_LENGTH_INCHES);
-  gtk_menu_append(GTK_MENU(submenu), subitem);
-  if ( (preferences.length_unit > 25.3) && (preferences.length_unit < 25.5))
-  {
-    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(subitem), TRUE);
-  }
-  g_signal_connect(GTK_OBJECT(subitem), "toggled", (GtkSignalFunc) xsane_set_pref_unit_callback, "in");
-  gtk_widget_show(subitem);
-  xsane.length_unit_in = subitem;
-
-  gtk_menu_item_set_submenu(GTK_MENU_ITEM(item), submenu);
-
-  /* insert separator: */
-
-  item = gtk_menu_item_new();
-  gtk_menu_append(GTK_MENU(menu), item);
-  gtk_widget_show(item);
 
   /* update policy */
 
@@ -6380,14 +6272,156 @@ static GtkWidget *xsane_pref_build_menu(void)
   gtk_widget_show(item);
 
 
-  /* show resolution list */
+  /* length unit */
 
-  xsane.show_resolution_list_widget = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_RESOLUTIONLIST);
-  gtk_widget_add_accelerator(xsane.show_resolution_list_widget, "activate", xsane.accelerator_group, GDK_L, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
-  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_resolution_list_widget), preferences.show_resolution_list);
-  gtk_menu_append(GTK_MENU(menu), xsane.show_resolution_list_widget);
-  gtk_widget_show(xsane.show_resolution_list_widget);
-  g_signal_connect(GTK_OBJECT(xsane.show_resolution_list_widget), "toggled", (GtkSignalFunc) xsane_show_resolution_list_callback, NULL);
+  item = gtk_menu_item_new_with_label(MENU_ITEM_LENGTH_UNIT);
+  gtk_menu_append(GTK_MENU(menu), item);
+  gtk_widget_show(item);
+
+  submenu = gtk_menu_new();
+
+  subitem = gtk_check_menu_item_new_with_label(SUBMENU_ITEM_LENGTH_MILLIMETERS);
+  gtk_menu_append(GTK_MENU(submenu), subitem);
+  if ( (preferences.length_unit > 0.9) && (preferences.length_unit < 1.1))
+  {
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(subitem), TRUE);
+  }
+  g_signal_connect(GTK_OBJECT(subitem), "toggled", (GtkSignalFunc) xsane_set_pref_unit_callback, "mm");
+  gtk_widget_show(subitem);
+  xsane.length_unit_mm = subitem;
+
+  subitem = gtk_check_menu_item_new_with_label(SUBMENU_ITEM_LENGTH_CENTIMETERS);
+  gtk_menu_append(GTK_MENU(submenu), subitem);
+  if ( (preferences.length_unit > 9.9) && (preferences.length_unit < 10.1))
+  {
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(subitem), TRUE);
+  }
+  g_signal_connect(GTK_OBJECT(subitem), "toggled", (GtkSignalFunc) xsane_set_pref_unit_callback, "cm");
+  gtk_widget_show(subitem);
+  xsane.length_unit_cm = subitem;
+
+  subitem = gtk_check_menu_item_new_with_label(SUBMENU_ITEM_LENGTH_INCHES);
+  gtk_menu_append(GTK_MENU(submenu), subitem);
+  if ( (preferences.length_unit > 25.3) && (preferences.length_unit < 25.5))
+  {
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(subitem), TRUE);
+  }
+  g_signal_connect(GTK_OBJECT(subitem), "toggled", (GtkSignalFunc) xsane_set_pref_unit_callback, "in");
+  gtk_widget_show(subitem);
+  xsane.length_unit_in = subitem;
+
+  gtk_menu_item_set_submenu(GTK_MENU_ITEM(item), submenu);
+
+  return menu;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static GtkWidget *xsane_window_build_menu(void)
+{
+ GtkWidget *menu;
+
+  DBG(DBG_proc, "xsane_window_build_menu\n");
+
+  menu = gtk_menu_new();
+  gtk_menu_set_accel_group(GTK_MENU(menu), xsane.accelerator_group);
+
+
+  /* show preview */
+
+  xsane.show_preview_widget = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_PREVIEW);
+  gtk_widget_add_accelerator(xsane.show_preview_widget, "activate", xsane.accelerator_group, GDK_1, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
+  gtk_menu_append(GTK_MENU(menu), xsane.show_preview_widget);
+  gtk_widget_show(xsane.show_preview_widget);
+  g_signal_connect(GTK_OBJECT(xsane.show_preview_widget), "toggled", (GtkSignalFunc) xsane_show_preview_callback, NULL);
+ 
+  /* show histogram */
+
+  xsane.show_histogram_widget = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_HISTOGRAM);
+  gtk_widget_add_accelerator(xsane.show_histogram_widget, "activate", xsane.accelerator_group, GDK_2, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_histogram_widget), preferences.show_histogram);
+  gtk_menu_append(GTK_MENU(menu), xsane.show_histogram_widget);
+  gtk_widget_show(xsane.show_histogram_widget);
+  g_signal_connect(GTK_OBJECT(xsane.show_histogram_widget), "toggled", (GtkSignalFunc) xsane_show_histogram_callback, NULL);
+
+  
+#ifdef HAVE_WORKING_GTK_GAMMACURVE
+  /* show gamma */
+
+  xsane.show_gamma_widget = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_GAMMA);
+  gtk_widget_add_accelerator(xsane.show_gamma_widget, "activate", xsane.accelerator_group, GDK_3, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_gamma_widget), preferences.show_gamma);
+  gtk_menu_append(GTK_MENU(menu), xsane.show_gamma_widget);
+  gtk_widget_show(xsane.show_gamma_widget);
+  g_signal_connect(GTK_OBJECT(xsane.show_gamma_widget), "toggled", (GtkSignalFunc) xsane_show_gamma_callback, NULL);
+#endif
+
+  /* show batch_scan */
+
+  xsane.show_batch_scan_widget = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_BATCH_SCAN);
+  gtk_widget_add_accelerator(xsane.show_batch_scan_widget, "activate", xsane.accelerator_group, GDK_4, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_batch_scan_widget), preferences.show_batch_scan);
+  gtk_menu_append(GTK_MENU(menu), xsane.show_batch_scan_widget);
+  gtk_widget_show(xsane.show_batch_scan_widget);
+  g_signal_connect(GTK_OBJECT(xsane.show_batch_scan_widget), "toggled", (GtkSignalFunc) xsane_show_batch_scan_callback, NULL);
+  
+  /* show standard options */
+
+  xsane.show_standard_options_widget = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_STANDARDOPTIONS);
+  gtk_widget_add_accelerator(xsane.show_standard_options_widget, "activate", xsane.accelerator_group, GDK_5, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_standard_options_widget), preferences.show_standard_options);
+  gtk_menu_append(GTK_MENU(menu), xsane.show_standard_options_widget);
+  gtk_widget_show(xsane.show_standard_options_widget);
+  g_signal_connect(GTK_OBJECT(xsane.show_standard_options_widget), "toggled", (GtkSignalFunc) xsane_show_standard_options_callback, NULL);
+
+
+  /* show advanced options */
+
+  xsane.show_advanced_options_widget = gtk_check_menu_item_new_with_label(MENU_ITEM_SHOW_ADVANCEDOPTIONS);
+  gtk_widget_add_accelerator(xsane.show_advanced_options_widget, "activate", xsane.accelerator_group, GDK_6, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_advanced_options_widget), preferences.show_advanced_options);
+  gtk_menu_append(GTK_MENU(menu), xsane.show_advanced_options_widget);
+  gtk_widget_show(xsane.show_advanced_options_widget);
+  g_signal_connect(GTK_OBJECT(xsane.show_advanced_options_widget), "toggled", (GtkSignalFunc) xsane_show_advanced_options_callback, NULL);
+
+  return menu;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static GtkWidget *xsane_preferences_build_menu(void)
+{
+ GtkWidget *menu, *item;
+
+  DBG(DBG_proc, "xsane_preferences_build_menu\n");
+
+  menu = gtk_menu_new();
+  gtk_menu_set_accel_group(GTK_MENU(menu), xsane.accelerator_group);
+
+
+  /* XSane setup dialog */
+
+  item = gtk_menu_item_new_with_label(MENU_ITEM_SETUP);
+  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_S, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
+  gtk_menu_append(GTK_MENU(menu), item);
+  g_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_setup_dialog, NULL);
+  gtk_widget_show(item);
+
+  /* insert separator: */
+
+  item = gtk_menu_item_new();
+  gtk_menu_append(GTK_MENU(menu), item);
+  gtk_widget_show(item);
+
+
+
+  /* change working directory */
+
+  item = gtk_menu_item_new_with_label(MENU_ITEM_CHANGE_WORKING_DIR);
+  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_D, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
+  gtk_menu_append(GTK_MENU(menu), item);
+  g_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_change_working_directory, NULL);
+  gtk_widget_show(item);
 
   /* insert separator: */
 
@@ -6422,20 +6456,6 @@ static GtkWidget *xsane_pref_build_menu(void)
   gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_G, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
   gtk_menu_append(GTK_MENU(menu), item);
   g_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_device_preferences_load, NULL);
-  gtk_widget_show(item);
-
-  /* insert separator: */
-
-  item = gtk_menu_item_new();
-  gtk_menu_append(GTK_MENU(menu), item);
-  gtk_widget_show(item);
-
-  /* change working directory */
-
-  item = gtk_menu_item_new_with_label(MENU_ITEM_CHANGE_WORKING_DIR);
-  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_D, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
-  gtk_menu_append(GTK_MENU(menu), item);
-  g_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_change_working_directory, NULL);
   gtk_widget_show(item);
 
   return menu;
@@ -7257,7 +7277,7 @@ static void xsane_device_dialog(void)
   /* "Preferences" submenu: */
   menubar_item = gtk_menu_item_new_with_label(MENU_PREFERENCES);
   gtk_container_add(GTK_CONTAINER(menubar), menubar_item);
-  gtk_menu_item_set_submenu(GTK_MENU_ITEM(menubar_item), xsane_pref_build_menu());
+  gtk_menu_item_set_submenu(GTK_MENU_ITEM(menubar_item), xsane_preferences_build_menu());
 /*  gtk_widget_add_accelerator(menubar_item, "select", xsane.accelerator_group, GDK_P, 0, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED); */
   gtk_widget_show(menubar_item);
 
@@ -7265,6 +7285,14 @@ static void xsane_device_dialog(void)
   menubar_item = gtk_menu_item_new_with_label(MENU_VIEW);
   gtk_container_add(GTK_CONTAINER(menubar), menubar_item);
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(menubar_item), xsane_view_build_menu());
+/*  gtk_widget_add_accelerator(menubar_item, "select", xsane.accelerator_group, GDK_V, 0, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED); */
+  gtk_widget_show(menubar_item);
+
+
+  /* "Window" submenu: */
+  menubar_item = gtk_menu_item_new_with_label(MENU_WINDOW);
+  gtk_container_add(GTK_CONTAINER(menubar), menubar_item);
+  gtk_menu_item_set_submenu(GTK_MENU_ITEM(menubar_item), xsane_window_build_menu());
 /*  gtk_widget_add_accelerator(menubar_item, "select", xsane.accelerator_group, GDK_V, 0, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED); */
   gtk_widget_show(menubar_item);
 

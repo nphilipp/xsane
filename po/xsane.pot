@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2004-05-08 23:55+0200\n"
+"POT-Creation-Date: 2004-08-05 12:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,6 +25,10 @@ msgid "(c)"
 msgstr ""
 
 #. can be translated with \251
+#. FILENAME_PREFIX_CLONE_OF
+msgid "clone-of-"
+msgstr ""
+
 #. WINDOW_ABOUT_XSANE
 msgid "About"
 msgstr ""
@@ -197,12 +201,24 @@ msgstr ""
 msgid "View"
 msgstr ""
 
+#. MENU_WINDOW
+msgid "Window"
+msgstr ""
+
 #. MENU_HELP
 msgid "Help"
 msgstr ""
 
+#. MENU_EDIT
+msgid "Edit"
+msgstr ""
+
 #. MENU_FILTERS
 msgid "Filters"
+msgstr ""
+
+#. MENU_GEOMETRY
+msgid "Geometry"
 msgstr ""
 
 #. MENU_ITEM_ABOUT_XSANE
@@ -237,12 +253,36 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
+#. MENU_ITEM_UNDO
+msgid "Undo"
+msgstr ""
+
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
 msgstr ""
 
 #. MENU_ITEM_BLUR
 msgid "Blur"
+msgstr ""
+
+#. MENU_ITEM_ROTATE90
+msgid "Rotate 90"
+msgstr ""
+
+#. MENU_ITEM_ROTATE180
+msgid "Rotate 180"
+msgstr ""
+
+#. MENU_ITEM_ROTATE270
+msgid "Rotate 270"
+msgstr ""
+
+#. MENU_ITEM_MIRROR_X
+msgid "Mirror |"
+msgstr ""
+
+#. MENU_ITEM_MIRROR_Y
+msgid "Mirror -"
 msgstr ""
 
 #. FRAME_RAW_IMAGE
@@ -1918,6 +1958,10 @@ msgstr ""
 
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
+msgstr ""
+
+#. DESC_VIEWER_UNDO
+msgid "Undo last change"
 msgstr ""
 
 #. DESC_VIEWER_CLONE

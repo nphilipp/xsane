@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.93\n"
-"POT-Creation-Date: 2004-04-20 18:54+0200\n"
+"POT-Creation-Date: 2004-08-05 12:07+0200\n"
 "PO-Revision-Date: 2004-04-21 08:39+0200\n"
 "Last-Translator: Wim Sinke <sinke@wirehub.nl>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -26,6 +26,10 @@ msgid "(c)"
 msgstr "©"
 
 #. can be translated with \251
+#. FILENAME_PREFIX_CLONE_OF
+msgid "clone-of-"
+msgstr ""
+
 #. WINDOW_ABOUT_XSANE
 msgid "About"
 msgstr "Over"
@@ -94,6 +98,21 @@ msgstr "voeg bestand in e-mail"
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
 msgstr "vooringesteld gebied hernoemen"
+
+#. WINDOW_PRESET_AREA_ADD
+#, fuzzy
+msgid "add preset area"
+msgstr "vooringesteld gebied hernoemen"
+
+#. WINDOW_MEDIUM_RENAME
+#, fuzzy
+msgid "rename medium"
+msgstr "Sla medium op"
+
+#. WINDOW_MEDIUM_ADD
+#, fuzzy
+msgid "add new medium"
+msgstr "Sla medium op"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -187,13 +206,25 @@ msgstr "Instellingen"
 msgid "View"
 msgstr "Bekijk"
 
+#. MENU_WINDOW
+msgid "Window"
+msgstr ""
+
 #. MENU_HELP
 msgid "Help"
 msgstr "Help"
 
+#. MENU_EDIT
+msgid "Edit"
+msgstr ""
+
 #. MENU_FILTERS
 msgid "Filters"
 msgstr "Filters"
+
+#. MENU_GEOMETRY
+msgid "Geometry"
+msgstr ""
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
@@ -227,6 +258,10 @@ msgstr "Schaal"
 msgid "Close"
 msgstr "Sluiten"
 
+#. MENU_ITEM_UNDO
+msgid "Undo"
+msgstr ""
+
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
 msgstr "Ontvlekken"
@@ -234,6 +269,30 @@ msgstr "Ontvlekken"
 #. MENU_ITEM_BLUR
 msgid "Blur"
 msgstr "Vervagen"
+
+#. MENU_ITEM_ROTATE90
+msgid "Rotate 90"
+msgstr ""
+
+#. MENU_ITEM_ROTATE180
+#, fuzzy
+msgid "Rotate 180"
+msgstr "Draai 180 graden"
+
+#. MENU_ITEM_ROTATE270
+#, fuzzy
+msgid "Rotate 270"
+msgstr "Draai 270 graden"
+
+#. MENU_ITEM_MIRROR_X
+#, fuzzy
+msgid "Mirror |"
+msgstr "fout"
+
+#. MENU_ITEM_MIRROR_Y
+#, fuzzy
+msgid "Mirror -"
+msgstr "fout"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -991,6 +1050,9 @@ msgstr "groep"
 msgid "all"
 msgstr "allemaal"
 
+msgid "new media"
+msgstr ""
+
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
 msgstr "Opslaan"
@@ -1216,20 +1278,29 @@ msgstr "zoals extentie"
 msgid "Add selection to list"
 msgstr "Voeg selectie toe aan lijst"
 
-#. MENU_ITEM_PRESET_AREA_RENAME
-msgid "Rename definiton"
-msgstr "Definitie hernoemen"
+#. MENU_ITEM_MEDIUM_ADD
+#, fuzzy
+msgid "Add medium definition"
+msgstr "Verander mediumdefinitie"
 
-#. MENU_ITEM_PRESET_AREA_DELETE
-msgid "Delete definition"
-msgstr "Definitie verwijderen"
+#. MENU_ITEM_RENAME
+#, fuzzy
+msgid "Rename item"
+msgstr "Afbeelding hernoemen"
 
-#. MENU_ITEM_PRESET_AREA_MOVE_UP
-msgid "Move up"
+#. MENU_ITEM_DELETE
+#, fuzzy
+msgid "Delete item"
+msgstr "Printer verwijderen"
+
+#. MENU_ITEM_MOVE_UP
+#, fuzzy
+msgid "Move item up"
 msgstr "Naar boven"
 
-#. MENU_ITEM_PRESET_AREA_MOVE_DWN
-msgid "Move down"
+#. MENU_ITEM_MOVE_DWN
+#, fuzzy
+msgid "Move item down"
 msgstr "Naar beneden"
 
 #. PROGRESS_SCANNING
@@ -1310,8 +1381,13 @@ msgstr ""
 "<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
-msgid "Select source medium type\n"
-msgstr "Kies bronmedium type\n"
+msgid ""
+"Select source medium type.\n"
+"To rename, reorder or delete an entry use context menu (right mouse "
+"button).\n"
+"To create a medium enable the option edit medium definition in preferences "
+"menu."
+msgstr ""
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1361,12 +1437,22 @@ msgstr "E-mail adres"
 msgid "Enter subject of email"
 msgstr "E-mail onderwerp"
 
-#. DESC_PRESET_AREA_NAME
+#. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
 msgstr "Geef naam voor gebied"
 
-#. DESC_MEDIUM_DEFINITION_NAME
+#. DESC_PRESET_AREA_ADD
+#, fuzzy
+msgid "Enter name for new preset area"
+msgstr "Geef naam voor gebied"
+
+#. DESC_MEDIUM_RENAME
 msgid "Enter new name for medium definition"
+msgstr "Geef nieuwe naam voor mediumdefinitie"
+
+#. DESC_MEDIUM_ADD
+#, fuzzy
+msgid "Enter name for new medium definition"
 msgstr "Geef nieuwe naam voor mediumdefinitie"
 
 #. DESC_PRINTER_SELECT
@@ -1934,8 +2020,11 @@ msgid "Delete preview image cache"
 msgstr "Verwijder preview uit geheugen"
 
 #. DESC_PRESET_AREA
-msgid "Preset area"
-msgstr "Vooringesteld gebied"
+msgid ""
+"Preset area:\n"
+"To add new area or edit an existing area use contect menu (right mouse "
+"button)."
+msgstr ""
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -1952,6 +2041,11 @@ msgstr "Definieer positie van de afbeelding voor printen"
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
 msgstr "Tekstherkenning (OCR)"
+
+#. DESC_VIEWER_UNDO
+#, fuzzy
+msgid "Undo last change"
+msgstr "Eén zoom terug"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
@@ -2149,6 +2243,14 @@ msgstr "onbekend type"
 #. ERR_UNKNOWN_CONSTRAINT_TYPE
 msgid "unknown constraint type"
 msgstr "onbekende beperking type"
+
+#. ERR_OPTION_NAME_NULL
+msgid "Option has empty name (NULL)."
+msgstr ""
+
+#. ERR_BACKEND_BUG
+msgid "This is a backend bug. Please inform the author of the backend!"
+msgstr ""
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
@@ -2620,3 +2722,15 @@ msgstr "Geheugen vol"
 
 msgid "Access to resource has been denied"
 msgstr "Geen toegang tot apparaat"
+
+#~ msgid "Preset area"
+#~ msgstr "Vooringesteld gebied"
+
+#~ msgid "Select source medium type\n"
+#~ msgstr "Kies bronmedium type\n"
+
+#~ msgid "Rename definiton"
+#~ msgstr "Definitie hernoemen"
+
+#~ msgid "Delete definition"
+#~ msgstr "Definitie verwijderen"

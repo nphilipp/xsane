@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.90\n"
-"POT-Creation-Date: 2004-04-20 18:54+0200\n"
+"POT-Creation-Date: 2004-08-05 12:07+0200\n"
 "PO-Revision-Date: 2002-12-09 10:42+0200\n"
 "Last-Translator: Togan Muftuoglu <toganm@yahoo.com>\n"
 "Language-Team: Turkish <kde-i18n-tr@kde.org>\n"
@@ -23,6 +23,10 @@ msgid "(c)"
 msgstr "(c)"
 
 #. can be translated with \251
+#. FILENAME_PREFIX_CLONE_OF
+msgid "clone-of-"
+msgstr ""
+
 #. WINDOW_ABOUT_XSANE
 msgid "About"
 msgstr "Hakkında"
@@ -90,6 +94,21 @@ msgstr "dosyayı e-postaya yerleştirin"
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
 msgstr "Önceden belirlenmiş alanı yeniden isimlendir"
+
+#. WINDOW_PRESET_AREA_ADD
+#, fuzzy
+msgid "add preset area"
+msgstr "Önceden belirlenmiş alanı yeniden isimlendir"
+
+#. WINDOW_MEDIUM_RENAME
+#, fuzzy
+msgid "rename medium"
+msgstr "Saklama ortamı"
+
+#. WINDOW_MEDIUM_ADD
+#, fuzzy
+msgid "add new medium"
+msgstr "Saklama ortamı"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -183,13 +202,25 @@ msgstr "Ayarlar..."
 msgid "View"
 msgstr "İzleme"
 
+#. MENU_WINDOW
+msgid "Window"
+msgstr ""
+
 #. MENU_HELP
 msgid "Help"
 msgstr "Yardım"
 
+#. MENU_EDIT
+msgid "Edit"
+msgstr ""
+
 #. MENU_FILTERS
 msgid "Filters"
 msgstr "Filtreler"
+
+#. MENU_GEOMETRY
+msgid "Geometry"
+msgstr ""
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
@@ -223,6 +254,10 @@ msgstr "Boyutlandırma"
 msgid "Close"
 msgstr "Kapat"
 
+#. MENU_ITEM_UNDO
+msgid "Undo"
+msgstr ""
+
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
 msgstr "Beneksizleştirme"
@@ -230,6 +265,30 @@ msgstr "Beneksizleştirme"
 #. MENU_ITEM_BLUR
 msgid "Blur"
 msgstr "Bulanıklaştırma"
+
+#. MENU_ITEM_ROTATE90
+msgid "Rotate 90"
+msgstr ""
+
+#. MENU_ITEM_ROTATE180
+#, fuzzy
+msgid "Rotate 180"
+msgstr "Resmi 180 derece döndür"
+
+#. MENU_ITEM_ROTATE270
+#, fuzzy
+msgid "Rotate 270"
+msgstr "Resmi 270 derece döndür"
+
+#. MENU_ITEM_MIRROR_X
+#, fuzzy
+msgid "Mirror |"
+msgstr "hata"
+
+#. MENU_ITEM_MIRROR_Y
+#, fuzzy
+msgid "Mirror -"
+msgstr "hata"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -981,6 +1040,9 @@ msgstr "grup"
 msgid "all"
 msgstr "hepsi"
 
+msgid "new media"
+msgstr ""
+
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
 msgstr "Kaydet"
@@ -1206,20 +1268,29 @@ msgstr "dosya son takısı"
 msgid "Add selection to list"
 msgstr "Seçileni listeye ekle"
 
-#. MENU_ITEM_PRESET_AREA_RENAME
-msgid "Rename definiton"
-msgstr "Tanımı yeniden isimlendir"
+#. MENU_ITEM_MEDIUM_ADD
+#, fuzzy
+msgid "Add medium definition"
+msgstr "Ortam tanımını sakla"
 
-#. MENU_ITEM_PRESET_AREA_DELETE
-msgid "Delete definition"
-msgstr "Tanımı silin"
+#. MENU_ITEM_RENAME
+#, fuzzy
+msgid "Rename item"
+msgstr "Resmi yeniden isimlendir"
 
-#. MENU_ITEM_PRESET_AREA_MOVE_UP
-msgid "Move up"
+#. MENU_ITEM_DELETE
+#, fuzzy
+msgid "Delete item"
+msgstr "Yazıcı sil"
+
+#. MENU_ITEM_MOVE_UP
+#, fuzzy
+msgid "Move item up"
 msgstr "Yukarı taşı"
 
-#. MENU_ITEM_PRESET_AREA_MOVE_DWN
-msgid "Move down"
+#. MENU_ITEM_MOVE_DWN
+#, fuzzy
+msgid "Move item down"
 msgstr "Aşağı taşı"
 
 #. PROGRESS_SCANNING
@@ -1300,9 +1371,13 @@ msgstr ""
 "<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
-#, fuzzy
-msgid "Select source medium type\n"
-msgstr "Kaynak ortam tipini seçin"
+msgid ""
+"Select source medium type.\n"
+"To rename, reorder or delete an entry use context menu (right mouse "
+"button).\n"
+"To create a medium enable the option edit medium definition in preferences "
+"menu."
+msgstr ""
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1352,13 +1427,23 @@ msgstr "E-posta adresi girin"
 msgid "Enter subject of email"
 msgstr "E-Posta konusu girin"
 
-#. DESC_PRESET_AREA_NAME
+#. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
 msgstr "Öncden belirlenen alan için yeni isim gir"
 
-#. DESC_MEDIUM_DEFINITION_NAME
+#. DESC_PRESET_AREA_ADD
+#, fuzzy
+msgid "Enter name for new preset area"
+msgstr "Öncden belirlenen alan için yeni isim gir"
+
+#. DESC_MEDIUM_RENAME
 #, fuzzy
 msgid "Enter new name for medium definition"
+msgstr "Ortam tanımını sakla"
+
+#. DESC_MEDIUM_ADD
+#, fuzzy
+msgid "Enter name for new medium definition"
 msgstr "Ortam tanımını sakla"
 
 #. DESC_PRINTER_SELECT
@@ -1943,8 +2028,11 @@ msgid "Delete preview image cache"
 msgstr "Önizleme resim kaşesini sil"
 
 #. DESC_PRESET_AREA
-msgid "Preset area"
-msgstr "Alanı önceden seç"
+msgid ""
+"Preset area:\n"
+"To add new area or edit an existing area use contect menu (right mouse "
+"button)."
+msgstr ""
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -1961,6 +2049,11 @@ msgstr "Basım için resim pozisyonunu tanımla"
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
 msgstr "Optik karakter okuyucu"
+
+#. DESC_VIEWER_UNDO
+#, fuzzy
+msgid "Undo last change"
+msgstr "Son zumu geri al"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
@@ -2161,6 +2254,14 @@ msgstr "bilinmeyen tip"
 #. ERR_UNKNOWN_CONSTRAINT_TYPE
 msgid "unknown constraint type"
 msgstr "bilinmeyen sıkıştırma tipi"
+
+#. ERR_OPTION_NAME_NULL
+msgid "Option has empty name (NULL)."
+msgstr ""
+
+#. ERR_BACKEND_BUG
+msgid "This is a backend bug. Please inform the author of the backend!"
+msgstr ""
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
@@ -2633,3 +2734,16 @@ msgstr "Yetersiz hafıza"
 
 msgid "Access to resource has been denied"
 msgstr "Kaynağa erişim reddedildi"
+
+#~ msgid "Preset area"
+#~ msgstr "Alanı önceden seç"
+
+#, fuzzy
+#~ msgid "Select source medium type\n"
+#~ msgstr "Kaynak ortam tipini seçin"
+
+#~ msgid "Rename definiton"
+#~ msgstr "Tanımı yeniden isimlendir"
+
+#~ msgid "Delete definition"
+#~ msgstr "Tanımı silin"
