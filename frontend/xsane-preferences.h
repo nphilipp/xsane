@@ -24,7 +24,6 @@ Preferences_printer_t;
 
 typedef struct
   {
-    const char *device;		/* name of preferred device (or NULL) */
     char *filename;		/* default filename */
     char *fax_project;		/* fax project */
     char *fax_command;		/* faxcommand */

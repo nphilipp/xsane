@@ -120,6 +120,10 @@ msgstr ""
 _BUTTON_CLOSE
 msgstr ""
 
+# original text: BUTTON_OVERWRITE
+_BUTTON_OVERWRITE
+msgstr ""
+
 # original text: BUTTON_ADD_AREA
 _BUTTON_ADD_AREA
 msgstr ""
@@ -314,6 +318,10 @@ msgstr ""
 
 # original text: TEXT_EMAIL
 _TEXT_EMAIL
+msgstr ""
+
+# original text: TEXT_FILE
+_TEXT_FILE
 msgstr ""
 
 # original text: TEXT_INFO_BOX
@@ -1072,6 +1080,42 @@ msgstr ""
 
 # original text: ERR_HEADER_WARNING
 _ERR_HEADER_WARNING
+msgstr ""
+
+# original text: ERR_FAILED_CREATE_FILE
+_ERR_FAILED_CREATE_FILE
+msgstr ""
+
+# original text: ERR_LOAD_DEVICE_SETTINGS
+_ERR_LOAD_DEVICE_SETTINGS
+msgstr ""
+
+# original text: ERR_NO_DRC_FILE
+_ERR_NO_DRC_FILE
+msgstr ""
+
+# original text: ERR_NETSCAPE_NOT_RUNNING
+_ERR_NETSCAPE_NOT_RUNNING
+msgstr ""
+
+# original text: ERR_NETSCAPE_EXECUTE_FAIL
+_ERR_NETSCAPE_EXECUTE_FAIL
+msgstr ""
+
+# original text: ERR_SENDFAX_RECEIVER_MISSING 
+_ERR_SENDFAX_RECEIVER_MISSING 
+msgstr ""
+
+# original text: ERR_CREATED_FOR_DEVICE
+_ERR_CREATED_FOR_DEVICE
+msgstr ""
+
+# original text: ERR_USED_FOR_DEVICE
+_ERR_USED_FOR_DEVICE
+msgstr ""
+
+# original text: ERR_MAY_CAUSE_PROBLEMS
+_ERR_MAY_CAUSE_PROBLEMS
 msgstr ""
 
 # original text: TEXT_USAGE

@@ -121,6 +121,10 @@ msgstr "Abbrechen"
 msgid BUTTON_CLOSE
 msgstr "Schließen"
 
+#original text:  "Overwrite"
+msgid BUTTON_OVERWRITE
+msgstr "Überschreiben"
+
 #original text:  "Add area"   
 msgid BUTTON_ADD_AREA
 msgstr "Bereich hinzufügen"
@@ -316,6 +320,10 @@ msgstr "unbekannt"
 #original text:  "Email:"   
 msgid TEXT_EMAIL
 msgstr "E-Mail:"
+
+#original text:  "File:"
+msgid TEXT_FILE
+msgstr "Datei:" 
 
 #original text:  "0x0: 0KB"   
 msgid TEXT_INFO_BOX
@@ -1073,6 +1081,42 @@ msgstr "Fehler"
 msgid ERR_HEADER_WARNING
 msgstr "Warnung"
 
+#original text:  "Failed to create file:"
+msgid ERR_FAILED_CREATE_FILE
+msgstr "Fehler beim Erstellen des Files:"
+
+#original text:  "Error while loading device settings:"
+msgid ERR_LOAD_DEVICE_SETTINGS
+msgstr "Fehler beim Laden der Geräteeinstellungen"
+
+#original text:  "is not a device-rc-file !!!"
+msgid ERR_NO_DRC_FILE
+msgstr "ist keine Geräteeinstellungs-Datei !!!"
+
+#original text:  "Ensure netscape is running!"
+msgid ERR_NETSCAPE_NOT_RUNNING
+msgstr "Stellen Sie sicher dass Netscape gestartet ist!"
+
+#original text:  "Failed to execute netscape!"
+msgid ERR_NETSCAPE_EXECUTE_FAIL
+msgstr "Konnte Netscape nicht aufrufen"
+
+#original text:  "Send fax: no receiver defined"
+msgid ERR_SENDFAX_RECEIVER_MISSING
+msgstr "Fax senden: kein Empfänger angegeben"
+
+#original text:  "has been created for device"
+msgid ERR_CREATED_FOR_DEVICE
+msgstr "wurde erstellt für das Gerät"
+
+#original text:  "you want to use it for device"
+msgid ERR_USED_FOR_DEVICE
+msgstr "wird benutzt für das Gerät"
+
+#original text:  "this may cause problems!"
+msgid ERR_MAY_CAUSE_PROBLEMS
+msgstr "das kann zu Problemen führen!"
+
 #original text:  "Usage:"   
 msgid TEXT_USAGE
 msgstr "Gebrauch:"
@@ -1095,7 +1139,7 @@ msgstr "Diese Funktion gibt Zugang zu Scannern und anderen bilderzeugenden Gerät
 
 #original text: "<Toolbox>/File/Acquire/XSane: "
 msgid XSANE_GIMP_MENU
-msgstr "<Toolbox>/Datei/Acquire/XSane: "
+msgstr "<Toolbox>/File/Acquire/XSane: "
 
 #original text: "<Toolbox>/Xtns/XSane/"
 msgid XSANE_GIMP_MENU_OLD

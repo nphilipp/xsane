@@ -24,19 +24,23 @@
 
 #include <sane/sane.h>
 
+#include "xsane.h"
 #include "xsane-preferences.h"
 #include "sane/sanei.h"
 #include "sane/sanei_wire.h"
 #include "sane/sanei_codec_ascii.h"
+
+/* --------------------------------------------------------------------- */
 
 #define POFFSET(field)	((char *) &((Preferences *) 0)->field - (char *) 0)
 #define PFIELD(p,offset,type)	(*((type *)(((char *)(p)) + (offset))))
 
 #define PRTOFFSET(field)	((char *) &((Preferences_printer_t *) 0)->field - (char *) 0)
 
+/* --------------------------------------------------------------------- */
+
 Preferences preferences =
   {
-       0,		/* no preferred device (must be 0 or malloced!) */
        0,		/* no default filename */
        0,		/* no fax project */
        0,		/* no default faxcommand */
@@ -85,10 +89,13 @@ Preferences preferences =
      0			/* printerdefinitions */
   };
 
+/* --------------------------------------------------------------------- */
 
 static void w_string (Wire *w, void *p, long offset);
 static void w_double (Wire *w, void *p, long offset);
 static void w_int (Wire *w, void *p, long offset);
+
+/* --------------------------------------------------------------------- */
 
 static struct
   {
@@ -98,7 +105,6 @@ static struct
   }
 desc[] =
   {
-    {"device",				w_string,	POFFSET(device)},
     {"filename",			w_string,	POFFSET(filename)},
     {"fax-project",			w_string,	POFFSET(fax_project)},
     {"fax-command",			w_string,	POFFSET(fax_command)},
@@ -147,6 +153,8 @@ desc[] =
     {"printerdefinitions",		w_int,		POFFSET(printerdefinitions)}
   };
 
+/* --------------------------------------------------------------------- */
+
 static struct
   {
     SANE_String name;
@@ -176,9 +184,11 @@ static void w_string(Wire *w, void *p, long offset)
   SANE_String string;
 
   if (w->direction == WIRE_ENCODE)
-    string = PFIELD (p, offset, char *);
+  {
+    string = PFIELD(p, offset, char *);
+  }
 
-  sanei_w_string (w, &string);
+  sanei_w_string(w, &string);
 
   if (w->direction == WIRE_DECODE)
   {
@@ -186,14 +196,14 @@ static void w_string(Wire *w, void *p, long offset)
     {
      const char **field;
 
-      field = &PFIELD (p, offset, const char *);
+      field = &PFIELD(p, offset, const char *);
       if (*field)
       {
-        free ((char *) *field);
+        free((char *) *field);
       }
       *field = string ? strdup (string) : 0;
     }
-    sanei_w_free (w, (WireCodecFunc) sanei_w_string, &string);
+    sanei_w_free(w, (WireCodecFunc) sanei_w_string, &string);
   }
 }
 
@@ -205,7 +215,7 @@ static void w_double(Wire *w, void *p, long offset)
 
   if (w->direction == WIRE_ENCODE)
   {
-    word = SANE_FIX (PFIELD (p, offset, double));
+    word = SANE_FIX(PFIELD (p, offset, double));
   }
 
   sanei_w_word (w, &word);
@@ -214,9 +224,9 @@ static void w_double(Wire *w, void *p, long offset)
   {
     if (w->status == 0)
     {
-      PFIELD (p, offset, double) = SANE_UNFIX (word);
+      PFIELD(p, offset, double) = SANE_UNFIX (word);
     }
-    sanei_w_free (w, (WireCodecFunc) sanei_w_word, &word);
+    sanei_w_free(w, (WireCodecFunc) sanei_w_word, &word);
   }
 }
 
@@ -228,7 +238,7 @@ static void w_int(Wire *w, void *p, long offset)
 
   if (w->direction == WIRE_ENCODE)
   {
-    word = PFIELD (p, offset, int);
+    word = PFIELD(p, offset, int);
   }
 
   sanei_w_word (w, &word);
@@ -237,9 +247,9 @@ static void w_int(Wire *w, void *p, long offset)
   {
     if (w->status == 0)
     {
-      PFIELD (p, offset, int) = word;
+      PFIELD(p, offset, int) = word;
     }
-    sanei_w_free (w, (WireCodecFunc) sanei_w_word, &word);
+    sanei_w_free(w, (WireCodecFunc) sanei_w_word, &word);
   }
 }
 
@@ -253,13 +263,12 @@ void preferences_save(int fd)
   w.io.fd = fd;
   w.io.read = read;
   w.io.write = write;
-  sanei_w_init (&w, sanei_codec_ascii_init);
-  sanei_w_set_dir (&w, WIRE_ENCODE);
-
+  sanei_w_init(&w, sanei_codec_ascii_init);
+  sanei_w_set_dir(&w, WIRE_ENCODE);
 
   for (i = 0; i < NELEMS(desc); ++i)
   {
-    sanei_w_string (&w, &desc[i].name);
+    sanei_w_string(&w, &desc[i].name);
     (*desc[i].codec) (&w, &preferences, desc[i].offset);
   }
 
@@ -269,13 +278,13 @@ void preferences_save(int fd)
   {
     for (i = 0; i < NELEMS(desc_printer); ++i)
     {
-      sanei_w_string (&w, &desc_printer[i].name);
+      sanei_w_string(&w, &desc_printer[i].name);
       (*desc_printer[i].codec) (&w, preferences.printer[n], desc_printer[i].offset);
     }
     n++;
   }
 
-  sanei_w_set_dir (&w, WIRE_DECODE);	/* flush it out */
+  sanei_w_set_dir(&w, WIRE_DECODE);	/* flush it out */
 }
 
 /* --------------------------------------------------------------------- */
@@ -289,19 +298,19 @@ void preferences_restore(int fd)
   w.io.fd = fd;
   w.io.read = read;
   w.io.write = write;
-  sanei_w_init (&w, sanei_codec_ascii_init);
-  sanei_w_set_dir (&w, WIRE_DECODE);
+  sanei_w_init(&w, sanei_codec_ascii_init);
+  sanei_w_set_dir(&w, WIRE_DECODE);
 
 
   while (1)
   {
-    sanei_w_space (&w, 3);
+    sanei_w_space(&w, 3);
     if (w.status)
     {
       return;
     }
 
-    sanei_w_string (&w, &name);
+    sanei_w_string(&w, &name);
     if (w.status || !name)
     {
       return;
@@ -334,13 +343,13 @@ void preferences_restore(int fd)
         return;
       }
 
-      sanei_w_string (&w, &name);
+      sanei_w_string(&w, &name);
       if (w.status || !name)
       {
         return;
       }
 
-      if (strcmp (name, desc_printer[i].name) == 0)
+      if (strcmp(name, desc_printer[i].name) == 0)
       {
         (*desc_printer[i].codec) (&w, preferences.printer[n], desc_printer[i].offset);
       }

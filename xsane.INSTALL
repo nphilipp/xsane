@@ -18,7 +18,12 @@ COMPILATION AND INSTALLATION:
 DO THE FOLLOWING AS NORMAL USER, NOT AS ROOT:
 - Unpack the xsane archiv in a directory of your choice. 
 - Enter xsane-0.xx directory. 
-- To compile call ./configure and make. 
+- To compile call ./configure and make.
+  When you started ./configure before it may be good to do a
+    make distclean
+  before you call ./configure again, if that does not work,
+  remove config.cache:
+    rm -f config.cache
 
 DO THE FOLLOWING AS ROOT:
 - Call make install 
@@ -30,8 +35,8 @@ DO THE FOLLOWING AS NORMAL USER:
   tell your system where the SANE-libraries are installed.
    For linux: edit /etc/ld.so.conf and add a line with the path to the
    libraries (normally /usr/local/lib/sane), then call ldconfig.
-   THIS MUST BE DONE A ROOT!
-   If you use a SuSE linux, edit /etc/ld.so.conf.in instead and call
+   THIS MUST BE DONE AS ROOT!
+   If you use a SuSE linux, you may have to edit /etc/ld.so.conf.in instead and call
    SuSEconfig instead of ldconfig. 
 
 If something does not work like expected read file xsane.PROBLEMS

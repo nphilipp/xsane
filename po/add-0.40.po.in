@@ -1,0 +1,44 @@
+#original text:  "Overwrite"
+msgid BUTTON_OVERWRITE
+msgstr ""
+
+#original text:  "File:"
+msgid TEXT_FILE
+msgstr "" 
+
+#original text:  "Failed to create file:"
+msgid ERR_FAILED_CREATE_FILE
+msgstr ""
+
+#original text:  "Error while loading device settings:"
+msgid ERR_LOAD_DEVICE_SETTINGS
+msgstr ""
+
+#original text:  "is not a device-rc-file !!!"
+msgid ERR_NO_DRC_FILE
+msgstr ""
+
+#original text:  "Ensure netscape is running!"
+msgid ERR_NETSCAPE_NOT_RUNNING
+msgstr ""
+
+#original text:  "Failed to execute netscape!"
+msgid ERR_NETSCAPE_EXECUTE_FAIL
+msgstr ""
+
+#original text:  "Send fax: no receiver defined"
+msgid ERR_SENDFAX_RECEIVER_MISSING
+msgstr ""
+
+#original text:  "has been created for device"
+msgid ERR_CREATED_FOR_DEVICE
+msgstr ""
+
+#original text:  "you want to use it for device"
+msgid ERR_USED_FOR_DEVICE
+msgstr ""
+
+#original text:  "this may cause problems!"
+msgid ERR_MAY_CAUSE_PROBLEMS
+msgstr ""
+

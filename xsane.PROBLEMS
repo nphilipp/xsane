@@ -1,13 +1,10 @@
 
- If you get segmentation faults or unexpected problems,
- try the following:
-
- - make sure there is only one sane version installed before
-   you compile xsane
-   (try as root: $find / -name "*sane*" | less)
-
- - If you compiled  xsane/gtk/glib with the egcs compiler try
-   recompiling all with the "normal" gcc compiler!
+ - If you get segmentation faults or unexpected problems:
+   - make sure there is only one sane version installed before
+     you compile xsane
+     (try as root: $find / -name "*sane*" | less)
+   - If you compiled xsane/gtk/glib with the egcs compiler try
+     recompiling all with the "normal" gcc compiler (test with gcc -v)!
 
  - If you get an error message  that libsane-dll.so.1 is not found, you have to
    tell your system where the SANE-libraries are installed.
@@ -26,6 +23,11 @@
 
       ln -s /usr/bin/Netscape /usr/bin/netscape
 
+ - If you call ./configure a second time, it may be good to call
+     make distclean
+   before that, if that does not work, remove config.cache:
+     rm -f config.cache
+
  - If the compilation aborts with
       /usr/lib/libgimp.so: undefined reference to `g_debug'
       /usr/lib/libgimp.so: undefined reference to `g_message'
@@ -38,12 +40,21 @@
    you did not install sane-devel.rpm!  Get sane-devel.rpm from
    the site you got sane.rpm and install it!
 
-- If make aborts with missing library "-lintl" try
-  ./configure --with-included-gettext
+ - If make aborts with missing library "-lintl" try
+     make distclean
+     ./configure --with-included-gettext
 
-- If gtk+ is compiled with NLS/gettext, you have to use the same
-  gettext version. So if gtk+ is compiled with gettext in libc
-  do NOT compile xsane with included gettext!
+ - If configure does not find libsane, try
+     ./configure --enable-intl-patch
+
+ - If gtk+ is compiled with NLS/gettext, you have to use the same
+   gettext version. So if gtk+ is compiled with gettext in libc
+   do NOT compile xsane with included gettext!
+   Otherwise gtk will crash when gtk texts shall be translated.
+
+ - If you are running BSD and gtk-config is not in your path or is
+   named-gtk?.?-config, make sure environment variable GTK_CONFIG
+   is set with full path to the config file that shall be used
 
 
 

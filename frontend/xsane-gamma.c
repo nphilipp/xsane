@@ -1166,11 +1166,12 @@ static void xsane_enhancement_update(void)
   gtk_signal_emit(xsane.contrast_widget,   sig_changed); 
 
   xsane_update_sliders(); /* update histogram slider */
-
+#if 0 /* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
   while (gtk_events_pending())
   {
     gtk_main_iteration();
   }
+#endif
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

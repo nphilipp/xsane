@@ -483,3 +483,23 @@ xsane-0.38 -> 0.39:
  - bounded contrast to >=-100.0
  - Added test if GIMP_CHECK_VERSION is defined
 
+
+xsane-0.39 -> 0.40:
+-------------------
+
+ - device name is saved in drc file now
+ - xsane version is saved in drc file now
+ - warning is printed if device rc file was not created for active device
+ - removed member device from struct preferences - was never used
+ - changed frontend/Makefile.in (XSCAN->BINPROGS)
+ - changed configure.in:
+   - changed order of some checks
+   - added status messages at the end
+   - added "--enable-intl-patch" which adds -lintl to check for libsane
+   - added "--disable-gimp"
+   - added "--disable-jpeg"
+   - added "--disable-tiff"
+   - added "--disable-png"
+ - moved xsane_generate_dummy_filename and fopen() into if XSANE_STANDALONE block,
+   there is no empty file created in gimp mode any more.
+

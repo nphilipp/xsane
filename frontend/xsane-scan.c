@@ -1520,31 +1520,31 @@ static void xsane_start_scan(void)
 
 #ifdef HAVE_LIBGIMP_GIMP_H
   if (xsane.mode == XSANE_GIMP_EXTENSION && xsane.tile)
+  {
+    int height, remaining;
+
+    /* write the last tile of the frame to the GIMP region: */
+
+    if (xsane.y > xsane.param.lines)	/* sanity check */
     {
-      int height, remaining;
-
-      /* write the last tile of the frame to the GIMP region: */
-
-      if (xsane.y > xsane.param.lines)	/* sanity check */
-      {
-	xsane.y = xsane.param.lines;
-      }
-
-      remaining = xsane.y % gimp_tile_height();
-      if (remaining)
-      {
-	gimp_pixel_rgn_set_rect(&xsane.region, xsane.tile, 0, xsane.y - remaining, xsane.param.pixels_per_line, remaining);
-      }
-
-      /* initialize the tile with the first tile of the GIMP region: */
-
-      height = gimp_tile_height();
-      if (height >= xsane.param.lines)
-      {
-	height = xsane.param.lines;
-      }
-      gimp_pixel_rgn_get_rect(&xsane.region, xsane.tile, 0, 0, xsane.param.pixels_per_line, height);
+      xsane.y = xsane.param.lines;
     }
+
+    remaining = xsane.y % gimp_tile_height();
+    if (remaining)
+    {
+      gimp_pixel_rgn_set_rect(&xsane.region, xsane.tile, 0, xsane.y - remaining, xsane.param.pixels_per_line, remaining);
+    }
+
+    /* initialize the tile with the first tile of the GIMP region: */
+
+    height = gimp_tile_height();
+    if (height >= xsane.param.lines)
+    {
+      height = xsane.param.lines;
+    }
+    gimp_pixel_rgn_get_rect(&xsane.region, xsane.tile, 0, 0, xsane.param.pixels_per_line, height);
+  }
 #endif /* HAVE_LIBGIMP_GIMP_H */
 
   xsane.x = xsane.y = 0;
@@ -1560,17 +1560,6 @@ static void xsane_start_scan(void)
   {
     xsane_scan_done(status);
     snprintf(buf, sizeof(buf), "%s %s", ERR_FAILED_START_SCANNER, XSANE_STRSTATUS(status));
-    gsg_error(buf, TRUE);
-    return;
-  }
-
-  xsane_generate_dummy_filename(); /* create filename the scanned data is saved to */
-  xsane.out = fopen(xsane.dummy_filename, "w");
-
-  if (!xsane.out) /* error while opening the dummy_file for writing */
-  {
-    xsane_scan_done(-1); /* -1 = error */
-    snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, preferences.filename, strerror(errno));
     gsg_error(buf, TRUE);
     return;
   }
@@ -1602,63 +1591,74 @@ static void xsane_start_scan(void)
 
   if (xsane.mode == XSANE_STANDALONE)
   {				/* We are running in standalone mode */
-      if (!xsane.header_size)
+    xsane_generate_dummy_filename(); /* create filename the scanned data is saved to */
+    xsane.out = fopen(xsane.dummy_filename, "w");
+
+    if (!xsane.out) /* error while opening the dummy_file for writing */
+    {
+      xsane_scan_done(-1); /* -1 = error */
+      snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, preferences.filename, strerror(errno));
+      gsg_error(buf, TRUE);
+      return;
+    }
+
+    if (!xsane.header_size)
+    {
+      switch (xsane.param.format)
       {
-	  switch (xsane.param.format)
+        case SANE_FRAME_RGB:
+        case SANE_FRAME_RED:
+        case SANE_FRAME_GREEN:
+        case SANE_FRAME_BLUE:
+          switch (xsane.param.depth)
           {
-	    case SANE_FRAME_RGB:
-	    case SANE_FRAME_RED:
-	    case SANE_FRAME_GREEN:
-	    case SANE_FRAME_BLUE:
-              switch (xsane.param.depth)
-	      {
-                case 8: /* color 8 bit mode, write ppm header */
-                  fprintf(xsane.out, "P6\n# SANE data follows\n%d %d\n255\n", xsane.param.pixels_per_line, xsane.param.lines);
-                 break;
+             case 8: /* color 8 bit mode, write ppm header */
+               fprintf(xsane.out, "P6\n# SANE data follows\n%d %d\n255\n", xsane.param.pixels_per_line, xsane.param.lines);
+              break;
 
-		default: /* color, but not 8 bit mode, write as raw data because this is not defined in pnm */ 
-                  fprintf(xsane.out, "SANE_RGB_RAW\n%d %d\n65535\n", xsane.param.pixels_per_line, xsane.param.lines);
-                 break;
-              }
-             break;
+             default: /* color, but not 8 bit mode, write as raw data because this is not defined in pnm */ 
+               fprintf(xsane.out, "SANE_RGB_RAW\n%d %d\n65535\n", xsane.param.pixels_per_line, xsane.param.lines);
+              break;
+          }
+          break;
 
-	    case SANE_FRAME_GRAY:
-              switch (xsane.param.depth)
-	      {
-                case 1: /* 1 bit lineart mode, write pbm header */
-                  fprintf(xsane.out, "P4\n# SANE data follows\n%d %d\n", xsane.param.pixels_per_line, xsane.param.lines);
-                 break;
+        case SANE_FRAME_GRAY:
+          switch (xsane.param.depth)
+          {
+             case 1: /* 1 bit lineart mode, write pbm header */
+               fprintf(xsane.out, "P4\n# SANE data follows\n%d %d\n", xsane.param.pixels_per_line, xsane.param.lines);
+              break;
 
-                case 8: /* 8 bit grayscale mode, write pgm header */
-                  fprintf(xsane.out, "P5\n# SANE data follows\n%d %d\n255\n", xsane.param.pixels_per_line, xsane.param.lines);
-                 break;
+             case 8: /* 8 bit grayscale mode, write pgm header */
+               fprintf(xsane.out, "P5\n# SANE data follows\n%d %d\n255\n", xsane.param.pixels_per_line, xsane.param.lines);
+              break;
 
-                default: /* grayscale mode but not 1 or 8 bit, write as raw data because this is not defined in pnm */
-                  fprintf(xsane.out, "SANE_GRAYSCALE_RAW\n%d %d\n65535\n", xsane.param.pixels_per_line, xsane.param.lines);
-                 break;
-              }
+             default: /* grayscale mode but not 1 or 8 bit, write as raw data because this is not defined in pnm */
+               fprintf(xsane.out, "SANE_GRAYSCALE_RAW\n%d %d\n65535\n", xsane.param.pixels_per_line, xsane.param.lines);
+              break;
+          }
 	     break;
 
 #ifdef SUPPORT_RGBA
-	    case SANE_FRAME_RGBA:
-              switch (xsane.param.depth)
-	      {
-                case 8: /* 8 bit RGBA mode */
-                  fprintf(xsane.out, "SANE_RGBA\n%d %d\n255\n", xsane.param.pixels_per_line, xsane.param.lines);
-                 break;
+	case SANE_FRAME_RGBA:
+          switch (xsane.param.depth)
+	  {
+             case 8: /* 8 bit RGBA mode */
+               fprintf(xsane.out, "SANE_RGBA\n%d %d\n255\n", xsane.param.pixels_per_line, xsane.param.lines);
+              break;
 
-                default: /* 16 bit RGBA mode */
-                  fprintf(xsane.out, "SANE_RGBA\n%d %d\n65535\n", xsane.param.pixels_per_line, xsane.param.lines);
-                 break;
-              }
-             break;                                                            
+             default: /* 16 bit RGBA mode */
+               fprintf(xsane.out, "SANE_RGBA\n%d %d\n65535\n", xsane.param.pixels_per_line, xsane.param.lines);
+              break;
+          }
+          break;                                                            
 #endif
 
-	    default:
-            /* unknown file format, do not write header */
-             break;
-          }
-	  xsane.header_size = ftell(xsane.out);
+	 default:
+         /* unknown file format, do not write header */
+          break;
+        }
+        xsane.header_size = ftell(xsane.out);
       }
 
       if (xsane.param.format >= SANE_FRAME_RED && xsane.param.format <= SANE_FRAME_BLUE)
@@ -1809,7 +1809,7 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
 
         fclose(testfile);
         snprintf(buf, sizeof(buf), "File %s already exists\n", preferences.filename);
-        if (gsg_decision("Warning:", buf, "Overwrite", "Cancel", TRUE /* wait */) == FALSE)
+        if (gsg_decision("Warning:", buf, BUTTON_OVERWRITE, BUTTON_CANCEL, TRUE /* wait */) == FALSE)
         {
           return;
         }

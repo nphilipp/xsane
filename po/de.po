@@ -334,6 +334,12 @@
 
 
 
+
+
+
+
+
+
  
 
 
@@ -466,6 +472,10 @@ msgstr "Abbrechen"
 #original text:  "Close"   
 msgid  "Close"   
 msgstr "Schließen"
+
+#original text:  "Overwrite"
+msgid  "Overwrite"   
+msgstr "Überschreiben"
 
 #original text:  "Add area"   
 msgid  "Add area"   
@@ -662,6 +672,10 @@ msgstr "unbekannt"
 #original text:  "Email:"   
 msgid  "Email:"   
 msgstr "E-Mail:"
+
+#original text:  "File:"
+msgid  "File:"   
+msgstr "Datei:" 
 
 #original text:  "0x0: 0KB"   
 msgid  "0x0: 0KB"   
@@ -1418,6 +1432,42 @@ msgstr "Fehler"
 #original text:  "Warning"   
 msgid  "Warning"   
 msgstr "Warnung"
+
+#original text:  "Failed to create file:"
+msgid  "Failed to create file:"   
+msgstr "Fehler beim Erstellen des Files:"
+
+#original text:  "Error while loading device settings:"
+msgid  "Error while loading device settings:"   
+msgstr "Fehler beim Laden der Geräteeinstellungen"
+
+#original text:  "is not a device-rc-file !!!"
+msgid  "is not a device-rc-file !!!"   
+msgstr "ist keine Geräteeinstellungs-Datei !!!"
+
+#original text:  "Ensure netscape is running!"
+msgid  "Ensure netscape is running!"   
+msgstr "Stellen Sie sicher dass Netscape gestartet ist!"
+
+#original text:  "Failed to execute netscape!"
+msgid  "Failed to execute netscape!"   
+msgstr "Konnte Netscape nicht aufrufen"
+
+#original text:  "Send fax: no receiver defined"
+msgid  "Send fax: no receiver defined"   
+msgstr "Fax senden: kein Empfänger angegeben"
+
+#original text:  "has been created for device"
+msgid  "has been created for device"   
+msgstr "wurde erstellt für das Gerät"
+
+#original text:  "you want to use it for device"
+msgid  "you want to use it for device"   
+msgstr "wird benutzt für das Gerät"
+
+#original text:  "this may cause problems!"
+msgid  "this may cause problems!"   
+msgstr "das kann zu Problemen führen!"
 
 #original text:  "Usage:"   
 msgid  "Usage:"   

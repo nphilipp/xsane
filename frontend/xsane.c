@@ -2544,7 +2544,7 @@ static void xsane_pref_device_save(GtkWidget *widget, gpointer data)
   }
 
   fprintf(file, "\"XSANE_DEVICE_RC\"\n");
-  fprintf(file, "\"reserved for scanner name\"\n");
+  fprintf(file, "\"%s\"\n", xsane.device_set_filename);
   fclose(file);
 
   fd = open(filename, O_WRONLY | O_APPEND , 0666);
@@ -2572,6 +2572,8 @@ static void xsane_pref_device_save(GtkWidget *widget, gpointer data)
     return;
   }
 
+  fprintf(file, "\"xsane-version\"\n");
+  fprintf(file, "\"" XSANE_VERSION "\"\n");
   fprintf(file, "\"xsane-gamma\"\n");
   fprintf(file, "%f\n", xsane.gamma);
   fprintf(file, "\"xsane-gamma-red\"\n");
@@ -2669,7 +2671,11 @@ static void xsane_pref_device_load_file(char *filename)
 {
  int fd;
  FILE *file;
+ char buf[256];
  char option[256];
+ char *optionp;
+ char *version = 0;
+ int len;
 
  int main_posx   = XSANE_DIALOG_POS_X;
  int main_posy   = XSANE_DIALOG_POS_Y;
@@ -2712,11 +2718,34 @@ static void xsane_pref_device_load_file(char *filename)
 
     if (!feof(file))
     {
-      fgets(option, sizeof(option), file); /* get scanner name */
+      fgets(option, sizeof(option), file); /* get version */
       option[strlen(option)-1] = 0; /* remove cr */
-/* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
-/* add here test for scanner name is the same as the selected scanner */
-/* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
+      len = strlen(option);
+      if (len)
+      {
+        if (option[len-1] == 34)
+        {
+          option[len-1] = 0; /* remove " */
+        }
+      }
+      optionp = option+1;
+
+      if (strcmp(optionp, xsane.device_set_filename))
+      {
+        snprintf(buf, sizeof(buf), "%s \"%s\"\n"
+                                   "%s \"%s\",\n"
+                                   "%s \"%s\",\n"
+                                   "%s",
+                                   TEXT_FILE, filename,
+                                   ERR_CREATED_FOR_DEVICE, optionp,
+                                   ERR_USED_FOR_DEVICE, xsane.device_set_filename,
+                                   ERR_MAY_CAUSE_PROBLEMS);
+        if (gsg_decision(ERR_HEADER_WARNING, buf, ERR_BUTTON_OK, BUTTON_CANCEL, TRUE) == FALSE)
+        { /* cancel */
+          fclose(file);
+          return; 
+        }
+      }
     }
   }
 
@@ -2724,124 +2753,164 @@ static void xsane_pref_device_load_file(char *filename)
   {
     fgets(option, sizeof(option), file); /* get option name */
     option[strlen(option)-1] = 0; /* remove cr */
-    if (strcmp(option, "\"xsane-gamma\"") == 0)
+    if (strcmp(option, "\"xsane-version\"") == 0)
     {
-     fscanf(file, "%lf\n", &xsane.gamma);
+      fgets(option, sizeof(option), file); /* get version */
+      option[strlen(option)-1] = 0; /* remove cr */
+      len = strlen(option);
+      if (len)
+      {
+        if (option[len-1] == 34)
+        {
+          option[len-1] = 0; /* remove " */
+        }
+      }
+      version = strdup(option+1);
+    }
+    else if (strcmp(option, "\"xsane-gamma\"") == 0)
+    {
+      fscanf(file, "%lf\n", &xsane.gamma);
     }
     else if (strcmp(option, "\"xsane-gamma-red\"") == 0)
     {
-     fscanf(file, "%lf\n", &xsane.gamma_red);
+      fscanf(file, "%lf\n", &xsane.gamma_red);
     }
     else if (strcmp(option, "\"xsane-gamma-green\"") == 0)
     {
-     fscanf(file, "%lf\n", &xsane.gamma_green);
+      fscanf(file, "%lf\n", &xsane.gamma_green);
     }
     else if (strcmp(option, "\"xsane-gamma-blue\"") == 0)
     {
-     fscanf(file, "%lf\n", &xsane.gamma_blue);
+      fscanf(file, "%lf\n", &xsane.gamma_blue);
     }
     else if (strcmp(option, "\"xsane-brightness\"") == 0)
     {
-     fscanf(file, "%lf\n", &xsane.brightness);
+      fscanf(file, "%lf\n", &xsane.brightness);
     }
     else if (strcmp(option, "\"xsane-brightness-red\"") == 0)
     {
-     fscanf(file, "%lf\n", &xsane.brightness_red);
+      fscanf(file, "%lf\n", &xsane.brightness_red);
     }
     else if (strcmp(option, "\"xsane-brightness-green\"") == 0)
     {
-     fscanf(file, "%lf\n", &xsane.brightness_green);
+      fscanf(file, "%lf\n", &xsane.brightness_green);
     }
     else if (strcmp(option, "\"xsane-brightness-blue\"") == 0)
     {
-     fscanf(file, "%lf\n", &xsane.brightness_blue);
+      fscanf(file, "%lf\n", &xsane.brightness_blue);
     }
     else if (strcmp(option, "\"xsane-contrast\"") == 0)
     {
-     fscanf(file, "%lf\n", &xsane.contrast);
+      fscanf(file, "%lf\n", &xsane.contrast);
     }
     else if (strcmp(option, "\"xsane-contrast-red\"") == 0)
     {
-     fscanf(file, "%lf\n", &xsane.contrast_red);
+      fscanf(file, "%lf\n", &xsane.contrast_red);
     }
     else if (strcmp(option, "\"xsane-contrast-green\"") == 0)
     {
-     fscanf(file, "%lf\n", &xsane.contrast_green);
+      fscanf(file, "%lf\n", &xsane.contrast_green);
     }
     else if (strcmp(option, "\"xsane-contrast-blue\"") == 0)
     {
-     fscanf(file, "%lf\n", &xsane.contrast_blue);
+      fscanf(file, "%lf\n", &xsane.contrast_blue);
     }
     else if (strcmp(option, "\"xsane-enhancement-rgb-default\"") == 0)
     {
-     fscanf(file, "%d\n", &xsane.enhancement_rgb_default);
+      fscanf(file, "%d\n", &xsane.enhancement_rgb_default);
     }
     else if (strcmp(option, "\"xsane-negative\"") == 0)
     {
-     fscanf(file, "%d\n", &xsane.negative);
+      fscanf(file, "%d\n", &xsane.negative);
     }
     else if (strcmp(option, "\"xsane-show-preview\"") == 0)
     {
-     fscanf(file, "%d\n", &xsane.show_preview);
+      fscanf(file, "%d\n", &xsane.show_preview);
     }
     else if (strcmp(option, "\"xsane-main-window-x-position\"") == 0)
     {
-     fscanf(file, "%d\n", &main_posx);
+      fscanf(file, "%d\n", &main_posx);
     }
     else if (strcmp(option, "\"xsane-main-window-y-position\"") == 0)
     {
-     fscanf(file, "%d\n", &main_posy);
+      fscanf(file, "%d\n", &main_posy);
     }
     else if (strcmp(option, "\"xsane-main-window-width\"") == 0)
     {
-     fscanf(file, "%d\n", &main_width);
+      fscanf(file, "%d\n", &main_width);
     }
     else if (strcmp(option, "\"xsane-main-window-height\"") == 0)
     {
-     fscanf(file, "%d\n", &main_height);
+      fscanf(file, "%d\n", &main_height);
     }
     else if (strcmp(option, "\"xsane-standard-options-window-x-position\"") == 0)
     {
-     fscanf(file, "%d\n", &standard_options_posx);
+      fscanf(file, "%d\n", &standard_options_posx);
     }
     else if (strcmp(option, "\"xsane-standard-options-window-y-position\"") == 0)
     {
-     fscanf(file, "%d\n", &standard_options_posy);
+      fscanf(file, "%d\n", &standard_options_posy);
     }
     else if (strcmp(option, "\"xsane-advanced-options-window-x-position\"") == 0)
     {
-     fscanf(file, "%d\n", &advanced_options_posx);
+      fscanf(file, "%d\n", &advanced_options_posx);
     }
     else if (strcmp(option, "\"xsane-advanced-options-window-y-position\"") == 0)
     {
-     fscanf(file, "%d\n", &advanced_options_posy);
+      fscanf(file, "%d\n", &advanced_options_posy);
     }
     else if (strcmp(option, "\"xsane-histogram-window-x-position\"") == 0)
     {
-     fscanf(file, "%d\n", &histogram_posx);
+      fscanf(file, "%d\n", &histogram_posx);
     }
     else if (strcmp(option, "\"xsane-histogram-window-y-position\"") == 0)
     {
-     fscanf(file, "%d\n", &histogram_posy);
+      fscanf(file, "%d\n", &histogram_posy);
     }
     else if (strcmp(option, "\"xsane-preview-window-x-position\"") == 0)
     {
-     fscanf(file, "%d\n", &preview_posx);
+      fscanf(file, "%d\n", &preview_posx);
     }
     else if (strcmp(option, "\"xsane-preview-window-y-position\"") == 0)
     {
-     fscanf(file, "%d\n", &preview_posy);
+      fscanf(file, "%d\n", &preview_posy);
     }
     else if (strcmp(option, "\"xsane-preview-window-width\"") == 0)
     {
-     fscanf(file, "%d\n", &preview_width);
+      fscanf(file, "%d\n", &preview_width);
     }
     else if (strcmp(option, "\"xsane-preview-window-height\"") == 0)
     {
-     fscanf(file, "%d\n", &preview_height);
+      fscanf(file, "%d\n", &preview_height);
+    }
+    else
+    {
+      fgets(option, sizeof(option), file); /* skip option */
     }
   }
   fclose(file);
+
+#if 0
+  if (version)
+  {
+    if (strcmp(version, XSANE_VERSION))
+    {
+      snprintf(buf, sizeof(buf), "File: \"%s\"\n"
+                                 "has been saved with xsane-%s,\n"
+                                 "this may cause problems!", filename, version);
+      gsg_warning(buf, TRUE);
+    }
+    free(version);
+  }
+  else
+  {
+    snprintf(buf, sizeof(buf), "File: \"%s\"\n"
+                               "has been saved with xsane before version 0.40,\n"
+                               "this may cause problems!", filename);
+    gsg_warning(buf, TRUE);
+  }
+#endif
+
 
   gtk_widget_set_uposition(xsane.shell, main_posx, main_posy);
   gtk_widget_set_uposition(xsane.standard_options_shell, standard_options_posx, standard_options_posy);
@@ -4030,10 +4099,10 @@ static void xsane_device_dialog(void)
   }
 
   snprintf(buf, sizeof(buf), "%s", devlist[seldev]->name);	/* generate "sane-BACKENDNAME" */
-  textptr = strrchr(buf, ':'); /* format is miden:miden:miden:backend:device or backend:device */
+  textptr = strrchr(buf, ':'); /* format is midend:midend:midend:backend:device or backend:device */
   if (textptr)
   {
-    *textptr = 0; 
+    *textptr = 0; /* erase ":device" at end of text */
     textptr = strrchr(buf, ':');
     if (textptr) /* midend:backend:device */
     {
@@ -4052,9 +4121,9 @@ static void xsane_device_dialog(void)
 
   /* create device-text for window titles */
 
-  sprintf(devicetext, "%s", devlist[seldev]->model);
+  snprintf(devicetext, sizeof(devicetext), "%s", devlist[seldev]->model);
   textptr = devicetext + strlen(devicetext);
-  while (*(textptr-1) == ' ')
+  while (*(textptr-1) == ' ') /* erase spaces at end of text */
   {
     textptr--;
   }
@@ -4063,7 +4132,7 @@ static void xsane_device_dialog(void)
   textptr++;
   *textptr = 0;
 
-  if (!strncmp(devname, "net:", 4))
+  if (!strncmp(devname, "net:", 4)) /* network device ? */
   {
     sprintf(textptr, "net:");
     textptr = devicetext + strlen(devicetext);

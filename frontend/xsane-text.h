@@ -37,6 +37,7 @@
 #define BUTTON_APPLY			_("Apply")
 #define BUTTON_CANCEL			_("Cancel")
 #define BUTTON_CLOSE			_("Close")
+#define BUTTON_OVERWRITE		_("Overwrite")
 #define BUTTON_ADD_AREA			_("Add area")
 #define BUTTON_DELETE			_("Delete")
 #define BUTTON_SHOW			_("Show")
@@ -88,6 +89,7 @@
 #define TEXT_GIMP_VERSION		_("compiled with GIMP-")
 #define TEXT_UNKNOWN			_("unknown")
 #define TEXT_EMAIL			_("Email:")
+#define TEXT_FILE			_("File:")
 
 #define TEXT_INFO_BOX			_("0x0: 0KB")
 
@@ -144,7 +146,7 @@
 
 #define MENU_ITEM_UPDATE_POLICY		_("Update policy")
 #define SUBMENU_ITEM_POLICY_CONTINUOUS	_("continuous")
-#define SUBMENU_ITEM_POLICY_DISCONTINU	_("dscontinuous")
+#define SUBMENU_ITEM_POLICY_DISCONTINU	_("discontinuous")
 #define SUBMENU_ITEM_POLICY_DELAYED	_("delayed")
 
 #define MENU_ITEM_SAVE_DEVICE_SETTINGS	_("Save device settings")
@@ -339,6 +341,10 @@
 #define ERR_NETSCAPE_EXECUTE_FAIL	_("Failed to execute netscape!")
 #define ERR_SENDFAX_RECEIVER_MISSING	_("Send fax: no receiver defined")
 
+#define ERR_CREATED_FOR_DEVICE		_("has been created for device")
+#define ERR_USED_FOR_DEVICE		_("you want to use it for device")
+#define ERR_MAY_CAUSE_PROBLEMS		_("this may cause problems!")
+
 #define TEXT_USAGE			_("Usage:")
 #define TEXT_USAGE_OPTIONS		_("[OPTION]... [DEVICE]")
 #define TEXT_HELP			_(\
@@ -366,6 +372,8 @@
 
 #define XSANE_GIMP_INSTALL_BLURB	_("Front-end to the SANE interface")
 #define XSANE_GIMP_INSTALL_HELP		_("This function provides access to scanners and other image acquisition devices through the SANE (Scanner Access Now Easy) interface.")
+
+/* Menu path must not be translated, this is done by the gimp. Only translate the text behind the last "/" */
 #define XSANE_GIMP_MENU_DIALOG		_("<Toolbox>/File/Acquire/XSane: Device dialog...")
 #define XSANE_GIMP_MENU			_("<Toolbox>/File/Acquire/XSane: ")
 #define XSANE_GIMP_MENU_DIALOG_OLD	_("<Toolbox>/Xtns/XSane/Device dialog...")
