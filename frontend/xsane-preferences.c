@@ -45,6 +45,7 @@ Preferences preferences =
        0,		/* no default fax normal option */
        0,		/* no default fax fine option */
        0,		/* no fax viewer */
+       0,		/* no doc viewer */
       80.0,		/* jpeg_quality */
       7.0,		/* png_compression */
        1,		/* overwrite_warning */
@@ -96,6 +97,7 @@ desc[] =
     {"fax-command",			w_string,	POFFSET(fax_command)},
     {"fax-receiver-option",		w_string,	POFFSET(fax_receiver_option)},
     {"fax-viewer",			w_string,	POFFSET(fax_viewer)},
+    {"doc-viewer",			w_string,	POFFSET(doc_viewer)},
     {"overwrite-warning",		w_int,		POFFSET(overwrite_warning)},
     {"increase-filename-counter",	w_int,		POFFSET(increase_filename_counter)},
     {"skip-existing-numbers",		w_int,		POFFSET(skip_existing_numbers)},

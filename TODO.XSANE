@@ -5,9 +5,10 @@ first steps:
  * options:
  - fax-function
     - add send delayed option
+    - what about faxprojects with normal- and fine-mode pages?
   - copy mode:
     - select raster size (1x1,2x2,3x3,4x4,5x5)
-    - use different resolutons for lineart, gray, color
+    - use different resolutions for lineart, gray, color
     - select image position on printer (centered/left/right/free) for copy
     - more than one copy of one scan
   - If automatic document feeder: scan until error (out of paper, jammed, ...)
@@ -32,6 +33,7 @@ first steps:
      - postscript-output for 16 bpp (does postscript support it?)
    - more online helpfiles
    - save all options to a file including preview-selection
+   - if netscape-remote is docviewer, start netscape if not running
 
 second steps:
  - correct gtk custom gamma functions and include it

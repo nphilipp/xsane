@@ -85,6 +85,7 @@ GSGDialog *dialog;
 const SANE_Device **devlist;
 gint seldev = -1;        /* The selected device */
 gint ndevs;              /* The number of available devices */
+struct Xsane xsane;   
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -132,9 +133,11 @@ static gint xsane_close_info_callback(GtkWidget *widget, gpointer data);
 static void xsane_info_dialog(GtkWidget *widget, gpointer data);
 static void xsane_about_dialog(GtkWidget *widget, gpointer data);
 static SANE_Status xsane_get_area_value(int option, float *val, SANE_Int *unit);
+#ifdef XSANE_TEST
 static void xsane_batch_scan_delete_callback(GtkWidget *widget, gpointer list);
 static void xsane_batch_scan_add_callback(GtkWidget *widget, gpointer list);
 static void xsane_batch_scan_dialog(GtkWidget *widget, gpointer data);
+#endif
 static void xsane_fax_dialog(void);
 static void xsane_fax_dialog_close(void);
 static void xsane_fax_project_delete(void);
@@ -287,6 +290,7 @@ static void xsane_zoom_update(GtkAdjustment *adj_data, double *val)
 {
   *val=adj_data->value;
 
+  xsane.resolution = xsane.zoom * preferences.printer[preferences.printernr]->resolution;
   xsane_set_resolution();
   xsane_update_param(dialog, 0);
 }
@@ -667,13 +671,11 @@ GtkWidget *xsane_update_xsane_callback()
                        (GtkSignalFunc) xsane_modus_callback, &xsane_scanmode_number[XSANE_COPY]);
     gtk_widget_show(xsane_modus_item);
 
-#ifdef XSANE_TEST
     xsane_modus_item = gtk_menu_item_new_with_label("Fax");
     gtk_container_add(GTK_CONTAINER(xsane_modus_menu), xsane_modus_item);
     gtk_signal_connect(GTK_OBJECT(xsane_modus_item), "activate",
                        (GtkSignalFunc) xsane_modus_callback, &xsane_scanmode_number[XSANE_FAX]);
     gtk_widget_show(xsane_modus_item);
-#endif
 
     xsane_modus_option_menu = gtk_option_menu_new();
     gsg_set_tooltip(dialog->tooltips, xsane_modus_option_menu, DESC_XSANE_MODE);
@@ -928,8 +930,8 @@ GtkWidget *xsane_update_xsane_callback()
         {
           xsane.resolution = 196;
         }
+        xsane_set_resolution();
       }
-      xsane_set_resolution();
     }
     xsane_fax_dialog();
   }
@@ -1186,6 +1188,11 @@ static void xsane_pref_restore(void)
   if (!preferences.fax_viewer)
   {
     preferences.fax_viewer = strdup(FAXVIEWER);
+  }
+
+  if (!preferences.doc_viewer)
+  {
+    preferences.doc_viewer = strdup(DOCVIEWER);
   }
 }
 
@@ -1804,6 +1811,7 @@ static SANE_Status xsane_get_area_value(int option, float *val, SANE_Int *unit)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+#ifdef XSANE_TEST
 static void xsane_batch_scan_delete_callback(GtkWidget *widget, gpointer list)
 {
   gtk_list_remove_items(GTK_LIST(list), GTK_LIST(list)->selection);
@@ -1840,7 +1848,6 @@ static void xsane_batch_scan_add_callback(GtkWidget *widget, gpointer list)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#ifdef XSANE_TEST
 static void xsane_batch_scan_dialog(GtkWidget *widget, gpointer data)
 {
   GtkWidget *batch_scan_dialog, *batch_scan_vbox, *hbox, *button, *scrolled_window, *list;
@@ -2123,7 +2130,11 @@ static void xsane_fax_project_load()
       }
     }
   }
-  fclose(projectfile);
+
+  if (projectfile)
+  {
+    fclose(projectfile);
+  }
 
   gtk_signal_connect(GTK_OBJECT(xsane.fax_receiver_entry), "changed", (GtkSignalFunc) xsane_faxreceiver_changed_callback, 0);
 }
@@ -2280,7 +2291,7 @@ static void xsane_pref_toggle_tooltips(GtkWidget *widget, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_show_doc(GtkWidget *widget, gpointer data)
+static void xsane_show_doc_via_nsr(GtkWidget *widget, gpointer data) /* show via netscape remote */
 {
  char *name = (char *) data;
  char buf[256];
@@ -2321,6 +2332,37 @@ static void xsane_show_doc(GtkWidget *widget, gpointer data)
   while (gtk_events_pending())
   {
     gtk_main_iteration();
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_show_doc(GtkWidget *widget, gpointer data)
+{
+ char *name = (char *) data;
+ char buf[256];
+ pid_t pid;
+ char *arg[3];
+
+  if (!strcmp(preferences.doc_viewer, DOCVIEWERNETSCAPEREMOTE))
+  {
+    xsane_show_doc_via_nsr(widget, data);
+  }
+  else
+  {
+    snprintf(buf, sizeof(buf), "%s/sane-%s-doc.html", STRINGIFY(PATH_SANE_DATA_DIR), name);  
+    arg[0] = preferences.doc_viewer;
+    arg[1] = buf;
+    arg[2] = 0;
+
+    pid = fork();
+
+    if (pid == 0) /* new process */
+    {
+      execvp(arg[0], arg); /* does not return if successfully */
+      fprintf(stderr, "Failed to execute documentation viewer: %s\n", preferences.doc_viewer);
+      _exit(0); /* do not use exit() here! otherwise gtk gets in trouble */
+    }
   }
 }
 

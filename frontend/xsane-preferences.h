@@ -31,6 +31,7 @@ typedef struct
     char *fax_normal_option;	/* fax normal mode option */
     char *fax_fine_option;	/* fax fine mode option */
     char *fax_viewer;		/* fax viewer */
+    char *doc_viewer;		/* doc viewer for helpfiles */
     double jpeg_quality;	/* quality when saving image as jpeg */
     double png_compression;	/* compression when saving image as pnm */
     int overwrite_warning;	/* warn if file exists */

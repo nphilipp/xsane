@@ -77,6 +77,7 @@
 #define DESC_PREVIEW_GAMMA_RED	"Set gamma correction value for red component of preview image"
 #define DESC_PREVIEW_GAMMA_GREEN "Set gamma correction value for green component of preview image"
 #define DESC_PREVIEW_GAMMA_BLUE	"Set gamma correction value for blue component of preview image"
+#define DESC_DOC_VIEWER		"Enter command to be executed to display helpfiles, must be a html-viewer!"
 
 #define DESC_FAX_COMMAND	"Enter command to be executed in fax mode"
 #define DESC_FAX_RECEIVER_OPT	"Enter option to specify receiver"

@@ -63,6 +63,10 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+struct XsaneSetup xsane_setup;
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 /* forward declarations: */
 
 static void xsane_update_int(GtkWidget *widget, int *val);
@@ -75,7 +79,7 @@ static void xsane_setup_printer_menu_build(GtkWidget *option_menu);
 static void xsane_setup_printer_apply_changes(GtkWidget *widget, gpointer data);
 static void xsane_setup_printer_new(GtkWidget *widget, gpointer data);
 static void xsane_setup_printer_delete(GtkWidget *widget, gpointer data);
-static void xsane_setup_preview_apply_changes(GtkWidget *widget, gpointer data);
+static void xsane_setup_display_apply_changes(GtkWidget *widget, gpointer data);
 static void xsane_setup_saving_apply_changes(GtkWidget *widget, gpointer data);
 static void xsane_setup_fax_apply_changes(GtkWidget *widget, gpointer data);
 static void xsane_setup_options_ok_callback(GtkWidget *widget, gpointer data);
@@ -291,7 +295,7 @@ static void xsane_setup_printer_delete(GtkWidget *widget, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_setup_preview_apply_changes(GtkWidget *widget, gpointer data)
+static void xsane_setup_display_apply_changes(GtkWidget *widget, gpointer data)
 {
   xsane_update_double(xsane_setup.preview_gamma_entry,            &preferences.preview_gamma);
   xsane_update_double(xsane_setup.preview_gamma_red_entry,        &preferences.preview_gamma_red);
@@ -299,6 +303,7 @@ static void xsane_setup_preview_apply_changes(GtkWidget *widget, gpointer data)
   xsane_update_double(xsane_setup.preview_gamma_blue_entry,       &preferences.preview_gamma_blue);
   xsane_update_bool(xsane_setup.preview_preserve_button,          &preferences.preserve_preview);
   xsane_update_bool(xsane_setup.preview_own_cmap_button,          &preferences.preview_own_cmap);
+  preferences.doc_viewer = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.doc_viewer_entry)));
   xsane_update_gamma();
 }
 
@@ -342,7 +347,7 @@ static void xsane_setup_fax_apply_changes(GtkWidget *widget, gpointer data)
 static void xsane_setup_options_ok_callback(GtkWidget *widget, gpointer data)
 {
   xsane_setup_printer_apply_changes(0, 0);
-  xsane_setup_preview_apply_changes(0, 0);
+  xsane_setup_display_apply_changes(0, 0);
   xsane_setup_saving_apply_changes(0, 0);
   xsane_setup_fax_apply_changes(0, 0);
 
@@ -740,11 +745,11 @@ void xsane_setup_dialog(GtkWidget *widget, gpointer data)
 
 
 
-  /* Preview options notebook page */
+  /* Display options notebook page */
 
   setup_vbox =  gtk_vbox_new(FALSE, 5);
 
-  label = gtk_label_new("Preview options");
+  label = gtk_label_new("Display options");
   gtk_notebook_append_page(GTK_NOTEBOOK(notebook), setup_vbox, label);
   gtk_widget_show(setup_vbox);
 
@@ -864,6 +869,28 @@ void xsane_setup_dialog(GtkWidget *widget, gpointer data)
   xsane_setup.preview_gamma_blue_entry = text;
 
 
+  xsane_separator_new(vbox, 2);
+
+
+  /* docviewer */
+
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+
+  label = gtk_label_new("Helpfile viewer (HTML):");
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_widget_show(label);
+
+  text = gtk_entry_new();
+  gsg_set_tooltip(dialog->tooltips, text, DESC_DOC_VIEWER);
+  gtk_widget_set_usize(text, 250, 0);
+  gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.doc_viewer);
+  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
+  gtk_widget_show(text);
+  gtk_widget_show(hbox);
+  xsane_setup.doc_viewer_entry = text;
+
+
   xsane_separator_new(vbox, 4);
 
 
@@ -873,7 +900,7 @@ void xsane_setup_dialog(GtkWidget *widget, gpointer data)
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
 
   button = gtk_button_new_with_label("Apply");
-  gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_preview_apply_changes, 0);
+  gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_display_apply_changes, 0);
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
   gtk_widget_show(button);
 

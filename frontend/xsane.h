@@ -30,7 +30,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION "0.22\337"
+#define XSANE_VERSION "0.23\337"
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -85,6 +85,8 @@ extern int xsane_scanmode_number[];
 #define FAXNORMALOPT		"-l"
 #define FAXFINEOPT		"-m"
 #define FAXVIEWER 	 	"xv"
+#define DOCVIEWERNETSCAPEREMOTE	"netscape-remote"
+#define DOCVIEWER 	 	DOCVIEWERNETSCAPEREMOTE	
 #define HIST_WIDTH		256
 #define HIST_HEIGHT		100
 #define XSANE_DIALOG_WIDTH	296
@@ -150,7 +152,7 @@ typedef struct XsaneSlider
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-struct
+typedef struct Xsane
 {
     SANE_Int sane_backend_versioncode;
     char *backend;
@@ -277,11 +279,13 @@ struct
     GPixelRgn region;
     int first_frame;		/* used for RED/GREEN/BLUE frames */
 #endif
-} xsane;
+} Xsane;
+
+extern struct Xsane xsane;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-struct
+typedef struct XsaneSetup
 {
   GtkWidget *printer_name_entry;
   GtkWidget *printer_command_entry;
@@ -307,6 +311,7 @@ struct
   GtkWidget *preview_gamma_blue_entry;
   GtkWidget *preview_preserve_button;
   GtkWidget *preview_own_cmap_button;
+  GtkWidget *doc_viewer_entry;
 
   GtkWidget *fax_command_entry;
   GtkWidget *fax_receiver_option_entry;
@@ -314,7 +319,9 @@ struct
   GtkWidget *fax_normal_option_entry;
   GtkWidget *fax_fine_option_entry;
   GtkWidget *fax_viewer_entry;
-} xsane_setup;
+} XsaneSetup;
+
+extern struct XsaneSetup xsane_setup;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 

@@ -6,7 +6,7 @@ AC_ARG_PROGRAM
 
 # version code:
 V_MAJOR=0
-V_MINOR=22\\337
+V_MINOR=23\\337
 
 PACKAGE=xsane
 SANE_V_MAJOR=1
@@ -39,7 +39,8 @@ fi
 dnl Checks for header files.
 AC_HEADER_STDC
 AC_CHECK_HEADERS(fcntl.h unistd.h libintl.h libc.h sys/dsreq.h sys/select.h \
-    sys/time.h sys/scanio.h sys/socket.h sys/io.h asm/io.h gscdds.h sys/hw.h sys/types.h  zlib.h)
+    sys/time.h sys/scanio.h sys/socket.h sys/io.h asm/io.h gscdds.h sys/hw.h \
+    sys/types.h  zlib.h)
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
@@ -54,7 +55,6 @@ AC_CHECK_TYPE(u_long, unsigned long)
 
 dnl Checks for libraries.
 
-AC_CHECK_LIB(scsi, scsireq_enter)	# FreeBSD needs this
 AC_CHECK_LIB(m,sqrt)
 AC_CHECK_LIB(intl,gettext)
 AC_CHECK_LIB(jpeg,jpeg_start_decompress)
@@ -66,7 +66,7 @@ dnl Checks for library functions.
 AM_FUNC_ALLOCA
 AC_FUNC_MMAP
 AC_CHECK_FUNCS(atexit mkdir sigprocmask strdup strndup strftime strstr \
-    strsep strtod snprintf usleep strcasecmp strncasecmp _portaccess)
+    strsep strtod snprintf usleep strcasecmp strncasecmp)
 
 dnl Checks for libraries.
 
@@ -79,43 +79,45 @@ else
   window_system=x11
 fi
 
-if test "${enable_dynamic}" != "no"; then
-  AC_CHECK_HEADERS(dlfcn.h,
-  [AC_CHECK_LIB(dl,dlopen)
-   AC_CHECK_FUNCS(dlopen, enable_dynamic=yes,)],)
+AC_CHECK_HEADERS(dlfcn.h,
+ [AC_CHECK_LIB(dl,dlopen)
+ AC_CHECK_FUNCS(dlopen, enable_dynamic=yes,)],)
 
-  # HP/UX DLL handling
-  AC_CHECK_HEADERS(dl.h,
-  [AC_CHECK_LIB(dld,shl_load)
-   AC_CHECK_FUNCS(shl_load, enable_dynamic=yes,)],)
-fi
+# HP/UX DLL handling
+AC_CHECK_HEADERS(dl.h,
+ [AC_CHECK_LIB(dld,shl_load)
+ AC_CHECK_FUNCS(shl_load, enable_dynamic=yes,)],)
 
 AM_PATH_GTK(0.99.13, HAVE_GTK=yes, )
 
 # Change CFLAGS temporarily so that C_SWITCH_X_SITE gets used
 # for the tests that follow.  We set it back to REAL_CFLAGS later on.
 
-if test "${HAVE_GTK}" = "yes"; then
-  XSCAN="xsane"
-
-  # According to Owen Taylor, GTK_CFLAGS is _guaranteed_ to contain
-  # -D and -I flags only, i.e., it really is GTK_CPPFLAGS...
-  saved_CPPFLAGS="${CPPFLAGS}"
-  saved_LIBS="${LIBS}"
-  CPPFLAGS="${CPPFLAGS} ${GTK_CFLAGS}"
-  LIBS="${LIBS} ${GTK_LIBS}"
-
-  AC_CHECK_FUNCS(gtk_scrolled_window_add_with_viewport)
-  AC_CHECK_FUNCS(gtk_tooltips_set_tips gtk_events_pending)
-  if test "${ac_cv_func_gtk_events_pending}" = "no"; then
-    saved_CPPFLAGS="${saved_CPPFLAGS} -Dgtk_events_pending=gdk_events_pending"
-  fi
-
-  AC_CHECK_HEADERS(libgimp/gimp.h,GIMP_LIBS="-lgimp")
-
-  CPPFLAGS="${saved_CPPFLAGS}"
-  LIBS="${saved_LIBS}"
+if test "${HAVE_GTK}" = "no"; then
+  echo "ERROR: gtk is needed for compilation"
+  exit -1
 fi
+
+XSCAN="xsane"
+
+# According to Owen Taylor, GTK_CFLAGS is _guaranteed_ to contain
+# -D and -I flags only, i.e., it really is GTK_CPPFLAGS...
+saved_CPPFLAGS="${CPPFLAGS}"
+saved_LIBS="${LIBS}"
+CPPFLAGS="${CPPFLAGS} ${GTK_CFLAGS}"
+LIBS="${LIBS} ${GTK_LIBS}"
+
+AC_CHECK_FUNCS(gtk_scrolled_window_add_with_viewport)
+AC_CHECK_FUNCS(gtk_tooltips_set_tips gtk_events_pending)
+if test "${ac_cv_func_gtk_events_pending}" = "no"; then
+  saved_CPPFLAGS="${saved_CPPFLAGS} -Dgtk_events_pending=gdk_events_pending"
+fi
+
+AC_CHECK_HEADERS(libgimp/gimp.h,GIMP_LIBS="-lgimp")
+
+CPPFLAGS="${saved_CPPFLAGS}"
+LIBS="${saved_LIBS}"
+
 AC_SUBST(INCLUDES)
 AC_SUBST(XSCAN)
 AC_SUBST(GTK_CFLAGS)
@@ -126,6 +128,10 @@ CPPFLAGS="${CPPFLAGS} \
 	  -DV_MAJOR=${V_MAJOR} -DV_MINOR=${V_MINOR} -DSANE_V_MAJOR=${SANE_V_MAJOR}"
 
 AC_CHECK_LIB(sane,sane_init)
+if test "${ac_cv_lib_sane_sane_init}" = "no"; then
+  echo "ERROR: SANE is needed for compiling xsane"
+  exit -1
+fi
 AC_SUBST(V_MAJOR)
 AC_SUBST(V_MINOR)
 AC_SUBST(DLL_PRELOAD)

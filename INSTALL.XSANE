@@ -1,25 +1,37 @@
-Requirements:
-- You need sane-1.x installed!
+REQUIREMENTS:
+-------------
+- You need sane-1.0 or newer installed!
 - You need gtk+-1.0.x or gtk+-1.2
 - For png support you need libz and lipng installed!
 - For jpeg support you need jpeglib installed!
 - For tiff support you need libtiff installed!
-- For online help you need netscape
 - If you use gtk+-1.2, update to gimp-1.0.4
+- gcc (tested with gcc-v2.7 and gcc-egcs-2.91.66), don`t use g++/c++ compilers
 
 
-Install:
+COMPILATION AND INSTALLATION:
+-----------------------------
+DO THE FOLLOWING AS NORMAL USER, NOT AS ROOT:
 - Unpack archiv. 
 - Enter xsane-0.xx directory. 
 - To compile call ./configure and make. 
-- To install call make install as root. 
+
+DO THE FOLLOWING AS ROOT:
+- Call make install 
+
+DO THE FOLLOWING AS NORMAL USER:
 - Call xsane. 
+
+
+IF SOMETHING DOES NOT WORK:
+---------------------------
 - If you get an error message  that libsane-dll.so.1 is not found, you have to
   tell your system where the SANE-libraries are installed.
     For linux: edit /etc/ld.so.conf and add a line with the path to the
-    libraries (normally /usr/local/lib/sane), then call ldconfig as root. 
+    libraries (normally /usr/local/lib/sane), then call ldconfig. 
+    THIS MUST BE DONE A ROOT!
     If you use a SuSE linux, edit /etc/ld.so.conf.in instead and call
-    SuSEconfig instead of ldconfig
+    SuSEconfig instead of ldconfig.
 
 - If your computers system is a recent SuSE-Linux, netscape may be called via a
   script Netscape and "netscape" is not in the path. In that case you have

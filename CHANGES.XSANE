@@ -187,3 +187,14 @@ xsane-0.21 -> 0.22:
  - removed libtool from package
  - added experimental fax support
 
+xsane-0.22 -> 0.23:
+-------------------
+
+ - changed configure.in, removed some unnecessary parts
+   and added error messages if gtk or sane is not installed
+
+ - removed copy-mode resolution bug (was not changed if zoom slider was moved)
+ - removed bug in faxmode if faxproject did not exist (fclose(0))
+ - changed definition of struct xsane and struct xsane_setup
+ - added documentation-viewer-command to setup, netscaperemote is selected
+   via the keyword "netscape-remote"
