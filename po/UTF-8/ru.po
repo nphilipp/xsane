@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.90\n"
-"POT-Creation-Date: 2004-08-05 12:07+0200\n"
+"POT-Creation-Date: 2004-08-21 15:31+0200\n"
 "PO-Revision-Date: 2002-12-23 02:48MSK\n"
 "Last-Translator: Vitaly Lipatov <lav@altlinux.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -366,6 +366,11 @@ msgstr "Удалить изображение"
 #. BUTTON_IMAGE_SHOW
 msgid "Show image"
 msgstr "Показать изображение"
+
+#. BUTTON_IMAGE_EDIT
+#, fuzzy
+msgid "Edit image"
+msgstr "Обработанное изображение"
 
 #. BUTTON_IMAGE_RENAME
 msgid "Rename image"
@@ -739,6 +744,10 @@ msgstr "Изображения:"
 #. TEXT_MAIL_STATUS
 msgid "Project status:"
 msgstr "Состояние послания:"
+
+#. TEXT_MAIL_FILETYPE
+msgid "Mail image filetype:"
+msgstr ""
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
@@ -1432,6 +1441,10 @@ msgstr "Адрес электронной почты"
 msgid "Enter subject of email"
 msgstr "Тема письма"
 
+#. DESC_MAIL_FILETYPE
+msgid "Select filetype for image attachments"
+msgstr ""
+
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
 msgstr "Новое название для области"
@@ -1945,7 +1958,8 @@ msgid "Enter command to be executed to view a mail image"
 msgstr "Введите команду для просмотра почтовых вложений"
 
 #. DESC_HTML_MAIL
-msgid "Mail is sent in html mode, images are displayed directly"
+#, fuzzy
+msgid "Mail is sent in html mode, place image with: <IMAGE>"
 msgstr ""
 "Письмо отправляется в виде HTML-документа, изображения отображаются напрямую"
 
@@ -2700,6 +2714,83 @@ msgstr "Негатив Konica VX 100"
 msgid "Rossmann negative HR 100"
 msgstr "Негатив Rossmann HR 100"
 
+#. TEXT_MAIL_STATUS_NOT_CREATED
+#, fuzzy
+msgid "Mail project not created"
+msgstr "чтение"
+
+#. TEXT_MAIL_STATUS_CREATED
+#, fuzzy
+msgid "Mail project created"
+msgstr "чтение"
+
+#. TEXT_MAIL_STATUS_CHANGED
+#, fuzzy
+msgid "Mail project changed"
+msgstr "Автовыбор области сканирования"
+
+#. TEXT_MAIL_STATUS_ERR_READ_PROJECT
+#, fuzzy
+msgid "Error reading mailproject"
+msgstr "Название почтового сообщения"
+
+#. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
+msgid "POP3 connection failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
+msgid "POP3 login failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
+msgid "SMTP connection failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_FROM
+#, fuzzy
+msgid "From entry not accepted"
+msgstr "чтение"
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_RCPT
+#, fuzzy
+msgid "Receiver entry not accepted"
+msgstr "чтение"
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_DATA
+msgid "Mail data not accepted"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SENDING
+msgid "Sending mail"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SENT
+msgid "Mail has been sent"
+msgstr ""
+
+#. TEXT_FAX_STATUS_NOT_CREATED
+#, fuzzy
+msgid "Fax project not created"
+msgstr "чтение"
+
+#. TEXT_FAX_STATUS_CREATED
+#, fuzzy
+msgid "Fax project created"
+msgstr "чтение"
+
+#. TEXT_FAX_STATUS_CHANGED
+#, fuzzy
+msgid "Fax project changed"
+msgstr "Автовыбор области сканирования"
+
+#. TEXT_FAX_STATUS_QUEUEING_FAX
+msgid "Queueing Fax"
+msgstr ""
+
+#. TEXT_FAX_STATUS_FAX_QUEUED
+msgid "Fax is queued"
+msgstr ""
+
 #. Sane backend messages
 msgid "flatbed scanner"
 msgstr "планшетный сканер"
@@ -2754,16 +2845,3 @@ msgstr "Не хватает памяти"
 
 msgid "Access to resource has been denied"
 msgstr "Доступ к ресурсу запрещён"
-
-#~ msgid "Preset area"
-#~ msgstr "Заданные области"
-
-#, fuzzy
-#~ msgid "Select source medium type\n"
-#~ msgstr "Тип носителя"
-
-#~ msgid "Rename definiton"
-#~ msgstr "Переименовать область"
-
-#~ msgid "Delete definition"
-#~ msgstr "Удалить область"

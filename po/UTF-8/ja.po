@@ -4,11 +4,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.89\n"
-"POT-Creation-Date: 2004-08-05 12:07+0200\n"
-"PO-Revision-Date: 2002-10-11 21:54+900\n"
+"Project-Id-Version: XSANE 0.95\n"
+"POT-Creation-Date: 2004-08-21 15:31+0200\n"
+"PO-Revision-Date: 2004-08-09 21:54+900\n"
 "Last-Translator: Kimizuka Tomokazu <sgtom@pluto.dti.ne.jp>\n"
-"Language-Team: Japanese <Kdeveloper@kde.gr.jp>\n"
+"Language-Team: Japanese\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
@@ -25,7 +25,7 @@ msgstr "(c)"
 #. can be translated with \251
 #. FILENAME_PREFIX_CLONE_OF
 msgid "clone-of-"
-msgstr ""
+msgstr "クローン元："
 
 #. WINDOW_ABOUT_XSANE
 msgid "About"
@@ -96,19 +96,16 @@ msgid "rename preset area"
 msgstr "プリセット領域をリネーム"
 
 #. WINDOW_PRESET_AREA_ADD
-#, fuzzy
 msgid "add preset area"
-msgstr "プリセット領域をリネーム"
+msgstr "プリセット領域を追加"
 
 #. WINDOW_MEDIUM_RENAME
-#, fuzzy
 msgid "rename medium"
-msgstr "触媒を保存"
+msgstr "媒体をリネーム"
 
 #. WINDOW_MEDIUM_ADD
-#, fuzzy
 msgid "add new medium"
-msgstr "触媒を保存"
+msgstr "新しい媒体を追加"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -184,12 +181,11 @@ msgstr "画像をにじませる"
 
 #. WINDOW_STORE_MEDIUM
 msgid "Store medium definition"
-msgstr "触媒の定義を保存"
+msgstr "媒体の定義を保存"
 
 #. WINDOW_NO_DEVICES
-#, fuzzy
 msgid "No devices available"
-msgstr "デバイスがありません"
+msgstr "デバイスが使えません"
 
 #. MENU_FILE
 msgid "File"
@@ -205,7 +201,7 @@ msgstr "表示"
 
 #. MENU_WINDOW
 msgid "Window"
-msgstr ""
+msgstr "ウィンドウ"
 
 #. MENU_HELP
 msgid "Help"
@@ -213,7 +209,7 @@ msgstr "ヘルプ"
 
 #. MENU_EDIT
 msgid "Edit"
-msgstr ""
+msgstr "編集"
 
 #. MENU_FILTERS
 msgid "Filters"
@@ -221,7 +217,7 @@ msgstr "フィルタ"
 
 #. MENU_GEOMETRY
 msgid "Geometry"
-msgstr ""
+msgstr "ジオメトリ"
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
@@ -257,7 +253,7 @@ msgstr "閉じる"
 
 #. MENU_ITEM_UNDO
 msgid "Undo"
-msgstr ""
+msgstr "元に戻す"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
@@ -269,27 +265,23 @@ msgstr "にじみ"
 
 #. MENU_ITEM_ROTATE90
 msgid "Rotate 90"
-msgstr ""
+msgstr "90°回転"
 
 #. MENU_ITEM_ROTATE180
-#, fuzzy
 msgid "Rotate 180"
-msgstr "画像を180°回転"
+msgstr "180°回転"
 
 #. MENU_ITEM_ROTATE270
-#, fuzzy
 msgid "Rotate 270"
-msgstr "画像を270°回転"
+msgstr "270°回転"
 
 #. MENU_ITEM_MIRROR_X
-#, fuzzy
 msgid "Mirror |"
-msgstr "エラー"
+msgstr "鏡像 |"
 
 #. MENU_ITEM_MIRROR_Y
-#, fuzzy
 msgid "Mirror -"
-msgstr "エラー"
+msgstr "鏡像 -"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -367,6 +359,11 @@ msgstr "画像を削除"
 msgid "Show image"
 msgstr "画像を表示"
 
+#. BUTTON_IMAGE_EDIT
+#, fuzzy
+msgid "Edit image"
+msgstr "拡張イメージ"
+
 #. BUTTON_IMAGE_RENAME
 msgid "Rename image"
 msgstr "画像をリネーム"
@@ -441,7 +438,7 @@ msgstr "現在のファイル名をスキップ"
 
 #. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
 msgid "Save 16bit pnm in ascii format"
-msgstr ""
+msgstr "16ビットpnmをasciiフォーマットで保存"
 
 #. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
 msgid "Reduce 16 bit image to 8 bit"
@@ -737,6 +734,10 @@ msgstr "添付："
 msgid "Project status:"
 msgstr "プロジェクトの状態："
 
+#. TEXT_MAIL_FILETYPE
+msgid "Mail image filetype:"
+msgstr ""
+
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
 msgstr "触媒名："
@@ -961,7 +962,7 @@ msgstr "精細モードのオプション："
 
 #. TEXT_SETUP_FAX_PROGRAM_DEFAULTS
 msgid "Set program defaults for:"
-msgstr ""
+msgstr "プログラムの初期値を設定："
 
 #. TEXT_SETUP_FAX_VIEWER
 msgid "Viewer (Postscript):"
@@ -1040,7 +1041,7 @@ msgid "all"
 msgstr "すべて"
 
 msgid "new media"
-msgstr ""
+msgstr "新しい媒体"
 
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
@@ -1151,9 +1152,8 @@ msgid "Rotate postscript"
 msgstr "PostScriptを回転"
 
 #. MENU_ITEM_EDIT_MEDIUM_DEF
-#, fuzzy
 msgid "Edit medium definition"
-msgstr "触媒の定義を保存"
+msgstr "媒体の定義を編集"
 
 #. MENU_ITEM_SAVE_DEVICE_SETTINGS
 msgid "Save device settings"
@@ -1268,29 +1268,24 @@ msgid "Add selection to list"
 msgstr "選択内容を一覧に追加"
 
 #. MENU_ITEM_MEDIUM_ADD
-#, fuzzy
 msgid "Add medium definition"
-msgstr "触媒の定義を保存"
+msgstr "媒体の定義を追加"
 
 #. MENU_ITEM_RENAME
-#, fuzzy
 msgid "Rename item"
-msgstr "画像をリネーム"
+msgstr "アイテムをリネーム"
 
 #. MENU_ITEM_DELETE
-#, fuzzy
 msgid "Delete item"
-msgstr "プリンタ削除"
+msgstr "アイテムを削除"
 
 #. MENU_ITEM_MOVE_UP
-#, fuzzy
 msgid "Move item up"
-msgstr "上へ移動"
+msgstr "アイテムを上へ移動"
 
 #. MENU_ITEM_MOVE_DWN
-#, fuzzy
 msgid "Move item down"
-msgstr "下へ移動"
+msgstr "アイテムを下へ移動"
 
 #. PROGRESS_SCANNING
 msgid "Scanning"
@@ -1377,6 +1372,11 @@ msgid ""
 "To create a medium enable the option edit medium definition in preferences "
 "menu."
 msgstr ""
+"媒体のタイプを選択してください。\n"
+"エントリをリネーム、再整理、削除するには、コンテクストメニューを使ってくださ"
+"い。（マウス右ボタン）\n"
+"媒体の作成するためのオプションを使用可能にするには、設定メニューで媒体の定義"
+"を編集してください。"
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1424,24 +1424,25 @@ msgstr "メールアドレスを入力"
 msgid "Enter subject of email"
 msgstr "メールの表題を入力"
 
+#. DESC_MAIL_FILETYPE
+msgid "Select filetype for image attachments"
+msgstr ""
+
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
 msgstr "プリセット領域につける名前を新規入力"
 
 #. DESC_PRESET_AREA_ADD
-#, fuzzy
 msgid "Enter name for new preset area"
 msgstr "プリセット領域につける名前を新規入力"
 
 #. DESC_MEDIUM_RENAME
-#, fuzzy
 msgid "Enter new name for medium definition"
-msgstr "触媒の定義を保存"
+msgstr "媒体の定義を新規入力"
 
 #. DESC_MEDIUM_ADD
-#, fuzzy
 msgid "Enter name for new medium definition"
-msgstr "触媒の定義を保存"
+msgstr "新しい媒体の定義を入力"
 
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
@@ -1476,9 +1477,8 @@ msgid "Set number of copies"
 msgstr "コピー枚数をセット"
 
 #. DESC_NEGATIVE
-#, fuzzy
 msgid "Negative: Invert colors for scanning negatives <Ctrl-n>"
-msgstr "裏焼き：色彩を裏焼き状態でスキャン <Shift-n>"
+msgstr "裏焼き：色彩を裏焼き状態でスキャン <Ctrl-n>"
 
 #. DESC_GAMMA
 msgid "Set gamma value"
@@ -1533,7 +1533,6 @@ msgid "Set threshold"
 msgstr "閾値をセット"
 
 #. DESC_RGB_DEFAULT
-#, fuzzy
 msgid ""
 "RGB default: Set enhancement values for red, green and blue to default "
 "values <Ctrl-b>:\n"
@@ -1541,40 +1540,36 @@ msgid ""
 " brightness = 0\n"
 " contrast = 0"
 msgstr ""
-"RGBデフォルト値：赤・緑・青への強調値のデフォルト値をセット <Shift-b>：\n"
+"RGBデフォルト値：赤・緑・青への強調値のデフォルト値をセット <Ctrl-b>：\n"
 "ガンマ値 = 1.0\n"
 "明度 = 0\n"
 "コントラスト = 0"
 
 #. DESC_ENH_AUTO
-#, fuzzy
 msgid "Autoadjust gamma, brightness and contrast <Ctrl-e>"
 msgstr ""
-"選択されたスキャン領域に応じて、ガンマ値、明度、コントラストを自動調整 "
-"<Shift-e>"
+"選択されたスキャン領域に応じて、ガンマ値、明度、コントラストを自動調整 <Ctrl-"
+"e>"
 
 #. DESC_ENH_DEFAULT
-#, fuzzy
 msgid ""
 "Set default enhancement values <Ctrl-0>:\n"
 "gamma = 1.0\n"
 "brightness = 0\n"
 "contrast = 0"
 msgstr ""
-"デフォルトの強調値をセット <Shift-d>:：\n"
+"デフォルトの強調値をセット <Ctrl-d>:\n"
 "ガンマ値 = 1.0\n"
 "明度 = 0\n"
 "コントラスト = 0"
 
 #. DESC_ENH_RESTORE
-#, fuzzy
 msgid "Restore enhancement values from preferences <Ctrl-r>"
-msgstr "設定した強調値を復元 <Shift-r>"
+msgstr "設定した強調値を復元 <Ctrl-r>"
 
 #. DESC_ENH_STORE
-#, fuzzy
 msgid "Store active enhancement values to preferences <Ctrl-+>"
-msgstr "設定した強調値を保存 <Shift-m>"
+msgstr "設定した強調値を保存 <Ctrl-+>"
 
 #. DESC_HIST_INTENSITY
 msgid "Show histogram of intensity/gray <Alt-i>"
@@ -1909,7 +1904,8 @@ msgid "Enter command to be executed to view a mail image"
 msgstr "メールイメージ表示のための実行コマンドを入力"
 
 #. DESC_HTML_MAIL
-msgid "Mail is sent in html mode, images are displayed directly"
+#, fuzzy
+msgid "Mail is sent in html mode, place image with: <IMAGE>"
 msgstr "メールはHTMLモードで送られ、画像は直接表示されます"
 
 #. DESC_OCR_COMMAND
@@ -2010,6 +2006,9 @@ msgid ""
 "To add new area or edit an existing area use contect menu (right mouse "
 "button)."
 msgstr ""
+"プリセット領域：\n"
+"新規領域を追加または既存領域を編集するには、コンテクストメニュー（マウス右ボ"
+"タン）を使ってください。"
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -2017,20 +2016,19 @@ msgstr "プレビューを回転してスキャン"
 
 #. DESC_RATIO
 msgid "Aspect ratio of selection"
-msgstr ""
+msgstr "選択アスペクト比率"
 
 #. DESC_PAPER_ORIENTATION
 msgid "Define image position for printing"
-msgstr ""
+msgstr "印刷時の画像位置の定義"
 
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
 msgstr "オプション文字の認識"
 
 #. DESC_VIEWER_UNDO
-#, fuzzy
 msgid "Undo last change"
-msgstr "前回の拡大を元に戻す"
+msgstr "前回の変更を元に戻す"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
@@ -2062,11 +2060,11 @@ msgstr "画像を拡大"
 
 #. DESC_STORE_MEDIUM
 msgid "Store medium"
-msgstr "触媒を保存"
+msgstr "媒体を保存"
 
 #. DESC_DELETE_MEDIUM
 msgid "Delete active medium"
-msgstr "アクティブな触媒を削除"
+msgstr "アクティブな媒体を削除"
 
 #. DESC_SCALE_FACTOR
 msgid "Scale factor"
@@ -2082,11 +2080,11 @@ msgstr "Y成分の倍率："
 
 #. DESC_SCALE_WIDTH
 msgid "Scale image to width [in pixel]"
-msgstr ""
+msgstr "画像幅の倍率[pixel]："
 
 #. DESC_SCALE_HEIGHT
 msgid "Scale image to height [in pixel]"
-msgstr ""
+msgstr "画像高さの倍率[pixel]："
 
 #. DESC_BATCH_LIST_EMPTY
 msgid "Empty batch list"
@@ -2114,7 +2112,7 @@ msgstr "選択領域をバッチリストから削除"
 
 #. DESC_AUTOMATIC
 msgid "Turns on automatic mode"
-msgstr ""
+msgstr "自動モードに切替え"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2218,9 +2216,8 @@ msgid "LIBPNG reports error"
 msgstr "LIBPNGがエラーを返してきました"
 
 #. ERR_LIBJPEG
-#, fuzzy
 msgid "LIBJPEG reports error"
-msgstr "LIBPNGがエラーを返してきました"
+msgstr "LIBJPEGがエラーを返してきました"
 
 #. ERR_UNKNOWN_TYPE
 msgid "unknown type"
@@ -2232,11 +2229,11 @@ msgstr "未知の制約条件です"
 
 #. ERR_OPTION_NAME_NULL
 msgid "Option has empty name (NULL)."
-msgstr ""
+msgstr "オプションが空(NULL値)です"
 
 #. ERR_BACKEND_BUG
 msgid "This is a backend bug. Please inform the author of the backend!"
-msgstr ""
+msgstr "バックエンドのバグです。バックエンドの作者に報告してください！"
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
@@ -2424,7 +2421,6 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[オプション]...[デバイス]"
 
 #. TEXT_HELP
-#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2477,8 +2473,6 @@ msgstr ""
 " -f, --fax                    FAXモード アクティブで起動\n"
 " -m, --mail                   メールモード アクティブで起動\n"
 " -n, --no-mode-selection      XSaneのモード選択メニューをオフにする\n"
-"\n"
-" -M, --Medium-calibration     中間補正モードを有効にする\n"
 "\n"
 " -F, --Fixed                  メインウィンドウのサイズを固定（設定値を上書"
 "き）\n"
@@ -2534,6 +2528,15 @@ msgid ""
 "5) The backend is not configured correct (man sane-\"backendname\")\n"
 "6) Possibly there is more than one SANE version installed"
 msgstr ""
+"考えられる理由：\n"
+"1) SANEがサポートしているデバイスが実際にない\n"
+"2) サポートされているデバイスが使用中である\n"
+"3) デバイスファイルのパーミッションが不許可になっている---ルート権限で試して"
+"みてください\n"
+"4) バックエンドがSANEによってロードされていない(man sane-dll)\n"
+"5) バックエンドのコンフィギュレーションが正しくない(man sane-\"backendname"
+"\")\n"
+"6) ふたつ以上のバージョンのSANEがインストールされているかも"
 
 #. strings that are used in structures, so it is not allowed to use _()/gettext() here
 #. gettext_noop does mark these texts but does not change the string
@@ -2649,6 +2652,83 @@ msgstr "コニカ VX 100"
 msgid "Rossmann negative HR 100"
 msgstr "Rossmann HR 100"
 
+#. TEXT_MAIL_STATUS_NOT_CREATED
+#, fuzzy
+msgid "Mail project not created"
+msgstr "読込み"
+
+#. TEXT_MAIL_STATUS_CREATED
+#, fuzzy
+msgid "Mail project created"
+msgstr "読込み"
+
+#. TEXT_MAIL_STATUS_CHANGED
+#, fuzzy
+msgid "Mail project changed"
+msgstr "スキャン領域の先行指定"
+
+#. TEXT_MAIL_STATUS_ERR_READ_PROJECT
+#, fuzzy
+msgid "Error reading mailproject"
+msgstr "メールプロジェクト名を入力"
+
+#. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
+msgid "POP3 connection failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
+msgid "POP3 login failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
+msgid "SMTP connection failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_FROM
+#, fuzzy
+msgid "From entry not accepted"
+msgstr "読込み"
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_RCPT
+#, fuzzy
+msgid "Receiver entry not accepted"
+msgstr "読込み"
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_DATA
+msgid "Mail data not accepted"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SENDING
+msgid "Sending mail"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SENT
+msgid "Mail has been sent"
+msgstr ""
+
+#. TEXT_FAX_STATUS_NOT_CREATED
+#, fuzzy
+msgid "Fax project not created"
+msgstr "読込み"
+
+#. TEXT_FAX_STATUS_CREATED
+#, fuzzy
+msgid "Fax project created"
+msgstr "読込み"
+
+#. TEXT_FAX_STATUS_CHANGED
+#, fuzzy
+msgid "Fax project changed"
+msgstr "スキャン領域の先行指定"
+
+#. TEXT_FAX_STATUS_QUEUEING_FAX
+msgid "Queueing Fax"
+msgstr ""
+
+#. TEXT_FAX_STATUS_FAX_QUEUED
+msgid "Fax is queued"
+msgstr ""
+
 #. Sane backend messages
 msgid "flatbed scanner"
 msgstr "フラットベッドスキャナ"
@@ -2703,16 +2783,3 @@ msgstr "オーバーフロー"
 
 msgid "Access to resource has been denied"
 msgstr "リソースへのアクセスが拒否されました"
-
-#~ msgid "Preset area"
-#~ msgstr "プリセット領域"
-
-#, fuzzy
-#~ msgid "Select source medium type\n"
-#~ msgstr "素材のメディアタイプ選択"
-
-#~ msgid "Rename definiton"
-#~ msgstr "定義をリネーム"
-
-#~ msgid "Delete definition"
-#~ msgstr "定義を削除"

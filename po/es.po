@@ -6,15 +6,15 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.88\n"
+"Project-Id-Version: XSANE 0.96\n"
 "POT-Creation-Date: 2004-08-21 15:31+0200\n"
-"PO-Revision-Date: 2004-08-07 19:53GMT\n"
+"PO-Revision-Date: 2004-08-22 19:15GMT\n"
 "Last-Translator: Gustavo D. Vranjes <gvranjes@SoftHome.net>\n"
 "Language-Team: Castellano <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.3.1\n"
+"X-Generator: KBabel 1.9\n"
 
 #. Please translate this to the correct directory name (eg. german=>de)
 #. XSANE_LANGUAGE_DIR
@@ -363,9 +363,8 @@ msgid "Show image"
 msgstr "Mostrar imagen"
 
 #. BUTTON_IMAGE_EDIT
-#, fuzzy
 msgid "Edit image"
-msgstr "Imagen mejorada"
+msgstr "Editar imagen"
 
 #. BUTTON_IMAGE_RENAME
 msgid "Rename image"
@@ -741,7 +740,7 @@ msgstr "Estado del proyecto:"
 
 #. TEXT_MAIL_FILETYPE
 msgid "Mail image filetype:"
-msgstr ""
+msgstr "Tipo de archivo de imagen de correo electrónico"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
@@ -1368,8 +1367,8 @@ msgid ""
 "save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or mail-<Ctrl-"
 "m>"
 msgstr ""
-"guardar-<Ctrl-s>, ver-<Ctrl-v>, fotocopia-<Ctrl-c>, fax-<Ctrl-f> ó mail-"
-"<Ctrl-m>"
+"guardar-<Ctrl-s>, ver-<Ctrl-v>, fotocopia-<Ctrl-c>, fax-<Ctrl-f> ó correo "
+"electrónico-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
 msgid ""
@@ -1436,7 +1435,7 @@ msgstr "Ingresar asunto de correo electrónico"
 
 #. DESC_MAIL_FILETYPE
 msgid "Select filetype for image attachments"
-msgstr ""
+msgstr "Seleccionar tipo de archivo para imagen adjunta"
 
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
@@ -1961,11 +1960,9 @@ msgstr ""
 "Ingrese comando a ser ejecutado para ver una imagen de correo electrónico"
 
 #. DESC_HTML_MAIL
-#, fuzzy
 msgid "Mail is sent in html mode, place image with: <IMAGE>"
 msgstr ""
-"El correo electrónico se envía en modo html, las imágenes se muestran "
-"directamente"
+"El correo electrónico se envía en modo html, coloque la imagen con: <IMAGE>"
 
 #. DESC_OCR_COMMAND
 msgid "Enter command to start ocr program"
@@ -2719,81 +2716,72 @@ msgid "Rossmann negative HR 100"
 msgstr "Negativo Rossmann HR 100"
 
 #. TEXT_MAIL_STATUS_NOT_CREATED
-#, fuzzy
 msgid "Mail project not created"
-msgstr "leer"
+msgstr "Proyecto de correo electrónico no creado"
 
 #. TEXT_MAIL_STATUS_CREATED
-#, fuzzy
 msgid "Mail project created"
-msgstr "leer"
+msgstr "Proyecto de correo electrónico creado"
 
 #. TEXT_MAIL_STATUS_CHANGED
-#, fuzzy
 msgid "Mail project changed"
-msgstr "Preseleccionar área de escaneado"
+msgstr "Proyecto de correo electrónico cambiado"
 
 #. TEXT_MAIL_STATUS_ERR_READ_PROJECT
-#, fuzzy
 msgid "Error reading mailproject"
-msgstr "Ingresar nombre del proyecto de correo electrónico"
+msgstr "Error leyendo el proyecto de correo electrónico"
 
 #. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
 msgid "POP3 connection failed"
-msgstr ""
+msgstr "Falló la conexión POP3"
 
 #. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
 msgid "POP3 login failed"
-msgstr ""
+msgstr "Falló el login POP3"
 
 #. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
-msgstr ""
+msgstr "Falló la conexión SMTP"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_FROM
-#, fuzzy
 msgid "From entry not accepted"
-msgstr "leer"
+msgstr "Datos de entrada no aceptados"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_RCPT
-#, fuzzy
 msgid "Receiver entry not accepted"
-msgstr "leer"
+msgstr "Entrada del receptor no aceptada"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_DATA
 msgid "Mail data not accepted"
-msgstr ""
+msgstr "Datos de correo electrónico no aceptados"
 
 #. TEXT_MAIL_STATUS_SENDING
 msgid "Sending mail"
-msgstr ""
+msgstr "Eviando correo electrónico"
 
 #. TEXT_MAIL_STATUS_SENT
 msgid "Mail has been sent"
-msgstr ""
+msgstr "El correo electrónico se envió"
 
 #. TEXT_FAX_STATUS_NOT_CREATED
-#, fuzzy
 msgid "Fax project not created"
-msgstr "leer"
+msgstr "Proyecto de fax no creado"
 
 #. TEXT_FAX_STATUS_CREATED
-#, fuzzy
 msgid "Fax project created"
-msgstr "leer"
+msgstr "Proyecto de fax creado"
 
 #. TEXT_FAX_STATUS_CHANGED
-#, fuzzy
 msgid "Fax project changed"
-msgstr "Preseleccionar área de escaneado"
+msgstr "Proyecto de fax cambiado"
 
 #. TEXT_FAX_STATUS_QUEUEING_FAX
 msgid "Queueing Fax"
-msgstr ""
+msgstr "Poniendo el fax en la cola de envío"
 
 #. TEXT_FAX_STATUS_FAX_QUEUED
 msgid "Fax is queued"
-msgstr ""
+msgstr "el fax está en la cola de envío"
 
 #. Sane backend messages
 msgid "flatbed scanner"
@@ -2849,4 +2837,3 @@ msgstr "Sin memoria"
 
 msgid "Access to resource has been denied"
 msgstr "Acceso al recurso fue prohibido"
-

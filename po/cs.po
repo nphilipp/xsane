@@ -1,13 +1,13 @@
 # Czech translation for XSane.
-# Copyright (C) 2002 Free Software Foundation, Inc.
-# Stanislav Brabec <utx@penguin.cz>, 2000-2002.
+# Copyright (C) 2004 Free Software Foundation, Inc.
+# Stanislav Brabec <utx@penguin.cz>, 2000-2004.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.92\n"
+"Project-Id-Version: XSANE 0.96\n"
 "POT-Creation-Date: 2004-08-21 15:31+0200\n"
-"PO-Revision-Date: 2004-04-21 14:17+0200\n"
-"Last-Translator: Stanislav Brabec <sbrabec@suse.cz>\n"
+"PO-Revision-Date: 2004-08-21 20:16+0200\n"
+"Last-Translator: Stanislav Brabec <utx@penguin.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-2\n"
@@ -25,7 +25,7 @@ msgstr "(c)"
 #. can be translated with \251
 #. FILENAME_PREFIX_CLONE_OF
 msgid "clone-of-"
-msgstr ""
+msgstr "kopie-"
 
 #. WINDOW_ABOUT_XSANE
 msgid "About"
@@ -96,19 +96,16 @@ msgid "rename preset area"
 msgstr "pøejmenovat pøedvolenou oblast"
 
 #. WINDOW_PRESET_AREA_ADD
-#, fuzzy
 msgid "add preset area"
-msgstr "pøejmenovat pøedvolenou oblast"
+msgstr "pøidat pøedvolenou oblast"
 
 #. WINDOW_MEDIUM_RENAME
-#, fuzzy
 msgid "rename medium"
-msgstr "Ulo¾it médium"
+msgstr "pøejmenovat médium"
 
 #. WINDOW_MEDIUM_ADD
-#, fuzzy
 msgid "add new medium"
-msgstr "Ulo¾it médium"
+msgstr "pøidat nové médium"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -204,7 +201,7 @@ msgstr "Pohled"
 
 #. MENU_WINDOW
 msgid "Window"
-msgstr ""
+msgstr "Okno"
 
 #. MENU_HELP
 msgid "Help"
@@ -212,7 +209,7 @@ msgstr "Nápovìda"
 
 #. MENU_EDIT
 msgid "Edit"
-msgstr ""
+msgstr "Úpravy"
 
 #. MENU_FILTERS
 msgid "Filters"
@@ -220,7 +217,7 @@ msgstr "Filtry"
 
 #. MENU_GEOMETRY
 msgid "Geometry"
-msgstr ""
+msgstr "Geometrie"
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
@@ -256,7 +253,7 @@ msgstr "Zavøít"
 
 #. MENU_ITEM_UNDO
 msgid "Undo"
-msgstr ""
+msgstr "Vrátit"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
@@ -268,27 +265,23 @@ msgstr "Rozostøení"
 
 #. MENU_ITEM_ROTATE90
 msgid "Rotate 90"
-msgstr ""
+msgstr "Rotace 90"
 
 #. MENU_ITEM_ROTATE180
-#, fuzzy
 msgid "Rotate 180"
-msgstr "Rotovat obrázek o 180 stupòù"
+msgstr "Rotace 180"
 
 #. MENU_ITEM_ROTATE270
-#, fuzzy
 msgid "Rotate 270"
-msgstr "Rotovat obrázek o 270 stupòù"
+msgstr "Rotace 270"
 
 #. MENU_ITEM_MIRROR_X
-#, fuzzy
 msgid "Mirror |"
-msgstr "chyba"
+msgstr "Zrcadlení |"
 
 #. MENU_ITEM_MIRROR_Y
-#, fuzzy
 msgid "Mirror -"
-msgstr "chyba"
+msgstr "Zrcadlení -"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -367,9 +360,8 @@ msgid "Show image"
 msgstr "Ukázat obrázek"
 
 #. BUTTON_IMAGE_EDIT
-#, fuzzy
 msgid "Edit image"
-msgstr "Zpracovaný obrázek"
+msgstr "Editovat obrázek"
 
 #. BUTTON_IMAGE_RENAME
 msgid "Rename image"
@@ -742,7 +734,7 @@ msgstr "Stav projektu:"
 
 #. TEXT_MAIL_FILETYPE
 msgid "Mail image filetype:"
-msgstr ""
+msgstr "Typ souboru obrázku v po¹tì:"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
@@ -1049,7 +1041,7 @@ msgid "all"
 msgstr "v¹ichni"
 
 msgid "new media"
-msgstr ""
+msgstr "nové médium"
 
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
@@ -1276,29 +1268,24 @@ msgid "Add selection to list"
 msgstr "Pøidat výbìr do seznamu"
 
 #. MENU_ITEM_MEDIUM_ADD
-#, fuzzy
 msgid "Add medium definition"
-msgstr "Upravit definici média"
+msgstr "Pøidat definici média"
 
 #. MENU_ITEM_RENAME
-#, fuzzy
 msgid "Rename item"
-msgstr "Pøejmenovat obrázek"
+msgstr "Pøejmenovat polo¾ku"
 
 #. MENU_ITEM_DELETE
-#, fuzzy
 msgid "Delete item"
-msgstr "Odebrat tiskárnu"
+msgstr "Smazat polo¾ku"
 
 #. MENU_ITEM_MOVE_UP
-#, fuzzy
 msgid "Move item up"
-msgstr "Pøesun vý¹"
+msgstr "Pøesunout polo¾ku vý¹"
 
 #. MENU_ITEM_MOVE_DWN
-#, fuzzy
 msgid "Move item down"
-msgstr "Pøesun ní¾"
+msgstr "Pøesunout polo¾ku ní¾"
 
 #. PROGRESS_SCANNING
 msgid "Scanning"
@@ -1385,6 +1372,10 @@ msgid ""
 "To create a medium enable the option edit medium definition in preferences "
 "menu."
 msgstr ""
+"Zvolte typ zdrojového média.\n"
+"K pøejmenování, zmìnì poøadí nebo smazání polo¾ky pou¾ijte kontextové menu "
+"(pravé tlaèítko my¹i).\n"
+"K vytvoøení média povolte volbu úpravy definice média v menu nastavení."
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1435,25 +1426,23 @@ msgstr "Zadejte pøedmìt zprávy"
 
 #. DESC_MAIL_FILETYPE
 msgid "Select filetype for image attachments"
-msgstr ""
+msgstr "Zvolte typ souboru pro obrázkové pøílohy"
 
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
 msgstr "Zadejte nové jméno pro pøedvolenou oblast"
 
 #. DESC_PRESET_AREA_ADD
-#, fuzzy
 msgid "Enter name for new preset area"
-msgstr "Zadejte nové jméno pro pøedvolenou oblast"
+msgstr "Zadejte nové jméno pro novou pøedvolenou oblast"
 
 #. DESC_MEDIUM_RENAME
 msgid "Enter new name for medium definition"
 msgstr "Zadejte nové jméno pro definici média"
 
 #. DESC_MEDIUM_ADD
-#, fuzzy
 msgid "Enter name for new medium definition"
-msgstr "Zadejte nové jméno pro definici média"
+msgstr "Zadejte nové jméno pro novou definici média"
 
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
@@ -1935,9 +1924,8 @@ msgid "Enter command to be executed to view a mail image"
 msgstr "Zadání pøíkazu, který má být vyvolán pøi zobrazení obrázku v mailu"
 
 #. DESC_HTML_MAIL
-#, fuzzy
 msgid "Mail is sent in html mode, place image with: <IMAGE>"
-msgstr "Mail je posílán v re¾imu html, obrázky jsou zobrazovány pøímo"
+msgstr "Mail je posílán v re¾imu html, umístìte obrázky pomocí: <IMAGE>"
 
 #. DESC_OCR_COMMAND
 msgid "Enter command to start ocr program"
@@ -2036,6 +2024,9 @@ msgid ""
 "To add new area or edit an existing area use contect menu (right mouse "
 "button)."
 msgstr ""
+"Pøedvolená oblast:\n"
+"K pøidání nové oblasti nebo k úpravì existující oblasti pou¾ijte kontextové "
+"menu (pravé tlaèítko my¹i)."
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -2054,9 +2045,8 @@ msgid "Optical Character Recognition"
 msgstr "Optické rozpoznávání znakù"
 
 #. DESC_VIEWER_UNDO
-#, fuzzy
 msgid "Undo last change"
-msgstr "Vrácení posledního pøiblí¾ení"
+msgstr "Vrácení poslední zmìny"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
@@ -2257,11 +2247,11 @@ msgstr "neznámý po¾adovaný typ"
 
 #. ERR_OPTION_NAME_NULL
 msgid "Option has empty name (NULL)."
-msgstr ""
+msgstr "Volba má prázdné jméno (NULL)."
 
 #. ERR_BACKEND_BUG
 msgid "This is a backend bug. Please inform the author of the backend!"
-msgstr ""
+msgstr "Toto je chyba ovladaèe zaøízení. Prosím informujte autora ovladaèe!"
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
@@ -2681,81 +2671,72 @@ msgid "Rossmann negative HR 100"
 msgstr "Rossmann negativní HR 100"
 
 #. TEXT_MAIL_STATUS_NOT_CREATED
-#, fuzzy
 msgid "Mail project not created"
-msgstr "ètení"
+msgstr "Po¹tovní projekt nebyl vytvoøen"
 
 #. TEXT_MAIL_STATUS_CREATED
-#, fuzzy
 msgid "Mail project created"
-msgstr "ètení"
+msgstr "Po¹tovní projekt byl vytvoøen"
 
 #. TEXT_MAIL_STATUS_CHANGED
-#, fuzzy
 msgid "Mail project changed"
-msgstr "Pøedvolba skenovací plochy"
+msgstr "Po¹tovní projekt byl zmìnìn"
 
 #. TEXT_MAIL_STATUS_ERR_READ_PROJECT
-#, fuzzy
 msgid "Error reading mailproject"
-msgstr "Zadání jména po¹tovního projektu"
+msgstr "Chyba pøi ètení po¹tovního projektu"
 
 #. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
 msgid "POP3 connection failed"
-msgstr ""
+msgstr "POP3 spojení selhalo"
 
 #. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
 msgid "POP3 login failed"
-msgstr ""
+msgstr "POP3 pøihlá¹ení selhalo"
 
 #. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
-msgstr ""
+msgstr "SMTP spojení selhalo"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_FROM
-#, fuzzy
 msgid "From entry not accepted"
-msgstr "ètení"
+msgstr "Polo¾ka Od byla odmítnuta"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_RCPT
-#, fuzzy
 msgid "Receiver entry not accepted"
-msgstr "ètení"
+msgstr "Zadání pøíjemce bylo odmítnuto"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_DATA
 msgid "Mail data not accepted"
-msgstr ""
+msgstr "Data zprávy byla odmítnuta"
 
 #. TEXT_MAIL_STATUS_SENDING
 msgid "Sending mail"
-msgstr ""
+msgstr "Zpráva se posílá"
 
 #. TEXT_MAIL_STATUS_SENT
 msgid "Mail has been sent"
-msgstr ""
+msgstr "Zpráva byla odeslána"
 
 #. TEXT_FAX_STATUS_NOT_CREATED
-#, fuzzy
 msgid "Fax project not created"
-msgstr "ètení"
+msgstr "Faxový projekt nebyl vytvoøen"
 
 #. TEXT_FAX_STATUS_CREATED
-#, fuzzy
 msgid "Fax project created"
-msgstr "ètení"
+msgstr "Faxový projekt byl vytvoøen"
 
 #. TEXT_FAX_STATUS_CHANGED
-#, fuzzy
 msgid "Fax project changed"
-msgstr "Pøedvolba skenovací plochy"
+msgstr "Faxový projekt byl zmìnìn"
 
 #. TEXT_FAX_STATUS_QUEUEING_FAX
 msgid "Queueing Fax"
-msgstr ""
+msgstr "Fax se pøidává do fronty"
 
 #. TEXT_FAX_STATUS_FAX_QUEUED
 msgid "Fax is queued"
-msgstr ""
+msgstr "Fax je ve frontì"
 
 #. Sane backend messages
 msgid "flatbed scanner"

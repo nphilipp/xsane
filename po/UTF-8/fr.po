@@ -4,8 +4,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.93\n"
-"POT-Creation-Date: 2004-08-05 12:07+0200\n"
+"Project-Id-Version: XSANE 0.96\n"
+"POT-Creation-Date: 2004-08-21 15:31+0200\n"
 "PO-Revision-Date: 2000-02-09 21:00+01:00\n"
 "Last-Translator: Laurent Grawet <laurent.grawet@ibelgique.com>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -25,7 +25,7 @@ msgstr ""
 #. can be translated with \251
 #. FILENAME_PREFIX_CLONE_OF
 msgid "clone-of-"
-msgstr ""
+msgstr "clone-de-"
 
 #. WINDOW_ABOUT_XSANE
 msgid "About"
@@ -96,19 +96,16 @@ msgid "rename preset area"
 msgstr "Renommer l'aire de présélection"
 
 #. WINDOW_PRESET_AREA_ADD
-#, fuzzy
 msgid "add preset area"
-msgstr "Renommer l'aire de présélection"
+msgstr "Ajouter une aire de présélection"
 
 #. WINDOW_MEDIUM_RENAME
-#, fuzzy
 msgid "rename medium"
-msgstr "Enregistre la définition du support"
+msgstr "Renomer le support"
 
 #. WINDOW_MEDIUM_ADD
-#, fuzzy
 msgid "add new medium"
-msgstr "Enregistre la définition du support"
+msgstr "Ajouter un nouveau support"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -204,7 +201,7 @@ msgstr "Afficher"
 
 #. MENU_WINDOW
 msgid "Window"
-msgstr ""
+msgstr "Fenêtre"
 
 #. MENU_HELP
 msgid "Help"
@@ -212,7 +209,7 @@ msgstr "Aide"
 
 #. MENU_EDIT
 msgid "Edit"
-msgstr ""
+msgstr "Edition"
 
 #. MENU_FILTERS
 msgid "Filters"
@@ -220,7 +217,7 @@ msgstr "Filtres"
 
 #. MENU_GEOMETRY
 msgid "Geometry"
-msgstr ""
+msgstr "Géométrie"
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
@@ -256,7 +253,7 @@ msgstr "Fermer"
 
 #. MENU_ITEM_UNDO
 msgid "Undo"
-msgstr ""
+msgstr "Annuler"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
@@ -268,27 +265,23 @@ msgstr "Flou"
 
 #. MENU_ITEM_ROTATE90
 msgid "Rotate 90"
-msgstr ""
+msgstr "Rotation à 90°"
 
 #. MENU_ITEM_ROTATE180
-#, fuzzy
 msgid "Rotate 180"
-msgstr "Rotation à 180° de l'image"
+msgstr "Rotation à 180°"
 
 #. MENU_ITEM_ROTATE270
-#, fuzzy
 msgid "Rotate 270"
-msgstr "Rotation à 270° de l'image"
+msgstr "Rotation à 270°"
 
 #. MENU_ITEM_MIRROR_X
-#, fuzzy
 msgid "Mirror |"
-msgstr "Erreur"
+msgstr "Mirroir |"
 
 #. MENU_ITEM_MIRROR_Y
-#, fuzzy
 msgid "Mirror -"
-msgstr "Erreur"
+msgstr "Mirroir -"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -365,6 +358,10 @@ msgstr "Effacer l'image"
 #. BUTTON_IMAGE_SHOW
 msgid "Show image"
 msgstr "Afficher l'image"
+
+#. BUTTON_IMAGE_EDIT
+msgid "Edit image"
+msgstr "Editer l'image"
 
 #. BUTTON_IMAGE_RENAME
 msgid "Rename image"
@@ -737,6 +734,10 @@ msgstr "Pièces attachées:"
 msgid "Project status:"
 msgstr "Statut du projet:"
 
+#. TEXT_MAIL_FILETYPE
+msgid "Mail image filetype:"
+msgstr "Type d'image pour l'e-mail"
+
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
 msgstr "Nom du support:"
@@ -1042,7 +1043,7 @@ msgid "all"
 msgstr "tous"
 
 msgid "new media"
-msgstr ""
+msgstr "nouveau support"
 
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
@@ -1269,29 +1270,24 @@ msgid "Add selection to list"
 msgstr "Ajouter la sélection à la liste"
 
 #. MENU_ITEM_MEDIUM_ADD
-#, fuzzy
 msgid "Add medium definition"
-msgstr "Editer la définition du support"
+msgstr "Nouveau support"
 
 #. MENU_ITEM_RENAME
-#, fuzzy
 msgid "Rename item"
-msgstr "Renommer l'image"
+msgstr "Renommer un objet"
 
 #. MENU_ITEM_DELETE
-#, fuzzy
 msgid "Delete item"
-msgstr "Enlever une imprimante"
+msgstr "Effacer un objet"
 
 #. MENU_ITEM_MOVE_UP
-#, fuzzy
 msgid "Move item up"
-msgstr "Haut"
+msgstr "Déplacer l'objet vers le haut"
 
 #. MENU_ITEM_MOVE_DWN
-#, fuzzy
 msgid "Move item down"
-msgstr "Bas"
+msgstr "Déplacer l'objet vers le bas"
 
 #. PROGRESS_SCANNING
 msgid "Scanning"
@@ -1378,6 +1374,11 @@ msgid ""
 "To create a medium enable the option edit medium definition in preferences "
 "menu."
 msgstr ""
+"Choisissez le type de support à utiliser.\n"
+"Pour renommer, réarranger ou effacer une entrée, utilisez le menu contextuel "
+"(bouton droit de la souris).\n"
+"Pour créer un support, activez l'option éditer la définition du support dans "
+"le menu préférences."
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1427,12 +1428,15 @@ msgstr "Entrez l'adresse e-mail"
 msgid "Enter subject of email"
 msgstr "Entrez le sujet de l'e-mail"
 
+#. DESC_MAIL_FILETYPE
+msgid "Select filetype for image attachments"
+msgstr "Sélectionnez le type de fichier pour les attachements"
+
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
 msgstr "Entrez un nom pour la présélection"
 
 #. DESC_PRESET_AREA_ADD
-#, fuzzy
 msgid "Enter name for new preset area"
 msgstr "Entrez un nom pour la présélection"
 
@@ -1441,7 +1445,6 @@ msgid "Enter new name for medium definition"
 msgstr "Entrez un nom pour la définition du support"
 
 #. DESC_MEDIUM_ADD
-#, fuzzy
 msgid "Enter name for new medium definition"
 msgstr "Entrez un nom pour la définition du support"
 
@@ -1723,6 +1726,10 @@ msgid ""
 "supported by all programs. The ascii format is supported by more programs "
 "but it produces really huge files!!!"
 msgstr ""
+"Quand une une image 16 bit doit être sauvée au format pnm, utilisez le "
+"format ASCII au lieu du format binaire. Le format binaire est un nouveau "
+"format qui n'est pas supporté par tous les programmes. Le format ASCII est "
+"supporté par plus de programmes mais produit de très gros fichiers !!!"
 
 #. DESC_REDUCE_16BIT_TO_8BIT
 msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
@@ -1941,8 +1948,8 @@ msgid "Enter command to be executed to view a mail image"
 msgstr "Entrez la commande à être exécutée pour voir une image e-mail"
 
 #. DESC_HTML_MAIL
-msgid "Mail is sent in html mode, images are displayed directly"
-msgstr "Message envoyé en mode html, les images sont affichées directement"
+msgid "Mail is sent in html mode, place image with: <IMAGE>"
+msgstr "Message envoyé en mode html, placer l'image avec: <IMAGE>"
 
 #. DESC_OCR_COMMAND
 msgid "Enter command to start ocr program"
@@ -2043,6 +2050,9 @@ msgid ""
 "To add new area or edit an existing area use contect menu (right mouse "
 "button)."
 msgstr ""
+"Aire de présélection: \n"
+"Pour ajouter une nouvelle aire ou éditer une aire existante, utilisez le "
+"menu contextuel (bouton droit de la souris)."
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -2050,20 +2060,19 @@ msgstr "Pivote l'aperçu et la numérisation"
 
 #. DESC_RATIO
 msgid "Aspect ratio of selection"
-msgstr ""
+msgstr "Proportions de la sélection"
 
 #. DESC_PAPER_ORIENTATION
 msgid "Define image position for printing"
-msgstr ""
+msgstr "Définit la position de l'image pour l'impression"
 
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
 msgstr "Reconnaissance Optique de Caractères"
 
 #. DESC_VIEWER_UNDO
-#, fuzzy
 msgid "Undo last change"
-msgstr "Annule le dernier zoom"
+msgstr "Annule le dernier changement"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
@@ -2115,11 +2124,11 @@ msgstr "Facteur d'échelle vertical"
 
 #. DESC_SCALE_WIDTH
 msgid "Scale image to width [in pixel]"
-msgstr ""
+msgstr "Mettre l'image à l'échelle de la largeur [en pixels]"
 
 #. DESC_SCALE_HEIGHT
 msgid "Scale image to height [in pixel]"
-msgstr ""
+msgstr "Mettre l'image à l'échelle de la hauteur [en pixels]"
 
 #. DESC_BATCH_LIST_EMPTY
 msgid "Empty batch list"
@@ -2147,7 +2156,7 @@ msgstr "Supprime l'aire sélectionnée de la liste"
 
 #. DESC_AUTOMATIC
 msgid "Turns on automatic mode"
-msgstr ""
+msgstr "Actionne le mode automatique"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2265,11 +2274,11 @@ msgstr "type de restriction inconnu"
 
 #. ERR_OPTION_NAME_NULL
 msgid "Option has empty name (NULL)."
-msgstr ""
+msgstr "L'option a un nom vide (NULL)."
 
 #. ERR_BACKEND_BUG
 msgid "This is a backend bug. Please inform the author of the backend!"
-msgstr ""
+msgstr "Bug du backend. Veuillez informer l'auteur du backend !"
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
@@ -2570,6 +2579,14 @@ msgid ""
 "5) The backend is not configured correct (man sane-\"backendname\")\n"
 "6) Possibly there is more than one SANE version installed"
 msgstr ""
+"Raisons possibles:\n"
+"1) Il n'y a aucun périphérique supporté par SANE\n"
+"2) Les périphériques supportés sont occupés\n"
+"3) Les permissions du fichier périphérique à utiliser sont mal définies - "
+"essayez en tant que root\n"
+"4) Le backend n'est pas chargé par SANE (man sane-dll)\n"
+"5) Le backend n'est pas configuré correctement (man sane-\"nom-du-backend\"\n"
+"6) Il y a peut-être plusieurs versions de SANE installées"
 
 #. strings that are used in structures, so it is not allowed to use _()/gettext() here
 #. gettext_noop does mark these texts but does not change the string
@@ -2685,6 +2702,74 @@ msgstr "Négatif Konica VX 100"
 msgid "Rossmann negative HR 100"
 msgstr "Négatif Rossman HR 100"
 
+#. TEXT_MAIL_STATUS_NOT_CREATED
+msgid "Mail project not created"
+msgstr "Projet d'e-mail non créé "
+
+#. TEXT_MAIL_STATUS_CREATED
+msgid "Mail project created"
+msgstr "Projet d'e-mail créé"
+
+#. TEXT_MAIL_STATUS_CHANGED
+msgid "Mail project changed"
+msgstr "Projet d'e-mail modifié"
+
+#. TEXT_MAIL_STATUS_ERR_READ_PROJECT
+msgid "Error reading mailproject"
+msgstr "Erreur de lecture du projet d'e-mail"
+
+#. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
+msgid "POP3 connection failed"
+msgstr "Echec de la connexion POP3"
+
+#. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
+msgid "POP3 login failed"
+msgstr "Echec du login POP3"
+
+#. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
+msgid "SMTP connection failed"
+msgstr "Echec de la connexion SMTP"
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_FROM
+msgid "From entry not accepted"
+msgstr "Champ from refusé"
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_RCPT
+msgid "Receiver entry not accepted"
+msgstr "Champ destinataire refusé"
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_DATA
+msgid "Mail data not accepted"
+msgstr "Données d'e-mail refusées"
+
+#. TEXT_MAIL_STATUS_SENDING
+msgid "Sending mail"
+msgstr "Envoi du message"
+
+#. TEXT_MAIL_STATUS_SENT
+msgid "Mail has been sent"
+msgstr "Message envoyé"
+
+#. TEXT_FAX_STATUS_NOT_CREATED
+msgid "Fax project not created"
+msgstr "Projet de fax non créé"
+
+#. TEXT_FAX_STATUS_CREATED
+msgid "Fax project created"
+msgstr "Projet de fax créé"
+
+#. TEXT_FAX_STATUS_CHANGED
+msgid "Fax project changed"
+msgstr "Projet de fax modifié"
+
+#. TEXT_FAX_STATUS_QUEUEING_FAX
+msgid "Queueing Fax"
+msgstr "Mise en queue du fax"
+
+#. TEXT_FAX_STATUS_FAX_QUEUED
+msgid "Fax is queued"
+msgstr "Fax en queue"
+
 #. Sane backend messages
 msgid "flatbed scanner"
 msgstr "scanner à plat"
@@ -2739,15 +2824,3 @@ msgstr "Dépassement de mémoire"
 
 msgid "Access to resource has been denied"
 msgstr "Accès à la ressource refusé"
-
-#~ msgid "Preset area"
-#~ msgstr "Aire de présélection"
-
-#~ msgid "Select source medium type\n"
-#~ msgstr "Sélectionne le type de support de la source\n"
-
-#~ msgid "Rename definiton"
-#~ msgstr "Renommer la définition"
-
-#~ msgid "Delete definition"
-#~ msgstr "Effacer la définition"

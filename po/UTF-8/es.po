@@ -1,20 +1,20 @@
 # translation of es.po to Castellano
-# XSane-0.88 Spanish .po file
+# XSane Spanish .po file
 # Copyright (C) 2001,2002, 2004 Free Software Foundation, Inc.
 # Gustavo D. Vranjes <gvranjes@SoftHome.net>, 2001,2002, 2004.
 # Gustavo D. Vranjes <gvranjes@abaconet.com.ar>, 2002.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: es\n"
-"POT-Creation-Date: 2004-08-05 12:07+0200\n"
-"PO-Revision-Date: 2004-04-21 23:14GMT\n"
+"Project-Id-Version: XSANE 0.96\n"
+"POT-Creation-Date: 2004-08-21 15:31+0200\n"
+"PO-Revision-Date: 2004-08-22 19:15GMT\n"
 "Last-Translator: Gustavo D. Vranjes <gvranjes@SoftHome.net>\n"
 "Language-Team: Castellano <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.3.1\n"
+"X-Generator: KBabel 1.9\n"
 
 #. Please translate this to the correct directory name (eg. german=>de)
 #. XSANE_LANGUAGE_DIR
@@ -28,7 +28,7 @@ msgstr "(c)"
 #. can be translated with \251
 #. FILENAME_PREFIX_CLONE_OF
 msgid "clone-of-"
-msgstr ""
+msgstr "clon-de-"
 
 #. WINDOW_ABOUT_XSANE
 msgid "About"
@@ -99,19 +99,16 @@ msgid "rename preset area"
 msgstr "renombrar area de preset"
 
 #. WINDOW_PRESET_AREA_ADD
-#, fuzzy
 msgid "add preset area"
-msgstr "renombrar area de preset"
+msgstr "agregar area de preset"
 
 #. WINDOW_MEDIUM_RENAME
-#, fuzzy
 msgid "rename medium"
-msgstr "Guardar medio"
+msgstr "renombrar medio"
 
 #. WINDOW_MEDIUM_ADD
-#, fuzzy
 msgid "add new medium"
-msgstr "Guardar medio"
+msgstr "agregar medio nuevo"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -207,7 +204,7 @@ msgstr "Ver"
 
 #. MENU_WINDOW
 msgid "Window"
-msgstr ""
+msgstr "Ventana"
 
 #. MENU_HELP
 msgid "Help"
@@ -215,7 +212,7 @@ msgstr "Ayuda"
 
 #. MENU_EDIT
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 #. MENU_FILTERS
 msgid "Filters"
@@ -223,7 +220,7 @@ msgstr "Filtros"
 
 #. MENU_GEOMETRY
 msgid "Geometry"
-msgstr ""
+msgstr "Geometría"
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
@@ -259,7 +256,7 @@ msgstr "Cerrar"
 
 #. MENU_ITEM_UNDO
 msgid "Undo"
-msgstr ""
+msgstr "Deshacer"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
@@ -271,27 +268,23 @@ msgstr "Desenfoque"
 
 #. MENU_ITEM_ROTATE90
 msgid "Rotate 90"
-msgstr ""
+msgstr "Rotar imagen 90 grados"
 
 #. MENU_ITEM_ROTATE180
-#, fuzzy
 msgid "Rotate 180"
 msgstr "Rotar imagen 180 grados"
 
 #. MENU_ITEM_ROTATE270
-#, fuzzy
 msgid "Rotate 270"
 msgstr "Rotar imagen 270 grados"
 
 #. MENU_ITEM_MIRROR_X
-#, fuzzy
 msgid "Mirror |"
-msgstr "error"
+msgstr "Espejo |"
 
 #. MENU_ITEM_MIRROR_Y
-#, fuzzy
 msgid "Mirror -"
-msgstr "error"
+msgstr "Espejo -"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -368,6 +361,10 @@ msgstr "Borrar imagen"
 #. BUTTON_IMAGE_SHOW
 msgid "Show image"
 msgstr "Mostrar imagen"
+
+#. BUTTON_IMAGE_EDIT
+msgid "Edit image"
+msgstr "Editar imagen"
 
 #. BUTTON_IMAGE_RENAME
 msgid "Rename image"
@@ -741,6 +738,10 @@ msgstr "Adjuntos:"
 msgid "Project status:"
 msgstr "Estado del proyecto:"
 
+#. TEXT_MAIL_FILETYPE
+msgid "Mail image filetype:"
+msgstr "Tipo de archivo de imagen de correo electrónico"
+
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
 msgstr "Nombre del medio:"
@@ -1046,7 +1047,7 @@ msgid "all"
 msgstr "todo"
 
 msgid "new media"
-msgstr ""
+msgstr "medio nuevo"
 
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
@@ -1273,29 +1274,24 @@ msgid "Add selection to list"
 msgstr "Añadir selección a la lista"
 
 #. MENU_ITEM_MEDIUM_ADD
-#, fuzzy
 msgid "Add medium definition"
-msgstr "Editar definición de medio"
+msgstr "Agragar definición de medio"
 
 #. MENU_ITEM_RENAME
-#, fuzzy
 msgid "Rename item"
-msgstr "Renombrar imagen"
+msgstr "Renombrar item"
 
 #. MENU_ITEM_DELETE
-#, fuzzy
 msgid "Delete item"
-msgstr "Borrar impresora"
+msgstr "Borrar item"
 
 #. MENU_ITEM_MOVE_UP
-#, fuzzy
 msgid "Move item up"
-msgstr "Mover arriba"
+msgstr "Mover item arriba"
 
 #. MENU_ITEM_MOVE_DWN
-#, fuzzy
 msgid "Move item down"
-msgstr "Mover abajo"
+msgstr "Mover item abajo"
 
 #. PROGRESS_SCANNING
 msgid "Scanning"
@@ -1371,8 +1367,8 @@ msgid ""
 "save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or mail-<Ctrl-"
 "m>"
 msgstr ""
-"guardar-<Ctrl-s>, ver-<Ctrl-v>, fotocopia-<Ctrl-c>, fax-<Ctrl-f> ó mail-"
-"<Ctrl-m>"
+"guardar-<Ctrl-s>, ver-<Ctrl-v>, fotocopia-<Ctrl-c>, fax-<Ctrl-f> ó correo "
+"electrónico-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
 msgid ""
@@ -1382,6 +1378,11 @@ msgid ""
 "To create a medium enable the option edit medium definition in preferences "
 "menu."
 msgstr ""
+"Elegir tipo de medio fuente. \n"
+"Para renombrar, reordenar o borrar una entrada use el menu de contexto "
+"(botón derecho del ratón). \n"
+"Para crear un 'medio' habilitar la opción 'editar definición de medio'en el "
+"menú de preferencias."
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1432,12 +1433,15 @@ msgstr "Ingresar dirección de correo electrónico"
 msgid "Enter subject of email"
 msgstr "Ingresar asunto de correo electrónico"
 
+#. DESC_MAIL_FILETYPE
+msgid "Select filetype for image attachments"
+msgstr "Seleccionar tipo de archivo para imagen adjunta"
+
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
 msgstr "Ingresar nuevo nombre para el área de preset"
 
 #. DESC_PRESET_AREA_ADD
-#, fuzzy
 msgid "Enter name for new preset area"
 msgstr "Ingresar nuevo nombre para el área de preset"
 
@@ -1446,7 +1450,6 @@ msgid "Enter new name for medium definition"
 msgstr "Ingresar nuevo nombre para definición de medio"
 
 #. DESC_MEDIUM_ADD
-#, fuzzy
 msgid "Enter name for new medium definition"
 msgstr "Ingresar nuevo nombre para definición de medio"
 
@@ -1957,10 +1960,9 @@ msgstr ""
 "Ingrese comando a ser ejecutado para ver una imagen de correo electrónico"
 
 #. DESC_HTML_MAIL
-msgid "Mail is sent in html mode, images are displayed directly"
+msgid "Mail is sent in html mode, place image with: <IMAGE>"
 msgstr ""
-"El correo electrónico se envía en modo html, las imágenes se muestran "
-"directamente"
+"El correo electrónico se envía en modo html, coloque la imagen con: <IMAGE>"
 
 #. DESC_OCR_COMMAND
 msgid "Enter command to start ocr program"
@@ -2061,6 +2063,9 @@ msgid ""
 "To add new area or edit an existing area use contect menu (right mouse "
 "button)."
 msgstr ""
+"Área de preset:\n"
+"Para agregar una nueva área o editar una existente usar el menú de contexto "
+"(botón derecho del ratón)."
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -2079,9 +2084,8 @@ msgid "Optical Character Recognition"
 msgstr "Reconocimiento Óptico de Caracteres"
 
 #. DESC_VIEWER_UNDO
-#, fuzzy
 msgid "Undo last change"
-msgstr "Deshacer última ampliación"
+msgstr "Deshacer el último cambio"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
@@ -2283,11 +2287,11 @@ msgstr "Tipo de restricción desconocida"
 
 #. ERR_OPTION_NAME_NULL
 msgid "Option has empty name (NULL)."
-msgstr ""
+msgstr "La opción tiene nombre vacío (NULL)."
 
 #. ERR_BACKEND_BUG
 msgid "This is a backend bug. Please inform the author of the backend!"
-msgstr ""
+msgstr "Éste es un error del backend. ¡Favor de informar al autor del backend!"
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
@@ -2711,6 +2715,74 @@ msgstr "Negativo Konica VX 100"
 msgid "Rossmann negative HR 100"
 msgstr "Negativo Rossmann HR 100"
 
+#. TEXT_MAIL_STATUS_NOT_CREATED
+msgid "Mail project not created"
+msgstr "Proyecto de correo electrónico no creado"
+
+#. TEXT_MAIL_STATUS_CREATED
+msgid "Mail project created"
+msgstr "Proyecto de correo electrónico creado"
+
+#. TEXT_MAIL_STATUS_CHANGED
+msgid "Mail project changed"
+msgstr "Proyecto de correo electrónico cambiado"
+
+#. TEXT_MAIL_STATUS_ERR_READ_PROJECT
+msgid "Error reading mailproject"
+msgstr "Error leyendo el proyecto de correo electrónico"
+
+#. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
+msgid "POP3 connection failed"
+msgstr "Falló la conexión POP3"
+
+#. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
+msgid "POP3 login failed"
+msgstr "Falló el login POP3"
+
+#. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
+msgid "SMTP connection failed"
+msgstr "Falló la conexión SMTP"
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_FROM
+msgid "From entry not accepted"
+msgstr "Datos de entrada no aceptados"
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_RCPT
+msgid "Receiver entry not accepted"
+msgstr "Entrada del receptor no aceptada"
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_DATA
+msgid "Mail data not accepted"
+msgstr "Datos de correo electrónico no aceptados"
+
+#. TEXT_MAIL_STATUS_SENDING
+msgid "Sending mail"
+msgstr "Eviando correo electrónico"
+
+#. TEXT_MAIL_STATUS_SENT
+msgid "Mail has been sent"
+msgstr "El correo electrónico se envió"
+
+#. TEXT_FAX_STATUS_NOT_CREATED
+msgid "Fax project not created"
+msgstr "Proyecto de fax no creado"
+
+#. TEXT_FAX_STATUS_CREATED
+msgid "Fax project created"
+msgstr "Proyecto de fax creado"
+
+#. TEXT_FAX_STATUS_CHANGED
+msgid "Fax project changed"
+msgstr "Proyecto de fax cambiado"
+
+#. TEXT_FAX_STATUS_QUEUEING_FAX
+msgid "Queueing Fax"
+msgstr "Poniendo el fax en la cola de envío"
+
+#. TEXT_FAX_STATUS_FAX_QUEUED
+msgid "Fax is queued"
+msgstr "el fax está en la cola de envío"
+
 #. Sane backend messages
 msgid "flatbed scanner"
 msgstr "escáner flatbed"
@@ -2765,15 +2837,3 @@ msgstr "Sin memoria"
 
 msgid "Access to resource has been denied"
 msgstr "Acceso al recurso fue prohibido"
-
-#~ msgid "Preset area"
-#~ msgstr "Área de preset"
-
-#~ msgid "Select source medium type\n"
-#~ msgstr "Seleccionar tipo de fuente\n"
-
-#~ msgid "Rename definiton"
-#~ msgstr "Renombrar definición"
-
-#~ msgid "Delete definition"
-#~ msgstr "Borrar definición"

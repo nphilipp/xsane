@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.84\n"
-"POT-Creation-Date: 2004-08-05 12:07+0200\n"
+"POT-Creation-Date: 2004-08-21 15:31+0200\n"
 "PO-Revision-Date: 2001-02-25 14:06+01:00\n"
 "Last-Translator: Ales Kosir <ales.kosir@lugos.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -389,6 +389,11 @@ msgstr "Zbriši projekt"
 msgid "Show image"
 msgstr "Prikaži predogled"
 
+#. BUTTON_IMAGE_EDIT
+#, fuzzy
+msgid "Edit image"
+msgstr "Obdelana slika"
+
 #. BUTTON_IMAGE_RENAME
 #, fuzzy
 msgid "Rename image"
@@ -744,6 +749,10 @@ msgstr ""
 
 #. TEXT_MAIL_STATUS
 msgid "Project status:"
+msgstr ""
+
+#. TEXT_MAIL_FILETYPE
+msgid "Mail image filetype:"
 msgstr ""
 
 #. TEXT_MEDIUM_DEFINITION_NAME
@@ -1467,6 +1476,10 @@ msgstr ""
 msgid "Enter subject of email"
 msgstr ""
 
+#. DESC_MAIL_FILETYPE
+msgid "Select filetype for image attachments"
+msgstr ""
+
 #. DESC_PRESET_AREA_RENAME
 #, fuzzy
 msgid "Enter new name for preset area"
@@ -1981,7 +1994,7 @@ msgid "Enter command to be executed to view a mail image"
 msgstr "Podajte ukaz za prikaz faksa"
 
 #. DESC_HTML_MAIL
-msgid "Mail is sent in html mode, images are displayed directly"
+msgid "Mail is sent in html mode, place image with: <IMAGE>"
 msgstr ""
 
 #. DESC_OCR_COMMAND
@@ -2742,6 +2755,83 @@ msgstr "nedejaven"
 msgid "Rossmann negative HR 100"
 msgstr ""
 
+#. TEXT_MAIL_STATUS_NOT_CREATED
+#, fuzzy
+msgid "Mail project not created"
+msgstr "beriljiva"
+
+#. TEXT_MAIL_STATUS_CREATED
+#, fuzzy
+msgid "Mail project created"
+msgstr "beriljiva"
+
+#. TEXT_MAIL_STATUS_CHANGED
+#, fuzzy
+msgid "Mail project changed"
+msgstr "Samodejno določi območje skeniranja"
+
+#. TEXT_MAIL_STATUS_ERR_READ_PROJECT
+#, fuzzy
+msgid "Error reading mailproject"
+msgstr "Vnesite ime projekta za faks"
+
+#. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
+msgid "POP3 connection failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
+msgid "POP3 login failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
+msgid "SMTP connection failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_FROM
+#, fuzzy
+msgid "From entry not accepted"
+msgstr "beriljiva"
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_RCPT
+#, fuzzy
+msgid "Receiver entry not accepted"
+msgstr "beriljiva"
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_DATA
+msgid "Mail data not accepted"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SENDING
+msgid "Sending mail"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SENT
+msgid "Mail has been sent"
+msgstr ""
+
+#. TEXT_FAX_STATUS_NOT_CREATED
+#, fuzzy
+msgid "Fax project not created"
+msgstr "beriljiva"
+
+#. TEXT_FAX_STATUS_CREATED
+#, fuzzy
+msgid "Fax project created"
+msgstr "beriljiva"
+
+#. TEXT_FAX_STATUS_CHANGED
+#, fuzzy
+msgid "Fax project changed"
+msgstr "Samodejno določi območje skeniranja"
+
+#. TEXT_FAX_STATUS_QUEUEING_FAX
+msgid "Queueing Fax"
+msgstr ""
+
+#. TEXT_FAX_STATUS_FAX_QUEUED
+msgid "Fax is queued"
+msgstr ""
+
 #. Sane backend messages
 msgid "flatbed scanner"
 msgstr "ploski skener"
@@ -2796,15 +2886,3 @@ msgstr "Zmanjkalo je pomnilnika"
 
 msgid "Access to resource has been denied"
 msgstr "Dostop do vira je ni dovoljen."
-
-#, fuzzy
-#~ msgid "Preset area"
-#~ msgstr "Samodejno določi območje skeniranja"
-
-#, fuzzy
-#~ msgid "Select source medium type\n"
-#~ msgstr "Izbor tiskalnika za prilagoditev"
-
-#, fuzzy
-#~ msgid "Delete definition"
-#~ msgstr "Izbor tiskalnika za prilagoditev"

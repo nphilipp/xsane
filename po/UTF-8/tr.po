@@ -1,17 +1,19 @@
+# translation of tr.po to Turkish
 # Turkish Translation for XSane
 # TOGAN MUFTUOGLU  <toganm@yahoo.com>, 2000.
+# Togan Muftuoglu <toganm@yahoo.com>, 2004
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.90\n"
-"POT-Creation-Date: 2004-08-05 12:07+0200\n"
-"PO-Revision-Date: 2002-12-09 10:42+0200\n"
+"Project-Id-Version: XSANE 0.96\n"
+"POT-Creation-Date: 2004-08-21 15:31+0200\n"
+"PO-Revision-Date: 2004-08-26 11:08+0200\n"
 "Last-Translator: Togan Muftuoglu <toganm@yahoo.com>\n"
 "Language-Team: Turkish <kde-i18n-tr@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.9.6\n"
+"X-Generator: KBabel 1.0.1\n"
 
 #. Please translate this to the correct directory name (eg. german=>de)
 #. XSANE_LANGUAGE_DIR
@@ -25,7 +27,7 @@ msgstr "(c)"
 #. can be translated with \251
 #. FILENAME_PREFIX_CLONE_OF
 msgid "clone-of-"
-msgstr ""
+msgstr "Klonu"
 
 #. WINDOW_ABOUT_XSANE
 msgid "About"
@@ -81,34 +83,31 @@ msgstr "ps-dosyasını faxa yerleştirin"
 
 #. WINDOW_MAIL_PROJECT
 msgid "mail project"
-msgstr "e-posta projesi"
+msgstr "posta projesi"
 
 #. WINDOW_MAIL_RENAME
 msgid "rename mail image"
-msgstr "e-posta resmini yeniden isimlendir"
+msgstr "posta resmini yeniden isimlendir"
 
 #. WINDOW_MAIL_INSERT
 msgid "insert file into mail"
-msgstr "dosyayı e-postaya yerleştirin"
+msgstr "dosyayı postaya yerleştirin"
 
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
 msgstr "Önceden belirlenmiş alanı yeniden isimlendir"
 
 #. WINDOW_PRESET_AREA_ADD
-#, fuzzy
 msgid "add preset area"
-msgstr "Önceden belirlenmiş alanı yeniden isimlendir"
+msgstr "Önceden belirlenmiş alan ekle"
 
 #. WINDOW_MEDIUM_RENAME
-#, fuzzy
 msgid "rename medium"
-msgstr "Saklama ortamı"
+msgstr "Saklama ortamının ismini değiştir"
 
 #. WINDOW_MEDIUM_ADD
-#, fuzzy
 msgid "add new medium"
-msgstr "Saklama ortamı"
+msgstr "Yeni saklama ortamı ekle"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -196,7 +195,7 @@ msgstr "Dosya"
 
 #. MENU_PREFERENCES
 msgid "Preferences"
-msgstr "Ayarlar..."
+msgstr "Ayarlar"
 
 #. MENU_VIEW
 msgid "View"
@@ -204,7 +203,7 @@ msgstr "İzleme"
 
 #. MENU_WINDOW
 msgid "Window"
-msgstr ""
+msgstr "Pencere"
 
 #. MENU_HELP
 msgid "Help"
@@ -212,7 +211,7 @@ msgstr "Yardım"
 
 #. MENU_EDIT
 msgid "Edit"
-msgstr ""
+msgstr "Düzelt"
 
 #. MENU_FILTERS
 msgid "Filters"
@@ -220,7 +219,7 @@ msgstr "Filtreler"
 
 #. MENU_GEOMETRY
 msgid "Geometry"
-msgstr ""
+msgstr "Geometri"
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
@@ -256,7 +255,7 @@ msgstr "Kapat"
 
 #. MENU_ITEM_UNDO
 msgid "Undo"
-msgstr ""
+msgstr "Geri al"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
@@ -268,27 +267,23 @@ msgstr "Bulanıklaştırma"
 
 #. MENU_ITEM_ROTATE90
 msgid "Rotate 90"
-msgstr ""
+msgstr "Döndür 90"
 
 #. MENU_ITEM_ROTATE180
-#, fuzzy
 msgid "Rotate 180"
-msgstr "Resmi 180 derece döndür"
+msgstr "Döndür 180"
 
 #. MENU_ITEM_ROTATE270
-#, fuzzy
 msgid "Rotate 270"
-msgstr "Resmi 270 derece döndür"
+msgstr "Döndür 270"
 
 #. MENU_ITEM_MIRROR_X
-#, fuzzy
 msgid "Mirror |"
-msgstr "hata"
+msgstr "Ayna"
 
 #. MENU_ITEM_MIRROR_Y
-#, fuzzy
 msgid "Mirror -"
-msgstr "hata"
+msgstr "Ayna-"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -365,6 +360,10 @@ msgstr "Resmi sil"
 #. BUTTON_IMAGE_SHOW
 msgid "Show image"
 msgstr "Resmi göster"
+
+#. BUTTON_IMAGE_EDIT
+msgid "Edit image"
+msgstr "Resmi düzelt"
 
 #. BUTTON_IMAGE_RENAME
 msgid "Rename image"
@@ -736,6 +735,10 @@ msgstr "Ekler"
 msgid "Project status:"
 msgstr "Proje durumu"
 
+#. TEXT_MAIL_FILETYPE
+msgid "Mail image filetype:"
+msgstr "Postalanacak resim dosya tipi:"
+
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
 msgstr "Ortam ismi"
@@ -1041,7 +1044,7 @@ msgid "all"
 msgstr "hepsi"
 
 msgid "new media"
-msgstr ""
+msgstr "Yeni medya"
 
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
@@ -1152,9 +1155,8 @@ msgid "Rotate postscript"
 msgstr "Postscripti döndür"
 
 #. MENU_ITEM_EDIT_MEDIUM_DEF
-#, fuzzy
 msgid "Edit medium definition"
-msgstr "Ortam tanımını sakla"
+msgstr "Ortam tanımını düzelt"
 
 #. MENU_ITEM_SAVE_DEVICE_SETTINGS
 msgid "Save device settings"
@@ -1269,27 +1271,22 @@ msgid "Add selection to list"
 msgstr "Seçileni listeye ekle"
 
 #. MENU_ITEM_MEDIUM_ADD
-#, fuzzy
 msgid "Add medium definition"
-msgstr "Ortam tanımını sakla"
+msgstr "Ortam tanımı ekle"
 
 #. MENU_ITEM_RENAME
-#, fuzzy
 msgid "Rename item"
-msgstr "Resmi yeniden isimlendir"
+msgstr "Yeniden isimlendir"
 
 #. MENU_ITEM_DELETE
-#, fuzzy
 msgid "Delete item"
-msgstr "Yazıcı sil"
+msgstr "Sil"
 
 #. MENU_ITEM_MOVE_UP
-#, fuzzy
 msgid "Move item up"
 msgstr "Yukarı taşı"
 
 #. MENU_ITEM_MOVE_DWN
-#, fuzzy
 msgid "Move item down"
 msgstr "Aşağı taşı"
 
@@ -1378,6 +1375,11 @@ msgid ""
 "To create a medium enable the option edit medium definition in preferences "
 "menu."
 msgstr ""
+"Kaynak ortam tipini seçin. \n"
+"Yeniden isimlendirmek, sıralamak veya silmek için, içeril menüsünü ( sağ "
+"fare tuşu) kullanın \n"
+"Ortam yaratmak için, tercihler menüsünde ortam tanımı düzeltme seçeneğini "
+"etkin kılın. "
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1427,24 +1429,25 @@ msgstr "E-posta adresi girin"
 msgid "Enter subject of email"
 msgstr "E-Posta konusu girin"
 
+#. DESC_MAIL_FILETYPE
+msgid "Select filetype for image attachments"
+msgstr "Resim ekleri için dosya tipini seçin"
+
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
 msgstr "Öncden belirlenen alan için yeni isim gir"
 
 #. DESC_PRESET_AREA_ADD
-#, fuzzy
 msgid "Enter name for new preset area"
-msgstr "Öncden belirlenen alan için yeni isim gir"
+msgstr "Önceden belirlenen yeni alan için isim gir"
 
 #. DESC_MEDIUM_RENAME
-#, fuzzy
 msgid "Enter new name for medium definition"
-msgstr "Ortam tanımını sakla"
+msgstr "Ortam tanımı için yeni isim gir"
 
 #. DESC_MEDIUM_ADD
-#, fuzzy
 msgid "Enter name for new medium definition"
-msgstr "Ortam tanımını sakla"
+msgstr "Ortam tanımı için isim gir"
 
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
@@ -1479,9 +1482,8 @@ msgid "Set number of copies"
 msgstr "Kopya sayısını belirle"
 
 #. DESC_NEGATIVE
-#, fuzzy
 msgid "Negative: Invert colors for scanning negatives <Ctrl-n>"
-msgstr "Negatif: negatifleri taramak için renkleri ters çevir<Shift-n>"
+msgstr "Negatif: negatifleri taramak için renkleri ters çevir<Ctrl-n>"
 
 #. DESC_GAMMA
 msgid "Set gamma value"
@@ -1536,7 +1538,6 @@ msgid "Set threshold"
 msgstr "Threshold ayarı"
 
 #. DESC_RGB_DEFAULT
-#, fuzzy
 msgid ""
 "RGB default: Set enhancement values for red, green and blue to default "
 "values <Ctrl-b>:\n"
@@ -1545,39 +1546,35 @@ msgid ""
 " contrast = 0"
 msgstr ""
 "RGB Öntanımı: kırmızı,yeşil ve mavi için geliştirme değerlerini öntanıma "
-"ayarladeğerler<Shift-b>:\n"
+"ayarla değerler<Ctrl-b>:\n"
 " gamma =1.0\n"
 "  parlaklık =0\n"
 " kontrast =0"
 
 #. DESC_ENH_AUTO
-#, fuzzy
 msgid "Autoadjust gamma, brightness and contrast <Ctrl-e>"
 msgstr ""
-"Seçilen alana bağlı olarak gamma, ışık ve kontrastı otomatik ayarla<Shift-e>"
+"Seçilen alana bağlı olarak gamma, ışık ve kontrastı otomatik ayarla<Ctrl-e>"
 
 #. DESC_ENH_DEFAULT
-#, fuzzy
 msgid ""
 "Set default enhancement values <Ctrl-0>:\n"
 "gamma = 1.0\n"
 "brightness = 0\n"
 "contrast = 0"
 msgstr ""
-"Gelişmiş değerleri ayarla<Shift-d>:\n"
+"Gelişmiş değerleri ayarla<Ctrl-0>:\n"
 "gamma =1.0\n"
 "parlaklık =0\n"
 "kontrast =0n"
 
 #. DESC_ENH_RESTORE
-#, fuzzy
 msgid "Restore enhancement values from preferences <Ctrl-r>"
-msgstr "Tercihlerden geliştirilmiş değerleri geri yükle <Shift-r>"
+msgstr "Tercihlerden geliştirilmiş değerleri geri yükle <Ctrl-r>"
 
 #. DESC_ENH_STORE
-#, fuzzy
 msgid "Store active enhancement values to preferences <Ctrl-+>"
-msgstr "Etkin geliştirilmiş değerleri tercihlere yükle <Shift-m>"
+msgstr "Etkin geliştirilmiş değerleri tercihlere yükle <Ctrl-+>"
 
 #. DESC_HIST_INTENSITY
 msgid "Show histogram of intensity/gray <Alt-i>"
@@ -1931,8 +1928,8 @@ msgid "Enter command to be executed to view a mail image"
 msgstr "E-posta resmini görmek için çalıştırılacak komutu yazın"
 
 #. DESC_HTML_MAIL
-msgid "Mail is sent in html mode, images are displayed directly"
-msgstr "E-Posta HTML olarak yollandı, resimler direkt olarak gösterilmekte"
+msgid "Mail is sent in html mode, place image with: <IMAGE>"
+msgstr "E-Posta HTML olarak yollandı, resmi yerleştirmek için :<IMAGE>"
 
 #. DESC_OCR_COMMAND
 msgid "Enter command to start ocr program"
@@ -2033,6 +2030,9 @@ msgid ""
 "To add new area or edit an existing area use contect menu (right mouse "
 "button)."
 msgstr ""
+"Öntanımlı alan: \n"
+"Yeni alan eklemek veya varolan alanı düzeltmek için içerik menüsünü (sağ "
+"fare tuşu) kullanın."
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -2051,9 +2051,8 @@ msgid "Optical Character Recognition"
 msgstr "Optik karakter okuyucu"
 
 #. DESC_VIEWER_UNDO
-#, fuzzy
 msgid "Undo last change"
-msgstr "Son zumu geri al"
+msgstr "Son değişikliği geri al"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
@@ -2105,11 +2104,11 @@ msgstr "Y ölçek çarpanı"
 
 #. DESC_SCALE_WIDTH
 msgid "Scale image to width [in pixel]"
-msgstr ""
+msgstr "Resmin enini boyutlandır [piksel olarak]"
 
 #. DESC_SCALE_HEIGHT
 msgid "Scale image to height [in pixel]"
-msgstr ""
+msgstr "Resmin yüksekliğini boyutlandır [piksel olarak]"
 
 #. DESC_BATCH_LIST_EMPTY
 msgid "Empty batch list"
@@ -2137,7 +2136,7 @@ msgstr "Seçilen önizleme alanını listeden sil"
 
 #. DESC_AUTOMATIC
 msgid "Turns on automatic mode"
-msgstr ""
+msgstr "Otomatik modu ethin kılar"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2243,9 +2242,8 @@ msgid "LIBPNG reports error"
 msgstr "LIBPNG hata veriyor"
 
 #. ERR_LIBJPEG
-#, fuzzy
 msgid "LIBJPEG reports error"
-msgstr "LIBPNG hata veriyor"
+msgstr "LIBJPEG hata veriyor"
 
 #. ERR_UNKNOWN_TYPE
 msgid "unknown type"
@@ -2257,11 +2255,11 @@ msgstr "bilinmeyen sıkıştırma tipi"
 
 #. ERR_OPTION_NAME_NULL
 msgid "Option has empty name (NULL)."
-msgstr ""
+msgstr "Seçeneğin ismi boş (NULL)"
 
 #. ERR_BACKEND_BUG
 msgid "This is a backend bug. Please inform the author of the backend!"
-msgstr ""
+msgstr "Bu arkaplan aygıt hatası. Lütfen yazarı aygıt hakkında bilgilendiriniz"
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
@@ -2448,7 +2446,6 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[SEÇENEK]...[AYGIT]"
 
 #. TEXT_HELP
-#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2495,25 +2492,23 @@ msgstr ""
 " -d, --device-settings file   aygıt ayarlarını dosyadan yükle (\".drc\" "
 "olmadan)\n"
 "\n"
-" -V, --viewer                izleme modu aktif olarak başla\n"
+" -V, --viewer                izleme modu aktif olarak başla (ön tanımlı)\n"
 " -s, --save                   saklama modu aktif olarak başla\n"
 " -c, --copy                   kopyalama modu aktif olarak başla\n"
 " -f, --fax                      faks modu aktif olarak başla\n"
 " -m, --mail                  e-posta modu aktif olarak başla\n"
 " -n, --no-mode-selection      xsane mod seçimi menüsünü pasif kıl\n"
 "\n"
-"-M, --Medium-calibration     orta kalibrasyon modunu etkin kıl\n"
-"\n"
 "-, --Fixed                  sabit ana pencere boyutu (tercihler değerinin "
 "yerine geçer)\n"
-" -R, --Resizeable             yeniden boyutlanadirılabilir, scrkayara "
-"pencere (tercihler değerinin yerine geçer)\n"
+" -R, --Resizeable             yeniden boyutlanadırılabilir, kayan pencere "
+"(tercihler değerinin yerine geçer)\n"
 "\n"
 "-p, --print-filenames ············ Xsane tarafından yaratılan resim "
 "dosyalarını bas\n"
 "-N, --force-filename name dosyaadını kulllan ve kullanıcı dosyaad seçimi "
 "iptal et\n"
-" --display X11-display        çıktıyı X11-exkranına yönelndir\n"
+" --display X11-display        çıktıyı X11-ekranına yönlendir\n"
 " --no-xshm                    paylaşılan hafıza resimleri kullanma\n"
 " --sync                       X11 sunucu ile senkronize bağlantı iste"
 
@@ -2680,6 +2675,74 @@ msgstr "Konica negatif VX 100"
 msgid "Rossmann negative HR 100"
 msgstr "Rossmann negatif HR 100"
 
+#. TEXT_MAIL_STATUS_NOT_CREATED
+msgid "Mail project not created"
+msgstr "E-Posta projesi yaratılmadı"
+
+#. TEXT_MAIL_STATUS_CREATED
+msgid "Mail project created"
+msgstr "E-Posta projesi yaratıldı"
+
+#. TEXT_MAIL_STATUS_CHANGED
+msgid "Mail project changed"
+msgstr "E-Posta projesi değişti"
+
+#. TEXT_MAIL_STATUS_ERR_READ_PROJECT
+msgid "Error reading mailproject"
+msgstr "E-Posta projesini okumada hata"
+
+#. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
+msgid "POP3 connection failed"
+msgstr "POP3 bağlantısı kurulamadı"
+
+#. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
+msgid "POP3 login failed"
+msgstr "POP3 login hatalı"
+
+#. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
+msgid "SMTP connection failed"
+msgstr "SMTP bağlantısı yapılamadı"
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_FROM
+msgid "From entry not accepted"
+msgstr "Gönderen girdisi kabul edilmedi"
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_RCPT
+msgid "Receiver entry not accepted"
+msgstr "Alıcı girdisi kabul edilmedi"
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_DATA
+msgid "Mail data not accepted"
+msgstr "Posta bilgisi kabul edilmedi"
+
+#. TEXT_MAIL_STATUS_SENDING
+msgid "Sending mail"
+msgstr "Posta gönderiliyor"
+
+#. TEXT_MAIL_STATUS_SENT
+msgid "Mail has been sent"
+msgstr "Posta gönderildi"
+
+#. TEXT_FAX_STATUS_NOT_CREATED
+msgid "Fax project not created"
+msgstr "Faks projesi yaratılamadı"
+
+#. TEXT_FAX_STATUS_CREATED
+msgid "Fax project created"
+msgstr "Faks projesi yaratıldı"
+
+#. TEXT_FAX_STATUS_CHANGED
+msgid "Fax project changed"
+msgstr "Faks projesi değiştirildi"
+
+#. TEXT_FAX_STATUS_QUEUEING_FAX
+msgid "Queueing Fax"
+msgstr "Faks kuyruğa alınıyor"
+
+#. TEXT_FAX_STATUS_FAX_QUEUED
+msgid "Fax is queued"
+msgstr "Faks kuyrukta"
+
 #. Sane backend messages
 msgid "flatbed scanner"
 msgstr "flatbed tarayıcı"
@@ -2734,16 +2797,3 @@ msgstr "Yetersiz hafıza"
 
 msgid "Access to resource has been denied"
 msgstr "Kaynağa erişim reddedildi"
-
-#~ msgid "Preset area"
-#~ msgstr "Alanı önceden seç"
-
-#, fuzzy
-#~ msgid "Select source medium type\n"
-#~ msgstr "Kaynak ortam tipini seçin"
-
-#~ msgid "Rename definiton"
-#~ msgstr "Tanımı yeniden isimlendir"
-
-#~ msgid "Delete definition"
-#~ msgstr "Tanımı silin"

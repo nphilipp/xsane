@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.95\n"
+"Project-Id-Version: XSANE 0.96\n"
 "POT-Creation-Date: 2004-08-21 15:31+0200\n"
-"PO-Revision-Date: 2004-08-14 03:06+0200\n"
+"PO-Revision-Date: 2004-08-21 19:48+0200\n"
 "Last-Translator: Mogens Jaeger <mogensjaeger@get2net.dk>\n"
 "Language-Team: Dansk <da@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -739,7 +739,7 @@ msgstr "Projekt status:"
 
 #. TEXT_MAIL_FILETYPE
 msgid "Mail image filetype:"
-msgstr ""
+msgstr "Mail billede filtype:"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
@@ -1433,7 +1433,7 @@ msgstr "Angiv subjekt for email"
 
 #. DESC_MAIL_FILETYPE
 msgid "Select filetype for image attachments"
-msgstr ""
+msgstr "Vælg filtype for billed vedhæftninger"
 
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
@@ -2680,24 +2680,20 @@ msgid "Rossmann negative HR 100"
 msgstr "Rossmann negativ HR 100"
 
 #. TEXT_MAIL_STATUS_NOT_CREATED
-#, fuzzy
 msgid "Mail project not created"
-msgstr "ikke oprettet"
+msgstr "Mail projekt ikke oprettet"
 
 #. TEXT_MAIL_STATUS_CREATED
-#, fuzzy
 msgid "Mail project created"
-msgstr "ikke oprettet"
+msgstr "Mail projekt oprettet"
 
 #. TEXT_MAIL_STATUS_CHANGED
-#, fuzzy
 msgid "Mail project changed"
-msgstr "ændret"
+msgstr "Mail projekt ændret"
 
 #. TEXT_MAIL_STATUS_ERR_READ_PROJECT
-#, fuzzy
 msgid "Error reading mailproject"
-msgstr "fejl ved læsning af mail projekt"
+msgstr "Fejl ved læsning af mail projekt"
 
 #. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
 msgid "POP3 connection failed"
@@ -2712,50 +2708,44 @@ msgid "SMTP connection failed"
 msgstr "SMTP tilslutning lykkedes ikke"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_FROM
-#, fuzzy
 msgid "From entry not accepted"
-msgstr "ikke oprettet"
+msgstr "Fra indtastningen ikke accepteret"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_RCPT
-#, fuzzy
 msgid "Receiver entry not accepted"
-msgstr "ikke oprettet"
+msgstr "Modtager indtastningen ikke accepteret"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_DATA
 msgid "Mail data not accepted"
-msgstr ""
+msgstr "Mail data ikke accepteret"
 
 #. TEXT_MAIL_STATUS_SENDING
-#, fuzzy
 msgid "Sending mail"
-msgstr "sender"
+msgstr "Sender mail"
 
 #. TEXT_MAIL_STATUS_SENT
 msgid "Mail has been sent"
-msgstr ""
+msgstr "Mail er blevet sendt"
 
 #. TEXT_FAX_STATUS_NOT_CREATED
-#, fuzzy
 msgid "Fax project not created"
-msgstr "ikke oprettet"
+msgstr "Fax projekt ikke oprettet"
 
 #. TEXT_FAX_STATUS_CREATED
-#, fuzzy
 msgid "Fax project created"
-msgstr "ikke oprettet"
+msgstr "Fax projekt oprettet"
 
 #. TEXT_FAX_STATUS_CHANGED
-#, fuzzy
 msgid "Fax project changed"
-msgstr "ændret"
+msgstr "Fax projekt ændret"
 
 #. TEXT_FAX_STATUS_QUEUEING_FAX
 msgid "Queueing Fax"
-msgstr ""
+msgstr "Fax sættes i kø"
 
 #. TEXT_FAX_STATUS_FAX_QUEUED
 msgid "Fax is queued"
-msgstr ""
+msgstr "Fax er sat i kø"
 
 #. Sane backend messages
 msgid "flatbed scanner"
@@ -2811,4 +2801,3 @@ msgstr "Ikke mere ram"
 
 msgid "Access to resource has been denied"
 msgstr "Adgang til ressource nægtet"
-

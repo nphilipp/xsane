@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.95\n"
+"Project-Id-Version: XSANE 0.96\n"
 "POT-Creation-Date: 2004-08-21 15:31+0200\n"
 "PO-Revision-Date: 2004-10-08 22:00+3\n"
 "Last-Translator: Yujo Rodrigues <yujo@comp.ufu.br>\n"
@@ -360,9 +360,8 @@ msgid "Show image"
 msgstr "Mostrar imagem"
 
 #. BUTTON_IMAGE_EDIT
-#, fuzzy
 msgid "Edit image"
-msgstr "Imagem realçada"
+msgstr "Editar imagem"
 
 #. BUTTON_IMAGE_RENAME
 msgid "Rename image"
@@ -737,7 +736,7 @@ msgstr "Estado do projeto:"
 
 #. TEXT_MAIL_FILETYPE
 msgid "Mail image filetype:"
-msgstr ""
+msgstr "Tipo de arquivo da imagem de correio:"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
@@ -985,7 +984,7 @@ msgstr "De:"
 
 #. TEXT_SETUP_MAIL_REPLY_TO
 msgid "Reply to:"
-msgstr "Em resposta para:"
+msgstr "Responder para:"
 
 #. TEXT_SETUP_POP3_SERVER
 msgid "POP3 server:"
@@ -1431,7 +1430,7 @@ msgstr "Digite o assunto do e-mail"
 
 #. DESC_MAIL_FILETYPE
 msgid "Select filetype for image attachments"
-msgstr ""
+msgstr "Selecione o tipoe de arquivo para anexos de imagem"
 
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
@@ -1944,9 +1943,8 @@ msgid "Enter command to be executed to view a mail image"
 msgstr "Entra comando a ser executado para visualizar uma imagem de e-mail"
 
 #. DESC_HTML_MAIL
-#, fuzzy
 msgid "Mail is sent in html mode, place image with: <IMAGE>"
-msgstr "Correio é enviado em modo html, imagens são exibidas diretamente"
+msgstr "Correio é enviado no modo html, com imagem: <IMAGE>"
 
 #. DESC_OCR_COMMAND
 msgid "Enter command to start ocr program"
@@ -2698,81 +2696,72 @@ msgid "Rossmann negative HR 100"
 msgstr "Negativo Rossmann HR 100"
 
 #. TEXT_MAIL_STATUS_NOT_CREATED
-#, fuzzy
 msgid "Mail project not created"
-msgstr "ler"
+msgstr "Projeto de correio não foi criado"
 
 #. TEXT_MAIL_STATUS_CREATED
-#, fuzzy
 msgid "Mail project created"
-msgstr "ler"
+msgstr "Projeto de correio criado"
 
 #. TEXT_MAIL_STATUS_CHANGED
-#, fuzzy
 msgid "Mail project changed"
-msgstr "Pré-seleciona área de digitalização"
+msgstr "Projeto de correio alterado"
 
 #. TEXT_MAIL_STATUS_ERR_READ_PROJECT
-#, fuzzy
 msgid "Error reading mailproject"
-msgstr "Digite o nome do projeto de correio"
+msgstr "Erro lendo projeto de correio"
 
 #. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
 msgid "POP3 connection failed"
-msgstr ""
+msgstr "Conexão POP3 falhou"
 
 #. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
 msgid "POP3 login failed"
-msgstr ""
+msgstr "Login na conta POP3 falhou"
 
 #. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
-msgstr ""
+msgstr "Conexão SMTP falhou"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_FROM
-#, fuzzy
 msgid "From entry not accepted"
-msgstr "ler"
+msgstr "Entrada de remetente não foi aceita"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_RCPT
-#, fuzzy
 msgid "Receiver entry not accepted"
-msgstr "ler"
+msgstr "Entrada de destinatário não foi aceita"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_DATA
 msgid "Mail data not accepted"
-msgstr ""
+msgstr "Dados do e-mail não aceitados"
 
 #. TEXT_MAIL_STATUS_SENDING
 msgid "Sending mail"
-msgstr ""
+msgstr "Enviando correio"
 
 #. TEXT_MAIL_STATUS_SENT
 msgid "Mail has been sent"
-msgstr ""
+msgstr "Correio foi enviado"
 
 #. TEXT_FAX_STATUS_NOT_CREATED
-#, fuzzy
 msgid "Fax project not created"
-msgstr "ler"
+msgstr "Projeto de fax não foi criado"
 
 #. TEXT_FAX_STATUS_CREATED
-#, fuzzy
 msgid "Fax project created"
-msgstr "ler"
+msgstr "Projeto de Fax criado"
 
 #. TEXT_FAX_STATUS_CHANGED
-#, fuzzy
 msgid "Fax project changed"
-msgstr "Pré-seleciona área de digitalização"
+msgstr "Projeto de fax alterado"
 
 #. TEXT_FAX_STATUS_QUEUEING_FAX
 msgid "Queueing Fax"
-msgstr ""
+msgstr "Enviado Fax para fila"
 
 #. TEXT_FAX_STATUS_FAX_QUEUED
 msgid "Fax is queued"
-msgstr ""
+msgstr "Fax está pronto na fila"
 
 #. Sane backend messages
 msgid "flatbed scanner"

@@ -4,8 +4,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.90\n"
-"POT-Creation-Date: 2004-08-05 12:07+0200\n"
+"Project-Id-Version: XSANE 0.96\n"
+"POT-Creation-Date: 2004-08-21 15:31+0200\n"
 "PO-Revision-Date: 2000-01-21 15:51+01:00\n"
 "Last-Translator: Oliver Rauch <Oliver.Rauch@rauch-domain.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -25,7 +25,7 @@ msgstr "©"
 #. can be translated with \251
 #. FILENAME_PREFIX_CLONE_OF
 msgid "clone-of-"
-msgstr ""
+msgstr "Duplikat-von-"
 
 #. WINDOW_ABOUT_XSANE
 msgid "About"
@@ -265,15 +265,15 @@ msgstr "Weichzeichnen"
 
 #. MENU_ITEM_ROTATE90
 msgid "Rotate 90"
-msgstr "Drehung 90°"
+msgstr "Drehen 90°"
 
 #. MENU_ITEM_ROTATE180
 msgid "Rotate 180"
-msgstr "Drehung 180°"
+msgstr "Drehen 180°"
 
 #. MENU_ITEM_ROTATE270
 msgid "Rotate 270"
-msgstr "Drehung 270°"
+msgstr "Drehen 270°"
 
 #. MENU_ITEM_MIRROR_X
 msgid "Mirror |"
@@ -358,6 +358,10 @@ msgstr "Bild löschen"
 #. BUTTON_IMAGE_SHOW
 msgid "Show image"
 msgstr "Bild anzeigen"
+
+#. BUTTON_IMAGE_EDIT
+msgid "Edit image"
+msgstr "Bild ändern"
 
 #. BUTTON_IMAGE_RENAME
 msgid "Rename image"
@@ -730,6 +734,10 @@ msgstr "Anhang:"
 #. TEXT_MAIL_STATUS
 msgid "Project status:"
 msgstr "Projekt Status:"
+
+#. TEXT_MAIL_FILETYPE
+msgid "Mail image filetype:"
+msgstr ""
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
@@ -1421,6 +1429,10 @@ msgstr "EMail Adresse eingeben"
 msgid "Enter subject of email"
 msgstr "Betreff eingeben"
 
+#. DESC_MAIL_FILETYPE
+msgid "Select filetype for image attachments"
+msgstr ""
+
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
 msgstr "Name der Gebietsvoreinstellung eingeben"
@@ -1934,8 +1946,8 @@ msgid "Enter command to be executed to view a mail image"
 msgstr "Befehl, der ausgeführt werden soll, um Mail-Bilder anzuzeigen"
 
 #. DESC_HTML_MAIL
-msgid "Mail is sent in html mode, images are displayed directly"
-msgstr "E-Mail wird im hmtl Modus gesandt"
+msgid "Mail is sent in html mode, place image with: <IMAGE>"
+msgstr "E-Mail wird im hmtl Modus gesandt, Bild placieren mit: <IMAGE>"
 
 #. DESC_OCR_COMMAND
 msgid "Enter command to start ocr program"
@@ -2680,6 +2692,74 @@ msgstr "Konica Negativ VX 100"
 #. MENU_ITEM_MEDIUM_ROSSMANN_NEG_HR_100
 msgid "Rossmann negative HR 100"
 msgstr "Rossmann Negativ HR 100"
+
+#. TEXT_MAIL_STATUS_NOT_CREATED
+msgid "Mail project not created"
+msgstr "Mail-Projekt nicht erstellt"
+
+#. TEXT_MAIL_STATUS_CREATED
+msgid "Mail project created"
+msgstr "Mail-Projekt erstellt"
+
+#. TEXT_MAIL_STATUS_CHANGED
+msgid "Mail project changed"
+msgstr "Mail-Projekt geändert"
+
+#. TEXT_MAIL_STATUS_ERR_READ_PROJECT
+msgid "Error reading mailproject"
+msgstr "Fehler beim Lesen des Mailprojekts"
+
+#. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
+msgid "POP3 connection failed"
+msgstr "POP3 Verbindung fehlgeschlagen"
+
+#. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
+msgid "POP3 login failed"
+msgstr "POP3 Login fehlgeschlagen"
+
+#. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
+msgid "SMTP connection failed"
+msgstr "SMTP Verbindung fehlgeschlagen"
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_FROM
+msgid "From entry not accepted"
+msgstr "Absender Eintrag nicht akzeptiert"
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_RCPT
+msgid "Receiver entry not accepted"
+msgstr "Empfänger Eintrag nicht akzeptiert"
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_DATA
+msgid "Mail data not accepted"
+msgstr "Mail Daten nicht akzeptiert"
+
+#. TEXT_MAIL_STATUS_SENDING
+msgid "Sending mail"
+msgstr "Mail wird gesendet"
+
+#. TEXT_MAIL_STATUS_SENT
+msgid "Mail has been sent"
+msgstr "Mail wurde gesendet"
+
+#. TEXT_FAX_STATUS_NOT_CREATED
+msgid "Fax project not created"
+msgstr "Fax-Projekt nicht erstellt"
+
+#. TEXT_FAX_STATUS_CREATED
+msgid "Fax project created"
+msgstr "Fax-Projekt erstellt"
+
+#. TEXT_FAX_STATUS_CHANGED
+msgid "Fax project changed"
+msgstr "Fax-Projekt geändert"
+
+#. TEXT_FAX_STATUS_QUEUEING_FAX
+msgid "Queueing Fax"
+msgstr "Fax zum Senden einreihen"
+
+#. TEXT_FAX_STATUS_FAX_QUEUED
+msgid "Fax is queued"
+msgstr "Fax ist zum Senden eingereiht"
 
 #. Sane backend messages
 msgid "flatbed scanner"

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.91\n"
-"POT-Creation-Date: 2004-08-05 12:07+0200\n"
+"POT-Creation-Date: 2004-08-21 15:31+0200\n"
 "PO-Revision-Date: 2003-05-20 15:30+0700\n"
 "Last-Translator: Trinh Minh Thanh <tmthanh@yahoo.com>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
@@ -364,6 +364,11 @@ msgstr "Xóa ảnh"
 #. BUTTON_IMAGE_SHOW
 msgid "Show image"
 msgstr "Hiển thị ảnh"
+
+#. BUTTON_IMAGE_EDIT
+#, fuzzy
+msgid "Edit image"
+msgstr "Ảnh cải thiện"
 
 #. BUTTON_IMAGE_RENAME
 msgid "Rename image"
@@ -731,6 +736,10 @@ msgstr "Đính kèm:"
 #. TEXT_MAIL_STATUS
 msgid "Project status:"
 msgstr "Tình trạng dự án:"
+
+#. TEXT_MAIL_FILETYPE
+msgid "Mail image filetype:"
+msgstr ""
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
@@ -1420,6 +1429,10 @@ msgstr "Nhập địa chỉ thư"
 msgid "Enter subject of email"
 msgstr "Nhập chủ đề thư"
 
+#. DESC_MAIL_FILETYPE
+msgid "Select filetype for image attachments"
+msgstr ""
+
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
 msgstr "Nhập tên mới cho vùng lập trước"
@@ -1906,7 +1919,8 @@ msgid "Enter command to be executed to view a mail image"
 msgstr "Nhập lệnh được thực thi để xem ảnh trong thư"
 
 #. DESC_HTML_MAIL
-msgid "Mail is sent in html mode, images are displayed directly"
+#, fuzzy
+msgid "Mail is sent in html mode, place image with: <IMAGE>"
 msgstr "Thư gửi theo phương thức HTML, ảnh được hiển thị trực tiếp"
 
 #. DESC_OCR_COMMAND
@@ -2651,6 +2665,83 @@ msgstr "Âm bản Konica VX 100"
 msgid "Rossmann negative HR 100"
 msgstr "Âm bản Rossmann HR 100"
 
+#. TEXT_MAIL_STATUS_NOT_CREATED
+#, fuzzy
+msgid "Mail project not created"
+msgstr "đọc"
+
+#. TEXT_MAIL_STATUS_CREATED
+#, fuzzy
+msgid "Mail project created"
+msgstr "đọc"
+
+#. TEXT_MAIL_STATUS_CHANGED
+#, fuzzy
+msgid "Mail project changed"
+msgstr "Chọn trước vùng quét"
+
+#. TEXT_MAIL_STATUS_ERR_READ_PROJECT
+#, fuzzy
+msgid "Error reading mailproject"
+msgstr "Nhập tên dự án thư"
+
+#. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
+msgid "POP3 connection failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
+msgid "POP3 login failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
+msgid "SMTP connection failed"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_FROM
+#, fuzzy
+msgid "From entry not accepted"
+msgstr "đọc"
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_RCPT
+#, fuzzy
+msgid "Receiver entry not accepted"
+msgstr "đọc"
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_DATA
+msgid "Mail data not accepted"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SENDING
+msgid "Sending mail"
+msgstr ""
+
+#. TEXT_MAIL_STATUS_SENT
+msgid "Mail has been sent"
+msgstr ""
+
+#. TEXT_FAX_STATUS_NOT_CREATED
+#, fuzzy
+msgid "Fax project not created"
+msgstr "đọc"
+
+#. TEXT_FAX_STATUS_CREATED
+#, fuzzy
+msgid "Fax project created"
+msgstr "đọc"
+
+#. TEXT_FAX_STATUS_CHANGED
+#, fuzzy
+msgid "Fax project changed"
+msgstr "Chọn trước vùng quét"
+
+#. TEXT_FAX_STATUS_QUEUEING_FAX
+msgid "Queueing Fax"
+msgstr ""
+
+#. TEXT_FAX_STATUS_FAX_QUEUED
+msgid "Fax is queued"
+msgstr ""
+
 #. Sane backend messages
 msgid "flatbed scanner"
 msgstr "Máy quét để bàn"
@@ -2705,15 +2796,3 @@ msgstr "Hết bộ nhớ"
 
 msgid "Access to resource has been denied"
 msgstr "Truy cập đến nguồn bị từ chối"
-
-#~ msgid "Preset area"
-#~ msgstr "Lập trước vùng"
-
-#~ msgid "Select source medium type\n"
-#~ msgstr "Chọn loại phương tiện nguồn\n"
-
-#~ msgid "Rename definiton"
-#~ msgstr "Đổi tên định nghĩa"
-
-#~ msgid "Delete definition"
-#~ msgstr "Xóa định nghĩa"

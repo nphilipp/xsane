@@ -1,13 +1,13 @@
 # Portuguese translation for XSane.
-# Copyright (C) 2002 Yujo Rodrigues
-# Yujo Rodrigues <yujo@alunos.ufu.br>, 2002.
+# Copyright (C) 2002-2004 Yujo Rodrigues
+# Yujo Rodrigues <yujo@comp.ufu.br>, 2004.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.89\n"
-"POT-Creation-Date: 2004-08-05 12:07+0200\n"
-"PO-Revision-Date: 2002-19-10 23:00+3\n"
-"Last-Translator: Yujo Rodrigues <yujo@alunos.ufu.br>\n"
+"Project-Id-Version: XSANE 0.96\n"
+"POT-Creation-Date: 2004-08-21 15:31+0200\n"
+"PO-Revision-Date: 2004-10-08 22:00+3\n"
+"Last-Translator: Yujo Rodrigues <yujo@comp.ufu.br>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +25,7 @@ msgstr ""
 #. can be translated with \251
 #. FILENAME_PREFIX_CLONE_OF
 msgid "clone-of-"
-msgstr ""
+msgstr "clone-de-"
 
 #. WINDOW_ABOUT_XSANE
 msgid "About"
@@ -61,7 +61,7 @@ msgstr "salva lista de lote"
 
 #. WINDOW_BATCH_SCAN
 msgid "batch scan"
-msgstr "scaneia lote"
+msgstr "digitaliza lote"
 
 #. WINDOW_BATCH_RENAME
 msgid "rename batch area"
@@ -96,19 +96,16 @@ msgid "rename preset area"
 msgstr "renomeia area predefinida"
 
 #. WINDOW_PRESET_AREA_ADD
-#, fuzzy
 msgid "add preset area"
-msgstr "renomeia area predefinida"
+msgstr "adiciona área pré-definida"
 
 #. WINDOW_MEDIUM_RENAME
-#, fuzzy
 msgid "rename medium"
-msgstr "Armazena mídia"
+msgstr "renomeia mídia"
 
 #. WINDOW_MEDIUM_ADD
-#, fuzzy
 msgid "add new medium"
-msgstr "Armazena mídia"
+msgstr "adiciona nova mídia"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -176,7 +173,7 @@ msgstr "Escala da imagem"
 
 #. WINDOW_DESPECKLE
 msgid "Despeckle image"
-msgstr ""
+msgstr "Desembaraça imagem"
 
 #. WINDOW_BLUR
 msgid "Blur image"
@@ -204,7 +201,7 @@ msgstr "Visualizar"
 
 #. MENU_WINDOW
 msgid "Window"
-msgstr ""
+msgstr "Janela"
 
 #. MENU_HELP
 msgid "Help"
@@ -212,7 +209,7 @@ msgstr "Ajuda"
 
 #. MENU_EDIT
 msgid "Edit"
-msgstr ""
+msgstr "Edita"
 
 #. MENU_FILTERS
 msgid "Filters"
@@ -220,7 +217,7 @@ msgstr "Filtros"
 
 #. MENU_GEOMETRY
 msgid "Geometry"
-msgstr ""
+msgstr "Geometria"
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
@@ -256,11 +253,11 @@ msgstr "Fechar"
 
 #. MENU_ITEM_UNDO
 msgid "Undo"
-msgstr ""
+msgstr "Desfazer"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
-msgstr ""
+msgstr "Desembaraçar"
 
 #. MENU_ITEM_BLUR
 msgid "Blur"
@@ -268,27 +265,23 @@ msgstr "Embaçar"
 
 #. MENU_ITEM_ROTATE90
 msgid "Rotate 90"
-msgstr ""
+msgstr "Rotaciona 90"
 
 #. MENU_ITEM_ROTATE180
-#, fuzzy
 msgid "Rotate 180"
-msgstr "Rotaciona imagem em 180 graus"
+msgstr "Rotaciona 180"
 
 #. MENU_ITEM_ROTATE270
-#, fuzzy
 msgid "Rotate 270"
-msgstr "Rotaciona imagem em 270 graus"
+msgstr "Rotaciona 270"
 
 #. MENU_ITEM_MIRROR_X
-#, fuzzy
 msgid "Mirror |"
-msgstr "erro"
+msgstr "Espelha |"
 
 #. MENU_ITEM_MIRROR_Y
-#, fuzzy
 msgid "Mirror -"
-msgstr "erro"
+msgstr "Espelha -"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -296,7 +289,7 @@ msgstr "Imagem raw"
 
 #. FRAME_ENHANCED_IMAGE
 msgid "Enhanced image"
-msgstr "Imagem avançada"
+msgstr "Imagem realçada"
 
 #. BUTTON_SCAN
 msgid "Scan"
@@ -365,6 +358,10 @@ msgstr "Deletar imagem"
 #. BUTTON_IMAGE_SHOW
 msgid "Show image"
 msgstr "Mostrar imagem"
+
+#. BUTTON_IMAGE_EDIT
+msgid "Edit image"
+msgstr "Editar imagem"
 
 #. BUTTON_IMAGE_RENAME
 msgid "Rename image"
@@ -713,9 +710,9 @@ msgid ""
 "by Oliver Rauch\n"
 "Email: Oliver.Rauch@rauch-domain.de\n"
 msgstr ""
-"traduzido para o Português do Brasil\n"
+"traduzido para o Português\n"
 "por Yujo Rodrigues\n"
-"Email: yujo@alunos.ufu.br\n"
+"Email: yujo@comp.ufu.br\n"
 
 #. TEXT_INFO_BOX
 msgid "0x0: 0KB"
@@ -736,6 +733,10 @@ msgstr "Anexos:"
 #. TEXT_MAIL_STATUS
 msgid "Project status:"
 msgstr "Estado do projeto:"
+
+#. TEXT_MAIL_FILETYPE
+msgid "Mail image filetype:"
+msgstr "Tipo de arquivo da imagem de correio:"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
@@ -810,9 +811,8 @@ msgid "Lineart resolution (dpi):"
 msgstr "Resolução de linha artística (ppp):"
 
 #. TEXT_SETUP_PRINTER_GRAYSCALE_RES
-#, fuzzy
 msgid "Grayscale resolution (dpi):"
-msgstr "Resolução de cores (ppp):"
+msgstr "Resolução de tons de cinza (ppp):"
 
 #. TEXT_SETUP_PRINTER_COLOR_RES
 msgid "Color resolution (dpi):"
@@ -900,7 +900,7 @@ msgstr "Prévia gama:"
 
 #. TEXT_SETUP_PREVIEW_GAMMA_RED
 msgid "Preview gamma red:"
-msgstr "Prévia vermelhor gama:"
+msgstr "Prévia vermelho gama:"
 
 #. TEXT_SETUP_PREVIEW_GAMMA_GREEN
 msgid "Preview gamma green:"
@@ -920,7 +920,7 @@ msgstr "Modo de Alimentação de Documento Automático"
 
 #. TEXT_SETUP_PREVIEW_PIPETTE_RANGE
 msgid "Preview pipette range"
-msgstr ""
+msgstr "Pré-visualiza a faixa da pipeta"
 
 #. TEXT_SETUP_THRESHOLD_MIN
 msgid "Threshold minimum:"
@@ -964,7 +964,7 @@ msgstr "Opção de modo fino:"
 
 #. TEXT_SETUP_FAX_PROGRAM_DEFAULTS
 msgid "Set program defaults for:"
-msgstr ""
+msgstr "Configura os padrões do programa para:"
 
 #. TEXT_SETUP_FAX_VIEWER
 msgid "Viewer (Postscript):"
@@ -984,7 +984,7 @@ msgstr "De:"
 
 #. TEXT_SETUP_MAIL_REPLY_TO
 msgid "Reply to:"
-msgstr "Em resposta para:"
+msgstr "Responder para:"
 
 #. TEXT_SETUP_POP3_SERVER
 msgid "POP3 server:"
@@ -1043,7 +1043,7 @@ msgid "all"
 msgstr "tudo"
 
 msgid "new media"
-msgstr ""
+msgstr "nova mídia"
 
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
@@ -1154,9 +1154,8 @@ msgid "Rotate postscript"
 msgstr "Rotacionar postscript"
 
 #. MENU_ITEM_EDIT_MEDIUM_DEF
-#, fuzzy
 msgid "Edit medium definition"
-msgstr "Armazena definição da mídia"
+msgstr "Edita definição da mídia"
 
 #. MENU_ITEM_SAVE_DEVICE_SETTINGS
 msgid "Save device settings"
@@ -1180,11 +1179,11 @@ msgstr "Mostrar licença (GPL)"
 
 #. MENU_ITEM_XSANE_DOC
 msgid "XSane doc"
-msgstr "Documento XSane"
+msgstr "Documentação do XSane"
 
 #. MENU_ITEM_BACKEND_DOC
 msgid "Backend doc"
-msgstr "Documento do Driver"
+msgstr "Documentação do Driver"
 
 #. MENU_ITEM_AVAILABLE_BACKENDS
 msgid "Available backends"
@@ -1224,7 +1223,7 @@ msgstr "Compressão DCT JPEG"
 
 #. MENU_ITEM_TIFF_COMP_PACKBITS
 msgid "pack bits"
-msgstr ""
+msgstr "empacota bits"
 
 #. MENU_ITEM_RANGE_SCALE
 msgid "Slider (Scale)"
@@ -1271,29 +1270,24 @@ msgid "Add selection to list"
 msgstr "Incluir seleção na lista"
 
 #. MENU_ITEM_MEDIUM_ADD
-#, fuzzy
 msgid "Add medium definition"
-msgstr "Armazena definição da mídia"
+msgstr "Adiciona definição da mídia"
 
 #. MENU_ITEM_RENAME
-#, fuzzy
 msgid "Rename item"
-msgstr "Renomear imagem"
+msgstr "Renomeia item"
 
 #. MENU_ITEM_DELETE
-#, fuzzy
 msgid "Delete item"
-msgstr "Excluir impressora"
+msgstr "Apaga item"
 
 #. MENU_ITEM_MOVE_UP
-#, fuzzy
 msgid "Move item up"
-msgstr "Mover acima"
+msgstr "Move item para acima"
 
 #. MENU_ITEM_MOVE_DWN
-#, fuzzy
 msgid "Move item down"
-msgstr "Mover abaixo"
+msgstr "Move item para abaixo"
 
 #. PROGRESS_SCANNING
 msgid "Scanning"
@@ -1302,7 +1296,7 @@ msgstr "Digitalizando"
 #. PROGRESS_RECEIVING_FRAME_DATA
 #, c-format
 msgid "Receiving %s data"
-msgstr "Recebendo %s dados"
+msgstr "Recebendo dados %s"
 
 #. PROGRESS_TRANSFERING_DATA
 msgid "Transfering image"
@@ -1338,7 +1332,7 @@ msgstr "Redimencionando imagem"
 
 #. PROGRESS_DESPECKLING_DATA
 msgid "Despeckling image"
-msgstr ""
+msgstr "Desembaraçando imagem"
 
 #. PROGRESS_BLURING_DATA
 msgid "Bluring image"
@@ -1380,6 +1374,11 @@ msgid ""
 "To create a medium enable the option edit medium definition in preferences "
 "menu."
 msgstr ""
+"Selecione o tipo da mídia de origem.\n"
+"Para renomear, reordenar ou apagar uma entrada, use o menu de contexto "
+"(botão esquerdo do mouse).\n"
+"Para criar uma mídia ative a opção para editar definição de mídia no menu de "
+"preferências."
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1429,24 +1428,25 @@ msgstr "Digite o endereço de e-mail"
 msgid "Enter subject of email"
 msgstr "Digite o assunto do e-mail"
 
+#. DESC_MAIL_FILETYPE
+msgid "Select filetype for image attachments"
+msgstr "Selecione o tipoe de arquivo para anexos de imagem"
+
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
 msgstr "Digite o nome para a àrea pré-selecionada"
 
 #. DESC_PRESET_AREA_ADD
-#, fuzzy
 msgid "Enter name for new preset area"
-msgstr "Digite o nome para a àrea pré-selecionada"
+msgstr "Digite o nome para a nova àrea pré-selecionada"
 
 #. DESC_MEDIUM_RENAME
-#, fuzzy
 msgid "Enter new name for medium definition"
-msgstr "Armazena definição da mídia"
+msgstr "Digite o novo nome para a definição da mídia"
 
 #. DESC_MEDIUM_ADD
-#, fuzzy
 msgid "Enter name for new medium definition"
-msgstr "Armazena definição da mídia"
+msgstr "Digite o nome para a nova definição de mídia"
 
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
@@ -1481,9 +1481,8 @@ msgid "Set number of copies"
 msgstr "Escolha o número de cópias"
 
 #. DESC_NEGATIVE
-#, fuzzy
 msgid "Negative: Invert colors for scanning negatives <Ctrl-n>"
-msgstr "Negativo: Inverte cores para digitalizar negativos <Shift-n>"
+msgstr "Negativo: Inverte cores para digitalizar negativos <Ctrl-n>"
 
 #. DESC_GAMMA
 msgid "Set gamma value"
@@ -1538,7 +1537,6 @@ msgid "Set threshold"
 msgstr "Escolha o threshold"
 
 #. DESC_RGB_DEFAULT
-#, fuzzy
 msgid ""
 "RGB default: Set enhancement values for red, green and blue to default "
 "values <Ctrl-b>:\n"
@@ -1546,39 +1544,35 @@ msgid ""
 " brightness = 0\n"
 " contrast = 0"
 msgstr ""
-"Padrão RGB : Escolha os valores padrão de realce para vermelho, verde e azul "
-"valores <Shift-b>:\n"
+"Padrão RGB : Configura valores de realce do vermelho, verde e azul para "
+"valores padrão <Ctrl-b>:\n"
 " gama = 1.0\n"
 " brilho = 0\n"
 " contraste = 0"
 
 #. DESC_ENH_AUTO
-#, fuzzy
 msgid "Autoadjust gamma, brightness and contrast <Ctrl-e>"
-msgstr "Ajusta automaticamente gama, brilho e constraste <Shift-e>"
+msgstr "Ajusta automaticamente gama, brilho e constraste <Ctrl-e>"
 
 #. DESC_ENH_DEFAULT
-#, fuzzy
 msgid ""
 "Set default enhancement values <Ctrl-0>:\n"
 "gamma = 1.0\n"
 "brightness = 0\n"
 "contrast = 0"
 msgstr ""
-"Escolha os valores de realce padrão <Shift-d>:\n"
+"Configura os valores de realce padrão <Ctrl-0>:\n"
 "gama = 1.0\n"
 "brilho = 0\n"
 "contraste = 0"
 
 #. DESC_ENH_RESTORE
-#, fuzzy
 msgid "Restore enhancement values from preferences <Ctrl-r>"
-msgstr "Restaura os valores de realce das prefências <Shift-r>"
+msgstr "Restaura os valores de realce das preferências <Ctrl-r>"
 
 #. DESC_ENH_STORE
-#, fuzzy
 msgid "Store active enhancement values to preferences <Ctrl-+>"
-msgstr "Armazena valores de realce nas prefências <Shift-m>"
+msgstr "Armazena valores de realce ativos nas preferências <Ctrl-+>"
 
 #. DESC_HIST_INTENSITY
 msgid "Show histogram of intensity/gray <Alt-i>"
@@ -1738,7 +1732,7 @@ msgstr ""
 #. DESC_REDUCE_16BIT_TO_8BIT
 msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
 msgstr ""
-"Se o scaner envia imagem com 16 bits de cores salvar imagem com 8 bits de "
+"Se o scaner envia imagem com 16 bits de cores salva imagem com 8 bits de "
 "cores"
 
 #. DESC_PSFILE_WIDTH
@@ -1768,7 +1762,7 @@ msgstr ""
 #. DESC_MAIN_WINDOW_FIXED
 msgid "Use fixed main window size or scrolled, resizable main window"
 msgstr ""
-"Usa janela principal de tamanho fixo ou janela principal rolável "
+"Usa janela principal de tamanho fixo ou janela principal rolável e "
 "redimensionável"
 
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
@@ -1815,6 +1809,9 @@ msgid ""
 "Select grayscale scanmode. This scanmode is used for lineart preview scan "
 "when transformation from grayscale to lineart is enabled"
 msgstr ""
+"Seleciona modo de digitalização em tons de cinza. Este modo é usado para pré-"
+"visualizara digitalização quando a transformação de tons de cinza para linha "
+"de arte está habilitada"
 
 #. DESC_PREVIEW_THRESHOLD_MIN
 #, no-c-format
@@ -1853,7 +1850,7 @@ msgstr ""
 msgid "dimension of square that is used to average color for pipette function"
 msgstr ""
 "dimensão do quadro que é usado para calcular a média de cores para a função "
-"pipette"
+"pipeta"
 
 #. DESC_DOC_VIEWER
 msgid ""
@@ -1946,8 +1943,8 @@ msgid "Enter command to be executed to view a mail image"
 msgstr "Entra comando a ser executado para visualizar uma imagem de e-mail"
 
 #. DESC_HTML_MAIL
-msgid "Mail is sent in html mode, images are displayed directly"
-msgstr "Correio é enviado em modo html, imagens são exibidas diretamente"
+msgid "Mail is sent in html mode, place image with: <IMAGE>"
+msgstr "Correio é enviado no modo html, com imagem: <IMAGE>"
 
 #. DESC_OCR_COMMAND
 msgid "Enter command to start ocr program"
@@ -1969,6 +1966,8 @@ msgstr "Define se o programa de ocr suporta a barra gráfica de progressão"
 msgid ""
 "Enter option of the ocr program to define output filedescripor in GUI mode"
 msgstr ""
+"Entre com a opção do programa ocr para definir a saída do descritor de "
+"arquivos no modo GUI"
 
 #. DESC_OCR_PROGRESS_KEYWORD
 msgid "Define Keyword that is used to mark progress information"
@@ -2034,7 +2033,7 @@ msgstr "Auto seleciona área de digitalização"
 
 #. DESC_AUTORAISE_SCANAREA
 msgid "Autoraise scanarea"
-msgstr ""
+msgstr "Obtém automaticamente a área de digitalização"
 
 #. DESC_DELETE_IMAGES
 msgid "Delete preview image cache"
@@ -2046,6 +2045,9 @@ msgid ""
 "To add new area or edit an existing area use contect menu (right mouse "
 "button)."
 msgstr ""
+"Área pré-configurada:\n"
+"Para acrescentar nova área ou editar uma área existente, use o menu de "
+"contexto (botão direito do mouse)."
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -2053,20 +2055,19 @@ msgstr "Rotaciona pré-visualização e digitaliza"
 
 #. DESC_RATIO
 msgid "Aspect ratio of selection"
-msgstr ""
+msgstr "Proporção da seleção"
 
 #. DESC_PAPER_ORIENTATION
 msgid "Define image position for printing"
-msgstr ""
+msgstr "Define a posição da imagem para impressão"
 
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
 msgstr "Reconhecimento Óptico de Caracteres"
 
 #. DESC_VIEWER_UNDO
-#, fuzzy
 msgid "Undo last change"
-msgstr "Desfazer último ampliamento"
+msgstr "Desfaz última mudança"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
@@ -2118,11 +2119,11 @@ msgstr "Fator de escala Y"
 
 #. DESC_SCALE_WIDTH
 msgid "Scale image to width [in pixel]"
-msgstr ""
+msgstr "Dimensiona imagem para largura [em pontos]"
 
 #. DESC_SCALE_HEIGHT
 msgid "Scale image to height [in pixel]"
-msgstr ""
+msgstr "Dimensiona imagem para altura [em pontos]"
 
 #. DESC_BATCH_LIST_EMPTY
 msgid "Empty batch list"
@@ -2150,7 +2151,7 @@ msgstr "Apaga área selecionada da lista de lote"
 
 #. DESC_AUTOMATIC
 msgid "Turns on automatic mode"
-msgstr ""
+msgstr "Ativa o modo automático"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2254,9 +2255,8 @@ msgid "LIBPNG reports error"
 msgstr "LIBPNG reportou erro"
 
 #. ERR_LIBJPEG
-#, fuzzy
 msgid "LIBJPEG reports error"
-msgstr "LIBPNG reportou erro"
+msgstr "LIBJPEG reportou erro"
 
 #. ERR_UNKNOWN_TYPE
 msgid "unknown type"
@@ -2268,11 +2268,12 @@ msgstr "tipo de construtor desconhecido"
 
 #. ERR_OPTION_NAME_NULL
 msgid "Option has empty name (NULL)."
-msgstr ""
+msgstr "Opção possui nome vazio (NULL)."
 
 #. ERR_BACKEND_BUG
 msgid "This is a backend bug. Please inform the author of the backend!"
 msgstr ""
+"Isto é um bug do driver (backend). Por favor informe ao autor do backend!"
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
@@ -2460,7 +2461,6 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[OPCAO]... [DISPOSITIVO]"
 
 #. TEXT_HELP
-#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2500,10 +2500,10 @@ msgstr ""
 "\n"
 "O formato do [DISPOSITIVO] e o nomedodriver:arquivodedispostivo (ex.: umax:/"
 "dev/scanner).\n"
-"[OPCAO]... pode ser uma combinacao dos seguintes items:\n"
+"[OPCAO]... pode ser uma combinacao dos seguintes itens:\n"
 " -h, --help                   mostra esta mensagem de ajuda e sai\n"
 " -v, --version                exibe a informacao da versao\n"
-" -l, --license                exibe a informacao da licenca\n"
+" -l, --license                exibe a informacao da licença\n"
 "\n"
 " -d, --device-settings arquivo   carrega configuracoes do dispositivo a "
 "partir de um arquivo (sem \".drc\")\n"
@@ -2516,20 +2516,18 @@ msgstr ""
 " -m, --mail                   inicia com modo de correio ativo\n"
 " -n, --no-mode-selection      desabilita menu para selecao do modo de XSane\n"
 "\n"
-" -M, --Medium-calibration     habilita mode de calibracao da midia\n"
-"\n"
 " -F, --Fixed                  tamanho da janela principal fixo (sobrepoe "
 "valor das preferencias)\n"
-" -R, --Resizeable             janela principal rolavel e aumentavel "
-"(sobrepoe valor das preferencias)\n"
+" -R, --Resizeable             janela principal rolavel e redimensionavel "
+"(sobrepoe valor nas preferencias)\n"
 "\n"
 " -p, --print-filenames        exibe nome de arquivos de imagens criadas por "
 "XSane\n"
-" -N, --force-filename nome    forca nome de arquivo e desabilita selecao de "
-"nome de arquivo do usuario\n"
+" -N, --force-filename nome    força nome de arquivo e desabilita selecao de "
+"nome de arquivo pelo usuario\n"
 "\n"
 " --display ambiente-X11       redireciona saida para o ambiente-X11\n"
-" --no-xshm                    nao use imagens da memoria compartilhada\n"
+" --no-xshm                    nao usa imagens de memoria compartilhada\n"
 " --sync                       requisita uma conexao sincrona com o servidor "
 "X11"
 
@@ -2549,7 +2547,7 @@ msgstr ""
 #. Menu path must not be translated, this is done by the gimp. Only translate the text behind the last "/"
 #. XSANE_GIMP_MENU_DIALOG
 msgid "<Toolbox>/File/Acquire/XSane: Device dialog..."
-msgstr ""
+msgstr "<Toolbox>/File/Acquire/XSane: Janela de dispositivos..."
 
 #. XSANE_GIMP_MENU
 msgid "<Toolbox>/File/Acquire/XSane: "
@@ -2574,7 +2572,7 @@ msgid ""
 "5) The backend is not configured correct (man sane-\"backendname\")\n"
 "6) Possibly there is more than one SANE version installed"
 msgstr ""
-"Razões possíveis:\n"
+"Possíveis motivos:\n"
 "1) Realmente não existe um dispositivo que seja suportado pelo SANE\n"
 "2) Dispositivos suportados estão ocupados\n"
 "3) As permissões para o arquivo de dispositivo não lhe deixam usá-lo - tente "
@@ -2663,7 +2661,7 @@ msgstr "Slide"
 
 #. MENU_ITEM_MEDIUM_STANDARD_NEG
 msgid "Standard negative"
-msgstr "Negativo padrao"
+msgstr "Negativo padrão"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG
 msgid "Agfa negative"
@@ -2696,6 +2694,74 @@ msgstr "Negativo Konica VX 100"
 #. MENU_ITEM_MEDIUM_ROSSMANN_NEG_HR_100
 msgid "Rossmann negative HR 100"
 msgstr "Negativo Rossmann HR 100"
+
+#. TEXT_MAIL_STATUS_NOT_CREATED
+msgid "Mail project not created"
+msgstr "Projeto de correio não foi criado"
+
+#. TEXT_MAIL_STATUS_CREATED
+msgid "Mail project created"
+msgstr "Projeto de correio criado"
+
+#. TEXT_MAIL_STATUS_CHANGED
+msgid "Mail project changed"
+msgstr "Projeto de correio alterado"
+
+#. TEXT_MAIL_STATUS_ERR_READ_PROJECT
+msgid "Error reading mailproject"
+msgstr "Erro lendo projeto de correio"
+
+#. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
+msgid "POP3 connection failed"
+msgstr "Conexão POP3 falhou"
+
+#. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
+msgid "POP3 login failed"
+msgstr "Login na conta POP3 falhou"
+
+#. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
+msgid "SMTP connection failed"
+msgstr "Conexão SMTP falhou"
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_FROM
+msgid "From entry not accepted"
+msgstr "Entrada de remetente não foi aceita"
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_RCPT
+msgid "Receiver entry not accepted"
+msgstr "Entrada de destinatário não foi aceita"
+
+#. TEXT_MAIL_STATUS_SMTP_ERR_DATA
+msgid "Mail data not accepted"
+msgstr "Dados do e-mail não aceitados"
+
+#. TEXT_MAIL_STATUS_SENDING
+msgid "Sending mail"
+msgstr "Enviando correio"
+
+#. TEXT_MAIL_STATUS_SENT
+msgid "Mail has been sent"
+msgstr "Correio foi enviado"
+
+#. TEXT_FAX_STATUS_NOT_CREATED
+msgid "Fax project not created"
+msgstr "Projeto de fax não foi criado"
+
+#. TEXT_FAX_STATUS_CREATED
+msgid "Fax project created"
+msgstr "Projeto de Fax criado"
+
+#. TEXT_FAX_STATUS_CHANGED
+msgid "Fax project changed"
+msgstr "Projeto de fax alterado"
+
+#. TEXT_FAX_STATUS_QUEUEING_FAX
+msgid "Queueing Fax"
+msgstr "Enviado Fax para fila"
+
+#. TEXT_FAX_STATUS_FAX_QUEUED
+msgid "Fax is queued"
+msgstr "Fax está pronto na fila"
 
 #. Sane backend messages
 msgid "flatbed scanner"
@@ -2751,16 +2817,3 @@ msgstr "Sem memória"
 
 msgid "Access to resource has been denied"
 msgstr "Acesso ao recurso foi proibido"
-
-#~ msgid "Preset area"
-#~ msgstr "Àrea pré-selecionada"
-
-#, fuzzy
-#~ msgid "Select source medium type\n"
-#~ msgstr "Selecione o tipo da mídia de entrada"
-
-#~ msgid "Rename definiton"
-#~ msgstr "Renomear definição"
-
-#~ msgid "Delete definition"
-#~ msgstr "Apagar definição"

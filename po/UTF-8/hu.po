@@ -4,7 +4,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.3\n"
+"Project-Id-Version: XSANE 0.93\n"
 "POT-Creation-Date: 2004-05-08 23:55+0200\n"
 "PO-Revision-Date: 2004-06-20 20:00+GMT\n"
 "Last-Translator: Aron Novak <aaron@szentimre.hu>\n"
