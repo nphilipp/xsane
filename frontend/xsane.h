@@ -31,7 +31,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION "0.33"
+#define XSANE_VERSION "0.34"
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -302,6 +302,8 @@ typedef struct Xsane
     SANE_Int *gamma_data, *gamma_data_red, *gamma_data_green, *gamma_data_blue;
     SANE_Int *preview_gamma_data_red, *preview_gamma_data_green, *preview_gamma_data_blue;
     SANE_Int *histogram_gamma_data_red, *histogram_gamma_data_green, *histogram_gamma_data_blue;
+
+    char *dummy_filename;
 
     char *fax_filename;
     char *fax_receiver;

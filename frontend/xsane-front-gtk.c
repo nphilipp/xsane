@@ -95,6 +95,7 @@ void xsane_separator_new(GtkWidget *xsane_parent, int dist);
 GtkWidget *xsane_info_table_text_new(GtkWidget *table, gchar *text, int row, int colomn);
 GtkWidget *xsane_info_text_new(GtkWidget *parent, gchar *text);
 void xsane_refresh_dialog(void *nothing);
+void xsane_set_sensitivity(SANE_Int sensitivity);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -739,5 +740,33 @@ void xsane_refresh_dialog(void *nothing)
 {
   gsg_refresh_dialog(dialog);
 }                    
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void xsane_set_sensitivity(SANE_Int sensitivity)
+{
+  gtk_widget_set_sensitive(xsane.shell, sensitivity);
+  gtk_widget_set_sensitive(xsane.standard_options_shell, sensitivity);
+  gtk_widget_set_sensitive(xsane.advanced_options_shell, sensitivity);
+  gtk_widget_set_sensitive(xsane.histogram_dialog, sensitivity);
+
+  if (xsane.preview)
+  {
+    gtk_widget_set_sensitive(xsane.preview->button_box, sensitivity);	/* button box at top of window */
+    gtk_widget_set_sensitive(xsane.preview->viewport, sensitivity);	/* Preview image selection */
+    gtk_widget_set_sensitive(xsane.preview->start, sensitivity);	/* Acquire preview button */
+  }
+
+  if (xsane.fax_dialog)
+  {
+    gtk_widget_set_sensitive(xsane.fax_dialog, sensitivity);
+  }    
+  gsg_set_sensitivity(dialog, sensitivity);
+
+  while (gtk_events_pending()) /* make sure set_sensitivity is displayed */
+  {
+    gtk_main_iteration();
+  }       
+}
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

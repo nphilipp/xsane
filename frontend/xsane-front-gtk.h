@@ -55,5 +55,6 @@ extern void xsane_separator_new(GtkWidget *xsane_parent, int dist);
 extern GtkWidget *xsane_info_table_text_new(GtkWidget *table, gchar *text, int row, int colomn);
 extern GtkWidget *xsane_info_text_new(GtkWidget *parent, gchar *text);
 extern void xsane_refresh_dialog(void *nothing);
+extern void xsane_set_sensitivity(SANE_Int sensitivity);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

@@ -369,13 +369,23 @@ static void xsane_setup_options_ok_callback(GtkWidget *widget, gpointer data)
   xsane_setup_saving_apply_changes(0, 0);
   xsane_setup_fax_apply_changes(0, 0);
 
-
   gtk_widget_destroy((GtkWidget *)data);
   xsane_pref_save();
 
+  xsane_set_sensitivity(TRUE);
   gsg_refresh_dialog(dialog);
 }
 
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void xsane_close_setup_dialog_callback(GtkWidget *widget, gpointer data)
+{
+ GtkWidget *dialog = data;
+
+  xsane_set_sensitivity(TRUE);
+  gtk_widget_destroy(dialog);
+}
+                
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 void xsane_setup_dialog(GtkWidget *widget, gpointer data)
@@ -384,9 +394,12 @@ void xsane_setup_dialog(GtkWidget *widget, gpointer data)
  GtkWidget *printer_option_menu;
  char buf[64];
 
+  xsane_set_sensitivity(FALSE);
+
   setup_dialog = gtk_dialog_new();
   snprintf(buf, sizeof(buf), "%s %s", prog_name, WINDOW_SETUP);
   gtk_window_set_title(GTK_WINDOW(setup_dialog), buf);
+  gtk_signal_connect(GTK_OBJECT(setup_dialog), "destroy", (GtkSignalFunc) xsane_close_setup_dialog_callback, setup_dialog);
 
   setup_vbox = GTK_DIALOG(setup_dialog)->vbox;
 
@@ -1119,7 +1132,7 @@ void xsane_setup_dialog(GtkWidget *widget, gpointer data)
   gtk_widget_show(button);
 
   button = gtk_button_new_with_label(BUTTON_CANCEL);
-  gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_close_dialog_callback, setup_dialog);
+  gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_close_setup_dialog_callback, setup_dialog);
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
   gtk_widget_show(button);
 

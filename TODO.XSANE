@@ -33,8 +33,6 @@ first steps:
    - other output formats for saving - *** which? ***
    - more online helpfiles
    - if netscape-remote is docviewer, start netscape if not running
-   - four pass RGBA scan
-   + create xsane_set_senitive(int status)
 
 second steps:
  - support NLS/gettext

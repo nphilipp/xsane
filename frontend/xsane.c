@@ -845,6 +845,7 @@ GtkWidget *xsane_update_xsane_callback()
            SANE_Word val=0;
 
             gtk_widget_set_sensitive(xsane.show_resolution_list_widget, TRUE); 
+            sane_control_option(dialog->dev, dialog->well_known.dpi, SANE_ACTION_GET_VALUE, &val, 0); 
 
             switch (opt->type)
             {
@@ -852,14 +853,12 @@ GtkWidget *xsane_update_xsane_callback()
                 min   = opt->constraint.range->min;
                 max   = opt->constraint.range->max;
                 quant = opt->constraint.range->quant;
-                sane_control_option (dialog->dev, dialog->well_known.dpi, SANE_ACTION_GET_VALUE, &val, 0); 
               break;
 
               case SANE_TYPE_FIXED:
                 min   = SANE_UNFIX(opt->constraint.range->min);
                 max   = SANE_UNFIX(opt->constraint.range->max);
                 quant = SANE_UNFIX(opt->constraint.range->quant);
-                sane_control_option (dialog->dev, dialog->well_known.dpi, SANE_ACTION_GET_VALUE, &val, 0); 
                 val   = SANE_UNFIX(val);
               break;
 
@@ -870,6 +869,11 @@ GtkWidget *xsane_update_xsane_callback()
             if (quant == 0)
             {
               quant = 1;
+            }
+
+            if (!xsane.resolution) /* no prefered value */
+            {
+              xsane.resolution = val; /* set backend predefined value */
             }
 
             if (!preferences.show_resolution_list) /* user wants slider */ 
@@ -894,6 +898,11 @@ GtkWidget *xsane_update_xsane_callback()
               if (opt->type == SANE_TYPE_FIXED)
               {
                 wanted_res = (int) SANE_UNFIX(wanted_res);
+              }
+
+              if (xsane.resolution) /* prefered value */
+              {
+                wanted_res = xsane.resolution; /* set frontend prefered value */
               }
  
               str_list = malloc((max_items + 1) * sizeof(str_list[0]));
@@ -1483,6 +1492,7 @@ static gint xsane_advanced_option_win_delete(GtkWidget *widget, gpointer data)
 /* Invoked when window manager's "delete" (or "close") function is invoked.  */
 static gint xsane_scan_win_delete(GtkWidget *w, gpointer data)
 {
+  xsane_scan_done(-1); /* stop scanner when still scanning */
   xsane_pref_save();
   xsane_quit();
   return FALSE;
@@ -1606,14 +1616,7 @@ static gint xsane_close_info_callback(GtkWidget *widget, gpointer data)
 
   gtk_widget_destroy(dialog);
 
-  gtk_widget_set_sensitive(xsane.shell, TRUE);
-  gtk_widget_set_sensitive(xsane.standard_options_shell, TRUE);
-  gtk_widget_set_sensitive(xsane.advanced_options_shell, TRUE);;
-  gtk_widget_set_sensitive(xsane.histogram_dialog, TRUE);
-  if (xsane.fax_dialog)
-  {
-    gtk_widget_set_sensitive(xsane.fax_dialog, TRUE);
-  }
+  xsane_set_sensitivity(TRUE);
 
   xsane_update_histogram();
 
@@ -1901,14 +1904,7 @@ static void xsane_info_dialog(GtkWidget *widget, gpointer data)
   xsane_clear_histogram(&xsane.histogram_raw);
   xsane_clear_histogram(&xsane.histogram_enh); 
 
-  gtk_widget_set_sensitive(xsane.shell, FALSE);
-  gtk_widget_set_sensitive(xsane.standard_options_shell, FALSE);
-  gtk_widget_set_sensitive(xsane.advanced_options_shell, FALSE);;
-  gtk_widget_set_sensitive(xsane.histogram_dialog, FALSE);
-  if (xsane.fax_dialog)
-  {
-    gtk_widget_set_sensitive(xsane.fax_dialog, FALSE);
-  }
+  xsane_set_sensitivity(FALSE);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1975,14 +1971,7 @@ static void xsane_about_dialog(GtkWidget *widget, gpointer data)
   xsane_clear_histogram(&xsane.histogram_raw);
   xsane_clear_histogram(&xsane.histogram_enh); 
 
-  gtk_widget_set_sensitive(xsane.shell, FALSE);
-  gtk_widget_set_sensitive(xsane.standard_options_shell, FALSE);
-  gtk_widget_set_sensitive(xsane.advanced_options_shell, FALSE);;
-  gtk_widget_set_sensitive(xsane.histogram_dialog, FALSE);
-  if (xsane.fax_dialog)
-  {
-    gtk_widget_set_sensitive(xsane.fax_dialog, FALSE);
-  }
+  xsane_set_sensitivity(FALSE);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -2075,7 +2064,7 @@ static void xsane_batch_scan_dialog(GtkWidget *widget, gpointer data)
   char buf[64];
 
   batch_scan_dialog = gtk_dialog_new();
-  snprintf(buf, sizeof(buf), "%s %s", prog_name, BATCH_SCAN);
+  snprintf(buf, sizeof(buf), "%s %s", prog_name, WINDOW_BATCH_SCAN);
   gtk_window_set_title(GTK_WINDOW(batch_scan_dialog), buf);
 
   batch_scan_vbox = GTK_DIALOG(batch_scan_dialog)->vbox;
@@ -2880,11 +2869,7 @@ static void xsane_fax_entry_rename_callback(GtkWidget *widget, gpointer list)
     list_item = select->data;
     oldpage = strdup((char *) gtk_object_get_data(GTK_OBJECT(list_item), "list_item_data"));
 
-    gtk_widget_set_sensitive(xsane.shell, FALSE);
-    gtk_widget_set_sensitive(xsane.standard_options_shell, FALSE);
-    gtk_widget_set_sensitive(xsane.advanced_options_shell, FALSE);;
-    gtk_widget_set_sensitive(xsane.histogram_dialog, FALSE);
-    gtk_widget_set_sensitive(xsane.fax_dialog, FALSE);
+    xsane_set_sensitivity(FALSE);
 
     rename_dialog = gtk_dialog_new();
     gtk_window_set_position(GTK_WINDOW(rename_dialog), GTK_WIN_POS_CENTER);
@@ -2949,11 +2934,7 @@ static void xsane_fax_entry_rename_callback(GtkWidget *widget, gpointer list)
 
     gtk_widget_destroy(rename_dialog);
 
-    gtk_widget_set_sensitive(xsane.shell, TRUE);
-    gtk_widget_set_sensitive(xsane.standard_options_shell, TRUE);
-    gtk_widget_set_sensitive(xsane.advanced_options_shell, TRUE);;
-    gtk_widget_set_sensitive(xsane.histogram_dialog, TRUE);
-    gtk_widget_set_sensitive(xsane.fax_dialog, TRUE);
+    xsane_set_sensitivity(TRUE);
   }
 }
 
@@ -4391,10 +4372,12 @@ int main(int argc, char **argv)
   xsane.xsane_output_format = XSANE_PNM;
   xsane.mode_selection      = 1; /* enable selection of xsane mode */
 
+  xsane.input_tag           = -1; /* no input tag */
+
   xsane.histogram_lines = 1;
 
   xsane.zoom             = 1.0;
-  xsane.resolution       = 100.0;
+  xsane.resolution       = 0.0;
   xsane.copy_number      = 1;
 
   xsane.gamma            = 1.0;

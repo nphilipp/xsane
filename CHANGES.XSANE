@@ -365,4 +365,27 @@ xsane-0.32 -> 0.33:
  - removed change about SANE_STATUS_GOOD in multiple image mode.
    Adf mode is detected by scanmode again. This would be better
    selected by a mulit_image bit in the preferences block.
+ - added common rotuine xsane_set_sensitivity to xsane-front-gtk.c
+ - renamed xsane_test_adf to xsane_test_multi_scan
+
+
+xsane-0.33 -> 0.34:
+-------------------
+
+ - the preview selection is based on device coordinates instead of
+   preview window coordinates now
+ - added preview buttons and preview viewport to xsane_set_sensitivity
+ - info and about dialog use xsane_set_sensitivity now
+ - dummy_filename is created and opened for writing AFTER sane_start is called.
+ - sane_start() == NO_DOCS is not handled as error any more
+ - xsane_scan_done -> sane_cancel is called now if an error occurs
+ - if an error occurs while scanning the created file is removed
+ - xsane windows/buttons get inactive while setup dialog is open
+ - xsane_scan_done -> sane_cancel is called when main window is closed (while scanning)
+ - if there are no standard device settings at program startup, xsane
+   take the backend predefined resolution (before this was set to 100)
+ - if no scanarea options are given, the preview works with
+   [0,INF] instead of [-INF,INF] now
+ - transformed all gif files in directory doc to jpeg format because of
+   all the trouble about the gif licence.  Will never use gif again!
 

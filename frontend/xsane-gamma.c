@@ -910,7 +910,7 @@ void xsane_calculate_histogram(void)
       xsane_calculate_auto_enhancement(xsane.negative, count_raw, count_raw_red, count_raw_green, count_raw_blue);
     }
 
-    if (xsane.histogram_log)
+    if (xsane.histogram_log) /* logarithmical display */
     {
       for (i=0; i<=255; i++)
       {
