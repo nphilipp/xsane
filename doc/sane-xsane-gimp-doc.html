@@ -24,11 +24,11 @@ automatically is transfered to the Gimp.</font>
 <br>&nbsp;
 <br>&nbsp;</blockquote>
 
-<center><img SRC="sane-xsane-gimp.gif" height=479 width=304></center>
+<center><img SRC="sane-xsane-gimp.gif" height=409 width=282></center>
 
 <blockquote>&nbsp;
 <p>To start xsane as a gimp plugin, you have to set a symbolic link from
-the xsane binary to a Gimp plug-ins directory. If xsane is located in /usr/local/bin&nbsp;
+the xsane binary to a GIMP plug-ins directory. If xsane is located in /usr/local/bin&nbsp;
 and you use-gimp-1.0.x do:
 <blockquote>
 <pre>ln -s /usr/local/bin/xsane ~/.gimp/plug-ins/</pre>
@@ -37,7 +37,7 @@ if you use gimp-1.1.x, you have to do:
 <blockquote>
 <pre>ln -s /usr/local/bin/xsane ~/.gimp-1.1/plug-ins/</pre>
 </blockquote>
-You can start xsane from the Gimp via the menu <i>Xtns/Xsane.</i> It contains
+You can start xsane from the GIMP via the menu <i>Xtns/Xsane.</i> It contains
 short-cuts to the SANE devices that were available at the time xsane was
 queried.</blockquote>
 
@@ -47,7 +47,10 @@ is installed or the device of the scanner has changed),&nbsp; then it is
 typically desirable to rebuild this cache. To do this, you can either&nbsp;
 touch(1) the xsane binary (e.g.,"touch&nbsp; /usr/local/bin/xsane") or
 delete the plugin cache (e.g.,&nbsp; "rm&nbsp; ~/.gimp/pluginrc"). Either
-way, invoking gimp(1) afterwards will cause the pluginrc to be rebuilt.</blockquote>
+way, invoking gimp(1) afterwards will cause the pluginrc to be rebuilt.
+<p>If xsane is started as GIMP plugin it always sends the scanned image
+to the GIMP, copy- or fax- mode can not selected when xsane runs as GIMP
+plugin!</blockquote>
 
 <center>
 <p><br>

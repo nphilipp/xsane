@@ -44,6 +44,7 @@ typedef struct
     int show_advanced_options;	/* show advanced options ? */
     int show_resolution_list;	/* show resolution list instead of slider ? */
     double length_unit;		/* 1.0==mm, 10.0==cm, 25.4==inches, etc. */
+    int main_window_fixed;	/* fixed (1) or scrolled (0) main window */
     int preserve_preview;	/* save/restore preview image(s)? */
     int preview_own_cmap;	/* install colormap for preview */
     double preview_gamma;	/* gamma value for previews */

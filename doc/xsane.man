@@ -1,13 +1,22 @@
-.TH xsane 1 "1 Mar 1999"
+.TH xsane 1 "31 Jul 1999"
 .IX xsane
 .SH NAME
 xsane - scanner frontend for SANE
 .SH SYNOPSIS
 .B xsane
+.RB [ --version | -v ]
+.RB [ --device-settings
+.IR file
+.RB | -d
+.IR file ]
+.RB [ --scan | -s ]
+.RB [ --copy | -c ]
+.RB [ --fax | -f ]
+.RB [ --Fixed | -F ]
+.RB [ --Scrolled | -S ]
 .RB [ --display
 .IR d ]
 .RB [ --no-xshm ]
-.RB [ --[no-]show-events ]
 .RB [ --sync ]
 .RB [ --debug-level
 .IR n ]
@@ -77,6 +86,52 @@ binary (e.g., "touch @BINDIR@/xsane") or delete the plugin cache
 afterwards will cause the pluginrc to be rebuilt.
 .SH OPTIONS
 .PP
+If the
+.B --version
+or
+.B -v
+flag is given xsane prints a version information and exits.
+.PP
+The
+.B --scan
+or
+.B -s
+flag forces xsane to start in scan mode.
+.PP
+The
+.B --fax
+or
+.B -f
+flag forces xsane to start in fax mode.
+.PP
+The
+.B --copy
+or
+.B -c
+flag forces xsane to start in fax mode.
+.PP
+The
+.B --device-settings
+or
+.B -d
+flag reads the next option as default filename
+for device settings. The extension ".drc" must not
+be included.
+.PP
+If the
+.B --Fixed
+or
+.B -F
+flag is given then xsane uses a fixed, non resizable main window.
+The flag overwrites the preferences value.
+.PP
+If the
+.B --Scrolled
+or
+.B -S
+flag is given then xsane uses a scrolled, resizable main window.
+The flag overwrites the preferences value.
+.PP
 The
 .B --display
 flag selects the X11 display used to present the graphical user-interface
@@ -100,7 +155,7 @@ debugging purposes only.
 .I $HOME/.sane/xsane/xsane.rc
 This files holds the user preferences.  Normally, this file should not
 be manipulated directly.  Instead, the user should customize the
-program through the "Preferences" dialog.
+program through the "Preferences" menu.
 .TP
 .I $HOME/.sane/xsane/devicename.rc
 For each device, there is one rc-file that holds the saved settings
@@ -127,8 +182,11 @@ over the visual aspects of the user-interface.
 This file serves the same purpose as the system-wide style file.  If
 present, it takes precedence over the system wide style file.
 .SH "SEE ALSO"
-gimp(1), scanimage(1), sane\-dll(5), sane\-dmc(5), sane\-epson(5),
-sane\-hp(5), sane\-microtek(5), sane\-mustek(5), sane\-net(5), sane\-pnm(5),
-sane\-pint(5), sane\-qcam(5), sane\-umax(5)
+gimp(1), xscanimage(1), scanimage(1),
+sane\-dll(5), sane\-net(5), sane-scsi(5),
+sane\-abaton(5), sane\-agfafocus(5), sane\-apple(5), sane\-dc25(5),
+sane\-dmc(5), sane\-epson(5), sane\-hp(5), sane\-microtek(5),
+sane\-microtek2(5), sane\-mustek(5), sane\-pint(5), sane\-pnm(5),
+sane\-qcam(5), sane\-umax(5)
 .SH AUTHOR
 Oliver Rauch (Oliver.Rauch@Wolfsburg.DE)

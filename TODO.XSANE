@@ -13,7 +13,6 @@ first steps:
     - select raster size (1x1,2x2,3x3,4x4,5x5)
     - use different resolutions for lineart, gray, color
     - select image position on printer (centered/left/right/free) for copy
-  - If automatic document feeder: scan until error (out of paper, jammed, ...)
   - preview:
     - improve handling of saved previews
     - may be zoom in without a new preview scan
@@ -26,17 +25,19 @@ first steps:
  - add support for different x/y resolutions
 
  * internal:
-   + Automatic document feeder (scan until NoPaper)
    - segfault if pipette pick out of preview image
    - include much more parameters when saving images
    - test number of printers fit into field
    - test memory after all calls of malloc
    - make better backend-dependend option handling and error handling (mostly done!)
-   - other output formats for saving
+   - other output formats for saving - *** which? ***
    - more online helpfiles
    - if netscape-remote is docviewer, start netscape if not running
+   - four pass RGBA scan
 
 second steps:
+ - support NLS/gettext
  - correct gtk custom gamma functions and include it
  - include special functions for GNOME/KDE - *** DOES ANYONE HAVE ANY SUGGESTIONS TO THIS ? ***
+ - add color management - may be via xcmsdb
 

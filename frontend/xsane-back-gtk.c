@@ -40,6 +40,7 @@
 #include "xsane-back-gtk.h"
 #include "xsane.h"
 #include "xsane-preferences.h"
+#include "xsane-text.h"
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
@@ -81,12 +82,9 @@ const char * gsg_unit_string (SANE_Unit unit)
 void gsg_set_tooltip (GtkTooltips *tooltips, GtkWidget *widget, const char *desc)
 {
   if (desc && desc[0])
-#ifdef HAVE_GTK_TOOLTIPS_SET_TIPS
-    /* pre 0.99.4: */
-    gtk_tooltips_set_tips (tooltips, widget, (char *) desc);
-#else
+  {
     gtk_tooltips_set_tip (tooltips, widget, desc, 0);
-#endif
+  }
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
@@ -102,10 +100,10 @@ int gsg_make_path(size_t buf_size, char *buf,
   int i;
 
   /* first, make sure ~/.sane exists: */
-  pw = getpwuid (getuid ());
+  pw = getpwuid(getuid());
   if (!pw)
     {
-      snprintf (buf, buf_size, "Failed to determine home directory: %s.", strerror (errno));
+      snprintf (buf, buf_size, "%s %s", ERR_HOME_DIR, strerror (errno));
       gsg_error (buf);
       return -1;
     }
@@ -162,8 +160,7 @@ int gsg_make_path(size_t buf_size, char *buf,
 
   if (dev_name)
     {
-      /* Turn devicename into valid filename by replacing slashes by "+-".  A lonely `+' gets translated into "++" so we can tell
-	 it from a substituted slash. Spaces are replaces by "_"  */
+      /* Turn devicename into valid filename by replacing slashes by "_", "_" gets "__", spaces are erased  */
 
       for (i = 0; dev_name[i]; ++i)
 	{
@@ -172,17 +169,15 @@ int gsg_make_path(size_t buf_size, char *buf,
 
 	  switch (dev_name[i])
 	    {
-	    case '/':
-	      buf[len++] = '+';
-	      buf[len++] = '-';
+	    case '/':				/* "/" -> "_" */
+	      buf[len++] = '_'; 
 	      break;
 
-            case ' ':
+            case ' ':				/* erase " " */
+	      break;
+
+	    case '_':				/* "_" -> "__" */
 	      buf[len++] = '_';
-	      break;
-
-	    case '+':
-	      buf[len++] = '+';
 	    default:
 	      buf[len++] = dev_name[i];
 	      break;
@@ -205,7 +200,7 @@ int gsg_make_path(size_t buf_size, char *buf,
   return 0;
 
 filename_too_long:
-  gsg_error ("Filename too long.");
+  gsg_error (ERR_FILENAME_TOO_LONG);
   errno = E2BIG;
   return -1;
 }
@@ -221,7 +216,8 @@ void gsg_set_option(GSGDialog * dialog, int opt_num, void *val, SANE_Action acti
   status = sane_control_option(dialog->dev, opt_num, action, val, &info);
   if (status != SANE_STATUS_GOOD)
   {
-    snprintf(buf, sizeof (buf), "Failed to set value of option %s: %s.",
+    snprintf(buf, sizeof (buf), "%s %s: %s.",
+             ERR_SET_OPTION,
              sane_get_option_descriptor (dialog->dev, opt_num)->name,
              sane_strstatus (status));
     gsg_error(buf);
@@ -276,7 +272,7 @@ gint gsg_decision(gchar *title, gchar *message, gchar *oktext, gchar *rejecttext
   }
   gsg_message_dialog_active = 1;
   decision_dialog = gtk_window_new(GTK_WINDOW_DIALOG);
-  gtk_window_position(GTK_WINDOW(decision_dialog), GTK_WIN_POS_MOUSE);
+  gtk_window_set_position(GTK_WINDOW(decision_dialog), GTK_WIN_POS_MOUSE);
   gtk_window_set_title(GTK_WINDOW(decision_dialog), title);
   gtk_signal_connect(GTK_OBJECT(decision_dialog), "delete_event",
                      GTK_SIGNAL_FUNC(gsg_decision_callback), (void *) -1); /* -1 = cancel */
@@ -284,7 +280,7 @@ gint gsg_decision(gchar *title, gchar *message, gchar *oktext, gchar *rejecttext
 
   /* create the main vbox */
   main_vbox = gtk_vbox_new(TRUE, 5);
-  gtk_container_border_width(GTK_CONTAINER(main_vbox), 5);
+  gtk_container_set_border_width(GTK_CONTAINER(main_vbox), 5);
   gtk_widget_show (main_vbox);
 
   gtk_container_add(GTK_CONTAINER(decision_dialog), main_vbox);
@@ -296,7 +292,7 @@ gint gsg_decision(gchar *title, gchar *message, gchar *oktext, gchar *rejecttext
 
 
   hbox = gtk_hbox_new(FALSE, 2);
-  gtk_container_border_width(GTK_CONTAINER(hbox), 4);
+  gtk_container_set_border_width(GTK_CONTAINER(hbox), 4);
   gtk_box_pack_start(GTK_BOX(main_vbox), hbox, FALSE, FALSE, 0);
 
   /* the confirmation button */
@@ -348,21 +344,21 @@ gint gsg_decision(gchar *title, gchar *message, gchar *oktext, gchar *rejecttext
 
 void gsg_message(gchar *title, gchar *message)
 {
-  gsg_decision(title, message, "OK", 0 /* no reject text */, 0 /* do not wait */);
+  gsg_decision(title, message, ERR_BUTTON_OK, 0 /* no reject text */, 0 /* do not wait */);
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
 void gsg_error(gchar * error)
 {
-  gsg_message("Error", error);
+  gsg_message(ERR_HEADER_ERROR, error);
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
 void gsg_warning(gchar * warning)
 {
-  gsg_message("Warning", warning);
+  gsg_message(ERR_HEADER_WARNING, warning);
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
@@ -444,9 +440,8 @@ static gint autobutton_update (GtkWidget * widget, GSGDialogElement * elem)
 				    SANE_ACTION_GET_VALUE, &val, 0);
       if (status != SANE_STATUS_GOOD)
 	{
-	  snprintf (buf, sizeof (buf),
-		    "Failed to obtain value of option %s: %s.",
-		    opt->name, sane_strstatus (status));
+	  snprintf (buf, sizeof (buf), "%s %s: %s.",
+                    ERR_GET_OPTION, opt->name, sane_strstatus (status));
 	  gsg_error (buf);
 	}
       gsg_set_option (dialog, opt_num, &val, SANE_ACTION_SET_VALUE);
@@ -462,7 +457,7 @@ static void autobutton_new (GtkWidget *parent, GSGDialogElement *elem,
   GtkWidget *button, *alignment;
 
   button = gtk_check_button_new ();
-  gtk_container_border_width (GTK_CONTAINER (button), 0);
+  gtk_container_set_border_width (GTK_CONTAINER (button), 0);
   gtk_widget_set_usize (button, 20, 20);
   gtk_signal_connect (GTK_OBJECT (button), "toggled",
 		      (GtkSignalFunc) autobutton_update,
@@ -503,7 +498,7 @@ void gsg_button_new (GtkWidget * parent, const char *name, SANE_Word val,
   GtkWidget *button;
 
   button = gtk_check_button_new_with_label ((char *) name);
-  gtk_toggle_button_set_state (GTK_TOGGLE_BUTTON (button), val);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON (button), val);
   gtk_signal_connect (GTK_OBJECT (button), "toggled",
 		      (GtkSignalFunc) button_update,
 		      elem);
@@ -586,7 +581,7 @@ void gsg_scale_new (GtkWidget * parent, const char *name, gfloat val,
   GtkWidget *hbox, *label, *scale;
 
   hbox = gtk_hbox_new (FALSE, 2);
-  gtk_container_border_width (GTK_CONTAINER (hbox), 0);
+  gtk_container_set_border_width (GTK_CONTAINER (hbox), 0);
   gtk_box_pack_start (GTK_BOX (parent), hbox, FALSE, FALSE, 0);
 
   label = gtk_label_new ((char *) name);
@@ -696,7 +691,7 @@ void gsg_option_menu_new (GtkWidget *parent, const char *name, char *str_list[],
  int i, num_items;
 
   hbox = gtk_hbox_new (FALSE, 2);
-  gtk_container_border_width (GTK_CONTAINER (hbox), 0);
+  gtk_container_set_border_width (GTK_CONTAINER (hbox), 0);
   gtk_box_pack_start (GTK_BOX (parent), hbox, FALSE, FALSE, 0);
 
   label = gtk_label_new ((char *) name);
@@ -773,7 +768,7 @@ void gsg_text_entry_new (GtkWidget * parent, const char *name, const char *val,
   GtkWidget *hbox, *text, *label;
 
   hbox = gtk_hbox_new (FALSE, 2);
-  gtk_container_border_width (GTK_CONTAINER (hbox), 0);
+  gtk_container_set_border_width (GTK_CONTAINER (hbox), 0);
   gtk_box_pack_start (GTK_BOX (parent), hbox, FALSE, FALSE, 0);
 
   label = gtk_label_new ((char *) name);
@@ -801,12 +796,12 @@ GtkWidget * gsg_group_new (GtkWidget *parent, const char * title)
   GtkWidget * frame, * vbox;
 
   frame = gtk_frame_new ((char *) title);
-  gtk_container_border_width (GTK_CONTAINER (frame), 4);
+  gtk_container_set_border_width (GTK_CONTAINER (frame), 4);
   gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_ETCHED_IN);
   gtk_box_pack_start (GTK_BOX (parent), frame, FALSE, FALSE, 0);
 
   vbox = gtk_vbox_new (FALSE, 4);
-  gtk_container_border_width (GTK_CONTAINER (vbox), 2);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox), 2);
   gtk_container_add (GTK_CONTAINER (frame), vbox);
   gtk_widget_show (vbox);
   return vbox;
@@ -907,7 +902,7 @@ static void vector_new (GSGDialog * dialog, GtkWidget *vbox, int num_vopts, int 
   int i;
 
   notebook = gtk_notebook_new ();
-  gtk_container_border_width (GTK_CONTAINER (notebook), 4);
+  gtk_container_set_border_width (GTK_CONTAINER (notebook), 4);
   gtk_box_pack_start (GTK_BOX (vbox), notebook, TRUE, TRUE, 0);
 
   for (i = 0; i < num_vopts; ++i)
@@ -921,7 +916,7 @@ static void vector_new (GSGDialog * dialog, GtkWidget *vbox, int num_vopts, int 
       gtk_widget_show (label);
 
       curve = curve_new (dialog, vopts[i]);
-      gtk_container_border_width (GTK_CONTAINER (curve), 4);
+      gtk_container_set_border_width (GTK_CONTAINER (curve), 4);
       gtk_box_pack_start (GTK_BOX (vbox), curve, TRUE, TRUE, 0);
       gtk_widget_show (curve);
 
@@ -934,12 +929,7 @@ static void vector_new (GSGDialog * dialog, GtkWidget *vbox, int num_vopts, int 
 #if 0
 static void tooltips_destroy(GSGDialog * dialog)
 {
-#ifdef HAVE_GTK_TOOLTIPS_SET_TIPS
-  /* pre 0.99.4: */
-  gtk_tooltips_unref(dialog->tooltips);
-#else
   gtk_object_unref(GTK_OBJECT(dialog->tooltips));
-#endif
   dialog->tooltips = 0;
 }
 #endif

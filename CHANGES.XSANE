@@ -301,3 +301,43 @@ xsane-0.29 -> 0.30:
  - increased contrast range from -100..+200 to -100..+300 (gray) and
    -300..+300 (color) and brightness range from -200..+200 to -300..+300
 
+
+xsane-0.30 -> 0.31:
+-------------------
+
+ - changed filename character transformation: erase " ", "_" -> "__", "/" -> "_"
+ - device settings standard file name is vendor:model
+   so it does not matter any more if the sg-device name has changed
+ - the xsane main window can be a fixed or a scrolled, resizable window now.
+   selection is done with setup/display/"main window fixed",
+   the main window mode can be overwritten by specifying a command
+   line option:
+   -R or --Resizeable activates the resizeable, scrolled window,
+   -F or --Fixed activates the fixed (non resizable) window (default)
+ - histogram is cleared when info dialog or about dialog is opened
+ - changed version option from -V to -v
+ - added support for Automatic Document Feeder (scan until error)
+   this is experimentary because in the SANE-standard there is
+   no way defined how a frontend can identify an ADF.
+   The backend has to load the next document automatically!
+ - in xsane_enhancement_update replaced gtk_signal_emit_by_name
+   by gtk_signal_emit
+ - moved more texts to xsane-text.h
+ - changed all RGBI -> RGBA because the 4th channel is ALPHA
+   I think that SANE_FRAME_RGBA will be added to the sane standard
+ - gtk+-1.2.0 is minimum requirement: removed tests for
+   gtk_tooltips_set_tips, gtk_scrolled_window_add_with_viewport
+   and gtk_events_pending that were needed for gtk+-1.0.x
+ - added option "--device-settings file" to define default
+   filename for device-settings
+ - corrected "legal" size in preview
+ - added device_text to info and preview window title
+ - moved color definition to xsane_creat_histogram_dialog
+ - pixmap colors depend on histogram_dialog now because
+   the histogram dialog is the first dialog that exists
+ - renamed all gtk functions like defined in gtkcompat.h
+   (gtk+-1.0.x -> gtk+-1.2.x)
+ - removed bug in device selection, device can be selected
+   now with keyboard
+ - xsane info window prints gamma depth "none" in 1 bit modes
+

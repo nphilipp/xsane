@@ -257,19 +257,19 @@ gint xsane_authorization_callback(SANE_String_Const resource,
  int len;
 
   authorize_dialog = gtk_window_new(GTK_WINDOW_DIALOG);
-  gtk_window_position(GTK_WINDOW(authorize_dialog), GTK_WIN_POS_CENTER);
+  gtk_window_set_position(GTK_WINDOW(authorize_dialog), GTK_WIN_POS_CENTER);
   gtk_widget_set_usize(authorize_dialog, 300, 190);
   gtk_window_set_policy(GTK_WINDOW(authorize_dialog), FALSE, FALSE, FALSE);
   gtk_signal_connect(GTK_OBJECT(authorize_dialog), "delete_event",
                      GTK_SIGNAL_FUNC(xsane_authorization_button_callback), (void *) -1); /* -1 = cancel */
-  snprintf(buf, sizeof(buf), "%s authorization", prog_name);
+  snprintf(buf, sizeof(buf), "%s " WINDOW_AUTHORIZE, prog_name);
   gtk_window_set_title(GTK_WINDOW(authorize_dialog), buf);
 
   vbox = gtk_vbox_new(/* not homogeneous */ FALSE, 10);
   gtk_container_add(GTK_CONTAINER(authorize_dialog), vbox);
   gtk_widget_show(vbox);
 
-  snprintf(buf, sizeof(buf), "\n\nAuthorization required for %s\n", resource);
+  snprintf(buf, sizeof(buf), "\n\n" TEXT_AUTORIZATION_REQ " %s\n", resource);
   label = gtk_label_new(buf);
   gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0);
   gtk_widget_show(label);
@@ -278,7 +278,7 @@ gint xsane_authorization_callback(SANE_String_Const resource,
   hbox = gtk_hbox_new(FALSE, 20);
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
 
-  label = gtk_label_new("Username :");
+  label = gtk_label_new(TEXT_USERNAME);
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 20);
   gtk_widget_show(label);
 
@@ -294,7 +294,7 @@ gint xsane_authorization_callback(SANE_String_Const resource,
   hbox = gtk_hbox_new(FALSE, 20);
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
 
-  label = gtk_label_new("Password :");
+  label = gtk_label_new(TEXT_PASSWORD);
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 20);
   gtk_widget_show(label);
 
@@ -310,14 +310,14 @@ gint xsane_authorization_callback(SANE_String_Const resource,
   hbox = gtk_hbox_new(TRUE, 10);
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 30);
 
-  button = gtk_button_new_with_label("OK");
+  button = gtk_button_new_with_label(BUTTON_OK);
   GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
   gtk_signal_connect(GTK_OBJECT(button), "clicked", GTK_SIGNAL_FUNC(xsane_authorization_button_callback), (void *) 1);
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 10);
   gtk_widget_grab_default(button);
   gtk_widget_show(button);
 
-  button = gtk_button_new_with_label("Cancel");
+  button = gtk_button_new_with_label(BUTTON_CANCEL);
   gtk_signal_connect(GTK_OBJECT(button), "clicked", GTK_SIGNAL_FUNC(xsane_authorization_button_callback), (void *) -1);
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 10);
   gtk_widget_show(button);
@@ -382,7 +382,7 @@ XsaneProgress_t *xsane_progress_new(char *title, char *text, GtkSignalFunc callb
   vbox = GTK_BOX(GTK_DIALOG(p->shell)->vbox);
   hbox = GTK_BOX(GTK_DIALOG(p->shell)->action_area);
 
-  gtk_container_border_width(GTK_CONTAINER (vbox), 7);
+  gtk_container_set_border_width(GTK_CONTAINER (vbox), 7);
 
   label = gtk_label_new(text);
   gtk_misc_set_alignment(GTK_MISC (label), 0.0, 0.5);
@@ -392,7 +392,7 @@ XsaneProgress_t *xsane_progress_new(char *title, char *text, GtkSignalFunc callb
   gtk_widget_set_usize(p->pbar, 200, 20);
   gtk_box_pack_start(vbox, p->pbar, TRUE, TRUE, 0);
 
-  button = gtk_toggle_button_new_with_label("Cancel");
+  button = gtk_toggle_button_new_with_label(BUTTON_CANCEL);
   gtk_signal_connect(GTK_OBJECT (button), "clicked", (GtkSignalFunc) xsane_progress_cancel, p);
   gtk_box_pack_start(hbox, button, TRUE, TRUE, 0);
 
@@ -437,13 +437,13 @@ void xsane_toggle_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[],
   button = gtk_toggle_button_new();
   gsg_set_tooltip(dialog->tooltips, button, desc);
 
-  pixmap = gdk_pixmap_create_from_xpm_d(xsane.shell->window, &mask, xsane.bg_trans, (gchar **) xpm_d);
+  pixmap = gdk_pixmap_create_from_xpm_d(xsane.histogram_dialog->window, &mask, xsane.bg_trans, (gchar **) xpm_d);
   pixmapwidget = gtk_pixmap_new(pixmap, mask);
   gtk_container_add(GTK_CONTAINER(button), pixmapwidget);
   gtk_widget_show(pixmapwidget);
   gdk_pixmap_unref(pixmap);
 
-  gtk_toggle_button_set_state(GTK_TOGGLE_BUTTON(button), *state);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *state);
   gtk_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_toggle_button_callback, (GtkObject *)state);
   gtk_box_pack_start(GTK_BOX(parent), button, FALSE, FALSE, 0);
   gtk_widget_show(button);
@@ -462,7 +462,7 @@ GtkWidget *xsane_button_new_with_pixmap(GtkWidget *parent, const char *xpm_d[], 
   button = gtk_button_new();
   gsg_set_tooltip(dialog->tooltips, button, desc);
 
-  pixmap = gdk_pixmap_create_from_xpm_d(xsane.shell->window, &mask, xsane.bg_trans, (gchar **) xpm_d);
+  pixmap = gdk_pixmap_create_from_xpm_d(xsane.histogram_dialog->window, &mask, xsane.bg_trans, (gchar **) xpm_d);
   pixmapwidget = gtk_pixmap_new(pixmap, mask);
   gtk_container_add(GTK_CONTAINER(button), pixmapwidget);
   gtk_widget_show(pixmapwidget);
@@ -631,7 +631,7 @@ void xsane_scale_new_with_pixmap(GtkBox *parent, const char *xpm_d[], const char
   hbox = gtk_hbox_new(FALSE, 5);
   gtk_box_pack_start(parent, hbox, FALSE, FALSE, 0);
 
-  pixmap = gdk_pixmap_create_from_xpm_d(xsane.shell->window, &mask, xsane.bg_trans, (gchar **) xpm_d);
+  pixmap = gdk_pixmap_create_from_xpm_d(xsane.histogram_dialog->window, &mask, xsane.bg_trans, (gchar **) xpm_d);
   pixmapwidget = gtk_pixmap_new(pixmap, mask);
   gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
 
@@ -680,7 +680,7 @@ void xsane_option_menu_new_with_pixmap(GtkBox *parent, const char *xpm_d[], cons
   hbox = gtk_hbox_new(FALSE, 5);
   gtk_box_pack_start(parent, hbox, FALSE, FALSE, 0);
 
-  pixmap = gdk_pixmap_create_from_xpm_d(xsane.shell->window, &mask, xsane.bg_trans, (gchar **) xpm_d);
+  pixmap = gdk_pixmap_create_from_xpm_d(xsane.histogram_dialog->window, &mask, xsane.bg_trans, (gchar **) xpm_d);
   pixmapwidget = gtk_pixmap_new(pixmap, mask);
   gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
   gtk_widget_show(pixmapwidget);

@@ -90,6 +90,11 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+extern const char *prog_name;
+extern const char *device_text;
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 #define MM_PER_INCH	25.4
 
 /* Cut fp conversion routines some slack: */
@@ -123,7 +128,7 @@ static const Preset_area preset_area[] =
  { "DIN A5H",	210.0,	148.5 },
  { "9x13 cm",	90.0,	130.0 },
  { "13x9 cm",	130.0,	90.0 },
- { "legal",	10.0,	10.0 },
+ { "legal",	215.9,	355.6 },
  { "letter",	215.9,	279.4 },
  { "custom",	INF,	INF }
 };
@@ -1985,6 +1990,7 @@ Preview *preview_new(GSGDialog *dialog)
   GtkWidget *preset_area_option_menu, *preset_area_menu, *preset_area_item;
   Preview *p;
   int i;
+  char buf[256];
 
   p = malloc(sizeof(*p));
   if (!p)
@@ -2012,9 +2018,10 @@ Preview *preview_new(GSGDialog *dialog)
 #endif
   gtk_widget_push_colormap(gtk_preview_get_cmap());
 
+  snprintf(buf, sizeof(buf), "%s %s %s", prog_name, WINDOW_PREVIEW, device_text);
   p->top = gtk_dialog_new();
   gtk_signal_connect(GTK_OBJECT(p->top), "destroy", GTK_SIGNAL_FUNC(preview_top_destroyed), p);
-  gtk_window_set_title(GTK_WINDOW(p->top), "xsane preview");
+  gtk_window_set_title(GTK_WINDOW(p->top), buf);
   vbox = GTK_BOX(GTK_DIALOG(p->top)->vbox);
   hbox = GTK_BOX(GTK_DIALOG(p->top)->action_area);
 
@@ -2022,7 +2029,7 @@ Preview *preview_new(GSGDialog *dialog)
 
   /* top hbox for pipette buttons */
   top_hbox = gtk_hbox_new(FALSE, 5);
-  gtk_container_border_width(GTK_CONTAINER(top_hbox), 4);
+  gtk_container_set_border_width(GTK_CONTAINER(top_hbox), 4);
   gtk_box_pack_start(GTK_BOX(vbox), top_hbox, FALSE, FALSE, 0);
 
   /* White, gray and black pipette button */
@@ -2081,7 +2088,7 @@ Preview *preview_new(GSGDialog *dialog)
   table = gtk_table_new(2, 2, /* homogeneous */ FALSE);
   gtk_table_set_col_spacing(GTK_TABLE(table), 0, 1);
   gtk_table_set_row_spacing(GTK_TABLE(table), 0, 1);
-  gtk_container_border_width(GTK_CONTAINER(table), 2);
+  gtk_container_set_border_width(GTK_CONTAINER(table), 2);
   gtk_box_pack_start(vbox, table, /* expand */ TRUE, /* fill */ TRUE, /* padding */ 0);
 
   /* the empty box in the top-left corner */
@@ -2132,13 +2139,13 @@ Preview *preview_new(GSGDialog *dialog)
   /* fill in action area: */
 
   /* Start button */
-  button = gtk_button_new_with_label("Acquire Preview");
+  button = gtk_button_new_with_label(BUTTON_PREVIEW_ACQUIRE);
   gtk_signal_connect(GTK_OBJECT (button), "clicked", (GtkSignalFunc) preview_start_button_clicked, p);
   gtk_box_pack_start(GTK_BOX (hbox), button, TRUE, TRUE, 0);
   gtk_widget_show(button);
 
   /* Cancel button */
-  p->cancel = gtk_button_new_with_label("Cancel Preview");
+  p->cancel = gtk_button_new_with_label(BUTTON_PREVIEW_CANCEL);
   gtk_signal_connect(GTK_OBJECT (p->cancel), "clicked", (GtkSignalFunc) preview_cancel_button_clicked, p);
   gtk_box_pack_start(GTK_BOX (hbox), p->cancel, TRUE, TRUE, 0);
   gtk_widget_set_sensitive(p->cancel, FALSE);

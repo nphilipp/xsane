@@ -683,7 +683,7 @@ void xsane_save_png(FILE *outfile, FILE *imagefile,
     return;
   }
 
-  if (color == 4) /* RGBI */
+  if (color == 4) /* RGBA */
   {
     components = 4;
     colortype = PNG_COLOR_TYPE_RGB_ALPHA;
@@ -796,7 +796,7 @@ void xsane_save_png_16(FILE *outfile, FILE *imagefile,
     return;
   }
 
-  if (color == 4) /* RGBI */
+  if (color == 4) /* RGBA */
   {
     components = 4;
     colortype = PNG_COLOR_TYPE_RGB_ALPHA;

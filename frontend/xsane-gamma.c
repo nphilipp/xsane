@@ -80,7 +80,7 @@ void xsane_update_slider(XsaneSlider *slider);
 void xsane_update_sliders(void);
 static gint xsane_slider_callback(GtkWidget *widget, GdkEvent *event, XsaneSlider *slider);
 void xsane_create_slider(XsaneSlider *slider);
-void xsane_create_histogram(GtkWidget *parent, char *title, int width, int height, XsanePixmap *hist);
+void xsane_create_histogram(GtkWidget *parent, const char *title, int width, int height, XsanePixmap *hist);
 void xsane_destroy_histogram(void);
 static void xsane_calculate_auto_enhancement(int negative,
               SANE_Int *count_raw, SANE_Int *count_raw_red, SANE_Int *count_raw_green, SANE_Int *count_raw_blue);
@@ -100,7 +100,7 @@ void xsane_enhancement_save(void);
 static void xsane_histogram_to_gamma(XsaneSlider *slider, double *contrast, double *brightness, double *gamma);
 void xsane_enhancement_by_histogram(void);
 static gint xsane_histogram_win_delete(GtkWidget *widget, gpointer data);
-void xsane_create_histogram_dialog(char *devicetext);
+void xsane_create_histogram_dialog(const char *devicetext);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -627,12 +627,12 @@ void xsane_create_slider(XsaneSlider *slider)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void xsane_create_histogram(GtkWidget *parent, char *title, int width, int height, XsanePixmap *hist)
+void xsane_create_histogram(GtkWidget *parent, const char *title, int width, int height, XsanePixmap *hist)
 {
   GdkBitmap *mask=NULL;
 
    hist->frame     = gtk_frame_new(title);
-   hist->pixmap    = gdk_pixmap_new(xsane.shell->window, width, height, -1);
+   hist->pixmap    = gdk_pixmap_new(xsane.histogram_dialog->window, width, height, -1);
    hist->pixmapwid = gtk_pixmap_new(hist->pixmap, mask);
    gtk_container_add(GTK_CONTAINER(hist->frame), hist->pixmapwid);
    gdk_draw_rectangle(hist->pixmap, xsane.gc_backg, TRUE, 0, 0, width, height);
@@ -667,7 +667,7 @@ void xsane_destroy_histogram()
     xsane.histogram_dialog = 0;
   }
   preferences.show_histogram = FALSE;
-  gtk_check_menu_item_set_state(GTK_CHECK_MENU_ITEM(xsane.show_histogram_widget), preferences.show_histogram);
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_histogram_widget), preferences.show_histogram);
 }
 #endif
 
@@ -1103,6 +1103,8 @@ void xsane_update_gamma(void)
 
 static void xsane_enhancement_update()
 {
+ guint sig_changed = gtk_signal_lookup("changed", GTK_OBJECT_TYPE(xsane.gamma_widget));
+ 
   GTK_ADJUSTMENT(xsane.gamma_widget)->value      = xsane.gamma;
   GTK_ADJUSTMENT(xsane.brightness_widget)->value = xsane.brightness;
   GTK_ADJUSTMENT(xsane.contrast_widget)->value   = xsane.contrast;
@@ -1121,17 +1123,17 @@ static void xsane_enhancement_update()
     GTK_ADJUSTMENT(xsane.contrast_green_widget)->value = xsane.contrast_green;
     GTK_ADJUSTMENT(xsane.contrast_blue_widget)->value  = xsane.contrast_blue;
 
-    gtk_signal_emit_by_name(xsane.gamma_red_widget,        "changed"); 
-    gtk_signal_emit_by_name(xsane.gamma_green_widget,      "changed"); 
-    gtk_signal_emit_by_name(xsane.gamma_blue_widget,       "changed"); 
+    gtk_signal_emit(xsane.gamma_red_widget,        sig_changed); 
+    gtk_signal_emit(xsane.gamma_green_widget,      sig_changed); 
+    gtk_signal_emit(xsane.gamma_blue_widget,       sig_changed); 
 
-    gtk_signal_emit_by_name(xsane.brightness_red_widget,   "changed"); 
-    gtk_signal_emit_by_name(xsane.brightness_green_widget, "changed"); 
-    gtk_signal_emit_by_name(xsane.brightness_blue_widget,  "changed"); 
+    gtk_signal_emit(xsane.brightness_red_widget,   sig_changed); 
+    gtk_signal_emit(xsane.brightness_green_widget, sig_changed); 
+    gtk_signal_emit(xsane.brightness_blue_widget,  sig_changed); 
 
-    gtk_signal_emit_by_name(xsane.contrast_red_widget,     "changed"); 
-    gtk_signal_emit_by_name(xsane.contrast_green_widget,   "changed"); 
-    gtk_signal_emit_by_name(xsane.contrast_blue_widget,    "changed"); 
+    gtk_signal_emit(xsane.contrast_red_widget,     sig_changed); 
+    gtk_signal_emit(xsane.contrast_green_widget,   sig_changed); 
+    gtk_signal_emit(xsane.contrast_blue_widget,    sig_changed); 
   }
 
   /* update histogram slider */
@@ -1143,9 +1145,9 @@ static void xsane_enhancement_update()
     gtk_main_iteration();
   }
 
-  gtk_signal_emit_by_name(xsane.gamma_widget,         "changed"); 
-  gtk_signal_emit_by_name(xsane.brightness_widget,    "changed"); 
-  gtk_signal_emit_by_name(xsane.contrast_widget,      "changed"); 
+  gtk_signal_emit(xsane.gamma_widget,      sig_changed); 
+  gtk_signal_emit(xsane.brightness_widget, sig_changed); 
+  gtk_signal_emit(xsane.contrast_widget,   sig_changed); 
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1366,31 +1368,91 @@ static gint xsane_histogram_win_delete(GtkWidget *widget, gpointer data)
 {
   gtk_widget_hide(widget);
   preferences.show_histogram = FALSE;
-  gtk_check_menu_item_set_state(GTK_CHECK_MENU_ITEM(xsane.show_histogram_widget), preferences.show_histogram);
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_histogram_widget), preferences.show_histogram);
   return TRUE;
 }                                    
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void xsane_create_histogram_dialog(char *devicetext)
+void xsane_create_histogram_dialog(const char *devicetext)
 {
  char windowname[255];
  GtkWidget *xsane_color_hbox;
  GtkWidget *xsane_histogram_vbox;  
+ GdkColor color_black;
+ GdkColor color_red;
+ GdkColor color_green;
+ GdkColor color_blue;
+ GdkColor color_backg;
+ GdkColormap *colormap;
+ GtkStyle *style;
 
   xsane.histogram_dialog = gtk_window_new(GTK_WINDOW_DIALOG);
   gtk_window_set_policy(GTK_WINDOW(xsane.histogram_dialog), FALSE, FALSE, FALSE);
   gtk_widget_set_uposition(xsane.histogram_dialog, XSANE_DIALOG_POS_X2, XSANE_DIALOG_POS_Y);
   gtk_signal_connect(GTK_OBJECT(xsane.histogram_dialog), "delete_event", GTK_SIGNAL_FUNC(xsane_histogram_win_delete), 0);
-  sprintf(windowname, "%s histogram %s", prog_name, devicetext);
+  sprintf(windowname, "%s %s", WINDOW_HISTOGRAM, devicetext);
   gtk_window_set_title(GTK_WINDOW(xsane.histogram_dialog), windowname);
 
   xsane_histogram_vbox = gtk_vbox_new(FALSE, 0);
-  gtk_container_border_width(GTK_CONTAINER(xsane_histogram_vbox), 5);
+  gtk_container_set_border_width(GTK_CONTAINER(xsane_histogram_vbox), 5);
   gtk_container_add(GTK_CONTAINER(xsane.histogram_dialog), xsane_histogram_vbox);
   gtk_widget_show(xsane_histogram_vbox);
 
-  xsane_create_histogram(xsane_histogram_vbox, "Raw image", 256, 100, &(xsane.histogram_raw));
+
+  /* set gc for histogram drawing */
+  gtk_widget_realize(xsane.histogram_dialog); /* realize dialog to get colors and style */
+
+  style = gtk_widget_get_style(xsane.histogram_dialog);
+/*
+  style = gtk_rc_get_style(xsane.histogram_dialog);
+  style = gtk_widget_get_default_style();
+*/
+
+  xsane.gc_trans = style->bg_gc[GTK_STATE_NORMAL];
+  xsane.bg_trans = &style->bg[GTK_STATE_NORMAL];   
+
+  colormap = gdk_window_get_colormap(xsane.histogram_dialog->window);
+
+  xsane.gc_black  = gdk_gc_new(xsane.histogram_dialog->window);
+  color_black.red   = 0;
+  color_black.green = 0;
+  color_black.blue  = 0;
+  gdk_color_alloc(colormap, &color_black);
+  gdk_gc_set_foreground(xsane.gc_black, &color_black);
+
+  xsane.gc_red   = gdk_gc_new(xsane.histogram_dialog->window);
+  color_red.red   = 40000;
+  color_red.green = 10000;
+  color_red.blue  = 10000;
+  gdk_color_alloc(colormap, &color_red);
+  gdk_gc_set_foreground(xsane.gc_red, &color_red);
+
+  xsane.gc_green = gdk_gc_new(xsane.histogram_dialog->window);
+  color_green.red   = 10000;
+  color_green.green = 40000;
+  color_green.blue  = 10000;
+  gdk_color_alloc(colormap, &color_green);
+  gdk_gc_set_foreground(xsane.gc_green, &color_green);
+
+  xsane.gc_blue  = gdk_gc_new(xsane.histogram_dialog->window);
+  color_blue.red   = 10000;
+  color_blue.green = 10000;
+  color_blue.blue  = 40000;
+  gdk_color_alloc(colormap, &color_blue);
+  gdk_gc_set_foreground(xsane.gc_blue, &color_blue);
+
+  xsane.gc_backg  = gdk_gc_new(xsane.histogram_dialog->window);
+  color_backg.red   = 50000;
+  color_backg.green = 50000;
+  color_backg.blue  = 50000;
+  gdk_color_alloc(colormap, &color_backg);
+  gdk_gc_set_foreground(xsane.gc_backg, &color_backg);                              
+
+
+  /* add histogram images and sliders */
+
+  xsane_create_histogram(xsane_histogram_vbox, FRAME_RAW_IMAGE, 256, 100, &(xsane.histogram_raw));
 
   xsane_separator_new(xsane_histogram_vbox, 0);
 
@@ -1443,10 +1505,10 @@ void xsane_create_histogram_dialog(char *devicetext)
 
   xsane_separator_new(xsane_histogram_vbox, 0);           
 
-  xsane_create_histogram(xsane_histogram_vbox, "Enhanced image", 256, 100, &(xsane.histogram_enh));
+  xsane_create_histogram(xsane_histogram_vbox, FRAME_ENHANCED_IMAGE, 256, 100, &(xsane.histogram_enh));
 
   xsane_color_hbox = gtk_hbox_new(TRUE, 5);
-  gtk_container_border_width(GTK_CONTAINER(xsane_color_hbox), 5);
+  gtk_container_set_border_width(GTK_CONTAINER(xsane_color_hbox), 5);
   gtk_container_add(GTK_CONTAINER(xsane_histogram_vbox), xsane_color_hbox);
   gtk_widget_show(xsane_color_hbox);
 

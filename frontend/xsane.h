@@ -27,11 +27,11 @@
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 /* #define XSANE_TEST */
-/* #define SUPPORT_RGBI */
+/* #define SUPPORT_RGBA */
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION "0.30\337"
+#define XSANE_VERSION "0.31\337"
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -119,9 +119,15 @@ extern int xsane_scanmode_number[];
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+#ifndef SANE_NAME_DOCUMENT_FEEDER
+#define SANE_NAME_DOCUMENT_FEEDER "Automatic Document Feeder"
+#endif
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 enum
 {
- XSANE_UNKNOWN, XSANE_PNM, XSANE_JPEG, XSANE_PNG, XSANE_PS, XSANE_TIFF, XSANE_RGBI,
+ XSANE_UNKNOWN, XSANE_PNM, XSANE_JPEG, XSANE_PNG, XSANE_PS, XSANE_TIFF, XSANE_RGBA,
  XSANE_RAW16, XSANE_PNM16
 };
  
@@ -169,6 +175,7 @@ typedef struct Xsane
 {
     SANE_Int sane_backend_versioncode;
     char *backend;
+    char *device_set_filename;
 
     /* dialogs */
     GtkWidget *shell;
@@ -182,8 +189,11 @@ typedef struct Xsane
     GtkWidget *hruler;
     GtkWidget *vruler;
     GtkWidget *info_label;
-    Preview *preview;
-    gint32 mode;
+    GtkObject *start_button;
+    Preview   *preview;
+    gint32    mode;
+
+    int main_window_fixed;
 
     /* various scanning related state: */
     size_t num_bytes;
@@ -249,7 +259,6 @@ typedef struct Xsane
     GdkGC *gc_red;
     GdkGC *gc_green;
     GdkGC *gc_blue;
-    GdkGC *gc_white;
     GdkGC *gc_black;
     GdkGC *gc_trans;
     GdkGC *gc_backg;
@@ -335,6 +344,8 @@ typedef struct XsaneSetup
   GtkWidget *overwrite_warning_button;
   GtkWidget *increase_filename_counter_button;
   GtkWidget *skip_existing_numbers_button;
+
+  GtkWidget *main_window_fixed_button;
 
   GtkWidget *preview_gamma_entry;
   GtkWidget *preview_gamma_red_entry;

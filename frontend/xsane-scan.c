@@ -91,7 +91,8 @@ void null_print_func(gchar *msg);
 static void xsane_gimp_advance(void);
 static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition cond);
 static RETSIGTYPE xsane_sigpipe_handler(int signal);
-static void xsane_scan_done(void);
+static int xsane_test_adf(void);
+static void xsane_scan_done(SANE_Status status);
 void xsane_cancel(void);
 static void xsane_start_scan(void);
 void xsane_scan_dialog(GtkWidget * widget, gpointer call_data);
@@ -400,7 +401,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
           snprintf(buf, sizeof(buf), "Error during read: %s.", sane_strstatus(status));
           gsg_error(buf);
         }
-        xsane_scan_done();
+        xsane_scan_done(status);
         return;
       }
 
@@ -642,8 +643,8 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
 #endif /* HAVE_LIBGIMP_GIMP_H */
          break;
 
-#ifdef SUPPORT_RGBI
-        case SANE_FRAME_RGBI: /* Scanning including Infrared channel */
+#ifdef SUPPORT_RGBA
+        case SANE_FRAME_RGBA: /* Scanning including Infrared channel */
           if (xsane.mode == STANDALONE)
           {
             int i;
@@ -739,7 +740,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
 
         default:
           fprintf(stderr, "%s.xsane_read_image_data: bad frame format %d\n", prog_name, xsane.param.format);
-          xsane_scan_done();
+          xsane_scan_done(-1);
           return;
       }
     }
@@ -794,7 +795,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
           snprintf(buf, sizeof(buf), "Error during read: %s.", sane_strstatus(status));
           gsg_error(buf);
         }
-        xsane_scan_done();
+        xsane_scan_done(status);
         return;
       }
 
@@ -885,8 +886,8 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
           }
          break;
 
-#ifdef SUPPORT_RGBI
-        case SANE_FRAME_RGBI:
+#ifdef SUPPORT_RGBA
+        case SANE_FRAME_RGBA:
           if (xsane.mode == STANDALONE)
           {
            int i;
@@ -929,7 +930,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
 
         default:
           fprintf(stderr, "%s.xsane_read_image_data: bad frame format %d\n", prog_name, xsane.param.format);
-          xsane_scan_done();
+          xsane_scan_done(-1);
           return;
       }
     }
@@ -938,7 +939,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
   {
     snprintf(buf, sizeof(buf), "Cannot handle depth %d.", xsane.param.depth);
     gsg_error(buf);
-    xsane_scan_done();
+    xsane_scan_done(-1);
   }
 
   return;
@@ -948,7 +949,7 @@ bad_depth:
 
   snprintf(buf, sizeof(buf), "Cannot handle depth %d.", xsane.param.depth);
   gsg_error(buf);
-  xsane_scan_done();
+  xsane_scan_done(-1);
   return;
 #endif
 }
@@ -964,7 +965,39 @@ static RETSIGTYPE xsane_sigpipe_handler(int signal)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_scan_done(void)
+static int xsane_test_adf(void)
+{
+ char *set;
+ SANE_Status status;
+ const SANE_Option_Descriptor *opt;       
+
+  opt = sane_get_option_descriptor(dialog->dev, dialog->well_known.scansource);
+  if (opt)
+  {
+    if (SANE_OPTION_IS_ACTIVE(opt->cap))
+    {                              
+      if (opt->constraint_type == SANE_CONSTRAINT_STRING_LIST)
+      {
+        set = malloc(opt->size);
+        status = sane_control_option(dialog->dev, dialog->well_known.scansource, SANE_ACTION_GET_VALUE, set, 0);    
+
+        if (status == SANE_STATUS_GOOD)
+        {
+          if (!strcmp(set, SANE_NAME_DOCUMENT_FEEDER))
+          {
+            return TRUE;
+          }
+        }
+        free(set);
+      }
+    }
+  }
+  return FALSE;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_scan_done(SANE_Status status)
 {
   gtk_widget_set_sensitive(xsane.shell, TRUE);
   gtk_widget_set_sensitive(xsane.histogram_dialog, TRUE);
@@ -1016,7 +1049,7 @@ static void xsane_scan_done(void)
 
 
     if ( (xsane.xsane_mode == XSANE_SCAN) && (xsane.xsane_output_format != XSANE_PNM) &&
-         (xsane.xsane_output_format != XSANE_RAW16) && (xsane.xsane_output_format != XSANE_RGBI) )
+         (xsane.xsane_output_format != XSANE_RAW16) && (xsane.xsane_output_format != XSANE_RGBA) )
     {
      FILE *outfile;
      FILE *infile;
@@ -1338,7 +1371,14 @@ static void xsane_scan_done(void)
     free(page);
   }
 
-  xsane_update_histogram();
+  if ( ( (status == SANE_STATUS_GOOD) || (status == SANE_STATUS_EOF) ) && (xsane_test_adf()))
+  {
+    gtk_signal_emit_by_name(xsane.start_button, "clicked"); /* Automatic document feeder: scan until error */
+  }
+  else /* last scan: update histogram */
+  {
+    xsane_update_histogram();
+  }
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1429,8 +1469,8 @@ static void xsane_start_scan(void)
     case SANE_FRAME_GREEN:	frame_type = "green"; break;
     case SANE_FRAME_BLUE:	frame_type = "blue"; break;
     case SANE_FRAME_GRAY:	frame_type = "gray"; break;
-#ifdef SUPPORT_RGBI
-    case SANE_FRAME_RGBI:	frame_type = "RGBI"; break;
+#ifdef SUPPORT_RGBA
+    case SANE_FRAME_RGBA:	frame_type = "RGBA"; break;
 #endif
     default:			frame_type = "unknown"; break;
   }
@@ -1472,16 +1512,16 @@ static void xsane_start_scan(void)
               }
 	     break;
 
-#ifdef SUPPORT_RGBI
-	    case SANE_FRAME_RGBI:
+#ifdef SUPPORT_RGBA
+	    case SANE_FRAME_RGBA:
               switch (xsane.param.depth)
 	      {
-                case 8: /* 8 bit RGBI mode */
-                  fprintf(xsane.out, "SANE_RGBI\n%d %d\n255\n", xsane.param.pixels_per_line, xsane.param.lines);
+                case 8: /* 8 bit RGBA mode */
+                  fprintf(xsane.out, "SANE_RGBA\n%d %d\n255\n", xsane.param.pixels_per_line, xsane.param.lines);
                  break;
 
-                default: /* 16 bit RGBI mode */
-                  fprintf(xsane.out, "SANE_RGBI\n%d %d\n65535\n", xsane.param.pixels_per_line, xsane.param.lines);
+                default: /* 16 bit RGBA mode */
+                  fprintf(xsane.out, "SANE_RGBA\n%d %d\n65535\n", xsane.param.pixels_per_line, xsane.param.lines);
                  break;
               }
              break;                                                            
@@ -1529,9 +1569,9 @@ static void xsane_start_scan(void)
         case  SANE_FRAME_GREEN:
           tile_size *= 3;  /* 24 bits/pixel RGB */
          break;
-#ifdef SUPPORT_RGBI
-        case  SANE_FRAME_RGBI:
-          tile_size *= 4;  /* 32 bits/pixel RGBI */
+#ifdef SUPPORT_RGBA
+        case  SANE_FRAME_RGBA:
+          tile_size *= 4;  /* 32 bits/pixel RGBA */
          break;
 #endif
         default:
@@ -1552,8 +1592,8 @@ static void xsane_start_scan(void)
 	    image_type = GRAY;
 	    drawable_type = GRAY_IMAGE;
 	  }
-#ifdef SUPPORT_RGBI
-          else if (xsane.param.format == SANE_FRAME_RGBI)
+#ifdef SUPPORT_RGBA
+          else if (xsane.param.format == SANE_FRAME_RGBA)
           {
             image_type = RGB;
             drawable_type = RGBA_IMAGE; /* interpret infrared as alpha */
@@ -1608,11 +1648,10 @@ static void xsane_start_scan(void)
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 /* Invoked when the scan button is pressed */
+/* or by scan_done if automatic document feeder is selected */
 void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
 {
  char buf[256];
-
- /* xxxxxxxxxxxxxxxx set a loop for Document feeder here */
 
   sane_get_parameters(dialog->dev, &xsane.param); /* update xsane.param */
 
@@ -1680,10 +1719,10 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
           xsane.xsane_output_format = XSANE_TIFF;
         }
 #endif
-#ifdef SUPPORT_RGBI
-        else if (!strcasecmp(extension, "rgbi"))
+#ifdef SUPPORT_RGBA
+        else if (!strcasecmp(extension, "rgba"))
         {
-          xsane.xsane_output_format = XSANE_RGBI;
+          xsane.xsane_output_format = XSANE_RGBA;
         }
 #endif
       }
@@ -1709,10 +1748,10 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
         }
 #endif
 #endif
-#ifdef SUPPORT_RGBI
-        else if (!strcasecmp(extension, "rgbi"))
+#ifdef SUPPORT_RGBA
+        else if (!strcasecmp(extension, "rgba"))
         {
-          xsane.xsane_output_format = XSANE_RGBI;
+          xsane.xsane_output_format = XSANE_RGBA;
         }
 #endif
       }
@@ -1733,30 +1772,30 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
         gsg_error(buf);
         return;
       }
-#ifdef SUPPORT_RGBI
-      else if ((xsane.xsane_output_format == XSANE_RGBI) && (xsane.param.format != SANE_FRAME_RGBI))
+#ifdef SUPPORT_RGBA
+      else if ((xsane.xsane_output_format == XSANE_RGBA) && (xsane.param.format != SANE_FRAME_RGBA))
       {
-        snprintf(buf, sizeof(buf), "No RGBI data format !!!"); /* user selected output format RGBI, scanner uses other format */
+        snprintf(buf, sizeof(buf), "No RGBA data format !!!"); /* user selected output format RGBA, scanner uses other format */
         gsg_error(buf);
         return;
       }
 #endif
     }
-#ifdef SUPPORT_RGBI
-    else if (xsane.param.format == SANE_FRAME_RGBI) /* no scanmode but format=rgbi */
+#ifdef SUPPORT_RGBA
+    else if (xsane.param.format == SANE_FRAME_RGBA) /* no scanmode but format=rgba */
     {
-      snprintf(buf, sizeof(buf), "Special format RGBI only supported in scan mode !!!");
+      snprintf(buf, sizeof(buf), "Special format RGBA only supported in scan mode !!!");
       gsg_error(buf);
       return;
     }
 #endif
 
-#ifdef SUPPORT_RGBI
-    if (xsane.param.format == SANE_FRAME_RGBI)
+#ifdef SUPPORT_RGBA
+    if (xsane.param.format == SANE_FRAME_RGBA)
     {
-      if ( (xsane.xsane_output_format != XSANE_RGBI) && (xsane.xsane_output_format != XSANE_PNG) )
+      if ( (xsane.xsane_output_format != XSANE_RGBA) && (xsane.xsane_output_format != XSANE_PNG) )
       {
-        snprintf(buf, sizeof(buf), "Image data of type SANE_FRAME_RGBI\ncan only be saved in rgbi or png format");
+        snprintf(buf, sizeof(buf), "Image data of type SANE_FRAME_RGBA\ncan only be saved in rgba or png format");
         gsg_error(buf);
         return;
       }
@@ -1765,7 +1804,7 @@ void xsane_scan_dialog(GtkWidget * widget, gpointer call_data)
       
     if ( (xsane.xsane_mode == XSANE_COPY) || (xsane.xsane_mode == XSANE_FAX) || /* we have to do a conversion */
          ( (xsane.xsane_mode == XSANE_SCAN)  && (xsane.xsane_output_format != XSANE_PNM) &&
-           (xsane.xsane_output_format != XSANE_RAW16) && (xsane.xsane_output_format != XSANE_RGBI) ) )
+           (xsane.xsane_output_format != XSANE_RAW16) && (xsane.xsane_output_format != XSANE_RGBA) ) )
     {
      char filename[PATH_MAX];
 

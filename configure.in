@@ -6,7 +6,7 @@ AC_ARG_PROGRAM
 
 # version code:
 V_MAJOR=0
-V_MINOR=30\\337
+V_MINOR=31\\337
 
 PACKAGE=xsane
 SANE_V_MAJOR=1
@@ -90,7 +90,7 @@ AC_CHECK_HEADERS(dl.h,
  [AC_CHECK_LIB(dld,shl_load)
  AC_CHECK_FUNCS(shl_load, enable_dynamic=yes,)],)
 
-AM_PATH_GTK(0.99.13, HAVE_GTK=yes, )
+AM_PATH_GTK(1.2.0, HAVE_GTK=yes, )
 
 # Change CFLAGS temporarily so that C_SWITCH_X_SITE gets used
 # for the tests that follow.  We set it back to REAL_CFLAGS later on.
@@ -108,13 +108,6 @@ saved_CPPFLAGS="${CPPFLAGS}"
 saved_LIBS="${LIBS}"
 CPPFLAGS="${CPPFLAGS} ${GTK_CFLAGS}"
 LIBS="${LIBS} ${GTK_LIBS}"
-
-
-AC_CHECK_FUNCS(gtk_scrolled_window_add_with_viewport)
-AC_CHECK_FUNCS(gtk_tooltips_set_tips gtk_events_pending)
-if test "${ac_cv_func_gtk_events_pending}" = "no"; then
-  saved_CPPFLAGS="${saved_CPPFLAGS} -Dgtk_events_pending=gdk_events_pending"
-fi
 
 AC_CHECK_HEADERS(libgimp/gimp.h,GIMP_LIBS="-lgimp")
 
