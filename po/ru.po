@@ -1,18 +1,20 @@
 # Russian translation of XSANE.
-# Copyright (C) 2001-2002, The Free Software Foundation
-# John Profic <profic@lrn.ru>, 2001, 2002
-# Vitaly Lipatov <lav@altlinux.ru>, 2002
+# Copyright (C) 2001-2004, The Free Software Foundation
+# John Profic <profic@lrn.ru>, 2001, 2002.
+# Vitaly Lipatov <lav@altlinux.ru>, 2002, 2003, 2004.
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.90\n"
+"Project-Id-Version: XSANE 0.96\n"
 "POT-Creation-Date: 2004-08-21 15:31+0200\n"
-"PO-Revision-Date: 2002-12-23 02:48MSK\n"
+"PO-Revision-Date: 2004-09-04 17:39MSK\n"
 "Last-Translator: Vitaly Lipatov <lav@altlinux.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=KOI8-R\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0\n"
+"X-Generator: KBabel 1.3.1\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #. Please translate this to the correct directory name (eg. german=>de)
 #. XSANE_LANGUAGE_DIR
@@ -26,7 +28,7 @@ msgstr "(c)"
 #. can be translated with \251
 #. FILENAME_PREFIX_CLONE_OF
 msgid "clone-of-"
-msgstr ""
+msgstr "копия-"
 
 #. WINDOW_ABOUT_XSANE
 msgid "About"
@@ -66,11 +68,11 @@ msgstr "пакетное сканирование"
 
 #. WINDOW_BATCH_RENAME
 msgid "rename batch area"
-msgstr "Удалить область"
+msgstr "переименовать область"
 
 #. WINDOW_FAX_PROJECT
 msgid "fax project"
-msgstr "подготовка факсимильного послания"
+msgstr "подготовка факса"
 
 #. WINDOW_FAX_RENAME
 msgid "rename fax page"
@@ -78,7 +80,7 @@ msgstr "переименование факсимильной страницы"
 
 #. WINDOW_FAX_INSERT
 msgid "insert ps-file into fax"
-msgstr "добавление PS-файла в факс"
+msgstr "добавление PS-файла в факсимильное послание"
 
 #. WINDOW_MAIL_PROJECT
 msgid "mail project"
@@ -97,19 +99,16 @@ msgid "rename preset area"
 msgstr "переименование области"
 
 #. WINDOW_PRESET_AREA_ADD
-#, fuzzy
 msgid "add preset area"
-msgstr "переименование области"
+msgstr "добавить область предварительной настройки"
 
 #. WINDOW_MEDIUM_RENAME
-#, fuzzy
 msgid "rename medium"
-msgstr "Сохранить тип носителя"
+msgstr "переименовать носитель"
 
 #. WINDOW_MEDIUM_ADD
-#, fuzzy
 msgid "add new medium"
-msgstr "Сохранить тип носителя"
+msgstr "добавить новый носитель"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -185,7 +184,7 @@ msgstr "Размыть изображение"
 
 #. WINDOW_STORE_MEDIUM
 msgid "Store medium definition"
-msgstr "Записать параметры носителя"
+msgstr "Записать определение носителя"
 
 #. WINDOW_NO_DEVICES
 msgid "No devices available"
@@ -205,7 +204,7 @@ msgstr "Вид"
 
 #. MENU_WINDOW
 msgid "Window"
-msgstr ""
+msgstr "Окна"
 
 #. MENU_HELP
 msgid "Help"
@@ -213,7 +212,7 @@ msgstr "Помощь"
 
 #. MENU_EDIT
 msgid "Edit"
-msgstr ""
+msgstr "Редактировать"
 
 #. MENU_FILTERS
 msgid "Filters"
@@ -221,7 +220,7 @@ msgstr "Фильтры"
 
 #. MENU_GEOMETRY
 msgid "Geometry"
-msgstr ""
+msgstr "Изображение"
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
@@ -257,7 +256,7 @@ msgstr "Закрыть"
 
 #. MENU_ITEM_UNDO
 msgid "Undo"
-msgstr ""
+msgstr "Отменить"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
@@ -269,27 +268,23 @@ msgstr "Размыть"
 
 #. MENU_ITEM_ROTATE90
 msgid "Rotate 90"
-msgstr ""
+msgstr "Повернуть на 90 градусов"
 
 #. MENU_ITEM_ROTATE180
-#, fuzzy
 msgid "Rotate 180"
-msgstr "Поворот изображения на 180 градусов"
+msgstr "Повернуть на 180 градусов"
 
 #. MENU_ITEM_ROTATE270
-#, fuzzy
 msgid "Rotate 270"
-msgstr "Поворот изображения на 270 градусов"
+msgstr "Повернуть на 270 градусов"
 
 #. MENU_ITEM_MIRROR_X
-#, fuzzy
 msgid "Mirror |"
-msgstr "ошибка"
+msgstr "Отразить по горизонтали |"
 
 #. MENU_ITEM_MIRROR_Y
-#, fuzzy
 msgid "Mirror -"
-msgstr "ошибка"
+msgstr "Отразить по вертикали -"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -341,7 +336,7 @@ msgstr "Перезаписать"
 
 #. BUTTON_BATCH_LIST_SCAN
 msgid "Scan batch list"
-msgstr "Области сканирования в пакете"
+msgstr "Сканировать отобранное"
 
 #. BUTTON_BATCH_AREA_SCAN
 msgid "Scan selected area"
@@ -368,9 +363,8 @@ msgid "Show image"
 msgstr "Показать изображение"
 
 #. BUTTON_IMAGE_EDIT
-#, fuzzy
 msgid "Edit image"
-msgstr "Обработанное изображение"
+msgstr "Редактировать изображение"
 
 #. BUTTON_IMAGE_RENAME
 msgid "Rename image"
@@ -747,7 +741,7 @@ msgstr "Состояние послания:"
 
 #. TEXT_MAIL_FILETYPE
 msgid "Mail image filetype:"
-msgstr ""
+msgstr "Формат изображения при отправке по почте:"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
@@ -799,7 +793,7 @@ msgstr "Глубина цвета:"
 
 #. TEXT_BATCH_LIST_BY_GUI
 msgid "as selected"
-msgstr "как выделено"
+msgstr "как выбрано"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
@@ -1054,7 +1048,7 @@ msgid "all"
 msgstr "прочие"
 
 msgid "new media"
-msgstr ""
+msgstr "новый носитель"
 
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
@@ -1165,9 +1159,8 @@ msgid "Rotate postscript"
 msgstr "Повернуть PostScript"
 
 #. MENU_ITEM_EDIT_MEDIUM_DEF
-#, fuzzy
 msgid "Edit medium definition"
-msgstr "Записать параметры носителя"
+msgstr "Изменять определения носителей"
 
 #. MENU_ITEM_SAVE_DEVICE_SETTINGS
 msgid "Save device settings"
@@ -1279,30 +1272,25 @@ msgstr "по расширению"
 
 #. MENU_ITEM_PRESET_AREA_ADD_SEL
 msgid "Add selection to list"
-msgstr "Добавить выделение"
+msgstr "Добавить выделенную область к пакету"
 
 #. MENU_ITEM_MEDIUM_ADD
-#, fuzzy
 msgid "Add medium definition"
-msgstr "Записать параметры носителя"
+msgstr "Добавить определение носителя"
 
 #. MENU_ITEM_RENAME
-#, fuzzy
 msgid "Rename item"
-msgstr "Переименовать изображение"
+msgstr "Переименовать пункт"
 
 #. MENU_ITEM_DELETE
-#, fuzzy
 msgid "Delete item"
-msgstr "Удалить описание принтера"
+msgstr "Удалить пункт"
 
 #. MENU_ITEM_MOVE_UP
-#, fuzzy
 msgid "Move item up"
 msgstr "На позицию вверх"
 
 #. MENU_ITEM_MOVE_DWN
-#, fuzzy
 msgid "Move item down"
 msgstr "На позицию вниз"
 
@@ -1391,6 +1379,11 @@ msgid ""
 "To create a medium enable the option edit medium definition in preferences "
 "menu."
 msgstr ""
+"Выберите тип носителя.\n"
+"Для переименования, переупорядочивания или удаления строки используйте "
+"контекстное меню (по правой кнопке мыши).\n"
+"Для создания носителя включите параметр Изменять определения носителей в "
+"меню Параметры."
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1415,7 +1408,7 @@ msgstr ""
 
 #. DESC_FAXPROJECT
 msgid "Enter name of fax project"
-msgstr "Название факса"
+msgstr "Название факсимильного послания"
 
 #. DESC_FAXPAGENAME
 msgid "Enter new name for faxpage"
@@ -1443,26 +1436,23 @@ msgstr "Тема письма"
 
 #. DESC_MAIL_FILETYPE
 msgid "Select filetype for image attachments"
-msgstr ""
+msgstr "Выберите формат файла для вложения изображения"
 
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
 msgstr "Новое название для области"
 
 #. DESC_PRESET_AREA_ADD
-#, fuzzy
 msgid "Enter name for new preset area"
-msgstr "Новое название для области"
+msgstr "Введите название для новой области предварительной настройки"
 
 #. DESC_MEDIUM_RENAME
-#, fuzzy
 msgid "Enter new name for medium definition"
-msgstr "Записать параметры носителя"
+msgstr "Введите новое название для определения носителя"
 
 #. DESC_MEDIUM_ADD
-#, fuzzy
 msgid "Enter name for new medium definition"
-msgstr "Записать параметры носителя"
+msgstr "Введите название для нового определения носителя"
 
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
@@ -1497,9 +1487,8 @@ msgid "Set number of copies"
 msgstr "Количество копий"
 
 #. DESC_NEGATIVE
-#, fuzzy
 msgid "Negative: Invert colors for scanning negatives <Ctrl-n>"
-msgstr "Негатив: инвертировать цвета для сканирования негативов <Shift-n>"
+msgstr "Негатив: инвертировать цвета для сканирования негативов <Ctrl-n>"
 
 #. DESC_GAMMA
 msgid "Set gamma value"
@@ -1554,7 +1543,6 @@ msgid "Set threshold"
 msgstr "Управление порогом"
 
 #. DESC_RGB_DEFAULT
-#, fuzzy
 msgid ""
 "RGB default: Set enhancement values for red, green and blue to default "
 "values <Ctrl-b>:\n"
@@ -1563,38 +1551,34 @@ msgid ""
 " contrast = 0"
 msgstr ""
 "RGB по умолчанию: красный, зелёный и синий компонент = значение по "
-"умолчанию<Shift-b>:\n"
+"умолчанию<Ctrl-b>:\n"
 "гамма = 1.0\n"
 "яркость = 0\n"
 "контрастность = 0"
 
 #. DESC_ENH_AUTO
-#, fuzzy
 msgid "Autoadjust gamma, brightness and contrast <Ctrl-e>"
-msgstr "Автоподбор значений гаммы, яркости и контрастности <Shift-e>"
+msgstr "Автоподбор значений гаммы, яркости и контрастности <Ctrl-e>"
 
 #. DESC_ENH_DEFAULT
-#, fuzzy
 msgid ""
 "Set default enhancement values <Ctrl-0>:\n"
 "gamma = 1.0\n"
 "brightness = 0\n"
 "contrast = 0"
 msgstr ""
-"Параметры по умолчанию <Shift-d>:\n"
+"Параметры по умолчанию <Ctrl-0>:\n"
 "гамма = 1.0\n"
 "яркость = 0\n"
 "контрастность = 0"
 
 #. DESC_ENH_RESTORE
-#, fuzzy
 msgid "Restore enhancement values from preferences <Ctrl-r>"
-msgstr "Восстановить настройки выразительности <Shift-r>"
+msgstr "Восстановить настройки выразительности <Ctrl-r>"
 
 #. DESC_ENH_STORE
-#, fuzzy
 msgid "Store active enhancement values to preferences <Ctrl-+>"
-msgstr "Запомнить настройки выразительности изображения <Shift-m>"
+msgstr "Запомнить настройки выразительности изображения <Ctrl-+>"
 
 #. DESC_HIST_INTENSITY
 msgid "Show histogram of intensity/gray <Alt-i>"
@@ -1910,7 +1894,7 @@ msgstr "Параметр для указания хорошего режима (высокое разрешение)"
 
 #. DESC_FAX_VIEWER
 msgid "Enter command to be executed to view a fax"
-msgstr "Команда для просмотра факса"
+msgstr "Команда для просмотра факсимильного послания"
 
 #. DESC_FAX_FINE_MODE
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
@@ -1958,10 +1942,9 @@ msgid "Enter command to be executed to view a mail image"
 msgstr "Введите команду для просмотра почтовых вложений"
 
 #. DESC_HTML_MAIL
-#, fuzzy
 msgid "Mail is sent in html mode, place image with: <IMAGE>"
 msgstr ""
-"Письмо отправляется в виде HTML-документа, изображения отображаются напрямую"
+"Письмо отправлено в виде HTML-документа, размещение изображения: <IMAGE>"
 
 #. DESC_OCR_COMMAND
 msgid "Enter command to start ocr program"
@@ -2033,7 +2016,7 @@ msgstr "Уменьшить на 20%"
 
 #. DESC_ZOOM_IN
 msgid "Click at position to zoom to"
-msgstr "Нажмите на позицию для изменения размера"
+msgstr "Увеличить на 20% в месте нажатия"
 
 #. DESC_ZOOM_AREA
 msgid "Zoom into selected area"
@@ -2045,19 +2028,19 @@ msgstr "Отменить последнее изменение масштаба"
 
 #. DESC_FULL_PREVIEW_AREA
 msgid "Select visible area"
-msgstr "Выбрать видимую область сканирования"
+msgstr "Выбрать всю видимую область для сканирования"
 
 #. DESC_AUTOSELECT_SCANAREA
 msgid "Autoselect scanarea"
-msgstr "Автовыбор области сканирования"
+msgstr "Автоматически выбрать область сканирования"
 
 #. DESC_AUTORAISE_SCANAREA
 msgid "Autoraise scanarea"
-msgstr "Автоматически расширять область сканирования"
+msgstr "Автоматически расширить область сканирования"
 
 #. DESC_DELETE_IMAGES
 msgid "Delete preview image cache"
-msgstr "Удалить кеш изображений предварительного просмотра"
+msgstr "Удалить кэш изображений предварительного просмотра"
 
 #. DESC_PRESET_AREA
 msgid ""
@@ -2065,6 +2048,9 @@ msgid ""
 "To add new area or edit an existing area use contect menu (right mouse "
 "button)."
 msgstr ""
+"Область предварительных настроек:\n"
+"Для добавление новой области или изменения существующей используйте "
+"контекстное меню (через правую кнопку мыши)."
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -2083,9 +2069,8 @@ msgid "Optical Character Recognition"
 msgstr "Распознавание текстов"
 
 #. DESC_VIEWER_UNDO
-#, fuzzy
 msgid "Undo last change"
-msgstr "Отменить последнее изменение масштаба"
+msgstr "Отменить последнее изменение"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
@@ -2093,23 +2078,23 @@ msgstr "Сделать копию изображения"
 
 #. DESC_ROTATE90
 msgid "Rotate image 90 degree"
-msgstr "Поворот изображения на 90 градусов"
+msgstr "Повернуть изображение на 90 градусов"
 
 #. DESC_ROTATE180
 msgid "Rotate image 180 degree"
-msgstr "Поворот изображения на 180 градусов"
+msgstr "Повернуть изображение на 180 градусов"
 
 #. DESC_ROTATE270
 msgid "Rotate image 270 degree"
-msgstr "Поворот изображения на 270 градусов"
+msgstr "Повернуть изображение на 270 градусов"
 
 #. DESC_MIRROR_X
 msgid "Mirror image at vertical axis"
-msgstr "Отобразить по вертикали"
+msgstr "Отобразить по горизонтали"
 
 #. DESC_MIRROR_Y
 msgid "Mirror image at horizontal axis"
-msgstr "Отобразить по горизонтали"
+msgstr "Отобразить по вертикали"
 
 #. DESC_VIEWER_ZOOM
 msgid "Zoom image"
@@ -2165,11 +2150,11 @@ msgstr "Добавить выделение к пакету"
 
 #. DESC_BATCH_DEL
 msgid "Delete selected area from batch list"
-msgstr "Удалить выделение к пакету"
+msgstr "Удалить выделение из пакета"
 
 #. DESC_AUTOMATIC
 msgid "Turns on automatic mode"
-msgstr ""
+msgstr "Включает автоматический режим"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2222,7 +2207,7 @@ msgstr "Невозможно определить глубину цвета"
 #. ERR_GIMP_BAD_DEPTH
 #, c-format
 msgid "GIMP can't handle depth %d bits/color"
-msgstr "GIMP не поддерживает глубину цвета в %s бит на цвет"
+msgstr "GIMP не поддерживает глубину цвета в %d бит на цвет"
 
 #. ERR_UNKNOWN_SAVING_FORMAT
 msgid "Unknown file format for saving"
@@ -2273,9 +2258,8 @@ msgid "LIBPNG reports error"
 msgstr "LIBPNG сообщает об ошибке"
 
 #. ERR_LIBJPEG
-#, fuzzy
 msgid "LIBJPEG reports error"
-msgstr "LIBPNG сообщает об ошибке"
+msgstr "LIBJPEG сообщает об ошибке"
 
 #. ERR_UNKNOWN_TYPE
 msgid "unknown type"
@@ -2287,11 +2271,11 @@ msgstr "неизвестный принуждённый тип"
 
 #. ERR_OPTION_NAME_NULL
 msgid "Option has empty name (NULL)."
-msgstr ""
+msgstr "Параметр имеет пустое название (NULL)."
 
 #. ERR_BACKEND_BUG
 msgid "This is a backend bug. Please inform the author of the backend!"
-msgstr ""
+msgstr "Это ошибка движка (драйвера) - пожалуйста, проинформируйте его автора!"
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
@@ -2299,11 +2283,11 @@ msgstr "Невозможно вызвать программу просмотра документации:"
 
 #. ERR_FAILED_EXEC_FAX_VIEWER
 msgid "Failed to execute fax viewer:"
-msgstr "Невозможно вызвать программу просмотра факсов:"
+msgstr "Невозможно вызвать программу просмотра факсимильных посланий:"
 
 #. ERR_FAILED_EXEC_FAX_CMD
 msgid "Failed to execute fax command:"
-msgstr "Невозможно выполнить команду отправки факса"
+msgstr "Невозможно выполнить команду отправки факсимильного послания"
 
 #. ERR_FAILED_EXEC_MAIL_VIEWER
 msgid "Failed to execute mail image viewer:"
@@ -2369,7 +2353,7 @@ msgstr ""
 
 #. ERR_CREATE_FAX_PROJECT
 msgid "Could not create faxproject"
-msgstr "Невозможно создать проект факсимильного сообщения"
+msgstr "Невозможно создать проект факсимильного послания"
 
 #. WARN_COUNTER_UNDERRUN
 msgid "Filename counter underrun"
@@ -2468,7 +2452,7 @@ msgstr "Неподдерживаемая глубина цвета в %d для формата: %s"
 
 #. WARN_VIEWER_IMAGE_NOT_SAVED
 msgid "viewer image is not saved"
-msgstr "изображение предварительного сканирования не сохранено"
+msgstr "Просматриваемое изображение не сохранено"
 
 #. TEXT_USAGE
 msgid "Usage:"
@@ -2479,7 +2463,6 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[ПАРАМЕТРЫ]... [УСТРОЙСТВО]"
 
 #. TEXT_HELP
-#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2514,8 +2497,8 @@ msgid ""
 " --sync                       request a synchronous connection with the X11 "
 "server"
 msgstr ""
-"Запускает графический интерфейс для работы с SANE (Scanner Access Now "
-"Easy).\n"
+"Запускает графический интерфейс для работы с устройствами SANE (Scanner "
+"Access Now Easy).\n"
 "\n"
 "Формат [УСТРОЙСТВО]: драйвер:файл_устройства (например, umax:/dev/scanner).\n"
 "[ПАРАМЕТРЫ]... любая комбинация из следующих:\n"
@@ -2533,8 +2516,6 @@ msgstr ""
 " -m, --mail                   запустить в режиме почты\n"
 " -n, --no-mode-selection      отключить меню выбора режима XSane\n"
 "\n"
-" -M, --Medium-calibration     включить режим калибровки носителя\n"
-"\n"
 " -F, --Fixed                  не позволять менять размер главного окна "
 "(перезаписывает настройки)\n"
 " -R, --Resizeable             позволяет изменение размера главного окна и "
@@ -2543,7 +2524,7 @@ msgstr ""
 " -p, --print-filenames        выводить названия изображений, созданных "
 "XSane\n"
 " -N, --force-filename name    назначить названия файла автоматически и "
-"отключить выбор названия пользователем\n"
+"отключить возможность его выбора пользователем\n"
 "\n"
 " --display X11-display        перенаправить вывод на дисплей X11\n"
 " --no-xshm                    не использовать изображений в разделяемой "
@@ -2594,10 +2575,10 @@ msgstr ""
 "Возможные причины:\n"
 "1) Действительно нет устройств, поддерживаемых SANE\n"
 "2) Поддерживаемые устройства заняты\n"
-"3) Права доступа к устройству не дают возможности использовать его - "
+"3) Права доступа к устройству не дают возможности использовать его -- "
 "попробуйте запустить xsane с правами root\n"
-"4) Драйвер не загружен SANE (см. man sane-dll)\n"
-"5) Драйвер сконфигурирован неправильно (см. man sane-\"драйвер\")\n"
+"4) Драйвер не загружен в SANE (см. man sane-dll)\n"
+"5) Драйвер настроен неправильно (см. man sane-\"драйвер\")\n"
 "6) Возможно, установлена более чем одна версия SANE"
 
 #. strings that are used in structures, so it is not allowed to use _()/gettext() here
@@ -2715,81 +2696,72 @@ msgid "Rossmann negative HR 100"
 msgstr "Негатив Rossmann HR 100"
 
 #. TEXT_MAIL_STATUS_NOT_CREATED
-#, fuzzy
 msgid "Mail project not created"
-msgstr "чтение"
+msgstr "Письмо не создано"
 
 #. TEXT_MAIL_STATUS_CREATED
-#, fuzzy
 msgid "Mail project created"
-msgstr "чтение"
+msgstr "Электронное письмо создано"
 
 #. TEXT_MAIL_STATUS_CHANGED
-#, fuzzy
 msgid "Mail project changed"
-msgstr "Автовыбор области сканирования"
+msgstr "Электронное письмо изменено"
 
 #. TEXT_MAIL_STATUS_ERR_READ_PROJECT
-#, fuzzy
 msgid "Error reading mailproject"
-msgstr "Название почтового сообщения"
+msgstr "Ошибка при чтении почтового проекта"
 
 #. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
 msgid "POP3 connection failed"
-msgstr ""
+msgstr "Не удалось соединиться через POP3"
 
 #. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
 msgid "POP3 login failed"
-msgstr ""
+msgstr "Неверное имя пользователя для POP3"
 
 #. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
-msgstr ""
+msgstr "Не удалось соединиться по SMTP"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_FROM
-#, fuzzy
 msgid "From entry not accepted"
-msgstr "чтение"
+msgstr "Информация об отправителе не принята"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_RCPT
-#, fuzzy
 msgid "Receiver entry not accepted"
-msgstr "чтение"
+msgstr "Адрес получателя не принят"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_DATA
 msgid "Mail data not accepted"
-msgstr ""
+msgstr "Данные в письме не приняты"
 
 #. TEXT_MAIL_STATUS_SENDING
 msgid "Sending mail"
-msgstr ""
+msgstr "Отправляется письмо"
 
 #. TEXT_MAIL_STATUS_SENT
 msgid "Mail has been sent"
-msgstr ""
+msgstr "Письмо было отправлено"
 
 #. TEXT_FAX_STATUS_NOT_CREATED
-#, fuzzy
 msgid "Fax project not created"
-msgstr "чтение"
+msgstr "Факсимильное послание не создано"
 
 #. TEXT_FAX_STATUS_CREATED
-#, fuzzy
 msgid "Fax project created"
-msgstr "чтение"
+msgstr "Создано факсимильное послание"
 
 #. TEXT_FAX_STATUS_CHANGED
-#, fuzzy
 msgid "Fax project changed"
-msgstr "Автовыбор области сканирования"
+msgstr "Факсимильное послание изменено"
 
 #. TEXT_FAX_STATUS_QUEUEING_FAX
 msgid "Queueing Fax"
-msgstr ""
+msgstr "Помещаем факс в очередь на отправку"
 
 #. TEXT_FAX_STATUS_FAX_QUEUED
 msgid "Fax is queued"
-msgstr ""
+msgstr "Факс размещён в очереди"
 
 #. Sane backend messages
 msgid "flatbed scanner"

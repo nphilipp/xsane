@@ -495,58 +495,6 @@ void xsane_device_preferences_load_file(char *filename)
       return;
     }
   
-
-#if 0
-/* add here: read version info */
-#if 0
-    while (!feof(file))
-    {
-      fgets(option, sizeof(option), file); /* get option name */
-      option[strlen(option)-1] = 0; /* remove cr */
-      if (strcmp(option, "\"xsane-version\"") == 0)
-      {
-        fgets(option, sizeof(option), file); /* get version */
-        option[strlen(option)-1] = 0; /* remove cr */
-        len = strlen(option);
-        if (len)
-        {
-          if (option[len-1] == 34)
-          {
-            option[len-1] = 0; /* remove " */
-          }
-        }
-        version = strdup(option+1);
-      }
-      else
-      {
-        fgets(option, sizeof(option), file); /* skip option */
-      }
-    }
-#endif
-
-
-    if (version)
-    {
-      if (strcmp(version, XSANE_VERSION))
-      {
-        snprintf(buf, sizeof(buf), "File: \"%s\"\n"
-                                   "has been saved with xsane-%s,\n"
-                                   "this may cause problems!", filename, version);
-        xsane_back_gtk_warning(buf, TRUE);
-      }
-      free(version);
-    }
-    else
-    {
-      snprintf(buf, sizeof(buf), "File: \"%s\"\n"
-                                 "has been saved with xsane before version 0.40,\n"
-                                 "this may cause problems!", filename);
-      xsane_back_gtk_warning(buf, TRUE);
-    }
-#endif
-
-
-
     while (1) /* read device dependant xsane options */
     {
       xsane_rc_io_w_space(&w, 3);

@@ -2423,7 +2423,7 @@ int xsane_front_gtk_getname_dialog(const char *dialog_title, const char *desc_te
 }
                                                                                                                                  
 /* ---------------------------------------------------------------------------------------------------------------------- */
-                                                                                                                  
+#ifdef XSANE_ACTIVATE_MAIL
 void xsane_front_gtk_mail_project_update_lockfile_status()
 {
  FILE *lockfile;
@@ -2440,7 +2440,7 @@ void xsane_front_gtk_mail_project_update_lockfile_status()
 
   fclose(lockfile);
 }
-
+#endif
 /* ---------------------------------------------------------------------------------------------------------------------- */
                                                                                                                   
                                                                                                                                  

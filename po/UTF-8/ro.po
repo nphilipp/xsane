@@ -5,11 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.87\n"
+"Project-Id-Version: XSANE 0.96\n"
 "POT-Creation-Date: 2004-08-21 15:31+0200\n"
-"PO-Revision-Date: 2004-04-23 08:36+0300\n"
-"Last-Translator: Harald Ersch <harald@ersch.ro>\n"
-"Language-Team: Romanian <rtfs-project@sourceforge.net>\n"
+"PO-Revision-Date: 2004-08-27 19:55+0300\n"
+"Last-Translator: \n"
+"Language-Team:  <C@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -27,7 +27,7 @@ msgstr "(c)"
 #. can be translated with \251
 #. FILENAME_PREFIX_CLONE_OF
 msgid "clone-of-"
-msgstr ""
+msgstr "clona "
 
 #. WINDOW_ABOUT_XSANE
 msgid "About"
@@ -98,19 +98,16 @@ msgid "rename preset area"
 msgstr "Redenumeşte zone predefinite"
 
 #. WINDOW_PRESET_AREA_ADD
-#, fuzzy
 msgid "add preset area"
-msgstr "Redenumeşte zone predefinite"
+msgstr "Adaugă zonă predefinită"
 
 #. WINDOW_MEDIUM_RENAME
-#, fuzzy
 msgid "rename medium"
-msgstr "Stocare mediu"
+msgstr "Redenumire mediu"
 
 #. WINDOW_MEDIUM_ADD
-#, fuzzy
 msgid "add new medium"
-msgstr "Stocare mediu"
+msgstr "Adaugă mediu nou"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -206,7 +203,7 @@ msgstr "Vizualizare"
 
 #. MENU_WINDOW
 msgid "Window"
-msgstr ""
+msgstr "Fereastră"
 
 #. MENU_HELP
 msgid "Help"
@@ -214,7 +211,7 @@ msgstr "Ajutor"
 
 #. MENU_EDIT
 msgid "Edit"
-msgstr ""
+msgstr "Editare"
 
 #. MENU_FILTERS
 msgid "Filters"
@@ -222,7 +219,7 @@ msgstr "Filtre"
 
 #. MENU_GEOMETRY
 msgid "Geometry"
-msgstr ""
+msgstr "Geometrie"
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
@@ -258,7 +255,7 @@ msgstr "Închide"
 
 #. MENU_ITEM_UNDO
 msgid "Undo"
-msgstr ""
+msgstr "Des-face"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
@@ -270,27 +267,23 @@ msgstr "Difuzie"
 
 #. MENU_ITEM_ROTATE90
 msgid "Rotate 90"
-msgstr ""
+msgstr "Roteşte 90"
 
 #. MENU_ITEM_ROTATE180
-#, fuzzy
 msgid "Rotate 180"
-msgstr "Roteşte imaginea cu 180°"
+msgstr "Rotire cu 180°"
 
 #. MENU_ITEM_ROTATE270
-#, fuzzy
 msgid "Rotate 270"
-msgstr "Roteşte imaginea cu 270°"
+msgstr "Rotire cu 270°"
 
 #. MENU_ITEM_MIRROR_X
-#, fuzzy
 msgid "Mirror |"
-msgstr "eroare"
+msgstr "Oglindire axa X"
 
 #. MENU_ITEM_MIRROR_Y
-#, fuzzy
 msgid "Mirror -"
-msgstr "eroare"
+msgstr "Oglindire axa Y"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -369,9 +362,8 @@ msgid "Show image"
 msgstr "Arată imaginea"
 
 #. BUTTON_IMAGE_EDIT
-#, fuzzy
 msgid "Edit image"
-msgstr "Imagine îmbunătăţită"
+msgstr "Editare imagine"
 
 #. BUTTON_IMAGE_RENAME
 msgid "Rename image"
@@ -747,7 +739,7 @@ msgstr "Stare proiect:"
 
 #. TEXT_MAIL_FILETYPE
 msgid "Mail image filetype:"
-msgstr ""
+msgstr "Tip fişier mail imagine:"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
@@ -1054,7 +1046,7 @@ msgid "all"
 msgstr "toţi"
 
 msgid "new media"
-msgstr ""
+msgstr "mediu nou"
 
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
@@ -1281,29 +1273,24 @@ msgid "Add selection to list"
 msgstr "Adaugă selecţia la listă"
 
 #. MENU_ITEM_MEDIUM_ADD
-#, fuzzy
 msgid "Add medium definition"
-msgstr "Editare definiţie mediu"
+msgstr "Adaugă definiţie mediu"
 
 #. MENU_ITEM_RENAME
-#, fuzzy
 msgid "Rename item"
-msgstr "Redenumeşte imaginea"
+msgstr "Redenumeşte articol"
 
 #. MENU_ITEM_DELETE
-#, fuzzy
 msgid "Delete item"
-msgstr "Şterge imprimantă"
+msgstr "Şterge articol"
 
 #. MENU_ITEM_MOVE_UP
-#, fuzzy
 msgid "Move item up"
-msgstr "Mută în sus"
+msgstr "Mută articol în sus"
 
 #. MENU_ITEM_MOVE_DWN
-#, fuzzy
 msgid "Move item down"
-msgstr "Mută în jos"
+msgstr "Mută articol în jos"
 
 #. PROGRESS_SCANNING
 msgid "Scanning"
@@ -1390,6 +1377,11 @@ msgid ""
 "To create a medium enable the option edit medium definition in preferences "
 "menu."
 msgstr ""
+"Selectaţi tipul mediului sursă. \n"
+"Pentru a redenumi, şterge, ordona un articol, folosiţi meniul contextual "
+"(butonul dreapta al mausului).\n"
+"Pentru a creea un mediu activaţi opţiunea de editare a definirii mediului "
+"din meniul Preferinţe."
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1441,14 +1433,13 @@ msgstr "Introduceţi subiectul email-ului"
 
 #. DESC_MAIL_FILETYPE
 msgid "Select filetype for image attachments"
-msgstr ""
+msgstr "Selectaţi tipul fişierelor pentru ataşamentele imagine"
 
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
 msgstr "Introduceţi numele noii zone predefinite"
 
 #. DESC_PRESET_AREA_ADD
-#, fuzzy
 msgid "Enter name for new preset area"
 msgstr "Introduceţi numele noii zone predefinite"
 
@@ -1457,7 +1448,6 @@ msgid "Enter new name for medium definition"
 msgstr "Introduceţi noul nume pt. definiţia mediului"
 
 #. DESC_MEDIUM_ADD
-#, fuzzy
 msgid "Enter name for new medium definition"
 msgstr "Introduceţi noul nume pt. definiţia mediului"
 
@@ -1958,9 +1948,8 @@ msgstr ""
 "Introduceţi comanda ce va fi executată pt. a vizualiza o imagine din mail"
 
 #. DESC_HTML_MAIL
-#, fuzzy
 msgid "Mail is sent in html mode, place image with: <IMAGE>"
-msgstr "Poşta trimisă în mod HTML va afişa imaginile direct"
+msgstr "Poşta trimisă în mod HTML va afişa imaginile cu <IMAGE>"
 
 #. DESC_OCR_COMMAND
 msgid "Enter command to start ocr program"
@@ -2062,6 +2051,9 @@ msgid ""
 "To add new area or edit an existing area use contect menu (right mouse "
 "button)."
 msgstr ""
+"Zona predefinită:\n"
+"Pentru a adăuga o zonă nouă sau a edita o zonă existentă folosiţi meniul "
+"contextual (butonul dreapta maus)"
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -2080,9 +2072,8 @@ msgid "Optical Character Recognition"
 msgstr "Recunoaştere optică a caracterelor (OCR)"
 
 #. DESC_VIEWER_UNDO
-#, fuzzy
 msgid "Undo last change"
-msgstr "Anulează ultima mărire"
+msgstr "Anulează ultima modificare"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
@@ -2284,11 +2275,11 @@ msgstr "tip constrângere necunoscut"
 
 #. ERR_OPTION_NAME_NULL
 msgid "Option has empty name (NULL)."
-msgstr ""
+msgstr "Opţiunea are nume vid (NULL)."
 
 #. ERR_BACKEND_BUG
 msgid "This is a backend bug. Please inform the author of the backend!"
-msgstr ""
+msgstr "Aceasta este o eroare de back-end. Informaţi autorul back-end-ului!"
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
@@ -2707,81 +2698,72 @@ msgid "Rossmann negative HR 100"
 msgstr "Negativ Rossmann HR 100"
 
 #. TEXT_MAIL_STATUS_NOT_CREATED
-#, fuzzy
 msgid "Mail project not created"
-msgstr "citire"
+msgstr "Proiectul mail nu a fost creat"
 
 #. TEXT_MAIL_STATUS_CREATED
-#, fuzzy
 msgid "Mail project created"
-msgstr "citire"
+msgstr "Proiectul mail a fost creat"
 
 #. TEXT_MAIL_STATUS_CHANGED
-#, fuzzy
 msgid "Mail project changed"
-msgstr "Preselectare zonă de scanare"
+msgstr "Proiectul mail a fost modificat"
 
 #. TEXT_MAIL_STATUS_ERR_READ_PROJECT
-#, fuzzy
 msgid "Error reading mailproject"
-msgstr "Introduceţi numele proiectului mail"
+msgstr "Eroare de citire proiect mail"
 
 #. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
 msgid "POP3 connection failed"
-msgstr ""
+msgstr "Conexiune POP3 eşuată"
 
 #. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
 msgid "POP3 login failed"
-msgstr ""
+msgstr "Logare POP3 eşuată"
 
 #. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
-msgstr ""
+msgstr "Conexiune SMTP eşuată"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_FROM
-#, fuzzy
 msgid "From entry not accepted"
-msgstr "citire"
+msgstr "Intrarea De la: inacceptabilă"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_RCPT
-#, fuzzy
 msgid "Receiver entry not accepted"
-msgstr "citire"
+msgstr "Intrarea Destinatar: inacceptabilă"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_DATA
 msgid "Mail data not accepted"
-msgstr ""
+msgstr "Datele mailului inacceptabile"
 
 #. TEXT_MAIL_STATUS_SENDING
 msgid "Sending mail"
-msgstr ""
+msgstr "Transmitere mail"
 
 #. TEXT_MAIL_STATUS_SENT
 msgid "Mail has been sent"
-msgstr ""
+msgstr "Mailul a fost trimis"
 
 #. TEXT_FAX_STATUS_NOT_CREATED
-#, fuzzy
 msgid "Fax project not created"
-msgstr "citire"
+msgstr "Proiectul fax nu a fost creat"
 
 #. TEXT_FAX_STATUS_CREATED
-#, fuzzy
 msgid "Fax project created"
-msgstr "citire"
+msgstr "Proiectul fax a fost creat"
 
 #. TEXT_FAX_STATUS_CHANGED
-#, fuzzy
 msgid "Fax project changed"
-msgstr "Preselectare zonă de scanare"
+msgstr "Proiectul fax a fost modificat"
 
 #. TEXT_FAX_STATUS_QUEUEING_FAX
 msgid "Queueing Fax"
-msgstr ""
+msgstr "Faxul este trimis în coadă"
 
 #. TEXT_FAX_STATUS_FAX_QUEUED
 msgid "Fax is queued"
-msgstr ""
+msgstr "Faxul este în coadă"
 
 #. Sane backend messages
 msgid "flatbed scanner"

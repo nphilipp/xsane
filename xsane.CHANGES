@@ -2637,7 +2637,14 @@ xsane-0.95 -> 0.96:
 
  - email images are named "image-1" instead of "page-1"
 
+ - fax_dialog_delete() and mail_dialog_delete() return TRUE now.
+   In windows it was possible to delete the dialogs what caused
+   a crash when the window should be used or closed.
+
  - translations: U=updated, N=not updated
    cs da de es fr hu it ja nl pt pt_BR ro ru sk sl sr sv tr vi zh
-   U  U  U  U  U  N  N  U  U  U  U     U  N  N  N  N  N  U  U  N
+   U  U  U  U  U  N  N  U  U  U  U     U  U  N  N  N  N  U  U  N
 
+ - xsane-preferences.c: when identifier is unknown or not a string then
+   the parser does not abort or crash any more.
+   XSane now should not have any problems with old config files.

@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.95\n"
+"Project-Id-Version: XSANE 0.96\n"
 "POT-Creation-Date: 2004-08-21 15:31+0200\n"
-"PO-Revision-Date: 2004-08-09 21:54+900\n"
+"PO-Revision-Date: 2004-08-28 12:48+900\n"
 "Last-Translator: Kimizuka Tomokazu <sgtom@pluto.dti.ne.jp>\n"
 "Language-Team: Japanese\n"
 "MIME-Version: 1.0\n"
@@ -360,9 +360,8 @@ msgid "Show image"
 msgstr "画像を表示"
 
 #. BUTTON_IMAGE_EDIT
-#, fuzzy
 msgid "Edit image"
-msgstr "拡張イメージ"
+msgstr "画像を編集"
 
 #. BUTTON_IMAGE_RENAME
 msgid "Rename image"
@@ -736,7 +735,7 @@ msgstr "プロジェクトの状態："
 
 #. TEXT_MAIL_FILETYPE
 msgid "Mail image filetype:"
-msgstr ""
+msgstr "メール画像のファイルタイプ"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
@@ -1426,7 +1425,7 @@ msgstr "メールの表題を入力"
 
 #. DESC_MAIL_FILETYPE
 msgid "Select filetype for image attachments"
-msgstr ""
+msgstr "画像添付時のファイルタイプを選択"
 
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
@@ -1904,9 +1903,8 @@ msgid "Enter command to be executed to view a mail image"
 msgstr "メールイメージ表示のための実行コマンドを入力"
 
 #. DESC_HTML_MAIL
-#, fuzzy
 msgid "Mail is sent in html mode, place image with: <IMAGE>"
-msgstr "メールはHTMLモードで送られ、画像は直接表示されます"
+msgstr "メールはHTMLモードで送られ、画像は<IMAGE>タグとともに配置されます。"
 
 #. DESC_OCR_COMMAND
 msgid "Enter command to start ocr program"
@@ -2653,81 +2651,72 @@ msgid "Rossmann negative HR 100"
 msgstr "Rossmann HR 100"
 
 #. TEXT_MAIL_STATUS_NOT_CREATED
-#, fuzzy
 msgid "Mail project not created"
-msgstr "読込み"
+msgstr "メールプロジェクトは作成されませんでした"
 
 #. TEXT_MAIL_STATUS_CREATED
-#, fuzzy
 msgid "Mail project created"
-msgstr "読込み"
+msgstr "メールプロジェクトが作成されました"
 
 #. TEXT_MAIL_STATUS_CHANGED
-#, fuzzy
 msgid "Mail project changed"
-msgstr "スキャン領域の先行指定"
+msgstr "メールプロジェクトが変更されました"
 
 #. TEXT_MAIL_STATUS_ERR_READ_PROJECT
-#, fuzzy
 msgid "Error reading mailproject"
-msgstr "メールプロジェクト名を入力"
+msgstr "メールプロジェクトを読込中にエラー"
 
 #. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
 msgid "POP3 connection failed"
-msgstr ""
+msgstr "POP3接続に失敗しました"
 
 #. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
 msgid "POP3 login failed"
-msgstr ""
+msgstr "POP3ログインに失敗しました"
 
 #. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
-msgstr ""
+msgstr "SMTP接続に失敗しました"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_FROM
-#, fuzzy
 msgid "From entry not accepted"
-msgstr "読込み"
+msgstr "差出人が受けつけられません"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_RCPT
-#, fuzzy
 msgid "Receiver entry not accepted"
-msgstr "読込み"
+msgstr "受取人が受けつけられません"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_DATA
 msgid "Mail data not accepted"
-msgstr ""
+msgstr "メールデータが受けつけられません"
 
 #. TEXT_MAIL_STATUS_SENDING
 msgid "Sending mail"
-msgstr ""
+msgstr "メール送信中"
 
 #. TEXT_MAIL_STATUS_SENT
 msgid "Mail has been sent"
-msgstr ""
+msgstr "メールは送信されていません"
 
 #. TEXT_FAX_STATUS_NOT_CREATED
-#, fuzzy
 msgid "Fax project not created"
-msgstr "読込み"
+msgstr "FAXプロジェクトが作成されませんでした"
 
 #. TEXT_FAX_STATUS_CREATED
-#, fuzzy
 msgid "Fax project created"
-msgstr "読込み"
+msgstr "FAXプロジェクトが作成されました"
 
 #. TEXT_FAX_STATUS_CHANGED
-#, fuzzy
 msgid "Fax project changed"
-msgstr "スキャン領域の先行指定"
+msgstr "FAXプロジェクトが変更されました"
 
 #. TEXT_FAX_STATUS_QUEUEING_FAX
 msgid "Queueing Fax"
-msgstr ""
+msgstr "FAXを送信中"
 
 #. TEXT_FAX_STATUS_FAX_QUEUED
 msgid "Fax is queued"
-msgstr ""
+msgstr "FAXが送信されました"
 
 #. Sane backend messages
 msgid "flatbed scanner"

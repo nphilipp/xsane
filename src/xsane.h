@@ -111,18 +111,21 @@
 #ifdef HAVE_LIBPNG
 #ifdef HAVE_LIBZ
 # define XSANE_DEFAULT_MAILTYPE XSANE_FILETYPE_PNG
+# define XSANE_ACTIVATE_MAIL
 #endif
 #endif
 
 #ifndef XSANE_DEFAULT_MAILTYPE
 #ifdef HAVE_LIBJPEG
 # define XSANE_DEFAULT_MAILTYPE XSANE_FILETYPE_JPEG
+# define XSANE_ACTIVATE_MAIL
 #endif
 #endif
 
 #ifndef XSANE_DEFAULT_MAILTYPE
 #ifdef HAVE_LIBTIFF
 # define XSANE_DEFAULT_MAILTYPE XSANE_FILETYPE_TIFF
+# define XSANE_ACTIVATE_MAIL
 #endif
 #endif
 
@@ -280,14 +283,6 @@
 
 #ifdef HAVE_OS2_H
 # define strcasecmp stricmp
-#endif
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-#ifdef HAVE_LIBPNG
-#ifdef HAVE_LIBZ
-# define XSANE_ACTIVATE_MAIL
-#endif
 #endif
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

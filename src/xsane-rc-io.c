@@ -805,12 +805,14 @@ void xsane_rc_io_w_string(Wire *w, SANE_String *s)
         if (*s == 0)
         {
          /* Malloc failed, so return an error. */
+          DBG(DBG_wire, "xsane_rc_io_w_string: out of memory\n");
           w->status = ENOMEM;
           return;
         }
       }
       else /* string does not begin with a " */
       {
+        DBG(DBG_wire, "xsane_rc_io_w_string: not a string\n");
         w->status = EINVAL;
         *s = 0; /* make sure pointer does not point to an invalid address */
         return;

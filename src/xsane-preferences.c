@@ -396,28 +396,43 @@ void preferences_restore(int fd)
     if (w.status)
     {
       xsane_rc_io_w_exit(&w);
+      preferences.printerdefinitions = 0;
+      preferences.preset_area_definitions = 0;
      return;
     }
 
     xsane_rc_io_w_string(&w, &name);
-    if (w.status || !name)
+    if (w.status == EINVAL) /* not a string */
+    {
+      w.status = 0;
+      xsane_rc_io_w_skip_newline(&w); /* skip this line */
+    }
+    else if (w.status || !name) /* other error */
     {
       xsane_rc_io_w_exit(&w);
      return;
     }
-
-    for (i = 0; i < NELEMS (desc); ++i)
+    else /* identifier read */
     {
-      if (strcmp(name, desc[i].name) == 0)
+      for (i = 0; i < NELEMS(desc); ++i)
       {
-        DBG(DBG_info2, "reading preferences value for %s\n", desc[i].name);
-        (*desc[i].codec) (&w, &preferences, desc[i].offset);
+        if (strcmp(name, desc[i].name) == 0)
+        {
+          DBG(DBG_info2, "reading preferences value for %s\n", desc[i].name);
+          (*desc[i].codec) (&w, &preferences, desc[i].offset);
+          break;
+        }
+      }
+
+      if (!strcmp(name, "printerdefinitions"))
+      {
         break;
       }
-    }
-    if (!strcmp(name, "printerdefinitions"))
-    {
-      break;
+      else if (i == NELEMS(desc))
+      {
+        DBG(DBG_info2, "preferences identifier %s unknown\n", name);
+        xsane_rc_io_w_skip_newline(&w); /* skip this line */
+      }
     }
   }
 

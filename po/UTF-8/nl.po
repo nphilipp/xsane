@@ -6,9 +6,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.93\n"
+"Project-Id-Version: XSANE 0.96\n"
 "POT-Creation-Date: 2004-08-21 15:31+0200\n"
-"PO-Revision-Date: 2004-04-21 08:39+0200\n"
+"PO-Revision-Date: 2004-08-26 11:29+0200\n"
 "Last-Translator: Wim Sinke <sinke@wirehub.nl>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -28,7 +28,7 @@ msgstr "©"
 #. can be translated with \251
 #. FILENAME_PREFIX_CLONE_OF
 msgid "clone-of-"
-msgstr ""
+msgstr "duplikaat-van-"
 
 #. WINDOW_ABOUT_XSANE
 msgid "About"
@@ -56,11 +56,11 @@ msgstr "Informatie"
 
 #. WINDOW_LOAD_BATCH_LIST
 msgid "load batch list"
-msgstr "Laad batch lijst"
+msgstr "laad batch lijst"
 
 #. WINDOW_SAVE_BATCH_LIST
 msgid "save batch list"
-msgstr "Bewaar batch lijst"
+msgstr "bewaar batch lijst"
 
 # Goed genoeg?
 #. WINDOW_BATCH_SCAN
@@ -69,7 +69,7 @@ msgstr "batch scan"
 
 #. WINDOW_BATCH_RENAME
 msgid "rename batch area"
-msgstr "Batchgebied hernoemen"
+msgstr "batchgebied hernoemen"
 
 #. WINDOW_FAX_PROJECT
 msgid "fax project"
@@ -77,7 +77,7 @@ msgstr "faxproject"
 
 #. WINDOW_FAX_RENAME
 msgid "rename fax page"
-msgstr "Faxpagina hernoemen"
+msgstr "faxpagina hernoemen"
 
 #. WINDOW_FAX_INSERT
 msgid "insert ps-file into fax"
@@ -85,7 +85,7 @@ msgstr "ps-bestand in fax voegen"
 
 #. WINDOW_MAIL_PROJECT
 msgid "mail project"
-msgstr "mailproject"
+msgstr "e-mailproject"
 
 #. WINDOW_MAIL_RENAME
 msgid "rename mail image"
@@ -93,26 +93,23 @@ msgstr "e-mail afbeelding hernoemen"
 
 #. WINDOW_MAIL_INSERT
 msgid "insert file into mail"
-msgstr "voeg bestand in e-mail"
+msgstr "voeg afbeelding in e-mail"
 
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
-msgstr "vooringesteld gebied hernoemen"
+msgstr "scangebied hernoemen"
 
 #. WINDOW_PRESET_AREA_ADD
-#, fuzzy
 msgid "add preset area"
-msgstr "vooringesteld gebied hernoemen"
+msgstr "scangebied toevoegen"
 
 #. WINDOW_MEDIUM_RENAME
-#, fuzzy
 msgid "rename medium"
-msgstr "Sla medium op"
+msgstr "Medium hernoemen"
 
 #. WINDOW_MEDIUM_ADD
-#, fuzzy
 msgid "add new medium"
-msgstr "Sla medium op"
+msgstr "medium toevoegen"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -136,11 +133,11 @@ msgstr "Geavanceerde opties"
 
 #. WINDOW_DEVICE_SELECTION
 msgid "device selection"
-msgstr "Apparaat selectie"
+msgstr "apparaat selectie"
 
 #. WINDOW_PREVIEW
 msgid "Preview"
-msgstr "Preview"
+msgstr "Voorvertoning"
 
 #. WINDOW_VIEWER
 msgid "Viewer"
@@ -160,11 +157,11 @@ msgstr "kies uitvoernaam"
 
 #. WINDOW_SAVE_SETTINGS
 msgid "save device settings"
-msgstr "Apparaatinstellingen bewaren"
+msgstr "apparaatinstellingen bewaren"
 
 #. WINDOW_LOAD_SETTINGS
 msgid "load device settings"
-msgstr "Apparaatinstellingen laden"
+msgstr "apparaatinstellingen laden"
 
 #. WINDOW_CHANGE_WORKING_DIR
 msgid "change working directory"
@@ -180,7 +177,7 @@ msgstr "Schaal afbeelding"
 
 #. WINDOW_DESPECKLE
 msgid "Despeckle image"
-msgstr "Vlekken wegwerken"
+msgstr "Spikkels wegwerken"
 
 #. WINDOW_BLUR
 msgid "Blur image"
@@ -208,7 +205,7 @@ msgstr "Bekijk"
 
 #. MENU_WINDOW
 msgid "Window"
-msgstr ""
+msgstr "Venster"
 
 #. MENU_HELP
 msgid "Help"
@@ -216,7 +213,7 @@ msgstr "Help"
 
 #. MENU_EDIT
 msgid "Edit"
-msgstr ""
+msgstr "Bewerk"
 
 #. MENU_FILTERS
 msgid "Filters"
@@ -224,7 +221,7 @@ msgstr "Filters"
 
 #. MENU_GEOMETRY
 msgid "Geometry"
-msgstr ""
+msgstr "Geometrie"
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
@@ -260,11 +257,11 @@ msgstr "Sluiten"
 
 #. MENU_ITEM_UNDO
 msgid "Undo"
-msgstr ""
+msgstr "Ongedaan maken"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
-msgstr "Ontvlekken"
+msgstr "Spikkels wegwerken"
 
 #. MENU_ITEM_BLUR
 msgid "Blur"
@@ -272,27 +269,23 @@ msgstr "Vervagen"
 
 #. MENU_ITEM_ROTATE90
 msgid "Rotate 90"
-msgstr ""
+msgstr "Draaien 90°"
 
 #. MENU_ITEM_ROTATE180
-#, fuzzy
 msgid "Rotate 180"
-msgstr "Draai 180 graden"
+msgstr "Draaien 180°"
 
 #. MENU_ITEM_ROTATE270
-#, fuzzy
 msgid "Rotate 270"
-msgstr "Draai 270 graden"
+msgstr "Draaien 270°"
 
 #. MENU_ITEM_MIRROR_X
-#, fuzzy
 msgid "Mirror |"
-msgstr "fout"
+msgstr "Spiegelen |"
 
 #. MENU_ITEM_MIRROR_Y
-#, fuzzy
 msgid "Mirror -"
-msgstr "fout"
+msgstr "Spiegelen -"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -371,9 +364,8 @@ msgid "Show image"
 msgstr "Afbeelding bekijken"
 
 #. BUTTON_IMAGE_EDIT
-#, fuzzy
 msgid "Edit image"
-msgstr "Verbeterde afbeelding"
+msgstr "Afbeelding bewerken"
 
 #. BUTTON_IMAGE_RENAME
 msgid "Rename image"
@@ -413,11 +405,11 @@ msgstr "Preview afbreken"
 
 #. BUTTON_DISCARD_IMAGE
 msgid "Discard image"
-msgstr "Afbeelding verwijderen"
+msgstr "Afbeelding weggooien"
 
 #. BUTTON_DISCARD_ALL_IMAGES
 msgid "Discard all images"
-msgstr "Alle afbeeldingen verwijderen"
+msgstr "Alle afbeeldingen weggooien"
 
 #. BUTTON_DO_NOT_CLOSE
 msgid "Do not close"
@@ -610,7 +602,7 @@ msgstr "Paswoordoverdracht is veilig"
 
 #. TEXT_AUTHORIZATION_INSECURE
 msgid "Backend requests plain-text password"
-msgstr "Backend heeft platte-tekst paswoord nodig"
+msgstr "Backend vraagt om een onbeveiligd paswoord"
 
 #. TEXT_USERNAME
 msgid "Username :"
@@ -741,11 +733,11 @@ msgstr "Gescande paginas: "
 
 #. TEXT_MAIL_TEXT
 msgid "Email text:"
-msgstr "E-mail text:"
+msgstr "E-mail tekst:"
 
 #. TEXT_ATTACHMENTS
 msgid "Attachments:"
-msgstr "Attachments:"
+msgstr "Aanhangsels:"
 
 #. TEXT_MAIL_STATUS
 msgid "Project status:"
@@ -753,7 +745,7 @@ msgstr "Projectstatus:"
 
 #. TEXT_MAIL_FILETYPE
 msgid "Mail image filetype:"
-msgstr ""
+msgstr "E-mail afbeelding bestandstype:"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
@@ -769,7 +761,7 @@ msgstr ""
 
 #. TEXT_DESPECKLE_RADIUS
 msgid "Despeckle radius:"
-msgstr "Ontvlekradius:"
+msgstr "Ontspikkelradius:"
 
 #. TEXT_BLUR_RADIUS
 msgid "Blur radius:"
@@ -809,7 +801,7 @@ msgstr "zoals geselecteerd"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
-msgstr "Printerselectie"
+msgstr "Printerselectie:"
 
 #. TEXT_SETUP_PRINTER_NAME
 msgid "Name:"
@@ -817,7 +809,7 @@ msgstr "Naam:"
 
 #. TEXT_SETUP_PRINTER_CMD, TEXT_SETUP_FAX_CMD
 msgid "Command:"
-msgstr "Commando"
+msgstr "Commando:"
 
 #. TEXT_SETUP_COPY_NR_OPT
 msgid "Copy number option:"
@@ -1060,7 +1052,7 @@ msgid "all"
 msgstr "allemaal"
 
 msgid "new media"
-msgstr ""
+msgstr "nieuwe media"
 
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
@@ -1114,10 +1106,10 @@ msgstr "Laat histogram zien"
 msgid "Show gamma curve"
 msgstr "Laat gammakromme zien"
 
-# Goed genoeg?
+# 
 #. MENU_ITEM_SHOW_BATCH_SCAN
 msgid "Show batch scan"
-msgstr "Batch scan"
+msgstr "Batch scan tonen"
 
 #. MENU_ITEM_SHOW_STANDARDOPTIONS
 msgid "Show standard options"
@@ -1137,31 +1129,31 @@ msgstr "Lengteeenheid"
 
 #. SUBMENU_ITEM_LENGTH_MILLIMETERS
 msgid "millimeters"
-msgstr "Millimeter"
+msgstr "millimeter"
 
 #. SUBMENU_ITEM_LENGTH_CENTIMETERS
 msgid "centimeters"
-msgstr "Centimeter"
+msgstr "centimeter"
 
 #. SUBMENU_ITEM_LENGTH_INCHES
 msgid "inches"
-msgstr "Inch"
+msgstr "inch"
 
 #. MENU_ITEM_UPDATE_POLICY
 msgid "Update policy"
-msgstr "Bijwerken"
+msgstr "Bijwerk beleid"
 
 #. SUBMENU_ITEM_POLICY_CONTINUOUS
 msgid "continuous"
-msgstr "Continue"
+msgstr "continue"
 
 #. SUBMENU_ITEM_POLICY_DISCONTINU
 msgid "discontinuous"
-msgstr "Niet continue"
+msgstr "niet continue"
 
 #. SUBMENU_ITEM_POLICY_DELAYED
 msgid "delayed"
-msgstr "Vertraagd"
+msgstr "vertraagd"
 
 #. MENU_ITEM_SHOW_RESOLUTIONLIST
 msgid "Show resolution list"
@@ -1189,7 +1181,7 @@ msgstr "Verander map"
 
 #. MENU_ITEM_XSANE_EULA
 msgid "Show EULA"
-msgstr "Gebruikersovereenkomst"
+msgstr "Gebruikersovereenkomst (EULA)"
 
 #. MENU_ITEM_XSANE_GPL
 msgid "Show license (GPL)"
@@ -1288,29 +1280,24 @@ msgid "Add selection to list"
 msgstr "Voeg selectie toe aan lijst"
 
 #. MENU_ITEM_MEDIUM_ADD
-#, fuzzy
 msgid "Add medium definition"
-msgstr "Verander mediumdefinitie"
+msgstr "Mediumdefinitie toevoegen"
 
 #. MENU_ITEM_RENAME
-#, fuzzy
 msgid "Rename item"
-msgstr "Afbeelding hernoemen"
+msgstr "Element hernoemen"
 
 #. MENU_ITEM_DELETE
-#, fuzzy
 msgid "Delete item"
-msgstr "Printer verwijderen"
+msgstr "Element verwijderen"
 
 #. MENU_ITEM_MOVE_UP
-#, fuzzy
 msgid "Move item up"
-msgstr "Naar boven"
+msgstr "Element naar boven"
 
 #. MENU_ITEM_MOVE_DWN
-#, fuzzy
 msgid "Move item down"
-msgstr "Naar beneden"
+msgstr "Element naar beneden"
 
 #. PROGRESS_SCANNING
 msgid "Scanning"
@@ -1347,7 +1334,7 @@ msgstr "Afbeelding bewaren"
 
 #. PROGRESS_CLONING_DATA
 msgid "Cloning image"
-msgstr "Plaatje kloneren"
+msgstr "Afbeelding dupliceren"
 
 #. PROGRESS_SCALING_DATA
 msgid "Scaling image"
@@ -1355,7 +1342,7 @@ msgstr "Schalen afbeelding"
 
 #. PROGRESS_DESPECKLING_DATA
 msgid "Despeckling image"
-msgstr "Vlekken verwijderen"
+msgstr "Ontspikkelen"
 
 #. PROGRESS_BLURING_DATA
 msgid "Bluring image"
@@ -1397,6 +1384,11 @@ msgid ""
 "To create a medium enable the option edit medium definition in preferences "
 "menu."
 msgstr ""
+"Kies een bronmedium type\n"
+"Om medium te hernoemen, herordenen of te verwijderen de context menu "
+"gebruiken (rechter muisknop).\n"
+"Kies de optie 'edit medium definitie' in het instellingen menu om een nieuw "
+"medium te maken."
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1415,7 +1407,7 @@ msgid ""
 "Type of image format, the suitable filename extension is automatically added "
 "to the filename"
 msgstr ""
-"Bestandstype: de gebruikelijke extentie wordt automatisch toegevoegd aan de "
+"Bestandstype, de gebruikelijke extentie wordt automatisch toegevoegd aan de "
 "bestandsnaam"
 
 #. DESC_FAXPROJECT
@@ -1448,23 +1440,21 @@ msgstr "E-mail onderwerp"
 
 #. DESC_MAIL_FILETYPE
 msgid "Select filetype for image attachments"
-msgstr ""
+msgstr "Selecteer het type van de afbeeldingen"
 
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
-msgstr "Geef naam voor gebied"
+msgstr "Geef naam voor scangebied"
 
 #. DESC_PRESET_AREA_ADD
-#, fuzzy
 msgid "Enter name for new preset area"
-msgstr "Geef naam voor gebied"
+msgstr "Geef naam voor scangebied"
 
 #. DESC_MEDIUM_RENAME
 msgid "Enter new name for medium definition"
 msgstr "Geef nieuwe naam voor mediumdefinitie"
 
 #. DESC_MEDIUM_ADD
-#, fuzzy
 msgid "Enter name for new medium definition"
 msgstr "Geef nieuwe naam voor mediumdefinitie"
 
@@ -1474,19 +1464,19 @@ msgstr "Kies printerdefinitie <Shift-F1/F2/...>"
 
 #. DESC_RESOLUTION
 msgid "Set scan resolution"
-msgstr "Kies de scan resolutie"
+msgstr "Kies de scanresolutie"
 
 #. DESC_RESOLUTION_X
 msgid "Set scan resolution for x direction"
-msgstr "Kies de scan resolutie in de x-richting"
+msgstr "Kies de scanresolutie in de x-richting"
 
 #. DESC_RESOLUTION_Y
 msgid "Set scan resolution for y direction"
-msgstr "Kies de scan resolutie in de y-richting"
+msgstr "Kies de scanresolutie in de y-richting"
 
 #. DESC_ZOOM
 msgid "Set zoomfactor"
-msgstr "Kies vergroting"
+msgstr "Kies vergrotingsfactor"
 
 #. DESC_ZOOM_X
 msgid "Set zoomfactor for x direction"
@@ -1498,7 +1488,7 @@ msgstr "Kies vergroting in y-richting"
 
 #. DESC_COPY_NUMBER
 msgid "Set number of copies"
-msgstr "Aantal kopiën"
+msgstr "Stel het aantal kopiën in"
 
 #. DESC_NEGATIVE
 msgid "Negative: Invert colors for scanning negatives <Ctrl-n>"
@@ -1596,7 +1586,7 @@ msgstr "Bewaar huidige aanpassingswaarden in de configuratie <Ctrl-m>"
 
 #. DESC_HIST_INTENSITY
 msgid "Show histogram of intensity/gray <Alt-i>"
-msgstr "Histogram van intensiteit zien <Alt-i>"
+msgstr "Histogram van intensiteit/grijs zien <Alt-i>"
 
 #. DESC_HIST_RED
 msgid "Show histogram of red component <Alt-r>"
@@ -1637,16 +1627,16 @@ msgstr "Optie voor het aantal kopiën"
 #. DESC_PRINTER_LINEART_RESOLUTION
 msgid ""
 "Resolution with which lineart images are printed and saved in postscript"
-msgstr "Printresolutie voor zwart wit afbeeldingen"
+msgstr "Printresolutie voor zwart wit PostScript afbeeldingen"
 
 #. DESC_PRINTER_GRAYSCALE_RESOLUTION
 msgid ""
 "Resolution with which grayscale images are printed and saved in postscript"
-msgstr "Printresolutie voor grijswaarde afbeeldingen"
+msgstr "Printresolutie voor grijswaarde PostScript afbeeldingen"
 
 #. DESC_PRINTER_COLOR_RESOLUTION
 msgid "Resolution with which color images are printed and saved in postscript"
-msgstr "Printresolutie voor kleurenafbeeldingen"
+msgstr "Printresolutie voor PostScript kleurenafbeeldingen"
 
 #. DESC_PRINTER_WIDTH
 msgid "Width of printable area"
@@ -1937,9 +1927,8 @@ msgid "Enter command to be executed to view a mail image"
 msgstr "Commando om e-mail afbeelding te bekijken"
 
 #. DESC_HTML_MAIL
-#, fuzzy
 msgid "Mail is sent in html mode, place image with: <IMAGE>"
-msgstr "E-mail wordt als HTML verstuurd. Afbeeldingen verschijnen direct"
+msgstr "E-mail wordt als HTML verstuurd. Afbeeldingen plaatsen met: <IMAGE>"
 
 #. DESC_OCR_COMMAND
 msgid "Enter command to start ocr program"
@@ -2039,6 +2028,9 @@ msgid ""
 "To add new area or edit an existing area use contect menu (right mouse "
 "button)."
 msgstr ""
+"Scangebied:\n"
+"Om scangebieden toe te voegen of the bewerken het context menu gebruiken "
+"(rechter muisknop)."
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -2057,9 +2049,8 @@ msgid "Optical Character Recognition"
 msgstr "Tekstherkenning (OCR)"
 
 #. DESC_VIEWER_UNDO
-#, fuzzy
 msgid "Undo last change"
-msgstr "Eén zoom terug"
+msgstr "Laatste verandering ongedaan maken"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
@@ -2260,11 +2251,13 @@ msgstr "onbekende beperking type"
 
 #. ERR_OPTION_NAME_NULL
 msgid "Option has empty name (NULL)."
-msgstr ""
+msgstr "Optie heeft een lege naam (NULL)."
 
 #. ERR_BACKEND_BUG
 msgid "This is a backend bug. Please inform the author of the backend!"
 msgstr ""
+"Dit is een fout in de backend. Speel de informatie door aan de auteur van de "
+"backend!"
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
@@ -2683,81 +2676,72 @@ msgid "Rossmann negative HR 100"
 msgstr "Rossmann negatief HR 100"
 
 #. TEXT_MAIL_STATUS_NOT_CREATED
-#, fuzzy
 msgid "Mail project not created"
-msgstr "lezen"
+msgstr "E-mail project niet gemaakt"
 
 #. TEXT_MAIL_STATUS_CREATED
-#, fuzzy
 msgid "Mail project created"
-msgstr "lezen"
+msgstr "E-mail project gemaakt"
 
 #. TEXT_MAIL_STATUS_CHANGED
-#, fuzzy
 msgid "Mail project changed"
-msgstr "Automatisch scangebied selecteren"
+msgstr "E-mail project veranderd"
 
 #. TEXT_MAIL_STATUS_ERR_READ_PROJECT
-#, fuzzy
 msgid "Error reading mailproject"
-msgstr "De naam van het e-mail project"
+msgstr "Fout tijdens lezen van e-mail project"
 
 #. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
 msgid "POP3 connection failed"
-msgstr ""
+msgstr "POP3 verbinding mislukt"
 
 #. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
 msgid "POP3 login failed"
-msgstr ""
+msgstr "POP3 login mislukt"
 
 #. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
-msgstr ""
+msgstr "SMTP verbinding mislukt"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_FROM
-#, fuzzy
 msgid "From entry not accepted"
-msgstr "lezen"
+msgstr "Verstuurder adres is afgewezen"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_RCPT
-#, fuzzy
 msgid "Receiver entry not accepted"
-msgstr "lezen"
+msgstr "Ontvanger adres is afgewezen"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_DATA
 msgid "Mail data not accepted"
-msgstr ""
+msgstr "E-mail data niet geaccepteerd"
 
 #. TEXT_MAIL_STATUS_SENDING
 msgid "Sending mail"
-msgstr ""
+msgstr "Versturen e-mail"
 
 #. TEXT_MAIL_STATUS_SENT
 msgid "Mail has been sent"
-msgstr ""
+msgstr "E-mail is verstuurd"
 
 #. TEXT_FAX_STATUS_NOT_CREATED
-#, fuzzy
 msgid "Fax project not created"
-msgstr "lezen"
+msgstr "Fax project is niet gemaakt"
 
 #. TEXT_FAX_STATUS_CREATED
-#, fuzzy
 msgid "Fax project created"
-msgstr "lezen"
+msgstr "Fax project gemaakt"
 
 #. TEXT_FAX_STATUS_CHANGED
-#, fuzzy
 msgid "Fax project changed"
-msgstr "Automatisch scangebied selecteren"
+msgstr "Fax project veranderd"
 
 #. TEXT_FAX_STATUS_QUEUEING_FAX
 msgid "Queueing Fax"
-msgstr ""
+msgstr "Fax in de wachtrij aan het zetten"
 
 #. TEXT_FAX_STATUS_FAX_QUEUED
 msgid "Fax is queued"
-msgstr ""
+msgstr "Fax staat in de wachtrij"
 
 #. Sane backend messages
 msgid "flatbed scanner"

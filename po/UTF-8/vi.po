@@ -3,29 +3,35 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.91\n"
+"Project-Id-Version: XSANE 0.96\n"
 "POT-Creation-Date: 2004-08-21 15:31+0200\n"
-"PO-Revision-Date: 2003-05-20 15:30+0700\n"
+"PO-Revision-Date: 2004-08-26 23:33+0700\n"
 "Last-Translator: Trinh Minh Thanh <tmthanh@yahoo.com>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#  Please translate this to the correct directory name (eg. german=>de)
+#  XSANE_LANGUAGE_DIR
 #. Please translate this to the correct directory name (eg. german=>de)
 #. XSANE_LANGUAGE_DIR
 msgid "language_dir"
 msgstr "vi"
 
+#  XSANE_COPYRIGHT_SIGN
 #. XSANE_COPYRIGHT_SIGN
 msgid "(c)"
 msgstr "(c)"
 
+#  can be translated with \251
+#  FILENAME_PREFIX_CLONE_OF
 #. can be translated with \251
 #. FILENAME_PREFIX_CLONE_OF
 msgid "clone-of-"
-msgstr ""
+msgstr "bản sao của"
 
+#  WINDOW_ABOUT_XSANE
 #. WINDOW_ABOUT_XSANE
 msgid "About"
 msgstr "Giới thiệu"
@@ -90,24 +96,25 @@ msgstr "đổi tên ảnh thư"
 msgid "insert file into mail"
 msgstr "chèn tập tin vào thư"
 
+#  WINDOW_PRESET_AREA_RENAME
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
-msgstr "đổi tên vùng lập trước"
+msgstr "đổi tên vùng định trước"
 
+#  WINDOW_PRESET_AREA_ADD
 #. WINDOW_PRESET_AREA_ADD
-#, fuzzy
 msgid "add preset area"
-msgstr "đổi tên vùng lập trước"
+msgstr "thêm vùng định trước"
 
+#  WINDOW_MEDIUM_RENAME
 #. WINDOW_MEDIUM_RENAME
-#, fuzzy
 msgid "rename medium"
-msgstr "Thiết bị lưu trữ"
+msgstr "đổi tên phương tiện"
 
+#  WINDOW_MEDIUM_ADD
 #. WINDOW_MEDIUM_ADD
-#, fuzzy
 msgid "add new medium"
-msgstr "Thiết bị lưu trữ"
+msgstr "thêm phương tiện mới"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -201,25 +208,28 @@ msgstr "Sở thích"
 msgid "View"
 msgstr "Xem"
 
+#  MENU_WINDOW
 #. MENU_WINDOW
 msgid "Window"
-msgstr ""
+msgstr "Cửa sổ"
 
 #. MENU_HELP
 msgid "Help"
 msgstr "Trợ giúp"
 
+#  MENU_EDIT
 #. MENU_EDIT
 msgid "Edit"
-msgstr ""
+msgstr "Hiệu chỉnh"
 
 #. MENU_FILTERS
 msgid "Filters"
 msgstr "Trình lọc"
 
+#  MENU_GEOMETRY
 #. MENU_GEOMETRY
 msgid "Geometry"
-msgstr ""
+msgstr "Hình học"
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
@@ -253,9 +263,10 @@ msgstr "Cân chỉnh"
 msgid "Close"
 msgstr "Đóng"
 
+#  MENU_ITEM_UNDO
 #. MENU_ITEM_UNDO
 msgid "Undo"
-msgstr ""
+msgstr "Hoàn tác"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
@@ -265,29 +276,30 @@ msgstr "Xóa vết đốm"
 msgid "Blur"
 msgstr "Làm mờ"
 
+#  MENU_ITEM_ROTATE90
 #. MENU_ITEM_ROTATE90
 msgid "Rotate 90"
-msgstr ""
+msgstr "Xoay 90"
 
+#  MENU_ITEM_ROTATE180
 #. MENU_ITEM_ROTATE180
-#, fuzzy
 msgid "Rotate 180"
-msgstr "Xoay ảnh 180 độ"
+msgstr "Xoay 180"
 
+#  MENU_ITEM_ROTATE270
 #. MENU_ITEM_ROTATE270
-#, fuzzy
 msgid "Rotate 270"
-msgstr "Xoay ảnh 270 độ"
+msgstr "Xoay 270"
 
+#  MENU_ITEM_MIRROR_X
 #. MENU_ITEM_MIRROR_X
-#, fuzzy
 msgid "Mirror |"
-msgstr "lỗi"
+msgstr "Phản chiếu |"
 
+#  MENU_ITEM_MIRROR_Y
 #. MENU_ITEM_MIRROR_Y
-#, fuzzy
 msgid "Mirror -"
-msgstr "lỗi"
+msgstr "Phản chiếu -"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
@@ -365,10 +377,10 @@ msgstr "Xóa ảnh"
 msgid "Show image"
 msgstr "Hiển thị ảnh"
 
+#  BUTTON_IMAGE_EDIT
 #. BUTTON_IMAGE_EDIT
-#, fuzzy
 msgid "Edit image"
-msgstr "Ảnh cải thiện"
+msgstr "Hiệu chỉnh ảnh"
 
 #. BUTTON_IMAGE_RENAME
 msgid "Rename image"
@@ -737,9 +749,10 @@ msgstr "Đính kèm:"
 msgid "Project status:"
 msgstr "Tình trạng dự án:"
 
+#  TEXT_MAIL_FILETYPE
 #. TEXT_MAIL_FILETYPE
 msgid "Mail image filetype:"
-msgstr ""
+msgstr "Loại tập tin đính kèm:"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
@@ -1045,7 +1058,7 @@ msgid "all"
 msgstr "toàn bộ"
 
 msgid "new media"
-msgstr ""
+msgstr "phương tiện mới"
 
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
@@ -1271,30 +1284,30 @@ msgstr "theo phần mở rộng"
 msgid "Add selection to list"
 msgstr "Thêm việc chọn vào danh sách"
 
+#  MENU_ITEM_MEDIUM_ADD
 #. MENU_ITEM_MEDIUM_ADD
-#, fuzzy
 msgid "Add medium definition"
-msgstr "Biên soạn định nghĩa phương tiện"
+msgstr "Bổ sung định nghĩa phương tiện"
 
+#  MENU_ITEM_RENAME
 #. MENU_ITEM_RENAME
-#, fuzzy
 msgid "Rename item"
-msgstr "Đổi tên ảnh"
+msgstr "Đổi tên mục"
 
+#  MENU_ITEM_DELETE
 #. MENU_ITEM_DELETE
-#, fuzzy
 msgid "Delete item"
-msgstr "Xóa máy in"
+msgstr "Xóa mục"
 
+#  MENU_ITEM_MOVE_UP
 #. MENU_ITEM_MOVE_UP
-#, fuzzy
 msgid "Move item up"
-msgstr "Chuyển lên"
+msgstr "Chuyển mục lên"
 
+#  MENU_ITEM_MOVE_DWN
 #. MENU_ITEM_MOVE_DWN
-#, fuzzy
 msgid "Move item down"
-msgstr "Chuyển xuống"
+msgstr "Chuyển mục xuống"
 
 #. PROGRESS_SCANNING
 msgid "Scanning"
@@ -1372,6 +1385,7 @@ msgid ""
 msgstr ""
 "lưu-<Ctrl-s>, xem-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> hay thư-<Ctrl-m>"
 
+#  DESC_XSANE_MEDIUM
 #. DESC_XSANE_MEDIUM
 msgid ""
 "Select source medium type.\n"
@@ -1380,6 +1394,11 @@ msgid ""
 "To create a medium enable the option edit medium definition in preferences "
 "menu."
 msgstr ""
+"Chọn loại phương tiện nguồn.\n"
+"Để đổi tên, yêu cầu lại hoặc xóa một mục, hãy dùng menu ngữ cảnh (nút phải "
+"chuột).\n"
+"Để tạo phương tiện, hãy bật tùy chọn định nghĩa phương tiện trong menu Tùy "
+"Thích."
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1429,27 +1448,29 @@ msgstr "Nhập địa chỉ thư"
 msgid "Enter subject of email"
 msgstr "Nhập chủ đề thư"
 
+#  DESC_MAIL_FILETYPE
 #. DESC_MAIL_FILETYPE
 msgid "Select filetype for image attachments"
-msgstr ""
+msgstr "Chọn loại tập tin cho ảnh đính kèm"
 
+#  DESC_PRESET_AREA_RENAME
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
-msgstr "Nhập tên mới cho vùng lập trước"
+msgstr "Nhập tên mới cho vùng định trước"
 
+#  DESC_PRESET_AREA_ADD
 #. DESC_PRESET_AREA_ADD
-#, fuzzy
 msgid "Enter name for new preset area"
-msgstr "Nhập tên mới cho vùng lập trước"
+msgstr "Nhập tên cho vùng định trước mới"
 
 #. DESC_MEDIUM_RENAME
 msgid "Enter new name for medium definition"
 msgstr "Nhập tên mới cho định nghĩa phương tiện"
 
+#  DESC_MEDIUM_ADD
 #. DESC_MEDIUM_ADD
-#, fuzzy
 msgid "Enter name for new medium definition"
-msgstr "Nhập tên mới cho định nghĩa phương tiện"
+msgstr "Nhập tên cho định nghĩa phương tiện mới"
 
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
@@ -1918,10 +1939,10 @@ msgstr "mật khẩu cho máy chủ POP3"
 msgid "Enter command to be executed to view a mail image"
 msgstr "Nhập lệnh được thực thi để xem ảnh trong thư"
 
+#  DESC_HTML_MAIL
 #. DESC_HTML_MAIL
-#, fuzzy
 msgid "Mail is sent in html mode, place image with: <IMAGE>"
-msgstr "Thư gửi theo phương thức HTML, ảnh được hiển thị trực tiếp"
+msgstr "Thư gửi theo phương thức HTML, thay ảnh bằng: <IMAGE>"
 
 #. DESC_OCR_COMMAND
 msgid "Enter command to start ocr program"
@@ -1982,6 +2003,7 @@ msgstr "Lấy điểm đen"
 msgid "Use full scanarea"
 msgstr "Dùng toàn bộ vùng quét"
 
+#  DESC_ZOOM_OUT
 #. DESC_ZOOM_OUT
 #, no-c-format
 msgid "Zoom 20% out"
@@ -2015,12 +2037,16 @@ msgstr "Tự động nâng vùng quét"
 msgid "Delete preview image cache"
 msgstr "Xóa cache ảnh xem trước"
 
+#  DESC_PRESET_AREA
 #. DESC_PRESET_AREA
 msgid ""
 "Preset area:\n"
 "To add new area or edit an existing area use contect menu (right mouse "
 "button)."
 msgstr ""
+"Vùng định trước:\n"
+"Để thêm vùng mới hay hiệu chỉnh vùng hiện có, hãy dùng menu ngữ cảnh (nút "
+"phải chuột)."
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -2038,10 +2064,10 @@ msgstr "Định ra vị trí ảnh để in"
 msgid "Optical Character Recognition"
 msgstr "Nhận Dạng Ký Tự Quang (OCR)"
 
+#  DESC_VIEWER_UNDO
 #. DESC_VIEWER_UNDO
-#, fuzzy
 msgid "Undo last change"
-msgstr "Thôi việc phóng vừa rồi"
+msgstr "Thôi việc thay đổi vừa rồi"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
@@ -2123,9 +2149,10 @@ msgstr "Thêm vùng xem trước được chọn vào danh sách batch"
 msgid "Delete selected area from batch list"
 msgstr "Xóa vùng được chọn khỏi danh sách batch"
 
+#  DESC_AUTOMATIC
 #. DESC_AUTOMATIC
 msgid "Turns on automatic mode"
-msgstr ""
+msgstr "Bật chế độ tự động"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2228,10 +2255,10 @@ msgstr "LIBTIFF báo có lỗi"
 msgid "LIBPNG reports error"
 msgstr "LIBPNG báo có lỗi"
 
+#  ERR_LIBJPEG
 #. ERR_LIBJPEG
-#, fuzzy
 msgid "LIBJPEG reports error"
-msgstr "LIBPNG báo có lỗi"
+msgstr "LIBJPEG báo lỗi"
 
 #. ERR_UNKNOWN_TYPE
 msgid "unknown type"
@@ -2241,13 +2268,15 @@ msgstr "loại không xác định"
 msgid "unknown constraint type"
 msgstr "Kiểu tự chủ không xác định"
 
+#  ERR_OPTION_NAME_NULL
 #. ERR_OPTION_NAME_NULL
 msgid "Option has empty name (NULL)."
-msgstr ""
+msgstr "Tùy chọn có tên trống (null)."
 
+#  ERR_BACKEND_BUG
 #. ERR_BACKEND_BUG
 msgid "This is a backend bug. Please inform the author of the backend!"
-msgstr ""
+msgstr "Đây là lỗi của backend. Hãy thông báo cho tác giả biết!"
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
@@ -2665,82 +2694,90 @@ msgstr "Âm bản Konica VX 100"
 msgid "Rossmann negative HR 100"
 msgstr "Âm bản Rossmann HR 100"
 
+#  TEXT_MAIL_STATUS_NOT_CREATED
 #. TEXT_MAIL_STATUS_NOT_CREATED
-#, fuzzy
 msgid "Mail project not created"
-msgstr "đọc"
+msgstr "Mail project chưa tạo"
 
+#  TEXT_MAIL_STATUS_CREATED
 #. TEXT_MAIL_STATUS_CREATED
-#, fuzzy
 msgid "Mail project created"
-msgstr "đọc"
+msgstr "Mail project được tạo"
 
+#  TEXT_MAIL_STATUS_CHANGED
 #. TEXT_MAIL_STATUS_CHANGED
-#, fuzzy
 msgid "Mail project changed"
-msgstr "Chọn trước vùng quét"
+msgstr "Mail project đã đổi"
 
+#  TEXT_MAIL_STATUS_ERR_READ_PROJECT
 #. TEXT_MAIL_STATUS_ERR_READ_PROJECT
-#, fuzzy
 msgid "Error reading mailproject"
-msgstr "Nhập tên dự án thư"
+msgstr "Lỗi đọc mailproject"
 
+#  TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
 #. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
 msgid "POP3 connection failed"
-msgstr ""
+msgstr "Không kết nối POP3 được"
 
+#  TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
 #. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
 msgid "POP3 login failed"
-msgstr ""
+msgstr "Không đăng nhập POP3 được"
 
+#  TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
 #. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
-msgstr ""
+msgstr "Không kết nối SMTP được"
 
+#  TEXT_MAIL_STATUS_SMTP_ERR_FROM
 #. TEXT_MAIL_STATUS_SMTP_ERR_FROM
-#, fuzzy
 msgid "From entry not accepted"
-msgstr "đọc"
+msgstr "Không chấp nhận mục Từ"
 
+#  TEXT_MAIL_STATUS_SMTP_ERR_RCPT
 #. TEXT_MAIL_STATUS_SMTP_ERR_RCPT
-#, fuzzy
 msgid "Receiver entry not accepted"
-msgstr "đọc"
+msgstr "Không chấp nhận mục người nhận"
 
+#  TEXT_MAIL_STATUS_SMTP_ERR_DATA
 #. TEXT_MAIL_STATUS_SMTP_ERR_DATA
 msgid "Mail data not accepted"
-msgstr ""
+msgstr "Không chấp nhận dữ liệu thư"
 
+#  TEXT_MAIL_STATUS_SENDING
 #. TEXT_MAIL_STATUS_SENDING
 msgid "Sending mail"
-msgstr ""
+msgstr "Gửi thư"
 
+#  TEXT_MAIL_STATUS_SENT
 #. TEXT_MAIL_STATUS_SENT
 msgid "Mail has been sent"
-msgstr ""
+msgstr "Thư đã được gửi"
 
+#  TEXT_FAX_STATUS_NOT_CREATED
 #. TEXT_FAX_STATUS_NOT_CREATED
-#, fuzzy
 msgid "Fax project not created"
-msgstr "đọc"
+msgstr "Chưa tạo Fax project"
 
+#  TEXT_FAX_STATUS_CREATED
 #. TEXT_FAX_STATUS_CREATED
-#, fuzzy
 msgid "Fax project created"
-msgstr "đọc"
+msgstr "Fax project đã tạo"
 
+#  TEXT_FAX_STATUS_CHANGED
 #. TEXT_FAX_STATUS_CHANGED
-#, fuzzy
 msgid "Fax project changed"
-msgstr "Chọn trước vùng quét"
+msgstr "Fax project đã thay đổi"
 
+#  TEXT_FAX_STATUS_QUEUEING_FAX
 #. TEXT_FAX_STATUS_QUEUEING_FAX
 msgid "Queueing Fax"
-msgstr ""
+msgstr "Xếp hàng fax"
 
+#  TEXT_FAX_STATUS_FAX_QUEUED
 #. TEXT_FAX_STATUS_FAX_QUEUED
 msgid "Fax is queued"
-msgstr ""
+msgstr "Fax được xếp hàng"
 
 #. Sane backend messages
 msgid "flatbed scanner"

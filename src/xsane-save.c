@@ -3756,7 +3756,6 @@ int xsane_save_image_as(char *output_filename, char *input_filename, int output_
           else
           {
             xsane_copy_file(outfile, infile, progress_bar, cancel_save);
-        //    xsane_save_rotate_image(outfile, infile, &image_info, 0, progress_bar, cancel_save);
           }
          break;
 

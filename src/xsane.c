@@ -179,6 +179,7 @@ static gint xsane_close_info_callback(GtkWidget *widget, gpointer data);
 static void xsane_info_dialog(GtkWidget *widget, gpointer data);
 static void xsane_about_dialog(GtkWidget *widget, gpointer data);
 static void xsane_about_translation_dialog(GtkWidget *widget, gpointer data);
+static gint xsane_fax_dialog_delete();
 static void xsane_fax_dialog(void);
 static void xsane_fax_dialog_close(void);
 static void xsane_fax_receiver_changed_callback(GtkWidget *widget, gpointer data);
@@ -198,6 +199,8 @@ static void xsane_fax_entry_delete_callback(GtkWidget *widget, gpointer list);
 static void xsane_fax_show_callback(GtkWidget *widget, gpointer data);
 static void xsane_fax_send(void);
 #ifdef XSANE_ACTIVATE_MAIL
+static gint xsane_mail_dialog_delete();
+static void xsane_mail_filetype_callback(GtkWidget *filetype_option_menu, char *filetype);
 static void xsane_mail_dialog(void);
 static void xsane_mail_dialog_close(void);
 static void xsane_mail_receiver_changed_callback(GtkWidget *widget, gpointer data);
@@ -3521,8 +3524,9 @@ static void xsane_about_translation_dialog(GtkWidget *widget, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_fax_dialog_delete()
+static gint xsane_fax_dialog_delete()
 {
+ return TRUE;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -4791,8 +4795,9 @@ static void xsane_fax_send()
 /* ---------------------------------------------------------------------------------------------------------------------- */
 #ifdef XSANE_ACTIVATE_MAIL
 
-static void xsane_mail_dialog_delete()
+static gint xsane_mail_dialog_delete()
 {
+ return TRUE;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
