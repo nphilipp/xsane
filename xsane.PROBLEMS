@@ -57,5 +57,8 @@ READ THIS FILE IF YOU EXPERIENCE ANY PROBLEM
    named-gtk?.?-config, make sure environment variable GTK_CONFIG
    is set with full path to the config file that shall be used
 
+ - If you get a segmentation fault when opening the preview (or histogram)
+   window and your system is IRIX, make sure the default visual is 24-bit
+   (edit /usr/lib/X11/xdm/Xservers)
 
-
+ 

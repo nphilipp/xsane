@@ -1,0 +1,116 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.6 [en] (X11; I; Linux 2.2.11 i586) [Netscape]">
+   <meta name="Author" content="Oliver Rauch">
+   <meta name="Description" content="List of all available backend documentations">
+   <title>SANE-Backends</title>
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EF" vlink="#51188E" alink="#FF0000">
+&nbsp;
+<dd>
+<img SRC="sane-logo2.jpg" height=150 width=128 align=LEFT></dd>
+
+<blockquote>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<h1>
+<font color="#000000">SANE Problems</font></h1>
+</blockquote>
+
+<br>&nbsp;
+<br>&nbsp;
+<blockquote><b><font color="#000000"><font size=+1>If you have any problems
+with SANE or XSane please read this before you write any mails.</font></font></b></blockquote>
+
+<blockquote>
+<blockquote>
+<li>
+<b><font color="#000000">The SANE frontend (like xsane or xscanimage) does
+not start or aborts with a segmentation fault.</font></b></li>
+
+<p><br><font color="#000000">Edit /usr/local/etc/sane.d/dll.conf (or /usr/etc/sane.d/dll.conf)
+and comment out all but the backend you need. To do this add a "#" at the
+beginning of the relevant lines.</font><font color="#000000"></font>
+<p><font color="#000000">If that does not help try to find out where the
+error occurs:</font>
+<br><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gdb
+xscanimage</font>
+<br><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r
+&lt;enter></font>
+<br><font color="#000000">after the frontend returned:</font>
+<br><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; backtrace
+&lt;enter></font>
+<br>&nbsp;
+<li>
+<b><font color="#000000">The scanner starts the scan but it stops while
+scanning</font></b></li>
+
+<li>
+<b><font color="#000000">The scsi bus or the whole system freezes</font></b></li>
+
+<li>
+<b><font color="#000000">The image is corrupted</font></b></li>
+
+<p><br><font color="#000000">In general there are three different reasons
+that can cause such erros:</font>
+<blockquote>
+<li>
+<font color="#000000">In most cases it is a problem with your scsi bus.
+Please check the following points:</font></li>
+
+<blockquote>
+<li>
+<font color="#000000">The scsi bus has to be a chain (one line) that is
+terminated on both ends. If possible the scanner should be on one end of
+the chain because the connectors on most scsi scanners are not specified
+for the scsi-2 standard.</font></li>
+
+<li>
+<font color="#000000">If you do not use any ultra-scsi-devices and your
+scsi controller is a fast scsi controller you can use passive terminators.
+If one or more devices are ultra-scsi-devices you have to use active terminators.</font></li>
+
+<li>
+<font color="#000000">If the scsi controller is at an end of the scsi chain
+the termination of the controller has to be enabled. Otherwise it has to
+be disabled. If you use a fast scsi controller and you have one or more
+ultra-scsi-devices connected, you must not use the built in termination
+of the scsi controller (because it is a passive terminator), you have to
+use an active terminator instead.</font></li>
+
+<li>
+<font color="#000000">The length of the scsi chain is limitted. If you
+use no ultra-scsi-devices the whole length of the chain must not exceed
+3 meters. If there are one or more ultra-scsi-devices in the scsi chain
+the length of the chain must not exceed 1.5 meters.&nbsp; If there are
+only 3 devices (2 devices + controller) the length of the chain may be
+up to 3 meters, but if you have any problems you should try to reduce the
+length.</font></li>
+</blockquote>
+
+<li>
+<font color="#000000">The driver for your scsi controller does not work
+like expected. Update your scsi driver if you do not have the most recent
+version.</font></li>
+
+<br><font color="#000000">If that does not help try it with an other type
+of scsi card.</font>
+<br>&nbsp;
+<li>
+<font color="#000000">May be your scanner/firmware does not work correct
+with the backend you use. Update the backend version or contact the author
+of the backend.</font></li>
+</blockquote>
+<font color="#000000"></font>
+<br>&nbsp;
+<li>
+<b>Please read the documentation of the backend you use</b></li>
+</blockquote>
+<font color="#000000">If you tested everything above and you still need
+help: contact the backend/frontend author or to the <a href="mailto: sane-devel@mostang.com">sane
+mailling list</a> (you must be subscribed to the list).</font></blockquote>
+
+</body>
+</html>

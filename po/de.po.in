@@ -2,6 +2,718 @@
 #define _(x) x
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
 #nls translation file for xsane
 #language: german (de)
 
@@ -73,7 +785,7 @@ msgstr "Datei"
 msgid MENU_PREFERENCES
 msgstr "Einstellungen"
 
-#original text:  "View"
+#original text:  "View"   
 msgid MENU_VIEW
 msgstr "Ansicht"
 
@@ -121,7 +833,7 @@ msgstr "Abbrechen"
 msgid BUTTON_CLOSE
 msgstr "Schließen"
 
-#original text:  "Overwrite"
+#original text:  "Overwrite"   
 msgid BUTTON_OVERWRITE
 msgstr "Überschreiben"
 
@@ -321,7 +1033,7 @@ msgstr "unbekannt"
 msgid TEXT_EMAIL
 msgstr "E-Mail:"
 
-#original text:  "File:"
+#original text:  "File:"   
 msgid TEXT_FILE
 msgstr "Datei:" 
 
@@ -441,9 +1153,9 @@ msgstr "Option für Feinmodus:"
 msgid TEXT_SETUP_FAX_VIEWER
 msgstr "Betrachter (Postscript):"
 
-#original text:  "Printer options"   
-msgid NOTEBOOK_PRINTER_OPTIONS
-msgstr "Drucker Optionen"
+#original text:  "Copy options"   
+msgid NOTEBOOK_COPY_OPTIONS
+msgstr "Kopier Optionen"
 
 #original text:  "Saving options"   
 msgid NOTEBOOK_SAVING_OPTIONS
@@ -537,6 +1249,10 @@ msgstr "Erreichbare Backends"
 msgid MENU_ITEM_SCANTIPS
 msgstr "Scantipps"
 
+#original text:  "Problems?"   
+msgid MENU_ITEM_PROBLEMS
+msgstr "Probleme?"
+
 #original text:  "no compression"   
 msgid MENU_ITEM_TIFF_COMP_NONE
 msgstr "keine Kompression"
@@ -613,9 +1329,9 @@ msgstr "Suche nach Bild-Dateinamen"
 msgid DESC_FILENAME
 msgstr "Dateiname für gescanntes Bild"
 
-#original text:  "Define image file format"   
+#original text:  "Filename extension and type of image format"   
 msgid DESC_FILETYPE
-msgstr "Bestime Format der Bilddatei"
+msgstr "Dateinamenerweiterung und Format der Bilddatei"
 
 #original text:  "Enter name of fax project"   
 msgid DESC_FAXPROJECT
@@ -949,11 +1665,11 @@ msgstr "Fehler beim Lesen:"
 msgid ERR_DURING_SAVE
 msgstr "Fehler beim Speichern:"
 
-#original text:  "Cannot handle depth"   
+#original text:  "Can't handle depth"   
 msgid ERR_BAD_DEPTH
 msgstr "Nicht unterstützte Bittiefe"
 
-#original text:  "GIMP can't handle depth"
+#original text:  "GIMP can't handle depth"   
 msgid ERR_GIMP_BAD_DEPTH
 msgstr "GIMP Modus: nicht unterstützt Bittieffe"
 
@@ -1077,39 +1793,39 @@ msgstr "Fehler"
 msgid ERR_HEADER_WARNING
 msgstr "Warnung"
 
-#original text:  "Failed to create file:"
+#original text:  "Failed to create file:"   
 msgid ERR_FAILED_CREATE_FILE
 msgstr "Fehler beim Erstellen des Files:"
 
-#original text:  "Error while loading device settings:"
+#original text:  "Error while loading device settings:"   
 msgid ERR_LOAD_DEVICE_SETTINGS
 msgstr "Fehler beim Laden der Geräteeinstellungen"
 
-#original text:  "is not a device-rc-file !!!"
+#original text:  "is not a device-rc-file !!!"   
 msgid ERR_NO_DRC_FILE
 msgstr "ist keine Geräteeinstellungs-Datei !!!"
 
-#original text:  "Ensure netscape is running!"
+#original text:  "Ensure netscape is running!"   
 msgid ERR_NETSCAPE_NOT_RUNNING
 msgstr "Stellen Sie sicher dass Netscape gestartet ist!"
 
-#original text:  "Failed to execute netscape!"
+#original text:  "Failed to execute netscape!"   
 msgid ERR_NETSCAPE_EXECUTE_FAIL
 msgstr "Konnte Netscape nicht aufrufen"
 
-#original text:  "Send fax: no receiver defined"
+#original text:  "Send fax: no receiver defined"   
 msgid ERR_SENDFAX_RECEIVER_MISSING
 msgstr "Fax senden: kein Empfänger angegeben"
 
-#original text:  "has been created for device"
+#original text:  "has been created for device"   
 msgid ERR_CREATED_FOR_DEVICE
 msgstr "wurde erstellt für das Gerät"
 
-#original text:  "you want to use it for device"
+#original text:  "you want to use it for device"   
 msgid ERR_USED_FOR_DEVICE
 msgstr "wird benutzt für das Gerät"
 
-#original text:  "this may cause problems!"
+#original text:  "this may cause problems!"   
 msgid ERR_MAY_CAUSE_PROBLEMS
 msgstr "das kann zu Problemen führen!"
 
@@ -1125,27 +1841,27 @@ msgstr "[OPTION]... [GERÄTEDATEI]"
 msgid TEXT_HELP			
 msgstr "" "Startet graphisches Benutzerinterface für SANE (Scanner Access Now Easy)\n" "\n" "-h, --help                   zeigt diesen Hilfetext\n" "-v, --version                gibt Versionsinformation aus\n" "\n" "-d, --device-settings datei  lädt Geräteeinstellungen von datei\n" "\n" "-s, --scan                   starte im Scanmodus\n" "-c, --copy                   starte im Kopiermodus\n" "-f, --fax                    starte im Faxmodus\n" "-n, --no-mode-selection      deaktiviere Modusauswahl\n" "\n" "-F, --Fixed                  Hauptfenstergröße ist fest\n" "-R, --Resizeable             Hauptfenstergröße ist veränderbar\n" "\n" "--display X11-display        lenkt X-Ausgabe auf X11-display um\n" "--no-xshm                    keine shared memory Bilder benutzen\n" "--sync                       fordert synchrone Verbindung zum X-Server an"
 
-#original text: "Front-end to the SANE interface" 
+#original text:  "Front-end to the SANE interface"   
 msgid XSANE_GIMP_INSTALL_BLURB
 msgstr "Frontend zum SANE-Interface"
 
-#original text: "This function provides access to scanners and other image acquisition devices through the SANE (Scanner Access Now Easy) interface." 
+#original text:  "This function provides access to scanners and other image acquisition devices through the SANE (Scanner Access Now Easy) interface."   
 msgid XSANE_GIMP_INSTALL_HELP
 msgstr "Diese Funktion gibt Zugang zu Scannern und anderen bilderzeugenden Geräten durch das SANE (Scanner Access Now Easy) Interface"
 
-#original text: "<Toolbox>/File/Acquire/XSane: "
+#original text:  "<Toolbox>/File/Acquire/XSane: "   
 msgid XSANE_GIMP_MENU
 msgstr "<Toolbox>/File/Acquire/XSane: "
 
-#original text: "<Toolbox>/Xtns/XSane/"
+#original text:  "<Toolbox>/Xtns/XSane/"   
 msgid XSANE_GIMP_MENU_OLD
 msgstr "<Toolbox>/Xtns/XSane/"
 
-#original text: "<Toolbox>/File/Acquire/XSane: Device dialog..."
+#original text:  "<Toolbox>/File/Acquire/XSane: Device dialog..."   
 msgid XSANE_GIMP_MENU_DIALOG
 msgstr "<Toolbox>/Datei/Acquire/XSane: Geräteauswahl"
 
-#original text: "<Toolbox>/Xtns/XSane/Device dialog..."
+#original text:  "<Toolbox>/Xtns/XSane/Device dialog..."   
 msgid XSANE_GIMP_MENU_DIALOG_OLD
 msgstr "<Toolbox>/Xtns/XSane/Geräteauswahl"
  

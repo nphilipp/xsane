@@ -440,8 +440,8 @@ msgstr ""
 _TEXT_SETUP_FAX_VIEWER
 msgstr ""
 
-# original text: NOTEBOOK_PRINTER_OPTIONS
-_NOTEBOOK_PRINTER_OPTIONS
+# original text: NOTEBOOK_COPY_OPTIONS
+_NOTEBOOK_COPY_OPTIONS
 msgstr ""
 
 # original text: NOTEBOOK_SAVING_OPTIONS
@@ -535,6 +535,10 @@ msgstr ""
 
 # original text: MENU_ITEM_SCANTIPS
 _MENU_ITEM_SCANTIPS
+msgstr ""
+
+# original text: MENU_ITEM_PROBLEMS
+_MENU_ITEM_PROBLEMS
 msgstr ""
 
 # original text: MENU_ITEM_TIFF_COMP_NONE

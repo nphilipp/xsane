@@ -1,7 +1,6 @@
 #include "../frontend/xsane-text.h"
 #define _(x) x
 
-
 #nls translation file for xsane
 #language: newlanguage (abbreviation)
 
@@ -441,8 +440,8 @@ msgstr ""
 msgid TEXT_SETUP_FAX_VIEWER
 msgstr ""
 
-#original text:  "Printer options"   
-msgid NOTEBOOK_PRINTER_OPTIONS
+#original text:  "Copy options"   
+msgid NOTEBOOK_COPY_OPTIONS
 msgstr ""
 
 #original text:  "Saving options"   
@@ -536,6 +535,10 @@ msgstr ""
 
 #original text:  "Scantips"   
 msgid MENU_ITEM_SCANTIPS
+msgstr ""
+
+#original text:  "Problems?"   
+msgid MENU_ITEM_PROBLEMS
 msgstr ""
 
 #original text:  "no compression"   

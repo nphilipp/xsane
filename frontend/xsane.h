@@ -31,7 +31,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION	"0.43"
+#define XSANE_VERSION	"0.44"
 #define XSANE_AUTHOR	"Oliver Rauch"
 #define XSANE_COPYRIGHT	"Oliver Rauch"
 #define XSANE_DATE	"1998/1999"
@@ -241,6 +241,9 @@ typedef struct Xsane
     SANE_Int sane_backend_versioncode;
     char *backend;
     char *device_set_filename;
+    char *filetype;
+    char *output_filename;
+    char *dummy_filename;
 
     SANE_Int sensitivity;
 
@@ -275,6 +278,7 @@ typedef struct Xsane
     GtkWidget *filename_entry;
     GtkWidget *fax_project_entry;
     GtkWidget *fax_receiver_entry;
+    GtkWidget *filetype_option_menu;
     FILE *out;
     int xsane_mode;
     int xsane_output_format;
@@ -377,8 +381,6 @@ typedef struct Xsane
     SANE_Int *gamma_data, *gamma_data_red, *gamma_data_green, *gamma_data_blue;
     SANE_Int *preview_gamma_data_red, *preview_gamma_data_green, *preview_gamma_data_blue;
     SANE_Int *histogram_gamma_data_red, *histogram_gamma_data_green, *histogram_gamma_data_blue;
-
-    char *dummy_filename;
 
     char *fax_filename;
     char *fax_receiver;

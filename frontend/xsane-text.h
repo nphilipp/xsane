@@ -122,7 +122,7 @@
 #define TEXT_SETUP_FAX_FINE_MODE_OPT	_("Fine mode option:")
 #define TEXT_SETUP_FAX_VIEWER		_("Viewer (Postscript):")
 
-#define NOTEBOOK_PRINTER_OPTIONS	_("Printer options")
+#define NOTEBOOK_COPY_OPTIONS		_("Copy options")
 #define NOTEBOOK_SAVING_OPTIONS		_("Saving options")
 #define NOTEBOOK_DISPLAY_OPTIONS	_("Display options")
 #define NOTEBOOK_FAX_OPTIONS		_("Fax options")
@@ -156,6 +156,7 @@
 #define MENU_ITEM_BACKEND_DOC		_("Backend doc")
 #define MENU_ITEM_AVAILABLE_BACKENDS	_("Available backends")
 #define MENU_ITEM_SCANTIPS		_("Scantips")
+#define MENU_ITEM_PROBLEMS		_("Problems?")
 
 #define MENU_ITEM_TIFF_COMP_NONE	_("no compression")
 #define MENU_ITEM_TIFF_COMP_CCITTRLE	_("CCITT 1D Huffman compression")
@@ -187,7 +188,7 @@
 
 #define DESC_BROWSE_FILENAME		_("Browse for image filename")
 #define DESC_FILENAME			_("Filename for scanned image")
-#define DESC_FILETYPE			_("Define image file format")
+#define DESC_FILETYPE			_("Filename extension and type of image format")
 #define DESC_FAXPROJECT			_("Enter name of fax project")
 #define DESC_FAXPAGENAME		_("Enter new name for faxpage")
 #define DESC_FAXRECEIVER		_("Enter receiver phone number or address")

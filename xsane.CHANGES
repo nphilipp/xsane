@@ -537,3 +537,13 @@ xsane-0.42 -> 0.43:
    about the licence status of LZW and TIFF. GIF is not supported
    because of the licence problem. LZW for TIFF is disabled now.
  - removed all LZW entries in sourcecode and translation tables
+
+
+xsane-0.43 -> 0.44:
+-------------------
+
+ - renamed NOTEBOOK_PRINTER_OPTIONS to NOTEBOOK_COPY_OPTIONS
+ - added sane-problems-doc.html to the help menu
+ - added functions around "by ext" menu
+ - all functions in xsane-back-gtk.c are named with xsane_back_gtk_* now
+

@@ -175,6 +175,7 @@ static void preview_pipette_gray(GtkWidget *window, gpointer data);
 static void preview_pipette_black(GtkWidget *window, gpointer data);
 static void preview_full_preview_area(GtkWidget *widget, gpointer call_data);
 static void preview_preset_area_callback(GtkWidget *widget, gpointer call_data);
+
 void preview_do_gamma_correction(Preview *p);
 void preview_calculate_histogram(Preview *p,
   SANE_Int *count_raw, SANE_Int *count_raw_red, SANE_Int *count_raw_green, SANE_Int *count_raw_blue,
@@ -389,7 +390,7 @@ static void preview_establish_selection(Preview *p)
     preview_set_option_float(p, p->dialog->well_known.coord[i], p->selection.coordinate[i]);
   }
 
-  gsg_update_scan_window(p->dialog);
+  xsane_back_gtk_update_scan_window(p->dialog);
 
   xsane.block_update_param = FALSE;
 
@@ -683,7 +684,7 @@ static void preview_restore_option(Preview *p, int option, SANE_Word saved_value
     char buf[256];
     opt = sane_get_option_descriptor(dev, option);
     snprintf(buf, sizeof(buf), "%s %s: %s.", ERR_SET_OPTION, opt->name, XSANE_STRSTATUS(status));
-    gsg_error(buf, TRUE);
+    xsane_back_gtk_error(buf, TRUE);
   }
 }
 
@@ -759,7 +760,7 @@ static int preview_increment_image_y(Preview *p)
     if ( (!p->image_data_enh) || (!p->image_data_raw) )
     {
       snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_ALLOCATE_IMAGE, strerror(errno));
-      gsg_error(buf, TRUE);
+      xsane_back_gtk_error(buf, TRUE);
       preview_scan_done(p);
       return -1;
     }
@@ -800,7 +801,7 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
       else
       {
         snprintf(buf, sizeof(buf), "%s %s.", ERR_DURING_READ, XSANE_STRSTATUS(status));
-        gsg_error(buf, TRUE);
+        xsane_back_gtk_error(buf, TRUE);
       }
       preview_scan_done(p);
       return;
@@ -938,7 +939,7 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
 
 bad_depth:
   snprintf(buf, sizeof(buf), "%s %d.", ERR_PREVIEW_BAD_DEPTH, p->params.depth);
-  gsg_error(buf, TRUE);
+  xsane_back_gtk_error(buf, TRUE);
   preview_scan_done(p);
   return;
 }
@@ -1038,7 +1039,7 @@ static void preview_scan_start(Preview *p)
 
       gamma_data = malloc(gamma_gray_size  * sizeof(SANE_Int));
       xsane_create_gamma_curve(gamma_data, 0, 1.0, 0.0, 0.0, gamma_gray_size, gamma_gray_max);
-      gsg_update_vector(p->dialog, p->dialog->well_known.gamma_vector, gamma_data);
+      xsane_back_gtk_update_vector(p->dialog, p->dialog->well_known.gamma_vector, gamma_data);
       free(gamma_data);
     }
   }
@@ -1072,9 +1073,9 @@ static void preview_scan_start(Preview *p)
       xsane_create_gamma_curve(gamma_data_green, 0, 1.0, 0.0, 0.0, gamma_green_size, gamma_green_max);
       xsane_create_gamma_curve(gamma_data_blue,  0, 1.0, 0.0, 0.0, gamma_blue_size,  gamma_blue_max);
 
-      gsg_update_vector(p->dialog, p->dialog->well_known.gamma_vector_r, gamma_data_red);
-      gsg_update_vector(p->dialog, p->dialog->well_known.gamma_vector_g, gamma_data_green);
-      gsg_update_vector(p->dialog, p->dialog->well_known.gamma_vector_b, gamma_data_blue);
+      xsane_back_gtk_update_vector(p->dialog, p->dialog->well_known.gamma_vector_r, gamma_data_red);
+      xsane_back_gtk_update_vector(p->dialog, p->dialog->well_known.gamma_vector_g, gamma_data_green);
+      xsane_back_gtk_update_vector(p->dialog, p->dialog->well_known.gamma_vector_b, gamma_data_blue);
 
       free(gamma_data_red);
       free(gamma_data_green);
@@ -1086,7 +1087,7 @@ static void preview_scan_start(Preview *p)
   if (status != SANE_STATUS_GOOD)
   {
     snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_START_SCANNER, XSANE_STRSTATUS(status));
-    gsg_error(buf, TRUE);
+    xsane_back_gtk_error(buf, TRUE);
     preview_scan_done(p);
     return;
   }
@@ -1095,7 +1096,7 @@ static void preview_scan_start(Preview *p)
   if (status != SANE_STATUS_GOOD)
   {
     snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_GET_PARAMS, XSANE_STRSTATUS(status));
-    gsg_error(buf, TRUE);
+    xsane_back_gtk_error(buf, TRUE);
     preview_scan_done(p);
     return;
   }
@@ -1141,7 +1142,7 @@ static void preview_scan_start(Preview *p)
       { free(p->image_data_raw); }
 
       snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_ALLOCATE_IMAGE, strerror(errno));
-      gsg_error(buf, TRUE);
+      xsane_back_gtk_error(buf, TRUE);
       preview_scan_done(p);
       return;
     }
@@ -1171,7 +1172,7 @@ static void preview_scan_start(Preview *p)
 
 static int preview_make_image_path(Preview *p, size_t filename_size, char *filename)
 {
-  return gsg_make_path(filename_size, filename, 0, 0, "preview-", p->dialog->dev_name, ".ppm");
+  return xsane_back_gtk_make_path(filename_size, filename, 0, 0, "preview-", p->dialog->dev_name, ".ppm");
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1236,7 +1237,7 @@ static void preview_restore_image(Preview *p)
     }
 
     snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_ALLOCATE_IMAGE, strerror(errno));
-    gsg_error(buf, TRUE);
+    xsane_back_gtk_error(buf, TRUE);
     return;
   }
 
@@ -1893,7 +1894,7 @@ Preview *preview_new(GSGDialog *dialog)
   gtk_box_pack_start(GTK_BOX(p->button_box), preset_area_option_menu, FALSE, FALSE, 2);
   gtk_option_menu_set_menu(GTK_OPTION_MENU(preset_area_option_menu), preset_area_menu);
   gtk_option_menu_set_history(GTK_OPTION_MENU(preset_area_option_menu), 0); /* full area */
-/*  gsg_set_tooltip(tooltips, preset_area_option_menu, desc); */
+/*  xsane_back_gtk_set_tooltip(tooltips, preset_area_option_menu, desc); */
 
   gtk_widget_show(preset_area_option_menu);
   p->preset_area_option_menu = preset_area_option_menu;
@@ -2078,11 +2079,11 @@ void preview_update_surface(Preview *p, int surface_changed)
     }
   }
 
-  max_width  = p->max_scanner_surface[GSG_BR_X] - p->max_scanner_surface[GSG_TL_X];
-  max_height = p->max_scanner_surface[GSG_BR_Y] - p->max_scanner_surface[GSG_TL_Y];
+  max_width  = p->max_scanner_surface[xsane_back_gtk_BR_X] - p->max_scanner_surface[xsane_back_gtk_TL_X];
+  max_height = p->max_scanner_surface[xsane_back_gtk_BR_Y] - p->max_scanner_surface[xsane_back_gtk_TL_Y];
 
-  width  = p->scanner_surface[GSG_BR_X] - p->scanner_surface[GSG_TL_X];
-  height = p->scanner_surface[GSG_BR_Y] - p->scanner_surface[GSG_TL_Y];
+  width  = p->scanner_surface[xsane_back_gtk_BR_X] - p->scanner_surface[xsane_back_gtk_TL_X];
+  height = p->scanner_surface[xsane_back_gtk_BR_Y] - p->scanner_surface[xsane_back_gtk_TL_Y];
 
   preset_width  = p->preset_width;
   preset_height = p->preset_height;
@@ -2099,21 +2100,21 @@ void preview_update_surface(Preview *p, int surface_changed)
 
   if ( (width != preset_width) || (height != preset_height) )
   {
-    p->scanner_surface[GSG_TL_X] = p->scanner_surface[GSG_TL_X];
-    p->surface[GSG_TL_X]         = p->scanner_surface[GSG_TL_X];
-    p->image_surface[GSG_TL_X]   = p->scanner_surface[GSG_TL_X];
+    p->scanner_surface[xsane_back_gtk_TL_X] = p->scanner_surface[xsane_back_gtk_TL_X];
+    p->surface[xsane_back_gtk_TL_X]         = p->scanner_surface[xsane_back_gtk_TL_X];
+    p->image_surface[xsane_back_gtk_TL_X]   = p->scanner_surface[xsane_back_gtk_TL_X];
 
-    p->scanner_surface[GSG_BR_X] = p->scanner_surface[GSG_TL_X] + preset_width;
-    p->surface[GSG_BR_X]         = p->scanner_surface[GSG_TL_X] + preset_width;
-    p->image_surface[GSG_BR_X]   = p->scanner_surface[GSG_TL_X] + preset_width;
+    p->scanner_surface[xsane_back_gtk_BR_X] = p->scanner_surface[xsane_back_gtk_TL_X] + preset_width;
+    p->surface[xsane_back_gtk_BR_X]         = p->scanner_surface[xsane_back_gtk_TL_X] + preset_width;
+    p->image_surface[xsane_back_gtk_BR_X]   = p->scanner_surface[xsane_back_gtk_TL_X] + preset_width;
 
-    p->scanner_surface[GSG_TL_Y] = p->scanner_surface[GSG_TL_Y];
-    p->surface[GSG_TL_Y]         = p->scanner_surface[GSG_TL_Y];
-    p->image_surface[GSG_TL_Y]   = p->scanner_surface[GSG_TL_Y];
+    p->scanner_surface[xsane_back_gtk_TL_Y] = p->scanner_surface[xsane_back_gtk_TL_Y];
+    p->surface[xsane_back_gtk_TL_Y]         = p->scanner_surface[xsane_back_gtk_TL_Y];
+    p->image_surface[xsane_back_gtk_TL_Y]   = p->scanner_surface[xsane_back_gtk_TL_Y];
 
-    p->scanner_surface[GSG_BR_Y] = p->scanner_surface[GSG_TL_Y] + preset_height;
-    p->surface[GSG_BR_Y]         = p->scanner_surface[GSG_TL_Y] + preset_height;
-    p->image_surface[GSG_BR_Y]   = p->scanner_surface[GSG_TL_Y] + preset_height;
+    p->scanner_surface[xsane_back_gtk_BR_Y] = p->scanner_surface[xsane_back_gtk_TL_Y] + preset_height;
+    p->surface[xsane_back_gtk_BR_Y]         = p->scanner_surface[xsane_back_gtk_TL_Y] + preset_height;
+    p->image_surface[xsane_back_gtk_BR_Y]   = p->scanner_surface[xsane_back_gtk_TL_Y] + preset_height;
 
     surface_changed = 1;
   }
@@ -2153,8 +2154,8 @@ void preview_update_surface(Preview *p, int surface_changed)
   {
     /* guess the initial preview window size: */
 
-    width  = p->surface[GSG_BR_X] - p->surface[GSG_TL_X];
-    height = p->surface[GSG_BR_Y] - p->surface[GSG_TL_Y];
+    width  = p->surface[xsane_back_gtk_BR_X] - p->surface[xsane_back_gtk_TL_X];
+    height = p->surface[xsane_back_gtk_BR_Y] - p->surface[xsane_back_gtk_TL_Y];
 
     if (p->surface_type == SANE_TYPE_INT)
     {
@@ -2242,7 +2243,7 @@ void preview_scan(Preview *p)
       height = width / p->aspect;
     }
 
-    swidth = (p->surface[GSG_BR_X] - p->surface[GSG_TL_X]);
+    swidth = (p->surface[xsane_back_gtk_BR_X] - p->surface[xsane_back_gtk_TL_X]);
 
     if (swidth < INF)
     {
@@ -2250,7 +2251,7 @@ void preview_scan(Preview *p)
     }
     else
     {
-      sheight = (p->surface[GSG_BR_Y] - p->surface[GSG_TL_Y]);
+      sheight = (p->surface[xsane_back_gtk_BR_Y] - p->surface[xsane_back_gtk_TL_Y]);
       if (sheight < INF)
       {
         dpi = MM_PER_INCH * height/sheight;
@@ -2834,25 +2835,25 @@ void preview_area_resize(GtkWidget *widget)
 
   /* set the ruler ranges: */
 
-  min_x = p->surface[GSG_TL_X];
+  min_x = p->surface[xsane_back_gtk_TL_X];
   if (min_x <= -INF)
   {
     min_x = 0.0;
   }
 
-  max_x = p->surface[GSG_BR_X];
+  max_x = p->surface[xsane_back_gtk_BR_X];
   if (max_x >=  INF)
   {
     max_x = p->image_width - 1;
   }
 
-  min_y = p->surface[GSG_TL_Y];
+  min_y = p->surface[xsane_back_gtk_TL_Y];
   if (min_y <= -INF)
   {
     min_y = 0.0;
   }
 
-  max_y = p->surface[GSG_BR_Y];
+  max_y = p->surface[xsane_back_gtk_BR_Y];
   if (max_y >=  INF)
   {
     max_y = p->image_height - 1;

@@ -345,6 +345,720 @@
 
 
 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+ 
+
 
 
 
@@ -425,7 +1139,7 @@ msgstr "Datei"
 msgid  "Preferences"   
 msgstr "Einstellungen"
 
-#original text:  "View"
+#original text:  "View"   
 msgid  "View"   
 msgstr "Ansicht"
 
@@ -473,7 +1187,7 @@ msgstr "Abbrechen"
 msgid  "Close"   
 msgstr "Schließen"
 
-#original text:  "Overwrite"
+#original text:  "Overwrite"   
 msgid  "Overwrite"   
 msgstr "Überschreiben"
 
@@ -673,7 +1387,7 @@ msgstr "unbekannt"
 msgid  "Email:"   
 msgstr "E-Mail:"
 
-#original text:  "File:"
+#original text:  "File:"   
 msgid  "File:"   
 msgstr "Datei:" 
 
@@ -793,9 +1507,9 @@ msgstr "Option für Feinmodus:"
 msgid  "Viewer (Postscript):"   
 msgstr "Betrachter (Postscript):"
 
-#original text:  "Printer options"   
-msgid  "Printer options"   
-msgstr "Drucker Optionen"
+#original text:  "Copy options"   
+msgid  "Copy options"   
+msgstr "Kopier Optionen"
 
 #original text:  "Saving options"   
 msgid  "Saving options"   
@@ -889,6 +1603,10 @@ msgstr "Erreichbare Backends"
 msgid  "Scantips"   
 msgstr "Scantipps"
 
+#original text:  "Problems?"   
+msgid  "Problems?"   
+msgstr "Probleme?"
+
 #original text:  "no compression"   
 msgid  "no compression"   
 msgstr "keine Kompression"
@@ -904,10 +1622,6 @@ msgstr "CCITT Group 3 Fax Kompression"
 #original text:  "CCITT Group 4 Fax compression"   
 msgid  "CCITT Group 4 Fax compression"   
 msgstr "CCITT Group 4 Fax Kompression"
-
-#original text:  "Lempel-Ziv & Welch compression"   
-msgid  "Lempel-Ziv & Welch compression"   
-msgstr "Lempel-Ziv & Welch Kompression"
 
 #original text:  "JPEG DCT compression"   
 msgid  "JPEG DCT compression"   
@@ -969,9 +1683,9 @@ msgstr "Suche nach Bild-Dateinamen"
 msgid  "Filename for scanned image"   
 msgstr "Dateiname für gescanntes Bild"
 
-#original text:  "Define image file format"   
-msgid  "Define image file format"   
-msgstr "Bestime Format der Bilddatei"
+#original text:  "Filename extension and type of image format"   
+msgid  "Filename extension and type of image format"   
+msgstr "Dateinamenerweiterung und Format der Bilddatei"
 
 #original text:  "Enter name of fax project"   
 msgid  "Enter name of fax project"   
@@ -1305,11 +2019,11 @@ msgstr "Fehler beim Lesen:"
 msgid  "Error during save:"   
 msgstr "Fehler beim Speichern:"
 
-#original text:  "Cannot handle depth"   
+#original text:  "Can't handle depth"   
 msgid  "Can't handle depth"   
 msgstr "Nicht unterstützte Bittiefe"
 
-#original text:  "GIMP can't handle depth"
+#original text:  "GIMP can't handle depth"   
 msgid  "GIMP can't handle depth"   
 msgstr "GIMP Modus: nicht unterstützt Bittieffe"
 
@@ -1433,39 +2147,39 @@ msgstr "Fehler"
 msgid  "Warning"   
 msgstr "Warnung"
 
-#original text:  "Failed to create file:"
+#original text:  "Failed to create file:"   
 msgid  "Failed to create file:"   
 msgstr "Fehler beim Erstellen des Files:"
 
-#original text:  "Error while loading device settings:"
+#original text:  "Error while loading device settings:"   
 msgid  "Error while loading device settings:"   
 msgstr "Fehler beim Laden der Geräteeinstellungen"
 
-#original text:  "is not a device-rc-file !!!"
+#original text:  "is not a device-rc-file !!!"   
 msgid  "is not a device-rc-file !!!"   
 msgstr "ist keine Geräteeinstellungs-Datei !!!"
 
-#original text:  "Ensure netscape is running!"
+#original text:  "Ensure netscape is running!"   
 msgid  "Ensure netscape is running!"   
 msgstr "Stellen Sie sicher dass Netscape gestartet ist!"
 
-#original text:  "Failed to execute netscape!"
+#original text:  "Failed to execute netscape!"   
 msgid  "Failed to execute netscape!"   
 msgstr "Konnte Netscape nicht aufrufen"
 
-#original text:  "Send fax: no receiver defined"
+#original text:  "Send fax: no receiver defined"   
 msgid  "Send fax: no receiver defined"   
 msgstr "Fax senden: kein Empfänger angegeben"
 
-#original text:  "has been created for device"
+#original text:  "has been created for device"   
 msgid  "has been created for device"   
 msgstr "wurde erstellt für das Gerät"
 
-#original text:  "you want to use it for device"
+#original text:  "you want to use it for device"   
 msgid  "you want to use it for device"   
 msgstr "wird benutzt für das Gerät"
 
-#original text:  "this may cause problems!"
+#original text:  "this may cause problems!"   
 msgid  "this may cause problems!"   
 msgstr "das kann zu Problemen führen!"
 
@@ -1481,27 +2195,27 @@ msgstr "[OPTION]... [GERÄTEDATEI]"
 msgid  "Start up graphical user interface to access SANE (Scanner Access Now Easy) devices.\n\n-h, --help                   display this help message and exit\n-v, --version                print version information\n\n-d, --device-settings file   load device settings from file (without \".drc\")\n\n-s, --scan                   start with scan-mode active\n-c, --copy                   start with copy-mode active\n-f, --fax                    start with fax-mode active\n-n, --no-mode-selection      disable menu for xsane mode selection\n\n-F, --Fixed                  fixed main window size (overwrite preferences value)\n-R, --Resizeable             resizable, scrolled main window (overwrite preferences value)\n\n--display X11-display        redirect output to X11-display\n--no-xshm                    do not use shared memory images\n--sync                       request a synchronous connection with the X11 server"   			
 msgstr "" "Startet graphisches Benutzerinterface für SANE (Scanner Access Now Easy)\n" "\n" "-h, --help                   zeigt diesen Hilfetext\n" "-v, --version                gibt Versionsinformation aus\n" "\n" "-d, --device-settings datei  lädt Geräteeinstellungen von datei\n" "\n" "-s, --scan                   starte im Scanmodus\n" "-c, --copy                   starte im Kopiermodus\n" "-f, --fax                    starte im Faxmodus\n" "-n, --no-mode-selection      deaktiviere Modusauswahl\n" "\n" "-F, --Fixed                  Hauptfenstergröße ist fest\n" "-R, --Resizeable             Hauptfenstergröße ist veränderbar\n" "\n" "--display X11-display        lenkt X-Ausgabe auf X11-display um\n" "--no-xshm                    keine shared memory Bilder benutzen\n" "--sync                       fordert synchrone Verbindung zum X-Server an"
 
-#original text: "Front-end to the SANE interface" 
+#original text:  "Front-end to the SANE interface"   
 msgid  "Front-end to the SANE interface"   
 msgstr "Frontend zum SANE-Interface"
 
-#original text: "This function provides access to scanners and other image acquisition devices through the SANE (Scanner Access Now Easy) interface." 
+#original text:  "This function provides access to scanners and other image acquisition devices through the SANE (Scanner Access Now Easy) interface."   
 msgid  "This function provides access to scanners and other image acquisition devices through the SANE (Scanner Access Now Easy) interface."   
 msgstr "Diese Funktion gibt Zugang zu Scannern und anderen bilderzeugenden Geräten durch das SANE (Scanner Access Now Easy) Interface"
 
-#original text: "<Toolbox>/File/Acquire/XSane: "
+#original text:  "<Toolbox>/File/Acquire/XSane: "   
 msgid  "<Toolbox>/File/Acquire/XSane: "   
-msgstr "<Toolbox>/Datei/Acquire/XSane: "
+msgstr "<Toolbox>/File/Acquire/XSane: "
 
-#original text: "<Toolbox>/Xtns/XSane/"
+#original text:  "<Toolbox>/Xtns/XSane/"   
 msgid  "<Toolbox>/Xtns/XSane/"   
 msgstr "<Toolbox>/Xtns/XSane/"
 
-#original text: "<Toolbox>/File/Acquire/XSane: Device dialog..."
+#original text:  "<Toolbox>/File/Acquire/XSane: Device dialog..."   
 msgid  "<Toolbox>/File/Acquire/XSane: Device dialog..."   
 msgstr "<Toolbox>/Datei/Acquire/XSane: Geräteauswahl"
 
-#original text: "<Toolbox>/Xtns/XSane/Device dialog..."
+#original text:  "<Toolbox>/Xtns/XSane/Device dialog..."   
 msgid  "<Toolbox>/Xtns/XSane/Device dialog..."   
 msgstr "<Toolbox>/Xtns/XSane/Geräteauswahl"
  
