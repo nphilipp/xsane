@@ -3,6 +3,8 @@
 #define GimpParamDef GParamDef
 #define GimpDrawable GDrawable
 #define GimpPixelRgn GPixelRgn
+#define GimpRunModeType GRunModeType
+#define GimpImageType GImageType
 
 #define GIMP_PDB_INT32 PARAM_INT32
 #define GIMP_PDB_STATUS PARAM_STATUS
