@@ -357,7 +357,7 @@
 #define DESC_FAX_NORMAL_OPT		_("Enter option to specify normal mode (low resolution)")
 #define DESC_FAX_FINE_OPT		_("Enter option to specify fine mode (high resolution)")
 #define DESC_FAX_VIEWER			_("Enter command to be executed to view a fax")
-#define DESC_FAX_FINE_MODE		_("Use high vertical resolution (196 lpi instead of 98 lpi)")
+#define DESC_FAX_FINE_MODE		_("Send fax with high vertical resolution (196 lpi instead of 98 lpi)")
 #define DESC_FAX_WIDTH			_("Width of printable area in mm")
 #define DESC_FAX_HEIGHT			_("Height of printable area in mm")
 #define DESC_FAX_LEFTOFFSET		_("Left offset from the edge of the paper to the printable area in mm")
@@ -444,22 +444,24 @@ YOU ARE ALONE!\
 #define TEXT_HELP			_(\
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) devices.\n\
 \n\
--h, --help                   display this help message and exit\n\
--v, --version                print version information\n\
+The format of [DEVICE] is backendname:devicefile (e.g. umax:/dev/scanner).\n\
+[OPTION]... can be a combination of the following items:\n\
+ -h, --help                   display this help message and exit\n\
+ -v, --version                print version information\n\
 \n\
--d, --device-settings file   load device settings from file (without \".drc\")\n\
+ -d, --device-settings file   load device settings from file (without \".drc\")\n\
 \n\
--s, --scan                   start with scan-mode active\n\
--c, --copy                   start with copy-mode active\n\
--f, --fax                    start with fax-mode active\n\
--n, --no-mode-selection      disable menu for xsane mode selection\n\
+ -s, --scan                   start with scan-mode active\n\
+ -c, --copy                   start with copy-mode active\n\
+ -f, --fax                    start with fax-mode active\n\
+ -n, --no-mode-selection      disable menu for xsane mode selection\n\
 \n\
--F, --Fixed                  fixed main window size (overwrite preferences value)\n\
--R, --Resizeable             resizable, scrolled main window (overwrite preferences value)\n\
+ -F, --Fixed                  fixed main window size (overwrite preferences value)\n\
+ -R, --Resizeable             resizable, scrolled main window (overwrite preferences value)\n\
 \n\
---display X11-display        redirect output to X11-display\n\
---no-xshm                    do not use shared memory images\n\
---sync                       request a synchronous connection with the X11 server\
+ --display X11-display        redirect output to X11-display\n\
+ --no-xshm                    do not use shared memory images\n\
+ --sync                       request a synchronous connection with the X11 server\
 ")
 
 /* strings for gimp plugin */

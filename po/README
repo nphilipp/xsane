@@ -26,6 +26,14 @@ NEW TRANSLATIONS:
 To create a new translation for a new language
 copy xsane.pot to "language".po and edit "language".po
 
+To test/install your new translation:
+ - edit xsane-0.*/configure, search for ALL_LINGUAS and add "language"
+ - enter xsane-0.*, do
+ - make distclean
+ - ./configure
+ - make
+ - make install
+
 If you want to make your translation public
 please send your "language".po file to:
 Oliver Rauch <Oliver.Rauch@Wolfsburg.DE>

@@ -1621,29 +1621,6 @@ void xsane_scan_done(SANE_Status status)
          }
       }
     }
-#ifdef HAVE_LIBGIMP_GIMP_H
-    else
-    {
-      int remaining;
-
-      /* GIMP mode */
-      if (xsane.y > xsane.param.lines)
-      {
-        xsane.y = xsane.param.lines;
-      }
-
-      remaining = xsane.y % gimp_tile_height();
-      if (remaining)
-      {
-        gimp_pixel_rgn_set_rect(&xsane.region, xsane.tile, 0, xsane.y - remaining, xsane.param.pixels_per_line, remaining);
-      }
-      gimp_drawable_flush(xsane.drawable);
-      gimp_display_new(xsane.image_ID);
-      gimp_drawable_detach(xsane.drawable);
-      free(xsane.tile);
-      xsane.tile = 0;
-    }
-#endif /* HAVE_LIBGIMP_GIMP_H */
 
     if ( (preferences.increase_filename_counter) && (xsane.xsane_mode == XSANE_SCAN) && (xsane.mode == XSANE_STANDALONE) )
     {
@@ -1691,6 +1668,30 @@ void xsane_scan_done(SANE_Status status)
   }
 
   xsane.header_size = 0;
+
+#ifdef HAVE_LIBGIMP_GIMP_H
+  if (xsane.mode == XSANE_GIMP_EXTENSION && xsane.tile)
+  {
+    int remaining;
+
+    /* GIMP mode */
+    if (xsane.y > xsane.param.lines)
+    {
+      xsane.y = xsane.param.lines;
+    }
+
+    remaining = xsane.y % gimp_tile_height();
+    if (remaining)
+    {
+      gimp_pixel_rgn_set_rect(&xsane.region, xsane.tile, 0, xsane.y - remaining, xsane.param.pixels_per_line, remaining);
+    }
+    gimp_drawable_flush(xsane.drawable);
+    gimp_display_new(xsane.image_ID);
+    gimp_drawable_detach(xsane.drawable);
+    free(xsane.tile);
+    xsane.tile = 0;
+  }
+#endif /* HAVE_LIBGIMP_GIMP_H */
 
   if ( ( (status == SANE_STATUS_GOOD) || (status == SANE_STATUS_EOF) ) && (xsane_test_multi_scan()) )
   {

@@ -38,10 +38,10 @@ DO THE FOLLOWING AS NORMAL USER:
 
 - If you get an error message  that libsane-dll.so.1 or libsane-so.1 is not found, you have to
   tell your system where the SANE-libraries are installed.
-   - For sane-1.0.1 you have to edit /etc/ld.so.conf and add a line with the path to the
+   - For sane-1.0.1 you have to edit /etc/ld.so.conf and add a line with the path to the SANE
      libraries (normally /usr/local/lib/sane), then call ldconfig.
      THIS MUST BE DONE AS ROOT!
-   - For sane-1.0.2 (and later versions) the path to the xsane libs MUST NOT be listed
+   - For sane-1.0.2 (and later versions) the path to the SANE libs MUST NOT be listed
      in /etc/ld.so.conf
 
 If something does not work like expected read file xsane.PROBLEMS

@@ -1,5 +1,5 @@
 /* XPM */
-static char *xsane_64c[] = {
+static char *xsane_logo[] = {
 /* width height ncolors chars_per_pixel */
 "256 300 65 1",
 /* colors */
@@ -54,7 +54,7 @@ static char *xsane_64c[] = {
 "x c #7D7458",
 "c c #C6C2B0",
 "v c #EBE4C7",
-"b none",
+"b c None",
 "n c #171CF9",
 "m c #71684F",
 "M c #15140F",

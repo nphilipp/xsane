@@ -66,6 +66,7 @@ typedef struct
 {
   int mode;
   int calibration;
+  int startimage;
 
   int cursornr;
 

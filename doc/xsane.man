@@ -1,4 +1,4 @@
-.TH xsane 1 "02 Aug 1999"
+.TH xsane 1 "11 Aug 2000"
 .IX xsane
 .SH NAME
 xsane - scanner frontend for SANE
@@ -44,7 +44,8 @@ explicit devicename argument,
 .B xsane
 presents a dialog listing all known and available devices.  To access
 an available device that is not known to the system, the devicename
-must be specified explicitly.
+must be specified explicitly. The format of devicename is
+backendname:devicefile (eg: umax:/dev/sga).
 .SH RUNNING UNDER THE GIMP
 To run
 .B xsane
@@ -52,10 +53,16 @@ under the
 .BR gimp (1),
 simply set a symbolic link from the xsane-binary to one of the
 .BR gimp (1)
-plug-ins directories.  For example, the command
+plug-ins directories.  For example, for gimp-1.0.x the command
 .PP
 .RS
 ln -s @BINDIR@/xsane ~/.gimp/plug-ins/
+.RE
+.PP
+and for gimp 1.1.x the command:
+.PP
+.RS
+ln -s @BINDIR@/xsane ~/.gimp-1.1/plug-ins/
 .RE
 .PP
 adds a symlink for the
@@ -66,10 +73,11 @@ will be queried by
 .BR gimp (1)
 the next time it's invoked.  From then on,
 .B xsane
-can be invoked through "Xtns->XSane->Device dialog..." menu entry.
+can be invoked through "Xtns->XSane->Device dialog..." or through
+"File->Acquire->XSane->Device dialog..." menu entry.
 
-You'll also find that the "Xtns->XSane" menu contains short-cuts
-to the SANE devices that were available at the time the
+You'll also find that the "Xtns->XSane"/"File->Acquire->XSane" menu contains
+short-cuts to the SANE devices that were available at the time the
 .B xsane
 was queried. 
 Note that
@@ -91,7 +99,9 @@ If the
 .B --version
 or
 .B -v
-flag is given xsane prints a version information and exits.
+flag is given xsane prints a version information, some
+information about gtk+ and gimp version it is compiled
+against and lists the supported fileformats, then it exits.
 .PP
 The
 .B --scan
@@ -157,6 +167,12 @@ The
 .B --sync
 flag requests a synchronous connection with the X11 server.  This is for
 debugging purposes only.
+.SH ENVIRONMENT
+.TP
+.I SANE_DEFAULT_DEVICE
+is used to preselect the device in the device dialog. This way you only
+have to accept the device (<ENTER> or OK-Button).
+
 .SH FILES
 .TP
 .I $HOME/.sane/xsane/xsane.rc
@@ -172,28 +188,17 @@ manipulated directly.  Instead, the user should use the
 interface to select appropriate values and then save the device
 settings using the "Preferences->Save Device Settings" menubar entry.
 .TP
-.I $HOME/.sane/preview-devicename.ppm
-After acquiring a preview,
-.B xsane
-normally saves the preview image in this device-specific file.  Thus,
-next time the program is started up, the program can present the old
-preview image.  This feature can be turned off through the
-"Preferences->Preview Options..." dialog.
-.TP
-.I @DATADIR@/sane-style.rc
+.I @SANEDATADIR@/xsane/xsane-style.rc
 This system-wide file controls the aspects of the user-interface such
 as colors and fonts.  It is a GTK style file and provides fine control
 over the visual aspects of the user-interface.
 .TP
-.I $HOME/.sane/sane-style.rc
+.I $HOME/.sane/xsane/xsane-style.rc
 This file serves the same purpose as the system-wide style file.  If
 present, it takes precedence over the system wide style file.
 .SH "SEE ALSO"
 gimp(1), xscanimage(1), scanimage(1),
 sane\-dll(5), sane\-net(5), sane-scsi(5),
-sane\-abaton(5), sane\-agfafocus(5), sane\-apple(5), sane\-dc25(5),
-sane\-dmc(5), sane\-epson(5), sane\-hp(5), sane\-microtek(5),
-sane\-microtek2(5), sane\-mustek(5), sane\-pint(5), sane\-pnm(5),
-sane\-qcam(5), sane\-umax(5)
+sane\-"backendname"(5)
 .SH AUTHOR
 Oliver Rauch (Oliver.Rauch@Wolfsburg.DE)

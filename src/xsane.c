@@ -591,23 +591,6 @@ static void xsane_fax_fine_mode_callback(GtkWidget * widget)
   DBG(DBG_proc, "xsane_fax_fine_mode_callback\n");
 
   xsane.fax_fine_mode = (GTK_TOGGLE_BUTTON(widget)->active != 0);
-
-  if (xsane.fax_fine_mode)
-  {
-    xsane.resolution   = 204;
-    xsane.resolution_x = 204;
-    xsane.resolution_y = 196;
-  }
-  else
-  {
-    xsane.resolution   = 204;
-    xsane.resolution_x = 204;
-    xsane.resolution_y = 98;
-  }
-
-  xsane_set_all_resolutions();
-
-  xsane_update_param(0);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1414,7 +1397,6 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
  GtkWidget *xsane_text;
  GtkWidget *xsane_hbox_xsane_enhancement;
  GtkWidget *xsane_frame;
- GtkWidget *xsane_button;
  gchar buf[200];
 
   DBG(DBG_proc, "xsane_update_xsane_callback\n");
@@ -1659,40 +1641,13 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
   }
   else /* XSANE_FAX */
   {
-   const SANE_Option_Descriptor *opt;
-
     xsane.copy_number_entry = NULL;
+
     xsane.resolution   = 204;
     xsane.resolution_x = 204;
-    xsane.resolution_y = 98;
-
-    opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.dpi);
-    if (!opt)
-    {
-      opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.dpi_x);
-    }
-    opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.dpi_y);
-
-    if (opt)
-    {
-      if (SANE_OPTION_IS_ACTIVE(opt->cap))
-      {
-        xsane_button = gtk_check_button_new_with_label(RADIO_BUTTON_FINE_MODE);
-        xsane_back_gtk_set_tooltip(xsane.tooltips, xsane_button, DESC_FAX_FINE_MODE);
-        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(xsane_button), xsane.fax_fine_mode);
-        gtk_box_pack_start(GTK_BOX(xsane_vbox_xsane_modus), xsane_button, FALSE, FALSE, 2);
-        gtk_widget_show(xsane_button);
-        gtk_signal_connect(GTK_OBJECT(xsane_button), "clicked", (GtkSignalFunc) xsane_fax_fine_mode_callback, NULL);
-
-        if (xsane.fax_fine_mode)
-        {
-          xsane.resolution   = 204;
-          xsane.resolution_x = 204;
-          xsane.resolution_y = 196;
-        }
-      }
-    }
+    xsane.resolution_y = 196;
     xsane_set_all_resolutions();
+
     xsane_fax_dialog();
   }
 
@@ -2526,6 +2481,11 @@ static void xsane_info_dialog(GtkWidget *widget, gpointer data)
   bufptr += strlen(bufptr);
 #endif
 
+#ifdef HAVE_LIBTIFF
+  sprintf(bufptr, "TIFF, ");
+  bufptr += strlen(bufptr);
+#endif
+
   bufptr--;
   bufptr--;
   *bufptr = 0; /* erase last comma */
@@ -2806,6 +2766,8 @@ static void xsane_fax_dialog()
   gtk_container_add(GTK_CONTAINER(fax_dialog), fax_scan_vbox);
   gtk_widget_show(fax_scan_vbox);
 
+  /* fax project */
+
   hbox = gtk_hbox_new(FALSE, 2);
   gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
   gtk_box_pack_start(GTK_BOX(fax_scan_vbox), hbox, FALSE, FALSE, 2);
@@ -2831,6 +2793,8 @@ static void xsane_fax_dialog()
   gtk_box_pack_start(GTK_BOX(fax_scan_vbox), fax_project_vbox, TRUE, TRUE, 0);
   gtk_widget_show(fax_project_vbox);
 
+  /* fax receiver */
+
   hbox = gtk_hbox_new(FALSE, 2);
   gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
   gtk_box_pack_start(GTK_BOX(fax_project_vbox), hbox, FALSE, FALSE, 2);
@@ -2852,6 +2816,14 @@ static void xsane_fax_dialog()
   gtk_widget_show(pixmapwidget);
   gtk_widget_show(text);
   gtk_widget_show(hbox);
+
+  /* fine mode */
+  button = gtk_check_button_new_with_label(RADIO_BUTTON_FINE_MODE);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_FAX_FINE_MODE);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), xsane.fax_fine_mode);
+  gtk_box_pack_start(GTK_BOX(fax_project_vbox), button, FALSE, FALSE, 2);
+  gtk_widget_show(button);
+  gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_fax_fine_mode_callback, NULL);   
 
 
   scrolled_window = gtk_scrolled_window_new(0, 0);
@@ -3955,7 +3927,6 @@ void xsane_panel_build()
 {
  GtkWidget *standard_vbox;
  GtkWidget *advanced_vbox;
- GtkWidget *gamma_vbox;
  GtkWidget *parent, *vbox, *button, *label;
  const SANE_Option_Descriptor *opt;
  SANE_Handle dev = xsane.dev;
@@ -4007,6 +3978,7 @@ void xsane_panel_build()
 /*   gtk_box_pack_start(GTK_BOX(xsane.advanced_hbox), advanced_vbox, FALSE, FALSE, 0); */ /* make frame fixed */
   gtk_box_pack_start(GTK_BOX(xsane.advanced_hbox), advanced_vbox, TRUE, TRUE, 0); /* make frame sizeable */
 
+#if 0
   /* free gamma curve */
   xsane.gamma_hbox = gtk_hbox_new(FALSE, 2);
   gtk_widget_show(xsane.gamma_hbox);
@@ -4014,6 +3986,7 @@ void xsane_panel_build()
   gtk_widget_show(gamma_vbox);
 /*   gtk_box_pack_start(GTK_BOX(xsane.gamma_hbox), gamma_vbox, FALSE, FALSE, 0); */ /* make frame fixed */
   gtk_box_pack_start(GTK_BOX(xsane.gamma_hbox), gamma_vbox, TRUE, TRUE, 0); /* make frame sizeable */
+#endif
 
   vector_opts = alloca(xsane.num_elements * sizeof (int));
 
@@ -4314,9 +4287,6 @@ void xsane_panel_build()
   gtk_container_add(GTK_CONTAINER(xsane.xsane_window),    xsane.xsane_hbox);
   gtk_container_add(GTK_CONTAINER(xsane.standard_window), xsane.standard_hbox);
   gtk_container_add(GTK_CONTAINER(xsane.advanced_window), xsane.advanced_hbox);
-#ifdef HAVE_WORKING_GTK_GAMMACURVE
-  gtk_container_add(GTK_CONTAINER(xsane.gamma_window),    xsane.gamma_hbox);
-#endif
 
   xsane_update_histogram();
 /*
@@ -4342,13 +4312,7 @@ void xsane_panel_build()
       gtk_widget_set_sensitive(xsane.length_unit_widget, TRUE);
     }
   }
-
-  /* now add in vector editor, if necessary: */
 #ifdef HAVE_WORKING_GTK_GAMMACURVE
-  if (num_vector_opts)
-  {
-    xsane_back_gtk_vector_new(gamma_vbox, num_vector_opts, vector_opts);
-  }
   xsane_update_gamma_dialog();
 #endif
 }
@@ -5165,6 +5129,8 @@ static void xsane_init(int argc, char **argv)
   gtk_window_set_policy(GTK_WINDOW(device_scanning_dialog), FALSE, FALSE, FALSE);
   snprintf(buf, sizeof(buf), "%s %s", xsane.prog_name, XSANE_VERSION);
   gtk_window_set_title(GTK_WINDOW(device_scanning_dialog), buf);
+
+  xsane_set_window_icon(device_scanning_dialog, 0);
 
   main_vbox = gtk_vbox_new(FALSE, 0);
   gtk_container_set_border_width(GTK_CONTAINER(main_vbox), 20);

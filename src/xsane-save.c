@@ -154,7 +154,7 @@ void xsane_convert_text_to_filename(char **text)
 
 void xsane_increase_counter_in_filename(char *filename, int skip)
 {
- char *position_point;
+ char *position_point = NULL;
  char *position_counter;
  char counter;
  int  overflow = 0;
@@ -162,9 +162,13 @@ void xsane_increase_counter_in_filename(char *filename, int skip)
 
   DBG(DBG_proc, "xsane_increase_counter_in_filename\n");
 
+  if (!xsane.filetype) /* no filetype: serach "." */
+  {
+    position_point = strrchr(filename, '.');
+  }
+
   while (1)
   { 
-    position_point = strrchr(filename, '.');
     if (position_point)
     {
       position_counter = position_point-1;
@@ -173,7 +177,7 @@ void xsane_increase_counter_in_filename(char *filename, int skip)
     {
       position_counter = filename + strlen(filename) - 1;
     }
- 
+
     if (position_counter < filename)
     {
       break; /* empty string or starts with "." */

@@ -52,7 +52,7 @@ void xsane_set_window_icon(GtkWidget *gtk_window, gchar **xpm_d);
 
 const SANE_Option_Descriptor *xsane_get_option_descriptor(SANE_Handle handle, SANE_Int option)
 {
-  DBG(DBG_proc, "xsane_get_option_descriptor\n");
+  DBG(DBG_proc, "xsane_get_option_descriptor(%d)\n", option);
 
   if (option >= 0)
   {
@@ -65,11 +65,19 @@ const SANE_Option_Descriptor *xsane_get_option_descriptor(SANE_Handle handle, SA
 
 SANE_Status xsane_control_option(SANE_Handle handle, SANE_Int option, SANE_Action action, void *val, SANE_Int *info)
 {
-  DBG(DBG_proc, "xsane_control_option\n");
+  DBG(DBG_proc, "xsane_control_option(option = %d, action = %d)\n", option, action);
 
   if (option >= 0)
   {
-    return sane_control_option(handle, option, action, val, info);
+   SANE_Status status;
+
+    status = sane_control_option(handle, option, action, val, info);
+    if (status)
+    {
+      DBG(DBG_error, "ERROR: xsane_control_option(option = %d, action = %d) failed\n", option, action);
+    }
+
+    return status;
   }
 
  return SANE_STATUS_INVAL;
@@ -785,7 +793,7 @@ void xsane_back_gtk_scale_new(GtkWidget * parent, const char *name, gfloat val,
 {
  GtkWidget *hbox, *label, *scale;
 
-  DBG(DBG_proc, "xsane_back_gtk_scale_new\n");
+  DBG(DBG_proc, "xsane_back_gtk_scale_new(%s)\n", name);
 
   hbox = gtk_hbox_new(FALSE, 2);
   gtk_container_set_border_width(GTK_CONTAINER(hbox), 0);
@@ -907,7 +915,7 @@ void xsane_back_gtk_option_menu_new(GtkWidget *parent, const char *name, char *s
  GSGMenuItem *menu_items;
  int i, num_items;
 
-  DBG(DBG_proc, "xsane_back_gtk_option_menu_new\n");
+  DBG(DBG_proc, "xsane_back_gtk_option_menu_new(%s)\n", name);
 
   hbox = gtk_hbox_new(FALSE, 2);
   gtk_container_set_border_width(GTK_CONTAINER(hbox), 0);
@@ -1017,11 +1025,11 @@ void xsane_back_gtk_text_entry_new(GtkWidget * parent, const char *name, const c
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-GtkWidget *xsane_back_gtk_group_new(GtkWidget *parent, const char * title)
+GtkWidget *xsane_back_gtk_group_new(GtkWidget *parent, const char *title)
 {
  GtkWidget * frame, * vbox;
 
-  DBG(DBG_proc, "xsane_back_gtk_group_new\n");
+  DBG(DBG_proc, "xsane_back_gtk_group_new(%s)\n", title);
 
   frame = gtk_frame_new((char *) title);
   gtk_container_set_border_width(GTK_CONTAINER(frame), 4);
@@ -1033,138 +1041,6 @@ GtkWidget *xsane_back_gtk_group_new(GtkWidget *parent, const char * title)
   gtk_container_add(GTK_CONTAINER(frame), vbox);
   gtk_widget_show(vbox);
   return vbox;
-}
-
-/* ----------------------------------------------------------------------------------------------------------------- */
-
-static GtkWidget* xsane_back_gtk_curve_new(int optnum)
-{
- const SANE_Option_Descriptor * opt;
- gfloat fmin, fmax, val, *vector;
- SANE_Word *optval, min, max;
- GtkWidget *curve, *gamma;
- SANE_Status status;
- SANE_Handle dev;
- int i, optlen;
-
-  DBG(DBG_proc, "xsane_back_gtk_curve_new\n");
-
-  gamma = gtk_gamma_curve_new();
-  curve = GTK_GAMMA_CURVE(gamma)->curve;
-  dev = xsane.dev;
-
-  opt    = xsane_get_option_descriptor(dev, optnum);
-  optlen = opt->size / sizeof(SANE_Word);
-  vector = alloca(optlen * (sizeof(vector[0]) + sizeof(optval[0])));
-  optval = (SANE_Word *) (vector + optlen);
-
-  min = max = 0;
-  switch(opt->constraint_type)
-  {
-    case SANE_CONSTRAINT_RANGE:
-      min = opt->constraint.range->min;
-      max = opt->constraint.range->max;
-      break;
-
-    case SANE_CONSTRAINT_WORD_LIST:
-      if (opt->constraint.word_list[0] > 1)
-      {
-        min = max = opt->constraint.word_list[1];
-        for (i = 2; i < opt->constraint.word_list[0]; ++i)
-        {
-          if (opt->constraint.word_list[i] < min)
-          {
-            min = opt->constraint.word_list[i];
-          }
-
-	  if (opt->constraint.word_list[i] > max)
-          {
-            max = opt->constraint.word_list[i];
-          }
-        }
-      }
-      break;
-
-    default:
-      break;
-  }
-
-  if (min == max)
-  {
-    fprintf(stderr, "xsane_back_gtk_curve_new: %s: `%s'\n", WARN_NO_VALUE_CONSTRAINT, opt->name);
-    fmin = 0;
-    fmax = 255;
-  }
-  else if (opt->type == SANE_TYPE_FIXED)
-  {
-    fmin = SANE_UNFIX(min);
-    fmax = SANE_UNFIX(max);
-  }
-  else
-  {
-    fmin = min;
-    fmax = max;
-  }
-
-  gtk_curve_set_range(GTK_CURVE(curve), 0, optlen - 1, fmin, fmax);
-
-  status = xsane_control_option(dev, optnum, SANE_ACTION_GET_VALUE, optval, 0);
-  if (status == SANE_STATUS_GOOD)
-  {
-    for (i = 0; i < optlen; ++i)
-    {
-      if (opt->type == SANE_TYPE_FIXED)
-      {
-        val = SANE_UNFIX(optval[i]);
-      }
-      else
-      {
-        val = optval[i];
-      }
-      vector[i] = val;
-    }
-    gtk_curve_set_vector(GTK_CURVE(curve), optlen, vector);
-  }
-  else
-  {
-    gtk_widget_set_sensitive(gamma, FALSE);
-  }
-
-  return gamma;
-}
-
-/* ----------------------------------------------------------------------------------------------------------------- */
-
-void xsane_back_gtk_vector_new(GtkWidget *box, int num_vopts, int *vopts)
-{
- GtkWidget *notebook, *label, *curve, *vbox;
- const SANE_Option_Descriptor *opt;
- int i;
-
-  DBG(DBG_proc, "xsane_back_gtk_vector_new\n");
-
-  notebook = gtk_notebook_new();
-  gtk_container_set_border_width(GTK_CONTAINER(notebook), 4);
-  gtk_box_pack_start(GTK_BOX(box), notebook, TRUE, TRUE, 0);
-
-  for (i = 0; i < num_vopts; ++i)
-  {
-    opt = xsane_get_option_descriptor(xsane.dev, vopts[i]);
-
-    label = gtk_label_new((char *) opt->title);
-    vbox = gtk_vbox_new(/* homogeneous */ FALSE, 0);
-    gtk_notebook_append_page(GTK_NOTEBOOK(notebook), vbox, label);
-    gtk_widget_show(vbox);
-    gtk_widget_show(label);
-
-    curve = xsane_back_gtk_curve_new(vopts[i]);
-    gtk_container_set_border_width(GTK_CONTAINER(curve), 4);
-    gtk_box_pack_start(GTK_BOX(vbox), curve, TRUE, TRUE, 0);
-    gtk_widget_show(curve);
-
-    xsane.element[vopts[i]].widget = curve;
-  }
-  gtk_widget_show(notebook);
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
@@ -1190,7 +1066,6 @@ static void xsane_back_gtk_panel_destroy(void)
   gtk_widget_destroy(xsane.xsane_hbox);
   gtk_widget_destroy(xsane.standard_hbox);
   gtk_widget_destroy(xsane.advanced_hbox);
-  gtk_widget_destroy(xsane.gamma_hbox);
 
   /* free the menu labels of integer/fix-point word-lists: */
   for (i = 0; i < xsane.num_elements; ++i)

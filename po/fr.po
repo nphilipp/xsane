@@ -1,17 +1,22 @@
 # French translation for XSane.
 # Copyright (C) 1999-2000
-# Laurent Grawet <laurent.grawet@europe.com>, 2000.
+# old: Laurent Grawet <laurent.grawet@europe.com>, 2000.
+# new: Laurent Grawet <laurent.grawet@ibelgique.com>, 2000.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.55\n"
-"POT-Creation-Date: 2000-03-06 23:48+0100\n"
+"POT-Creation-Date: 2000-10-01 13:09+0200\n"
 "PO-Revision-Date: 2000-02-09 21:00+01:00\n"
 "Last-Translator: Laurent Grawet <laurent.grawet@europe.com>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#. XSANE_COPYRIGHT_SIGN
+msgid "(c)"
+msgstr ""
 
 #. XSANE_COPYRIGHT_SIGN
 msgid "©"
@@ -49,6 +54,10 @@ msgstr "Configuration"
 msgid "Histogram"
 msgstr "Histogramme"
 
+#. WINDOW_GAMMA
+msgid "Gamma curve"
+msgstr ""
+
 #. WINDOW_STANDARD_OPTIONS
 msgid "Standard options"
 msgstr "Options standard"
@@ -77,6 +86,11 @@ msgstr "enregistrer les paramètres du périphérique"
 #. WINDOW_LOAD_SETTINGS
 msgid "load device settings"
 msgstr "charger les paramètres du périphérique"
+
+#. WINDOW_CHANGE_WORKING_DIR
+#, fuzzy
+msgid "change working directory"
+msgstr "Impossible de déterminer le répertoire personnel"
 
 #. WINDOW_TMP_PATH
 #, fuzzy
@@ -211,13 +225,22 @@ msgstr "Éviter les nombres existants"
 msgid "Main window size fixed"
 msgstr "Taille de la fenêtre principale fixe"
 
-#. RADIO_BUTTON_PRESERVE_PRVIEW
-msgid "Preserve preview image"
-msgstr "Préserver l'image de l'aperçu"
+#. RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA
+#, fuzzy
+msgid "Disable gimp preview gamma"
+msgstr "Gamma de l'aperçu:"
 
 #. RADIO_BUTTON_PRIVATE_COLORMAP
 msgid "Use private colormap"
 msgstr "Utiliser une palette de couleurs privée"
+
+#. RADIO_BUTTON_AUTOENHANCE_GAMMA
+msgid "Autoenhance gamma"
+msgstr ""
+
+#. TEXT_SCANNING_DEVICES
+msgid "scanning for devices"
+msgstr ""
 
 #. TEXT_AVAILABLE_DEVICES
 msgid "Available devices:"
@@ -348,9 +371,19 @@ msgstr "compilé avec GIMP-"
 msgid "unknown"
 msgstr "inconnu"
 
+#. TEXT_GPL
+msgid ""
+"This program is distributed under the terms\n"
+"of the GNU General Public License\n"
+msgstr ""
+
 #. TEXT_EMAIL
 msgid "Email:"
 msgstr "e-mail:"
+
+#. TEXT_HOMEPAGE
+msgid "Homepage:"
+msgstr ""
 
 #. TEXT_FILE
 msgid "File:"
@@ -376,8 +409,19 @@ msgstr "Commande:"
 msgid "Copy number option:"
 msgstr "Option du nombre de copie:"
 
-#. TEXT_SETUP_PRINTER_RES
-msgid "Resolution (dpi):"
+#. TEXT_SETUP_PRINTER_LINEART_RES
+#, fuzzy
+msgid "Lineart resolution (dpi):"
+msgstr "Résolution (dpi):"
+
+#. TEXT_SETUP_PRINTER_GRAYSCALE_RES
+#, fuzzy
+msgid "Grayscale resolution (dpi):"
+msgstr "Résolution (dpi):"
+
+#. TEXT_SETUP_PRINTER_COLOR_RES
+#, fuzzy
+msgid "Color resolution (dpi):"
 msgstr "Résolution (dpi):"
 
 #. TEXT_SETUP_PRINTER_WIDTH
@@ -433,8 +477,14 @@ msgstr "Qualité d'image JPEG"
 msgid "PNG image compression"
 msgstr "Compression des images PNG"
 
-#. TEXT_SETUP_TIFF_COMPRESSION
-msgid "TIFF multi bit image compression"
+#. TEXT_SETUP_TIFF_COMPRESSION_16
+#, fuzzy
+msgid "TIFF 16 bit image compression"
+msgstr "Compression multi-bit des images TIFF"
+
+#. TEXT_SETUP_TIFF_COMPRESSION_8
+#, fuzzy
+msgid "TIFF 8 bit image compression"
 msgstr "Compression multi-bit des images TIFF"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_1
@@ -538,9 +588,10 @@ msgstr "Options d'enregistrement"
 msgid "Display options"
 msgstr "Options d'affichage"
 
-#. NOTEBOOK_DEVICE_OPTIONS
-msgid "Device options"
-msgstr "Options du périphérique"
+#. NOTEBOOK_ENHANCE_OPTIONS
+#, fuzzy
+msgid "Enhancement options"
+msgstr "Options de XSane"
 
 #. NOTEBOOK_FAX_OPTIONS
 msgid "Fax options"
@@ -569,6 +620,11 @@ msgstr "Afficher l'aperçu"
 #. MENU_ITEM_SHOW_HISTOGRAM
 msgid "Show histogram"
 msgstr "Afficher l'histogramme"
+
+#. MENU_ITEM_SHOW_GAMMA
+#, fuzzy
+msgid "Show gamma curve"
+msgstr "Change la valeur gamma:"
 
 #. MENU_ITEM_SHOW_STANDARDOPTIONS
 msgid "Show standard options"
@@ -629,6 +685,11 @@ msgstr "Enregistrer les paramètres du périphérique"
 #. MENU_ITEM_LOAD_DEVICE_SETTINGS
 msgid "Load device settings"
 msgstr "Charger les paramètres du périphérique"
+
+#. MENU_ITEM_CHANGE_WORKING_DIR
+#, fuzzy
+msgid "Change directory"
+msgstr "Impossible de déterminer le répertoire personnel"
 
 #. MENU_ITEM_XSANE_DOC
 msgid "Xsane doc"
@@ -908,8 +969,25 @@ msgstr "Entrez la commande a exécuter en mode copie (par ex.: \"lpr -\")"
 msgid "Enter option for copy numbers"
 msgstr "Entrez l'option du nombre de copies"
 
-#. DESC_PRINTER_RESOLUTION
-msgid "Resolution with which images are printed and saved in postscript"
+#. DESC_PRINTER_LINEART_RESOLUTION
+#, fuzzy
+msgid ""
+"Resolution with which lineart images are printed and saved in postscript"
+msgstr ""
+"Résolution à laquelle les images doivent être enregistrées et imprimées en "
+"PostScript"
+
+#. DESC_PRINTER_GRAYSCALE_RESOLUTION
+#, fuzzy
+msgid ""
+"Resolution with which grayscale images are printed and saved in postscript"
+msgstr ""
+"Résolution à laquelle les images doivent être enregistrées et imprimées en "
+"PostScript"
+
+#. DESC_PRINTER_COLOR_RESOLUTION
+#, fuzzy
+msgid "Resolution with which color images are printed and saved in postscript"
 msgstr ""
 "Résolution à laquelle les images doivent être enregistrées et imprimées en "
 "PostScript"
@@ -966,8 +1044,14 @@ msgstr ""
 msgid "Compression if image is saved as png"
 msgstr "Compression si l'image est enregistrée en png"
 
-#. DESC_TIFF_COMPRESSION
-msgid "Compression type if multi bit image is saved as tiff"
+#. DESC_TIFF_COMPRESSION_16
+#, fuzzy
+msgid "Compression type if 16 bit image is saved as tiff"
+msgstr "Type de compression si l'image multi-bit est enregistrée en tiff"
+
+#. DESC_TIFF_COMPRESSION_8
+#, fuzzy
+msgid "Compression type if 8 bit image is saved as tiff"
 msgstr "Type de compression si l'image multi-bit est enregistrée en tiff"
 
 #. DESC_TIFF_COMPRESSION_1
@@ -1024,9 +1108,9 @@ msgstr ""
 "Utiliser une fenêtre principale de taille fixe ou avec défilement, fenêtre "
 "principale redimensionable"
 
-#. DESC_PREVIEW_PRESERVE
-msgid "Preserve preview image for next program start"
-msgstr "Préserver l'image de l'aperçu pour le prochain démarrage"
+#. DESC_DISABLE_GIMP_PREVIEW_GAMMA
+msgid "Disable preview gamma when xsane runs as gimp plugin"
+msgstr ""
 
 #. DESC_PREVIEW_COLORMAP
 msgid "Use an own colormap for preview if display depth is 8 bpp"
@@ -1100,6 +1184,10 @@ msgstr ""
 "Entrez la commande a exécuter pour afficher les fichiers d'aide; doit être "
 "capable de lire du html!"
 
+#. DESC_AUTOENHANCE_GAMMA
+msgid "Change gamma value when autoenhancement button is pressed"
+msgstr ""
+
 #. DESC_FAX_COMMAND
 msgid "Enter command to be executed in fax mode"
 msgstr "Entrez la commande à exécuter en mode fax"
@@ -1125,7 +1213,8 @@ msgid "Enter command to be executed to view a fax"
 msgstr "Entrez la commande à être exécutée pour voir un fax"
 
 #. DESC_FAX_FINE_MODE
-msgid "Use high vertical resolution (196 lpi instead of 98 lpi)"
+#, fuzzy
+msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
 msgstr ""
 "Utiliser une plus grande résolution verticale (196 lpi à la place de 98 lpi)"
 
@@ -1164,6 +1253,11 @@ msgstr "Sélectionner l'aire visible"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
+msgstr "Impossible de déterminer le répertoire personnel"
+
+#. ERR_CHANGE_WORKING_DIR
+#, fuzzy
+msgid "Failed to change working directory to"
 msgstr "Impossible de déterminer le répertoire personnel"
 
 #. ERR_FILENAME_TOO_LONG
@@ -1383,29 +1477,32 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[OPTION]... [PÉRIPHÉRIQUE]"
 
 #. TEXT_HELP
+#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
 "\n"
-"-h, --help                   display this help message and exit\n"
-"-v, --version                print version information\n"
+"The format of [DEVICE] is backendname:devicefile (e.g. umax:/dev/scanner).\n"
+"[OPTION]... can be a combination of the following items:\n"
+" -h, --help                   display this help message and exit\n"
+" -v, --version                print version information\n"
 "\n"
-"-d, --device-settings file   load device settings from file (without "
+" -d, --device-settings file   load device settings from file (without "
 "\".drc\")\n"
 "\n"
-"-s, --scan                   start with scan-mode active\n"
-"-c, --copy                   start with copy-mode active\n"
-"-f, --fax                    start with fax-mode active\n"
-"-n, --no-mode-selection      disable menu for xsane mode selection\n"
+" -s, --scan                   start with scan-mode active\n"
+" -c, --copy                   start with copy-mode active\n"
+" -f, --fax                    start with fax-mode active\n"
+" -n, --no-mode-selection      disable menu for xsane mode selection\n"
 "\n"
-"-F, --Fixed                  fixed main window size (overwrite preferences "
+" -F, --Fixed                  fixed main window size (overwrite preferences "
 "value)\n"
-"-R, --Resizeable             resizable, scrolled main window (overwrite "
+" -R, --Resizeable             resizable, scrolled main window (overwrite "
 "preferences value)\n"
 "\n"
-"--display X11-display        redirect output to X11-display\n"
-"--no-xshm                    do not use shared memory images\n"
-"--sync                       request a synchronous connection with the X11 "
+" --display X11-display        redirect output to X11-display\n"
+" --no-xshm                    do not use shared memory images\n"
+" --sync                       request a synchronous connection with the X11 "
 "server"
 msgstr ""
 "Démarre l'interface graphique pour accéder à SANE (Scanner Access Now "
@@ -1516,6 +1613,15 @@ msgstr "Dépassement de mémoire"
 
 msgid "Access to resource has been denied"
 msgstr "Accès à la ressource refusé"
+
+#~ msgid "Preserve preview image"
+#~ msgstr "Préserver l'image de l'aperçu"
+
+#~ msgid "Device options"
+#~ msgstr "Options du périphérique"
+
+#~ msgid "Preserve preview image for next program start"
+#~ msgstr "Préserver l'image de l'aperçu pour le prochain démarrage"
 
 #~ msgid "Saving fax image"
 #~ msgstr "Enregistrement image fax"

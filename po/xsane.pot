@@ -6,13 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-03-06 23:48+0100\n"
+"POT-Creation-Date: 2000-10-01 13:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: ENCODING\n"
+
+#. XSANE_COPYRIGHT_SIGN
+msgid "(c)"
+msgstr ""
 
 #. XSANE_COPYRIGHT_SIGN
 msgid "©"
@@ -50,6 +54,10 @@ msgstr ""
 msgid "Histogram"
 msgstr ""
 
+#. WINDOW_GAMMA
+msgid "Gamma curve"
+msgstr ""
+
 #. WINDOW_STANDARD_OPTIONS
 msgid "Standard options"
 msgstr ""
@@ -76,6 +84,10 @@ msgstr ""
 
 #. WINDOW_LOAD_SETTINGS
 msgid "load device settings"
+msgstr ""
+
+#. WINDOW_CHANGE_WORKING_DIR
+msgid "change working directory"
 msgstr ""
 
 #. WINDOW_TMP_PATH
@@ -210,12 +222,20 @@ msgstr ""
 msgid "Main window size fixed"
 msgstr ""
 
-#. RADIO_BUTTON_PRESERVE_PRVIEW
-msgid "Preserve preview image"
+#. RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA
+msgid "Disable gimp preview gamma"
 msgstr ""
 
 #. RADIO_BUTTON_PRIVATE_COLORMAP
 msgid "Use private colormap"
+msgstr ""
+
+#. RADIO_BUTTON_AUTOENHANCE_GAMMA
+msgid "Autoenhance gamma"
+msgstr ""
+
+#. TEXT_SCANNING_DEVICES
+msgid "scanning for devices"
 msgstr ""
 
 #. TEXT_AVAILABLE_DEVICES
@@ -346,8 +366,18 @@ msgstr ""
 msgid "unknown"
 msgstr ""
 
+#. TEXT_GPL
+msgid ""
+"This program is distributed under the terms\n"
+"of the GNU General Public License\n"
+msgstr ""
+
 #. TEXT_EMAIL
 msgid "Email:"
+msgstr ""
+
+#. TEXT_HOMEPAGE
+msgid "Homepage:"
 msgstr ""
 
 #. TEXT_FILE
@@ -374,8 +404,16 @@ msgstr ""
 msgid "Copy number option:"
 msgstr ""
 
-#. TEXT_SETUP_PRINTER_RES
-msgid "Resolution (dpi):"
+#. TEXT_SETUP_PRINTER_LINEART_RES
+msgid "Lineart resolution (dpi):"
+msgstr ""
+
+#. TEXT_SETUP_PRINTER_GRAYSCALE_RES
+msgid "Grayscale resolution (dpi):"
+msgstr ""
+
+#. TEXT_SETUP_PRINTER_COLOR_RES
+msgid "Color resolution (dpi):"
 msgstr ""
 
 #. TEXT_SETUP_PRINTER_WIDTH
@@ -430,8 +468,12 @@ msgstr ""
 msgid "PNG image compression"
 msgstr ""
 
-#. TEXT_SETUP_TIFF_COMPRESSION
-msgid "TIFF multi bit image compression"
+#. TEXT_SETUP_TIFF_COMPRESSION_16
+msgid "TIFF 16 bit image compression"
+msgstr ""
+
+#. TEXT_SETUP_TIFF_COMPRESSION_8
+msgid "TIFF 8 bit image compression"
 msgstr ""
 
 #. TEXT_SETUP_TIFF_COMPRESSION_1
@@ -534,8 +576,8 @@ msgstr ""
 msgid "Display options"
 msgstr ""
 
-#. NOTEBOOK_DEVICE_OPTIONS
-msgid "Device options"
+#. NOTEBOOK_ENHANCE_OPTIONS
+msgid "Enhancement options"
 msgstr ""
 
 #. NOTEBOOK_FAX_OPTIONS
@@ -564,6 +606,10 @@ msgstr ""
 
 #. MENU_ITEM_SHOW_HISTOGRAM
 msgid "Show histogram"
+msgstr ""
+
+#. MENU_ITEM_SHOW_GAMMA
+msgid "Show gamma curve"
 msgstr ""
 
 #. MENU_ITEM_SHOW_STANDARDOPTIONS
@@ -624,6 +670,10 @@ msgstr ""
 
 #. MENU_ITEM_LOAD_DEVICE_SETTINGS
 msgid "Load device settings"
+msgstr ""
+
+#. MENU_ITEM_CHANGE_WORKING_DIR
+msgid "Change directory"
 msgstr ""
 
 #. MENU_ITEM_XSANE_DOC
@@ -891,8 +941,18 @@ msgstr ""
 msgid "Enter option for copy numbers"
 msgstr ""
 
-#. DESC_PRINTER_RESOLUTION
-msgid "Resolution with which images are printed and saved in postscript"
+#. DESC_PRINTER_LINEART_RESOLUTION
+msgid ""
+"Resolution with which lineart images are printed and saved in postscript"
+msgstr ""
+
+#. DESC_PRINTER_GRAYSCALE_RESOLUTION
+msgid ""
+"Resolution with which grayscale images are printed and saved in postscript"
+msgstr ""
+
+#. DESC_PRINTER_COLOR_RESOLUTION
+msgid "Resolution with which color images are printed and saved in postscript"
 msgstr ""
 
 #. DESC_PRINTER_WIDTH
@@ -944,8 +1004,12 @@ msgstr ""
 msgid "Compression if image is saved as png"
 msgstr ""
 
-#. DESC_TIFF_COMPRESSION
-msgid "Compression type if multi bit image is saved as tiff"
+#. DESC_TIFF_COMPRESSION_16
+msgid "Compression type if 16 bit image is saved as tiff"
+msgstr ""
+
+#. DESC_TIFF_COMPRESSION_8
+msgid "Compression type if 8 bit image is saved as tiff"
 msgstr ""
 
 #. DESC_TIFF_COMPRESSION_1
@@ -991,8 +1055,8 @@ msgstr ""
 msgid "Use fixed main window size or scrolled, resizable main window"
 msgstr ""
 
-#. DESC_PREVIEW_PRESERVE
-msgid "Preserve preview image for next program start"
+#. DESC_DISABLE_GIMP_PREVIEW_GAMMA
+msgid "Disable preview gamma when xsane runs as gimp plugin"
 msgstr ""
 
 #. DESC_PREVIEW_COLORMAP
@@ -1054,6 +1118,10 @@ msgid ""
 "Enter command to be executed to display helpfiles, must be a html-viewer!"
 msgstr ""
 
+#. DESC_AUTOENHANCE_GAMMA
+msgid "Change gamma value when autoenhancement button is pressed"
+msgstr ""
+
 #. DESC_FAX_COMMAND
 msgid "Enter command to be executed in fax mode"
 msgstr ""
@@ -1079,7 +1147,7 @@ msgid "Enter command to be executed to view a fax"
 msgstr ""
 
 #. DESC_FAX_FINE_MODE
-msgid "Use high vertical resolution (196 lpi instead of 98 lpi)"
+msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
 msgstr ""
 
 #. DESC_PIPETTE_WHITE
@@ -1117,6 +1185,10 @@ msgstr ""
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
+msgstr ""
+
+#. ERR_CHANGE_WORKING_DIR
+msgid "Failed to change working directory to"
 msgstr ""
 
 #. ERR_FILENAME_TOO_LONG
@@ -1339,25 +1411,27 @@ msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
 "\n"
-"-h, --help                   display this help message and exit\n"
-"-v, --version                print version information\n"
+"The format of [DEVICE] is backendname:devicefile (e.g. umax:/dev/scanner).\n"
+"[OPTION]... can be a combination of the following items:\n"
+" -h, --help                   display this help message and exit\n"
+" -v, --version                print version information\n"
 "\n"
-"-d, --device-settings file   load device settings from file (without "
+" -d, --device-settings file   load device settings from file (without "
 "\".drc\")\n"
 "\n"
-"-s, --scan                   start with scan-mode active\n"
-"-c, --copy                   start with copy-mode active\n"
-"-f, --fax                    start with fax-mode active\n"
-"-n, --no-mode-selection      disable menu for xsane mode selection\n"
+" -s, --scan                   start with scan-mode active\n"
+" -c, --copy                   start with copy-mode active\n"
+" -f, --fax                    start with fax-mode active\n"
+" -n, --no-mode-selection      disable menu for xsane mode selection\n"
 "\n"
-"-F, --Fixed                  fixed main window size (overwrite preferences "
+" -F, --Fixed                  fixed main window size (overwrite preferences "
 "value)\n"
-"-R, --Resizeable             resizable, scrolled main window (overwrite "
+" -R, --Resizeable             resizable, scrolled main window (overwrite "
 "preferences value)\n"
 "\n"
-"--display X11-display        redirect output to X11-display\n"
-"--no-xshm                    do not use shared memory images\n"
-"--sync                       request a synchronous connection with the X11 "
+" --display X11-display        redirect output to X11-display\n"
+" --no-xshm                    do not use shared memory images\n"
+" --sync                       request a synchronous connection with the X11 "
 "server"
 msgstr ""
 

@@ -1014,7 +1014,7 @@ xsane-0.59 -> 0.60:
 xsane-0.60 -> 0.61:
 -------------------
 
- - added debug output function and messages
+ - added debug output function and messages (environment variable XSANE_DEBUG)
 
  - moved all global variables and struct GSGdialog to global struct xsane
 
@@ -1051,3 +1051,50 @@ xsane-0.60 -> 0.61:
  - added "change directory" entry to preferences menu
 
  - added "scanning for devices" dialog
+
+
+xsane-0.61 -> 0.62:
+-------------------
+
+ - updated manpage (was about 1 year old)
+
+ - removed sigprocmask.c from xsane-*/lib (not used)
+
+ - added icons (32x32 and 48x48) for unix(xpm) and Windows(ico)
+
+ - some additional changes for rotating preview
+
+ - removed bug in preview_get_color that caused segfault when
+   click with pipette was placed into preview area but outside the image,
+   ( there was no test for image size )
+
+ - in info dialog tiff is now listed as supported 16 bit format
+
+ - filename counter is increased now if path or filename includes a "."
+   and fileytpe is seleced by menu
+
+ - added possibility to move the edge of the preview selection frame
+   thanks to Laurent Martelli for his suggestion for that
+
+ - added sane_get_parameters(xsane.dev, &xsane.param) at end of preview_scan_done
+   this way it is made sure that xsane.param is correct after preview scan
+   (was not correct in copy mode with lineart=grayscale->lineart preview)
+
+ - added explaination of "[DEVICE]" in xsane help message
+
+ - gimp handling now is always called in xsane_scan_done
+   (was not called when an error occured or the cancel button was pressed).
+
+ - moved selection of fax finemode to fax-project window, image is always scanned
+   in fine mode resolution.
+
+ - html-documentation is updated (a bit)
+
+ - removed bad "+ 0.5" from calculation in preview_set_option_float: word = SANE_FIX(value) + 0.5;
+
+ - included italian translation table (it.po), thanks to Mauro Colorio <macolori@tin.it>
+
+ - added error message in xsane_control_option if command failed
+
+ - p->startimage is set to 0 in preview_scan_start
+

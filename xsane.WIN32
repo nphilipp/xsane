@@ -23,8 +23,7 @@ Installation:
 =============
  - unpack the archiv to c:\
    that creates the directory c:\Sane with several files
-   you do not need to copy any files,
-   simply call xsane or scanimage
+   you do not need to copy any files, simply call xsane or scanimage
  - make sure c:\Sane\home\xsane does exist
  - make sure c:\Sane\xsane does exist
 
@@ -41,12 +40,19 @@ example for net.conf:
  you also can start xsane with backend and decice given as command line option:
  xsane 192.168.0.1:umax:/dev/scanner
 
+Bugs:
+=====
+ - it looks like fork() does not work correct with cygwin,
+   at least it does not work with xsane. Due to this
+   helpfiles, printing and fax does not work.
+
 
 Support:
 ========
  There is no special support for xsane for win32.
  I develop xsane on a linux machine and will make a binary version
  for win32 from time to time.
+
 
 Licence:
 ========
@@ -60,9 +66,10 @@ Licence:
  - as far as I know. For location of sourcecode and information about the
  dlls read xsane.WIN32-compilation.
 
- Libraries of jpeg, png and tiff and possibly linked statically.
+ Libraries of jpeg, png and tiff are possibly linked statically.
  They have their own licences who allow free private and may be
  free commercial usage.
+
 
 Contact:
 ========

@@ -32,7 +32,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.61"
+#define XSANE_VERSION		"0.62"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2000"
@@ -329,7 +329,6 @@ typedef struct Xsane
     GtkWidget *xsane_hbox;
     GtkWidget *standard_hbox;
     GtkWidget *advanced_hbox;
-    GtkWidget *gamma_hbox;
     GtkWidget *xsanemode_widget;
     GtkTooltips *tooltips;
     GdkColor tooltips_fg;
@@ -341,6 +340,12 @@ typedef struct Xsane
     GSGDialogElement *element;
     u_int rebuild : 1;
     int pixelcolor;
+
+/* free gamma curve widgets */
+    GtkWidget *gamma_curve_gray;
+    GtkWidget *gamma_curve_red;
+    GtkWidget *gamma_curve_green;
+    GtkWidget *gamma_curve_blue;
 
 /* previous global stand alone varaibales */
     const char   *prog_name;      /* name of this program, normally "xsane" */
@@ -484,6 +489,7 @@ typedef struct Xsane
     GtkWidget *outputfilename_entry;
     GtkWidget *copy_number_entry;
 
+    gfloat *free_gamma_data, *free_gamma_data_red, *free_gamma_data_green, *free_gamma_data_blue;
     SANE_Int *gamma_data, *gamma_data_red, *gamma_data_green, *gamma_data_blue;
     SANE_Int *preview_gamma_data_red, *preview_gamma_data_green, *preview_gamma_data_blue;
     SANE_Int *histogram_gamma_data_red, *histogram_gamma_data_green, *histogram_gamma_data_blue;

@@ -289,7 +289,7 @@ msgstr ""
 
 #original text: "Number of bits per sample, typical values are 1 for \"line-art\" and 8 " "for multibit scans." 
 msgid SANE_DESC_BIT_DEPTH
-msgstr "Anzahl der Bits pro Farbwert, typische Werte seind 1 für lineart- und 8 für multibit-Scans"
+msgstr "Anzahl der Bits pro Farbwert, typische Werte sind 1 für lineart- und 8 für multibit-Scans"
 
 #original text: "Selects the scan mode (e.g., lineart,monochrome, or color)." 
 msgid SANE_DESC_SCAN_MODE

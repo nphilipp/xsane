@@ -210,26 +210,30 @@ static void preview_rotate_dsurface_to_psurface(int rotation, float dsurface[4],
      break;
 
     case 1: /* 90 degree */
-      *(psurface+0) = dsurface[3];
+      *(psurface+0) = dsurface[3]; /* xxxxxxx needs debug */
       *(psurface+1) = dsurface[0];
       *(psurface+2) = dsurface[1];
       *(psurface+3) = dsurface[2];
      break;
 
     case 2: /* 180 degree */
-      *(psurface+0) = dsurface[2];
+      *(psurface+0) = dsurface[2]; /* xxxxxxx needs debug */
       *(psurface+1) = dsurface[3];
       *(psurface+2) = dsurface[0];
       *(psurface+3) = dsurface[1];
      break;
 
     case 3: /* 270 degree */
-      *(psurface+0) = dsurface[1];
+      *(psurface+0) = dsurface[1]; /* xxxxxxx needs debug */
       *(psurface+1) = dsurface[2];
       *(psurface+2) = dsurface[3];
       *(psurface+3) = dsurface[0];
      break;
   }
+
+  DBG(DBG_info, "device[%3.2f %3.2f %3.2f %3.2f] -> preview[%3.2f %3.2f %3.2f %3.2f]\n",
+                dsurface[0], dsurface[1], dsurface[2], dsurface[3],
+                *(psurface+0), *(psurface+1), *(psurface+2), *(psurface+3));
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -249,26 +253,30 @@ static void preview_rotate_psurface_to_dsurface(int rotation, float psurface[4],
      break;
 
     case 1: /* 90 degree */
-      *(dsurface+0) = psurface[3];
-      *(dsurface+1) = psurface[0];
-      *(dsurface+2) = psurface[1];
-      *(dsurface+3) = psurface[2];
+      *(dsurface+0) = psurface[1]; /* xxxxxxx needs debug */
+      *(dsurface+1) = psurface[2];
+      *(dsurface+2) = psurface[3];
+      *(dsurface+3) = psurface[0];
      break;
 
     case 2: /* 180 degree */
-      *(dsurface+0) = psurface[2];
+      *(dsurface+0) = psurface[2]; /* xxxxxxx needs debug */
       *(dsurface+1) = psurface[3];
       *(dsurface+2) = psurface[0];
       *(dsurface+3) = psurface[1];
      break;
 
     case 3: /* 270 degree */
-      *(dsurface+0) = psurface[1];
-      *(dsurface+1) = psurface[2];
-      *(dsurface+2) = psurface[3];
-      *(dsurface+3) = psurface[0];
+      *(dsurface+0) = psurface[3]; /* xxxxxxx needs debug */
+      *(dsurface+1) = psurface[0];
+      *(dsurface+2) = psurface[1];
+      *(dsurface+3) = psurface[2];
      break;
   }
+
+  DBG(DBG_info, "preview[%3.2f %3.2f %3.2f %3.2f] -> device[%3.2f %3.2f %3.2f %3.2f]\n",
+                psurface[0], psurface[1], psurface[2], psurface[3],
+                *(dsurface+0), *(dsurface+1), *(dsurface+2), *(dsurface+3));
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -312,26 +320,30 @@ static void preview_transform_coordinate_preview_to_window(Preview *p, float dco
      break;
 
     case 1: /* 90 degree */
-      *(pcoordinate+0) = xscale * (minx - p->surface[0]);
-      *(pcoordinate+1) = yscale * (miny - p->surface[1]);
-      *(pcoordinate+2) = xscale * (maxx - p->surface[0]);
-      *(pcoordinate+3) = yscale * (maxy - p->surface[1]);
+      *(pcoordinate+0) = xscale * (miny - p->surface[1]); /* xxxxxxx needs debug */
+      *(pcoordinate+1) = yscale * (p->surface[0] - maxx);
+      *(pcoordinate+2) = xscale * (maxy - p->surface[1]);
+      *(pcoordinate+3) = yscale * (p->surface[0] - minx);
      break;
 
     case 2: /* 180 degree */
-      *(pcoordinate+0) = xscale * (p->surface[0] - maxx);
+      *(pcoordinate+0) = xscale * (p->surface[0] - maxx); /* xxxxxxx needs debug */
       *(pcoordinate+1) = yscale * (p->surface[1] - maxy);
       *(pcoordinate+2) = xscale * (p->surface[0] - minx);
       *(pcoordinate+3) = yscale * (p->surface[1] - miny);
      break;
 
     case 3: /* 270 degree */
-      *(pcoordinate+0) = xscale * (minx - p->surface[0]);
-      *(pcoordinate+1) = yscale * (miny - p->surface[1]);
-      *(pcoordinate+2) = xscale * (maxx - p->surface[0]);
-      *(pcoordinate+3) = yscale * (maxy - p->surface[1]);
+      *(pcoordinate+0) = xscale * (p->surface[1] - miny); /* xxxxxxx needs debug */
+      *(pcoordinate+1) = yscale * (maxx - p->surface[0]);
+      *(pcoordinate+2) = xscale * (p->surface[1] - maxy);
+      *(pcoordinate+3) = yscale * (minx - p->surface[0]);
      break;
   }
+
+  DBG(DBG_info, "preview[%3.2f %3.2f %3.2f %3.2f] -> window[%3.2f %3.2f %3.2f %3.2f]\n",
+                dcoordinate[0], dcoordinate[1], dcoordinate[2], dcoordinate[3],
+                *(pcoordinate+0), *(pcoordinate+1), *(pcoordinate+2), *(pcoordinate+3) );
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -353,20 +365,22 @@ static void preview_transform_coordinate_window_to_preview(Preview *p, float win
      break;
 
     case 1: /* 90 degree */
-      *previewx = p->surface[0] + winx / xscale;
-      *previewy = p->surface[1] + winy / yscale;
+      *previewx = p->surface[0] + winy / xscale; /* xxxxxxx needs debug */
+      *previewy = p->surface[3] - winx / yscale;
      break;
 
     case 2: /* 180 degree */
-      *previewx = p->surface[0] + winx / xscale;
-      *previewy = p->surface[1] + winy / yscale;
+      *previewx = p->surface[2] - winx / xscale; /* xxxxxxx needs debug */
+      *previewy = p->surface[3] - winy / yscale;
      break;
 
     case 3: /* 270 degree */
-      *previewx = p->surface[0] + winx / xscale;
-      *previewy = p->surface[1] + winy / yscale;
+      *previewx = p->surface[0] + winy / xscale; /* xxxxxxx needs debug */
+      *previewy = p->surface[1] + winx / yscale;
      break;
   }
+
+  DBG(DBG_info, "window[%3.2f %3.2f] -> preview[%3.2f %3.2f]\n", winx, winy, *previewx, *previewy);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -443,7 +457,7 @@ static void preview_draw_rect(Preview *p, GdkWindow *win, GdkGC *gc, float coord
 {
  float pcoord[4];
 
-  DBG(DBG_proc, "preview_draw_rect\n");
+  DBG(DBG_proc, "preview_draw_rect [%3.2f %3.2f %3.2f %3.2f]\n", pcoord[0], pcoord[1], pcoord[2], pcoord[3]);
 
   preview_transform_coordinate_preview_to_window(p, coordinate, pcoord);
   gdk_draw_rectangle(win, gc, FALSE, pcoord[0], pcoord[1], pcoord[2]-pcoord[0] + 1, pcoord[3] - pcoord[1] + 1);
@@ -631,8 +645,6 @@ static void preview_get_scale_device_to_image(Preview *p, float *xscalep, float 
  float xscale = 1.0;
  float yscale = 1.0;
 
-  DBG(DBG_proc, "preview_get_scale_device_to_image\n");
-
   device_width  = fabs(p->image_surface[2] - p->image_surface[0]);
   device_height = fabs(p->image_surface[3] - p->image_surface[1]);
 
@@ -661,8 +673,7 @@ static void preview_get_scale_device_to_image(Preview *p, float *xscalep, float 
   *xscalep = xscale;
   *yscalep = yscale;
 
-  DBG(DBG_info2, "preview_get_scale_device_to_image: xscale = %f\n", xscale);
-  DBG(DBG_info2, "preview_get_scale_device_to_image: yscale = %f\n", yscale);
+  DBG(DBG_info, "preview_get_scale_device_to_image: scale = %f, %f\n", xscale, yscale);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -673,19 +684,37 @@ static void preview_get_scale_device_to_preview(Preview *p, float *xscalep, floa
  float xscale = 1.0;
  float yscale = 1.0;
 
-  DBG(DBG_proc, "preview_get_scale_device_to_preview\n");
-
   device_width  = fabs(p->image_surface[2] - p->image_surface[0]);
   device_height = fabs(p->image_surface[3] - p->image_surface[1]);
 
-  if ( (device_width >0) && (device_width < INF) )
+  switch (p->rotation)
   {
-    xscale = p->preview_width / device_width;
-  }
+    case 0: /* do not rotate - 0 degree */
+    case 2: /* rotate 180 degree */
+    default:
+      if ( (device_width >0) && (device_width < INF) )
+      {
+        xscale = p->preview_width / device_width;
+      }
 
-  if ( (device_height >0) && (device_height < INF) )
-  {
-    yscale = p->preview_height / device_height;
+      if ( (device_height >0) && (device_height < INF) )
+      {
+        yscale = p->preview_height / device_height;
+      }
+    break;
+
+    case 1: /* rotate 90 degree */ /* xxxxxxx needs debug */
+    case 3: /* rotate 270 degree */ /* xxxxxxx needs debug */
+      if ( (device_height >0) && (device_height < INF) )
+      {
+        xscale = fabs(p->preview_width / device_height);
+      }
+
+      if ( (device_width >0) && (device_width < INF) )
+      {
+        yscale = fabs(p->preview_height / device_width);
+      }
+    break;
   }
 
   if (p->surface_unit == SANE_UNIT_PIXEL)
@@ -703,8 +732,7 @@ static void preview_get_scale_device_to_preview(Preview *p, float *xscalep, floa
   *xscalep = xscale;
   *yscalep = yscale;
 
-  DBG(DBG_info2, "preview_get_scale_device_to_preview: xscale = %f\n", xscale);
-  DBG(DBG_info2, "preview_get_scale_device_to_preview: yscale = %f\n", yscale);
+  DBG(DBG_info, "preview_get_scale_device_to_preview: scale = %f, %f\n", xscale, yscale);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -714,16 +742,35 @@ static void preview_get_scale_preview_to_image(Preview *p, float *xscalep, float
  float xscale = 1.0;
  float yscale = 1.0;
 
-  DBG(DBG_proc, "preview_get_scale_preview_to_image\n");
-
-  if (p->image_width > 0)
+  switch (p->rotation)
   {
-    xscale = p->image_width / (float) p->preview_width;
-  }
+    case 0: /* do not rotate - 0 degree */
+    case 2: /* rotate 180 degree */
+    default:
+      if (p->image_width > 0)
+      {
+        xscale = p->image_width / (float) p->preview_width;
+      }
 
-  if (p->image_height > 0)
-  {
-    yscale = p->image_height / (float) p->preview_height;
+      if (p->image_height > 0)
+      {
+        yscale = p->image_height / (float) p->preview_height;
+      }
+    break;
+
+    case 1: /* rotate 90 degree */ /* xxxxxxx needs debug */
+    case 3: /* rotate 270 degree */ /* xxxxxxx needs debug */
+      if (p->image_width > 0)
+      {
+        xscale = fabs(p->image_width / (float) p->preview_height);
+      }
+
+      if (p->image_height > 0)
+      {
+        yscale = fabs(p->image_height / (float) p->preview_width);
+      }
+    break;
+
   }
 
   if (p->surface_unit == SANE_UNIT_PIXEL)
@@ -741,8 +788,7 @@ static void preview_get_scale_preview_to_image(Preview *p, float *xscalep, float
   *xscalep = xscale;
   *yscalep = yscale;
 
-  DBG(DBG_info2, "preview_get_scale_preview_to_image: xscale = %f\n", xscale);
-  DBG(DBG_info2, "preview_get_scale_preview_to_image: yscale = %f\n", yscale);
+  DBG(DBG_info, "preview_get_scale_preview_to_image: scale = %f, %f\n", xscale, yscale);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -752,7 +798,7 @@ static void preview_paint_image(Preview *p)
  float xscale, yscale, src_x, src_y;
  int dst_x, dst_y, height, x, y, old_y, src_offset;
 
-  DBG(DBG_proc, "preview_paint_image\n");
+  DBG(DBG_proc, "preview_paint_image (rotation=%d)\n", p->rotation);
 
   if (!p->image_data_enh)
   {
@@ -789,6 +835,8 @@ static void preview_paint_image(Preview *p)
 
       src_y = 0.0;
 
+      DBG(DBG_info, "preview_height=%d\n", p->preview_height);
+
       for (dst_y = 0; dst_y < p->preview_height; ++dst_y)
       {
         y = (int) (src_y + 0.5);
@@ -811,9 +859,9 @@ static void preview_paint_image(Preview *p)
               break;
             }
 
-            p->preview_row[3*dst_x + 0] = p->image_data_enh[src_offset + 3*x + 0];
-            p->preview_row[3*dst_x + 1] = p->image_data_enh[src_offset + 3*x + 1];
-            p->preview_row[3*dst_x + 2] = p->image_data_enh[src_offset + 3*x + 2];
+            p->preview_row[3*dst_x + 0] = p->image_data_enh[src_offset + 3*x + 0]; /* R */
+            p->preview_row[3*dst_x + 1] = p->image_data_enh[src_offset + 3*x + 1]; /* G */
+            p->preview_row[3*dst_x + 2] = p->image_data_enh[src_offset + 3*x + 2]; /* B */
             src_x += xscale;
           }
         }
@@ -830,10 +878,13 @@ static void preview_paint_image(Preview *p)
      break;
 
 
-    case 1: /* 90 degree */
+    case 1: /* 90 degree */ /* xxxxxxx needs debug */
       /* because we run in x direction we have to draw all rows all the time */
 
       src_y = 0.0;
+
+      DBG(DBG_info, "height=%d\n", height);
+      DBG(DBG_info, "preview_height=%d\n", p->preview_height);
 
       for (dst_y = 0; dst_y < p->preview_height; ++dst_y)
       {
@@ -857,9 +908,9 @@ static void preview_paint_image(Preview *p)
               break;
             }
 
-            p->preview_row[3*dst_x + 0] = p->image_data_enh[src_offset + 3*x*p->image_width + 0];
-            p->preview_row[3*dst_x + 1] = p->image_data_enh[src_offset + 3*x*p->image_width + 1];
-            p->preview_row[3*dst_x + 2] = p->image_data_enh[src_offset + 3*x*p->image_width + 2];
+            p->preview_row[3*dst_x + 0] = p->image_data_enh[src_offset + 3*x*p->image_width + 0]; /* R */
+            p->preview_row[3*dst_x + 1] = p->image_data_enh[src_offset + 3*x*p->image_width + 1]; /* G */
+            p->preview_row[3*dst_x + 2] = p->image_data_enh[src_offset + 3*x*p->image_width + 2]; /* B */
             src_x -= xscale;
           }
         }
@@ -876,7 +927,7 @@ static void preview_paint_image(Preview *p)
      break;
 
 
-    case 2: /* 180 degree */
+    case 2: /* 180 degree */ /* xxxxxxx needs debug */
 
       /* don't draw last line unless it's complete: */
       height = p->image_y;
@@ -888,12 +939,17 @@ static void preview_paint_image(Preview *p)
 
       src_y = 0;
 
+      DBG(DBG_info, "height=%d\n", height);
+      DBG(DBG_info, "preview_height=%d\n", p->preview_height);
+
       for (dst_y = p->preview_height-1; dst_y >0; --dst_y)
       {
         y = (int) (src_y + 0.5);
         if (y <= height)
         {
-//          break;
+#if 0
+          break;
+#endif
         }
 
         src_offset = y * 3 * p->image_width;
@@ -911,9 +967,9 @@ static void preview_paint_image(Preview *p)
               break;
             }
 
-            p->preview_row[3*dst_x + 0] = p->image_data_enh[src_offset + 3*x + 0];
-            p->preview_row[3*dst_x + 1] = p->image_data_enh[src_offset + 3*x + 1];
-            p->preview_row[3*dst_x + 2] = p->image_data_enh[src_offset + 3*x + 2];
+            p->preview_row[3*dst_x + 0] = p->image_data_enh[src_offset + 3*x + 0]; /* R */
+            p->preview_row[3*dst_x + 1] = p->image_data_enh[src_offset + 3*x + 1]; /* G */
+            p->preview_row[3*dst_x + 2] = p->image_data_enh[src_offset + 3*x + 2]; /* B */
             src_x -= xscale;
           }
         }
@@ -931,10 +987,12 @@ static void preview_paint_image(Preview *p)
      break;
 
 
-    case 3: /* 270 degree */
+    case 3: /* 270 degree */ /* xxxxxxx needs debug */
       /* because we run in x direction we have to draw all rows all the time */
 
       src_y = 0.0;
+
+      DBG(DBG_info, "preview_height=%d\n", p->preview_height);
 
       for (dst_y = 0; dst_y < p->preview_height; ++dst_y)
       {
@@ -958,9 +1016,9 @@ static void preview_paint_image(Preview *p)
               break;
             }
 
-            p->preview_row[3*dst_x + 0] = p->image_data_enh[src_offset + 3*x*p->image_width + 0];
-            p->preview_row[3*dst_x + 1] = p->image_data_enh[src_offset + 3*x*p->image_width + 1];
-            p->preview_row[3*dst_x + 2] = p->image_data_enh[src_offset + 3*x*p->image_width + 2];
+            p->preview_row[3*dst_x + 0] = p->image_data_enh[src_offset + 3*x*p->image_width + 0]; /* R */
+            p->preview_row[3*dst_x + 1] = p->image_data_enh[src_offset + 3*x*p->image_width + 1]; /* G */
+            p->preview_row[3*dst_x + 2] = p->image_data_enh[src_offset + 3*x*p->image_width + 2]; /* B */
             src_x += xscale;
           }
         }
@@ -1104,7 +1162,7 @@ static void preview_set_option_float(Preview *p, int option, float value)
   opt = xsane_get_option_descriptor(dev, option);
   if (opt->type == SANE_TYPE_FIXED)
   {
-    word = SANE_FIX(value) + 0.5;
+    word = SANE_FIX(value);
   }
   else
   {
@@ -1486,6 +1544,8 @@ static void preview_scan_done(Preview *p)
 
   preview_update_selection(p);
   xsane_update_histogram();
+
+  sane_get_parameters(xsane.dev, &xsane.param); /* update xsane.param */
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1568,6 +1628,8 @@ static void preview_scan_start(Preview *p)
  int gamma_blue_max   = 255;
 
   DBG(DBG_proc, "preview_scan_start\n");
+
+  p->startimage = 0; /* we start the scan so lets say the startimage is not displayed any more */
 
   for (i=0; i<4; i++)
   {
@@ -1769,10 +1831,19 @@ static int preview_restore_image_from_file(Preview *p, FILE *in, int min_quality
   {
     if ((psurface_type != p->surface_type) || (psurface_unit != p->surface_unit))
     {
-      return min_quality;
+      DBG(DBG_info, "incompatible surface types %d <> %d\n", psurface_type, p->surface_type);
+     return min_quality;
     }
 
     preview_rotate_psurface_to_dsurface(p->rotation, p->surface, dsurface);
+
+
+    DBG(DBG_info, "stored image surface      = [%3.2f %3.2f %3.2f %3.2f]\n",
+                   psurface[0], psurface[1], psurface[2], psurface[3]);
+    DBG(DBG_info, "preview selection surface = [%3.2f %3.2f %3.2f %3.2f]\n",
+                   p->surface[0], p->surface[1], p->surface[2], p->surface[3]);
+    DBG(DBG_info, "preview device surface    = [%3.2f %3.2f %3.2f %3.2f]\n",
+                   dsurface[0], dsurface[1], dsurface[2], dsurface[3]);
 
     xoffset = (dsurface[0] - psurface[0])/(psurface[2] - psurface[0]) * image_width;
     yoffset = (dsurface[1] - psurface[1])/(psurface[3] - psurface[1]) * image_height;
@@ -1844,6 +1915,8 @@ static void preview_restore_image(Preview *p)
 
   DBG(DBG_proc, "preview_restore_image\n");
 
+  p->startimage = 0;
+
   if (p->calibration)
   {
    char filename[PATH_MAX];
@@ -1885,6 +1958,7 @@ static void preview_restore_image(Preview *p)
         quality = preview_restore_image_from_file(p, in, -1);
         fclose(in);
       }
+      p->startimage = 1;
     }
   }
 
@@ -2007,6 +2081,30 @@ static gint preview_motion_event_handler(GtkWidget *window, GdkEvent *event, gpo
         {
           cursornr = GDK_BOTTOM_RIGHT_CORNER;
         }
+        else if ( ( (preview_selection[0] - SELECTION_RANGE_OUT < event->button.x) &&
+                    (event->button.x < preview_selection[0] + SELECTION_RANGE_IN) ) &&  /* left */
+                  ( (event->button.y > preview_selection[1]) && (event->button.y < preview_selection[3]) ) ) /* in height */
+        {
+          cursornr = GDK_LEFT_SIDE;
+        }
+        else if ( ( (preview_selection[2] - SELECTION_RANGE_IN < event->button.x) &&
+                    (event->button.x < preview_selection[2] + SELECTION_RANGE_OUT) ) &&  /* right */
+                  ( (event->button.y > preview_selection[1]) && (event->button.y < preview_selection[3]) ) ) /* in height */
+        {
+          cursornr = GDK_RIGHT_SIDE;
+        }
+        else if ( ( (preview_selection[1] - SELECTION_RANGE_OUT < event->button.y) &&
+                    (event->button.y < preview_selection[1] + SELECTION_RANGE_IN) ) &&  /* top */
+                  ( (event->button.x > preview_selection[0]) && (event->button.x < preview_selection[2]) ) ) /* in width */
+        {
+          cursornr = GDK_TOP_SIDE;
+        }
+        else if ( ( (preview_selection[3] - SELECTION_RANGE_IN < event->button.y) &&
+                    (event->button.y < preview_selection[3] + SELECTION_RANGE_OUT) ) &&  /* bottom */
+                  ( (event->button.x > preview_selection[0]) && (event->button.x < preview_selection[2]) ) ) /* in width */
+        {
+          cursornr = GDK_BOTTOM_SIDE;
+        }
 
         if (cursornr != p->cursornr)
         {
@@ -2105,6 +2203,30 @@ static gint preview_motion_event_handler(GtkWidget *window, GdkEvent *event, gpo
         {
           cursornr = GDK_BOTTOM_RIGHT_CORNER;
         }
+        else if ( ( (preview_selection[0] - SELECTION_RANGE_OUT < event->button.x) &&
+                    (event->button.x < preview_selection[0] + SELECTION_RANGE_IN) ) &&  /* left */
+                  ( (event->button.y > preview_selection[1]) && (event->button.y < preview_selection[3]) ) ) /* in height */
+        {
+           cursornr = GDK_LEFT_SIDE;
+        }
+        else if ( ( (preview_selection[2] - SELECTION_RANGE_IN < event->button.x) &&
+                    (event->button.x < preview_selection[2] + SELECTION_RANGE_OUT) ) &&  /* right */
+                  ( (event->button.y > preview_selection[1]) && (event->button.y < preview_selection[3]) ) ) /* in height */
+        {
+           cursornr = GDK_RIGHT_SIDE;
+        }
+        else if ( ( (preview_selection[1] - SELECTION_RANGE_OUT < event->button.y) &&
+                    (event->button.y < preview_selection[1] + SELECTION_RANGE_IN) ) &&  /* top */
+                  ( (event->button.x > preview_selection[0]) && (event->button.x < preview_selection[2]) ) ) /* in width */
+        {
+           cursornr = GDK_TOP_SIDE;
+        }
+        else if ( ( (preview_selection[3] - SELECTION_RANGE_IN < event->button.y) &&
+                    (event->button.y < preview_selection[3] + SELECTION_RANGE_OUT) ) &&  /* bottom */
+                  ( (event->button.x > preview_selection[0]) && (event->button.x < preview_selection[2]) ) ) /* in width */
+        {
+           cursornr = GDK_BOTTOM_SIDE;
+        }
         else
         {
           cursornr = XSANE_CURSOR_PREVIEW;
@@ -2157,7 +2279,7 @@ static gint preview_button_press_event_handler(GtkWidget *window, GdkEvent *even
         DBG(DBG_info, "pipette white mode\n");
         if ( ( (((GdkEventButton *)event)->button == 1) || (((GdkEventButton *)event)->button == 2) ) && (p->image_data_raw) ) /* left or middle button */
         {
-         int r,g,b;
+         int r=255, g=255, b=255; /* preset color to white */
 
           preview_get_color(p, event->button.x, event->button.y, &r, &g, &b);
 
@@ -2246,7 +2368,7 @@ static gint preview_button_press_event_handler(GtkWidget *window, GdkEvent *even
 
         if ( ( (((GdkEventButton *)event)->button == 1) || (((GdkEventButton *)event)->button == 2) ) && (p->image_data_raw) ) /* left or middle button */
         {
-         int r,g,b;
+         int r=128, g=128, b=128; /* preset color to gray */
 
           preview_get_color(p, event->button.x, event->button.y, &r, &g, &b);
 
@@ -2352,7 +2474,7 @@ static gint preview_button_press_event_handler(GtkWidget *window, GdkEvent *even
         if ( ( (((GdkEventButton *)event)->button == 1) || (((GdkEventButton *)event)->button == 2) ) &&
              (p->image_data_raw) ) /* left or middle button */
         {
-         int r,g,b;
+         int r=0, g=0, b=0; /* preset color to black */
 
           preview_get_color(p, event->button.x, event->button.y, &r, &g, &b);
 
@@ -2443,18 +2565,20 @@ static gint preview_button_press_event_handler(GtkWidget *window, GdkEvent *even
         {
           switch (((GdkEventButton *)event)->button)
           {
-            case 1: /* left button */
+            case 1: /* left button: define selection area */
               DBG(DBG_info, "left button\n");
 
               p->selection_xedge = -1;
               if ( (preview_selection[0] - SELECTION_RANGE_OUT < event->button.x) &&
                    (event->button.x < preview_selection[0] + SELECTION_RANGE_IN) ) /* left */
               {
+                DBG(DBG_info, "-left\n");
                 p->selection_xedge = 0;
               }
               else if ( (preview_selection[2] - SELECTION_RANGE_IN < event->button.x) &&
                         (event->button.x < preview_selection[2] + SELECTION_RANGE_OUT) ) /* right */
               {
+                DBG(DBG_info, "-right\n");
                 p->selection_xedge = 2;
               }
 
@@ -2462,23 +2586,43 @@ static gint preview_button_press_event_handler(GtkWidget *window, GdkEvent *even
               if ( (preview_selection[1] - SELECTION_RANGE_OUT < event->button.y) &&
                    (event->button.y < preview_selection[1] + SELECTION_RANGE_IN) ) /* top */
               {
+                DBG(DBG_info, "-top\n");
                 p->selection_yedge = 1;
               }
               else if ( (preview_selection[3] - SELECTION_RANGE_IN < event->button.y) &&
                         (event->button.y < preview_selection[3] + SELECTION_RANGE_OUT) ) /* bottom */
               {
+                DBG(DBG_info, "-bottom\n");
                 p->selection_yedge = 3;
               }
 
-              if ( (p->selection_xedge != -1) && (p->selection_yedge != -1) ) /* move edge */
+              if ( (p->selection_xedge != -1) && (p->selection_yedge != -1) ) /* move corner */
               {
+                DBG(DBG_info, "-move corner (%f, %f)\n", preview_x, preview_y);
                 p->selection_drag_edge = TRUE;
                 p->selection.coordinate[p->selection_xedge] = preview_x;
                 p->selection.coordinate[p->selection_yedge] = preview_y;
                 preview_draw_selection(p);
               }
+              else if ( (p->selection_xedge != -1) && (event->button.y > preview_selection[1])
+                        && (event->button.y < preview_selection[3]) ) /* move x-edge */
+              {
+                DBG(DBG_info, "-move x-edge %f\n", preview_x);
+                p->selection_drag_edge = TRUE;
+                p->selection.coordinate[p->selection_xedge] = preview_x;
+                preview_draw_selection(p);
+              }
+              else if ( (p->selection_yedge != -1)  && (event->button.x > preview_selection[0])
+                        && (event->button.x < preview_selection[2]) ) /* move y-edge */
+              {
+                DBG(DBG_info, "-move y-edge %f\n", preview_y);
+                p->selection_drag_edge = TRUE;
+                p->selection.coordinate[p->selection_yedge] = preview_y;
+                preview_draw_selection(p);
+              } 
               else /* select new area */
               {
+                DBG(DBG_info, "-define new area (%f, %f)\n", preview_x, preview_y);
                 p->selection_xedge = 2;
                 p->selection_yedge = 3;
                 p->selection.coordinate[0] = preview_x;
@@ -2502,6 +2646,7 @@ static gint preview_button_press_event_handler(GtkWidget *window, GdkEvent *even
                    (preview_selection[1]-SELECTION_RANGE_OUT < event->button.y) &&
                    (preview_selection[3]+SELECTION_RANGE_OUT > event->button.y) )
               {
+                DBG(DBG_info, "move selection area\n");
                 p->selection_drag = TRUE;
                 p->selection_xpos = event->button.x;
                 p->selection_ypos = event->button.y;
@@ -2550,6 +2695,7 @@ static gint preview_button_release_event_handler(GtkWidget *window, GdkEvent *ev
         case 3: /* right button */
           if (p->selection_drag)
           {
+            DBG(DBG_info, "selection finished\n");
             cursornr = XSANE_CURSOR_PREVIEW;
             cursor = gdk_cursor_new(cursornr);	/* set curosr */
             gdk_window_set_cursor(p->window->window, cursor);
@@ -2959,21 +3105,24 @@ void preview_update_surface(Preview *p, int surface_changed)
 
     if (p->orig_scanner_surface[i] != val)
     {
-       surface_changed = 2;
-       p->orig_scanner_surface[i] = val;
+      DBG(DBG_info, "preview_update_surface: orig_scanner_surface[%d] has changed\n", i);
+      surface_changed = 2;
+      p->orig_scanner_surface[i] = val;
     }
   }
 
   if (surface_changed == 2) /* redefine all surface subparts */
   {
+    DBG(DBG_info, "preview_update_surface: redefine all surface subparts\n");
     preview_rotate_dsurface_to_psurface(p->rotation, p->orig_scanner_surface, p->max_scanner_surface);
 
     for (i = 0; i < 4; i++)
     {
-       val = p->max_scanner_surface[i];
-       p->scanner_surface[i]     = val;
-       p->surface[i]             = val;
-       p->image_surface[i]       = val;
+      val = p->max_scanner_surface[i];
+      p->scanner_surface[i]     = val;
+      p->surface[i]             = val;
+      p->image_surface[i]       = val;
+      DBG(DBG_info, "preview_update_surface: *_surface[%d] = %3.2f\n", i, val);
     }
   } 
 
@@ -2998,6 +3147,7 @@ void preview_update_surface(Preview *p, int surface_changed)
 
   if ( (width != preset_width) || (height != preset_height) )
   {
+    DBG(DBG_info, "preview_update_surface: using reduced surface\n");
     p->scanner_surface[xsane_back_gtk_TL_X] = p->scanner_surface[xsane_back_gtk_TL_X];
     p->surface[xsane_back_gtk_TL_X]         = p->scanner_surface[xsane_back_gtk_TL_X];
     p->image_surface[xsane_back_gtk_TL_X]   = p->scanner_surface[xsane_back_gtk_TL_X];
@@ -3013,6 +3163,11 @@ void preview_update_surface(Preview *p, int surface_changed)
     p->scanner_surface[xsane_back_gtk_BR_Y] = p->scanner_surface[xsane_back_gtk_TL_Y] + preset_height;
     p->surface[xsane_back_gtk_BR_Y]         = p->scanner_surface[xsane_back_gtk_TL_Y] + preset_height;
     p->image_surface[xsane_back_gtk_BR_Y]   = p->scanner_surface[xsane_back_gtk_TL_Y] + preset_height;
+
+    for (i = 0; i < 4; i++)
+    {
+      DBG(DBG_info, "preview_update_surface: *sub_surface[%d] = %3.2f\n", i, p->scanner_surface[i]);
+    }
 
     surface_changed = 1;
   }
@@ -3040,7 +3195,7 @@ void preview_update_surface(Preview *p, int surface_changed)
 
   if (surface_changed)
   {
-    DBG(DBG_info, "surface_changed\n");
+    DBG(DBG_info, "preview_update_surface: surface_changed\n");
     /* guess the initial preview window size: */
 
     width  = p->surface[xsane_back_gtk_BR_X] - p->surface[xsane_back_gtk_TL_X];
@@ -3057,9 +3212,9 @@ void preview_update_surface(Preview *p, int surface_changed)
       height += SANE_UNFIX(1.0);
     }
 
-    if (p->calibration)
+    if ( (p->calibration) || (p->startimage) )
     {
-      p->aspect = p->image_width/(float) p->image_height;
+      p->aspect = fabs(p->image_width/(float) p->image_height);
     }
     else if (width >= INF || height >= INF)
     {
@@ -3067,17 +3222,19 @@ void preview_update_surface(Preview *p, int surface_changed)
     }
     else
     {
-      p->aspect = width/height;
+      p->aspect = fabs(width/height);
     }
   }
   else if ( (p->image_height) && (p->image_width) )
   {
-    p->aspect = p->image_width/(float) p->image_height;
+    p->aspect = fabs(p->image_width/(float) p->image_height);
   }
+
+  DBG(DBG_info, "preview_update_surface: aspect = %f\n", p->aspect);
 
   if ( (surface_changed) && (p->preview_window_width == 0) )
   {
-    DBG(DBG_info, "defining size of preview window\n");
+    DBG(DBG_info, "preview_update_surface: defining size of preview window\n");
 
     p->preview_window_width  = 0.5 * gdk_screen_width();
     p->preview_window_height = 0.5 * gdk_screen_height();
@@ -3091,12 +3248,14 @@ void preview_update_surface(Preview *p, int surface_changed)
 
   if (surface_changed)
   {
+    DBG(DBG_info, "preview_update_surface: establish new surface\n");
     preview_area_resize(p);	/* correct rulers */
     preview_bound_selection(p);	/* make sure selection is not larger than surface */
     preview_restore_image(p);	/* draw selected surface of the image */
   }
   else
   {
+    DBG(DBG_info, "preview_update_surface: surface unchanged\n");
     preview_update_selection(p);
   }
 }
@@ -3268,7 +3427,9 @@ static void preview_save_image(Preview *p)
   if (p->filename[level])
   {
     /* save preview image */
-//    remove(p->filename[level]); /* remove existing preview */
+#if 0
+    remove(p->filename[level]); /* remove existing preview */
+#endif
     umask(0177); /* create temporary file with "-rw-------" permissions */
     out = fopen(p->filename[level], "wb"); /* b = binary mode for win32*/
     umask(XSANE_DEFAULT_UMASK); /* define new file permissions */
@@ -3463,19 +3624,22 @@ static void preview_get_color(Preview *p, int x, int y, int *red, int *green, in
     image_x = x * xscale_p2i;
     image_y = y * yscale_p2i;
 
-    offset = 3 * (image_y * p->image_width + image_x);
+    if ( (image_x < p->image_width) && (image_y < p->image_height) )
+    {
+      offset = 3 * (image_y * p->image_width + image_x);
 
-    if (!xsane.negative) /* positive */
-    {
-      *red   = p->image_data_raw[offset    ];
-      *green = p->image_data_raw[offset + 1];
-      *blue  = p->image_data_raw[offset + 2];
-    }
-    else /* negative */
-    {
-      *red   = 255 - p->image_data_raw[offset    ];
-      *green = 255 - p->image_data_raw[offset + 1];
-      *blue  = 255 - p->image_data_raw[offset + 2];
+      if (!xsane.negative) /* positive */
+      {
+        *red   = p->image_data_raw[offset    ];
+        *green = p->image_data_raw[offset + 1];
+        *blue  = p->image_data_raw[offset + 2];
+      }
+      else /* negative */
+      {
+        *red   = 255 - p->image_data_raw[offset    ];
+        *green = 255 - p->image_data_raw[offset + 1];
+        *blue  = 255 - p->image_data_raw[offset + 2];
+      }
     }
   }
 }

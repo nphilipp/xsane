@@ -1,0 +1,36 @@
+To remove sane or xsane:
+
+if sane is installed in /usr/:
+	rm -rf /usr/lib/sane
+	rm -rf /usr/lib/libsane*
+	rm -rf /usr/include/sane
+	rm -rf /usr/etc/sane.d
+	rm -rf /usr/share/sane*
+	rm -rf /usr/bin/scanimage
+	rm -rf /usr/bin/xscanimage
+
+if sane is installed in /usr/local/:
+	rm -rf /usr/local/lib/sane
+	rm -rf /usr/local/lib/libsane*
+	rm -rf /usr/local/include/sane
+	rm -rf /usr/local/etc/sane.d
+	rm -rf /usr/local/share/sane*
+	rm -rf /usr/local/bin/scanimage
+	rm -rf /usr/local/bin/xscanimage
+
+
+For xsane in /usr:
+	rm -rf /usr/bin/xsane
+	rm -rf /usr/share/sane/xsane
+
+For xsane in /usr/local
+	rm -rf /usr/local/bin/xsane
+	rm -rf /usr/local/share/sane/xsane
+
+xsane also installs translation tables for different languages,
+the path is different on different systems, but
+find / -name "xsane.mo"
+should list the directories and in these directories
+there also could be sane-umax.mo and sane-pnm.mo
+
+Oliver Rauch

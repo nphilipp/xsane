@@ -6,14 +6,14 @@ AC_CONFIG_HEADER(include/sane/config.h)
 
 # version code:
 V_MAJOR=0
-V_MINOR=61
+V_MINOR=62
 
 PACKAGE=xsane
 
 BINPROGS="xsane"
 
 # languages
-ALL_LINGUAS="de fr cs sv"
+ALL_LINGUAS="cs de fr sv it"
 
 SANE_V_MAJOR=1
 VERSION=${V_MAJOR}.${V_MINOR}

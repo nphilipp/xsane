@@ -60,7 +60,7 @@ extern int xsane_back_gtk_get_filename(const char *label, const char *default_na
 extern void xsane_back_gtk_sync(void);
 extern void xsane_back_gtk_update_vector(int opt_num, SANE_Int *vector);
 extern void xsane_back_gtk_refresh_dialog(void);
-extern void xsane_back_gtk_vector_new(GtkWidget *box, int num_vopts, int *vopts);
+/* extern void xsane_back_gtk_vector_new(GtkWidget *box, int num_vopts, int *vopts); */
 extern void xsane_back_gtk_update_scan_window(void);
 extern void xsane_back_gtk_set_advanced(int advanced);
 extern void xsane_back_gtk_set_tooltips(int enable);

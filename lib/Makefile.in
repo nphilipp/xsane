@@ -39,9 +39,9 @@ COMPILE = $(CC) -c $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS)
 
 @SET_MAKE@
 
-LIBLIB_OBJS	= alloca.o getopt.o getopt1.o sigprocmask.o strndup.o \
+LIBLIB_OBJS	= alloca.o getopt.o getopt1.o strndup.o \
 		  strdup.o strsep.o snprintf.o usleep.o
-LIBLIB_LTOBJS	= alloca.lo getopt.lo getopt1.lo sigprocmask.lo strndup.lo \
+LIBLIB_LTOBJS	= alloca.lo getopt.lo getopt1.lo strndup.lo \
 		  strdup.lo strsep.lo snprintf.lo usleep.lo
 
 TARGETS = $(LIBLIB_OBJS)

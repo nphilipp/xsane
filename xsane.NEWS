@@ -1,7 +1,12 @@
 
  NEWS:
 
-   if you update from a version before xsane-0.49 please
-   read xsane.OLDER_NEWS
+  no special you should care about.
+
+  If you experience any problems after you upgraded xsane 
+  it may help to remove the setup and preferneces files
+  of xsane:
+
+  rm -rf ~/.sane/xsane
 
 

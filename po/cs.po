@@ -4,14 +4,18 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.55\n"
-"POT-Creation-Date: 2000-03-06 23:48+0100\n"
-"PO-Revision-Date: 2000-02-07 23:53+01:00\n"
+"Project-Id-Version: XSANE 0.61\n"
+"POT-Creation-Date: 2000-10-01 13:09+0200\n"
+"PO-Revision-Date: 2000-08-15 09:40+02:00\n"
 "Last-Translator: Stanislav Brabec <utx@penguin.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#. XSANE_COPYRIGHT_SIGN
+msgid "(c)"
+msgstr "(c)"
 
 #. XSANE_COPYRIGHT_SIGN
 msgid "©"
@@ -49,6 +53,10 @@ msgstr "nastavení"
 msgid "Histogram"
 msgstr "Histogram"
 
+#. WINDOW_GAMMA
+msgid "Gamma curve"
+msgstr "Gama køivka"
+
 #. WINDOW_STANDARD_OPTIONS
 msgid "Standard options"
 msgstr "Standardní volby"
@@ -66,22 +74,24 @@ msgid "Preview"
 msgstr "Náhled"
 
 #. WINDOW_OUTPUT_FILENAME
-#, fuzzy
 msgid "select output filename"
-msgstr "jméno výstupního souboru"
+msgstr "výbìr jména výstupního souboru"
 
 #. WINDOW_SAVE_SETTINGS
 msgid "save device settings"
-msgstr "zapsat nastavení zaøízení"
+msgstr "zápis nastavení zaøízení"
 
 #. WINDOW_LOAD_SETTINGS
 msgid "load device settings"
-msgstr "naèíst nastavení zaøízení"
+msgstr "ètení nastavení zaøízení"
+
+#. WINDOW_CHANGE_WORKING_DIR
+msgid "change working directory"
+msgstr "zmìna pracovního adresáøe"
 
 #. WINDOW_TMP_PATH
-#, fuzzy
 msgid "select temporary directory"
-msgstr "Selhalo urèení domovského adresáøe:"
+msgstr "výbìr pomocného adresáøe"
 
 #. MENU_FILE
 msgid "File"
@@ -133,11 +143,11 @@ msgstr "Zru¹it"
 
 #. BUTTON_CONT_AT_OWN_RISK
 msgid "Continue at your own risk"
-msgstr ""
+msgstr "Pokraèovat na vlastní riziko"
 
 #. BUTTON_BROWSE
 msgid "Browse"
-msgstr ""
+msgstr "Procházet"
 
 #. BUTTON_CLOSE
 msgid "Close"
@@ -211,13 +221,21 @@ msgstr "Pøeskoèit existující èísla"
 msgid "Main window size fixed"
 msgstr "Pevná velikost hlavního okna"
 
-#. RADIO_BUTTON_PRESERVE_PRVIEW
-msgid "Preserve preview image"
-msgstr "Zachovat náhledový obrázek"
+#. RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA
+msgid "Disable gimp preview gamma"
+msgstr "Zakázat gimp gama náhledu"
 
 #. RADIO_BUTTON_PRIVATE_COLORMAP
 msgid "Use private colormap"
 msgstr "Pou¾ít vlastní barevnou mapu"
+
+#. RADIO_BUTTON_AUTOENHANCE_GAMMA
+msgid "Autoenhance gamma"
+msgstr "Automaticky upravit gama"
+
+#. TEXT_SCANNING_DEVICES
+msgid "scanning for devices"
+msgstr "procházejí se zaøízení"
 
 #. TEXT_AVAILABLE_DEVICES
 msgid "Available devices:"
@@ -336,21 +354,32 @@ msgid "without GIMP support"
 msgstr "bez podpory programu GIMP"
 
 #. TEXT_GTK_VERSION
-#, fuzzy
 msgid "compiled with GTK-"
-msgstr "kompilováno s programem GIMP-"
+msgstr "kompilováno s GTK-"
 
 #. TEXT_GIMP_VERSION
 msgid "compiled with GIMP-"
-msgstr "kompilováno s programem GIMP-"
+msgstr "kompilováno s GIMP-"
 
 #. TEXT_UNKNOWN
 msgid "unknown"
 msgstr "neznámý"
 
+#. TEXT_GPL
+msgid ""
+"This program is distributed under the terms\n"
+"of the GNU General Public License\n"
+msgstr ""
+"Tento program je ¹íøen podle ustanovení\n"
+"Obecné veøejné licence GNU\n"
+
 #. TEXT_EMAIL
 msgid "Email:"
 msgstr "E-mail:"
+
+#. TEXT_HOMEPAGE
+msgid "Homepage:"
+msgstr "Domovská stránka:"
 
 #. TEXT_FILE
 msgid "File:"
@@ -376,9 +405,17 @@ msgstr "Pøíkaz:"
 msgid "Copy number option:"
 msgstr "Volba poètu kopií:"
 
-#. TEXT_SETUP_PRINTER_RES
-msgid "Resolution (dpi):"
-msgstr "Rozli¹ení (dpi):"
+#. TEXT_SETUP_PRINTER_LINEART_RES
+msgid "Lineart resolution (dpi):"
+msgstr "Rozli¹ení èárové grafiky (dpi):"
+
+#. TEXT_SETUP_PRINTER_GRAYSCALE_RES
+msgid "Grayscale resolution (dpi):"
+msgstr "Rozli¹ení v ¹edích (dpi):"
+
+#. TEXT_SETUP_PRINTER_COLOR_RES
+msgid "Color resolution (dpi):"
+msgstr "Rozli¹ení v barvì (dpi):"
 
 #. TEXT_SETUP_PRINTER_WIDTH
 msgid "Width [mm]:"
@@ -413,9 +450,8 @@ msgid "Printer gamma blue:"
 msgstr "Modrá gama tiskárny:"
 
 #. TEXT_SETUP_TMP_PATH
-#, fuzzy
 msgid "Temporary directory"
-msgstr "Selhalo urèení domovského adresáøe:"
+msgstr "Pomocný adresáø"
 
 #. TEXT_SETUP_IMAGE_PERMISSION
 msgid "Image-file permissions"
@@ -433,13 +469,17 @@ msgstr "Kvalita JPEG obrázku"
 msgid "PNG image compression"
 msgstr "Komprese PNG obrázku"
 
-#. TEXT_SETUP_TIFF_COMPRESSION
-msgid "TIFF multi bit image compression"
-msgstr "Komprese vícebitových TIFF obrázkù"
+#. TEXT_SETUP_TIFF_COMPRESSION_16
+msgid "TIFF 16 bit image compression"
+msgstr "Komprese 16bitových TIFF obrázkù"
+
+#. TEXT_SETUP_TIFF_COMPRESSION_8
+msgid "TIFF 8 bit image compression"
+msgstr "Komprese 8bitových TIFF obrázkù"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_1
 msgid "TIFF lineart image compression"
-msgstr "Komprese jednobarevných TIFF obrázkù"
+msgstr "Komprese TIFF èárové grafiky"
 
 #. TEXT_SETUP_PSFILE_WIDTH
 msgid "Width of paper for postscript [mm]:"
@@ -537,9 +577,9 @@ msgstr "Volby zápisu"
 msgid "Display options"
 msgstr "Volby zobrazování"
 
-#. NOTEBOOK_DEVICE_OPTIONS
-msgid "Device options"
-msgstr "Volby zaøízení"
+#. NOTEBOOK_ENHANCE_OPTIONS
+msgid "Enhancement options"
+msgstr "Volby vylep¹ení"
 
 #. NOTEBOOK_FAX_OPTIONS
 msgid "Fax options"
@@ -568,6 +608,10 @@ msgstr "Zobrazovat náhled"
 #. MENU_ITEM_SHOW_HISTOGRAM
 msgid "Show histogram"
 msgstr "Zobrazovat histogram"
+
+#. MENU_ITEM_SHOW_GAMMA
+msgid "Show gamma curve"
+msgstr "Zobrazit gama køivku"
 
 #. MENU_ITEM_SHOW_STANDARDOPTIONS
 msgid "Show standard options"
@@ -629,6 +673,10 @@ msgstr "Zapsat nastavení zaøízení"
 msgid "Load device settings"
 msgstr "Naèíst nastavení zaøízení"
 
+#. MENU_ITEM_CHANGE_WORKING_DIR
+msgid "Change directory"
+msgstr "Zmìnit adresáø"
+
 #. MENU_ITEM_XSANE_DOC
 msgid "Xsane doc"
 msgstr "Dokumentace Xsane"
@@ -675,15 +723,15 @@ msgstr "bitové pakování"
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
 msgid "Standard options window (lineart)"
-msgstr "Okno standardních voleb (jednobarevných)"
+msgstr "Okno standardních voleb (èárová grafika)"
 
 #. MENU_ITEM_LINEART_MODE_XSANE
 msgid "XSane main window (lineart)"
-msgstr "Hlavní okno XSane (jednobarevnì)"
+msgstr "Hlavní okno XSane (èárová grafika)"
 
 #. MENU_ITEM_LINEART_MODE_GRAY
 msgid "XSane main window (grayscale->lineart)"
-msgstr "Hlavní okno XSane (¹edi -> jednobarevnì)"
+msgstr "Hlavní okno XSane (¹edi -> èárová grafika)"
 
 #. MENU_ITEM_FILETYPE_BY_EXT
 msgid "by ext"
@@ -712,7 +760,7 @@ msgstr "XSane slou¾í pro skenování, kopírování, faxování..."
 
 #. DESC_BROWSE_FILENAME
 msgid "Browse for image filename"
-msgstr "Hledání jména souboru"
+msgstr "Vyhledat jméno souboru"
 
 #. DESC_FILENAME
 msgid "Filename for scanned image"
@@ -772,7 +820,7 @@ msgid ""
 "e.g. swap black and white"
 msgstr ""
 "Negativ: Invertuje barvy pro skenování negativù\n"
-"napø. pøehodá èernou a bílou"
+"tj. pøehodí èernou a bílou"
 
 #. DESC_GAMMA
 msgid "Set gamma value"
@@ -906,10 +954,24 @@ msgstr ""
 msgid "Enter option for copy numbers"
 msgstr "Zadání volby poètu kopií"
 
-#. DESC_PRINTER_RESOLUTION
-msgid "Resolution with which images are printed and saved in postscript"
+#. DESC_PRINTER_LINEART_RESOLUTION
+msgid ""
+"Resolution with which lineart images are printed and saved in postscript"
 msgstr ""
-"Rozli¹ení, ve kterém budou obrázky tisknuty a zapisovány do postscriptu"
+"Rozli¹ení, ve kterém bude èárová grafika tisknuta a zapisována do postscriptu"
+
+#. DESC_PRINTER_GRAYSCALE_RESOLUTION
+msgid ""
+"Resolution with which grayscale images are printed and saved in postscript"
+msgstr ""
+"Rozli¹ení, ve kterém budou obrázky v ¹edích tisknuty a zapisovány do "
+"postscriptu"
+
+#. DESC_PRINTER_COLOR_RESOLUTION
+msgid "Resolution with which color images are printed and saved in postscript"
+msgstr ""
+"Rozli¹ení, ve kterém budou obrázky v barvì tisknuty a zapisovány do "
+"postscriptu"
 
 #. DESC_PRINTER_WIDTH
 msgid "Width of printable area in mm"
@@ -944,13 +1006,12 @@ msgid "Additional gamma value for blue component for photocopy"
 msgstr "Dodateèná gama hodnota pro modrou komponentu pro fotokopii"
 
 #. DESC_TMP_PATH
-#, fuzzy
 msgid "Path to temp directory"
-msgstr "Selhalo urèení domovského adresáøe:"
+msgstr "Cesta k pomocnému adresáøi"
 
 #. DESC_BUTTON_TMP_PATH_BROWSE
 msgid "Browse for temporary directory"
-msgstr ""
+msgstr "Vyhledat pomocný adresáø"
 
 #. DESC_JPEG_QUALITY
 msgid ""
@@ -963,13 +1024,17 @@ msgstr ""
 msgid "Compression if image is saved as png"
 msgstr "Komprese, je-li obrázek zapisován jako png"
 
-#. DESC_TIFF_COMPRESSION
-msgid "Compression type if multi bit image is saved as tiff"
-msgstr "Typ komprese, je-li obrázek zapisován jako vícebitový TIFF"
+#. DESC_TIFF_COMPRESSION_16
+msgid "Compression type if 16 bit image is saved as tiff"
+msgstr "Typ komprese, je-li obrázek zapisován jako 16bitový TIFF"
+
+#. DESC_TIFF_COMPRESSION_8
+msgid "Compression type if 8 bit image is saved as tiff"
+msgstr "Typ komprese, je-li obrázek zapisován jako 8bitový TIFF"
 
 #. DESC_TIFF_COMPRESSION_1
 msgid "Compression type if lineart image is saved as tiff"
-msgstr "Typ komprese, je-li obrázek zapisován jako jednobarevný TIFF"
+msgstr "Typ komprese, je-li obrázek zapisován jako TIFF èárová grafika"
 
 #. DESC_OVERWRITE_WARNING
 msgid "Warn before overwriting an existing file"
@@ -1019,9 +1084,9 @@ msgstr ""
 "U¾ití pevné velikosti hlavního okna nebo okna s posuvníky a promìnnou "
 "velikostí"
 
-#. DESC_PREVIEW_PRESERVE
-msgid "Preserve preview image for next program start"
-msgstr "Zachování náhledu pro pøí¹tí spu¹tìní programu"
+#. DESC_DISABLE_GIMP_PREVIEW_GAMMA
+msgid "Disable preview gamma when xsane runs as gimp plugin"
+msgstr "Zakázat gama náhledu, bì¾í-li xsane jako gimp modul"
 
 #. DESC_PREVIEW_COLORMAP
 msgid "Use an own colormap for preview if display depth is 8 bpp"
@@ -1033,7 +1098,7 @@ msgstr "Hodnota, kterou se násobí rozli¹ení náhledu"
 
 #. DESC_PREVIEW_GAMMA
 msgid "Set gamma correction value for preview image"
-msgstr "Nastavení gama korekce pro náhledová obrázek"
+msgstr "Nastavení gama korekce pro náhledový obrázek"
 
 #. DESC_PREVIEW_GAMMA_RED
 msgid "Set gamma correction value for red component of preview image"
@@ -1056,8 +1121,8 @@ msgid ""
 "Enter name of grayscale scanmode - for preview with transformation from "
 "grayscale to lineart"
 msgstr ""
-"Zadejte název re¾imu v ¹edích - pro náhled s pøevodem z ¹edí do "
-"jednobarevného"
+"Zadejte název re¾imu v ¹edích - pro náhled s pøevodem z ¹edí do èárové "
+"grafiky"
 
 #. DESC_PREVIEW_THRESHOLD_MIN
 #, no-c-format
@@ -1083,19 +1148,23 @@ msgstr "Posun. který nastaví shodný rozsah prahù a rozsah prahù skeneru"
 msgid ""
 "Enter command to be executed to display helpfiles, must be a html-viewer!"
 msgstr ""
-"Nastevení pøíkazu k zobrazení souborù nápovìdy, musí být html prohlí¾eè!"
+"Nastavení pøíkazu k zobrazení souborù nápovìdy, musí být html prohlí¾eè!"
+
+#. DESC_AUTOENHANCE_GAMMA
+msgid "Change gamma value when autoenhancement button is pressed"
+msgstr "Zmìna gama hodnoty, je li tlaèítko automatické úpravy stisknuto"
 
 #. DESC_FAX_COMMAND
 msgid "Enter command to be executed in fax mode"
-msgstr "Nastevení pøíkazu provádìného ve faxovém re¾imu"
+msgstr "Nastavení pøíkazu provádìného ve faxovém re¾imu"
 
 #. DESC_FAX_RECEIVER_OPT
 msgid "Enter option to specify receiver"
-msgstr "Nastevení volby urèující pøíjemce"
+msgstr "Nastavení volby urèující pøíjemce"
 
 #. DESC_FAX_POSTSCRIPT_OPT
 msgid "Enter option to specify postscript files following"
-msgstr "Nastevení volby k zadání postscriptových souborù"
+msgstr "Nastavení volby k zadání postscriptových souborù"
 
 #. DESC_FAX_NORMAL_OPT
 msgid "Enter option to specify normal mode (low resolution)"
@@ -1110,7 +1179,8 @@ msgid "Enter command to be executed to view a fax"
 msgstr "Nastavení pøíkazu k zobrazení faxu"
 
 #. DESC_FAX_FINE_MODE
-msgid "Use high vertical resolution (196 lpi instead of 98 lpi)"
+#, fuzzy
+msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
 msgstr "U¾ití vysokého svislého rozli¹ení (196 dpi namísto 98 dpi)"
 
 #. DESC_PIPETTE_WHITE
@@ -1149,6 +1219,10 @@ msgstr "Volba viditelné oblasti"
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
 msgstr "Selhalo urèení domovského adresáøe:"
+
+#. ERR_CHANGE_WORKING_DIR
+msgid "Failed to change working directory to"
+msgstr "Selhala zmìna pracovního adresáøe na"
 
 #. ERR_FILENAME_TOO_LONG
 msgid "Filename too long"
@@ -1306,6 +1380,11 @@ msgid ""
 "have any problem while running xsane as root:\n"
 "YOU ARE ALONE!"
 msgstr ""
+"Spou¹títe xsane jako SUPERU®IVATEL, co¾ je velmi NEBEZPEÈNÉ!\n"
+"\n"
+"Neposílejte chybová hlá¹ení, budete-li mít problémy\n"
+"pøi bìhu xsane pod superu¾ivatelem:\n"
+"JSTE OSAMÌLÍ!"
 
 #. ERR_HEADER_ERROR
 msgid "Error"
@@ -1366,29 +1445,32 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[VOLBA]... [ZAØÍZENÍ]"
 
 #. TEXT_HELP
+#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
 "\n"
-"-h, --help                   display this help message and exit\n"
-"-v, --version                print version information\n"
+"The format of [DEVICE] is backendname:devicefile (e.g. umax:/dev/scanner).\n"
+"[OPTION]... can be a combination of the following items:\n"
+" -h, --help                   display this help message and exit\n"
+" -v, --version                print version information\n"
 "\n"
-"-d, --device-settings file   load device settings from file (without "
+" -d, --device-settings file   load device settings from file (without "
 "\".drc\")\n"
 "\n"
-"-s, --scan                   start with scan-mode active\n"
-"-c, --copy                   start with copy-mode active\n"
-"-f, --fax                    start with fax-mode active\n"
-"-n, --no-mode-selection      disable menu for xsane mode selection\n"
+" -s, --scan                   start with scan-mode active\n"
+" -c, --copy                   start with copy-mode active\n"
+" -f, --fax                    start with fax-mode active\n"
+" -n, --no-mode-selection      disable menu for xsane mode selection\n"
 "\n"
-"-F, --Fixed                  fixed main window size (overwrite preferences "
+" -F, --Fixed                  fixed main window size (overwrite preferences "
 "value)\n"
-"-R, --Resizeable             resizable, scrolled main window (overwrite "
+" -R, --Resizeable             resizable, scrolled main window (overwrite "
 "preferences value)\n"
 "\n"
-"--display X11-display        redirect output to X11-display\n"
-"--no-xshm                    do not use shared memory images\n"
-"--sync                       request a synchronous connection with the X11 "
+" --display X11-display        redirect output to X11-display\n"
+" --no-xshm                    do not use shared memory images\n"
+" --sync                       request a synchronous connection with the X11 "
 "server"
 msgstr ""
 "Spu¹tìní grafického rozhraní pro pøístup k SANE zarízením.\n"
@@ -1500,21 +1582,3 @@ msgstr "Nedostatek pamìti"
 
 msgid "Access to resource has been denied"
 msgstr "Pøístup ke zdroji byl odmítnut"
-
-#~ msgid "Grayscale preview"
-#~ msgstr "Náhled v ¹edích"
-
-#~ msgid "Saving fax image"
-#~ msgstr "Zapisuje se faxový obrázek"
-
-#~ msgid "Converting to postscript"
-#~ msgstr "Konvertuje se do Postscriptu"
-
-#~ msgid "Receiving %s data for photocopy ..."
-#~ msgstr "Snímají se data typu %s pro fotokopii..."
-
-#~ msgid "Receiving %s data for fax ..."
-#~ msgstr "Snímají se data typu %s pro fax..."
-
-#~ msgid "Receiving %s data for GIMP..."
-#~ msgstr "Snímají se data typu %s pro GIMP..."

@@ -56,6 +56,9 @@ void xsane_update_sliders(void);
 static gint xsane_slider_callback(GtkWidget *widget, GdkEvent *event, XsaneSlider *slider);
 void xsane_create_slider(XsaneSlider *slider);
 void xsane_create_histogram(GtkWidget *parent, const char *title, int width, int height, XsanePixmap *hist);
+void xsane_get_free_gamma_curve(gfloat *free_color_gamma_data, SANE_Int *gammadata,
+                                int negative, double gamma, double brightness, double contrast,
+                                int len, int maxout);
 static void xsane_calculate_auto_enhancement(int negative,
               SANE_Int *count_raw, SANE_Int *count_raw_red, SANE_Int *count_raw_green, SANE_Int *count_raw_blue);
 void xsane_calculate_histogram(void);
@@ -1075,7 +1078,7 @@ void xsane_create_gamma_curve(SANE_Int *gammadata, int negative, double gamma,
  double b;
  int maxin = numbers-1;
 
-  DBG(DBG_proc, "xsane_create_gamma_curve(negative = %d, gamma = %f, brightness = %f, contrast = %f, number = %d, maxout = %d\n",
+  DBG(DBG_proc, "xsane_create_gamma_curve(neg=%d, gam=%3.2f, bri=%3.2f, ctr=%3.2f, nrs=%d, max=%d\n",
                  negative, gamma, brightness, contrast, numbers, maxout);
 
   if (contrast < -100.0)
@@ -1168,6 +1171,70 @@ void xsane_update_gamma_curve(void)
         pgamma_blue  = preferences.preview_gamma * preferences.preview_gamma_blue;
       }
 
+
+#ifdef HAVE_WORKING_GTK_GAMMACURVE
+#if 1
+  gtk_curve_get_vector(GTK_CURVE(GTK_GAMMA_CURVE(xsane.gamma_curve_gray)->curve),  65536, xsane.free_gamma_data);
+#if 1
+{
+ int i;
+  for (i=0; i<100; i++)
+  {
+    printf("%1.6f ", xsane.free_gamma_data[i]);
+    if (i / 10.0 == i / 10)
+    {
+      printf("\n");
+    }
+  }
+  printf("\n");
+  for (i=65435; i<65536; i++)
+  {
+    printf("%1.6f ", xsane.free_gamma_data[i]);
+    if (i / 10.0 == i / 10)
+    {
+      printf("\n");
+    }
+  }
+  printf("\n");
+  printf("\n");
+}
+#endif
+  gtk_curve_get_vector(GTK_CURVE(GTK_GAMMA_CURVE(xsane.gamma_curve_red)->curve),   65536, xsane.free_gamma_data_red);
+  gtk_curve_get_vector(GTK_CURVE(GTK_GAMMA_CURVE(xsane.gamma_curve_green)->curve), 65536, xsane.free_gamma_data_green);
+  gtk_curve_get_vector(GTK_CURVE(GTK_GAMMA_CURVE(xsane.gamma_curve_blue)->curve),  65536, xsane.free_gamma_data_blue);  
+#endif
+
+      xsane_get_free_gamma_curve(xsane.free_gamma_data_red, xsane.preview_gamma_data_red, xsane.negative,
+                                 xsane.gamma * xsane.gamma_red * pgamma_red,
+                                 xsane.brightness + xsane.brightness_red,
+                                 xsane.contrast + xsane.contrast_red, 256, 255);  
+
+      xsane_get_free_gamma_curve(xsane.free_gamma_data_green, xsane.preview_gamma_data_green, xsane.negative,
+                                 xsane.gamma * xsane.gamma_green * pgamma_green,
+                                 xsane.brightness + xsane.brightness_green,
+                                 xsane.contrast + xsane.contrast_green, 256, 255);
+
+      xsane_get_free_gamma_curve(xsane.free_gamma_data_blue, xsane.preview_gamma_data_blue, xsane.negative,
+                                 xsane.gamma * xsane.gamma_blue * pgamma_blue,
+                                 xsane.brightness + xsane.brightness_blue,
+                                 xsane.contrast + xsane.contrast_blue , 256, 255);               
+
+
+      xsane_get_free_gamma_curve(xsane.free_gamma_data_red, xsane.histogram_gamma_data_red, xsane.negative,
+                                 xsane.gamma * xsane.gamma_red,
+                                 xsane.brightness + xsane.brightness_red,
+                                 xsane.contrast + xsane.contrast_red, 256, 255);  
+
+      xsane_get_free_gamma_curve(xsane.free_gamma_data_green, xsane.histogram_gamma_data_green, xsane.negative,
+                                 xsane.gamma * xsane.gamma_green,
+                                 xsane.brightness + xsane.brightness_green,
+                                 xsane.contrast + xsane.contrast_green, 256, 255);
+
+      xsane_get_free_gamma_curve(xsane.free_gamma_data_blue, xsane.histogram_gamma_data_blue, xsane.negative,
+                                 xsane.gamma * xsane.gamma_blue,
+                                 xsane.brightness + xsane.brightness_blue,
+                                 xsane.contrast + xsane.contrast_blue , 256, 255);               
+#else
       xsane_create_gamma_curve(xsane.preview_gamma_data_red, xsane.negative,
                                xsane.gamma * xsane.gamma_red * pgamma_red,
                                xsane.brightness + xsane.brightness_red,
@@ -1183,6 +1250,7 @@ void xsane_update_gamma_curve(void)
                                xsane.brightness + xsane.brightness_blue,
                                xsane.contrast + xsane.contrast_blue , 256, 255);
 
+
       xsane_create_gamma_curve(xsane.histogram_gamma_data_red, xsane.negative,
                                xsane.gamma * xsane.gamma_red,
                                xsane.brightness + xsane.brightness_red,
@@ -1197,6 +1265,7 @@ void xsane_update_gamma_curve(void)
                                xsane.gamma * xsane.gamma_blue,
                                xsane.brightness + xsane.brightness_blue,
                                xsane.contrast + xsane.contrast_blue , 256, 255);
+#endif
     }
 
     preview_gamma_correction(xsane.preview,
@@ -1704,24 +1773,169 @@ void xsane_create_histogram_dialog(const char *devicetext)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 #ifdef HAVE_WORKING_GTK_GAMMACURVE
+/* xsane_get_free_gamma_curve transforms gamma table with 65536 entries and value range 0.0-1.0 to requested gamma table */
+/* it combines the color gamma table given by gamma_widget and the gray gamma table (xsane.gamma_curve_gray) */
+void xsane_get_free_gamma_curve(gfloat *free_color_gamma_data, SANE_Int *gammadata,
+                                int negative, double gamma, double brightness, double contrast,
+                                int len, int maxout)
+{
+ int i;
+ gfloat factor;
+ double midin;
+ double val;
+ double m;
+ double b;
+ int maxin = len-1;
+
+  DBG(DBG_proc, "xsane_get_free_gamma_curve\n");
+  DBG(DBG_proc, "xsane_create_gamma_curve(neg=%d, gam=%3.2f, bri=%3.2f, ctr=%3.2f, nrs=%d, max=%d\n",
+                 negative, gamma, brightness, contrast, len, maxout);
+
+  if (contrast < -100.0)
+  {
+    contrast = -100.0;
+  }
+
+  midin = (int)(len / 2.0);
+
+  m = 1.0 + contrast/100.0;
+  b = (1.0 + brightness/100.0) * midin;
+
+  factor = 65536.0 / len;
+
+  if (1) /* xxxxxxxxxxxx colors available */
+  {
+    if (negative)
+    {
+      DBG(DBG_proc, "xsane_get_free_gamma_curve: color transformation, negative\n");
+
+      for (i=0; i <= maxin; i++)
+      {
+        val = ((double) (maxin - i)) - midin;
+        val = val * m + b;
+        xsane_bound_double(&val, 0.0, maxin);
+
+        val = maxout * xsane.free_gamma_data[(int) (65535 * free_color_gamma_data[(int) (val * factor)])];           
+        val = 0.5 + maxout * pow( val/maxin, (1.0/gamma) );
+        gammadata[i] = val;
+      }
+    }
+    else /* positive */
+    {
+      DBG(DBG_proc, "xsane_get_free_gamma_curve: color transformation, positive\n");
+
+      for (i=0; i <= maxin; i++)
+      {
+        val = ((double) i) - midin;
+        val = val * m + b;
+        xsane_bound_double(&val, 0.0, maxin);
+
+        val = maxout * xsane.free_gamma_data[(int) (65535 * free_color_gamma_data[(int) (val * factor)])];           
+        val = 0.5 + maxout * pow( val/maxin, (1.0/gamma) );
+        gammadata[i] = val;
+      }
+    }
+  }
+  else
+  {
+    if (negative)
+    {
+      DBG(DBG_proc, "xsane_get_free_gamma_curve: gray transformation, negative\n");
+
+      for (i=0; i <= maxin; i++)
+      {
+        val = ((double) (maxin - i)) - midin;
+        val = val * m + b;
+        xsane_bound_double(&val, 0.0, maxin);
+
+        val = maxout * xsane.free_gamma_data[(int) (val * factor)];
+        val = 0.5 + maxout * pow( val/maxin, (1.0/gamma) );
+        gammadata[i] = val;
+      }
+    }
+    else /* positive */
+    {
+      DBG(DBG_proc, "xsane_get_free_gamma_curve: gray transformation, positive\n");
+
+      for (i=0; i <= maxin; i++)
+      {
+        val = ((double) i) - midin;
+        val = val * m + b;
+        xsane_bound_double(&val, 0.0, maxin);
+
+        val = maxout * xsane.free_gamma_data[(int) (val * factor)];
+        val = 0.5 + maxout * pow( val/maxin, (1.0/gamma) );
+        gammadata[i] = val;
+      }
+    }
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static gint xsane_gamma_win_delete(GtkWidget *widget, gpointer data)
 {
   DBG(DBG_proc, "xsane_gamma_win_delete\n");
 
   gtk_widget_hide(widget);
-  preferences.show_histogram = FALSE;
+  preferences.show_gamma = FALSE;
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_gamma_widget), preferences.show_gamma);
   return TRUE;
 }                                    
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+/* xsane_gamma_curve_notebook_page_new creates a notebook page with a gamma curve
+   of 65536 entries and a value range from 0.0-1.0 */
+
+GtkWidget* xsane_gamma_curve_notebook_page_new(GtkWidget *notebook, char *title)
+{
+ gfloat fmin, fmax, *vector;
+ GtkWidget *curve, *gamma, *vbox, *label;
+ int  optlen;
+
+  DBG(DBG_proc, "xsane_back_gtk_curve_new\n");
+
+  optlen = 65536;
+  fmin = 0.0;
+  fmax = 1.0;
+
+  label = gtk_label_new((char *) title);
+  vbox = gtk_vbox_new(/* homogeneous */ FALSE, 0);
+  gtk_notebook_append_page(GTK_NOTEBOOK(notebook), vbox, label);
+  gtk_widget_show(vbox);
+  gtk_widget_show(label);
+
+  gamma = gtk_gamma_curve_new();
+  gtk_widget_set_usize(gamma, 0, 256);
+  curve = GTK_GAMMA_CURVE(gamma)->curve;
+
+  vector = alloca(optlen * sizeof(vector[0]));
+
+  gtk_curve_set_range(GTK_CURVE(curve), 0, optlen - 1, fmin, fmax);
+#if 1
+  gtk_curve_maintain_accuracy(GTK_CURVE(curve), 1.0);
+#endif
+
+  gtk_container_set_border_width(GTK_CONTAINER(gamma), 4);
+  gtk_box_pack_start(GTK_BOX(vbox), gamma, TRUE, TRUE, 0);
+  gtk_widget_show(gamma);
+
+  return gamma;
+}                   
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 void xsane_create_gamma_dialog(const char *devicetext)
 {
  char windowname[255];
- GtkWidget *xsane_vbox_gamma;
+ GtkWidget *xsane_vbox_gamma, *notebook;
 
   DBG(DBG_proc, "xsane_create_free_gamma_dialog\n");
+
+  xsane.free_gamma_data       = calloc(65536, sizeof(xsane.free_gamma_data[0]));
+  xsane.free_gamma_data_red   = calloc(65536, sizeof(xsane.free_gamma_data_red[0]));
+  xsane.free_gamma_data_green = calloc(65536, sizeof(xsane.free_gamma_data_green[0]));
+  xsane.free_gamma_data_blue  = calloc(65536, sizeof(xsane.free_gamma_data_green[0]));
 
   xsane.gamma_dialog = gtk_window_new(GTK_WINDOW_DIALOG);
   gtk_window_set_policy(GTK_WINDOW(xsane.gamma_dialog), FALSE, FALSE, FALSE);
@@ -1736,10 +1950,21 @@ void xsane_create_gamma_dialog(const char *devicetext)
   gtk_container_add(GTK_CONTAINER(xsane.gamma_dialog), xsane_vbox_gamma);
   gtk_widget_show(xsane_vbox_gamma);
 
-  /* create  a subwindow so the gamma dialog keeps its position on rebuilds: */
-  xsane.gamma_window = gtk_hbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(xsane_vbox_gamma), xsane.gamma_window, TRUE, TRUE, 0);
-  gtk_widget_show(xsane.gamma_window);
+  notebook = gtk_notebook_new();
+  gtk_container_set_border_width(GTK_CONTAINER(notebook), 4);
+  gtk_box_pack_start(GTK_BOX(xsane_vbox_gamma), notebook, TRUE, TRUE, 0);   
+  gtk_widget_show(notebook);
+
+  xsane.gamma_curve_gray  = xsane_gamma_curve_notebook_page_new(notebook, "Gamma gray");
+  xsane.gamma_curve_red   = xsane_gamma_curve_notebook_page_new(notebook, "Gamma red");
+  xsane.gamma_curve_green = xsane_gamma_curve_notebook_page_new(notebook, "Gamma green");
+  xsane.gamma_curve_blue  = xsane_gamma_curve_notebook_page_new(notebook, "Gamma blue");
+
+  gtk_curve_get_vector(GTK_CURVE(GTK_GAMMA_CURVE(xsane.gamma_curve_gray)->curve),  65536, xsane.free_gamma_data);
+  gtk_curve_get_vector(GTK_CURVE(GTK_GAMMA_CURVE(xsane.gamma_curve_red)->curve),   65536, xsane.free_gamma_data_red);
+  gtk_curve_get_vector(GTK_CURVE(GTK_GAMMA_CURVE(xsane.gamma_curve_green)->curve), 65536, xsane.free_gamma_data_green);
+  gtk_curve_get_vector(GTK_CURVE(GTK_GAMMA_CURVE(xsane.gamma_curve_blue)->curve),  65536, xsane.free_gamma_data_blue);
+
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

@@ -35,7 +35,8 @@ first steps:
    - more/better online helpfiles
    - postscript/printer setup: geometry in inch/millimeter/centimeter
    - keyboard shortcuts for some functions
-   - delete/recreate preview files when temp directory is changed
+   + delete/recreate preview files when temp directory is changed
+   - correct charset of tooltips for all national codepages
 
  + correct gtk custom gamma functions and include it
 
@@ -53,14 +54,14 @@ second steps:
  - average of a multi scan of the same image
 
  - TWAIN:
-   - add a twain-win32 interface
+   - add a twain-win32 interface (for xsane-win32)
    - define a twain-unix interface in cooperation with TWAIN-group
      (first contact to TWAIN in summer 1999, TWAIN is intersted in
      creating a TWAIN-unix interface that uses sane as scanner driver API
    - add a twain-unix interface to xsane
 
- - WIN32 version of xsane
-   + at first for network scanning (work in progress, mostly done)
+ - WIN32 version of xsane/sane
+   + at first xsane network scanning (work in progress, mostly done)
    - may be later we make a sane-WIN32 version so that the backends do work too
 
 

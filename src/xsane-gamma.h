@@ -32,6 +32,9 @@ extern void xsane_update_slider(XsaneSlider *slider);
 extern void xsane_update_sliders(void);
 extern void xsane_create_slider(XsaneSlider *slider);
 extern void xsane_create_histogram(GtkWidget *parent, const char *title, int width, int height, XsanePixmap *hist);
+extern void xsane_get_free_gamma_curve(gfloat *free_color_gamma_data, SANE_Int *gammadata,
+                                       int negative, double gamma, double brightness, double contrast,
+                                       int len, int maxout);
 extern void xsane_calculate_histogram(void);
 extern void xsane_update_histogram(void);
 extern void xsane_histogram_toggle_button_callback(GtkWidget *widget, gpointer data);

@@ -41,6 +41,7 @@ all: $(MANPAGES)
 
 %.1: %.man
 	sed -e 's|@DATADIR@|$(datadir)|g' \
+	    -e 's|@SANEDATADIR@|$(sanedatadir)|g' \
 	    -e 's|@CONFIGDIR@|$(configdir)|g' \
 	    -e 's|@LIBDIR@|$(libdir)|g' \
 	    -e 's|@BINDIR@|$(bindir)|g' \
