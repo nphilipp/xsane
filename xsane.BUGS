@@ -1,5 +1,10 @@
 
+- xsane dies without error message when saveing file to full disk
+
 - the SIGTERM handler is not called when gimp exits with xsane-plugin open.
+
+- SANE_CAP_AUTOMATIC does only work with range
+- SANE_CAP_AUTOMATIC : automatic mode is not stored when options are reloaded (SANE_INFO_RELOAD_OPTIONS)
 
 ----------------------------------------------------------------------------------
 

@@ -1956,18 +1956,10 @@ static void preview_scan_start(Preview *p)
  SANE_Status status;
  char buf[256];
  int fd, y;
- int gamma_gray_size  = 256; /* set this values to image depth for more than 8bpp input support!!! */
- int gamma_red_size   = 256;
- int gamma_green_size = 256;
- int gamma_blue_size  = 256;
- int gamma_gray_max   = 255; /* set this to to image depth for more than 8bpp output support */
- int gamma_red_max    = 255;
- int gamma_green_max  = 255;
- int gamma_blue_max   = 255;
-
-  p->read_offset_16 = 0;
 
   DBG(DBG_proc, "preview_scan_start\n");
+
+  p->read_offset_16 = 0;
 
   xsane.medium_changed = FALSE;
 
@@ -1995,95 +1987,6 @@ static void preview_scan_start(Preview *p)
   {
     gdk_input_remove(p->input_tag);
     p->input_tag = -1;
-  }
-
-  if (xsane.well_known.gamma_vector >0)
-  {
-   const SANE_Option_Descriptor *opt;
- 
-    opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector);
-    if (SANE_OPTION_IS_ACTIVE(opt->cap))
-    {
-     SANE_Int *gamma_data;
-
-      opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector);
-      gamma_gray_size = opt->size / sizeof(opt->type);
-      gamma_gray_max  = opt->constraint.range->max;
-
-      gamma_data = malloc(gamma_gray_size  * sizeof(SANE_Int));
-
-      if ((xsane.xsane_colors > 1) || (xsane.no_preview_medium_gamma)) /* color scan or medium preview gamma disabled */
-      {
-        xsane_create_gamma_curve(gamma_data, 0, 1.0, 0.0, 0.0, 0.0, 100.0, 1.0, gamma_gray_size, gamma_gray_max);
-      }
-      else /* grayscale scan */
-      {
-        xsane_create_gamma_curve(gamma_data, xsane.medium_negative, 1.0, 0.0, 0.0,
-                                 xsane.medium_shadow_gray, xsane.medium_highlight_gray, xsane.medium_gamma_gray,
-                                 gamma_gray_size, gamma_gray_max);
-      }
-      
-      xsane_back_gtk_update_vector(xsane.well_known.gamma_vector, gamma_data);
-      free(gamma_data);
-    }
-  }
-
-  if (xsane.well_known.gamma_vector_r >0)
-  {
-   const SANE_Option_Descriptor *opt;
-
-    opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector_r);
-    if (SANE_OPTION_IS_ACTIVE(opt->cap))
-    {
-     SANE_Int *gamma_data_red, *gamma_data_green, *gamma_data_blue;
-
-      opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector_r);
-      gamma_red_size = opt->size / sizeof(opt->type);
-      gamma_red_max  = opt->constraint.range->max;
-
-      opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector_g);
-      gamma_green_size = opt->size / sizeof(opt->type);
-      gamma_green_max  = opt->constraint.range->max;
-
-      opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector_b);
-      gamma_blue_size = opt->size / sizeof(opt->type);
-      gamma_blue_max  = opt->constraint.range->max;
-
-      gamma_data_red   = malloc(gamma_red_size   * sizeof(SANE_Int));
-      gamma_data_green = malloc(gamma_green_size * sizeof(SANE_Int));
-      gamma_data_blue  = malloc(gamma_blue_size  * sizeof(SANE_Int));
-
-      if (xsane.no_preview_medium_gamma) /* do not use medium gamma for preview */
-      {
-        DBG(DBG_info, "preview: not using medium gamma table\n");
-
-        xsane_create_gamma_curve(gamma_data_red,   0, 1.0, 0.0, 0.0, 0.0, 100.0, 1.0, gamma_red_size,   gamma_red_max);
-        xsane_create_gamma_curve(gamma_data_green, 0, 1.0, 0.0, 0.0, 0.0, 100.0, 1.0, gamma_green_size, gamma_green_max);
-        xsane_create_gamma_curve(gamma_data_blue,  0, 1.0, 0.0, 0.0, 0.0, 100.0, 1.0, gamma_blue_size,  gamma_blue_max);
-      }
-      else /* use medium gamma for preview */
-      {
-        DBG(DBG_info, "preview: using medium gamma table\n");
-
-        xsane_create_gamma_curve(gamma_data_red,   xsane.medium_negative, 1.0, 0.0, 0.0,
-                                 xsane.medium_shadow_red, xsane.medium_highlight_red, xsane.medium_gamma_red,
-                                 gamma_red_size,   gamma_red_max);
-        xsane_create_gamma_curve(gamma_data_green, xsane.medium_negative, 1.0, 0.0, 0.0,
-                                 xsane.medium_shadow_green, xsane.medium_highlight_green, xsane.medium_gamma_green,
-                                 gamma_green_size, gamma_green_max);
-        xsane_create_gamma_curve(gamma_data_blue,  xsane.medium_negative, 1.0, 0.0, 0.0,
-                                 xsane.medium_shadow_blue, xsane.medium_highlight_blue, xsane.medium_gamma_blue,
-                                 gamma_blue_size,  gamma_blue_max);
-      }
-
-      xsane_back_gtk_update_vector(xsane.well_known.gamma_vector_r, gamma_data_red);
-      xsane_back_gtk_update_vector(xsane.well_known.gamma_vector_g, gamma_data_green);
-      xsane_back_gtk_update_vector(xsane.well_known.gamma_vector_b, gamma_data_blue);
-
-      free(gamma_data_red);
-      free(gamma_data_green);
-      free(gamma_data_blue);
-    }
   }
 
   status = sane_start(dev);
@@ -4973,6 +4876,7 @@ void preview_update_surface(Preview *p, int surface_changed)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+/* preview_scan is called once when the "Preview scan" button is pressed */
 void preview_scan(Preview *p)
 {
  double min, max, swidth, sheight, width, height, dpi = 0;
@@ -4980,6 +4884,14 @@ void preview_scan(Preview *p)
  gint gwidth, gheight;
  int i;
  float dsurface[4];
+ int gamma_gray_size  = 256; /* set this values to image depth for more than 8bpp input support!!! */
+ int gamma_red_size   = 256;
+ int gamma_green_size = 256;
+ int gamma_blue_size  = 256;
+ int gamma_gray_max   = 255; /* set this to to image depth for more than 8bpp output support */
+ int gamma_red_max    = 255;
+ int gamma_green_max  = 255;
+ int gamma_blue_max   = 255;
 
   DBG(DBG_proc, "preview_scan\n");
 
@@ -5068,6 +4980,7 @@ void preview_scan(Preview *p)
     xsane_set_resolution(xsane.well_known.dpi_y, dpi); /* set resolution to dpi or next higher value that is available */
   }
 
+
   preview_rotate_previewsurface_to_devicesurface(p->rotation, p->surface, dsurface);
 
   for (i = 0; i < 4; ++i)
@@ -5088,6 +5001,97 @@ void preview_scan(Preview *p)
     preview_set_option_val(p, xsane.well_known.bit_depth, 8);
   }
 #endif
+
+
+  if (xsane.well_known.gamma_vector >0)
+  {
+   const SANE_Option_Descriptor *opt;
+ 
+    opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector);
+    if (SANE_OPTION_IS_ACTIVE(opt->cap))
+    {
+     SANE_Int *gamma_data;
+
+      opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector);
+      gamma_gray_size = opt->size / sizeof(opt->type);
+      gamma_gray_max  = opt->constraint.range->max;
+
+      gamma_data = malloc(gamma_gray_size  * sizeof(SANE_Int));
+
+      if ((xsane.xsane_colors > 1) || (xsane.no_preview_medium_gamma)) /* color scan or medium preview gamma disabled */
+      {
+        xsane_create_gamma_curve(gamma_data, 0, 1.0, 0.0, 0.0, 0.0, 100.0, 1.0, gamma_gray_size, gamma_gray_max);
+      }
+      else /* grayscale scan */
+      {
+        xsane_create_gamma_curve(gamma_data, xsane.medium_negative, 1.0, 0.0, 0.0,
+                                 xsane.medium_shadow_gray, xsane.medium_highlight_gray, xsane.medium_gamma_gray,
+                                 gamma_gray_size, gamma_gray_max);
+      }
+      
+      xsane_back_gtk_update_vector(xsane.well_known.gamma_vector, gamma_data);
+      free(gamma_data);
+    }
+  }
+
+  if (xsane.well_known.gamma_vector_r >0)
+  {
+   const SANE_Option_Descriptor *opt;
+
+    opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector_r);
+    if (SANE_OPTION_IS_ACTIVE(opt->cap))
+    {
+     SANE_Int *gamma_data_red, *gamma_data_green, *gamma_data_blue;
+
+      opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector_r);
+      gamma_red_size = opt->size / sizeof(opt->type);
+      gamma_red_max  = opt->constraint.range->max;
+
+      opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector_g);
+      gamma_green_size = opt->size / sizeof(opt->type);
+      gamma_green_max  = opt->constraint.range->max;
+
+      opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector_b);
+      gamma_blue_size = opt->size / sizeof(opt->type);
+      gamma_blue_max  = opt->constraint.range->max;
+
+      gamma_data_red   = malloc(gamma_red_size   * sizeof(SANE_Int));
+      gamma_data_green = malloc(gamma_green_size * sizeof(SANE_Int));
+      gamma_data_blue  = malloc(gamma_blue_size  * sizeof(SANE_Int));
+
+      if (xsane.no_preview_medium_gamma) /* do not use medium gamma for preview */
+      {
+        DBG(DBG_info, "preview: not using medium gamma table\n");
+
+        xsane_create_gamma_curve(gamma_data_red,   0, 1.0, 0.0, 0.0, 0.0, 100.0, 1.0, gamma_red_size,   gamma_red_max);
+        xsane_create_gamma_curve(gamma_data_green, 0, 1.0, 0.0, 0.0, 0.0, 100.0, 1.0, gamma_green_size, gamma_green_max);
+        xsane_create_gamma_curve(gamma_data_blue,  0, 1.0, 0.0, 0.0, 0.0, 100.0, 1.0, gamma_blue_size,  gamma_blue_max);
+      }
+      else /* use medium gamma for preview */
+      {
+        DBG(DBG_info, "preview: using medium gamma table\n");
+
+        xsane_create_gamma_curve(gamma_data_red,   xsane.medium_negative, 1.0, 0.0, 0.0,
+                                 xsane.medium_shadow_red, xsane.medium_highlight_red, xsane.medium_gamma_red,
+                                 gamma_red_size,   gamma_red_max);
+        xsane_create_gamma_curve(gamma_data_green, xsane.medium_negative, 1.0, 0.0, 0.0,
+                                 xsane.medium_shadow_green, xsane.medium_highlight_green, xsane.medium_gamma_green,
+                                 gamma_green_size, gamma_green_max);
+        xsane_create_gamma_curve(gamma_data_blue,  xsane.medium_negative, 1.0, 0.0, 0.0,
+                                 xsane.medium_shadow_blue, xsane.medium_highlight_blue, xsane.medium_gamma_blue,
+                                 gamma_blue_size,  gamma_blue_max);
+      }
+
+      xsane_back_gtk_update_vector(xsane.well_known.gamma_vector_r, gamma_data_red);
+      xsane_back_gtk_update_vector(xsane.well_known.gamma_vector_g, gamma_data_green);
+      xsane_back_gtk_update_vector(xsane.well_known.gamma_vector_b, gamma_data_blue);
+
+      free(gamma_data_red);
+      free(gamma_data_green);
+      free(gamma_data_blue);
+    }
+  }
+
 
   xsane.block_update_param = FALSE;
   p->preview_colors  = xsane.xsane_colors;

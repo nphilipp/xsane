@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.89\n"
-"POT-Creation-Date: 2003-01-19 10:41+0100\n"
+"POT-Creation-Date: 2003-08-05 22:36+0200\n"
 "PO-Revision-Date: 2002-10-11 21:54+900\n"
 "Last-Translator: Kimizuka Tomokazu <sgtom@pluto.dti.ne.jp>\n"
 "Language-Team: Japanese <Kdeveloper@kde.gr.jp>\n"
@@ -2019,6 +2019,10 @@ msgstr "選択プレビュー領域をバッチリストに追加"
 msgid "Delete selected area from batch list"
 msgstr "選択領域をバッチリストから削除"
 
+#. DESC_AUTOMATIC
+msgid "Turns on automatic mode"
+msgstr ""
+
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
 msgstr "ホームディレクトリの確定に失敗しました："
@@ -2118,6 +2122,11 @@ msgstr "LIBTIFFがエラーを返してきました"
 
 #. ERR_LIBPNG
 msgid "LIBPNG reports error"
+msgstr "LIBPNGがエラーを返してきました"
+
+#. ERR_LIBJPEG
+#, fuzzy
+msgid "LIBJPEG reports error"
 msgstr "LIBPNGがエラーを返してきました"
 
 #. ERR_UNKNOWN_TYPE

@@ -606,6 +606,7 @@
 #define DESC_BATCH_RENAME		_("Rename area")
 #define DESC_BATCH_ADD			_("Add selected preview area to batch list")
 #define DESC_BATCH_DEL			_("Delete selected area from batch list")
+#define DESC_AUTOMATIC			_("Turns on automatic mode")
 
 #define ERR_HOME_DIR			_("Failed to determine home directory:")
 #define ERR_CHANGE_WORKING_DIR		_("Failed to change working directory to")
@@ -632,6 +633,7 @@
 #define ERR_TOO_MUCH_DATA		_("Backend sends more image data than it defined in parameters")
 #define ERR_LIBTIFF			_("LIBTIFF reports error")
 #define ERR_LIBPNG			_("LIBPNG reports error")
+#define ERR_LIBJPEG			_("LIBJPEG reports error")
 #define ERR_UNKNOWN_TYPE		_("unknown type")
 #define ERR_UNKNOWN_CONSTRAINT_TYPE	_("unknown constraint type")
 #define ERR_FAILED_EXEC_DOC_VIEWER	_("Failed to execute documentation viewer:")

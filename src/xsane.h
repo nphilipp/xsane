@@ -40,10 +40,10 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.91"
+#define XSANE_VERSION		"0.92"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
-#define XSANE_DATE		"1998-2002"
+#define XSANE_DATE		"1998-2003"
 #define XSANE_EMAIL		"Oliver.Rauch@xsane.org"
 #define XSANE_HOMEPAGE		"http://www.xsane.org"
 #define XSANE_COPYRIGHT_TXT	XSANE_DATE " " XSANE_COPYRIGHT
@@ -239,8 +239,8 @@ GSGMenuItem;
 
 typedef struct GSGDialogElement
   {
-    GtkWidget *automatic;	/* auto button for options that support this */
     GtkWidget *widget;
+    GtkWidget *widget2;
     GtkObject *data;
     int menu_size;		/* # of items in menu (if any) */
     GSGMenuItem *menu;

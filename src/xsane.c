@@ -6285,53 +6285,6 @@ static GtkWidget *xsane_help_build_menu(void)
   gtk_menu_set_accel_group(GTK_MENU(menu), xsane.accelerator_group);
 
 
-  /* XSane about dialog */
-
-  item = gtk_menu_item_new_with_label(MENU_ITEM_ABOUT_XSANE);
-  gtk_menu_append(GTK_MENU(menu), item);
-  g_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_about_dialog, NULL);
-  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_F6, 0, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
-  gtk_widget_show(item);
-
-  /* XSane about translation dialog */
-
-  item = gtk_menu_item_new_with_label(MENU_ITEM_ABOUT_TRANSLATION);
-  gtk_menu_append(GTK_MENU(menu), item);
-  g_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_about_translation_dialog, NULL);
-  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_F7, 0, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
-  gtk_widget_show(item);
-
-
-  /* separator */
-
-  item = gtk_menu_item_new();
-  gtk_menu_append(GTK_MENU(menu), item);
-  gtk_widget_show(item);
-
-
-  /* XSane eula */
-
-  item = gtk_menu_item_new_with_label(MENU_ITEM_XSANE_EULA);
-  gtk_menu_append(GTK_MENU(menu), item);
-  g_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_eula, NULL);
-  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_F8, 0, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
-  gtk_widget_show(item);
-
-  /* gpl */
-
-  item = gtk_menu_item_new_with_label(MENU_ITEM_XSANE_GPL);
-  gtk_menu_append(GTK_MENU(menu), item);
-  g_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_gpl, NULL);
-  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_F9, 0, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
-  gtk_widget_show(item);
-
-
-  /* separator */
-
-  item = gtk_menu_item_new();
-  gtk_menu_append(GTK_MENU(menu), item);
-  gtk_widget_show(item);
-
 
   /* XSane doc -> html viewer */
 
@@ -6391,6 +6344,55 @@ static GtkWidget *xsane_help_build_menu(void)
   gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_F5, 0, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
   gtk_widget_show(item);
 
+
+  /* separator */
+
+  item = gtk_menu_item_new();
+  gtk_menu_append(GTK_MENU(menu), item);
+  gtk_widget_show(item);
+
+
+  /* XSane about dialog */
+
+  item = gtk_menu_item_new_with_label(MENU_ITEM_ABOUT_XSANE);
+  gtk_menu_append(GTK_MENU(menu), item);
+  g_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_about_dialog, NULL);
+  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_F6, 0, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
+  gtk_widget_show(item);
+
+  /* XSane about translation dialog */
+
+  item = gtk_menu_item_new_with_label(MENU_ITEM_ABOUT_TRANSLATION);
+  gtk_menu_append(GTK_MENU(menu), item);
+  g_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_about_translation_dialog, NULL);
+  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_F7, 0, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
+  gtk_widget_show(item);
+
+
+  /* separator */
+
+  item = gtk_menu_item_new();
+  gtk_menu_append(GTK_MENU(menu), item);
+  gtk_widget_show(item);
+
+
+  /* XSane eula */
+
+  item = gtk_menu_item_new_with_label(MENU_ITEM_XSANE_EULA);
+  gtk_menu_append(GTK_MENU(menu), item);
+  g_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_eula, NULL);
+  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_F8, 0, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
+  gtk_widget_show(item);
+
+  /* gpl */
+
+  item = gtk_menu_item_new_with_label(MENU_ITEM_XSANE_GPL);
+  gtk_menu_append(GTK_MENU(menu), item);
+  g_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_gpl, NULL);
+  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_F9, 0, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
+  gtk_widget_show(item);
+
+
   return menu;
 }
 
@@ -6400,7 +6402,9 @@ void xsane_panel_build()
 {
  GtkWidget *standard_vbox;
  GtkWidget *advanced_vbox;
- GtkWidget *parent, *vbox, *button, *label;
+ GtkWidget *standard_parent;
+ GtkWidget *advanced_parent;
+ GtkWidget *parent, *button, *label;
  const SANE_Option_Descriptor *opt;
  SANE_Handle dev = xsane.dev;
  double dval, dmin, dmax, dquant;
@@ -6475,7 +6479,8 @@ void xsane_panel_build()
 
   vector_opts = alloca(xsane.num_elements * sizeof (int));
 
-  parent = standard_vbox;
+  standard_parent = standard_vbox;
+  advanced_parent = advanced_vbox;
   for (i = 1; i < xsane.num_elements; ++i)
     {
       opt = xsane_get_option_descriptor(dev, i);
@@ -6560,17 +6565,39 @@ void xsane_panel_build()
         snprintf(title, sizeof(title), "%s [%s]", _BGT(opt->title), xsane_back_gtk_unit_string(opt->unit));
       }
 
+      if (opt->cap & SANE_CAP_ADVANCED)
+      {
+        parent = advanced_parent;
+      }
+      else
+      {
+        parent = standard_parent;
+      }
+
       switch (opt->type)
       {
         case SANE_TYPE_GROUP:
           /* group a set of options */
-          vbox = standard_vbox;
           if (opt->cap & SANE_CAP_ADVANCED)
           {
-            vbox = advanced_vbox;
+            /* advanced group: put all options to the advanced options window */
+            standard_parent = xsane_back_gtk_group_new(advanced_vbox, title);
+            advanced_parent = standard_parent;
+            elem->widget = standard_parent;
           }
-          parent = xsane_back_gtk_group_new(vbox, title);
-          elem->widget = parent;
+          else
+          {
+            /* we create the group twice. if no option is defined in one of this groups */
+            /* then the group is not shown */
+
+            /* standard group: put standard options to the standard options window */
+            standard_parent = xsane_back_gtk_group_new(standard_vbox, title);
+            elem->widget = standard_parent;
+
+            /* standard group: put advanced options to the advanced options window */
+            advanced_parent = xsane_back_gtk_group_new(advanced_vbox, title);
+            elem->widget2 = advanced_parent;
+          }
           break;
 
         case SANE_TYPE_BOOL:

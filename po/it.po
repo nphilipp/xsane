@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.89\n"
-"POT-Creation-Date: 2003-01-19 10:41+0100\n"
+"POT-Creation-Date: 2003-08-05 22:36+0200\n"
 "PO-Revision-Date: 2002-12-09 23:30+0200\n"
 "Last-Translator: Stefano Rivoir <s.rivoir@gts.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -2056,6 +2056,10 @@ msgstr "Aggiunge l'area selezionata dell'anteprima alla lista batch"
 msgid "Delete selected area from batch list"
 msgstr "Toglie l'area selezionata dalla lista batch"
 
+#. DESC_AUTOMATIC
+msgid "Turns on automatic mode"
+msgstr ""
+
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
 msgstr "Impossibile determinare la home directory:"
@@ -2155,6 +2159,11 @@ msgstr "LIBTIFF ha riportato un errore"
 
 #. ERR_LIBPNG
 msgid "LIBPNG reports error"
+msgstr "LIBPNG ha riportato un errore"
+
+#. ERR_LIBJPEG
+#, fuzzy
+msgid "LIBJPEG reports error"
 msgstr "LIBPNG ha riportato un errore"
 
 #. ERR_UNKNOWN_TYPE

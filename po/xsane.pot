@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2003-01-19 10:41+0100\n"
+"POT-Creation-Date: 2003-08-05 22:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1964,6 +1964,10 @@ msgstr ""
 msgid "Delete selected area from batch list"
 msgstr ""
 
+#. DESC_AUTOMATIC
+msgid "Turns on automatic mode"
+msgstr ""
+
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
 msgstr ""
@@ -2063,6 +2067,10 @@ msgstr ""
 
 #. ERR_LIBPNG
 msgid "LIBPNG reports error"
+msgstr ""
+
+#. ERR_LIBJPEG
+msgid "LIBJPEG reports error"
 msgstr ""
 
 #. ERR_UNKNOWN_TYPE

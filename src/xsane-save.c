@@ -655,6 +655,18 @@ int xsane_save_grayscale_image_as_lineart(FILE *outfile, FILE *imagefile, Image_
       packed = 0;
     }
 
+    if (ferror(outfile))
+    {
+     char buf[255];
+
+      snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+      DBG(DBG_error, "%s\n", buf);
+      xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+      *cancel_save = 1;
+     break;
+    }
+
+
     gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height); /* update progress bar */
     while (gtk_events_pending()) /* give gtk the chance to display the changes */
     {
@@ -843,6 +855,17 @@ int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_in
       }
 
       fwrite(new_line, new_image_width, image_info->colors * bytespp, outfile); /* write one line */
+
+      if (ferror(outfile))
+      {
+       char buf[255];
+ 
+        snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+        DBG(DBG_error, "%s\n", buf);
+        xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+        *cancel_save = 1;
+       break;
+      }
 
       /* reset values and norm factors */
       memset(pixel_val,  0, new_image_width * image_info->colors * sizeof(float));
@@ -1143,6 +1166,17 @@ int xsane_save_despeckle_image(FILE *outfile, FILE *imagefile, Image_info *image
       }
     }
 
+    if (ferror(outfile))
+    {
+     char buf[255];
+
+      snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+      DBG(DBG_error, "%s\n", buf);
+      xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+      *cancel_save = 1;
+     break;
+    }
+
     if ((y > radius) && (y < image_info->image_height - radius))
     {
       memcpy(line_cache, line_cache + color_width * bytespp, 
@@ -1162,7 +1196,7 @@ int xsane_save_despeckle_image(FILE *outfile, FILE *imagefile, Image_info *image
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info, float radius, GtkProgressBar *progress_bar)
+int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info, float radius, GtkProgressBar *progress_bar, int *cancel_save)
 {
  int x, y, sx, sy;
  int xmin, xmax;
@@ -1346,6 +1380,19 @@ int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info
         fputc(bytes16[1], outfile);
       }
     }
+
+    if (ferror(outfile))
+    {
+     char buf[255];
+
+      snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+      DBG(DBG_error, "%s\n", buf);
+      xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+      *cancel_save = 1;
+     break;
+    }
+
+      /* reset values and norm factors */
 
     if ((y > intradius) && (y < image_info->image_height - intradius))
     {
@@ -1565,6 +1612,17 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
           }
         }
 
+        if (ferror(outfile))
+        {
+         char buf[255];
+
+          snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+          DBG(DBG_error, "%s\n", buf);
+          xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+          *cancel_save = 1;
+         break;
+        }
+
         if (*cancel_save)
         {
           break;
@@ -1612,6 +1670,18 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
           }
         }
 
+
+        if (ferror(outfile))
+        {
+         char buf[255];
+
+          snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+          DBG(DBG_error, "%s\n", buf);
+          xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+          *cancel_save = 1;
+         break;
+        }
+
         if (*cancel_save)
         {
           break;
@@ -1652,6 +1722,18 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
               fputc(fgetc(imagefile), outfile);
             }
           }
+        }
+
+
+        if (ferror(outfile))
+        {
+         char buf[255];
+
+          snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+          DBG(DBG_error, "%s\n", buf);
+          xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+          *cancel_save = 1;
+         break;
         }
 
         if (*cancel_save)
@@ -1701,6 +1783,18 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
           }
         }
 
+
+        if (ferror(outfile))
+        {
+         char buf[255];
+
+          snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+          DBG(DBG_error, "%s\n", buf);
+          xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+          *cancel_save = 1;
+         break;
+        }
+
         if (*cancel_save)
         {
           break;
@@ -1740,6 +1834,18 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
               fputc(fgetc(imagefile), outfile);
             }
           }
+        }
+
+
+        if (ferror(outfile))
+        {
+         char buf[255];
+
+          snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+          DBG(DBG_error, "%s\n", buf);
+          xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+          *cancel_save = 1;
+         break;
         }
 
         if (*cancel_save)
@@ -1789,6 +1895,18 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
           }
         }
 
+
+        if (ferror(outfile))
+        {
+         char buf[255];
+
+          snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+          DBG(DBG_error, "%s\n", buf);
+          xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+          *cancel_save = 1;
+         break;
+        }
+
         if (*cancel_save)
         {
           break;
@@ -1829,6 +1947,18 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
               fputc(fgetc(imagefile), outfile);
             }
           }
+        }
+
+
+        if (ferror(outfile))
+        {
+         char buf[255];
+
+          snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+          DBG(DBG_error, "%s\n", buf);
+          xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+          *cancel_save = 1;
+         break;
         }
 
         if (*cancel_save)
@@ -1876,6 +2006,18 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
               fputc(fgetc(imagefile), outfile);
             }
           }
+        }
+
+
+        if (ferror(outfile))
+        {
+         char buf[255];
+
+          snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+          DBG(DBG_error, "%s\n", buf);
+          xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+          *cancel_save = 1;
+         break;
         }
 
         if (*cancel_save)
@@ -2071,6 +2213,18 @@ static int xsane_save_ps_bw(FILE *outfile, FILE *imagefile, Image_info *image_in
     }
 
     fprintf(outfile, "\n");
+
+    if (ferror(outfile))
+    {
+     char buf[255];
+
+      snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+      DBG(DBG_error, "%s\n", buf);
+      xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+      *cancel_save = 1;
+     break;
+    }
+
     count = 0;
     if (*cancel_save)
     {
@@ -2122,7 +2276,20 @@ static int xsane_save_ps_gray(FILE *outfile, FILE *imagefile, Image_info *image_
         }
       }
     }
+
     fprintf(outfile, "\n");
+
+    if (ferror(outfile))
+    {
+     char buf[255];
+
+      snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+      DBG(DBG_error, "%s\n", buf);
+      xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+      *cancel_save = 1;
+     break;
+    }
+
     count = 0;
     gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height);
     while (gtk_events_pending())
@@ -2193,6 +2360,18 @@ static int xsane_save_ps_color(FILE *outfile, FILE *imagefile, Image_info *image
       }
     }
     fprintf(outfile, "\n");
+
+    if (ferror(outfile))
+    {
+     char buf[255];
+
+      snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+      DBG(DBG_error, "%s\n", buf);
+      xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+      *cancel_save = 1;
+     break;
+    }
+
     count = 0;
 
     if (*cancel_save)
@@ -2239,21 +2418,58 @@ int xsane_save_ps(FILE *outfile, FILE *imagefile, Image_info *image_info, float 
   fprintf(outfile, "%%%%EOF\n");
   fprintf(outfile, "\n");
 
+  if (ferror(outfile))
+  {
+   char buf[255];
+
+    snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+    DBG(DBG_error, "%s\n", buf);
+    xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+    *cancel_save = 1;
+  }
+
  return (*cancel_save);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
-
 #ifdef HAVE_LIBJPEG
+
+typedef struct
+{
+  struct jpeg_error_mgr pub;/* "public" fields */
+  int *cancel_save; // XXXX
+} xsane_jpeg_error_mgr;
+
+typedef xsane_jpeg_error_mgr *xsane_jpeg_error_mgr_ptr;
+
+static void xsane_jpeg_error_exit(j_common_ptr cinfo)
+{
+ char buf[256];
+
+  /* cinfo->err points to a xsane_jpeg_error_mgr struct */
+  xsane_jpeg_error_mgr_ptr xsane_jpeg_error_mgr_data = (xsane_jpeg_error_mgr_ptr) cinfo->err;
+
+
+  if (!*xsane_jpeg_error_mgr_data->cancel_save)
+  {
+    /* output original error message */
+    (*cinfo->err->output_message) (cinfo);
+    snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_LIBJPEG);
+    xsane_back_gtk_error(buf, TRUE);
+  }
+
+  *xsane_jpeg_error_mgr_data->cancel_save = 1;
+}
+
 int xsane_save_jpeg(FILE *outfile, FILE *imagefile, Image_info *image_info, int quality, GtkProgressBar *progress_bar, int *cancel_save)
 {
  unsigned char *data;
  char buf[256];
- int x,y;
  int components = 1;
+ int x,y;
  int bytespp = 1;
  struct jpeg_compress_struct cinfo;
- struct jpeg_error_mgr jerr;
+ xsane_jpeg_error_mgr jerr;
  JSAMPROW row_pointer[1];
 
   DBG(DBG_proc, "xsane_save_jpeg\n");
@@ -2279,7 +2495,10 @@ int xsane_save_jpeg(FILE *outfile, FILE *imagefile, Image_info *image_info, int 
     return -1; /* error */
   }
 
-  cinfo.err = jpeg_std_error(&jerr);
+  cinfo.err = jpeg_std_error(&jerr.pub);
+  jerr.pub.error_exit = xsane_jpeg_error_exit;
+  jerr.cancel_save = cancel_save; 
+
   jpeg_create_compress(&cinfo);
   jpeg_stdio_dest(&cinfo, outfile);
   cinfo.image_width      = image_info->image_width;
@@ -2501,7 +2720,16 @@ int xsane_save_tiff(const char *outfilename, FILE *imagefile, Image_info *image_
     
     fread(data, 1, w, imagefile);
 
-    TIFFWriteScanline(tiffile, data, y, 0);
+    if (TIFFWriteScanline(tiffile, data, y, 0) != 1)
+    {
+     char buf[255];
+
+      snprintf(buf, sizeof(buf), "%s", ERR_DURING_SAVE);
+      DBG(DBG_error, "%s\n", buf);
+      xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+      *cancel_save = 1;
+     break;
+    }
 
     if (*cancel_save)
     {
@@ -2541,7 +2769,7 @@ int xsane_save_png(FILE *outfile, FILE *imagefile, Image_info *image_info, int c
   png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, 0, 0, 0);
   if (!png_ptr)
   {
-    snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_LIBTIFF);
+    snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_LIBPNG);
     xsane_back_gtk_error(buf, TRUE);
     return -1; /* error */
   }
@@ -2638,7 +2866,8 @@ int xsane_save_png(FILE *outfile, FILE *imagefile, Image_info *image_info, int c
     fread(data, components, byte_width, imagefile);
 
     row_ptr = data;
-    png_write_rows(png_ptr, &row_ptr, 1);
+    png_write_rows(png_ptr, &row_ptr, 1); /* errors are caught by test sor setjmp(...) */
+
     if (*cancel_save)
     {
       break;
@@ -2798,6 +3027,18 @@ static int xsane_save_pnm_16_ascii_gray(FILE *outfile, FILE *imagefile, Image_in
       }
     }
     fprintf(outfile, "\n");
+
+    if (ferror(outfile))
+    {
+     char buf[255];
+
+      snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+      DBG(DBG_error, "%s\n", buf);
+      xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+      *cancel_save = 1;
+     break;
+    }
+
     count = 0;
 
     gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height);
@@ -2846,6 +3087,18 @@ static int xsane_save_pnm_16_ascii_color(FILE *outfile, FILE *imagefile, Image_i
       }
     }
     fprintf(outfile, "\n");
+
+    if (ferror(outfile))
+    {
+     char buf[255];
+
+      snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+      DBG(DBG_error, "%s\n", buf);
+      xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+      *cancel_save = 1;
+     break;
+    }
+
     count = 0;
 
     gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height);
@@ -2888,6 +3141,18 @@ static int xsane_save_pnm_16_binary_gray(FILE *outfile, FILE *imagefile, Image_i
     {
       gtk_main_iteration();
     }
+
+    if (ferror(outfile))
+    {
+     char buf[255];
+
+      snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+      DBG(DBG_error, "%s\n", buf);
+      xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+      *cancel_save = 1;
+     break;
+    }
+
     if (*cancel_save)
     {
       break;
@@ -2932,6 +3197,18 @@ static int xsane_save_pnm_16_binary_color(FILE *outfile, FILE *imagefile, Image_
     while (gtk_events_pending())
     {
       gtk_main_iteration();
+    }
+
+
+    if (ferror(outfile))
+    {
+     char buf[255];
+
+      snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+      DBG(DBG_error, "%s\n", buf);
+      xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+      *cancel_save = 1;
+     break;
     }
 
     if (*cancel_save)

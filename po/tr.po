@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.90\n"
-"POT-Creation-Date: 2003-01-19 10:41+0100\n"
+"POT-Creation-Date: 2003-08-05 22:36+0200\n"
 "PO-Revision-Date: 2002-12-09 10:42+0200\n"
 "Last-Translator: Togan Muftuoglu <toganm@yahoo.com>\n"
 "Language-Team: Turkish <kde-i18n-tr@kde.org>\n"
@@ -2042,6 +2042,10 @@ msgstr "Seçilen önizleme alanýný listeye ekle"
 msgid "Delete selected area from batch list"
 msgstr "Seçilen önizleme alanýný listeden sil"
 
+#. DESC_AUTOMATIC
+msgid "Turns on automatic mode"
+msgstr ""
+
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
 msgstr "Ev dizinini belirlemede hata:"
@@ -2143,6 +2147,11 @@ msgstr "LIBTIFF hata veriyor"
 
 #. ERR_LIBPNG
 msgid "LIBPNG reports error"
+msgstr "LIBPNG hata veriyor"
+
+#. ERR_LIBJPEG
+#, fuzzy
+msgid "LIBJPEG reports error"
 msgstr "LIBPNG hata veriyor"
 
 #. ERR_UNKNOWN_TYPE

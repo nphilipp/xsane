@@ -725,7 +725,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
           {
             for (i = 0; i < len/2; ++i)
             {
-              fwrite(buf16 + i*2, 2, 1, xsane.out);
+              fwrite(buf16 + i, 2, 1, xsane.out);
               fseek(xsane.out, 4, SEEK_CUR);
             }
           }

@@ -172,6 +172,22 @@ SANE_Status xsane_control_option(SANE_Handle handle, SANE_Int option, SANE_Actio
   {
    SANE_Status status;
 
+#if 1
+    /* I am not sure about a correct and intelligent way to handle an option that has not defined SANE_CAP_SOFT_DETECT */
+    /* the test backend creates an option without SANE_CAP_SOFT_DETECT that causes an error message when I do not do the following */
+    if (action == SANE_ACTION_GET_VALUE)
+    {
+     const SANE_Option_Descriptor *opt;
+
+      opt = xsane_get_option_descriptor(xsane.dev, option);
+      if ((opt) && (!(opt->cap & SANE_CAP_SOFT_DETECT)))
+      {
+        DBG(DBG_warning, "WARNING: xsane_control_option(option = %d, action = %d): SANE_CAP_SOFT_DETECT is not set\n", option, action);
+       return SANE_STATUS_GOOD;
+      }
+    }
+#endif
+
     status = sane_control_option(handle, option, action, val, info);
     if (status)
     {
@@ -1270,9 +1286,23 @@ static gint xsane_back_gtk_autobutton_update(GtkWidget *widget, GSGDialogElement
   if (GTK_TOGGLE_BUTTON(widget)->active)
   {
     xsane_back_gtk_set_option(opt_num, 0, SANE_ACTION_SET_AUTO);
+
+    gtk_widget_set_sensitive(elem->widget, FALSE);
+
+    if (elem->widget2)
+    {
+      gtk_widget_set_sensitive(elem->widget2, FALSE);
+    }
   }
   else
   {
+    gtk_widget_set_sensitive(elem->widget, TRUE);
+
+    if (elem->widget2)
+    {
+      gtk_widget_set_sensitive(elem->widget2, TRUE);
+    }
+
     status = xsane_control_option(xsane.dev, opt_num, SANE_ACTION_GET_VALUE, &val, 0);
     if (status != SANE_STATUS_GOOD)
     {
@@ -1287,9 +1317,9 @@ static gint xsane_back_gtk_autobutton_update(GtkWidget *widget, GSGDialogElement
 /* ----------------------------------------------------------------------------------------------------------------- */
 
 static void xsane_back_gtk_autobutton_new(GtkWidget *parent, GSGDialogElement *elem,
-		GtkWidget *label, GtkTooltips *tooltips)
+		GtkTooltips *tooltips)
 {
- GtkWidget *button, *alignment;
+ GtkWidget *button;
 
   DBG(DBG_proc, "xsane_back_gtk_autobutton_new\n");
 
@@ -1297,15 +1327,9 @@ static void xsane_back_gtk_autobutton_new(GtkWidget *parent, GSGDialogElement *e
   gtk_container_set_border_width(GTK_CONTAINER(button), 0);
   gtk_widget_set_size_request(button, 20, 20);
   g_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_back_gtk_autobutton_update, elem);
-  xsane_back_gtk_set_tooltip(tooltips, button, "Turns on automatic mode.");
+  xsane_back_gtk_set_tooltip(tooltips, button, DESC_AUTOMATIC);
 
-  alignment = gtk_alignment_new(0.0, 1.0, 0.5, 0.5);
-  gtk_container_add(GTK_CONTAINER(alignment), button);
-
-  gtk_box_pack_end(GTK_BOX(parent), label, FALSE, FALSE, 0);
-  gtk_box_pack_end(GTK_BOX(parent), alignment, FALSE, FALSE, 2);
-
-  gtk_widget_show(alignment);
+  gtk_box_pack_end(GTK_BOX(parent), button, FALSE, FALSE, 2);
   gtk_widget_show(button);
 }
 
@@ -1432,9 +1456,9 @@ static void xsane_back_gtk_range_display_value_right_callback(GtkAdjustment *adj
 }                                                                                                                                
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-void xsane_back_gtk_range_new(GtkWidget * parent, const char *name, gfloat val,
+void xsane_back_gtk_range_new(GtkWidget *parent, const char *name, gfloat val,
 	   gfloat min, gfloat max, gfloat quant, int automatic,
-	   GSGDialogElement * elem, GtkTooltips *tooltips, const char *desc, SANE_Int settable)
+	   GSGDialogElement *elem, GtkTooltips *tooltips, const char *desc, SANE_Int settable)
 {
  GtkWidget *hbox, *label, *slider = NULL, *spinbutton, *value_label;
  int digits;
@@ -1476,12 +1500,8 @@ void xsane_back_gtk_range_new(GtkWidget * parent, const char *name, gfloat val,
     g_signal_connect(elem->data, "value_changed", (GtkSignalFunc) xsane_back_gtk_range_display_value_right_callback, (void *) digits);
     gtk_object_set_data(GTK_OBJECT(elem->data), "value-label", value_label);
     g_signal_emit_by_name(GTK_OBJECT(elem->data), "value_changed"); /* update value */
-
-    if (!automatic)
-    {
-      gtk_widget_show(value_label);
-      gtk_widget_set_sensitive(value_label, settable);
-    }
+    gtk_widget_show(value_label);
+    gtk_widget_set_sensitive(value_label, settable);
   }
  
   /* spinbutton */
@@ -1507,12 +1527,9 @@ void xsane_back_gtk_range_new(GtkWidget * parent, const char *name, gfloat val,
     xsane_back_gtk_set_tooltip(xsane.tooltips, spinbutton, desc);
     gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(spinbutton), FALSE);
     gtk_box_pack_end(GTK_BOX(hbox), spinbutton, FALSE, FALSE, 5); /* make spinbutton not sizeable */
-
-    if (!automatic)
-    {
-      gtk_widget_show(spinbutton);
-      gtk_widget_set_sensitive(spinbutton, settable);
-    }
+    gtk_widget_show(spinbutton);
+    gtk_widget_set_sensitive(spinbutton, settable);
+    elem->widget = spinbutton;
   }
 
   /* slider */
@@ -1532,17 +1549,13 @@ void xsane_back_gtk_range_new(GtkWidget * parent, const char *name, gfloat val,
     /* GTK_UPDATE_CONTINUOUS, GTK_UPDATE_DISCONTINUOUS, GTK_UPDATE_DELAYED */
     gtk_range_set_update_policy(GTK_RANGE(slider), preferences.gtk_update_policy);
     gtk_box_pack_end(GTK_BOX(hbox), slider, FALSE, FALSE, 5); /* make slider not sizeable */
-
-    if (!automatic)
-    {
-      gtk_widget_show(slider);
-      gtk_widget_set_sensitive(slider, settable);
-    }
+    gtk_widget_show(slider);
+    gtk_widget_set_sensitive(slider, settable);
   }
 
   if (automatic)
   {
-    xsane_back_gtk_autobutton_new(hbox, elem, slider, tooltips);
+    xsane_back_gtk_autobutton_new(hbox, elem, tooltips);
   }
 
   g_signal_connect(elem->data, "value_changed", (GtkSignalFunc) xsane_back_gtk_range_update, elem);
@@ -1550,7 +1563,14 @@ void xsane_back_gtk_range_new(GtkWidget * parent, const char *name, gfloat val,
   gtk_widget_show(label);
   gtk_widget_show(hbox);
 
-  elem->widget  = slider;
+  if (elem->widget)
+  {
+    elem->widget2 = slider; /* widget is used by spinbutton */
+  }
+  else
+  {
+    elem->widget  = slider; /* we do not have a spinbutton */
+  }
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */

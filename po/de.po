@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.90\n"
-"POT-Creation-Date: 2003-01-19 10:41+0100\n"
+"POT-Creation-Date: 2003-08-05 22:36+0200\n"
 "PO-Revision-Date: 2000-01-21 15:51+01:00\n"
 "Last-Translator: Oliver Rauch <Oliver.Rauch@rauch-domain.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -1092,9 +1092,8 @@ msgid "Rotate postscript"
 msgstr "Drehe Postscript"
 
 #. MENU_ITEM_EDIT_MEDIUM_DEF
-#, fuzzy
 msgid "Edit medium definition"
-msgstr "Mediumdefinition speichern"
+msgstr "Mediumdefinition ändern"
 
 #. MENU_ITEM_SAVE_DEVICE_SETTINGS
 msgid "Save device settings"
@@ -1302,9 +1301,8 @@ msgstr ""
 "oder mailen-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
-#, fuzzy
 msgid "Select source medium type\n"
-msgstr "Medium speichern"
+msgstr "Medientyp auswählen\n"
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -2057,6 +2055,10 @@ msgstr "Vorschau-Auswahl zur Stapelliste hinzufügen"
 msgid "Delete selected area from batch list"
 msgstr "Ausgewählten Bereich aus Stapelliste löschen"
 
+#. DESC_AUTOMATIC
+msgid "Turns on automatic mode"
+msgstr "Schaltet automatische Einstellung ein"
+
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
 msgstr "Konnte Heimatverzeichnis nicht bestimmen"
@@ -2157,6 +2159,11 @@ msgstr "LIBTIFF meldet Fehler"
 
 #. ERR_LIBPNG
 msgid "LIBPNG reports error"
+msgstr "LIBPNG meldet Fehler"
+
+#. ERR_LIBJPEG
+#, fuzzy
+msgid "LIBJPEG reports error"
 msgstr "LIBPNG meldet Fehler"
 
 #. ERR_UNKNOWN_TYPE

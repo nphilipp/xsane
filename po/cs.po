@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.90\n"
-"POT-Creation-Date: 2003-01-19 10:41+0100\n"
+"POT-Creation-Date: 2003-08-05 22:36+0200\n"
 "PO-Revision-Date: 2002-12-11 12:50+0100\n"
 "Last-Translator: Stanislav Brabec <sbrabec@suse.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -2039,6 +2039,10 @@ msgstr "Pøidat vybranou náhledovou oblast do seznamu dávek"
 msgid "Delete selected area from batch list"
 msgstr "Pøidat vybranou oblast ze seznamu dávek"
 
+#. DESC_AUTOMATIC
+msgid "Turns on automatic mode"
+msgstr ""
+
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
 msgstr "Selhalo urèení domovského adresáøe:"
@@ -2138,6 +2142,11 @@ msgstr "LIBTIFF hlásí chybu"
 
 #. ERR_LIBPNG
 msgid "LIBPNG reports error"
+msgstr "LIBPNG hlásí chybu"
+
+#. ERR_LIBJPEG
+#, fuzzy
+msgid "LIBJPEG reports error"
 msgstr "LIBPNG hlásí chybu"
 
 #. ERR_UNKNOWN_TYPE

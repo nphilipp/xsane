@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.90\n"
-"POT-Creation-Date: 2003-01-19 10:41+0100\n"
+"POT-Creation-Date: 2003-08-05 22:36+0200\n"
 "PO-Revision-Date: 2003-03-27 12:00+0100\n"
 "Last-Translator: leolarrel Wang <leolarrel@yahoo.com.tw>\n"
 "Language-Team: zh_TW<zh_TW@li.org>\n"
@@ -1976,6 +1976,10 @@ msgstr "增加選擇的預覽區域到批次列表"
 msgid "Delete selected area from batch list"
 msgstr "從批次列表刪除選擇的區域"
 
+#. DESC_AUTOMATIC
+msgid "Turns on automatic mode"
+msgstr ""
+
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
 msgstr "無法決定Home目錄"
@@ -2075,6 +2079,10 @@ msgstr ""
 
 #. ERR_LIBPNG
 msgid "LIBPNG reports error"
+msgstr ""
+
+#. ERR_LIBJPEG
+msgid "LIBJPEG reports error"
 msgstr ""
 
 #. ERR_UNKNOWN_TYPE

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSane-0.89\n"
-"POT-Creation-Date: 2003-01-19 10:41+0100\n"
+"POT-Creation-Date: 2003-08-05 22:36+0200\n"
 "PO-Revision-Date: 2002-12-26 15:06+0100\n"
 "Last-Translator: Mogens Jæger <mogensjaeger@get2net.dk>\n"
 "Language-Team: Dansk <da@li.org>\n"
@@ -2044,6 +2044,10 @@ msgstr "Tilføj valgt forhåndsvisnings område til batch liste"
 msgid "Delete selected area from batch list"
 msgstr "Slet valgt forhåndsvisnings område fra batch liste"
 
+#. DESC_AUTOMATIC
+msgid "Turns on automatic mode"
+msgstr ""
+
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
 msgstr "Kunne ikke bestemme hjem bibliotek:"
@@ -2143,6 +2147,11 @@ msgstr "LIBTIFF melder fejl"
 
 #. ERR_LIBPNG
 msgid "LIBPNG reports error"
+msgstr "LIBPNG melder fejl"
+
+#. ERR_LIBJPEG
+#, fuzzy
+msgid "LIBJPEG reports error"
 msgstr "LIBPNG melder fejl"
 
 #. ERR_UNKNOWN_TYPE

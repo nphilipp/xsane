@@ -2349,7 +2349,7 @@ xsane-0.90 -> 0.91:
 
  - position of batch scan dialog is saved in device preferences
 
- - add chines tranlation (zh)
+ - added chines tranlation (zh)
 
  - corrected RGBA mode
 
@@ -2361,4 +2361,27 @@ xsane-0.90 -> 0.91:
  - in Batch scanning mode sane_cancel is called between all scans! This has to be done
    because it is not allowed to change scan parameters between sane_start and sane_cancel.
 
+
+xsane-0.91 -> 0.92:
+-------------------
+
+ - moved setting of preview gamma table from preview_start_scan (called 3 times for
+   3 pass scan) to preview_scan (called once when "preview scan" button is pressed).
+   This should avoid error messages in 3 pass scanning mode
+
+ - removed parameter label from xsane_back_gtk_autobutton_new()
+
+ - xsane_back_gtk_autobutton_update sets range widget to insensitive in automatic mode
+
+ - added jpeg error_exit handler
+
+ - added several tests for errors after wrting image data (full disk) (not complete)
+
+ - if an advanced option is defined in a standard group then this option is listed in
+   the advanced options window now. For this a standard group also is created in the
+   advanced options window. If a group has no items then the group is not shown.
+
+ - an option without SANE_CAP_SOFT_DETECT is not read any more in xsane_control_option
+
+ - updated translations: sv
 

@@ -6,7 +6,7 @@ AC_CONFIG_HEADER(include/config.h)
 
 # version code:
 V_MAJOR=0
-V_MINOR=91
+V_MINOR=92
 
 PACKAGE=xsane
 
@@ -165,8 +165,6 @@ if test "x${HAVE_SANE}" = "x"; then
   echo "       sane-devel"
   echo "****************************************************************"
   echo ""
-  echo "you may need to remove $cache_file before you run configure again"
-  echo ""
   exit
 fi
 
@@ -176,8 +174,6 @@ if test "x${HAVE_GTK}" = "x"; then
   echo "       if you installed gtk as rpm make sure you also included"
   echo "       gtk-devel"
   echo "****************************************************************"
-  echo ""
-  echo "you may need to remove $cache_file before you run configure again"
   echo ""
   exit
 fi

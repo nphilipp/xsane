@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.90\n"
-"POT-Creation-Date: 2003-01-19 10:41+0100\n"
+"POT-Creation-Date: 2003-08-05 22:36+0200\n"
 "PO-Revision-Date: 2002-12-11 20:57+0100\n"
 "Last-Translator:  <>\n"
 "Language-Team: \n"
@@ -2039,6 +2039,10 @@ msgstr "Voeg geselecteerde gebied toe aan batch lijst"
 msgid "Delete selected area from batch list"
 msgstr "Verwijder geselecteerde gebied van de batch lijst"
 
+#. DESC_AUTOMATIC
+msgid "Turns on automatic mode"
+msgstr ""
+
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
 msgstr "Kon hoofdmap niet vinden:"
@@ -2138,6 +2142,11 @@ msgstr "LIBTIFF geeft fout"
 
 #. ERR_LIBPNG
 msgid "LIBPNG reports error"
+msgstr "LIBPNG geeft fout"
+
+#. ERR_LIBJPEG
+#, fuzzy
+msgid "LIBJPEG reports error"
 msgstr "LIBPNG geeft fout"
 
 #. ERR_UNKNOWN_TYPE
