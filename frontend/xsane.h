@@ -140,6 +140,7 @@ struct
     int xsane_output_format;
     long header_size;
 
+    /* histogram window */
     struct XsanePixmap histogram_raw;
     struct XsanePixmap histogram_enh;
 
@@ -221,6 +222,26 @@ struct
     int first_frame;		/* used for RED/GREEN/BLUE frames */
 #endif
 } xsane;
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+struct
+{
+  GtkWidget *printer_command_entry;
+  GtkWidget *printer_resolution_entry;
+  GtkWidget *printer_leftoffset_entry;
+  GtkWidget *printer_bottomoffset_entry;
+  GtkWidget *printer_width_entry;
+  GtkWidget *printer_height_entry;
+  GtkWidget *jpeg_image_quality_scale;
+  GtkWidget *pnm_image_compression_scale;
+  GtkWidget *overwrite_warning_button;
+  GtkWidget *increase_filename_counter_button;
+  GtkWidget *skip_existing_numbers_button;
+  GtkWidget *preview_gamma_entry;
+  GtkWidget *preview_preserve_button;
+  GtkWidget *preview_own_cmap_button;
+} xsane_setup;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 

@@ -1,3 +1,11 @@
+Requirements:
+- You need sane-1.x installed!
+- You need gtk+-1.0.x installed, gtk+-1.1 and gtk+-1.2 do not work!
+- For png support you need libz and lipng installed!
+- For jpeg support you need jpeglib installed!
+- For tiff support you need libtiff installed!
+
+Install:
 - Unpack archiv. 
 - Enter xsane-0.xx directory. 
 - To compile call ./configure and make. 

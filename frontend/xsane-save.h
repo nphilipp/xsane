@@ -18,6 +18,10 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+void xsane_increase_counter_in_filename(char *filename, int skip);
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 void xsane_save_ps(FILE *outfile, FILE *imagefile,
                    int color, int bits,
                    int pixel_width, int pixel_height,

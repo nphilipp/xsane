@@ -2,11 +2,10 @@ This is a list of what I want to change/include for xsane.
 If you have any suggestions: mail to Oliver.Rauch@Wolfsburg.DE
 
 first steps:
- - add authoraziation dialog
+ - make png save with bit depth 9-15 work
  - move threshold in lineart-mode to main window
  - improve support for 16/48 bpp mode
  - test memory after all calls of malloc
- - set resolution in copy-mode at beginning
  - program cancel_handler for data conversion
  - make better backend-dependend option handling and error handling (mostly done!)
  - program better preview
@@ -14,7 +13,8 @@ first steps:
    - pick white and black point
    - sizeable window
  - include invert (for negatives) into enhancement
- - let user add a list of printers for photocopy
+ - let user add a list of printers for photocopy,
+   use different resolutons for lineart, gray, color, save
  - xsane_setup: select image position on printer (centered/left/right/...) for copy
  - store more than 1 enhancement and give names for it, may be in own files
  - postscript-output for 10/12 bpp (does postscript support it?)

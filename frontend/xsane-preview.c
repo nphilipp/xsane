@@ -1431,7 +1431,7 @@ Preview *preview_new(GSGDialog *dialog)
 
   p->top = gtk_dialog_new();
   gtk_signal_connect(GTK_OBJECT(p->top), "destroy", GTK_SIGNAL_FUNC (preview_top_destroyed), p);
-  gtk_window_set_title(GTK_WINDOW(p->top), "XSane preview");
+  gtk_window_set_title(GTK_WINDOW(p->top), "xsane preview");
   vbox = GTK_BOX(GTK_DIALOG(p->top)->vbox);
   hbox = GTK_BOX(GTK_DIALOG(p->top)->action_area);
 

@@ -106,7 +106,7 @@ extern int gsg_make_path (size_t max_len, char *filename_ret,
 			  const char *prog_name,
 			  const char *prefix, const char *dev_name,
 			  const char *postfix);
-
+extern gint gsg_decision(gchar *title, gchar *message, gchar *oktext, gchar *rejecttext, gint wait);
 extern void gsg_message (gchar *title, gchar * message);
 extern void gsg_error (gchar * error_message);
 extern void gsg_warning (gchar * warning_message);

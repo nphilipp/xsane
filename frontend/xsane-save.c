@@ -45,6 +45,64 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+void xsane_increase_counter_in_filename(char *filename, int skip)
+{
+ char *position_point;
+ char *position_counter;
+ char counter;
+ FILE *testfile;
+
+  while (1)
+  { 
+    position_point = strrchr(filename, '.');
+    position_counter = position_point-1;
+  
+    if (!( (*position_counter >= '0') && (*position_counter <='9') ))
+    {
+      break; /* no counter found */
+    }
+
+    while ( (position_counter > filename) && (*position_counter >= '0') && (*position_counter <='9') )
+    {
+      counter = ++(*position_counter);
+      if (counter !=  ':')
+      {
+        break;
+      }
+      *position_counter = '0';
+      position_counter--;
+    }
+
+    if (!( (*position_counter >= '0') && (*position_counter <='9') )) /* overflow */
+    {
+     char buf[256];
+
+      snprintf(buf, sizeof(buf), "Filename counter overflow\n");
+      gsg_warning(buf);
+      break; /* last available number ("999") */
+    }
+
+    if (skip) /* test if filename already used */
+    {
+      testfile = fopen(filename, "r");
+      if (testfile) /* filename used: skip */
+      {
+        fclose(testfile);
+      }
+      else
+      {
+        break; /* filename not used, ok */
+      }
+    }
+    else /* do not test if filename already used */
+    {
+      break; /* filename ok */
+    }
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void xsane_save_ps_bw(FILE *outfile, FILE *imagefile,
                             int pixel_width, int pixel_height,
                             int left, int bottom,

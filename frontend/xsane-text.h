@@ -48,7 +48,20 @@
 #define DESC_HIST_PIXEL		"Display histogram with lines instead of pixels"
 #define DESC_HIST_LOG		"Show logarithm of pixelcount"
 
+#define DESC_PRINTER_COMMAND	"Enter command to be executed in copy mode (e.g. \"lpr -\")"
+#define DESC_PRINTER_RESOLUTION	"Resolution in which images are printed and saved in postscript"
+#define DESC_PRINTER_WIDTH	"Width of printable area in 1/72 inch"
+#define DESC_PRINTER_HEIGHT	"Height of printable area in 1/72 inch"
+#define DESC_PRINTER_LEFTOFFSET	"Left offset from the edge of the paper to the printable area in 1/72 inch"
+#define DESC_PRINTER_BOTTOMOFFSET "Bottom offset from the edge of the paper to the printable area in 1/72 inch"
 #define DESC_JPEG_QUALITY	"Quality if image is saved as jpeg"
 #define DESC_PNG_COMPRESSION	"Compression if image is saved as png"
+#define DESC_OVERWRITE_WARNING	"Warn before overwriting an existing file"
+#define DESC_INCREASE_COUNTER	"If the filename is of the form \"name-001.ext\" (where the number of digits is free) " \
+				"the number is increased after a scan is finished"
+#define DESC_SKIP_EXISTING	"If filename counter is automatically increased, used numbers are skipped"
+#define DESC_PREVIEW_PRESERVE	"Preserve preview image for next program start"
+#define DESC_PREVIEW_COLORMAP	"Use an own colormap for preview if display depth is 8 bpp"
+#define DESC_PREVIEW_GAMMA	"Set gamma correction value for preview image"
 
 #endif

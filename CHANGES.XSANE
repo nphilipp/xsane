@@ -97,8 +97,25 @@ xsane-0.16 -> 0.17:
 
  - xsane-gtk.c moved free(elem->menu); elem->menu = 0; in panel_destroy out of
    the for-loop
- - added some #ifdefs #endifs around saveing routines for TIFF, PNG and JPEG
+ - added some #ifdefs #endifs around saving routines for TIFF, PNG and JPEG
  - added BIT_DEPTH as well known option, preview sets this value to 8 if it is greater than 8
  - added range checks in calculation for auto enhancement values
  - calculation of auto enhancement values is not called in lineart mode any more
+
+
+xsane-0.17 -> 0.18:
+-------------------
+
+ - added quit_xsane in xsane_choose_dialog_ok_callback if no device was opened
+ - added sane_get_parameters(..) in xsane_scan_dialog
+ - added xsane_increase_counter_in_filename to xsane-save.[ch]
+ - Filename counter is automatically increased after scan
+ - Changed setup_dialog callbacks, cancel does work now
+ - zoomfactor is calculated now if copy mode is selected
+ - added tooltips for xsane setup options
+ - changed "destroy"-event of authorization dialog to "delete_event"
+ - in gsg_message made the ok button default
+ - added gsg_decision routine
+ - added overwrite warning
+ - postscript images are saved in original size in scan mode now
 

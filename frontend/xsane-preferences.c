@@ -43,6 +43,9 @@ Preferences preferences =
       10,		/* printer_bottomoffset */
       80.0,		/* jpeg_quality */
       7.0,		/* png_compression */
+       1,		/* overwrite_warning */
+       1,		/* increase_filename_counter */
+       1,		/* skip_existing_numbers */
        1,		/* tooltips enabled */
        0,		/* (dont) show histogram */
        0,		/* (dont) show standard options */
@@ -79,10 +82,15 @@ desc[] =
   {
     {"device", w_string, POFFSET(device)},
     {"filename", w_string, POFFSET(filename)},
-    {"printer-cmd", w_string, POFFSET(printercommand)},
-    {"printer-res", w_int, POFFSET(printerresolution)},
+    {"printer-cmd", w_string, POFFSET(printer_command)},
+    {"printer-res", w_int, POFFSET(printer_resolution)},
+    {"printer-width", w_int, POFFSET(printer_width)},
+    {"printer-height", w_int, POFFSET(printer_height)},
     {"printer-leftoffset", w_int, POFFSET(printer_leftoffset)},
     {"printer-bottomoffset", w_int, POFFSET(printer_bottomoffset)},
+    {"overwrite-warning", w_int, POFFSET(overwrite_warning)},
+    {"increase-filename-counter", w_int, POFFSET(increase_filename_counter)},
+    {"skip-existing-numbers", w_int, POFFSET(skip_existing_numbers)},
     {"jpeg-quality", w_double, POFFSET(jpeg_quality)},
     {"png-compression", w_double, POFFSET(png_compression)},
     {"tool-tips", w_int, POFFSET(tooltips_enabled)},

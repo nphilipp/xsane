@@ -216,7 +216,7 @@ void gsg_set_option (GSGDialog * dialog, int opt_num, void *val, SANE_Action act
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-void gsg_close_dialog_callback (GtkWidget * widget, gpointer data)
+void gsg_close_dialog_callback(GtkWidget * widget, gpointer data)
 {
   gtk_widget_destroy(data);
   gsg_message_dialog_active = 0;
@@ -224,56 +224,116 @@ void gsg_close_dialog_callback (GtkWidget * widget, gpointer data)
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-void gsg_message (gchar *title, gchar *message)
+static gint decision_flag;
+static GtkWidget *decision_dialog;
+
+void gsg_decision_callback(GtkWidget * widget, gpointer data)
 {
-  GtkWidget *main_vbox, *label;
-  GtkWidget *button, *message_dialog;
+  gtk_widget_destroy(decision_dialog);
+  gsg_message_dialog_active = 0;
+  decision_flag = (long) data;
+}
+
+/* ----------------------------------------------------------------------------------------------------------------- */
+
+gint gsg_decision(gchar *title, gchar *message, gchar *oktext, gchar *rejecttext, gint wait)
+{
+  GtkWidget *main_vbox, *hbox, *label, *button;
 
   if (gsg_message_dialog_active)
-    {
-      fprintf (stderr, "%s: %s\n", title, message);
-      return;
-    }
+  {
+    fprintf (stderr, "%s: %s\n", title, message);
+    return TRUE;
+  }
   gsg_message_dialog_active = 1;
-  message_dialog = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_window_position (GTK_WINDOW (message_dialog), GTK_WIN_POS_MOUSE);
-  gtk_window_set_title (GTK_WINDOW (message_dialog), title);
+  decision_dialog = gtk_window_new(GTK_WINDOW_DIALOG);
+  gtk_window_position(GTK_WINDOW(decision_dialog), GTK_WIN_POS_MOUSE);
+  gtk_window_set_title(GTK_WINDOW(decision_dialog), title);
+  gtk_signal_connect(GTK_OBJECT(decision_dialog), "delete_event",
+                     GTK_SIGNAL_FUNC(gsg_decision_callback), (void *) -1); /* -1 = cancel */
+
 
   /* create the main vbox */
-  main_vbox = gtk_vbox_new (TRUE, 5);
-  gtk_container_border_width (GTK_CONTAINER (main_vbox), 5);
+  main_vbox = gtk_vbox_new(TRUE, 5);
+  gtk_container_border_width(GTK_CONTAINER(main_vbox), 5);
   gtk_widget_show (main_vbox);
 
-  gtk_container_add (GTK_CONTAINER (message_dialog), main_vbox);
+  gtk_container_add(GTK_CONTAINER(decision_dialog), main_vbox);
 
   /* the message */
-  label = gtk_label_new (message);
-  gtk_container_add (GTK_CONTAINER (main_vbox), label);
+  label = gtk_label_new(message);
+  gtk_container_add(GTK_CONTAINER(main_vbox), label);
   gtk_widget_show (label);
 
+
+  hbox = gtk_hbox_new(FALSE, 2);
+  gtk_container_border_width(GTK_CONTAINER(hbox), 4);
+  gtk_box_pack_start(GTK_BOX(main_vbox), hbox, FALSE, FALSE, 0);
+
   /* the confirmation button */
-  button = gtk_button_new_with_label ("OK");
-  gtk_signal_connect (GTK_OBJECT (button), "clicked",
-		      (GtkSignalFunc) gsg_close_dialog_callback,
-		      message_dialog);
-  gtk_container_add (GTK_CONTAINER (main_vbox), button);
+  button = gtk_button_new_with_label(oktext);
+  GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
+  gtk_signal_connect (GTK_OBJECT (button), "clicked", (GtkSignalFunc) gsg_decision_callback, (void *) 1 /* confirm */);
+  gtk_container_add (GTK_CONTAINER (hbox), button);
+  gtk_widget_grab_default(button);
+  gtk_widget_show(button);
 
-  gtk_widget_show (button);
-  gtk_widget_show (message_dialog);
+
+  if (rejecttext) /* the rejection button */
+  {
+    button = gtk_button_new_with_label(rejecttext);
+    gtk_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) gsg_decision_callback, (void *) -1 /* reject */);
+    gtk_container_add(GTK_CONTAINER(hbox), button);
+    gtk_widget_show (button);
+  }
+  gtk_widget_show(hbox);
+
+  gtk_widget_show(decision_dialog);
+
+  if (!wait)
+  {
+    return TRUE;
+  }
+
+  decision_flag = 0;
+
+  while (decision_flag == 0)
+  {
+    gtk_main_iteration();
+  }
+
+  while (gtk_events_pending())
+  {
+    gtk_main_iteration();
+  }
+
+  if (decision_flag == 1)
+  {
+    return TRUE;
+  }
+
+  return FALSE;
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-void gsg_error (gchar * error)
+void gsg_message(gchar *title, gchar *message)
 {
-  gsg_message ("Error", error);
+  gsg_decision(title, message, "OK", 0 /* no reject text */, 0 /* do not wait */);
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-void gsg_warning (gchar * warning)
+void gsg_error(gchar * error)
 {
-  gsg_message ("Warning", warning);
+  gsg_message("Error", error);
+}
+
+/* ----------------------------------------------------------------------------------------------------------------- */
+
+void gsg_warning(gchar * warning)
+{
+  gsg_message("Warning", warning);
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
