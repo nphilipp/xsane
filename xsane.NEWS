@@ -1,9 +1,7 @@
 
  NEWS:
 
-  no special you have to care about to get xsane to work.
-  Read xsane.CHANGES if you are interested in details of
-  what has changed.
+  no special you should care about.
 
   If you experience any problems after you upgraded xsane 
   it may help to remove the setup and preferences files

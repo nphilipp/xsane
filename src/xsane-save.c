@@ -50,31 +50,6 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#ifdef HAVE_LIBGIMP_GIMP_H
- 
-#include <libgimp/gimp.h>
- 
-static void xsane_gimp_query(void);
-static void xsane_gimp_run(char *name, int nparams, GimpParam * param, int *nreturn_vals, GimpParam ** return_vals);
- 
-GimpPlugInInfo PLUG_IN_INFO =
-{
-  NULL,                         /* init_proc */
-  NULL,                         /* quit_proc */
-  xsane_gimp_query,             /* query_proc */
-  xsane_gimp_run,               /* run_proc */
-};
-
-
-static int xsane_decode_devname(const char *encoded_devname, int n,
-char *buf);
-static int xsane_encode_devname(const char *devname, int n, char *buf);
-void null_print_func(gchar *msg);
- 
-#endif /* HAVE_LIBGIMP_GIMP_H */
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
 static int cancel_save;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -272,8 +247,6 @@ void xsane_update_counter_in_filename(char **filename, int skip, int step, int m
 
 void xsane_write_pnm_header(FILE *outfile, int pixel_width, int pixel_height, int bits)
 {
-  rewind(outfile);
-
   switch (xsane.param.format)
   {
     case SANE_FRAME_RGB:
@@ -288,8 +261,8 @@ void xsane_write_pnm_header(FILE *outfile, int pixel_width, int pixel_height, in
                             "#  gamma      IRGB = %3.2f %3.2f %3.2f %3.2f\n"
                             "#  brightness IRGB = %4.1f %4.1f %4.1f %4.1f\n"
                             "#  contrast   IRGB = %4.1f %4.1f %4.1f %4.1f\n"
-                            "# XSANE data follows\n"
-                            "%05d %05d\n255\n",
+                            "# SANE data follows\n"
+                            "%d %d\n255\n",
                              xsane.gamma,      xsane.gamma_red,      xsane.gamma_green,      xsane.gamma_blue,
                              xsane.brightness, xsane.brightness_red, xsane.brightness_green, xsane.brightness_blue,
                              xsane.contrast,   xsane.contrast_red,   xsane.contrast_green,   xsane.contrast_blue,
@@ -306,8 +279,8 @@ void xsane_write_pnm_header(FILE *outfile, int pixel_width, int pixel_height, in
                             "#  gamma      IRGB = %3.2f %3.2f %3.2f %3.2f\n"
                             "#  brightness IRGB = %4.1f %4.1f %4.1f %4.1f\n"
                             "#  contrast   IRGB = %4.1f %4.1f %4.1f %4.1f\n"
-                            "# XSANE data follows.\n"
-                            "%05d %05d\n"
+                            "# SANE data follows.\n"
+                            "%d %d\n"
                             "65535\n",
                             xsane.gamma,      xsane.gamma_red,      xsane.gamma_green,      xsane.gamma_blue,
                             xsane.brightness, xsane.brightness_red, xsane.brightness_green, xsane.brightness_blue,
@@ -324,8 +297,8 @@ void xsane_write_pnm_header(FILE *outfile, int pixel_width, int pixel_height, in
            fprintf(outfile, "P4\n"
                             "# XSane settings:\n"
                             "#  threshold = %4.1f\n"
-                            "# XSANE data follows\n"
-                            "%05d %05d\n",
+                            "# SANE data follows\n"
+                            "%d %d\n",
                             xsane.threshold,
                             pixel_width, pixel_height);
           break;
@@ -336,8 +309,8 @@ void xsane_write_pnm_header(FILE *outfile, int pixel_width, int pixel_height, in
                             "#  gamma      = %3.2f\n"
                             "#  brightness = %4.1f\n"
                             "#  contrast   = %4.1f\n"
-                            "# XSANE data follows\n"
-                            "%05d %05d\n"
+                            "# SANE data follows\n"
+                            "%d %d\n"
                             "255\n",
                             xsane.gamma,
                             xsane.brightness,
@@ -354,8 +327,8 @@ void xsane_write_pnm_header(FILE *outfile, int pixel_width, int pixel_height, in
                             "#  gamma      = %3.2f\n"
                             "#  brightness = %4.1f\n"
                             "#  contrast   = %4.1f\n"
-                            "# XSANE data follows.\n"
-                            "%05d %05d\n"
+                            "# SANE data follows.\n"
+                            "%d %d\n"
                             "65535\n",
                             xsane.gamma,
                             xsane.brightness,
@@ -483,10 +456,10 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, int color, int bits,
   }
 
 #ifdef HAVE_MMAP
-  mmaped_imagefile = mmap(NULL, pixel_width * pixel_height * bytespp, PROT_READ, MAP_PRIVATE, fileno(imagefile), pos0);
+  mmaped_imagefile = mmap(NULL, pixel_width * pixel_height * bytespp, PROT_READ, MAP_PRIVATE, fileno(imagefile), 0);
   if (mmaped_imagefile == (void *) -1) /* mmap failed */
   {
-    DBG(DBG_info, "xsane_save_rotate_image: unable to memory map image file, using standard file access\n");
+    DBG(DBG_info, "xsane_save_rotate_image: unable to memory map image file\n");
     mmaped_imagefile = NULL;
   }
   else
@@ -514,7 +487,7 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, int color, int bits,
 #ifdef HAVE_MMAP
           if (mmaped_imagefile)
           {
-           char *p = mmaped_imagefile + bytespp * (x + y * pixel_width); /* calculate correct position */
+           char *p = mmaped_imagefile + pos0 + bytespp * (x + y * pixel_width); /* calculate correct position */
 
             for (i=0; i<bytespp; i++)
             {
@@ -1471,547 +1444,4 @@ void xsane_save_pnm_16(FILE *outfile, FILE *imagefile, int color, int bits, int 
   }
 }
 
-/* ---------------------------------------------------------------------------------------------------------------------- */
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-#ifdef HAVE_LIBGIMP_GIMP_H
-static int xsane_decode_devname(const char *encoded_devname, int n, char *buf)
-{
- char *dst, *limit;
- const char *src;
- char ch, val;
-
-  DBG(DBG_proc, "xsane_decode_devname\n");
-
-  limit = buf + n;
-  for (src = encoded_devname, dst = buf; *src; ++dst)
-  {
-    if (dst >= limit)
-    {
-      return -1;
-    }
-
-    ch = *src++;
-    /* don't use the ctype.h macros here since we don't want to allow anything non-ASCII here... */
-    if (ch != '-')
-    {
-      *dst = ch;
-    }
-    else /* decode */
-    {
-      ch = *src++;
-      if (ch == '-')
-      {
-        *dst = ch;
-      }
-      else
-      {
-        if (ch >= 'a' && ch <= 'f')
-        {
-          val = (ch - 'a') + 10;
-        }
-        else
-        {
-          val = (ch - '0');
-        }
-        val <<= 4;
-
-        ch = *src++;
-        if (ch >= 'a' && ch <= 'f')
-        {
-          val |= (ch - 'a') + 10;
-        }
-        else
-        {
-          val |= (ch - '0');
-        }
-
-        *dst = val;
-
-        ++src;    /* simply skip terminating '-' for now... */
-      }
-    }
-  }
-
-  if (dst >= limit)
-  {
-    return -1;
-  }
-
-  *dst = '\0';
- return 0;
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static int xsane_encode_devname(const char *devname, int n, char *buf)
-{
- static const char hexdigit[] = "0123456789abcdef";
- char *dst, *limit;
- const char *src;
- char ch;
-
-  DBG(DBG_proc, "xsane_encode_devname\n");
-
-  limit = buf + n;
-  for (src = devname, dst = buf; *src; ++src)
-  {
-    if (dst >= limit)
-    {
-      return -1;
-    }
-
-    ch = *src;
-    /* don't use the ctype.h macros here since we don't want to allow anything non-ASCII here... */
-    if ((ch >= '0' && ch <= '9') || (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z'))
-    {
-      *dst++ = ch;
-    }
-    else /* encode */
-    {
-      if (dst + 4 >= limit)
-      {
-        return -1;
-      }
-
-      *dst++ = '-';
-      if (ch == '-')
-      {
-        *dst++ = '-';
-      }
-      else
-      {
-        *dst++ = hexdigit[(ch >> 4) & 0x0f];
-        *dst++ = hexdigit[(ch >> 0) & 0x0f];
-        *dst++ = '-';
-      }
-    }
-  }
-
-  if (dst >= limit)
-  {
-    return -1;
-  }
-
-  *dst = '\0';
- return 0;
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_gimp_query(void)
-{
- static GimpParamDef args[] =
- {
-     {GIMP_PDB_INT32, "run_mode", "Interactive, non-interactive"},
- };
- static GimpParamDef *return_vals = NULL;
- static int nargs = sizeof(args) / sizeof(args[0]);
- static int nreturn_vals = 0;
- char mpath[1024];
- char name[1024];
- size_t len;
- int i, j;
-
-  DBG(DBG_proc, "xsane_gimp_query\n");
-
-  snprintf(name, sizeof(name), "%s", xsane.prog_name);
-#ifdef GIMP_CHECK_VERSION
-# if GIMP_CHECK_VERSION(1,1,9)
-  snprintf(mpath, sizeof(mpath), "%s", XSANE_GIMP_MENU_DIALOG);
-# else
-  snprintf(mpath, sizeof(mpath), "%s", XSANE_GIMP_MENU_DIALOG_OLD);
-# endif
-#else
-  snprintf(mpath, sizeof(mpath), "%s", XSANE_GIMP_MENU_DIALOG_OLD);
-#endif
-  gimp_install_procedure(name,
-			 XSANE_GIMP_INSTALL_BLURB,
-			 XSANE_GIMP_INSTALL_HELP,
-			 XSANE_AUTHOR,
-			 XSANE_COPYRIGHT,
-			 XSANE_DATE,
-			 mpath,
-			 0, /* "RGB, GRAY", */
-			 GIMP_EXTENSION,
-			 nargs, nreturn_vals,
-			 args, return_vals);
-
-  sane_init(&xsane.sane_backend_versioncode, (void *) xsane_authorization_callback);
-  if (SANE_VERSION_MAJOR(xsane.sane_backend_versioncode) != SANE_V_MAJOR)
-  {
-    fprintf(stderr, "\n\n"
-                    "%s %s:\n"
-                    "  %s\n"
-                    "  %s %d\n"
-                    "  %s %d\n"
-                    "%s\n\n",
-                    xsane.prog_name, ERR_ERROR,
-                    ERR_MAJOR_VERSION_NR_CONFLICT,
-                    ERR_XSANE_MAJOR_VERSION, SANE_V_MAJOR,
-                    ERR_BACKEND_MAJOR_VERSION, SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
-                    ERR_PROGRAM_ABORTED);      
-    return;
-  }
-
-  sane_get_devices(&xsane.devlist, SANE_FALSE);
-
-  for (i = 0; xsane.devlist[i]; ++i)
-  {
-    snprintf(name, sizeof(name), "%s-", xsane.prog_name);
-    if (xsane_encode_devname(xsane.devlist[i]->name, sizeof(name) - 6, name + 6) < 0)
-    {
-      continue;	/* name too long... */
-    }
-
-#ifdef GIMP_CHECK_VERSION
-# if GIMP_CHECK_VERSION(1,1,9)
-    snprintf(mpath, sizeof(mpath), "%s", XSANE_GIMP_MENU);
-# else
-    snprintf(mpath, sizeof(mpath), "%s", XSANE_GIMP_MENU_OLD);
-# endif
-#else
-    snprintf(mpath, sizeof(mpath), "%s", XSANE_GIMP_MENU_OLD);
-#endif
-    len = strlen(mpath);
-    for (j = 0; xsane.devlist[i]->name[j]; ++j)
-    {
-      if (xsane.devlist[i]->name[j] == '/')
-      {
-        mpath[len++] = '\'';
-      }
-      else
-      {
-        mpath[len++] = xsane.devlist[i]->name[j];
-      }
-    }
-    mpath[len++] = '\0';
-
-    gimp_install_procedure(name,
-                           XSANE_GIMP_INSTALL_BLURB,
-                           XSANE_GIMP_INSTALL_HELP,
-                           XSANE_AUTHOR,
-                           XSANE_COPYRIGHT,
-                           XSANE_DATE,
-                           mpath,
-                           0, /* "RGB, GRAY", */
-                           GIMP_EXTENSION,
-                           nargs, nreturn_vals,
-                           args, return_vals);
-  }
-
-  sane_exit();
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_gimp_run(char *name, int nparams, GimpParam * param, int *nreturn_vals, GimpParam ** return_vals)
-{
- static GimpParam values[2];
- GimpRunModeType run_mode;
- char devname[1024];
- char *args[2];
- int nargs;
-
-  DBG(DBG_proc, "xsane_gimp_run\n");
-
-  run_mode = param[0].data.d_int32;
-  xsane.mode = XSANE_GIMP_EXTENSION;
-  xsane.xsane_mode = XSANE_SCAN;
-
-  *nreturn_vals = 1;
-  *return_vals = values;
-
-  values[0].type = GIMP_PDB_STATUS;
-  values[0].data.d_status = GIMP_PDB_CALLING_ERROR;
-
-  nargs = 0;
-  args[nargs++] = "xsane";
-
-  xsane.selected_dev = -1;
-  if (strncmp(name, "xsane-", 6) == 0)
-  {
-    if (xsane_decode_devname(name + 6, sizeof(devname), devname) < 0)
-    {
-      return;			/* name too long */
-    }
-    args[nargs++] = devname;
-  }
-
-  switch (run_mode)
-  {
-    case GIMP_RUN_INTERACTIVE:
-      xsane_interface(nargs, args);
-      values[0].data.d_status = GIMP_PDB_SUCCESS;
-      break;
-
-    case GIMP_RUN_NONINTERACTIVE:
-      /*  Make sure all the arguments are there!  */
-      break;
-
-    case GIMP_RUN_WITH_LAST_VALS:
-      /*  Possibly retrieve data  */
-      break;
-
-    default:
-      break;
-  }
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-void null_print_func(gchar *msg)
-{
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-void xsane_transfer_to_gimp(FILE *imagefile, int color, int bits, int pixel_width, int pixel_height)
-{
- int remaining;
- size_t tile_size;
- GimpImageType image_type    = GIMP_GRAY;
- GimpImageType drawable_type = GIMP_GRAY_IMAGE;
- gint32 layer_ID;
- int i;
-
-  DBG(DBG_info, "xsane_transer_to_gimp(color=%d, bits=%d, pixel_width=%d, pixel_height=%d)\n",
-                 color, bits, pixel_width, pixel_height);
-
-  cancel_save = 0;
-
-  xsane.x = xsane.y = 0; 
-  xsane.tile_offset = 0;
-  tile_size = pixel_width * gimp_tile_height();
-
-  if (color == 3) /* RGB */
-  {
-    tile_size *= 3;  /* 24 bits/pixel RGB */
-    image_type    = GIMP_RGB;
-    drawable_type = GIMP_RGB_IMAGE;
-  }
-  else if (color == 4) /* RGBA */
-  {
-    tile_size *= 4;  /* 32 bits/pixel RGBA */
-    image_type    = GIMP_RGB;
-    drawable_type = GIMP_RGBA_IMAGE; /* interpret infrared as alpha */
-  }
-  /* color == 0 is predefined */
- 
-  xsane.image_ID = gimp_image_new(pixel_width, pixel_height, image_type);
- 
-/* the following is supported since gimp-1.1.? */
-#ifdef GIMP_HAVE_RESOLUTION_INFO
-  if (xsane.resolution_x > 0)
-  {
-    gimp_image_set_resolution(xsane.image_ID, xsane.resolution_x ,xsane.resolution_y);
-  }
-/*          gimp_image_set_unit(xsane.image_ID, unit?); */
-#endif
- 
-  layer_ID = gimp_layer_new(xsane.image_ID, "Background", pixel_width, pixel_height, drawable_type, 100.0, GIMP_NORMAL_MODE);
-  gimp_image_add_layer(xsane.image_ID, layer_ID, 0);
-  xsane.drawable = gimp_drawable_get(layer_ID);
-  gimp_pixel_rgn_init(&xsane.region, xsane.drawable, 0, 0, xsane.drawable->width, xsane.drawable->height, TRUE, FALSE);
-  xsane.tile = g_new(guchar, tile_size);
- 
-
-  if (!color) /* gray */
-  {
-    switch (bits)
-    {
-      case 1: /* 1 bit gray => conversion to 8 bit gray */
-        for (i = 0; i < ((pixel_width+7)/8)*pixel_height; ++i)
-        {
-         u_char mask;
-         int j;
-
-          mask = fgetc(imagefile);
-          for (j = 7; j >= 0; --j)
-          {
-            u_char gl = (mask & (1 << j)) ? 0x00 : 0xff;
-            xsane.tile[xsane.tile_offset++] = gl;
-
-            xsane.x++;
-
-            if (xsane.x >= pixel_width)
-            {
-             int tile_height = gimp_tile_height();
-
-              xsane.x = 0;
-              xsane.y++;
-
-              if (xsane.y % tile_height == 0)
-              {
-                gimp_pixel_rgn_set_rect(&xsane.region, xsane.tile, 0, xsane.y - tile_height, pixel_width, tile_height);
-                xsane.tile_offset = 0;
-              }
-
-              xsane_progress_update((float) xsane.y / pixel_height); /* update progress bar */
-              while (gtk_events_pending())
-              {
-                gtk_main_iteration();
-              }
-
-              break; /* leave for j loop */
-            }
-          }
-
-          if (cancel_save)
-          {
-            break;
-          }
-        }
-       break; /* leave switch depth 1 */
-
-      case 8: /* 8 bit gray */
-        for (i = 0; i < pixel_width*pixel_height; ++i)
-        {
-          xsane.tile[xsane.tile_offset++] = fgetc(imagefile);
-          xsane.x++;
-
-          if (xsane.x >= pixel_width)
-          {
-           int tile_height = gimp_tile_height();
-
-            xsane.x = 0;
-            xsane.y++;
-
-            if (xsane.y % tile_height == 0)
-            {
-              gimp_pixel_rgn_set_rect(&xsane.region, xsane.tile, 0, xsane.y - tile_height, pixel_width, tile_height);
-              xsane.tile_offset = 0;
-            }
-
-            xsane_progress_update((float) xsane.y / pixel_height); /* update progress bar */
-            while (gtk_events_pending())
-            {
-              gtk_main_iteration();
-            }
-          }
-
-          if (cancel_save)
-          {
-            break;
-          }
-        }
-       break; /* leave switch depth */
-
-      default: /* bad depth */
-       break; /* default */
-    }
-  }
-  else if (color == 3) /* RGB */
-  {
-    switch (bits)
-    {
-      case 8: /* 8 bit RGB */
-        for (i = 0; i < pixel_width*pixel_height*3; ++i)
-        {
-          xsane.tile[xsane.tile_offset++] = fgetc(imagefile);
-          if (xsane.tile_offset % 3 == 0)
-          {
-            xsane.x++;
-
-            if (xsane.x >= pixel_width)
-            {
-             int tile_height = gimp_tile_height();
-
-              xsane.x = 0;
-              xsane.y++;
-
-              if (xsane.y % tile_height == 0)
-              {
-                gimp_pixel_rgn_set_rect(&xsane.region, xsane.tile, 0, xsane.y - tile_height, pixel_width, tile_height);
-                xsane.tile_offset = 0;
-              }
-
-              xsane_progress_update((float) xsane.y / pixel_height); /* update progress bar */
-              while (gtk_events_pending())
-              {
-                gtk_main_iteration();
-              }
-            }
-          }
-
-          if (cancel_save)
-          {
-            break;
-          }
-        }
-       break; /* case 8 */
-
-      default: /* bad depth */
-       break; /* default */
-    }
-  }
-#ifdef SUPPORT_RGBA
-  else if (color == 4) /* RGBA */
-  {
-   int i;
-
-    switch (bits)
-    {
-      case 8: /* 8 bit RGBA */
-        for (i = 0; i < pixel_width*pixel_height*4; ++i)
-        {
-          xsane.tile[xsane.tile_offset++] = fgetc(imagefile);
-          if (xsane.tile_offset % 4 == 0)
-          {
-            xsane.x++;
-
-            if (xsane.x >= pixel_width)
-            {
-             int tile_height = gimp_tile_height();
-
-              xsane.x = 0;
-              xsane.y++;
-
-              if (xsane.y % tile_height == 0)
-              {
-                gimp_pixel_rgn_set_rect(&xsane.region, xsane.tile, 0, xsane.y - tile_height, pixel_width, tile_height);
-                xsane.tile_offset = 0;
-              }
-
-              xsane_progress_update((float) xsane.y / pixel_height); /* update progress bar */
-              while (gtk_events_pending())
-              {
-                gtk_main_iteration();
-              }
-            }
-          }
-
-          if (cancel_save)
-          {
-            break;
-          }
-        }
-       break;
-
-      default: /* bad depth */
-       break;
-    }
-  }
-#endif
-
-/* scan_done part */
-  if (xsane.y > pixel_height)
-  {
-    xsane.y = pixel_height;
-  }
- 
-  remaining = xsane.y % gimp_tile_height();
-  if (remaining)
-  {
-    gimp_pixel_rgn_set_rect(&xsane.region, xsane.tile, 0, xsane.y - remaining, pixel_width, remaining);
-  }
-  gimp_drawable_flush(xsane.drawable);
-  gimp_display_new(xsane.image_ID);
-  gimp_drawable_detach(xsane.drawable);
-  g_free(xsane.tile);
-  xsane.tile = 0;
-}
-#endif /* HAVE_LIBGIMP_GIMP_H */ 
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------------------------------- */

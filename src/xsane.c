@@ -2176,7 +2176,11 @@ static GtkWidget *xsane_files_build_menu(void)
   DBG(DBG_proc, "xsane_files_build_menu\n");
 
   menu = gtk_menu_new();
-  gtk_accel_group_attach(xsane.accelerator_group, GTK_OBJECT(menu));
+
+  item = gtk_menu_item_new();
+  gtk_container_add(GTK_CONTAINER(menu), item);
+  gtk_widget_show(item);
+
 
   /* XSane info dialog */
 
@@ -3959,7 +3963,6 @@ static GtkWidget *xsane_view_build_menu(void)
   DBG(DBG_proc, "xsane_view_build_menu\n");
 
   menu = gtk_menu_new();
-  gtk_accel_group_attach(xsane.accelerator_group, GTK_OBJECT(menu));
   /*  gtk_menu_set_accel_group(GTK_MENU(menu), xsane.accelerator_group); */
 
   /* show tooltips */
@@ -4042,7 +4045,6 @@ static GtkWidget *xsane_pref_build_menu(void)
   DBG(DBG_proc, "xsane_pref_build_menu\n");
 
   menu = gtk_menu_new();
-  gtk_accel_group_attach(xsane.accelerator_group, GTK_OBJECT(menu));
 
 
   /* XSane setup dialog */
@@ -4250,7 +4252,6 @@ static GtkWidget *xsane_help_build_menu(void)
   DBG(DBG_proc, "xsane_help_build_menu\n");
 
   menu = gtk_menu_new();
-  gtk_accel_group_attach(xsane.accelerator_group, GTK_OBJECT(menu));
 
 
   /* XSane about dialog */
@@ -4258,7 +4259,6 @@ static GtkWidget *xsane_help_build_menu(void)
   item = gtk_menu_item_new_with_label(MENU_ITEM_ABOUT_XSANE);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_about_dialog, NULL);
-  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_F6, 0, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
   gtk_widget_show(item);
 
   /* XSane about translation dialog */
@@ -4266,7 +4266,6 @@ static GtkWidget *xsane_help_build_menu(void)
   item = gtk_menu_item_new_with_label(MENU_ITEM_ABOUT_TRANSLATION);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_about_translation_dialog, NULL);
-  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_F7, 0, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
   gtk_widget_show(item);
 
 
@@ -4282,7 +4281,6 @@ static GtkWidget *xsane_help_build_menu(void)
   item = gtk_menu_item_new_with_label(MENU_ITEM_XSANE_LICENSE);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_license, NULL);
-  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_F8, 0, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
   gtk_widget_show(item);
 
 
@@ -4298,7 +4296,6 @@ static GtkWidget *xsane_help_build_menu(void)
   item = gtk_menu_item_new_with_label(MENU_ITEM_XSANE_DOC);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_doc, (void *) "sane-xsane");
-  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_F1, 0, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
   gtk_widget_show(item);
 
 
@@ -4316,7 +4313,6 @@ static GtkWidget *xsane_help_build_menu(void)
     item = gtk_menu_item_new_with_label(MENU_ITEM_BACKEND_DOC);
     gtk_menu_append(GTK_MENU(menu), item);
     gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_doc, (void *) xsane.backend);
-    gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_F2, 0, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
     gtk_widget_show(item);
   }
 
@@ -4326,7 +4322,6 @@ static GtkWidget *xsane_help_build_menu(void)
   item = gtk_menu_item_new_with_label(MENU_ITEM_AVAILABLE_BACKENDS);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_doc, (void *) "sane-backends");
-  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_F3, 0, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
   gtk_widget_show(item);
 
   
@@ -4335,7 +4330,6 @@ static GtkWidget *xsane_help_build_menu(void)
   item = gtk_menu_item_new_with_label(MENU_ITEM_PROBLEMS);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_doc, (void *) "sane-problems");
-  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_F4, 0, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
   gtk_widget_show(item);
 
   item = gtk_menu_item_new();
@@ -4348,7 +4342,6 @@ static GtkWidget *xsane_help_build_menu(void)
   item = gtk_menu_item_new_with_label(MENU_ITEM_SCANTIPS);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_signal_connect(GTK_OBJECT(item), "activate", (GtkSignalFunc) xsane_show_doc, (void *) "sane-scantips");
-  gtk_widget_add_accelerator(item, "activate", xsane.accelerator_group, GDK_F5, 0, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED);
   gtk_widget_show(item);
 
   return menu;
@@ -4900,21 +4893,18 @@ static void xsane_device_dialog(void)
   menubar_item = gtk_menu_item_new_with_label(MENU_FILE);
   gtk_container_add(GTK_CONTAINER(menubar), menubar_item);
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(menubar_item), xsane_files_build_menu());
-/*  gtk_widget_add_accelerator(menubar_item, "select", xsane.accelerator_group, GDK_F, 0, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED); */
   gtk_widget_show(menubar_item);
 
   /* "Preferences" submenu: */
   menubar_item = gtk_menu_item_new_with_label(MENU_PREFERENCES);
   gtk_container_add(GTK_CONTAINER(menubar), menubar_item);
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(menubar_item), xsane_pref_build_menu());
-/*  gtk_widget_add_accelerator(menubar_item, "select", xsane.accelerator_group, GDK_P, 0, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED); */
   gtk_widget_show(menubar_item);
 
   /* "View" submenu: */
   menubar_item = gtk_menu_item_new_with_label(MENU_VIEW);
   gtk_container_add(GTK_CONTAINER(menubar), menubar_item);
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(menubar_item), xsane_view_build_menu());
-/*  gtk_widget_add_accelerator(menubar_item, "select", xsane.accelerator_group, GDK_V, 0, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED); */
   gtk_widget_show(menubar_item);
 
 
@@ -4923,7 +4913,6 @@ static void xsane_device_dialog(void)
   gtk_container_add(GTK_CONTAINER(menubar), menubar_item);
   gtk_menu_item_right_justify((GtkMenuItem *) menubar_item);
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(menubar_item), xsane_help_build_menu());
-/*  gtk_widget_add_accelerator(menubar_item, "select", xsane.accelerator_group, GDK_H, 0, GTK_ACCEL_VISIBLE | GTK_ACCEL_LOCKED); */
   gtk_widget_show(menubar_item);
 
   gtk_widget_show(menubar);

@@ -21,17 +21,14 @@ first steps:
     + select image position on printer (centered/left/right/free) for copy
       and show it in the preview.
  - preview:
-    - mirror function
     - force aspect ratio of selection area
-      - force size of scanarea in pixels (calculate resolution)
     - predefined reduced scanarea with size and position, userselectable
  - batch scan function
     - select multiple scan areas before starting the scan
 
  * internal:
    + add range check / valid value when reading xsane.rc/*.drc files
-   + correct image height after scanning in hand scanner mode as gimp plugin
-     may be change gimp plugin transfer as "save_gimp" transformation
+   + correct image height after scanning in hand scanner mode 
    + add several defaults (fax=> mode=gray,...)
    - include much more parameters when saving images
    - test memory after each call of malloc - partly done

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.72\n"
-"POT-Creation-Date: 2001-03-27 18:57+0200\n"
+"POT-Creation-Date: 2001-03-18 22:43+0100\n"
 "PO-Revision-Date: 2000-02-09 21:00+01:00\n"
 "Last-Translator: Laurent Grawet <laurent.grawet@ibelgique.com>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -869,9 +869,8 @@ msgstr "Numérisation..."
 msgid "Receiving %s data"
 msgstr "Réception des données %s"
 
-#. PROGRESS_TRANSFERING_DATA
-#, fuzzy
-msgid "Transfering image"
+#. PROGRESS_SAVING_DATA
+msgid "Saving image"
 msgstr "Enregistrement de l'image"
 
 #. PROGRESS_ROTATING_DATA

@@ -37,7 +37,5 @@ extern void xsane_save_tiff(const char *outfilename, FILE *imagefile, int color,
 extern void xsane_save_png(FILE *outfile, FILE *imagefile, int color, int bits, int pixel_width, int pixel_height, int compression);
 extern void xsane_save_png_16(FILE *outfile, FILE *imagefile, int color, int bits, int pixel_width, int pixel_height, int compression);
 extern void xsane_save_pnm_16(FILE *outfile, FILE *imagefile, int color, int bits, int pixel_width, int pixel_height);
-extern void null_print_func(gchar *msg);
-extern void xsane_transfer_to_gimp(FILE *imagefile, int color, int bits, int pixel_width, int pixel_height);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

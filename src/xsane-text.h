@@ -276,7 +276,7 @@
 #define PROGRESS_SCANNING		_("Scanning")
 #define PROGRESS_RECEIVING_FRAME_DATA	_("Receiving %s data")
 
-#define PROGRESS_TRANSFERING_DATA	_("Transfering image")
+#define PROGRESS_SAVING_DATA		_("Saving image")
 #define PROGRESS_ROTATING_DATA		_("Rotating image")
 #define PROGRESS_PACKING_DATA		_("Packing image")
 #define PROGRESS_CONVERTING_DATA	_("Converting data")

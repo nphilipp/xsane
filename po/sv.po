@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.72\n"
-"POT-Creation-Date: 2001-03-27 18:57+0200\n"
+"POT-Creation-Date: 2001-03-18 22:43+0100\n"
 "PO-Revision-Date: 2001-02-18 13:00+01:00\n"
 "Last-Translator: FULL NAME <johanb@lls.se>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -874,9 +874,8 @@ msgstr "Läser in"
 msgid "Receiving %s data"
 msgstr "Tar emot %s data"
 
-#. PROGRESS_TRANSFERING_DATA
-#, fuzzy
-msgid "Transfering image"
+#. PROGRESS_SAVING_DATA
+msgid "Saving image"
 msgstr "Sparar bild"
 
 #. PROGRESS_ROTATING_DATA

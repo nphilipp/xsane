@@ -77,11 +77,13 @@ typedef struct
   float orig_scanner_surface[4];/* the scanner defined corners of the scanner surface (device coords) */
   float image_surface[4];	/* the corners of the surface (device coords) of the scanned image */
   float max_scanner_surface[4];	/* rotated corners of the scanner surface (window coords) */
-  float preset_surface[4];	/* the corners of the reduced (by user) surface (window coords) */
   float scanner_surface[4];	/* the user defined corners of the scanner surface (window coords) */
   float surface[4];		/* the corners of the selected surface (window coords) */
   float old_surface[4];		/* the corners of the old selected surface (window coords) */
   float aspect;			/* the aspect ratio of the scan surface */
+
+  float preset_width;		/* user selected maximum scan width */
+  float preset_height;		/* user selected maximum scan height */
 
   float maximum_output_width;	/* maximum output width (photocopy) */
   float maximum_output_height;	/* maximum output height (photocopy) */
@@ -157,8 +159,6 @@ typedef struct
   GtkWidget *zoom_out;		/* zoom out button */
   GtkWidget *zoom_in;		/* zoom in button */
   GtkWidget *zoom_undo;		/* zoom undo button */
-  GtkWidget *full_area;		/* select full scanarea */
-  GtkWidget *autoselect;	/* autoselect scanarea */
   GtkWidget *preset_area_option_menu;	/* menu for selection of preview area */
   GtkWidget *rotation_option_menu;	/* menu for selection of rotation */
 }

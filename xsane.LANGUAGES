@@ -9,10 +9,6 @@ To select your language, set environment variable LANG to the
 abbreviation of your language, eg:
 
 export LANG=de
-on some systems this must be specified this way:
-export LANG=german
-or
-export LANG=de_DE
 
 Oliver Rauch
 

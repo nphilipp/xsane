@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.70\n"
-"POT-Creation-Date: 2001-03-27 18:57+0200\n"
+"POT-Creation-Date: 2001-03-18 22:43+0100\n"
 "PO-Revision-Date: 2001-02-18 21:33+09:00\n"
 "Last-Translator: Kimizuka Tomokazu <sgtom@pluto.dti.ne.jp>\n"
 "Language-Team: Japanese <Kdeveloper@kde.gr.jp>\n"
@@ -870,9 +870,8 @@ msgstr "スキャンしています"
 msgid "Receiving %s data"
 msgstr "データ %s を受信しています"
 
-#. PROGRESS_TRANSFERING_DATA
-#, fuzzy
-msgid "Transfering image"
+#. PROGRESS_SAVING_DATA
+msgid "Saving image"
 msgstr "画像を保存中"
 
 #. PROGRESS_ROTATING_DATA
