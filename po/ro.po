@@ -6,12 +6,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.96\n"
-"POT-Creation-Date: 2004-08-21 15:31+0200\n"
+"POT-Creation-Date: 2005-10-23 00:20+0200\n"
 "PO-Revision-Date: 2004-08-27 19:55+0300\n"
 "Last-Translator: \n"
 "Language-Team:  <C@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.0.2\n"
 
@@ -43,7 +43,7 @@ msgstr "Autorizare"
 
 #. WINDOW_GPL
 msgid "GPL - the license"
-msgstr "Licenþa GPL"
+msgstr "LicenÅ£a GPL"
 
 #. WINDOW_EULA
 msgid "End User License Agreement"
@@ -51,15 +51,15 @@ msgstr "End User License Agreement"
 
 #. WINDOW_INFO
 msgid "info"
-msgstr "Informaþii"
+msgstr "InformaÅ£ii"
 
 #. WINDOW_LOAD_BATCH_LIST
 msgid "load batch list"
-msgstr "Încarcã lista loturilor"
+msgstr "ÃŽncarcÄƒ lista loturilor"
 
 #. WINDOW_SAVE_BATCH_LIST
 msgid "save batch list"
-msgstr "Salveazã lista loturilor"
+msgstr "SalveazÄƒ lista loturilor"
 
 #. WINDOW_BATCH_SCAN
 msgid "batch scan"
@@ -67,7 +67,7 @@ msgstr "Scanare lot"
 
 #. WINDOW_BATCH_RENAME
 msgid "rename batch area"
-msgstr "Redenumeºte zone predefinite pt. loturi"
+msgstr "RedenumeÅŸte zone predefinite pt. loturi"
 
 #. WINDOW_FAX_PROJECT
 msgid "fax project"
@@ -75,11 +75,11 @@ msgstr "Proiect fax"
 
 #. WINDOW_FAX_RENAME
 msgid "rename fax page"
-msgstr "Redenumeºte pagina de fax"
+msgstr "RedenumeÅŸte pagina de fax"
 
 #. WINDOW_FAX_INSERT
 msgid "insert ps-file into fax"
-msgstr "Introduce fiºier ps în fax"
+msgstr "Introduce fiÅŸier ps Ã®n fax"
 
 #. WINDOW_MAIL_PROJECT
 msgid "mail project"
@@ -87,19 +87,19 @@ msgstr "Trimite proiect prin email"
 
 #. WINDOW_MAIL_RENAME
 msgid "rename mail image"
-msgstr "Redenumeºte imagine scrisoare"
+msgstr "RedenumeÅŸte imagine scrisoare"
 
 #. WINDOW_MAIL_INSERT
 msgid "insert file into mail"
-msgstr "Introduce fiºier în email"
+msgstr "Introduce fiÅŸier Ã®n email"
 
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
-msgstr "Redenumeºte zone predefinite"
+msgstr "RedenumeÅŸte zone predefinite"
 
 #. WINDOW_PRESET_AREA_ADD
 msgid "add preset area"
-msgstr "Adaugã zonã predefinitã"
+msgstr "AdaugÄƒ zonÄƒ predefinitÄƒ"
 
 #. WINDOW_MEDIUM_RENAME
 msgid "rename medium"
@@ -107,7 +107,7 @@ msgstr "Redenumire mediu"
 
 #. WINDOW_MEDIUM_ADD
 msgid "add new medium"
-msgstr "Adaugã mediu nou"
+msgstr "AdaugÄƒ mediu nou"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -115,19 +115,19 @@ msgstr "Configurare"
 
 #. WINDOW_HISTOGRAM
 msgid "Histogram"
-msgstr "Histogramã"
+msgstr "HistogramÄƒ"
 
 #. WINDOW_GAMMA
 msgid "Gamma curve"
-msgstr "Curbã gamma"
+msgstr "CurbÄƒ gamma"
 
 #. WINDOW_STANDARD_OPTIONS
 msgid "Standard options"
-msgstr "Opþiuni standard"
+msgstr "OpÅ£iuni standard"
 
 #. WINDOW_ADVANCED_OPTIONS
 msgid "Advanced options"
-msgstr "Opþiuni avansate"
+msgstr "OpÅ£iuni avansate"
 
 #. WINDOW_DEVICE_SELECTION
 msgid "device selection"
@@ -143,35 +143,35 @@ msgstr "Vizualizare"
 
 #. WINDOW_VIEWER_OUTPUT_FILENAME
 msgid "Viewer: select output filename"
-msgstr "Vizualizator: selecteazã nume fiºier ieºire"
+msgstr "Vizualizator: selecteazÄƒ nume fiÅŸier ieÅŸire"
 
 #. WINDOW_OCR_OUTPUT_FILENAME
 msgid "Select output filename for OCR text file"
-msgstr "Selecteazã nume fiºier ieºire pt. fiºierul text OCR"
+msgstr "SelecteazÄƒ nume fiÅŸier ieÅŸire pt. fiÅŸierul text OCR"
 
 #. WINDOW_OUTPUT_FILENAME
 msgid "select output filename"
-msgstr "Selecteazã nume fiºier ieºire"
+msgstr "SelecteazÄƒ nume fiÅŸier ieÅŸire"
 
 #. WINDOW_SAVE_SETTINGS
 msgid "save device settings"
-msgstr "Salveazã setãrile dispozitivului"
+msgstr "SalveazÄƒ setÄƒrile dispozitivului"
 
 #. WINDOW_LOAD_SETTINGS
 msgid "load device settings"
-msgstr "Încarcã setãrile dispozitivului"
+msgstr "ÃŽncarcÄƒ setÄƒrile dispozitivului"
 
 #. WINDOW_CHANGE_WORKING_DIR
 msgid "change working directory"
-msgstr "Schimbã directorul de lucru"
+msgstr "SchimbÄƒ directorul de lucru"
 
 #. WINDOW_TMP_PATH
 msgid "select temporary directory"
-msgstr "Selecteazã directorul temporar"
+msgstr "SelecteazÄƒ directorul temporar"
 
 #. WINDOW_SCALE
 msgid "Scale image"
-msgstr "Scaleazã imaginea"
+msgstr "ScaleazÄƒ imaginea"
 
 #. WINDOW_DESPECKLE
 msgid "Despeckle image"
@@ -179,23 +179,23 @@ msgstr "Scoate petele din imagine"
 
 #. WINDOW_BLUR
 msgid "Blur image"
-msgstr "Face imaginea neclarã"
+msgstr "Face imaginea neclarÄƒ"
 
 #. WINDOW_STORE_MEDIUM
 msgid "Store medium definition"
-msgstr "Stocare definiþie mediu"
+msgstr "Stocare definiÅ£ie mediu"
 
 #. WINDOW_NO_DEVICES
 msgid "No devices available"
-msgstr "Nu existã dispozitive disponibile"
+msgstr "Nu existÄƒ dispozitive disponibile"
 
 #. MENU_FILE
 msgid "File"
-msgstr "Fiºier"
+msgstr "FiÅŸier"
 
 #. MENU_PREFERENCES
 msgid "Preferences"
-msgstr "Preferinþe"
+msgstr "PreferinÅ£e"
 
 #. MENU_VIEW
 msgid "View"
@@ -203,7 +203,7 @@ msgstr "Vizualizare"
 
 #. MENU_WINDOW
 msgid "Window"
-msgstr "Fereastrã"
+msgstr "FereastrÄƒ"
 
 #. MENU_HELP
 msgid "Help"
@@ -231,11 +231,11 @@ msgstr "Info"
 
 #. MENU_ITEM_QUIT
 msgid "Quit"
-msgstr "Ieºire"
+msgstr "IeÅŸire"
 
 #. MENU_ITEM_SAVE_IMAGE
 msgid "Save image"
-msgstr "Salveazã imaginea"
+msgstr "SalveazÄƒ imaginea"
 
 #. MENU_ITEM_OCR
 msgid "OCR - save as text"
@@ -243,15 +243,15 @@ msgstr "OCR - salvare ca text"
 
 #. MENU_ITEM_CLONE
 msgid "Clone"
-msgstr "Cloneazã"
+msgstr "CloneazÄƒ"
 
 #. MENU_ITEM_SCALE
 msgid "Scale"
-msgstr "Scaleazã"
+msgstr "ScaleazÄƒ"
 
 #. MENU_ITEM_CLOSE
 msgid "Close"
-msgstr "Închide"
+msgstr "ÃŽnchide"
 
 #. MENU_ITEM_UNDO
 msgid "Undo"
@@ -267,15 +267,15 @@ msgstr "Difuzie"
 
 #. MENU_ITEM_ROTATE90
 msgid "Rotate 90"
-msgstr "Roteºte 90"
+msgstr "RoteÅŸte 90"
 
 #. MENU_ITEM_ROTATE180
 msgid "Rotate 180"
-msgstr "Rotire cu 180°"
+msgstr "Rotire cu 180Â°"
 
 #. MENU_ITEM_ROTATE270
 msgid "Rotate 270"
-msgstr "Rotire cu 270°"
+msgstr "Rotire cu 270Â°"
 
 #. MENU_ITEM_MIRROR_X
 msgid "Mirror |"
@@ -287,15 +287,15 @@ msgstr "Oglindire axa Y"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
-msgstr "Imagine brutã"
+msgstr "Imagine brutÄƒ"
 
 #. FRAME_ENHANCED_IMAGE
 msgid "Enhanced image"
-msgstr "Imagine îmbunãtãþitã"
+msgstr "Imagine Ã®mbunÄƒtÄƒÅ£itÄƒ"
 
 #. BUTTON_SCAN
 msgid "Scan"
-msgstr "Scaneazã"
+msgstr "ScaneazÄƒ"
 
 #. BUTTON_OK
 msgid "Ok"
@@ -303,19 +303,19 @@ msgstr "OK"
 
 #. BUTTON_ACCEPT
 msgid "Accept"
-msgstr "Acceptã"
+msgstr "AcceptÄƒ"
 
 #. BUTTON_NOT_ACCEPT
 msgid "Not accept"
-msgstr "Refuzã"
+msgstr "RefuzÄƒ"
 
 #. BUTTON_APPLY
 msgid "Apply"
-msgstr "Aplicã"
+msgstr "AplicÄƒ"
 
 #. BUTTON_CANCEL
 msgid "Cancel"
-msgstr "Renunþã"
+msgstr "RenunÅ£Äƒ"
 
 #. BUTTON_REDUCE
 msgid "Reduce"
@@ -323,11 +323,11 @@ msgstr "Reduce"
 
 #. BUTTON_CONT_AT_OWN_RISK
 msgid "Continue at your own risk"
-msgstr "Continuaþi pe riscul dvs."
+msgstr "ContinuaÅ£i pe riscul dvs."
 
 #. BUTTON_BROWSE
 msgid "Browse"
-msgstr "Navigheazã"
+msgstr "NavigheazÄƒ"
 
 #. BUTTON_OVERWRITE
 msgid "Overwrite"
@@ -335,31 +335,31 @@ msgstr "Suprascrie"
 
 #. BUTTON_BATCH_LIST_SCAN
 msgid "Scan batch list"
-msgstr "Scaneazã loturi"
+msgstr "ScaneazÄƒ loturi"
 
 #. BUTTON_BATCH_AREA_SCAN
 msgid "Scan selected area"
-msgstr "Scaneazã zona selectatã"
+msgstr "ScaneazÄƒ zona selectatÄƒ"
 
 #. BUTTON_PAGE_DELETE
 msgid "Delete page"
-msgstr "ªterge pagina"
+msgstr "Åžterge pagina"
 
 #. BUTTON_PAGE_SHOW
 msgid "Show page"
-msgstr "Aratã pagina"
+msgstr "AratÄƒ pagina"
 
 #. BUTTON_PAGE_RENAME
 msgid "Rename page"
-msgstr "Redenumeºte pagina"
+msgstr "RedenumeÅŸte pagina"
 
 #. BUTTON_IMAGE_DELETE
 msgid "Delete image"
-msgstr "ªterge imaginea"
+msgstr "Åžterge imaginea"
 
 #. BUTTON_IMAGE_SHOW
 msgid "Show image"
-msgstr "Aratã imaginea"
+msgstr "AratÄƒ imaginea"
 
 #. BUTTON_IMAGE_EDIT
 msgid "Edit image"
@@ -367,15 +367,15 @@ msgstr "Editare imagine"
 
 #. BUTTON_IMAGE_RENAME
 msgid "Rename image"
-msgstr "Redenumeºte imaginea"
+msgstr "RedenumeÅŸte imaginea"
 
 #. BUTTON_FILE_INSERT
 msgid "Insert file"
-msgstr "Inserare fiºier"
+msgstr "Inserare fiÅŸier"
 
 #. BUTTON_CREATE_PROJECT
 msgid "Create project"
-msgstr "Creeazã proiect"
+msgstr "CreeazÄƒ proiect"
 
 #. BUTTON_SEND_PROJECT
 msgid "Send project"
@@ -383,39 +383,39 @@ msgstr "Trimite proiect"
 
 #. BUTTON_DELETE_PROJECT
 msgid "Delete project"
-msgstr "ªterge proiect"
+msgstr "Åžterge proiect"
 
 #. BUTTON_ADD_PRINTER
 msgid "Add printer"
-msgstr "Adaugã imprimantã"
+msgstr "AdaugÄƒ imprimantÄƒ"
 
 #. BUTTON_DELETE_PRINTER
 msgid "Delete printer"
-msgstr "ªterge imprimantã"
+msgstr "Åžterge imprimantÄƒ"
 
 #. BUTTON_PREVIEW_ACQUIRE
 msgid "Acquire preview"
-msgstr "Obþine o previzualizare"
+msgstr "ObÅ£ine o previzualizare"
 
 #. BUTTON_PREVIEW_CANCEL
 msgid "Cancel preview"
-msgstr "Renunþã la previzualizare"
+msgstr "RenunÅ£Äƒ la previzualizare"
 
 #. BUTTON_DISCARD_IMAGE
 msgid "Discard image"
-msgstr "Renunþã la imagine"
+msgstr "RenunÅ£Äƒ la imagine"
 
 #. BUTTON_DISCARD_ALL_IMAGES
 msgid "Discard all images"
-msgstr "Renunþã la toate imaginile"
+msgstr "RenunÅ£Äƒ la toate imaginile"
 
 #. BUTTON_DO_NOT_CLOSE
 msgid "Do not close"
-msgstr "Nu închide"
+msgstr "Nu Ã®nchide"
 
 #. BUTTON_SCALE_BIND
 msgid "Bind scale"
-msgstr "Legare scalã"
+msgstr "Legare scalÄƒ"
 
 #. RADIO_BUTTON_FINE_MODE
 msgid "Fine mode"
@@ -427,7 +427,7 @@ msgstr "Email HTML"
 
 #. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device preferences at exit"
-msgstr "Salveazã preferinþele dispozitivului la ieºire"
+msgstr "SalveazÄƒ preferinÅ£ele dispozitivului la ieÅŸire"
 
 #. RADIO_BUTTON_OVERWRITE_WARNING
 msgid "Overwrite warning"
@@ -435,39 +435,39 @@ msgstr "Avertizare la suprascriere"
 
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
 msgid "Skip existing filenames"
-msgstr "Salt peste fiºierele existente"
+msgstr "Salt peste fiÅŸierele existente"
 
 #. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
 msgid "Save 16bit pnm in ascii format"
-msgstr "Salveazã pnm 16 biþi în format ascii"
+msgstr "SalveazÄƒ pnm 16 biÅ£i Ã®n format ascii"
 
 #. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
 msgid "Reduce 16 bit image to 8 bit"
-msgstr "Reduce imaginea de la 16 la 8 biþi"
+msgstr "Reduce imaginea de la 16 la 8 biÅ£i"
 
 #. RADIO_BUTTON_WINDOW_FIXED
 msgid "Main window size fixed"
-msgstr "Mãrime fixã pentru dimensiunea ferestrei principale"
+msgstr "MÄƒrime fixÄƒ pentru dimensiunea ferestrei principale"
 
 #. RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA
 msgid "Disable gimp preview gamma"
-msgstr "Dezactiveazã previzualizare gamma în Gimp"
+msgstr "DezactiveazÄƒ previzualizare gamma Ã®n Gimp"
 
 #. RADIO_BUTTON_PRIVATE_COLORMAP
 msgid "Use private colormap"
-msgstr "Foloseºte harta de culori personalã"
+msgstr "FoloseÅŸte harta de culori personalÄƒ"
 
 #. RADIO_BUTTON_AUTOENHANCE_GAMMA
 msgid "Autoenhance gamma"
-msgstr "Îmbunãtãþire automatã gamma"
+msgstr "ÃŽmbunÄƒtÄƒÅ£ire automatÄƒ gamma"
 
 #. RADIO_BUTTON_PRESELECT_SCANAREA
 msgid "Preselect scanarea"
-msgstr "Preselectare zonã de scanare"
+msgstr "Preselectare zonÄƒ de scanare"
 
 #. RADIO_BUTTON_AUTOCORRECT_COLORS
 msgid "Autocorrect colors"
-msgstr "Corecþie automatã culori"
+msgstr "CorecÅ£ie automatÄƒ culori"
 
 #. RADIO_BUTTON_POP3_AUTHENTIFICATION
 msgid "POP3 authentification"
@@ -475,7 +475,7 @@ msgstr "Autentificare POP3"
 
 #. RADIO_BUTTON_OCR_USE_GUI_PIPE
 msgid "Use GUI progress pipe"
-msgstr "Foloseºte pipe GUI pt. evoluþie"
+msgstr "FoloseÅŸte pipe GUI pt. evoluÅ£ie"
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
@@ -487,7 +487,7 @@ msgstr "Dispozitive disponibile"
 
 #. TEXT_XSANE_OPTIONS
 msgid "XSane options"
-msgstr "Opþiuni XSane"
+msgstr "OpÅ£iuni XSane"
 
 #. TEXT_XSANE_MODE
 msgid "XSane mode"
@@ -503,11 +503,11 @@ msgstr "Tip"
 
 #. TEXT_SCANNER_BACKEND
 msgid "Scanner and backend:"
-msgstr "Scanner ºi backend:"
+msgstr "Scanner ÅŸi backend:"
 
 #. TEXT_VENDOR
 msgid "Vendor:"
-msgstr "Vânzãtor:"
+msgstr "VÃ¢nzÄƒtor:"
 
 #. TEXT_MODEL
 msgid "Model:"
@@ -523,7 +523,7 @@ msgstr "Dispozitiv:"
 
 #. TEXT_LOADED_BACKEND
 msgid "Loaded backend:"
-msgstr "Backend încãrcat:"
+msgstr "Backend Ã®ncÄƒrcat:"
 
 #. TEXT_SANE_VERSION
 msgid "Sane version:"
@@ -535,7 +535,7 @@ msgstr "Valori recente:"
 
 #. TEXT_GAMMA_CORR_BY
 msgid "Gamma correction by:"
-msgstr "Corecþie gamma de:"
+msgstr "CorecÅ£ie gamma de:"
 
 #. TEXT_SCANNER
 msgid "scanner"
@@ -551,55 +551,55 @@ msgstr "Nici unul"
 
 #. TEXT_GAMMA_INPUT_DEPTH
 msgid "Gamma input depth:"
-msgstr "Adâncime intrare gamma:"
+msgstr "AdÃ¢ncime intrare gamma:"
 
 #. TEXT_GAMMA_OUTPUT_DEPTH
 msgid "Gamma output depth:"
-msgstr "Adâncime ieºire gamma:"
+msgstr "AdÃ¢ncime ieÅŸire gamma:"
 
 #. TEXT_SCANNER_OUTPUT_DEPTH
 msgid "Scanner output depth:"
-msgstr "Adâncime ieºire scanner:"
+msgstr "AdÃ¢ncime ieÅŸire scanner:"
 
 #. TEXT_OUTPUT_FORMATS
 msgid "XSane output formats:"
-msgstr "Formate de ieºire XSane:"
+msgstr "Formate de ieÅŸire XSane:"
 
 #. TEXT_8BIT_FORMATS
 msgid "8 bit output formats:"
-msgstr "Formate de ieºire pe 8 biþi:"
+msgstr "Formate de ieÅŸire pe 8 biÅ£i:"
 
 #. TEXT_16BIT_FORMATS
 msgid "16 bit output formats:"
-msgstr "Formate de ieºire pe 16 biþi:"
+msgstr "Formate de ieÅŸire pe 16 biÅ£i:"
 
 #. TEXT_GIMP_REDUCE_16BIT_TO_8BIT
 msgid ""
 "Gimp does not support depth 16 bits/color.\n"
 "Do you want to reduce the depth to 8 bits/color?"
 msgstr ""
-"Gimp nu susþine adâncimi de 16 biþi/culoare.\n"
-"Doriþi sã reduceþi adâncimea la 8 biþi/culoare?"
+"Gimp nu susÅ£ine adÃ¢ncimi de 16 biÅ£i/culoare.\n"
+"DoriÅ£i sÄƒ reduceÅ£i adÃ¢ncimea la 8 biÅ£i/culoare?"
 
 #. TEXT_REDUCE_16BIT_TO_8BIT
 msgid ""
 "Bit depth 16 bits/color is not supported for this output format.\n"
 "Do you want to reduce the depth to 8 bits/color?"
 msgstr ""
-"Acest format de ieºire nu susþine adâncimi de 16 biþi/culoare.\n"
-"Doriþi sã reduceþi adâncimea la 8 biþi/culoare?"
+"Acest format de ieÅŸire nu susÅ£ine adÃ¢ncimi de 16 biÅ£i/culoare.\n"
+"DoriÅ£i sÄƒ reduceÅ£i adÃ¢ncimea la 8 biÅ£i/culoare?"
 
 #. TEXT_AUTHORIZATION_REQ
 msgid "Authorization required for"
-msgstr "Autorizare necesarã pentru"
+msgstr "Autorizare necesarÄƒ pentru"
 
 #. TEXT_AUTHORIZATION_SECURE
 msgid "Password transmission is secure"
-msgstr "Transmiterea parolei este sigurã"
+msgstr "Transmiterea parolei este sigurÄƒ"
 
 #. TEXT_AUTHORIZATION_INSECURE
 msgid "Backend requests plain-text password"
-msgstr "Backend-ul necesitã o parolã text"
+msgstr "Backend-ul necesitÄƒ o parolÄƒ text"
 
 #. TEXT_USERNAME
 msgid "Username :"
@@ -607,11 +607,11 @@ msgstr "Nume utilizator:"
 
 #. TEXT_PASSWORD
 msgid "Password :"
-msgstr "Parolã:"
+msgstr "ParolÄƒ:"
 
 #. TEXT_INVALID_PARAMS
 msgid "Invalid parameters."
-msgstr "Parametri incorecþi"
+msgstr "Parametri incorecÅ£i"
 
 #. TEXT_VERSION
 msgid "version:"
@@ -623,11 +623,11 @@ msgstr "Pachet"
 
 #. TEXT_WITH_GIMP_SUPPORT
 msgid "with GIMP support"
-msgstr "Cu susþinere GIMP"
+msgstr "Cu susÅ£inere GIMP"
 
 #. TEXT_WITHOUT_GIMP_SUPPORT
 msgid "without GIMP support"
-msgstr "Fãrã susþinere GIMP"
+msgstr "FÄƒrÄƒ susÅ£inere GIMP"
 
 #. TEXT_GTK_VERSION
 msgid "compiled with GTK-"
@@ -655,17 +655,17 @@ msgid ""
 "have to read, understand and accept the following\n"
 "\"NO WARRANTY\" agreement.\n"
 msgstr ""
-"XSane este distribuit sub termenii licenþei GNU General Public\n"
-"publicatã de Free Software Foundation respectiv versiunea 2 a\n"
-"licenþei sau (opþional) orice versiune mai recentã.\n"
+"XSane este distribuit sub termenii licenÅ£ei GNU General Public\n"
+"publicatÄƒ de Free Software Foundation respectiv versiunea 2 a\n"
+"licenÅ£ei sau (opÅ£ional) orice versiune mai recentÄƒ.\n"
 "\n"
-"Acest program este distribuit în speranþa ca va fi folositor, dar\n"
-"FÃRÃ NICI O GARANÞIE. \n"
-"Dacã programul nu funcþioneazã, vã asumaþi toate costurile\n"
-"rezultate din repataþii, depanãri sau corecþii.\n"
+"Acest program este distribuit Ã®n speranÅ£a ca va fi folositor, dar\n"
+"FÄ‚RÄ‚ NICI O GARANÅ¢IE. \n"
+"DacÄƒ programul nu funcÅ£ioneazÄƒ, vÄƒ asumaÅ£i toate costurile\n"
+"rezultate din repataÅ£ii, depanÄƒri sau corecÅ£ii.\n"
 "\n"
-"Pentru a folosi acest program, trebuie sã citiþi, înþelegeþi ºi acceptaþi\n"
-"urmãtorul contract \"FÃRÃ GARANÞIE\".\n"
+"Pentru a folosi acest program, trebuie sÄƒ citiÅ£i, Ã®nÅ£elegeÅ£i ÅŸi acceptaÅ£i\n"
+"urmÄƒtorul contract \"FÄ‚RÄ‚ GARANÅ¢IE\".\n"
 
 #. TEXT_GPL
 msgid ""
@@ -677,15 +677,15 @@ msgid ""
 "WITHOUT ANY WARRANTY; without even the implied warranty of\n"
 "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
-"XSane este distribuit sub termenii licenþei GNU General Public\n"
-"publicatã de Free Software Foundation respectiv versiunea 2 a\n"
-"licenþei sau (opþional) orice versiune mai recentã.\n"
+"XSane este distribuit sub termenii licenÅ£ei GNU General Public\n"
+"publicatÄƒ de Free Software Foundation respectiv versiunea 2 a\n"
+"licenÅ£ei sau (opÅ£ional) orice versiune mai recentÄƒ.\n"
 "\n"
-"Acest program este distribuit în speranþa ca va fi folositor, dar\n"
-"FÃRÃ NICI O GARANÞIE. \n"
+"Acest program este distribuit Ã®n speranÅ£a ca va fi folositor, dar\n"
+"FÄ‚RÄ‚ NICI O GARANÅ¢IE. \n"
 "\n"
-"Pentru a folosi acest program, trebuie sã citiþi, înþelegeþi ºi acceptaþi\n"
-"urmãtorul contract \"FÃRÃ GARANÞIE\".\n"
+"Pentru a folosi acest program, trebuie sÄƒ citiÅ£i, Ã®nÅ£elegeÅ£i ÅŸi acceptaÅ£i\n"
+"urmÄƒtorul contract \"FÄ‚RÄ‚ GARANÅ¢IE\".\n"
 
 #. TEXT_EMAIL
 msgid "Email:"
@@ -693,11 +693,11 @@ msgstr "Email:"
 
 #. TEXT_HOMEPAGE
 msgid "Homepage:"
-msgstr "Paginã acasã:"
+msgstr "PaginÄƒ acasÄƒ:"
 
 #. TEXT_FILE
 msgid "File:"
-msgstr "Fiºier:"
+msgstr "FiÅŸier:"
 
 #. TEXT_TRANSLATION
 msgid "Translation:"
@@ -713,7 +713,7 @@ msgid ""
 "by Oliver Rauch\n"
 "Email: Oliver.Rauch@rauch-domain.de\n"
 msgstr ""
-"Tradus în limba românã\n"
+"Tradus Ã®n limba romÃ¢nÄƒ\n"
 "de Harald Ersch - 2002\n"
 "Email: hersch@romatsa.ro\n"
 
@@ -731,7 +731,7 @@ msgstr "Text email:"
 
 #. TEXT_ATTACHMENTS
 msgid "Attachments:"
-msgstr "Ataºamente:"
+msgstr "AtaÅŸamente:"
 
 #. TEXT_MAIL_STATUS
 msgid "Project status:"
@@ -739,7 +739,7 @@ msgstr "Stare proiect:"
 
 #. TEXT_MAIL_FILETYPE
 msgid "Mail image filetype:"
-msgstr "Tip fiºier mail imagine:"
+msgstr "Tip fiÅŸier mail imagine:"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
@@ -750,7 +750,7 @@ msgstr "Nume mediu:"
 msgid ""
 "Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
 msgstr ""
-"Mãrime %d x %d pixeli, %d biþi/culoare, %d culori, %1.0f dpi x %1.0f dpi, %"
+"MÄƒrime %d x %d pixeli, %d biÅ£i/culoare, %d culori, %1.0f dpi x %1.0f dpi, %"
 "1.1f %s"
 
 #. TEXT_DESPECKLE_RADIUS
@@ -763,11 +763,11 @@ msgstr "Raza difuzie:"
 
 #. TEXT_BATCH_AREA_DEFAULT_NAME
 msgid "(no name)"
-msgstr "(fãrã nume)"
+msgstr "(fÄƒrÄƒ nume)"
 
 #. TEXT_BATCH_LIST_AREANAME
 msgid "Area name:"
-msgstr "Nume zonã:"
+msgstr "Nume zonÄƒ:"
 
 #. TEXT_BATCH_LIST_SCANMODE
 msgid "Scanmode:"
@@ -775,27 +775,27 @@ msgstr "Mod scanare:"
 
 #. TEXT_BATCH_LIST_GEOMETRY_TL
 msgid "Top left:"
-msgstr "Stânga sus:"
+msgstr "StÃ¢nga sus:"
 
 #. TEXT_BATCH_LIST_GEOMETRY_SIZE
 msgid "Size:"
-msgstr "Mãrime:"
+msgstr "MÄƒrime:"
 
 #. TEXT_BATCH_LIST_RESOLUTION
 msgid "Resolution:"
-msgstr "Rezoluþie:"
+msgstr "RezoluÅ£ie:"
 
 #. TEXT_BATCH_LIST_BIT_DEPTH
 msgid "Bit depth:"
-msgstr "Adâncime în biþi :"
+msgstr "AdÃ¢ncime Ã®n biÅ£i :"
 
 #. TEXT_BATCH_LIST_BY_GUI
 msgid "as selected"
-msgstr "ca selecþia"
+msgstr "ca selecÅ£ia"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
-msgstr "Selectare imprimantã:"
+msgstr "Selectare imprimantÄƒ:"
 
 #. TEXT_SETUP_PRINTER_NAME
 msgid "Name:"
@@ -803,35 +803,35 @@ msgstr "Nume:"
 
 #. TEXT_SETUP_PRINTER_CMD, TEXT_SETUP_FAX_CMD
 msgid "Command:"
-msgstr "Comandã:"
+msgstr "ComandÄƒ:"
 
 #. TEXT_SETUP_COPY_NR_OPT
 msgid "Copy number option:"
-msgstr "Opþiune numãr de cópii:"
+msgstr "OpÅ£iune numÄƒr de cÃ³pii:"
 
 #. TEXT_SETUP_PRINTER_LINEART_RES
 msgid "Lineart resolution (dpi):"
-msgstr "Rezoluþie alb/negru (dpi):"
+msgstr "RezoluÅ£ie alb/negru (dpi):"
 
 #. TEXT_SETUP_PRINTER_GRAYSCALE_RES
 msgid "Grayscale resolution (dpi):"
-msgstr "Rezoluþie scarã de gri (dpi):"
+msgstr "RezoluÅ£ie scarÄƒ de gri (dpi):"
 
 #. TEXT_SETUP_PRINTER_COLOR_RES
 msgid "Color resolution (dpi):"
-msgstr "Rezoluþie color (dpi):"
+msgstr "RezoluÅ£ie color (dpi):"
 
 #. TEXT_SETUP_PRINTER_WIDTH
 msgid "Width"
-msgstr "Lãþime"
+msgstr "LÄƒÅ£ime"
 
 #. TEXT_SETUP_PRINTER_HEIGHT
 msgid "Height"
-msgstr "Înãlþime"
+msgstr "ÃŽnÄƒlÅ£ime"
 
 #. TEXT_SETUP_PRINTER_LEFT
 msgid "Left offset"
-msgstr "Decalaj stânga"
+msgstr "Decalaj stÃ¢nga"
 
 #. TEXT_SETUP_PRINTER_BOTTOM
 msgid "Bottom offset"
@@ -839,19 +839,19 @@ msgstr "Decalaj jos"
 
 #. TEXT_SETUP_PRINTER_GAMMA
 msgid "Printer gamma value:"
-msgstr "Valoare gamma imprimantã:"
+msgstr "Valoare gamma imprimantÄƒ:"
 
 #. TEXT_SETUP_PRINTER_GAMMA_RED
 msgid "Printer gamma red:"
-msgstr "Gamma - componentã roºu - pt. imprimantã"
+msgstr "Gamma - componentÄƒ roÅŸu - pt. imprimantÄƒ"
 
 #. TEXT_SETUP_PRINTER_GAMMA_GREEN
 msgid "Printer gamma green:"
-msgstr "Gamma - componentã verde - pt. imprimantã"
+msgstr "Gamma - componentÄƒ verde - pt. imprimantÄƒ"
 
 #. TEXT_SETUP_PRINTER_GAMMA_BLUE
 msgid "Printer gamma blue:"
-msgstr "Gamma - componentã albastru - pt. imprimantã"
+msgstr "Gamma - componentÄƒ albastru - pt. imprimantÄƒ"
 
 #. TEXT_SETUP_TMP_PATH
 msgid "Temporary directory"
@@ -859,11 +859,11 @@ msgstr "Director temporar"
 
 #. TEXT_SETUP_IMAGE_PERMISSION
 msgid "Image-file permissions"
-msgstr "Drepturi fiºier imagine"
+msgstr "Drepturi fiÅŸier imagine"
 
 #. TEXT_SETUP_DIR_PERMISSION
 msgid "Directory permissions"
-msgstr "Drepturi în director"
+msgstr "Drepturi Ã®n director"
 
 #. TEXT_SETUP_JPEG_QUALITY
 msgid "JPEG image quality"
@@ -875,15 +875,15 @@ msgstr "Comprimare imagine PNG"
 
 #. TEXT_SETUP_FILENAME_COUNTER_LEN
 msgid "Filename counter length"
-msgstr "Lungime contor pt. nume fiºier"
+msgstr "Lungime contor pt. nume fiÅŸier"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_16
 msgid "TIFF 16 bit image compression"
-msgstr "Comprimare imagine TIFF pe 16 biþi"
+msgstr "Comprimare imagine TIFF pe 16 biÅ£i"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_8
 msgid "TIFF 8 bit image compression"
-msgstr "Comprimare imagine TIFF pe 8 biþi"
+msgstr "Comprimare imagine TIFF pe 8 biÅ£i"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_1
 msgid "TIFF lineart image compression"
@@ -891,11 +891,11 @@ msgstr "Comprimare imagine TIFF alb/negru (pe 1bit)"
 
 #. TEXT_SETUP_SHOW_RANGE_MODE
 msgid "Show range as:"
-msgstr "Aratã gama ca:"
+msgstr "AratÄƒ gama ca:"
 
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
-msgstr "Previzualizare supraeºantionare:"
+msgstr "Previzualizare supraeÅŸantionare:"
 
 #. TEXT_SETUP_PREVIEW_GAMMA
 msgid "Preview gamma:"
@@ -903,7 +903,7 @@ msgstr "Previzualizare gamma:"
 
 #. TEXT_SETUP_PREVIEW_GAMMA_RED
 msgid "Preview gamma red:"
-msgstr "Previzualizare gamma roºu:"
+msgstr "Previzualizare gamma roÅŸu:"
 
 #. TEXT_SETUP_PREVIEW_GAMMA_GREEN
 msgid "Preview gamma green:"
@@ -915,15 +915,15 @@ msgstr "Previzualizare gamma albastru:"
 
 #. TEXT_SETUP_LINEART_MODE
 msgid "Threshold option:"
-msgstr "Opþiuni prag:"
+msgstr "OpÅ£iuni prag:"
 
 #. TEXT_SETUP_ADF_MODE
 msgid "Automatic Document Feeder Modus:"
-msgstr "Mod încãrcare automatã documente:"
+msgstr "Mod Ã®ncÄƒrcare automatÄƒ documente:"
 
 #. TEXT_SETUP_PREVIEW_PIPETTE_RANGE
 msgid "Preview pipette range"
-msgstr "Previzualizare gamã pipetã"
+msgstr "Previzualizare gamÄƒ pipetÄƒ"
 
 #. TEXT_SETUP_THRESHOLD_MIN
 msgid "Threshold minimum:"
@@ -943,31 +943,31 @@ msgstr "Decalaj prag:"
 
 #. TEXT_SETUP_GRAYSCALE_SCANMODE
 msgid "Name of grayscale scanmode:"
-msgstr "Nume mod scanare în scarã de gri:"
+msgstr "Nume mod scanare Ã®n scarÄƒ de gri:"
 
 #. TEXT_SETUP_HELPFILE_VIEWER
 msgid "Helpfile viewer (HTML):"
-msgstr "Vizualizator fiºiere de ajutor (HTML):"
+msgstr "Vizualizator fiÅŸiere de ajutor (HTML):"
 
 #. TEXT_SETUP_FAX_RECEIVER_OPTION
 msgid "Receiver option:"
-msgstr "Opþiuni destinatar:"
+msgstr "OpÅ£iuni destinatar:"
 
 #. TEXT_SETUP_FAX_POSTSCRIPT_OPT
 msgid "Postscriptfile option:"
-msgstr "Opþiuni postscript:"
+msgstr "OpÅ£iuni postscript:"
 
 #. TEXT_SETUP_FAX_NORMAL_MODE_OPT
 msgid "Normal mode option:"
-msgstr "Opþiuni mod Normal:"
+msgstr "OpÅ£iuni mod Normal:"
 
 #. TEXT_SETUP_FAX_FINE_MODE_OPT
 msgid "Fine mode option:"
-msgstr "Opþiuni mod Fin:"
+msgstr "OpÅ£iuni mod Fin:"
 
 #. TEXT_SETUP_FAX_PROGRAM_DEFAULTS
 msgid "Set program defaults for:"
-msgstr "Seteazã valori implicite în program pt.:"
+msgstr "SeteazÄƒ valori implicite Ã®n program pt.:"
 
 #. TEXT_SETUP_FAX_VIEWER
 msgid "Viewer (Postscript):"
@@ -987,7 +987,7 @@ msgstr "De la:"
 
 #. TEXT_SETUP_MAIL_REPLY_TO
 msgid "Reply to:"
-msgstr "Rãspuns la:"
+msgstr "RÄƒspuns la:"
 
 #. TEXT_SETUP_POP3_SERVER
 msgid "POP3 server:"
@@ -1011,27 +1011,27 @@ msgstr "Vizualizator (png):"
 
 #. TEXT_SETUP_OCR_COMMAND
 msgid "OCR Command:"
-msgstr "Comandã OCR:"
+msgstr "ComandÄƒ OCR:"
 
 #. TEXT_SETUP_OCR_INPUTFILE_OPT
 msgid "Inputfile option:"
-msgstr "Opþiune fiºier de intrare"
+msgstr "OpÅ£iune fiÅŸier de intrare"
 
 #. TEXT_SETUP_OCR_OUTPUTFILE_OPT
 msgid "Outputfile option:"
-msgstr "Opþiune fiºier de ieºire"
+msgstr "OpÅ£iune fiÅŸier de ieÅŸire"
 
 #. TEXT_SETUP_OCR_USE_GUI_PIPE_OPT
 msgid "Use GUI progress pipe:"
-msgstr "Foloseºte pipe GUI pt. evoluþie:"
+msgstr "FoloseÅŸte pipe GUI pt. evoluÅ£ie:"
 
 #. TEXT_SETUP_OCR_OUTFD_OPT
 msgid "GUI output-fd option:"
-msgstr "Opþiune fd ieºire GUI:"
+msgstr "OpÅ£iune fd ieÅŸire GUI:"
 
 #. TEXT_SETUP_OCR_PROGRESS_KEYWORD
 msgid "Progress keyword:"
-msgstr "Cuvânt cheie evoluþie:"
+msgstr "CuvÃ¢nt cheie evoluÅ£ie:"
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
@@ -1043,7 +1043,7 @@ msgstr "grup"
 
 #. TEXT_SETUP_PERMISSION_ALL
 msgid "all"
-msgstr "toþi"
+msgstr "toÅ£i"
 
 msgid "new media"
 msgstr "mediu nou"
@@ -1066,7 +1066,7 @@ msgstr "Fax"
 
 #. NOTEBOOK_MAIL_OPTIONS
 msgid "Mail"
-msgstr "Poºtã"
+msgstr "PoÅŸtÄƒ"
 
 #. NOTEBOOK_OCR_OPTIONS
 msgid "OCR"
@@ -1074,43 +1074,43 @@ msgstr "OCR"
 
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display"
-msgstr "Afiºare"
+msgstr "AfiÅŸare"
 
 #. NOTEBOOK_ENHANCE_OPTIONS
 msgid "Enhancement"
-msgstr "Îmbunãtãþire"
+msgstr "ÃŽmbunÄƒtÄƒÅ£ire"
 
 #. MENU_ITEM_MAIL
 msgid "Email"
-msgstr "Poºta electronicã"
+msgstr "PoÅŸta electronicÄƒ"
 
 #. MENU_ITEM_SHOW_TOOLTIPS
 msgid "Show tooltips"
-msgstr "Aratã ponturi"
+msgstr "AratÄƒ ponturi"
 
 #. MENU_ITEM_SHOW_PREVIEW
 msgid "Show preview"
-msgstr "Aratã previzualizarea"
+msgstr "AratÄƒ previzualizarea"
 
 #. MENU_ITEM_SHOW_HISTOGRAM
 msgid "Show histogram"
-msgstr "Aratã histograma"
+msgstr "AratÄƒ histograma"
 
 #. MENU_ITEM_SHOW_GAMMA
 msgid "Show gamma curve"
-msgstr "Aratã curba gamma"
+msgstr "AratÄƒ curba gamma"
 
 #. MENU_ITEM_SHOW_BATCH_SCAN
 msgid "Show batch scan"
-msgstr "Aratã scanare loturi"
+msgstr "AratÄƒ scanare loturi"
 
 #. MENU_ITEM_SHOW_STANDARDOPTIONS
 msgid "Show standard options"
-msgstr "Aratã opþiunile standard"
+msgstr "AratÄƒ opÅ£iunile standard"
 
 #. MENU_ITEM_SHOW_ADVANCEDOPTIONS
 msgid "Show advanced options"
-msgstr "Aratã opþiunile avansate"
+msgstr "AratÄƒ opÅ£iunile avansate"
 
 #. MENU_ITEM_SETUP
 msgid "Setup"
@@ -1138,55 +1138,55 @@ msgstr "Politica de actualizare"
 
 #. SUBMENU_ITEM_POLICY_CONTINUOUS
 msgid "continuous"
-msgstr "continuã"
+msgstr "continuÄƒ"
 
 #. SUBMENU_ITEM_POLICY_DISCONTINU
 msgid "discontinuous"
-msgstr "discontinuã"
+msgstr "discontinuÄƒ"
 
 #. SUBMENU_ITEM_POLICY_DELAYED
 msgid "delayed"
-msgstr "întârziatã"
+msgstr "Ã®ntÃ¢rziatÄƒ"
 
 #. MENU_ITEM_SHOW_RESOLUTIONLIST
 msgid "Show resolution list"
-msgstr "Aratã lista rezoluþiilor"
+msgstr "AratÄƒ lista rezoluÅ£iilor"
 
 #. MENU_ITEM_PAGE_ROTATE
 msgid "Rotate postscript"
-msgstr "Roteºte postscript"
+msgstr "RoteÅŸte postscript"
 
 #. MENU_ITEM_EDIT_MEDIUM_DEF
 msgid "Edit medium definition"
-msgstr "Editare definiþie mediu"
+msgstr "Editare definiÅ£ie mediu"
 
 #. MENU_ITEM_SAVE_DEVICE_SETTINGS
 msgid "Save device settings"
-msgstr "Salveazã setãri dispozitiv"
+msgstr "SalveazÄƒ setÄƒri dispozitiv"
 
 #. MENU_ITEM_LOAD_DEVICE_SETTINGS
 msgid "Load device settings"
-msgstr "Încarcã setãri dispozitiv"
+msgstr "ÃŽncarcÄƒ setÄƒri dispozitiv"
 
 #. MENU_ITEM_CHANGE_WORKING_DIR
 msgid "Change directory"
-msgstr "Schimbã directorul"
+msgstr "SchimbÄƒ directorul"
 
 #. MENU_ITEM_XSANE_EULA
 msgid "Show EULA"
-msgstr "Aratã EULA"
+msgstr "AratÄƒ EULA"
 
 #. MENU_ITEM_XSANE_GPL
 msgid "Show license (GPL)"
-msgstr "Aratã licenþa (GPL)"
+msgstr "AratÄƒ licenÅ£a (GPL)"
 
 #. MENU_ITEM_XSANE_DOC
 msgid "XSane doc"
-msgstr "Documentaþie XSane"
+msgstr "DocumentaÅ£ie XSane"
 
 #. MENU_ITEM_BACKEND_DOC
 msgid "Backend doc"
-msgstr "Documentaþie backend"
+msgstr "DocumentaÅ£ie backend"
 
 #. MENU_ITEM_AVAILABLE_BACKENDS
 msgid "Available backends"
@@ -1230,11 +1230,11 @@ msgstr "pack bits"
 
 #. MENU_ITEM_RANGE_SCALE
 msgid "Slider (Scale)"
-msgstr "Alunecãtor (Scalã)"
+msgstr "AlunecÄƒtor (ScalÄƒ)"
 
 #. MENU_ITEM_RANGE_SCROLLBAR
 msgid "Slider (Scrollbar)"
-msgstr "Alunecãtor (Barã de derulare)"
+msgstr "AlunecÄƒtor (BarÄƒ de derulare)"
 
 #. MENU_ITEM_RANGE_SPINBUTTON
 msgid "Spinbutton"
@@ -1242,23 +1242,23 @@ msgstr "Buton rotativ"
 
 #. MENU_ITEM_RANGE_SCALE_SPIN
 msgid "Scale and Spinbutton"
-msgstr "Scalã ºi buton rotativ"
+msgstr "ScalÄƒ ÅŸi buton rotativ"
 
 #. MENU_ITEM_RANGE_SCROLL_SPIN
 msgid "Scrollbar and Spinbutton"
-msgstr "Barã de derulare ºi buton rotativ"
+msgstr "BarÄƒ de derulare ÅŸi buton rotativ"
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
 msgid "Standard options window (lineart)"
-msgstr "Fereastrã opþiuni standard (alb/negru)"
+msgstr "FereastrÄƒ opÅ£iuni standard (alb/negru)"
 
 #. MENU_ITEM_LINEART_MODE_XSANE
 msgid "XSane main window (lineart)"
-msgstr "Fereastrã principalã XSane (alb/negru)"
+msgstr "FereastrÄƒ principalÄƒ XSane (alb/negru)"
 
 #. MENU_ITEM_LINEART_MODE_GRAY
 msgid "XSane main window (grayscale->lineart)"
-msgstr "Fereastrã principalã XSane (scalã de gri->alb/negru)"
+msgstr "FereastrÄƒ principalÄƒ XSane (scalÄƒ de gri->alb/negru)"
 
 #. MENU_ITEM_SELECTION_NONE
 msgid "(none)"
@@ -1266,31 +1266,31 @@ msgstr "(nimic)"
 
 #. MENU_ITEM_FILETYPE_BY_EXT
 msgid "by ext"
-msgstr "dupã extensie"
+msgstr "dupÄƒ extensie"
 
 #. MENU_ITEM_PRESET_AREA_ADD_SEL
 msgid "Add selection to list"
-msgstr "Adaugã selecþia la listã"
+msgstr "AdaugÄƒ selecÅ£ia la listÄƒ"
 
 #. MENU_ITEM_MEDIUM_ADD
 msgid "Add medium definition"
-msgstr "Adaugã definiþie mediu"
+msgstr "AdaugÄƒ definiÅ£ie mediu"
 
 #. MENU_ITEM_RENAME
 msgid "Rename item"
-msgstr "Redenumeºte articol"
+msgstr "RedenumeÅŸte articol"
 
 #. MENU_ITEM_DELETE
 msgid "Delete item"
-msgstr "ªterge articol"
+msgstr "Åžterge articol"
 
 #. MENU_ITEM_MOVE_UP
 msgid "Move item up"
-msgstr "Mutã articol în sus"
+msgstr "MutÄƒ articol Ã®n sus"
 
 #. MENU_ITEM_MOVE_DWN
 msgid "Move item down"
-msgstr "Mutã articol în jos"
+msgstr "MutÄƒ articol Ã®n jos"
 
 #. PROGRESS_SCANNING
 msgid "Scanning"
@@ -1315,7 +1315,7 @@ msgstr "Oglindesc imaginea"
 
 #. PROGRESS_PACKING_DATA
 msgid "Packing image"
-msgstr "Împachetez imaginea"
+msgstr "ÃŽmpachetez imaginea"
 
 #. PROGRESS_CONVERTING_DATA
 msgid "Converting image"
@@ -1339,19 +1339,19 @@ msgstr "Scot petele din imagine"
 
 #. PROGRESS_BLURING_DATA
 msgid "Bluring image"
-msgstr "Fac imaginea neclarã"
+msgstr "Fac imaginea neclarÄƒ"
 
 #. PROGRESS_OCR
 msgid "OCR in progress"
-msgstr "Recunoaºtere opticã de caractere în evoluþie"
+msgstr "RecunoaÅŸtere opticÄƒ de caractere Ã®n evoluÅ£ie"
 
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
-msgstr "Porneºte scanarea<Ctrl-Enter>"
+msgstr "PorneÅŸte scanarea<Ctrl-Enter>"
 
 #. DESC_SCAN_CANCEL
 msgid "Cancel scan <ESC>"
-msgstr "Renunþã la scanare<ESC>"
+msgstr "RenunÅ£Äƒ la scanare<ESC>"
 
 #. DESC_PREVIEW_ACQUIRE
 msgid "Acquire preview scan <Alt-p>"
@@ -1359,7 +1359,7 @@ msgstr "Scanare pt. previzualizare <Alt-p>"
 
 #. DESC_PREVIEW_CANCEL
 msgid "Cancel preview scan <Alt-ESC>"
-msgstr "Renunþã la scanarea pt. previzualizare <Alt-ESC>"
+msgstr "RenunÅ£Äƒ la scanarea pt. previzualizare <Alt-ESC>"
 
 #. DESC_XSANE_MODE
 msgid ""
@@ -1377,167 +1377,167 @@ msgid ""
 "To create a medium enable the option edit medium definition in preferences "
 "menu."
 msgstr ""
-"Selectaþi tipul mediului sursã. \n"
-"Pentru a redenumi, ºterge, ordona un articol, folosiþi meniul contextual "
+"SelectaÅ£i tipul mediului sursÄƒ. \n"
+"Pentru a redenumi, ÅŸterge, ordona un articol, folosiÅ£i meniul contextual "
 "(butonul dreapta al mausului).\n"
-"Pentru a creea un mediu activaþi opþiunea de editare a definirii mediului "
-"din meniul Preferinþe."
+"Pentru a creea un mediu activaÅ£i opÅ£iunea de editare a definirii mediului "
+"din meniul PreferinÅ£e."
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
-msgstr "Valoarea care este adãugatã la contorul numelui de fiºier dupã scanare"
+msgstr "Valoarea care este adÄƒugatÄƒ la contorul numelui de fiÅŸier dupÄƒ scanare"
 
 #. DESC_BROWSE_FILENAME
 msgid "Browse for image filename"
-msgstr "Navigheazã la numele fiºierului  de imagine"
+msgstr "NavigheazÄƒ la numele fiÅŸierului  de imagine"
 
 #. DESC_FILENAME
 msgid "Filename for scanned image"
-msgstr "Nume fiºier pt. imaginea scanatã"
+msgstr "Nume fiÅŸier pt. imaginea scanatÄƒ"
 
 #. DESC_FILETYPE
 msgid ""
 "Type of image format, the suitable filename extension is automatically added "
 "to the filename"
 msgstr ""
-"Tip format imagine, extensia fiºier corespunzãtoare este adãugata automat la "
-"numele fiºierului"
+"Tip format imagine, extensia fiÅŸier corespunzÄƒtoare este adÄƒugata automat la "
+"numele fiÅŸierului"
 
 #. DESC_FAXPROJECT
 msgid "Enter name of fax project"
-msgstr "Introduceþi numele proiectului fax"
+msgstr "IntroduceÅ£i numele proiectului fax"
 
 #. DESC_FAXPAGENAME
 msgid "Enter new name for faxpage"
-msgstr "Introduceþi numele paginii de fax"
+msgstr "IntroduceÅ£i numele paginii de fax"
 
 #. DESC_FAXRECEIVER
 msgid "Enter receiver phone number or address"
-msgstr "Introduceþi numãrul de telefon sau adresa destinatarului"
+msgstr "IntroduceÅ£i numÄƒrul de telefon sau adresa destinatarului"
 
 #. DESC_MAILPROJECT
 msgid "Enter name of mail project"
-msgstr "Introduceþi numele proiectului mail"
+msgstr "IntroduceÅ£i numele proiectului mail"
 
 #. DESC_MAILIMAGENAME
 msgid "Enter new name for mail image"
-msgstr "Introduceþi numele imaginii pt. mail"
+msgstr "IntroduceÅ£i numele imaginii pt. mail"
 
 #. DESC_MAILRECEIVER
 msgid "Enter email address"
-msgstr "Introduceþi adresa de email"
+msgstr "IntroduceÅ£i adresa de email"
 
 #. DESC_MAILSUBJECT
 msgid "Enter subject of email"
-msgstr "Introduceþi subiectul email-ului"
+msgstr "IntroduceÅ£i subiectul email-ului"
 
 #. DESC_MAIL_FILETYPE
 msgid "Select filetype for image attachments"
-msgstr "Selectaþi tipul fiºierelor pentru ataºamentele imagine"
+msgstr "SelectaÅ£i tipul fiÅŸierelor pentru ataÅŸamentele imagine"
 
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
-msgstr "Introduceþi numele noii zone predefinite"
+msgstr "IntroduceÅ£i numele noii zone predefinite"
 
 #. DESC_PRESET_AREA_ADD
 msgid "Enter name for new preset area"
-msgstr "Introduceþi numele noii zone predefinite"
+msgstr "IntroduceÅ£i numele noii zone predefinite"
 
 #. DESC_MEDIUM_RENAME
 msgid "Enter new name for medium definition"
-msgstr "Introduceþi noul nume pt. definiþia mediului"
+msgstr "IntroduceÅ£i noul nume pt. definiÅ£ia mediului"
 
 #. DESC_MEDIUM_ADD
 msgid "Enter name for new medium definition"
-msgstr "Introduceþi noul nume pt. definiþia mediului"
+msgstr "IntroduceÅ£i noul nume pt. definiÅ£ia mediului"
 
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
-msgstr "Selectaþi definirea imprimantei <Shift-F1/F2/...>"
+msgstr "SelectaÅ£i definirea imprimantei <Shift-F1/F2/...>"
 
 #. DESC_RESOLUTION
 msgid "Set scan resolution"
-msgstr "Seteazã rezoluþia de scanare"
+msgstr "SeteazÄƒ rezoluÅ£ia de scanare"
 
 #. DESC_RESOLUTION_X
 msgid "Set scan resolution for x direction"
-msgstr "Seteazã rezoluþia de scanare pt. direcþia x"
+msgstr "SeteazÄƒ rezoluÅ£ia de scanare pt. direcÅ£ia x"
 
 #. DESC_RESOLUTION_Y
 msgid "Set scan resolution for y direction"
-msgstr "Seteazã rezoluþia de scanare pt. direcþia y"
+msgstr "SeteazÄƒ rezoluÅ£ia de scanare pt. direcÅ£ia y"
 
 #. DESC_ZOOM
 msgid "Set zoomfactor"
-msgstr "Seteazã factorul de mãrire"
+msgstr "SeteazÄƒ factorul de mÄƒrire"
 
 #. DESC_ZOOM_X
 msgid "Set zoomfactor for x direction"
-msgstr "Seteazã factorul de mãrire pt. direcþia x"
+msgstr "SeteazÄƒ factorul de mÄƒrire pt. direcÅ£ia x"
 
 #. DESC_ZOOM_Y
 msgid "Set zoomfactor for y direction"
-msgstr "Seteazã factorul de mãrire pt. direcþia y"
+msgstr "SeteazÄƒ factorul de mÄƒrire pt. direcÅ£ia y"
 
 #. DESC_COPY_NUMBER
 msgid "Set number of copies"
-msgstr "Seteazã numãr copii"
+msgstr "SeteazÄƒ numÄƒr copii"
 
 #. DESC_NEGATIVE
 msgid "Negative: Invert colors for scanning negatives <Ctrl-n>"
-msgstr "Negativ: inverseazã culorile pentru scanare negative <Ctrl-n>"
+msgstr "Negativ: inverseazÄƒ culorile pentru scanare negative <Ctrl-n>"
 
 #. DESC_GAMMA
 msgid "Set gamma value"
-msgstr "Seteazã valoarea gamma"
+msgstr "SeteazÄƒ valoarea gamma"
 
 #. DESC_GAMMA_R
 msgid "Set gamma value for red component"
-msgstr "Seteazã valoarea gamma pentru componenta de roºu"
+msgstr "SeteazÄƒ valoarea gamma pentru componenta de roÅŸu"
 
 #. DESC_GAMMA_G
 msgid "Set gamma value for green component"
-msgstr "Seteazã valoarea gamma pentru componenta de verde"
+msgstr "SeteazÄƒ valoarea gamma pentru componenta de verde"
 
 #. DESC_GAMMA_B
 msgid "Set gamma value for blue component"
-msgstr "Seteazã valoarea gamma pentru componenta de albastru"
+msgstr "SeteazÄƒ valoarea gamma pentru componenta de albastru"
 
 #. DESC_BRIGHTNESS
 msgid "Set brightness"
-msgstr "Seteazã strãlucirea"
+msgstr "SeteazÄƒ strÄƒlucirea"
 
 #. DESC_BRIGHTNESS_R
 msgid "Set brightness for red component"
-msgstr "Seteazã strãlucirea pentru componenta de roºu"
+msgstr "SeteazÄƒ strÄƒlucirea pentru componenta de roÅŸu"
 
 #. DESC_BRIGHTNESS_G
 msgid "Set brightness for green component"
-msgstr "Seteazã strãlucirea pentru componenta de verde"
+msgstr "SeteazÄƒ strÄƒlucirea pentru componenta de verde"
 
 #. DESC_BRIGHTNESS_B
 msgid "Set brightness for blue component"
-msgstr "Seteazã strãlucirea pentru componenta de albastru"
+msgstr "SeteazÄƒ strÄƒlucirea pentru componenta de albastru"
 
 #. DESC_CONTRAST
 msgid "Set contrast"
-msgstr "Seteazã contrastul"
+msgstr "SeteazÄƒ contrastul"
 
 #. DESC_CONTRAST_R
 msgid "Set contrast for red component"
-msgstr "Seteazã contrastul pentru componenta de roºu"
+msgstr "SeteazÄƒ contrastul pentru componenta de roÅŸu"
 
 #. DESC_CONTRAST_G
 msgid "Set contrast for green component"
-msgstr "Seteazã contrastul pentru componenta de verde"
+msgstr "SeteazÄƒ contrastul pentru componenta de verde"
 
 #. DESC_CONTRAST_B
 msgid "Set contrast for blue component"
-msgstr "Seteazã contrastul pentru componenta de albastru"
+msgstr "SeteazÄƒ contrastul pentru componenta de albastru"
 
 #. DESC_THRESHOLD
 msgid "Set threshold"
-msgstr "Seteazã prag"
+msgstr "SeteazÄƒ prag"
 
 #. DESC_RGB_DEFAULT
 msgid ""
@@ -1547,15 +1547,15 @@ msgid ""
 " brightness = 0\n"
 " contrast = 0"
 msgstr ""
-"Setare valori RGB implicite pt. îmbunãtãþire: canale roºu, verde, albastru "
+"Setare valori RGB implicite pt. Ã®mbunÄƒtÄƒÅ£ire: canale roÅŸu, verde, albastru "
 "<Ctrl-b>:\n"
 " gamma = 1.0\n"
-" strãlucire = 0\n"
+" strÄƒlucire = 0\n"
 " contrast = 0"
 
 #. DESC_ENH_AUTO
 msgid "Autoadjust gamma, brightness and contrast <Ctrl-e>"
-msgstr "Ajustare automatã pt. gamma, strãlucire, contrast <Ctrl-e>"
+msgstr "Ajustare automatÄƒ pt. gamma, strÄƒlucire, contrast <Ctrl-e>"
 
 #. DESC_ENH_DEFAULT
 msgid ""
@@ -1564,161 +1564,161 @@ msgid ""
 "brightness = 0\n"
 "contrast = 0"
 msgstr ""
-"Setare valori implicite pt. îmbunãtãþire <Ctrl-0>:\n"
+"Setare valori implicite pt. Ã®mbunÄƒtÄƒÅ£ire <Ctrl-0>:\n"
 "gamma = 1.0\n"
-"strãlucire = 0\n"
+"strÄƒlucire = 0\n"
 "contrast = 0"
 
 #. DESC_ENH_RESTORE
 msgid "Restore enhancement values from preferences <Ctrl-r>"
 msgstr ""
-"Restaureazã valorile implicite pt. îmbunãtãþire din preferinþe <Ctrl-r>"
+"RestaureazÄƒ valorile implicite pt. Ã®mbunÄƒtÄƒÅ£ire din preferinÅ£e <Ctrl-r>"
 
 #. DESC_ENH_STORE
 msgid "Store active enhancement values to preferences <Ctrl-+>"
-msgstr "Salveazã valorile curente pt. îmbunãtãþire în preferinþe <Ctrl-+>"
+msgstr "SalveazÄƒ valorile curente pt. Ã®mbunÄƒtÄƒÅ£ire Ã®n preferinÅ£e <Ctrl-+>"
 
 #. DESC_HIST_INTENSITY
 msgid "Show histogram of intensity/gray <Alt-i>"
-msgstr "Aratã histograma intensitãþii/gri <Alt-i>"
+msgstr "AratÄƒ histograma intensitÄƒÅ£ii/gri <Alt-i>"
 
 #. DESC_HIST_RED
 msgid "Show histogram of red component <Alt-r>"
-msgstr "Aratã histograma componentei de roºu <Alt-r>"
+msgstr "AratÄƒ histograma componentei de roÅŸu <Alt-r>"
 
 #. DESC_HIST_GREEN
 msgid "Show histogram of green component <Alt-g>"
-msgstr "Aratã histograma componentei de verde <Alt-g>"
+msgstr "AratÄƒ histograma componentei de verde <Alt-g>"
 
 #. DESC_HIST_BLUE
 msgid "Show histogram of blue component <Alt-b>"
-msgstr "Aratã histograma componentei de albastru <Alt-b>"
+msgstr "AratÄƒ histograma componentei de albastru <Alt-b>"
 
 #. DESC_HIST_PIXEL
 msgid "Display mode: show histogram with lines instead of pixels <Alt-m>"
-msgstr "Mod afiºare: aratã histograma cu linii în loc de pixeli <Alt-m>"
+msgstr "Mod afiÅŸare: aratÄƒ histograma cu linii Ã®n loc de pixeli <Alt-m>"
 
 #. DESC_HIST_LOG
 msgid "Show logarithm of pixelcount <Alt-l>"
-msgstr "Aratã numãrul de pixeli logaritmic <Alt-I>"
+msgstr "AratÄƒ numÄƒrul de pixeli logaritmic <Alt-I>"
 
 #. DESC_PRINTER_SETUP
 msgid "Select definition to change"
-msgstr "Selectare definiþie ce va fi schimbatã"
+msgstr "Selectare definiÅ£ie ce va fi schimbatÄƒ"
 
 #. DESC_PRINTER_NAME
 msgid "Define a name for the selection of this definition"
-msgstr "Defineºte un nume pentru selectarea acestei definiþii"
+msgstr "DefineÅŸte un nume pentru selectarea acestei definiÅ£ii"
 
 #. DESC_PRINTER_COMMAND
 msgid "Enter command to be executed in copy mode (e.g. \"lpr\")"
-msgstr "Introduceþi comanda ce va fi executatã în modul copiere (ex. \"lpr\")"
+msgstr "IntroduceÅ£i comanda ce va fi executatÄƒ Ã®n modul copiere (ex. \"lpr\")"
 
 #. DESC_COPY_NUMBER_OPTION
 msgid "Enter option for copy numbers"
-msgstr "Introduceþi opþiunea pt. numãrul de copii"
+msgstr "IntroduceÅ£i opÅ£iunea pt. numÄƒrul de copii"
 
 #. DESC_PRINTER_LINEART_RESOLUTION
 msgid ""
 "Resolution with which lineart images are printed and saved in postscript"
 msgstr ""
-"Rezoluþia la care imaginile alb/negru sunt tipãrite ºi salvate în postscript"
+"RezoluÅ£ia la care imaginile alb/negru sunt tipÄƒrite ÅŸi salvate Ã®n postscript"
 
 #. DESC_PRINTER_GRAYSCALE_RESOLUTION
 msgid ""
 "Resolution with which grayscale images are printed and saved in postscript"
 msgstr ""
-"Rezoluþia la care imaginile în scarã de gri sunt tipãrite ºi salvate în "
+"RezoluÅ£ia la care imaginile Ã®n scarÄƒ de gri sunt tipÄƒrite ÅŸi salvate Ã®n "
 "postscript"
 
 #. DESC_PRINTER_COLOR_RESOLUTION
 msgid "Resolution with which color images are printed and saved in postscript"
 msgstr ""
-"Rezoluþia la care imaginile color sunt tipãrite ºi salvate în postscript"
+"RezoluÅ£ia la care imaginile color sunt tipÄƒrite ÅŸi salvate Ã®n postscript"
 
 #. DESC_PRINTER_WIDTH
 msgid "Width of printable area"
-msgstr "Lãþime zonã tipãribilã"
+msgstr "LÄƒÅ£ime zonÄƒ tipÄƒribilÄƒ"
 
 #. DESC_PRINTER_HEIGHT
 msgid "Height of printable area"
-msgstr "Înãlþime zonã tipãribilã"
+msgstr "ÃŽnÄƒlÅ£ime zonÄƒ tipÄƒribilÄƒ"
 
 #. DESC_PRINTER_LEFTOFFSET
 msgid "Left offset from the edge of the paper to the printable area"
-msgstr "Decalaj stânga de la marginea hârtiei la zona tipãribilã"
+msgstr "Decalaj stÃ¢nga de la marginea hÃ¢rtiei la zona tipÄƒribilÄƒ"
 
 #. DESC_PRINTER_BOTTOMOFFSET
 msgid "Bottom offset from the edge of the paper to the printable area"
-msgstr "Decalaj de jos de la marginea hârtiei la zona tipãribilã"
+msgstr "Decalaj de jos de la marginea hÃ¢rtiei la zona tipÄƒribilÄƒ"
 
 #. DESC_PRINTER_GAMMA
 msgid "Additional gamma value for photocopy"
-msgstr "Valoare gamma adiþionalã pt. fotocopie"
+msgstr "Valoare gamma adiÅ£ionalÄƒ pt. fotocopie"
 
 #. DESC_PRINTER_GAMMA_RED
 msgid "Additional gamma value for red component for photocopy"
-msgstr "Valoare gamma adiþionalã componentã roºu pt. fotocopie"
+msgstr "Valoare gamma adiÅ£ionalÄƒ componentÄƒ roÅŸu pt. fotocopie"
 
 #. DESC_PRINTER_GAMMA_GREEN
 msgid "Additional gamma value for green component for photocopy"
-msgstr "Valoare gamma adiþionalã componentã verde pt. fotocopie"
+msgstr "Valoare gamma adiÅ£ionalÄƒ componentÄƒ verde pt. fotocopie"
 
 #. DESC_PRINTER_GAMMA_BLUE
 msgid "Additional gamma value for blue component for photocopy"
-msgstr "Valoare gamma adiþionalã componentã albastru pt. fotocopie"
+msgstr "Valoare gamma adiÅ£ionalÄƒ componentÄƒ albastru pt. fotocopie"
 
 #. DESC_TMP_PATH
 msgid "Path to temp directory"
-msgstr "Calea cãtre directorul temporar"
+msgstr "Calea cÄƒtre directorul temporar"
 
 #. DESC_BUTTON_TMP_PATH_BROWSE
 msgid "Browse for temporary directory"
-msgstr "Navigheazã la directorul temporar"
+msgstr "NavigheazÄƒ la directorul temporar"
 
 #. DESC_JPEG_QUALITY
 msgid ""
 "Quality in percent if image is saved as jpeg or tiff with jpeg compression"
 msgstr ""
-"Calitatea în procente dacã imaginea este salvatã ca JPEG sau TIFF cu "
+"Calitatea Ã®n procente dacÄƒ imaginea este salvatÄƒ ca JPEG sau TIFF cu "
 "compresie JPEG"
 
 #. DESC_PNG_COMPRESSION
 msgid "Compression if image is saved as png"
-msgstr "Compresie dacã imaginea este salvatã ca PNG"
+msgstr "Compresie dacÄƒ imaginea este salvatÄƒ ca PNG"
 
 #. DESC_FILENAME_COUNTER_LEN
 msgid "Minimum length of counter in filename"
-msgstr "Lungimea minimã a contorului în numele fiºierului"
+msgstr "Lungimea minimÄƒ a contorului Ã®n numele fiÅŸierului"
 
 #. DESC_TIFF_COMPRESSION_16
 msgid "Compression type if 16 bit image is saved as tiff"
-msgstr "Tip compresie dacã o imagine de 16 biþi este salvatã ca TIFF"
+msgstr "Tip compresie dacÄƒ o imagine de 16 biÅ£i este salvatÄƒ ca TIFF"
 
 #. DESC_TIFF_COMPRESSION_8
 msgid "Compression type if 8 bit image is saved as tiff"
-msgstr "Tip compresie dacã o imagine de 8 biþi este salvatã ca TIFF"
+msgstr "Tip compresie dacÄƒ o imagine de 8 biÅ£i este salvatÄƒ ca TIFF"
 
 #. DESC_TIFF_COMPRESSION_1
 msgid "Compression type if lineart image is saved as tiff"
-msgstr "Tip compresie dacã o imagine alb/negru este salvatã ca TIFF"
+msgstr "Tip compresie dacÄƒ o imagine alb/negru este salvatÄƒ ca TIFF"
 
 #. DESC_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device dependant preferences in default file at exit of xsane"
 msgstr ""
-"Salveazã preferinþele dependente de dispozitiv în fiºierul implicit la "
+"SalveazÄƒ preferinÅ£ele dependente de dispozitiv Ã®n fiÅŸierul implicit la "
 "terminarea XSane"
 
 #. DESC_OVERWRITE_WARNING
 msgid "Warn before overwriting an existing file"
-msgstr "Avertizeazã înainte de suprascrierea unui fiºier existent"
+msgstr "AvertizeazÄƒ Ã®nainte de suprascrierea unui fiÅŸier existent"
 
 #. DESC_SKIP_EXISTING
 msgid ""
 "If filename counter is automatically increased, used numbers are skipped"
 msgstr ""
-"Numerele folosite deja sunt sãrite la incrementarea automatã a contorului "
-"numelui de fiºier"
+"Numerele folosite deja sunt sÄƒrite la incrementarea automatÄƒ a contorului "
+"numelui de fiÅŸier"
 
 #. DESC_SAVE_PNM16_AS_ASCII
 msgid ""
@@ -1727,31 +1727,31 @@ msgid ""
 "supported by all programs. The ascii format is supported by more programs "
 "but it produces really huge files!!!"
 msgstr ""
-"Folosiþi formatul ascii în locul celui binar pentru a salva imaginile pe 16 "
-"biþi în format pnm. Formatul binar este nou ºi nu este susþinut de toate "
-"programele. Formatul ascii este susþinut de mai toate programele, dar "
-"produce fiºiere foarte mari!"
+"FolosiÅ£i formatul ascii Ã®n locul celui binar pentru a salva imaginile pe 16 "
+"biÅ£i Ã®n format pnm. Formatul binar este nou ÅŸi nu este susÅ£inut de toate "
+"programele. Formatul ascii este susÅ£inut de mai toate programele, dar "
+"produce fiÅŸiere foarte mari!"
 
 #. DESC_REDUCE_16BIT_TO_8BIT
 msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
 msgstr ""
-"Salveazã o imagine cu 8 biþi/culoare dacã scannerul trimite imagini cu 16 "
-"biþi/culoare"
+"SalveazÄƒ o imagine cu 8 biÅ£i/culoare dacÄƒ scannerul trimite imagini cu 16 "
+"biÅ£i/culoare"
 
 #. DESC_PSFILE_WIDTH
 msgid "Width of paper for postscript files"
-msgstr "Lãþime hârtie pt. fiºierele postscript"
+msgstr "LÄƒÅ£ime hÃ¢rtie pt. fiÅŸierele postscript"
 
 #. DESC_PSFILE_HEIGHT
 msgid "Height of paper for postscript files"
-msgstr "Înãlþime hârtie pt. fiºierele postscript"
+msgstr "ÃŽnÄƒlÅ£ime hÃ¢rtie pt. fiÅŸierele postscript"
 
 #. DESC_PSFILE_LEFTOFFSET
 msgid ""
 "Left offset from the edge of the paper to the usable area for postscript "
 "files"
 msgstr ""
-"Decalaj stânga de la marginea hârtiei pt. zona utilizabilã pt. fiºierele "
+"Decalaj stÃ¢nga de la marginea hÃ¢rtiei pt. zona utilizabilÄƒ pt. fiÅŸierele "
 "postscript"
 
 #. DESC_PSFILE_BOTTOMOFFSET
@@ -1759,91 +1759,91 @@ msgid ""
 "Bottom offset from the edge of the paper to the usable area for postscript "
 "files"
 msgstr ""
-"Decalaj jos de la marginea hârtiei pt. zona utilizabilã pt. fiºierele "
+"Decalaj jos de la marginea hÃ¢rtiei pt. zona utilizabilÄƒ pt. fiÅŸierele "
 "postscript"
 
 #. DESC_MAIN_WINDOW_FIXED
 msgid "Use fixed main window size or scrolled, resizable main window"
 msgstr ""
-"Foloseºte mãrime fixã pt. fereastra principalã sau fereastrã principalã "
-"redimensionabilã cu defilare"
+"FoloseÅŸte mÄƒrime fixÄƒ pt. fereastra principalÄƒ sau fereastrÄƒ principalÄƒ "
+"redimensionabilÄƒ cu defilare"
 
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
 msgid "Disable preview gamma when XSane runs as gimp plugin"
 msgstr ""
-"Dezactiveazã previzualizarea gamma când XSane ruleazã ca extensie la Gimp"
+"DezactiveazÄƒ previzualizarea gamma cÃ¢nd XSane ruleazÄƒ ca extensie la Gimp"
 
 #. DESC_PREVIEW_COLORMAP
 msgid "Use an own colormap for preview if display depth is 8 bpp"
 msgstr ""
-"Foloseºte o harta de culori proprie pentru previzualizare dacã adâncimea "
+"FoloseÅŸte o harta de culori proprie pentru previzualizare dacÄƒ adÃ¢ncimea "
 "este de 8 bpp"
 
 #. DESC_SHOW_RANGE_MODE
 msgid "Select how a range is displayed"
-msgstr "Selectare mod de afiºare a gamei"
+msgstr "Selectare mod de afiÅŸare a gamei"
 
 #. DESC_PREVIEW_OVERSAMPLING
 msgid "Value with that the calculated preview resolution is multiplied"
-msgstr "Valoarea cu care este înmulþitã rezoluþia calculatã pt. previzualizare"
+msgstr "Valoarea cu care este Ã®nmulÅ£itÄƒ rezoluÅ£ia calculatÄƒ pt. previzualizare"
 
 #. DESC_PREVIEW_GAMMA
 msgid "Set gamma correction value for preview image"
-msgstr "Seteazã valoarea corecþiei gamma pentru imaginea previzualizatã"
+msgstr "SeteazÄƒ valoarea corecÅ£iei gamma pentru imaginea previzualizatÄƒ"
 
 #. DESC_PREVIEW_GAMMA_RED
 msgid "Set gamma correction value for red component of preview image"
 msgstr ""
-"Seteazã valoarea corecþiei gamma pentru componenta de roºu a imaginii "
+"SeteazÄƒ valoarea corecÅ£iei gamma pentru componenta de roÅŸu a imaginii "
 "previzualizate "
 
 #. DESC_PREVIEW_GAMMA_GREEN
 msgid "Set gamma correction value for green component of preview image"
 msgstr ""
-"Seteazã valoarea corecþiei gamma pentru componenta de verde a imaginii "
+"SeteazÄƒ valoarea corecÅ£iei gamma pentru componenta de verde a imaginii "
 "previzualizate "
 
 #. DESC_PREVIEW_GAMMA_BLUE
 msgid "Set gamma correction value for blue component of preview image"
 msgstr ""
-"Seteazã valoarea corecþiei gamma pentru componenta de albastru a imaginii "
+"SeteazÄƒ valoarea corecÅ£iei gamma pentru componenta de albastru a imaginii "
 "previzualizate "
 
 #. DESC_LINEART_MODE
 msgid "Define the way XSane shall handle the threshold option"
-msgstr "Defineºte modul în care XSane va manipula opþiunea pragului"
+msgstr "DefineÅŸte modul Ã®n care XSane va manipula opÅ£iunea pragului"
 
 #. DESC_GRAYSCALE_SCANMODE
 msgid ""
 "Select grayscale scanmode. This scanmode is used for lineart preview scan "
 "when transformation from grayscale to lineart is enabled"
 msgstr ""
-"Selecteazã modul de scanare în nuanþe de gri. Acest mod de scanare este "
-"folosit pt. previzualizare alb/negru când transformarea gri->a/n este "
-"activatã"
+"SelecteazÄƒ modul de scanare Ã®n nuanÅ£e de gri. Acest mod de scanare este "
+"folosit pt. previzualizare alb/negru cÃ¢nd transformarea gri->a/n este "
+"activatÄƒ"
 
 #. DESC_PREVIEW_THRESHOLD_MIN
 #, no-c-format
 msgid "The scanner's minimum threshold level in %"
-msgstr "Nivelul minim de prag al scannerului în %"
+msgstr "Nivelul minim de prag al scannerului Ã®n %"
 
 #. DESC_PREVIEW_THRESHOLD_MAX
 #, no-c-format
 msgid "The scanner's maximum threshold level in %"
-msgstr "Nivelul maxim de prag al scannerului în %"
+msgstr "Nivelul maxim de prag al scannerului Ã®n %"
 
 #. DESC_PREVIEW_THRESHOLD_MUL
 msgid ""
 "Multiplier to make XSane threshold range and scanner threshold range the same"
 msgstr ""
-"Multiplicatorul necesar pt. a face gama pragurilor XSane egalã cu cea a "
+"Multiplicatorul necesar pt. a face gama pragurilor XSane egalÄƒ cu cea a "
 "scannerului"
 
 #. DESC_PREVIEW_THRESHOLD_OFF
 msgid ""
 "Offset to make XSane threshold range and scanner threshold range the same"
 msgstr ""
-"Deplasamentul necesar pt. a face gama pragurilor XSane egalã cu cea a "
+"Deplasamentul necesar pt. a face gama pragurilor XSane egalÄƒ cu cea a "
 "scannerului"
 
 #. DESC_ADF_MODE
@@ -1851,64 +1851,64 @@ msgid ""
 "Select scansource for Automatic Document feeder. If this scansource is "
 "selected XSane scans until \"out of paper\" or error."
 msgstr ""
-"Selecteazã drept sursã Alimentatorul automat de documente. În acest caz "
-"XSane scaneazã pâna la apariþia erorii \"terminare hârtie\""
+"SelecteazÄƒ drept sursÄƒ Alimentatorul automat de documente. ÃŽn acest caz "
+"XSane scaneazÄƒ pÃ¢na la apariÅ£ia erorii \"terminare hÃ¢rtie\""
 
 #. DESC_PREVIEW_PIPETTE_RANGE
 msgid "dimension of square that is used to average color for pipette function"
-msgstr "dimensiunea pãtratului folosit la medierea culorii pt. funcþia pipetã"
+msgstr "dimensiunea pÄƒtratului folosit la medierea culorii pt. funcÅ£ia pipetÄƒ"
 
 #. DESC_DOC_VIEWER
 msgid ""
 "Enter command to be executed to display helpfiles, must be a html-viewer!"
 msgstr ""
-"Introduceþi comanda ce va fi executatã pentru afiºarea fiºierelor ajutor, "
-"trebuie sã fie un vizualizator de HTML!"
+"IntroduceÅ£i comanda ce va fi executatÄƒ pentru afiÅŸarea fiÅŸierelor ajutor, "
+"trebuie sÄƒ fie un vizualizator de HTML!"
 
 #. DESC_AUTOENHANCE_GAMMA
 msgid "Change gamma value when autoenhancement button is pressed"
-msgstr "Schimbã valoarea gamma la apasarea butonului de îmbunãtãþire automatã"
+msgstr "SchimbÄƒ valoarea gamma la apasarea butonului de Ã®mbunÄƒtÄƒÅ£ire automatÄƒ"
 
 #. DESC_PRESELECT_SCANAREA
 msgid "Select scanarea after preview scan has finished"
-msgstr "Selecteazã zona de scanare dupã terminarea scanãrii pt. previzualizare"
+msgstr "SelecteazÄƒ zona de scanare dupÄƒ terminarea scanÄƒrii pt. previzualizare"
 
 #. DESC_AUTOCORRECT_COLORS
 msgid "Do color correction after preview scan has finished"
-msgstr "Corecteazã culorile dupã terminarea scanãrii pt. previzualizare"
+msgstr "CorecteazÄƒ culorile dupÄƒ terminarea scanÄƒrii pt. previzualizare"
 
 #. DESC_FAX_COMMAND
 msgid "Enter command to be executed in fax mode"
-msgstr "Introduceþi comanda ce va fi executatã în modul fax"
+msgstr "IntroduceÅ£i comanda ce va fi executatÄƒ Ã®n modul fax"
 
 #. DESC_FAX_RECEIVER_OPT
 msgid "Enter option to specify receiver"
-msgstr "Introduceþi opþiunea pt. a specifica destinatarul"
+msgstr "IntroduceÅ£i opÅ£iunea pt. a specifica destinatarul"
 
 #. DESC_FAX_POSTSCRIPT_OPT
 msgid "Enter option to specify postscript files following"
-msgstr "Introduceþi opþiunea pt. a specifica cã urmeazã fiºiere postscript"
+msgstr "IntroduceÅ£i opÅ£iunea pt. a specifica cÄƒ urmeazÄƒ fiÅŸiere postscript"
 
 #. DESC_FAX_NORMAL_OPT
 msgid "Enter option to specify normal mode (low resolution)"
-msgstr "Introduceþi opþiunea pt. a specifica modul normal (rezoluþie redusã)"
+msgstr "IntroduceÅ£i opÅ£iunea pt. a specifica modul normal (rezoluÅ£ie redusÄƒ)"
 
 #. DESC_FAX_FINE_OPT
 msgid "Enter option to specify fine mode (high resolution)"
-msgstr "Introduceþi opþiunea pt. a specifica modul normal (rezoluþie ridicatã)"
+msgstr "IntroduceÅ£i opÅ£iunea pt. a specifica modul normal (rezoluÅ£ie ridicatÄƒ)"
 
 #. DESC_FAX_VIEWER
 msgid "Enter command to be executed to view a fax"
-msgstr "Introduceþi comanda ce va fi executatã pt. a vizualiza un fax"
+msgstr "IntroduceÅ£i comanda ce va fi executatÄƒ pt. a vizualiza un fax"
 
 #. DESC_FAX_FINE_MODE
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
 msgstr ""
-"Trimite un fax cu rezoluþie verticalã ridicatã (196 lpi în loc de 98 lpi)"
+"Trimite un fax cu rezoluÅ£ie verticalÄƒ ridicatÄƒ (196 lpi Ã®n loc de 98 lpi)"
 
 #. DESC_SMTP_SERVER
 msgid "IP Address or Domain name of SMTP server"
-msgstr "Adresa IP sau numele în domeniu a serverului SMTP"
+msgstr "Adresa IP sau numele Ã®n domeniu a serverului SMTP"
 
 #. DESC_SMTP_PORT
 msgid "port to connect to SMTP server"
@@ -1916,19 +1916,19 @@ msgstr "portul de conectare la serverul SMTP"
 
 #. DESC_MAIL_FROM
 msgid "enter your email address"
-msgstr "Introduceþi adresa dvs. de email"
+msgstr "IntroduceÅ£i adresa dvs. de email"
 
 #. DESC_MAIL_REPLY_TO
 msgid "enter email address for replied emails"
-msgstr "Introduceþi adresa de email pt. email-urile de rãspuns"
+msgstr "IntroduceÅ£i adresa de email pt. email-urile de rÄƒspuns"
 
 #. DESC_POP3_AUTHENTIFICATION
 msgid "Authentificate at POP3 server before sending mail"
-msgstr "Autentificare la serverul POP3 înainte de a trimite poºta"
+msgstr "Autentificare la serverul POP3 Ã®nainte de a trimite poÅŸta"
 
 #. DESC_POP3_SERVER
 msgid "IP Address or Domain name of POP3 server"
-msgstr "Adresa IP sau numele în domeniu a serverului POP3"
+msgstr "Adresa IP sau numele Ã®n domeniu a serverului POP3"
 
 #. DESC_POP3_PORT
 msgid "port to connect to POP3 server"
@@ -1945,40 +1945,40 @@ msgstr "Parola pt. serverul POP3"
 #. DESC_MAIL_VIEWER
 msgid "Enter command to be executed to view a mail image"
 msgstr ""
-"Introduceþi comanda ce va fi executatã pt. a vizualiza o imagine din mail"
+"IntroduceÅ£i comanda ce va fi executatÄƒ pt. a vizualiza o imagine din mail"
 
 #. DESC_HTML_MAIL
 msgid "Mail is sent in html mode, place image with: <IMAGE>"
-msgstr "Poºta trimisã în mod HTML va afiºa imaginile cu <IMAGE>"
+msgstr "PoÅŸta trimisÄƒ Ã®n mod HTML va afiÅŸa imaginile cu <IMAGE>"
 
 #. DESC_OCR_COMMAND
 msgid "Enter command to start ocr program"
 msgstr ""
-"Introduceþi comanda ce va fi executatã pt. a porni recunoaºterea opticã a "
+"IntroduceÅ£i comanda ce va fi executatÄƒ pt. a porni recunoaÅŸterea opticÄƒ a "
 "caracterelor (OCR)"
 
 #. DESC_OCR_INPUTFILE_OPT
 msgid "Enter option of the ocr program to define input file"
-msgstr "Introduceþi opþiunea programului OCR ce defineºte fiºierul de intrare"
+msgstr "IntroduceÅ£i opÅ£iunea programului OCR ce defineÅŸte fiÅŸierul de intrare"
 
 #. DESC_OCR_OUTPUTFILE_OPT
 msgid "Enter option of the ocr program to define output file"
-msgstr "Introduceþi opþiunea programului OCR ce defineºte fiºierul de ieºire"
+msgstr "IntroduceÅ£i opÅ£iunea programului OCR ce defineÅŸte fiÅŸierul de ieÅŸire"
 
 #. DESC_OCR_USE_GUI_PIPE_OPT
 msgid "Define if the ocr program supports gui progress pipe"
-msgstr "Defineºte dacã programul OCR susþine GUI de evoluþie prin pipe"
+msgstr "DefineÅŸte dacÄƒ programul OCR susÅ£ine GUI de evoluÅ£ie prin pipe"
 
 #. DESC_OCR_OUTFD_OPT
 msgid ""
 "Enter option of the ocr program to define output filedescripor in GUI mode"
 msgstr ""
-"Introduceþi opþiunea programului OCR ce defineºte descriptorul fiºierului de "
-"ieºire în mod GUI"
+"IntroduceÅ£i opÅ£iunea programului OCR ce defineÅŸte descriptorul fiÅŸierului de "
+"ieÅŸire Ã®n mod GUI"
 
 #. DESC_OCR_PROGRESS_KEYWORD
 msgid "Define Keyword that is used to mark progress information"
-msgstr "Defineºte cuvântul cheie pt. a marca informaþiile despre evoluþie"
+msgstr "DefineÅŸte cuvÃ¢ntul cheie pt. a marca informaÅ£iile despre evoluÅ£ie"
 
 #. DESC_PERMISSION_READ
 msgid "read"
@@ -1990,11 +1990,11 @@ msgstr "scriere"
 
 #. DESC_PERMISSION_EXECUTE
 msgid "execute"
-msgstr "execuþie"
+msgstr "execuÅ£ie"
 
 #. DESC_ADD_BATCH
 msgid "Add selection for batch scan"
-msgstr "Adaugã selecþia la lista loturilor"
+msgstr "AdaugÄƒ selecÅ£ia la lista loturilor"
 
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
@@ -2010,40 +2010,40 @@ msgstr "Preia punctul de negru"
 
 #. DESC_ZOOM_FULL
 msgid "Use full scanarea"
-msgstr "Foloseºte toatã zona de scanare"
+msgstr "FoloseÅŸte toatÄƒ zona de scanare"
 
 #. DESC_ZOOM_OUT
 #, no-c-format
 msgid "Zoom 20% out"
-msgstr "Micºoreazã cu 20%"
+msgstr "MicÅŸoreazÄƒ cu 20%"
 
 #. DESC_ZOOM_IN
 msgid "Click at position to zoom to"
-msgstr "Clic la o poziþie pentru mãrire/micºorare"
+msgstr "Clic la o poziÅ£ie pentru mÄƒrire/micÅŸorare"
 
 #. DESC_ZOOM_AREA
 msgid "Zoom into selected area"
-msgstr "Mãrire la zona selectatã"
+msgstr "MÄƒrire la zona selectatÄƒ"
 
 #. DESC_ZOOM_UNDO
 msgid "Undo last zoom"
-msgstr "Anuleazã ultima mãrire"
+msgstr "AnuleazÄƒ ultima mÄƒrire"
 
 #. DESC_FULL_PREVIEW_AREA
 msgid "Select visible area"
-msgstr "Selecteazã zona vizibilã"
+msgstr "SelecteazÄƒ zona vizibilÄƒ"
 
 #. DESC_AUTOSELECT_SCANAREA
 msgid "Autoselect scanarea"
-msgstr "Selectare automatã zonã de scanare"
+msgstr "Selectare automatÄƒ zonÄƒ de scanare"
 
 #. DESC_AUTORAISE_SCANAREA
 msgid "Autoraise scanarea"
-msgstr "Ridicã automat zona de scanare"
+msgstr "RidicÄƒ automat zona de scanare"
 
 #. DESC_DELETE_IMAGES
 msgid "Delete preview image cache"
-msgstr "ªterge imaginea previzualizatã tampon"
+msgstr "Åžterge imaginea previzualizatÄƒ tampon"
 
 #. DESC_PRESET_AREA
 msgid ""
@@ -2051,57 +2051,57 @@ msgid ""
 "To add new area or edit an existing area use contect menu (right mouse "
 "button)."
 msgstr ""
-"Zona predefinitã:\n"
-"Pentru a adãuga o zonã nouã sau a edita o zonã existentã folosiþi meniul "
+"Zona predefinitÄƒ:\n"
+"Pentru a adÄƒuga o zonÄƒ nouÄƒ sau a edita o zonÄƒ existentÄƒ folosiÅ£i meniul "
 "contextual (butonul dreapta maus)"
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
-msgstr "Roteºte previzualizarea ºi scaneazã"
+msgstr "RoteÅŸte previzualizarea ÅŸi scaneazÄƒ"
 
 #. DESC_RATIO
 msgid "Aspect ratio of selection"
-msgstr "Formatul de imagine al selecþiei"
+msgstr "Formatul de imagine al selecÅ£iei"
 
 #. DESC_PAPER_ORIENTATION
 msgid "Define image position for printing"
-msgstr "Defineºte poziþionarea imaginii pt. tipãrire"
+msgstr "DefineÅŸte poziÅ£ionarea imaginii pt. tipÄƒrire"
 
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
-msgstr "Recunoaºtere opticã a caracterelor (OCR)"
+msgstr "RecunoaÅŸtere opticÄƒ a caracterelor (OCR)"
 
 #. DESC_VIEWER_UNDO
 msgid "Undo last change"
-msgstr "Anuleazã ultima modificare"
+msgstr "AnuleazÄƒ ultima modificare"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
-msgstr "Cloneazã imaginea"
+msgstr "CloneazÄƒ imaginea"
 
 #. DESC_ROTATE90
 msgid "Rotate image 90 degree"
-msgstr "Roteºte imaginea cu 90°"
+msgstr "RoteÅŸte imaginea cu 90Â°"
 
 #. DESC_ROTATE180
 msgid "Rotate image 180 degree"
-msgstr "Roteºte imaginea cu 180°"
+msgstr "RoteÅŸte imaginea cu 180Â°"
 
 #. DESC_ROTATE270
 msgid "Rotate image 270 degree"
-msgstr "Roteºte imaginea cu 270°"
+msgstr "RoteÅŸte imaginea cu 270Â°"
 
 #. DESC_MIRROR_X
 msgid "Mirror image at vertical axis"
-msgstr "Oglindeºte imaginea dupã axa verticalã"
+msgstr "OglindeÅŸte imaginea dupÄƒ axa verticalÄƒ"
 
 #. DESC_MIRROR_Y
 msgid "Mirror image at horizontal axis"
-msgstr "Oglindeºte imaginea dupã axa orizontalã"
+msgstr "OglindeÅŸte imaginea dupÄƒ axa orizontalÄƒ"
 
 #. DESC_VIEWER_ZOOM
 msgid "Zoom image"
-msgstr "Mãrire imagine"
+msgstr "MÄƒrire imagine"
 
 #. DESC_STORE_MEDIUM
 msgid "Store medium"
@@ -2109,7 +2109,7 @@ msgstr "Stocare mediu"
 
 #. DESC_DELETE_MEDIUM
 msgid "Delete active medium"
-msgstr "ªterge mediul activ"
+msgstr "Åžterge mediul activ"
 
 #. DESC_SCALE_FACTOR
 msgid "Scale factor"
@@ -2125,43 +2125,43 @@ msgstr "Factor scalare Y"
 
 #. DESC_SCALE_WIDTH
 msgid "Scale image to width [in pixel]"
-msgstr "Scalare imagine (la lãþime) [în pixeli]"
+msgstr "Scalare imagine (la lÄƒÅ£ime) [Ã®n pixeli]"
 
 #. DESC_SCALE_HEIGHT
 msgid "Scale image to height [in pixel]"
-msgstr "Scalare imagine (la înãlþime) [în pixeli]"
+msgstr "Scalare imagine (la Ã®nÄƒlÅ£ime) [Ã®n pixeli]"
 
 #. DESC_BATCH_LIST_EMPTY
 msgid "Empty batch list"
-msgstr "Listã loturi goalã"
+msgstr "ListÄƒ loturi goalÄƒ"
 
 #. DESC_BATCH_LIST_SAVE
 msgid "Save batch list"
-msgstr "Salveazã lista loturi"
+msgstr "SalveazÄƒ lista loturi"
 
 #. DESC_BATCH_LIST_LOAD
 msgid "Load batch list"
-msgstr "Încarcã lista loturi"
+msgstr "ÃŽncarcÄƒ lista loturi"
 
 #. DESC_BATCH_RENAME
 msgid "Rename area"
-msgstr "Redenumeºte zona"
+msgstr "RedenumeÅŸte zona"
 
 #. DESC_BATCH_ADD
 msgid "Add selected preview area to batch list"
-msgstr "Adaugã zona previzualizatã selectatã la lista cu loturi"
+msgstr "AdaugÄƒ zona previzualizatÄƒ selectatÄƒ la lista cu loturi"
 
 #. DESC_BATCH_DEL
 msgid "Delete selected area from batch list"
-msgstr "ªterge zona selectatã din lista cu loturi"
+msgstr "Åžterge zona selectatÄƒ din lista cu loturi"
 
 #. DESC_AUTOMATIC
 msgid "Turns on automatic mode"
-msgstr "Activeazã modul automat"
+msgstr "ActiveazÄƒ modul automat"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
-msgstr "Nu am putut determina directorul acasã"
+msgstr "Nu am putut determina directorul acasÄƒ"
 
 #. ERR_CHANGE_WORKING_DIR
 msgid "Failed to change working directory to"
@@ -2169,23 +2169,23 @@ msgstr "Nu am putut schimba directorul de lucru la"
 
 #. ERR_FILENAME_TOO_LONG
 msgid "Filename too long"
-msgstr "Nume fiºier prea lung"
+msgstr "Nume fiÅŸier prea lung"
 
 #. ERR_CREATE_TEMP_FILE
 msgid "Could not create temporary file"
-msgstr "Nu am putut crea fiºierul temporar"
+msgstr "Nu am putut crea fiÅŸierul temporar"
 
 #. ERR_SET_OPTION
 msgid "Failed to set value of option"
-msgstr "Nu am putut seta valoarea opþiunii"
+msgstr "Nu am putut seta valoarea opÅ£iunii"
 
 #. ERR_GET_OPTION
 msgid "Failed to obtain value of option"
-msgstr "Nu am putut obþine valoarea opþiunii"
+msgstr "Nu am putut obÅ£ine valoarea opÅ£iunii"
 
 #. ERR_OPTION_COUNT
 msgid "Error obtaining option count"
-msgstr "Eroare la obþinerea numãrului de opþiuni"
+msgstr "Eroare la obÅ£inerea numÄƒrului de opÅ£iuni"
 
 #. ERR_DEVICE_OPEN_FAILED
 msgid "Failed to open device"
@@ -2193,7 +2193,7 @@ msgstr "Nu pot deschide dispozitivul"
 
 #. ERR_NO_DEVICES
 msgid "no devices available"
-msgstr "Nu existã dispozitive disponibile"
+msgstr "Nu existÄƒ dispozitive disponibile"
 
 #. ERR_DURING_READ
 msgid "Error during read:"
@@ -2205,12 +2205,12 @@ msgstr "Eroare la salvare:"
 
 #. ERR_BAD_DEPTH
 msgid "Can't handle depth"
-msgstr "Nu pot manipula adâncimea"
+msgstr "Nu pot manipula adÃ¢ncimea"
 
 #. ERR_GIMP_BAD_DEPTH
 #, c-format
 msgid "GIMP can't handle depth %d bits/color"
-msgstr "Gimp nu poate manipula adâncimea de %d biþi/culoare"
+msgstr "Gimp nu poate manipula adÃ¢ncimea de %d biÅ£i/culoare"
 
 #. ERR_UNKNOWN_SAVING_FORMAT
 msgid "Unknown file format for saving"
@@ -2222,48 +2222,52 @@ msgstr "Nu am putut deschide"
 
 #. ERR_CREATE_SECURE_FILE
 msgid "Could not create secure file (may be a link does exist):"
-msgstr "Nu am putut crea fiºierul în siguranþã (poate existã o legãturã):"
+msgstr "Nu am putut crea fiÅŸierul Ã®n siguranÅ£Äƒ (poate existÄƒ o legÄƒturÄƒ):"
 
 #. ERR_FAILED_PRINTER_PIPE
 msgid "Failed to open pipe for executing printercommand"
-msgstr "Nu am putut deschide un pipe pentru a executa comanda de tipãrire"
+msgstr "Nu am putut deschide un pipe pentru a executa comanda de tipÄƒrire"
 
 #. ERR_FAILED_EXEC_PRINTER_CMD
 msgid "Failed to execute printercommand:"
-msgstr "Nu am putut executa comanda de tipãrire:"
+msgstr "Nu am putut executa comanda de tipÄƒrire:"
 
 #. ERR_FAILED_START_SCANNER
 msgid "Failed to start scanner:"
-msgstr "Pornire scanner eºuatã:"
+msgstr "Pornire scanner eÅŸuatÄƒ:"
 
 #. ERR_FAILED_GET_PARAMS
 msgid "Failed to get parameters:"
-msgstr "Preluare parametri eºuatã:"
+msgstr "Preluare parametri eÅŸuatÄƒ:"
 
 #. ERR_NO_OUTPUT_FORMAT
 msgid "No output format given"
-msgstr "Nu am primit formatul de ieºire"
+msgstr "Nu am primit formatul de ieÅŸire"
 
 #. ERR_NO_MEM
 msgid "out of memory"
-msgstr "Nu am memorie suficientã."
+msgstr "Nu am memorie suficientÄƒ."
 
 #. ERR_TOO_MUCH_DATA
 msgid "Backend sends more image data than it defined in parameters"
 msgstr ""
-"Backend-ul trimite mai multe date de imagine decât este definit în parametri"
+"Backend-ul trimite mai multe date de imagine decÃ¢t este definit Ã®n parametri"
 
 #. ERR_LIBTIFF
 msgid "LIBTIFF reports error"
-msgstr "libtiff raporteazã o eroare"
+msgstr "libtiff raporteazÄƒ o eroare"
 
 #. ERR_LIBPNG
 msgid "LIBPNG reports error"
-msgstr "libpng raporteazã o eroare"
+msgstr "libpng raporteazÄƒ o eroare"
 
 #. ERR_LIBJPEG
 msgid "LIBJPEG reports error"
-msgstr "LIBJPEG raporteazã o eroare"
+msgstr "LIBJPEG raporteazÄƒ o eroare"
+
+#. ERR_ZLIB
+msgid "ZLIB error or memory allocation problem"
+msgstr ""
 
 #. ERR_UNKNOWN_TYPE
 msgid "unknown type"
@@ -2271,19 +2275,19 @@ msgstr "Tip necunoscut"
 
 #. ERR_UNKNOWN_CONSTRAINT_TYPE
 msgid "unknown constraint type"
-msgstr "tip constrângere necunoscut"
+msgstr "tip constrÃ¢ngere necunoscut"
 
 #. ERR_OPTION_NAME_NULL
 msgid "Option has empty name (NULL)."
-msgstr "Opþiunea are nume vid (NULL)."
+msgstr "OpÅ£iunea are nume vid (NULL)."
 
 #. ERR_BACKEND_BUG
 msgid "This is a backend bug. Please inform the author of the backend!"
-msgstr "Aceasta este o eroare de back-end. Informaþi autorul back-end-ului!"
+msgstr "Aceasta este o eroare de back-end. InformaÅ£i autorul back-end-ului!"
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
-msgstr "Nu am putut lansa vizualizatorul de documentaþie:"
+msgstr "Nu am putut lansa vizualizatorul de documentaÅ£ie:"
 
 #. ERR_FAILED_EXEC_FAX_VIEWER
 msgid "Failed to execute fax viewer:"
@@ -2295,7 +2299,7 @@ msgstr "Nu am putut executa comanda de fax:"
 
 #. ERR_FAILED_EXEC_MAIL_VIEWER
 msgid "Failed to execute mail image viewer:"
-msgstr "Nu am putut lansa vizualizatorul de imagini din poºtã:"
+msgstr "Nu am putut lansa vizualizatorul de imagini din poÅŸtÄƒ:"
 
 #. ERR_FAILED_EXEC_OCR_CMD
 msgid "Failed to execute ocr command:"
@@ -2307,12 +2311,12 @@ msgstr "format cadru eronat"
 
 #. ERR_FAILED_SET_RESOLUTION
 msgid "unable to set resolution"
-msgstr "nu pot seta rezoluþia"
+msgstr "nu pot seta rezoluÅ£ia"
 
 #. ERR_PASSWORD_FILE_INSECURE
 #, c-format
 msgid "Password file (%s) is insecure, use permission x00\n"
-msgstr "Fiºierul cu parole (%s) nu este sigur, folosesc drepturile x00\n"
+msgstr "FiÅŸierul cu parole (%s) nu este sigur, folosesc drepturile x00\n"
 
 #. ERR_ERROR
 msgid "error"
@@ -2320,15 +2324,15 @@ msgstr "eroare"
 
 #. ERR_MAJOR_VERSION_NR_CONFLICT
 msgid "Sane major version number mismatch!"
-msgstr "Nepotrivire numãr major de versiune Sane"
+msgstr "Nepotrivire numÄƒr major de versiune Sane"
 
 #. ERR_XSANE_MAJOR_VERSION
 msgid "XSane major version ="
-msgstr "Versiune majorã Xsane="
+msgstr "Versiune majorÄƒ Xsane="
 
 #. ERR_BACKEND_MAJOR_VERSION
 msgid "backend major version ="
-msgstr "Versiune majorã backend="
+msgstr "Versiune majorÄƒ backend="
 
 #. ERR_PROGRAM_ABORTED
 msgid "*** PROGRAM ABORTED ***"
@@ -2340,19 +2344,19 @@ msgstr "Nu am putut aloca memorie pt. imagine"
 
 #. ERR_PREVIEW_BAD_DEPTH
 msgid "Preview cannot handle bit depth"
-msgstr "Pevizualizarea nu poate manipula adâncimea"
+msgstr "Pevizualizarea nu poate manipula adÃ¢ncimea"
 
 #. ERR_GIMP_SUPPORT_MISSING
 msgid "GIMP support missing"
-msgstr "Lipseºte susþinerea Gimp"
+msgstr "LipseÅŸte susÅ£inerea Gimp"
 
 #. ERR_CREATE_PREVIEW_FILE
 msgid "Could not create temporary preview files"
-msgstr "Nu am putut crea fiºierele temporare de previzualizare"
+msgstr "Nu am putut crea fiÅŸierele temporare de previzualizare"
 
 #. ERR_CREATE_PREVIEW_FILENAME
 msgid "Could not create filenames for preview files"
-msgstr "Nu am putut crea nume de fiºiere pt. previzualizare"
+msgstr "Nu am putut crea nume de fiÅŸiere pt. previzualizare"
 
 #. ERR_CREATE_FAX_PROJECT
 msgid "Could not create faxproject"
@@ -2360,11 +2364,11 @@ msgstr "Nu am putut crea proiecul fax"
 
 #. WARN_COUNTER_UNDERRUN
 msgid "Filename counter underrun"
-msgstr "Contor nume fiºiere prea mic"
+msgstr "Contor nume fiÅŸiere prea mic"
 
 #. WARN_NO_VALUE_CONSTRAINT
 msgid "warning: option has no value constraint"
-msgstr "atenþie: opþiunea nu are constrângeri pt. valoare"
+msgstr "atenÅ£ie: opÅ£iunea nu are constrÃ¢ngeri pt. valoare"
 
 #. WARN_XSANE_AS_ROOT
 msgid ""
@@ -2374,11 +2378,11 @@ msgid ""
 "have any problem while running XSane as root:\n"
 "YOU ARE ALONE!"
 msgstr ""
-"Încercaþi sã rulaþi XSane ca root, ceea ce este PERICULOS!\n"
+"ÃŽncercaÅ£i sÄƒ rulaÅ£i XSane ca root, ceea ce este PERICULOS!\n"
 "\n"
-"Nu trimiteþi rapoarte de erori dacã sunt probleme\n"
-"când XSane ruleaza ca root!\n"
-"Sunteþi pe cont propriu!"
+"Nu trimiteÅ£i rapoarte de erori dacÄƒ sunt probleme\n"
+"cÃ¢nd XSane ruleaza ca root!\n"
+"SunteÅ£i pe cont propriu!"
 
 #. ERR_HEADER_ERROR
 msgid "Error"
@@ -2390,7 +2394,7 @@ msgstr "Avertisment"
 
 #. ERR_HEADER_INFO
 msgid "Information"
-msgstr "Informaþii"
+msgstr "InformaÅ£ii"
 
 #. ERR_HEADER_CHILD_PROCESS_ERROR
 msgid "Child process error"
@@ -2398,15 +2402,15 @@ msgstr "Eroare proces copil"
 
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
-msgstr "Nu pot crea fiºierul:"
+msgstr "Nu pot crea fiÅŸierul:"
 
 #. ERR_LOAD_DEVICE_SETTINGS
 msgid "Error while loading device settings:"
-msgstr "Eroare la încãrcare setãri dispozitiv:"
+msgstr "Eroare la Ã®ncÄƒrcare setÄƒri dispozitiv:"
 
 #. ERR_NO_DRC_FILE
 msgid "is not a device-rc-file !!!"
-msgstr "nu este un fiºier device-rc!!!"
+msgstr "nu este un fiÅŸier device-rc!!!"
 
 #. ERR_NETSCAPE_EXECUTE_FAIL
 msgid "Failed to execute netscape!"
@@ -2422,7 +2426,7 @@ msgstr "a fost creat pentru dispozitivul"
 
 #. ERR_USED_FOR_DEVICE
 msgid "you want to use it for device"
-msgstr "doriþi sã fie folosit pentru dispozitivul"
+msgstr "doriÅ£i sÄƒ fie folosit pentru dispozitivul"
 
 #. ERR_MAY_CAUSE_PROBLEMS
 msgid "this may cause problems!"
@@ -2431,31 +2435,31 @@ msgstr "poate cauza probleme!"
 #. WARN_UNSAVED_IMAGES
 #, c-format
 msgid "There are %d unsaved images"
-msgstr "Existã %d imagini nesalvate"
+msgstr "ExistÄƒ %d imagini nesalvate"
 
 #. WARN_FILE_EXISTS
 #, c-format
 msgid "File %s already exists"
-msgstr "Fiºierul %s exitã deja"
+msgstr "FiÅŸierul %s exitÄƒ deja"
 
 #. ERR_FILE_NOT_EXISTS
 #, c-format
 msgid "File %s does not exist"
-msgstr "Fiºierul %s nu existã"
+msgstr "FiÅŸierul %s nu existÄƒ"
 
 #. ERR_FILE_NOT_POSTSCRIPT
 #, c-format
 msgid "File %s is not a postscript file"
-msgstr "Fiºierul %s nu este un fiºier postscript"
+msgstr "FiÅŸierul %s nu este un fiÅŸier postscript"
 
 #. ERR_UNSUPPORTED_OUTPUT_FORMAT
 #, c-format
 msgid "Unsupported %d-bit output format: %s"
-msgstr "Formatul de ieºire: %s pe %d biþi nu este susþinut"
+msgstr "Formatul de ieÅŸire: %s pe %d biÅ£i nu este susÅ£inut"
 
 #. WARN_VIEWER_IMAGE_NOT_SAVED
 msgid "viewer image is not saved"
-msgstr "imaginea vizualizatã nu este salvatã"
+msgstr "imaginea vizualizatÄƒ nu este salvatÄƒ"
 
 #. TEXT_USAGE
 msgid "Usage:"
@@ -2463,7 +2467,7 @@ msgstr "Utilizare:"
 
 #. TEXT_USAGE_OPTIONS
 msgid "[OPTION]... [DEVICE]"
-msgstr "[OPÞIUNE]... [DISPOZITIV]"
+msgstr "[OPÅ¢IUNE]... [DISPOZITIV]"
 
 #. TEXT_HELP
 msgid ""
@@ -2500,68 +2504,68 @@ msgid ""
 " --sync                       request a synchronous connection with the X11 "
 "server"
 msgstr ""
-"Porneºte interfaþa graficã utilizator pt. a accesa dispozitivele SANE "
+"PorneÅŸte interfaÅ£a graficÄƒ utilizator pt. a accesa dispozitivele SANE "
 "(Scanner Access Now Easy).\n"
 "\n"
-"Formatul [DISPOZITIV] este numeBackend:fiºierDispozitiv (ex.umax:/dev/"
+"Formatul [DISPOZITIV] este numeBackend:fiÅŸierDispozitiv (ex.umax:/dev/"
 "scanner).\n"
-"[OPÞIUNI] poate fi o combinaþie a urmãtoarelor articole:\n"
-" -h, --help                  afiºeazã acest mesaj, apoi terminare\n"
-" -v, --version                afiºeazã informaþii despre versiune\n"
-" -l, --license                afiºeazã informaþii despre licenþã\n"
-" -d, --device-settings fiºier   încarcã setãrile dispozitivului din fiºier "
-"(fãrã \".drc\")\n"
+"[OPÅ¢IUNI] poate fi o combinaÅ£ie a urmÄƒtoarelor articole:\n"
+" -h, --help                  afiÅŸeazÄƒ acest mesaj, apoi terminare\n"
+" -v, --version                afiÅŸeazÄƒ informaÅ£ii despre versiune\n"
+" -l, --license                afiÅŸeazÄƒ informaÅ£ii despre licenÅ£Äƒ\n"
+" -d, --device-settings fiÅŸier   Ã®ncarcÄƒ setÄƒrile dispozitivului din fiÅŸier "
+"(fÄƒrÄƒ \".drc\")\n"
 "\n"
-" -V, --viewer                 porneºte în modul vizualizare (implicit)\n"
-" -s, --save                   porneºte în modul salvare\n"
-" -c, --copy                   porneºte în modul copiere\n"
-" -f, --fax                    porneºte în modul fax\n"
-" -m, --mail                   porneºte în modul poºtã\n"
-" -n, --no-mode-selection      dezactiveazã meniul de selectare a modului "
+" -V, --viewer                 porneÅŸte Ã®n modul vizualizare (implicit)\n"
+" -s, --save                   porneÅŸte Ã®n modul salvare\n"
+" -c, --copy                   porneÅŸte Ã®n modul copiere\n"
+" -f, --fax                    porneÅŸte Ã®n modul fax\n"
+" -m, --mail                   porneÅŸte Ã®n modul poÅŸtÄƒ\n"
+" -n, --no-mode-selection      dezactiveazÄƒ meniul de selectare a modului "
 "XSane\n"
-" -F, --Fixed                  marime fixã a ferestrei principale (suprascrie "
-"valorile din preferinþe)\n"
-" -R, --Resizeable       fereastrã principalã redimensionabilã (suprascrie "
-"valorile din preferinþe)\n"
+" -F, --Fixed                  marime fixÄƒ a ferestrei principale (suprascrie "
+"valorile din preferinÅ£e)\n"
+" -R, --Resizeable       fereastrÄƒ principalÄƒ redimensionabilÄƒ (suprascrie "
+"valorile din preferinÅ£e)\n"
 "\n"
-" -p, --print-filenames        tipãreºte numele fiºierelor create de cãtre "
+" -p, --print-filenames        tipÄƒreÅŸte numele fiÅŸierelor create de cÄƒtre "
 "XSane\n"
-" -N, --force-filename name   forþeazã numele de fiºiere ºi dezactiveazã "
-"selectarea numelor de fiºiere de cãtre utilizator\n"
+" -N, --force-filename name   forÅ£eazÄƒ numele de fiÅŸiere ÅŸi dezactiveazÄƒ "
+"selectarea numelor de fiÅŸiere de cÄƒtre utilizator\n"
 "\n"
-" --display X11-display        redirecþioneazã ieºirea cãtre afiºajul X11\n"
-" --no-xshm                   nu foloseºte imagini partajate în memorie\n"
-" --sync                      cere o conexiune sincronã cu serverul X11"
+" --display X11-display        redirecÅ£ioneazÄƒ ieÅŸirea cÄƒtre afiÅŸajul X11\n"
+" --no-xshm                   nu foloseÅŸte imagini partajate Ã®n memorie\n"
+" --sync                      cere o conexiune sincronÄƒ cu serverul X11"
 
 #. strings for gimp plugin
 #. XSANE_GIMP_INSTALL_BLURB
 msgid "Front-end to the SANE interface"
-msgstr "Front-end la interfaþa SANE"
+msgstr "Front-end la interfaÅ£a SANE"
 
 #. XSANE_GIMP_INSTALL_HELP
 msgid ""
 "This function provides access to scanners and other image acquisition "
 "devices through the SANE (Scanner Access Now Easy) interface."
 msgstr ""
-"Aceastã funcþie oferã accesul la scannere ºi alte dispozitive de achiziþie "
-"de imagini prin interfaþa SANE (Scanner Access Now Easy)."
+"AceastÄƒ funcÅ£ie oferÄƒ accesul la scannere ÅŸi alte dispozitive de achiziÅ£ie "
+"de imagini prin interfaÅ£a SANE (Scanner Access Now Easy)."
 
 #. Menu path must not be translated, this is done by the gimp. Only translate the text behind the last "/"
 #. XSANE_GIMP_MENU_DIALOG
 msgid "<Toolbox>/File/Acquire/XSane: Device dialog..."
-msgstr "<Toolbox>/Fiºier/Obþine/XSane: Dialog dispozitiv..."
+msgstr "<Toolbox>/File/Acquire/XSane: Dialog dispozitiv..."
 
 #. XSANE_GIMP_MENU
 msgid "<Toolbox>/File/Acquire/XSane: "
-msgstr "<Toolbox>/Fiºier/Obþine/XSane: "
+msgstr "<Toolbox>/File/Acquire/XSane: "
 
 #. XSANE_GIMP_MENU_DIALOG_OLD
 msgid "<Toolbox>/Xtns/XSane/Device dialog..."
-msgstr "<Toolbox>/Extensii/XSane: Dialog dispozitiv..."
+msgstr "<Toolbox>/Xtns/XSane/Dialog dispozitiv..."
 
 #. XSANE_GIMP_MENU_OLD
 msgid "<Toolbox>/Xtns/XSane/"
-msgstr "<Toolbox>/Extensii/XSane/"
+msgstr "<Toolbox>/Xtns/XSane/"
 
 #. HELP_NO_DEVICES
 msgid ""
@@ -2575,19 +2579,19 @@ msgid ""
 "6) Possibly there is more than one SANE version installed"
 msgstr ""
 "Cauze posibile:\n"
-"1) Chiar nu este nici un dispozitiv susþinut de SANE\n"
-"2) Dispozitivele susþinute sunt ocupate\n"
-"3) Drepturile pt. fiºierul dispozitiv nu vã permit folosirea lui - încercaþi "
+"1) Chiar nu este nici un dispozitiv susÅ£inut de SANE\n"
+"2) Dispozitivele susÅ£inute sunt ocupate\n"
+"3) Drepturile pt. fiÅŸierul dispozitiv nu vÄƒ permit folosirea lui - Ã®ncercaÅ£i "
 "ca root\n"
-"4) Backend-ul nu este incãrcat de cãtre SANE (man sane-dll)\n"
+"4) Backend-ul nu este incÄƒrcat de cÄƒtre SANE (man sane-dll)\n"
 "5) Backend-ul nu este configurat corect (man sane-\"backendname\")\n"
-"6) Este posibil sã aveþi instalate mai multe versiuni de SANE"
+"6) Este posibil sÄƒ aveÅ£i instalate mai multe versiuni de SANE"
 
 #. strings that are used in structures, so it is not allowed to use _()/gettext() here
 #. gettext_noop does mark these texts but does not change the string
 #. MENU_ITEM_SURFACE_FULL_SIZE
 msgid "full size"
-msgstr "mãrime completã"
+msgstr "mÄƒrime completÄƒ"
 
 #. MENU_ITEM_SURFACE_DIN_A3P
 msgid "DIN A3 port."
@@ -2655,7 +2659,7 @@ msgstr "Letter Oriz."
 
 #. MENU_ITEM_MEDIUM_FULL_COLOR_RANGE
 msgid "Full color range"
-msgstr "Toatã gama de culori"
+msgstr "ToatÄƒ gama de culori"
 
 #. MENU_ITEM_MEDIUM_SLIDE
 msgid "Slide"
@@ -2715,23 +2719,23 @@ msgstr "Eroare de citire proiect mail"
 
 #. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
 msgid "POP3 connection failed"
-msgstr "Conexiune POP3 eºuatã"
+msgstr "Conexiune POP3 eÅŸuatÄƒ"
 
 #. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
 msgid "POP3 login failed"
-msgstr "Logare POP3 eºuatã"
+msgstr "Logare POP3 eÅŸuatÄƒ"
 
 #. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
-msgstr "Conexiune SMTP eºuatã"
+msgstr "Conexiune SMTP eÅŸuatÄƒ"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_FROM
 msgid "From entry not accepted"
-msgstr "Intrarea De la: inacceptabilã"
+msgstr "Intrarea De la: inacceptabilÄƒ"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_RCPT
 msgid "Receiver entry not accepted"
-msgstr "Intrarea Destinatar: inacceptabilã"
+msgstr "Intrarea Destinatar: inacceptabilÄƒ"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_DATA
 msgid "Mail data not accepted"
@@ -2759,18 +2763,18 @@ msgstr "Proiectul fax a fost modificat"
 
 #. TEXT_FAX_STATUS_QUEUEING_FAX
 msgid "Queueing Fax"
-msgstr "Faxul este trimis în coadã"
+msgstr "Faxul este trimis Ã®n coadÄƒ"
 
 #. TEXT_FAX_STATUS_FAX_QUEUED
 msgid "Fax is queued"
-msgstr "Faxul este în coadã"
+msgstr "Faxul este Ã®n coadÄƒ"
 
 #. Sane backend messages
 msgid "flatbed scanner"
-msgstr "Scanner staþionar"
+msgstr "Scanner staÅ£ionar"
 
 msgid "frame grabber"
-msgstr "Capturã cadre"
+msgstr "CapturÄƒ cadre"
 
 msgid "handheld scanner"
 msgstr "Scanner manual"
@@ -2779,7 +2783,7 @@ msgid "still camera"
 msgstr "Aparat de fotografiat digital"
 
 msgid "video camera"
-msgstr "Camerã video"
+msgstr "CamerÄƒ video"
 
 msgid "virtual device"
 msgstr "Dispozitiv virtual"
@@ -2788,10 +2792,10 @@ msgid "Success"
 msgstr "Succes"
 
 msgid "Operation not supported"
-msgstr "Operaþiunea nu este susþinutã"
+msgstr "OperaÅ£iunea nu este susÅ£inutÄƒ"
 
 msgid "Operation was cancelled"
-msgstr "Operaþiunea a fost anulatã"
+msgstr "OperaÅ£iunea a fost anulatÄƒ"
 
 msgid "Device busy"
 msgstr "Dispozitiv ocupat"
@@ -2800,22 +2804,22 @@ msgid "Invalid argument"
 msgstr "Argument incorect"
 
 msgid "End of file reached"
-msgstr "Am ajuns la sfârºitul fiºierului"
+msgstr "Am ajuns la sfÃ¢rÅŸitul fiÅŸierului"
 
 msgid "Document feeder jammed"
-msgstr "Încãrcãtorul de documente s-a blocat"
+msgstr "ÃŽncÄƒrcÄƒtorul de documente s-a blocat"
 
 msgid "Document feeder out of documents"
-msgstr "Încãrcãtorul de documente s-a golit"
+msgstr "ÃŽncÄƒrcÄƒtorul de documente s-a golit"
 
 msgid "Scanner cover is open"
 msgstr "Capacul scannerului este deschis"
 
 msgid "Error during device I/O"
-msgstr "Eroare intrare/ieºire dispozitiv"
+msgstr "Eroare intrare/ieÅŸire dispozitiv"
 
 msgid "Out of memory"
-msgstr "Nu am memorie suficientã."
+msgstr "Nu am memorie suficientÄƒ."
 
 msgid "Access to resource has been denied"
-msgstr "Accesul la resursã a fost respins"
+msgstr "Accesul la resursÄƒ a fost respins"

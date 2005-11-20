@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.96\n"
-"POT-Creation-Date: 2004-08-21 15:31+0200\n"
+"POT-Creation-Date: 2005-10-23 00:20+0200\n"
 "PO-Revision-Date: 2004-08-26 23:33+0700\n"
 "Last-Translator: Trinh Minh Thanh <tmthanh@yahoo.com>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
@@ -2259,6 +2259,10 @@ msgstr "LIBPNG báo có lỗi"
 #. ERR_LIBJPEG
 msgid "LIBJPEG reports error"
 msgstr "LIBJPEG báo lỗi"
+
+#. ERR_ZLIB
+msgid "ZLIB error or memory allocation problem"
+msgstr ""
 
 #. ERR_UNKNOWN_TYPE
 msgid "unknown type"

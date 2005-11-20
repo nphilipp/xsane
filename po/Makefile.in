@@ -213,14 +213,29 @@ update-po: Makefile
 	  fi; \
 	done
 
-utf8:
-	for LNG in *.po ; do \
-	 FORMAT=`grep charset $$LNG | sed -e '{ s/Content-Type: text\/plain; charset=//g ; s/\\\n// ; s/\"//g ; }'` ;\
-	 echo recoding $$LNG\($$FORMAT\) to UTF-8/$$LNG\(UTF-8\);\
+import-po-files_old:
+	for LNG in $(POFILES) ; do \
+	 FORMAT=`grep charset IMPORT_PO_DIR/$$LNG | sed -e '{ s/Content-Type: text\/plain; charset=//g ; s/\\\n// ; s/\"//g ; }'` ;\
 	 COMMAND="s/"$$FORMAT"/UTF-8/g" ;\
-	 cat $$LNG | sed -e $$COMMAND >UTF-8/$$LNG ;\
-	 recode $$FORMAT..UTF-8 UTF-8/$$LNG ;\
+	 echo recoding IMPORT_PO_DIR/$$LNG\($$FORMAT\) to $$LNG\(UTF-8\);\
+	 cat IMPORT_PO_DIR/$$LNG | sed -e $$COMMAND >$$LNG ;\
+	 recode $$FORMAT..UTF-8 $$LNG ;\
+	 mv IMPORT_PO_DIR/$$LNG IMPORT_PO_DIR/$$LNG.import_done
 	done
+
+import-po-files:
+	@cd IMPORT_PO_DIR ;\
+	for LNG in *.po ; do \
+	  if test -r $$LNG; then \
+	    FORMAT=`grep charset $$LNG | sed -e '{ s/Content-Type: text\/plain; charset=//g ; s/\\\n// ; s/\"//g ; }'` ;\
+	    COMMAND="s/"$$FORMAT"/UTF-8/g" ;\
+	    echo recoding $$LNG\($$FORMAT\) to ../$$LNG\(UTF-8\);\
+	    cat $$LNG | sed -e $$COMMAND >../$$LNG ;\
+	    recode $$FORMAT..UTF-8 ../$$LNG ;\
+	    mv $$LNG $$LNG.import_done ;\
+	  fi ;\
+	done
+
 
 
 Makefile: Makefile.in ../config.status

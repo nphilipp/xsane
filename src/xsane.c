@@ -328,7 +328,7 @@ static void xsane_set_modus_defaults(void)
 {
   DBG(DBG_proc, "xsane_set_modus_defaults\n");
 
-  switch(xsane.xsane_mode)
+  switch(preferences.xsane_mode)
   {
     case XSANE_VIEWER:
       xsane_define_maximum_output_size();
@@ -398,23 +398,23 @@ static void xsane_modus_callback(GtkWidget *xsane_parent, int *num)
 {
   DBG(DBG_proc, "xsane_modus_callback\n");
 
-  xsane.xsane_mode = *num;
+  preferences.xsane_mode = *num;
 
   xsane_set_modus_defaults(); /* set defaults and maximum output size */
   xsane_refresh_dialog();
 
-  if ((xsane.xsane_mode == XSANE_SAVE) || (xsane.xsane_mode == XSANE_VIEWER) || (xsane.xsane_mode == XSANE_COPY))
+  if ((preferences.xsane_mode == XSANE_SAVE) || (preferences.xsane_mode == XSANE_VIEWER) || (preferences.xsane_mode == XSANE_COPY))
   {
     gtk_widget_set_sensitive(GTK_WIDGET(xsane.start_button), TRUE); 
   }
 
-  if (xsane.xsane_mode != XSANE_FAX)
+  if (preferences.xsane_mode != XSANE_FAX)
   {
     xsane_fax_dialog_close();
   }
 
 #ifdef XSANE_ACTIVATE_MAIL
-  if (xsane.xsane_mode != XSANE_MAIL)
+  if (preferences.xsane_mode != XSANE_MAIL)
   {
     if (xsane.mail_project_save)
     {
@@ -1206,7 +1206,7 @@ static void xsane_scanmode_menu_callback(GtkWidget *widget, gpointer data)
   opt = xsane_get_option_descriptor(xsane.dev, opt_num);
   xsane_back_gtk_set_option(opt_num, menu_item->label, SANE_ACTION_SET_VALUE);
 
-  if (xsane.xsane_mode == XSANE_COPY)
+  if (preferences.xsane_mode == XSANE_COPY)
   {
     switch (xsane.param.format)
     {
@@ -1336,7 +1336,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
     xsane_back_gtk_set_tooltip(xsane.tooltips, xsane_modus_option_menu, DESC_XSANE_MODE);
     gtk_box_pack_end(GTK_BOX(xsane_hbox_xsane_modus), xsane_modus_option_menu, FALSE, FALSE, 2);
     gtk_option_menu_set_menu(GTK_OPTION_MENU(xsane_modus_option_menu), xsane_modus_menu);
-    gtk_option_menu_set_history(GTK_OPTION_MENU(xsane_modus_option_menu), xsane.xsane_mode);
+    gtk_option_menu_set_history(GTK_OPTION_MENU(xsane_modus_option_menu), preferences.xsane_mode);
     gtk_widget_show(xsane_modus_option_menu);
     gtk_widget_show(xsane_hbox_xsane_modus);
 
@@ -1472,7 +1472,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
       xsane_back_gtk_set_tooltip(xsane.tooltips, xsane_medium_option_menu, DESC_XSANE_MEDIUM);
       gtk_box_pack_end(GTK_BOX(hbox), xsane_medium_option_menu, FALSE, FALSE, 2);
       gtk_option_menu_set_menu(GTK_OPTION_MENU(xsane_medium_option_menu), xsane_medium_menu);
-      gtk_option_menu_set_history(GTK_OPTION_MENU(xsane_medium_option_menu), xsane.medium_nr);
+      gtk_option_menu_set_history(GTK_OPTION_MENU(xsane_medium_option_menu), preferences.medium_nr);
       gtk_widget_show(xsane_medium_option_menu);
       gtk_widget_show(hbox);
 
@@ -1480,12 +1480,12 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
 
       if (xsane.medium_calibration) /* are we running in medium calibration mode? */
       {
-        xsane_apply_medium_definition_as_enhancement(preferences.medium[xsane.medium_nr]);
+        xsane_apply_medium_definition_as_enhancement(preferences.medium[preferences.medium_nr]);
         xsane_set_medium(NULL);
       }
       else
       {
-        xsane_set_medium(preferences.medium[xsane.medium_nr]);
+        xsane_set_medium(preferences.medium[preferences.medium_nr]);
       }
     }
     else /* no medium selextion for lineart mode: use Full range gamma curve */
@@ -1495,7 +1495,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
   }
 
 
-  if (xsane.xsane_mode == XSANE_SAVE)
+  if (preferences.xsane_mode == XSANE_SAVE)
   {
     xsane.copy_number_entry = NULL;
 
@@ -1505,7 +1505,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
     }
   }
 
-  if ( (xsane.xsane_mode == XSANE_SAVE) || (xsane.xsane_mode == XSANE_VIEWER) )
+  if ( (preferences.xsane_mode == XSANE_SAVE) || (preferences.xsane_mode == XSANE_VIEWER) )
   {
     /* resolution selection */
     if (!xsane_resolution_widget_new(xsane_vbox_xsane_modus, xsane.well_known.dpi_x, &xsane.resolution_x, resolution_x_xpm,
@@ -1520,7 +1520,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
                                   DESC_RESOLUTION, XSANE_GTK_NAME_RESOLUTION); 
     }
   }
-  else if (xsane.xsane_mode == XSANE_COPY)
+  else if (preferences.xsane_mode == XSANE_COPY)
   {
    GtkWidget *pixmapwidget, *hbox, *xsane_printer_option_menu, *xsane_printer_menu, *xsane_printer_item;
    GdkBitmap *mask;
@@ -1677,7 +1677,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
                             xsane.resolution, zoom_xpm, DESC_ZOOM);
     }
   }
-  else if (xsane.xsane_mode == XSANE_FAX)
+  else if (preferences.xsane_mode == XSANE_FAX)
   {
     xsane.copy_number_entry = NULL;
 
@@ -1689,7 +1689,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
     xsane_fax_dialog();
   }
 #ifdef XSANE_ACTIVATE_MAIL
-  else if (xsane.xsane_mode == XSANE_MAIL)
+  else if (preferences.xsane_mode == XSANE_MAIL)
   {
     xsane.copy_number_entry = NULL;
 
@@ -2040,11 +2040,6 @@ static int xsane_pref_restore(void)
   if (!preferences.fax_fine_option)
   {
     preferences.fax_fine_option = strdup(FAXFINEOPT);
-  }
-
-  if (!preferences.fax_viewer)
-  {
-    preferences.fax_viewer = strdup(FAXVIEWER);
   }
 
 #ifdef XSANE_ACTIVATE_MAIL
@@ -2519,13 +2514,13 @@ static gint xsane_medium_move_up_callback(GtkWidget *widget, GtkWidget *medium_w
     preferences.medium[selection-1] = preferences.medium[selection];
     preferences.medium[selection] = help_medium;
     
-    if (xsane.medium_nr == selection)
+    if (preferences.medium_nr == selection)
     {
-      xsane.medium_nr--;
+      preferences.medium_nr--;
     }
-    else if (xsane.medium_nr == selection-1)
+    else if (preferences.medium_nr == selection-1)
     {
-      xsane.medium_nr++;
+      preferences.medium_nr++;
     }
   
     xsane_back_gtk_refresh_dialog(); /* brute-force: update menu */
@@ -2554,13 +2549,13 @@ static gint xsane_medium_move_down_callback(GtkWidget *widget, GtkWidget *medium
     preferences.medium[selection] = preferences.medium[selection+1];
     preferences.medium[selection+1] = help_medium;
     
-    if (xsane.medium_nr == selection)
+    if (preferences.medium_nr == selection)
     {
-      xsane.medium_nr++;
+      preferences.medium_nr++;
     }
-    else if (xsane.medium_nr == selection+1)
+    else if (preferences.medium_nr == selection+1)
     {
-      xsane.medium_nr--;
+      preferences.medium_nr--;
     }
   
     xsane_back_gtk_refresh_dialog(); /* brute-force: update menu */
@@ -2683,7 +2678,7 @@ static gint xsane_medium_add_callback(GtkWidget *widget, GtkWidget *medium_widge
       preferences.medium[selection]->negative        = xsane.negative;
     }
 
-    xsane.medium_nr = selection; /* activate new created medium */
+    preferences.medium_nr = selection; /* activate new created medium */
 
     xsane_back_gtk_refresh_dialog(); /* update menu */
     xsane_enhancement_by_gamma(); /* update sliders */
@@ -2720,19 +2715,19 @@ static gint xsane_medium_delete_callback(GtkWidget *widget, GtkWidget *medium_wi
       preferences.medium[i] = preferences.medium[i+1];
     }
 
-    if (xsane.medium_nr == selection)
+    if (preferences.medium_nr == selection)
     {
-      xsane.medium_nr--;
+      preferences.medium_nr--;
       xsane.medium_changed = TRUE;
 
       if (xsane.medium_calibration) /* are we running in medium calibration mode? */
       {
-        xsane_apply_medium_definition_as_enhancement(preferences.medium[xsane.medium_nr]);
+        xsane_apply_medium_definition_as_enhancement(preferences.medium[preferences.medium_nr]);
         xsane_set_medium(NULL);
       }
       else
       {
-        xsane_set_medium(preferences.medium[xsane.medium_nr]);
+        xsane_set_medium(preferences.medium[preferences.medium_nr]);
       }
 
       xsane_enhancement_by_gamma(); /* update sliders */
@@ -2833,21 +2828,21 @@ static void xsane_set_medium_callback(GtkWidget *widget, gpointer data)
 {
  int medium_nr = (int) data;
 
-  if (medium_nr != xsane.medium_nr)
+  if (medium_nr != preferences.medium_nr)
   {
     xsane.medium_changed = TRUE;
   }
 
-  xsane.medium_nr = medium_nr;
+  preferences.medium_nr = medium_nr;
 
   if (xsane.medium_calibration) /* are we running in medium calibration mode? */
   {
-    xsane_apply_medium_definition_as_enhancement(preferences.medium[xsane.medium_nr]);
+    xsane_apply_medium_definition_as_enhancement(preferences.medium[preferences.medium_nr]);
     xsane_set_medium(NULL);
   }
   else
   {
-    xsane_set_medium(preferences.medium[xsane.medium_nr]);
+    xsane_set_medium(preferences.medium[preferences.medium_nr]);
   }
 
   xsane_enhancement_by_gamma(); /* update sliders */
@@ -2930,7 +2925,7 @@ static void xsane_edit_medium_definition_callback(GtkWidget *widget, gpointer da
     xsane.contrast_min      = XSANE_MEDIUM_CALIB_CONTRAST_MIN;
     xsane.contrast_max      = XSANE_MEDIUM_CALIB_CONTRAST_MAX;
 
-    xsane_apply_medium_definition_as_enhancement(preferences.medium[xsane.medium_nr]);
+    xsane_apply_medium_definition_as_enhancement(preferences.medium[preferences.medium_nr]);
     xsane_set_medium(NULL);
   }
   else  /* disable edit mode */
@@ -2947,7 +2942,7 @@ static void xsane_edit_medium_definition_callback(GtkWidget *widget, gpointer da
     xsane.contrast_max      = XSANE_CONTRAST_MAX;
 
     xsane_apply_medium_definition_as_enhancement(preferences.medium[0]);
-    xsane_set_medium(preferences.medium[xsane.medium_nr]);
+    xsane_set_medium(preferences.medium[preferences.medium_nr]);
   }
 
   xsane_enhancement_by_gamma(); /* update sliders */
@@ -3237,6 +3232,9 @@ static void xsane_info_dialog(GtkWidget *widget, gpointer data)
   sprintf(bufptr, "JPEG, ");
   bufptr += strlen(bufptr);
 #endif
+
+  sprintf(bufptr, "PDF, ");
+  bufptr += strlen(bufptr);
 
 #ifdef HAVE_LIBPNG
 #ifdef HAVE_LIBZ
@@ -5010,7 +5008,6 @@ static void xsane_mail_dialog()
   filetype_nr = -1;
   select_item = 0;
 
-
 #ifdef HAVE_LIBJPEG
   filetype_item = gtk_menu_item_new_with_label(MENU_ITEM_FILETYPE_JPEG);
   gtk_container_add(GTK_CONTAINER(filetype_menu), filetype_item);
@@ -5022,6 +5019,17 @@ static void xsane_mail_dialog()
     select_item = filetype_nr;
   }
 #endif
+
+
+  filetype_item = gtk_menu_item_new_with_label(MENU_ITEM_FILETYPE_PDF);
+  gtk_container_add(GTK_CONTAINER(filetype_menu), filetype_item);
+  g_signal_connect(GTK_OBJECT(filetype_item), "activate", (GtkSignalFunc) xsane_mail_filetype_callback, (void *) XSANE_FILETYPE_PDF);
+  gtk_widget_show(filetype_item);
+  filetype_nr++;
+  if ( (preferences.mail_filetype) && (!strcasecmp(preferences.mail_filetype, XSANE_FILETYPE_PDF)) )
+  {
+    select_item = filetype_nr;
+  }
 
 
 #ifdef HAVE_LIBPNG
@@ -5037,6 +5045,16 @@ static void xsane_mail_dialog()
   }
 #endif
 #endif
+
+  filetype_item = gtk_menu_item_new_with_label(MENU_ITEM_FILETYPE_PS);
+  gtk_container_add(GTK_CONTAINER(filetype_menu), filetype_item);
+  g_signal_connect(GTK_OBJECT(filetype_item), "activate", (GtkSignalFunc) xsane_mail_filetype_callback, (void *) XSANE_FILETYPE_PS);
+  gtk_widget_show(filetype_item);
+  filetype_nr++;
+  if ( (preferences.mail_filetype) && (!strcasecmp(preferences.mail_filetype, XSANE_FILETYPE_PS)) )
+  {
+    select_item = filetype_nr;
+  }
 
 
 #ifdef HAVE_LIBTIFF
@@ -6184,6 +6202,7 @@ static void xsane_create_mail(int fd)
  char *mail_text = NULL;
  char *mail_text_pos = NULL;
  char **attachment_filename = NULL;
+ char *mime_type = NULL;
  char buf[256];
  char filename[256];
  char content_id[256];
@@ -6193,6 +6212,7 @@ static void xsane_create_mail(int fd)
  int attachments = 0;
  int use_attachment = 0;
  int mail_text_size = 0;
+ int display_images_inline = FALSE;
 
   DBG(DBG_proc, "xsane_create_mail\n");
 
@@ -6225,7 +6245,38 @@ static void xsane_create_mail(int fd)
     }
   }
 
-   DBG(DBG_info, "reading list of attachments:\n");
+  if (!strcmp(preferences.mail_filetype, XSANE_FILETYPE_PNG))
+  {
+    mime_type = "image/png";
+    display_images_inline = TRUE;
+  }
+  else if (!strcmp(preferences.mail_filetype, XSANE_FILETYPE_JPEG))
+  {
+    mime_type = "image/jpeg";
+    display_images_inline = TRUE;
+  }
+  else if (!strcmp(preferences.mail_filetype, XSANE_FILETYPE_TIFF))
+  {
+    mime_type = "image/tiff";
+    display_images_inline = TRUE;
+  }
+  else if (!strcmp(preferences.mail_filetype, XSANE_FILETYPE_PDF))
+  {
+    mime_type = "doc/pdf";
+    display_images_inline = FALSE;
+  }
+  else if (!strcmp(preferences.mail_filetype, XSANE_FILETYPE_PS))
+  {
+    mime_type = "doc/postscript";
+    display_images_inline = FALSE;
+  }
+  else
+  {
+    mime_type = "doc/unknown";
+    display_images_inline = FALSE;
+  }
+
+  DBG(DBG_info, "reading list of attachments:\n");
   /* read list of attachments */
   while (!feof(projectfile))
   {
@@ -6296,7 +6347,12 @@ static void xsane_create_mail(int fd)
           image_filename = attachment_filename[use_attachment++];
           DBG(DBG_info, "inserting image cid for %s\n", image_filename);
           snprintf(content_id, sizeof(content_id), "%s", image_filename); /* content_id */
-          snprintf(buf, sizeof(buf), "<p><img SRC=\"cid:%s\">\n", content_id);
+
+          /* doc files like ps and pdf can not be displayed inline in html mail */
+          if (display_images_inline)
+          {
+            snprintf(buf, sizeof(buf), "<p><img SRC=\"cid:%s\">\n", content_id);
+          }
           write(fd, buf, strlen(buf));
         }
         else /* more images selected than available */
@@ -6320,7 +6376,12 @@ static void xsane_create_mail(int fd)
       image_filename = attachment_filename[use_attachment++];
       DBG(DBG_info, "appending image cid for %s\n", image_filename);
       snprintf(content_id, sizeof(content_id), "%s", image_filename); /* content_id */
-      snprintf(buf, sizeof(buf), "<p><img SRC=\"cid:%s\">\n", content_id);
+
+      /* doc files like ps and pdf can not be displayed inline in html mail */
+      if (display_images_inline)
+      {
+        snprintf(buf, sizeof(buf), "<p><img SRC=\"cid:%s\">\n", content_id);
+      }
       write(fd, buf, strlen(buf));
     }
 
@@ -6337,26 +6398,14 @@ static void xsane_create_mail(int fd)
 
       if (attachment_file)
       {
-        DBG(DBG_info, "attaching png file \"%s\"\n", filename);
-
-        if (!strcmp(preferences.mail_filetype, XSANE_FILETYPE_PNG))
-        {
-          write_mail_attach_image(fd, boundary, content_id, "image/png", attachment_file, image_filename);
-        }
-        else if (!strcmp(preferences.mail_filetype, XSANE_FILETYPE_JPEG))
-        {
-          write_mail_attach_image(fd, boundary, content_id, "image/jpeg", attachment_file, image_filename);
-        }
-        else if (!strcmp(preferences.mail_filetype, XSANE_FILETYPE_TIFF))
-        {
-          write_mail_attach_image(fd, boundary, content_id, "image/tiff", attachment_file, image_filename);
-        }
+        DBG(DBG_info, "attaching file \"%s\" as \"%s\" with type %s\n", filename, image_filename, preferences.mail_filetype);
+        write_mail_attach_image(fd, boundary, content_id, mime_type, attachment_file, image_filename);
 
         remove(filename);
       }
       else /* could not open attachment file */
       {
-        DBG(DBG_error, "could not oppen attachment png file \"%s\"\n", filename);
+        DBG(DBG_error, "could not open attachment file \"%s\"\n", filename);
       }
 
       free(attachment_filename[i]);
@@ -6384,20 +6433,8 @@ static void xsane_create_mail(int fd)
 
       if (attachment_file)
       {
-        DBG(DBG_info, "attaching png file \"%s\"\n", image_filename);
-
-        if (!strcmp(preferences.mail_filetype, XSANE_FILETYPE_PNG))
-        {
-          write_mail_attach_image(fd, boundary, content_id, "image/png", attachment_file, image_filename);
-        }
-        else if (!strcmp(preferences.mail_filetype, XSANE_FILETYPE_JPEG))
-        {
-          write_mail_attach_image(fd, boundary, content_id, "image/jpeg", attachment_file, image_filename);
-        }
-        else if (!strcmp(preferences.mail_filetype, XSANE_FILETYPE_TIFF))
-        {
-          write_mail_attach_image(fd, boundary, content_id, "image/tiff", attachment_file, image_filename);
-        }
+        DBG(DBG_info, "attaching file \"%s\" as \"%s\" with type %s\n", filename, image_filename, preferences.mail_filetype);
+        write_mail_attach_image(fd, boundary, content_id, mime_type, attachment_file, image_filename);
 
         remove(filename);
       }
@@ -7882,7 +7919,7 @@ static void xsane_device_dialog(void)
     DBG(DBG_info, "Setting backend name \"%s\"\n", xsane.backend);
 
     xsane.backend_translation = xsane.backend;
-    bindtextdomain(xsane.backend_translation, STRINGIFY(LOCALEDIR)); /* set path for backend translation texts */
+    bindtextdomain(xsane.backend_translation, STRINGIFY(SANELOCALEDIR)); /* set path for backend translation texts */
 #ifdef HAVE_GTK2
     bind_textdomain_codeset(xsane.backend_translation, "UTF-8");
 #endif
@@ -7906,7 +7943,7 @@ static void xsane_device_dialog(void)
     DBG(DBG_info, "Setting general translation table \"sane-backends\" with localedir: %s\n", STRINGIFY(LOCALEDIR));
   }
 
-  bindtextdomain("sane-backends", STRINGIFY(LOCALEDIR)); /* set path for backend translation texts */
+  bindtextdomain("sane-backends", STRINGIFY(SANELOCALEDIR)); /* set path for backend translation texts */
 #ifdef HAVE_GTK2
   bind_textdomain_codeset(xsane.backend_translation, "UTF-8");
 #endif
@@ -8548,10 +8585,10 @@ static void xsane_choose_device(void)
 
 static void xsane_usage(void)
 {
-  printf("XSane %s %s\n", TEXT_VERSION, XSANE_VERSION);
-  printf("%s %s\n\n", XSANE_COPYRIGHT_SIGN, XSANE_COPYRIGHT_TXT);
-  printf("%s %s %s\n\n", TEXT_USAGE, xsane.prog_name, TEXT_USAGE_OPTIONS);
-  printf("%s\n\n", TEXT_HELP);
+  g_print("XSane %s %s\n", TEXT_VERSION, XSANE_VERSION);
+  g_print("%s %s\n\n", XSANE_COPYRIGHT_SIGN, XSANE_COPYRIGHT_TXT);
+  g_print("%s %s %s\n\n", TEXT_USAGE, xsane.prog_name, TEXT_USAGE_OPTIONS);
+  g_print("%s\n\n", TEXT_HELP);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -8622,55 +8659,65 @@ static int xsane_init(int argc, char **argv)
                   /* then you get the error message when GIMP does */
                   /* query or tries to start the xsane plugin! */
 #ifndef HAVE_ANY_GIMP
-          printf("%s: %s\n", argv[0], ERR_GIMP_SUPPORT_MISSING);
+          g_print("%s: %s\n", argv[0], ERR_GIMP_SUPPORT_MISSING);
           exit(0);
 #endif
          break;
 
         case 'v': /* --version */
-          printf("%s-%s %s %s\n", xsane.prog_name, XSANE_VERSION, XSANE_COPYRIGHT_SIGN, XSANE_COPYRIGHT_TXT);
-          printf("  %s %s\n", TEXT_EMAIL, XSANE_EMAIL);
-          printf("  %s %s\n", TEXT_PACKAGE, XSANE_PACKAGE_VERSION);
-          printf("  %s%d.%d.%d\n", TEXT_GTK_VERSION, GTK_MAJOR_VERSION, GTK_MINOR_VERSION, GTK_MICRO_VERSION);
+          g_print("%s-%s %s %s\n", xsane.prog_name, XSANE_VERSION, XSANE_COPYRIGHT_SIGN, XSANE_COPYRIGHT_TXT);
+          g_print("  %s %s\n", TEXT_EMAIL, XSANE_EMAIL);
+          g_print("  %s %s\n", TEXT_PACKAGE, XSANE_PACKAGE_VERSION);
+          g_print("  %s%d.%d.%d\n", TEXT_GTK_VERSION, GTK_MAJOR_VERSION, GTK_MINOR_VERSION, GTK_MICRO_VERSION);
 
 #ifdef HAVE_ANY_GIMP
-          printf("  %s, %s%s\n", TEXT_WITH_GIMP_SUPPORT, TEXT_GIMP_VERSION, GIMP_VERSION);
+          g_print("  %s, %s%s\n", TEXT_WITH_GIMP_SUPPORT, TEXT_GIMP_VERSION, GIMP_VERSION);
 #else
-          printf("  %s\n", TEXT_WITHOUT_GIMP_SUPPORT);
+          g_print("  %s\n", TEXT_WITHOUT_GIMP_SUPPORT);
 #endif
 
-          printf("  %s ", TEXT_OUTPUT_FORMATS);
+          g_print("  %s ", TEXT_OUTPUT_FORMATS);
 
 #ifdef HAVE_LIBJPEG
-          printf("jpeg, ");
+          g_print("jpeg, ");
+#endif
+
+#ifdef HAVE_LIBZ
+          g_print("pdf(compr.), ");
+#else
+          g_print("pdf, ");
 #endif
 
 #ifdef HAVE_LIBPNG
 #ifdef HAVE_LIBZ
-          printf("png, ");
+          g_print("png, ");
 #endif
 #endif
 
-          printf("pnm, ");
-          printf("ps");
+          g_print("pnm, ");
+#ifdef HAVE_LIBZ
+          g_print("ps(compr.)");
+#else
+          g_print("ps");
+#endif
 
 #ifdef SUPPORT_RGBA
-          printf(", rgba");
+          g_print(", rgba");
 #endif
 
 #ifdef HAVE_LIBTIFF
-          printf(", tiff");
+          g_print(", tiff");
 #endif
 
-          printf(", txt");
+          g_print(", txt");
 
-          printf("\n");
+          g_print("\n");
           exit(0);
          break;
 
         case 'l': /* --license */
-          printf("%s-%s %s %s\n\n", xsane.prog_name, XSANE_VERSION, XSANE_COPYRIGHT_SIGN, XSANE_COPYRIGHT_TXT);
-          printf("%s\n", TEXT_GPL);
+          g_print("%s-%s %s %s\n\n", xsane.prog_name, XSANE_VERSION, XSANE_COPYRIGHT_SIGN, XSANE_COPYRIGHT_TXT);
+          g_print("%s\n", TEXT_GPL);
           exit(0);
          break;
 
@@ -8679,23 +8726,23 @@ static int xsane_init(int argc, char **argv)
          break;
 
         case 'V': /* --viewer, default */
-          xsane.xsane_mode = XSANE_VIEWER;
+          preferences.xsane_mode = XSANE_VIEWER;
          break;
 
         case 's': /* --save */
-          xsane.xsane_mode = XSANE_SAVE;
+          preferences.xsane_mode = XSANE_SAVE;
          break;
 
         case 'c': /* --copy */
-          xsane.xsane_mode = XSANE_COPY;
+          preferences.xsane_mode = XSANE_COPY;
          break;
 
         case 'f': /* --fax */
-          xsane.xsane_mode = XSANE_FAX;
+          preferences.xsane_mode = XSANE_FAX;
          break;
 
         case 'm': /* --mail */
-          xsane.xsane_mode = XSANE_MAIL;
+          preferences.xsane_mode = XSANE_MAIL;
          break;
 
         case 'n': /* --No-mode-selection */
@@ -8962,7 +9009,7 @@ int main(int argc, char **argv)
   xsane.main_window_fixed   = -1; /* no command line option given, use preferences or fixed */
 
   xsane.mode                = XSANE_STANDALONE;
-  xsane.xsane_mode          = XSANE_VIEWER;
+  preferences.xsane_mode    = XSANE_VIEWER;
   xsane.lineart_mode        = XSANE_LINEART_STANDARD;
   xsane.xsane_output_format = XSANE_PNM;
   xsane.mode_selection      = 1; /* enable selection of xsane mode */

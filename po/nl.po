@@ -7,12 +7,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.96\n"
-"POT-Creation-Date: 2004-08-21 15:31+0200\n"
+"POT-Creation-Date: 2005-10-23 00:20+0200\n"
 "PO-Revision-Date: 2004-08-26 11:29+0200\n"
 "Last-Translator: Wim Sinke <sinke@wirehub.nl>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-15\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Report-Msgid-Bugs-To: \n"
 
@@ -23,7 +23,7 @@ msgstr "nl"
 
 #. XSANE_COPYRIGHT_SIGN
 msgid "(c)"
-msgstr "©"
+msgstr "¬©"
 
 #. can be translated with \251
 #. FILENAME_PREFIX_CLONE_OF
@@ -269,15 +269,15 @@ msgstr "Vervagen"
 
 #. MENU_ITEM_ROTATE90
 msgid "Rotate 90"
-msgstr "Draaien 90∞"
+msgstr "Draaien 90¬∞"
 
 #. MENU_ITEM_ROTATE180
 msgid "Rotate 180"
-msgstr "Draaien 180∞"
+msgstr "Draaien 180¬∞"
 
 #. MENU_ITEM_ROTATE270
 msgid "Rotate 270"
-msgstr "Draaien 270∞"
+msgstr "Draaien 270¬∞"
 
 #. MENU_ITEM_MIRROR_X
 msgid "Mirror |"
@@ -813,7 +813,7 @@ msgstr "Commando:"
 
 #. TEXT_SETUP_COPY_NR_OPT
 msgid "Copy number option:"
-msgstr "Aantal kopiÎen optie:"
+msgstr "Aantal kopi√´en optie:"
 
 #. TEXT_SETUP_PRINTER_LINEART_RES
 msgid "Lineart resolution (dpi):"
@@ -1064,7 +1064,7 @@ msgstr "Afbeelding"
 
 #. NOTEBOOK_COPY_OPTIONS
 msgid "Copy"
-msgstr "KopiÎren"
+msgstr "Kopi√´ren"
 
 #. NOTEBOOK_FAX_OPTIONS
 msgid "Fax"
@@ -1488,7 +1488,7 @@ msgstr "Kies vergroting in y-richting"
 
 #. DESC_COPY_NUMBER
 msgid "Set number of copies"
-msgstr "Stel het aantal kopiÎn in"
+msgstr "Stel het aantal kopi√´n in"
 
 #. DESC_NEGATIVE
 msgid "Negative: Invert colors for scanning negatives <Ctrl-n>"
@@ -1618,11 +1618,11 @@ msgstr "Naam van deze definitie"
 
 #. DESC_PRINTER_COMMAND
 msgid "Enter command to be executed in copy mode (e.g. \"lpr\")"
-msgstr "Geef het commando dat tijdens het kopiÎren uitgevoerd word (\"lpr\")"
+msgstr "Geef het commando dat tijdens het kopi√´ren uitgevoerd word (\"lpr\")"
 
 #. DESC_COPY_NUMBER_OPTION
 msgid "Enter option for copy numbers"
-msgstr "Optie voor het aantal kopiÎn"
+msgstr "Optie voor het aantal kopi√´n"
 
 #. DESC_PRINTER_LINEART_RESOLUTION
 msgid ""
@@ -2004,7 +2004,7 @@ msgstr "Zoom in het geselecteerde gebied"
 
 #. DESC_ZOOM_UNDO
 msgid "Undo last zoom"
-msgstr "EÈn zoom terug"
+msgstr "E√©n zoom terug"
 
 #. DESC_FULL_PREVIEW_AREA
 msgid "Select visible area"
@@ -2054,7 +2054,7 @@ msgstr "Laatste verandering ongedaan maken"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
-msgstr "KopiÎer afbeelding"
+msgstr "Kopi√´er afbeelding"
 
 #. DESC_ROTATE90
 msgid "Rotate image 90 degree"
@@ -2241,6 +2241,10 @@ msgstr "LIBPNG geeft fout"
 msgid "LIBJPEG reports error"
 msgstr "LIBJPEG geeft foutmelding"
 
+#. ERR_ZLIB
+msgid "ZLIB error or memory allocation problem"
+msgstr ""
+
 #. ERR_UNKNOWN_TYPE
 msgid "unknown type"
 msgstr "onbekend type"
@@ -2311,7 +2315,7 @@ msgstr "backend hoofdversie ="
 
 #. ERR_PROGRAM_ABORTED
 msgid "*** PROGRAM ABORTED ***"
-msgstr "*** PROGRAMMA BEœNDIGD ***"
+msgstr "*** PROGRAMMA BE√èNDIGD ***"
 
 #. ERR_FAILED_ALLOCATE_IMAGE
 msgid "Failed to allocate image memory:"
@@ -2559,7 +2563,7 @@ msgstr ""
 "3) Je hebt geen permissie om het apparaat te gebruiken, probeer als root\n"
 "4) De backend is niet geladen door SANE (man sane-dll)\n"
 "5) De backend is niet goed geconfigureerd (man sane-<backendnaam>)\n"
-"6) Misschien is er meer dan ÈÈn versie van SANE geÔnstalleerd"
+"6) Misschien is er meer dan √©√©n versie van SANE ge√Ønstalleerd"
 
 #. strings that are used in structures, so it is not allowed to use _()/gettext() here
 #. gettext_noop does mark these texts but does not change the string

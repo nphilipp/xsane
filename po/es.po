@@ -7,12 +7,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.96\n"
-"POT-Creation-Date: 2004-08-21 15:31+0200\n"
+"POT-Creation-Date: 2005-10-23 00:20+0200\n"
 "PO-Revision-Date: 2004-08-22 19:15GMT\n"
 "Last-Translator: Gustavo D. Vranjes <gvranjes@SoftHome.net>\n"
 "Language-Team: Castellano <es@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9\n"
 
@@ -36,11 +36,11 @@ msgstr "Acerca..."
 
 #. WINDOW_ABOUT_TRANSLATION, MENU_ITEM_ABOUT_TRANSLATION
 msgid "About translation"
-msgstr "Acerca de la traducciÛn..."
+msgstr "Acerca de la traducci√≥n..."
 
 #. WINDOW_AUTHORIZE
 msgid "authorization"
-msgstr "autorizaciÛn"
+msgstr "autorizaci√≥n"
 
 #. WINDOW_GPL
 msgid "GPL - the license"
@@ -52,7 +52,7 @@ msgstr "Acuerdo de Licencia para Usuario Final"
 
 #. WINDOW_INFO
 msgid "info"
-msgstr "informaciÛn"
+msgstr "informaci√≥n"
 
 #. WINDOW_LOAD_BATCH_LIST
 msgid "load batch list"
@@ -76,7 +76,7 @@ msgstr "proyecto de fax"
 
 #. WINDOW_FAX_RENAME
 msgid "rename fax page"
-msgstr "renombrar p·gina de fax"
+msgstr "renombrar p√°gina de fax"
 
 #. WINDOW_FAX_INSERT
 msgid "insert ps-file into fax"
@@ -84,15 +84,15 @@ msgstr "insertar archivo-ps dentro de fax"
 
 #. WINDOW_MAIL_PROJECT
 msgid "mail project"
-msgstr "proyecto de correo electrÛnico"
+msgstr "proyecto de correo electr√≥nico"
 
 #. WINDOW_MAIL_RENAME
 msgid "rename mail image"
-msgstr "renombrar imagen de correo electrÛnico"
+msgstr "renombrar imagen de correo electr√≥nico"
 
 #. WINDOW_MAIL_INSERT
 msgid "insert file into mail"
-msgstr "insertar archivo dentro de correo electrÛnico"
+msgstr "insertar archivo dentro de correo electr√≥nico"
 
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
@@ -112,7 +112,7 @@ msgstr "agregar medio nuevo"
 
 #. WINDOW_SETUP
 msgid "setup"
-msgstr "configuraciÛn"
+msgstr "configuraci√≥n"
 
 #. WINDOW_HISTOGRAM
 msgid "Histogram"
@@ -124,7 +124,7 @@ msgstr "Curva Gamma"
 
 #. WINDOW_STANDARD_OPTIONS
 msgid "Standard options"
-msgstr "Opciones est·ndar"
+msgstr "Opciones est√°ndar"
 
 #. WINDOW_ADVANCED_OPTIONS
 msgid "Advanced options"
@@ -132,7 +132,7 @@ msgstr "Ociones avanzadas"
 
 #. WINDOW_DEVICE_SELECTION
 msgid "device selection"
-msgstr "selecciÛn de dispositivo"
+msgstr "selecci√≥n de dispositivo"
 
 #. WINDOW_PREVIEW
 msgid "Preview"
@@ -156,11 +156,11 @@ msgstr "seleccionar archivo de salida"
 
 #. WINDOW_SAVE_SETTINGS
 msgid "save device settings"
-msgstr "guardar configuraciÛn de dispositivo"
+msgstr "guardar configuraci√≥n de dispositivo"
 
 #. WINDOW_LOAD_SETTINGS
 msgid "load device settings"
-msgstr "cargar configuraciÛn de dispositivo"
+msgstr "cargar configuraci√≥n de dispositivo"
 
 #. WINDOW_CHANGE_WORKING_DIR
 msgid "change working directory"
@@ -184,7 +184,7 @@ msgstr "Desenfocar imagen"
 
 #. WINDOW_STORE_MEDIUM
 msgid "Store medium definition"
-msgstr "Guardar definiciÛn de medio"
+msgstr "Guardar definici√≥n de medio"
 
 #. WINDOW_NO_DEVICES
 msgid "No devices available"
@@ -220,7 +220,7 @@ msgstr "Filtros"
 
 #. MENU_GEOMETRY
 msgid "Geometry"
-msgstr "GeometrÌa"
+msgstr "Geometr√≠a"
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
@@ -228,7 +228,7 @@ msgstr "Acerca de XSane..."
 
 #. MENU_ITEM_INFO
 msgid "Info"
-msgstr "InformaciÛn"
+msgstr "Informaci√≥n"
 
 #. MENU_ITEM_QUIT
 msgid "Quit"
@@ -340,19 +340,19 @@ msgstr "Lista de escaneo por lotes"
 
 #. BUTTON_BATCH_AREA_SCAN
 msgid "Scan selected area"
-msgstr "Escanear ·rea seleccionada"
+msgstr "Escanear √°rea seleccionada"
 
 #. BUTTON_PAGE_DELETE
 msgid "Delete page"
-msgstr "Borrar p·gina"
+msgstr "Borrar p√°gina"
 
 #. BUTTON_PAGE_SHOW
 msgid "Show page"
-msgstr "Mostrar p·gina"
+msgstr "Mostrar p√°gina"
 
 #. BUTTON_PAGE_RENAME
 msgid "Rename page"
-msgstr "Renombrar p·gina"
+msgstr "Renombrar p√°gina"
 
 #. BUTTON_IMAGE_DELETE
 msgid "Delete image"
@@ -388,7 +388,7 @@ msgstr "Borrar proyecto"
 
 #. BUTTON_ADD_PRINTER
 msgid "Add printer"
-msgstr "AÒadir impresora"
+msgstr "A√±adir impresora"
 
 #. BUTTON_DELETE_PRINTER
 msgid "Delete printer"
@@ -408,7 +408,7 @@ msgstr "Descartar imagen"
 
 #. BUTTON_DISCARD_ALL_IMAGES
 msgid "Discard all images"
-msgstr "Descartar todas las im·genes"
+msgstr "Descartar todas las im√°genes"
 
 #. BUTTON_DO_NOT_CLOSE
 msgid "Do not close"
@@ -424,7 +424,7 @@ msgstr "Modo fino"
 
 #. RADIO_BUTTON_HTML_MAIL
 msgid "HTML mail"
-msgstr "Correo electrÛnico HTML"
+msgstr "Correo electr√≥nico HTML"
 
 #. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device preferences at exit"
@@ -448,7 +448,7 @@ msgstr "Reducir imagen de 16 bits a imagen de 8 bits"
 
 #. RADIO_BUTTON_WINDOW_FIXED
 msgid "Main window size fixed"
-msgstr "TamaÒo de ventana principal fijo"
+msgstr "Tama√±o de ventana principal fijo"
 
 #. RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA
 msgid "Disable gimp preview gamma"
@@ -464,7 +464,7 @@ msgstr "Automejorar gamma"
 
 #. RADIO_BUTTON_PRESELECT_SCANAREA
 msgid "Preselect scanarea"
-msgstr "Preseleccionar ·rea de escaneado"
+msgstr "Preseleccionar √°rea de escaneado"
 
 #. RADIO_BUTTON_AUTOCORRECT_COLORS
 msgid "Autocorrect colors"
@@ -472,11 +472,11 @@ msgstr "Autocorregir colores"
 
 #. RADIO_BUTTON_POP3_AUTHENTIFICATION
 msgid "POP3 authentification"
-msgstr "AutentificaciÛn POP3"
+msgstr "Autentificaci√≥n POP3"
 
 #. RADIO_BUTTON_OCR_USE_GUI_PIPE
 msgid "Use GUI progress pipe"
-msgstr "Usar progreso de tuberÌa GUI "
+msgstr "Usar progreso de tuber√≠a GUI "
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
@@ -504,7 +504,7 @@ msgstr "Tipo"
 
 #. TEXT_SCANNER_BACKEND
 msgid "Scanner and backend:"
-msgstr "Esc·ner y backend:"
+msgstr "Esc√°ner y backend:"
 
 #. TEXT_VENDOR
 msgid "Vendor:"
@@ -528,7 +528,7 @@ msgstr "Backend cargado:"
 
 #. TEXT_SANE_VERSION
 msgid "Sane version:"
-msgstr "VersiÛn de Sane:"
+msgstr "Versi√≥n de Sane:"
 
 #. TEXT_RECENT_VALUES
 msgid "Recent values:"
@@ -536,11 +536,11 @@ msgstr "Valores recientes:"
 
 #. TEXT_GAMMA_CORR_BY
 msgid "Gamma correction by:"
-msgstr "CorrecciÛn gamma por:"
+msgstr "Correcci√≥n gamma por:"
 
 #. TEXT_SCANNER
 msgid "scanner"
-msgstr "esc·ner"
+msgstr "esc√°ner"
 
 #. TEXT_SOFTWARE_XSANE
 msgid "software (XSane)"
@@ -560,7 +560,7 @@ msgstr "Profundidad de salida de gamma:"
 
 #. TEXT_SCANNER_OUTPUT_DEPTH
 msgid "Scanner output depth:"
-msgstr "Profundidad de salida de esc·ner:"
+msgstr "Profundidad de salida de esc√°ner:"
 
 #. TEXT_OUTPUT_FORMATS
 msgid "XSane output formats:"
@@ -580,28 +580,28 @@ msgid ""
 "Do you want to reduce the depth to 8 bits/color?"
 msgstr ""
 "Gimp no soporta profundidad de 16 bits/color.\n"
-"øQuire reducir la profundidad a 8 bits/color?"
+"¬øQuire reducir la profundidad a 8 bits/color?"
 
 #. TEXT_REDUCE_16BIT_TO_8BIT
 msgid ""
 "Bit depth 16 bits/color is not supported for this output format.\n"
 "Do you want to reduce the depth to 8 bits/color?"
 msgstr ""
-"La profundidad de 16 bits/color no est· soportada en Èste formato de "
+"La profundidad de 16 bits/color no est√° soportada en √©ste formato de "
 "salida.\n"
-"øQuire reducir la profundidad a 8 bits/color?"
+"¬øQuire reducir la profundidad a 8 bits/color?"
 
 #. TEXT_AUTHORIZATION_REQ
 msgid "Authorization required for"
-msgstr "Se requiere autorizaciÛn para"
+msgstr "Se requiere autorizaci√≥n para"
 
 #. TEXT_AUTHORIZATION_SECURE
 msgid "Password transmission is secure"
-msgstr "La transmisiÛn de contraseÒa es segura"
+msgstr "La transmisi√≥n de contrase√±a es segura"
 
 #. TEXT_AUTHORIZATION_INSECURE
 msgid "Backend requests plain-text password"
-msgstr "Los pedidos de backend requieren contraseÒa de texto puro."
+msgstr "Los pedidos de backend requieren contrase√±a de texto puro."
 
 #. TEXT_USERNAME
 msgid "Username :"
@@ -609,15 +609,15 @@ msgstr "Nombre de usuario:"
 
 #. TEXT_PASSWORD
 msgid "Password :"
-msgstr "ContraseÒa:"
+msgstr "Contrase√±a:"
 
 #. TEXT_INVALID_PARAMS
 msgid "Invalid parameters."
-msgstr "Par·metros no v·lidos."
+msgstr "Par√°metros no v√°lidos."
 
 #. TEXT_VERSION
 msgid "version:"
-msgstr "versiÛn:"
+msgstr "versi√≥n:"
 
 #. TEXT_PACKAGE
 msgid "package"
@@ -657,18 +657,18 @@ msgid ""
 "have to read, understand and accept the following\n"
 "\"NO WARRANTY\" agreement.\n"
 msgstr ""
-"XSane se distribuye bajo los tÈrminos de la Licencia P˙blica General GNU\n"
-"tal como se la publica por la Free Software Foundation; cualquier versiÛn \n"
-"2 de la Licencia, or (a su opciÛn) cualquier versiÛn posterior\n"
+"XSane se distribuye bajo los t√©rminos de la Licencia P√∫blica General GNU\n"
+"tal como se la publica por la Free Software Foundation; cualquier versi√≥n \n"
+"2 de la Licencia, or (a su opci√≥n) cualquier versi√≥n posterior\n"
 "\n"
-"…ste programa se distribuye con el deseo que pueda ser ˙til, pero\n"
-"SIN NINGUNA GARANTÕA; a˙n sin la garantÌa implÌcita de\n"
-"MERCANTILISMO o AJUSTE PARA ALG⁄N PROP”SITO PARTICULAR\n"
-"Sea el caso de probarse defecto del programa, usted asumir· el costo de "
+"√âste programa se distribuye con el deseo que pueda ser √∫til, pero\n"
+"SIN NINGUNA GARANT√çA; a√∫n sin la garant√≠a impl√≠cita de\n"
+"MERCANTILISMO o AJUSTE PARA ALG√öN PROP√ìSITO PARTICULAR\n"
+"Sea el caso de probarse defecto del programa, usted asumir√° el costo de "
 "toda\n"
-"reparaciÛn, servicio Û correcciÛn necesarios. Para usar Èste programa usted\n"
+"reparaci√≥n, servicio √≥ correcci√≥n necesarios. Para usar √©ste programa usted\n"
 "tiene que leer, entender y aceptar el siguiente\n"
-"acuerdo de \"NO GARANTÕA\".\n"
+"acuerdo de \"NO GARANT√çA\".\n"
 
 #. TEXT_GPL
 msgid ""
@@ -680,21 +680,21 @@ msgid ""
 "WITHOUT ANY WARRANTY; without even the implied warranty of\n"
 "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
-"XSane se distribuye bajo los tÈrminos de la Licencia P˙blica General GNU\n"
-"tal como se la publica por la Free Software Foundation; cualquier versiÛn \n"
-"2 de la Licencia, or (a su opciÛn) cualquier versiÛn posterior\n"
+"XSane se distribuye bajo los t√©rminos de la Licencia P√∫blica General GNU\n"
+"tal como se la publica por la Free Software Foundation; cualquier versi√≥n \n"
+"2 de la Licencia, or (a su opci√≥n) cualquier versi√≥n posterior\n"
 "\n"
-"…ste programa se distribuye con el deseo que pueda ser ˙til, pero\n"
-"SIN NINGUNA GARANTÕA; a˙n sin la garantÌa implÌcita de\n"
-"MERCANTILISMO o AJUSTE PARA ALG⁄N PROP”SITO PARTICULAR\n"
+"√âste programa se distribuye con el deseo que pueda ser √∫til, pero\n"
+"SIN NINGUNA GARANT√çA; a√∫n sin la garant√≠a impl√≠cita de\n"
+"MERCANTILISMO o AJUSTE PARA ALG√öN PROP√ìSITO PARTICULAR\n"
 
 #. TEXT_EMAIL
 msgid "Email:"
-msgstr "Correo electrÛnico:"
+msgstr "Correo electr√≥nico:"
 
 #. TEXT_HOMEPAGE
 msgid "Homepage:"
-msgstr "P·gina web:"
+msgstr "P√°gina web:"
 
 #. TEXT_FILE
 msgid "File:"
@@ -702,7 +702,7 @@ msgstr "Archivo:"
 
 #. TEXT_TRANSLATION
 msgid "Translation:"
-msgstr "TraducciÛn:"
+msgstr "Traducci√≥n:"
 
 #. Please translate this to something like
 #. translation to YOUR LANGUAGE\n
@@ -716,7 +716,7 @@ msgid ""
 msgstr ""
 "texto traducido al castellano\n"
 "por Gustavo D. Vranjes\n"
-"Correo electrÛnico gvranjes@SoftHome.net\n"
+"Correo electr√≥nico gvranjes@SoftHome.net\n"
 
 #. TEXT_INFO_BOX
 msgid "0x0: 0KB"
@@ -724,11 +724,11 @@ msgstr "0x0: 0KB"
 
 #. TEXT_ADF_PAGES_SCANNED
 msgid "Scanned pages: "
-msgstr "P·ginas escaneadas:"
+msgstr "P√°ginas escaneadas:"
 
 #. TEXT_MAIL_TEXT
 msgid "Email text:"
-msgstr "Texto de correo electrÛnico:"
+msgstr "Texto de correo electr√≥nico:"
 
 #. TEXT_ATTACHMENTS
 msgid "Attachments:"
@@ -740,7 +740,7 @@ msgstr "Estado del proyecto:"
 
 #. TEXT_MAIL_FILETYPE
 msgid "Mail image filetype:"
-msgstr "Tipo de archivo de imagen de correo electrÛnico"
+msgstr "Tipo de archivo de imagen de correo electr√≥nico"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
@@ -751,7 +751,7 @@ msgstr "Nombre del medio:"
 msgid ""
 "Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
 msgstr ""
-"TamaÒo %d x %d pixel, %d bit/color, %d colores, %1.0f dpi x %1.0f ppp, %1.1f "
+"Tama√±o %d x %d pixel, %d bit/color, %d colores, %1.0f dpi x %1.0f ppp, %1.1f "
 "%s"
 
 #. TEXT_DESPECKLE_RADIUS
@@ -780,11 +780,11 @@ msgstr "Izquierda arriba:"
 
 #. TEXT_BATCH_LIST_GEOMETRY_SIZE
 msgid "Size:"
-msgstr "TamaÒo:"
+msgstr "Tama√±o:"
 
 #. TEXT_BATCH_LIST_RESOLUTION
 msgid "Resolution:"
-msgstr "ResoluciÛn:"
+msgstr "Resoluci√≥n:"
 
 #. TEXT_BATCH_LIST_BIT_DEPTH
 msgid "Bit depth:"
@@ -792,11 +792,11 @@ msgstr "Profundidad de bit:"
 
 #. TEXT_BATCH_LIST_BY_GUI
 msgid "as selected"
-msgstr "como se seleccionÛ"
+msgstr "como se seleccion√≥"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
-msgstr "SelecciÛn de impresora:"
+msgstr "Selecci√≥n de impresora:"
 
 #. TEXT_SETUP_PRINTER_NAME
 msgid "Name:"
@@ -808,19 +808,19 @@ msgstr "Comando:"
 
 #. TEXT_SETUP_COPY_NR_OPT
 msgid "Copy number option:"
-msgstr "Copiar opciÛn n˙mero:"
+msgstr "Copiar opci√≥n n√∫mero:"
 
 #. TEXT_SETUP_PRINTER_LINEART_RES
 msgid "Lineart resolution (dpi):"
-msgstr "ResoluciÛn de lÌnea de arte (ppp):"
+msgstr "Resoluci√≥n de l√≠nea de arte (ppp):"
 
 #. TEXT_SETUP_PRINTER_GRAYSCALE_RES
 msgid "Grayscale resolution (dpi):"
-msgstr "ResoluciÛn de tonos de gris (ppp):"
+msgstr "Resoluci√≥n de tonos de gris (ppp):"
 
 #. TEXT_SETUP_PRINTER_COLOR_RES
 msgid "Color resolution (dpi):"
-msgstr "ResoluciÛn de color (ppp):"
+msgstr "Resoluci√≥n de color (ppp):"
 
 #. TEXT_SETUP_PRINTER_WIDTH
 msgid "Width"
@@ -872,7 +872,7 @@ msgstr "Calidad de imagen JPEG "
 
 #. TEXT_SETUP_PNG_COMPRESSION
 msgid "PNG image compression"
-msgstr "CompresiÛn de imagen PNG"
+msgstr "Compresi√≥n de imagen PNG"
 
 #. TEXT_SETUP_FILENAME_COUNTER_LEN
 msgid "Filename counter length"
@@ -880,15 +880,15 @@ msgstr "Largo del contador de nombre de archivo"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_16
 msgid "TIFF 16 bit image compression"
-msgstr "CompresiÛn de imagen TIFF de 16 bits"
+msgstr "Compresi√≥n de imagen TIFF de 16 bits"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_8
 msgid "TIFF 8 bit image compression"
-msgstr "CompresiÛn de imagen TIFF de 8 bits"
+msgstr "Compresi√≥n de imagen TIFF de 8 bits"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_1
 msgid "TIFF lineart image compression"
-msgstr "CompresiÛn de imagen TIFF de lÌnea de arte"
+msgstr "Compresi√≥n de imagen TIFF de l√≠nea de arte"
 
 #. TEXT_SETUP_SHOW_RANGE_MODE
 msgid "Show range as:"
@@ -916,11 +916,11 @@ msgstr "Vista previa de gamma azul:"
 
 #. TEXT_SETUP_LINEART_MODE
 msgid "Threshold option:"
-msgstr "OpciÛn de umbral:"
+msgstr "Opci√≥n de umbral:"
 
 #. TEXT_SETUP_ADF_MODE
 msgid "Automatic Document Feeder Modus:"
-msgstr "MÛdulo de AlimentaciÛn Autom·tica de Documento:"
+msgstr "M√≥dulo de Alimentaci√≥n Autom√°tica de Documento:"
 
 #. TEXT_SETUP_PREVIEW_PIPETTE_RANGE
 msgid "Preview pipette range"
@@ -928,11 +928,11 @@ msgstr "Rango de vista previa de pipeta"
 
 #. TEXT_SETUP_THRESHOLD_MIN
 msgid "Threshold minimum:"
-msgstr "Umbral mÌnimo:"
+msgstr "Umbral m√≠nimo:"
 
 #. TEXT_SETUP_THRESHOLD_MAX
 msgid "Threshold maximum:"
-msgstr "Umbral m·ximo:"
+msgstr "Umbral m√°ximo:"
 
 #. TEXT_SETUP_THRESHOLD_MUL
 msgid "Threshold multiplier:"
@@ -952,19 +952,19 @@ msgstr "Visor de archivo de ayuda (HTML):"
 
 #. TEXT_SETUP_FAX_RECEIVER_OPTION
 msgid "Receiver option:"
-msgstr "OpciÛn del receptor:"
+msgstr "Opci√≥n del receptor:"
 
 #. TEXT_SETUP_FAX_POSTSCRIPT_OPT
 msgid "Postscriptfile option:"
-msgstr "OpciÛn del archivo post-script:"
+msgstr "Opci√≥n del archivo post-script:"
 
 #. TEXT_SETUP_FAX_NORMAL_MODE_OPT
 msgid "Normal mode option:"
-msgstr "OpciÛn en modo normal:"
+msgstr "Opci√≥n en modo normal:"
 
 #. TEXT_SETUP_FAX_FINE_MODE_OPT
 msgid "Fine mode option:"
-msgstr "OpciÛn en modo fino:"
+msgstr "Opci√≥n en modo fino:"
 
 #. TEXT_SETUP_FAX_PROGRAM_DEFAULTS
 msgid "Set program defaults for:"
@@ -1004,7 +1004,7 @@ msgstr "Usuario POP3:"
 
 #. TEXT_SETUP_POP3_PASS
 msgid "POP3 password:"
-msgstr "ContraseÒa POP3:"
+msgstr "Contrase√±a POP3:"
 
 #. TEXT_SETUP_MAIL_VIEWER
 msgid "Viewer (png):"
@@ -1016,19 +1016,19 @@ msgstr "Comando OCR:"
 
 #. TEXT_SETUP_OCR_INPUTFILE_OPT
 msgid "Inputfile option:"
-msgstr "OpciÛn del archivo de entrada:"
+msgstr "Opci√≥n del archivo de entrada:"
 
 #. TEXT_SETUP_OCR_OUTPUTFILE_OPT
 msgid "Outputfile option:"
-msgstr "OpciÛn del archivo de salida:"
+msgstr "Opci√≥n del archivo de salida:"
 
 #. TEXT_SETUP_OCR_USE_GUI_PIPE_OPT
 msgid "Use GUI progress pipe:"
-msgstr "Usar tuberÌa de progreso GUI:"
+msgstr "Usar tuber√≠a de progreso GUI:"
 
 #. TEXT_SETUP_OCR_OUTFD_OPT
 msgid "GUI output-fd option:"
-msgstr "OpciÛn de salida-fd GUI:"
+msgstr "Opci√≥n de salida-fd GUI:"
 
 #. TEXT_SETUP_OCR_PROGRESS_KEYWORD
 msgid "Progress keyword:"
@@ -1067,7 +1067,7 @@ msgstr "Fax"
 
 #. NOTEBOOK_MAIL_OPTIONS
 msgid "Mail"
-msgstr "Correo electrÛnico"
+msgstr "Correo electr√≥nico"
 
 #. NOTEBOOK_OCR_OPTIONS
 msgid "OCR"
@@ -1083,7 +1083,7 @@ msgstr "Mejora"
 
 #. MENU_ITEM_MAIL
 msgid "Email"
-msgstr "Correo electrÛnico"
+msgstr "Correo electr√≥nico"
 
 #. MENU_ITEM_SHOW_TOOLTIPS
 msgid "Show tooltips"
@@ -1107,7 +1107,7 @@ msgstr "Mostrar escaneo por lotes"
 
 #. MENU_ITEM_SHOW_STANDARDOPTIONS
 msgid "Show standard options"
-msgstr "Mostrar opciones est·ndard"
+msgstr "Mostrar opciones est√°ndard"
 
 #. MENU_ITEM_SHOW_ADVANCEDOPTIONS
 msgid "Show advanced options"
@@ -1115,7 +1115,7 @@ msgstr "Mostrar opciones avanzadas"
 
 #. MENU_ITEM_SETUP
 msgid "Setup"
-msgstr "ConfiguraciÛn"
+msgstr "Configuraci√≥n"
 
 #. MENU_ITEM_LENGTH_UNIT
 msgid "Length unit"
@@ -1123,11 +1123,11 @@ msgstr "Unidad de medida"
 
 #. SUBMENU_ITEM_LENGTH_MILLIMETERS
 msgid "millimeters"
-msgstr "milÌmetros"
+msgstr "mil√≠metros"
 
 #. SUBMENU_ITEM_LENGTH_CENTIMETERS
 msgid "centimeters"
-msgstr "centÌmetros"
+msgstr "cent√≠metros"
 
 #. SUBMENU_ITEM_LENGTH_INCHES
 msgid "inches"
@@ -1135,7 +1135,7 @@ msgstr "pulgadas"
 
 #. MENU_ITEM_UPDATE_POLICY
 msgid "Update policy"
-msgstr "PÛliza de actualizaciÛn"
+msgstr "P√≥liza de actualizaci√≥n"
 
 #. SUBMENU_ITEM_POLICY_CONTINUOUS
 msgid "continuous"
@@ -1159,15 +1159,15 @@ msgstr "Rotar postscript"
 
 #. MENU_ITEM_EDIT_MEDIUM_DEF
 msgid "Edit medium definition"
-msgstr "Editar definiciÛn de medio"
+msgstr "Editar definici√≥n de medio"
 
 #. MENU_ITEM_SAVE_DEVICE_SETTINGS
 msgid "Save device settings"
-msgstr "Guardar configuraciÛn de dispositivo"
+msgstr "Guardar configuraci√≥n de dispositivo"
 
 #. MENU_ITEM_LOAD_DEVICE_SETTINGS
 msgid "Load device settings"
-msgstr "Cargar configuraciÛn de dispositivo"
+msgstr "Cargar configuraci√≥n de dispositivo"
 
 #. MENU_ITEM_CHANGE_WORKING_DIR
 msgid "Change directory"
@@ -1199,7 +1199,7 @@ msgstr "Tips de escaneo"
 
 #. MENU_ITEM_PROBLEMS
 msgid "Problems?"
-msgstr "øProblemas?"
+msgstr "¬øProblemas?"
 
 #. MENU_ITEM_COUNTER_LEN_INACTIVE
 msgid "inactive"
@@ -1207,23 +1207,23 @@ msgstr "inactivo"
 
 #. MENU_ITEM_TIFF_COMP_NONE
 msgid "no compression"
-msgstr "sin compresiÛn"
+msgstr "sin compresi√≥n"
 
 #. MENU_ITEM_TIFF_COMP_CCITTRLE
 msgid "CCITT 1D Huffman compression"
-msgstr "CompresiÛn CCITT 1D Huffman"
+msgstr "Compresi√≥n CCITT 1D Huffman"
 
 #. MENU_ITEM_TIFF_COMP_CCITFAX3
 msgid "CCITT Group 3 Fax compression"
-msgstr "CompresiÛn CCITT Grupo 3 Fax"
+msgstr "Compresi√≥n CCITT Grupo 3 Fax"
 
 #. MENU_ITEM_TIFF_COMP_CCITFAX4
 msgid "CCITT Group 4 Fax compression"
-msgstr "CompresiÛn CCITT Grupo 4 Fax"
+msgstr "Compresi√≥n CCITT Grupo 4 Fax"
 
 #. MENU_ITEM_TIFF_COMP_JPEG
 msgid "JPEG DCT compression"
-msgstr "CompresiÛn JPEG DCT"
+msgstr "Compresi√≥n JPEG DCT"
 
 #. MENU_ITEM_TIFF_COMP_PACKBITS
 msgid "pack bits"
@@ -1239,27 +1239,27 @@ msgstr "Deslizador (Barra de scroll)"
 
 #. MENU_ITEM_RANGE_SPINBUTTON
 msgid "Spinbutton"
-msgstr "BotÛn de spin"
+msgstr "Bot√≥n de spin"
 
 #. MENU_ITEM_RANGE_SCALE_SPIN
 msgid "Scale and Spinbutton"
-msgstr "Escala y botÛn de spin"
+msgstr "Escala y bot√≥n de spin"
 
 #. MENU_ITEM_RANGE_SCROLL_SPIN
 msgid "Scrollbar and Spinbutton"
-msgstr "Barra de scroll y botÛn de spin"
+msgstr "Barra de scroll y bot√≥n de spin"
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
 msgid "Standard options window (lineart)"
-msgstr "Ventana de opciones est·ndar (lÌnea de arte)"
+msgstr "Ventana de opciones est√°ndar (l√≠nea de arte)"
 
 #. MENU_ITEM_LINEART_MODE_XSANE
 msgid "XSane main window (lineart)"
-msgstr "Ventana principal de XSane (lÌnea de arte)"
+msgstr "Ventana principal de XSane (l√≠nea de arte)"
 
 #. MENU_ITEM_LINEART_MODE_GRAY
 msgid "XSane main window (grayscale->lineart)"
-msgstr "Ventana principal de XSane (escala de grises ->lÌnea de arte)"
+msgstr "Ventana principal de XSane (escala de grises ->l√≠nea de arte)"
 
 #. MENU_ITEM_SELECTION_NONE
 msgid "(none)"
@@ -1267,15 +1267,15 @@ msgstr "(ninguno)"
 
 #. MENU_ITEM_FILETYPE_BY_EXT
 msgid "by ext"
-msgstr "por extensiÛn"
+msgstr "por extensi√≥n"
 
 #. MENU_ITEM_PRESET_AREA_ADD_SEL
 msgid "Add selection to list"
-msgstr "AÒadir selecciÛn a la lista"
+msgstr "A√±adir selecci√≥n a la lista"
 
 #. MENU_ITEM_MEDIUM_ADD
 msgid "Add medium definition"
-msgstr "Agragar definiciÛn de medio"
+msgstr "Agragar definici√≥n de medio"
 
 #. MENU_ITEM_RENAME
 msgid "Rename item"
@@ -1332,7 +1332,7 @@ msgstr "Clonando imagen"
 
 #. PROGRESS_SCALING_DATA
 msgid "Scaling image"
-msgstr "Cambiando tamaÒo de imagen"
+msgstr "Cambiando tama√±o de imagen"
 
 #. PROGRESS_DESPECKLING_DATA
 msgid "Despeckling image"
@@ -1367,8 +1367,8 @@ msgid ""
 "save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or mail-<Ctrl-"
 "m>"
 msgstr ""
-"guardar-<Ctrl-s>, ver-<Ctrl-v>, fotocopia-<Ctrl-c>, fax-<Ctrl-f> Û correo "
-"electrÛnico-<Ctrl-m>"
+"guardar-<Ctrl-s>, ver-<Ctrl-v>, fotocopia-<Ctrl-c>, fax-<Ctrl-f> √≥ correo "
+"electr√≥nico-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
 msgid ""
@@ -1380,9 +1380,9 @@ msgid ""
 msgstr ""
 "Elegir tipo de medio fuente. \n"
 "Para renombrar, reordenar o borrar una entrada use el menu de contexto "
-"(botÛn derecho del ratÛn). \n"
-"Para crear un 'medio' habilitar la opciÛn 'editar definiciÛn de medio'en el "
-"men˙ de preferencias."
+"(bot√≥n derecho del rat√≥n). \n"
+"Para crear un 'medio' habilitar la opci√≥n 'editar definici√≥n de medio'en el "
+"men√∫ de preferencias."
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1402,8 +1402,8 @@ msgid ""
 "Type of image format, the suitable filename extension is automatically added "
 "to the filename"
 msgstr ""
-"Tipo de formato de imagen, la extensiÛn adecuada se agregar· "
-"autom·ticamente  al nombre de archivo"
+"Tipo de formato de imagen, la extensi√≥n adecuada se agregar√° "
+"autom√°ticamente  al nombre de archivo"
 
 #. DESC_FAXPROJECT
 msgid "Enter name of fax project"
@@ -1411,27 +1411,27 @@ msgstr "Ingresar nombre del proyecto de fax"
 
 #. DESC_FAXPAGENAME
 msgid "Enter new name for faxpage"
-msgstr "Ingrese nuevo nombre para la p·gina de fax"
+msgstr "Ingrese nuevo nombre para la p√°gina de fax"
 
 #. DESC_FAXRECEIVER
 msgid "Enter receiver phone number or address"
-msgstr "Ingrese n˙mero de telÈfono del receptor Û direcciÛn"
+msgstr "Ingrese n√∫mero de tel√©fono del receptor √≥ direcci√≥n"
 
 #. DESC_MAILPROJECT
 msgid "Enter name of mail project"
-msgstr "Ingresar nombre del proyecto de correo electrÛnico"
+msgstr "Ingresar nombre del proyecto de correo electr√≥nico"
 
 #. DESC_MAILIMAGENAME
 msgid "Enter new name for mail image"
-msgstr "Ingresar nuevo nombre para la imagen de correo electrÛnico"
+msgstr "Ingresar nuevo nombre para la imagen de correo electr√≥nico"
 
 #. DESC_MAILRECEIVER
 msgid "Enter email address"
-msgstr "Ingresar direcciÛn de correo electrÛnico"
+msgstr "Ingresar direcci√≥n de correo electr√≥nico"
 
 #. DESC_MAILSUBJECT
 msgid "Enter subject of email"
-msgstr "Ingresar asunto de correo electrÛnico"
+msgstr "Ingresar asunto de correo electr√≥nico"
 
 #. DESC_MAIL_FILETYPE
 msgid "Select filetype for image attachments"
@@ -1439,51 +1439,51 @@ msgstr "Seleccionar tipo de archivo para imagen adjunta"
 
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
-msgstr "Ingresar nuevo nombre para el ·rea de preset"
+msgstr "Ingresar nuevo nombre para el √°rea de preset"
 
 #. DESC_PRESET_AREA_ADD
 msgid "Enter name for new preset area"
-msgstr "Ingresar nuevo nombre para el ·rea de preset"
+msgstr "Ingresar nuevo nombre para el √°rea de preset"
 
 #. DESC_MEDIUM_RENAME
 msgid "Enter new name for medium definition"
-msgstr "Ingresar nuevo nombre para definiciÛn de medio"
+msgstr "Ingresar nuevo nombre para definici√≥n de medio"
 
 #. DESC_MEDIUM_ADD
 msgid "Enter name for new medium definition"
-msgstr "Ingresar nuevo nombre para definiciÛn de medio"
+msgstr "Ingresar nuevo nombre para definici√≥n de medio"
 
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
-msgstr "Seleccionar definiciÛn de impresora <Shift-F1/F2/...>"
+msgstr "Seleccionar definici√≥n de impresora <Shift-F1/F2/...>"
 
 #. DESC_RESOLUTION
 msgid "Set scan resolution"
-msgstr "Establecer resoluciÛn de escaneo"
+msgstr "Establecer resoluci√≥n de escaneo"
 
 #. DESC_RESOLUTION_X
 msgid "Set scan resolution for x direction"
-msgstr "Establecer resoluciÛn de escaneo en la direcciÛn x"
+msgstr "Establecer resoluci√≥n de escaneo en la direcci√≥n x"
 
 #. DESC_RESOLUTION_Y
 msgid "Set scan resolution for y direction"
-msgstr "Establecer resoluciÛn de escaneo en la direcciÛn y"
+msgstr "Establecer resoluci√≥n de escaneo en la direcci√≥n y"
 
 #. DESC_ZOOM
 msgid "Set zoomfactor"
-msgstr "Establecer factor de ampliaciÛn"
+msgstr "Establecer factor de ampliaci√≥n"
 
 #. DESC_ZOOM_X
 msgid "Set zoomfactor for x direction"
-msgstr "Establecer factor de ampliaciÛn para la direcciÛn x"
+msgstr "Establecer factor de ampliaci√≥n para la direcci√≥n x"
 
 #. DESC_ZOOM_Y
 msgid "Set zoomfactor for y direction"
-msgstr "Establecer factor de ampliaciÛn para la direcciÛn y"
+msgstr "Establecer factor de ampliaci√≥n para la direcci√≥n y"
 
 #. DESC_COPY_NUMBER
 msgid "Set number of copies"
-msgstr "Establecer n˙mero de copias"
+msgstr "Establecer n√∫mero de copias"
 
 #. DESC_NEGATIVE
 msgid "Negative: Invert colors for scanning negatives <Ctrl-n>"
@@ -1549,8 +1549,8 @@ msgid ""
 " brightness = 0\n"
 " contrast = 0"
 msgstr ""
-"RGB por omisiÛn: Establecer valores de mejora para rojo, verde y azul a "
-"valores por omisiÛn <Ctrl-b>:\n"
+"RGB por omisi√≥n: Establecer valores de mejora para rojo, verde y azul a "
+"valores por omisi√≥n <Ctrl-b>:\n"
 "gamma = 1.0\n"
 "brillo = 0\n"
 "contraste = 0"
@@ -1566,7 +1566,7 @@ msgid ""
 "brightness = 0\n"
 "contrast = 0"
 msgstr ""
-"Establecer valores de mejora por omisiÛn <Ctrl-0>:\n"
+"Establecer valores de mejora por omisi√≥n <Ctrl-0>:\n"
 "gamma = 1.0\n"
 "brillo = 0\n"
 "contraste = 0"
@@ -1598,7 +1598,7 @@ msgstr "Mostrar histograma de componente azul <Alt-b>"
 #. DESC_HIST_PIXEL
 msgid "Display mode: show histogram with lines instead of pixels <Alt-m>"
 msgstr ""
-"Modo de pantalla: mostrar histograma con lÌneas en vez de pixels <Alt-m>"
+"Modo de pantalla: mostrar histograma con l√≠neas en vez de pixels <Alt-m>"
 
 #. DESC_HIST_LOG
 msgid "Show logarithm of pixelcount <Alt-l>"
@@ -1606,11 +1606,11 @@ msgstr "Mostrar logaritmo de la cuenta de pixels <Alt-l>"
 
 #. DESC_PRINTER_SETUP
 msgid "Select definition to change"
-msgstr "Seleccionar definiciÛn a cambiar"
+msgstr "Seleccionar definici√≥n a cambiar"
 
 #. DESC_PRINTER_NAME
 msgid "Define a name for the selection of this definition"
-msgstr "Definir un nombre para la selecciÛn de Èsta definiciÛn"
+msgstr "Definir un nombre para la selecci√≥n de √©sta definici√≥n"
 
 #. DESC_PRINTER_COMMAND
 msgid "Enter command to be executed in copy mode (e.g. \"lpr\")"
@@ -1618,26 +1618,26 @@ msgstr "ingrese comando a ser ejecutado en modo copia (e.g. \"lpr\")"
 
 #. DESC_COPY_NUMBER_OPTION
 msgid "Enter option for copy numbers"
-msgstr "Ingrese opciÛn para el n˙mero de copias"
+msgstr "Ingrese opci√≥n para el n√∫mero de copias"
 
 #. DESC_PRINTER_LINEART_RESOLUTION
 msgid ""
 "Resolution with which lineart images are printed and saved in postscript"
 msgstr ""
-"ResoluciÛn con la que las im·genes de lÌnea de arte son impresas y guardadas "
+"Resoluci√≥n con la que las im√°genes de l√≠nea de arte son impresas y guardadas "
 "en postscript"
 
 #. DESC_PRINTER_GRAYSCALE_RESOLUTION
 msgid ""
 "Resolution with which grayscale images are printed and saved in postscript"
 msgstr ""
-"ResoluciÛn con la que las im·genes en tonos de grises son impresas y "
+"Resoluci√≥n con la que las im√°genes en tonos de grises son impresas y "
 "guardadas en postscript"
 
 #. DESC_PRINTER_COLOR_RESOLUTION
 msgid "Resolution with which color images are printed and saved in postscript"
 msgstr ""
-"ResoluciÛn con la que las im·genes en color son impresas y guardadas en "
+"Resoluci√≥n con la que las im√°genes en color son impresas y guardadas en "
 "postscript"
 
 #. DESC_PRINTER_WIDTH
@@ -1651,11 +1651,11 @@ msgstr "Altura de area imprimible"
 #. DESC_PRINTER_LEFTOFFSET
 msgid "Left offset from the edge of the paper to the printable area"
 msgstr ""
-"Deplazamiento a la izquierda desde el borde del papel al ·rea imprimible"
+"Deplazamiento a la izquierda desde el borde del papel al √°rea imprimible"
 
 #. DESC_PRINTER_BOTTOMOFFSET
 msgid "Bottom offset from the edge of the paper to the printable area"
-msgstr "Deplazamiento hacia abajo desde el borde del papel al ·rea imprimible"
+msgstr "Deplazamiento hacia abajo desde el borde del papel al √°rea imprimible"
 
 #. DESC_PRINTER_GAMMA
 msgid "Additional gamma value for photocopy"
@@ -1685,33 +1685,33 @@ msgstr "Explorar para directorio temporal"
 msgid ""
 "Quality in percent if image is saved as jpeg or tiff with jpeg compression"
 msgstr ""
-"Calidad en porcentaje si la imagen es guardada como jpeg Û tiff con "
-"compresiÛn jpeg"
+"Calidad en porcentaje si la imagen es guardada como jpeg √≥ tiff con "
+"compresi√≥n jpeg"
 
 #. DESC_PNG_COMPRESSION
 msgid "Compression if image is saved as png"
-msgstr "CompresiÛn si la imagen es guardada como png"
+msgstr "Compresi√≥n si la imagen es guardada como png"
 
 #. DESC_FILENAME_COUNTER_LEN
 msgid "Minimum length of counter in filename"
-msgstr "Medida mÌnima del contador en el nombre de archivo"
+msgstr "Medida m√≠nima del contador en el nombre de archivo"
 
 #. DESC_TIFF_COMPRESSION_16
 msgid "Compression type if 16 bit image is saved as tiff"
-msgstr "Tipo de compresiÛn si la imagen de 16 bits es guardada como tiff"
+msgstr "Tipo de compresi√≥n si la imagen de 16 bits es guardada como tiff"
 
 #. DESC_TIFF_COMPRESSION_8
 msgid "Compression type if 8 bit image is saved as tiff"
-msgstr "Tipo de compresiÛn si la imagen de 8 bits es guardada como tiff"
+msgstr "Tipo de compresi√≥n si la imagen de 8 bits es guardada como tiff"
 
 #. DESC_TIFF_COMPRESSION_1
 msgid "Compression type if lineart image is saved as tiff"
-msgstr "Tipo de compresiÛn si la imagen de lÌnea de arte es guardada como tiff"
+msgstr "Tipo de compresi√≥n si la imagen de l√≠nea de arte es guardada como tiff"
 
 #. DESC_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device dependant preferences in default file at exit of xsane"
 msgstr ""
-"Guardar preferencias dependientes del dispositivo en archivo por omisiÛn al "
+"Guardar preferencias dependientes del dispositivo en archivo por omisi√≥n al "
 "salir de XSane"
 
 #. DESC_OVERWRITE_WARNING
@@ -1722,7 +1722,7 @@ msgstr "Advertir antes de sobreescribir un archivo existente"
 msgid ""
 "If filename counter is automatically increased, used numbers are skipped"
 msgstr ""
-"Si el contador de nombre archivo se incrementa autom·ticamente, los n˙meros "
+"Si el contador de nombre archivo se incrementa autom√°ticamente, los n√∫meros "
 "presentes son salteados"
 
 #. DESC_SAVE_PNM16_AS_ASCII
@@ -1734,14 +1734,14 @@ msgid ""
 msgstr ""
 "Cuando una imagen de 16 bits deba guardarse en formato pnm use el formato "
 "ascii en vez del formato binario. El formato binario es un formato nuevo que "
-"no est· soportado por todos los programas. °°°El formato ascii est· "
-"soportado por la mayorÌa de los programas pero produce archivos realmente "
+"no est√° soportado por todos los programas. ¬°¬°¬°El formato ascii est√° "
+"soportado por la mayor√≠a de los programas pero produce archivos realmente "
 "enormes!!!"
 
 #. DESC_REDUCE_16BIT_TO_8BIT
 msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
 msgstr ""
-"Si el esc·ner envÌa im·genes de 16 bits/color guardar im·genes con 8 bits/"
+"Si el esc√°ner env√≠a im√°genes de 16 bits/color guardar im√°genes con 8 bits/"
 "color"
 
 #. DESC_PSFILE_WIDTH
@@ -1757,7 +1757,7 @@ msgid ""
 "Left offset from the edge of the paper to the usable area for postscript "
 "files"
 msgstr ""
-"Desplazamiento a la izquierda desde el borde del papel hasta el ·rea usable "
+"Desplazamiento a la izquierda desde el borde del papel hasta el √°rea usable "
 "para los archivos postscript"
 
 #. DESC_PSFILE_BOTTOMOFFSET
@@ -1765,19 +1765,19 @@ msgid ""
 "Bottom offset from the edge of the paper to the usable area for postscript "
 "files"
 msgstr ""
-"Desplazamiento hacia abajo desde el borde del papel hasta el ·rea usable "
+"Desplazamiento hacia abajo desde el borde del papel hasta el √°rea usable "
 "para los archivos postscript"
 
 #. DESC_MAIN_WINDOW_FIXED
 msgid "Use fixed main window size or scrolled, resizable main window"
 msgstr ""
-"Usar tamaÒo de ventana principal fijo Û uno de tamaÒo variable con scroll"
+"Usar tama√±o de ventana principal fijo √≥ uno de tama√±o variable con scroll"
 
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
 msgid "Disable preview gamma when XSane runs as gimp plugin"
 msgstr ""
-"Deshabilitar el gamma de previsualizaciÛn cuando XSane funciona como una "
-"extensiÛn de GIMP"
+"Deshabilitar el gamma de previsualizaci√≥n cuando XSane funciona como una "
+"extensi√≥n de GIMP"
 
 #. DESC_PREVIEW_COLORMAP
 msgid "Use an own colormap for preview if display depth is 8 bpp"
@@ -1786,107 +1786,107 @@ msgstr ""
 
 #. DESC_SHOW_RANGE_MODE
 msgid "Select how a range is displayed"
-msgstr "Seleccionar cÛmo se muestra un rango"
+msgstr "Seleccionar c√≥mo se muestra un rango"
 
 #. DESC_PREVIEW_OVERSAMPLING
 msgid "Value with that the calculated preview resolution is multiplied"
-msgstr "Valor con el que la resoluciÛn de la vista previa es multiplicado"
+msgstr "Valor con el que la resoluci√≥n de la vista previa es multiplicado"
 
 #. DESC_PREVIEW_GAMMA
 msgid "Set gamma correction value for preview image"
 msgstr ""
-"Establecer el valor de la correcciÛn gamma para la imagen de previsualizaciÛn"
+"Establecer el valor de la correcci√≥n gamma para la imagen de previsualizaci√≥n"
 
 #. DESC_PREVIEW_GAMMA_RED
 msgid "Set gamma correction value for red component of preview image"
 msgstr ""
-"Establecer el valor de la correcciÛn gamma para el componente rojo de la "
-"imagen de previsualizaciÛn"
+"Establecer el valor de la correcci√≥n gamma para el componente rojo de la "
+"imagen de previsualizaci√≥n"
 
 #. DESC_PREVIEW_GAMMA_GREEN
 msgid "Set gamma correction value for green component of preview image"
 msgstr ""
-"Establecer el valor de la correcciÛn gamma para el valor verde de la imagen "
-"de previsualizaciÛn"
+"Establecer el valor de la correcci√≥n gamma para el valor verde de la imagen "
+"de previsualizaci√≥n"
 
 #. DESC_PREVIEW_GAMMA_BLUE
 msgid "Set gamma correction value for blue component of preview image"
 msgstr ""
-"Establecer el valor de la correcciÛn gamma para el valor azul de la imagen "
-"de previsualizaciÛn"
+"Establecer el valor de la correcci√≥n gamma para el valor azul de la imagen "
+"de previsualizaci√≥n"
 
 #. DESC_LINEART_MODE
 msgid "Define the way XSane shall handle the threshold option"
-msgstr "Definir la forma en que XSane manejar· la opciÛn umbral"
+msgstr "Definir la forma en que XSane manejar√° la opci√≥n umbral"
 
 #. DESC_GRAYSCALE_SCANMODE
 msgid ""
 "Select grayscale scanmode. This scanmode is used for lineart preview scan "
 "when transformation from grayscale to lineart is enabled"
 msgstr ""
-"Seleccionar modo de escaneo tonos de grises. …ste modo es usado para "
-"previsualizaciÛn de lÌnea de arte cuando la transformaciÛn de tonos de "
-"grises a lÌnea de arte est· habilitada"
+"Seleccionar modo de escaneo tonos de grises. √âste modo es usado para "
+"previsualizaci√≥n de l√≠nea de arte cuando la transformaci√≥n de tonos de "
+"grises a l√≠nea de arte est√° habilitada"
 
 #. DESC_PREVIEW_THRESHOLD_MIN
 #, no-c-format
 msgid "The scanner's minimum threshold level in %"
-msgstr "El mÌnimo nivel del umbral del esc·ner en %"
+msgstr "El m√≠nimo nivel del umbral del esc√°ner en %"
 
 #. DESC_PREVIEW_THRESHOLD_MAX
 #, no-c-format
 msgid "The scanner's maximum threshold level in %"
-msgstr "El m·ximo nivel del umbral del esc·ner en %"
+msgstr "El m√°ximo nivel del umbral del esc√°ner en %"
 
 #. DESC_PREVIEW_THRESHOLD_MUL
 msgid ""
 "Multiplier to make XSane threshold range and scanner threshold range the same"
 msgstr ""
-"Factor de multiplicaciÛn para hacer que el rango del umbral de XSane y el "
-"rango del umbral del esc·ner sean iguales"
+"Factor de multiplicaci√≥n para hacer que el rango del umbral de XSane y el "
+"rango del umbral del esc√°ner sean iguales"
 
 #. DESC_PREVIEW_THRESHOLD_OFF
 msgid ""
 "Offset to make XSane threshold range and scanner threshold range the same"
 msgstr ""
 "Desplazamiento para hacer que el rango del umbral de XSane y el rango del "
-"umbral del esc·ner sean iguales"
+"umbral del esc√°ner sean iguales"
 
 #. DESC_ADF_MODE
 msgid ""
 "Select scansource for Automatic Document feeder. If this scansource is "
 "selected XSane scans until \"out of paper\" or error."
 msgstr ""
-"Seleccionar fuente de escaneo para Alimentador de Documentos Autom·tico. Si "
-"Èsta fuente se selecciona XSane escanear· hasta que ocurra un error \"out of "
+"Seleccionar fuente de escaneo para Alimentador de Documentos Autom√°tico. Si "
+"√©sta fuente se selecciona XSane escanear√° hasta que ocurra un error \"out of "
 "paper\" (sin papel)."
 
 #. DESC_PREVIEW_PIPETTE_RANGE
 msgid "dimension of square that is used to average color for pipette function"
 msgstr ""
-"DimensiÛn del cuadrado que es usado para promediar color para la funciÛn "
+"Dimensi√≥n del cuadrado que es usado para promediar color para la funci√≥n "
 "pipeta"
 
 #. DESC_DOC_VIEWER
 msgid ""
 "Enter command to be executed to display helpfiles, must be a html-viewer!"
 msgstr ""
-"Ingresar comando a ser ejecutado para mostrar archivos de ayuda, °debe ser "
+"Ingresar comando a ser ejecutado para mostrar archivos de ayuda, ¬°debe ser "
 "un visualizador html!"
 
 #. DESC_AUTOENHANCE_GAMMA
 msgid "Change gamma value when autoenhancement button is pressed"
-msgstr "Cambiar valor de gamma cuando el botÛn de automejora es presionado"
+msgstr "Cambiar valor de gamma cuando el bot√≥n de automejora es presionado"
 
 #. DESC_PRESELECT_SCANAREA
 msgid "Select scanarea after preview scan has finished"
 msgstr ""
-"Seleccionar ·rea de escaneo despuÈs de que la previsualizaciÛn ha concluÌdo"
+"Seleccionar √°rea de escaneo despu√©s de que la previsualizaci√≥n ha conclu√≠do"
 
 #. DESC_AUTOCORRECT_COLORS
 msgid "Do color correction after preview scan has finished"
 msgstr ""
-"Hacer correcciÛn de color despuÈs de que la previsualizaciÛn ha concluÌdo"
+"Hacer correcci√≥n de color despu√©s de que la previsualizaci√≥n ha conclu√≠do"
 
 #. DESC_FAX_COMMAND
 msgid "Enter command to be executed in fax mode"
@@ -1894,19 +1894,19 @@ msgstr "Ingresar comando a ser ejecutado en modo de fax"
 
 #. DESC_FAX_RECEIVER_OPT
 msgid "Enter option to specify receiver"
-msgstr "Ingresar opciÛn para especificar un receptor"
+msgstr "Ingresar opci√≥n para especificar un receptor"
 
 #. DESC_FAX_POSTSCRIPT_OPT
 msgid "Enter option to specify postscript files following"
-msgstr "Ingresar opciÛn para especificar archivos postscript siguientes"
+msgstr "Ingresar opci√≥n para especificar archivos postscript siguientes"
 
 #. DESC_FAX_NORMAL_OPT
 msgid "Enter option to specify normal mode (low resolution)"
-msgstr "Ingresar opciÛn para especificar modo normal (baja resoluciÛn)"
+msgstr "Ingresar opci√≥n para especificar modo normal (baja resoluci√≥n)"
 
 #. DESC_FAX_FINE_OPT
 msgid "Enter option to specify fine mode (high resolution)"
-msgstr "Ingresar opciÛn para especificar modo fino (alta resoluciÛn)"
+msgstr "Ingresar opci√≥n para especificar modo fino (alta resoluci√≥n)"
 
 #. DESC_FAX_VIEWER
 msgid "Enter command to be executed to view a fax"
@@ -1914,11 +1914,11 @@ msgstr "Ingresar comando a ser ejecutado para ver un fax"
 
 #. DESC_FAX_FINE_MODE
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
-msgstr "Enviar fax con resoluciÛn vertical alta (196 lpp en vez de 98 lpp)"
+msgstr "Enviar fax con resoluci√≥n vertical alta (196 lpp en vez de 98 lpp)"
 
 #. DESC_SMTP_SERVER
 msgid "IP Address or Domain name of SMTP server"
-msgstr "DirecciÛn  IP Û nombre de Dominio del servidor SMTP"
+msgstr "Direcci√≥n  IP √≥ nombre de Dominio del servidor SMTP"
 
 #. DESC_SMTP_PORT
 msgid "port to connect to SMTP server"
@@ -1926,21 +1926,21 @@ msgstr "puerto a conectar del servidor SMTP"
 
 #. DESC_MAIL_FROM
 msgid "enter your email address"
-msgstr "Ingresar su direcciÛn de correo electrÛnico"
+msgstr "Ingresar su direcci√≥n de correo electr√≥nico"
 
 #. DESC_MAIL_REPLY_TO
 msgid "enter email address for replied emails"
 msgstr ""
-"Ingresar direcciÛn de correo electrÛnico para los correos electrÛnicos "
+"Ingresar direcci√≥n de correo electr√≥nico para los correos electr√≥nicos "
 "respondidos"
 
 #. DESC_POP3_AUTHENTIFICATION
 msgid "Authentificate at POP3 server before sending mail"
-msgstr "Autentificar en un servidor POP3 antes de enviar el correo electrÛnico"
+msgstr "Autentificar en un servidor POP3 antes de enviar el correo electr√≥nico"
 
 #. DESC_POP3_SERVER
 msgid "IP Address or Domain name of POP3 server"
-msgstr "DirecciÛn IP Û nombre de Dominio del servidor POP3"
+msgstr "Direcci√≥n IP √≥ nombre de Dominio del servidor POP3"
 
 #. DESC_POP3_PORT
 msgid "port to connect to POP3 server"
@@ -1952,17 +1952,17 @@ msgstr "nombre de usuario para el servidor POP3"
 
 #. DESC_POP3_PASS
 msgid "password for POP3 server"
-msgstr "contraseÒa para el servidor POP3"
+msgstr "contrase√±a para el servidor POP3"
 
 #. DESC_MAIL_VIEWER
 msgid "Enter command to be executed to view a mail image"
 msgstr ""
-"Ingrese comando a ser ejecutado para ver una imagen de correo electrÛnico"
+"Ingrese comando a ser ejecutado para ver una imagen de correo electr√≥nico"
 
 #. DESC_HTML_MAIL
 msgid "Mail is sent in html mode, place image with: <IMAGE>"
 msgstr ""
-"El correo electrÛnico se envÌa en modo html, coloque la imagen con: <IMAGE>"
+"El correo electr√≥nico se env√≠a en modo html, coloque la imagen con: <IMAGE>"
 
 #. DESC_OCR_COMMAND
 msgid "Enter command to start ocr program"
@@ -1971,26 +1971,26 @@ msgstr "Ingresar comando para lanzar programa de OCR"
 #. DESC_OCR_INPUTFILE_OPT
 msgid "Enter option of the ocr program to define input file"
 msgstr ""
-"Ingresar opciÛn para el programa de OCR para definir archivo de entrada"
+"Ingresar opci√≥n para el programa de OCR para definir archivo de entrada"
 
 #. DESC_OCR_OUTPUTFILE_OPT
 msgid "Enter option of the ocr program to define output file"
-msgstr "ngresar opciÛn para el programa de OCR para definir archivo de salida"
+msgstr "ngresar opci√≥n para el programa de OCR para definir archivo de salida"
 
 #. DESC_OCR_USE_GUI_PIPE_OPT
 msgid "Define if the ocr program supports gui progress pipe"
-msgstr "Definir si el programa de ocr soporta tuberÌa de proceso GUI"
+msgstr "Definir si el programa de ocr soporta tuber√≠a de proceso GUI"
 
 #. DESC_OCR_OUTFD_OPT
 msgid ""
 "Enter option of the ocr program to define output filedescripor in GUI mode"
 msgstr ""
-"Ingresar opciÛn para el programa de ocr para definir descriptor de archivo "
+"Ingresar opci√≥n para el programa de ocr para definir descriptor de archivo "
 "de salida en modo GUI"
 
 #. DESC_OCR_PROGRESS_KEYWORD
 msgid "Define Keyword that is used to mark progress information"
-msgstr "Palabra clave que se usa para indicar informaciÛn de progreso"
+msgstr "Palabra clave que se usa para indicar informaci√≥n de progreso"
 
 #. DESC_PERMISSION_READ
 msgid "read"
@@ -2006,7 +2006,7 @@ msgstr "ejecutar"
 
 #. DESC_ADD_BATCH
 msgid "Add selection for batch scan"
-msgstr "AÒadir selecciÛn para escaneo por lotes"
+msgstr "A√±adir selecci√≥n para escaneo por lotes"
 
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
@@ -2022,7 +2022,7 @@ msgstr "Tomar punto negro"
 
 #. DESC_ZOOM_FULL
 msgid "Use full scanarea"
-msgstr "Usar ·rea de escaneo completa"
+msgstr "Usar √°rea de escaneo completa"
 
 #. DESC_ZOOM_OUT
 #, no-c-format
@@ -2031,15 +2031,15 @@ msgstr "Ampliar 20%"
 
 #. DESC_ZOOM_IN
 msgid "Click at position to zoom to"
-msgstr "Hacer click en la posiciÛn para hacer zoom a"
+msgstr "Hacer click en la posici√≥n para hacer zoom a"
 
 #. DESC_ZOOM_AREA
 msgid "Zoom into selected area"
-msgstr "Ampliar dentro del ·rea seleccionada"
+msgstr "Ampliar dentro del √°rea seleccionada"
 
 #. DESC_ZOOM_UNDO
 msgid "Undo last zoom"
-msgstr "Deshacer ˙ltima ampliaciÛn"
+msgstr "Deshacer √∫ltima ampliaci√≥n"
 
 #. DESC_FULL_PREVIEW_AREA
 msgid "Select visible area"
@@ -2047,15 +2047,15 @@ msgstr "Seleccionar area visible"
 
 #. DESC_AUTOSELECT_SCANAREA
 msgid "Autoselect scanarea"
-msgstr "Autoseleccionar ·rea de escaneado"
+msgstr "Autoseleccionar √°rea de escaneado"
 
 #. DESC_AUTORAISE_SCANAREA
 msgid "Autoraise scanarea"
-msgstr "Autoseleccionar ·rea de escaneado"
+msgstr "Autoseleccionar √°rea de escaneado"
 
 #. DESC_DELETE_IMAGES
 msgid "Delete preview image cache"
-msgstr "Borrar cache de imagen de previsualizaciÛn"
+msgstr "Borrar cache de imagen de previsualizaci√≥n"
 
 #. DESC_PRESET_AREA
 msgid ""
@@ -2063,29 +2063,29 @@ msgid ""
 "To add new area or edit an existing area use contect menu (right mouse "
 "button)."
 msgstr ""
-"¡rea de preset:\n"
-"Para agregar una nueva ·rea o editar una existente usar el men˙ de contexto "
-"(botÛn derecho del ratÛn)."
+"√Årea de preset:\n"
+"Para agregar una nueva √°rea o editar una existente usar el men√∫ de contexto "
+"(bot√≥n derecho del rat√≥n)."
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
-msgstr "Rotar previsualizaciÛn y escanear"
+msgstr "Rotar previsualizaci√≥n y escanear"
 
 #. DESC_RATIO
 msgid "Aspect ratio of selection"
-msgstr "RelaciÛn de aspecto de selecciÛn"
+msgstr "Relaci√≥n de aspecto de selecci√≥n"
 
 #. DESC_PAPER_ORIENTATION
 msgid "Define image position for printing"
-msgstr "Definir posiciÛn de imagen para imprimir"
+msgstr "Definir posici√≥n de imagen para imprimir"
 
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
-msgstr "Reconocimiento ”ptico de Caracteres"
+msgstr "Reconocimiento √ìptico de Caracteres"
 
 #. DESC_VIEWER_UNDO
 msgid "Undo last change"
-msgstr "Deshacer el ˙ltimo cambio"
+msgstr "Deshacer el √∫ltimo cambio"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
@@ -2161,7 +2161,7 @@ msgstr "Renombrar area"
 
 #. DESC_BATCH_ADD
 msgid "Add selected preview area to batch list"
-msgstr "AÒadir vista previa seleccionada a la lista de proceso por lotes"
+msgstr "A√±adir vista previa seleccionada a la lista de proceso por lotes"
 
 #. DESC_BATCH_DEL
 msgid "Delete selected area from batch list"
@@ -2169,15 +2169,15 @@ msgstr "Borrar area seleccionada de la lista de proceso por lotes"
 
 #. DESC_AUTOMATIC
 msgid "Turns on automatic mode"
-msgstr "Enciende modo autom·tico"
+msgstr "Enciende modo autom√°tico"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
-msgstr "FallÛ al determinar el directorio home:"
+msgstr "Fall√≥ al determinar el directorio home:"
 
 #. ERR_CHANGE_WORKING_DIR
 msgid "Failed to change working directory to"
-msgstr "FallÛ al cambiar el directorio de trabajo a"
+msgstr "Fall√≥ al cambiar el directorio de trabajo a"
 
 #. ERR_FILENAME_TOO_LONG
 msgid "Filename too long"
@@ -2189,19 +2189,19 @@ msgstr "No se puede crear archivos temporales"
 
 #. ERR_SET_OPTION
 msgid "Failed to set value of option"
-msgstr "FallÛ al definir valor de opciÛn"
+msgstr "Fall√≥ al definir valor de opci√≥n"
 
 #. ERR_GET_OPTION
 msgid "Failed to obtain value of option"
-msgstr "FallÛ al obtener valor de opciÛn"
+msgstr "Fall√≥ al obtener valor de opci√≥n"
 
 #. ERR_OPTION_COUNT
 msgid "Error obtaining option count"
-msgstr "Error al obtener opciÛn de conteo"
+msgstr "Error al obtener opci√≥n de conteo"
 
 #. ERR_DEVICE_OPEN_FAILED
 msgid "Failed to open device"
-msgstr "FallÛ al abrir dispositivo"
+msgstr "Fall√≥ al abrir dispositivo"
 
 #. ERR_NO_DEVICES
 msgid "no devices available"
@@ -2230,7 +2230,7 @@ msgstr "Formato de  archivo desconocido para guardar"
 
 #. ERR_OPEN_FAILED
 msgid "Failed to open"
-msgstr "FallÛ al abrir"
+msgstr "Fall√≥ al abrir"
 
 #. ERR_CREATE_SECURE_FILE
 msgid "Could not create secure file (may be a link does exist):"
@@ -2238,19 +2238,19 @@ msgstr "No se puede crear un archivo seguro (puede ser que exista un link):"
 
 #. ERR_FAILED_PRINTER_PIPE
 msgid "Failed to open pipe for executing printercommand"
-msgstr "FallÛ al abrir tuberÌa para ejecutar comando de impresiÛn"
+msgstr "Fall√≥ al abrir tuber√≠a para ejecutar comando de impresi√≥n"
 
 #. ERR_FAILED_EXEC_PRINTER_CMD
 msgid "Failed to execute printercommand:"
-msgstr "FallÛ al ejecutar comando de impresiÛn:"
+msgstr "Fall√≥ al ejecutar comando de impresi√≥n:"
 
 #. ERR_FAILED_START_SCANNER
 msgid "Failed to start scanner:"
-msgstr "FallÛ al encender esc·ner:"
+msgstr "Fall√≥ al encender esc√°ner:"
 
 #. ERR_FAILED_GET_PARAMS
 msgid "Failed to get parameters:"
-msgstr "FallÛ al tomar par·metros:"
+msgstr "Fall√≥ al tomar par√°metros:"
 
 #. ERR_NO_OUTPUT_FORMAT
 msgid "No output format given"
@@ -2263,7 +2263,7 @@ msgstr "sin memoria"
 #. ERR_TOO_MUCH_DATA
 msgid "Backend sends more image data than it defined in parameters"
 msgstr ""
-"El Backend envÌa m·s datos de imagen que los definidos en los par·metros"
+"El Backend env√≠a m√°s datos de imagen que los definidos en los par√°metros"
 
 #. ERR_LIBTIFF
 msgid "LIBTIFF reports error"
@@ -2277,41 +2277,45 @@ msgstr "LIBPNG reporta un error"
 msgid "LIBJPEG reports error"
 msgstr "LIBJPE G reporta un error"
 
+#. ERR_ZLIB
+msgid "ZLIB error or memory allocation problem"
+msgstr ""
+
 #. ERR_UNKNOWN_TYPE
 msgid "unknown type"
 msgstr "tipo desconocido"
 
 #. ERR_UNKNOWN_CONSTRAINT_TYPE
 msgid "unknown constraint type"
-msgstr "Tipo de restricciÛn desconocida"
+msgstr "Tipo de restricci√≥n desconocida"
 
 #. ERR_OPTION_NAME_NULL
 msgid "Option has empty name (NULL)."
-msgstr "La opciÛn tiene nombre vacÌo (NULL)."
+msgstr "La opci√≥n tiene nombre vac√≠o (NULL)."
 
 #. ERR_BACKEND_BUG
 msgid "This is a backend bug. Please inform the author of the backend!"
-msgstr "…ste es un error del backend. °Favor de informar al autor del backend!"
+msgstr "√âste es un error del backend. ¬°Favor de informar al autor del backend!"
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
-msgstr "FallÛ al ejecutar visor de documentaciÛn:"
+msgstr "Fall√≥ al ejecutar visor de documentaci√≥n:"
 
 #. ERR_FAILED_EXEC_FAX_VIEWER
 msgid "Failed to execute fax viewer:"
-msgstr "FallÛ al ejecutar visor de fax:"
+msgstr "Fall√≥ al ejecutar visor de fax:"
 
 #. ERR_FAILED_EXEC_FAX_CMD
 msgid "Failed to execute fax command:"
-msgstr "FallÛ al ejecutar comando de fax:"
+msgstr "Fall√≥ al ejecutar comando de fax:"
 
 #. ERR_FAILED_EXEC_MAIL_VIEWER
 msgid "Failed to execute mail image viewer:"
-msgstr "FallÛ al ejecutar visor de imagen de correo electrÛnico:"
+msgstr "Fall√≥ al ejecutar visor de imagen de correo electr√≥nico:"
 
 #. ERR_FAILED_EXEC_OCR_CMD
 msgid "Failed to execute ocr command:"
-msgstr "FallÛ al ejecutar comando de OCR:"
+msgstr "Fall√≥ al ejecutar comando de OCR:"
 
 #. ERR_BAD_FRAME_FORMAT
 msgid "bad frame format"
@@ -2319,12 +2323,12 @@ msgstr "formato de frame inadecuado"
 
 #. ERR_FAILED_SET_RESOLUTION
 msgid "unable to set resolution"
-msgstr "No es posible establecer la resoluciÛn"
+msgstr "No es posible establecer la resoluci√≥n"
 
 #. ERR_PASSWORD_FILE_INSECURE
 #, c-format
 msgid "Password file (%s) is insecure, use permission x00\n"
-msgstr "El archivo de contraseÒa (%s) es inseguro, usar permisos x00\n"
+msgstr "El archivo de contrase√±a (%s) es inseguro, usar permisos x00\n"
 
 #. ERR_ERROR
 msgid "error"
@@ -2332,15 +2336,15 @@ msgstr "error"
 
 #. ERR_MAJOR_VERSION_NR_CONFLICT
 msgid "Sane major version number mismatch!"
-msgstr "°El n˙mero de versiÛn principal de Sane no coincide!"
+msgstr "¬°El n√∫mero de versi√≥n principal de Sane no coincide!"
 
 #. ERR_XSANE_MAJOR_VERSION
 msgid "XSane major version ="
-msgstr "VersiÛn principal de XSane = "
+msgstr "Versi√≥n principal de XSane = "
 
 #. ERR_BACKEND_MAJOR_VERSION
 msgid "backend major version ="
-msgstr "VersiÛn principal de backend = "
+msgstr "Versi√≥n principal de backend = "
 
 #. ERR_PROGRAM_ABORTED
 msgid "*** PROGRAM ABORTED ***"
@@ -2348,7 +2352,7 @@ msgstr "*** PROGRAMA ABORTADO ***"
 
 #. ERR_FAILED_ALLOCATE_IMAGE
 msgid "Failed to allocate image memory:"
-msgstr "FallÛ al colocar la imagen de memoria:"
+msgstr "Fall√≥ al colocar la imagen de memoria:"
 
 #. ERR_PREVIEW_BAD_DEPTH
 msgid "Preview cannot handle bit depth"
@@ -2360,12 +2364,12 @@ msgstr "No hay soporte de GIMP"
 
 #. ERR_CREATE_PREVIEW_FILE
 msgid "Could not create temporary preview files"
-msgstr "No se puede crear archivos temporales de previsualizaciÛn"
+msgstr "No se puede crear archivos temporales de previsualizaci√≥n"
 
 #. ERR_CREATE_PREVIEW_FILENAME
 msgid "Could not create filenames for preview files"
 msgstr ""
-"No se puede crear nombres de archivos para archivos de previsualizaciÛn"
+"No se puede crear nombres de archivos para archivos de previsualizaci√≥n"
 
 #. ERR_CREATE_FAX_PROJECT
 msgid "Could not create faxproject"
@@ -2377,7 +2381,7 @@ msgstr "Desborde negativo para el contador de nombres de archivo"
 
 #. WARN_NO_VALUE_CONSTRAINT
 msgid "warning: option has no value constraint"
-msgstr "advertencia: la opciÛn no tiene restricciones de valor"
+msgstr "advertencia: la opci√≥n no tiene restricciones de valor"
 
 #. WARN_XSANE_AS_ROOT
 msgid ""
@@ -2387,11 +2391,11 @@ msgid ""
 "have any problem while running XSane as root:\n"
 "YOU ARE ALONE!"
 msgstr ""
-"°Usted intenta ejecutar XSane como ROOT, es verdaderamente PELIGROSO!\n"
+"¬°Usted intenta ejecutar XSane como ROOT, es verdaderamente PELIGROSO!\n"
 "\n"
-"° No envÌe ning˙n reporte de bugs cuando usted\n"
-"tenga alg˙n problema mientras ejecute XSane as root:\n"
-"USTED EST¡ SOLO!"
+"¬° No env√≠e ning√∫n reporte de bugs cuando usted\n"
+"tenga alg√∫n problema mientras ejecute XSane as root:\n"
+"USTED EST√Å SOLO!"
 
 #. ERR_HEADER_ERROR
 msgid "Error"
@@ -2403,7 +2407,7 @@ msgstr "Aviso"
 
 #. ERR_HEADER_INFO
 msgid "Information"
-msgstr "InformaciÛn"
+msgstr "Informaci√≥n"
 
 #. ERR_HEADER_CHILD_PROCESS_ERROR
 msgid "Child process error"
@@ -2411,7 +2415,7 @@ msgstr "Error de proceso hijo"
 
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
-msgstr "FallÛ al crear archivo:"
+msgstr "Fall√≥ al crear archivo:"
 
 #. ERR_LOAD_DEVICE_SETTINGS
 msgid "Error while loading device settings:"
@@ -2419,19 +2423,19 @@ msgstr "Error mientras se cargaban las opciones del dispositivo:"
 
 #. ERR_NO_DRC_FILE
 msgid "is not a device-rc-file !!!"
-msgstr "°°°no es un  archivo-rc-de-dispositivo!!!"
+msgstr "¬°¬°¬°no es un  archivo-rc-de-dispositivo!!!"
 
 #. ERR_NETSCAPE_EXECUTE_FAIL
 msgid "Failed to execute netscape!"
-msgstr "°FallÛ al ejecutar Netscape!"
+msgstr "¬°Fall√≥ al ejecutar Netscape!"
 
 #. ERR_SENDFAX_RECEIVER_MISSING
 msgid "Send fax: no receiver defined"
-msgstr "EnvÌo de fax: no se definiÛ receptor"
+msgstr "Env√≠o de fax: no se defini√≥ receptor"
 
 #. ERR_CREATED_FOR_DEVICE
 msgid "has been created for device"
-msgstr "se creÛ para dispositivo"
+msgstr "se cre√≥ para dispositivo"
 
 #. ERR_USED_FOR_DEVICE
 msgid "you want to use it for device"
@@ -2439,12 +2443,12 @@ msgstr "usted quiere usarlo para el dispositivo"
 
 #. ERR_MAY_CAUSE_PROBLEMS
 msgid "this may cause problems!"
-msgstr "°Èsto puede causr problemas!"
+msgstr "¬°√©sto puede causr problemas!"
 
 #. WARN_UNSAVED_IMAGES
 #, c-format
 msgid "There are %d unsaved images"
-msgstr "Hay %d im·genes no guardadas"
+msgstr "Hay %d im√°genes no guardadas"
 
 #. WARN_FILE_EXISTS
 #, c-format
@@ -2468,7 +2472,7 @@ msgstr "Formato de salida de %d-bit no soportado: %s"
 
 #. WARN_VIEWER_IMAGE_NOT_SAVED
 msgid "viewer image is not saved"
-msgstr "La imagen del visor no se guardÛ"
+msgstr "La imagen del visor no se guard√≥"
 
 #. TEXT_USAGE
 msgid "Usage:"
@@ -2476,7 +2480,7 @@ msgstr "Uso:"
 
 #. TEXT_USAGE_OPTIONS
 msgid "[OPTION]... [DEVICE]"
-msgstr "[OPCI”N]... [DISPOSITIVO]"
+msgstr "[OPCI√ìN]... [DISPOSITIVO]"
 
 #. TEXT_HELP
 msgid ""
@@ -2513,15 +2517,15 @@ msgid ""
 " --sync                       request a synchronous connection with the X11 "
 "server"
 msgstr ""
-"Inicio de interfaz gr·fica de usuario para acceder a dispositivos SANE [\n"
-"(A)cceso a e(S)c·ner (N)ahora (E)f·cil]\n"
+"Inicio de interfaz gr√°fica de usuario para acceder a dispositivos SANE [\n"
+"(A)cceso a e(S)c√°ner (N)ahora (E)f√°cil]\n"
 "\n"
 "El formato de [DISPOSITIVO] es nombre_de_backend:archivo_de_dispositivo\n"
 "(p/ej. umax:/dev/scanner).\n"
-"[OPCI”N]... puede  ser una combinaciÛn de los siguientes Ìtems:\n"
-" -h, --help                   mostrar Èste mensaje de ayuda y salir\n"
-" -v, --version                imprimir informaciÛn de la versiÛn\n"
-" -l, --license                imprimir informaciÛn de la licencia\n"
+"[OPCI√ìN]... puede  ser una combinaci√≥n de los siguientes √≠tems:\n"
+" -h, --help                   mostrar √©ste mensaje de ayuda y salir\n"
+" -v, --version                imprimir informaci√≥n de la versi√≥n\n"
+" -l, --license                imprimir informaci√≥n de la licencia\n"
 "\n"
 " -d, --device-settings file  cargar opciones de dispositivo desde archivo\n"
 "                             (sin \".drc\")\n"
@@ -2531,24 +2535,24 @@ msgstr ""
 " -c, --copy                   comenzar con copy-mode activo\n"
 " -f, --fax                    comenzar con fax-mode activo\n"
 " -m, --mail                   comenzar con mail-mode activo\n"
-" -n, --no-mode-selection      no habilitar menu para selecciÛn del modo "
+" -n, --no-mode-selection      no habilitar menu para selecci√≥n del modo "
 "XSAne\n"
 "\n"
-" -M, --Medium-calibration     habilitar modo de calibraciÛn medio\n"
+" -M, --Medium-calibration     habilitar modo de calibraci√≥n medio\n"
 "\n"
-" -F, --Fixed                  tamaÒo de ventana principal fijo\n"
+" -F, --Fixed                  tama√±o de ventana principal fijo\n"
 "                              (sobreescribe el valor de preferencias)\n"
 " -R, --Resizeable             ventana principal redimensionable, con scroll\n"
 "                              (sobreescribe el valor de preferencias)\n"
 "\n"
-" -p, --print-filenames        imprimir nombres de archivos de im·genes\n"
+" -p, --print-filenames        imprimir nombres de archivos de im√°genes\n"
 "                              creadas por XSane\n"
 " -N, --force-filename name    forzar nombre de archivo y no habilitar el de\n"
-"                              la selecciÛn del usuario \n"
+"                              la selecci√≥n del usuario \n"
 "\n"
 " --display X11-display        redireccionar salida a la pantalla de X11\n"
-" --no-xshm                    no usar im·genes en memoria compartida\n"
-" --sync                       requerir una conexiÛn sincrÛnica con "
+" --no-xshm                    no usar im√°genes en memoria compartida\n"
+" --sync                       requerir una conexi√≥n sincr√≥nica con "
 "el                               servidor X11"
 
 #. strings for gimp plugin
@@ -2561,14 +2565,14 @@ msgid ""
 "This function provides access to scanners and other image acquisition "
 "devices through the SANE (Scanner Access Now Easy) interface."
 msgstr ""
-"…sta funciÛn proporciona acceso a esc·neres y otros dispositivos de "
-"adquisiciÛn de im·genes a travÈs de la interfaz SANE[(A)cceso a e(S)c·ner (N)"
-"ahora (E)f·cil)"
+"√âsta funci√≥n proporciona acceso a esc√°neres y otros dispositivos de "
+"adquisici√≥n de im√°genes a trav√©s de la interfaz SANE[(A)cceso a e(S)c√°ner (N)"
+"ahora (E)f√°cil)"
 
 #. Menu path must not be translated, this is done by the gimp. Only translate the text behind the last "/"
 #. XSANE_GIMP_MENU_DIALOG
 msgid "<Toolbox>/File/Acquire/XSane: Device dialog..."
-msgstr "<Toolbox>/File/Acquire/XSane: Ventana de di·logo de dispositivo..."
+msgstr "<Toolbox>/File/Acquire/XSane: Ventana de di√°logo de dispositivo..."
 
 #. XSANE_GIMP_MENU
 msgid "<Toolbox>/File/Acquire/XSane: "
@@ -2576,7 +2580,7 @@ msgstr "<Toolbox>/File/Acquire/XSane: "
 
 #. XSANE_GIMP_MENU_DIALOG_OLD
 msgid "<Toolbox>/Xtns/XSane/Device dialog..."
-msgstr "<Toolbox>/Xtns/XSane: Ventana de di·logo de dispositivo..."
+msgstr "<Toolbox>/Xtns/XSane: Ventana de di√°logo de dispositivo..."
 
 #. XSANE_GIMP_MENU_OLD
 msgid "<Toolbox>/Xtns/XSane/"
@@ -2595,17 +2599,17 @@ msgid ""
 msgstr ""
 "Razones posibles:\n"
 "1) No hay un dispositivo soportado por SANE\n"
-"2) Los dispositivos soportados est·n ocupados\n"
+"2) Los dispositivos soportados est√°n ocupados\n"
 "3) Los permisos para el dispositivo no le permiten usarlo. Pruebe como root\n"
-"4) El backend no est· cargado por SANE (man sane-dll)\n"
-"5) El backend no est· configurado correctamente (man sane-\"backendname\")\n"
-"6) Posiblemente haya m·s de una versiÛn de SANE instalada"
+"4) El backend no est√° cargado por SANE (man sane-dll)\n"
+"5) El backend no est√° configurado correctamente (man sane-\"backendname\")\n"
+"6) Posiblemente haya m√°s de una versi√≥n de SANE instalada"
 
 #. strings that are used in structures, so it is not allowed to use _()/gettext() here
 #. gettext_noop does mark these texts but does not change the string
 #. MENU_ITEM_SURFACE_FULL_SIZE
 msgid "full size"
-msgstr "tamaÒo real"
+msgstr "tama√±o real"
 
 #. MENU_ITEM_SURFACE_DIN_A3P
 msgid "DIN A3 port."
@@ -2681,7 +2685,7 @@ msgstr "Diapositiva"
 
 #. MENU_ITEM_MEDIUM_STANDARD_NEG
 msgid "Standard negative"
-msgstr "Negativo est·ndar"
+msgstr "Negativo est√°ndar"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG
 msgid "Agfa negative"
@@ -2717,31 +2721,31 @@ msgstr "Negativo Rossmann HR 100"
 
 #. TEXT_MAIL_STATUS_NOT_CREATED
 msgid "Mail project not created"
-msgstr "Proyecto de correo electrÛnico no creado"
+msgstr "Proyecto de correo electr√≥nico no creado"
 
 #. TEXT_MAIL_STATUS_CREATED
 msgid "Mail project created"
-msgstr "Proyecto de correo electrÛnico creado"
+msgstr "Proyecto de correo electr√≥nico creado"
 
 #. TEXT_MAIL_STATUS_CHANGED
 msgid "Mail project changed"
-msgstr "Proyecto de correo electrÛnico cambiado"
+msgstr "Proyecto de correo electr√≥nico cambiado"
 
 #. TEXT_MAIL_STATUS_ERR_READ_PROJECT
 msgid "Error reading mailproject"
-msgstr "Error leyendo el proyecto de correo electrÛnico"
+msgstr "Error leyendo el proyecto de correo electr√≥nico"
 
 #. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
 msgid "POP3 connection failed"
-msgstr "FallÛ la conexiÛn POP3"
+msgstr "Fall√≥ la conexi√≥n POP3"
 
 #. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
 msgid "POP3 login failed"
-msgstr "FallÛ el login POP3"
+msgstr "Fall√≥ el login POP3"
 
 #. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
-msgstr "FallÛ la conexiÛn SMTP"
+msgstr "Fall√≥ la conexi√≥n SMTP"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_FROM
 msgid "From entry not accepted"
@@ -2753,15 +2757,15 @@ msgstr "Entrada del receptor no aceptada"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_DATA
 msgid "Mail data not accepted"
-msgstr "Datos de correo electrÛnico no aceptados"
+msgstr "Datos de correo electr√≥nico no aceptados"
 
 #. TEXT_MAIL_STATUS_SENDING
 msgid "Sending mail"
-msgstr "Eviando correo electrÛnico"
+msgstr "Eviando correo electr√≥nico"
 
 #. TEXT_MAIL_STATUS_SENT
 msgid "Mail has been sent"
-msgstr "El correo electrÛnico se enviÛ"
+msgstr "El correo electr√≥nico se envi√≥"
 
 #. TEXT_FAX_STATUS_NOT_CREATED
 msgid "Fax project not created"
@@ -2777,45 +2781,45 @@ msgstr "Proyecto de fax cambiado"
 
 #. TEXT_FAX_STATUS_QUEUEING_FAX
 msgid "Queueing Fax"
-msgstr "Poniendo el fax en la cola de envÌo"
+msgstr "Poniendo el fax en la cola de env√≠o"
 
 #. TEXT_FAX_STATUS_FAX_QUEUED
 msgid "Fax is queued"
-msgstr "el fax est· en la cola de envÌo"
+msgstr "el fax est√° en la cola de env√≠o"
 
 #. Sane backend messages
 msgid "flatbed scanner"
-msgstr "esc·ner flatbed"
+msgstr "esc√°ner flatbed"
 
 msgid "frame grabber"
 msgstr "capturador de frames"
 
 msgid "handheld scanner"
-msgstr "esc·ner manual"
+msgstr "esc√°ner manual"
 
 msgid "still camera"
-msgstr "c·mara fotogr·fica"
+msgstr "c√°mara fotogr√°fica"
 
 msgid "video camera"
-msgstr "c·mara de video"
+msgstr "c√°mara de video"
 
 msgid "virtual device"
 msgstr "dispositivo virtual"
 
 msgid "Success"
-msgstr "…xito"
+msgstr "√âxito"
 
 msgid "Operation not supported"
-msgstr "OperaciÛn no soportada"
+msgstr "Operaci√≥n no soportada"
 
 msgid "Operation was cancelled"
-msgstr "OperaciÛn cancelada"
+msgstr "Operaci√≥n cancelada"
 
 msgid "Device busy"
 msgstr "Dispositivo ocupado"
 
 msgid "Invalid argument"
-msgstr "Argumento no v·lido"
+msgstr "Argumento no v√°lido"
 
 msgid "End of file reached"
 msgstr "Final de archivo alcanzado"
@@ -2827,7 +2831,7 @@ msgid "Document feeder out of documents"
 msgstr "Alimentador de Documentos sin documentos"
 
 msgid "Scanner cover is open"
-msgstr "La tapa del Esc·ner est· abierta"
+msgstr "La tapa del Esc√°ner est√° abierta"
 
 msgid "Error during device I/O"
 msgstr "Error durante E/S de dispositivo"

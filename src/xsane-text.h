@@ -662,6 +662,7 @@
 #define ERR_LIBTIFF			_("LIBTIFF reports error")
 #define ERR_LIBPNG			_("LIBPNG reports error")
 #define ERR_LIBJPEG			_("LIBJPEG reports error")
+#define ERR_ZLIB                        _("ZLIB error or memory allocation problem")
 #define ERR_UNKNOWN_TYPE		_("unknown type")
 #define ERR_UNKNOWN_CONSTRAINT_TYPE	_("unknown constraint type")
 #define ERR_OPTION_NAME_NULL		_("Option has empty name (NULL).")

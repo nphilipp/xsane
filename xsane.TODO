@@ -16,6 +16,7 @@ Sign explaination:
  save-subroutines:
     # save several images into one file for:
       - postscript
+      - pdf
       - may be tiff
       - may be pnm
 
@@ -64,6 +65,7 @@ Sign explaination:
       FOR OTHER IMAGE MANIPULATION THERE IS THE GIMP
 
  internal:
+++  # bindtextdomain for sane_backends must use sane-backends path
 ++  # add range check / valid value when reading xsane.rc/*.drc files
     # test if image file is writable before scan is started
     + cleanup of configuration file handling

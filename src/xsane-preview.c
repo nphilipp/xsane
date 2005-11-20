@@ -815,7 +815,7 @@ static void preview_get_scale_device_to_image(Preview *p, float *xscalep, float 
     }
   }
 
-#if 1
+  /* make sure pixels have square dimension */
   if (xscale > yscale)
   {
     yscale = xscale;
@@ -824,7 +824,6 @@ static void preview_get_scale_device_to_image(Preview *p, float *xscalep, float 
   {
     xscale = yscale;
   }
-#endif
 
   *xscalep = xscale;
   *yscalep = yscale;
@@ -6757,10 +6756,6 @@ void preview_update_maximum_output_size(Preview *p)
 {
  float xxx = 0.0;
  float yyy = 0.0;
- float dxmin = 0;
- float dymin = 0;
- float dxmax = 0;
- float dymax = 0;
 
  int paper_orientation = 0;
 
@@ -6863,10 +6858,10 @@ void preview_update_maximum_output_size(Preview *p)
        break;
     }
 
-    p->selection_maximum.coordinate[p->index_xmin] = p->selection.coordinate[p->index_xmin] + xxx *(-p->selection.coordinate[p->index_xmin] + p->selection.coordinate[p->index_xmax]) - p->maximum_output_width  * xxx - dxmin;
-    p->selection_maximum.coordinate[p->index_ymin] = p->selection.coordinate[p->index_ymin] + yyy *(-p->selection.coordinate[p->index_ymin] + p->selection.coordinate[p->index_ymax]) - p->maximum_output_height * yyy - dymin;
-    p->selection_maximum.coordinate[p->index_xmax] = p->selection.coordinate[p->index_xmin] + xxx *(-p->selection.coordinate[p->index_xmin] + p->selection.coordinate[p->index_xmax]) + p->maximum_output_width  * (1.0 - xxx) + dxmax;
-    p->selection_maximum.coordinate[p->index_ymax] = p->selection.coordinate[p->index_ymin] + yyy *(-p->selection.coordinate[p->index_ymin] + p->selection.coordinate[p->index_ymax]) + p->maximum_output_height * (1.0 - yyy) + dymax;
+    p->selection_maximum.coordinate[p->index_xmin] = p->selection.coordinate[p->index_xmin] + xxx * (p->selection.coordinate[p->index_xmax] - p->selection.coordinate[p->index_xmin]) - p->maximum_output_width  * xxx;
+    p->selection_maximum.coordinate[p->index_ymin] = p->selection.coordinate[p->index_ymin] + yyy * (p->selection.coordinate[p->index_ymax] - p->selection.coordinate[p->index_ymin]) - p->maximum_output_height * yyy;
+    p->selection_maximum.coordinate[p->index_xmax] = p->selection.coordinate[p->index_xmin] + xxx * (p->selection.coordinate[p->index_xmax] - p->selection.coordinate[p->index_xmin]) + p->maximum_output_width  * (1.0 - xxx);
+    p->selection_maximum.coordinate[p->index_ymax] = p->selection.coordinate[p->index_ymin] + yyy * (p->selection.coordinate[p->index_ymax] - p->selection.coordinate[p->index_ymin]) + p->maximum_output_height * (1.0 - yyy);
 
 
     if ( (p->selection.coordinate[p->index_xmin] < p->selection_maximum.coordinate[p->index_xmin]) ||

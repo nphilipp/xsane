@@ -1,20 +1,20 @@
+# translation of xsane.po to
 # Slovak translation of sane
-# Copyright (C) 2003, 2004 Free Software Foundation, Inc.
-# Zdenko Podobný <zdpo@mailbox.sk>, 2001, 2004.
+# Copyright (C) 2003, 2004, 2005 Free Software Foundation, Inc.
+# Zdenko Podobný <zdpo@mailbox.sk>, 2001, 2004, 2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.95\n"
-"POT-Creation-Date: 2004-08-21 15:31+0200\n"
-"PO-Revision-Date: 09.08.2004 21:26\n"
-"Last-Translator: Zdenko Podobný <zdpo@mailbox.sk>\n"
-"Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
+"Project-Id-Version: xsane\n"
+"POT-Creation-Date: 2005-10-23 00:20+0200\n"
+"PO-Revision-Date: 2005-11-01 18:58+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <sk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.3.1\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: KBabel 1.10.2\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #. Please translate this to the correct directory name (eg. german=>de)
 #. XSANE_LANGUAGE_DIR
@@ -363,9 +363,8 @@ msgid "Show image"
 msgstr "Zobraziť obrázok"
 
 #. BUTTON_IMAGE_EDIT
-#, fuzzy
 msgid "Edit image"
-msgstr "Spracovaný obrázok"
+msgstr "Upraviť obrázok"
 
 #. BUTTON_IMAGE_RENAME
 msgid "Rename image"
@@ -740,7 +739,7 @@ msgstr "Stav projektu:"
 
 #. TEXT_MAIL_FILETYPE
 msgid "Mail image filetype:"
-msgstr ""
+msgstr "Súborový typ obrázka e-mailu:"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
@@ -748,11 +747,8 @@ msgstr "Názov média:"
 
 #. TEXT_VIEWER_IMAGE_INFO
 #, c-format
-msgid ""
-"Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
-msgstr ""
-"Veľkosť v bodoch: %d × %d, bitov/farbu: %d, farieb: %d, %1.0f dpi × %1.0f "
-"dpi, %1.1f %s"
+msgid "Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
+msgstr "Veľkosť v bodoch: %d × %d, bitov/farbu: %d, farieb: %d, %1.0f dpi × %1.0f dpi, %1.1f %s"
 
 #. TEXT_DESPECKLE_RADIUS
 msgid "Despeckle radius:"
@@ -1365,26 +1361,18 @@ msgid "Cancel preview scan <Alt-ESC>"
 msgstr "Prerušenie skenovanie náhľadu <Alt-ESC>"
 
 #. DESC_XSANE_MODE
-msgid ""
-"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or mail-<Ctrl-"
-"m>"
-msgstr ""
-"uložiť<Ctrl-s>, zobraziť-<Ctrl-v>, fotokópia-<Ctrl-c>, fax-<Ctrl-f> alebo "
-"pošta-<Ctrl-m>"
+msgid "save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or mail-<Ctrl-m>"
+msgstr "uložiť<Ctrl-s>, zobraziť-<Ctrl-v>, fotokópia-<Ctrl-c>, fax-<Ctrl-f> alebo pošta-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
 msgid ""
 "Select source medium type.\n"
-"To rename, reorder or delete an entry use context menu (right mouse "
-"button).\n"
-"To create a medium enable the option edit medium definition in preferences "
-"menu."
+"To rename, reorder or delete an entry use context menu (right mouse button).\n"
+"To create a medium enable the option edit medium definition in preferences menu."
 msgstr ""
 "Vyberte typ zdrojového média.\n"
-"Na premenovanie, preusporiadanie alebo zmazanie záznamu použite kontextovú "
-"ponuku (pravé tlačidlo myši).\n"
-"Na vytvorenie média povoľte nastavenie upraviť definíciu média v ponuke "
-"nastavenia."
+"Na premenovanie, preusporiadanie alebo zmazanie záznamu použite kontextovú ponuku (pravé tlačidlo myši).\n"
+"Na vytvorenie média povoľte nastavenie upraviť definíciu média v ponuke nastavenia."
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1399,11 +1387,8 @@ msgid "Filename for scanned image"
 msgstr "Názov súboru pre skenovaný obrázok"
 
 #. DESC_FILETYPE
-msgid ""
-"Type of image format, the suitable filename extension is automatically added "
-"to the filename"
-msgstr ""
-"Typ formátu obrázku; vhodná koncovka je automaticky pridaná k názvu súboru."
+msgid "Type of image format, the suitable filename extension is automatically added to the filename"
+msgstr "Typ formátu obrázku; vhodná koncovka je automaticky pridaná k názvu súboru."
 
 #. DESC_FAXPROJECT
 msgid "Enter name of fax project"
@@ -1435,7 +1420,7 @@ msgstr "Vložte predmet správy"
 
 #. DESC_MAIL_FILETYPE
 msgid "Select filetype for image attachments"
-msgstr ""
+msgstr "Vyberte si typ súboru pre obrázkové prílohy k e-mailom"
 
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
@@ -1547,14 +1532,12 @@ msgstr "Nastavenie prahu"
 #  DESC_RGB_DEFAULT
 #. DESC_RGB_DEFAULT
 msgid ""
-"RGB default: Set enhancement values for red, green and blue to default "
-"values <Ctrl-b>:\n"
+"RGB default: Set enhancement values for red, green and blue to default values <Ctrl-b>:\n"
 " gamma = 1.0\n"
 " brightness = 0\n"
 " contrast = 0"
 msgstr ""
-"RGB štandard: Nastavenie štandardných hodnôt pre červenú, zelenú a modrú "
-"<Ctrl-b>:\n"
+"RGB štandard: Nastavenie štandardných hodnôt pre červenú, zelenú a modrú <Ctrl-b>:\n"
 " gama = 1.0\n"
 " jas = 0\n"
 " kontrast = 0"
@@ -1621,30 +1604,23 @@ msgstr "Definovať názov pre výber tejto definície"
 
 #. DESC_PRINTER_COMMAND
 msgid "Enter command to be executed in copy mode (e.g. \"lpr\")"
-msgstr ""
-"Vložte príkaz, ktorý bude vykonaný v kopírovacom režime (napr. \"lpr\")"
+msgstr "Vložte príkaz, ktorý bude vykonaný v kopírovacom režime (napr. \"lpr\")"
 
 #. DESC_COPY_NUMBER_OPTION
 msgid "Enter option for copy numbers"
 msgstr "Vložte nastavenie pre počet kópií"
 
 #. DESC_PRINTER_LINEART_RESOLUTION
-msgid ""
-"Resolution with which lineart images are printed and saved in postscript"
-msgstr ""
-"Rozlíšenie, v ktorom bude čiarová grafika tlačená a uložená do postscriptu"
+msgid "Resolution with which lineart images are printed and saved in postscript"
+msgstr "Rozlíšenie, v ktorom bude čiarová grafika tlačená a uložená do postscriptu"
 
 #. DESC_PRINTER_GRAYSCALE_RESOLUTION
-msgid ""
-"Resolution with which grayscale images are printed and saved in postscript"
-msgstr ""
-"Rozlíšenie, v ktorom budú obrázky v stupňoch šedi tlačené a uložené do "
-"postscriptu"
+msgid "Resolution with which grayscale images are printed and saved in postscript"
+msgstr "Rozlíšenie, v ktorom budú obrázky v stupňoch šedi tlačené a uložené do postscriptu"
 
 #. DESC_PRINTER_COLOR_RESOLUTION
 msgid "Resolution with which color images are printed and saved in postscript"
-msgstr ""
-"Rozlíšenie, v ktorom budú farebné obrázky tlačené a uložené do postscriptu"
+msgstr "Rozlíšenie, v ktorom budú farebné obrázky tlačené a uložené do postscriptu"
 
 #. DESC_PRINTER_WIDTH
 msgid "Width of printable area"
@@ -1687,11 +1663,8 @@ msgid "Browse for temporary directory"
 msgstr "Vyhľadať pomocný priečinok"
 
 #. DESC_JPEG_QUALITY
-msgid ""
-"Quality in percent if image is saved as jpeg or tiff with jpeg compression"
-msgstr ""
-"Kvalita v percentách, ak obrázok je uložený ako jpeg alebo tiff s jpeg "
-"kompresiou"
+msgid "Quality in percent if image is saved as jpeg or tiff with jpeg compression"
+msgstr "Kvalita v percentách, ak obrázok je uložený ako jpeg alebo tiff s jpeg kompresiou"
 
 #. DESC_PNG_COMPRESSION
 msgid "Compression if image is saved as png"
@@ -1715,36 +1688,23 @@ msgstr "Typ kompresie, ak je obrázok uložený ako TIFF čiarová grafika"
 
 #. DESC_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device dependant preferences in default file at exit of xsane"
-msgstr ""
-"Uložiť nastavenia závislé na zariadení v štandardnom súbore pri ukončení "
-"XSane"
+msgstr "Uložiť nastavenia závislé na zariadení v štandardnom súbore pri ukončení XSane"
 
 #. DESC_OVERWRITE_WARNING
 msgid "Warn before overwriting an existing file"
 msgstr "Varovať pred prepísaním existujúceho súbor"
 
 #. DESC_SKIP_EXISTING
-msgid ""
-"If filename counter is automatically increased, used numbers are skipped"
-msgstr ""
-"Ak počítadlo súborov automaticky zväčšovaný, použité čísla sú preskočené"
+msgid "If filename counter is automatically increased, used numbers are skipped"
+msgstr "Ak počítadlo súborov automaticky zväčšovaný, použité čísla sú preskočené"
 
 #. DESC_SAVE_PNM16_AS_ASCII
-msgid ""
-"When a 16 bit image shall be saved in pnm format then use ascii format "
-"instead of binary format. The binary format is a new format that is not "
-"supported by all programs. The ascii format is supported by more programs "
-"but it produces really huge files!!!"
-msgstr ""
-"Keď ukladáte 16 bitový obrázok vo formáte pnm, tak by ste mali použiť ascii  "
-"formát namiesto binárneho formátu. Binárny formát je novým formátom a nie je "
-"podporovaný všetkými programami. Ascii formát je podporovaný oveľa väčším "
-"počtom programov, ale vytvára skutočne veľké súbory!!!"
+msgid "When a 16 bit image shall be saved in pnm format then use ascii format instead of binary format. The binary format is a new format that is not supported by all programs. The ascii format is supported by more programs but it produces really huge files!!!"
+msgstr "Keď ukladáte 16 bitový obrázok vo formáte pnm, tak by ste mali použiť ascii  formát namiesto binárneho formátu. Binárny formát je novým formátom a nie je podporovaný všetkými programami. Ascii formát je podporovaný oveľa väčším počtom programov, ale vytvára skutočne veľké súbory!!!"
 
 #. DESC_REDUCE_16BIT_TO_8BIT
 msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
-msgstr ""
-"Ak skener pošle farebný 16 bitový obrázok, zapísať obrázok v bitoch/farbu"
+msgstr "Ak skener pošle farebný 16 bitový obrázok, zapísať obrázok v bitoch/farbu"
 
 #. DESC_PSFILE_WIDTH
 msgid "Width of paper for postscript files"
@@ -1755,24 +1715,16 @@ msgid "Height of paper for postscript files"
 msgstr "Výška papiera pre postscriptové súbory"
 
 #. DESC_PSFILE_LEFTOFFSET
-msgid ""
-"Left offset from the edge of the paper to the usable area for postscript "
-"files"
-msgstr ""
-"Posun od ľavej hrany papiera po použiteľnú oblasť pre postscriptové súbory"
+msgid "Left offset from the edge of the paper to the usable area for postscript files"
+msgstr "Posun od ľavej hrany papiera po použiteľnú oblasť pre postscriptové súbory"
 
 #. DESC_PSFILE_BOTTOMOFFSET
-msgid ""
-"Bottom offset from the edge of the paper to the usable area for postscript "
-"files"
-msgstr ""
-"Posun od dolnej hrany papiera po použiteľnú oblasť pre postscriptové súbory"
+msgid "Bottom offset from the edge of the paper to the usable area for postscript files"
+msgstr "Posun od dolnej hrany papiera po použiteľnú oblasť pre postscriptové súbory"
 
 #. DESC_MAIN_WINDOW_FIXED
 msgid "Use fixed main window size or scrolled, resizable main window"
-msgstr ""
-"Použiťpevnú veľkosť hlavného okna alebo okna s posuvníkmi a premennou "
-"veľkosťou"
+msgstr "Použiť pevnú veľkosť hlavného okna alebo okna s posuvníkmi a premennou veľkosťou"
 
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
 msgid "Disable preview gamma when XSane runs as gimp plugin"
@@ -1796,31 +1748,23 @@ msgstr "Nastavenie hodnotu gama korekcie pre náhľad na obrázok"
 
 #. DESC_PREVIEW_GAMMA_RED
 msgid "Set gamma correction value for red component of preview image"
-msgstr ""
-"Nastaviť hodnotu gama korekcie pre červený komponent pre náhľad na obrázok"
+msgstr "Nastaviť hodnotu gama korekcie pre červený komponent pre náhľad na obrázok"
 
 #. DESC_PREVIEW_GAMMA_GREEN
 msgid "Set gamma correction value for green component of preview image"
-msgstr ""
-"Nastaviť hodnotu gama korekcie pre zelený komponent pre náhľad na obrázok"
+msgstr "Nastaviť hodnotu gama korekcie pre zelený komponent pre náhľad na obrázok"
 
 #. DESC_PREVIEW_GAMMA_BLUE
 msgid "Set gamma correction value for blue component of preview image"
-msgstr ""
-"Nastaviť hodnotu gama korekcie pre modrý komponent pre náhľad na obrázok"
+msgstr "Nastaviť hodnotu gama korekcie pre modrý komponent pre náhľad na obrázok"
 
 #. DESC_LINEART_MODE
 msgid "Define the way XSane shall handle the threshold option"
 msgstr "Definovanie spôsobu ako sa XSane vysporiada s nastavením prahu"
 
 #. DESC_GRAYSCALE_SCANMODE
-msgid ""
-"Select grayscale scanmode. This scanmode is used for lineart preview scan "
-"when transformation from grayscale to lineart is enabled"
-msgstr ""
-"Výber skenovacieho režimu v odtieňoch šedej. Tento skenovací režim sa "
-"používa pre náhľad na čiarovú grafiku, keď je povolená transformácia z "
-"odtieňov šedej."
+msgid "Select grayscale scanmode. This scanmode is used for lineart preview scan when transformation from grayscale to lineart is enabled"
+msgstr "Výber skenovacieho režimu v odtieňoch šedej. Tento skenovací režim sa používa pre náhľad na čiarovú grafiku, keď je povolená transformácia z odtieňov šedej."
 
 #. DESC_PREVIEW_THRESHOLD_MIN
 #, no-c-format
@@ -1833,35 +1777,24 @@ msgid "The scanner's maximum threshold level in %"
 msgstr "Maximálna úroveň prahu skeneru v %"
 
 #. DESC_PREVIEW_THRESHOLD_MUL
-msgid ""
-"Multiplier to make XSane threshold range and scanner threshold range the same"
+msgid "Multiplier to make XSane threshold range and scanner threshold range the same"
 msgstr "Násobiteľ, ktorý nastaví rovnaký rozsah prahov XSane a skeneru"
 
 #. DESC_PREVIEW_THRESHOLD_OFF
-msgid ""
-"Offset to make XSane threshold range and scanner threshold range the same"
+msgid "Offset to make XSane threshold range and scanner threshold range the same"
 msgstr "Posun, ktorý nastaví rovnaký rozsah prahu XSane a rozsah prahu skeneru"
 
 #. DESC_ADF_MODE
-msgid ""
-"Select scansource for Automatic Document feeder. If this scansource is "
-"selected XSane scans until \"out of paper\" or error."
-msgstr ""
-"Výber zdroja skenovania pre automatický podávač dokumentov. Pokiaľ je táto "
-"voľba nastavená, XSane skenuje, pokiaľ nenastane stav \"nie je papier\" "
-"alebo chyba"
+msgid "Select scansource for Automatic Document feeder. If this scansource is selected XSane scans until \"out of paper\" or error."
+msgstr "Výber zdroja skenovania pre automatický podávač dokumentov. Pokiaľ je táto voľba nastavená, XSane skenuje, pokiaľ nenastane stav \"nie je papier\" alebo chyba"
 
 #. DESC_PREVIEW_PIPETTE_RANGE
 msgid "dimension of square that is used to average color for pipette function"
-msgstr ""
-"rozmery štvorca, ktorý je použitý k spriemerovaniu farby pre funkciu pipety"
+msgstr "rozmery štvorca, ktorý je použitý k spriemerovaniu farby pre funkciu pipety"
 
 #. DESC_DOC_VIEWER
-msgid ""
-"Enter command to be executed to display helpfiles, must be a html-viewer!"
-msgstr ""
-"Nastavenie príkazu k zobrazeniu súborov pomocníka - musí to byť html "
-"prehliadač!"
+msgid "Enter command to be executed to display helpfiles, must be a html-viewer!"
+msgstr "Nastavenie príkazu k zobrazeniu súborov pomocníka - musí to byť html prehliadač!"
 
 #. DESC_AUTOENHANCE_GAMMA
 msgid "Change gamma value when autoenhancement button is pressed"
@@ -1941,13 +1874,11 @@ msgstr "heslo pre POP3 server"
 
 #. DESC_MAIL_VIEWER
 msgid "Enter command to be executed to view a mail image"
-msgstr ""
-"Nastavenie príkazu, ktorý ma byť spustený k zobrazeniu obrázku v emaily"
+msgstr "Nastavenie príkazu, ktorý ma byť spustený k zobrazeniu obrázku v emaily"
 
 #. DESC_HTML_MAIL
-#, fuzzy
 msgid "Mail is sent in html mode, place image with: <IMAGE>"
-msgstr "Email je poslaný v html móde, obrázky sú zobrazené priamo"
+msgstr "E-mail je poslaný v html režime, umiestnite obrázok pomocou: <IMAGE>"
 
 #. DESC_OCR_COMMAND
 msgid "Enter command to start ocr program"
@@ -1966,15 +1897,12 @@ msgid "Define if the ocr program supports gui progress pipe"
 msgstr "Určenie, či ocr program podporuje gui rúru postupu"
 
 #. DESC_OCR_OUTFD_OPT
-msgid ""
-"Enter option of the ocr program to define output filedescripor in GUI mode"
-msgstr ""
-"Vložiť nastavenie ocr programu určujúci výstupný popis súboru v GUI režime"
+msgid "Enter option of the ocr program to define output filedescripor in GUI mode"
+msgstr "Vložiť nastavenie ocr programu určujúci výstupný popis súboru v GUI režime"
 
 #. DESC_OCR_PROGRESS_KEYWORD
 msgid "Define Keyword that is used to mark progress information"
-msgstr ""
-"Určenie Kľúčového slova, ktoré sa použije na označenie informácií o postupe"
+msgstr "Určenie Kľúčového slova, ktoré sa použije na označenie informácií o postupe"
 
 #. DESC_PERMISSION_READ
 msgid "read"
@@ -2045,12 +1973,10 @@ msgstr "Zmazať pamäť náhľadu"
 #. DESC_PRESET_AREA
 msgid ""
 "Preset area:\n"
-"To add new area or edit an existing area use contect menu (right mouse "
-"button)."
+"To add new area or edit an existing area use contect menu (right mouse button)."
 msgstr ""
 "Predvolená oblasť:\n"
-"Na pridanie novej oblasti alebo úpravy existujúcej oblasti použite "
-"kontextovú ponuku (pravé tlačidlo myši)."
+"Na pridanie novej oblasti alebo úpravy existujúcej oblasti použite kontextovú ponuku (pravé tlačidlo myši)."
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
@@ -2265,6 +2191,10 @@ msgstr "LIBPNG hlási chybu"
 msgid "LIBJPEG reports error"
 msgstr "LIBPNG hlási chybu"
 
+#. ERR_ZLIB
+msgid "ZLIB error or memory allocation problem"
+msgstr "Zlib chyba alebo problém s alokáciou pamäte"
+
 #. ERR_UNKNOWN_TYPE
 msgid "unknown type"
 msgstr "neznámy typ"
@@ -2468,8 +2398,7 @@ msgstr "[VOĽBA]... [ZARIADENIE]"
 #  TEXT_HELP
 #. TEXT_HELP
 msgid ""
-"Start up graphical user interface to access SANE (Scanner Access Now Easy) "
-"devices.\n"
+"Start up graphical user interface to access SANE (Scanner Access Now Easy) devices.\n"
 "\n"
 "The format of [DEVICE] is backendname:devicefile (e.g. umax:/dev/scanner).\n"
 "[OPTION]... can be a combination of the following items:\n"
@@ -2477,8 +2406,7 @@ msgid ""
 " -v, --version                print version information\n"
 " -l, --license                print license information\n"
 "\n"
-" -d, --device-settings file   load device settings from file (without \".drc"
-"\")\n"
+" -d, --device-settings file   load device settings from file (without \".drc\")\n"
 "\n"
 " -V, --viewer                 start with viewer-mode active (default)\n"
 " -s, --save                   start with save-mode active\n"
@@ -2487,31 +2415,25 @@ msgid ""
 " -m, --mail                   start with mail-mode active\n"
 " -n, --no-mode-selection      disable menu for XSane mode selection\n"
 "\n"
-" -F, --Fixed                  fixed main window size (overwrite preferences "
-"value)\n"
-" -R, --Resizeable             resizable, scrolled main window (overwrite "
-"preferences value)\n"
+" -F, --Fixed                  fixed main window size (overwrite preferences value)\n"
+" -R, --Resizeable             resizable, scrolled main window (overwrite preferences value)\n"
 "\n"
 " -p, --print-filenames        print image filenames created by XSane\n"
-" -N, --force-filename name    force filename and disable user filename "
-"selection\n"
+" -N, --force-filename name    force filename and disable user filename selection\n"
 "\n"
 " --display X11-display        redirect output to X11-display\n"
 " --no-xshm                    do not use shared memory images\n"
-" --sync                       request a synchronous connection with the X11 "
-"server"
+" --sync                       request a synchronous connection with the X11 server"
 msgstr ""
 "Spustenie grafického rozhrania pre prístup k SANE zariadeniam.\n"
 "\n"
-"Formát [ZARIADENIA] je názov_ovládača:názov zariadenia (napr. umax:/dev/"
-"scanner).\n"
+"Formát [ZARIADENIA] je názov_ovládača:názov zariadenia (napr. umax:/dev/scanner).\n"
 "[VOĽBA]... môže mať kombináciu nasledovných položiek:\n"
 " -h, --help                  zobrazí tohoto pomocníka a skončí\n"
 " -v, --version               vypíše informácie o verzií\n"
 " -l, --license               vypíše informáciu o licencií\n"
 "\n"
-" -d, --device-settings file  načíta nastavenia zariadenia zo súboru (bez \"."
-"drc\")\n"
+" -d, --device-settings file  načíta nastavenia zariadenia zo súboru (bez \".drc\")\n"
 "\n"
 " -V, --viewer                spustí v režime prehliadač (štandardné)\n"
 " -s, --save                  spustí v režime ukladania\n"
@@ -2539,38 +2461,32 @@ msgid "Front-end to the SANE interface"
 msgstr "Používateľský program k rozhraniu SANE"
 
 #. XSANE_GIMP_INSTALL_HELP
-msgid ""
-"This function provides access to scanners and other image acquisition "
-"devices through the SANE (Scanner Access Now Easy) interface."
-msgstr ""
-"Táto funkcia poskytuje prístup k skenerom a ostatným zariadeniam na "
-"získavanie obrázkov cez rozhranie SANE (Scanner Access Now Easy - prístup k "
-"skeneru je teraz jednoduchý)"
+msgid "This function provides access to scanners and other image acquisition devices through the SANE (Scanner Access Now Easy) interface."
+msgstr "Táto funkcia poskytuje prístup k skenerom a ostatným zariadeniam na získavanie obrázkov cez rozhranie SANE (Scanner Access Now Easy - prístup k skeneru je teraz jednoduchý)"
 
 #. Menu path must not be translated, this is done by the gimp. Only translate the text behind the last "/"
 #. XSANE_GIMP_MENU_DIALOG
 msgid "<Toolbox>/File/Acquire/XSane: Device dialog..."
-msgstr "<Toolbox>/Súbor/Získať/XSane: dialóg zariadenia..."
+msgstr "<Toolbox>/File/Acquire/XSane: dialóg zariadenia..."
 
 #. XSANE_GIMP_MENU
 msgid "<Toolbox>/File/Acquire/XSane: "
-msgstr "<Toolbox>/Súbor/Získať/XSane: "
+msgstr "<Toolbox>/File/Acquire/XSane: "
 
 #. XSANE_GIMP_MENU_DIALOG_OLD
 msgid "<Toolbox>/Xtns/XSane/Device dialog..."
-msgstr "<Toolbox>/Extra/XSane/Dialóg zariadenia..."
+msgstr "<Toolbox>/Xtns/XSane/Dialóg zariadenia..."
 
 #. XSANE_GIMP_MENU_OLD
 msgid "<Toolbox>/Xtns/XSane/"
-msgstr "<Toolbox>/Extra/XSane/"
+msgstr "<Toolbox>/Xtns/XSane/"
 
 #. HELP_NO_DEVICES
 msgid ""
 "Possible reasons:\n"
 "1) There really is no device that is supported by SANE\n"
 "2) Supported devices are busy\n"
-"3) The permissions for the device file do not allow you to use it - try as "
-"root\n"
+"3) The permissions for the device file do not allow you to use it - try as root\n"
 "4) The backend is not loaded by SANE (man sane-dll)\n"
 "5) The backend is not configured correct (man sane-\"backendname\")\n"
 "6) Possibly there is more than one SANE version installed"
@@ -2578,8 +2494,7 @@ msgstr ""
 "Možné dôvody:\n"
 "1) Skutočne neexituje zariadenie, ktoré je podporované v SANE\n"
 "2) Podporované zariadenie sa používa\n"
-"3) Práva zariadenia vám nepovoľujú jeho používanie - vyskúšajte SANE spustiť "
-"ako root\n"
+"3) Práva zariadenia vám nepovoľujú jeho používanie - vyskúšajte SANE spustiť ako root\n"
 "4) Backend nie je načítaný pomocou SANE (man sane-dll)\n"
 "5) Backend nie je správne nakonfigurovaný (man sane-\"názovbackendu\")\n"
 "6) Pravdepodobne viac ako len jedna verzia SANE je nainštalovaná"
@@ -2699,81 +2614,72 @@ msgid "Rossmann negative HR 100"
 msgstr "Rossmann negatív HR 100"
 
 #. TEXT_MAIL_STATUS_NOT_CREATED
-#, fuzzy
 msgid "Mail project not created"
-msgstr "čítanie"
+msgstr "E-mailový projekt nebol vytvorený"
 
 #. TEXT_MAIL_STATUS_CREATED
-#, fuzzy
 msgid "Mail project created"
-msgstr "čítanie"
+msgstr "E-mailový projekt vytvorený"
 
 #. TEXT_MAIL_STATUS_CHANGED
-#, fuzzy
 msgid "Mail project changed"
-msgstr "Predvoľba skenovacej plochy"
+msgstr "E-mailový projekt zmenený"
 
 #. TEXT_MAIL_STATUS_ERR_READ_PROJECT
-#, fuzzy
 msgid "Error reading mailproject"
-msgstr "Vložte názov poštového projektu"
+msgstr "Chyba pri čítaní e-mailového projektu"
 
 #. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
 msgid "POP3 connection failed"
-msgstr ""
+msgstr "POP3 pripojenie zlyhalo"
 
 #. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
 msgid "POP3 login failed"
-msgstr ""
+msgstr "POP3 prihlásenie zlyhalo"
 
 #. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
-msgstr ""
+msgstr "SMTP pripojenie zlyhalo"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_FROM
-#, fuzzy
 msgid "From entry not accepted"
-msgstr "čítanie"
+msgstr "Položka Od je neakceptovaná"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_RCPT
-#, fuzzy
 msgid "Receiver entry not accepted"
-msgstr "čítanie"
+msgstr "Položka Príjemca je neakceptovaná"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_DATA
 msgid "Mail data not accepted"
-msgstr ""
+msgstr "E-mailové dáta neakceptované"
 
 #. TEXT_MAIL_STATUS_SENDING
 msgid "Sending mail"
-msgstr ""
+msgstr "Posielanie e-mailu"
 
 #. TEXT_MAIL_STATUS_SENT
 msgid "Mail has been sent"
-msgstr ""
+msgstr "E-mail bol poslaný"
 
 #. TEXT_FAX_STATUS_NOT_CREATED
-#, fuzzy
 msgid "Fax project not created"
-msgstr "čítanie"
+msgstr "Faxový projekt nebol vytvorený"
 
 #. TEXT_FAX_STATUS_CREATED
-#, fuzzy
 msgid "Fax project created"
-msgstr "čítanie"
+msgstr "Faxový projekt vytvorený"
 
 #. TEXT_FAX_STATUS_CHANGED
-#, fuzzy
 msgid "Fax project changed"
-msgstr "Predvoľba skenovacej plochy"
+msgstr "Faxový projekt zmenený"
 
 #. TEXT_FAX_STATUS_QUEUEING_FAX
 msgid "Queueing Fax"
-msgstr ""
+msgstr "Zaraďovanie faxu do fronty"
 
 #. TEXT_FAX_STATUS_FAX_QUEUED
 msgid "Fax is queued"
-msgstr ""
+msgstr "Fax je vo fronte"
 
 #. Sane backend messages
 msgid "flatbed scanner"
@@ -2829,3 +2735,4 @@ msgstr "Mimo pamäte"
 
 msgid "Access to resource has been denied"
 msgstr "Prístup k zdroju bol odmietnutý"
+

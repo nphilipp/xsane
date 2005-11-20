@@ -31,7 +31,7 @@ INSTALL_DATA = @INSTALL_DATA@
 
 CC = @CC@
 INCLUDES = -I. -I$(srcdir) -I$(top_builddir)/include -I$(top_srcdir)/include @INCLUDES@
-DEFS = @DEFS@ -DLOCALEDIR=$(datadir)/locale
+DEFS = @DEFS@ -DLOCALEDIR=$(datadir)/locale -DSANELOCALEDIR=$(sane_prefix)/share/locale
 CPPFLAGS = @CPPFLAGS@ -DPATH_XSANE_DOC_DIR=$(xsanedocdir) -DPATH_SANE_DATA_DIR=$(sanedatadir)
 CFLAGS   = @CFLAGS@ @SANE_CFLAGS@ @GIMP_CFLAGS@ @GTK_CFLAGS@
 LDFLAGS  = @LDFLAGS@ @SANE_LDFLAGS@

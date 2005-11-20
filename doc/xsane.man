@@ -31,7 +31,7 @@ xsane - scanner frontend for SANE
 .B xsane
 provides a graphical user-interface to control an image
 acquisition device such as a flatbed scanner.  It allows
-previewing and scanning invidual images and can be invoked either
+previewing and scanning individual images and can be invoked either
 directly from the command-line or through The GIMP image manipulation
 program.  In the former case,
 .B xsane
@@ -55,7 +55,8 @@ backendname:devicefile (eg: umax:/dev/sga).
 To run
 .B xsane
 under the
-.BR gimp (1), you should at first make sure that xsane is
+.BR gimp (1),
+you should at first make sure that xsane is
 compiled with gimp support by entering "xsane -v" on a shell.
 If xsane is compiled with gimp support then simply set a
 symbolic link from the xsane-binary to one of the
@@ -111,7 +112,7 @@ When
 .B xsane
 is started from the
 .B  gimp
-then it is not possible to add a devicename explictly. You have to make the
+then it is not possible to add a devicename explicitly. You have to make the
 devices known to the system by configuring
 .B sane-dll, sane-net
 and

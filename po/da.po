@@ -1,19 +1,19 @@
-# translation of da.po to Dansk
+# translation of da.po to Danish
 # Dansk oversættelse af XSane.
 # Copyright (C) 2002 Mogens Jæger <mogensjaeger@get2net.dk>
-# Mogens Jaeger <mogensjaeger@get2net.dk>, 2004.
+# Mogens Jaeger <mogensjaeger@get2net.dk>, 2004, 2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.96\n"
-"POT-Creation-Date: 2004-08-21 15:31+0200\n"
-"PO-Revision-Date: 2004-08-21 19:48+0200\n"
+"Project-Id-Version: XSANE 0.98\n"
+"POT-Creation-Date: 2005-10-23 00:20+0200\n"
+"PO-Revision-Date: 2005-10-29 23:51+0200\n"
 "Last-Translator: Mogens Jaeger <mogensjaeger@get2net.dk>\n"
-"Language-Team: Dansk <da@li.org>\n"
+"Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.3.1\n"
+"X-Generator: KBabel 1.10\n"
 
 #. Please translate this to the correct directory name (eg. german=>de)
 #. XSANE_LANGUAGE_DIR
@@ -47,7 +47,7 @@ msgstr "GPL - licensen"
 
 #. WINDOW_EULA
 msgid "End User License Agreement"
-msgstr "Slut bruger licens aftale"
+msgstr "Slutbruger licensaftale"
 
 #. WINDOW_INFO
 msgid "info"
@@ -55,11 +55,11 @@ msgstr "information"
 
 #. WINDOW_LOAD_BATCH_LIST
 msgid "load batch list"
-msgstr "hent batch liste"
+msgstr "hent batchliste"
 
 #. WINDOW_SAVE_BATCH_LIST
 msgid "save batch list"
-msgstr "gem batch liste"
+msgstr "gem batchliste"
 
 #. WINDOW_BATCH_SCAN
 msgid "batch scan"
@@ -67,7 +67,7 @@ msgstr "batch skan"
 
 #. WINDOW_BATCH_RENAME
 msgid "rename batch area"
-msgstr "omdøb batch område"
+msgstr "omdøb batchområde"
 
 #. WINDOW_FAX_PROJECT
 msgid "fax project"
@@ -87,7 +87,7 @@ msgstr "mail projekt"
 
 #. WINDOW_MAIL_RENAME
 msgid "rename mail image"
-msgstr "omdøb mail billede"
+msgstr "omdøb mailbillede"
 
 #. WINDOW_MAIL_INSERT
 msgid "insert file into mail"
@@ -103,11 +103,11 @@ msgstr "tilføj forvalgt område"
 
 #. WINDOW_MEDIUM_RENAME
 msgid "rename medium"
-msgstr "omdøb medium"
+msgstr "omdøb medie"
 
 #. WINDOW_MEDIUM_ADD
 msgid "add new medium"
-msgstr "tilføj nyt medium"
+msgstr "tilføj nyt medie"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -119,7 +119,7 @@ msgstr "Histogram"
 
 #. WINDOW_GAMMA
 msgid "Gamma curve"
-msgstr "Gamma kurve"
+msgstr "Gammakurve"
 
 #. WINDOW_STANDARD_OPTIONS
 msgid "Standard options"
@@ -143,23 +143,23 @@ msgstr "Viser"
 
 #. WINDOW_VIEWER_OUTPUT_FILENAME
 msgid "Viewer: select output filename"
-msgstr "Viser: vælg uddata filnavn"
+msgstr "Viser: vælg uddatafilnavn"
 
 #. WINDOW_OCR_OUTPUT_FILENAME
 msgid "Select output filename for OCR text file"
-msgstr "Vælg uddata filnavn for tekstgenkendelsesfil"
+msgstr "Vælg uddatafilnavn for tekstgenkendelsesfil"
 
 #. WINDOW_OUTPUT_FILENAME
 msgid "select output filename"
-msgstr "vælg uddata filnavn"
+msgstr "vælg uddatafilnavn"
 
 #. WINDOW_SAVE_SETTINGS
 msgid "save device settings"
-msgstr "gem enheds indstillinger"
+msgstr "gem enhedsindstillinger"
 
 #. WINDOW_LOAD_SETTINGS
 msgid "load device settings"
-msgstr "indlæs enheds indstillinger"
+msgstr "indlæs enhedsindstillinger"
 
 #. WINDOW_CHANGE_WORKING_DIR
 msgid "change working directory"
@@ -171,7 +171,7 @@ msgstr "vælg midlertidigt bibliotek"
 
 #. WINDOW_SCALE
 msgid "Scale image"
-msgstr "Skaler billede"
+msgstr "Skalér billede"
 
 #. WINDOW_DESPECKLE
 msgid "Despeckle image"
@@ -239,7 +239,7 @@ msgstr "Gem billede"
 
 #. MENU_ITEM_OCR
 msgid "OCR - save as text"
-msgstr " Tekstgenkendelse - gem som tekst"
+msgstr "Tekstgenkendelse - gem som tekst"
 
 #. MENU_ITEM_CLONE
 msgid "Clone"
@@ -247,7 +247,7 @@ msgstr "Klon"
 
 #. MENU_ITEM_SCALE
 msgid "Scale"
-msgstr "Skaler"
+msgstr "Skalér"
 
 #. MENU_ITEM_CLOSE
 msgid "Close"
@@ -255,7 +255,7 @@ msgstr "Luk"
 
 #. MENU_ITEM_UNDO
 msgid "Undo"
-msgstr "Fortryd"
+msgstr "Fortryd ændring"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
@@ -267,15 +267,15 @@ msgstr "Slør"
 
 #. MENU_ITEM_ROTATE90
 msgid "Rotate 90"
-msgstr "Roter 90"
+msgstr "Rotér 90"
 
 #. MENU_ITEM_ROTATE180
 msgid "Rotate 180"
-msgstr "Roter 180"
+msgstr "Rotér 180"
 
 #. MENU_ITEM_ROTATE270
 msgid "Rotate 270"
-msgstr "Roter 270"
+msgstr "Rotér 270"
 
 #. MENU_ITEM_MIRROR_X
 msgid "Mirror |"
@@ -299,11 +299,11 @@ msgstr "Skan"
 
 #. BUTTON_OK
 msgid "Ok"
-msgstr "Ok"
+msgstr "O.k."
 
 #. BUTTON_ACCEPT
 msgid "Accept"
-msgstr "Accepter"
+msgstr "Acceptér"
 
 #. BUTTON_NOT_ACCEPT
 msgid "Not accept"
@@ -319,7 +319,7 @@ msgstr "Afbryd"
 
 #. BUTTON_REDUCE
 msgid "Reduce"
-msgstr "Reducer"
+msgstr "Reducér"
 
 #. BUTTON_CONT_AT_OWN_RISK
 msgid "Continue at your own risk"
@@ -403,11 +403,11 @@ msgstr "Afbryd forhåndsvisning"
 
 #. BUTTON_DISCARD_IMAGE
 msgid "Discard image"
-msgstr "Kasser billede"
+msgstr "Kassér billede"
 
 #. BUTTON_DISCARD_ALL_IMAGES
 msgid "Discard all images"
-msgstr "Kasser alle billeder"
+msgstr "Kassér alle billeder"
 
 #. BUTTON_DO_NOT_CLOSE
 msgid "Do not close"
@@ -427,7 +427,7 @@ msgstr "HTML-mail"
 
 #. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device preferences at exit"
-msgstr "Gem enheds indstillinger ved afslutning"
+msgstr "Gem enhedsindstillinger ved afslutning"
 
 #. RADIO_BUTTON_OVERWRITE_WARNING
 msgid "Overwrite warning"
@@ -443,15 +443,15 @@ msgstr "Gem 16 bit pnm i ascii format"
 
 #. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
 msgid "Reduce 16 bit image to 8 bit"
-msgstr "Reducer 16 bit billede til 8 bit"
+msgstr "Reducér 16 bit billede til 8 bit"
 
 #. RADIO_BUTTON_WINDOW_FIXED
 msgid "Main window size fixed"
-msgstr "Hoved vindues størrelse er fast"
+msgstr "Hoved-vinduesstørrelse er fast"
 
 #. RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA
 msgid "Disable gimp preview gamma"
-msgstr "Deaktiver gimp forhåndsvisnings gamma"
+msgstr "Deaktivér GIMP forhåndsvisnings gamma"
 
 #. RADIO_BUTTON_PRIVATE_COLORMAP
 msgid "Use private colormap"
@@ -463,11 +463,11 @@ msgstr "Automatisk optimering af gamma"
 
 #. RADIO_BUTTON_PRESELECT_SCANAREA
 msgid "Preselect scanarea"
-msgstr "Forvælg skannings område"
+msgstr "Automatisk valg af skanningsområde"
 
 #. RADIO_BUTTON_AUTOCORRECT_COLORS
 msgid "Autocorrect colors"
-msgstr "Auto optimer farver"
+msgstr "Autooptimér farver"
 
 #. RADIO_BUTTON_POP3_AUTHENTIFICATION
 msgid "POP3 authentification"
@@ -475,7 +475,7 @@ msgstr "POP3 godkendelse"
 
 #. RADIO_BUTTON_OCR_USE_GUI_PIPE
 msgid "Use GUI progress pipe"
-msgstr "Brug GUI fremskridts rør"
+msgstr "Brug GUI fremskridtsrør"
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
@@ -543,7 +543,7 @@ msgstr "skanner"
 
 #. TEXT_SOFTWARE_XSANE
 msgid "software (XSane)"
-msgstr "software (XSane)"
+msgstr "programel (XSane)"
 
 #. TEXT_NONE
 msgid "none"
@@ -551,34 +551,34 @@ msgstr "ingen"
 
 #. TEXT_GAMMA_INPUT_DEPTH
 msgid "Gamma input depth:"
-msgstr "Gamma inddata bitdybde:"
+msgstr "Gamma inddatabitdybde:"
 
 #. TEXT_GAMMA_OUTPUT_DEPTH
 msgid "Gamma output depth:"
-msgstr "Gamma uddata bitdybde:"
+msgstr "Gamma uddatabitdybde:"
 
 #. TEXT_SCANNER_OUTPUT_DEPTH
 msgid "Scanner output depth:"
-msgstr "Scanner uddata bitdybde:"
+msgstr "Scanner uddatabitdybde:"
 
 #. TEXT_OUTPUT_FORMATS
 msgid "XSane output formats:"
-msgstr "XSane uddata formater:"
+msgstr "XSane uddataformater:"
 
 #. TEXT_8BIT_FORMATS
 msgid "8 bit output formats:"
-msgstr "8 bit uddata formater:"
+msgstr "8 bit uddataformater:"
 
 #. TEXT_16BIT_FORMATS
 msgid "16 bit output formats:"
-msgstr "16 bit uddata formater:"
+msgstr "16 bit uddataformater:"
 
 #. TEXT_GIMP_REDUCE_16BIT_TO_8BIT
 msgid ""
 "Gimp does not support depth 16 bits/color.\n"
 "Do you want to reduce the depth to 8 bits/color?"
 msgstr ""
-"Gimp understøtter ikke 16 bit/farve.\n"
+"GIMP understøtter ikke 16 bit/farve.\n"
 "Ønsker du at reducere til 8 bit/farve?"
 
 #. TEXT_REDUCE_16BIT_TO_8BIT
@@ -586,7 +586,7 @@ msgid ""
 "Bit depth 16 bits/color is not supported for this output format.\n"
 "Do you want to reduce the depth to 8 bits/color?"
 msgstr ""
-"16 bit/farve er ikke understøttet for dette uddata format.\n"
+"16 bit/farve er ikke understøttet for dette uddataformat.\n"
 "Ønsker du at reducere til 8 bit/farve?"
 
 #. TEXT_AUTHORIZATION_REQ
@@ -595,7 +595,7 @@ msgstr "Autorisation er nødvendig for"
 
 #. TEXT_AUTHORIZATION_SECURE
 msgid "Password transmission is secure"
-msgstr "Password overførsel er sikker"
+msgstr "Passwordoverførsel er sikker"
 
 #. TEXT_AUTHORIZATION_INSECURE
 msgid "Backend requests plain-text password"
@@ -665,8 +665,7 @@ msgstr ""
 "garanti for SALGBARHED, eller EGNETHED FOR ET BESTEMT FORMÅL\n"
 "Skulle programmet vise sig at være defekt, overtager du udgiften til al\n"
 "nødvendig service, reparation og korrektion. For at bruge dette program\n"
-"skal du læse, forstå og acceptere den følgende\n"
-"\"INGEN GARANTI\" aftale.\n"
+"skal du læse, forstå og acceptere den følgende \"INGEN GARANTI\" aftale.\n"
 
 #. TEXT_GPL
 msgid ""
@@ -683,9 +682,9 @@ msgstr ""
 "licensen,\n"
 "eller (efter eget ønske) enhver senere version.\n"
 "\n"
-"Dette program er distribueret i det håb at det kan være nyttigt, men\n"
-"UDEN ENHVER FORM FOR GARANTI, endda uden den underforståede\n"
-"garanti for SALGBARHED, eller EGNETHED FOR ET BESTEMT FORMÅL\n"
+"Dette program er distribueret i det håb at det kan være nyttigt, men UDEN\n"
+"ENHVER FORM FOR GARANTI, endda uden den underforståede garanti for\n"
+"SALGBARHED, eller EGNETHED FOR ET BESTEMT FORMÅL\n"
 
 #. TEXT_EMAIL
 msgid "Email:"
@@ -713,7 +712,7 @@ msgid ""
 "by Oliver Rauch\n"
 "Email: Oliver.Rauch@rauch-domain.de\n"
 msgstr ""
-"ikke oversat original engelsk tekst\n"
+"ikke-oversat original engelsk tekst\n"
 "af Oliver Rauch\n"
 "Email: Oliver.Rauch@rauch-domain.de\n"
 
@@ -735,15 +734,15 @@ msgstr "Vedhæftninger:"
 
 #. TEXT_MAIL_STATUS
 msgid "Project status:"
-msgstr "Projekt status:"
+msgstr "Projektstatus:"
 
 #. TEXT_MAIL_FILETYPE
 msgid "Mail image filetype:"
-msgstr "Mail billede filtype:"
+msgstr "Mailbillede filtype:"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
-msgstr "Medium navn:"
+msgstr "Medienavn:"
 
 #. TEXT_VIEWER_IMAGE_INFO
 #, c-format
@@ -759,7 +758,7 @@ msgstr "Fjern kornstøj radius:"
 
 #. TEXT_BLUR_RADIUS
 msgid "Blur radius:"
-msgstr "Slørings radius"
+msgstr "Sløringsradius"
 
 #. TEXT_BATCH_AREA_DEFAULT_NAME
 msgid "(no name)"
@@ -767,11 +766,11 @@ msgstr "(intet navn)"
 
 #. TEXT_BATCH_LIST_AREANAME
 msgid "Area name:"
-msgstr "Område navn:"
+msgstr "Områdenavn:"
 
 #. TEXT_BATCH_LIST_SCANMODE
 msgid "Scanmode:"
-msgstr "Skanner tilstand:"
+msgstr "Skannertilstand:"
 
 #. TEXT_BATCH_LIST_GEOMETRY_TL
 msgid "Top left:"
@@ -787,7 +786,7 @@ msgstr "Opløsning:"
 
 #. TEXT_BATCH_LIST_BIT_DEPTH
 msgid "Bit depth:"
-msgstr "Bit dybde:"
+msgstr "Bitdybde:"
 
 #. TEXT_BATCH_LIST_BY_GUI
 msgid "as selected"
@@ -795,7 +794,7 @@ msgstr "som valgt"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
-msgstr "Printer valg:"
+msgstr "Printervalg:"
 
 #. TEXT_SETUP_PRINTER_NAME
 msgid "Name:"
@@ -807,7 +806,7 @@ msgstr "Kommando:"
 
 #. TEXT_SETUP_COPY_NR_OPT
 msgid "Copy number option:"
-msgstr "Kopi nummer indstilling:"
+msgstr "Kopi nummerindstilling:"
 
 #. TEXT_SETUP_PRINTER_LINEART_RES
 msgid "Lineart resolution (dpi):"
@@ -839,19 +838,19 @@ msgstr "Bund margen"
 
 #. TEXT_SETUP_PRINTER_GAMMA
 msgid "Printer gamma value:"
-msgstr "Printers gamma værdi:"
+msgstr "Printers gammaværdi:"
 
 #. TEXT_SETUP_PRINTER_GAMMA_RED
 msgid "Printer gamma red:"
-msgstr "Printers gamma værdi i rød:"
+msgstr "Printers gammaværdi i rød:"
 
 #. TEXT_SETUP_PRINTER_GAMMA_GREEN
 msgid "Printer gamma green:"
-msgstr "Printers gamma værdi i grøn:"
+msgstr "Printers gammaværdi i grøn:"
 
 #. TEXT_SETUP_PRINTER_GAMMA_BLUE
 msgid "Printer gamma blue:"
-msgstr "Printers gamma værdi i blå:"
+msgstr "Printers gammaværdi i blå:"
 
 #. TEXT_SETUP_TMP_PATH
 msgid "Temporary directory"
@@ -859,35 +858,35 @@ msgstr "Midlertidigt bibliotek"
 
 #. TEXT_SETUP_IMAGE_PERMISSION
 msgid "Image-file permissions"
-msgstr "Billed fil rettigheder"
+msgstr "Billedfilrettigheder"
 
 #. TEXT_SETUP_DIR_PERMISSION
 msgid "Directory permissions"
-msgstr "Biblioteks rettigheder"
+msgstr "Biblioteksrettigheder"
 
 #. TEXT_SETUP_JPEG_QUALITY
 msgid "JPEG image quality"
-msgstr "JPEG billed kvalitet"
+msgstr "JPEG billedkvalitet"
 
 #. TEXT_SETUP_PNG_COMPRESSION
 msgid "PNG image compression"
-msgstr "PNG billed kompression"
+msgstr "PNG billedkompression"
 
 #. TEXT_SETUP_FILENAME_COUNTER_LEN
 msgid "Filename counter length"
-msgstr "Filnavn tæller længde"
+msgstr "Filnavn tællerlængde"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_16
 msgid "TIFF 16 bit image compression"
-msgstr "TIFF 16 bit billede kompression"
+msgstr "TIFF 16 bit billedekompression"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_8
 msgid "TIFF 8 bit image compression"
-msgstr "TIFF 8 bit billede kompression"
+msgstr "TIFF 8 bit billedekompression"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_1
 msgid "TIFF lineart image compression"
-msgstr "TIFF stregtegning billede kompression"
+msgstr "TIFF stregtegning billedekompression"
 
 #. TEXT_SETUP_SHOW_RANGE_MODE
 msgid "Show range as:"
@@ -915,15 +914,15 @@ msgstr "Forhåndsvisning gamma blå:"
 
 #. TEXT_SETUP_LINEART_MODE
 msgid "Threshold option:"
-msgstr "Grænseværdi indstilling:"
+msgstr "Grænseværdi-indstilling:"
 
 #. TEXT_SETUP_ADF_MODE
 msgid "Automatic Document Feeder Modus:"
-msgstr "Automatisk dokument fødnings tilstand:"
+msgstr "Automatisk dokumentfødningstilstand:"
 
 #. TEXT_SETUP_PREVIEW_PIPETTE_RANGE
 msgid "Preview pipette range"
-msgstr "Forhåndsvisning pipette område"
+msgstr "Forhåndsvisning pipetteområde"
 
 #. TEXT_SETUP_THRESHOLD_MIN
 msgid "Threshold minimum:"
@@ -943,7 +942,7 @@ msgstr "Grænseværdi forskydning:"
 
 #. TEXT_SETUP_GRAYSCALE_SCANMODE
 msgid "Name of grayscale scanmode:"
-msgstr "Navn på gråskala skanner tilstand:"
+msgstr "Navn på gråskala skannertilstand:"
 
 #. TEXT_SETUP_HELPFILE_VIEWER
 msgid "Helpfile viewer (HTML):"
@@ -959,11 +958,11 @@ msgstr "Indstillinger for Postscriptfiler:"
 
 #. TEXT_SETUP_FAX_NORMAL_MODE_OPT
 msgid "Normal mode option:"
-msgstr "Indstillinger for normal tilstand:"
+msgstr "Indstillinger for normaltilstand:"
 
 #. TEXT_SETUP_FAX_FINE_MODE_OPT
 msgid "Fine mode option:"
-msgstr "Indstillinger for fin tilstand:"
+msgstr "Indstillinger for fintilstand:"
 
 #. TEXT_SETUP_FAX_PROGRAM_DEFAULTS
 msgid "Set program defaults for:"
@@ -1011,23 +1010,23 @@ msgstr "Viser (png):"
 
 #. TEXT_SETUP_OCR_COMMAND
 msgid "OCR Command:"
-msgstr "Tekstgenkendelse kommando:"
+msgstr "Tekstgenkendelses-kommando:"
 
 #. TEXT_SETUP_OCR_INPUTFILE_OPT
 msgid "Inputfile option:"
-msgstr "Inddatafil indstillinger:"
+msgstr "Inddatafilindstilling:"
 
 #. TEXT_SETUP_OCR_OUTPUTFILE_OPT
 msgid "Outputfile option:"
-msgstr "Uddatafil indstillinger:"
+msgstr "Uddatafilindstilling:"
 
 #. TEXT_SETUP_OCR_USE_GUI_PIPE_OPT
 msgid "Use GUI progress pipe:"
-msgstr "Brug GUI fremskridts rør"
+msgstr "Brug GUI fremskridtsrør"
 
 #. TEXT_SETUP_OCR_OUTFD_OPT
 msgid "GUI output-fd option:"
-msgstr "GUI uddata fd indstillinger:"
+msgstr "GUI uddata-fd indstilling:"
 
 #. TEXT_SETUP_OCR_PROGRESS_KEYWORD
 msgid "Progress keyword:"
@@ -1098,15 +1097,15 @@ msgstr "Vis histogram"
 
 #. MENU_ITEM_SHOW_GAMMA
 msgid "Show gamma curve"
-msgstr "Vis gamma kurve"
+msgstr "Vis gammakurve"
 
 #. MENU_ITEM_SHOW_BATCH_SCAN
 msgid "Show batch scan"
-msgstr "Vis batch skan"
+msgstr "Vis batchskan"
 
 #. MENU_ITEM_SHOW_STANDARDOPTIONS
 msgid "Show standard options"
-msgstr "Vis standard indstillinger"
+msgstr "Vis standardindstillinger"
 
 #. MENU_ITEM_SHOW_ADVANCEDOPTIONS
 msgid "Show advanced options"
@@ -1118,7 +1117,7 @@ msgstr "Opsætning"
 
 #. MENU_ITEM_LENGTH_UNIT
 msgid "Length unit"
-msgstr "Længde enhed"
+msgstr "Længdeenhed"
 
 #. SUBMENU_ITEM_LENGTH_MILLIMETERS
 msgid "millimeters"
@@ -1134,7 +1133,7 @@ msgstr "tommer"
 
 #. MENU_ITEM_UPDATE_POLICY
 msgid "Update policy"
-msgstr "Opdaterings politik"
+msgstr "Opdateringspolitik"
 
 #. SUBMENU_ITEM_POLICY_CONTINUOUS
 msgid "continuous"
@@ -1154,19 +1153,19 @@ msgstr "Vis liste med opløsninger"
 
 #. MENU_ITEM_PAGE_ROTATE
 msgid "Rotate postscript"
-msgstr "Roter postscript"
+msgstr "Rotér postscript"
 
 #. MENU_ITEM_EDIT_MEDIUM_DEF
 msgid "Edit medium definition"
-msgstr "Ret medie definition"
+msgstr "Ret mediedefinition"
 
 #. MENU_ITEM_SAVE_DEVICE_SETTINGS
 msgid "Save device settings"
-msgstr "Gem enheds indstillinger"
+msgstr "Gem enhedsindstillinger"
 
 #. MENU_ITEM_LOAD_DEVICE_SETTINGS
 msgid "Load device settings"
-msgstr "Indlæs enheds indstillinger"
+msgstr "Indlæs enhedsindstillinger"
 
 #. MENU_ITEM_CHANGE_WORKING_DIR
 msgid "Change directory"
@@ -1174,7 +1173,7 @@ msgstr "Skift bibliotek"
 
 #. MENU_ITEM_XSANE_EULA
 msgid "Show EULA"
-msgstr "Vis slutbruger aftale"
+msgstr "Vis slutbrugeraftale"
 
 #. MENU_ITEM_XSANE_GPL
 msgid "Show license (GPL)"
@@ -1186,7 +1185,7 @@ msgstr "XSane vejledning"
 
 #. MENU_ITEM_BACKEND_DOC
 msgid "Backend doc"
-msgstr "Bagende vejledning"
+msgstr "Bagendevejledning"
 
 #. MENU_ITEM_AVAILABLE_BACKENDS
 msgid "Available backends"
@@ -1194,7 +1193,7 @@ msgstr "Bagender til rådighed"
 
 #. MENU_ITEM_SCANTIPS
 msgid "Scantips"
-msgstr "Skanning tips"
+msgstr "Skannertips"
 
 #. MENU_ITEM_PROBLEMS
 msgid "Problems?"
@@ -1250,15 +1249,15 @@ msgstr "Rullebjælke og drejeknap"
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
 msgid "Standard options window (lineart)"
-msgstr "Standard instillings vindue (stregtegning)"
+msgstr "Standard instillingsvindue (stregtegning)"
 
 #. MENU_ITEM_LINEART_MODE_XSANE
 msgid "XSane main window (lineart)"
-msgstr "XSane hoved vindue (stregtegning)"
+msgstr "XSane hovedvindue (stregtegning)"
 
 #. MENU_ITEM_LINEART_MODE_GRAY
 msgid "XSane main window (grayscale->lineart)"
-msgstr "XSane hoved vindue (gråskala > stregtegning)"
+msgstr "XSane hovedvindue (gråskala > stregtegning)"
 
 #. MENU_ITEM_SELECTION_NONE
 msgid "(none)"
@@ -1274,7 +1273,7 @@ msgstr "Tilføj valgt område til liste"
 
 #. MENU_ITEM_MEDIUM_ADD
 msgid "Add medium definition"
-msgstr "Tilføj medie definition"
+msgstr "Tilføj mediedefinition"
 
 #. MENU_ITEM_RENAME
 msgid "Rename item"
@@ -1355,7 +1354,7 @@ msgstr "Afbryd skanning <ESC>"
 
 #. DESC_PREVIEW_ACQUIRE
 msgid "Acquire preview scan <Alt-p>"
-msgstr "Rekvirer forhåndsvisnings skan <Alt-p>"
+msgstr "Rekvirer forhåndsvisningsskan <Alt-p>"
 
 #. DESC_PREVIEW_CANCEL
 msgid "Cancel preview scan <Alt-ESC>"
@@ -1377,11 +1376,11 @@ msgid ""
 "To create a medium enable the option edit medium definition in preferences "
 "menu."
 msgstr ""
-"Vælg kilde medie type.\n"
+"Vælg kilde medietype.\n"
 "For at omdøbe, omarrangere eller slette en indføring bruges genvejsmenuen "
 "(højre musetaste).\n"
-"For at danne et nyt medie, aktiver indstillingen ret medie definition i "
-"indstillings menuen."
+"For at danne et nyt medie, aktivér indstillingen ret-medie-definition i "
+"indstillingsmenuen."
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
@@ -1400,7 +1399,7 @@ msgid ""
 "Type of image format, the suitable filename extension is automatically added "
 "to the filename"
 msgstr ""
-"Type af billed format, den passende filendelse bliver automatisk tilføjet "
+"Type af billedformat, den passende filendelse bliver automatisk tilføjet "
 "filnavnet."
 
 #. DESC_FAXPROJECT
@@ -1413,7 +1412,7 @@ msgstr "Angiv nyt navn for fax side"
 
 #. DESC_FAXRECEIVER
 msgid "Enter receiver phone number or address"
-msgstr "Angiv modtager telefon nummer eller adresse"
+msgstr "Angiv modtager telefonnummer eller adresse"
 
 #. DESC_MAILPROJECT
 msgid "Enter name of mail project"
@@ -1445,11 +1444,11 @@ msgstr "Angiv navn på nyt forvalgt område"
 
 #. DESC_MEDIUM_RENAME
 msgid "Enter new name for medium definition"
-msgstr "Angiv nyt navn på medie definition"
+msgstr "Angiv nyt navn på mediedefinition"
 
 #. DESC_MEDIUM_ADD
 msgid "Enter name for new medium definition"
-msgstr "Angiv navn på ny medie definition"
+msgstr "Angiv navn på ny mediedefinition"
 
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
@@ -1457,27 +1456,27 @@ msgstr "Vælg printerdefinition <Shift-F1/F2/...>"
 
 #. DESC_RESOLUTION
 msgid "Set scan resolution"
-msgstr "Sæt skanner opløsning"
+msgstr "Sæt skanneropløsning"
 
 #. DESC_RESOLUTION_X
 msgid "Set scan resolution for x direction"
-msgstr "Sæt skanner opløsning for x-retning"
+msgstr "Sæt skanneropløsning for x-retning"
 
 #. DESC_RESOLUTION_Y
 msgid "Set scan resolution for y direction"
-msgstr "Sæt skanner opløsning for y-retning"
+msgstr "Sæt skanneropløsning for y-retning"
 
 #. DESC_ZOOM
 msgid "Set zoomfactor"
-msgstr "Sæt zoom faktor"
+msgstr "Sæt zoomfaktor"
 
 #. DESC_ZOOM_X
 msgid "Set zoomfactor for x direction"
-msgstr "Sæt zomm faktor for x-retning"
+msgstr "Sæt zommfaktor for x-retning"
 
 #. DESC_ZOOM_Y
 msgid "Set zoomfactor for y direction"
-msgstr "Sæt zomm faktor for y-retning"
+msgstr "Sæt zommfaktor for y-retning"
 
 #. DESC_COPY_NUMBER
 msgid "Set number of copies"
@@ -1485,23 +1484,23 @@ msgstr "Sæt antal kopier"
 
 #. DESC_NEGATIVE
 msgid "Negative: Invert colors for scanning negatives <Ctrl-n>"
-msgstr "Negativer: Omvend farver for skannet negativ <Ctrl-n>"
+msgstr "Negativer: Invertér farver for skannet negativ <Ctrl-n>"
 
 #. DESC_GAMMA
 msgid "Set gamma value"
-msgstr "Sæt gamma værdi"
+msgstr "Sæt gammaværdi"
 
 #. DESC_GAMMA_R
 msgid "Set gamma value for red component"
-msgstr "Sæt gamma værdi for rød farvedel"
+msgstr "Sæt gammaværdi for rød farvedel"
 
 #. DESC_GAMMA_G
 msgid "Set gamma value for green component"
-msgstr "Sæt gamma værdi for grøn farvedel"
+msgstr "Sæt gammaværdi for grøn farvedel"
 
 #. DESC_GAMMA_B
 msgid "Set gamma value for blue component"
-msgstr "Sæt gamma værdi for blå farvedel"
+msgstr "Sæt gammaværdi for blå farvedel"
 
 #. DESC_BRIGHTNESS
 msgid "Set brightness"
@@ -1547,7 +1546,7 @@ msgid ""
 " brightness = 0\n"
 " contrast = 0"
 msgstr ""
-"RGB standard: Sæt optimerings værdier for rød, grøn og blå til standard "
+"RGB standard: Sæt optimeringsværdier for rød, grøn og blå til standard "
 "værdier <Ctrl-b>:\n"
 " gamma = 1.0\n"
 " lyshed = 0\n"
@@ -1564,18 +1563,18 @@ msgid ""
 "brightness = 0\n"
 "contrast = 0"
 msgstr ""
-"Sæt standard optimerings værdier <Ctrl-0>:\n"
+"Sæt standardoptimeringsværdier <Ctrl-0>:\n"
 "gamma = 1.0\n"
 "lyshed = 0\n"
 "kontrast = 0"
 
 #. DESC_ENH_RESTORE
 msgid "Restore enhancement values from preferences <Ctrl-r>"
-msgstr "Genskab optimerings værdier fra indstillinger <Ctrl-r>"
+msgstr "Genskab optimeringsværdier fra indstillinger <Ctrl-r>"
 
 #. DESC_ENH_STORE
 msgid "Store active enhancement values to preferences <Ctrl-+>"
-msgstr "Gem aktive optimerings værdier i indstillinger <Ctrl-+>"
+msgstr "Gem aktive optimeringsværdier i indstillinger <Ctrl-+>"
 
 #. DESC_HIST_INTENSITY
 msgid "Show histogram of intensity/gray <Alt-i>"
@@ -1622,7 +1621,7 @@ msgstr "Angiv værdi for antal kopier"
 msgid ""
 "Resolution with which lineart images are printed and saved in postscript"
 msgstr ""
-"Opløsning ved hvilken stregtegnings billeder bliver printet og gemt i "
+"Opløsning ved hvilken stregtegningsbilleder bliver printet og gemt i "
 "postscript"
 
 #. DESC_PRINTER_GRAYSCALE_RESOLUTION
@@ -1652,19 +1651,19 @@ msgstr "Bund margen fra kant af papir, til det printbare område"
 
 #. DESC_PRINTER_GAMMA
 msgid "Additional gamma value for photocopy"
-msgstr "Supplerende gamma værdi for fotokopiering"
+msgstr "Supplerende gammaværdi for fotokopiering"
 
 #. DESC_PRINTER_GAMMA_RED
 msgid "Additional gamma value for red component for photocopy"
-msgstr "Supplerende gamma værdi for fotokopiering, rød farvedel"
+msgstr "Supplerende gammaværdi for fotokopiering, rød farvedel"
 
 #. DESC_PRINTER_GAMMA_GREEN
 msgid "Additional gamma value for green component for photocopy"
-msgstr "Supplerende gamma værdi for fotokopiering, grøn farvedel"
+msgstr "Supplerende gammaværdi for fotokopiering, grøn farvedel"
 
 #. DESC_PRINTER_GAMMA_BLUE
 msgid "Additional gamma value for blue component for photocopy"
-msgstr "Supplerende gamma værdi for fotokopiering, blå farvedel"
+msgstr "Supplerende gammaværdi for fotokopiering, blå farvedel"
 
 #. DESC_TMP_PATH
 msgid "Path to temp directory"
@@ -1687,23 +1686,23 @@ msgstr "Kompression hvis billedet gemmes som png"
 
 #. DESC_FILENAME_COUNTER_LEN
 msgid "Minimum length of counter in filename"
-msgstr "Minimum længde af tæller i filnavn"
+msgstr "Minimumlængde af tæller i filnavn"
 
 #. DESC_TIFF_COMPRESSION_16
 msgid "Compression type if 16 bit image is saved as tiff"
-msgstr "Kompressions type, hvis 16 bit billede gemmes i tiff format"
+msgstr "Kompressionstype, hvis 16 bit billede gemmes i tiff format"
 
 #. DESC_TIFF_COMPRESSION_8
 msgid "Compression type if 8 bit image is saved as tiff"
-msgstr "Kompressions type hvis 8 bit gemmes i tiff format"
+msgstr "Kompressionstype hvis 8 bit gemmes i tiff format"
 
 #. DESC_TIFF_COMPRESSION_1
 msgid "Compression type if lineart image is saved as tiff"
-msgstr "Kompressions type når stregtegnings billeder gemmes i TIFF"
+msgstr "Kompressionstype når stregtegningsbilleder gemmes i TIFF"
 
 #. DESC_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device dependant preferences in default file at exit of xsane"
-msgstr "Gem enheds afhængige værdier i standardfil, ved afslutning af XSane"
+msgstr "Gem enhedsafhængige værdier i standardfil, ved afslutning af XSane"
 
 #. DESC_OVERWRITE_WARNING
 msgid "Warn before overwriting an existing file"
@@ -1712,7 +1711,7 @@ msgstr "Advar før overskrivning af eksisterende fil"
 #. DESC_SKIP_EXISTING
 msgid ""
 "If filename counter is automatically increased, used numbers are skipped"
-msgstr "Hvis filnavn tæller øges automatisk, bliver brugte numre forbigået"
+msgstr "Hvis filnavntæller øges automatisk, bliver brugte numre forbigået"
 
 #. DESC_SAVE_PNM16_AS_ASCII
 msgid ""
@@ -1754,12 +1753,12 @@ msgstr "Bund margen fra papirkant til printbart område for postscript filer"
 #. DESC_MAIN_WINDOW_FIXED
 msgid "Use fixed main window size or scrolled, resizable main window"
 msgstr ""
-"Brug fast hoved vindues størrelse eller rullet, foranderlig hoved vindues "
-"størrelse"
+"Brug fast hovedvinduesstørrelse eller rullet, foranderlig "
+"hovedvinduesstørrelse"
 
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
 msgid "Disable preview gamma when XSane runs as gimp plugin"
-msgstr "Deaktiver forhåndsvisnings gamma, når XSane kører som et GIMP plugin"
+msgstr "Deaktiver forhåndsvisningsgamma, når XSane kører som et GIMP plugin"
 
 #. DESC_PREVIEW_COLORMAP
 msgid "Use an own colormap for preview if display depth is 8 bpp"
@@ -1773,60 +1772,59 @@ msgstr "Vælg hvordan et område vises"
 #. DESC_PREVIEW_OVERSAMPLING
 msgid "Value with that the calculated preview resolution is multiplied"
 msgstr ""
-"Værdi, med hvilken den beregnede forhåndsvisnings opløsning er multipliceret"
+"Værdi, med hvilken den beregnede forhåndsvisningsopløsning er multipliceret"
 
 #. DESC_PREVIEW_GAMMA
 msgid "Set gamma correction value for preview image"
-msgstr "Sæt gamma korrektions værdi for forhåndsvisnings billede"
+msgstr "Sæt gamma korrektionsværdi for forhåndsvisningsbillede"
 
 #. DESC_PREVIEW_GAMMA_RED
 msgid "Set gamma correction value for red component of preview image"
-msgstr "Sæt gamma korrektions værdi for forhåndsvisnings billede, rød farvedel"
+msgstr "Sæt gamma korrektionsværdi for forhåndsvisnings billede, rød farvedel"
 
 #. DESC_PREVIEW_GAMMA_GREEN
 msgid "Set gamma correction value for green component of preview image"
-msgstr ""
-"Sæt gamma korrektions værdi for forhåndsvisnings billede, grøn farvedel"
+msgstr "Sæt gamma korrektionsværdi for forhåndsvisnings billede, grøn farvedel"
 
 #. DESC_PREVIEW_GAMMA_BLUE
 msgid "Set gamma correction value for blue component of preview image"
-msgstr "Sæt gamma korrektions værdi for forhåndsvisnings billede, blå farvedel"
+msgstr "Sæt gamma korrektionsværdi for forhåndsvisnings billede, blå farvedel"
 
 #. DESC_LINEART_MODE
 msgid "Define the way XSane shall handle the threshold option"
-msgstr "Definer den måde, hvorpå XSane skal behandle grænseværdi indstillingen"
+msgstr "Definér den måde, hvorpå XSane skal behandle grænseværdi indstillingen"
 
 #. DESC_GRAYSCALE_SCANMODE
 msgid ""
 "Select grayscale scanmode. This scanmode is used for lineart preview scan "
 "when transformation from grayscale to lineart is enabled"
 msgstr ""
-"Vælg gråskala skannings tilstand. Denne skannings tilstand bruges til "
+"Vælg gråskala skanningstilstand. Denne skanningstilstand bruges til "
 "stregtegnings forhåndsvisning når transformation fra gråskala til "
 "stregtegning er valgt."
 
 #. DESC_PREVIEW_THRESHOLD_MIN
 #, no-c-format
 msgid "The scanner's minimum threshold level in %"
-msgstr "Skannerens minimums grænseværdi niveau i %"
+msgstr "Skannerens minimumsgrænseværdi niveau i %"
 
 #. DESC_PREVIEW_THRESHOLD_MAX
 #, no-c-format
 msgid "The scanner's maximum threshold level in %"
-msgstr "Skannerens maximums grænseværdi niveau i %"
+msgstr "Skannerens maximumsgrænseværdi niveau i %"
 
 #. DESC_PREVIEW_THRESHOLD_MUL
 msgid ""
 "Multiplier to make XSane threshold range and scanner threshold range the same"
 msgstr ""
-"Multiplikator, der bringer XSane's og skannerens grænseværdi område i "
+"Multiplikator, der bringer XSane's og skannerens grænseværdiområde i "
 "overensstemmelse med hinanden"
 
 #. DESC_PREVIEW_THRESHOLD_OFF
 msgid ""
 "Offset to make XSane threshold range and scanner threshold range the same"
 msgstr ""
-"Forskydning, der bringer XSane's og skannerens grænseværdi område i "
+"Forskydning, der bringer XSane's og skannerens grænseværdiområde i "
 "overensstemmelse med hinanden"
 
 #. DESC_ADF_MODE
@@ -1834,28 +1832,28 @@ msgid ""
 "Select scansource for Automatic Document feeder. If this scansource is "
 "selected XSane scans until \"out of paper\" or error."
 msgstr ""
-"Vælg skanner kilde til automatisk dokumentføder. Hvis denne skanner kilde er "
+"Vælg skannerkilde til automatisk dokumentføder. Hvis denne skannerkilde er "
 "valgt, fortsætter XSane indtil \"out of paper\" eller ved fejl."
 
 #. DESC_PREVIEW_PIPETTE_RANGE
 msgid "dimension of square that is used to average color for pipette function"
 msgstr ""
-"Dimension af det kvadrat, der skal bruges til gennemsnits farve med pipette "
+"Dimension af det kvadrat, der skal bruges til gennemsnitsfarve med pipette "
 "funktionen"
 
 #. DESC_DOC_VIEWER
 msgid ""
 "Enter command to be executed to display helpfiles, must be a html-viewer!"
 msgstr ""
-"Komando der skal udføres, for at vise hjælpefiler - skal være en html viser!"
+"Komando der skal udføres for at vise hjælpefiler - skal være en html viser!"
 
 #. DESC_AUTOENHANCE_GAMMA
 msgid "Change gamma value when autoenhancement button is pressed"
-msgstr "Skift gammaværdi, når autoforbedrings knappen trykkes"
+msgstr "Skift gammaværdi, når autoforbedringsknappen trykkes"
 
 #. DESC_PRESELECT_SCANAREA
 msgid "Select scanarea after preview scan has finished"
-msgstr "Vælg skan område, når forhåndsvisning er gennemført"
+msgstr "Vælg skanområde, når forhåndsvisning er gennemført"
 
 #. DESC_AUTOCORRECT_COLORS
 msgid "Do color correction after preview scan has finished"
@@ -1867,7 +1865,7 @@ msgstr "Komando der skal udføres i fax tilstand"
 
 #. DESC_FAX_RECEIVER_OPT
 msgid "Enter option to specify receiver"
-msgstr "Indstilling der angiver modtager telefon nummer"
+msgstr "Indstilling der angiver modtager telefonnummer"
 
 #. DESC_FAX_POSTSCRIPT_OPT
 msgid "Enter option to specify postscript files following"
@@ -1928,37 +1926,35 @@ msgstr "password til POP3 server"
 
 #. DESC_MAIL_VIEWER
 msgid "Enter command to be executed to view a mail image"
-msgstr "Komando der skal udføres, for at vise mail billeder"
+msgstr "Komando der skal udføres, for at vise mailbilleder"
 
 #. DESC_HTML_MAIL
 msgid "Mail is sent in html mode, place image with: <IMAGE>"
-msgstr "Mail er sendt i HTML tilstand, placer billede med: <IMAGE>"
+msgstr "Mail er sendt i HTML tilstand, placér billede med: <IMAGE>"
 
 #. DESC_OCR_COMMAND
 msgid "Enter command to start ocr program"
-msgstr "Indtast komando for at starte tekstgenkendelses program"
+msgstr "Indtast komando for at starte tekstgenkendelsesprogram"
 
 #. DESC_OCR_INPUTFILE_OPT
 msgid "Enter option of the ocr program to define input file"
 msgstr ""
-"Indtast indstillinger for tekstgenkendelses program for at definere inddata "
-"fil"
+"Indtast indstillinger for tekstgenkendelsesprogram for at definere inddatafil"
 
 #. DESC_OCR_OUTPUTFILE_OPT
 msgid "Enter option of the ocr program to define output file"
 msgstr ""
-"Indtast indstillinger for tekstgenkendelses program for at definere uddata "
-"fil"
+"Indtast indstillinger for tekstgenkendelsesprogram for at definere uddatafil"
 
 #. DESC_OCR_USE_GUI_PIPE_OPT
 msgid "Define if the ocr program supports gui progress pipe"
-msgstr "Angiv om tekstgenkendelses programmet understøtter GUI fremskridts rør"
+msgstr "Angiv om tekstgenkendelsesprogrammet understøtter GUI fremskridtsrør"
 
 #. DESC_OCR_OUTFD_OPT
 msgid ""
 "Enter option of the ocr program to define output filedescripor in GUI mode"
 msgstr ""
-"Angiv indstilling for tekstgenkendelses programmet, til definering af uddata "
+"Angiv indstilling for tekstgenkendelsesprogrammet, til definering af uddata "
 "filbeskrivelse i GUI tilstand"
 
 #. DESC_OCR_PROGRESS_KEYWORD
@@ -2004,7 +2000,7 @@ msgstr "Zoom 20% ud"
 
 #. DESC_ZOOM_IN
 msgid "Click at position to zoom to"
-msgstr "Klik i det ønskede zoom område"
+msgstr "Klik i det ønskede zoomområde"
 
 #. DESC_ZOOM_AREA
 msgid "Zoom into selected area"
@@ -2020,15 +2016,15 @@ msgstr "Vælg synligt område"
 
 #. DESC_AUTOSELECT_SCANAREA
 msgid "Autoselect scanarea"
-msgstr "Autovælg skan område"
+msgstr "Autovælg skanområde"
 
 #. DESC_AUTORAISE_SCANAREA
 msgid "Autoraise scanarea"
-msgstr "Auto udvid skanområde"
+msgstr "Autoudvid skanområde"
 
 #. DESC_DELETE_IMAGES
 msgid "Delete preview image cache"
-msgstr "Slet forhåndsvisnings cache"
+msgstr "Slet forhåndsvisningscache"
 
 #. DESC_PRESET_AREA
 msgid ""
@@ -2042,7 +2038,7 @@ msgstr ""
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
-msgstr "Roter forhåndsvisning og skanning"
+msgstr "Rotér forhåndsvisning og skanning"
 
 #. DESC_RATIO
 msgid "Aspect ratio of selection"
@@ -2066,15 +2062,15 @@ msgstr "Klon billede"
 
 #. DESC_ROTATE90
 msgid "Rotate image 90 degree"
-msgstr "Roter billede 90 grader"
+msgstr "Rotér billede 90 grader"
 
 #. DESC_ROTATE180
 msgid "Rotate image 180 degree"
-msgstr "Roter billede 180 grader"
+msgstr "Rotér billede 180 grader"
 
 #. DESC_ROTATE270
 msgid "Rotate image 270 degree"
-msgstr "Roter billede 270 grader"
+msgstr "Rotér billede 270 grader"
 
 #. DESC_MIRROR_X
 msgid "Mirror image at vertical axis"
@@ -2090,43 +2086,43 @@ msgstr "Zoom billede"
 
 #. DESC_STORE_MEDIUM
 msgid "Store medium"
-msgstr "Gem medium"
+msgstr "Gem medie"
 
 #. DESC_DELETE_MEDIUM
 msgid "Delete active medium"
-msgstr "Slet aktivt medium"
+msgstr "Slet aktivt medie"
 
 #. DESC_SCALE_FACTOR
 msgid "Scale factor"
-msgstr "Skalerings faktor"
+msgstr "Skaleringsfaktor"
 
 #. DESC_X_SCALE_FACTOR
 msgid "X-Scale factor"
-msgstr "Skalerings faktor X-retning"
+msgstr "Skaleringsfaktor X-retning"
 
 #. DESC_Y_SCALE_FACTOR
 msgid "Y-Scale factor"
-msgstr "Skalerings faktor Y-retning"
+msgstr "Skaleringsfaktor Y-retning"
 
 #. DESC_SCALE_WIDTH
 msgid "Scale image to width [in pixel]"
-msgstr "Skaler billede til bredde [i pixler]"
+msgstr "Skalér billede til bredde [i pixler]"
 
 #. DESC_SCALE_HEIGHT
 msgid "Scale image to height [in pixel]"
-msgstr "Skaler billede til højde [i pixler]"
+msgstr "Skalér billede til højde [i pixler]"
 
 #. DESC_BATCH_LIST_EMPTY
 msgid "Empty batch list"
-msgstr "Tøm batch liste"
+msgstr "Tøm batchliste"
 
 #. DESC_BATCH_LIST_SAVE
 msgid "Save batch list"
-msgstr "Gem batch liste"
+msgstr "Gem batchliste"
 
 #. DESC_BATCH_LIST_LOAD
 msgid "Load batch list"
-msgstr "Hent batch liste"
+msgstr "Hent batchliste"
 
 #. DESC_BATCH_RENAME
 msgid "Rename area"
@@ -2134,11 +2130,11 @@ msgstr "Omdøb område"
 
 #. DESC_BATCH_ADD
 msgid "Add selected preview area to batch list"
-msgstr "Tilføj valgt forhåndsvisnings område til batch liste"
+msgstr "Tilføj valgt forhåndsvisningsområde til batchliste"
 
 #. DESC_BATCH_DEL
 msgid "Delete selected area from batch list"
-msgstr "Slet valgt forhåndsvisnings område fra batch liste"
+msgstr "Slet valgt forhåndsvisningsområde fra batchliste"
 
 #. DESC_AUTOMATIC
 msgid "Turns on automatic mode"
@@ -2146,15 +2142,15 @@ msgstr "Tænder for automatisk tilstand"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
-msgstr "Kunne ikke bestemme hjem bibliotek:"
+msgstr "Kunne ikke bestemme hjem-bibliotek:"
 
 #. ERR_CHANGE_WORKING_DIR
 msgid "Failed to change working directory to"
-msgstr "Kunne ikke skifte arbejds bibliotek til"
+msgstr "Kunne ikke skifte arbejdsbibliotek til"
 
 #. ERR_FILENAME_TOO_LONG
 msgid "Filename too long"
-msgstr "Filnavn for langt"
+msgstr "Filnavn er for langt"
 
 #. ERR_CREATE_TEMP_FILE
 msgid "Could not create temporary file"
@@ -2227,7 +2223,7 @@ msgstr "Kunne ikke få fat i parametre:"
 
 #. ERR_NO_OUTPUT_FORMAT
 msgid "No output format given"
-msgstr "Intet uddata format angivet"
+msgstr "Intet uddataformat angivet"
 
 #. ERR_NO_MEM
 msgid "out of memory"
@@ -2249,6 +2245,10 @@ msgstr "LIBPNG melder fejl"
 msgid "LIBJPEG reports error"
 msgstr "LIBJPEG melder fejl"
 
+#. ERR_ZLIB
+msgid "ZLIB error or memory allocation problem"
+msgstr "ZLIB fejl, eller hukommelsesallokerings problem"
+
 #. ERR_UNKNOWN_TYPE
 msgid "unknown type"
 msgstr "ukendt type"
@@ -2267,11 +2267,11 @@ msgstr "Dette er en bagende fejl. Underret forfatteren af bagenden!"
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
-msgstr "Kunne ikke udføre dokument viser"
+msgstr "Kunne ikke udføre dokument-viser"
 
 #. ERR_FAILED_EXEC_FAX_VIEWER
 msgid "Failed to execute fax viewer:"
-msgstr "Kunne ikke udføre fax viser:"
+msgstr "Kunne ikke udføre fax-viser:"
 
 #. ERR_FAILED_EXEC_FAX_CMD
 msgid "Failed to execute fax command:"
@@ -2320,7 +2320,7 @@ msgstr "*** PROGRAM AFBRUDT ***"
 
 #. ERR_FAILED_ALLOCATE_IMAGE
 msgid "Failed to allocate image memory:"
-msgstr "Kunne ikke allokere billed ram:"
+msgstr "Kunne ikke allokere billedram:"
 
 #. ERR_PREVIEW_BAD_DEPTH
 msgid "Preview cannot handle bit depth"
@@ -2332,11 +2332,11 @@ msgstr "GIMP understøttelse mangler"
 
 #. ERR_CREATE_PREVIEW_FILE
 msgid "Could not create temporary preview files"
-msgstr "Kunne ikke danne midlertidig forhåndsvisnings filer"
+msgstr "Kunne ikke danne midlertidig forhåndsvisningsfiler"
 
 #. ERR_CREATE_PREVIEW_FILENAME
 msgid "Could not create filenames for preview files"
-msgstr "Kunne ikke danne filnavne til forhåndsvisnings filer"
+msgstr "Kunne ikke danne filnavne til forhåndsvisningsfiler"
 
 #. ERR_CREATE_FAX_PROJECT
 msgid "Could not create faxproject"
@@ -2344,7 +2344,7 @@ msgstr "Kunne ikke danne fax-projekt"
 
 #. WARN_COUNTER_UNDERRUN
 msgid "Filename counter underrun"
-msgstr "Filnavn tæller 'underrun'"
+msgstr "Filnavn tæller 'underløb'"
 
 #. WARN_NO_VALUE_CONSTRAINT
 msgid "warning: option has no value constraint"
@@ -2360,9 +2360,8 @@ msgid ""
 msgstr ""
 "Du prøver at køre XSane som ROOT, det ER meget farligt!\n"
 "\n"
-"Du skal ikke sende bug-reporter hvis du\n"
-"har problemer, når du kører XSane som root:\n"
-"DU ER HELT ALENE!"
+"Du skal ikke sende bug-rapporter hvis du har problemer,\n"
+"når du kører XSane som root:    DU ER HELT ALENE!"
 
 #. ERR_HEADER_ERROR
 msgid "Error"
@@ -2386,11 +2385,11 @@ msgstr "Kunne ikke danne fil:"
 
 #. ERR_LOAD_DEVICE_SETTINGS
 msgid "Error while loading device settings:"
-msgstr "Fejl under hentning af enheds indstillinger:"
+msgstr "Fejl under hentning af enhedsindstillinger:"
 
 #. ERR_NO_DRC_FILE
 msgid "is not a device-rc-file !!!"
-msgstr "er ikke en enheds indstillings fil!!!"
+msgstr "er ikke en enhedsindstillingsfil!!!"
 
 #. ERR_NETSCAPE_EXECUTE_FAIL
 msgid "Failed to execute netscape!"
@@ -2402,11 +2401,11 @@ msgstr "Send fax: ingen modtager anført"
 
 #. ERR_CREATED_FOR_DEVICE
 msgid "has been created for device"
-msgstr "er blevet dannet for enheden"
+msgstr "er blevet dannet til enhed"
 
 #. ERR_USED_FOR_DEVICE
 msgid "you want to use it for device"
-msgstr "bliver brugt for enheden"
+msgstr "bliver brugt til enhed"
 
 #. ERR_MAY_CAUSE_PROBLEMS
 msgid "this may cause problems!"
@@ -2435,11 +2434,11 @@ msgstr "Fil %s er ikke en postscript fil"
 #. ERR_UNSUPPORTED_OUTPUT_FORMAT
 #, c-format
 msgid "Unsupported %d-bit output format: %s"
-msgstr "Ikke understøttet %d-bit uddata format: %s"
+msgstr "Ikke understøttet %d-bit uddataformat: %s"
 
 #. WARN_VIEWER_IMAGE_NOT_SAVED
 msgid "viewer image is not saved"
-msgstr "viser billede er ikke gemt"
+msgstr "viser-billede er ikke gemt"
 
 #. TEXT_USAGE
 msgid "Usage:"
@@ -2532,7 +2531,7 @@ msgstr ""
 #. Menu path must not be translated, this is done by the gimp. Only translate the text behind the last "/"
 #. XSANE_GIMP_MENU_DIALOG
 msgid "<Toolbox>/File/Acquire/XSane: Device dialog..."
-msgstr "<Toolbox>/File/Acquire/XSane: Enheds dialog..."
+msgstr "<Toolbox>/File/Acquire/XSane: Enhedsdialog..."
 
 #. XSANE_GIMP_MENU
 msgid "<Toolbox>/File/Acquire/XSane: "
@@ -2540,7 +2539,7 @@ msgstr "<Toolbox>/File/Acquire/XSane: "
 
 #. XSANE_GIMP_MENU_DIALOG_OLD
 msgid "<Toolbox>/Xtns/XSane/Device dialog..."
-msgstr "<Toolbox>/Xtns/XSane/Enheds dialog..."
+msgstr "<Toolbox>/Xtns/XSane/Enhedsdialog..."
 
 #. XSANE_GIMP_MENU_OLD
 msgid "<Toolbox>/Xtns/XSane/"
@@ -2560,10 +2559,10 @@ msgstr ""
 "Mulige grunde:\n"
 "1) Der er virkelig ingen enheder der er understøttet af SANE\n"
 "2) Understøttede enheder er optagede\n"
-"3) Enheds filens rettigheder tillader dig ikke at bruge den - prøv som root\n"
+"3) Enhedsfilens rettigheder tillader dig ikke at bruge den - prøv som root\n"
 "4) Bagenden er ikke indlæst af SANE (man sane-dll)\n"
 "5) Bagenden er ikke konfigureret korrekt (man sane-\"bagendenavn\")\n"
-"6) Måske er der mere end en version af SANE installeret"
+"6) Måske er der mere end én version af SANE installeret"
 
 #. strings that are used in structures, so it is not allowed to use _()/gettext() here
 #. gettext_noop does mark these texts but does not change the string
@@ -2637,7 +2636,7 @@ msgstr "letter tværformat"
 
 #. MENU_ITEM_MEDIUM_FULL_COLOR_RANGE
 msgid "Full color range"
-msgstr "Fuldt farve område"
+msgstr "Fuldt farveområde"
 
 #. MENU_ITEM_MEDIUM_SLIDE
 msgid "Slide"
@@ -2785,13 +2784,13 @@ msgid "End of file reached"
 msgstr "Slutning af fil nået"
 
 msgid "Document feeder jammed"
-msgstr "Dokument føder blokeret"
+msgstr "Dokumentføder blokeret"
 
 msgid "Document feeder out of documents"
-msgstr "Dokument føder tom for dokumenter"
+msgstr "Dokumentføder tom for dokumenter"
 
 msgid "Scanner cover is open"
-msgstr "Skanner låg er åbent"
+msgstr "Skannerlåg er åbent"
 
 msgid "Error during device I/O"
 msgstr "Fejl under enheds I/O"

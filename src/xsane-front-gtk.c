@@ -45,7 +45,7 @@
 int xsane_parse_options(char *options, char *argv[]);
 void xsane_get_bounds(const SANE_Option_Descriptor *opt, double *minp, double *maxp);
 double xsane_find_best_resolution(int well_known_option, double dpi);
-int xsane_set_resolution(int well_known_option, double resolution);
+double xsane_set_resolution(int well_known_option, double resolution);
 void xsane_set_all_resolutions(void);
 void xsane_define_maximum_output_size();
 void xsane_close_dialog_callback(GtkWidget *widget, gpointer data);
@@ -292,7 +292,7 @@ double xsane_find_best_resolution(int well_known_option, double dpi)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-int xsane_set_resolution(int well_known_option, double resolution)
+double xsane_set_resolution(int well_known_option, double resolution)
 {
  const SANE_Option_Descriptor *opt;
  double bestdpi;
@@ -304,12 +304,12 @@ int xsane_set_resolution(int well_known_option, double resolution)
 
   if (!opt)
   {
-    return -1; /* option does not exits */
+    return -1.0; /* option does not exits */
   }
 
   if (!SANE_OPTION_IS_ACTIVE(opt->cap))
   {
-    return -1; /* option is not active */
+    return -1.0; /* option is not active */
   }
 
   bestdpi = xsane_find_best_resolution(well_known_option, resolution);
@@ -317,7 +317,7 @@ int xsane_set_resolution(int well_known_option, double resolution)
   if (bestdpi < 0)
   {
      DBG(DBG_error, "set_resolution: %s\n", ERR_FAILED_SET_RESOLUTION);
-    return -1;
+    return -1.0;
   }
 
   switch (opt->type)
@@ -332,14 +332,14 @@ int xsane_set_resolution(int well_known_option, double resolution)
 
     default:
      DBG(DBG_error, "set_resolution: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
-    return 1; /* error */
+    return -1.0; /* error */
   }
 
   /* it makes problems to call xsane_back_gtk_set_option. This would allow a */
   /* panel_rebuild that can mess up a lot at this place*/
   xsane_control_option(xsane.dev, well_known_option, SANE_ACTION_SET_VALUE, &dpi, 0);
 
- return 0; /* everything is ok */
+ return (bestdpi); /* everything is ok */
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -347,18 +347,23 @@ int xsane_set_resolution(int well_known_option, double resolution)
 void xsane_set_all_resolutions(void)
 {
  int printer_resolution;
+ double new_resolution;
 
   DBG(DBG_proc, "xsane_set_all_resolutions\n");
 
-  if (xsane_set_resolution(xsane.well_known.dpi_y, xsane.resolution_y)) /* set y resolution if possible */
+  new_resolution = xsane_set_resolution(xsane.well_known.dpi_y, xsane.resolution_y); /* set y resolution if possible */
+  if (new_resolution < 0) /* set y resolution not possible */
   {
-    xsane_set_resolution(xsane.well_known.dpi, xsane.resolution); /* set common resolution if necessary */
-    xsane.resolution_x = xsane.resolution;
-    xsane.resolution_y = xsane.resolution;
+    new_resolution = xsane_set_resolution(xsane.well_known.dpi, xsane.resolution); /* set common resolution if necessary */
+    xsane.resolution   = new_resolution;
+    xsane.resolution_x = new_resolution;
+    xsane.resolution_y = new_resolution;
   }
-  else
+  else /* we were able to set y resolution */
   {
-    xsane_set_resolution(xsane.well_known.dpi_x, xsane.resolution_x); /* set x resolution if possible */
+    xsane.resolution_y = new_resolution;
+    new_resolution = xsane_set_resolution(xsane.well_known.dpi_x, xsane.resolution_x); /* set x resolution if possible */
+    xsane.resolution_x = new_resolution;
   }
 
   switch (xsane.param.format)
@@ -400,7 +405,7 @@ void xsane_define_maximum_output_size()
 
   if ( (opt) && (opt->unit== SANE_UNIT_MM) )
   {
-    switch(xsane.xsane_mode)
+    switch(preferences.xsane_mode)
     {
       case XSANE_SAVE:
 
@@ -1333,7 +1338,7 @@ static void xsane_filetype_callback(GtkWidget *widget, gpointer data)
     {
       if ( (!strcasecmp(extension, ".pnm"))  || (!strcasecmp(extension, ".raw"))
         || (!strcasecmp(extension, ".png"))  || (!strcasecmp(extension, ".ps"))
-        || (!strcasecmp(extension, ".rgba"))
+        || (!strcasecmp(extension, ".pdf"))  || (!strcasecmp(extension, ".rgba"))
         || (!strcasecmp(extension, ".tiff")) || (!strcasecmp(extension, ".tif"))
         || (!strcasecmp(extension, ".text")) || (!strcasecmp(extension, ".txt"))
         || (!strcasecmp(extension, ".jpg"))  || (!strcasecmp(extension, ".jpeg"))
@@ -1733,6 +1738,10 @@ int xsane_identify_output_format(char *filename, char *filetype, char **ext)
     else if (!strcasecmp(extension, "ps"))
     {
       output_format = XSANE_PS;
+    }
+    else if (!strcasecmp(extension, "pdf"))
+    {
+      output_format = XSANE_PDF;
     }
 #ifdef HAVE_LIBTIFF
     else if ( (!strcasecmp(extension, "tif")) || (!strcasecmp(extension, "tiff")) )

@@ -1,16 +1,16 @@
 # Czech translation for XSane.
-# Copyright (C) 2004 Free Software Foundation, Inc.
-# Stanislav Brabec <utx@penguin.cz>, 2000-2004.
+# Copyright (C) 2005 Free Software Foundation, Inc.
+# Stanislav Brabec <utx@penguin.cz>, 2000-2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.96\n"
-"POT-Creation-Date: 2004-08-21 15:31+0200\n"
-"PO-Revision-Date: 2004-08-21 20:16+0200\n"
+"Project-Id-Version: XSANE 0.98\n"
+"POT-Creation-Date: 2005-10-23 00:20+0200\n"
+"PO-Revision-Date: 2005-10-30 23:11+0100\n"
 "Last-Translator: Stanislav Brabec <utx@penguin.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #. Please translate this to the correct directory name (eg. german=>de)
@@ -20,7 +20,7 @@ msgstr "cs"
 
 #. XSANE_COPYRIGHT_SIGN
 msgid "(c)"
-msgstr "(c)"
+msgstr "Â©"
 
 #. can be translated with \251
 #. FILENAME_PREFIX_CLONE_OF
@@ -33,7 +33,7 @@ msgstr "O programu"
 
 #. WINDOW_ABOUT_TRANSLATION, MENU_ITEM_ABOUT_TRANSLATION
 msgid "About translation"
-msgstr "O pøekladu"
+msgstr "O pÅ™ekladu"
 
 #. WINDOW_AUTHORIZE
 msgid "authorization"
@@ -45,7 +45,7 @@ msgstr "Licence GPL"
 
 #. WINDOW_EULA
 msgid "End User License Agreement"
-msgstr "Licenèní smlouva pro koncového u¾ivatele"
+msgstr "LicenÄnÃ­ smlouva pro koncovÃ©ho uÅ¾ivatele"
 
 #. WINDOW_INFO
 msgid "info"
@@ -53,27 +53,27 @@ msgstr "informace"
 
 #. WINDOW_LOAD_BATCH_LIST
 msgid "load batch list"
-msgstr "naèíst seznam dávek"
+msgstr "naÄÃ­st seznam dÃ¡vek"
 
 #. WINDOW_SAVE_BATCH_LIST
 msgid "save batch list"
-msgstr "zapsat seznam dávek"
+msgstr "zapsat seznam dÃ¡vek"
 
 #. WINDOW_BATCH_SCAN
 msgid "batch scan"
-msgstr "dávkové skenování"
+msgstr "dÃ¡vkovÃ© skenovÃ¡nÃ­"
 
 #. WINDOW_BATCH_RENAME
 msgid "rename batch area"
-msgstr "pøejmenovat dávkovou oblast"
+msgstr "pÅ™ejmenovat dÃ¡vkovou oblast"
 
 #. WINDOW_FAX_PROJECT
 msgid "fax project"
-msgstr "faxovı projekt"
+msgstr "faxovÃ½ projekt"
 
 #. WINDOW_FAX_RENAME
 msgid "rename fax page"
-msgstr "pøejmenovat faxovou stránku"
+msgstr "pÅ™ejmenovat faxovou strÃ¡nku"
 
 #. WINDOW_FAX_INSERT
 msgid "insert ps-file into fax"
@@ -81,35 +81,35 @@ msgstr "zadat ps-soubor pro fax"
 
 #. WINDOW_MAIL_PROJECT
 msgid "mail project"
-msgstr "po¹tovní projekt"
+msgstr "poÅ¡tovnÃ­ projekt"
 
 #. WINDOW_MAIL_RENAME
 msgid "rename mail image"
-msgstr "pøejmenovat obrázek do po¹ty"
+msgstr "pÅ™ejmenovat obrÃ¡zek do poÅ¡ty"
 
 #. WINDOW_MAIL_INSERT
 msgid "insert file into mail"
-msgstr "vlo¾it soubor do po¹ty"
+msgstr "vloÅ¾it soubor do poÅ¡ty"
 
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
-msgstr "pøejmenovat pøedvolenou oblast"
+msgstr "pÅ™ejmenovat pÅ™edvolenou oblast"
 
 #. WINDOW_PRESET_AREA_ADD
 msgid "add preset area"
-msgstr "pøidat pøedvolenou oblast"
+msgstr "pÅ™idat pÅ™edvolenou oblast"
 
 #. WINDOW_MEDIUM_RENAME
 msgid "rename medium"
-msgstr "pøejmenovat médium"
+msgstr "pÅ™ejmenovat mÃ©dium"
 
 #. WINDOW_MEDIUM_ADD
 msgid "add new medium"
-msgstr "pøidat nové médium"
+msgstr "pÅ™idat novÃ© mÃ©dium"
 
 #. WINDOW_SETUP
 msgid "setup"
-msgstr "nastavení"
+msgstr "nastavenÃ­"
 
 #. WINDOW_HISTOGRAM
 msgid "Histogram"
@@ -117,75 +117,75 @@ msgstr "Histogram"
 
 #. WINDOW_GAMMA
 msgid "Gamma curve"
-msgstr "Gama køivka"
+msgstr "Gama kÅ™ivka"
 
 #. WINDOW_STANDARD_OPTIONS
 msgid "Standard options"
-msgstr "Standardní volby"
+msgstr "StandardnÃ­ volby"
 
 #. WINDOW_ADVANCED_OPTIONS
 msgid "Advanced options"
-msgstr "Roz¹íøené volby"
+msgstr "RozÅ¡Ã­Å™enÃ© volby"
 
 #. WINDOW_DEVICE_SELECTION
 msgid "device selection"
-msgstr "vıbìr zaøízení"
+msgstr "vÃ½bÄ›r zaÅ™Ã­zenÃ­"
 
 #. WINDOW_PREVIEW
 msgid "Preview"
-msgstr "Náhled"
+msgstr "NÃ¡hled"
 
 #. WINDOW_VIEWER
 msgid "Viewer"
-msgstr "Prohlí¾eè"
+msgstr "ProhlÃ­Å¾eÄ"
 
 #. WINDOW_VIEWER_OUTPUT_FILENAME
 msgid "Viewer: select output filename"
-msgstr "Prohlí¾eè: zvolte vıstupní soubor"
+msgstr "ProhlÃ­Å¾eÄ: zvolte vÃ½stupnÃ­ soubor"
 
 #. WINDOW_OCR_OUTPUT_FILENAME
 msgid "Select output filename for OCR text file"
-msgstr "Zvolte jméno vıstupního souboru s rozpoznanım textem"
+msgstr "Zvolte jmÃ©no vÃ½stupnÃ­ho souboru sÂ rozpoznanÃ½m textem"
 
 #. WINDOW_OUTPUT_FILENAME
 msgid "select output filename"
-msgstr "vıbìr jména vıstupního souboru"
+msgstr "vÃ½bÄ›r jmÃ©na vÃ½stupnÃ­ho souboru"
 
 #. WINDOW_SAVE_SETTINGS
 msgid "save device settings"
-msgstr "zápis nastavení zaøízení"
+msgstr "zÃ¡pis nastavenÃ­ zaÅ™Ã­zenÃ­"
 
 #. WINDOW_LOAD_SETTINGS
 msgid "load device settings"
-msgstr "ètení nastavení zaøízení"
+msgstr "ÄtenÃ­ nastavenÃ­ zaÅ™Ã­zenÃ­"
 
 #. WINDOW_CHANGE_WORKING_DIR
 msgid "change working directory"
-msgstr "zmìna pracovního adresáøe"
+msgstr "zmÄ›na pracovnÃ­ho adresÃ¡Å™e"
 
 #. WINDOW_TMP_PATH
 msgid "select temporary directory"
-msgstr "vıbìr pomocného adresáøe"
+msgstr "vÃ½bÄ›r pomocnÃ©ho adresÃ¡Å™e"
 
 #. WINDOW_SCALE
 msgid "Scale image"
-msgstr "Zmìna velikosti obrázku"
+msgstr "ZmÄ›na velikosti obrÃ¡zku"
 
 #. WINDOW_DESPECKLE
 msgid "Despeckle image"
-msgstr "Vyèistit obrázek"
+msgstr "VyÄistit obrÃ¡zek"
 
 #. WINDOW_BLUR
 msgid "Blur image"
-msgstr "Rozostøit obrázek"
+msgstr "RozostÅ™it obrÃ¡zek"
 
 #. WINDOW_STORE_MEDIUM
 msgid "Store medium definition"
-msgstr "Ulo¾it definici média"
+msgstr "UloÅ¾it definici mÃ©dia"
 
 #. WINDOW_NO_DEVICES
 msgid "No devices available"
-msgstr "Nejsou k dispozici ¾ádná zaøízení"
+msgstr "Nejsou k dispozici Å¾Ã¡dnÃ¡ zaÅ™Ã­zenÃ­"
 
 #. MENU_FILE
 msgid "File"
@@ -193,7 +193,7 @@ msgstr "Soubor"
 
 #. MENU_PREFERENCES
 msgid "Preferences"
-msgstr "Nastavení"
+msgstr "NastavenÃ­"
 
 #. MENU_VIEW
 msgid "View"
@@ -205,11 +205,11 @@ msgstr "Okno"
 
 #. MENU_HELP
 msgid "Help"
-msgstr "Nápovìda"
+msgstr "NÃ¡povÄ›da"
 
 #. MENU_EDIT
 msgid "Edit"
-msgstr "Úpravy"
+msgstr "Ãšpravy"
 
 #. MENU_FILTERS
 msgid "Filters"
@@ -233,7 +233,7 @@ msgstr "Konec"
 
 #. MENU_ITEM_SAVE_IMAGE
 msgid "Save image"
-msgstr "Zápis obrázku"
+msgstr "ZÃ¡pis obrÃ¡zku"
 
 #. MENU_ITEM_OCR
 msgid "OCR - save as text"
@@ -245,51 +245,51 @@ msgstr "Duplikovat"
 
 #. MENU_ITEM_SCALE
 msgid "Scale"
-msgstr "Zmìna velikosti"
+msgstr "ZmÄ›na velikosti"
 
 #. MENU_ITEM_CLOSE
 msgid "Close"
-msgstr "Zavøít"
+msgstr "ZavÅ™Ã­t"
 
 #. MENU_ITEM_UNDO
 msgid "Undo"
-msgstr "Vrátit"
+msgstr "VrÃ¡tit"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
-msgstr "Vyèistit"
+msgstr "VyÄistit"
 
 #. MENU_ITEM_BLUR
 msgid "Blur"
-msgstr "Rozostøení"
+msgstr "RozostÅ™enÃ­"
 
 #. MENU_ITEM_ROTATE90
 msgid "Rotate 90"
-msgstr "Rotace 90"
+msgstr "RotaceÂ 90"
 
 #. MENU_ITEM_ROTATE180
 msgid "Rotate 180"
-msgstr "Rotace 180"
+msgstr "RotaceÂ 180"
 
 #. MENU_ITEM_ROTATE270
 msgid "Rotate 270"
-msgstr "Rotace 270"
+msgstr "RotaceÂ 270"
 
 #. MENU_ITEM_MIRROR_X
 msgid "Mirror |"
-msgstr "Zrcadlení |"
+msgstr "ZrcadlenÃ­ |"
 
 #. MENU_ITEM_MIRROR_Y
 msgid "Mirror -"
-msgstr "Zrcadlení -"
+msgstr "ZrcadlenÃ­ -"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
-msgstr "Pùvodní obrázek"
+msgstr "PÅ¯vodnÃ­ obrÃ¡zek"
 
 #. FRAME_ENHANCED_IMAGE
 msgid "Enhanced image"
-msgstr "Zpracovanı obrázek"
+msgstr "ZpracovanÃ½ obrÃ¡zek"
 
 #. BUTTON_SCAN
 msgid "Scan"
@@ -301,19 +301,19 @@ msgstr "OK"
 
 #. BUTTON_ACCEPT
 msgid "Accept"
-msgstr "Pøijmout"
+msgstr "PÅ™ijmout"
 
 #. BUTTON_NOT_ACCEPT
 msgid "Not accept"
-msgstr "Nepøijmout"
+msgstr "NepÅ™ijmout"
 
 #. BUTTON_APPLY
 msgid "Apply"
-msgstr "Pou¾ít"
+msgstr "PouÅ¾Ã­t"
 
 #. BUTTON_CANCEL
 msgid "Cancel"
-msgstr "Zru¹it"
+msgstr "ZruÅ¡it"
 
 #. BUTTON_REDUCE
 msgid "Reduce"
@@ -321,59 +321,59 @@ msgstr "Redukovat"
 
 #. BUTTON_CONT_AT_OWN_RISK
 msgid "Continue at your own risk"
-msgstr "Pokraèovat na vlastní riziko"
+msgstr "PokraÄovat na vlastnÃ­ riziko"
 
 #. BUTTON_BROWSE
 msgid "Browse"
-msgstr "Procházet"
+msgstr "ProchÃ¡zet"
 
 #. BUTTON_OVERWRITE
 msgid "Overwrite"
-msgstr "Pøepsat"
+msgstr "PÅ™epsat"
 
 #. BUTTON_BATCH_LIST_SCAN
 msgid "Scan batch list"
-msgstr "Seznam skenovacích dávek"
+msgstr "Seznam skenovacÃ­ch dÃ¡vek"
 
 #. BUTTON_BATCH_AREA_SCAN
 msgid "Scan selected area"
-msgstr "Zvolená oblast skenování"
+msgstr "ZvolenÃ¡ oblast skenovÃ¡nÃ­"
 
 #. BUTTON_PAGE_DELETE
 msgid "Delete page"
-msgstr "Smazat stránku"
+msgstr "Smazat strÃ¡nku"
 
 #. BUTTON_PAGE_SHOW
 msgid "Show page"
-msgstr "Zobrazit stránku"
+msgstr "Zobrazit strÃ¡nku"
 
 #. BUTTON_PAGE_RENAME
 msgid "Rename page"
-msgstr "Pøejmenovat stránku"
+msgstr "PÅ™ejmenovat strÃ¡nku"
 
 #. BUTTON_IMAGE_DELETE
 msgid "Delete image"
-msgstr "Smazat obrázek"
+msgstr "Smazat obrÃ¡zek"
 
 #. BUTTON_IMAGE_SHOW
 msgid "Show image"
-msgstr "Ukázat obrázek"
+msgstr "UkÃ¡zat obrÃ¡zek"
 
 #. BUTTON_IMAGE_EDIT
 msgid "Edit image"
-msgstr "Editovat obrázek"
+msgstr "Editovat obrÃ¡zek"
 
 #. BUTTON_IMAGE_RENAME
 msgid "Rename image"
-msgstr "Pøejmenovat obrázek"
+msgstr "PÅ™ejmenovat obrÃ¡zek"
 
 #. BUTTON_FILE_INSERT
 msgid "Insert file"
-msgstr "Vlo¾it soubor"
+msgstr "VloÅ¾it soubor"
 
 #. BUTTON_CREATE_PROJECT
 msgid "Create project"
-msgstr "Vytvoøit projekt"
+msgstr "VytvoÅ™it projekt"
 
 #. BUTTON_SEND_PROJECT
 msgid "Send project"
@@ -385,75 +385,75 @@ msgstr "Smazat projekt"
 
 #. BUTTON_ADD_PRINTER
 msgid "Add printer"
-msgstr "Pøidat tiskárnu"
+msgstr "PÅ™idat tiskÃ¡rnu"
 
 #. BUTTON_DELETE_PRINTER
 msgid "Delete printer"
-msgstr "Odebrat tiskárnu"
+msgstr "Odebrat tiskÃ¡rnu"
 
 #. BUTTON_PREVIEW_ACQUIRE
 msgid "Acquire preview"
-msgstr "Sejmout náhled"
+msgstr "Sejmout nÃ¡hled"
 
 #. BUTTON_PREVIEW_CANCEL
 msgid "Cancel preview"
-msgstr "Zru¹it náhled"
+msgstr "ZruÅ¡it nÃ¡hled"
 
 #. BUTTON_DISCARD_IMAGE
 msgid "Discard image"
-msgstr "Zahodit obrázek"
+msgstr "Zahodit obrÃ¡zek"
 
 #. BUTTON_DISCARD_ALL_IMAGES
 msgid "Discard all images"
-msgstr "Zahodit v¹echny obrázky"
+msgstr "Zahodit vÅ¡echny obrÃ¡zky"
 
 #. BUTTON_DO_NOT_CLOSE
 msgid "Do not close"
-msgstr "Nezavírat"
+msgstr "NezavÃ­rat"
 
 #. BUTTON_SCALE_BIND
 msgid "Bind scale"
-msgstr "Spøáhnout zmìnu velikosti"
+msgstr "SpÅ™Ã¡hnout zmÄ›nu velikosti"
 
 #. RADIO_BUTTON_FINE_MODE
 msgid "Fine mode"
-msgstr "Nalézt re¾im"
+msgstr "NalÃ©zt reÅ¾im"
 
 #. RADIO_BUTTON_HTML_MAIL
 msgid "HTML mail"
-msgstr "HTML po¹ta"
+msgstr "HTML poÅ¡ta"
 
 #. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device preferences at exit"
-msgstr "Pøi skonèení zapsat pøedvolby zaøízení"
+msgstr "PÅ™i skonÄenÃ­ zapsat pÅ™edvolby zaÅ™Ã­zenÃ­"
 
 #. RADIO_BUTTON_OVERWRITE_WARNING
 msgid "Overwrite warning"
-msgstr "Varování o pøepsání"
+msgstr "VarovÃ¡nÃ­ o pÅ™epsÃ¡nÃ­"
 
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
 msgid "Skip existing filenames"
-msgstr "Pøeskoèit existující jména souborù"
+msgstr "PÅ™eskoÄit existujÃ­cÃ­ jmÃ©na souborÅ¯"
 
 #. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
 msgid "Save 16bit pnm in ascii format"
-msgstr "Zapsat jako 16bitovı pnm v ascii formátu"
+msgstr "Zapsat jako 16bitovÃ½ pnm v ascii formÃ¡tu"
 
 #. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
 msgid "Reduce 16 bit image to 8 bit"
-msgstr "Redukovat 16bitovı obrázek na 8bitovı"
+msgstr "Redukovat 16bitovÃ½ obrÃ¡zek na 8bitovÃ½"
 
 #. RADIO_BUTTON_WINDOW_FIXED
 msgid "Main window size fixed"
-msgstr "Pevná velikost hlavního okna"
+msgstr "PevnÃ¡ velikost hlavnÃ­ho okna"
 
 #. RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA
 msgid "Disable gimp preview gamma"
-msgstr "Zakázat pro gimp gama náhledu"
+msgstr "ZakÃ¡zat pro gimp gama nÃ¡hledu"
 
 #. RADIO_BUTTON_PRIVATE_COLORMAP
 msgid "Use private colormap"
-msgstr "Pou¾ít vlastní barevnou mapu"
+msgstr "PouÅ¾Ã­t vlastnÃ­ barevnou mapu"
 
 #. RADIO_BUTTON_AUTOENHANCE_GAMMA
 msgid "Autoenhance gamma"
@@ -461,11 +461,11 @@ msgstr "Automaticky upravit gama"
 
 #. RADIO_BUTTON_PRESELECT_SCANAREA
 msgid "Preselect scanarea"
-msgstr "Pøedvolba skenovací plochy"
+msgstr "PÅ™edvolba skenovacÃ­ plochy"
 
 #. RADIO_BUTTON_AUTOCORRECT_COLORS
 msgid "Autocorrect colors"
-msgstr "Automatická korekce barev"
+msgstr "AutomatickÃ¡ korekce barev"
 
 #. RADIO_BUTTON_POP3_AUTHENTIFICATION
 msgid "POP3 authentification"
@@ -473,23 +473,23 @@ msgstr "Authentifikace POP3"
 
 #. RADIO_BUTTON_OCR_USE_GUI_PIPE
 msgid "Use GUI progress pipe"
-msgstr "Pou¾ít GUI rouru prùbìhu"
+msgstr "PouÅ¾Ã­t GUI rouru prÅ¯bÄ›hu"
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
-msgstr "procházejí se zaøízení"
+msgstr "prochÃ¡zejÃ­ se zaÅ™Ã­zenÃ­"
 
 #. TEXT_AVAILABLE_DEVICES
 msgid "Available devices:"
-msgstr "Dostupná zaøízení:"
+msgstr "DostupnÃ¡ zaÅ™Ã­zenÃ­:"
 
 #. TEXT_XSANE_OPTIONS
 msgid "XSane options"
-msgstr "Pøedvolby XSane"
+msgstr "PÅ™edvolby XSane"
 
 #. TEXT_XSANE_MODE
 msgid "XSane mode"
-msgstr "Re¾im XSane"
+msgstr "ReÅ¾im XSane"
 
 #. TEXT_FILENAME_COUNTER_STEP
 msgid "Step"
@@ -501,11 +501,11 @@ msgstr "Typ"
 
 #. TEXT_SCANNER_BACKEND
 msgid "Scanner and backend:"
-msgstr "Skener a ovladaè:"
+msgstr "Skener a ovladaÄ:"
 
 #. TEXT_VENDOR
 msgid "Vendor:"
-msgstr "Vırobce:"
+msgstr "VÃ½robce:"
 
 #. TEXT_MODEL
 msgid "Model:"
@@ -517,11 +517,11 @@ msgstr "Typ:"
 
 #. TEXT_DEVICE
 msgid "Device:"
-msgstr "Zaøízení:"
+msgstr "ZaÅ™Ã­zenÃ­:"
 
 #. TEXT_LOADED_BACKEND
 msgid "Loaded backend:"
-msgstr "Zavedenı ovladaè:"
+msgstr "ZavedenÃ½ ovladaÄ:"
 
 #. TEXT_SANE_VERSION
 msgid "Sane version:"
@@ -529,11 +529,11 @@ msgstr "Verze Sane:"
 
 #. TEXT_RECENT_VALUES
 msgid "Recent values:"
-msgstr "Aktuální hodnoty:"
+msgstr "AktuÃ¡lnÃ­ hodnoty:"
 
 #. TEXT_GAMMA_CORR_BY
 msgid "Gamma correction by:"
-msgstr "Gama korekce provádí:"
+msgstr "Gama korekce provÃ¡dÃ­:"
 
 #. TEXT_SCANNER
 msgid "scanner"
@@ -549,59 +549,59 @@ msgstr "nikdo"
 
 #. TEXT_GAMMA_INPUT_DEPTH
 msgid "Gamma input depth:"
-msgstr "Vstupní hloubka gama:"
+msgstr "VstupnÃ­ hloubka gama:"
 
 #. TEXT_GAMMA_OUTPUT_DEPTH
 msgid "Gamma output depth:"
-msgstr "Vıstupní hloubka gama:"
+msgstr "VÃ½stupnÃ­ hloubka gama:"
 
 #. TEXT_SCANNER_OUTPUT_DEPTH
 msgid "Scanner output depth:"
-msgstr "Vıstupní hloubka skeneru:"
+msgstr "VÃ½stupnÃ­ hloubka skeneru:"
 
 #. TEXT_OUTPUT_FORMATS
 msgid "XSane output formats:"
-msgstr "Vıstupní formáty xsane:"
+msgstr "VÃ½stupnÃ­ formÃ¡ty xsane:"
 
 #. TEXT_8BIT_FORMATS
 msgid "8 bit output formats:"
-msgstr "8bitové vıstupní formáty:"
+msgstr "8bitovÃ© vÃ½stupnÃ­ formÃ¡ty:"
 
 #. TEXT_16BIT_FORMATS
 msgid "16 bit output formats:"
-msgstr "16bitové vıstupní formáty:"
+msgstr "16bitovÃ© vÃ½stupnÃ­ formÃ¡ty:"
 
 #. TEXT_GIMP_REDUCE_16BIT_TO_8BIT
 msgid ""
 "Gimp does not support depth 16 bits/color.\n"
 "Do you want to reduce the depth to 8 bits/color?"
 msgstr ""
-"GIMP nepodporuje hloubku 16 bitù/barvu.\n"
-"Chcete redukovat hloubku na 8 bitù/barvu?"
+"GIMP nepodporuje hloubku 16 bitÅ¯/barvu.\n"
+"Chcete redukovat hloubku na 8 bitÅ¯/barvu?"
 
 #. TEXT_REDUCE_16BIT_TO_8BIT
 msgid ""
 "Bit depth 16 bits/color is not supported for this output format.\n"
 "Do you want to reduce the depth to 8 bits/color?"
 msgstr ""
-"Tento vıstupní formát nepodporuje hloubku 16 bitù/barvu.\n"
-"Chcete redukovat hloubku na 8 bitù/barvu?<"
+"Tento vÃ½stupnÃ­ formÃ¡t nepodporuje hloubku 16 bitÅ¯/barvu.\n"
+"Chcete redukovat hloubku na 8 bitÅ¯/barvu?<"
 
 #. TEXT_AUTHORIZATION_REQ
 msgid "Authorization required for"
-msgstr "Je vy¾adovaná autorizace"
+msgstr "Je vyÅ¾adovanÃ¡ autorizace"
 
 #. TEXT_AUTHORIZATION_SECURE
 msgid "Password transmission is secure"
-msgstr "Pøenos hesla je bezpeènı"
+msgstr "PÅ™enos hesla je bezpeÄnÃ½"
 
 #. TEXT_AUTHORIZATION_INSECURE
 msgid "Backend requests plain-text password"
-msgstr "Ovladaè vy¾aduje heslo jako obyèejnı text"
+msgstr "OvladaÄ vyÅ¾aduje heslo jako obyÄejnÃ½ text"
 
 #. TEXT_USERNAME
 msgid "Username :"
-msgstr "U¾ivatel:"
+msgstr "UÅ¾ivatel:"
 
 #. TEXT_PASSWORD
 msgid "Password :"
@@ -609,7 +609,7 @@ msgstr "Heslo:"
 
 #. TEXT_INVALID_PARAMS
 msgid "Invalid parameters."
-msgstr "Neplatné parametry."
+msgstr "NeplatnÃ© parametry."
 
 #. TEXT_VERSION
 msgid "version:"
@@ -617,7 +617,7 @@ msgstr "verze:"
 
 #. TEXT_PACKAGE
 msgid "package"
-msgstr "balík"
+msgstr "balÃ­k"
 
 #. TEXT_WITH_GIMP_SUPPORT
 msgid "with GIMP support"
@@ -629,15 +629,15 @@ msgstr "bez podpory programu GIMP"
 
 #. TEXT_GTK_VERSION
 msgid "compiled with GTK-"
-msgstr "kompilováno s GTK-"
+msgstr "kompilovÃ¡no s GTK-"
 
 #. TEXT_GIMP_VERSION
 msgid "compiled with GIMP-"
-msgstr "kompilováno s GIMP-"
+msgstr "kompilovÃ¡no s GIMP-"
 
 #. TEXT_UNKNOWN
 msgid "unknown"
-msgstr "neznámı"
+msgstr "neznÃ¡mÃ½"
 
 #. TEXT_EULA
 msgid ""
@@ -653,17 +653,17 @@ msgid ""
 "have to read, understand and accept the following\n"
 "\"NO WARRANTY\" agreement.\n"
 msgstr ""
-"Program XSane je ¹iøitelnı v souladu s Obecnou veøejnou licencí GNU\n"
-"publikovanou Free Software Foundation; buï licencí verze 2 nebo\n"
-"(dle va¹í volby) jakoukoliv novìj¹í.\n"
+"Program XSane je Å¡iÅ™itelnÃ½ v souladu s Obecnou veÅ™ejnou licencÃ­ GNU\n"
+"publikovanou Free Software Foundation; buÄ licencÃ­ verze 2 nebo\n"
+"(dle vaÅ¡Ã­ volby) jakoukoliv novÄ›jÅ¡Ã­.\n"
 "\n"
-"Tento program je ¹íøen v nadìji, ¾e bude u¾iteènı, av¹ak\n"
-"BEZ JAKÉKOLI ZÁRUKY; neposkytují se ani odvozené záruky\n"
-"PRODEJNOSTI anebo VHODNOSTI PRO URÈITİ ÚÈEL.\n"
-"Mù¾e se ukázat, ¾e je program nefunkèní, pak berete na sebe\n"
-"ve¹keré náklady na servis, opravu èi korekci. Pøed pou¾itím tohoto\n"
-"programu musíte pøeèíst, pochopit a pøijmout následující ujednání\n"
-"\"®ÁDNÉ ZÁRUKY\".\n"
+"Tento program je Å¡Ã­Å™en v nadÄ›ji, Å¾e bude uÅ¾iteÄnÃ½, avÅ¡ak\n"
+"BEZ JAKÃ‰KOLI ZÃRUKY; neposkytujÃ­ se ani odvozenÃ© zÃ¡ruky\n"
+"PRODEJNOSTI anebo VHODNOSTI PRO URÄŒITÃ ÃšÄŒEL.\n"
+"MÅ¯Å¾e se ukÃ¡zat, Å¾e je program nefunkÄnÃ­, pak berete na sebe\n"
+"veÅ¡kerÃ© nÃ¡klady na servis, opravu Äi korekci. PÅ™ed pouÅ¾itÃ­m tohoto\n"
+"programu musÃ­te pÅ™eÄÃ­st, pochopit a pÅ™ijmout nÃ¡sledujÃ­cÃ­ ujednÃ¡nÃ­\n"
+"\"Å½ÃDNÃ‰ ZÃRUKY\".\n"
 
 #. TEXT_GPL
 msgid ""
@@ -675,13 +675,13 @@ msgid ""
 "WITHOUT ANY WARRANTY; without even the implied warranty of\n"
 "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
-"Program XSane je ¹iøitelnı v souladu s Obecnou veøejnou licencí GNU\n"
-"publikovanou Free Software Foundation; buï licencí verze 2 nebo\n"
-"(dle va¹i volby) jakoukoliv novìj¹í.\n"
+"Program XSane je Å¡iÅ™itelnÃ½ v souladu s Obecnou veÅ™ejnou licencÃ­ GNU\n"
+"publikovanou Free Software Foundation; buÄ licencÃ­ verze 2 nebo\n"
+"(dle vaÅ¡i volby) jakoukoliv novÄ›jÅ¡Ã­.\n"
 "\n"
-"Tento program je ¹íøen v nadìji, ¾e bude u¾iteènı, av¹ak\n"
-"BEZ JAKÉKOLI ZÁRUKY; neposkytují se ani odvozené záruky\n"
-"PRODEJNOSTI anebo VHODNOSTI PRO URÈITİ ÚÈEL.\n"
+"Tento program je Å¡Ã­Å™en v nadÄ›ji, Å¾e bude uÅ¾iteÄnÃ½, avÅ¡ak\n"
+"BEZ JAKÃ‰KOLI ZÃRUKY; neposkytujÃ­ se ani odvozenÃ© zÃ¡ruky\n"
+"PRODEJNOSTI anebo VHODNOSTI PRO URÄŒITÃ ÃšÄŒEL.\n"
 
 #. TEXT_EMAIL
 msgid "Email:"
@@ -689,7 +689,7 @@ msgstr "E-mail:"
 
 #. TEXT_HOMEPAGE
 msgid "Homepage:"
-msgstr "Domovská stránka:"
+msgstr "DomovskÃ¡ strÃ¡nka:"
 
 #. TEXT_FILE
 msgid "File:"
@@ -697,7 +697,7 @@ msgstr "Soubor:"
 
 #. TEXT_TRANSLATION
 msgid "Translation:"
-msgstr "Pøeklad:"
+msgstr "PÅ™eklad:"
 
 #. Please translate this to something like
 #. translation to YOUR LANGUAGE\n
@@ -714,11 +714,11 @@ msgstr ""
 
 #. TEXT_INFO_BOX
 msgid "0x0: 0KB"
-msgstr "0 × 0: 0 KB"
+msgstr "0 Ã— 0: 0 KB"
 
 #. TEXT_ADF_PAGES_SCANNED
 msgid "Scanned pages: "
-msgstr "Skenované stránky: "
+msgstr "SkenovanÃ© strÃ¡nky: "
 
 #. TEXT_MAIL_TEXT
 msgid "Email text:"
@@ -726,7 +726,7 @@ msgstr "Text e-mailu:"
 
 #. TEXT_ATTACHMENTS
 msgid "Attachments:"
-msgstr "Pøílohy:"
+msgstr "PÅ™Ã­lohy:"
 
 #. TEXT_MAIL_STATUS
 msgid "Project status:"
@@ -734,43 +734,43 @@ msgstr "Stav projektu:"
 
 #. TEXT_MAIL_FILETYPE
 msgid "Mail image filetype:"
-msgstr "Typ souboru obrázku v po¹tì:"
+msgstr "Typ souboru obrÃ¡zku v poÅ¡tÄ›:"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
-msgstr "Název média:"
+msgstr "NÃ¡zev mÃ©dia:"
 
 #. TEXT_VIEWER_IMAGE_INFO
 #, c-format
 msgid ""
 "Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
 msgstr ""
-"Velikost v pixelech: %d × %d, bitù/barvu: %d, barev: %d, %1.0f dpi × %1.0f "
+"Velikost v pixelech: %d Ã— %d, bitÅ¯/barvu: %d, barev: %d, %1.0f dpi Ã— %1.0f "
 "dpi, %1.1f %s"
 
 #. TEXT_DESPECKLE_RADIUS
 msgid "Despeckle radius:"
-msgstr "Polomìr pro vyèistìní:"
+msgstr "PolomÄ›r pro vyÄistÄ›nÃ­:"
 
 #. TEXT_BLUR_RADIUS
 msgid "Blur radius:"
-msgstr "Polomìr rozostøení:"
+msgstr "PolomÄ›r rozostÅ™enÃ­:"
 
 #. TEXT_BATCH_AREA_DEFAULT_NAME
 msgid "(no name)"
-msgstr "(beze jména)"
+msgstr "(beze jmÃ©na)"
 
 #. TEXT_BATCH_LIST_AREANAME
 msgid "Area name:"
-msgstr "Jméno oblasti:"
+msgstr "JmÃ©no oblasti:"
 
 #. TEXT_BATCH_LIST_SCANMODE
 msgid "Scanmode:"
-msgstr "Re¾im skenování:"
+msgstr "ReÅ¾im skenovÃ¡nÃ­:"
 
 #. TEXT_BATCH_LIST_GEOMETRY_TL
 msgid "Top left:"
-msgstr "Horní levı:"
+msgstr "HornÃ­ levÃ½:"
 
 #. TEXT_BATCH_LIST_GEOMETRY_SIZE
 msgid "Size:"
@@ -778,111 +778,111 @@ msgstr "Velikost:"
 
 #. TEXT_BATCH_LIST_RESOLUTION
 msgid "Resolution:"
-msgstr "Rozli¹ení:"
+msgstr "RozliÅ¡enÃ­:"
 
 #. TEXT_BATCH_LIST_BIT_DEPTH
 msgid "Bit depth:"
-msgstr "Bitová hloubka:"
+msgstr "BitovÃ¡ hloubka:"
 
 #. TEXT_BATCH_LIST_BY_GUI
 msgid "as selected"
-msgstr "jako vybraná"
+msgstr "jako vybranÃ¡"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
-msgstr "Vıbìr tiskárny:"
+msgstr "VÃ½bÄ›r tiskÃ¡rny:"
 
 #. TEXT_SETUP_PRINTER_NAME
 msgid "Name:"
-msgstr "Jméno:"
+msgstr "JmÃ©no:"
 
 #. TEXT_SETUP_PRINTER_CMD, TEXT_SETUP_FAX_CMD
 msgid "Command:"
-msgstr "Pøíkaz:"
+msgstr "PÅ™Ã­kaz:"
 
 #. TEXT_SETUP_COPY_NR_OPT
 msgid "Copy number option:"
-msgstr "Volba poètu kopií:"
+msgstr "Volba poÄtu kopiÃ­:"
 
 #. TEXT_SETUP_PRINTER_LINEART_RES
 msgid "Lineart resolution (dpi):"
-msgstr "Rozli¹ení èárové grafiky (dpi):"
+msgstr "RozliÅ¡enÃ­ ÄÃ¡rovÃ© grafiky (dpi):"
 
 #. TEXT_SETUP_PRINTER_GRAYSCALE_RES
 msgid "Grayscale resolution (dpi):"
-msgstr "Rozli¹ení v ¹edích (dpi):"
+msgstr "RozliÅ¡enÃ­ v Å¡edÃ­ch (dpi):"
 
 #. TEXT_SETUP_PRINTER_COLOR_RES
 msgid "Color resolution (dpi):"
-msgstr "Rozli¹ení v barvì (dpi):"
+msgstr "RozliÅ¡enÃ­ v barvÄ› (dpi):"
 
 #. TEXT_SETUP_PRINTER_WIDTH
 msgid "Width"
-msgstr "©íøka"
+msgstr "Å Ã­Å™ka"
 
 #. TEXT_SETUP_PRINTER_HEIGHT
 msgid "Height"
-msgstr "Vı¹ka"
+msgstr "VÃ½Å¡ka"
 
 #. TEXT_SETUP_PRINTER_LEFT
 msgid "Left offset"
-msgstr "Levı posun"
+msgstr "LevÃ½ posun"
 
 #. TEXT_SETUP_PRINTER_BOTTOM
 msgid "Bottom offset"
-msgstr "Spodní posun"
+msgstr "SpodnÃ­ posun"
 
 #. TEXT_SETUP_PRINTER_GAMMA
 msgid "Printer gamma value:"
-msgstr "Gama hodnota tiskárny:"
+msgstr "Gama hodnota tiskÃ¡rny:"
 
 #. TEXT_SETUP_PRINTER_GAMMA_RED
 msgid "Printer gamma red:"
-msgstr "Èervená gama tiskárny:"
+msgstr "ÄŒervenÃ¡ gama tiskÃ¡rny:"
 
 #. TEXT_SETUP_PRINTER_GAMMA_GREEN
 msgid "Printer gamma green:"
-msgstr "Zelená gama tiskárny:"
+msgstr "ZelenÃ¡ gama tiskÃ¡rny:"
 
 #. TEXT_SETUP_PRINTER_GAMMA_BLUE
 msgid "Printer gamma blue:"
-msgstr "Modrá gama tiskárny:"
+msgstr "ModrÃ¡ gama tiskÃ¡rny:"
 
 #. TEXT_SETUP_TMP_PATH
 msgid "Temporary directory"
-msgstr "Pomocnı adresáø"
+msgstr "PomocnÃ½ adresÃ¡Å™"
 
 #. TEXT_SETUP_IMAGE_PERMISSION
 msgid "Image-file permissions"
-msgstr "Práva obrázkového souboru"
+msgstr "PrÃ¡va obrÃ¡zkovÃ©ho souboru"
 
 #. TEXT_SETUP_DIR_PERMISSION
 msgid "Directory permissions"
-msgstr "Práva adresáøe"
+msgstr "PrÃ¡va adresÃ¡Å™e"
 
 #. TEXT_SETUP_JPEG_QUALITY
 msgid "JPEG image quality"
-msgstr "Kvalita JPEG obrázku"
+msgstr "Kvalita JPEG obrÃ¡zku"
 
 #. TEXT_SETUP_PNG_COMPRESSION
 msgid "PNG image compression"
-msgstr "Komprese PNG obrázku"
+msgstr "Komprese PNG obrÃ¡zku"
 
 #. TEXT_SETUP_FILENAME_COUNTER_LEN
 msgid "Filename counter length"
-msgstr "Délka èítaèe jména souboru"
+msgstr "DÃ©lka ÄÃ­taÄe jmÃ©na souboru"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_16
 msgid "TIFF 16 bit image compression"
-msgstr "Komprese 16bitovıch TIFF obrázkù"
+msgstr "Komprese 16bitovÃ½ch TIFF obrÃ¡zkÅ¯"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_8
 msgid "TIFF 8 bit image compression"
-msgstr "Komprese 8bitovıch TIFF obrázkù"
+msgstr "Komprese 8bitovÃ½ch TIFF obrÃ¡zkÅ¯"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_1
 msgid "TIFF lineart image compression"
-msgstr "Komprese TIFF èárové grafiky"
+msgstr "Komprese TIFF ÄÃ¡rovÃ© grafiky"
 
 #. TEXT_SETUP_SHOW_RANGE_MODE
 msgid "Show range as:"
@@ -890,23 +890,23 @@ msgstr "Zobrazit rozsah jako:"
 
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
-msgstr "Pøevzorkování náhledu:"
+msgstr "PÅ™evzorkovÃ¡nÃ­ nÃ¡hledu:"
 
 #. TEXT_SETUP_PREVIEW_GAMMA
 msgid "Preview gamma:"
-msgstr "Gama náhledu:"
+msgstr "Gama nÃ¡hledu:"
 
 #. TEXT_SETUP_PREVIEW_GAMMA_RED
 msgid "Preview gamma red:"
-msgstr "Èervená gama náhledu:"
+msgstr "ÄŒervenÃ¡ gama nÃ¡hledu:"
 
 #. TEXT_SETUP_PREVIEW_GAMMA_GREEN
 msgid "Preview gamma green:"
-msgstr "Zelená gama náhledu:"
+msgstr "ZelenÃ¡ gama nÃ¡hledu:"
 
 #. TEXT_SETUP_PREVIEW_GAMMA_BLUE
 msgid "Preview gamma blue:"
-msgstr "Modrá gama náhledu:"
+msgstr "ModrÃ¡ gama nÃ¡hledu:"
 
 #. TEXT_SETUP_LINEART_MODE
 msgid "Threshold option:"
@@ -914,11 +914,11 @@ msgstr "Volba prahu:"
 
 #. TEXT_SETUP_ADF_MODE
 msgid "Automatic Document Feeder Modus:"
-msgstr "Re¾im automatického podavaèe dokumentù:"
+msgstr "ReÅ¾im automatickÃ©ho podavaÄe dokumentÅ¯:"
 
 #. TEXT_SETUP_PREVIEW_PIPETTE_RANGE
 msgid "Preview pipette range"
-msgstr "Náhled rozsahu pipety"
+msgstr "NÃ¡hled rozsahu pipety"
 
 #. TEXT_SETUP_THRESHOLD_MIN
 msgid "Threshold minimum:"
@@ -930,7 +930,7 @@ msgstr "Maximum prahu:"
 
 #. TEXT_SETUP_THRESHOLD_MUL
 msgid "Threshold multiplier:"
-msgstr "Èinitel prahu:"
+msgstr "ÄŒinitel prahu:"
 
 #. TEXT_SETUP_THRESHOLD_OFF
 msgid "Threshold offset:"
@@ -938,35 +938,35 @@ msgstr "Posun prahu:"
 
 #. TEXT_SETUP_GRAYSCALE_SCANMODE
 msgid "Name of grayscale scanmode:"
-msgstr "Jméno skenovacího re¾imu v ¹edích:"
+msgstr "JmÃ©no skenovacÃ­ho reÅ¾imu v Å¡edÃ­ch:"
 
 #. TEXT_SETUP_HELPFILE_VIEWER
 msgid "Helpfile viewer (HTML):"
-msgstr "Prohlí¾eè souboru nápovìdy (HTML):"
+msgstr "ProhlÃ­Å¾eÄ souboru nÃ¡povÄ›dy (HTML):"
 
 #. TEXT_SETUP_FAX_RECEIVER_OPTION
 msgid "Receiver option:"
-msgstr "Volba pøíjemce:"
+msgstr "Volba pÅ™Ã­jemce:"
 
 #. TEXT_SETUP_FAX_POSTSCRIPT_OPT
 msgid "Postscriptfile option:"
-msgstr "Volby postscriptového souboru:"
+msgstr "Volby postscriptovÃ©ho souboru:"
 
 #. TEXT_SETUP_FAX_NORMAL_MODE_OPT
 msgid "Normal mode option:"
-msgstr "Volby normálního re¾imu:"
+msgstr "Volby normÃ¡lnÃ­ho reÅ¾imu:"
 
 #. TEXT_SETUP_FAX_FINE_MODE_OPT
 msgid "Fine mode option:"
-msgstr "Volby re¾imu vysokého rozli¹ení:"
+msgstr "Volby reÅ¾imu vysokÃ©ho rozliÅ¡enÃ­:"
 
 #. TEXT_SETUP_FAX_PROGRAM_DEFAULTS
 msgid "Set program defaults for:"
-msgstr "Nastavit implicitní program pro:"
+msgstr "Nastavit implicitnÃ­ program pro:"
 
 #. TEXT_SETUP_FAX_VIEWER
 msgid "Viewer (Postscript):"
-msgstr "Prohlí¾eè (Postscript):"
+msgstr "ProhlÃ­Å¾eÄ (Postscript):"
 
 #. TEXT_SETUP_SMTP_SERVER
 msgid "SMTP server:"
@@ -982,7 +982,7 @@ msgstr "Od:"
 
 #. TEXT_SETUP_MAIL_REPLY_TO
 msgid "Reply to:"
-msgstr "Odpovìdìt na:"
+msgstr "OdpovÄ›dÄ›t na:"
 
 #. TEXT_SETUP_POP3_SERVER
 msgid "POP3 server:"
@@ -994,7 +994,7 @@ msgstr "POP3 port:"
 
 #. TEXT_SETUP_POP3_USER
 msgid "POP3 user:"
-msgstr "POP3 u¾ivatel:"
+msgstr "POP3 uÅ¾ivatel:"
 
 #. TEXT_SETUP_POP3_PASS
 msgid "POP3 password:"
@@ -1002,35 +1002,35 @@ msgstr "POP3 heslo:"
 
 #. TEXT_SETUP_MAIL_VIEWER
 msgid "Viewer (png):"
-msgstr "Prohlí¾eè (png):"
+msgstr "ProhlÃ­Å¾eÄ (png):"
 
 #. TEXT_SETUP_OCR_COMMAND
 msgid "OCR Command:"
-msgstr "Pøíkaz OCR:"
+msgstr "PÅ™Ã­kaz OCR:"
 
 #. TEXT_SETUP_OCR_INPUTFILE_OPT
 msgid "Inputfile option:"
-msgstr "Volba pro vstupní soubor:"
+msgstr "Volba pro vstupnÃ­ soubor:"
 
 #. TEXT_SETUP_OCR_OUTPUTFILE_OPT
 msgid "Outputfile option:"
-msgstr "Volba pro vıstupní soubor:"
+msgstr "Volba pro vÃ½stupnÃ­ soubor:"
 
 #. TEXT_SETUP_OCR_USE_GUI_PIPE_OPT
 msgid "Use GUI progress pipe:"
-msgstr "Pou¾ít GUI rouru prùbìhu:"
+msgstr "PouÅ¾Ã­t GUI rouru prÅ¯bÄ›hu:"
 
 #. TEXT_SETUP_OCR_OUTFD_OPT
 msgid "GUI output-fd option:"
-msgstr "Volba pro GUI volbu vıstupu:"
+msgstr "Volba pro GUI volbu vÃ½stupu:"
 
 #. TEXT_SETUP_OCR_PROGRESS_KEYWORD
 msgid "Progress keyword:"
-msgstr "Klíè pro prùbìh:"
+msgstr "KlÃ­Ä pro prÅ¯bÄ›h:"
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
-msgstr "u¾ivatel"
+msgstr "uÅ¾ivatel"
 
 #. TEXT_SETUP_PERMISSION_GROUP
 msgid "group"
@@ -1038,30 +1038,30 @@ msgstr "skupina"
 
 #. TEXT_SETUP_PERMISSION_ALL
 msgid "all"
-msgstr "v¹ichni"
+msgstr "vÅ¡ichni"
 
 msgid "new media"
-msgstr "nové médium"
+msgstr "novÃ© mÃ©dium"
 
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
-msgstr "Zápis"
+msgstr "ZÃ¡pis"
 
 #. NOTEBOOK_IMAGE_OPTIONS
 msgid "Image"
-msgstr "Obrázek"
+msgstr "ObrÃ¡zek"
 
 #. NOTEBOOK_COPY_OPTIONS
 msgid "Copy"
-msgstr "Kopírování"
+msgstr "KopÃ­rovÃ¡nÃ­"
 
 #. NOTEBOOK_FAX_OPTIONS
 msgid "Fax"
-msgstr "Faxování"
+msgstr "FaxovÃ¡nÃ­"
 
 #. NOTEBOOK_MAIL_OPTIONS
 msgid "Mail"
-msgstr "Po¹ta"
+msgstr "PoÅ¡ta"
 
 #. NOTEBOOK_OCR_OPTIONS
 msgid "OCR"
@@ -1069,11 +1069,11 @@ msgstr "OCR"
 
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display"
-msgstr "Zobrazování"
+msgstr "ZobrazovÃ¡nÃ­"
 
 #. NOTEBOOK_ENHANCE_OPTIONS
 msgid "Enhancement"
-msgstr "Vylep¹ení"
+msgstr "VylepÅ¡enÃ­"
 
 #. MENU_ITEM_MAIL
 msgid "Email"
@@ -1085,7 +1085,7 @@ msgstr "Zobrazovat tipy"
 
 #. MENU_ITEM_SHOW_PREVIEW
 msgid "Show preview"
-msgstr "Zobrazovat náhled"
+msgstr "Zobrazovat nÃ¡hled"
 
 #. MENU_ITEM_SHOW_HISTOGRAM
 msgid "Show histogram"
@@ -1093,27 +1093,27 @@ msgstr "Zobrazovat histogram"
 
 #. MENU_ITEM_SHOW_GAMMA
 msgid "Show gamma curve"
-msgstr "Zobrazit gama køivku"
+msgstr "Zobrazit gama kÅ™ivku"
 
 #. MENU_ITEM_SHOW_BATCH_SCAN
 msgid "Show batch scan"
-msgstr "Zobrazit dávkové skenování"
+msgstr "Zobrazit dÃ¡vkovÃ© skenovÃ¡nÃ­"
 
 #. MENU_ITEM_SHOW_STANDARDOPTIONS
 msgid "Show standard options"
-msgstr "Zobrazovat standardní volby"
+msgstr "Zobrazovat standardnÃ­ volby"
 
 #. MENU_ITEM_SHOW_ADVANCEDOPTIONS
 msgid "Show advanced options"
-msgstr "Zobrazovat roz¹íøené volby"
+msgstr "Zobrazovat rozÅ¡Ã­Å™enÃ© volby"
 
 #. MENU_ITEM_SETUP
 msgid "Setup"
-msgstr "Nastavení"
+msgstr "NastavenÃ­"
 
 #. MENU_ITEM_LENGTH_UNIT
 msgid "Length unit"
-msgstr "Délková jednotka"
+msgstr "DÃ©lkovÃ¡ jednotka"
 
 #. SUBMENU_ITEM_LENGTH_MILLIMETERS
 msgid "millimeters"
@@ -1133,19 +1133,19 @@ msgstr "Metoda aktualizace"
 
 #. SUBMENU_ITEM_POLICY_CONTINUOUS
 msgid "continuous"
-msgstr "souvislá"
+msgstr "souvislÃ¡"
 
 #. SUBMENU_ITEM_POLICY_DISCONTINU
 msgid "discontinuous"
-msgstr "nesouvislá"
+msgstr "nesouvislÃ¡"
 
 #. SUBMENU_ITEM_POLICY_DELAYED
 msgid "delayed"
-msgstr "zpo¾dìná"
+msgstr "zpoÅ¾dÄ›nÃ¡"
 
 #. MENU_ITEM_SHOW_RESOLUTIONLIST
 msgid "Show resolution list"
-msgstr "Zobrazovat seznam rozli¹ení"
+msgstr "Zobrazovat seznam rozliÅ¡enÃ­"
 
 #. MENU_ITEM_PAGE_ROTATE
 msgid "Rotate postscript"
@@ -1153,19 +1153,19 @@ msgstr "Rotovat postscript"
 
 #. MENU_ITEM_EDIT_MEDIUM_DEF
 msgid "Edit medium definition"
-msgstr "Upravit definici média"
+msgstr "Upravit definici mÃ©dia"
 
 #. MENU_ITEM_SAVE_DEVICE_SETTINGS
 msgid "Save device settings"
-msgstr "Zapsat nastavení zaøízení"
+msgstr "Zapsat nastavenÃ­ zaÅ™Ã­zenÃ­"
 
 #. MENU_ITEM_LOAD_DEVICE_SETTINGS
 msgid "Load device settings"
-msgstr "Naèíst nastavení zaøízení"
+msgstr "NaÄÃ­st nastavenÃ­ zaÅ™Ã­zenÃ­"
 
 #. MENU_ITEM_CHANGE_WORKING_DIR
 msgid "Change directory"
-msgstr "Zmìnit adresáø"
+msgstr "ZmÄ›nit adresÃ¡Å™"
 
 #. MENU_ITEM_XSANE_EULA
 msgid "Show EULA"
@@ -1181,27 +1181,27 @@ msgstr "Dokumentace XSane"
 
 #. MENU_ITEM_BACKEND_DOC
 msgid "Backend doc"
-msgstr "Dokumentace rozhraní zaøízení"
+msgstr "Dokumentace rozhranÃ­ zaÅ™Ã­zenÃ­"
 
 #. MENU_ITEM_AVAILABLE_BACKENDS
 msgid "Available backends"
-msgstr "Dostupná rozhraní zaøízení"
+msgstr "DostupnÃ¡ rozhranÃ­ zaÅ™Ã­zenÃ­"
 
 #. MENU_ITEM_SCANTIPS
 msgid "Scantips"
-msgstr "Skenovací tipy"
+msgstr "SkenovacÃ­ tipy"
 
 #. MENU_ITEM_PROBLEMS
 msgid "Problems?"
-msgstr "Problémy?"
+msgstr "ProblÃ©my?"
 
 #. MENU_ITEM_COUNTER_LEN_INACTIVE
 msgid "inactive"
-msgstr "neaktivní"
+msgstr "neaktivnÃ­"
 
 #. MENU_ITEM_TIFF_COMP_NONE
 msgid "no compression"
-msgstr "¾ádná komprese"
+msgstr "Å¾Ã¡dnÃ¡ komprese"
 
 #. MENU_ITEM_TIFF_COMP_CCITTRLE
 msgid "CCITT 1D Huffman compression"
@@ -1221,39 +1221,39 @@ msgstr "Komprese JPEG DCT"
 
 #. MENU_ITEM_TIFF_COMP_PACKBITS
 msgid "pack bits"
-msgstr "bitové pakování"
+msgstr "bitovÃ© pakovÃ¡nÃ­"
 
 #. MENU_ITEM_RANGE_SCALE
 msgid "Slider (Scale)"
-msgstr "Posuvník (¹kála)"
+msgstr "PosuvnÃ­k (Å¡kÃ¡la)"
 
 #. MENU_ITEM_RANGE_SCROLLBAR
 msgid "Slider (Scrollbar)"
-msgstr "Posuvník (rolování)"
+msgstr "PosuvnÃ­k (rolovÃ¡nÃ­)"
 
 #. MENU_ITEM_RANGE_SPINBUTTON
 msgid "Spinbutton"
-msgstr "Cyklické tlaèítko"
+msgstr "CyklickÃ© tlaÄÃ­tko"
 
 #. MENU_ITEM_RANGE_SCALE_SPIN
 msgid "Scale and Spinbutton"
-msgstr "©kála a cyklické tlaèítko"
+msgstr "Å kÃ¡la a cyklickÃ© tlaÄÃ­tko"
 
 #. MENU_ITEM_RANGE_SCROLL_SPIN
 msgid "Scrollbar and Spinbutton"
-msgstr "Rolování a cyklické tlaèítko"
+msgstr "RolovÃ¡nÃ­ a cyklickÃ© tlaÄÃ­tko"
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
 msgid "Standard options window (lineart)"
-msgstr "Okno standardních voleb (èárová grafika)"
+msgstr "Okno standardnÃ­ch voleb (ÄÃ¡rovÃ¡ grafika)"
 
 #. MENU_ITEM_LINEART_MODE_XSANE
 msgid "XSane main window (lineart)"
-msgstr "Hlavní okno XSane (èárová grafika)"
+msgstr "HlavnÃ­ okno XSane (ÄÃ¡rovÃ¡ grafika)"
 
 #. MENU_ITEM_LINEART_MODE_GRAY
 msgid "XSane main window (grayscale->lineart)"
-msgstr "Hlavní okno XSane (¹edi -> èárová grafika)"
+msgstr "HlavnÃ­ okno XSane (Å¡edi -> ÄÃ¡rovÃ¡ grafika)"
 
 #. MENU_ITEM_SELECTION_NONE
 msgid "(none)"
@@ -1261,31 +1261,31 @@ msgstr "(nic)"
 
 #. MENU_ITEM_FILETYPE_BY_EXT
 msgid "by ext"
-msgstr "Pøípona"
+msgstr "PÅ™Ã­pona"
 
 #. MENU_ITEM_PRESET_AREA_ADD_SEL
 msgid "Add selection to list"
-msgstr "Pøidat vıbìr do seznamu"
+msgstr "PÅ™idat vÃ½bÄ›r do seznamu"
 
 #. MENU_ITEM_MEDIUM_ADD
 msgid "Add medium definition"
-msgstr "Pøidat definici média"
+msgstr "PÅ™idat definici mÃ©dia"
 
 #. MENU_ITEM_RENAME
 msgid "Rename item"
-msgstr "Pøejmenovat polo¾ku"
+msgstr "PÅ™ejmenovat poloÅ¾ku"
 
 #. MENU_ITEM_DELETE
 msgid "Delete item"
-msgstr "Smazat polo¾ku"
+msgstr "Smazat poloÅ¾ku"
 
 #. MENU_ITEM_MOVE_UP
 msgid "Move item up"
-msgstr "Pøesunout polo¾ku vı¹"
+msgstr "PÅ™esunout poloÅ¾ku vÃ½Å¡"
 
 #. MENU_ITEM_MOVE_DWN
 msgid "Move item down"
-msgstr "Pøesunout polo¾ku ní¾"
+msgstr "PÅ™esunout poloÅ¾ku nÃ­Å¾"
 
 #. PROGRESS_SCANNING
 msgid "Scanning"
@@ -1294,75 +1294,75 @@ msgstr "Skenuje se"
 #. PROGRESS_RECEIVING_FRAME_DATA
 #, c-format
 msgid "Receiving %s data"
-msgstr "Pøijímají se data typu %s"
+msgstr "PÅ™ijÃ­majÃ­ se data typu %s"
 
 #. PROGRESS_TRANSFERING_DATA
 msgid "Transfering image"
-msgstr "Obrázek se pøená¹í"
+msgstr "ObrÃ¡zek se pÅ™enÃ¡Å¡Ã­"
 
 #. PROGRESS_ROTATING_DATA
 msgid "Rotating image"
-msgstr "Obrázek se rotuje"
+msgstr "ObrÃ¡zek se rotuje"
 
 #. PROGRESS_MIRRORING_DATA
 msgid "Mirroring image"
-msgstr "Obrázek se zrcadlí"
+msgstr "ObrÃ¡zek se zrcadlÃ­"
 
 #. PROGRESS_PACKING_DATA
 msgid "Packing image"
-msgstr "Obrázek se komprimuje"
+msgstr "ObrÃ¡zek se komprimuje"
 
 #. PROGRESS_CONVERTING_DATA
 msgid "Converting image"
-msgstr "Obrázek se pøevádí"
+msgstr "ObrÃ¡zek se pÅ™evÃ¡dÃ­"
 
 #. PROGRESS_SAVING_DATA
 msgid "Saving image"
-msgstr "Obrázek se zapisuje"
+msgstr "ObrÃ¡zek se zapisuje"
 
 #. PROGRESS_CLONING_DATA
 msgid "Cloning image"
-msgstr "Duplikuje se obrázek"
+msgstr "Duplikuje se obrÃ¡zek"
 
 #. PROGRESS_SCALING_DATA
 msgid "Scaling image"
-msgstr "Mìní se velikost obrázku"
+msgstr "MÄ›nÃ­ se velikost obrÃ¡zku"
 
 #. PROGRESS_DESPECKLING_DATA
 msgid "Despeckling image"
-msgstr "Obrázek se vyèis»uje"
+msgstr "ObrÃ¡zek se vyÄisÅ¥uje"
 
 #. PROGRESS_BLURING_DATA
 msgid "Bluring image"
-msgstr "Obrázek se rozostøuje"
+msgstr "ObrÃ¡zek se rozostÅ™uje"
 
 #. PROGRESS_OCR
 msgid "OCR in progress"
-msgstr "Probíhá OCR"
+msgstr "ProbÃ­hÃ¡ OCR"
 
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
-msgstr "Zahájit skenování <Ctrl-Vstup>"
+msgstr "ZahÃ¡jit skenovÃ¡nÃ­ <Ctrl-Vstup>"
 
 #. DESC_SCAN_CANCEL
 msgid "Cancel scan <ESC>"
-msgstr "Zru¹it skenování <Esc>"
+msgstr "ZruÅ¡it skenovÃ¡nÃ­ <Esc>"
 
 #. DESC_PREVIEW_ACQUIRE
 msgid "Acquire preview scan <Alt-p>"
-msgstr "Získat náhledovı sken <Alt-p>"
+msgstr "ZÃ­skat nÃ¡hledovÃ½ sken <Alt-p>"
 
 #. DESC_PREVIEW_CANCEL
 msgid "Cancel preview scan <Alt-ESC>"
-msgstr "Zru¹it náhledovı sken <Alt-ESC>"
+msgstr "ZruÅ¡it nÃ¡hledovÃ½ sken <Alt-ESC>"
 
 #. DESC_XSANE_MODE
 msgid ""
 "save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or mail-<Ctrl-"
 "m>"
 msgstr ""
-"ulo¾it-<Ctrl-s>, zobrazit-<Ctrl-v>, fotokopie-<Ctrl-c>, fax-<Ctrl-f> nebo "
-"po¹ta-<Ctrl-m>"
+"uloÅ¾it-<Ctrl-s>, zobrazit-<Ctrl-v>, fotokopie-<Ctrl-c>, fax-<Ctrl-f> nebo "
+"poÅ¡ta-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
 msgid ""
@@ -1372,49 +1372,49 @@ msgid ""
 "To create a medium enable the option edit medium definition in preferences "
 "menu."
 msgstr ""
-"Zvolte typ zdrojového média.\n"
-"K pøejmenování, zmìnì poøadí nebo smazání polo¾ky pou¾ijte kontextové menu "
-"(pravé tlaèítko my¹i).\n"
-"K vytvoøení média povolte volbu úpravy definice média v menu nastavení."
+"Zvolte typ zdrojovÃ©ho mÃ©dia.\n"
+"K pÅ™ejmenovÃ¡nÃ­, zmÄ›nÄ› poÅ™adÃ­ nebo smazÃ¡nÃ­ poloÅ¾ky pouÅ¾ijte kontextovÃ© menu "
+"(pravÃ© tlaÄÃ­tko myÅ¡i).\n"
+"K vytvoÅ™enÃ­ mÃ©dia povolte volbu Ãºpravy definice mÃ©dia v menu nastavenÃ­."
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
-msgstr "Hodnota, která se pøidá k èítaèi jména souboru po skenování"
+msgstr "Hodnota, kterÃ¡ se pÅ™idÃ¡ kÂ ÄÃ­taÄi jmÃ©na souboru po skenovÃ¡nÃ­"
 
 #. DESC_BROWSE_FILENAME
 msgid "Browse for image filename"
-msgstr "Vyhledat jméno souboru"
+msgstr "Vyhledat jmÃ©no souboru"
 
 #. DESC_FILENAME
 msgid "Filename for scanned image"
-msgstr "Jméno souboru pro skenovanı obrázek"
+msgstr "JmÃ©no souboru pro skenovanÃ½ obrÃ¡zek"
 
 #. DESC_FILETYPE
 msgid ""
 "Type of image format, the suitable filename extension is automatically added "
 "to the filename"
 msgstr ""
-"Typ formátu obrázku, vhodná koncovka je ke jménu souboru doplnìná automaticky"
+"Typ formÃ¡tu obrÃ¡zku, vhodnÃ¡ koncovka je ke jmÃ©nu souboru doplnÄ›nÃ¡ automaticky"
 
 #. DESC_FAXPROJECT
 msgid "Enter name of fax project"
-msgstr "Zadání jména faxového projektu"
+msgstr "ZadÃ¡nÃ­ jmÃ©na faxovÃ©ho projektu"
 
 #. DESC_FAXPAGENAME
 msgid "Enter new name for faxpage"
-msgstr "Zadání jména faxové strany"
+msgstr "ZadÃ¡nÃ­ jmÃ©na faxovÃ© strany"
 
 #. DESC_FAXRECEIVER
 msgid "Enter receiver phone number or address"
-msgstr "Zadání telefonního èísla nebo adresy pøíjemce"
+msgstr "ZadÃ¡nÃ­ telefonnÃ­ho ÄÃ­sla nebo adresy pÅ™Ã­jemce"
 
 #. DESC_MAILPROJECT
 msgid "Enter name of mail project"
-msgstr "Zadání jména po¹tovního projektu"
+msgstr "ZadÃ¡nÃ­ jmÃ©na poÅ¡tovnÃ­ho projektu"
 
 #. DESC_MAILIMAGENAME
 msgid "Enter new name for mail image"
-msgstr "Zadejte nové jméno obrázku do po¹ty"
+msgstr "Zadejte novÃ© jmÃ©no obrÃ¡zku do poÅ¡ty"
 
 #. DESC_MAILRECEIVER
 msgid "Enter email address"
@@ -1422,115 +1422,115 @@ msgstr "Zadejte e-mailovou adresu"
 
 #. DESC_MAILSUBJECT
 msgid "Enter subject of email"
-msgstr "Zadejte pøedmìt zprávy"
+msgstr "Zadejte pÅ™edmÄ›t zprÃ¡vy"
 
 #. DESC_MAIL_FILETYPE
 msgid "Select filetype for image attachments"
-msgstr "Zvolte typ souboru pro obrázkové pøílohy"
+msgstr "Zvolte typ souboru pro obrÃ¡zkovÃ© pÅ™Ã­lohy"
 
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
-msgstr "Zadejte nové jméno pro pøedvolenou oblast"
+msgstr "Zadejte novÃ© jmÃ©no pro pÅ™edvolenou oblast"
 
 #. DESC_PRESET_AREA_ADD
 msgid "Enter name for new preset area"
-msgstr "Zadejte nové jméno pro novou pøedvolenou oblast"
+msgstr "Zadejte novÃ© jmÃ©no pro novou pÅ™edvolenou oblast"
 
 #. DESC_MEDIUM_RENAME
 msgid "Enter new name for medium definition"
-msgstr "Zadejte nové jméno pro definici média"
+msgstr "Zadejte novÃ© jmÃ©no pro definici mÃ©dia"
 
 #. DESC_MEDIUM_ADD
 msgid "Enter name for new medium definition"
-msgstr "Zadejte nové jméno pro novou definici média"
+msgstr "Zadejte novÃ© jmÃ©no pro novou definici mÃ©dia"
 
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
-msgstr "Volba definice tiskárny <Pøeøaïovaè-F1/F2/...>"
+msgstr "Volba definice tiskÃ¡rny <PÅ™eÅ™aÄovaÄ-F1/F2/...>"
 
 #. DESC_RESOLUTION
 msgid "Set scan resolution"
-msgstr "Nastavení rozli¹ení skenování"
+msgstr "NastavenÃ­ rozliÅ¡enÃ­ skenovÃ¡nÃ­"
 
 #. DESC_RESOLUTION_X
 msgid "Set scan resolution for x direction"
-msgstr "Nastavení rozli¹ení ve smìru x"
+msgstr "NastavenÃ­ rozliÅ¡enÃ­ ve smÄ›ru x"
 
 #. DESC_RESOLUTION_Y
 msgid "Set scan resolution for y direction"
-msgstr "Nastavení rozli¹ení ve smìru y"
+msgstr "NastavenÃ­ rozliÅ¡enÃ­ ve smÄ›ru y"
 
 #. DESC_ZOOM
 msgid "Set zoomfactor"
-msgstr "Nastavení faktoru zmìny velikosti"
+msgstr "NastavenÃ­ faktoru zmÄ›ny velikosti"
 
 #. DESC_ZOOM_X
 msgid "Set zoomfactor for x direction"
-msgstr "Nastavení faktoru zmìny velikosti ve smìru x"
+msgstr "NastavenÃ­ faktoru zmÄ›ny velikosti ve smÄ›ru x"
 
 #. DESC_ZOOM_Y
 msgid "Set zoomfactor for y direction"
-msgstr "Nastavení faktoru zmìny velikosti ve smìru y"
+msgstr "NastavenÃ­ faktoru zmÄ›ny velikosti ve smÄ›ru y"
 
 #. DESC_COPY_NUMBER
 msgid "Set number of copies"
-msgstr "Nastavení poètu kopií"
+msgstr "NastavenÃ­ poÄtu kopiÃ­"
 
 #. DESC_NEGATIVE
 msgid "Negative: Invert colors for scanning negatives <Ctrl-n>"
-msgstr "Negativ: Invertuje barvy pro skenování negativù <Ctrl-n>"
+msgstr "Negativ: Invertuje barvy pro skenovÃ¡nÃ­ negativÅ¯ <Ctrl-n>"
 
 #. DESC_GAMMA
 msgid "Set gamma value"
-msgstr "Nastavení gama hodnoty"
+msgstr "NastavenÃ­ gama hodnoty"
 
 #. DESC_GAMMA_R
 msgid "Set gamma value for red component"
-msgstr "Nastavení gama hodnoty èervené komponenty"
+msgstr "NastavenÃ­ gama hodnoty ÄervenÃ© komponenty"
 
 #. DESC_GAMMA_G
 msgid "Set gamma value for green component"
-msgstr "Nastavení gama hodnoty zelené komponenty"
+msgstr "NastavenÃ­ gama hodnoty zelenÃ© komponenty"
 
 #. DESC_GAMMA_B
 msgid "Set gamma value for blue component"
-msgstr "Nastavení gama hodnoty modré komponenty"
+msgstr "NastavenÃ­ gama hodnoty modrÃ© komponenty"
 
 #. DESC_BRIGHTNESS
 msgid "Set brightness"
-msgstr "Nastavení jasu"
+msgstr "NastavenÃ­ jasu"
 
 #. DESC_BRIGHTNESS_R
 msgid "Set brightness for red component"
-msgstr "Nastavení jasu èervené komponenty"
+msgstr "NastavenÃ­ jasu ÄervenÃ© komponenty"
 
 #. DESC_BRIGHTNESS_G
 msgid "Set brightness for green component"
-msgstr "Nastavení jasu zelené komponenty"
+msgstr "NastavenÃ­ jasu zelenÃ© komponenty"
 
 #. DESC_BRIGHTNESS_B
 msgid "Set brightness for blue component"
-msgstr "Nastavení jasu modré komponenty"
+msgstr "NastavenÃ­ jasu modrÃ© komponenty"
 
 #. DESC_CONTRAST
 msgid "Set contrast"
-msgstr "Nastavení kontrastu"
+msgstr "NastavenÃ­ kontrastu"
 
 #. DESC_CONTRAST_R
 msgid "Set contrast for red component"
-msgstr "Nastavení kontrastu èervené komponenty"
+msgstr "NastavenÃ­ kontrastu ÄervenÃ© komponenty"
 
 #. DESC_CONTRAST_G
 msgid "Set contrast for green component"
-msgstr "Nastavení kontrastu zelené komponenty"
+msgstr "NastavenÃ­ kontrastu zelenÃ© komponenty"
 
 #. DESC_CONTRAST_B
 msgid "Set contrast for blue component"
-msgstr "Nastavení kontrastu modré komponenty"
+msgstr "NastavenÃ­ kontrastu modrÃ© komponenty"
 
 #. DESC_THRESHOLD
 msgid "Set threshold"
-msgstr "Nastavení prahu"
+msgstr "NastavenÃ­ prahu"
 
 #. DESC_RGB_DEFAULT
 msgid ""
@@ -1540,15 +1540,15 @@ msgid ""
 " brightness = 0\n"
 " contrast = 0"
 msgstr ""
-"Implicitní RGB: Nastavení implicitních hodnot pro zpracování èervené, zelené "
-"a modré <Ctrl-b>:\n"
+"ImplicitnÃ­ RGB: NastavenÃ­ implicitnÃ­ch hodnot pro zpracovÃ¡nÃ­ ÄervenÃ©, zelenÃ© "
+"a modrÃ© <Ctrl-b>:\n"
 " gama = 1.0\n"
 " jas = 0\n"
 " kontrast = 0"
 
 #. DESC_ENH_AUTO
 msgid "Autoadjust gamma, brightness and contrast <Ctrl-e>"
-msgstr "Automatické nastavení gamy, jasu a kontrastu <Ctrl-e>"
+msgstr "AutomatickÃ© nastavenÃ­ gamy, jasu a kontrastu <Ctrl-e>"
 
 #. DESC_ENH_DEFAULT
 msgid ""
@@ -1557,160 +1557,160 @@ msgid ""
 "brightness = 0\n"
 "contrast = 0"
 msgstr ""
-"Nastavení implicitních hodnot zpracování <Ctrl-0>:\n"
+"NastavenÃ­ implicitnÃ­ch hodnot zpracovÃ¡nÃ­ <Ctrl-0>:\n"
 "gama = 1.0\n"
 "jas = 0\n"
 "kontrast = 0"
 
 #. DESC_ENH_RESTORE
 msgid "Restore enhancement values from preferences <Ctrl-r>"
-msgstr "Obnovení hodnot zpracování z pøedvoleb <Ctrl-r>"
+msgstr "ObnovenÃ­ hodnot zpracovÃ¡nÃ­ zÂ pÅ™edvoleb <Ctrl-r>"
 
 #. DESC_ENH_STORE
 msgid "Store active enhancement values to preferences <Ctrl-+>"
-msgstr "Ulo¾ení aktivních hodnot zpracování do pøedvoleb <Ctrl-+>"
+msgstr "UloÅ¾enÃ­ aktivnÃ­ch hodnot zpracovÃ¡nÃ­ do pÅ™edvoleb <Ctrl-+>"
 
 #. DESC_HIST_INTENSITY
 msgid "Show histogram of intensity/gray <Alt-i>"
-msgstr "Zobrazit histogram intenzity/¹edí <Alt-i>"
+msgstr "Zobrazit histogram intenzity/Å¡edÃ­ <Alt-i>"
 
 #. DESC_HIST_RED
 msgid "Show histogram of red component <Alt-r>"
-msgstr "Zobrazit histogram èervené komponenty <Alt-r>"
+msgstr "Zobrazit histogram ÄervenÃ© komponenty <Alt-r>"
 
 #. DESC_HIST_GREEN
 msgid "Show histogram of green component <Alt-g>"
-msgstr "Zobrazit histogram zelené komponenty <Alt-g>"
+msgstr "Zobrazit histogram zelenÃ© komponenty <Alt-g>"
 
 #. DESC_HIST_BLUE
 msgid "Show histogram of blue component <Alt-b>"
-msgstr "Zobrazit histogram modré komponenty <Alt-b>"
+msgstr "Zobrazit histogram modrÃ© komponenty <Alt-b>"
 
 #. DESC_HIST_PIXEL
 msgid "Display mode: show histogram with lines instead of pixels <Alt-m>"
-msgstr "Re¾im zobrazování: zobrazit èárovı histogram místo bodového <Alt-m>"
+msgstr "ReÅ¾im zobrazovÃ¡nÃ­: zobrazit ÄÃ¡rovÃ½ histogram mÃ­sto bodovÃ©ho <Alt-m>"
 
 #. DESC_HIST_LOG
 msgid "Show logarithm of pixelcount <Alt-l>"
-msgstr "Zobrazit logaritmy poètù pixelù <Alt-l>"
+msgstr "Zobrazit logaritmy poÄtÅ¯ pixelÅ¯ <Alt-l>"
 
 #. DESC_PRINTER_SETUP
 msgid "Select definition to change"
-msgstr "Volba definice ke zmìnì"
+msgstr "Volba definice ke zmÄ›nÄ›"
 
 #. DESC_PRINTER_NAME
 msgid "Define a name for the selection of this definition"
-msgstr "Zadání jména pro vıbìr této definice"
+msgstr "ZadÃ¡nÃ­ jmÃ©na pro vÃ½bÄ›r tÃ©to definice"
 
 #. DESC_PRINTER_COMMAND
 msgid "Enter command to be executed in copy mode (e.g. \"lpr\")"
 msgstr ""
-"Zadání pøíkazu, kterı má bıt vyvolán v re¾imu kopírování (napø. \"lpr\")"
+"ZadÃ¡nÃ­ pÅ™Ã­kazu, kterÃ½ mÃ¡ bÃ½t vyvolÃ¡n vÂ reÅ¾imu kopÃ­rovÃ¡nÃ­ (napÅ™. \"lpr\")"
 
 #. DESC_COPY_NUMBER_OPTION
 msgid "Enter option for copy numbers"
-msgstr "Zadání volby poètu kopií"
+msgstr "ZadÃ¡nÃ­ volby poÄtu kopiÃ­"
 
 #. DESC_PRINTER_LINEART_RESOLUTION
 msgid ""
 "Resolution with which lineart images are printed and saved in postscript"
 msgstr ""
-"Rozli¹ení, ve kterém bude èárová grafika tisknuta a zapisována do postscriptu"
+"RozliÅ¡enÃ­, ve kterÃ©m bude ÄÃ¡rovÃ¡ grafika tisknuta a zapisovÃ¡na do postscriptu"
 
 #. DESC_PRINTER_GRAYSCALE_RESOLUTION
 msgid ""
 "Resolution with which grayscale images are printed and saved in postscript"
 msgstr ""
-"Rozli¹ení, ve kterém budou obrázky v ¹edích tisknuty a zapisovány do "
+"RozliÅ¡enÃ­, ve kterÃ©m budou obrÃ¡zky vÂ Å¡edÃ­ch tisknuty a zapisovÃ¡ny do "
 "postscriptu"
 
 #. DESC_PRINTER_COLOR_RESOLUTION
 msgid "Resolution with which color images are printed and saved in postscript"
 msgstr ""
-"Rozli¹ení, ve kterém budou obrázky v barvì tisknuty a zapisovány do "
+"RozliÅ¡enÃ­, ve kterÃ©m budou obrÃ¡zky vÂ barvÄ› tisknuty a zapisovÃ¡ny do "
 "postscriptu"
 
 #. DESC_PRINTER_WIDTH
 msgid "Width of printable area"
-msgstr "©íøka tisknutelné plochy"
+msgstr "Å Ã­Å™ka tisknutelnÃ© plochy"
 
 #. DESC_PRINTER_HEIGHT
 msgid "Height of printable area"
-msgstr "Vı¹ka tisknutelné plochy"
+msgstr "VÃ½Å¡ka tisknutelnÃ© plochy"
 
 #. DESC_PRINTER_LEFTOFFSET
 msgid "Left offset from the edge of the paper to the printable area"
-msgstr "Posun od levého okraje papíru do tisknutelné plochy"
+msgstr "Posun od levÃ©ho okraje papÃ­ru do tisknutelnÃ© plochy"
 
 #. DESC_PRINTER_BOTTOMOFFSET
 msgid "Bottom offset from the edge of the paper to the printable area"
-msgstr "Posun od spodního okraje papíru do tisknutelné plochy"
+msgstr "Posun od spodnÃ­ho okraje papÃ­ru do tisknutelnÃ© plochy"
 
 #. DESC_PRINTER_GAMMA
 msgid "Additional gamma value for photocopy"
-msgstr "Dodateèná gama hodnota pro fotokopii"
+msgstr "DodateÄnÃ¡ gama hodnota pro fotokopii"
 
 #. DESC_PRINTER_GAMMA_RED
 msgid "Additional gamma value for red component for photocopy"
-msgstr "Dodateèná gama hodnota pro èervenou komponentu pro fotokopii"
+msgstr "DodateÄnÃ¡ gama hodnota pro Äervenou komponentu pro fotokopii"
 
 #. DESC_PRINTER_GAMMA_GREEN
 msgid "Additional gamma value for green component for photocopy"
-msgstr "Dodateèná gama hodnota pro zelenou komponentu pro fotokopii"
+msgstr "DodateÄnÃ¡ gama hodnota pro zelenou komponentu pro fotokopii"
 
 #. DESC_PRINTER_GAMMA_BLUE
 msgid "Additional gamma value for blue component for photocopy"
-msgstr "Dodateèná gama hodnota pro modrou komponentu pro fotokopii"
+msgstr "DodateÄnÃ¡ gama hodnota pro modrou komponentu pro fotokopii"
 
 #. DESC_TMP_PATH
 msgid "Path to temp directory"
-msgstr "Cesta k pomocnému adresáøi"
+msgstr "Cesta k pomocnÃ©mu adresÃ¡Å™i"
 
 #. DESC_BUTTON_TMP_PATH_BROWSE
 msgid "Browse for temporary directory"
-msgstr "Vyhledat pomocnı adresáø"
+msgstr "Vyhledat pomocnÃ½ adresÃ¡Å™"
 
 #. DESC_JPEG_QUALITY
 msgid ""
 "Quality in percent if image is saved as jpeg or tiff with jpeg compression"
 msgstr ""
-"Kvalita v procentech, je-li obrázek zapisován jako jpeg nebo tiff s jpeg "
-"kompresí"
+"Kvalita vÂ procentech, je-li obrÃ¡zek zapisovÃ¡n jako jpeg nebo tiff sÂ jpeg "
+"kompresÃ­"
 
 #. DESC_PNG_COMPRESSION
 msgid "Compression if image is saved as png"
-msgstr "Komprese, je-li obrázek zapisován jako png"
+msgstr "Komprese, je-li obrÃ¡zek zapisovÃ¡n jako png"
 
 #. DESC_FILENAME_COUNTER_LEN
 msgid "Minimum length of counter in filename"
-msgstr "Minimální délka èítaèe ve jménu souboru"
+msgstr "MinimÃ¡lnÃ­ dÃ©lka ÄÃ­taÄe ve jmÃ©nu souboru"
 
 #. DESC_TIFF_COMPRESSION_16
 msgid "Compression type if 16 bit image is saved as tiff"
-msgstr "Typ komprese, je-li obrázek zapisován jako 16bitovı TIFF"
+msgstr "Typ komprese, je-li obrÃ¡zek zapisovÃ¡n jako 16bitovÃ½ TIFF"
 
 #. DESC_TIFF_COMPRESSION_8
 msgid "Compression type if 8 bit image is saved as tiff"
-msgstr "Typ komprese, je-li obrázek zapisován jako 8bitovı TIFF"
+msgstr "Typ komprese, je-li obrÃ¡zek zapisovÃ¡n jako 8bitovÃ½ TIFF"
 
 #. DESC_TIFF_COMPRESSION_1
 msgid "Compression type if lineart image is saved as tiff"
-msgstr "Typ komprese, je-li obrázek zapisován jako TIFF èárová grafika"
+msgstr "Typ komprese, je-li obrÃ¡zek zapisovÃ¡n jako TIFF ÄÃ¡rovÃ¡ grafika"
 
 #. DESC_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device dependant preferences in default file at exit of xsane"
 msgstr ""
-"Pøi skonèení zapsat do standardního souboru pøedvolby závislé na zaøízení"
+"PÅ™i skonÄenÃ­ zapsat do standardnÃ­ho souboru pÅ™edvolby zÃ¡vislÃ© na zaÅ™Ã­zenÃ­"
 
 #. DESC_OVERWRITE_WARNING
 msgid "Warn before overwriting an existing file"
-msgstr "Varování pøed pøepsáním existujícího souboru"
+msgstr "VarovÃ¡nÃ­ pÅ™ed pÅ™epsÃ¡nÃ­m existujÃ­cÃ­ho souboru"
 
 #. DESC_SKIP_EXISTING
 msgid ""
 "If filename counter is automatically increased, used numbers are skipped"
 msgstr ""
-"Je-li èítaè souborù automaticky zvìt¹ován, pou¾itá èísla jsou pøeskoèena"
+"Je-li ÄÃ­taÄ souborÅ¯ automaticky zvÄ›tÅ¡ovÃ¡n, pouÅ¾itÃ¡ ÄÃ­sla jsou pÅ™eskoÄena"
 
 #. DESC_SAVE_PNM16_AS_ASCII
 msgid ""
@@ -1719,177 +1719,177 @@ msgid ""
 "supported by all programs. The ascii format is supported by more programs "
 "but it produces really huge files!!!"
 msgstr ""
-"Pokud má bıt 16bitovı obrázek zapsán ve formátu pnm, potom pou¾ijte ascii "
-"formát namísto binárního. Bunární formát je novı a nepodporují ho v¹echny "
-"programy. Ascii formát podporuje více programù, ale produkuje obrovské "
+"Pokud mÃ¡ bÃ½t 16bitovÃ½ obrÃ¡zek zapsÃ¡n ve formÃ¡tu pnm, potom pouÅ¾ijte ascii "
+"formÃ¡t namÃ­sto binÃ¡rnÃ­ho. BunÃ¡rnÃ­ formÃ¡t je novÃ½ a nepodporujÃ­ ho vÅ¡echny "
+"programy. Ascii formÃ¡t podporuje vÃ­ce programÅ¯, ale produkuje obrovskÃ© "
 "soubory!!!"
 
 #. DESC_REDUCE_16BIT_TO_8BIT
 msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
 msgstr ""
-"Po¹le-li skener obrázek s 16 bity/barvu, zapsat obrázek v 8 bitech/barvu"
+"PoÅ¡le-li skener obrÃ¡zek sÂ 16Â bity/barvu, zapsat obrÃ¡zek vÂ 8Â bitech/barvu"
 
 #. DESC_PSFILE_WIDTH
 msgid "Width of paper for postscript files"
-msgstr "©íøka papíru pro postscriptové soubory"
+msgstr "Å Ã­Å™ka papÃ­ru pro postscriptovÃ© soubory"
 
 #. DESC_PSFILE_HEIGHT
 msgid "Height of paper for postscript files"
-msgstr "Vı¹ka papíru pro postscriptové soubory"
+msgstr "VÃ½Å¡ka papÃ­ru pro postscriptovÃ© soubory"
 
 #. DESC_PSFILE_LEFTOFFSET
 msgid ""
 "Left offset from the edge of the paper to the usable area for postscript "
 "files"
 msgstr ""
-"Posun od levého okraje papíru do tisknutelné plochy pro postscriptové soubory"
+"Posun od levÃ©ho okraje papÃ­ru do tisknutelnÃ© plochy pro postscriptovÃ© soubory"
 
 #. DESC_PSFILE_BOTTOMOFFSET
 msgid ""
 "Bottom offset from the edge of the paper to the usable area for postscript "
 "files"
 msgstr ""
-"Posun od spodního okraje papíru do tisknutelné plochy pro postscriptové "
+"Posun od spodnÃ­ho okraje papÃ­ru do tisknutelnÃ© plochy pro postscriptovÃ© "
 "soubory"
 
 #. DESC_MAIN_WINDOW_FIXED
 msgid "Use fixed main window size or scrolled, resizable main window"
 msgstr ""
-"U¾ití pevné velikosti hlavního okna nebo okna s posuvníky a promìnnou "
-"velikostí"
+"UÅ¾itÃ­ pevnÃ© velikosti hlavnÃ­ho okna nebo okna sÂ posuvnÃ­ky a promÄ›nnou "
+"velikostÃ­"
 
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
 msgid "Disable preview gamma when XSane runs as gimp plugin"
-msgstr "Zakázat gama náhledu, bì¾í-li XSane jako gimp modul"
+msgstr "ZakÃ¡zat gama nÃ¡hledu, bÄ›Å¾Ã­-li XSane jako gimp modul"
 
 #. DESC_PREVIEW_COLORMAP
 msgid "Use an own colormap for preview if display depth is 8 bpp"
-msgstr "Pou¾ití vlastní barevné mapy náhledu, je-li obrazová hloubka 8"
+msgstr "PouÅ¾itÃ­ vlastnÃ­ barevnÃ© mapy nÃ¡hledu, je-li obrazovÃ¡ hloubka 8"
 
 #. DESC_SHOW_RANGE_MODE
 msgid "Select how a range is displayed"
-msgstr "Zvolte, jak je rozsah zobrazován"
+msgstr "Zvolte, jak je rozsah zobrazovÃ¡n"
 
 #. DESC_PREVIEW_OVERSAMPLING
 msgid "Value with that the calculated preview resolution is multiplied"
-msgstr "Hodnota, kterou se násobí rozli¹ení náhledu"
+msgstr "Hodnota, kterou se nÃ¡sobÃ­ rozliÅ¡enÃ­ nÃ¡hledu"
 
 #. DESC_PREVIEW_GAMMA
 msgid "Set gamma correction value for preview image"
-msgstr "Nastavení gama korekce pro náhledovı obrázek"
+msgstr "NastavenÃ­ gama korekce pro nÃ¡hledovÃ½ obrÃ¡zek"
 
 #. DESC_PREVIEW_GAMMA_RED
 msgid "Set gamma correction value for red component of preview image"
-msgstr "Nastavení gama korekce pro èervenou komponentu náhledového obrázku"
+msgstr "NastavenÃ­ gama korekce pro Äervenou komponentu nÃ¡hledovÃ©ho obrÃ¡zku"
 
 #. DESC_PREVIEW_GAMMA_GREEN
 msgid "Set gamma correction value for green component of preview image"
-msgstr "Nastavení gama korekce pro zelenou komponentu náhledového obrázku"
+msgstr "NastavenÃ­ gama korekce pro zelenou komponentu nÃ¡hledovÃ©ho obrÃ¡zku"
 
 #. DESC_PREVIEW_GAMMA_BLUE
 msgid "Set gamma correction value for blue component of preview image"
-msgstr "Nastavení gama korekce pro modrou komponentu náhledového obrázku"
+msgstr "NastavenÃ­ gama korekce pro modrou komponentu nÃ¡hledovÃ©ho obrÃ¡zku"
 
 #. DESC_LINEART_MODE
 msgid "Define the way XSane shall handle the threshold option"
-msgstr "Definuje zpùsob, kterım má XSane pracovat s volbou prahu"
+msgstr "Definuje zpÅ¯sob, kterÃ½m mÃ¡ XSane pracovat sÂ volbou prahu"
 
 #. DESC_GRAYSCALE_SCANMODE
 msgid ""
 "Select grayscale scanmode. This scanmode is used for lineart preview scan "
 "when transformation from grayscale to lineart is enabled"
 msgstr ""
-"Zadání skenovacího re¾imu ¹edí. Tento re¾im je pou¾it pro náhledovı sken "
-"èárové grafiky, je-li zapnut pøevod z ¹edí do èárové grafiky"
+"ZadÃ¡nÃ­ skenovacÃ­ho reÅ¾imu Å¡edÃ­. Tento reÅ¾im je pouÅ¾it pro nÃ¡hledovÃ½ sken "
+"ÄÃ¡rovÃ© grafiky, je-li zapnut pÅ™evod zÂ Å¡edÃ­ do ÄÃ¡rovÃ© grafiky"
 
 #. DESC_PREVIEW_THRESHOLD_MIN
 #, no-c-format
 msgid "The scanner's minimum threshold level in %"
-msgstr "Minimální hodnota prahu v %"
+msgstr "MinimÃ¡lnÃ­ hodnota prahu vÂ %"
 
 #. DESC_PREVIEW_THRESHOLD_MAX
 #, no-c-format
 msgid "The scanner's maximum threshold level in %"
-msgstr "Maximální hodnota prahu v %"
+msgstr "MaximÃ¡lnÃ­ hodnota prahu vÂ %"
 
 #. DESC_PREVIEW_THRESHOLD_MUL
 msgid ""
 "Multiplier to make XSane threshold range and scanner threshold range the same"
 msgstr ""
-"Èinitel, kterı nastaví shodnı rozsah prahù XSane a rozsah prahù skeneru"
+"ÄŒinitel, kterÃ½ nastavÃ­ shodnÃ½ rozsah prahÅ¯ XSane a rozsah prahÅ¯ skeneru"
 
 #. DESC_PREVIEW_THRESHOLD_OFF
 msgid ""
 "Offset to make XSane threshold range and scanner threshold range the same"
-msgstr "Posun, kterı nastaví shodnı rozsah prahù XSane a rozsah prahù skeneru"
+msgstr "Posun, kterÃ½ nastavÃ­ shodnÃ½ rozsah prahÅ¯ XSane a rozsah prahÅ¯ skeneru"
 
 #. DESC_ADF_MODE
 msgid ""
 "Select scansource for Automatic Document feeder. If this scansource is "
 "selected XSane scans until \"out of paper\" or error."
 msgstr ""
-"Vıbìr skenovacího zdroje pro automatickı podavaè dokumentù. Je-li zvolen, "
-"XSane skenuje, dokud nenastane stav \"do¹el papír\" nebo chyba."
+"VÃ½bÄ›r skenovacÃ­ho zdroje pro automatickÃ½ podavaÄ dokumentÅ¯. Je-li zvolen, "
+"XSane skenuje, dokud nenastane stav \"doÅ¡el papÃ­r\" nebo chyba."
 
 #. DESC_PREVIEW_PIPETTE_RANGE
 msgid "dimension of square that is used to average color for pipette function"
 msgstr ""
-"rozmìry ètverce, kterı je pou¾it ke zprùmìrování barvy pro barevnou pipetu"
+"rozmÄ›ry Ätverce, kterÃ½ je pouÅ¾it ke zprÅ¯mÄ›rovÃ¡nÃ­ barvy pro barevnou pipetu"
 
 #. DESC_DOC_VIEWER
 msgid ""
 "Enter command to be executed to display helpfiles, must be a html-viewer!"
 msgstr ""
-"Nastavení pøíkazu k zobrazení souborù nápovìdy, musí bıt html prohlí¾eè!"
+"NastavenÃ­ pÅ™Ã­kazu kÂ zobrazenÃ­ souborÅ¯ nÃ¡povÄ›dy, musÃ­ bÃ½t html prohlÃ­Å¾eÄ!"
 
 #. DESC_AUTOENHANCE_GAMMA
 msgid "Change gamma value when autoenhancement button is pressed"
-msgstr "Je-li tlaèítko automatické úpravy stisknuto, zmìní gama hodnotu"
+msgstr "Je-li tlaÄÃ­tko automatickÃ© Ãºpravy stisknuto, zmÄ›nÃ­ gama hodnotu"
 
 #. DESC_PRESELECT_SCANAREA
 msgid "Select scanarea after preview scan has finished"
-msgstr "Po naskenování náhledu vybere skenovací oblast"
+msgstr "Po naskenovÃ¡nÃ­ nÃ¡hledu vybere skenovacÃ­ oblast"
 
 #. DESC_AUTOCORRECT_COLORS
 msgid "Do color correction after preview scan has finished"
-msgstr "Po naskenování náhledu provede barevnou korekci"
+msgstr "Po naskenovÃ¡nÃ­ nÃ¡hledu provede barevnou korekci"
 
 #. DESC_FAX_COMMAND
 msgid "Enter command to be executed in fax mode"
-msgstr "Nastavení pøíkazu provádìného ve faxovém re¾imu"
+msgstr "NastavenÃ­ pÅ™Ã­kazu provÃ¡dÄ›nÃ©ho ve faxovÃ©m reÅ¾imu"
 
 #. DESC_FAX_RECEIVER_OPT
 msgid "Enter option to specify receiver"
-msgstr "Nastavení volby urèující pøíjemce"
+msgstr "NastavenÃ­ volby urÄujÃ­cÃ­ pÅ™Ã­jemce"
 
 #. DESC_FAX_POSTSCRIPT_OPT
 msgid "Enter option to specify postscript files following"
-msgstr "Nastavení volby k zadání postscriptovıch souborù"
+msgstr "NastavenÃ­ volby kÂ zadÃ¡nÃ­ postscriptovÃ½ch souborÅ¯"
 
 #. DESC_FAX_NORMAL_OPT
 msgid "Enter option to specify normal mode (low resolution)"
-msgstr "Nastavení volby k urèení normálního re¾imu (nízké rozli¹ení)"
+msgstr "NastavenÃ­ volby kÂ urÄenÃ­ normÃ¡lnÃ­ho reÅ¾imu (nÃ­zkÃ© rozliÅ¡enÃ­)"
 
 #. DESC_FAX_FINE_OPT
 msgid "Enter option to specify fine mode (high resolution)"
-msgstr "Nastavení volby k urèení kvalitního re¾imu (velké rozli¹ení)"
+msgstr "NastavenÃ­ volby kÂ urÄenÃ­ kvalitnÃ­ho reÅ¾imu (velkÃ© rozliÅ¡enÃ­)"
 
 #. DESC_FAX_VIEWER
 msgid "Enter command to be executed to view a fax"
-msgstr "Nastavení pøíkazu k zobrazení faxu"
+msgstr "NastavenÃ­ pÅ™Ã­kazu kÂ zobrazenÃ­ faxu"
 
 #. DESC_FAX_FINE_MODE
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
 msgstr ""
-"U¾ití vysokého svislého rozli¹ení pøi odesílání faxu (196 dpi namísto 98 dpi)"
+"UÅ¾itÃ­ vysokÃ©ho svislÃ©ho rozliÅ¡enÃ­ pÅ™i odesÃ­lÃ¡nÃ­ faxu (196Â dpi namÃ­sto 98Â dpi)"
 
 #. DESC_SMTP_SERVER
 msgid "IP Address or Domain name of SMTP server"
-msgstr "IP adresa nebo doména SMTP serveru"
+msgstr "IP adresa nebo domÃ©na SMTP serveru"
 
 #. DESC_SMTP_PORT
 msgid "port to connect to SMTP server"
-msgstr "port pro spojení se SMTP serverem"
+msgstr "port pro spojenÃ­ se SMTP serverem"
 
 #. DESC_MAIL_FROM
 msgid "enter your email address"
@@ -1897,23 +1897,23 @@ msgstr "zadejte svou e-mailovou adresu"
 
 #. DESC_MAIL_REPLY_TO
 msgid "enter email address for replied emails"
-msgstr "zadejte svou e-mailovou adresu pro odpovìdi"
+msgstr "zadejte svou e-mailovou adresu pro odpovÄ›di"
 
 #. DESC_POP3_AUTHENTIFICATION
 msgid "Authentificate at POP3 server before sending mail"
-msgstr "Authentifikace na POP3 serveru pøed odesláním mailu"
+msgstr "Authentifikace na POP3 serveru pÅ™ed odeslÃ¡nÃ­m mailu"
 
 #. DESC_POP3_SERVER
 msgid "IP Address or Domain name of POP3 server"
-msgstr "IP adresa nebo jméno doména POP3 serveru"
+msgstr "IP adresa nebo jmÃ©no domÃ©na POP3 serveru"
 
 #. DESC_POP3_PORT
 msgid "port to connect to POP3 server"
-msgstr "port pro pøipojení k POP3 serveru"
+msgstr "port pro pÅ™ipojenÃ­ kÂ POP3 serveru"
 
 #. DESC_POP3_USER
 msgid "user name for POP3 server"
-msgstr "u¾ivatelské jméno pro POP3 server"
+msgstr "uÅ¾ivatelskÃ© jmÃ©no pro POP3 server"
 
 #. DESC_POP3_PASS
 msgid "password for POP3 server"
@@ -1921,28 +1921,28 @@ msgstr "heslo pro POP3 server"
 
 #. DESC_MAIL_VIEWER
 msgid "Enter command to be executed to view a mail image"
-msgstr "Zadání pøíkazu, kterı má bıt vyvolán pøi zobrazení obrázku v mailu"
+msgstr "ZadÃ¡nÃ­ pÅ™Ã­kazu, kterÃ½ mÃ¡ bÃ½t vyvolÃ¡n pÅ™i zobrazenÃ­ obrÃ¡zku vÂ mailu"
 
 #. DESC_HTML_MAIL
 msgid "Mail is sent in html mode, place image with: <IMAGE>"
-msgstr "Mail je posílán v re¾imu html, umístìte obrázky pomocí: <IMAGE>"
+msgstr "Mail je posÃ­lÃ¡n vÂ reÅ¾imu html, umÃ­stÄ›te obrÃ¡zky pomocÃ­: <IMAGE>"
 
 #. DESC_OCR_COMMAND
 msgid "Enter command to start ocr program"
-msgstr "Zadejte pøíkaz pro spu¹tìní ocr programu"
+msgstr "Zadejte pÅ™Ã­kaz pro spuÅ¡tÄ›nÃ­ ocr programu"
 
 #. DESC_OCR_INPUTFILE_OPT
 msgid "Enter option of the ocr program to define input file"
-msgstr "Zadejte volbu ocr programu pro zadání vstupního souboru"
+msgstr "Zadejte volbu ocr programu pro zadÃ¡nÃ­ vstupnÃ­ho souboru"
 
 #. DESC_OCR_OUTPUTFILE_OPT
 msgid "Enter option of the ocr program to define output file"
-msgstr "Zadejte volbu ocr programu pro zadání vıstupního souboru"
+msgstr "Zadejte volbu ocr programu pro zadÃ¡nÃ­ vÃ½stupnÃ­ho souboru"
 
 #. DESC_OCR_USE_GUI_PIPE_OPT
 msgid "Define if the ocr program supports gui progress pipe"
 msgstr ""
-"Zadejte, zda OCR program podporuje rouru pro grafické znázornìní prùbìhu"
+"Zadejte, zda OCR program podporuje rouru pro grafickÃ© znÃ¡zornÄ›nÃ­ prÅ¯bÄ›hu"
 
 #. DESC_OCR_OUTFD_OPT
 msgid ""
@@ -1951,72 +1951,72 @@ msgstr "Zadejte, zda OCR program podporuje grafickou volbu souboru"
 
 #. DESC_OCR_PROGRESS_KEYWORD
 msgid "Define Keyword that is used to mark progress information"
-msgstr "Zadejte klíè, kterı je pou¾itı k oznaèení informace o prùbìhu"
+msgstr "Zadejte klÃ­Ä, kterÃ½ je pouÅ¾itÃ½ kÂ oznaÄenÃ­ informace o prÅ¯bÄ›hu"
 
 #. DESC_PERMISSION_READ
 msgid "read"
-msgstr "ètení"
+msgstr "ÄtenÃ­"
 
 #. DESC_PERMISSION_WRITE
 msgid "write"
-msgstr "zápis"
+msgstr "zÃ¡pis"
 
 #. DESC_PERMISSION_EXECUTE
 msgid "execute"
-msgstr "spu¹tìní"
+msgstr "spuÅ¡tÄ›nÃ­"
 
 #. DESC_ADD_BATCH
 msgid "Add selection for batch scan"
-msgstr "Pøidat vıbìr pro dávkové skenování"
+msgstr "PÅ™idat vÃ½bÄ›r pro dÃ¡vkovÃ© skenovÃ¡nÃ­"
 
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
-msgstr "Nasátí bílého bodu"
+msgstr "NasÃ¡tÃ­ bÃ­lÃ©ho bodu"
 
 #. DESC_PIPETTE_GRAY
 msgid "Pick gray point"
-msgstr "Nasátí ¹edého bodu"
+msgstr "NasÃ¡tÃ­ Å¡edÃ©ho bodu"
 
 #. DESC_PIPETTE_BLACK
 msgid "Pick black point"
-msgstr "Nasátí èerného bodu"
+msgstr "NasÃ¡tÃ­ ÄernÃ©ho bodu"
 
 #. DESC_ZOOM_FULL
 msgid "Use full scanarea"
-msgstr "U¾ití plné skenovací plochy"
+msgstr "UÅ¾itÃ­ plnÃ© skenovacÃ­ plochy"
 
 #. DESC_ZOOM_OUT
 #, no-c-format
 msgid "Zoom 20% out"
-msgstr "Vzdálení o 20 %"
+msgstr "VzdÃ¡lenÃ­ oÂ 20Â %"
 
 #. DESC_ZOOM_IN
 msgid "Click at position to zoom to"
-msgstr "Zvìt¹ení poklepnutím na pozici"
+msgstr "ZvÄ›tÅ¡enÃ­ poklepnutÃ­m na pozici"
 
 #. DESC_ZOOM_AREA
 msgid "Zoom into selected area"
-msgstr "Pøiblí¾ení zvolenou oblast"
+msgstr "PÅ™iblÃ­Å¾enÃ­ zvolenou oblast"
 
 #. DESC_ZOOM_UNDO
 msgid "Undo last zoom"
-msgstr "Vrácení posledního pøiblí¾ení"
+msgstr "VrÃ¡cenÃ­ poslednÃ­ho pÅ™iblÃ­Å¾enÃ­"
 
 #. DESC_FULL_PREVIEW_AREA
 msgid "Select visible area"
-msgstr "Volba viditelné oblasti"
+msgstr "Volba viditelnÃ© oblasti"
 
 #. DESC_AUTOSELECT_SCANAREA
 msgid "Autoselect scanarea"
-msgstr "Automatickı vıbìr skenovací plochy"
+msgstr "AutomatickÃ½ vÃ½bÄ›r skenovacÃ­ plochy"
 
 #. DESC_AUTORAISE_SCANAREA
 msgid "Autoraise scanarea"
-msgstr "Automatické zvìt¹ení skenovací plochy"
+msgstr "AutomatickÃ© zvÄ›tÅ¡enÃ­ skenovacÃ­ plochy"
 
 #. DESC_DELETE_IMAGES
 msgid "Delete preview image cache"
-msgstr "Smazat pamì» náhledu"
+msgstr "Smazat pamÄ›Å¥ nÃ¡hledu"
 
 #. DESC_PRESET_AREA
 msgid ""
@@ -2024,157 +2024,157 @@ msgid ""
 "To add new area or edit an existing area use contect menu (right mouse "
 "button)."
 msgstr ""
-"Pøedvolená oblast:\n"
-"K pøidání nové oblasti nebo k úpravì existující oblasti pou¾ijte kontextové "
-"menu (pravé tlaèítko my¹i)."
+"PÅ™edvolenÃ¡ oblast:\n"
+"K pÅ™idÃ¡nÃ­ novÃ© oblasti nebo k ÃºpravÄ› existujÃ­cÃ­ oblasti pouÅ¾ijte kontextovÃ© "
+"menu (pravÃ© tlaÄÃ­tko myÅ¡i)."
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
-msgstr "Rotace náhledu a skenování"
+msgstr "Rotace nÃ¡hledu a skenovÃ¡nÃ­"
 
 #. DESC_RATIO
 msgid "Aspect ratio of selection"
-msgstr "Pomìr stran vıbìru"
+msgstr "PomÄ›r stran vÃ½bÄ›ru"
 
 #. DESC_PAPER_ORIENTATION
 msgid "Define image position for printing"
-msgstr "Definovat pozici obrázku pro tisk"
+msgstr "Definovat pozici obrÃ¡zku pro tisk"
 
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
-msgstr "Optické rozpoznávání znakù"
+msgstr "OptickÃ© rozpoznÃ¡vÃ¡nÃ­ znakÅ¯"
 
 #. DESC_VIEWER_UNDO
 msgid "Undo last change"
-msgstr "Vrácení poslední zmìny"
+msgstr "VrÃ¡cenÃ­ poslednÃ­ zmÄ›ny"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
-msgstr "Duplikovat obrázek"
+msgstr "Duplikovat obrÃ¡zek"
 
 #. DESC_ROTATE90
 msgid "Rotate image 90 degree"
-msgstr "Rotovat obrázek o 90 stupòù"
+msgstr "Rotovat obrÃ¡zek oÂ 90 stupÅˆÅ¯"
 
 #. DESC_ROTATE180
 msgid "Rotate image 180 degree"
-msgstr "Rotovat obrázek o 180 stupòù"
+msgstr "Rotovat obrÃ¡zek oÂ 180 stupÅˆÅ¯"
 
 #. DESC_ROTATE270
 msgid "Rotate image 270 degree"
-msgstr "Rotovat obrázek o 270 stupòù"
+msgstr "Rotovat obrÃ¡zek oÂ 270 stupÅˆÅ¯"
 
 #. DESC_MIRROR_X
 msgid "Mirror image at vertical axis"
-msgstr "Zrcadlit obrázek kolem svislé osy"
+msgstr "Zrcadlit obrÃ¡zek kolem svislÃ© osy"
 
 #. DESC_MIRROR_Y
 msgid "Mirror image at horizontal axis"
-msgstr "Zrcadlit obrázek kolem vodorovné osy"
+msgstr "Zrcadlit obrÃ¡zek kolem vodorovnÃ© osy"
 
 #. DESC_VIEWER_ZOOM
 msgid "Zoom image"
-msgstr "Zvìt¹it obrázek"
+msgstr "ZvÄ›tÅ¡it obrÃ¡zek"
 
 #. DESC_STORE_MEDIUM
 msgid "Store medium"
-msgstr "Ulo¾it médium"
+msgstr "UloÅ¾it mÃ©dium"
 
 #. DESC_DELETE_MEDIUM
 msgid "Delete active medium"
-msgstr "Smazat aktivní médium"
+msgstr "Smazat aktivnÃ­ mÃ©dium"
 
 #. DESC_SCALE_FACTOR
 msgid "Scale factor"
-msgstr "Faktoru zmìny velikosti"
+msgstr "Faktoru zmÄ›ny velikosti"
 
 #. DESC_X_SCALE_FACTOR
 msgid "X-Scale factor"
-msgstr "Faktoru zmìny velikosti X"
+msgstr "Faktoru zmÄ›ny velikosti X"
 
 #. DESC_Y_SCALE_FACTOR
 msgid "Y-Scale factor"
-msgstr "Faktoru zmìny velikosti Y"
+msgstr "Faktoru zmÄ›ny velikosti Y"
 
 #. DESC_SCALE_WIDTH
 msgid "Scale image to width [in pixel]"
-msgstr "Zmenit velikost obrázku na ¹íøku [v pixelech]"
+msgstr "Zmenit velikost obrÃ¡zku na Å¡Ã­Å™ku [vÂ pixelech]"
 
 #. DESC_SCALE_HEIGHT
 msgid "Scale image to height [in pixel]"
-msgstr "Zmenit velikost obrázku na vı¹ku [v pixelech]"
+msgstr "Zmenit velikost obrÃ¡zku na vÃ½Å¡ku [vÂ pixelech]"
 
 #. DESC_BATCH_LIST_EMPTY
 msgid "Empty batch list"
-msgstr "Prázdnı seznam dávek"
+msgstr "PrÃ¡zdnÃ½ seznam dÃ¡vek"
 
 #. DESC_BATCH_LIST_SAVE
 msgid "Save batch list"
-msgstr "Zapsat seznam dávek"
+msgstr "Zapsat seznam dÃ¡vek"
 
 #. DESC_BATCH_LIST_LOAD
 msgid "Load batch list"
-msgstr "Naèíst seznam dávek"
+msgstr "NaÄÃ­st seznam dÃ¡vek"
 
 #. DESC_BATCH_RENAME
 msgid "Rename area"
-msgstr "Pøejmenovat oblast"
+msgstr "PÅ™ejmenovat oblast"
 
 #. DESC_BATCH_ADD
 msgid "Add selected preview area to batch list"
-msgstr "Pøidat vybranou náhledovou oblast do seznamu dávek"
+msgstr "PÅ™idat vybranou nÃ¡hledovou oblast do seznamu dÃ¡vek"
 
 #. DESC_BATCH_DEL
 msgid "Delete selected area from batch list"
-msgstr "Pøidat vybranou oblast ze seznamu dávek"
+msgstr "PÅ™idat vybranou oblast ze seznamu dÃ¡vek"
 
 #. DESC_AUTOMATIC
 msgid "Turns on automatic mode"
-msgstr "Zapne automatickı re¾im"
+msgstr "Zapne automatickÃ½ reÅ¾im"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
-msgstr "Selhalo urèení domovského adresáøe:"
+msgstr "Selhalo urÄenÃ­ domovskÃ©ho adresÃ¡Å™e:"
 
 #. ERR_CHANGE_WORKING_DIR
 msgid "Failed to change working directory to"
-msgstr "Selhala zmìna pracovního adresáøe na"
+msgstr "Selhala zmÄ›na pracovnÃ­ho adresÃ¡Å™e na"
 
 #. ERR_FILENAME_TOO_LONG
 msgid "Filename too long"
-msgstr "Jméno souboru je pøíli¹ dlouhé"
+msgstr "JmÃ©no souboru je pÅ™Ã­liÅ¡ dlouhÃ©"
 
 #. ERR_CREATE_TEMP_FILE
 msgid "Could not create temporary file"
-msgstr "Nelze vytvoøit doèasnı soubor"
+msgstr "Nelze vytvoÅ™it doÄasnÃ½ soubor"
 
 #. ERR_SET_OPTION
 msgid "Failed to set value of option"
-msgstr "Selhalo nastavení hodnoty volby"
+msgstr "Selhalo nastavenÃ­ hodnoty volby"
 
 #. ERR_GET_OPTION
 msgid "Failed to obtain value of option"
-msgstr "Selhalo získání hodnoty volby"
+msgstr "Selhalo zÃ­skÃ¡nÃ­ hodnoty volby"
 
 #. ERR_OPTION_COUNT
 msgid "Error obtaining option count"
-msgstr "Selhalo získání poètu voleb"
+msgstr "Selhalo zÃ­skÃ¡nÃ­ poÄtu voleb"
 
 #. ERR_DEVICE_OPEN_FAILED
 msgid "Failed to open device"
-msgstr "Otevøení zaøízení selhalo"
+msgstr "OtevÅ™enÃ­ zaÅ™Ã­zenÃ­ selhalo"
 
 #. ERR_NO_DEVICES
 msgid "no devices available"
-msgstr "nejsou k dispozici ¾ádná zaøízení"
+msgstr "nejsou k dispozici Å¾Ã¡dnÃ¡ zaÅ™Ã­zenÃ­"
 
 #. ERR_DURING_READ
 msgid "Error during read:"
-msgstr "Chyba bìhem ètení:"
+msgstr "Chyba bÄ›hem ÄtenÃ­:"
 
 #. ERR_DURING_SAVE
 msgid "Error during save:"
-msgstr "Chyba bìhem zápisu:"
+msgstr "Chyba bÄ›hem zÃ¡pisu:"
 
 #. ERR_BAD_DEPTH
 msgid "Can't handle depth"
@@ -2183,108 +2183,112 @@ msgstr "Nelze zpracovat hloubku"
 #. ERR_GIMP_BAD_DEPTH
 #, c-format
 msgid "GIMP can't handle depth %d bits/color"
-msgstr "GIMP nepodporuje hloubku %d bitù/barvu"
+msgstr "GIMP nepodporuje hloubku %d bitÅ¯/barvu"
 
 #. ERR_UNKNOWN_SAVING_FORMAT
 msgid "Unknown file format for saving"
-msgstr "Neznámı formát souboru pro zápis"
+msgstr "NeznÃ¡mÃ½ formÃ¡t souboru pro zÃ¡pis"
 
 #. ERR_OPEN_FAILED
 msgid "Failed to open"
-msgstr "Otevøení selhalo"
+msgstr "OtevÅ™enÃ­ selhalo"
 
 #. ERR_CREATE_SECURE_FILE
 msgid "Could not create secure file (may be a link does exist):"
-msgstr "Nelze vytvoøit bezpeènı soubor (mo¾ná, ¾e existuje odkaz):"
+msgstr "Nelze vytvoÅ™it bezpeÄnÃ½ soubor (moÅ¾nÃ¡, Å¾e existuje odkaz):"
 
 #. ERR_FAILED_PRINTER_PIPE
 msgid "Failed to open pipe for executing printercommand"
-msgstr "Otevøení roury ke spu¹tìní pøíkazu tiskárny selhalo"
+msgstr "OtevÅ™enÃ­ roury ke spuÅ¡tÄ›nÃ­ pÅ™Ã­kazu tiskÃ¡rny selhalo"
 
 #. ERR_FAILED_EXEC_PRINTER_CMD
 msgid "Failed to execute printercommand:"
-msgstr "Spu¹tìní pøíkazu tiskárny selhalo"
+msgstr "SpuÅ¡tÄ›nÃ­ pÅ™Ã­kazu tiskÃ¡rny selhalo"
 
 #. ERR_FAILED_START_SCANNER
 msgid "Failed to start scanner:"
-msgstr "Spu¹tìní skeneru selhalo"
+msgstr "SpuÅ¡tÄ›nÃ­ skeneru selhalo"
 
 #. ERR_FAILED_GET_PARAMS
 msgid "Failed to get parameters:"
-msgstr "Získání parametrù selhalo:"
+msgstr "ZÃ­skÃ¡nÃ­ parametrÅ¯ selhalo:"
 
 #. ERR_NO_OUTPUT_FORMAT
 msgid "No output format given"
-msgstr "Nebyl zadán vıstupní formát"
+msgstr "Nebyl zadÃ¡n vÃ½stupnÃ­ formÃ¡t"
 
 #. ERR_NO_MEM
 msgid "out of memory"
-msgstr "nedostatek pamìti"
+msgstr "nedostatek pamÄ›ti"
 
 #. ERR_TOO_MUCH_DATA
 msgid "Backend sends more image data than it defined in parameters"
-msgstr "Ovladaè poslal více dat, ne¾ bylo definováno v parametrech"
+msgstr "OvladaÄ poslal vÃ­ce dat, neÅ¾ bylo definovÃ¡no vÂ parametrech"
 
 #. ERR_LIBTIFF
 msgid "LIBTIFF reports error"
-msgstr "LIBTIFF hlásí chybu"
+msgstr "LIBTIFF hlÃ¡sÃ­ chybu"
 
 #. ERR_LIBPNG
 msgid "LIBPNG reports error"
-msgstr "LIBPNG hlásí chybu"
+msgstr "LIBPNG hlÃ¡sÃ­ chybu"
 
 #. ERR_LIBJPEG
 msgid "LIBJPEG reports error"
-msgstr "LIBJPEG hlásí chybu"
+msgstr "LIBJPEG hlÃ¡sÃ­ chybu"
+
+#. ERR_ZLIB
+msgid "ZLIB error or memory allocation problem"
+msgstr "chyba ZLIB nebo problÃ©m pÅ™i alokaci pamÄ›ti"
 
 #. ERR_UNKNOWN_TYPE
 msgid "unknown type"
-msgstr "neznámı typ"
+msgstr "neznÃ¡mÃ½ typ"
 
 #. ERR_UNKNOWN_CONSTRAINT_TYPE
 msgid "unknown constraint type"
-msgstr "neznámı po¾adovanı typ"
+msgstr "neznÃ¡mÃ½ poÅ¾adovanÃ½ typ"
 
 #. ERR_OPTION_NAME_NULL
 msgid "Option has empty name (NULL)."
-msgstr "Volba má prázdné jméno (NULL)."
+msgstr "Volba mÃ¡ prÃ¡zdnÃ© jmÃ©no (NULL)."
 
 #. ERR_BACKEND_BUG
 msgid "This is a backend bug. Please inform the author of the backend!"
-msgstr "Toto je chyba ovladaèe zaøízení. Prosím informujte autora ovladaèe!"
+msgstr "Toto je chyba ovladaÄe zaÅ™Ã­zenÃ­. ProsÃ­m informujte autora ovladaÄe!"
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
-msgstr "Spu¹tìní prohlí¾eèe dokumentace selhalo"
+msgstr "SpuÅ¡tÄ›nÃ­ prohlÃ­Å¾eÄe dokumentace selhalo"
 
 #. ERR_FAILED_EXEC_FAX_VIEWER
 msgid "Failed to execute fax viewer:"
-msgstr "Spu¹tìní faxového prohlí¾eèe selhalo"
+msgstr "SpuÅ¡tÄ›nÃ­ faxovÃ©ho prohlÃ­Å¾eÄe selhalo"
 
 #. ERR_FAILED_EXEC_FAX_CMD
 msgid "Failed to execute fax command:"
-msgstr "Spu¹tìní faxového pøíkazu selhalo:"
+msgstr "SpuÅ¡tÄ›nÃ­ faxovÃ©ho pÅ™Ã­kazu selhalo:"
 
 #. ERR_FAILED_EXEC_MAIL_VIEWER
 msgid "Failed to execute mail image viewer:"
-msgstr "Spu¹tìní prohlí¾eèe obrázkù v po¹tì selhalo"
+msgstr "SpuÅ¡tÄ›nÃ­ prohlÃ­Å¾eÄe obrÃ¡zkÅ¯ v poÅ¡tÄ› selhalo"
 
 #. ERR_FAILED_EXEC_OCR_CMD
 msgid "Failed to execute ocr command:"
-msgstr "Spu¹tìní ocr pøíkazu selhalo:"
+msgstr "SpuÅ¡tÄ›nÃ­ ocr pÅ™Ã­kazu selhalo:"
 
 #. ERR_BAD_FRAME_FORMAT
 msgid "bad frame format"
-msgstr "¹patnı formát rámce"
+msgstr "Å¡patnÃ½ formÃ¡t rÃ¡mce"
 
 #. ERR_FAILED_SET_RESOLUTION
 msgid "unable to set resolution"
-msgstr "nepodaøilo se nastavit rozli¹ení"
+msgstr "nepodaÅ™ilo se nastavit rozliÅ¡enÃ­"
 
 #. ERR_PASSWORD_FILE_INSECURE
 #, c-format
 msgid "Password file (%s) is insecure, use permission x00\n"
-msgstr "Soubor s hesly (%s) je nebezpeènı, pou¾ijte práva x00\n"
+msgstr "Soubor s hesly (%s) je nebezpeÄnÃ½, pouÅ¾ijte prÃ¡va x00\n"
 
 #. ERR_ERROR
 msgid "error"
@@ -2292,51 +2296,51 @@ msgstr "chyba"
 
 #. ERR_MAJOR_VERSION_NR_CONFLICT
 msgid "Sane major version number mismatch!"
-msgstr "Hlavní èíslo verze Sane nesouhlasí!"
+msgstr "HlavnÃ­ ÄÃ­slo verze Sane nesouhlasÃ­!"
 
 #. ERR_XSANE_MAJOR_VERSION
 msgid "XSane major version ="
-msgstr "Hlavní èíslo verze XSane ="
+msgstr "HlavnÃ­ ÄÃ­slo verze XSane ="
 
 #. ERR_BACKEND_MAJOR_VERSION
 msgid "backend major version ="
-msgstr "hlavní èíslo verze ovladaèe ="
+msgstr "hlavnÃ­ ÄÃ­slo verze ovladaÄe ="
 
 #. ERR_PROGRAM_ABORTED
 msgid "*** PROGRAM ABORTED ***"
-msgstr "*** PROGRAM ZRU©EN ***"
+msgstr "*** PROGRAM ZRUÅ EN ***"
 
 #. ERR_FAILED_ALLOCATE_IMAGE
 msgid "Failed to allocate image memory:"
-msgstr "Selhalo získání pamìti pro obrázek:"
+msgstr "Selhalo zÃ­skÃ¡nÃ­ pamÄ›ti pro obrÃ¡zek:"
 
 #. ERR_PREVIEW_BAD_DEPTH
 msgid "Preview cannot handle bit depth"
-msgstr "Náhled nepodporuje bitovou hloubku"
+msgstr "NÃ¡hled nepodporuje bitovou hloubku"
 
 #. ERR_GIMP_SUPPORT_MISSING
 msgid "GIMP support missing"
-msgstr "Chybí podpora programu GIMP"
+msgstr "ChybÃ­ podpora programu GIMP"
 
 #. ERR_CREATE_PREVIEW_FILE
 msgid "Could not create temporary preview files"
-msgstr "Nelze vytvoøit pracovní náhledové soubory"
+msgstr "Nelze vytvoÅ™it pracovnÃ­ nÃ¡hledovÃ© soubory"
 
 #. ERR_CREATE_PREVIEW_FILENAME
 msgid "Could not create filenames for preview files"
-msgstr "Nelze vytvoøit jména náhledovıch souborù"
+msgstr "Nelze vytvoÅ™it jmÃ©na nÃ¡hledovÃ½ch souborÅ¯"
 
 #. ERR_CREATE_FAX_PROJECT
 msgid "Could not create faxproject"
-msgstr "Nelze vytvoøit faxovı projekt"
+msgstr "Nelze vytvoÅ™it faxovÃ½ projekt"
 
 #. WARN_COUNTER_UNDERRUN
 msgid "Filename counter underrun"
-msgstr "Podteèení èítaèe jména souboru"
+msgstr "PodteÄenÃ­ ÄÃ­taÄe jmÃ©na souboru"
 
 #. WARN_NO_VALUE_CONSTRAINT
 msgid "warning: option has no value constraint"
-msgstr "varování: volba nezískala ¾ádnou hodnotu"
+msgstr "varovÃ¡nÃ­: volba nezÃ­skala Å¾Ã¡dnou hodnotu"
 
 #. WARN_XSANE_AS_ROOT
 msgid ""
@@ -2346,11 +2350,11 @@ msgid ""
 "have any problem while running XSane as root:\n"
 "YOU ARE ALONE!"
 msgstr ""
-"Spou¹títe XSane jako SUPERU®IVATEL, co¾ je velmi NEBEZPEÈNÉ!\n"
+"SpouÅ¡tÃ­te XSane jako SUPERUÅ½IVATEL, coÅ¾ je velmi NEBEZPEÄŒNÃ‰!\n"
 "\n"
-"Neposílejte chybová hlá¹ení, budete-li mít problémy\n"
-"pøi bìhu XSane pod superu¾ivatelem:\n"
-"JSTE OSAMÌLÍ!"
+"NeposÃ­lejte chybovÃ¡ hlÃ¡Å¡enÃ­, budete-li mÃ­t problÃ©my\n"
+"pÅ™i bÄ›hu XSane pod superuÅ¾ivatelem:\n"
+"JSTE OSAMÄšLÃ!"
 
 #. ERR_HEADER_ERROR
 msgid "Error"
@@ -2358,7 +2362,7 @@ msgstr "Chyba"
 
 #. ERR_HEADER_WARNING
 msgid "Warning"
-msgstr "Varování"
+msgstr "VarovÃ¡nÃ­"
 
 #. ERR_HEADER_INFO
 msgid "Information"
@@ -2370,45 +2374,45 @@ msgstr "Chyba procesu potomka"
 
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
-msgstr "Vytvoøení souboru selhalo"
+msgstr "VytvoÅ™enÃ­ souboru selhalo"
 
 #. ERR_LOAD_DEVICE_SETTINGS
 msgid "Error while loading device settings:"
-msgstr "Chyba bìhem ètení nastavení zaøízení:"
+msgstr "Chyba bÄ›hem ÄtenÃ­ nastavenÃ­ zaÅ™Ã­zenÃ­:"
 
 #. ERR_NO_DRC_FILE
 msgid "is not a device-rc-file !!!"
-msgstr "není soubor-záznamu-zaøízení!!!"
+msgstr "nenÃ­ soubor-zÃ¡znamu-zaÅ™Ã­zenÃ­!!!"
 
 #. ERR_NETSCAPE_EXECUTE_FAIL
 msgid "Failed to execute netscape!"
-msgstr "Spu¹tìní Netscape selhalo!"
+msgstr "SpuÅ¡tÄ›nÃ­ Netscape selhalo!"
 
 #. ERR_SENDFAX_RECEIVER_MISSING
 msgid "Send fax: no receiver defined"
-msgstr "Odeslání faxu: není definován pøíjemce"
+msgstr "OdeslÃ¡nÃ­ faxu: nenÃ­ definovÃ¡n pÅ™Ã­jemce"
 
 #. ERR_CREATED_FOR_DEVICE
 msgid "has been created for device"
-msgstr "byl vytvoøen pro zaøízení"
+msgstr "byl vytvoÅ™en pro zaÅ™Ã­zenÃ­"
 
 #. ERR_USED_FOR_DEVICE
 msgid "you want to use it for device"
-msgstr "má bıt pou¾it pro zaøízení"
+msgstr "mÃ¡ bÃ½t pouÅ¾it pro zaÅ™Ã­zenÃ­"
 
 #. ERR_MAY_CAUSE_PROBLEMS
 msgid "this may cause problems!"
-msgstr "to mù¾e zpùsobit problémy!"
+msgstr "to mÅ¯Å¾e zpÅ¯sobit problÃ©my!"
 
 #. WARN_UNSAVED_IMAGES
 #, c-format
 msgid "There are %d unsaved images"
-msgstr "Není zapsáno %d obrázkù"
+msgstr "NenÃ­ zapsÃ¡no %d obrÃ¡zkÅ¯"
 
 #. WARN_FILE_EXISTS
 #, c-format
 msgid "File %s already exists"
-msgstr "Soubor %s ji¾ existuje"
+msgstr "Soubor %s jiÅ¾ existuje"
 
 #. ERR_FILE_NOT_EXISTS
 #, c-format
@@ -2418,24 +2422,24 @@ msgstr "Soubor %s neexistuje"
 #. ERR_FILE_NOT_POSTSCRIPT
 #, c-format
 msgid "File %s is not a postscript file"
-msgstr "Soubor %s není postscriptovı soubor"
+msgstr "Soubor %s nenÃ­ postscriptovÃ½ soubor"
 
 #. ERR_UNSUPPORTED_OUTPUT_FORMAT
 #, c-format
 msgid "Unsupported %d-bit output format: %s"
-msgstr "Nepodporované %dbitové vıstupní formáty: %s"
+msgstr "NepodporovanÃ© %dbitovÃ© vÃ½stupnÃ­ formÃ¡ty: %s"
 
 #. WARN_VIEWER_IMAGE_NOT_SAVED
 msgid "viewer image is not saved"
-msgstr "obrázek z prohlí¾eèe není zapsán"
+msgstr "obrÃ¡zek zÂ prohlÃ­Å¾eÄe nenÃ­ zapsÃ¡n"
 
 #. TEXT_USAGE
 msgid "Usage:"
-msgstr "U¾ití:"
+msgstr "UÅ¾itÃ­:"
 
 #. TEXT_USAGE_OPTIONS
 msgid "[OPTION]... [DEVICE]"
-msgstr "[VOLBA]... [ZAØÍZENÍ]"
+msgstr "[VOLBA]... [ZAÅ˜ÃZENÃ]"
 
 #. TEXT_HELP
 msgid ""
@@ -2472,58 +2476,58 @@ msgid ""
 " --sync                       request a synchronous connection with the X11 "
 "server"
 msgstr ""
-"Spu¹tìní grafického rozhraní pro pøístup k SANE zaøízením\n"
-"(SANE = Scanner Access Now Easy - pøístup ke skeneru je nyní snadnı).\n"
+"SpuÅ¡tÄ›nÃ­ grafickÃ©ho rozhranÃ­ pro pÅ™Ã­stup k SANE zaÅ™Ã­zenÃ­m\n"
+"(SANE = Scanner Access Now Easy - pÅ™Ã­stup ke skeneru je nynÃ­ snadnÃ½).\n"
 "\n"
-"Formát [ZAØÍZENÍ] je jméno_ovladaèe:jméno_zaøízení (napø. umax:/dev/"
+"FormÃ¡t [ZAÅ˜ÃZENÃ] je jmÃ©no_ovladaÄe:jmÃ©no_zaÅ™Ã­zenÃ­ (napÅ™. umax:/dev/"
 "scanner).\n"
-"[VOLBA]... mù¾e bıt kombinací následujících polo¾ek:\n"
-" -h, --help                    vypí¹e tuto nápovìdu a skonèí\n"
-" -v, --version                 vypí¹e oznaèení verze\n"
-" -l, --license                 vypí¹e informace o licenci\n"
+"[VOLBA]... mÅ¯Å¾e bÃ½t kombinacÃ­ nÃ¡sledujÃ­cÃ­ch poloÅ¾ek:\n"
+" -h, --help                    vypÃ­Å¡e tuto nÃ¡povÄ›du a skonÄÃ­\n"
+" -v, --version                 vypÃ­Å¡e oznaÄenÃ­ verze\n"
+" -l, --license                 vypÃ­Å¡e informace o licenci\n"
 "\n"
-" -d, --device-settings soubor  naète nastavení zaøízení ze souboru (bez \"."
+" -d, --device-settings soubor  naÄte nastavenÃ­ zaÅ™Ã­zenÃ­ ze souboru (bez \"."
 "drc\")\n"
 "\n"
-" -V, --viewer                  spustí se v re¾imu prohlí¾eèe (implicitní)\n"
-" -s, --save                    spustí se v re¾imu zápisu\n"
-" -c, --copy                    spustí se v re¾imu kopírování\n"
-" -f, --fax                     spustí se v re¾imu faxování\n"
-" -m, --mail                    spustí se v re¾imu po¹ty\n"
-" -n, --no-mode-selection       zaká¾e menu volby re¾imu XSane\n"
+" -V, --viewer                  spustÃ­ se v reÅ¾imu prohlÃ­Å¾eÄe (implicitnÃ­)\n"
+" -s, --save                    spustÃ­ se v reÅ¾imu zÃ¡pisu\n"
+" -c, --copy                    spustÃ­ se v reÅ¾imu kopÃ­rovÃ¡nÃ­\n"
+" -f, --fax                     spustÃ­ se v reÅ¾imu faxovÃ¡nÃ­\n"
+" -m, --mail                    spustÃ­ se v reÅ¾imu poÅ¡ty\n"
+" -n, --no-mode-selection       zakÃ¡Å¾e menu volby reÅ¾imu XSane\n"
 "\n"
-" -F, --Fixed                   pou¾ije pevnou velikost hlavního okna\n"
-"                               (pøepí¹e hodnotu pøedvolby)\n"
-" -R, --Resizeable              pou¾ije hlavní okno s posuvníky a promìnnou "
-"velikostí\n"
-"                               (pøepí¹e hodnotu pøedvolby)\n"
+" -F, --Fixed                   pouÅ¾ije pevnou velikost hlavnÃ­ho okna\n"
+"                               (pÅ™epÃ­Å¡e hodnotu pÅ™edvolby)\n"
+" -R, --Resizeable              pouÅ¾ije hlavnÃ­ okno sÂ posuvnÃ­ky a promÄ›nnou "
+"velikostÃ­\n"
+"                               (pÅ™epÃ­Å¡e hodnotu pÅ™edvolby)\n"
 "\n"
-" -p, --print-filenames         vypí¹e jména souborù vytvoøená XSane\n"
-" -N, --force-filename name     vnutí jméno souboru a vypne volbu jména "
+" -p, --print-filenames         vypÃ­Å¡e jmÃ©na souborÅ¯ vytvoÅ™enÃ¡ XSane\n"
+" -N, --force-filename name     vnutÃ­ jmÃ©no souboru a vypne volbu jmÃ©na "
 "souboru\n"
 "\n"
-" --display X11-displej         pøesmìruje vıstup na X11-displej\n"
-" --no-xshm                     nepou¾ije sdílené pamì»ové obrazy\n"
-" --sync                        vy¾ádá synchronní spojení s X11 serverem"
+" --display X11-displej         pÅ™esmÄ›ruje vÃ½stup na X11-displej\n"
+" --no-xshm                     nepouÅ¾ije sdÃ­lenÃ© pamÄ›Å¥ovÃ© obrazy\n"
+" --sync                        vyÅ¾Ã¡dÃ¡ synchronnÃ­ spojenÃ­ s X11 serverem"
 
 #. strings for gimp plugin
 #. XSANE_GIMP_INSTALL_BLURB
 msgid "Front-end to the SANE interface"
-msgstr "U¾ivatelskı program k rozhraní SANE"
+msgstr "UÅ¾ivatelskÃ½ program kÂ rozhranÃ­ SANE"
 
 #. XSANE_GIMP_INSTALL_HELP
 msgid ""
 "This function provides access to scanners and other image acquisition "
 "devices through the SANE (Scanner Access Now Easy) interface."
 msgstr ""
-"Tato funkce nabízí pøes rozhrani SANE (Scanner Access Now Easy - pøístup ke "
-"skeneru je nyní snadnı) pøístup ke skenerùm a jinım zaøízením ke snímání "
-"obrázkù"
+"Tato funkce nabÃ­zÃ­ pÅ™es rozhrani SANE (Scanner Access Now Easy - pÅ™Ã­stup ke "
+"skeneru je nynÃ­ snadnÃ½) pÅ™Ã­stup ke skenerÅ¯m a jinÃ½m zaÅ™Ã­zenÃ­m ke snÃ­mÃ¡nÃ­ "
+"obrÃ¡zkÅ¯"
 
 #. Menu path must not be translated, this is done by the gimp. Only translate the text behind the last "/"
 #. XSANE_GIMP_MENU_DIALOG
 msgid "<Toolbox>/File/Acquire/XSane: Device dialog..."
-msgstr "<Toolbox>/File/Acquire/XSane: Dialog zaøízení..."
+msgstr "<Toolbox>/File/Acquire/XSane: Dialog zaÅ™Ã­zenÃ­..."
 
 #. XSANE_GIMP_MENU
 msgid "<Toolbox>/File/Acquire/XSane: "
@@ -2531,7 +2535,7 @@ msgstr "<Toolbox>/File/Acquire/XSane: "
 
 #. XSANE_GIMP_MENU_DIALOG_OLD
 msgid "<Toolbox>/Xtns/XSane/Device dialog..."
-msgstr "<Toolbox>/Xtns/XSane/Dialog zaøízení..."
+msgstr "<Toolbox>/Xtns/XSane/Dialog zaÅ™Ã­zenÃ­..."
 
 #. XSANE_GIMP_MENU_OLD
 msgid "<Toolbox>/Xtns/XSane/"
@@ -2548,67 +2552,67 @@ msgid ""
 "5) The backend is not configured correct (man sane-\"backendname\")\n"
 "6) Possibly there is more than one SANE version installed"
 msgstr ""
-"Mo¾né dùvody:\n"
-"1) Opravdu zde není ¾ádné zaøízení, které je podporování SANE\n"
-"2) Podporovaná zaøízení jsou obsazená\n"
-"3) Práva k zaøízením nedovolují pou¾ití - zkuste jako superu¾ivatel\n"
-"4) Ovladaè není nata¾enı do SANE (man sane-dll)\n"
-"5) Ovladaè není správnì nakonfigurovanı (man sane-\"jméno_ovladaèe\")\n"
-"6) Mo¾ná je nainstalováno více verzí SANE"
+"MoÅ¾nÃ© dÅ¯vody:\n"
+"1) Opravdu zde nenÃ­ Å¾Ã¡dnÃ© zaÅ™Ã­zenÃ­, kterÃ© je podporovÃ¡nÃ­ SANE\n"
+"2) PodporovanÃ¡ zaÅ™Ã­zenÃ­ jsou obsazenÃ¡\n"
+"3) PrÃ¡va k zaÅ™Ã­zenÃ­m nedovolujÃ­ pouÅ¾itÃ­ - zkuste jako superuÅ¾ivatel\n"
+"4) OvladaÄ nenÃ­ nataÅ¾enÃ½ do SANE (man sane-dll)\n"
+"5) OvladaÄ nenÃ­ sprÃ¡vnÄ› nakonfigurovanÃ½ (man sane-\"jmÃ©no_ovladaÄe\")\n"
+"6) MoÅ¾nÃ¡ je nainstalovÃ¡no vÃ­ce verzÃ­ SANE"
 
 #. strings that are used in structures, so it is not allowed to use _()/gettext() here
 #. gettext_noop does mark these texts but does not change the string
 #. MENU_ITEM_SURFACE_FULL_SIZE
 msgid "full size"
-msgstr "plná velikost"
+msgstr "plnÃ¡ velikost"
 
 #. MENU_ITEM_SURFACE_DIN_A3P
 msgid "DIN A3 port."
-msgstr "ÈSN A3 stoj."
+msgstr "ÄŒSN A3 stoj."
 
 #. MENU_ITEM_SURFACE_DIN_A3L
 msgid "DIN A3 land."
-msgstr "ÈSN A3 le¾."
+msgstr "ÄŒSN A3 leÅ¾."
 
 #. MENU_ITEM_SURFACE_DIN_A4P
 msgid "DIN A4 port."
-msgstr "ÈSN A4 stoj."
+msgstr "ÄŒSN A4 stoj."
 
 #. MENU_ITEM_SURFACE_DIN_A4L
 msgid "DIN A4 land."
-msgstr "ÈSN A4 le¾."
+msgstr "ÄŒSN A4 leÅ¾."
 
 #. MENU_ITEM_SURFACE_DIN_A5P
 msgid "DIN A5 port."
-msgstr "ÈSN A5 stoj."
+msgstr "ÄŒSN A5 stoj."
 
 #. MENU_ITEM_SURFACE_DIN_A5L
 msgid "DIN A5 land."
-msgstr "ÈSN A5 le¾."
+msgstr "ÄŒSN A5 leÅ¾."
 
 #. MENU_ITEM_SURFACE_13cmx18cm
 msgid "13cm x 18cm"
-msgstr "13cm × 18cm"
+msgstr "13cm Ã— 18cm"
 
 #. MENU_ITEM_SURFACE_18cmx13cm
 msgid "18cm x 13cm"
-msgstr "18cm × 13cm"
+msgstr "18cm Ã— 13cm"
 
 #. MENU_ITEM_SURFACE_10cmx15cm
 msgid "10cm x 15cm"
-msgstr "10cm × 15cm"
+msgstr "10cm Ã— 15cm"
 
 #. MENU_ITEM_SURFACE_15cmx10cm
 msgid "15cm x 10cm"
-msgstr "15cm × 10cm"
+msgstr "15cm Ã— 10cm"
 
 #. MENU_ITEM_SURFACE_9cmx13cm
 msgid "9cm x 13cm"
-msgstr "9cm × 13cm"
+msgstr "9cm Ã— 13cm"
 
 #. MENU_ITEM_SURFACE_13cmx9cm
 msgid "13cm x 9cm"
-msgstr "13cm × 9cm"
+msgstr "13cm Ã— 9cm"
 
 #. MENU_ITEM_SURFACE_legal_P
 msgid "legal port."
@@ -2616,7 +2620,7 @@ msgstr "legal stoj."
 
 #. MENU_ITEM_SURFACE_legal_L
 msgid "legal land."
-msgstr "legal le¾."
+msgstr "legal leÅ¾."
 
 #. MENU_ITEM_SURFACE_letter_P
 msgid "letter port."
@@ -2624,11 +2628,11 @@ msgstr "letter stoj."
 
 #. MENU_ITEM_SURFACE_letter_L
 msgid "letter land."
-msgstr "letter le¾."
+msgstr "letter leÅ¾."
 
 #. MENU_ITEM_MEDIUM_FULL_COLOR_RANGE
 msgid "Full color range"
-msgstr "Plnı rozsah barev"
+msgstr "PlnÃ½ rozsah barev"
 
 #. MENU_ITEM_MEDIUM_SLIDE
 msgid "Slide"
@@ -2636,159 +2640,159 @@ msgstr "Diapozitiv"
 
 #. MENU_ITEM_MEDIUM_STANDARD_NEG
 msgid "Standard negative"
-msgstr "Standardní negativní"
+msgstr "StandardnÃ­ negativnÃ­"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG
 msgid "Agfa negative"
-msgstr "Agfa negativní"
+msgstr "Agfa negativnÃ­"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG_XRG200_4
 msgid "Agfa negative XRG 200-4"
-msgstr "Agfa negativní XRG 200-4"
+msgstr "Agfa negativnÃ­ XRG 200-4"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG_HDC_100
 msgid "Agfa negative HDC 100"
-msgstr "Agfa negativní HDC 100"
+msgstr "Agfa negativnÃ­ HDC 100"
 
 #. MENU_ITEM_MEDIUM_FUJI_NEG
 msgid "Fuji negative"
-msgstr "Fuji negativní"
+msgstr "Fuji negativnÃ­"
 
 #. MENU_ITEM_MEDIUM_KODAK_NEG
 msgid "Kodak negative"
-msgstr "Kodak negativní"
+msgstr "Kodak negativnÃ­"
 
 #. MENU_ITEM_MEDIUM_KONICA_NEG
 msgid "Konica negative"
-msgstr "Konica negativní"
+msgstr "Konica negativnÃ­"
 
 #. MENU_ITEM_MEDIUM_KONICA_NEG_VX_100
 msgid "Konica negative VX 100"
-msgstr "Konica negativní VX 100"
+msgstr "Konica negativnÃ­ VX 100"
 
 #. MENU_ITEM_MEDIUM_ROSSMANN_NEG_HR_100
 msgid "Rossmann negative HR 100"
-msgstr "Rossmann negativní HR 100"
+msgstr "Rossmann negativnÃ­ HR 100"
 
 #. TEXT_MAIL_STATUS_NOT_CREATED
 msgid "Mail project not created"
-msgstr "Po¹tovní projekt nebyl vytvoøen"
+msgstr "PoÅ¡tovnÃ­ projekt nebyl vytvoÅ™en"
 
 #. TEXT_MAIL_STATUS_CREATED
 msgid "Mail project created"
-msgstr "Po¹tovní projekt byl vytvoøen"
+msgstr "PoÅ¡tovnÃ­ projekt byl vytvoÅ™en"
 
 #. TEXT_MAIL_STATUS_CHANGED
 msgid "Mail project changed"
-msgstr "Po¹tovní projekt byl zmìnìn"
+msgstr "PoÅ¡tovnÃ­ projekt byl zmÄ›nÄ›n"
 
 #. TEXT_MAIL_STATUS_ERR_READ_PROJECT
 msgid "Error reading mailproject"
-msgstr "Chyba pøi ètení po¹tovního projektu"
+msgstr "Chyba pÅ™i ÄtenÃ­ poÅ¡tovnÃ­ho projektu"
 
 #. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
 msgid "POP3 connection failed"
-msgstr "POP3 spojení selhalo"
+msgstr "POP3 spojenÃ­ selhalo"
 
 #. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
 msgid "POP3 login failed"
-msgstr "POP3 pøihlá¹ení selhalo"
+msgstr "POP3 pÅ™ihlÃ¡Å¡enÃ­ selhalo"
 
 #. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
-msgstr "SMTP spojení selhalo"
+msgstr "SMTP spojenÃ­ selhalo"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_FROM
 msgid "From entry not accepted"
-msgstr "Polo¾ka Od byla odmítnuta"
+msgstr "PoloÅ¾ka Od byla odmÃ­tnuta"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_RCPT
 msgid "Receiver entry not accepted"
-msgstr "Zadání pøíjemce bylo odmítnuto"
+msgstr "ZadÃ¡nÃ­ pÅ™Ã­jemce bylo odmÃ­tnuto"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_DATA
 msgid "Mail data not accepted"
-msgstr "Data zprávy byla odmítnuta"
+msgstr "Data zprÃ¡vy byla odmÃ­tnuta"
 
 #. TEXT_MAIL_STATUS_SENDING
 msgid "Sending mail"
-msgstr "Zpráva se posílá"
+msgstr "ZprÃ¡va se posÃ­lÃ¡"
 
 #. TEXT_MAIL_STATUS_SENT
 msgid "Mail has been sent"
-msgstr "Zpráva byla odeslána"
+msgstr "ZprÃ¡va byla odeslÃ¡na"
 
 #. TEXT_FAX_STATUS_NOT_CREATED
 msgid "Fax project not created"
-msgstr "Faxovı projekt nebyl vytvoøen"
+msgstr "FaxovÃ½ projekt nebyl vytvoÅ™en"
 
 #. TEXT_FAX_STATUS_CREATED
 msgid "Fax project created"
-msgstr "Faxovı projekt byl vytvoøen"
+msgstr "FaxovÃ½ projekt byl vytvoÅ™en"
 
 #. TEXT_FAX_STATUS_CHANGED
 msgid "Fax project changed"
-msgstr "Faxovı projekt byl zmìnìn"
+msgstr "FaxovÃ½ projekt byl zmÄ›nÄ›n"
 
 #. TEXT_FAX_STATUS_QUEUEING_FAX
 msgid "Queueing Fax"
-msgstr "Fax se pøidává do fronty"
+msgstr "Fax se pÅ™idÃ¡vÃ¡ do fronty"
 
 #. TEXT_FAX_STATUS_FAX_QUEUED
 msgid "Fax is queued"
-msgstr "Fax je ve frontì"
+msgstr "Fax je ve frontÄ›"
 
 #. Sane backend messages
 msgid "flatbed scanner"
-msgstr "plo¹nı skener"
+msgstr "ploÅ¡nÃ½ skener"
 
 msgid "frame grabber"
-msgstr "snímaè políèek"
+msgstr "snÃ­maÄ polÃ­Äek"
 
 msgid "handheld scanner"
-msgstr "ruèní ckener"
+msgstr "ruÄnÃ­ ckener"
 
 msgid "still camera"
-msgstr "digitální fotoaparát"
+msgstr "digitÃ¡lnÃ­ fotoaparÃ¡t"
 
 msgid "video camera"
 msgstr "videokamera"
 
 msgid "virtual device"
-msgstr "virtuální zaøízení"
+msgstr "virtuÃ¡lnÃ­ zaÅ™Ã­zenÃ­"
 
 msgid "Success"
-msgstr "Úspìch"
+msgstr "ÃšspÄ›ch"
 
 msgid "Operation not supported"
-msgstr "Operace není podporovaná"
+msgstr "Operace nenÃ­ podporovanÃ¡"
 
 msgid "Operation was cancelled"
-msgstr "Operace byla zru¹ena"
+msgstr "Operace byla zruÅ¡ena"
 
 msgid "Device busy"
-msgstr "Zaøízení je v pou¾ívání"
+msgstr "ZaÅ™Ã­zenÃ­ je v pouÅ¾Ã­vÃ¡nÃ­"
 
 msgid "Invalid argument"
-msgstr "Neplatnı argument"
+msgstr "NeplatnÃ½ argument"
 
 msgid "End of file reached"
-msgstr "Dosa¾en konec souboru"
+msgstr "DosaÅ¾en konec souboru"
 
 msgid "Document feeder jammed"
-msgstr "Zmaèkanı papír v podavaèi"
+msgstr "ZmaÄkanÃ½ papÃ­r v podavaÄi"
 
 msgid "Document feeder out of documents"
-msgstr "V podavaèi do¹ly dokumenty"
+msgstr "V podavaÄi doÅ¡ly dokumenty"
 
 msgid "Scanner cover is open"
-msgstr "Víko skeneru je otevøeno"
+msgstr "VÃ­ko skeneru je otevÅ™eno"
 
 msgid "Error during device I/O"
-msgstr "Chyba bìhem V/V zaøízení"
+msgstr "Chyba bÄ›hem V/V zaÅ™Ã­zenÃ­"
 
 msgid "Out of memory"
-msgstr "Nedostatek pamìti"
+msgstr "Nedostatek pamÄ›ti"
 
 msgid "Access to resource has been denied"
-msgstr "Pøístup ke zdroji byl odmítnut"
+msgstr "PÅ™Ã­stup ke zdroji byl odmÃ­tnut"

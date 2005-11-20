@@ -50,6 +50,7 @@
 Preferences preferences =
   {
        0,		/* xsane-version string */
+       XSANE_VIEWER,    /* default xsane_mode viewer */
        0,		/* default path to temporary directory (not defined here) */
        0,		/* default working_directory */
        0,		/* no default filename */
@@ -138,6 +139,7 @@ Preferences preferences =
        1,		/* preselect_scanarea after preview scan */
        1,		/* auto_correct_colors after preview scan */
  GTK_UPDATE_DISCONTINUOUS, /* update policy for gtk frontend sliders */
+       0,		/* medium_nr */
        0,		/* paper_orientation */
        0,		/* preset_area_definitions */
        0,		/* printernr */
@@ -155,6 +157,7 @@ static struct
 desc[] =
   {
     {"xsane-version",			xsane_rc_pref_string,	POFFSET(xsane_version_str)},
+    {"xsane-mode",			xsane_rc_pref_int,	POFFSET(xsane_mode)},
     {"tmp-path",			xsane_rc_pref_string,	POFFSET(tmp_path)},
     {"working-directory",		xsane_rc_pref_string,	POFFSET(working_directory)},
     {"filename",			xsane_rc_pref_string,	POFFSET(filename)},
@@ -243,6 +246,7 @@ desc[] =
     {"preselect-scanarea",		xsane_rc_pref_int,	POFFSET(preselect_scanarea)},
     {"auto-correct-colors",		xsane_rc_pref_int,	POFFSET(auto_correct_colors)},
     {"gtk-update-policy",		xsane_rc_pref_int,	POFFSET(gtk_update_policy)},
+    {"medium-nr",			xsane_rc_pref_int,	POFFSET(medium_nr)},
     {"paper-orientation",		xsane_rc_pref_int,	POFFSET(paper_orientation)},
     {"preset-area-definitions",		xsane_rc_pref_int,	POFFSET(preset_area_definitions)},
     {"printernr",			xsane_rc_pref_int,	POFFSET(printernr)},

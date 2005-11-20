@@ -13,7 +13,7 @@
 <table>
 <tr>
 <td width=200>
-<img SRC="xsane-logo2.jpg" alt="XSane-logo" hspace=30 height=150 width=128 align=TOP>
+<img SRC="xsane-logo.jpg" alt="XSane-logo" hspace=30 align=TOP>
 </td>
 <td>
 <blockquote>
@@ -196,20 +196,10 @@ extension to the filename, you should not append a file extension in this case.
 <b>Supported filetypes:</b>
 
 <blockquote>
-<i>Pnm</i> and <i>ps</i> (and raw) are always available. The
-other formats are only available if necessary libraries are present and
+<i>PDF</i>, <i>pnm</i> and <i>PostScript</i> are always available.
+The other formats are only available if necessary libraries are present and
 support is compiled in. For <i>png</i> you need libpng and libz, for
 <i>jpeg</i> you need jpeglib, for <i>tiff</i> you need libtiff.
-</blockquote>
-
-<blockquote>
-The <i>raw</i> format is a 16 bit binary format. Some programs can read
-<i>raw</i> files as <i>pnm</i>-format. For the <i>pnm</i> format
-only 8 bit binary and ascii and 16 bit ascii are defined. We suggest
-not to use the <i>raw</i> format for storing images you want to view, it is
-meant for post-processing with programs you write yourself. The advantage
-is that this format produces much smaller files than the 16 bit ascii
-<i>pnm</i> format does.
 </blockquote>
 
 <blockquote>
@@ -223,22 +213,22 @@ is that this format produces much smaller files than the 16 bit ascii
 <p>
 <b><u>8 bits/pixel grayscale mode:</u></b>
 <blockquote>
-<font color="#000099">pnm = pgm, png, ps, jpeg and tiff</font>
+<font color="#000099">pdf, pnm = pgm, png, ps, jpeg and tiff</font>
 </blockquote>
 <p>
 <b><u>16 bits/pixel grayscale mode (9-16 bits):</u></b>
 <blockquote>
-<font color="#000099">pnm (ascii), png, raw and tiff</font>
+<font color="#000099">pnm=pgm, png and tiff</font>
 </blockquote>
 <p>
 <b><u>24 bits/pixel RGB-color mode (8 bits/color):</u></b>
 <blockquote>
-<font color="#000099">pnm = ppm, png, ps, jpeg and tiff</font>
+<font color="#000099">pdf, pnm = ppm, png, ps, jpeg and tiff</font>
 </blockquote>
 <p>
 <b><u>48 bits/pixel RGB-color mode (9-16 bits/color):</u></b>
 <blockquote>
-<font color="#000099">pnm (ascii), png, raw and tiff</font>
+<font color="#000099">pnm, png and tiff</font>
 </blockquote>
 
 </blockquote>

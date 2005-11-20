@@ -2675,3 +2675,60 @@ xsane-0.96 -> 0.97:
    to read option number 0. This means that it is not needed that SANE_CAP_SOFT_DETECT
    is set for option number 0 
 
+
+xsane-0.97 -> 0.98:
+-------------------
+
+ - void xsane_batch_scan_scan_list(void):
+   added if (gtk_events_pending()) in while (xsane.scanning)
+   (this was removed in xsane-0.97 what made a lot of trouble)
+
+ - corrected bad <Toolbox/...> italian transations for gimp plugin
+
+ - added Postscript Zlib-Compression and Ascii-85 compression
+   (patch by Julien BLACHE <jb@jblache.org>)
+
+ - added (single page) PDF saving routine
+   (patch by Julien BLACHE <jb@jblache.org>)
+
+ - added PDF and Postscript to mail-mode. PDF and Postscript documents can not
+   be displayed inline in html mails. I also do not know a way to display a
+   link to a document that is integrated in the mail. So the <IMAGE> tag
+   has no effect for pdf and postscript documents in html mode.
+
+ - --print-filenames prints the filenames after conversion, so it is
+   safe that the file exists and is complete
+
+ - selected medium definition is stored in preferences now
+
+ - BUGFIX for scanners that do not allow to set all resolutions.
+   In fax mode an possibly also in copy mode the created pages
+   had a wrong scaling when the scanner did not support the
+   desired resolution:
+   - xsane_set_resolution returns bestdpi = selected resolution
+   - xsane_set_all_resolutions stores bestdpi as used resolution
+
+ - when option 0 (num_options) has not defined SANE_CAP_SOFT_DETECT
+   then xsane prints a warning but does try to read the option value
+
+ - added xsane_mode (VIEWER/SAVE/EMAIL/FAX/etc) to preferences
+
+ - po/*: all po files are in UTF-8 code now
+   to transform non-UTF-8 po files to UTF-8 put the po file
+   into the IMPORT_PO_DIR directory and call in the po directory
+   "make import-po-files"
+
+ - rename xsane-logo2.jpg to xsane-logo.jpg and changed all
+   html files to xsane-logo.jpg
+
+ - viewer uses preferences.filetype instead of "by ext"
+
+ - localedir for sane-backends is set by sane-prefix instead of xsane-prefix
+
+ - replaced printf by g_print to get correct output on non-utf-8 terminals
+
+ - question mark '?' and asterisk '*' in filenames are replaced by underscore '_'
+
+ - translations: U=updated, N=not updated, A=added/new
+   cs da de es fr hu it ja nl pl pt pt_BR ro ru sk sl sr sv tr vi zh
+   U  U  U  N  N  U  U  N  N  N  N  N     N  U  U  N  N  N  N  N  N

@@ -25,6 +25,7 @@
 #include "xsane.h"
 #include "xsane-back-gtk.h"
 #include "xsane-front-gtk.h"
+#include <time.h>
 #include <sys/wait.h> 
 
 /* the following test is always false */
@@ -40,16 +41,16 @@
 #include <jpeglib.h>
 #endif
 
-#ifdef HAVE_LIBPNG
 #ifdef HAVE_LIBZ
-#include <png.h>
 #include <zlib.h>
 #endif
+
+#ifdef HAVE_LIBPNG
+#include <png.h>
 #endif
 
 #ifdef HAVE_LIBTIFF
 #include <tiffio.h>
-#include <time.h>
 #endif
 
 #ifdef HAVE_MMAP
@@ -2316,32 +2317,32 @@ static void xsane_save_ps_create_header(FILE *outfile, Image_info *image_info,
                         SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
                         SANE_VERSION_MINOR(xsane.sane_backend_versioncode));
   fprintf(outfile, "%%%%DocumentData: Clean7Bit\n");
+  fprintf(outfile, "%%%%LanguageLevel: 2\n");
   fprintf(outfile, "%%%%Pages: 1\n");
   fprintf(outfile, "%%%%BoundingBox: %d %d %d %d\n", box_left, box_bottom, box_right, box_top);
   fprintf(outfile, "%%%%EndComments\n");
+  fprintf(outfile, "\n");
   fprintf(outfile, "/origstate save def\n");
   fprintf(outfile, "20 dict begin\n");
   fprintf(outfile, "%%%%Page: 1 1\n");
 
   if (depth == 1)
   {
-    fprintf(outfile, "/pix %d string def\n", (image_info->image_width+7)/8);
     fprintf(outfile, "/grays %d string def\n", image_info->image_width);
     fprintf(outfile, "/npixels 0 def\n");
     fprintf(outfile, "/rgbindx 0 def\n");
   }
-  else
-  {
-    fprintf(outfile, "/pix %d string def\n", image_info->image_width);
-  }
-
 
   fprintf(outfile, "%d rotate\n", degree);
   fprintf(outfile, "%d %d translate\n", position_left, position_bottom);
   fprintf(outfile, "%f %f scale\n", width, height);
   fprintf(outfile, "%d %d %d\n", image_info->image_width, image_info->image_height, depth);
   fprintf(outfile, "[%d %d %d %d %d %d]\n", image_info->image_width, 0, 0, -image_info->image_height, 0, image_info->image_height);
-  fprintf(outfile, "{currentfile pix readhexstring pop}\n");
+  fprintf(outfile, "currentfile\n");
+  fprintf(outfile, "/ASCII85Decode filter\n");
+#ifdef HAVE_LIBZ
+  fprintf(outfile, "/FlateDecode filter\n");
+#endif
 
   if (image_info->colors == 3) /* what about RGBA here ? */
   {
@@ -2357,16 +2358,228 @@ static void xsane_save_ps_create_header(FILE *outfile, Image_info *image_info,
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static int xsane_save_ps_bw(FILE *outfile, FILE *imagefile, Image_info *image_info, GtkProgressBar *progress_bar, int *cancel_save)
+/* Utility function for the PostScript output */
+static int xsane_write_compressed_a85(FILE *outfile, unsigned char *line, int len, int finish)
 {
- int x, y, count;
- int bytes_per_line = (image_info->image_width+7)/8;
+  static unsigned char *cbuf = NULL;
+  static int cbuflen = 0;
+  static int linelen = 0;
+  int i, j;
+  int outlen;
+#ifdef HAVE_LIBZ
+  static int init = 0;
+  static z_stream s;
+  int ret;
+  int flush;
+#endif
+  static int a85count = 0;
+  static guint32 a85tuple = 0;
+  static unsigned char a85block[6] = {0, 0, 0, 0, 0, 0};
+  static int count = 0;
 
-  DBG(DBG_proc, "xsane_save_ps_bw\n");
+  DBG(DBG_proc, "xsane_write_compressed_a85\n");
+
+#ifdef HAVE_LIBZ
+  if (linelen != len)
+  {
+    linelen = len;
+    if (cbuf != NULL)
+    {
+      free(cbuf);
+    }
+    /* buffer length = length + 0.1 * length + 12 (mandatory) */
+    cbuflen = len + len / 10 + 12;
+    cbuf = malloc(cbuflen);
+  }
+
+  if (cbuf == NULL)
+  {
+    DBG(DBG_error, "cbuf allocation failed\n");
+   return 1;
+  }
+
+  if (!init)
+  {
+    s.zalloc = Z_NULL;
+    s.zfree = Z_NULL;
+    s.opaque = Z_NULL;
+
+    ret = deflateInit(&s, Z_DEFAULT_COMPRESSION);
+
+    if (ret != Z_OK)
+    {
+      DBG(DBG_error, "deflateInit failed\n");
+      free(cbuf);
+     return 1;
+    }
+
+    init = 1;
+  }
+  
+  s.avail_in = len;
+  s.next_in = line;
+
+  do
+  {
+    s.avail_out = cbuflen;
+    s.next_out = cbuf;
+
+    flush = (finish) ? Z_FINISH : Z_NO_FLUSH;
+
+    ret = deflate(&s, flush);
+
+    if (ret == Z_STREAM_ERROR)
+    {
+      DBG(DBG_error, "deflate failed\n");
+      free(cbuf);
+     return 1;
+    }
+
+    outlen = cbuflen - s.avail_out;
+#else
+    cbuf = line;
+    outlen = len;
+#endif /* HAVE_LIBZ */
+
+    /* ASCII85 (base 85) encoding */
+    for (i = 0; i < outlen; i++)
+    {
+      switch (a85count)
+      {
+        case 0:
+          a85tuple |= (cbuf[i] << 24);
+          a85count++;
+         break;
+
+        case 1:
+          a85tuple |= (cbuf[i] << 16);
+          a85count++;
+         break;
+
+        case 2:
+          a85tuple |= (cbuf[i] << 8);
+          a85count++;
+         break;
+
+        case 3:
+          a85tuple |= (cbuf[i] << 0);
+
+          if (count == 40)
+          {
+            fprintf(outfile, "\n");
+            count = 0;
+          }
+
+          if (a85tuple == 0)
+          {
+            fprintf(outfile, "z");
+            count++;
+          }
+          else
+          {
+            /* The ASCII chars must be written in reverse order, hence -> a85block[4-j] */
+            for (j = 0; j < 5; j++)
+            {
+              a85block[4-j] = a85tuple % 85 + '!';
+              a85tuple /= 85;
+            }
+
+            for (j = 0; j < 5; j++)
+            {
+              fprintf(outfile, "%c", a85block[j]);
+              count++;
+              if (count == 40)
+              {
+                fprintf(outfile, "\n");
+                count = 0;
+              }
+            }
+          }
+
+          a85count = 0;
+          a85tuple = 0;
+         break;
+
+        default:
+         break;
+      }
+    }
+#ifdef HAVE_LIBZ
+  } while (s.avail_out == 0);
+#endif
+
+  if (finish)
+  {
+    DBG(DBG_info, "finish\n");
+    if (a85count > 0)
+    {
+      a85count++;
+      for (j = 0; j <= a85count; j++)
+      {
+        a85block[j] = a85tuple % 85 + '!';
+        a85tuple /= 85;
+      }
+      /* Reverse order */
+      for (j--; j > 0; j--)
+      {
+        if (count == 40)
+        {
+          fprintf(outfile, "\n");
+          count = 0;
+        }
+        fprintf(outfile, "%c", a85block[j]);
+        count++;
+      }
+    }
+
+    /* ASCII85 EOD marker + newline*/
+    if (count + 2 > 40)
+    {
+      fprintf(outfile, "\n");
+    }
+    fprintf(outfile, "~>\n");
+#ifdef HAVE_LIBZ
+    deflateEnd(&s);
+    free(cbuf);
+    cbuf = NULL;
+    init = 0;
+#endif
+    a85tuple = 0;
+    a85count = 0;
+    cbuflen = 0;
+    linelen = 0;
+    count = 0;
+  }
+
+ return 0;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static int xsane_save_ps_pdf_bw(FILE *outfile, FILE *imagefile, Image_info *image_info, GtkProgressBar *progress_bar, int *cancel_save)
+{
+ int x, y;
+ int bytes_per_line = (image_info->image_width+7)/8;
+ int ret;
+ unsigned char *line;
+
+  DBG(DBG_proc, "xsane_save_ps_pdf_bw\n");
 
   *cancel_save = 0;
 
-  count = 0;
+  line = (unsigned char *) malloc(bytes_per_line);
+
+  if (line == NULL)
+  {
+    char buf[255];
+      
+    snprintf(buf, sizeof(buf), "%s malloc failed", ERR_DURING_SAVE);
+    DBG(DBG_error, "%s\n", buf);
+    xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+    *cancel_save = 1;
+   return (*cancel_save);
+  }
+
   for (y = 0; y < image_info->image_height; y++)
   {
     gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height);
@@ -2377,48 +2590,67 @@ static int xsane_save_ps_bw(FILE *outfile, FILE *imagefile, Image_info *image_in
 
     for (x = 0; x < bytes_per_line; x++)
     {
-      fprintf(outfile, "%02x", (fgetc(imagefile) ^ 255));
-      if (++count >= 40)
-      {
-        fprintf(outfile, "\n");
-	count = 0;
-      }
+      line[x] = fgetc(imagefile) ^ 255;
     }
 
-    fprintf(outfile, "\n");
+    ret = xsane_write_compressed_a85(outfile, line, bytes_per_line, (y == image_info->image_height - 1));
 
-    if (ferror(outfile))
+    if ((ret != 0) || (ferror(outfile)))
     {
      char buf[255];
 
-      snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+      if (ret == 0)
+      {
+        snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+      }
+      else
+      {
+        snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_ZLIB);
+      }
+
       DBG(DBG_error, "%s\n", buf);
       xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
       *cancel_save = 1;
+
      break;
     }
 
-    count = 0;
     if (*cancel_save)
     {
       break;
     }
   }
 
+  free(line);
+
  return (*cancel_save);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static int xsane_save_ps_gray(FILE *outfile, FILE *imagefile, Image_info *image_info, GtkProgressBar *progress_bar, int *cancel_save)
+static int xsane_save_ps_pdf_gray(FILE *outfile, FILE *imagefile, Image_info *image_info, GtkProgressBar *progress_bar, int *cancel_save)
 {
- int x, y, count;
+  int x, y;
+  int ret;
+  unsigned char *line;
 
-  DBG(DBG_proc, "xsane_save_ps_gray\n");
+  DBG(DBG_proc, "xsane_save_ps_pdf_gray\n");
 
   *cancel_save = 0;
 
-  count = 0;
+  line = (unsigned char *) malloc(image_info->image_width);
+
+  if (line == NULL)
+  {
+   char buf[255];
+      
+    snprintf(buf, sizeof(buf), "%s malloc failed", ERR_DURING_SAVE);
+    DBG(DBG_error, "%s\n", buf);
+    xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+    *cancel_save = 1;
+   return (*cancel_save);
+  }
+
   for (y = 0; y < image_info->image_height; y++)
   {
     if (image_info->depth > 8) /* reduce 16 bit images */
@@ -2428,67 +2660,81 @@ static int xsane_save_ps_gray(FILE *outfile, FILE *imagefile, Image_info *image_
       for (x = 0; x < image_info->image_width; x++)
       {
         fread(&val, 2, 1, imagefile);
-        fprintf(outfile, "%02x", val/256);
-
-        if (++count >= 40)
-        {
-          fprintf(outfile, "\n");
-          count = 0;
-        }
+        line[x] = val/256;
       }
     }
     else /* 8 bits/sample */
     {
       for (x = 0; x < image_info->image_width; x++)
       {
-        fprintf(outfile, "%02x", fgetc(imagefile));
-        if (++count >= 40)
-        {
-          fprintf(outfile, "\n");
-          count = 0;
-        }
+        line[x] = fgetc(imagefile);
       }
     }
 
-    fprintf(outfile, "\n");
+    ret = xsane_write_compressed_a85(outfile, line, image_info->image_width, (y == image_info->image_height - 1));
 
-    if (ferror(outfile))
+    if ((ret != 0) || (ferror(outfile)))
     {
      char buf[255];
 
-      snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+      if (ret == 0)
+      {
+        snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+      }
+      else
+      {
+        snprintf(buf, sizeof(buf), "%s zlib error or memory allocation problem", ERR_DURING_SAVE);
+      }
+
       DBG(DBG_error, "%s\n", buf);
       xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
       *cancel_save = 1;
+
      break;
     }
 
-    count = 0;
     gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height);
     while (gtk_events_pending())
     {
       gtk_main_iteration();
     }
+
     if (*cancel_save)
     {
       break;
     }
   }
 
+  free(line);
+
  return (*cancel_save);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static int xsane_save_ps_color(FILE *outfile, FILE *imagefile, Image_info *image_info, GtkProgressBar *progress_bar, int *cancel_save)
+static int xsane_save_ps_pdf_color(FILE *outfile, FILE *imagefile, Image_info *image_info, GtkProgressBar *progress_bar, int *cancel_save)
 {
- int x, y, count;
+  int x, y;
+  int ret;
+  unsigned char *line, *linep;
 
-  DBG(DBG_proc, "xsane_save_ps_color\n");
+  DBG(DBG_proc, "xsane_save_ps_pdf_color\n");
 
   *cancel_save = 0;
+
+  line = (unsigned char *) malloc(image_info->image_width * 3);
+
+  if (line == NULL)
+  {
+   char buf[255];
+      
+    snprintf(buf, sizeof(buf), "%s malloc failed", ERR_DURING_SAVE);
+    DBG(DBG_error, "%s\n", buf);
+    xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+    *cancel_save = 1;
+   return (*cancel_save);
+  }
  
-  count = 0;
   for (y = 0; y < image_info->image_height; y++)
   {
     gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height);
@@ -2497,6 +2743,8 @@ static int xsane_save_ps_color(FILE *outfile, FILE *imagefile, Image_info *image
       gtk_main_iteration();
     }
 
+    linep = line;
+
     if (image_info->depth > 8) /* reduce 16 bit images */
     {
      guint16 val;
@@ -2504,54 +2752,52 @@ static int xsane_save_ps_color(FILE *outfile, FILE *imagefile, Image_info *image
       for (x = 0; x < image_info->image_width; x++)
       {
         fread(&val, 2, 1, imagefile);
-        fprintf(outfile, "%02x", val/256);
+	*linep++ = val/256;
         fread(&val, 2, 1, imagefile);
-        fprintf(outfile, "%02x", val/256);
+	*linep++ = val/256;
         fread(&val, 2, 1, imagefile);
-        fprintf(outfile, "%02x", val/256);
-
-        if (++count >= 10)
-        {
-          fprintf(outfile, "\n");
-          count = 0;
-        }
+	*linep++ = val/256;
       }
     }
     else /* 8 bits/sample */
     {
       for (x = 0; x < image_info->image_width; x++)
       {
-        fprintf(outfile, "%02x", fgetc(imagefile));
-        fprintf(outfile, "%02x", fgetc(imagefile));
-        fprintf(outfile, "%02x", fgetc(imagefile));
-
-        if (++count >= 10)
-        {
-          fprintf(outfile, "\n");
-          count = 0;
-        }
+	*linep++ = fgetc(imagefile);
+	*linep++ = fgetc(imagefile);
+	*linep++ = fgetc(imagefile);
       }
     }
-    fprintf(outfile, "\n");
 
-    if (ferror(outfile))
+    ret = xsane_write_compressed_a85(outfile, line, (image_info->image_width * 3), (y == image_info->image_height - 1));
+
+    if ((ret != 0) || (ferror(outfile)))
     {
      char buf[255];
 
-      snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+      if (ret == 0)
+      {
+        snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+      }
+      else
+      {
+        snprintf(buf, sizeof(buf), "%s zlib error or memory allocation problem", ERR_DURING_SAVE);
+      }
+
       DBG(DBG_error, "%s\n", buf);
       xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
       *cancel_save = 1;
+
      break;
     }
-
-    count = 0;
 
     if (*cancel_save)
     {
       break;
     }
   }
+
+  free(line);
 
  return (*cancel_save);
 }
@@ -2574,16 +2820,16 @@ int xsane_save_ps(FILE *outfile, FILE *imagefile, Image_info *image_info, float 
   {
     if (image_info->depth == 1) /* lineart, halftone */
     {
-      xsane_save_ps_bw(outfile, imagefile, image_info, progress_bar, cancel_save);
+      xsane_save_ps_pdf_bw(outfile, imagefile, image_info, progress_bar, cancel_save);
     }
     else /* grayscale */
     {
-      xsane_save_ps_gray(outfile, imagefile, image_info, progress_bar, cancel_save);
+      xsane_save_ps_pdf_gray(outfile, imagefile, image_info, progress_bar, cancel_save);
     }
   }
   else /* color RGB */
   {
-    xsane_save_ps_color(outfile, imagefile, image_info, progress_bar, cancel_save);
+    xsane_save_ps_pdf_color(outfile, imagefile, image_info, progress_bar, cancel_save);
   }
 
   fprintf(outfile, "\n");
@@ -2592,6 +2838,308 @@ int xsane_save_ps(FILE *outfile, FILE *imagefile, Image_info *image_info, float 
   fprintf(outfile, "origstate restore\n");
   fprintf(outfile, "%%%%EOF\n");
   fprintf(outfile, "\n");
+
+  if (ferror(outfile))
+  {
+   char buf[255];
+
+    snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+    DBG(DBG_error, "%s\n", buf);
+    xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+    *cancel_save = 1;
+  }
+
+ return (*cancel_save);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+/* The pdf_xref struct holds byte offsets from the beginning of the PDF
+ * file to each object of the PDF file -- used to build the xref table
+ */
+struct pdf_xref
+{
+  unsigned long obj5; /* obj 5 0 */
+  unsigned long obj6; /* obj 6 0 */
+  unsigned long obj7; /* obj 7 0 */
+  unsigned long xref; /* xref table */
+  unsigned long slen; /* length of image stream */
+  unsigned long slenp; /* position of image stream length */
+};
+
+static void xsane_save_pdf_create_header(FILE *outfile, Image_info *image_info,
+					 float width, float height,
+					 int paper_left_margin, int paper_bottom_margin,
+					 int paper_width, int paper_height,
+					 int paper_orientation,
+					 GtkProgressBar *progress_bar, struct pdf_xref *xref)
+{
+ int position_left, position_bottom, box_left, box_bottom, box_right, box_top, depth;
+ int left, bottom;
+ float rad;
+
+  DBG(DBG_proc, "xsane_save_pdf_create_header\n");
+
+  switch (paper_orientation)
+  {
+    default:
+    case 0: /* top left portrait */
+      left   = 0.0;
+      bottom = paper_height - height;
+     break;
+
+    case 1: /* top right portrait */
+      left   = paper_width  - width;
+      bottom = paper_height - height;
+     break;
+
+    case 2: /* bottom right portrait */
+      left   = paper_width - width;
+      bottom = 0.0;
+     break;
+
+    case 3: /* bottom left portrait */
+      left   = 0.0;
+      bottom = 0.0;
+     break;
+
+    case 4: /* center portrait */
+      left   = paper_width  / 2.0 - width  / 2.0;
+      bottom = paper_height / 2.0 - height / 2.0;
+     break;
+
+
+    case 8: /* top left landscape */
+      left   = 0.0;
+      bottom = paper_width - height;
+     break;
+
+    case 9: /* top right landscape */
+      left   = paper_height - width;
+      bottom = paper_width  - height;
+     break;
+
+    case 10: /* bottom right landscape */
+      left   = paper_height - width;
+      bottom = 0.0;
+     break;
+
+    case 11: /* bottom left landscape */
+      left   = 0.0;
+      bottom = 0.0;
+     break;
+
+    case 12: /* center landscape */
+      left   = paper_height / 2.0 - width  / 2.0;
+      bottom = paper_width  / 2.0 - height / 2.0;
+     break;
+  }
+
+
+  if (paper_orientation >= 8) /* rotate with 90 degrees - landscape mode */
+  {
+    rad = -M_PI_2; /* pi / 2 */
+    position_left   = left   + paper_bottom_margin;
+    position_bottom = bottom - paper_width - paper_left_margin;
+    box_left        = paper_width - paper_left_margin - bottom - height;
+    box_bottom      = left   + paper_bottom_margin;
+    box_right       = box_left   + ceil(height);
+    box_top         = box_bottom + ceil(width);
+  }
+  else /* do not rotate, portrait mode */
+  {
+    rad = 0;
+    position_left   = left   + paper_left_margin;
+    position_bottom = bottom + paper_bottom_margin;
+    box_left        = left   + paper_left_margin;
+    box_bottom      = bottom + paper_bottom_margin;
+    box_right       = box_left   + ceil(width);
+    box_top         = box_bottom + ceil(height);
+  }
+
+  depth = image_info->depth;
+
+  if (depth > 8)
+  {
+    depth = 8;
+  }
+
+  fprintf(outfile, "%%PDF-1.4\n");
+  fprintf(outfile, "\n");
+  fprintf(outfile, "1 0 obj\n");
+  fprintf(outfile, "   << /Type /Catalog\n");
+  fprintf(outfile, "      /Outlines 2 0 R\n");
+  fprintf(outfile, "      /Pages 3 0 R\n");
+  fprintf(outfile, "   >>\n");
+  fprintf(outfile, "endobj\n");
+  fprintf(outfile, "\n");
+  fprintf(outfile, "2 0 obj\n");
+  fprintf(outfile, "   << /Type /Outlines\n");
+  fprintf(outfile, "      /Count 0\n");
+  fprintf(outfile, "   >>\n");
+  fprintf(outfile, "endobj\n");
+  fprintf(outfile, "\n");
+  fprintf(outfile, "3 0 obj\n");
+  fprintf(outfile, "   << /Type /Pages\n");
+  fprintf(outfile, "      /Kids [4 0 R]\n");
+  fprintf(outfile, "      /Count 1\n");
+  fprintf(outfile, "   >>\n");
+  fprintf(outfile, "endobj\n");
+  fprintf(outfile, "\n");
+  fprintf(outfile, "4 0 obj\n");
+  fprintf(outfile, "    << /Type /Page\n");
+  fprintf(outfile, "       /Parent 3 0 R\n");
+  fprintf(outfile, "       /MediaBox [%d %d %d %d]\n", box_left, box_bottom, box_right, box_top);
+  fprintf(outfile, "       /Contents 5 0 R\n");
+  fprintf(outfile, "       /Resources << /ProcSet 6 0 R >>\n");
+  fprintf(outfile, "    >>\n");
+  fprintf(outfile, "endobj\n");
+  fprintf(outfile, "\n");
+
+  /* Offset of object 5, for xref */
+  xref->obj5 = ftell(outfile);
+
+  fprintf(outfile, "5 0 obj\n");
+  fprintf(outfile, "    << /Length             >>\n");
+
+  /* Position of the stream length, to be written later on */
+  xref->slenp = ftell(outfile) - 15;
+
+  fprintf(outfile, "stream\n");
+
+  /* Start of the stream data */
+  xref->slen = ftell(outfile);
+
+  fprintf(outfile, "q\n");
+  fprintf(outfile, "1 0 0 1 %d %d cm\n", position_left, position_bottom); /* translate */
+  fprintf(outfile, "%f %f -%f %f 0 0 cm\n", cos(rad), sin(rad), sin(rad), cos(rad)); /* rotate */
+  fprintf(outfile, "%f 0 0 %f 0 0 cm\n", width, height); /* scale */
+  fprintf(outfile, "BI\n");
+  fprintf(outfile, "  /W %d\n", image_info->image_width);
+  fprintf(outfile, "  /H %d\n", image_info->image_height);
+
+  if (image_info->colors == 3) /* what about RGBA here ? */
+  {
+    fprintf(outfile, "  /CS /RGB\n");
+    fprintf(outfile, "  /BPC %d\n", depth);
+  }
+  else if (image_info->depth == 1) /* BW */
+  {
+    fprintf(outfile, "  /CS /G\n");
+    fprintf(outfile, "  /BPC 1\n");
+  }
+  else /* gray */
+  {
+    fprintf(outfile, "  /CS /G\n");
+    fprintf(outfile, "  /BPC 8\n");
+  }
+
+#ifdef HAVE_LIBZ
+    fprintf(outfile, "  /F [/A85 /FlateDecode]\n");
+#else
+    fprintf(outfile, "  /F /A85\n");
+#endif
+    fprintf(outfile, "ID\n");
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+int xsane_save_pdf(FILE *outfile, FILE *imagefile, Image_info *image_info, float width, float height,
+		   int paper_left_margin, int paper_bottom_margin, int paperheight, int paperwidth, int paper_orientation,
+		   GtkProgressBar *progress_bar, int *cancel_save)
+{
+  struct tm *t;
+  time_t tt;
+  struct pdf_xref xref;
+
+  DBG(DBG_proc, "xsane_save_pdf\n");
+
+  *cancel_save = 0;
+
+  xsane_save_pdf_create_header(outfile, image_info, width, height,
+			       paper_left_margin, paper_bottom_margin, paperheight, paperwidth, paper_orientation,
+			       progress_bar, &xref);
+
+  if (image_info->colors == 1) /* lineart, halftone, grayscale */
+  {
+    if (image_info->depth == 1) /* lineart, halftone */
+    {
+      xsane_save_ps_pdf_bw(outfile, imagefile, image_info, progress_bar, cancel_save);
+    }
+    else /* grayscale */
+    {
+      xsane_save_ps_pdf_gray(outfile, imagefile, image_info, progress_bar, cancel_save);
+    }
+  }
+  else /* color RGB */
+  {
+    xsane_save_ps_pdf_color(outfile, imagefile, image_info, progress_bar, cancel_save);
+  }
+
+  /* PDF trailer */
+  fprintf(outfile, "EI\n");
+  fprintf(outfile, "Q\n");
+
+  /* Go back and write the length of the stream */
+  xref.slen = ftell(outfile) - xref.slen - 1;
+  fseek(outfile, xref.slenp, SEEK_SET);
+  fprintf(outfile, "%lu", xref.slen);
+  fseek(outfile, 0L, SEEK_END);
+
+  fprintf(outfile, "endstream\n");
+  fprintf(outfile, "endobj\n");
+  fprintf(outfile, "\n");
+
+  /* Offset of object 6, for xref */
+  xref.obj6 = ftell(outfile);
+
+  fprintf(outfile, "6 0 obj\n");
+  fprintf(outfile, "    [/PDF]\n");
+  fprintf(outfile, "endobj\n");
+  fprintf(outfile, "\n");
+
+  /* Offset of object 7, for xref */
+  xref.obj7 = ftell(outfile);
+
+  fprintf(outfile, "7 0 obj\n");
+  fprintf(outfile, "   << /Title (XSane scanned image)\n");
+  fprintf(outfile, "      /Creator (XSane version %s (sane %d.%d) - by Oliver Rauch)\n",
+	  VERSION,
+	  SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
+	  SANE_VERSION_MINOR(xsane.sane_backend_versioncode));
+  fprintf(outfile, "      /Producer (XSane %s)\n", VERSION);
+
+  tt = time(NULL);
+  t = gmtime(&tt);
+
+  fprintf(outfile, "      /CreationDate (D:%04d%02d%02d%02d%02d%02d+00'00')\n",
+	  1900 + t->tm_year, t->tm_mon + 1, t->tm_mday, t->tm_hour, t->tm_min, t->tm_sec);
+  fprintf(outfile, "   >>\n");
+  fprintf(outfile, "endobj\n");
+  fprintf(outfile, "\n");
+
+  /* Offset of xref, for startxref below */
+  xref.xref = ftell(outfile);
+
+  fprintf(outfile, "xref\n");
+  fprintf(outfile, "0 8\n");
+  fprintf(outfile, "0000000000 65535 f \n");
+  fprintf(outfile, "0000000010 00000 n \n");
+  fprintf(outfile, "0000000094 00000 n \n");
+  fprintf(outfile, "0000000153 00000 n \n");
+  fprintf(outfile, "0000000229 00000 n \n");
+  fprintf(outfile, "%010lu 00000 n \n", xref.obj5);
+  fprintf(outfile, "%010lu 00000 n \n", xref.obj6);
+  fprintf(outfile, "%010lu 00000 n \n", xref.obj7);
+  fprintf(outfile, "\n");
+  fprintf(outfile, "trailer\n");
+  fprintf(outfile, "    << /Size 8\n");
+  fprintf(outfile, "       /Root 1 0 R\n");
+  fprintf(outfile, "       /Info 7 0 R\n");
+  fprintf(outfile, "    >>\n");
+  fprintf(outfile, "startxref\n");
+  fprintf(outfile, "%lu\n", xref.xref);
+  fprintf(outfile, "%%%%EOF\n");
 
   if (ferror(outfile))
   {
@@ -3804,6 +4352,26 @@ int xsane_save_image_as(char *output_filename, char *input_filename, int output_
         }
         break; /* switch format == XSANE_PS */
 
+        case XSANE_PDF: /* save PDF, use original size */
+        { 
+         float imagewidth, imageheight;
+
+           imagewidth  = 72.0 * image_info.image_width/image_info.resolution_x; /* width in 1/72 inch */
+           imageheight = 72.0 * image_info.image_height/image_info.resolution_y; /* height in 1/72 inch */
+
+            xsane_save_pdf(outfile, infile,
+                          &image_info,
+                          imagewidth, imageheight,
+                          0, /* paper_left_margin */
+                          0, /* paper_bottom_margin */
+                          (int) imagewidth, /* paper_width */
+                          (int) imageheight, /* paper_height */
+                          0 /* portrait top left */,
+                          progress_bar,
+                          cancel_save);
+        }
+        break; /* switch format == XSANE_PDF */
+
         case XSANE_TEXT: /* save as text using ocr program like gocr/jocr */
         {
           xsane_save_image_as_text(output_filename, input_filename, progress_bar, cancel_save);
@@ -4139,7 +4707,7 @@ static void xsane_gimp_run(char *name, int nparams, GimpParam *param, int *nretu
 
   run_mode = param[0].data.d_int32;
   xsane.mode = XSANE_GIMP_EXTENSION;
-  xsane.xsane_mode = XSANE_SAVE;
+  preferences.xsane_mode = XSANE_SAVE;
 
   *nreturn_vals = 1;
   *return_vals = values;

@@ -85,7 +85,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.97"
+#define XSANE_VERSION		"0.98"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2005"
@@ -464,7 +464,6 @@ extern void xsane_batch_scan_add(void);
 #define FAXPOSTSCRIPTOPT	""
 #define FAXNORMALOPT		"-l"
 #define FAXFINEOPT		"-m"
-#define FAXVIEWER 	 	"gv"
 #define FAXCONVERTPSTOPNM  	"gs -dNOPAUSE -dBATCH -q -r204 -sDEVICE=pnm -sOutputFile="
 #define MAILPROJECT 	    	"mailproject"
 #define MAILCOMMAND 	 	"sendmail"
@@ -534,7 +533,7 @@ extern void xsane_batch_scan_add(void);
 enum
 {
  XSANE_UNKNOWN, XSANE_PNM, XSANE_JPEG, XSANE_PNG, XSANE_PS, XSANE_TIFF, XSANE_RGBA,
- XSANE_RAW16, XSANE_PNM16, XSANE_TEXT
+ XSANE_RAW16, XSANE_PNM16, XSANE_TEXT, XSANE_PDF
 };
  
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -685,7 +684,6 @@ typedef struct Xsane
     Preview   *preview;
     int preview_gamma_size;
     int mode;
-    int medium_nr;
 
     int main_window_fixed;
     int mode_selection;
@@ -713,7 +711,7 @@ typedef struct Xsane
 
     /* saving and transformation values: */
     FILE *out;
-    int xsane_mode;
+//    int xsane_mode;
     int xsane_output_format;
     long header_size;
     int expand_lineart_to_grayscale;

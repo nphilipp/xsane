@@ -42,6 +42,10 @@ extern void xsane_save_ps(FILE *outfile, FILE *imagefile, Image_info *image_info
                           float width, float height,
                           int paper_left_margin, int paper_bottom_margin, int paperwidth, int paperheight, int paper_orientation,
                           GtkProgressBar *progress_bar, int *cancel_save);
+extern void xsane_save_pdf(FILE *outfile, FILE *imagefile, Image_info *image_info,
+			   float width, float height,
+			   int paper_left_margin, int paper_bottom_margin, int paperwidth, int paperheight, int paper_orientation,
+			   GtkProgressBar *progress_bar, int *cancel_save);
 extern void xsane_save_jpeg(FILE *outfile, FILE *imagefile, Image_info *image_info, int quality, GtkProgressBar *progress_bar, int *cancel_save);
 extern void xsane_save_tiff(const char *outfilename, FILE *imagefile, Image_info *image_info, int quality, GtkProgressBar *progress_bar, int *cancel_save);
 extern void xsane_save_png(FILE *outfile, FILE *imagefile, Image_info *image_info, int compression, GtkProgressBar *progress_bar, int *cancel_save);

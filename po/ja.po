@@ -5,18 +5,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.96\n"
-"POT-Creation-Date: 2004-08-21 15:31+0200\n"
+"POT-Creation-Date: 2005-10-23 00:20+0200\n"
 "PO-Revision-Date: 2004-08-28 12:48+900\n"
 "Last-Translator: Kimizuka Tomokazu <sgtom@pluto.dti.ne.jp>\n"
 "Language-Team: Japanese\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=EUC-JP\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
 #. Please translate this to the correct directory name (eg. german=>de)
 #. XSANE_LANGUAGE_DIR
 msgid "language_dir"
-msgstr "¸À¸ì¥Ç¥£¥ì¥¯¥È¥ê"
+msgstr "è¨€èªãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª"
 
 #. XSANE_COPYRIGHT_SIGN
 msgid "(c)"
@@ -25,275 +25,275 @@ msgstr "(c)"
 #. can be translated with \251
 #. FILENAME_PREFIX_CLONE_OF
 msgid "clone-of-"
-msgstr "¥¯¥í¡¼¥ó¸µ¡§"
+msgstr "ã‚¯ãƒ­ãƒ¼ãƒ³å…ƒï¼š"
 
 #. WINDOW_ABOUT_XSANE
 msgid "About"
-msgstr "XSane¤Ë¤Ä¤¤¤Æ"
+msgstr "XSaneã«ã¤ã„ã¦"
 
 #. WINDOW_ABOUT_TRANSLATION, MENU_ITEM_ABOUT_TRANSLATION
 msgid "About translation"
-msgstr "ËİÌõ¤Ë¤Ä¤¤¤Æ"
+msgstr "ç¿»è¨³ã«ã¤ã„ã¦"
 
 #. WINDOW_AUTHORIZE
 msgid "authorization"
-msgstr "¥¢¥¯¥»¥¹¸¢¸Â"
+msgstr "ã‚¢ã‚¯ã‚»ã‚¹æ¨©é™"
 
 #. WINDOW_GPL
 msgid "GPL - the license"
-msgstr "GPL - ¥é¥¤¥»¥ó¥¹"
+msgstr "GPL - ãƒ©ã‚¤ã‚»ãƒ³ã‚¹"
 
 #. WINDOW_EULA
 msgid "End User License Agreement"
-msgstr "¥¨¥ó¥É¥æ¡¼¥¶¡¼»ÈÍÑµöÂú"
+msgstr "ã‚¨ãƒ³ãƒ‰ãƒ¦ãƒ¼ã‚¶ãƒ¼ä½¿ç”¨è¨±è«¾"
 
 #. WINDOW_INFO
 msgid "info"
-msgstr "¾ğÊó"
+msgstr "æƒ…å ±"
 
 #. WINDOW_LOAD_BATCH_LIST
 msgid "load batch list"
-msgstr "¥Ğ¥Ã¥Á¥ê¥¹¥È¤ò¥í¡¼¥É"
+msgstr "ãƒãƒƒãƒãƒªã‚¹ãƒˆã‚’ãƒ­ãƒ¼ãƒ‰"
 
 #. WINDOW_SAVE_BATCH_LIST
 msgid "save batch list"
-msgstr "¥Ğ¥Ã¥Á¥ê¥¹¥È¤òÊİÂ¸"
+msgstr "ãƒãƒƒãƒãƒªã‚¹ãƒˆã‚’ä¿å­˜"
 
 #. WINDOW_BATCH_SCAN
 msgid "batch scan"
-msgstr "¥Ğ¥Ã¥Á¥¹¥­¥ã¥ó"
+msgstr "ãƒãƒƒãƒã‚¹ã‚­ãƒ£ãƒ³"
 
 #. WINDOW_BATCH_RENAME
 msgid "rename batch area"
-msgstr "¥Ğ¥Ã¥ÁÎÎ°è¤ò¥ê¥Í¡¼¥à"
+msgstr "ãƒãƒƒãƒé ˜åŸŸã‚’ãƒªãƒãƒ¼ãƒ "
 
 #. WINDOW_FAX_PROJECT
 msgid "fax project"
-msgstr "FAX¥×¥í¥¸¥§¥¯¥È"
+msgstr "FAXãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ"
 
 #. WINDOW_FAX_RENAME
 msgid "rename fax page"
-msgstr "FAX¥Ú¡¼¥¸¤ò¥ê¥Í¡¼¥à"
+msgstr "FAXãƒšãƒ¼ã‚¸ã‚’ãƒªãƒãƒ¼ãƒ "
 
 #. WINDOW_FAX_INSERT
 msgid "insert ps-file into fax"
-msgstr "PS¥Õ¥¡¥¤¥ë¤òFAX¤ËÁŞÆş"
+msgstr "PSãƒ•ã‚¡ã‚¤ãƒ«ã‚’FAXã«æŒ¿å…¥"
 
 #. WINDOW_MAIL_PROJECT
 msgid "mail project"
-msgstr "¥á¡¼¥ë¥×¥í¥¸¥§¥¯¥È"
+msgstr "ãƒ¡ãƒ¼ãƒ«ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ"
 
 #. WINDOW_MAIL_RENAME
 msgid "rename mail image"
-msgstr "¥á¡¼¥ë¥¤¥á¡¼¥¸¤ò¥ê¥Í¡¼¥à"
+msgstr "ãƒ¡ãƒ¼ãƒ«ã‚¤ãƒ¡ãƒ¼ã‚¸ã‚’ãƒªãƒãƒ¼ãƒ "
 
 #. WINDOW_MAIL_INSERT
 msgid "insert file into mail"
-msgstr "¥Õ¥¡¥¤¥ë¤ò¥á¡¼¥ë¤ËÁŞÆş"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒ¡ãƒ¼ãƒ«ã«æŒ¿å…¥"
 
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
-msgstr "¥×¥ê¥»¥Ã¥ÈÎÎ°è¤ò¥ê¥Í¡¼¥à"
+msgstr "ãƒ—ãƒªã‚»ãƒƒãƒˆé ˜åŸŸã‚’ãƒªãƒãƒ¼ãƒ "
 
 #. WINDOW_PRESET_AREA_ADD
 msgid "add preset area"
-msgstr "¥×¥ê¥»¥Ã¥ÈÎÎ°è¤òÄÉ²Ã"
+msgstr "ãƒ—ãƒªã‚»ãƒƒãƒˆé ˜åŸŸã‚’è¿½åŠ "
 
 #. WINDOW_MEDIUM_RENAME
 msgid "rename medium"
-msgstr "ÇŞÂÎ¤ò¥ê¥Í¡¼¥à"
+msgstr "åª’ä½“ã‚’ãƒªãƒãƒ¼ãƒ "
 
 #. WINDOW_MEDIUM_ADD
 msgid "add new medium"
-msgstr "¿·¤·¤¤ÇŞÂÎ¤òÄÉ²Ã"
+msgstr "æ–°ã—ã„åª’ä½“ã‚’è¿½åŠ "
 
 #. WINDOW_SETUP
 msgid "setup"
-msgstr "¥»¥Ã¥È¥¢¥Ã¥×"
+msgstr "ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—"
 
 #. WINDOW_HISTOGRAM
 msgid "Histogram"
-msgstr "¥Ò¥¹¥È¥°¥é¥à"
+msgstr "ãƒ’ã‚¹ãƒˆã‚°ãƒ©ãƒ "
 
 #. WINDOW_GAMMA
 msgid "Gamma curve"
-msgstr "¥¬¥ó¥Ş¶ÊÀş"
+msgstr "ã‚¬ãƒ³ãƒæ›²ç·š"
 
 #. WINDOW_STANDARD_OPTIONS
 msgid "Standard options"
-msgstr "É¸½à¥ª¥×¥·¥ç¥ó"
+msgstr "æ¨™æº–ã‚ªãƒ—ã‚·ãƒ§ãƒ³"
 
 #. WINDOW_ADVANCED_OPTIONS
 msgid "Advanced options"
-msgstr "¾ÜºÙ¥ª¥×¥·¥ç¥ó"
+msgstr "è©³ç´°ã‚ªãƒ—ã‚·ãƒ§ãƒ³"
 
 #. WINDOW_DEVICE_SELECTION
 msgid "device selection"
-msgstr "¥Ç¥Ğ¥¤¥¹ÁªÂò"
+msgstr "ãƒ‡ãƒã‚¤ã‚¹é¸æŠ"
 
 #. WINDOW_PREVIEW
 msgid "Preview"
-msgstr "¥×¥ì¥Ó¥å¡¼"
+msgstr "ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼"
 
 #. WINDOW_VIEWER
 msgid "Viewer"
-msgstr "¥Ó¥å¡¼¥ï"
+msgstr "ãƒ“ãƒ¥ãƒ¼ãƒ¯"
 
 #. WINDOW_VIEWER_OUTPUT_FILENAME
 msgid "Viewer: select output filename"
-msgstr "¥Ó¥å¡¼¥ï¡§½ĞÎÏ¥Õ¥¡¥¤¥ëÌ¾¤òÁªÂò"
+msgstr "ãƒ“ãƒ¥ãƒ¼ãƒ¯ï¼šå‡ºåŠ›ãƒ•ã‚¡ã‚¤ãƒ«åã‚’é¸æŠ"
 
 #. WINDOW_OCR_OUTPUT_FILENAME
 msgid "Select output filename for OCR text file"
-msgstr "½ĞÎÏOCR¥Æ¥­¥¹¥È¥Õ¥¡¥¤¥ëÌ¾¤òÁªÂò"
+msgstr "å‡ºåŠ›OCRãƒ†ã‚­ã‚¹ãƒˆãƒ•ã‚¡ã‚¤ãƒ«åã‚’é¸æŠ"
 
 #. WINDOW_OUTPUT_FILENAME
 msgid "select output filename"
-msgstr "½ĞÎÏ¥Õ¥¡¥¤¥ëÌ¾¤òÁªÂò"
+msgstr "å‡ºåŠ›ãƒ•ã‚¡ã‚¤ãƒ«åã‚’é¸æŠ"
 
 #. WINDOW_SAVE_SETTINGS
 msgid "save device settings"
-msgstr "¥Ç¥Ğ¥¤¥¹ÀßÄê¤òÊİÂ¸"
+msgstr "ãƒ‡ãƒã‚¤ã‚¹è¨­å®šã‚’ä¿å­˜"
 
 #. WINDOW_LOAD_SETTINGS
 msgid "load device settings"
-msgstr "¥Ç¥Ğ¥¤¥¹ÀßÄê¤òÆÉ¹ş"
+msgstr "ãƒ‡ãƒã‚¤ã‚¹è¨­å®šã‚’èª­è¾¼"
 
 #. WINDOW_CHANGE_WORKING_DIR
 msgid "change working directory"
-msgstr "ºî¶È¥Ç¥£¥ì¥¯¥È¥ê¤òÊÑ¹¹"
+msgstr "ä½œæ¥­ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’å¤‰æ›´"
 
 #. WINDOW_TMP_PATH
 msgid "select temporary directory"
-msgstr "°ì»ş¥Ç¥£¥ì¥¯¥È¥ê¤òÁªÂò"
+msgstr "ä¸€æ™‚ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’é¸æŠ"
 
 #. WINDOW_SCALE
 msgid "Scale image"
-msgstr "²èÁü¤Î³ÈÂç½Ì¾®"
+msgstr "ç”»åƒã®æ‹¡å¤§ç¸®å°"
 
 #. WINDOW_DESPECKLE
 msgid "Despeckle image"
-msgstr "²èÁü¤Î¤·¤ß¼è¤ê"
+msgstr "ç”»åƒã®ã—ã¿å–ã‚Š"
 
 #. WINDOW_BLUR
 msgid "Blur image"
-msgstr "²èÁü¤ò¤Ë¤¸¤Ş¤»¤ë"
+msgstr "ç”»åƒã‚’ã«ã˜ã¾ã›ã‚‹"
 
 #. WINDOW_STORE_MEDIUM
 msgid "Store medium definition"
-msgstr "ÇŞÂÎ¤ÎÄêµÁ¤òÊİÂ¸"
+msgstr "åª’ä½“ã®å®šç¾©ã‚’ä¿å­˜"
 
 #. WINDOW_NO_DEVICES
 msgid "No devices available"
-msgstr "¥Ç¥Ğ¥¤¥¹¤¬»È¤¨¤Ş¤»¤ó"
+msgstr "ãƒ‡ãƒã‚¤ã‚¹ãŒä½¿ãˆã¾ã›ã‚“"
 
 #. MENU_FILE
 msgid "File"
-msgstr "¥Õ¥¡¥¤¥ë"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«"
 
 #. MENU_PREFERENCES
 msgid "Preferences"
-msgstr "ÀßÄê"
+msgstr "è¨­å®š"
 
 #. MENU_VIEW
 msgid "View"
-msgstr "É½¼¨"
+msgstr "è¡¨ç¤º"
 
 #. MENU_WINDOW
 msgid "Window"
-msgstr "¥¦¥£¥ó¥É¥¦"
+msgstr "ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦"
 
 #. MENU_HELP
 msgid "Help"
-msgstr "¥Ø¥ë¥×"
+msgstr "ãƒ˜ãƒ«ãƒ—"
 
 #. MENU_EDIT
 msgid "Edit"
-msgstr "ÊÔ½¸"
+msgstr "ç·¨é›†"
 
 #. MENU_FILTERS
 msgid "Filters"
-msgstr "¥Õ¥£¥ë¥¿"
+msgstr "ãƒ•ã‚£ãƒ«ã‚¿"
 
 #. MENU_GEOMETRY
 msgid "Geometry"
-msgstr "¥¸¥ª¥á¥È¥ê"
+msgstr "ã‚¸ã‚ªãƒ¡ãƒˆãƒª"
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
-msgstr "XSane¤Ë¤Ä¤¤¤Æ"
+msgstr "XSaneã«ã¤ã„ã¦"
 
 #. MENU_ITEM_INFO
 msgid "Info"
-msgstr "¾ğÊó"
+msgstr "æƒ…å ±"
 
 #. MENU_ITEM_QUIT
 msgid "Quit"
-msgstr "½ªÎ»"
+msgstr "çµ‚äº†"
 
 #. MENU_ITEM_SAVE_IMAGE
 msgid "Save image"
-msgstr "¥¤¥á¡¼¥¸¤òÊİÂ¸"
+msgstr "ã‚¤ãƒ¡ãƒ¼ã‚¸ã‚’ä¿å­˜"
 
 #. MENU_ITEM_OCR
 msgid "OCR - save as text"
-msgstr "OCR - ¥Æ¥­¥¹¥È¤ÇÊİÂ¸"
+msgstr "OCR - ãƒ†ã‚­ã‚¹ãƒˆã§ä¿å­˜"
 
 #. MENU_ITEM_CLONE
 msgid "Clone"
-msgstr "Ê£À½"
+msgstr "è¤‡è£½"
 
 #. MENU_ITEM_SCALE
 msgid "Scale"
-msgstr "ÇÜÎ¨"
+msgstr "å€ç‡"
 
 #. MENU_ITEM_CLOSE
 msgid "Close"
-msgstr "ÊÄ¤¸¤ë"
+msgstr "é–‰ã˜ã‚‹"
 
 #. MENU_ITEM_UNDO
 msgid "Undo"
-msgstr "¸µ¤ËÌá¤¹"
+msgstr "å…ƒã«æˆ»ã™"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
-msgstr "¤·¤ß¼è¤ê"
+msgstr "ã—ã¿å–ã‚Š"
 
 #. MENU_ITEM_BLUR
 msgid "Blur"
-msgstr "¤Ë¤¸¤ß"
+msgstr "ã«ã˜ã¿"
 
 #. MENU_ITEM_ROTATE90
 msgid "Rotate 90"
-msgstr "90¡ë²óÅ¾"
+msgstr "90Â°å›è»¢"
 
 #. MENU_ITEM_ROTATE180
 msgid "Rotate 180"
-msgstr "180¡ë²óÅ¾"
+msgstr "180Â°å›è»¢"
 
 #. MENU_ITEM_ROTATE270
 msgid "Rotate 270"
-msgstr "270¡ë²óÅ¾"
+msgstr "270Â°å›è»¢"
 
 #. MENU_ITEM_MIRROR_X
 msgid "Mirror |"
-msgstr "¶ÀÁü |"
+msgstr "é¡åƒ |"
 
 #. MENU_ITEM_MIRROR_Y
 msgid "Mirror -"
-msgstr "¶ÀÁü -"
+msgstr "é¡åƒ -"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
-msgstr "Raw¥¤¥á¡¼¥¸"
+msgstr "Rawã‚¤ãƒ¡ãƒ¼ã‚¸"
 
 #. FRAME_ENHANCED_IMAGE
 msgid "Enhanced image"
-msgstr "³ÈÄ¥¥¤¥á¡¼¥¸"
+msgstr "æ‹¡å¼µã‚¤ãƒ¡ãƒ¼ã‚¸"
 
 #. BUTTON_SCAN
 msgid "Scan"
-msgstr "¥¹¥­¥ã¥ó"
+msgstr "ã‚¹ã‚­ãƒ£ãƒ³"
 
 #. BUTTON_OK
 msgid "Ok"
@@ -301,343 +301,343 @@ msgstr "OK"
 
 #. BUTTON_ACCEPT
 msgid "Accept"
-msgstr "¼õÍı¤¹¤ë"
+msgstr "å—ç†ã™ã‚‹"
 
 #. BUTTON_NOT_ACCEPT
 msgid "Not accept"
-msgstr "¼õÍı¤·¤Ê¤¤"
+msgstr "å—ç†ã—ãªã„"
 
 #. BUTTON_APPLY
 msgid "Apply"
-msgstr "Å¬ÍÑ"
+msgstr "é©ç”¨"
 
 #. BUTTON_CANCEL
 msgid "Cancel"
-msgstr "¥­¥ã¥ó¥»¥ë"
+msgstr "ã‚­ãƒ£ãƒ³ã‚»ãƒ«"
 
 #. BUTTON_REDUCE
 msgid "Reduce"
-msgstr "½Ì¾®"
+msgstr "ç¸®å°"
 
 #. BUTTON_CONT_AT_OWN_RISK
 msgid "Continue at your own risk"
-msgstr "ËÜÅö¤ËÂ³¤±¤ë"
+msgstr "æœ¬å½“ã«ç¶šã‘ã‚‹"
 
 #. BUTTON_BROWSE
 msgid "Browse"
-msgstr "¥Ö¥é¥¦¥º"
+msgstr "ãƒ–ãƒ©ã‚¦ã‚º"
 
 #. BUTTON_OVERWRITE
 msgid "Overwrite"
-msgstr "¾å½ñ¤­"
+msgstr "ä¸Šæ›¸ã"
 
 #. BUTTON_BATCH_LIST_SCAN
 msgid "Scan batch list"
-msgstr "¥Ğ¥Ã¥Á¥ê¥¹¥È ¥¹¥­¥ã¥ó"
+msgstr "ãƒãƒƒãƒãƒªã‚¹ãƒˆ ã‚¹ã‚­ãƒ£ãƒ³"
 
 #. BUTTON_BATCH_AREA_SCAN
 msgid "Scan selected area"
-msgstr "ÁªÂòÎÎ°è¤ò¥¹¥­¥ã¥ó"
+msgstr "é¸æŠé ˜åŸŸã‚’ã‚¹ã‚­ãƒ£ãƒ³"
 
 #. BUTTON_PAGE_DELETE
 msgid "Delete page"
-msgstr "¥Ú¡¼¥¸ºï½ü"
+msgstr "ãƒšãƒ¼ã‚¸å‰Šé™¤"
 
 #. BUTTON_PAGE_SHOW
 msgid "Show page"
-msgstr "¥Ú¡¼¥¸¤òÉ½¼¨"
+msgstr "ãƒšãƒ¼ã‚¸ã‚’è¡¨ç¤º"
 
 #. BUTTON_PAGE_RENAME
 msgid "Rename page"
-msgstr "¥Ú¡¼¥¸¤ò¥ê¥Í¡¼¥à"
+msgstr "ãƒšãƒ¼ã‚¸ã‚’ãƒªãƒãƒ¼ãƒ "
 
 #. BUTTON_IMAGE_DELETE
 msgid "Delete image"
-msgstr "²èÁü¤òºï½ü"
+msgstr "ç”»åƒã‚’å‰Šé™¤"
 
 #. BUTTON_IMAGE_SHOW
 msgid "Show image"
-msgstr "²èÁü¤òÉ½¼¨"
+msgstr "ç”»åƒã‚’è¡¨ç¤º"
 
 #. BUTTON_IMAGE_EDIT
 msgid "Edit image"
-msgstr "²èÁü¤òÊÔ½¸"
+msgstr "ç”»åƒã‚’ç·¨é›†"
 
 #. BUTTON_IMAGE_RENAME
 msgid "Rename image"
-msgstr "²èÁü¤ò¥ê¥Í¡¼¥à"
+msgstr "ç”»åƒã‚’ãƒªãƒãƒ¼ãƒ "
 
 #. BUTTON_FILE_INSERT
 msgid "Insert file"
-msgstr "¥Õ¥¡¥¤¥ë¤òÁŞÆş"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æŒ¿å…¥"
 
 #. BUTTON_CREATE_PROJECT
 msgid "Create project"
-msgstr "¥×¥í¥¸¥§¥¯¥ÈºîÀ®"
+msgstr "ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆä½œæˆ"
 
 #. BUTTON_SEND_PROJECT
 msgid "Send project"
-msgstr "¥×¥í¥¸¥§¥¯¥È¤òÁ÷¤ë"
+msgstr "ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã‚’é€ã‚‹"
 
 #. BUTTON_DELETE_PROJECT
 msgid "Delete project"
-msgstr "¥×¥í¥¸¥§¥¯¥Èºï½ü"
+msgstr "ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆå‰Šé™¤"
 
 #. BUTTON_ADD_PRINTER
 msgid "Add printer"
-msgstr "¥×¥ê¥ó¥¿ÄÉ²Ã"
+msgstr "ãƒ—ãƒªãƒ³ã‚¿è¿½åŠ "
 
 #. BUTTON_DELETE_PRINTER
 msgid "Delete printer"
-msgstr "¥×¥ê¥ó¥¿ºï½ü"
+msgstr "ãƒ—ãƒªãƒ³ã‚¿å‰Šé™¤"
 
 #. BUTTON_PREVIEW_ACQUIRE
 msgid "Acquire preview"
-msgstr "¥×¥ì¥Ó¥å¡¼¤ò¼èÆÀ"
+msgstr "ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ã‚’å–å¾—"
 
 #. BUTTON_PREVIEW_CANCEL
 msgid "Cancel preview"
-msgstr "¥×¥ì¥Ó¥å¡¼¤ò¥­¥ã¥ó¥»¥ë"
+msgstr "ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ã‚’ã‚­ãƒ£ãƒ³ã‚»ãƒ«"
 
 #. BUTTON_DISCARD_IMAGE
 msgid "Discard image"
-msgstr "²èÁü¤òÇË´ş"
+msgstr "ç”»åƒã‚’ç ´æ£„"
 
 #. BUTTON_DISCARD_ALL_IMAGES
 msgid "Discard all images"
-msgstr "¤¹¤Ù¤Æ¤Î²èÁü¤òÇË´ş"
+msgstr "ã™ã¹ã¦ã®ç”»åƒã‚’ç ´æ£„"
 
 #. BUTTON_DO_NOT_CLOSE
 msgid "Do not close"
-msgstr "ÊÄ¤¸¤Ê¤¤"
+msgstr "é–‰ã˜ãªã„"
 
 #. BUTTON_SCALE_BIND
 msgid "Bind scale"
-msgstr "ÇÜÎ¨¤ò¸ÇÄê"
+msgstr "å€ç‡ã‚’å›ºå®š"
 
 #. RADIO_BUTTON_FINE_MODE
 msgid "Fine mode"
-msgstr "¥Õ¥¡¥¤¥ó¥â¡¼¥É"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ³ãƒ¢ãƒ¼ãƒ‰"
 
 #. RADIO_BUTTON_HTML_MAIL
 msgid "HTML mail"
-msgstr "HTML¥á¡¼¥ë"
+msgstr "HTMLãƒ¡ãƒ¼ãƒ«"
 
 #. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device preferences at exit"
-msgstr "½ªÎ»»ş¤Ë¥Ç¥Ğ¥¤¥¹ÀßÄê¤òÊİÂ¸"
+msgstr "çµ‚äº†æ™‚ã«ãƒ‡ãƒã‚¤ã‚¹è¨­å®šã‚’ä¿å­˜"
 
 #. RADIO_BUTTON_OVERWRITE_WARNING
 msgid "Overwrite warning"
-msgstr "¾å½ñ¤­¤Î·Ù¹ğ"
+msgstr "ä¸Šæ›¸ãã®è­¦å‘Š"
 
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
 msgid "Skip existing filenames"
-msgstr "¸½ºß¤Î¥Õ¥¡¥¤¥ëÌ¾¤ò¥¹¥­¥Ã¥×"
+msgstr "ç¾åœ¨ã®ãƒ•ã‚¡ã‚¤ãƒ«åã‚’ã‚¹ã‚­ãƒƒãƒ—"
 
 #. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
 msgid "Save 16bit pnm in ascii format"
-msgstr "16¥Ó¥Ã¥Èpnm¤òascii¥Õ¥©¡¼¥Ş¥Ã¥È¤ÇÊİÂ¸"
+msgstr "16ãƒ“ãƒƒãƒˆpnmã‚’asciiãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã§ä¿å­˜"
 
 #. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
 msgid "Reduce 16 bit image to 8 bit"
-msgstr "16¥Ó¥Ã¥È²èÁü¤ò8¥Ó¥Ã¥È¤Ë¸º¿§"
+msgstr "16ãƒ“ãƒƒãƒˆç”»åƒã‚’8ãƒ“ãƒƒãƒˆã«æ¸›è‰²"
 
 #. RADIO_BUTTON_WINDOW_FIXED
 msgid "Main window size fixed"
-msgstr "¥á¥¤¥ó¥¦¥£¥ó¥É¥¦¤Î¥µ¥¤¥º¤ò¸ÇÄê"
+msgstr "ãƒ¡ã‚¤ãƒ³ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚µã‚¤ã‚ºã‚’å›ºå®š"
 
 #. RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA
 msgid "Disable gimp preview gamma"
-msgstr "GIMP¤Î¥¬¥ó¥Ş¥×¥ì¥Ó¥å¡¼¤òÌµ¸ú²½"
+msgstr "GIMPã®ã‚¬ãƒ³ãƒãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ã‚’ç„¡åŠ¹åŒ–"
 
 #. RADIO_BUTTON_PRIVATE_COLORMAP
 msgid "Use private colormap"
-msgstr "¥×¥é¥¤¥Ù¡¼¥È¥«¥é¡¼¥Ş¥Ã¥×¤ò»È¤¦"
+msgstr "ãƒ—ãƒ©ã‚¤ãƒ™ãƒ¼ãƒˆã‚«ãƒ©ãƒ¼ãƒãƒƒãƒ—ã‚’ä½¿ã†"
 
 #. RADIO_BUTTON_AUTOENHANCE_GAMMA
 msgid "Autoenhance gamma"
-msgstr "¼«Æ°¶¯Ä´¡Ê¥¬¥ó¥Ş¡Ë"
+msgstr "è‡ªå‹•å¼·èª¿ï¼ˆã‚¬ãƒ³ãƒï¼‰"
 
 #. RADIO_BUTTON_PRESELECT_SCANAREA
 msgid "Preselect scanarea"
-msgstr "¥¹¥­¥ã¥óÎÎ°è¤ÎÀè¹Ô»ØÄê"
+msgstr "ã‚¹ã‚­ãƒ£ãƒ³é ˜åŸŸã®å…ˆè¡ŒæŒ‡å®š"
 
 #. RADIO_BUTTON_AUTOCORRECT_COLORS
 msgid "Autocorrect colors"
-msgstr "¿§ºÌ¤Î¼«Æ°ÊäÀµ"
+msgstr "è‰²å½©ã®è‡ªå‹•è£œæ­£"
 
 #. RADIO_BUTTON_POP3_AUTHENTIFICATION
 msgid "POP3 authentification"
-msgstr "POP3Ç§¾Ú"
+msgstr "POP3èªè¨¼"
 
 #. RADIO_BUTTON_OCR_USE_GUI_PIPE
 msgid "Use GUI progress pipe"
-msgstr "GUI¥×¥í¥°¥ì¥¹¥Ñ¥¤¥×¤ò»ÈÍÑ"
+msgstr "GUIãƒ—ãƒ­ã‚°ãƒ¬ã‚¹ãƒ‘ã‚¤ãƒ—ã‚’ä½¿ç”¨"
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
-msgstr "¥Ç¥Ğ¥¤¥¹¤ò¥¹¥­¥ã¥ó¤·¤Æ¤¤¤Ş¤¹"
+msgstr "ãƒ‡ãƒã‚¤ã‚¹ã‚’ã‚¹ã‚­ãƒ£ãƒ³ã—ã¦ã„ã¾ã™"
 
 #. TEXT_AVAILABLE_DEVICES
 msgid "Available devices:"
-msgstr "¥Ç¥Ğ¥¤¥¹»ÈÍÑ²ÄÇ½¡§"
+msgstr "ãƒ‡ãƒã‚¤ã‚¹ä½¿ç”¨å¯èƒ½ï¼š"
 
 #. TEXT_XSANE_OPTIONS
 msgid "XSane options"
-msgstr "XSane¤Î¥ª¥×¥·¥ç¥ó"
+msgstr "XSaneã®ã‚ªãƒ—ã‚·ãƒ§ãƒ³"
 
 #. TEXT_XSANE_MODE
 msgid "XSane mode"
-msgstr "XSane¤Î¥â¡¼¥É"
+msgstr "XSaneã®ãƒ¢ãƒ¼ãƒ‰"
 
 #. TEXT_FILENAME_COUNTER_STEP
 msgid "Step"
-msgstr "¥¹¥Æ¥Ã¥×"
+msgstr "ã‚¹ãƒ†ãƒƒãƒ—"
 
 #. TEXT_FILETYPE
 msgid "Type"
-msgstr "¥¿¥¤¥×"
+msgstr "ã‚¿ã‚¤ãƒ—"
 
 #. TEXT_SCANNER_BACKEND
 msgid "Scanner and backend:"
-msgstr "¥¹¥­¥ã¥Ê¤È¥Ğ¥Ã¥¯¥¨¥ó¥É¡§"
+msgstr "ã‚¹ã‚­ãƒ£ãƒŠã¨ãƒãƒƒã‚¯ã‚¨ãƒ³ãƒ‰ï¼š"
 
 #. TEXT_VENDOR
 msgid "Vendor:"
-msgstr "¥Ù¥ó¥À¡§"
+msgstr "ãƒ™ãƒ³ãƒ€ï¼š"
 
 #. TEXT_MODEL
 msgid "Model:"
-msgstr "µ¡¼ï¡§"
+msgstr "æ©Ÿç¨®ï¼š"
 
 #. TEXT_TYPE
 msgid "Type:"
-msgstr "·¿Ì¾¡§"
+msgstr "å‹åï¼š"
 
 #. TEXT_DEVICE
 msgid "Device:"
-msgstr "¥Ç¥Ğ¥¤¥¹¡§"
+msgstr "ãƒ‡ãƒã‚¤ã‚¹ï¼š"
 
 #. TEXT_LOADED_BACKEND
 msgid "Loaded backend:"
-msgstr "ÆÉ¹ş¤Ş¤ì¤¿¥Ğ¥Ã¥¯¥¨¥ó¥É¡§"
+msgstr "èª­è¾¼ã¾ã‚ŒãŸãƒãƒƒã‚¯ã‚¨ãƒ³ãƒ‰ï¼š"
 
 #. TEXT_SANE_VERSION
 msgid "Sane version:"
-msgstr "Sane¤Î¥Ğ¡¼¥¸¥ç¥ó¡§"
+msgstr "Saneã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ï¼š"
 
 #. TEXT_RECENT_VALUES
 msgid "Recent values:"
-msgstr "ºÇ¶á¤ÎÃÍ¡§"
+msgstr "æœ€è¿‘ã®å€¤ï¼š"
 
 #. TEXT_GAMMA_CORR_BY
 msgid "Gamma correction by:"
-msgstr "¥¬¥ó¥Ş¥³¥ì¥¯¥·¥ç¥ó¡§"
+msgstr "ã‚¬ãƒ³ãƒã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ï¼š"
 
 #. TEXT_SCANNER
 msgid "scanner"
-msgstr "¥¹¥­¥ã¥Ê"
+msgstr "ã‚¹ã‚­ãƒ£ãƒŠ"
 
 #. TEXT_SOFTWARE_XSANE
 msgid "software (XSane)"
-msgstr "¥½¥Õ¥È¥¦¥§¥¢¡ÊXSane¡Ë"
+msgstr "ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ï¼ˆXSaneï¼‰"
 
 #. TEXT_NONE
 msgid "none"
-msgstr "¤Ê¤·"
+msgstr "ãªã—"
 
 #. TEXT_GAMMA_INPUT_DEPTH
 msgid "Gamma input depth:"
-msgstr "¥¬¥ó¥ŞÆşÎÏ¿¼ÅÙ¡§"
+msgstr "ã‚¬ãƒ³ãƒå…¥åŠ›æ·±åº¦ï¼š"
 
 #. TEXT_GAMMA_OUTPUT_DEPTH
 msgid "Gamma output depth:"
-msgstr "¥¬¥ó¥Ş½ĞÎÏ¿¼ÅÙ¡§"
+msgstr "ã‚¬ãƒ³ãƒå‡ºåŠ›æ·±åº¦ï¼š"
 
 #. TEXT_SCANNER_OUTPUT_DEPTH
 msgid "Scanner output depth:"
-msgstr "¥¹¥­¥ã¥Ê½ĞÎÏ¿¼ÅÙ¡§"
+msgstr "ã‚¹ã‚­ãƒ£ãƒŠå‡ºåŠ›æ·±åº¦ï¼š"
 
 #. TEXT_OUTPUT_FORMATS
 msgid "XSane output formats:"
-msgstr "XSane½ĞÎÏ¥Õ¥©¡¼¥Ş¥Ã¥È¡§"
+msgstr "XSaneå‡ºåŠ›ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆï¼š"
 
 #. TEXT_8BIT_FORMATS
 msgid "8 bit output formats:"
-msgstr "8¥Ó¥Ã¥È½ĞÎÏ¥Õ¥©¡¼¥Ş¥Ã¥È¡§"
+msgstr "8ãƒ“ãƒƒãƒˆå‡ºåŠ›ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆï¼š"
 
 #. TEXT_16BIT_FORMATS
 msgid "16 bit output formats:"
-msgstr "16¥Ó¥Ã¥È½ĞÎÏ¥Õ¥©¡¼¥Ş¥Ã¥È¡§"
+msgstr "16ãƒ“ãƒƒãƒˆå‡ºåŠ›ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆï¼š"
 
 #. TEXT_GIMP_REDUCE_16BIT_TO_8BIT
 msgid ""
 "Gimp does not support depth 16 bits/color.\n"
 "Do you want to reduce the depth to 8 bits/color?"
 msgstr ""
-"GIMP¤Ï16¥Ó¥Ã¥È¥«¥é¡¼¤ò¥µ¥İ¡¼¥È¤·¤Æ¤¤¤Ş¤»¤ó¡£\n"
-"8¥Ó¥Ã¥È¥«¥é¡¼¤Ë¸º¿§¤·¤Ş¤¹¤«?"
+"GIMPã¯16ãƒ“ãƒƒãƒˆã‚«ãƒ©ãƒ¼ã‚’ã‚µãƒãƒ¼ãƒˆã—ã¦ã„ã¾ã›ã‚“ã€‚\n"
+"8ãƒ“ãƒƒãƒˆã‚«ãƒ©ãƒ¼ã«æ¸›è‰²ã—ã¾ã™ã‹?"
 
 #. TEXT_REDUCE_16BIT_TO_8BIT
 msgid ""
 "Bit depth 16 bits/color is not supported for this output format.\n"
 "Do you want to reduce the depth to 8 bits/color?"
 msgstr ""
-"¤³¤Î½ĞÎÏ¥Õ¥©¡¼¥Ş¥Ã¥È¤Ï16¥Ó¥Ã¥È¥«¥é¡¼¤ò¥µ¥İ¡¼¥È¤·¤Æ¤¤¤Ş¤»¤ó¡£\n"
-"8¥Ó¥Ã¥È¥«¥é¡¼¤Ë¸º¿§¤·¤Ş¤¹¤«?"
+"ã“ã®å‡ºåŠ›ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã¯16ãƒ“ãƒƒãƒˆã‚«ãƒ©ãƒ¼ã‚’ã‚µãƒãƒ¼ãƒˆã—ã¦ã„ã¾ã›ã‚“ã€‚\n"
+"8ãƒ“ãƒƒãƒˆã‚«ãƒ©ãƒ¼ã«æ¸›è‰²ã—ã¾ã™ã‹?"
 
 #. TEXT_AUTHORIZATION_REQ
 msgid "Authorization required for"
-msgstr "¥¢¥¯¥»¥¹¸¢¸Â¤¬É¬Í×¤Ç¤¹¡§"
+msgstr "ã‚¢ã‚¯ã‚»ã‚¹æ¨©é™ãŒå¿…è¦ã§ã™ï¼š"
 
 #. TEXT_AUTHORIZATION_SECURE
 msgid "Password transmission is secure"
-msgstr "¥Ñ¥¹¥ï¡¼¥ÉÆ©²áÀ­¤Ï°ÂÁ´¤Ç¤¹"
+msgstr "ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰é€éæ€§ã¯å®‰å…¨ã§ã™"
 
 #. TEXT_AUTHORIZATION_INSECURE
 msgid "Backend requests plain-text password"
-msgstr "¥Ğ¥Ã¥¯¥¨¥ó¥É¤ÏÊ¿Ê¸¤Î¥Ñ¥¹¥ï¡¼¥É¤òÍ×µá¤·¤Æ¤¤¤Ş¤¹"
+msgstr "ãƒãƒƒã‚¯ã‚¨ãƒ³ãƒ‰ã¯å¹³æ–‡ã®ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã‚’è¦æ±‚ã—ã¦ã„ã¾ã™"
 
 #. TEXT_USERNAME
 msgid "Username :"
-msgstr "¥æ¡¼¥¶¡¼Ì¾¡§"
+msgstr "ãƒ¦ãƒ¼ã‚¶ãƒ¼åï¼š"
 
 #. TEXT_PASSWORD
 msgid "Password :"
-msgstr "¥Ñ¥¹¥ï¡¼¥É¡§"
+msgstr "ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ï¼š"
 
 #. TEXT_INVALID_PARAMS
 msgid "Invalid parameters."
-msgstr "ÉÔÀµ¤Ê¥Ñ¥é¥á¡¼¥¿¤Ç¤¹"
+msgstr "ä¸æ­£ãªãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã§ã™"
 
 #. TEXT_VERSION
 msgid "version:"
-msgstr "¥Ğ¡¼¥¸¥ç¥ó"
+msgstr "ãƒãƒ¼ã‚¸ãƒ§ãƒ³"
 
 #. TEXT_PACKAGE
 msgid "package"
-msgstr "¥Ñ¥Ã¥±¡¼¥¸"
+msgstr "ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸"
 
 #. TEXT_WITH_GIMP_SUPPORT
 msgid "with GIMP support"
-msgstr "GIMP¥µ¥İ¡¼¥È¤¢¤ê"
+msgstr "GIMPã‚µãƒãƒ¼ãƒˆã‚ã‚Š"
 
 #. TEXT_WITHOUT_GIMP_SUPPORT
 msgid "without GIMP support"
-msgstr "GIMP¥µ¥İ¡¼¥È¤Ê¤·"
+msgstr "GIMPã‚µãƒãƒ¼ãƒˆãªã—"
 
 #. TEXT_GTK_VERSION
 msgid "compiled with GTK-"
-msgstr "¥³¥ó¥Ñ¥¤¥ë¤µ¤ì¤Æ¤¤¤Ş¤¹¡ÄGTK-"
+msgstr "ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã•ã‚Œã¦ã„ã¾ã™â€¦GTK-"
 
 #. TEXT_GIMP_VERSION
 msgid "compiled with GIMP-"
-msgstr "¥³¥ó¥Ñ¥¤¥ë¤µ¤ì¤Æ¤¤¤Ş¤¹¡ÄGIMP-"
+msgstr "ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã•ã‚Œã¦ã„ã¾ã™â€¦GIMP-"
 
 #. TEXT_UNKNOWN
 msgid "unknown"
-msgstr "Ì¤ÃÎ"
+msgstr "æœªçŸ¥"
 
 #. TEXT_EULA
 msgid ""
@@ -653,17 +653,17 @@ msgid ""
 "have to read, understand and accept the following\n"
 "\"NO WARRANTY\" agreement.\n"
 msgstr ""
-"XSane¤Ï¡¢Free Software Foundation¤¬¸øÉ½¤·¤¿GNU°ìÈÌ¸øÍ­»ÈÍÑµöÂú\n"
-"¤Î¡Ö¥Ğ¡¼¥¸¥ç¥ó£²¡×°¿¤¤¤Ï¤½¤ì°Ê¹ß¤Î³Æ¥Ğ¡¼¥¸¥ç¥ó¤ÎÃæ¤«¤é¤¤¤º¤ì¤«\n"
-"¤òÁªÂò¤·¡¢¤½¤Î¥Ğ¡¼¥¸¥ç¥ó¤¬Äê¤á¤ë¾ò¹à¤Ë½¾¤Ã¤ÆËÜ¥×¥í¥°¥é¥à¤òºÆÈÒ\n"
-"ÉÛ¤Ş¤¿¤ÏÊÑ¹¹¤¹¤ë¤³¤È¤¬¤Ç¤­¤Ş¤¹¡£\n"
-"ËÜ¥×¥í¥°¥é¥à¤ÏÍ­ÍÑ¤È¤Ï»×¤¤¤Ş¤¹¤¬¡¢ÈÒÉÛ¤Ë¤¢¤¿¤Ã¤Æ¤Ï¡¢»Ô¾ìÀ­µÚ¤Ó\n"
-"ÆÃÄêÌÜÅªÅ¬¹çÀ­¤Ë¤Ä¤¤¤Æ¤Î°ÅÌÛ¤ÎÊİ¾Ú¤ò´Ş¤á¤Æ¡¢¤¤¤«¤Ê¤ëÊİ¾Ú¤â¹Ô¤Ê\n"
-"¤¤¤Ş¤»¤ó¡£\n"
-"¤³¤Î¥×¥í¥°¥é¥à¤¬ÉÔ´°Á´¤Ç¤¢¤ë¤È¾ÚÌÀ¤µ¤ì¤¿¾ì¹ç¡¢Êô»Å¤ä²ş½¤¤¬É¬Í×\n"
-"¤È¤Ê¤ê¡¢¤½¤ì¤é¤Î¤¹¤Ù¤Æ¤ò¤¢¤Ê¤¿¤Ï¼õ¤±Æş¤ì¤ë¤³¤È¤Ë¤Ê¤ê¤Ş¤¹¡£\n"
-"¤³¤Î¥×¥í¥°¥é¥à¤ò»ÈÍÑ¤¹¤ë¤¿¤á¤Ë¤¢¤Ê¤¿¤¬¤¹¤Ù¤­¤³¤È¤Ï¡¢°Ê²¼¤Î\n"
-"¡ÖÌµÊİ¾ÚµöÂú¾ò¹à¡×¤òÍı²ò¤·¡¢¤½¤ì¤ËÆ±°Õ¤¹¤ë¤³¤È¤Ç¤¹¡£\n"
+"XSaneã¯ã€Free Software FoundationãŒå…¬è¡¨ã—ãŸGNUä¸€èˆ¬å…¬æœ‰ä½¿ç”¨è¨±è«¾\n"
+"ã®ã€Œãƒãƒ¼ã‚¸ãƒ§ãƒ³ï¼’ã€æˆ–ã„ã¯ãã‚Œä»¥é™ã®å„ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã®ä¸­ã‹ã‚‰ã„ãšã‚Œã‹\n"
+"ã‚’é¸æŠã—ã€ãã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ãŒå®šã‚ã‚‹æ¡é …ã«å¾“ã£ã¦æœ¬ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚’å†é ’\n"
+"å¸ƒã¾ãŸã¯å¤‰æ›´ã™ã‚‹ã“ã¨ãŒã§ãã¾ã™ã€‚\n"
+"æœ¬ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã¯æœ‰ç”¨ã¨ã¯æ€ã„ã¾ã™ãŒã€é ’å¸ƒã«ã‚ãŸã£ã¦ã¯ã€å¸‚å ´æ€§åŠã³\n"
+"ç‰¹å®šç›®çš„é©åˆæ€§ã«ã¤ã„ã¦ã®æš—é»™ã®ä¿è¨¼ã‚’å«ã‚ã¦ã€ã„ã‹ãªã‚‹ä¿è¨¼ã‚‚è¡Œãª\n"
+"ã„ã¾ã›ã‚“ã€‚\n"
+"ã“ã®ãƒ—ãƒ­ã‚°ãƒ©ãƒ ãŒä¸å®Œå…¨ã§ã‚ã‚‹ã¨è¨¼æ˜ã•ã‚ŒãŸå ´åˆã€å¥‰ä»•ã‚„æ”¹ä¿®ãŒå¿…è¦\n"
+"ã¨ãªã‚Šã€ãã‚Œã‚‰ã®ã™ã¹ã¦ã‚’ã‚ãªãŸã¯å—ã‘å…¥ã‚Œã‚‹ã“ã¨ã«ãªã‚Šã¾ã™ã€‚\n"
+"ã“ã®ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚’ä½¿ç”¨ã™ã‚‹ãŸã‚ã«ã‚ãªãŸãŒã™ã¹ãã“ã¨ã¯ã€ä»¥ä¸‹ã®\n"
+"ã€Œç„¡ä¿è¨¼è¨±è«¾æ¡é …ã€ã‚’ç†è§£ã—ã€ãã‚Œã«åŒæ„ã™ã‚‹ã“ã¨ã§ã™ã€‚\n"
 
 #. TEXT_GPL
 msgid ""
@@ -675,29 +675,29 @@ msgid ""
 "WITHOUT ANY WARRANTY; without even the implied warranty of\n"
 "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
-"XSane¤Ï¡¢Free Software Foundation¤¬¸øÉ½¤·¤¿GNU°ìÈÌ¸øÍ­»ÈÍÑµöÂú\n"
-"¤Î¡Ö¥Ğ¡¼¥¸¥ç¥ó£²¡×°¿¤¤¤Ï¤½¤ì°Ê¹ß¤Î³Æ¥Ğ¡¼¥¸¥ç¥ó¤ÎÃæ¤«¤é¤¤¤º¤ì¤«\n"
-"¤òÁªÂò¤·¡¢¤½¤Î¥Ğ¡¼¥¸¥ç¥ó¤¬Äê¤á¤ë¾ò¹à¤Ë½¾¤Ã¤ÆËÜ¥×¥í¥°¥é¥à¤òºÆÈÒ\n"
-"ÉÛ¤Ş¤¿¤ÏÊÑ¹¹¤¹¤ë¤³¤È¤¬¤Ç¤­¤Ş¤¹¡£\n"
-"ËÜ¥×¥í¥°¥é¥à¤ÏÍ­ÍÑ¤È¤Ï»×¤¤¤Ş¤¹¤¬¡¢ÈÒÉÛ¤Ë¤¢¤¿¤Ã¤Æ¤Ï¡¢»Ô¾ìÀ­µÚ¤Ó\n"
-"ÆÃÄêÌÜÅªÅ¬¹çÀ­¤Ë¤Ä¤¤¤Æ¤Î°ÅÌÛ¤ÎÊİ¾Ú¤ò´Ş¤á¤Æ¡¢¤¤¤«¤Ê¤ëÊİ¾Ú¤â¹Ô¤Ê\n"
-"¤¤¤Ş¤»¤ó¡£\n"
+"XSaneã¯ã€Free Software FoundationãŒå…¬è¡¨ã—ãŸGNUä¸€èˆ¬å…¬æœ‰ä½¿ç”¨è¨±è«¾\n"
+"ã®ã€Œãƒãƒ¼ã‚¸ãƒ§ãƒ³ï¼’ã€æˆ–ã„ã¯ãã‚Œä»¥é™ã®å„ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã®ä¸­ã‹ã‚‰ã„ãšã‚Œã‹\n"
+"ã‚’é¸æŠã—ã€ãã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ãŒå®šã‚ã‚‹æ¡é …ã«å¾“ã£ã¦æœ¬ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚’å†é ’\n"
+"å¸ƒã¾ãŸã¯å¤‰æ›´ã™ã‚‹ã“ã¨ãŒã§ãã¾ã™ã€‚\n"
+"æœ¬ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã¯æœ‰ç”¨ã¨ã¯æ€ã„ã¾ã™ãŒã€é ’å¸ƒã«ã‚ãŸã£ã¦ã¯ã€å¸‚å ´æ€§åŠã³\n"
+"ç‰¹å®šç›®çš„é©åˆæ€§ã«ã¤ã„ã¦ã®æš—é»™ã®ä¿è¨¼ã‚’å«ã‚ã¦ã€ã„ã‹ãªã‚‹ä¿è¨¼ã‚‚è¡Œãª\n"
+"ã„ã¾ã›ã‚“ã€‚\n"
 
 #. TEXT_EMAIL
 msgid "Email:"
-msgstr "¥á¡¼¥ë¡§"
+msgstr "ãƒ¡ãƒ¼ãƒ«ï¼š"
 
 #. TEXT_HOMEPAGE
 msgid "Homepage:"
-msgstr "¥Û¡¼¥à¥Ú¡¼¥¸¡§"
+msgstr "ãƒ›ãƒ¼ãƒ ãƒšãƒ¼ã‚¸ï¼š"
 
 #. TEXT_FILE
 msgid "File:"
-msgstr "¥Õ¥¡¥¤¥ë¡§"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ï¼š"
 
 #. TEXT_TRANSLATION
 msgid "Translation:"
-msgstr "ËİÌõ¡§"
+msgstr "ç¿»è¨³ï¼š"
 
 #. Please translate this to something like
 #. translation to YOUR LANGUAGE\n
@@ -709,350 +709,350 @@ msgid ""
 "by Oliver Rauch\n"
 "Email: Oliver.Rauch@rauch-domain.de\n"
 msgstr ""
-"ÆüËÜ¸ì¤Ø¤ÎËİÌõ¼Ô¡§\n"
-"·¯ÄÍÃÎ°ì\n"
-"¥á¡¼¥ë: sgtom@pluto.dti.ne.jp\n"
+"æ—¥æœ¬èªã¸ã®ç¿»è¨³è€…ï¼š\n"
+"å›å¡šçŸ¥ä¸€\n"
+"ãƒ¡ãƒ¼ãƒ«: sgtom@pluto.dti.ne.jp\n"
 
 #. TEXT_INFO_BOX
 msgid "0x0: 0KB"
-msgstr "0x0: 0¥­¥í¥Ğ¥¤¥È"
+msgstr "0x0: 0ã‚­ãƒ­ãƒã‚¤ãƒˆ"
 
 #. TEXT_ADF_PAGES_SCANNED
 msgid "Scanned pages: "
-msgstr "¥¹¥­¥ã¥ó¤µ¤ì¤¿¥Ú¡¼¥¸¡§"
+msgstr "ã‚¹ã‚­ãƒ£ãƒ³ã•ã‚ŒãŸãƒšãƒ¼ã‚¸ï¼š"
 
 #. TEXT_MAIL_TEXT
 msgid "Email text:"
-msgstr "¥á¡¼¥ë¥Æ¥­¥¹¥È¡§"
+msgstr "ãƒ¡ãƒ¼ãƒ«ãƒ†ã‚­ã‚¹ãƒˆï¼š"
 
 #. TEXT_ATTACHMENTS
 msgid "Attachments:"
-msgstr "ÅºÉÕ¡§"
+msgstr "æ·»ä»˜ï¼š"
 
 #. TEXT_MAIL_STATUS
 msgid "Project status:"
-msgstr "¥×¥í¥¸¥§¥¯¥È¤Î¾õÂÖ¡§"
+msgstr "ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã®çŠ¶æ…‹ï¼š"
 
 #. TEXT_MAIL_FILETYPE
 msgid "Mail image filetype:"
-msgstr "¥á¡¼¥ë²èÁü¤Î¥Õ¥¡¥¤¥ë¥¿¥¤¥×"
+msgstr "ãƒ¡ãƒ¼ãƒ«ç”»åƒã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚¿ã‚¤ãƒ—"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
-msgstr "¿¨ÇŞÌ¾¡§"
+msgstr "è§¦åª’åï¼š"
 
 #. TEXT_VIEWER_IMAGE_INFO
 #, c-format
 msgid ""
 "Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
-msgstr "%d x %d²èÁÇ, %d¥Ó¥Ã¥È/¿§, %d¿§, %1.0f dpi x %1.0f dpi, %1.1f %s"
+msgstr "%d x %dç”»ç´ , %dãƒ“ãƒƒãƒˆ/è‰², %dè‰², %1.0f dpi x %1.0f dpi, %1.1f %s"
 
 #. TEXT_DESPECKLE_RADIUS
 msgid "Despeckle radius:"
-msgstr "¤·¤ß¼è¤êÈÏ°Ï¡§"
+msgstr "ã—ã¿å–ã‚Šç¯„å›²ï¼š"
 
 #. TEXT_BLUR_RADIUS
 msgid "Blur radius:"
-msgstr "¤Ë¤¸¤ßÈÏ°Ï¡§"
+msgstr "ã«ã˜ã¿ç¯„å›²ï¼š"
 
 #. TEXT_BATCH_AREA_DEFAULT_NAME
 msgid "(no name)"
-msgstr "¡ÊÌ¾Á°¤Ê¤·¡Ë"
+msgstr "ï¼ˆåå‰ãªã—ï¼‰"
 
 #. TEXT_BATCH_LIST_AREANAME
 msgid "Area name:"
-msgstr "ÎÎ°èÌ¾¡§"
+msgstr "é ˜åŸŸåï¼š"
 
 #. TEXT_BATCH_LIST_SCANMODE
 msgid "Scanmode:"
-msgstr "¥¹¥­¥ã¥ó¥â¡¼¥É"
+msgstr "ã‚¹ã‚­ãƒ£ãƒ³ãƒ¢ãƒ¼ãƒ‰"
 
 #. TEXT_BATCH_LIST_GEOMETRY_TL
 msgid "Top left:"
-msgstr "º¸¾å"
+msgstr "å·¦ä¸Š"
 
 #. TEXT_BATCH_LIST_GEOMETRY_SIZE
 msgid "Size:"
-msgstr "¥µ¥¤¥º"
+msgstr "ã‚µã‚¤ã‚º"
 
 #. TEXT_BATCH_LIST_RESOLUTION
 msgid "Resolution:"
-msgstr "²òÁüÅÙ¡§"
+msgstr "è§£åƒåº¦ï¼š"
 
 #. TEXT_BATCH_LIST_BIT_DEPTH
 msgid "Bit depth:"
-msgstr "¥Ó¥Ã¥È¿¼ÅÙ¡§"
+msgstr "ãƒ“ãƒƒãƒˆæ·±åº¦ï¼š"
 
 #. TEXT_BATCH_LIST_BY_GUI
 msgid "as selected"
-msgstr "ÁªÂò¤µ¤ì¤¿"
+msgstr "é¸æŠã•ã‚ŒãŸ"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
-msgstr "¥×¥ê¥ó¥¿ÁªÂò¡§"
+msgstr "ãƒ—ãƒªãƒ³ã‚¿é¸æŠï¼š"
 
 #. TEXT_SETUP_PRINTER_NAME
 msgid "Name:"
-msgstr "Ì¾Á°¡§"
+msgstr "åå‰ï¼š"
 
 #. TEXT_SETUP_PRINTER_CMD, TEXT_SETUP_FAX_CMD
 msgid "Command:"
-msgstr "¥³¥Ş¥ó¥É¡§"
+msgstr "ã‚³ãƒãƒ³ãƒ‰ï¼š"
 
 #. TEXT_SETUP_COPY_NR_OPT
 msgid "Copy number option:"
-msgstr "ÈÖ¹æ¥ª¥×¥·¥ç¥ó¤ò¥³¥Ô¡¼¡§"
+msgstr "ç•ªå·ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’ã‚³ãƒ”ãƒ¼ï¼š"
 
 #. TEXT_SETUP_PRINTER_LINEART_RES
 msgid "Lineart resolution (dpi):"
-msgstr "¥é¥¤¥ó¥¢¡¼¥È²òÁüÅÙ(dpi)¡§"
+msgstr "ãƒ©ã‚¤ãƒ³ã‚¢ãƒ¼ãƒˆè§£åƒåº¦(dpi)ï¼š"
 
 #. TEXT_SETUP_PRINTER_GRAYSCALE_RES
 msgid "Grayscale resolution (dpi):"
-msgstr "¥°¥ì¡¼¥¹¥±¡¼¥ë²òÁüÅÙ(dpi)¡§"
+msgstr "ã‚°ãƒ¬ãƒ¼ã‚¹ã‚±ãƒ¼ãƒ«è§£åƒåº¦(dpi)ï¼š"
 
 #. TEXT_SETUP_PRINTER_COLOR_RES
 msgid "Color resolution (dpi):"
-msgstr "¿§²òÁüÅÙ(dpi)¡§"
+msgstr "è‰²è§£åƒåº¦(dpi)ï¼š"
 
 #. TEXT_SETUP_PRINTER_WIDTH
 msgid "Width"
-msgstr "Éı"
+msgstr "å¹…"
 
 #. TEXT_SETUP_PRINTER_HEIGHT
 msgid "Height"
-msgstr "¹â¤µ"
+msgstr "é«˜ã•"
 
 #. TEXT_SETUP_PRINTER_LEFT
 msgid "Left offset"
-msgstr "º¸¥ª¥Õ¥»¥Ã¥È"
+msgstr "å·¦ã‚ªãƒ•ã‚»ãƒƒãƒˆ"
 
 #. TEXT_SETUP_PRINTER_BOTTOM
 msgid "Bottom offset"
-msgstr "²¼¥ª¥Õ¥»¥Ã¥È"
+msgstr "ä¸‹ã‚ªãƒ•ã‚»ãƒƒãƒˆ"
 
 #. TEXT_SETUP_PRINTER_GAMMA
 msgid "Printer gamma value:"
-msgstr "¥×¥ê¥ó¥¿¥¬¥ó¥ŞÃÍ¡§"
+msgstr "ãƒ—ãƒªãƒ³ã‚¿ã‚¬ãƒ³ãƒå€¤ï¼š"
 
 #. TEXT_SETUP_PRINTER_GAMMA_RED
 msgid "Printer gamma red:"
-msgstr "¥×¥ê¥ó¥¿¥¬¥ó¥Ş ÀÖ¡§"
+msgstr "ãƒ—ãƒªãƒ³ã‚¿ã‚¬ãƒ³ãƒ èµ¤ï¼š"
 
 #. TEXT_SETUP_PRINTER_GAMMA_GREEN
 msgid "Printer gamma green:"
-msgstr "¥×¥ê¥ó¥¿¥¬¥ó¥Ş ÎĞ¡§"
+msgstr "ãƒ—ãƒªãƒ³ã‚¿ã‚¬ãƒ³ãƒ ç·‘ï¼š"
 
 #. TEXT_SETUP_PRINTER_GAMMA_BLUE
 msgid "Printer gamma blue:"
-msgstr "¥×¥ê¥ó¥¿¥¬¥ó¥Ş ÀÄ¡§"
+msgstr "ãƒ—ãƒªãƒ³ã‚¿ã‚¬ãƒ³ãƒ é’ï¼š"
 
 #. TEXT_SETUP_TMP_PATH
 msgid "Temporary directory"
-msgstr "°ì»ş¥Ç¥£¥ì¥¯¥È¥ê"
+msgstr "ä¸€æ™‚ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª"
 
 #. TEXT_SETUP_IMAGE_PERMISSION
 msgid "Image-file permissions"
-msgstr "²èÁü¥Õ¥¡¥¤¥ë¤Îµö²ÄÂ°À­"
+msgstr "ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«ã®è¨±å¯å±æ€§"
 
 #. TEXT_SETUP_DIR_PERMISSION
 msgid "Directory permissions"
-msgstr "¥Ç¥£¥ì¥¯¥È¥ê¤Îµö²ÄÂ°À­"
+msgstr "ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®è¨±å¯å±æ€§"
 
 #. TEXT_SETUP_JPEG_QUALITY
 msgid "JPEG image quality"
-msgstr "JPEG²èÁüÉÊ¼Á"
+msgstr "JPEGç”»åƒå“è³ª"
 
 #. TEXT_SETUP_PNG_COMPRESSION
 msgid "PNG image compression"
-msgstr "PNG²èÁü°µ½Ì"
+msgstr "PNGç”»åƒåœ§ç¸®"
 
 #. TEXT_SETUP_FILENAME_COUNTER_LEN
 msgid "Filename counter length"
-msgstr "¥Õ¥¡¥¤¥ëÌ¾¥«¥¦¥ó¥¿¤ÎÈÏ°Ï"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«åã‚«ã‚¦ãƒ³ã‚¿ã®ç¯„å›²"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_16
 msgid "TIFF 16 bit image compression"
-msgstr "TIFF 16¥Ó¥Ã¥È²èÁü°µ½Ì"
+msgstr "TIFF 16ãƒ“ãƒƒãƒˆç”»åƒåœ§ç¸®"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_8
 msgid "TIFF 8 bit image compression"
-msgstr "TIFF 8¥Ó¥Ã¥È²èÁü°µ½Ì"
+msgstr "TIFF 8ãƒ“ãƒƒãƒˆç”»åƒåœ§ç¸®"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_1
 msgid "TIFF lineart image compression"
-msgstr "TIFF ¥é¥¤¥ó¥¢¡¼¥È²èÁü°µ½Ì"
+msgstr "TIFF ãƒ©ã‚¤ãƒ³ã‚¢ãƒ¼ãƒˆç”»åƒåœ§ç¸®"
 
 #. TEXT_SETUP_SHOW_RANGE_MODE
 msgid "Show range as:"
-msgstr "ÈÏ°Ï¤òÉ½¼¨¡§"
+msgstr "ç¯„å›²ã‚’è¡¨ç¤ºï¼š"
 
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
-msgstr "¥ª¡¼¥Ğ¡¼¥µ¥ó¥×¥ê¥ó¥°¤ò¥×¥ì¥Ó¥å¡¼¡§"
+msgstr "ã‚ªãƒ¼ãƒãƒ¼ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°ã‚’ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ï¼š"
 
 #. TEXT_SETUP_PREVIEW_GAMMA
 msgid "Preview gamma:"
-msgstr "¥¬¥ó¥Ş¤ò¥×¥ì¥Ó¥å¡¼¡§"
+msgstr "ã‚¬ãƒ³ãƒã‚’ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ï¼š"
 
 #. TEXT_SETUP_PREVIEW_GAMMA_RED
 msgid "Preview gamma red:"
-msgstr "¥¬¥ó¥ŞÀÖ¤ò¥×¥ì¥Ó¥å¡¼¡§"
+msgstr "ã‚¬ãƒ³ãƒèµ¤ã‚’ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ï¼š"
 
 #. TEXT_SETUP_PREVIEW_GAMMA_GREEN
 msgid "Preview gamma green:"
-msgstr "¥¬¥ó¥ŞÎĞ¤ò¥×¥ì¥Ó¥å¡¼¡§"
+msgstr "ã‚¬ãƒ³ãƒç·‘ã‚’ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ï¼š"
 
 #. TEXT_SETUP_PREVIEW_GAMMA_BLUE
 msgid "Preview gamma blue:"
-msgstr "¥¬¥ó¥ŞÀÄ¤ò¥×¥ì¥Ó¥å¡¼¡§"
+msgstr "ã‚¬ãƒ³ãƒé’ã‚’ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ï¼š"
 
 #. TEXT_SETUP_LINEART_MODE
 msgid "Threshold option:"
-msgstr "ïçÃÍ¥ª¥×¥·¥ç¥ó¡§"
+msgstr "é–¾å€¤ã‚ªãƒ—ã‚·ãƒ§ãƒ³ï¼š"
 
 #. TEXT_SETUP_ADF_MODE
 msgid "Automatic Document Feeder Modus:"
-msgstr "ADF´ØÏ¢¤ÎÀßÄê¡§"
+msgstr "ADFé–¢é€£ã®è¨­å®šï¼š"
 
 #. TEXT_SETUP_PREVIEW_PIPETTE_RANGE
 msgid "Preview pipette range"
-msgstr "¥Ô¥Ú¥Ã¥ÈÈÏ°Ï¤ò¥×¥ì¥Ó¥å¡¼"
+msgstr "ãƒ”ãƒšãƒƒãƒˆç¯„å›²ã‚’ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼"
 
 #. TEXT_SETUP_THRESHOLD_MIN
 msgid "Threshold minimum:"
-msgstr "ïçÃÍ¤Î²¼¸Â¡§"
+msgstr "é–¾å€¤ã®ä¸‹é™ï¼š"
 
 #. TEXT_SETUP_THRESHOLD_MAX
 msgid "Threshold maximum:"
-msgstr "ïçÃÍ¤Î¾å¸Â¡§"
+msgstr "é–¾å€¤ã®ä¸Šé™ï¼š"
 
 #. TEXT_SETUP_THRESHOLD_MUL
 msgid "Threshold multiplier:"
-msgstr "ïçÃÍ¤Î¾è¿ô¡§"
+msgstr "é–¾å€¤ã®ä¹—æ•°ï¼š"
 
 #. TEXT_SETUP_THRESHOLD_OFF
 msgid "Threshold offset:"
-msgstr "ïçÃÍ¤Î¥ª¥Õ¥»¥Ã¥È¡§"
+msgstr "é–¾å€¤ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆï¼š"
 
 #. TEXT_SETUP_GRAYSCALE_SCANMODE
 msgid "Name of grayscale scanmode:"
-msgstr "¥°¥ì¡¼¥¹¥±¡¼¥ë¤Î¥¹¥­¥ã¥ó¥â¡¼¥ÉÌ¾¡§"
+msgstr "ã‚°ãƒ¬ãƒ¼ã‚¹ã‚±ãƒ¼ãƒ«ã®ã‚¹ã‚­ãƒ£ãƒ³ãƒ¢ãƒ¼ãƒ‰åï¼š"
 
 #. TEXT_SETUP_HELPFILE_VIEWER
 msgid "Helpfile viewer (HTML):"
-msgstr "¥Ø¥ë¥×¥Õ¥¡¥¤¥ë¥Ó¥å¡¼¥ï(HTML)¡§"
+msgstr "ãƒ˜ãƒ«ãƒ—ãƒ•ã‚¡ã‚¤ãƒ«ãƒ“ãƒ¥ãƒ¼ãƒ¯(HTML)ï¼š"
 
 #. TEXT_SETUP_FAX_RECEIVER_OPTION
 msgid "Receiver option:"
-msgstr "¼õ¿®¥ª¥×¥·¥ç¥ó¡§"
+msgstr "å—ä¿¡ã‚ªãƒ—ã‚·ãƒ§ãƒ³ï¼š"
 
 #. TEXT_SETUP_FAX_POSTSCRIPT_OPT
 msgid "Postscriptfile option:"
-msgstr "PostScript¥Õ¥¡¥¤¥ë¤Î¥ª¥×¥·¥ç¥ó¡§"
+msgstr "PostScriptãƒ•ã‚¡ã‚¤ãƒ«ã®ã‚ªãƒ—ã‚·ãƒ§ãƒ³ï¼š"
 
 #. TEXT_SETUP_FAX_NORMAL_MODE_OPT
 msgid "Normal mode option:"
-msgstr "É¸½à¥â¡¼¥É¤Î¥ª¥×¥·¥ç¥ó¡§"
+msgstr "æ¨™æº–ãƒ¢ãƒ¼ãƒ‰ã®ã‚ªãƒ—ã‚·ãƒ§ãƒ³ï¼š"
 
 #. TEXT_SETUP_FAX_FINE_MODE_OPT
 msgid "Fine mode option:"
-msgstr "ÀººÙ¥â¡¼¥É¤Î¥ª¥×¥·¥ç¥ó¡§"
+msgstr "ç²¾ç´°ãƒ¢ãƒ¼ãƒ‰ã®ã‚ªãƒ—ã‚·ãƒ§ãƒ³ï¼š"
 
 #. TEXT_SETUP_FAX_PROGRAM_DEFAULTS
 msgid "Set program defaults for:"
-msgstr "¥×¥í¥°¥é¥à¤Î½é´üÃÍ¤òÀßÄê¡§"
+msgstr "ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®åˆæœŸå€¤ã‚’è¨­å®šï¼š"
 
 #. TEXT_SETUP_FAX_VIEWER
 msgid "Viewer (Postscript):"
-msgstr "¥Ó¥å¡¼¥ï(PostScript)¡§"
+msgstr "ãƒ“ãƒ¥ãƒ¼ãƒ¯(PostScript)ï¼š"
 
 #. TEXT_SETUP_SMTP_SERVER
 msgid "SMTP server:"
-msgstr "SMTP¥µ¡¼¥Ğ¡§"
+msgstr "SMTPã‚µãƒ¼ãƒï¼š"
 
 #. TEXT_SETUP_SMTP_PORT
 msgid "SMTP port:"
-msgstr "SMTP¥İ¡¼¥È¡§"
+msgstr "SMTPãƒãƒ¼ãƒˆï¼š"
 
 #. TEXT_SETUP_MAIL_FROM
 msgid "From:"
-msgstr "º¹½Ğ¿Í¡§"
+msgstr "å·®å‡ºäººï¼š"
 
 #. TEXT_SETUP_MAIL_REPLY_TO
 msgid "Reply to:"
-msgstr "ÊÖ¿®Àè¡§"
+msgstr "è¿”ä¿¡å…ˆï¼š"
 
 #. TEXT_SETUP_POP3_SERVER
 msgid "POP3 server:"
-msgstr "POP3¥µ¡¼¥Ğ¡§"
+msgstr "POP3ã‚µãƒ¼ãƒï¼š"
 
 #. TEXT_SETUP_POP3_PORT
 msgid "POP3 port:"
-msgstr "POP3¥İ¡¼¥È¡§"
+msgstr "POP3ãƒãƒ¼ãƒˆï¼š"
 
 #. TEXT_SETUP_POP3_USER
 msgid "POP3 user:"
-msgstr "POP3¥æ¡¼¥¶¡¼¡§"
+msgstr "POP3ãƒ¦ãƒ¼ã‚¶ãƒ¼ï¼š"
 
 #. TEXT_SETUP_POP3_PASS
 msgid "POP3 password:"
-msgstr "POP3¥Ñ¥¹¥ï¡¼¥É¡§"
+msgstr "POP3ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ï¼š"
 
 #. TEXT_SETUP_MAIL_VIEWER
 msgid "Viewer (png):"
-msgstr "¥Ó¥å¡¼¥ï(PNG)¡§"
+msgstr "ãƒ“ãƒ¥ãƒ¼ãƒ¯(PNG)ï¼š"
 
 #. TEXT_SETUP_OCR_COMMAND
 msgid "OCR Command:"
-msgstr "OCR¥³¥Ş¥ó¥É¡§"
+msgstr "OCRã‚³ãƒãƒ³ãƒ‰ï¼š"
 
 #. TEXT_SETUP_OCR_INPUTFILE_OPT
 msgid "Inputfile option:"
-msgstr "ÆşÎÏ¥Õ¥¡¥¤¥ë¥ª¥×¥·¥ç¥ó¡§"
+msgstr "å…¥åŠ›ãƒ•ã‚¡ã‚¤ãƒ«ã‚ªãƒ—ã‚·ãƒ§ãƒ³ï¼š"
 
 #. TEXT_SETUP_OCR_OUTPUTFILE_OPT
 msgid "Outputfile option:"
-msgstr "½ĞÎÏ¥Õ¥¡¥¤¥ë¥ª¥×¥·¥ç¥ó¡§"
+msgstr "å‡ºåŠ›ãƒ•ã‚¡ã‚¤ãƒ«ã‚ªãƒ—ã‚·ãƒ§ãƒ³ï¼š"
 
 #. TEXT_SETUP_OCR_USE_GUI_PIPE_OPT
 msgid "Use GUI progress pipe:"
-msgstr "GUI¥×¥í¥°¥ì¥¹¥Ñ¥¤¥×¤ò»ÈÍÑ"
+msgstr "GUIãƒ—ãƒ­ã‚°ãƒ¬ã‚¹ãƒ‘ã‚¤ãƒ—ã‚’ä½¿ç”¨"
 
 #. TEXT_SETUP_OCR_OUTFD_OPT
 msgid "GUI output-fd option:"
-msgstr "GUI½ĞÎÏFD¥ª¥×¥·¥ç¥ó¡§"
+msgstr "GUIå‡ºåŠ›FDã‚ªãƒ—ã‚·ãƒ§ãƒ³ï¼š"
 
 #. TEXT_SETUP_OCR_PROGRESS_KEYWORD
 msgid "Progress keyword:"
-msgstr "¥×¥í¥°¥ì¥¹¥­¡¼¥ï¡¼¥É¡§"
+msgstr "ãƒ—ãƒ­ã‚°ãƒ¬ã‚¹ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰ï¼š"
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
-msgstr "¥æ¡¼¥¶¡¼"
+msgstr "ãƒ¦ãƒ¼ã‚¶ãƒ¼"
 
 #. TEXT_SETUP_PERMISSION_GROUP
 msgid "group"
-msgstr "¥°¥ë¡¼¥×"
+msgstr "ã‚°ãƒ«ãƒ¼ãƒ—"
 
 #. TEXT_SETUP_PERMISSION_ALL
 msgid "all"
-msgstr "¤¹¤Ù¤Æ"
+msgstr "ã™ã¹ã¦"
 
 msgid "new media"
-msgstr "¿·¤·¤¤ÇŞÂÎ"
+msgstr "æ–°ã—ã„åª’ä½“"
 
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
-msgstr "ÊİÂ¸"
+msgstr "ä¿å­˜"
 
 #. NOTEBOOK_IMAGE_OPTIONS
 msgid "Image"
-msgstr "²èÁü"
+msgstr "ç”»åƒ"
 
 #. NOTEBOOK_COPY_OPTIONS
 msgid "Copy"
-msgstr "¥³¥Ô¡¼"
+msgstr "ã‚³ãƒ”ãƒ¼"
 
 #. NOTEBOOK_FAX_OPTIONS
 msgid "Fax"
@@ -1060,7 +1060,7 @@ msgstr "FAX"
 
 #. NOTEBOOK_MAIL_OPTIONS
 msgid "Mail"
-msgstr "¥á¡¼¥ë"
+msgstr "ãƒ¡ãƒ¼ãƒ«"
 
 #. NOTEBOOK_OCR_OPTIONS
 msgid "OCR"
@@ -1068,300 +1068,300 @@ msgstr "OCR"
 
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display"
-msgstr "É½¼¨"
+msgstr "è¡¨ç¤º"
 
 #. NOTEBOOK_ENHANCE_OPTIONS
 msgid "Enhancement"
-msgstr "¶¯Ä´"
+msgstr "å¼·èª¿"
 
 #. MENU_ITEM_MAIL
 msgid "Email"
-msgstr "¥á¡¼¥ë"
+msgstr "ãƒ¡ãƒ¼ãƒ«"
 
 #. MENU_ITEM_SHOW_TOOLTIPS
 msgid "Show tooltips"
-msgstr "¥Ä¡¼¥ë¥Á¥Ã¥×¤òÉ½¼¨"
+msgstr "ãƒ„ãƒ¼ãƒ«ãƒãƒƒãƒ—ã‚’è¡¨ç¤º"
 
 #. MENU_ITEM_SHOW_PREVIEW
 msgid "Show preview"
-msgstr "¥×¥ì¥Ó¥å¡¼¤òÉ½¼¨"
+msgstr "ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ã‚’è¡¨ç¤º"
 
 #. MENU_ITEM_SHOW_HISTOGRAM
 msgid "Show histogram"
-msgstr "¥Ò¥¹¥È¥°¥é¥à¤òÉ½¼¨"
+msgstr "ãƒ’ã‚¹ãƒˆã‚°ãƒ©ãƒ ã‚’è¡¨ç¤º"
 
 #. MENU_ITEM_SHOW_GAMMA
 msgid "Show gamma curve"
-msgstr "¥¬¥ó¥Ş¶ÊÀş¤òÉ½¼¨"
+msgstr "ã‚¬ãƒ³ãƒæ›²ç·šã‚’è¡¨ç¤º"
 
 #. MENU_ITEM_SHOW_BATCH_SCAN
 msgid "Show batch scan"
-msgstr "¥Ğ¥Ã¥Á¥¹¥­¥ã¥ó¤òÉ½¼¨"
+msgstr "ãƒãƒƒãƒã‚¹ã‚­ãƒ£ãƒ³ã‚’è¡¨ç¤º"
 
 #. MENU_ITEM_SHOW_STANDARDOPTIONS
 msgid "Show standard options"
-msgstr "É¸½à¥ª¥×¥·¥ç¥ó¤òÉ½¼¨"
+msgstr "æ¨™æº–ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’è¡¨ç¤º"
 
 #. MENU_ITEM_SHOW_ADVANCEDOPTIONS
 msgid "Show advanced options"
-msgstr "¾ÜºÙ¥ª¥×¥·¥ç¥ó¤òÉ½¼¨"
+msgstr "è©³ç´°ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’è¡¨ç¤º"
 
 #. MENU_ITEM_SETUP
 msgid "Setup"
-msgstr "¥»¥Ã¥È¥¢¥Ã¥×"
+msgstr "ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—"
 
 #. MENU_ITEM_LENGTH_UNIT
 msgid "Length unit"
-msgstr "Ä¹¤µ¤ÎÃ±°Ì"
+msgstr "é•·ã•ã®å˜ä½"
 
 #. SUBMENU_ITEM_LENGTH_MILLIMETERS
 msgid "millimeters"
-msgstr "¥ß¥ê¥á¡¼¥È¥ë"
+msgstr "ãƒŸãƒªãƒ¡ãƒ¼ãƒˆãƒ«"
 
 #. SUBMENU_ITEM_LENGTH_CENTIMETERS
 msgid "centimeters"
-msgstr "¥»¥ó¥Á¥á¡¼¥È¥ë"
+msgstr "ã‚»ãƒ³ãƒãƒ¡ãƒ¼ãƒˆãƒ«"
 
 #. SUBMENU_ITEM_LENGTH_INCHES
 msgid "inches"
-msgstr "¥¤¥ó¥Á"
+msgstr "ã‚¤ãƒ³ãƒ"
 
 #. MENU_ITEM_UPDATE_POLICY
 msgid "Update policy"
-msgstr "¥İ¥ê¥·¡¼¤ò¹¹¿·"
+msgstr "ãƒãƒªã‚·ãƒ¼ã‚’æ›´æ–°"
 
 #. SUBMENU_ITEM_POLICY_CONTINUOUS
 msgid "continuous"
-msgstr "Ï¢Â³Åª"
+msgstr "é€£ç¶šçš„"
 
 #. SUBMENU_ITEM_POLICY_DISCONTINU
 msgid "discontinuous"
-msgstr "ÈóÏ¢Â³Åª"
+msgstr "éé€£ç¶šçš„"
 
 #. SUBMENU_ITEM_POLICY_DELAYED
 msgid "delayed"
-msgstr "ÃÙ¤ì¤Æ"
+msgstr "é…ã‚Œã¦"
 
 #. MENU_ITEM_SHOW_RESOLUTIONLIST
 msgid "Show resolution list"
-msgstr "²òÁüÅÙ¥ê¥¹¥È¤òÉ½¼¨"
+msgstr "è§£åƒåº¦ãƒªã‚¹ãƒˆã‚’è¡¨ç¤º"
 
 #. MENU_ITEM_PAGE_ROTATE
 msgid "Rotate postscript"
-msgstr "PostScript¤ò²óÅ¾"
+msgstr "PostScriptã‚’å›è»¢"
 
 #. MENU_ITEM_EDIT_MEDIUM_DEF
 msgid "Edit medium definition"
-msgstr "ÇŞÂÎ¤ÎÄêµÁ¤òÊÔ½¸"
+msgstr "åª’ä½“ã®å®šç¾©ã‚’ç·¨é›†"
 
 #. MENU_ITEM_SAVE_DEVICE_SETTINGS
 msgid "Save device settings"
-msgstr "¥Ç¥Ğ¥¤¥¹ÀßÄê¤òÊİÂ¸"
+msgstr "ãƒ‡ãƒã‚¤ã‚¹è¨­å®šã‚’ä¿å­˜"
 
 #. MENU_ITEM_LOAD_DEVICE_SETTINGS
 msgid "Load device settings"
-msgstr "¥Ç¥Ğ¥¤¥¹ÀßÄê¤òÆÉ¹ş¤ß"
+msgstr "ãƒ‡ãƒã‚¤ã‚¹è¨­å®šã‚’èª­è¾¼ã¿"
 
 #. MENU_ITEM_CHANGE_WORKING_DIR
 msgid "Change directory"
-msgstr "¥Ç¥£¥ì¥¯¥È¥êÊÑ¹¹"
+msgstr "ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªå¤‰æ›´"
 
 #. MENU_ITEM_XSANE_EULA
 msgid "Show EULA"
-msgstr "EULA¤òÉ½¼¨"
+msgstr "EULAã‚’è¡¨ç¤º"
 
 #. MENU_ITEM_XSANE_GPL
 msgid "Show license (GPL)"
-msgstr "¥é¥¤¥»¥ó¥¹(GPL)¤òÉ½¼¨"
+msgstr "ãƒ©ã‚¤ã‚»ãƒ³ã‚¹(GPL)ã‚’è¡¨ç¤º"
 
 #. MENU_ITEM_XSANE_DOC
 msgid "XSane doc"
-msgstr "XSane¤ÎÊ¸½ñ"
+msgstr "XSaneã®æ–‡æ›¸"
 
 #. MENU_ITEM_BACKEND_DOC
 msgid "Backend doc"
-msgstr "¥Ğ¥Ã¥¯¥¨¥ó¥É¤ÎÊ¸½ñ"
+msgstr "ãƒãƒƒã‚¯ã‚¨ãƒ³ãƒ‰ã®æ–‡æ›¸"
 
 #. MENU_ITEM_AVAILABLE_BACKENDS
 msgid "Available backends"
-msgstr "ÍøÍÑ²ÄÇ½¤Ê¥Ğ¥Ã¥¯¥¨¥ó¥É"
+msgstr "åˆ©ç”¨å¯èƒ½ãªãƒãƒƒã‚¯ã‚¨ãƒ³ãƒ‰"
 
 #. MENU_ITEM_SCANTIPS
 msgid "Scantips"
-msgstr "¥¹¥­¥ã¥ó¤Ë´Ø¤¹¤ëTips"
+msgstr "ã‚¹ã‚­ãƒ£ãƒ³ã«é–¢ã™ã‚‹Tips"
 
 #. MENU_ITEM_PROBLEMS
 msgid "Problems?"
-msgstr "²¿¤«ÌäÂê?"
+msgstr "ä½•ã‹å•é¡Œ?"
 
 #. MENU_ITEM_COUNTER_LEN_INACTIVE
 msgid "inactive"
-msgstr "Èó³èÀ­"
+msgstr "éæ´»æ€§"
 
 #. MENU_ITEM_TIFF_COMP_NONE
 msgid "no compression"
-msgstr "°µ½Ì¤·¤Ê¤¤"
+msgstr "åœ§ç¸®ã—ãªã„"
 
 #. MENU_ITEM_TIFF_COMP_CCITTRLE
 msgid "CCITT 1D Huffman compression"
-msgstr "CCITT 1D Huffman °µ½Ì"
+msgstr "CCITT 1D Huffman åœ§ç¸®"
 
 #. MENU_ITEM_TIFF_COMP_CCITFAX3
 msgid "CCITT Group 3 Fax compression"
-msgstr "CCITT Group 3 Fax °µ½Ì"
+msgstr "CCITT Group 3 Fax åœ§ç¸®"
 
 #. MENU_ITEM_TIFF_COMP_CCITFAX4
 msgid "CCITT Group 4 Fax compression"
-msgstr "CCITT Group 4 Fax °µ½Ì"
+msgstr "CCITT Group 4 Fax åœ§ç¸®"
 
 #. MENU_ITEM_TIFF_COMP_JPEG
 msgid "JPEG DCT compression"
-msgstr "JPEG DCT °µ½Ì"
+msgstr "JPEG DCT åœ§ç¸®"
 
 #. MENU_ITEM_TIFF_COMP_PACKBITS
 msgid "pack bits"
-msgstr "¥Ñ¥Ã¥¯¥Ó¥Ã¥È"
+msgstr "ãƒ‘ãƒƒã‚¯ãƒ“ãƒƒãƒˆ"
 
 #. MENU_ITEM_RANGE_SCALE
 msgid "Slider (Scale)"
-msgstr "¥¹¥é¥¤¥À¡¼(¥¹¥±¡¼¥ë)"
+msgstr "ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼(ã‚¹ã‚±ãƒ¼ãƒ«)"
 
 #. MENU_ITEM_RANGE_SCROLLBAR
 msgid "Slider (Scrollbar)"
-msgstr "¥¹¥é¥¤¥À¡¼(¥¹¥¯¥í¡¼¥ë¥Ğ¡¼)"
+msgstr "ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼(ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼)"
 
 #. MENU_ITEM_RANGE_SPINBUTTON
 msgid "Spinbutton"
-msgstr "¥¹¥Ô¥ó¥Ü¥¿¥ó"
+msgstr "ã‚¹ãƒ”ãƒ³ãƒœã‚¿ãƒ³"
 
 #. MENU_ITEM_RANGE_SCALE_SPIN
 msgid "Scale and Spinbutton"
-msgstr "¥¹¥±¡¼¥ë¤È¥¹¥Ô¥ó¥Ü¥¿¥ó"
+msgstr "ã‚¹ã‚±ãƒ¼ãƒ«ã¨ã‚¹ãƒ”ãƒ³ãƒœã‚¿ãƒ³"
 
 #. MENU_ITEM_RANGE_SCROLL_SPIN
 msgid "Scrollbar and Spinbutton"
-msgstr "¥¹¥¯¥í¡¼¥ë¥Ğ¡¼¤È¥¹¥Ô¥ó¥Ü¥¿¥ó"
+msgstr "ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼ã¨ã‚¹ãƒ”ãƒ³ãƒœã‚¿ãƒ³"
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
 msgid "Standard options window (lineart)"
-msgstr "É¸½à¥ª¥×¥·¥ç¥ó¥¦¥£¥ó¥É¥¦¡Ê¥é¥¤¥ó¥¢¡¼¥È¡Ë"
+msgstr "æ¨™æº–ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ï¼ˆãƒ©ã‚¤ãƒ³ã‚¢ãƒ¼ãƒˆï¼‰"
 
 #. MENU_ITEM_LINEART_MODE_XSANE
 msgid "XSane main window (lineart)"
-msgstr "XSane ¥á¥¤¥ó¥¦¥£¥ó¥É¥¦¡Ê¥é¥¤¥ó¥¢¡¼¥È¡Ë"
+msgstr "XSane ãƒ¡ã‚¤ãƒ³ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ï¼ˆãƒ©ã‚¤ãƒ³ã‚¢ãƒ¼ãƒˆï¼‰"
 
 #. MENU_ITEM_LINEART_MODE_GRAY
 msgid "XSane main window (grayscale->lineart)"
-msgstr "XSane ¥á¥¤¥ó¥¦¥£¥ó¥É¥¦¡Ê¥°¥ì¡¼¥¹¥±¡¼¥ë¢ª¥é¥¤¥ó¥¢¡¼¥È¡Ë"
+msgstr "XSane ãƒ¡ã‚¤ãƒ³ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ï¼ˆã‚°ãƒ¬ãƒ¼ã‚¹ã‚±ãƒ¼ãƒ«â†’ãƒ©ã‚¤ãƒ³ã‚¢ãƒ¼ãƒˆï¼‰"
 
 #. MENU_ITEM_SELECTION_NONE
 msgid "(none)"
-msgstr "¡Ê¤Ê¤·¡Ë"
+msgstr "ï¼ˆãªã—ï¼‰"
 
 #. MENU_ITEM_FILETYPE_BY_EXT
 msgid "by ext"
-msgstr "³ÈÄ¥»Ò¤´¤È"
+msgstr "æ‹¡å¼µå­ã”ã¨"
 
 #. MENU_ITEM_PRESET_AREA_ADD_SEL
 msgid "Add selection to list"
-msgstr "ÁªÂòÆâÍÆ¤ò°ìÍ÷¤ËÄÉ²Ã"
+msgstr "é¸æŠå†…å®¹ã‚’ä¸€è¦§ã«è¿½åŠ "
 
 #. MENU_ITEM_MEDIUM_ADD
 msgid "Add medium definition"
-msgstr "ÇŞÂÎ¤ÎÄêµÁ¤òÄÉ²Ã"
+msgstr "åª’ä½“ã®å®šç¾©ã‚’è¿½åŠ "
 
 #. MENU_ITEM_RENAME
 msgid "Rename item"
-msgstr "¥¢¥¤¥Æ¥à¤ò¥ê¥Í¡¼¥à"
+msgstr "ã‚¢ã‚¤ãƒ†ãƒ ã‚’ãƒªãƒãƒ¼ãƒ "
 
 #. MENU_ITEM_DELETE
 msgid "Delete item"
-msgstr "¥¢¥¤¥Æ¥à¤òºï½ü"
+msgstr "ã‚¢ã‚¤ãƒ†ãƒ ã‚’å‰Šé™¤"
 
 #. MENU_ITEM_MOVE_UP
 msgid "Move item up"
-msgstr "¥¢¥¤¥Æ¥à¤ò¾å¤Ø°ÜÆ°"
+msgstr "ã‚¢ã‚¤ãƒ†ãƒ ã‚’ä¸Šã¸ç§»å‹•"
 
 #. MENU_ITEM_MOVE_DWN
 msgid "Move item down"
-msgstr "¥¢¥¤¥Æ¥à¤ò²¼¤Ø°ÜÆ°"
+msgstr "ã‚¢ã‚¤ãƒ†ãƒ ã‚’ä¸‹ã¸ç§»å‹•"
 
 #. PROGRESS_SCANNING
 msgid "Scanning"
-msgstr "¥¹¥­¥ã¥ó¤·¤Æ¤¤¤Ş¤¹"
+msgstr "ã‚¹ã‚­ãƒ£ãƒ³ã—ã¦ã„ã¾ã™"
 
 #. PROGRESS_RECEIVING_FRAME_DATA
 #, c-format
 msgid "Receiving %s data"
-msgstr "¥Ç¡¼¥¿ %s ¤ò¼õ¿®¤·¤Æ¤¤¤Ş¤¹"
+msgstr "ãƒ‡ãƒ¼ã‚¿ %s ã‚’å—ä¿¡ã—ã¦ã„ã¾ã™"
 
 #. PROGRESS_TRANSFERING_DATA
 msgid "Transfering image"
-msgstr "²èÁü¤òÊÑ´¹Ãæ"
+msgstr "ç”»åƒã‚’å¤‰æ›ä¸­"
 
 #. PROGRESS_ROTATING_DATA
 msgid "Rotating image"
-msgstr "²èÁü¤ò²óÅ¾Ãæ"
+msgstr "ç”»åƒã‚’å›è»¢ä¸­"
 
 #. PROGRESS_MIRRORING_DATA
 msgid "Mirroring image"
-msgstr "²èÁü¤ò¶À±ÇÃæ"
+msgstr "ç”»åƒã‚’é¡æ˜ ä¸­"
 
 #. PROGRESS_PACKING_DATA
 msgid "Packing image"
-msgstr "²èÁü¤ò°µ½ÌÃæ"
+msgstr "ç”»åƒã‚’åœ§ç¸®ä¸­"
 
 #. PROGRESS_CONVERTING_DATA
 msgid "Converting image"
-msgstr "²èÁü¤òÊÑ´¹Ãæ"
+msgstr "ç”»åƒã‚’å¤‰æ›ä¸­"
 
 #. PROGRESS_SAVING_DATA
 msgid "Saving image"
-msgstr "²èÁü¤òÊİÂ¸Ãæ"
+msgstr "ç”»åƒã‚’ä¿å­˜ä¸­"
 
 #. PROGRESS_CLONING_DATA
 msgid "Cloning image"
-msgstr "²èÁü¤òÊ£À½Ãæ"
+msgstr "ç”»åƒã‚’è¤‡è£½ä¸­"
 
 #. PROGRESS_SCALING_DATA
 msgid "Scaling image"
-msgstr "²èÁü¤ò¥¹¥±¡¼¥ê¥ó¥°Ãæ"
+msgstr "ç”»åƒã‚’ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ä¸­"
 
 #. PROGRESS_DESPECKLING_DATA
 msgid "Despeckling image"
-msgstr "²èÁü¤Î¤·¤ß¼è¤êÃæ"
+msgstr "ç”»åƒã®ã—ã¿å–ã‚Šä¸­"
 
 #. PROGRESS_BLURING_DATA
 msgid "Bluring image"
-msgstr "²èÁü¤ò¤Ë¤¸¤Ş¤»Ãæ"
+msgstr "ç”»åƒã‚’ã«ã˜ã¾ã›ä¸­"
 
 #. PROGRESS_OCR
 msgid "OCR in progress"
-msgstr "OCR¿Ê¹ÔÃæ"
+msgstr "OCRé€²è¡Œä¸­"
 
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
-msgstr "¥¹¥­¥ã¥ó³«»Ï <Ctrl-Enter>"
+msgstr "ã‚¹ã‚­ãƒ£ãƒ³é–‹å§‹ <Ctrl-Enter>"
 
 #. DESC_SCAN_CANCEL
 msgid "Cancel scan <ESC>"
-msgstr "¥¹¥­¥ã¥ó¤Î¼è¾Ã¤· <ESC>"
+msgstr "ã‚¹ã‚­ãƒ£ãƒ³ã®å–æ¶ˆã— <ESC>"
 
 #. DESC_PREVIEW_ACQUIRE
 msgid "Acquire preview scan <Alt-p>"
-msgstr "¥¹¥­¥ã¥ó¥×¥ì¥Ó¥å¡¼¤ò¼èÆÀ <Alt-p>"
+msgstr "ã‚¹ã‚­ãƒ£ãƒ³ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ã‚’å–å¾— <Alt-p>"
 
 #. DESC_PREVIEW_CANCEL
 msgid "Cancel preview scan <Alt-ESC>"
-msgstr "¥¹¥­¥ã¥ó¥×¥ì¥Ó¥å¡¼¤ò¥­¥ã¥ó¥»¥ë <Alt-ESC>"
+msgstr "ã‚¹ã‚­ãƒ£ãƒ³ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ã‚’ã‚­ãƒ£ãƒ³ã‚»ãƒ« <Alt-ESC>"
 
 #. DESC_XSANE_MODE
 msgid ""
 "save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or mail-<Ctrl-"
 "m>"
 msgstr ""
-"ÊİÂ¸-<Ctrl-s>, ¥Ó¥å¡¼-<Ctrl-v>, ¥Õ¥©¥È¥³¥Ô¡¼-<Ctrl-c>, FAX-<Ctrl-f> ¤Ş¤¿¤Ï "
-"¥á¡¼¥ë-<Ctrl-m>"
+"ä¿å­˜-<Ctrl-s>, ãƒ“ãƒ¥ãƒ¼-<Ctrl-v>, ãƒ•ã‚©ãƒˆã‚³ãƒ”ãƒ¼-<Ctrl-c>, FAX-<Ctrl-f> ã¾ãŸã¯ "
+"ãƒ¡ãƒ¼ãƒ«-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
 msgid ""
@@ -1371,165 +1371,165 @@ msgid ""
 "To create a medium enable the option edit medium definition in preferences "
 "menu."
 msgstr ""
-"ÇŞÂÎ¤Î¥¿¥¤¥×¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£\n"
-"¥¨¥ó¥È¥ê¤ò¥ê¥Í¡¼¥à¡¢ºÆÀ°Íı¡¢ºï½ü¤¹¤ë¤Ë¤Ï¡¢¥³¥ó¥Æ¥¯¥¹¥È¥á¥Ë¥å¡¼¤ò»È¤Ã¤Æ¤¯¤À¤µ"
-"¤¤¡£¡Ê¥Ş¥¦¥¹±¦¥Ü¥¿¥ó¡Ë\n"
-"ÇŞÂÎ¤ÎºîÀ®¤¹¤ë¤¿¤á¤Î¥ª¥×¥·¥ç¥ó¤ò»ÈÍÑ²ÄÇ½¤Ë¤¹¤ë¤Ë¤Ï¡¢ÀßÄê¥á¥Ë¥å¡¼¤ÇÇŞÂÎ¤ÎÄêµÁ"
-"¤òÊÔ½¸¤·¤Æ¤¯¤À¤µ¤¤¡£"
+"åª’ä½“ã®ã‚¿ã‚¤ãƒ—ã‚’é¸æŠã—ã¦ãã ã•ã„ã€‚\n"
+"ã‚¨ãƒ³ãƒˆãƒªã‚’ãƒªãƒãƒ¼ãƒ ã€å†æ•´ç†ã€å‰Šé™¤ã™ã‚‹ã«ã¯ã€ã‚³ãƒ³ãƒ†ã‚¯ã‚¹ãƒˆãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚’ä½¿ã£ã¦ãã ã•"
+"ã„ã€‚ï¼ˆãƒã‚¦ã‚¹å³ãƒœã‚¿ãƒ³ï¼‰\n"
+"åª’ä½“ã®ä½œæˆã™ã‚‹ãŸã‚ã®ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’ä½¿ç”¨å¯èƒ½ã«ã™ã‚‹ã«ã¯ã€è¨­å®šãƒ¡ãƒ‹ãƒ¥ãƒ¼ã§åª’ä½“ã®å®šç¾©"
+"ã‚’ç·¨é›†ã—ã¦ãã ã•ã„ã€‚"
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
-msgstr "¥¹¥­¥ã¥ó¸å¤Ë²Ã»»¤µ¤ì¤ë¥Õ¥¡¥¤¥ëÌ¾¥«¥¦¥ó¥¿ÃÍ"
+msgstr "ã‚¹ã‚­ãƒ£ãƒ³å¾Œã«åŠ ç®—ã•ã‚Œã‚‹ãƒ•ã‚¡ã‚¤ãƒ«åã‚«ã‚¦ãƒ³ã‚¿å€¤"
 
 #. DESC_BROWSE_FILENAME
 msgid "Browse for image filename"
-msgstr "²èÁü¥Õ¥¡¥¤¥ëÌ¾¤ò¥Ö¥é¥¦¥º"
+msgstr "ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«åã‚’ãƒ–ãƒ©ã‚¦ã‚º"
 
 #. DESC_FILENAME
 msgid "Filename for scanned image"
-msgstr "¥¹¥­¥ã¥ó¤·¤¿²èÁü¤Î¥Õ¥¡¥¤¥ëÌ¾"
+msgstr "ã‚¹ã‚­ãƒ£ãƒ³ã—ãŸç”»åƒã®ãƒ•ã‚¡ã‚¤ãƒ«å"
 
 #. DESC_FILETYPE
 msgid ""
 "Type of image format, the suitable filename extension is automatically added "
 "to the filename"
-msgstr "²èÁü¥Õ¥©¡¼¥Ş¥Ã¥È¥¿¥¤¥×¥Õ¥¡¥¤¥ëÌ¾¤Ë¼«Æ°¤Ç¤Ä¤¯Å¬ÀÚ¤Ê³ÈÄ¥»Ò"
+msgstr "ç”»åƒãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã‚¿ã‚¤ãƒ—ãƒ•ã‚¡ã‚¤ãƒ«åã«è‡ªå‹•ã§ã¤ãé©åˆ‡ãªæ‹¡å¼µå­"
 
 #. DESC_FAXPROJECT
 msgid "Enter name of fax project"
-msgstr "FAX¥×¥í¥¸¥§¥¯¥ÈÌ¾¤òÆşÎÏ"
+msgstr "FAXãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆåã‚’å…¥åŠ›"
 
 #. DESC_FAXPAGENAME
 msgid "Enter new name for faxpage"
-msgstr "FAX¥Ú¡¼¥¸¤Ë¤Ä¤±¤ë¥Õ¥¡¥¤¥ëÌ¾¤òÆşÎÏ"
+msgstr "FAXãƒšãƒ¼ã‚¸ã«ã¤ã‘ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«åã‚’å…¥åŠ›"
 
 #. DESC_FAXRECEIVER
 msgid "Enter receiver phone number or address"
-msgstr "FAX¼õ¿®µ¡¤ÎÅÅÏÃÈÖ¹æ¤«¥¢¥É¥ì¥¹¤òÆşÎÏ"
+msgstr "FAXå—ä¿¡æ©Ÿã®é›»è©±ç•ªå·ã‹ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’å…¥åŠ›"
 
 #. DESC_MAILPROJECT
 msgid "Enter name of mail project"
-msgstr "¥á¡¼¥ë¥×¥í¥¸¥§¥¯¥ÈÌ¾¤òÆşÎÏ"
+msgstr "ãƒ¡ãƒ¼ãƒ«ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆåã‚’å…¥åŠ›"
 
 #. DESC_MAILIMAGENAME
 msgid "Enter new name for mail image"
-msgstr "¿·µ¬¥á¡¼¥ë¥¤¥á¡¼¥¸¤Î¥Õ¥¡¥¤¥ëÌ¾¤òÆşÎÏ"
+msgstr "æ–°è¦ãƒ¡ãƒ¼ãƒ«ã‚¤ãƒ¡ãƒ¼ã‚¸ã®ãƒ•ã‚¡ã‚¤ãƒ«åã‚’å…¥åŠ›"
 
 #. DESC_MAILRECEIVER
 msgid "Enter email address"
-msgstr "¥á¡¼¥ë¥¢¥É¥ì¥¹¤òÆşÎÏ"
+msgstr "ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’å…¥åŠ›"
 
 #. DESC_MAILSUBJECT
 msgid "Enter subject of email"
-msgstr "¥á¡¼¥ë¤ÎÉ½Âê¤òÆşÎÏ"
+msgstr "ãƒ¡ãƒ¼ãƒ«ã®è¡¨é¡Œã‚’å…¥åŠ›"
 
 #. DESC_MAIL_FILETYPE
 msgid "Select filetype for image attachments"
-msgstr "²èÁüÅºÉÕ»ş¤Î¥Õ¥¡¥¤¥ë¥¿¥¤¥×¤òÁªÂò"
+msgstr "ç”»åƒæ·»ä»˜æ™‚ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚¿ã‚¤ãƒ—ã‚’é¸æŠ"
 
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
-msgstr "¥×¥ê¥»¥Ã¥ÈÎÎ°è¤Ë¤Ä¤±¤ëÌ¾Á°¤ò¿·µ¬ÆşÎÏ"
+msgstr "ãƒ—ãƒªã‚»ãƒƒãƒˆé ˜åŸŸã«ã¤ã‘ã‚‹åå‰ã‚’æ–°è¦å…¥åŠ›"
 
 #. DESC_PRESET_AREA_ADD
 msgid "Enter name for new preset area"
-msgstr "¥×¥ê¥»¥Ã¥ÈÎÎ°è¤Ë¤Ä¤±¤ëÌ¾Á°¤ò¿·µ¬ÆşÎÏ"
+msgstr "ãƒ—ãƒªã‚»ãƒƒãƒˆé ˜åŸŸã«ã¤ã‘ã‚‹åå‰ã‚’æ–°è¦å…¥åŠ›"
 
 #. DESC_MEDIUM_RENAME
 msgid "Enter new name for medium definition"
-msgstr "ÇŞÂÎ¤ÎÄêµÁ¤ò¿·µ¬ÆşÎÏ"
+msgstr "åª’ä½“ã®å®šç¾©ã‚’æ–°è¦å…¥åŠ›"
 
 #. DESC_MEDIUM_ADD
 msgid "Enter name for new medium definition"
-msgstr "¿·¤·¤¤ÇŞÂÎ¤ÎÄêµÁ¤òÆşÎÏ"
+msgstr "æ–°ã—ã„åª’ä½“ã®å®šç¾©ã‚’å…¥åŠ›"
 
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
-msgstr "¥×¥ê¥ó¥¿¤Î²òÁüÅÙ¤òÁªÂò <Shift-F1/F2/...>"
+msgstr "ãƒ—ãƒªãƒ³ã‚¿ã®è§£åƒåº¦ã‚’é¸æŠ <Shift-F1/F2/...>"
 
 #. DESC_RESOLUTION
 msgid "Set scan resolution"
-msgstr "¥¹¥­¥ã¥Ê¤Î²òÁüÅÙ¤ò¥»¥Ã¥È"
+msgstr "ã‚¹ã‚­ãƒ£ãƒŠã®è§£åƒåº¦ã‚’ã‚»ãƒƒãƒˆ"
 
 #. DESC_RESOLUTION_X
 msgid "Set scan resolution for x direction"
-msgstr "¥¹¥­¥ã¥ó»ş¤ÎXÀ®Ê¬¤Î²òÁüÅÙ¤ò¥»¥Ã¥È"
+msgstr "ã‚¹ã‚­ãƒ£ãƒ³æ™‚ã®Xæˆåˆ†ã®è§£åƒåº¦ã‚’ã‚»ãƒƒãƒˆ"
 
 #. DESC_RESOLUTION_Y
 msgid "Set scan resolution for y direction"
-msgstr "¥¹¥­¥ã¥ó»ş¤ÎYÀ®Ê¬¤Î²òÁüÅÙ¤ò¥»¥Ã¥È"
+msgstr "ã‚¹ã‚­ãƒ£ãƒ³æ™‚ã®Yæˆåˆ†ã®è§£åƒåº¦ã‚’ã‚»ãƒƒãƒˆ"
 
 #. DESC_ZOOM
 msgid "Set zoomfactor"
-msgstr "³ÈÂçÎ¨¤ò¥»¥Ã¥È"
+msgstr "æ‹¡å¤§ç‡ã‚’ã‚»ãƒƒãƒˆ"
 
 #. DESC_ZOOM_X
 msgid "Set zoomfactor for x direction"
-msgstr "XÀ®Ê¬¤Î³ÈÂçÎ¨¤ò¥»¥Ã¥È"
+msgstr "Xæˆåˆ†ã®æ‹¡å¤§ç‡ã‚’ã‚»ãƒƒãƒˆ"
 
 #. DESC_ZOOM_Y
 msgid "Set zoomfactor for y direction"
-msgstr "XÀ®Ê¬¤Î³ÈÂçÎ¨¤ò¥»¥Ã¥È"
+msgstr "Xæˆåˆ†ã®æ‹¡å¤§ç‡ã‚’ã‚»ãƒƒãƒˆ"
 
 #. DESC_COPY_NUMBER
 msgid "Set number of copies"
-msgstr "¥³¥Ô¡¼Ëç¿ô¤ò¥»¥Ã¥È"
+msgstr "ã‚³ãƒ”ãƒ¼æšæ•°ã‚’ã‚»ãƒƒãƒˆ"
 
 #. DESC_NEGATIVE
 msgid "Negative: Invert colors for scanning negatives <Ctrl-n>"
-msgstr "Î¢¾Æ¤­¡§¿§ºÌ¤òÎ¢¾Æ¤­¾õÂÖ¤Ç¥¹¥­¥ã¥ó <Ctrl-n>"
+msgstr "è£ç„¼ãï¼šè‰²å½©ã‚’è£ç„¼ãçŠ¶æ…‹ã§ã‚¹ã‚­ãƒ£ãƒ³ <Ctrl-n>"
 
 #. DESC_GAMMA
 msgid "Set gamma value"
-msgstr "¥¬¥ó¥ŞÃÍ¤ò¥»¥Ã¥È"
+msgstr "ã‚¬ãƒ³ãƒå€¤ã‚’ã‚»ãƒƒãƒˆ"
 
 #. DESC_GAMMA_R
 msgid "Set gamma value for red component"
-msgstr "ÀÖ¥¬¥ó¥ŞÃÍ¤ò¥»¥Ã¥È"
+msgstr "èµ¤ã‚¬ãƒ³ãƒå€¤ã‚’ã‚»ãƒƒãƒˆ"
 
 #. DESC_GAMMA_G
 msgid "Set gamma value for green component"
-msgstr "ÎĞ¥¬¥ó¥ŞÃÍ¤ò¥»¥Ã¥È"
+msgstr "ç·‘ã‚¬ãƒ³ãƒå€¤ã‚’ã‚»ãƒƒãƒˆ"
 
 #. DESC_GAMMA_B
 msgid "Set gamma value for blue component"
-msgstr "ÀÄ¥¬¥ó¥ŞÃÍ¤ò¥»¥Ã¥È"
+msgstr "é’ã‚¬ãƒ³ãƒå€¤ã‚’ã‚»ãƒƒãƒˆ"
 
 #. DESC_BRIGHTNESS
 msgid "Set brightness"
-msgstr "ÌÀÅÙ¤ò¥»¥Ã¥È"
+msgstr "æ˜åº¦ã‚’ã‚»ãƒƒãƒˆ"
 
 #. DESC_BRIGHTNESS_R
 msgid "Set brightness for red component"
-msgstr "ÀÖÀ®Ê¬¤Ø¤ÎÌÀÅÙ¤ò¥»¥Ã¥È"
+msgstr "èµ¤æˆåˆ†ã¸ã®æ˜åº¦ã‚’ã‚»ãƒƒãƒˆ"
 
 #. DESC_BRIGHTNESS_G
 msgid "Set brightness for green component"
-msgstr "ÎĞÀ®Ê¬¤Ø¤ÎÌÀÅÙ¤ò¥»¥Ã¥È"
+msgstr "ç·‘æˆåˆ†ã¸ã®æ˜åº¦ã‚’ã‚»ãƒƒãƒˆ"
 
 #. DESC_BRIGHTNESS_B
 msgid "Set brightness for blue component"
-msgstr "ÀÄÀ®Ê¬¤Ø¤ÎÌÀÅÙ¤ò¥»¥Ã¥È"
+msgstr "é’æˆåˆ†ã¸ã®æ˜åº¦ã‚’ã‚»ãƒƒãƒˆ"
 
 #. DESC_CONTRAST
 msgid "Set contrast"
-msgstr "¥³¥ó¥È¥é¥¹¥È¤ò¥»¥Ã¥È"
+msgstr "ã‚³ãƒ³ãƒˆãƒ©ã‚¹ãƒˆã‚’ã‚»ãƒƒãƒˆ"
 
 #. DESC_CONTRAST_R
 msgid "Set contrast for red component"
-msgstr "ÀÖÀ®Ê¬¤Ø¤Î¥³¥ó¥È¥é¥¹¥È¤ò¥»¥Ã¥È"
+msgstr "èµ¤æˆåˆ†ã¸ã®ã‚³ãƒ³ãƒˆãƒ©ã‚¹ãƒˆã‚’ã‚»ãƒƒãƒˆ"
 
 #. DESC_CONTRAST_G
 msgid "Set contrast for green component"
-msgstr "ÎĞÀ®Ê¬¤Ø¤Î¥³¥ó¥È¥é¥¹¥È¤ò¥»¥Ã¥È"
+msgstr "ç·‘æˆåˆ†ã¸ã®ã‚³ãƒ³ãƒˆãƒ©ã‚¹ãƒˆã‚’ã‚»ãƒƒãƒˆ"
 
 #. DESC_CONTRAST_B
 msgid "Set contrast for blue component"
-msgstr "ÀÄÀ®Ê¬¤Ø¤Î¥³¥ó¥È¥é¥¹¥È¤ò¥»¥Ã¥È"
+msgstr "é’æˆåˆ†ã¸ã®ã‚³ãƒ³ãƒˆãƒ©ã‚¹ãƒˆã‚’ã‚»ãƒƒãƒˆ"
 
 #. DESC_THRESHOLD
 msgid "Set threshold"
-msgstr "ïçÃÍ¤ò¥»¥Ã¥È"
+msgstr "é–¾å€¤ã‚’ã‚»ãƒƒãƒˆ"
 
 #. DESC_RGB_DEFAULT
 msgid ""
@@ -1539,15 +1539,15 @@ msgid ""
 " brightness = 0\n"
 " contrast = 0"
 msgstr ""
-"RGB¥Ç¥Õ¥©¥ë¥ÈÃÍ¡§ÀÖ¡¦ÎĞ¡¦ÀÄ¤Ø¤Î¶¯Ä´ÃÍ¤Î¥Ç¥Õ¥©¥ë¥ÈÃÍ¤ò¥»¥Ã¥È <Ctrl-b>¡§\n"
-"¥¬¥ó¥ŞÃÍ = 1.0\n"
-"ÌÀÅÙ = 0\n"
-"¥³¥ó¥È¥é¥¹¥È = 0"
+"RGBãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤ï¼šèµ¤ãƒ»ç·‘ãƒ»é’ã¸ã®å¼·èª¿å€¤ã®ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤ã‚’ã‚»ãƒƒãƒˆ <Ctrl-b>ï¼š\n"
+"ã‚¬ãƒ³ãƒå€¤ = 1.0\n"
+"æ˜åº¦ = 0\n"
+"ã‚³ãƒ³ãƒˆãƒ©ã‚¹ãƒˆ = 0"
 
 #. DESC_ENH_AUTO
 msgid "Autoadjust gamma, brightness and contrast <Ctrl-e>"
 msgstr ""
-"ÁªÂò¤µ¤ì¤¿¥¹¥­¥ã¥óÎÎ°è¤Ë±ş¤¸¤Æ¡¢¥¬¥ó¥ŞÃÍ¡¢ÌÀÅÙ¡¢¥³¥ó¥È¥é¥¹¥È¤ò¼«Æ°Ä´À° <Ctrl-"
+"é¸æŠã•ã‚ŒãŸã‚¹ã‚­ãƒ£ãƒ³é ˜åŸŸã«å¿œã˜ã¦ã€ã‚¬ãƒ³ãƒå€¤ã€æ˜åº¦ã€ã‚³ãƒ³ãƒˆãƒ©ã‚¹ãƒˆã‚’è‡ªå‹•èª¿æ•´ <Ctrl-"
 "e>"
 
 #. DESC_ENH_DEFAULT
@@ -1557,151 +1557,151 @@ msgid ""
 "brightness = 0\n"
 "contrast = 0"
 msgstr ""
-"¥Ç¥Õ¥©¥ë¥È¤Î¶¯Ä´ÃÍ¤ò¥»¥Ã¥È <Ctrl-d>:\n"
-"¥¬¥ó¥ŞÃÍ = 1.0\n"
-"ÌÀÅÙ = 0\n"
-"¥³¥ó¥È¥é¥¹¥È = 0"
+"ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®å¼·èª¿å€¤ã‚’ã‚»ãƒƒãƒˆ <Ctrl-d>:\n"
+"ã‚¬ãƒ³ãƒå€¤ = 1.0\n"
+"æ˜åº¦ = 0\n"
+"ã‚³ãƒ³ãƒˆãƒ©ã‚¹ãƒˆ = 0"
 
 #. DESC_ENH_RESTORE
 msgid "Restore enhancement values from preferences <Ctrl-r>"
-msgstr "ÀßÄê¤·¤¿¶¯Ä´ÃÍ¤òÉü¸µ <Ctrl-r>"
+msgstr "è¨­å®šã—ãŸå¼·èª¿å€¤ã‚’å¾©å…ƒ <Ctrl-r>"
 
 #. DESC_ENH_STORE
 msgid "Store active enhancement values to preferences <Ctrl-+>"
-msgstr "ÀßÄê¤·¤¿¶¯Ä´ÃÍ¤òÊİÂ¸ <Ctrl-+>"
+msgstr "è¨­å®šã—ãŸå¼·èª¿å€¤ã‚’ä¿å­˜ <Ctrl-+>"
 
 #. DESC_HIST_INTENSITY
 msgid "Show histogram of intensity/gray <Alt-i>"
-msgstr "µ±ÅÙ¡¿Çò¹õ³¬Ä´¤Î¥Ò¥¹¥È¥°¥é¥à¤òÉ½¼¨ <Alt-i>"
+msgstr "è¼åº¦ï¼ç™½é»’éšèª¿ã®ãƒ’ã‚¹ãƒˆã‚°ãƒ©ãƒ ã‚’è¡¨ç¤º <Alt-i>"
 
 #. DESC_HIST_RED
 msgid "Show histogram of red component <Alt-r>"
-msgstr "ÀÖÀ®Ê¬¤Î¥Ò¥¹¥È¥°¥é¥à¤òÉ½¼¨ <Alt-r>"
+msgstr "èµ¤æˆåˆ†ã®ãƒ’ã‚¹ãƒˆã‚°ãƒ©ãƒ ã‚’è¡¨ç¤º <Alt-r>"
 
 #. DESC_HIST_GREEN
 msgid "Show histogram of green component <Alt-g>"
-msgstr "ÎĞÀ®Ê¬¤Î¥Ò¥¹¥È¥°¥é¥à¤òÉ½¼¨ <Alt-g>"
+msgstr "ç·‘æˆåˆ†ã®ãƒ’ã‚¹ãƒˆã‚°ãƒ©ãƒ ã‚’è¡¨ç¤º <Alt-g>"
 
 #. DESC_HIST_BLUE
 msgid "Show histogram of blue component <Alt-b>"
-msgstr "ÀÄÀ®Ê¬¤Î¥Ò¥¹¥È¥°¥é¥à¤òÉ½¼¨ <Alt-b>"
+msgstr "é’æˆåˆ†ã®ãƒ’ã‚¹ãƒˆã‚°ãƒ©ãƒ ã‚’è¡¨ç¤º <Alt-b>"
 
 #. DESC_HIST_PIXEL
 msgid "Display mode: show histogram with lines instead of pixels <Alt-m>"
-msgstr "²èÁÇ¤ÎÂå¤ï¤ê¤ËÀş¤Ç¥Ò¥¹¥È¥°¥é¥à¤òÉ½¼¨ <Alt-m>"
+msgstr "ç”»ç´ ã®ä»£ã‚ã‚Šã«ç·šã§ãƒ’ã‚¹ãƒˆã‚°ãƒ©ãƒ ã‚’è¡¨ç¤º <Alt-m>"
 
 #. DESC_HIST_LOG
 msgid "Show logarithm of pixelcount <Alt-l>"
-msgstr "²èÁÇ¿ô¤òÂĞ¿ô¤ÇÉ½¼¨ <Alt-l>"
+msgstr "ç”»ç´ æ•°ã‚’å¯¾æ•°ã§è¡¨ç¤º <Alt-l>"
 
 #. DESC_PRINTER_SETUP
 msgid "Select definition to change"
-msgstr "ÊÑ¹¹¤¹¤ë²òÁüÅÙ¤ÎÁªÂò"
+msgstr "å¤‰æ›´ã™ã‚‹è§£åƒåº¦ã®é¸æŠ"
 
 #. DESC_PRINTER_NAME
 msgid "Define a name for the selection of this definition"
-msgstr "ÁªÂò¤·¤¿²òÁüÅÙ¤ÎÌ¾Á°¤òÄêµÁ"
+msgstr "é¸æŠã—ãŸè§£åƒåº¦ã®åå‰ã‚’å®šç¾©"
 
 #. DESC_PRINTER_COMMAND
 msgid "Enter command to be executed in copy mode (e.g. \"lpr\")"
-msgstr "¥³¥Ô¡¼¥â¡¼¥É¤Ç¤Î¼Â¹Ô¥³¥Ş¥ó¥É¤òÆşÎÏ¡ÊÎã¡§\"lpr\"¡Ë"
+msgstr "ã‚³ãƒ”ãƒ¼ãƒ¢ãƒ¼ãƒ‰ã§ã®å®Ÿè¡Œã‚³ãƒãƒ³ãƒ‰ã‚’å…¥åŠ›ï¼ˆä¾‹ï¼š\"lpr\"ï¼‰"
 
 #. DESC_COPY_NUMBER_OPTION
 msgid "Enter option for copy numbers"
-msgstr "¥ª¥×¥·¥ç¥ó¡§¥³¥Ô¡¼Ëç¿ô¤òÆşÎÏ"
+msgstr "ã‚ªãƒ—ã‚·ãƒ§ãƒ³ï¼šã‚³ãƒ”ãƒ¼æšæ•°ã‚’å…¥åŠ›"
 
 #. DESC_PRINTER_LINEART_RESOLUTION
 msgid ""
 "Resolution with which lineart images are printed and saved in postscript"
-msgstr "¥é¥¤¥ó¥¢¡¼¥È²èÁü¤Î²òÁüÅÙ¤ÏPostScript¤Ç°õºş¡¦ÊİÂ¸¤µ¤ì¤Ş¤¹"
+msgstr "ãƒ©ã‚¤ãƒ³ã‚¢ãƒ¼ãƒˆç”»åƒã®è§£åƒåº¦ã¯PostScriptã§å°åˆ·ãƒ»ä¿å­˜ã•ã‚Œã¾ã™"
 
 #. DESC_PRINTER_GRAYSCALE_RESOLUTION
 msgid ""
 "Resolution with which grayscale images are printed and saved in postscript"
-msgstr "¥°¥ì¡¼¥¹¥±¡¼¥ë²èÁü¤Î²òÁüÅÙ¤ÏPostScript¤Ç°õºş¡¦ÊİÂ¸¤µ¤ì¤Ş¤¹"
+msgstr "ã‚°ãƒ¬ãƒ¼ã‚¹ã‚±ãƒ¼ãƒ«ç”»åƒã®è§£åƒåº¦ã¯PostScriptã§å°åˆ·ãƒ»ä¿å­˜ã•ã‚Œã¾ã™"
 
 #. DESC_PRINTER_COLOR_RESOLUTION
 msgid "Resolution with which color images are printed and saved in postscript"
-msgstr "¥«¥é¡¼²èÁü¤Î²òÁüÅÙ¤ÏPostScript¤Ç°õºş¡¦ÊİÂ¸¤µ¤ì¤Ş¤¹"
+msgstr "ã‚«ãƒ©ãƒ¼ç”»åƒã®è§£åƒåº¦ã¯PostScriptã§å°åˆ·ãƒ»ä¿å­˜ã•ã‚Œã¾ã™"
 
 #. DESC_PRINTER_WIDTH
 msgid "Width of printable area"
-msgstr "°õºş²ÄÇ½ÎÎ°èÉı"
+msgstr "å°åˆ·å¯èƒ½é ˜åŸŸå¹…"
 
 #. DESC_PRINTER_HEIGHT
 msgid "Height of printable area"
-msgstr "°õºş²ÄÇ½ÎÎ°è¹â¤µ"
+msgstr "å°åˆ·å¯èƒ½é ˜åŸŸé«˜ã•"
 
 #. DESC_PRINTER_LEFTOFFSET
 msgid "Left offset from the edge of the paper to the printable area"
-msgstr "°õºş²ÄÇ½ÎÎ°è¤ÎÍÑ»æÃ¼¤«¤é¤Îº¸¥ª¥Õ¥»¥Ã¥È"
+msgstr "å°åˆ·å¯èƒ½é ˜åŸŸã®ç”¨ç´™ç«¯ã‹ã‚‰ã®å·¦ã‚ªãƒ•ã‚»ãƒƒãƒˆ"
 
 #. DESC_PRINTER_BOTTOMOFFSET
 msgid "Bottom offset from the edge of the paper to the printable area"
-msgstr "°õºş²ÄÇ½ÎÎ°è¤ÎÍÑ»æÃ¼¤«¤é¤Î²¼¥ª¥Õ¥»¥Ã¥È"
+msgstr "å°åˆ·å¯èƒ½é ˜åŸŸã®ç”¨ç´™ç«¯ã‹ã‚‰ã®ä¸‹ã‚ªãƒ•ã‚»ãƒƒãƒˆ"
 
 #. DESC_PRINTER_GAMMA
 msgid "Additional gamma value for photocopy"
-msgstr "¾Æ¤­Áı¤·¤Ø¤ÎÄÉ²Ã¥¬¥ó¥ŞÃÍ"
+msgstr "ç„¼ãå¢—ã—ã¸ã®è¿½åŠ ã‚¬ãƒ³ãƒå€¤"
 
 #. DESC_PRINTER_GAMMA_RED
 msgid "Additional gamma value for red component for photocopy"
-msgstr "¾Æ¤­Áı¤·¤Ø¤ÎÀÖÀ®Ê¬ÄÉ²Ã¥¬¥ó¥ŞÃÍ"
+msgstr "ç„¼ãå¢—ã—ã¸ã®èµ¤æˆåˆ†è¿½åŠ ã‚¬ãƒ³ãƒå€¤"
 
 #. DESC_PRINTER_GAMMA_GREEN
 msgid "Additional gamma value for green component for photocopy"
-msgstr "¾Æ¤­Áı¤·¤Ø¤ÎÎĞÀ®Ê¬ÄÉ²Ã¥¬¥ó¥ŞÃÍ"
+msgstr "ç„¼ãå¢—ã—ã¸ã®ç·‘æˆåˆ†è¿½åŠ ã‚¬ãƒ³ãƒå€¤"
 
 #. DESC_PRINTER_GAMMA_BLUE
 msgid "Additional gamma value for blue component for photocopy"
-msgstr "¾Æ¤­Áı¤·¤Ø¤ÎÀÄÀ®Ê¬ÄÉ²Ã¥¬¥ó¥ŞÃÍ"
+msgstr "ç„¼ãå¢—ã—ã¸ã®é’æˆåˆ†è¿½åŠ ã‚¬ãƒ³ãƒå€¤"
 
 #. DESC_TMP_PATH
 msgid "Path to temp directory"
-msgstr "°ì»ş¥Ç¥£¥ì¥¯¥È¥ê¤Ø¤Î¥Ñ¥¹"
+msgstr "ä¸€æ™‚ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã¸ã®ãƒ‘ã‚¹"
 
 #. DESC_BUTTON_TMP_PATH_BROWSE
 msgid "Browse for temporary directory"
-msgstr "°ì»ş¥Ç¥£¥ì¥¯¥È¥ê¤Î»²¾È"
+msgstr "ä¸€æ™‚ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®å‚ç…§"
 
 #. DESC_JPEG_QUALITY
 msgid ""
 "Quality in percent if image is saved as jpeg or tiff with jpeg compression"
-msgstr "JPEG°µ½Ì¤ÇÊİÂ¸¤µ¤ì¤¿JPEG¤Ş¤¿¤ÏTIFF²èÁü¤Î²è¼Á(%)"
+msgstr "JPEGåœ§ç¸®ã§ä¿å­˜ã•ã‚ŒãŸJPEGã¾ãŸã¯TIFFç”»åƒã®ç”»è³ª(%)"
 
 # DESC_PNG_COMPRESSION
 #. DESC_PNG_COMPRESSION
 msgid "Compression if image is saved as png"
-msgstr "²èÁü¤¬PNG¤ÇÊİÂ¸¤µ¤ì¤Æ¤¤¤ì¤Ğ°µ½Ì"
+msgstr "ç”»åƒãŒPNGã§ä¿å­˜ã•ã‚Œã¦ã„ã‚Œã°åœ§ç¸®"
 
 #. DESC_FILENAME_COUNTER_LEN
 msgid "Minimum length of counter in filename"
-msgstr "¥Õ¥¡¥¤¥ëÌ¾¤Î¥«¥¦¥ó¥¿¤ÎºÇ¾®ÈÏ°Ï"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«åã®ã‚«ã‚¦ãƒ³ã‚¿ã®æœ€å°ç¯„å›²"
 
 #. DESC_TIFF_COMPRESSION_16
 msgid "Compression type if 16 bit image is saved as tiff"
-msgstr "16¥Ó¥Ã¥È²èÁü¤¬TIFF¤ÇÊİÂ¸¤µ¤ì¤Æ¤¤¤ë¾ì¹ç¤Î°µ½Ì¥¿¥¤¥×"
+msgstr "16ãƒ“ãƒƒãƒˆç”»åƒãŒTIFFã§ä¿å­˜ã•ã‚Œã¦ã„ã‚‹å ´åˆã®åœ§ç¸®ã‚¿ã‚¤ãƒ—"
 
 #. DESC_TIFF_COMPRESSION_8
 msgid "Compression type if 8 bit image is saved as tiff"
-msgstr "8¥Ó¥Ã¥È²èÁü¤¬TIFF¤ÇÊİÂ¸¤µ¤ì¤Æ¤¤¤ë¾ì¹ç¤Î°µ½Ì¥¿¥¤¥×"
+msgstr "8ãƒ“ãƒƒãƒˆç”»åƒãŒTIFFã§ä¿å­˜ã•ã‚Œã¦ã„ã‚‹å ´åˆã®åœ§ç¸®ã‚¿ã‚¤ãƒ—"
 
 #. DESC_TIFF_COMPRESSION_1
 msgid "Compression type if lineart image is saved as tiff"
-msgstr "¥é¥¤¥ó¥¢¡¼¥È²èÁü¤¬TIFF¤ÇÊİÂ¸¤µ¤ì¤Æ¤¤¤ë¾ì¹ç¤Î°µ½Ì¥¿¥¤¥×"
+msgstr "ãƒ©ã‚¤ãƒ³ã‚¢ãƒ¼ãƒˆç”»åƒãŒTIFFã§ä¿å­˜ã•ã‚Œã¦ã„ã‚‹å ´åˆã®åœ§ç¸®ã‚¿ã‚¤ãƒ—"
 
 #. DESC_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device dependant preferences in default file at exit of xsane"
-msgstr "XSane½ªÎ»»ş¤Ë¥Ç¥Ğ¥¤¥¹°ÍÂ¸¤ÎÀßÄê¤ò´ûÄêÃÍ¤È¤·¤Æ¥Õ¥¡¥¤¥ëÊİÂ¸"
+msgstr "XSaneçµ‚äº†æ™‚ã«ãƒ‡ãƒã‚¤ã‚¹ä¾å­˜ã®è¨­å®šã‚’æ—¢å®šå€¤ã¨ã—ã¦ãƒ•ã‚¡ã‚¤ãƒ«ä¿å­˜"
 
 #. DESC_OVERWRITE_WARNING
 msgid "Warn before overwriting an existing file"
-msgstr "¸½ºß¤Î¥Õ¥¡¥¤¥ë¤Ë¾å½ñ¤­¤¹¤ëÁ°¤Î·Ù¹ğ"
+msgstr "ç¾åœ¨ã®ãƒ•ã‚¡ã‚¤ãƒ«ã«ä¸Šæ›¸ãã™ã‚‹å‰ã®è­¦å‘Š"
 
 #. DESC_SKIP_EXISTING
 msgid ""
 "If filename counter is automatically increased, used numbers are skipped"
-msgstr "¥Õ¥¡¥¤¥ëÌ¾¤Î¥«¥¦¥ó¥¿¤¬¼«Æ°Åª¤ËÁı²Ã¤¹¤ëºİ¡¢»ÈÍÑºÑ¤ß¤ÎÈÖ¹æ¤Ï¤È¤Ğ¤µ¤ì¤Ş¤¹"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«åã®ã‚«ã‚¦ãƒ³ã‚¿ãŒè‡ªå‹•çš„ã«å¢—åŠ ã™ã‚‹éš›ã€ä½¿ç”¨æ¸ˆã¿ã®ç•ªå·ã¯ã¨ã°ã•ã‚Œã¾ã™"
 
 #. DESC_SAVE_PNM16_AS_ASCII
 msgid ""
@@ -1710,293 +1710,293 @@ msgid ""
 "supported by all programs. The ascii format is supported by more programs "
 "but it produces really huge files!!!"
 msgstr ""
-"16¥Ó¥Ã¥È²èÁü¤¬PNM¥Õ¥©¡¼¥Ş¥Ã¥È¤ÇÊİÂ¸¤µ¤ì¤ë¤È¤­¤Ï¡¢¥Ğ¥¤¥Ê¥ê¥Õ¥©¡¼¥Ş¥Ã¥È¤ÎÂå¤ï¤ê"
-"¤Ë¥¢¥¹¥­¡¼¥Õ¥©¡¼¥Ş¥Ã¥È¤ò»È¤Ã¤Æ¤¯¤À¤µ¤¤¡£¥Ğ¥¤¥Ê¥ê¥Õ¥©¡¼¥Ş¥Ã¥È¤Ï¿·¤·¤¤¤¿¤á¡¢¤¹"
-"¤Ù¤Æ¤Î¥×¥í¥°¥é¥à¤Ç¤Ï¥µ¥İ¡¼¥È¤µ¤ì¤Æ¤¤¤Ş¤»¤ó¡£¥¢¥¹¥­¡¼¥Õ¥©¡¼¥Ş¥Ã¥È¤ÏÂ¿¤¯¤Î¥×¥í"
-"¥°¥é¥à¤Ç¥µ¥İ¡¼¥È¤µ¤ì¤Æ¤¤¤Ş¤¹¤¬¡¢¤¿¤¤¤Ø¤óµğÂç¤Ê¥Õ¥¡¥¤¥ë¤òºî¤ê¤Ş¤¹¡£"
+"16ãƒ“ãƒƒãƒˆç”»åƒãŒPNMãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã§ä¿å­˜ã•ã‚Œã‚‹ã¨ãã¯ã€ãƒã‚¤ãƒŠãƒªãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã®ä»£ã‚ã‚Š"
+"ã«ã‚¢ã‚¹ã‚­ãƒ¼ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã‚’ä½¿ã£ã¦ãã ã•ã„ã€‚ãƒã‚¤ãƒŠãƒªãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã¯æ–°ã—ã„ãŸã‚ã€ã™"
+"ã¹ã¦ã®ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã§ã¯ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚ã‚¢ã‚¹ã‚­ãƒ¼ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã¯å¤šãã®ãƒ—ãƒ­"
+"ã‚°ãƒ©ãƒ ã§ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¦ã„ã¾ã™ãŒã€ãŸã„ã¸ã‚“å·¨å¤§ãªãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä½œã‚Šã¾ã™ã€‚"
 
 #. DESC_REDUCE_16BIT_TO_8BIT
 msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
-msgstr "²èÁü¤¬16¥Ó¥Ã¥È¥«¥é¡¼¤Ç¥¹¥­¥ã¥Ê¤«¤éÁ÷¤é¤ì¤¿¤é¡¢8¥Ó¥Ã¥È¤ÇÊİÂ¸"
+msgstr "ç”»åƒãŒ16ãƒ“ãƒƒãƒˆã‚«ãƒ©ãƒ¼ã§ã‚¹ã‚­ãƒ£ãƒŠã‹ã‚‰é€ã‚‰ã‚ŒãŸã‚‰ã€8ãƒ“ãƒƒãƒˆã§ä¿å­˜"
 
 #. DESC_PSFILE_WIDTH
 msgid "Width of paper for postscript files"
-msgstr "PostScript¥Õ¥¡¥¤¥ë¤ÎÍÑ»æÉı"
+msgstr "PostScriptãƒ•ã‚¡ã‚¤ãƒ«ã®ç”¨ç´™å¹…"
 
 #. DESC_PSFILE_HEIGHT
 msgid "Height of paper for postscript files"
-msgstr "PostScript¥Õ¥¡¥¤¥ë¤ÎÍÑ»æ¹â¤µ"
+msgstr "PostScriptãƒ•ã‚¡ã‚¤ãƒ«ã®ç”¨ç´™é«˜ã•"
 
 #. DESC_PSFILE_LEFTOFFSET
 msgid ""
 "Left offset from the edge of the paper to the usable area for postscript "
 "files"
-msgstr "PostScript¥Õ¥¡¥¤¥ë¤Î»ÈÍÑ²ÄÇ½ÎÎ°è¤ÎÍÑ»æÃ¼¤«¤é¤Îº¸¥ª¥Õ¥»¥Ã¥È"
+msgstr "PostScriptãƒ•ã‚¡ã‚¤ãƒ«ã®ä½¿ç”¨å¯èƒ½é ˜åŸŸã®ç”¨ç´™ç«¯ã‹ã‚‰ã®å·¦ã‚ªãƒ•ã‚»ãƒƒãƒˆ"
 
 #. DESC_PSFILE_BOTTOMOFFSET
 msgid ""
 "Bottom offset from the edge of the paper to the usable area for postscript "
 "files"
-msgstr "PostScript¥Õ¥¡¥¤¥ë¤Î»ÈÍÑ²ÄÇ½ÎÎ°è¤ÎÍÑ»æÃ¼¤«¤é¤Î²¼¥ª¥Õ¥»¥Ã¥È"
+msgstr "PostScriptãƒ•ã‚¡ã‚¤ãƒ«ã®ä½¿ç”¨å¯èƒ½é ˜åŸŸã®ç”¨ç´™ç«¯ã‹ã‚‰ã®ä¸‹ã‚ªãƒ•ã‚»ãƒƒãƒˆ"
 
 #. DESC_MAIN_WINDOW_FIXED
 msgid "Use fixed main window size or scrolled, resizable main window"
-msgstr "¥á¥¤¥ó¥¦¥£¥ó¥É¥¦¤Ë¸ÇÄê¥µ¥¤¥º¤ò»È¤¦¤«¡¢¥¹¥¯¥í¡¼¥ë¡¦¥ê¥µ¥¤¥º²ÄÇ½¤Ë¤¹¤ë"
+msgstr "ãƒ¡ã‚¤ãƒ³ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã«å›ºå®šã‚µã‚¤ã‚ºã‚’ä½¿ã†ã‹ã€ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒ»ãƒªã‚µã‚¤ã‚ºå¯èƒ½ã«ã™ã‚‹"
 
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
 msgid "Disable preview gamma when XSane runs as gimp plugin"
-msgstr "XSane¤¬GIMP¥×¥é¥°¥¤¥ó¤È¤·¤ÆÆ°ºî¤¹¤ë»ş¤Ï¡¢¥¬¥ó¥Ş¥×¥ì¥Ó¥å¡¼¤ò¥ª¥Õ¤Ë¤¹¤ë"
+msgstr "XSaneãŒGIMPãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã¨ã—ã¦å‹•ä½œã™ã‚‹æ™‚ã¯ã€ã‚¬ãƒ³ãƒãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ã‚’ã‚ªãƒ•ã«ã™ã‚‹"
 
 #. DESC_PREVIEW_COLORMAP
 msgid "Use an own colormap for preview if display depth is 8 bpp"
-msgstr "¥Ç¥£¥¹¥×¥ì¥¤²òÁüÅÙ¤¬8¥Ó¥Ã¥È¤Ê¤é¡¢¥×¥ì¥Ó¥å¡¼¤Ë¸ÇÍ­¤Î¥«¥é¡¼¥Ş¥Ã¥×¤ò»È¤¦"
+msgstr "ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤è§£åƒåº¦ãŒ8ãƒ“ãƒƒãƒˆãªã‚‰ã€ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ã«å›ºæœ‰ã®ã‚«ãƒ©ãƒ¼ãƒãƒƒãƒ—ã‚’ä½¿ã†"
 
 #. DESC_SHOW_RANGE_MODE
 msgid "Select how a range is displayed"
-msgstr "É½¼¨¤¹¤ëÈÏ°Ï¤òÁªÂò"
+msgstr "è¡¨ç¤ºã™ã‚‹ç¯„å›²ã‚’é¸æŠ"
 
 #. DESC_PREVIEW_OVERSAMPLING
 msgid "Value with that the calculated preview resolution is multiplied"
-msgstr "¥×¥ì¥Ó¥å¡¼²òÁüÅÙ¤Ë³İ¤±¤é¤ì¤¿·×»»ÃÍ"
+msgstr "ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼è§£åƒåº¦ã«æ›ã‘ã‚‰ã‚ŒãŸè¨ˆç®—å€¤"
 
 #. DESC_PREVIEW_GAMMA
 msgid "Set gamma correction value for preview image"
-msgstr "¥×¥ì¥Ó¥å¡¼²èÁü¤Î¥¬¥ó¥ŞÊäÀµÃÍ¤ò¥»¥Ã¥È"
+msgstr "ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ç”»åƒã®ã‚¬ãƒ³ãƒè£œæ­£å€¤ã‚’ã‚»ãƒƒãƒˆ"
 
 #. DESC_PREVIEW_GAMMA_RED
 msgid "Set gamma correction value for red component of preview image"
-msgstr "¥×¥ì¥Ó¥å¡¼²èÁü¤ÎÀÖÀ®Ê¬¤Î¥¬¥ó¥ŞÊäÀµÃÍ¤ò¥»¥Ã¥È"
+msgstr "ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ç”»åƒã®èµ¤æˆåˆ†ã®ã‚¬ãƒ³ãƒè£œæ­£å€¤ã‚’ã‚»ãƒƒãƒˆ"
 
 #. DESC_PREVIEW_GAMMA_GREEN
 msgid "Set gamma correction value for green component of preview image"
-msgstr "¥×¥ì¥Ó¥å¡¼²èÁü¤ÎÎĞÀ®Ê¬¤Î¥¬¥ó¥ŞÊäÀµÃÍ¤ò¥»¥Ã¥È"
+msgstr "ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ç”»åƒã®ç·‘æˆåˆ†ã®ã‚¬ãƒ³ãƒè£œæ­£å€¤ã‚’ã‚»ãƒƒãƒˆ"
 
 #. DESC_PREVIEW_GAMMA_BLUE
 msgid "Set gamma correction value for blue component of preview image"
-msgstr "¥×¥ì¥Ó¥å¡¼²èÁü¤ÎÀÄÀ®Ê¬¤Î¥¬¥ó¥ŞÊäÀµÃÍ¤ò¥»¥Ã¥È"
+msgstr "ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ç”»åƒã®é’æˆåˆ†ã®ã‚¬ãƒ³ãƒè£œæ­£å€¤ã‚’ã‚»ãƒƒãƒˆ"
 
 #. DESC_LINEART_MODE
 msgid "Define the way XSane shall handle the threshold option"
-msgstr "XSane¤ÎïçÃÍ¥ª¥×¥·¥ç¥ó½èÍıÊı¼°¤òÄêµÁ"
+msgstr "XSaneã®é–¾å€¤ã‚ªãƒ—ã‚·ãƒ§ãƒ³å‡¦ç†æ–¹å¼ã‚’å®šç¾©"
 
 #. DESC_GRAYSCALE_SCANMODE
 msgid ""
 "Select grayscale scanmode. This scanmode is used for lineart preview scan "
 "when transformation from grayscale to lineart is enabled"
-msgstr "¥°¥ì¡¼¥¹¥±¡¼¥ë¤Î¥¹¥­¥ã¥ó¥â¡¼¥É¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "ã‚°ãƒ¬ãƒ¼ã‚¹ã‚±ãƒ¼ãƒ«ã®ã‚¹ã‚­ãƒ£ãƒ³ãƒ¢ãƒ¼ãƒ‰ã‚’é¸æŠã—ã¦ãã ã•ã„ã€‚"
 
 #. DESC_PREVIEW_THRESHOLD_MIN
 #, no-c-format
 msgid "The scanner's minimum threshold level in %"
-msgstr "¥¹¥­¥ã¥Ê¤ÎºÇ¾®ïçÃÍ¥ì¥Ù¥ë¡Ê%¡Ë"
+msgstr "ã‚¹ã‚­ãƒ£ãƒŠã®æœ€å°é–¾å€¤ãƒ¬ãƒ™ãƒ«ï¼ˆ%ï¼‰"
 
 #. DESC_PREVIEW_THRESHOLD_MAX
 #, no-c-format
 msgid "The scanner's maximum threshold level in %"
-msgstr "¥¹¥­¥ã¥Ê¤ÎºÇÂçïçÃÍ¥ì¥Ù¥ë¡Ê%¡Ë"
+msgstr "ã‚¹ã‚­ãƒ£ãƒŠã®æœ€å¤§é–¾å€¤ãƒ¬ãƒ™ãƒ«ï¼ˆ%ï¼‰"
 
 #. DESC_PREVIEW_THRESHOLD_MUL
 msgid ""
 "Multiplier to make XSane threshold range and scanner threshold range the same"
-msgstr "XSane¤È¥¹¥­¥ã¥Ê¤ÎïçÃÍÈÏ°Ï¤òÅù¤·¤¯¤¹¤ë¤¿¤á¤Î¾è¿ô"
+msgstr "XSaneã¨ã‚¹ã‚­ãƒ£ãƒŠã®é–¾å€¤ç¯„å›²ã‚’ç­‰ã—ãã™ã‚‹ãŸã‚ã®ä¹—æ•°"
 
 #. DESC_PREVIEW_THRESHOLD_OFF
 msgid ""
 "Offset to make XSane threshold range and scanner threshold range the same"
-msgstr "XSane¤È¥¹¥­¥ã¥Ê¤ÎïçÃÍÈÏ°Ï¤òÅù¤·¤¯¤¹¤ë¤¿¤á¤Î¥ª¥Õ¥»¥Ã¥È"
+msgstr "XSaneã¨ã‚¹ã‚­ãƒ£ãƒŠã®é–¾å€¤ç¯„å›²ã‚’ç­‰ã—ãã™ã‚‹ãŸã‚ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆ"
 
 #. DESC_ADF_MODE
 msgid ""
 "Select scansource for Automatic Document feeder. If this scansource is "
 "selected XSane scans until \"out of paper\" or error."
 msgstr ""
-"ADF¤Î¤¿¤á¤Î¥¹¥­¥ã¥ó¥½¡¼¥¹¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£¤³¤Î¥¹¥­¥ã¥ó¥½¡¼¥¹¤¬ÁªÂò¤µ¤ì¤ë¤È"
-"XSane¤ÏÍÑ»æÀÚ¤ì¤«¥¨¥é¡¼¤Ë¤Ê¤ë¤Ş¤Ç¥¹¥­¥ã¥ó¤ò¤·¤Ş¤¹"
+"ADFã®ãŸã‚ã®ã‚¹ã‚­ãƒ£ãƒ³ã‚½ãƒ¼ã‚¹ã‚’é¸æŠã—ã¦ãã ã•ã„ã€‚ã“ã®ã‚¹ã‚­ãƒ£ãƒ³ã‚½ãƒ¼ã‚¹ãŒé¸æŠã•ã‚Œã‚‹ã¨"
+"XSaneã¯ç”¨ç´™åˆ‡ã‚Œã‹ã‚¨ãƒ©ãƒ¼ã«ãªã‚‹ã¾ã§ã‚¹ã‚­ãƒ£ãƒ³ã‚’ã—ã¾ã™"
 
 #. DESC_PREVIEW_PIPETTE_RANGE
 msgid "dimension of square that is used to average color for pipette function"
-msgstr "¥Ô¥Ú¥Ã¥Èµ¡Ç½ÍÑ¤ÎÉ¸½à¿§¤Ë»È¤ï¤ì¤ë¾®ÊÒ¤ÎÌÌÀÑ"
+msgstr "ãƒ”ãƒšãƒƒãƒˆæ©Ÿèƒ½ç”¨ã®æ¨™æº–è‰²ã«ä½¿ã‚ã‚Œã‚‹å°ç‰‡ã®é¢ç©"
 
 #. DESC_DOC_VIEWER
 msgid ""
 "Enter command to be executed to display helpfiles, must be a html-viewer!"
-msgstr "¥Ø¥ë¥×¥Õ¥¡¥¤¥ëÉ½¼¨»ş¤Ë¼Â¹Ô¤µ¤ì¤ë¥³¥Ş¥ó¥É(HTML¥Ó¥å¡¼¥ï¤Ç¤¹!)¤òÆşÎÏ"
+msgstr "ãƒ˜ãƒ«ãƒ—ãƒ•ã‚¡ã‚¤ãƒ«è¡¨ç¤ºæ™‚ã«å®Ÿè¡Œã•ã‚Œã‚‹ã‚³ãƒãƒ³ãƒ‰(HTMLãƒ“ãƒ¥ãƒ¼ãƒ¯ã§ã™!)ã‚’å…¥åŠ›"
 
 #. DESC_AUTOENHANCE_GAMMA
 msgid "Change gamma value when autoenhancement button is pressed"
-msgstr "¼«Æ°¶¯Ä´¥Ü¥¿¥ó²¡²¼»ş¤Ë¥¬¥ó¥ŞÃÍ¤òÊÑ¹¹"
+msgstr "è‡ªå‹•å¼·èª¿ãƒœã‚¿ãƒ³æŠ¼ä¸‹æ™‚ã«ã‚¬ãƒ³ãƒå€¤ã‚’å¤‰æ›´"
 
 #. DESC_PRESELECT_SCANAREA
 msgid "Select scanarea after preview scan has finished"
-msgstr "¥×¥ì¥Ó¥å¡¼¥¹¥­¥ã¥ó½ªÎ»¸å¤Î¥¹¥­¥ã¥óÎÎ°è¤òÁªÂò"
+msgstr "ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ã‚¹ã‚­ãƒ£ãƒ³çµ‚äº†å¾Œã®ã‚¹ã‚­ãƒ£ãƒ³é ˜åŸŸã‚’é¸æŠ"
 
 #. DESC_AUTOCORRECT_COLORS
 msgid "Do color correction after preview scan has finished"
-msgstr "¥×¥ì¥Ó¥å¡¼¥¹¥­¥ã¥ó½ªÎ»¸å¤Ë¿§ºÌÊäÀµ¤ò¹Ô¤¦"
+msgstr "ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ã‚¹ã‚­ãƒ£ãƒ³çµ‚äº†å¾Œã«è‰²å½©è£œæ­£ã‚’è¡Œã†"
 
 #. DESC_FAX_COMMAND
 msgid "Enter command to be executed in fax mode"
-msgstr "FAX¥â¡¼¥É¤Ç¼Â¹Ô¤µ¤ì¤ë¥³¥Ş¥ó¥É¤òÆşÎÏ"
+msgstr "FAXãƒ¢ãƒ¼ãƒ‰ã§å®Ÿè¡Œã•ã‚Œã‚‹ã‚³ãƒãƒ³ãƒ‰ã‚’å…¥åŠ›"
 
 #. DESC_FAX_RECEIVER_OPT
 msgid "Enter option to specify receiver"
-msgstr "FAX¼õ¿®µ¡¼±ÊÌ¥ª¥×¥·¥ç¥ó¤òÆşÎÏ"
+msgstr "FAXå—ä¿¡æ©Ÿè­˜åˆ¥ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’å…¥åŠ›"
 
 #. DESC_FAX_POSTSCRIPT_OPT
 msgid "Enter option to specify postscript files following"
-msgstr "¸åÂ³¤ÎPostScript¥Õ¥¡¥¤¥ë¼±ÊÌ¥ª¥×¥·¥ç¥ó¤òÆşÎÏ"
+msgstr "å¾Œç¶šã®PostScriptãƒ•ã‚¡ã‚¤ãƒ«è­˜åˆ¥ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’å…¥åŠ›"
 
 #. DESC_FAX_NORMAL_OPT
 msgid "Enter option to specify normal mode (low resolution)"
-msgstr "É¸½à¥â¡¼¥É¡ÊÄã²òÁüÅÙ¡Ë¼±ÊÌ¥ª¥×¥·¥ç¥ó¤òÆşÎÏ"
+msgstr "æ¨™æº–ãƒ¢ãƒ¼ãƒ‰ï¼ˆä½è§£åƒåº¦ï¼‰è­˜åˆ¥ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’å…¥åŠ›"
 
 #. DESC_FAX_FINE_OPT
 msgid "Enter option to specify fine mode (high resolution)"
-msgstr "ÀººÙ¥â¡¼¥É¡Ê¹â²òÁüÅÙ¡Ë¼±ÊÌ¥ª¥×¥·¥ç¥ó¤òÆşÎÏ"
+msgstr "ç²¾ç´°ãƒ¢ãƒ¼ãƒ‰ï¼ˆé«˜è§£åƒåº¦ï¼‰è­˜åˆ¥ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’å…¥åŠ›"
 
 #. DESC_FAX_VIEWER
 msgid "Enter command to be executed to view a fax"
-msgstr "FAX»²¾È¤Î¤¿¤á¤Î¼Â¹Ô¥³¥Ş¥ó¥É¤òÆşÎÏ"
+msgstr "FAXå‚ç…§ã®ãŸã‚ã®å®Ÿè¡Œã‚³ãƒãƒ³ãƒ‰ã‚’å…¥åŠ›"
 
 #. DESC_FAX_FINE_MODE
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
-msgstr "¿âÄ¾¹â²òÁüÅÙ¡Ê98lpi¤ËÂå¤¨¤Æ196lpi¤Ç¡Ë¥â¡¼¥É¤ÇFAXÁ÷¿®"
+msgstr "å‚ç›´é«˜è§£åƒåº¦ï¼ˆ98lpiã«ä»£ãˆã¦196lpiã§ï¼‰ãƒ¢ãƒ¼ãƒ‰ã§FAXé€ä¿¡"
 
 #. DESC_SMTP_SERVER
 msgid "IP Address or Domain name of SMTP server"
-msgstr "IP¥¢¥É¥ì¥¹¤Ş¤¿¤ÏSMTP¥µ¡¼¥Ğ¤Î¥É¥á¥¤¥óÌ¾"
+msgstr "IPã‚¢ãƒ‰ãƒ¬ã‚¹ã¾ãŸã¯SMTPã‚µãƒ¼ãƒã®ãƒ‰ãƒ¡ã‚¤ãƒ³å"
 
 #. DESC_SMTP_PORT
 msgid "port to connect to SMTP server"
-msgstr "SMTP¥µ¡¼¥Ğ¤Ø¤ÎÀÜÂ³¥İ¡¼¥È"
+msgstr "SMTPã‚µãƒ¼ãƒã¸ã®æ¥ç¶šãƒãƒ¼ãƒˆ"
 
 #. DESC_MAIL_FROM
 msgid "enter your email address"
-msgstr "¥á¡¼¥ë¥¢¥É¥ì¥¹¤òÆşÎÏ¤·¤Æ¤¯¤À¤µ¤¤"
+msgstr "ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„"
 
 #. DESC_MAIL_REPLY_TO
 msgid "enter email address for replied emails"
-msgstr "ÊÖ¿®Àè¥¢¥É¥ì¥¹¤òÆşÎÏ¤·¤Æ¤¯¤À¤µ¤¤"
+msgstr "è¿”ä¿¡å…ˆã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„"
 
 #. DESC_POP3_AUTHENTIFICATION
 msgid "Authentificate at POP3 server before sending mail"
-msgstr "¥á¡¼¥ëÁ÷¿®Á°¤ËPOP3¥µ¡¼¥Ğ¤ÇÇ§¾Ú"
+msgstr "ãƒ¡ãƒ¼ãƒ«é€ä¿¡å‰ã«POP3ã‚µãƒ¼ãƒã§èªè¨¼"
 
 #. DESC_POP3_SERVER
 msgid "IP Address or Domain name of POP3 server"
-msgstr "IP¥¢¥É¥ì¥¹¤Ş¤¿¤ÏPOP3¥µ¡¼¥Ğ¤Î¥É¥á¥¤¥óÌ¾"
+msgstr "IPã‚¢ãƒ‰ãƒ¬ã‚¹ã¾ãŸã¯POP3ã‚µãƒ¼ãƒã®ãƒ‰ãƒ¡ã‚¤ãƒ³å"
 
 #. DESC_POP3_PORT
 msgid "port to connect to POP3 server"
-msgstr "POP3¥µ¡¼¥Ğ¤Ø¤ÎÀÜÂ³¥İ¡¼¥È"
+msgstr "POP3ã‚µãƒ¼ãƒã¸ã®æ¥ç¶šãƒãƒ¼ãƒˆ"
 
 #. DESC_POP3_USER
 msgid "user name for POP3 server"
-msgstr "POP3¥µ¡¼¥Ğ¤Î¥æ¡¼¥¶¡¼Ì¾"
+msgstr "POP3ã‚µãƒ¼ãƒã®ãƒ¦ãƒ¼ã‚¶ãƒ¼å"
 
 #. DESC_POP3_PASS
 msgid "password for POP3 server"
-msgstr "POP3¥µ¡¼¥Ğ¤Î¥Ñ¥¹¥ï¡¼¥É"
+msgstr "POP3ã‚µãƒ¼ãƒã®ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰"
 
 #. DESC_MAIL_VIEWER
 msgid "Enter command to be executed to view a mail image"
-msgstr "¥á¡¼¥ë¥¤¥á¡¼¥¸É½¼¨¤Î¤¿¤á¤Î¼Â¹Ô¥³¥Ş¥ó¥É¤òÆşÎÏ"
+msgstr "ãƒ¡ãƒ¼ãƒ«ã‚¤ãƒ¡ãƒ¼ã‚¸è¡¨ç¤ºã®ãŸã‚ã®å®Ÿè¡Œã‚³ãƒãƒ³ãƒ‰ã‚’å…¥åŠ›"
 
 #. DESC_HTML_MAIL
 msgid "Mail is sent in html mode, place image with: <IMAGE>"
-msgstr "¥á¡¼¥ë¤ÏHTML¥â¡¼¥É¤ÇÁ÷¤é¤ì¡¢²èÁü¤Ï<IMAGE>¥¿¥°¤È¤È¤â¤ËÇÛÃÖ¤µ¤ì¤Ş¤¹¡£"
+msgstr "ãƒ¡ãƒ¼ãƒ«ã¯HTMLãƒ¢ãƒ¼ãƒ‰ã§é€ã‚‰ã‚Œã€ç”»åƒã¯<IMAGE>ã‚¿ã‚°ã¨ã¨ã‚‚ã«é…ç½®ã•ã‚Œã¾ã™ã€‚"
 
 #. DESC_OCR_COMMAND
 msgid "Enter command to start ocr program"
-msgstr "OCR¥×¥í¥°¥é¥à¤Î³«»Ï¥³¥Ş¥ó¥É¤òÆşÎÏ"
+msgstr "OCRãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®é–‹å§‹ã‚³ãƒãƒ³ãƒ‰ã‚’å…¥åŠ›"
 
 #. DESC_OCR_INPUTFILE_OPT
 msgid "Enter option of the ocr program to define input file"
-msgstr "ÆşÎÏ¥Õ¥¡¥¤¥ë¤òÄêµÁ¤¹¤ëOCR¥×¥í¥°¥é¥à¤Î¥ª¥×¥·¥ç¥ó¤òÆşÎÏ"
+msgstr "å…¥åŠ›ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å®šç¾©ã™ã‚‹OCRãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’å…¥åŠ›"
 
 #. DESC_OCR_OUTPUTFILE_OPT
 msgid "Enter option of the ocr program to define output file"
-msgstr "½ĞÎÏ¥Õ¥¡¥¤¥ë¤òÄêµÁ¤¹¤ëOCR¥×¥í¥°¥é¥à¤Î¥ª¥×¥·¥ç¥ó¤òÆşÎÏ"
+msgstr "å‡ºåŠ›ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å®šç¾©ã™ã‚‹OCRãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’å…¥åŠ›"
 
 #. DESC_OCR_USE_GUI_PIPE_OPT
 msgid "Define if the ocr program supports gui progress pipe"
-msgstr "OCR¥×¥í¥°¥é¥à¤¬GUI¥×¥í¥°¥ì¥¹¥Ñ¥¤¥×¤ò¥µ¥İ¡¼¥È¤¹¤ë¤«¤òÄêµÁ"
+msgstr "OCRãƒ—ãƒ­ã‚°ãƒ©ãƒ ãŒGUIãƒ—ãƒ­ã‚°ãƒ¬ã‚¹ãƒ‘ã‚¤ãƒ—ã‚’ã‚µãƒãƒ¼ãƒˆã™ã‚‹ã‹ã‚’å®šç¾©"
 
 #. DESC_OCR_OUTFD_OPT
 msgid ""
 "Enter option of the ocr program to define output filedescripor in GUI mode"
 msgstr ""
-"GUI¥â¡¼¥É¤Ç½ĞÎÏ¥Õ¥¡¥¤¥ë¥Ç¥£¥¹¥¯¥ê¥×¥¿¤òÄêµÁ¤¹¤ë¤¿¤á¤ÎOCR¥×¥í¥°¥é¥à¤Î¥ª¥×¥·¥ç"
-"¥ó¤òÆşÎÏ"
+"GUIãƒ¢ãƒ¼ãƒ‰ã§å‡ºåŠ›ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‡ã‚£ã‚¹ã‚¯ãƒªãƒ—ã‚¿ã‚’å®šç¾©ã™ã‚‹ãŸã‚ã®OCRãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®ã‚ªãƒ—ã‚·ãƒ§"
+"ãƒ³ã‚’å…¥åŠ›"
 
 #. DESC_OCR_PROGRESS_KEYWORD
 msgid "Define Keyword that is used to mark progress information"
-msgstr "¿Ê¹Ô¾õ¶·¤ò¥Ş¡¼¥¯¤¹¤ë¥­¡¼¥ï¡¼¥É¤òÄêµÁ"
+msgstr "é€²è¡ŒçŠ¶æ³ã‚’ãƒãƒ¼ã‚¯ã™ã‚‹ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰ã‚’å®šç¾©"
 
 #. DESC_PERMISSION_READ
 msgid "read"
-msgstr "ÆÉ¹ş¤ß"
+msgstr "èª­è¾¼ã¿"
 
 #. DESC_PERMISSION_WRITE
 msgid "write"
-msgstr "½ñ¹ş¤ß"
+msgstr "æ›¸è¾¼ã¿"
 
 #. DESC_PERMISSION_EXECUTE
 msgid "execute"
-msgstr "¼Â¹Ô"
+msgstr "å®Ÿè¡Œ"
 
 #. DESC_ADD_BATCH
 msgid "Add selection for batch scan"
-msgstr "ÁªÂòÆâÍÆ¤ò¥Ğ¥Ã¥Á¥¹¥­¥ã¥ó¤ËÄÉ²Ã"
+msgstr "é¸æŠå†…å®¹ã‚’ãƒãƒƒãƒã‚¹ã‚­ãƒ£ãƒ³ã«è¿½åŠ "
 
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
-msgstr "ÇòÅÀ¤ò¥Ô¥Ã¥¯"
+msgstr "ç™½ç‚¹ã‚’ãƒ”ãƒƒã‚¯"
 
 #. DESC_PIPETTE_GRAY
 msgid "Pick gray point"
-msgstr "³¥ÅÀ¤ò¥Ô¥Ã¥¯"
+msgstr "ç°ç‚¹ã‚’ãƒ”ãƒƒã‚¯"
 
 #. DESC_PIPETTE_BLACK
 msgid "Pick black point"
-msgstr "¹õÅÀ¤ò¥Ô¥Ã¥¯"
+msgstr "é»’ç‚¹ã‚’ãƒ”ãƒƒã‚¯"
 
 #. DESC_ZOOM_FULL
 msgid "Use full scanarea"
-msgstr "¥¹¥­¥ã¥óÎÎ°è¤¹¤Ù¤Æ¤ò»ÈÍÑ"
+msgstr "ã‚¹ã‚­ãƒ£ãƒ³é ˜åŸŸã™ã¹ã¦ã‚’ä½¿ç”¨"
 
 #. DESC_ZOOM_OUT
 #, no-c-format
 msgid "Zoom 20% out"
-msgstr "20%½Ì¾®"
+msgstr "20%ç¸®å°"
 
 #. DESC_ZOOM_IN
 msgid "Click at position to zoom to"
-msgstr "³ÈÂç¤¹¤ë°ÌÃÖ¤ò¥¯¥ê¥Ã¥¯"
+msgstr "æ‹¡å¤§ã™ã‚‹ä½ç½®ã‚’ã‚¯ãƒªãƒƒã‚¯"
 
 #. DESC_ZOOM_AREA
 msgid "Zoom into selected area"
-msgstr "ÁªÂòÎÎ°è¤ò³ÈÂç"
+msgstr "é¸æŠé ˜åŸŸã‚’æ‹¡å¤§"
 
 #. DESC_ZOOM_UNDO
 msgid "Undo last zoom"
-msgstr "Á°²ó¤Î³ÈÂç¤ò¸µ¤ËÌá¤¹"
+msgstr "å‰å›ã®æ‹¡å¤§ã‚’å…ƒã«æˆ»ã™"
 
 #. DESC_FULL_PREVIEW_AREA
 msgid "Select visible area"
-msgstr "²Ä»ëÎÎ°è¤òÁªÂò"
+msgstr "å¯è¦–é ˜åŸŸã‚’é¸æŠ"
 
 #. DESC_AUTOSELECT_SCANAREA
 msgid "Autoselect scanarea"
-msgstr "¥¹¥­¥ã¥óÎÎ°è¤Î¼«Æ°ÁªÂò"
+msgstr "ã‚¹ã‚­ãƒ£ãƒ³é ˜åŸŸã®è‡ªå‹•é¸æŠ"
 
 #. DESC_AUTORAISE_SCANAREA
 msgid "Autoraise scanarea"
-msgstr "¥¹¥­¥ã¥óÎÎ°è¤Î¼«Æ°³ÈÄ¥"
+msgstr "ã‚¹ã‚­ãƒ£ãƒ³é ˜åŸŸã®è‡ªå‹•æ‹¡å¼µ"
 
 #. DESC_DELETE_IMAGES
 msgid "Delete preview image cache"
-msgstr "¥×¥ì¥Ó¥å¡¼²èÁü¤Î¥­¥ã¥Ã¥·¥å¤òºï½ü"
+msgstr "ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ç”»åƒã®ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã‚’å‰Šé™¤"
 
 #. DESC_PRESET_AREA
 msgid ""
@@ -2004,320 +2004,324 @@ msgid ""
 "To add new area or edit an existing area use contect menu (right mouse "
 "button)."
 msgstr ""
-"¥×¥ê¥»¥Ã¥ÈÎÎ°è¡§\n"
-"¿·µ¬ÎÎ°è¤òÄÉ²Ã¤Ş¤¿¤Ï´ûÂ¸ÎÎ°è¤òÊÔ½¸¤¹¤ë¤Ë¤Ï¡¢¥³¥ó¥Æ¥¯¥¹¥È¥á¥Ë¥å¡¼¡Ê¥Ş¥¦¥¹±¦¥Ü"
-"¥¿¥ó¡Ë¤ò»È¤Ã¤Æ¤¯¤À¤µ¤¤¡£"
+"ãƒ—ãƒªã‚»ãƒƒãƒˆé ˜åŸŸï¼š\n"
+"æ–°è¦é ˜åŸŸã‚’è¿½åŠ ã¾ãŸã¯æ—¢å­˜é ˜åŸŸã‚’ç·¨é›†ã™ã‚‹ã«ã¯ã€ã‚³ãƒ³ãƒ†ã‚¯ã‚¹ãƒˆãƒ¡ãƒ‹ãƒ¥ãƒ¼ï¼ˆãƒã‚¦ã‚¹å³ãƒœ"
+"ã‚¿ãƒ³ï¼‰ã‚’ä½¿ã£ã¦ãã ã•ã„ã€‚"
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
-msgstr "¥×¥ì¥Ó¥å¡¼¤ò²óÅ¾¤·¤Æ¥¹¥­¥ã¥ó"
+msgstr "ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ã‚’å›è»¢ã—ã¦ã‚¹ã‚­ãƒ£ãƒ³"
 
 #. DESC_RATIO
 msgid "Aspect ratio of selection"
-msgstr "ÁªÂò¥¢¥¹¥Ú¥¯¥ÈÈæÎ¨"
+msgstr "é¸æŠã‚¢ã‚¹ãƒšã‚¯ãƒˆæ¯”ç‡"
 
 #. DESC_PAPER_ORIENTATION
 msgid "Define image position for printing"
-msgstr "°õºş»ş¤Î²èÁü°ÌÃÖ¤ÎÄêµÁ"
+msgstr "å°åˆ·æ™‚ã®ç”»åƒä½ç½®ã®å®šç¾©"
 
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
-msgstr "¥ª¥×¥·¥ç¥óÊ¸»ú¤ÎÇ§¼±"
+msgstr "ã‚ªãƒ—ã‚·ãƒ§ãƒ³æ–‡å­—ã®èªè­˜"
 
 #. DESC_VIEWER_UNDO
 msgid "Undo last change"
-msgstr "Á°²ó¤ÎÊÑ¹¹¤ò¸µ¤ËÌá¤¹"
+msgstr "å‰å›ã®å¤‰æ›´ã‚’å…ƒã«æˆ»ã™"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
-msgstr "²èÁü¤òÊ£À½"
+msgstr "ç”»åƒã‚’è¤‡è£½"
 
 #. DESC_ROTATE90
 msgid "Rotate image 90 degree"
-msgstr "²èÁü¤ò90¡ë²óÅ¾"
+msgstr "ç”»åƒã‚’90Â°å›è»¢"
 
 #. DESC_ROTATE180
 msgid "Rotate image 180 degree"
-msgstr "²èÁü¤ò180¡ë²óÅ¾"
+msgstr "ç”»åƒã‚’180Â°å›è»¢"
 
 #. DESC_ROTATE270
 msgid "Rotate image 270 degree"
-msgstr "²èÁü¤ò270¡ë²óÅ¾"
+msgstr "ç”»åƒã‚’270Â°å›è»¢"
 
 #. DESC_MIRROR_X
 msgid "Mirror image at vertical axis"
-msgstr "¿âÄ¾¶ÀÁü"
+msgstr "å‚ç›´é¡åƒ"
 
 #. DESC_MIRROR_Y
 msgid "Mirror image at horizontal axis"
-msgstr "¿åÊ¿¶ÀÁü"
+msgstr "æ°´å¹³é¡åƒ"
 
 #. DESC_VIEWER_ZOOM
 msgid "Zoom image"
-msgstr "²èÁü¤ò³ÈÂç"
+msgstr "ç”»åƒã‚’æ‹¡å¤§"
 
 #. DESC_STORE_MEDIUM
 msgid "Store medium"
-msgstr "ÇŞÂÎ¤òÊİÂ¸"
+msgstr "åª’ä½“ã‚’ä¿å­˜"
 
 #. DESC_DELETE_MEDIUM
 msgid "Delete active medium"
-msgstr "¥¢¥¯¥Æ¥£¥Ö¤ÊÇŞÂÎ¤òºï½ü"
+msgstr "ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãªåª’ä½“ã‚’å‰Šé™¤"
 
 #. DESC_SCALE_FACTOR
 msgid "Scale factor"
-msgstr "ÇÜÎ¨¡§"
+msgstr "å€ç‡ï¼š"
 
 #. DESC_X_SCALE_FACTOR
 msgid "X-Scale factor"
-msgstr "XÀ®Ê¬¤ÎÇÜÎ¨¡§"
+msgstr "Xæˆåˆ†ã®å€ç‡ï¼š"
 
 #. DESC_Y_SCALE_FACTOR
 msgid "Y-Scale factor"
-msgstr "YÀ®Ê¬¤ÎÇÜÎ¨¡§"
+msgstr "Yæˆåˆ†ã®å€ç‡ï¼š"
 
 #. DESC_SCALE_WIDTH
 msgid "Scale image to width [in pixel]"
-msgstr "²èÁüÉı¤ÎÇÜÎ¨[pixel]¡§"
+msgstr "ç”»åƒå¹…ã®å€ç‡[pixel]ï¼š"
 
 #. DESC_SCALE_HEIGHT
 msgid "Scale image to height [in pixel]"
-msgstr "²èÁü¹â¤µ¤ÎÇÜÎ¨[pixel]¡§"
+msgstr "ç”»åƒé«˜ã•ã®å€ç‡[pixel]ï¼š"
 
 #. DESC_BATCH_LIST_EMPTY
 msgid "Empty batch list"
-msgstr "¶õ¤Î¥Ğ¥Ã¥Á¥ê¥¹¥È"
+msgstr "ç©ºã®ãƒãƒƒãƒãƒªã‚¹ãƒˆ"
 
 #. DESC_BATCH_LIST_SAVE
 msgid "Save batch list"
-msgstr "¥Ğ¥Ã¥Á¥ê¥¹¥È¤òÊİÂ¸"
+msgstr "ãƒãƒƒãƒãƒªã‚¹ãƒˆã‚’ä¿å­˜"
 
 #. DESC_BATCH_LIST_LOAD
 msgid "Load batch list"
-msgstr "¥Ğ¥Ã¥Á¥ê¥¹¥È¤ò¥í¡¼¥É"
+msgstr "ãƒãƒƒãƒãƒªã‚¹ãƒˆã‚’ãƒ­ãƒ¼ãƒ‰"
 
 #. DESC_BATCH_RENAME
 msgid "Rename area"
-msgstr "ÎÎ°è¤ò¥ê¥Í¡¼¥à"
+msgstr "é ˜åŸŸã‚’ãƒªãƒãƒ¼ãƒ "
 
 #. DESC_BATCH_ADD
 msgid "Add selected preview area to batch list"
-msgstr "ÁªÂò¥×¥ì¥Ó¥å¡¼ÎÎ°è¤ò¥Ğ¥Ã¥Á¥ê¥¹¥È¤ËÄÉ²Ã"
+msgstr "é¸æŠãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼é ˜åŸŸã‚’ãƒãƒƒãƒãƒªã‚¹ãƒˆã«è¿½åŠ "
 
 #. DESC_BATCH_DEL
 msgid "Delete selected area from batch list"
-msgstr "ÁªÂòÎÎ°è¤ò¥Ğ¥Ã¥Á¥ê¥¹¥È¤«¤éºï½ü"
+msgstr "é¸æŠé ˜åŸŸã‚’ãƒãƒƒãƒãƒªã‚¹ãƒˆã‹ã‚‰å‰Šé™¤"
 
 #. DESC_AUTOMATIC
 msgid "Turns on automatic mode"
-msgstr "¼«Æ°¥â¡¼¥É¤ËÀÚÂØ¤¨"
+msgstr "è‡ªå‹•ãƒ¢ãƒ¼ãƒ‰ã«åˆ‡æ›¿ãˆ"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
-msgstr "¥Û¡¼¥à¥Ç¥£¥ì¥¯¥È¥ê¤Î³ÎÄê¤Ë¼ºÇÔ¤·¤Ş¤·¤¿¡§"
+msgstr "ãƒ›ãƒ¼ãƒ ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®ç¢ºå®šã«å¤±æ•—ã—ã¾ã—ãŸï¼š"
 
 #. ERR_CHANGE_WORKING_DIR
 msgid "Failed to change working directory to"
-msgstr "ºî¶È¥Ç¥£¥ì¥¯¥È¥ê¤ÎÊÑ¹¹¤Ë¼ºÇÔ¤·¤Ş¤·¤¿"
+msgstr "ä½œæ¥­ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®å¤‰æ›´ã«å¤±æ•—ã—ã¾ã—ãŸ"
 
 #. ERR_FILENAME_TOO_LONG
 msgid "Filename too long"
-msgstr "¥Õ¥¡¥¤¥ëÌ¾¤¬Ä¹¤¹¤®¤Ş¤¹"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«åãŒé•·ã™ãã¾ã™"
 
 #. ERR_CREATE_TEMP_FILE
 msgid "Could not create temporary file"
-msgstr "°ì»ş¥Õ¥¡¥¤¥ë¤òºî¤ì¤Ş¤»¤ó"
+msgstr "ä¸€æ™‚ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä½œã‚Œã¾ã›ã‚“"
 
 #. ERR_SET_OPTION
 msgid "Failed to set value of option"
-msgstr "¥ª¥×¥·¥ç¥óÃÍ¤Î¥»¥Ã¥È¤Ë¼ºÇÔ¤·¤Ş¤·¤¿"
+msgstr "ã‚ªãƒ—ã‚·ãƒ§ãƒ³å€¤ã®ã‚»ãƒƒãƒˆã«å¤±æ•—ã—ã¾ã—ãŸ"
 
 #. ERR_GET_OPTION
 msgid "Failed to obtain value of option"
-msgstr "¥ª¥×¥·¥ç¥óÃÍ¤Î¼èÆÀ¤Ë¼ºÇÔ¤·¤Ş¤·¤¿"
+msgstr "ã‚ªãƒ—ã‚·ãƒ§ãƒ³å€¤ã®å–å¾—ã«å¤±æ•—ã—ã¾ã—ãŸ"
 
 #. ERR_OPTION_COUNT
 msgid "Error obtaining option count"
-msgstr "¥ª¥×¥·¥ç¥ó¥«¥¦¥ó¥È¤Î¼èÆÀ¥¨¥é¡¼¤Ç¤¹"
+msgstr "ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚«ã‚¦ãƒ³ãƒˆã®å–å¾—ã‚¨ãƒ©ãƒ¼ã§ã™"
 
 #. ERR_DEVICE_OPEN_FAILED
 msgid "Failed to open device"
-msgstr "¥Ç¥Ğ¥¤¥¹¤ò³«¤±¤Ş¤»¤ó"
+msgstr "ãƒ‡ãƒã‚¤ã‚¹ã‚’é–‹ã‘ã¾ã›ã‚“"
 
 #. ERR_NO_DEVICES
 msgid "no devices available"
-msgstr "¥Ç¥Ğ¥¤¥¹¤¬¤¢¤ê¤Ş¤»¤ó"
+msgstr "ãƒ‡ãƒã‚¤ã‚¹ãŒã‚ã‚Šã¾ã›ã‚“"
 
 #. ERR_DURING_READ
 msgid "Error during read:"
-msgstr "ÆÉ¹ş¤ß¥¨¥é¡¼¤Ç¤¹¡§"
+msgstr "èª­è¾¼ã¿ã‚¨ãƒ©ãƒ¼ã§ã™ï¼š"
 
 #. ERR_DURING_SAVE
 msgid "Error during save:"
-msgstr "ÊİÂ¸¥¨¥é¡¼¤Ç¤¹¡§"
+msgstr "ä¿å­˜ã‚¨ãƒ©ãƒ¼ã§ã™ï¼š"
 
 #. ERR_BAD_DEPTH
 msgid "Can't handle depth"
-msgstr "¿¼ÅÙ¤¬¼èÆÀ¤Ç¤­¤Ş¤»¤ó"
+msgstr "æ·±åº¦ãŒå–å¾—ã§ãã¾ã›ã‚“"
 
 #. ERR_GIMP_BAD_DEPTH
 #, c-format
 msgid "GIMP can't handle depth %d bits/color"
-msgstr "GIMP¤¬%d¥Ó¥Ã¥È¥«¥é¡¼¤ò¼èÆÀ¤Ç¤­¤Ş¤»¤ó"
+msgstr "GIMPãŒ%dãƒ“ãƒƒãƒˆã‚«ãƒ©ãƒ¼ã‚’å–å¾—ã§ãã¾ã›ã‚“"
 
 #. ERR_UNKNOWN_SAVING_FORMAT
 msgid "Unknown file format for saving"
-msgstr "Ì¤ÃÎ¤ÎÊİÂ¸¥Õ¥©¡¼¥Ş¥Ã¥È¤Ç¤¹"
+msgstr "æœªçŸ¥ã®ä¿å­˜ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã§ã™"
 
 #. ERR_OPEN_FAILED
 msgid "Failed to open"
-msgstr "³«¤±¤Ş¤»¤ó"
+msgstr "é–‹ã‘ã¾ã›ã‚“"
 
 #. ERR_CREATE_SECURE_FILE
 msgid "Could not create secure file (may be a link does exist):"
-msgstr "°ÂÁ´¤Ê¥Õ¥¡¥¤¥ë¤òºî¤ì¤Ş¤»¤ó¡Ê¥ê¥ó¥¯ÀÚ¤ì¤Ê¤É¡Ë¡§"
+msgstr "å®‰å…¨ãªãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä½œã‚Œã¾ã›ã‚“ï¼ˆãƒªãƒ³ã‚¯åˆ‡ã‚Œãªã©ï¼‰ï¼š"
 
 #. ERR_FAILED_PRINTER_PIPE
 msgid "Failed to open pipe for executing printercommand"
-msgstr "¥×¥ê¥ó¥¿¥³¥Ş¥ó¥É¼Â¹Ô¤Î¤¿¤á¤Î¥Ñ¥¤¥×¤ò³«¤±¤Ş¤»¤ó"
+msgstr "ãƒ—ãƒªãƒ³ã‚¿ã‚³ãƒãƒ³ãƒ‰å®Ÿè¡Œã®ãŸã‚ã®ãƒ‘ã‚¤ãƒ—ã‚’é–‹ã‘ã¾ã›ã‚“"
 
 #. ERR_FAILED_EXEC_PRINTER_CMD
 msgid "Failed to execute printercommand:"
-msgstr "¥×¥ê¥ó¥¿¥³¥Ş¥ó¥É¤Î¼Â¹Ô¤Ë¼ºÇÔ¤·¤Ş¤·¤¿¡§"
+msgstr "ãƒ—ãƒªãƒ³ã‚¿ã‚³ãƒãƒ³ãƒ‰ã®å®Ÿè¡Œã«å¤±æ•—ã—ã¾ã—ãŸï¼š"
 
 #. ERR_FAILED_START_SCANNER
 msgid "Failed to start scanner:"
-msgstr "¥¹¥­¥ã¥Ê¤Î³«»Ï¤Ë¼ºÇÔ¤·¤Ş¤·¤¿¡§"
+msgstr "ã‚¹ã‚­ãƒ£ãƒŠã®é–‹å§‹ã«å¤±æ•—ã—ã¾ã—ãŸï¼š"
 
 #. ERR_FAILED_GET_PARAMS
 msgid "Failed to get parameters:"
-msgstr "¥Ñ¥é¥á¡¼¥¿¤Î¼èÆÀ¤Ë¼ºÇÔ¤·¤Ş¤·¤¿¡§"
+msgstr "ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®å–å¾—ã«å¤±æ•—ã—ã¾ã—ãŸï¼š"
 
 #. ERR_NO_OUTPUT_FORMAT
 msgid "No output format given"
-msgstr "½ĞÎÏ¥Õ¥©¡¼¥Ş¥Ã¥È¤¬¤¢¤ê¤Ş¤»¤ó"
+msgstr "å‡ºåŠ›ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆãŒã‚ã‚Šã¾ã›ã‚“"
 
 #. ERR_NO_MEM
 msgid "out of memory"
-msgstr "¥ª¡¼¥Ğ¡¼¥Õ¥í¡¼"
+msgstr "ã‚ªãƒ¼ãƒãƒ¼ãƒ•ãƒ­ãƒ¼"
 
 #. ERR_TOO_MUCH_DATA
 msgid "Backend sends more image data than it defined in parameters"
-msgstr "¥Ğ¥Ã¥¯¥¨¥ó¥É¤¬µ¬Äê¤Î¥Ñ¥é¥á¡¼¥¿¤òÄ¶¤¨¤¿²èÁü¤òÁ÷¤Ã¤Æ¤­¤Ş¤·¤¿"
+msgstr "ãƒãƒƒã‚¯ã‚¨ãƒ³ãƒ‰ãŒè¦å®šã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’è¶…ãˆãŸç”»åƒã‚’é€ã£ã¦ãã¾ã—ãŸ"
 
 #. ERR_LIBTIFF
 msgid "LIBTIFF reports error"
-msgstr "LIBTIFF¤¬¥¨¥é¡¼¤òÊÖ¤·¤Æ¤­¤Ş¤·¤¿"
+msgstr "LIBTIFFãŒã‚¨ãƒ©ãƒ¼ã‚’è¿”ã—ã¦ãã¾ã—ãŸ"
 
 #. ERR_LIBPNG
 msgid "LIBPNG reports error"
-msgstr "LIBPNG¤¬¥¨¥é¡¼¤òÊÖ¤·¤Æ¤­¤Ş¤·¤¿"
+msgstr "LIBPNGãŒã‚¨ãƒ©ãƒ¼ã‚’è¿”ã—ã¦ãã¾ã—ãŸ"
 
 #. ERR_LIBJPEG
 msgid "LIBJPEG reports error"
-msgstr "LIBJPEG¤¬¥¨¥é¡¼¤òÊÖ¤·¤Æ¤­¤Ş¤·¤¿"
+msgstr "LIBJPEGãŒã‚¨ãƒ©ãƒ¼ã‚’è¿”ã—ã¦ãã¾ã—ãŸ"
+
+#. ERR_ZLIB
+msgid "ZLIB error or memory allocation problem"
+msgstr ""
 
 #. ERR_UNKNOWN_TYPE
 msgid "unknown type"
-msgstr "Ì¤ÃÎ¤Î¥¿¥¤¥×¤Ç¤¹"
+msgstr "æœªçŸ¥ã®ã‚¿ã‚¤ãƒ—ã§ã™"
 
 #. ERR_UNKNOWN_CONSTRAINT_TYPE
 msgid "unknown constraint type"
-msgstr "Ì¤ÃÎ¤ÎÀ©Ìó¾ò·ï¤Ç¤¹"
+msgstr "æœªçŸ¥ã®åˆ¶ç´„æ¡ä»¶ã§ã™"
 
 #. ERR_OPTION_NAME_NULL
 msgid "Option has empty name (NULL)."
-msgstr "¥ª¥×¥·¥ç¥ó¤¬¶õ(NULLÃÍ)¤Ç¤¹"
+msgstr "ã‚ªãƒ—ã‚·ãƒ§ãƒ³ãŒç©º(NULLå€¤)ã§ã™"
 
 #. ERR_BACKEND_BUG
 msgid "This is a backend bug. Please inform the author of the backend!"
-msgstr "¥Ğ¥Ã¥¯¥¨¥ó¥É¤Î¥Ğ¥°¤Ç¤¹¡£¥Ğ¥Ã¥¯¥¨¥ó¥É¤Îºî¼Ô¤ËÊó¹ğ¤·¤Æ¤¯¤À¤µ¤¤¡ª"
+msgstr "ãƒãƒƒã‚¯ã‚¨ãƒ³ãƒ‰ã®ãƒã‚°ã§ã™ã€‚ãƒãƒƒã‚¯ã‚¨ãƒ³ãƒ‰ã®ä½œè€…ã«å ±å‘Šã—ã¦ãã ã•ã„ï¼"
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
-msgstr "Ê¸½ñ¥Ó¥å¡¼¥ï¤Î¼Â¹Ô¤Ë¼ºÇÔ¤·¤Ş¤·¤¿¡§"
+msgstr "æ–‡æ›¸ãƒ“ãƒ¥ãƒ¼ãƒ¯ã®å®Ÿè¡Œã«å¤±æ•—ã—ã¾ã—ãŸï¼š"
 
 #. ERR_FAILED_EXEC_FAX_VIEWER
 msgid "Failed to execute fax viewer:"
-msgstr "FAX¥Ó¥å¡¼¥ï¤Î¼Â¹Ô¤Ë¼ºÇÔ¤·¤Ş¤·¤¿¡§"
+msgstr "FAXãƒ“ãƒ¥ãƒ¼ãƒ¯ã®å®Ÿè¡Œã«å¤±æ•—ã—ã¾ã—ãŸï¼š"
 
 #. ERR_FAILED_EXEC_FAX_CMD
 msgid "Failed to execute fax command:"
-msgstr "FAX¥³¥Ş¥ó¥É¤Î¼Â¹Ô¤Ë¼ºÇÔ¤·¤Ş¤·¤¿¡§"
+msgstr "FAXã‚³ãƒãƒ³ãƒ‰ã®å®Ÿè¡Œã«å¤±æ•—ã—ã¾ã—ãŸï¼š"
 
 #. ERR_FAILED_EXEC_MAIL_VIEWER
 msgid "Failed to execute mail image viewer:"
-msgstr "¥á¡¼¥ë¥¤¥á¡¼¥¸¥Ó¥å¡¼¥ï¤Î¼Â¹Ô¤Ë¼ºÇÔ¤·¤Ş¤·¤¿¡§"
+msgstr "ãƒ¡ãƒ¼ãƒ«ã‚¤ãƒ¡ãƒ¼ã‚¸ãƒ“ãƒ¥ãƒ¼ãƒ¯ã®å®Ÿè¡Œã«å¤±æ•—ã—ã¾ã—ãŸï¼š"
 
 #. ERR_FAILED_EXEC_OCR_CMD
 msgid "Failed to execute ocr command:"
-msgstr "OCR¥³¥Ş¥ó¥É¤Î¼Â¹Ô¤Ë¼ºÇÔ¤·¤Ş¤·¤¿¡§"
+msgstr "OCRã‚³ãƒãƒ³ãƒ‰ã®å®Ÿè¡Œã«å¤±æ•—ã—ã¾ã—ãŸï¼š"
 
 #. ERR_BAD_FRAME_FORMAT
 msgid "bad frame format"
-msgstr "ÉÔÀµ¤Ê¥Õ¥ì¡¼¥à¥Õ¥©¡¼¥Ş¥Ã¥È¤Ç¤¹"
+msgstr "ä¸æ­£ãªãƒ•ãƒ¬ãƒ¼ãƒ ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã§ã™"
 
 #. ERR_FAILED_SET_RESOLUTION
 msgid "unable to set resolution"
-msgstr "²òÁüÅÙ¤ò¥»¥Ã¥È¤Ç¤­¤Ş¤»¤ó"
+msgstr "è§£åƒåº¦ã‚’ã‚»ãƒƒãƒˆã§ãã¾ã›ã‚“"
 
 #. ERR_PASSWORD_FILE_INSECURE
 #, c-format
 msgid "Password file (%s) is insecure, use permission x00\n"
 msgstr ""
-"¥Ñ¥¹¥ï¡¼¥É¥Õ¥¡¥¤¥ë¡Ê%s¡Ë¤Ï°ÂÁ´¤Ç¤Ï¤¢¤ê¤Ş¤»¤ó¡£µö²ÄÂ°À­x00¤òÅ¬ÍÑ¤·¤Æ¤¯¤À¤µ¤¤\n"
+"ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«ï¼ˆ%sï¼‰ã¯å®‰å…¨ã§ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚è¨±å¯å±æ€§x00ã‚’é©ç”¨ã—ã¦ãã ã•ã„\n"
 
 #. ERR_ERROR
 msgid "error"
-msgstr "¥¨¥é¡¼"
+msgstr "ã‚¨ãƒ©ãƒ¼"
 
 #. ERR_MAJOR_VERSION_NR_CONFLICT
 msgid "Sane major version number mismatch!"
-msgstr "Sane¤Î¥á¥¸¥ã¡¼¥Ğ¡¼¥¸¥ç¥ó¤ÎÉÔÀ°¹ç¤Ç¤¹!"
+msgstr "Saneã®ãƒ¡ã‚¸ãƒ£ãƒ¼ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã®ä¸æ•´åˆã§ã™!"
 
 #. ERR_XSANE_MAJOR_VERSION
 msgid "XSane major version ="
-msgstr "XSane¤Î¥á¥¸¥ã¡¼¥Ğ¡¼¥¸¥ç¥ó¤Ï"
+msgstr "XSaneã®ãƒ¡ã‚¸ãƒ£ãƒ¼ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã¯"
 
 #. ERR_BACKEND_MAJOR_VERSION
 msgid "backend major version ="
-msgstr "¥Ğ¥Ã¥¯¥¨¥ó¥É¤Î¥á¥¸¥ã¡¼¥Ğ¡¼¥¸¥ç¥ó¤Ï"
+msgstr "ãƒãƒƒã‚¯ã‚¨ãƒ³ãƒ‰ã®ãƒ¡ã‚¸ãƒ£ãƒ¼ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã¯"
 
 #. ERR_PROGRAM_ABORTED
 msgid "*** PROGRAM ABORTED ***"
-msgstr "*** ¥×¥í¥°¥é¥à¤Î°Û¾ï½ªÎ» ***"
+msgstr "*** ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®ç•°å¸¸çµ‚äº† ***"
 
 #. ERR_FAILED_ALLOCATE_IMAGE
 msgid "Failed to allocate image memory:"
-msgstr "²èÁü¥á¥â¥ê¤Î³äÅö¤Æ¤Ë¼ºÇÔ¤·¤Ş¤·¤¿¡§"
+msgstr "ç”»åƒãƒ¡ãƒ¢ãƒªã®å‰²å½“ã¦ã«å¤±æ•—ã—ã¾ã—ãŸï¼š"
 
 #. ERR_PREVIEW_BAD_DEPTH
 msgid "Preview cannot handle bit depth"
-msgstr "¥×¥ì¥Ó¥å¡¼¤Ï¥Ó¥Ã¥È¿¼ÅÙ¤ò¼èÆÀ¤Ç¤­¤Ş¤»¤ó"
+msgstr "ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ã¯ãƒ“ãƒƒãƒˆæ·±åº¦ã‚’å–å¾—ã§ãã¾ã›ã‚“"
 
 #. ERR_GIMP_SUPPORT_MISSING
 msgid "GIMP support missing"
-msgstr "GIMP¥µ¥İ¡¼¥È¤¬¸«¤Ä¤«¤ê¤Ş¤»¤ó"
+msgstr "GIMPã‚µãƒãƒ¼ãƒˆãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“"
 
 #. ERR_CREATE_PREVIEW_FILE
 msgid "Could not create temporary preview files"
-msgstr "°ì»ş¥×¥ì¥Ó¥å¡¼¥Õ¥¡¥¤¥ë¤òºî¤ì¤Ş¤»¤ó"
+msgstr "ä¸€æ™‚ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä½œã‚Œã¾ã›ã‚“"
 
 #. ERR_CREATE_PREVIEW_FILENAME
 msgid "Could not create filenames for preview files"
-msgstr "°ì»ş¥×¥ì¥Ó¥å¡¼¥Õ¥¡¥¤¥ëÌ¾¤òºî¤ì¤Ş¤»¤ó"
+msgstr "ä¸€æ™‚ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ãƒ•ã‚¡ã‚¤ãƒ«åã‚’ä½œã‚Œã¾ã›ã‚“"
 
 #. ERR_CREATE_FAX_PROJECT
 msgid "Could not create faxproject"
-msgstr "FAX¥×¥í¥¸¥§¥¯¥È¤òºî¤ì¤Ş¤»¤ó"
+msgstr "FAXãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œã‚Œã¾ã›ã‚“"
 
 #. WARN_COUNTER_UNDERRUN
 msgid "Filename counter underrun"
-msgstr "¥Õ¥¡¥¤¥ëÌ¾¥«¥¦¥ó¥¿¤Î¥¢¥ó¥À¡¼¥é¥ó¤Ç¤¹"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«åã‚«ã‚¦ãƒ³ã‚¿ã®ã‚¢ãƒ³ãƒ€ãƒ¼ãƒ©ãƒ³ã§ã™"
 
 #. WARN_NO_VALUE_CONSTRAINT
 msgid "warning: option has no value constraint"
-msgstr "·Ù¹ğ¡§¥ª¥×¥·¥ç¥ó¤ÏÀ©Ìó¾ò·ï¤ÎÃÍ¤ò»ı¤Ã¤Æ¤¤¤Ş¤»¤ó"
+msgstr "è­¦å‘Šï¼šã‚ªãƒ—ã‚·ãƒ§ãƒ³ã¯åˆ¶ç´„æ¡ä»¶ã®å€¤ã‚’æŒã£ã¦ã„ã¾ã›ã‚“"
 
 #. WARN_XSANE_AS_ROOT
 msgid ""
@@ -2327,96 +2331,96 @@ msgid ""
 "have any problem while running XSane as root:\n"
 "YOU ARE ALONE!"
 msgstr ""
-"¥ë¡¼¥È¸¢¸Â¤ÇXSane¤ò»È¤¦¤Î¤Ï¡¢¤¿¤¤¤Ø¤ó´í¸±¤Ç¤¹!\n"
+"ãƒ«ãƒ¼ãƒˆæ¨©é™ã§XSaneã‚’ä½¿ã†ã®ã¯ã€ãŸã„ã¸ã‚“å±é™ºã§ã™!\n"
 "\n"
-"¥ë¡¼¥È¸¢¸Â¤ÇXSane¤òÆ°¤«¤·¤Æ¤¤¤ë¤È¤­¤ÎÌäÂê¤Ë¤Ä¤¤¤Æ¤Î¥Ğ¥°Êó¹ğ¤Ï¡¢\n"
-"°ìÀÚÁ÷¤é¤Ê¤¤¤Ç¤¯¤À¤µ¤¤\n"
-"¡Ö¤¢¤Ê¤¿¤ÏÆÈ¤ê¤Ê¤Î¤Ç¤¹¡×¤«¤é¡ª"
+"ãƒ«ãƒ¼ãƒˆæ¨©é™ã§XSaneã‚’å‹•ã‹ã—ã¦ã„ã‚‹ã¨ãã®å•é¡Œã«ã¤ã„ã¦ã®ãƒã‚°å ±å‘Šã¯ã€\n"
+"ä¸€åˆ‡é€ã‚‰ãªã„ã§ãã ã•ã„\n"
+"ã€Œã‚ãªãŸã¯ç‹¬ã‚Šãªã®ã§ã™ã€ã‹ã‚‰ï¼"
 
 #. ERR_HEADER_ERROR
 msgid "Error"
-msgstr "¥¨¥é¡¼"
+msgstr "ã‚¨ãƒ©ãƒ¼"
 
 #. ERR_HEADER_WARNING
 msgid "Warning"
-msgstr "·Ù¹ğ"
+msgstr "è­¦å‘Š"
 
 #. ERR_HEADER_INFO
 msgid "Information"
-msgstr "¾ğÊó"
+msgstr "æƒ…å ±"
 
 #. ERR_HEADER_CHILD_PROCESS_ERROR
 msgid "Child process error"
-msgstr "»Ò¥×¥í¥»¥¹¤Î¥¨¥é¡¼"
+msgstr "å­ãƒ—ãƒ­ã‚»ã‚¹ã®ã‚¨ãƒ©ãƒ¼"
 
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
-msgstr "¥Õ¥¡¥¤¥ë¤ÎºîÀ®¤Ë¼ºÇÔ¤·¤Ş¤·¤¿¡§"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ã®ä½œæˆã«å¤±æ•—ã—ã¾ã—ãŸï¼š"
 
 #. ERR_LOAD_DEVICE_SETTINGS
 msgid "Error while loading device settings:"
-msgstr "¥Ç¥Ğ¥¤¥¹ÀßÄêÆÉ¹şÃæ¤Î¥¨¥é¡¼¤Ç¤¹¡§"
+msgstr "ãƒ‡ãƒã‚¤ã‚¹è¨­å®šèª­è¾¼ä¸­ã®ã‚¨ãƒ©ãƒ¼ã§ã™ï¼š"
 
 #. ERR_NO_DRC_FILE
 msgid "is not a device-rc-file !!!"
-msgstr "¤Ï¥Ç¥Ğ¥¤¥¹ÀßÄê¥Õ¥¡¥¤¥ë¤Ç¤Ï¤¢¤ê¤Ş¤»¤ó!!!"
+msgstr "ã¯ãƒ‡ãƒã‚¤ã‚¹è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã§ã¯ã‚ã‚Šã¾ã›ã‚“!!!"
 
 #. ERR_NETSCAPE_EXECUTE_FAIL
 msgid "Failed to execute netscape!"
-msgstr "Netscape¤Î¼Â¹Ô¤Ë¼ºÇÔ¤·¤Ş¤·¤¿!"
+msgstr "Netscapeã®å®Ÿè¡Œã«å¤±æ•—ã—ã¾ã—ãŸ!"
 
 #. ERR_SENDFAX_RECEIVER_MISSING
 msgid "Send fax: no receiver defined"
-msgstr "FAXÁ÷¿®¡§¼õ¿®µ¡¤¬ÄêµÁ¤µ¤ì¤Æ¤¤¤Ş¤»¤ó"
+msgstr "FAXé€ä¿¡ï¼šå—ä¿¡æ©ŸãŒå®šç¾©ã•ã‚Œã¦ã„ã¾ã›ã‚“"
 
 #. ERR_CREATED_FOR_DEVICE
 msgid "has been created for device"
-msgstr "¤Ï¥Ç¥Ğ¥¤¥¹¤ËÂĞ¤·¤ÆºîÀ®¤µ¤ì¤Æ¤¤¤Ş¤¹"
+msgstr "ã¯ãƒ‡ãƒã‚¤ã‚¹ã«å¯¾ã—ã¦ä½œæˆã•ã‚Œã¦ã„ã¾ã™"
 
 #. ERR_USED_FOR_DEVICE
 msgid "you want to use it for device"
-msgstr "¥Ç¥Ğ¥¤¥¹ÍÑ¤Ë»È¤¤¤¿¤¤"
+msgstr "ãƒ‡ãƒã‚¤ã‚¹ç”¨ã«ä½¿ã„ãŸã„"
 
 #. ERR_MAY_CAUSE_PROBLEMS
 msgid "this may cause problems!"
-msgstr "¤³¤ì¤ÏÌäÂê¤Î¼ï¤Ë¤Ê¤ë¤«¤â!"
+msgstr "ã“ã‚Œã¯å•é¡Œã®ç¨®ã«ãªã‚‹ã‹ã‚‚!"
 
 #. WARN_UNSAVED_IMAGES
 #, c-format
 msgid "There are %d unsaved images"
-msgstr "%d¸Ä¤Î²èÁü¤¬Ì¤ÊİÂ¸¤Ç¤¹"
+msgstr "%då€‹ã®ç”»åƒãŒæœªä¿å­˜ã§ã™"
 
 #. WARN_FILE_EXISTS
 #, c-format
 msgid "File %s already exists"
-msgstr "¥Õ¥¡¥¤¥ë %s ¤Ï´û¤ËÂ¸ºß¤·¤Æ¤¤¤Ş¤¹"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ« %s ã¯æ—¢ã«å­˜åœ¨ã—ã¦ã„ã¾ã™"
 
 #. ERR_FILE_NOT_EXISTS
 #, c-format
 msgid "File %s does not exist"
-msgstr "¥Õ¥¡¥¤¥ë %s ¤ÏÂ¸ºß¤·¤Ş¤»¤ó"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ« %s ã¯å­˜åœ¨ã—ã¾ã›ã‚“"
 
 #. ERR_FILE_NOT_POSTSCRIPT
 #, c-format
 msgid "File %s is not a postscript file"
-msgstr "¥Õ¥¡¥¤¥ë %s ¤ÏPostScript¥Õ¥¡¥¤¥ë¤Ç¤Ï¤¢¤ê¤Ş¤»¤ó"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ« %s ã¯PostScriptãƒ•ã‚¡ã‚¤ãƒ«ã§ã¯ã‚ã‚Šã¾ã›ã‚“"
 
 #. ERR_UNSUPPORTED_OUTPUT_FORMAT
 #, c-format
 msgid "Unsupported %d-bit output format: %s"
-msgstr "%d¥Ó¥Ã¥È¤Ç¥µ¥İ¡¼¥È¤µ¤ì¤Æ¤¤¤Ê¤¤½ĞÎÏ¥Õ¥©¡¼¥Ş¥Ã¥È¤Ç¤¹¡§ %s"
+msgstr "%dãƒ“ãƒƒãƒˆã§ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¦ã„ãªã„å‡ºåŠ›ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã§ã™ï¼š %s"
 
 #. WARN_VIEWER_IMAGE_NOT_SAVED
 msgid "viewer image is not saved"
-msgstr "¥Ó¥å¡¼¥ï¤Î²èÁü¤¬ÊİÂ¸¤µ¤ì¤Æ¤¤¤Ş¤»¤ó"
+msgstr "ãƒ“ãƒ¥ãƒ¼ãƒ¯ã®ç”»åƒãŒä¿å­˜ã•ã‚Œã¦ã„ã¾ã›ã‚“"
 
 #. TEXT_USAGE
 msgid "Usage:"
-msgstr "½ñ¼°¡§"
+msgstr "æ›¸å¼ï¼š"
 
 #. TEXT_USAGE_OPTIONS
 msgid "[OPTION]... [DEVICE]"
-msgstr "[¥ª¥×¥·¥ç¥ó]...[¥Ç¥Ğ¥¤¥¹]"
+msgstr "[ã‚ªãƒ—ã‚·ãƒ§ãƒ³]...[ãƒ‡ãƒã‚¤ã‚¹]"
 
 #. TEXT_HELP
 msgid ""
@@ -2453,55 +2457,55 @@ msgid ""
 " --sync                       request a synchronous connection with the X11 "
 "server"
 msgstr ""
-"¥¹¥¿¡¼¥È¥¢¥Ã¥×¡§SANE(Scanner Access Now Easy)¥Ç¥Ğ¥¤¥¹¤ÎGUI\n"
+"ã‚¹ã‚¿ãƒ¼ãƒˆã‚¢ãƒƒãƒ—ï¼šSANE(Scanner Access Now Easy)ãƒ‡ãƒã‚¤ã‚¹ã®GUI\n"
 "\n"
-"[¥Ç¥Ğ¥¤¥¹] ¤Î¥Õ¥©¡¼¥Ş¥Ã¥È¤Ï¥Ğ¥Ã¥¯¥¨¥ó¥É¤ÎÌ¾Á°¤Ç¤¹¡§¥Ç¥Ğ¥¤¥¹¥Õ¥¡¥¤¥ë (Îã "
-"umax:/dev/scanner)¡£\n"
-"[¥ª¥×¥·¥ç¥ó]... ¤Ç¤Ï¡¢°Ê²¼¤Î¹àÌÜ¤ÎÁÈ¤ß¹ç¤ï¤»¤¬²ÄÇ½¤Ç¤¹¡§\n"
-" -h, --help                   ¤³¤Î¥Ø¥ë¥×¥á¥Ã¥»¡¼¥¸¤òÉ½¼¨¤·¤Æ½ªÎ»¤¹¤ë\n"
-" -v, --version                ¥Ğ¡¼¥¸¥ç¥ó¾ÜÊó¤òÉ½¼¨¤¹¤ë\n"
-" -l, --license                ¥é¥¤¥»¥ó¥¹¾ğÊó¤òÉ½¼¨¤¹¤ë\n"
+"[ãƒ‡ãƒã‚¤ã‚¹] ã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã¯ãƒãƒƒã‚¯ã‚¨ãƒ³ãƒ‰ã®åå‰ã§ã™ï¼šãƒ‡ãƒã‚¤ã‚¹ãƒ•ã‚¡ã‚¤ãƒ« (ä¾‹ "
+"umax:/dev/scanner)ã€‚\n"
+"[ã‚ªãƒ—ã‚·ãƒ§ãƒ³]... ã§ã¯ã€ä»¥ä¸‹ã®é …ç›®ã®çµ„ã¿åˆã‚ã›ãŒå¯èƒ½ã§ã™ï¼š\n"
+" -h, --help                   ã“ã®ãƒ˜ãƒ«ãƒ—ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’è¡¨ç¤ºã—ã¦çµ‚äº†ã™ã‚‹\n"
+" -v, --version                ãƒãƒ¼ã‚¸ãƒ§ãƒ³è©³å ±ã‚’è¡¨ç¤ºã™ã‚‹\n"
+" -l, --license                ãƒ©ã‚¤ã‚»ãƒ³ã‚¹æƒ…å ±ã‚’è¡¨ç¤ºã™ã‚‹\n"
 "\n"
-" -d, --device-settings file   ¥Ç¥Ğ¥¤¥¹ÀßÄê¤ò¥Õ¥¡¥¤¥ë¤«¤éÆÉ¤ß¹ş¤à¡Ê\".drc\"È´"
-"¤­¤Ç¡Ë\n"
+" -d, --device-settings file   ãƒ‡ãƒã‚¤ã‚¹è¨­å®šã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰èª­ã¿è¾¼ã‚€ï¼ˆ\".drc\"æŠœ"
+"ãã§ï¼‰\n"
 "\n"
-" -V, --viewer                 ¥Ó¥å¡¼¥ï¥â¡¼¥É ¥¢¥¯¥Æ¥£¥Ö¤Çµ¯Æ°\n"
-" -s, --save                   ¥»¡¼¥Ö¥â¡¼¥É ¥¢¥¯¥Æ¥£¥Ö¤Çµ¯Æ°\n"
-" -c, --copy                   ¥³¥Ô¡¼¥â¡¼¥É ¥¢¥¯¥Æ¥£¥Ö¤Çµ¯Æ°\n"
-" -f, --fax                    FAX¥â¡¼¥É ¥¢¥¯¥Æ¥£¥Ö¤Çµ¯Æ°\n"
-" -m, --mail                   ¥á¡¼¥ë¥â¡¼¥É ¥¢¥¯¥Æ¥£¥Ö¤Çµ¯Æ°\n"
-" -n, --no-mode-selection      XSane¤Î¥â¡¼¥ÉÁªÂò¥á¥Ë¥å¡¼¤ò¥ª¥Õ¤Ë¤¹¤ë\n"
+" -V, --viewer                 ãƒ“ãƒ¥ãƒ¼ãƒ¯ãƒ¢ãƒ¼ãƒ‰ ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã§èµ·å‹•\n"
+" -s, --save                   ã‚»ãƒ¼ãƒ–ãƒ¢ãƒ¼ãƒ‰ ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã§èµ·å‹•\n"
+" -c, --copy                   ã‚³ãƒ”ãƒ¼ãƒ¢ãƒ¼ãƒ‰ ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã§èµ·å‹•\n"
+" -f, --fax                    FAXãƒ¢ãƒ¼ãƒ‰ ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã§èµ·å‹•\n"
+" -m, --mail                   ãƒ¡ãƒ¼ãƒ«ãƒ¢ãƒ¼ãƒ‰ ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã§èµ·å‹•\n"
+" -n, --no-mode-selection      XSaneã®ãƒ¢ãƒ¼ãƒ‰é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚’ã‚ªãƒ•ã«ã™ã‚‹\n"
 "\n"
-" -F, --Fixed                  ¥á¥¤¥ó¥¦¥£¥ó¥É¥¦¤Î¥µ¥¤¥º¤ò¸ÇÄê¡ÊÀßÄêÃÍ¤ò¾å½ñ"
-"¤­¡Ë\n"
-" -R, --Resizeable             ¥á¥¤¥ó¥¦¥£¥ó¥É¥¦¤ò¥¹¥¯¥í¡¼¥ë¡¦¥ê¥µ¥¤¥º²ÄÇ½¤Ë¤¹"
-"¤ë¡ÊÀßÄêÃÍ¤ò¾å½ñ¤­¡Ë\n"
+" -F, --Fixed                  ãƒ¡ã‚¤ãƒ³ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚µã‚¤ã‚ºã‚’å›ºå®šï¼ˆè¨­å®šå€¤ã‚’ä¸Šæ›¸"
+"ãï¼‰\n"
+" -R, --Resizeable             ãƒ¡ã‚¤ãƒ³ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒ»ãƒªã‚µã‚¤ã‚ºå¯èƒ½ã«ã™"
+"ã‚‹ï¼ˆè¨­å®šå€¤ã‚’ä¸Šæ›¸ãï¼‰\n"
 "\n"
-" -p, --print-filenames        XSane¤ÇºîÀ®¤·¤¿²èÁü¥Õ¥¡¥¤¥ëÌ¾¤ò°õºş\n"
-" -N, --force-filename name    ¥Õ¥¡¥¤¥ëÌ¾¤ò¶¯À©¤·¤Æ¡¢¥æ¡¼¥¶¡¼¥Õ¥¡¥¤¥ëÌ¾¤ÎÁªÂò"
-"¤òÌµ¸ú¤Ë¤¹¤ë\n"
+" -p, --print-filenames        XSaneã§ä½œæˆã—ãŸç”»åƒãƒ•ã‚¡ã‚¤ãƒ«åã‚’å°åˆ·\n"
+" -N, --force-filename name    ãƒ•ã‚¡ã‚¤ãƒ«åã‚’å¼·åˆ¶ã—ã¦ã€ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ•ã‚¡ã‚¤ãƒ«åã®é¸æŠ"
+"ã‚’ç„¡åŠ¹ã«ã™ã‚‹\n"
 "\n"
-" --display X11-display        X11¤Î¥Ç¥£¥¹¥×¥ì¥¤½ĞÎÏ¤Ë¥ê¥À¥¤¥ì¥¯¥È¤¹¤ë\n"
-" --no-xshm                    ¶¦Í­¥á¥â¥ê¤Î¥¤¥á¡¼¥¸¤ò»È¤ï¤Ê¤¤\n"
-" --sync                       X11¥µ¡¼¥Ğ¤Ø¤ÎÆ±´üÀÜÂ³¤òÍ×µá¤¹¤ë"
+" --display X11-display        X11ã®ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤å‡ºåŠ›ã«ãƒªãƒ€ã‚¤ãƒ¬ã‚¯ãƒˆã™ã‚‹\n"
+" --no-xshm                    å…±æœ‰ãƒ¡ãƒ¢ãƒªã®ã‚¤ãƒ¡ãƒ¼ã‚¸ã‚’ä½¿ã‚ãªã„\n"
+" --sync                       X11ã‚µãƒ¼ãƒã¸ã®åŒæœŸæ¥ç¶šã‚’è¦æ±‚ã™ã‚‹"
 
 #. strings for gimp plugin
 #. XSANE_GIMP_INSTALL_BLURB
 msgid "Front-end to the SANE interface"
-msgstr "¥¤¥ó¥¿¡¼¥Õ¥§¥¤¥¹SANE¤Î¥Õ¥í¥ó¥È¥¨¥ó¥É"
+msgstr "ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹SANEã®ãƒ•ãƒ­ãƒ³ãƒˆã‚¨ãƒ³ãƒ‰"
 
 #. XSANE_GIMP_INSTALL_HELP
 msgid ""
 "This function provides access to scanners and other image acquisition "
 "devices through the SANE (Scanner Access Now Easy) interface."
 msgstr ""
-"¤³¤Îµ¡Ç½¤Ï¡¢¥¤¥ó¥¿¡¼¥Õ¥§¥¤¥¹SANE(Scanner Access Now Easy)¤òÄÌ¤¸¤Æ¥¹¥­¥ã¥Ê¤ò¤Ï"
-"¤¸¤á¤È¤¹¤ë²èÁü¼è¹ş¤ß¥Ç¥Ğ¥¤¥¹¤Ø¤Î¥¢¥¯¥»¥¹¤òÄó¶¡¤·¤Ş¤¹¡£"
+"ã“ã®æ©Ÿèƒ½ã¯ã€ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹SANE(Scanner Access Now Easy)ã‚’é€šã˜ã¦ã‚¹ã‚­ãƒ£ãƒŠã‚’ã¯"
+"ã˜ã‚ã¨ã™ã‚‹ç”»åƒå–è¾¼ã¿ãƒ‡ãƒã‚¤ã‚¹ã¸ã®ã‚¢ã‚¯ã‚»ã‚¹ã‚’æä¾›ã—ã¾ã™ã€‚"
 
 #. Menu path must not be translated, this is done by the gimp. Only translate the text behind the last "/"
 #. XSANE_GIMP_MENU_DIALOG
 msgid "<Toolbox>/File/Acquire/XSane: Device dialog..."
-msgstr "<Toolbox>/File/Acquire/XSane: ¥Ç¥Ğ¥¤¥¹¥À¥¤¥¢¥í¥°..."
+msgstr "<Toolbox>/File/Acquire/XSane: ãƒ‡ãƒã‚¤ã‚¹ãƒ€ã‚¤ã‚¢ãƒ­ã‚°..."
 
 #. XSANE_GIMP_MENU
 msgid "<Toolbox>/File/Acquire/XSane: "
@@ -2526,45 +2530,45 @@ msgid ""
 "5) The backend is not configured correct (man sane-\"backendname\")\n"
 "6) Possibly there is more than one SANE version installed"
 msgstr ""
-"¹Í¤¨¤é¤ì¤ëÍıÍ³¡§\n"
-"1) SANE¤¬¥µ¥İ¡¼¥È¤·¤Æ¤¤¤ë¥Ç¥Ğ¥¤¥¹¤¬¼Âºİ¤Ë¤Ê¤¤\n"
-"2) ¥µ¥İ¡¼¥È¤µ¤ì¤Æ¤¤¤ë¥Ç¥Ğ¥¤¥¹¤¬»ÈÍÑÃæ¤Ç¤¢¤ë\n"
-"3) ¥Ç¥Ğ¥¤¥¹¥Õ¥¡¥¤¥ë¤Î¥Ñ¡¼¥ß¥Ã¥·¥ç¥ó¤¬ÉÔµö²Ä¤Ë¤Ê¤Ã¤Æ¤¤¤ë---¥ë¡¼¥È¸¢¸Â¤Ç»î¤·¤Æ"
-"¤ß¤Æ¤¯¤À¤µ¤¤\n"
-"4) ¥Ğ¥Ã¥¯¥¨¥ó¥É¤¬SANE¤Ë¤è¤Ã¤Æ¥í¡¼¥É¤µ¤ì¤Æ¤¤¤Ê¤¤(man sane-dll)\n"
-"5) ¥Ğ¥Ã¥¯¥¨¥ó¥É¤Î¥³¥ó¥Õ¥£¥®¥å¥ì¡¼¥·¥ç¥ó¤¬Àµ¤·¤¯¤Ê¤¤(man sane-\"backendname"
+"è€ƒãˆã‚‰ã‚Œã‚‹ç†ç”±ï¼š\n"
+"1) SANEãŒã‚µãƒãƒ¼ãƒˆã—ã¦ã„ã‚‹ãƒ‡ãƒã‚¤ã‚¹ãŒå®Ÿéš›ã«ãªã„\n"
+"2) ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¦ã„ã‚‹ãƒ‡ãƒã‚¤ã‚¹ãŒä½¿ç”¨ä¸­ã§ã‚ã‚‹\n"
+"3) ãƒ‡ãƒã‚¤ã‚¹ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ‘ãƒ¼ãƒŸãƒƒã‚·ãƒ§ãƒ³ãŒä¸è¨±å¯ã«ãªã£ã¦ã„ã‚‹---ãƒ«ãƒ¼ãƒˆæ¨©é™ã§è©¦ã—ã¦"
+"ã¿ã¦ãã ã•ã„\n"
+"4) ãƒãƒƒã‚¯ã‚¨ãƒ³ãƒ‰ãŒSANEã«ã‚ˆã£ã¦ãƒ­ãƒ¼ãƒ‰ã•ã‚Œã¦ã„ãªã„(man sane-dll)\n"
+"5) ãƒãƒƒã‚¯ã‚¨ãƒ³ãƒ‰ã®ã‚³ãƒ³ãƒ•ã‚£ã‚®ãƒ¥ãƒ¬ãƒ¼ã‚·ãƒ§ãƒ³ãŒæ­£ã—ããªã„(man sane-\"backendname"
 "\")\n"
-"6) ¤Õ¤¿¤Ä°Ê¾å¤Î¥Ğ¡¼¥¸¥ç¥ó¤ÎSANE¤¬¥¤¥ó¥¹¥È¡¼¥ë¤µ¤ì¤Æ¤¤¤ë¤«¤â"
+"6) ãµãŸã¤ä»¥ä¸Šã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã®SANEãŒã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã•ã‚Œã¦ã„ã‚‹ã‹ã‚‚"
 
 #. strings that are used in structures, so it is not allowed to use _()/gettext() here
 #. gettext_noop does mark these texts but does not change the string
 #. MENU_ITEM_SURFACE_FULL_SIZE
 msgid "full size"
-msgstr "¥Õ¥ë¥µ¥¤¥º"
+msgstr "ãƒ•ãƒ«ã‚µã‚¤ã‚º"
 
 #. MENU_ITEM_SURFACE_DIN_A3P
 msgid "DIN A3 port."
-msgstr "DIN A3 ½Ä"
+msgstr "DIN A3 ç¸¦"
 
 #. MENU_ITEM_SURFACE_DIN_A3L
 msgid "DIN A3 land."
-msgstr "DIN A3 ²£"
+msgstr "DIN A3 æ¨ª"
 
 #. MENU_ITEM_SURFACE_DIN_A4P
 msgid "DIN A4 port."
-msgstr "DIN A4 ½Ä"
+msgstr "DIN A4 ç¸¦"
 
 #. MENU_ITEM_SURFACE_DIN_A4L
 msgid "DIN A4 land."
-msgstr "DIN A4 ²£"
+msgstr "DIN A4 æ¨ª"
 
 #. MENU_ITEM_SURFACE_DIN_A5P
 msgid "DIN A5 port."
-msgstr "DIN A5 ½Ä"
+msgstr "DIN A5 ç¸¦"
 
 #. MENU_ITEM_SURFACE_DIN_A5L
 msgid "DIN A5 land."
-msgstr "DIN A5 ²£"
+msgstr "DIN A5 æ¨ª"
 
 #. MENU_ITEM_SURFACE_13cmx18cm
 msgid "13cm x 18cm"
@@ -2592,35 +2596,35 @@ msgstr "13cm X 9cm"
 
 #. MENU_ITEM_SURFACE_legal_P
 msgid "legal port."
-msgstr "¥ê¡¼¥¬¥ë¥µ¥¤¥º ½Ä"
+msgstr "ãƒªãƒ¼ã‚¬ãƒ«ã‚µã‚¤ã‚º ç¸¦"
 
 #. MENU_ITEM_SURFACE_legal_L
 msgid "legal land."
-msgstr "¥ê¡¼¥¬¥ë¥µ¥¤¥º ²£"
+msgstr "ãƒªãƒ¼ã‚¬ãƒ«ã‚µã‚¤ã‚º æ¨ª"
 
 #. MENU_ITEM_SURFACE_letter_P
 msgid "letter port."
-msgstr "¥ì¥¿¡¼¥µ¥¤¥º ½Ä"
+msgstr "ãƒ¬ã‚¿ãƒ¼ã‚µã‚¤ã‚º ç¸¦"
 
 #. MENU_ITEM_SURFACE_letter_L
 msgid "letter land."
-msgstr "¥ì¥¿¡¼¥µ¥¤¥º ²£"
+msgstr "ãƒ¬ã‚¿ãƒ¼ã‚µã‚¤ã‚º æ¨ª"
 
 #. MENU_ITEM_MEDIUM_FULL_COLOR_RANGE
 msgid "Full color range"
-msgstr "¥Õ¥ë¥«¥é¡¼¥ì¥ó¥¸"
+msgstr "ãƒ•ãƒ«ã‚«ãƒ©ãƒ¼ãƒ¬ãƒ³ã‚¸"
 
 #. MENU_ITEM_MEDIUM_SLIDE
 msgid "Slide"
-msgstr "¥¹¥é¥¤¥É"
+msgstr "ã‚¹ãƒ©ã‚¤ãƒ‰"
 
 #. MENU_ITEM_MEDIUM_STANDARD_NEG
 msgid "Standard negative"
-msgstr "É¸½à¤Î¥Í¥¬"
+msgstr "æ¨™æº–ã®ãƒã‚¬"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG
 msgid "Agfa negative"
-msgstr "Agfa¤Î¥Í¥¬"
+msgstr "Agfaã®ãƒã‚¬"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG_XRG200_4
 msgid "Agfa negative XRG 200-4"
@@ -2632,19 +2636,19 @@ msgstr "Agfa negative HDC 100"
 
 #. MENU_ITEM_MEDIUM_FUJI_NEG
 msgid "Fuji negative"
-msgstr "ÉÙ»Î¥Õ¥£¥ë¥à¤Î¥Í¥¬"
+msgstr "å¯Œå£«ãƒ•ã‚£ãƒ«ãƒ ã®ãƒã‚¬"
 
 #. MENU_ITEM_MEDIUM_KODAK_NEG
 msgid "Kodak negative"
-msgstr "¥³¥À¥Ã¥¯¤Î¥Í¥¬"
+msgstr "ã‚³ãƒ€ãƒƒã‚¯ã®ãƒã‚¬"
 
 #. MENU_ITEM_MEDIUM_KONICA_NEG
 msgid "Konica negative"
-msgstr "¥³¥Ë¥«¤Î¥Í¥¬"
+msgstr "ã‚³ãƒ‹ã‚«ã®ãƒã‚¬"
 
 #. MENU_ITEM_MEDIUM_KONICA_NEG_VX_100
 msgid "Konica negative VX 100"
-msgstr "¥³¥Ë¥« VX 100"
+msgstr "ã‚³ãƒ‹ã‚« VX 100"
 
 #. MENU_ITEM_MEDIUM_ROSSMANN_NEG_HR_100
 msgid "Rossmann negative HR 100"
@@ -2652,123 +2656,123 @@ msgstr "Rossmann HR 100"
 
 #. TEXT_MAIL_STATUS_NOT_CREATED
 msgid "Mail project not created"
-msgstr "¥á¡¼¥ë¥×¥í¥¸¥§¥¯¥È¤ÏºîÀ®¤µ¤ì¤Ş¤»¤ó¤Ç¤·¤¿"
+msgstr "ãƒ¡ãƒ¼ãƒ«ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã¯ä½œæˆã•ã‚Œã¾ã›ã‚“ã§ã—ãŸ"
 
 #. TEXT_MAIL_STATUS_CREATED
 msgid "Mail project created"
-msgstr "¥á¡¼¥ë¥×¥í¥¸¥§¥¯¥È¤¬ºîÀ®¤µ¤ì¤Ş¤·¤¿"
+msgstr "ãƒ¡ãƒ¼ãƒ«ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆãŒä½œæˆã•ã‚Œã¾ã—ãŸ"
 
 #. TEXT_MAIL_STATUS_CHANGED
 msgid "Mail project changed"
-msgstr "¥á¡¼¥ë¥×¥í¥¸¥§¥¯¥È¤¬ÊÑ¹¹¤µ¤ì¤Ş¤·¤¿"
+msgstr "ãƒ¡ãƒ¼ãƒ«ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆãŒå¤‰æ›´ã•ã‚Œã¾ã—ãŸ"
 
 #. TEXT_MAIL_STATUS_ERR_READ_PROJECT
 msgid "Error reading mailproject"
-msgstr "¥á¡¼¥ë¥×¥í¥¸¥§¥¯¥È¤òÆÉ¹şÃæ¤Ë¥¨¥é¡¼"
+msgstr "ãƒ¡ãƒ¼ãƒ«ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã‚’èª­è¾¼ä¸­ã«ã‚¨ãƒ©ãƒ¼"
 
 #. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
 msgid "POP3 connection failed"
-msgstr "POP3ÀÜÂ³¤Ë¼ºÇÔ¤·¤Ş¤·¤¿"
+msgstr "POP3æ¥ç¶šã«å¤±æ•—ã—ã¾ã—ãŸ"
 
 #. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
 msgid "POP3 login failed"
-msgstr "POP3¥í¥°¥¤¥ó¤Ë¼ºÇÔ¤·¤Ş¤·¤¿"
+msgstr "POP3ãƒ­ã‚°ã‚¤ãƒ³ã«å¤±æ•—ã—ã¾ã—ãŸ"
 
 #. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
-msgstr "SMTPÀÜÂ³¤Ë¼ºÇÔ¤·¤Ş¤·¤¿"
+msgstr "SMTPæ¥ç¶šã«å¤±æ•—ã—ã¾ã—ãŸ"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_FROM
 msgid "From entry not accepted"
-msgstr "º¹½Ğ¿Í¤¬¼õ¤±¤Ä¤±¤é¤ì¤Ş¤»¤ó"
+msgstr "å·®å‡ºäººãŒå—ã‘ã¤ã‘ã‚‰ã‚Œã¾ã›ã‚“"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_RCPT
 msgid "Receiver entry not accepted"
-msgstr "¼õ¼è¿Í¤¬¼õ¤±¤Ä¤±¤é¤ì¤Ş¤»¤ó"
+msgstr "å—å–äººãŒå—ã‘ã¤ã‘ã‚‰ã‚Œã¾ã›ã‚“"
 
 #. TEXT_MAIL_STATUS_SMTP_ERR_DATA
 msgid "Mail data not accepted"
-msgstr "¥á¡¼¥ë¥Ç¡¼¥¿¤¬¼õ¤±¤Ä¤±¤é¤ì¤Ş¤»¤ó"
+msgstr "ãƒ¡ãƒ¼ãƒ«ãƒ‡ãƒ¼ã‚¿ãŒå—ã‘ã¤ã‘ã‚‰ã‚Œã¾ã›ã‚“"
 
 #. TEXT_MAIL_STATUS_SENDING
 msgid "Sending mail"
-msgstr "¥á¡¼¥ëÁ÷¿®Ãæ"
+msgstr "ãƒ¡ãƒ¼ãƒ«é€ä¿¡ä¸­"
 
 #. TEXT_MAIL_STATUS_SENT
 msgid "Mail has been sent"
-msgstr "¥á¡¼¥ë¤ÏÁ÷¿®¤µ¤ì¤Æ¤¤¤Ş¤»¤ó"
+msgstr "ãƒ¡ãƒ¼ãƒ«ã¯é€ä¿¡ã•ã‚Œã¦ã„ã¾ã›ã‚“"
 
 #. TEXT_FAX_STATUS_NOT_CREATED
 msgid "Fax project not created"
-msgstr "FAX¥×¥í¥¸¥§¥¯¥È¤¬ºîÀ®¤µ¤ì¤Ş¤»¤ó¤Ç¤·¤¿"
+msgstr "FAXãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆãŒä½œæˆã•ã‚Œã¾ã›ã‚“ã§ã—ãŸ"
 
 #. TEXT_FAX_STATUS_CREATED
 msgid "Fax project created"
-msgstr "FAX¥×¥í¥¸¥§¥¯¥È¤¬ºîÀ®¤µ¤ì¤Ş¤·¤¿"
+msgstr "FAXãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆãŒä½œæˆã•ã‚Œã¾ã—ãŸ"
 
 #. TEXT_FAX_STATUS_CHANGED
 msgid "Fax project changed"
-msgstr "FAX¥×¥í¥¸¥§¥¯¥È¤¬ÊÑ¹¹¤µ¤ì¤Ş¤·¤¿"
+msgstr "FAXãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆãŒå¤‰æ›´ã•ã‚Œã¾ã—ãŸ"
 
 #. TEXT_FAX_STATUS_QUEUEING_FAX
 msgid "Queueing Fax"
-msgstr "FAX¤òÁ÷¿®Ãæ"
+msgstr "FAXã‚’é€ä¿¡ä¸­"
 
 #. TEXT_FAX_STATUS_FAX_QUEUED
 msgid "Fax is queued"
-msgstr "FAX¤¬Á÷¿®¤µ¤ì¤Ş¤·¤¿"
+msgstr "FAXãŒé€ä¿¡ã•ã‚Œã¾ã—ãŸ"
 
 #. Sane backend messages
 msgid "flatbed scanner"
-msgstr "¥Õ¥é¥Ã¥È¥Ù¥Ã¥É¥¹¥­¥ã¥Ê"
+msgstr "ãƒ•ãƒ©ãƒƒãƒˆãƒ™ãƒƒãƒ‰ã‚¹ã‚­ãƒ£ãƒŠ"
 
 msgid "frame grabber"
-msgstr "¥Õ¥ì¡¼¥à¼è¹ş¤ß"
+msgstr "ãƒ•ãƒ¬ãƒ¼ãƒ å–è¾¼ã¿"
 
 msgid "handheld scanner"
-msgstr "¥Ï¥ó¥É¥Ø¥ë¥É¥¹¥­¥ã¥Ê"
+msgstr "ãƒãƒ³ãƒ‰ãƒ˜ãƒ«ãƒ‰ã‚¹ã‚­ãƒ£ãƒŠ"
 
 msgid "still camera"
-msgstr "¥¹¥Á¡¼¥ë¥«¥á¥é"
+msgstr "ã‚¹ãƒãƒ¼ãƒ«ã‚«ãƒ¡ãƒ©"
 
 msgid "video camera"
-msgstr "¥Ó¥Ç¥ª¥«¥á¥é"
+msgstr "ãƒ“ãƒ‡ã‚ªã‚«ãƒ¡ãƒ©"
 
 msgid "virtual device"
-msgstr "²¾ÁÛ¥Ç¥Ğ¥¤¥¹"
+msgstr "ä»®æƒ³ãƒ‡ãƒã‚¤ã‚¹"
 
 msgid "Success"
-msgstr "À®¸ù"
+msgstr "æˆåŠŸ"
 
 msgid "Operation not supported"
-msgstr "¥ª¥Ú¥ì¡¼¥·¥ç¥ó¤Ï¥µ¥İ¡¼¥È¤µ¤ì¤Æ¤¤¤Ş¤»¤ó"
+msgstr "ã‚ªãƒšãƒ¬ãƒ¼ã‚·ãƒ§ãƒ³ã¯ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¦ã„ã¾ã›ã‚“"
 
 msgid "Operation was cancelled"
-msgstr "¥ª¥Ú¥ì¡¼¥·¥ç¥ó¤Ï¼è¤ê¾Ã¤µ¤ì¤Ş¤·¤¿"
+msgstr "ã‚ªãƒšãƒ¬ãƒ¼ã‚·ãƒ§ãƒ³ã¯å–ã‚Šæ¶ˆã•ã‚Œã¾ã—ãŸ"
 
 msgid "Device busy"
-msgstr "¥Ç¥Ğ¥¤¥¹¤¬¥Ó¥¸¡¼¤Ç¤¹"
+msgstr "ãƒ‡ãƒã‚¤ã‚¹ãŒãƒ“ã‚¸ãƒ¼ã§ã™"
 
 msgid "Invalid argument"
-msgstr "ÉÔÀµ¤Ê°ú¿ô¤Ç¤¹"
+msgstr "ä¸æ­£ãªå¼•æ•°ã§ã™"
 
 msgid "End of file reached"
-msgstr "¥Õ¥¡¥¤¥ë½ªÃ¼¤Ş¤Ç¤­¤Ş¤·¤¿"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«çµ‚ç«¯ã¾ã§ãã¾ã—ãŸ"
 
 msgid "Document feeder jammed"
-msgstr "µë»æ·ÏÅı¤Ë°Û¾ï"
+msgstr "çµ¦ç´™ç³»çµ±ã«ç•°å¸¸"
 
 msgid "Document feeder out of documents"
-msgstr "ÍÑ»æ¤¬Â­¤ê¤Ş¤»¤ó"
+msgstr "ç”¨ç´™ãŒè¶³ã‚Šã¾ã›ã‚“"
 
 msgid "Scanner cover is open"
-msgstr "¥¹¥­¥ã¥Ê¤Î¥«¥Ğ¡¼¤¬³«¤¤¤Æ¤¤¤Ş¤¹"
+msgstr "ã‚¹ã‚­ãƒ£ãƒŠã®ã‚«ãƒãƒ¼ãŒé–‹ã„ã¦ã„ã¾ã™"
 
 msgid "Error during device I/O"
-msgstr "¥Ç¥Ğ¥¤¥¹I/O¥¨¥é¡¼"
+msgstr "ãƒ‡ãƒã‚¤ã‚¹I/Oã‚¨ãƒ©ãƒ¼"
 
 msgid "Out of memory"
-msgstr "¥ª¡¼¥Ğ¡¼¥Õ¥í¡¼"
+msgstr "ã‚ªãƒ¼ãƒãƒ¼ãƒ•ãƒ­ãƒ¼"
 
 msgid "Access to resource has been denied"
-msgstr "¥ê¥½¡¼¥¹¤Ø¤Î¥¢¥¯¥»¥¹¤¬µñÈİ¤µ¤ì¤Ş¤·¤¿"
+msgstr "ãƒªã‚½ãƒ¼ã‚¹ã¸ã®ã‚¢ã‚¯ã‚»ã‚¹ãŒæ‹’å¦ã•ã‚Œã¾ã—ãŸ"

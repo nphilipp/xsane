@@ -87,6 +87,7 @@ typedef struct
 typedef struct
   {
     char   *xsane_version_str;		/* xsane-version string */
+    int    xsane_mode;			/* xsane_mode */
     char   *tmp_path;			/* path to temporary directory */
     char   *working_directory;		/* directory where xsane saves images etc */
     char   *filename;			/* default filename */
@@ -182,6 +183,7 @@ typedef struct
     int    preselect_scanarea;		/* automatic selection of scanarea after preview scan */
     int    auto_correct_colors;		/* automatic color correction after preview scan */
     int    gtk_update_policy;
+    int    medium_nr;
 
     int    paper_orientation;		/* image position on printer and page orientation */
     int    printernr;			/* number of printers */

@@ -505,14 +505,11 @@ static void xsane_batch_scan_scan_list(void)
 
     while (xsane.scanning)
     {
-#if 0
+      /* we MUST call gtk_events_pending() or gdk_input_add will not work! */
       if (gtk_events_pending())
       {
         gtk_main_iteration();
       }
-#elseif
-      gtk_main_iteration();
-#endif
     }
 
     if ( (xsane.status_of_last_scan != SANE_STATUS_GOOD) && (xsane.status_of_last_scan != SANE_STATUS_EOF) )

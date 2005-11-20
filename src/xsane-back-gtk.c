@@ -183,7 +183,10 @@ SANE_Status xsane_control_option(SANE_Handle handle, SANE_Int option, SANE_Actio
       if ((opt) && (!(opt->cap & SANE_CAP_SOFT_DETECT)))
       {
         DBG(DBG_warning, "WARNING: xsane_control_option(option = %d, action = %d): SANE_CAP_SOFT_DETECT is not set\n", option, action);
-       return SANE_STATUS_GOOD;
+        if (option > 0) /* continue for option == 0, otherwise we can not read this option */
+        {
+          return SANE_STATUS_GOOD;
+        }
       }
     }
 #endif
@@ -349,6 +352,14 @@ int xsane_back_gtk_make_path(size_t buf_size, char *buf, const char *prog_name, 
          break;
 
         case '/':	/* "/" -> "_" */
+          buf[len++] = '_'; 
+         break;
+
+        case '*':	/* "*" -> "_" */
+          buf[len++] = '_'; 
+         break;
+
+        case '?':	/* "?" -> "_" */
           buf[len++] = '_'; 
          break;
 
@@ -881,7 +892,7 @@ static void xsane_back_gtk_filetype_callback(GtkWidget *widget, gpointer data)
     {
       if ( (!strcasecmp(extension, ".pnm"))  || (!strcasecmp(extension, ".raw"))
         || (!strcasecmp(extension, ".png"))  || (!strcasecmp(extension, ".ps"))
-        || (!strcasecmp(extension, ".rgba"))
+        || (!strcasecmp(extension, ".pdf"))  || (!strcasecmp(extension, ".rgba"))
         || (!strcasecmp(extension, ".tiff")) || (!strcasecmp(extension, ".tif"))
         || (!strcasecmp(extension, ".text")) || (!strcasecmp(extension, ".txt"))
         || (!strcasecmp(extension, ".jpg"))  || (!strcasecmp(extension, ".jpeg"))
@@ -951,6 +962,12 @@ void xsane_back_gtk_filetype_menu_set_history(GtkWidget *xsane_filetype_option_m
     select_item = filetype_nr;
   }
 
+  filetype_nr++;
+  if ( (filetype) && (!strcasecmp(filetype, XSANE_FILETYPE_PDF)) )
+  {
+    select_item = filetype_nr;
+  }
+
 #ifdef SUPPORT_RGBA
   filetype_nr++;
   if ( (filetype) && (!strcasecmp(filetype, XSANE_FILETYPE_RGBA)) )
@@ -1006,6 +1023,16 @@ GtkWidget *xsane_back_gtk_filetype_menu_new(char *filetype, GtkSignalFunc filety
     select_item = filetype_nr;
   }
 #endif
+
+  xsane_filetype_item = gtk_menu_item_new_with_label(MENU_ITEM_FILETYPE_PDF);
+  gtk_container_add(GTK_CONTAINER(xsane_filetype_menu), xsane_filetype_item);
+  g_signal_connect(GTK_OBJECT(xsane_filetype_item), "activate", filetype_callback, (void *) XSANE_FILETYPE_PDF);
+  gtk_widget_show(xsane_filetype_item);
+  filetype_nr++;
+  if ( (filetype) && (!strcasecmp(filetype, XSANE_FILETYPE_PDF)) )
+  {
+    select_item = filetype_nr;
+  }
 
 #ifdef HAVE_LIBPNG
 #ifdef HAVE_LIBZ

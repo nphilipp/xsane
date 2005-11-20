@@ -37,6 +37,7 @@
 #define XSANE_FILETYPE_PNG		".png"
 #define XSANE_FILETYPE_PNM		".pnm"
 #define XSANE_FILETYPE_PS		".ps"
+#define XSANE_FILETYPE_PDF		".pdf"
 #define XSANE_FILETYPE_RGBA		".rgba"
 #define XSANE_FILETYPE_TEXT		".txt"
 
@@ -45,6 +46,7 @@
 #define MENU_ITEM_FILETYPE_PNG		"PNG"
 #define MENU_ITEM_FILETYPE_PNM		"PNM"
 #define MENU_ITEM_FILETYPE_PS		"PostScript"
+#define MENU_ITEM_FILETYPE_PDF		"PDF"
 #define MENU_ITEM_FILETYPE_RGBA		"RGBA"
 #define MENU_ITEM_FILETYPE_TEXT		"TEXT"
 

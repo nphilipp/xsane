@@ -1,21 +1,20 @@
-# translation of it.po to Italiana
-# translation of xsane_it.po to Italiano
-# Copyright (C) 2003, 2004 Free Software Foundation, Inc.
-# Kostantino <inverness1ATvirgilio.it>, 2004.
-# Kostantino <inverness1ATvirgilio.it>, 2004.
+# translation of xsane-0.98pre3_it.po to Italiano
+# Copyright (C) 2003, 2004, 2005 Free Software Foundation, Inc.
+# Kostantino <ciclope10ATalice.it>, 2005.
+# Kostantino <ciclope10ATalice.it>, 2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: it\n"
-"POT-Creation-Date: 2004-08-21 15:31+0200\n"
-"PO-Revision-Date: 2004-11-20 21:13+0100\n"
-"Last-Translator: Kostantino <inverness1ATvirgilio.it>\n"
-"Language-Team: Italiana <it@li.org>\n"
+"Project-Id-Version: xsane-0.98pre3_it\n"
+"POT-Creation-Date: 2005-10-23 00:20+0200\n"
+"PO-Revision-Date: 2005-10-29 20:59+0200\n"
+"Last-Translator: Kostantino <ciclope10ATalice.it>\n"
+"Language-Team: Italiano <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Main-Translator: Stefano Rivoir <s.rivoir@gts.it>\n"
-"X-Generator: KBabel 1.3.1\n"
+"X-Generator: KBabel 1.9.1\n"
 
 #. Please translate this to the correct directory name (eg. german=>de)
 #. XSANE_LANGUAGE_DIR
@@ -33,7 +32,7 @@ msgstr "Clone-di-"
 
 #. WINDOW_ABOUT_XSANE
 msgid "About"
-msgstr "Riguardo a"
+msgstr "Informazioni"
 
 #. WINDOW_ABOUT_TRANSLATION, MENU_ITEM_ABOUT_TRANSLATION
 msgid "About translation"
@@ -57,11 +56,11 @@ msgstr "Informazioni"
 
 #. WINDOW_LOAD_BATCH_LIST
 msgid "load batch list"
-msgstr "Carica la lista batch"
+msgstr "Carica lista batch"
 
 #. WINDOW_SAVE_BATCH_LIST
 msgid "save batch list"
-msgstr "Salva la lista batch"
+msgstr "Salva lista batch"
 
 #. WINDOW_BATCH_SCAN
 msgid "batch scan"
@@ -69,7 +68,7 @@ msgstr "Scansione batch"
 
 #. WINDOW_BATCH_RENAME
 msgid "rename batch area"
-msgstr "Rinomina l'area batch"
+msgstr "Rinomina area batch"
 
 #. WINDOW_FAX_PROJECT
 msgid "fax project"
@@ -77,11 +76,11 @@ msgstr "Progetto fax"
 
 #. WINDOW_FAX_RENAME
 msgid "rename fax page"
-msgstr "Rinomina la pagina fax"
+msgstr "Rinomina pagina fax"
 
 #. WINDOW_FAX_INSERT
 msgid "insert ps-file into fax"
-msgstr "Inserisci un file PS nel fax"
+msgstr "Inserisci file PS nel fax"
 
 #. WINDOW_MAIL_PROJECT
 msgid "mail project"
@@ -97,19 +96,19 @@ msgstr "Inserisci un file nella posta"
 
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
-msgstr "Rinomina l'area predefinita"
+msgstr "Rinomina area predefinita"
 
 #. WINDOW_PRESET_AREA_ADD
 msgid "add preset area"
-msgstr "Aggiungi l'area predefinita"
+msgstr "Aggiungi area predefinita"
 
 #. WINDOW_MEDIUM_RENAME
 msgid "rename medium"
-msgstr "Rinomina il supporto"
+msgstr "Rinomina supporto"
 
 #. WINDOW_MEDIUM_ADD
 msgid "add new medium"
-msgstr "Aggiungi un nuovo supporto"
+msgstr "Aggiungi nuovo supporto"
 
 #. WINDOW_SETUP
 msgid "setup"
@@ -133,7 +132,7 @@ msgstr "Opzioni avanzate"
 
 #. WINDOW_DEVICE_SELECTION
 msgid "device selection"
-msgstr "Selezione del dispositivo"
+msgstr "Selezione dispositivo"
 
 #. WINDOW_PREVIEW
 msgid "Preview"
@@ -165,11 +164,11 @@ msgstr "Carica le impostazioni del dispositivo"
 
 #. WINDOW_CHANGE_WORKING_DIR
 msgid "change working directory"
-msgstr "Cambia la cartella di lavoro"
+msgstr "Cambia cartella di lavoro"
 
 #. WINDOW_TMP_PATH
 msgid "select temporary directory"
-msgstr "Seleziona la cartella temporanea"
+msgstr "Seleziona cartella temporanea"
 
 #. WINDOW_SCALE
 msgid "Scale image"
@@ -225,7 +224,7 @@ msgstr "Geometria"
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
-msgstr "Riguardo ad XSane"
+msgstr "Informazioni su XSane"
 
 #. MENU_ITEM_INFO
 msgid "Info"
@@ -237,7 +236,7 @@ msgstr "Esci"
 
 #. MENU_ITEM_SAVE_IMAGE
 msgid "Save image"
-msgstr "Salva l'immagine"
+msgstr "Salva immagine"
 
 #. MENU_ITEM_OCR
 msgid "OCR - save as text"
@@ -337,7 +336,7 @@ msgstr "Sovrascrivi"
 
 #. BUTTON_BATCH_LIST_SCAN
 msgid "Scan batch list"
-msgstr "Scansiona la lista batch"
+msgstr "Scansiona lista batch"
 
 #. BUTTON_BATCH_AREA_SCAN
 msgid "Scan selected area"
@@ -345,67 +344,67 @@ msgstr "Scansiona l'area selezionata"
 
 #. BUTTON_PAGE_DELETE
 msgid "Delete page"
-msgstr "Cancella la pagina"
+msgstr "Elimina pagina"
 
 #. BUTTON_PAGE_SHOW
 msgid "Show page"
-msgstr "Visualizza la pagina"
+msgstr "Visualizza pagina"
 
 #. BUTTON_PAGE_RENAME
 msgid "Rename page"
-msgstr "Rinomina la pagina"
+msgstr "Rinomina pagina"
 
 #. BUTTON_IMAGE_DELETE
 msgid "Delete image"
-msgstr "Cancella l'immagine"
+msgstr "Elimina immagine"
 
 #. BUTTON_IMAGE_SHOW
 msgid "Show image"
-msgstr "Visualizza l'immagine"
+msgstr "Visualizza immagine"
 
 #. BUTTON_IMAGE_EDIT
 msgid "Edit image"
-msgstr "Modifica l'immagine"
+msgstr "Modifica immagine"
 
 #. BUTTON_IMAGE_RENAME
 msgid "Rename image"
-msgstr "Rinomina l'immagine"
+msgstr "Rinomina immagine"
 
 #. BUTTON_FILE_INSERT
 msgid "Insert file"
-msgstr "Inserisci un file"
+msgstr "Inserisci file"
 
 #. BUTTON_CREATE_PROJECT
 msgid "Create project"
-msgstr "Crea un progetto"
+msgstr "Crea progetto"
 
 #. BUTTON_SEND_PROJECT
 msgid "Send project"
-msgstr "Invia il progetto"
+msgstr "Invia progetto"
 
 #. BUTTON_DELETE_PROJECT
 msgid "Delete project"
-msgstr "Cancella il progetto"
+msgstr "Elimina progetto"
 
 #. BUTTON_ADD_PRINTER
 msgid "Add printer"
-msgstr "Aggiungi una stampante"
+msgstr "Aggiungi stampante"
 
 #. BUTTON_DELETE_PRINTER
 msgid "Delete printer"
-msgstr "Cancella la stampante"
+msgstr "Cancella stampante"
 
 #. BUTTON_PREVIEW_ACQUIRE
 msgid "Acquire preview"
-msgstr "Acquisisci un'anteprima"
+msgstr "Acquisisci anteprima"
 
 #. BUTTON_PREVIEW_CANCEL
 msgid "Cancel preview"
-msgstr "Cancella l'anteprima"
+msgstr "Cancella anteprima"
 
 #. BUTTON_DISCARD_IMAGE
 msgid "Discard image"
-msgstr "Cancella un'immagine"
+msgstr "Cancella immagine"
 
 #. BUTTON_DISCARD_ALL_IMAGES
 msgid "Discard all images"
@@ -417,7 +416,7 @@ msgstr "Non chiudere"
 
 #. BUTTON_SCALE_BIND
 msgid "Bind scale"
-msgstr "Blocca la scala"
+msgstr "Blocca scala"
 
 #. RADIO_BUTTON_FINE_MODE
 msgid "Fine mode"
@@ -457,7 +456,7 @@ msgstr "Disabilita la gamma sull'anteprima di GIMP"
 
 #. RADIO_BUTTON_PRIVATE_COLORMAP
 msgid "Use private colormap"
-msgstr "Usa una mappa di colori personale"
+msgstr "Usa mappa di colori personale"
 
 #. RADIO_BUTTON_AUTOENHANCE_GAMMA
 msgid "Autoenhance gamma"
@@ -593,7 +592,7 @@ msgstr ""
 
 #. TEXT_AUTHORIZATION_REQ
 msgid "Authorization required for"
-msgstr "E' richiesta l' autorizzazione per"
+msgstr "E' richiesta l'autorizzazione per"
 
 #. TEXT_AUTHORIZATION_SECURE
 msgid "Password transmission is secure"
@@ -723,7 +722,7 @@ msgstr "0x0: 0 KB "
 
 #. TEXT_ADF_PAGES_SCANNED
 msgid "Scanned pages: "
-msgstr "Pagine scansite: "
+msgstr "Pagine acquisite: "
 
 #. TEXT_MAIL_TEXT
 msgid "Email text:"
@@ -735,7 +734,7 @@ msgstr "Allegati:"
 
 #. TEXT_MAIL_STATUS
 msgid "Project status:"
-msgstr "Stato del progetto:"
+msgstr "Stato progetto:"
 
 #. TEXT_MAIL_FILETYPE
 msgid "Mail image filetype:"
@@ -743,7 +742,7 @@ msgstr "Tipo di file dell'immagine di posta:"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
-msgstr "Nome del supporto:"
+msgstr "Nome supporto:"
 
 #. TEXT_VIEWER_IMAGE_INFO
 #, c-format
@@ -767,7 +766,7 @@ msgstr "(nessun nome)"
 
 #. TEXT_BATCH_LIST_AREANAME
 msgid "Area name:"
-msgstr "Nome dell'area:"
+msgstr "Nome area:"
 
 #. TEXT_BATCH_LIST_SCANMODE
 msgid "Scanmode:"
@@ -795,7 +794,7 @@ msgstr "come da selezione"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
-msgstr "Selezione della stampante:"
+msgstr "Selezione stampante:"
 
 #. TEXT_SETUP_PRINTER_NAME
 msgid "Name:"
@@ -915,7 +914,7 @@ msgstr "Blu della gamma dell'anteprima:"
 
 #. TEXT_SETUP_LINEART_MODE
 msgid "Threshold option:"
-msgstr "Opzione della soglia:"
+msgstr "Opzione soglia:"
 
 #. TEXT_SETUP_ADF_MODE
 msgid "Automatic Document Feeder Modus:"
@@ -935,11 +934,11 @@ msgstr "Soglia massima:"
 
 #. TEXT_SETUP_THRESHOLD_MUL
 msgid "Threshold multiplier:"
-msgstr "Moltiplicatore della soglia:"
+msgstr "Moltiplicatore soglia:"
 
 #. TEXT_SETUP_THRESHOLD_OFF
 msgid "Threshold offset:"
-msgstr "Margine della soglia:"
+msgstr "Margine soglia:"
 
 #. TEXT_SETUP_GRAYSCALE_SCANMODE
 msgid "Name of grayscale scanmode:"
@@ -1098,19 +1097,19 @@ msgstr "Mostra istogramma"
 
 #. MENU_ITEM_SHOW_GAMMA
 msgid "Show gamma curve"
-msgstr "Mostra la curva gamma"
+msgstr "Mostra curva gamma"
 
 #. MENU_ITEM_SHOW_BATCH_SCAN
 msgid "Show batch scan"
-msgstr "Mostra la scansione batch"
+msgstr "Mostra scansione batch"
 
 #. MENU_ITEM_SHOW_STANDARDOPTIONS
 msgid "Show standard options"
-msgstr "Mostra le opzioni standard"
+msgstr "Mostra opzioni standard"
 
 #. MENU_ITEM_SHOW_ADVANCEDOPTIONS
 msgid "Show advanced options"
-msgstr "Mostra le opzioni avanzate"
+msgstr "Mostra opzioni avanzate"
 
 #. MENU_ITEM_SETUP
 msgid "Setup"
@@ -1158,15 +1157,15 @@ msgstr "Ruota Postscript"
 
 #. MENU_ITEM_EDIT_MEDIUM_DEF
 msgid "Edit medium definition"
-msgstr "Salva la definizione del supporto"
+msgstr "Salva definizione supporto"
 
 #. MENU_ITEM_SAVE_DEVICE_SETTINGS
 msgid "Save device settings"
-msgstr "Salva le impostazioni del dispositivo"
+msgstr "Salva impostazioni dispositivo"
 
 #. MENU_ITEM_LOAD_DEVICE_SETTINGS
 msgid "Load device settings"
-msgstr "Carica le impostazioni del dispositivo"
+msgstr "Carica impostazioni dispositivo"
 
 #. MENU_ITEM_CHANGE_WORKING_DIR
 msgid "Change directory"
@@ -1182,11 +1181,11 @@ msgstr "Visualizza licenza (GPL)"
 
 #. MENU_ITEM_XSANE_DOC
 msgid "XSane doc"
-msgstr "Documentazione di XSane"
+msgstr "Documentazione XSane"
 
 #. MENU_ITEM_BACKEND_DOC
 msgid "Backend doc"
-msgstr "Documentazione dei backend"
+msgstr "Documentazione backend"
 
 #. MENU_ITEM_AVAILABLE_BACKENDS
 msgid "Available backends"
@@ -1226,7 +1225,7 @@ msgstr "compressione JPEG DCT"
 
 #. MENU_ITEM_TIFF_COMP_PACKBITS
 msgid "pack bits"
-msgstr "comprimi i bit"
+msgstr "comprimi bit"
 
 #. MENU_ITEM_RANGE_SCALE
 msgid "Slider (Scale)"
@@ -1270,19 +1269,19 @@ msgstr "per estensione"
 
 #. MENU_ITEM_PRESET_AREA_ADD_SEL
 msgid "Add selection to list"
-msgstr "Aggiungi la selezione alla lista"
+msgstr "Aggiungi selezione alla lista"
 
 #. MENU_ITEM_MEDIUM_ADD
 msgid "Add medium definition"
-msgstr "Aggiungi la definizione del supporto"
+msgstr "Aggiungi definizione del supporto"
 
 #. MENU_ITEM_RENAME
 msgid "Rename item"
-msgstr "Rinomina l'oggetto"
+msgstr "Rinomina oggetto"
 
 #. MENU_ITEM_DELETE
 msgid "Delete item"
-msgstr "Cancella l'oggetto"
+msgstr "Cancella oggetto"
 
 #. MENU_ITEM_MOVE_UP
 msgid "Move item up"
@@ -1303,43 +1302,43 @@ msgstr "Sto ricevendo %s dati"
 
 #. PROGRESS_TRANSFERING_DATA
 msgid "Transfering image"
-msgstr "Trasferimento dell'immagine"
+msgstr "Trasferimento immagine"
 
 #. PROGRESS_ROTATING_DATA
 msgid "Rotating image"
-msgstr "Rotazione dell'immagine"
+msgstr "Rotazione immagine"
 
 #. PROGRESS_MIRRORING_DATA
 msgid "Mirroring image"
-msgstr "Ribaltamento dell'immagine"
+msgstr "Ribaltamento immagine"
 
 #. PROGRESS_PACKING_DATA
 msgid "Packing image"
-msgstr "Compressione dell'immagine"
+msgstr "Compressione immagine"
 
 #. PROGRESS_CONVERTING_DATA
 msgid "Converting image"
-msgstr "Conversione dell'immagine"
+msgstr "Conversione immagine"
 
 #. PROGRESS_SAVING_DATA
 msgid "Saving image"
-msgstr "Salvataggio dell'immagine"
+msgstr "Salvataggio immagine"
 
 #. PROGRESS_CLONING_DATA
 msgid "Cloning image"
-msgstr "Duplicazione dell'immagine"
+msgstr "Duplicazione immagine"
 
 #. PROGRESS_SCALING_DATA
 msgid "Scaling image"
-msgstr "Scalatura dell'immagine"
+msgstr "Scalatura immagine"
 
 #. PROGRESS_DESPECKLING_DATA
 msgid "Despeckling image"
-msgstr "Applicazione del filtro mediano all'immagine"
+msgstr "Applica filtro mediano all'immagine"
 
 #. PROGRESS_BLURING_DATA
 msgid "Bluring image"
-msgstr "Sfocatura dell'immagine"
+msgstr "Sfoca immagine"
 
 #. PROGRESS_OCR
 msgid "OCR in progress"
@@ -1389,7 +1388,7 @@ msgstr "Valore aggiunto al contatore dei nomi file dopo la scansione"
 
 #. DESC_BROWSE_FILENAME
 msgid "Browse for image filename"
-msgstr "Sfoglia per nome dell'immagine"
+msgstr "Sfoglia per nome immagine"
 
 #. DESC_FILENAME
 msgid "Filename for scanned image"
@@ -1405,31 +1404,31 @@ msgstr ""
 
 #. DESC_FAXPROJECT
 msgid "Enter name of fax project"
-msgstr "Inserisci il nome del progetto fax"
+msgstr "Inserisci nome del progetto fax"
 
 #. DESC_FAXPAGENAME
 msgid "Enter new name for faxpage"
-msgstr "Inserisci il nuovo nome per la pagina del fax"
+msgstr "Inserisci nuovo nome per la pagina del fax"
 
 #. DESC_FAXRECEIVER
 msgid "Enter receiver phone number or address"
-msgstr "Inserisci il numero telefonico o l'indirizzo del ricevente"
+msgstr "Inserisci numero telefonico o indirizzo del ricevente"
 
 #. DESC_MAILPROJECT
 msgid "Enter name of mail project"
-msgstr "Inserisci il nome del Progetto Posta"
+msgstr "Inserisci nome del Progetto Posta"
 
 #. DESC_MAILIMAGENAME
 msgid "Enter new name for mail image"
-msgstr "Inserisci il nuovo nome per l'immagine della posta elettronica"
+msgstr "Inserisci nuovo nome per l'immagine della posta elettronica"
 
 #. DESC_MAILRECEIVER
 msgid "Enter email address"
-msgstr "Inserisci l'indirizzo di posta elettronica"
+msgstr "Inserisci indirizzo di posta elettronica"
 
 #. DESC_MAILSUBJECT
 msgid "Enter subject of email"
-msgstr "Inserisci l'argomento della posta elettronica"
+msgstr "Inserisci argomento della posta elettronica"
 
 #. DESC_MAIL_FILETYPE
 msgid "Select filetype for image attachments"
@@ -1437,19 +1436,19 @@ msgstr "Seleziona il tipo di file per le immagini allegate"
 
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
-msgstr "Inserisci il nuovo nome per l'area di preselezione"
+msgstr "Inserisci nuovo nome per l'area di preselezione"
 
 #. DESC_PRESET_AREA_ADD
 msgid "Enter name for new preset area"
-msgstr "Inserisci il nome per la nuova area di preselezione"
+msgstr "Inserisci nome per la nuova area di preselezione"
 
 #. DESC_MEDIUM_RENAME
 msgid "Enter new name for medium definition"
-msgstr "Inserisci il nuovo nome per la definizione del supporto"
+msgstr "Inserisci nuovo nome per la definizione del supporto"
 
 #. DESC_MEDIUM_ADD
 msgid "Enter name for new medium definition"
-msgstr "Inserisci il nome per la nuova definizione del supporto"
+msgstr "Inserisci nome per la nuova definizione del supporto"
 
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
@@ -1457,31 +1456,31 @@ msgstr "Seleziona la definizione della stampante <Shift-F1/F2/...>"
 
 #. DESC_RESOLUTION
 msgid "Set scan resolution"
-msgstr "Imposta la risoluzione dello scanner"
+msgstr "Imposta risoluzione scanner"
 
 #. DESC_RESOLUTION_X
 msgid "Set scan resolution for x direction"
-msgstr "Imposta la risoluzione per la coordinata X"
+msgstr "Imposta risoluzione per la coordinata X"
 
 #. DESC_RESOLUTION_Y
 msgid "Set scan resolution for y direction"
-msgstr "Imposta la risoluzione per la coordinata Y"
+msgstr "Imposta risoluzione per la coordinata Y"
 
 #. DESC_ZOOM
 msgid "Set zoomfactor"
-msgstr "Imposta il fattore di zoom"
+msgstr "Imposta fattore zoom"
 
 #. DESC_ZOOM_X
 msgid "Set zoomfactor for x direction"
-msgstr "Imposta il fattore di zoom per la coordinata X"
+msgstr "Imposta fattore zoom per la coordinata X"
 
 #. DESC_ZOOM_Y
 msgid "Set zoomfactor for y direction"
-msgstr "Imposta il fattore di zoom per la coordinata Y"
+msgstr "Imposta fattore zoom per la coordinata Y"
 
 #. DESC_COPY_NUMBER
 msgid "Set number of copies"
-msgstr "Imposta il numero di copie"
+msgstr "Imposta numero copie"
 
 #. DESC_NEGATIVE
 msgid "Negative: Invert colors for scanning negatives <Ctrl-n>"
@@ -1505,39 +1504,39 @@ msgstr "Imposta il valore della gamma per la componente blu"
 
 #. DESC_BRIGHTNESS
 msgid "Set brightness"
-msgstr "Imposta la luminosità"
+msgstr "Imposta luminosità"
 
 #. DESC_BRIGHTNESS_R
 msgid "Set brightness for red component"
-msgstr "Imposta la luminosità per la componente rossa"
+msgstr "Imposta luminosità per la componente rossa"
 
 #. DESC_BRIGHTNESS_G
 msgid "Set brightness for green component"
-msgstr "Imposta la luminosità per la componente verde"
+msgstr "Imposta luminosità per la componente verde"
 
 #. DESC_BRIGHTNESS_B
 msgid "Set brightness for blue component"
-msgstr "Imposta la luminosità per la componente blu"
+msgstr "Imposta luminosità per la componente blu"
 
 #. DESC_CONTRAST
 msgid "Set contrast"
-msgstr "Imposta il contrasto"
+msgstr "Imposta contrasto"
 
 #. DESC_CONTRAST_R
 msgid "Set contrast for red component"
-msgstr "Imposta il contrasto per la componente rossa"
+msgstr "Imposta contrasto per la componente rossa"
 
 #. DESC_CONTRAST_G
 msgid "Set contrast for green component"
-msgstr "Imposta il contrasto per la componente verde"
+msgstr "Imposta contrasto per la componente verde"
 
 #. DESC_CONTRAST_B
 msgid "Set contrast for blue component"
-msgstr "Imposta il contrasto per la componente blu"
+msgstr "Imposta contrasto per la componente blu"
 
 #. DESC_THRESHOLD
 msgid "Set threshold"
-msgstr "Imposta la soglia"
+msgstr "Imposta soglia"
 
 #. DESC_RGB_DEFAULT
 msgid ""
@@ -1581,33 +1580,33 @@ msgstr "Salva i valori attivi di miglioramento nelle preferenze <Shift-m>"
 
 #. DESC_HIST_INTENSITY
 msgid "Show histogram of intensity/gray <Alt-i>"
-msgstr "Visualizza l'istogramma di intensità/grigio <Alt-i>"
+msgstr "Visualizza istogramma di intensità/grigio <Alt-i>"
 
 #. DESC_HIST_RED
 msgid "Show histogram of red component <Alt-r>"
-msgstr "Visualizza l'istogramma per la componente rossa <Alt-r>"
+msgstr "Visualizza istogramma per la componente rossa <Alt-r>"
 
 #. DESC_HIST_GREEN
 msgid "Show histogram of green component <Alt-g>"
-msgstr "Visualizza l'istogramma per la componente verde <Alt-g>"
+msgstr "Visualizza istogramma per la componente verde <Alt-g>"
 
 #. DESC_HIST_BLUE
 msgid "Show histogram of blue component <Alt-b>"
-msgstr "Visualizza l'istogramma per la componente blu <Alt-b>"
+msgstr "Visualizza istogramma per la componente blu <Alt-b>"
 
 #. DESC_HIST_PIXEL
 msgid "Display mode: show histogram with lines instead of pixels <Alt-m>"
 msgstr ""
-"Modalità di visualizzazione: visualizza l'istogramma per linee invece che "
-"per pixel <Alt-m>"
+"Modalità visualizzazione: visualizza l'istogramma per linee invece che per "
+"pixel <Alt-m>"
 
 #. DESC_HIST_LOG
 msgid "Show logarithm of pixelcount <Alt-l>"
-msgstr "Visualizza il logaritmo del conteggio dei pixel <Alt-l>"
+msgstr "Visualizza logaritmo del conteggio dei pixel <Alt-l>"
 
 #. DESC_PRINTER_SETUP
 msgid "Select definition to change"
-msgstr "Seleziona la definizione da cambiare"
+msgstr "Seleziona definizione da cambiare"
 
 #. DESC_PRINTER_NAME
 msgid "Define a name for the selection of this definition"
@@ -1643,11 +1642,11 @@ msgstr ""
 
 #. DESC_PRINTER_WIDTH
 msgid "Width of printable area"
-msgstr "Larghezza dell'area di stampa"
+msgstr "Larghezza area stampa"
 
 #. DESC_PRINTER_HEIGHT
 msgid "Height of printable area"
-msgstr "Altezza dell'area di stampa"
+msgstr "Altezza area stampa"
 
 #. DESC_PRINTER_LEFTOFFSET
 msgid "Left offset from the edge of the paper to the printable area"
@@ -1679,7 +1678,7 @@ msgstr "Percorso alla cartella temporanea"
 
 #. DESC_BUTTON_TMP_PATH_BROWSE
 msgid "Browse for temporary directory"
-msgstr "Cerca la cartella temporanea"
+msgstr "Cerca cartella temporanea"
 
 #. DESC_JPEG_QUALITY
 msgid ""
@@ -1744,11 +1743,11 @@ msgstr ""
 
 #. DESC_PSFILE_WIDTH
 msgid "Width of paper for postscript files"
-msgstr "Larghezza della carta per i file di tipo Postscript"
+msgstr "Larghezza carta per i file di tipo Postscript"
 
 #. DESC_PSFILE_HEIGHT
 msgid "Height of paper for postscript files"
-msgstr "Altezza della carta per i file di tipo Postscript"
+msgstr "Altezza carta per i file di tipo Postscript"
 
 #. DESC_PSFILE_LEFTOFFSET
 msgid ""
@@ -2092,31 +2091,31 @@ msgstr "Annulla l'ultima modifica"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
-msgstr "Duplica l'immagine"
+msgstr "Duplica immagine"
 
 #. DESC_ROTATE90
 msgid "Rotate image 90 degree"
-msgstr "Ruota l'immagine di 90 gradi"
+msgstr "Ruota immagine di 90 gradi"
 
 #. DESC_ROTATE180
 msgid "Rotate image 180 degree"
-msgstr "Ruota l'immagine di 180 gradi"
+msgstr "Ruota immagine di 180 gradi"
 
 #. DESC_ROTATE270
 msgid "Rotate image 270 degree"
-msgstr "Ruota l'immagine di 270 gradi"
+msgstr "Ruota immagine di 270 gradi"
 
 #. DESC_MIRROR_X
 msgid "Mirror image at vertical axis"
-msgstr "Ribalta l'immagine sull'asse verticale"
+msgstr "Ribalta immagine sull'asse verticale"
 
 #. DESC_MIRROR_Y
 msgid "Mirror image at horizontal axis"
-msgstr "Ribalta l'immagine sull'asse orizzontale"
+msgstr "Ribalta immagine sull'asse orizzontale"
 
 #. DESC_VIEWER_ZOOM
 msgid "Zoom image"
-msgstr "Ingrandisci l'immagine"
+msgstr "Ingrandisci immagine"
 
 #. DESC_STORE_MEDIUM
 msgid "Store medium"
@@ -2124,11 +2123,11 @@ msgstr "Memorizza supporto"
 
 #. DESC_DELETE_MEDIUM
 msgid "Delete active medium"
-msgstr "Elimina il supporto attivo"
+msgstr "Elimina supporto attivo"
 
 #. DESC_SCALE_FACTOR
 msgid "Scale factor"
-msgstr "Imposta il fattore di scala"
+msgstr "Imposta fattore di scala"
 
 #. DESC_X_SCALE_FACTOR
 msgid "X-Scale factor"
@@ -2148,19 +2147,19 @@ msgstr "Riscala l'immagine in altezza (in pixel)"
 
 #. DESC_BATCH_LIST_EMPTY
 msgid "Empty batch list"
-msgstr "Svuota la lista batch"
+msgstr "Svuota lista batch"
 
 #. DESC_BATCH_LIST_SAVE
 msgid "Save batch list"
-msgstr "Salva la lista batch"
+msgstr "Salva lista batch"
 
 #. DESC_BATCH_LIST_LOAD
 msgid "Load batch list"
-msgstr "Carica la lista batch"
+msgstr "Carica lista batch"
 
 #. DESC_BATCH_RENAME
 msgid "Rename area"
-msgstr "Rinomina l'area"
+msgstr "Rinomina area"
 
 #. DESC_BATCH_ADD
 msgid "Add selected preview area to batch list"
@@ -2172,7 +2171,7 @@ msgstr "Togli l'area selezionata dalla lista batch"
 
 #. DESC_AUTOMATIC
 msgid "Turns on automatic mode"
-msgstr "Attiva la modalità automatica"
+msgstr "Attiva modalità automatica"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2184,7 +2183,7 @@ msgstr "Non è possibile cambiare la cartella di lavoro a"
 
 #. ERR_FILENAME_TOO_LONG
 msgid "Filename too long"
-msgstr "Il nome file è troppo lungo"
+msgstr "Il nome del file è troppo lungo"
 
 #. ERR_CREATE_TEMP_FILE
 msgid "Could not create temporary file"
@@ -2278,6 +2277,10 @@ msgstr "LIBPNG ha riportato un errore"
 #. ERR_LIBJPEG
 msgid "LIBJPEG reports error"
 msgstr "LIBPNG ha riportato un errore"
+
+#. ERR_ZLIB
+msgid "ZLIB error or memory allocation problem"
+msgstr "Errore nelle ZLIB o problema di allocazione della memoria"
 
 #. ERR_UNKNOWN_TYPE
 msgid "unknown type"
@@ -2574,19 +2577,19 @@ msgstr ""
 #. Menu path must not be translated, this is done by the gimp. Only translate the text behind the last "/"
 #. XSANE_GIMP_MENU_DIALOG
 msgid "<Toolbox>/File/Acquire/XSane: Device dialog..."
-msgstr "<Strumenti>/File/Acquisisci/XSane: finestra dispositivo..."
+msgstr "<Toolbox>/File/Acquire/XSane: finestra dispositivo..."
 
 #. XSANE_GIMP_MENU
 msgid "<Toolbox>/File/Acquire/XSane: "
-msgstr "<Strumenti>/File/Acquisisci/Xsane: "
+msgstr "<Toolbox>/File/Acquire/XSane: "
 
 #. XSANE_GIMP_MENU_DIALOG_OLD
 msgid "<Toolbox>/Xtns/XSane/Device dialog..."
-msgstr "<Strumenti>/Xtns/Xsane/Finestra dispositivo..."
+msgstr "<Toolbox>/Xtns/XSane/Finestra dispositivo..."
 
 #. XSANE_GIMP_MENU_OLD
 msgid "<Toolbox>/Xtns/XSane/"
-msgstr "<Strumenti>/Xtns/XSane/"
+msgstr "<Toolbox>/Xtns/XSane/"
 
 #. HELP_NO_DEVICES
 msgid ""
@@ -2766,7 +2769,7 @@ msgstr "I dati di posta non sono stati accettati"
 
 #. TEXT_MAIL_STATUS_SENDING
 msgid "Sending mail"
-msgstr "Invio la posta"
+msgstr "Invio posta"
 
 #. TEXT_MAIL_STATUS_SENT
 msgid "Mail has been sent"
@@ -2786,7 +2789,7 @@ msgstr "Il progetto fax è stato cambiato"
 
 #. TEXT_FAX_STATUS_QUEUEING_FAX
 msgid "Queueing Fax"
-msgstr "Invio il fax"
+msgstr "Invio fax"
 
 #. TEXT_FAX_STATUS_FAX_QUEUED
 msgid "Fax is queued"

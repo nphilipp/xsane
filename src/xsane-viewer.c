@@ -253,7 +253,6 @@ static void xsane_viewer_save_callback(GtkWidget *window, gpointer data)
  char *inputfilename;
  char windowname[256];
  int output_format;
- char *filetype = NULL;
  int abort = 0;
  char buf[256];
 
@@ -282,7 +281,7 @@ static void xsane_viewer_save_callback(GtkWidget *window, gpointer data)
     snprintf(windowname, sizeof(windowname), "%s %s %s", xsane.prog_name, WINDOW_VIEWER_OUTPUT_FILENAME, xsane.device_text);
  
     umask((mode_t) preferences.directory_umask); /* define new file permissions */
-    abort = xsane_back_gtk_get_filename(windowname, outputfilename, sizeof(outputfilename), outputfilename, &filetype, TRUE, TRUE, FALSE, TRUE);
+    abort = xsane_back_gtk_get_filename(windowname, outputfilename, sizeof(outputfilename), outputfilename, &preferences.filetype, TRUE, TRUE, FALSE, TRUE);
     umask(XSANE_DEFAULT_UMASK); /* define new file permissions */ 
 
     if (abort)
@@ -321,7 +320,7 @@ static void xsane_viewer_save_callback(GtkWidget *window, gpointer data)
 
   inputfilename = strdup(v->filename);
 
-  output_format = xsane_identify_output_format(v->output_filename, filetype, 0);
+  output_format = xsane_identify_output_format(v->output_filename, preferences.filetype, 0);
 
   if ((!v->allow_reduction_to_lineart) && (output_format == XSANE_PNM)) /* save PNM but do not reduce to lineart (if lineart) */
   {

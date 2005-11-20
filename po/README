@@ -12,6 +12,10 @@ XSane uses gettext for supporting translation into different languages.
 - if you use other editors, search for keyword "fuzzy" and for \"\"
 - when you translated fuzzy fields, remove the "fuzzy" marker, otherwise the
   translation will NOT be used
+- The po files have to be in UTF-8 code!
+- to recode non-UTF-8 po files to UTF-8 put the po file
+  into the IMPORT_PO_DIR directory and call in the po directory
+  "make import-po-files"
 
 
 SELECT YOUR LANGUAGE:
@@ -38,6 +42,9 @@ NEW TRANSLATIONS:
 
 To create a new translation for a new language
 copy xsane.pot to "language".po and edit "language".po
+
+Create the new translation table in UTF-8 code if possible.
+The po files have to be in UTF-8 code for many systems!
 
 The field TEXT_TRANSLATION_INFO is meant for you to enter
 your Name and Email-Adress, e.g.:
