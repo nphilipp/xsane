@@ -82,9 +82,9 @@ static int xsane_generate_dummy_filename(int conversion_level)
   }
 
   if ( (xsane.mode == XSANE_GIMP_EXTENSION) ||
-       (preferences.xsane_mode == XSANE_COPY) ||
-       (preferences.xsane_mode == XSANE_VIEWER) ||
-       ( (preferences.xsane_mode == XSANE_SAVE)  &&
+       (xsane.xsane_mode == XSANE_COPY) ||
+       (xsane.xsane_mode == XSANE_VIEWER) ||
+       ( (xsane.xsane_mode == XSANE_SAVE)  &&
          (xsane.xsane_output_format != XSANE_PNM) &&
          (xsane.xsane_output_format != XSANE_RGBA) ) )
   {
@@ -99,14 +99,14 @@ static int xsane_generate_dummy_filename(int conversion_level)
 
    return TRUE;
   }
-  else if (preferences.xsane_mode == XSANE_FAX) /* no conversion following, save directly to the selected filename */
+  else if (xsane.xsane_mode == XSANE_FAX) /* no conversion following, save directly to the selected filename */
   {
     xsane.dummy_filename = strdup(xsane.fax_filename);
     DBG(DBG_info, "xsane.dummy_filename = %s\n", xsane.dummy_filename);
 
    return FALSE;
   }
-  else if (preferences.xsane_mode == XSANE_MAIL) /* no conversion following, save directly to the selected filename */
+  else if (xsane.xsane_mode == XSANE_MAIL) /* no conversion following, save directly to the selected filename */
   {
     xsane.dummy_filename = strdup(xsane.mail_filename);
     DBG(DBG_info, "xsane.dummy_filename = %s\n", xsane.dummy_filename);
@@ -1185,13 +1185,13 @@ void xsane_scan_done(SANE_Status status)
       }
     }
 
-    if (preferences.xsane_mode == XSANE_VIEWER)
+    if (xsane.xsane_mode == XSANE_VIEWER)
     {
       xsane_viewer_new(xsane.dummy_filename, TRUE, NULL, VIEWER_FULL_MODIFICATION);
       xsane.expand_lineart_to_grayscale = 0;
     }
 
-    if ((preferences.xsane_mode == XSANE_FAX) || (preferences.xsane_mode == XSANE_MAIL))
+    if ((xsane.xsane_mode == XSANE_FAX) || (xsane.xsane_mode == XSANE_MAIL))
     {
       xsane.expand_lineart_to_grayscale = 0;
     }
@@ -1207,7 +1207,7 @@ void xsane_scan_done(SANE_Status status)
       }
     }
 
-    if (preferences.xsane_mode == XSANE_SAVE)
+    if (xsane.xsane_mode == XSANE_SAVE)
     {
       if ( ( (xsane.xsane_output_format != XSANE_PNM) && /* these files do not need any transformation */
              (xsane.xsane_output_format != XSANE_RGBA) ) ||
@@ -1259,7 +1259,7 @@ void xsane_scan_done(SANE_Status status)
         }
       }
     }
-    else if (preferences.xsane_mode == XSANE_COPY)
+    else if (xsane.xsane_mode == XSANE_COPY)
     {
      FILE *outfile;
      FILE *infile;
@@ -1378,7 +1378,7 @@ void xsane_scan_done(SANE_Status status)
       }
     }
 
-    if ( (preferences.xsane_mode == XSANE_SAVE) && (xsane.mode == XSANE_STANDALONE) )
+    if ( (xsane.xsane_mode == XSANE_SAVE) && (xsane.mode == XSANE_STANDALONE) )
     {
       if (!xsane.force_filename) /* user filename selection active */
       {
@@ -1395,7 +1395,7 @@ void xsane_scan_done(SANE_Status status)
         xsane_update_counter_in_filename(&xsane.external_filename, TRUE, 1, 0);
       }
     }
-    else if (preferences.xsane_mode == XSANE_FAX)
+    else if (xsane.xsane_mode == XSANE_FAX)
     {
      GtkWidget *list_item;
      char *page;
@@ -1437,7 +1437,7 @@ void xsane_scan_done(SANE_Status status)
       gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.fax_progress_bar), 0.0);
     }
 #ifdef XSANE_ACTIVATE_MAIL
-    else if (preferences.xsane_mode == XSANE_MAIL)
+    else if (xsane.xsane_mode == XSANE_MAIL)
     {
      GtkWidget *list_item;
      char *page;
@@ -1628,9 +1628,9 @@ static void xsane_start_scan(void)
   }
 
   if ((xsane.param.depth == 1) && ((xsane.scan_rotation) ||
-                                   (preferences.xsane_mode == XSANE_VIEWER) ||
-                                   (preferences.xsane_mode == XSANE_FAX) ||
-                                   (preferences.xsane_mode == XSANE_MAIL))
+                                   (xsane.xsane_mode == XSANE_VIEWER) ||
+                                   (xsane.xsane_mode == XSANE_FAX) ||
+                                   (xsane.xsane_mode == XSANE_MAIL))
      ) /* We want to do a transformation with a lineart scan */
        /* or use the viewer to display a lineart scan, */
        /* so we save it as grayscale */
@@ -1755,7 +1755,7 @@ void xsane_scan_dialog(void)
 
   sane_get_parameters(xsane.dev, &xsane.param); /* update xsane.param */
 
-  if ( (xsane.mode == XSANE_STANDALONE) && (preferences.xsane_mode == XSANE_SAVE) )
+  if ( (xsane.mode == XSANE_STANDALONE) && (xsane.xsane_mode == XSANE_SAVE) )
   {
     /* correct length of filename counter if it is shorter than minimum length */
     if (!xsane.force_filename)
@@ -1776,7 +1776,7 @@ void xsane_scan_dialog(void)
   {
    char *extension;
 
-    if ( (preferences.xsane_mode == XSANE_SAVE) && (preferences.overwrite_warning) ) /* test if filename already used */
+    if ( (xsane.xsane_mode == XSANE_SAVE) && (preferences.overwrite_warning) ) /* test if filename already used */
     {
      FILE *testfile;
 
@@ -1798,7 +1798,7 @@ void xsane_scan_dialog(void)
 
     xsane.xsane_output_format = xsane_identify_output_format(xsane.output_filename, preferences.filetype, &extension);
 
-    if (preferences.xsane_mode == XSANE_SAVE)
+    if (xsane.xsane_mode == XSANE_SAVE)
     {
       if (xsane.xsane_output_format == XSANE_UNKNOWN)
       {
@@ -1863,7 +1863,7 @@ void xsane_scan_dialog(void)
     }
 #endif
 
-    if (preferences.xsane_mode == XSANE_FAX)
+    if (xsane.xsane_mode == XSANE_FAX)
     {
       mkdir(preferences.fax_project, 7*64 + 0*8 + 0);
     }
@@ -1953,7 +1953,7 @@ void xsane_scan_dialog(void)
     xsane.gamma_data_green = malloc(gamma_green_size * sizeof(SANE_Int));
     xsane.gamma_data_blue  = malloc(gamma_blue_size  * sizeof(SANE_Int));
 
-    if (preferences.xsane_mode == XSANE_COPY)
+    if (xsane.xsane_mode == XSANE_COPY)
     {
       gamma_red   = xsane.gamma * xsane.gamma_red   * preferences.printer[preferences.printernr]->gamma * preferences.printer[preferences.printernr]->gamma_red;
       gamma_green = xsane.gamma * xsane.gamma_green * preferences.printer[preferences.printernr]->gamma * preferences.printer[preferences.printernr]->gamma_green;
@@ -2013,7 +2013,7 @@ void xsane_scan_dialog(void)
     gamma_gray_size = opt->size / sizeof(opt->type);
     gamma_gray_max  = opt->constraint.range->max;
 
-    if (preferences.xsane_mode == XSANE_COPY)
+    if (xsane.xsane_mode == XSANE_COPY)
     {
       gamma = xsane.gamma * preferences.printer[preferences.printernr]->gamma;
     }
@@ -2087,7 +2087,7 @@ static void xsane_create_internal_gamma_tables(void)
       xsane.gamma_data_green = malloc(size * sizeof(SANE_Int));
       xsane.gamma_data_blue  = malloc(size * sizeof(SANE_Int));
 
-      if (preferences.xsane_mode == XSANE_COPY)
+      if (xsane.xsane_mode == XSANE_COPY)
       {
         gamma_red   = xsane.gamma_red   * preferences.printer[preferences.printernr]->gamma_red;
         gamma_green = xsane.gamma_green * preferences.printer[preferences.printernr]->gamma_green;
@@ -2128,7 +2128,7 @@ static void xsane_create_internal_gamma_tables(void)
       xsane.gamma_data_green = malloc(size * sizeof(SANE_Int));
       xsane.gamma_data_blue  = malloc(size * sizeof(SANE_Int));
 
-      if (preferences.xsane_mode == XSANE_COPY)
+      if (xsane.xsane_mode == XSANE_COPY)
       {
         gamma_red   = xsane.gamma * xsane.gamma_red   * preferences.printer[preferences.printernr]->gamma * preferences.printer[preferences.printernr]->gamma_red;
         gamma_green = xsane.gamma * xsane.gamma_green * preferences.printer[preferences.printernr]->gamma * preferences.printer[preferences.printernr]->gamma_green;
@@ -2173,7 +2173,7 @@ static void xsane_create_internal_gamma_tables(void)
 
       DBG(DBG_info, "creating xsane internal gray gamma table with size %d\n", size);
 
-      if (preferences.xsane_mode == XSANE_COPY)
+      if (xsane.xsane_mode == XSANE_COPY)
       {
         gamma = xsane.gamma * preferences.printer[preferences.printernr]->gamma;
       }

@@ -711,7 +711,7 @@ typedef struct Xsane
 
     /* saving and transformation values: */
     FILE *out;
-//    int xsane_mode;
+    int xsane_mode;
     int xsane_output_format;
     long header_size;
     int expand_lineart_to_grayscale;

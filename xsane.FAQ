@@ -1,26 +1,8 @@
+Q: scanimage does work, xsane does not (or vice versa). What can I do?
 
-================================================================================
-Q: Have you considered adding a scan to PDF multipage functionality to XSane?
---------------------------------------------------------------------------------
-A:
-I already made up my mind about scanning to a pdf file.
-The pdf format is a bad format for scanning images.
-When you scan a text document to a pdf file then there are
-two large differences to usual pdf documents:
+A1: in most cases this is caused by at least two installations of sane-backends.
+Make sure only ony sane-backends version is installed.
 
-- the size of the scanned documents is about 10-50 times larger than
-the size of a comparable text document
-- you can not search such a document
-
-So scanning text and saving it as image to pdf is no good idea.
-
-And for scanning photos:
-The PDF format is a document format, more comparable
-to the Microsoft Word format than to jpeg, png or Tiff.
-When you scanned 100 pictures to a pdf document, how
-will you extract one of the pictures?
-
-I plan to include multipage tiff and postscript files.
-But not in the near future - I do not have the time for it
-in the moment.
-================================================================================
+A2: may be /usr/local/lib/sane, /usr/lib/sane or /lib/sane is listed in /etc/ld.so.conf
+this is not allowed. Remove theses lines from /etc/ld.so.conf and call
+ldconfig as root.

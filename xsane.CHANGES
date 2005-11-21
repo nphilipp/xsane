@@ -2732,3 +2732,13 @@ xsane-0.97 -> 0.98:
  - translations: U=updated, N=not updated, A=added/new
    cs da de es fr hu it ja nl pl pt pt_BR ro ru sk sl sr sv tr vi zh
    U  U  U  N  N  U  U  N  N  N  N  N     N  U  U  N  N  N  N  N  N
+
+xsane-0.98 -> 0.98a:
+--------------------
+
+ - corrected gimp_plugin bug:
+   xsane_mode now is hold in xsane.xsane_mode like bevore xsane-0.98,
+   additionally preferences.xsane_mode is used to store the user
+   selection
+   the user selection is loaded at program start when nothing else is predefined
+

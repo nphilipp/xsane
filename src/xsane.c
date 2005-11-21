@@ -328,7 +328,7 @@ static void xsane_set_modus_defaults(void)
 {
   DBG(DBG_proc, "xsane_set_modus_defaults\n");
 
-  switch(preferences.xsane_mode)
+  switch(xsane.xsane_mode)
   {
     case XSANE_VIEWER:
       xsane_define_maximum_output_size();
@@ -398,23 +398,24 @@ static void xsane_modus_callback(GtkWidget *xsane_parent, int *num)
 {
   DBG(DBG_proc, "xsane_modus_callback\n");
 
+  xsane.xsane_mode = *num;
   preferences.xsane_mode = *num;
 
   xsane_set_modus_defaults(); /* set defaults and maximum output size */
   xsane_refresh_dialog();
 
-  if ((preferences.xsane_mode == XSANE_SAVE) || (preferences.xsane_mode == XSANE_VIEWER) || (preferences.xsane_mode == XSANE_COPY))
+  if ((xsane.xsane_mode == XSANE_SAVE) || (xsane.xsane_mode == XSANE_VIEWER) || (xsane.xsane_mode == XSANE_COPY))
   {
     gtk_widget_set_sensitive(GTK_WIDGET(xsane.start_button), TRUE); 
   }
 
-  if (preferences.xsane_mode != XSANE_FAX)
+  if (xsane.xsane_mode != XSANE_FAX)
   {
     xsane_fax_dialog_close();
   }
 
 #ifdef XSANE_ACTIVATE_MAIL
-  if (preferences.xsane_mode != XSANE_MAIL)
+  if (xsane.xsane_mode != XSANE_MAIL)
   {
     if (xsane.mail_project_save)
     {
@@ -1206,7 +1207,7 @@ static void xsane_scanmode_menu_callback(GtkWidget *widget, gpointer data)
   opt = xsane_get_option_descriptor(xsane.dev, opt_num);
   xsane_back_gtk_set_option(opt_num, menu_item->label, SANE_ACTION_SET_VALUE);
 
-  if (preferences.xsane_mode == XSANE_COPY)
+  if (xsane.xsane_mode == XSANE_COPY)
   {
     switch (xsane.param.format)
     {
@@ -1336,7 +1337,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
     xsane_back_gtk_set_tooltip(xsane.tooltips, xsane_modus_option_menu, DESC_XSANE_MODE);
     gtk_box_pack_end(GTK_BOX(xsane_hbox_xsane_modus), xsane_modus_option_menu, FALSE, FALSE, 2);
     gtk_option_menu_set_menu(GTK_OPTION_MENU(xsane_modus_option_menu), xsane_modus_menu);
-    gtk_option_menu_set_history(GTK_OPTION_MENU(xsane_modus_option_menu), preferences.xsane_mode);
+    gtk_option_menu_set_history(GTK_OPTION_MENU(xsane_modus_option_menu), xsane.xsane_mode);
     gtk_widget_show(xsane_modus_option_menu);
     gtk_widget_show(xsane_hbox_xsane_modus);
 
@@ -1495,7 +1496,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
   }
 
 
-  if (preferences.xsane_mode == XSANE_SAVE)
+  if (xsane.xsane_mode == XSANE_SAVE)
   {
     xsane.copy_number_entry = NULL;
 
@@ -1505,7 +1506,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
     }
   }
 
-  if ( (preferences.xsane_mode == XSANE_SAVE) || (preferences.xsane_mode == XSANE_VIEWER) )
+  if ( (xsane.xsane_mode == XSANE_SAVE) || (xsane.xsane_mode == XSANE_VIEWER) )
   {
     /* resolution selection */
     if (!xsane_resolution_widget_new(xsane_vbox_xsane_modus, xsane.well_known.dpi_x, &xsane.resolution_x, resolution_x_xpm,
@@ -1520,7 +1521,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
                                   DESC_RESOLUTION, XSANE_GTK_NAME_RESOLUTION); 
     }
   }
-  else if (preferences.xsane_mode == XSANE_COPY)
+  else if (xsane.xsane_mode == XSANE_COPY)
   {
    GtkWidget *pixmapwidget, *hbox, *xsane_printer_option_menu, *xsane_printer_menu, *xsane_printer_item;
    GdkBitmap *mask;
@@ -1677,7 +1678,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
                             xsane.resolution, zoom_xpm, DESC_ZOOM);
     }
   }
-  else if (preferences.xsane_mode == XSANE_FAX)
+  else if (xsane.xsane_mode == XSANE_FAX)
   {
     xsane.copy_number_entry = NULL;
 
@@ -1689,7 +1690,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
     xsane_fax_dialog();
   }
 #ifdef XSANE_ACTIVATE_MAIL
-  else if (preferences.xsane_mode == XSANE_MAIL)
+  else if (xsane.xsane_mode == XSANE_MAIL)
   {
     xsane.copy_number_entry = NULL;
 
@@ -2123,6 +2124,14 @@ static int xsane_pref_restore(void)
     else
     {
       preferences.browser = strdup(DEFAULT_BROWSER);
+    }
+  }
+
+  if (xsane.mode != XSANE_GIMP_EXTENSION)
+  {
+    if (xsane.xsane_mode < 0)
+    {
+      xsane.xsane_mode = preferences.xsane_mode;
     }
   }
 
@@ -8726,23 +8735,23 @@ static int xsane_init(int argc, char **argv)
          break;
 
         case 'V': /* --viewer, default */
-          preferences.xsane_mode = XSANE_VIEWER;
+          xsane.xsane_mode = XSANE_VIEWER;
          break;
 
         case 's': /* --save */
-          preferences.xsane_mode = XSANE_SAVE;
+          xsane.xsane_mode = XSANE_SAVE;
          break;
 
         case 'c': /* --copy */
-          preferences.xsane_mode = XSANE_COPY;
+          xsane.xsane_mode = XSANE_COPY;
          break;
 
         case 'f': /* --fax */
-          preferences.xsane_mode = XSANE_FAX;
+          xsane.xsane_mode = XSANE_FAX;
          break;
 
         case 'm': /* --mail */
-          preferences.xsane_mode = XSANE_MAIL;
+          xsane.xsane_mode = XSANE_MAIL;
          break;
 
         case 'n': /* --No-mode-selection */
@@ -9009,7 +9018,7 @@ int main(int argc, char **argv)
   xsane.main_window_fixed   = -1; /* no command line option given, use preferences or fixed */
 
   xsane.mode                = XSANE_STANDALONE;
-  preferences.xsane_mode    = XSANE_VIEWER;
+  xsane.xsane_mode          = -1;
   xsane.lineart_mode        = XSANE_LINEART_STANDARD;
   xsane.xsane_output_format = XSANE_PNM;
   xsane.mode_selection      = 1; /* enable selection of xsane mode */

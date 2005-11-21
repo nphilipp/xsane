@@ -4707,7 +4707,7 @@ static void xsane_gimp_run(char *name, int nparams, GimpParam *param, int *nretu
 
   run_mode = param[0].data.d_int32;
   xsane.mode = XSANE_GIMP_EXTENSION;
-  preferences.xsane_mode = XSANE_SAVE;
+  xsane.xsane_mode = XSANE_SAVE;
 
   *nreturn_vals = 1;
   *return_vals = values;
