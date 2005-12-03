@@ -2742,3 +2742,11 @@ xsane-0.98 -> 0.98a:
    selection
    the user selection is loaded at program start when nothing else is predefined
 
+
+xsane-0.98a -> 0.98b:
+---------------------
+
+ - changed bug in header file due to conficting types in xsane-front-gtk.h
+   from:  int xsane_set_resolution(int well_known_option, double resolution);
+   to: double xsane_set_resolution(int well_known_option, double resolution);
+

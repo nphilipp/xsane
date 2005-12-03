@@ -24,6 +24,7 @@
 
 #include "xsane.h"
 #include "xsane-back-gtk.h"
+#include "xsane-front-gtk.h"
 #include "xsane-preferences.h"
 #include "xsane-preview.h"
 #include "xsane-save.h"

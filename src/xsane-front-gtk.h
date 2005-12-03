@@ -35,7 +35,7 @@
 extern int xsane_parse_options(char *options, char *argv[]);
 extern void xsane_get_bounds(const SANE_Option_Descriptor *opt, double *minp, double *maxp);
 extern double xsane_find_best_resolution(int well_known_option, double dpi);
-extern int xsane_set_resolution(int well_known_option, double resolution);
+extern double xsane_set_resolution(int well_known_option, double resolution);
 extern void xsane_set_all_resolutions(void);
 extern void xsane_define_maximum_output_size(); 
 extern void xsane_close_dialog_callback(GtkWidget *widget, gpointer data);
@@ -77,7 +77,7 @@ extern void xsane_define_output_filename(void);
 extern int xsane_identify_output_format(char *filename, char *filetype, char **ext);
 extern void xsane_change_working_directory(void);
 extern int xsane_display_eula(int ask_for_accept);
-extern int xsane_display_gpl(void);
+extern void xsane_display_gpl(void);
 extern void xsane_window_get_position(GtkWidget *gtk_window, gint *x, gint *y);
 extern void xsane_widget_test_uposition(GtkWidget *gtk_window);
 extern int xsane_front_gtk_getname_dialog(const char *dialog_title, const char *desc_text, char *oldname, char **newname);
