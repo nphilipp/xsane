@@ -25,6 +25,7 @@
 #include "xsane.h"
 #include "xsane-back-gtk.h"
 #include "xsane-front-gtk.h"
+#include "xsane-save.h"
 #include <time.h>
 #include <sys/wait.h> 
 
@@ -666,10 +667,10 @@ void xsane_write_pnm_header(FILE *file, Image_info *image_info, int save_pnm16_a
 
 int xsane_copy_file(FILE *outfile, FILE *infile, GtkProgressBar *progress_bar, int *cancel_save)
 {
- int size;
- int bytes;
- int bytes_sum = 0;
- char buf[65536];
+ long size;
+ long bytes_sum = 0;
+ size_t bytes;
+ unsigned char buf[65536];
 
   DBG(DBG_proc, "copying file\n");
 
@@ -700,6 +701,17 @@ int xsane_copy_file(FILE *outfile, FILE *infile, GtkProgressBar *progress_bar, i
       gtk_main_iteration();
     }
 
+    if (ferror(infile))
+    {
+     char buf[255];
+
+      snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_READ, strerror(errno));
+      DBG(DBG_error, "%s\n", buf);
+      xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+      *cancel_save = 1;
+     break;
+    }
+
     if (ferror(outfile))
     {
      char buf[255];
@@ -721,12 +733,12 @@ int xsane_copy_file(FILE *outfile, FILE *infile, GtkProgressBar *progress_bar, i
 
   if (size != bytes_sum)
   {
-    DBG(DBG_info, "copy errro, not complete, %d bytes of %d bytes copied\n", bytes_sum, size);
+    DBG(DBG_info, "copy errro, not complete, %ld bytes of %ld bytes copied\n", bytes_sum, size);
     *cancel_save = 1;
    return (*cancel_save);
   }
 
-  DBG(DBG_info, "copy complete, %d bytes copied\n", bytes_sum);
+  DBG(DBG_info, "copy complete, %ld bytes copied\n", bytes_sum);
 
  return (*cancel_save);
 }
@@ -1373,11 +1385,10 @@ int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info
  int x, y, sx, sy;
  int xmin, xmax;
  int ymin, ymax;
- float val, norm;
+ double val, norm, outer_factor;
  unsigned char *line_cache;
  int bytespp = 1;
  int intradius;
- float outer_factor;
  int xmin_flag;
  int xmax_flag;
  int ymin_flag;
@@ -1498,7 +1509,7 @@ int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info
         }
         fputc((char) ((int) (val/norm)), outfile);
       }
-      else
+      else /* bytespp == 2 */
       {
        guint16 *line_cache16 = (guint16 *) line_cache;
        guint16 val16;
@@ -2216,17 +2227,74 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_save_ps_create_header(FILE *outfile, Image_info *image_info,
-                                        float width, float height,
-                                        int paper_left_margin, int paper_bottom_margin,
-                                        int paper_width, int paper_height,
-                                        int paper_orientation,
-                                        GtkProgressBar *progress_bar)
+void xsane_save_ps_create_document_header(FILE *outfile, int pages, int flatdecode)
+{
+  DBG(DBG_proc, "xsane_save_ps_create_document_header\n");
+
+  fprintf(outfile, "%%!PS-Adobe-3.0\n");
+  fprintf(outfile, "%%%%Creator: XSane version %s (sane %d.%d) - by Oliver Rauch\n", VERSION,
+                        SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
+                        SANE_VERSION_MINOR(xsane.sane_backend_versioncode));
+  fprintf(outfile, "%%%%DocumentData: Clean7Bit\n");
+  if (flatdecode)
+  {
+    fprintf(outfile, "%%%%LanguageLevel: 3\n");
+  }
+  else
+  {
+    fprintf(outfile, "%%%%LanguageLevel: 2\n");
+  }
+
+  if (pages)
+  {
+    fprintf(outfile, "%%%%Pages: %d\n", pages);
+  }
+  else
+  {
+    fprintf(outfile, "%%%%Pages: (atend)\n");
+  }
+  
+  fprintf(outfile, "%%%%EndComments\n");
+  fprintf(outfile, "\n");
+  fprintf(outfile, "/origstate save def\n");
+  fprintf(outfile, "20 dict begin\n");
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void xsane_save_ps_create_document_trailer(FILE *outfile, int pages)
+{
+  DBG(DBG_proc, "xsane_save_ps_create_document_trailer\n");
+
+  fprintf(outfile, "end\n");
+  fprintf(outfile, "origstate restore\n");
+
+  if (pages)
+  {
+    fprintf(outfile, "%%%%Trailer\n");
+    fprintf(outfile, "%%%%Pages: %d\n", pages);
+  }
+
+  fprintf(outfile, "%%%%EOF\n");
+  fprintf(outfile, "\n");
+
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+/* page = [1 .. pages] */
+static void xsane_save_ps_create_page_header(FILE *outfile, int page,
+                                             Image_info *image_info,
+                                             float width, float height,
+                                             int paper_left_margin, int paper_bottom_margin,
+                                             int paper_width, int paper_height,
+                                             int paper_orientation, int flatdecode,
+                                             GtkProgressBar *progress_bar)
 {
  int degree, position_left, position_bottom, box_left, box_bottom, box_right, box_top, depth;
  int left, bottom;
 
-  DBG(DBG_proc, "xsane_save_ps_create_header\n");
+  DBG(DBG_proc, "xsane_save_ps_create_page_header\n");
 
   switch (paper_orientation)
   {
@@ -2312,19 +2380,9 @@ static void xsane_save_ps_create_header(FILE *outfile, Image_info *image_info,
     depth = 8;
   }
 
-  fprintf(outfile, "%%!PS-Adobe-3.0\n");
-  fprintf(outfile, "%%%%Creator: XSane version %s (sane %d.%d) - by Oliver Rauch\n", VERSION,
-                        SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
-                        SANE_VERSION_MINOR(xsane.sane_backend_versioncode));
-  fprintf(outfile, "%%%%DocumentData: Clean7Bit\n");
-  fprintf(outfile, "%%%%LanguageLevel: 2\n");
-  fprintf(outfile, "%%%%Pages: 1\n");
-  fprintf(outfile, "%%%%BoundingBox: %d %d %d %d\n", box_left, box_bottom, box_right, box_top);
-  fprintf(outfile, "%%%%EndComments\n");
   fprintf(outfile, "\n");
-  fprintf(outfile, "/origstate save def\n");
-  fprintf(outfile, "20 dict begin\n");
-  fprintf(outfile, "%%%%Page: 1 1\n");
+  fprintf(outfile, "%%%%Page: %d %d\n", page, page);
+  fprintf(outfile, "%%%%PageBoundingBox: %d %d %d %d\n", box_left, box_bottom, box_right, box_top);
 
   if (depth == 1)
   {
@@ -2341,7 +2399,10 @@ static void xsane_save_ps_create_header(FILE *outfile, Image_info *image_info,
   fprintf(outfile, "currentfile\n");
   fprintf(outfile, "/ASCII85Decode filter\n");
 #ifdef HAVE_LIBZ
-  fprintf(outfile, "/FlateDecode filter\n");
+  if (flatdecode)
+  {
+    fprintf(outfile, "/FlateDecode filter\n");
+  }
 #endif
 
   if (image_info->colors == 3) /* what about RGBA here ? */
@@ -2358,28 +2419,35 @@ static void xsane_save_ps_create_header(FILE *outfile, Image_info *image_info,
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static void xsane_save_ps_create_page_trailer(FILE *outfile)
+{
+  fprintf(outfile, "\n");
+  fprintf(outfile, "showpage\n");
+  fprintf(outfile, "%%%%PageTrailer\n");
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+#ifdef HAVE_LIBZ
 /* Utility function for the PostScript output */
-static int xsane_write_compressed_a85(FILE *outfile, unsigned char *line, int len, int finish)
+static int xsane_write_compressed_a85_flatdecode(FILE *outfile, unsigned char *line, int len, int finish)
 {
   static unsigned char *cbuf = NULL;
   static int cbuflen = 0;
   static int linelen = 0;
   int i, j;
   int outlen;
-#ifdef HAVE_LIBZ
   static int init = 0;
   static z_stream s;
   int ret;
   int flush;
-#endif
   static int a85count = 0;
   static guint32 a85tuple = 0;
   static unsigned char a85block[6] = {0, 0, 0, 0, 0, 0};
   static int count = 0;
 
-  DBG(DBG_proc, "xsane_write_compressed_a85\n");
+  DBG(DBG_proc, "xsane_write_compressed_a85_flatdecode\n");
 
-#ifdef HAVE_LIBZ
   if (linelen != len)
   {
     linelen = len;
@@ -2436,10 +2504,6 @@ static int xsane_write_compressed_a85(FILE *outfile, unsigned char *line, int le
     }
 
     outlen = cbuflen - s.avail_out;
-#else
-    cbuf = line;
-    outlen = len;
-#endif /* HAVE_LIBZ */
 
     /* ASCII85 (base 85) encoding */
     for (i = 0; i < outlen; i++)
@@ -2504,9 +2568,7 @@ static int xsane_write_compressed_a85(FILE *outfile, unsigned char *line, int le
          break;
       }
     }
-#ifdef HAVE_LIBZ
   } while (s.avail_out == 0);
-#endif
 
   if (finish)
   {
@@ -2538,12 +2600,135 @@ static int xsane_write_compressed_a85(FILE *outfile, unsigned char *line, int le
       fprintf(outfile, "\n");
     }
     fprintf(outfile, "~>\n");
-#ifdef HAVE_LIBZ
     deflateEnd(&s);
     free(cbuf);
     cbuf = NULL;
     init = 0;
+    a85tuple = 0;
+    a85count = 0;
+    cbuflen = 0;
+    linelen = 0;
+    count = 0;
+  }
+
+ return 0;
+}
 #endif
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+/* Utility function for the PostScript output */
+static int xsane_write_compressed_a85(FILE *outfile, unsigned char *line, int len, int finish)
+{
+  static unsigned char *cbuf = NULL;
+  static int cbuflen = 0;
+  static int linelen = 0;
+  int i, j;
+  int outlen;
+  static int a85count = 0;
+  static guint32 a85tuple = 0;
+  static unsigned char a85block[6] = {0, 0, 0, 0, 0, 0};
+  static int count = 0;
+
+  DBG(DBG_proc, "xsane_write_compressed_a85\n");
+
+    cbuf = line;
+    outlen = len;
+
+    /* ASCII85 (base 85) encoding */
+    for (i = 0; i < outlen; i++)
+    {
+      switch (a85count)
+      {
+        case 0:
+          a85tuple |= (cbuf[i] << 24);
+          a85count++;
+         break;
+
+        case 1:
+          a85tuple |= (cbuf[i] << 16);
+          a85count++;
+         break;
+
+        case 2:
+          a85tuple |= (cbuf[i] << 8);
+          a85count++;
+         break;
+
+        case 3:
+          a85tuple |= (cbuf[i] << 0);
+
+          if (count == 40)
+          {
+            fprintf(outfile, "\n");
+            count = 0;
+          }
+
+          if (a85tuple == 0)
+          {
+            fprintf(outfile, "z");
+            count++;
+          }
+          else
+          {
+            /* The ASCII chars must be written in reverse order, hence -> a85block[4-j] */
+            for (j = 0; j < 5; j++)
+            {
+              a85block[4-j] = a85tuple % 85 + '!';
+              a85tuple /= 85;
+            }
+
+            for (j = 0; j < 5; j++)
+            {
+              fprintf(outfile, "%c", a85block[j]);
+              count++;
+              if (count == 40)
+              {
+                fprintf(outfile, "\n");
+                count = 0;
+              }
+            }
+          }
+
+          a85count = 0;
+          a85tuple = 0;
+         break;
+
+        default:
+         break;
+      }
+    }
+
+  if (finish)
+  {
+    DBG(DBG_info, "finish\n");
+    if (a85count > 0)
+    {
+      a85count++;
+      for (j = 0; j <= a85count; j++)
+      {
+        a85block[j] = a85tuple % 85 + '!';
+        a85tuple /= 85;
+      }
+      /* Reverse order */
+      for (j--; j > 0; j--)
+      {
+        if (count == 40)
+        {
+          fprintf(outfile, "\n");
+          count = 0;
+        }
+        fprintf(outfile, "%c", a85block[j]);
+        count++;
+      }
+    }
+
+    /* ASCII85 EOD marker + newline*/
+    if (count + 2 > 40)
+    {
+      fprintf(outfile, "\n");
+    }
+    fprintf(outfile, "~>\n");
     a85tuple = 0;
     a85count = 0;
     cbuflen = 0;
@@ -2556,7 +2741,7 @@ static int xsane_write_compressed_a85(FILE *outfile, unsigned char *line, int le
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static int xsane_save_ps_pdf_bw(FILE *outfile, FILE *imagefile, Image_info *image_info, GtkProgressBar *progress_bar, int *cancel_save)
+static int xsane_save_ps_pdf_bw(FILE *outfile, FILE *imagefile, Image_info *image_info, int flatdecode, GtkProgressBar *progress_bar, int *cancel_save)
 {
  int x, y;
  int bytes_per_line = (image_info->image_width+7)/8;
@@ -2593,7 +2778,16 @@ static int xsane_save_ps_pdf_bw(FILE *outfile, FILE *imagefile, Image_info *imag
       line[x] = fgetc(imagefile) ^ 255;
     }
 
-    ret = xsane_write_compressed_a85(outfile, line, bytes_per_line, (y == image_info->image_height - 1));
+#ifdef HAVE_LIBZ
+    if (flatdecode)
+    {
+      ret = xsane_write_compressed_a85_flatdecode(outfile, line, bytes_per_line, (y == image_info->image_height - 1));
+    }
+    else
+#endif
+    {
+      ret = xsane_write_compressed_a85(outfile, line, bytes_per_line, (y == image_info->image_height - 1));
+    }
 
     if ((ret != 0) || (ferror(outfile)))
     {
@@ -2628,7 +2822,7 @@ static int xsane_save_ps_pdf_bw(FILE *outfile, FILE *imagefile, Image_info *imag
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static int xsane_save_ps_pdf_gray(FILE *outfile, FILE *imagefile, Image_info *image_info, GtkProgressBar *progress_bar, int *cancel_save)
+static int xsane_save_ps_pdf_gray(FILE *outfile, FILE *imagefile, Image_info *image_info, int flatdecode, GtkProgressBar *progress_bar, int *cancel_save)
 {
   int x, y;
   int ret;
@@ -2671,7 +2865,16 @@ static int xsane_save_ps_pdf_gray(FILE *outfile, FILE *imagefile, Image_info *im
       }
     }
 
-    ret = xsane_write_compressed_a85(outfile, line, image_info->image_width, (y == image_info->image_height - 1));
+#ifdef HAVE_LIBZ
+    if (flatdecode)
+    {
+      ret = xsane_write_compressed_a85_flatdecode(outfile, line, image_info->image_width, (y == image_info->image_height - 1));
+    }
+    else
+#endif
+    {
+      ret = xsane_write_compressed_a85(outfile, line, image_info->image_width, (y == image_info->image_height - 1));
+    }
 
     if ((ret != 0) || (ferror(outfile)))
     {
@@ -2712,7 +2915,7 @@ static int xsane_save_ps_pdf_gray(FILE *outfile, FILE *imagefile, Image_info *im
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static int xsane_save_ps_pdf_color(FILE *outfile, FILE *imagefile, Image_info *image_info, GtkProgressBar *progress_bar, int *cancel_save)
+static int xsane_save_ps_pdf_color(FILE *outfile, FILE *imagefile, Image_info *image_info, int flatdecode, GtkProgressBar *progress_bar, int *cancel_save)
 {
   int x, y;
   int ret;
@@ -2769,7 +2972,16 @@ static int xsane_save_ps_pdf_color(FILE *outfile, FILE *imagefile, Image_info *i
       }
     }
 
-    ret = xsane_write_compressed_a85(outfile, line, (image_info->image_width * 3), (y == image_info->image_height - 1));
+#ifdef HAVE_LIBZ
+    if (flatdecode)
+    {
+      ret = xsane_write_compressed_a85_flatdecode(outfile, line, (image_info->image_width * 3), (y == image_info->image_height - 1));
+    }
+    else
+#endif
+    {
+      ret = xsane_write_compressed_a85(outfile, line, (image_info->image_width * 3), (y == image_info->image_height - 1));
+    }
 
     if ((ret != 0) || (ferror(outfile)))
     {
@@ -2804,40 +3016,37 @@ static int xsane_save_ps_pdf_color(FILE *outfile, FILE *imagefile, Image_info *i
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-int xsane_save_ps(FILE *outfile, FILE *imagefile, Image_info *image_info, float width, float height,
-                  int paper_left_margin, int paper_bottom_margin, int paperheight, int paperwidth, int paper_orientation,
-                  GtkProgressBar *progress_bar, int *cancel_save)
+int xsane_save_ps_page(FILE *outfile, int page,
+                       FILE *imagefile, Image_info *image_info, float width, float height,
+                       int paper_left_margin, int paper_bottom_margin, int paperwidth, int paperheight, int paper_orientation,
+                       int flatdecode,
+                       GtkProgressBar *progress_bar, int *cancel_save)
 {
-  DBG(DBG_proc, "xsane_save_ps\n");
+  DBG(DBG_proc, "xsane_save_ps_page\n");
 
-  *cancel_save = 0;
-
-  xsane_save_ps_create_header(outfile, image_info, width, height,
-                              paper_left_margin, paper_bottom_margin, paperheight, paperwidth, paper_orientation,
-                              progress_bar);
+  xsane_save_ps_create_page_header(outfile, page,
+                                   image_info, width, height,
+                                   paper_left_margin, paper_bottom_margin, paperwidth, paperheight, paper_orientation,
+                                   flatdecode,
+                                   progress_bar);
 
   if (image_info->colors == 1) /* lineart, halftone, grayscale */
   {
     if (image_info->depth == 1) /* lineart, halftone */
     {
-      xsane_save_ps_pdf_bw(outfile, imagefile, image_info, progress_bar, cancel_save);
+      xsane_save_ps_pdf_bw(outfile, imagefile, image_info, flatdecode, progress_bar, cancel_save);
     }
     else /* grayscale */
     {
-      xsane_save_ps_pdf_gray(outfile, imagefile, image_info, progress_bar, cancel_save);
+      xsane_save_ps_pdf_gray(outfile, imagefile, image_info, flatdecode, progress_bar, cancel_save);
     }
   }
   else /* color RGB */
   {
-    xsane_save_ps_pdf_color(outfile, imagefile, image_info, progress_bar, cancel_save);
+    xsane_save_ps_pdf_color(outfile, imagefile, image_info, flatdecode, progress_bar, cancel_save);
   }
 
-  fprintf(outfile, "\n");
-  fprintf(outfile, "showpage\n");
-  fprintf(outfile, "end\n");
-  fprintf(outfile, "origstate restore\n");
-  fprintf(outfile, "%%%%EOF\n");
-  fprintf(outfile, "\n");
+  xsane_save_ps_create_page_trailer(outfile);
 
   if (ferror(outfile))
   {
@@ -2854,31 +3063,94 @@ int xsane_save_ps(FILE *outfile, FILE *imagefile, Image_info *image_info, float 
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-/* The pdf_xref struct holds byte offsets from the beginning of the PDF
- * file to each object of the PDF file -- used to build the xref table
- */
-struct pdf_xref
+int xsane_save_ps(FILE *outfile, FILE *imagefile, Image_info *image_info, float width, float height,
+                  int paper_left_margin, int paper_bottom_margin, int paperwidth, int paperheight, int paper_orientation,
+                  int flatdecode,
+                  GtkProgressBar *progress_bar, int *cancel_save)
 {
-  unsigned long obj5; /* obj 5 0 */
-  unsigned long obj6; /* obj 6 0 */
-  unsigned long obj7; /* obj 7 0 */
-  unsigned long xref; /* xref table */
-  unsigned long slen; /* length of image stream */
-  unsigned long slenp; /* position of image stream length */
-};
+  DBG(DBG_proc, "xsane_save_ps\n");
 
-static void xsane_save_pdf_create_header(FILE *outfile, Image_info *image_info,
-					 float width, float height,
-					 int paper_left_margin, int paper_bottom_margin,
-					 int paper_width, int paper_height,
-					 int paper_orientation,
-					 GtkProgressBar *progress_bar, struct pdf_xref *xref)
+  *cancel_save = 0;
+
+  xsane_save_ps_create_document_header(outfile, 1 /* pages */, flatdecode);
+
+  xsane_save_ps_page(outfile, 1 /* page */, 
+                     imagefile, image_info, width, height,
+                     paper_left_margin, paper_bottom_margin, paperwidth, paperheight, paper_orientation,
+                     flatdecode,
+                     progress_bar, cancel_save);
+
+  xsane_save_ps_create_document_trailer(outfile, 0 /* we defined pages at beginning */);
+
+  if (ferror(outfile))
+  {
+   char buf[255];
+
+    snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+    DBG(DBG_error, "%s\n", buf);
+    xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+    *cancel_save = 1;
+  }
+
+ return (*cancel_save);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void xsane_save_pdf_create_document_header(FILE *outfile, struct pdf_xref *xref, int pages, int flatdecode)
+{
+ int i;
+
+  DBG(DBG_proc, "xsane_save_pdf_create_document_header\n");
+
+  fprintf(outfile, "%%PDF-1.4\n");
+  fprintf(outfile, "\n");
+  xref->obj[1] = ftell(outfile);
+  fprintf(outfile, "1 0 obj\n");
+  fprintf(outfile, "   << /Type /Catalog\n");
+  fprintf(outfile, "      /Outlines 2 0 R\n");
+  fprintf(outfile, "      /Pages 3 0 R\n");
+  fprintf(outfile, "   >>\n");
+  fprintf(outfile, "endobj\n");
+  fprintf(outfile, "\n");
+  xref->obj[2] = ftell(outfile);
+  fprintf(outfile, "2 0 obj\n");
+  fprintf(outfile, "   << /Type /Outlines\n");
+  fprintf(outfile, "      /Count 0\n");
+  fprintf(outfile, "   >>\n");
+  fprintf(outfile, "endobj\n");
+  fprintf(outfile, "\n");
+  xref->obj[3] = ftell(outfile);
+  fprintf(outfile, "3 0 obj\n");
+  fprintf(outfile, "   << /Type /Pages\n");
+  fprintf(outfile, "      /Kids [\n");
+  for (i=0; i < pages; i++)
+  {
+    fprintf(outfile, "             %d 0 R\n", i * 2 + 4);
+  }
+  fprintf(outfile, "            ]\n");
+  fprintf(outfile, "      /Count %d\n", pages);
+  fprintf(outfile, "   >>\n");
+  fprintf(outfile, "endobj\n");
+  fprintf(outfile, "\n");
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+/* page = [1 .. pages] */
+static void xsane_save_pdf_create_page_header(FILE *outfile, struct pdf_xref *xref, int page,
+                                              Image_info *image_info,
+                                              float width, float height,
+                                              int paper_left_margin, int paper_bottom_margin,
+                                              int paper_width, int paper_height,
+                                              int paper_orientation, int flatdecode,
+                                              GtkProgressBar *progress_bar)
 {
  int position_left, position_bottom, box_left, box_bottom, box_right, box_top, depth;
  int left, bottom;
  float rad;
 
-  DBG(DBG_proc, "xsane_save_pdf_create_header\n");
+  DBG(DBG_proc, "xsane_save_pdf_create_page_header\n");
 
   switch (paper_orientation)
   {
@@ -2964,42 +3236,21 @@ static void xsane_save_pdf_create_header(FILE *outfile, Image_info *image_info,
     depth = 8;
   }
 
-  fprintf(outfile, "%%PDF-1.4\n");
-  fprintf(outfile, "\n");
-  fprintf(outfile, "1 0 obj\n");
-  fprintf(outfile, "   << /Type /Catalog\n");
-  fprintf(outfile, "      /Outlines 2 0 R\n");
-  fprintf(outfile, "      /Pages 3 0 R\n");
-  fprintf(outfile, "   >>\n");
-  fprintf(outfile, "endobj\n");
-  fprintf(outfile, "\n");
-  fprintf(outfile, "2 0 obj\n");
-  fprintf(outfile, "   << /Type /Outlines\n");
-  fprintf(outfile, "      /Count 0\n");
-  fprintf(outfile, "   >>\n");
-  fprintf(outfile, "endobj\n");
-  fprintf(outfile, "\n");
-  fprintf(outfile, "3 0 obj\n");
-  fprintf(outfile, "   << /Type /Pages\n");
-  fprintf(outfile, "      /Kids [4 0 R]\n");
-  fprintf(outfile, "      /Count 1\n");
-  fprintf(outfile, "   >>\n");
-  fprintf(outfile, "endobj\n");
-  fprintf(outfile, "\n");
-  fprintf(outfile, "4 0 obj\n");
+  xref->obj[page * 2 + 2] = ftell(outfile);
+  fprintf(outfile, "%d 0 obj\n", page * 2 + 2);
   fprintf(outfile, "    << /Type /Page\n");
   fprintf(outfile, "       /Parent 3 0 R\n");
   fprintf(outfile, "       /MediaBox [%d %d %d %d]\n", box_left, box_bottom, box_right, box_top);
-  fprintf(outfile, "       /Contents 5 0 R\n");
-  fprintf(outfile, "       /Resources << /ProcSet 6 0 R >>\n");
+  fprintf(outfile, "       /Contents %d 0 R\n", page * 2 + 3);
+  fprintf(outfile, "       /Resources << /ProcSet %d 0 R >>\n", page * 2 + 4);
   fprintf(outfile, "    >>\n");
   fprintf(outfile, "endobj\n");
   fprintf(outfile, "\n");
 
   /* Offset of object 5, for xref */
-  xref->obj5 = ftell(outfile);
+  xref->obj[page * 2 + 3] = ftell(outfile);
 
-  fprintf(outfile, "5 0 obj\n");
+  fprintf(outfile, "%d 0 obj\n", page * 2 + 3);
   fprintf(outfile, "    << /Length             >>\n");
 
   /* Position of the stream length, to be written later on */
@@ -3035,73 +3286,42 @@ static void xsane_save_pdf_create_header(FILE *outfile, Image_info *image_info,
   }
 
 #ifdef HAVE_LIBZ
+  if (flatdecode)
+  {  
     fprintf(outfile, "  /F [/A85 /FlateDecode]\n");
-#else
+  }
+  else
+  {  
     fprintf(outfile, "  /F /A85\n");
+  }
+#else
+  fprintf(outfile, "  /F /A85\n");
 #endif
-    fprintf(outfile, "ID\n");
+  fprintf(outfile, "ID\n");
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-int xsane_save_pdf(FILE *outfile, FILE *imagefile, Image_info *image_info, float width, float height,
-		   int paper_left_margin, int paper_bottom_margin, int paperheight, int paperwidth, int paper_orientation,
-		   GtkProgressBar *progress_bar, int *cancel_save)
+void xsane_save_pdf_create_document_trailer(FILE *outfile, struct pdf_xref *xref, int pages)
 {
-  struct tm *t;
-  time_t tt;
-  struct pdf_xref xref;
+ struct tm *t;
+ time_t tt;
+ int i;
 
-  DBG(DBG_proc, "xsane_save_pdf\n");
-
-  *cancel_save = 0;
-
-  xsane_save_pdf_create_header(outfile, image_info, width, height,
-			       paper_left_margin, paper_bottom_margin, paperheight, paperwidth, paper_orientation,
-			       progress_bar, &xref);
-
-  if (image_info->colors == 1) /* lineart, halftone, grayscale */
-  {
-    if (image_info->depth == 1) /* lineart, halftone */
-    {
-      xsane_save_ps_pdf_bw(outfile, imagefile, image_info, progress_bar, cancel_save);
-    }
-    else /* grayscale */
-    {
-      xsane_save_ps_pdf_gray(outfile, imagefile, image_info, progress_bar, cancel_save);
-    }
-  }
-  else /* color RGB */
-  {
-    xsane_save_ps_pdf_color(outfile, imagefile, image_info, progress_bar, cancel_save);
-  }
-
-  /* PDF trailer */
-  fprintf(outfile, "EI\n");
-  fprintf(outfile, "Q\n");
-
-  /* Go back and write the length of the stream */
-  xref.slen = ftell(outfile) - xref.slen - 1;
-  fseek(outfile, xref.slenp, SEEK_SET);
-  fprintf(outfile, "%lu", xref.slen);
-  fseek(outfile, 0L, SEEK_END);
-
-  fprintf(outfile, "endstream\n");
-  fprintf(outfile, "endobj\n");
-  fprintf(outfile, "\n");
+  /* PDF document trailer */
 
   /* Offset of object 6, for xref */
-  xref.obj6 = ftell(outfile);
+  xref->obj[pages * 2 + 4] = ftell(outfile);
 
-  fprintf(outfile, "6 0 obj\n");
+  fprintf(outfile, "%d 0 obj\n", pages * 2 + 4);
   fprintf(outfile, "    [/PDF]\n");
   fprintf(outfile, "endobj\n");
   fprintf(outfile, "\n");
 
   /* Offset of object 7, for xref */
-  xref.obj7 = ftell(outfile);
+  xref->obj[pages * 2 + 5] = ftell(outfile);
 
-  fprintf(outfile, "7 0 obj\n");
+  fprintf(outfile, "%d 0 obj\n", pages * 2 + 5);
   fprintf(outfile, "   << /Title (XSane scanned image)\n");
   fprintf(outfile, "      /Creator (XSane version %s (sane %d.%d) - by Oliver Rauch)\n",
 	  VERSION,
@@ -3119,27 +3339,117 @@ int xsane_save_pdf(FILE *outfile, FILE *imagefile, Image_info *image_info, float
   fprintf(outfile, "\n");
 
   /* Offset of xref, for startxref below */
-  xref.xref = ftell(outfile);
+  xref->xref = ftell(outfile);
 
   fprintf(outfile, "xref\n");
-  fprintf(outfile, "0 8\n");
+  fprintf(outfile, "0 %d\n", pages * 2 + 6);
   fprintf(outfile, "0000000000 65535 f \n");
-  fprintf(outfile, "0000000010 00000 n \n");
-  fprintf(outfile, "0000000094 00000 n \n");
-  fprintf(outfile, "0000000153 00000 n \n");
-  fprintf(outfile, "0000000229 00000 n \n");
-  fprintf(outfile, "%010lu 00000 n \n", xref.obj5);
-  fprintf(outfile, "%010lu 00000 n \n", xref.obj6);
-  fprintf(outfile, "%010lu 00000 n \n", xref.obj7);
+
+  for (i=1; i <= pages * 2 + 5; i++)
+  {
+    fprintf(outfile, "%010lu 00000 n \n", xref->obj[i]);
+  }
+
   fprintf(outfile, "\n");
   fprintf(outfile, "trailer\n");
-  fprintf(outfile, "    << /Size 8\n");
+  fprintf(outfile, "    << /Size %d\n", pages * 2 + 6);
   fprintf(outfile, "       /Root 1 0 R\n");
-  fprintf(outfile, "       /Info 7 0 R\n");
+  fprintf(outfile, "       /Info %d 0 R\n", pages * 2 + 5);
   fprintf(outfile, "    >>\n");
   fprintf(outfile, "startxref\n");
-  fprintf(outfile, "%lu\n", xref.xref);
+  fprintf(outfile, "%lu\n", xref->xref);
   fprintf(outfile, "%%%%EOF\n");
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_save_pdf_create_page_trailer(FILE *outfile, struct pdf_xref *xref)
+{
+  /* PDF page trailer */
+  fprintf(outfile, "EI\n");
+  fprintf(outfile, "Q\n");
+
+  /* Go back and write the length of the stream */
+  xref->slen = ftell(outfile) - xref->slen - 1;
+  fseek(outfile, xref->slenp, SEEK_SET);
+  fprintf(outfile, "%lu", xref->slen);
+  fseek(outfile, 0L, SEEK_END);
+
+  fprintf(outfile, "endstream\n");
+  fprintf(outfile, "endobj\n");
+  fprintf(outfile, "\n");
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+int xsane_save_pdf_page(FILE *outfile, struct pdf_xref *xref, int page,
+                        FILE *imagefile, Image_info *image_info, float width, float height,
+                        int paper_left_margin, int paper_bottom_margin, int paperwidth, int paperheight, int paper_orientation,
+                        int flatdecode,
+                        GtkProgressBar *progress_bar, int *cancel_save)
+{
+
+  DBG(DBG_proc, "xsane_save_pdf_page\n");
+
+  xsane_save_pdf_create_page_header(outfile, xref, page,
+                                    image_info, width, height,
+			            paper_left_margin, paper_bottom_margin, paperwidth, paperheight, paper_orientation,
+                                    flatdecode,
+			            progress_bar);
+
+  if (image_info->colors == 1) /* lineart, halftone, grayscale */
+  {
+    if (image_info->depth == 1) /* lineart, halftone */
+    {
+      xsane_save_ps_pdf_bw(outfile, imagefile, image_info, flatdecode, progress_bar, cancel_save);
+    }
+    else /* grayscale */
+    {
+      xsane_save_ps_pdf_gray(outfile, imagefile, image_info, flatdecode, progress_bar, cancel_save);
+    }
+  }
+  else /* color RGB */
+  {
+    xsane_save_ps_pdf_color(outfile, imagefile, image_info, flatdecode, progress_bar, cancel_save);
+  }
+
+  xsane_save_pdf_create_page_trailer(outfile, xref);
+
+  if (ferror(outfile))
+  {
+   char buf[255];
+
+    snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+    DBG(DBG_error, "%s\n", buf);
+    xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+    *cancel_save = 1;
+  }
+
+ return (*cancel_save);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+int xsane_save_pdf(FILE *outfile, FILE *imagefile, Image_info *image_info, float width, float height,
+                   int paper_left_margin, int paper_bottom_margin, int paperwidth, int paperheight, int paper_orientation,
+                   int flatdecode,
+                   GtkProgressBar *progress_bar, int *cancel_save)
+{
+  struct pdf_xref xref;
+
+  DBG(DBG_proc, "xsane_save_pdf\n");
+
+  *cancel_save = 0;
+
+  xsane_save_pdf_create_document_header(outfile, &xref, 1, flatdecode);
+
+  xsane_save_pdf_page(outfile, &xref, 1,
+                   imagefile, image_info, width, height,
+                   paper_left_margin, paper_bottom_margin, paperwidth, paperheight, paper_orientation,
+                   flatdecode,
+                   progress_bar, cancel_save);
+
+  xsane_save_pdf_create_document_trailer(outfile, &xref, 1);
 
   if (ferror(outfile))
   {
@@ -3243,6 +3553,11 @@ int xsane_save_jpeg(FILE *outfile, FILE *imagefile, Image_info *image_info, int 
   cinfo.X_density        = image_info->resolution_x;
   cinfo.Y_density        = image_info->resolution_y;
 
+#if 0
+  cinfo.smoothing_factor = 0.0; /* 0 .. 100 */
+  cinfo.dct_method = JDCT_FLOAT; /* JDCT_ISLOW, JDCT_IFAST, JDCT_FLOAT */
+#endif
+
   jpeg_start_compress(&cinfo, TRUE);
 
   for (y = 0; y < image_info->image_height; y++)
@@ -3313,9 +3628,11 @@ int xsane_save_jpeg(FILE *outfile, FILE *imagefile, Image_info *image_info, int 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 #ifdef HAVE_LIBTIFF
-int xsane_save_tiff(const char *outfilename, FILE *imagefile, Image_info *image_info, int quality, GtkProgressBar *progress_bar, int *cancel_save)
+/* pages = 0 => single page tiff, page = 0 */
+/* pages > 0 => page = [1 .. pages] */
+int xsane_save_tiff_page(TIFF *tiffile, int page, int pages, FILE *imagefile, Image_info *image_info, int quality,
+                         GtkProgressBar *progress_bar, int *cancel_save)
 {
- TIFF *tiffile;
  char *data;
  char buf[256];
  int y, w;
@@ -3325,7 +3642,7 @@ int xsane_save_tiff(const char *outfilename, FILE *imagefile, Image_info *image_
  struct tm *ptm;
  time_t now;
 
-  DBG(DBG_proc, "xsane_save_tiff\n");
+  DBG(DBG_proc, "xsane_save_tiff_page(%d/%d\n", page, pages);
 
   *cancel_save = 0;
 
@@ -3361,26 +3678,7 @@ int xsane_save_tiff(const char *outfilename, FILE *imagefile, Image_info *image_
     bytes = 2;
   }
 
-  if (xsane_create_secure_file(outfilename)) /* remove possibly existing symbolic links for security */
-  {
-    snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_CREATE_SECURE_FILE, outfilename);
-    xsane_back_gtk_error(buf, TRUE);
-   return -1; /* error */
-  }
-
-  tiffile = TIFFOpen(outfilename, "w");
-  if (!tiffile)
-  {
-    snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_OPEN_FAILED, outfilename);
-    xsane_back_gtk_error(buf, TRUE);
-   return -1; /* error */
-  }
-
-#if 0
-  data = malloc(pixel_width * components * bytes);
-#else
   data = (char *)_TIFFmalloc(image_info->image_width * components * bytes);
-#endif
 
   if (!data)
   {
@@ -3391,11 +3689,11 @@ int xsane_save_tiff(const char *outfilename, FILE *imagefile, Image_info *image_
   
   TIFFSetField(tiffile, TIFFTAG_IMAGEWIDTH, image_info->image_width);
   TIFFSetField(tiffile, TIFFTAG_IMAGELENGTH, image_info->image_height);
-  TIFFSetField(tiffile, TIFFTAG_ORIENTATION, ORIENTATION_TOPLEFT);
   TIFFSetField(tiffile, TIFFTAG_BITSPERSAMPLE, image_info->depth); 
+  TIFFSetField(tiffile, TIFFTAG_SAMPLESPERPIXEL, components);
+  TIFFSetField(tiffile, TIFFTAG_ORIENTATION, ORIENTATION_TOPLEFT);
   TIFFSetField(tiffile, TIFFTAG_PLANARCONFIG, PLANARCONFIG_CONTIG);
   TIFFSetField(tiffile, TIFFTAG_COMPRESSION, compression);
-  TIFFSetField(tiffile, TIFFTAG_SAMPLESPERPIXEL, components);
   TIFFSetField(tiffile, TIFFTAG_SOFTWARE, "xsane");
 
   time(&now);
@@ -3403,19 +3701,33 @@ int xsane_save_tiff(const char *outfilename, FILE *imagefile, Image_info *image_
   sprintf(buf, "%04d:%02d:%02d %02d:%02d:%02d", 1900+ptm->tm_year, ptm->tm_mon+1, ptm->tm_mday, ptm->tm_hour, ptm->tm_min, ptm->tm_sec);
   TIFFSetField(tiffile, TIFFTAG_DATETIME, buf);
 
-  TIFFSetField(tiffile, TIFFTAG_RESOLUTIONUNIT, RESUNIT_INCH);
-  TIFFSetField(tiffile, TIFFTAG_XRESOLUTION, image_info->resolution_x);
-  TIFFSetField(tiffile, TIFFTAG_YRESOLUTION, image_info->resolution_y);   
+  if (image_info->resolution_x > 0.0)
+  {
+    TIFFSetField(tiffile, TIFFTAG_RESOLUTIONUNIT, RESUNIT_INCH);
+    TIFFSetField(tiffile, TIFFTAG_XRESOLUTION, image_info->resolution_x);
+    TIFFSetField(tiffile, TIFFTAG_YRESOLUTION, image_info->resolution_y);   
+  }
 
-  if (compression == COMPRESSION_JPEG)
+  if (compression == COMPRESSION_DEFLATE)
+  {
+    TIFFSetField(tiffile, TIFFTAG_ZIPQUALITY, (int) preferences.tiff_zip_compression);
+  }
+  else if (compression == COMPRESSION_JPEG)
   {
     TIFFSetField(tiffile, TIFFTAG_JPEGQUALITY, quality);
-    TIFFSetField(tiffile, TIFFTAG_JPEGCOLORMODE, JPEGCOLORMODE_RAW); /* should be default, but to be sure */
   }
 
   if (image_info->colors == 3)
   {
-    TIFFSetField(tiffile, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_RGB);
+    if (compression == COMPRESSION_JPEG)
+    {
+      TIFFSetField(tiffile, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_YCBCR);
+      TIFFSetField(tiffile, TIFFTAG_JPEGCOLORMODE, JPEGCOLORMODE_RGB);  /* convert from RGB (to YCBCR) */
+    }
+    else /* no jpeg compression */
+    {
+      TIFFSetField(tiffile, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_RGB);
+    }
   }
   else
   {
@@ -3425,11 +3737,18 @@ int xsane_save_tiff(const char *outfilename, FILE *imagefile, Image_info *image_
     }
     else /* grayscale */
     {
-      TIFFSetField(tiffile, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_MINISBLACK);
+      TIFFSetField(tiffile, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_MINISBLACK); 
+      /* we have to do nothing special for jpeg! */
     }
   }
 
   TIFFSetField(tiffile, TIFFTAG_ROWSPERSTRIP, TIFFDefaultStripSize(tiffile, -1));
+
+  if (pages)
+  {
+    TIFFSetField(tiffile, TIFFTAG_SUBFILETYPE, FILETYPE_PAGE);
+    TIFFSetField(tiffile, TIFFTAG_PAGENUMBER, page, pages);
+  }
 
   w = TIFFScanlineSize(tiffile);
 
@@ -3460,12 +3779,12 @@ int xsane_save_tiff(const char *outfilename, FILE *imagefile, Image_info *image_
     }
   }
 
-  TIFFClose(tiffile);
-#if 0
-  free(data);
-#else
+  if (pages)
+  {
+    TIFFWriteDirectory(tiffile);
+  }
+
   _TIFFfree(data);
-#endif
  return (*cancel_save);
 }
 #endif
@@ -4278,7 +4597,26 @@ int xsane_save_image_as(char *output_filename, char *input_filename, int output_
 #ifdef HAVE_LIBTIFF
   if (output_format == XSANE_TIFF)		/* routines that want to have filename  for saving */
   {
-    xsane_save_tiff(output_filename, infile, &image_info, preferences.jpeg_quality, progress_bar, cancel_save);
+   TIFF *tiffile;
+
+    if (xsane_create_secure_file(output_filename)) /* remove possibly existing symbolic links for security */
+    {
+      snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_CREATE_SECURE_FILE, output_filename);
+      xsane_back_gtk_error(buf, TRUE);
+     return -1; /* error */
+    }
+
+    tiffile = TIFFOpen(output_filename, "w");
+    if (!tiffile)
+    {
+      snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_OPEN_FAILED, output_filename);
+      xsane_back_gtk_error(buf, TRUE);
+     return -1; /* error */
+    }
+
+    xsane_save_tiff_page(tiffile, 0, 0, infile, &image_info, preferences.jpeg_quality, progress_bar, cancel_save);
+
+    TIFFClose(tiffile);
   }
   else							/* routines that want to have filedescriptor for saving */
 #endif /* HAVE_LIBTIFF */
@@ -4347,6 +4685,7 @@ int xsane_save_image_as(char *output_filename, char *input_filename, int output_
                           (int) imagewidth, /* paper_width */
                           (int) imageheight, /* paper_height */
                           0 /* portrait top left */,
+                          preferences.save_ps_flatdecoded,
                           progress_bar,
                           cancel_save);
         }
@@ -4367,6 +4706,7 @@ int xsane_save_image_as(char *output_filename, char *input_filename, int output_
                           (int) imagewidth, /* paper_width */
                           (int) imageheight, /* paper_height */
                           0 /* portrait top left */,
+                          preferences.save_pdf_flatdecoded,
                           progress_bar,
                           cancel_save);
         }
@@ -5039,7 +5379,7 @@ int xsane_transfer_to_gimp(char *input_filename, GtkProgressBar *progress_bar, i
 /* ---------------------------------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#ifdef XSANE_ACTIVATE_MAIL
+#ifdef XSANE_ACTIVATE_EMAIL
 
 /* character base of base64 coding */
 static const char base64[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
@@ -5107,11 +5447,11 @@ void write_base64(int fd_socket, FILE *infile)
       pos = 0;
     }
 
-    xsane.mail_progress_bytes += 3;
-    if ((int)  ((xsane.mail_progress_bytes * 100) / xsane.mail_progress_size) != (int) (xsane.mail_progress_val * 100))
+    xsane.email_progress_bytes += 3;
+    if ((int)  ((xsane.email_progress_bytes * 100) / xsane.email_progress_size) != (int) (xsane.email_progress_val * 100))
     {
-      xsane.mail_progress_val = (float) xsane.mail_progress_bytes / xsane.mail_progress_size;
-      xsane_front_gtk_mail_project_update_lockfile_status();
+      xsane.email_progress_val = (float) xsane.email_progress_bytes / xsane.email_progress_size;
+      xsane_front_gtk_email_project_update_lockfile_status();
     }
   }
 
@@ -5120,13 +5460,13 @@ void write_base64(int fd_socket, FILE *infile)
     write(fd_socket, "\n", 1);
   }
 
-  xsane.mail_progress_val = 1.0;
-  xsane_front_gtk_mail_project_update_lockfile_status();
+  xsane.email_progress_val = 1.0;
+  xsane_front_gtk_email_project_update_lockfile_status();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void write_mail_header(int fd_socket, char *from, char *reply_to, char *to, char *subject, char *boundary, int related)
+void write_email_header(int fd_socket, char *from, char *reply_to, char *to, char *subject, char *boundary, int related)
 {
  char buf[1024];
 
@@ -5162,7 +5502,7 @@ void write_mail_header(int fd_socket, char *from, char *reply_to, char *to, char
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void write_mail_footer(int fd_socket, char *boundary)
+void write_email_footer(int fd_socket, char *boundary)
 {
  char buf[1024];
 
@@ -5172,7 +5512,7 @@ void write_mail_footer(int fd_socket, char *boundary)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void write_mail_mime_ascii(int fd_socket, char *boundary)
+void write_email_mime_ascii(int fd_socket, char *boundary)
 {
  char buf[1024];
 
@@ -5191,7 +5531,7 @@ void write_mail_mime_ascii(int fd_socket, char *boundary)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void write_mail_mime_html(int fd_socket, char *boundary)
+void write_email_mime_html(int fd_socket, char *boundary)
 {
  char buf[1024];
 
@@ -5216,7 +5556,7 @@ void write_mail_mime_html(int fd_socket, char *boundary)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void write_mail_attach_image(int fd_socket, char *boundary, char *content_id, char *content_type, FILE *infile, char *filename)
+void write_email_attach_image(int fd_socket, char *boundary, char *content_id, char *content_type, FILE *infile, char *filename)
 {
  char buf[1024];
 
@@ -5249,7 +5589,7 @@ void write_mail_attach_image(int fd_socket, char *boundary, char *content_id, ch
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void write_mail_attach_file(int fd_socket, char *boundary, FILE *infile, char *filename)
+void write_email_attach_file(int fd_socket, char *boundary, FILE *infile, char *filename)
 {
  char buf[1024];
 
@@ -5420,12 +5760,12 @@ int write_smtp_header(int fd_socket, char *from, char *to)
   {
     DBG(DBG_info, "=> error\n");
 
-    if (xsane.mail_status)
+    if (xsane.email_status)
     {
-      free(xsane.mail_status);
+      free(xsane.email_status);
     }
-    xsane.mail_status = strdup(TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED);
-    xsane_front_gtk_mail_project_update_lockfile_status();
+    xsane.email_status = strdup(TEXT_EMAIL_STATUS_SMTP_CONNECTION_FAILED);
+    xsane_front_gtk_email_project_update_lockfile_status();
    return -1;
   }
 
@@ -5443,12 +5783,12 @@ int write_smtp_header(int fd_socket, char *from, char *to)
   {
     DBG(DBG_info, "=> error\n");
 
-    if (xsane.mail_status)
+    if (xsane.email_status)
     {
-      free(xsane.mail_status);
+      free(xsane.email_status);
     }
-    xsane.mail_status = strdup(TEXT_MAIL_STATUS_SMTP_ERR_FROM);
-    xsane_front_gtk_mail_project_update_lockfile_status();
+    xsane.email_status = strdup(TEXT_EMAIL_STATUS_SMTP_ERR_FROM);
+    xsane_front_gtk_email_project_update_lockfile_status();
    return -1;
   }
   
@@ -5467,12 +5807,12 @@ int write_smtp_header(int fd_socket, char *from, char *to)
   {
     DBG(DBG_info, "=> error\n");
 
-    if (xsane.mail_status)
+    if (xsane.email_status)
     {
-      free(xsane.mail_status);
+      free(xsane.email_status);
     }
-    xsane.mail_status = strdup(TEXT_MAIL_STATUS_SMTP_ERR_RCPT);
-    xsane_front_gtk_mail_project_update_lockfile_status();
+    xsane.email_status = strdup(TEXT_EMAIL_STATUS_SMTP_ERR_RCPT);
+    xsane_front_gtk_email_project_update_lockfile_status();
    return -1;
   }
 
@@ -5490,12 +5830,12 @@ int write_smtp_header(int fd_socket, char *from, char *to)
   {
     DBG(DBG_info, "=> error\n");
 
-    if (xsane.mail_status)
+    if (xsane.email_status)
     {
-      free(xsane.mail_status);
+      free(xsane.email_status);
     }
-    xsane.mail_status = strdup(TEXT_MAIL_STATUS_SMTP_ERR_DATA);
-    xsane_front_gtk_mail_project_update_lockfile_status();
+    xsane.email_status = strdup(TEXT_EMAIL_STATUS_SMTP_ERR_DATA);
+    xsane_front_gtk_email_project_update_lockfile_status();
    return -1;
   }
 

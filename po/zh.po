@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.96\n"
-"POT-Creation-Date: 2005-10-23 00:20+0200\n"
+"POT-Creation-Date: 2005-12-21 12:05+0100\n"
 "PO-Revision-Date: 2003-03-27 12:00+0100\n"
 "Last-Translator: Wang leolarrel <leolarrel@yahoo.com.tw>\n"
 "Language-Team: zh_TW<zh_TW@li.org>\n"
@@ -79,17 +79,25 @@ msgstr "更名傳真專案"
 msgid "insert ps-file into fax"
 msgstr "插入ps檔案到傳真"
 
-#. WINDOW_MAIL_PROJECT
-msgid "mail project"
+#. WINDOW_EMAIL_PROJECT
+#, fuzzy
+msgid "E-mail project"
 msgstr "電子郵件專案"
 
-#. WINDOW_MAIL_RENAME
-msgid "rename mail image"
+#. WINDOW_EMAIL_RENAME
+#, fuzzy
+msgid "rename e-mail image"
 msgstr "更名電子郵件專案"
 
-#. WINDOW_MAIL_INSERT
-msgid "insert file into mail"
+#. WINDOW_EMAIL_INSERT
+#, fuzzy
+msgid "insert file into e-mail"
 msgstr "插入檔案到電子郵件"
+
+#. WINDOW_MULTIPAGE_PROJECT
+#, fuzzy
+msgid "multipage project"
+msgstr "刪除專案"
 
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
@@ -386,6 +394,11 @@ msgstr "建立專案"
 msgid "Send project"
 msgstr "傳送專案"
 
+#. BUTTON_SAVE_MULTIPAGE
+#, fuzzy
+msgid "Save multipage file"
+msgstr "儲存影像"
+
 #. BUTTON_DELETE_PROJECT
 msgid "Delete project"
 msgstr "刪除專案"
@@ -426,8 +439,9 @@ msgstr ""
 msgid "Fine mode"
 msgstr ""
 
-#. RADIO_BUTTON_HTML_MAIL
-msgid "HTML mail"
+#. RADIO_BUTTON_HTML_EMAIL
+#, fuzzy
+msgid "HTML e-mail"
 msgstr "HTML郵件"
 
 #. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
@@ -441,6 +455,14 @@ msgstr "覆寫警告"
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
 msgid "Skip existing filenames"
 msgstr "省略已存在的檔案"
+
+#. RADIO_BUTTON_SAVE_PS_FLATDECODED
+msgid "Save postscript zlib compressed (ps level 3)"
+msgstr ""
+
+#. RADIO_BUTTON_SAVE_PDF_FLATDECODED
+msgid "Save PDF zlib compressed"
+msgstr ""
 
 #. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
 msgid "Save 16bit pnm in ascii format"
@@ -497,10 +519,6 @@ msgstr "XSane 選項"
 #. TEXT_XSANE_MODE
 msgid "XSane mode"
 msgstr "XSane 模式"
-
-#. TEXT_FILENAME_COUNTER_STEP
-msgid "Step"
-msgstr "步驟"
 
 #. TEXT_FILETYPE
 msgid "Type"
@@ -672,8 +690,9 @@ msgid ""
 "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
 
-#. TEXT_EMAIL
-msgid "Email:"
+#. TEXT_EMAIL_ADR
+#, fuzzy
+msgid "E-mail:"
 msgstr "電子郵件"
 
 #. TEXT_HOMEPAGE
@@ -691,12 +710,13 @@ msgstr "翻譯"
 #. Please translate this to something like
 #. translation to YOUR LANGUAGE\n
 #. by YOUR NAME\n
-#. Email: your.name@yourdomain.com\n
+#. E-mail: your.name@yourdomain.com\n
 #. TEXT_TRANSLATION_INFO
+#, fuzzy
 msgid ""
 "untranslated original english text\n"
 "by Oliver Rauch\n"
-"Email: Oliver.Rauch@rauch-domain.de\n"
+"E-mail: Oliver.Rauch@rauch-domain.de\n"
 msgstr ""
 "翻譯: 王耀仲\n"
 "如有任何翻譯的問題,或者您有更貼切的翻法,請由下列 e-mail 聯絡\n"
@@ -710,20 +730,32 @@ msgstr ""
 msgid "Scanned pages: "
 msgstr "掃描的頁面"
 
-#. TEXT_MAIL_TEXT
-msgid "Email text:"
+#. TEXT_EMAIL_TEXT
+#, fuzzy
+msgid "E-mail text:"
 msgstr "郵件的內容"
 
 #. TEXT_ATTACHMENTS
 msgid "Attachments:"
 msgstr "附件"
 
-#. TEXT_MAIL_STATUS
+#. TEXT_EMAIL_STATUS
 msgid "Project status:"
 msgstr "專案狀態"
 
-#. TEXT_MAIL_FILETYPE
-msgid "Mail image filetype:"
+#. TEXT_EMAIL_FILETYPE
+#, fuzzy
+msgid "E-mail image filetype:"
+msgstr "信件影像檔案型態:"
+
+#. TEXT_PAGES
+#, fuzzy
+msgid "Pages:"
+msgstr "使用:"
+
+#. TEXT_MULTIPAGE_FILETYPE
+#, fuzzy
+msgid "Multipage document filetype:"
 msgstr "信件影像檔案型態:"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
@@ -837,6 +869,10 @@ msgstr "列表機 綠色gamma"
 msgid "Printer gamma blue:"
 msgstr "列表機 藍色gamma"
 
+#. TEXT_SETUP_PRINTER_PS_FLATDECODED
+msgid "Create zlib compressed postscript image (ps level 3) for printing"
+msgstr ""
+
 #. TEXT_SETUP_TMP_PATH
 msgid "Temporary directory"
 msgstr "暫存目錄"
@@ -860,6 +896,11 @@ msgstr "PNG影像壓縮"
 #. TEXT_SETUP_FILENAME_COUNTER_LEN
 msgid "Filename counter length"
 msgstr "檔名計數長度"
+
+#. TEXT_SETUP_TIFF_ZIP_COMPRESSION
+#, fuzzy
+msgid "TIFF zip compression rate"
+msgstr "TIFF 8 位元影像壓縮"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_16
 msgid "TIFF 16 bit image compression"
@@ -900,10 +941,6 @@ msgstr "預覽 藍色gamma"
 #. TEXT_SETUP_LINEART_MODE
 msgid "Threshold option:"
 msgstr "邊界選項:"
-
-#. TEXT_SETUP_ADF_MODE
-msgid "Automatic Document Feeder Modus:"
-msgstr ""
 
 #. TEXT_SETUP_PREVIEW_PIPETTE_RANGE
 msgid "Preview pipette range"
@@ -957,6 +994,10 @@ msgstr ""
 msgid "Viewer (Postscript):"
 msgstr "檢視器(Postscript)"
 
+#. TEXT_SETUP_FAX_PS_FLATDECODED
+msgid "Create zlib compressed postscript image (ps level 3) for fax"
+msgstr ""
+
 #. TEXT_SETUP_SMTP_SERVER
 msgid "SMTP server:"
 msgstr "SMTP伺服器:"
@@ -965,11 +1006,11 @@ msgstr "SMTP伺服器:"
 msgid "SMTP port:"
 msgstr "SMTP通訊埠:"
 
-#. TEXT_SETUP_MAIL_FROM
+#. TEXT_SETUP_EMAIL_FROM
 msgid "From:"
 msgstr "從"
 
-#. TEXT_SETUP_MAIL_REPLY_TO
+#. TEXT_SETUP_EMAIL_REPLY_TO
 msgid "Reply to:"
 msgstr "回覆到"
 
@@ -988,10 +1029,6 @@ msgstr "POP3 帳號:"
 #. TEXT_SETUP_POP3_PASS
 msgid "POP3 password:"
 msgstr "POP3密碼:"
-
-#. TEXT_SETUP_MAIL_VIEWER
-msgid "Viewer (png):"
-msgstr "檢視器(png)"
 
 #. TEXT_SETUP_OCR_COMMAND
 msgid "OCR Command:"
@@ -1036,9 +1073,10 @@ msgstr ""
 msgid "Save"
 msgstr "儲存"
 
-#. NOTEBOOK_IMAGE_OPTIONS
-msgid "Image"
-msgstr "影像"
+#. NOTEBOOK_FILETYPE_OPTIONS
+#, fuzzy
+msgid "Filetype"
+msgstr "檔案"
 
 #. NOTEBOOK_COPY_OPTIONS
 msgid "Copy"
@@ -1048,8 +1086,9 @@ msgstr "複製"
 msgid "Fax"
 msgstr "傳真"
 
-#. NOTEBOOK_MAIL_OPTIONS
-msgid "Mail"
+#. NOTEBOOK_EMAIL_OPTIONS
+#, fuzzy
+msgid "E-mail"
 msgstr "電子郵件"
 
 #. NOTEBOOK_OCR_OPTIONS
@@ -1064,9 +1103,9 @@ msgstr "顯示"
 msgid "Enhancement"
 msgstr "增強"
 
-#. MENU_ITEM_MAIL
-msgid "Email"
-msgstr "電子郵件"
+#. MENU_ITEM_MULTIPAGE
+msgid "Multipage"
+msgstr ""
 
 #. MENU_ITEM_SHOW_TOOLTIPS
 msgid "Show tooltips"
@@ -1214,6 +1253,11 @@ msgstr ""
 msgid "pack bits"
 msgstr ""
 
+#. MENU_ITEM_TIFF_COMP_DEFLATE
+#, fuzzy
+msgid "deflate"
+msgstr "延遲"
+
 #. MENU_ITEM_RANGE_SCALE
 msgid "Slider (Scale)"
 msgstr "滑棒(Scale)"
@@ -1292,6 +1336,11 @@ msgstr "掃描中"
 msgid "Receiving %s data"
 msgstr "接收%s資料"
 
+#. PROGRESS_PAGE
+#, fuzzy
+msgid "page"
+msgstr "包裝"
+
 #. PROGRESS_TRANSFERING_DATA
 msgid "Transfering image"
 msgstr "傳輸影像中"
@@ -1354,8 +1403,8 @@ msgstr "取消預覽影像<Alt-ESC>"
 
 #. DESC_XSANE_MODE
 msgid ""
-"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or mail-<Ctrl-"
-"m>"
+"viewer-<Ctrl-v>, save-<Ctrl-s>, photocopy-<Ctrl-c>, multipage-<Ctrl-m>, fax-"
+"<Ctrl-f> or e-mail-<Ctrl-e>"
 msgstr ""
 
 #. DESC_XSANE_MEDIUM
@@ -1397,25 +1446,39 @@ msgstr "輸入傳真專案的新名稱"
 msgid "Enter receiver phone number or address"
 msgstr "輸入接收的電話號碼或位址"
 
-#. DESC_MAILPROJECT
-msgid "Enter name of mail project"
+#. DESC_EMAIL_PROJECT
+#, fuzzy
+msgid "Enter name of e-mail project"
 msgstr "輸入郵件專案的名稱"
 
-#. DESC_MAILIMAGENAME
-msgid "Enter new name for mail image"
+#. DESC_EMAIL_IMAGENAME
+#, fuzzy
+msgid "Enter new name for e-mail image"
 msgstr "輸入郵件專案的新名稱"
 
-#. DESC_MAILRECEIVER
-msgid "Enter email address"
+#. DESC_EMAIL_RECEIVER
+#, fuzzy
+msgid "Enter e-mail address"
 msgstr "輸入郵件位址"
 
-#. DESC_MAILSUBJECT
-msgid "Enter subject of email"
+#. DESC_EMAIL_SUBJECT
+#, fuzzy
+msgid "Enter subject of e-mail"
 msgstr "輸入郵件的標題"
 
-#. DESC_MAIL_FILETYPE
+#. DESC_EMAIL_FILETYPE
 msgid "Select filetype for image attachments"
 msgstr ""
+
+#. DESC_MULTIPAGE_PROJECT
+#, fuzzy
+msgid "Enter name of multipage project"
+msgstr "輸入郵件專案的名稱"
+
+#. DESC_MULTIPAGE_FILETYPE
+#, fuzzy
+msgid "Select filetype for multipage file"
+msgstr "為OCR文字檔選擇輸出檔名"
 
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
@@ -1640,6 +1703,12 @@ msgstr ""
 msgid "Additional gamma value for blue component for photocopy"
 msgstr ""
 
+#. DESC_PRINTER_PS_FLATDECODED
+msgid ""
+"Create zlib compressed postscript image for printer (flatdecode).\n"
+"The printer has to understand postscript level 3!"
+msgstr ""
+
 #. DESC_TMP_PATH
 msgid "Path to temp directory"
 msgstr "暫存目錄的路徑"
@@ -1659,6 +1728,10 @@ msgstr "如果存成png檔的話,就壓縮"
 
 #. DESC_FILENAME_COUNTER_LEN
 msgid "Minimum length of counter in filename"
+msgstr ""
+
+#. DESC_TIFF_ZIP_COMPRESSION
+msgid "Compression rate for zip compressed tiff (deflate)"
 msgstr ""
 
 #. DESC_TIFF_COMPRESSION_16
@@ -1684,6 +1757,16 @@ msgstr "覆寫一個已經存在的檔案之前要警告"
 #. DESC_SKIP_EXISTING
 msgid ""
 "If filename counter is automatically increased, used numbers are skipped"
+msgstr ""
+
+#. DESC_SAVE_PS_FLATDECODED
+msgid ""
+"compress postscript image with zlib algorithm (flatdecode).When you want to "
+"print such a file your printer has to understand postscript level 3"
+msgstr ""
+
+#. DESC_SAVE_PDF_FLATDECODED
+msgid "compress PDF image with zlib algorithm (flatdecode)."
 msgstr ""
 
 #. DESC_SAVE_PNM16_AS_ASCII
@@ -1784,10 +1867,8 @@ msgid ""
 "Offset to make XSane threshold range and scanner threshold range the same"
 msgstr ""
 
-#. DESC_ADF_MODE
-msgid ""
-"Select scansource for Automatic Document feeder. If this scansource is "
-"selected XSane scans until \"out of paper\" or error."
+#. DESC_ADF_PAGES_MAX
+msgid "Number of pages to scan"
 msgstr ""
 
 #. DESC_PREVIEW_PIPETTE_RANGE
@@ -1839,6 +1920,10 @@ msgstr "輸入檢視傳真時要執行的命令"
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
 msgstr ""
 
+#. DESC_FAX_PS_FLATDECODED
+msgid "Create zlib compressed postscript image for fax (flatdecode)"
+msgstr ""
+
 #. DESC_SMTP_SERVER
 msgid "IP Address or Domain name of SMTP server"
 msgstr "IP 位址或SMTP伺服器的主機名稱"
@@ -1847,16 +1932,18 @@ msgstr "IP 位址或SMTP伺服器的主機名稱"
 msgid "port to connect to SMTP server"
 msgstr ""
 
-#. DESC_MAIL_FROM
-msgid "enter your email address"
+#. DESC_EMAIL_FROM
+#, fuzzy
+msgid "enter your e-mail address"
 msgstr "輸入你的信件位址"
 
-#. DESC_MAIL_REPLY_TO
-msgid "enter email address for replied emails"
-msgstr ""
+#. DESC_EMAIL_REPLY_TO
+#, fuzzy
+msgid "enter e-mail address for replied e-mails"
+msgstr "輸入郵件位址"
 
 #. DESC_POP3_AUTHENTIFICATION
-msgid "Authentificate at POP3 server before sending mail"
+msgid "Authentificate at POP3 server before sending e-mail"
 msgstr ""
 
 #. DESC_POP3_SERVER
@@ -1875,13 +1962,10 @@ msgstr ""
 msgid "password for POP3 server"
 msgstr ""
 
-#. DESC_MAIL_VIEWER
-msgid "Enter command to be executed to view a mail image"
-msgstr "輸入當檢視一個郵件影像時要執行的命令"
-
 #
-#. DESC_HTML_MAIL
-msgid "Mail is sent in html mode, place image with: <IMAGE>"
+#. DESC_HTML_EMAIL
+#, fuzzy
+msgid "E-mail is sent in html mode, place image with: <IMAGE>"
 msgstr "郵件以HTML傳送,影像直接顯示"
 
 #. DESC_OCR_COMMAND
@@ -2222,10 +2306,6 @@ msgstr "不能執行傳真檢視器"
 msgid "Failed to execute fax command:"
 msgstr "不能執行傳真命令"
 
-#. ERR_FAILED_EXEC_MAIL_VIEWER
-msgid "Failed to execute mail image viewer:"
-msgstr "不能執行郵件影像檢視器"
-
 #. ERR_FAILED_EXEC_OCR_CMD
 msgid "Failed to execute ocr command:"
 msgstr "不能執行ocr命令"
@@ -2406,8 +2486,9 @@ msgid ""
 " -V, --viewer                 start with viewer-mode active (default)\n"
 " -s, --save                   start with save-mode active\n"
 " -c, --copy                   start with copy-mode active\n"
+" -m, --multipage              start with multipage-mode active\n"
 " -f, --fax                    start with fax-mode active\n"
-" -m, --mail                   start with mail-mode active\n"
+" -e, --email                  start with e-mail-mode active\n"
 " -n, --no-mode-selection      disable menu for XSane mode selection\n"
 "\n"
 " -F, --Fixed                  fixed main window size (overwrite preferences "
@@ -2580,72 +2661,81 @@ msgid "Rossmann negative HR 100"
 msgstr ""
 
 #
-#. TEXT_MAIL_STATUS_NOT_CREATED
-msgid "Mail project not created"
+#. TEXT_PROJECT_STATUS_NOT_CREATED
+#, fuzzy
+msgid "Project not created"
 msgstr "信件專案未建立"
 
 #
-#. TEXT_MAIL_STATUS_CREATED
-msgid "Mail project created"
+#. TEXT_PROJECT_STATUS_CREATED
+#, fuzzy
+msgid "Project created"
 msgstr "信件專案已建立"
 
 #
-#. TEXT_MAIL_STATUS_CHANGED
-msgid "Mail project changed"
+#. TEXT_PROJECT_STATUS_CHANGED
+#, fuzzy
+msgid "Project changed"
 msgstr "信件專案更改了"
 
-#
-#. TEXT_MAIL_STATUS_ERR_READ_PROJECT
-msgid "Error reading mailproject"
+#. TEXT_PROJECT_STATUS_ERR_READ_PROJECT
+#, fuzzy
+msgid "Error reading project"
+msgstr "輸入郵件專案的名稱"
+
+#. TEXT_PROJECT_STATUS_FILE_SAVING_ERROR
+#, fuzzy
+msgid "Error saving file"
+msgstr "儲存影像"
+
+#. TEXT_PROJECT_STATUS_FILE_SAVING
+#, fuzzy
+msgid "Saving file"
+msgstr "儲存影像"
+
+#. TEXT_PROJECT_STATUS_FILE_SAVING_ABORTED
+#, fuzzy
+msgid "Aborted saving file"
+msgstr "儲存影像"
+
+#. TEXT_PROJECT_STATUS_FILE_SAVED
+msgid "File has been saved"
 msgstr ""
 
-#. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
+#. TEXT_EMAIL_STATUS_POP3_CONNECTION_FAILED
 msgid "POP3 connection failed"
 msgstr ""
 
-#. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
+#. TEXT_EMAIL_STATUS_POP3_LOGIN_FAILED
 msgid "POP3 login failed"
 msgstr ""
 
-#. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
+#. TEXT_EMAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
 msgstr ""
 
 #
-#. TEXT_MAIL_STATUS_SMTP_ERR_FROM
+#. TEXT_EMAIL_STATUS_SMTP_ERR_FROM
 msgid "From entry not accepted"
 msgstr ""
 
 #
-#. TEXT_MAIL_STATUS_SMTP_ERR_RCPT
+#. TEXT_EMAIL_STATUS_SMTP_ERR_RCPT
 msgid "Receiver entry not accepted"
 msgstr ""
 
-#. TEXT_MAIL_STATUS_SMTP_ERR_DATA
-msgid "Mail data not accepted"
-msgstr ""
-
-#. TEXT_MAIL_STATUS_SENDING
-msgid "Sending mail"
-msgstr ""
-
-#. TEXT_MAIL_STATUS_SENT
-msgid "Mail has been sent"
-msgstr ""
-
 #
-#. TEXT_FAX_STATUS_NOT_CREATED
-msgid "Fax project not created"
+#. TEXT_EMAIL_STATUS_SMTP_ERR_DATA
+#, fuzzy
+msgid "E-mail data not accepted"
+msgstr "信件專案未建立"
+
+#. TEXT_EMAIL_STATUS_SENDING
+msgid "Sending e-mail"
 msgstr ""
 
-#
-#. TEXT_FAX_STATUS_CREATED
-msgid "Fax project created"
-msgstr ""
-
-#
-#. TEXT_FAX_STATUS_CHANGED
-msgid "Fax project changed"
+#. TEXT_EMAIL_STATUS_SENT
+msgid "E-mail has been sent"
 msgstr ""
 
 #. TEXT_FAX_STATUS_QUEUEING_FAX
@@ -2710,3 +2800,47 @@ msgstr "記憶體不足"
 
 msgid "Access to resource has been denied"
 msgstr "資源存取被禁止"
+
+#
+#, fuzzy
+#~ msgid "Multipage project not created"
+#~ msgstr "信件專案未建立"
+
+#
+#, fuzzy
+#~ msgid "Multipage project created"
+#~ msgstr "信件專案已建立"
+
+#
+#, fuzzy
+#~ msgid "Multipage project changed"
+#~ msgstr "信件專案更改了"
+
+#, fuzzy
+#~ msgid "Saving multipage file"
+#~ msgstr "儲存影像"
+
+#
+#, fuzzy
+#~ msgid "Multipage saving aborted"
+#~ msgstr "信件專案已建立"
+
+#~ msgid "Image"
+#~ msgstr "影像"
+
+#~ msgid "Viewer (png):"
+#~ msgstr "檢視器(png)"
+
+#, fuzzy
+#~ msgid "Enter command to be executed to view an e-mail image"
+#~ msgstr "輸入當檢視一個郵件影像時要執行的命令"
+
+#, fuzzy
+#~ msgid "Failed to execute e-mail image viewer:"
+#~ msgstr "不能執行郵件影像檢視器"
+
+#~ msgid "Step"
+#~ msgstr "步驟"
+
+#~ msgid "Mail"
+#~ msgstr "電子郵件"

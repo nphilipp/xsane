@@ -45,8 +45,10 @@ typedef struct Viewer
   char *output_filename;
   char *last_saved_filename;
   char *undo_filename;
+  char *selection_filetype;
 
   int allow_reduction_to_lineart;
+  int keep_viewer_pnm_format;
   float zoom;
   int image_saved;
   int cancel_save;
@@ -102,6 +104,7 @@ typedef struct Viewer
 }
 Viewer;
 
-extern Viewer *xsane_viewer_new(char *filename, int reduce_to_lineart, char *output_filename, viewer_modification allow_modification);
+extern Viewer *xsane_viewer_new(char *filename, char *selection_filetype, int allow_reduction_to_lineart,
+                                char *output_filename, viewer_modification allow_modification, int image_saved);
 
 #endif

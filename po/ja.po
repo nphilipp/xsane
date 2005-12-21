@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.96\n"
-"POT-Creation-Date: 2005-10-23 00:20+0200\n"
+"POT-Creation-Date: 2005-12-21 12:05+0100\n"
 "PO-Revision-Date: 2004-08-28 12:48+900\n"
 "Last-Translator: Kimizuka Tomokazu <sgtom@pluto.dti.ne.jp>\n"
 "Language-Team: Japanese\n"
@@ -79,17 +79,25 @@ msgstr "FAXページをリネーム"
 msgid "insert ps-file into fax"
 msgstr "PSファイルをFAXに挿入"
 
-#. WINDOW_MAIL_PROJECT
-msgid "mail project"
+#. WINDOW_EMAIL_PROJECT
+#, fuzzy
+msgid "E-mail project"
 msgstr "メールプロジェクト"
 
-#. WINDOW_MAIL_RENAME
-msgid "rename mail image"
+#. WINDOW_EMAIL_RENAME
+#, fuzzy
+msgid "rename e-mail image"
 msgstr "メールイメージをリネーム"
 
-#. WINDOW_MAIL_INSERT
-msgid "insert file into mail"
+#. WINDOW_EMAIL_INSERT
+#, fuzzy
+msgid "insert file into e-mail"
 msgstr "ファイルをメールに挿入"
+
+#. WINDOW_MULTIPAGE_PROJECT
+#, fuzzy
+msgid "multipage project"
+msgstr "プロジェクト削除"
 
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
@@ -379,6 +387,11 @@ msgstr "プロジェクト作成"
 msgid "Send project"
 msgstr "プロジェクトを送る"
 
+#. BUTTON_SAVE_MULTIPAGE
+#, fuzzy
+msgid "Save multipage file"
+msgstr "イメージを保存"
+
 #. BUTTON_DELETE_PROJECT
 msgid "Delete project"
 msgstr "プロジェクト削除"
@@ -419,8 +432,9 @@ msgstr "倍率を固定"
 msgid "Fine mode"
 msgstr "ファインモード"
 
-#. RADIO_BUTTON_HTML_MAIL
-msgid "HTML mail"
+#. RADIO_BUTTON_HTML_EMAIL
+#, fuzzy
+msgid "HTML e-mail"
 msgstr "HTMLメール"
 
 #. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
@@ -434,6 +448,14 @@ msgstr "上書きの警告"
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
 msgid "Skip existing filenames"
 msgstr "現在のファイル名をスキップ"
+
+#. RADIO_BUTTON_SAVE_PS_FLATDECODED
+msgid "Save postscript zlib compressed (ps level 3)"
+msgstr ""
+
+#. RADIO_BUTTON_SAVE_PDF_FLATDECODED
+msgid "Save PDF zlib compressed"
+msgstr ""
 
 #. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
 msgid "Save 16bit pnm in ascii format"
@@ -490,10 +512,6 @@ msgstr "XSaneのオプション"
 #. TEXT_XSANE_MODE
 msgid "XSane mode"
 msgstr "XSaneのモード"
-
-#. TEXT_FILENAME_COUNTER_STEP
-msgid "Step"
-msgstr "ステップ"
 
 #. TEXT_FILETYPE
 msgid "Type"
@@ -683,8 +701,9 @@ msgstr ""
 "特定目的適合性についての暗黙の保証を含めて、いかなる保証も行な\n"
 "いません。\n"
 
-#. TEXT_EMAIL
-msgid "Email:"
+#. TEXT_EMAIL_ADR
+#, fuzzy
+msgid "E-mail:"
 msgstr "メール："
 
 #. TEXT_HOMEPAGE
@@ -702,12 +721,13 @@ msgstr "翻訳："
 #. Please translate this to something like
 #. translation to YOUR LANGUAGE\n
 #. by YOUR NAME\n
-#. Email: your.name@yourdomain.com\n
+#. E-mail: your.name@yourdomain.com\n
 #. TEXT_TRANSLATION_INFO
+#, fuzzy
 msgid ""
 "untranslated original english text\n"
 "by Oliver Rauch\n"
-"Email: Oliver.Rauch@rauch-domain.de\n"
+"E-mail: Oliver.Rauch@rauch-domain.de\n"
 msgstr ""
 "日本語への翻訳者：\n"
 "君塚知一\n"
@@ -721,20 +741,32 @@ msgstr "0x0: 0キロバイト"
 msgid "Scanned pages: "
 msgstr "スキャンされたページ："
 
-#. TEXT_MAIL_TEXT
-msgid "Email text:"
+#. TEXT_EMAIL_TEXT
+#, fuzzy
+msgid "E-mail text:"
 msgstr "メールテキスト："
 
 #. TEXT_ATTACHMENTS
 msgid "Attachments:"
 msgstr "添付："
 
-#. TEXT_MAIL_STATUS
+#. TEXT_EMAIL_STATUS
 msgid "Project status:"
 msgstr "プロジェクトの状態："
 
-#. TEXT_MAIL_FILETYPE
-msgid "Mail image filetype:"
+#. TEXT_EMAIL_FILETYPE
+#, fuzzy
+msgid "E-mail image filetype:"
+msgstr "メール画像のファイルタイプ"
+
+#. TEXT_PAGES
+#, fuzzy
+msgid "Pages:"
+msgstr "書式："
+
+#. TEXT_MULTIPAGE_FILETYPE
+#, fuzzy
+msgid "Multipage document filetype:"
 msgstr "メール画像のファイルタイプ"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
@@ -847,6 +879,10 @@ msgstr "プリンタガンマ 緑："
 msgid "Printer gamma blue:"
 msgstr "プリンタガンマ 青："
 
+#. TEXT_SETUP_PRINTER_PS_FLATDECODED
+msgid "Create zlib compressed postscript image (ps level 3) for printing"
+msgstr ""
+
 #. TEXT_SETUP_TMP_PATH
 msgid "Temporary directory"
 msgstr "一時ディレクトリ"
@@ -870,6 +906,11 @@ msgstr "PNG画像圧縮"
 #. TEXT_SETUP_FILENAME_COUNTER_LEN
 msgid "Filename counter length"
 msgstr "ファイル名カウンタの範囲"
+
+#. TEXT_SETUP_TIFF_ZIP_COMPRESSION
+#, fuzzy
+msgid "TIFF zip compression rate"
+msgstr "TIFF 8ビット画像圧縮"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_16
 msgid "TIFF 16 bit image compression"
@@ -910,10 +951,6 @@ msgstr "ガンマ青をプレビュー："
 #. TEXT_SETUP_LINEART_MODE
 msgid "Threshold option:"
 msgstr "閾値オプション："
-
-#. TEXT_SETUP_ADF_MODE
-msgid "Automatic Document Feeder Modus:"
-msgstr "ADF関連の設定："
 
 #. TEXT_SETUP_PREVIEW_PIPETTE_RANGE
 msgid "Preview pipette range"
@@ -967,6 +1004,10 @@ msgstr "プログラムの初期値を設定："
 msgid "Viewer (Postscript):"
 msgstr "ビューワ(PostScript)："
 
+#. TEXT_SETUP_FAX_PS_FLATDECODED
+msgid "Create zlib compressed postscript image (ps level 3) for fax"
+msgstr ""
+
 #. TEXT_SETUP_SMTP_SERVER
 msgid "SMTP server:"
 msgstr "SMTPサーバ："
@@ -975,11 +1016,11 @@ msgstr "SMTPサーバ："
 msgid "SMTP port:"
 msgstr "SMTPポート："
 
-#. TEXT_SETUP_MAIL_FROM
+#. TEXT_SETUP_EMAIL_FROM
 msgid "From:"
 msgstr "差出人："
 
-#. TEXT_SETUP_MAIL_REPLY_TO
+#. TEXT_SETUP_EMAIL_REPLY_TO
 msgid "Reply to:"
 msgstr "返信先："
 
@@ -998,10 +1039,6 @@ msgstr "POP3ユーザー："
 #. TEXT_SETUP_POP3_PASS
 msgid "POP3 password:"
 msgstr "POP3パスワード："
-
-#. TEXT_SETUP_MAIL_VIEWER
-msgid "Viewer (png):"
-msgstr "ビューワ(PNG)："
 
 #. TEXT_SETUP_OCR_COMMAND
 msgid "OCR Command:"
@@ -1046,9 +1083,10 @@ msgstr "新しい媒体"
 msgid "Save"
 msgstr "保存"
 
-#. NOTEBOOK_IMAGE_OPTIONS
-msgid "Image"
-msgstr "画像"
+#. NOTEBOOK_FILETYPE_OPTIONS
+#, fuzzy
+msgid "Filetype"
+msgstr "ファイル"
 
 #. NOTEBOOK_COPY_OPTIONS
 msgid "Copy"
@@ -1058,8 +1096,9 @@ msgstr "コピー"
 msgid "Fax"
 msgstr "FAX"
 
-#. NOTEBOOK_MAIL_OPTIONS
-msgid "Mail"
+#. NOTEBOOK_EMAIL_OPTIONS
+#, fuzzy
+msgid "E-mail"
 msgstr "メール"
 
 #. NOTEBOOK_OCR_OPTIONS
@@ -1074,9 +1113,9 @@ msgstr "表示"
 msgid "Enhancement"
 msgstr "強調"
 
-#. MENU_ITEM_MAIL
-msgid "Email"
-msgstr "メール"
+#. MENU_ITEM_MULTIPAGE
+msgid "Multipage"
+msgstr ""
 
 #. MENU_ITEM_SHOW_TOOLTIPS
 msgid "Show tooltips"
@@ -1222,6 +1261,11 @@ msgstr "JPEG DCT 圧縮"
 msgid "pack bits"
 msgstr "パックビット"
 
+#. MENU_ITEM_TIFF_COMP_DEFLATE
+#, fuzzy
+msgid "deflate"
+msgstr "遅れて"
+
 #. MENU_ITEM_RANGE_SCALE
 msgid "Slider (Scale)"
 msgstr "スライダー(スケール)"
@@ -1295,6 +1339,11 @@ msgstr "スキャンしています"
 msgid "Receiving %s data"
 msgstr "データ %s を受信しています"
 
+#. PROGRESS_PAGE
+#, fuzzy
+msgid "page"
+msgstr "パッケージ"
+
 #. PROGRESS_TRANSFERING_DATA
 msgid "Transfering image"
 msgstr "画像を変換中"
@@ -1356,9 +1405,10 @@ msgid "Cancel preview scan <Alt-ESC>"
 msgstr "スキャンプレビューをキャンセル <Alt-ESC>"
 
 #. DESC_XSANE_MODE
+#, fuzzy
 msgid ""
-"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or mail-<Ctrl-"
-"m>"
+"viewer-<Ctrl-v>, save-<Ctrl-s>, photocopy-<Ctrl-c>, multipage-<Ctrl-m>, fax-"
+"<Ctrl-f> or e-mail-<Ctrl-e>"
 msgstr ""
 "保存-<Ctrl-s>, ビュー-<Ctrl-v>, フォトコピー-<Ctrl-c>, FAX-<Ctrl-f> または "
 "メール-<Ctrl-m>"
@@ -1407,24 +1457,38 @@ msgstr "FAXページにつけるファイル名を入力"
 msgid "Enter receiver phone number or address"
 msgstr "FAX受信機の電話番号かアドレスを入力"
 
-#. DESC_MAILPROJECT
-msgid "Enter name of mail project"
+#. DESC_EMAIL_PROJECT
+#, fuzzy
+msgid "Enter name of e-mail project"
 msgstr "メールプロジェクト名を入力"
 
-#. DESC_MAILIMAGENAME
-msgid "Enter new name for mail image"
+#. DESC_EMAIL_IMAGENAME
+#, fuzzy
+msgid "Enter new name for e-mail image"
 msgstr "新規メールイメージのファイル名を入力"
 
-#. DESC_MAILRECEIVER
-msgid "Enter email address"
+#. DESC_EMAIL_RECEIVER
+#, fuzzy
+msgid "Enter e-mail address"
 msgstr "メールアドレスを入力"
 
-#. DESC_MAILSUBJECT
-msgid "Enter subject of email"
+#. DESC_EMAIL_SUBJECT
+#, fuzzy
+msgid "Enter subject of e-mail"
 msgstr "メールの表題を入力"
 
-#. DESC_MAIL_FILETYPE
+#. DESC_EMAIL_FILETYPE
 msgid "Select filetype for image attachments"
+msgstr "画像添付時のファイルタイプを選択"
+
+#. DESC_MULTIPAGE_PROJECT
+#, fuzzy
+msgid "Enter name of multipage project"
+msgstr "メールプロジェクト名を入力"
+
+#. DESC_MULTIPAGE_FILETYPE
+#, fuzzy
+msgid "Select filetype for multipage file"
 msgstr "画像添付時のファイルタイプを選択"
 
 #. DESC_PRESET_AREA_RENAME
@@ -1656,6 +1720,12 @@ msgstr "焼き増しへの緑成分追加ガンマ値"
 msgid "Additional gamma value for blue component for photocopy"
 msgstr "焼き増しへの青成分追加ガンマ値"
 
+#. DESC_PRINTER_PS_FLATDECODED
+msgid ""
+"Create zlib compressed postscript image for printer (flatdecode).\n"
+"The printer has to understand postscript level 3!"
+msgstr ""
+
 #. DESC_TMP_PATH
 msgid "Path to temp directory"
 msgstr "一時ディレクトリへのパス"
@@ -1677,6 +1747,11 @@ msgstr "画像がPNGで保存されていれば圧縮"
 #. DESC_FILENAME_COUNTER_LEN
 msgid "Minimum length of counter in filename"
 msgstr "ファイル名のカウンタの最小範囲"
+
+#. DESC_TIFF_ZIP_COMPRESSION
+#, fuzzy
+msgid "Compression rate for zip compressed tiff (deflate)"
+msgstr "8ビット画像がTIFFで保存されている場合の圧縮タイプ"
 
 #. DESC_TIFF_COMPRESSION_16
 msgid "Compression type if 16 bit image is saved as tiff"
@@ -1702,6 +1777,16 @@ msgstr "現在のファイルに上書きする前の警告"
 msgid ""
 "If filename counter is automatically increased, used numbers are skipped"
 msgstr "ファイル名のカウンタが自動的に増加する際、使用済みの番号はとばされます"
+
+#. DESC_SAVE_PS_FLATDECODED
+msgid ""
+"compress postscript image with zlib algorithm (flatdecode).When you want to "
+"print such a file your printer has to understand postscript level 3"
+msgstr ""
+
+#. DESC_SAVE_PDF_FLATDECODED
+msgid "compress PDF image with zlib algorithm (flatdecode)."
+msgstr ""
 
 #. DESC_SAVE_PNM16_AS_ASCII
 msgid ""
@@ -1805,13 +1890,9 @@ msgid ""
 "Offset to make XSane threshold range and scanner threshold range the same"
 msgstr "XSaneとスキャナの閾値範囲を等しくするためのオフセット"
 
-#. DESC_ADF_MODE
-msgid ""
-"Select scansource for Automatic Document feeder. If this scansource is "
-"selected XSane scans until \"out of paper\" or error."
+#. DESC_ADF_PAGES_MAX
+msgid "Number of pages to scan"
 msgstr ""
-"ADFのためのスキャンソースを選択してください。このスキャンソースが選択されると"
-"XSaneは用紙切れかエラーになるまでスキャンをします"
 
 #. DESC_PREVIEW_PIPETTE_RANGE
 msgid "dimension of square that is used to average color for pipette function"
@@ -1862,6 +1943,10 @@ msgstr "FAX参照のための実行コマンドを入力"
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
 msgstr "垂直高解像度（98lpiに代えて196lpiで）モードでFAX送信"
 
+#. DESC_FAX_PS_FLATDECODED
+msgid "Create zlib compressed postscript image for fax (flatdecode)"
+msgstr ""
+
 #. DESC_SMTP_SERVER
 msgid "IP Address or Domain name of SMTP server"
 msgstr "IPアドレスまたはSMTPサーバのドメイン名"
@@ -1870,16 +1955,19 @@ msgstr "IPアドレスまたはSMTPサーバのドメイン名"
 msgid "port to connect to SMTP server"
 msgstr "SMTPサーバへの接続ポート"
 
-#. DESC_MAIL_FROM
-msgid "enter your email address"
+#. DESC_EMAIL_FROM
+#, fuzzy
+msgid "enter your e-mail address"
 msgstr "メールアドレスを入力してください"
 
-#. DESC_MAIL_REPLY_TO
-msgid "enter email address for replied emails"
+#. DESC_EMAIL_REPLY_TO
+#, fuzzy
+msgid "enter e-mail address for replied e-mails"
 msgstr "返信先アドレスを入力してください"
 
 #. DESC_POP3_AUTHENTIFICATION
-msgid "Authentificate at POP3 server before sending mail"
+#, fuzzy
+msgid "Authentificate at POP3 server before sending e-mail"
 msgstr "メール送信前にPOP3サーバで認証"
 
 #. DESC_POP3_SERVER
@@ -1898,12 +1986,9 @@ msgstr "POP3サーバのユーザー名"
 msgid "password for POP3 server"
 msgstr "POP3サーバのパスワード"
 
-#. DESC_MAIL_VIEWER
-msgid "Enter command to be executed to view a mail image"
-msgstr "メールイメージ表示のための実行コマンドを入力"
-
-#. DESC_HTML_MAIL
-msgid "Mail is sent in html mode, place image with: <IMAGE>"
+#. DESC_HTML_EMAIL
+#, fuzzy
+msgid "E-mail is sent in html mode, place image with: <IMAGE>"
 msgstr "メールはHTMLモードで送られ、画像は<IMAGE>タグとともに配置されます。"
 
 #. DESC_OCR_COMMAND
@@ -2249,10 +2334,6 @@ msgstr "FAXビューワの実行に失敗しました："
 msgid "Failed to execute fax command:"
 msgstr "FAXコマンドの実行に失敗しました："
 
-#. ERR_FAILED_EXEC_MAIL_VIEWER
-msgid "Failed to execute mail image viewer:"
-msgstr "メールイメージビューワの実行に失敗しました："
-
 #. ERR_FAILED_EXEC_OCR_CMD
 msgid "Failed to execute ocr command:"
 msgstr "OCRコマンドの実行に失敗しました："
@@ -2423,6 +2504,7 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[オプション]...[デバイス]"
 
 #. TEXT_HELP
+#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2439,8 +2521,9 @@ msgid ""
 " -V, --viewer                 start with viewer-mode active (default)\n"
 " -s, --save                   start with save-mode active\n"
 " -c, --copy                   start with copy-mode active\n"
+" -m, --multipage              start with multipage-mode active\n"
 " -f, --fax                    start with fax-mode active\n"
-" -m, --mail                   start with mail-mode active\n"
+" -e, --email                  start with e-mail-mode active\n"
 " -n, --no-mode-selection      disable menu for XSane mode selection\n"
 "\n"
 " -F, --Fixed                  fixed main window size (overwrite preferences "
@@ -2654,65 +2737,80 @@ msgstr "コニカ VX 100"
 msgid "Rossmann negative HR 100"
 msgstr "Rossmann HR 100"
 
-#. TEXT_MAIL_STATUS_NOT_CREATED
-msgid "Mail project not created"
-msgstr "メールプロジェクトは作成されませんでした"
+#. TEXT_PROJECT_STATUS_NOT_CREATED
+#, fuzzy
+msgid "Project not created"
+msgstr "FAXプロジェクトが作成されませんでした"
 
-#. TEXT_MAIL_STATUS_CREATED
-msgid "Mail project created"
-msgstr "メールプロジェクトが作成されました"
+#. TEXT_PROJECT_STATUS_CREATED
+#, fuzzy
+msgid "Project created"
+msgstr "FAXプロジェクトが作成されました"
 
-#. TEXT_MAIL_STATUS_CHANGED
-msgid "Mail project changed"
-msgstr "メールプロジェクトが変更されました"
+#. TEXT_PROJECT_STATUS_CHANGED
+#, fuzzy
+msgid "Project changed"
+msgstr "FAXプロジェクトが変更されました"
 
-#. TEXT_MAIL_STATUS_ERR_READ_PROJECT
-msgid "Error reading mailproject"
+#. TEXT_PROJECT_STATUS_ERR_READ_PROJECT
+#, fuzzy
+msgid "Error reading project"
 msgstr "メールプロジェクトを読込中にエラー"
 
-#. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
+#. TEXT_PROJECT_STATUS_FILE_SAVING_ERROR
+#, fuzzy
+msgid "Error saving file"
+msgstr "画像を保存中"
+
+#. TEXT_PROJECT_STATUS_FILE_SAVING
+#, fuzzy
+msgid "Saving file"
+msgstr "画像を保存中"
+
+#. TEXT_PROJECT_STATUS_FILE_SAVING_ABORTED
+#, fuzzy
+msgid "Aborted saving file"
+msgstr "画像を保存中"
+
+#. TEXT_PROJECT_STATUS_FILE_SAVED
+#, fuzzy
+msgid "File has been saved"
+msgstr "メールは送信されていません"
+
+#. TEXT_EMAIL_STATUS_POP3_CONNECTION_FAILED
 msgid "POP3 connection failed"
 msgstr "POP3接続に失敗しました"
 
-#. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
+#. TEXT_EMAIL_STATUS_POP3_LOGIN_FAILED
 msgid "POP3 login failed"
 msgstr "POP3ログインに失敗しました"
 
-#. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
+#. TEXT_EMAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
 msgstr "SMTP接続に失敗しました"
 
-#. TEXT_MAIL_STATUS_SMTP_ERR_FROM
+#. TEXT_EMAIL_STATUS_SMTP_ERR_FROM
 msgid "From entry not accepted"
 msgstr "差出人が受けつけられません"
 
-#. TEXT_MAIL_STATUS_SMTP_ERR_RCPT
+#. TEXT_EMAIL_STATUS_SMTP_ERR_RCPT
 msgid "Receiver entry not accepted"
 msgstr "受取人が受けつけられません"
 
-#. TEXT_MAIL_STATUS_SMTP_ERR_DATA
-msgid "Mail data not accepted"
+#. TEXT_EMAIL_STATUS_SMTP_ERR_DATA
+#, fuzzy
+msgid "E-mail data not accepted"
 msgstr "メールデータが受けつけられません"
 
-#. TEXT_MAIL_STATUS_SENDING
-msgid "Sending mail"
+#. TEXT_EMAIL_STATUS_SENDING
+#, fuzzy
+msgid "Sending e-mail"
 msgstr "メール送信中"
 
-#. TEXT_MAIL_STATUS_SENT
-msgid "Mail has been sent"
+#. TEXT_EMAIL_STATUS_SENT
+#, fuzzy
+msgid "E-mail has been sent"
 msgstr "メールは送信されていません"
-
-#. TEXT_FAX_STATUS_NOT_CREATED
-msgid "Fax project not created"
-msgstr "FAXプロジェクトが作成されませんでした"
-
-#. TEXT_FAX_STATUS_CREATED
-msgid "Fax project created"
-msgstr "FAXプロジェクトが作成されました"
-
-#. TEXT_FAX_STATUS_CHANGED
-msgid "Fax project changed"
-msgstr "FAXプロジェクトが変更されました"
 
 #. TEXT_FAX_STATUS_QUEUEING_FAX
 msgid "Queueing Fax"
@@ -2776,3 +2874,69 @@ msgstr "オーバーフロー"
 
 msgid "Access to resource has been denied"
 msgstr "リソースへのアクセスが拒否されました"
+
+#~ msgid "Automatic Document Feeder Modus:"
+#~ msgstr "ADF関連の設定："
+
+#~ msgid ""
+#~ "Select scansource for Automatic Document feeder. If this scansource is "
+#~ "selected XSane scans until \"out of paper\" or error."
+#~ msgstr ""
+#~ "ADFのためのスキャンソースを選択してください。このスキャンソースが選択され"
+#~ "るとXSaneは用紙切れかエラーになるまでスキャンをします"
+
+#, fuzzy
+#~ msgid "E-mail project not created"
+#~ msgstr "メールプロジェクトは作成されませんでした"
+
+#, fuzzy
+#~ msgid "E-mail project created"
+#~ msgstr "メールプロジェクトが作成されました"
+
+#, fuzzy
+#~ msgid "E-mail project changed"
+#~ msgstr "メールプロジェクトが変更されました"
+
+#, fuzzy
+#~ msgid "Multipage project not created"
+#~ msgstr "メールプロジェクトは作成されませんでした"
+
+#, fuzzy
+#~ msgid "Multipage project created"
+#~ msgstr "メールプロジェクトが作成されました"
+
+#, fuzzy
+#~ msgid "Multipage project changed"
+#~ msgstr "メールプロジェクトが変更されました"
+
+#, fuzzy
+#~ msgid "Error reading multipage project"
+#~ msgstr "メールプロジェクトを読込中にエラー"
+
+#, fuzzy
+#~ msgid "Saving multipage file"
+#~ msgstr "画像を保存中"
+
+#, fuzzy
+#~ msgid "Multipage saving aborted"
+#~ msgstr "メールプロジェクトが作成されました"
+
+#~ msgid "Image"
+#~ msgstr "画像"
+
+#~ msgid "Viewer (png):"
+#~ msgstr "ビューワ(PNG)："
+
+#, fuzzy
+#~ msgid "Enter command to be executed to view an e-mail image"
+#~ msgstr "メールイメージ表示のための実行コマンドを入力"
+
+#, fuzzy
+#~ msgid "Failed to execute e-mail image viewer:"
+#~ msgstr "メールイメージビューワの実行に失敗しました："
+
+#~ msgid "Step"
+#~ msgstr "ステップ"
+
+#~ msgid "Mail"
+#~ msgstr "メール"

@@ -72,18 +72,18 @@ static void xsane_setup_display_apply_changes(GtkWidget *widget, gpointer data);
 static void xsane_setup_saving_apply_changes(GtkWidget *widget, gpointer data);
 static void xsane_setup_image_apply_changes(GtkWidget *widget, gpointer data);
 static void xsane_setup_fax_apply_changes(GtkWidget *widget, gpointer data);
-#ifdef XSANE_ACTIVATE_MAIL
-static void xsane_setup_mail_apply_changes(GtkWidget *widget, gpointer data);
+#ifdef XSANE_ACTIVATE_EMAIL
+static void xsane_setup_email_apply_changes(GtkWidget *widget, gpointer data);
 #endif
 static void xsane_setup_ocr_apply_changes(GtkWidget *widget, gpointer data);
 static void xsane_setup_options_ok_callback(GtkWidget *widget, gpointer data);
 
 static void xsane_printer_notebook(GtkWidget *notebook);
 static void xsane_saving_notebook(GtkWidget *notebook);
-static void xsane_image_notebook(GtkWidget *notebook);
+static void xsane_filetype_notebook(GtkWidget *notebook);
 static void xsane_fax_notebook(GtkWidget *notebook);
-#ifdef XSANE_ACTIVATE_MAIL
-static void xsane_mail_notebook(GtkWidget *notebook);
+#ifdef XSANE_ACTIVATE_EMAIL
+static void xsane_email_notebook(GtkWidget *notebook);
 #endif
 static void xsane_display_notebook(GtkWidget *notebook);
 static void xsane_enhance_notebook_sensitivity(int lineart_mode);
@@ -133,6 +133,7 @@ void xsane_new_printer(void)
       preferences.printer[preferences.printernr]->gamma_red            = 1.0;
       preferences.printer[preferences.printernr]->gamma_green          = 1.0;
       preferences.printer[preferences.printernr]->gamma_blue           = 1.0;
+      preferences.printer[preferences.printernr]->ps_flatdecoded       = 1;
     }
     else
     {
@@ -272,6 +273,9 @@ static void xsane_setup_printer_update()
   gtk_entry_set_text(GTK_ENTRY(xsane_setup.printer_gamma_green_entry), buf);
   snprintf(buf, sizeof(buf), "%1.2f", preferences.printer[preferences.printernr]->gamma_blue);
   gtk_entry_set_text(GTK_ENTRY(xsane_setup.printer_gamma_blue_entry), buf);
+#ifdef HAVE_LIBZ
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(xsane_setup.printer_ps_flatdecoded_button), preferences.printer[preferences.printernr]->ps_flatdecoded);
+#endif
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -347,6 +351,10 @@ static void xsane_setup_printer_apply_changes(GtkWidget *widget, gpointer data)
   xsane_update_double(xsane_setup.printer_gamma_red_entry,   &preferences.printer[preferences.printernr]->gamma_red);
   xsane_update_double(xsane_setup.printer_gamma_green_entry, &preferences.printer[preferences.printernr]->gamma_green);
   xsane_update_double(xsane_setup.printer_gamma_blue_entry,  &preferences.printer[preferences.printernr]->gamma_blue);
+
+#ifdef HAVE_LIBZ
+  xsane_update_bool(xsane_setup.printer_ps_flatdecoded_button,  &preferences.printer[preferences.printernr]->ps_flatdecoded);
+#endif
 
   if (option_menu)
   {
@@ -509,31 +517,6 @@ static void xsane_setup_enhance_apply_changes(GtkWidget *widget, gpointer data)
     xsane.grayscale_scanmode = strdup(xsane_setup.grayscale_scanmode);
   }
 
-
-  if (xsane.adf_scansource)
-  {
-    if (xsane_setup.adf_scansource)
-    {
-      device_options_changed |= (strcmp(xsane_setup.adf_scansource, xsane.adf_scansource));
-    }
-    else
-    {
-      device_options_changed |= 1;
-    }
-
-    free((void *) xsane.adf_scansource);
-    xsane.adf_scansource = NULL;
-  }
-  else if (xsane_setup.adf_scansource)
-  {
-    device_options_changed |= 1;
-  }
-
-  if (xsane_setup.adf_scansource)
-  {
-    xsane.adf_scansource = strdup(xsane_setup.adf_scansource);
-  }
-
   preferences.preview_pipette_range = xsane_setup.preview_pipette_range;
 
   xsane_update_bool(xsane_setup.auto_enhance_gamma_button,  &preferences.auto_enhance_gamma);
@@ -597,18 +580,24 @@ static void xsane_setup_image_apply_changes(GtkWidget *widget, gpointer data)
 
 #ifdef HAVE_LIBPNG
 #ifdef HAVE_LIBZ
-  xsane_update_scale(xsane_setup.pnm_image_compression_scale, &preferences.png_compression);
+  xsane_update_scale(xsane_setup.png_image_compression_scale, &preferences.png_compression);
 #endif
 #endif
 
 #ifdef HAVE_LIBTIFF
+  xsane_update_scale(xsane_setup.tiff_image_zip_compression_scale, &preferences.tiff_zip_compression);
   preferences.tiff_compression16_nr = xsane_setup.tiff_compression16_nr;
   preferences.tiff_compression8_nr  = xsane_setup.tiff_compression8_nr;
   preferences.tiff_compression1_nr  = xsane_setup.tiff_compression1_nr;
 #endif
 
-  xsane_update_bool(xsane_setup.save_pnm16_as_ascii_button,   &preferences.save_pnm16_as_ascii);
   xsane_update_bool(xsane_setup.reduce_16bit_to_8bit_button,  &preferences.reduce_16bit_to_8bit);
+  xsane_update_bool(xsane_setup.save_pnm16_as_ascii_button,   &preferences.save_pnm16_as_ascii);
+
+#ifdef HAVE_LIBZ
+  xsane_update_bool(xsane_setup.save_ps_flatdecoded_button,    &preferences.save_ps_flatdecoded);
+  xsane_update_bool(xsane_setup.save_pdf_flatdecoded_button,   &preferences.save_pdf_flatdecoded);
+#endif
 
   xsane_define_maximum_output_size();
 }
@@ -635,36 +624,39 @@ static void xsane_setup_fax_apply_changes(GtkWidget *widget, gpointer data)
   xsane_update_geometry_double(xsane_setup.fax_width_entry,        &preferences.fax_width,        preferences.length_unit);
   xsane_update_geometry_double(xsane_setup.fax_height_entry,       &preferences.fax_height,       preferences.length_unit);
 
+#ifdef HAVE_LIBZ
+  xsane_update_bool(xsane_setup.fax_ps_flatdecoded_button,  &preferences.fax_ps_flatdecoded);
+#endif
+
   xsane_define_maximum_output_size();
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#ifdef XSANE_ACTIVATE_MAIL
-static void xsane_setup_mail_apply_changes(GtkWidget *widget, gpointer data)
+#ifdef XSANE_ACTIVATE_EMAIL
+static void xsane_setup_email_apply_changes(GtkWidget *widget, gpointer data)
 {
  int i;
 
-  DBG(DBG_proc, "xsane_setup_mail_apply_changes\n");
+  DBG(DBG_proc, "xsane_setup_email_apply_changes\n");
 
-  preferences.mail_from        = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.mail_from_entry)));
-  preferences.mail_reply_to    = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.mail_reply_to_entry)));
-  preferences.mail_smtp_server = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.mail_smtp_server_entry)));
-  preferences.mail_pop3_server = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.mail_pop3_server_entry)));
-  preferences.mail_pop3_user   = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.mail_pop3_user_entry)));
-  preferences.mail_pop3_pass   = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.mail_pop3_pass_entry)));
-  preferences.mail_viewer      = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.mail_viewer_entry)));
+  preferences.email_from        = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.email_from_entry)));
+  preferences.email_reply_to    = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.email_reply_to_entry)));
+  preferences.email_smtp_server = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.email_smtp_server_entry)));
+  preferences.email_pop3_server = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.email_pop3_server_entry)));
+  preferences.email_pop3_user   = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.email_pop3_user_entry)));
+  preferences.email_pop3_pass   = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.email_pop3_pass_entry)));
 
   /* make sure password is not stored in ascii text */
   /* this is very simple but better than nothing */
-  for (i=0; i<strlen(preferences.mail_pop3_pass); i++)
+  for (i=0; i<strlen(preferences.email_pop3_pass); i++)
   {
-    preferences.mail_pop3_pass[i] ^= 0x53;
+    preferences.email_pop3_pass[i] ^= 0x53;
   }
 
-  xsane_update_bool(xsane_setup.mail_pop3_authentification_entry, &preferences.mail_pop3_authentification);
-  xsane_update_int(xsane_setup.mail_smtp_port_entry, &preferences.mail_smtp_port);
-  xsane_update_int(xsane_setup.mail_pop3_port_entry, &preferences.mail_pop3_port);
+  xsane_update_bool(xsane_setup.email_pop3_authentification_entry, &preferences.email_pop3_authentification);
+  xsane_update_int(xsane_setup.email_smtp_port_entry, &preferences.email_smtp_port);
+  xsane_update_int(xsane_setup.email_pop3_port_entry, &preferences.email_pop3_port);
 }
 #endif
 
@@ -719,8 +711,8 @@ static void xsane_setup_options_ok_callback(GtkWidget *widget, gpointer data)
   xsane_setup_saving_apply_changes(0, 0);
   xsane_setup_image_apply_changes(0, 0);
   xsane_setup_fax_apply_changes(0, 0);
-#ifdef XSANE_ACTIVATE_MAIL
-  xsane_setup_mail_apply_changes(0, 0);
+#ifdef XSANE_ACTIVATE_EMAIL
+  xsane_setup_email_apply_changes(0, 0);
 #endif
   xsane_setup_ocr_apply_changes(0, 0);
 
@@ -729,13 +721,6 @@ static void xsane_setup_options_ok_callback(GtkWidget *widget, gpointer data)
     free((void *) xsane_setup.grayscale_scanmode);
     xsane_setup.grayscale_scanmode = NULL;
   }
-
-  if (xsane_setup.adf_scansource)
-  {
-    free((void *) xsane_setup.adf_scansource);
-    xsane_setup.adf_scansource = NULL;
-  }
-
 
   xsane_pref_save();
 
@@ -1285,6 +1270,25 @@ static void xsane_printer_notebook(GtkWidget *notebook)
   xsane_setup.printer_gamma_blue_entry = text;
 
 
+
+#ifdef HAVE_LIBZ
+  xsane_separator_new(vbox, 2);
+
+
+
+  /* flatdecoded = ps level 3 */
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+  button = gtk_check_button_new_with_label(TEXT_SETUP_PRINTER_PS_FLATDECODED);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_PRINTER_PS_FLATDECODED);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), preferences.printer[preferences.printernr]->ps_flatdecoded);
+  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 2);
+  gtk_widget_show(button);
+  gtk_widget_show(hbox);
+  xsane_setup.printer_ps_flatdecoded_button = button;
+#endif
+
+
   xsane_separator_new(vbox, 4);
 
   /* "apply" "add printer" "delete printer" */
@@ -1506,7 +1510,7 @@ static void xsane_saving_notebook(GtkWidget *notebook)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_image_notebook(GtkWidget *notebook)
+static void xsane_filetype_notebook(GtkWidget *notebook)
 {
  GtkWidget *setup_vbox, *vbox, *hbox, *button, *label, *frame;
  int i, select = 1;
@@ -1520,8 +1524,8 @@ static void xsane_image_notebook(GtkWidget *notebook)
   int number;
  } tiff_compression;
 
-#define TIFF_COMPRESSION16_NUMBER 2
-#define TIFF_COMPRESSION8_NUMBER 3
+#define TIFF_COMPRESSION16_NUMBER 3
+#define TIFF_COMPRESSION8_NUMBER 4
 #define TIFF_COMPRESSION1_NUMBER 6
 
  tiff_compression tiff_compression16_strings[TIFF_COMPRESSION16_NUMBER];
@@ -1532,6 +1536,8 @@ static void xsane_image_notebook(GtkWidget *notebook)
  tiff_compression16_strings[0].number = COMPRESSION_NONE;
  tiff_compression16_strings[1].name   = MENU_ITEM_TIFF_COMP_PACKBITS;
  tiff_compression16_strings[1].number = COMPRESSION_PACKBITS;
+ tiff_compression16_strings[2].name   = MENU_ITEM_TIFF_COMP_DEFLATE;
+ tiff_compression16_strings[2].number = COMPRESSION_DEFLATE;
  
  tiff_compression8_strings[0].name   = MENU_ITEM_TIFF_COMP_NONE;
  tiff_compression8_strings[0].number = COMPRESSION_NONE;
@@ -1539,6 +1545,8 @@ static void xsane_image_notebook(GtkWidget *notebook)
  tiff_compression8_strings[1].number = COMPRESSION_JPEG;
  tiff_compression8_strings[2].name   = MENU_ITEM_TIFF_COMP_PACKBITS;
  tiff_compression8_strings[2].number = COMPRESSION_PACKBITS;
+ tiff_compression8_strings[3].name   = MENU_ITEM_TIFF_COMP_DEFLATE;
+ tiff_compression8_strings[3].number = COMPRESSION_DEFLATE;
 
  tiff_compression1_strings[0].name   = MENU_ITEM_TIFF_COMP_NONE;
  tiff_compression1_strings[0].number = COMPRESSION_NONE;
@@ -1555,12 +1563,12 @@ static void xsane_image_notebook(GtkWidget *notebook)
 
 #endif /* HAVE_LIBTIFF */
 
-  DBG(DBG_proc, "xsane_image_notebook\n");
+  DBG(DBG_proc, "xsane_filetype_notebook\n");
 
   /* Image options notebook page */
   setup_vbox = gtk_vbox_new(FALSE, 5);
 
-  label = gtk_label_new(NOTEBOOK_IMAGE_OPTIONS);
+  label = gtk_label_new(NOTEBOOK_FILETYPE_OPTIONS);
   gtk_notebook_append_page(GTK_NOTEBOOK(notebook), setup_vbox, label);
   gtk_widget_show(setup_vbox);
 
@@ -1575,6 +1583,21 @@ static void xsane_image_notebook(GtkWidget *notebook)
   gtk_widget_show(vbox);
 
 
+  /* reduce 16bit to 8bit */
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+  button = gtk_check_button_new_with_label(RADIO_BUTTON_REDUCE_16BIT_TO_8BIT);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_REDUCE_16BIT_TO_8BIT);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), preferences.reduce_16bit_to_8bit);
+  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 2);
+  gtk_widget_show(button);
+  gtk_widget_show(hbox);
+  xsane_setup.reduce_16bit_to_8bit_button = button;
+
+
+  xsane_separator_new(vbox, 4);
+
+
   /* save pnm16 as ascii */
   hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
@@ -1586,16 +1609,31 @@ static void xsane_image_notebook(GtkWidget *notebook)
   gtk_widget_show(hbox);
   xsane_setup.save_pnm16_as_ascii_button = button;
 
-  /* reduce 16bit to 8bit */
+
+#ifdef HAVE_LIBZ
+  /* save ps with zlib compression / flatdecode = ps level 3 */
   hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
-  button = gtk_check_button_new_with_label(RADIO_BUTTON_REDUCE_16BIT_TO_8BIT);
-  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_REDUCE_16BIT_TO_8BIT);
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), preferences.reduce_16bit_to_8bit);
+  button = gtk_check_button_new_with_label(RADIO_BUTTON_SAVE_PS_FLATDECODED);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_SAVE_PS_FLATDECODED);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), preferences.save_ps_flatdecoded);
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 2);
   gtk_widget_show(button);
   gtk_widget_show(hbox);
-  xsane_setup.reduce_16bit_to_8bit_button = button;
+  xsane_setup.save_ps_flatdecoded_button = button;
+
+
+  /* save pdf with zlib compression / flatdecode */
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+  button = gtk_check_button_new_with_label(RADIO_BUTTON_SAVE_PDF_FLATDECODED);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_SAVE_PDF_FLATDECODED);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), preferences.save_pdf_flatdecoded);
+  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 2);
+  gtk_widget_show(button);
+  gtk_widget_show(hbox);
+  xsane_setup.save_pdf_flatdecoded_button = button;
+#endif
 
 
 #ifdef HAVE_LIBJPEG 
@@ -1625,11 +1663,14 @@ static void xsane_image_notebook(GtkWidget *notebook)
 #ifdef HAVE_LIBPNG
 #ifdef HAVE_LIBZ
   xsane_range_new(GTK_BOX(vbox), TEXT_SETUP_PNG_COMPRESSION, DESC_PNG_COMPRESSION, 0.0, Z_BEST_COMPRESSION, 1.0, 10.0, 0,
-                  &preferences.png_compression, (GtkObject **) &xsane_setup.pnm_image_compression_scale, 0, TRUE);
+                  &preferences.png_compression, (GtkObject **) &xsane_setup.png_image_compression_scale, 0, TRUE);
 #endif
 #endif
 
 #ifdef HAVE_LIBTIFF
+  xsane_range_new(GTK_BOX(vbox), TEXT_SETUP_TIFF_ZIP_COMPRESSION, DESC_TIFF_ZIP_COMPRESSION, 1.0, 9.0, 1.0, 6.0, 0,
+                  &preferences.tiff_zip_compression, (GtkObject **) &xsane_setup.tiff_image_zip_compression_scale, 0, TRUE);
+
   /* TIFF 16 BIT IMAGES COMPRESSION */
 
   hbox = gtk_hbox_new(FALSE, 2);
@@ -2033,7 +2074,26 @@ static void xsane_fax_notebook(GtkWidget *notebook)
   gtk_widget_show(hbox);
   xsane_setup.fax_bottomoffset_entry = text;
 
+
+#ifdef HAVE_LIBZ
   xsane_separator_new(vbox, 4);
+
+
+  /* flatdecoded = ps level 3 */
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+  button = gtk_check_button_new_with_label(TEXT_SETUP_FAX_PS_FLATDECODED);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_FAX_PS_FLATDECODED);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), preferences.fax_ps_flatdecoded);
+  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 2);
+  gtk_widget_show(button);
+  gtk_widget_show(hbox);
+  xsane_setup.fax_ps_flatdecoded_button = button;
+#endif
+
+
+  xsane_separator_new(vbox, 4);
+
 
   /* apply button */
 
@@ -2063,21 +2123,21 @@ static void xsane_setup_pop3_authentification_callback(GtkWidget *widget, gpoint
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#ifdef XSANE_ACTIVATE_MAIL
-static void xsane_mail_notebook(GtkWidget *notebook)
+#ifdef XSANE_ACTIVATE_EMAIL
+static void xsane_email_notebook(GtkWidget *notebook)
 {
  GtkWidget *setup_vbox, *vbox, *pop3_vbox, *hbox, *button, *label, *text, *frame;
  char buf[64];
  char *password;
  int i;
 
-  DBG(DBG_proc, "xsane_mail_notebook\n");
+  DBG(DBG_proc, "xsane_email_notebook\n");
 
   /* Mail options notebook page */
 
   setup_vbox = gtk_vbox_new(FALSE, 5);
 
-  label = gtk_label_new(NOTEBOOK_MAIL_OPTIONS);
+  label = gtk_label_new(NOTEBOOK_EMAIL_OPTIONS);
   gtk_notebook_append_page(GTK_NOTEBOOK(notebook), setup_vbox, label);
   gtk_widget_show(setup_vbox);
 
@@ -2096,36 +2156,36 @@ static void xsane_mail_notebook(GtkWidget *notebook)
   hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
 
-  label = gtk_label_new(TEXT_SETUP_MAIL_FROM);
+  label = gtk_label_new(TEXT_SETUP_EMAIL_FROM);
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
   gtk_widget_show(label);
 
   text = gtk_entry_new();
-  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_MAIL_FROM);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_EMAIL_FROM);
   gtk_widget_set_size_request(text, 250, -1);
-  gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.mail_from);
+  gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.email_from);
   gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
   gtk_widget_show(text);
   gtk_widget_show(hbox);
-  xsane_setup.mail_from_entry = text;
+  xsane_setup.email_from_entry = text;
 
 
   /* reply to */
   hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
 
-  label = gtk_label_new(TEXT_SETUP_MAIL_REPLY_TO);
+  label = gtk_label_new(TEXT_SETUP_EMAIL_REPLY_TO);
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
   gtk_widget_show(label);
 
   text = gtk_entry_new();
-  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_MAIL_REPLY_TO);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_EMAIL_REPLY_TO);
   gtk_widget_set_size_request(text, 250, -1);
-  gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.mail_reply_to);
+  gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.email_reply_to);
   gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
   gtk_widget_show(text);
   gtk_widget_show(hbox);
-  xsane_setup.mail_reply_to_entry = text;
+  xsane_setup.email_reply_to_entry = text;
 
 
   xsane_separator_new(vbox, 2);
@@ -2142,11 +2202,11 @@ static void xsane_mail_notebook(GtkWidget *notebook)
   text = gtk_entry_new();
   xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_SMTP_SERVER);
   gtk_widget_set_size_request(text, 250, -1);
-  gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.mail_smtp_server);
+  gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.email_smtp_server);
   gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
   gtk_widget_show(text);
   gtk_widget_show(hbox);
-  xsane_setup.mail_smtp_server_entry = text;
+  xsane_setup.email_smtp_server_entry = text;
 
 
   /* smtp port */
@@ -2160,12 +2220,12 @@ static void xsane_mail_notebook(GtkWidget *notebook)
   text = gtk_entry_new();
   xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_SMTP_PORT);
   gtk_widget_set_size_request(text, 50, -1);
-  snprintf(buf, sizeof(buf), "%d", preferences.mail_smtp_port);
+  snprintf(buf, sizeof(buf), "%d", preferences.email_smtp_port);
   gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
   gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
   gtk_widget_show(text);
   gtk_widget_show(hbox);
-  xsane_setup.mail_smtp_port_entry = text;
+  xsane_setup.email_smtp_port_entry = text;
 
 
   xsane_separator_new(vbox, 2);
@@ -2181,11 +2241,11 @@ static void xsane_mail_notebook(GtkWidget *notebook)
   button = gtk_check_button_new_with_label(RADIO_BUTTON_POP3_AUTHENTIFICATION);
   g_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_setup_pop3_authentification_callback, (void *) pop3_vbox);
   xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_POP3_AUTHENTIFICATION);
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), preferences.mail_pop3_authentification);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), preferences.email_pop3_authentification);
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 2);
   gtk_widget_show(button);
   gtk_widget_show(hbox);
-  xsane_setup.mail_pop3_authentification_entry = button;
+  xsane_setup.email_pop3_authentification_entry = button;
 
   /* place vbox for pop3 settings after check_button */
   gtk_box_pack_start(GTK_BOX(vbox), pop3_vbox, FALSE, FALSE, 2);
@@ -2202,11 +2262,11 @@ static void xsane_mail_notebook(GtkWidget *notebook)
   text = gtk_entry_new();
   xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_POP3_SERVER);
   gtk_widget_set_size_request(text, 250, -1);
-  gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.mail_pop3_server);
+  gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.email_pop3_server);
   gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
   gtk_widget_show(text);
   gtk_widget_show(hbox);
-  xsane_setup.mail_pop3_server_entry = text;
+  xsane_setup.email_pop3_server_entry = text;
 
 
   /* pop3 port */
@@ -2220,12 +2280,12 @@ static void xsane_mail_notebook(GtkWidget *notebook)
   text = gtk_entry_new();
   xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_POP3_PORT);
   gtk_widget_set_size_request(text, 50, -1);
-  snprintf(buf, sizeof(buf), "%d", preferences.mail_pop3_port);
+  snprintf(buf, sizeof(buf), "%d", preferences.email_pop3_port);
   gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
   gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
   gtk_widget_show(text);
   gtk_widget_show(hbox);
-  xsane_setup.mail_pop3_port_entry = text;
+  xsane_setup.email_pop3_port_entry = text;
 
 
   /* pop3 username */
@@ -2239,15 +2299,15 @@ static void xsane_mail_notebook(GtkWidget *notebook)
   text = gtk_entry_new();
   xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_POP3_USER);
   gtk_widget_set_size_request(text, 250, -1);
-  gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.mail_pop3_user);
+  gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.email_pop3_user);
   gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
   gtk_widget_show(text);
   gtk_widget_show(hbox);
-  xsane_setup.mail_pop3_user_entry = text;
+  xsane_setup.email_pop3_user_entry = text;
 
 
   /* pop3 password */
-  password = strdup(preferences.mail_pop3_pass);
+  password = strdup(preferences.email_pop3_pass);
  
   for (i=0; i<strlen(password); i++)
   {
@@ -2269,30 +2329,9 @@ static void xsane_mail_notebook(GtkWidget *notebook)
   gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
   gtk_widget_show(text);
   gtk_widget_show(hbox);
-  xsane_setup.mail_pop3_pass_entry = text;
+  xsane_setup.email_pop3_pass_entry = text;
 
   free(password);
-
-
-  xsane_separator_new(vbox, 2);
-
-
-  /* mailviewer */
-  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
-
-  label = gtk_label_new(TEXT_SETUP_MAIL_VIEWER);
-  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
-  gtk_widget_show(label);
-
-  text = gtk_entry_new();
-  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_MAIL_VIEWER);
-  gtk_widget_set_size_request(text, 250, -1);
-  gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.mail_viewer);
-  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
-  gtk_widget_show(text);
-  gtk_widget_show(hbox);
-  xsane_setup.mail_viewer_entry = text;
 
 
   xsane_separator_new(vbox, 4);
@@ -2307,7 +2346,7 @@ static void xsane_mail_notebook(GtkWidget *notebook)
 #else
   button = gtk_button_new_with_label(BUTTON_APPLY);
 #endif
-  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_mail_apply_changes, NULL);
+  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_email_apply_changes, NULL);
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
   gtk_widget_show(button);
 
@@ -2805,27 +2844,10 @@ static void xsane_setup_preview_pipette_range_callback(GtkWidget *widget, gpoint
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void xsane_setup_adf_mode_callback(GtkWidget *widget, gpointer data)
-{
-  if (xsane_setup.adf_scansource)
-  {
-    free(xsane_setup.adf_scansource);
-    xsane_setup.adf_scansource = NULL;
-  }
-
-  if (data)
-  {
-    xsane_setup.adf_scansource = strdup( (char *) data);
-  }
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
 static void xsane_enhance_notebook(GtkWidget *notebook)
 {
  GtkWidget *setup_vbox, *vbox, *hbox, *button, *label, *text, *frame;
  GtkWidget *lineart_mode_option_menu, *lineart_mode_menu, *lineart_mode_item;
- GtkWidget *adf_option_menu, *adf_menu, *adf_item;
  GtkWidget *gray_option_menu, *gray_menu, *gray_item;
  GtkWidget *preview_pipette_range_option_menu, *preview_pipette_range_menu, *preview_pipette_range_item;
  const SANE_Option_Descriptor *opt;
@@ -3130,87 +3152,6 @@ static void xsane_enhance_notebook(GtkWidget *notebook)
   xsane_separator_new(vbox, 4);
 
 
-  /* ADF modus menu  */
-
-  hbox = gtk_hbox_new(FALSE, 2);
-  gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
-
-  label = gtk_label_new(TEXT_SETUP_ADF_MODE);
-  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
-  gtk_widget_show(label);
-
-  if (xsane.adf_scansource)
-  {
-    xsane_setup.adf_scansource = strdup(xsane.adf_scansource);
-  }
-  else
-  {
-    xsane_setup.adf_scansource = NULL;
-  }
-
-  select = 0;
-  adf_menu = gtk_menu_new();
-
-  adf_item = gtk_menu_item_new_with_label(MENU_ITEM_SELECTION_NONE);
-  gtk_container_add(GTK_CONTAINER(adf_menu), adf_item);
-  g_signal_connect(GTK_OBJECT(adf_item), "activate", (GtkSignalFunc) xsane_setup_adf_mode_callback, NULL);
-  gtk_widget_show(adf_item);
-
-  opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.scansource);
-  if (opt)
-  {
-    if (SANE_OPTION_IS_ACTIVE(opt->cap))
-    {
-      switch (opt->constraint_type)
-      {
-        case SANE_CONSTRAINT_STRING_LIST:
-        {
-         char *set;
-         SANE_Status status;
-
-          /* use a "list-selection" widget */
-          set = malloc(opt->size);
-          status = xsane_control_option(xsane.dev, xsane.well_known.scansource, SANE_ACTION_GET_VALUE, set, 0);
-
-          for (i=0; opt->constraint.string_list[i]; i++)
-          {
-            adf_item = gtk_menu_item_new_with_label(_BGT(opt->constraint.string_list[i]));
-            gtk_container_add(GTK_CONTAINER(adf_menu), adf_item);
-            g_signal_connect(GTK_OBJECT(adf_item), "activate", (GtkSignalFunc) xsane_setup_adf_mode_callback, (void *) opt->constraint.string_list[i]);
-
-            gtk_widget_show(adf_item);
-
-            if (xsane.adf_scansource)
-            {
-              if (!strcmp(opt->constraint.string_list[i], xsane.adf_scansource))
-              {
-                select = i+1;
-              }
-            }
-          }
-        }
-        break;
-
-        default:
-          DBG(DBG_error, "adf_scansource_selection: %s %d\n", ERR_UNKNOWN_CONSTRAINT_TYPE, opt->constraint_type);
-      }
-    }
-  }
-
-  adf_option_menu = gtk_option_menu_new();
-  xsane_back_gtk_set_tooltip(xsane.tooltips, adf_option_menu, DESC_ADF_MODE);
-  gtk_box_pack_end(GTK_BOX(hbox), adf_option_menu, FALSE, FALSE, 2);
-  gtk_option_menu_set_menu(GTK_OPTION_MENU(adf_option_menu), adf_menu);
-  gtk_option_menu_set_history(GTK_OPTION_MENU(adf_option_menu), select);
-  gtk_widget_show(hbox);
-
-  gtk_widget_show(adf_option_menu);  
-
-
-  xsane_separator_new(vbox, 4);
-
-
   /* apply button */
 
   hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
@@ -3266,11 +3207,11 @@ void xsane_setup_dialog(GtkWidget *widget, gpointer data)
 
 
   xsane_saving_notebook(notebook);
-  xsane_image_notebook(notebook);
+  xsane_filetype_notebook(notebook);
   xsane_printer_notebook(notebook);
   xsane_fax_notebook(notebook);
-#ifdef XSANE_ACTIVATE_MAIL
-  xsane_mail_notebook(notebook);
+#ifdef XSANE_ACTIVATE_EMAIL
+  xsane_email_notebook(notebook);
 #endif
   xsane_ocr_notebook(notebook);
   xsane_display_notebook(notebook);

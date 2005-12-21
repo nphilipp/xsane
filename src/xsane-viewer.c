@@ -65,7 +65,8 @@ static GtkWidget *xsane_viewer_file_build_menu(Viewer *v);
 static GtkWidget *xsane_viewer_edit_build_menu(Viewer *v);
 static GtkWidget *xsane_viewer_filters_build_menu(Viewer *v);
 static int xsane_viewer_read_image(Viewer *v);
-Viewer *xsane_viewer_new(char *filename, int allow_reduction_to_lineart, char *output_filename, viewer_modification allow_modification);
+Viewer *xsane_viewer_new(char *filename, char *selection_filetype, int allow_reduction_to_lineart,
+                         char *output_filename, viewer_modification allow_modification, int image_saved);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -281,7 +282,7 @@ static void xsane_viewer_save_callback(GtkWidget *window, gpointer data)
     snprintf(windowname, sizeof(windowname), "%s %s %s", xsane.prog_name, WINDOW_VIEWER_OUTPUT_FILENAME, xsane.device_text);
  
     umask((mode_t) preferences.directory_umask); /* define new file permissions */
-    abort = xsane_back_gtk_get_filename(windowname, outputfilename, sizeof(outputfilename), outputfilename, &preferences.filetype, TRUE, TRUE, FALSE, TRUE);
+    abort = xsane_back_gtk_get_filename(windowname, outputfilename, sizeof(outputfilename), outputfilename, &v->selection_filetype, TRUE, TRUE, FALSE, TRUE);
     umask(XSANE_DEFAULT_UMASK); /* define new file permissions */ 
 
     if (abort)
@@ -297,9 +298,14 @@ static void xsane_viewer_save_callback(GtkWidget *window, gpointer data)
   }
 
   v->output_filename = strdup(outputfilename);
-  xsane_update_counter_in_filename(&v->output_filename, FALSE, 0, preferences.filename_counter_len); /* set correct counter length */
 
-  if (preferences.overwrite_warning)  /* test if filename already used */
+#if 0
+  /* to be removed */
+  xsane_update_counter_in_filename(&v->output_filename, FALSE, 0, preferences.filename_counter_len); /* set correct counter length */
+#endif
+
+
+  if ((preferences.overwrite_warning) && (!v->keep_viewer_pnm_format))  /* test if filename already used when filename can be changed by user */
   {
    FILE *testfile;
 
@@ -320,9 +326,10 @@ static void xsane_viewer_save_callback(GtkWidget *window, gpointer data)
 
   inputfilename = strdup(v->filename);
 
-  output_format = xsane_identify_output_format(v->output_filename, preferences.filetype, 0);
+  output_format = xsane_identify_output_format(v->output_filename, v->selection_filetype, 0);
 
-  if ((!v->allow_reduction_to_lineart) && (output_format == XSANE_PNM)) /* save PNM but do not reduce to lineart (if lineart) */
+  if (((!v->allow_reduction_to_lineart) && (output_format == XSANE_PNM)) || /* save PNM but do not reduce to lineart (if lineart) */
+      (v->keep_viewer_pnm_format)) /* we have to make sure that we save in viewer pnm format */
   {
     if (xsane_create_secure_file(v->output_filename)) /* remove possibly existing symbolic links for security */
     {
@@ -352,7 +359,21 @@ static void xsane_viewer_save_callback(GtkWidget *window, gpointer data)
   snprintf(buf, sizeof(buf), "%s %s - %s", WINDOW_VIEWER, v->last_saved_filename, xsane.device_text);
   gtk_window_set_title(GTK_WINDOW(v->top), buf);
 
-  xsane_update_counter_in_filename(&v->output_filename, preferences.skip_existing_numbers, 1, preferences.filename_counter_len);
+  if (xsane.print_filenames) /* print created filenames to stdout? */
+  {
+    if (v->output_filename[0] != '/') /* relative path */
+    {
+     char pathname[512];
+      getcwd(pathname, sizeof(pathname));
+      printf("XSANE_IMAGE_FILENAME: %s/%s\n", pathname, v->output_filename);
+      fflush(stdout);
+    }
+    else /* absolute path */
+    {
+      printf("XSANE_IMAGE_FILENAME: %s\n", v->output_filename);
+      fflush(stdout);
+    }
+  }
 
   xsane_viewer_set_sensitivity(v, TRUE);
 }
@@ -437,11 +458,11 @@ static void xsane_viewer_clone_callback(GtkWidget *window, gpointer data)
   {
    char buf[256];
     snprintf(buf, sizeof(buf), "%s%s", FILENAME_PREFIX_CLONE_OF, v->last_saved_filename);
-    xsane_viewer_new(outfilename, v->allow_reduction_to_lineart, buf, v->allow_modification);
+    xsane_viewer_new(outfilename, v->selection_filetype, v->allow_reduction_to_lineart, buf, v->allow_modification, IMAGE_NOT_SAVED);
   }
   else
   {
-    xsane_viewer_new(outfilename, v->allow_reduction_to_lineart, NULL, v->allow_modification);
+    xsane_viewer_new(outfilename, v->selection_filetype, v->allow_reduction_to_lineart, NULL, v->allow_modification, IMAGE_NOT_SAVED);
   }
 }
 
@@ -1783,6 +1804,11 @@ static int xsane_viewer_read_image(Viewer *v)
     size *= 2.0;
   }
 
+  if ((v->allow_reduction_to_lineart) && (image_info.reduce_to_lineart)) 
+  {
+    size /= 8.0;
+  }
+
   size_unit = "B";
 
   if (size >= 1024 * 1024)
@@ -1796,7 +1822,7 @@ static int xsane_viewer_read_image(Viewer *v)
     size_unit = "KB";
   }
 
-  if (v->allow_reduction_to_lineart)
+  if ((v->allow_reduction_to_lineart) && (image_info.reduce_to_lineart))
   {
     snprintf(buf, sizeof(buf), TEXT_VIEWER_IMAGE_INFO, image_info.image_width, image_info.image_height, 1, image_info.colors, 
              image_info.resolution_x, image_info.resolution_y, size, size_unit);
@@ -1841,7 +1867,8 @@ static int xsane_viewer_read_image(Viewer *v)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-Viewer *xsane_viewer_new(char *filename, int allow_reduction_to_lineart, char *output_filename, viewer_modification allow_modification)
+Viewer *xsane_viewer_new(char *filename, char *selection_filetype, int allow_reduction_to_lineart,
+                         char *output_filename, viewer_modification allow_modification, int image_saved)
 {
  char buf[256];
  Viewer *v;
@@ -1866,14 +1893,25 @@ Viewer *xsane_viewer_new(char *filename, int allow_reduction_to_lineart, char *o
   v->undo_filename = NULL;
   v->allow_reduction_to_lineart = allow_reduction_to_lineart;
   v->zoom = 1.0;
-  v->image_saved = FALSE;
+  v->image_saved = image_saved;
+  v->keep_viewer_pnm_format = FALSE;
   v->allow_modification = allow_modification;
   v->next_viewer = xsane.viewer_list;
+  if (selection_filetype)
+  {
+    v->selection_filetype = strdup(selection_filetype);
+  }
+  else
+  {
+    v->selection_filetype = NULL;
+  }
+
   xsane.viewer_list = v;
 
-  if (v->allow_modification == VIEWER_NO_MODIFICATION)
+  if (v->allow_modification != VIEWER_FULL_MODIFICATION)
   {
-    v->image_saved = TRUE;
+    v->keep_viewer_pnm_format = TRUE;
+    v->last_saved_filename = strdup(output_filename); /* output_filename MUST be defined in this case */
   }
 
   if (output_filename)

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.98\n"
-"POT-Creation-Date: 2005-10-23 00:20+0200\n"
+"POT-Creation-Date: 2005-12-21 12:05+0100\n"
 "PO-Revision-Date: 2005-10-29 23:51+0200\n"
 "Last-Translator: Mogens Jaeger <mogensjaeger@get2net.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
@@ -81,17 +81,25 @@ msgstr "omdøb fax side"
 msgid "insert ps-file into fax"
 msgstr "indsæt ps-fil i fax"
 
-#. WINDOW_MAIL_PROJECT
-msgid "mail project"
+#. WINDOW_EMAIL_PROJECT
+#, fuzzy
+msgid "E-mail project"
 msgstr "mail projekt"
 
-#. WINDOW_MAIL_RENAME
-msgid "rename mail image"
+#. WINDOW_EMAIL_RENAME
+#, fuzzy
+msgid "rename e-mail image"
 msgstr "omdøb mailbillede"
 
-#. WINDOW_MAIL_INSERT
-msgid "insert file into mail"
+#. WINDOW_EMAIL_INSERT
+#, fuzzy
+msgid "insert file into e-mail"
 msgstr "indsæt fil i mail"
+
+#. WINDOW_MULTIPAGE_PROJECT
+#, fuzzy
+msgid "multipage project"
+msgstr "Slet projekt"
 
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
@@ -381,6 +389,11 @@ msgstr "Dan projekt"
 msgid "Send project"
 msgstr "Send projekt"
 
+#. BUTTON_SAVE_MULTIPAGE
+#, fuzzy
+msgid "Save multipage file"
+msgstr "Gem billede"
+
 #. BUTTON_DELETE_PROJECT
 msgid "Delete project"
 msgstr "Slet projekt"
@@ -421,8 +434,9 @@ msgstr "Fasthold skalering"
 msgid "Fine mode"
 msgstr "Fin tilstand"
 
-#. RADIO_BUTTON_HTML_MAIL
-msgid "HTML mail"
+#. RADIO_BUTTON_HTML_EMAIL
+#, fuzzy
+msgid "HTML e-mail"
 msgstr "HTML-mail"
 
 #. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
@@ -436,6 +450,14 @@ msgstr "Overskriv advarsel"
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
 msgid "Skip existing filenames"
 msgstr "Drop eksisterende filnavne"
+
+#. RADIO_BUTTON_SAVE_PS_FLATDECODED
+msgid "Save postscript zlib compressed (ps level 3)"
+msgstr ""
+
+#. RADIO_BUTTON_SAVE_PDF_FLATDECODED
+msgid "Save PDF zlib compressed"
+msgstr ""
 
 #. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
 msgid "Save 16bit pnm in ascii format"
@@ -492,10 +514,6 @@ msgstr "XSane indstillinger"
 #. TEXT_XSANE_MODE
 msgid "XSane mode"
 msgstr "XSane tilstand"
-
-#. TEXT_FILENAME_COUNTER_STEP
-msgid "Step"
-msgstr "Skridt"
 
 #. TEXT_FILETYPE
 msgid "Type"
@@ -686,8 +704,9 @@ msgstr ""
 "ENHVER FORM FOR GARANTI, endda uden den underforståede garanti for\n"
 "SALGBARHED, eller EGNETHED FOR ET BESTEMT FORMÅL\n"
 
-#. TEXT_EMAIL
-msgid "Email:"
+#. TEXT_EMAIL_ADR
+#, fuzzy
+msgid "E-mail:"
 msgstr "Email:"
 
 #. TEXT_HOMEPAGE
@@ -705,12 +724,13 @@ msgstr "Oversættelse:"
 #. Please translate this to something like
 #. translation to YOUR LANGUAGE\n
 #. by YOUR NAME\n
-#. Email: your.name@yourdomain.com\n
+#. E-mail: your.name@yourdomain.com\n
 #. TEXT_TRANSLATION_INFO
+#, fuzzy
 msgid ""
 "untranslated original english text\n"
 "by Oliver Rauch\n"
-"Email: Oliver.Rauch@rauch-domain.de\n"
+"E-mail: Oliver.Rauch@rauch-domain.de\n"
 msgstr ""
 "ikke-oversat original engelsk tekst\n"
 "af Oliver Rauch\n"
@@ -724,20 +744,32 @@ msgstr "0x0: 0KB"
 msgid "Scanned pages: "
 msgstr "Skannede sider: "
 
-#. TEXT_MAIL_TEXT
-msgid "Email text:"
+#. TEXT_EMAIL_TEXT
+#, fuzzy
+msgid "E-mail text:"
 msgstr "Email tekst:"
 
 #. TEXT_ATTACHMENTS
 msgid "Attachments:"
 msgstr "Vedhæftninger:"
 
-#. TEXT_MAIL_STATUS
+#. TEXT_EMAIL_STATUS
 msgid "Project status:"
 msgstr "Projektstatus:"
 
-#. TEXT_MAIL_FILETYPE
-msgid "Mail image filetype:"
+#. TEXT_EMAIL_FILETYPE
+#, fuzzy
+msgid "E-mail image filetype:"
+msgstr "Mailbillede filtype:"
+
+#. TEXT_PAGES
+#, fuzzy
+msgid "Pages:"
+msgstr "Brug:"
+
+#. TEXT_MULTIPAGE_FILETYPE
+#, fuzzy
+msgid "Multipage document filetype:"
 msgstr "Mailbillede filtype:"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
@@ -852,6 +884,10 @@ msgstr "Printers gammaværdi i grøn:"
 msgid "Printer gamma blue:"
 msgstr "Printers gammaværdi i blå:"
 
+#. TEXT_SETUP_PRINTER_PS_FLATDECODED
+msgid "Create zlib compressed postscript image (ps level 3) for printing"
+msgstr ""
+
 #. TEXT_SETUP_TMP_PATH
 msgid "Temporary directory"
 msgstr "Midlertidigt bibliotek"
@@ -875,6 +911,11 @@ msgstr "PNG billedkompression"
 #. TEXT_SETUP_FILENAME_COUNTER_LEN
 msgid "Filename counter length"
 msgstr "Filnavn tællerlængde"
+
+#. TEXT_SETUP_TIFF_ZIP_COMPRESSION
+#, fuzzy
+msgid "TIFF zip compression rate"
+msgstr "TIFF 8 bit billedekompression"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_16
 msgid "TIFF 16 bit image compression"
@@ -915,10 +956,6 @@ msgstr "Forhåndsvisning gamma blå:"
 #. TEXT_SETUP_LINEART_MODE
 msgid "Threshold option:"
 msgstr "Grænseværdi-indstilling:"
-
-#. TEXT_SETUP_ADF_MODE
-msgid "Automatic Document Feeder Modus:"
-msgstr "Automatisk dokumentfødningstilstand:"
 
 #. TEXT_SETUP_PREVIEW_PIPETTE_RANGE
 msgid "Preview pipette range"
@@ -972,6 +1009,10 @@ msgstr "Sæt program standardværdier for:"
 msgid "Viewer (Postscript):"
 msgstr "Viser (Postscript):"
 
+#. TEXT_SETUP_FAX_PS_FLATDECODED
+msgid "Create zlib compressed postscript image (ps level 3) for fax"
+msgstr ""
+
 #. TEXT_SETUP_SMTP_SERVER
 msgid "SMTP server:"
 msgstr "SMTP server:"
@@ -980,11 +1021,11 @@ msgstr "SMTP server:"
 msgid "SMTP port:"
 msgstr "SMTP port:"
 
-#. TEXT_SETUP_MAIL_FROM
+#. TEXT_SETUP_EMAIL_FROM
 msgid "From:"
 msgstr "Fra:"
 
-#. TEXT_SETUP_MAIL_REPLY_TO
+#. TEXT_SETUP_EMAIL_REPLY_TO
 msgid "Reply to:"
 msgstr "Svar til:"
 
@@ -1003,10 +1044,6 @@ msgstr "POP3 bruger:"
 #. TEXT_SETUP_POP3_PASS
 msgid "POP3 password:"
 msgstr "POP3 password:"
-
-#. TEXT_SETUP_MAIL_VIEWER
-msgid "Viewer (png):"
-msgstr "Viser (png):"
 
 #. TEXT_SETUP_OCR_COMMAND
 msgid "OCR Command:"
@@ -1051,9 +1088,10 @@ msgstr "nyt medie"
 msgid "Save"
 msgstr "Gem"
 
-#. NOTEBOOK_IMAGE_OPTIONS
-msgid "Image"
-msgstr "Billede"
+#. NOTEBOOK_FILETYPE_OPTIONS
+#, fuzzy
+msgid "Filetype"
+msgstr "Fil"
 
 #. NOTEBOOK_COPY_OPTIONS
 msgid "Copy"
@@ -1063,9 +1101,10 @@ msgstr "Kopi"
 msgid "Fax"
 msgstr "Fax"
 
-#. NOTEBOOK_MAIL_OPTIONS
-msgid "Mail"
-msgstr "Mail"
+#. NOTEBOOK_EMAIL_OPTIONS
+#, fuzzy
+msgid "E-mail"
+msgstr "Email"
 
 #. NOTEBOOK_OCR_OPTIONS
 msgid "OCR"
@@ -1079,9 +1118,9 @@ msgstr "Skærm"
 msgid "Enhancement"
 msgstr "Forbedring"
 
-#. MENU_ITEM_MAIL
-msgid "Email"
-msgstr "Email"
+#. MENU_ITEM_MULTIPAGE
+msgid "Multipage"
+msgstr ""
 
 #. MENU_ITEM_SHOW_TOOLTIPS
 msgid "Show tooltips"
@@ -1227,6 +1266,11 @@ msgstr "JPEG DCT kompression"
 msgid "pack bits"
 msgstr "pakkede bits"
 
+#. MENU_ITEM_TIFF_COMP_DEFLATE
+#, fuzzy
+msgid "deflate"
+msgstr "forsinket"
+
 #. MENU_ITEM_RANGE_SCALE
 msgid "Slider (Scale)"
 msgstr "Skyder instilling (skala)"
@@ -1300,6 +1344,11 @@ msgstr "Skanning"
 msgid "Receiving %s data"
 msgstr "Modtager %s data"
 
+#. PROGRESS_PAGE
+#, fuzzy
+msgid "page"
+msgstr "pakke"
+
 #. PROGRESS_TRANSFERING_DATA
 msgid "Transfering image"
 msgstr "Overfører billede"
@@ -1361,9 +1410,10 @@ msgid "Cancel preview scan <Alt-ESC>"
 msgstr "Afbryd skan forhåndsvisning <Alt-ESC>"
 
 #. DESC_XSANE_MODE
+#, fuzzy
 msgid ""
-"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or mail-<Ctrl-"
-"m>"
+"viewer-<Ctrl-v>, save-<Ctrl-s>, photocopy-<Ctrl-c>, multipage-<Ctrl-m>, fax-"
+"<Ctrl-f> or e-mail-<Ctrl-e>"
 msgstr ""
 "gem-<Ctrl-s>, vis-<Ctrl-v>, fotokopier-<Ctrl-c>, fax-<Ctrl-f> eller mail-"
 "<Ctrl-m>"
@@ -1414,24 +1464,38 @@ msgstr "Angiv nyt navn for fax side"
 msgid "Enter receiver phone number or address"
 msgstr "Angiv modtager telefonnummer eller adresse"
 
-#. DESC_MAILPROJECT
-msgid "Enter name of mail project"
+#. DESC_EMAIL_PROJECT
+#, fuzzy
+msgid "Enter name of e-mail project"
 msgstr "Angiv navn på mail projekt"
 
-#. DESC_MAILIMAGENAME
-msgid "Enter new name for mail image"
+#. DESC_EMAIL_IMAGENAME
+#, fuzzy
+msgid "Enter new name for e-mail image"
 msgstr "Angiv nyt navn på mail billede"
 
-#. DESC_MAILRECEIVER
-msgid "Enter email address"
+#. DESC_EMAIL_RECEIVER
+#, fuzzy
+msgid "Enter e-mail address"
 msgstr "Angiv email adresse"
 
-#. DESC_MAILSUBJECT
-msgid "Enter subject of email"
+#. DESC_EMAIL_SUBJECT
+#, fuzzy
+msgid "Enter subject of e-mail"
 msgstr "Angiv subjekt for email"
 
-#. DESC_MAIL_FILETYPE
+#. DESC_EMAIL_FILETYPE
 msgid "Select filetype for image attachments"
+msgstr "Vælg filtype for billed vedhæftninger"
+
+#. DESC_MULTIPAGE_PROJECT
+#, fuzzy
+msgid "Enter name of multipage project"
+msgstr "Angiv navn på mail projekt"
+
+#. DESC_MULTIPAGE_FILETYPE
+#, fuzzy
+msgid "Select filetype for multipage file"
 msgstr "Vælg filtype for billed vedhæftninger"
 
 #. DESC_PRESET_AREA_RENAME
@@ -1665,6 +1729,12 @@ msgstr "Supplerende gammaværdi for fotokopiering, grøn farvedel"
 msgid "Additional gamma value for blue component for photocopy"
 msgstr "Supplerende gammaværdi for fotokopiering, blå farvedel"
 
+#. DESC_PRINTER_PS_FLATDECODED
+msgid ""
+"Create zlib compressed postscript image for printer (flatdecode).\n"
+"The printer has to understand postscript level 3!"
+msgstr ""
+
 #. DESC_TMP_PATH
 msgid "Path to temp directory"
 msgstr "Sti til midlertidigt bibliotek"
@@ -1687,6 +1757,11 @@ msgstr "Kompression hvis billedet gemmes som png"
 #. DESC_FILENAME_COUNTER_LEN
 msgid "Minimum length of counter in filename"
 msgstr "Minimumlængde af tæller i filnavn"
+
+#. DESC_TIFF_ZIP_COMPRESSION
+#, fuzzy
+msgid "Compression rate for zip compressed tiff (deflate)"
+msgstr "Kompressionstype hvis 8 bit gemmes i tiff format"
 
 #. DESC_TIFF_COMPRESSION_16
 msgid "Compression type if 16 bit image is saved as tiff"
@@ -1712,6 +1787,16 @@ msgstr "Advar før overskrivning af eksisterende fil"
 msgid ""
 "If filename counter is automatically increased, used numbers are skipped"
 msgstr "Hvis filnavntæller øges automatisk, bliver brugte numre forbigået"
+
+#. DESC_SAVE_PS_FLATDECODED
+msgid ""
+"compress postscript image with zlib algorithm (flatdecode).When you want to "
+"print such a file your printer has to understand postscript level 3"
+msgstr ""
+
+#. DESC_SAVE_PDF_FLATDECODED
+msgid "compress PDF image with zlib algorithm (flatdecode)."
+msgstr ""
 
 #. DESC_SAVE_PNM16_AS_ASCII
 msgid ""
@@ -1827,13 +1912,9 @@ msgstr ""
 "Forskydning, der bringer XSane's og skannerens grænseværdiområde i "
 "overensstemmelse med hinanden"
 
-#. DESC_ADF_MODE
-msgid ""
-"Select scansource for Automatic Document feeder. If this scansource is "
-"selected XSane scans until \"out of paper\" or error."
+#. DESC_ADF_PAGES_MAX
+msgid "Number of pages to scan"
 msgstr ""
-"Vælg skannerkilde til automatisk dokumentføder. Hvis denne skannerkilde er "
-"valgt, fortsætter XSane indtil \"out of paper\" eller ved fejl."
 
 #. DESC_PREVIEW_PIPETTE_RANGE
 msgid "dimension of square that is used to average color for pipette function"
@@ -1888,6 +1969,10 @@ msgstr "Komando der skal udføres, for at vise en fax"
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
 msgstr "Send fax med høj lodret opløsning (196 lpi i stedet for 98 lpi)"
 
+#. DESC_FAX_PS_FLATDECODED
+msgid "Create zlib compressed postscript image for fax (flatdecode)"
+msgstr ""
+
 #. DESC_SMTP_SERVER
 msgid "IP Address or Domain name of SMTP server"
 msgstr "IP adresse eller domain navn på SMTP server"
@@ -1896,16 +1981,19 @@ msgstr "IP adresse eller domain navn på SMTP server"
 msgid "port to connect to SMTP server"
 msgstr "port til forbindelse til SMTP server"
 
-#. DESC_MAIL_FROM
-msgid "enter your email address"
+#. DESC_EMAIL_FROM
+#, fuzzy
+msgid "enter your e-mail address"
 msgstr "Angiv din email adresse"
 
-#. DESC_MAIL_REPLY_TO
-msgid "enter email address for replied emails"
+#. DESC_EMAIL_REPLY_TO
+#, fuzzy
+msgid "enter e-mail address for replied e-mails"
 msgstr "Angiv email adresse til svar emails"
 
 #. DESC_POP3_AUTHENTIFICATION
-msgid "Authentificate at POP3 server before sending mail"
+#, fuzzy
+msgid "Authentificate at POP3 server before sending e-mail"
 msgstr "Godkendelse af POP3 server, før mail sendes"
 
 #. DESC_POP3_SERVER
@@ -1924,12 +2012,9 @@ msgstr "brugernavn til POP3 server"
 msgid "password for POP3 server"
 msgstr "password til POP3 server"
 
-#. DESC_MAIL_VIEWER
-msgid "Enter command to be executed to view a mail image"
-msgstr "Komando der skal udføres, for at vise mailbilleder"
-
-#. DESC_HTML_MAIL
-msgid "Mail is sent in html mode, place image with: <IMAGE>"
+#. DESC_HTML_EMAIL
+#, fuzzy
+msgid "E-mail is sent in html mode, place image with: <IMAGE>"
 msgstr "Mail er sendt i HTML tilstand, placér billede med: <IMAGE>"
 
 #. DESC_OCR_COMMAND
@@ -2277,10 +2362,6 @@ msgstr "Kunne ikke udføre fax-viser:"
 msgid "Failed to execute fax command:"
 msgstr "Kunne ikke udføre fax kommando:"
 
-#. ERR_FAILED_EXEC_MAIL_VIEWER
-msgid "Failed to execute mail image viewer:"
-msgstr "Kunne ikke udføre mail billede viser:"
-
 #. ERR_FAILED_EXEC_OCR_CMD
 msgid "Failed to execute ocr command:"
 msgstr "Kunne ikke udføre tekstgenkendelses kommando:"
@@ -2449,6 +2530,7 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[INDSTILLING]... [ENHED]"
 
 #. TEXT_HELP
+#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2465,8 +2547,9 @@ msgid ""
 " -V, --viewer                 start with viewer-mode active (default)\n"
 " -s, --save                   start with save-mode active\n"
 " -c, --copy                   start with copy-mode active\n"
+" -m, --multipage              start with multipage-mode active\n"
 " -f, --fax                    start with fax-mode active\n"
-" -m, --mail                   start with mail-mode active\n"
+" -e, --email                  start with e-mail-mode active\n"
 " -n, --no-mode-selection      disable menu for XSane mode selection\n"
 "\n"
 " -F, --Fixed                  fixed main window size (overwrite preferences "
@@ -2678,65 +2761,80 @@ msgstr "Konica negativ VX 100"
 msgid "Rossmann negative HR 100"
 msgstr "Rossmann negativ HR 100"
 
-#. TEXT_MAIL_STATUS_NOT_CREATED
-msgid "Mail project not created"
-msgstr "Mail projekt ikke oprettet"
+#. TEXT_PROJECT_STATUS_NOT_CREATED
+#, fuzzy
+msgid "Project not created"
+msgstr "Fax projekt ikke oprettet"
 
-#. TEXT_MAIL_STATUS_CREATED
-msgid "Mail project created"
-msgstr "Mail projekt oprettet"
+#. TEXT_PROJECT_STATUS_CREATED
+#, fuzzy
+msgid "Project created"
+msgstr "Fax projekt oprettet"
 
-#. TEXT_MAIL_STATUS_CHANGED
-msgid "Mail project changed"
-msgstr "Mail projekt ændret"
+#. TEXT_PROJECT_STATUS_CHANGED
+#, fuzzy
+msgid "Project changed"
+msgstr "Fax projekt ændret"
 
-#. TEXT_MAIL_STATUS_ERR_READ_PROJECT
-msgid "Error reading mailproject"
+#. TEXT_PROJECT_STATUS_ERR_READ_PROJECT
+#, fuzzy
+msgid "Error reading project"
 msgstr "Fejl ved læsning af mail projekt"
 
-#. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
+#. TEXT_PROJECT_STATUS_FILE_SAVING_ERROR
+#, fuzzy
+msgid "Error saving file"
+msgstr "Gemmer billede"
+
+#. TEXT_PROJECT_STATUS_FILE_SAVING
+#, fuzzy
+msgid "Saving file"
+msgstr "Gemmer billede"
+
+#. TEXT_PROJECT_STATUS_FILE_SAVING_ABORTED
+#, fuzzy
+msgid "Aborted saving file"
+msgstr "Gemmer billede"
+
+#. TEXT_PROJECT_STATUS_FILE_SAVED
+#, fuzzy
+msgid "File has been saved"
+msgstr "Mail er blevet sendt"
+
+#. TEXT_EMAIL_STATUS_POP3_CONNECTION_FAILED
 msgid "POP3 connection failed"
 msgstr "POP3 tilslutning lykkedes ikke"
 
-#. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
+#. TEXT_EMAIL_STATUS_POP3_LOGIN_FAILED
 msgid "POP3 login failed"
 msgstr "POP3 logind lykkedes ikke"
 
-#. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
+#. TEXT_EMAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
 msgstr "SMTP tilslutning lykkedes ikke"
 
-#. TEXT_MAIL_STATUS_SMTP_ERR_FROM
+#. TEXT_EMAIL_STATUS_SMTP_ERR_FROM
 msgid "From entry not accepted"
 msgstr "Fra indtastningen ikke accepteret"
 
-#. TEXT_MAIL_STATUS_SMTP_ERR_RCPT
+#. TEXT_EMAIL_STATUS_SMTP_ERR_RCPT
 msgid "Receiver entry not accepted"
 msgstr "Modtager indtastningen ikke accepteret"
 
-#. TEXT_MAIL_STATUS_SMTP_ERR_DATA
-msgid "Mail data not accepted"
+#. TEXT_EMAIL_STATUS_SMTP_ERR_DATA
+#, fuzzy
+msgid "E-mail data not accepted"
 msgstr "Mail data ikke accepteret"
 
-#. TEXT_MAIL_STATUS_SENDING
-msgid "Sending mail"
+#. TEXT_EMAIL_STATUS_SENDING
+#, fuzzy
+msgid "Sending e-mail"
 msgstr "Sender mail"
 
-#. TEXT_MAIL_STATUS_SENT
-msgid "Mail has been sent"
+#. TEXT_EMAIL_STATUS_SENT
+#, fuzzy
+msgid "E-mail has been sent"
 msgstr "Mail er blevet sendt"
-
-#. TEXT_FAX_STATUS_NOT_CREATED
-msgid "Fax project not created"
-msgstr "Fax projekt ikke oprettet"
-
-#. TEXT_FAX_STATUS_CREATED
-msgid "Fax project created"
-msgstr "Fax projekt oprettet"
-
-#. TEXT_FAX_STATUS_CHANGED
-msgid "Fax project changed"
-msgstr "Fax projekt ændret"
 
 #. TEXT_FAX_STATUS_QUEUEING_FAX
 msgid "Queueing Fax"
@@ -2800,3 +2898,69 @@ msgstr "Ikke mere ram"
 
 msgid "Access to resource has been denied"
 msgstr "Adgang til ressource nægtet"
+
+#~ msgid "Automatic Document Feeder Modus:"
+#~ msgstr "Automatisk dokumentfødningstilstand:"
+
+#~ msgid ""
+#~ "Select scansource for Automatic Document feeder. If this scansource is "
+#~ "selected XSane scans until \"out of paper\" or error."
+#~ msgstr ""
+#~ "Vælg skannerkilde til automatisk dokumentføder. Hvis denne skannerkilde "
+#~ "er valgt, fortsætter XSane indtil \"out of paper\" eller ved fejl."
+
+#, fuzzy
+#~ msgid "E-mail project not created"
+#~ msgstr "Mail projekt ikke oprettet"
+
+#, fuzzy
+#~ msgid "E-mail project created"
+#~ msgstr "Mail projekt oprettet"
+
+#, fuzzy
+#~ msgid "E-mail project changed"
+#~ msgstr "Mail projekt ændret"
+
+#, fuzzy
+#~ msgid "Multipage project not created"
+#~ msgstr "Mail projekt ikke oprettet"
+
+#, fuzzy
+#~ msgid "Multipage project created"
+#~ msgstr "Mail projekt oprettet"
+
+#, fuzzy
+#~ msgid "Multipage project changed"
+#~ msgstr "Mail projekt ændret"
+
+#, fuzzy
+#~ msgid "Error reading multipage project"
+#~ msgstr "Fejl ved læsning af mail projekt"
+
+#, fuzzy
+#~ msgid "Saving multipage file"
+#~ msgstr "Gemmer billede"
+
+#, fuzzy
+#~ msgid "Multipage saving aborted"
+#~ msgstr "Mail projekt oprettet"
+
+#~ msgid "Image"
+#~ msgstr "Billede"
+
+#~ msgid "Viewer (png):"
+#~ msgstr "Viser (png):"
+
+#, fuzzy
+#~ msgid "Enter command to be executed to view an e-mail image"
+#~ msgstr "Komando der skal udføres, for at vise mailbilleder"
+
+#, fuzzy
+#~ msgid "Failed to execute e-mail image viewer:"
+#~ msgstr "Kunne ikke udføre mail billede viser:"
+
+#~ msgid "Step"
+#~ msgstr "Skridt"
+
+#~ msgid "Mail"
+#~ msgstr "Mail"

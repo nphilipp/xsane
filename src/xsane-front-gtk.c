@@ -356,9 +356,18 @@ void xsane_set_all_resolutions(void)
   if (new_resolution < 0) /* set y resolution not possible */
   {
     new_resolution = xsane_set_resolution(xsane.well_known.dpi, xsane.resolution); /* set common resolution if necessary */
-    xsane.resolution   = new_resolution;
-    xsane.resolution_x = new_resolution;
-    xsane.resolution_y = new_resolution;
+    if (new_resolution > 0)
+    {
+      xsane.resolution   = new_resolution;
+      xsane.resolution_x = new_resolution;
+      xsane.resolution_y = new_resolution;
+    }
+    else
+    {
+      xsane.resolution   = 72.0;
+      xsane.resolution_x = 72.0;
+      xsane.resolution_y = 72.0;
+    }
   }
   else /* we were able to set y resolution */
   {
@@ -441,7 +450,7 @@ void xsane_define_maximum_output_size()
         preview_set_maximum_output_size(xsane.preview, preferences.fax_width, preferences.fax_height, 0);
        break;
 
-      case XSANE_MAIL:
+      case XSANE_EMAIL:
         preview_set_maximum_output_size(xsane.preview, INF, INF, 0);
        break;
 
@@ -1396,6 +1405,9 @@ void xsane_outputfilename_new(GtkWidget *vbox)
  GtkWidget *xsane_filename_counter_step_menu;
  GtkWidget *xsane_filename_counter_step_item;
  GtkWidget *xsane_label;
+ GtkWidget *pixmapwidget;
+ GdkBitmap *mask;
+ GdkPixmap *pixmap;
  gchar buf[200];
  int i,j;
  int select_item = 0;
@@ -1432,13 +1444,15 @@ void xsane_outputfilename_new(GtkWidget *vbox)
 
   hbox = gtk_hbox_new(FALSE, 2);
   gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 1);
 
   /* filename counter step */
- 
-  xsane_label = gtk_label_new(TEXT_FILENAME_COUNTER_STEP);
-  gtk_box_pack_start(GTK_BOX(hbox), xsane_label, FALSE, FALSE, 2);
-  gtk_widget_show(xsane_label);
+
+  pixmap = gdk_pixmap_create_from_xpm_d(xsane.xsane_window->window, &mask, xsane.bg_trans, (gchar **) step_xpm);
+  pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
+  gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
+  gtk_widget_show(pixmapwidget);
+  gdk_drawable_unref(pixmap);
  
   xsane_filename_counter_step_option_menu = gtk_option_menu_new();
   xsane_back_gtk_set_tooltip(xsane.tooltips, xsane_filename_counter_step_option_menu, DESC_FILENAME_COUNTER_STEP);
@@ -1689,7 +1703,7 @@ int xsane_identify_output_format(char *filename, char *filetype, char **ext)
 
   DBG(DBG_proc, "xsane_identify_output_format\n");
 
-  if ((filetype) && (*filetype))
+  if ((filetype) && (*filetype) && (!xsane.force_filename))
   {
     extension = filetype+1; /* go to filetype, skip leading dot */
   }
@@ -1897,7 +1911,7 @@ int xsane_display_eula(int ask_for_accept)
                              XSANE_COPYRIGHT_SIGN, XSANE_COPYRIGHT_TXT,
                              TEXT_EULA,
                              TEXT_HOMEPAGE, XSANE_HOMEPAGE,
-                             TEXT_EMAIL, XSANE_EMAIL);
+                             TEXT_EMAIL_ADR, XSANE_EMAIL_ADR);
 
   label = gtk_label_new(buf);
   gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0);
@@ -2141,7 +2155,7 @@ void xsane_display_gpl(void)
                              XSANE_COPYRIGHT_SIGN, XSANE_COPYRIGHT_TXT,
                              TEXT_GPL,
                              TEXT_HOMEPAGE, XSANE_HOMEPAGE,
-                             TEXT_EMAIL, XSANE_EMAIL);
+                             TEXT_EMAIL_ADR, XSANE_EMAIL_ADR);
 
   label = gtk_label_new(buf);
   gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0);
@@ -2433,24 +2447,105 @@ int xsane_front_gtk_getname_dialog(const char *dialog_title, const char *desc_te
 }
                                                                                                                                  
 /* ---------------------------------------------------------------------------------------------------------------------- */
-#ifdef XSANE_ACTIVATE_MAIL
-void xsane_front_gtk_mail_project_update_lockfile_status()
+
+void xsane_front_gtk_list_entries_swap(GtkWidget *list_item_1, GtkWidget *list_item_2)
+{
+ char *page1;
+ char *page2;
+ char *type1;
+ char *type2;
+
+  DBG(DBG_proc, "xsane_front_gtk_list_entries_swap\n");
+
+  page1 = (char *) gtk_object_get_data(GTK_OBJECT(list_item_1), "list_item_data");
+  type1 = (char *) gtk_object_get_data(GTK_OBJECT(list_item_1), "list_item_type");
+  page2 = (char *) gtk_object_get_data(GTK_OBJECT(list_item_2), "list_item_data");
+  type2 = (char *) gtk_object_get_data(GTK_OBJECT(list_item_2), "list_item_type");
+
+  gtk_label_set(GTK_LABEL(gtk_container_children(GTK_CONTAINER(list_item_1))->data), page2);
+  gtk_label_set(GTK_LABEL(gtk_container_children(GTK_CONTAINER(list_item_2))->data), page1);
+  gtk_object_set_data(GTK_OBJECT(list_item_1), "list_item_data", page2);
+  gtk_object_set_data(GTK_OBJECT(list_item_1), "list_item_type", type2);
+  gtk_object_set_data(GTK_OBJECT(list_item_2), "list_item_data", page1);
+  gtk_object_set_data(GTK_OBJECT(list_item_2), "list_item_type", type1);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void xsane_front_gtk_add_process_to_list(pid_t pid)
+{
+ XsaneChildprocess *newprocess;
+ 
+  DBG(DBG_proc, "xsane_front_gtk_add_process_to_list(%d)\n", pid);
+ 
+  newprocess = malloc(sizeof(XsaneChildprocess));
+  newprocess->pid = pid;
+  newprocess->next = xsane.childprocess_list;
+  xsane.childprocess_list = newprocess;
+} 
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+int xsane_front_gtk_option_defined(char *string)
+{
+  if (string)
+  {
+    while (*string == ' ') /* skip spaces */
+    {
+      string++;
+    }
+    if (*string != 0)
+    {
+      return 1;
+    }
+  }
+  return 0;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+#ifdef XSANE_ACTIVATE_EMAIL
+void xsane_front_gtk_email_project_update_lockfile_status()
 {
  FILE *lockfile;
  char filename[PATH_MAX];
 
-  snprintf(filename, sizeof(filename), "%s/lockfile", preferences.mail_project);
+  snprintf(filename, sizeof(filename), "%s/lockfile", preferences.email_project);
   lockfile = fopen(filename, "wb");
 
   if (lockfile)
   {
-    fprintf(lockfile, "%s\n", xsane.mail_status); /* first line is status of mail */
-    fprintf(lockfile, "%3d\n", (int) (xsane.mail_progress_val * 100));
+    fprintf(lockfile, "%s\n", xsane.email_status); /* first line is status of mail */
+    fprintf(lockfile, "%3d\n", (int) (xsane.email_progress_val * 100));
   }
 
   fclose(lockfile);
 }
 #endif
 /* ---------------------------------------------------------------------------------------------------------------------- */
+
+void xsane_project_dialog_close()
+{
+  DBG(DBG_proc, "xsane_project_dialog_close\n");
+                                                                                
+  if (xsane.project_dialog == NULL)
+  {
+    return;
+  }
+
+  if (xsane.project_dialog)
+  {
+    xsane_window_get_position(xsane.project_dialog, &xsane.project_dialog_posx, &xsane.project_dialog_posy);
+    gtk_window_move(GTK_WINDOW(xsane.project_dialog), xsane.project_dialog_posx, xsane.project_dialog_posy);
+  }
+                                                                                
+  gtk_widget_destroy(xsane.project_dialog);
+                                                                                
+  xsane.project_dialog = NULL;
+  xsane.project_list = NULL;
+  xsane.project_progress_bar = NULL;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
                                                                                                                   
                                                                                                                                  
+

@@ -81,7 +81,11 @@ extern void xsane_display_gpl(void);
 extern void xsane_window_get_position(GtkWidget *gtk_window, gint *x, gint *y);
 extern void xsane_widget_test_uposition(GtkWidget *gtk_window);
 extern int xsane_front_gtk_getname_dialog(const char *dialog_title, const char *desc_text, char *oldname, char **newname);
-extern void xsane_front_gtk_mail_project_update_lockfile_status();
+extern void xsane_front_gtk_list_entries_swap(GtkWidget *list_item_1, GtkWidget *list_item_2);
+extern void xsane_front_gtk_add_process_to_list(pid_t pid);
+extern int xsane_front_gtk_option_defined(char *string);
+extern void xsane_front_gtk_email_project_update_lockfile_status(void);
+extern void xsane_project_dialog_close(void);
 
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

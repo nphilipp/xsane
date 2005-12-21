@@ -2750,3 +2750,70 @@ xsane-0.98a -> 0.98b:
    from:  int xsane_set_resolution(int well_known_option, double resolution);
    to: double xsane_set_resolution(int well_known_option, double resolution);
 
+
+xsane-0.98b -> 0.99:
+--------------------
+
+ - added preferences/setup options:
+   - save_ps_flatdecoded
+   - save_pdf_flatdecoded
+   - fax_ps_flatdecoded
+   - printer[i].ps_flatdecoded
+
+ - changed xsane-preferences reading routines for printer definitions and
+   preset area definitions
+
+ - changed postscript and tiff saving routines:
+   - split in subroutines:
+     - create_document_header (ps, pdf)
+     - save image as page (ps, pdf, tiff)
+     - create_document_trailer (ps, pdf)
+
+ - split xsane.c into xsane.c, xsane-fax-project.c and xsane-mail-project.c
+
+ - created xsane-multipage.c that adds a multipage project dialog
+   supported file formats:
+   - ps
+   - pdf
+   - tiff
+
+ - corrected viewer to display bits/sample and size correct
+
+ - changed handling of viewer filename and filetype selection:
+   when a new viewer window is created then it copies the active
+   filename and filetype. Changing the viewer´s selection does not
+   change the prefered setting any more.
+
+ - when no resolution option is available then xsane uses a resolution
+   of 72.0 dpi. This e.g. is used for postscript and PDF.
+
+ - changed tiff saving routine:
+   - added deflate (zip) compression for 8 bit and 16 bit / sample images
+   - corrected jpeg rgb compression
+
+ - changed mixed up e-mail names (mail, email, e-mail):
+   - all xsane internal names are: email
+   - all user visible texts are  : e-mail
+   - changed acceleration key for email mode to GDK_E
+   - changed command line option from --mail and -m to --email and -e
+
+ - changed name of notebook "image" to "filetype"
+
+ - when force_filename is set then the filetype is defined by the filename
+   instead of preferences.filetype
+
+ - project dialog position is saved in devices preferences now
+
+ - when a dialog is closed then the position is stored in preferences
+   so it can be saved when the window is invisible at program exit
+
+ - changed handling of ADF:
+   - removed ADF scanmode selection from setup
+   - added entry for number of pages to scan in xsane main dialog
+   - next scan is not started by 
+       g_signal_emit_by_name(xsane.start_button, "clicked"); /* press START button */
+     any more. This executed the next scan before all active scan subroutines
+     have been finished. Now we use
+       gtk_timeout_add(100, (GtkFunction)xsane_scan_dialog, NULL);
+     to start xsane_scan_dialog after 100ms.
+

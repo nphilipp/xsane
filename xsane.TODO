@@ -10,15 +10,16 @@ Sign explaination:
     - list of last used filenames
     - enable filters in save mode?
 
+ projects:
+    # add selection for project directory to setup
+    # store mail, fax and multipage projects in project directory
+    # add buton "open project" to all project dialogs
+    # disable "scan batch" button when we are in project mode
+      and the project does not exist
+
  scan-routines:
     # allow additional image data after each row (is sane standard conform)
 
- save-subroutines:
-    # save several images into one file for:
-      - postscript
-      - pdf
-      - may be tiff
-      - may be pnm
 
  fax-function:
 ++  # add new image types to fax fileformat: tiff/pbm/g3
@@ -40,7 +41,7 @@ Sign explaination:
 
  gamma function:
     # add target gamma (e.g. for web publishing)
-    # correct gtk custom gamma functions and include it
+    - correct gtk custom gamma functions and include it
       or better: write an own gamma curve widget
 
  medium selection:
@@ -56,29 +57,25 @@ Sign explaination:
       this will not produce exact results with some scanners!!!
 
  viewer function:
+++  # clone to 8 bit: reduce 16bit image to 8bit
 ++  # crop to new viewer
 ++  # fill rectangular area (e.g. for masking unwanted parts of a scanned fax)
-    # print image
-    # show histogram of viewer image
-    # add more filters (sharpen?)
-      suggestions? - ONLY REALLY IMPORTANT FILTERS,
-      FOR OTHER IMAGE MANIPULATION THERE IS THE GIMP
++   # print image
+-   # show histogram of viewer image
 
  internal:
-++  # bindtextdomain for sane_backends must use sane-backends path
 ++  # add range check / valid value when reading xsane.rc/*.drc files
     # test if image file is writable before scan is started
     + cleanup of configuration file handling
       (problem with old config files should already be solved)
     + add color management - may be via xcmsdb or scarse (www.scarse.org)
-    + add several defaults (fax=> mode=gray,...)
+    + add several defaults (fax=> mode=gray, ocr=> mode=gray, ...)
     + test memory after each call of malloc - partly done
-    - average of a multiple scan of the same image
-    - include much more parameters when saving images
+    - average of a multiple scan of the same image ???
+    - include much more parameters when saving images - mostly done
     - add infrared filter for transmissive rgbi scans (sane-2):
       use next neighbour with high transmission(i) value
       (may be to viewer)
-    ? show scanned image in save mode or automatically save image in viewer mode?
     ? project save/load with preview image, scanmode, .... ???
 
 

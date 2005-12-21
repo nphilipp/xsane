@@ -49,6 +49,9 @@ LIBLIB = ../lib/liblib.a
 
 XSANE_OBJS = xsane-back-gtk.o xsane-front-gtk.o xsane-gamma.o \
              xsane-preview.o xsane-viewer.o \
+             xsane-fax-project.o \
+             xsane-email-project.o \
+             xsane-multipage-project.o \
              xsane-rc-io.o xsane-device-preferences.o xsane-batch-scan.o \
              xsane-preferences.o xsane-setup.o xsane-save.o xsane-scan.o \
              xsane-icons.o xsane.o @XSANE_ICON@
@@ -125,6 +128,10 @@ xsane.o: xsane-device-preferences.h
 xsane.o: xsane-preferences.h
 xsane.o: xsane-icons.h
 xsane.o: xsane-batch-scan.h
+xsane.o: xsane-multipage-project.h
+xsane.o: xsane-fax-project.h
+xsane.o: xsane-email-project.h
+xsane.o: xsane-text.h
 
 xsane-back-gtk.o: xsane.h
 xsane-back-gtk.o: xsane-back-gtk.h
@@ -148,6 +155,7 @@ xsane-batch-scan.o: xsane-front-gtk.h
 xsane-batch-scan.o: xsane-rc-io.h
 xsane-batch-scan.o: xsane-preview.h
 xsane-batch-scan.o: xsane-gamma.h
+xsane-batch-scan.o: xsane-text.h
 
 xsane-preview.o: xsane.h
 xsane-preview.o: xsane-back-gtk.h
@@ -156,6 +164,7 @@ xsane-preview.o: xsane-batch-scan.h
 xsane-preview.o: xsane-preview.h
 xsane-preview.o: xsane-preferences.h
 xsane-preview.o: xsane-gamma.h
+xsane-preview.o: xsane-text.h
 
 xsane-preferecnes.o: xsane.h
 xsane-preferecnes.o: xsane-preferences.h
@@ -183,6 +192,8 @@ xsane-scan.o: xsane-viewer.h
 xsane-scan.o: xsane-save.h
 xsane-scan.o: xsane-gamma.h
 xsane-scan.o: xsane-setup.h
+xsane-scan.o: xsane-email-project.h
+xsane-scan.o: xsane-text.h
 
 xsane-gamma.o: xsane.h
 xsane-gamma.o: xsane-back-gtk.h
@@ -190,6 +201,7 @@ xsane-gamma.o: xsane-front-gtk.h
 xsane-gamma.o: xsane-preferences.h
 xsane-gamma.o: xsane-preview.h
 xsane-gamma.o: xsane-save.h
+xsane-gamma.o: xsane-text.h
 
 xsane-setup.o: xsane.h
 xsane-setup.o: xsane-back-gtk.h
@@ -200,6 +212,7 @@ xsane-setup.o: xsane-preview.h
 xsane-setup.o: xsane-save.h
 xsane-setup.o: xsane-gamma.h
 xsane-setup.o: xsane-batch-scan.h
+xsane-setup.o: xsane-text.h
 
 xsane-viewer.o: xsane.h
 xsane-viewer.o: xsane-back-gtk.h
@@ -209,6 +222,26 @@ xsane-viewer.o: xsane-viewer.h
 xsane-viewer.o: xsane-gamma.h
 xsane-viewer.o: xsane-icons.h
 xsane-viewer.o: xsane-save.h
+xsane-viewer.o: xsane-text.h
 
+xsane-multipage-project.o: xsane.h
+xsane-multipage-project.o: xsane-back-gtk.h
+xsane-multipage-project.o: xsane-front-gtk.h
+xsane-multipage-project.o: xsane-preferences.h
+xsane-multipage-project.o: xsane-multipage-project.h
+xsane-multipage-project.o: xsane-text.h
 
+xsane-fax-project.o: xsane.h
+xsane-fax-project.o: xsane-back-gtk.h
+xsane-fax-project.o: xsane-front-gtk.h
+xsane-fax-project.o: xsane-preferences.h
+xsane-fax-project.o: xsane-fax-project.h
+xsane-fax-project.o: xsane-text.h
+
+xsane-email-project.o: xsane.h
+xsane-email-project.o: xsane-back-gtk.h
+xsane-email-project.o: xsane-front-gtk.h
+xsane-email-project.o: xsane-preferences.h
+xsane-email-project.o: xsane-email-project.h
+xsane-email-project.o: xsane-text.h
 

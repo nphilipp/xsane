@@ -1,6 +1,6 @@
 /* xsane -- a graphical (X11, gtk) scanner-oriented SANE frontend
 
-   xsane-scan.h
+   xsane-email-project.h
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
    Copyright (C) 1998-2005 Oliver Rauch
@@ -22,12 +22,40 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#include <sane/sane.h>
+#ifndef HAVE_XSANE_EMAIL_PROJECT_H
+#define HAVE_XSANE_EMAIL_PROJECT_H
+
+
+#include "xsane.h"
+#include "xsane-back-gtk.h"
+#include "xsane-front-gtk.h"
+#include "xsane-preview.h"
+#include "xsane-save.h"
+#include "xsane-gamma.h"
+#include "xsane-setup.h"
+#include "xsane-scan.h"
+#include "xsane-rc-io.h"
+#include "xsane-device-preferences.h"
+#include "xsane-preferences.h"
+#include "xsane-icons.h"
+#include "xsane-batch-scan.h"
+
+#ifdef HAVE_LIBPNG
+# ifdef HAVE_LIBZ
+#  include <png.h>
+#  include <zlib.h>
+# endif
+#endif
+
+#include <sys/wait.h>
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-extern void xsane_scan_done(SANE_Status status);
-extern void xsane_cancel(void);
-extern gint xsane_scan_dialog(gpointer *data);
+#ifdef XSANE_ACTIVATE_EMAIL
 
-/* ---------------------------------------------------------------------------------------------------------------------- */
+extern void xsane_email_dialog(void);
+extern void xsane_email_project_save(void);
+
+#endif
+
+#endif

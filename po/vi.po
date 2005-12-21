@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.96\n"
-"POT-Creation-Date: 2005-10-23 00:20+0200\n"
+"POT-Creation-Date: 2005-12-21 12:05+0100\n"
 "PO-Revision-Date: 2004-08-26 23:33+0700\n"
 "Last-Translator: Trinh Minh Thanh <tmthanh@yahoo.com>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
@@ -84,17 +84,25 @@ msgstr "đổi tên trang fax"
 msgid "insert ps-file into fax"
 msgstr "chèn tập tin ps vào fax"
 
-#. WINDOW_MAIL_PROJECT
-msgid "mail project"
+#. WINDOW_EMAIL_PROJECT
+#, fuzzy
+msgid "E-mail project"
 msgstr "dự án thư"
 
-#. WINDOW_MAIL_RENAME
-msgid "rename mail image"
+#. WINDOW_EMAIL_RENAME
+#, fuzzy
+msgid "rename e-mail image"
 msgstr "đổi tên ảnh thư"
 
-#. WINDOW_MAIL_INSERT
-msgid "insert file into mail"
+#. WINDOW_EMAIL_INSERT
+#, fuzzy
+msgid "insert file into e-mail"
 msgstr "chèn tập tin vào thư"
+
+#. WINDOW_MULTIPAGE_PROJECT
+#, fuzzy
+msgid "multipage project"
+msgstr "Xóa dự án"
 
 #  WINDOW_PRESET_AREA_RENAME
 #. WINDOW_PRESET_AREA_RENAME
@@ -398,6 +406,11 @@ msgstr "Tạo dự án"
 msgid "Send project"
 msgstr "Gửi dự án"
 
+#. BUTTON_SAVE_MULTIPAGE
+#, fuzzy
+msgid "Save multipage file"
+msgstr "Lưu ảnh"
+
 #. BUTTON_DELETE_PROJECT
 msgid "Delete project"
 msgstr "Xóa dự án"
@@ -438,8 +451,9 @@ msgstr "Giới hạn cân chỉnh"
 msgid "Fine mode"
 msgstr "Chế độ tinh xảo"
 
-#. RADIO_BUTTON_HTML_MAIL
-msgid "HTML mail"
+#. RADIO_BUTTON_HTML_EMAIL
+#, fuzzy
+msgid "HTML e-mail"
 msgstr "Thư dạng html"
 
 #. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
@@ -453,6 +467,14 @@ msgstr "Cảnh báo việc ghi đè"
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
 msgid "Skip existing filenames"
 msgstr "Nhảy qua các tên tập tin hiện có"
+
+#. RADIO_BUTTON_SAVE_PS_FLATDECODED
+msgid "Save postscript zlib compressed (ps level 3)"
+msgstr ""
+
+#. RADIO_BUTTON_SAVE_PDF_FLATDECODED
+msgid "Save PDF zlib compressed"
+msgstr ""
 
 #. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
 msgid "Save 16bit pnm in ascii format"
@@ -509,10 +531,6 @@ msgstr "Tùy chọn XSane"
 #. TEXT_XSANE_MODE
 msgid "XSane mode"
 msgstr "Chế độ XSane"
-
-#. TEXT_FILENAME_COUNTER_STEP
-msgid "Step"
-msgstr "bước"
 
 #. TEXT_FILETYPE
 msgid "Type"
@@ -699,8 +717,9 @@ msgstr ""
 "nhưng không kèm theo bảo đảm nào, thậm chí không có ý là sẽ\n"
 "đảm bảo cho việc thương mại hay cho một mục đích đặc biệt nào.\n"
 
-#. TEXT_EMAIL
-msgid "Email:"
+#. TEXT_EMAIL_ADR
+#, fuzzy
+msgid "E-mail:"
 msgstr "Thư:"
 
 #. TEXT_HOMEPAGE
@@ -718,12 +737,13 @@ msgstr "Dịch thuật:"
 #. Please translate this to something like
 #. translation to YOUR LANGUAGE\n
 #. by YOUR NAME\n
-#. Email: your.name@yourdomain.com\n
+#. E-mail: your.name@yourdomain.com\n
 #. TEXT_TRANSLATION_INFO
+#, fuzzy
 msgid ""
 "untranslated original english text\n"
 "by Oliver Rauch\n"
-"Email: Oliver.Rauch@rauch-domain.de\n"
+"E-mail: Oliver.Rauch@rauch-domain.de\n"
 msgstr ""
 "Dịch sang tiếng Việt bởi:\n"
 "Trịnh Minh Thanh\n"
@@ -737,21 +757,34 @@ msgstr "0x0: 0KB"
 msgid "Scanned pages: "
 msgstr "Trang đã quét: "
 
-#. TEXT_MAIL_TEXT
-msgid "Email text:"
+#. TEXT_EMAIL_TEXT
+#, fuzzy
+msgid "E-mail text:"
 msgstr "Văn bản email:"
 
 #. TEXT_ATTACHMENTS
 msgid "Attachments:"
 msgstr "Đính kèm:"
 
-#. TEXT_MAIL_STATUS
+#. TEXT_EMAIL_STATUS
 msgid "Project status:"
 msgstr "Tình trạng dự án:"
 
 #  TEXT_MAIL_FILETYPE
-#. TEXT_MAIL_FILETYPE
-msgid "Mail image filetype:"
+#. TEXT_EMAIL_FILETYPE
+#, fuzzy
+msgid "E-mail image filetype:"
+msgstr "Loại tập tin đính kèm:"
+
+#. TEXT_PAGES
+#, fuzzy
+msgid "Pages:"
+msgstr "Cách dùng:"
+
+#  TEXT_MAIL_FILETYPE
+#. TEXT_MULTIPAGE_FILETYPE
+#, fuzzy
+msgid "Multipage document filetype:"
 msgstr "Loại tập tin đính kèm:"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
@@ -865,6 +898,10 @@ msgstr "Xanh lá cây gamma máy in:"
 msgid "Printer gamma blue:"
 msgstr "Xanh da trời gamma máy in:"
 
+#. TEXT_SETUP_PRINTER_PS_FLATDECODED
+msgid "Create zlib compressed postscript image (ps level 3) for printing"
+msgstr ""
+
 #. TEXT_SETUP_TMP_PATH
 msgid "Temporary directory"
 msgstr "Thư mục tạm"
@@ -888,6 +925,11 @@ msgstr "Nén ảnh PNG"
 #. TEXT_SETUP_FILENAME_COUNTER_LEN
 msgid "Filename counter length"
 msgstr "Độ dài bộ đếm tên tập tin"
+
+#. TEXT_SETUP_TIFF_ZIP_COMPRESSION
+#, fuzzy
+msgid "TIFF zip compression rate"
+msgstr "Nén ảnh 8 bit TIFF"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_16
 msgid "TIFF 16 bit image compression"
@@ -928,10 +970,6 @@ msgstr "Xanh da trời gamma Xem Trước:"
 #. TEXT_SETUP_LINEART_MODE
 msgid "Threshold option:"
 msgstr "Tùy chọn ngưỡng:"
-
-#. TEXT_SETUP_ADF_MODE
-msgid "Automatic Document Feeder Modus:"
-msgstr "Bộ Khay Nạp Tài Liệu Tự Động:"
 
 #. TEXT_SETUP_PREVIEW_PIPETTE_RANGE
 msgid "Preview pipette range"
@@ -985,6 +1023,10 @@ msgstr "Đặt mặc định chương trình cho:"
 msgid "Viewer (Postscript):"
 msgstr "Trình xem (Postscript):"
 
+#. TEXT_SETUP_FAX_PS_FLATDECODED
+msgid "Create zlib compressed postscript image (ps level 3) for fax"
+msgstr ""
+
 #. TEXT_SETUP_SMTP_SERVER
 msgid "SMTP server:"
 msgstr "Máy chủ SMTP:"
@@ -993,11 +1035,11 @@ msgstr "Máy chủ SMTP:"
 msgid "SMTP port:"
 msgstr "Cổng SMTP:"
 
-#. TEXT_SETUP_MAIL_FROM
+#. TEXT_SETUP_EMAIL_FROM
 msgid "From:"
 msgstr "Từ:"
 
-#. TEXT_SETUP_MAIL_REPLY_TO
+#. TEXT_SETUP_EMAIL_REPLY_TO
 msgid "Reply to:"
 msgstr "Trả lời:"
 
@@ -1016,10 +1058,6 @@ msgstr "Người dùng POP3:"
 #. TEXT_SETUP_POP3_PASS
 msgid "POP3 password:"
 msgstr "Mật khẩu POP3:"
-
-#. TEXT_SETUP_MAIL_VIEWER
-msgid "Viewer (png):"
-msgstr "Trình xem (png):"
 
 #. TEXT_SETUP_OCR_COMMAND
 msgid "OCR Command:"
@@ -1064,9 +1102,10 @@ msgstr "phương tiện mới"
 msgid "Save"
 msgstr "Lưu"
 
-#. NOTEBOOK_IMAGE_OPTIONS
-msgid "Image"
-msgstr "Ảnh"
+#. NOTEBOOK_FILETYPE_OPTIONS
+#, fuzzy
+msgid "Filetype"
+msgstr "Tệp"
 
 #. NOTEBOOK_COPY_OPTIONS
 msgid "Copy"
@@ -1076,9 +1115,10 @@ msgstr "Sao chép"
 msgid "Fax"
 msgstr "Fax"
 
-#. NOTEBOOK_MAIL_OPTIONS
-msgid "Mail"
-msgstr "Thư"
+#. NOTEBOOK_EMAIL_OPTIONS
+#, fuzzy
+msgid "E-mail"
+msgstr "Email"
 
 #. NOTEBOOK_OCR_OPTIONS
 msgid "OCR"
@@ -1092,9 +1132,9 @@ msgstr "Hiển thị"
 msgid "Enhancement"
 msgstr "Cải thiện"
 
-#. MENU_ITEM_MAIL
-msgid "Email"
-msgstr "Email"
+#. MENU_ITEM_MULTIPAGE
+msgid "Multipage"
+msgstr ""
 
 #. MENU_ITEM_SHOW_TOOLTIPS
 msgid "Show tooltips"
@@ -1240,6 +1280,11 @@ msgstr "Nén JPEG DCT"
 msgid "pack bits"
 msgstr "gói các bit"
 
+#. MENU_ITEM_TIFF_COMP_DEFLATE
+#, fuzzy
+msgid "deflate"
+msgstr "Để trễ"
+
 #. MENU_ITEM_RANGE_SCALE
 msgid "Slider (Scale)"
 msgstr "Con trượt (Cân chỉnh)"
@@ -1318,6 +1363,11 @@ msgstr "Đang quét"
 msgid "Receiving %s data"
 msgstr "Đang nhận dữ liệu %s"
 
+#. PROGRESS_PAGE
+#, fuzzy
+msgid "page"
+msgstr "gói tin"
+
 #. PROGRESS_TRANSFERING_DATA
 msgid "Transfering image"
 msgstr "Đang truyền ảnh"
@@ -1379,9 +1429,10 @@ msgid "Cancel preview scan <Alt-ESC>"
 msgstr "Thôi quét Xem Trước <Alt-Esc>"
 
 #. DESC_XSANE_MODE
+#, fuzzy
 msgid ""
-"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or mail-<Ctrl-"
-"m>"
+"viewer-<Ctrl-v>, save-<Ctrl-s>, photocopy-<Ctrl-c>, multipage-<Ctrl-m>, fax-"
+"<Ctrl-f> or e-mail-<Ctrl-e>"
 msgstr ""
 "lưu-<Ctrl-s>, xem-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> hay thư-<Ctrl-m>"
 
@@ -1432,25 +1483,40 @@ msgstr "Nhập tên mới cho trang Fax"
 msgid "Enter receiver phone number or address"
 msgstr "Nhập số điện thoại hay địa chỉ người nhận"
 
-#. DESC_MAILPROJECT
-msgid "Enter name of mail project"
+#. DESC_EMAIL_PROJECT
+#, fuzzy
+msgid "Enter name of e-mail project"
 msgstr "Nhập tên dự án thư"
 
-#. DESC_MAILIMAGENAME
-msgid "Enter new name for mail image"
+#. DESC_EMAIL_IMAGENAME
+#, fuzzy
+msgid "Enter new name for e-mail image"
 msgstr "Nhập tên mới cho ảnh trong thư"
 
-#. DESC_MAILRECEIVER
-msgid "Enter email address"
+#. DESC_EMAIL_RECEIVER
+#, fuzzy
+msgid "Enter e-mail address"
 msgstr "Nhập địa chỉ thư"
 
-#. DESC_MAILSUBJECT
-msgid "Enter subject of email"
+#. DESC_EMAIL_SUBJECT
+#, fuzzy
+msgid "Enter subject of e-mail"
 msgstr "Nhập chủ đề thư"
 
 #  DESC_MAIL_FILETYPE
-#. DESC_MAIL_FILETYPE
+#. DESC_EMAIL_FILETYPE
 msgid "Select filetype for image attachments"
+msgstr "Chọn loại tập tin cho ảnh đính kèm"
+
+#. DESC_MULTIPAGE_PROJECT
+#, fuzzy
+msgid "Enter name of multipage project"
+msgstr "Nhập tên dự án thư"
+
+#  DESC_MAIL_FILETYPE
+#. DESC_MULTIPAGE_FILETYPE
+#, fuzzy
+msgid "Select filetype for multipage file"
 msgstr "Chọn loại tập tin cho ảnh đính kèm"
 
 #  DESC_PRESET_AREA_RENAME
@@ -1684,6 +1750,12 @@ msgstr "Giá trị gamma thêm cho thành phần màu xanh lá cây cho photocop
 msgid "Additional gamma value for blue component for photocopy"
 msgstr "Giá trị gamma thêm cho thành phần màu xanh da trời cho photocopy"
 
+#. DESC_PRINTER_PS_FLATDECODED
+msgid ""
+"Create zlib compressed postscript image for printer (flatdecode).\n"
+"The printer has to understand postscript level 3!"
+msgstr ""
+
 #. DESC_TMP_PATH
 msgid "Path to temp directory"
 msgstr "Đường dẫn tới thư mục tạm"
@@ -1705,6 +1777,11 @@ msgstr "Nén nếu ảnh được lưu dạng png"
 #. DESC_FILENAME_COUNTER_LEN
 msgid "Minimum length of counter in filename"
 msgstr "Độ dài tối thiểu của bộ đếm trong tên tập tin"
+
+#. DESC_TIFF_ZIP_COMPRESSION
+#, fuzzy
+msgid "Compression rate for zip compressed tiff (deflate)"
+msgstr "Kiểu nén nếu ảnh 8 bit được lưu là tiff"
 
 #. DESC_TIFF_COMPRESSION_16
 msgid "Compression type if 16 bit image is saved as tiff"
@@ -1732,6 +1809,16 @@ msgstr "Cảnh báo trước khi ghi đè tập tin hiện có"
 msgid ""
 "If filename counter is automatically increased, used numbers are skipped"
 msgstr "Nếu bộ đếm tên tập tin được tăng tự động, bỏ qua các số đã dùng"
+
+#. DESC_SAVE_PS_FLATDECODED
+msgid ""
+"compress postscript image with zlib algorithm (flatdecode).When you want to "
+"print such a file your printer has to understand postscript level 3"
+msgstr ""
+
+#. DESC_SAVE_PDF_FLATDECODED
+msgid "compress PDF image with zlib algorithm (flatdecode)."
+msgstr ""
 
 #. DESC_SAVE_PNM16_AS_ASCII
 msgid ""
@@ -1841,13 +1928,9 @@ msgid ""
 "Offset to make XSane threshold range and scanner threshold range the same"
 msgstr "Offset để tạo khoảng ngưỡng của XSane và máy quét là như nhau"
 
-#. DESC_ADF_MODE
-msgid ""
-"Select scansource for Automatic Document feeder. If this scansource is "
-"selected XSane scans until \"out of paper\" or error."
+#. DESC_ADF_PAGES_MAX
+msgid "Number of pages to scan"
 msgstr ""
-"Chọn nguồn quét cho khay nạp tài liệu tự động. Nếu nguồn quét này được XSane "
-"chọn quét đến khi \"Hết giấy\" hay khi gặp lỗi."
 
 #. DESC_PREVIEW_PIPETTE_RANGE
 msgid "dimension of square that is used to average color for pipette function"
@@ -1899,6 +1982,10 @@ msgstr "Nhập lệnh thực thi để xem Fax"
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
 msgstr "Gửi Fax có độ phân giải dọc cao (196 lpi thay vì 98 lpi)"
 
+#. DESC_FAX_PS_FLATDECODED
+msgid "Create zlib compressed postscript image for fax (flatdecode)"
+msgstr ""
+
 #. DESC_SMTP_SERVER
 msgid "IP Address or Domain name of SMTP server"
 msgstr "Địa chỉ IP hay tên miền của máy chủ SMTP"
@@ -1907,16 +1994,19 @@ msgstr "Địa chỉ IP hay tên miền của máy chủ SMTP"
 msgid "port to connect to SMTP server"
 msgstr "cổng nối tới máy chủ SMTP"
 
-#. DESC_MAIL_FROM
-msgid "enter your email address"
+#. DESC_EMAIL_FROM
+#, fuzzy
+msgid "enter your e-mail address"
 msgstr "nhập địa chỉ email của bạn"
 
-#. DESC_MAIL_REPLY_TO
-msgid "enter email address for replied emails"
+#. DESC_EMAIL_REPLY_TO
+#, fuzzy
+msgid "enter e-mail address for replied e-mails"
 msgstr "nhập địa chỉ email cho các email được trả lời"
 
 #. DESC_POP3_AUTHENTIFICATION
-msgid "Authentificate at POP3 server before sending mail"
+#, fuzzy
+msgid "Authentificate at POP3 server before sending e-mail"
 msgstr "Chứng thực tại máy chủ POP3 trước khi gửi thư"
 
 #. DESC_POP3_SERVER
@@ -1935,13 +2025,10 @@ msgstr "tên người dùng cho máy chủ POP3"
 msgid "password for POP3 server"
 msgstr "mật khẩu cho máy chủ POP3"
 
-#. DESC_MAIL_VIEWER
-msgid "Enter command to be executed to view a mail image"
-msgstr "Nhập lệnh được thực thi để xem ảnh trong thư"
-
 #  DESC_HTML_MAIL
-#. DESC_HTML_MAIL
-msgid "Mail is sent in html mode, place image with: <IMAGE>"
+#. DESC_HTML_EMAIL
+#, fuzzy
+msgid "E-mail is sent in html mode, place image with: <IMAGE>"
 msgstr "Thư gửi theo phương thức HTML, thay ảnh bằng: <IMAGE>"
 
 #. DESC_OCR_COMMAND
@@ -2294,10 +2381,6 @@ msgstr "Không thực thi được trình xem Fax:"
 msgid "Failed to execute fax command:"
 msgstr "Không thực thi được lệnh Fax:"
 
-#. ERR_FAILED_EXEC_MAIL_VIEWER
-msgid "Failed to execute mail image viewer:"
-msgstr "Không thực thi được trình xem ảnh trong thư:"
-
 #. ERR_FAILED_EXEC_OCR_CMD
 msgid "Failed to execute ocr command:"
 msgstr "Không thực thi được lệnh OCR:"
@@ -2466,6 +2549,7 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[TÙY CHỌN]... [THIẾT BỊ]"
 
 #. TEXT_HELP
+#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2482,8 +2566,9 @@ msgid ""
 " -V, --viewer                 start with viewer-mode active (default)\n"
 " -s, --save                   start with save-mode active\n"
 " -c, --copy                   start with copy-mode active\n"
+" -m, --multipage              start with multipage-mode active\n"
 " -f, --fax                    start with fax-mode active\n"
-" -m, --mail                   start with mail-mode active\n"
+" -e, --email                  start with e-mail-mode active\n"
 " -n, --no-mode-selection      disable menu for XSane mode selection\n"
 "\n"
 " -F, --Fixed                  fixed main window size (overwrite preferences "
@@ -2698,80 +2783,93 @@ msgstr "Âm bản Konica VX 100"
 msgid "Rossmann negative HR 100"
 msgstr "Âm bản Rossmann HR 100"
 
-#  TEXT_MAIL_STATUS_NOT_CREATED
-#. TEXT_MAIL_STATUS_NOT_CREATED
-msgid "Mail project not created"
-msgstr "Mail project chưa tạo"
+#  TEXT_FAX_STATUS_NOT_CREATED
+#. TEXT_PROJECT_STATUS_NOT_CREATED
+#, fuzzy
+msgid "Project not created"
+msgstr "Chưa tạo Fax project"
 
-#  TEXT_MAIL_STATUS_CREATED
-#. TEXT_MAIL_STATUS_CREATED
-msgid "Mail project created"
-msgstr "Mail project được tạo"
+#  TEXT_FAX_STATUS_CREATED
+#. TEXT_PROJECT_STATUS_CREATED
+#, fuzzy
+msgid "Project created"
+msgstr "Fax project đã tạo"
 
-#  TEXT_MAIL_STATUS_CHANGED
-#. TEXT_MAIL_STATUS_CHANGED
-msgid "Mail project changed"
-msgstr "Mail project đã đổi"
+#  TEXT_FAX_STATUS_CHANGED
+#. TEXT_PROJECT_STATUS_CHANGED
+#, fuzzy
+msgid "Project changed"
+msgstr "Fax project đã thay đổi"
 
 #  TEXT_MAIL_STATUS_ERR_READ_PROJECT
-#. TEXT_MAIL_STATUS_ERR_READ_PROJECT
-msgid "Error reading mailproject"
+#. TEXT_PROJECT_STATUS_ERR_READ_PROJECT
+#, fuzzy
+msgid "Error reading project"
 msgstr "Lỗi đọc mailproject"
 
+#. TEXT_PROJECT_STATUS_FILE_SAVING_ERROR
+#, fuzzy
+msgid "Error saving file"
+msgstr "Đang lưu ảnh"
+
+#. TEXT_PROJECT_STATUS_FILE_SAVING
+#, fuzzy
+msgid "Saving file"
+msgstr "Đang lưu ảnh"
+
+#. TEXT_PROJECT_STATUS_FILE_SAVING_ABORTED
+#, fuzzy
+msgid "Aborted saving file"
+msgstr "Đang lưu ảnh"
+
+#  TEXT_MAIL_STATUS_SENT
+#. TEXT_PROJECT_STATUS_FILE_SAVED
+#, fuzzy
+msgid "File has been saved"
+msgstr "Thư đã được gửi"
+
 #  TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
-#. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
+#. TEXT_EMAIL_STATUS_POP3_CONNECTION_FAILED
 msgid "POP3 connection failed"
 msgstr "Không kết nối POP3 được"
 
 #  TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
-#. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
+#. TEXT_EMAIL_STATUS_POP3_LOGIN_FAILED
 msgid "POP3 login failed"
 msgstr "Không đăng nhập POP3 được"
 
 #  TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
-#. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
+#. TEXT_EMAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
 msgstr "Không kết nối SMTP được"
 
 #  TEXT_MAIL_STATUS_SMTP_ERR_FROM
-#. TEXT_MAIL_STATUS_SMTP_ERR_FROM
+#. TEXT_EMAIL_STATUS_SMTP_ERR_FROM
 msgid "From entry not accepted"
 msgstr "Không chấp nhận mục Từ"
 
 #  TEXT_MAIL_STATUS_SMTP_ERR_RCPT
-#. TEXT_MAIL_STATUS_SMTP_ERR_RCPT
+#. TEXT_EMAIL_STATUS_SMTP_ERR_RCPT
 msgid "Receiver entry not accepted"
 msgstr "Không chấp nhận mục người nhận"
 
 #  TEXT_MAIL_STATUS_SMTP_ERR_DATA
-#. TEXT_MAIL_STATUS_SMTP_ERR_DATA
-msgid "Mail data not accepted"
+#. TEXT_EMAIL_STATUS_SMTP_ERR_DATA
+#, fuzzy
+msgid "E-mail data not accepted"
 msgstr "Không chấp nhận dữ liệu thư"
 
 #  TEXT_MAIL_STATUS_SENDING
-#. TEXT_MAIL_STATUS_SENDING
-msgid "Sending mail"
+#. TEXT_EMAIL_STATUS_SENDING
+#, fuzzy
+msgid "Sending e-mail"
 msgstr "Gửi thư"
 
 #  TEXT_MAIL_STATUS_SENT
-#. TEXT_MAIL_STATUS_SENT
-msgid "Mail has been sent"
+#. TEXT_EMAIL_STATUS_SENT
+#, fuzzy
+msgid "E-mail has been sent"
 msgstr "Thư đã được gửi"
-
-#  TEXT_FAX_STATUS_NOT_CREATED
-#. TEXT_FAX_STATUS_NOT_CREATED
-msgid "Fax project not created"
-msgstr "Chưa tạo Fax project"
-
-#  TEXT_FAX_STATUS_CREATED
-#. TEXT_FAX_STATUS_CREATED
-msgid "Fax project created"
-msgstr "Fax project đã tạo"
-
-#  TEXT_FAX_STATUS_CHANGED
-#. TEXT_FAX_STATUS_CHANGED
-msgid "Fax project changed"
-msgstr "Fax project đã thay đổi"
 
 #  TEXT_FAX_STATUS_QUEUEING_FAX
 #. TEXT_FAX_STATUS_QUEUEING_FAX
@@ -2837,3 +2935,77 @@ msgstr "Hết bộ nhớ"
 
 msgid "Access to resource has been denied"
 msgstr "Truy cập đến nguồn bị từ chối"
+
+#~ msgid "Automatic Document Feeder Modus:"
+#~ msgstr "Bộ Khay Nạp Tài Liệu Tự Động:"
+
+#~ msgid ""
+#~ "Select scansource for Automatic Document feeder. If this scansource is "
+#~ "selected XSane scans until \"out of paper\" or error."
+#~ msgstr ""
+#~ "Chọn nguồn quét cho khay nạp tài liệu tự động. Nếu nguồn quét này được "
+#~ "XSane chọn quét đến khi \"Hết giấy\" hay khi gặp lỗi."
+
+#  TEXT_MAIL_STATUS_NOT_CREATED
+#, fuzzy
+#~ msgid "E-mail project not created"
+#~ msgstr "Mail project chưa tạo"
+
+#  TEXT_MAIL_STATUS_CREATED
+#, fuzzy
+#~ msgid "E-mail project created"
+#~ msgstr "Mail project được tạo"
+
+#  TEXT_MAIL_STATUS_CHANGED
+#, fuzzy
+#~ msgid "E-mail project changed"
+#~ msgstr "Mail project đã đổi"
+
+#  TEXT_MAIL_STATUS_NOT_CREATED
+#, fuzzy
+#~ msgid "Multipage project not created"
+#~ msgstr "Mail project chưa tạo"
+
+#  TEXT_MAIL_STATUS_CREATED
+#, fuzzy
+#~ msgid "Multipage project created"
+#~ msgstr "Mail project được tạo"
+
+#  TEXT_MAIL_STATUS_CHANGED
+#, fuzzy
+#~ msgid "Multipage project changed"
+#~ msgstr "Mail project đã đổi"
+
+#  TEXT_MAIL_STATUS_ERR_READ_PROJECT
+#, fuzzy
+#~ msgid "Error reading multipage project"
+#~ msgstr "Lỗi đọc mailproject"
+
+#, fuzzy
+#~ msgid "Saving multipage file"
+#~ msgstr "Đang lưu ảnh"
+
+#  TEXT_MAIL_STATUS_CREATED
+#, fuzzy
+#~ msgid "Multipage saving aborted"
+#~ msgstr "Mail project được tạo"
+
+#~ msgid "Image"
+#~ msgstr "Ảnh"
+
+#~ msgid "Viewer (png):"
+#~ msgstr "Trình xem (png):"
+
+#, fuzzy
+#~ msgid "Enter command to be executed to view an e-mail image"
+#~ msgstr "Nhập lệnh được thực thi để xem ảnh trong thư"
+
+#, fuzzy
+#~ msgid "Failed to execute e-mail image viewer:"
+#~ msgstr "Không thực thi được trình xem ảnh trong thư:"
+
+#~ msgid "Step"
+#~ msgstr "bước"
+
+#~ msgid "Mail"
+#~ msgstr "Thư"

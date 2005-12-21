@@ -48,6 +48,7 @@ typedef struct
     double gamma_red;			/* printer gamma red */
     double gamma_green;			/* printer gamma green */
     double gamma_blue;			/* printer gamma blue */
+    int ps_flatdecoded;			/* flatdecode (zlib compression), ps level 3 */
   }
 Preferences_printer_t;
 
@@ -107,21 +108,23 @@ typedef struct
     double fax_leftoffset;		/* left offset of fax paper in mm */
     double fax_bottomoffset;		/* bottom offset of fax paper in mm */
     int    fax_fine_mode;		/* use fine or normal mode */
+    int    fax_ps_flatdecoded;		/* use postscript level 3 zlib compression */
 
-#ifdef XSANE_ACTIVATE_MAIL
-    char   *mail_from;			/* email address of sender */
-    char   *mail_reply_to;		/* email address for replied emails */
-    char   *mail_smtp_server;		/* ip address or domain name of smtp server */
-    int    mail_smtp_port;		/* port to connect to smtp sever */
-    int    mail_pop3_authentification;  /* use pop3 login for authentification */
-    char   *mail_pop3_server;		/* ip address or domain name of pop3 server */
-    int    mail_pop3_port;		/* port to connect to pop3 server */
-    char   *mail_pop3_user;		/* user name for pop3 server */
-    char   *mail_pop3_pass;		/* password for pop3 server */
-    char   *mail_project;		/* mail project */
-    char   *mail_viewer;		/* mail viewer */
-    char   *mail_filetype;		/* mail filetype */
+#ifdef XSANE_ACTIVATE_EMAIL
+    char   *email_from;			/* email address of sender */
+    char   *email_reply_to;		/* email address for replied emails */
+    char   *email_smtp_server;		/* ip address or domain name of smtp server */
+    int    email_smtp_port;		/* port to connect to smtp sever */
+    int    email_pop3_authentification;  /* use pop3 login for authentification */
+    char   *email_pop3_server;		/* ip address or domain name of pop3 server */
+    int    email_pop3_port;		/* port to connect to pop3 server */
+    char   *email_pop3_user;		/* user name for pop3 server */
+    char   *email_pop3_pass;		/* password for pop3 server */
+    char   *email_project;		/* mail project */
+    char   *email_filetype;		/* mail filetype */
 #endif
+    char   *multipage_project;		/* multipage project */
+    char   *multipage_filetype;		/* multipage filetype */
 
     char   *ocr_command;		/* ocrcommand */
     char   *ocr_inputfile_option;	/* option for input file */
@@ -134,16 +137,20 @@ typedef struct
 
     double jpeg_quality;		/* quality when saving image as jpeg */
     double png_compression;		/* compression when saving image as pnm */
+    double tiff_zip_compression;	/* compression rate for tiff zip (deflate) */
     int    tiff_compression16_nr;	/* compression type nr when saving 16i bit image as tiff */
     int    tiff_compression8_nr;	/* compression type nr when saving 8 bit image as tiff */
     int    tiff_compression1_nr;	/* compression type nr when saving 1 bit image as tiff */
     int    save_devprefs_at_exit;	/* save device preferences at exit */
     int    overwrite_warning;		/* warn if file exists */
     int    skip_existing_numbers;	/* skip used filenames when automatically increase counter */
+    int    save_ps_flatdecoded;		/* use zlib to for postscript compression (flatdecode) */
+    int    save_pdf_flatdecoded;	/* use zlib to for pdf compression (flatdecode) */
     int    save_pnm16_as_ascii;		/* selection if pnm 16 bit is saved as ascii or binary file */
     int    reduce_16bit_to_8bit;	/* reduce images with 16 bits/color to 8 bits/color */
     int    filename_counter_step;	/* filename_counter += filename_counter_step; */
     int    filename_counter_len;	/* minimum length of filename_counter */
+    int    adf_pages_max;		/* maximum pages to scan in adf mode */
 
     int    show_range_mode;		/* how to show a range */
     int    tooltips_enabled;		/* should tooltips be disabled? */

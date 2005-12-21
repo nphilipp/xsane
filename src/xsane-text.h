@@ -48,9 +48,10 @@
 #define WINDOW_FAX_PROJECT		_("fax project")
 #define WINDOW_FAX_RENAME		_("rename fax page")
 #define WINDOW_FAX_INSERT		_("insert ps-file into fax")
-#define WINDOW_MAIL_PROJECT		_("mail project")
-#define WINDOW_MAIL_RENAME		_("rename mail image")
-#define WINDOW_MAIL_INSERT		_("insert file into mail")
+#define WINDOW_EMAIL_PROJECT		_("E-mail project")
+#define WINDOW_EMAIL_RENAME		_("rename e-mail image")
+#define WINDOW_EMAIL_INSERT		_("insert file into e-mail")
+#define WINDOW_MULTIPAGE_PROJECT	_("multipage project")
 #define WINDOW_PRESET_AREA_RENAME	_("rename preset area")
 #define WINDOW_PRESET_AREA_ADD		_("add preset area")
 #define WINDOW_MEDIUM_RENAME		_("rename medium")
@@ -134,6 +135,7 @@
 #define BUTTON_FILE_INSERT		_("Insert file")
 #define BUTTON_CREATE_PROJECT		_("Create project")
 #define BUTTON_SEND_PROJECT		_("Send project")
+#define BUTTON_SAVE_MULTIPAGE		_("Save multipage file")
 #define BUTTON_DELETE_PROJECT		_("Delete project")
 #define BUTTON_ADD_PRINTER		_("Add printer")
 #define BUTTON_DELETE_PRINTER		_("Delete printer")
@@ -145,10 +147,12 @@
 #define BUTTON_SCALE_BIND		_("Bind scale")
 
 #define RADIO_BUTTON_FINE_MODE		_("Fine mode")
-#define RADIO_BUTTON_HTML_MAIL		_("HTML mail")
+#define RADIO_BUTTON_HTML_EMAIL		_("HTML e-mail")
 #define RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT _("Save device preferences at exit")
 #define RADIO_BUTTON_OVERWRITE_WARNING	_("Overwrite warning")
 #define RADIO_BUTTON_SKIP_EXISTING_NRS	_("Skip existing filenames")
+#define RADIO_BUTTON_SAVE_PS_FLATDECODED _("Save postscript zlib compressed (ps level 3)")
+#define RADIO_BUTTON_SAVE_PDF_FLATDECODED _("Save PDF zlib compressed")
 #define RADIO_BUTTON_SAVE_PNM16_AS_ASCII _("Save 16bit pnm in ascii format")
 #define RADIO_BUTTON_REDUCE_16BIT_TO_8BIT _("Reduce 16 bit image to 8 bit")
 #define RADIO_BUTTON_WINDOW_FIXED	_("Main window size fixed")
@@ -164,7 +168,6 @@
 #define TEXT_AVAILABLE_DEVICES		_("Available devices:")
 #define TEXT_XSANE_OPTIONS		_("XSane options")
 #define TEXT_XSANE_MODE			_("XSane mode")
-#define TEXT_FILENAME_COUNTER_STEP	_("Step")
 #define TEXT_FILETYPE			_("Type")
 #define TEXT_SCANNER_BACKEND		_("Scanner and backend:")
 #define TEXT_VENDOR			_("Vendor:")
@@ -219,7 +222,7 @@
                                           "This program is distributed in the hope that it will be useful, but\n" \
                                           "WITHOUT ANY WARRANTY; without even the implied warranty of\n" \
                                           "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n")
-#define TEXT_EMAIL			_("Email:")
+#define TEXT_EMAIL_ADR			_("E-mail:")
 #define TEXT_HOMEPAGE			_("Homepage:")
 #define TEXT_FILE			_("File:")
 #define TEXT_TRANSLATION		_("Translation:")
@@ -227,19 +230,22 @@
 /* Please translate this to something like */
 /* translation to YOUR LANGUAGE\n */
 /* by YOUR NAME\n */
-/* Email: your.name@yourdomain.com\n */
+/* E-mail: your.name@yourdomain.com\n */
 #define TEXT_TRANSLATION_INFO		_("untranslated original english text\n" \
 					  "by Oliver Rauch\n" \
-					  "Email: Oliver.Rauch@rauch-domain.de\n")
+					  "E-mail: Oliver.Rauch@rauch-domain.de\n")
 
 #define TEXT_INFO_BOX			_("0x0: 0KB")
 
 #define TEXT_ADF_PAGES_SCANNED		_("Scanned pages: ")
 
-#define TEXT_MAIL_TEXT			_("Email text:")
+#define TEXT_EMAIL_TEXT			_("E-mail text:")
 #define TEXT_ATTACHMENTS		_("Attachments:")
-#define TEXT_MAIL_STATUS		_("Project status:")
-#define TEXT_MAIL_FILETYPE		_("Mail image filetype:")
+#define TEXT_EMAIL_STATUS		_("Project status:")
+#define TEXT_EMAIL_FILETYPE		_("E-mail image filetype:")
+
+#define TEXT_PAGES			_("Pages:")
+#define TEXT_MULTIPAGE_FILETYPE		_("Multipage document filetype:")
 
 #define TEXT_MEDIUM_DEFINITION_NAME	_("Medium Name:")
 
@@ -270,12 +276,14 @@
 #define TEXT_SETUP_PRINTER_GAMMA_RED	_("Printer gamma red:")
 #define TEXT_SETUP_PRINTER_GAMMA_GREEN	_("Printer gamma green:")
 #define TEXT_SETUP_PRINTER_GAMMA_BLUE	_("Printer gamma blue:")
+#define TEXT_SETUP_PRINTER_PS_FLATDECODED _("Create zlib compressed postscript image (ps level 3) for printing")
 #define TEXT_SETUP_TMP_PATH		_("Temporary directory")
 #define TEXT_SETUP_IMAGE_PERMISSION	_("Image-file permissions")
 #define TEXT_SETUP_DIR_PERMISSION	_("Directory permissions")
 #define TEXT_SETUP_JPEG_QUALITY		_("JPEG image quality")
 #define TEXT_SETUP_PNG_COMPRESSION	_("PNG image compression")
 #define TEXT_SETUP_FILENAME_COUNTER_LEN	_("Filename counter length")
+#define TEXT_SETUP_TIFF_ZIP_COMPRESSION	_("TIFF zip compression rate")
 #define TEXT_SETUP_TIFF_COMPRESSION_16	_("TIFF 16 bit image compression")
 #define TEXT_SETUP_TIFF_COMPRESSION_8	_("TIFF 8 bit image compression")
 #define TEXT_SETUP_TIFF_COMPRESSION_1	_("TIFF lineart image compression")
@@ -286,7 +294,6 @@
 #define TEXT_SETUP_PREVIEW_GAMMA_GREEN	_("Preview gamma green:")
 #define TEXT_SETUP_PREVIEW_GAMMA_BLUE	_("Preview gamma blue:")
 #define TEXT_SETUP_LINEART_MODE         _("Threshold option:")
-#define TEXT_SETUP_ADF_MODE		_("Automatic Document Feeder Modus:")
 #define TEXT_SETUP_PREVIEW_PIPETTE_RANGE _("Preview pipette range")
 #define TEXT_SETUP_THRESHOLD_MIN        _("Threshold minimum:")
 #define TEXT_SETUP_THRESHOLD_MAX        _("Threshold maximum:")
@@ -305,15 +312,15 @@
 #define TEXT_SETUP_FAX_HEIGHT		_("Height")
 #define TEXT_SETUP_FAX_LEFT		_("Left offset")
 #define TEXT_SETUP_FAX_BOTTOM		_("Bottom offset")
+#define TEXT_SETUP_FAX_PS_FLATDECODED	_("Create zlib compressed postscript image (ps level 3) for fax")
 #define TEXT_SETUP_SMTP_SERVER		_("SMTP server:")
 #define TEXT_SETUP_SMTP_PORT		_("SMTP port:")
-#define TEXT_SETUP_MAIL_FROM		_("From:")
-#define TEXT_SETUP_MAIL_REPLY_TO	_("Reply to:")
+#define TEXT_SETUP_EMAIL_FROM		_("From:")
+#define TEXT_SETUP_EMAIL_REPLY_TO	_("Reply to:")
 #define TEXT_SETUP_POP3_SERVER		_("POP3 server:")
 #define TEXT_SETUP_POP3_PORT		_("POP3 port:")
 #define TEXT_SETUP_POP3_USER		_("POP3 user:")
 #define TEXT_SETUP_POP3_PASS		_("POP3 password:")
-#define TEXT_SETUP_MAIL_VIEWER		_("Viewer (png):")
 #define TEXT_SETUP_OCR_COMMAND		_("OCR Command:")
 #define TEXT_SETUP_OCR_INPUTFILE_OPT	_("Inputfile option:")
 #define TEXT_SETUP_OCR_OUTPUTFILE_OPT	_("Outputfile option:")
@@ -326,10 +333,10 @@
 #define	TEXT_NEW_MEDIA_NAME		_("new media")
 
 #define NOTEBOOK_SAVING_OPTIONS		_("Save")
-#define NOTEBOOK_IMAGE_OPTIONS		_("Image")
+#define NOTEBOOK_FILETYPE_OPTIONS	_("Filetype")
 #define NOTEBOOK_COPY_OPTIONS		_("Copy")
 #define NOTEBOOK_FAX_OPTIONS		_("Fax")
-#define NOTEBOOK_MAIL_OPTIONS		_("Mail")
+#define NOTEBOOK_EMAIL_OPTIONS		_("E-mail")
 #define NOTEBOOK_OCR_OPTIONS		_("OCR")
 #define NOTEBOOK_DISPLAY_OPTIONS	_("Display")
 #define NOTEBOOK_ENHANCE_OPTIONS	_("Enhancement")
@@ -337,8 +344,9 @@
 #define MENU_ITEM_SAVE			_("Save")
 #define MENU_ITEM_VIEWER		_("Viewer")
 #define MENU_ITEM_COPY			_("Copy")
+#define MENU_ITEM_MULTIPAGE		_("Multipage")
 #define MENU_ITEM_FAX			_("Fax")
-#define MENU_ITEM_MAIL			_("Email")
+#define MENU_ITEM_EMAIL			_("E-mail")
 
 #define MENU_ITEM_SHOW_TOOLTIPS		_("Show tooltips")
 #define MENU_ITEM_SHOW_PREVIEW		_("Show preview")
@@ -379,6 +387,7 @@
 #define MENU_ITEM_TIFF_COMP_CCITFAX4	_("CCITT Group 4 Fax compression")
 #define MENU_ITEM_TIFF_COMP_JPEG	_("JPEG DCT compression")
 #define MENU_ITEM_TIFF_COMP_PACKBITS	_("pack bits")
+#define MENU_ITEM_TIFF_COMP_DEFLATE	_("deflate")
 
 #define MENU_ITEM_RANGE_SCALE		_("Slider (Scale)")
 #define MENU_ITEM_RANGE_SCROLLBAR	_("Slider (Scrollbar)")
@@ -403,6 +412,7 @@
 
 #define PROGRESS_SCANNING		_("Scanning")
 #define PROGRESS_RECEIVING_FRAME_DATA	_("Receiving %s data")
+#define PROGRESS_PAGE			_("page")
 
 #define PROGRESS_TRANSFERING_DATA	_("Transfering image")
 #define PROGRESS_ROTATING_DATA		_("Rotating image")
@@ -420,8 +430,8 @@
 #define DESC_SCAN_CANCEL		_("Cancel scan <ESC>")
 #define DESC_PREVIEW_ACQUIRE		_("Acquire preview scan <Alt-p>")
 #define DESC_PREVIEW_CANCEL		_("Cancel preview scan <Alt-ESC>")
-#define DESC_XSANE_MODE			_("save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, " \
-					  "fax-<Ctrl-f> or mail-<Ctrl-m>")
+#define DESC_XSANE_MODE			_("viewer-<Ctrl-v>, save-<Ctrl-s>, photocopy-<Ctrl-c>, " \
+					  "multipage-<Ctrl-m>, fax-<Ctrl-f> or e-mail-<Ctrl-e>")
 #define DESC_XSANE_MEDIUM		_("Select source medium type.\n" \
 					  "To rename, reorder or delete an entry use context menu (right mouse button).\n"\
 					  "To create a medium enable the option edit medium definition in preferences menu.")
@@ -433,11 +443,13 @@
 #define DESC_FAXPROJECT			_("Enter name of fax project")
 #define DESC_FAXPAGENAME		_("Enter new name for faxpage")
 #define DESC_FAXRECEIVER		_("Enter receiver phone number or address")
-#define DESC_MAILPROJECT		_("Enter name of mail project")
-#define DESC_MAILIMAGENAME		_("Enter new name for mail image")
-#define DESC_MAILRECEIVER		_("Enter email address")
-#define DESC_MAILSUBJECT		_("Enter subject of email")
-#define DESC_MAIL_FILETYPE		_("Select filetype for image attachments")
+#define DESC_EMAIL_PROJECT		_("Enter name of e-mail project")
+#define DESC_EMAIL_IMAGENAME		_("Enter new name for e-mail image")
+#define DESC_EMAIL_RECEIVER		_("Enter e-mail address")
+#define DESC_EMAIL_SUBJECT		_("Enter subject of e-mail")
+#define DESC_EMAIL_FILETYPE		_("Select filetype for image attachments")
+#define DESC_MULTIPAGE_PROJECT		_("Enter name of multipage project")
+#define DESC_MULTIPAGE_FILETYPE		_("Select filetype for multipage file")
 #define DESC_PRESET_AREA_RENAME		_("Enter new name for preset area")
 #define DESC_PRESET_AREA_ADD		_("Enter name for new preset area")
 #define DESC_MEDIUM_RENAME		_("Enter new name for medium definition")
@@ -508,17 +520,23 @@
 #define DESC_PRINTER_GAMMA_RED		_("Additional gamma value for red component for photocopy")
 #define DESC_PRINTER_GAMMA_GREEN	_("Additional gamma value for green component for photocopy")
 #define DESC_PRINTER_GAMMA_BLUE		_("Additional gamma value for blue component for photocopy")
+#define DESC_PRINTER_PS_FLATDECODED	_("Create zlib compressed postscript image for printer (flatdecode).\n" \
+                                          "The printer has to understand postscript level 3!")
 #define DESC_TMP_PATH			_("Path to temp directory")
 #define DESC_BUTTON_TMP_PATH_BROWSE	_("Browse for temporary directory")
 #define DESC_JPEG_QUALITY		_("Quality in percent if image is saved as jpeg or tiff with jpeg compression")
 #define DESC_PNG_COMPRESSION		_("Compression if image is saved as png")
 #define DESC_FILENAME_COUNTER_LEN	_("Minimum length of counter in filename")
+#define DESC_TIFF_ZIP_COMPRESSION	_("Compression rate for zip compressed tiff (deflate)")
 #define DESC_TIFF_COMPRESSION_16	_("Compression type if 16 bit image is saved as tiff")
 #define DESC_TIFF_COMPRESSION_8		_("Compression type if 8 bit image is saved as tiff")
 #define DESC_TIFF_COMPRESSION_1		_("Compression type if lineart image is saved as tiff")
 #define DESC_SAVE_DEVPREFS_AT_EXIT	_("Save device dependant preferences in default file at exit of xsane")
 #define DESC_OVERWRITE_WARNING		_("Warn before overwriting an existing file")
 #define DESC_SKIP_EXISTING		_("If filename counter is automatically increased, used numbers are skipped")
+#define DESC_SAVE_PS_FLATDECODED	_("compress postscript image with zlib algorithm (flatdecode)." \
+                                          "When you want to print such a file your printer has to understand postscript level 3")
+#define DESC_SAVE_PDF_FLATDECODED	_("compress PDF image with zlib algorithm (flatdecode).")
 #define DESC_SAVE_PNM16_AS_ASCII	_("When a 16 bit image shall be saved in pnm format then use ascii format " \
                                           "instead of binary format. The binary format is a new format that is not " \
                                           "supported by all programs. The ascii format is supported by more programs " \
@@ -545,8 +563,7 @@
 #define DESC_PREVIEW_THRESHOLD_MAX      _("The scanner's maximum threshold level in %")
 #define DESC_PREVIEW_THRESHOLD_MUL      _("Multiplier to make XSane threshold range and scanner threshold range the same")
 #define DESC_PREVIEW_THRESHOLD_OFF      _("Offset to make XSane threshold range and scanner threshold range the same")
-#define DESC_ADF_MODE			_("Select scansource for Automatic Document feeder. " \
-                                          "If this scansource is selected XSane scans until \"out of paper\" or error.")
+#define DESC_ADF_PAGES_MAX		_("Number of pages to scan")
 #define DESC_PREVIEW_PIPETTE_RANGE	_("dimension of square that is used to average color for pipette function")
 #define DESC_DOC_VIEWER			_("Enter command to be executed to display helpfiles, must be a html-viewer!")
 #define DESC_AUTOENHANCE_GAMMA		_("Change gamma value when autoenhancement button is pressed")
@@ -564,17 +581,17 @@
 #define DESC_FAX_HEIGHT			_("Height of printable area")
 #define DESC_FAX_LEFTOFFSET		_("Left offset from the edge of the paper to the printable area")
 #define DESC_FAX_BOTTOMOFFSET		_("Bottom offset from the edge of the paper to the printable area")
+#define DESC_FAX_PS_FLATDECODED		_("Create zlib compressed postscript image for fax (flatdecode)")
 #define DESC_SMTP_SERVER		_("IP Address or Domain name of SMTP server")
 #define DESC_SMTP_PORT			_("port to connect to SMTP server")
-#define DESC_MAIL_FROM			_("enter your email address")
-#define DESC_MAIL_REPLY_TO		_("enter email address for replied emails")
-#define DESC_POP3_AUTHENTIFICATION	_("Authentificate at POP3 server before sending mail")
+#define DESC_EMAIL_FROM			_("enter your e-mail address")
+#define DESC_EMAIL_REPLY_TO		_("enter e-mail address for replied e-mails")
+#define DESC_POP3_AUTHENTIFICATION	_("Authentificate at POP3 server before sending e-mail")
 #define DESC_POP3_SERVER		_("IP Address or Domain name of POP3 server")
 #define DESC_POP3_PORT			_("port to connect to POP3 server")
 #define DESC_POP3_USER			_("user name for POP3 server")
 #define DESC_POP3_PASS			_("password for POP3 server")
-#define DESC_MAIL_VIEWER		_("Enter command to be executed to view a mail image")
-#define DESC_HTML_MAIL			_("Mail is sent in html mode, place image with: <IMAGE>")
+#define DESC_HTML_EMAIL			_("E-mail is sent in html mode, place image with: <IMAGE>")
 #define DESC_OCR_COMMAND		_("Enter command to start ocr program")
 #define DESC_OCR_INPUTFILE_OPT		_("Enter option of the ocr program to define input file")
 #define DESC_OCR_OUTPUTFILE_OPT		_("Enter option of the ocr program to define output file")
@@ -670,7 +687,6 @@
 #define ERR_FAILED_EXEC_DOC_VIEWER	_("Failed to execute documentation viewer:")
 #define ERR_FAILED_EXEC_FAX_VIEWER	_("Failed to execute fax viewer:")
 #define ERR_FAILED_EXEC_FAX_CMD		_("Failed to execute fax command:")
-#define ERR_FAILED_EXEC_MAIL_VIEWER	_("Failed to execute mail image viewer:")
 #define ERR_FAILED_EXEC_OCR_CMD		_("Failed to execute ocr command:")
 #define ERR_BAD_FRAME_FORMAT		_("bad frame format")
 #define ERR_FAILED_SET_RESOLUTION	_("unable to set resolution")
@@ -738,8 +754,9 @@ The format of [DEVICE] is backendname:devicefile (e.g. umax:/dev/scanner).\n\
  -V, --viewer                 start with viewer-mode active (default)\n\
  -s, --save                   start with save-mode active\n\
  -c, --copy                   start with copy-mode active\n\
+ -m, --multipage              start with multipage-mode active\n\
  -f, --fax                    start with fax-mode active\n\
- -m, --mail                   start with mail-mode active\n\
+ -e, --email                  start with e-mail-mode active\n\
  -n, --no-mode-selection      disable menu for XSane mode selection\n\
 \n\
  -F, --Fixed                  fixed main window size (overwrite preferences value)\n\
@@ -805,22 +822,25 @@ The format of [DEVICE] is backendname:devicefile (e.g. umax:/dev/scanner).\n\
 #define MENU_ITEM_MEDIUM_KONICA_NEG_VX_100	N_("Konica negative VX 100")
 #define MENU_ITEM_MEDIUM_ROSSMANN_NEG_HR_100	N_("Rossmann negative HR 100")
 
-#define TEXT_MAIL_STATUS_NOT_CREATED		N_("Mail project not created")
-#define TEXT_MAIL_STATUS_CREATED		N_("Mail project created")
-#define TEXT_MAIL_STATUS_CHANGED		N_("Mail project changed")
-#define TEXT_MAIL_STATUS_ERR_READ_PROJECT	N_("Error reading mailproject")
-#define TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED	N_("POP3 connection failed")
-#define TEXT_MAIL_STATUS_POP3_LOGIN_FAILED	N_("POP3 login failed")
-#define TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED	N_("SMTP connection failed")
-#define TEXT_MAIL_STATUS_SMTP_ERR_FROM		N_("From entry not accepted")
-#define TEXT_MAIL_STATUS_SMTP_ERR_RCPT		N_("Receiver entry not accepted")
-#define TEXT_MAIL_STATUS_SMTP_ERR_DATA		N_("Mail data not accepted")
-#define TEXT_MAIL_STATUS_SENDING		N_("Sending mail")
-#define TEXT_MAIL_STATUS_SENT			N_("Mail has been sent")
+#define TEXT_PROJECT_STATUS_NOT_CREATED		N_("Project not created")
+#define TEXT_PROJECT_STATUS_CREATED		N_("Project created")
+#define TEXT_PROJECT_STATUS_CHANGED		N_("Project changed")
+#define TEXT_PROJECT_STATUS_ERR_READ_PROJECT	N_("Error reading project")
 
-#define TEXT_FAX_STATUS_NOT_CREATED		N_("Fax project not created")
-#define TEXT_FAX_STATUS_CREATED			N_("Fax project created")
-#define TEXT_FAX_STATUS_CHANGED			N_("Fax project changed")
+#define TEXT_PROJECT_STATUS_FILE_SAVING_ERROR	N_("Error saving file")
+#define TEXT_PROJECT_STATUS_FILE_SAVING		N_("Saving file")
+#define TEXT_PROJECT_STATUS_FILE_SAVING_ABORTED	N_("Aborted saving file")
+#define TEXT_PROJECT_STATUS_FILE_SAVED		N_("File has been saved")
+
+#define TEXT_EMAIL_STATUS_POP3_CONNECTION_FAILED N_("POP3 connection failed")
+#define TEXT_EMAIL_STATUS_POP3_LOGIN_FAILED	N_("POP3 login failed")
+#define TEXT_EMAIL_STATUS_SMTP_CONNECTION_FAILED N_("SMTP connection failed")
+#define TEXT_EMAIL_STATUS_SMTP_ERR_FROM		N_("From entry not accepted")
+#define TEXT_EMAIL_STATUS_SMTP_ERR_RCPT		N_("Receiver entry not accepted")
+#define TEXT_EMAIL_STATUS_SMTP_ERR_DATA		N_("E-mail data not accepted")
+#define TEXT_EMAIL_STATUS_SENDING		N_("Sending e-mail")
+#define TEXT_EMAIL_STATUS_SENT			N_("E-mail has been sent")
+
 #define TEXT_FAX_STATUS_QUEUEING_FAX		N_("Queueing Fax")
 #define TEXT_FAX_STATUS_FAX_QUEUED		N_("Fax is queued")
 #endif

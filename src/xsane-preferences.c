@@ -69,7 +69,8 @@ Preferences preferences =
        0.0,             /* fax_leftoffset */
        0.0,             /* fax_bottomoffset */
        1,               /* fax_fine_mode */
-#ifdef XSANE_ACTIVATE_MAIL
+       1,               /* fax_ps_flatdecoded */
+#ifdef XSANE_ACTIVATE_EMAIL
        0,               /* no default from email address */
        0,               /* no default reply to email address */
        0,               /* no default smtp server */
@@ -79,10 +80,11 @@ Preferences preferences =
        110,             /* default pop3 port */
        0,               /* no default pop3 user */
        0,               /* no default pop3 passsword */
-       0,		/* no mail project */
-       0,		/* no mail viewer */
-       0,		/* no mail filetype */
+       0,		/* no email project */
+       0,		/* no email filetype */
 #endif
+       0,		/* no multipage project */
+       0,		/* no multipage filetype */
        0,		/* no default ocrcommand */
        0,		/* no default ocr input file option */
        0,		/* no default ocr output file option */
@@ -92,16 +94,20 @@ Preferences preferences =
        0,		/* no doc viewer */
       80.0,		/* jpeg_quality */
        7.0,		/* png_compression */
+       6.0,		/* tiff_zip_compression */
  COMPRESSION_PACKBITS,	/* tiff_compression16_nr */
  COMPRESSION_JPEG,	/* tiff_compression8_nr */
  COMPRESSION_CCITTFAX3,	/* tiff_compression1_nr */
        1,		/* save_devprefs_at_exit */
        1,		/* overwrite_warning */
        1,		/* skip_existing_numbers */
+       1,               /* save_ps_flatdecoded */
+       1,               /* save_pdf_flatdecoded */
        0,		/* save_pnm16_as_ascii */
        0,		/* reduce_16bit_to_8bit */
        1,		/* filename_counter_step */
        4,		/* filename_counter_len */
+       1,		/* adf_pages_max */
        6,		/* show_range_mode */
        1,		/* tooltips enabled */
        1,		/* show histogram */
@@ -176,20 +182,22 @@ desc[] =
     {"fax-left-offset",			xsane_rc_pref_double,	POFFSET(fax_leftoffset)},
     {"fax-bottom-offset",		xsane_rc_pref_double,	POFFSET(fax_bottomoffset)},
     {"fax-fine-mode",			xsane_rc_pref_int,	POFFSET(fax_fine_mode)},
-#ifdef XSANE_ACTIVATE_MAIL
-    {"mail-from",			xsane_rc_pref_string,	POFFSET(mail_from)},
-    {"mail-reply-to",			xsane_rc_pref_string,	POFFSET(mail_reply_to)},
-    {"mail-smtp-server",		xsane_rc_pref_string,	POFFSET(mail_smtp_server)},
-    {"mail-smtp-port",			xsane_rc_pref_int,	POFFSET(mail_smtp_port)},
-    {"mail-pop3-authentification",	xsane_rc_pref_int,	POFFSET(mail_pop3_authentification)},
-    {"mail-pop3-server",		xsane_rc_pref_string,	POFFSET(mail_pop3_server)},
-    {"mail-pop3-port",			xsane_rc_pref_int,	POFFSET(mail_pop3_port)},
-    {"mail-pop3-user",			xsane_rc_pref_string,	POFFSET(mail_pop3_user)},
-    {"mail-pop3-pass",			xsane_rc_pref_string,	POFFSET(mail_pop3_pass)},
-    {"mail-project",			xsane_rc_pref_string,	POFFSET(mail_project)},
-    {"mail-viewer",			xsane_rc_pref_string,	POFFSET(mail_viewer)},
-    {"mail-filetype",			xsane_rc_pref_string,	POFFSET(mail_filetype)},
+    {"fax-ps-flatdecoded",		xsane_rc_pref_int,	POFFSET(fax_ps_flatdecoded)},
+#ifdef XSANE_ACTIVATE_EMAIL
+    {"e-mail-from",			xsane_rc_pref_string,	POFFSET(email_from)},
+    {"e-mail-reply-to",			xsane_rc_pref_string,	POFFSET(email_reply_to)},
+    {"e-mail-smtp-server",		xsane_rc_pref_string,	POFFSET(email_smtp_server)},
+    {"e-mail-smtp-port",		xsane_rc_pref_int,	POFFSET(email_smtp_port)},
+    {"e-mail-pop3-authentification",	xsane_rc_pref_int,	POFFSET(email_pop3_authentification)},
+    {"e-mail-pop3-server",		xsane_rc_pref_string,	POFFSET(email_pop3_server)},
+    {"e-mail-pop3-port",		xsane_rc_pref_int,	POFFSET(email_pop3_port)},
+    {"e-mail-pop3-user",		xsane_rc_pref_string,	POFFSET(email_pop3_user)},
+    {"e-mail-pop3-pass",		xsane_rc_pref_string,	POFFSET(email_pop3_pass)},
+    {"e-mail-project",			xsane_rc_pref_string,	POFFSET(email_project)},
+    {"e-mail-filetype",			xsane_rc_pref_string,	POFFSET(email_filetype)},
 #endif
+    {"multipage-project",		xsane_rc_pref_string,	POFFSET(multipage_project)},
+    {"multipage-filetype",		xsane_rc_pref_string,	POFFSET(multipage_filetype)},
     {"ocr-command",			xsane_rc_pref_string,	POFFSET(ocr_command)},
     {"ocr-inputfile-option",		xsane_rc_pref_string,	POFFSET(ocr_inputfile_option)},
     {"ocr-outputfile-options",		xsane_rc_pref_string,	POFFSET(ocr_outputfile_option)},
@@ -199,16 +207,20 @@ desc[] =
     {"browser",				xsane_rc_pref_string,	POFFSET(browser)},
     {"jpeg-quality",			xsane_rc_pref_double,	POFFSET(jpeg_quality)},
     {"png-compression",			xsane_rc_pref_double, 	POFFSET(png_compression)},
+    {"tiff-zip-compression",		xsane_rc_pref_double,	POFFSET(tiff_zip_compression)},
     {"tiff-compression16_nr",		xsane_rc_pref_int, 	POFFSET(tiff_compression16_nr)},
     {"tiff-compression8_nr",		xsane_rc_pref_int, 	POFFSET(tiff_compression8_nr)},
     {"tiff-compression1_nr",		xsane_rc_pref_int, 	POFFSET(tiff_compression1_nr)},
     {"save-devprefs-at-exit",		xsane_rc_pref_int,	POFFSET(save_devprefs_at_exit)},
     {"overwrite-warning",		xsane_rc_pref_int,	POFFSET(overwrite_warning)},
     {"skip-existing-numbers",		xsane_rc_pref_int,	POFFSET(skip_existing_numbers)},
+    {"save-ps-flatdecoded",		xsane_rc_pref_int,	POFFSET(save_ps_flatdecoded)},
+    {"save-pdf-flatdecoded",		xsane_rc_pref_int,	POFFSET(save_pdf_flatdecoded)},
     {"save-pnm16-as-ascii",		xsane_rc_pref_int,	POFFSET( save_pnm16_as_ascii)},
     {"reduce-16bit-to8bit",		xsane_rc_pref_int,	POFFSET(reduce_16bit_to_8bit)},
     {"filename-counter-step",		xsane_rc_pref_int,	POFFSET(filename_counter_step)},
     {"filename-counter-len",		xsane_rc_pref_int,	POFFSET(filename_counter_len)},
+    {"adf-pages-max",			xsane_rc_pref_int,	POFFSET(adf_pages_max)},
     {"show-range-mode",			xsane_rc_pref_int,	POFFSET(show_range_mode)},
     {"tool-tips",			xsane_rc_pref_int,	POFFSET(tooltips_enabled)},
     {"show-histogram",			xsane_rc_pref_int,	POFFSET(show_histogram)},
@@ -276,7 +288,8 @@ desc_printer[] =
     {"printer-gamma",			xsane_rc_pref_double,	PRTOFFSET(gamma)},
     {"printer-gamma-red",		xsane_rc_pref_double,	PRTOFFSET(gamma_red)},
     {"printer-gamma-green",		xsane_rc_pref_double,	PRTOFFSET(gamma_green)},
-    {"printer-gamma-blue",		xsane_rc_pref_double,	PRTOFFSET(gamma_blue)}
+    {"printer-gamma-blue",		xsane_rc_pref_double,	PRTOFFSET(gamma_blue)},
+    {"printer-ps-flatdecoded",		xsane_rc_pref_int,	PRTOFFSET(ps_flatdecoded)}
   };
 
 /* --------------------------------------------------------------------- */
@@ -385,6 +398,7 @@ void preferences_restore(int fd)
  SANE_String name;
  Wire w;
  int i, n;
+ int item_identified = 1;
 
   DBG(DBG_proc, "preferences_restore\n");
 
@@ -428,7 +442,7 @@ void preferences_restore(int fd)
         }
       }
 
-      if (!strcmp(name, "printerdefinitions"))
+      if ( (!strcmp(name, "printer-name")) || (!strcmp(name, "preset-area-name")) )
       {
         break;
       }
@@ -440,12 +454,35 @@ void preferences_restore(int fd)
     }
   }
 
-  preferences.printer = calloc(preferences.printerdefinitions, sizeof(void *)); 
-  n=0;
-  while (n < preferences.printerdefinitions)
+  preferences.printer = NULL;
+  preferences.printer = calloc(1, sizeof(void *)); 
+  n=-1;
+  item_identified = 1;
+  while (item_identified)
   {
-    preferences.printer[n] = calloc(sizeof(Preferences_printer_t), 1);
-    for (i = 0; i < NELEMS(desc_printer); ++i)
+    if (strcmp(name, desc_printer[0].name) == 0)
+    {
+      n++;
+      preferences.printer = realloc(preferences.printer, (n+1)*sizeof(void *)); 
+      preferences.printer[n] = calloc(sizeof(Preferences_printer_t), 1);
+      (*desc_printer[0].codec) (&w, preferences.printer[n], desc_printer[0].offset);
+      DBG(DBG_info2, "reading preferences printer definition %s\n", preferences.printer[n]->name);
+      item_identified = 1;
+    }
+    else
+    {
+      item_identified = 0;
+      for (i = 1; i < NELEMS(desc_printer); ++i)
+      {
+        if (strcmp(name, desc_printer[i].name) == 0)
+        {
+          (*desc_printer[i].codec) (&w, preferences.printer[n], desc_printer[i].offset);
+          item_identified = 1;
+        }
+      }
+    }
+
+    if (item_identified)
     {
       xsane_rc_io_w_space(&w, 3);
       if (w.status)
@@ -460,23 +497,19 @@ void preferences_restore(int fd)
         xsane_rc_io_w_exit(&w);
        return;
       }
-
-      if (strcmp(name, desc_printer[i].name) == 0)
-      {
-        (*desc_printer[i].codec) (&w, preferences.printer[n], desc_printer[i].offset);
-      }
-      else
-      {
-        break;
-      }
     }
-    DBG(DBG_info2, "preferences printer definition %s read\n", preferences.printer[n]->name);
-    n++;
   }
+  preferences.printerdefinitions = n+1;
+  /* finished reading printer definitions */
 
-  if (preferences.preset_area_definitions)
+
+
+  n=-1;
+  if (strcmp(name, desc_preset_area[0].name) == 0) /* at least one preset area definition ? */
   {
-    preferences.preset_area = calloc(preferences.preset_area_definitions, sizeof(void *)); 
+    /* then we define "Full size" as definition 0 */
+    n++;
+    preferences.preset_area = calloc(1, sizeof(void *)); 
 
     preferences.preset_area[0] = calloc(sizeof(Preferences_preset_area_t), 1);
     preferences.preset_area[0]->name    = strdup(_(MENU_ITEM_SURFACE_FULL_SIZE));
@@ -484,40 +517,53 @@ void preferences_restore(int fd)
     preferences.preset_area[0]->yoffset = 0.0;
     preferences.preset_area[0]->width   = INF;
     preferences.preset_area[0]->height  = INF;
+  }
 
-    n=1;
-    while (n < preferences.preset_area_definitions)
+  item_identified = 1;
+  while (item_identified)
+  {
+    if (strcmp(name, desc_preset_area[0].name) == 0)
     {
+      n++;
+      preferences.preset_area = realloc(preferences.preset_area, (n+1) * sizeof(void *)); 
       preferences.preset_area[n] = calloc(sizeof(Preferences_preset_area_t), 1);
-      for (i = 0; i < NELEMS(desc_preset_area); ++i)
+      (*desc_preset_area[0].codec) (&w, preferences.preset_area[n], desc_preset_area[0].offset);
+      DBG(DBG_info2, "reading preset area definition %s\n", preferences.preset_area[n]->name);
+      item_identified = 1;
+    }
+    else
+    {
+      item_identified = 0;
+
+      for (i = 1; i < NELEMS(desc_preset_area); ++i)
       {
-        xsane_rc_io_w_space(&w, 3);
-        if (w.status)
-        {
-          xsane_rc_io_w_exit(&w);
-         return;
-        }
-
-        xsane_rc_io_w_string(&w, &name);
-        if (w.status || !name)
-        {
-          xsane_rc_io_w_exit(&w);
-         return;
-        }
-
         if (strcmp(name, desc_preset_area[i].name) == 0)
         {
           (*desc_preset_area[i].codec) (&w, preferences.preset_area[n], desc_preset_area[i].offset);
-        }
-        else
-        {
-          break;
+          item_identified = 1;
         }
       }
-      DBG(DBG_info2, "preferences preset area definition %s read\n", preferences.preset_area[n]->name);
-      n++;
+    }
+
+    if (item_identified)
+    {
+      xsane_rc_io_w_space(&w, 3);
+      if (w.status)
+      {
+        xsane_rc_io_w_exit(&w);
+       return;
+      }
+
+      xsane_rc_io_w_string(&w, &name);
+      if (w.status || !name)
+      {
+        xsane_rc_io_w_exit(&w);
+       return;
+      }
     }
   }
+
+  preferences.preset_area_definitions = n+1;
 
   xsane_rc_io_w_exit(&w);
 }

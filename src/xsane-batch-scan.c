@@ -501,7 +501,7 @@ static void xsane_batch_scan_scan_list(void)
       gtk_main_iteration();
     }
 
-    xsane_scan_dialog();
+    xsane_scan_dialog(NULL);
 
     while (xsane.scanning)
     {
@@ -561,7 +561,7 @@ static void xsane_batch_scan_scan_selected(void)
       xsane_batch_scan_establish_parameters(parameters, TRUE);
     }
 
-    xsane_scan_dialog();
+    xsane_scan_dialog(NULL);
   }
 }
 
@@ -938,6 +938,12 @@ static void xsane_batch_scan_rename_callback(GtkWidget *widget, gpointer data)
 static gint xsane_batch_scan_win_delete(GtkWidget *widget, gpointer data)
 {
   DBG(DBG_proc, "xsane_batch_scan_win_delete\n");
+
+  if (preferences.show_batch_scan)
+  {
+    xsane_window_get_position(xsane.batch_scan_dialog, &xsane.batch_dialog_posx, &xsane.batch_dialog_posy);
+    gtk_window_move(GTK_WINDOW(xsane.batch_scan_dialog), xsane.batch_dialog_posx, xsane.batch_dialog_posy);
+  }
 
   gtk_widget_hide(widget);
   preferences.show_batch_scan = FALSE;

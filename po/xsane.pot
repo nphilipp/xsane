@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2005-10-23 00:20+0200\n"
+"POT-Creation-Date: 2005-12-21 12:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -81,16 +81,20 @@ msgstr ""
 msgid "insert ps-file into fax"
 msgstr ""
 
-#. WINDOW_MAIL_PROJECT
-msgid "mail project"
+#. WINDOW_EMAIL_PROJECT
+msgid "E-mail project"
 msgstr ""
 
-#. WINDOW_MAIL_RENAME
-msgid "rename mail image"
+#. WINDOW_EMAIL_RENAME
+msgid "rename e-mail image"
 msgstr ""
 
-#. WINDOW_MAIL_INSERT
-msgid "insert file into mail"
+#. WINDOW_EMAIL_INSERT
+msgid "insert file into e-mail"
+msgstr ""
+
+#. WINDOW_MULTIPAGE_PROJECT
+msgid "multipage project"
 msgstr ""
 
 #. WINDOW_PRESET_AREA_RENAME
@@ -381,6 +385,10 @@ msgstr ""
 msgid "Send project"
 msgstr ""
 
+#. BUTTON_SAVE_MULTIPAGE
+msgid "Save multipage file"
+msgstr ""
+
 #. BUTTON_DELETE_PROJECT
 msgid "Delete project"
 msgstr ""
@@ -421,8 +429,8 @@ msgstr ""
 msgid "Fine mode"
 msgstr ""
 
-#. RADIO_BUTTON_HTML_MAIL
-msgid "HTML mail"
+#. RADIO_BUTTON_HTML_EMAIL
+msgid "HTML e-mail"
 msgstr ""
 
 #. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
@@ -435,6 +443,14 @@ msgstr ""
 
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
 msgid "Skip existing filenames"
+msgstr ""
+
+#. RADIO_BUTTON_SAVE_PS_FLATDECODED
+msgid "Save postscript zlib compressed (ps level 3)"
+msgstr ""
+
+#. RADIO_BUTTON_SAVE_PDF_FLATDECODED
+msgid "Save PDF zlib compressed"
 msgstr ""
 
 #. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
@@ -491,10 +507,6 @@ msgstr ""
 
 #. TEXT_XSANE_MODE
 msgid "XSane mode"
-msgstr ""
-
-#. TEXT_FILENAME_COUNTER_STEP
-msgid "Step"
 msgstr ""
 
 #. TEXT_FILETYPE
@@ -663,8 +675,8 @@ msgid ""
 "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
 
-#. TEXT_EMAIL
-msgid "Email:"
+#. TEXT_EMAIL_ADR
+msgid "E-mail:"
 msgstr ""
 
 #. TEXT_HOMEPAGE
@@ -682,12 +694,12 @@ msgstr ""
 #. Please translate this to something like
 #. translation to YOUR LANGUAGE\n
 #. by YOUR NAME\n
-#. Email: your.name@yourdomain.com\n
+#. E-mail: your.name@yourdomain.com\n
 #. TEXT_TRANSLATION_INFO
 msgid ""
 "untranslated original english text\n"
 "by Oliver Rauch\n"
-"Email: Oliver.Rauch@rauch-domain.de\n"
+"E-mail: Oliver.Rauch@rauch-domain.de\n"
 msgstr ""
 
 #. TEXT_INFO_BOX
@@ -698,20 +710,28 @@ msgstr ""
 msgid "Scanned pages: "
 msgstr ""
 
-#. TEXT_MAIL_TEXT
-msgid "Email text:"
+#. TEXT_EMAIL_TEXT
+msgid "E-mail text:"
 msgstr ""
 
 #. TEXT_ATTACHMENTS
 msgid "Attachments:"
 msgstr ""
 
-#. TEXT_MAIL_STATUS
+#. TEXT_EMAIL_STATUS
 msgid "Project status:"
 msgstr ""
 
-#. TEXT_MAIL_FILETYPE
-msgid "Mail image filetype:"
+#. TEXT_EMAIL_FILETYPE
+msgid "E-mail image filetype:"
+msgstr ""
+
+#. TEXT_PAGES
+msgid "Pages:"
+msgstr ""
+
+#. TEXT_MULTIPAGE_FILETYPE
+msgid "Multipage document filetype:"
 msgstr ""
 
 #. TEXT_MEDIUM_DEFINITION_NAME
@@ -824,6 +844,10 @@ msgstr ""
 msgid "Printer gamma blue:"
 msgstr ""
 
+#. TEXT_SETUP_PRINTER_PS_FLATDECODED
+msgid "Create zlib compressed postscript image (ps level 3) for printing"
+msgstr ""
+
 #. TEXT_SETUP_TMP_PATH
 msgid "Temporary directory"
 msgstr ""
@@ -846,6 +870,10 @@ msgstr ""
 
 #. TEXT_SETUP_FILENAME_COUNTER_LEN
 msgid "Filename counter length"
+msgstr ""
+
+#. TEXT_SETUP_TIFF_ZIP_COMPRESSION
+msgid "TIFF zip compression rate"
 msgstr ""
 
 #. TEXT_SETUP_TIFF_COMPRESSION_16
@@ -886,10 +914,6 @@ msgstr ""
 
 #. TEXT_SETUP_LINEART_MODE
 msgid "Threshold option:"
-msgstr ""
-
-#. TEXT_SETUP_ADF_MODE
-msgid "Automatic Document Feeder Modus:"
 msgstr ""
 
 #. TEXT_SETUP_PREVIEW_PIPETTE_RANGE
@@ -944,6 +968,10 @@ msgstr ""
 msgid "Viewer (Postscript):"
 msgstr ""
 
+#. TEXT_SETUP_FAX_PS_FLATDECODED
+msgid "Create zlib compressed postscript image (ps level 3) for fax"
+msgstr ""
+
 #. TEXT_SETUP_SMTP_SERVER
 msgid "SMTP server:"
 msgstr ""
@@ -952,11 +980,11 @@ msgstr ""
 msgid "SMTP port:"
 msgstr ""
 
-#. TEXT_SETUP_MAIL_FROM
+#. TEXT_SETUP_EMAIL_FROM
 msgid "From:"
 msgstr ""
 
-#. TEXT_SETUP_MAIL_REPLY_TO
+#. TEXT_SETUP_EMAIL_REPLY_TO
 msgid "Reply to:"
 msgstr ""
 
@@ -974,10 +1002,6 @@ msgstr ""
 
 #. TEXT_SETUP_POP3_PASS
 msgid "POP3 password:"
-msgstr ""
-
-#. TEXT_SETUP_MAIL_VIEWER
-msgid "Viewer (png):"
 msgstr ""
 
 #. TEXT_SETUP_OCR_COMMAND
@@ -1023,8 +1047,8 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#. NOTEBOOK_IMAGE_OPTIONS
-msgid "Image"
+#. NOTEBOOK_FILETYPE_OPTIONS
+msgid "Filetype"
 msgstr ""
 
 #. NOTEBOOK_COPY_OPTIONS
@@ -1035,8 +1059,8 @@ msgstr ""
 msgid "Fax"
 msgstr ""
 
-#. NOTEBOOK_MAIL_OPTIONS
-msgid "Mail"
+#. NOTEBOOK_EMAIL_OPTIONS
+msgid "E-mail"
 msgstr ""
 
 #. NOTEBOOK_OCR_OPTIONS
@@ -1051,8 +1075,8 @@ msgstr ""
 msgid "Enhancement"
 msgstr ""
 
-#. MENU_ITEM_MAIL
-msgid "Email"
+#. MENU_ITEM_MULTIPAGE
+msgid "Multipage"
 msgstr ""
 
 #. MENU_ITEM_SHOW_TOOLTIPS
@@ -1199,6 +1223,10 @@ msgstr ""
 msgid "pack bits"
 msgstr ""
 
+#. MENU_ITEM_TIFF_COMP_DEFLATE
+msgid "deflate"
+msgstr ""
+
 #. MENU_ITEM_RANGE_SCALE
 msgid "Slider (Scale)"
 msgstr ""
@@ -1272,6 +1300,10 @@ msgstr ""
 msgid "Receiving %s data"
 msgstr ""
 
+#. PROGRESS_PAGE
+msgid "page"
+msgstr ""
+
 #. PROGRESS_TRANSFERING_DATA
 msgid "Transfering image"
 msgstr ""
@@ -1334,8 +1366,8 @@ msgstr ""
 
 #. DESC_XSANE_MODE
 msgid ""
-"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or mail-<Ctrl-"
-"m>"
+"viewer-<Ctrl-v>, save-<Ctrl-s>, photocopy-<Ctrl-c>, multipage-<Ctrl-m>, fax-"
+"<Ctrl-f> or e-mail-<Ctrl-e>"
 msgstr ""
 
 #. DESC_XSANE_MEDIUM
@@ -1377,24 +1409,32 @@ msgstr ""
 msgid "Enter receiver phone number or address"
 msgstr ""
 
-#. DESC_MAILPROJECT
-msgid "Enter name of mail project"
+#. DESC_EMAIL_PROJECT
+msgid "Enter name of e-mail project"
 msgstr ""
 
-#. DESC_MAILIMAGENAME
-msgid "Enter new name for mail image"
+#. DESC_EMAIL_IMAGENAME
+msgid "Enter new name for e-mail image"
 msgstr ""
 
-#. DESC_MAILRECEIVER
-msgid "Enter email address"
+#. DESC_EMAIL_RECEIVER
+msgid "Enter e-mail address"
 msgstr ""
 
-#. DESC_MAILSUBJECT
-msgid "Enter subject of email"
+#. DESC_EMAIL_SUBJECT
+msgid "Enter subject of e-mail"
 msgstr ""
 
-#. DESC_MAIL_FILETYPE
+#. DESC_EMAIL_FILETYPE
 msgid "Select filetype for image attachments"
+msgstr ""
+
+#. DESC_MULTIPAGE_PROJECT
+msgid "Enter name of multipage project"
+msgstr ""
+
+#. DESC_MULTIPAGE_FILETYPE
+msgid "Select filetype for multipage file"
 msgstr ""
 
 #. DESC_PRESET_AREA_RENAME
@@ -1616,6 +1656,12 @@ msgstr ""
 msgid "Additional gamma value for blue component for photocopy"
 msgstr ""
 
+#. DESC_PRINTER_PS_FLATDECODED
+msgid ""
+"Create zlib compressed postscript image for printer (flatdecode).\n"
+"The printer has to understand postscript level 3!"
+msgstr ""
+
 #. DESC_TMP_PATH
 msgid "Path to temp directory"
 msgstr ""
@@ -1635,6 +1681,10 @@ msgstr ""
 
 #. DESC_FILENAME_COUNTER_LEN
 msgid "Minimum length of counter in filename"
+msgstr ""
+
+#. DESC_TIFF_ZIP_COMPRESSION
+msgid "Compression rate for zip compressed tiff (deflate)"
 msgstr ""
 
 #. DESC_TIFF_COMPRESSION_16
@@ -1660,6 +1710,16 @@ msgstr ""
 #. DESC_SKIP_EXISTING
 msgid ""
 "If filename counter is automatically increased, used numbers are skipped"
+msgstr ""
+
+#. DESC_SAVE_PS_FLATDECODED
+msgid ""
+"compress postscript image with zlib algorithm (flatdecode).When you want to "
+"print such a file your printer has to understand postscript level 3"
+msgstr ""
+
+#. DESC_SAVE_PDF_FLATDECODED
+msgid "compress PDF image with zlib algorithm (flatdecode)."
 msgstr ""
 
 #. DESC_SAVE_PNM16_AS_ASCII
@@ -1760,10 +1820,8 @@ msgid ""
 "Offset to make XSane threshold range and scanner threshold range the same"
 msgstr ""
 
-#. DESC_ADF_MODE
-msgid ""
-"Select scansource for Automatic Document feeder. If this scansource is "
-"selected XSane scans until \"out of paper\" or error."
+#. DESC_ADF_PAGES_MAX
+msgid "Number of pages to scan"
 msgstr ""
 
 #. DESC_PREVIEW_PIPETTE_RANGE
@@ -1815,6 +1873,10 @@ msgstr ""
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
 msgstr ""
 
+#. DESC_FAX_PS_FLATDECODED
+msgid "Create zlib compressed postscript image for fax (flatdecode)"
+msgstr ""
+
 #. DESC_SMTP_SERVER
 msgid "IP Address or Domain name of SMTP server"
 msgstr ""
@@ -1823,16 +1885,16 @@ msgstr ""
 msgid "port to connect to SMTP server"
 msgstr ""
 
-#. DESC_MAIL_FROM
-msgid "enter your email address"
+#. DESC_EMAIL_FROM
+msgid "enter your e-mail address"
 msgstr ""
 
-#. DESC_MAIL_REPLY_TO
-msgid "enter email address for replied emails"
+#. DESC_EMAIL_REPLY_TO
+msgid "enter e-mail address for replied e-mails"
 msgstr ""
 
 #. DESC_POP3_AUTHENTIFICATION
-msgid "Authentificate at POP3 server before sending mail"
+msgid "Authentificate at POP3 server before sending e-mail"
 msgstr ""
 
 #. DESC_POP3_SERVER
@@ -1851,12 +1913,8 @@ msgstr ""
 msgid "password for POP3 server"
 msgstr ""
 
-#. DESC_MAIL_VIEWER
-msgid "Enter command to be executed to view a mail image"
-msgstr ""
-
-#. DESC_HTML_MAIL
-msgid "Mail is sent in html mode, place image with: <IMAGE>"
+#. DESC_HTML_EMAIL
+msgid "E-mail is sent in html mode, place image with: <IMAGE>"
 msgstr ""
 
 #. DESC_OCR_COMMAND
@@ -2197,10 +2255,6 @@ msgstr ""
 msgid "Failed to execute fax command:"
 msgstr ""
 
-#. ERR_FAILED_EXEC_MAIL_VIEWER
-msgid "Failed to execute mail image viewer:"
-msgstr ""
-
 #. ERR_FAILED_EXEC_OCR_CMD
 msgid "Failed to execute ocr command:"
 msgstr ""
@@ -2381,8 +2435,9 @@ msgid ""
 " -V, --viewer                 start with viewer-mode active (default)\n"
 " -s, --save                   start with save-mode active\n"
 " -c, --copy                   start with copy-mode active\n"
+" -m, --multipage              start with multipage-mode active\n"
 " -f, --fax                    start with fax-mode active\n"
-" -m, --mail                   start with mail-mode active\n"
+" -e, --email                  start with e-mail-mode active\n"
 " -n, --no-mode-selection      disable menu for XSane mode selection\n"
 "\n"
 " -F, --Fixed                  fixed main window size (overwrite preferences "
@@ -2554,64 +2609,68 @@ msgstr ""
 msgid "Rossmann negative HR 100"
 msgstr ""
 
-#. TEXT_MAIL_STATUS_NOT_CREATED
-msgid "Mail project not created"
+#. TEXT_PROJECT_STATUS_NOT_CREATED
+msgid "Project not created"
 msgstr ""
 
-#. TEXT_MAIL_STATUS_CREATED
-msgid "Mail project created"
+#. TEXT_PROJECT_STATUS_CREATED
+msgid "Project created"
 msgstr ""
 
-#. TEXT_MAIL_STATUS_CHANGED
-msgid "Mail project changed"
+#. TEXT_PROJECT_STATUS_CHANGED
+msgid "Project changed"
 msgstr ""
 
-#. TEXT_MAIL_STATUS_ERR_READ_PROJECT
-msgid "Error reading mailproject"
+#. TEXT_PROJECT_STATUS_ERR_READ_PROJECT
+msgid "Error reading project"
 msgstr ""
 
-#. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
+#. TEXT_PROJECT_STATUS_FILE_SAVING_ERROR
+msgid "Error saving file"
+msgstr ""
+
+#. TEXT_PROJECT_STATUS_FILE_SAVING
+msgid "Saving file"
+msgstr ""
+
+#. TEXT_PROJECT_STATUS_FILE_SAVING_ABORTED
+msgid "Aborted saving file"
+msgstr ""
+
+#. TEXT_PROJECT_STATUS_FILE_SAVED
+msgid "File has been saved"
+msgstr ""
+
+#. TEXT_EMAIL_STATUS_POP3_CONNECTION_FAILED
 msgid "POP3 connection failed"
 msgstr ""
 
-#. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
+#. TEXT_EMAIL_STATUS_POP3_LOGIN_FAILED
 msgid "POP3 login failed"
 msgstr ""
 
-#. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
+#. TEXT_EMAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
 msgstr ""
 
-#. TEXT_MAIL_STATUS_SMTP_ERR_FROM
+#. TEXT_EMAIL_STATUS_SMTP_ERR_FROM
 msgid "From entry not accepted"
 msgstr ""
 
-#. TEXT_MAIL_STATUS_SMTP_ERR_RCPT
+#. TEXT_EMAIL_STATUS_SMTP_ERR_RCPT
 msgid "Receiver entry not accepted"
 msgstr ""
 
-#. TEXT_MAIL_STATUS_SMTP_ERR_DATA
-msgid "Mail data not accepted"
+#. TEXT_EMAIL_STATUS_SMTP_ERR_DATA
+msgid "E-mail data not accepted"
 msgstr ""
 
-#. TEXT_MAIL_STATUS_SENDING
-msgid "Sending mail"
+#. TEXT_EMAIL_STATUS_SENDING
+msgid "Sending e-mail"
 msgstr ""
 
-#. TEXT_MAIL_STATUS_SENT
-msgid "Mail has been sent"
-msgstr ""
-
-#. TEXT_FAX_STATUS_NOT_CREATED
-msgid "Fax project not created"
-msgstr ""
-
-#. TEXT_FAX_STATUS_CREATED
-msgid "Fax project created"
-msgstr ""
-
-#. TEXT_FAX_STATUS_CHANGED
-msgid "Fax project changed"
+#. TEXT_EMAIL_STATUS_SENT
+msgid "E-mail has been sent"
 msgstr ""
 
 #. TEXT_FAX_STATUS_QUEUEING_FAX

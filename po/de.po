@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.98\n"
-"POT-Creation-Date: 2005-10-23 00:20+0200\n"
+"POT-Creation-Date: 2005-12-21 12:05+0100\n"
 "PO-Revision-Date: 2000-01-21 15:51+01:00\n"
 "Last-Translator: Oliver Rauch <Oliver.Rauch@rauch-domain.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -79,17 +79,21 @@ msgstr "Faxseite umbenennen"
 msgid "insert ps-file into fax"
 msgstr "ps-Datei einfügen in Fax"
 
-#. WINDOW_MAIL_PROJECT
-msgid "mail project"
-msgstr "Mailprojekt"
+#. WINDOW_EMAIL_PROJECT
+msgid "E-mail project"
+msgstr "E-Mail Projekt"
 
-#. WINDOW_MAIL_RENAME
-msgid "rename mail image"
+#. WINDOW_EMAIL_RENAME
+msgid "rename e-mail image"
 msgstr "E-Mail Bild umbenennen"
 
-#. WINDOW_MAIL_INSERT
-msgid "insert file into mail"
+#. WINDOW_EMAIL_INSERT
+msgid "insert file into e-mail"
 msgstr "Bild in E-Mail einfügen"
+
+#. WINDOW_MULTIPAGE_PROJECT
+msgid "multipage project"
+msgstr "Mehrseiten-Projekt"
 
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
@@ -379,6 +383,10 @@ msgstr "Projekt erstellen"
 msgid "Send project"
 msgstr "Projekt senden"
 
+#. BUTTON_SAVE_MULTIPAGE
+msgid "Save multipage file"
+msgstr "Mehrseitige Datei speichern"
+
 #. BUTTON_DELETE_PROJECT
 msgid "Delete project"
 msgstr "Projekt löschen"
@@ -419,9 +427,9 @@ msgstr "Verbinde Skalierung"
 msgid "Fine mode"
 msgstr "Fein-Modus"
 
-#. RADIO_BUTTON_HTML_MAIL
-msgid "HTML mail"
-msgstr "HTML mail"
+#. RADIO_BUTTON_HTML_EMAIL
+msgid "HTML e-mail"
+msgstr "HTML E-Mail"
 
 #. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device preferences at exit"
@@ -434,6 +442,14 @@ msgstr "Überschreibwarnung"
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
 msgid "Skip existing filenames"
 msgstr "Existierende Dateinamen überspringen"
+
+#. RADIO_BUTTON_SAVE_PS_FLATDECODED
+msgid "Save postscript zlib compressed (ps level 3)"
+msgstr "Speichere Postscript zlib-komprimiert (ps level 3)"
+
+#. RADIO_BUTTON_SAVE_PDF_FLATDECODED
+msgid "Save PDF zlib compressed"
+msgstr "Speichere PDF zlib-komprimiert"
 
 #. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
 msgid "Save 16bit pnm in ascii format"
@@ -490,10 +506,6 @@ msgstr "XSane Optionen"
 #. TEXT_XSANE_MODE
 msgid "XSane mode"
 msgstr "XSane Modus"
-
-#. TEXT_FILENAME_COUNTER_STEP
-msgid "Step"
-msgstr "Schritt"
 
 #. TEXT_FILETYPE
 msgid "Type"
@@ -685,8 +697,8 @@ msgstr ""
 "- sogar ohne die implizite Gewährleistung der MARKTREIFE oder der\n"
 "EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.\n"
 
-#. TEXT_EMAIL
-msgid "Email:"
+#. TEXT_EMAIL_ADR
+msgid "E-mail:"
 msgstr "E-Mail:"
 
 #. TEXT_HOMEPAGE
@@ -704,16 +716,16 @@ msgstr "Übersetzung:"
 #. Please translate this to something like
 #. translation to YOUR LANGUAGE\n
 #. by YOUR NAME\n
-#. Email: your.name@yourdomain.com\n
+#. E-mail: your.name@yourdomain.com\n
 #. TEXT_TRANSLATION_INFO
 msgid ""
 "untranslated original english text\n"
 "by Oliver Rauch\n"
-"Email: Oliver.Rauch@rauch-domain.de\n"
+"E-mail: Oliver.Rauch@rauch-domain.de\n"
 msgstr ""
 "Übersetzung ins Deutsche\n"
 "von Oliver Rauch\n"
-"Email: Oliver.Rauch@rauch-domain.de\n"
+"E-Mail: Oliver.Rauch@rauch-domain.de\n"
 
 #. TEXT_INFO_BOX
 msgid "0x0: 0KB"
@@ -723,21 +735,29 @@ msgstr "0x0: 0KB"
 msgid "Scanned pages: "
 msgstr "gescannte Seiten: "
 
-#. TEXT_MAIL_TEXT
-msgid "Email text:"
+#. TEXT_EMAIL_TEXT
+msgid "E-mail text:"
 msgstr "E-Mail Text:"
 
 #. TEXT_ATTACHMENTS
 msgid "Attachments:"
 msgstr "Anhang:"
 
-#. TEXT_MAIL_STATUS
+#. TEXT_EMAIL_STATUS
 msgid "Project status:"
 msgstr "Projekt Status:"
 
-#. TEXT_MAIL_FILETYPE
-msgid "Mail image filetype:"
-msgstr ""
+#. TEXT_EMAIL_FILETYPE
+msgid "E-mail image filetype:"
+msgstr "Dateityp für E-Mail:"
+
+#. TEXT_PAGES
+msgid "Pages:"
+msgstr "Seiten:"
+
+#. TEXT_MULTIPAGE_FILETYPE
+msgid "Multipage document filetype:"
+msgstr "Dateityp mehrseitiges Dokument:"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
@@ -851,6 +871,10 @@ msgstr "Drucker Gammawert grün:"
 msgid "Printer gamma blue:"
 msgstr "Drucker Gammawert blau:"
 
+#. TEXT_SETUP_PRINTER_PS_FLATDECODED
+msgid "Create zlib compressed postscript image (ps level 3) for printing"
+msgstr "Erzeuge zlib-komprimiertes Posctscript Bild (ps level 3) zum Drucken"
+
 #. TEXT_SETUP_TMP_PATH
 msgid "Temporary directory"
 msgstr "Temporäres Verzeichnis"
@@ -874,6 +898,10 @@ msgstr "PNG Bildkompression"
 #. TEXT_SETUP_FILENAME_COUNTER_LEN
 msgid "Filename counter length"
 msgstr "Dateinamenzähler Länge"
+
+#. TEXT_SETUP_TIFF_ZIP_COMPRESSION
+msgid "TIFF zip compression rate"
+msgstr "TIFF zip Kompressionsrate"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_16
 msgid "TIFF 16 bit image compression"
@@ -914,10 +942,6 @@ msgstr "Vorschau Gamma blau:"
 #. TEXT_SETUP_LINEART_MODE
 msgid "Threshold option:"
 msgstr "Schwellwert Option:"
-
-#. TEXT_SETUP_ADF_MODE
-msgid "Automatic Document Feeder Modus:"
-msgstr "Modus automatischer Dokumenteneinzug:"
 
 #. TEXT_SETUP_PREVIEW_PIPETTE_RANGE
 msgid "Preview pipette range"
@@ -971,6 +995,10 @@ msgstr "Setze Standardwerte für folgendes Programm"
 msgid "Viewer (Postscript):"
 msgstr "Betrachter (Postscript):"
 
+#. TEXT_SETUP_FAX_PS_FLATDECODED
+msgid "Create zlib compressed postscript image (ps level 3) for fax"
+msgstr "Erzeuge zlib-komprimiertes Postscript-Bild (ps level 3) zum Faxen"
+
 #. TEXT_SETUP_SMTP_SERVER
 msgid "SMTP server:"
 msgstr "SMTP Server:"
@@ -979,11 +1007,11 @@ msgstr "SMTP Server:"
 msgid "SMTP port:"
 msgstr "SMTP Server:"
 
-#. TEXT_SETUP_MAIL_FROM
+#. TEXT_SETUP_EMAIL_FROM
 msgid "From:"
 msgstr "Von:"
 
-#. TEXT_SETUP_MAIL_REPLY_TO
+#. TEXT_SETUP_EMAIL_REPLY_TO
 msgid "Reply to:"
 msgstr "Antwort an:"
 
@@ -1002,10 +1030,6 @@ msgstr "POP3-Benutzer:"
 #. TEXT_SETUP_POP3_PASS
 msgid "POP3 password:"
 msgstr "POP3-Passwort:"
-
-#. TEXT_SETUP_MAIL_VIEWER
-msgid "Viewer (png):"
-msgstr "Betrachter (png):"
 
 #. TEXT_SETUP_OCR_COMMAND
 msgid "OCR Command:"
@@ -1044,26 +1068,26 @@ msgid "all"
 msgstr "Alle"
 
 msgid "new media"
-msgstr ""
+msgstr "neues Medium"
 
 #. NOTEBOOK_SAVING_OPTIONS
 msgid "Save"
 msgstr "Speichern"
 
-#. NOTEBOOK_IMAGE_OPTIONS
-msgid "Image"
-msgstr "Bild"
+#. NOTEBOOK_FILETYPE_OPTIONS
+msgid "Filetype"
+msgstr "Dateityp"
 
 #. NOTEBOOK_COPY_OPTIONS
 msgid "Copy"
-msgstr "Photokopie"
+msgstr "Fotokopie"
 
 #. NOTEBOOK_FAX_OPTIONS
 msgid "Fax"
 msgstr "Fax"
 
-#. NOTEBOOK_MAIL_OPTIONS
-msgid "Mail"
+#. NOTEBOOK_EMAIL_OPTIONS
+msgid "E-mail"
 msgstr "E-Mail"
 
 #. NOTEBOOK_OCR_OPTIONS
@@ -1078,9 +1102,9 @@ msgstr "Darstellung"
 msgid "Enhancement"
 msgstr "Verbesserungen"
 
-#. MENU_ITEM_MAIL
-msgid "Email"
-msgstr "E-Mail"
+#. MENU_ITEM_MULTIPAGE
+msgid "Multipage"
+msgstr "Mehrseitig"
 
 #. MENU_ITEM_SHOW_TOOLTIPS
 msgid "Show tooltips"
@@ -1226,6 +1250,10 @@ msgstr "JPEG DCT Kompression"
 msgid "pack bits"
 msgstr "gepackte Bits"
 
+#. MENU_ITEM_TIFF_COMP_DEFLATE
+msgid "deflate"
+msgstr "komprimiert"
+
 #. MENU_ITEM_RANGE_SCALE
 msgid "Slider (Scale)"
 msgstr "Schieber (Scale)"
@@ -1299,6 +1327,10 @@ msgstr "Scanne"
 msgid "Receiving %s data"
 msgstr "Empfange %s Daten"
 
+#. PROGRESS_PAGE
+msgid "page"
+msgstr "Seite"
+
 #. PROGRESS_TRANSFERING_DATA
 msgid "Transfering image"
 msgstr "Bild übertragen"
@@ -1361,11 +1393,11 @@ msgstr "Vorschauscan abbrechen <Alt-ESC>"
 
 #. DESC_XSANE_MODE
 msgid ""
-"save-<Ctrl-s>, view-<Ctrl-v>, photocopy-<Ctrl-c>, fax-<Ctrl-f> or mail-<Ctrl-"
-"m>"
+"viewer-<Ctrl-v>, save-<Ctrl-s>, photocopy-<Ctrl-c>, multipage-<Ctrl-m>, fax-"
+"<Ctrl-f> or e-mail-<Ctrl-e>"
 msgstr ""
-"speichern-<Ctrl-s>, betrachten-<Ctrl-v>, kopieren-<Ctrl-c>, faxen-<Ctrl-f> "
-"oder mailen-<Ctrl-m>"
+"Betrachter-<Strg-v>, speichern-<Strg-s> kopieren-<Strg-c>, Mehrseiten-<Strg-"
+"m>, Fax-<Strg-f> oder E-Mail-<Ctrl-e>"
 
 #. DESC_XSANE_MEDIUM
 msgid ""
@@ -1413,25 +1445,33 @@ msgstr "Name der Faxseite eingeben"
 msgid "Enter receiver phone number or address"
 msgstr "Telefonnummer des Empfängers eingeben"
 
-#. DESC_MAILPROJECT
-msgid "Enter name of mail project"
-msgstr "Name des Mailprojekts"
+#. DESC_EMAIL_PROJECT
+msgid "Enter name of e-mail project"
+msgstr "Name des E-Mailprojekts"
 
-#. DESC_MAILIMAGENAME
-msgid "Enter new name for mail image"
+#. DESC_EMAIL_IMAGENAME
+msgid "Enter new name for e-mail image"
 msgstr "neuen Name für E-Mail Bild eingeben"
 
-#. DESC_MAILRECEIVER
-msgid "Enter email address"
-msgstr "EMail Adresse eingeben"
+#. DESC_EMAIL_RECEIVER
+msgid "Enter e-mail address"
+msgstr "E-Mail Adresse eingeben"
 
-#. DESC_MAILSUBJECT
-msgid "Enter subject of email"
-msgstr "Betreff eingeben"
+#. DESC_EMAIL_SUBJECT
+msgid "Enter subject of e-mail"
+msgstr "Betreff der E-Mail eingeben"
 
-#. DESC_MAIL_FILETYPE
+#. DESC_EMAIL_FILETYPE
 msgid "Select filetype for image attachments"
-msgstr ""
+msgstr "Dateityp für E-Mailanhang auswählen"
+
+#. DESC_MULTIPAGE_PROJECT
+msgid "Enter name of multipage project"
+msgstr "Name des mehrseitigen Projekts eingeben"
+
+#. DESC_MULTIPAGE_FILETYPE
+msgid "Select filetype for multipage file"
+msgstr "Dateityp für mehrseitiges Projekt auswählen"
 
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
@@ -1654,19 +1694,27 @@ msgstr "Abstand vom unteren Papierrand zum Beginn des druckbaren Bereichs"
 
 #. DESC_PRINTER_GAMMA
 msgid "Additional gamma value for photocopy"
-msgstr "Zusätzlicher Gammawert beim Photokopieren"
+msgstr "Zusätzlicher Gammawert beim Fotokopieren"
 
 #. DESC_PRINTER_GAMMA_RED
 msgid "Additional gamma value for red component for photocopy"
-msgstr "Zusätzlicher Gammawert für rote Komponente beim Photokopieren"
+msgstr "Zusätzlicher Gammawert für rote Komponente beim Fotokopieren"
 
 #. DESC_PRINTER_GAMMA_GREEN
 msgid "Additional gamma value for green component for photocopy"
-msgstr "Zusätzlicher Gammawert für grüne Komponente beim Photokopieren"
+msgstr "Zusätzlicher Gammawert für grüne Komponente beim Fotokopieren"
 
 #. DESC_PRINTER_GAMMA_BLUE
 msgid "Additional gamma value for blue component for photocopy"
-msgstr "Zusätzlicher Gammawert für blaue Komponente beim Photokopieren"
+msgstr "Zusätzlicher Gammawert für blaue Komponente beim Fotokopieren"
+
+#. DESC_PRINTER_PS_FLATDECODED
+msgid ""
+"Create zlib compressed postscript image for printer (flatdecode).\n"
+"The printer has to understand postscript level 3!"
+msgstr ""
+"Erzeuge zlib-komprimiertes Postscript Bild zum Drucken (flatdecode).\n"
+"Der Drucker muss Postscript level 3 verstehen!"
 
 #. DESC_TMP_PATH
 msgid "Path to temp directory"
@@ -1690,6 +1738,11 @@ msgstr "Kompression wenn Bild im PNG-Format gespeichert wird"
 #. DESC_FILENAME_COUNTER_LEN
 msgid "Minimum length of counter in filename"
 msgstr "Minimale Länge des Zählers im Dateinamen"
+
+#. DESC_TIFF_ZIP_COMPRESSION
+msgid "Compression rate for zip compressed tiff (deflate)"
+msgstr ""
+"ZIP-Kompressionsrate wenn Bild im komprimierten TIFF-Format gespeichert wird"
 
 #. DESC_TIFF_COMPRESSION_16
 msgid "Compression type if 16 bit image is saved as tiff"
@@ -1719,6 +1772,18 @@ msgid ""
 msgstr ""
 "Wenn der Dateinamenzähler automatisch erhöht wird, werden benutzte "
 "Dateinummern übersprungen"
+
+#. DESC_SAVE_PS_FLATDECODED
+msgid ""
+"compress postscript image with zlib algorithm (flatdecode).When you want to "
+"print such a file your printer has to understand postscript level 3"
+msgstr ""
+"komprimiere Postscript Bild mit zlib Algorithmus (flatdecode). Wenn die "
+"Datei gedruckt werden soll muss der Drucker Postscript level 3 verstehen"
+
+#. DESC_SAVE_PDF_FLATDECODED
+msgid "compress PDF image with zlib algorithm (flatdecode)."
+msgstr "komprimiere PDF Bild mit zlib Algorithmus (flatdecode)."
 
 #. DESC_SAVE_PNM16_AS_ASCII
 msgid ""
@@ -1837,14 +1902,9 @@ msgstr ""
 "Schwellwertverschiebung um XSane's Schwellwertbereich und den "
 "Schwellwertbereich des Scanners aufeinander abzustimmen"
 
-#. DESC_ADF_MODE
-msgid ""
-"Select scansource for Automatic Document feeder. If this scansource is "
-"selected XSane scans until \"out of paper\" or error."
-msgstr ""
-"Scanquelle für automatischen Dokumenteneinzug auswählen. Wenn diese "
-"Scanquelle angewählt ist, scannt XSane bis \"kein Papier\" oder ein Fehler "
-"auftritt."
+#. DESC_ADF_PAGES_MAX
+msgid "Number of pages to scan"
+msgstr "Anzahl der zu scannenden Seiten"
 
 #. DESC_PREVIEW_PIPETTE_RANGE
 msgid "dimension of square that is used to average color for pipette function"
@@ -1904,6 +1964,10 @@ msgstr ""
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
 msgstr "Sende Fax mit hoher vertikaler Auflösung (196 lpi anstatt 98 lpi)"
 
+#. DESC_FAX_PS_FLATDECODED
+msgid "Create zlib compressed postscript image for fax (flatdecode)"
+msgstr ""
+
 #. DESC_SMTP_SERVER
 msgid "IP Address or Domain name of SMTP server"
 msgstr "IP Adresse oder Domain Name des SMTP Servers"
@@ -1912,18 +1976,18 @@ msgstr "IP Adresse oder Domain Name des SMTP Servers"
 msgid "port to connect to SMTP server"
 msgstr "Port, auf dem zum SMTP Server verbunden werden soll"
 
-#. DESC_MAIL_FROM
-msgid "enter your email address"
+#. DESC_EMAIL_FROM
+msgid "enter your e-mail address"
 msgstr "Geben Sie Ihre E-Mail Adresse ein"
 
-#. DESC_MAIL_REPLY_TO
-msgid "enter email address for replied emails"
-msgstr "Geben Sie die E-Mail Adresse für Antworten auf diese Mail ein"
+#. DESC_EMAIL_REPLY_TO
+msgid "enter e-mail address for replied e-mails"
+msgstr "Geben Sie die E-Mail Adresse für Antworten auf diese E-Mail ein"
 
 #. DESC_POP3_AUTHENTIFICATION
-msgid "Authentificate at POP3 server before sending mail"
+msgid "Authentificate at POP3 server before sending e-mail"
 msgstr ""
-"Authentifizierung über POP3-Server durchführen bevor mail gesendet wird"
+"Authentifizierung über POP3-Server durchführen bevor E-Mail gesendet wird"
 
 #. DESC_POP3_SERVER
 msgid "IP Address or Domain name of POP3 server"
@@ -1941,12 +2005,8 @@ msgstr "Benuter Name für den POP3-Server"
 msgid "password for POP3 server"
 msgstr "Passwort für den POP3-Server"
 
-#. DESC_MAIL_VIEWER
-msgid "Enter command to be executed to view a mail image"
-msgstr "Befehl, der ausgeführt werden soll, um Mail-Bilder anzuzeigen"
-
-#. DESC_HTML_MAIL
-msgid "Mail is sent in html mode, place image with: <IMAGE>"
+#. DESC_HTML_EMAIL
+msgid "E-mail is sent in html mode, place image with: <IMAGE>"
 msgstr "E-Mail wird im hmtl Modus gesandt, Bild platzieren mit: <IMAGE>"
 
 #. DESC_OCR_COMMAND
@@ -2266,7 +2326,7 @@ msgstr "LIBJPEG meldet Fehler"
 
 #. ERR_ZLIB
 msgid "ZLIB error or memory allocation problem"
-msgstr ""
+msgstr "ZLIB Fehler oder zu wenig Speicher"
 
 #. ERR_UNKNOWN_TYPE
 msgid "unknown type"
@@ -2296,10 +2356,6 @@ msgstr "Konnte Faxbetrachter nicht ausführen:"
 #. ERR_FAILED_EXEC_FAX_CMD
 msgid "Failed to execute fax command:"
 msgstr "Konnte Faxbefehl nicht ausführen:"
-
-#. ERR_FAILED_EXEC_MAIL_VIEWER
-msgid "Failed to execute mail image viewer:"
-msgstr "Konnte E-Mail Bildbetrachter nicht ausführen:"
 
 #. ERR_FAILED_EXEC_OCR_CMD
 msgid "Failed to execute ocr command:"
@@ -2487,8 +2543,9 @@ msgid ""
 " -V, --viewer                 start with viewer-mode active (default)\n"
 " -s, --save                   start with save-mode active\n"
 " -c, --copy                   start with copy-mode active\n"
+" -m, --multipage              start with multipage-mode active\n"
 " -f, --fax                    start with fax-mode active\n"
-" -m, --mail                   start with mail-mode active\n"
+" -e, --email                  start with e-mail-mode active\n"
 " -n, --no-mode-selection      disable menu for XSane mode selection\n"
 "\n"
 " -F, --Fixed                  fixed main window size (overwrite preferences "
@@ -2518,8 +2575,9 @@ msgstr ""
 " -V, --viewer                 starte im Betrachtermodus (default)\n"
 " -s, --save                   starte im Speichernmodus\n"
 " -c, --copy                   starte im Kopiermodus\n"
+" -m, --multipage              starte im Mehrseitenmodus\n"
 " -f, --fax                    starte im Faxmodus\n"
-" -m, --mail                   starte im E-Mailmodus\n"
+" -e, --email                  starte im E-Mailmodus\n"
 " -n, --no-mode-selection      deaktiviere Modusauswahl\n"
 "\n"
 " -F, --Fixed                  Hauptfenstergröße ist fest\n"
@@ -2697,65 +2755,69 @@ msgstr "Konica Negativ VX 100"
 msgid "Rossmann negative HR 100"
 msgstr "Rossmann Negativ HR 100"
 
-#. TEXT_MAIL_STATUS_NOT_CREATED
-msgid "Mail project not created"
-msgstr "Mail-Projekt nicht erstellt"
+#. TEXT_PROJECT_STATUS_NOT_CREATED
+msgid "Project not created"
+msgstr "Projekt nicht erstellt"
 
-#. TEXT_MAIL_STATUS_CREATED
-msgid "Mail project created"
-msgstr "Mail-Projekt erstellt"
+#. TEXT_PROJECT_STATUS_CREATED
+msgid "Project created"
+msgstr "Projekt erstellt"
 
-#. TEXT_MAIL_STATUS_CHANGED
-msgid "Mail project changed"
-msgstr "Mail-Projekt geändert"
+#. TEXT_PROJECT_STATUS_CHANGED
+msgid "Project changed"
+msgstr "Projekt geändert"
 
-#. TEXT_MAIL_STATUS_ERR_READ_PROJECT
-msgid "Error reading mailproject"
-msgstr "Fehler beim Lesen des Mailprojekts"
+#. TEXT_PROJECT_STATUS_ERR_READ_PROJECT
+msgid "Error reading project"
+msgstr "Fehler beim Lesen des Projekts"
 
-#. TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED
+#. TEXT_PROJECT_STATUS_FILE_SAVING_ERROR
+msgid "Error saving file"
+msgstr "Fehler beim Speichern"
+
+#. TEXT_PROJECT_STATUS_FILE_SAVING
+msgid "Saving file"
+msgstr "Datei wird gespeichert"
+
+#. TEXT_PROJECT_STATUS_FILE_SAVING_ABORTED
+msgid "Aborted saving file"
+msgstr "Datei speichern abgebrochen"
+
+#. TEXT_PROJECT_STATUS_FILE_SAVED
+msgid "File has been saved"
+msgstr "Datei wurde gespeichert"
+
+#. TEXT_EMAIL_STATUS_POP3_CONNECTION_FAILED
 msgid "POP3 connection failed"
 msgstr "POP3-Verbindung fehlgeschlagen"
 
-#. TEXT_MAIL_STATUS_POP3_LOGIN_FAILED
+#. TEXT_EMAIL_STATUS_POP3_LOGIN_FAILED
 msgid "POP3 login failed"
 msgstr "POP3-Login fehlgeschlagen"
 
-#. TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED
+#. TEXT_EMAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
 msgstr "SMTP Verbindung fehlgeschlagen"
 
-#. TEXT_MAIL_STATUS_SMTP_ERR_FROM
+#. TEXT_EMAIL_STATUS_SMTP_ERR_FROM
 msgid "From entry not accepted"
 msgstr "Absender Eintrag nicht akzeptiert"
 
-#. TEXT_MAIL_STATUS_SMTP_ERR_RCPT
+#. TEXT_EMAIL_STATUS_SMTP_ERR_RCPT
 msgid "Receiver entry not accepted"
 msgstr "Empfänger Eintrag nicht akzeptiert"
 
-#. TEXT_MAIL_STATUS_SMTP_ERR_DATA
-msgid "Mail data not accepted"
-msgstr "Mail Daten nicht akzeptiert"
+#. TEXT_EMAIL_STATUS_SMTP_ERR_DATA
+msgid "E-mail data not accepted"
+msgstr "E-Mail Daten nicht akzeptiert"
 
-#. TEXT_MAIL_STATUS_SENDING
-msgid "Sending mail"
-msgstr "Mail wird gesendet"
+#. TEXT_EMAIL_STATUS_SENDING
+msgid "Sending e-mail"
+msgstr "E-Mail wird gesendet"
 
-#. TEXT_MAIL_STATUS_SENT
-msgid "Mail has been sent"
-msgstr "Mail wurde gesendet"
-
-#. TEXT_FAX_STATUS_NOT_CREATED
-msgid "Fax project not created"
-msgstr "Fax-Projekt nicht erstellt"
-
-#. TEXT_FAX_STATUS_CREATED
-msgid "Fax project created"
-msgstr "Fax-Projekt erstellt"
-
-#. TEXT_FAX_STATUS_CHANGED
-msgid "Fax project changed"
-msgstr "Fax-Projekt geändert"
+#. TEXT_EMAIL_STATUS_SENT
+msgid "E-mail has been sent"
+msgstr "E-Mail wurde gesendet"
 
 #. TEXT_FAX_STATUS_QUEUEING_FAX
 msgid "Queueing Fax"
@@ -2776,7 +2838,7 @@ msgid "handheld scanner"
 msgstr "Handscanner"
 
 msgid "still camera"
-msgstr "Photokamera"
+msgstr "Fotokamera"
 
 msgid "video camera"
 msgstr "Videokamera"
@@ -2819,3 +2881,62 @@ msgstr "Kein Speicher"
 
 msgid "Access to resource has been denied"
 msgstr "Zugang zum Gerät wurde verweigert"
+
+#~ msgid "Automatic Document Feeder Modus:"
+#~ msgstr "Modus automatischer Dokumenteneinzug:"
+
+#~ msgid ""
+#~ "Select scansource for Automatic Document feeder. If this scansource is "
+#~ "selected XSane scans until \"out of paper\" or error."
+#~ msgstr ""
+#~ "Scanquelle für automatischen Dokumenteneinzug auswählen. Wenn diese "
+#~ "Scanquelle angewählt ist, scannt XSane bis \"kein Papier\" oder ein "
+#~ "Fehler auftritt."
+
+#~ msgid "E-mail project not created"
+#~ msgstr "E-Mail-Projekt nicht erstellt"
+
+#~ msgid "E-mail project created"
+#~ msgstr "E-Mail-Projekt erstellt"
+
+#~ msgid "E-mail project changed"
+#~ msgstr "E-Mail-Projekt geändert"
+
+#~ msgid "Multipage project not created"
+#~ msgstr "Mehrseiten-Projekt existiert nicht"
+
+#~ msgid "Multipage project created"
+#~ msgstr "Mehrseiten-Projekt erstellt"
+
+#~ msgid "Multipage project changed"
+#~ msgstr "Mehrseiten-Projekt geändert"
+
+#~ msgid "Error reading multipage project"
+#~ msgstr "Lesefehler für Mehrseiten-Projekt"
+
+#~ msgid "Saving multipage file"
+#~ msgstr "speichere mehrseitige Datei"
+
+#~ msgid "Multipage saving aborted"
+#~ msgstr "Mehrseiten speichern abgebrochen"
+
+#~ msgid "Multipage saving error"
+#~ msgstr "Mehrseiten speichern fehlerhaft"
+
+#~ msgid "Image"
+#~ msgstr "Bild"
+
+#~ msgid "Viewer (png):"
+#~ msgstr "Betrachter (png):"
+
+#~ msgid "Enter command to be executed to view an e-mail image"
+#~ msgstr "Befehl, der ausgeführt werden soll, um E-Mail-Bilder anzuzeigen"
+
+#~ msgid "Failed to execute e-mail image viewer:"
+#~ msgstr "Konnte E-Mail Bildbetrachter nicht ausführen:"
+
+#~ msgid "Step"
+#~ msgstr "Schritt"
+
+#~ msgid "Mail"
+#~ msgstr "E-Mail"

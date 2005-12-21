@@ -31,6 +31,9 @@
 #include "xsane-save.h"
 #include "xsane-gamma.h"
 #include "xsane-setup.h"
+#include "xsane-multipage-project.h"
+#include "xsane-fax-project.h"
+#include "xsane-email-project.h"
 
 #ifdef HAVE_LIBPNG
 #ifdef HAVE_LIBZ
@@ -50,7 +53,7 @@ static int xsane_test_multi_scan(void);
 void xsane_scan_done(SANE_Status status);
 void xsane_cancel(void);
 static void xsane_start_scan(void);
-void xsane_scan_dialog(void);
+gint xsane_scan_dialog(gpointer *data);
 static void xsane_create_internal_gamma_tables(void);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -99,6 +102,13 @@ static int xsane_generate_dummy_filename(int conversion_level)
 
    return TRUE;
   }
+  else if (xsane.xsane_mode == XSANE_MULTIPAGE) /* no conversion following, save directly to the selected filename */
+  {
+    xsane.dummy_filename = strdup(xsane.multipage_filename);
+    DBG(DBG_info, "xsane.dummy_filename = %s\n", xsane.dummy_filename);
+
+   return FALSE;
+  }
   else if (xsane.xsane_mode == XSANE_FAX) /* no conversion following, save directly to the selected filename */
   {
     xsane.dummy_filename = strdup(xsane.fax_filename);
@@ -106,9 +116,9 @@ static int xsane_generate_dummy_filename(int conversion_level)
 
    return FALSE;
   }
-  else if (xsane.xsane_mode == XSANE_MAIL) /* no conversion following, save directly to the selected filename */
+  else if (xsane.xsane_mode == XSANE_EMAIL) /* no conversion following, save directly to the selected filename */
   {
-    xsane.dummy_filename = strdup(xsane.mail_filename);
+    xsane.dummy_filename = strdup(xsane.email_filename);
     DBG(DBG_info, "xsane.dummy_filename = %s\n", xsane.dummy_filename);
 
    return FALSE;
@@ -896,36 +906,16 @@ static RETSIGTYPE xsane_sigpipe_handler(int signal)
 
 static int xsane_test_multi_scan(void)
 {
- char *set;
- SANE_Status status;
- const SANE_Option_Descriptor *opt;
-
   DBG(DBG_proc, "xsane_test_multi_scan\n");
 
-  opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.scansource);
-  if (opt)
+  if (xsane.adf_page_counter+1 < preferences.adf_pages_max)
   {
-    if (SANE_OPTION_IS_ACTIVE(opt->cap))
-    {
-      if (opt->constraint_type == SANE_CONSTRAINT_STRING_LIST)
-      {
-        set = malloc(opt->size);
-        status = xsane_control_option(xsane.dev, xsane.well_known.scansource, SANE_ACTION_GET_VALUE, set, 0);
-
-        if (status == SANE_STATUS_GOOD)
-        {
-          if (xsane.adf_scansource)
-          {
-            if (!strcmp(set, xsane.adf_scansource))
-            {
-              free(set);
-              return TRUE;
-            }
-          }
-        }
-        free(set);
-      }
-    }
+    return TRUE;
+  }
+  else
+  {
+    xsane.adf_page_counter = 0;
+    return FALSE;
   }
 
 #if 0 /* this is planned for the next sane-standard */
@@ -1187,11 +1177,19 @@ void xsane_scan_done(SANE_Status status)
 
     if (xsane.xsane_mode == XSANE_VIEWER)
     {
-      xsane_viewer_new(xsane.dummy_filename, TRUE, NULL, VIEWER_FULL_MODIFICATION);
+      if (!xsane.force_filename) /* user filename selection active */
+      {
+        xsane_viewer_new(xsane.dummy_filename, preferences.filetype, TRUE, preferences.filename, VIEWER_FULL_MODIFICATION, IMAGE_NOT_SAVED);
+      }
+      else
+      {
+        xsane_viewer_new(xsane.dummy_filename, NULL, TRUE, xsane.external_filename, VIEWER_NO_NAME_MODIFICATION, IMAGE_NOT_SAVED);
+      }
+
       xsane.expand_lineart_to_grayscale = 0;
     }
 
-    if ((xsane.xsane_mode == XSANE_FAX) || (xsane.xsane_mode == XSANE_MAIL))
+    if ((xsane.xsane_mode == XSANE_MULTIPAGE) || (xsane.xsane_mode == XSANE_FAX) || (xsane.xsane_mode == XSANE_EMAIL))
     {
       xsane.expand_lineart_to_grayscale = 0;
     }
@@ -1336,6 +1334,7 @@ void xsane_scan_done(SANE_Status status)
                       preferences.printer[preferences.printernr]->width  * 72.0/MM_PER_INCH, /* usable paperwidth */
                       preferences.printer[preferences.printernr]->height * 72.0/MM_PER_INCH, /* usable paperheight */
                       preferences.paper_orientation,
+                      preferences.printer[preferences.printernr]->ps_flatdecoded, /* ps level 3 */
                       xsane.progress_bar,
                       &xsane.cancel_save);
       }
@@ -1378,7 +1377,7 @@ void xsane_scan_done(SANE_Status status)
       }
     }
 
-    if ( (xsane.xsane_mode == XSANE_SAVE) && (xsane.mode == XSANE_STANDALONE) )
+    if ( ( (xsane.xsane_mode == XSANE_SAVE) || (xsane.xsane_mode == XSANE_VIEWER) ) && (xsane.mode == XSANE_STANDALONE) )
     {
       if (!xsane.force_filename) /* user filename selection active */
       {
@@ -1394,6 +1393,47 @@ void xsane_scan_done(SANE_Status status)
       {
         xsane_update_counter_in_filename(&xsane.external_filename, TRUE, 1, 0);
       }
+    }
+    else if (xsane.xsane_mode == XSANE_MULTIPAGE)
+    {
+     GtkWidget *list_item;
+     char *page;
+     char *type;
+     char *extension;
+
+      page = strdup(strrchr(xsane.multipage_filename,'/')+1);
+      extension = strrchr(page, '.');
+      if (extension)
+      {
+        type = strdup(extension);
+        *extension = 0;
+      }
+      else
+      {
+        type = "";
+      }
+
+      list_item = gtk_list_item_new_with_label(page);
+      gtk_object_set_data(GTK_OBJECT(list_item), "list_item_data", strdup(page));
+      gtk_object_set_data(GTK_OBJECT(list_item), "list_item_type", strdup(type));
+      gtk_container_add(GTK_CONTAINER(xsane.project_list), list_item);
+      gtk_widget_show(list_item);
+
+      xsane_update_counter_in_filename(&xsane.multipage_filename, TRUE, 1, preferences.filename_counter_len);
+      xsane_multipage_project_save();
+      free(page);
+      free(type);
+
+      if (xsane.multipage_status)
+      {
+        free(xsane.multipage_status);
+      }
+      xsane.multipage_status = strdup(TEXT_PROJECT_STATUS_CHANGED);
+
+      xsane_multipage_project_save();
+
+      gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), _(xsane.multipage_status));
+      gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
     }
     else if (xsane.xsane_mode == XSANE_FAX)
     {
@@ -1417,7 +1457,7 @@ void xsane_scan_done(SANE_Status status)
       list_item = gtk_list_item_new_with_label(page);
       gtk_object_set_data(GTK_OBJECT(list_item), "list_item_data", strdup(page));
       gtk_object_set_data(GTK_OBJECT(list_item), "list_item_type", strdup(type));
-      gtk_container_add(GTK_CONTAINER(xsane.fax_list), list_item);
+      gtk_container_add(GTK_CONTAINER(xsane.project_list), list_item);
       gtk_widget_show(list_item);
 
       xsane_update_counter_in_filename(&xsane.fax_filename, TRUE, 1, preferences.filename_counter_len);
@@ -1429,22 +1469,22 @@ void xsane_scan_done(SANE_Status status)
       {
         free(xsane.fax_status);
       }
-      xsane.fax_status = strdup(TEXT_FAX_STATUS_CHANGED);
+      xsane.fax_status = strdup(TEXT_PROJECT_STATUS_CHANGED);
 
       xsane_fax_project_save();
 
-      gtk_progress_set_format_string(GTK_PROGRESS(xsane.fax_progress_bar), _(xsane.fax_status));
-      gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.fax_progress_bar), 0.0);
+      gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), _(xsane.fax_status));
+      gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
     }
-#ifdef XSANE_ACTIVATE_MAIL
-    else if (xsane.xsane_mode == XSANE_MAIL)
+#ifdef XSANE_ACTIVATE_EMAIL
+    else if (xsane.xsane_mode == XSANE_EMAIL)
     {
      GtkWidget *list_item;
      char *page;
      char *type;
      char *extension;
 
-      page = strdup(strrchr(xsane.mail_filename,'/')+1);
+      page = strdup(strrchr(xsane.email_filename,'/')+1);
       extension = strrchr(page, '.');
       if (extension)
       {
@@ -1459,24 +1499,24 @@ void xsane_scan_done(SANE_Status status)
       list_item = gtk_list_item_new_with_label(page);
       gtk_object_set_data(GTK_OBJECT(list_item), "list_item_data", strdup(page));
       gtk_object_set_data(GTK_OBJECT(list_item), "list_item_type", strdup(type));
-      gtk_container_add(GTK_CONTAINER(xsane.mail_list), list_item);
+      gtk_container_add(GTK_CONTAINER(xsane.project_list), list_item);
       gtk_widget_show(list_item);
 
-      xsane_update_counter_in_filename(&xsane.mail_filename, TRUE, 1, preferences.filename_counter_len);
-      xsane_mail_project_save();
+      xsane_update_counter_in_filename(&xsane.email_filename, TRUE, 1, preferences.filename_counter_len);
+      xsane_email_project_save();
       free(page);
       free(type);
 
-      if (xsane.mail_status)
+      if (xsane.email_status)
       {
-        free(xsane.mail_status);
+        free(xsane.email_status);
       }
-      xsane.mail_status = strdup(TEXT_MAIL_STATUS_CHANGED);
+      xsane.email_status = strdup(TEXT_PROJECT_STATUS_CHANGED);
 
-      xsane_mail_project_save();
+      xsane_email_project_save();
 
-      gtk_progress_set_format_string(GTK_PROGRESS(xsane.mail_progress_bar), _(xsane.mail_status));
-      gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.mail_progress_bar), 0.0);
+      gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), _(xsane.email_status));
+      gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
     }
 #endif
   }
@@ -1509,7 +1549,7 @@ void xsane_scan_done(SANE_Status status)
 
     DBG(DBG_info, "ADF mode end of scan: increment page counter and restart scan\n");
     xsane.adf_page_counter += 1;
-    g_signal_emit_by_name(xsane.start_button, "clicked"); /* press START button */
+    gtk_timeout_add(100, (GtkFunction)xsane_scan_dialog, NULL); /* wait 100ms then call xsane_scan_dialog(); */
   }
   else if ( ( (status == SANE_STATUS_GOOD) || (status == SANE_STATUS_EOF) ) && (xsane.batch_loop) )
   {
@@ -1630,7 +1670,7 @@ static void xsane_start_scan(void)
   if ((xsane.param.depth == 1) && ((xsane.scan_rotation) ||
                                    (xsane.xsane_mode == XSANE_VIEWER) ||
                                    (xsane.xsane_mode == XSANE_FAX) ||
-                                   (xsane.xsane_mode == XSANE_MAIL))
+                                   (xsane.xsane_mode == XSANE_EMAIL))
      ) /* We want to do a transformation with a lineart scan */
        /* or use the viewer to display a lineart scan, */
        /* so we save it as grayscale */
@@ -1715,7 +1755,24 @@ static void xsane_start_scan(void)
   xsane.pixelcolor = 0;
 
   snprintf(buf, sizeof(buf), PROGRESS_RECEIVING_FRAME_DATA, _(frame_type));
-  xsane_progress_new(buf, PROGRESS_SCANNING, (GtkSignalFunc) xsane_cancel, NULL);
+  
+  if (preferences.adf_pages_max > 1)
+  {
+   char buf2[255];
+    if (preferences.adf_pages_max > 1)
+    {
+      snprintf(buf2, sizeof(buf), "%s (%d/%d)", PROGRESS_SCANNING, xsane.adf_page_counter+1, preferences.adf_pages_max);
+    }
+    else
+    {
+      snprintf(buf2, sizeof(buf), "%s (%d)", PROGRESS_SCANNING, xsane.adf_page_counter+1);
+    }
+    xsane_progress_new(buf, buf2, (GtkSignalFunc) xsane_cancel, NULL);
+  }
+  else
+  {
+    xsane_progress_new(buf, PROGRESS_SCANNING, (GtkSignalFunc) xsane_cancel, NULL);
+  }
 
   while (gtk_events_pending())
   {
@@ -1742,7 +1799,9 @@ static void xsane_start_scan(void)
 
 /* Invoked when the scan button is pressed */
 /* or by scan_done if automatic document feeder is selected */
-void xsane_scan_dialog(void)
+/* always returns 0 beacause ADF function calls it as timeout function */
+/* and return value 0 is used to tell the timeout handler to stop timer */
+gint xsane_scan_dialog(gpointer *data)
 {
  char buf[256];
  const SANE_Option_Descriptor *opt;
@@ -1755,12 +1814,13 @@ void xsane_scan_dialog(void)
 
   sane_get_parameters(xsane.dev, &xsane.param); /* update xsane.param */
 
-  if ( (xsane.mode == XSANE_STANDALONE) && (xsane.xsane_mode == XSANE_SAVE) )
+  if ( ( (xsane.xsane_mode == XSANE_SAVE) || (xsane.xsane_mode == XSANE_VIEWER) ) && (xsane.mode == XSANE_STANDALONE) )
   {
     /* correct length of filename counter if it is shorter than minimum length */
     if (!xsane.force_filename)
     {
-      if (xsane.batch_loop) /* we are doing a batch scan, so we need a counter in the filename */
+      /* when we are doing an adf or batch scan then we need a counter in the filename */
+      if ((xsane.batch_loop) || (preferences.adf_pages_max > 1))
       {
         xsane_ensure_counter_in_filename(&preferences.filename, preferences.filename_counter_len);
       }
@@ -1791,7 +1851,7 @@ void xsane_scan_dialog(void)
         if (xsane_back_gtk_decision(ERR_HEADER_WARNING, (gchar **) warning_xpm, buf, BUTTON_OVERWRITE, BUTTON_CANCEL, TRUE /* wait */) == FALSE)
         {
           xsane_set_sensitivity(TRUE);
-          return;
+          return FALSE;
         }
       }
     }
@@ -1812,7 +1872,7 @@ void xsane_scan_dialog(void)
         }
         xsane_back_gtk_error(buf, TRUE);
         xsane_set_sensitivity(TRUE);
-       return;
+       return FALSE;
       }
 #if 0 /* this is not necessary any more because the saving routines do the conversion */
       else if ( ( ( (xsane.xsane_output_format == XSANE_JPEG) && xsane.param.depth == 16) ||
@@ -1824,7 +1884,7 @@ void xsane_scan_dialog(void)
         if (xsane_back_gtk_decision(ERR_HEADER_INFO, (gchar **) info_xpm, buf, BUTTON_REDUCE, BUTTON_CANCEL, TRUE /* wait */) == FALSE)
         {
           xsane_set_sensitivity(TRUE);
-         return;
+         return FALSE;
         }
         xsane.reduce_16bit_to_8bit = TRUE;
       }
@@ -1836,7 +1896,7 @@ void xsane_scan_dialog(void)
         snprintf(buf, sizeof(buf), "No RGBA data format !!!"); /* user selected output format RGBA, scanner uses other format */
         xsane_back_gtk_error(buf, TRUE);
         xsane_set_sensitivity(TRUE);
-       return;
+       return FALSE;
       }
 #endif
     }
@@ -1846,7 +1906,7 @@ void xsane_scan_dialog(void)
       snprintf(buf, sizeof(buf), "Special format RGBA only supported in scan mode !!!");
       xsane_back_gtk_error(buf, TRUE);
       xsane_set_sensitivity(TRUE);
-     return;
+     return FALSE;
     }
 #endif
 
@@ -1858,7 +1918,7 @@ void xsane_scan_dialog(void)
         snprintf(buf, sizeof(buf), "Image data of type SANE_FRAME_RGBA\ncan only be saved in rgba or png format");
         xsane_back_gtk_error(buf, TRUE);
         xsane_set_sensitivity(TRUE);
-       return;
+       return FALSE;
       }
     }
 #endif
@@ -1886,7 +1946,7 @@ void xsane_scan_dialog(void)
           if (xsane_back_gtk_decision(ERR_HEADER_INFO, (gchar **) info_xpm, buf, BUTTON_REDUCE, BUTTON_CANCEL, TRUE /* wait */) == FALSE)
           {
             xsane_set_sensitivity(TRUE);
-           return;
+           return FALSE;
           }
           xsane.reduce_16bit_to_8bit = TRUE;
         }
@@ -1895,7 +1955,7 @@ void xsane_scan_dialog(void)
           snprintf(buf, sizeof(buf), ERR_GIMP_BAD_DEPTH, xsane.param.depth);
           xsane_back_gtk_error(buf, TRUE);
           xsane_set_sensitivity(TRUE);
-         return;
+         return FALSE;
         }
       }
     }
@@ -2060,6 +2120,7 @@ void xsane_scan_dialog(void)
   xsane.scanning = TRUE; /* set marker that scan has been initiated */
 
   xsane_start_scan();
+ return FALSE;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */

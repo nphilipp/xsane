@@ -30,6 +30,9 @@
 #include "xsane-gamma.h"
 #include "xsane-setup.h"
 #include "xsane-scan.h"
+#include "xsane-multipage-project.h"
+#include "xsane-fax-project.h"
+#include "xsane-email-project.h"
 #include "xsane-rc-io.h"
 #include "xsane-device-preferences.h"
 #include "xsane-preferences.h"
@@ -57,8 +60,9 @@ struct option long_options[] =
   {"viewer", no_argument, 0, 'V'},
   {"copy", no_argument, 0, 'c'},
   {"fax", no_argument, 0, 'f'},
-#ifdef XSANE_ACTIVATE_MAIL
-  {"mail", no_argument, 0, 'm'},
+  {"multipage", no_argument, 0, 'm'},
+#ifdef XSANE_ACTIVATE_EMAIL
+  {"email", no_argument, 0, 'e'},
 #endif
   {"no-mode-selection", no_argument, 0, 'n'},
   {"Fixed", no_argument, 0, 'F'},
@@ -114,7 +118,6 @@ static const Preferences_medium_t pref_default_medium[]=
 
 int DBG_LEVEL = 0;
 static guint xsane_resolution_timer = 0;
-static guint xsane_mail_send_timer = 0;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -122,7 +125,7 @@ struct Xsane xsane;				/* most xsane dependant values */
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-int xsane_scanmode_number[] = { XSANE_VIEWER, XSANE_SAVE, XSANE_COPY, XSANE_FAX, XSANE_MAIL };
+int xsane_scanmode_number[] = { XSANE_VIEWER, XSANE_SAVE, XSANE_COPY, XSANE_MULTIPAGE, XSANE_FAX, XSANE_EMAIL };
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -138,7 +141,6 @@ int xsane_scanmode_number[] = { XSANE_VIEWER, XSANE_SAVE, XSANE_COPY, XSANE_FAX,
 
 /* forward declarations: */
 
-static int xsane_option_defined(char *string);
 static void xsane_zoom_update(GtkAdjustment *adj_data, double *val);
 static void xsane_resolution_scale_update(GtkAdjustment *adj_data, double *val);
 static void xsane_threshold_changed(void);
@@ -179,51 +181,6 @@ static gint xsane_close_info_callback(GtkWidget *widget, gpointer data);
 static void xsane_info_dialog(GtkWidget *widget, gpointer data);
 static void xsane_about_dialog(GtkWidget *widget, gpointer data);
 static void xsane_about_translation_dialog(GtkWidget *widget, gpointer data);
-static gint xsane_fax_dialog_delete();
-static void xsane_fax_dialog(void);
-static void xsane_fax_dialog_close(void);
-static void xsane_fax_receiver_changed_callback(GtkWidget *widget, gpointer data);
-static void xsane_fax_project_changed_callback(GtkWidget *widget, gpointer data);
-static void xsane_fax_fine_mode_callback(GtkWidget *widget);
-static void xsane_fax_project_update_project_status();
-void xsane_fax_project_save(void);
-static void xsane_fax_project_load(void);
-static void xsane_fax_project_delete(void);
-static void xsane_fax_project_create(void);
-static void xsane_list_entrys_swap(GtkWidget *list_item_1, GtkWidget *list_item_2);
-static void xsane_fax_entry_move_up_callback(GtkWidget *widget, gpointer list);
-static void xsane_fax_entry_move_down_callback(GtkWidget *widget, gpointer list);
-static void xsane_fax_entry_rename_callback(GtkWidget *widget, gpointer list);
-static void xsane_fax_entry_insert_callback(GtkWidget *widget, gpointer list);
-static void xsane_fax_entry_delete_callback(GtkWidget *widget, gpointer list);
-static void xsane_fax_show_callback(GtkWidget *widget, gpointer data);
-static void xsane_fax_send(void);
-#ifdef XSANE_ACTIVATE_MAIL
-static gint xsane_mail_dialog_delete();
-static void xsane_mail_filetype_callback(GtkWidget *filetype_option_menu, char *filetype);
-static void xsane_mail_dialog(void);
-static void xsane_mail_dialog_close(void);
-static void xsane_mail_receiver_changed_callback(GtkWidget *widget, gpointer data);
-static void xsane_mail_subject_changed_callback(GtkWidget *widget, gpointer data);
-static void xsane_mail_project_changed_callback(GtkWidget *widget, gpointer data);
-static void xsane_mail_html_mode_callback(GtkWidget *widget);
-void xsane_mail_project_save(void);
-static void xsane_mail_project_display_status(void);
-static void xsane_mail_project_load(void);
-static void xsane_mail_project_delete(void);
-static void xsane_mail_project_update_project_status();
-static void xsane_mail_project_create(void);
-static void xsane_mail_entry_move_up_callback(GtkWidget *widget, gpointer list);
-static void xsane_mail_entry_move_down_callback(GtkWidget *widget, gpointer list);
-static void xsane_mail_entry_rename_callback(GtkWidget *widget, gpointer list);
-static void xsane_mail_entry_delete_callback(GtkWidget *widget, gpointer list);
-static void xsane_mail_show_callback(GtkWidget *widget, gpointer data);
-#if 0
-static void xsane_mail_edit_callback(GtkWidget *widget, gpointer data);
-#endif
-static void xsane_mail_send_process(void);
-static void xsane_mail_send(void);
-#endif
 static void xsane_pref_toggle_tooltips(GtkWidget *widget, gpointer data);
 static void xsane_show_eula(GtkWidget *widget, gpointer data);
 static void xsane_show_gpl(GtkWidget *widget, gpointer data);
@@ -257,24 +214,6 @@ void xsane_debug_message(int level, const char *fmt, ...)
   }
 }
 #endif
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static int xsane_option_defined(char *string)
-{
-  if (string)
-  {
-    while (*string == ' ') /* skip spaces */
-    {
-      string++;
-    }
-    if (*string != 0)
-    {
-      return 1;
-    }
-  }
-  return 0;
-}
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -328,7 +267,11 @@ static void xsane_set_modus_defaults(void)
 {
   DBG(DBG_proc, "xsane_set_modus_defaults\n");
 
-  switch(xsane.xsane_mode)
+  if (xsane.mode == XSANE_GIMP_EXTENSION)
+  {
+    xsane_define_maximum_output_size();
+  }
+  else switch(xsane.xsane_mode)
   {
     case XSANE_VIEWER:
       xsane_define_maximum_output_size();
@@ -383,7 +326,7 @@ static void xsane_set_modus_defaults(void)
       preview_select_full_preview_area(xsane.preview);
      break;
 
-    case XSANE_MAIL:
+    case XSANE_EMAIL:
       xsane_define_maximum_output_size();
      break;
 
@@ -401,31 +344,25 @@ static void xsane_modus_callback(GtkWidget *xsane_parent, int *num)
   xsane.xsane_mode = *num;
   preferences.xsane_mode = *num;
 
-  xsane_set_modus_defaults(); /* set defaults and maximum output size */
-  xsane_refresh_dialog();
-
   if ((xsane.xsane_mode == XSANE_SAVE) || (xsane.xsane_mode == XSANE_VIEWER) || (xsane.xsane_mode == XSANE_COPY))
   {
     gtk_widget_set_sensitive(GTK_WIDGET(xsane.start_button), TRUE); 
   }
 
-  if (xsane.xsane_mode != XSANE_FAX)
+#ifdef XSANE_ACTIVATE_EMAIL
+  if (xsane.xsane_mode != XSANE_EMAIL)
   {
-    xsane_fax_dialog_close();
-  }
-
-#ifdef XSANE_ACTIVATE_MAIL
-  if (xsane.xsane_mode != XSANE_MAIL)
-  {
-    if (xsane.mail_project_save)
+    if (xsane.email_project_save)
     {
-      xsane.mail_project_save = 0;
-      xsane_mail_project_save();
+      xsane.email_project_save = 0;
+      xsane_email_project_save();
     }
-
-    xsane_mail_dialog_close();
   }
 #endif
+
+  xsane_project_dialog_close(); /* close project dialog when one is open */
+  xsane_set_modus_defaults(); /* set defaults and maximum output size */
+  xsane_refresh_dialog();
 
   /* make sure dialogs are rebuild, otherwise we can get in trouble */
   while (gtk_events_pending())
@@ -551,11 +488,11 @@ static void xsane_show_standard_options_callback(GtkWidget * widget)
   preferences.show_standard_options = (GTK_CHECK_MENU_ITEM(widget)->active != 0);
   if (preferences.show_standard_options)
   {
-    gtk_widget_show(xsane.standard_options_shell);
+    gtk_widget_show(xsane.standard_options_dialog);
   }
   else
   {
-    gtk_widget_hide(xsane.standard_options_shell);
+    gtk_widget_hide(xsane.standard_options_dialog);
   }
 }
 
@@ -568,11 +505,11 @@ static void xsane_show_advanced_options_callback(GtkWidget * widget)
   preferences.show_advanced_options = (GTK_CHECK_MENU_ITEM(widget)->active != 0);
   if (preferences.show_advanced_options)
   {
-    gtk_widget_show(xsane.advanced_options_shell);
+    gtk_widget_show(xsane.advanced_options_dialog);
   }
   else
   {
-    gtk_widget_hide(xsane.advanced_options_shell);
+    gtk_widget_hide(xsane.advanced_options_dialog);
   }
 }
 
@@ -1243,6 +1180,13 @@ static void xsane_scanmode_menu_callback(GtkWidget *widget, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+static void xsane_adf_pages_max_callback(GtkWidget *widget, gpointer data)
+{
+  xsane_update_int(xsane.adf_pages_max_entry, &preferences.adf_pages_max); /* get adf pages maximum */
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
 {
  GtkWidget *xsane_vbox, *xsane_hbox;
@@ -1250,12 +1194,18 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
  GtkWidget *xsane_modus_item;
  GtkWidget *xsane_modus_option_menu;
  GtkWidget *xsane_vbox_xsane_modus;
- GtkWidget *xsane_hbox_xsane_modus;
  GtkWidget *xsane_label;
  GtkWidget *xsane_text;
  GtkWidget *xsane_hbox_xsane_enhancement;
  GtkWidget *xsane_frame;
+ GtkWidget *xsane_medium_option_menu, *xsane_medium_menu, *xsane_medium_item;
  GtkWidget *button;
+ GtkWidget *pixmapwidget;
+ GdkBitmap *mask;
+ GdkPixmap *pixmap;
+ GtkWidget *hbox;
+ const SANE_Option_Descriptor *opt;
+ int i;
  gchar buf[256];
 
   DBG(DBG_proc, "xsane_update_xsane_callback\n");
@@ -1278,8 +1228,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
   gtk_box_pack_start(GTK_BOX(xsane_vbox), xsane_frame, TRUE, TRUE, 0); /* sizeable framehight */
   gtk_widget_show(xsane_frame);
 
-/*  xsane_vbox_xsane_modus = gtk_vbox_new(FALSE, 5); */
-   xsane_vbox_xsane_modus = gtk_vbox_new(FALSE, 1);
+  xsane_vbox_xsane_modus = gtk_vbox_new(FALSE, 1);
   gtk_container_add(GTK_CONTAINER(xsane_frame), xsane_vbox_xsane_modus);
   gtk_widget_show(xsane_vbox_xsane_modus);
 
@@ -1287,13 +1236,26 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
 
   if ( (xsane.mode == XSANE_STANDALONE) && (xsane.mode_selection) ) /* display xsane mode selection menu */
   {
-    xsane_hbox_xsane_modus = gtk_hbox_new(FALSE, 2);
-    gtk_container_set_border_width(GTK_CONTAINER(xsane_hbox_xsane_modus), 2);
-    gtk_box_pack_start(GTK_BOX(xsane_vbox_xsane_modus), xsane_hbox_xsane_modus, FALSE, FALSE, 0);
+    hbox = gtk_hbox_new(FALSE, 2);
+    gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
+    gtk_box_pack_start(GTK_BOX(xsane_vbox_xsane_modus), hbox, FALSE, FALSE, 1);
 
-    xsane_label = gtk_label_new(TEXT_XSANE_MODE);
-    gtk_box_pack_start(GTK_BOX(xsane_hbox_xsane_modus), xsane_label, FALSE, FALSE, 2);
-    gtk_widget_show(xsane_label);
+    pixmap = gdk_pixmap_create_from_xpm_d(xsane.histogram_dialog->window, &mask, xsane.bg_trans, (gchar **) adf_xpm);
+    pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
+    gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
+    gdk_drawable_unref(pixmap);
+    gtk_widget_show(pixmapwidget);
+
+    /* adf pages maximum */
+    xsane_text = gtk_entry_new();
+    xsane.adf_pages_max_entry = xsane_text;
+    xsane_back_gtk_set_tooltip(xsane.tooltips, xsane_text, DESC_ADF_PAGES_MAX);
+    gtk_widget_set_size_request(xsane_text, 40, -1);
+    snprintf(buf, sizeof(buf), "%d", preferences.adf_pages_max);    
+    gtk_entry_set_text(GTK_ENTRY(xsane_text), (char *) buf);
+    g_signal_connect(GTK_OBJECT(xsane_text), "changed", (GtkSignalFunc) xsane_adf_pages_max_callback, NULL);
+    gtk_box_pack_start(GTK_BOX(hbox), xsane_text, FALSE, FALSE, 10);
+    gtk_widget_show(xsane_text);
 
 
     xsane_modus_menu = gtk_menu_new();
@@ -1319,184 +1281,48 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
     g_signal_connect(GTK_OBJECT(xsane_modus_item), "activate", (GtkSignalFunc) xsane_modus_callback, &xsane_scanmode_number[XSANE_COPY]);
     gtk_widget_show(xsane_modus_item);
 
+    xsane_modus_item = gtk_menu_item_new_with_label(MENU_ITEM_MULTIPAGE);
+    gtk_widget_add_accelerator(xsane_modus_item, "activate", xsane.accelerator_group, GDK_M, GDK_CONTROL_MASK, DEF_GTK_MENU_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
+    gtk_container_add(GTK_CONTAINER(xsane_modus_menu), xsane_modus_item);
+    g_signal_connect(GTK_OBJECT(xsane_modus_item), "activate", (GtkSignalFunc) xsane_modus_callback, &xsane_scanmode_number[XSANE_MULTIPAGE]);
+    gtk_widget_show(xsane_modus_item);
+
     xsane_modus_item = gtk_menu_item_new_with_label(MENU_ITEM_FAX);
     gtk_widget_add_accelerator(xsane_modus_item, "activate", xsane.accelerator_group, GDK_F, GDK_CONTROL_MASK, DEF_GTK_MENU_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
     gtk_container_add(GTK_CONTAINER(xsane_modus_menu), xsane_modus_item);
     g_signal_connect(GTK_OBJECT(xsane_modus_item), "activate", (GtkSignalFunc) xsane_modus_callback, &xsane_scanmode_number[XSANE_FAX]);
     gtk_widget_show(xsane_modus_item);
 
-#ifdef XSANE_ACTIVATE_MAIL
-    xsane_modus_item = gtk_menu_item_new_with_label(MENU_ITEM_MAIL);
-    gtk_widget_add_accelerator(xsane_modus_item, "activate", xsane.accelerator_group, GDK_M, GDK_CONTROL_MASK, DEF_GTK_MENU_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
+#ifdef XSANE_ACTIVATE_EMAIL
+    xsane_modus_item = gtk_menu_item_new_with_label(MENU_ITEM_EMAIL);
+    gtk_widget_add_accelerator(xsane_modus_item, "activate", xsane.accelerator_group, GDK_E, GDK_CONTROL_MASK, DEF_GTK_MENU_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
     gtk_container_add(GTK_CONTAINER(xsane_modus_menu), xsane_modus_item);
-    g_signal_connect(GTK_OBJECT(xsane_modus_item), "activate", (GtkSignalFunc) xsane_modus_callback, &xsane_scanmode_number[XSANE_MAIL]);
+    g_signal_connect(GTK_OBJECT(xsane_modus_item), "activate", (GtkSignalFunc) xsane_modus_callback, &xsane_scanmode_number[XSANE_EMAIL]);
     gtk_widget_show(xsane_modus_item);
 #endif
 
     xsane_modus_option_menu = gtk_option_menu_new();
     xsane_back_gtk_set_tooltip(xsane.tooltips, xsane_modus_option_menu, DESC_XSANE_MODE);
-    gtk_box_pack_end(GTK_BOX(xsane_hbox_xsane_modus), xsane_modus_option_menu, FALSE, FALSE, 2);
+    gtk_box_pack_end(GTK_BOX(hbox), xsane_modus_option_menu, FALSE, FALSE, 2);
     gtk_option_menu_set_menu(GTK_OPTION_MENU(xsane_modus_option_menu), xsane_modus_menu);
     gtk_option_menu_set_history(GTK_OPTION_MENU(xsane_modus_option_menu), xsane.xsane_mode);
     gtk_widget_show(xsane_modus_option_menu);
-    gtk_widget_show(xsane_hbox_xsane_modus);
+
+    xsane_label = gtk_label_new(TEXT_XSANE_MODE);
+    gtk_box_pack_end(GTK_BOX(hbox), xsane_label, FALSE, FALSE, 2);
+    gtk_widget_show(xsane_label);
+
+    gtk_widget_show(hbox);
 
     xsane.xsanemode_widget = xsane_modus_option_menu;
   }
 
-  {
-   GtkWidget *pixmapwidget;
-   GdkBitmap *mask;
-   GdkPixmap *pixmap;
-   GtkWidget *hbox;
-   GtkWidget *xsane_medium_option_menu, *xsane_medium_menu, *xsane_medium_item;
-   const SANE_Option_Descriptor *opt;
-   int i;
 
-
-    /* scanmode */
-    opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.scanmode);
-    if (opt)
-    {
-      if (SANE_OPTION_IS_ACTIVE(opt->cap))
-      {
-        hbox = gtk_hbox_new(FALSE, 2);
-        gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
-        gtk_box_pack_start(GTK_BOX(xsane_vbox_xsane_modus), hbox, FALSE, FALSE, 2);
-
-        pixmap = gdk_pixmap_create_from_xpm_d(xsane.histogram_dialog->window, &mask, xsane.bg_trans, (gchar **) colormode_xpm);
-        pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
-        gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
-        gdk_drawable_unref(pixmap);
-        gtk_widget_show(pixmapwidget);
-
-        switch (opt->constraint_type)
-        {
-          case SANE_CONSTRAINT_STRING_LIST:
-          {
-            char *set;
-            SANE_Status status;
-
-            /* use a "list-selection" widget */
-            set = malloc(opt->size);
-            status = xsane_control_option(xsane.dev, xsane.well_known.scanmode, SANE_ACTION_GET_VALUE, set, 0);
-
-            xsane_option_menu_new(hbox, (char **) opt->constraint.string_list, set, xsane.well_known.scanmode,
-                                  _BGT(opt->desc), xsane_scanmode_menu_callback, SANE_OPTION_IS_SETTABLE(opt->cap), 0);
-          }
-           break;
-
-           default:
-            DBG(DBG_error, "scanmode_selection: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
-        }
-        gtk_widget_show(hbox);
-      }
-    }
-
-
-    /* input selection */
-    opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.scansource);
-    if (opt)
-    {
-      if (SANE_OPTION_IS_ACTIVE(opt->cap))
-      {
-        hbox = gtk_hbox_new(FALSE, 2);
-        gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
-        gtk_box_pack_start(GTK_BOX(xsane_vbox_xsane_modus), hbox, FALSE, FALSE, 2);
-
-        pixmap = gdk_pixmap_create_from_xpm_d(xsane.histogram_dialog->window, &mask, xsane.bg_trans, (gchar **) scanner_xpm);
-        pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
-        gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
-        gdk_drawable_unref(pixmap);
-        gtk_widget_show(pixmapwidget);
-
-        switch (opt->constraint_type)
-        {
-          case SANE_CONSTRAINT_STRING_LIST:
-          {
-           char *set;
-           SANE_Status status;
-
-            /* use a "list-selection" widget */
-            set = malloc(opt->size);
-            status = xsane_control_option(xsane.dev, xsane.well_known.scansource, SANE_ACTION_GET_VALUE, set, 0);
-
-            xsane_option_menu_new(hbox, (char **) opt->constraint.string_list, set, xsane.well_known.scansource,
-                                  _BGT(opt->desc), 0, SANE_OPTION_IS_SETTABLE(opt->cap), 0);
-           }
-           break;
-
-          default:
-            DBG(DBG_error, "scansource_selection: %s %d\n", ERR_UNKNOWN_CONSTRAINT_TYPE, opt->constraint_type);
-        }
-        gtk_widget_show(hbox);
-      }
-    }
-
-
-    if (xsane.param.depth != 1) /* show medium selection of not lineart mode */
-    {
-      /* medium selection */
-      hbox = gtk_hbox_new(FALSE, 2);
-      gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
-      gtk_box_pack_start(GTK_BOX(xsane_vbox_xsane_modus), hbox, FALSE, FALSE, 2);
-
-      if (xsane.medium_calibration)
-      {
-        pixmap = gdk_pixmap_create_from_xpm_d(xsane.histogram_dialog->window, &mask, xsane.bg_trans, (gchar **) medium_edit_xpm);
-      }
-      else
-      {
-        pixmap = gdk_pixmap_create_from_xpm_d(xsane.histogram_dialog->window, &mask, xsane.bg_trans, (gchar **) medium_xpm);
-      }
-      pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
-      gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
-      gdk_drawable_unref(pixmap);
-      gtk_widget_show(pixmapwidget);
-
-      xsane_medium_menu = gtk_menu_new();
-
-      for (i=0; i<preferences.medium_definitions; i++)
-      {
-        xsane_medium_item = gtk_menu_item_new_with_label(preferences.medium[i]->name);
-        gtk_menu_append(GTK_MENU(xsane_medium_menu), xsane_medium_item);
-        g_signal_connect(GTK_OBJECT(xsane_medium_item), "button_press_event", (GtkSignalFunc) xsane_medium_context_menu_callback, (void *) i);
-        g_signal_connect(GTK_OBJECT(xsane_medium_item), "activate", (GtkSignalFunc) xsane_set_medium_callback, (void *) i);
-        gtk_object_set_data(GTK_OBJECT(xsane_medium_item), "Selection", (void *) i);
-
-        gtk_widget_show(xsane_medium_item);
-      }
-
-      gtk_widget_show(xsane_medium_menu);
-
-      xsane_medium_option_menu = gtk_option_menu_new();
-      xsane_back_gtk_set_tooltip(xsane.tooltips, xsane_medium_option_menu, DESC_XSANE_MEDIUM);
-      gtk_box_pack_end(GTK_BOX(hbox), xsane_medium_option_menu, FALSE, FALSE, 2);
-      gtk_option_menu_set_menu(GTK_OPTION_MENU(xsane_medium_option_menu), xsane_medium_menu);
-      gtk_option_menu_set_history(GTK_OPTION_MENU(xsane_medium_option_menu), preferences.medium_nr);
-      gtk_widget_show(xsane_medium_option_menu);
-      gtk_widget_show(hbox);
-
-      xsane.medium_widget = xsane_medium_option_menu;
-
-      if (xsane.medium_calibration) /* are we running in medium calibration mode? */
-      {
-        xsane_apply_medium_definition_as_enhancement(preferences.medium[preferences.medium_nr]);
-        xsane_set_medium(NULL);
-      }
-      else
-      {
-        xsane_set_medium(preferences.medium[preferences.medium_nr]);
-      }
-    }
-    else /* no medium selextion for lineart mode: use Full range gamma curve */
-    {
-      xsane_set_medium(preferences.medium[0]); /* make sure Full range is active */
-    }
-  }
-
-
+#if 0
   if (xsane.xsane_mode == XSANE_SAVE)
+#else
+  if ( (xsane.xsane_mode == XSANE_SAVE) || (xsane.xsane_mode == XSANE_VIEWER) )
+#endif
   {
     xsane.copy_number_entry = NULL;
 
@@ -1505,29 +1331,10 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
       xsane_outputfilename_new(xsane_vbox_xsane_modus); /* create filename box, step and type menu */
     }
   }
-
-  if ( (xsane.xsane_mode == XSANE_SAVE) || (xsane.xsane_mode == XSANE_VIEWER) )
-  {
-    /* resolution selection */
-    if (!xsane_resolution_widget_new(xsane_vbox_xsane_modus, xsane.well_known.dpi_x, &xsane.resolution_x, resolution_x_xpm,
-                                     DESC_RESOLUTION_X, XSANE_GTK_NAME_X_RESOLUTION)) /* draw x resolution widget if possible */
-    {
-      xsane_resolution_widget_new(xsane_vbox_xsane_modus, xsane.well_known.dpi_y, &xsane.resolution_y, resolution_y_xpm,
-                                  DESC_RESOLUTION_Y, XSANE_GTK_NAME_Y_RESOLUTION); /* ok, also draw y resolution widget */
-    }
-    else /* no x resolution, so lets draw common resolution widget */
-    {
-      xsane_resolution_widget_new(xsane_vbox_xsane_modus, xsane.well_known.dpi, &xsane.resolution, resolution_xpm,
-                                  DESC_RESOLUTION, XSANE_GTK_NAME_RESOLUTION); 
-    }
-  }
   else if (xsane.xsane_mode == XSANE_COPY)
   {
-   GtkWidget *pixmapwidget, *hbox, *xsane_printer_option_menu, *xsane_printer_menu, *xsane_printer_item;
-   GdkBitmap *mask;
-   GdkPixmap *pixmap;
+   GtkWidget *xsane_printer_option_menu, *xsane_printer_menu, *xsane_printer_item;
    GtkWidget *paper_orientation_option_menu, *paper_orientation_menu, *paper_orientation_item;
-   int i;
 
     hbox = gtk_hbox_new(FALSE, 2);
     gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
@@ -1664,7 +1471,167 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
     gtk_widget_show(xsane_text);
     gtk_widget_show(hbox);
     xsane.copy_number_entry = xsane_text;
+  }
 
+
+  /* input selection */
+  opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.scansource);
+  if (opt)
+  {
+    if (SANE_OPTION_IS_ACTIVE(opt->cap))
+    {
+      hbox = gtk_hbox_new(FALSE, 2);
+      gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
+      gtk_box_pack_start(GTK_BOX(xsane_vbox_xsane_modus), hbox, FALSE, FALSE, 1);
+
+      pixmap = gdk_pixmap_create_from_xpm_d(xsane.histogram_dialog->window, &mask, xsane.bg_trans, (gchar **) scanner_xpm);
+      pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
+      gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
+      gdk_drawable_unref(pixmap);
+      gtk_widget_show(pixmapwidget);
+
+      switch (opt->constraint_type)
+      {
+        case SANE_CONSTRAINT_STRING_LIST:
+        {
+         char *set;
+         SANE_Status status;
+
+          /* use a "list-selection" widget */
+          set = malloc(opt->size);
+          status = xsane_control_option(xsane.dev, xsane.well_known.scansource, SANE_ACTION_GET_VALUE, set, 0);
+
+          xsane_option_menu_new(hbox, (char **) opt->constraint.string_list, set, xsane.well_known.scansource,
+                                _BGT(opt->desc), 0, SANE_OPTION_IS_SETTABLE(opt->cap), 0);
+         }
+         break;
+
+        default:
+          DBG(DBG_error, "scansource_selection: %s %d\n", ERR_UNKNOWN_CONSTRAINT_TYPE, opt->constraint_type);
+      }
+      gtk_widget_show(hbox);
+    }
+  }
+
+
+  /* scanmode */
+  opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.scanmode);
+  if (opt)
+  {
+    if (SANE_OPTION_IS_ACTIVE(opt->cap))
+    {
+      hbox = gtk_hbox_new(FALSE, 2);
+      gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
+      gtk_box_pack_start(GTK_BOX(xsane_vbox_xsane_modus), hbox, FALSE, FALSE, 1);
+
+      pixmap = gdk_pixmap_create_from_xpm_d(xsane.histogram_dialog->window, &mask, xsane.bg_trans, (gchar **) colormode_xpm);
+      pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
+      gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
+      gdk_drawable_unref(pixmap);
+      gtk_widget_show(pixmapwidget);
+
+      switch (opt->constraint_type)
+      {
+        case SANE_CONSTRAINT_STRING_LIST:
+        {
+          char *set;
+          SANE_Status status;
+
+          /* use a "list-selection" widget */
+          set = malloc(opt->size);
+          status = xsane_control_option(xsane.dev, xsane.well_known.scanmode, SANE_ACTION_GET_VALUE, set, 0);
+
+          xsane_option_menu_new(hbox, (char **) opt->constraint.string_list, set, xsane.well_known.scanmode,
+                                _BGT(opt->desc), xsane_scanmode_menu_callback, SANE_OPTION_IS_SETTABLE(opt->cap), 0);
+        }
+         break;
+
+         default:
+          DBG(DBG_error, "scanmode_selection: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
+      }
+      gtk_widget_show(hbox);
+    }
+  }
+
+
+  if (xsane.param.depth != 1) /* show medium selection of not lineart mode */
+  {
+    /* medium selection */
+    hbox = gtk_hbox_new(FALSE, 2);
+    gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
+    gtk_box_pack_start(GTK_BOX(xsane_vbox_xsane_modus), hbox, FALSE, FALSE, 1);
+
+    if (xsane.medium_calibration)
+    {
+      pixmap = gdk_pixmap_create_from_xpm_d(xsane.histogram_dialog->window, &mask, xsane.bg_trans, (gchar **) medium_edit_xpm);
+    }
+    else
+    {
+      pixmap = gdk_pixmap_create_from_xpm_d(xsane.histogram_dialog->window, &mask, xsane.bg_trans, (gchar **) medium_xpm);
+    }
+    pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
+    gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
+    gdk_drawable_unref(pixmap);
+    gtk_widget_show(pixmapwidget);
+
+    xsane_medium_menu = gtk_menu_new();
+
+    for (i=0; i<preferences.medium_definitions; i++)
+    {
+      xsane_medium_item = gtk_menu_item_new_with_label(preferences.medium[i]->name);
+      gtk_menu_append(GTK_MENU(xsane_medium_menu), xsane_medium_item);
+      g_signal_connect(GTK_OBJECT(xsane_medium_item), "button_press_event", (GtkSignalFunc) xsane_medium_context_menu_callback, (void *) i);
+      g_signal_connect(GTK_OBJECT(xsane_medium_item), "activate", (GtkSignalFunc) xsane_set_medium_callback, (void *) i);
+      gtk_object_set_data(GTK_OBJECT(xsane_medium_item), "Selection", (void *) i);
+
+      gtk_widget_show(xsane_medium_item);
+    }
+
+    gtk_widget_show(xsane_medium_menu);
+
+    xsane_medium_option_menu = gtk_option_menu_new();
+    xsane_back_gtk_set_tooltip(xsane.tooltips, xsane_medium_option_menu, DESC_XSANE_MEDIUM);
+    gtk_box_pack_end(GTK_BOX(hbox), xsane_medium_option_menu, FALSE, FALSE, 2);
+    gtk_option_menu_set_menu(GTK_OPTION_MENU(xsane_medium_option_menu), xsane_medium_menu);
+    gtk_option_menu_set_history(GTK_OPTION_MENU(xsane_medium_option_menu), preferences.medium_nr);
+    gtk_widget_show(xsane_medium_option_menu);
+    gtk_widget_show(hbox);
+
+    xsane.medium_widget = xsane_medium_option_menu;
+
+    if (xsane.medium_calibration) /* are we running in medium calibration mode? */
+    {
+      xsane_apply_medium_definition_as_enhancement(preferences.medium[preferences.medium_nr]);
+      xsane_set_medium(NULL);
+    }
+    else
+    {
+      xsane_set_medium(preferences.medium[preferences.medium_nr]);
+    }
+  }
+  else /* no medium selextion for lineart mode: use Full range gamma curve */
+  {
+    xsane_set_medium(preferences.medium[0]); /* make sure Full range is active */
+  }
+
+
+  if ( (xsane.xsane_mode == XSANE_SAVE) || (xsane.xsane_mode == XSANE_VIEWER) )
+  {
+    /* resolution selection */
+    if (!xsane_resolution_widget_new(xsane_vbox_xsane_modus, xsane.well_known.dpi_x, &xsane.resolution_x, resolution_x_xpm,
+                                     DESC_RESOLUTION_X, XSANE_GTK_NAME_X_RESOLUTION)) /* draw x resolution widget if possible */
+    {
+      xsane_resolution_widget_new(xsane_vbox_xsane_modus, xsane.well_known.dpi_y, &xsane.resolution_y, resolution_y_xpm,
+                                  DESC_RESOLUTION_Y, XSANE_GTK_NAME_Y_RESOLUTION); /* ok, also draw y resolution widget */
+    }
+    else /* no x resolution, so lets draw common resolution widget */
+    {
+      xsane_resolution_widget_new(xsane_vbox_xsane_modus, xsane.well_known.dpi, &xsane.resolution, resolution_xpm,
+                                  DESC_RESOLUTION, XSANE_GTK_NAME_RESOLUTION); 
+    }
+  }
+  else if (xsane.xsane_mode == XSANE_COPY)
+  {
     /* zoom selection */
     if (!xsane_zoom_widget_new(xsane_vbox_xsane_modus, xsane.well_known.dpi_x, &xsane.zoom_x,
                                xsane.resolution_x, zoom_x_xpm, DESC_ZOOM_X))
@@ -1678,19 +1645,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
                             xsane.resolution, zoom_xpm, DESC_ZOOM);
     }
   }
-  else if (xsane.xsane_mode == XSANE_FAX)
-  {
-    xsane.copy_number_entry = NULL;
-
-    xsane.resolution   = 204;
-    xsane.resolution_x = 204;
-    xsane.resolution_y = 196;
-    xsane_set_all_resolutions();
-
-    xsane_fax_dialog();
-  }
-#ifdef XSANE_ACTIVATE_MAIL
-  else if (xsane.xsane_mode == XSANE_MAIL)
+  else if (xsane.xsane_mode == XSANE_MULTIPAGE)
   {
     xsane.copy_number_entry = NULL;
 
@@ -1707,7 +1662,38 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
                                   DESC_RESOLUTION, XSANE_GTK_NAME_RESOLUTION); 
     }
 
-    xsane_mail_dialog();
+    xsane_multipage_dialog();
+  }
+  else if (xsane.xsane_mode == XSANE_FAX)
+  {
+    xsane.copy_number_entry = NULL;
+
+    xsane.resolution   = 204;
+    xsane.resolution_x = 204;
+    xsane.resolution_y = 196;
+    xsane_set_all_resolutions();
+
+    xsane_fax_dialog();
+  }
+#ifdef XSANE_ACTIVATE_EMAIL
+  else if (xsane.xsane_mode == XSANE_EMAIL)
+  {
+    xsane.copy_number_entry = NULL;
+
+    /* resolution selection */
+    if (!xsane_resolution_widget_new(xsane_vbox_xsane_modus, xsane.well_known.dpi_x, &xsane.resolution_x, resolution_x_xpm,
+                                     DESC_RESOLUTION_X, XSANE_GTK_NAME_X_RESOLUTION)) /* draw x resolution widget if possible */
+    {
+      xsane_resolution_widget_new(xsane_vbox_xsane_modus, xsane.well_known.dpi_y, &xsane.resolution_y, resolution_y_xpm,
+                                  DESC_RESOLUTION_Y, XSANE_GTK_NAME_Y_RESOLUTION); /* ok, also draw y resolution widget */
+    }
+    else /* no x resolution, so lets draw common resolution widget */
+    {
+      xsane_resolution_widget_new(xsane_vbox_xsane_modus, xsane.well_known.dpi, &xsane.resolution, resolution_xpm,
+                                  DESC_RESOLUTION, XSANE_GTK_NAME_RESOLUTION); 
+    }
+
+    xsane_email_dialog();
   }
 #endif
 
@@ -2043,52 +2029,57 @@ static int xsane_pref_restore(void)
     preferences.fax_fine_option = strdup(FAXFINEOPT);
   }
 
-#ifdef XSANE_ACTIVATE_MAIL
-  if (!preferences.mail_smtp_server)
+  if (!preferences.fax_viewer)
   {
-    preferences.mail_smtp_server = strdup("");
+    preferences.fax_viewer = strdup(FAXVIEWER);
   }
 
-  if (!preferences.mail_from)
+#ifdef XSANE_ACTIVATE_EMAIL
+  if (!preferences.email_smtp_server)
   {
-    preferences.mail_from = strdup("");
+    preferences.email_smtp_server = strdup("");
   }
 
-  if (!preferences.mail_reply_to)
+  if (!preferences.email_from)
   {
-    preferences.mail_reply_to = strdup("");
+    preferences.email_from = strdup("");
   }
 
-  if (!preferences.mail_pop3_server)
+  if (!preferences.email_reply_to)
   {
-    preferences.mail_pop3_server = strdup("");
+    preferences.email_reply_to = strdup("");
   }
 
-  if (!preferences.mail_pop3_user)
+  if (!preferences.email_pop3_server)
   {
-    preferences.mail_pop3_user = strdup("");
+    preferences.email_pop3_server = strdup("");
   }
 
-  if (!preferences.mail_pop3_pass)
+  if (!preferences.email_pop3_user)
   {
-    preferences.mail_pop3_pass = strdup("");
+    preferences.email_pop3_user = strdup("");
   }
 
-  if (!preferences.mail_project)
+  if (!preferences.email_pop3_pass)
   {
-    preferences.mail_project = strdup(MAILPROJECT);
+    preferences.email_pop3_pass = strdup("");
   }
 
-  if (!preferences.mail_viewer)
+  if (!preferences.email_project)
   {
-    preferences.mail_viewer = strdup(MAILVIEWER);
+    preferences.email_project = strdup(EMAILPROJECT);
   }
 
-  if (!preferences.mail_filetype)
+  if (!preferences.email_filetype)
   {
-    preferences.mail_filetype = strdup(XSANE_DEFAULT_MAILTYPE);
+    preferences.email_filetype = strdup(XSANE_DEFAULT_EMAIL_TYPE);
   }
 #endif
+
+  if (!preferences.multipage_project)
+  {
+    preferences.multipage_project = strdup(MULTIPAGEPROJECT);
+  }
 
   if (!preferences.ocr_command)
   {
@@ -2225,20 +2216,6 @@ static RETSIGTYPE xsane_quit_handler(int signal)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void xsane_add_process_to_list(pid_t pid)
-{
- XsaneChildprocess *newprocess;
- 
-  DBG(DBG_proc, "xsane_add_process_to_list(%d)\n", pid);
- 
-  newprocess = malloc(sizeof(XsaneChildprocess));
-  newprocess->pid = pid;
-  newprocess->next = xsane.childprocess_list;
-  xsane.childprocess_list = newprocess;
-} 
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
 static RETSIGTYPE xsane_sigchld_handler(int signal)
 {
  int status;
@@ -2304,11 +2281,11 @@ static void xsane_quit(void)
     preview_destroy(preview);
   }
 
-#ifdef XSANE_ACTIVATE_MAIL
-  if (xsane.mail_project_save)
+#ifdef XSANE_ACTIVATE_EMAIL
+  if (xsane.email_project_save)
   {
-    xsane.mail_project_save = 0;
-    xsane_mail_project_save();
+    xsane.email_project_save = 0;
+    xsane_email_project_save();
   }
 #endif
 
@@ -2380,6 +2357,12 @@ static gint xsane_standard_option_win_delete(GtkWidget *widget, gpointer data)
 {
   DBG(DBG_proc, "xsane_standard_option_win_delete\n");
 
+  if (preferences.show_standard_options)
+  {
+    xsane_window_get_position(xsane.standard_options_dialog, &xsane.standard_options_dialog_posx, &xsane.standard_options_dialog_posy);
+    gtk_window_move(GTK_WINDOW(xsane.standard_options_dialog), xsane.standard_options_dialog_posx, xsane.standard_options_dialog_posy);
+  }
+
   gtk_widget_hide(widget);
   preferences.show_standard_options = FALSE;
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_standard_options_widget), preferences.show_standard_options);
@@ -2391,6 +2374,12 @@ static gint xsane_standard_option_win_delete(GtkWidget *widget, gpointer data)
 static gint xsane_advanced_option_win_delete(GtkWidget *widget, gpointer data)
 {
   DBG(DBG_proc, "xsane_advanced_option_win_delete\n");
+
+  if (preferences.show_advanced_options)
+  {
+    xsane_window_get_position(xsane.advanced_options_dialog, &xsane.advanced_options_dialog_posx, &xsane.advanced_options_dialog_posy);
+    gtk_window_move(GTK_WINDOW(xsane.advanced_options_dialog), xsane.advanced_options_dialog_posx, xsane.advanced_options_dialog_posy);
+  }
 
   gtk_widget_hide(widget);
   preferences.show_advanced_options = FALSE;
@@ -3409,7 +3398,7 @@ static void xsane_about_dialog(GtkWidget *widget, gpointer data)
                              TEXT_VERSION, XSANE_VERSION,
                              XSANE_COPYRIGHT_SIGN, XSANE_COPYRIGHT_TXT,
                              TEXT_HOMEPAGE, XSANE_HOMEPAGE,
-                             TEXT_EMAIL, XSANE_EMAIL);
+                             TEXT_EMAIL_ADR, XSANE_EMAIL_ADR);
 
   label = gtk_label_new(buf);
   gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0);
@@ -3531,3142 +3520,6 @@ static void xsane_about_translation_dialog(GtkWidget *widget, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static gint xsane_fax_dialog_delete()
-{
- return TRUE;
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_fax_dialog()
-{
- GtkWidget *fax_dialog, *fax_scan_vbox, *fax_project_vbox, *hbox, *fax_project_exists_hbox, *button;
- GtkWidget *scrolled_window, *list;
- char buf[64];
- GtkWidget *pixmapwidget, *text;
- GdkBitmap *mask;
- GdkPixmap *pixmap;
-
-  DBG(DBG_proc, "xsane_fax_dialog\n");
-
-  if (xsane.fax_dialog) 
-  {
-    return; /* window already is open */
-  }
-
-  /* GTK_WINDOW_TOPLEVEL looks better but does not place it nice*/
-  fax_dialog = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-
-  snprintf(buf, sizeof(buf), "%s %s", xsane.prog_name, WINDOW_FAX_PROJECT);
-  gtk_window_set_title(GTK_WINDOW(fax_dialog), buf);
-  g_signal_connect(GTK_OBJECT(fax_dialog), "delete_event", (GtkSignalFunc) xsane_fax_dialog_delete, NULL);
-  xsane_set_window_icon(fax_dialog, 0);
-  gtk_window_add_accel_group(GTK_WINDOW(fax_dialog), xsane.accelerator_group); 
-
-  /* set the main vbox */
-  fax_scan_vbox = gtk_vbox_new(FALSE, 0);
-  gtk_container_set_border_width(GTK_CONTAINER(fax_scan_vbox), 0);
-  gtk_container_add(GTK_CONTAINER(fax_dialog), fax_scan_vbox);
-  gtk_widget_show(fax_scan_vbox);
-
-  /* fax project */
-
-  hbox = gtk_hbox_new(FALSE, 2);
-  gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
-  gtk_box_pack_start(GTK_BOX(fax_scan_vbox), hbox, FALSE, FALSE, 2);
-
-  pixmap = gdk_pixmap_create_from_xpm_d(xsane.shell->window, &mask, xsane.bg_trans, (gchar **) fax_xpm);
-  pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
-  gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
-  gdk_drawable_unref(pixmap);
-
-  text = gtk_entry_new();
-  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_FAXPROJECT);
-  gtk_entry_set_max_length(GTK_ENTRY(text), 128);
-  gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.fax_project);
-  gtk_box_pack_start(GTK_BOX(hbox), text, TRUE, TRUE, 4);
-  g_signal_connect(GTK_OBJECT(text), "changed", (GtkSignalFunc) xsane_fax_project_changed_callback, NULL);
-
-  xsane.fax_project_entry = text;
-  xsane.fax_project_entry_box = hbox;
-
-  gtk_widget_show(pixmapwidget);
-  gtk_widget_show(text);
-  gtk_widget_show(hbox);
-
-  fax_project_vbox = gtk_vbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(fax_scan_vbox), fax_project_vbox, TRUE, TRUE, 0);
-  gtk_widget_show(fax_project_vbox);
-
-  /* fax receiver */
-
-  hbox = gtk_hbox_new(FALSE, 2);
-  gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
-  gtk_box_pack_start(GTK_BOX(fax_project_vbox), hbox, FALSE, FALSE, 2);
-
-  gtk_widget_realize(fax_dialog);
-
-  pixmap = gdk_pixmap_create_from_xpm_d(fax_dialog->window, &mask, xsane.bg_trans, (gchar **) faxreceiver_xpm);
-  pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
-  gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
-  gdk_drawable_unref(pixmap);
-
-  text = gtk_entry_new();
-  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_FAXRECEIVER);
-  gtk_entry_set_max_length(GTK_ENTRY(text), 128);
-  gtk_box_pack_start(GTK_BOX(hbox), text, TRUE, TRUE, 4);
-  g_signal_connect(GTK_OBJECT(text), "changed", (GtkSignalFunc) xsane_fax_receiver_changed_callback, NULL);
-
-  xsane.fax_receiver_entry = text;
-
-  gtk_widget_show(pixmapwidget);
-  gtk_widget_show(text);
-  gtk_widget_show(hbox);
-
-  /* fine mode */
-  button = gtk_check_button_new_with_label(RADIO_BUTTON_FINE_MODE);
-  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_FAX_FINE_MODE);
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), preferences.fax_fine_mode);
-  gtk_box_pack_start(GTK_BOX(fax_project_vbox), button, FALSE, FALSE, 2);
-  gtk_widget_show(button);
-  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_fax_fine_mode_callback, NULL);
-
-
-  scrolled_window = gtk_scrolled_window_new(0, 0);
-  gtk_widget_set_size_request(scrolled_window, 200, 100);
-  gtk_container_add(GTK_CONTAINER(fax_project_vbox), scrolled_window);
-  gtk_widget_show(scrolled_window);
-
-  list = gtk_list_new();
-/*  gtk_list_set_selection_mode(list, GTK_SELECTION_BROWSE); */
-
-  gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolled_window), list);
-
-  gtk_widget_show(list);
-
-  xsane.fax_list = list;
-
-
-  hbox = gtk_hbox_new(FALSE, 2);
-  gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
-  gtk_box_pack_start(GTK_BOX(fax_project_vbox), hbox, FALSE, FALSE, 2);
-
-  button = gtk_button_new_with_label(BUTTON_FILE_INSERT);
-  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_fax_entry_insert_callback, list);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
-  gtk_widget_show(button);
-
-  button = gtk_button_new_with_label(BUTTON_PAGE_SHOW);
-  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_fax_show_callback, list);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
-  gtk_widget_show(button);
-
-  button = gtk_button_new_with_label(BUTTON_PAGE_RENAME);
-  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_fax_entry_rename_callback, list);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
-  gtk_widget_show(button);
-
-  button = gtk_button_new_with_label(BUTTON_PAGE_DELETE);
-  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_fax_entry_delete_callback, list);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
-  gtk_widget_show(button);
-
-  xsane_button_new_with_pixmap(fax_dialog->window, hbox, move_up_xpm,   0, (GtkSignalFunc) xsane_fax_entry_move_up_callback,   list);
-  xsane_button_new_with_pixmap(fax_dialog->window, hbox, move_down_xpm, 0, (GtkSignalFunc) xsane_fax_entry_move_down_callback, list);
-
-  gtk_widget_show(hbox);
-
-  xsane.fax_project_box = fax_project_vbox;
-
-  /* set the main hbox */
-  hbox = gtk_hbox_new(FALSE, 0);
-  xsane_separator_new(fax_project_vbox, 2);
-  gtk_box_pack_end(GTK_BOX(fax_scan_vbox), hbox, FALSE, FALSE, 5);
-  gtk_container_set_border_width(GTK_CONTAINER(hbox), 5);
-  gtk_widget_show(hbox);     
-
-
-  fax_project_exists_hbox = gtk_hbox_new(FALSE, 2);
-  gtk_box_pack_start(GTK_BOX(hbox), fax_project_exists_hbox, TRUE, TRUE, 0);
-
-  button = gtk_button_new_with_label(BUTTON_SEND_PROJECT);
-  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_fax_send, NULL);
-  gtk_box_pack_start(GTK_BOX(fax_project_exists_hbox), button, TRUE, TRUE, 0);
-  gtk_widget_show(button);
-
-  button = gtk_button_new_with_label(BUTTON_DELETE_PROJECT);
-  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_fax_project_delete, NULL);
-  gtk_box_pack_start(GTK_BOX(fax_project_exists_hbox), button, TRUE, TRUE, 0);
-  gtk_widget_show(button);
-
-  gtk_widget_show(fax_project_exists_hbox);
-  xsane.fax_project_exists = fax_project_exists_hbox;
-
-  button = gtk_button_new_with_label(BUTTON_CREATE_PROJECT);
-  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_fax_project_create, NULL);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
-  xsane.fax_project_not_exists = button;
-
-  /* progress bar */
-  xsane.fax_progress_bar = (GtkProgressBar *) gtk_progress_bar_new();
-  gtk_box_pack_start(GTK_BOX(fax_scan_vbox), (GtkWidget *) xsane.fax_progress_bar, FALSE, FALSE, 0);
-  gtk_progress_set_show_text(GTK_PROGRESS(xsane.fax_progress_bar), TRUE);
-  gtk_progress_set_format_string(GTK_PROGRESS(xsane.fax_progress_bar), "");
-  gtk_widget_show(GTK_WIDGET(xsane.fax_progress_bar));
-
-
-  xsane.fax_dialog = fax_dialog;
-
-  xsane_fax_project_load();
-
-  gtk_widget_show(fax_dialog);
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_fax_dialog_close()
-{
-  DBG(DBG_proc, "xsane_fax_dialog_close\n");
-
-  if (xsane.fax_dialog == NULL)
-  {
-    return;
-  }
-
-  gtk_widget_destroy(xsane.fax_dialog);
-
-  xsane.fax_dialog = NULL;
-  xsane.fax_list = NULL;
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_fax_project_load()
-{
- FILE *projectfile;
- char page[256];
- char filename[PATH_MAX];
- GtkWidget *list_item;
- int i;
- int c;
-
-  DBG(DBG_proc, "xsane_fax_project_load\n");
-
-  if (xsane.fax_status)
-  {
-    free(xsane.fax_status);
-    xsane.fax_status = NULL;
-  }
-
-  if (xsane.fax_receiver)
-  {
-    free(xsane.fax_receiver);
-    xsane.fax_receiver = NULL;
-  }
-
-  g_signal_handlers_disconnect_by_func(GTK_OBJECT(xsane.fax_receiver_entry), GTK_SIGNAL_FUNC(xsane_fax_receiver_changed_callback), 0);
-  gtk_list_remove_items(GTK_LIST(xsane.fax_list), GTK_LIST(xsane.fax_list)->children);
-
-  snprintf(filename, sizeof(filename), "%s/xsane-fax-list", preferences.fax_project);
-  projectfile = fopen(filename, "rb"); /* read binary (b for win32) */
-
-  if ((!projectfile) || (feof(projectfile)))
-  {
-    xsane.fax_status=strdup(TEXT_FAX_STATUS_NOT_CREATED);
-
-    snprintf(filename, sizeof(filename), "%s/page-1.pnm", preferences.fax_project);
-    xsane.fax_filename=strdup(filename);
-    xsane_update_counter_in_filename(&xsane.fax_filename, FALSE, 0, preferences.filename_counter_len); /* correct counter len */
-
-    xsane.fax_receiver=strdup("");
-    gtk_entry_set_text(GTK_ENTRY(xsane.fax_receiver_entry), (char *) xsane.fax_receiver);
-
-    gtk_widget_set_sensitive(xsane.fax_project_box, FALSE);
-    gtk_widget_hide(xsane.fax_project_exists);
-    gtk_widget_show(xsane.fax_project_not_exists);
-    gtk_widget_set_sensitive(GTK_WIDGET(xsane.start_button), FALSE); 
-  }
-  else
-  {
-    i=0;
-    c=0;
-    while ((i<255) && (c != 10) && (c != EOF)) /* first line is receiver phone number or address */
-    {
-      c = fgetc(projectfile);
-      page[i++] = c;
-    }
-    page[i-1] = 0;
-    if (strchr(page, '@'))
-    {
-      *strchr(page, '@') = 0;
-    }
-    xsane.fax_status = strdup(page);
-
-    i=0;
-    c=0;
-    while ((i<255) && (c != 10) && (c != EOF)) /* first line is receiver phone number or address */
-    {
-      c = fgetc(projectfile);
-      page[i++] = c;
-    }
-    page[i-1] = 0;
-
-    xsane.fax_receiver=strdup(page);
-    gtk_entry_set_text(GTK_ENTRY(xsane.fax_receiver_entry), (char *) xsane.fax_receiver);
-
-
-    i=0;
-    c=0;
-    while ((i<255) && (c != 10) && (c != EOF)) /* second line is next fax filename */
-    {
-      c = fgetc(projectfile);
-      page[i++] = c;
-    }
-    page[i-1] = 0;
-
-    snprintf(filename, sizeof(filename), "%s/%s", preferences.fax_project, page);
-    xsane.fax_filename=strdup(filename);
-
-    while (!feof(projectfile))
-    {
-      i=0;
-      c=0;
-
-      while ((i<255) && (c != 10) && (c != EOF))
-      {
-        c = fgetc(projectfile);
-        page[i++] = c;
-      }
-      page[i-1]=0;
-
-      if (c > 1)
-      {
-       char *type;
-       char *extension;
-
-        extension = strrchr(page, '.');
-        if (extension)
-        {
-          type = strdup(extension);
-          *extension = 0;
-        }
-        else
-        {
-          type = strdup("");
-        }
-
-        list_item = gtk_list_item_new_with_label(page);
-        gtk_object_set_data(GTK_OBJECT(list_item), "list_item_data", strdup(page));
-        gtk_object_set_data(GTK_OBJECT(list_item), "list_item_type", strdup(type));
-        gtk_container_add(GTK_CONTAINER(xsane.fax_list), list_item);
-        gtk_widget_show(list_item);
-      }
-    }
-    gtk_widget_set_sensitive(xsane.fax_project_box, TRUE);
-    gtk_widget_show(xsane.fax_project_exists);
-    gtk_widget_hide(xsane.fax_project_not_exists);
-    gtk_widget_set_sensitive(GTK_WIDGET(xsane.start_button), TRUE); 
-  }
-
-  if (projectfile)
-  {
-    fclose(projectfile);
-  }
-
-  g_signal_connect(GTK_OBJECT(xsane.fax_receiver_entry), "changed", (GtkSignalFunc) xsane_fax_receiver_changed_callback, NULL);
-
-  gtk_progress_set_format_string(GTK_PROGRESS(xsane.fax_progress_bar), _(xsane.fax_status));
-  gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.fax_progress_bar), 0.0);
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_fax_project_delete()
-{
- char *page;
- char file[256];
- GList *list = (GList *) GTK_LIST(xsane.fax_list)->children;
- GtkObject *list_item;
-
-  DBG(DBG_proc, "xsane_fax_project_delete\n");
-
-  while (list)
-  {
-    list_item = GTK_OBJECT(list->data);
-    page = strdup((char *) gtk_object_get_data(list_item, "list_item_data"));
-    xsane_convert_text_to_filename(&page);
-    snprintf(file, sizeof(file), "%s/%s.pnm", preferences.fax_project, page);
-    free(page);
-    remove(file);
-    list = list->next;
-  }
-  snprintf(file, sizeof(file), "%s/xsane-fax-list", preferences.fax_project);
-  remove(file);
-  snprintf(file, sizeof(file), "%s", preferences.fax_project);
-  rmdir(file);
-
-  xsane_fax_project_load();
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_fax_project_update_project_status()
-{
- FILE *projectfile;
- char filename[PATH_MAX];
- char buf[256];
-
-  snprintf(filename, sizeof(filename), "%s/xsane-fax-list", preferences.fax_project);
-  projectfile = fopen(filename, "r+b"); /* r+ = read and write, position = start of file */
-
-  snprintf(buf, 32, "%s@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", xsane.fax_status); /* fill 32 characters status line */
-  fprintf(projectfile, "%s\n", buf); /* first line is status of mail */
-
-  fclose(projectfile);
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-void xsane_fax_project_save()
-{
- FILE *projectfile;
- char *page;
- char *type;
- char filename[256];
- GList *list = (GList *) GTK_LIST(xsane.fax_list)->children;
- GtkObject *list_item;
-
-  DBG(DBG_proc, "xsane_fax_project_save\n");
-
-  umask((mode_t) preferences.directory_umask); /* define new file permissions */    
-  mkdir(preferences.fax_project, 0777); /* make sure directory exists */
-
-  snprintf(filename, sizeof(filename), "%s/xsane-fax-list", preferences.fax_project);
-
-  if (xsane_create_secure_file(filename)) /* remove possibly existing symbolic links for security
-*/
-  {
-   char buf[256];
-
-    snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_CREATE_SECURE_FILE, filename);
-    xsane_back_gtk_error(buf, TRUE);
-   return; /* error */
-  }
-  projectfile = fopen(filename, "wb"); /* write binary (b for win32) */
-
-  if (!projectfile)
-  {
-    xsane_back_gtk_error(ERR_CREATE_FAX_PROJECT, TRUE);
-
-   return;
-  }
-
-  if (xsane.fax_status)
-  {
-   char buf[256];
-
-    snprintf(buf, 32, "%s@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", xsane.fax_status); /* fill 32 characters status line */
-    fprintf(projectfile, "%s\n", buf); /* first line is status of mail */
-    gtk_progress_set_format_string(GTK_PROGRESS(xsane.fax_progress_bar), _(xsane.fax_status));
-    gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.fax_progress_bar), 0.0);
-  }
-  else
-  {
-    fprintf(projectfile, "                                \n"); /* no mail status */
-    gtk_progress_set_format_string(GTK_PROGRESS(xsane.fax_progress_bar), "");
-    gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.fax_progress_bar), 0.0);
-  }
-
-  if (xsane.fax_receiver)
-  {
-    fprintf(projectfile, "%s\n", xsane.fax_receiver); /* first line is receiver phone number or address */
-  }
-  else
-  {
-    fprintf(projectfile, "\n");
-  }
-
-  if (xsane.fax_filename)
-  {
-    fprintf(projectfile, "%s\n", strrchr(xsane.fax_filename, '/')+1); /* second line is next fax filename */
-  }
-  else
-  {
-    fprintf(projectfile, "\n");
-  }
-
-
-  while (list)
-  {
-    list_item = GTK_OBJECT(list->data);
-    page = (char *) gtk_object_get_data(list_item, "list_item_data");
-    type = (char *) gtk_object_get_data(list_item, "list_item_type");
-    fprintf(projectfile, "%s%s\n", page, type);
-    list = list->next;
-  }
-  fclose(projectfile);
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_fax_project_create()
-{
-  DBG(DBG_proc, "xsane_fax_project_create\n");
-
-  if (strlen(preferences.fax_project))
-  {
-    if (xsane.fax_status)
-    {
-      free(xsane.fax_status);
-    }
-    xsane.fax_status = strdup(TEXT_FAX_STATUS_CREATED);
-    xsane_fax_project_save();
-    xsane_fax_project_load();
-  }
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_fax_receiver_changed_callback(GtkWidget *widget, gpointer data)
-{
-  DBG(DBG_proc, "xsane_fax_receiver_changed_callback\n");
-
-  if (xsane.fax_status)
-  {
-    free(xsane.fax_status);
-  }
-  xsane.fax_status = strdup(TEXT_FAX_STATUS_CHANGED);
-
-  if (xsane.fax_receiver)
-  {
-    free((void *) xsane.fax_receiver);
-  }
-  xsane.fax_receiver = strdup(gtk_entry_get_text(GTK_ENTRY(widget)));
-
-  xsane_fax_project_save();
-
-  gtk_progress_set_format_string(GTK_PROGRESS(xsane.fax_progress_bar), _(xsane.fax_status));
-  gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.fax_progress_bar), 0.0);
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_fax_project_changed_callback(GtkWidget *widget, gpointer data)
-{
-  DBG(DBG_proc, "xsane_fax_project_changed_callback\n");
-
-  if (preferences.fax_project)
-  {
-    free((void *) preferences.fax_project);
-  }
-  preferences.fax_project = strdup(gtk_entry_get_text(GTK_ENTRY(widget)));
-
-  xsane_fax_project_load();
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_fax_fine_mode_callback(GtkWidget * widget)
-{
-  DBG(DBG_proc, "xsane_fax_fine_mode_callback\n");
-
-  preferences.fax_fine_mode = (GTK_TOGGLE_BUTTON(widget)->active != 0);
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_list_entrys_swap(GtkWidget *list_item_1, GtkWidget *list_item_2)
-{
- char *page1;
- char *page2;
- char *type1;
- char *type2;
-
-  DBG(DBG_proc, "xsane_list_entrys_swap\n");
-
-  page1 = (char *) gtk_object_get_data(GTK_OBJECT(list_item_1), "list_item_data");
-  type1 = (char *) gtk_object_get_data(GTK_OBJECT(list_item_1), "list_item_type");
-  page2 = (char *) gtk_object_get_data(GTK_OBJECT(list_item_2), "list_item_data");
-  type2 = (char *) gtk_object_get_data(GTK_OBJECT(list_item_2), "list_item_type");
-
-  gtk_label_set(GTK_LABEL(gtk_container_children(GTK_CONTAINER(list_item_1))->data), page2);
-  gtk_label_set(GTK_LABEL(gtk_container_children(GTK_CONTAINER(list_item_2))->data), page1);
-  gtk_object_set_data(GTK_OBJECT(list_item_1), "list_item_data", page2);
-  gtk_object_set_data(GTK_OBJECT(list_item_1), "list_item_type", type2);
-  gtk_object_set_data(GTK_OBJECT(list_item_2), "list_item_data", page1);
-  gtk_object_set_data(GTK_OBJECT(list_item_2), "list_item_type", type1);
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_fax_entry_move_up_callback(GtkWidget *widget, gpointer list)
-{
- GList *select;
- GList *item = GTK_LIST(list)->children;
- GtkWidget *list_item_1;
- GtkWidget *list_item_2;
- int position;
- int newpos;
-
-  DBG(DBG_proc, "xsane_fax_entry_move_up\n");
-
-  select = GTK_LIST(list)->selection;
-  if (select)
-  {
-    list_item_1 = select->data;
-
-    position = gtk_list_child_position(GTK_LIST(list), list_item_1);
-    position--; /* move up */
-    newpos = position;
-
-    if (position >= 0)
-    {
-      while (position>0)
-      {
-        item = item->next;
-        position--;
-      }
-
-      list_item_2 = item->data;
-      if (list_item_2)
-      {
-        xsane_list_entrys_swap(list_item_1, list_item_2);
-        gtk_list_select_item(GTK_LIST(list), newpos);
-        xsane_fax_project_save();
-      }
-    }
-  }
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_fax_entry_move_down_callback(GtkWidget *widget, gpointer list)
-{
- GList *select;
- GList *item = GTK_LIST(list)->children;
- GtkWidget *list_item_1;
- GtkWidget *list_item_2;
- int position;
- int newpos;
-
-  DBG(DBG_proc, "xsane_fax_entry_move_down\n");
-
-  select = GTK_LIST(list)->selection;
-  if (select)
-  {
-    list_item_1 = select->data;
-
-    position = gtk_list_child_position(GTK_LIST(list), list_item_1);
-    position++; /* move down */
-    newpos = position;
-
-    while ((position>0) && (item))
-    {
-      item = item->next;
-      position--;
-    }
-
-    if (item)
-    {
-      list_item_2 = item->data;
-      if (list_item_2)
-      {
-        xsane_list_entrys_swap(list_item_1, list_item_2);
-        gtk_list_select_item(GTK_LIST(list), newpos);
-        xsane_fax_project_save();
-      }
-    }
-  }
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-int xsane_fax_entry_rename;
-
-static void xsane_fax_entry_rename_button_callback(GtkWidget *widget, gpointer data)
-{
-  DBG(DBG_proc, "xsane_fax_entry_rename\n");
-
-  xsane_fax_entry_rename = (int) data;
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_fax_entry_rename_callback(GtkWidget *widget, gpointer list)
-{
- GtkWidget *list_item;
- GList *select;
- char *oldpage;
- char *newpage;
- char *type;
- char oldfile[256];
- char newfile[256];
-
-  DBG(DBG_proc, "xsane_fax_entry_rename_callback\n");
-
-  select = GTK_LIST(list)->selection;
-  if (select)
-  {
-   GtkWidget *rename_dialog;
-   GtkWidget *text;
-   GtkWidget *button;
-   GtkWidget *vbox, *hbox;
-   char filename[PATH_MAX]; 
-
-    list_item = select->data;
-    oldpage = strdup((char *) gtk_object_get_data(GTK_OBJECT(list_item), "list_item_data"));
-    type    = strdup((char *) gtk_object_get_data(GTK_OBJECT(list_item), "list_item_type"));
-
-    xsane_set_sensitivity(FALSE);
-
-    rename_dialog = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    xsane_set_window_icon(rename_dialog, 0);
-
-    /* set the main vbox */
-    vbox = gtk_vbox_new(FALSE, 0);
-    gtk_container_set_border_width(GTK_CONTAINER(vbox), 0);
-    gtk_container_add(GTK_CONTAINER(rename_dialog), vbox);
-    gtk_widget_show(vbox);
-
-    /* set the main hbox */
-    hbox = gtk_hbox_new(FALSE, 0);
-    xsane_separator_new(vbox, 2);
-    gtk_box_pack_end(GTK_BOX(vbox), hbox, FALSE, FALSE, 5);
-    gtk_container_set_border_width(GTK_CONTAINER(hbox), 5);
-    gtk_widget_show(hbox); 
-
-    gtk_window_set_position(GTK_WINDOW(rename_dialog), GTK_WIN_POS_CENTER);
-    gtk_window_set_resizable(GTK_WINDOW(rename_dialog), FALSE);
-    snprintf(filename, sizeof(filename), "%s %s", xsane.prog_name, WINDOW_FAX_RENAME);
-    gtk_window_set_title(GTK_WINDOW(rename_dialog), filename);
-    g_signal_connect(GTK_OBJECT(rename_dialog), "delete_event", (GtkSignalFunc) xsane_fax_entry_rename_button_callback,(void *) -1);
-    gtk_widget_show(rename_dialog);
-
-    text = gtk_entry_new();
-    xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_FAXPAGENAME);
-    gtk_entry_set_max_length(GTK_ENTRY(text), 64);
-    gtk_entry_set_text(GTK_ENTRY(text), oldpage);
-    gtk_widget_set_size_request(text, 300, -1);
-    gtk_box_pack_start(GTK_BOX(vbox), text, TRUE, TRUE, 4);
-    gtk_widget_show(text);
-
-
-#ifdef HAVE_GTK2
-    button = gtk_button_new_from_stock(GTK_STOCK_OK);
-#else
-    button = gtk_button_new_with_label(BUTTON_OK);
-#endif
-    g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_fax_entry_rename_button_callback, (void *) 1);
-    gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
-    gtk_widget_show(button);
-
-#ifdef HAVE_GTK2
-  button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
-#else
-  button = gtk_button_new_with_label(BUTTON_CANCEL);
-#endif
-    g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_fax_entry_rename_button_callback, (void *) -1);
-    gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
-    gtk_widget_show(button);
-
-
-    xsane_fax_entry_rename = 0;
-
-    while (xsane_fax_entry_rename == 0)
-    {
-      while (gtk_events_pending())
-      {
-        gtk_main_iteration();
-      }
-    }
-
-    newpage = strdup(gtk_entry_get_text(GTK_ENTRY(text)));
-
-    if (xsane_fax_entry_rename == 1)
-    {
-      gtk_label_set(GTK_LABEL(gtk_container_children(GTK_CONTAINER(list_item))->data), newpage);
-      gtk_object_set_data(GTK_OBJECT(list_item), "list_item_data", strdup(newpage));
-
-      xsane_convert_text_to_filename(&oldpage);
-      xsane_convert_text_to_filename(&newpage);
-      snprintf(oldfile, sizeof(oldfile), "%s/%s%s", preferences.fax_project, oldpage, type);
-      snprintf(newfile, sizeof(newfile), "%s/%s%s", preferences.fax_project, newpage, type);
-
-      rename(oldfile, newfile);
-
-      xsane_fax_project_save();
-    }
-
-    free(oldpage);
-    free(newpage);
-    free(type);
-
-    gtk_widget_destroy(rename_dialog);
-
-    xsane_set_sensitivity(TRUE);
-  }
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_fax_entry_insert_callback(GtkWidget *widget, gpointer list)
-{
- GtkWidget *list_item;
- char filename[PATH_MAX];
- char windowname[255];
-
-  DBG(DBG_proc, "xsane_fax_entry_insert_callback\n");
-
-  xsane_set_sensitivity(FALSE);
-
-  snprintf(windowname, sizeof(windowname), "%s %s %s", xsane.prog_name, WINDOW_FAX_INSERT, preferences.fax_project);
-  filename[0] = 0;
-
-  umask((mode_t) preferences.directory_umask); /* define new file permissions */    
-
-  if (!xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, NULL, TRUE, FALSE, FALSE, FALSE)) /* filename is selected */
-  {
-   FILE *sourcefile;
- 
-    sourcefile = fopen(filename, "rb"); /* read binary (b for win32) */
-    if (sourcefile) /* file exists */
-    {
-     char buf[1024];
-
-      fgets(buf, sizeof(buf), sourcefile);
-
-      if (!strncmp("%!PS", buf, 4))
-      {
-       FILE *destfile;
-       char destpath[PATH_MAX];
-       char *destfilename;
-       char *destfiletype;
-       char *extension;
-
-        destfilename = strdup(strrchr(filename, '/')+1);
-        extension = strrchr(destfilename, '.');
-        if (extension)
-        {
-          destfiletype = strdup(extension);
-          *extension = 0;
-        }
-        else
-        {
-          destfiletype = strdup("");
-        }
-        
-        snprintf(destpath, sizeof(destpath), "%s/%s%s", preferences.fax_project, destfilename, destfiletype);
-        /* copy file to project directory */
-        if (xsane_create_secure_file(destpath)) /* remove possibly existing symbolic links for security
-*/
-        {
-          fclose(sourcefile);
-          snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_CREATE_SECURE_FILE, destpath);
-          xsane_back_gtk_error(buf, TRUE);
-         return; /* error */
-        }
-
-        destfile = fopen(destpath, "wb"); /* write binary (b for win32) */
-
-        if (destfile) /* file is created */
-        {
-          fprintf(destfile, "%s\n", buf);
-
-          while (!feof(sourcefile))
-          {
-            fgets(buf, sizeof(buf), sourcefile);
-            fprintf(destfile, "%s", buf);
-          }
-
-          fclose(destfile);
-
-
-          /* add filename to fax page list */
-          list_item = gtk_list_item_new_with_label(destfilename);
-          gtk_object_set_data(GTK_OBJECT(list_item), "list_item_data", strdup(destfilename));
-          gtk_object_set_data(GTK_OBJECT(list_item), "list_item_type", strdup(destfiletype));
-          gtk_container_add(GTK_CONTAINER(xsane.fax_list), list_item);
-          gtk_widget_show(list_item);
-
-          xsane_update_counter_in_filename(&xsane.fax_filename, TRUE, 1, preferences.filename_counter_len);
-          xsane_fax_project_save();
-          free(destfilename);
-        }
-        else /* file could not be created */
-        {
-          snprintf(buf, sizeof(buf), "%s %s", ERR_OPEN_FAILED, filename);
-          xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
-        }
-      }
-      else
-      {
-        snprintf(buf, sizeof(buf), ERR_FILE_NOT_POSTSCRIPT, filename);
-        xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
-      }
-
-      fclose(sourcefile);
-    } 
-    else
-    {
-     char buf[256];
-      snprintf(buf, sizeof(buf), ERR_FILE_NOT_EXISTS, filename);
-      xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
-    }
-  }
-
-  umask(XSANE_DEFAULT_UMASK); /* define new file permissions */    
-
-  xsane_set_sensitivity(TRUE);
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_fax_entry_delete_callback(GtkWidget *widget, gpointer list)
-{
- GtkObject *list_item;
- GList *select;
- char *page;
- char *type;
- char filename[PATH_MAX];
-
-  DBG(DBG_proc, "xsane_fax_entry_delete_callback\n");
-
-  select = GTK_LIST(list)->selection;
-  if (select)
-  {
-    list_item = GTK_OBJECT(select->data);
-    page = strdup((char *) gtk_object_get_data(list_item, "list_item_data"));
-    type = strdup((char *) gtk_object_get_data(list_item, "list_item_type"));
-    xsane_convert_text_to_filename(&page);
-    snprintf(filename, sizeof(filename), "%s/%s%s", preferences.fax_project, page, type);
-    free(page);
-    free(type);
-    remove(filename);
-    gtk_widget_destroy(GTK_WIDGET(list_item));
-    xsane_fax_project_save();
-  }
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_fax_show_callback(GtkWidget *widget, gpointer list)
-{
- GtkObject *list_item;
- GList *select;
- char *page;
- char *type;
- char filename[256];
-
-  DBG(DBG_proc, "xsane_fax_entry_show_callback\n");
-
-  select = GTK_LIST(list)->selection;
-  if (select)
-  {
-    list_item = GTK_OBJECT(select->data);
-    page = strdup((char *) gtk_object_get_data(list_item, "list_item_data"));
-    type = strdup((char *) gtk_object_get_data(list_item, "list_item_type"));
-    xsane_convert_text_to_filename(&page);
-    snprintf(filename, sizeof(filename), "%s/%s%s", preferences.fax_project, page, type);
-
-    if (!strncmp(type, ".pnm", 4))
-    {
-      /* when we do not allow any modification then we can work with the original file */
-      /* so we do not have to copy the image into a dummy file here! */
-
-      xsane_viewer_new(filename, FALSE, filename, VIEWER_NO_MODIFICATION);
-    }
-    else if (!strncmp(type, ".ps", 3))
-    {
-     char *arg[100];
-     int argnr;
-     pid_t pid;
-
-      argnr = xsane_parse_options(preferences.fax_viewer, arg);
-      arg[argnr++] = filename;
-      arg[argnr] = 0;
-
-      pid = fork();
-
-      if (pid == 0) /* new process */
-      {
-       FILE *ipc_file = NULL;
-
-        if (xsane.ipc_pipefd[0])
-        {
-          close(xsane.ipc_pipefd[0]); /* close reading end of pipe */
-          ipc_file = fdopen(xsane.ipc_pipefd[1], "w");
-        }
-
-        DBG(DBG_info, "trying to change user id fo new subprocess:\n");
-        DBG(DBG_info, "old effective uid = %d\n", (int) geteuid());
-        setuid(getuid());
-        DBG(DBG_info, "new effective uid = %d\n", (int) geteuid());
-
-        execvp(arg[0], arg); /* does not return if successfully */
-        DBG(DBG_error, "%s %s\n", ERR_FAILED_EXEC_FAX_VIEWER, preferences.fax_viewer);
-
-        /* send error message via IPC pipe to parent process */
-        if (ipc_file)
-        {
-          fprintf(ipc_file, "%s %s:\n%s", ERR_FAILED_EXEC_FAX_VIEWER, preferences.fax_viewer, strerror(errno));
-          fflush(ipc_file); /* make sure message is displayed */
-          fclose(ipc_file);
-        }
-
-        _exit(0); /* do not use exit() here! otherwise gtk gets in trouble */
-      }
-      else /* parent process */
-      {
-        xsane_add_process_to_list(pid); /* add pid to child process list */
-      }
-    }
-
-    free(page);
-    free(type);
-  }
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static int xsane_fax_convert_pnm_to_ps(char *source_filename, char *fax_filename)
-{
- FILE *outfile;
- FILE *infile;
- Image_info image_info;
- char buf[256];
- int cancel_save;
-
-  /* open progressbar */
-  snprintf(buf, sizeof(buf), "%s - %s", PROGRESS_CONVERTING_DATA, source_filename);
-  gtk_progress_set_format_string(GTK_PROGRESS(xsane.fax_progress_bar), buf);
-  gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.fax_progress_bar), 0.0);
-
-  while (gtk_events_pending())
-  {
-    DBG(DBG_info, "calling gtk_main_iteration\n");
-    gtk_main_iteration();
-  }
-
-  infile = fopen(source_filename, "rb"); /* read binary (b for win32) */
-  if (infile != 0)
-  {
-    xsane_read_pnm_header(infile, &image_info);
-
-    umask((mode_t) preferences.image_umask); /* define image file permissions */   
-    outfile = fopen(fax_filename, "wb"); /* b = binary mode for win32 */
-    umask(XSANE_DEFAULT_UMASK); /* define new file permissions */   
-    if (outfile != 0)
-    {
-     float imagewidth, imageheight;
-
-      imagewidth  = 72.0 * image_info.image_width /image_info.resolution_x; /* width in 1/72 inch */
-      imageheight = 72.0 * image_info.image_height/image_info.resolution_y; /* height in 1/72 inch */
-
-      DBG(DBG_info, "imagewidth  = %f 1/72 inch\n", imagewidth);
-      DBG(DBG_info, "imageheight = %f 1/72 inch\n", imageheight);
-
-      xsane_save_ps(outfile, infile,
-                    &image_info,
-                    imagewidth, imageheight,
-                    preferences.fax_leftoffset   * 72.0/MM_PER_INCH, /* paper_left_margin */
-                    preferences.fax_bottomoffset * 72.0/MM_PER_INCH, /* paper_bottom_margin */
-                    preferences.fax_width  * 72.0/MM_PER_INCH, /* paper_width */
-                    preferences.fax_height * 72.0/MM_PER_INCH, /* paper_height */
-                    0 /* portrait top left */,
-                    xsane.fax_progress_bar,
-                    &cancel_save);
-      fclose(outfile);
-    }
-    else
-    {
-     char buf[256];
-
-      DBG(DBG_info, "open of faxfile `%s'failed : %s\n", fax_filename, strerror(errno));
-
-      snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, fax_filename, strerror(errno));
-      xsane_back_gtk_error(buf, TRUE);
-    }
-
-    fclose(infile);
-  }
-  else
-  {
-   char buf[256];
-
-    DBG(DBG_info, "open of faxfile `%s'failed : %s\n", source_filename, strerror(errno));
-
-    snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, source_filename, strerror(errno));
-    xsane_back_gtk_error(buf, TRUE);
-  }
-
-  gtk_progress_set_format_string(GTK_PROGRESS(xsane.fax_progress_bar), "");
-  gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.fax_progress_bar), 0.0);
-
-  while (gtk_events_pending())
-  {
-    DBG(DBG_info, "calling gtk_main_iteration\n");
-    gtk_main_iteration();
-  }
-
- return 0;
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_fax_send()
-{
- char *page;
- char *type;
- char *fax_type=".ps";
- GList *list = (GList *) GTK_LIST(xsane.fax_list)->children;
- GtkObject *list_item;
- pid_t pid;
- char *arg[1000];
- char buf[256];
- char source_filename[PATH_MAX];
- char fax_filename[PATH_MAX];
- int argnr = 0;
- int i;
-
-  DBG(DBG_proc, "xsane_fax_send\n");
-
-  if (list)
-  {
-    if (!xsane_option_defined(xsane.fax_receiver))
-    {
-      snprintf(buf, sizeof(buf), "%s\n", ERR_SENDFAX_RECEIVER_MISSING);
-      xsane_back_gtk_error(buf, TRUE);
-      return;
-    }
-
-    xsane_set_sensitivity(FALSE);
-    /* gtk_widget_set_sensitive(xsane.fax_dialog, FALSE); */
-
-    argnr = xsane_parse_options(preferences.fax_command, arg);
-
-    if (preferences.fax_fine_mode) /* fine mode */
-    {
-      if (xsane_option_defined(preferences.fax_fine_option))
-      {
-        arg[argnr++] = strdup(preferences.fax_fine_option);
-      }
-    }
-    else /* normal mode */
-    {
-      if (xsane_option_defined(preferences.fax_normal_option))
-      {
-        arg[argnr++] = strdup(preferences.fax_normal_option);
-      }
-    }
-
-    if (xsane_option_defined(preferences.fax_receiver_option))
-    {
-      arg[argnr++] = strdup(preferences.fax_receiver_option);
-    }
-    arg[argnr++] = strdup(xsane.fax_receiver);
-
-    if (xsane_option_defined(preferences.fax_postscript_option))
-    {
-      arg[argnr++] = strdup(preferences.fax_postscript_option);
-    }
-
-    while ((list) && (argnr<999))	/* add pages to options */
-    {
-      list_item = GTK_OBJECT(list->data);
-      page = strdup((char *) gtk_object_get_data(list_item, "list_item_data"));
-      type = strdup((char *) gtk_object_get_data(list_item, "list_item_type"));
-      xsane_convert_text_to_filename(&page);
-      snprintf(source_filename, sizeof(source_filename), "%s/%s%s", preferences.fax_project, page, type);
-      snprintf(fax_filename, sizeof(fax_filename), "%s/%s-fax%s", preferences.fax_project, page, fax_type);
-      if (xsane_create_secure_file(fax_filename)) /* remove possibly existing symbolic links for security */
-      {
-       char buf[256];
-
-        snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_CREATE_SECURE_FILE, fax_filename);
-        xsane_back_gtk_error(buf, TRUE);
-       return; /* error */
-      }
-
-      if (!strncmp(type, ".pnm", 4))
-      {
-        DBG(DBG_info, "converting %s to %s\n", source_filename, fax_filename);
-        xsane_fax_convert_pnm_to_ps(source_filename, fax_filename);
-      }
-      else if (!strncmp(type, ".ps", 3))
-      {
-       int cancel_save = 0;
-        xsane_copy_file_by_name(fax_filename, source_filename, xsane.fax_progress_bar, &cancel_save);
-      }
-      arg[argnr++] = strdup(fax_filename);
-      list = list->next;
-      free(page);
-      free(type);
-    }
-
-    arg[argnr] = 0;
-
-    pid = fork();
-
-    if (pid == 0) /* new process */
-    {
-     FILE *ipc_file = NULL;
-
-      if (xsane.ipc_pipefd[0])
-      {
-        close(xsane.ipc_pipefd[0]); /* close reading end of pipe */
-        ipc_file = fdopen(xsane.ipc_pipefd[1], "w");
-      }
-
-      DBG(DBG_info, "trying to change user id for new subprocess:\n");
-      DBG(DBG_info, "old effective uid = %d\n", (int) geteuid());
-      setuid(getuid());
-      DBG(DBG_info, "new effective uid = %d\n", (int) geteuid());
-
-      execvp(arg[0], arg); /* does not return if successfully */
-      DBG(DBG_error, "%s %s\n", ERR_FAILED_EXEC_FAX_CMD, preferences.fax_command);
-
-      /* send error message via IPC pipe to parent process */
-      if (ipc_file)
-      {
-        fprintf(ipc_file, "%s %s:\n%s", ERR_FAILED_EXEC_FAX_CMD, preferences.fax_command, strerror(errno));
-        fflush(ipc_file); /* make sure message is displayed */
-        fclose(ipc_file);
-      }
-
-      _exit(0); /* do not use exit() here! otherwise gtk gets in trouble */
-    }
-    else /* parent process */
-    {
-      xsane_add_process_to_list(pid); /* add pid to child process list */
-    }
-
-    for (i=0; i<argnr; i++)
-    {
-      free(arg[i]);
-    }
-
-    if (xsane.fax_status)
-    {
-      free(xsane.fax_status);
-    }
-    xsane.fax_status = strdup(TEXT_FAX_STATUS_QUEUEING_FAX);
-    xsane_fax_project_update_project_status();
-    gtk_progress_set_format_string(GTK_PROGRESS(xsane.fax_progress_bar), _(xsane.fax_status));
-    gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.fax_progress_bar), 0.0);
-
-    while (pid)
-    {
-     int status = 0;
-     pid_t pid_status = waitpid(pid, &status, WNOHANG);
-  
-      if ( (pid_status < 0 ) || (pid == pid_status) )
-      {
-        pid = 0; /* ok, child process has terminated */
-      }
-
-      while (gtk_events_pending())
-      {
-        gtk_main_iteration();
-      }
-    }
-
-    /* delete created fax files */
-    list = (GList *) GTK_LIST(xsane.fax_list)->children;
-    while (list)
-    {
-      list_item = GTK_OBJECT(list->data);
-      page = strdup((char *) gtk_object_get_data(list_item, "list_item_data"));
-      xsane_convert_text_to_filename(&page);
-      snprintf(fax_filename, sizeof(fax_filename), "%s/%s-fax%s", preferences.fax_project, page, fax_type);
-      free(page);
-
-      DBG(DBG_info, "removing %s\n", fax_filename);
-      remove(fax_filename);
-
-      list = list->next;
-    }
-
-    xsane.fax_status = strdup(TEXT_FAX_STATUS_FAX_QUEUED);
-    xsane_fax_project_update_project_status();
-    gtk_progress_set_format_string(GTK_PROGRESS(xsane.fax_progress_bar), _(xsane.fax_status));
-    gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.fax_progress_bar), 0.0);
-
-    xsane_set_sensitivity(TRUE);
-
-    /* gtk_widget_set_sensitive(xsane.fax_dialog, TRUE); */
-  }
-
-  DBG(DBG_info, "xsane_fax_send: done\n");
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-#ifdef XSANE_ACTIVATE_MAIL
-
-static gint xsane_mail_dialog_delete()
-{
- return TRUE;
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_mail_filetype_callback(GtkWidget *filetype_option_menu, char *filetype)
-{
-  DBG(DBG_proc, "xsane_mail_filetype_callback(%s)\n", filetype);
-
-  if (preferences.mail_filetype)
-  {
-    free(preferences.mail_filetype);
-  }
-  preferences.mail_filetype = strdup(filetype);
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_mail_dialog()
-{
- GtkWidget *mail_dialog, *mail_scan_vbox, *mail_project_vbox;
- GtkWidget *mail_project_exists_hbox, *button;
- GtkWidget *hbox;
- GtkWidget *scrolled_window, *list;
- GtkWidget *pixmapwidget, *text;
- GtkWidget *attachment_frame, *text_frame;
- GtkWidget *label;
- GtkWidget *filetype_menu, *filetype_item;
- GtkWidget *filetype_option_menu;
- GdkPixmap *pixmap;
- GdkBitmap *mask;
- char buf[64];
- int filetype_nr;
- int select_item;
-
-  DBG(DBG_proc, "xsane_mail_dialog\n");
-
-  if (xsane.mail_dialog) 
-  {
-    return; /* window already is open */
-  }
-
-  /* GTK_WINDOW_TOPLEVEL looks better but does not place it nice*/
-  mail_dialog = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-
-  snprintf(buf, sizeof(buf), "%s %s", xsane.prog_name, WINDOW_MAIL_PROJECT);
-  gtk_window_set_title(GTK_WINDOW(mail_dialog), buf);
-  g_signal_connect(GTK_OBJECT(mail_dialog), "delete_event", (GtkSignalFunc) xsane_mail_dialog_delete, NULL);
-  xsane_set_window_icon(mail_dialog, 0);
-  gtk_window_add_accel_group(GTK_WINDOW(mail_dialog), xsane.accelerator_group); 
-
-  /* set the main vbox */
-  mail_scan_vbox = gtk_vbox_new(FALSE, 0);
-  gtk_container_set_border_width(GTK_CONTAINER(mail_scan_vbox), 0);
-  gtk_container_add(GTK_CONTAINER(mail_dialog), mail_scan_vbox);
-  gtk_widget_show(mail_scan_vbox);
-
-
-  /* mail project */
-  hbox = gtk_hbox_new(FALSE, 2);
-  gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
-  gtk_box_pack_start(GTK_BOX(mail_scan_vbox), hbox, FALSE, FALSE, 2);
-
-  pixmap = gdk_pixmap_create_from_xpm_d(xsane.shell->window, &mask, xsane.bg_trans, (gchar **) mail_xpm);
-  pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
-  gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
-  gdk_drawable_unref(pixmap);
-
-  text = gtk_entry_new();
-  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_MAILPROJECT);
-  gtk_entry_set_max_length(GTK_ENTRY(text), 128);
-  gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.mail_project);
-  gtk_box_pack_start(GTK_BOX(hbox), text, TRUE, TRUE, 4);
-  g_signal_connect(GTK_OBJECT(text), "changed", (GtkSignalFunc) xsane_mail_project_changed_callback, NULL);
-
-  xsane.mail_project_entry = text;
-  xsane.mail_project_entry_box = hbox;
-
-  gtk_widget_show(pixmapwidget);
-  gtk_widget_show(text);
-  gtk_widget_show(hbox);
-
-  mail_project_vbox = gtk_vbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(mail_scan_vbox), mail_project_vbox, TRUE, TRUE, 0);
-  gtk_widget_show(mail_project_vbox);
-
-
-  /* mail receiver */
-  hbox = gtk_hbox_new(FALSE, 2);
-  gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
-  gtk_box_pack_start(GTK_BOX(mail_project_vbox), hbox, FALSE, FALSE, 2);
-
-  gtk_widget_realize(mail_dialog);
-
-  pixmap = gdk_pixmap_create_from_xpm_d(mail_dialog->window, &mask, xsane.bg_trans, (gchar **) mailreceiver_xpm);
-  pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
-  gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
-  gdk_drawable_unref(pixmap);
-
-  text = gtk_entry_new();
-  gtk_entry_set_max_length(GTK_ENTRY(text), 128);
-  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_MAILRECEIVER);
-  gtk_box_pack_start(GTK_BOX(hbox), text, TRUE, TRUE, 4);
-  g_signal_connect(GTK_OBJECT(text), "changed", (GtkSignalFunc) xsane_mail_receiver_changed_callback, NULL);
-
-  xsane.mail_receiver_entry = text;
-
-  gtk_widget_show(pixmapwidget);
-  gtk_widget_show(text);
-  gtk_widget_show(hbox);
-
-
-  /* subject */
-  hbox = gtk_hbox_new(FALSE, 2);
-  gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
-  gtk_box_pack_start(GTK_BOX(mail_project_vbox), hbox, FALSE, FALSE, 2);
-
-  gtk_widget_realize(mail_dialog);
-
-  pixmap = gdk_pixmap_create_from_xpm_d(mail_dialog->window, &mask, xsane.bg_trans, (gchar **) subject_xpm);
-  pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
-  gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
-  gdk_drawable_unref(pixmap);
-
-  text = gtk_entry_new();
-  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_MAILSUBJECT);
-  gtk_entry_set_max_length(GTK_ENTRY(text), 128);
-  gtk_box_pack_start(GTK_BOX(hbox), text, TRUE, TRUE, 4);
-  g_signal_connect(GTK_OBJECT(text), "changed", (GtkSignalFunc) xsane_mail_subject_changed_callback, NULL);
-
-  xsane.mail_subject_entry = text;
-
-  gtk_widget_show(pixmapwidget);
-  gtk_widget_show(text);
-  gtk_widget_show(hbox);
-
-
-  /* email text frame */
-  text_frame = gtk_frame_new(TEXT_MAIL_TEXT);
-  gtk_box_pack_start(GTK_BOX(mail_project_vbox), text_frame, TRUE, TRUE, 2);
-  gtk_widget_show(text_frame);
-
-  /* email text box */
-  hbox = gtk_hbox_new(FALSE, 2);
-  gtk_container_set_border_width(GTK_CONTAINER(hbox), 4);
-  gtk_container_add(GTK_CONTAINER(text_frame), hbox);
-  gtk_widget_show(hbox);
-
-#ifdef HAVE_GTK_TEXT_VIEW_H
-  {
-   GtkWidget *scrolled_window, *text_view, *text_buffer;
- 
-    /* create a scrolled window to get a vertical scrollbar */
-    scrolled_window = gtk_scrolled_window_new(NULL, NULL);
-    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolled_window), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-    gtk_container_add(GTK_CONTAINER(hbox), scrolled_window);
-    gtk_widget_show(scrolled_window);
- 
-    /* create the gtk_text_view widget */
-    text_view = gtk_text_view_new();
-    gtk_text_view_set_editable(GTK_TEXT_VIEW(text_view), TRUE);
-    gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(text_view), GTK_WRAP_WORD);
-    gtk_container_add(GTK_CONTAINER(scrolled_window), text_view);
-    gtk_widget_show(text_view);
- 
-    /* get the text_buffer widget and insert the text from file */
-    text_buffer = (GtkWidget *) gtk_text_view_get_buffer(GTK_TEXT_VIEW(text_view));
-
-    xsane.mail_text_widget = text_buffer;
-  }
-#else 
-  {
-    GtkWidget *vscrollbar;
-
-    /* Create the GtkText widget */
-    text = gtk_text_new(NULL, NULL);
-    gtk_text_set_editable(GTK_TEXT(text), TRUE); /* text is editable */
-    gtk_text_set_word_wrap(GTK_TEXT(text), TRUE); /* wrap complete words */
-    gtk_box_pack_start(GTK_BOX(hbox), text, TRUE, TRUE, 0);
-    gtk_widget_show(text);
-    xsane.mail_text_widget = text;
- 
-    /* Add a vertical scrollbar to the GtkText widget */
-    vscrollbar = gtk_vscrollbar_new(GTK_TEXT(text)->vadj);
-    gtk_box_pack_start(GTK_BOX(hbox), vscrollbar, FALSE, FALSE, 0);
-    gtk_widget_show(vscrollbar); 
-  }
-#endif
-
-
-  /* html mail */
-  button = gtk_check_button_new_with_label(RADIO_BUTTON_HTML_MAIL);
-  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_HTML_MAIL);
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), xsane.mail_html_mode);
-  gtk_box_pack_start(GTK_BOX(mail_project_vbox), button, FALSE, FALSE, 2);
-  gtk_widget_show(button);
-  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_mail_html_mode_callback, NULL);
-  xsane.mail_html_mode_widget = button;
-
-  xsane_separator_new(mail_scan_vbox, 2);
-
-  /* FILETYPE MENU */
-  /* button box, active when project exists */
-  hbox = gtk_hbox_new(FALSE, 2);
-  gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
-  gtk_box_pack_start(GTK_BOX(mail_project_vbox), hbox, FALSE, FALSE, 2);
-  gtk_widget_show(hbox);
-
-  filetype_menu = gtk_menu_new();
-
-  filetype_nr = -1;
-  select_item = 0;
-
-#ifdef HAVE_LIBJPEG
-  filetype_item = gtk_menu_item_new_with_label(MENU_ITEM_FILETYPE_JPEG);
-  gtk_container_add(GTK_CONTAINER(filetype_menu), filetype_item);
-  g_signal_connect(GTK_OBJECT(filetype_item), "activate", (GtkSignalFunc) xsane_mail_filetype_callback, (void *) XSANE_FILETYPE_JPEG);
-  gtk_widget_show(filetype_item);
-  filetype_nr++;
-  if ( (preferences.mail_filetype) && (!strcasecmp(preferences.mail_filetype, XSANE_FILETYPE_JPEG)) )
-  {
-    select_item = filetype_nr;
-  }
-#endif
-
-
-  filetype_item = gtk_menu_item_new_with_label(MENU_ITEM_FILETYPE_PDF);
-  gtk_container_add(GTK_CONTAINER(filetype_menu), filetype_item);
-  g_signal_connect(GTK_OBJECT(filetype_item), "activate", (GtkSignalFunc) xsane_mail_filetype_callback, (void *) XSANE_FILETYPE_PDF);
-  gtk_widget_show(filetype_item);
-  filetype_nr++;
-  if ( (preferences.mail_filetype) && (!strcasecmp(preferences.mail_filetype, XSANE_FILETYPE_PDF)) )
-  {
-    select_item = filetype_nr;
-  }
-
-
-#ifdef HAVE_LIBPNG
-#ifdef HAVE_LIBZ
-  filetype_item = gtk_menu_item_new_with_label(MENU_ITEM_FILETYPE_PNG);
-  gtk_container_add(GTK_CONTAINER(filetype_menu), filetype_item);
-  g_signal_connect(GTK_OBJECT(filetype_item), "activate", (GtkSignalFunc) xsane_mail_filetype_callback, (void *) XSANE_FILETYPE_PNG);
-  gtk_widget_show(filetype_item);
-  filetype_nr++;
-  if ( (preferences.mail_filetype) && (!strcasecmp(preferences.mail_filetype, XSANE_FILETYPE_PNG)) )
-  {
-    select_item = filetype_nr;
-  }
-#endif
-#endif
-
-  filetype_item = gtk_menu_item_new_with_label(MENU_ITEM_FILETYPE_PS);
-  gtk_container_add(GTK_CONTAINER(filetype_menu), filetype_item);
-  g_signal_connect(GTK_OBJECT(filetype_item), "activate", (GtkSignalFunc) xsane_mail_filetype_callback, (void *) XSANE_FILETYPE_PS);
-  gtk_widget_show(filetype_item);
-  filetype_nr++;
-  if ( (preferences.mail_filetype) && (!strcasecmp(preferences.mail_filetype, XSANE_FILETYPE_PS)) )
-  {
-    select_item = filetype_nr;
-  }
-
-
-#ifdef HAVE_LIBTIFF
-  filetype_item = gtk_menu_item_new_with_label(MENU_ITEM_FILETYPE_TIFF);
-  gtk_container_add(GTK_CONTAINER(filetype_menu), filetype_item);
-  g_signal_connect(GTK_OBJECT(filetype_item), "activate", (GtkSignalFunc) xsane_mail_filetype_callback, (void *) XSANE_FILETYPE_TIFF);
-  gtk_widget_show(filetype_item);
-  filetype_nr++;
-  if ( (preferences.mail_filetype) && (!strcasecmp(preferences.mail_filetype, XSANE_FILETYPE_TIFF)) )
-  {
-    select_item = filetype_nr;
-  }
-#endif
-                                                                                                              
-  label = gtk_label_new(TEXT_MAIL_FILETYPE);
-  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
-  gtk_widget_show(label);
-
-  filetype_option_menu = gtk_option_menu_new();
-  xsane_back_gtk_set_tooltip(xsane.tooltips, filetype_option_menu, DESC_MAIL_FILETYPE);
-  gtk_option_menu_set_menu(GTK_OPTION_MENU(filetype_option_menu), filetype_menu);
-  if (select_item >= 0)
-  {
-    gtk_option_menu_set_history(GTK_OPTION_MENU(filetype_option_menu), select_item);
-  }
-  gtk_box_pack_end(GTK_BOX(hbox), filetype_option_menu, FALSE, FALSE, 2);
-  gtk_widget_show(filetype_menu);
-  gtk_widget_show(filetype_option_menu);
-
-
-  /* attachment frame */
-  attachment_frame = gtk_frame_new(TEXT_ATTACHMENTS);
-  gtk_box_pack_start(GTK_BOX(mail_project_vbox), attachment_frame, FALSE, FALSE, 2);
-  gtk_widget_show(attachment_frame);
-
-  /* attachment list */
-  scrolled_window = gtk_scrolled_window_new(0, 0);
-  gtk_widget_set_size_request(scrolled_window, 200, 100);
-  gtk_container_add(GTK_CONTAINER(attachment_frame), scrolled_window);
-  gtk_widget_show(scrolled_window);
-
-  list = gtk_list_new();
-/*  gtk_list_set_selection_mode(list, GTK_SELECTION_BROWSE); */
-
-  gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolled_window), list);
-  gtk_widget_show(list);
-  xsane.mail_list = list;
-
-
-  /* button box, active when project exists */
-  hbox = gtk_hbox_new(FALSE, 2);
-  gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
-  gtk_box_pack_start(GTK_BOX(mail_project_vbox), hbox, FALSE, FALSE, 2);
-
-  button = gtk_button_new_with_label(BUTTON_IMAGE_SHOW);
-  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_mail_show_callback, list);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
-  gtk_widget_show(button);
-
-#if 0
-  /* before we enable the edit function we have to make sure that the rename function
-     does also rename the image name of the opened viewer */
-  button = gtk_button_new_with_label(BUTTON_IMAGE_EDIT);
-  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_mail_edit_callback, list);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
-  gtk_widget_show(button);
-#endif
-
-  button = gtk_button_new_with_label(BUTTON_IMAGE_RENAME);
-  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_mail_entry_rename_callback, list);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
-  gtk_widget_show(button);
-
-  button = gtk_button_new_with_label(BUTTON_IMAGE_DELETE);
-  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_mail_entry_delete_callback, list);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
-  gtk_widget_show(button);
-
-  xsane_button_new_with_pixmap(mail_dialog->window, hbox, move_up_xpm,   0, (GtkSignalFunc) xsane_mail_entry_move_up_callback,   list);
-  xsane_button_new_with_pixmap(mail_dialog->window, hbox, move_down_xpm, 0, (GtkSignalFunc) xsane_mail_entry_move_down_callback, list);
-
-  gtk_widget_show(hbox);
-
-  xsane.mail_project_box = mail_project_vbox;
-
-  xsane_separator_new(mail_scan_vbox, 2);
-
-
-  /* set the main hbox */
-  hbox = gtk_hbox_new(FALSE, 0);
-  xsane_separator_new(mail_project_vbox, 2);
-  gtk_box_pack_end(GTK_BOX(mail_scan_vbox), hbox, FALSE, FALSE, 5);
-  gtk_container_set_border_width(GTK_CONTAINER(hbox), 5);
-  gtk_widget_show(hbox);     
-
-
-  mail_project_exists_hbox = gtk_hbox_new(FALSE, 2);
-  gtk_box_pack_start(GTK_BOX(hbox), mail_project_exists_hbox, TRUE, TRUE, 0);
-
-  button = gtk_button_new_with_label(BUTTON_SEND_PROJECT);
-  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_mail_send, NULL);
-  gtk_box_pack_start(GTK_BOX(mail_project_exists_hbox), button, TRUE, TRUE, 0);
-  gtk_widget_show(button);
-
-  button = gtk_button_new_with_label(BUTTON_DELETE_PROJECT);
-  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_mail_project_delete, NULL);
-  gtk_box_pack_start(GTK_BOX(mail_project_exists_hbox), button, TRUE, TRUE, 0);
-  gtk_widget_show(button);
-
-  gtk_widget_show(mail_project_exists_hbox);
-  xsane.mail_project_exists = mail_project_exists_hbox;
-
-  button = gtk_button_new_with_label(BUTTON_CREATE_PROJECT);
-  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_mail_project_create, NULL);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
-  xsane.mail_project_not_exists = button;
-
-  /* progress bar */
-  xsane.mail_progress_bar = (GtkProgressBar *) gtk_progress_bar_new();
-  gtk_box_pack_start(GTK_BOX(mail_scan_vbox), (GtkWidget *) xsane.mail_progress_bar, FALSE, FALSE, 0);
-  gtk_progress_set_show_text(GTK_PROGRESS(xsane.mail_progress_bar), TRUE);
-  gtk_progress_set_format_string(GTK_PROGRESS(xsane.mail_progress_bar), "");
-  gtk_widget_show(GTK_WIDGET(xsane.mail_progress_bar));
-
-
-  xsane.mail_dialog = mail_dialog;
-
-  xsane_mail_project_load();
-
-  gtk_widget_show(mail_dialog);
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_mail_dialog_close()
-{
-  DBG(DBG_proc, "xsane_mail_dialog_close\n");
-
-  if (xsane.mail_dialog == NULL)
-  {
-    return;
-  }
-
-  gtk_widget_destroy(xsane.mail_dialog);
-
-  xsane.mail_dialog = NULL;
-  xsane.mail_list = NULL;
-  xsane.mail_progress_bar = NULL;
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_mail_project_set_sensitive(int sensitive)
-{
-  gtk_widget_set_sensitive(xsane.mail_project_box, sensitive);
-  gtk_widget_set_sensitive(xsane.mail_project_exists, sensitive);
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_mail_project_display_status()
-{
- FILE *lockfile;
- char buf[256];
- char filename[PATH_MAX];
- int val;
- int i, c;
-
-  DBG(DBG_proc, "xsane_mail_project_display_status\n");
-
-  snprintf(filename, sizeof(filename), "%s/lockfile", preferences.mail_project);
-  lockfile = fopen(filename, "rb"); /* read binary (b for win32) */
-
-  if (lockfile)
-  {
-    i=0;
-    c=0;
-    while ((i<255) && (c != 10) && (c != EOF)) /* first line is mail status */
-    {
-      c = fgetc(lockfile);
-      buf[i++] = c;
-    }
-    buf[i-1] = 0;
-
-    fscanf(lockfile, "%d\n", &val);
-
-    fclose(lockfile);
-
-    if ( (!strcmp(buf, TEXT_MAIL_STATUS_SENDING)) ||
-         (!strcmp(buf, TEXT_MAIL_STATUS_SENT)) ||
-         (!strcmp(buf, TEXT_MAIL_STATUS_ERR_READ_PROJECT)) ||
-         (!strcmp(buf, TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED)) ||
-         (!strcmp(buf, TEXT_MAIL_STATUS_POP3_LOGIN_FAILED)) ||
-         (!strcmp(buf, TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED)) ||
-         (!strcmp(buf, TEXT_MAIL_STATUS_SMTP_ERR_FROM)) ||
-         (!strcmp(buf, TEXT_MAIL_STATUS_SMTP_ERR_RCPT)) ||
-         (!strcmp(buf, TEXT_MAIL_STATUS_SMTP_ERR_DATA)) ||
-         (!strcmp(buf, TEXT_MAIL_STATUS_SENT)) )
-    {
-      if (strcmp(xsane.mail_status, buf))
-      {
-        if (xsane.mail_status)
-        {
-          free(xsane.mail_status);
-        }
-        xsane.mail_status = strdup(buf);
- 
-        if (xsane.mail_progress_bar)
-        {
-          gtk_progress_set_format_string(GTK_PROGRESS(xsane.mail_progress_bar), _(xsane.mail_status));
-        }
-      }
-
-      xsane.mail_progress_val = val / 100.0;
-      if (xsane.mail_progress_bar)
-      {
-        gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.mail_progress_bar), xsane.mail_progress_val);
-      }
-
-      DBG(DBG_info, "reading from lockfile: mail_status %s, mail_progress_val %1.3f\n" , xsane.mail_status, xsane.mail_progress_val);
-
-      if (strcmp(xsane.mail_status, TEXT_MAIL_STATUS_SENDING)) /* not sending */
-      {
-        DBG(DBG_info, "removing %s\n", filename);
-        remove(filename); /* remove lockfile */
- 
-        xsane.mail_progress_val = 0.0;
- 
-        xsane_mail_project_update_project_status();
-
-        if (xsane.mail_dialog)
-        {
-          xsane_mail_project_load();
-
-          xsane_mail_project_set_sensitive(TRUE);
-          gtk_widget_set_sensitive(GTK_WIDGET(xsane.start_button), TRUE); 
-        }
-      }
-    }
-  }
-  else
-  {
-    DBG(DBG_info, "no lockfile present\n");
-    if (xsane.mail_progress_bar)
-    {
-      gtk_progress_set_format_string(GTK_PROGRESS(xsane.mail_progress_bar), _(xsane.mail_status));
-      gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.mail_progress_bar), xsane.mail_progress_val);
-    }
-  
-    while (gtk_events_pending())
-    {
-      gtk_main_iteration();
-    }
-  }
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static gint xsane_mail_send_timer_callback(gpointer data)
-{
-  xsane_mail_project_display_status();
-
-  if (strcmp(xsane.mail_status, TEXT_MAIL_STATUS_SENDING)) /* not sending */
-  {
-    if (xsane_mail_send_timer)
-    {
-      DBG(DBG_info, "disabling mail send timer\n");
-      xsane_mail_send_timer = 0;
-    }
-  }
-
- return xsane_mail_send_timer;
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_mail_project_load()
-{
- FILE *projectfile;
- char page[256];
- char *type;
- char *extension;
- char buf[256];
- char filename[PATH_MAX];
- GtkWidget *list_item;
- int i;
- int c;
-
-  DBG(DBG_proc, "xsane_mail_project_load\n");
-
-  if (xsane.mail_status)
-  {
-    free(xsane.mail_status);
-    xsane.mail_status = NULL;
-  }
-
-  if (xsane.mail_receiver)
-  {
-    free(xsane.mail_receiver);
-    xsane.mail_receiver = NULL;
-  }
-
-  if (xsane.mail_filename)
-  {
-    free(xsane.mail_filename);
-    xsane.mail_filename = NULL;
-  }
-
-  if (xsane.mail_subject)
-  {
-    free(xsane.mail_subject);
-    xsane.mail_subject = NULL;
-  }
-
-  g_signal_handlers_disconnect_by_func(GTK_OBJECT(xsane.mail_receiver_entry), GTK_SIGNAL_FUNC(xsane_mail_receiver_changed_callback), 0);
-  g_signal_handlers_disconnect_by_func(GTK_OBJECT(xsane.mail_subject_entry), GTK_SIGNAL_FUNC(xsane_mail_subject_changed_callback), 0);
-  g_signal_handlers_disconnect_by_func(GTK_OBJECT(xsane.mail_html_mode_widget), GTK_SIGNAL_FUNC(xsane_mail_html_mode_callback), 0);
-
-#ifdef HAVE_GTK_TEXT_VIEW_H
-  gtk_text_buffer_set_text(GTK_TEXT_BUFFER(xsane.mail_text_widget), "", 0);
-#else
-  gtk_text_set_point(GTK_TEXT(xsane.mail_text_widget), 0);
-  gtk_text_forward_delete(GTK_TEXT(xsane.mail_text_widget), gtk_text_get_length(GTK_TEXT(xsane.mail_text_widget)));
-#endif
-  gtk_list_remove_items(GTK_LIST(xsane.mail_list), GTK_LIST(xsane.mail_list)->children);
-
-  snprintf(filename, sizeof(filename), "%s/xsane-mail-list", preferences.mail_project);
-  projectfile = fopen(filename, "rb"); /* read binary (b for win32) */
-
-  if ((!projectfile) || (feof(projectfile)))
-  {
-    snprintf(filename, sizeof(filename), "%s/image-1.pnm", preferences.mail_project);
-    xsane.mail_filename=strdup(filename);
-    xsane_update_counter_in_filename(&xsane.mail_filename, FALSE, 0, preferences.filename_counter_len); /* correct counter len */
-
-    xsane.mail_status=strdup(TEXT_MAIL_STATUS_NOT_CREATED);
-    xsane.mail_progress_val = 0.0;
-
-    xsane.mail_receiver=strdup("");
-    gtk_entry_set_text(GTK_ENTRY(xsane.mail_receiver_entry), (char *) xsane.mail_receiver);
-
-    xsane.mail_subject=strdup("");
-    gtk_entry_set_text(GTK_ENTRY(xsane.mail_subject_entry), (char *) xsane.mail_subject);
-
-    gtk_widget_hide(xsane.mail_project_exists);
-    gtk_widget_show(xsane.mail_project_not_exists);
-
-    gtk_widget_set_sensitive(xsane.mail_project_box, FALSE);
-    gtk_widget_set_sensitive(xsane.mail_project_exists, FALSE);
-    /* do not change sensitivity of mail_project_entry_box here !!! */
-    gtk_widget_set_sensitive(GTK_WIDGET(xsane.start_button), FALSE); 
-
-    xsane.mail_project_save = 0;
-  }
-  else
-  {
-    i=0;
-    c=0;
-    while ((i<255) && (c != 10) && (c != EOF)) /* first line is mail status */
-    {
-      c = fgetc(projectfile);
-      page[i++] = c;
-    }
-    page[i-1] = 0;
-    if (strchr(page, '@'))
-    {
-      *strchr(page, '@') = 0;
-    }
-
-    if (xsane.mail_status)
-    {
-      free(xsane.mail_status);
-    }
-    xsane.mail_status = strdup(page);
-    xsane.mail_progress_val = 0.0;
-
-
-    i=0;
-    c=0;
-    while ((i<255) && (c != 10) && (c != EOF)) /* second line is email address */
-    {
-      c = fgetc(projectfile);
-      page[i++] = c;
-    }
-    page[i-1] = 0;
-
-    xsane.mail_receiver=strdup(page);
-    gtk_entry_set_text(GTK_ENTRY(xsane.mail_receiver_entry), (char *) xsane.mail_receiver);
-
-
-    i=0;
-    c=0;
-    while ((i<255) && (c != 10) && (c != EOF)) /* third line is next mail filename */
-    {
-      c = fgetc(projectfile);
-      page[i++] = c;
-    }
-    page[i-1] = 0;
-
-    snprintf(filename, sizeof(filename), "%s/%s", preferences.mail_project, page);
-    xsane.mail_filename=strdup(filename);
-
-
-    i=0;
-    c=0;
-    while ((i<255) && (c != 10) && (c != EOF)) /* fourth line is subject */
-    {
-      c = fgetc(projectfile);
-      page[i++] = c;
-    }
-    page[i-1] = 0;
-
-    xsane.mail_subject=strdup(page);
-    gtk_entry_set_text(GTK_ENTRY(xsane.mail_subject_entry), (char *) xsane.mail_subject);
-
-
-    i=0;
-    c=0;
-    while ((i<255) && (c != 10) && (c != EOF)) /* fifth line is html/ascii */
-    {
-      c = fgetc(projectfile);
-      page[i++] = c;
-    }
-    page[i-1] = 0;
-
-    if (!strcasecmp("html", page))
-    {
-      xsane.mail_html_mode = 1;
-    }
-    else
-    {
-      xsane.mail_html_mode = 0;
-    }
-
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(xsane.mail_html_mode_widget), xsane.mail_html_mode);
-
-
-    while (!feof(projectfile))
-    {
-      i=0;
-      c=0;
-
-      while ((i<255) && (c != 10) && (c != EOF))
-      {
-        c = fgetc(projectfile);
-        page[i++] = c;
-      }
-      page[i-1]=0;
-
-      if (!strcmp("mailtext:", page))
-      {
-        break; /* mailtext follows */
-      }
-
-      extension = strrchr(page, '.');
-      if (extension)
-      {
-        type = strdup(extension);
-        *extension = 0;
-      }
-      else
-      {
-        type = strdup("");
-      }
-
-      if (c > 1)
-      {
-        list_item = gtk_list_item_new_with_label(page);
-        gtk_object_set_data(GTK_OBJECT(list_item), "list_item_data", strdup(page));
-        gtk_object_set_data(GTK_OBJECT(list_item), "list_item_type", strdup(type));
-        gtk_container_add(GTK_CONTAINER(xsane.mail_list), list_item);
-        gtk_widget_show(list_item);
-      }
-    }
-
-    while (!feof(projectfile))
-    {
-      i = fread(buf, 1, sizeof(buf), projectfile);
-#ifdef HAVE_GTK_TEXT_VIEW_H
-      gtk_text_buffer_insert_at_cursor(GTK_TEXT_BUFFER(xsane.mail_text_widget), buf, i);
-#else
-      gtk_text_insert(GTK_TEXT(xsane.mail_text_widget), NULL, NULL, NULL, buf, i);
-#endif
-    }
-
-    if (!strcmp(xsane.mail_status, TEXT_MAIL_STATUS_SENDING)) /* mail project is locked (sending) */
-    {
-      xsane_mail_project_set_sensitive(FALSE);
-      gtk_widget_set_sensitive(xsane.mail_project_entry_box, TRUE);
-      gtk_widget_set_sensitive(GTK_WIDGET(xsane.start_button), FALSE); 
-
-      if (xsane_mail_send_timer == 0)
-      {
-        xsane_mail_send_timer = gtk_timeout_add(100, (GtkFunction) xsane_mail_send_timer_callback, NULL);
-        DBG(DBG_info, "enabling mail send timer (%d)\n", xsane_mail_send_timer);
-      }
-    }
-    else
-    {
-      xsane_mail_project_set_sensitive(TRUE);
-      gtk_widget_set_sensitive(xsane.mail_project_entry_box, TRUE);
-      gtk_widget_set_sensitive(GTK_WIDGET(xsane.start_button), TRUE); 
-    }
-
-    gtk_widget_show(xsane.mail_project_exists);
-    gtk_widget_hide(xsane.mail_project_not_exists);
-
-    xsane.mail_project_save = 1;
-  }
-
-  if (projectfile)
-  {
-    fclose(projectfile);
-  }
-
-  gtk_progress_set_format_string(GTK_PROGRESS(xsane.mail_progress_bar), _(xsane.mail_status));
-  gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.mail_progress_bar), xsane.mail_progress_val);
-
-  xsane_mail_project_display_status();
-
-  g_signal_connect(GTK_OBJECT(xsane.mail_html_mode_widget), "clicked", (GtkSignalFunc) xsane_mail_html_mode_callback, NULL);
-  g_signal_connect(GTK_OBJECT(xsane.mail_receiver_entry), "changed", (GtkSignalFunc) xsane_mail_receiver_changed_callback, NULL);
-  g_signal_connect(GTK_OBJECT(xsane.mail_subject_entry), "changed", (GtkSignalFunc) xsane_mail_subject_changed_callback, NULL);
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_mail_project_delete()
-{
- char *page;
- char *type;
- char file[256];
- GList *list = (GList *) GTK_LIST(xsane.mail_list)->children;
- GtkObject *list_item;
-
-  DBG(DBG_proc, "xsane_mail_project_delete\n");
-
-  while (list)
-  {
-    list_item = GTK_OBJECT(list->data);
-    page = strdup((char *) gtk_object_get_data(list_item, "list_item_data"));
-    type = strdup((char *) gtk_object_get_data(list_item, "list_item_type"));
-    xsane_convert_text_to_filename(&page);
-    snprintf(file, sizeof(file), "%s/%s%s", preferences.mail_project, page, type);
-    free(page);
-    free(type);
-    remove(file);
-    list = list->next;
-  }
-  snprintf(file, sizeof(file), "%s/xsane-mail-list", preferences.mail_project);
-  remove(file);
-  snprintf(file, sizeof(file), "%s", preferences.mail_project);
-  rmdir(file);
-
-  xsane_mail_project_load();
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_mail_project_update_project_status()
-{
- FILE *projectfile;
- char filename[PATH_MAX];
- char buf[256];
-
-  snprintf(filename, sizeof(filename), "%s/xsane-mail-list", preferences.mail_project);
-  projectfile = fopen(filename, "r+b"); /* r+ = read and write, position = start of file */
-
-  snprintf(buf, 32, "%s@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", xsane.mail_status); /* fill 32 characters status line */
-  fprintf(projectfile, "%s\n", buf); /* first line is status of mail */
-
-  fclose(projectfile);
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-void xsane_mail_project_save()
-{
- FILE *projectfile;
- GList *list = (GList *) GTK_LIST(xsane.mail_list)->children;
- GtkObject *list_item;
- char *page;
- char *type;
- gchar *mail_text;
- char filename[256];
-
-  DBG(DBG_proc, "xsane_mail_project_save\n");
-
-  umask((mode_t) preferences.directory_umask); /* define new file permissions */    
-  mkdir(preferences.mail_project, 0777); /* make sure directory exists */
-
-  snprintf(filename, sizeof(filename), "%s/xsane-mail-list", preferences.mail_project);
-
-  if (xsane_create_secure_file(filename)) /* remove possibly existing symbolic links for security */
-  {
-   char buf[256];
-
-    snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_CREATE_SECURE_FILE, filename);
-    xsane_back_gtk_error(buf, TRUE);
-   return; /* error */
-  }
-
-  projectfile = fopen(filename, "wb"); /* write binary (b for win32) */
-
-  if (xsane.mail_status)
-  {
-   char buf[256];
-
-    snprintf(buf, 32, "%s@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", xsane.mail_status); /* fill 32 characters status line */
-    fprintf(projectfile, "%s\n", buf); /* first line is status of mail */
-    gtk_progress_set_format_string(GTK_PROGRESS(xsane.mail_progress_bar), _(xsane.mail_status));
-    gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.mail_progress_bar), 0.0);
-  }
-  else
-  {
-    fprintf(projectfile, "                                \n"); /* no mail status */
-    gtk_progress_set_format_string(GTK_PROGRESS(xsane.mail_progress_bar), "");
-    gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.mail_progress_bar), 0.0);
-  }
-
-  if (xsane.mail_receiver)
-  {
-    fprintf(projectfile, "%s\n", xsane.mail_receiver); /* second line is receiver phone number or address */
-  }
-  else
-  {
-    fprintf(projectfile, "\n");
-  }
-
-  if (xsane.mail_filename)
-  {
-    fprintf(projectfile, "%s\n", strrchr(xsane.mail_filename, '/')+1); /* third line is next mail filename */
-  }
-  else
-  {
-    fprintf(projectfile, "\n");
-  }
-
-  if (xsane.mail_subject)
-  {
-    fprintf(projectfile, "%s\n", xsane.mail_subject); /* fourth line is subject */
-  }
-  else
-  {
-    fprintf(projectfile, "\n");
-  }
-
-  if (xsane.mail_html_mode) /* fith line is mode html/ascii */
-  {
-    fprintf(projectfile, "html\n");
-  }
-  else
-  {
-    fprintf(projectfile, "ascii\n");
-  }
-
-
-  while (list)
-  {
-    list_item = GTK_OBJECT(list->data);
-    page = (char *) gtk_object_get_data(list_item, "list_item_data");
-    type = (char *) gtk_object_get_data(list_item, "list_item_type");
-    fprintf(projectfile, "%s%s\n", page, type);
-    list = list->next;
-  }
-
-  /* save mail text */
-  fprintf(projectfile, "mailtext:\n");
-#ifdef HAVE_GTK_TEXT_VIEW_H
-  {
-   GtkTextIter start, end;
-
-    gtk_text_buffer_get_start_iter(GTK_TEXT_BUFFER(xsane.mail_text_widget), &start);
-    gtk_text_buffer_get_end_iter(GTK_TEXT_BUFFER(xsane.mail_text_widget), &end);
-    mail_text = gtk_text_buffer_get_text(GTK_TEXT_BUFFER(xsane.mail_text_widget), &start, &end, FALSE);
-  }
-#else
-  mail_text = gtk_editable_get_chars(GTK_EDITABLE(xsane.mail_text_widget), 0, -1);
-#endif
-  fprintf(projectfile, "%s", mail_text);
-
-  fclose(projectfile);
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_mail_project_create()
-{
-  DBG(DBG_proc, "xsane_mail_project_create\n");
-
-  if (strlen(preferences.mail_project))
-  {
-    if (xsane.mail_status)
-    {
-      free(xsane.mail_status);
-    }
-    xsane.mail_status = strdup(TEXT_MAIL_STATUS_CREATED);
-    xsane_mail_project_save();
-    xsane_mail_project_load();
-  }
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_mail_receiver_changed_callback(GtkWidget *widget, gpointer data)
-{
-  DBG(DBG_proc, "xsane_mail_receiver_changed_callback\n");
-
-  if (xsane.mail_receiver)
-  {
-    free((void *) xsane.mail_receiver);
-  }
-  xsane.mail_receiver = strdup(gtk_entry_get_text(GTK_ENTRY(widget)));
-
-  if (xsane.mail_status)
-  {
-    free(xsane.mail_status);
-  }
-  xsane.mail_status = strdup(TEXT_MAIL_STATUS_CHANGED);
-  xsane.mail_project_save = 1;
-  xsane_mail_project_display_status();
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_mail_subject_changed_callback(GtkWidget *widget, gpointer data)
-{
-  DBG(DBG_proc, "xsane_mail_subject_changed_callback\n");
-
-  if (xsane.mail_subject)
-  {
-    free((void *) xsane.mail_subject);
-  }
-  xsane.mail_subject = strdup(gtk_entry_get_text(GTK_ENTRY(widget)));
-
-  if (xsane.mail_status)
-  {
-    free(xsane.mail_status);
-  }
-  xsane.mail_status = strdup(TEXT_MAIL_STATUS_CHANGED);
-  xsane.mail_project_save = 1;
-  xsane_mail_project_display_status();
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_mail_project_changed_callback(GtkWidget *widget, gpointer data)
-{
-  DBG(DBG_proc, "xsane_mail_project_changed_callback\n");
-
-  if (xsane.mail_project_save)
-  {
-    xsane.mail_project_save = 0;
-    xsane_mail_project_save();
-  }
-
-  if (preferences.mail_project)
-  {
-    free((void *) preferences.mail_project);
-  }
-  preferences.mail_project = strdup(gtk_entry_get_text(GTK_ENTRY(widget)));
-
-  xsane_mail_project_load();
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_mail_html_mode_callback(GtkWidget * widget)
-{
-  DBG(DBG_proc, "xsane_mail_html_mode_callback\n");
-
-  xsane.mail_html_mode = (GTK_TOGGLE_BUTTON(widget)->active != 0);
-
-  /* we can save it because this routine is only called when the project already exists */
-  if (xsane.mail_status)
-  {
-    free(xsane.mail_status);
-  }
-  xsane.mail_status = strdup(TEXT_MAIL_STATUS_CHANGED);
-  xsane.mail_project_save = 1;
-  xsane_mail_project_display_status();
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_mail_entry_move_up_callback(GtkWidget *widget, gpointer list)
-{
- GList *select;
- GList *item = GTK_LIST(list)->children;
- GtkWidget *list_item_1;
- GtkWidget *list_item_2;
- int position;
- int newpos;
-
-  DBG(DBG_proc, "xsane_mail_entry_move_up\n");
-
-  select = GTK_LIST(list)->selection;
-  if (select)
-  {
-    list_item_1 = select->data;
-
-    position = gtk_list_child_position(GTK_LIST(list), list_item_1);
-    position--; /* move up */
-    newpos = position;
-
-    if (position >= 0)
-    {
-      while (position>0)
-      {
-        item = item->next;
-        position--;
-      }
-
-      list_item_2 = item->data;
-      if (list_item_2)
-      {
-        xsane_list_entrys_swap(list_item_1, list_item_2);
-        gtk_list_select_item(GTK_LIST(list), newpos);
-
-        if (xsane.mail_status)
-        {
-          free(xsane.mail_status);
-        }
-        xsane.mail_status = strdup(TEXT_MAIL_STATUS_CHANGED);
-        xsane_mail_project_save();
-      }
-    }
-  }
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_mail_entry_move_down_callback(GtkWidget *widget, gpointer list)
-{
- GList *select;
- GList *item = GTK_LIST(list)->children;
- GtkWidget *list_item_1;
- GtkWidget *list_item_2;
- int position;
- int newpos;
-
-  DBG(DBG_proc, "xsane_mail_entry_move_down\n");
-
-  select = GTK_LIST(list)->selection;
-  if (select)
-  {
-    list_item_1 = select->data;
-
-    position = gtk_list_child_position(GTK_LIST(list), list_item_1);
-    position++; /* move down */
-    newpos = position;
-
-    while ((position>0) && (item))
-    {
-      item = item->next;
-      position--;
-    }
-
-    if (item)
-    {
-      list_item_2 = item->data;
-      if (list_item_2)
-      {
-        xsane_list_entrys_swap(list_item_1, list_item_2);
-        gtk_list_select_item(GTK_LIST(list), newpos);
-
-        if (xsane.mail_status)
-        {
-          free(xsane.mail_status);
-        }
-        xsane.mail_status = strdup(TEXT_MAIL_STATUS_CHANGED);
-        xsane_mail_project_save();
-      }
-    }
-  }
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-int xsane_mail_entry_rename;
-
-static void xsane_mail_entry_rename_button_callback(GtkWidget *widget, gpointer data)
-{
-  DBG(DBG_proc, "xsane_mail_entry_rename\n");
-
-  xsane_mail_entry_rename = (int) data;
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_mail_entry_rename_callback(GtkWidget *widget, gpointer list)
-{
- GtkWidget *list_item;
- GList *select;
- char *oldpage;
- char *newpage;
- char *type;
- char oldfile[256];
- char newfile[256];
-
-  DBG(DBG_proc, "xsane_mail_entry_rename_callback\n");
-
-  select = GTK_LIST(list)->selection;
-  if (select)
-  {
-   GtkWidget *rename_dialog;
-   GtkWidget *text;
-   GtkWidget *button;
-   GtkWidget *vbox, *hbox;
-   char filename[PATH_MAX]; 
-
-    list_item = select->data;
-    oldpage = strdup((char *) gtk_object_get_data(GTK_OBJECT(list_item), "list_item_data"));
-    type    = strdup((char *) gtk_object_get_data(GTK_OBJECT(list_item), "list_item_type"));
-
-    xsane_set_sensitivity(FALSE);
-
-    rename_dialog = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    xsane_set_window_icon(rename_dialog, 0);
-
-    /* set the main vbox */
-    vbox = gtk_vbox_new(FALSE, 0);
-    gtk_container_set_border_width(GTK_CONTAINER(vbox), 0);
-    gtk_container_add(GTK_CONTAINER(rename_dialog), vbox);
-    gtk_widget_show(vbox);
-
-    /* set the main hbox */
-    hbox = gtk_hbox_new(FALSE, 0);
-    xsane_separator_new(vbox, 2);
-    gtk_box_pack_end(GTK_BOX(vbox), hbox, FALSE, FALSE, 5);
-    gtk_container_set_border_width(GTK_CONTAINER(hbox), 5);
-    gtk_widget_show(hbox); 
-
-    gtk_window_set_position(GTK_WINDOW(rename_dialog), GTK_WIN_POS_CENTER);
-    gtk_window_set_resizable(GTK_WINDOW(rename_dialog), FALSE);
-    snprintf(filename, sizeof(filename), "%s %s", xsane.prog_name, WINDOW_MAIL_RENAME);
-    gtk_window_set_title(GTK_WINDOW(rename_dialog), filename);
-    g_signal_connect(GTK_OBJECT(rename_dialog), "delete_event", (GtkSignalFunc) xsane_mail_entry_rename_button_callback, (void *) -1);
-    gtk_widget_show(rename_dialog);
-
-    text = gtk_entry_new();
-    xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_MAILIMAGENAME);
-    gtk_entry_set_max_length(GTK_ENTRY(text), 64);
-    gtk_entry_set_text(GTK_ENTRY(text), oldpage);
-    gtk_widget_set_size_request(text, 300, -1);
-    gtk_box_pack_start(GTK_BOX(vbox), text, TRUE, TRUE, 4);
-    gtk_widget_show(text);
-
-
-#ifdef HAVE_GTK2
-    button = gtk_button_new_from_stock(GTK_STOCK_OK);
-#else
-    button = gtk_button_new_with_label(BUTTON_OK);
-#endif
-    g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_mail_entry_rename_button_callback, (void *) 1);
-    gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
-    gtk_widget_show(button);
-
-#ifdef HAVE_GTK2
-  button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
-#else
-  button = gtk_button_new_with_label(BUTTON_CANCEL);
-#endif
-    g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_mail_entry_rename_button_callback,(void *) -1);
-    gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
-    gtk_widget_show(button);
-
-
-    xsane_mail_entry_rename = 0;
-
-    while (xsane_mail_entry_rename == 0)
-    {
-      while (gtk_events_pending())
-      {
-        gtk_main_iteration();
-      }
-    }
-
-    newpage = strdup(gtk_entry_get_text(GTK_ENTRY(text)));
-
-    if (xsane_mail_entry_rename == 1)
-    {
-      gtk_label_set(GTK_LABEL(gtk_container_children(GTK_CONTAINER(list_item))->data), newpage);
-      gtk_object_set_data(GTK_OBJECT(list_item), "list_item_data", strdup(newpage));
-
-      xsane_convert_text_to_filename(&oldpage);
-      xsane_convert_text_to_filename(&newpage);
-      snprintf(oldfile, sizeof(oldfile), "%s/%s%s", preferences.mail_project, oldpage, type);
-      snprintf(newfile, sizeof(newfile), "%s/%s%s", preferences.mail_project, newpage, type);
-
-      rename(oldfile, newfile);
-
-      if (xsane.mail_status)
-      {
-        free(xsane.mail_status);
-      }
-      xsane.mail_status = strdup(TEXT_MAIL_STATUS_CHANGED);
-      xsane_mail_project_save();
-    }
-
-    free(oldpage);
-    free(newpage);
-
-    gtk_widget_destroy(rename_dialog);
-
-    xsane_set_sensitivity(TRUE);
-  }
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_mail_entry_delete_callback(GtkWidget *widget, gpointer list)
-{
- GtkObject *list_item;
- GList *select;
- char *page;
- char *type;
- char file[256];
-
-  DBG(DBG_proc, "xsane_mail_entry_delete_callback\n");
-
-  select = GTK_LIST(list)->selection;
-  if (select)
-  {
-    list_item = GTK_OBJECT(select->data);
-    page = strdup((char *) gtk_object_get_data(list_item, "list_item_data"));
-    type = strdup((char *) gtk_object_get_data(list_item, "list_item_type"));
-    xsane_convert_text_to_filename(&page);
-    snprintf(file, sizeof(file), "%s/%s%s", preferences.mail_project, page, type);
-    free(page);
-    free(type);
-    remove(file);
-    gtk_widget_destroy(GTK_WIDGET(list_item));
-
-    if (xsane.mail_status)
-    {
-      free(xsane.mail_status);
-    }
-    xsane.mail_status = strdup(TEXT_MAIL_STATUS_CHANGED);
-    xsane_mail_project_save();
-  }
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_mail_show_callback(GtkWidget *widget, gpointer list)
-{
- GtkObject *list_item;
- GList *select;
- char *page;
- char *type;
- char filename[256];
-
-  DBG(DBG_proc, "xsane_mail_entry_show_callback\n");
-
-  select = GTK_LIST(list)->selection;
-  if (select)
-  {
-    list_item = GTK_OBJECT(select->data);
-    page = strdup((char *) gtk_object_get_data(list_item, "list_item_data"));
-    type = strdup((char *) gtk_object_get_data(list_item, "list_item_type"));
-    xsane_convert_text_to_filename(&page);
-    snprintf(filename, sizeof(filename), "%s/%s%s", preferences.mail_project, page, type);
-    free(page);
-    free(type);
-
-    xsane_viewer_new(filename, FALSE, filename, VIEWER_NO_MODIFICATION);
-  }
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-#if 0
-static void xsane_mail_edit_callback(GtkWidget *widget, gpointer list)
-{
- GtkObject *list_item;
- GList *select;
- char *page;
- char *type;
- char filename[256];
- FILE *outfile;
- FILE *infile;
- char outfilename[256];
- Image_info image_info;
- int cancel_save;
-
-  DBG(DBG_proc, "xsane_mail_entry_show_callback\n");
-
-  select = GTK_LIST(list)->selection;
-  if (select)
-  {
-    list_item = GTK_OBJECT(select->data);
-    page = strdup((char *) gtk_object_get_data(list_item, "list_item_data"));
-    type = strdup((char *) gtk_object_get_data(list_item, "list_item_type"));
-    xsane_convert_text_to_filename(&page);
-    snprintf(filename, sizeof(filename), "%s/%s%s", preferences.mail_project, page, type);
-    free(page);
-    free(type);
-
-
-    infile = fopen(filename, "rb");
-    if (!infile)
-    {
-      DBG(DBG_error, "could not load file %s\n", filename);
-     return;
-    }
-
-    xsane_read_pnm_header(infile, &image_info);
-
-    DBG(DBG_info, "copying image %s with geometry: %d x %d x %d, %d colors\n", filename, image_info.image_width, image_info.image_height, image_info.depth, image_info.colors);
-
-    xsane_back_gtk_make_path(sizeof(outfilename), outfilename, 0, 0, "xsane-viewer-", xsane.dev_name, ".pnm", XSANE_PATH_TMP);
-
-    outfile = fopen(outfilename, "wb");
-    if (!outfile)
-    {
-      DBG(DBG_error, "could not save file %s\n", outfilename);
-     return;
-    }
-
-    gtk_progress_set_format_string(GTK_PROGRESS(xsane.mail_progress_bar), PROGRESS_CLONING_DATA);
-    gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.mail_progress_bar), 0.0);
-
-    xsane_save_rotate_image(outfile, infile, &image_info, 0, xsane.mail_progress_bar, &cancel_save);
-
-    fclose(infile);
-    fclose(outfile);
-
-    gtk_progress_set_format_string(GTK_PROGRESS(xsane.mail_progress_bar), "");
-    gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.mail_progress_bar), 0.0);
-
-    xsane_viewer_new(outfilename, FALSE, filename, VIEWER_NO_NAME_MODIFICATION);
-  }
-}
-#endif
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_create_mail(int fd)
-{
- FILE *attachment_file;
- FILE *projectfile;
- char *boundary="-----partseparator";
- char *image_filename;
- char *mail_text = NULL;
- char *mail_text_pos = NULL;
- char **attachment_filename = NULL;
- char *mime_type = NULL;
- char buf[256];
- char filename[256];
- char content_id[256];
- char image[256];
- int i, j;
- int c;
- int attachments = 0;
- int use_attachment = 0;
- int mail_text_size = 0;
- int display_images_inline = FALSE;
-
-  DBG(DBG_proc, "xsane_create_mail\n");
-
-  snprintf(filename, sizeof(filename), "%s/xsane-mail-list", preferences.mail_project);
-  projectfile = fopen(filename, "rb"); /* read binary (b for win32) */
-
-  if ((!projectfile) || (feof(projectfile)))
-  {
-    DBG(DBG_error, "could not open mail project file %s\n", filename);
-
-    if (xsane.mail_status)
-    {
-      free(xsane.mail_status);
-    }
-    xsane.mail_status = strdup(TEXT_MAIL_STATUS_ERR_READ_PROJECT);
-    xsane.mail_progress_val = 0.0;
-    xsane_front_gtk_mail_project_update_lockfile_status();
-
-   return;
-  }
-
-  for (i=0; i<5; i++) /* skip 5 lines */
-  {
-    j=0;
-    c=0;
-    while ((j<255) && (c != 10) && (c != EOF)) /* first line is mail status */
-    {
-      c = fgetc(projectfile);
-      j++;
-    }
-  }
-
-  if (!strcmp(preferences.mail_filetype, XSANE_FILETYPE_PNG))
-  {
-    mime_type = "image/png";
-    display_images_inline = TRUE;
-  }
-  else if (!strcmp(preferences.mail_filetype, XSANE_FILETYPE_JPEG))
-  {
-    mime_type = "image/jpeg";
-    display_images_inline = TRUE;
-  }
-  else if (!strcmp(preferences.mail_filetype, XSANE_FILETYPE_TIFF))
-  {
-    mime_type = "image/tiff";
-    display_images_inline = TRUE;
-  }
-  else if (!strcmp(preferences.mail_filetype, XSANE_FILETYPE_PDF))
-  {
-    mime_type = "doc/pdf";
-    display_images_inline = FALSE;
-  }
-  else if (!strcmp(preferences.mail_filetype, XSANE_FILETYPE_PS))
-  {
-    mime_type = "doc/postscript";
-    display_images_inline = FALSE;
-  }
-  else
-  {
-    mime_type = "doc/unknown";
-    display_images_inline = FALSE;
-  }
-
-  DBG(DBG_info, "reading list of attachments:\n");
-  /* read list of attachments */
-  while (!feof(projectfile))
-  {
-    /* read next attachment line */
-    i=0;
-    c=0;
-    while ((i<255) && (c != 10) && (c != EOF))
-    {
-      c = fgetc(projectfile);
-      image[i++] = c;
-    }
-    image[i-1]=0;
-
-    if (strcmp("mailtext:", image) && (c > 1))
-    {
-     char imagename[256];
-     char *filename;
-     char *extension;
-
-      DBG(DBG_info, " - %s\n", image);
-
-      extension = strrchr(image, '.');
-      if (extension)
-      {
-        *extension = 0;
-      }
-
-      snprintf(imagename, sizeof(imagename), "%s%s", image, preferences.mail_filetype);
-      filename=strdup(imagename);
-      xsane_convert_text_to_filename(&filename);
-      attachment_filename = realloc(attachment_filename, (attachments+1)*sizeof(void *));
-      attachment_filename[attachments++] = strdup(filename);
-      free(filename);
-    }
-    else
-    {
-      break;
-    }
-  }
-
-  /* read mail text */
-  while (!feof(projectfile))
-  {
-    mail_text = realloc(mail_text, mail_text_size+1025); /* increase mail_text by 1KB */
-    mail_text_size += fread(mail_text+mail_text_size, 1, 1024, projectfile); /* read next KB */
-  }
-  DBG(DBG_info, "%d bytes mailtext read\n", mail_text_size);
-
-  *(mail_text + mail_text_size) = 0; /* set end of text marker */
-  mail_text_pos = mail_text;
-
-  if (xsane.mail_html_mode) /* create html mail */
-  {
-    DBG(DBG_info, "sending mail in html format\n");
-
-    write_mail_header(fd, preferences.mail_from, preferences.mail_reply_to, xsane.mail_receiver, xsane.mail_subject, boundary, 1 /* related */);
-    write_mail_mime_html(fd, boundary);
-
-    DBG(DBG_info, "sending mail text\n");
-    while (*mail_text_pos != 0)
-    {
-      if (!strncasecmp("<image>", mail_text_pos, 7)) /* insert image */
-      {
-        mail_text_pos += 6; /* <image> is 7 characters, 6 additional ones */
-
-        if (use_attachment < attachments)
-        {
-          image_filename = attachment_filename[use_attachment++];
-          DBG(DBG_info, "inserting image cid for %s\n", image_filename);
-          snprintf(content_id, sizeof(content_id), "%s", image_filename); /* content_id */
-
-          /* doc files like ps and pdf can not be displayed inline in html mail */
-          if (display_images_inline)
-          {
-            snprintf(buf, sizeof(buf), "<p><img SRC=\"cid:%s\">\n", content_id);
-          }
-          write(fd, buf, strlen(buf));
-        }
-        else /* more images selected than available */
-        {
-        }
-      }
-      else if (*mail_text_pos == 10) /* new line */
-      {
-        snprintf(buf, sizeof(buf), "<br>\n");
-        write(fd, buf, strlen(buf));
-      }
-      else
-      {
-        write(fd, mail_text_pos, 1);
-      }
-      mail_text_pos++;
-    }
-
-    while (use_attachment < attachments) /* append not already referenced images */
-    {
-      image_filename = attachment_filename[use_attachment++];
-      DBG(DBG_info, "appending image cid for %s\n", image_filename);
-      snprintf(content_id, sizeof(content_id), "%s", image_filename); /* content_id */
-
-      /* doc files like ps and pdf can not be displayed inline in html mail */
-      if (display_images_inline)
-      {
-        snprintf(buf, sizeof(buf), "<p><img SRC=\"cid:%s\">\n", content_id);
-      }
-      write(fd, buf, strlen(buf));
-    }
-
-    snprintf(buf, sizeof(buf), "</html>\n");
-    write(fd, buf, strlen(buf));
-
-
-    for (i=0; i<attachments; i++)
-    {
-      image_filename = attachment_filename[i];
-      snprintf(content_id, sizeof(content_id), "%s", image_filename); /* content_id */
-      snprintf(filename, sizeof(filename), "%s/mail-%s", preferences.mail_project, image_filename);
-      attachment_file = fopen(filename, "rb"); /* read, b=binary for win32 */
-
-      if (attachment_file)
-      {
-        DBG(DBG_info, "attaching file \"%s\" as \"%s\" with type %s\n", filename, image_filename, preferences.mail_filetype);
-        write_mail_attach_image(fd, boundary, content_id, mime_type, attachment_file, image_filename);
-
-        remove(filename);
-      }
-      else /* could not open attachment file */
-      {
-        DBG(DBG_error, "could not open attachment file \"%s\"\n", filename);
-      }
-
-      free(attachment_filename[i]);
-    }
-    free(attachment_filename);
-
-    write_mail_footer(fd, boundary);
-  }
-  else /* ascii mail */
-  {
-    DBG(DBG_info, "sending mail in ascii format\n");
-
-    write_mail_header(fd, preferences.mail_from, preferences.mail_reply_to, xsane.mail_receiver, xsane.mail_subject, boundary, 0 /* not related */);
-    write_mail_mime_ascii(fd, boundary);
-
-    write(fd, mail_text, strlen(mail_text));
-    write(fd, "\n\n", 2);
-
-    for (i=0; i<attachments; i++)
-    {
-      image_filename = strdup(attachment_filename[i]);
-      snprintf(content_id, sizeof(content_id), "%s", image_filename); /* content_id */
-      snprintf(filename, sizeof(filename), "%s/mail-%s", preferences.mail_project, image_filename);
-      attachment_file = fopen(filename, "rb"); /* read, b=binary for win32 */
-
-      if (attachment_file)
-      {
-        DBG(DBG_info, "attaching file \"%s\" as \"%s\" with type %s\n", filename, image_filename, preferences.mail_filetype);
-        write_mail_attach_image(fd, boundary, content_id, mime_type, attachment_file, image_filename);
-
-        remove(filename);
-      }
-      else /* could not open attachment file */
-      {
-        DBG(DBG_error, "could not oppen attachment png file \"%s\"\n", filename);
-      }
-
-      free(image_filename);
-      free(attachment_filename[i]);
-    }
-    free(attachment_filename);
-
-    write_mail_footer(fd, boundary);
-  }
-
-  free(mail_text);
-
-  if (projectfile)
-  {
-    fclose(projectfile);
-  }
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_mail_send_process()
-{
- int fd_socket;
- int status;
-
-  DBG(DBG_proc, "xsane_mail_send_process\n");
-
-  /* pop3 authentification */
-  if (preferences.mail_pop3_authentification)
-  {
-   char *password;
-   int i;
-
-    fd_socket = open_socket(preferences.mail_pop3_server, preferences.mail_pop3_port);
-
-    if (fd_socket < 0) /* could not open socket */
-    {
-      if (xsane.mail_status)
-      {
-        free(xsane.mail_status);
-      }
-      xsane.mail_status = strdup(TEXT_MAIL_STATUS_POP3_CONNECTION_FAILED);
-      xsane.mail_progress_val = 0.0;
-      xsane_front_gtk_mail_project_update_lockfile_status();
-
-     return;
-    }
-
-    password = strdup(preferences.mail_pop3_pass);
-
-    for (i=0; i<strlen(password); i++)
-    {
-      password[i] ^= 0x53;
-    } 
-
-    status = pop3_login(fd_socket, preferences.mail_pop3_user, password);
-
-    free(password);
-
-    close(fd_socket);
-
-    if (status == -1)
-    {
-      if (xsane.mail_status)
-      {
-        free(xsane.mail_status);
-      }
-      xsane.mail_status = strdup(TEXT_MAIL_STATUS_POP3_LOGIN_FAILED);
-      xsane.mail_progress_val = 0.0;
-      xsane_front_gtk_mail_project_update_lockfile_status();
-
-     return;
-    }
-  }
-
-  DBG(DBG_info, "POP3 authentification done\n");
-
-
-  /* smtp mail */
-  fd_socket = open_socket(preferences.mail_smtp_server, preferences.mail_smtp_port);
-
-  if (fd_socket < 0) /* could not open socket */
-  {
-    if (xsane.mail_status)
-    {
-      free(xsane.mail_status);
-    }
-    xsane.mail_status = strdup(TEXT_MAIL_STATUS_SMTP_CONNECTION_FAILED);
-    xsane.mail_progress_val = 0.0;
-    xsane_front_gtk_mail_project_update_lockfile_status();
-
-   return;
-  }
-
-  status = write_smtp_header(fd_socket, preferences.mail_from, xsane.mail_receiver);
-  if (status == -1)
-  {
-   return;
-  }
-
-  xsane_create_mail(fd_socket); /* create mail and write to socket */
-
-  write_smtp_footer(fd_socket);
-
-  close(fd_socket);
-
-  if (xsane.mail_status)
-  {
-    free(xsane.mail_status);
-  }
-  xsane.mail_status = strdup(TEXT_MAIL_STATUS_SENT);
-  xsane.mail_progress_val = 1.0;
-  xsane_front_gtk_mail_project_update_lockfile_status();
-  _exit(0);
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-static void xsane_mail_send()
-{
- pid_t pid;
- char *image;
- char *type;
- GList *list = (GList *) GTK_LIST(xsane.mail_list)->children;
- GtkObject *list_item;
- char source_filename[PATH_MAX];
- char mail_filename[PATH_MAX];
- int output_format;
- int cancel_save = 0;
-
-  DBG(DBG_proc, "xsane_mail_send\n");
-
-  xsane_set_sensitivity(FALSE); /* do not allow changing xsane mode */
-
-  while (gtk_events_pending())
-  {
-    DBG(DBG_info, "calling gtk_main_iteration\n");
-    gtk_main_iteration();
-  }
-
-  if (xsane.mail_project_save)
-  {
-    xsane.mail_project_save = 0;
-    xsane_mail_project_save();
-  }
-
-  xsane.mail_progress_size  = 0;
-  xsane.mail_progress_bytes = 0;
-
-  while (list)
-  {
-    list_item = GTK_OBJECT(list->data);
-    image = strdup((char *) gtk_object_get_data(list_item, "list_item_data"));
-    type  = strdup((char *) gtk_object_get_data(list_item, "list_item_type"));
-    xsane_convert_text_to_filename(&image);
-    snprintf(source_filename, sizeof(source_filename), "%s/%s%s", preferences.mail_project, image, type);
-    snprintf(mail_filename, sizeof(mail_filename), "%s/mail-%s%s", preferences.mail_project, image, preferences.mail_filetype);
-    free(image);
-    free(type);
-    DBG(DBG_info, "converting %s to %s\n", source_filename, mail_filename);
-    output_format = xsane_identify_output_format(mail_filename, NULL, NULL);
-    xsane_save_image_as(mail_filename, source_filename, output_format, xsane.mail_progress_bar, &cancel_save);
-    list = list->next;
-    xsane.mail_progress_size += xsane_get_filesize(mail_filename);
-  }
-
-
-  if (xsane.mail_status)
-  {
-    free(xsane.mail_status);
-  }
-  xsane.mail_status = strdup(TEXT_MAIL_STATUS_SENDING);
-  xsane.mail_progress_val = 0.0;
-  xsane_mail_project_display_status(); /* display status before creating lockfile! */
-  xsane_front_gtk_mail_project_update_lockfile_status(); /* create lockfile and update status */
-
-  pid = fork();
- 
-  if (pid == 0) /* new process */
-  {
-   FILE *ipc_file = NULL;
-
-    if (xsane.ipc_pipefd[0])
-    {
-      close(xsane.ipc_pipefd[0]); /* close reading end of pipe */
-      ipc_file = fdopen(xsane.ipc_pipefd[1], "w");
-    }
-
-    DBG(DBG_info, "trying to change user id for new subprocess:\n");
-    DBG(DBG_info, "old effective uid = %d\n", (int) geteuid());
-    setuid(getuid());
-    DBG(DBG_info, "new effective uid = %d\n", (int) geteuid());
-
-    xsane_mail_send_process();
-
-    _exit(0); /* do not use exit() here! otherwise gtk gets in trouble */
-  }
-  else /* parent process */
-  {
-    xsane_add_process_to_list(pid); /* add pid to child process list */
-  }
-
-  xsane_mail_send_timer = gtk_timeout_add(100, (GtkFunction) xsane_mail_send_timer_callback, NULL);
-  DBG(DBG_info, "enabling mail send timer (%d)\n", xsane_mail_send_timer);
-
-  xsane_set_sensitivity(TRUE); /* allow changing xsane mode */
-#if 0
-  gtk_widget_set_sensitive(xsane.mail_project_entry_box, TRUE);
-  gtk_widget_set_sensitive(GTK_WIDGET(xsane.start_button), FALSE); 
-  gtk_widget_set_sensitive(xsane.mail_project_box, FALSE);
-#endif
-  xsane_mail_project_set_sensitive(FALSE);
-}
-
-#endif
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
 static void xsane_pref_toggle_tooltips(GtkWidget *widget, gpointer data)
 {
   DBG(DBG_proc, "xsane_pref_toggle_tooltips\n");
@@ -6764,7 +3617,7 @@ static void xsane_show_doc_via_nsr(GtkWidget *widget, gpointer data) /* show via
     }
     else /* parent process */
     {
-      xsane_add_process_to_list(pid); /* add pid to child process list */
+      xsane_front_gtk_add_process_to_list(pid); /* add pid to child process list */
     }
   }
   else /* netscape not running */
@@ -6806,7 +3659,7 @@ static void xsane_show_doc_via_nsr(GtkWidget *widget, gpointer data) /* show via
     }
     else /* parent process */
     {
-      xsane_add_process_to_list(pid); /* add pid to child process list */
+      xsane_front_gtk_add_process_to_list(pid); /* add pid to child process list */
     }
   }
 
@@ -6822,7 +3675,6 @@ static void xsane_show_doc_via_nsr(GtkWidget *widget, gpointer data) /* show via
 static char **xsane_parse_command(char *command_line, char *url)
 {
  char **argv = NULL;
- //char *command = strdup(command_line);
  char command[1024];
  char *command_pos = command;
  char *arg_end;
@@ -6929,7 +3781,7 @@ static void xsane_show_doc(GtkWidget *widget, gpointer data)
     }
     else /* parent process */
     {
-      xsane_add_process_to_list(pid); /* add pid to child process list */
+      xsane_front_gtk_add_process_to_list(pid); /* add pid to child process list */
     }
   }
 }
@@ -6939,7 +3791,7 @@ static void xsane_show_doc(GtkWidget *widget, gpointer data)
 static void xsane_scan_callback(void)
 {
   xsane.scan_rotation = xsane.preview->rotation;
-  xsane_scan_dialog();
+  xsane_scan_dialog(NULL);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -7858,10 +4710,10 @@ void xsane_panel_build()
 
 /* connect to backend and create main dialogs:
  - sane_open
- - create dialog xsane.shell
+ - create dialog xsane.dialog
  -   build menues
- - create dialog xsane.standard_options_shell
- - create dialog xsane.advanced_options_shell
+ - create dialog xsane.standard_options_dialog
+ - create dialog xsane.advanced_options_dialog
  - create tooltip style
  - create dialog xsane.histogram_dialog
  - create dialog xsane.gamma_dialog
@@ -8007,23 +4859,23 @@ static void xsane_device_dialog(void)
 
   /* create the xsane dialog box */
 
-  xsane.shell = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-  gtk_window_move(GTK_WINDOW(xsane.shell), XSANE_SHELL_POS_X, XSANE_SHELL_POS_Y);
+  xsane.dialog = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  gtk_window_move(GTK_WINDOW(xsane.dialog), XSANE_DIALOG_POS_X, XSANE_DIALOG_POS_Y);
   sprintf(windowname, "%s %s %s", xsane.prog_name, XSANE_VERSION, xsane.device_text);
-  gtk_window_set_title(GTK_WINDOW(xsane.shell), (char *) windowname);
-  g_signal_connect(GTK_OBJECT(xsane.shell), "delete_event", GTK_SIGNAL_FUNC(xsane_scan_win_delete), NULL);
+  gtk_window_set_title(GTK_WINDOW(xsane.dialog), (char *) windowname);
+  g_signal_connect(GTK_OBJECT(xsane.dialog), "delete_event", GTK_SIGNAL_FUNC(xsane_scan_win_delete), NULL);
 
-  xsane_set_window_icon(xsane.shell, 0);
+  xsane_set_window_icon(xsane.dialog, 0);
 
   /* create the xsane main window accelerator table */
   xsane.accelerator_group = gtk_accel_group_new();
-  gtk_window_add_accel_group(GTK_WINDOW(xsane.shell), xsane.accelerator_group); 
+  gtk_window_add_accel_group(GTK_WINDOW(xsane.dialog), xsane.accelerator_group); 
 
 
   /* set the main vbox */
   xsane_window = gtk_vbox_new(FALSE, 0);
   gtk_container_set_border_width(GTK_CONTAINER(xsane_window), 0);
-  gtk_container_add(GTK_CONTAINER(xsane.shell), xsane_window);
+  gtk_container_add(GTK_CONTAINER(xsane.dialog), xsane_window);
   gtk_widget_show(xsane_window);
 
   /* create the menubar */
@@ -8075,7 +4927,7 @@ static void xsane_device_dialog(void)
   if (xsane.main_window_fixed) /* fixed window: use it like it is */
   {
                                               /* shrink grow auto_shrink */
-    gtk_window_set_resizable(GTK_WINDOW(xsane.shell), FALSE);
+    gtk_window_set_resizable(GTK_WINDOW(xsane.dialog), FALSE);
 
     xsane_vbox_main = gtk_vbox_new(TRUE, 5); /* we need this to set the wanted borders */
     gtk_container_set_border_width(GTK_CONTAINER(xsane_vbox_main), 5);
@@ -8083,10 +4935,10 @@ static void xsane_device_dialog(void)
   }
   else /* scrolled window: create a scrolled window and put it into the xsane dialog box */
   {
-    gtk_window_set_default_size(GTK_WINDOW(xsane.shell), XSANE_SHELL_WIDTH, XSANE_SHELL_HEIGHT); /* set default size */
+    gtk_window_set_default_size(GTK_WINDOW(xsane.dialog), XSANE_DIALOG_WIDTH, XSANE_DIALOG_HEIGHT); /* set default size */
 
                                               /* shrink grow auto_shrink */
-    gtk_window_set_resizable(GTK_WINDOW(xsane.shell), TRUE); /* allow resizing */
+    gtk_window_set_resizable(GTK_WINDOW(xsane.dialog), TRUE); /* allow resizing */
 
     xsane.main_dialog_scrolled = gtk_scrolled_window_new(0, 0);
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(xsane.main_dialog_scrolled), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
@@ -8108,30 +4960,30 @@ static void xsane_device_dialog(void)
 
 #if 0
   /* add vendor`s logo */
-  xsane_vendor_pixmap_new(xsane.shell->window, xsane_window);
+  xsane_vendor_pixmap_new(xsane.dialog->window, xsane_window);
 #endif
 
 
   /* create the scanner standard options dialog box */
 
-  xsane.standard_options_shell = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-  gtk_window_move(GTK_WINDOW(xsane.standard_options_shell), XSANE_STD_OPTIONS_POS_X, XSANE_STD_OPTIONS_POS_Y);
+  xsane.standard_options_dialog = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  gtk_window_move(GTK_WINDOW(xsane.standard_options_dialog), XSANE_STD_OPTIONS_DIALOG_POS_X, XSANE_STD_OPTIONS_DIALOG_POS_Y);
   sprintf(windowname, "%s %s", WINDOW_STANDARD_OPTIONS, xsane.device_text);
-  gtk_window_set_title(GTK_WINDOW(xsane.standard_options_shell), (char *) windowname);
+  gtk_window_set_title(GTK_WINDOW(xsane.standard_options_dialog), (char *) windowname);
 
-  gtk_window_set_resizable(GTK_WINDOW(xsane.standard_options_shell), FALSE);
-  g_signal_connect(GTK_OBJECT(xsane.standard_options_shell), "delete_event", GTK_SIGNAL_FUNC(xsane_standard_option_win_delete), NULL);
+  gtk_window_set_resizable(GTK_WINDOW(xsane.standard_options_dialog), FALSE);
+  g_signal_connect(GTK_OBJECT(xsane.standard_options_dialog), "delete_event", GTK_SIGNAL_FUNC(xsane_standard_option_win_delete), NULL);
 
-  xsane_set_window_icon(xsane.standard_options_shell, 0);
-  gtk_window_add_accel_group(GTK_WINDOW(xsane.standard_options_shell), xsane.accelerator_group); 
+  xsane_set_window_icon(xsane.standard_options_dialog, 0);
+  gtk_window_add_accel_group(GTK_WINDOW(xsane.standard_options_dialog), xsane.accelerator_group); 
 
   xsane_vbox_standard = gtk_vbox_new(FALSE, 5); /* has been TRUE before I added backend pixmap */
   gtk_container_set_border_width(GTK_CONTAINER(xsane_vbox_standard), 5);
-  gtk_container_add(GTK_CONTAINER(xsane.standard_options_shell), xsane_vbox_standard);
+  gtk_container_add(GTK_CONTAINER(xsane.standard_options_dialog), xsane_vbox_standard);
   gtk_widget_show(xsane_vbox_standard);
 
   /* add vendor`s logo */
-  xsane_vendor_pixmap_new(xsane.standard_options_shell->window, xsane_vbox_standard);
+  xsane_vendor_pixmap_new(xsane.standard_options_dialog->window, xsane_vbox_standard);
 
   /* create  a subwindow so the standard dialog keeps its position on rebuilds: */
   xsane.standard_window = gtk_hbox_new(/* homogeneous */ FALSE, 0);
@@ -8141,24 +4993,24 @@ static void xsane_device_dialog(void)
 
   /* create the scanner advanced options dialog box */
 
-  xsane.advanced_options_shell = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-  gtk_window_move(GTK_WINDOW(xsane.advanced_options_shell), XSANE_ADV_OPTIONS_POS_X, XSANE_ADV_OPTIONS_POS_Y);
+  xsane.advanced_options_dialog = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  gtk_window_move(GTK_WINDOW(xsane.advanced_options_dialog), XSANE_ADV_OPTIONS_DIALOG_POS_X, XSANE_ADV_OPTIONS_DIALOG_POS_Y);
   sprintf(windowname, "%s %s",WINDOW_ADVANCED_OPTIONS, xsane.device_text);
-  gtk_window_set_title(GTK_WINDOW(xsane.advanced_options_shell), (char *) windowname);
+  gtk_window_set_title(GTK_WINDOW(xsane.advanced_options_dialog), (char *) windowname);
 
-  gtk_window_set_resizable(GTK_WINDOW(xsane.advanced_options_shell), FALSE);
-  g_signal_connect(GTK_OBJECT(xsane.advanced_options_shell), "delete_event", GTK_SIGNAL_FUNC(xsane_advanced_option_win_delete), NULL);
+  gtk_window_set_resizable(GTK_WINDOW(xsane.advanced_options_dialog), FALSE);
+  g_signal_connect(GTK_OBJECT(xsane.advanced_options_dialog), "delete_event", GTK_SIGNAL_FUNC(xsane_advanced_option_win_delete), NULL);
 
-  xsane_set_window_icon(xsane.advanced_options_shell, 0);
-  gtk_window_add_accel_group(GTK_WINDOW(xsane.advanced_options_shell), xsane.accelerator_group); 
+  xsane_set_window_icon(xsane.advanced_options_dialog, 0);
+  gtk_window_add_accel_group(GTK_WINDOW(xsane.advanced_options_dialog), xsane.accelerator_group); 
 
   xsane_vbox_advanced = gtk_vbox_new(FALSE, 5); /* has been TRUE before I added backend pixmap */
   gtk_container_set_border_width(GTK_CONTAINER(xsane_vbox_advanced), 5);
-  gtk_container_add(GTK_CONTAINER(xsane.advanced_options_shell), xsane_vbox_advanced);
+  gtk_container_add(GTK_CONTAINER(xsane.advanced_options_dialog), xsane_vbox_advanced);
   gtk_widget_show(xsane_vbox_advanced);
 
   /* add vendor´s logo */
-  xsane_vendor_pixmap_new(xsane.advanced_options_shell->window, xsane_vbox_advanced);
+  xsane_vendor_pixmap_new(xsane.advanced_options_dialog->window, xsane_vbox_advanced);
 
   /* create  a subwindow so the advanced dialog keeps its position on rebuilds: */
   xsane.advanced_window = gtk_hbox_new(/* homogeneous */ FALSE, 0);
@@ -8180,11 +5032,11 @@ static void xsane_device_dialog(void)
 
   if (xsane.main_window_fixed)
   {
-    gtk_widget_realize(xsane.shell);
+    gtk_widget_realize(xsane.dialog);
   }
   else
   {
-    gtk_widget_show(xsane.shell); 
+    gtk_widget_show(xsane.dialog); 
     /* the disadavantage of this is that the main window does
        not have the focus when every window is shown */
   }
@@ -8194,7 +5046,7 @@ static void xsane_device_dialog(void)
   /* define tooltips colors */
 
   xsane.tooltips = gtk_tooltips_new();
-  colormap = gdk_drawable_get_colormap(xsane.shell->window);
+  colormap = gdk_drawable_get_colormap(xsane.dialog->window);
 
   /* use black as foreground: */
   xsane.tooltips_fg.red   = 0;
@@ -8306,17 +5158,17 @@ static void xsane_device_dialog(void)
   xsane_update_param(0);
   xsane_update_gamma_curve(TRUE);
 
-  gtk_widget_realize(xsane.standard_options_shell); /* is needed for saving window geometry */
-  gtk_widget_realize(xsane.advanced_options_shell);
+  gtk_widget_realize(xsane.standard_options_dialog); /* is needed for saving window geometry */
+  gtk_widget_realize(xsane.advanced_options_dialog);
 
   if (preferences.show_standard_options)
   {
-    gtk_widget_show(xsane.standard_options_shell);
+    gtk_widget_show(xsane.standard_options_dialog);
   }
 
   if (preferences.show_advanced_options)
   {
-    gtk_widget_show(xsane.advanced_options_shell);
+    gtk_widget_show(xsane.advanced_options_dialog);
   }
 
   if (preferences.show_batch_scan)
@@ -8324,7 +5176,7 @@ static void xsane_device_dialog(void)
     gtk_widget_show(xsane.batch_scan_dialog);
   }
 
-  gtk_widget_show(xsane.shell); /* call as last so focus is on it */
+  gtk_widget_show(xsane.dialog); /* call as last so focus is on it */
 
   while (gtk_events_pending())
   {
@@ -8659,7 +5511,7 @@ static int xsane_init(int argc, char **argv)
   {
     int ch;
 
-    while((ch = getopt_long(argc, argv, "cd:fghlmnpsvFN:RV", long_options, 0)) != EOF)
+    while((ch = getopt_long(argc, argv, "cd:efghlmnpsvFN:RV", long_options, 0)) != EOF)
     {
       switch(ch)
       {
@@ -8675,7 +5527,7 @@ static int xsane_init(int argc, char **argv)
 
         case 'v': /* --version */
           g_print("%s-%s %s %s\n", xsane.prog_name, XSANE_VERSION, XSANE_COPYRIGHT_SIGN, XSANE_COPYRIGHT_TXT);
-          g_print("  %s %s\n", TEXT_EMAIL, XSANE_EMAIL);
+          g_print("  %s %s\n", TEXT_EMAIL_ADR, XSANE_EMAIL_ADR);
           g_print("  %s %s\n", TEXT_PACKAGE, XSANE_PACKAGE_VERSION);
           g_print("  %s%d.%d.%d\n", TEXT_GTK_VERSION, GTK_MAJOR_VERSION, GTK_MINOR_VERSION, GTK_MICRO_VERSION);
 
@@ -8750,8 +5602,12 @@ static int xsane_init(int argc, char **argv)
           xsane.xsane_mode = XSANE_FAX;
          break;
 
-        case 'm': /* --mail */
-          xsane.xsane_mode = XSANE_MAIL;
+        case 'm': /* --multipage */
+          xsane.xsane_mode = XSANE_MULTIPAGE;
+         break;
+
+        case 'e': /* --email */
+          xsane.xsane_mode = XSANE_EMAIL;
          break;
 
         case 'n': /* --No-mode-selection */

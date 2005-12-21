@@ -2157,6 +2157,12 @@ static gint xsane_histogram_win_delete(GtkWidget *widget, gpointer data)
 {
   DBG(DBG_proc, "xsane_histogram_win_delete\n");
 
+  if (preferences.show_histogram)
+  {
+    xsane_window_get_position(xsane.histogram_dialog, &xsane.histogram_dialog_posx, &xsane.histogram_dialog_posy);
+    gtk_window_move(GTK_WINDOW(xsane.histogram_dialog), xsane.histogram_dialog_posx, xsane.histogram_dialog_posy);
+  }
+
   gtk_widget_hide(widget);
   preferences.show_histogram = FALSE;
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_histogram_widget), preferences.show_histogram);
@@ -2183,7 +2189,7 @@ void xsane_create_histogram_dialog(const char *devicetext)
 
   xsane.histogram_dialog = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   gtk_window_set_resizable(GTK_WINDOW(xsane.histogram_dialog), FALSE);
-  gtk_window_move(GTK_WINDOW(xsane.histogram_dialog), XSANE_HISTOGRAM_POS_X, XSANE_HISTOGRAM_POS_Y);
+  gtk_window_move(GTK_WINDOW(xsane.histogram_dialog), XSANE_HISTOGRAM_DIALOG_POS_X, XSANE_HISTOGRAM_DIALOG_POS_Y);
   g_signal_connect(GTK_OBJECT(xsane.histogram_dialog), "delete_event", GTK_SIGNAL_FUNC(xsane_histogram_win_delete), NULL);
   sprintf(windowname, "%s %s", WINDOW_HISTOGRAM, devicetext);
   gtk_window_set_title(GTK_WINDOW(xsane.histogram_dialog), windowname);
