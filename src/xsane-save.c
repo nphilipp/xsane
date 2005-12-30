@@ -5414,6 +5414,41 @@ static void write_3chars_as_base64(unsigned char c1, unsigned char c2, unsigned 
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+void write_string_base64(int fd_socket, unsigned char *string, int len)
+{
+ int i;
+ int pad;
+ unsigned char c1, c2, c3;
+
+  for (i = 0; i < len; i+=3)
+  {
+    c1 = string[i];
+    c2 = string[i+1];
+    c3 = string[i+2];
+
+    pad = i - len + 3;
+
+    if (pad < 0)
+    {
+      pad = 0;
+    }
+    else if (pad)
+    {
+      c3 = 0;
+
+      if (pad == 2)
+      {
+        c2 = 0;
+      }
+    }
+
+    write_3chars_as_base64(c1, c2, c3, pad, fd_socket);
+  }
+  write(fd_socket, "\r\n", 2);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 void write_base64(int fd_socket, FILE *infile) 
 {
  int c1, c2, c3;
@@ -5732,9 +5767,103 @@ int pop3_login(int fd_socket, char *user, char *passwd)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+int asmtp_authentication(int fd_socket, int auth_type, char *user, char *passwd)
+{
+ int len;
+ char buf[1024];
+
+  DBG(DBG_proc, "asmtp_authentication\n");
+
+  switch (auth_type)
+  {
+    case EMAIL_AUTH_ASMTP_PLAIN:
+      snprintf(buf, sizeof(buf), "AUTH PLAIN ");
+      DBG(DBG_info2, "> %s\\0(USER)\\0(PASSWORD)\n", buf);
+      write(fd_socket, buf, strlen(buf));
+      snprintf(buf, sizeof(buf), "%c%s%c%s", 0, user, 0, passwd);
+      write_string_base64(fd_socket, buf, strlen(user)+strlen(passwd)+2);
+      len = read(fd_socket, buf, sizeof(buf));
+      if (len >= 0)
+      {
+        buf[len] = 0;
+      }
+      DBG(DBG_info2, "< %s", buf);
+     break;
+
+    case EMAIL_AUTH_ASMTP_LOGIN:
+      snprintf(buf, sizeof(buf), "AUTH LOGIN\r\n");
+      DBG(DBG_info2, "> %s", buf);
+      write(fd_socket, buf, strlen(buf));
+      len = read(fd_socket, buf, sizeof(buf));
+      if (len >= 0)
+      {
+        buf[len] = 0;
+      }
+      DBG(DBG_info2, "< %s", buf);
+      if (buf[0] != '3')
+      {
+        DBG(DBG_info, "=> error\n");
+       return (-1);
+      }
+
+      DBG(DBG_info2, "> (USERNAME)\n");
+      write_string_base64(fd_socket, user, strlen(user));
+
+      len = read(fd_socket, buf, sizeof(buf));
+      if (len >= 0)
+      {
+        buf[len] = 0;
+      }
+      DBG(DBG_info2, "< %s", buf);
+      if (buf[0] != '3')
+      {
+        DBG(DBG_info, "=> error\n");
+       return (-1);
+      }
+
+      DBG(DBG_info2, "> (PASSWORD)\n");
+      write_string_base64(fd_socket, passwd, strlen(passwd));
+
+      len = read(fd_socket, buf, sizeof(buf));
+      if (len >= 0)
+      {
+        buf[len] = 0;
+      }
+      DBG(DBG_info2, "< %s", buf);
+      if (buf[0] != '2')
+      {
+        DBG(DBG_info, "=> error\n");
+       return (-1);
+      }
+     break;
+
+#if 0
+    case EMAIL_AUTH_ASMTP_CRAM_MD5:
+      snprintf(buf, sizeof(buf), "AUTH CRAM-MD5\r\n");
+      DBG(DBG_info2, "> %s", buf);
+      write(fd_socket, buf, strlen(buf));
+      len = read(fd_socket, buf, sizeof(buf));
+      if (len >= 0)
+      {
+        buf[len] = 0;
+      }
+      DBG(DBG_info2, "< %s", buf);
+     break;
+#endif
+
+    default:
+       DBG(DBG_proc, "no valid asmtp authentication type\n");
+     break;
+  }
+
+ return 0;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 /* not only a write routine, also reads data */
 /* returns -1 on error, 0 when ok */
-int write_smtp_header(int fd_socket, char *from, char *to)
+int write_smtp_header(int fd_socket, char *from, char *to, int auth_type, char *user, char *passwd)
 {
  char buf[1024];
  int len;
@@ -5746,7 +5875,14 @@ int write_smtp_header(int fd_socket, char *from, char *to)
   }
   DBG(DBG_info2, "< %s\n", buf);
 
-  snprintf(buf, sizeof(buf), "helo localhost\r\n");
+  if (auth_type < EMAIL_AUTH_ASMTP_PLAIN)
+  {
+    snprintf(buf, sizeof(buf), "HELO localhost\r\n");
+  }
+  else
+  {
+    snprintf(buf, sizeof(buf), "EHLO localhost\r\n");
+  }
   DBG(DBG_info2, "> %s", buf);
   write(fd_socket, buf, strlen(buf));
   len = read(fd_socket, buf, sizeof(buf));
@@ -5765,6 +5901,13 @@ int write_smtp_header(int fd_socket, char *from, char *to)
       free(xsane.email_status);
     }
     xsane.email_status = strdup(TEXT_EMAIL_STATUS_SMTP_CONNECTION_FAILED);
+    xsane_front_gtk_email_project_update_lockfile_status();
+   return -1;
+  }
+
+  if (asmtp_authentication(fd_socket, auth_type, user, passwd))
+  {
+    xsane.email_status = strdup(TEXT_EMAIL_STATUS_ASMTP_AUTH_FAILED);
     xsane_front_gtk_email_project_update_lockfile_status();
    return -1;
   }
@@ -5874,4 +6017,5 @@ int write_smtp_footer(int fd_socket)
 }
 
 #endif
+
 /* ---------------------------------------------------------------------------------------------------------------------- */

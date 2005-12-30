@@ -27,6 +27,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+#include <xsane.h>
 #ifdef HAVE_LIBTIFF
 # include "tiffio.h"
 #endif
@@ -88,9 +89,13 @@ extern int xsane_save_pdf(FILE *outfile, FILE *imagefile, Image_info *image_info
                           int paper_left_margin, int paper_bottom_margin, int paperwidth, int paperheight, int paper_orientation,
                           int flatdecode,
                           GtkProgressBar *progress_bar, int *cancel_save);
+#ifdef HAVE_LIBJPEG
 extern int xsane_save_jpeg(FILE *outfile, FILE *imagefile, Image_info *image_info, int quality, GtkProgressBar *progress_bar, int *cancel_save);
+#endif
+#ifdef HAVE_LIBTIFF
 extern int xsane_save_tiff_page(TIFF *tiffile, int page, int pages, FILE *imagefile, Image_info *image_info, int quality,
                                 GtkProgressBar *progress_bar, int *cancel_save);
+#endif
 extern int xsane_save_png(FILE *outfile, FILE *imagefile, Image_info *image_info, int compression, GtkProgressBar *progress_bar, int *cancel_save);
 extern int xsane_save_png_16(FILE *outfile, FILE *imagefile, Image_info *image_info, int compression, GtkProgressBar *progress_bar, int *cancel_save);
 extern int xsane_save_pnm_16(FILE *outfile, FILE *imagefile, Image_info *image_info, GtkProgressBar *progress_bar, int *cancel_save);
@@ -108,9 +113,8 @@ extern void write_email_attach_image(int fd_socket, char *boundary, char *conten
 extern void write_email_attach_file(int fd_socket, char *boundary, FILE *infile, char *filename);
 extern int open_socket(char *server, int port);
 extern int pop3_login(int fd_socket, char *user, char *passwd);
-extern int write_smtp_header(int fd_socket, char *from, char *to);
+extern int write_smtp_header(int fd_socket, char *from, char *to, int auth_type, char *user, char *pass);
 extern int write_smtp_footer(int fd_socket);
-
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 #endif

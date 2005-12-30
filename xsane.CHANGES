@@ -2817,3 +2817,12 @@ xsane-0.98b -> 0.99:
        gtk_timeout_add(100, (GtkFunction)xsane_scan_dialog, NULL);
      to start xsane_scan_dialog after 100ms.
 
+ - batch scan window now uses preview levels (zoomed previews) to display batch icons
+
+ - added ASMTP authentication PLAIN and LOGIN
+
+ - changed size definition of preview window for GTK2 to gtk_window_resize()
+
+ - translations: U=updated (* for 0.99-pre1), N=not updated, A=added/new
+   cs da de es fr hu it ja nl pl pt pt_BR ro ru sk sl sr sv tr vi zh
+   U* U* U* N  N  U* N  N  U* U* N  N     N  N  N  N  N  N  U* N  N

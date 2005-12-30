@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.98\n"
-"POT-Creation-Date: 2005-12-21 12:05+0100\n"
+"POT-Creation-Date: 2005-12-30 23:07+0100\n"
 "PO-Revision-Date: 2005-10-30 11:52+0300\n"
 "Last-Translator: Vitaly Lipatov <lav@etersoft.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -493,10 +493,6 @@ msgstr "Автовыбор области сканирования"
 msgid "Autocorrect colors"
 msgstr "Автокоррекция цвета"
 
-#. RADIO_BUTTON_POP3_AUTHENTIFICATION
-msgid "POP3 authentification"
-msgstr "Использовать авторизацию POP3"
-
 #. RADIO_BUTTON_OCR_USE_GUI_PIPE
 msgid "Use GUI progress pipe"
 msgstr "Использовать канал GUI"
@@ -512,10 +508,6 @@ msgstr "Доступные устройства:"
 #. TEXT_XSANE_OPTIONS
 msgid "XSane options"
 msgstr "Общие параметры"
-
-#. TEXT_XSANE_MODE
-msgid "XSane mode"
-msgstr "Режим"
 
 #. TEXT_FILETYPE
 msgid "Type"
@@ -1033,6 +1025,21 @@ msgstr "Отправитель:"
 msgid "Reply to:"
 msgstr "Отвечать на:"
 
+#. TEXT_SETUP_EMAIL_AUTHENTICATION
+#, fuzzy
+msgid "E-mail authentication"
+msgstr "Использовать авторизацию POP3"
+
+#. TEXT_SETUP_EMAIL_AUTH_USER
+#, fuzzy
+msgid "User:"
+msgstr "Использование:"
+
+#. TEXT_SETUP_EMAIL_AUTH_PASS
+#, fuzzy
+msgid "Password:"
+msgstr "Пароль :"
+
 #. TEXT_SETUP_POP3_SERVER
 msgid "POP3 server:"
 msgstr "Сервер POP3:"
@@ -1040,14 +1047,6 @@ msgstr "Сервер POP3:"
 #. TEXT_SETUP_POP3_PORT
 msgid "POP3 port:"
 msgstr "Порт POP3:"
-
-#. TEXT_SETUP_POP3_USER
-msgid "POP3 user:"
-msgstr "Пользователь POP3:"
-
-#. TEXT_SETUP_POP3_PASS
-msgid "POP3 password:"
-msgstr "Пароль POP3:"
 
 #. TEXT_SETUP_OCR_COMMAND
 msgid "OCR Command:"
@@ -1338,6 +1337,27 @@ msgstr "На позицию вверх"
 #. MENU_ITEM_MOVE_DWN
 msgid "Move item down"
 msgstr "На позицию вниз"
+
+#. MENU_ITEM_AUTH_NONE
+#, fuzzy
+msgid "no authentication"
+msgstr "Использовать авторизацию POP3"
+
+#. MENU_ITEM_AUTH_POP3
+msgid "POP3 before SMTP"
+msgstr ""
+
+#. MENU_ITEM_AUTH_ASMTP_PLAIN
+msgid "ASMTP Plain"
+msgstr ""
+
+#. MENU_ITEM_AUTH_ASMTP_LOGIN
+msgid "ASMTP Login"
+msgstr ""
+
+#. MENU_ITEM_AUTH_ASMTP_CRAM_MD5
+msgid "ASMTP CRAM-MD5"
+msgstr ""
 
 #. PROGRESS_SCANNING
 msgid "Scanning"
@@ -1799,7 +1819,7 @@ msgstr ""
 
 #. DESC_SAVE_PS_FLATDECODED
 msgid ""
-"compress postscript image with zlib algorithm (flatdecode).When you want to "
+"compress postscript image with zlib algorithm (flatdecode). When you want to "
 "print such a file your printer has to understand postscript level 3"
 msgstr ""
 
@@ -2005,10 +2025,20 @@ msgstr "Ваш электронный адрес"
 msgid "enter e-mail address for replied e-mails"
 msgstr "Адрес для ответа"
 
-#. DESC_POP3_AUTHENTIFICATION
+#. DESC_EMAIL_AUTHENTICATION
 #, fuzzy
-msgid "Authentificate at POP3 server before sending e-mail"
+msgid "Type of authentication before sending e-mail"
 msgstr "Авторизоваться на POP3-сервере перед отправкой письма"
+
+#. DESC_EMAIL_AUTH_USER
+#, fuzzy
+msgid "user name for e-mail server"
+msgstr "Имя пользователя для POP3-сервера"
+
+#. DESC_EMAIL_AUTH_PASS
+#, fuzzy
+msgid "password for e-mail server"
+msgstr "Пароль для POP3-сервера"
 
 #. DESC_POP3_SERVER
 msgid "IP Address or Domain name of POP3 server"
@@ -2017,14 +2047,6 @@ msgstr "IP-адрес или название домена POP3-сервера"
 #. DESC_POP3_PORT
 msgid "port to connect to POP3 server"
 msgstr "Порт для POP3-сервера"
-
-#. DESC_POP3_USER
-msgid "user name for POP3 server"
-msgstr "Имя пользователя для POP3-сервера"
-
-#. DESC_POP3_PASS
-msgid "password for POP3 server"
-msgstr "Пароль для POP3-сервера"
 
 #. DESC_HTML_EMAIL
 #, fuzzy
@@ -2831,6 +2853,11 @@ msgstr "Не удалось соединиться через POP3"
 msgid "POP3 login failed"
 msgstr "Неверное имя пользователя для POP3"
 
+#. TEXT_EMAIL_STATUS_ASMTP_AUTH_FAILED
+#, fuzzy
+msgid "ASMTP authentication failed"
+msgstr "Не удалось соединиться по SMTP"
+
 #. TEXT_EMAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
 msgstr "Не удалось соединиться по SMTP"
@@ -2920,6 +2947,19 @@ msgstr "Не хватает памяти"
 
 msgid "Access to resource has been denied"
 msgstr "Доступ к ресурсу запрещён"
+
+#, fuzzy
+#~ msgid "POP3 authentication"
+#~ msgstr "Использовать авторизацию POP3"
+
+#~ msgid "XSane mode"
+#~ msgstr "Режим"
+
+#~ msgid "POP3 user:"
+#~ msgstr "Пользователь POP3:"
+
+#~ msgid "POP3 password:"
+#~ msgstr "Пароль POP3:"
 
 #~ msgid "Automatic Document Feeder Modus:"
 #~ msgstr "Режим автоподатчика бумаги:"

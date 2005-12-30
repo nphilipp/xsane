@@ -33,13 +33,15 @@
 <br>
 <br>
 <br>
-<font color="#000000">Main window:</font>
+<font color="#000000">XSane mode:</font>
+<img SRC="xsane-target.jpg" alt="xsane-target">
 <ul>
 <li><a href="sane-xsane-viewer-doc.html">Viewer mode</a></li>
 <li><a href="sane-xsane-save-doc.html">Save mode</a></li>
 <li><a href="sane-xsane-copy-doc.html">Copy mode</a></li>
+<li><a href="sane-xsane-multipage-doc.html">Multipage mode</a></li>
 <li><a href="sane-xsane-fax-doc.html">Fax mode</a></li>
-<li><a href="sane-xsane-mail-doc.html">Mail mode</a></li>
+<li><a href="sane-xsane-email-doc.html">E-mail mode</a></li>
 <li><a href="sane-xsane-gimp-doc.html">Gimp plugin</a></li>
 </ul>
 <br>
@@ -110,8 +112,8 @@
 <li><a href="sane-xsane-setup-display-doc.html">Display setup</a></li>
 <li><a href="sane-xsane-setup-enhancement-doc.html">Enhancement setup</a></li>
 <li><a href="sane-xsane-setup-fax-doc.html">Fax setup</a></li>
-<li><a href="sane-xsane-setup-image-doc.html">Image setup</a></li>
-<li><a href="sane-xsane-setup-mail-doc.html">Mail setup</a></li>
+<li><a href="sane-xsane-setup-filetype-doc.html">Filetype setup</a></li>
+<li><a href="sane-xsane-setup-email-doc.html">E-mail setup</a></li>
 <li><a href="sane-xsane-setup-save-doc.html">Saving setup</a></li>
 </ul>
 </td>
@@ -131,21 +133,21 @@ main window of xsane.
 <br>
 <br>
 
-<h4>COMMAND:</h4>
+<h4>Command:</h4>
 <blockquote>
 Enter command to send/spool faxfiles.
 <b>hylafax: "sendfax"</b>
 <b>mgetty+sendfax: "faxspool"</b>
 </blockquote>
 
-<h4>RECEIVER OPTION:</h4>
+<h4>Receiver option:</h4>
 <blockquote>
 Option to set receiver phone number or address.
 <b>hylafax: "-d"</b>
 <b>mgetty+sendfax: leave free</b>
 </blockquote>
 
-<h4>POSTSCRIPTFILE OPTION:</h4>
+<h4>Postscriptfile option:</h4>
 <blockquote>
 If there is an option that must be set before the filenames
 of the faxfile or if it is necessary to specify an option for files in
@@ -154,14 +156,14 @@ postscript format, enter this option - otherwise let this field free.
 <b>mgetty+sendfax: leave free</b>
 </blockquote>
 
-<h4>NORMAL MODE OPTION:</h4>
+<h4>Normal mode option:</h4>
 <blockquote>If there is an option to set normal mode (98lpi) then enter
 this option - otherwise let this field free.
 <b>hylafax: "-l"</b>
 <b>mgetty+sendfax: "-n"</b>
 </blockquote>
 
-<h4>FINE MODE OPTION:</h4>
+<h4>Fine mode option:</h4>
 <blockquote>
 If there is an option to set fine mode (196lpi) then enter
 this option - otherwise let this field free.
@@ -169,14 +171,14 @@ this option - otherwise let this field free.
 <b>mgetty+sendfax: leave free</b>
 </blockquote>
 
-<h4>VIEWER:</h4>
+<h4>Viewer:</h4>
 <blockquote>
 Enter a program to show the postscript fax files on the screen.
 <br>
 E.g. this can be "ghostscript" or "xv".
 </blockquote>
 
-<h4>PRINT AREA (WIDTH, HEIGHT, LEFT OFFSET, BOTTOM OFFSET):</h4>
+<h4>Print area (width, height, left offset, bottom offset):</h4>
 <blockquote>
 Define size and position of printable area on faxpage.
 </blockquote>

@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: hu\n"
-"POT-Creation-Date: 2005-12-21 12:05+0100\n"
-"PO-Revision-Date: 2005-10-29 16:27+0200\n"
+"POT-Creation-Date: 2005-12-30 23:07+0100\n"
+"PO-Revision-Date: 2005-12-21 22:50+0100\n"
 "Last-Translator: Aron Novak <aaron@szentimre.hu>\n"
 "Language-Team: Hungarian\n"
 "MIME-Version: 1.0\n"
@@ -81,24 +81,20 @@ msgid "insert ps-file into fax"
 msgstr "ps fájl beszúrása a faxba"
 
 #. WINDOW_EMAIL_PROJECT
-#, fuzzy
 msgid "E-mail project"
 msgstr "levélterv"
 
 #. WINDOW_EMAIL_RENAME
-#, fuzzy
 msgid "rename e-mail image"
-msgstr "kép átnevezése"
+msgstr "email - kép átnevezése"
 
 #. WINDOW_EMAIL_INSERT
-#, fuzzy
 msgid "insert file into e-mail"
-msgstr "fájl beszúrása a levélbe"
+msgstr "fájl beszúrása levélbe"
 
 #. WINDOW_MULTIPAGE_PROJECT
-#, fuzzy
 msgid "multipage project"
-msgstr "Terv törlése"
+msgstr "több oldalas terv"
 
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
@@ -389,9 +385,8 @@ msgid "Send project"
 msgstr "Terv küldése"
 
 #. BUTTON_SAVE_MULTIPAGE
-#, fuzzy
 msgid "Save multipage file"
-msgstr "Kép mentése"
+msgstr "Fájl mentése"
 
 #. BUTTON_DELETE_PROJECT
 msgid "Delete project"
@@ -434,7 +429,6 @@ msgid "Fine mode"
 msgstr "Részletes mód"
 
 #. RADIO_BUTTON_HTML_EMAIL
-#, fuzzy
 msgid "HTML e-mail"
 msgstr "HTML levél"
 
@@ -452,11 +446,11 @@ msgstr "Létező fájlnevek kihagyása"
 
 #. RADIO_BUTTON_SAVE_PS_FLATDECODED
 msgid "Save postscript zlib compressed (ps level 3)"
-msgstr ""
+msgstr "Mentés postscript zlib tömörítettben (ps level 3)"
 
 #. RADIO_BUTTON_SAVE_PDF_FLATDECODED
 msgid "Save PDF zlib compressed"
-msgstr ""
+msgstr "Mentés PDF-ben, zlibbel tömörítve"
 
 #. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
 msgid "Save 16bit pnm in ascii format"
@@ -490,10 +484,6 @@ msgstr "Előre választott beolvasási terület"
 msgid "Autocorrect colors"
 msgstr "Színek automatikus javítása"
 
-#. RADIO_BUTTON_POP3_AUTHENTIFICATION
-msgid "POP3 authentification"
-msgstr "POP3 azonosítás"
-
 #. RADIO_BUTTON_OCR_USE_GUI_PIPE
 msgid "Use GUI progress pipe"
 msgstr "A GUI folyamatjelző használata"
@@ -509,10 +499,6 @@ msgstr "Elérhető eszközök:"
 #. TEXT_XSANE_OPTIONS
 msgid "XSane options"
 msgstr "XSane beállítások"
-
-#. TEXT_XSANE_MODE
-msgid "XSane mode"
-msgstr "Beolvasás célja"
 
 #. TEXT_FILETYPE
 msgid "Type"
@@ -701,7 +687,6 @@ msgstr ""
 "ELADHATÓSÁGRA vagy az ALKALMASSÁGRA bizonyos célokra.\n"
 
 #. TEXT_EMAIL_ADR
-#, fuzzy
 msgid "E-mail:"
 msgstr "Email:"
 
@@ -722,7 +707,6 @@ msgstr "Fordítás:"
 #. by YOUR NAME\n
 #. E-mail: your.name@yourdomain.com\n
 #. TEXT_TRANSLATION_INFO
-#, fuzzy
 msgid ""
 "untranslated original english text\n"
 "by Oliver Rauch\n"
@@ -741,7 +725,6 @@ msgid "Scanned pages: "
 msgstr "Beolvasott oldalak: "
 
 #. TEXT_EMAIL_TEXT
-#, fuzzy
 msgid "E-mail text:"
 msgstr "A levél szövege:"
 
@@ -754,19 +737,16 @@ msgid "Project status:"
 msgstr "A terv állapota:"
 
 #. TEXT_EMAIL_FILETYPE
-#, fuzzy
 msgid "E-mail image filetype:"
-msgstr "Emailben a kép típusa:"
+msgstr "Az emailben a kép típusa:"
 
 #. TEXT_PAGES
-#, fuzzy
 msgid "Pages:"
-msgstr "Használat:"
+msgstr "Oldalak:"
 
 #. TEXT_MULTIPAGE_FILETYPE
-#, fuzzy
 msgid "Multipage document filetype:"
-msgstr "Emailben a kép típusa:"
+msgstr "Többoldalas dokumentumban a kép típusa:"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
@@ -881,7 +861,7 @@ msgstr "Nyomtató kék gammája:"
 
 #. TEXT_SETUP_PRINTER_PS_FLATDECODED
 msgid "Create zlib compressed postscript image (ps level 3) for printing"
-msgstr ""
+msgstr "Zlibbel tömörített postscript létrehozása nyomtatáshoz (ps level 3)"
 
 #. TEXT_SETUP_TMP_PATH
 msgid "Temporary directory"
@@ -908,9 +888,8 @@ msgid "Filename counter length"
 msgstr "Fájlnévszámláló hossza"
 
 #. TEXT_SETUP_TIFF_ZIP_COMPRESSION
-#, fuzzy
 msgid "TIFF zip compression rate"
-msgstr "8 bites TIFF tömörítése"
+msgstr "TIFF zip tömörítési szintje"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_16
 msgid "TIFF 16 bit image compression"
@@ -1006,7 +985,7 @@ msgstr "Nézőke (Postscript):"
 
 #. TEXT_SETUP_FAX_PS_FLATDECODED
 msgid "Create zlib compressed postscript image (ps level 3) for fax"
-msgstr ""
+msgstr "Zlibbel tömörített postscript létrehozása faxhoz (ps level 3)"
 
 #. TEXT_SETUP_SMTP_SERVER
 msgid "SMTP server:"
@@ -1024,6 +1003,21 @@ msgstr "Feladó:"
 msgid "Reply to:"
 msgstr "Válaszcím:"
 
+#. TEXT_SETUP_EMAIL_AUTHENTICATION
+#, fuzzy
+msgid "E-mail authentication"
+msgstr "POP3 azonosítás"
+
+#. TEXT_SETUP_EMAIL_AUTH_USER
+#, fuzzy
+msgid "User:"
+msgstr "Használat:"
+
+#. TEXT_SETUP_EMAIL_AUTH_PASS
+#, fuzzy
+msgid "Password:"
+msgstr "Jelszó:"
+
 #. TEXT_SETUP_POP3_SERVER
 msgid "POP3 server:"
 msgstr "POP3 kiszolgáló:"
@@ -1031,14 +1025,6 @@ msgstr "POP3 kiszolgáló:"
 #. TEXT_SETUP_POP3_PORT
 msgid "POP3 port:"
 msgstr "POP3 port:"
-
-#. TEXT_SETUP_POP3_USER
-msgid "POP3 user:"
-msgstr "POP3 felhasználó:"
-
-#. TEXT_SETUP_POP3_PASS
-msgid "POP3 password:"
-msgstr "POP3 jelszó:"
 
 #. TEXT_SETUP_OCR_COMMAND
 msgid "OCR Command:"
@@ -1084,9 +1070,8 @@ msgid "Save"
 msgstr "Mentés"
 
 #. NOTEBOOK_FILETYPE_OPTIONS
-#, fuzzy
 msgid "Filetype"
-msgstr "Fájl"
+msgstr "Fájl típusa"
 
 #. NOTEBOOK_COPY_OPTIONS
 msgid "Copy"
@@ -1097,7 +1082,6 @@ msgid "Fax"
 msgstr "Faxolás"
 
 #. NOTEBOOK_EMAIL_OPTIONS
-#, fuzzy
 msgid "E-mail"
 msgstr "Email"
 
@@ -1115,7 +1099,7 @@ msgstr "Javítás"
 
 #. MENU_ITEM_MULTIPAGE
 msgid "Multipage"
-msgstr ""
+msgstr "Több oldalas"
 
 #. MENU_ITEM_SHOW_TOOLTIPS
 msgid "Show tooltips"
@@ -1262,9 +1246,8 @@ msgid "pack bits"
 msgstr "bitek csomagolása"
 
 #. MENU_ITEM_TIFF_COMP_DEFLATE
-#, fuzzy
 msgid "deflate"
-msgstr "késleltetett"
+msgstr "csökkentés"
 
 #. MENU_ITEM_RANGE_SCALE
 msgid "Slider (Scale)"
@@ -1330,6 +1313,27 @@ msgstr "Felfele mozgatás"
 msgid "Move item down"
 msgstr "Lefele mozgatás"
 
+#. MENU_ITEM_AUTH_NONE
+#, fuzzy
+msgid "no authentication"
+msgstr "POP3 azonosítás"
+
+#. MENU_ITEM_AUTH_POP3
+msgid "POP3 before SMTP"
+msgstr ""
+
+#. MENU_ITEM_AUTH_ASMTP_PLAIN
+msgid "ASMTP Plain"
+msgstr ""
+
+#. MENU_ITEM_AUTH_ASMTP_LOGIN
+msgid "ASMTP Login"
+msgstr ""
+
+#. MENU_ITEM_AUTH_ASMTP_CRAM_MD5
+msgid "ASMTP CRAM-MD5"
+msgstr ""
+
 #. PROGRESS_SCANNING
 msgid "Scanning"
 msgstr "Beolvasás"
@@ -1340,9 +1344,8 @@ msgid "Receiving %s data"
 msgstr "%s adatok fogadása"
 
 #. PROGRESS_PAGE
-#, fuzzy
 msgid "page"
-msgstr "csomag"
+msgstr "oldal"
 
 #. PROGRESS_TRANSFERING_DATA
 msgid "Transfering image"
@@ -1405,13 +1408,12 @@ msgid "Cancel preview scan <Alt-ESC>"
 msgstr "Előnézet beolvasásának megszakítása <Alt-ESC>"
 
 #. DESC_XSANE_MODE
-#, fuzzy
 msgid ""
 "viewer-<Ctrl-v>, save-<Ctrl-s>, photocopy-<Ctrl-c>, multipage-<Ctrl-m>, fax-"
 "<Ctrl-f> or e-mail-<Ctrl-e>"
 msgstr ""
-"mentés-<Ctrl-s>, nézet-<Ctrl-v>, fotómásolat-<Ctrl-c>, fax-<Ctrl-f>vagy "
-"email-<Ctrl-m>"
+"nézőke-<Ctrl-v>, mentés-<Ctrl-s>, fotómásolat-<Ctrl-c>, több oldalas-<Ctrl-"
+"m>, fax-<Ctrl-f> vagy e-mail-<Ctrl-e>"
 
 #. DESC_XSANE_MEDIUM
 msgid ""
@@ -1460,22 +1462,18 @@ msgid "Enter receiver phone number or address"
 msgstr "Add meg a fogadó telefonját vagy címét"
 
 #. DESC_EMAIL_PROJECT
-#, fuzzy
 msgid "Enter name of e-mail project"
 msgstr "Add meg a levélterv nevét"
 
 #. DESC_EMAIL_IMAGENAME
-#, fuzzy
 msgid "Enter new name for e-mail image"
 msgstr "Adj új nevet a képnek"
 
 #. DESC_EMAIL_RECEIVER
-#, fuzzy
 msgid "Enter e-mail address"
-msgstr "Adj meg egy emailcímet"
+msgstr "Add meg az emailcímet"
 
 #. DESC_EMAIL_SUBJECT
-#, fuzzy
 msgid "Enter subject of e-mail"
 msgstr "Add meg a levél tárgyát"
 
@@ -1484,14 +1482,12 @@ msgid "Select filetype for image attachments"
 msgstr "Válassz fájltípust a csatolmányhoz"
 
 #. DESC_MULTIPAGE_PROJECT
-#, fuzzy
 msgid "Enter name of multipage project"
-msgstr "Add meg a levélterv nevét"
+msgstr "Add meg a többoldalas levélterv nevét"
 
 #. DESC_MULTIPAGE_FILETYPE
-#, fuzzy
 msgid "Select filetype for multipage file"
-msgstr "Válassz fájltípust a csatolmányhoz"
+msgstr "Válassz fájltípust a többoldalas fájlhoz"
 
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
@@ -1729,6 +1725,8 @@ msgid ""
 "Create zlib compressed postscript image for printer (flatdecode).\n"
 "The printer has to understand postscript level 3!"
 msgstr ""
+"Zlibbel tömörített postscript létrehozása nyomtatónak (flatcode).\n"
+"A nyomtató kell értse a postscript level 3-at!"
 
 #. DESC_TMP_PATH
 msgid "Path to temp directory"
@@ -1754,9 +1752,8 @@ msgid "Minimum length of counter in filename"
 msgstr "A fájlnévben a számláló minimális hossza"
 
 #. DESC_TIFF_ZIP_COMPRESSION
-#, fuzzy
 msgid "Compression rate for zip compressed tiff (deflate)"
-msgstr "A tömörítés módja 8 bites tiff kép esetén"
+msgstr "Tömörítési szint zippel tömörített tiff-nél (deflate)"
 
 #. DESC_TIFF_COMPRESSION_16
 msgid "Compression type if 16 bit image is saved as tiff"
@@ -1788,13 +1785,15 @@ msgstr ""
 
 #. DESC_SAVE_PS_FLATDECODED
 msgid ""
-"compress postscript image with zlib algorithm (flatdecode).When you want to "
+"compress postscript image with zlib algorithm (flatdecode). When you want to "
 "print such a file your printer has to understand postscript level 3"
 msgstr ""
+"postscript kép tömörítése zlibbel (flatcode). Ha egy ilyen fáljt akarsz "
+"kinyomtatni, a nyomtató postscript 3 megfelelő kell legyen."
 
 #. DESC_SAVE_PDF_FLATDECODED
 msgid "compress PDF image with zlib algorithm (flatdecode)."
-msgstr ""
+msgstr "PDF tömörítése zlibbel (flatdecode)"
 
 #. DESC_SAVE_PNM16_AS_ASCII
 msgid ""
@@ -1906,7 +1905,7 @@ msgstr ""
 
 #. DESC_ADF_PAGES_MAX
 msgid "Number of pages to scan"
-msgstr ""
+msgstr "Beolvasandó oldalak száma"
 
 #. DESC_PREVIEW_PIPETTE_RANGE
 msgid "dimension of square that is used to average color for pipette function"
@@ -1960,7 +1959,7 @@ msgstr "Küldje a faxot nagyobb x-irányú felbontással(196 lpi a 98 lpi helyet
 
 #. DESC_FAX_PS_FLATDECODED
 msgid "Create zlib compressed postscript image for fax (flatdecode)"
-msgstr ""
+msgstr "Zlibbel tömörített postscript kép létrehozása faxhoz (flatdecode)"
 
 #. DESC_SMTP_SERVER
 msgid "IP Address or Domain name of SMTP server"
@@ -1971,19 +1970,27 @@ msgid "port to connect to SMTP server"
 msgstr "Az SMTP kiszolgáló portja"
 
 #. DESC_EMAIL_FROM
-#, fuzzy
 msgid "enter your e-mail address"
-msgstr "adjuk meg az email címünket"
+msgstr "add meg az email címed"
 
 #. DESC_EMAIL_REPLY_TO
-#, fuzzy
 msgid "enter e-mail address for replied e-mails"
-msgstr "adjuk meg a válaszcímet"
+msgstr "add meg a válaszcímet"
 
-#. DESC_POP3_AUTHENTIFICATION
+#. DESC_EMAIL_AUTHENTICATION
 #, fuzzy
-msgid "Authentificate at POP3 server before sending e-mail"
+msgid "Type of authentication before sending e-mail"
 msgstr "POP3 azonosítás szükséges a levélküldés előtt"
+
+#. DESC_EMAIL_AUTH_USER
+#, fuzzy
+msgid "user name for e-mail server"
+msgstr "felhasználónév a POP3 kiszolgálóhoz"
+
+#. DESC_EMAIL_AUTH_PASS
+#, fuzzy
+msgid "password for e-mail server"
+msgstr "jelszó a POP3 kiszolgálóhoz"
 
 #. DESC_POP3_SERVER
 msgid "IP Address or Domain name of POP3 server"
@@ -1993,16 +2000,7 @@ msgstr "A POP3 kiszolgáló IP címe vagy doménneve"
 msgid "port to connect to POP3 server"
 msgstr "A POP3 kiszolgáló portja"
 
-#. DESC_POP3_USER
-msgid "user name for POP3 server"
-msgstr "felhasználónév a POP3 kiszolgálóhoz"
-
-#. DESC_POP3_PASS
-msgid "password for POP3 server"
-msgstr "jelszó a POP3 kiszolgálóhoz"
-
 #. DESC_HTML_EMAIL
-#, fuzzy
 msgid "E-mail is sent in html mode, place image with: <IMAGE>"
 msgstr "A levelet HTML módban küldtük ezzel a képpel: <IMAGE>"
 
@@ -2517,7 +2515,6 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[BEÁLLÍTÁS]...[ESZKÖZ]"
 
 #. TEXT_HELP
-#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2568,8 +2565,9 @@ msgstr ""
 " -V, --viewer                 nézőke-módban indít (alapértelmezett)\n"
 " -s, --save                   mentés-módban indít\n"
 " -c, --copy                   másolás-módban indít\n"
+" -m, --multipage              többoldalas mód\n"
 " -f, --fax                    fax-módban indít\n"
-" -m, --mail                   email-módban indít\n"
+" -e, --email                   email-módban indít\n"
 " -n, --no-mode-selection      XSane módmenüjének letiltása\n"
 "\n"
 " -F, --Fixed                  rögzített ablakméret (felülírja a beállítást "
@@ -2749,44 +2747,36 @@ msgid "Rossmann negative HR 100"
 msgstr "HR 100-as Rossmann negatív"
 
 #. TEXT_PROJECT_STATUS_NOT_CREATED
-#, fuzzy
 msgid "Project not created"
-msgstr "A faxterv nem jött létre"
+msgstr "A terv nem jött létre"
 
 #. TEXT_PROJECT_STATUS_CREATED
-#, fuzzy
 msgid "Project created"
-msgstr "A faxterv létrejött"
+msgstr "A terv létrejött"
 
 #. TEXT_PROJECT_STATUS_CHANGED
-#, fuzzy
 msgid "Project changed"
-msgstr "A faxterv megváltozott"
+msgstr "A terv megváltozott"
 
 #. TEXT_PROJECT_STATUS_ERR_READ_PROJECT
-#, fuzzy
 msgid "Error reading project"
-msgstr "Hiba a levélterv olvasása közben"
+msgstr "Hiba a terv olvasása közben"
 
 #. TEXT_PROJECT_STATUS_FILE_SAVING_ERROR
-#, fuzzy
 msgid "Error saving file"
-msgstr "Kép mentése"
+msgstr "Hiba a kép mentése közben"
 
 #. TEXT_PROJECT_STATUS_FILE_SAVING
-#, fuzzy
 msgid "Saving file"
-msgstr "Kép mentése"
+msgstr "Fájl mentése"
 
 #. TEXT_PROJECT_STATUS_FILE_SAVING_ABORTED
-#, fuzzy
 msgid "Aborted saving file"
-msgstr "Kép mentése"
+msgstr "Fájl mentése megszakítva"
 
 #. TEXT_PROJECT_STATUS_FILE_SAVED
-#, fuzzy
 msgid "File has been saved"
-msgstr "A levél elküldve"
+msgstr "A fájl elmentve"
 
 #. TEXT_EMAIL_STATUS_POP3_CONNECTION_FAILED
 msgid "POP3 connection failed"
@@ -2795,6 +2785,11 @@ msgstr "POP3 kapcsolat sikertelen"
 #. TEXT_EMAIL_STATUS_POP3_LOGIN_FAILED
 msgid "POP3 login failed"
 msgstr "POP3 bejelentkezés sikertelen"
+
+#. TEXT_EMAIL_STATUS_ASMTP_AUTH_FAILED
+#, fuzzy
+msgid "ASMTP authentication failed"
+msgstr "SMTP kapcsolat sikertelen"
 
 #. TEXT_EMAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
@@ -2809,17 +2804,14 @@ msgid "Receiver entry not accepted"
 msgstr "Címzett mezőt nem fogadták el"
 
 #. TEXT_EMAIL_STATUS_SMTP_ERR_DATA
-#, fuzzy
 msgid "E-mail data not accepted"
 msgstr "A levél adatát nem fogadták el"
 
 #. TEXT_EMAIL_STATUS_SENDING
-#, fuzzy
 msgid "Sending e-mail"
 msgstr "Levél küldése"
 
 #. TEXT_EMAIL_STATUS_SENT
-#, fuzzy
 msgid "E-mail has been sent"
 msgstr "A levél elküldve"
 
@@ -2886,68 +2878,15 @@ msgstr "Elfogyott a memória"
 msgid "Access to resource has been denied"
 msgstr "A hozzáférés az erőforráshoz megtagadva"
 
-#~ msgid "Automatic Document Feeder Modus:"
-#~ msgstr "Önműködő Dokumentum Adagoló(ADF) mód:"
-
-#~ msgid ""
-#~ "Select scansource for Automatic Document feeder. If this scansource is "
-#~ "selected XSane scans until \"out of paper\" or error."
-#~ msgstr ""
-#~ "Válasszunk beolvasási forrást az automata adagolóhoz. Ha a forráski lett "
-#~ "választva, az Xsane a \"papír kifogyott\" üzenetig beolvas"
-
 #, fuzzy
-#~ msgid "E-mail project not created"
-#~ msgstr "A levélterv nem lett létrehozva."
+#~ msgid "POP3 authentication"
+#~ msgstr "POP3 azonosítás"
 
-#, fuzzy
-#~ msgid "E-mail project created"
-#~ msgstr "A levéltervet létrehoztam"
+#~ msgid "XSane mode"
+#~ msgstr "Beolvasás célja"
 
-#, fuzzy
-#~ msgid "E-mail project changed"
-#~ msgstr "A levélterv módosult"
+#~ msgid "POP3 user:"
+#~ msgstr "POP3 felhasználó:"
 
-#, fuzzy
-#~ msgid "Multipage project not created"
-#~ msgstr "A levélterv nem lett létrehozva."
-
-#, fuzzy
-#~ msgid "Multipage project created"
-#~ msgstr "A levéltervet létrehoztam"
-
-#, fuzzy
-#~ msgid "Multipage project changed"
-#~ msgstr "A levélterv módosult"
-
-#, fuzzy
-#~ msgid "Error reading multipage project"
-#~ msgstr "Hiba a levélterv olvasása közben"
-
-#, fuzzy
-#~ msgid "Saving multipage file"
-#~ msgstr "Kép mentése"
-
-#, fuzzy
-#~ msgid "Multipage saving aborted"
-#~ msgstr "A levéltervet létrehoztam"
-
-#~ msgid "Image"
-#~ msgstr "Kép"
-
-#~ msgid "Viewer (png):"
-#~ msgstr "Nézőke (png):"
-
-#, fuzzy
-#~ msgid "Enter command to be executed to view an e-mail image"
-#~ msgstr "Adjuk meg a képfájl megjelenítő program parancsát"
-
-#, fuzzy
-#~ msgid "Failed to execute e-mail image viewer:"
-#~ msgstr "Nem sikerült a képnéző elindítása:"
-
-#~ msgid "Step"
-#~ msgstr "Lépésköz"
-
-#~ msgid "Mail"
-#~ msgstr "Email"
+#~ msgid "POP3 password:"
+#~ msgstr "POP3 jelszó:"

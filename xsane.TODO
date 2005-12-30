@@ -35,8 +35,7 @@ Sign explaination:
  email-function:
     # delete image/project: create dialog "really remove?"
     # test for existance of lockfile?
-    - ??? are there other ways than pop3 before smtp to identify yourself to
-      the smtp server? ???
+    - add ASMTP CRAM-MD5 authentication
     - add cancel button while preparing mail images
 
  gamma function:

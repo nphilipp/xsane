@@ -34,13 +34,15 @@
 <br>
 <br>
 <br>
-<font color="#000000">Main window:</font>
+<font color="#000000">XSane mode:</font>
+<img SRC="xsane-target.jpg" alt="xsane-target">
 <ul>
 <li><a href="sane-xsane-viewer-doc.html">Viewer mode</a></li>
 <li><a href="sane-xsane-save-doc.html">Save mode</a></li>
 <li><a href="sane-xsane-copy-doc.html">Copy mode</a></li>
+<li><a href="sane-xsane-multipage-doc.html">Multipage mode</a></li>
 <li><a href="sane-xsane-fax-doc.html">Fax mode</a></li>
-<li><a href="sane-xsane-mail-doc.html">Mail mode</a></li>
+<li><a href="sane-xsane-email-doc.html">E-mail mode</a></li>
 <li><a href="sane-xsane-gimp-doc.html">Gimp plugin</a></li>
 </ul>
 <br>
@@ -111,8 +113,8 @@
 <li><a href="sane-xsane-setup-display-doc.html">Display setup</a></li>
 <li><a href="sane-xsane-setup-enhancement-doc.html">Enhancement setup</a></li>
 <li><a href="sane-xsane-setup-fax-doc.html">Fax setup</a></li>
-<li><a href="sane-xsane-setup-image-doc.html">Image setup</a></li>
-<li><a href="sane-xsane-setup-mail-doc.html">Mail setup</a></li>
+<li><a href="sane-xsane-setup-filetype-doc.html">Filetype setup</a></li>
+<li><a href="sane-xsane-setup-email-doc.html">E-mail setup</a></li>
 <li><a href="sane-xsane-setup-save-doc.html">Saving setup</a></li>
 </ul>
 </td>
@@ -131,7 +133,7 @@ main window of xsane.
 <br>
 <br>
 <br>
-<h4>MAIN WINDOW SIZE FIXED:</h4>
+<h4>Main window size fixed:</h4>
 <blockquote>
 Select if the main window size shall be fixed (the window size
 is defined by xsane) or it shall be a resizable with scrollbars if necessary.
@@ -140,14 +142,14 @@ The option can be overwritten by the command line options --Fixed/-F or
 --Resizeable/-R.
 </blockquote>
 
-<h4>USE PRIVATE COLORMAP:</h4>
+<h4>Use private colormap:</h4>
 <blockquote>
 If enabled and if the X server runs in 8 bit mode (256 colors)
 then the preview uses an own color map.
 <br>I suggest you do <b>not</b> run the X server in 8 bit mode!
 </blockquote>
 
-<h4>PREVIEW OVERSAMPLING:</h4>
+<h4>Preview oversampling:</h4>
 
 <blockquote>
 Defines a multiplier for the preview scan resolution. A value
@@ -160,18 +162,18 @@ slower if you enter large values. So I suggest a value of 1.0 on slow computers
 and a value up to 2.0 on fast computers.
 </blockquote>
 
-<h4>PREVIEW GAMMA:</h4>
+<h4>Preview gamma:</h4>
 <blockquote>
 Set the gamma correction value for the preview image. This is to get correct
 colors on your monitor.
 </blockquote>
 
-<h4>DISABLE&nbsp;GIMP PREVIEW GAMMA:</h4>
+<h4>Disable Gimp preview gamma:</h4>
 <blockquote>
 When xsane is started as gimp plugin do not use preview gamma.
 </blockquote>
 
-<h4>HELPFILE VIEWER:</h4>
+<h4>Helpfile viewer:</h4>
 <blockquote>
 Enter a program to show the helpfiles. It must be a html-viewer.
 If you enter the keywrod "netscape-remote", xsane uses a already running

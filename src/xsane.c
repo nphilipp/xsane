@@ -1189,13 +1189,13 @@ static void xsane_adf_pages_max_callback(GtkWidget *widget, gpointer data)
 
 GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
 {
+ GtkWidget *hbox;
  GtkWidget *xsane_vbox, *xsane_hbox;
  GtkWidget *xsane_modus_menu;
  GtkWidget *xsane_modus_item;
  GtkWidget *xsane_modus_option_menu;
  GtkWidget *xsane_vbox_xsane_modus;
- GtkWidget *xsane_label;
- GtkWidget *xsane_text;
+ GtkWidget *xsane_spinbutton;
  GtkWidget *xsane_hbox_xsane_enhancement;
  GtkWidget *xsane_frame;
  GtkWidget *xsane_medium_option_menu, *xsane_medium_menu, *xsane_medium_item;
@@ -1203,10 +1203,9 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
  GtkWidget *pixmapwidget;
  GdkBitmap *mask;
  GdkPixmap *pixmap;
- GtkWidget *hbox;
+ GtkObject *adjustment;
  const SANE_Option_Descriptor *opt;
  int i;
- gchar buf[256];
 
   DBG(DBG_proc, "xsane_update_xsane_callback\n");
 
@@ -1247,15 +1246,15 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
     gtk_widget_show(pixmapwidget);
 
     /* adf pages maximum */
-    xsane_text = gtk_entry_new();
-    xsane.adf_pages_max_entry = xsane_text;
-    xsane_back_gtk_set_tooltip(xsane.tooltips, xsane_text, DESC_ADF_PAGES_MAX);
-    gtk_widget_set_size_request(xsane_text, 40, -1);
-    snprintf(buf, sizeof(buf), "%d", preferences.adf_pages_max);    
-    gtk_entry_set_text(GTK_ENTRY(xsane_text), (char *) buf);
-    g_signal_connect(GTK_OBJECT(xsane_text), "changed", (GtkSignalFunc) xsane_adf_pages_max_callback, NULL);
-    gtk_box_pack_start(GTK_BOX(hbox), xsane_text, FALSE, FALSE, 10);
-    gtk_widget_show(xsane_text);
+    adjustment = gtk_adjustment_new(preferences.adf_pages_max, 1, 9999, 1, 10, 1);
+    xsane_spinbutton = gtk_spin_button_new(GTK_ADJUSTMENT(adjustment), 0, 0);
+    gtk_widget_set_size_request(xsane_spinbutton, 55, -1);
+    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(xsane_spinbutton), FALSE);
+    xsane_back_gtk_set_tooltip(xsane.tooltips, xsane_spinbutton, DESC_ADF_PAGES_MAX);
+    g_signal_connect(GTK_OBJECT(xsane_spinbutton), "changed", (GtkSignalFunc) xsane_adf_pages_max_callback, NULL);
+    xsane.adf_pages_max_entry = xsane_spinbutton;
+    gtk_box_pack_start(GTK_BOX(hbox), xsane_spinbutton, FALSE, FALSE, 10);
+    gtk_widget_show(xsane_spinbutton);
 
 
     xsane_modus_menu = gtk_menu_new();
@@ -1308,9 +1307,11 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
     gtk_option_menu_set_history(GTK_OPTION_MENU(xsane_modus_option_menu), xsane.xsane_mode);
     gtk_widget_show(xsane_modus_option_menu);
 
-    xsane_label = gtk_label_new(TEXT_XSANE_MODE);
-    gtk_box_pack_end(GTK_BOX(hbox), xsane_label, FALSE, FALSE, 2);
-    gtk_widget_show(xsane_label);
+    pixmap = gdk_pixmap_create_from_xpm_d(xsane.histogram_dialog->window, &mask, xsane.bg_trans, (gchar **) target_xpm); /* XSANE_MODE */
+    pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
+    gtk_box_pack_end(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
+    gdk_drawable_unref(pixmap);
+    gtk_widget_show(pixmapwidget);
 
     gtk_widget_show(hbox);
 
@@ -1462,15 +1463,14 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
     gtk_option_menu_set_history(GTK_OPTION_MENU(xsane_printer_option_menu), preferences.printernr);
 
     /* number of copies */
-    xsane_text = gtk_entry_new();
-    xsane_back_gtk_set_tooltip(xsane.tooltips, xsane_text, DESC_COPY_NUMBER);
-    gtk_widget_set_size_request(xsane_text, 25, -1);
-    snprintf(buf, sizeof(buf), "%d", xsane.copy_number);    
-    gtk_entry_set_text(GTK_ENTRY(xsane_text), (char *) buf);
-    gtk_box_pack_end(GTK_BOX(hbox), xsane_text, FALSE, FALSE, 10);
-    gtk_widget_show(xsane_text);
-    gtk_widget_show(hbox);
-    xsane.copy_number_entry = xsane_text;
+    adjustment = gtk_adjustment_new(xsane.copy_number, 1, 99, 1, 10, 1);
+    xsane_spinbutton = gtk_spin_button_new(GTK_ADJUSTMENT(adjustment), 0, 0);
+    gtk_widget_set_size_request(xsane_spinbutton, 40, -1);
+    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(xsane_spinbutton), FALSE);
+    xsane_back_gtk_set_tooltip(xsane.tooltips, xsane_spinbutton, DESC_COPY_NUMBER);
+    xsane.copy_number_entry = xsane_spinbutton;
+    gtk_box_pack_start(GTK_BOX(hbox), xsane_spinbutton, FALSE, FALSE, 10);
+    gtk_widget_show(xsane_spinbutton);
   }
 
 
@@ -1549,6 +1549,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
          default:
           DBG(DBG_error, "scanmode_selection: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
       }
+
       gtk_widget_show(hbox);
     }
   }
@@ -1595,9 +1596,9 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
     gtk_option_menu_set_menu(GTK_OPTION_MENU(xsane_medium_option_menu), xsane_medium_menu);
     gtk_option_menu_set_history(GTK_OPTION_MENU(xsane_medium_option_menu), preferences.medium_nr);
     gtk_widget_show(xsane_medium_option_menu);
-    gtk_widget_show(hbox);
-
     xsane.medium_widget = xsane_medium_option_menu;
+
+    gtk_widget_show(hbox);
 
     if (xsane.medium_calibration) /* are we running in medium calibration mode? */
     {
@@ -2055,14 +2056,14 @@ static int xsane_pref_restore(void)
     preferences.email_pop3_server = strdup("");
   }
 
-  if (!preferences.email_pop3_user)
+  if (!preferences.email_auth_user)
   {
-    preferences.email_pop3_user = strdup("");
+    preferences.email_auth_user = strdup("");
   }
 
-  if (!preferences.email_pop3_pass)
+  if (!preferences.email_auth_pass)
   {
-    preferences.email_pop3_pass = strdup("");
+    preferences.email_auth_pass = strdup("");
   }
 
   if (!preferences.email_project)
@@ -3828,6 +3829,7 @@ static GtkWidget *xsane_view_build_menu(void)
   gtk_widget_add_accelerator(xsane.show_resolution_list_widget, "activate", xsane.accelerator_group, GDK_L, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED);
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.show_resolution_list_widget), preferences.show_resolution_list);
   gtk_menu_append(GTK_MENU(menu), xsane.show_resolution_list_widget);
+  gtk_widget_set_sensitive(xsane.show_resolution_list_widget, FALSE); /* we only make it active when we have a resolution range */
   gtk_widget_show(xsane.show_resolution_list_widget);
   g_signal_connect(GTK_OBJECT(xsane.show_resolution_list_widget), "toggled", (GtkSignalFunc) xsane_show_resolution_list_callback, NULL);
 
@@ -6018,8 +6020,10 @@ int main(int argc, char **argv)
 #endif
 
 #ifdef HAVE_OS2_H
+# ifndef HAVE_GTK2
     /* don`t know why, but os2 does need this one, a bit different to WIN32 */
     set_gimp_PLUG_IN_INFO(&PLUG_IN_INFO);
+# endif
 #endif
 
 #ifdef HAVE_GIMP_2

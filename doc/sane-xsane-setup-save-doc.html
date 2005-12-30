@@ -33,13 +33,15 @@
 <br>
 <br>
 <br>
-<font color="#000000">Main window:</font>
+<font color="#000000">XSane mode:</font>
+<img SRC="xsane-target.jpg" alt="xsane-target">
 <ul>
 <li><a href="sane-xsane-viewer-doc.html">Viewer mode</a></li>
 <li><a href="sane-xsane-save-doc.html">Save mode</a></li>
 <li><a href="sane-xsane-copy-doc.html">Copy mode</a></li>
+<li><a href="sane-xsane-multipage-doc.html">Multipage mode</a></li>
 <li><a href="sane-xsane-fax-doc.html">Fax mode</a></li>
-<li><a href="sane-xsane-mail-doc.html">Mail mode</a></li>
+<li><a href="sane-xsane-email-doc.html">E-mail mode</a></li>
 <li><a href="sane-xsane-gimp-doc.html">Gimp plugin</a></li>
 </ul>
 <br>
@@ -110,8 +112,8 @@
 <li><a href="sane-xsane-setup-display-doc.html">Display setup</a></li>
 <li><a href="sane-xsane-setup-enhancement-doc.html">Enhancement setup</a></li>
 <li><a href="sane-xsane-setup-fax-doc.html">Fax setup</a></li>
-<li><a href="sane-xsane-setup-image-doc.html">Image setup</a></li>
-<li><a href="sane-xsane-setup-mail-doc.html">Mail setup</a></li>
+<li><a href="sane-xsane-setup-filetype-doc.html">Filetype setup</a></li>
+<li><a href="sane-xsane-setup-email-doc.html">E-mail setup</a></li>
 <li><a href="sane-xsane-setup-save-doc.html">Saving setup</a></li>
 </ul>
 </td>
@@ -130,25 +132,28 @@ main window of xsane.
 <br>
 <br>
 <br>   
-<h4> PERMISSIONS:</h4>
+<h4>Permissions:</h4>
 <blockquote>
 You can set permissions with which a file or directory is created.
 The user permissions are not changeable because xsane needs the predefined user
 permissions for correct function.
 </blockquote>
+<br>
 
-<h4>OVERWRITE WARNING:</h4>
+<h4>Overwrite warning:</h4>
 <blockquote>
 If enabled, a warning comes up before an existing file is overwritten.
 </blockquote>
+<br>
 
-<h4>SKIP EXISTING NUMBERS:</h4>
+<h4>Skip exisiting numbers:</h4>
 <blockquote>
 If filename counter is automatically increased, the filenames that
 already exist are skipped!
 </blockquote>
+<br>
 
-<h4>FILENAME COUNTER LENGTH:</h4>
+<h4>Filename counter length:</h4>
 <blockquote>
 If the filename includes a counter (image-0003.pnm), the length
 of the counter can be defined. This can be interesting eg. if you want
@@ -156,6 +161,15 @@ to scan 500 images and want that the ordering the images by their filenames
 creates the same order like the counter does. If you select <i>inactive</i>
 the counter is not changed by xsane.
 </blockquote>
+<br>
+
+<h4>Save device preferences at exit:</h4>
+<blockquote>
+When you enable this option then the devices preferences
+are automatically saved when XSane exits.
+</blockquote>
+
+
 </blockquote>
 </td>
 </tr>

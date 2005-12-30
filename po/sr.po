@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.76\n"
-"POT-Creation-Date: 2005-12-21 12:05+0100\n"
+"POT-Creation-Date: 2005-12-30 23:07+0100\n"
 "PO-Revision-Date: 2002-01-17 00:47GMT\n"
 "Last-Translator: Rusmir Duško <drusmir@gmx.ch>\n"
 "Language-Team: srpski <sr@li.org>\n"
@@ -505,10 +505,6 @@ msgstr "Automatsko biranje površine skeniranja"
 msgid "Autocorrect colors"
 msgstr "Autokorektura boja"
 
-#. RADIO_BUTTON_POP3_AUTHENTIFICATION
-msgid "POP3 authentification"
-msgstr "POP3 autentifikacija"
-
 #. RADIO_BUTTON_OCR_USE_GUI_PIPE
 msgid "Use GUI progress pipe"
 msgstr ""
@@ -524,10 +520,6 @@ msgstr "Dostupni uređaji"
 #. TEXT_XSANE_OPTIONS
 msgid "XSane options"
 msgstr "XSane opcije"
-
-#. TEXT_XSANE_MODE
-msgid "XSane mode"
-msgstr "Način rada XSane"
 
 #. TEXT_FILETYPE
 msgid "Type"
@@ -1030,6 +1022,21 @@ msgstr "Pošiljalac:"
 msgid "Reply to:"
 msgstr "Adresa za odgovor:"
 
+#. TEXT_SETUP_EMAIL_AUTHENTICATION
+#, fuzzy
+msgid "E-mail authentication"
+msgstr "POP3 autentifikacija"
+
+#. TEXT_SETUP_EMAIL_AUTH_USER
+#, fuzzy
+msgid "User:"
+msgstr "Upotreba:"
+
+#. TEXT_SETUP_EMAIL_AUTH_PASS
+#, fuzzy
+msgid "Password:"
+msgstr "Lozinka:"
+
 #. TEXT_SETUP_POP3_SERVER
 msgid "POP3 server:"
 msgstr "POP3 server:"
@@ -1037,14 +1044,6 @@ msgstr "POP3 server:"
 #. TEXT_SETUP_POP3_PORT
 msgid "POP3 port:"
 msgstr "POP3 port:"
-
-#. TEXT_SETUP_POP3_USER
-msgid "POP3 user:"
-msgstr "POP3 korisnik:"
-
-#. TEXT_SETUP_POP3_PASS
-msgid "POP3 password:"
-msgstr "POP3 lozinka:"
 
 #. TEXT_SETUP_OCR_COMMAND
 msgid "OCR Command:"
@@ -1344,6 +1343,27 @@ msgstr "Pomeri na gore"
 #, fuzzy
 msgid "Move item down"
 msgstr "Pomeri na dole"
+
+#. MENU_ITEM_AUTH_NONE
+#, fuzzy
+msgid "no authentication"
+msgstr "POP3 autentifikacija"
+
+#. MENU_ITEM_AUTH_POP3
+msgid "POP3 before SMTP"
+msgstr ""
+
+#. MENU_ITEM_AUTH_ASMTP_PLAIN
+msgid "ASMTP Plain"
+msgstr ""
+
+#. MENU_ITEM_AUTH_ASMTP_LOGIN
+msgid "ASMTP Login"
+msgstr ""
+
+#. MENU_ITEM_AUTH_ASMTP_CRAM_MD5
+msgid "ASMTP CRAM-MD5"
+msgstr ""
 
 #. PROGRESS_SCANNING
 msgid "Scanning"
@@ -1801,7 +1821,7 @@ msgstr ""
 
 #. DESC_SAVE_PS_FLATDECODED
 msgid ""
-"compress postscript image with zlib algorithm (flatdecode).When you want to "
+"compress postscript image with zlib algorithm (flatdecode). When you want to "
 "print such a file your printer has to understand postscript level 3"
 msgstr ""
 
@@ -1987,10 +2007,20 @@ msgstr "unesite vašu e-poštansku adresu"
 msgid "enter e-mail address for replied e-mails"
 msgstr "unesite e-poštansku adresu za odgovore na ovu adresu"
 
-#. DESC_POP3_AUTHENTIFICATION
+#. DESC_EMAIL_AUTHENTICATION
 #, fuzzy
-msgid "Authentificate at POP3 server before sending e-mail"
+msgid "Type of authentication before sending e-mail"
 msgstr "Autentifikaciju POP3 servera isvršiti pre slanja e-pošte"
+
+#. DESC_EMAIL_AUTH_USER
+#, fuzzy
+msgid "user name for e-mail server"
+msgstr "korisničko ime za POP3 server"
+
+#. DESC_EMAIL_AUTH_PASS
+#, fuzzy
+msgid "password for e-mail server"
+msgstr "lozinka za POP3 server"
 
 #. DESC_POP3_SERVER
 msgid "IP Address or Domain name of POP3 server"
@@ -1999,14 +2029,6 @@ msgstr "IP adresa ili ime domena POP3 servera"
 #. DESC_POP3_PORT
 msgid "port to connect to POP3 server"
 msgstr "port na kojem POP3 server treba da bude povezan"
-
-#. DESC_POP3_USER
-msgid "user name for POP3 server"
-msgstr "korisničko ime za POP3 server"
-
-#. DESC_POP3_PASS
-msgid "password for POP3 server"
-msgstr "lozinka za POP3 server"
 
 #. DESC_HTML_EMAIL
 #, fuzzy
@@ -2812,6 +2834,11 @@ msgstr ""
 msgid "POP3 login failed"
 msgstr ""
 
+#. TEXT_EMAIL_STATUS_ASMTP_AUTH_FAILED
+#, fuzzy
+msgid "ASMTP authentication failed"
+msgstr "POP3 autentifikacija"
+
 #. TEXT_EMAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
 msgstr ""
@@ -2901,6 +2928,19 @@ msgstr "Nedostatak memorije"
 
 msgid "Access to resource has been denied"
 msgstr "Dostup do resursa nije dozvoljen"
+
+#, fuzzy
+#~ msgid "POP3 authentication"
+#~ msgstr "POP3 autentifikacija"
+
+#~ msgid "XSane mode"
+#~ msgstr "Način rada XSane"
+
+#~ msgid "POP3 user:"
+#~ msgstr "POP3 korisnik:"
+
+#~ msgid "POP3 password:"
+#~ msgstr "POP3 lozinka:"
 
 #~ msgid "Automatic Document Feeder Modus:"
 #~ msgstr "Automatsko uvlačenje dokumenata:"

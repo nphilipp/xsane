@@ -4,8 +4,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.98\n"
-"POT-Creation-Date: 2005-12-21 12:05+0100\n"
+"Project-Id-Version: XSANE 0.99\n"
+"POT-Creation-Date: 2005-12-30 23:07+0100\n"
 "PO-Revision-Date: 2000-01-21 15:51+01:00\n"
 "Last-Translator: Oliver Rauch <Oliver.Rauch@rauch-domain.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -483,10 +483,6 @@ msgstr "Scanbereich automatisch wählen"
 msgid "Autocorrect colors"
 msgstr "Automatische Farbkorrektur"
 
-#. RADIO_BUTTON_POP3_AUTHENTIFICATION
-msgid "POP3 authentification"
-msgstr "POP3-Authentifizierung"
-
 #. RADIO_BUTTON_OCR_USE_GUI_PIPE
 msgid "Use GUI progress pipe"
 msgstr "Benutze GUI Fortschritts Pipe"
@@ -502,10 +498,6 @@ msgstr "Erreichbare Geräte:"
 #. TEXT_XSANE_OPTIONS
 msgid "XSane options"
 msgstr "XSane Optionen"
-
-#. TEXT_XSANE_MODE
-msgid "XSane mode"
-msgstr "XSane Modus"
 
 #. TEXT_FILETYPE
 msgid "Type"
@@ -1005,7 +997,7 @@ msgstr "SMTP Server:"
 
 #. TEXT_SETUP_SMTP_PORT
 msgid "SMTP port:"
-msgstr "SMTP Server:"
+msgstr "SMTP Port:"
 
 #. TEXT_SETUP_EMAIL_FROM
 msgid "From:"
@@ -1015,6 +1007,18 @@ msgstr "Von:"
 msgid "Reply to:"
 msgstr "Antwort an:"
 
+#. TEXT_SETUP_EMAIL_AUTHENTICATION
+msgid "E-mail authentication"
+msgstr "E-Mail Authentifizierung"
+
+#. TEXT_SETUP_EMAIL_AUTH_USER
+msgid "User:"
+msgstr "Benutzer:"
+
+#. TEXT_SETUP_EMAIL_AUTH_PASS
+msgid "Password:"
+msgstr "Passwort:"
+
 #. TEXT_SETUP_POP3_SERVER
 msgid "POP3 server:"
 msgstr "POP3-Server:"
@@ -1022,14 +1026,6 @@ msgstr "POP3-Server:"
 #. TEXT_SETUP_POP3_PORT
 msgid "POP3 port:"
 msgstr "POP3-Port:"
-
-#. TEXT_SETUP_POP3_USER
-msgid "POP3 user:"
-msgstr "POP3-Benutzer:"
-
-#. TEXT_SETUP_POP3_PASS
-msgid "POP3 password:"
-msgstr "POP3-Passwort:"
 
 #. TEXT_SETUP_OCR_COMMAND
 msgid "OCR Command:"
@@ -1317,6 +1313,26 @@ msgstr "Eintrag nach oben schieben"
 #. MENU_ITEM_MOVE_DWN
 msgid "Move item down"
 msgstr "Eintrag nach unten schieben"
+
+#. MENU_ITEM_AUTH_NONE
+msgid "no authentication"
+msgstr "keine Authentifizierung"
+
+#. MENU_ITEM_AUTH_POP3
+msgid "POP3 before SMTP"
+msgstr "POP3 bevor SMTP"
+
+#. MENU_ITEM_AUTH_ASMTP_PLAIN
+msgid "ASMTP Plain"
+msgstr "ASMTP Plain"
+
+#. MENU_ITEM_AUTH_ASMTP_LOGIN
+msgid "ASMTP Login"
+msgstr "ASMTP Login"
+
+#. MENU_ITEM_AUTH_ASMTP_CRAM_MD5
+msgid "ASMTP CRAM-MD5"
+msgstr "ASMTP CRAM-MD5"
 
 #. PROGRESS_SCANNING
 msgid "Scanning"
@@ -1775,7 +1791,7 @@ msgstr ""
 
 #. DESC_SAVE_PS_FLATDECODED
 msgid ""
-"compress postscript image with zlib algorithm (flatdecode).When you want to "
+"compress postscript image with zlib algorithm (flatdecode). When you want to "
 "print such a file your printer has to understand postscript level 3"
 msgstr ""
 "komprimiere Postscript Bild mit zlib Algorithmus (flatdecode). Wenn die "
@@ -1984,10 +2000,17 @@ msgstr "Geben Sie Ihre E-Mail Adresse ein"
 msgid "enter e-mail address for replied e-mails"
 msgstr "Geben Sie die E-Mail Adresse für Antworten auf diese E-Mail ein"
 
-#. DESC_POP3_AUTHENTIFICATION
-msgid "Authentificate at POP3 server before sending e-mail"
-msgstr ""
-"Authentifizierung über POP3-Server durchführen bevor E-Mail gesendet wird"
+#. DESC_EMAIL_AUTHENTICATION
+msgid "Type of authentication before sending e-mail"
+msgstr "Art der Authentifizierung bevor E-Mail gesendet wird"
+
+#. DESC_EMAIL_AUTH_USER
+msgid "user name for e-mail server"
+msgstr "Benutername für den E-Mail-Server"
+
+#. DESC_EMAIL_AUTH_PASS
+msgid "password for e-mail server"
+msgstr "Passwort für den E-Mail-Server"
 
 #. DESC_POP3_SERVER
 msgid "IP Address or Domain name of POP3 server"
@@ -1996,14 +2019,6 @@ msgstr "IP Adresse oder Domain Name des POP3-Servers"
 #. DESC_POP3_PORT
 msgid "port to connect to POP3 server"
 msgstr "Port, auf dem zum POP3-Server verbunden werden soll"
-
-#. DESC_POP3_USER
-msgid "user name for POP3 server"
-msgstr "Benuter Name für den POP3-Server"
-
-#. DESC_POP3_PASS
-msgid "password for POP3 server"
-msgstr "Passwort für den POP3-Server"
 
 #. DESC_HTML_EMAIL
 msgid "E-mail is sent in html mode, place image with: <IMAGE>"
@@ -2795,6 +2810,10 @@ msgstr "POP3-Verbindung fehlgeschlagen"
 msgid "POP3 login failed"
 msgstr "POP3-Login fehlgeschlagen"
 
+#. TEXT_EMAIL_STATUS_ASMTP_AUTH_FAILED
+msgid "ASMTP authentication failed"
+msgstr "ASMTP Authentifizierung fehlgeschlagen"
+
 #. TEXT_EMAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
 msgstr "SMTP Verbindung fehlgeschlagen"
@@ -2882,61 +2901,5 @@ msgstr "Kein Speicher"
 msgid "Access to resource has been denied"
 msgstr "Zugang zum Gerät wurde verweigert"
 
-#~ msgid "Automatic Document Feeder Modus:"
-#~ msgstr "Modus automatischer Dokumenteneinzug:"
-
-#~ msgid ""
-#~ "Select scansource for Automatic Document feeder. If this scansource is "
-#~ "selected XSane scans until \"out of paper\" or error."
-#~ msgstr ""
-#~ "Scanquelle für automatischen Dokumenteneinzug auswählen. Wenn diese "
-#~ "Scanquelle angewählt ist, scannt XSane bis \"kein Papier\" oder ein "
-#~ "Fehler auftritt."
-
-#~ msgid "E-mail project not created"
-#~ msgstr "E-Mail-Projekt nicht erstellt"
-
-#~ msgid "E-mail project created"
-#~ msgstr "E-Mail-Projekt erstellt"
-
-#~ msgid "E-mail project changed"
-#~ msgstr "E-Mail-Projekt geändert"
-
-#~ msgid "Multipage project not created"
-#~ msgstr "Mehrseiten-Projekt existiert nicht"
-
-#~ msgid "Multipage project created"
-#~ msgstr "Mehrseiten-Projekt erstellt"
-
-#~ msgid "Multipage project changed"
-#~ msgstr "Mehrseiten-Projekt geändert"
-
-#~ msgid "Error reading multipage project"
-#~ msgstr "Lesefehler für Mehrseiten-Projekt"
-
-#~ msgid "Saving multipage file"
-#~ msgstr "speichere mehrseitige Datei"
-
-#~ msgid "Multipage saving aborted"
-#~ msgstr "Mehrseiten speichern abgebrochen"
-
-#~ msgid "Multipage saving error"
-#~ msgstr "Mehrseiten speichern fehlerhaft"
-
-#~ msgid "Image"
-#~ msgstr "Bild"
-
-#~ msgid "Viewer (png):"
-#~ msgstr "Betrachter (png):"
-
-#~ msgid "Enter command to be executed to view an e-mail image"
-#~ msgstr "Befehl, der ausgeführt werden soll, um E-Mail-Bilder anzuzeigen"
-
-#~ msgid "Failed to execute e-mail image viewer:"
-#~ msgstr "Konnte E-Mail Bildbetrachter nicht ausführen:"
-
-#~ msgid "Step"
-#~ msgstr "Schritt"
-
-#~ msgid "Mail"
-#~ msgstr "E-Mail"
+#~ msgid "POP3 authentication"
+#~ msgstr "POP3-Authentifizierung"

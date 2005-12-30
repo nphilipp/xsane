@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xsane\n"
-"POT-Creation-Date: 2005-12-21 12:05+0100\n"
+"POT-Creation-Date: 2005-12-30 23:07+0100\n"
 "PO-Revision-Date: 2005-11-01 18:58+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <sk@li.org>\n"
@@ -493,10 +493,6 @@ msgstr "Predvoľba skenovacej plochy"
 msgid "Autocorrect colors"
 msgstr "Automatická korekcia farieb"
 
-#. RADIO_BUTTON_POP3_AUTHENTIFICATION
-msgid "POP3 authentification"
-msgstr "POP3 autentifikácia"
-
 #. RADIO_BUTTON_OCR_USE_GUI_PIPE
 msgid "Use GUI progress pipe"
 msgstr "Použiť GUI rúru postupu"
@@ -512,10 +508,6 @@ msgstr "Dostupné zariadenia:"
 #. TEXT_XSANE_OPTIONS
 msgid "XSane options"
 msgstr "Nastavenia XSane"
-
-#. TEXT_XSANE_MODE
-msgid "XSane mode"
-msgstr "XSane režim"
 
 #. TEXT_FILETYPE
 msgid "Type"
@@ -1031,6 +1023,21 @@ msgstr "Od:"
 msgid "Reply to:"
 msgstr "Odpovedať na:"
 
+#. TEXT_SETUP_EMAIL_AUTHENTICATION
+#, fuzzy
+msgid "E-mail authentication"
+msgstr "POP3 autentifikácia"
+
+#. TEXT_SETUP_EMAIL_AUTH_USER
+#, fuzzy
+msgid "User:"
+msgstr "Použitie:"
+
+#. TEXT_SETUP_EMAIL_AUTH_PASS
+#, fuzzy
+msgid "Password:"
+msgstr "Heslo :"
+
 #. TEXT_SETUP_POP3_SERVER
 msgid "POP3 server:"
 msgstr "POP3 server:"
@@ -1038,14 +1045,6 @@ msgstr "POP3 server:"
 #. TEXT_SETUP_POP3_PORT
 msgid "POP3 port:"
 msgstr "POP3 port:"
-
-#. TEXT_SETUP_POP3_USER
-msgid "POP3 user:"
-msgstr "POP3 používateľ:"
-
-#. TEXT_SETUP_POP3_PASS
-msgid "POP3 password:"
-msgstr "POP3 heslo:"
 
 #. TEXT_SETUP_OCR_COMMAND
 msgid "OCR Command:"
@@ -1338,6 +1337,27 @@ msgstr "Posunúť položku hore"
 #. MENU_ITEM_MOVE_DWN
 msgid "Move item down"
 msgstr "Posunúť položku dole"
+
+#. MENU_ITEM_AUTH_NONE
+#, fuzzy
+msgid "no authentication"
+msgstr "POP3 autentifikácia"
+
+#. MENU_ITEM_AUTH_POP3
+msgid "POP3 before SMTP"
+msgstr ""
+
+#. MENU_ITEM_AUTH_ASMTP_PLAIN
+msgid "ASMTP Plain"
+msgstr ""
+
+#. MENU_ITEM_AUTH_ASMTP_LOGIN
+msgid "ASMTP Login"
+msgstr ""
+
+#. MENU_ITEM_AUTH_ASMTP_CRAM_MD5
+msgid "ASMTP CRAM-MD5"
+msgstr ""
 
 #. PROGRESS_SCANNING
 msgid "Scanning"
@@ -1806,7 +1826,7 @@ msgstr ""
 
 #. DESC_SAVE_PS_FLATDECODED
 msgid ""
-"compress postscript image with zlib algorithm (flatdecode).When you want to "
+"compress postscript image with zlib algorithm (flatdecode). When you want to "
 "print such a file your printer has to understand postscript level 3"
 msgstr ""
 
@@ -2005,10 +2025,20 @@ msgstr "vložte svoju emailovú adresu"
 msgid "enter e-mail address for replied e-mails"
 msgstr "vložte svoju emailovú adresu pre odpoveď"
 
-#. DESC_POP3_AUTHENTIFICATION
+#. DESC_EMAIL_AUTHENTICATION
 #, fuzzy
-msgid "Authentificate at POP3 server before sending e-mail"
+msgid "Type of authentication before sending e-mail"
 msgstr "Autentifikácia na POP3 servery pre odoslaním emailu"
+
+#. DESC_EMAIL_AUTH_USER
+#, fuzzy
+msgid "user name for e-mail server"
+msgstr "používateľské meno pre POP3 server"
+
+#. DESC_EMAIL_AUTH_PASS
+#, fuzzy
+msgid "password for e-mail server"
+msgstr "heslo pre POP3 server"
 
 #. DESC_POP3_SERVER
 msgid "IP Address or Domain name of POP3 server"
@@ -2017,14 +2047,6 @@ msgstr "IP adresa alebo názov domény POP3 servera"
 #. DESC_POP3_PORT
 msgid "port to connect to POP3 server"
 msgstr "port na pripojenie sa k POP3 serveru"
-
-#. DESC_POP3_USER
-msgid "user name for POP3 server"
-msgstr "používateľské meno pre POP3 server"
-
-#. DESC_POP3_PASS
-msgid "password for POP3 server"
-msgstr "heslo pre POP3 server"
 
 #. DESC_HTML_EMAIL
 #, fuzzy
@@ -2830,6 +2852,11 @@ msgstr "POP3 pripojenie zlyhalo"
 msgid "POP3 login failed"
 msgstr "POP3 prihlásenie zlyhalo"
 
+#. TEXT_EMAIL_STATUS_ASMTP_AUTH_FAILED
+#, fuzzy
+msgid "ASMTP authentication failed"
+msgstr "SMTP pripojenie zlyhalo"
+
 #. TEXT_EMAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
 msgstr "SMTP pripojenie zlyhalo"
@@ -2919,6 +2946,19 @@ msgstr "Mimo pamäte"
 
 msgid "Access to resource has been denied"
 msgstr "Prístup k zdroju bol odmietnutý"
+
+#, fuzzy
+#~ msgid "POP3 authentication"
+#~ msgstr "POP3 autentifikácia"
+
+#~ msgid "XSane mode"
+#~ msgstr "XSane režim"
+
+#~ msgid "POP3 user:"
+#~ msgstr "POP3 používateľ:"
+
+#~ msgid "POP3 password:"
+#~ msgstr "POP3 heslo:"
 
 #~ msgid "Automatic Document Feeder Modus:"
 #~ msgstr "Režim automatického podávača dokumentov:"

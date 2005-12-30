@@ -5,7 +5,7 @@
    <meta name="GENERATOR" content="Mozilla/4.74 [en] (X11; U; Linux 2.2.18 i686) [Netscape]">
    <meta name="Author" content="Oliver Rauch">
    <meta name="Description" content="scan, photocopy and fax frontend for SANE">
-   <title>XSane - Scan mode</title>
+   <title>XSane - Multipage mode</title>
 </head>
 <body text="#000000" bgcolor="#FFFFFF" link="#0000EF" vlink="#51188E" alink="#FF0000">
 
@@ -17,7 +17,7 @@
 </td>
 <td>
 <blockquote>
-<h1><font color="#009900">Main window in mail mode</font></h1>
+<h1><font color="#009900">Main window in multipage mode</font></h1>
 </blockquote>
 </td>
 </tr>
@@ -34,13 +34,15 @@
 <br>
 <br>
 <br>
-<font color="#000000">Main window:</font>
+<font color="#000000">XSane mode:</font>
+<img SRC="xsane-target.jpg" alt="xsane-target">
 <ul>
 <li><a href="sane-xsane-viewer-doc.html">Viewer mode</a></li>
 <li><a href="sane-xsane-save-doc.html">Save mode</a></li>
 <li><a href="sane-xsane-copy-doc.html">Copy mode</a></li>
+<li><a href="sane-xsane-multipage-doc.html">Multipage mode</a></li>
 <li><a href="sane-xsane-fax-doc.html">Fax mode</a></li>
-<li><a href="sane-xsane-mail-doc.html">Mail mode</a></li>
+<li><a href="sane-xsane-email-doc.html">E-mail mode</a></li>
 <li><a href="sane-xsane-gimp-doc.html">Gimp plugin</a></li>
 </ul>
 <br>
@@ -111,8 +113,8 @@
 <li><a href="sane-xsane-setup-display-doc.html">Display setup</a></li>
 <li><a href="sane-xsane-setup-enhancement-doc.html">Enhancement setup</a></li>
 <li><a href="sane-xsane-setup-fax-doc.html">Fax setup</a></li>
-<li><a href="sane-xsane-setup-image-doc.html">Image setup</a></li>
-<li><a href="sane-xsane-setup-mail-doc.html">Mail setup</a></li>
+<li><a href="sane-xsane-setup-filetype-doc.html">Filetype setup</a></li>
+<li><a href="sane-xsane-setup-email-doc.html">E-mail setup</a></li>
 <li><a href="sane-xsane-setup-save-doc.html">Saving setup</a></li>
 </ul>
 </td>
@@ -122,26 +124,39 @@
 <td VALIGN=TOP BGCOLOR="#FFFFFF">
 <blockquote>
 <br>
-In the mail mode images are scanned and sent by email.
+This mode is a frontend for SANE to create multipage image files.
+<br>
+Available multipage formats are <i>postscript</i>, <i>PDF</i> and <i>tiff</i>.
 <br>
 <br>
 <br>
-<center><img SRC="xsane-mail.jpg" alt="XSane-main-window"></center>
+<center><img SRC="xsane-multipage.jpg" alt="XSane-main-window"></center>
 <br>
 <br>
+
+                                                                                                                                    
+<img SRC="xsane-adf-pages.jpg" alt="adf-pages">
+&nbsp;&nbsp;
+<b>ADF-Pages:</b>
+<blockquote>
+Select the number of pages that shall be scanned.
+You can use this with an automatic document feeder (ADF)
+or by changing the papers by hand while the scanhead moves back.
+</blockquote>
+
+ 
+<img SRC="xsane-scansource.jpg" alt="scansource">
+&nbsp;&nbsp;
+<b>Scansource:</b>
+<blockquote>
+Select scansource, e.g.: Flatbed, Transparency, Automatic Document Feeder.
+</blockquote>        
 
 <img SRC="xsane-colormode.jpg" alt="colormode">
 &nbsp;&nbsp;
 <b>Scanmode:</b>
 <blockquote>
 Select scanmode, e.g.: color, grayscale, halftone, lineart.
-</blockquote>
-
-<img SRC="xsane-scansource.jpg" alt="scansource">
-&nbsp;&nbsp;
-<b>Scansource:</b>
-<blockquote>
-Select scansource, e.g.: Flatbed, Transparency, Automatic Document Feeder.
 </blockquote>
 
 <img SRC="xsane-medium.jpg" alt="medium">
@@ -152,70 +167,45 @@ Select scanmedium, e.g.: <i>slide</i>, <i>standard negative</i>,
 <i>Agfa negative</i>, ... or <i>Full range</i>.
 </blockquote>                                                                                                           
 
-<img SRC="xsane-resolution.jpg" alt="resolution">
-&nbsp;&nbsp;
-<b>Scan resolution:</b>
-<blockquote>
-Select resolution that is used for scanning. If the backends makes available a
-range of resolutions (e.g. 100-600 dpi) XSane can display a slider or a
-list of resolutions. You select this via <i>Preferences/Show resolution list</i>.
 <br>
-The backend can define a list of resolutions insted of a range, in this
-case it is not possible to enable the slider.
-<p>
-To select exact resolutions with the slider click the slider with the mouse pointer
-and use the cursor keys to change the value in steps of 1, if you press <i>ctrl</i>
-and a cursor key the step is 10.
-</blockquote>
+<br>
+<center><img SRC="xsane-multipage-project.jpg" alt="XSane-multipage-project-window"></center>
+<br>
 
-                                                                                              
-<br>
-<br>
-<center><img SRC="xsane-mail-project.jpg" alt="XSane-mail-project-window"></center>
-<br>
-                                                                                              
-<h4>HTML mail:</h4>
-<blockquote>
-Select if the mail is sent as html mail or as text mail. In text mail the images
-are appended to the mailfile. In html mail you can place the image at any position
-by adding the tag &lt IMAGE &gt at the place of the email text where the image shall
-be displayed. The images are displayed in the same order as they are listed in the
-attachments.
-</blockquote>
-                                                                                              
-<h4>Mail image filetype:</h4>
-<blockquote>
-You can select the type of the image files that are attached to the mail.
-Select <i>PNG</i>, <i>JPEG</i> or <i>TIFF</i>. Pay attention that the size 
-of the images depends on the content of the pictures and on the filetype.
-</blockquote>
-                                                                                              
 <h4>Show image:</h4>
 <blockquote>
-Open the viewer and display the selected image.
+The internal viewer is opened to display the selected image.
 </blockquote>
-                                                                                              
-<h4>Rename image:</h4>
+<br>
+
+<h4>Edit image:</h4>
 <blockquote>
-Rename the selected image.
+The internal viewer is opened to edit the selected image.
 </blockquote>
-                                                                                              
+<br>
+
 <h4>Delete image:</h4>
 <blockquote>
-Remove the selected image from the mail project.
+Delete the selected image.
 </blockquote>
-                                                                                              
-<h4>Send project:</h4>
+<br>
+
+<h4>Save multipage file:</h4>
 <blockquote>
-Send mail, all images are attached to the mail.
+All images that are part of the multipage project are saved into the file
+with the name of the multipage project and with the selected filetype as extension.
+<br>
+After creating the multipage file you should delete the multipage project!
 </blockquote>
-                                                                                              
+<br>
+
 <h4>Delete project:</h4>
 <blockquote>
-Delete the complete project. The email text and the image files are erased.
+Delete the multipage project.
+Note that you should delete the project after creation of the multipage file
+to reduce disk usage!
 </blockquote>
-
-
+<br>
 
 </blockquote>
 </td>

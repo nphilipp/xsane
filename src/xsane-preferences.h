@@ -115,11 +115,11 @@ typedef struct
     char   *email_reply_to;		/* email address for replied emails */
     char   *email_smtp_server;		/* ip address or domain name of smtp server */
     int    email_smtp_port;		/* port to connect to smtp sever */
-    int    email_pop3_authentification;  /* use pop3 login for authentification */
+    int    email_authentication;	/* type for email authentication */
+    char   *email_auth_user;		/* user name for email authorization */
+    char   *email_auth_pass;		/* password for email authorization */
     char   *email_pop3_server;		/* ip address or domain name of pop3 server */
     int    email_pop3_port;		/* port to connect to pop3 server */
-    char   *email_pop3_user;		/* user name for pop3 server */
-    char   *email_pop3_pass;		/* password for pop3 server */
     char   *email_project;		/* mail project */
     char   *email_filetype;		/* mail filetype */
 #endif

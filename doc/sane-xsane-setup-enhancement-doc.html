@@ -33,13 +33,15 @@
 <br>
 <br>
 <br>
-<font color="#000000">Main window:</font>
+<font color="#000000">XSane mode:</font>
+<img SRC="xsane-target.jpg" alt="xsane-target">
 <ul>
 <li><a href="sane-xsane-viewer-doc.html">Viewer mode</a></li>
 <li><a href="sane-xsane-save-doc.html">Save mode</a></li>
 <li><a href="sane-xsane-copy-doc.html">Copy mode</a></li>
+<li><a href="sane-xsane-multipage-doc.html">Multipage mode</a></li>
 <li><a href="sane-xsane-fax-doc.html">Fax mode</a></li>
-<li><a href="sane-xsane-mail-doc.html">Mail mode</a></li>
+<li><a href="sane-xsane-email-doc.html">E-mail mode</a></li>
 <li><a href="sane-xsane-gimp-doc.html">Gimp plugin</a></li>
 </ul>
 <br>
@@ -110,8 +112,8 @@
 <li><a href="sane-xsane-setup-display-doc.html">Display setup</a></li>
 <li><a href="sane-xsane-setup-enhancement-doc.html">Enhancement setup</a></li>
 <li><a href="sane-xsane-setup-fax-doc.html">Fax setup</a></li>
-<li><a href="sane-xsane-setup-image-doc.html">Image setup</a></li>
-<li><a href="sane-xsane-setup-mail-doc.html">Mail setup</a></li>
+<li><a href="sane-xsane-setup-filetype-doc.html">Filetype setup</a></li>
+<li><a href="sane-xsane-setup-email-doc.html">E-mail setup</a></li>
 <li><a href="sane-xsane-setup-save-doc.html">Saving setup</a></li>
 </ul>
 </td>
@@ -129,7 +131,7 @@ main window of xsane.
 <center><img SRC="xsane-setup-enhancement.jpg" alt="XSane-setup-enhancement-window"></center>
 <br>
 <br>
-<h4>THRESHOLD OPTION:</h4>
+<h4>Threshold option:</h4>
 <blockquote>
 There are three options available:
 <ul>
@@ -164,9 +166,8 @@ scan. The value range of the threshold option is normalized (see
 <i>THRESHOLD MINIMUM, MAXIMUM, MULTIPLIER, OFFSET</i>).
 </blockquote>
 </blockquote>
-</blockquote>
 
-<h4>THRESHOLD MINIMUM, MAXIMUM, MULTIPLIER, OFFSET:</h4>
+<h4>Threshold minimum, maximum, multiplier, offset:</h4>
 <blockquote>
 These values are used to make the threshold function of the
 backends work the same way XSane does handle it. This is:
@@ -188,7 +189,7 @@ you can shift the range linear.
 <b>where the user can select xsane_threshold in the range from MINIMUM to MAXIMUM.</b>
 </blockquote>
 
-<h4>NAME OF GRAYSCALE SCANMODE:</h4>
+<h4>Name of grayscale scanmode:</h4>
 <blockquote>
 If you want to do a grayscale previewscan when lineart scanmode
 is selected, you have to tell xsane the name of the grayscale mode. This
@@ -197,10 +198,7 @@ may use different names. You have to enter the original name (not translated)
 case sensitive (take a look at the scanmode selection menu in the xsane
 main window).
 <br>
-The name should be something like
-<blockquote>
-<b><i>Gray</i></b>
-</blockquote>
+The name should be something like <b><i>Gray</i></b>.
 
 </blockquote>
 </td>
@@ -211,6 +209,7 @@ The name should be something like
 
 <blockquote>
 Author: <a href="mailto:Oliver.Rauch@xsane.org">Oliver Rauch</a>
+</blockquote>
 </blockquote>
 
 </body>

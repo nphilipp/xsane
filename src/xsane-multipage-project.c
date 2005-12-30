@@ -846,15 +846,6 @@ static void xsane_multipage_save_file()
     source_size += xsane_get_filesize(source_filename);
   }
 
-  if (xsane_create_secure_file(multipage_filename)) /* remove possibly existing symbolic links for security */
-  {
-    snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_CREATE_SECURE_FILE, multipage_filename);
-    xsane_back_gtk_error(buf, TRUE);
-    xsane_multipage_project_set_sensitive(TRUE);
-    xsane_set_sensitivity(TRUE); /* allow changing xsane mode */
-   return;
-  }
-
 
   if ( (preferences.overwrite_warning) ) /* test if filename already used */
   {
@@ -884,6 +875,18 @@ static void xsane_multipage_save_file()
       }
     }
   }
+
+
+  if (xsane_create_secure_file(multipage_filename)) /* remove possibly existing symbolic links for security */
+  {
+    snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_CREATE_SECURE_FILE, multipage_filename);
+    xsane_back_gtk_error(buf, TRUE);
+    xsane_multipage_project_set_sensitive(TRUE);
+    xsane_set_sensitivity(TRUE); /* allow changing xsane mode */
+   return;
+  }
+
+  DBG(DBG_info, "xsane_multipage_save_file: created %s\n", multipage_filename);
 
 
   if ((output_format == XSANE_PS) || (output_format == XSANE_PDF))

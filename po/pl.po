@@ -1,17 +1,22 @@
+# translation of pl.po to polski
 # Polish translation for XSane.
 # Copyright (c) 2002-2003 Piotr Gogolewski
 # Piotr Gogolewski <docent@panoramix.net.pl>, 2003.
+# Jerzy Szczudlowski <jerzy@jedwab.net.pl>, 2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSane 0.96\n"
-"POT-Creation-Date: 2005-12-21 12:05+0100\n"
-"PO-Revision-Date: 2004-10-21 00:52+0100\n"
-"Last-Translator: Jerzy Szczudłowski <jerzy@jedwab.net.pl>\n"
-"Language-Team: Polish <pl@li.org>\n"
+"Project-Id-Version: pl\n"
+"POT-Creation-Date: 2005-12-30 23:07+0100\n"
+"PO-Revision-Date: 2005-12-22 01:26+0100\n"
+"Last-Translator: Jerzy Szczudlowski <jerzy@jedwab.net.pl>\n"
+"Language-Team: polski <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.10.2\n"
+"Plural-Forms:  nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%"
+"100<10 || n%100>=20) ? 1 : 2);\n"
 
 #. Please translate this to the correct directory name (eg. german=>de)
 #. XSANE_LANGUAGE_DIR
@@ -80,24 +85,20 @@ msgid "insert ps-file into fax"
 msgstr "wstaw plik postscriptowy do faksu"
 
 #. WINDOW_EMAIL_PROJECT
-#, fuzzy
 msgid "E-mail project"
-msgstr "wyślij obrazek pocztą"
+msgstr "wyślij projekt listem elektronicznym"
 
 #. WINDOW_EMAIL_RENAME
-#, fuzzy
 msgid "rename e-mail image"
 msgstr "zmień nazwę obrazka w liście"
 
 #. WINDOW_EMAIL_INSERT
-#, fuzzy
 msgid "insert file into e-mail"
 msgstr "wstaw plik do listu"
 
 #. WINDOW_MULTIPAGE_PROJECT
-#, fuzzy
 msgid "multipage project"
-msgstr "Usuń projekt"
+msgstr "projekt wielostronicowy"
 
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
@@ -388,9 +389,8 @@ msgid "Send project"
 msgstr "Wyślij projekt"
 
 #. BUTTON_SAVE_MULTIPAGE
-#, fuzzy
 msgid "Save multipage file"
-msgstr "Zapisz obraz"
+msgstr "Zapisz plik wielostronicowy"
 
 #. BUTTON_DELETE_PROJECT
 msgid "Delete project"
@@ -433,9 +433,8 @@ msgid "Fine mode"
 msgstr "Tryb lepszy"
 
 #. RADIO_BUTTON_HTML_EMAIL
-#, fuzzy
 msgid "HTML e-mail"
-msgstr "Poczta w HTML"
+msgstr "Poczta ze znacznikami HTML"
 
 #. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device preferences at exit"
@@ -451,11 +450,11 @@ msgstr "Pomiń istniejące nazwy plików"
 
 #. RADIO_BUTTON_SAVE_PS_FLATDECODED
 msgid "Save postscript zlib compressed (ps level 3)"
-msgstr ""
+msgstr "Zapis Postscriptu kompresowanego zlib (poziom PS 3)"
 
 #. RADIO_BUTTON_SAVE_PDF_FLATDECODED
 msgid "Save PDF zlib compressed"
-msgstr ""
+msgstr "Zapis PDF skompresowanego zlib"
 
 #. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
 msgid "Save 16bit pnm in ascii format"
@@ -489,10 +488,6 @@ msgstr "Wybierz obszar skanowania po podglądzie"
 msgid "Autocorrect colors"
 msgstr "Samoczynnie koryguj kolory"
 
-#. RADIO_BUTTON_POP3_AUTHENTIFICATION
-msgid "POP3 authentification"
-msgstr "Uwierzytelnianie POP3"
-
 #. RADIO_BUTTON_OCR_USE_GUI_PIPE
 msgid "Use GUI progress pipe"
 msgstr "Używaj graficznego paska postępu"
@@ -508,10 +503,6 @@ msgstr "Dostępne urządzenia:"
 #. TEXT_XSANE_OPTIONS
 msgid "XSane options"
 msgstr "Opcje XSane"
-
-#. TEXT_XSANE_MODE
-msgid "XSane mode"
-msgstr "Tryb XSane"
 
 #. TEXT_FILETYPE
 msgid "Type"
@@ -703,7 +694,6 @@ msgstr ""
 "PRZYDATNOŚCI HANDLOWEJ i PRZYDATNOŚCI DO OKREŚLONYCH ZASTOSOWAŃ.\n"
 
 #. TEXT_EMAIL_ADR
-#, fuzzy
 msgid "E-mail:"
 msgstr "Adres email:"
 
@@ -724,7 +714,6 @@ msgstr "Tłumaczenie:"
 #. by YOUR NAME\n
 #. E-mail: your.name@yourdomain.com\n
 #. TEXT_TRANSLATION_INFO
-#, fuzzy
 msgid ""
 "untranslated original english text\n"
 "by Oliver Rauch\n"
@@ -733,7 +722,7 @@ msgstr ""
 "Piotr Gogolewski <docent@panoramix.net.pl>\n"
 "http://www.chemia.px.pl/\n"
 "\n"
-"korekta i aktualizacja do wersji 0.96:\n"
+"korekta i aktualizacja do wersji 0.99-pre1:\n"
 "Jerzy Szczudłowski <jerzy@jedwab.net.pl>\n"
 
 #. TEXT_INFO_BOX
@@ -745,7 +734,6 @@ msgid "Scanned pages: "
 msgstr "Skanowane strony:"
 
 #. TEXT_EMAIL_TEXT
-#, fuzzy
 msgid "E-mail text:"
 msgstr "Tekst listu:"
 
@@ -758,19 +746,16 @@ msgid "Project status:"
 msgstr "Status projektu:"
 
 #. TEXT_EMAIL_FILETYPE
-#, fuzzy
 msgid "E-mail image filetype:"
-msgstr "Rodzaj formatu pliku:"
+msgstr "Rodzaj formatu pliku w liście:"
 
 #. TEXT_PAGES
-#, fuzzy
 msgid "Pages:"
-msgstr "Użycie:"
+msgstr "Strony:"
 
 #. TEXT_MULTIPAGE_FILETYPE
-#, fuzzy
 msgid "Multipage document filetype:"
-msgstr "Rodzaj formatu pliku:"
+msgstr "Rodzaj formatu pliku dokumentu wielostronicowego:"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
@@ -886,7 +871,7 @@ msgstr "Gamma drukarki - niebieski:"
 
 #. TEXT_SETUP_PRINTER_PS_FLATDECODED
 msgid "Create zlib compressed postscript image (ps level 3) for printing"
-msgstr ""
+msgstr "Stwórz obraz Postscript skompresowany zlib (poziom PS 3) do druku"
 
 #. TEXT_SETUP_TMP_PATH
 msgid "Temporary directory"
@@ -913,9 +898,8 @@ msgid "Filename counter length"
 msgstr "Długość licznika nazw plików"
 
 #. TEXT_SETUP_TIFF_ZIP_COMPRESSION
-#, fuzzy
 msgid "TIFF zip compression rate"
-msgstr "Kompresja 8-bitowa obrazka TIFF"
+msgstr "Współczynnik kompresji zip obrazu TIFF"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_16
 msgid "TIFF 16 bit image compression"
@@ -1011,7 +995,7 @@ msgstr "Przeglądarka (Postscript):"
 
 #. TEXT_SETUP_FAX_PS_FLATDECODED
 msgid "Create zlib compressed postscript image (ps level 3) for fax"
-msgstr ""
+msgstr "Stwórz obraz Postscript skompresowany zlib (poziom PS 3) dla faksu"
 
 #. TEXT_SETUP_SMTP_SERVER
 msgid "SMTP server:"
@@ -1029,6 +1013,21 @@ msgstr "Od:"
 msgid "Reply to:"
 msgstr "Odpowiedź do:"
 
+#. TEXT_SETUP_EMAIL_AUTHENTICATION
+#, fuzzy
+msgid "E-mail authentication"
+msgstr "Uwierzytelnianie POP3"
+
+#. TEXT_SETUP_EMAIL_AUTH_USER
+#, fuzzy
+msgid "User:"
+msgstr "Użycie:"
+
+#. TEXT_SETUP_EMAIL_AUTH_PASS
+#, fuzzy
+msgid "Password:"
+msgstr "Hasło:"
+
 #. TEXT_SETUP_POP3_SERVER
 msgid "POP3 server:"
 msgstr "Serwer POP3:"
@@ -1036,14 +1035,6 @@ msgstr "Serwer POP3:"
 #. TEXT_SETUP_POP3_PORT
 msgid "POP3 port:"
 msgstr "Port POP3:"
-
-#. TEXT_SETUP_POP3_USER
-msgid "POP3 user:"
-msgstr "Użytkownik POP3:"
-
-#. TEXT_SETUP_POP3_PASS
-msgid "POP3 password:"
-msgstr "Hasło POP3:"
 
 #. TEXT_SETUP_OCR_COMMAND
 msgid "OCR Command:"
@@ -1089,9 +1080,8 @@ msgid "Save"
 msgstr "Zapis"
 
 #. NOTEBOOK_FILETYPE_OPTIONS
-#, fuzzy
 msgid "Filetype"
-msgstr "Plik"
+msgstr "Rodzaj pliku"
 
 #. NOTEBOOK_COPY_OPTIONS
 msgid "Copy"
@@ -1102,9 +1092,8 @@ msgid "Fax"
 msgstr "Faks"
 
 #. NOTEBOOK_EMAIL_OPTIONS
-#, fuzzy
 msgid "E-mail"
-msgstr "Poczta"
+msgstr "Poczta elektroniczna"
 
 #. NOTEBOOK_OCR_OPTIONS
 msgid "OCR"
@@ -1120,7 +1109,7 @@ msgstr "Ulepszanie"
 
 #. MENU_ITEM_MULTIPAGE
 msgid "Multipage"
-msgstr ""
+msgstr "Wielostronicowy"
 
 #. MENU_ITEM_SHOW_TOOLTIPS
 msgid "Show tooltips"
@@ -1192,7 +1181,7 @@ msgstr "Pokaż listę rozdzielczości"
 
 #. MENU_ITEM_PAGE_ROTATE
 msgid "Rotate postscript"
-msgstr "Obróć postscript"
+msgstr "Obróć Postscript"
 
 #. MENU_ITEM_EDIT_MEDIUM_DEF
 msgid "Edit medium definition"
@@ -1267,9 +1256,8 @@ msgid "pack bits"
 msgstr "\"pack bits\""
 
 #. MENU_ITEM_TIFF_COMP_DEFLATE
-#, fuzzy
 msgid "deflate"
-msgstr "opóźniony"
+msgstr "deflacja"
 
 #. MENU_ITEM_RANGE_SCALE
 msgid "Slider (Scale)"
@@ -1335,6 +1323,27 @@ msgstr "Przesuń obiekt do góry"
 msgid "Move item down"
 msgstr "Przesuń obiekt w dół"
 
+#. MENU_ITEM_AUTH_NONE
+#, fuzzy
+msgid "no authentication"
+msgstr "Uwierzytelnianie POP3"
+
+#. MENU_ITEM_AUTH_POP3
+msgid "POP3 before SMTP"
+msgstr ""
+
+#. MENU_ITEM_AUTH_ASMTP_PLAIN
+msgid "ASMTP Plain"
+msgstr ""
+
+#. MENU_ITEM_AUTH_ASMTP_LOGIN
+msgid "ASMTP Login"
+msgstr ""
+
+#. MENU_ITEM_AUTH_ASMTP_CRAM_MD5
+msgid "ASMTP CRAM-MD5"
+msgstr ""
+
 #. PROGRESS_SCANNING
 msgid "Scanning"
 msgstr "Skanowanie"
@@ -1345,9 +1354,8 @@ msgid "Receiving %s data"
 msgstr "Pobieranie danych %s"
 
 #. PROGRESS_PAGE
-#, fuzzy
 msgid "page"
-msgstr "paczka"
+msgstr "strona"
 
 #. PROGRESS_TRANSFERING_DATA
 msgid "Transfering image"
@@ -1410,13 +1418,12 @@ msgid "Cancel preview scan <Alt-ESC>"
 msgstr "Przerwij/Anuluj skanowanie poglądowe <Alt-Esc>"
 
 #. DESC_XSANE_MODE
-#, fuzzy
 msgid ""
 "viewer-<Ctrl-v>, save-<Ctrl-s>, photocopy-<Ctrl-c>, multipage-<Ctrl-m>, fax-"
 "<Ctrl-f> or e-mail-<Ctrl-e>"
 msgstr ""
-"podgląd <Ctrl-v>, zapis <Ctrl-s>, fotokopia <Ctrl-c>, faks <Ctrl-f>, wyślij "
-"pocztą <Ctrl-m>"
+"podgląd-<Ctrl-v>, zapis-<Ctrl-s>, fotokopia-<Ctrl-c>, wielostronicowość-"
+"<Ctrl-m>, faks-<Ctrl-f> lub poczta-<Ctrl-e>"
 
 #. DESC_XSANE_MEDIUM
 msgid ""
@@ -1465,22 +1472,18 @@ msgid "Enter receiver phone number or address"
 msgstr "Wprowadź nr telefonu odbiorcy lub adres"
 
 #. DESC_EMAIL_PROJECT
-#, fuzzy
 msgid "Enter name of e-mail project"
-msgstr "Wprowadź nazwę projektu poczty"
+msgstr "Wprowadź nazwę projektu pocztowego"
 
 #. DESC_EMAIL_IMAGENAME
-#, fuzzy
 msgid "Enter new name for e-mail image"
 msgstr "Wprowadź nową nazwę dla wysyłanego obrazka"
 
 #. DESC_EMAIL_RECEIVER
-#, fuzzy
 msgid "Enter e-mail address"
-msgstr "Wprowadź adres poczty elektronicznej"
+msgstr "Wprowadź adres poczty elektronicznej (email)"
 
 #. DESC_EMAIL_SUBJECT
-#, fuzzy
 msgid "Enter subject of e-mail"
 msgstr "Wprowadź temat listu"
 
@@ -1489,14 +1492,12 @@ msgid "Select filetype for image attachments"
 msgstr "Wybierz rodzaj pliku dla załącznika"
 
 #. DESC_MULTIPAGE_PROJECT
-#, fuzzy
 msgid "Enter name of multipage project"
-msgstr "Wprowadź nazwę projektu poczty"
+msgstr "Wprowadź nazwę wielostronicowego projektu pocztowego"
 
 #. DESC_MULTIPAGE_FILETYPE
-#, fuzzy
 msgid "Select filetype for multipage file"
-msgstr "Wybierz rodzaj pliku dla załącznika"
+msgstr "Wybierz rodzaj dla pliku wielostronicowego"
 
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
@@ -1686,20 +1687,20 @@ msgid ""
 "Resolution with which lineart images are printed and saved in postscript"
 msgstr ""
 "Rozdzielczość, z jaką obrazki w trybie kreski są drukowane i zapisywane w "
-"postscripcie"
+"Postscripcie"
 
 #. DESC_PRINTER_GRAYSCALE_RESOLUTION
 msgid ""
 "Resolution with which grayscale images are printed and saved in postscript"
 msgstr ""
 "Rozdzielczość, z jaką obrazki w skali szarości są drukowane i zapisywane w "
-"postscripcie"
+"Postscripcie"
 
 #. DESC_PRINTER_COLOR_RESOLUTION
 msgid "Resolution with which color images are printed and saved in postscript"
 msgstr ""
 "Rozdzielczość, z jaką obrazki kolorowe są drukowane i zapisywane w "
-"postscripcie"
+"Postscripcie"
 
 #. DESC_PRINTER_WIDTH
 msgid "Width of printable area"
@@ -1738,6 +1739,8 @@ msgid ""
 "Create zlib compressed postscript image for printer (flatdecode).\n"
 "The printer has to understand postscript level 3!"
 msgstr ""
+"Stwórz obraz Postscript skompresowany zlib (flatdecode).\n"
+"Drukarka musi rozumieć Postscript poziomu 3!"
 
 #. DESC_TMP_PATH
 msgid "Path to temp directory"
@@ -1751,8 +1754,8 @@ msgstr "Przeglądaj katalog tymczasowy"
 msgid ""
 "Quality in percent if image is saved as jpeg or tiff with jpeg compression"
 msgstr ""
-"Wyrażona w procentach jakość z jaką zostanie zapisany jpeg lub tiff z "
-"kompresją jpeg"
+"Wyrażona w procentach jakość z jaką zostanie zapisany JPEG lub TIFF z "
+"kompresją JPEG"
 
 #. DESC_PNG_COMPRESSION
 msgid "Compression if image is saved as png"
@@ -1763,21 +1766,20 @@ msgid "Minimum length of counter in filename"
 msgstr "Minimalna długość licznika w nazwie pliku"
 
 #. DESC_TIFF_ZIP_COMPRESSION
-#, fuzzy
 msgid "Compression rate for zip compressed tiff (deflate)"
-msgstr "Typ kompresji przy zapisie jako tiff 8 bit obrazka"
+msgstr "Stopień kompresji zip przy zapisie jako TIFF (deflacja)"
 
 #. DESC_TIFF_COMPRESSION_16
 msgid "Compression type if 16 bit image is saved as tiff"
-msgstr "Typ kompresji przy zapisie jako tiff 16 bit obrazka"
+msgstr "Typ kompresji przy zapisie jako TIFF 16 bit obrazka"
 
 #. DESC_TIFF_COMPRESSION_8
 msgid "Compression type if 8 bit image is saved as tiff"
-msgstr "Typ kompresji przy zapisie jako tiff 8 bit obrazka"
+msgstr "Typ kompresji przy zapisie jako TIFF 8 bit obrazka"
 
 #. DESC_TIFF_COMPRESSION_1
 msgid "Compression type if lineart image is saved as tiff"
-msgstr "Typ kompresji przy zapisie jako tiff obrazka w trybie kreski"
+msgstr "Typ kompresji przy zapisie jako TIFF obrazka w trybie kreski"
 
 #. DESC_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device dependant preferences in default file at exit of xsane"
@@ -1797,13 +1799,15 @@ msgstr ""
 
 #. DESC_SAVE_PS_FLATDECODED
 msgid ""
-"compress postscript image with zlib algorithm (flatdecode).When you want to "
+"compress postscript image with zlib algorithm (flatdecode). When you want to "
 "print such a file your printer has to understand postscript level 3"
 msgstr ""
+"kompresuje obraz Postscript algorytmem zlib (flatdecode). Jeżeli chcesz "
+"wydrukować taki plik, drukarka musi rozumieć Postscript poziomu 3!"
 
 #. DESC_SAVE_PDF_FLATDECODED
 msgid "compress PDF image with zlib algorithm (flatdecode)."
-msgstr ""
+msgstr "kompresuje obraz PDF alborytmem zlib (flatdecode)."
 
 #. DESC_SAVE_PNM16_AS_ASCII
 msgid ""
@@ -1921,7 +1925,7 @@ msgstr "Margines ujednolicający zasięg progu XSane i skanera"
 
 #. DESC_ADF_PAGES_MAX
 msgid "Number of pages to scan"
-msgstr ""
+msgstr "Liczba stron do zeskanowania"
 
 #. DESC_PREVIEW_PIPETTE_RANGE
 msgid "dimension of square that is used to average color for pipette function"
@@ -1958,7 +1962,7 @@ msgstr "Wprowadź opcję by określić odbiornik"
 
 #. DESC_FAX_POSTSCRIPT_OPT
 msgid "Enter option to specify postscript files following"
-msgstr "Wprowadź opcję by określić następujące pliki postscript"
+msgstr "Wprowadź opcję by określić następujące pliki Postscript"
 
 #. DESC_FAX_NORMAL_OPT
 msgid "Enter option to specify normal mode (low resolution)"
@@ -1980,6 +1984,7 @@ msgstr ""
 #. DESC_FAX_PS_FLATDECODED
 msgid "Create zlib compressed postscript image for fax (flatdecode)"
 msgstr ""
+"Tworzy skompresowany algorytmem zlib (flatdecode) obraz Postscript dla faksu"
 
 #. DESC_SMTP_SERVER
 msgid "IP Address or Domain name of SMTP server"
@@ -1990,19 +1995,27 @@ msgid "port to connect to SMTP server"
 msgstr "port serwera SMTP"
 
 #. DESC_EMAIL_FROM
-#, fuzzy
 msgid "enter your e-mail address"
 msgstr "wprowadź swój adres email"
 
 #. DESC_EMAIL_REPLY_TO
-#, fuzzy
 msgid "enter e-mail address for replied e-mails"
-msgstr "wprowadź adres email dla odpowiedzi"
+msgstr "wprowadź adres email dla listów zwrotnych"
 
-#. DESC_POP3_AUTHENTIFICATION
+#. DESC_EMAIL_AUTHENTICATION
 #, fuzzy
-msgid "Authentificate at POP3 server before sending e-mail"
+msgid "Type of authentication before sending e-mail"
 msgstr "Uwierzytelnianie na serwerze POP3 przed wysłaniem poczty"
+
+#. DESC_EMAIL_AUTH_USER
+#, fuzzy
+msgid "user name for e-mail server"
+msgstr "nazwa użytkownika dla serwera POP3"
+
+#. DESC_EMAIL_AUTH_PASS
+#, fuzzy
+msgid "password for e-mail server"
+msgstr "hasło dla serwera POP3"
 
 #. DESC_POP3_SERVER
 msgid "IP Address or Domain name of POP3 server"
@@ -2012,18 +2025,9 @@ msgstr "Adres IP lub nazwa domeny serwera POP3"
 msgid "port to connect to POP3 server"
 msgstr "port serwera POP3"
 
-#. DESC_POP3_USER
-msgid "user name for POP3 server"
-msgstr "nazwa użytkownika dla serwera POP3"
-
-#. DESC_POP3_PASS
-msgid "password for POP3 server"
-msgstr "hasło dla serwera POP3"
-
 #. DESC_HTML_EMAIL
-#, fuzzy
 msgid "E-mail is sent in html mode, place image with: <IMAGE>"
-msgstr "Poczta jest wysyłana jako HTML, umieść obrazek używając: <IMAGE>"
+msgstr "Poczta jest wysyłana w trybie HTML, umieść obrazek używając: <IMAGE>"
 
 #. DESC_OCR_COMMAND
 msgid "Enter command to start ocr program"
@@ -2341,7 +2345,7 @@ msgstr "biblioteka LIBPNG zgłasza błąd"
 
 #. ERR_ZLIB
 msgid "ZLIB error or memory allocation problem"
-msgstr ""
+msgstr "błąd ZLIB lub problem alokacji pamięci"
 
 #. ERR_UNKNOWN_TYPE
 msgid "unknown type"
@@ -2358,7 +2362,8 @@ msgstr "Opcja ma pustą nazwę"
 #. ERR_BACKEND_BUG
 msgid "This is a backend bug. Please inform the author of the backend!"
 msgstr ""
-"To jest błąd backendu. Proszę skontaktować się z autorem danego backendu!"
+"To jest błąd sterownika. Proszę skontaktować się z autorem danego sterownika "
+"(backendu)!"
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
@@ -2541,7 +2546,6 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[OPCJE]...  [URZĄDZENIE]"
 
 #. TEXT_HELP
-#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2577,11 +2581,11 @@ msgid ""
 " --sync                       request a synchronous connection with the X11 "
 "server"
 msgstr ""
-"Uruchamia graficzny interfejs dla urządzeń obsługiwanych przez Sane "
-"(ScannerAccess Now Easy).\n"
+"Uruchamia graficzny interfejs dla urządzeń obsługiwanych przez SANE (Scanner "
+"Access Now Easy).\n"
 "\n"
-"Format [URZĄDZENIE] to sterownik:plik_urządzenia (np. microtek2:/dev/sg2).\n"
-"[OPCJE]... mogą być kombinacją następujących pozycji:\n"
+"Format [URZĄDZENIE] to sterownik:plik_urządzenia (np. umax:/dev/scanner).\n"
+"[OPCJA]... może być kombinacją następujących pozycji:\n"
 " -h, --help                   wyświetl tą wiadomość z pomocą i zakończ\n"
 " -v, --version                wyświetl informację o wersji\n"
 " -l, --license                wyświetl informację o licencji\n"
@@ -2592,11 +2596,10 @@ msgstr ""
 " -V, --viewer                 rozpocznij w trybie podglądu (domyślne)\n"
 " -s, --save                   rozpocznij w trybie zapisu\n"
 " -c, --copy                   rozpocznij w trybie kopiowania\n"
+" -m, --multipage                   rozpocznij w trybie wielostronicowym\n"
 " -f, --fax                    rozpocznij w trybie faksu\n"
-" -m, --mail                   rozpocznij w trybie wysyłania poczty\n"
+" -e, --email                   rozpocznij w trybie wysyłania poczty\n"
 " -n, --no-mode-selection      wyłącz menu wyboru trybu XSane\n"
-"\n"
-" -M, --Medium-calibration     włącz tryb kalibracji materiału\n"
 "\n"
 " -F, --Fixed                  stały rozmiar głównego okna (ignoruje wartość "
 "z preferencji)\n"
@@ -2605,11 +2608,12 @@ msgstr ""
 "\n"
 " -p, --print-filenames        wyświetl nazwy obrazków utworzonych przez "
 "XSane\n"
-" -N, --force-filename name    force filename and disable user filename "
-"selection\n"
+" -N, --force-filename name    wymuś nazwę pliku i zablokuj wybór przez "
+"użytkownika\n"
 "\n"
 " --display X11-display        przekieruj wyjście na wyświetlacz X11\n"
-" --no-xshm                    nie używaj dla obrazków pamięci współdzielonej "
+" --no-xshm                    nie używaj dla obrazków pamięci "
+"współdzielonej\n"
 "--sync                       żądaj synchronicznego połączenia z serwerem X11"
 
 #. strings for gimp plugin
@@ -2778,44 +2782,36 @@ msgid "Rossmann negative HR 100"
 msgstr "negatyw Rossmann HR 100"
 
 #. TEXT_PROJECT_STATUS_NOT_CREATED
-#, fuzzy
 msgid "Project not created"
-msgstr "Projekt faksowy nie utworzony"
+msgstr "Projekt nie utworzony"
 
 #. TEXT_PROJECT_STATUS_CREATED
-#, fuzzy
 msgid "Project created"
-msgstr "Projekt faksowy utworzony"
+msgstr "Projekt utworzony"
 
 #. TEXT_PROJECT_STATUS_CHANGED
-#, fuzzy
 msgid "Project changed"
-msgstr "Projekt faksowy zmieniony"
+msgstr "Projekt zmieniony"
 
 #. TEXT_PROJECT_STATUS_ERR_READ_PROJECT
-#, fuzzy
 msgid "Error reading project"
-msgstr "Wprowadź nazwę projektu pocztowego"
+msgstr "Błąd w trakcie czytania projektu"
 
 #. TEXT_PROJECT_STATUS_FILE_SAVING_ERROR
-#, fuzzy
 msgid "Error saving file"
-msgstr "Zapisywanie obrazka..."
+msgstr "Błąd zapisu pliku"
 
 #. TEXT_PROJECT_STATUS_FILE_SAVING
-#, fuzzy
 msgid "Saving file"
-msgstr "Zapisywanie obrazka..."
+msgstr "Zapisywanie pliku"
 
 #. TEXT_PROJECT_STATUS_FILE_SAVING_ABORTED
-#, fuzzy
 msgid "Aborted saving file"
-msgstr "Zapisywanie obrazka..."
+msgstr "Zapisywanie pliku anulowane"
 
 #. TEXT_PROJECT_STATUS_FILE_SAVED
-#, fuzzy
 msgid "File has been saved"
-msgstr "Poczta została wysłana"
+msgstr "Plik został zapisany"
 
 #. TEXT_EMAIL_STATUS_POP3_CONNECTION_FAILED
 msgid "POP3 connection failed"
@@ -2824,6 +2820,11 @@ msgstr "połączenie POP3 nie powiodło się"
 #. TEXT_EMAIL_STATUS_POP3_LOGIN_FAILED
 msgid "POP3 login failed"
 msgstr "logowanie POP3 nie powiodło się"
+
+#. TEXT_EMAIL_STATUS_ASMTP_AUTH_FAILED
+#, fuzzy
+msgid "ASMTP authentication failed"
+msgstr "połączenie SMTP nie powiodło się"
 
 #. TEXT_EMAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
@@ -2838,17 +2839,14 @@ msgid "Receiver entry not accepted"
 msgstr "Odbiorca odrzucony"
 
 #. TEXT_EMAIL_STATUS_SMTP_ERR_DATA
-#, fuzzy
 msgid "E-mail data not accepted"
 msgstr "Dane pocztowe odrzucone"
 
 #. TEXT_EMAIL_STATUS_SENDING
-#, fuzzy
 msgid "Sending e-mail"
 msgstr "Wysyłanie poczty"
 
 #. TEXT_EMAIL_STATUS_SENT
-#, fuzzy
 msgid "E-mail has been sent"
 msgstr "Poczta została wysłana"
 
@@ -2915,71 +2913,15 @@ msgstr "Brak wolnej pamięci"
 msgid "Access to resource has been denied"
 msgstr "Brak dostępu do zasobu"
 
-#~ msgid "Automatic Document Feeder Modus:"
-#~ msgstr "Automatyczny podajnik dokumentów (ADF):"
-
-#~ msgid ""
-#~ "Select scansource for Automatic Document feeder. If this scansource is "
-#~ "selected XSane scans until \"out of paper\" or error."
-#~ msgstr ""
-#~ "Wybierz źródło dla Automatycznego Podajnika Dokumentów. Jeżeli to źródło "
-#~ "jest wybrane, XSane skanuje aż do kończenia się papieru lub wystąpienia "
-#~ "błędu"
-
 #, fuzzy
-#~ msgid "E-mail project not created"
-#~ msgstr "Dokument pocztowy nie utworzony"
+#~ msgid "POP3 authentication"
+#~ msgstr "Uwierzytelnianie POP3"
 
-#, fuzzy
-#~ msgid "E-mail project created"
-#~ msgstr "Dokument pocztowy utworzony"
+#~ msgid "XSane mode"
+#~ msgstr "Tryb XSane"
 
-#, fuzzy
-#~ msgid "E-mail project changed"
-#~ msgstr "Dokument pocztowy został zmieniony"
+#~ msgid "POP3 user:"
+#~ msgstr "Użytkownik POP3:"
 
-#, fuzzy
-#~ msgid "Multipage project not created"
-#~ msgstr "Dokument pocztowy nie utworzony"
-
-#, fuzzy
-#~ msgid "Multipage project created"
-#~ msgstr "Dokument pocztowy utworzony"
-
-#, fuzzy
-#~ msgid "Multipage project changed"
-#~ msgstr "Dokument pocztowy został zmieniony"
-
-#, fuzzy
-#~ msgid "Error reading multipage project"
-#~ msgstr "Wprowadź nazwę projektu pocztowego"
-
-#, fuzzy
-#~ msgid "Saving multipage file"
-#~ msgstr "Zapisywanie obrazka..."
-
-#, fuzzy
-#~ msgid "Multipage saving aborted"
-#~ msgstr "Dokument pocztowy utworzony"
-
-#~ msgid "Image"
-#~ msgstr "Obrazek"
-
-#~ msgid "Viewer (png):"
-#~ msgstr "Przeglądarka (PNG):"
-
-#, fuzzy
-#~ msgid "Enter command to be executed to view an e-mail image"
-#~ msgstr ""
-#~ "Wprowadź polecenie, które zostanie wykonane do przejrzenia wysyłanego "
-#~ "pocztą obrazka"
-
-#, fuzzy
-#~ msgid "Failed to execute e-mail image viewer:"
-#~ msgstr "Nie powiodło się uruchomienie przeglądarki obrazków:"
-
-#~ msgid "Step"
-#~ msgstr "Skok"
-
-#~ msgid "Mail"
-#~ msgstr "Poczta"
+#~ msgid "POP3 password:"
+#~ msgstr "Hasło POP3:"

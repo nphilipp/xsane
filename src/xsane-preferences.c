@@ -75,11 +75,11 @@ Preferences preferences =
        0,               /* no default reply to email address */
        0,               /* no default smtp server */
        25,              /* default smtp port */
-       0,               /* no pop3 authentification */
+       0,               /* no email authentication */
+       0,               /* no default email authorization user */
+       0,               /* no default email authorization passsword */
        0,               /* no default pop3 server */
        110,             /* default pop3 port */
-       0,               /* no default pop3 user */
-       0,               /* no default pop3 passsword */
        0,		/* no email project */
        0,		/* no email filetype */
 #endif
@@ -188,11 +188,11 @@ desc[] =
     {"e-mail-reply-to",			xsane_rc_pref_string,	POFFSET(email_reply_to)},
     {"e-mail-smtp-server",		xsane_rc_pref_string,	POFFSET(email_smtp_server)},
     {"e-mail-smtp-port",		xsane_rc_pref_int,	POFFSET(email_smtp_port)},
-    {"e-mail-pop3-authentification",	xsane_rc_pref_int,	POFFSET(email_pop3_authentification)},
+    {"e-mail-authentication",		xsane_rc_pref_int,	POFFSET(email_authentication)},
+    {"e-mail-auth-user",		xsane_rc_pref_string,	POFFSET(email_auth_user)},
+    {"e-mail-auth-pass",		xsane_rc_pref_string,	POFFSET(email_auth_pass)},
     {"e-mail-pop3-server",		xsane_rc_pref_string,	POFFSET(email_pop3_server)},
     {"e-mail-pop3-port",		xsane_rc_pref_int,	POFFSET(email_pop3_port)},
-    {"e-mail-pop3-user",		xsane_rc_pref_string,	POFFSET(email_pop3_user)},
-    {"e-mail-pop3-pass",		xsane_rc_pref_string,	POFFSET(email_pop3_pass)},
     {"e-mail-project",			xsane_rc_pref_string,	POFFSET(email_project)},
     {"e-mail-filetype",			xsane_rc_pref_string,	POFFSET(email_filetype)},
 #endif

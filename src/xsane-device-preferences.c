@@ -574,7 +574,11 @@ void xsane_device_preferences_load_file(char *filename)
 #endif
   gtk_window_move(GTK_WINDOW(xsane.batch_scan_dialog), xsane.batch_dialog_posx, xsane.batch_dialog_posy);
   gtk_window_move(GTK_WINDOW(xsane.preview->top), xsane.preview_dialog_posx, xsane.preview_dialog_posy);
+#ifdef HAVE_GTK2
+  gtk_window_resize(GTK_WINDOW(xsane.preview->top), xsane.preview_dialog_width, xsane.preview_dialog_height);
+#else
   gtk_window_set_default_size(GTK_WINDOW(xsane.preview->top), xsane.preview_dialog_width, xsane.preview_dialog_height);
+#endif
 
   xsane_update_param(0);
   xsane_refresh_dialog();
@@ -669,31 +673,41 @@ void xsane_device_preferences_save_file(char *filename)
     /* make geometry and position values up to date */
     xsane_window_get_position(xsane.dialog, &xsane.dialog_posx, &xsane.dialog_posy);
     gdk_drawable_get_size(xsane.dialog->window, &xsane.dialog_width, &xsane.dialog_height);
+#if 0 /* TO BE REMOVED */
     gtk_window_move(GTK_WINDOW(xsane.dialog), xsane.dialog_posx, xsane.dialog_posy); /* geometry used when window closed and opened again */
     gtk_window_set_default_size(GTK_WINDOW(xsane.dialog), xsane.dialog_width, xsane.dialog_height);
+#endif
 
     if (xsane.project_dialog)
     {
       xsane_window_get_position(xsane.project_dialog, &xsane.project_dialog_posx, &xsane.project_dialog_posy);
+#if 0 /* TO BE REMOVED */
       gtk_window_move(GTK_WINDOW(xsane.project_dialog), xsane.project_dialog_posx, xsane.project_dialog_posy);
+#endif
     }
 
     if (preferences.show_standard_options)
     {
       xsane_window_get_position(xsane.standard_options_dialog, &xsane.standard_options_dialog_posx, &xsane.standard_options_dialog_posy);
+#if 0 /* TO BE REMOVED */
       gtk_window_move(GTK_WINDOW(xsane.standard_options_dialog), xsane.standard_options_dialog_posx, xsane.standard_options_dialog_posy);
+#endif
     }
 
     if (preferences.show_advanced_options)
     {
       xsane_window_get_position(xsane.advanced_options_dialog, &xsane.advanced_options_dialog_posx, &xsane.advanced_options_dialog_posy);
+#if 0 /* TO BE REMOVED */
       gtk_window_move(GTK_WINDOW(xsane.advanced_options_dialog), xsane.advanced_options_dialog_posx, xsane.advanced_options_dialog_posy);
+#endif
     }
 
     if (preferences.show_histogram)
     {
       xsane_window_get_position(xsane.histogram_dialog, &xsane.histogram_dialog_posx, &xsane.histogram_dialog_posy);
+#if 0 /* TO BE REMOVED */
       gtk_window_move(GTK_WINDOW(xsane.histogram_dialog), xsane.histogram_dialog_posx, xsane.histogram_dialog_posy);
+#endif
     }
 
 #if 0
@@ -704,15 +718,19 @@ void xsane_device_preferences_save_file(char *filename)
     if (preferences.show_batch_scan)
     {
       xsane_window_get_position(xsane.batch_scan_dialog, &xsane.batch_dialog_posx, &xsane.batch_dialog_posy);
+#if 0 /* TO BE REMOVED */
       gtk_window_move(GTK_WINDOW(xsane.batch_scan_dialog), xsane.batch_dialog_posx, xsane.batch_dialog_posy);
+#endif
     }
 
     if (xsane.preview)
     {
       xsane_window_get_position(xsane.preview->top, &xsane.preview_dialog_posx, &xsane.preview_dialog_posy);
       gdk_drawable_get_size(xsane.preview->top->window, &xsane.preview_dialog_width, &xsane.preview_dialog_height);
+#if 0
       gtk_window_move(GTK_WINDOW(xsane.preview->top), xsane.preview_dialog_posx, xsane.preview_dialog_posy);
       gtk_window_set_default_size(GTK_WINDOW(xsane.preview->top), xsane.preview_dialog_width, xsane.preview_dialog_height);
+#endif
     }
 
     xsane_device_preferences_save_values(&w, xsane.dev);

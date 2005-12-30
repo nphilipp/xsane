@@ -4,7 +4,7 @@
    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
    <meta name="Author" content="Oliver Rauch">
    <meta name="Description" content="scan, photocopy and fax frontend for SANE">
-   <title>XSane - Save setup</title>
+   <title>XSane - E-mail setup</title>
 </head>
 <body text="#000000" bgcolor="#FFFFFF" link="#0000EF" vlink="#51188E" alink="#FF0000">
 
@@ -16,7 +16,7 @@
 </td>
 <td>
 <blockquote>
-<h1><font color="#009900">Image setup</font></h1>
+<h1><font color="#009900">E-mail setup</font></h1>
 </blockquote>
 </td>
 </tr>
@@ -33,13 +33,15 @@
 <br>
 <br>
 <br>
-<font color="#000000">Main window:</font>
+<font color="#000000">XSane mode:</font>
+<img SRC="xsane-target.jpg" alt="xsane-target">
 <ul>
 <li><a href="sane-xsane-viewer-doc.html">Viewer mode</a></li>
 <li><a href="sane-xsane-save-doc.html">Save mode</a></li>
 <li><a href="sane-xsane-copy-doc.html">Copy mode</a></li>
+<li><a href="sane-xsane-multipage-doc.html">Multipage mode</a></li>
 <li><a href="sane-xsane-fax-doc.html">Fax mode</a></li>
-<li><a href="sane-xsane-mail-doc.html">Mail mode</a></li>
+<li><a href="sane-xsane-email-doc.html">E-mail mode</a></li>
 <li><a href="sane-xsane-gimp-doc.html">Gimp plugin</a></li>
 </ul>
 <br>
@@ -110,8 +112,8 @@
 <li><a href="sane-xsane-setup-display-doc.html">Display setup</a></li>
 <li><a href="sane-xsane-setup-enhancement-doc.html">Enhancement setup</a></li>
 <li><a href="sane-xsane-setup-fax-doc.html">Fax setup</a></li>
-<li><a href="sane-xsane-setup-image-doc.html">Image setup</a></li>
-<li><a href="sane-xsane-setup-mail-doc.html">Mail setup</a></li>
+<li><a href="sane-xsane-setup-filetype-doc.html">Filetype setup</a></li>
+<li><a href="sane-xsane-setup-email-doc.html">E-mail setup</a></li>
 <li><a href="sane-xsane-setup-save-doc.html">Saving setup</a></li>
 </ul>
 </td>
@@ -125,52 +127,68 @@ You open the setup window via the menu <i>preferences/setup</i> in the
 main window of xsane.
 <br>
 <br>
-<br>   
-<center><p><br><img SRC="xsane-setup-image.jpg" alt="XSane-setup-image-window"></center>
+<br>
+<center><img SRC="xsane-setup-email.jpg" alt="Xsane-setup-e-mail-window"></center>
 <br>
 <br>
-<br>   
-<h4>REDUCE 16 BIT IMAGE TO 8 BIT:</h4>
+<br>
+
+<h4>From:</h4>
 <blockquote>
-When the image is scanned with 16 bit/color then xsane does reduce the
-color depth to 8 bit/color before saving the image.
+Enter your email address.
 </blockquote>
 
-<h4>JPEG IMAGE QUALITY:</h4>
+<h4>Reply to:</h4>
 <blockquote>
-If the image is saved in <i>jpeg</i> format this value defines
-the quality of the image. Low values mean low quality and low file size,
-high values mean high quality and high file size.
+Enter the email address to which the receiver shall answer.
+If this is the same as the <i>from</i> address enter the same
+address again.
 </blockquote>
 
-<h4>PNG IMAGE COMPRESSION:</h4>
+<h4>SMTP server:</h4>
 <blockquote>
-If the image is saved in <i>png</i> format this value defines
-the compression level. The quality of the image keeps the same, low values
-mean low compression, large files and low compression time. High values
-mean high compression, smaller files and high compression time.
+This is the address of the smtp server.
 </blockquote>
 
-<h4>TIFF 16 BIT IMAGE COMPRESSION:</h4>
+<h4>SMPT port:</h4>
 <blockquote>
-If the image is saved in 16 bit/color <i>tiff</i> format this selection defines
-if xsane does <i>pack bits</i> or <i>no compression</i> is used.
+Here you have to enter the port number on which the smtp server
+expects smtp connections. The standard port number is 25.
 </blockquote>
 
-<h4>TIFF 8 BIT IMAGE COMPRESSION:</h4>
+<h4>E-mail authentication:</h4>
 <blockquote>
-If the image is saved in 8 bit/color <i>tiff</i> format this selection defines
-if xsane does <i>pack bits</i>, use <i>JPEG DCT compression</i> or <i>no compression</i>
-is used.
+Since some years all SMTP servers expect authentication before accepting
+any mail. There are different ways of authentication. Select the one your
+ISP supports.
 </blockquote>
 
-<h4>TIFF lineart IMAGE COMPRESSION:</h4>
+<h4>User:</h4>
 <blockquote>
-If the image is saved in lineart <i>tiff</i> format this selection defines
-if xsane does <i>pack bits</i>, use <i>CCIT Group 4 Fax compression</i>,
-<i>CCIT Group 3 Fax compression</i>, <i>CCIT 1D Huffman compression</i>,
-<i>JPEG DCT compression</i> or <i>no compression</i>
-is used.
+Enter your username for the email authentication.
+</blockquote>
+
+<h4>Password:</h4>
+<blockquote>
+Enter the password for the email authentication.
+Pay attention, this can
+be a security hole. The user and password is stored in the
+xsane.rc file in ~/.sane/xsane/xsane.rc. The password is
+not stored in plain text but it is simple to reconstruct
+the password from the entry in xsane.rc. If you enter
+your pop3 password here make sure no one gets access
+to your xsane.rc file.
+</blockquote>
+
+<h4>POP3 server:</h4>
+<blockquote>
+This is the address of the pop3 server when you selected <i>POP3 before SMTP</i>.
+</blockquote>
+
+<h4>POP3 port:</h4>
+<blockquote>
+Here you have to enter the port number on which the pop3 server
+expects pop3 connections. The standard port number is 110.
 </blockquote>
 
 </blockquote>

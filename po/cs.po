@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.98\n"
-"POT-Creation-Date: 2005-12-21 12:05+0100\n"
-"PO-Revision-Date: 2005-10-30 23:11+0100\n"
+"Project-Id-Version: XSANE 0.99\n"
+"POT-Creation-Date: 2005-12-30 23:07+0100\n"
+"PO-Revision-Date: 2005-12-30 21:46+0100\n"
 "Last-Translator: Stanislav Brabec <utx@penguin.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -80,24 +80,20 @@ msgid "insert ps-file into fax"
 msgstr "zadat ps-soubor pro fax"
 
 #. WINDOW_EMAIL_PROJECT
-#, fuzzy
 msgid "E-mail project"
-msgstr "poštovní projekt"
+msgstr "Poštovní projekt"
 
 #. WINDOW_EMAIL_RENAME
-#, fuzzy
 msgid "rename e-mail image"
 msgstr "přejmenovat obrázek do pošty"
 
 #. WINDOW_EMAIL_INSERT
-#, fuzzy
 msgid "insert file into e-mail"
 msgstr "vložit soubor do pošty"
 
 #. WINDOW_MULTIPAGE_PROJECT
-#, fuzzy
 msgid "multipage project"
-msgstr "Smazat projekt"
+msgstr "vícestránkový projekt"
 
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
@@ -388,9 +384,8 @@ msgid "Send project"
 msgstr "Odeslat projekt"
 
 #. BUTTON_SAVE_MULTIPAGE
-#, fuzzy
 msgid "Save multipage file"
-msgstr "Zápis obrázku"
+msgstr "Zápis vícestránkového souboru"
 
 #. BUTTON_DELETE_PROJECT
 msgid "Delete project"
@@ -433,7 +428,6 @@ msgid "Fine mode"
 msgstr "Nalézt režim"
 
 #. RADIO_BUTTON_HTML_EMAIL
-#, fuzzy
 msgid "HTML e-mail"
 msgstr "HTML pošta"
 
@@ -451,15 +445,15 @@ msgstr "Přeskočit existující jména souborů"
 
 #. RADIO_BUTTON_SAVE_PS_FLATDECODED
 msgid "Save postscript zlib compressed (ps level 3)"
-msgstr ""
+msgstr "Zapsat zlib komprimovaný postscript (ps level 3)"
 
 #. RADIO_BUTTON_SAVE_PDF_FLATDECODED
 msgid "Save PDF zlib compressed"
-msgstr ""
+msgstr "Zapsat zlib komprimovaný PDF"
 
 #. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
 msgid "Save 16bit pnm in ascii format"
-msgstr "Zapsat jako 16bitový pnm v ascii formátu"
+msgstr "Zapsat 16bitový pnm v ascii formátu"
 
 #. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
 msgid "Reduce 16 bit image to 8 bit"
@@ -489,10 +483,6 @@ msgstr "Předvolba skenovací plochy"
 msgid "Autocorrect colors"
 msgstr "Automatická korekce barev"
 
-#. RADIO_BUTTON_POP3_AUTHENTIFICATION
-msgid "POP3 authentification"
-msgstr "Authentifikace POP3"
-
 #. RADIO_BUTTON_OCR_USE_GUI_PIPE
 msgid "Use GUI progress pipe"
 msgstr "Použít GUI rouru průběhu"
@@ -508,10 +498,6 @@ msgstr "Dostupná zařízení:"
 #. TEXT_XSANE_OPTIONS
 msgid "XSane options"
 msgstr "Předvolby XSane"
-
-#. TEXT_XSANE_MODE
-msgid "XSane mode"
-msgstr "Režim XSane"
 
 #. TEXT_FILETYPE
 msgid "Type"
@@ -702,7 +688,6 @@ msgstr ""
 "PRODEJNOSTI anebo VHODNOSTI PRO URČITÝ ÚČEL.\n"
 
 #. TEXT_EMAIL_ADR
-#, fuzzy
 msgid "E-mail:"
 msgstr "E-mail:"
 
@@ -723,14 +708,14 @@ msgstr "Překlad:"
 #. by YOUR NAME\n
 #. E-mail: your.name@yourdomain.com\n
 #. TEXT_TRANSLATION_INFO
-#, fuzzy
 msgid ""
 "untranslated original english text\n"
 "by Oliver Rauch\n"
 "E-mail: Oliver.Rauch@rauch-domain.de\n"
 msgstr ""
+"Český překlad\n"
 "Stanislav Brabec\n"
-"e-mail: utx@penguin.cz\n"
+"E-mail: utx@penguin.cz\n"
 
 #. TEXT_INFO_BOX
 msgid "0x0: 0KB"
@@ -741,7 +726,6 @@ msgid "Scanned pages: "
 msgstr "Skenované stránky: "
 
 #. TEXT_EMAIL_TEXT
-#, fuzzy
 msgid "E-mail text:"
 msgstr "Text e-mailu:"
 
@@ -754,19 +738,16 @@ msgid "Project status:"
 msgstr "Stav projektu:"
 
 #. TEXT_EMAIL_FILETYPE
-#, fuzzy
 msgid "E-mail image filetype:"
 msgstr "Typ souboru obrázku v poště:"
 
 #. TEXT_PAGES
-#, fuzzy
 msgid "Pages:"
-msgstr "Užití:"
+msgstr "Stránek:"
 
 #. TEXT_MULTIPAGE_FILETYPE
-#, fuzzy
 msgid "Multipage document filetype:"
-msgstr "Typ souboru obrázku v poště:"
+msgstr "Typ vícestránkového souboru:"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
@@ -882,7 +863,7 @@ msgstr "Modrá gama tiskárny:"
 
 #. TEXT_SETUP_PRINTER_PS_FLATDECODED
 msgid "Create zlib compressed postscript image (ps level 3) for printing"
-msgstr ""
+msgstr "Vytvořit zlib komprimovaný postscript (ps level 3) pro tisk"
 
 #. TEXT_SETUP_TMP_PATH
 msgid "Temporary directory"
@@ -909,9 +890,8 @@ msgid "Filename counter length"
 msgstr "Délka čítače jména souboru"
 
 #. TEXT_SETUP_TIFF_ZIP_COMPRESSION
-#, fuzzy
 msgid "TIFF zip compression rate"
-msgstr "Komprese 8bitových TIFF obrázků"
+msgstr "Úroveň TIFF ZIP komprese"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_16
 msgid "TIFF 16 bit image compression"
@@ -1007,7 +987,7 @@ msgstr "Prohlížeč (Postscript):"
 
 #. TEXT_SETUP_FAX_PS_FLATDECODED
 msgid "Create zlib compressed postscript image (ps level 3) for fax"
-msgstr ""
+msgstr "Vytvořit zlib komprimovaný postscript (ps level 3) pro fax"
 
 #. TEXT_SETUP_SMTP_SERVER
 msgid "SMTP server:"
@@ -1025,6 +1005,21 @@ msgstr "Od:"
 msgid "Reply to:"
 msgstr "Odpovědět na:"
 
+#. TEXT_SETUP_EMAIL_AUTHENTICATION
+#, fuzzy
+msgid "E-mail authentication"
+msgstr "Authentifikace POP3"
+
+#. TEXT_SETUP_EMAIL_AUTH_USER
+#, fuzzy
+msgid "User:"
+msgstr "Užití:"
+
+#. TEXT_SETUP_EMAIL_AUTH_PASS
+#, fuzzy
+msgid "Password:"
+msgstr "Heslo:"
+
 #. TEXT_SETUP_POP3_SERVER
 msgid "POP3 server:"
 msgstr "POP3 server:"
@@ -1032,14 +1027,6 @@ msgstr "POP3 server:"
 #. TEXT_SETUP_POP3_PORT
 msgid "POP3 port:"
 msgstr "POP3 port:"
-
-#. TEXT_SETUP_POP3_USER
-msgid "POP3 user:"
-msgstr "POP3 uživatel:"
-
-#. TEXT_SETUP_POP3_PASS
-msgid "POP3 password:"
-msgstr "POP3 heslo:"
 
 #. TEXT_SETUP_OCR_COMMAND
 msgid "OCR Command:"
@@ -1085,9 +1072,8 @@ msgid "Save"
 msgstr "Zápis"
 
 #. NOTEBOOK_FILETYPE_OPTIONS
-#, fuzzy
 msgid "Filetype"
-msgstr "Soubor"
+msgstr "Typ souboru"
 
 #. NOTEBOOK_COPY_OPTIONS
 msgid "Copy"
@@ -1098,7 +1084,6 @@ msgid "Fax"
 msgstr "Faxování"
 
 #. NOTEBOOK_EMAIL_OPTIONS
-#, fuzzy
 msgid "E-mail"
 msgstr "E-mail"
 
@@ -1116,7 +1101,7 @@ msgstr "Vylepšení"
 
 #. MENU_ITEM_MULTIPAGE
 msgid "Multipage"
-msgstr ""
+msgstr "Vícestránkový"
 
 #. MENU_ITEM_SHOW_TOOLTIPS
 msgid "Show tooltips"
@@ -1260,12 +1245,11 @@ msgstr "Komprese JPEG DCT"
 
 #. MENU_ITEM_TIFF_COMP_PACKBITS
 msgid "pack bits"
-msgstr "bitové pakování"
+msgstr "pakování bitů"
 
 #. MENU_ITEM_TIFF_COMP_DEFLATE
-#, fuzzy
 msgid "deflate"
-msgstr "zpožděná"
+msgstr "deflační"
 
 #. MENU_ITEM_RANGE_SCALE
 msgid "Slider (Scale)"
@@ -1331,6 +1315,27 @@ msgstr "Přesunout položku výš"
 msgid "Move item down"
 msgstr "Přesunout položku níž"
 
+#. MENU_ITEM_AUTH_NONE
+#, fuzzy
+msgid "no authentication"
+msgstr "Authentifikace POP3"
+
+#. MENU_ITEM_AUTH_POP3
+msgid "POP3 before SMTP"
+msgstr ""
+
+#. MENU_ITEM_AUTH_ASMTP_PLAIN
+msgid "ASMTP Plain"
+msgstr ""
+
+#. MENU_ITEM_AUTH_ASMTP_LOGIN
+msgid "ASMTP Login"
+msgstr ""
+
+#. MENU_ITEM_AUTH_ASMTP_CRAM_MD5
+msgid "ASMTP CRAM-MD5"
+msgstr ""
+
 #. PROGRESS_SCANNING
 msgid "Scanning"
 msgstr "Skenuje se"
@@ -1341,9 +1346,8 @@ msgid "Receiving %s data"
 msgstr "Přijímají se data typu %s"
 
 #. PROGRESS_PAGE
-#, fuzzy
 msgid "page"
-msgstr "balík"
+msgstr "stránka"
 
 #. PROGRESS_TRANSFERING_DATA
 msgid "Transfering image"
@@ -1406,13 +1410,12 @@ msgid "Cancel preview scan <Alt-ESC>"
 msgstr "Zrušit náhledový sken <Alt-ESC>"
 
 #. DESC_XSANE_MODE
-#, fuzzy
 msgid ""
 "viewer-<Ctrl-v>, save-<Ctrl-s>, photocopy-<Ctrl-c>, multipage-<Ctrl-m>, fax-"
 "<Ctrl-f> or e-mail-<Ctrl-e>"
 msgstr ""
-"uložit-<Ctrl-s>, zobrazit-<Ctrl-v>, fotokopie-<Ctrl-c>, fax-<Ctrl-f> nebo "
-"pošta-<Ctrl-m>"
+"prohlížeč-<Ctrl-v>, zápis-<Ctrl-s>, kopie-<Ctrl-c>, vícestránkový-<Ctrl-m>, "
+"fax-<Ctrl-f> nebo pošta-<Ctrl-e>"
 
 #. DESC_XSANE_MEDIUM
 msgid ""
@@ -1459,22 +1462,18 @@ msgid "Enter receiver phone number or address"
 msgstr "Zadání telefonního čísla nebo adresy příjemce"
 
 #. DESC_EMAIL_PROJECT
-#, fuzzy
 msgid "Enter name of e-mail project"
-msgstr "Zadání jména poštovního projektu"
+msgstr "Zadejte jméno poštovního projektu"
 
 #. DESC_EMAIL_IMAGENAME
-#, fuzzy
 msgid "Enter new name for e-mail image"
 msgstr "Zadejte nové jméno obrázku do pošty"
 
 #. DESC_EMAIL_RECEIVER
-#, fuzzy
 msgid "Enter e-mail address"
 msgstr "Zadejte e-mailovou adresu"
 
 #. DESC_EMAIL_SUBJECT
-#, fuzzy
 msgid "Enter subject of e-mail"
 msgstr "Zadejte předmět zprávy"
 
@@ -1483,14 +1482,12 @@ msgid "Select filetype for image attachments"
 msgstr "Zvolte typ souboru pro obrázkové přílohy"
 
 #. DESC_MULTIPAGE_PROJECT
-#, fuzzy
 msgid "Enter name of multipage project"
-msgstr "Zadání jména poštovního projektu"
+msgstr "Zadejte jméno vícestránkového projektu"
 
 #. DESC_MULTIPAGE_FILETYPE
-#, fuzzy
 msgid "Select filetype for multipage file"
-msgstr "Zvolte typ souboru pro obrázkové přílohy"
+msgstr "Zvolte typ vícestránkového souboru"
 
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
@@ -1712,25 +1709,27 @@ msgstr "Posun od spodního okraje papíru do tisknutelné plochy"
 
 #. DESC_PRINTER_GAMMA
 msgid "Additional gamma value for photocopy"
-msgstr "Dodatečná gama hodnota pro fotokopii"
+msgstr "Dodatečná gama hodnota pro kopírování"
 
 #. DESC_PRINTER_GAMMA_RED
 msgid "Additional gamma value for red component for photocopy"
-msgstr "Dodatečná gama hodnota pro červenou komponentu pro fotokopii"
+msgstr "Dodatečná gama hodnota pro červenou komponentu pro kopírování"
 
 #. DESC_PRINTER_GAMMA_GREEN
 msgid "Additional gamma value for green component for photocopy"
-msgstr "Dodatečná gama hodnota pro zelenou komponentu pro fotokopii"
+msgstr "Dodatečná gama hodnota pro zelenou komponentu pro kopírování"
 
 #. DESC_PRINTER_GAMMA_BLUE
 msgid "Additional gamma value for blue component for photocopy"
-msgstr "Dodatečná gama hodnota pro modrou komponentu pro fotokopii"
+msgstr "Dodatečná gama hodnota pro modrou komponentu pro kopírování"
 
 #. DESC_PRINTER_PS_FLATDECODED
 msgid ""
 "Create zlib compressed postscript image for printer (flatdecode).\n"
 "The printer has to understand postscript level 3!"
 msgstr ""
+"Vytvořit zlib komprimovaný postscript obrázek pro tisk (flat dekódování).\n"
+"Tiskárna musí podporovat postscript level 3!"
 
 #. DESC_TMP_PATH
 msgid "Path to temp directory"
@@ -1756,9 +1755,8 @@ msgid "Minimum length of counter in filename"
 msgstr "Minimální délka čítače ve jménu souboru"
 
 #. DESC_TIFF_ZIP_COMPRESSION
-#, fuzzy
 msgid "Compression rate for zip compressed tiff (deflate)"
-msgstr "Typ komprese, je-li obrázek zapisován jako 8bitový TIFF"
+msgstr "Úroveň komprese pro ZIP komprimované TIFF (deflační)"
 
 #. DESC_TIFF_COMPRESSION_16
 msgid "Compression type if 16 bit image is saved as tiff"
@@ -1789,13 +1787,15 @@ msgstr ""
 
 #. DESC_SAVE_PS_FLATDECODED
 msgid ""
-"compress postscript image with zlib algorithm (flatdecode).When you want to "
+"compress postscript image with zlib algorithm (flatdecode). When you want to "
 "print such a file your printer has to understand postscript level 3"
 msgstr ""
+"komprimovat postscript obrázek algoritmem zlib (flat dekódování). Chcete-li "
+"takový obrázek tisknout, tiskárna musí podporovat postscript level 3"
 
 #. DESC_SAVE_PDF_FLATDECODED
 msgid "compress PDF image with zlib algorithm (flatdecode)."
-msgstr ""
+msgstr "komprimovat PDF obrázek algoritmem zlib (flat dekódování)."
 
 #. DESC_SAVE_PNM16_AS_ASCII
 msgid ""
@@ -1910,7 +1910,7 @@ msgstr "Posun, který nastaví shodný rozsah prahů XSane a rozsah prahů skene
 
 #. DESC_ADF_PAGES_MAX
 msgid "Number of pages to scan"
-msgstr ""
+msgstr "Počest stránek k oskenování"
 
 #. DESC_PREVIEW_PIPETTE_RANGE
 msgid "dimension of square that is used to average color for pipette function"
@@ -1966,7 +1966,7 @@ msgstr ""
 
 #. DESC_FAX_PS_FLATDECODED
 msgid "Create zlib compressed postscript image for fax (flatdecode)"
-msgstr ""
+msgstr "Vytvořit zlib komprimovaný postscript pro fax (flat dekódování)"
 
 #. DESC_SMTP_SERVER
 msgid "IP Address or Domain name of SMTP server"
@@ -1977,19 +1977,27 @@ msgid "port to connect to SMTP server"
 msgstr "port pro spojení se SMTP serverem"
 
 #. DESC_EMAIL_FROM
-#, fuzzy
 msgid "enter your e-mail address"
 msgstr "zadejte svou e-mailovou adresu"
 
 #. DESC_EMAIL_REPLY_TO
-#, fuzzy
 msgid "enter e-mail address for replied e-mails"
 msgstr "zadejte svou e-mailovou adresu pro odpovědi"
 
-#. DESC_POP3_AUTHENTIFICATION
+#. DESC_EMAIL_AUTHENTICATION
 #, fuzzy
-msgid "Authentificate at POP3 server before sending e-mail"
-msgstr "Authentifikace na POP3 serveru před odesláním mailu"
+msgid "Type of authentication before sending e-mail"
+msgstr "Autentifikace na POP3 serveru před odesláním e-mailu"
+
+#. DESC_EMAIL_AUTH_USER
+#, fuzzy
+msgid "user name for e-mail server"
+msgstr "uživatelské jméno pro POP3 server"
+
+#. DESC_EMAIL_AUTH_PASS
+#, fuzzy
+msgid "password for e-mail server"
+msgstr "heslo pro POP3 server"
 
 #. DESC_POP3_SERVER
 msgid "IP Address or Domain name of POP3 server"
@@ -1999,18 +2007,9 @@ msgstr "IP adresa nebo jméno doména POP3 serveru"
 msgid "port to connect to POP3 server"
 msgstr "port pro připojení k POP3 serveru"
 
-#. DESC_POP3_USER
-msgid "user name for POP3 server"
-msgstr "uživatelské jméno pro POP3 server"
-
-#. DESC_POP3_PASS
-msgid "password for POP3 server"
-msgstr "heslo pro POP3 server"
-
 #. DESC_HTML_EMAIL
-#, fuzzy
 msgid "E-mail is sent in html mode, place image with: <IMAGE>"
-msgstr "Mail je posílán v režimu html, umístěte obrázky pomocí: <IMAGE>"
+msgstr "E-mail je posílán v režimu html, umístěte obrázek pomocí: <IMAGE>"
 
 #. DESC_OCR_COMMAND
 msgid "Enter command to start ocr program"
@@ -2758,44 +2757,36 @@ msgid "Rossmann negative HR 100"
 msgstr "Rossmann negativní HR 100"
 
 #. TEXT_PROJECT_STATUS_NOT_CREATED
-#, fuzzy
 msgid "Project not created"
-msgstr "Faxový projekt nebyl vytvořen"
+msgstr "Projekt nebyl vytvořen"
 
 #. TEXT_PROJECT_STATUS_CREATED
-#, fuzzy
 msgid "Project created"
-msgstr "Faxový projekt byl vytvořen"
+msgstr "Projekt byl vytvořen"
 
 #. TEXT_PROJECT_STATUS_CHANGED
-#, fuzzy
 msgid "Project changed"
-msgstr "Faxový projekt byl změněn"
+msgstr "Projekt byl změněn"
 
 #. TEXT_PROJECT_STATUS_ERR_READ_PROJECT
-#, fuzzy
 msgid "Error reading project"
-msgstr "Chyba při čtení poštovního projektu"
+msgstr "Chyba při čtení projektu"
 
 #. TEXT_PROJECT_STATUS_FILE_SAVING_ERROR
-#, fuzzy
 msgid "Error saving file"
-msgstr "Obrázek se zapisuje"
+msgstr "Chyba při zápisu souboru"
 
 #. TEXT_PROJECT_STATUS_FILE_SAVING
-#, fuzzy
 msgid "Saving file"
-msgstr "Obrázek se zapisuje"
+msgstr "Soubor se zapisuje"
 
 #. TEXT_PROJECT_STATUS_FILE_SAVING_ABORTED
-#, fuzzy
 msgid "Aborted saving file"
-msgstr "Obrázek se zapisuje"
+msgstr "Předčasné ukončení zápisu souboru"
 
 #. TEXT_PROJECT_STATUS_FILE_SAVED
-#, fuzzy
 msgid "File has been saved"
-msgstr "Zpráva byla odeslána"
+msgstr "Soubor byl uložen"
 
 #. TEXT_EMAIL_STATUS_POP3_CONNECTION_FAILED
 msgid "POP3 connection failed"
@@ -2804,6 +2795,11 @@ msgstr "POP3 spojení selhalo"
 #. TEXT_EMAIL_STATUS_POP3_LOGIN_FAILED
 msgid "POP3 login failed"
 msgstr "POP3 přihlášení selhalo"
+
+#. TEXT_EMAIL_STATUS_ASMTP_AUTH_FAILED
+#, fuzzy
+msgid "ASMTP authentication failed"
+msgstr "SMTP spojení selhalo"
 
 #. TEXT_EMAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
@@ -2818,17 +2814,14 @@ msgid "Receiver entry not accepted"
 msgstr "Zadání příjemce bylo odmítnuto"
 
 #. TEXT_EMAIL_STATUS_SMTP_ERR_DATA
-#, fuzzy
 msgid "E-mail data not accepted"
-msgstr "Data zprávy byla odmítnuta"
+msgstr "Data zprávy nebyla přijata"
 
 #. TEXT_EMAIL_STATUS_SENDING
-#, fuzzy
 msgid "Sending e-mail"
 msgstr "Zpráva se posílá"
 
 #. TEXT_EMAIL_STATUS_SENT
-#, fuzzy
 msgid "E-mail has been sent"
 msgstr "Zpráva byla odeslána"
 
@@ -2894,6 +2887,15 @@ msgstr "Nedostatek paměti"
 
 msgid "Access to resource has been denied"
 msgstr "Přístup ke zdroji byl odmítnut"
+
+#~ msgid "XSane mode"
+#~ msgstr "Režim XSane"
+
+#~ msgid "POP3 user:"
+#~ msgstr "POP3 uživatel:"
+
+#~ msgid "POP3 password:"
+#~ msgstr "POP3 heslo:"
 
 #~ msgid "Automatic Document Feeder Modus:"
 #~ msgstr "Režim automatického podavače dokumentů:"

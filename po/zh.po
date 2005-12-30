@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.96\n"
-"POT-Creation-Date: 2005-12-21 12:05+0100\n"
+"POT-Creation-Date: 2005-12-30 23:07+0100\n"
 "PO-Revision-Date: 2003-03-27 12:00+0100\n"
 "Last-Translator: Wang leolarrel <leolarrel@yahoo.com.tw>\n"
 "Language-Team: zh_TW<zh_TW@li.org>\n"
@@ -496,10 +496,6 @@ msgstr "預先選擇掃描區"
 msgid "Autocorrect colors"
 msgstr "自動修正顏色"
 
-#. RADIO_BUTTON_POP3_AUTHENTIFICATION
-msgid "POP3 authentification"
-msgstr ""
-
 #. RADIO_BUTTON_OCR_USE_GUI_PIPE
 msgid "Use GUI progress pipe"
 msgstr ""
@@ -515,10 +511,6 @@ msgstr "可用的裝置有:"
 #. TEXT_XSANE_OPTIONS
 msgid "XSane options"
 msgstr "XSane 選項"
-
-#. TEXT_XSANE_MODE
-msgid "XSane mode"
-msgstr "XSane 模式"
 
 #. TEXT_FILETYPE
 msgid "Type"
@@ -1014,6 +1006,21 @@ msgstr "從"
 msgid "Reply to:"
 msgstr "回覆到"
 
+#. TEXT_SETUP_EMAIL_AUTHENTICATION
+#, fuzzy
+msgid "E-mail authentication"
+msgstr "郵件的內容"
+
+#. TEXT_SETUP_EMAIL_AUTH_USER
+#, fuzzy
+msgid "User:"
+msgstr "使用:"
+
+#. TEXT_SETUP_EMAIL_AUTH_PASS
+#, fuzzy
+msgid "Password:"
+msgstr "密碼"
+
 #. TEXT_SETUP_POP3_SERVER
 msgid "POP3 server:"
 msgstr "POP3 伺服器:"
@@ -1021,14 +1028,6 @@ msgstr "POP3 伺服器:"
 #. TEXT_SETUP_POP3_PORT
 msgid "POP3 port:"
 msgstr "POP3通訊埠:"
-
-#. TEXT_SETUP_POP3_USER
-msgid "POP3 user:"
-msgstr "POP3 帳號:"
-
-#. TEXT_SETUP_POP3_PASS
-msgid "POP3 password:"
-msgstr "POP3密碼:"
 
 #. TEXT_SETUP_OCR_COMMAND
 msgid "OCR Command:"
@@ -1326,6 +1325,27 @@ msgstr "往上移動"
 #. MENU_ITEM_MOVE_DWN
 msgid "Move item down"
 msgstr "往下移動"
+
+#. MENU_ITEM_AUTH_NONE
+#, fuzzy
+msgid "no authentication"
+msgstr "授權"
+
+#. MENU_ITEM_AUTH_POP3
+msgid "POP3 before SMTP"
+msgstr ""
+
+#. MENU_ITEM_AUTH_ASMTP_PLAIN
+msgid "ASMTP Plain"
+msgstr ""
+
+#. MENU_ITEM_AUTH_ASMTP_LOGIN
+msgid "ASMTP Login"
+msgstr ""
+
+#. MENU_ITEM_AUTH_ASMTP_CRAM_MD5
+msgid "ASMTP CRAM-MD5"
+msgstr ""
 
 #. PROGRESS_SCANNING
 msgid "Scanning"
@@ -1761,7 +1781,7 @@ msgstr ""
 
 #. DESC_SAVE_PS_FLATDECODED
 msgid ""
-"compress postscript image with zlib algorithm (flatdecode).When you want to "
+"compress postscript image with zlib algorithm (flatdecode). When you want to "
 "print such a file your printer has to understand postscript level 3"
 msgstr ""
 
@@ -1942,8 +1962,17 @@ msgstr "輸入你的信件位址"
 msgid "enter e-mail address for replied e-mails"
 msgstr "輸入郵件位址"
 
-#. DESC_POP3_AUTHENTIFICATION
-msgid "Authentificate at POP3 server before sending e-mail"
+#. DESC_EMAIL_AUTHENTICATION
+msgid "Type of authentication before sending e-mail"
+msgstr ""
+
+#. DESC_EMAIL_AUTH_USER
+#, fuzzy
+msgid "user name for e-mail server"
+msgstr "輸入郵件專案的名稱"
+
+#. DESC_EMAIL_AUTH_PASS
+msgid "password for e-mail server"
 msgstr ""
 
 #. DESC_POP3_SERVER
@@ -1952,14 +1981,6 @@ msgstr ""
 
 #. DESC_POP3_PORT
 msgid "port to connect to POP3 server"
-msgstr ""
-
-#. DESC_POP3_USER
-msgid "user name for POP3 server"
-msgstr ""
-
-#. DESC_POP3_PASS
-msgid "password for POP3 server"
 msgstr ""
 
 #
@@ -2710,6 +2731,10 @@ msgstr ""
 msgid "POP3 login failed"
 msgstr ""
 
+#. TEXT_EMAIL_STATUS_ASMTP_AUTH_FAILED
+msgid "ASMTP authentication failed"
+msgstr ""
+
 #. TEXT_EMAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
 msgstr ""
@@ -2800,6 +2825,19 @@ msgstr "記憶體不足"
 
 msgid "Access to resource has been denied"
 msgstr "資源存取被禁止"
+
+#, fuzzy
+#~ msgid "POP3 authentication"
+#~ msgstr "授權"
+
+#~ msgid "XSane mode"
+#~ msgstr "XSane 模式"
+
+#~ msgid "POP3 user:"
+#~ msgstr "POP3 帳號:"
+
+#~ msgid "POP3 password:"
+#~ msgstr "POP3密碼:"
 
 #
 #, fuzzy

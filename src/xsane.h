@@ -85,7 +85,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.99-pre1"
+#define XSANE_VERSION		"0.99-pre2"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2005"
@@ -103,9 +103,21 @@
 #define XSANE_DEFAULT_DEVICE		"SANE_DEFAULT_DEVICE"
 #define XSANE_3PASS_BUFFER_RGB_SIZE	1024
 
+#ifndef M_PI_2
+# define M_PI_2 1.57079632679489661923  /* pi/2 */
+#endif
+
 #ifdef HAVE_WINDOWS_H
-# define BUGGY_GDK_INPUT_EXCEPTION
 # define _WIN32
+#endif
+
+#ifdef _WIN32
+# define BUGGY_GDK_INPUT_EXCEPTION
+#endif
+
+#ifdef HAVE_OS2_H
+# define BUGGY_GDK_INPUT_EXCEPTION
+# define strcasecmp stricmp
 #endif
 
 #ifdef HAVE_LIBPNG
@@ -286,12 +298,6 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#ifdef HAVE_OS2_H
-# define strcasecmp stricmp
-#endif
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
 enum
 {
   XSANE_PATH_LOCAL_SANE = 0,
@@ -437,16 +443,32 @@ Image_info;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-enum {
-XSANE_VIEWER,
-XSANE_SAVE,
-XSANE_COPY,
-XSANE_MULTIPAGE,
-XSANE_FAX,
-XSANE_EMAIL
+enum
+{
+  XSANE_VIEWER,
+  XSANE_SAVE,
+  XSANE_COPY,
+  XSANE_MULTIPAGE,
+  XSANE_FAX,
+  XSANE_EMAIL
 };
-enum { XSANE_LINEART_STANDARD, XSANE_LINEART_XSANE, XSANE_LINEART_GRAYSCALE };
 
+enum
+{
+  XSANE_LINEART_STANDARD,
+  XSANE_LINEART_XSANE,
+  XSANE_LINEART_GRAYSCALE
+};
+
+enum
+{
+  EMAIL_AUTH_NONE = 0,
+  EMAIL_AUTH_POP3,
+  EMAIL_AUTH_ASMTP_PLAIN,
+  EMAIL_AUTH_ASMTP_LOGIN,
+  EMAIL_AUTH_ASMTP_CRAM_MD5
+};
+                                                                                                                 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 extern void xsane_pref_save(void);
@@ -1006,11 +1028,11 @@ typedef struct XsaneSetup
   GtkWidget *email_smtp_port_entry;
   GtkWidget *email_from_entry;
   GtkWidget *email_reply_to_entry;
-  GtkWidget *email_pop3_authentification_entry;
+  GtkWidget *email_auth_user_entry;
+  GtkWidget *email_auth_pass_entry;
   GtkWidget *email_pop3_server_entry;
   GtkWidget *email_pop3_port_entry;
-  GtkWidget *email_pop3_user_entry;
-  GtkWidget *email_pop3_pass_entry;
+  GtkWidget *pop3_vbox;
 
   GtkWidget *ocr_command_entry;
   GtkWidget *ocr_inputfile_option_entry;
@@ -1024,6 +1046,8 @@ typedef struct XsaneSetup
   int tiff_compression16_nr;
   int tiff_compression8_nr;
   int tiff_compression1_nr;
+
+  int email_authentication;
 
   int show_range_mode;
   int lineart_mode;

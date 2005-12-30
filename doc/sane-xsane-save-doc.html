@@ -34,13 +34,15 @@
 <br>
 <br>
 <br>
-<font color="#000000">Main window:</font>
+<font color="#000000">XSane mode:</font>
+<img SRC="xsane-target.jpg" alt="xsane-target">
 <ul>
 <li><a href="sane-xsane-viewer-doc.html">Viewer mode</a></li>
 <li><a href="sane-xsane-save-doc.html">Save mode</a></li>
 <li><a href="sane-xsane-copy-doc.html">Copy mode</a></li>
+<li><a href="sane-xsane-multipage-doc.html">Multipage mode</a></li>
 <li><a href="sane-xsane-fax-doc.html">Fax mode</a></li>
-<li><a href="sane-xsane-mail-doc.html">Mail mode</a></li>
+<li><a href="sane-xsane-email-doc.html">E-mail mode</a></li>
 <li><a href="sane-xsane-gimp-doc.html">Gimp plugin</a></li>
 </ul>
 <br>
@@ -111,8 +113,8 @@
 <li><a href="sane-xsane-setup-display-doc.html">Display setup</a></li>
 <li><a href="sane-xsane-setup-enhancement-doc.html">Enhancement setup</a></li>
 <li><a href="sane-xsane-setup-fax-doc.html">Fax setup</a></li>
-<li><a href="sane-xsane-setup-image-doc.html">Image setup</a></li>
-<li><a href="sane-xsane-setup-mail-doc.html">Mail setup</a></li>
+<li><a href="sane-xsane-setup-filetype-doc.html">Filetype setup</a></li>
+<li><a href="sane-xsane-setup-email-doc.html">E-mail setup</a></li>
 <li><a href="sane-xsane-setup-save-doc.html">Saving setup</a></li>
 </ul>
 </td>
@@ -130,18 +132,56 @@ In the save mode an image is scanned and saved to a file.
 <br>
 <br>
 
-<img SRC="xsane-colormode.jpg" alt="colormode">
+<img SRC="xsane-adf-pages.jpg" alt="adf-pages">
 &nbsp;&nbsp;
-<b>Scanmode:</b>
+<b>ADF-Pages:</b>
 <blockquote>
-Select scanmode, e.g.: color, grayscale, halftone, lineart.
+Select the number of pages that shall be scanned.
+You can use this with an automatic document feeder (ADF)
+or by changing the papers by hand while the scanhead moves back.
 </blockquote>
+
+<img SRC="xsane-disk.jpg" alt="disk">
+&nbsp;&nbsp;
+<b>Select filename:</b>
+<blockquote>
+If you press the disk icon a browse dialog is opened where you can select the name
+of the image file that is created when the next scan is done.
+You also can enter the filename directly to the text box right to the disk icon.
+If no path is entered XSane saves the file into the directory selected in
+<i>Preferences/Change directory</i>.
+</blockquote>
+
+
+<img SRC="xsane-step.jpg" alt="step">
+&nbsp;&nbsp;
+<b>Filename counter step width:</b>
+<blockquote>
+When the filename contains a counter at the end then the counter is updated
+by the selected step width when the scan has been completed.
+</blockquote>
+
+
+<b>Type:</b>
+<blockquote>
+<i>by ext</i> means that the filetype is selected by the extension of the filename.
+When you select a filetype in this box XSane automatically updates the
+extension of the filename.
+</blockquote>
+
 
 <img SRC="xsane-scansource.jpg" alt="scansource">
 &nbsp;&nbsp;
 <b>Scansource:</b>
 <blockquote>
 Select scansource, e.g.: Flatbed, Transparency, Automatic Document Feeder.
+</blockquote>
+
+<img SRC="xsane-colormode.jpg" alt="colormode">
+&nbsp;&nbsp;
+<b>Scanmode:</b>
+<blockquote>
+Select scanmode, e.g.: color, grayscale, halftone, lineart.
 </blockquote>
 
 <img SRC="xsane-medium.jpg" alt="medium">
@@ -167,31 +207,6 @@ To select exact resolutions with the slider click the slider with the mouse poin
 and use the cursor keys to change the value in steps of 1, if you press <i>ctrl</i>
 and a cursor key the step is 10.
 </blockquote>
-
-
-<img SRC="xsane-disk.jpg" alt="disk">
-&nbsp;&nbsp;
-<b>Select filename:</b>
-<blockquote>
-If you press the disk icon a browse dialog is opened where you can select the name
-of the image file that is created when the next scan is done.
-You also can enter the filename directly to the text box right to the disk icon.
-If no path is entered XSane saves the file into the directory selected in
-<i>Preferences/Change directory</i>.
-<p>
-<b>Step:</b>
-<blockquote>
-If there is a counter in the filename (image-0001.jpg) the counter is increased by
-the number selected in this box.
-</blockquote>
-
-<b>Type:</b>
-<blockquote>
-<i>by ext</i> means that the filetype is selected by the extension of the filename.
-When you select a filetype in this box XSane automatically appends the correct
-extension to the filename, you should not append a file extension in this case.
-</blockquote>
-
 
 <b>Supported filetypes:</b>
 
@@ -246,7 +261,6 @@ support is compiled in. For <i>png</i> you need libpng and libz, for
 <font color="#000099">rgba (raw) and png with alpha channel</font>
 </blockquote>
 
-</blockquote>
 
 </blockquote>
 </blockquote>

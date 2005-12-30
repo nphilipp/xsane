@@ -447,7 +447,7 @@ static void xsane_batch_scan_scan_list(void)
  GList *list = GTK_LIST(xsane.batch_scan_list)->children;
  Batch_Scan_Parameters *parameters = NULL;
  SANE_Int val_start = SANE_TRUE;
- SANE_Int val_loop  = SANE_TRUE;
+ SANE_Int val_loop  = BATCH_MODE_LOOP;
  SANE_Int val_end   = SANE_FALSE;
  SANE_Word val_next_tl_y = SANE_FIX(0.0);
 
@@ -463,7 +463,7 @@ static void xsane_batch_scan_scan_list(void)
   {
     if (!list->next) /* last scan */
     {
-      val_loop = SANE_FALSE;
+      val_loop = BATCH_MODE_LAST_SCAN;
       val_end  = SANE_TRUE;
       val_next_tl_y = SANE_FIX(0.0);
     }
@@ -533,7 +533,7 @@ static void xsane_batch_scan_scan_list(void)
   xsane_control_option(xsane.dev, xsane.well_known.batch_scan_end, SANE_ACTION_SET_VALUE, &val_end, NULL);
   xsane_control_option(xsane.dev, xsane.well_known.batch_scan_next_tl_y, SANE_ACTION_SET_VALUE, &val_next_tl_y, NULL);
 
-  xsane.batch_loop = FALSE; /* make sure we reset the batch scan loop flag */
+  xsane.batch_loop = BATCH_MODE_OFF; /* make sure we reset the batch scan loop flag */
 
   if (parameters)
   {
@@ -561,7 +561,11 @@ static void xsane_batch_scan_scan_selected(void)
       xsane_batch_scan_establish_parameters(parameters, TRUE);
     }
 
+    xsane.batch_loop = BATCH_MODE_LAST_SCAN; /* to make sure we do not scan multiple times */
+
     xsane_scan_dialog(NULL);
+
+    xsane.batch_loop = BATCH_MODE_OFF; /* make sure we reset the batch scan loop flag */
   }
 }
 

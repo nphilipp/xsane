@@ -2,9 +2,10 @@
 <html>
 <head>
    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.74 [en] (X11; U; Linux 2.2.18 i686) [Netscape]">
    <meta name="Author" content="Oliver Rauch">
    <meta name="Description" content="scan, photocopy and fax frontend for SANE">
-   <title>XSane - Mail setup</title>
+   <title>XSane - Scan mode</title>
 </head>
 <body text="#000000" bgcolor="#FFFFFF" link="#0000EF" vlink="#51188E" alink="#FF0000">
 
@@ -16,7 +17,7 @@
 </td>
 <td>
 <blockquote>
-<h1><font color="#009900">Mail setup</font></h1>
+<h1><font color="#009900">Main window in e-mail mode</font></h1>
 </blockquote>
 </td>
 </tr>
@@ -33,13 +34,15 @@
 <br>
 <br>
 <br>
-<font color="#000000">Main window:</font>
+<font color="#000000">XSane mode:</font>
+<img SRC="xsane-target.jpg" alt="xsane-target">
 <ul>
 <li><a href="sane-xsane-viewer-doc.html">Viewer mode</a></li>
 <li><a href="sane-xsane-save-doc.html">Save mode</a></li>
 <li><a href="sane-xsane-copy-doc.html">Copy mode</a></li>
+<li><a href="sane-xsane-multipage-doc.html">Multipage mode</a></li>
 <li><a href="sane-xsane-fax-doc.html">Fax mode</a></li>
-<li><a href="sane-xsane-mail-doc.html">Mail mode</a></li>
+<li><a href="sane-xsane-email-doc.html">E-mail mode</a></li>
 <li><a href="sane-xsane-gimp-doc.html">Gimp plugin</a></li>
 </ul>
 <br>
@@ -110,8 +113,8 @@
 <li><a href="sane-xsane-setup-display-doc.html">Display setup</a></li>
 <li><a href="sane-xsane-setup-enhancement-doc.html">Enhancement setup</a></li>
 <li><a href="sane-xsane-setup-fax-doc.html">Fax setup</a></li>
-<li><a href="sane-xsane-setup-image-doc.html">Image setup</a></li>
-<li><a href="sane-xsane-setup-mail-doc.html">Mail setup</a></li>
+<li><a href="sane-xsane-setup-filetype-doc.html">Filetype setup</a></li>
+<li><a href="sane-xsane-setup-email-doc.html">E-mail setup</a></li>
 <li><a href="sane-xsane-setup-save-doc.html">Saving setup</a></li>
 </ul>
 </td>
@@ -121,80 +124,110 @@
 <td VALIGN=TOP BGCOLOR="#FFFFFF">
 <blockquote>
 <br>
-You open the setup window via the menu <i>preferences/setup</i> in the
-main window of xsane.
+In the e-mail mode images are scanned and sent by e-mail.
 <br>
 <br>
 <br>
-<center><img SRC="xsane-setup-mail.jpg" alt="Xsane-setup-mail-window"></center>
+<center><img SRC="xsane-email.jpg" alt="XSane-main-window"></center>
 <br>
 <br>
+                                                                                                                                    
+<img SRC="xsane-adf-pages.jpg" alt="adf-pages">
+&nbsp;&nbsp;
+<b>ADF-Pages:</b>
+<blockquote>
+Select the number of pages that shall be scanned.
+You can use this with an automatic document feeder (ADF)
+or by changing the papers by hand while the scanhead moves back.
+</blockquote>
+
+
+<img SRC="xsane-scansource.jpg" alt="scansource">
+&nbsp;&nbsp;
+<b>Scansource:</b>
+<blockquote>
+Select scansource, e.g.: Flatbed, Transparency, Automatic Document Feeder.
+</blockquote>
+
+<img SRC="xsane-colormode.jpg" alt="colormode">
+&nbsp;&nbsp;
+<b>Scanmode:</b>
+<blockquote>
+Select scanmode, e.g.: color, grayscale, halftone, lineart.
+</blockquote>
+
+<img SRC="xsane-medium.jpg" alt="medium">
+&nbsp;&nbsp;
+<b><a href="sane-xsane-medium-definition-doc.html">Medium selection:</a></b>
+<blockquote>
+Select scanmedium, e.g.: <i>slide</i>, <i>standard negative</i>,
+<i>Agfa negative</i>, ... or <i>Full range</i>.
+</blockquote>                                                                                                           
+
+<img SRC="xsane-resolution.jpg" alt="resolution">
+&nbsp;&nbsp;
+<b>Scan resolution:</b>
+<blockquote>
+Select resolution that is used for scanning. If the backends makes available a
+range of resolutions (e.g. 100-600 dpi) XSane can display a slider or a
+list of resolutions. You select this via <i>Preferences/Show resolution list</i>.
 <br>
-
-<h4>FROM:</h4>
-<blockquote>
-Enter your email address.
+The backend can define a list of resolutions insted of a range, in this
+case it is not possible to enable the slider.
+<p>
+To select exact resolutions with the slider click the slider with the mouse pointer
+and use the cursor keys to change the value in steps of 1, if you press <i>ctrl</i>
+and a cursor key the step is 10.
 </blockquote>
 
-<h4>REPLY TO:</h4>
+                                                                                              
+<br>
+<br>
+<center><img SRC="xsane-email-project.jpg" alt="XSane-email-project-window"></center>
+<br>
+                                                                                              
+<h4>HTML e-mail:</h4>
 <blockquote>
-Enter the email address to which the receiver shall answer.
-If this is the same as the <i>from</i> address enter the same
-address again.
+Select if the e-mail is sent as html e-mail or as text e-mail. In text e-mail the images
+are appended to the e-mailfile. In html e-mail you can place the image at any position
+by adding the tag &lt IMAGE &gt at the place of the e-mail text where the image shall
+be displayed. The images are displayed in the same order as they are listed in the
+attachments.
+</blockquote>
+                                                                                              
+<h4>E-mail image filetype:</h4>
+<blockquote>
+You can select the type of the image files that are attached to the e-mail.
+Select <i>PNG</i>, <i>JPEG</i> or <i>TIFF</i>. Pay attention that the size 
+of the images depends on the content of the pictures and on the filetype.
+</blockquote>
+                                                                                              
+<h4>Show image:</h4>
+<blockquote>
+Open the viewer and display the selected image.
+</blockquote>
+                                                                                              
+<h4>Rename image:</h4>
+<blockquote>
+Rename the selected image.
+</blockquote>
+                                                                                              
+<h4>Delete image:</h4>
+<blockquote>
+Remove the selected image from the e-mail project.
+</blockquote>
+                                                                                              
+<h4>Send project:</h4>
+<blockquote>
+Send e-mail, all images are attached to the e-mail.
+</blockquote>
+                                                                                              
+<h4>Delete project:</h4>
+<blockquote>
+Delete the complete project. The e-mail text and the image files are erased.
 </blockquote>
 
-<h4>SMTP SERVER:</h4>
-<blockquote>
-This is the address of the smtp server.
-</blockquote>
 
-<h4>SMPT PORT:</h4>
-<blockquote>
-Here you have to enter the port number on which the smtp server
-expects smtp connections. The standard port number is 25.
-</blockquote>
-
-<h4>POP3 authentification:</h4>
-<blockquote>
-Some smtp servers expect authentification before accepting
-any mail. The smtp protocol does not define any authentification
-routines. A lot of smtp servers expect that you authentificate
-yourself via the pop3 authentification routines.
-</blockquote>
-
-<h4>POP3 server:</h4>
-<blockquote>
-This is the address of the pop3 server.
-</blockquote>
-
-<h4>POP3 port:</h4>
-<blockquote>
-Here you have to enter the port number on which the pop3 server
-expects pop3 connections. The standard port number is 110.
-</blockquote>
-
-<h4>POP3 user:</h4>
-<blockquote>
-Enter your username for the pop3 server.
-</blockquote>
-
-<h4>POP3 password:</h4>
-<blockquote>
-Enter the password for the pop3 server. Pay attention, this can
-be a security hole. The user and password is stored in the
-xsane.rc file in ~/.sane/xsane/xsane.rc. The password is
-not stored in plain text but it is simple to reconstruct
-the password from the entry in xsane.rc. If you enter
-your pop3 password here make sure no one gets access
-to your xsane.rc file.
-</blockquote>
-
-<h4>Viewer(png):</h4>
-<blockquote>
-Enter the program that shall be used to display a scanned
-image when the <i>show image</i> button is pressed in the mail dialog.
-The program has to be able to display png images.
-</blockquote>
 
 </blockquote>
 </td>

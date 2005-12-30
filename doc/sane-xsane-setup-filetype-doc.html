@@ -2,10 +2,9 @@
 <html>
 <head>
    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-   <meta name="GENERATOR" content="Mozilla/4.74 [en] (X11; U; Linux 2.2.18 i686) [Netscape]">
    <meta name="Author" content="Oliver Rauch">
    <meta name="Description" content="scan, photocopy and fax frontend for SANE">
-   <title>XSane - Color correction</title>
+   <title>XSane - Save setup</title>
 </head>
 <body text="#000000" bgcolor="#FFFFFF" link="#0000EF" vlink="#51188E" alink="#FF0000">
 
@@ -17,7 +16,7 @@
 </td>
 <td>
 <blockquote>
-<h1><u><font color="#009900">Color correction</font></u></h1>
+<h1><font color="#009900">Filetype setup</font></h1>
 </blockquote>
 </td>
 </tr>
@@ -122,116 +121,92 @@
 
 
 <td VALIGN=TOP BGCOLOR="#FFFFFF">
-<br>
-<center><img SRC="xsane-save.jpg" alt="XSane-main-window"></center>
-<br>
-<br>
 <blockquote>
-XSane uses a gamma table to do the following enhancement functions.
-If the scanner supports a custom gamma table (and the option is enabled)
-XSane uses the scanner internal gamma table with the scanner's maximum
-bit depth.
+<br>
+You open the setup window via the menu <i>preferences/setup</i> in the
+main window of xsane.
 <br>
 <br>
-<br>
-<img SRC="xsane-gamma.jpg" alt="gamma">
-&nbsp;&nbsp;
-<a NAME="GAMMA"></a><b>Gamma correction:</b>
-
-<blockquote>
-The gamma correction is a non linear correction. Black keeps black and white keeps white
-<blockquote>
-if the gamma value is greater than 1.0 the gray intensities are brightned
-<br>
-if the gamma value is smaller than 1.0 the gray intensities are darkened
-</blockquote>
-</blockquote>
-
-<img SRC="xsane-brightness.jpg" alt="brightness">
-&nbsp;&nbsp;
-<a NAME="BRIGHTNESS"></a><b>Brightness:</b>
-<blockquote>
-positive values increase the brightness of the image. All values
-are increased by the same value. 100% means a shift of the half value range
-(on 8 bits (256 values) this means a shift of 128).
-</blockquote>
-
-<img SRC="xsane-contrast.jpg" alt="contrast">
-&nbsp;&nbsp;
-<a NAME="CONTRAST"></a><b>Contrast:</b>
-<blockquote>
-positive values increase the contrast of the image. Medium gray keeps medium gray (8 bits: 128)
-<blockquote>
--100% means that all colors become medium gray
-<br>
-+100% means that the difference between a value and medium gray is doubled
-</blockquote>
-</blockquote>
-
-<img SRC="xsane-threshold.jpg" alt="threshold">
-&nbsp;&nbsp;
-<a NAME="THRESHOLD"></a><b>Threshold:</b>
-<blockquote>
-defines the brightness level in % that is needed to get a white
-point in lineart (black/white) mode. You have to enter some options in
-the <a href="sane-xsane-setup-enhancement-doc.html">enhancement setup</a> and the
-backend needs to make available a threshold option.
-</blockquote>
-
-<img SRC="xsane-rgb-default.jpg" alt="rgb-default">
-&nbsp;&nbsp;
-<a NAME="RGB_DEFAULT"></a><b>RGB default:</b>
-<blockquote>
-if RGB default is activated, all values for the color components
-(red, green and blue) are set to the default values (gamma=1.0, brightness=0%,
-contrast=0%). If you deactivate it, you can set different enhancement values
-for each color.
-</blockquote>
-
-<img SRC="xsane-negative.jpg" alt="negative">
-&nbsp;&nbsp;
-<a NAME="NEGATIVE"></a><b>Negative:</b>
-<blockquote>
-This option inverts the intensities (black &lt;-> white). It
-is for scanning negatives.
+<br>   
+<center><p><br><img SRC="xsane-setup-filetype.jpg" alt="XSane-setup-filetype-window"></center>
 <br>
 <br>
-Negatives do not only have inverted colors, it also is necessary to
-do a color correction for each color component because the negatives have
-very different color ranges for each color.
+<br>   
+
+<h4>Reduce 16 bit image to 8 bit:</h4>
+<blockquote>
+When the image is scanned with 16 bit/color then xsane does reduce the
+color depth to 8 bit/color before saving the image.
 </blockquote>
 
-<img SRC="xsane-autoenhance.jpg" alt="autoenhance">
-&nbsp;&nbsp;
-<a NAME="AUTOENHANCEMENT"></a><b>Autoenhancement:</b>
+<h4>Save 16 bit pnm in ascii format:</h4>
 <blockquote>
-If you press this button XSane tries to set good values for
-brightness, contrast and gamma correction in dependance of the selected
-part in the preview window. This does work quiet well for brightness and
-contrast, but the gamma correction normally has to be corrected manually.
-<br>If RGB default is disabled, the components for each color are set individually.
+In general 16 bit pnm images are stored in binary format.
+When you want to create 16 bit ascii pnm images then enable this option.
+But keep in mind that you get huge files!
 </blockquote>
 
-<img SRC="xsane-default.jpg" alt="default">
-&nbsp;&nbsp;
-<a NAME="ENHANCEMENT_DEFAULT"></a><b>Enhancement default:</b>
+<h4>Save posctscript zlib compressed (ps level 3):</h4>
 <blockquote>
-Sets the enhancement values to default: gamma=1.0, brightness=0%, contrast=0%.
+Poscsript level 2 does not know about zlib compressed images.
+For postscript level 2 the images are stored in A85 compression.
+When you want to create zlib compressed (deflate) postscript files 
+then enable this option. But keep in mind that you will not be able
+to print such files on postscript level 2 printers!
 </blockquote>
 
-<img SRC="xsane-restore.jpg" alt="restore">
-&nbsp;&nbsp;
-<a NAME="RESTORE_ENHANCEMENT"></a><b>Restore enhancement:</b>
+<h4>Save PDF zlib compressed:</h4>
 <blockquote>
-Restores the enhancement values from preferences.
+PDF images can be stored in A85 compression or in zlib compression.
+When you want to create zlib compressed (deflate) PDF files 
+then enable this option.
 </blockquote>
 
-<img SRC="xsane-store.jpg" alt="store">
-&nbsp;&nbsp;
-<a NAME="MEMORY_ENHANCEMENT"></a><b>Store enhancement (Memory):</b>
+<h4>JPEG image quality:</h4>
 <blockquote>
-Store selected enhancement values to preferences.
+If the image is saved in <i>jpeg</i> format this value defines
+the quality of the image. Low values mean low quality and low file size,
+high values mean high quality and high file size.
 </blockquote>
+
+<h4>PNG image compression:</h4>
+<blockquote>
+If the image is saved in <i>png</i> format this value defines
+the compression level. The quality of the image keeps the same, low values
+mean low compression, large files and low compression time. High values
+mean high compression, smaller files and high compression time.
+</blockquote>
+
+<h4>TIFF zip compression rate:</h4>
+<blockquote>
+If the image is saved in zlib compressed (deflate) <i>tiff</i> format this value defines
+the compression level. The quality of the image keeps the same, low values
+mean low compression, large files and low compression time. High values
+mean high compression, smaller files and high compression time.
+</blockquote>
+
+<h4>TIFF 16 bit image compression:</h4>
+<blockquote>
+If the image is saved in 16 bit/color <i>tiff</i> format this selection defines
+if xsane does <i>pack bits</i> or <i>no compression</i> is used.
+</blockquote>
+
+<h4>TIFF 8 bit image compression:</h4>
+<blockquote>
+If the image is saved in 8 bit/color <i>tiff</i> format this selection defines
+if xsane does <i>pack bits</i>, use <i>JPEG DCT compression</i> or <i>no compression</i>
+is used.
+</blockquote>
+
+<h4>TIFF lineart image compression:</h4>
+<blockquote>
+If the image is saved in lineart <i>tiff</i> format this selection defines
+if xsane does <i>pack bits</i>, use <i>CCIT Group 4 Fax compression</i>,
+<i>CCIT Group 3 Fax compression</i>, <i>CCIT 1D Huffman compression</i>,
+<i>JPEG DCT compression</i> or <i>no compression</i>
+is used.
+</blockquote>
+
 </blockquote>
 </td>
 </tr>

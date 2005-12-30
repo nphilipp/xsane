@@ -1,15 +1,15 @@
 # Translations for XSane English->Dutch
 # Copyright (C) 2001 Free Software Foundation, Inc.
-# W. Sinke <sinke@wirehub.nl>, 2001, 2002,2004.
+# W. Sinke <rietenmeubel@xs4all.nl>, 2001, 2002,2004.
 #  <>, 2004.
 # 
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.96\n"
-"POT-Creation-Date: 2005-12-21 12:05+0100\n"
-"PO-Revision-Date: 2004-08-26 11:29+0200\n"
-"Last-Translator: Wim Sinke <sinke@wirehub.nl>\n"
+"POT-Creation-Date: 2005-12-30 23:07+0100\n"
+"PO-Revision-Date: 2005-12-22 09:00+0100\n"
+"Last-Translator: Wim Sinke <rietenmeubel@xs4all.nl>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -84,24 +84,20 @@ msgid "insert ps-file into fax"
 msgstr "ps-bestand in fax voegen"
 
 #. WINDOW_EMAIL_PROJECT
-#, fuzzy
 msgid "E-mail project"
-msgstr "e-mailproject"
+msgstr "E-mailproject"
 
 #. WINDOW_EMAIL_RENAME
-#, fuzzy
 msgid "rename e-mail image"
 msgstr "e-mail afbeelding hernoemen"
 
 #. WINDOW_EMAIL_INSERT
-#, fuzzy
 msgid "insert file into e-mail"
 msgstr "voeg afbeelding in e-mail"
 
 #. WINDOW_MULTIPAGE_PROJECT
-#, fuzzy
 msgid "multipage project"
-msgstr "Project verwijderen"
+msgstr "meerdere pagina's project"
 
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
@@ -392,9 +388,8 @@ msgid "Send project"
 msgstr "Project versturen"
 
 #. BUTTON_SAVE_MULTIPAGE
-#, fuzzy
 msgid "Save multipage file"
-msgstr "Bewaar afbeelding"
+msgstr "Bewaar meerdere pagina's bestand"
 
 #. BUTTON_DELETE_PROJECT
 msgid "Delete project"
@@ -438,7 +433,6 @@ msgid "Fine mode"
 msgstr "Fijne modus"
 
 #. RADIO_BUTTON_HTML_EMAIL
-#, fuzzy
 msgid "HTML e-mail"
 msgstr "HTML e-mail"
 
@@ -456,11 +450,11 @@ msgstr "Bestaande bestandnamen overslaan"
 
 #. RADIO_BUTTON_SAVE_PS_FLATDECODED
 msgid "Save postscript zlib compressed (ps level 3)"
-msgstr ""
+msgstr "Opslaan als zlib gecomprimeerd PostScript (level 3)"
 
 #. RADIO_BUTTON_SAVE_PDF_FLATDECODED
 msgid "Save PDF zlib compressed"
-msgstr ""
+msgstr "Opslaan als PDF zlib gecomprimeerd"
 
 #. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
 msgid "Save 16bit pnm in ascii format"
@@ -494,10 +488,6 @@ msgstr "Automatisch scangebied selecteren"
 msgid "Autocorrect colors"
 msgstr "Automatisch kleuren verbeteren"
 
-#. RADIO_BUTTON_POP3_AUTHENTIFICATION
-msgid "POP3 authentification"
-msgstr "POP3 legalisatie"
-
 #. RADIO_BUTTON_OCR_USE_GUI_PIPE
 msgid "Use GUI progress pipe"
 msgstr "Gebruik GUI progressie pipe"
@@ -513,10 +503,6 @@ msgstr "Bruikbare apparaten:"
 #. TEXT_XSANE_OPTIONS
 msgid "XSane options"
 msgstr "XSane opties"
-
-#. TEXT_XSANE_MODE
-msgid "XSane mode"
-msgstr "XSane mode"
 
 #. TEXT_FILETYPE
 msgid "Type"
@@ -712,7 +698,6 @@ msgstr ""
 "BRUIKBAARHEID VOOR EEN SPECIAAL DOEL.\n"
 
 #. TEXT_EMAIL_ADR
-#, fuzzy
 msgid "E-mail:"
 msgstr "E-mail:"
 
@@ -733,7 +718,6 @@ msgstr "Vertaling:"
 #. by YOUR NAME\n
 #. E-mail: your.name@yourdomain.com\n
 #. TEXT_TRANSLATION_INFO
-#, fuzzy
 msgid ""
 "untranslated original english text\n"
 "by Oliver Rauch\n"
@@ -741,7 +725,7 @@ msgid ""
 msgstr ""
 "Vertaling naar het Nederlands\n"
 "door Wim Sinke\n"
-"E-mail: sinke@wirehub.nl\n"
+"E-mail: rietenmeubel@xs4all.nl\n"
 
 #. TEXT_INFO_BOX
 msgid "0x0: 0KB"
@@ -752,7 +736,6 @@ msgid "Scanned pages: "
 msgstr "Gescande paginas: "
 
 #. TEXT_EMAIL_TEXT
-#, fuzzy
 msgid "E-mail text:"
 msgstr "E-mail tekst:"
 
@@ -765,19 +748,16 @@ msgid "Project status:"
 msgstr "Projectstatus:"
 
 #. TEXT_EMAIL_FILETYPE
-#, fuzzy
 msgid "E-mail image filetype:"
 msgstr "E-mail afbeelding bestandstype:"
 
 #. TEXT_PAGES
-#, fuzzy
 msgid "Pages:"
-msgstr "Gebruik:"
+msgstr "Pagina's:"
 
 #. TEXT_MULTIPAGE_FILETYPE
-#, fuzzy
 msgid "Multipage document filetype:"
-msgstr "E-mail afbeelding bestandstype:"
+msgstr "Meerdere pagina's document bestandstype:"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
@@ -893,7 +873,7 @@ msgstr "Printer gammawaarde blauw:"
 
 #. TEXT_SETUP_PRINTER_PS_FLATDECODED
 msgid "Create zlib compressed postscript image (ps level 3) for printing"
-msgstr ""
+msgstr "Maak zlib gecomprimeerd PostScript (level 3) plaatje voor printen"
 
 #. TEXT_SETUP_TMP_PATH
 msgid "Temporary directory"
@@ -920,9 +900,8 @@ msgid "Filename counter length"
 msgstr "Bestandsnaamteller lengte"
 
 #. TEXT_SETUP_TIFF_ZIP_COMPRESSION
-#, fuzzy
 msgid "TIFF zip compression rate"
-msgstr "TIFF 8 bit compressie"
+msgstr "TIFF zip compressie ratio"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_16
 msgid "TIFF 16 bit image compression"
@@ -1018,7 +997,7 @@ msgstr "Bekijkprogramma (PostScript):"
 
 #. TEXT_SETUP_FAX_PS_FLATDECODED
 msgid "Create zlib compressed postscript image (ps level 3) for fax"
-msgstr ""
+msgstr "Maak zlib gecomprimeerd PostScript (level 3) plaatje voor fax"
 
 #. TEXT_SETUP_SMTP_SERVER
 msgid "SMTP server:"
@@ -1036,6 +1015,21 @@ msgstr "Van:"
 msgid "Reply to:"
 msgstr "Antwoord aan:"
 
+#. TEXT_SETUP_EMAIL_AUTHENTICATION
+#, fuzzy
+msgid "E-mail authentication"
+msgstr "POP3 legalisatie"
+
+#. TEXT_SETUP_EMAIL_AUTH_USER
+#, fuzzy
+msgid "User:"
+msgstr "Gebruik:"
+
+#. TEXT_SETUP_EMAIL_AUTH_PASS
+#, fuzzy
+msgid "Password:"
+msgstr "Paswoord:"
+
 #. TEXT_SETUP_POP3_SERVER
 msgid "POP3 server:"
 msgstr "POP3 server:"
@@ -1043,14 +1037,6 @@ msgstr "POP3 server:"
 #. TEXT_SETUP_POP3_PORT
 msgid "POP3 port:"
 msgstr "POP3 port:"
-
-#. TEXT_SETUP_POP3_USER
-msgid "POP3 user:"
-msgstr "POP3 gebruiker:"
-
-#. TEXT_SETUP_POP3_PASS
-msgid "POP3 password:"
-msgstr "POP3 paswoord:"
 
 #. TEXT_SETUP_OCR_COMMAND
 msgid "OCR Command:"
@@ -1096,9 +1082,8 @@ msgid "Save"
 msgstr "Opslaan"
 
 #. NOTEBOOK_FILETYPE_OPTIONS
-#, fuzzy
 msgid "Filetype"
-msgstr "Bestand"
+msgstr "Bestandssoort"
 
 #. NOTEBOOK_COPY_OPTIONS
 msgid "Copy"
@@ -1109,7 +1094,6 @@ msgid "Fax"
 msgstr "Faxen"
 
 #. NOTEBOOK_EMAIL_OPTIONS
-#, fuzzy
 msgid "E-mail"
 msgstr "E-mail"
 
@@ -1127,7 +1111,7 @@ msgstr "Verbetering"
 
 #. MENU_ITEM_MULTIPAGE
 msgid "Multipage"
-msgstr ""
+msgstr "Meerdere pagina's"
 
 #. MENU_ITEM_SHOW_TOOLTIPS
 msgid "Show tooltips"
@@ -1275,9 +1259,8 @@ msgid "pack bits"
 msgstr "gepackte bits"
 
 #. MENU_ITEM_TIFF_COMP_DEFLATE
-#, fuzzy
 msgid "deflate"
-msgstr "vertraagd"
+msgstr "uitpakken"
 
 #. MENU_ITEM_RANGE_SCALE
 msgid "Slider (Scale)"
@@ -1343,6 +1326,27 @@ msgstr "Element naar boven"
 msgid "Move item down"
 msgstr "Element naar beneden"
 
+#. MENU_ITEM_AUTH_NONE
+#, fuzzy
+msgid "no authentication"
+msgstr "POP3 legalisatie"
+
+#. MENU_ITEM_AUTH_POP3
+msgid "POP3 before SMTP"
+msgstr ""
+
+#. MENU_ITEM_AUTH_ASMTP_PLAIN
+msgid "ASMTP Plain"
+msgstr ""
+
+#. MENU_ITEM_AUTH_ASMTP_LOGIN
+msgid "ASMTP Login"
+msgstr ""
+
+#. MENU_ITEM_AUTH_ASMTP_CRAM_MD5
+msgid "ASMTP CRAM-MD5"
+msgstr ""
+
 #. PROGRESS_SCANNING
 msgid "Scanning"
 msgstr "Aan het scannen"
@@ -1353,9 +1357,8 @@ msgid "Receiving %s data"
 msgstr "Ontvang %s gegevens"
 
 #. PROGRESS_PAGE
-#, fuzzy
 msgid "page"
-msgstr "pakket"
+msgstr "pagina"
 
 #. PROGRESS_TRANSFERING_DATA
 msgid "Transfering image"
@@ -1418,13 +1421,12 @@ msgid "Cancel preview scan <Alt-ESC>"
 msgstr "Breek de preview af <Alt-ESC>"
 
 #. DESC_XSANE_MODE
-#, fuzzy
 msgid ""
 "viewer-<Ctrl-v>, save-<Ctrl-s>, photocopy-<Ctrl-c>, multipage-<Ctrl-m>, fax-"
 "<Ctrl-f> or e-mail-<Ctrl-e>"
 msgstr ""
-"opslaan-<Ctrl-s>, bekijk-<Ctrl-v>, kopieer-<Ctrl-c>, fax-<Ctrl-f> of mail-"
-"<Ctrl-m>"
+"bekijk-<Ctrl-v>, opslaan-<Ctrl-s>, kopieer-<Ctrl-c>, meerdere pagina's <Ctrl-"
+"m>, fax-<Ctrl-f> of mail-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
 msgid ""
@@ -1473,22 +1475,18 @@ msgid "Enter receiver phone number or address"
 msgstr "Geef telefoonnummer of adres van de ontvanger"
 
 #. DESC_EMAIL_PROJECT
-#, fuzzy
 msgid "Enter name of e-mail project"
 msgstr "De naam van het e-mail project"
 
 #. DESC_EMAIL_IMAGENAME
-#, fuzzy
 msgid "Enter new name for e-mail image"
-msgstr "De naam van de afbeelding"
+msgstr "De nieuwe naam van de e-mail afbeelding"
 
 #. DESC_EMAIL_RECEIVER
-#, fuzzy
 msgid "Enter e-mail address"
 msgstr "E-mail adres"
 
 #. DESC_EMAIL_SUBJECT
-#, fuzzy
 msgid "Enter subject of e-mail"
 msgstr "E-mail onderwerp"
 
@@ -1497,14 +1495,12 @@ msgid "Select filetype for image attachments"
 msgstr "Selecteer het type van de afbeeldingen"
 
 #. DESC_MULTIPAGE_PROJECT
-#, fuzzy
 msgid "Enter name of multipage project"
-msgstr "De naam van het e-mail project"
+msgstr "De naam van het meerdere pagina's project"
 
 #. DESC_MULTIPAGE_FILETYPE
-#, fuzzy
 msgid "Select filetype for multipage file"
-msgstr "Selecteer het type van de afbeeldingen"
+msgstr "Selecteer het type van het meerder pagina's bestand"
 
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
@@ -1739,6 +1735,8 @@ msgid ""
 "Create zlib compressed postscript image for printer (flatdecode).\n"
 "The printer has to understand postscript level 3!"
 msgstr ""
+"Maak zlib gecomprimeerd PostScript plaatje voor de printer (flatdecode).\n"
+"De printen moet kunnen werken met PostScript level 3!"
 
 #. DESC_TMP_PATH
 msgid "Path to temp directory"
@@ -1764,9 +1762,8 @@ msgid "Minimum length of counter in filename"
 msgstr "Minimale lengte van bestandenteller"
 
 #. DESC_TIFF_ZIP_COMPRESSION
-#, fuzzy
 msgid "Compression rate for zip compressed tiff (deflate)"
-msgstr "Compressie van 8-bits TIFF afbeeldingen"
+msgstr "Compressie van zip gecomprimeerde TIFF (deflate)"
 
 #. DESC_TIFF_COMPRESSION_16
 msgid "Compression type if 16 bit image is saved as tiff"
@@ -1798,13 +1795,15 @@ msgstr ""
 
 #. DESC_SAVE_PS_FLATDECODED
 msgid ""
-"compress postscript image with zlib algorithm (flatdecode).When you want to "
+"compress postscript image with zlib algorithm (flatdecode). When you want to "
 "print such a file your printer has to understand postscript level 3"
 msgstr ""
+"Comprimeer het PostScript plaatje met zlib algoritme (flatdecode). Als je "
+"dit bestand wilt printen moet je printer PostScript level 3 begrijpen"
 
 #. DESC_SAVE_PDF_FLATDECODED
 msgid "compress PDF image with zlib algorithm (flatdecode)."
-msgstr ""
+msgstr "Comprimeer PDF plaatje met zlib algoritme (flatdecode)."
 
 #. DESC_SAVE_PNM16_AS_ASCII
 msgid ""
@@ -1915,7 +1914,7 @@ msgstr ""
 
 #. DESC_ADF_PAGES_MAX
 msgid "Number of pages to scan"
-msgstr ""
+msgstr "Aantal paginas om te scannen"
 
 #. DESC_PREVIEW_PIPETTE_RANGE
 msgid "dimension of square that is used to average color for pipette function"
@@ -1969,7 +1968,7 @@ msgstr "Verstuur hoge resolutie fax (196 lpi inplaats van 98 lpi)"
 
 #. DESC_FAX_PS_FLATDECODED
 msgid "Create zlib compressed postscript image for fax (flatdecode)"
-msgstr ""
+msgstr "Maak zlib gecomprimeerd PostScript plaatje voor fax (flatdecode)"
 
 #. DESC_SMTP_SERVER
 msgid "IP Address or Domain name of SMTP server"
@@ -1980,19 +1979,27 @@ msgid "port to connect to SMTP server"
 msgstr "port om met SMTP server te communiceren"
 
 #. DESC_EMAIL_FROM
-#, fuzzy
 msgid "enter your e-mail address"
 msgstr "geef je e-mail adres"
 
 #. DESC_EMAIL_REPLY_TO
-#, fuzzy
 msgid "enter e-mail address for replied e-mails"
 msgstr "geef e-mail adres voor antwoord e-mails"
 
-#. DESC_POP3_AUTHENTIFICATION
+#. DESC_EMAIL_AUTHENTICATION
 #, fuzzy
-msgid "Authentificate at POP3 server before sending e-mail"
+msgid "Type of authentication before sending e-mail"
 msgstr "Inloggen in POP3 server voor het versturen van e-mail"
+
+#. DESC_EMAIL_AUTH_USER
+#, fuzzy
+msgid "user name for e-mail server"
+msgstr "gebruikersnaam voor POP3 server"
+
+#. DESC_EMAIL_AUTH_PASS
+#, fuzzy
+msgid "password for e-mail server"
+msgstr "paswoord voor POP3 server"
 
 #. DESC_POP3_SERVER
 msgid "IP Address or Domain name of POP3 server"
@@ -2002,16 +2009,7 @@ msgstr "IP-adres of domain name van POP3 server"
 msgid "port to connect to POP3 server"
 msgstr "port om met POP3 server te communiceren"
 
-#. DESC_POP3_USER
-msgid "user name for POP3 server"
-msgstr "gebruikersnaam voor POP3 server"
-
-#. DESC_POP3_PASS
-msgid "password for POP3 server"
-msgstr "paswoord voor POP3 server"
-
 #. DESC_HTML_EMAIL
-#, fuzzy
 msgid "E-mail is sent in html mode, place image with: <IMAGE>"
 msgstr "E-mail wordt als HTML verstuurd. Afbeeldingen plaatsen met: <IMAGE>"
 
@@ -2328,7 +2326,7 @@ msgstr "LIBJPEG geeft foutmelding"
 
 #. ERR_ZLIB
 msgid "ZLIB error or memory allocation problem"
-msgstr ""
+msgstr "ZLIB fout of geheugen probleem"
 
 #. ERR_UNKNOWN_TYPE
 msgid "unknown type"
@@ -2530,7 +2528,6 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[OPTIE]... [APPARAAT]"
 
 #. TEXT_HELP
-#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2582,8 +2579,9 @@ msgstr ""
 " -V, --viewer                 begin in bekijk-mode (standaard)\n"
 " -s, --save                   begin in save-mode\n"
 " -c, --copy                   begin in kopieer-mode\n"
+" -m, --multipage............begin in meerdere pagina's mode\n"
 " -f, --fax                    begin in fax-mode\n"
-" -m, --mail                   begin in e-mail-mode\n"
+" -e, --email                   begin in e-mail-mode\n"
 " -n, --no-mode-selection      deactiveer menu voor XSane-mode selectie\n"
 "\n"
 " -F, --Fixed                  vaste grootte hoofdvenster (overschrijft "
@@ -2763,44 +2761,36 @@ msgid "Rossmann negative HR 100"
 msgstr "Rossmann negatief HR 100"
 
 #. TEXT_PROJECT_STATUS_NOT_CREATED
-#, fuzzy
 msgid "Project not created"
-msgstr "Fax project is niet gemaakt"
+msgstr "Project is niet gemaakt"
 
 #. TEXT_PROJECT_STATUS_CREATED
-#, fuzzy
 msgid "Project created"
-msgstr "Fax project gemaakt"
+msgstr "Project gemaakt"
 
 #. TEXT_PROJECT_STATUS_CHANGED
-#, fuzzy
 msgid "Project changed"
-msgstr "Fax project veranderd"
+msgstr "Project veranderd"
 
 #. TEXT_PROJECT_STATUS_ERR_READ_PROJECT
-#, fuzzy
 msgid "Error reading project"
-msgstr "Fout tijdens lezen van e-mail project"
+msgstr "Fout tijdens lezen van project"
 
 #. TEXT_PROJECT_STATUS_FILE_SAVING_ERROR
-#, fuzzy
 msgid "Error saving file"
-msgstr "Afbeelding bewaren"
+msgstr "Fout bij het bewaren van bestand"
 
 #. TEXT_PROJECT_STATUS_FILE_SAVING
-#, fuzzy
 msgid "Saving file"
-msgstr "Afbeelding bewaren"
+msgstr "Bestand bewaren"
 
 #. TEXT_PROJECT_STATUS_FILE_SAVING_ABORTED
-#, fuzzy
 msgid "Aborted saving file"
-msgstr "Afbeelding bewaren"
+msgstr "Bewaren van bestand afgebroken"
 
 #. TEXT_PROJECT_STATUS_FILE_SAVED
-#, fuzzy
 msgid "File has been saved"
-msgstr "E-mail is verstuurd"
+msgstr "Bestand is opgeslagen"
 
 #. TEXT_EMAIL_STATUS_POP3_CONNECTION_FAILED
 msgid "POP3 connection failed"
@@ -2809,6 +2799,11 @@ msgstr "POP3 verbinding mislukt"
 #. TEXT_EMAIL_STATUS_POP3_LOGIN_FAILED
 msgid "POP3 login failed"
 msgstr "POP3 login mislukt"
+
+#. TEXT_EMAIL_STATUS_ASMTP_AUTH_FAILED
+#, fuzzy
+msgid "ASMTP authentication failed"
+msgstr "SMTP verbinding mislukt"
 
 #. TEXT_EMAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
@@ -2823,17 +2818,14 @@ msgid "Receiver entry not accepted"
 msgstr "Ontvanger adres is afgewezen"
 
 #. TEXT_EMAIL_STATUS_SMTP_ERR_DATA
-#, fuzzy
 msgid "E-mail data not accepted"
 msgstr "E-mail data niet geaccepteerd"
 
 #. TEXT_EMAIL_STATUS_SENDING
-#, fuzzy
 msgid "Sending e-mail"
 msgstr "Versturen e-mail"
 
 #. TEXT_EMAIL_STATUS_SENT
-#, fuzzy
 msgid "E-mail has been sent"
 msgstr "E-mail is verstuurd"
 
@@ -2900,68 +2892,15 @@ msgstr "Geheugen vol"
 msgid "Access to resource has been denied"
 msgstr "Geen toegang tot apparaat"
 
-#~ msgid "Automatic Document Feeder Modus:"
-#~ msgstr "Automatische document invoer mode:"
-
-#~ msgid ""
-#~ "Select scansource for Automatic Document feeder. If this scansource is "
-#~ "selected XSane scans until \"out of paper\" or error."
-#~ msgstr ""
-#~ "Kies bron voor automatische document doorvoer. Indien geselecteerd gaat "
-#~ "XSane door met scannen to een \"papier op\" fout."
-
 #, fuzzy
-#~ msgid "E-mail project not created"
-#~ msgstr "E-mail project niet gemaakt"
+#~ msgid "POP3 authentication"
+#~ msgstr "POP3 legalisatie"
 
-#, fuzzy
-#~ msgid "E-mail project created"
-#~ msgstr "E-mail project gemaakt"
+#~ msgid "XSane mode"
+#~ msgstr "XSane mode"
 
-#, fuzzy
-#~ msgid "E-mail project changed"
-#~ msgstr "E-mail project veranderd"
+#~ msgid "POP3 user:"
+#~ msgstr "POP3 gebruiker:"
 
-#, fuzzy
-#~ msgid "Multipage project not created"
-#~ msgstr "E-mail project niet gemaakt"
-
-#, fuzzy
-#~ msgid "Multipage project created"
-#~ msgstr "E-mail project gemaakt"
-
-#, fuzzy
-#~ msgid "Multipage project changed"
-#~ msgstr "E-mail project veranderd"
-
-#, fuzzy
-#~ msgid "Error reading multipage project"
-#~ msgstr "Fout tijdens lezen van e-mail project"
-
-#, fuzzy
-#~ msgid "Saving multipage file"
-#~ msgstr "Afbeelding bewaren"
-
-#, fuzzy
-#~ msgid "Multipage saving aborted"
-#~ msgstr "E-mail project gemaakt"
-
-#~ msgid "Image"
-#~ msgstr "Afbeelding"
-
-#~ msgid "Viewer (png):"
-#~ msgstr "Bekijkprogramma (png):"
-
-#, fuzzy
-#~ msgid "Enter command to be executed to view an e-mail image"
-#~ msgstr "Commando om e-mail afbeelding te bekijken"
-
-#, fuzzy
-#~ msgid "Failed to execute e-mail image viewer:"
-#~ msgstr "Kon e-mail afbeelding niet bekijken:"
-
-#~ msgid "Step"
-#~ msgstr "Stap"
-
-#~ msgid "Mail"
-#~ msgstr "E-mailen"
+#~ msgid "POP3 password:"
+#~ msgstr "POP3 paswoord:"

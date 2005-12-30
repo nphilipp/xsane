@@ -908,6 +908,16 @@ static int xsane_test_multi_scan(void)
 {
   DBG(DBG_proc, "xsane_test_multi_scan\n");
 
+  if (xsane.mode == XSANE_GIMP_EXTENSION)
+  {
+    return FALSE;
+  }
+
+  if (xsane.batch_loop)
+  {
+    return FALSE;
+  }
+
   if (xsane.adf_page_counter+1 < preferences.adf_pages_max)
   {
     return TRUE;
@@ -1551,13 +1561,14 @@ void xsane_scan_done(SANE_Status status)
     xsane.adf_page_counter += 1;
     gtk_timeout_add(100, (GtkFunction)xsane_scan_dialog, NULL); /* wait 100ms then call xsane_scan_dialog(); */
   }
-  else if ( ( (status == SANE_STATUS_GOOD) || (status == SANE_STATUS_EOF) ) && (xsane.batch_loop) )
+  else if ( ( (status == SANE_STATUS_GOOD) || (status == SANE_STATUS_EOF) ) && (xsane.batch_loop  == BATCH_MODE_LOOP) )
   {
     /* batch scan loop, this is not the last scan */
     DBG(DBG_info, "Batch mode end of scan\n");
     sane_cancel(xsane.dev); /* we have to call sane_cancel otherwise we are not able to set new parameters */
   }
-  else if ( ( (status != SANE_STATUS_GOOD) && (status != SANE_STATUS_EOF) ) || (!xsane.batch_loop) ) /* last scan: update histogram */
+//  else if ( ( (status != SANE_STATUS_GOOD) && (status != SANE_STATUS_EOF) ) || (!xsane.batch_loop) ) /* last scan: update histogram */
+  else
   {
     DBG(DBG_info, "Normal end of scan\n");
     xsane_set_sensitivity(TRUE);		/* reactivate buttons etc */

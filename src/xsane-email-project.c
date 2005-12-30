@@ -47,6 +47,10 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+#ifdef XSANE_ACTIVATE_EMAIL
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static guint xsane_email_send_timer = 0;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -515,6 +519,7 @@ static void xsane_email_project_display_status()
          (!strcmp(buf, TEXT_PROJECT_STATUS_ERR_READ_PROJECT)) ||
          (!strcmp(buf, TEXT_EMAIL_STATUS_POP3_CONNECTION_FAILED)) ||
          (!strcmp(buf, TEXT_EMAIL_STATUS_POP3_LOGIN_FAILED)) ||
+         (!strcmp(buf, TEXT_EMAIL_STATUS_ASMTP_AUTH_FAILED)) ||
          (!strcmp(buf, TEXT_EMAIL_STATUS_SMTP_CONNECTION_FAILED)) ||
          (!strcmp(buf, TEXT_EMAIL_STATUS_SMTP_ERR_FROM)) ||
          (!strcmp(buf, TEXT_EMAIL_STATUS_SMTP_ERR_RCPT)) ||
@@ -1704,15 +1709,21 @@ static void xsane_email_send_process()
 {
  int fd_socket;
  int status;
+ char *password;
+ int i;
 
   DBG(DBG_proc, "xsane_email_send_process\n");
 
-  /* pop3 authentification */
-  if (preferences.email_pop3_authentification)
-  {
-   char *password;
-   int i;
+  password = strdup(preferences.email_auth_pass);
 
+  for (i=0; i<strlen(password); i++)
+  {
+    password[i] ^= 0x53;
+  } 
+
+  /* pop3 authentication */
+  if (preferences.email_authentication == EMAIL_AUTH_POP3)
+  {
     fd_socket = open_socket(preferences.email_pop3_server, preferences.email_pop3_port);
 
     if (fd_socket < 0) /* could not open socket */
@@ -1725,19 +1736,12 @@ static void xsane_email_send_process()
       xsane.email_progress_val = 0.0;
       xsane_front_gtk_email_project_update_lockfile_status();
 
+      free(password);
+
      return;
     }
 
-    password = strdup(preferences.email_pop3_pass);
-
-    for (i=0; i<strlen(password); i++)
-    {
-      password[i] ^= 0x53;
-    } 
-
-    status = pop3_login(fd_socket, preferences.email_pop3_user, password);
-
-    free(password);
+    status = pop3_login(fd_socket, preferences.email_auth_user, password);
 
     close(fd_socket);
 
@@ -1751,11 +1755,14 @@ static void xsane_email_send_process()
       xsane.email_progress_val = 0.0;
       xsane_front_gtk_email_project_update_lockfile_status();
 
+      free(password);
+
      return;
     }
+
+    DBG(DBG_info, "POP3 authentication done\n");
   }
 
-  DBG(DBG_info, "POP3 authentification done\n");
 
 
   /* smtp email */
@@ -1771,14 +1778,19 @@ static void xsane_email_send_process()
     xsane.email_progress_val = 0.0;
     xsane_front_gtk_email_project_update_lockfile_status();
 
+    free(password);
+
    return;
   }
 
-  status = write_smtp_header(fd_socket, preferences.email_from, xsane.email_receiver);
+
+  status = write_smtp_header(fd_socket, preferences.email_from, xsane.email_receiver,
+                             preferences.email_authentication, preferences.email_auth_user, password);
   if (status == -1)
   {
    return;
   }
+
 
   xsane_create_email(fd_socket); /* create email and write to socket */
 
@@ -1793,6 +1805,9 @@ static void xsane_email_send_process()
   xsane.email_status = strdup(TEXT_EMAIL_STATUS_SENT);
   xsane.email_progress_val = 1.0;
   xsane_front_gtk_email_project_update_lockfile_status();
+
+  free(password);
+
   _exit(0);
 }
 
@@ -1894,3 +1909,4 @@ static void xsane_email_send()
   xsane_email_project_set_sensitive(FALSE);
 }
 
+#endif
