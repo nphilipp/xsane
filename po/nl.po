@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.96\n"
-"POT-Creation-Date: 2005-12-30 23:07+0100\n"
+"POT-Creation-Date: 2006-01-07 00:26+0100\n"
 "PO-Revision-Date: 2005-12-22 09:00+0100\n"
 "Last-Translator: Wim Sinke <rietenmeubel@xs4all.nl>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -2232,8 +2232,12 @@ msgid "Filename too long"
 msgstr "Bestandsnaam te lang"
 
 #. ERR_CREATE_TEMP_FILE
-msgid "Could not create temporary file"
-msgstr "Kon geen tijdelijk bestand maken"
+msgid ""
+"Could not create temporary file.\n"
+"Open Menue Preferences->Setup Tab Save and\n"
+"select a temporary directory where you have\n"
+"write permissions."
+msgstr ""
 
 #. ERR_SET_OPTION
 msgid "Failed to set value of option"
@@ -2407,14 +2411,6 @@ msgstr "Preview kan niet met deze kleurdiepte werken"
 #. ERR_GIMP_SUPPORT_MISSING
 msgid "GIMP support missing"
 msgstr "Geen GIMP ondersteuning"
-
-#. ERR_CREATE_PREVIEW_FILE
-msgid "Could not create temporary preview files"
-msgstr "Kon geen tijdelijke preview bestanden maken"
-
-#. ERR_CREATE_PREVIEW_FILENAME
-msgid "Could not create filenames for preview files"
-msgstr "Kon geen naam maken voor previewbestand"
 
 #. ERR_CREATE_FAX_PROJECT
 msgid "Could not create faxproject"
@@ -2891,6 +2887,15 @@ msgstr "Geheugen vol"
 
 msgid "Access to resource has been denied"
 msgstr "Geen toegang tot apparaat"
+
+#~ msgid "Could not create temporary file"
+#~ msgstr "Kon geen tijdelijk bestand maken"
+
+#~ msgid "Could not create temporary preview files"
+#~ msgstr "Kon geen tijdelijke preview bestanden maken"
+
+#~ msgid "Could not create filenames for preview files"
+#~ msgstr "Kon geen naam maken voor previewbestand"
 
 #, fuzzy
 #~ msgid "POP3 authentication"

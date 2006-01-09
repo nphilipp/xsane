@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 1.0\n"
-"POT-Creation-Date: 2005-12-30 23:07+0100\n"
-"PO-Revision-Date: 2005-12-22 04:21+0100\n"
+"Project-Id-Version: XSANE 0.99\n"
+"POT-Creation-Date: 2006-01-07 00:26+0100\n"
+"PO-Revision-Date: 2005-12-31 04:36+0100\n"
 "Last-Translator: Mogens Jaeger <mogensjaeger@get2net.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -1009,17 +1009,14 @@ msgid "Reply to:"
 msgstr "Svar til:"
 
 #. TEXT_SETUP_EMAIL_AUTHENTICATION
-#, fuzzy
 msgid "E-mail authentication"
-msgstr "POP3 godkendelse"
+msgstr "E-post godkendelse"
 
 #. TEXT_SETUP_EMAIL_AUTH_USER
-#, fuzzy
 msgid "User:"
-msgstr "Brug:"
+msgstr "Bruger:"
 
 #. TEXT_SETUP_EMAIL_AUTH_PASS
-#, fuzzy
 msgid "Password:"
 msgstr "Password:"
 
@@ -1319,25 +1316,24 @@ msgid "Move item down"
 msgstr "Flyt punkt ned"
 
 #. MENU_ITEM_AUTH_NONE
-#, fuzzy
 msgid "no authentication"
-msgstr "POP3 godkendelse"
+msgstr "ingen godkendelse"
 
 #. MENU_ITEM_AUTH_POP3
 msgid "POP3 before SMTP"
-msgstr ""
+msgstr "POP3 før SMTP"
 
 #. MENU_ITEM_AUTH_ASMTP_PLAIN
 msgid "ASMTP Plain"
-msgstr ""
+msgstr "ASMTP almen"
 
 #. MENU_ITEM_AUTH_ASMTP_LOGIN
 msgid "ASMTP Login"
-msgstr ""
+msgstr "ASMTP logind"
 
 #. MENU_ITEM_AUTH_ASMTP_CRAM_MD5
 msgid "ASMTP CRAM-MD5"
-msgstr ""
+msgstr "ASMTP CRAM-MD5"
 
 #. PROGRESS_SCANNING
 msgid "Scanning"
@@ -1989,19 +1985,16 @@ msgid "enter e-mail address for replied e-mails"
 msgstr "Angiv e-post adresse til svar e-post"
 
 #. DESC_EMAIL_AUTHENTICATION
-#, fuzzy
 msgid "Type of authentication before sending e-mail"
-msgstr "Godkendelse af POP3 server, før e-post sendes"
+msgstr "Godkendelsestype før e-post sendes"
 
 #. DESC_EMAIL_AUTH_USER
-#, fuzzy
 msgid "user name for e-mail server"
-msgstr "brugernavn til POP3 server"
+msgstr "brugernavn til e-post server"
 
 #. DESC_EMAIL_AUTH_PASS
-#, fuzzy
 msgid "password for e-mail server"
-msgstr "password til POP3 server"
+msgstr "password til e-post server"
 
 #. DESC_POP3_SERVER
 msgid "IP Address or Domain name of POP3 server"
@@ -2236,8 +2229,12 @@ msgid "Filename too long"
 msgstr "Filnavn er for langt"
 
 #. ERR_CREATE_TEMP_FILE
-msgid "Could not create temporary file"
-msgstr "Kunne ikke skabe midlertidig fil"
+msgid ""
+"Could not create temporary file.\n"
+"Open Menue Preferences->Setup Tab Save and\n"
+"select a temporary directory where you have\n"
+"write permissions."
+msgstr ""
 
 #. ERR_SET_OPTION
 msgid "Failed to set value of option"
@@ -2408,14 +2405,6 @@ msgstr "Forhåndsvisning kan ikke håndtere bitdybde"
 #. ERR_GIMP_SUPPORT_MISSING
 msgid "GIMP support missing"
 msgstr "GIMP understøttelse mangler"
-
-#. ERR_CREATE_PREVIEW_FILE
-msgid "Could not create temporary preview files"
-msgstr "Kunne ikke danne midlertidig forhåndsvisningsfiler"
-
-#. ERR_CREATE_PREVIEW_FILENAME
-msgid "Could not create filenames for preview files"
-msgstr "Kunne ikke danne filnavne til forhåndsvisningsfiler"
 
 #. ERR_CREATE_FAX_PROJECT
 msgid "Could not create faxproject"
@@ -2793,20 +2782,19 @@ msgstr "Fil er blevet gemt"
 
 #. TEXT_EMAIL_STATUS_POP3_CONNECTION_FAILED
 msgid "POP3 connection failed"
-msgstr "POP3 tilslutning lykkedes ikke"
+msgstr "POP3 tilslutning mislykkedes"
 
 #. TEXT_EMAIL_STATUS_POP3_LOGIN_FAILED
 msgid "POP3 login failed"
-msgstr "POP3 logind lykkedes ikke"
+msgstr "POP3 logind mislykkedes"
 
 #. TEXT_EMAIL_STATUS_ASMTP_AUTH_FAILED
-#, fuzzy
 msgid "ASMTP authentication failed"
-msgstr "SMTP tilslutning lykkedes ikke"
+msgstr "ASMTP godkendelse mislykkedes"
 
 #. TEXT_EMAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
-msgstr "SMTP tilslutning lykkedes ikke"
+msgstr "SMTP tilslutning mislykkedes"
 
 #. TEXT_EMAIL_STATUS_SMTP_ERR_FROM
 msgid "From entry not accepted"
@@ -2891,15 +2879,11 @@ msgstr "Ikke mere ram"
 msgid "Access to resource has been denied"
 msgstr "Adgang til ressource nægtet"
 
-#, fuzzy
-#~ msgid "POP3 authentication"
-#~ msgstr "POP3 godkendelse"
+#~ msgid "Could not create temporary file"
+#~ msgstr "Kunne ikke skabe midlertidig fil"
 
-#~ msgid "XSane mode"
-#~ msgstr "XSane tilstand"
+#~ msgid "Could not create temporary preview files"
+#~ msgstr "Kunne ikke danne midlertidig forhåndsvisningsfiler"
 
-#~ msgid "POP3 user:"
-#~ msgstr "POP3 bruger:"
-
-#~ msgid "POP3 password:"
-#~ msgstr "POP3 password:"
+#~ msgid "Could not create filenames for preview files"
+#~ msgstr "Kunne ikke danne filnavne til forhåndsvisningsfiler"

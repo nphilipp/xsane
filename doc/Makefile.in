@@ -23,7 +23,7 @@ configdir = ${sysconfdir}/sane.d
 sanedatadir = ${datadir}/sane
 xsanedocdir = ${datadir}/sane/xsane/doc
 
-MKDIR = $(top_srcdir)/mkinstalldirs
+MKINSTALLDIRS = @MKINSTALLDIRS@
 INSTALL = @INSTALL@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_DATA = @INSTALL_DATA@
@@ -49,38 +49,38 @@ all: $(MANPAGES)
 	    -e 's|@SBINDIR@|$(sbindir)|g' $^ >$@
 
 install: $(MANPAGES)
-	$(MKDIR) $(mandir)/man1 
+	$(MKINSTALLDIRS) $(DESTDIR)$(mandir)/man1 
 	@for page in $(SECT1); do \
-	  echo installing $${page} in $(mandir)/man1/$${page}...; \
-	  $(INSTALL_DATA) $${page} $(mandir)/man1/$${page} || exit 1; \
+	  echo installing $${page} in $(DESTDIR)$(mandir)/man1/$${page}...; \
+	  $(INSTALL_DATA) $${page} $(DESTDIR)$(mandir)/man1/$${page} || exit 1; \
 	done
-	$(MKDIR) $(datadir)
+	$(MKINSTALLDIRS) $(DESTDIR)$(datadir)
 
-	$(MKDIR) $(xsanedocdir)
+	$(MKINSTALLDIRS) $(DESTDIR)$(xsanedocdir)
 	@for page in *.html; do\
-	  echo installing $${page} in $(xsanedocdir)/$${page}...; \
-	  $(INSTALL_DATA) $${page} $(xsanedocdir)/$${page} || exit 1; \
+	  echo installing $${page} in $(DESTDIR)$(xsanedocdir)/$${page}...; \
+	  $(INSTALL_DATA) $${page} $(DESTDIR)$(xsanedocdir)/$${page} || exit 1; \
 	done
 
 	@for image in *.jpg; do\
-	  echo installing $${image} in $(xsanedocdir)/$${image}...; \
-	  $(INSTALL_DATA) $${image} $(xsanedocdir)/$${image} || exit 1; \
+	  echo installing $${image} in $(DESTDIR)$(xsanedocdir)/$${image}...; \
+	  $(INSTALL_DATA) $${image} $(DESTDIR)$(xsanedocdir)/$${image} || exit 1; \
 	done
 
 uninstall:
 	@for page in $(SECT1); do \
-	  echo uninstalling $(mandir)/man1/$${page}...; \
-	  rm -f $(mandir)/man1/$${page} || exit 1; \
+	  echo uninstalling $(DESTDIR)$(mandir)/man1/$${page}...; \
+	  rm -f $(DESTDIR)$(mandir)/man1/$${page} || exit 1; \
 	done
 
 	@for page in *.html; do\
-	  echo uninstalling $(xsanedocdir)/$${page}...; \
-	  rm -f $(xsanedocdir)/$${page} || exit 1; \
+	  echo uninstalling $(DESTDIR)$(xsanedocdir)/$${page}...; \
+	  rm -f $(DESTDIR)$(xsanedocdir)/$${page} || exit 1; \
 	done
 
 	@for image in *.jpg; do\
-	  echo uninstalling $${image} in $(xsanedocdir)/$${image}...; \
-	  rm -f $(xsanedocdir)/$${image} || exit 1; \
+	  echo uninstalling $${image} in $(DESTDIR)$(xsanedocdir)/$${image}...; \
+	  rm -f $(DESTDIR)$(xsanedocdir)/$${image} || exit 1; \
 	done
 
 docs: ps html

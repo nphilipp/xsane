@@ -27,7 +27,7 @@ subdir = po
 
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
-MKINSTALLDIRS = $(top_srcdir)/@MKINSTALLDIRS@
+MKINSTALLDIRS = @MKINSTALLDIRS@
 
 CC = @CC@
 GENCAT = @GENCAT@
@@ -36,15 +36,6 @@ MSGFMT = @MSGFMT@
 XGETTEXT = @XGETTEXT@
 MSGMERGE = msgmerge
 
-DEFS = @DEFS@
-CFLAGS = @CFLAGS@
-CPPFLAGS = @CPPFLAGS@
-
-INCLUDES = -I.. -I$(top_srcdir)/intl
-
-COMPILE = $(CC) -c $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS) $(XCFLAGS)
-
-SOURCES =
 POFILES = @POFILES@
 GMOFILES = @GMOFILES@
 DISTFILES = ChangeLog Makefile.in xsane-pot.sed sane-text.h $(PACKAGE).pot \
@@ -57,10 +48,7 @@ CATOBJEXT = @CATOBJEXT@
 INSTOBJEXT = @INSTOBJEXT@
 
 .SUFFIXES:
-.SUFFIXES: .c .o .po .pox .gmo .mo .msg .cat
-
-.c.o:
-	$(COMPILE) $<
+.SUFFIXES: .po .pox .gmo .mo .msg .cat
 
 .po.pox:
 	if test "${MSGMERGE}" != "no"; then \
@@ -111,25 +99,17 @@ install-exec:
 install-data: install-data-@USE_NLS@
 install-data-no: all
 install-data-yes: all
-	if test -r "$(MKINSTALLDIRS)"; then \
-	  $(MKINSTALLDIRS) $(datadir); \
-	else \
-	  $(SHELL) $(top_srcdir)/mkinstalldirs $(datadir); \
-	fi
+	$(MKINSTALLDIRS) $(DESTDIR)$(datadir);
 	@catalogs='$(CATALOGS)'; \
 	for cat in $$catalogs; do \
 	  cat=`basename $$cat`; \
 	  case "$$cat" in \
-	    *.gmo) destdir=$(gnulocaledir);; \
-	    *)     destdir=$(localedir);; \
+	    *.gmo) destdir=$(DESTDIR)$(gnulocaledir);; \
+	    *)     destdir=$(DESTDIR)$(localedir);; \
 	  esac; \
 	  lang=`echo $$cat | sed 's/\$(CATOBJEXT)$$//'`; \
 	  dir=$$destdir/$$lang/LC_MESSAGES; \
-	  if test -r "$(MKINSTALLDIRS)"; then \
-	    $(MKINSTALLDIRS) $$dir; \
-	  else \
-	    $(SHELL) $(top_srcdir)/mkinstalldirs $$dir; \
-	  fi; \
+	  $(MKINSTALLDIRS) $$dir; \
 	  if test -r $$cat; then \
 	    $(INSTALL_DATA) $$cat $$dir/$(PACKAGE)$(INSTOBJEXT); \
 	    echo "installing $$cat as $$dir/$(PACKAGE)$(INSTOBJEXT)"; \
@@ -161,12 +141,11 @@ uninstall:
 	for cat in $$catalogs; do \
 	  cat=`basename $$cat`; \
 	  lang=`echo $$cat | sed 's/\$(CATOBJEXT)$$//'`; \
-	  rm -f $(localedir)/$$lang/LC_MESSAGES/$(PACKAGE)$(INSTOBJEXT); \
-	  rm -f $(localedir)/$$lang/LC_MESSAGES/$(PACKAGE)$(INSTOBJEXT).m; \
-	  rm -f $(gnulocaledir)/$$lang/LC_MESSAGES/$(PACKAGE)$(INSTOBJEXT); \
-	  rm -f $(gnulocaledir)/$$lang/LC_MESSAGES/$(PACKAGE)$(INSTOBJEXT).m; \
+	  rm -f $(DESTDIR)$(localedir)/$$lang/LC_MESSAGES/$(PACKAGE)$(INSTOBJEXT); \
+	  rm -f $(DESTDIR)$(localedir)/$$lang/LC_MESSAGES/$(PACKAGE)$(INSTOBJEXT).m; \
+	  rm -f $(DESTDIR)$(gnulocaledir)/$$lang/LC_MESSAGES/$(PACKAGE)$(INSTOBJEXT); \
+	  rm -f $(DESTDIR)$(gnulocaledir)/$$lang/LC_MESSAGES/$(PACKAGE)$(INSTOBJEXT).m; \
 	done
-	rm -f $(gettextsrcdir)/po-Makefile.in
 
 check: all
 

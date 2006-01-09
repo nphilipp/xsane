@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.99\n"
-"POT-Creation-Date: 2005-12-30 23:07+0100\n"
-"PO-Revision-Date: 2005-12-30 21:46+0100\n"
+"POT-Creation-Date: 2006-01-07 00:26+0100\n"
+"PO-Revision-Date: 2005-12-31 16:09+0100\n"
 "Last-Translator: Stanislav Brabec <utx@penguin.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1006,17 +1006,14 @@ msgid "Reply to:"
 msgstr "Odpovědět na:"
 
 #. TEXT_SETUP_EMAIL_AUTHENTICATION
-#, fuzzy
 msgid "E-mail authentication"
-msgstr "Authentifikace POP3"
+msgstr "Ověřování pošty"
 
 #. TEXT_SETUP_EMAIL_AUTH_USER
-#, fuzzy
 msgid "User:"
-msgstr "Užití:"
+msgstr "Uživatel:"
 
 #. TEXT_SETUP_EMAIL_AUTH_PASS
-#, fuzzy
 msgid "Password:"
 msgstr "Heslo:"
 
@@ -1316,25 +1313,24 @@ msgid "Move item down"
 msgstr "Přesunout položku níž"
 
 #. MENU_ITEM_AUTH_NONE
-#, fuzzy
 msgid "no authentication"
-msgstr "Authentifikace POP3"
+msgstr "bez ověřování"
 
 #. MENU_ITEM_AUTH_POP3
 msgid "POP3 before SMTP"
-msgstr ""
+msgstr "POP3 před SMTP"
 
 #. MENU_ITEM_AUTH_ASMTP_PLAIN
 msgid "ASMTP Plain"
-msgstr ""
+msgstr "ASMTP obyčejné"
 
 #. MENU_ITEM_AUTH_ASMTP_LOGIN
 msgid "ASMTP Login"
-msgstr ""
+msgstr "ASMTP přihlášení"
 
 #. MENU_ITEM_AUTH_ASMTP_CRAM_MD5
 msgid "ASMTP CRAM-MD5"
-msgstr ""
+msgstr "ASMTP CRAM-MD5"
 
 #. PROGRESS_SCANNING
 msgid "Scanning"
@@ -1985,19 +1981,16 @@ msgid "enter e-mail address for replied e-mails"
 msgstr "zadejte svou e-mailovou adresu pro odpovědi"
 
 #. DESC_EMAIL_AUTHENTICATION
-#, fuzzy
 msgid "Type of authentication before sending e-mail"
-msgstr "Autentifikace na POP3 serveru před odesláním e-mailu"
+msgstr "Typ ověřování před odesláním e-mailu"
 
 #. DESC_EMAIL_AUTH_USER
-#, fuzzy
 msgid "user name for e-mail server"
-msgstr "uživatelské jméno pro POP3 server"
+msgstr "uživatelské jméno pro poštovní server"
 
 #. DESC_EMAIL_AUTH_PASS
-#, fuzzy
 msgid "password for e-mail server"
-msgstr "heslo pro POP3 server"
+msgstr "heslo pro poštovní server"
 
 #. DESC_POP3_SERVER
 msgid "IP Address or Domain name of POP3 server"
@@ -2229,8 +2222,12 @@ msgid "Filename too long"
 msgstr "Jméno souboru je příliš dlouhé"
 
 #. ERR_CREATE_TEMP_FILE
-msgid "Could not create temporary file"
-msgstr "Nelze vytvořit dočasný soubor"
+msgid ""
+"Could not create temporary file.\n"
+"Open Menue Preferences->Setup Tab Save and\n"
+"select a temporary directory where you have\n"
+"write permissions."
+msgstr ""
 
 #. ERR_SET_OPTION
 msgid "Failed to set value of option"
@@ -2402,14 +2399,6 @@ msgstr "Náhled nepodporuje bitovou hloubku"
 msgid "GIMP support missing"
 msgstr "Chybí podpora programu GIMP"
 
-#. ERR_CREATE_PREVIEW_FILE
-msgid "Could not create temporary preview files"
-msgstr "Nelze vytvořit pracovní náhledové soubory"
-
-#. ERR_CREATE_PREVIEW_FILENAME
-msgid "Could not create filenames for preview files"
-msgstr "Nelze vytvořit jména náhledových souborů"
-
 #. ERR_CREATE_FAX_PROJECT
 msgid "Could not create faxproject"
 msgstr "Nelze vytvořit faxový projekt"
@@ -2522,7 +2511,6 @@ msgid "[OPTION]... [DEVICE]"
 msgstr "[VOLBA]... [ZAŘÍZENÍ]"
 
 #. TEXT_HELP
-#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2574,8 +2562,9 @@ msgstr ""
 " -V, --viewer                  spustí se v režimu prohlížeče (implicitní)\n"
 " -s, --save                    spustí se v režimu zápisu\n"
 " -c, --copy                    spustí se v režimu kopírování\n"
+" -m, --multipage               spustí se s aktivním vícestránkovým režimem\n"
 " -f, --fax                     spustí se v režimu faxování\n"
-" -m, --mail                    spustí se v režimu pošty\n"
+" -e, --email                   spustí se v režimu pošty\n"
 " -n, --no-mode-selection       zakáže menu volby režimu XSane\n"
 "\n"
 " -F, --Fixed                   použije pevnou velikost hlavního okna\n"
@@ -2797,9 +2786,8 @@ msgid "POP3 login failed"
 msgstr "POP3 přihlášení selhalo"
 
 #. TEXT_EMAIL_STATUS_ASMTP_AUTH_FAILED
-#, fuzzy
 msgid "ASMTP authentication failed"
-msgstr "SMTP spojení selhalo"
+msgstr "ASMTP ověřování selhalo"
 
 #. TEXT_EMAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
@@ -2887,6 +2875,15 @@ msgstr "Nedostatek paměti"
 
 msgid "Access to resource has been denied"
 msgstr "Přístup ke zdroji byl odmítnut"
+
+#~ msgid "Could not create temporary file"
+#~ msgstr "Nelze vytvořit dočasný soubor"
+
+#~ msgid "Could not create temporary preview files"
+#~ msgstr "Nelze vytvořit pracovní náhledové soubory"
+
+#~ msgid "Could not create filenames for preview files"
+#~ msgstr "Nelze vytvořit jména náhledových souborů"
 
 #~ msgid "XSane mode"
 #~ msgstr "Režim XSane"

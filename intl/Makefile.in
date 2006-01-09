@@ -65,12 +65,6 @@ explodename.c
 OBJECTS = @INTLOBJS@ bindtextdom.$lo dcgettext.$lo dgettext.$lo gettext.$lo \
 finddomain.$lo loadmsgcat.$lo localealias.$lo textdomain.$lo l10nflist.$lo \
 explodename.$lo
-CATOBJS = cat-compat.$lo ../po/cat-id-tbl.$lo
-GETTOBJS = intl-compat.$lo
-DISTFILES.common = ChangeLog Makefile.in linux-msg.sed po2tbl.sed.in \
-xopen-msg.sed $(HEADERS) $(SOURCES)
-DISTFILES.normal = VERSION
-DISTFILES.gettext = libintl.glibc intlh.inst.in
 
 .SUFFIXES:
 .SUFFIXES: .c .o .lo
@@ -100,53 +94,14 @@ libintl.la: $(OBJECTS)
 
 check: all
 
-# This installation goal is only used in GNU gettext.  Packages which
-# only use the library should use install instead.
-
-# We must not install the libintl.h/libintl.a files if we are on a
-# system which has the gettext() function in its C library or in a
-# separate library or use the catgets interface.  A special case is
-# where configure found a previously installed GNU gettext library.
-# If you want to use the one which comes with this version of the
-# package, you have to use `configure --with-included-gettext'.
 install: install-exec install-data
 install-exec: all
-	if test "$(PACKAGE)" = "gettext" \
-	   && test '@INTLOBJS@' = '$(GETTOBJS)'; then \
-	  if test -r $(MKINSTALLDIRS); then \
-	    $(MKINSTALLDIRS) $(libdir) $(includedir); \
-	  else \
-	    $(top_srcdir)/mkinstalldirs $(libdir) $(includedir); \
-	  fi; \
-	  $(INSTALL_DATA) intlh.inst $(includedir)/libintl.h; \
-	  $(INSTALL_DATA) libintl.a $(libdir)/libintl.a; \
-	else \
-	  : ; \
-	fi
 install-data: all
-	if test "$(PACKAGE)" = "gettext"; then \
-	  if test -r $(MKINSTALLDIRS); then \
-	    $(MKINSTALLDIRS) $(gettextsrcdir); \
-	  else \
-	    $(top_srcdir)/mkinstalldirs $(gettextsrcdir); \
-	  fi; \
-	  $(INSTALL_DATA) VERSION $(gettextsrcdir)/VERSION; \
-	  dists="$(DISTFILES.common)"; \
-	  for file in $$dists; do \
-	    $(INSTALL_DATA) $(srcdir)/$$file $(gettextsrcdir)/$$file; \
-	  done; \
-	else \
-	  : ; \
-	fi
 
 # Define this as empty until I found a useful application.
 installcheck:
 
 uninstall:
-	dists="$(DISTFILES.common)"; \
-	for file in $$dists; do \
-	  rm -f $(gettextsrcdir)/$$file; \
-	done
 
 info dvi:
 
@@ -154,46 +109,18 @@ $(OBJECTS): ../include/config.h libgettext.h
 bindtextdom.$lo finddomain.$lo loadmsgcat.$lo: gettextP.h gettext.h loadinfo.h
 dcgettext.$lo: gettextP.h gettext.h hash-string.h loadinfo.h
 
-tags: TAGS
-
-TAGS: $(HEADERS) $(SOURCES)
-	here=`pwd`; cd $(srcdir) && etags -o $$here/TAGS $(HEADERS) $(SOURCES)
-
-id: ID
-
-ID: $(HEADERS) $(SOURCES)
-	here=`pwd`; cd $(srcdir) && mkid -f$$here/ID $(HEADERS) $(SOURCES)
-
-
 mostlyclean:
 	rm -f *.a *.o *.lo core core.*
 
 clean: mostlyclean
 
 distclean: clean
-	rm -f Makefile ID TAGS po2msg.sed po2tbl.sed
+	rm -f Makefile 
 
 maintainer-clean: distclean
 	@echo "This command is intended for maintainers to use;"
 	@echo "it deletes files that may require special tools to rebuild."
 
-
-# GNU gettext needs not contain the file `VERSION' but contains some
-# other files which should not be distributed in other packages.
-distdir = ../$(PACKAGE)-$(VERSION)/$(subdir)
-dist distdir: Makefile $(DISTFILES)
-	if test "$(PACKAGE)" = gettext; then \
-	  additional="$(DISTFILES.gettext)"; \
-	else \
-	  additional="$(DISTFILES.normal)"; \
-	fi; \
-	for file in $(DISTFILES.common) $$additional; do \
-	  ln $(srcdir)/$$file $(distdir) 2> /dev/null \
-	    || cp -p $(srcdir)/$$file $(distdir); \
-	done
-
-dist-libc:
-	tar zcvf intl-glibc.tar.gz $(COMSRCS) $(COMHDRS) libintl.h.glibc
 
 Makefile: Makefile.in ../config.status
 	cd .. \

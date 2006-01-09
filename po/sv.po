@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.92\n"
-"POT-Creation-Date: 2005-12-30 23:07+0100\n"
+"POT-Creation-Date: 2006-01-07 00:26+0100\n"
 "PO-Revision-Date: 2003-08-03 14:12+01:00\n"
 "Last-Translator: Johan Bengtsson <jb@goteborg.bostream.se>\n"
 "Language-Team: LANGUAGE <sv@li.org>\n"
@@ -2264,8 +2264,12 @@ msgid "Filename too long"
 msgstr "Filnamnet är för långt"
 
 #. ERR_CREATE_TEMP_FILE
-msgid "Could not create temporary file"
-msgstr "Kunde inte skapa temporär fil"
+msgid ""
+"Could not create temporary file.\n"
+"Open Menue Preferences->Setup Tab Save and\n"
+"select a temporary directory where you have\n"
+"write permissions."
+msgstr ""
 
 #. ERR_SET_OPTION
 msgid "Failed to set value of option"
@@ -2437,14 +2441,6 @@ msgstr "Förhandsgranskning kan inte hantera bit-djup"
 #. ERR_GIMP_SUPPORT_MISSING
 msgid "GIMP support missing"
 msgstr "Stöd för GIMP saknas"
-
-#. ERR_CREATE_PREVIEW_FILE
-msgid "Could not create temporary preview files"
-msgstr "Kunde inte skapa temporär förhandsgranskningsfil"
-
-#. ERR_CREATE_PREVIEW_FILENAME
-msgid "Could not create filenames for preview files"
-msgstr "Kunde inte skapa filnamn för förhandsgranskningsfiler"
 
 #. ERR_CREATE_FAX_PROJECT
 msgid "Could not create faxproject"
@@ -2931,6 +2927,15 @@ msgstr "Slut på minne"
 
 msgid "Access to resource has been denied"
 msgstr "Tillgång till resurs nekas"
+
+#~ msgid "Could not create temporary file"
+#~ msgstr "Kunde inte skapa temporär fil"
+
+#~ msgid "Could not create temporary preview files"
+#~ msgstr "Kunde inte skapa temporär förhandsgranskningsfil"
+
+#~ msgid "Could not create filenames for preview files"
+#~ msgstr "Kunde inte skapa filnamn för förhandsgranskningsfiler"
 
 #, fuzzy
 #~ msgid "POP3 authentication"

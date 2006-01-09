@@ -17,7 +17,7 @@
 </td>
 <td>
 <blockquote>
-<h1><font color="#009900">Viewer mode</font></h1>
+<h1><font color="#009900">Scan options</font></h1>
 </blockquote>
 </td>
 </tr>
@@ -123,7 +123,9 @@
 <td VALIGN=TOP BGCOLOR="#FFFFFF">
 <blockquote>
 <br>
-In the viewer mode an image is scanned and displayed in the viewer.
+Here you find a description of the available scan options in the XSane main window.
+If an option is available depends on the scanner model, available hardware extensions,
+the scanmode and the xsane mode.
 <br>
 <br>
 <br>
@@ -131,102 +133,57 @@ In the viewer mode an image is scanned and displayed in the viewer.
 <br>
 <br>
 
-<img SRC="xsane-disk.jpg" alt="disk">
+<a NAME="ADF_PAGES"></a>
+<img SRC="xsane-adf-pages.jpg" alt="adf-pages">
 &nbsp;&nbsp;
-<b>Select filename:</b>
+<b>ADF-Pages:</b>
 <blockquote>
-If you press the disk icon a browse dialog is opened where you can select the name
-of the image file that is suggested for the viewer.
-You also can enter the filename directly to the text box right to the disk icon.
+Select the number of pages that shall be scanned.
+You can use this with an automatic document feeder (ADF)
+or by changing the papers by hand while the scanhead moves back.
 </blockquote>
 
-                                                                                                                                  
-<img SRC="xsane-step.jpg" alt="step">
+<a NAME="SCANSOURCE"></a>
+<img SRC="xsane-scansource.jpg" alt="scansource">
 &nbsp;&nbsp;
-<b>Filename counter step width:</b>
+<b>Scansource:</b>
 <blockquote>
-When the filename contains a counter at the end then the counter is increased (or decreased)
-by the selected step width when the scan has been completed.
+Select scansource, e.g.: Flatbed, Transparency, Automatic Document Feeder.
 </blockquote>
-                                                                                                                                  
-                                                                                                                                  
-<b>Type:</b>
-<blockquote>
-Filetype and fileextension that are suggested for the viewer.
-</blockquote>
-                                                                                                                                  
 
+<img SRC="xsane-colormode.jpg" alt="colormode">
+&nbsp;&nbsp;
+<b>Scanmode:</b>
+<blockquote>
+Select scanmode, e.g.: color, grayscale, halftone, lineart.
+</blockquote>
+
+<img SRC="xsane-medium.jpg" alt="medium">
+&nbsp;&nbsp;
+<b><a href="sane-xsane-medium-definition-doc.html">Medium selection:</a></b>
+<blockquote>
+Select scanmedium, e.g.: <i>slide</i>, <i>standard negative</i>,
+<i>Agfa negative</i>, ... or <i>Full range</i>.
+</blockquote>
+
+<a NAME="RESOLUTION"></a>
+<img SRC="xsane-resolution.jpg" alt="resolution">
+&nbsp;&nbsp;
+<b>Scan resolution:</b>
+<blockquote>
+Select resolution that is used for scanning. If the backends makes available a
+range of resolutions (e.g. 100-600 dpi) XSane can display a slider or a
+list of resolutions. You select this via <i>Preferences/Show resolution list</i>.
 <br>
-<br>
-<b>The viewer window:</b>
-<blockquote>
-When the image is scanned it is displayed in the viewer window:
+The backend can define a list of resolutions insted of a range, in this
+case it is not possible to enable the slider.
+<p>
+To select exact resolutions with the slider click the slider with the mouse pointer
+and use the cursor keys to change the value in small steps, if you press <i>ctrl</i>
+and a cursor key the resolution is changed in larger steps.
 </blockquote>
 
-<center><img SRC="xsane-viewer-window.jpg" alt="XSane-viewer-window"></center>
-<br>
-<br>
-<img SRC="xsane-save2.jpg" alt="save image">
-&nbsp;&nbsp;
-<b>Save image:</b>
-<blockquote>
-Save image to disk. If the path, filename and filetype is not defined, a dialog
-opens that allows selecting path, filename and filetype.
 </blockquote>
-
-<img SRC="xsane-ocr.jpg" alt="do ocr">
-&nbsp;&nbsp;
-<b>OCR:</b>
-<blockquote>
-Call OCR program and save created text to file.
-</blockquote>
-
-<img SRC="xsane-clone.jpg" alt="clone image">
-&nbsp;&nbsp;
-<b>Clone image:</b>
-<blockquote>
-Creates a new viewer window with a copy of the displayed image.
-</blockquote>
-
-<img SRC="xsane-scale.jpg" alt="scale image">
-&nbsp;&nbsp;
-<b>Scale image:</b>
-<blockquote>
-Change size of the image.
-</blockquote>
-
-<img SRC="xsane-despeckle.jpg" alt="despeckle image">
-&nbsp;&nbsp;
-<b>Despeckle image:</b>
-<blockquote>
-Removes spots from the displayed image that is scanned from a rastered original
-like a magazine.
-</blockquote>
-
-<img SRC="xsane-blur.jpg" alt="blur image">
-&nbsp;&nbsp;
-<b>Blur image:</b>
-<blockquote>
-Blur displayed image.
-</blockquote>
-
-<img SRC="xsane-rotate-90.jpg" alt="rotate image 90 degree">
-<img SRC="xsane-rotate-180.jpg" alt="rotate image 180 degree">
-<img SRC="xsane-rotate-270.jpg" alt="rotate image 270 degree">
-&nbsp;&nbsp;
-<b>Rotate image 90, 180, 270 degree:</b>
-<blockquote>
-Rotates the image by 90, 180 or 270 degree (clockwise).
-</blockquote>
-
-<img SRC="xsane-mirror-x.jpg" alt="mirror image at vertical axis">
-<img SRC="xsane-mirror-y.jpg" alt="mirror image at horizontal axis">
-&nbsp;&nbsp;
-<b>Mirror image at vertical or horizontal axis:</b>
-<blockquote>
-Mirrors the image at vertical or horizonral axis.
-</blockquote>
-
 </blockquote>
 </td>
 </tr>

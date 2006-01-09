@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: hu\n"
-"POT-Creation-Date: 2005-12-30 23:07+0100\n"
-"PO-Revision-Date: 2005-12-21 22:50+0100\n"
+"POT-Creation-Date: 2006-01-07 00:26+0100\n"
+"PO-Revision-Date: 2005-12-31 10:34+0100\n"
 "Last-Translator: Aron Novak <aaron@szentimre.hu>\n"
 "Language-Team: Hungarian\n"
 "MIME-Version: 1.0\n"
@@ -314,7 +314,7 @@ msgstr "Elutasítás"
 
 #. BUTTON_APPLY
 msgid "Apply"
-msgstr "Érvényesítés"
+msgstr "Alkalmazás"
 
 #. BUTTON_CANCEL
 msgid "Cancel"
@@ -1004,17 +1004,14 @@ msgid "Reply to:"
 msgstr "Válaszcím:"
 
 #. TEXT_SETUP_EMAIL_AUTHENTICATION
-#, fuzzy
 msgid "E-mail authentication"
-msgstr "POP3 azonosítás"
+msgstr "Email azonosítás"
 
 #. TEXT_SETUP_EMAIL_AUTH_USER
-#, fuzzy
 msgid "User:"
-msgstr "Használat:"
+msgstr "Felhasználó:"
 
 #. TEXT_SETUP_EMAIL_AUTH_PASS
-#, fuzzy
 msgid "Password:"
 msgstr "Jelszó:"
 
@@ -1314,25 +1311,24 @@ msgid "Move item down"
 msgstr "Lefele mozgatás"
 
 #. MENU_ITEM_AUTH_NONE
-#, fuzzy
 msgid "no authentication"
-msgstr "POP3 azonosítás"
+msgstr "azonosítás nélkül"
 
 #. MENU_ITEM_AUTH_POP3
 msgid "POP3 before SMTP"
-msgstr ""
+msgstr "POP3 előtt SMTP"
 
 #. MENU_ITEM_AUTH_ASMTP_PLAIN
 msgid "ASMTP Plain"
-msgstr ""
+msgstr "ASMTP Plain"
 
 #. MENU_ITEM_AUTH_ASMTP_LOGIN
 msgid "ASMTP Login"
-msgstr ""
+msgstr "ASMTP bejelentkezés"
 
 #. MENU_ITEM_AUTH_ASMTP_CRAM_MD5
 msgid "ASMTP CRAM-MD5"
-msgstr ""
+msgstr "ASMTP CRAM-MD5"
 
 #. PROGRESS_SCANNING
 msgid "Scanning"
@@ -1978,19 +1974,16 @@ msgid "enter e-mail address for replied e-mails"
 msgstr "add meg a válaszcímet"
 
 #. DESC_EMAIL_AUTHENTICATION
-#, fuzzy
 msgid "Type of authentication before sending e-mail"
-msgstr "POP3 azonosítás szükséges a levélküldés előtt"
+msgstr "Azonosítás típusa levélküldés előtt"
 
 #. DESC_EMAIL_AUTH_USER
-#, fuzzy
 msgid "user name for e-mail server"
-msgstr "felhasználónév a POP3 kiszolgálóhoz"
+msgstr "felhasználónév az email kiszolgálóhoz"
 
 #. DESC_EMAIL_AUTH_PASS
-#, fuzzy
 msgid "password for e-mail server"
-msgstr "jelszó a POP3 kiszolgálóhoz"
+msgstr "jelszó az email kiszolgálóhoz"
 
 #. DESC_POP3_SERVER
 msgid "IP Address or Domain name of POP3 server"
@@ -2222,8 +2215,12 @@ msgid "Filename too long"
 msgstr "A fájlnév túl hosszú"
 
 #. ERR_CREATE_TEMP_FILE
-msgid "Could not create temporary file"
-msgstr "Nem lehet létrehozni az ideiglenes fájlt"
+msgid ""
+"Could not create temporary file.\n"
+"Open Menue Preferences->Setup Tab Save and\n"
+"select a temporary directory where you have\n"
+"write permissions."
+msgstr ""
 
 #. ERR_SET_OPTION
 msgid "Failed to set value of option"
@@ -2394,14 +2391,6 @@ msgstr "Az előnézet nem tudja kezelni a színmélységet"
 #. ERR_GIMP_SUPPORT_MISSING
 msgid "GIMP support missing"
 msgstr "A GIMP támogatás hiányzik"
-
-#. ERR_CREATE_PREVIEW_FILE
-msgid "Could not create temporary preview files"
-msgstr "Ideiglenes előnézeti fájlok létrehozása meghiúsult"
-
-#. ERR_CREATE_PREVIEW_FILENAME
-msgid "Could not create filenames for preview files"
-msgstr "Nem lehetett fájlnevet adni az előnézeti fájloknak"
 
 #. ERR_CREATE_FAX_PROJECT
 msgid "Could not create faxproject"
@@ -2787,9 +2776,8 @@ msgid "POP3 login failed"
 msgstr "POP3 bejelentkezés sikertelen"
 
 #. TEXT_EMAIL_STATUS_ASMTP_AUTH_FAILED
-#, fuzzy
 msgid "ASMTP authentication failed"
-msgstr "SMTP kapcsolat sikertelen"
+msgstr "ASMTP kapcsolat sikertelen"
 
 #. TEXT_EMAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
@@ -2878,15 +2866,11 @@ msgstr "Elfogyott a memória"
 msgid "Access to resource has been denied"
 msgstr "A hozzáférés az erőforráshoz megtagadva"
 
-#, fuzzy
-#~ msgid "POP3 authentication"
-#~ msgstr "POP3 azonosítás"
+#~ msgid "Could not create temporary file"
+#~ msgstr "Nem lehet létrehozni az ideiglenes fájlt"
 
-#~ msgid "XSane mode"
-#~ msgstr "Beolvasás célja"
+#~ msgid "Could not create temporary preview files"
+#~ msgstr "Ideiglenes előnézeti fájlok létrehozása meghiúsult"
 
-#~ msgid "POP3 user:"
-#~ msgstr "POP3 felhasználó:"
-
-#~ msgid "POP3 password:"
-#~ msgstr "POP3 jelszó:"
+#~ msgid "Could not create filenames for preview files"
+#~ msgstr "Nem lehetett fájlnevet adni az előnézeti fájloknak"

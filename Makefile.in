@@ -41,7 +41,7 @@ clean: clean-recursive
 
 rpm: all-recursive
 	checkinstall -R --strip=no --pkgname=xsane --pkgversion=@VERSION@ \
-                     --pkgsource=http://www.xsane.org --pkgaltsource=ftp://ftp.mostang.com/sane/xsane \
+                     --pkgsource=http://www.xsane.org --pkgaltsource=ftp://ftp.sane-project.org/pub/sane/xsane/ \
                      --pkggroup=Applications/Graphics --spec=xsane.spec --pkglicense=GPL --pkgrelease=1
 
 distclean: clean distclean-recursive

@@ -661,7 +661,10 @@
 #define ERR_HOME_DIR			_("Failed to determine home directory:")
 #define ERR_CHANGE_WORKING_DIR		_("Failed to change working directory to")
 #define ERR_FILENAME_TOO_LONG		_("Filename too long")
-#define ERR_CREATE_TEMP_FILE		_("Could not create temporary file")
+#define ERR_CREATE_TEMP_FILE		_("Could not create temporary file.\n\
+Open Menue Preferences->Setup Tab Save and\n\
+select a temporary directory where you have\n\
+write permissions." )
 #define ERR_SET_OPTION			_("Failed to set value of option")
 #define ERR_GET_OPTION			_("Failed to obtain value of option")
 #define ERR_OPTION_COUNT		_("Error obtaining option count")
@@ -706,9 +709,6 @@
 #define ERR_FAILED_ALLOCATE_IMAGE	_("Failed to allocate image memory:")
 #define ERR_PREVIEW_BAD_DEPTH		_("Preview cannot handle bit depth")
 #define ERR_GIMP_SUPPORT_MISSING	_("GIMP support missing")
-
-#define ERR_CREATE_PREVIEW_FILE		_("Could not create temporary preview files")
-#define ERR_CREATE_PREVIEW_FILENAME	_("Could not create filenames for preview files")
 
 #define ERR_CREATE_FAX_PROJECT		_("Could not create faxproject")
 

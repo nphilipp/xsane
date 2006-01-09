@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xsane-0.98pre3_it\n"
-"POT-Creation-Date: 2005-12-30 23:07+0100\n"
+"POT-Creation-Date: 2006-01-07 00:26+0100\n"
 "PO-Revision-Date: 2005-10-29 20:59+0200\n"
 "Last-Translator: Kostantino <ciclope10ATalice.it>\n"
 "Language-Team: Italiano <tp@lists.linux.it>\n"
@@ -2291,8 +2291,12 @@ msgid "Filename too long"
 msgstr "Il nome del file è troppo lungo"
 
 #. ERR_CREATE_TEMP_FILE
-msgid "Could not create temporary file"
-msgstr "Non è possibile creare alcun file temporaneo"
+msgid ""
+"Could not create temporary file.\n"
+"Open Menue Preferences->Setup Tab Save and\n"
+"select a temporary directory where you have\n"
+"write permissions."
+msgstr ""
 
 #. ERR_SET_OPTION
 msgid "Failed to set value of option"
@@ -2463,14 +2467,6 @@ msgstr "L'anteprima non può gestire la profondità dei bit"
 #. ERR_GIMP_SUPPORT_MISSING
 msgid "GIMP support missing"
 msgstr "Manca il supporto per GIMP"
-
-#. ERR_CREATE_PREVIEW_FILE
-msgid "Could not create temporary preview files"
-msgstr "Non è possibile creare file temporanei per l'anteprima"
-
-#. ERR_CREATE_PREVIEW_FILENAME
-msgid "Could not create filenames for preview files"
-msgstr "Non è possibile creare i nomi dei file per l'anteprima"
 
 #. ERR_CREATE_FAX_PROJECT
 msgid "Could not create faxproject"
@@ -2970,6 +2966,15 @@ msgstr "La memoria è esaurita"
 
 msgid "Access to resource has been denied"
 msgstr "L'accesso alla risorsa è negato"
+
+#~ msgid "Could not create temporary file"
+#~ msgstr "Non è possibile creare alcun file temporaneo"
+
+#~ msgid "Could not create temporary preview files"
+#~ msgstr "Non è possibile creare file temporanei per l'anteprima"
+
+#~ msgid "Could not create filenames for preview files"
+#~ msgstr "Non è possibile creare i nomi dei file per l'anteprima"
 
 #, fuzzy
 #~ msgid "POP3 authentication"

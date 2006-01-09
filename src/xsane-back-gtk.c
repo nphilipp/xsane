@@ -269,7 +269,7 @@ int xsane_back_gtk_make_path(size_t buf_size, char *buf, const char *prog_name, 
   {
     snprintf(buf, buf_size-2, "%s", STRINGIFY(PATH_SANE_DATA_DIR));
   }
-  else /* make path to temporary file */
+  else /* make path to temporary file XSANE_PATH_TMP */
   {
     snprintf(buf, buf_size-2, "%s", preferences.tmp_path);
   }

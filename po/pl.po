@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
-"POT-Creation-Date: 2005-12-30 23:07+0100\n"
+"POT-Creation-Date: 2006-01-07 00:26+0100\n"
 "PO-Revision-Date: 2005-12-22 01:26+0100\n"
 "Last-Translator: Jerzy Szczudlowski <jerzy@jedwab.net.pl>\n"
 "Language-Team: polski <pl@li.org>\n"
@@ -2249,8 +2249,12 @@ msgid "Filename too long"
 msgstr "Zbyt długa nazwa pliku"
 
 #. ERR_CREATE_TEMP_FILE
-msgid "Could not create temporary file"
-msgstr "Nie powiodło się utworzenie pliku tymczasowego"
+msgid ""
+"Could not create temporary file.\n"
+"Open Menue Preferences->Setup Tab Save and\n"
+"select a temporary directory where you have\n"
+"write permissions."
+msgstr ""
 
 #. ERR_SET_OPTION
 msgid "Failed to set value of option"
@@ -2425,14 +2429,6 @@ msgstr "Podgląd nie radzi sobie z tą głębokością bitową"
 #. ERR_GIMP_SUPPORT_MISSING
 msgid "GIMP support missing"
 msgstr "Brak obsługi GIMPa"
-
-#. ERR_CREATE_PREVIEW_FILE
-msgid "Could not create temporary preview files"
-msgstr "Nie można utworzyć tymczasowych plików podglądu"
-
-#. ERR_CREATE_PREVIEW_FILENAME
-msgid "Could not create filenames for preview files"
-msgstr "Nie można nadać nazw plikom podglądu"
 
 #. ERR_CREATE_FAX_PROJECT
 msgid "Could not create faxproject"
@@ -2912,6 +2908,15 @@ msgstr "Brak wolnej pamięci"
 
 msgid "Access to resource has been denied"
 msgstr "Brak dostępu do zasobu"
+
+#~ msgid "Could not create temporary file"
+#~ msgstr "Nie powiodło się utworzenie pliku tymczasowego"
+
+#~ msgid "Could not create temporary preview files"
+#~ msgstr "Nie można utworzyć tymczasowych plików podglądu"
+
+#~ msgid "Could not create filenames for preview files"
+#~ msgstr "Nie można nadać nazw plikom podglądu"
 
 #, fuzzy
 #~ msgid "POP3 authentication"

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.96\n"
-"POT-Creation-Date: 2005-12-30 23:07+0100\n"
+"POT-Creation-Date: 2006-01-07 00:26+0100\n"
 "PO-Revision-Date: 2004-08-22 19:15GMT\n"
 "Last-Translator: Gustavo D. Vranjes <gvranjes@SoftHome.net>\n"
 "Language-Team: Castellano <es@li.org>\n"
@@ -2289,8 +2289,12 @@ msgid "Filename too long"
 msgstr "Archivo demasiado grande"
 
 #. ERR_CREATE_TEMP_FILE
-msgid "Could not create temporary file"
-msgstr "No se puede crear archivos temporales"
+msgid ""
+"Could not create temporary file.\n"
+"Open Menue Preferences->Setup Tab Save and\n"
+"select a temporary directory where you have\n"
+"write permissions."
+msgstr ""
 
 #. ERR_SET_OPTION
 msgid "Failed to set value of option"
@@ -2462,15 +2466,6 @@ msgstr "La vista previa no puede manejar la profundidad de bits"
 #. ERR_GIMP_SUPPORT_MISSING
 msgid "GIMP support missing"
 msgstr "No hay soporte de GIMP"
-
-#. ERR_CREATE_PREVIEW_FILE
-msgid "Could not create temporary preview files"
-msgstr "No se puede crear archivos temporales de previsualización"
-
-#. ERR_CREATE_PREVIEW_FILENAME
-msgid "Could not create filenames for preview files"
-msgstr ""
-"No se puede crear nombres de archivos para archivos de previsualización"
 
 #. ERR_CREATE_FAX_PROJECT
 msgid "Could not create faxproject"
@@ -2964,6 +2959,16 @@ msgstr "Sin memoria"
 
 msgid "Access to resource has been denied"
 msgstr "Acceso al recurso fue prohibido"
+
+#~ msgid "Could not create temporary file"
+#~ msgstr "No se puede crear archivos temporales"
+
+#~ msgid "Could not create temporary preview files"
+#~ msgstr "No se puede crear archivos temporales de previsualización"
+
+#~ msgid "Could not create filenames for preview files"
+#~ msgstr ""
+#~ "No se puede crear nombres de archivos para archivos de previsualización"
 
 #, fuzzy
 #~ msgid "POP3 authentication"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.96\n"
-"POT-Creation-Date: 2005-12-30 23:07+0100\n"
+"POT-Creation-Date: 2006-01-07 00:26+0100\n"
 "PO-Revision-Date: 2004-08-28 12:48+900\n"
 "Last-Translator: Kimizuka Tomokazu <sgtom@pluto.dti.ne.jp>\n"
 "Language-Team: Japanese\n"
@@ -2232,8 +2232,12 @@ msgid "Filename too long"
 msgstr "ファイル名が長すぎます"
 
 #. ERR_CREATE_TEMP_FILE
-msgid "Could not create temporary file"
-msgstr "一時ファイルを作れません"
+msgid ""
+"Could not create temporary file.\n"
+"Open Menue Preferences->Setup Tab Save and\n"
+"select a temporary directory where you have\n"
+"write permissions."
+msgstr ""
 
 #. ERR_SET_OPTION
 msgid "Failed to set value of option"
@@ -2405,14 +2409,6 @@ msgstr "プレビューはビット深度を取得できません"
 #. ERR_GIMP_SUPPORT_MISSING
 msgid "GIMP support missing"
 msgstr "GIMPサポートが見つかりません"
-
-#. ERR_CREATE_PREVIEW_FILE
-msgid "Could not create temporary preview files"
-msgstr "一時プレビューファイルを作れません"
-
-#. ERR_CREATE_PREVIEW_FILENAME
-msgid "Could not create filenames for preview files"
-msgstr "一時プレビューファイル名を作れません"
 
 #. ERR_CREATE_FAX_PROJECT
 msgid "Could not create faxproject"
@@ -2901,6 +2897,15 @@ msgstr "オーバーフロー"
 
 msgid "Access to resource has been denied"
 msgstr "リソースへのアクセスが拒否されました"
+
+#~ msgid "Could not create temporary file"
+#~ msgstr "一時ファイルを作れません"
+
+#~ msgid "Could not create temporary preview files"
+#~ msgstr "一時プレビューファイルを作れません"
+
+#~ msgid "Could not create filenames for preview files"
+#~ msgstr "一時プレビューファイル名を作れません"
 
 #, fuzzy
 #~ msgid "POP3 authentication"

@@ -33,7 +33,6 @@
 <a href="sane-xsane-doc.html">Index</a>
 <br>
 <br>
-<br>
 <font color="#000000">XSane mode:</font>
 <img SRC="xsane-target.jpg" alt="xsane-target">
 <ul>
@@ -46,8 +45,10 @@
 <li><a href="sane-xsane-gimp-doc.html">Gimp plugin</a></li>
 </ul>
 <br>
-<a href="sane-xsane-medium-definition-doc.html">Medium selection</a>
+<a href="sane-xsane-scan-options-doc.html">Scan options</a>
 <br>
+<br>
+<a href="sane-xsane-medium-definition-doc.html">Medium selection</a>
 <br>
 <br>
 <a href="sane-xsane-color-correction-doc.html">Color correction:</a>
@@ -69,9 +70,7 @@
 <a href="sane-xsane-standard-doc.html">Standard options window</a>
 <br>
 <br>
-<br>
 <a href="sane-xsane-advanced-doc.html">Advanced options window</a>
-<br>
 <br>
 <br>
 <a href="sane-xsane-preview-doc.html">Preview:</a>
@@ -130,14 +129,26 @@ XSane is a graphical scanning frontend for
 <a href="http://www.sane-project.org">SANE</a> (Scanner Access Now Easy).
 It uses the SANE-library to talk to
 scanners. This means that XSane does not support any scanners itself.
-Here you can find out
+Take a look at the 
 <a href="http://www.sane-project.org/sane-backends.html">
-which scanners are supported by the SANE-library</a>.
+SANE-backends homepage</a> to find out which scanners are supported by SANE.
 <p>
 XSane is designed for acquiring images with scanners (there are other
-devices like cameras and videodevices supported by SANE, but XSane is
-not designed for that purpose). You can scan to file, do a photocopy,
-create a fax and start XSane from the GIMP as gimp plugin.
+devices like cameras and videodevices supported by SANE and you will
+see that xsane may support some basic functions of those devices, but XSane is
+not designed for that purpose).
+<p>
+XSane can do different things with the acquired images:
+<ul>
+<li><a href="sane-xsane-viewer-doc.html">display image in a viewer</a></li>
+<li><a href="sane-xsane-save-doc.html">save image to a file</a></li>
+<li><a href="sane-xsane-copy-doc.html">do a photocopy</a></li>
+<li><a href="sane-xsane-multipage-doc.html">create a multipage document</a></li>
+<li><a href="sane-xsane-fax-doc.html">create a fax</a></li>
+<li><a href="sane-xsane-email-doc.html">create an e-mail</a></li>
+</ul>
+XSane can also be started from the GIMP as 
+<a href="sane-xsane-gimp-doc.html">Gimp plugin</a>.
 </blockquote>
 <p>
 <h3><font color="#009900"><u>Setup:</u></font></h3>
@@ -174,6 +185,19 @@ I do not create any unix binaries in the moment, but there are
 <a href="http://www.xsane.org/xsane-download-binary.html">binaries created by other persons</a>
 </li>
 </ul>
+
+<h3><font color="#009900"><u>A personal plea:</u></font></h3>
+<blockquote>
+Most problems that occur while working with xsane are problems with the configuration of
+the backend (scanner driver) or the operating system. I do not have the knowledge and I do not have the
+time to answer all these questions.
+When you have problems with your scanner (e.g. the scanner is not recogniced,
+the scanner does not do what you expect, etc.) then please contact the
+<a href="http://www.sane-project.org/mailing-lists.html">
+SANE-devel mailing list</a> or the author of the backend that supports your scanner
+unless you have a good reason to expect that it is a problem of the graphical frontend (XSane)
+and not a problem of the sane-backend.
+</blockquote>
 
 <h3><font color="#009900"><u>Author of XSane:</u></font></h3>
 <blockquote>

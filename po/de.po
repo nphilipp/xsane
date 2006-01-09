@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.99\n"
-"POT-Creation-Date: 2005-12-30 23:07+0100\n"
+"POT-Creation-Date: 2006-01-07 00:26+0100\n"
 "PO-Revision-Date: 2000-01-21 15:51+01:00\n"
 "Last-Translator: Oliver Rauch <Oliver.Rauch@rauch-domain.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -2246,8 +2246,16 @@ msgid "Filename too long"
 msgstr "Dateiname zu lang"
 
 #. ERR_CREATE_TEMP_FILE
-msgid "Could not create temporary file"
-msgstr "Konnte temporäre Datei nicht erzeugen"
+msgid ""
+"Could not create temporary file.\n"
+"Open Menue Preferences->Setup Tab Save and\n"
+"select a temporary directory where you have\n"
+"write permissions."
+msgstr ""
+"Konnte temporäre Datei nicht erzeugen.\n"
+"Wählen Sie unter Menü Einstellungen->Konfiguration\n"
+"Bereich Speichern ein temporäres Verzeichnis aus,\n"
+"in dem Sie Schreibrechte besitzen."
 
 #. ERR_SET_OPTION
 msgid "Failed to set value of option"
@@ -2420,14 +2428,6 @@ msgstr "Vorschau kann Bittiefe nicht handhaben:"
 #. ERR_GIMP_SUPPORT_MISSING
 msgid "GIMP support missing"
 msgstr "GIMP Unterstützung fehlt"
-
-#. ERR_CREATE_PREVIEW_FILE
-msgid "Could not create temporary preview files"
-msgstr "Konnte temporäre Vorschaudateien nicht erzeugen"
-
-#. ERR_CREATE_PREVIEW_FILENAME
-msgid "Could not create filenames for preview files"
-msgstr "Konnte Dateinamen für Vorschaudateien nicht erzeugen"
 
 #. ERR_CREATE_FAX_PROJECT
 msgid "Could not create faxproject"
@@ -2900,6 +2900,3 @@ msgstr "Kein Speicher"
 
 msgid "Access to resource has been denied"
 msgstr "Zugang zum Gerät wurde verweigert"
-
-#~ msgid "POP3 authentication"
-#~ msgstr "POP3-Authentifizierung"

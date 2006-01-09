@@ -4131,8 +4131,6 @@ static void preview_create_preset_area_menu(Preview *p, int selection)
 void preview_generate_preview_filenames(Preview *p)
 {
  char filename[PATH_MAX];
- char buf[256];
- int error_flag = 0;
  int i;
 
   DBG(DBG_proc, "preview_generate_preview_filenames\n");
@@ -4152,28 +4150,21 @@ void preview_generate_preview_filenames(Preview *p)
       }
       else
       {
-        p->filename[i] = NULL; /* mark filename does not exist */
         DBG(DBG_error, "ERROR: could not create preview file %s\n", filename);
-        error_flag = 1;
+        p->filename[0] = NULL; /* mark filename does not exist */
+        p->filename[1] = NULL; /* mark filename does not exist */
+        p->filename[2] = NULL; /* mark filename does not exist */
+       break; /* do not try next preview level, one error is enough */
       }
     }
     else
     {
       DBG(DBG_error, "ERROR: could not create filename for preview level %d\n", i);
-      p->filename[i] = NULL;
-      error_flag = 2;
+      p->filename[0] = NULL; /* mark filename does not exist */
+      p->filename[1] = NULL; /* mark filename does not exist */
+      p->filename[2] = NULL; /* mark filename does not exist */
+     break; /* do not try next preview level, one error is enough */
     }
-  }
-
-  if (error_flag == 1)
-  {
-    snprintf(buf, sizeof(buf), ERR_CREATE_PREVIEW_FILE);
-    xsane_back_gtk_error(buf, TRUE);
-  }
-  else if (error_flag == 2)
-  {
-    snprintf(buf, sizeof(buf), ERR_CREATE_PREVIEW_FILENAME);
-    xsane_back_gtk_error(buf, TRUE);
   }
 
  return;

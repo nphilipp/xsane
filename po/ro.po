@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.96\n"
-"POT-Creation-Date: 2005-12-30 23:07+0100\n"
+"POT-Creation-Date: 2006-01-07 00:26+0100\n"
 "PO-Revision-Date: 2004-08-27 19:55+0300\n"
 "Last-Translator: \n"
 "Language-Team:  <C@li.org>\n"
@@ -2278,8 +2278,12 @@ msgid "Filename too long"
 msgstr "Nume fişier prea lung"
 
 #. ERR_CREATE_TEMP_FILE
-msgid "Could not create temporary file"
-msgstr "Nu am putut crea fişierul temporar"
+msgid ""
+"Could not create temporary file.\n"
+"Open Menue Preferences->Setup Tab Save and\n"
+"select a temporary directory where you have\n"
+"write permissions."
+msgstr ""
 
 #. ERR_SET_OPTION
 msgid "Failed to set value of option"
@@ -2451,14 +2455,6 @@ msgstr "Pevizualizarea nu poate manipula adâncimea"
 #. ERR_GIMP_SUPPORT_MISSING
 msgid "GIMP support missing"
 msgstr "Lipseşte susţinerea Gimp"
-
-#. ERR_CREATE_PREVIEW_FILE
-msgid "Could not create temporary preview files"
-msgstr "Nu am putut crea fişierele temporare de previzualizare"
-
-#. ERR_CREATE_PREVIEW_FILENAME
-msgid "Could not create filenames for preview files"
-msgstr "Nu am putut crea nume de fişiere pt. previzualizare"
 
 #. ERR_CREATE_FAX_PROJECT
 msgid "Could not create faxproject"
@@ -2947,6 +2943,15 @@ msgstr "Nu am memorie suficientă."
 
 msgid "Access to resource has been denied"
 msgstr "Accesul la resursă a fost respins"
+
+#~ msgid "Could not create temporary file"
+#~ msgstr "Nu am putut crea fişierul temporar"
+
+#~ msgid "Could not create temporary preview files"
+#~ msgstr "Nu am putut crea fişierele temporare de previzualizare"
+
+#~ msgid "Could not create filenames for preview files"
+#~ msgstr "Nu am putut crea nume de fişiere pt. previzualizare"
 
 #, fuzzy
 #~ msgid "POP3 authentication"

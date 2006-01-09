@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.96\n"
-"POT-Creation-Date: 2005-12-30 23:07+0100\n"
+"POT-Creation-Date: 2006-01-07 00:26+0100\n"
 "PO-Revision-Date: 2000-02-09 21:00+01:00\n"
 "Last-Translator: Laurent Grawet <laurent.grawet@ibelgique.com>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -2277,8 +2277,12 @@ msgid "Filename too long"
 msgstr "Nom de fichier trop long"
 
 #. ERR_CREATE_TEMP_FILE
-msgid "Could not create temporary file"
-msgstr "Ne peut créer de fichier temporaire"
+msgid ""
+"Could not create temporary file.\n"
+"Open Menue Preferences->Setup Tab Save and\n"
+"select a temporary directory where you have\n"
+"write permissions."
+msgstr ""
 
 #. ERR_SET_OPTION
 msgid "Failed to set value of option"
@@ -2451,15 +2455,6 @@ msgstr "La prévisualisation ne supporte pas le mode"
 #. ERR_GIMP_SUPPORT_MISSING
 msgid "GIMP support missing"
 msgstr "le support pour GIMP est manquant"
-
-#. ERR_CREATE_PREVIEW_FILE
-msgid "Could not create temporary preview files"
-msgstr "Ne peut pas créer de fichiers temporaires de prévisualisation"
-
-#. ERR_CREATE_PREVIEW_FILENAME
-msgid "Could not create filenames for preview files"
-msgstr ""
-"Ne peut pas créer de noms de fichiers pour les fichiers de prévisualisation"
 
 #. ERR_CREATE_FAX_PROJECT
 msgid "Could not create faxproject"
@@ -2952,6 +2947,17 @@ msgstr "Dépassement de mémoire"
 
 msgid "Access to resource has been denied"
 msgstr "Accès à la ressource refusé"
+
+#~ msgid "Could not create temporary file"
+#~ msgstr "Ne peut créer de fichier temporaire"
+
+#~ msgid "Could not create temporary preview files"
+#~ msgstr "Ne peut pas créer de fichiers temporaires de prévisualisation"
+
+#~ msgid "Could not create filenames for preview files"
+#~ msgstr ""
+#~ "Ne peut pas créer de noms de fichiers pour les fichiers de "
+#~ "prévisualisation"
 
 #, fuzzy
 #~ msgid "POP3 authentication"

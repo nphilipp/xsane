@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.76\n"
-"POT-Creation-Date: 2005-12-30 23:07+0100\n"
+"POT-Creation-Date: 2006-01-07 00:26+0100\n"
 "PO-Revision-Date: 2002-01-17 00:47GMT\n"
 "Last-Translator: Rusmir Duško <drusmir@gmx.ch>\n"
 "Language-Team: srpski <sr@li.org>\n"
@@ -2261,8 +2261,12 @@ msgid "Filename too long"
 msgstr "Naziv fajla je predugačak"
 
 #. ERR_CREATE_TEMP_FILE
-msgid "Could not create temporary file"
-msgstr "Ne mogu da napravim privremeni fajl"
+msgid ""
+"Could not create temporary file.\n"
+"Open Menue Preferences->Setup Tab Save and\n"
+"select a temporary directory where you have\n"
+"write permissions."
+msgstr ""
 
 #. ERR_SET_OPTION
 msgid "Failed to set value of option"
@@ -2435,14 +2439,6 @@ msgstr "Pregled ne nepodržava dubinu bita"
 #. ERR_GIMP_SUPPORT_MISSING
 msgid "GIMP support missing"
 msgstr "Nedostaje podržavanje za GIMP"
-
-#. ERR_CREATE_PREVIEW_FILE
-msgid "Could not create temporary preview files"
-msgstr "Ne mogu da napravim privremeni fajl za pregled"
-
-#. ERR_CREATE_PREVIEW_FILENAME
-msgid "Could not create filenames for preview files"
-msgstr "Ne mogu da napravim naziv fajla za fajlove za pregled"
 
 #. ERR_CREATE_FAX_PROJECT
 msgid "Could not create faxproject"
@@ -2928,6 +2924,15 @@ msgstr "Nedostatak memorije"
 
 msgid "Access to resource has been denied"
 msgstr "Dostup do resursa nije dozvoljen"
+
+#~ msgid "Could not create temporary file"
+#~ msgstr "Ne mogu da napravim privremeni fajl"
+
+#~ msgid "Could not create temporary preview files"
+#~ msgstr "Ne mogu da napravim privremeni fajl za pregled"
+
+#~ msgid "Could not create filenames for preview files"
+#~ msgstr "Ne mogu da napravim naziv fajla za fajlove za pregled"
 
 #, fuzzy
 #~ msgid "POP3 authentication"
