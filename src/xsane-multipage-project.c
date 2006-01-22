@@ -324,7 +324,7 @@ static void xsane_multipage_project_set_sensitive(int sensitive)
 static void xsane_multipage_project_load()
 {
  FILE *projectfile;
- char page[256];
+ char page[TEXTBUFSIZE];
  char filename[PATH_MAX];
  GtkWidget *list_item;
  int i;
@@ -467,7 +467,7 @@ static void xsane_multipage_project_delete()
 {
  char *page;
  char *type;
- char file[256];
+ char file[PATH_MAX];
  GList *list = (GList *) GTK_LIST(xsane.project_list)->children;
  GtkObject *list_item;
 
@@ -502,7 +502,7 @@ void xsane_multipage_project_save()
  GtkObject *list_item;
  char *page;
  char *type;
- char filename[256];
+ char filename[PATH_MAX];
 
   DBG(DBG_proc, "xsane_multipage_project_save\n");
 
@@ -513,7 +513,7 @@ void xsane_multipage_project_save()
 
   if (xsane_create_secure_file(filename)) /* remove possibly existing symbolic links for security */
   {
-   char buf[256];
+   char buf[TEXTBUFSIZE];
 
     snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_CREATE_SECURE_FILE, filename);
     xsane_back_gtk_error(buf, TRUE);
@@ -524,7 +524,7 @@ void xsane_multipage_project_save()
 
   if (xsane.multipage_status)
   {
-   char buf[256];
+   char buf[TEXTBUFSIZE];
 
     snprintf(buf, 32, "%s@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", xsane.multipage_status); /* fill 32 characters status line */
     fprintf(projectfile, "%s\n", buf); /* first line is status of multipage */
@@ -694,7 +694,7 @@ static void xsane_multipage_entry_delete_callback(GtkWidget *widget, gpointer li
  GList *select;
  char *page;
  char *type;
- char file[256];
+ char file[PATH_MAX];
 
   DBG(DBG_proc, "xsane_multipage_entry_delete_callback\n");
 
@@ -728,7 +728,7 @@ static void xsane_multipage_show_callback(GtkWidget *widget, gpointer list)
  GList *select;
  char *page;
  char *type;
- char filename[256];
+ char filename[PATH_MAX];
 
   DBG(DBG_proc, "xsane_multipage_entry_show_callback\n");
 
@@ -805,8 +805,9 @@ static void xsane_multipage_save_file()
  Image_info image_info;
  long int source_size = 0;
  float imagewidth, imageheight;
- char buf[255];
+ char buf[TEXTBUFSIZE];
  struct pdf_xref xref;
+ int remove_lineart_file = FALSE;
 
   DBG(DBG_proc, "xsane_multipage_save_file\n");
 
@@ -854,7 +855,7 @@ static void xsane_multipage_save_file()
     testfile = fopen(multipage_filename, "rb"); /* read binary (b for win32) */
     if (testfile) /* filename used: skip */
     {
-     char buf[256];
+     char buf[TEXTBUFSIZE];
                                                                                                                              
       fclose(testfile);
 
@@ -972,9 +973,6 @@ static void xsane_multipage_save_file()
     xsane_convert_text_to_filename(&image);
     snprintf(source_filename, sizeof(source_filename), "%s/%s%s", preferences.multipage_project, image, type);
 
-    snprintf(buf, sizeof(buf), "%s %s %d/%d", _(xsane.multipage_status), PROGRESS_PAGE, page, pages);
-    gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), buf);
-
     imagefile = fopen(source_filename, "rb"); /* read binary (b for win32) */
     if (!imagefile)
     {
@@ -983,6 +981,48 @@ static void xsane_multipage_save_file()
     }
 
     xsane_read_pnm_header(imagefile, &image_info);
+
+    /* reduce lineart images to lineart before conversion */
+    if (image_info.reduce_to_lineart)
+    {
+     char lineart_filename[PATH_MAX];
+
+      DBG(DBG_info, "original image is a lineart => reduce to lineart\n");
+      fclose(imagefile);
+      xsane_back_gtk_make_path(sizeof(lineart_filename), lineart_filename, 0, 0, "xsane-conversion-", xsane.dev_name, ".pbm", XSANE_PATH_TMP);
+
+      snprintf(buf, sizeof(buf), "%s", PROGRESS_PACKING_DATA);
+                                                                                                                         
+      gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), buf);
+      gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
+                                                                                                                         
+      while (gtk_events_pending())
+      {
+        gtk_main_iteration();
+      }
+                                                                                                                         
+      xsane_save_image_as_lineart(lineart_filename, source_filename, xsane.project_progress_bar, &cancel_save);
+                                                                                                                         
+      strncpy(source_filename, lineart_filename, sizeof(source_filename));
+      remove_lineart_file = TRUE;
+                                                                                                                         
+      imagefile = fopen(source_filename, "rb"); /* read binary (b for win32) */
+      if (imagefile == 0)
+      {
+       char buf[TEXTBUFSIZE];
+        snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, source_filename, strerror(errno));
+        xsane_back_gtk_error(buf, TRUE);
+                                                                                                                          
+       return;
+      }
+                                                                                                                         
+      xsane_read_pnm_header(imagefile, &image_info);
+    }
+
+
+    snprintf(buf, sizeof(buf), "%s %s %d/%d", _(xsane.multipage_status), PROGRESS_PAGE, page, pages);
+    gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), buf);
+
 
     if (output_format == XSANE_PS)
     {
@@ -1014,6 +1054,11 @@ static void xsane_multipage_save_file()
     }
 #endif
 
+    if (remove_lineart_file)
+    {
+      remove(source_filename); /* remove lineart pbm file  */
+    }
+
     free(image);
     free(type);
     list = list->next;
@@ -1027,7 +1072,7 @@ static void xsane_multipage_save_file()
                                                                                                                                 
     if (ferror(outfile))
     {
-     char buf[255];
+     char buf[TEXTBUFSIZE];
                                                                                                                                 
       snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
       DBG(DBG_error, "%s\n", buf);
@@ -1043,7 +1088,7 @@ static void xsane_multipage_save_file()
                                                                                                                                 
     if (ferror(outfile))
     {
-     char buf[255];
+     char buf[TEXTBUFSIZE];
                                                                                                                                 
       snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
       DBG(DBG_error, "%s\n", buf);
@@ -1075,7 +1120,6 @@ static void xsane_multipage_save_file()
     xsane.multipage_status = strdup(TEXT_PROJECT_STATUS_FILE_SAVED);
   }
   xsane_multipage_project_save();
-
 
   gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), _(xsane.multipage_status));
   gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);

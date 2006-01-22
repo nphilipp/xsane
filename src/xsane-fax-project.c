@@ -277,7 +277,7 @@ void xsane_fax_dialog()
 static void xsane_fax_project_load()
 {
  FILE *projectfile;
- char page[256];
+ char page[TEXTBUFSIZE];
  char filename[PATH_MAX];
  GtkWidget *list_item;
  int i;
@@ -417,7 +417,7 @@ static void xsane_fax_project_load()
 static void xsane_fax_project_delete()
 {
  char *page;
- char file[256];
+ char file[PATH_MAX];
  GList *list = (GList *) GTK_LIST(xsane.project_list)->children;
  GtkObject *list_item;
 
@@ -447,7 +447,7 @@ static void xsane_fax_project_update_project_status()
 {
  FILE *projectfile;
  char filename[PATH_MAX];
- char buf[256];
+ char buf[TEXTBUFSIZE];
 
   snprintf(filename, sizeof(filename), "%s/xsane-fax-list", preferences.fax_project);
   projectfile = fopen(filename, "r+b"); /* r+ = read and write, position = start of file */
@@ -465,7 +465,7 @@ void xsane_fax_project_save()
  FILE *projectfile;
  char *page;
  char *type;
- char filename[256];
+ char filename[PATH_MAX];
  GList *list = (GList *) GTK_LIST(xsane.project_list)->children;
  GtkObject *list_item;
 
@@ -479,7 +479,7 @@ void xsane_fax_project_save()
   if (xsane_create_secure_file(filename)) /* remove possibly existing symbolic links for security
 */
   {
-   char buf[256];
+   char buf[TEXTBUFSIZE];
 
     snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_CREATE_SECURE_FILE, filename);
     xsane_back_gtk_error(buf, TRUE);
@@ -496,7 +496,7 @@ void xsane_fax_project_save()
 
   if (xsane.fax_status)
   {
-   char buf[256];
+   char buf[TEXTBUFSIZE];
 
     snprintf(buf, 32, "%s@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", xsane.fax_status); /* fill 32 characters status line */
     fprintf(projectfile, "%s\n", buf); /* first line is status of mail */
@@ -708,8 +708,8 @@ static void xsane_fax_entry_rename_callback(GtkWidget *widget, gpointer list)
  char *oldpage;
  char *newpage;
  char *type;
- char oldfile[256];
- char newfile[256];
+ char oldfile[PATH_MAX];
+ char newfile[PATH_MAX];
 
   DBG(DBG_proc, "xsane_fax_entry_rename_callback\n");
 
@@ -822,7 +822,7 @@ static void xsane_fax_entry_insert_callback(GtkWidget *widget, gpointer list)
 {
  GtkWidget *list_item;
  char filename[PATH_MAX];
- char windowname[255];
+ char windowname[TEXTBUFSIZE];
 
   DBG(DBG_proc, "xsane_fax_entry_insert_callback\n");
 
@@ -917,7 +917,7 @@ static void xsane_fax_entry_insert_callback(GtkWidget *widget, gpointer list)
     } 
     else
     {
-     char buf[256];
+     char buf[TEXTBUFSIZE];
       snprintf(buf, sizeof(buf), ERR_FILE_NOT_EXISTS, filename);
       xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
     }
@@ -964,7 +964,7 @@ static void xsane_fax_show_callback(GtkWidget *widget, gpointer list)
  GList *select;
  char *page;
  char *type;
- char filename[256];
+ char filename[PATH_MAX];
 
   DBG(DBG_proc, "xsane_fax_entry_show_callback\n");
 
@@ -1042,7 +1042,7 @@ static int xsane_fax_convert_pnm_to_ps(char *source_filename, char *fax_filename
  FILE *outfile;
  FILE *infile;
  Image_info image_info;
- char buf[256];
+ char buf[TEXTBUFSIZE];
  int cancel_save;
 
   /* open progressbar */
@@ -1089,7 +1089,7 @@ static int xsane_fax_convert_pnm_to_ps(char *source_filename, char *fax_filename
     }
     else
     {
-     char buf[256];
+     char buf[TEXTBUFSIZE];
 
       DBG(DBG_info, "open of faxfile `%s'failed : %s\n", fax_filename, strerror(errno));
 
@@ -1101,7 +1101,7 @@ static int xsane_fax_convert_pnm_to_ps(char *source_filename, char *fax_filename
   }
   else
   {
-   char buf[256];
+   char buf[TEXTBUFSIZE];
 
     DBG(DBG_info, "open of faxfile `%s'failed : %s\n", source_filename, strerror(errno));
 
@@ -1132,7 +1132,7 @@ static void xsane_fax_send()
  GtkObject *list_item;
  pid_t pid;
  char *arg[1000];
- char buf[256];
+ char buf[TEXTBUFSIZE];
  char source_filename[PATH_MAX];
  char fax_filename[PATH_MAX];
  int argnr = 0;
@@ -1190,7 +1190,7 @@ static void xsane_fax_send()
       snprintf(fax_filename, sizeof(fax_filename), "%s/%s-fax%s", preferences.fax_project, page, fax_type);
       if (xsane_create_secure_file(fax_filename)) /* remove possibly existing symbolic links for security */
       {
-       char buf[256];
+       char buf[TEXTBUFSIZE];
 
         snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_CREATE_SECURE_FILE, fax_filename);
         xsane_back_gtk_error(buf, TRUE);

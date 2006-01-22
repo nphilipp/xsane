@@ -93,7 +93,7 @@ int xsane_parse_options(char *options, char *argv[])
  int optpos = 0;
  int bufpos = 0;
  int arg    = 0;
- char buf[256];
+ char buf[TEXTBUFSIZE];
  
   DBG(DBG_proc, "xsane_parse_options\n");
  
@@ -171,11 +171,11 @@ void xsane_get_bounds(const SANE_Option_Descriptor *opt, double *minp, double *m
   {
     if (min > -INF && min < INF)
     {
-      min = SANE_UNFIX (min);
+      min = SANE_UNFIX(min);
     }
     if (max > -INF && max < INF)
     {
-      max = SANE_UNFIX (max);
+      max = SANE_UNFIX(max);
     }
   }
   *minp = min;
@@ -397,10 +397,6 @@ void xsane_set_all_resolutions(void)
       printer_resolution = preferences.printer[preferences.printernr]->color_resolution;
      break;
   }
-
-  xsane.zoom   = xsane.resolution   / printer_resolution;
-  xsane.zoom_x = xsane.resolution_x / printer_resolution;
-  xsane.zoom_y = xsane.resolution_y / printer_resolution; 
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -433,15 +429,15 @@ void xsane_define_maximum_output_size()
         if (preferences.paper_orientation >= 8) /* rotate: landscape */
         {
           preview_set_maximum_output_size(xsane.preview,
-                                          preferences.printer[preferences.printernr]->height / xsane.zoom_y,
-                                          preferences.printer[preferences.printernr]->width  / xsane.zoom_x,
+                                          preferences.printer[preferences.printernr]->height / xsane.zoom,
+                                          preferences.printer[preferences.printernr]->width  / xsane.zoom,
                                           preferences.paper_orientation);
         }
         else /* do not rotate: portrait */
         {
           preview_set_maximum_output_size(xsane.preview,
-                                          preferences.printer[preferences.printernr]->width  / xsane.zoom_x,
-                                          preferences.printer[preferences.printernr]->height / xsane.zoom_y,
+                                          preferences.printer[preferences.printernr]->width  / xsane.zoom,
+                                          preferences.printer[preferences.printernr]->height / xsane.zoom,
                                           preferences.paper_orientation);
         }
        break;
@@ -1062,7 +1058,7 @@ void xsane_option_menu_new_with_pixmap(GdkWindow *window, GtkBox *parent, const 
 
 static void xsane_range_display_value_right_callback(GtkAdjustment *adjust, gpointer data)
 {
- gchar buf[256];
+ gchar buf[TEXTBUFSIZE];
  int digits = (int) data;
  GtkLabel *label;
 
@@ -1264,8 +1260,8 @@ void xsane_range_new_with_pixmap(GdkWindow *window, GtkBox *parent, const char *
 
 static void xsane_browse_filename_callback(GtkWidget *widget, gpointer data)
 {
- char filename[1024];
- char windowname[256];
+ char filename[PATH_MAX];
+ char windowname[TEXTBUFSIZE];
 
   DBG(DBG_proc, "xsane_browse_filename_callback\n");
 
@@ -1792,7 +1788,7 @@ int xsane_identify_output_format(char *filename, char *filetype, char **ext)
 void xsane_change_working_directory(void)
 {
  char filename[PATH_MAX];
- char windowname[256];
+ char windowname[TEXTBUFSIZE];
 
   DBG(DBG_proc, "xsane_change_working_directory\n");
 
@@ -1804,7 +1800,7 @@ void xsane_change_working_directory(void)
     xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, NULL, TRUE, FALSE, TRUE, FALSE);
     if (chdir(filename))
     {
-     char buf[256];
+     char buf[TEXTBUFSIZE];
 
       snprintf(buf, sizeof(buf), "%s %s (%s).", ERR_CHANGE_WORKING_DIR, filename, strerror(errno));
       xsane_back_gtk_error(buf, TRUE);
@@ -2362,7 +2358,7 @@ int xsane_front_gtk_getname_dialog(const char *dialog_title, const char *desc_te
  GtkWidget *button;
  GtkWidget *vbox, *hbox;
  GtkAccelGroup *accelerator_group;
- char buf[256];
+ char buf[TEXTBUFSIZE];
                                                                                                                                  
   DBG(DBG_proc, "xsane_getname_dialog, oldname = %s\n", oldname);
                                                                                                                                  

@@ -81,7 +81,7 @@ desc[] =
 
 static void xsane_batch_scan_get_parameters(Batch_Scan_Parameters *parameters)
 {
- char buf[255];
+ char buf[TEXTBUFSIZE];
  SANE_Int unit;
 
   DBG(DBG_proc, "xsane_batch_scan_get_parameters\n");
@@ -336,7 +336,7 @@ int xsane_batch_scan_load_list_from_file(char *filename)
 static void xsane_batch_scan_load_list(void)
 {
  char filename[PATH_MAX];
- char windowname[256];
+ char windowname[TEXTBUFSIZE];
 
   DBG(DBG_proc, "xsane_batch_scan_load_list\n");
 
@@ -349,7 +349,7 @@ static void xsane_batch_scan_load_list(void)
   {
     if (xsane_batch_scan_load_list_from_file(filename)) /* error while loading file ? */
     {
-     char buf[256];
+     char buf[TEXTBUFSIZE];
 
       snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, filename, strerror(errno));
       xsane_back_gtk_error(buf, TRUE);
@@ -387,7 +387,7 @@ static void xsane_batch_scan_save_list(void)
  int fd;
  Wire w;
  char filename[PATH_MAX];
- char windowname[256];
+ char windowname[TEXTBUFSIZE];
 
   DBG(DBG_proc, "xsane_batch_scan_save_list\n");
 
@@ -429,7 +429,7 @@ static void xsane_batch_scan_save_list(void)
     }
     else
     {
-     char buf[256];
+     char buf[TEXTBUFSIZE];
 
       snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, filename, strerror(errno));
       xsane_back_gtk_error(buf, TRUE);
@@ -599,7 +599,7 @@ static void xsane_batch_scan_delete(void)
 
 static void xsane_batch_scan_update_label(Batch_Scan_Parameters *parameters)
 {
-  char buf[256];
+  char buf[TEXTBUFSIZE];
   const char *unit_str;
   double tl_x = parameters->tl_x;
   double tl_y = parameters->tl_y;
@@ -847,7 +847,7 @@ static void xsane_batch_scan_rename_callback(GtkWidget *widget, gpointer data)
  GtkWidget *text;
  GtkWidget *button;
  GtkWidget *vbox, *hbox;
- char buf[256];
+ char buf[TEXTBUFSIZE];
 
   DBG(DBG_proc, "xsane_batch_scan_rename\n");
 

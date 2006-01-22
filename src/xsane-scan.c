@@ -140,7 +140,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
  SANE_Status status;
  SANE_Int len;
  int i, j;
- char buf[255];
+ char buf[TEXTBUFSIZE];
 
   DBG(DBG_proc, "xsane_read_image_data\n");
 
@@ -480,7 +480,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
    guint16 *buf16ptr;
    unsigned char *buf8 = (unsigned char *) buf16;
    unsigned char *buf8ptr;
-   char buf[255];
+   char buf[TEXTBUFSIZE];
 
     DBG(DBG_info, "depth = 16 bit\n");
 
@@ -963,7 +963,7 @@ static int xsane_reduce_to_lineart()
     /* no temporary file */
     if (xsane_create_secure_file(xsane.dummy_filename)) /* remove possibly existing symbolic links for security */
     {
-     char buf[256];
+     char buf[TEXTBUFSIZE];
 
       snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_CREATE_SECURE_FILE, xsane.dummy_filename);
       xsane_back_gtk_error(buf, TRUE);
@@ -1127,7 +1127,7 @@ void xsane_scan_done(SANE_Status status)
           /* no temporary file */
           if (xsane_create_secure_file(xsane.dummy_filename)) /* remove possibly existing symbolic links for security */
           {
-           char buf[256];
+           char buf[TEXTBUFSIZE];
 
             snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_CREATE_SECURE_FILE, xsane.dummy_filename);
             xsane_back_gtk_error(buf, TRUE);
@@ -1149,7 +1149,7 @@ void xsane_scan_done(SANE_Status status)
           }
           else
           {
-           char buf[256];
+           char buf[TEXTBUFSIZE];
             DBG(DBG_info, "open of file `%s'failed : %s\n", xsane.dummy_filename, strerror(errno));
             snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, xsane.dummy_filename, strerror(errno));
             xsane_back_gtk_error(buf, TRUE);
@@ -1167,7 +1167,7 @@ void xsane_scan_done(SANE_Status status)
       }
       else
       {
-       char buf[256];
+       char buf[TEXTBUFSIZE];
         DBG(DBG_info, "open of file `%s'failed : %s\n", xsane.dummy_filename, strerror(errno));
         snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, xsane.dummy_filename, strerror(errno));
         xsane_back_gtk_error(buf, TRUE);
@@ -1271,7 +1271,7 @@ void xsane_scan_done(SANE_Status status)
     {
      FILE *outfile;
      FILE *infile;
-     char buf[256];
+     char buf[TEXTBUFSIZE];
 
       DBG(DBG_info, "XSANE_COPY\n");
 
@@ -1326,15 +1326,25 @@ void xsane_scan_done(SANE_Status status)
 
         xsane_read_pnm_header(infile, &image_info);
 
+#if 1 /* original xsane-0.98 and 0.99 version */
         imagewidth  = 72.0 * image_info.image_width/(float)printer_resolution; /* width in 1/72 inch */
         imageheight = 72.0 * image_info.image_height/(float)printer_resolution; /* height in 1/72 inch */
+#else /* test version for backends that do not support arbitary resolutions XXXXXXXXXX */
+        imagewidth  = 72.0 * image_info.image_width /image_info.resolution_x * xsane.zoom; /* desired width in 1/72 inch */
+        imageheight = 72.0 * image_info.image_height/image_info.resolution_y * xsane.zoom; /* desired height in 1/72 inch */
+or for different x- and y-res:
+        imagewidth  = 72.0 * image_info.image_width /image_info.resolution_x * xsane.zoom_x; /* desired width in 1/72 inch */
+        imageheight = 72.0 * image_info.image_height/image_info.resolution_y * xsane.zoom_y; /* desired height in 1/72 inch */
+#endif
+
 
         memset (&act, 0, sizeof (act)); /* define broken pipe handler */
         act.sa_handler = xsane_sigpipe_handler;
         sigaction (SIGPIPE, &act, 0);
 
-        DBG(DBG_info, "imagewidth  = %f\n 1/72 inch", imagewidth);
-        DBG(DBG_info, "imageheight = %f\n 1/72 inch", imageheight);
+        DBG(DBG_info, "imagewidth  = %f 1/72 inch\n", imagewidth);
+        DBG(DBG_info, "imageheight = %f 1/72 inch\n", imageheight);
+        DBG(DBG_info, "zoom        = %f\n", xsane.zoom);
 
         xsane_save_ps(outfile, infile,
                       &image_info,
@@ -1350,7 +1360,7 @@ void xsane_scan_done(SANE_Status status)
       }
       else
       {
-       char buf[256];
+       char buf[TEXTBUFSIZE];
 
         if (!infile)
         {
@@ -1616,7 +1626,7 @@ static void xsane_start_scan(void)
  SANE_Status status;
  SANE_Handle dev = xsane.dev;
  const char *frame_type = 0;
- char buf[256];
+ char buf[TEXTBUFSIZE];
  int fd;
  Image_info image_info;
 
@@ -1680,6 +1690,7 @@ static void xsane_start_scan(void)
 
   if ((xsane.param.depth == 1) && ((xsane.scan_rotation) ||
                                    (xsane.xsane_mode == XSANE_VIEWER) ||
+                                   (xsane.xsane_mode == XSANE_MULTIPAGE) ||
                                    (xsane.xsane_mode == XSANE_FAX) ||
                                    (xsane.xsane_mode == XSANE_EMAIL))
      ) /* We want to do a transformation with a lineart scan */
@@ -1769,14 +1780,14 @@ static void xsane_start_scan(void)
   
   if (preferences.adf_pages_max > 1)
   {
-   char buf2[255];
+   char buf2[TEXTBUFSIZE];
     if (preferences.adf_pages_max > 1)
     {
-      snprintf(buf2, sizeof(buf), "%s (%d/%d)", PROGRESS_SCANNING, xsane.adf_page_counter+1, preferences.adf_pages_max);
+      snprintf(buf2, sizeof(buf2), "%s (%d/%d)", PROGRESS_SCANNING, xsane.adf_page_counter+1, preferences.adf_pages_max);
     }
     else
     {
-      snprintf(buf2, sizeof(buf), "%s (%d)", PROGRESS_SCANNING, xsane.adf_page_counter+1);
+      snprintf(buf2, sizeof(buf2), "%s (%d)", PROGRESS_SCANNING, xsane.adf_page_counter+1);
     }
     xsane_progress_new(buf, buf2, (GtkSignalFunc) xsane_cancel, NULL);
   }
@@ -1814,7 +1825,7 @@ static void xsane_start_scan(void)
 /* and return value 0 is used to tell the timeout handler to stop timer */
 gint xsane_scan_dialog(gpointer *data)
 {
- char buf[256];
+ char buf[TEXTBUFSIZE];
  const SANE_Option_Descriptor *opt;
 
   DBG(DBG_proc, "xsane_scan_dialog\n");
@@ -1854,7 +1865,7 @@ gint xsane_scan_dialog(gpointer *data)
       testfile = fopen(xsane.output_filename, "rb"); /* read binary (b for win32) */
       if (testfile) /* filename used: skip */
       {
-       char buf[256];
+       char buf[TEXTBUFSIZE];
 
         fclose(testfile);
 

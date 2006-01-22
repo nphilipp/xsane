@@ -1317,7 +1317,7 @@ static void preview_restore_option(Preview *p, int option, void *saved_value, in
 
   if (status != SANE_STATUS_GOOD)
   {
-    char buf[256];
+    char buf[TEXTBUFSIZE];
     opt = xsane_get_option_descriptor(dev, option);
     if (opt && opt->name)
     {
@@ -1400,7 +1400,7 @@ static int preview_test_image_y(Preview *p)
 {
   if (p->image_y >= p->image_height) /* make sure backend does not send more data then expected */
   {
-   char buf[256];
+   char buf[TEXTBUFSIZE];
 
     --p->image_y;
     preview_scan_done(p, 1);
@@ -1417,7 +1417,7 @@ static int preview_test_image_y(Preview *p)
 static int preview_increment_image_y(Preview *p)
 {
  size_t extra_size, offset;
- char buf[256];
+ char buf[TEXTBUFSIZE];
 
   DBG(DBG_proc, "preview_increment_image_y\n");
 
@@ -1894,7 +1894,7 @@ static void preview_scan_done(Preview *p, int save_image)
 
 static int preview_get_memory(Preview *p)
 {
- char buf[256];
+ char buf[TEXTBUFSIZE];
 
   DBG(DBG_proc, "preview_get_memory\n");
 
@@ -1960,7 +1960,7 @@ static void preview_scan_start(Preview *p)
 {
  SANE_Handle dev = xsane.dev;
  SANE_Status status;
- char buf[256];
+ char buf[TEXTBUFSIZE];
  int fd, y;
 
   DBG(DBG_proc, "preview_scan_start\n");
@@ -2065,7 +2065,7 @@ static void preview_scan_start(Preview *p)
 
 static int preview_make_image_path(Preview *p, size_t filename_size, char *filename, int level)
 {
- char buf[256];
+ char buf[TEXTBUFSIZE];
 
   DBG(DBG_proc, "preview_make_image_path\n");
 
@@ -2085,7 +2085,7 @@ int preview_create_batch_icon_from_file(Preview *p, FILE *in, Batch_Scan_Paramet
  int time;
  float psurface[4];
  float dsurface[4];
- char buf[255];
+ char buf[TEXTBUFSIZE];
  float scale;
  int header = 0;
  int rotate16 = 16 - preview_gamma_input_bits;
@@ -2456,7 +2456,7 @@ static int preview_restore_image_from_file(Preview *p, FILE *in, int min_quality
  size_t nread;
  guint16 *imagep;
  guint16 *imagepx;
- char buf[255];
+ char buf[TEXTBUFSIZE];
 
   DBG(DBG_proc, "preview_restore_image_from_file\n");
 
@@ -2959,7 +2959,7 @@ static void preview_display_zoom(Preview *p, int x, int y, int zoom)
 
 static void preview_display_color_components(Preview *p, int x, int y)
 {
- char buffer[256];
+ char buffer[TEXTBUFSIZE];
  int raw_red, raw_green, raw_blue, enh_red, enh_green, enh_blue;
 
   if (! preview_get_pixel_color(p, x, y, &raw_red, &raw_green, &raw_blue, &enh_red, &enh_green, &enh_blue))
@@ -4189,7 +4189,7 @@ Preview *preview_new(void)
  GtkWidget *pixmapwidget;
  Preview *p;
  int i;
- char buf[256];
+ char buf[TEXTBUFSIZE];
  int ratio_nr = 0;
 
   DBG(DBG_proc, "preview_new\n");
@@ -5730,7 +5730,7 @@ static gint preview_preset_area_add_callback(GtkWidget *widget, GtkWidget *prese
  int selection, i, old_selection = 0;
  Preview *p;
  float coord[4];
- char suggested_name[256];
+ char suggested_name[PATH_MAX];
  char *newname;
  GtkWidget *old_preset_area_menu;
 
@@ -5925,7 +5925,7 @@ static gint preview_preset_area_context_menu_callback(GtkWidget *widget, GdkEven
  GtkWidget *menu_item;
  GdkEventButton *event_button;
  int selection;
- char buf[256];
+ char buf[TEXTBUFSIZE];
 
   DBG(DBG_proc, "preview_preset_area_context_menu_callback\n");
 

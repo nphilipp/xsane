@@ -406,7 +406,7 @@ int xsane_back_gtk_make_path(size_t buf_size, char *buf, const char *prog_name, 
 
   if (location == XSANE_PATH_TMP) /* tmp dir, add uid */
   {
-   char tmpbuf[256];
+   char tmpbuf[TEXTBUFSIZE];
    uid_t uid;
    int fd;
 
@@ -469,7 +469,7 @@ void xsane_back_gtk_set_option(int opt_num, void *val, SANE_Action action)
 {
  SANE_Status status;
  SANE_Int info;
- char buf[256];
+ char buf[TEXTBUFSIZE];
  int old_colors = xsane.xsane_colors;
  int update_gamma = FALSE;
 
@@ -789,12 +789,12 @@ gint xsane_back_gtk_decision(gchar *title, gchar **xpm_d,  gchar *message, gchar
 
 void xsane_back_gtk_ipc_dialog_callback(gpointer data, gint source, GdkInputCondition cond)
 {
- char message[256];
+ char message[TEXTBUFSIZE];
  size_t bytes;
 
   DBG(DBG_proc, "xsane_back_gtk_message\n");
 
-  bytes = read(xsane.ipc_pipefd[0], message, 255);
+  bytes = read(xsane.ipc_pipefd[0], message, sizeof(message)-1);
   message[bytes] = 0;
 
   xsane_back_gtk_decision(ERR_HEADER_CHILD_PROCESS_ERROR, (gchar **) error_xpm, message, BUTTON_CLOSE, 0 /* no reject text */, FALSE);
@@ -877,7 +877,7 @@ char *fileselection_filetype = NULL;
 static void xsane_back_gtk_filetype_callback(GtkWidget *widget, gpointer data)
 {
  char *extension, *filename;
- char buffer[256];
+ char buffer[PATH_MAX];
  char *new_filetype = (char *) data;
 
   DBG(DBG_proc, "xsane_filetype_callback\n");
@@ -1302,7 +1302,7 @@ static gint xsane_back_gtk_autobutton_update(GtkWidget *widget, DialogElement *e
  const SANE_Option_Descriptor *opt;
  SANE_Status status;
  SANE_Word val;
- char buf[256];
+ char buf[TEXTBUFSIZE];
 
   DBG(DBG_proc, "xsane_back_gtk_autobutton_update\n");
 
@@ -1466,7 +1466,7 @@ static void xsane_back_gtk_value_update(GtkAdjustment *adj_data, DialogElement *
 
 static void xsane_back_gtk_range_display_value_right_callback(GtkAdjustment *adjust, gpointer data)
 {
- gchar buf[256];
+ gchar buf[TEXTBUFSIZE];
  int digits = (int) data;
  GtkLabel *label;
  

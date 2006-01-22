@@ -133,10 +133,6 @@ int xsane_scanmode_number[] = { XSANE_VIEWER, XSANE_SAVE, XSANE_COPY, XSANE_MULT
 #define XSANE_GTK_NAME_X_RESOLUTION "GtkMenuXResolution"
 #define XSANE_GTK_NAME_Y_RESOLUTION "GtkMenuYResolution"
 
-#define XSANE_GTK_NAME_ZOOM   "GtkMenuZoom"
-#define XSANE_GTK_NAME_X_ZOOM "GtkMenuXZoom"
-#define XSANE_GTK_NAME_Y_ZOOM "GtkMenuYZoom"
-
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 /* forward declarations: */
@@ -307,12 +303,10 @@ static void xsane_set_modus_defaults(void)
           break;
         }    
         xsane.zoom   = 1.0;
-        xsane.zoom_x = 1.0;
-        xsane.zoom_y = 1.0;
 
-        xsane.resolution   = xsane.zoom   * printer_resolution;
-        xsane.resolution_x = xsane.zoom_x * printer_resolution;
-        xsane.resolution_y = xsane.zoom_y * printer_resolution;
+        xsane.resolution   = xsane.zoom * printer_resolution;
+        xsane.resolution_x = xsane.zoom * printer_resolution;
+        xsane.resolution_y = xsane.zoom * printer_resolution;
 
         xsane_set_all_resolutions();
         xsane_define_maximum_output_size(); /* must come before select_full_preview_area */
@@ -623,9 +617,9 @@ static void xsane_printer_callback(GtkWidget *widget, gpointer data)
     break;
   }       
 
-  xsane.resolution   = xsane.zoom   * printer_resolution;
-  xsane.resolution_x = xsane.zoom_x * printer_resolution;
-  xsane.resolution_y = xsane.zoom_y * printer_resolution;
+  xsane.resolution   = xsane.zoom * printer_resolution;
+  xsane.resolution_x = xsane.zoom * printer_resolution;
+  xsane.resolution_y = xsane.zoom * printer_resolution;
 
   xsane_set_all_resolutions();
   xsane_define_maximum_output_size();
@@ -654,8 +648,6 @@ static gint xsane_resolution_timer_callback(GtkAdjustment *adj)
 
 static void xsane_resolution_scale_update(GtkAdjustment *adj, double *val)
 {
- int printer_resolution; 
-
 /* gtk does not make sure that the value is quantisized correct */
   float diff, old, new, quant;
 
@@ -687,34 +679,8 @@ static void xsane_resolution_scale_update(GtkAdjustment *adj, double *val)
     *val = adj->value;
   }
 
-  switch (xsane.param.format)
-  {
-    case SANE_FRAME_GRAY:
-      if (xsane.param.depth == 1)
-      {
-        printer_resolution = preferences.printer[preferences.printernr]->lineart_resolution;
-      }
-      else
-      {
-        printer_resolution = preferences.printer[preferences.printernr]->grayscale_resolution;
-      }
-    break;
-
-    case SANE_FRAME_RGB:
-    case SANE_FRAME_RED:
-    case SANE_FRAME_GREEN:
-    case SANE_FRAME_BLUE:
-    default:
-      printer_resolution = preferences.printer[preferences.printernr]->color_resolution;
-    break;
-  }       
-
   xsane_set_all_resolutions();
-
   xsane_update_param(0);
-  xsane.zoom   = xsane.resolution   / printer_resolution;
-  xsane.zoom_x = xsane.resolution_x / printer_resolution;
-  xsane.zoom_y = xsane.resolution_y / printer_resolution;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -763,8 +729,6 @@ static void xsane_resolution_list_callback(GtkWidget *widget, gpointer data)
     xsane_set_resolution(xsane.well_known.dpi_y, xsane.resolution_y);
 
     xsane.zoom   = xsane.resolution   / printer_resolution;
-    xsane.zoom_x = xsane.resolution_x / printer_resolution;
-    xsane.zoom_y = xsane.resolution_y / printer_resolution;
   }
   else if (!strcmp(name, XSANE_GTK_NAME_X_RESOLUTION))
   {
@@ -1018,9 +982,9 @@ static void xsane_zoom_update(GtkAdjustment *adj, double *val)
   }       
 
   /* update all resolutions */
-  xsane.resolution   = xsane.zoom   * printer_resolution;
-  xsane.resolution_x = xsane.zoom_x * printer_resolution;
-  xsane.resolution_y = xsane.zoom_y * printer_resolution;
+  xsane.resolution   = xsane.zoom * printer_resolution;
+  xsane.resolution_x = xsane.zoom * printer_resolution;
+  xsane.resolution_y = xsane.zoom * printer_resolution;
 
   xsane_set_all_resolutions();
 
@@ -1031,11 +995,42 @@ static void xsane_zoom_update(GtkAdjustment *adj, double *val)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static int xsane_zoom_widget_new(GtkWidget *parent, int well_known_option, double *zoom, double resolution,
-                                 const char *image_xpm[], const gchar *desc)
+static int xsane_get_zoom_range(int printer_resolution, int well_known_option, double *min, double *max)
+{
+ const SANE_Option_Descriptor *opt;
+
+  DBG(DBG_proc, "xsane_get_zoom_range\n");
+
+  opt = xsane_get_option_descriptor(xsane.dev, well_known_option);
+  if (!opt)
+  {
+    return -1; /* option not available */
+  }
+  else
+  {
+    if (SANE_OPTION_IS_ACTIVE(opt->cap))
+    {
+      xsane_get_bounds(opt, min, max);
+      *min = *min / printer_resolution;
+      *max = *max / printer_resolution;
+
+      return 0; /* everything is ok */
+    }
+    return 1; /* option not active */
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static int xsane_zoom_widget_new(GtkWidget *parent)
 {
  const SANE_Option_Descriptor *opt;
  int printer_resolution;
+ double min = 0.0;
+ double max = 0.0;
+ double min2 = 0.0;
+ double max2 = 0.0;
+ int well_known_option = 0;
 
   DBG(DBG_proc, "xsane_zoom_widget_new\n");
 
@@ -1061,68 +1056,53 @@ static int xsane_zoom_widget_new(GtkWidget *parent, int well_known_option, doubl
     break;
   }       
 
-  opt = xsane_get_option_descriptor(xsane.dev, well_known_option);
-  if (!opt)
+  if (!xsane_get_zoom_range(printer_resolution, xsane.well_known.dpi, &min, &max)) /* we have well_known.dpi: */
   {
-    return -1; /* option not available */
+    well_known_option = xsane.well_known.dpi;
   }
   else
   {
-    if (SANE_OPTION_IS_ACTIVE(opt->cap))
+    if (!xsane_get_zoom_range(printer_resolution, xsane.well_known.dpi_x, &min, &max)) /* we have well.known.dpi_x */
     {
-     double min = 0.0;
-     double max = 0.0;
-     SANE_Word val = 0.0;
-
-      xsane_control_option(xsane.dev, well_known_option, SANE_ACTION_GET_VALUE, &val, 0); 
-
-      switch (opt->constraint_type)
+      well_known_option = xsane.well_known.dpi_x;
+      if (!xsane_get_zoom_range(printer_resolution, xsane.well_known.dpi_y, &min2, &max2)) /* we have well.known.dpi_y */
       {
-        case SANE_CONSTRAINT_RANGE:
-          switch (opt->type)
-          {
-            case SANE_TYPE_INT:
-              min   = ((double) opt->constraint.range->min) / printer_resolution;
-              max   = ((double) opt->constraint.range->max) / printer_resolution;
-            break;
+        if (min < min2)
+        {
+          min = min2;
+        }
 
-            case SANE_TYPE_FIXED:
-              min   = SANE_UNFIX(opt->constraint.range->min) / printer_resolution;
-              max   = SANE_UNFIX(opt->constraint.range->max) / printer_resolution;
-              val   = SANE_UNFIX(val);
-            break;
-
-            default:
-              DBG(DBG_error, "zoom_scale_update: %s %d\n", ERR_UNKNOWN_TYPE, opt->type);
-          }
-        break;
-
-        case SANE_CONSTRAINT_WORD_LIST:
-          xsane_get_bounds(opt, &min, &max);
-          min   = min / printer_resolution;
-          max   = max / printer_resolution;
-        break;
-
-        default:
-          DBG(DBG_error, "zoom_scale_update: %s %d\n", ERR_UNKNOWN_CONSTRAINT_TYPE, opt->constraint_type);
+        if (max > max2)
+        {
+          max = max2;
+        }
       }
-
-      if (resolution == 0) /* no prefered value */
-      {
-        resolution = val; /* set backend predefined value */
-      }
-
-      *zoom = resolution / printer_resolution;
-
-      xsane_range_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(parent), image_xpm, desc, min, max, 0.01, 0.1, 2,
-                                  zoom, &xsane.zoom_widget, well_known_option, xsane_zoom_update,
-                                  SANE_OPTION_IS_SETTABLE(opt->cap));
-
-      return 0; /* everything is ok */
     }
-    return 1; /* option not active */
+    else
+    {
+      return -1; /* no zoom widget created */
+    }
   }
+
+  if (min < 0.01)
+  {
+    min = 0.01;
+  }
+
+  opt = xsane_get_option_descriptor(xsane.dev, well_known_option);
+  xsane_range_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(parent), zoom_xpm, DESC_ZOOM, min, max, 0.01, 0.1, 2,
+                              &xsane.zoom, &xsane.zoom_widget, well_known_option, xsane_zoom_update,
+                              SANE_OPTION_IS_SETTABLE(opt->cap));
+
+  xsane.resolution   = xsane.zoom * printer_resolution;
+  xsane.resolution_x = xsane.zoom * printer_resolution;
+  xsane.resolution_y = xsane.zoom * printer_resolution;
+
+  xsane_set_all_resolutions();
+
+ return 0; /* everything ok */
 }
+
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 static void xsane_scanmode_menu_callback(GtkWidget *widget, gpointer data)
@@ -1132,13 +1112,8 @@ static void xsane_scanmode_menu_callback(GtkWidget *widget, gpointer data)
  const SANE_Option_Descriptor *opt;
  int opt_num;
  int printer_resolution;
- double zoom, zoom_x, zoom_y;
 
   DBG(DBG_proc, "xsane_scanmode_menu_callback\n");
-
-  zoom   = xsane.zoom;
-  zoom_x = xsane.zoom_x;
-  zoom_y = xsane.zoom_y;
 
   opt_num = elem - xsane.element;
   opt = xsane_get_option_descriptor(xsane.dev, opt_num);
@@ -1168,9 +1143,9 @@ static void xsane_scanmode_menu_callback(GtkWidget *widget, gpointer data)
       break;
     }
 
-    xsane.resolution   = xsane_find_best_resolution(xsane.well_known.dpi,   zoom   * printer_resolution);
-    xsane.resolution_x = xsane_find_best_resolution(xsane.well_known.dpi_x, zoom_x * printer_resolution);
-    xsane.resolution_y = xsane_find_best_resolution(xsane.well_known.dpi_y, zoom_y * printer_resolution);
+    xsane.resolution   = xsane_find_best_resolution(xsane.well_known.dpi,   xsane.zoom * printer_resolution);
+    xsane.resolution_x = xsane_find_best_resolution(xsane.well_known.dpi_x, xsane.zoom * printer_resolution);
+    xsane.resolution_y = xsane_find_best_resolution(xsane.well_known.dpi_y, xsane.zoom * printer_resolution);
 
     xsane_set_all_resolutions(); /* make sure resolution, resolution_x and resolution_y are up to date */
     xsane_back_gtk_refresh_dialog(); /* update resolution - a bit overkill, any better idea? */
@@ -1319,11 +1294,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
   }
 
 
-#if 0
-  if (xsane.xsane_mode == XSANE_SAVE)
-#else
   if ( (xsane.xsane_mode == XSANE_SAVE) || (xsane.xsane_mode == XSANE_VIEWER) )
-#endif
   {
     xsane.copy_number_entry = NULL;
 
@@ -1633,18 +1604,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
   }
   else if (xsane.xsane_mode == XSANE_COPY)
   {
-    /* zoom selection */
-    if (!xsane_zoom_widget_new(xsane_vbox_xsane_modus, xsane.well_known.dpi_x, &xsane.zoom_x,
-                               xsane.resolution_x, zoom_x_xpm, DESC_ZOOM_X))
-    {
-      xsane_zoom_widget_new(xsane_vbox_xsane_modus, xsane.well_known.dpi_y, &xsane.zoom_y,
-                            xsane.resolution_y, zoom_y_xpm, DESC_ZOOM_Y);
-    }
-    else
-    {
-      xsane_zoom_widget_new(xsane_vbox_xsane_modus, xsane.well_known.dpi, &xsane.zoom,
-                            xsane.resolution, zoom_xpm, DESC_ZOOM);
-    }
+    xsane_zoom_widget_new(xsane_vbox_xsane_modus);
   }
   else if (xsane.xsane_mode == XSANE_MULTIPAGE)
   {
@@ -1880,7 +1840,7 @@ void xsane_pref_save(void)
 
   if (fd < 0)
   {
-   char buf[256];
+   char buf[TEXTBUFSIZE];
 
     snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_CREATE_FILE, strerror(errno));
     xsane_back_gtk_error(buf, TRUE);
@@ -2082,6 +2042,11 @@ static int xsane_pref_restore(void)
     preferences.multipage_project = strdup(MULTIPAGEPROJECT);
   }
 
+  if (!preferences.multipage_filetype)
+  {
+    preferences.multipage_filetype = strdup(MULTIPAGEFILETYPE);
+  }
+
   if (!preferences.ocr_command)
   {
     preferences.ocr_command = strdup(OCRCOMMAND);
@@ -2148,7 +2113,7 @@ void xsane_pref_save_media(void)
 
   if (fd < 0)
   {
-   char buf[256];
+   char buf[TEXTBUFSIZE];
 
     snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_CREATE_FILE, strerror(errno));
     xsane_back_gtk_error(buf, TRUE);
@@ -2411,7 +2376,7 @@ static gint xsane_scan_win_delete(GtkWidget *w, gpointer data)
 
   if (unsaved_images)
   {
-   char buf[256];
+   char buf[TEXTBUFSIZE];
 
     snprintf(buf, sizeof(buf), WARN_UNSAVED_IMAGES, unsaved_images);
     if (!xsane_back_gtk_decision(ERR_HEADER_WARNING, (gchar **) warning_xpm, buf, BUTTON_DO_NOT_CLOSE, BUTTON_DISCARD_ALL_IMAGES, TRUE /* wait */) == FALSE)
@@ -2762,7 +2727,7 @@ static gint xsane_medium_context_menu_callback(GtkWidget *widget, GdkEvent *even
                                                                                                 
     if (event_button->button == 3)
     {
-     char buf[256];
+     char buf[TEXTBUFSIZE];
 
       menu = gtk_menu_new();
 
@@ -3017,7 +2982,7 @@ static gint xsane_close_info_callback(GtkWidget *widget, gpointer data)
 static void xsane_info_dialog(GtkWidget *widget, gpointer data)
 {
  GtkWidget *info_dialog, *vbox, *button, *label, *frame, *framebox, *hbox, *table;
- char buf[256];
+ char buf[TEXTBUFSIZE];
  char *bufptr;
  GtkAccelGroup *accelerator_group;
 
@@ -3549,7 +3514,7 @@ static void xsane_show_gpl(GtkWidget *widget, gpointer data)
 static void xsane_show_doc_via_nsr(GtkWidget *widget, gpointer data) /* show via netscape remote */
 {
  char *name = (char *) data;
- char buf[256];
+ char buf[TEXTBUFSIZE];
  pid_t pid;
  char *arg[5];
  struct stat st;
@@ -3722,7 +3687,7 @@ static char **xsane_parse_command(char *command_line, char *url)
 static void xsane_show_doc(GtkWidget *widget, gpointer data)
 {
  char *name = (char *) data;
- char path[256];
+ char path[PATH_MAX];
  pid_t pid;
  char *arg[3];
  struct stat st;
@@ -4213,7 +4178,7 @@ void xsane_panel_build()
  const SANE_Option_Descriptor *opt;
  SANE_Handle dev = xsane.dev;
  double dval, dmin, dmax, dquant;
- char *buf, str[16], title[256];
+ char *buf, str[16], title[TEXTBUFSIZE];
  DialogElement *elem;
  SANE_Word quant, val;
  SANE_Status status;
@@ -4682,7 +4647,7 @@ void xsane_panel_build()
 
     get_value_failed:
     {
-      char msg[256];
+      char msg[TEXTBUFSIZE];
 
       sprintf(msg, "%s %s: %s.", ERR_GET_OPTION, opt->name, XSANE_STRSTATUS(status));
       xsane_back_gtk_error(msg, TRUE);
@@ -4730,9 +4695,9 @@ static void xsane_device_dialog(void)
  GtkWidget *menubar, *menubar_item;
  GtkStyle *current_style;
  const gchar *devname;
- char buf[256];
- char windowname[255];
- char devicetext[255];
+ char buf[TEXTBUFSIZE];
+ char windowname[TEXTBUFSIZE];
+ char devicetext[TEXTBUFSIZE];
  char *textptr;
  GtkWidget *xsane_window;
  GtkWidget *xsane_vbox_main;
@@ -5261,7 +5226,7 @@ static void xsane_choose_device(void)
  GtkAccelGroup *device_selection_accelerator_group;
  gint i;
  const SANE_Device *adev;
- char buf[256];
+ char buf[TEXTBUFSIZE];
  char vendor[12];
  char model[17];
  char type[20];
@@ -5471,7 +5436,7 @@ static int xsane_init(int argc, char **argv)
  GtkWidget *frame;
  struct stat st;
  char filename[PATH_MAX];
- char buf[256];
+ char buf[TEXTBUFSIZE];
 
   DBG(DBG_proc, "xsane_init\n");
 
@@ -5828,7 +5793,7 @@ void xsane_interface(int argc, char **argv)
     }
     else /* xsane.num_of_devs == 0, no devices available */
     {
-     char buf[256];
+     char buf[TEXTBUFSIZE];
 
       snprintf(buf, sizeof(buf), "%s\n", ERR_NO_DEVICES);
 
@@ -5886,8 +5851,6 @@ int main(int argc, char **argv)
   xsane.histogram_lines  = 1;
 
   xsane.zoom             = 1.0;
-  xsane.zoom_x           = 1.0;
-  xsane.zoom_y           = 1.0;
   xsane.resolution       = 72.0;
   xsane.resolution_x     = 72.0;
   xsane.resolution_y     = 72.0;

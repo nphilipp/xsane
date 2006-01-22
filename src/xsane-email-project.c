@@ -489,7 +489,7 @@ static void xsane_email_project_set_sensitive(int sensitive)
 static void xsane_email_project_display_status()
 {
  FILE *lockfile;
- char buf[256];
+ char buf[TEXTBUFSIZE];
  char filename[PATH_MAX];
  int val;
  int i, c;
@@ -606,10 +606,10 @@ static gint xsane_email_send_timer_callback(gpointer data)
 static void xsane_email_project_load()
 {
  FILE *projectfile;
- char page[256];
+ char page[TEXTBUFSIZE];
  char *type;
  char *extension;
- char buf[256];
+ char buf[TEXTBUFSIZE];
  char filename[PATH_MAX];
  GtkWidget *list_item;
  int i;
@@ -858,7 +858,7 @@ static void xsane_email_project_delete()
 {
  char *page;
  char *type;
- char file[256];
+ char file[PATH_MAX];
  GList *list = (GList *) GTK_LIST(xsane.project_list)->children;
  GtkObject *list_item;
 
@@ -890,7 +890,7 @@ static void xsane_email_project_update_project_status()
 {
  FILE *projectfile;
  char filename[PATH_MAX];
- char buf[256];
+ char buf[TEXTBUFSIZE];
 
   snprintf(filename, sizeof(filename), "%s/xsane-mail-list", preferences.email_project);
   projectfile = fopen(filename, "r+b"); /* r+ = read and write, position = start of file */
@@ -911,7 +911,7 @@ void xsane_email_project_save()
  char *page;
  char *type;
  gchar *email_text;
- char filename[256];
+ char filename[PATH_MAX];
 
   DBG(DBG_proc, "xsane_email_project_save\n");
 
@@ -922,7 +922,7 @@ void xsane_email_project_save()
 
   if (xsane_create_secure_file(filename)) /* remove possibly existing symbolic links for security */
   {
-   char buf[256];
+   char buf[TEXTBUFSIZE];
 
     snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_CREATE_SECURE_FILE, filename);
     xsane_back_gtk_error(buf, TRUE);
@@ -933,7 +933,7 @@ void xsane_email_project_save()
 
   if (xsane.email_status)
   {
-   char buf[256];
+   char buf[TEXTBUFSIZE];
 
     snprintf(buf, 32, "%s@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", xsane.email_status); /* fill 32 characters status line */
     fprintf(projectfile, "%s\n", buf); /* first line is status of email */
@@ -1224,8 +1224,8 @@ static void xsane_email_entry_rename_callback(GtkWidget *widget, gpointer list)
  char *oldpage;
  char *newpage;
  char *type;
- char oldfile[256];
- char newfile[256];
+ char oldfile[PATH_MAX];
+ char newfile[PATH_MAX];
 
   DBG(DBG_proc, "xsane_email_entry_rename_callback\n");
 
@@ -1344,7 +1344,7 @@ static void xsane_email_entry_delete_callback(GtkWidget *widget, gpointer list)
  GList *select;
  char *page;
  char *type;
- char file[256];
+ char file[PATH_MAX];
 
   DBG(DBG_proc, "xsane_email_entry_delete_callback\n");
 
@@ -1378,7 +1378,7 @@ static void xsane_email_show_callback(GtkWidget *widget, gpointer list)
  GList *select;
  char *page;
  char *type;
- char filename[256];
+ char filename[PATH_MAX];
 
   DBG(DBG_proc, "xsane_email_entry_show_callback\n");
 
@@ -1406,8 +1406,8 @@ static void xsane_email_edit_callback(GtkWidget *widget, gpointer list)
  GList *select;
  char *page;
  char *type;
- char filename[256];
- char outfilename[256];
+ char filename[PATH_MAX];
+ char outfilename[PATH_MAX];
  Image_info image_info;
  int cancel_save = 0;
 
@@ -1447,10 +1447,10 @@ static void xsane_create_email(int fd)
  char *email_text_pos = NULL;
  char **attachment_filename = NULL;
  char *mime_type = NULL;
- char buf[256];
- char filename[256];
- char content_id[256];
- char image[256];
+ char buf[TEXTBUFSIZE];
+ char filename[PATH_MAX];
+ char content_id[TEXTBUFSIZE];
+ char image[TEXTBUFSIZE];
  int i, j;
  int c;
  int attachments = 0;
@@ -1536,7 +1536,7 @@ static void xsane_create_email(int fd)
 
     if (strcmp("mailtext:", image) && (c > 1))
     {
-     char imagename[256];
+     char imagename[PATH_MAX];
      char *filename;
      char *extension;
 

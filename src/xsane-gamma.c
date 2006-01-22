@@ -2173,7 +2173,7 @@ static gint xsane_histogram_win_delete(GtkWidget *widget, gpointer data)
 
 void xsane_create_histogram_dialog(const char *devicetext)
 {
- char windowname[255];
+ char windowname[TEXTBUFSIZE];
  GtkWidget *xsane_color_hbox;
  GtkWidget *xsane_histogram_vbox;  
  GtkWidget *button;  
@@ -2498,7 +2498,7 @@ GtkWidget* xsane_gamma_curve_notebook_page_new(GtkWidget *notebook, char *title)
 
 void xsane_create_gamma_dialog(const char *devicetext)
 {
- char windowname[255];
+ char windowname[TEXTBUFSIZE];
  GtkWidget *xsane_vbox_gamma, *notebook;
 
   DBG(DBG_proc, "xsane_create_free_gamma_dialog\n");

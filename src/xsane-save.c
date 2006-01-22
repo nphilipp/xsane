@@ -163,7 +163,7 @@ void xsane_convert_text_to_filename(char **text)
   if (text)
   {
    char *filename = *text;
-   char buf[256];
+   char buf[TEXTBUFSIZE];
    int buflen=0;
    int txtlen=0;
 
@@ -418,7 +418,7 @@ void xsane_update_counter_in_filename(char **filename, int skip, int step, int m
 void xsane_read_pnm_header(FILE *file, Image_info *image_info)
 {
  int max_val, filetype_nr;
- char buf[256];
+ char buf[TEXTBUFSIZE];
 
   fgets(buf, sizeof(buf)-1, file);
   DBG(DBG_info, "filetype header :%s", buf);
@@ -703,7 +703,7 @@ int xsane_copy_file(FILE *outfile, FILE *infile, GtkProgressBar *progress_bar, i
 
     if (ferror(infile))
     {
-     char buf[255];
+     char buf[TEXTBUFSIZE];
 
       snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_READ, strerror(errno));
       DBG(DBG_error, "%s\n", buf);
@@ -714,7 +714,7 @@ int xsane_copy_file(FILE *outfile, FILE *infile, GtkProgressBar *progress_bar, i
 
     if (ferror(outfile))
     {
-     char buf[255];
+     char buf[TEXTBUFSIZE];
 
       snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
       DBG(DBG_error, "%s\n", buf);
@@ -756,7 +756,7 @@ int xsane_copy_file_by_name(char *output_filename, char *input_filename, GtkProg
 
   if (outfile == 0)
   {
-   char buf[255];
+   char buf[TEXTBUFSIZE];
 
     snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, output_filename, strerror(errno));
     xsane_back_gtk_error(buf, TRUE);
@@ -766,7 +766,7 @@ int xsane_copy_file_by_name(char *output_filename, char *input_filename, GtkProg
   infile = fopen(input_filename, "rb"); /* read binary (b for win32) */
   if (infile == 0)
   {
-   char buf[256];
+   char buf[TEXTBUFSIZE];
     snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, input_filename, strerror(errno));
     xsane_back_gtk_error(buf, TRUE);     
 
@@ -839,7 +839,7 @@ int xsane_save_grayscale_image_as_lineart(FILE *outfile, FILE *imagefile, Image_
 
     if (ferror(outfile))
     {
-     char buf[255];
+     char buf[TEXTBUFSIZE];
 
       snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
       DBG(DBG_error, "%s\n", buf);
@@ -1042,7 +1042,7 @@ int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_in
 
       if (ferror(outfile))
       {
-       char buf[255];
+       char buf[TEXTBUFSIZE];
  
         snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
         DBG(DBG_error, "%s\n", buf);
@@ -1352,7 +1352,7 @@ int xsane_save_despeckle_image(FILE *outfile, FILE *imagefile, Image_info *image
 
     if (ferror(outfile))
     {
-     char buf[255];
+     char buf[TEXTBUFSIZE];
 
       snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
       DBG(DBG_error, "%s\n", buf);
@@ -1568,7 +1568,7 @@ int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info
 
     if (ferror(outfile))
     {
-     char buf[255];
+     char buf[TEXTBUFSIZE];
 
       snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
       DBG(DBG_error, "%s\n", buf);
@@ -1799,7 +1799,7 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
 
         if (ferror(outfile))
         {
-         char buf[255];
+         char buf[TEXTBUFSIZE];
 
           snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
           DBG(DBG_error, "%s\n", buf);
@@ -1858,7 +1858,7 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
 
         if (ferror(outfile))
         {
-         char buf[255];
+         char buf[TEXTBUFSIZE];
 
           snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
           DBG(DBG_error, "%s\n", buf);
@@ -1912,7 +1912,7 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
 
         if (ferror(outfile))
         {
-         char buf[255];
+         char buf[TEXTBUFSIZE];
 
           snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
           DBG(DBG_error, "%s\n", buf);
@@ -1971,7 +1971,7 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
 
         if (ferror(outfile))
         {
-         char buf[255];
+         char buf[TEXTBUFSIZE];
 
           snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
           DBG(DBG_error, "%s\n", buf);
@@ -2024,7 +2024,7 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
 
         if (ferror(outfile))
         {
-         char buf[255];
+         char buf[TEXTBUFSIZE];
 
           snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
           DBG(DBG_error, "%s\n", buf);
@@ -2083,7 +2083,7 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
 
         if (ferror(outfile))
         {
-         char buf[255];
+         char buf[TEXTBUFSIZE];
 
           snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
           DBG(DBG_error, "%s\n", buf);
@@ -2137,7 +2137,7 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
 
         if (ferror(outfile))
         {
-         char buf[255];
+         char buf[TEXTBUFSIZE];
 
           snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
           DBG(DBG_error, "%s\n", buf);
@@ -2196,7 +2196,7 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
 
         if (ferror(outfile))
         {
-         char buf[255];
+         char buf[TEXTBUFSIZE];
 
           snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
           DBG(DBG_error, "%s\n", buf);
@@ -2756,7 +2756,7 @@ static int xsane_save_ps_pdf_bw(FILE *outfile, FILE *imagefile, Image_info *imag
 
   if (line == NULL)
   {
-    char buf[255];
+    char buf[TEXTBUFSIZE];
       
     snprintf(buf, sizeof(buf), "%s malloc failed", ERR_DURING_SAVE);
     DBG(DBG_error, "%s\n", buf);
@@ -2791,7 +2791,7 @@ static int xsane_save_ps_pdf_bw(FILE *outfile, FILE *imagefile, Image_info *imag
 
     if ((ret != 0) || (ferror(outfile)))
     {
-     char buf[255];
+     char buf[TEXTBUFSIZE];
 
       if (ret == 0)
       {
@@ -2836,7 +2836,7 @@ static int xsane_save_ps_pdf_gray(FILE *outfile, FILE *imagefile, Image_info *im
 
   if (line == NULL)
   {
-   char buf[255];
+   char buf[TEXTBUFSIZE];
       
     snprintf(buf, sizeof(buf), "%s malloc failed", ERR_DURING_SAVE);
     DBG(DBG_error, "%s\n", buf);
@@ -2878,7 +2878,7 @@ static int xsane_save_ps_pdf_gray(FILE *outfile, FILE *imagefile, Image_info *im
 
     if ((ret != 0) || (ferror(outfile)))
     {
-     char buf[255];
+     char buf[TEXTBUFSIZE];
 
       if (ret == 0)
       {
@@ -2929,7 +2929,7 @@ static int xsane_save_ps_pdf_color(FILE *outfile, FILE *imagefile, Image_info *i
 
   if (line == NULL)
   {
-   char buf[255];
+   char buf[TEXTBUFSIZE];
       
     snprintf(buf, sizeof(buf), "%s malloc failed", ERR_DURING_SAVE);
     DBG(DBG_error, "%s\n", buf);
@@ -2985,7 +2985,7 @@ static int xsane_save_ps_pdf_color(FILE *outfile, FILE *imagefile, Image_info *i
 
     if ((ret != 0) || (ferror(outfile)))
     {
-     char buf[255];
+     char buf[TEXTBUFSIZE];
 
       if (ret == 0)
       {
@@ -3050,7 +3050,7 @@ int xsane_save_ps_page(FILE *outfile, int page,
 
   if (ferror(outfile))
   {
-   char buf[255];
+   char buf[TEXTBUFSIZE];
 
     snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
     DBG(DBG_error, "%s\n", buf);
@@ -3084,7 +3084,7 @@ int xsane_save_ps(FILE *outfile, FILE *imagefile, Image_info *image_info, float 
 
   if (ferror(outfile))
   {
-   char buf[255];
+   char buf[TEXTBUFSIZE];
 
     snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
     DBG(DBG_error, "%s\n", buf);
@@ -3417,7 +3417,7 @@ int xsane_save_pdf_page(FILE *outfile, struct pdf_xref *xref, int page,
 
   if (ferror(outfile))
   {
-   char buf[255];
+   char buf[TEXTBUFSIZE];
 
     snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
     DBG(DBG_error, "%s\n", buf);
@@ -3453,7 +3453,7 @@ int xsane_save_pdf(FILE *outfile, FILE *imagefile, Image_info *image_info, float
 
   if (ferror(outfile))
   {
-   char buf[255];
+   char buf[TEXTBUFSIZE];
 
     snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
     DBG(DBG_error, "%s\n", buf);
@@ -3477,7 +3477,7 @@ typedef xsane_jpeg_error_mgr *xsane_jpeg_error_mgr_ptr;
 
 static void xsane_jpeg_error_exit(j_common_ptr cinfo)
 {
- char buf[256];
+ char buf[TEXTBUFSIZE];
 
   /* cinfo->err points to a xsane_jpeg_error_mgr struct */
   xsane_jpeg_error_mgr_ptr xsane_jpeg_error_mgr_data = (xsane_jpeg_error_mgr_ptr) cinfo->err;
@@ -3497,7 +3497,7 @@ static void xsane_jpeg_error_exit(j_common_ptr cinfo)
 int xsane_save_jpeg(FILE *outfile, FILE *imagefile, Image_info *image_info, int quality, GtkProgressBar *progress_bar, int *cancel_save)
 {
  unsigned char *data;
- char buf[256];
+ char buf[TEXTBUFSIZE];
  int components = 1;
  int x,y;
  int bytespp = 1;
@@ -3634,7 +3634,7 @@ int xsane_save_tiff_page(TIFF *tiffile, int page, int pages, FILE *imagefile, Im
                          GtkProgressBar *progress_bar, int *cancel_save)
 {
  char *data;
- char buf[256];
+ char buf[TEXTBUFSIZE];
  int y, w;
  int components;
  int compression;
@@ -3764,7 +3764,7 @@ int xsane_save_tiff_page(TIFF *tiffile, int page, int pages, FILE *imagefile, Im
 
     if (TIFFWriteScanline(tiffile, data, y, 0) != 1)
     {
-     char buf[255];
+     char buf[TEXTBUFSIZE];
 
       snprintf(buf, sizeof(buf), "%s", ERR_DURING_SAVE);
       DBG(DBG_error, "%s\n", buf);
@@ -3800,7 +3800,7 @@ int xsane_save_png(FILE *outfile, FILE *imagefile, Image_info *image_info, int c
  png_bytep row_ptr;
  png_color_8 sig_bit;
  unsigned char *data;
- char buf[256];
+ char buf[TEXTBUFSIZE];
  int colortype, components, byte_width;
  int y;
 
@@ -3936,7 +3936,7 @@ int xsane_save_png_16(FILE *outfile, FILE *imagefile, Image_info *image_info, in
  png_bytep row_ptr;
  png_color_8 sig_bit; /* should be 16, but then I get a warning about wrong type */
  unsigned char *data;
- char buf[256];
+ char buf[TEXTBUFSIZE];
  int colortype, components;
  int x,y;
  guint16 val;
@@ -4072,7 +4072,7 @@ static int xsane_save_pnm_16_ascii_gray(FILE *outfile, FILE *imagefile, Image_in
 
     if (ferror(outfile))
     {
-     char buf[255];
+     char buf[TEXTBUFSIZE];
 
       snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
       DBG(DBG_error, "%s\n", buf);
@@ -4132,7 +4132,7 @@ static int xsane_save_pnm_16_ascii_color(FILE *outfile, FILE *imagefile, Image_i
 
     if (ferror(outfile))
     {
-     char buf[255];
+     char buf[TEXTBUFSIZE];
 
       snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
       DBG(DBG_error, "%s\n", buf);
@@ -4186,7 +4186,7 @@ static int xsane_save_pnm_16_binary_gray(FILE *outfile, FILE *imagefile, Image_i
 
     if (ferror(outfile))
     {
-     char buf[255];
+     char buf[TEXTBUFSIZE];
 
       snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
       DBG(DBG_error, "%s\n", buf);
@@ -4244,7 +4244,7 @@ static int xsane_save_pnm_16_binary_color(FILE *outfile, FILE *imagefile, Image_
 
     if (ferror(outfile))
     {
-     char buf[255];
+     char buf[TEXTBUFSIZE];
 
       snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
       DBG(DBG_error, "%s\n", buf);
@@ -4306,7 +4306,7 @@ int xsane_save_image_as_lineart(char *output_filename, char *input_filename, Gtk
 {
  FILE *outfile;
  FILE *infile;
- char buf[256];
+ char buf[TEXTBUFSIZE];
  Image_info image_info;
 
   *cancel_save = 0;
@@ -4323,7 +4323,7 @@ int xsane_save_image_as_lineart(char *output_filename, char *input_filename, Gtk
   infile = fopen(input_filename, "rb"); /* read binary (b for win32) */
   if (infile == 0)
   {
-   char buf[256];
+   char buf[TEXTBUFSIZE];
     snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, input_filename, strerror(errno));
     xsane_back_gtk_error(buf, TRUE);     
 
@@ -4352,7 +4352,7 @@ int xsane_save_image_as_lineart(char *output_filename, char *input_filename, Gtk
 int xsane_save_image_as_text(char *output_filename, char *input_filename, GtkProgressBar *progress_bar, int *cancel_save)
 {
  char *arg[1000];
- char buf[256];
+ char buf[TEXTBUFSIZE];
  int argnr;
  pid_t pid;
  int i;
@@ -4528,7 +4528,7 @@ int xsane_save_image_as(char *output_filename, char *input_filename, int output_
 {
  FILE *outfile;
  FILE *infile;
- char buf[256];
+ char buf[TEXTBUFSIZE];
  Image_info image_info;
  char lineart_filename[PATH_MAX];
  int remove_input_file = FALSE;
@@ -4540,7 +4540,7 @@ int xsane_save_image_as(char *output_filename, char *input_filename, int output_
   infile = fopen(input_filename, "rb"); /* read binary (b for win32) */
   if (infile == 0)
   {
-   char buf[256];
+   char buf[TEXTBUFSIZE];
     snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, input_filename, strerror(errno));
     xsane_back_gtk_error(buf, TRUE);     
 
@@ -4573,7 +4573,7 @@ int xsane_save_image_as(char *output_filename, char *input_filename, int output_
     infile = fopen(input_filename, "rb"); /* read binary (b for win32) */
     if (infile == 0)
     {
-     char buf[256];
+     char buf[TEXTBUFSIZE];
       snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, input_filename, strerror(errno));
       xsane_back_gtk_error(buf, TRUE);     
 
@@ -5122,7 +5122,7 @@ int xsane_transfer_to_gimp(char *input_filename, GtkProgressBar *progress_bar, i
   imagefile = fopen(input_filename, "rb"); /* read binary (b for win32) */
   if (imagefile == 0)
   {
-   char buf[256];
+   char buf[TEXTBUFSIZE];
     snprintf(buf, sizeof(buf), "%s `%s': %s", ERR_OPEN_FAILED, input_filename, strerror(errno));
     xsane_back_gtk_error(buf, TRUE);     
 

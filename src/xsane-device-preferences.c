@@ -366,7 +366,7 @@ static int xsane_device_preferences_save_values(Wire *w, SANE_Handle device)
 void xsane_device_preferences_load_file(char *filename)
 {
  int fd;
- char buf[256];
+ char buf[TEXTBUFSIZE];
 #if 0
  char *version = 0;
 #endif
@@ -461,7 +461,7 @@ void xsane_device_preferences_load_file(char *filename)
 
     if (w.status)
     {
-      char buf[256];
+      char buf[TEXTBUFSIZE];
 
       snprintf(buf, sizeof(buf), "%s\n%s %s", ERR_LOAD_DEVICE_SETTINGS, filename, ERR_NO_DRC_FILE);
       xsane_back_gtk_error(buf, TRUE);
@@ -612,7 +612,7 @@ void xsane_device_preferences_restore(void)
 void xsane_device_preferences_load(void)
 {
  char filename[PATH_MAX];
- char windowname[256];
+ char windowname[TEXTBUFSIZE];
 
   DBG(DBG_proc, "xsane_device_preferences_load\n");
 
@@ -649,7 +649,7 @@ void xsane_device_preferences_save_file(char *filename)
     fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0666);
     if (fd < 0)
     {
-     char buf[256];
+     char buf[TEXTBUFSIZE];
 
       snprintf(buf, sizeof(buf), "%s %s.", ERR_FAILED_CREATE_FILE, strerror(errno));
       xsane_back_gtk_error(buf, TRUE);
@@ -763,7 +763,7 @@ void xsane_device_preferences_store(void)
 void xsane_device_preferences_save(void)
 {
  char filename[PATH_MAX];
- char windowname[256];
+ char windowname[TEXTBUFSIZE];
 
   DBG(DBG_proc, "xsane_device_preferences_save\n");
 

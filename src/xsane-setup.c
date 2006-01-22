@@ -242,7 +242,7 @@ static int xsane_update_double(GtkWidget *widget, double *val)
 
 static void xsane_setup_printer_update()
 {
- char buf[256];
+ char buf[TEXTBUFSIZE];
 
   DBG(DBG_proc, "xsane_setup_printer_update\n");
 
@@ -1327,8 +1327,8 @@ static void xsane_printer_notebook(GtkWidget *notebook)
 static void xsane_setup_browse_tmp_path_callback(GtkWidget *widget, gpointer data)
 {
  const gchar *old_tmp_path;
- char tmp_path[256];
- char windowname[256];
+ char tmp_path[PATH_MAX];
+ char windowname[TEXTBUFSIZE];
 
   DBG(DBG_proc, "xsane_setup_browse_tmp_path_callback\n");
 

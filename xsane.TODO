@@ -6,9 +6,15 @@ Sign explaination:
  + planned to do this soon/higher priority (but not promised for XSane-1.0)
  - comes later/lower priority
 
+ device-selection:
+    - preselect last used device
+
  save-function:
     - list of last used filenames
     - enable filters in save mode?
+
+ multipage-project:
+    - reduce to lineart
 
  projects:
     # add selection for project directory to setup

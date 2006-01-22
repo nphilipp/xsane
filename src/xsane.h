@@ -85,10 +85,10 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.99"
+#define XSANE_VERSION		"0.991"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
-#define XSANE_DATE		"1998-2005"
+#define XSANE_DATE		"1998-2006"
 #define XSANE_EMAIL_ADR		"Oliver.Rauch@xsane.org"
 #define XSANE_HOMEPAGE		"http://www.xsane.org"
 #define XSANE_COPYRIGHT_TXT	XSANE_DATE " " XSANE_COPYRIGHT
@@ -102,9 +102,10 @@
 #define XSANE_CONTINUOUS_HOLD_TIME	10
 #define XSANE_DEFAULT_DEVICE		"SANE_DEFAULT_DEVICE"
 #define XSANE_3PASS_BUFFER_RGB_SIZE	1024
+#define TEXTBUFSIZE			255
 
 #ifndef M_PI_2
-# define M_PI_2 1.57079632679489661923  /* pi/2 */
+# define M_PI_2 1.57079632679489661923 /* pi/2 */
 #endif
 
 #ifdef HAVE_WINDOWS_H
@@ -501,6 +502,7 @@ extern void xsane_batch_scan_add(void);
 #define EMAILPROJECT 	    	"emailproject"
 #define EMAILCOMMAND 	 	"sendmail"
 #define MULTIPAGEPROJECT    	"multipageproject"
+#define MULTIPAGEFILETYPE    	XSANE_FILETYPE_PDF
 #define OCRCOMMAND 	 	"gocr"
 #define OCRINPUTFILEOPT	 	"-i"
 #define OCROUTPUTFILEOPT	"-o"
@@ -796,8 +798,6 @@ typedef struct Xsane
 
     int copy_number;
     double zoom;
-    double zoom_x;
-    double zoom_y;
     double resolution;
     double resolution_x;
     double resolution_y;

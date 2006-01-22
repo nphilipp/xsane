@@ -163,7 +163,7 @@ static gint xsane_viewer_close_callback(GtkWidget *widget, gpointer data)
 
   if (!v->image_saved)
   {
-   char buf[256];
+   char buf[TEXTBUFSIZE];
 
     snprintf(buf, sizeof(buf), WARN_VIEWER_IMAGE_NOT_SAVED);
     xsane_viewer_set_sensitivity(v, FALSE);
@@ -252,10 +252,10 @@ static void xsane_viewer_save_callback(GtkWidget *window, gpointer data)
  Viewer *v = (Viewer *) data;
  char outputfilename[1024];
  char *inputfilename;
- char windowname[256];
+ char windowname[TEXTBUFSIZE];
  int output_format;
  int abort = 0;
- char buf[256];
+ char buf[TEXTBUFSIZE];
 
   if (v->block_actions) /* actions blocked: return */
   {
@@ -312,7 +312,7 @@ static void xsane_viewer_save_callback(GtkWidget *window, gpointer data)
     testfile = fopen(v->output_filename, "rb"); /* read binary (b for win32) */
     if (testfile) /* filename used: skip */
     {
-     char buf[256];
+     char buf[TEXTBUFSIZE];
  
       fclose(testfile);
       snprintf(buf, sizeof(buf), WARN_FILE_EXISTS, v->output_filename);
@@ -333,7 +333,7 @@ static void xsane_viewer_save_callback(GtkWidget *window, gpointer data)
   {
     if (xsane_create_secure_file(v->output_filename)) /* remove possibly existing symbolic links for security */
     {
-     char buf[256];
+     char buf[TEXTBUFSIZE];
 
       snprintf(buf, sizeof(buf), "%s %s %s\n", ERR_DURING_SAVE, ERR_CREATE_SECURE_FILE, v->output_filename);
       xsane_back_gtk_error(buf, TRUE);
@@ -385,7 +385,7 @@ static void xsane_viewer_ocr_callback(GtkWidget *window, gpointer data)
  Viewer *v = (Viewer *) data;
  char outputfilename[1024];
  char *extensionptr;
- char windowname[256];
+ char windowname[TEXTBUFSIZE];
  int abort = 0;
 
   if (v->block_actions) /* actions blocked: return */
@@ -435,7 +435,7 @@ static void xsane_viewer_ocr_callback(GtkWidget *window, gpointer data)
 static void xsane_viewer_clone_callback(GtkWidget *window, gpointer data)
 {
  Viewer *v = (Viewer *) data;
- char outfilename[256];
+ char outfilename[PATH_MAX];
 
   if (v->block_actions) /* actions blocked: return */
   {
@@ -456,7 +456,7 @@ static void xsane_viewer_clone_callback(GtkWidget *window, gpointer data)
 
   if (v->last_saved_filename)
   {
-   char buf[256];
+   char buf[TEXTBUFSIZE];
     snprintf(buf, sizeof(buf), "%s%s", FILENAME_PREFIX_CLONE_OF, v->last_saved_filename);
     xsane_viewer_new(outfilename, v->selection_filetype, v->allow_reduction_to_lineart, buf, v->allow_modification, IMAGE_NOT_SAVED);
   }
@@ -576,7 +576,7 @@ static void xsane_viewer_scale_callback(GtkWidget *window, gpointer data)
  GdkPixmap *pixmap;
  GdkBitmap *mask;
  GtkWidget *pixmapwidget;
- char buf[256];
+ char buf[TEXTBUFSIZE];
  FILE *infile;
  Image_info image_info;
 
@@ -831,7 +831,7 @@ static void xsane_viewer_despeckle_callback(GtkWidget *window, gpointer data)
  GtkWidget *hbox, *vbox;
  GtkWidget *label, *spinbutton, *button;
  GtkAdjustment *adjustment;
- char buf[256];
+ char buf[TEXTBUFSIZE];
 
   if (v->block_actions) /* actions blocked: return */
   {
@@ -925,7 +925,7 @@ static void xsane_viewer_blur_callback(GtkWidget *window, gpointer data)
  GtkWidget *hbox, *vbox;
  GtkWidget *label, *spinbutton, *button;
  GtkAdjustment *adjustment;
- char buf[256];
+ char buf[TEXTBUFSIZE];
 
   if (v->block_actions) /* actions blocked: return */
   {
@@ -1036,7 +1036,7 @@ static void xsane_viewer_undo_callback(GtkWidget *window, gpointer data)
 
   if (v->last_saved_filename)
   {
-   char buf[256];
+   char buf[TEXTBUFSIZE];
     snprintf(buf, sizeof(buf), "%s (%s) - %s", WINDOW_VIEWER, v->last_saved_filename, xsane.device_text);
     gtk_window_set_title(GTK_WINDOW(v->top), buf);
   }
@@ -1051,7 +1051,7 @@ static void xsane_viewer_scale_image(GtkWidget *window, gpointer data)
 {
  FILE *outfile;
  FILE *infile;
- char outfilename[256];
+ char outfilename[PATH_MAX];
  Viewer *v = (Viewer *) data;
  Image_info image_info;
 
@@ -1119,7 +1119,7 @@ static void xsane_viewer_scale_image(GtkWidget *window, gpointer data)
 
   if (v->last_saved_filename)
   {
-   char buf[256];
+   char buf[TEXTBUFSIZE];
     snprintf(buf, sizeof(buf), "%s (%s) - %s", WINDOW_VIEWER, v->last_saved_filename, xsane.device_text);
     gtk_window_set_title(GTK_WINDOW(v->top), buf);
   }
@@ -1133,7 +1133,7 @@ static void xsane_viewer_despeckle_image(GtkWidget *window, gpointer data)
 {
  FILE *outfile;
  FILE *infile;
- char outfilename[256];
+ char outfilename[PATH_MAX];
  Viewer *v = (Viewer *) data;
  Image_info image_info;
 
@@ -1196,7 +1196,7 @@ static void xsane_viewer_despeckle_image(GtkWidget *window, gpointer data)
 
   if (v->last_saved_filename)
   {
-   char buf[256];
+   char buf[TEXTBUFSIZE];
     snprintf(buf, sizeof(buf), "%s (%s) - %s", WINDOW_VIEWER, v->last_saved_filename, xsane.device_text);
     gtk_window_set_title(GTK_WINDOW(v->top), buf);
   }
@@ -1210,7 +1210,7 @@ static void xsane_viewer_blur_image(GtkWidget *window, gpointer data)
 {
  FILE *outfile;
  FILE *infile;
- char outfilename[256];
+ char outfilename[PATH_MAX];
  Viewer *v = (Viewer *) data;
  Image_info image_info;
 
@@ -1273,7 +1273,7 @@ static void xsane_viewer_blur_image(GtkWidget *window, gpointer data)
 
   if (v->last_saved_filename)
   {
-   char buf[256];
+   char buf[TEXTBUFSIZE];
     snprintf(buf, sizeof(buf), "%s (%s) - %s", WINDOW_VIEWER, v->last_saved_filename, xsane.device_text);
     gtk_window_set_title(GTK_WINDOW(v->top), buf);
   }
@@ -1287,7 +1287,7 @@ static void xsane_viewer_rotate(Viewer *v, int rotation)
 {
  FILE *outfile;
  FILE *infile;
- char outfilename[256];
+ char outfilename[PATH_MAX];
  Image_info image_info;
 
   if (v->block_actions) /* actions blocked: return */
@@ -1363,7 +1363,7 @@ static void xsane_viewer_rotate(Viewer *v, int rotation)
 
   if (v->last_saved_filename)
   {
-   char buf[256];
+   char buf[TEXTBUFSIZE];
     snprintf(buf, sizeof(buf), "%s (%s) - %s", WINDOW_VIEWER, v->last_saved_filename, xsane.device_text);
     gtk_window_set_title(GTK_WINDOW(v->top), buf);
   }
@@ -1663,7 +1663,7 @@ static int xsane_viewer_read_image(Viewer *v)
  int pos0;
  FILE *infile;
  Image_info image_info;
- char buf[256];
+ char buf[TEXTBUFSIZE];
  float size;
  char *size_unit;
  int width, height;
@@ -1804,7 +1804,7 @@ static int xsane_viewer_read_image(Viewer *v)
     size *= 2.0;
   }
 
-  if ((v->allow_reduction_to_lineart) && (image_info.reduce_to_lineart)) 
+  if (image_info.reduce_to_lineart)
   {
     size /= 8.0;
   }
@@ -1822,7 +1822,7 @@ static int xsane_viewer_read_image(Viewer *v)
     size_unit = "KB";
   }
 
-  if ((v->allow_reduction_to_lineart) && (image_info.reduce_to_lineart))
+  if (image_info.reduce_to_lineart)
   {
     snprintf(buf, sizeof(buf), TEXT_VIEWER_IMAGE_INFO, image_info.image_width, image_info.image_height, 1, image_info.colors, 
              image_info.resolution_x, image_info.resolution_y, size, size_unit);
@@ -1870,7 +1870,7 @@ static int xsane_viewer_read_image(Viewer *v)
 Viewer *xsane_viewer_new(char *filename, char *selection_filetype, int allow_reduction_to_lineart,
                          char *output_filename, viewer_modification allow_modification, int image_saved)
 {
- char buf[256];
+ char buf[TEXTBUFSIZE];
  Viewer *v;
  GtkWidget *vbox, *hbox;
  GtkWidget *menubar, *menubar_item;
