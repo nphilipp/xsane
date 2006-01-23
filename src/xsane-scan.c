@@ -1326,17 +1326,8 @@ void xsane_scan_done(SANE_Status status)
 
         xsane_read_pnm_header(infile, &image_info);
 
-#if 1 /* original xsane-0.98 and 0.99 version */
-        imagewidth  = 72.0 * image_info.image_width/(float)printer_resolution; /* width in 1/72 inch */
-        imageheight = 72.0 * image_info.image_height/(float)printer_resolution; /* height in 1/72 inch */
-#else /* test version for backends that do not support arbitary resolutions XXXXXXXXXX */
         imagewidth  = 72.0 * image_info.image_width /image_info.resolution_x * xsane.zoom; /* desired width in 1/72 inch */
         imageheight = 72.0 * image_info.image_height/image_info.resolution_y * xsane.zoom; /* desired height in 1/72 inch */
-or for different x- and y-res:
-        imagewidth  = 72.0 * image_info.image_width /image_info.resolution_x * xsane.zoom_x; /* desired width in 1/72 inch */
-        imageheight = 72.0 * image_info.image_height/image_info.resolution_y * xsane.zoom_y; /* desired height in 1/72 inch */
-#endif
-
 
         memset (&act, 0, sizeof (act)); /* define broken pipe handler */
         act.sa_handler = xsane_sigpipe_handler;

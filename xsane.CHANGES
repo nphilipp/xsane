@@ -2865,5 +2865,7 @@ xsane-0.99 -> 0.991:
  - change handling of zoom (photocopy mode):
    - now there is only one zoom value even if there is a resolution_x and
      a resolution_y option, zoom_x and zoom_y are removed
+   - the zoom factor is directly used to define the image output size
+     (before the scanresolution was used to define the image output size)
    - the resolution is not changed any more when an other printer with a
      different printer resolution is selected
