@@ -1,0 +1,4 @@
+- option: convert image to sRGB and other colorspaces before saving
+- add CMS preview options to preview or xsane main window
+- add CMS postscript support, especally for copy mode
+

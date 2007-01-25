@@ -3,7 +3,7 @@
    xsane.h
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2005 Oliver Rauch
+   Copyright (C) 1998-2007 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -69,6 +69,10 @@
 #include <gdk/gdk.h>
 #include <gtk/gtk.h>
 
+#ifdef HAVE_LIBLCMS
+# include "lcms.h"
+#endif
+
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 #if 0
@@ -85,10 +89,10 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.991"
+#define XSANE_VERSION		"0.992"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
-#define XSANE_DATE		"1998-2006"
+#define XSANE_DATE		"1998-2007"
 #define XSANE_EMAIL_ADR		"Oliver.Rauch@xsane.org"
 #define XSANE_HOMEPAGE		"http://www.xsane.org"
 #define XSANE_COPYRIGHT_TXT	XSANE_DATE " " XSANE_COPYRIGHT
@@ -617,6 +621,7 @@ typedef struct Xsane
     char *backend;
     char *backend_translation;
     char *device_set_filename;
+    char *xsane_rc_set_filename;
     char *output_filename;
     char *dummy_filename;
 
@@ -816,20 +821,22 @@ typedef struct Xsane
     GtkWidget *show_standard_options_widget;
     GtkWidget *show_advanced_options_widget;
     GtkWidget *show_resolution_list_widget;
-    GtkObject *zoom_widget;
-    GtkObject *gamma_widget;
-    GtkObject *gamma_red_widget;
-    GtkObject *gamma_green_widget;
-    GtkObject *gamma_blue_widget;
-    GtkObject *brightness_widget;
-    GtkObject *brightness_red_widget;
-    GtkObject *brightness_green_widget;
-    GtkObject *brightness_blue_widget;
-    GtkObject *contrast_widget;
-    GtkObject *contrast_red_widget;
-    GtkObject *contrast_green_widget;
-    GtkObject *contrast_blue_widget;
-    GtkObject *threshold_widget;
+    GtkWidget *enable_color_management_widget;
+    GtkWidget *edit_medium_definition_widget;
+    GtkWidget *zoom_widget;
+    GtkWidget *gamma_widget;
+    GtkWidget *gamma_red_widget;
+    GtkWidget *gamma_green_widget;
+    GtkWidget *gamma_blue_widget;
+    GtkWidget *brightness_widget;
+    GtkWidget *brightness_red_widget;
+    GtkWidget *brightness_green_widget;
+    GtkWidget *brightness_blue_widget;
+    GtkWidget *contrast_widget;
+    GtkWidget *contrast_red_widget;
+    GtkWidget *contrast_green_widget;
+    GtkWidget *contrast_blue_widget;
+    GtkWidget *threshold_widget;
 
     SANE_Int xsane_colors;
     SANE_Bool scanner_gamma_color;
@@ -945,9 +952,16 @@ typedef struct Xsane
     int enhancement_rgb_default;
     int negative;
     int show_preview;
+
+    int enable_color_management; 
+    int embed_icm_profile;
+    char *scanner_refl_icm_profile;
+    char *scanner_tran_icm_profile;
+
     int print_filenames;
     int force_filename;
     char *external_filename;
+
 
 /* -------------------------------------------------- */
 
@@ -974,6 +988,7 @@ typedef struct XsaneSetup
   GtkWidget *printer_gamma_red_entry;
   GtkWidget *printer_gamma_green_entry;
   GtkWidget *printer_gamma_blue_entry;
+  GtkWidget *printer_icm_profile_entry;
   GtkWidget *printer_width_entry;
   GtkWidget *printer_height_entry;
   GtkWidget *printer_ps_flatdecoded_button;
@@ -1040,6 +1055,12 @@ typedef struct XsaneSetup
   GtkWidget *ocr_use_gui_pipe_entry;
   GtkWidget *ocr_gui_outfd_option_entry;
   GtkWidget *ocr_progress_keyword_entry;
+
+  GtkWidget *embed_icm_profile_button;
+  GtkWidget *scanner_refl_icm_profile_entry;
+  GtkWidget *scanner_tran_icm_profile_entry;
+  GtkWidget *display_icm_profile_entry;
+  GtkWidget *custom_proofing_icm_profile_entry;
 
   int filename_counter_len;
 

@@ -6,7 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xsane-0.99_it\n"
-"POT-Creation-Date: 2006-01-07 00:26+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-01-15 20:42+0100\n"
 "PO-Revision-Date: 2006-01-09 21:47+0100\n"
 "Last-Translator: Kostantino <ciclope10ATalice.it>\n"
 "Language-Team: Italiano <tp@lists.linux.it>\n"
@@ -35,6 +36,7 @@ msgid "About"
 msgstr "Informazioni"
 
 #. WINDOW_ABOUT_TRANSLATION, MENU_ITEM_ABOUT_TRANSLATION
+#. MENU_ITEM_ABOUT_TRANSLATION
 msgid "About translation"
 msgstr "Informazioni sulla traduzione"
 
@@ -143,6 +145,7 @@ msgid "Preview"
 msgstr "Anteprima"
 
 #. WINDOW_VIEWER
+#. MENU_ITEM_VIEWER
 msgid "Viewer"
 msgstr "Visualizzatore"
 
@@ -175,14 +178,17 @@ msgid "select temporary directory"
 msgstr "Seleziona cartella temporanea"
 
 #. WINDOW_SCALE
+#. DESC_VIEWER_SCALE
 msgid "Scale image"
 msgstr "Ridimensiona l'immagine"
 
 #. WINDOW_DESPECKLE
+#. DESC_VIEWER_DESPECKLE
 msgid "Despeckle image"
 msgstr "Applica filtro mediano"
 
 #. WINDOW_BLUR
+#. DESC_VIEWER_BLUR
 msgid "Blur image"
 msgstr "Sfoca l'immagine"
 
@@ -193,6 +199,30 @@ msgstr "Salva la definizione del supporto"
 #. WINDOW_NO_DEVICES
 msgid "No devices available"
 msgstr "Non è disponibile alcun dispositivo"
+
+#. WINDOW_SCANNER_REFL_ICM_PROFILE
+#, fuzzy
+msgid "select scanner reflective ICM-profile"
+msgstr "Cancella stampante"
+
+#. WINDOW_SCANNER_TRAN_ICM_PROFILE
+#, fuzzy
+msgid "select scanner transmissive ICM-profile"
+msgstr "Cancella stampante"
+
+#. WINDOW_DISPLAY_ICM_PROFILE
+msgid "select display ICM-profile"
+msgstr ""
+
+#. WINDOW_CUSTOM_PROOFING_ICM_PROFILE
+#, fuzzy
+msgid "select custom proofing ICM-profile"
+msgstr "Seleziona il nome del file prodotto"
+
+#. WINDOW_PRINTER_ICM_PROFILE
+#, fuzzy
+msgid "select printer ICM-profile"
+msgstr "Cancella stampante"
 
 #. MENU_FILE
 msgid "File"
@@ -211,6 +241,7 @@ msgid "Window"
 msgstr "Finestra"
 
 #. MENU_HELP
+#. BUTTON_HELP
 msgid "Help"
 msgstr "Aiuto"
 
@@ -226,6 +257,11 @@ msgstr "Filtri"
 msgid "Geometry"
 msgstr "Geometria"
 
+#. MENU_COLOR_MANAGEMENT
+#. NOTEBOOK_COLOR_MANAGEMENT_OPTIONS
+msgid "Color management"
+msgstr ""
+
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
 msgstr "Informazioni su XSane"
@@ -239,6 +275,7 @@ msgid "Quit"
 msgstr "Esci"
 
 #. MENU_ITEM_SAVE_IMAGE
+#. DESC_VIEWER_SAVE
 msgid "Save image"
 msgstr "Salva immagine"
 
@@ -255,6 +292,7 @@ msgid "Scale"
 msgstr "Ridimensiona"
 
 #. MENU_ITEM_CLOSE
+#. BUTTON_CLOSE
 msgid "Close"
 msgstr "Chiudi"
 
@@ -490,6 +528,10 @@ msgstr "Correzione automatica dei colori"
 msgid "Use GUI progress pipe"
 msgstr "Utilizza la pipe di avanzamento della GUI"
 
+#. RADIO_BUTTON_EMBED_ICM_PROFILE
+msgid "Embed scanner/source ICM profile into image file"
+msgstr ""
+
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
 msgstr "Sto cercando i dispositivi..."
@@ -625,6 +667,11 @@ msgstr "versione:"
 #. TEXT_PACKAGE
 msgid "package"
 msgstr "pacchetto"
+
+#. TEXT_WITH_CMS_FUNCTION
+#, fuzzy
+msgid "with color management function"
+msgstr "Tutto l'intervallo del colore"
 
 #. TEXT_WITH_GIMP_SUPPORT
 msgid "with GIMP support"
@@ -813,6 +860,7 @@ msgid "Name:"
 msgstr "Nome:"
 
 #. TEXT_SETUP_PRINTER_CMD, TEXT_SETUP_FAX_CMD
+#. TEXT_SETUP_FAX_COMMAND
 msgid "Command:"
 msgstr "Comando:"
 
@@ -833,18 +881,22 @@ msgid "Color resolution (dpi):"
 msgstr "Risoluzione del colore (DPI):"
 
 #. TEXT_SETUP_PRINTER_WIDTH
+#. TEXT_SETUP_FAX_WIDTH
 msgid "Width"
 msgstr "Larghezza"
 
 #. TEXT_SETUP_PRINTER_HEIGHT
+#. TEXT_SETUP_FAX_HEIGHT
 msgid "Height"
 msgstr "Altezza"
 
 #. TEXT_SETUP_PRINTER_LEFT
+#. TEXT_SETUP_FAX_LEFT
 msgid "Left offset"
 msgstr "Margine sinistro"
 
 #. TEXT_SETUP_PRINTER_BOTTOM
+#. TEXT_SETUP_FAX_BOTTOM
 msgid "Bottom offset"
 msgstr "Margine inferiore"
 
@@ -1065,10 +1117,37 @@ msgstr "gruppo"
 msgid "all"
 msgstr "tutti"
 
+#. TEXT_SETUP_SCANNER_REFL_ICM_PROFILE
+#, fuzzy
+msgid "Scanner reflective ICM-profile"
+msgstr "Cancella stampante"
+
+#. TEXT_SETUP_SCANNER_TRAN_ICM_PROFILE
+#. DESC_SCANNER_TRAN_ICM_PROFILE
+msgid "Scanner transmissive ICM-profile"
+msgstr ""
+
+#. TEXT_SETUP_DISPLAY_ICM_PROFILE
+#. DESC_DISPLAY_ICM_PROFILE
+msgid "Display ICM-profile"
+msgstr ""
+
+#. TEXT_SETUP_CUSTOM_PROOFING_ICM_PROFILE
+#. DESC_CUSTOM_PROOFING_ICM_PROFILE
+#, fuzzy
+msgid "Custom proofing ICM-profile"
+msgstr "Cancella stampante"
+
+#. TEXT_SETUP_PRINTER_ICM_PROFILE
+#. DESC_PRINTER_ICM_PROFILE
+msgid "Printer ICM-profile"
+msgstr ""
+
 msgid "new media"
 msgstr "nuovo supporto"
 
 #. NOTEBOOK_SAVING_OPTIONS
+#. MENU_ITEM_SAVE
 msgid "Save"
 msgstr "Salva"
 
@@ -1077,14 +1156,17 @@ msgid "Filetype"
 msgstr "Tipo file"
 
 #. NOTEBOOK_COPY_OPTIONS
+#. MENU_ITEM_COPY
 msgid "Copy"
 msgstr "Copia"
 
 #. NOTEBOOK_FAX_OPTIONS
+#. MENU_ITEM_FAX
 msgid "Fax"
 msgstr "Fax "
 
 #. NOTEBOOK_EMAIL_OPTIONS
+#. MENU_ITEM_EMAIL
 msgid "E-mail"
 msgstr "E-mail"
 
@@ -1176,6 +1258,12 @@ msgstr "Visualizza l'elenco delle risoluzioni"
 msgid "Rotate postscript"
 msgstr "Ruota Postscript"
 
+#. MENU_ITEM_ENABLE_COLOR_MANAGEMENT
+#. MENU_ITEM_CMS_ENABLE_COLOR_MANAGEMENT
+#, fuzzy
+msgid "Enable color management"
+msgstr "Tutto l'intervallo del colore"
+
 #. MENU_ITEM_EDIT_MEDIUM_DEF
 msgid "Edit medium definition"
 msgstr "Salva definizione supporto"
@@ -1219,6 +1307,90 @@ msgstr "Consigli sulla scansione"
 #. MENU_ITEM_PROBLEMS
 msgid "Problems?"
 msgstr "Problemi?"
+
+#. MENU_ITEM_CMS_BLACK_POINT_COMPENSATION
+msgid "Black point compensation"
+msgstr ""
+
+#. MENU_ITEM_CMS_PROOFING
+#, fuzzy
+msgid "Proofing"
+msgstr "Aggiungi stampante"
+
+#. SUBMENU_ITEM_CMS_PROOF_OFF
+msgid "no proofing (Display)"
+msgstr ""
+
+#. SUBMENU_ITEM_CMS_PROOF_PRINTER
+#, fuzzy
+msgid "Proof printer"
+msgstr "Aggiungi stampante"
+
+#. SUBMENU_ITEM_CMS_PROOF_CUSTOM
+msgid "Proof custom device"
+msgstr ""
+
+#. MENU_ITEM_CMS_RENDERING_INTENT
+#, fuzzy
+msgid "Rendering intent"
+msgstr "Aggiungi stampante"
+
+#. MENU_ITEM_CMS_PROOFING_INTENT
+#, fuzzy
+msgid "Proofing rendering intent"
+msgstr "Aggiungi stampante"
+
+#. SUBMENU_ITEM_CMS_INTENT_PERCEPTUAL
+msgid "Perceptual"
+msgstr ""
+
+#. SUBMENU_ITEM_CMS_INTENT_RELATIVE_COLORIMETRIC
+msgid "Relative colorimetric"
+msgstr ""
+
+#. SUBMENU_ITEM_CMS_INTENT_ABSOLUTE_COLORIMETRIC
+msgid "Absolute colorimentric"
+msgstr ""
+
+#. SUBMENU_ITEM_CMS_INTENT_SATURATION
+#, fuzzy
+msgid "Saturation"
+msgstr "Autorizzazione"
+
+#. MENU_ITEM_CMS_GAMUT_CHECK
+msgid "Gamut check"
+msgstr ""
+
+#. MENU_ITEM_CMS_GAMUT_ALARM_COLOR
+msgid "Gamut alarm color"
+msgstr ""
+
+#. SUBMENU_ITEM_CMS_COLOR_BLACK
+msgid "Black"
+msgstr ""
+
+#. SUBMENU_ITEM_CMS_COLOR_GRAY
+msgid "Gray"
+msgstr ""
+
+#. SUBMENU_ITEM_CMS_COLOR_WHITE
+#, fuzzy
+msgid "White"
+msgstr "scrivi"
+
+#. SUBMENU_ITEM_CMS_COLOR_RED
+#, fuzzy
+msgid "Red"
+msgstr "Riduci"
+
+#. SUBMENU_ITEM_CMS_COLOR_GREEN
+msgid "Green"
+msgstr ""
+
+#. SUBMENU_ITEM_CMS_COLOR_BLUE
+#, fuzzy
+msgid "Blue"
+msgstr "Sfoca"
 
 #. MENU_ITEM_COUNTER_LEN_INACTIVE
 msgid "inactive"
@@ -1610,7 +1782,8 @@ msgstr ""
 " contrasto = 0"
 
 #. DESC_ENH_AUTO
-msgid "Autoadjust gamma, brightness and contrast <Ctrl-e>"
+#, fuzzy
+msgid "Autoadjust gamma, brightness and contrast <Ctrl-a>"
 msgstr ""
 "Calibrazione automatica della gamma, della luminosità e del contrasto <Ctrl-"
 "e>"
@@ -1698,18 +1871,22 @@ msgstr ""
 "formato Postscript"
 
 #. DESC_PRINTER_WIDTH
+#. DESC_FAX_WIDTH
 msgid "Width of printable area"
 msgstr "Larghezza area stampa"
 
 #. DESC_PRINTER_HEIGHT
+#. DESC_FAX_HEIGHT
 msgid "Height of printable area"
 msgstr "Altezza area stampa"
 
 #. DESC_PRINTER_LEFTOFFSET
+#. DESC_FAX_LEFTOFFSET
 msgid "Left offset from the edge of the paper to the printable area"
 msgstr "Margine sinistro dal bordo del foglio all'area di stampa"
 
 #. DESC_PRINTER_BOTTOMOFFSET
+#. DESC_FAX_BOTTOMOFFSET
 msgid "Bottom offset from the edge of the paper to the printable area"
 msgstr "Margine inferiore dal bordo pagina all'area di stampa"
 
@@ -1964,6 +2141,12 @@ msgstr "Seleziona l'area di scansione dopo l'acquisizione dell'anteprima"
 msgid "Do color correction after preview scan has finished"
 msgstr "Applica la correzione dei colori dopo l'acquisizione dell'anteprima"
 
+#. DESC_EMBED_ICM_PROFILE
+msgid ""
+"Embed scanner/source ICM profile into image file - when fileformat supports "
+"it"
+msgstr ""
+
 #. DESC_FAX_COMMAND
 msgid "Enter command to be executed in fax mode"
 msgstr "Inserisci il comando da eseguire in modalità fax"
@@ -2079,9 +2262,10 @@ msgstr "leggi"
 msgid "write"
 msgstr "scrivi"
 
-#. DESC_PERMISSION_EXECUTE
-msgid "execute"
-msgstr "esegui"
+#. DESC_PERMISSION_SEARCH
+#, fuzzy
+msgid "search"
+msgstr "utente"
 
 #. DESC_ADD_BATCH
 msgid "Add selection for batch scan"
@@ -2249,6 +2433,36 @@ msgstr "Togli l'area selezionata dalla lista batch"
 #. DESC_AUTOMATIC
 msgid "Turns on automatic mode"
 msgstr "Attiva modalità automatica"
+
+#. DESC_SCANNER_REFL_ICM_PROFILE
+#, fuzzy
+msgid "Scanner reflektive ICM-profile"
+msgstr "Cancella stampante"
+
+#. DESC_BUTTON_SCANNER_REFL_ICM_PROFILE_BROWSE
+#, fuzzy
+msgid "Browse for scanner reflektive ICM-profile"
+msgstr "Sfoglia per nome immagine"
+
+#. DESC_BUTTON_SCANNER_TRAN_ICM_PROFILE_BROWSE
+#, fuzzy
+msgid "Browse for scanner transmissive ICM-profile"
+msgstr "Sfoglia per nome immagine"
+
+#. DESC_BUTTON_DISPLAY_ICM_PROFILE_BROWSE
+#, fuzzy
+msgid "Browse for display ICM-profile"
+msgstr "Sfoglia per nome immagine"
+
+#. DESC_BUTTON_PRINTER_ICM_PROFILE_BROWSE
+#, fuzzy
+msgid "Browse for printer ICM-profile"
+msgstr "Sfoglia per nome immagine"
+
+#. DESC_BUTTON_CUSTOM_PROOFING_ICM_PROFILE_BROWSE
+#, fuzzy
+msgid "Browse for custom proofing ICM-profile"
+msgstr "Sfoglia per nome immagine"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2544,6 +2758,40 @@ msgstr "Il file %s non è di tipo Postscript"
 #, c-format
 msgid "Unsupported %d-bit output format: %s"
 msgstr "Il formato d'uscita a %d bit non è supportato: %s"
+
+#. ERR_CMS_CONVERSION
+#, fuzzy
+msgid "Error during CMS conversion:"
+msgstr "Si è verificato un errore durante il salvataggio:"
+
+#. ERR_CMS_OPEN_ICM_FILE
+#, fuzzy
+msgid "Could not open"
+msgstr "Impossibile aprire il file"
+
+#. CMS_SCANNER_TRAN_ICM
+msgid "scanner transmissive ICM profile"
+msgstr ""
+
+#. CMS_SCANNER_REFL_ICM
+#, fuzzy
+msgid "scanner reflective ICM profile"
+msgstr "Cancella stampante"
+
+#. CMS_DISPLAY_ICM
+#, fuzzy
+msgid "display ICM profile"
+msgstr "Sfoglia per nome immagine"
+
+#. CMS_PROOF_ICM
+#, fuzzy
+msgid "proofing ICM profile"
+msgstr "Cancella stampante"
+
+#. ERR_CMS_CREATE_TRANSFORM
+#, fuzzy
+msgid "Could not create transform"
+msgstr "Non è possibile creare il progetto fax"
 
 #. WARN_VIEWER_IMAGE_NOT_SAVED
 msgid "viewer image is not saved"

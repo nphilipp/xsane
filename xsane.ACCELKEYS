@@ -12,6 +12,9 @@ H		Menu Help
 Ctl S		Scanmode
 Ctl C		Copymode
 Ctl F		Faxmode
+Ctl V           Viewermode
+Ctl M           Multipagemode
+Ctl E           Emailmode
 
 Ctl ENTER	Start Scan
 ESC		Cancel Scan
@@ -25,24 +28,24 @@ Ctl P		Save Device Settings (Put)
 Ctl G		Load Device Settings (Get)
 Ctl D		Change Directory
 
-Ctl 1		Show Tooltips
-Ctl 2		Show preview
-Ctl 3		Show Histogram
+Ctl 1		Show preview
+Ctl 2		Show Histogram
 Ctl 3		(Show Gamma Dialog)
-Ctl 4		Show Standard Options
-Ctl 5		Show Advanced Options
+Ctl 4		Show Batch Scan Window
+Ctl 5		Show Standard Options
+Ctl 6		Show Advanced Options
 
 Ctl B		Browse Filename
 
 Shift Fi	Printer selection in copy mode
 
-Shift B		Bind RGB
-Shift N		negative
-Shift E		AutoEnhance
-Shift D		Default
-Shift R		Restore Settings
-Shift M		Memory (store) settings
-Shift S		Setup
+Ctl B		Bind RGB
+Ctl N		negative
+Ctl A		AutoEnhance
+Ctl 0 (zero)	Default
+Ctl R		Restore Settings
+Ctl +		Memory (store) settings
+Alt S		Setup
 
 Alt P		Start Preview Scan
 Alt ESC		Cancel Preview Scan

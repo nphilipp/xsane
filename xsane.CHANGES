@@ -2562,7 +2562,7 @@ xsane-0.94 -> 0.95:
    - before sending the mail pnm images are converted into png images
    - after sending the mail the png images are erased
    - mail project status is translated now
-   - BUFIX: end of email text is marked with 0 byte
+   - BUGFIX: end of email text is marked with 0 byte
 
  - added function xsane_viewer_set_sensitivity()
    - moved all gtk_widget_set_sensitive(GTK_WIDGET(v->button_box), TRUE/FALSE); to it
@@ -2869,3 +2869,56 @@ xsane-0.99 -> 0.991:
      (before the scanresolution was used to define the image output size)
    - the resolution is not changed any more when an other printer with a
      different printer resolution is selected
+ - replaced all char buf[255], char buf[256] etc by char buf[TEXTBUFSIZE]
+
+xsane-0.991 -> 0.992:
+---------------------
+ - there was still a bug concerning the gimp plugin
+   when xsane has been quit in copy mode and afterwards
+   started as gimp plugin then xsane used the printer paper
+   size in the preview window. This is solved now:
+   replaced preferences.xsane_mode by xsane.xsane_mode
+   in xsane_define_maximum_output_size()
+
+ - xsane_save_scaled_image sometimes did not write the last line
+   and produced a tuncated image. this is corrected now
+
+ - viewer: when saved image is cloned and the viewer of the cloned
+   image is closed then no dialog pops up any more
+
+ - translations: U=updated, N=not updated, A=added/new
+   ca cs da de es fr hu it ja nl pl pt pt_BR ro ru sk sl sr sv tr vi zh zh_CN
+   A  N  N  N  N  N  N  U  N  N  N  N  N     N  N  N  N  N  N  N  N  N  A
+   99299 99 99 96 95 99    95 99 99 96 96    96 99 98 99 76 92 99 96 96 992
+
+ - xsane-preview.c: preview_create_batch_icon():
+   bugfix: files (in) are closed directly after use now,
+   bug report from Norman Hill - thanks
+
+ - corrected order of filetypes in xsane_back_gtk_filetype_menu_set_history, now
+   the filetype are not mixed any more when the disk icon is pressed
+
+ - replaced all "\n" by "\r\n" in email 
+
+ - corrected some signdness warnings in xsane-preview.c (buf)
+
+ - fixed memory bug that caused crash when setup was closed (display_notebook):
+   added strdup to preferences.browser = strdup(getenv(STRINGIFY(ENVIRONMENT_BROWSER_NAME)));
+
+ - added command line option --xsane-rc / -r to change give alternative filename for xsane.rc
+
+ - added support for color management:
+   - added tab "color management" to setup/preferences
+   - preview can display ICC/ICM corrected images with 8bits/color and with 16bits/color input bit depth
+   - viewer can display ICC/ICM corrected images with 8bits/color and with 16bits/color input bit depth
+   - gamma correction and medium selection is disabled when color management is enabled
+   - added support for embedded ICC/ICM files for
+     - tiff
+     - jpeg
+     - png
+     - gimp plugin
+
+ - replaced several GtkObject* by GtkWidget* to avoid type-punned-pointer warning
+
+ - replaced several (void**) typecasts in xsane-rc-io.c to avoid type-punned-pointer warning
+

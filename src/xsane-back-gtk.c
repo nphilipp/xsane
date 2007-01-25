@@ -3,7 +3,7 @@
    xsane-back-gtk.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2005 Oliver Rauch
+   Copyright (C) 1998-2007 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -940,6 +940,13 @@ void xsane_back_gtk_filetype_menu_set_history(GtkWidget *xsane_filetype_option_m
   }
 #endif
 
+  filetype_nr++;
+  if ( (filetype) && (!strcasecmp(filetype, XSANE_FILETYPE_PDF)) )
+  {
+    select_item = filetype_nr;
+  }
+
+
 #ifdef HAVE_LIBPNG
 #ifdef HAVE_LIBZ
   filetype_nr++;
@@ -958,12 +965,6 @@ void xsane_back_gtk_filetype_menu_set_history(GtkWidget *xsane_filetype_option_m
 
   filetype_nr++;
   if ( (filetype) && (!strcasecmp(filetype, XSANE_FILETYPE_PS)) )
-  {
-    select_item = filetype_nr;
-  }
-
-  filetype_nr++;
-  if ( (filetype) && (!strcasecmp(filetype, XSANE_FILETYPE_PDF)) )
   {
     select_item = filetype_nr;
   }

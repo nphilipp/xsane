@@ -5,7 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.96\n"
-"POT-Creation-Date: 2006-01-07 00:26+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-01-15 20:42+0100\n"
 "PO-Revision-Date: 2003-03-27 12:00+0100\n"
 "Last-Translator: Wang leolarrel <leolarrel@yahoo.com.tw>\n"
 "Language-Team: zh_TW<zh_TW@li.org>\n"
@@ -32,6 +33,7 @@ msgid "About"
 msgstr "有關"
 
 #. WINDOW_ABOUT_TRANSLATION, MENU_ITEM_ABOUT_TRANSLATION
+#. MENU_ITEM_ABOUT_TRANSLATION
 msgid "About translation"
 msgstr "關於翻譯"
 
@@ -146,6 +148,7 @@ msgid "Preview"
 msgstr "預覽"
 
 #. WINDOW_VIEWER
+#. MENU_ITEM_VIEWER
 msgid "Viewer"
 msgstr "檢視器"
 
@@ -178,14 +181,17 @@ msgid "select temporary directory"
 msgstr "選擇暫存目錄"
 
 #. WINDOW_SCALE
+#. DESC_VIEWER_SCALE
 msgid "Scale image"
 msgstr "調整影像"
 
 #. WINDOW_DESPECKLE
+#. DESC_VIEWER_DESPECKLE
 msgid "Despeckle image"
 msgstr ""
 
 #. WINDOW_BLUR
+#. DESC_VIEWER_BLUR
 msgid "Blur image"
 msgstr "模糊影像"
 
@@ -196,6 +202,30 @@ msgstr "儲存環境設定"
 #. WINDOW_NO_DEVICES
 msgid "No devices available"
 msgstr "沒有裝置可以使用"
+
+#. WINDOW_SCANNER_REFL_ICM_PROFILE
+#, fuzzy
+msgid "select scanner reflective ICM-profile"
+msgstr "刪除列表機"
+
+#. WINDOW_SCANNER_TRAN_ICM_PROFILE
+#, fuzzy
+msgid "select scanner transmissive ICM-profile"
+msgstr "刪除列表機"
+
+#. WINDOW_DISPLAY_ICM_PROFILE
+msgid "select display ICM-profile"
+msgstr ""
+
+#. WINDOW_CUSTOM_PROOFING_ICM_PROFILE
+#, fuzzy
+msgid "select custom proofing ICM-profile"
+msgstr "選擇輸出檔名"
+
+#. WINDOW_PRINTER_ICM_PROFILE
+#, fuzzy
+msgid "select printer ICM-profile"
+msgstr "刪除列表機"
 
 #. MENU_FILE
 msgid "File"
@@ -214,6 +244,7 @@ msgid "Window"
 msgstr "視窗"
 
 #. MENU_HELP
+#. BUTTON_HELP
 msgid "Help"
 msgstr "幫助"
 
@@ -229,6 +260,11 @@ msgstr "過濾器"
 msgid "Geometry"
 msgstr ""
 
+#. MENU_COLOR_MANAGEMENT
+#. NOTEBOOK_COLOR_MANAGEMENT_OPTIONS
+msgid "Color management"
+msgstr ""
+
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
 msgstr "有關Xsane"
@@ -242,6 +278,7 @@ msgid "Quit"
 msgstr "離開"
 
 #. MENU_ITEM_SAVE_IMAGE
+#. DESC_VIEWER_SAVE
 msgid "Save image"
 msgstr "儲存影像"
 
@@ -258,6 +295,7 @@ msgid "Scale"
 msgstr "調整"
 
 #. MENU_ITEM_CLOSE
+#. BUTTON_CLOSE
 msgid "Close"
 msgstr "關閉"
 
@@ -500,6 +538,10 @@ msgstr "自動修正顏色"
 msgid "Use GUI progress pipe"
 msgstr ""
 
+#. RADIO_BUTTON_EMBED_ICM_PROFILE
+msgid "Embed scanner/source ICM profile into image file"
+msgstr ""
+
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
 msgstr "裝置掃描中"
@@ -635,6 +677,11 @@ msgstr "版本"
 #. TEXT_PACKAGE
 msgid "package"
 msgstr "包裝"
+
+#. TEXT_WITH_CMS_FUNCTION
+#, fuzzy
+msgid "with color management function"
+msgstr "全色範圍"
 
 #. TEXT_WITH_GIMP_SUPPORT
 msgid "with GIMP support"
@@ -810,6 +857,7 @@ msgid "Name:"
 msgstr "名稱"
 
 #. TEXT_SETUP_PRINTER_CMD, TEXT_SETUP_FAX_CMD
+#. TEXT_SETUP_FAX_COMMAND
 msgid "Command:"
 msgstr "命令"
 
@@ -830,18 +878,22 @@ msgid "Color resolution (dpi):"
 msgstr "色彩解析度 (dpi):"
 
 #. TEXT_SETUP_PRINTER_WIDTH
+#. TEXT_SETUP_FAX_WIDTH
 msgid "Width"
 msgstr "寬"
 
 #. TEXT_SETUP_PRINTER_HEIGHT
+#. TEXT_SETUP_FAX_HEIGHT
 msgid "Height"
 msgstr "高"
 
 #. TEXT_SETUP_PRINTER_LEFT
+#. TEXT_SETUP_FAX_LEFT
 msgid "Left offset"
 msgstr "左邊差距"
 
 #. TEXT_SETUP_PRINTER_BOTTOM
+#. TEXT_SETUP_FAX_BOTTOM
 msgid "Bottom offset"
 msgstr "下邊差距"
 
@@ -1065,10 +1117,37 @@ msgstr "群組"
 msgid "all"
 msgstr "所有"
 
+#. TEXT_SETUP_SCANNER_REFL_ICM_PROFILE
+#, fuzzy
+msgid "Scanner reflective ICM-profile"
+msgstr "刪除列表機"
+
+#. TEXT_SETUP_SCANNER_TRAN_ICM_PROFILE
+#. DESC_SCANNER_TRAN_ICM_PROFILE
+msgid "Scanner transmissive ICM-profile"
+msgstr ""
+
+#. TEXT_SETUP_DISPLAY_ICM_PROFILE
+#. DESC_DISPLAY_ICM_PROFILE
+msgid "Display ICM-profile"
+msgstr ""
+
+#. TEXT_SETUP_CUSTOM_PROOFING_ICM_PROFILE
+#. DESC_CUSTOM_PROOFING_ICM_PROFILE
+#, fuzzy
+msgid "Custom proofing ICM-profile"
+msgstr "刪除列表機"
+
+#. TEXT_SETUP_PRINTER_ICM_PROFILE
+#. DESC_PRINTER_ICM_PROFILE
+msgid "Printer ICM-profile"
+msgstr ""
+
 msgid "new media"
 msgstr ""
 
 #. NOTEBOOK_SAVING_OPTIONS
+#. MENU_ITEM_SAVE
 msgid "Save"
 msgstr "儲存"
 
@@ -1078,14 +1157,17 @@ msgid "Filetype"
 msgstr "檔案"
 
 #. NOTEBOOK_COPY_OPTIONS
+#. MENU_ITEM_COPY
 msgid "Copy"
 msgstr "複製"
 
 #. NOTEBOOK_FAX_OPTIONS
+#. MENU_ITEM_FAX
 msgid "Fax"
 msgstr "傳真"
 
 #. NOTEBOOK_EMAIL_OPTIONS
+#. MENU_ITEM_EMAIL
 #, fuzzy
 msgid "E-mail"
 msgstr "電子郵件"
@@ -1178,6 +1260,12 @@ msgstr "顯示解析度列表"
 msgid "Rotate postscript"
 msgstr ""
 
+#. MENU_ITEM_ENABLE_COLOR_MANAGEMENT
+#. MENU_ITEM_CMS_ENABLE_COLOR_MANAGEMENT
+#, fuzzy
+msgid "Enable color management"
+msgstr "全色範圍"
+
 #
 #. MENU_ITEM_EDIT_MEDIUM_DEF
 msgid "Edit medium definition"
@@ -1223,6 +1311,90 @@ msgstr ""
 #. MENU_ITEM_PROBLEMS
 msgid "Problems?"
 msgstr "問題?"
+
+#. MENU_ITEM_CMS_BLACK_POINT_COMPENSATION
+msgid "Black point compensation"
+msgstr ""
+
+#. MENU_ITEM_CMS_PROOFING
+#, fuzzy
+msgid "Proofing"
+msgstr "增加列表機"
+
+#. SUBMENU_ITEM_CMS_PROOF_OFF
+msgid "no proofing (Display)"
+msgstr ""
+
+#. SUBMENU_ITEM_CMS_PROOF_PRINTER
+#, fuzzy
+msgid "Proof printer"
+msgstr "增加列表機"
+
+#. SUBMENU_ITEM_CMS_PROOF_CUSTOM
+msgid "Proof custom device"
+msgstr ""
+
+#. MENU_ITEM_CMS_RENDERING_INTENT
+#, fuzzy
+msgid "Rendering intent"
+msgstr "增加列表機"
+
+#. MENU_ITEM_CMS_PROOFING_INTENT
+#, fuzzy
+msgid "Proofing rendering intent"
+msgstr "增加列表機"
+
+#. SUBMENU_ITEM_CMS_INTENT_PERCEPTUAL
+msgid "Perceptual"
+msgstr ""
+
+#. SUBMENU_ITEM_CMS_INTENT_RELATIVE_COLORIMETRIC
+msgid "Relative colorimetric"
+msgstr ""
+
+#. SUBMENU_ITEM_CMS_INTENT_ABSOLUTE_COLORIMETRIC
+msgid "Absolute colorimentric"
+msgstr ""
+
+#. SUBMENU_ITEM_CMS_INTENT_SATURATION
+#, fuzzy
+msgid "Saturation"
+msgstr "授權"
+
+#. MENU_ITEM_CMS_GAMUT_CHECK
+msgid "Gamut check"
+msgstr ""
+
+#. MENU_ITEM_CMS_GAMUT_ALARM_COLOR
+msgid "Gamut alarm color"
+msgstr ""
+
+#. SUBMENU_ITEM_CMS_COLOR_BLACK
+msgid "Black"
+msgstr ""
+
+#. SUBMENU_ITEM_CMS_COLOR_GRAY
+msgid "Gray"
+msgstr ""
+
+#. SUBMENU_ITEM_CMS_COLOR_WHITE
+#, fuzzy
+msgid "White"
+msgstr "寫入"
+
+#. SUBMENU_ITEM_CMS_COLOR_RED
+#, fuzzy
+msgid "Red"
+msgstr "還原"
+
+#. SUBMENU_ITEM_CMS_COLOR_GREEN
+msgid "Green"
+msgstr ""
+
+#. SUBMENU_ITEM_CMS_COLOR_BLUE
+#, fuzzy
+msgid "Blue"
+msgstr "模糊"
 
 #. MENU_ITEM_COUNTER_LEN_INACTIVE
 msgid "inactive"
@@ -1618,7 +1790,8 @@ msgstr ""
 
 #
 #. DESC_ENH_AUTO
-msgid "Autoadjust gamma, brightness and contrast <Ctrl-e>"
+#, fuzzy
+msgid "Autoadjust gamma, brightness and contrast <Ctrl-a>"
 msgstr "自動調整gamma,亮度和反差<Shift-e>"
 
 #. DESC_ENH_DEFAULT
@@ -1692,18 +1865,22 @@ msgid "Resolution with which color images are printed and saved in postscript"
 msgstr ""
 
 #. DESC_PRINTER_WIDTH
+#. DESC_FAX_WIDTH
 msgid "Width of printable area"
 msgstr "列印區寬度"
 
 #. DESC_PRINTER_HEIGHT
+#. DESC_FAX_HEIGHT
 msgid "Height of printable area"
 msgstr "列印區高度"
 
 #. DESC_PRINTER_LEFTOFFSET
+#. DESC_FAX_LEFTOFFSET
 msgid "Left offset from the edge of the paper to the printable area"
 msgstr "從頁的邊緣到列印區的左差距"
 
 #. DESC_PRINTER_BOTTOMOFFSET
+#. DESC_FAX_BOTTOMOFFSET
 msgid "Bottom offset from the edge of the paper to the printable area"
 msgstr "從頁的邊緣到列印區的下差距"
 
@@ -1912,6 +2089,12 @@ msgstr "預覽掃描後選擇掃描區已經完成了"
 msgid "Do color correction after preview scan has finished"
 msgstr "預覽掃描後作顏色校正已經完成了"
 
+#. DESC_EMBED_ICM_PROFILE
+msgid ""
+"Embed scanner/source ICM profile into image file - when fileformat supports "
+"it"
+msgstr ""
+
 #. DESC_FAX_COMMAND
 msgid "Enter command to be executed in fax mode"
 msgstr "輸入在傳真模式下被執行的命令"
@@ -2022,9 +2205,10 @@ msgstr "讀取"
 msgid "write"
 msgstr "寫入"
 
-#. DESC_PERMISSION_EXECUTE
-msgid "execute"
-msgstr "執行"
+#. DESC_PERMISSION_SEARCH
+#, fuzzy
+msgid "search"
+msgstr "使用者"
 
 #. DESC_ADD_BATCH
 msgid "Add selection for batch scan"
@@ -2189,6 +2373,36 @@ msgstr "從批次列表刪除選擇的區域"
 #. DESC_AUTOMATIC
 msgid "Turns on automatic mode"
 msgstr ""
+
+#. DESC_SCANNER_REFL_ICM_PROFILE
+#, fuzzy
+msgid "Scanner reflektive ICM-profile"
+msgstr "刪除列表機"
+
+#. DESC_BUTTON_SCANNER_REFL_ICM_PROFILE_BROWSE
+#, fuzzy
+msgid "Browse for scanner reflektive ICM-profile"
+msgstr "影像檔案瀏覽"
+
+#. DESC_BUTTON_SCANNER_TRAN_ICM_PROFILE_BROWSE
+#, fuzzy
+msgid "Browse for scanner transmissive ICM-profile"
+msgstr "影像檔案瀏覽"
+
+#. DESC_BUTTON_DISPLAY_ICM_PROFILE_BROWSE
+#, fuzzy
+msgid "Browse for display ICM-profile"
+msgstr "影像檔案瀏覽"
+
+#. DESC_BUTTON_PRINTER_ICM_PROFILE_BROWSE
+#, fuzzy
+msgid "Browse for printer ICM-profile"
+msgstr "影像檔案瀏覽"
+
+#. DESC_BUTTON_CUSTOM_PROOFING_ICM_PROFILE_BROWSE
+#, fuzzy
+msgid "Browse for custom proofing ICM-profile"
+msgstr "影像檔案瀏覽"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2473,6 +2687,40 @@ msgstr "%s 不是一個postscript 檔"
 #, c-format
 msgid "Unsupported %d-bit output format: %s"
 msgstr "不支援 %d -bit 輸出格式: %s"
+
+#. ERR_CMS_CONVERSION
+#, fuzzy
+msgid "Error during CMS conversion:"
+msgstr "儲存時錯誤"
+
+#. ERR_CMS_OPEN_ICM_FILE
+#, fuzzy
+msgid "Could not open"
+msgstr "開啟失敗"
+
+#. CMS_SCANNER_TRAN_ICM
+msgid "scanner transmissive ICM profile"
+msgstr ""
+
+#. CMS_SCANNER_REFL_ICM
+#, fuzzy
+msgid "scanner reflective ICM profile"
+msgstr "刪除列表機"
+
+#. CMS_DISPLAY_ICM
+#, fuzzy
+msgid "display ICM profile"
+msgstr "影像檔案瀏覽"
+
+#. CMS_PROOF_ICM
+#, fuzzy
+msgid "proofing ICM profile"
+msgstr "刪除列表機"
+
+#. ERR_CMS_CREATE_TRANSFORM
+#, fuzzy
+msgid "Could not create transform"
+msgstr "不能建立暫存檔"
 
 #. WARN_VIEWER_IMAGE_NOT_SAVED
 msgid "viewer image is not saved"
@@ -2821,69 +3069,3 @@ msgstr "記憶體不足"
 
 msgid "Access to resource has been denied"
 msgstr "資源存取被禁止"
-
-#~ msgid "Could not create temporary file"
-#~ msgstr "不能建立暫存檔"
-
-#~ msgid "Could not create temporary preview files"
-#~ msgstr "不能建立暫存預覽檔"
-
-#~ msgid "Could not create filenames for preview files"
-#~ msgstr "不能建立預覽檔的檔名"
-
-#, fuzzy
-#~ msgid "POP3 authentication"
-#~ msgstr "授權"
-
-#~ msgid "XSane mode"
-#~ msgstr "XSane 模式"
-
-#~ msgid "POP3 user:"
-#~ msgstr "POP3 帳號:"
-
-#~ msgid "POP3 password:"
-#~ msgstr "POP3密碼:"
-
-#
-#, fuzzy
-#~ msgid "Multipage project not created"
-#~ msgstr "信件專案未建立"
-
-#
-#, fuzzy
-#~ msgid "Multipage project created"
-#~ msgstr "信件專案已建立"
-
-#
-#, fuzzy
-#~ msgid "Multipage project changed"
-#~ msgstr "信件專案更改了"
-
-#, fuzzy
-#~ msgid "Saving multipage file"
-#~ msgstr "儲存影像"
-
-#
-#, fuzzy
-#~ msgid "Multipage saving aborted"
-#~ msgstr "信件專案已建立"
-
-#~ msgid "Image"
-#~ msgstr "影像"
-
-#~ msgid "Viewer (png):"
-#~ msgstr "檢視器(png)"
-
-#, fuzzy
-#~ msgid "Enter command to be executed to view an e-mail image"
-#~ msgstr "輸入當檢視一個郵件影像時要執行的命令"
-
-#, fuzzy
-#~ msgid "Failed to execute e-mail image viewer:"
-#~ msgstr "不能執行郵件影像檢視器"
-
-#~ msgid "Step"
-#~ msgstr "步驟"
-
-#~ msgid "Mail"
-#~ msgstr "電子郵件"

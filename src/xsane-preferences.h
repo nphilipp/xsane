@@ -3,7 +3,7 @@
    xsane-preferences.h
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2005 Oliver Rauch
+   Copyright (C) 1998-2007 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -48,6 +48,7 @@ typedef struct
     double gamma_red;			/* printer gamma red */
     double gamma_green;			/* printer gamma green */
     double gamma_blue;			/* printer gamma blue */
+    char   *icm_profile;		/* printer ICM profile */
     int ps_flatdecoded;			/* flatdecode (zlib compression), ps level 3 */
   }
 Preferences_printer_t;
@@ -191,6 +192,9 @@ typedef struct
     int    auto_correct_colors;		/* automatic color correction after preview scan */
     int    gtk_update_policy;
     int    medium_nr;
+
+    char   *display_icm_profile;
+    char   *custom_proofing_icm_profile;
 
     int    paper_orientation;		/* image position on printer and page orientation */
     int    printernr;			/* number of printers */

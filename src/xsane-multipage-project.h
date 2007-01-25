@@ -3,7 +3,7 @@
    xsane-multipage-project.h
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 2005 Oliver Rauch
+   Copyright (C) 2005-2007 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify

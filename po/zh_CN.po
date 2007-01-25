@@ -1,27 +1,23 @@
-# translation of xsane.po to slovenščina
-# Slovenian translation for XSane.
-# Copyright (C) 2001, 2005, 2006 Free Software Foundation, Inc.
+# chines translation for xsane
+# Copyright (C) 2004
+# leolarrel <leolarrel@yahoo.com.tw>
 #
-#
-# Ales Kosir <ales.kosir@lugos.si>, 2001.
-# Dušan Vejnovič <dusan@vejnovic.com>, 2005, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: xsane\n"
+"Project-Id-Version: XSANE 0.991\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-01-15 20:42+0100\n"
-"PO-Revision-Date: 2006-01-02 17:48+0100\n"
-"Last-Translator: Dušan Vejnovič <dusan@vejnovic.com>\n"
-"Language-Team: slovenščina <sl@li.org>\n"
+"PO-Revision-Date: 2003-03-27 12:00+0100\n"
+"Last-Translator: gnome-cn@gmail.com\n"
+"Language-Team: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11\n"
+"Content-Transfer-Encoding: 16bit\n"
 
 #. Please translate this to the correct directory name (eg. german=>de)
 #. XSANE_LANGUAGE_DIR
 msgid "language_dir"
-msgstr "sl"
+msgstr "zh_CN"
 
 #. XSANE_COPYRIGHT_SIGN
 msgid "(c)"
@@ -30,186 +26,188 @@ msgstr "(c)"
 #. can be translated with \251
 #. FILENAME_PREFIX_CLONE_OF
 msgid "clone-of-"
-msgstr "klon od"
+msgstr ""
 
 #. WINDOW_ABOUT_XSANE
 msgid "About"
-msgstr "O programu"
+msgstr "有关"
 
 #. WINDOW_ABOUT_TRANSLATION, MENU_ITEM_ABOUT_TRANSLATION
 #. MENU_ITEM_ABOUT_TRANSLATION
 msgid "About translation"
-msgstr "O prevodu"
+msgstr "关于翻译"
 
 #. WINDOW_AUTHORIZE
 msgid "authorization"
-msgstr "avtorizacija"
+msgstr "授权"
 
 #. WINDOW_GPL
 msgid "GPL - the license"
-msgstr "GPL licenca"
+msgstr ""
 
 #. WINDOW_EULA
 msgid "End User License Agreement"
-msgstr "Licenčna pogodba za končnega uporabnika"
+msgstr "终端使用者条约"
 
 #. WINDOW_INFO
 msgid "info"
-msgstr "podatki"
+msgstr "资讯"
 
 #. WINDOW_LOAD_BATCH_LIST
 msgid "load batch list"
-msgstr "naloži paketni seznam"
+msgstr "载入批次列表"
 
 #. WINDOW_SAVE_BATCH_LIST
 msgid "save batch list"
-msgstr "shrani paketni seznam"
+msgstr "储存批次列表"
 
 #. WINDOW_BATCH_SCAN
 msgid "batch scan"
-msgstr "paketno skeniranje"
+msgstr "批次扫描"
 
 #. WINDOW_BATCH_RENAME
 msgid "rename batch area"
-msgstr "preimenuj paketno področje"
+msgstr "更名批次区"
 
 #. WINDOW_FAX_PROJECT
 msgid "fax project"
-msgstr "faks projekt"
+msgstr "传真专案"
 
 #. WINDOW_FAX_RENAME
 msgid "rename fax page"
-msgstr "preimenuj stran s faksom"
+msgstr "更名传真专案"
 
 #. WINDOW_FAX_INSERT
 msgid "insert ps-file into fax"
-msgstr "vstavi ps-datoteko v faks"
+msgstr "插入ps档案到传真"
 
 #. WINDOW_EMAIL_PROJECT
 msgid "E-mail project"
-msgstr "E-poštni projekt"
+msgstr "电子邮件工程"
 
 #. WINDOW_EMAIL_RENAME
 msgid "rename e-mail image"
-msgstr "preimenuj e-poštno sliko"
+msgstr "更名电子邮件图像"
 
 #. WINDOW_EMAIL_INSERT
 msgid "insert file into e-mail"
-msgstr "vstavi datoteko v e-pošto"
+msgstr "插入文件到电子邮件"
 
 #. WINDOW_MULTIPAGE_PROJECT
 msgid "multipage project"
-msgstr "večstranski projekt"
+msgstr "多页工程"
 
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
-msgstr "preimenuj prednastavljeno območje"
+msgstr "更名预设区"
 
+#
 #. WINDOW_PRESET_AREA_ADD
 msgid "add preset area"
-msgstr "dodaj prednastavljeno območje"
+msgstr "更名预设区"
 
+#
 #. WINDOW_MEDIUM_RENAME
 msgid "rename medium"
-msgstr "preimenuj medij"
+msgstr "更名电子邮件专案"
 
 #. WINDOW_MEDIUM_ADD
 msgid "add new medium"
-msgstr "dodaj novi medij"
+msgstr "添加新媒体"
 
 #. WINDOW_SETUP
 msgid "setup"
-msgstr "nastavi"
+msgstr "设定"
 
 #. WINDOW_HISTOGRAM
 msgid "Histogram"
-msgstr "Histogram"
+msgstr "矩形图"
 
 #. WINDOW_GAMMA
 msgid "Gamma curve"
-msgstr "Krivulja gama"
+msgstr "Gamma 曲线"
 
 #. WINDOW_STANDARD_OPTIONS
 msgid "Standard options"
-msgstr "Običajne izbire"
+msgstr "基本选项"
 
 #. WINDOW_ADVANCED_OPTIONS
 msgid "Advanced options"
-msgstr "Napredne izbire"
+msgstr "进阶选项"
 
 #. WINDOW_DEVICE_SELECTION
 msgid "device selection"
-msgstr "izbiranje naprave"
+msgstr "装置选择"
 
 #. WINDOW_PREVIEW
 msgid "Preview"
-msgstr "Predogled"
+msgstr "预览"
 
 #. WINDOW_VIEWER
 #. MENU_ITEM_VIEWER
 msgid "Viewer"
-msgstr "Pregledovalnik"
+msgstr "检视器"
 
 #. WINDOW_VIEWER_OUTPUT_FILENAME
 msgid "Viewer: select output filename"
-msgstr "Pregledovalnik: izberi ime izhodne datoteke"
+msgstr "检视器:选择输出档名"
 
 #. WINDOW_OCR_OUTPUT_FILENAME
 msgid "Select output filename for OCR text file"
-msgstr "Izberi ime izhodne datoteke za OCR tekstovno datoteko"
+msgstr "为OCR文字档选择输出档名"
 
 #. WINDOW_OUTPUT_FILENAME
 msgid "select output filename"
-msgstr "izberi ime izhodne datoteke"
+msgstr "选择输出档名"
 
 #. WINDOW_SAVE_SETTINGS
 msgid "save device settings"
-msgstr "shrani nastavitve naprave"
+msgstr "储存装置选项"
 
 #. WINDOW_LOAD_SETTINGS
 msgid "load device settings"
-msgstr "naloži nastavitve naprave"
+msgstr "载入装置选项"
 
 #. WINDOW_CHANGE_WORKING_DIR
 msgid "change working directory"
-msgstr "spremeni delovni imenik"
+msgstr "更改工作目录"
 
 #. WINDOW_TMP_PATH
 msgid "select temporary directory"
-msgstr "izberi začasni imenik"
+msgstr "选择暂存目录"
 
 #. WINDOW_SCALE
 #. DESC_VIEWER_SCALE
 msgid "Scale image"
-msgstr "Skaliraj sliko"
+msgstr "调整影像"
 
 #. WINDOW_DESPECKLE
 #. DESC_VIEWER_DESPECKLE
 msgid "Despeckle image"
-msgstr "Odstrani packe iz slike"
+msgstr "去斑"
 
 #. WINDOW_BLUR
 #. DESC_VIEWER_BLUR
 msgid "Blur image"
-msgstr "Zamegli sliko"
+msgstr "模糊影像"
 
 #. WINDOW_STORE_MEDIUM
 msgid "Store medium definition"
-msgstr "Shrani izbiro medija"
+msgstr "储存环境设定"
 
 #. WINDOW_NO_DEVICES
 msgid "No devices available"
-msgstr "Na voljo ni nobene naprave"
+msgstr "没有装置可以使用"
 
 #. WINDOW_SCANNER_REFL_ICM_PROFILE
 #, fuzzy
 msgid "select scanner reflective ICM-profile"
-msgstr "Odstrani tiskalnik"
+msgstr "删除列表机"
 
 #. WINDOW_SCANNER_TRAN_ICM_PROFILE
 #, fuzzy
 msgid "select scanner transmissive ICM-profile"
-msgstr "Odstrani tiskalnik"
+msgstr "删除列表机"
 
 #. WINDOW_DISPLAY_ICM_PROFILE
 msgid "select display ICM-profile"
@@ -218,45 +216,45 @@ msgstr ""
 #. WINDOW_CUSTOM_PROOFING_ICM_PROFILE
 #, fuzzy
 msgid "select custom proofing ICM-profile"
-msgstr "izberi ime izhodne datoteke"
+msgstr "选择输出档名"
 
 #. WINDOW_PRINTER_ICM_PROFILE
 #, fuzzy
 msgid "select printer ICM-profile"
-msgstr "Odstrani tiskalnik"
+msgstr "删除列表机"
 
 #. MENU_FILE
 msgid "File"
-msgstr "Datoteka"
+msgstr "档案"
 
 #. MENU_PREFERENCES
 msgid "Preferences"
-msgstr "Nastavitve"
+msgstr "偏好设定"
 
 #. MENU_VIEW
 msgid "View"
-msgstr "Pogled"
+msgstr "检视"
 
 #. MENU_WINDOW
 msgid "Window"
-msgstr "Okno"
+msgstr "视窗"
 
 #. MENU_HELP
 #. BUTTON_HELP
 msgid "Help"
-msgstr "Pomoč"
+msgstr "帮助"
 
 #. MENU_EDIT
 msgid "Edit"
-msgstr "Urejanje"
+msgstr "编辑"
 
 #. MENU_FILTERS
 msgid "Filters"
-msgstr "Filtri"
+msgstr "过滤器"
 
 #. MENU_GEOMETRY
 msgid "Geometry"
-msgstr "Goemetrija"
+msgstr "大小"
 
 #. MENU_COLOR_MANAGEMENT
 #. NOTEBOOK_COLOR_MANAGEMENT_OPTIONS
@@ -265,269 +263,274 @@ msgstr ""
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
-msgstr "O programu XSane"
+msgstr "有关Xsane"
 
 #. MENU_ITEM_INFO
 msgid "Info"
-msgstr "Podatki"
+msgstr "资讯"
 
 #. MENU_ITEM_QUIT
 msgid "Quit"
-msgstr "Izhod"
+msgstr "离开"
 
 #. MENU_ITEM_SAVE_IMAGE
 #. DESC_VIEWER_SAVE
 msgid "Save image"
-msgstr "Shrani slika"
+msgstr "储存影像"
 
 #. MENU_ITEM_OCR
 msgid "OCR - save as text"
-msgstr "OCR - shrani kot tekst"
+msgstr "OCR - 存成文字档"
 
 #. MENU_ITEM_CLONE
 msgid "Clone"
-msgstr "Kloniraj"
+msgstr "复制"
 
 #. MENU_ITEM_SCALE
 msgid "Scale"
-msgstr "Skaliraj"
+msgstr "调整"
 
 #. MENU_ITEM_CLOSE
 #. BUTTON_CLOSE
 msgid "Close"
-msgstr "Zapri"
+msgstr "关闭"
 
 #. MENU_ITEM_UNDO
 msgid "Undo"
-msgstr "Izniči"
+msgstr "回覆"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
-msgstr "Odstrani packe"
+msgstr "去斑"
 
 #. MENU_ITEM_BLUR
 msgid "Blur"
-msgstr "Zamegli"
+msgstr "模糊"
 
 #. MENU_ITEM_ROTATE90
 msgid "Rotate 90"
-msgstr "Rotiraj 90"
+msgstr "旋转 90度"
 
+#
 #. MENU_ITEM_ROTATE180
 msgid "Rotate 180"
-msgstr "Rotiraj 180"
+msgstr "旋转180度"
 
+#
 #. MENU_ITEM_ROTATE270
 msgid "Rotate 270"
-msgstr "Rotiraj 270"
+msgstr "旋转270度"
 
+#
 #. MENU_ITEM_MIRROR_X
 msgid "Mirror |"
-msgstr "Zrcali |"
+msgstr "水平镜像 |"
 
+#
 #. MENU_ITEM_MIRROR_Y
 msgid "Mirror -"
-msgstr "Zrcali -"
+msgstr "垂直镜像 -"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
-msgstr "Surova slika"
+msgstr "实际影像"
 
 #. FRAME_ENHANCED_IMAGE
 msgid "Enhanced image"
-msgstr "Obdelana slika"
+msgstr "增强影像"
 
 #. BUTTON_SCAN
 msgid "Scan"
-msgstr "Skeniraj"
+msgstr "扫描"
 
 #. BUTTON_OK
 msgid "Ok"
-msgstr "V redu"
+msgstr "确定"
 
 #. BUTTON_ACCEPT
 msgid "Accept"
-msgstr "Sprejmi"
+msgstr "接受"
 
 #. BUTTON_NOT_ACCEPT
 msgid "Not accept"
-msgstr "Ne sprejmi"
+msgstr "不接受"
 
 #. BUTTON_APPLY
 msgid "Apply"
-msgstr "Uporabi"
+msgstr "应用"
 
 #. BUTTON_CANCEL
 msgid "Cancel"
-msgstr "Prekliči"
+msgstr "取消"
 
 #. BUTTON_REDUCE
 msgid "Reduce"
-msgstr "Zmanjšaj"
+msgstr "还原"
 
 #. BUTTON_CONT_AT_OWN_RISK
 msgid "Continue at your own risk"
-msgstr "Nadaljevanje na lastno odgovornost"
+msgstr "继续你自己的冒险"
 
 #. BUTTON_BROWSE
 msgid "Browse"
-msgstr "Brskaj"
+msgstr "浏览"
 
 #. BUTTON_OVERWRITE
 msgid "Overwrite"
-msgstr "Prepiši"
+msgstr "覆写"
 
 #. BUTTON_BATCH_LIST_SCAN
 msgid "Scan batch list"
-msgstr "Skeniraj paketni seznam"
+msgstr "扫描批次列表"
 
 #. BUTTON_BATCH_AREA_SCAN
 msgid "Scan selected area"
-msgstr "Skeniraj izbrano območje"
+msgstr "扫描选择的区域"
 
 #. BUTTON_PAGE_DELETE
 msgid "Delete page"
-msgstr "Zbriši stran"
+msgstr "删除页"
 
 #. BUTTON_PAGE_SHOW
 msgid "Show page"
-msgstr "Prikaži stran"
+msgstr "显示页"
 
 #. BUTTON_PAGE_RENAME
 msgid "Rename page"
-msgstr "Preimenuj stran"
+msgstr "更名页"
 
 #. BUTTON_IMAGE_DELETE
 msgid "Delete image"
-msgstr "Zbriši sliko"
+msgstr "删除影像"
 
 #. BUTTON_IMAGE_SHOW
 msgid "Show image"
-msgstr "Prikaži sliko"
+msgstr "显示影像"
 
+#
 #. BUTTON_IMAGE_EDIT
 msgid "Edit image"
-msgstr "Uredi sliko"
+msgstr "编辑影像"
 
 #. BUTTON_IMAGE_RENAME
 msgid "Rename image"
-msgstr "Preimenuj sliko"
+msgstr "更名影像"
 
 #. BUTTON_FILE_INSERT
 msgid "Insert file"
-msgstr "Vstavi datoteko"
+msgstr "插入档案"
 
 #. BUTTON_CREATE_PROJECT
 msgid "Create project"
-msgstr "Ustvari projekt"
+msgstr "建立专案"
 
 #. BUTTON_SEND_PROJECT
 msgid "Send project"
-msgstr "Pošlji projekt"
+msgstr "传送专案"
 
 #. BUTTON_SAVE_MULTIPAGE
 msgid "Save multipage file"
-msgstr "Shrani večstransko datoteko"
+msgstr "保存多页文件"
 
 #. BUTTON_DELETE_PROJECT
 msgid "Delete project"
-msgstr "Zbriši projekt"
+msgstr "删除专案"
 
 #. BUTTON_ADD_PRINTER
 msgid "Add printer"
-msgstr "Dodaj tiskalnik"
+msgstr "增加列表机"
 
 #. BUTTON_DELETE_PRINTER
 msgid "Delete printer"
-msgstr "Odstrani tiskalnik"
+msgstr "删除列表机"
 
 #. BUTTON_PREVIEW_ACQUIRE
 msgid "Acquire preview"
-msgstr "Pridobi predogled"
+msgstr "获得预览"
 
 #. BUTTON_PREVIEW_CANCEL
 msgid "Cancel preview"
-msgstr "Prekini predogled"
+msgstr "删除预览"
 
 #. BUTTON_DISCARD_IMAGE
 msgid "Discard image"
-msgstr "Zbriši sliko"
+msgstr "抛弃预览"
 
 #. BUTTON_DISCARD_ALL_IMAGES
 msgid "Discard all images"
-msgstr "Zbriši vse slike"
+msgstr "抛弃所有影像"
 
 #. BUTTON_DO_NOT_CLOSE
 msgid "Do not close"
-msgstr "Ne zapri"
+msgstr "不要关闭"
 
 #. BUTTON_SCALE_BIND
 msgid "Bind scale"
-msgstr "Poveži skalo"
+msgstr ""
 
 #. RADIO_BUTTON_FINE_MODE
 msgid "Fine mode"
-msgstr "Natančnejši način"
+msgstr ""
 
 #. RADIO_BUTTON_HTML_EMAIL
 msgid "HTML e-mail"
-msgstr "HTML e-pošta"
+msgstr "HTML邮件"
 
 #. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device preferences at exit"
-msgstr "Shrani nastavitve naprave ob izhodu"
+msgstr "离开时储存装置偏好设定"
 
 #. RADIO_BUTTON_OVERWRITE_WARNING
 msgid "Overwrite warning"
-msgstr "Prepiši opozorilo"
+msgstr "覆写警告"
 
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
 msgid "Skip existing filenames"
-msgstr "Preskoči obstoječa imena datotek"
+msgstr "省略已存在的档案"
 
 #. RADIO_BUTTON_SAVE_PS_FLATDECODED
 msgid "Save postscript zlib compressed (ps level 3)"
-msgstr "Shrani postscript stisnjen z zlib (ps stopnja 3)"
+msgstr ""
 
 #. RADIO_BUTTON_SAVE_PDF_FLATDECODED
 msgid "Save PDF zlib compressed"
-msgstr "Shrani PDF stisnjen z zlib"
+msgstr ""
 
 #. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
 msgid "Save 16bit pnm in ascii format"
-msgstr "Shrani 16 bitni pnm v ASCII formatu"
+msgstr "储存16位元pnm在ascii格式"
 
 #. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
 msgid "Reduce 16 bit image to 8 bit"
-msgstr "Zmanjšaj 16 bitno sliko na 8 bitno"
+msgstr "简化16位元影像到8位元"
 
 #. RADIO_BUTTON_WINDOW_FIXED
 msgid "Main window size fixed"
-msgstr "Fiksiraj velikost glavnega okna"
+msgstr "主视窗大小固定"
 
 #. RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA
 msgid "Disable gimp preview gamma"
-msgstr "Onemogoči faktor gama pri predogledu v gimpu"
+msgstr "取消gimp预览gamma"
 
 #. RADIO_BUTTON_PRIVATE_COLORMAP
 msgid "Use private colormap"
-msgstr "Uporabi lastno paleto barv"
+msgstr "使用先前的colormap"
 
 #. RADIO_BUTTON_AUTOENHANCE_GAMMA
 msgid "Autoenhance gamma"
-msgstr "Samodejno izboljšaj faktor gama"
+msgstr "自动增强gamma"
 
 #. RADIO_BUTTON_PRESELECT_SCANAREA
 msgid "Preselect scanarea"
-msgstr "Predizbrano območje skeniranja"
+msgstr "预先选择扫描区"
 
 #. RADIO_BUTTON_AUTOCORRECT_COLORS
 msgid "Autocorrect colors"
-msgstr "Avtomatska korekcija barv"
+msgstr "自动修正颜色"
 
 #. RADIO_BUTTON_OCR_USE_GUI_PIPE
 msgid "Use GUI progress pipe"
-msgstr "Uporabi GUI cevovod napredka"
+msgstr ""
 
 #. RADIO_BUTTON_EMBED_ICM_PROFILE
 msgid "Embed scanner/source ICM profile into image file"
@@ -535,164 +538,164 @@ msgstr ""
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
-msgstr "iskanje naprav"
+msgstr "装置扫描中"
 
 #. TEXT_AVAILABLE_DEVICES
 msgid "Available devices:"
-msgstr "Razpoložljive naprave:"
+msgstr "可用的装置有:"
 
 #. TEXT_XSANE_OPTIONS
 msgid "XSane options"
-msgstr "Izbire XSane"
+msgstr "XSane 选项"
 
 #. TEXT_FILETYPE
 msgid "Type"
-msgstr "Tip"
+msgstr "类型"
 
 #. TEXT_SCANNER_BACKEND
 msgid "Scanner and backend:"
-msgstr "Skener in program ozadju:"
+msgstr "扫描器和后端驱动程式:"
 
 #. TEXT_VENDOR
 msgid "Vendor:"
-msgstr "Dobavitelj:"
+msgstr "提供者:"
 
 #. TEXT_MODEL
 msgid "Model:"
-msgstr "Model:"
+msgstr "样式:"
 
 #. TEXT_TYPE
 msgid "Type:"
-msgstr "Tip:"
+msgstr "型态:"
 
 #. TEXT_DEVICE
 msgid "Device:"
-msgstr "Naprava:"
+msgstr "装置:"
 
 #. TEXT_LOADED_BACKEND
 msgid "Loaded backend:"
-msgstr "Naložen program v ozadju:"
+msgstr "载入的后端驱动程式:"
 
 #. TEXT_SANE_VERSION
 msgid "Sane version:"
-msgstr "Različica programa Sane:"
+msgstr "Sane版本:"
 
 #. TEXT_RECENT_VALUES
 msgid "Recent values:"
-msgstr "Zadnje vrednosti"
+msgstr "最近的值:"
 
 #. TEXT_GAMMA_CORR_BY
 msgid "Gamma correction by:"
-msgstr "Popravek gama:"
+msgstr "Gamma校正由:"
 
 #. TEXT_SCANNER
 msgid "scanner"
-msgstr "skener"
+msgstr "扫描器"
 
 #. TEXT_SOFTWARE_XSANE
 msgid "software (XSane)"
-msgstr "programska oprema (X Sane)"
+msgstr "软体(XSane)"
 
 #. TEXT_NONE
 msgid "none"
-msgstr "brez"
+msgstr "无"
 
 #. TEXT_GAMMA_INPUT_DEPTH
 msgid "Gamma input depth:"
-msgstr "Globina vhoda gama:"
+msgstr "Gamma输入深度"
 
 #. TEXT_GAMMA_OUTPUT_DEPTH
 msgid "Gamma output depth:"
-msgstr "Globina izhoda gama:"
+msgstr "Gamma输出深度"
 
 #. TEXT_SCANNER_OUTPUT_DEPTH
 msgid "Scanner output depth:"
-msgstr "Globina izhoda skenerja: "
+msgstr "扫描器输出深度"
 
 #. TEXT_OUTPUT_FORMATS
 msgid "XSane output formats:"
-msgstr "Izhodni formati programa XSane:"
+msgstr "XSane输出格式"
 
 #. TEXT_8BIT_FORMATS
 msgid "8 bit output formats:"
-msgstr "8-bitni izhodni formati:"
+msgstr "8位元输出格式"
 
 #. TEXT_16BIT_FORMATS
 msgid "16 bit output formats:"
-msgstr "16-bitni izhodni formati:"
+msgstr "16位元输出格式"
 
 #. TEXT_GIMP_REDUCE_16BIT_TO_8BIT
 msgid ""
 "Gimp does not support depth 16 bits/color.\n"
 "Do you want to reduce the depth to 8 bits/color?"
 msgstr ""
-"Gimp ne podpira 16 bitno barvno globino.<br>Ali želite zmanjšati barvno "
-"globino na 8 bitov?"
+"Gimp 不支援 16位元/色彩 深度\n"
+"你想要简化成8 位元/色彩 深度吗?"
 
 #. TEXT_REDUCE_16BIT_TO_8BIT
 msgid ""
 "Bit depth 16 bits/color is not supported for this output format.\n"
 "Do you want to reduce the depth to 8 bits/color?"
 msgstr ""
-"16 bitna barvna globina ni podprta za ta izhodni format.<br>Ali želite "
-"zmanjšati barvno globino na 8 bitov?"
+"输出格式不支援16位元/色彩 深度\n"
+"你想要简化成8 位元/色彩 深度吗?"
 
 #. TEXT_AUTHORIZATION_REQ
 msgid "Authorization required for"
-msgstr "Avtorizacija je potrebna za "
+msgstr ""
 
 #. TEXT_AUTHORIZATION_SECURE
 msgid "Password transmission is secure"
-msgstr "Prenos gesla je varen"
+msgstr "密码发送是安全的"
 
 #. TEXT_AUTHORIZATION_INSECURE
 msgid "Backend requests plain-text password"
-msgstr "Program v ozadju zahteva nekodirano geslo"
+msgstr "后端驱动程式需要纯文字密码"
 
 #. TEXT_USERNAME
 msgid "Username :"
-msgstr "Uporabnik:"
+msgstr "使用者名称"
 
 #. TEXT_PASSWORD
 msgid "Password :"
-msgstr "Geslo:"
+msgstr "密码"
 
 #. TEXT_INVALID_PARAMS
 msgid "Invalid parameters."
-msgstr "Neveljavni parametri."
+msgstr "无效的参数"
 
 #. TEXT_VERSION
 msgid "version:"
-msgstr "različica:"
+msgstr "版本"
 
 #. TEXT_PACKAGE
 msgid "package"
-msgstr "paket"
+msgstr "包装"
 
 #. TEXT_WITH_CMS_FUNCTION
 #, fuzzy
 msgid "with color management function"
-msgstr "Celotno barvno območje"
+msgstr "全色范围"
 
 #. TEXT_WITH_GIMP_SUPPORT
 msgid "with GIMP support"
-msgstr "s podporo za GIMP"
+msgstr "有GIMP支援"
 
 #. TEXT_WITHOUT_GIMP_SUPPORT
 msgid "without GIMP support"
-msgstr "brez podpore za GIMP"
+msgstr "没有GIMP支援"
 
 #. TEXT_GTK_VERSION
 msgid "compiled with GTK-"
-msgstr "preveden s podporo za GTK-"
+msgstr ""
 
 #. TEXT_GIMP_VERSION
 msgid "compiled with GIMP-"
-msgstr "preveden s podporo za GIMP-"
+msgstr ""
 
 #. TEXT_UNKNOWN
 msgid "unknown"
-msgstr "neznano"
+msgstr "未知的"
 
 #. TEXT_EULA
 msgid ""
@@ -708,17 +711,6 @@ msgid ""
 "have to read, understand and accept the following\n"
 "\"NO WARRANTY\" agreement.\n"
 msgstr ""
-"XSane je distribuiran pod pogoji GNU GPL licence,\n"
-"ki jo objavlja Free Software Foundation; licence verzije 2,\n"
-"ali (po vašem mnenju) katerekoli kasnejše verzije.\n"
-"\n"
-"Ta program je distribuiran v upanju, da bo uporaben, toda\n"
-"BREZ VSAKEGA JAMSTVA.\n"
-"Ker je program lahko pomankljiv, vi nase sprejemate stroške\n"
-"vseh nepotrebnih servisov, popravil ali nastavitev.\n"
-"Da lahko uporabljate ta program, morate\n"
-"prebrati, razumeti in sprejeti naslednji\n"
-"\"NO WARRANTY\" sporazum.\n"
 
 #. TEXT_GPL
 msgid ""
@@ -730,28 +722,22 @@ msgid ""
 "WITHOUT ANY WARRANTY; without even the implied warranty of\n"
 "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
-"XSane je distribuiran pod pogoji GNU GPL licence,\n"
-"ki jo objavlja Free Software Foundation; licence verzije 2,\n"
-"ali (po vašem mnenju) katerekoli kasnejše verzije.\n"
-"\n"
-"Ta program je distribuiran v upanju, da bo uporaben, toda\n"
-"BREZ VSAKEGA JAMSTVA.\n"
 
 #. TEXT_EMAIL_ADR
 msgid "E-mail:"
-msgstr "E-pošta:"
+msgstr "电子邮件:"
 
 #. TEXT_HOMEPAGE
 msgid "Homepage:"
-msgstr "Domača stran:"
+msgstr "首页"
 
 #. TEXT_FILE
 msgid "File:"
-msgstr "Datoteka:"
+msgstr "档案"
 
 #. TEXT_TRANSLATION
 msgid "Translation:"
-msgstr "Prevod:"
+msgstr "翻译"
 
 #. Please translate this to something like
 #. translation to YOUR LANGUAGE\n
@@ -763,363 +749,362 @@ msgid ""
 "by Oliver Rauch\n"
 "E-mail: Oliver.Rauch@rauch-domain.de\n"
 msgstr ""
-"prevod iz angleškega izvirnika\n"
-"Dušan Vejnovič\n"
-"E-pošta: dusan@vejnovic.com\n"
+"翻译: 杨红\n"
+"如有任何翻译的问题,或者您有更贴切的翻法,请由下列 e-mail 联络\n"
+"gnome-cn@gmail.com\n"
 
 #. TEXT_INFO_BOX
 msgid "0x0: 0KB"
-msgstr "0x0: 0KB"
+msgstr ""
 
 #. TEXT_ADF_PAGES_SCANNED
 msgid "Scanned pages: "
-msgstr "Poskenirane strani: "
+msgstr "扫描的页面"
 
 #. TEXT_EMAIL_TEXT
 msgid "E-mail text:"
-msgstr "Tekst e-pošte:"
+msgstr "邮件的内容:"
 
 #. TEXT_ATTACHMENTS
 msgid "Attachments:"
-msgstr "Priponke:"
+msgstr "附件"
 
 #. TEXT_EMAIL_STATUS
 msgid "Project status:"
-msgstr "Status projekta:"
+msgstr "专案状态"
 
 #. TEXT_EMAIL_FILETYPE
 msgid "E-mail image filetype:"
-msgstr "Tip datoteke slike e-pošte:"
+msgstr "邮件图像类型:"
 
 #. TEXT_PAGES
 msgid "Pages:"
-msgstr "Strani:"
+msgstr "页数:"
 
 #. TEXT_MULTIPAGE_FILETYPE
 msgid "Multipage document filetype:"
-msgstr "Tip datoteke večstranskega dokumenta:"
+msgstr "多页文档类型:"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
-msgstr "Ime mdeija:"
+msgstr "环境名称"
 
 #. TEXT_VIEWER_IMAGE_INFO
 #, c-format
 msgid ""
 "Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
 msgstr ""
-"Velikost %d x %d pikslov, %d bitov/barvo, %d barv, %1.0f dpi x %1.0f dpi, %"
-"1.1f %s"
+"大小 %d x %d 像素, %d bit/color, %d 色, %1.0f dpi x %1.0f dpi, %1.1f %s"
 
 #. TEXT_DESPECKLE_RADIUS
 msgid "Despeckle radius:"
-msgstr "Radij zmanjševanja pack:"
+msgstr ""
 
 #. TEXT_BLUR_RADIUS
 msgid "Blur radius:"
-msgstr "Radij zamegljevanja:"
+msgstr "模糊半径"
 
 #. TEXT_BATCH_AREA_DEFAULT_NAME
 msgid "(no name)"
-msgstr "(brez imena)"
+msgstr ""
 
 #. TEXT_BATCH_LIST_AREANAME
 msgid "Area name:"
-msgstr "Ime področja:"
+msgstr "区域名称"
 
 #. TEXT_BATCH_LIST_SCANMODE
 msgid "Scanmode:"
-msgstr "Način skeniranja:"
+msgstr "扫描模式"
 
 #. TEXT_BATCH_LIST_GEOMETRY_TL
 msgid "Top left:"
-msgstr "Zgoraj levo:"
+msgstr "左上角"
 
 #. TEXT_BATCH_LIST_GEOMETRY_SIZE
 msgid "Size:"
-msgstr "Velikost:"
+msgstr "大小"
 
 #. TEXT_BATCH_LIST_RESOLUTION
 msgid "Resolution:"
-msgstr "Ločljivost:"
+msgstr "解析度"
 
 #. TEXT_BATCH_LIST_BIT_DEPTH
 msgid "Bit depth:"
-msgstr "Bitna globina:"
+msgstr "位元深度"
 
 #. TEXT_BATCH_LIST_BY_GUI
 msgid "as selected"
-msgstr "kot je izbrano"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
-msgstr "Izbrani tiskalnik:"
+msgstr "列表机选择"
 
 #. TEXT_SETUP_PRINTER_NAME
 msgid "Name:"
-msgstr "Ime:"
+msgstr "名称"
 
 #. TEXT_SETUP_PRINTER_CMD, TEXT_SETUP_FAX_CMD
 #. TEXT_SETUP_FAX_COMMAND
 msgid "Command:"
-msgstr "Ukaz:"
+msgstr "命令"
 
 #. TEXT_SETUP_COPY_NR_OPT
 msgid "Copy number option:"
-msgstr "Število kopij:"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_LINEART_RES
 msgid "Lineart resolution (dpi):"
-msgstr "Črnobela ločljivost (dpi):"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_GRAYSCALE_RES
 msgid "Grayscale resolution (dpi):"
-msgstr "Sivinska ločljivost (dpi):"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_COLOR_RES
 msgid "Color resolution (dpi):"
-msgstr "Barvna ločljivost (dpi):"
+msgstr "色彩解析度 (dpi):"
 
 #. TEXT_SETUP_PRINTER_WIDTH
 #. TEXT_SETUP_FAX_WIDTH
 msgid "Width"
-msgstr "Širina"
+msgstr "宽"
 
 #. TEXT_SETUP_PRINTER_HEIGHT
 #. TEXT_SETUP_FAX_HEIGHT
 msgid "Height"
-msgstr "Višina"
+msgstr "高"
 
 #. TEXT_SETUP_PRINTER_LEFT
 #. TEXT_SETUP_FAX_LEFT
 msgid "Left offset"
-msgstr "Levi odmik"
+msgstr "左边差距"
 
 #. TEXT_SETUP_PRINTER_BOTTOM
 #. TEXT_SETUP_FAX_BOTTOM
 msgid "Bottom offset"
-msgstr "Odmik spodaj"
+msgstr "下边差距"
 
 #. TEXT_SETUP_PRINTER_GAMMA
 msgid "Printer gamma value:"
-msgstr "Vrednost gama za tiskalnik:"
+msgstr "列表机gamma值"
 
 #. TEXT_SETUP_PRINTER_GAMMA_RED
 msgid "Printer gamma red:"
-msgstr "Gama rdeča za tiskalnik:"
+msgstr "列表机 红色gamma"
 
 #. TEXT_SETUP_PRINTER_GAMMA_GREEN
 msgid "Printer gamma green:"
-msgstr "Gama zelena za tiskalnik:"
+msgstr "列表机 绿色gamma"
 
 #. TEXT_SETUP_PRINTER_GAMMA_BLUE
 msgid "Printer gamma blue:"
-msgstr "Gama modra za tiskalnik:"
+msgstr "列表机 蓝色gamma"
 
 #. TEXT_SETUP_PRINTER_PS_FLATDECODED
 msgid "Create zlib compressed postscript image (ps level 3) for printing"
-msgstr "Ustvari stisnjeno postscriptno sliko z zlib (ps stopnja 3) za tiskanje"
+msgstr ""
 
 #. TEXT_SETUP_TMP_PATH
 msgid "Temporary directory"
-msgstr "Začasni imenik"
+msgstr "暂存目录"
 
 #. TEXT_SETUP_IMAGE_PERMISSION
 msgid "Image-file permissions"
-msgstr "Dovoljenja slikovne datoteke"
+msgstr "影像档案权限"
 
 #. TEXT_SETUP_DIR_PERMISSION
 msgid "Directory permissions"
-msgstr "Dovoljenja imenika"
+msgstr "目录权限"
 
 #. TEXT_SETUP_JPEG_QUALITY
 msgid "JPEG image quality"
-msgstr "JPEG kvaliteta slike"
+msgstr "JPEG影像品质"
 
 #. TEXT_SETUP_PNG_COMPRESSION
 msgid "PNG image compression"
-msgstr "stiskanje PNG slike"
+msgstr "PNG影像压缩"
 
 #. TEXT_SETUP_FILENAME_COUNTER_LEN
 msgid "Filename counter length"
-msgstr "Dolžina števca imena datoteke"
+msgstr "档名计数长度"
 
 #. TEXT_SETUP_TIFF_ZIP_COMPRESSION
 msgid "TIFF zip compression rate"
-msgstr "TIFF zip stopnja stiskanja"
+msgstr "TIFF zip 压缩率"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_16
 msgid "TIFF 16 bit image compression"
-msgstr "stiskanje TIFF 16 bitne slike"
+msgstr "TIFF 16 位元影像压缩"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_8
 msgid "TIFF 8 bit image compression"
-msgstr "stiskanje TIFF 8 bitne slike"
+msgstr "TIFF 8 位元影像压缩"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_1
 msgid "TIFF lineart image compression"
-msgstr "stiskanje TIFF lineart slike"
+msgstr ""
 
 #. TEXT_SETUP_SHOW_RANGE_MODE
 msgid "Show range as:"
-msgstr "Prikaži območje kot:"
+msgstr "显示范围在"
 
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
-msgstr "Predogled prekomernega vzorčenja:"
+msgstr ""
 
 #. TEXT_SETUP_PREVIEW_GAMMA
 msgid "Preview gamma:"
-msgstr "Predogled gama:"
+msgstr "预览gamma"
 
 #. TEXT_SETUP_PREVIEW_GAMMA_RED
 msgid "Preview gamma red:"
-msgstr "Predogled gama rdeč:"
+msgstr "预览 红色gamma"
 
 #. TEXT_SETUP_PREVIEW_GAMMA_GREEN
 msgid "Preview gamma green:"
-msgstr "Predogled gama zelen:"
+msgstr "预览 绿色gamma"
 
 #. TEXT_SETUP_PREVIEW_GAMMA_BLUE
 msgid "Preview gamma blue:"
-msgstr "Predogled gama moder:"
+msgstr "预览 蓝色gamma"
 
 #. TEXT_SETUP_LINEART_MODE
 msgid "Threshold option:"
-msgstr "Izbira praga:"
+msgstr "边界选项:"
 
 #. TEXT_SETUP_PREVIEW_PIPETTE_RANGE
 msgid "Preview pipette range"
-msgstr "Predogled velikosti območja zajemanja barv"
+msgstr "预览吸取范围"
 
 #. TEXT_SETUP_THRESHOLD_MIN
 msgid "Threshold minimum:"
-msgstr "Spodnja vrednost praga:"
+msgstr "最小边界"
 
 #. TEXT_SETUP_THRESHOLD_MAX
 msgid "Threshold maximum:"
-msgstr "Zgornja vrednost praga:"
+msgstr "最大边界"
 
 #. TEXT_SETUP_THRESHOLD_MUL
 msgid "Threshold multiplier:"
-msgstr "Pomnoževalnik praga:"
+msgstr ""
 
 #. TEXT_SETUP_THRESHOLD_OFF
 msgid "Threshold offset:"
-msgstr "Odmik praga:"
+msgstr "边界差距"
 
 #. TEXT_SETUP_GRAYSCALE_SCANMODE
 msgid "Name of grayscale scanmode:"
-msgstr "Ime sivinskega načina skeniranja:"
+msgstr "灰接调整扫描模式的名称"
 
 #. TEXT_SETUP_HELPFILE_VIEWER
 msgid "Helpfile viewer (HTML):"
-msgstr "Ime programa za prikaz pomoči (HTML):"
+msgstr "救助档检视器(HTML)"
 
 #. TEXT_SETUP_FAX_RECEIVER_OPTION
 msgid "Receiver option:"
-msgstr "Izbira naslovnika:"
+msgstr "接收选项"
 
 #. TEXT_SETUP_FAX_POSTSCRIPT_OPT
 msgid "Postscriptfile option:"
-msgstr "Izbire pri postscriptni datoteki:"
+msgstr "Postscript档案选项"
 
 #. TEXT_SETUP_FAX_NORMAL_MODE_OPT
 msgid "Normal mode option:"
-msgstr "Izbire pri običajnem načinu:"
+msgstr "正常模式选项"
 
 #. TEXT_SETUP_FAX_FINE_MODE_OPT
 msgid "Fine mode option:"
-msgstr "Izbire pri podrobnem načinu:"
+msgstr ""
 
 #. TEXT_SETUP_FAX_PROGRAM_DEFAULTS
 msgid "Set program defaults for:"
-msgstr "Nastavi privzete nastavitve programa za:"
+msgstr ""
 
 #. TEXT_SETUP_FAX_VIEWER
 msgid "Viewer (Postscript):"
-msgstr "Ogledovalnik (postscript):"
+msgstr "检视器(Postscript)"
 
 #. TEXT_SETUP_FAX_PS_FLATDECODED
 msgid "Create zlib compressed postscript image (ps level 3) for fax"
-msgstr "Ustvari stisnjeno postscriptno sliko z zlib (ps stopnja 3) za faks"
+msgstr ""
 
 #. TEXT_SETUP_SMTP_SERVER
 msgid "SMTP server:"
-msgstr "SMTP strežnik:"
+msgstr "SMTP伺服器:"
 
 #. TEXT_SETUP_SMTP_PORT
 msgid "SMTP port:"
-msgstr "SMTP vrata:"
+msgstr "SMTP通讯埠:"
 
 #. TEXT_SETUP_EMAIL_FROM
 msgid "From:"
-msgstr "Od:"
+msgstr "从"
 
 #. TEXT_SETUP_EMAIL_REPLY_TO
 msgid "Reply to:"
-msgstr "Odgovori:"
+msgstr "回覆到"
 
 #. TEXT_SETUP_EMAIL_AUTHENTICATION
 msgid "E-mail authentication"
-msgstr "avtentifikacija za e-pošto"
+msgstr "邮件认证"
 
 #. TEXT_SETUP_EMAIL_AUTH_USER
 msgid "User:"
-msgstr "Uporabnik:"
+msgstr "用户:"
 
 #. TEXT_SETUP_EMAIL_AUTH_PASS
 msgid "Password:"
-msgstr "Geslo:"
+msgstr "密码"
 
 #. TEXT_SETUP_POP3_SERVER
 msgid "POP3 server:"
-msgstr "POP3 strežnik:"
+msgstr "POP3 服务器:"
 
 #. TEXT_SETUP_POP3_PORT
 msgid "POP3 port:"
-msgstr "POP3 vrata:"
+msgstr "POP3通讯埠:"
 
 #. TEXT_SETUP_OCR_COMMAND
 msgid "OCR Command:"
-msgstr "OCR ukaz:"
+msgstr "OCR 命令"
 
 #. TEXT_SETUP_OCR_INPUTFILE_OPT
 msgid "Inputfile option:"
-msgstr "Izbire pri vhodni datoteki:"
+msgstr "输入档选项"
 
 #. TEXT_SETUP_OCR_OUTPUTFILE_OPT
 msgid "Outputfile option:"
-msgstr "Izbire pri izhodni datoteki:"
+msgstr "输出档选项"
 
 #. TEXT_SETUP_OCR_USE_GUI_PIPE_OPT
 msgid "Use GUI progress pipe:"
-msgstr "Uporabi GUI cevovod napredka:"
+msgstr ""
 
 #. TEXT_SETUP_OCR_OUTFD_OPT
 msgid "GUI output-fd option:"
-msgstr "GUI -fd izhodna izbira:"
+msgstr ""
 
 #. TEXT_SETUP_OCR_PROGRESS_KEYWORD
 msgid "Progress keyword:"
-msgstr "Beseda napredka:"
+msgstr ""
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
-msgstr "uporabnik"
+msgstr "使用者"
 
 #. TEXT_SETUP_PERMISSION_GROUP
 msgid "group"
-msgstr "skupina"
+msgstr "群组"
 
 #. TEXT_SETUP_PERMISSION_ALL
 msgid "all"
-msgstr "vsi"
+msgstr "所有"
 
 #. TEXT_SETUP_SCANNER_REFL_ICM_PROFILE
 #, fuzzy
 msgid "Scanner reflective ICM-profile"
-msgstr "Odstrani tiskalnik"
+msgstr "删除列表机"
 
 #. TEXT_SETUP_SCANNER_TRAN_ICM_PROFILE
 #. DESC_SCANNER_TRAN_ICM_PROFILE
@@ -1135,7 +1120,7 @@ msgstr ""
 #. DESC_CUSTOM_PROOFING_ICM_PROFILE
 #, fuzzy
 msgid "Custom proofing ICM-profile"
-msgstr "Odstrani tiskalnik"
+msgstr "删除列表机"
 
 #. TEXT_SETUP_PRINTER_ICM_PROFILE
 #. DESC_PRINTER_ICM_PROFILE
@@ -1143,31 +1128,31 @@ msgid "Printer ICM-profile"
 msgstr ""
 
 msgid "new media"
-msgstr "novi medij"
+msgstr ""
 
 #. NOTEBOOK_SAVING_OPTIONS
 #. MENU_ITEM_SAVE
 msgid "Save"
-msgstr "Shrani"
+msgstr "储存"
 
 #. NOTEBOOK_FILETYPE_OPTIONS
 msgid "Filetype"
-msgstr "Tip datoteke"
+msgstr "文件类型"
 
 #. NOTEBOOK_COPY_OPTIONS
 #. MENU_ITEM_COPY
 msgid "Copy"
-msgstr "Kopiraj"
+msgstr "复制"
 
 #. NOTEBOOK_FAX_OPTIONS
 #. MENU_ITEM_FAX
 msgid "Fax"
-msgstr "Faks"
+msgstr "传真"
 
 #. NOTEBOOK_EMAIL_OPTIONS
 #. MENU_ITEM_EMAIL
 msgid "E-mail"
-msgstr "E-pošta:"
+msgstr "电子邮件"
 
 #. NOTEBOOK_OCR_OPTIONS
 msgid "OCR"
@@ -1175,137 +1160,139 @@ msgstr "OCR"
 
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display"
-msgstr "Prikaži"
+msgstr "显示"
 
 #. NOTEBOOK_ENHANCE_OPTIONS
 msgid "Enhancement"
-msgstr "Razširitev"
+msgstr "增强"
 
 #. MENU_ITEM_MULTIPAGE
 msgid "Multipage"
-msgstr "Večstransko"
+msgstr ""
 
 #. MENU_ITEM_SHOW_TOOLTIPS
 msgid "Show tooltips"
-msgstr "Prikaži namige"
+msgstr "显示快速提示"
 
 #. MENU_ITEM_SHOW_PREVIEW
 msgid "Show preview"
-msgstr "Prikaži predogled"
+msgstr "显示预览"
 
 #. MENU_ITEM_SHOW_HISTOGRAM
 msgid "Show histogram"
-msgstr "Prikaži histogram"
+msgstr "显示矩形图"
 
 #. MENU_ITEM_SHOW_GAMMA
 msgid "Show gamma curve"
-msgstr "Prikaži gama krivuljo"
+msgstr "显示gamma曲线"
 
 #. MENU_ITEM_SHOW_BATCH_SCAN
 msgid "Show batch scan"
-msgstr "Prikaži paketno skeniranje"
+msgstr "显示批次扫描"
 
 #. MENU_ITEM_SHOW_STANDARDOPTIONS
 msgid "Show standard options"
-msgstr "Prikaži običajne izbire"
+msgstr "显示基本选项"
 
 #. MENU_ITEM_SHOW_ADVANCEDOPTIONS
 msgid "Show advanced options"
-msgstr "Prikaži napredne izbire"
+msgstr "显示进阶选项"
 
 #. MENU_ITEM_SETUP
 msgid "Setup"
-msgstr "Nastavi"
+msgstr "设定"
 
 #. MENU_ITEM_LENGTH_UNIT
 msgid "Length unit"
-msgstr "Dolžinska enota"
+msgstr "长度单位"
 
 #. SUBMENU_ITEM_LENGTH_MILLIMETERS
 msgid "millimeters"
-msgstr "milimetri"
+msgstr "公厘"
 
 #. SUBMENU_ITEM_LENGTH_CENTIMETERS
 msgid "centimeters"
-msgstr "centimetri"
+msgstr "公分"
 
 #. SUBMENU_ITEM_LENGTH_INCHES
 msgid "inches"
-msgstr "palci"
+msgstr "英寸"
 
 #. MENU_ITEM_UPDATE_POLICY
 msgid "Update policy"
-msgstr "Način osveževanja"
+msgstr "更新政策"
 
 #. SUBMENU_ITEM_POLICY_CONTINUOUS
 msgid "continuous"
-msgstr "zvezen"
+msgstr "继续"
 
 #. SUBMENU_ITEM_POLICY_DISCONTINU
 msgid "discontinuous"
-msgstr "nezvezen"
+msgstr "不继续"
 
 #. SUBMENU_ITEM_POLICY_DELAYED
 msgid "delayed"
-msgstr "zakasnjen"
+msgstr "延迟"
 
 #. MENU_ITEM_SHOW_RESOLUTIONLIST
 msgid "Show resolution list"
-msgstr "Prikaži seznam ločljivosti"
+msgstr "显示解析度列表"
 
 #. MENU_ITEM_PAGE_ROTATE
 msgid "Rotate postscript"
-msgstr "Rotiraj postscript"
+msgstr ""
 
 #. MENU_ITEM_ENABLE_COLOR_MANAGEMENT
 #. MENU_ITEM_CMS_ENABLE_COLOR_MANAGEMENT
 #, fuzzy
 msgid "Enable color management"
-msgstr "Celotno barvno območje"
+msgstr "全色范围"
 
+#
 #. MENU_ITEM_EDIT_MEDIUM_DEF
 msgid "Edit medium definition"
-msgstr "Uredi izbire za medij"
+msgstr "储存环境设定"
 
 #. MENU_ITEM_SAVE_DEVICE_SETTINGS
 msgid "Save device settings"
-msgstr "Shrani nastavitve naprave"
+msgstr "储存装置设定"
 
 #. MENU_ITEM_LOAD_DEVICE_SETTINGS
 msgid "Load device settings"
-msgstr "Naloži nastavitve naprave"
+msgstr "载入装置设定"
 
 #. MENU_ITEM_CHANGE_WORKING_DIR
 msgid "Change directory"
-msgstr "Spremeni imenik"
+msgstr "更改目录"
 
 #. MENU_ITEM_XSANE_EULA
 msgid "Show EULA"
-msgstr "Prikaži EULA"
+msgstr ""
 
 #. MENU_ITEM_XSANE_GPL
 msgid "Show license (GPL)"
-msgstr "Prilaži licenco (GPL)"
+msgstr ""
 
 #. MENU_ITEM_XSANE_DOC
 msgid "XSane doc"
-msgstr "XSane dokument"
+msgstr "Xsane文件"
 
 #. MENU_ITEM_BACKEND_DOC
 msgid "Backend doc"
-msgstr "Navodilo za uporabo programa v ozadju"
+msgstr "后端驱动程式文件"
 
 #. MENU_ITEM_AVAILABLE_BACKENDS
 msgid "Available backends"
-msgstr "Razpoložljivi programi v ozadju"
+msgstr "可用的后端驱动程式"
 
+#
 #. MENU_ITEM_SCANTIPS
 msgid "Scantips"
-msgstr "Namigi za skeniranje"
+msgstr ""
 
 #. MENU_ITEM_PROBLEMS
 msgid "Problems?"
-msgstr "Težave?"
+msgstr "问题?"
 
 #. MENU_ITEM_CMS_BLACK_POINT_COMPENSATION
 msgid "Black point compensation"
@@ -1314,7 +1301,7 @@ msgstr ""
 #. MENU_ITEM_CMS_PROOFING
 #, fuzzy
 msgid "Proofing"
-msgstr "Dodaj tiskalnik"
+msgstr "增加列表机"
 
 #. SUBMENU_ITEM_CMS_PROOF_OFF
 msgid "no proofing (Display)"
@@ -1323,7 +1310,7 @@ msgstr ""
 #. SUBMENU_ITEM_CMS_PROOF_PRINTER
 #, fuzzy
 msgid "Proof printer"
-msgstr "Dodaj tiskalnik"
+msgstr "增加列表机"
 
 #. SUBMENU_ITEM_CMS_PROOF_CUSTOM
 msgid "Proof custom device"
@@ -1332,12 +1319,12 @@ msgstr ""
 #. MENU_ITEM_CMS_RENDERING_INTENT
 #, fuzzy
 msgid "Rendering intent"
-msgstr "Dodaj tiskalnik"
+msgstr "增加列表机"
 
 #. MENU_ITEM_CMS_PROOFING_INTENT
 #, fuzzy
 msgid "Proofing rendering intent"
-msgstr "Dodaj tiskalnik"
+msgstr "增加列表机"
 
 #. SUBMENU_ITEM_CMS_INTENT_PERCEPTUAL
 msgid "Perceptual"
@@ -1354,7 +1341,7 @@ msgstr ""
 #. SUBMENU_ITEM_CMS_INTENT_SATURATION
 #, fuzzy
 msgid "Saturation"
-msgstr "avtorizacija"
+msgstr "授权"
 
 #. MENU_ITEM_CMS_GAMUT_CHECK
 msgid "Gamut check"
@@ -1375,12 +1362,12 @@ msgstr ""
 #. SUBMENU_ITEM_CMS_COLOR_WHITE
 #, fuzzy
 msgid "White"
-msgstr "zapiši"
+msgstr "写入"
 
 #. SUBMENU_ITEM_CMS_COLOR_RED
 #, fuzzy
 msgid "Red"
-msgstr "Zmanjšaj"
+msgstr "还原"
 
 #. SUBMENU_ITEM_CMS_COLOR_GREEN
 msgid "Green"
@@ -1389,204 +1376,207 @@ msgstr ""
 #. SUBMENU_ITEM_CMS_COLOR_BLUE
 #, fuzzy
 msgid "Blue"
-msgstr "Zamegli"
+msgstr "模糊"
 
 #. MENU_ITEM_COUNTER_LEN_INACTIVE
 msgid "inactive"
-msgstr "nedejaven"
+msgstr "失效"
 
 #. MENU_ITEM_TIFF_COMP_NONE
 msgid "no compression"
-msgstr "brez stiskanja"
+msgstr "不压缩"
 
 #. MENU_ITEM_TIFF_COMP_CCITTRLE
 msgid "CCITT 1D Huffman compression"
-msgstr "CCITT 1D Huffmanovo stiskanje"
+msgstr ""
 
 #. MENU_ITEM_TIFF_COMP_CCITFAX3
 msgid "CCITT Group 3 Fax compression"
-msgstr "CCITT Group 3 stiskanje za fakse"
+msgstr ""
 
 #. MENU_ITEM_TIFF_COMP_CCITFAX4
 msgid "CCITT Group 4 Fax compression"
-msgstr "CCITT Group 4 stiskanje za fakse"
+msgstr ""
 
 #. MENU_ITEM_TIFF_COMP_JPEG
 msgid "JPEG DCT compression"
-msgstr "JPEG DCT stiskanje"
+msgstr ""
 
 #. MENU_ITEM_TIFF_COMP_PACKBITS
 msgid "pack bits"
-msgstr "stisni bite"
+msgstr ""
 
 #. MENU_ITEM_TIFF_COMP_DEFLATE
 msgid "deflate"
-msgstr "zmanjšanje"
+msgstr "缩小"
 
 #. MENU_ITEM_RANGE_SCALE
 msgid "Slider (Scale)"
-msgstr "Drsnik (skala)"
+msgstr "滑棒(Scale)"
 
 #. MENU_ITEM_RANGE_SCROLLBAR
 msgid "Slider (Scrollbar)"
-msgstr "Drsnik (drsni trak)"
+msgstr "滑棒(Scrollbar)"
 
 #. MENU_ITEM_RANGE_SPINBUTTON
 msgid "Spinbutton"
-msgstr "Gumb za vrtenje"
+msgstr "微调旋钮"
 
 #. MENU_ITEM_RANGE_SCALE_SPIN
 msgid "Scale and Spinbutton"
-msgstr "Skala in tipka za vrtenje"
+msgstr "滑棒与微调旋钮"
 
 #. MENU_ITEM_RANGE_SCROLL_SPIN
 msgid "Scrollbar and Spinbutton"
-msgstr "Drsni trak in tipka za vrtenje"
+msgstr "卷轴与微调旋钮"
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
 msgid "Standard options window (lineart)"
-msgstr "Okno z običajnimi nastavitvami (lineart)"
+msgstr "基本选项视窗(lineart)"
 
 #. MENU_ITEM_LINEART_MODE_XSANE
 msgid "XSane main window (lineart)"
-msgstr "Osrednje okno programa XSane (lineart)"
+msgstr "XSane 主视窗(lineart)"
 
 #. MENU_ITEM_LINEART_MODE_GRAY
 msgid "XSane main window (grayscale->lineart)"
-msgstr "Osrednje okno programa XSane (sivinsko -> lineart)"
+msgstr "XSane 主视窗(grayscale->lineart)"
 
 #. MENU_ITEM_SELECTION_NONE
 msgid "(none)"
-msgstr "(nobeno)"
+msgstr "无"
 
 #. MENU_ITEM_FILETYPE_BY_EXT
 msgid "by ext"
-msgstr "po končnici"
+msgstr ""
 
 #. MENU_ITEM_PRESET_AREA_ADD_SEL
 msgid "Add selection to list"
-msgstr "Dodaj izbiro h spisku"
+msgstr "增加选择到列表"
 
+#
 #. MENU_ITEM_MEDIUM_ADD
 msgid "Add medium definition"
-msgstr "Dodaj Izbor za medij"
+msgstr "储存环境设定"
 
+#
 #. MENU_ITEM_RENAME
 msgid "Rename item"
-msgstr "Preimenuj elemnt"
+msgstr "更名影像"
 
+#
 #. MENU_ITEM_DELETE
 msgid "Delete item"
-msgstr "Odstrani element"
+msgstr "删除列表机"
 
+#
 #. MENU_ITEM_MOVE_UP
 msgid "Move item up"
-msgstr "Premakni element navzgor"
+msgstr "往上移动"
 
+#
 #. MENU_ITEM_MOVE_DWN
 msgid "Move item down"
-msgstr "Premakni element navzdol"
+msgstr "往下移动"
 
 #. MENU_ITEM_AUTH_NONE
 msgid "no authentication"
-msgstr "brez avtentifikacije"
+msgstr "没有授权"
 
 #. MENU_ITEM_AUTH_POP3
 msgid "POP3 before SMTP"
-msgstr "POP3 pred SMTP"
+msgstr ""
 
 #. MENU_ITEM_AUTH_ASMTP_PLAIN
 msgid "ASMTP Plain"
-msgstr "ASMTP nešifrirano"
+msgstr ""
 
 #. MENU_ITEM_AUTH_ASMTP_LOGIN
 msgid "ASMTP Login"
-msgstr "ASMTP prijava"
+msgstr ""
 
 #. MENU_ITEM_AUTH_ASMTP_CRAM_MD5
 msgid "ASMTP CRAM-MD5"
-msgstr "ASMTP CRAM-MD5"
+msgstr ""
 
 #. PROGRESS_SCANNING
 msgid "Scanning"
-msgstr "Skeniram"
+msgstr "扫描中"
 
 #. PROGRESS_RECEIVING_FRAME_DATA
 #, c-format
 msgid "Receiving %s data"
-msgstr "Prejemam %s podatke"
+msgstr "接收%s资料"
 
 #. PROGRESS_PAGE
 msgid "page"
-msgstr "stran"
+msgstr "页"
 
 #. PROGRESS_TRANSFERING_DATA
 msgid "Transfering image"
-msgstr "Prenašam sliko"
+msgstr "传输影像中"
 
 #. PROGRESS_ROTATING_DATA
 msgid "Rotating image"
-msgstr "Sučem sliko"
+msgstr "转动影像"
 
 #. PROGRESS_MIRRORING_DATA
 msgid "Mirroring image"
-msgstr "Zrcalim sliko"
+msgstr "映射影像"
 
 #. PROGRESS_PACKING_DATA
 msgid "Packing image"
-msgstr "Pakiram sliko"
+msgstr "打包影像"
 
 #. PROGRESS_CONVERTING_DATA
 msgid "Converting image"
-msgstr "Pretvarjam sliko"
+msgstr ""
 
 #. PROGRESS_SAVING_DATA
 msgid "Saving image"
-msgstr "Shranjujem sliko"
+msgstr "储存影像"
 
 #. PROGRESS_CLONING_DATA
 msgid "Cloning image"
-msgstr "Kloniram sliko"
+msgstr "复制影像"
 
 #. PROGRESS_SCALING_DATA
 msgid "Scaling image"
-msgstr "Skaliram sliko"
+msgstr "调整影像"
 
 #. PROGRESS_DESPECKLING_DATA
 msgid "Despeckling image"
-msgstr "Odstrani packe iz slike"
+msgstr ""
 
 #. PROGRESS_BLURING_DATA
 msgid "Bluring image"
-msgstr "Zamegli sliko"
+msgstr "模糊影像"
 
 #. PROGRESS_OCR
 msgid "OCR in progress"
-msgstr "OCR napredek"
+msgstr ""
 
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
-msgstr "Začni skeniranje <Ctrl-Enter>"
+msgstr "开始扫描<Ctrl-Enter>"
 
 #. DESC_SCAN_CANCEL
 msgid "Cancel scan <ESC>"
-msgstr "Prekini skeniranje <ESC>"
+msgstr "取消扫描<ESC>"
 
 #. DESC_PREVIEW_ACQUIRE
 msgid "Acquire preview scan <Alt-p>"
-msgstr "Pridobi predogled skeniranja"
+msgstr "获得预览影像<Alt-p>"
 
 #. DESC_PREVIEW_CANCEL
 msgid "Cancel preview scan <Alt-ESC>"
-msgstr "Odstrani predogled skeniranja"
+msgstr "取消预览影像<Alt-ESC>"
 
 #. DESC_XSANE_MODE
 msgid ""
 "viewer-<Ctrl-v>, save-<Ctrl-s>, photocopy-<Ctrl-c>, multipage-<Ctrl-m>, fax-"
 "<Ctrl-f> or e-mail-<Ctrl-e>"
 msgstr ""
-"pregledovalnik-<Ctrl-v>, shrani-<Ctrl-s>, fotokopija-<Ctrl-c>, večstransko-"
-"<Ctrl-m>, faks-<Ctrl-f> ali e-pošta-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
 msgid ""
@@ -1596,175 +1586,171 @@ msgid ""
 "To create a medium enable the option edit medium definition in preferences "
 "menu."
 msgstr ""
-"Izberi tip izvirnega medija.\n"
-"Za preimenovanje, razvrščanje ali brisanje vnosa uporabi vsebinski meni "
-"(desni gumb miške).\n"
-"Za kreiranje medija omogoči izbiro, tako da urediš izbiro medija v "
-"nastavitvah menija."
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
-msgstr "Vrednost, za katero se poveča števec imena datotek po skeniranju"
+msgstr ""
 
 #. DESC_BROWSE_FILENAME
 msgid "Browse for image filename"
-msgstr "Išči slike po imenih datotek"
+msgstr "影像档案浏览"
 
 #. DESC_FILENAME
 msgid "Filename for scanned image"
-msgstr "Ime datoteke za skenirano sliko"
+msgstr "扫瞄过的影像的档案名称"
 
 #. DESC_FILETYPE
 msgid ""
 "Type of image format, the suitable filename extension is automatically added "
 "to the filename"
 msgstr ""
-"Tip formata zapisa slike, ime datoteke se samodejno dopolni z odgovarjajočo "
-"končnico"
 
 #. DESC_FAXPROJECT
 msgid "Enter name of fax project"
-msgstr "Vnesite ime projekta za faks"
+msgstr "输入传真专案的名称"
 
 #. DESC_FAXPAGENAME
 msgid "Enter new name for faxpage"
-msgstr "Vnesite novo ime za stran s faksom"
+msgstr "输入传真专案的新名称"
 
 #. DESC_FAXRECEIVER
 msgid "Enter receiver phone number or address"
-msgstr "Vnesite telefonsko številko ali naslov prejemnika"
+msgstr "输入接收的电话号码或位址"
 
 #. DESC_EMAIL_PROJECT
 msgid "Enter name of e-mail project"
-msgstr "Vnesite ime projekta za e-pošto"
+msgstr "输入邮件专案的名称"
 
 #. DESC_EMAIL_IMAGENAME
 msgid "Enter new name for e-mail image"
-msgstr "Vnesite novo ime za sliko e-pošte"
+msgstr "输入邮件图像的新名称"
 
 #. DESC_EMAIL_RECEIVER
 msgid "Enter e-mail address"
-msgstr "Vnesite naslov e-pošte"
+msgstr "输入邮件位址"
 
 #. DESC_EMAIL_SUBJECT
 msgid "Enter subject of e-mail"
-msgstr "Vnesite zadevo e-pošte"
+msgstr "输入邮件的标题"
 
 #. DESC_EMAIL_FILETYPE
 msgid "Select filetype for image attachments"
-msgstr "Izberite tip datoteke za priponko slike"
+msgstr "选择图像附件的类型"
 
 #. DESC_MULTIPAGE_PROJECT
 msgid "Enter name of multipage project"
-msgstr "Vnesite ime večstranskega projekta"
+msgstr "输入多页工程的名称"
 
 #. DESC_MULTIPAGE_FILETYPE
 msgid "Select filetype for multipage file"
-msgstr "Izberite tip datoteke za večstransko datoteko"
+msgstr "为多页文件选择文件类型"
 
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
-msgstr "Vnesite novo ime za prednastavljeno območje"
+msgstr "输入预设区的新名称"
 
+#
 #. DESC_PRESET_AREA_ADD
 msgid "Enter name for new preset area"
-msgstr "Vnesite ime za novo prednastavljeno območje"
+msgstr "输入预设区的新名称"
 
+#
 #. DESC_MEDIUM_RENAME
 msgid "Enter new name for medium definition"
-msgstr "Vnesite novo ime za izbiro medija"
+msgstr "为环境设定输入新的名字"
 
+#
 #. DESC_MEDIUM_ADD
 msgid "Enter name for new medium definition"
-msgstr "Vnesite ime za novo izbiro medija"
+msgstr "为新的环境设定输入名字"
 
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
-msgstr "Izberite tiskalnik <Shift-F1/F2/...>"
+msgstr ""
 
 #. DESC_RESOLUTION
 msgid "Set scan resolution"
-msgstr "Nastavitev ločljivosti skeniranja"
+msgstr "设定扫描解析度"
 
 #. DESC_RESOLUTION_X
 msgid "Set scan resolution for x direction"
-msgstr "Nastavitev ločljivosti skeniranja v smeri x"
+msgstr ""
 
 #. DESC_RESOLUTION_Y
 msgid "Set scan resolution for y direction"
-msgstr "Nastavitev ločljivosti skeniranja v smeri y"
+msgstr ""
 
 #. DESC_ZOOM
 msgid "Set zoomfactor"
-msgstr "Nastavitev stopnje povečave"
+msgstr ""
 
 #. DESC_ZOOM_X
 msgid "Set zoomfactor for x direction"
-msgstr "Nastavitev stopnje povečave v smeri x"
+msgstr ""
 
 #. DESC_ZOOM_Y
 msgid "Set zoomfactor for y direction"
-msgstr "Nastavitev stopnje povečave v smeri x"
+msgstr ""
 
 #. DESC_COPY_NUMBER
 msgid "Set number of copies"
-msgstr "Nastavitev števila kopij"
+msgstr ""
 
 #. DESC_NEGATIVE
 msgid "Negative: Invert colors for scanning negatives <Ctrl-n>"
-msgstr "Negativ: invertiranje barv za pripravo negativov <Ctrl-n>"
+msgstr ""
 
 #. DESC_GAMMA
 msgid "Set gamma value"
-msgstr "Nastavitev vrednosti gama"
+msgstr "设定Gamma值"
 
 #. DESC_GAMMA_R
 msgid "Set gamma value for red component"
-msgstr "Nastavitev vrednosti gama za rdečo komponento"
+msgstr "设定红色成分的Gamma值"
 
 #. DESC_GAMMA_G
 msgid "Set gamma value for green component"
-msgstr "Nastavitev vrednosti gama za zeleno komponento"
+msgstr "设定绿色成分的Gamma值"
 
 #. DESC_GAMMA_B
 msgid "Set gamma value for blue component"
-msgstr "Nastavitev vrednosti gama za modro komponento"
+msgstr "设定蓝色成分的Gamma值"
 
 #. DESC_BRIGHTNESS
 msgid "Set brightness"
-msgstr "Nastavitev svetlosti"
+msgstr "设定亮度"
 
 #. DESC_BRIGHTNESS_R
 msgid "Set brightness for red component"
-msgstr "Nastavitev svetlosti za rdečo komponento"
+msgstr "设定红色成份的亮度值"
 
 #. DESC_BRIGHTNESS_G
 msgid "Set brightness for green component"
-msgstr "Nastavitev svetlosti za zeleno komponento"
+msgstr "设定绿色成份的亮度值"
 
 #. DESC_BRIGHTNESS_B
 msgid "Set brightness for blue component"
-msgstr "Nastavitev svetlosti za modro komponento"
+msgstr "设定蓝色成份的亮度值"
 
 #. DESC_CONTRAST
 msgid "Set contrast"
-msgstr "Nastavitev kontrasta"
+msgstr "设定反差"
 
 #. DESC_CONTRAST_R
 msgid "Set contrast for red component"
-msgstr "Nastavitev kontrasta za rdečo komponento"
+msgstr "设定红色成分的反差"
 
 #. DESC_CONTRAST_G
 msgid "Set contrast for green component"
-msgstr "Nastavitev kontrasta za zeleno komponento"
+msgstr "设定绿色成分的反差"
 
 #. DESC_CONTRAST_B
 msgid "Set contrast for blue component"
-msgstr "Nastavitev kontrasta za modro komponento"
+msgstr "设定蓝色成分的反差"
 
 #. DESC_THRESHOLD
 msgid "Set threshold"
-msgstr "Nastavitev praga"
+msgstr "设定边界"
 
 #. DESC_RGB_DEFAULT
 msgid ""
@@ -1774,16 +1760,12 @@ msgid ""
 " brightness = 0\n"
 " contrast = 0"
 msgstr ""
-"Privzete vrednosti za RGB: Nastavitev razširjenih vrednosti za rdečo, zeleno "
-"in modro k privzetim vrednostim <Ctrl-b>:\n"
-" gama = 1.0\n"
-" svetlost = 0\n"
-" kontrast = 0"
 
+#
 #. DESC_ENH_AUTO
 #, fuzzy
 msgid "Autoadjust gamma, brightness and contrast <Ctrl-a>"
-msgstr "Samonastavi vrednost gama, svetlost in kontrasta <Ctrl-e>"
+msgstr "自动调整gamma,亮度和反差<Shift-e>"
 
 #. DESC_ENH_DEFAULT
 msgid ""
@@ -1792,183 +1774,170 @@ msgid ""
 "brightness = 0\n"
 "contrast = 0"
 msgstr ""
-"Nastavitev privzetih razširjenih vrednosti <Ctrl-0>:\n"
-"gama = 1.0\n"
-"svetlost = 0\n"
-"kontrast = 0"
 
 #. DESC_ENH_RESTORE
 msgid "Restore enhancement values from preferences <Ctrl-r>"
-msgstr "Obnovi razširjeni vrednosti iz nastavitev <Ctrl-r>"
+msgstr ""
 
 #. DESC_ENH_STORE
 msgid "Store active enhancement values to preferences <Ctrl-+>"
-msgstr "Shrani aktivne razširjene vrednosti v nastavitve <Ctrl-+>"
+msgstr ""
 
 #. DESC_HIST_INTENSITY
 msgid "Show histogram of intensity/gray <Alt-i>"
-msgstr "Prikaz histograma svetlosti/sivin <Alt-i>"
+msgstr ""
 
 #. DESC_HIST_RED
 msgid "Show histogram of red component <Alt-r>"
-msgstr "Prikaz histograma rdeče komponente <Alt-r>"
+msgstr ""
 
 #. DESC_HIST_GREEN
 msgid "Show histogram of green component <Alt-g>"
-msgstr "Prikaz histograma zelene komponente <Alt-g>"
+msgstr ""
 
 #. DESC_HIST_BLUE
 msgid "Show histogram of blue component <Alt-b>"
-msgstr "Prikaz histograma modre komponente <Alt-b>"
+msgstr ""
 
 #. DESC_HIST_PIXEL
 msgid "Display mode: show histogram with lines instead of pixels <Alt-m>"
-msgstr "Zaslonski način: prikaz histograma s črtami namesto s pikami <Alt-m>"
+msgstr "显示模式:用线取代点来显示矩形图"
 
 #. DESC_HIST_LOG
 msgid "Show logarithm of pixelcount <Alt-l>"
-msgstr "Prikaz logaritma števca pikslov <Alt-l>"
+msgstr ""
 
 #. DESC_PRINTER_SETUP
 msgid "Select definition to change"
-msgstr "Izbor nastavitve za prilagoditev"
+msgstr ""
 
 #. DESC_PRINTER_NAME
 msgid "Define a name for the selection of this definition"
-msgstr "Definiraj ime za izbiro te nastavitve"
+msgstr "为选择的定义定义一个名称"
 
 #. DESC_PRINTER_COMMAND
 msgid "Enter command to be executed in copy mode (e.g. \"lpr\")"
-msgstr "Vnesite ukaz, ki se izvede pri kopiranju (na primer \"lpr\")"
+msgstr "输入在复制模式下将被执行的命令(e.g. \"lpr\")"
 
 #. DESC_COPY_NUMBER_OPTION
 msgid "Enter option for copy numbers"
-msgstr "Vnesite izbiro za število kopij"
+msgstr ""
 
 #. DESC_PRINTER_LINEART_RESOLUTION
 msgid ""
 "Resolution with which lineart images are printed and saved in postscript"
-msgstr "Ločljivost, v kateri natisnemo in shranimo lineart slike v postskriptu"
+msgstr ""
 
 #. DESC_PRINTER_GRAYSCALE_RESOLUTION
 msgid ""
 "Resolution with which grayscale images are printed and saved in postscript"
 msgstr ""
-"Ločljivost, v kateri natisnemo in shranimo sivinske slike v postskriptu"
 
 #. DESC_PRINTER_COLOR_RESOLUTION
 msgid "Resolution with which color images are printed and saved in postscript"
-msgstr "Ločljivost, v kateri natisnemo in shranimo barvne slike v postskriptu"
+msgstr ""
 
 #. DESC_PRINTER_WIDTH
 #. DESC_FAX_WIDTH
 msgid "Width of printable area"
-msgstr "Širina območja za tiskanje"
+msgstr "列印区宽度"
 
 #. DESC_PRINTER_HEIGHT
 #. DESC_FAX_HEIGHT
 msgid "Height of printable area"
-msgstr "Višina območja za tiskanje"
+msgstr "列印区高度"
 
 #. DESC_PRINTER_LEFTOFFSET
 #. DESC_FAX_LEFTOFFSET
 msgid "Left offset from the edge of the paper to the printable area"
-msgstr "Razdalja od levega roba papirja do območja za tiskanje"
+msgstr "从页的边缘到列印区的左差距"
 
 #. DESC_PRINTER_BOTTOMOFFSET
 #. DESC_FAX_BOTTOMOFFSET
 msgid "Bottom offset from the edge of the paper to the printable area"
-msgstr "Razdalja od spodnjega roba papirja do območja za tiskanje"
+msgstr "从页的边缘到列印区的下差距"
 
 #. DESC_PRINTER_GAMMA
 msgid "Additional gamma value for photocopy"
-msgstr "Dodatna vrednost gama pri fotokopiranju"
+msgstr ""
 
 #. DESC_PRINTER_GAMMA_RED
 msgid "Additional gamma value for red component for photocopy"
-msgstr "Dodatna vrednost gama za komponento pri fotokopiranju"
+msgstr ""
 
 #. DESC_PRINTER_GAMMA_GREEN
 msgid "Additional gamma value for green component for photocopy"
-msgstr "Dodatna vrednost gama za zeleno komponento pri fotokopiranju"
+msgstr ""
 
 #. DESC_PRINTER_GAMMA_BLUE
 msgid "Additional gamma value for blue component for photocopy"
-msgstr "Dodatna vrednost gama za modro komponento pri fotokopiranju"
+msgstr ""
 
 #. DESC_PRINTER_PS_FLATDECODED
 msgid ""
 "Create zlib compressed postscript image for printer (flatdecode).\n"
 "The printer has to understand postscript level 3!"
 msgstr ""
-"Ustvari stisnjeno postscriptno sliko z zlib za tiskalnik.\n"
-"Tiskalnik mora razumeti postscript stopnjo 3!"
 
 #. DESC_TMP_PATH
 msgid "Path to temp directory"
-msgstr "Pot do začasnega imenika"
+msgstr "暂存目录的路径"
 
 #. DESC_BUTTON_TMP_PATH_BROWSE
 msgid "Browse for temporary directory"
-msgstr "Prebrskaj začasni imenik"
+msgstr "暂存目录浏览"
 
 #. DESC_JPEG_QUALITY
 msgid ""
 "Quality in percent if image is saved as jpeg or tiff with jpeg compression"
 msgstr ""
-"Kakovost v odstotkih, če sliko shranjujemo v zapisih TIFF ali JPEG pri "
-"stiskanju z JPEG"
 
 #. DESC_PNG_COMPRESSION
 msgid "Compression if image is saved as png"
-msgstr "Stiskanje, če je slika shranjena kot png"
+msgstr "如果存成png档的话,就压缩"
 
 #. DESC_FILENAME_COUNTER_LEN
 msgid "Minimum length of counter in filename"
-msgstr "Najkrajša dolžina števca v imenu datoteke"
+msgstr ""
 
 #. DESC_TIFF_ZIP_COMPRESSION
 msgid "Compression rate for zip compressed tiff (deflate)"
-msgstr "Stopnja stiskanja za zip stiskani TIFF (zmanjšanje)"
+msgstr ""
 
 #. DESC_TIFF_COMPRESSION_16
 msgid "Compression type if 16 bit image is saved as tiff"
-msgstr "Vrsta stiskanja, če je 16 bitna slika shranjena kot tiff"
+msgstr ""
 
 #. DESC_TIFF_COMPRESSION_8
 msgid "Compression type if 8 bit image is saved as tiff"
-msgstr "Vrsta stiskanja, če je 8 bitna slika shranjena kot tiff"
+msgstr ""
 
 #. DESC_TIFF_COMPRESSION_1
 msgid "Compression type if lineart image is saved as tiff"
-msgstr "Vrsta stiskanja pri shranjevanju slik v načinu lineart v zapisu TIFF"
+msgstr ""
 
 #. DESC_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device dependant preferences in default file at exit of xsane"
-msgstr "Shrani odgovarjajoče nastavitve naprave v privzeto datoteko ob izhodu"
+msgstr ""
 
 #. DESC_OVERWRITE_WARNING
 msgid "Warn before overwriting an existing file"
-msgstr "Opozori pri pisanju prek obstoječe datoteke"
+msgstr "覆写一个已经存在的档案之前要警告"
 
 #. DESC_SKIP_EXISTING
 msgid ""
 "If filename counter is automatically increased, used numbers are skipped"
 msgstr ""
-"Če je števec imena datoteke samodejno povečan, se uporabljene številke "
-"preskočijo"
 
 #. DESC_SAVE_PS_FLATDECODED
 msgid ""
 "compress postscript image with zlib algorithm (flatdecode). When you want to "
 "print such a file your printer has to understand postscript level 3"
 msgstr ""
-"stiskanje postscriptne slike z zlib algoritmom. Če želite tiskati takšno "
-"datoteko, mora vaš tiskalnik razumeti postscript stopnjo 3"
 
 #. DESC_SAVE_PDF_FLATDECODED
 msgid "compress PDF image with zlib algorithm (flatdecode)."
-msgstr "stiskanje PDFslike z zlib algoritmom."
+msgstr ""
 
 #. DESC_SAVE_PNM16_AS_ASCII
 msgid ""
@@ -1977,136 +1946,121 @@ msgid ""
 "supported by all programs. The ascii format is supported by more programs "
 "but it produces really huge files!!!"
 msgstr ""
-"Če naj bo 16 bitna slika shranjena v pnm formatu, uporabi ASCII format "
-"namesto binarnega formata. Binarni format je nov format, katerega ne "
-"podpirajo vsi programi. ASCII format podpira več programov, toda lahko je "
-"zelo velika datoteka!!!"
 
 #. DESC_REDUCE_16BIT_TO_8BIT
 msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
-msgstr "Če skener pošilja sliko z 16 bitov/barvo, shrani sliko z 8 bitov/barvo"
+msgstr ""
 
 #. DESC_PSFILE_WIDTH
 msgid "Width of paper for postscript files"
-msgstr "Širina papirja za postscriptne datoteke"
+msgstr ""
 
 #. DESC_PSFILE_HEIGHT
 msgid "Height of paper for postscript files"
-msgstr "Višina papirja za postscriptne datoteke"
+msgstr ""
 
 #. DESC_PSFILE_LEFTOFFSET
 msgid ""
 "Left offset from the edge of the paper to the usable area for postscript "
 "files"
 msgstr ""
-"Odmik od levega roba papirja k uporabnemu območju za postscriptne datoteke"
 
 #. DESC_PSFILE_BOTTOMOFFSET
 msgid ""
 "Bottom offset from the edge of the paper to the usable area for postscript "
 "files"
 msgstr ""
-"Odmik od spodnjega roba papirja k uporabnemu območju za postscriptne datoteke"
 
 #. DESC_MAIN_WINDOW_FIXED
 msgid "Use fixed main window size or scrolled, resizable main window"
-msgstr "Uporabi glavno okno s stalno ali spremenljivo velikostjo."
+msgstr "使用固定主视窗大小,或者滑动,更改主视窗大小"
 
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
 msgid "Disable preview gamma when XSane runs as gimp plugin"
-msgstr "Onemogoči predogled gama, ko X Sane teče kot vstavek za gimp"
+msgstr "取消预览gamma当XSane跑在gimp plugin 时"
 
 #. DESC_PREVIEW_COLORMAP
 msgid "Use an own colormap for preview if display depth is 8 bpp"
-msgstr "Uporabi lastno paleto barv za predogled, če je globina ekrana 8bitov"
+msgstr "假如显示8bpp深度时,使用一个自己的colormap"
 
 #. DESC_SHOW_RANGE_MODE
 msgid "Select how a range is displayed"
-msgstr "Izberi, kako je območje prikazano"
+msgstr "选择一个区域如何被显示"
 
 #. DESC_PREVIEW_OVERSAMPLING
 msgid "Value with that the calculated preview resolution is multiplied"
-msgstr "Vrednost, s katero je izračunana ločljivost predogleda pomnožena"
+msgstr ""
 
 #. DESC_PREVIEW_GAMMA
 msgid "Set gamma correction value for preview image"
-msgstr "Nastavitev popravka vrednosti gama za predogledu slike"
+msgstr "为预览影像设定gamma校正值"
 
 #. DESC_PREVIEW_GAMMA_RED
 msgid "Set gamma correction value for red component of preview image"
-msgstr ""
-"Nastavitev popravka vrednosti gama za rdečo komponento predogleda slike"
+msgstr "为预览影像的红色成分设定gamma校正值"
 
 #. DESC_PREVIEW_GAMMA_GREEN
 msgid "Set gamma correction value for green component of preview image"
-msgstr ""
-"Nastavitev popravka vrednosti gama za zeleno komponento predogleda slike"
+msgstr "为预览影像的绿色成分设定gamma校正值"
 
 #. DESC_PREVIEW_GAMMA_BLUE
 msgid "Set gamma correction value for blue component of preview image"
-msgstr ""
-"Nastavitev popravka vrednosti gama za modro komponento predogleda slike"
+msgstr "为预览影像的蓝色成分设定gamma校正值"
 
 #. DESC_LINEART_MODE
 msgid "Define the way XSane shall handle the threshold option"
-msgstr "Definirajte način, kako naj X Sane ravna z izbiro praga"
+msgstr ""
 
 #. DESC_GRAYSCALE_SCANMODE
 msgid ""
 "Select grayscale scanmode. This scanmode is used for lineart preview scan "
 "when transformation from grayscale to lineart is enabled"
 msgstr ""
-"Izberi sivinski način skeniranja. Ta način je uporabljeni pri lineart "
-"predogledu, če je omogočena pretvorba iz sivinskega načina v lineart"
 
 #. DESC_PREVIEW_THRESHOLD_MIN
 #, no-c-format
 msgid "The scanner's minimum threshold level in %"
-msgstr "Minimalna vrednost praga skenerja v %"
+msgstr ""
 
 #. DESC_PREVIEW_THRESHOLD_MAX
 #, no-c-format
 msgid "The scanner's maximum threshold level in %"
-msgstr "Maksimalna vrednost praga skenerja v %"
+msgstr ""
 
 #. DESC_PREVIEW_THRESHOLD_MUL
 msgid ""
 "Multiplier to make XSane threshold range and scanner threshold range the same"
 msgstr ""
-"Pomnoževalnik, s katerim izenačimo območje praga skenerja in programa X Sane"
 
 #. DESC_PREVIEW_THRESHOLD_OFF
 msgid ""
 "Offset to make XSane threshold range and scanner threshold range the same"
-msgstr "Odmik, s katerim izenačimo območje praga skenerja in programa X Sane"
+msgstr ""
 
 #. DESC_ADF_PAGES_MAX
 msgid "Number of pages to scan"
-msgstr "Število strani za skeniranje"
+msgstr ""
 
 #. DESC_PREVIEW_PIPETTE_RANGE
 msgid "dimension of square that is used to average color for pipette function"
-msgstr "velikost kvadrata, v katerem povprečimo barvo pri zajemu s pipeto."
+msgstr ""
 
 #. DESC_DOC_VIEWER
 msgid ""
 "Enter command to be executed to display helpfiles, must be a html-viewer!"
-msgstr ""
-"Podajte ukaz, s katerim prikažemo datoteke za pomoč, mora biti ogledovalnik "
-"HTML kode!"
+msgstr "输入显示救助档时要被执行的命令,必须是一个html检视器"
 
 #. DESC_AUTOENHANCE_GAMMA
 msgid "Change gamma value when autoenhancement button is pressed"
-msgstr ""
-"Spremeni vrednost gama, ko je pritisnjen gumb za samodejno izboljševanje"
+msgstr "更改gamma值如果自动增强按钮被按下时"
 
 #. DESC_PRESELECT_SCANAREA
 msgid "Select scanarea after preview scan has finished"
-msgstr "Izberi področje skeniranja, potem ko je predogled skeniranja zaključen"
+msgstr "预览扫描后选择扫描区已经完成了"
 
 #. DESC_AUTOCORRECT_COLORS
 msgid "Do color correction after preview scan has finished"
-msgstr "Izvedi korekcijo barv, potem ko je predogled skeniranja zaključen"
+msgstr "预览扫描后作颜色校正已经完成了"
 
 #. DESC_EMBED_ICM_PROFILE
 msgid ""
@@ -2116,167 +2070,171 @@ msgstr ""
 
 #. DESC_FAX_COMMAND
 msgid "Enter command to be executed in fax mode"
-msgstr "Podajte ukaz, ki naj bo izveden v faks načinu"
+msgstr "输入在传真模式下被执行的命令"
 
 #. DESC_FAX_RECEIVER_OPT
 msgid "Enter option to specify receiver"
-msgstr "Podajte izbiro za določitev prejemnika"
+msgstr "输入选项给指定的接收器"
 
 #. DESC_FAX_POSTSCRIPT_OPT
 msgid "Enter option to specify postscript files following"
-msgstr "Podajte izbiro za določitev spremljajočih postscript datotek"
+msgstr ""
 
 #. DESC_FAX_NORMAL_OPT
 msgid "Enter option to specify normal mode (low resolution)"
-msgstr "Podajte izbiro za običajni način (nizka ločljivosti)"
+msgstr ""
 
 #. DESC_FAX_FINE_OPT
 msgid "Enter option to specify fine mode (high resolution)"
-msgstr "Podajte izbiro za fini način (visoka ločljivosti)"
+msgstr ""
 
 #. DESC_FAX_VIEWER
 msgid "Enter command to be executed to view a fax"
-msgstr "Podajte ukaz, ki naj bo izveden za prikaz faksa"
+msgstr "输入检视传真时要执行的命令"
 
 #. DESC_FAX_FINE_MODE
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
-msgstr "Pošlji faks z visoko vertikalno ločljivostjo (196 lpi namesto 98 lpi)"
+msgstr ""
 
 #. DESC_FAX_PS_FLATDECODED
 msgid "Create zlib compressed postscript image for fax (flatdecode)"
-msgstr "Ustvari stisnjeno postscriptno sliko z zlib za faks"
+msgstr ""
 
 #. DESC_SMTP_SERVER
 msgid "IP Address or Domain name of SMTP server"
-msgstr "IP naslov ali ime domene SMTP strežnika"
+msgstr "IP 位址或SMTP伺服器的主机名称"
 
 #. DESC_SMTP_PORT
 msgid "port to connect to SMTP server"
-msgstr "vrata za povezavo do SMTP strežnika"
+msgstr ""
 
 #. DESC_EMAIL_FROM
+#, fuzzy
 msgid "enter your e-mail address"
-msgstr "vpišite vaš naslov e-pošte"
+msgstr "输入你的信件位址"
 
 #. DESC_EMAIL_REPLY_TO
+#, fuzzy
 msgid "enter e-mail address for replied e-mails"
-msgstr "vpišite naslov e-pošte za pošto z odgovori"
+msgstr "输入邮件位址"
 
 #. DESC_EMAIL_AUTHENTICATION
 msgid "Type of authentication before sending e-mail"
-msgstr "Tip avtentikacije pred pošiljanjem pošte"
+msgstr ""
 
 #. DESC_EMAIL_AUTH_USER
+#, fuzzy
 msgid "user name for e-mail server"
-msgstr "uporabniško ime za poštni strežnik"
+msgstr "输入邮件专案的名称"
 
 #. DESC_EMAIL_AUTH_PASS
 msgid "password for e-mail server"
-msgstr "geslo za poštni strežnik"
+msgstr ""
 
 #. DESC_POP3_SERVER
 msgid "IP Address or Domain name of POP3 server"
-msgstr "IP naslov ali ime domene POP3 strežnika"
+msgstr ""
 
 #. DESC_POP3_PORT
 msgid "port to connect to POP3 server"
-msgstr "vrata za povezavo do POP3 strežnika"
+msgstr ""
 
+#
 #. DESC_HTML_EMAIL
+#, fuzzy
 msgid "E-mail is sent in html mode, place image with: <IMAGE>"
-msgstr "Pošta je poslana v html načinu, postavi sliko z: <IMAGE>"
+msgstr "邮件以HTML传送,影像直接显示"
 
 #. DESC_OCR_COMMAND
 msgid "Enter command to start ocr program"
-msgstr "Podajte ukaz za zagon ocr programa"
+msgstr "输入开始OCR程式要执行的指令"
 
 #. DESC_OCR_INPUTFILE_OPT
 msgid "Enter option of the ocr program to define input file"
-msgstr "Podajte izbiro ocr programa za določitev vhodne datoteke"
+msgstr "输入OCR程式的选项给定义的输入档"
 
 #. DESC_OCR_OUTPUTFILE_OPT
 msgid "Enter option of the ocr program to define output file"
-msgstr "Podajte izbiro ocr programa za določitev izhodne datoteke"
+msgstr "输入OCR程式的选项给定义的输出档"
 
 #. DESC_OCR_USE_GUI_PIPE_OPT
 msgid "Define if the ocr program supports gui progress pipe"
-msgstr "Določi, če ocr program podpira GUI cevovod napredka"
+msgstr ""
 
 #. DESC_OCR_OUTFD_OPT
 msgid ""
 "Enter option of the ocr program to define output filedescripor in GUI mode"
 msgstr ""
-"Podajte izbiro ocr programa za določitev opisa izhodne datoteke v GUI načinu"
 
 #. DESC_OCR_PROGRESS_KEYWORD
 msgid "Define Keyword that is used to mark progress information"
-msgstr "Določi besedo, ki je uporabljena pri označitvi informacije napredka"
+msgstr ""
 
 #. DESC_PERMISSION_READ
 msgid "read"
-msgstr "preberi"
+msgstr "读取"
 
 #. DESC_PERMISSION_WRITE
 msgid "write"
-msgstr "zapiši"
+msgstr "写入"
 
 #. DESC_PERMISSION_SEARCH
 #, fuzzy
 msgid "search"
-msgstr "uporabnik"
+msgstr "使用者"
 
 #. DESC_ADD_BATCH
 msgid "Add selection for batch scan"
-msgstr "Dodaj izbiro za paketno skeniranje"
+msgstr "为批次扫描增加选择"
 
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
-msgstr "Izberite belo točko"
+msgstr ""
 
 #. DESC_PIPETTE_GRAY
 msgid "Pick gray point"
-msgstr "Izberite sivo točko"
+msgstr ""
 
 #. DESC_PIPETTE_BLACK
 msgid "Pick black point"
-msgstr "Izberite črno točko"
+msgstr ""
 
 #. DESC_ZOOM_FULL
 msgid "Use full scanarea"
-msgstr "Uporabi celotno območje "
+msgstr "使用全部扫描区"
 
 #. DESC_ZOOM_OUT
 #, no-c-format
 msgid "Zoom 20% out"
-msgstr "Pomanjšaj za 20 %"
+msgstr ""
 
 #. DESC_ZOOM_IN
 msgid "Click at position to zoom to"
-msgstr "Klikni na pozicijo za povečanje k"
+msgstr ""
 
 #. DESC_ZOOM_AREA
 msgid "Zoom into selected area"
-msgstr "Povečaj v izbrano območje"
+msgstr ""
 
 #. DESC_ZOOM_UNDO
 msgid "Undo last zoom"
-msgstr "Prekliči zadnje povečanje"
+msgstr ""
 
 #. DESC_FULL_PREVIEW_AREA
 msgid "Select visible area"
-msgstr "Izberi vidno območje"
+msgstr "选择显示区"
 
 #. DESC_AUTOSELECT_SCANAREA
 msgid "Autoselect scanarea"
-msgstr "Samodejno določi območje skeniranja"
+msgstr "自动选扫描区"
 
 #. DESC_AUTORAISE_SCANAREA
 msgid "Autoraise scanarea"
-msgstr "Samodejno povečaj območje skeniranja"
+msgstr "自动更改扫描区大小"
 
 #. DESC_DELETE_IMAGES
 msgid "Delete preview image cache"
-msgstr "Izbriši predpomnilnik predogleda slike"
+msgstr "删除预览影像快取"
 
 #. DESC_PRESET_AREA
 msgid ""
@@ -2284,155 +2242,152 @@ msgid ""
 "To add new area or edit an existing area use contect menu (right mouse "
 "button)."
 msgstr ""
-"Prednastavljeno območje:\n"
-"Da dodaš novo območje oziroma da urediš obstoječe območje, uporabi vsebinski "
-"meni (desni gumb miške)"
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
-msgstr "Rotiraj predogled in skeniraj"
+msgstr "翻转预览和扫描"
 
 #. DESC_RATIO
 msgid "Aspect ratio of selection"
-msgstr "Razmerje podobe izbire"
+msgstr ""
 
 #. DESC_PAPER_ORIENTATION
 msgid "Define image position for printing"
-msgstr "Določi položaj slike za tiskanje"
+msgstr ""
 
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
-msgstr "Optično razpoznavanje znakov"
+msgstr ""
 
 #. DESC_VIEWER_UNDO
 msgid "Undo last change"
-msgstr "Prekliči zadnjo spremembo"
+msgstr ""
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
-msgstr "Kloniraj sliko"
+msgstr "复制影像"
 
 #. DESC_ROTATE90
 msgid "Rotate image 90 degree"
-msgstr "Rotiraj sliko za 90 stopinj"
+msgstr "翻转影像90度"
 
 #. DESC_ROTATE180
 msgid "Rotate image 180 degree"
-msgstr "Rotiraj sliko za 180 stopinj"
+msgstr "翻转影像180度"
 
 #. DESC_ROTATE270
 msgid "Rotate image 270 degree"
-msgstr "Rotiraj sliko za 270 stopinj"
+msgstr "翻转影像270度"
 
 #. DESC_MIRROR_X
 msgid "Mirror image at vertical axis"
-msgstr "Zrcali sliko preko vertikalne osi"
+msgstr ""
 
 #. DESC_MIRROR_Y
 msgid "Mirror image at horizontal axis"
-msgstr "Zrcali sliko preko horizontalne osi"
+msgstr ""
 
 #. DESC_VIEWER_ZOOM
 msgid "Zoom image"
-msgstr "Povečaj sliko"
+msgstr "伸缩影像"
 
 #. DESC_STORE_MEDIUM
 msgid "Store medium"
-msgstr "Shrani medij"
+msgstr ""
 
 #. DESC_DELETE_MEDIUM
 msgid "Delete active medium"
-msgstr "Izbriši aktivni medij"
+msgstr "删除活动的环境"
 
 #. DESC_SCALE_FACTOR
 msgid "Scale factor"
-msgstr "Faktor skeliranja"
+msgstr ""
 
 #. DESC_X_SCALE_FACTOR
 msgid "X-Scale factor"
-msgstr "Faktor skeliranja X"
+msgstr ""
 
 #. DESC_Y_SCALE_FACTOR
 msgid "Y-Scale factor"
-msgstr "Faktor skeliranja Y"
+msgstr ""
 
 #. DESC_SCALE_WIDTH
 msgid "Scale image to width [in pixel]"
-msgstr "Skeliraj sliko v dolžino [v pikslih]"
+msgstr ""
 
 #. DESC_SCALE_HEIGHT
 msgid "Scale image to height [in pixel]"
-msgstr "Skeliraj sliko v višino [v pikslih]"
+msgstr ""
 
 #. DESC_BATCH_LIST_EMPTY
 msgid "Empty batch list"
-msgstr "Izprazni paketni seznam"
+msgstr "空的批次列表"
 
 #. DESC_BATCH_LIST_SAVE
 msgid "Save batch list"
-msgstr "Shrani paketni seznam"
+msgstr "储存批次列表"
 
 #. DESC_BATCH_LIST_LOAD
 msgid "Load batch list"
-msgstr "Naloži paketni seznam"
+msgstr "载入批次列表"
 
 #. DESC_BATCH_RENAME
 msgid "Rename area"
-msgstr "Preimenuj območje"
+msgstr "更名区域"
 
 #. DESC_BATCH_ADD
 msgid "Add selected preview area to batch list"
-msgstr "Dodaj izbrani predogled h paketnemu seznamu"
+msgstr "增加选择的预览区域到批次列表"
 
 #. DESC_BATCH_DEL
 msgid "Delete selected area from batch list"
-msgstr "Izbriši izbrani predogled iz paketnega seznama"
+msgstr "从批次列表删除选择的区域"
 
 #. DESC_AUTOMATIC
 msgid "Turns on automatic mode"
-msgstr "Vključi avtomatski način"
+msgstr ""
 
 #. DESC_SCANNER_REFL_ICM_PROFILE
 #, fuzzy
 msgid "Scanner reflektive ICM-profile"
-msgstr "Odstrani tiskalnik"
+msgstr "删除列表机"
 
 #. DESC_BUTTON_SCANNER_REFL_ICM_PROFILE_BROWSE
 #, fuzzy
 msgid "Browse for scanner reflektive ICM-profile"
-msgstr "Išči slike po imenih datotek"
+msgstr "影像档案浏览"
 
 #. DESC_BUTTON_SCANNER_TRAN_ICM_PROFILE_BROWSE
 #, fuzzy
 msgid "Browse for scanner transmissive ICM-profile"
-msgstr "Išči slike po imenih datotek"
+msgstr "影像档案浏览"
 
 #. DESC_BUTTON_DISPLAY_ICM_PROFILE_BROWSE
 #, fuzzy
 msgid "Browse for display ICM-profile"
-msgstr "Išči slike po imenih datotek"
+msgstr "影像档案浏览"
 
 #. DESC_BUTTON_PRINTER_ICM_PROFILE_BROWSE
 #, fuzzy
 msgid "Browse for printer ICM-profile"
-msgstr "Išči slike po imenih datotek"
+msgstr "影像档案浏览"
 
 #. DESC_BUTTON_CUSTOM_PROOFING_ICM_PROFILE_BROWSE
 #, fuzzy
 msgid "Browse for custom proofing ICM-profile"
-msgstr "Išči slike po imenih datotek"
+msgstr "影像档案浏览"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
-msgstr "Napaka pri določitvi domačega imenika:"
+msgstr "无法决定Home目录"
 
 #. ERR_CHANGE_WORKING_DIR
 msgid "Failed to change working directory to"
-msgstr "Napaka pri spremembi domačega imenika v"
+msgstr "不能去更改工作目录到"
 
 #. ERR_FILENAME_TOO_LONG
 msgid "Filename too long"
-msgstr "Predolgo ime datoteke"
+msgstr "档名太长"
 
 #. ERR_CREATE_TEMP_FILE
 msgid ""
@@ -2444,186 +2399,185 @@ msgstr ""
 
 #. ERR_SET_OPTION
 msgid "Failed to set value of option"
-msgstr "Napaka pri nastavitvi vrednosti izbire"
+msgstr "不能去设定选项的值"
 
 #. ERR_GET_OPTION
 msgid "Failed to obtain value of option"
-msgstr "Napaka pri pridobitvi vrednosti izbire"
+msgstr ""
 
 #. ERR_OPTION_COUNT
 msgid "Error obtaining option count"
-msgstr "Napaka pri pridobitvi števila izbir"
+msgstr ""
 
 #. ERR_DEVICE_OPEN_FAILED
 msgid "Failed to open device"
-msgstr "Napaka pri odpiranju naprave"
+msgstr "开启装置失败"
 
 #. ERR_NO_DEVICES
 msgid "no devices available"
-msgstr "na voljo ni nobene naprave"
+msgstr "没有装置可以使用"
 
 #. ERR_DURING_READ
 msgid "Error during read:"
-msgstr "Napaka pri branju:"
+msgstr "读取时错误"
 
 #. ERR_DURING_SAVE
 msgid "Error during save:"
-msgstr "Napaka pri shranjevanju:"
+msgstr "储存时错误"
 
 #. ERR_BAD_DEPTH
 msgid "Can't handle depth"
-msgstr "Napaka pri ravnanju z globino"
+msgstr "无法取得深度"
 
 #. ERR_GIMP_BAD_DEPTH
 #, c-format
 msgid "GIMP can't handle depth %d bits/color"
-msgstr "GIMP ne more ravnati z globino %d bitov/barvo"
+msgstr "GIMP不能取得深度 %d bits/color"
 
 #. ERR_UNKNOWN_SAVING_FORMAT
 msgid "Unknown file format for saving"
-msgstr "Neznan datotečni format za shranjevanje"
+msgstr "储存成未知的档案格式"
 
 #. ERR_OPEN_FAILED
 msgid "Failed to open"
-msgstr "Napaka pri odpiranju"
+msgstr "开启失败"
 
 #. ERR_CREATE_SECURE_FILE
 msgid "Could not create secure file (may be a link does exist):"
-msgstr "Ne morem ustvariti varne datoteke (mogoče povezava ne obstaja):"
+msgstr "不能建立安全档(可能连结已经存在)"
 
 #. ERR_FAILED_PRINTER_PIPE
 msgid "Failed to open pipe for executing printercommand"
-msgstr "Napaka pri odpiranju cevovoda za izvajanje ukaza za tiskanje"
+msgstr "不能开启管线为了执行列印命令"
 
 #. ERR_FAILED_EXEC_PRINTER_CMD
 msgid "Failed to execute printercommand:"
-msgstr "Napaka pri izvajanju ukaza za tiskanje:"
+msgstr "不能执行列印命令"
 
 #. ERR_FAILED_START_SCANNER
 msgid "Failed to start scanner:"
-msgstr "Napaka pri zagonu skenerja:"
+msgstr "不能开始扫描器"
 
 #. ERR_FAILED_GET_PARAMS
 msgid "Failed to get parameters:"
-msgstr "Napaka pri pridobivanju parametrov:"
+msgstr "拿不到参数"
 
 #. ERR_NO_OUTPUT_FORMAT
 msgid "No output format given"
-msgstr "Izhodni format zapisa ni podan"
+msgstr "没有得到输出格式"
 
 #. ERR_NO_MEM
 msgid "out of memory"
-msgstr "zmanjkalo je pomnilnika"
+msgstr "记忆体不足"
 
 #. ERR_TOO_MUCH_DATA
 msgid "Backend sends more image data than it defined in parameters"
 msgstr ""
-"Program v ozadju pošilja več podatkov slike kot je to definirano v parametrih"
 
 #. ERR_LIBTIFF
 msgid "LIBTIFF reports error"
-msgstr "LIBTIFF sporoča napako"
+msgstr ""
 
 #. ERR_LIBPNG
 msgid "LIBPNG reports error"
-msgstr "LIBPNG sporoča napako"
+msgstr ""
 
 #. ERR_LIBJPEG
 msgid "LIBJPEG reports error"
-msgstr "LIBJPEG sporoča napako"
+msgstr ""
 
 #. ERR_ZLIB
 msgid "ZLIB error or memory allocation problem"
-msgstr "ZLIB napaka ali problem razporeditve spomina"
+msgstr ""
 
 #. ERR_UNKNOWN_TYPE
 msgid "unknown type"
-msgstr "neznani tip"
+msgstr "未知的型态"
 
 #. ERR_UNKNOWN_CONSTRAINT_TYPE
 msgid "unknown constraint type"
-msgstr "neznani tip omejitve"
+msgstr ""
 
 #. ERR_OPTION_NAME_NULL
 msgid "Option has empty name (NULL)."
-msgstr "Izbira ima prazno ime (NULL)"
+msgstr ""
 
 #. ERR_BACKEND_BUG
 msgid "This is a backend bug. Please inform the author of the backend!"
-msgstr "To je hrošč programa v ozadju. Prosim, če obvestiš avtorja programa!"
+msgstr ""
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
-msgstr "Napaka pri zagonu prikazovalnika dokumentacije:"
+msgstr "不能执行文件检视器"
 
 #. ERR_FAILED_EXEC_FAX_VIEWER
 msgid "Failed to execute fax viewer:"
-msgstr "Napaka pri zagonu pregledovalnika faksov:"
+msgstr "不能执行传真检视器"
 
 #. ERR_FAILED_EXEC_FAX_CMD
 msgid "Failed to execute fax command:"
-msgstr "Napaka pri zagonu ukaza za faskiranje:"
+msgstr "不能执行传真命令"
 
 #. ERR_FAILED_EXEC_OCR_CMD
 msgid "Failed to execute ocr command:"
-msgstr "Napaka pri zagonu ocr ukaza:"
+msgstr "不能执行ocr命令"
 
 #. ERR_BAD_FRAME_FORMAT
 msgid "bad frame format"
-msgstr "slab format okvirja"
+msgstr "烂的框架格式"
 
 #. ERR_FAILED_SET_RESOLUTION
 msgid "unable to set resolution"
-msgstr "ločljivosti ni moč nastaviti"
+msgstr "不能选择解析度"
 
 #. ERR_PASSWORD_FILE_INSECURE
 #, c-format
 msgid "Password file (%s) is insecure, use permission x00\n"
-msgstr "Datoteka z gesli (%s) ni varna, uporabi dovoljenje x00\n"
+msgstr "密码档(%s)不安全,使用x00权限\n"
 
 #. ERR_ERROR
 msgid "error"
-msgstr "napaka"
+msgstr "错误"
 
 #. ERR_MAJOR_VERSION_NR_CONFLICT
 msgid "Sane major version number mismatch!"
-msgstr "Številka glavne verzije sane se ne ujema!"
+msgstr ""
 
 #. ERR_XSANE_MAJOR_VERSION
 msgid "XSane major version ="
-msgstr "X Sane glavna verzija ="
+msgstr ""
 
 #. ERR_BACKEND_MAJOR_VERSION
 msgid "backend major version ="
-msgstr "glavna verzija programa v ozadju ="
+msgstr ""
 
 #. ERR_PROGRAM_ABORTED
 msgid "*** PROGRAM ABORTED ***"
-msgstr "*** IZVAJANJE PREKINJENO ***"
+msgstr ""
 
 #. ERR_FAILED_ALLOCATE_IMAGE
 msgid "Failed to allocate image memory:"
-msgstr "Napaka pri dodeljevanju pomnilnika za sliko"
+msgstr "不能去配置影像记忆体"
 
 #. ERR_PREVIEW_BAD_DEPTH
 msgid "Preview cannot handle bit depth"
-msgstr "Predogled ne podpira bitne globine"
+msgstr "预览不能取得位元深度"
 
 #. ERR_GIMP_SUPPORT_MISSING
 msgid "GIMP support missing"
-msgstr "Manjka podpora za GIMP"
+msgstr "GIMP支援遗失"
 
 #. ERR_CREATE_FAX_PROJECT
 msgid "Could not create faxproject"
-msgstr "Ne morem ustvariti faks projekta"
+msgstr "不能建立传真专案"
 
 #. WARN_COUNTER_UNDERRUN
 msgid "Filename counter underrun"
-msgstr "Števec imen datotek je prekoračil obseg"
+msgstr ""
 
 #. WARN_NO_VALUE_CONSTRAINT
 msgid "warning: option has no value constraint"
-msgstr "opozorilo: izbira nima vrednosti omejitve"
+msgstr ""
 
 #. WARN_XSANE_AS_ROOT
 msgid ""
@@ -2633,93 +2587,92 @@ msgid ""
 "have any problem while running XSane as root:\n"
 "YOU ARE ALONE!"
 msgstr ""
-"X Sane ste poskušali pognati kot korenski uporabnik, to je zares NEVARNO!\n"
+"你试图以 ROOT 身份运行 XSane, 这样做将会十分危险！\n"
 "\n"
-"Če pri tem pride do napake, ne pošiljajte sporočil o hroščih!\n"
-"Bili ste opozorjeni, znajti se morate sami!"
+"如果你以 root 身份运行 XSane, 请不要试图提交任何 bug 报告。"
 
 #. ERR_HEADER_ERROR
 msgid "Error"
-msgstr "Napaka"
+msgstr "错误"
 
 #. ERR_HEADER_WARNING
 msgid "Warning"
-msgstr "Opozorilo"
+msgstr "警告"
 
 #. ERR_HEADER_INFO
 msgid "Information"
-msgstr "Obvestilo"
+msgstr "资讯"
 
 #. ERR_HEADER_CHILD_PROCESS_ERROR
 msgid "Child process error"
-msgstr "Napaka podrejena procesa"
+msgstr "子行程错误"
 
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
-msgstr "Napaka pri izdelavi datoteke:"
+msgstr "不能建立档案:"
 
 #. ERR_LOAD_DEVICE_SETTINGS
 msgid "Error while loading device settings:"
-msgstr "Napaka pri nalaganju nastavitev za napravo:"
+msgstr "载入装置设定时错误"
 
 #. ERR_NO_DRC_FILE
 msgid "is not a device-rc-file !!!"
-msgstr "ni datoteka s podatki o device-rc!!!"
+msgstr "不是一个装置rc file"
 
 #. ERR_NETSCAPE_EXECUTE_FAIL
 msgid "Failed to execute netscape!"
-msgstr "Napaka pri zagonu programa netscape!"
+msgstr "不能执行netscape!"
 
 #. ERR_SENDFAX_RECEIVER_MISSING
 msgid "Send fax: no receiver defined"
-msgstr "Pošlji faks: prejemnik ni podan"
+msgstr "传送传真: 没有定义接收者"
 
 #. ERR_CREATED_FOR_DEVICE
 msgid "has been created for device"
-msgstr "je bila ustvarjena za napravo"
+msgstr ""
 
 #. ERR_USED_FOR_DEVICE
 msgid "you want to use it for device"
-msgstr "želeli ste jo uporabiti za napravo"
+msgstr ""
 
 #. ERR_MAY_CAUSE_PROBLEMS
 msgid "this may cause problems!"
-msgstr "to lahko povzroči težave!"
+msgstr ""
 
 #. WARN_UNSAVED_IMAGES
 #, c-format
 msgid "There are %d unsaved images"
-msgstr "Tukaj je %d neshranjenih slik"
+msgstr "有 %d 未储存的档案"
 
 #. WARN_FILE_EXISTS
 #, c-format
 msgid "File %s already exists"
-msgstr "Datoteka %s že obstaja"
+msgstr "档案 %s 已经存在"
 
 #. ERR_FILE_NOT_EXISTS
 #, c-format
 msgid "File %s does not exist"
-msgstr "Datoteka %s ne obstaja"
+msgstr "档案 %s 不存在"
 
 #. ERR_FILE_NOT_POSTSCRIPT
 #, c-format
 msgid "File %s is not a postscript file"
-msgstr "Datoteka %s ni postscript datoteka"
+msgstr "%s 不是一个postscript 档"
 
 #. ERR_UNSUPPORTED_OUTPUT_FORMAT
 #, c-format
 msgid "Unsupported %d-bit output format: %s"
-msgstr "Nepodprti %d-bitni izhodni format zapisa: %s"
+msgstr "不支援 %d -bit 输出格式: %s"
 
 #. ERR_CMS_CONVERSION
 #, fuzzy
 msgid "Error during CMS conversion:"
-msgstr "Napaka pri shranjevanju:"
+msgstr "储存时错误"
 
 #. ERR_CMS_OPEN_ICM_FILE
 #, fuzzy
 msgid "Could not open"
-msgstr "Napaka pri odpiranju"
+msgstr "开启失败"
 
 #. CMS_SCANNER_TRAN_ICM
 msgid "scanner transmissive ICM profile"
@@ -2728,34 +2681,34 @@ msgstr ""
 #. CMS_SCANNER_REFL_ICM
 #, fuzzy
 msgid "scanner reflective ICM profile"
-msgstr "Odstrani tiskalnik"
+msgstr "删除列表机"
 
 #. CMS_DISPLAY_ICM
 #, fuzzy
 msgid "display ICM profile"
-msgstr "Išči slike po imenih datotek"
+msgstr "影像档案浏览"
 
 #. CMS_PROOF_ICM
 #, fuzzy
 msgid "proofing ICM profile"
-msgstr "Odstrani tiskalnik"
+msgstr "删除列表机"
 
 #. ERR_CMS_CREATE_TRANSFORM
 #, fuzzy
 msgid "Could not create transform"
-msgstr "Ne morem ustvariti začasno datoteko"
+msgstr "不能建立传真专案"
 
 #. WARN_VIEWER_IMAGE_NOT_SAVED
 msgid "viewer image is not saved"
-msgstr "slika predogleda ni shranjena"
+msgstr "检视器影像没有储存"
 
 #. TEXT_USAGE
 msgid "Usage:"
-msgstr "Uporaba:"
+msgstr "使用:"
 
 #. TEXT_USAGE_OPTIONS
 msgid "[OPTION]... [DEVICE]"
-msgstr "[OPTION]... [DEVICE]"
+msgstr ""
 
 #. TEXT_HELP
 msgid ""
@@ -2793,69 +2746,34 @@ msgid ""
 " --sync                       request a synchronous connection with the X11 "
 "server"
 msgstr ""
-"Zagon grafičnega uporabniškega vmesnika za dostop SANE (Scanner Access Now "
-"Easy).\n"
-"\n"
-"Format [DEVICE] je ime programa v ozadju:naprava (na primer umax:/dev/"
-"scanner).\n"
-"[OPTION]... je lahko kombinacija naslednjih gradnikov:\n"
-" -h, --help                   prikaže to sporočilo in konča\n"
-" -v, --version                izpiše podatke o različici\n"
-" -l, --license                izpiše podatke o licenci\n"
-"\n"
-" -d, --device-settings file   prebere nastavitve o napravi iz datoteke (brez "
-"\".drc\")\n"
-"\n"
-" -V, --viewer                 uporabi aktivni način predogleda (privzeto)\n"
-" -s, --save                   uporabi aktivni način za shranjevanje\n"
-" -c, --copy                   uporabi aktivni način za kopiranje\n"
-" -m, --mail                   uporabi aktivni način za več strani\n"
-" -f, --fax                    uporabi aktivni način za faks\n"
-" -n, --no-mode-selection      onemogoči meni za izbiranje načina dela v X "
-"Sane\n"
-"\n"
-" -F, --Fixed                  glavno okno je stalne velikosti (prepiši "
-"vrednosti nastavitev)\n"
-" -R, --Resizeable             glavno okno je spremenljive velikosti (prepiši "
-"vrednosti nastavitev)\n"
-"\n"
-" -p, --print-filenames        izpiši imena datotek, ki jih ustvari X Sane\n"
-" -N, --force-filename name    vsili imena datotek in onemogoči uporabniška "
-"imena\n"
-"\n"
-" --display X11-display        preusmeri izhod na zaslon X11\n"
-" --no-xshm                    ne uporabi slik z deljenim pomnilnikom\n"
-" --sync                       zahtevaj sinhrono povezavo s strežnikom X11"
 
 #. strings for gimp plugin
 #. XSANE_GIMP_INSTALL_BLURB
 msgid "Front-end to the SANE interface"
-msgstr "Grafični vmesnik do SANE vmesnika"
+msgstr ""
 
 #. XSANE_GIMP_INSTALL_HELP
 msgid ""
 "This function provides access to scanners and other image acquisition "
 "devices through the SANE (Scanner Access Now Easy) interface."
 msgstr ""
-"Ta funkcija omogoča dostop do skenerjev in drugih naprav za zajem slik z "
-"vmesnikom SANE (Scanner Access Now Easy)."
 
 #. Menu path must not be translated, this is done by the gimp. Only translate the text behind the last "/"
 #. XSANE_GIMP_MENU_DIALOG
 msgid "<Toolbox>/File/Acquire/XSane: Device dialog..."
-msgstr "<Toolbox>/File/Acquire/XSane: Pogovor z napravo..."
+msgstr ""
 
 #. XSANE_GIMP_MENU
 msgid "<Toolbox>/File/Acquire/XSane: "
-msgstr "<Toolbox>/File/Acquire/XSane: "
+msgstr ""
 
 #. XSANE_GIMP_MENU_DIALOG_OLD
 msgid "<Toolbox>/Xtns/XSane/Device dialog..."
-msgstr "<Toolbox>/Xtns/XSane/Pogovor z napravo..."
+msgstr ""
 
 #. XSANE_GIMP_MENU_OLD
 msgid "<Toolbox>/Xtns/XSane/"
-msgstr "<Toolbox>/Xtns/XSane/"
+msgstr ""
 
 #. HELP_NO_DEVICES
 msgid ""
@@ -2868,256 +2786,254 @@ msgid ""
 "5) The backend is not configured correct (man sane-\"backendname\")\n"
 "6) Possibly there is more than one SANE version installed"
 msgstr ""
-"Mogoči vzroki:\n"
-"1) Tukaj zares ni naprave, ki jo podpira SANE\n"
-"2) Podprte naprave so zasedene\n"
-"3) Dovoljenja za datoteko naprave ne dovoljujejo, da jo uporabite - "
-"poskusite kot korenski uporabnik (root)\n"
-"4) Program v ozadju ni zagnal SANE (man sane-dll)\n"
-"5) Program v ozadju ni pravilno nastavljen (man sane-\"backendname\")\n"
-"6) Mogoče je nameščenih več verzij SANE"
 
 #. strings that are used in structures, so it is not allowed to use _()/gettext() here
 #. gettext_noop does mark these texts but does not change the string
 #. MENU_ITEM_SURFACE_FULL_SIZE
 msgid "full size"
-msgstr "polna velikost"
+msgstr "完全大小"
 
 #. MENU_ITEM_SURFACE_DIN_A3P
 msgid "DIN A3 port."
-msgstr "DIN A3 pokončno"
+msgstr ""
 
 #. MENU_ITEM_SURFACE_DIN_A3L
 msgid "DIN A3 land."
-msgstr "DIN A3 ležeče"
+msgstr ""
 
 #. MENU_ITEM_SURFACE_DIN_A4P
 msgid "DIN A4 port."
-msgstr "DIN A4 pokončno"
+msgstr ""
 
 #. MENU_ITEM_SURFACE_DIN_A4L
 msgid "DIN A4 land."
-msgstr "DIN A4 ležeče"
+msgstr ""
 
 #. MENU_ITEM_SURFACE_DIN_A5P
 msgid "DIN A5 port."
-msgstr "DIN A5 pokončno"
+msgstr ""
 
 #. MENU_ITEM_SURFACE_DIN_A5L
 msgid "DIN A5 land."
-msgstr "DIN A5 ležeče"
+msgstr ""
 
 #. MENU_ITEM_SURFACE_13cmx18cm
 msgid "13cm x 18cm"
-msgstr "13cm x 18cm"
+msgstr ""
 
 #. MENU_ITEM_SURFACE_18cmx13cm
 msgid "18cm x 13cm"
-msgstr "18cm x 13cm"
+msgstr ""
 
 #. MENU_ITEM_SURFACE_10cmx15cm
 msgid "10cm x 15cm"
-msgstr "10cm x 15cm"
+msgstr ""
 
 #. MENU_ITEM_SURFACE_15cmx10cm
 msgid "15cm x 10cm"
-msgstr "15cm x 10cm"
+msgstr ""
 
 #. MENU_ITEM_SURFACE_9cmx13cm
 msgid "9cm x 13cm"
-msgstr "9cm x 13cm"
+msgstr ""
 
 #. MENU_ITEM_SURFACE_13cmx9cm
 msgid "13cm x 9cm"
-msgstr "13cm x 9cm"
+msgstr ""
 
 #. MENU_ITEM_SURFACE_legal_P
 msgid "legal port."
-msgstr "legal pokončno"
+msgstr ""
 
 #. MENU_ITEM_SURFACE_legal_L
 msgid "legal land."
-msgstr "legal ležeče"
+msgstr ""
 
 #. MENU_ITEM_SURFACE_letter_P
 msgid "letter port."
-msgstr "pisemsko pokončno"
+msgstr ""
 
 #. MENU_ITEM_SURFACE_letter_L
 msgid "letter land."
-msgstr "pisemsko ležeče"
+msgstr ""
 
 #. MENU_ITEM_MEDIUM_FULL_COLOR_RANGE
 msgid "Full color range"
-msgstr "Celotno barvno območje"
+msgstr "全色范围"
 
 #. MENU_ITEM_MEDIUM_SLIDE
 msgid "Slide"
-msgstr "Diapozitiv"
+msgstr "幻灯片(正片)"
 
 #. MENU_ITEM_MEDIUM_STANDARD_NEG
 msgid "Standard negative"
-msgstr "Standardni negativ"
+msgstr "标准负片"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG
 msgid "Agfa negative"
-msgstr "Agfa negativ"
+msgstr "Agfa 负片"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG_XRG200_4
 msgid "Agfa negative XRG 200-4"
-msgstr "Agfa negativ XRG 200-4"
+msgstr "Agfa 负片XRG 200-4 "
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG_HDC_100
 msgid "Agfa negative HDC 100"
-msgstr "Agfa negativ HDC 100"
+msgstr "Agfa 负片HDC 100"
 
 #. MENU_ITEM_MEDIUM_FUJI_NEG
 msgid "Fuji negative"
-msgstr "Fuji negativ"
+msgstr "富士(Fuji)负片"
 
 #. MENU_ITEM_MEDIUM_KODAK_NEG
 msgid "Kodak negative"
-msgstr "Kodak negativ"
+msgstr "柯达(Kodak)负片"
 
 #. MENU_ITEM_MEDIUM_KONICA_NEG
 msgid "Konica negative"
-msgstr "Konica negativ"
+msgstr "柯尼卡(Konica)负片"
 
 #. MENU_ITEM_MEDIUM_KONICA_NEG_VX_100
 msgid "Konica negative VX 100"
-msgstr "Konica negativ VX 100"
+msgstr "柯尼卡(Konica)负片 VX 100"
 
 #. MENU_ITEM_MEDIUM_ROSSMANN_NEG_HR_100
 msgid "Rossmann negative HR 100"
-msgstr "Rossmann negativ HR 100"
+msgstr ""
 
+#
 #. TEXT_PROJECT_STATUS_NOT_CREATED
 msgid "Project not created"
-msgstr "Projekt ni bil ustvarjen"
+msgstr "工程未建立"
 
+#
 #. TEXT_PROJECT_STATUS_CREATED
 msgid "Project created"
-msgstr "Projekt je bil ustvarjen"
+msgstr "工程已建立"
 
+#
 #. TEXT_PROJECT_STATUS_CHANGED
 msgid "Project changed"
-msgstr "Projekt je bil spremenjen"
+msgstr "工程已更改"
 
 #. TEXT_PROJECT_STATUS_ERR_READ_PROJECT
 msgid "Error reading project"
-msgstr "Napaka pri branju projekta"
+msgstr "读取工程是出错"
 
 #. TEXT_PROJECT_STATUS_FILE_SAVING_ERROR
 msgid "Error saving file"
-msgstr "Napaka pri shranjevanju projekta"
+msgstr "保存工程时出错"
 
 #. TEXT_PROJECT_STATUS_FILE_SAVING
 msgid "Saving file"
-msgstr "Shranjujem datoteko"
+msgstr "正在保存文件"
 
 #. TEXT_PROJECT_STATUS_FILE_SAVING_ABORTED
 msgid "Aborted saving file"
-msgstr "Predčasna prekinitev shranjevanja datoteke"
+msgstr "已取消保存文件"
 
 #. TEXT_PROJECT_STATUS_FILE_SAVED
 msgid "File has been saved"
-msgstr "Datoteka je bila shranjena"
+msgstr "文件已保存"
 
 #. TEXT_EMAIL_STATUS_POP3_CONNECTION_FAILED
 msgid "POP3 connection failed"
-msgstr "POP3 povezava ni uspela"
+msgstr "POP3 连接失败"
 
 #. TEXT_EMAIL_STATUS_POP3_LOGIN_FAILED
 msgid "POP3 login failed"
-msgstr "POP3 prijava ni uspela"
+msgstr "POP3 登录失败"
 
 #. TEXT_EMAIL_STATUS_ASMTP_AUTH_FAILED
 msgid "ASMTP authentication failed"
-msgstr "ASMTP povezava ni uspela"
+msgstr "ASMTP 认证失败"
 
 #. TEXT_EMAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
-msgstr "SMTP povezava ni uspela"
+msgstr "SMTP 连接失败"
 
+#
 #. TEXT_EMAIL_STATUS_SMTP_ERR_FROM
 msgid "From entry not accepted"
-msgstr "Vnosa pošiljatelja ni odobren"
+msgstr "发件地址不正确"
 
+#
 #. TEXT_EMAIL_STATUS_SMTP_ERR_RCPT
 msgid "Receiver entry not accepted"
-msgstr "Vnos prejemnika ni odobren"
+msgstr "接收地址不正确"
 
+#
 #. TEXT_EMAIL_STATUS_SMTP_ERR_DATA
 msgid "E-mail data not accepted"
-msgstr "Podatki e-pošte niso odobreni"
+msgstr "邮件数据不正确"
 
 #. TEXT_EMAIL_STATUS_SENDING
 msgid "Sending e-mail"
-msgstr "Pošiljanje e-pošte"
+msgstr "正在发送邮件"
 
 #. TEXT_EMAIL_STATUS_SENT
 msgid "E-mail has been sent"
-msgstr "E-pošta je bila poslana"
+msgstr "邮件已发送"
 
 #. TEXT_FAX_STATUS_QUEUEING_FAX
 msgid "Queueing Fax"
-msgstr "Preverjanje čakalne vrste faksa"
+msgstr "正在等待传真列队"
 
 #. TEXT_FAX_STATUS_FAX_QUEUED
 msgid "Fax is queued"
-msgstr "Čakalna vrsta faksa je preverjena"
+msgstr "传真已进入列队"
 
 #. Sane backend messages
 msgid "flatbed scanner"
-msgstr "ploski skener"
+msgstr "平台扫描器"
 
 msgid "frame grabber"
-msgstr "zajemalnik zaslona"
+msgstr "边框抓取器"
 
 msgid "handheld scanner"
-msgstr "ročni skener"
+msgstr "手持式扫描器"
 
 msgid "still camera"
-msgstr "fotoaparat"
+msgstr "静音摄像机"
 
 msgid "video camera"
-msgstr "videokamera"
+msgstr "视频摄像机"
 
 msgid "virtual device"
-msgstr "navidezna naprava"
+msgstr "虚拟装置"
 
 msgid "Success"
-msgstr "Uspešno"
+msgstr "完成"
 
 msgid "Operation not supported"
-msgstr "Operacija ni podprta"
+msgstr "平台未支援"
 
 msgid "Operation was cancelled"
-msgstr "Operacija je bila prekinjena"
+msgstr "平台已经取消"
 
 msgid "Device busy"
-msgstr "Naprava je zasedena"
+msgstr "装置忙碌"
 
 msgid "Invalid argument"
-msgstr "Napačen argument"
+msgstr "无效的参数"
 
 msgid "End of file reached"
-msgstr "Dosežen konec datoteke"
+msgstr "已到达文件尾"
 
 msgid "Document feeder jammed"
-msgstr "Zastoj v podajalniku dokumentov "
+msgstr "文档获取器阻塞"
 
 msgid "Document feeder out of documents"
-msgstr "Pomanjkanje dokumentov v podajalniku dokumentov"
+msgstr ""
 
 msgid "Scanner cover is open"
-msgstr "Pokrov skenerja je odprt"
+msgstr "扫描仪盖子已打开"
 
 msgid "Error during device I/O"
-msgstr "Napaka pri branju naprave ali pisanju nanjo"
+msgstr "装置I/O时错误"
 
 msgid "Out of memory"
-msgstr "Zmanjkalo je pomnilnika"
+msgstr "内存不足"
 
 msgid "Access to resource has been denied"
-msgstr "Dostop do vira je bil zavrnjen"
+msgstr "资源存取被禁止"

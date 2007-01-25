@@ -12,6 +12,7 @@ Sign explaination:
  save-function:
     - list of last used filenames
     - enable filters in save mode?
+    - ps needs a boundingbox, not only a pageboundingbox
 
  multipage-project:
     - reduce to lineart
@@ -25,6 +26,7 @@ Sign explaination:
 
  scan-routines:
     # allow additional image data after each row (is sane standard conform)
+    - make visible if the user did a final scan with the recent settings
 
 
  fax-function:
@@ -73,7 +75,6 @@ Sign explaination:
     # test if image file is writable before scan is started
     + cleanup of configuration file handling
       (problem with old config files should already be solved)
-    + add color management - may be via xcmsdb or scarse (www.scarse.org)
     + add several defaults (fax=> mode=gray, ocr=> mode=gray, ...)
     + test memory after each call of malloc - partly done
     - average of a multiple scan of the same image ???
@@ -82,6 +83,7 @@ Sign explaination:
       use next neighbour with high transmission(i) value
       (may be to viewer)
     ? project save/load with preview image, scanmode, .... ???
+
 
 
  include special functions for GNOME/KDE

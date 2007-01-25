@@ -3,7 +3,7 @@
    xsane-preview.h
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2005 Oliver Rauch
+   Copyright (C) 1998-2007 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -152,6 +152,15 @@ typedef struct
   Tselection previous_selection_maximum;	/* previous ... */
 
   int show_selection;
+
+#ifdef HAVE_LIBLCMS
+  int cms_enable;
+  int cms_black_point_compensation;
+  int cms_proofing;
+  int cms_intent;
+  int cms_proofing_intent;
+  int cms_gamut_check;
+#endif
 
 #if 0
   Batch_selection *batch_selection;

@@ -7,13 +7,6 @@
 
 ----------------------------------------------------------------------------------
 
-- xsane sometimes crashes at program startup with snapscan backend in panel_rebuild
-  while destroying the widgets - reason unknown, may be solved by test if widget exists
-
-  (this bug report is very old, I don´t know if it is still valid)
-
-----------------------------------------------------------------------------------
-
 If you have one of the problem above or any other problem please contact me and tell me:
  - used xsane version
  - cpu

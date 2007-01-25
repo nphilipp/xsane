@@ -4,7 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.96\n"
-"POT-Creation-Date: 2006-01-07 00:26+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-01-15 20:42+0100\n"
 "PO-Revision-Date: 2004-08-26 23:33+0700\n"
 "Last-Translator: Trinh Minh Thanh <tmthanh@yahoo.com>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
@@ -37,6 +38,7 @@ msgid "About"
 msgstr "Giới thiệu"
 
 #. WINDOW_ABOUT_TRANSLATION, MENU_ITEM_ABOUT_TRANSLATION
+#. MENU_ITEM_ABOUT_TRANSLATION
 msgid "About translation"
 msgstr "Giới thiệu dịch thuật"
 
@@ -153,6 +155,7 @@ msgid "Preview"
 msgstr "Xem trước"
 
 #. WINDOW_VIEWER
+#. MENU_ITEM_VIEWER
 msgid "Viewer"
 msgstr "Trình xem"
 
@@ -185,14 +188,17 @@ msgid "select temporary directory"
 msgstr "chọn thư mục tạm thời"
 
 #. WINDOW_SCALE
+#. DESC_VIEWER_SCALE
 msgid "Scale image"
 msgstr "Cân chỉnh ảnh"
 
 #. WINDOW_DESPECKLE
+#. DESC_VIEWER_DESPECKLE
 msgid "Despeckle image"
 msgstr "Xóa vết đốm ảnh"
 
 #. WINDOW_BLUR
+#. DESC_VIEWER_BLUR
 msgid "Blur image"
 msgstr "Làm mờ ảnh"
 
@@ -203,6 +209,30 @@ msgstr "Lưu trữ định nghĩa phương tiện"
 #. WINDOW_NO_DEVICES
 msgid "No devices available"
 msgstr "Hiện không có thiết bị"
+
+#. WINDOW_SCANNER_REFL_ICM_PROFILE
+#, fuzzy
+msgid "select scanner reflective ICM-profile"
+msgstr "Xóa máy in"
+
+#. WINDOW_SCANNER_TRAN_ICM_PROFILE
+#, fuzzy
+msgid "select scanner transmissive ICM-profile"
+msgstr "Xóa máy in"
+
+#. WINDOW_DISPLAY_ICM_PROFILE
+msgid "select display ICM-profile"
+msgstr ""
+
+#. WINDOW_CUSTOM_PROOFING_ICM_PROFILE
+#, fuzzy
+msgid "select custom proofing ICM-profile"
+msgstr "chọn tên tập tin đầu ra"
+
+#. WINDOW_PRINTER_ICM_PROFILE
+#, fuzzy
+msgid "select printer ICM-profile"
+msgstr "Xóa máy in"
 
 #. MENU_FILE
 msgid "File"
@@ -222,6 +252,7 @@ msgid "Window"
 msgstr "Cửa sổ"
 
 #. MENU_HELP
+#. BUTTON_HELP
 msgid "Help"
 msgstr "Trợ giúp"
 
@@ -239,6 +270,11 @@ msgstr "Trình lọc"
 msgid "Geometry"
 msgstr "Hình học"
 
+#. MENU_COLOR_MANAGEMENT
+#. NOTEBOOK_COLOR_MANAGEMENT_OPTIONS
+msgid "Color management"
+msgstr ""
+
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
 msgstr "Giới thiệu XSane"
@@ -252,6 +288,7 @@ msgid "Quit"
 msgstr "Thoát"
 
 #. MENU_ITEM_SAVE_IMAGE
+#. DESC_VIEWER_SAVE
 msgid "Save image"
 msgstr "Lưu ảnh"
 
@@ -268,6 +305,7 @@ msgid "Scale"
 msgstr "Cân chỉnh"
 
 #. MENU_ITEM_CLOSE
+#. BUTTON_CLOSE
 msgid "Close"
 msgstr "Đóng"
 
@@ -512,6 +550,10 @@ msgstr "Tự động hiệu chỉnh màu"
 msgid "Use GUI progress pipe"
 msgstr "Dùng pipe tiến trình đồ họa"
 
+#. RADIO_BUTTON_EMBED_ICM_PROFILE
+msgid "Embed scanner/source ICM profile into image file"
+msgstr ""
+
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
 msgstr "đang rà tìm thiết bị"
@@ -647,6 +689,11 @@ msgstr "phiên bản:"
 #. TEXT_PACKAGE
 msgid "package"
 msgstr "gói tin"
+
+#. TEXT_WITH_CMS_FUNCTION
+#, fuzzy
+msgid "with color management function"
+msgstr "Dải màu đầy đủ"
 
 #. TEXT_WITH_GIMP_SUPPORT
 msgid "with GIMP support"
@@ -839,6 +886,7 @@ msgid "Name:"
 msgstr "Tên:"
 
 #. TEXT_SETUP_PRINTER_CMD, TEXT_SETUP_FAX_CMD
+#. TEXT_SETUP_FAX_COMMAND
 msgid "Command:"
 msgstr "Lệnh:"
 
@@ -859,18 +907,22 @@ msgid "Color resolution (dpi):"
 msgstr "Độ phân giải màu (dpi):"
 
 #. TEXT_SETUP_PRINTER_WIDTH
+#. TEXT_SETUP_FAX_WIDTH
 msgid "Width"
 msgstr "Rộng"
 
 #. TEXT_SETUP_PRINTER_HEIGHT
+#. TEXT_SETUP_FAX_HEIGHT
 msgid "Height"
 msgstr "Cao"
 
 #. TEXT_SETUP_PRINTER_LEFT
+#. TEXT_SETUP_FAX_LEFT
 msgid "Left offset"
 msgstr "Offset trái"
 
 #. TEXT_SETUP_PRINTER_BOTTOM
+#. TEXT_SETUP_FAX_BOTTOM
 msgid "Bottom offset"
 msgstr "Offset đáy"
 
@@ -1094,10 +1146,37 @@ msgstr "nhóm"
 msgid "all"
 msgstr "toàn bộ"
 
+#. TEXT_SETUP_SCANNER_REFL_ICM_PROFILE
+#, fuzzy
+msgid "Scanner reflective ICM-profile"
+msgstr "Xóa máy in"
+
+#. TEXT_SETUP_SCANNER_TRAN_ICM_PROFILE
+#. DESC_SCANNER_TRAN_ICM_PROFILE
+msgid "Scanner transmissive ICM-profile"
+msgstr ""
+
+#. TEXT_SETUP_DISPLAY_ICM_PROFILE
+#. DESC_DISPLAY_ICM_PROFILE
+msgid "Display ICM-profile"
+msgstr ""
+
+#. TEXT_SETUP_CUSTOM_PROOFING_ICM_PROFILE
+#. DESC_CUSTOM_PROOFING_ICM_PROFILE
+#, fuzzy
+msgid "Custom proofing ICM-profile"
+msgstr "Xóa máy in"
+
+#. TEXT_SETUP_PRINTER_ICM_PROFILE
+#. DESC_PRINTER_ICM_PROFILE
+msgid "Printer ICM-profile"
+msgstr ""
+
 msgid "new media"
 msgstr "phương tiện mới"
 
 #. NOTEBOOK_SAVING_OPTIONS
+#. MENU_ITEM_SAVE
 msgid "Save"
 msgstr "Lưu"
 
@@ -1107,14 +1186,17 @@ msgid "Filetype"
 msgstr "Tệp"
 
 #. NOTEBOOK_COPY_OPTIONS
+#. MENU_ITEM_COPY
 msgid "Copy"
 msgstr "Sao chép"
 
 #. NOTEBOOK_FAX_OPTIONS
+#. MENU_ITEM_FAX
 msgid "Fax"
 msgstr "Fax"
 
 #. NOTEBOOK_EMAIL_OPTIONS
+#. MENU_ITEM_EMAIL
 #, fuzzy
 msgid "E-mail"
 msgstr "Email"
@@ -1207,6 +1289,12 @@ msgstr "Hiển thị danh sách độ phân giải"
 msgid "Rotate postscript"
 msgstr "Xoay postscript"
 
+#. MENU_ITEM_ENABLE_COLOR_MANAGEMENT
+#. MENU_ITEM_CMS_ENABLE_COLOR_MANAGEMENT
+#, fuzzy
+msgid "Enable color management"
+msgstr "Dải màu đầy đủ"
+
 #. MENU_ITEM_EDIT_MEDIUM_DEF
 msgid "Edit medium definition"
 msgstr "Biên soạn định nghĩa phương tiện"
@@ -1250,6 +1338,90 @@ msgstr "Mẹo quét"
 #. MENU_ITEM_PROBLEMS
 msgid "Problems?"
 msgstr "Trục trặc?"
+
+#. MENU_ITEM_CMS_BLACK_POINT_COMPENSATION
+msgid "Black point compensation"
+msgstr ""
+
+#. MENU_ITEM_CMS_PROOFING
+#, fuzzy
+msgid "Proofing"
+msgstr "Thêm máy in"
+
+#. SUBMENU_ITEM_CMS_PROOF_OFF
+msgid "no proofing (Display)"
+msgstr ""
+
+#. SUBMENU_ITEM_CMS_PROOF_PRINTER
+#, fuzzy
+msgid "Proof printer"
+msgstr "Thêm máy in"
+
+#. SUBMENU_ITEM_CMS_PROOF_CUSTOM
+msgid "Proof custom device"
+msgstr ""
+
+#. MENU_ITEM_CMS_RENDERING_INTENT
+#, fuzzy
+msgid "Rendering intent"
+msgstr "Thêm máy in"
+
+#. MENU_ITEM_CMS_PROOFING_INTENT
+#, fuzzy
+msgid "Proofing rendering intent"
+msgstr "Thêm máy in"
+
+#. SUBMENU_ITEM_CMS_INTENT_PERCEPTUAL
+msgid "Perceptual"
+msgstr ""
+
+#. SUBMENU_ITEM_CMS_INTENT_RELATIVE_COLORIMETRIC
+msgid "Relative colorimetric"
+msgstr ""
+
+#. SUBMENU_ITEM_CMS_INTENT_ABSOLUTE_COLORIMETRIC
+msgid "Absolute colorimentric"
+msgstr ""
+
+#. SUBMENU_ITEM_CMS_INTENT_SATURATION
+#, fuzzy
+msgid "Saturation"
+msgstr "Chấp thuận giấy phép"
+
+#. MENU_ITEM_CMS_GAMUT_CHECK
+msgid "Gamut check"
+msgstr ""
+
+#. MENU_ITEM_CMS_GAMUT_ALARM_COLOR
+msgid "Gamut alarm color"
+msgstr ""
+
+#. SUBMENU_ITEM_CMS_COLOR_BLACK
+msgid "Black"
+msgstr ""
+
+#. SUBMENU_ITEM_CMS_COLOR_GRAY
+msgid "Gray"
+msgstr ""
+
+#. SUBMENU_ITEM_CMS_COLOR_WHITE
+#, fuzzy
+msgid "White"
+msgstr "ghi"
+
+#. SUBMENU_ITEM_CMS_COLOR_RED
+#, fuzzy
+msgid "Red"
+msgstr "Giảm"
+
+#. SUBMENU_ITEM_CMS_COLOR_GREEN
+msgid "Green"
+msgstr ""
+
+#. SUBMENU_ITEM_CMS_COLOR_BLUE
+#, fuzzy
+msgid "Blue"
+msgstr "Làm mờ"
 
 #. MENU_ITEM_COUNTER_LEN_INACTIVE
 msgid "inactive"
@@ -1661,7 +1833,8 @@ msgstr ""
 " độ tương phản = 0"
 
 #. DESC_ENH_AUTO
-msgid "Autoadjust gamma, brightness and contrast <Ctrl-e>"
+#, fuzzy
+msgid "Autoadjust gamma, brightness and contrast <Ctrl-a>"
 msgstr "Tự động hiệu chỉnh gamma, độ sáng và độ tương phản <Ctrl-e>"
 
 #. DESC_ENH_DEFAULT
@@ -1739,18 +1912,22 @@ msgid "Resolution with which color images are printed and saved in postscript"
 msgstr "Độ phân giải để in và lưu ảnh màu theo dạng postscript"
 
 #. DESC_PRINTER_WIDTH
+#. DESC_FAX_WIDTH
 msgid "Width of printable area"
 msgstr "Chiều rộng vùng in được"
 
 #. DESC_PRINTER_HEIGHT
+#. DESC_FAX_HEIGHT
 msgid "Height of printable area"
 msgstr "Chiều cao vùng in được"
 
 #. DESC_PRINTER_LEFTOFFSET
+#. DESC_FAX_LEFTOFFSET
 msgid "Left offset from the edge of the paper to the printable area"
 msgstr "Offset trái từ mép giấy đến vùng in được"
 
 #. DESC_PRINTER_BOTTOMOFFSET
+#. DESC_FAX_BOTTOMOFFSET
 msgid "Bottom offset from the edge of the paper to the printable area"
 msgstr "Offset đáy từ mép giấy đến vùng in được"
 
@@ -1974,6 +2151,12 @@ msgstr "Chọn vùng quét sau khi kết thúc việc quét xem trước"
 msgid "Do color correction after preview scan has finished"
 msgstr "Hiệu chỉnh màu sau khi kết thúc việc quét xem trước"
 
+#. DESC_EMBED_ICM_PROFILE
+msgid ""
+"Embed scanner/source ICM profile into image file - when fileformat supports "
+"it"
+msgstr ""
+
 #. DESC_FAX_COMMAND
 msgid "Enter command to be executed in fax mode"
 msgstr "Nhập lệnh thực thi trong chế độ Fax"
@@ -2088,9 +2271,10 @@ msgstr "đọc"
 msgid "write"
 msgstr "ghi"
 
-#. DESC_PERMISSION_EXECUTE
-msgid "execute"
-msgstr "thực thi"
+#. DESC_PERMISSION_SEARCH
+#, fuzzy
+msgid "search"
+msgstr "người dùng"
 
 #. DESC_ADD_BATCH
 msgid "Add selection for batch scan"
@@ -2262,6 +2446,36 @@ msgstr "Xóa vùng được chọn khỏi danh sách batch"
 #. DESC_AUTOMATIC
 msgid "Turns on automatic mode"
 msgstr "Bật chế độ tự động"
+
+#. DESC_SCANNER_REFL_ICM_PROFILE
+#, fuzzy
+msgid "Scanner reflektive ICM-profile"
+msgstr "Xóa máy in"
+
+#. DESC_BUTTON_SCANNER_REFL_ICM_PROFILE_BROWSE
+#, fuzzy
+msgid "Browse for scanner reflektive ICM-profile"
+msgstr "Duyệt tên tập tin ảnh"
+
+#. DESC_BUTTON_SCANNER_TRAN_ICM_PROFILE_BROWSE
+#, fuzzy
+msgid "Browse for scanner transmissive ICM-profile"
+msgstr "Duyệt tên tập tin ảnh"
+
+#. DESC_BUTTON_DISPLAY_ICM_PROFILE_BROWSE
+#, fuzzy
+msgid "Browse for display ICM-profile"
+msgstr "Duyệt tên tập tin ảnh"
+
+#. DESC_BUTTON_PRINTER_ICM_PROFILE_BROWSE
+#, fuzzy
+msgid "Browse for printer ICM-profile"
+msgstr "Duyệt tên tập tin ảnh"
+
+#. DESC_BUTTON_CUSTOM_PROOFING_ICM_PROFILE_BROWSE
+#, fuzzy
+msgid "Browse for custom proofing ICM-profile"
+msgstr "Duyệt tên tập tin ảnh"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2553,6 +2767,40 @@ msgstr "Tập tin %s không phải dạng postscript"
 #, c-format
 msgid "Unsupported %d-bit output format: %s"
 msgstr "Không hỗ trợ định dạng đầu ra %d-bit: %s"
+
+#. ERR_CMS_CONVERSION
+#, fuzzy
+msgid "Error during CMS conversion:"
+msgstr "Lỗi khi lưu:"
+
+#. ERR_CMS_OPEN_ICM_FILE
+#, fuzzy
+msgid "Could not open"
+msgstr "Không mở được"
+
+#. CMS_SCANNER_TRAN_ICM
+msgid "scanner transmissive ICM profile"
+msgstr ""
+
+#. CMS_SCANNER_REFL_ICM
+#, fuzzy
+msgid "scanner reflective ICM profile"
+msgstr "Xóa máy in"
+
+#. CMS_DISPLAY_ICM
+#, fuzzy
+msgid "display ICM profile"
+msgstr "Duyệt tên tập tin ảnh"
+
+#. CMS_PROOF_ICM
+#, fuzzy
+msgid "proofing ICM profile"
+msgstr "Xóa máy in"
+
+#. ERR_CMS_CREATE_TRANSFORM
+#, fuzzy
+msgid "Could not create transform"
+msgstr "Không tạo được tập tin tạm thời"
 
 #. WARN_VIEWER_IMAGE_NOT_SAVED
 msgid "viewer image is not saved"
@@ -2959,19 +3207,6 @@ msgstr "Hết bộ nhớ"
 
 msgid "Access to resource has been denied"
 msgstr "Truy cập đến nguồn bị từ chối"
-
-#~ msgid "Could not create temporary file"
-#~ msgstr "Không tạo được tập tin tạm thời"
-
-#~ msgid "Could not create temporary preview files"
-#~ msgstr "Không thể tạo tập tin xem trước tạm thời"
-
-#~ msgid "Could not create filenames for preview files"
-#~ msgstr "Không thể tạo tên cho tập tin xem trước"
-
-#, fuzzy
-#~ msgid "POP3 authentication"
-#~ msgstr "Chứng thực POP3"
 
 #~ msgid "XSane mode"
 #~ msgstr "Chế độ XSane"

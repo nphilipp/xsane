@@ -3,7 +3,7 @@
    xsane-save.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2005 Oliver Rauch
+   Copyright (C) 1998-2007 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -970,7 +970,6 @@ int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_in
     x_factor = 1.0;
 
     while ( (x < original_image_width) && (x_new < new_image_width) ) /* add this line to anti aliasing buffer */
-
     {
       factor = x_factor * y_factor;
 
@@ -1077,6 +1076,11 @@ int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_in
     oldy = (int) y;
     y += y_factor;
     read_line = (oldy != (int) y);
+  }
+
+  if (read_line) /* we have to write one more line */
+  {
+    fwrite(new_line, new_image_width, image_info->colors * bytespp, outfile); /* write one line */
   }
 
   free(original_line);
@@ -3494,6 +3498,98 @@ static void xsane_jpeg_error_exit(j_common_ptr cinfo)
   *xsane_jpeg_error_mgr_data->cancel_save = 1;
 }
 
+#ifdef HAVE_LIBLCMS
+static void xsane_jpeg_write_icm_profile(j_compress_ptr cinfo_ptr, const JOCTET *icm_data_ptr, unsigned int icm_data_len)
+{
+#define ICM_MARKER  (JPEG_APP0 + 2)     /* JPEG marker code for ICM */
+#define ICM_OVERHEAD_LEN  14            /* size of non-profile data in APP2 */
+#define MAX_BYTES_IN_MARKER  65533      /* maximum data len of a JPEG marker */
+#define MAX_DATA_BYTES_IN_MARKER  (MAX_BYTES_IN_MARKER - ICM_OVERHEAD_LEN)
+
+  unsigned int num_markers;     /* total number of markers we'll write */
+  int cur_marker = 1;           /* per spec, counting starts at 1 */
+  unsigned int length;          /* number of bytes to write in this marker */
+
+  /* Calculate the number of markers we'll need, rounding up of course */
+  num_markers = icm_data_len / MAX_DATA_BYTES_IN_MARKER;
+  if (num_markers * MAX_DATA_BYTES_IN_MARKER != icm_data_len)
+  {
+    num_markers++;
+  }
+
+  while (icm_data_len > 0)
+  {
+    length = icm_data_len; /* length of profile to put in this marker */
+    if (length > MAX_DATA_BYTES_IN_MARKER)
+    {
+      length = MAX_DATA_BYTES_IN_MARKER;
+    }
+    icm_data_len -= length;
+
+    /* Write the JPEG marker header (APP2 code and marker length) */
+    jpeg_write_m_header(cinfo_ptr, ICM_MARKER, (unsigned int) (length + ICM_OVERHEAD_LEN));
+
+    /* Write the marker identifying string "ICC_PROFILE" (null-terminated).
+     * We code it in this less-than-transparent way so that the code works
+     * even if the local character set is not ASCII.
+     */
+    jpeg_write_m_byte(cinfo_ptr, 0x49);
+    jpeg_write_m_byte(cinfo_ptr, 0x43);
+    jpeg_write_m_byte(cinfo_ptr, 0x43);
+    jpeg_write_m_byte(cinfo_ptr, 0x5F);
+    jpeg_write_m_byte(cinfo_ptr, 0x50);
+    jpeg_write_m_byte(cinfo_ptr, 0x52);
+    jpeg_write_m_byte(cinfo_ptr, 0x4F);
+    jpeg_write_m_byte(cinfo_ptr, 0x46);
+    jpeg_write_m_byte(cinfo_ptr, 0x49);
+    jpeg_write_m_byte(cinfo_ptr, 0x4C);
+    jpeg_write_m_byte(cinfo_ptr, 0x45);
+    jpeg_write_m_byte(cinfo_ptr, 0x0);
+
+    /* Add the sequencing info */
+    jpeg_write_m_byte(cinfo_ptr, cur_marker);
+    jpeg_write_m_byte(cinfo_ptr, (int) num_markers);
+
+    /* Add the profile data */
+    while (length--)
+    {
+      jpeg_write_m_byte(cinfo_ptr, *icm_data_ptr);
+      icm_data_ptr++;
+    }
+    cur_marker++;
+  }
+}
+
+static void xsane_jpeg_embed_icm_profile(j_compress_ptr cinfo_ptr, const char* icm_filename)
+{
+ FILE *icm_profile;
+ size_t size, embed_len;
+ LPBYTE embed_buffer;
+
+  icm_profile = fopen(icm_filename, "rb");
+  if (icm_profile == NULL)
+  {
+    return;
+  }
+
+  fseek(icm_profile, 0, SEEK_END);
+  size = ftell(icm_profile);
+  fseek(icm_profile, 0, SEEK_SET);
+
+  embed_buffer = (LPBYTE) malloc(size + 1);
+  if (embed_buffer)
+  {
+    embed_len = fread(embed_buffer, 1, size, icm_profile);
+    fclose(icm_profile);
+    embed_buffer[embed_len] = 0;
+
+    xsane_jpeg_write_icm_profile(cinfo_ptr, embed_buffer, embed_len);
+    free(embed_buffer);
+  }
+}
+#endif
+
+
 int xsane_save_jpeg(FILE *outfile, FILE *imagefile, Image_info *image_info, int quality, GtkProgressBar *progress_bar, int *cancel_save)
 {
  unsigned char *data;
@@ -3559,6 +3655,13 @@ int xsane_save_jpeg(FILE *outfile, FILE *imagefile, Image_info *image_info, int 
 #endif
 
   jpeg_start_compress(&cinfo, TRUE);
+
+#ifdef HAVE_LIBLCMS
+  if ((xsane.scanner_refl_icm_profile) && (xsane.embed_icm_profile))
+  {
+    xsane_jpeg_embed_icm_profile(&cinfo, xsane.scanner_refl_icm_profile);
+  }
+#endif
 
   for (y = 0; y < image_info->image_height; y++)
   {
@@ -3728,6 +3831,54 @@ int xsane_save_tiff_page(TIFF *tiffile, int page, int pages, FILE *imagefile, Im
     {
       TIFFSetField(tiffile, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_RGB);
     }
+
+#ifdef HAVE_LIBLCMS
+    /* This is quick and dirty solution: transmissive missing, grayscale missing */
+    if ((xsane.scanner_refl_icm_profile) && (xsane.embed_icm_profile))
+    {
+     FILE *icm_profile;
+
+      DBG(DBG_error, "Opening ICM profile %s\n", xsane.scanner_refl_icm_profile);
+      if((icm_profile = fopen(xsane.scanner_refl_icm_profile, "rb")))
+      {
+       size_t size;
+       char *icm_profile_buffer;
+
+        fseek(icm_profile, 0, SEEK_END);
+        size = ftell(icm_profile);
+        fseek(icm_profile, 0, SEEK_SET);
+
+        icm_profile_buffer = (char *) malloc(size + 1);
+
+        if (icm_profile_buffer)
+        {
+          if (fread(icm_profile_buffer, 1, size, icm_profile) == size)
+          {
+            icm_profile_buffer[size] = 0;
+
+            TIFFSetField(tiffile, TIFFTAG_ICCPROFILE, size, icm_profile_buffer);
+          }
+          else
+          {
+            DBG(DBG_error, "Can not read ICM profile data\n");
+          }
+
+          free(icm_profile_buffer);
+        }
+        else
+        {
+          DBG(DBG_error, "Can not get enogh memory for ICM profile\n");
+        }
+
+
+        fclose(icm_profile);
+      }
+      else
+      {
+        DBG(DBG_error, "Can not embed ICM profile\n");
+      }
+    }
+#endif
   }
   else
   {
@@ -3884,6 +4035,54 @@ int xsane_save_png(FILE *outfile, FILE *imagefile, Image_info *image_info, int c
                image_info->resolution_x * 100.0 / 2.54,
                image_info->resolution_y * 100.0 / 2.54, PNG_RESOLUTION_METER);
 #endif
+
+#if defined(PNG_iCCP_SUPPORTED)
+#ifdef HAVE_LIBLCMS
+  if ((xsane.scanner_refl_icm_profile) && (xsane.embed_icm_profile))
+  {
+   FILE *icm_profile;
+   gchar *profile_buffer;
+   size_t size;
+
+    DBG(DBG_error, "Opening ICM profile %s\n", xsane.scanner_refl_icm_profile);
+    icm_profile = fopen(xsane.scanner_refl_icm_profile, "rb");
+
+    if (icm_profile)
+    {
+      fseek(icm_profile, 0, SEEK_END);
+      size = ftell(icm_profile);
+      fseek(icm_profile, 0, SEEK_SET);
+
+      profile_buffer = malloc(size);
+
+      if (profile_buffer)
+      {
+        if (fread(profile_buffer, 1, size, icm_profile) == size)
+        {
+          png_set_iCCP(png_ptr, png_info_ptr, "ICC profile", 0, profile_buffer, size);
+        }
+        else
+        {
+          DBG(DBG_error, "can not read ICC profile data\n");
+        }
+
+        free(profile_buffer);
+      }
+      else
+      {
+        DBG(DBG_error, "can not allocate profile_buffer\n");
+      }
+
+      fclose(icm_profile);
+    }
+    else
+    {
+      DBG(DBG_error, "can not open ICM-profile\n");
+    }
+  }
+#endif
+#endif
+
   png_write_info(png_ptr, png_info_ptr);
   png_set_shift(png_ptr, &sig_bit);
 
@@ -3997,6 +4196,60 @@ int xsane_save_png_16(FILE *outfile, FILE *imagefile, Image_info *image_info, in
   sig_bit.gray  = image_info->depth;
 
   png_set_sBIT(png_ptr, png_info_ptr, &sig_bit);
+
+#if defined(PNG_pHYs_SUPPORTED)
+  png_set_pHYs(png_ptr, png_info_ptr,
+               image_info->resolution_x * 100.0 / 2.54,
+               image_info->resolution_y * 100.0 / 2.54, PNG_RESOLUTION_METER);
+#endif
+
+#if defined(PNG_iCCP_SUPPORTED)
+#ifdef HAVE_LIBLCMS
+  if ((xsane.scanner_refl_icm_profile) && (xsane.embed_icm_profile))
+  {
+   FILE *icm_profile;
+   gchar *profile_buffer;
+   size_t size;
+
+    DBG(DBG_error, "Opening ICM profile %s\n", xsane.scanner_refl_icm_profile);
+    icm_profile = fopen(xsane.scanner_refl_icm_profile, "rb");
+
+    if (icm_profile)
+    {
+      fseek(icm_profile, 0, SEEK_END);
+      size = ftell(icm_profile);
+      fseek(icm_profile, 0, SEEK_SET);
+
+      profile_buffer = malloc(size);
+
+      if (profile_buffer)
+      {
+        if (fread(profile_buffer, 1, size, icm_profile) == size)
+        {
+          png_set_iCCP(png_ptr, png_info_ptr, "ICC profile", 0, profile_buffer, size);
+        }
+        else
+        {
+          DBG(DBG_error, "can not read ICC profile data\n");
+        }
+
+        free(profile_buffer);
+      }
+      else
+      {
+        DBG(DBG_error, "can not allocate profile_buffer\n");
+      }
+
+      fclose(icm_profile);
+    }
+    else
+    {
+      DBG(DBG_error, "can not open ICM-profile\n");
+    }
+  }
+#endif
+#endif
+
   png_write_info(png_ptr, png_info_ptr);
   png_set_shift(png_ptr, &sig_bit);
   png_set_packing(png_ptr);
@@ -5098,6 +5351,7 @@ void null_print_func(gchar *msg)
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------------------------------------- */
 
 int xsane_transfer_to_gimp(char *input_filename, GtkProgressBar *progress_bar, int *cancel_save)
 {
@@ -5151,6 +5405,56 @@ int xsane_transfer_to_gimp(char *input_filename, GtkProgressBar *progress_bar, i
   /* colors == 0/1 is predefined */
  
   image_ID = gimp_image_new(image_info.image_width, image_info.image_height, image_type);
+
+#ifdef HAVE_LIBLCMS
+
+  if ((xsane.scanner_refl_icm_profile) && (xsane.embed_icm_profile))
+  {
+   GimpParasite *parasite;
+   FILE *icm_profile;
+   guchar *profile_buffer;
+   gint32 size;
+
+    DBG(DBG_error, "Opening ICM profile %s\n", xsane.scanner_refl_icm_profile);
+    icm_profile = fopen(xsane.scanner_refl_icm_profile, "rb");
+
+    if (icm_profile)
+    {
+      fseek(icm_profile, 0, SEEK_END);
+      size = ftell(icm_profile);
+      fseek(icm_profile, 0, SEEK_SET);
+
+      profile_buffer = malloc(size);
+
+      if (profile_buffer)
+      {
+        if (fread(profile_buffer, 1, size, icm_profile) == size)
+        {
+          parasite = gimp_parasite_new("icc-profile", 0, size, profile_buffer);
+          gimp_image_parasite_attach(image_ID, parasite);
+          gimp_parasite_free(parasite);
+        }
+        else
+        {
+          DBG(DBG_error, "can not read profile data\n");
+        }
+
+        free(profile_buffer);
+      }
+      else
+      {
+        DBG(DBG_error, "can not allocate profile_buffer\n");
+      }
+
+      fclose(icm_profile);
+    }
+    else
+    {
+      DBG(DBG_error, "can not open ICM-profile\n");
+    }
+  }
+#endif
+
  
 /* the following is supported since gimp-1.1.? */
 #ifdef GIMP_HAVE_RESOLUTION_INFO
@@ -5414,7 +5718,7 @@ static void write_3chars_as_base64(unsigned char c1, unsigned char c2, unsigned 
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void write_string_base64(int fd_socket, unsigned char *string, int len)
+void write_string_base64(int fd_socket, char *string, int len)
 {
  int i;
  int pad;
@@ -5422,9 +5726,9 @@ void write_string_base64(int fd_socket, unsigned char *string, int len)
 
   for (i = 0; i < len; i+=3)
   {
-    c1 = string[i];
-    c2 = string[i+1];
-    c3 = string[i+2];
+    c1 = (unsigned char) string[i];
+    c2 = (unsigned char) string[i+1];
+    c3 = (unsigned char) string[i+2];
 
     pad = i - len + 3;
 
@@ -5477,7 +5781,7 @@ void write_base64(int fd_socket, FILE *infile)
     pos += 4;
     if (pos > 71)
     {
-      write(fd_socket, "\n", 1);
+      write(fd_socket, "\r\n", 1);
       
       pos = 0;
     }
@@ -5492,7 +5796,7 @@ void write_base64(int fd_socket, FILE *infile)
 
   if (pos)
   {
-    write(fd_socket, "\n", 1);
+    write(fd_socket, "\r\n", 1);
   }
 
   xsane.email_progress_val = 1.0;
@@ -5505,33 +5809,33 @@ void write_email_header(int fd_socket, char *from, char *reply_to, char *to, cha
 {
  char buf[1024];
 
-  snprintf(buf, sizeof(buf), "From: %s\n", from);
+  snprintf(buf, sizeof(buf), "From: %s\r\n", from);
   write(fd_socket, buf, strlen(buf));
 
-  snprintf(buf, sizeof(buf), "Reply-To: %s\n", reply_to);
+  snprintf(buf, sizeof(buf), "Reply-To: %s\r\n", reply_to);
   write(fd_socket, buf, strlen(buf));
 
-  snprintf(buf, sizeof(buf), "To: %s\n", to);
+  snprintf(buf, sizeof(buf), "To: %s\r\n", to);
   write(fd_socket, buf, strlen(buf));
 
-  snprintf(buf, sizeof(buf), "Subject: %s\n", subject);
+  snprintf(buf, sizeof(buf), "Subject: %s\r\n", subject);
   write(fd_socket, buf, strlen(buf));
 
-  snprintf(buf, sizeof(buf), "MIME-Version: 1.0\n");
+  snprintf(buf, sizeof(buf), "MIME-Version: 1.0\r\n");
   write(fd_socket, buf, strlen(buf));
 
   if (related) /* related means that we need a special link in the html part to display the image */
   {
-    snprintf(buf, sizeof(buf), "Content-Type: multipart/related;\n");
+    snprintf(buf, sizeof(buf), "Content-Type: multipart/related;\r\n");
     write(fd_socket, buf, strlen(buf));
   }
   else
   {
-    snprintf(buf, sizeof(buf), "Content-Type: multipart/mixed;\n");
+    snprintf(buf, sizeof(buf), "Content-Type: multipart/mixed;\r\n");
     write(fd_socket, buf, strlen(buf));
   }
 
-  snprintf(buf, sizeof(buf), " boundary=\"%s\"\n\n", boundary);
+  snprintf(buf, sizeof(buf), " boundary=\"%s\"\r\n\r\n", boundary);
   write(fd_socket, buf, strlen(buf));
 }
 
@@ -5541,7 +5845,7 @@ void write_email_footer(int fd_socket, char *boundary)
 {
  char buf[1024];
 
-  snprintf(buf, sizeof(buf), "--%s--\n", boundary);
+  snprintf(buf, sizeof(buf), "--%s--\r\n", boundary);
   write(fd_socket, buf, strlen(buf));
 }
 
@@ -5551,16 +5855,16 @@ void write_email_mime_ascii(int fd_socket, char *boundary)
 {
  char buf[1024];
 
-  snprintf(buf, sizeof(buf), "--%s\n", boundary);
+  snprintf(buf, sizeof(buf), "--%s\r\n", boundary);
   write(fd_socket, buf, strlen(buf));
 
-  snprintf(buf, sizeof(buf), "Content-Type: text/plain;\n");
+  snprintf(buf, sizeof(buf), "Content-Type: text/plain;\r\n");
   write(fd_socket, buf, strlen(buf));
 
-  snprintf(buf, sizeof(buf), "        charset=\"iso-8859-1\"\n");
+  snprintf(buf, sizeof(buf), "        charset=\"iso-8859-1\"\r\n");
   write(fd_socket, buf, strlen(buf));
 
-  snprintf(buf, sizeof(buf), "Content-Transfer-Encoding: 8bit\n\n");
+  snprintf(buf, sizeof(buf), "Content-Transfer-Encoding: 8bit\r\n\r\n");
   write(fd_socket, buf, strlen(buf));
 }
 
@@ -5570,22 +5874,22 @@ void write_email_mime_html(int fd_socket, char *boundary)
 {
  char buf[1024];
 
-  snprintf(buf, sizeof(buf), "--%s\n", boundary);
+  snprintf(buf, sizeof(buf), "--%s\r\n", boundary);
   write(fd_socket, buf, strlen(buf));
 
-  snprintf(buf, sizeof(buf), "Content-Type: text/html;\n");
+  snprintf(buf, sizeof(buf), "Content-Type: text/html;\r\n");
   write(fd_socket, buf, strlen(buf));
 
-  snprintf(buf, sizeof(buf), "        charset=\"us-ascii\"\n");
+  snprintf(buf, sizeof(buf), "        charset=\"us-ascii\"\r\n");
   write(fd_socket, buf, strlen(buf));
 
-  snprintf(buf, sizeof(buf), "Content-Transfer-Encoding: 7bit\n\n");
+  snprintf(buf, sizeof(buf), "Content-Transfer-Encoding: 7bit\r\n\r\n");
   write(fd_socket, buf, strlen(buf));
 
-  snprintf(buf, sizeof(buf), "<!doctype html public \"-//w3c//dtd html 4.0 transitional//en\">\n");
+  snprintf(buf, sizeof(buf), "<!doctype html public \"-//w3c//dtd html 4.0 transitional//en\">\r\n");
   write(fd_socket, buf, strlen(buf));
 
-  snprintf(buf, sizeof(buf), "<html>\n");
+  snprintf(buf, sizeof(buf), "<html>\r\n");
   write(fd_socket, buf, strlen(buf));
 }
 
@@ -5595,28 +5899,28 @@ void write_email_attach_image(int fd_socket, char *boundary, char *content_id, c
 {
  char buf[1024];
 
-  snprintf(buf, sizeof(buf), "--%s\n", boundary);
+  snprintf(buf, sizeof(buf), "--%s\r\n", boundary);
   write(fd_socket, buf, strlen(buf));
 
-  snprintf(buf, sizeof(buf), "Content-Type: %s\n", content_type);
+  snprintf(buf, sizeof(buf), "Content-Type: %s\r\n", content_type);
   write(fd_socket, buf, strlen(buf));
 
   if (content_id)
   {
-    snprintf(buf, sizeof(buf), "Content-ID: <%s>\n", content_id);
+    snprintf(buf, sizeof(buf), "Content-ID: <%s>\r\n", content_id);
     write(fd_socket, buf, strlen(buf));
   }
 
-  snprintf(buf, sizeof(buf), "Content-Transfer-Encoding: base64\n");
+  snprintf(buf, sizeof(buf), "Content-Transfer-Encoding: base64\r\n");
   write(fd_socket, buf, strlen(buf));
 
-  snprintf(buf, sizeof(buf), "Content-Disposition: inline;\n");
+  snprintf(buf, sizeof(buf), "Content-Disposition: inline;\r\n");
   write(fd_socket, buf, strlen(buf));
 
-  snprintf(buf, sizeof(buf), "        filename=\"%s\"\n", filename);
+  snprintf(buf, sizeof(buf), "        filename=\"%s\"\r\n", filename);
   write(fd_socket, buf, strlen(buf));
 
-  snprintf(buf, sizeof(buf), "\n");
+  snprintf(buf, sizeof(buf), "\r\n");
   write(fd_socket, buf, strlen(buf));
 
   write_base64(fd_socket, infile);
@@ -5628,25 +5932,25 @@ void write_email_attach_file(int fd_socket, char *boundary, FILE *infile, char *
 {
  char buf[1024];
 
-  snprintf(buf, sizeof(buf), "--%s\n", boundary);
+  snprintf(buf, sizeof(buf), "--%s\r\n", boundary);
   write(fd_socket, buf, strlen(buf));
 
-  snprintf(buf, sizeof(buf), "Content-Type: application/octet-stream\n");
+  snprintf(buf, sizeof(buf), "Content-Type: application/octet-stream\r\n");
   write(fd_socket, buf, strlen(buf));
 
-  snprintf(buf, sizeof(buf), "        name=\"%s\"\n", filename);
+  snprintf(buf, sizeof(buf), "        name=\"%s\"\r\n", filename);
   write(fd_socket, buf, strlen(buf));
 
-  snprintf(buf, sizeof(buf), "Content-Transfer-Encoding: base64\n");
+  snprintf(buf, sizeof(buf), "Content-Transfer-Encoding: base64\r\n");
   write(fd_socket, buf, strlen(buf));
 
-  snprintf(buf, sizeof(buf), "Content-Disposition: attachment;\n");
+  snprintf(buf, sizeof(buf), "Content-Disposition: attachment;\r\n");
   write(fd_socket, buf, strlen(buf));
 
-  snprintf(buf, sizeof(buf), "        filename=\"%s\"\n", filename);
+  snprintf(buf, sizeof(buf), "        filename=\"%s\"\r\n", filename);
   write(fd_socket, buf, strlen(buf));
 
-  snprintf(buf, sizeof(buf), "\n");
+  snprintf(buf, sizeof(buf), "\r\n");
   write(fd_socket, buf, strlen(buf));
 
   write_base64(fd_socket, infile);

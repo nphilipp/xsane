@@ -3,7 +3,7 @@
    xsane-viewer.h
  
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 2001-2005 Oliver Rauch
+   Copyright (C) 2001-2007 Oliver Rauch
    This file is part of the XSANE package.
  
    This program is free software; you can redistribute it and/or modify
@@ -57,6 +57,15 @@ typedef struct Viewer
   int despeckle_radius;
   float blur_radius;
 
+  int enable_color_management;
+  int cms_enable;
+  int cms_black_point_compensation;
+  int cms_proofing;
+  int cms_intent;
+  int cms_proofing_intent;
+  int cms_gamut_check;
+  int cms_gamut_alarm_color;
+
   int bind_scale;
   double x_scale_factor;
   double y_scale_factor;
@@ -73,6 +82,7 @@ typedef struct Viewer
   GtkWidget *edit_menu;
   GtkWidget *filters_menu;
   GtkWidget *geometry_menu;
+  GtkWidget *color_management_menu;
 
   GtkWidget *viewport;
   GtkWidget *window;
@@ -93,6 +103,11 @@ typedef struct Viewer
 
   GtkWidget *despeckle;
   GtkWidget *blur;
+
+  GtkWidget *cms_proofing_widget[3];
+  GtkWidget *cms_intent_widget[4];
+  GtkWidget *cms_proofing_intent_widget[4];
+  GtkWidget *cms_gamut_alarm_color_widget[6];
 
   GtkWidget *image_info_label;
 

@@ -3,7 +3,7 @@
    xsane-setup.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2005 Oliver Rauch
+   Copyright (C) 1998-2007 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -92,6 +92,9 @@ static void xsane_setup_authentication_type_callback(GtkWidget *widget, gpointer
 static void xsane_setup_show_range_mode_callback(GtkWidget *widget, gpointer data);
 static void xsane_setup_lineart_mode_callback(GtkWidget *widget, gpointer data);
 static void xsane_enhance_notebook(GtkWidget *notebook);
+#ifdef HAVE_LIBLCMS
+static void xsane_color_management_notebook(GtkWidget *notebook);
+#endif
 
 void xsane_setup_dialog(GtkWidget *widget, gpointer data);
 
@@ -135,6 +138,7 @@ void xsane_new_printer(void)
       preferences.printer[preferences.printernr]->gamma_red            = 1.0;
       preferences.printer[preferences.printernr]->gamma_green          = 1.0;
       preferences.printer[preferences.printernr]->gamma_blue           = 1.0;
+      preferences.printer[preferences.printernr]->icm_profile          = NULL;
       preferences.printer[preferences.printernr]->ps_flatdecoded       = 1;
     }
     else
@@ -275,6 +279,18 @@ static void xsane_setup_printer_update()
   gtk_entry_set_text(GTK_ENTRY(xsane_setup.printer_gamma_green_entry), buf);
   snprintf(buf, sizeof(buf), "%1.2f", preferences.printer[preferences.printernr]->gamma_blue);
   gtk_entry_set_text(GTK_ENTRY(xsane_setup.printer_gamma_blue_entry), buf);
+
+#ifdef HAVE_LIBLCMS
+  if (preferences.printer[preferences.printernr]->icm_profile)
+  {
+    gtk_entry_set_text(GTK_ENTRY(xsane_setup.printer_icm_profile_entry), (char *) preferences.printer[preferences.printernr]->icm_profile);
+  }
+  else
+  {
+    gtk_entry_set_text(GTK_ENTRY(xsane_setup.printer_icm_profile_entry), "");
+  }
+#endif
+
 #ifdef HAVE_LIBZ
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(xsane_setup.printer_ps_flatdecoded_button), preferences.printer[preferences.printernr]->ps_flatdecoded);
 #endif
@@ -353,6 +369,14 @@ static void xsane_setup_printer_apply_changes(GtkWidget *widget, gpointer data)
   xsane_update_double(xsane_setup.printer_gamma_red_entry,   &preferences.printer[preferences.printernr]->gamma_red);
   xsane_update_double(xsane_setup.printer_gamma_green_entry, &preferences.printer[preferences.printernr]->gamma_green);
   xsane_update_double(xsane_setup.printer_gamma_blue_entry,  &preferences.printer[preferences.printernr]->gamma_blue);
+
+#ifdef HAVE_LIBLCMS
+  if (preferences.printer[preferences.printernr]->icm_profile)
+  {
+    free(preferences.printer[preferences.printernr]->icm_profile);
+  }
+  preferences.printer[preferences.printernr]->icm_profile = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.printer_icm_profile_entry)));
+#endif
 
 #ifdef HAVE_LIBZ
   xsane_update_bool(xsane_setup.printer_ps_flatdecoded_button,  &preferences.printer[preferences.printernr]->ps_flatdecoded);
@@ -527,6 +551,41 @@ static void xsane_setup_enhance_apply_changes(GtkWidget *widget, gpointer data)
 
   xsane_update_gamma_curve(TRUE /* update raw */);
 }
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+#ifdef HAVE_LIBLCMS
+static void xsane_setup_color_management_apply_changes(GtkWidget *widget, gpointer data)
+{
+  DBG(DBG_proc, "xsane_setup_colormagaement_apply_changes\n");
+
+  if (xsane.scanner_refl_icm_profile)
+  {
+    free(xsane.scanner_refl_icm_profile);
+  }
+  xsane.scanner_refl_icm_profile = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.scanner_refl_icm_profile_entry)));
+
+  if (xsane.scanner_tran_icm_profile)
+  {
+    free(xsane.scanner_tran_icm_profile);
+  }
+  xsane.scanner_tran_icm_profile = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.scanner_tran_icm_profile_entry)));
+
+  if (preferences.display_icm_profile)
+  {
+    free(preferences.display_icm_profile);
+  }
+  preferences.display_icm_profile = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.display_icm_profile_entry)));
+
+  if (preferences.custom_proofing_icm_profile)
+  {
+    free(preferences.custom_proofing_icm_profile);
+  }
+  preferences.custom_proofing_icm_profile = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.custom_proofing_icm_profile_entry)));
+
+  xsane_update_bool(xsane_setup.embed_icm_profile_button, &xsane.embed_icm_profile);
+}
+#endif
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -719,6 +778,9 @@ static void xsane_setup_options_ok_callback(GtkWidget *widget, gpointer data)
   xsane_setup_email_apply_changes(0, 0);
 #endif
   xsane_setup_ocr_apply_changes(0, 0);
+#ifdef HAVE_LIBLCMS
+  xsane_setup_color_management_apply_changes(0, 0);
+#endif
 
   if (xsane_setup.grayscale_scanmode)
   {
@@ -851,7 +913,7 @@ static void xsane_permission_box(GtkWidget *parent, gchar *name, gchar *descript
 
   button = gtk_toggle_button_new_with_label("x");
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *permission & 64 );
-  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_PERMISSION_EXECUTE);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_PERMISSION_SEARCH);
   gtk_widget_set_size_request(button, 21, -1);
   gtk_widget_set_name(button, name);
   g_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_permission_toggled, (void *) 64);
@@ -887,7 +949,7 @@ static void xsane_permission_box(GtkWidget *parent, gchar *name, gchar *descript
 
   button = gtk_toggle_button_new_with_label("x");
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *permission & 8 );
-  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_PERMISSION_EXECUTE);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_PERMISSION_SEARCH);
   gtk_widget_set_size_request(button, 21, -1);
   gtk_widget_set_name(button, name);
   g_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_permission_toggled, (void *) 8);
@@ -923,7 +985,7 @@ static void xsane_permission_box(GtkWidget *parent, gchar *name, gchar *descript
 
   button = gtk_toggle_button_new_with_label("x");
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *permission & 1 );
-  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_PERMISSION_EXECUTE);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_PERMISSION_SEARCH);
   gtk_widget_set_size_request(button, 21, -1);
   gtk_widget_set_name(button, name);
   g_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_permission_toggled, (void *) 1);
@@ -945,6 +1007,47 @@ static void xsane_permission_box(GtkWidget *parent, gchar *name, gchar *descript
 
   gtk_widget_show(hbox);
 }
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+#ifdef HAVE_LIBLCMSx
+static void xsane_setup_display_icm_profile_info_callback(GtkWidget *widget, gpointer data)
+{
+  DBG(DBG_proc, "xsane_setup_display_icm_profile_info_callback\n");
+
+        const char* cmsTakeProductName(cmsHPROFILE hProfile);
+        const char* cmsTakeProductDesc(cmsHPROFILE hProfile);
+
+        int   cmsTakeRenderingIntent(cmsHPROFILE hProfile);
+
+        #define LCMS_USED_AS_INPUT      0
+        #define LCMS_USED_AS_OUTPUT     1
+        #define LCMS_USED_AS_PROOF      2
+        BOOL cmsIsIntentSupported(cmsHPROFILE hProfile, int Intent, int UsedDirection);
+
+}
+#endif
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+#ifdef HAVE_LIBLCMS
+static void xsane_setup_browse_printer_icm_profile_callback(GtkWidget *widget, gpointer data)
+{
+ const gchar *old_printer_icm_profile;
+ char printer_icm_profile[PATH_MAX];
+ char windowname[TEXTBUFSIZE];
+
+  DBG(DBG_proc, "xsane_setup_browse_printer_icm_profile_callback\n");
+
+  old_printer_icm_profile = gtk_entry_get_text(GTK_ENTRY(xsane_setup.printer_icm_profile_entry));
+  strncpy(printer_icm_profile, old_printer_icm_profile, sizeof(printer_icm_profile));
+
+  snprintf(windowname, sizeof(windowname), "%s %s", xsane.prog_name, WINDOW_PRINTER_ICM_PROFILE);
+  xsane_back_gtk_get_filename(windowname, printer_icm_profile, sizeof(printer_icm_profile), printer_icm_profile, NULL, TRUE, FALSE, FALSE, FALSE);
+
+  gtk_entry_set_text(GTK_ENTRY(xsane_setup.printer_icm_profile_entry), printer_icm_profile);
+}
+#endif
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -1273,7 +1376,42 @@ static void xsane_printer_notebook(GtkWidget *notebook)
   gtk_widget_show(hbox);
   xsane_setup.printer_gamma_blue_entry = text;
 
+#ifdef HAVE_LIBLCMS
+  xsane_separator_new(vbox, 2);
 
+  /* printer ICM profile: */
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+
+  label = gtk_label_new(TEXT_SETUP_PRINTER_ICM_PROFILE);
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_widget_show(label);
+
+  text = gtk_entry_new_with_max_length(255);
+  gtk_widget_set_size_request(text, 70, -1); /* set minimum size */
+  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_PRINTER_ICM_PROFILE);
+
+  if (preferences.printer[preferences.printernr]->icm_profile)
+  {
+    gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.printer[preferences.printernr]->icm_profile);
+  }
+  else
+  {
+    gtk_entry_set_text(GTK_ENTRY(text), "");
+  }
+
+  gtk_box_pack_start(GTK_BOX(hbox), text, TRUE, TRUE, 4);
+  gtk_widget_show(text);
+  xsane_setup.printer_icm_profile_entry = text;
+
+  button = gtk_button_new_with_label(BUTTON_BROWSE); 
+  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_browse_printer_icm_profile_callback, NULL);
+  gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 2);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_BUTTON_PRINTER_ICM_PROFILE_BROWSE);
+  gtk_widget_show(button);
+
+  gtk_widget_show(hbox);
+#endif
 
 #ifdef HAVE_LIBZ
   xsane_separator_new(vbox, 2);
@@ -1340,6 +1478,90 @@ static void xsane_setup_browse_tmp_path_callback(GtkWidget *widget, gpointer dat
 
   gtk_entry_set_text(GTK_ENTRY(xsane_setup.tmp_path_entry), tmp_path);
 }
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+#ifdef HAVE_LIBLCMS
+static void xsane_setup_browse_scanner_refl_icm_profile_callback(GtkWidget *widget, gpointer data)
+{
+ const gchar *old_scanner_refl_icm_profile;
+ char scanner_refl_icm_profile[PATH_MAX];
+ char windowname[TEXTBUFSIZE];
+
+  DBG(DBG_proc, "xsane_setup_browse_scanner_refl_icm_profile_callback\n");
+
+  old_scanner_refl_icm_profile = gtk_entry_get_text(GTK_ENTRY(xsane_setup.scanner_refl_icm_profile_entry));
+  strncpy(scanner_refl_icm_profile, old_scanner_refl_icm_profile, sizeof(scanner_refl_icm_profile));
+
+  snprintf(windowname, sizeof(windowname), "%s %s", xsane.prog_name, WINDOW_SCANNER_REFL_ICM_PROFILE);
+  xsane_back_gtk_get_filename(windowname, scanner_refl_icm_profile, sizeof(scanner_refl_icm_profile), scanner_refl_icm_profile, NULL, TRUE, FALSE, FALSE, FALSE);
+
+  gtk_entry_set_text(GTK_ENTRY(xsane_setup.scanner_refl_icm_profile_entry), scanner_refl_icm_profile);
+}
+#endif
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+#ifdef HAVE_LIBLCMS
+static void xsane_setup_browse_scanner_tran_icm_profile_callback(GtkWidget *widget, gpointer data)
+{
+ const gchar *old_scanner_tran_icm_profile;
+ char scanner_tran_icm_profile[PATH_MAX];
+ char windowname[TEXTBUFSIZE];
+
+  DBG(DBG_proc, "xsane_setup_browse_scanner_tran_icm_profile_callback\n");
+
+  old_scanner_tran_icm_profile = gtk_entry_get_text(GTK_ENTRY(xsane_setup.scanner_tran_icm_profile_entry));
+  strncpy(scanner_tran_icm_profile, old_scanner_tran_icm_profile, sizeof(scanner_tran_icm_profile));
+
+  snprintf(windowname, sizeof(windowname), "%s %s", xsane.prog_name, WINDOW_SCANNER_TRAN_ICM_PROFILE);
+  xsane_back_gtk_get_filename(windowname, scanner_tran_icm_profile, sizeof(scanner_tran_icm_profile), scanner_tran_icm_profile, NULL, TRUE, FALSE, FALSE, FALSE);
+
+  gtk_entry_set_text(GTK_ENTRY(xsane_setup.scanner_tran_icm_profile_entry), scanner_tran_icm_profile);
+}
+#endif
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+#ifdef HAVE_LIBLCMS
+static void xsane_setup_browse_display_icm_profile_callback(GtkWidget *widget, gpointer data)
+{
+ const gchar *old_display_icm_profile;
+ char display_icm_profile[PATH_MAX];
+ char windowname[TEXTBUFSIZE];
+
+  DBG(DBG_proc, "xsane_setup_browse_display_icm_profile_callback\n");
+
+  old_display_icm_profile = gtk_entry_get_text(GTK_ENTRY(xsane_setup.display_icm_profile_entry));
+  strncpy(display_icm_profile, old_display_icm_profile, sizeof(display_icm_profile));
+
+  snprintf(windowname, sizeof(windowname), "%s %s", xsane.prog_name, WINDOW_DISPLAY_ICM_PROFILE);
+  xsane_back_gtk_get_filename(windowname, display_icm_profile, sizeof(display_icm_profile), display_icm_profile, NULL, TRUE, FALSE, FALSE, FALSE);
+
+  gtk_entry_set_text(GTK_ENTRY(xsane_setup.display_icm_profile_entry), display_icm_profile);
+}
+#endif
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+#ifdef HAVE_LIBLCMS
+static void xsane_setup_browse_custom_proofing_icm_profile_callback(GtkWidget *widget, gpointer data)
+{
+ const gchar *old_custom_proofing_icm_profile;
+ char custom_proofing_icm_profile[PATH_MAX];
+ char windowname[TEXTBUFSIZE];
+
+  DBG(DBG_proc, "xsane_setup_browse_custom_proofing_icm_profile_callback\n");
+
+  old_custom_proofing_icm_profile = gtk_entry_get_text(GTK_ENTRY(xsane_setup.custom_proofing_icm_profile_entry));
+  strncpy(custom_proofing_icm_profile, old_custom_proofing_icm_profile, sizeof(custom_proofing_icm_profile));
+
+  snprintf(windowname, sizeof(windowname), "%s %s", xsane.prog_name, WINDOW_CUSTOM_PROOFING_ICM_PROFILE);
+  xsane_back_gtk_get_filename(windowname, custom_proofing_icm_profile, sizeof(custom_proofing_icm_profile), custom_proofing_icm_profile, NULL, TRUE, FALSE, FALSE, FALSE);
+
+  gtk_entry_set_text(GTK_ENTRY(xsane_setup.custom_proofing_icm_profile_entry), custom_proofing_icm_profile);
+}
+#endif
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -1656,24 +1878,24 @@ static void xsane_filetype_notebook(GtkWidget *notebook)
 
 #ifdef HAVE_LIBJPEG 
   xsane_range_new(GTK_BOX(vbox), TEXT_SETUP_JPEG_QUALITY, DESC_JPEG_QUALITY, 0.0, 100.0, 1.0, 10.0, 0,
-                  &preferences.jpeg_quality, (GtkObject **) &xsane_setup.jpeg_image_quality_scale, 0, TRUE);
+                  &preferences.jpeg_quality, &xsane_setup.jpeg_image_quality_scale, 0, TRUE);
 #else
 #ifdef HAVE_LIBTIFF
   xsane_range_new(GTK_BOX(vbox), TEXT_SETUP_JPEG_QUALITY, DESC_JPEG_QUALITY, 0.0, 100.0, 1.0, 10.0, 0,
-                  &preferences.jpeg_quality, (GtkObject **) &xsane_setup.jpeg_image_quality_scale, 0, TRUE);
+                  &preferences.jpeg_quality, &xsane_setup.jpeg_image_quality_scale, 0, TRUE);
 #endif
 #endif
 
 #ifdef HAVE_LIBPNG
 #ifdef HAVE_LIBZ
   xsane_range_new(GTK_BOX(vbox), TEXT_SETUP_PNG_COMPRESSION, DESC_PNG_COMPRESSION, 0.0, Z_BEST_COMPRESSION, 1.0, 10.0, 0,
-                  &preferences.png_compression, (GtkObject **) &xsane_setup.png_image_compression_scale, 0, TRUE);
+                  &preferences.png_compression, &xsane_setup.png_image_compression_scale, 0, TRUE);
 #endif
 #endif
 
 #ifdef HAVE_LIBTIFF
   xsane_range_new(GTK_BOX(vbox), TEXT_SETUP_TIFF_ZIP_COMPRESSION, DESC_TIFF_ZIP_COMPRESSION, 1.0, 9.0, 1.0, 6.0, 0,
-                  &preferences.tiff_zip_compression, (GtkObject **) &xsane_setup.tiff_image_zip_compression_scale, 0, TRUE);
+                  &preferences.tiff_zip_compression, &xsane_setup.tiff_image_zip_compression_scale, 0, TRUE);
 
   /* TIFF 16 BIT IMAGES COMPRESSION */
 
@@ -3224,6 +3446,188 @@ static void xsane_enhance_notebook(GtkWidget *notebook)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+#ifdef HAVE_LIBLCMS
+static void xsane_color_management_notebook(GtkWidget *notebook)
+{
+ GtkWidget *setup_vbox, *vbox, *hbox, *button, *label, *text, *frame;
+
+  DBG(DBG_proc, "xsane_color_management_notebook\n");
+
+  /* color management options notebook page */
+
+  setup_vbox = gtk_vbox_new(FALSE, 5);
+
+  label = gtk_label_new(NOTEBOOK_COLOR_MANAGEMENT_OPTIONS);
+  gtk_notebook_append_page(GTK_NOTEBOOK(notebook), setup_vbox, label);
+  gtk_widget_show(setup_vbox);
+
+  frame = gtk_frame_new(0);
+  gtk_container_set_border_width(GTK_CONTAINER(frame), 7);
+  gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_ETCHED_IN);
+  gtk_box_pack_start(GTK_BOX(setup_vbox), frame, TRUE, TRUE, 0); /* sizeable framehight */
+  gtk_widget_show(frame);
+
+  vbox = gtk_vbox_new(FALSE, 1);
+  gtk_container_add(GTK_CONTAINER(frame), vbox);
+  gtk_widget_show(vbox);
+
+  /* embed ICM profile to file */
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+  button = gtk_check_button_new_with_label(RADIO_BUTTON_EMBED_ICM_PROFILE);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_EMBED_ICM_PROFILE);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), xsane.embed_icm_profile);
+  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 2);
+  gtk_widget_show(button);
+  gtk_widget_show(hbox);
+  xsane_setup.embed_icm_profile_button = button;
+
+
+
+  /* scanner_refl icm-profile filename : */
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+
+  label = gtk_label_new(TEXT_SETUP_SCANNER_REFL_ICM_PROFILE);
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_widget_show(label);
+
+  text = gtk_entry_new_with_max_length(255);
+  gtk_widget_set_size_request(text, 70, -1); /* set minimum size */
+  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_SCANNER_REFL_ICM_PROFILE);
+
+  if (xsane.scanner_refl_icm_profile)
+  {
+    gtk_entry_set_text(GTK_ENTRY(text), (char *) xsane.scanner_refl_icm_profile);
+  }
+
+  gtk_box_pack_start(GTK_BOX(hbox), text, TRUE, TRUE, 4);
+  gtk_widget_show(text);
+  xsane_setup.scanner_refl_icm_profile_entry = text;
+
+  button = gtk_button_new_with_label(BUTTON_BROWSE); 
+  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_browse_scanner_refl_icm_profile_callback, NULL);
+  gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 2);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_BUTTON_SCANNER_REFL_ICM_PROFILE_BROWSE);
+  gtk_widget_show(button);
+
+  gtk_widget_show(hbox);
+
+
+  /* scanner_tran icm-profile filename : */
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+
+  label = gtk_label_new(TEXT_SETUP_SCANNER_TRAN_ICM_PROFILE);
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_widget_show(label);
+
+  text = gtk_entry_new_with_max_length(255);
+  gtk_widget_set_size_request(text, 70, -1); /* set minimum size */
+  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_SCANNER_TRAN_ICM_PROFILE);
+
+  if (xsane.scanner_tran_icm_profile)
+  {
+    gtk_entry_set_text(GTK_ENTRY(text), (char *) xsane.scanner_tran_icm_profile);
+  }
+
+  gtk_box_pack_start(GTK_BOX(hbox), text, TRUE, TRUE, 4);
+  gtk_widget_show(text);
+  xsane_setup.scanner_tran_icm_profile_entry = text;
+
+  button = gtk_button_new_with_label(BUTTON_BROWSE); 
+  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_browse_scanner_tran_icm_profile_callback, NULL);
+  gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 2);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_BUTTON_SCANNER_TRAN_ICM_PROFILE_BROWSE);
+  gtk_widget_show(button);
+
+  gtk_widget_show(hbox);
+
+
+  /* display icm-profile filename : */
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+
+  label = gtk_label_new(TEXT_SETUP_DISPLAY_ICM_PROFILE);
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_widget_show(label);
+
+  text = gtk_entry_new_with_max_length(255);
+  gtk_widget_set_size_request(text, 70, -1); /* set minimum size */
+  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_DISPLAY_ICM_PROFILE);
+
+  if (preferences.display_icm_profile)
+  {
+    gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.display_icm_profile);
+  }
+
+  gtk_box_pack_start(GTK_BOX(hbox), text, TRUE, TRUE, 4);
+  gtk_widget_show(text);
+  xsane_setup.display_icm_profile_entry = text;
+
+  button = gtk_button_new_with_label(BUTTON_BROWSE); 
+  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_browse_display_icm_profile_callback, NULL);
+  gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 2);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_BUTTON_DISPLAY_ICM_PROFILE_BROWSE);
+  gtk_widget_show(button);
+
+  gtk_widget_show(hbox);
+
+
+
+  /* custom output icm-profile filename : */
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+
+  label = gtk_label_new(TEXT_SETUP_CUSTOM_PROOFING_ICM_PROFILE);
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_widget_show(label);
+
+  text = gtk_entry_new_with_max_length(255);
+  gtk_widget_set_size_request(text, 70, -1); /* set minimum size */
+  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_CUSTOM_PROOFING_ICM_PROFILE);
+
+  if (preferences.custom_proofing_icm_profile)
+  {
+    gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.custom_proofing_icm_profile);
+  }
+
+  gtk_box_pack_start(GTK_BOX(hbox), text, TRUE, TRUE, 4);
+  gtk_widget_show(text);
+  xsane_setup.custom_proofing_icm_profile_entry = text;
+
+  button = gtk_button_new_with_label(BUTTON_BROWSE); 
+  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_browse_custom_proofing_icm_profile_callback, NULL);
+  gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 2);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_BUTTON_CUSTOM_PROOFING_ICM_PROFILE_BROWSE);
+  gtk_widget_show(button);
+
+  gtk_widget_show(hbox);
+
+
+  xsane_separator_new(vbox, 4);
+
+
+  /* apply button */
+
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+
+#ifdef HAVE_GTK2
+  button = gtk_button_new_from_stock(GTK_STOCK_APPLY);
+#else
+  button = gtk_button_new_with_label(BUTTON_APPLY);
+#endif
+  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_color_management_apply_changes, NULL);
+  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
+  gtk_widget_show(button);
+
+  gtk_widget_show(hbox);
+}
+#endif
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 void xsane_setup_dialog(GtkWidget *widget, gpointer data)
 {
  GtkWidget *setup_dialog, *setup_vbox, *hbox, *button, *notebook;
@@ -3267,6 +3671,9 @@ void xsane_setup_dialog(GtkWidget *widget, gpointer data)
   xsane_ocr_notebook(notebook);
   xsane_display_notebook(notebook);
   xsane_enhance_notebook(notebook);
+#ifdef HAVE_LIBLCMS
+  xsane_color_management_notebook(notebook);
+#endif
 
 
   /* set the main hbox */

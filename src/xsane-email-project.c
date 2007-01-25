@@ -3,7 +3,7 @@
    xsane-email-project.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2005 Oliver Rauch
+   Copyright (C) 1998-2007 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -1595,7 +1595,7 @@ static void xsane_create_email(int fd)
           /* doc files like ps and pdf can not be displayed inline in html email */
           if (display_images_inline)
           {
-            snprintf(buf, sizeof(buf), "<p><img SRC=\"cid:%s\">\n", content_id);
+            snprintf(buf, sizeof(buf), "<p><img SRC=\"cid:%s\">\r\n", content_id);
           }
           write(fd, buf, strlen(buf));
         }
@@ -1605,7 +1605,7 @@ static void xsane_create_email(int fd)
       }
       else if (*email_text_pos == 10) /* new line */
       {
-        snprintf(buf, sizeof(buf), "<br>\n");
+        snprintf(buf, sizeof(buf), "<br>\r\n");
         write(fd, buf, strlen(buf));
       }
       else
@@ -1624,12 +1624,12 @@ static void xsane_create_email(int fd)
       /* doc files like ps and pdf can not be displayed inline in html email */
       if (display_images_inline)
       {
-        snprintf(buf, sizeof(buf), "<p><img SRC=\"cid:%s\">\n", content_id);
+        snprintf(buf, sizeof(buf), "<p><img SRC=\"cid:%s\">\r\n", content_id);
       }
       write(fd, buf, strlen(buf));
     }
 
-    snprintf(buf, sizeof(buf), "</html>\n");
+    snprintf(buf, sizeof(buf), "</html>\r\n");
     write(fd, buf, strlen(buf));
 
 
@@ -1666,7 +1666,7 @@ static void xsane_create_email(int fd)
     write_email_mime_ascii(fd, boundary);
 
     write(fd, email_text, strlen(email_text));
-    write(fd, "\n\n", 2);
+    write(fd, "\r\n\r\n", 2);
 
     for (i=0; i<attachments; i++)
     {

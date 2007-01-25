@@ -3,7 +3,7 @@
    xsane-preferences.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2005 Oliver Rauch
+   Copyright (C) 1998-2007 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -231,6 +231,8 @@ desc[] =
     {"show-resolution-list",		xsane_rc_pref_int,	POFFSET(show_resolution_list)},
     {"length-unit",			xsane_rc_pref_double,	POFFSET(length_unit)},
     {"main-window-fixed",		xsane_rc_pref_int,	POFFSET(main_window_fixed)},
+    {"display-icm-profile",		xsane_rc_pref_string,	POFFSET(display_icm_profile)},
+    {"custom-proofing-icm-profile",	xsane_rc_pref_string,	POFFSET(custom_proofing_icm_profile)},
     {"preview-own-cmap",		xsane_rc_pref_int,	POFFSET(preview_own_cmap)},
     {"preview-oversampling",		xsane_rc_pref_double,	POFFSET(preview_oversampling)},
     {"preview-gamma",			xsane_rc_pref_double,	POFFSET(preview_gamma)},
@@ -289,6 +291,7 @@ desc_printer[] =
     {"printer-gamma-red",		xsane_rc_pref_double,	PRTOFFSET(gamma_red)},
     {"printer-gamma-green",		xsane_rc_pref_double,	PRTOFFSET(gamma_green)},
     {"printer-gamma-blue",		xsane_rc_pref_double,	PRTOFFSET(gamma_blue)},
+    {"printer-icm-profile",		xsane_rc_pref_string,	PRTOFFSET(icm_profile)},
     {"printer-ps-flatdecoded",		xsane_rc_pref_int,	PRTOFFSET(ps_flatdecoded)}
   };
 

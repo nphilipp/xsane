@@ -3,7 +3,7 @@
    xsane-front-gtk.h
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2005 Oliver Rauch
+   Copyright (C) 1998-2007 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -57,14 +57,14 @@ extern void xsane_option_menu_new(GtkWidget *parent, char *str_list[], const cha
                                   void *option_menu_callback, SANE_Int settable, const gchar *widget_name);
 extern void xsane_option_menu_new_with_pixmap(GdkWindow *window, GtkBox *parent, const char *xpm_d[], const char *desc,
                                               char *str_list[], const char *val,
-                                              GtkObject **data, int option,
+                                              GtkWidget **data, int option,
                                               void *option_menu_callback, SANE_Int settable, const gchar *widget_name);
 extern void xsane_range_new(GtkBox *parent, char *labeltext, const char *desc,
                             float min, float max, float quant, float page_step,
-                            int digits, double *val, GtkObject **data, void *xsane_range_callback, SANE_Int settable);
+                            int digits, double *val, GtkWidget **data, void *xsane_range_callback, SANE_Int settable);
 extern void xsane_range_new_with_pixmap(GdkWindow *window, GtkBox *parent, const char *xpm_d[], const char *desc,
                                         float min, float max, float quant, float page_step, int digits,
-                                        double *val, GtkObject **data, int option, void *xsane_range_callback, SANE_Int settable);
+                                        double *val, GtkWidget **data, int option, void *xsane_range_callback, SANE_Int settable);
 extern void xsane_set_filename(gchar *filename);
 extern void xsane_outputfilename_new(GtkWidget *vbox);
 extern void xsane_separator_new(GtkWidget *xsane_parent, int dist);

@@ -3,7 +3,7 @@
    xsane-viewer.c
  
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2005 Oliver Rauch
+   Copyright (C) 1998-2007 Oliver Rauch
    This file is part of the XSANE package.
  
    This program is free software; you can redistribute it and/or modify
@@ -32,8 +32,7 @@
 #include "xsane-save.h"
 #include <gdk/gdkkeysyms.h>
 #include <sys/wait.h>
- 
- 
+
 #ifndef PATH_MAX
 # define PATH_MAX       1024
 #endif
@@ -81,35 +80,37 @@ static void xsane_viewer_set_sensitivity(Viewer *v, int sensitivity)
     switch (v->allow_modification)
     {
       case VIEWER_NO_MODIFICATION:
-        gtk_widget_set_sensitive(GTK_WIDGET(v->save_menu_item),  FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(v->ocr_menu_item),   FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(v->clone_menu_item), FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(v->edit_menu),       FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(v->filters_menu),    FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(v->geometry_menu),   FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->save_menu_item),       FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->ocr_menu_item),        FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->clone_menu_item),      FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->edit_menu),            FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->filters_menu),         FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->geometry_menu),        FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->color_management_menu), v->enable_color_management);
 
-        gtk_widget_set_sensitive(GTK_WIDGET(v->save),                FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(v->ocr),                 FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(v->clone),               FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(v->edit_button_box),     FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(v->filters_button_box),  FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(v->geometry_button_box), FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->save),                 FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->ocr),                  FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->clone),                FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->edit_button_box),      FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->filters_button_box),   FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->geometry_button_box),  FALSE);
        break;
 
       case VIEWER_NO_NAME_AND_SIZE_MODIFICATION:
-        gtk_widget_set_sensitive(GTK_WIDGET(v->save_menu_item),  TRUE);
-        gtk_widget_set_sensitive(GTK_WIDGET(v->ocr_menu_item),   FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(v->clone_menu_item), FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(v->edit_menu),       TRUE);
-        gtk_widget_set_sensitive(GTK_WIDGET(v->filters_menu),    TRUE);
-        gtk_widget_set_sensitive(GTK_WIDGET(v->geometry_menu),   FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->save_menu_item),       TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->ocr_menu_item),        FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->clone_menu_item),      FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->edit_menu),            TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->filters_menu),         TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->geometry_menu),        FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->color_management_menu), v->enable_color_management);
 
-        gtk_widget_set_sensitive(GTK_WIDGET(v->save),                TRUE);
-        gtk_widget_set_sensitive(GTK_WIDGET(v->ocr),                 FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(v->clone),               FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(v->edit_button_box),     TRUE);
-        gtk_widget_set_sensitive(GTK_WIDGET(v->filters_button_box),  TRUE);
-        gtk_widget_set_sensitive(GTK_WIDGET(v->geometry_button_box), FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->save),                 TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->ocr),                  FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->clone),                FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->edit_button_box),      TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->filters_button_box),   TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->geometry_button_box),  FALSE);
        break;
 
       case VIEWER_NO_NAME_MODIFICATION:
@@ -121,26 +122,28 @@ static void xsane_viewer_set_sensitivity(Viewer *v, int sensitivity)
 
       case VIEWER_FULL_MODIFICATION:
       default:
-        gtk_widget_set_sensitive(GTK_WIDGET(v->save_menu_item), TRUE);
-        gtk_widget_set_sensitive(GTK_WIDGET(v->edit_menu),      TRUE);
-        gtk_widget_set_sensitive(GTK_WIDGET(v->filters_menu),   TRUE);
-        gtk_widget_set_sensitive(GTK_WIDGET(v->geometry_menu),  TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->save_menu_item),       TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->edit_menu),            TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->filters_menu),         TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->geometry_menu),        TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->color_management_menu), v->enable_color_management);
 
-        gtk_widget_set_sensitive(GTK_WIDGET(v->save),                TRUE);
-        gtk_widget_set_sensitive(GTK_WIDGET(v->edit_button_box),     TRUE);
-        gtk_widget_set_sensitive(GTK_WIDGET(v->filters_button_box),  TRUE);
-        gtk_widget_set_sensitive(GTK_WIDGET(v->geometry_button_box), TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->save),                 TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->edit_button_box),      TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->filters_button_box),   TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(v->geometry_button_box),  TRUE);
        break;
     }
   }
   else
   {
     v->block_actions = TRUE;
-    gtk_widget_set_sensitive(GTK_WIDGET(v->file_menu),     FALSE);
-    gtk_widget_set_sensitive(GTK_WIDGET(v->edit_menu),     FALSE);
-    gtk_widget_set_sensitive(GTK_WIDGET(v->filters_menu),  FALSE);
-    gtk_widget_set_sensitive(GTK_WIDGET(v->geometry_menu), FALSE);
-    gtk_widget_set_sensitive(GTK_WIDGET(v->button_box),    FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(v->file_menu),            FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(v->edit_menu),            FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(v->filters_menu),         FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(v->geometry_menu),        FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(v->color_management_menu),FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(v->button_box),           FALSE);
   }
 }
 
@@ -458,11 +461,11 @@ static void xsane_viewer_clone_callback(GtkWidget *window, gpointer data)
   {
    char buf[TEXTBUFSIZE];
     snprintf(buf, sizeof(buf), "%s%s", FILENAME_PREFIX_CLONE_OF, v->last_saved_filename);
-    xsane_viewer_new(outfilename, v->selection_filetype, v->allow_reduction_to_lineart, buf, v->allow_modification, IMAGE_NOT_SAVED);
+    xsane_viewer_new(outfilename, v->selection_filetype, v->allow_reduction_to_lineart, buf, v->allow_modification, v->image_saved);
   }
   else
   {
-    xsane_viewer_new(outfilename, v->selection_filetype, v->allow_reduction_to_lineart, NULL, v->allow_modification, IMAGE_NOT_SAVED);
+    xsane_viewer_new(outfilename, v->selection_filetype, v->allow_reduction_to_lineart, NULL, v->allow_modification, v->image_saved);
   }
 }
 
@@ -569,7 +572,7 @@ static void xsane_viewer_scale_callback(GtkWidget *window, gpointer data)
  GtkWidget *frame;
  GtkWidget *hbox, *vbox;
  GtkWidget *button;
- GtkObject *scale_widget, *scalex_widget, *scaley_widget;
+ GtkWidget *scale_widget, *scalex_widget, *scaley_widget;
  GtkAdjustment *adjustment_size_x;
  GtkAdjustment *adjustment_size_y;
  GtkWidget *spinbutton;
@@ -1654,6 +1657,918 @@ static GtkWidget *xsane_viewer_geometry_build_menu(Viewer *v)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+#ifdef HAVE_LIBLCMS
+#define INTENT_PERCEPTUAL                 0
+#define INTENT_RELATIVE_COLORIMETRIC      1
+#define INTENT_SATURATION                 2
+#define INTENT_ABSOLUTE_COLORIMETRIC      3
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_viewer_set_cms_enable_callback(GtkWidget *widget, gpointer data)
+{
+ Viewer *v = (Viewer *) data;
+
+  v->cms_enable = (GTK_CHECK_MENU_ITEM(widget)->active != 0);
+  DBG(DBG_proc, "xsane_viewer_set_cms_enable_callback (%d)\n", v->cms_enable);
+
+  xsane_viewer_read_image(v);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_viewer_set_cms_black_point_compensation_callback(GtkWidget *widget, gpointer data)
+{
+ Viewer *v = (Viewer *) data;
+
+  v->cms_black_point_compensation = (GTK_CHECK_MENU_ITEM(widget)->active != 0);
+  DBG(DBG_proc, "xsane_viewer_set_cms_black_point_compensation_callback (%d)\n", v->cms_black_point_compensation);
+
+  xsane_viewer_read_image(v);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_viewer_set_cms_gamut_check_callback(GtkWidget *widget, gpointer data)
+{
+ Viewer *v = (Viewer *) data;
+
+  v->cms_gamut_check = (GTK_CHECK_MENU_ITEM(widget)->active != 0);
+  DBG(DBG_proc, "xsane_viewer_set_cms_gamut_check_callback (%d)\n", v->cms_gamut_check);
+
+  xsane_viewer_read_image(v);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_viewer_set_cms_proofing_callback(GtkWidget *widget, gpointer data)
+{
+ Viewer *v = (Viewer *) data;
+ int val;
+
+  g_signal_handlers_block_by_func(GTK_OBJECT(v->cms_proofing_widget[0]), (GtkSignalFunc) xsane_viewer_set_cms_proofing_callback, v);
+  g_signal_handlers_block_by_func(GTK_OBJECT(v->cms_proofing_widget[1]), (GtkSignalFunc) xsane_viewer_set_cms_proofing_callback, v);
+  g_signal_handlers_block_by_func(GTK_OBJECT(v->cms_proofing_widget[2]), (GtkSignalFunc) xsane_viewer_set_cms_proofing_callback, v);
+
+  val = (int) gtk_object_get_data(GTK_OBJECT(widget), "Selection");
+
+  DBG(DBG_proc, "xsane_viewer_set_cms_proofing_callback (%d)\n", val);
+
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(v->cms_proofing_widget[v->cms_proofing]), FALSE);
+  v->cms_proofing = val;
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(v->cms_proofing_widget[v->cms_proofing]), TRUE);
+
+  g_signal_handlers_unblock_by_func(GTK_OBJECT(v->cms_proofing_widget[0]), (GtkSignalFunc) xsane_viewer_set_cms_proofing_callback, v);
+  g_signal_handlers_unblock_by_func(GTK_OBJECT(v->cms_proofing_widget[1]), (GtkSignalFunc) xsane_viewer_set_cms_proofing_callback, v);
+  g_signal_handlers_unblock_by_func(GTK_OBJECT(v->cms_proofing_widget[2]), (GtkSignalFunc) xsane_viewer_set_cms_proofing_callback, v);
+
+  xsane_viewer_read_image(v);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_viewer_set_cms_intent_callback(GtkWidget *widget, gpointer data)
+{
+ Viewer *v = (Viewer *) data;
+ int val;
+
+  g_signal_handlers_block_by_func(GTK_OBJECT(v->cms_intent_widget[0]), (GtkSignalFunc) xsane_viewer_set_cms_intent_callback, v);
+  g_signal_handlers_block_by_func(GTK_OBJECT(v->cms_intent_widget[1]), (GtkSignalFunc) xsane_viewer_set_cms_intent_callback, v);
+  g_signal_handlers_block_by_func(GTK_OBJECT(v->cms_intent_widget[2]), (GtkSignalFunc) xsane_viewer_set_cms_intent_callback, v);
+  g_signal_handlers_block_by_func(GTK_OBJECT(v->cms_intent_widget[3]), (GtkSignalFunc) xsane_viewer_set_cms_intent_callback, v);
+
+  val = (int) gtk_object_get_data(GTK_OBJECT(widget), "Selection");
+
+  DBG(DBG_proc, "xsane_viewer_set_cms_intent_callback (%d)\n", val);
+
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(v->cms_intent_widget[v->cms_intent]), FALSE);
+  v->cms_intent = val;
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(v->cms_intent_widget[v->cms_intent]), TRUE);
+
+  g_signal_handlers_unblock_by_func(GTK_OBJECT(v->cms_intent_widget[0]), (GtkSignalFunc) xsane_viewer_set_cms_intent_callback, v);
+  g_signal_handlers_unblock_by_func(GTK_OBJECT(v->cms_intent_widget[1]), (GtkSignalFunc) xsane_viewer_set_cms_intent_callback, v);
+  g_signal_handlers_unblock_by_func(GTK_OBJECT(v->cms_intent_widget[2]), (GtkSignalFunc) xsane_viewer_set_cms_intent_callback, v);
+  g_signal_handlers_unblock_by_func(GTK_OBJECT(v->cms_intent_widget[3]), (GtkSignalFunc) xsane_viewer_set_cms_intent_callback, v);
+
+  xsane_viewer_read_image(v);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_viewer_set_cms_proofing_intent_callback(GtkWidget *widget, gpointer data)
+{
+ Viewer *v = (Viewer *) data;
+ int val;
+
+  g_signal_handlers_block_by_func(GTK_OBJECT(v->cms_proofing_intent_widget[0]), (GtkSignalFunc) xsane_viewer_set_cms_proofing_intent_callback, v);
+  g_signal_handlers_block_by_func(GTK_OBJECT(v->cms_proofing_intent_widget[1]), (GtkSignalFunc) xsane_viewer_set_cms_proofing_intent_callback, v);
+  g_signal_handlers_block_by_func(GTK_OBJECT(v->cms_proofing_intent_widget[2]), (GtkSignalFunc) xsane_viewer_set_cms_proofing_intent_callback, v);
+  g_signal_handlers_block_by_func(GTK_OBJECT(v->cms_proofing_intent_widget[3]), (GtkSignalFunc) xsane_viewer_set_cms_proofing_intent_callback, v);
+
+  val = (int) gtk_object_get_data(GTK_OBJECT(widget), "Selection");
+
+  DBG(DBG_proc, "xsane_viewer_set_cms_proofing_intent_callback (%d)\n", val);
+
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(v->cms_proofing_intent_widget[v->cms_proofing_intent]), FALSE);
+  v->cms_proofing_intent = val;
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(v->cms_proofing_intent_widget[v->cms_proofing_intent]), TRUE);
+
+  g_signal_handlers_unblock_by_func(GTK_OBJECT(v->cms_proofing_intent_widget[0]), (GtkSignalFunc) xsane_viewer_set_cms_proofing_intent_callback, v);
+  g_signal_handlers_unblock_by_func(GTK_OBJECT(v->cms_proofing_intent_widget[1]), (GtkSignalFunc) xsane_viewer_set_cms_proofing_intent_callback, v);
+  g_signal_handlers_unblock_by_func(GTK_OBJECT(v->cms_proofing_intent_widget[2]), (GtkSignalFunc) xsane_viewer_set_cms_proofing_intent_callback, v);
+  g_signal_handlers_unblock_by_func(GTK_OBJECT(v->cms_proofing_intent_widget[3]), (GtkSignalFunc) xsane_viewer_set_cms_proofing_intent_callback, v);
+
+  xsane_viewer_read_image(v);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_viewer_set_cms_gamut_alarm_color_callback(GtkWidget *widget, gpointer data)
+{
+ Viewer *v = (Viewer *) data;
+ int val;
+
+  g_signal_handlers_block_by_func(GTK_OBJECT(v->cms_gamut_alarm_color_widget[0]), (GtkSignalFunc) xsane_viewer_set_cms_gamut_alarm_color_callback, v);
+  g_signal_handlers_block_by_func(GTK_OBJECT(v->cms_gamut_alarm_color_widget[1]), (GtkSignalFunc) xsane_viewer_set_cms_gamut_alarm_color_callback, v);
+  g_signal_handlers_block_by_func(GTK_OBJECT(v->cms_gamut_alarm_color_widget[2]), (GtkSignalFunc) xsane_viewer_set_cms_gamut_alarm_color_callback, v);
+  g_signal_handlers_block_by_func(GTK_OBJECT(v->cms_gamut_alarm_color_widget[3]), (GtkSignalFunc) xsane_viewer_set_cms_gamut_alarm_color_callback, v);
+  g_signal_handlers_block_by_func(GTK_OBJECT(v->cms_gamut_alarm_color_widget[4]), (GtkSignalFunc) xsane_viewer_set_cms_gamut_alarm_color_callback, v);
+  g_signal_handlers_block_by_func(GTK_OBJECT(v->cms_gamut_alarm_color_widget[5]), (GtkSignalFunc) xsane_viewer_set_cms_gamut_alarm_color_callback, v);
+
+  val = (int) gtk_object_get_data(GTK_OBJECT(widget), "Selection");
+
+  DBG(DBG_proc, "xsane_viewer_set_cms_gamut_alarm_color_callback (%d)\n", val);
+
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(v->cms_gamut_alarm_color_widget[v->cms_gamut_alarm_color]), FALSE);
+  v->cms_gamut_alarm_color = val;
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(v->cms_gamut_alarm_color_widget[v->cms_gamut_alarm_color]), TRUE);
+
+  switch(v->cms_gamut_alarm_color)
+  {
+    default:
+    case 0: /* black */
+      cmsSetAlarmCodes(0, 0, 0);
+     break;
+
+    case 1: /* gray */
+      cmsSetAlarmCodes(128, 128, 128);
+     break;
+
+    case 2: /* white */
+      cmsSetAlarmCodes(255, 255, 255);
+     break;
+
+    case 3: /* red */
+      cmsSetAlarmCodes(255, 0, 0);
+     break;
+
+    case 4: /* green */
+      cmsSetAlarmCodes(0, 255, 0);
+     break;
+
+    case 5: /* blue */
+      cmsSetAlarmCodes(0, 0, 255);
+     break;
+  }
+
+  g_signal_handlers_unblock_by_func(GTK_OBJECT(v->cms_gamut_alarm_color_widget[0]), (GtkSignalFunc) xsane_viewer_set_cms_gamut_alarm_color_callback, v);
+  g_signal_handlers_unblock_by_func(GTK_OBJECT(v->cms_gamut_alarm_color_widget[1]), (GtkSignalFunc) xsane_viewer_set_cms_gamut_alarm_color_callback, v);
+  g_signal_handlers_unblock_by_func(GTK_OBJECT(v->cms_gamut_alarm_color_widget[2]), (GtkSignalFunc) xsane_viewer_set_cms_gamut_alarm_color_callback, v);
+  g_signal_handlers_unblock_by_func(GTK_OBJECT(v->cms_gamut_alarm_color_widget[3]), (GtkSignalFunc) xsane_viewer_set_cms_gamut_alarm_color_callback, v);
+  g_signal_handlers_unblock_by_func(GTK_OBJECT(v->cms_gamut_alarm_color_widget[4]), (GtkSignalFunc) xsane_viewer_set_cms_gamut_alarm_color_callback, v);
+  g_signal_handlers_unblock_by_func(GTK_OBJECT(v->cms_gamut_alarm_color_widget[5]), (GtkSignalFunc) xsane_viewer_set_cms_gamut_alarm_color_callback, v);
+
+  if (v->cms_gamut_check)
+  {
+    xsane_viewer_read_image(v);
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static GtkWidget *xsane_viewer_color_management_build_menu(Viewer *v)
+{
+ GtkWidget *menu, *item, *submenu, *subitem;
+ 
+  DBG(DBG_proc, "xsane_viewer_color_management_build_menu\n");
+ 
+  menu = gtk_menu_new();
+  gtk_menu_set_accel_group(GTK_MENU(menu), xsane.accelerator_group);
+
+  /* cms enable */
+  item = gtk_check_menu_item_new_with_label(MENU_ITEM_CMS_ENABLE_COLOR_MANAGEMENT);
+  gtk_menu_append(GTK_MENU(menu), item);
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), TRUE);
+  g_signal_connect(GTK_OBJECT(item), "toggled", (GtkSignalFunc) xsane_viewer_set_cms_enable_callback, v);
+  gtk_widget_show(item);
+
+  /* black point compensation */
+  item = gtk_check_menu_item_new_with_label(MENU_ITEM_CMS_BLACK_POINT_COMPENSATION);
+  gtk_menu_append(GTK_MENU(menu), item);
+  if (v->cms_black_point_compensation)
+  {
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), TRUE);
+  }
+  g_signal_connect(GTK_OBJECT(item), "toggled", (GtkSignalFunc) xsane_viewer_set_cms_black_point_compensation_callback, v);
+  gtk_widget_show(item);
+
+
+  /* Output Device submenu */
+  item = gtk_menu_item_new_with_label(MENU_ITEM_CMS_PROOFING);
+  gtk_menu_append(GTK_MENU(menu), item);
+  gtk_widget_show(item);
+
+  submenu = gtk_menu_new();
+
+  subitem = gtk_check_menu_item_new_with_label(SUBMENU_ITEM_CMS_PROOF_OFF);
+  gtk_menu_append(GTK_MENU(submenu), subitem);
+  if (v->cms_proofing == 0)
+  {
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(subitem), TRUE);
+  }
+  g_signal_connect(GTK_OBJECT(subitem), "toggled", (GtkSignalFunc) xsane_viewer_set_cms_proofing_callback, v);
+  gtk_object_set_data(GTK_OBJECT(subitem), "Selection", (void *) 0);
+  gtk_widget_show(subitem);
+  v->cms_proofing_widget[0] = subitem;
+
+  subitem = gtk_check_menu_item_new_with_label(SUBMENU_ITEM_CMS_PROOF_PRINTER);
+  gtk_menu_append(GTK_MENU(submenu), subitem);
+  if (v->cms_proofing == 1)
+  {
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(subitem), TRUE);
+  }
+  g_signal_connect(GTK_OBJECT(subitem), "toggled", (GtkSignalFunc) xsane_viewer_set_cms_proofing_callback, v);
+  gtk_object_set_data(GTK_OBJECT(subitem), "Selection", (void *) 1);
+  gtk_widget_show(subitem);
+  v->cms_proofing_widget[1] = subitem;
+
+  subitem = gtk_check_menu_item_new_with_label(SUBMENU_ITEM_CMS_PROOF_CUSTOM);
+  gtk_menu_append(GTK_MENU(submenu), subitem);
+  if (v->cms_proofing == 2)
+  {
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(subitem), TRUE);
+  }
+  g_signal_connect(GTK_OBJECT(subitem), "toggled", (GtkSignalFunc) xsane_viewer_set_cms_proofing_callback, v);
+  gtk_object_set_data(GTK_OBJECT(subitem), "Selection", (void *) 2);
+  gtk_widget_show(subitem);
+  v->cms_proofing_widget[2] = subitem;
+
+  gtk_menu_item_set_submenu(GTK_MENU_ITEM(item), submenu);
+
+
+  /* Intent submenu */
+  item = gtk_menu_item_new_with_label(MENU_ITEM_CMS_RENDERING_INTENT);
+  gtk_menu_append(GTK_MENU(menu), item);
+  gtk_widget_show(item);
+
+  submenu = gtk_menu_new();
+
+  subitem = gtk_check_menu_item_new_with_label(SUBMENU_ITEM_CMS_INTENT_PERCEPTUAL);
+  gtk_menu_append(GTK_MENU(submenu), subitem);
+  if (v->cms_intent == INTENT_PERCEPTUAL)
+  {
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(subitem), TRUE);
+  }
+  g_signal_connect(GTK_OBJECT(subitem), "toggled", (GtkSignalFunc) xsane_viewer_set_cms_intent_callback, v);
+  gtk_object_set_data(GTK_OBJECT(subitem), "Selection", (void *) INTENT_PERCEPTUAL);
+  gtk_widget_show(subitem);
+  v->cms_intent_widget[INTENT_PERCEPTUAL] = subitem;
+
+  subitem = gtk_check_menu_item_new_with_label(SUBMENU_ITEM_CMS_INTENT_RELATIVE_COLORIMETRIC);
+  gtk_menu_append(GTK_MENU(submenu), subitem);
+  if (v->cms_intent == INTENT_RELATIVE_COLORIMETRIC)
+  {
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(subitem), TRUE);
+  }
+  g_signal_connect(GTK_OBJECT(subitem), "toggled", (GtkSignalFunc) xsane_viewer_set_cms_intent_callback, v);
+  gtk_object_set_data(GTK_OBJECT(subitem), "Selection", (void *) INTENT_RELATIVE_COLORIMETRIC);
+  gtk_widget_show(subitem);
+  v->cms_intent_widget[INTENT_RELATIVE_COLORIMETRIC] = subitem;
+
+  subitem = gtk_check_menu_item_new_with_label(SUBMENU_ITEM_CMS_INTENT_ABSOLUTE_COLORIMETRIC);
+  gtk_menu_append(GTK_MENU(submenu), subitem);
+  if (v->cms_intent == INTENT_ABSOLUTE_COLORIMETRIC)
+  {
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(subitem), TRUE);
+  }
+  g_signal_connect(GTK_OBJECT(subitem), "toggled", (GtkSignalFunc) xsane_viewer_set_cms_intent_callback, v);
+  gtk_object_set_data(GTK_OBJECT(subitem), "Selection", (void *) INTENT_ABSOLUTE_COLORIMETRIC);
+  gtk_widget_show(subitem);
+  v->cms_intent_widget[INTENT_ABSOLUTE_COLORIMETRIC] = subitem;
+
+  subitem = gtk_check_menu_item_new_with_label(SUBMENU_ITEM_CMS_INTENT_SATURATION);
+  gtk_menu_append(GTK_MENU(submenu), subitem);
+  if (v->cms_intent == INTENT_SATURATION)
+  {
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(subitem), TRUE);
+  }
+  g_signal_connect(GTK_OBJECT(subitem), "toggled", (GtkSignalFunc) xsane_viewer_set_cms_intent_callback, v);
+  gtk_object_set_data(GTK_OBJECT(subitem), "Selection", (void *) INTENT_SATURATION);
+  gtk_widget_show(subitem);
+  v->cms_intent_widget[INTENT_SATURATION] = subitem;
+
+  gtk_menu_item_set_submenu(GTK_MENU_ITEM(item), submenu);
+ 
+
+  /* proofing_intent submenu */
+  item = gtk_menu_item_new_with_label(MENU_ITEM_CMS_PROOFING_INTENT);
+  gtk_menu_append(GTK_MENU(menu), item);
+  gtk_widget_show(item);
+
+  submenu = gtk_menu_new();
+
+  subitem = gtk_check_menu_item_new_with_label(SUBMENU_ITEM_CMS_INTENT_PERCEPTUAL);
+  gtk_menu_append(GTK_MENU(submenu), subitem);
+  if (v->cms_proofing_intent == INTENT_PERCEPTUAL)
+  {
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(subitem), TRUE);
+  }
+  g_signal_connect(GTK_OBJECT(subitem), "toggled", (GtkSignalFunc) xsane_viewer_set_cms_proofing_intent_callback, v);
+  gtk_object_set_data(GTK_OBJECT(subitem), "Selection", (void *) INTENT_PERCEPTUAL);
+  gtk_widget_show(subitem);
+  v->cms_proofing_intent_widget[INTENT_PERCEPTUAL] = subitem;
+
+  subitem = gtk_check_menu_item_new_with_label(SUBMENU_ITEM_CMS_INTENT_RELATIVE_COLORIMETRIC);
+  gtk_menu_append(GTK_MENU(submenu), subitem);
+  if (v->cms_proofing_intent == INTENT_RELATIVE_COLORIMETRIC)
+  {
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(subitem), TRUE);
+  }
+  g_signal_connect(GTK_OBJECT(subitem), "toggled", (GtkSignalFunc) xsane_viewer_set_cms_proofing_intent_callback, v);
+  gtk_object_set_data(GTK_OBJECT(subitem), "Selection", (void *) INTENT_RELATIVE_COLORIMETRIC);
+  gtk_widget_show(subitem);
+  v->cms_proofing_intent_widget[INTENT_RELATIVE_COLORIMETRIC] = subitem;
+
+  subitem = gtk_check_menu_item_new_with_label(SUBMENU_ITEM_CMS_INTENT_ABSOLUTE_COLORIMETRIC);
+  gtk_menu_append(GTK_MENU(submenu), subitem);
+  if (v->cms_proofing_intent == INTENT_ABSOLUTE_COLORIMETRIC)
+  {
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(subitem), TRUE);
+  }
+  g_signal_connect(GTK_OBJECT(subitem), "toggled", (GtkSignalFunc) xsane_viewer_set_cms_proofing_intent_callback, v);
+  gtk_object_set_data(GTK_OBJECT(subitem), "Selection", (void *) INTENT_ABSOLUTE_COLORIMETRIC);
+  gtk_widget_show(subitem);
+  v->cms_proofing_intent_widget[INTENT_ABSOLUTE_COLORIMETRIC] = subitem;
+
+  subitem = gtk_check_menu_item_new_with_label(SUBMENU_ITEM_CMS_INTENT_SATURATION);
+  gtk_menu_append(GTK_MENU(submenu), subitem);
+  if (v->cms_proofing_intent == INTENT_SATURATION)
+  {
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(subitem), TRUE);
+  }
+  g_signal_connect(GTK_OBJECT(subitem), "toggled", (GtkSignalFunc) xsane_viewer_set_cms_proofing_intent_callback, v);
+  gtk_object_set_data(GTK_OBJECT(subitem), "Selection", (void *) INTENT_SATURATION);
+  gtk_widget_show(subitem);
+  v->cms_proofing_intent_widget[INTENT_SATURATION] = subitem;
+
+  gtk_menu_item_set_submenu(GTK_MENU_ITEM(item), submenu);
+
+
+  /* cms gamut check */
+  item = gtk_check_menu_item_new_with_label(MENU_ITEM_CMS_GAMUT_CHECK);
+  gtk_menu_append(GTK_MENU(menu), item);
+  g_signal_connect(GTK_OBJECT(item), "toggled", (GtkSignalFunc) xsane_viewer_set_cms_gamut_check_callback, v);
+  gtk_widget_show(item);
+
+
+  /* gamut alarm color */
+  item = gtk_menu_item_new_with_label(MENU_ITEM_CMS_GAMUT_ALARM_COLOR);
+  gtk_menu_append(GTK_MENU(menu), item);
+  gtk_widget_show(item);
+
+  submenu = gtk_menu_new();
+
+  subitem = gtk_check_menu_item_new_with_label(SUBMENU_ITEM_CMS_COLOR_BLACK);
+  gtk_menu_append(GTK_MENU(submenu), subitem);
+  if (v->cms_gamut_alarm_color == 0)
+  {
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(subitem), TRUE);
+  }
+  g_signal_connect(GTK_OBJECT(subitem), "toggled", (GtkSignalFunc) xsane_viewer_set_cms_gamut_alarm_color_callback, v);
+  gtk_object_set_data(GTK_OBJECT(subitem), "Selection", (void *) 0);
+  gtk_widget_show(subitem);
+  v->cms_gamut_alarm_color_widget[0] = subitem;
+
+  subitem = gtk_check_menu_item_new_with_label(SUBMENU_ITEM_CMS_COLOR_GRAY);
+  gtk_menu_append(GTK_MENU(submenu), subitem);
+  if (v->cms_gamut_alarm_color == 1)
+  {
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(subitem), TRUE);
+  }
+  g_signal_connect(GTK_OBJECT(subitem), "toggled", (GtkSignalFunc) xsane_viewer_set_cms_gamut_alarm_color_callback, v);
+  gtk_object_set_data(GTK_OBJECT(subitem), "Selection", (void *) 1);
+  gtk_widget_show(subitem);
+  v->cms_gamut_alarm_color_widget[1] = subitem;
+
+  subitem = gtk_check_menu_item_new_with_label(SUBMENU_ITEM_CMS_COLOR_WHITE);
+  gtk_menu_append(GTK_MENU(submenu), subitem);
+  if (v->cms_gamut_alarm_color == 2)
+  {
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(subitem), TRUE);
+  }
+  g_signal_connect(GTK_OBJECT(subitem), "toggled", (GtkSignalFunc) xsane_viewer_set_cms_gamut_alarm_color_callback, v);
+  gtk_object_set_data(GTK_OBJECT(subitem), "Selection", (void *) 2);
+  gtk_widget_show(subitem);
+  v->cms_gamut_alarm_color_widget[2] = subitem;
+
+  subitem = gtk_check_menu_item_new_with_label(SUBMENU_ITEM_CMS_COLOR_RED);
+  gtk_menu_append(GTK_MENU(submenu), subitem);
+  if (v->cms_gamut_alarm_color == 3)
+  {
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(subitem), TRUE);
+  }
+  g_signal_connect(GTK_OBJECT(subitem), "toggled", (GtkSignalFunc) xsane_viewer_set_cms_gamut_alarm_color_callback, v);
+  gtk_object_set_data(GTK_OBJECT(subitem), "Selection", (void *) 3);
+  gtk_widget_show(subitem);
+  v->cms_gamut_alarm_color_widget[3] = subitem;
+
+  subitem = gtk_check_menu_item_new_with_label(SUBMENU_ITEM_CMS_COLOR_GREEN);
+  gtk_menu_append(GTK_MENU(submenu), subitem);
+  if (v->cms_gamut_alarm_color == 4)
+  {
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(subitem), TRUE);
+  }
+  g_signal_connect(GTK_OBJECT(subitem), "toggled", (GtkSignalFunc) xsane_viewer_set_cms_gamut_alarm_color_callback, v);
+  gtk_object_set_data(GTK_OBJECT(subitem), "Selection", (void *) 4);
+  gtk_widget_show(subitem);
+  v->cms_gamut_alarm_color_widget[4] = subitem;
+
+  subitem = gtk_check_menu_item_new_with_label(SUBMENU_ITEM_CMS_COLOR_BLUE);
+  gtk_menu_append(GTK_MENU(submenu), subitem);
+  if (v->cms_gamut_alarm_color == 5)
+  {
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(subitem), TRUE);
+  }
+  g_signal_connect(GTK_OBJECT(subitem), "toggled", (GtkSignalFunc) xsane_viewer_set_cms_gamut_alarm_color_callback, v);
+  gtk_object_set_data(GTK_OBJECT(subitem), "Selection", (void *) 5);
+  gtk_widget_show(subitem);
+  v->cms_gamut_alarm_color_widget[5] = subitem;
+
+  gtk_menu_item_set_submenu(GTK_MENU_ITEM(item), submenu);
+ 
+ return menu;    
+}
+#endif
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+
+static int xsane_viewer_read_image(Viewer *v)
+{
+ unsigned char *cms_row, *row, *src_row;
+ int x, y;
+ int last_y;
+ int nread;
+ int pos0;
+ FILE *infile;
+ Image_info image_info;
+ char buf[TEXTBUFSIZE];
+ float size;
+ char *size_unit;
+ int width, height;
+
+#ifdef HAVE_LIBLCMS
+ cmsHPROFILE hInProfile = NULL;
+ cmsHPROFILE hOutProfile = NULL;
+ cmsHPROFILE hProofProfile = NULL;
+ cmsHTRANSFORM hTransform = NULL;
+ int proof = 0;
+ char *cms_proof_icm_profile = NULL;
+ DWORD input_format;
+ DWORD output_format;
+ DWORD cms_flags = 0;
+#endif
+
+  /* open imagefile */
+
+  infile = fopen(v->filename, "rb");
+  if (!infile)
+  {
+    DBG(DBG_error, "could not load file %s\n", v->filename);
+   return -1;
+  }
+
+  xsane_read_pnm_header(infile, &image_info);
+
+  pos0 = ftell(infile);
+
+  if (!image_info.colors) /* == 0 (grayscale) ? */
+  {
+    image_info.colors = 1; /* we have one color component */
+  }
+
+  DBG(DBG_info, "reading image %s with  geometry: %d x %d x %d, %d colors\n", v->filename,
+                 image_info.image_width, image_info.image_height, image_info.depth, image_info.colors);
+
+#ifdef HAVE_LIBLCMS
+  /* init color management */
+  if ((v->enable_color_management) && (image_info.reduce_to_lineart))
+  {
+    v->enable_color_management = FALSE;
+    v->cms_enable = FALSE;
+    gtk_widget_set_sensitive(GTK_WIDGET(v->color_management_menu), FALSE);
+    DBG(DBG_info, "xsane-viewer: disbaled color management due to lineart image\n");
+  }
+
+  if ((v->enable_color_management) && (v->cms_enable))
+  {
+    cmsErrorAction(LCMS_ERROR_SHOW);
+
+    if (v->cms_black_point_compensation)
+    {
+      cms_flags |= cmsFLAGS_BLACKPOINTCOMPENSATION;
+    }
+
+    if (image_info.colors == 1) /* == 1 (grayscale) */
+    {
+      if (image_info.depth == 8)
+      {
+        input_format  = TYPE_GRAY_8;
+        output_format = TYPE_GRAY_8;
+      }
+      else
+      {
+        input_format  = TYPE_GRAY_16;
+        output_format = TYPE_GRAY_8;
+      }
+    }
+    else /* color */
+    {
+      if (image_info.depth == 8)
+      {
+        input_format  = TYPE_RGB_8;
+        output_format = TYPE_RGB_8;
+      }
+      else
+      {
+        input_format  = TYPE_RGB_16;
+        output_format = TYPE_RGB_8;
+      }
+    }
+
+    switch (v->cms_proofing)
+    {
+      default:
+      case 0: /* display */
+        proof = 0;
+       break;
+
+      case 1: /* proof printer */
+        cms_proof_icm_profile  = preferences.printer[preferences.printernr]->icm_profile;
+        proof = 1;
+       break;
+
+      case 2: /* proof custom proofing */
+        cms_proof_icm_profile  = preferences.custom_proofing_icm_profile;
+        proof = 1;
+       break;
+    }
+
+    if (1) /* reflective */
+    {
+      hInProfile  = cmsOpenProfileFromFile(xsane.scanner_refl_icm_profile, "r");
+      if (!hInProfile)
+      {
+       char buf[TEXTBUFSIZE];
+
+        snprintf(buf, sizeof(buf), "%s\n%s %s: %s\n", ERR_CMS_CONVERSION, ERR_CMS_OPEN_ICM_FILE, CMS_SCANNER_TRAN_ICM, xsane.scanner_refl_icm_profile);
+        xsane_back_gtk_error(buf, TRUE);
+       return -1;
+      }
+    }
+    else
+    {
+      hInProfile  = cmsOpenProfileFromFile(xsane.scanner_tran_icm_profile, "r");
+      if (!hInProfile)
+      {
+       char buf[TEXTBUFSIZE];
+
+        cmsCloseProfile(hInProfile);
+
+        snprintf(buf, sizeof(buf), "%s\n%s %s: %s\n", ERR_CMS_CONVERSION, ERR_CMS_OPEN_ICM_FILE, CMS_SCANNER_REFL_ICM, xsane.scanner_tran_icm_profile);
+        xsane_back_gtk_error(buf, TRUE);
+       return -1;
+      }
+    }
+
+    hOutProfile = cmsOpenProfileFromFile(preferences.display_icm_profile, "r");
+    if (!hOutProfile)
+    {
+     char buf[TEXTBUFSIZE];
+
+      cmsCloseProfile(hInProfile);
+
+      snprintf(buf, sizeof(buf), "%s\n%s %s: %s\n", ERR_CMS_CONVERSION, ERR_CMS_OPEN_ICM_FILE, CMS_DISPLAY_ICM, preferences.display_icm_profile);
+      xsane_back_gtk_error(buf, TRUE);
+     return -1;
+    }
+      
+
+    if (proof == 0)
+    {
+      hTransform = cmsCreateTransform(hInProfile, input_format,
+                                      hOutProfile, output_format,
+                                      v->cms_intent, cms_flags); 
+    }
+    else /* proof */
+    {
+      cms_flags |= cmsFLAGS_SOFTPROOFING;
+
+      if (v->cms_gamut_check)
+      {
+        cms_flags |= cmsFLAGS_GAMUTCHECK;
+      }
+
+      hProofProfile = cmsOpenProfileFromFile(cms_proof_icm_profile, "r");
+      if (!hProofProfile)
+      {
+       char buf[TEXTBUFSIZE];
+
+        cmsCloseProfile(hInProfile);
+        cmsCloseProfile(hOutProfile);
+
+        snprintf(buf, sizeof(buf), "%s\n%s %s: %s\n", ERR_CMS_CONVERSION, ERR_CMS_OPEN_ICM_FILE, CMS_PROOF_ICM, cms_proof_icm_profile);
+        xsane_back_gtk_error(buf, TRUE);
+       return -1;
+      }
+
+      hTransform = cmsCreateProofingTransform(hInProfile, input_format,
+                                              hOutProfile, output_format,
+                                              hProofProfile,
+                                              v->cms_intent, v->cms_proofing_intent, cms_flags); 
+    }
+
+    if (!hTransform)
+    {
+     char buf[TEXTBUFSIZE];
+
+      cmsCloseProfile(hInProfile);
+      cmsCloseProfile(hOutProfile);
+      if (proof)
+      {
+        cmsCloseProfile(hProofProfile);
+      }
+
+      snprintf(buf, sizeof(buf), "%s\n%s\n", ERR_CMS_CONVERSION, ERR_CMS_CREATE_TRANSFORM);
+      xsane_back_gtk_error(buf, TRUE);
+     return -1;
+    }
+  }
+#endif
+
+  /* open infile */
+
+  if (v->window) /* we already have an existing viewer preview window? */
+  {
+    gtk_widget_destroy(v->window);
+  }
+
+  /* the preview area */
+  if (image_info.colors == 3) /* RGB */
+  {
+    v->window = gtk_preview_new(GTK_PREVIEW_COLOR);
+  }
+  else /* grayscale */
+  {
+    v->window = gtk_preview_new(GTK_PREVIEW_GRAYSCALE);
+  }
+
+  gtk_preview_size(GTK_PREVIEW(v->window), image_info.image_width * v->zoom, image_info.image_height * v->zoom);
+  gtk_container_add(GTK_CONTAINER(v->viewport), v->window);
+  gtk_widget_show(v->window);
+
+
+
+  /* get memory for one row of the image */
+  src_row = malloc(image_info.image_width * image_info.colors * image_info.depth / 8);
+
+  if ((v->enable_color_management) && (v->cms_enable))
+  {
+    row     = malloc(((int) image_info.image_width * v->zoom) * image_info.colors * image_info.depth / 8);
+  }
+  else
+  {
+    row     = malloc(((int) image_info.image_width * v->zoom) * image_info.colors);
+  }
+
+#ifdef HAVE_LIBLCMS
+  if ((v->enable_color_management) && (v->cms_enable))
+  {
+    cms_row = malloc(((int) image_info.image_width * v->zoom) * image_info.colors);
+  }
+  else
+#endif
+  {
+    cms_row = row;
+  }
+
+  if (!row || !src_row || !cms_row)
+  {
+    if (src_row)
+    {
+      free(src_row);
+    }
+
+    if (row)
+    {
+      free(row);
+    }
+
+#ifdef HAVE_LIBLCMS
+    if ((cms_row) && (v->enable_color_management) && (v->cms_enable))
+    {
+      free(cms_row);
+    }
+#endif
+
+    fclose(infile);
+    DBG(DBG_error, "could not allocate memory\n");
+   return -1;
+  }
+
+
+  last_y = -99999;
+
+  /* read the image from file */
+  for (y = 0; y < (int) (image_info.image_height * v->zoom); y++)
+  {
+    if ((int) (last_y / v->zoom) != (int) (y / v->zoom))
+    {
+      last_y = y;
+
+      if (image_info.depth == 8) /* 8 bits/pixel */
+      {
+        fseek(infile, pos0 + (((int) (y / v->zoom)) * image_info.image_width) * image_info.colors, SEEK_SET);
+        nread = fread(src_row, image_info.colors, image_info.image_width, infile);
+
+        if (image_info.colors > 1)
+        {
+          for (x=0; x < (int) (image_info.image_width * v->zoom); x++)
+          {
+           int xoff = ((int) (x / v->zoom)) * image_info.colors;
+
+            row[3*x+0] = src_row[xoff + 0];
+            row[3*x+1] = src_row[xoff + 1];
+            row[3*x+2] = src_row[xoff + 2];
+          }
+        }
+        else
+        {
+          for (x=0; x < (int) (image_info.image_width * v->zoom); x++)
+          {
+            row[x] = src_row[((int) (x / v->zoom))];
+          }
+        }
+      }
+      else if ((!v->enable_color_management) || (!v->cms_enable)) /* 16 bits/pixel => reduce to 8 bits/pixel */
+      {
+       guint16 *src_row16 = (guint16 *) src_row;
+
+        fseek(infile, pos0 + (((int) (y / v->zoom)) * image_info.image_width) * image_info.colors * 2, SEEK_SET);
+        nread = fread(src_row, 2 * image_info.colors, image_info.image_width, infile);
+
+        if (image_info.colors > 1)
+        {
+          for (x=0; x < (int) (image_info.image_width * v->zoom); x++)
+          {
+           int xoff = ((int) (x / v->zoom)) * image_info.colors;
+
+            row[3*x+0] = (unsigned char) (src_row16[xoff + 0] / 256);
+            row[3*x+1] = (unsigned char) (src_row16[xoff + 1] / 256);
+            row[3*x+2] = (unsigned char) (src_row16[xoff + 2] / 256);
+          }
+        }
+        else
+        {
+          for (x=0; x < (int) (image_info.image_width * v->zoom); x++)
+          {
+            row[x] = (unsigned char) (src_row16[(int) (x / v->zoom)] / 256);
+          }
+        }
+      }
+      else /* 16 bits/pixel with color management enabled, cms does 16->8 conversion */
+      {
+       guint16 *src_row16 = (guint16 *) src_row;
+       guint16 *dst_row16 = (guint16 *) row;
+
+        fseek(infile, pos0 + (((int) (y / v->zoom)) * image_info.image_width) * image_info.colors * 2, SEEK_SET);
+        nread = fread(src_row, 2 * image_info.colors, image_info.image_width, infile);
+
+        if (image_info.colors > 1)
+        {
+          for (x=0; x < (int) (image_info.image_width * v->zoom); x++)
+          {
+           int xoff = ((int) (x / v->zoom)) * image_info.colors;
+
+            dst_row16[3*x+0] = src_row16[xoff + 0];
+            dst_row16[3*x+1] = src_row16[xoff + 1];
+            dst_row16[3*x+2] = src_row16[xoff + 2];
+          }
+        }
+        else
+        {
+          for (x=0; x < (int) (image_info.image_width * v->zoom); x++)
+          {
+            dst_row16[x] = src_row16[(int) (x / v->zoom)];
+          }
+        }
+      }
+    }
+
+#ifdef HAVE_LIBLCMS
+    if ((v->enable_color_management) && (v->cms_enable))
+    {
+      cmsDoTransform(hTransform, row, cms_row, image_info.image_width * v->zoom);
+    }
+#endif
+    gtk_preview_draw_row(GTK_PREVIEW(v->window), cms_row, 0, y, image_info.image_width * v->zoom);
+  }
+
+  gtk_preview_put(GTK_PREVIEW(v->window), v->window->window, v->window->style->black_gc, 0, 0, 0, 0, 
+                  image_info.image_width * v->zoom, image_info.image_height * v->zoom);
+
+  size = (float) image_info.image_width * image_info.image_height * image_info.colors;
+  if (image_info.depth == 16)
+  {
+    size *= 2.0;
+  }
+
+  if (image_info.reduce_to_lineart)
+  {
+    size /= 8.0;
+  }
+
+  size_unit = "B";
+
+  if (size >= 1024 * 1024)
+  {
+    size /= (1024.0 * 1024.0);
+    size_unit = "MB";
+  }
+  else if (size >= 1024)
+  {
+    size /= 1024.0;
+    size_unit = "KB";
+  }
+
+  if (image_info.reduce_to_lineart)
+  {
+    snprintf(buf, sizeof(buf), TEXT_VIEWER_IMAGE_INFO, image_info.image_width, image_info.image_height, 1, image_info.colors, 
+             image_info.resolution_x, image_info.resolution_y, size, size_unit);
+  }
+  else
+  {
+    snprintf(buf, sizeof(buf), TEXT_VIEWER_IMAGE_INFO, image_info.image_width, image_info.image_height, image_info.depth, image_info.colors,
+             image_info.resolution_x, image_info.resolution_y, size, size_unit);
+  }
+  gtk_label_set(GTK_LABEL(v->image_info_label), buf);
+
+  width = image_info.image_width * v->zoom + 26;
+  height = image_info.image_height * v->zoom + 136;
+
+  if (width > gdk_screen_width())
+  {
+    width = gdk_screen_width();
+  }
+
+  if (height > gdk_screen_height())
+  {
+    height = gdk_screen_height();
+  }
+
+#ifdef HAVE_GTK2
+  if (GTK_WIDGET_REALIZED(v->top))
+  {
+    gtk_window_resize(GTK_WINDOW(v->top), width, height);
+  }
+  else
+#endif
+  {
+    gtk_window_set_default_size(GTK_WINDOW(v->top), width, height);
+  }
+
+  free(row);
+  free(src_row);
+  fclose(infile);
+
+#ifdef HAVE_LIBLCMS
+  if ((v->enable_color_management) && (v->cms_enable))
+  {
+    cmsDeleteTransform(hTransform);
+    cmsCloseProfile(hInProfile);
+    cmsCloseProfile(hOutProfile);
+    if (proof)
+    {
+      cmsCloseProfile(hProofProfile);
+    }
+  }
+#endif
+
+ return 0;
+}
+
+#if 0 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
 static int xsane_viewer_read_image(Viewer *v)
 {
  unsigned char *row, *src_row;
@@ -1834,8 +2749,8 @@ static int xsane_viewer_read_image(Viewer *v)
   }
   gtk_label_set(GTK_LABEL(v->image_info_label), buf);
 
-  width = image_info.image_width + 26;
-  height = image_info.image_height + 136;
+  width = image_info.image_width * v->zoom + 26;
+  height = image_info.image_height * v->zoom + 136;
 
   if (width > gdk_screen_width())
   {
@@ -1864,6 +2779,7 @@ static int xsane_viewer_read_image(Viewer *v)
 
  return 0;
 }
+#endif
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -1897,6 +2813,16 @@ Viewer *xsane_viewer_new(char *filename, char *selection_filetype, int allow_red
   v->keep_viewer_pnm_format = FALSE;
   v->allow_modification = allow_modification;
   v->next_viewer = xsane.viewer_list;
+#ifdef HAVE_LIBLCMS
+  v->enable_color_management = xsane.enable_color_management;
+  v->cms_enable = 1;
+  v->cms_intent = INTENT_PERCEPTUAL;
+  v->cms_proofing = 0; /* display */
+  v->cms_proofing_intent = INTENT_ABSOLUTE_COLORIMETRIC;
+  v->cms_gamut_check = 0;
+  v->cms_gamut_alarm_color = 3; /* red */
+  cmsSetAlarmCodes(255, 0, 0);
+#endif
   if (selection_filetype)
   {
     v->selection_filetype = strdup(selection_filetype);
@@ -1982,6 +2908,17 @@ Viewer *xsane_viewer_new(char *filename, char *selection_filetype, int allow_red
 /*  gtk_widget_add_accelerator(menubar_item, "select", xsane.accelerator_group, GDK_F, 0, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED); */
   gtk_widget_show(menubar_item); 
   v->geometry_menu = menubar_item;
+
+#ifdef HAVE_LIBLCMS
+  /* "Color management" submenu: */
+  menubar_item = gtk_menu_item_new_with_label(MENU_COLOR_MANAGEMENT);
+  gtk_container_add(GTK_CONTAINER(menubar), menubar_item);
+  gtk_menu_item_set_submenu(GTK_MENU_ITEM(menubar_item), xsane_viewer_color_management_build_menu(v));
+/*  gtk_widget_add_accelerator(menubar_item, "select", xsane.accelerator_group, GDK_F, 0, GTK_ACCEL_VISIBLE | DEF_GTK_ACCEL_LOCKED); */
+  gtk_widget_show(menubar_item); 
+  v->color_management_menu = menubar_item;
+  gtk_widget_set_sensitive(GTK_WIDGET(v->color_management_menu), v->enable_color_management);
+#endif
 
   gtk_widget_show(menubar);
 

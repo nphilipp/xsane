@@ -5,7 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.99\n"
-"POT-Creation-Date: 2006-01-07 00:26+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-01-15 20:42+0100\n"
 "PO-Revision-Date: 2000-01-21 15:51+01:00\n"
 "Last-Translator: Oliver Rauch <Oliver.Rauch@rauch-domain.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -32,6 +33,7 @@ msgid "About"
 msgstr "Über"
 
 #. WINDOW_ABOUT_TRANSLATION, MENU_ITEM_ABOUT_TRANSLATION
+#. MENU_ITEM_ABOUT_TRANSLATION
 msgid "About translation"
 msgstr "Über Übersetzung"
 
@@ -140,6 +142,7 @@ msgid "Preview"
 msgstr "Vorschau"
 
 #. WINDOW_VIEWER
+#. MENU_ITEM_VIEWER
 msgid "Viewer"
 msgstr "Betrachter"
 
@@ -172,14 +175,17 @@ msgid "select temporary directory"
 msgstr "temporäres Verzeichnis auswählen"
 
 #. WINDOW_SCALE
+#. DESC_VIEWER_SCALE
 msgid "Scale image"
 msgstr "Bild skalieren"
 
 #. WINDOW_DESPECKLE
+#. DESC_VIEWER_DESPECKLE
 msgid "Despeckle image"
 msgstr "Flecken entfernen"
 
 #. WINDOW_BLUR
+#. DESC_VIEWER_BLUR
 msgid "Blur image"
 msgstr "Bild weichzeichnen"
 
@@ -190,6 +196,26 @@ msgstr "Mediumdefinition speichern"
 #. WINDOW_NO_DEVICES
 msgid "No devices available"
 msgstr "Keine Geräte erreichbar"
+
+#. WINDOW_SCANNER_REFL_ICM_PROFILE
+msgid "select scanner reflective ICM-profile"
+msgstr "reflektives ICM-Profil für Scanner auswählen"
+
+#. WINDOW_SCANNER_TRAN_ICM_PROFILE
+msgid "select scanner transmissive ICM-profile"
+msgstr "Durchsicht-ICM-Profil für Scanner auswählen"
+
+#. WINDOW_DISPLAY_ICM_PROFILE
+msgid "select display ICM-profile"
+msgstr "ICM-Profil für Bildschirm auswählen"
+
+#. WINDOW_CUSTOM_PROOFING_ICM_PROFILE
+msgid "select custom proofing ICM-profile"
+msgstr "Benutzerdefiniertes Proofing ICM Profil auswählen"
+
+#. WINDOW_PRINTER_ICM_PROFILE
+msgid "select printer ICM-profile"
+msgstr "ICM Profil für Drucker auswählen"
 
 #. MENU_FILE
 msgid "File"
@@ -208,6 +234,7 @@ msgid "Window"
 msgstr "Fenster"
 
 #. MENU_HELP
+#. BUTTON_HELP
 msgid "Help"
 msgstr "Hilfe"
 
@@ -223,6 +250,11 @@ msgstr "Filter"
 msgid "Geometry"
 msgstr "Geometrie"
 
+#. MENU_COLOR_MANAGEMENT
+#. NOTEBOOK_COLOR_MANAGEMENT_OPTIONS
+msgid "Color management"
+msgstr "Farbmanagement"
+
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
 msgstr "Über XSane"
@@ -236,6 +268,7 @@ msgid "Quit"
 msgstr "Beenden"
 
 #. MENU_ITEM_SAVE_IMAGE
+#. DESC_VIEWER_SAVE
 msgid "Save image"
 msgstr "Bild speichern"
 
@@ -252,6 +285,7 @@ msgid "Scale"
 msgstr "Skalieren"
 
 #. MENU_ITEM_CLOSE
+#. BUTTON_CLOSE
 msgid "Close"
 msgstr "Schließen"
 
@@ -487,6 +521,10 @@ msgstr "Automatische Farbkorrektur"
 msgid "Use GUI progress pipe"
 msgstr "Benutze GUI Fortschritts Pipe"
 
+#. RADIO_BUTTON_EMBED_ICM_PROFILE
+msgid "Embed scanner/source ICM profile into image file"
+msgstr "Scanner/Quell-ICM-Profil in Bilddatei einbinden"
+
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
 msgstr "Suche nach Geräten"
@@ -622,6 +660,10 @@ msgstr "Version:"
 #. TEXT_PACKAGE
 msgid "package"
 msgstr "Paket"
+
+#. TEXT_WITH_CMS_FUNCTION
+msgid "with color management function"
+msgstr "mit Farbmanagement-Funktion"
 
 #. TEXT_WITH_GIMP_SUPPORT
 msgid "with GIMP support"
@@ -812,6 +854,7 @@ msgid "Name:"
 msgstr "Name:"
 
 #. TEXT_SETUP_PRINTER_CMD, TEXT_SETUP_FAX_CMD
+#. TEXT_SETUP_FAX_COMMAND
 msgid "Command:"
 msgstr "Befehl:"
 
@@ -832,18 +875,22 @@ msgid "Color resolution (dpi):"
 msgstr "Farb-Auflösung (dpi):"
 
 #. TEXT_SETUP_PRINTER_WIDTH
+#. TEXT_SETUP_FAX_WIDTH
 msgid "Width"
 msgstr "Breite"
 
 #. TEXT_SETUP_PRINTER_HEIGHT
+#. TEXT_SETUP_FAX_HEIGHT
 msgid "Height"
 msgstr "Höhe"
 
 #. TEXT_SETUP_PRINTER_LEFT
+#. TEXT_SETUP_FAX_LEFT
 msgid "Left offset"
 msgstr "Linker Rand"
 
 #. TEXT_SETUP_PRINTER_BOTTOM
+#. TEXT_SETUP_FAX_BOTTOM
 msgid "Bottom offset"
 msgstr "Unterer Rand"
 
@@ -1063,10 +1110,35 @@ msgstr "Gruppe"
 msgid "all"
 msgstr "Alle"
 
+#. TEXT_SETUP_SCANNER_REFL_ICM_PROFILE
+msgid "Scanner reflective ICM-profile"
+msgstr "Scanner reflektives ICM-Profil"
+
+#. TEXT_SETUP_SCANNER_TRAN_ICM_PROFILE
+#. DESC_SCANNER_TRAN_ICM_PROFILE
+msgid "Scanner transmissive ICM-profile"
+msgstr "Scanner Durchsicht ICM-Profil"
+
+#. TEXT_SETUP_DISPLAY_ICM_PROFILE
+#. DESC_DISPLAY_ICM_PROFILE
+msgid "Display ICM-profile"
+msgstr "Bildschirm ICM-Profil"
+
+#. TEXT_SETUP_CUSTOM_PROOFING_ICM_PROFILE
+#. DESC_CUSTOM_PROOFING_ICM_PROFILE
+msgid "Custom proofing ICM-profile"
+msgstr "Benutzerdefiniertes Proofing ICM-Profil"
+
+#. TEXT_SETUP_PRINTER_ICM_PROFILE
+#. DESC_PRINTER_ICM_PROFILE
+msgid "Printer ICM-profile"
+msgstr "Drucker ICM-Profil"
+
 msgid "new media"
 msgstr "neues Medium"
 
 #. NOTEBOOK_SAVING_OPTIONS
+#. MENU_ITEM_SAVE
 msgid "Save"
 msgstr "Speichern"
 
@@ -1075,14 +1147,17 @@ msgid "Filetype"
 msgstr "Dateityp"
 
 #. NOTEBOOK_COPY_OPTIONS
+#. MENU_ITEM_COPY
 msgid "Copy"
 msgstr "Fotokopie"
 
 #. NOTEBOOK_FAX_OPTIONS
+#. MENU_ITEM_FAX
 msgid "Fax"
 msgstr "Fax"
 
 #. NOTEBOOK_EMAIL_OPTIONS
+#. MENU_ITEM_EMAIL
 msgid "E-mail"
 msgstr "E-Mail"
 
@@ -1174,6 +1249,11 @@ msgstr "Zeige Auflösungsliste"
 msgid "Rotate postscript"
 msgstr "Drehe Postscript"
 
+#. MENU_ITEM_ENABLE_COLOR_MANAGEMENT
+#. MENU_ITEM_CMS_ENABLE_COLOR_MANAGEMENT
+msgid "Enable color management"
+msgstr "aktiviere Farbmanagement"
+
 #. MENU_ITEM_EDIT_MEDIUM_DEF
 msgid "Edit medium definition"
 msgstr "Mediumdefinition ändern"
@@ -1217,6 +1297,83 @@ msgstr "Scantipps"
 #. MENU_ITEM_PROBLEMS
 msgid "Problems?"
 msgstr "Probleme?"
+
+#. MENU_ITEM_CMS_BLACK_POINT_COMPENSATION
+msgid "Black point compensation"
+msgstr "Schwarzpunkt kompensieren"
+
+#. MENU_ITEM_CMS_PROOFING
+msgid "Proofing"
+msgstr "Proofing"
+
+#. SUBMENU_ITEM_CMS_PROOF_OFF
+msgid "no proofing (Display)"
+msgstr "keine Nachbildung (Bildschirm)"
+
+#. SUBMENU_ITEM_CMS_PROOF_PRINTER
+msgid "Proof printer"
+msgstr "Nachbildung Drucker"
+
+#. SUBMENU_ITEM_CMS_PROOF_CUSTOM
+#, fuzzy
+msgid "Proof custom device"
+msgstr "Nachbildung Benutzerdefinierte Ausgabe"
+
+#. MENU_ITEM_CMS_RENDERING_INTENT
+msgid "Rendering intent"
+msgstr ""
+
+#. MENU_ITEM_CMS_PROOFING_INTENT
+msgid "Proofing rendering intent"
+msgstr ""
+
+#. SUBMENU_ITEM_CMS_INTENT_PERCEPTUAL
+msgid "Perceptual"
+msgstr "Wahrnehmungsorientiert"
+
+#. SUBMENU_ITEM_CMS_INTENT_RELATIVE_COLORIMETRIC
+msgid "Relative colorimetric"
+msgstr "Relativ farbmetrisch"
+
+#. SUBMENU_ITEM_CMS_INTENT_ABSOLUTE_COLORIMETRIC
+msgid "Absolute colorimentric"
+msgstr "Absolut farbmetrisch"
+
+#. SUBMENU_ITEM_CMS_INTENT_SATURATION
+msgid "Saturation"
+msgstr "Sättigung"
+
+#. MENU_ITEM_CMS_GAMUT_CHECK
+msgid "Gamut check"
+msgstr "Gamut prüfen"
+
+#. MENU_ITEM_CMS_GAMUT_ALARM_COLOR
+msgid "Gamut alarm color"
+msgstr "Gamut Alarmfarbe"
+
+#. SUBMENU_ITEM_CMS_COLOR_BLACK
+msgid "Black"
+msgstr "Schwarz"
+
+#. SUBMENU_ITEM_CMS_COLOR_GRAY
+msgid "Gray"
+msgstr "Grau"
+
+#. SUBMENU_ITEM_CMS_COLOR_WHITE
+msgid "White"
+msgstr "Weiss"
+
+#. SUBMENU_ITEM_CMS_COLOR_RED
+msgid "Red"
+msgstr "Rot"
+
+#. SUBMENU_ITEM_CMS_COLOR_GREEN
+msgid "Green"
+msgstr "Grün"
+
+#. SUBMENU_ITEM_CMS_COLOR_BLUE
+msgid "Blue"
+msgstr "Blau"
 
 #. MENU_ITEM_COUNTER_LEN_INACTIVE
 msgid "inactive"
@@ -1608,8 +1765,8 @@ msgstr ""
 "Kontrast = 0"
 
 #. DESC_ENH_AUTO
-msgid "Autoadjust gamma, brightness and contrast <Ctrl-e>"
-msgstr "Automatische Einstellung von Gamma, Helligkeit und Kontrast <Ctrl-e>"
+msgid "Autoadjust gamma, brightness and contrast <Ctrl-a>"
+msgstr "Automatische Einstellung von Gamma, Helligkeit und Kontrast <Ctrl-a>"
 
 #. DESC_ENH_DEFAULT
 msgid ""
@@ -1693,18 +1850,22 @@ msgstr ""
 "werden"
 
 #. DESC_PRINTER_WIDTH
+#. DESC_FAX_WIDTH
 msgid "Width of printable area"
 msgstr "Breite des druckbaren Bereichs"
 
 #. DESC_PRINTER_HEIGHT
+#. DESC_FAX_HEIGHT
 msgid "Height of printable area"
 msgstr "Höhe des druckbaren Bereichs"
 
 #. DESC_PRINTER_LEFTOFFSET
+#. DESC_FAX_LEFTOFFSET
 msgid "Left offset from the edge of the paper to the printable area"
 msgstr "Abstand vom linken Papierrand zum Beginn des druckbaren Bereichs"
 
 #. DESC_PRINTER_BOTTOMOFFSET
+#. DESC_FAX_BOTTOMOFFSET
 msgid "Bottom offset from the edge of the paper to the printable area"
 msgstr "Abstand vom unteren Papierrand zum Beginn des druckbaren Bereichs"
 
@@ -1949,6 +2110,12 @@ msgstr "Scanbereich nach Vorschauscan automatisch auswählen"
 msgid "Do color correction after preview scan has finished"
 msgstr "Farbkorrektur nach Vorschauscan ausführen"
 
+#. DESC_EMBED_ICM_PROFILE
+msgid ""
+"Embed scanner/source ICM profile into image file - when fileformat supports "
+"it"
+msgstr ""
+
 #. DESC_FAX_COMMAND
 msgid "Enter command to be executed in fax mode"
 msgstr "Befehl, der zum Senden eines Faxprojekts ausgeführt werden soll"
@@ -2062,9 +2229,9 @@ msgstr "lesen"
 msgid "write"
 msgstr "schreiben"
 
-#. DESC_PERMISSION_EXECUTE
-msgid "execute"
-msgstr "ausführen"
+#. DESC_PERMISSION_SEARCH
+msgid "search"
+msgstr "durchsuchen"
 
 #. DESC_ADD_BATCH
 msgid "Add selection for batch scan"
@@ -2232,6 +2399,30 @@ msgstr "Ausgewählten Bereich aus Stapelliste löschen"
 #. DESC_AUTOMATIC
 msgid "Turns on automatic mode"
 msgstr "Schaltet automatische Einstellung ein"
+
+#. DESC_SCANNER_REFL_ICM_PROFILE
+msgid "Scanner reflektive ICM-profile"
+msgstr "Scanner reflektives ICM-Profil"
+
+#. DESC_BUTTON_SCANNER_REFL_ICM_PROFILE_BROWSE
+msgid "Browse for scanner reflektive ICM-profile"
+msgstr "Suche nach Scanner reflektivem ICM-Profil"
+
+#. DESC_BUTTON_SCANNER_TRAN_ICM_PROFILE_BROWSE
+msgid "Browse for scanner transmissive ICM-profile"
+msgstr "Suche nach Scanner Durchsicht-ICM-Profil"
+
+#. DESC_BUTTON_DISPLAY_ICM_PROFILE_BROWSE
+msgid "Browse for display ICM-profile"
+msgstr "Suche nach Bildschirm ICM-Profil"
+
+#. DESC_BUTTON_PRINTER_ICM_PROFILE_BROWSE
+msgid "Browse for printer ICM-profile"
+msgstr "Suche nach Durcker ICM-Profil"
+
+#. DESC_BUTTON_CUSTOM_PROOFING_ICM_PROFILE_BROWSE
+msgid "Browse for custom proofing ICM-profile"
+msgstr "Suche nach Benutzerdefiniertem Proofing ICM-Profil"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2528,6 +2719,34 @@ msgstr "Datei %s is keine Postscript-Datei"
 #, c-format
 msgid "Unsupported %d-bit output format: %s"
 msgstr "Nicht unterstütztes %d-bit Ausgabeformat: %s"
+
+#. ERR_CMS_CONVERSION
+msgid "Error during CMS conversion:"
+msgstr "Fehler bei Farbkonvertierung:"
+
+#. ERR_CMS_OPEN_ICM_FILE
+msgid "Could not open"
+msgstr "Fehler beim Öffnen von"
+
+#. CMS_SCANNER_TRAN_ICM
+msgid "scanner transmissive ICM profile"
+msgstr "Scanner Durchsicht-ICM-Profil"
+
+#. CMS_SCANNER_REFL_ICM
+msgid "scanner reflective ICM profile"
+msgstr "Scanner reflektives ICM-Profil"
+
+#. CMS_DISPLAY_ICM
+msgid "display ICM profile"
+msgstr "Bildschirm ICM-Profil"
+
+#. CMS_PROOF_ICM
+msgid "proofing ICM profile"
+msgstr "Proofing ICM-Profil"
+
+#. ERR_CMS_CREATE_TRANSFORM
+msgid "Could not create transform"
+msgstr "Konnte Transformation nicht erstellen"
 
 #. WARN_VIEWER_IMAGE_NOT_SAVED
 msgid "viewer image is not saved"
@@ -2900,3 +3119,6 @@ msgstr "Kein Speicher"
 
 msgid "Access to resource has been denied"
 msgstr "Zugang zum Gerät wurde verweigert"
+
+#~ msgid "Custom output ICM-profile"
+#~ msgstr "Benutzerdefinierte Ausgabe ICM-Profil"

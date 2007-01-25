@@ -3,7 +3,7 @@
    xsane-preview.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2005 Oliver Rauch
+   Copyright (C) 1998-2007 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -196,7 +196,9 @@ static void preview_establish_ratio(Preview *p);
 static void preview_ratio_callback(GtkWidget *widget, gpointer data);
 static void preview_autoselect_scanarea_callback(GtkWidget *window, gpointer data);
 
+void preview_display_with_correction(Preview *p);
 void preview_do_gamma_correction(Preview *p);
+int preview_do_color_correction(Preview *p);
 void preview_calculate_raw_histogram(Preview *p, SANE_Int *count_raw, SANE_Int *count_raw_red, SANE_Int *count_raw_green, SANE_Int *count_raw_blue);
 void preview_calculate_enh_histogram(Preview *p, SANE_Int *count, SANE_Int *count_red, SANE_Int *count_green, SANE_Int *count_blue);
 void preview_gamma_correction(Preview *p, int gamma_input_bits,
@@ -1276,7 +1278,7 @@ static void preview_display_image(Preview *p)
     assert(p->image_data_enh);
   }
 
-  preview_do_gamma_correction(p);
+  preview_display_with_correction(p);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1452,8 +1454,9 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
 {
  SANE_Status status;
  Preview *p = data;
- u_char buf[8192];
- guint16 *buf16 = (guint16 *) buf;
+ char buf[TEXTBUFSIZE];
+ u_char imagebuf8[8192];
+ guint16 *imagebuf16 = (guint16 *) imagebuf8;
  SANE_Handle dev;
  SANE_Int len;
  int i, j;
@@ -1465,26 +1468,26 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
   {
     if ((p->params.depth == 1) || (p->params.depth == 8))
     {
-      status = sane_read(dev, buf, sizeof(buf), &len);
+      status = sane_read(dev, imagebuf8, sizeof(imagebuf8), &len);
     }
     else if (p->params.depth == 16)
     {
       if (p->read_offset_16)
       {
-        buf[0] = p->last_offset_16_byte; 
-        /* use buf and sizeof(buf) here because sizeof(buf16) returns the size of a pointer */
-        status = sane_read(dev, buf+1, sizeof(buf) - 1, &len);
+        imagebuf8[0] = p->last_offset_16_byte; 
+        /* use imagebuf8 and sizeof(imagebuf8) here because sizeof(imagebuf16) returns the size of a pointer */
+        status = sane_read(dev, imagebuf8+1, sizeof(imagebuf8) - 1, &len);
         len++;
       }
       else
       {
-        status = sane_read(dev, (SANE_Byte *) buf16, sizeof(buf), &len);
+        status = sane_read(dev, (SANE_Byte *) imagebuf16, sizeof(imagebuf8), &len);
       }
 
       if (len % 2) /* odd number of bytes */
       {
         len--;
-        p->last_offset_16_byte = buf16[len];
+        p->last_offset_16_byte = imagebuf16[len];
         p->read_offset_16 = 1;
       }
       else /* even number of bytes */
@@ -1576,8 +1579,8 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
                   return; /* backend sends too much image data */
                 }
 
-                p->image_data_raw[p->image_offset]   = buf[i] * 256;
-                p->image_data_enh[p->image_offset++] = buf[i];
+                p->image_data_raw[p->image_offset]   = imagebuf8[i] * 256;
+                p->image_data_enh[p->image_offset++] = imagebuf8[i];
 
                 if (p->image_offset%3 == 0)
                 {
@@ -1599,8 +1602,8 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
                   return; /* backend sends too much image data */
                 }
   
-                p->image_data_raw[p->image_offset]   = buf16[i];
-                p->image_data_enh[p->image_offset++] = (u_char) (buf16[i]/256);
+                p->image_data_raw[p->image_offset]   = imagebuf16[i];
+                p->image_data_enh[p->image_offset++] = (u_char) (imagebuf16[i]/256);
   
                 if (p->image_offset%3 == 0)
                 {
@@ -1627,7 +1630,7 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
           case 1:
             for (i = 0; i < len; ++i)
             {
-              u_char mask = buf[i];
+              u_char mask = imagebuf8[i];
 
               if (preview_test_image_y(p))
               {
@@ -1662,7 +1665,7 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
           case 8:
             for (i = 0; i < len; ++i)
             {
-             u_char gray = buf[i];
+             u_char gray = imagebuf8[i];
 
               if (preview_test_image_y(p))
               {
@@ -1687,20 +1690,20 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
           case 16:
             for (i = 0; i < len/2; ++i)
             {
-             u_char gray = buf16[i]/256;
+             u_char gray = imagebuf16[i]/256;
 
               if (preview_test_image_y(p))
               {
                 return; /* backend sends too much image data */
               }
 
-              p->image_data_raw[p->image_offset]   = buf16[i];
+              p->image_data_raw[p->image_offset]   = imagebuf16[i];
               p->image_data_enh[p->image_offset++] = gray;
 
-              p->image_data_raw[p->image_offset]   = buf16[i];
+              p->image_data_raw[p->image_offset]   = imagebuf16[i];
               p->image_data_enh[p->image_offset++] = gray;
 
-              p->image_data_raw[p->image_offset]   = buf16[i];
+              p->image_data_raw[p->image_offset]   = imagebuf16[i];
               p->image_data_enh[p->image_offset++] = gray;
 
               if (++p->image_x >= p->image_width && preview_increment_image_y(p) < 0)
@@ -1726,7 +1729,7 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
               case 1:
                 for (i = 0; i < len; ++i)
                 {
-                 u_char mask = buf[i];
+                 u_char mask = imagebuf8[i];
 
                   if (preview_test_image_y(p))
                   {
@@ -1758,8 +1761,8 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
                     return; /* backend sends too much image data */
                   }
 
-                  p->image_data_raw[p->image_offset] = buf[i] * 256;
-                  p->image_data_enh[p->image_offset] = buf[i];
+                  p->image_data_raw[p->image_offset] = imagebuf8[i] * 256;
+                  p->image_data_enh[p->image_offset] = imagebuf8[i];
 
                   p->image_offset += 3;
                   if (++p->image_x >= p->image_width && preview_increment_image_y(p) < 0)
@@ -1777,8 +1780,8 @@ static void preview_read_image_data(gpointer data, gint source, GdkInputConditio
                     return; /* backend sends too much image data */
                   }
 
-                  p->image_data_raw[p->image_offset] = buf16[i];
-                  p->image_data_enh[p->image_offset] = (u_char) (buf16[i]/256);
+                  p->image_data_raw[p->image_offset] = imagebuf16[i];
+                  p->image_data_enh[p->image_offset] = (u_char) (imagebuf16[i]/256);
 
                   p->image_offset += 3;
                   if (++p->image_x >= p->image_width && preview_increment_image_y(p) < 0)
@@ -1880,7 +1883,7 @@ static void preview_scan_done(Preview *p, int save_image)
     xsane_update_histogram(TRUE /* update_raw */); /* update histogram (necessary because overwritten by preview_update_surface) */
   }
 
-  if ((preferences.auto_correct_colors) && (!xsane.medium_calibration))
+  if ((preferences.auto_correct_colors) && (!xsane.medium_calibration) && (!xsane.enable_color_management))
   {
     xsane_calculate_raw_histogram();
     xsane_set_auto_enhancement();
@@ -2418,6 +2421,7 @@ void preview_create_batch_icon(Preview *p, Batch_Scan_Parameters *parameters)
       if (in)
       {
         quality = preview_create_batch_icon_from_file(xsane.preview, in, parameters, quality, &time);
+        fclose(in);
       }
     }
   }
@@ -2426,19 +2430,14 @@ void preview_create_batch_icon(Preview *p, Batch_Scan_Parameters *parameters)
   {
    char filename[PATH_MAX];
 
-    if (in)
-    {
-      fclose(in);
-    }
-
     xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", 0, "xsane-startimage", 0, ".pnm", XSANE_PATH_SYSTEM);
     in = fopen(filename, "rb"); /* read binary (b for win32) */
     if (in)
     {
       preview_create_batch_icon_from_file(xsane.preview, in, parameters, -1, &time);
+      fclose(in);
     }
   }
-  fclose(in);
 }
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -2767,7 +2766,7 @@ static void preview_display_zoom(Preview *p, int x, int y, int zoom)
  int r, g, b;
  int px, py;
  int i;
- char *row;
+ u_char *row;
 
   DBG(DBG_proc, "preview_display_zoom");
 
@@ -4853,7 +4852,7 @@ void preview_update_surface(Preview *p, int surface_changed)
     DBG(DBG_info, "preview_update_surface: establish new surface\n");
     preview_area_correct(p); /* calculate preview_width and height */
     preview_area_resize(p);   /* correct rulers */
-    preview_do_gamma_correction(p); /* draw preview */
+    preview_display_with_correction(p); /* draw preview */
     xsane_update_histogram(TRUE /* update raw */);
 
     p->previous_selection.active = FALSE;
@@ -6204,6 +6203,29 @@ static void preview_autoselect_scanarea_callback(GtkWidget *window, gpointer dat
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+void preview_display_with_correction(Preview *p)
+{
+#ifdef HAVE_LIBLCMS
+  if (xsane.enable_color_management)
+  {
+    preview_do_color_correction(p);
+    gtk_widget_set_sensitive(p->pipette_white, FALSE); /* disable pipette buttons */
+    gtk_widget_set_sensitive(p->pipette_gray,  FALSE); /* disable pipette buttons */
+    gtk_widget_set_sensitive(p->pipette_black, FALSE); /* disable pipette buttons */
+
+  }
+  else
+#endif
+  {
+    preview_do_gamma_correction(p);
+    gtk_widget_set_sensitive(p->pipette_white, TRUE); /* enable pipette buttons */
+    gtk_widget_set_sensitive(p->pipette_gray,  TRUE); /* enable pipette buttons */
+    gtk_widget_set_sensitive(p->pipette_black, TRUE); /* enable pipette buttons */
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 void preview_do_gamma_correction(Preview *p)
 {
  int x,y;
@@ -6212,7 +6234,7 @@ void preview_do_gamma_correction(Preview *p)
  guint16 *image_data_rawp = NULL;
  int rotate = 16 - preview_gamma_input_bits;
 
-  DBG(DBG_proc, "preview_do_gamma_correction\n");
+  DBG(DBG_proc, "preview_display_with_correction\n");
 
   if ((p->image_data_raw) && (p->params.depth > 1) && (preview_gamma_data_red))
   {
@@ -6239,7 +6261,7 @@ void preview_do_gamma_correction(Preview *p)
         {
           while (gtk_events_pending())
           {
-            DBG(DBG_info, "preview_do_gamma_correction: calling gtk_main_iteration\n");
+            DBG(DBG_info, "preview_display_with_correction: calling gtk_main_iteration\n");
             gtk_main_iteration();
           }
         }
@@ -6285,6 +6307,184 @@ void preview_do_gamma_correction(Preview *p)
     preview_display_partial_image(p);
   }
 }
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+#ifdef HAVE_LIBLCMS
+int preview_do_color_correction(Preview *p)
+{
+ int y;
+ u_char *image_data_enhp = NULL;
+ guint16 *image_data_rawp = NULL;
+ cmsHPROFILE hInProfile = NULL;
+ cmsHPROFILE hOutProfile = NULL;
+ cmsHPROFILE hProofProfile = NULL;
+ cmsHTRANSFORM hTransform = NULL;
+ DWORD input_format, output_format;
+ DWORD cms_flags = 0;
+ int proof = 0;
+ char *cms_proof_icm_profile = NULL;
+ int linesize = 0;
+
+
+  DBG(DBG_proc, "preview_do_color_correction\n");
+
+  cmsErrorAction(LCMS_ERROR_SHOW);
+
+  if (p->cms_black_point_compensation)
+  {
+    cms_flags |= cmsFLAGS_BLACKPOINTCOMPENSATION;
+  }
+
+  switch (p->cms_proofing)
+  {
+    default:
+    case 0: /* display */
+      proof = 0;
+     break;
+
+    case 1: /* proof printer */
+      cms_proof_icm_profile  = preferences.printer[preferences.printernr]->icm_profile;
+      proof = 1;
+     break;
+
+    case 2: /* proof custom proofing */
+      cms_proof_icm_profile  = preferences.custom_proofing_icm_profile;
+      proof = 1;
+     break;
+  }
+
+  if ( (xsane.param.format == SANE_FRAME_RGB) || /* color preview */
+       (xsane.param.format == SANE_FRAME_RED) ||
+       (xsane.param.format == SANE_FRAME_GREEN) ||
+       (xsane.param.format == SANE_FRAME_BLUE) )
+  {
+    input_format = TYPE_RGB_16;
+    output_format = TYPE_RGB_8;
+    linesize = p->image_width * 3;
+  }
+  else
+  {
+    input_format = TYPE_GRAY_16;
+    output_format = TYPE_GRAY_8;
+    linesize = p->image_width;
+  }
+
+  if (1) /* reflective */
+  {
+    hInProfile  = cmsOpenProfileFromFile(xsane.scanner_refl_icm_profile, "r");
+    if (!hInProfile)
+    {
+     char buf[TEXTBUFSIZE];
+
+      snprintf(buf, sizeof(buf), "%s\n%s %s: %s\n", ERR_CMS_CONVERSION, ERR_CMS_OPEN_ICM_FILE, CMS_SCANNER_TRAN_ICM, xsane.scanner_refl_icm_profile);
+      xsane_back_gtk_error(buf, TRUE);
+     return -1;
+    }
+  }
+  else
+  {
+    hInProfile  = cmsOpenProfileFromFile(xsane.scanner_tran_icm_profile, "r");
+    if (!hInProfile)
+    {
+     char buf[TEXTBUFSIZE];
+
+      cmsCloseProfile(hInProfile);
+
+      snprintf(buf, sizeof(buf), "%s\n%s %s: %s\n", ERR_CMS_CONVERSION, ERR_CMS_OPEN_ICM_FILE, CMS_SCANNER_REFL_ICM, xsane.scanner_tran_icm_profile);
+      xsane_back_gtk_error(buf, TRUE);
+     return -1;
+    }
+  }
+
+  hOutProfile = cmsOpenProfileFromFile(preferences.display_icm_profile, "r");
+  if (!hOutProfile)
+  {
+   char buf[TEXTBUFSIZE];
+
+    cmsCloseProfile(hInProfile);
+
+    snprintf(buf, sizeof(buf), "%s\n%s %s: %s\n", ERR_CMS_CONVERSION, ERR_CMS_OPEN_ICM_FILE, CMS_DISPLAY_ICM, preferences.display_icm_profile);
+    xsane_back_gtk_error(buf, TRUE);
+   return -1;
+  }
+
+  if (proof == 0)
+  {
+    hTransform = cmsCreateTransform(hInProfile, input_format,
+                                    hOutProfile, output_format,
+                                    p->cms_intent, cms_flags);
+  }
+  else /* proof */
+  {
+    cms_flags |= cmsFLAGS_SOFTPROOFING;
+
+    if (p->cms_gamut_check)
+    {
+      cms_flags |= cmsFLAGS_GAMUTCHECK;
+    }
+
+    hProofProfile = cmsOpenProfileFromFile(cms_proof_icm_profile, "r");
+    if (!hProofProfile)
+    {
+     char buf[TEXTBUFSIZE];
+
+      cmsCloseProfile(hInProfile);
+      cmsCloseProfile(hOutProfile);
+
+      snprintf(buf, sizeof(buf), "%s\n%s %s: %s\n", ERR_CMS_CONVERSION, ERR_CMS_OPEN_ICM_FILE, CMS_PROOF_ICM, cms_proof_icm_profile);
+      xsane_back_gtk_error(buf, TRUE);
+     return -1;
+    }
+
+    hTransform = cmsCreateProofingTransform(hInProfile, input_format,
+                                              hOutProfile, output_format,
+                                              hProofProfile,
+                                              p->cms_intent, p->cms_proofing_intent, cms_flags);
+  }
+
+  if (!hTransform)
+  {
+   char buf[TEXTBUFSIZE];
+
+    cmsCloseProfile(hInProfile);
+    cmsCloseProfile(hOutProfile);
+    if (proof)
+    {
+      cmsCloseProfile(hProofProfile);
+    }
+
+    snprintf(buf, sizeof(buf), "%s\n%s\n", ERR_CMS_CONVERSION, ERR_CMS_CREATE_TRANSFORM);
+    xsane_back_gtk_error(buf, TRUE);
+   return -1;
+  }
+
+
+  for (y=0; y < p->image_height; y++)
+  {
+    image_data_rawp = p->image_data_raw + linesize * y;
+    image_data_enhp = p->image_data_enh + linesize * y;
+
+    cmsDoTransform(hTransform, image_data_rawp, image_data_enhp, p->image_width);
+
+    if (p->gamma_functions_interruptable)
+    {
+      while (gtk_events_pending())
+      {
+        DBG(DBG_info, "preview_do_color_correction: calling gtk_main_iteration\n");
+        gtk_main_iteration();
+      }
+    }
+  }
+
+  if (p->image_data_enh)
+  {
+    preview_display_partial_image(p);
+  }
+
+ return 0;
+}
+#endif
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -6625,7 +6825,7 @@ void preview_gamma_correction(Preview *p, int gamma_input_bits,
 
   preview_gamma_input_bits   = gamma_input_bits;
 
-  preview_do_gamma_correction(p);
+  preview_display_with_correction(p);
   preview_draw_selection(p);
 }
 

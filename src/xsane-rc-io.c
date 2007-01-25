@@ -3,7 +3,7 @@
    xsane-rc-io.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2005 Oliver Rauch
+   Copyright (C) 1998-2007 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -119,7 +119,7 @@ void xsane_rc_io_w_void(Wire *w)
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 
-void xsane_rc_io_w_array(Wire *w, SANE_Word *len_ptr, void **v, WireCodecFunc w_element, size_t element_size)
+void xsane_rc_io_w_array(Wire *w, SANE_Word *len_ptr, char **v, WireCodecFunc w_element, size_t element_size)
 {
  SANE_Word len;
  char *val;
@@ -180,7 +180,7 @@ void xsane_rc_io_w_array(Wire *w, SANE_Word *len_ptr, void **v, WireCodecFunc w_
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 
-void xsane_rc_io_w_ptr(Wire *w, void **v, WireCodecFunc w_value, size_t value_size)
+void xsane_rc_io_w_ptr(Wire *w, char **v, WireCodecFunc w_value, size_t value_size)
 {
  SANE_Word is_null;
 
@@ -352,7 +352,7 @@ void xsane_rc_io_w_device_ptr(Wire *w, SANE_Device **v)
 {
   DBG(DBG_wire, "xsane_rc_io_w_device_ptr\n");
 
-  xsane_rc_io_w_ptr(w, (void **) v, (WireCodecFunc) xsane_rc_io_w_device, sizeof (**v));
+  xsane_rc_io_w_ptr(w, (char **) v, (WireCodecFunc) xsane_rc_io_w_device, sizeof (**v));
 }
 
 /* ---------------------------------------------------------------------------------------------------------------- */
@@ -360,6 +360,7 @@ void xsane_rc_io_w_device_ptr(Wire *w, SANE_Device **v)
 void xsane_rc_io_w_option_descriptor(Wire *w, SANE_Option_Descriptor *v)
 {
  SANE_Word len;
+ char *data_ptr = NULL;
 
   DBG(DBG_wire, "xsane_rc_io_w_option_descriptor\n");
 
@@ -378,7 +379,8 @@ void xsane_rc_io_w_option_descriptor(Wire *w, SANE_Option_Descriptor *v)
       break;
 
     case SANE_CONSTRAINT_RANGE:
-      xsane_rc_io_w_ptr(w, (void **) &v->constraint.range, (WireCodecFunc) xsane_rc_io_w_range, sizeof (SANE_Range));
+      data_ptr = (char *) v->constraint.range;
+      xsane_rc_io_w_ptr(w, &data_ptr, (WireCodecFunc) xsane_rc_io_w_range, sizeof (SANE_Range));
       break;
 
     case SANE_CONSTRAINT_WORD_LIST:
@@ -386,16 +388,18 @@ void xsane_rc_io_w_option_descriptor(Wire *w, SANE_Option_Descriptor *v)
       {
 	len = v->constraint.word_list[0] + 1;
       }
-      xsane_rc_io_w_array(w, &len, (void **) &v->constraint.word_list, w->codec.w_word, sizeof(SANE_Word));
+      data_ptr = (char *) v->constraint.word_list;
+      xsane_rc_io_w_array(w, &len, &data_ptr, w->codec.w_word, sizeof(SANE_Word));
       break;
 
     case SANE_CONSTRAINT_STRING_LIST:
       if (w->direction != WIRE_DECODE)
-	{
-	  for (len = 0; v->constraint.string_list[len]; ++len);
-	  ++len;	/* send NULL string, too */
-	}
-      xsane_rc_io_w_array(w, &len, (void **) &v->constraint.string_list, w->codec.w_string, sizeof(SANE_String));
+      {
+        for (len = 0; v->constraint.string_list[len]; ++len);
+        ++len;	/* send NULL string, too */
+      }
+      data_ptr = (char *) v->constraint.string_list;
+      xsane_rc_io_w_array(w, &len, &data_ptr, w->codec.w_string, sizeof(SANE_String));
       break;
   }
 }
@@ -406,7 +410,7 @@ void xsane_rc_io_w_option_descriptor_ptr(Wire *w, SANE_Option_Descriptor **v)
 {
   DBG(DBG_wire, "xsane_rc_io_w_option_descriptor_ptr\n");
 
-  xsane_rc_io_w_ptr(w, (void **) v, (WireCodecFunc) xsane_rc_io_w_option_descriptor, sizeof (**v));
+  xsane_rc_io_w_ptr(w, (char **) v, (WireCodecFunc) xsane_rc_io_w_option_descriptor, sizeof (**v));
 }
 
 /* ---------------------------------------------------------------------------------------------------------------- */

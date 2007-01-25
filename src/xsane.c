@@ -3,7 +3,7 @@
    xsane.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2005 Oliver Rauch
+   Copyright (C) 1998-2007 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -56,6 +56,7 @@ struct option long_options[] =
   {"version", no_argument, 0, 'v'},
   {"license", no_argument, 0, 'l'},
   {"device-settings", required_argument, 0, 'd'},
+  {"xsane-rc", required_argument, 0, 'r'},
   {"save", no_argument, 0, 's'},
   {"viewer", no_argument, 0, 'V'},
   {"copy", no_argument, 0, 'c'},
@@ -752,7 +753,7 @@ static void xsane_resolution_list_callback(GtkWidget *widget, gpointer data)
 static int xsane_resolution_widget_new(GtkWidget *parent, int well_known_option, double *resolution, const char *image_xpm[],
                                        const gchar *desc, const gchar *widget_name)
 {
- GtkObject *resolution_widget;
+ GtkWidget *resolution_widget;
  const SANE_Option_Descriptor *opt;
 
   DBG(DBG_proc, "xsane_resolution_widget_new\n");
@@ -1526,7 +1527,8 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
   }
 
 
-  if (xsane.param.depth != 1) /* show medium selection of not lineart mode */
+  /* show medium selection when not lineart mode and no color management */
+  if ((xsane.param.depth != 1) && (!xsane.enable_color_management))
   {
     /* medium selection */
     hbox = gtk_hbox_new(FALSE, 2);
@@ -1658,33 +1660,31 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
   }
 #endif
 
-   /* test if scanner gamma table is selected */
+  /* test if scanner gamma table is selected */
 
-   xsane.scanner_gamma_gray  = FALSE;
-   if (xsane.well_known.gamma_vector >0)
-   {
-    const SANE_Option_Descriptor *opt;
+  xsane.scanner_gamma_gray  = FALSE;
+  if (xsane.well_known.gamma_vector >0)
+  {
+   const SANE_Option_Descriptor *opt;
 
-     opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector);
-     if (SANE_OPTION_IS_ACTIVE(opt->cap))
-     {
-       xsane.scanner_gamma_gray  = TRUE;
-     }
-   }
+    opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector);
+    if (SANE_OPTION_IS_ACTIVE(opt->cap))
+    {
+      xsane.scanner_gamma_gray  = TRUE;
+    }
+  }
 
-   xsane.scanner_gamma_color  = FALSE;
-   if (xsane.well_known.gamma_vector_r >0)
-   {
-    const SANE_Option_Descriptor *opt;
+  xsane.scanner_gamma_color  = FALSE;
+  if (xsane.well_known.gamma_vector_r >0)
+  {
+   const SANE_Option_Descriptor *opt;
 
-     opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector_r);
-     if (SANE_OPTION_IS_ACTIVE(opt->cap))
-     {
-       xsane.scanner_gamma_color  = TRUE;
-     }
-   }
-
-
+    opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.gamma_vector_r);
+    if (SANE_OPTION_IS_ACTIVE(opt->cap))
+    {
+      xsane.scanner_gamma_color  = TRUE;
+    }
+  }
 
   /* XSane Frame Enhancement */
 
@@ -1716,6 +1716,40 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
   }
 
   xsane.slider_gray.active   = XSANE_SLIDER_ACTIVE; /* mark slider active */
+
+
+  if (xsane.enable_color_management) /* do not show gamma widgets when color management is active */
+  {
+    xsane.gamma            = 1.0;
+    xsane.gamma_red        = 1.0;
+    xsane.gamma_green      = 1.0;
+    xsane.gamma_blue       = 1.0;
+    xsane.brightness       = 0.0;
+    xsane.brightness_red   = 0.0;
+    xsane.brightness_green = 0.0;
+    xsane.brightness_blue  = 0.0;
+    xsane.contrast         = 0.0;
+    xsane.contrast_red     = 0.0;
+    xsane.contrast_green   = 0.0;
+    xsane.contrast_blue    = 0.0;
+    xsane.threshold        = 50.0;
+
+    xsane.slider_gray.value[2]  = 100.0;
+    xsane.slider_gray.value[1]  = 50.0;
+    xsane.slider_gray.value[0]  = 0.0;
+    xsane.slider_red.value[2]   = 100.0;
+    xsane.slider_red.value[1]   = 50.0;
+    xsane.slider_red.value[0]   = 0.0;
+    xsane.slider_green.value[2] = 100.0;
+    xsane.slider_green.value[1] = 50.0;
+    xsane.slider_green.value[0] = 0.0;
+    xsane.slider_blue.value[2]  = 100.0;
+    xsane.slider_blue.value[1]  = 50.0;
+    xsane.slider_blue.value[0]  = 0.0;
+
+    return(xsane_hbox);
+  }
+
 
   if ( (xsane.xsane_colors > 1) && (!xsane.enhancement_rgb_default) )
   {
@@ -1795,7 +1829,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
 
   button = xsane_button_new_with_pixmap(xsane.xsane_window->window, xsane_hbox_xsane_enhancement, enhance_xpm, DESC_ENH_AUTO,
                                         xsane_auto_enhancement_callback, NULL);
-  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_E, GDK_CONTROL_MASK, DEF_GTK_ACCEL_LOCKED);
+  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_A, GDK_CONTROL_MASK, DEF_GTK_ACCEL_LOCKED);
 
   button = xsane_button_new_with_pixmap(xsane.xsane_window->window, xsane_hbox_xsane_enhancement, default_enhancement_xpm, DESC_ENH_DEFAULT,
                                         xsane_enhancement_restore_default, NULL);
@@ -1831,7 +1865,8 @@ void xsane_pref_save(void)
   DBG(DBG_proc, "xsane_pref_save\n");
 
   /* first save xsane-specific preferences: */
-  xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", NULL, "xsane", NULL, ".rc", XSANE_PATH_LOCAL_SANE);
+  xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", NULL, NULL, xsane.xsane_rc_set_filename, ".rc", XSANE_PATH_LOCAL_SANE);
+//  xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", NULL, "xsane", NULL, ".rc", XSANE_PATH_LOCAL_SANE);
 
   DBG(DBG_info2, "saving preferences to \"%s\"\n", filename);
 
@@ -1862,7 +1897,8 @@ static int xsane_pref_restore(void)
 
   DBG(DBG_proc, "xsane_pref_restore\n");
 
-  xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", NULL, "xsane", NULL, ".rc", XSANE_PATH_LOCAL_SANE);
+  xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", NULL, NULL, xsane.xsane_rc_set_filename, ".rc", XSANE_PATH_LOCAL_SANE);
+//  xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", NULL, "xsane", NULL, ".rc", XSANE_PATH_LOCAL_SANE);
   fd = open(filename, O_RDONLY);
 
   if (fd >= 0)
@@ -2076,7 +2112,7 @@ static int xsane_pref_restore(void)
   {
     if (getenv(STRINGIFY(ENVIRONMENT_BROWSER_NAME)))
     {
-      preferences.browser = getenv(STRINGIFY(ENVIRONMENT_BROWSER_NAME));
+      preferences.browser = strdup(getenv(STRINGIFY(ENVIRONMENT_BROWSER_NAME)));
     }
     else
     {
@@ -2870,6 +2906,55 @@ static void xsane_set_pref_unit_callback(GtkWidget *widget, gpointer data)
   xsane_pref_save();
 }
 
+/* ---------------------------------------------------------------------------------------------------------------------- */
+#ifdef HAVE_LIBLCMS
+static void xsane_enable_color_management_callback(GtkWidget *widget, gpointer data)
+{
+  DBG(DBG_proc, "xsane_enable_color_management_callback\n");
+
+  xsane.enable_color_management = (GTK_CHECK_MENU_ITEM(widget)->active);
+
+  gtk_widget_set_sensitive(xsane.edit_medium_definition_widget, (xsane.enable_color_management) == 0);
+
+  if (xsane.enable_color_management)
+  {
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.edit_medium_definition_widget), FALSE);
+    xsane.medium_calibration = FALSE;
+  }
+
+  xsane.gamma            = 1.0;
+  xsane.gamma_red        = 1.0;
+  xsane.gamma_green      = 1.0;
+  xsane.gamma_blue       = 1.0;
+  xsane.brightness       = 0.0;
+  xsane.brightness_red   = 0.0;
+  xsane.brightness_green = 0.0;
+  xsane.brightness_blue  = 0.0;
+  xsane.contrast         = 0.0;
+  xsane.contrast_red     = 0.0;
+  xsane.contrast_green   = 0.0;
+  xsane.contrast_blue    = 0.0;
+  xsane.threshold        = 50.0;
+
+  xsane.slider_gray.value[2]  = 100.0;
+  xsane.slider_gray.value[1]  = 50.0;
+  xsane.slider_gray.value[0]  = 0.0;
+  xsane.slider_red.value[2]   = 100.0;
+  xsane.slider_red.value[1]   = 50.0;
+  xsane.slider_red.value[0]   = 0.0;
+  xsane.slider_green.value[2] = 100.0;
+  xsane.slider_green.value[1] = 50.0;
+  xsane.slider_green.value[0] = 0.0;
+  xsane.slider_blue.value[2]  = 100.0;
+  xsane.slider_blue.value[1]  = 50.0;
+  xsane.slider_blue.value[0]  = 0.0;
+
+  xsane_update_sliders();
+  xsane_update_gamma_curve(FALSE);
+  xsane_batch_scan_update_icon_list();
+  xsane_refresh_dialog();
+}
+#endif
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 static void xsane_edit_medium_definition_callback(GtkWidget *widget, gpointer data)
@@ -4011,12 +4096,24 @@ static GtkWidget *xsane_preferences_build_menu(void)
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_widget_show(item);
 
+#ifdef HAVE_LIBLCMS
+  /* enable color management */
+
+  item = gtk_check_menu_item_new_with_label(MENU_ITEM_ENABLE_COLOR_MANAGEMENT);
+  g_signal_connect(GTK_OBJECT(item), "toggled", (GtkSignalFunc) xsane_enable_color_management_callback, NULL);
+  gtk_menu_append(GTK_MENU(menu), item);
+  gtk_widget_show(item);
+  xsane.enable_color_management_widget = item;
+#endif
+
+
   /* edit medium definitions */
 
   item = gtk_check_menu_item_new_with_label(MENU_ITEM_EDIT_MEDIUM_DEF);
   g_signal_connect(GTK_OBJECT(item), "toggled", (GtkSignalFunc) xsane_edit_medium_definition_callback, NULL);
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_widget_show(item);
+  xsane.edit_medium_definition_widget = item;
 
   /* insert separator: */
 
@@ -4705,12 +4802,16 @@ static void xsane_device_dialog(void)
  GtkWidget *xsane_vbox_advanced;
  GdkColormap *colormap;
  SANE_Status status;
+ SANE_Handle sane_handle;
 
   DBG(DBG_proc, "xsane_device_dialog\n");
 
   devname = xsane.devlist[xsane.selected_dev]->name;
 
-  status = sane_open(devname, (SANE_Handle *) &xsane.dev);
+/*  status = sane_open(devname, (SANE_Handle *) &xsane.dev); // old version */
+  status = sane_open(devname, &sane_handle);
+  xsane.dev = sane_handle;
+
   if (status != SANE_STATUS_GOOD)
   {
     snprintf(buf, sizeof(buf), "%s `%s':\n %s.", ERR_DEVICE_OPEN_FAILED, devname, XSANE_STRSTATUS(status));
@@ -4801,7 +4902,6 @@ static void xsane_device_dialog(void)
   sprintf(textptr, (strrchr(buf, '/')+1));
 
   xsane.device_text = strdup(devicetext);
-
 
   /* if no preferences filename is given on commandline create one from devicenaname */
  
@@ -5478,7 +5578,7 @@ static int xsane_init(int argc, char **argv)
   {
     int ch;
 
-    while((ch = getopt_long(argc, argv, "cd:efghlmnpsvFN:RV", long_options, 0)) != EOF)
+    while((ch = getopt_long(argc, argv, "cd:efghlmnpr:svFN:RV", long_options, 0)) != EOF)
     {
       switch(ch)
       {
@@ -5497,7 +5597,9 @@ static int xsane_init(int argc, char **argv)
           g_print("  %s %s\n", TEXT_EMAIL_ADR, XSANE_EMAIL_ADR);
           g_print("  %s %s\n", TEXT_PACKAGE, XSANE_PACKAGE_VERSION);
           g_print("  %s%d.%d.%d\n", TEXT_GTK_VERSION, GTK_MAJOR_VERSION, GTK_MINOR_VERSION, GTK_MICRO_VERSION);
-
+#ifdef HAVE_LIBLCMS
+          g_print("  %s\n", TEXT_WITH_CMS_FUNCTION);
+#endif
 #ifdef HAVE_ANY_GIMP
           g_print("  %s, %s%s\n", TEXT_WITH_GIMP_SUPPORT, TEXT_GIMP_VERSION, GIMP_VERSION);
 #else
@@ -5553,6 +5655,10 @@ static int xsane_init(int argc, char **argv)
           xsane.device_set_filename = strdup(optarg);
          break;
 
+        case 'r': /* --xsane-rc */
+          xsane.xsane_rc_set_filename = strdup(optarg);
+         break;
+
         case 'V': /* --viewer, default */
           xsane.xsane_mode = XSANE_VIEWER;
          break;
@@ -5606,6 +5712,14 @@ static int xsane_init(int argc, char **argv)
     }
   }
 
+  /* if no xsane_rc filename is given on commandline then use "xsane.rc" */
+ 
+  if (!xsane.xsane_rc_set_filename)
+  {
+    xsane.xsane_rc_set_filename = strdup("xsane"); /* ".rc" is appended later */
+  }
+
+
   if (xsane_pref_restore()) /* restore preferences, returns TRUE if license is not accpted yet */
   {
     if (xsane_display_eula(1)) /* show license and ask for accept/not accept */
@@ -5649,6 +5763,9 @@ static int xsane_init(int argc, char **argv)
   device_scanning_dialog = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   gtk_window_set_position(GTK_WINDOW(device_scanning_dialog), GTK_WIN_POS_CENTER);
   gtk_window_set_resizable(GTK_WINDOW(device_scanning_dialog), FALSE);
+/*
+  gtk_window_set_deletable(GTK_WINDOW(device_scanning_dialog), FALSE);
+*/
   snprintf(buf, sizeof(buf), "%s %s", xsane.prog_name, XSANE_VERSION);
   gtk_window_set_title(GTK_WINDOW(device_scanning_dialog), buf);
   g_signal_connect(GTK_OBJECT(device_scanning_dialog), "delete_event", GTK_SIGNAL_FUNC(xsane_quit), NULL);
@@ -5918,6 +6035,8 @@ int main(int argc, char **argv)
   xsane.scanner_gamma_color     = FALSE;
   xsane.scanner_gamma_gray      = FALSE;
   xsane.enhancement_rgb_default = TRUE;
+
+  xsane.enable_color_management    = FALSE;
 
   xsane.adf_page_counter = 0;
   xsane.print_filenames  = FALSE;

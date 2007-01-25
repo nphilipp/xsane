@@ -3,7 +3,7 @@
    xsane-device-preferences.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2005 Oliver Rauch
+   Copyright (C) 1998-2007 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -102,6 +102,11 @@ desc_xsane_device[] =
     {"xsane-enhancement-rgb-default", xsane_rc_pref_int,          DPOFFSET(enhancement_rgb_default)},
     {"xsane-negative",                xsane_rc_pref_int,          DPOFFSET(negative)},
     {"xsane-show-preview",            xsane_rc_pref_int,          DPOFFSET(show_preview)},
+
+    {"xsane-enable-color-management", xsane_rc_pref_int,          DPOFFSET(enable_color_management)},
+    {"xsane-embed-icm-profile",       xsane_rc_pref_int,          DPOFFSET(embed_icm_profile)},
+    {"xsane-scanner-refl-icm-profile", xsane_rc_pref_string,      DPOFFSET(scanner_refl_icm_profile)},
+    {"xsane-scanner-tran-icm-profile", xsane_rc_pref_string,      DPOFFSET(scanner_tran_icm_profile)},
 };
 
 /* ---------------------------------------------------------------------------------------------------------------- */
@@ -109,7 +114,7 @@ desc_xsane_device[] =
 static int xsane_device_preferences_load_values(Wire *w, SANE_Handle device)
 {
  const SANE_Option_Descriptor *opt;
- SANE_Word *word_array;
+ char *word_array;
  SANE_String name, str;
  u_long *caused_reload;
  SANE_Int num_options;
@@ -193,12 +198,12 @@ static int xsane_device_preferences_load_values(Wire *w, SANE_Handle device)
           }
           else /* array */
           {
-            SANE_Int len;
+           SANE_Int len;
 
-            xsane_rc_io_w_array(w, &len, (void **) &word_array, (WireCodecFunc) xsane_rc_io_w_word, sizeof(SANE_Word));
+            xsane_rc_io_w_array(w, &len, &word_array, (WireCodecFunc) xsane_rc_io_w_word, sizeof(SANE_Word));
             status = xsane_control_option(device, i, SANE_ACTION_SET_VALUE, word_array, &info);
             w->direction = WIRE_FREE;
-            xsane_rc_io_w_array(w, &len, (void **) &word_array, (WireCodecFunc) xsane_rc_io_w_word, sizeof(SANE_Word));
+            xsane_rc_io_w_array(w, &len, &word_array, (WireCodecFunc) xsane_rc_io_w_word, sizeof(SANE_Word));
             w->direction = WIRE_DECODE;
           }
 	  break;
@@ -239,7 +244,7 @@ static int xsane_device_preferences_save_values(Wire *w, SANE_Handle device)
 {
  const SANE_Option_Descriptor *opt;
  size_t word_array_size = 0;
- SANE_Word *word_array = 0;
+ char *word_array = 0;
  size_t str_size = 0;
  SANE_String str = 0;
  SANE_Word word;
@@ -308,7 +313,7 @@ static int xsane_device_preferences_save_values(Wire *w, SANE_Handle device)
           }
 
           xsane_rc_io_w_string(w, (SANE_String *) &opt->name);
-          xsane_rc_io_w_array(w, &len, (void **) &word_array, (WireCodecFunc) xsane_rc_io_w_word, sizeof(SANE_Word));
+          xsane_rc_io_w_array(w, &len, &word_array, (WireCodecFunc) xsane_rc_io_w_word, sizeof(SANE_Word));
         }
         break;
 
@@ -435,6 +440,8 @@ void xsane_device_preferences_load_file(char *filename)
   xsane.enhancement_rgb_default     = 1;
   xsane.negative                    = 0;
   xsane.show_preview                = 1;
+
+  xsane.embed_icm_profile           = 0;
 
   fd = open(filename, O_RDONLY); 
   if (fd >= 0)
@@ -578,6 +585,10 @@ void xsane_device_preferences_load_file(char *filename)
   gtk_window_resize(GTK_WINDOW(xsane.preview->top), xsane.preview_dialog_width, xsane.preview_dialog_height);
 #else
   gtk_window_set_default_size(GTK_WINDOW(xsane.preview->top), xsane.preview_dialog_width, xsane.preview_dialog_height);
+#endif
+
+#ifdef HAVE_LIBLCMS
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(xsane.enable_color_management_widget), xsane.enable_color_management);
 #endif
 
   xsane_update_param(0);

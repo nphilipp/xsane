@@ -3,7 +3,7 @@
    xsane-rc-io.h
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2005 Oliver Rauch
+   Copyright (C) 1998-2007 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -108,7 +108,7 @@ extern void xsane_rc_io_w_device_ptr(Wire *w, SANE_Device **v);
 extern void xsane_rc_io_w_option_descriptor(Wire *w, SANE_Option_Descriptor *v);
 extern void xsane_rc_io_w_option_descriptor_ptr(Wire *w, SANE_Option_Descriptor **v);
 extern void xsane_rc_io_w_parameters(Wire *w, SANE_Parameters *v);
-extern void xsane_rc_io_w_array(Wire *w, SANE_Word *len, void **v, WireCodecFunc w_element, size_t element_size);
+extern void xsane_rc_io_w_array(Wire *w, SANE_Word *len, char **v, WireCodecFunc w_element, size_t element_size);
 extern void xsane_rc_io_w_flush(Wire *w);
 extern void xsane_rc_io_w_set_dir(Wire *w, WireDirection dir);
 extern void xsane_rc_io_w_call(Wire *w, SANE_Word proc_num, WireCodecFunc w_arg, void *arg, WireCodecFunc w_reply, void *reply);

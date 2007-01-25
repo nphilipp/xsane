@@ -3,7 +3,7 @@
    xsane-gamma.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2005 Oliver Rauch
+   Copyright (C) 1998-2007 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -518,7 +518,7 @@ void xsane_update_sliders()
 
   xsane_update_slider(&xsane.slider_gray);
 
-  if ( (xsane.xsane_colors > 1) && (!xsane.enhancement_rgb_default) )
+  if ( (xsane.xsane_colors > 1) && (!xsane.enhancement_rgb_default) && (!xsane.enable_color_management))
   {
     xsane_update_slider(&xsane.slider_red);
     xsane_update_slider(&xsane.slider_green);
@@ -539,7 +539,7 @@ void xsane_update_sliders()
     xsane.slider_green.active = XSANE_SLIDER_INACTIVE; /* mark slider inactive */
     xsane.slider_blue.active  = XSANE_SLIDER_INACTIVE; /* mark slider inactive */
 
-    if (xsane.param.depth == 1)
+    if ((xsane.param.depth == 1) || (xsane.enable_color_management))
     {
       xsane_draw_slider_level(&xsane.slider_gray); /* remove slider */
       xsane.slider_gray.active = XSANE_SLIDER_INACTIVE; /* mark slider inactive */
@@ -1822,6 +1822,11 @@ static void xsane_enhancement_update(void)
   DBG(DBG_proc, "xsane_enhancement_update\n");
 
   if (xsane.param.depth == 1) /* lineart? no gamma */
+  {
+    return;
+  } 
+
+  if (xsane.enable_color_management) /* color management? no gamma */
   {
     return;
   } 
