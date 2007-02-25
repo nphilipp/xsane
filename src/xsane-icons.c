@@ -2910,6 +2910,42 @@ const char *resolution_y_xpm[] =
 
 /* --------------------------------------------------- */
 
+const char *cms_xpm[] =
+{
+/* width height num_colors chars_per_pixel */
+"    20    20        6            1",
+/* colors */
+". c #000000",
+"  none",
+"w c #ffffff",
+"r c #ff0000",
+"g c #00ff00",
+"b c #0000ff",
+/* pixels */
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+" rrrr  g    g  bbbb ",
+"rrrrrr gg  gg bbbbbb",
+"rr   r gggggg bb   b",
+"rr     gggggg bb    ",
+"rr     gg  gg bbbbb ",
+"rr     gg  gg  bbbb ",
+"rr     gg  gg     bb",
+"rr   r gg  gg b   bb",
+"rrrrrr gg  gg bbbbbb",
+" rrrr  gg  gg  bbbb ",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+};
+
+/* --------------------------------------------------- */
+
 const char *scanner_xpm[] =
 {
 /* width height num_colors chars_per_pixel */

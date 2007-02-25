@@ -55,6 +55,9 @@ Preferences preferences =
        0,		/* default working_directory */
        0,		/* no default filename */
        0,		/* no default filetype */
+       0,		/* default cms_function: embed scanner profile  */
+       0,		/* default cms_intent: perceptual  */
+       0,		/* default cms_bpc (black point compensation) off  */
        0137,		/* image umask (permission mask for -rw-r------) */
        0027,		/* directory umask (permission mask for -rwxr-x----) */
        0,		/* no fax project */
@@ -69,7 +72,7 @@ Preferences preferences =
        0.0,             /* fax_leftoffset */
        0.0,             /* fax_bottomoffset */
        1,               /* fax_fine_mode */
-       1,               /* fax_ps_flatdecoded */
+       1,               /* fax_ps_flatedecoded */
 #ifdef XSANE_ACTIVATE_EMAIL
        0,               /* no default from email address */
        0,               /* no default reply to email address */
@@ -101,8 +104,8 @@ Preferences preferences =
        1,		/* save_devprefs_at_exit */
        1,		/* overwrite_warning */
        1,		/* skip_existing_numbers */
-       1,               /* save_ps_flatdecoded */
-       1,               /* save_pdf_flatdecoded */
+       1,               /* save_ps_flatedecoded */
+       1,               /* save_pdf_flatedecoded */
        0,		/* save_pnm16_as_ascii */
        0,		/* reduce_16bit_to_8bit */
        1,		/* filename_counter_step */
@@ -168,6 +171,9 @@ desc[] =
     {"working-directory",		xsane_rc_pref_string,	POFFSET(working_directory)},
     {"filename",			xsane_rc_pref_string,	POFFSET(filename)},
     {"filetype",			xsane_rc_pref_string,	POFFSET(filetype)},
+    {"cms-function",			xsane_rc_pref_int,	POFFSET(cms_function)},
+    {"cms-intent",			xsane_rc_pref_int,	POFFSET(cms_intent)},
+    {"cms-bpc",				xsane_rc_pref_int,	POFFSET(cms_bpc)},
     {"image-umask",			xsane_rc_pref_int,	POFFSET(image_umask)},
     {"directory-umask",			xsane_rc_pref_int,	POFFSET(directory_umask)},
     {"fax-project",			xsane_rc_pref_string,	POFFSET(fax_project)},
@@ -182,7 +188,7 @@ desc[] =
     {"fax-left-offset",			xsane_rc_pref_double,	POFFSET(fax_leftoffset)},
     {"fax-bottom-offset",		xsane_rc_pref_double,	POFFSET(fax_bottomoffset)},
     {"fax-fine-mode",			xsane_rc_pref_int,	POFFSET(fax_fine_mode)},
-    {"fax-ps-flatdecoded",		xsane_rc_pref_int,	POFFSET(fax_ps_flatdecoded)},
+    {"fax-ps-flatedecoded",		xsane_rc_pref_int,	POFFSET(fax_ps_flatedecoded)},
 #ifdef XSANE_ACTIVATE_EMAIL
     {"e-mail-from",			xsane_rc_pref_string,	POFFSET(email_from)},
     {"e-mail-reply-to",			xsane_rc_pref_string,	POFFSET(email_reply_to)},
@@ -214,8 +220,8 @@ desc[] =
     {"save-devprefs-at-exit",		xsane_rc_pref_int,	POFFSET(save_devprefs_at_exit)},
     {"overwrite-warning",		xsane_rc_pref_int,	POFFSET(overwrite_warning)},
     {"skip-existing-numbers",		xsane_rc_pref_int,	POFFSET(skip_existing_numbers)},
-    {"save-ps-flatdecoded",		xsane_rc_pref_int,	POFFSET(save_ps_flatdecoded)},
-    {"save-pdf-flatdecoded",		xsane_rc_pref_int,	POFFSET(save_pdf_flatdecoded)},
+    {"save-ps-flatedecoded",		xsane_rc_pref_int,	POFFSET(save_ps_flatedecoded)},
+    {"save-pdf-flatedecoded",		xsane_rc_pref_int,	POFFSET(save_pdf_flatedecoded)},
     {"save-pnm16-as-ascii",		xsane_rc_pref_int,	POFFSET( save_pnm16_as_ascii)},
     {"reduce-16bit-to8bit",		xsane_rc_pref_int,	POFFSET(reduce_16bit_to_8bit)},
     {"filename-counter-step",		xsane_rc_pref_int,	POFFSET(filename_counter_step)},
@@ -233,6 +239,7 @@ desc[] =
     {"main-window-fixed",		xsane_rc_pref_int,	POFFSET(main_window_fixed)},
     {"display-icm-profile",		xsane_rc_pref_string,	POFFSET(display_icm_profile)},
     {"custom-proofing-icm-profile",	xsane_rc_pref_string,	POFFSET(custom_proofing_icm_profile)},
+    {"working-color-space-icm-profile",	xsane_rc_pref_string,	POFFSET(working_color_space_icm_profile)},
     {"preview-own-cmap",		xsane_rc_pref_int,	POFFSET(preview_own_cmap)},
     {"preview-oversampling",		xsane_rc_pref_double,	POFFSET(preview_oversampling)},
     {"preview-gamma",			xsane_rc_pref_double,	POFFSET(preview_gamma)},
@@ -292,7 +299,10 @@ desc_printer[] =
     {"printer-gamma-green",		xsane_rc_pref_double,	PRTOFFSET(gamma_green)},
     {"printer-gamma-blue",		xsane_rc_pref_double,	PRTOFFSET(gamma_blue)},
     {"printer-icm-profile",		xsane_rc_pref_string,	PRTOFFSET(icm_profile)},
-    {"printer-ps-flatdecoded",		xsane_rc_pref_int,	PRTOFFSET(ps_flatdecoded)}
+    {"printer-ps-flatedecoded",		xsane_rc_pref_int,	PRTOFFSET(ps_flatedecoded)},
+    {"printer-embed-csa",		xsane_rc_pref_int,	PRTOFFSET(embed_csa)},
+    {"printer-embed-crd",		xsane_rc_pref_int,	PRTOFFSET(embed_crd)},
+    {"printer-bpc",			xsane_rc_pref_int,	PRTOFFSET(blackpointcompensation)}
   };
 
 /* --------------------------------------------------------------------- */

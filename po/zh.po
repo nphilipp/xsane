@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.96\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-15 20:42+0100\n"
+"POT-Creation-Date: 2007-02-25 23:44+0100\n"
 "PO-Revision-Date: 2003-03-27 12:00+0100\n"
 "Last-Translator: Wang leolarrel <leolarrel@yahoo.com.tw>\n"
 "Language-Team: zh_TW<zh_TW@li.org>\n"
@@ -73,6 +73,11 @@ msgstr "更名批次區"
 msgid "fax project"
 msgstr "傳真專案"
 
+#. WINDOW_FAX_PROJECT_BROWSE
+#, fuzzy
+msgid "browse for fax project"
+msgstr "輸入傳真專案的名稱"
+
 #. WINDOW_FAX_RENAME
 msgid "rename fax page"
 msgstr "更名傳真專案"
@@ -85,6 +90,11 @@ msgstr "插入ps檔案到傳真"
 #, fuzzy
 msgid "E-mail project"
 msgstr "電子郵件專案"
+
+#. WINDOW_EMAIL_PROJECT_BROWSE
+#, fuzzy
+msgid "browse for email project"
+msgstr "輸入郵件專案的名稱"
 
 #. WINDOW_EMAIL_RENAME
 #, fuzzy
@@ -99,6 +109,11 @@ msgstr "插入檔案到電子郵件"
 #. WINDOW_MULTIPAGE_PROJECT
 #, fuzzy
 msgid "multipage project"
+msgstr "刪除專案"
+
+#. WINDOW_MULTIPAGE_PROJECT_BROWSE
+#, fuzzy
+msgid "browse for multipage project"
 msgstr "刪除專案"
 
 #. WINDOW_PRESET_AREA_RENAME
@@ -203,14 +218,14 @@ msgstr "儲存環境設定"
 msgid "No devices available"
 msgstr "沒有裝置可以使用"
 
-#. WINDOW_SCANNER_REFL_ICM_PROFILE
+#. WINDOW_SCANNER_DEFAULT_COLOR_ICM_PROFILE
 #, fuzzy
-msgid "select scanner reflective ICM-profile"
+msgid "select scanner default color ICM-profile"
 msgstr "刪除列表機"
 
-#. WINDOW_SCANNER_TRAN_ICM_PROFILE
+#. WINDOW_SCANNER_DEFAULT_GRAY_ICM_PROFILE
 #, fuzzy
-msgid "select scanner transmissive ICM-profile"
+msgid "select scanner default gray ICM-profile"
 msgstr "刪除列表機"
 
 #. WINDOW_DISPLAY_ICM_PROFILE
@@ -221,6 +236,11 @@ msgstr ""
 #, fuzzy
 msgid "select custom proofing ICM-profile"
 msgstr "選擇輸出檔名"
+
+#. WINDOW_WORKING_COLOR_SPACE_ICM_PROFILE
+#, fuzzy
+msgid "select working color space ICM-profile"
+msgstr "刪除列表機"
 
 #. WINDOW_PRINTER_ICM_PROFILE
 #, fuzzy
@@ -494,11 +514,11 @@ msgstr "覆寫警告"
 msgid "Skip existing filenames"
 msgstr "省略已存在的檔案"
 
-#. RADIO_BUTTON_SAVE_PS_FLATDECODED
+#. RADIO_BUTTON_SAVE_PS_FLATEDECODED
 msgid "Save postscript zlib compressed (ps level 3)"
 msgstr ""
 
-#. RADIO_BUTTON_SAVE_PDF_FLATDECODED
+#. RADIO_BUTTON_SAVE_PDF_FLATEDECODED
 msgid "Save PDF zlib compressed"
 msgstr ""
 
@@ -515,7 +535,8 @@ msgid "Main window size fixed"
 msgstr "主視窗大小固定"
 
 #. RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA
-msgid "Disable gimp preview gamma"
+#, fuzzy
+msgid "Disable GIMP preview gamma"
 msgstr "取消gimp預覽gamma"
 
 #. RADIO_BUTTON_PRIVATE_COLORMAP
@@ -538,8 +559,9 @@ msgstr "自動修正顏色"
 msgid "Use GUI progress pipe"
 msgstr ""
 
-#. RADIO_BUTTON_EMBED_ICM_PROFILE
-msgid "Embed scanner/source ICM profile into image file"
+#. RADIO_BUTTON_CMS_BPC
+#. MENU_ITEM_CMS_BLACK_POINT_COMPENSATION
+msgid "Black point compensation"
 msgstr ""
 
 #. TEXT_SCANNING_DEVICES
@@ -557,6 +579,12 @@ msgstr "XSane 選項"
 #. TEXT_FILETYPE
 msgid "Type"
 msgstr "型態"
+
+#. TEXT_CMS_FUNCTION
+#. DESC_CMS_FUNCTION
+#, fuzzy
+msgid "Color management function"
+msgstr "全色範圍"
 
 #. TEXT_SCANNER_BACKEND
 msgid "Scanner and backend:"
@@ -630,18 +658,11 @@ msgstr "8位元輸出格式"
 msgid "16 bit output formats:"
 msgstr "16位元輸出格式"
 
-#. TEXT_GIMP_REDUCE_16BIT_TO_8BIT
-msgid ""
-"Gimp does not support depth 16 bits/color.\n"
-"Do you want to reduce the depth to 8 bits/color?"
-msgstr ""
-"Gimp 不支援 16位元/色彩 深度\n"
-"你想要簡化成8 位元/色彩 深度嗎?"
-
 #. TEXT_REDUCE_16BIT_TO_8BIT
+#, fuzzy
 msgid ""
-"Bit depth 16 bits/color is not supported for this output format.\n"
-"Do you want to reduce the depth to 8 bits/color?"
+"Bit depth 16 bits/channel is not supported for this output format.\n"
+"Do you want to reduce the depth to 8 bits/channel?"
 msgstr ""
 "輸出格式不支援16位元/色彩 深度\n"
 "你想要簡化成8 位元/色彩 深度嗎?"
@@ -802,9 +823,10 @@ msgid "Medium Name:"
 msgstr "環境名稱"
 
 #. TEXT_VIEWER_IMAGE_INFO
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
+"Size %d x %d pixel, %d bits/channel, %d channels, %1.0f dpi x %1.0f dpi, %"
+"1.1f %s"
 msgstr ""
 "大小 %d x %d 像素, %d bit/color, %d 色, %1.0f dpi x %1.0f dpi, %1.1f %s"
 
@@ -913,7 +935,17 @@ msgstr "列表機 綠色gamma"
 msgid "Printer gamma blue:"
 msgstr "列表機 藍色gamma"
 
-#. TEXT_SETUP_PRINTER_PS_FLATDECODED
+#. TEXT_SETUP_PRINTER_EMBED_CSA
+#, fuzzy
+msgid "Embed scanner ICM profile as CSA"
+msgstr "刪除列表機"
+
+#. TEXT_SETUP_PRINTER_EMBED_CRD
+#, fuzzy
+msgid "Embed printer ICM profile as CRD"
+msgstr "刪除列表機"
+
+#. TEXT_SETUP_PRINTER_PS_FLATEDECODED
 msgid "Create zlib compressed postscript image (ps level 3) for printing"
 msgstr ""
 
@@ -1038,7 +1070,7 @@ msgstr ""
 msgid "Viewer (Postscript):"
 msgstr "檢視器(Postscript)"
 
-#. TEXT_SETUP_FAX_PS_FLATDECODED
+#. TEXT_SETUP_FAX_PS_FLATEDECODED
 msgid "Create zlib compressed postscript image (ps level 3) for fax"
 msgstr ""
 
@@ -1117,15 +1149,17 @@ msgstr "群組"
 msgid "all"
 msgstr "所有"
 
-#. TEXT_SETUP_SCANNER_REFL_ICM_PROFILE
+#. TEXT_SETUP_SCANNER_DEFAULT_COLOR_ICM_PROFILE
+#. DESC_SCANNER_DEFAULT_COLOR_ICM_PROFILE
 #, fuzzy
-msgid "Scanner reflective ICM-profile"
+msgid "Scanner default color ICM-profile"
 msgstr "刪除列表機"
 
-#. TEXT_SETUP_SCANNER_TRAN_ICM_PROFILE
-#. DESC_SCANNER_TRAN_ICM_PROFILE
-msgid "Scanner transmissive ICM-profile"
-msgstr ""
+#. TEXT_SETUP_SCANNER_DEFAULT_GRAY_ICM_PROFILE
+#. DESC_SCANNER_DEFAULT_GRAY_ICM_PROFILE
+#, fuzzy
+msgid "Scanner default gray ICM-profile"
+msgstr "刪除列表機"
 
 #. TEXT_SETUP_DISPLAY_ICM_PROFILE
 #. DESC_DISPLAY_ICM_PROFILE
@@ -1137,6 +1171,12 @@ msgstr ""
 #, fuzzy
 msgid "Custom proofing ICM-profile"
 msgstr "刪除列表機"
+
+#. TEXT_SETUP_WORKING_COLOR_SPACE_ICM_PROFILE
+#. DESC_WORKING_COLOR_SPACE_ICM_PROFILE
+#, fuzzy
+msgid "Working color space ICM-profile"
+msgstr "影像檔案瀏覽"
 
 #. TEXT_SETUP_PRINTER_ICM_PROFILE
 #. DESC_PRINTER_ICM_PROFILE
@@ -1311,10 +1351,6 @@ msgstr ""
 #. MENU_ITEM_PROBLEMS
 msgid "Problems?"
 msgstr "問題?"
-
-#. MENU_ITEM_CMS_BLACK_POINT_COMPENSATION
-msgid "Black point compensation"
-msgstr ""
 
 #. MENU_ITEM_CMS_PROOFING
 #, fuzzy
@@ -1519,6 +1555,20 @@ msgstr ""
 msgid "ASMTP CRAM-MD5"
 msgstr ""
 
+#. MENU_ITEM_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE
+#, fuzzy
+msgid "Embed scanner ICM profile"
+msgstr "刪除列表機"
+
+#. MENU_ITEM_CMS_FUNCTION_CONVERT_TO_SRGB
+msgid "Convert to sRGB"
+msgstr ""
+
+#. MENU_ITEM_FUNCTION_CONVERT_TO_WORKING_CS
+#, fuzzy
+msgid "Convert to working color space"
+msgstr "自動修正顏色"
+
 #. PROGRESS_SCANNING
 msgid "Scanning"
 msgstr "掃描中"
@@ -1577,6 +1627,11 @@ msgstr "模糊影像"
 msgid "OCR in progress"
 msgstr ""
 
+#. PROGRESS_ICM_CONVERSION
+#, fuzzy
+msgid "converting colors"
+msgstr "自動修正顏色"
+
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
 msgstr "開始掃描<Ctrl-Enter>"
@@ -1627,8 +1682,9 @@ msgid ""
 msgstr ""
 
 #. DESC_FAXPROJECT
-msgid "Enter name of fax project"
-msgstr "輸入傳真專案的名稱"
+#, fuzzy
+msgid "Enter fax project directory name"
+msgstr "暫存目錄瀏覽"
 
 #. DESC_FAXPAGENAME
 msgid "Enter new name for faxpage"
@@ -1638,10 +1694,15 @@ msgstr "輸入傳真專案的新名稱"
 msgid "Enter receiver phone number or address"
 msgstr "輸入接收的電話號碼或位址"
 
+#. DESC_FAX_PROJECT_BROWSE
+#, fuzzy
+msgid "Browse for fax project directory"
+msgstr "暫存目錄瀏覽"
+
 #. DESC_EMAIL_PROJECT
 #, fuzzy
-msgid "Enter name of e-mail project"
-msgstr "輸入郵件專案的名稱"
+msgid "Enter e-mail project directory name"
+msgstr "暫存目錄瀏覽"
 
 #. DESC_EMAIL_IMAGENAME
 #, fuzzy
@@ -1652,6 +1713,11 @@ msgstr "輸入郵件專案的新名稱"
 #, fuzzy
 msgid "Enter e-mail address"
 msgstr "輸入郵件位址"
+
+#. DESC_EMAIL_PROJECT_BROWSE
+#, fuzzy
+msgid "Browse for email project directory"
+msgstr "暫存目錄瀏覽"
 
 #. DESC_EMAIL_SUBJECT
 #, fuzzy
@@ -1664,8 +1730,13 @@ msgstr ""
 
 #. DESC_MULTIPAGE_PROJECT
 #, fuzzy
-msgid "Enter name of multipage project"
-msgstr "輸入郵件專案的名稱"
+msgid "Enter multipage project directory name"
+msgstr "暫存目錄瀏覽"
+
+#. DESC_MULTIPAGE_PROJECT_BROWSE
+#, fuzzy
+msgid "Browse for multipage project directory"
+msgstr "暫存目錄瀏覽"
 
 #. DESC_MULTIPAGE_FILETYPE
 #, fuzzy
@@ -1900,9 +1971,17 @@ msgstr ""
 msgid "Additional gamma value for blue component for photocopy"
 msgstr ""
 
-#. DESC_PRINTER_PS_FLATDECODED
+#. DESC_PRINTER_EMBED_CSA
+msgid "Creates a postsciptfile that contains the ICM profile of the scanner"
+msgstr ""
+
+#. DESC_PRINTER_EMBED_CRD
+msgid "Creates a postsciptfile that contains the ICM profile of the printer"
+msgstr ""
+
+#. DESC_PRINTER_PS_FLATEDECODED
 msgid ""
-"Create zlib compressed postscript image for printer (flatdecode).\n"
+"Create zlib compressed postscript image for printer (flatedecode).\n"
 "The printer has to understand postscript level 3!"
 msgstr ""
 
@@ -1956,14 +2035,14 @@ msgid ""
 "If filename counter is automatically increased, used numbers are skipped"
 msgstr ""
 
-#. DESC_SAVE_PS_FLATDECODED
+#. DESC_SAVE_PS_FLATEDECODED
 msgid ""
-"compress postscript image with zlib algorithm (flatdecode). When you want to "
-"print such a file your printer has to understand postscript level 3"
+"compress postscript image with zlib algorithm (flatedecode). When you want "
+"to print such a file your printer has to understand postscript level 3"
 msgstr ""
 
-#. DESC_SAVE_PDF_FLATDECODED
-msgid "compress PDF image with zlib algorithm (flatdecode)."
+#. DESC_SAVE_PDF_FLATEDECODED
+msgid "compress PDF image with zlib algorithm (flatedecode)."
 msgstr ""
 
 #. DESC_SAVE_PNM16_AS_ASCII
@@ -1975,7 +2054,8 @@ msgid ""
 msgstr ""
 
 #. DESC_REDUCE_16BIT_TO_8BIT
-msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
+msgid ""
+"If scanner sends image with 16 bits/channel save image with 8 bits/channel"
 msgstr ""
 
 #. DESC_PSFILE_WIDTH
@@ -2003,7 +2083,8 @@ msgid "Use fixed main window size or scrolled, resizable main window"
 msgstr "使用固定主視窗大小,或者滑動,更改主視窗大小"
 
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
-msgid "Disable preview gamma when XSane runs as gimp plugin"
+#, fuzzy
+msgid "Disable preview gamma when XSane runs as GIMP plugin"
 msgstr "取消預覽gamma當XSane跑在gimp plugin 時"
 
 #. DESC_PREVIEW_COLORMAP
@@ -2089,10 +2170,13 @@ msgstr "預覽掃描後選擇掃描區已經完成了"
 msgid "Do color correction after preview scan has finished"
 msgstr "預覽掃描後作顏色校正已經完成了"
 
-#. DESC_EMBED_ICM_PROFILE
-msgid ""
-"Embed scanner/source ICM profile into image file - when fileformat supports "
-"it"
+#. DESC_RENDERING_INTENT
+#, fuzzy
+msgid "Select rendering intent for preview and saving"
+msgstr "預覽掃描後選擇掃描區已經完成了"
+
+#. DESC_CMS_BPC
+msgid "Apply black point compensation when color transformation is done"
 msgstr ""
 
 #. DESC_FAX_COMMAND
@@ -2123,8 +2207,8 @@ msgstr "輸入檢視傳真時要執行的命令"
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
 msgstr ""
 
-#. DESC_FAX_PS_FLATDECODED
-msgid "Create zlib compressed postscript image for fax (flatdecode)"
+#. DESC_FAX_PS_FLATEDECODED
+msgid "Create zlib compressed postscript image for fax (flatedecode)"
 msgstr ""
 
 #. DESC_SMTP_SERVER
@@ -2374,19 +2458,14 @@ msgstr "從批次列表刪除選擇的區域"
 msgid "Turns on automatic mode"
 msgstr ""
 
-#. DESC_SCANNER_REFL_ICM_PROFILE
+#. DESC_BUTTON_SCANNER_DEFAULT_COLOR_ICM_PROFILE_BROWSE
 #, fuzzy
-msgid "Scanner reflektive ICM-profile"
-msgstr "刪除列表機"
-
-#. DESC_BUTTON_SCANNER_REFL_ICM_PROFILE_BROWSE
-#, fuzzy
-msgid "Browse for scanner reflektive ICM-profile"
+msgid "Browse for scanner default color ICM-profile"
 msgstr "影像檔案瀏覽"
 
-#. DESC_BUTTON_SCANNER_TRAN_ICM_PROFILE_BROWSE
+#. DESC_BUTTON_SCANNER_DEFAULT_GRAY_ICM_PROFILE_BROWSE
 #, fuzzy
-msgid "Browse for scanner transmissive ICM-profile"
+msgid "Browse for scanner default gray ICM-profile"
 msgstr "影像檔案瀏覽"
 
 #. DESC_BUTTON_DISPLAY_ICM_PROFILE_BROWSE
@@ -2402,6 +2481,11 @@ msgstr "影像檔案瀏覽"
 #. DESC_BUTTON_CUSTOM_PROOFING_ICM_PROFILE_BROWSE
 #, fuzzy
 msgid "Browse for custom proofing ICM-profile"
+msgstr "影像檔案瀏覽"
+
+#. DESC_BUTTON_WORKING_COLOR_SPACE_ICM_PROFILE_BROWSE
+#, fuzzy
+msgid "Browse for working color space ICM-profile"
 msgstr "影像檔案瀏覽"
 
 #. ERR_HOME_DIR
@@ -2455,11 +2539,6 @@ msgstr "儲存時錯誤"
 #. ERR_BAD_DEPTH
 msgid "Can't handle depth"
 msgstr "無法取得深度"
-
-#. ERR_GIMP_BAD_DEPTH
-#, c-format
-msgid "GIMP can't handle depth %d bits/color"
-msgstr "GIMP不能取得深度 %d bits/color"
 
 #. ERR_UNKNOWN_SAVING_FORMAT
 msgid "Unknown file format for saving"
@@ -2698,13 +2777,9 @@ msgstr "儲存時錯誤"
 msgid "Could not open"
 msgstr "開啟失敗"
 
-#. CMS_SCANNER_TRAN_ICM
-msgid "scanner transmissive ICM profile"
-msgstr ""
-
-#. CMS_SCANNER_REFL_ICM
+#. CMS_SCANNER_ICM
 #, fuzzy
-msgid "scanner reflective ICM profile"
+msgid "scanner ICM profile"
 msgstr "刪除列表機"
 
 #. CMS_DISPLAY_ICM
@@ -2725,6 +2800,34 @@ msgstr "不能建立暫存檔"
 #. WARN_VIEWER_IMAGE_NOT_SAVED
 msgid "viewer image is not saved"
 msgstr "檢視器影像沒有儲存"
+
+#. FILE_FILTER_ALL_FILES
+msgid "All files"
+msgstr ""
+
+#. FILE_FILTER_IMAGES
+#, fuzzy
+msgid "Images"
+msgstr "使用:"
+
+#. FILE_FILTER_XBL
+#, fuzzy
+msgid "XSane batch list"
+msgstr "儲存批次列表"
+
+#. FILE_FILTER_ICM
+msgid "ICC/ICM Profiles"
+msgstr ""
+
+#. FILE_FILTER_DRC
+#, fuzzy
+msgid "XSane device preferences"
+msgstr "離開時儲存裝置偏好設定"
+
+#. FILE_FILTER_RC
+#, fuzzy
+msgid "XSane preferences"
+msgstr "偏好設定"
 
 #. TEXT_USAGE
 msgid "Usage:"
@@ -3069,3 +3172,64 @@ msgstr "記憶體不足"
 
 msgid "Access to resource has been denied"
 msgstr "資源存取被禁止"
+
+#, fuzzy
+#~ msgid "select scanner transmissive ICM-profile"
+#~ msgstr "刪除列表機"
+
+#, fuzzy
+#~ msgid "select scanner transmissive gray ICM-profile"
+#~ msgstr "刪除列表機"
+
+#, fuzzy
+#~ msgid "Scanner reflective ICM-profile"
+#~ msgstr "刪除列表機"
+
+#, fuzzy
+#~ msgid "Scanner reflective gray ICM-profile"
+#~ msgstr "刪除列表機"
+
+#, fuzzy
+#~ msgid "Scanner transmissive gray ICM-profile"
+#~ msgstr "刪除列表機"
+
+#, fuzzy
+#~ msgid "Scanner reflektive ICM-profile"
+#~ msgstr "刪除列表機"
+
+#, fuzzy
+#~ msgid "Browse for scanner transmissive ICM-profile"
+#~ msgstr "影像檔案瀏覽"
+
+#, fuzzy
+#~ msgid "Browse for scanner transmissive gray ICM-profile"
+#~ msgstr "影像檔案瀏覽"
+
+#~ msgid "GIMP can't handle depth %d bits/color"
+#~ msgstr "GIMP不能取得深度 %d bits/color"
+
+#, fuzzy
+#~ msgid "scanner reflective ICM profile"
+#~ msgstr "刪除列表機"
+
+#, fuzzy
+#~ msgid "Embed scanner/source ICM profile for GIMP"
+#~ msgstr "刪除列表機"
+
+#~ msgid "Enter name of fax project"
+#~ msgstr "輸入傳真專案的名稱"
+
+#, fuzzy
+#~ msgid "Enter name of e-mail project"
+#~ msgstr "輸入郵件專案的名稱"
+
+#, fuzzy
+#~ msgid "Enter name of multipage project"
+#~ msgstr "輸入郵件專案的名稱"
+
+#~ msgid ""
+#~ "Gimp does not support depth 16 bits/color.\n"
+#~ "Do you want to reduce the depth to 8 bits/color?"
+#~ msgstr ""
+#~ "Gimp 不支援 16位元/色彩 深度\n"
+#~ "你想要簡化成8 位元/色彩 深度嗎?"

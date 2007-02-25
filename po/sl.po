@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xsane\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-15 20:42+0100\n"
+"POT-Creation-Date: 2007-02-25 23:44+0100\n"
 "PO-Revision-Date: 2006-01-02 17:48+0100\n"
 "Last-Translator: Dušan Vejnovič <dusan@vejnovic.com>\n"
 "Language-Team: slovenščina <sl@li.org>\n"
@@ -77,6 +77,11 @@ msgstr "preimenuj paketno področje"
 msgid "fax project"
 msgstr "faks projekt"
 
+#. WINDOW_FAX_PROJECT_BROWSE
+#, fuzzy
+msgid "browse for fax project"
+msgstr "Vnesite ime projekta za faks"
+
 #. WINDOW_FAX_RENAME
 msgid "rename fax page"
 msgstr "preimenuj stran s faksom"
@@ -89,6 +94,11 @@ msgstr "vstavi ps-datoteko v faks"
 msgid "E-mail project"
 msgstr "E-poštni projekt"
 
+#. WINDOW_EMAIL_PROJECT_BROWSE
+#, fuzzy
+msgid "browse for email project"
+msgstr "Vnesite ime projekta za e-pošto"
+
 #. WINDOW_EMAIL_RENAME
 msgid "rename e-mail image"
 msgstr "preimenuj e-poštno sliko"
@@ -99,6 +109,11 @@ msgstr "vstavi datoteko v e-pošto"
 
 #. WINDOW_MULTIPAGE_PROJECT
 msgid "multipage project"
+msgstr "večstranski projekt"
+
+#. WINDOW_MULTIPAGE_PROJECT_BROWSE
+#, fuzzy
+msgid "browse for multipage project"
 msgstr "večstranski projekt"
 
 #. WINDOW_PRESET_AREA_RENAME
@@ -201,14 +216,14 @@ msgstr "Shrani izbiro medija"
 msgid "No devices available"
 msgstr "Na voljo ni nobene naprave"
 
-#. WINDOW_SCANNER_REFL_ICM_PROFILE
+#. WINDOW_SCANNER_DEFAULT_COLOR_ICM_PROFILE
 #, fuzzy
-msgid "select scanner reflective ICM-profile"
+msgid "select scanner default color ICM-profile"
 msgstr "Odstrani tiskalnik"
 
-#. WINDOW_SCANNER_TRAN_ICM_PROFILE
+#. WINDOW_SCANNER_DEFAULT_GRAY_ICM_PROFILE
 #, fuzzy
-msgid "select scanner transmissive ICM-profile"
+msgid "select scanner default gray ICM-profile"
 msgstr "Odstrani tiskalnik"
 
 #. WINDOW_DISPLAY_ICM_PROFILE
@@ -219,6 +234,11 @@ msgstr ""
 #, fuzzy
 msgid "select custom proofing ICM-profile"
 msgstr "izberi ime izhodne datoteke"
+
+#. WINDOW_WORKING_COLOR_SPACE_ICM_PROFILE
+#, fuzzy
+msgid "select working color space ICM-profile"
+msgstr "Odstrani tiskalnik"
 
 #. WINDOW_PRINTER_ICM_PROFILE
 #, fuzzy
@@ -485,11 +505,11 @@ msgstr "Prepiši opozorilo"
 msgid "Skip existing filenames"
 msgstr "Preskoči obstoječa imena datotek"
 
-#. RADIO_BUTTON_SAVE_PS_FLATDECODED
+#. RADIO_BUTTON_SAVE_PS_FLATEDECODED
 msgid "Save postscript zlib compressed (ps level 3)"
 msgstr "Shrani postscript stisnjen z zlib (ps stopnja 3)"
 
-#. RADIO_BUTTON_SAVE_PDF_FLATDECODED
+#. RADIO_BUTTON_SAVE_PDF_FLATEDECODED
 msgid "Save PDF zlib compressed"
 msgstr "Shrani PDF stisnjen z zlib"
 
@@ -506,7 +526,8 @@ msgid "Main window size fixed"
 msgstr "Fiksiraj velikost glavnega okna"
 
 #. RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA
-msgid "Disable gimp preview gamma"
+#, fuzzy
+msgid "Disable GIMP preview gamma"
 msgstr "Onemogoči faktor gama pri predogledu v gimpu"
 
 #. RADIO_BUTTON_PRIVATE_COLORMAP
@@ -529,8 +550,9 @@ msgstr "Avtomatska korekcija barv"
 msgid "Use GUI progress pipe"
 msgstr "Uporabi GUI cevovod napredka"
 
-#. RADIO_BUTTON_EMBED_ICM_PROFILE
-msgid "Embed scanner/source ICM profile into image file"
+#. RADIO_BUTTON_CMS_BPC
+#. MENU_ITEM_CMS_BLACK_POINT_COMPENSATION
+msgid "Black point compensation"
 msgstr ""
 
 #. TEXT_SCANNING_DEVICES
@@ -548,6 +570,12 @@ msgstr "Izbire XSane"
 #. TEXT_FILETYPE
 msgid "Type"
 msgstr "Tip"
+
+#. TEXT_CMS_FUNCTION
+#. DESC_CMS_FUNCTION
+#, fuzzy
+msgid "Color management function"
+msgstr "Celotno barvno območje"
 
 #. TEXT_SCANNER_BACKEND
 msgid "Scanner and backend:"
@@ -621,18 +649,11 @@ msgstr "8-bitni izhodni formati:"
 msgid "16 bit output formats:"
 msgstr "16-bitni izhodni formati:"
 
-#. TEXT_GIMP_REDUCE_16BIT_TO_8BIT
-msgid ""
-"Gimp does not support depth 16 bits/color.\n"
-"Do you want to reduce the depth to 8 bits/color?"
-msgstr ""
-"Gimp ne podpira 16 bitno barvno globino.<br>Ali želite zmanjšati barvno "
-"globino na 8 bitov?"
-
 #. TEXT_REDUCE_16BIT_TO_8BIT
+#, fuzzy
 msgid ""
-"Bit depth 16 bits/color is not supported for this output format.\n"
-"Do you want to reduce the depth to 8 bits/color?"
+"Bit depth 16 bits/channel is not supported for this output format.\n"
+"Do you want to reduce the depth to 8 bits/channel?"
 msgstr ""
 "16 bitna barvna globina ni podprta za ta izhodni format.<br>Ali želite "
 "zmanjšati barvno globino na 8 bitov?"
@@ -804,9 +825,10 @@ msgid "Medium Name:"
 msgstr "Ime mdeija:"
 
 #. TEXT_VIEWER_IMAGE_INFO
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
+"Size %d x %d pixel, %d bits/channel, %d channels, %1.0f dpi x %1.0f dpi, %"
+"1.1f %s"
 msgstr ""
 "Velikost %d x %d pikslov, %d bitov/barvo, %d barv, %1.0f dpi x %1.0f dpi, %"
 "1.1f %s"
@@ -916,7 +938,17 @@ msgstr "Gama zelena za tiskalnik:"
 msgid "Printer gamma blue:"
 msgstr "Gama modra za tiskalnik:"
 
-#. TEXT_SETUP_PRINTER_PS_FLATDECODED
+#. TEXT_SETUP_PRINTER_EMBED_CSA
+#, fuzzy
+msgid "Embed scanner ICM profile as CSA"
+msgstr "Odstrani tiskalnik"
+
+#. TEXT_SETUP_PRINTER_EMBED_CRD
+#, fuzzy
+msgid "Embed printer ICM profile as CRD"
+msgstr "Odstrani tiskalnik"
+
+#. TEXT_SETUP_PRINTER_PS_FLATEDECODED
 msgid "Create zlib compressed postscript image (ps level 3) for printing"
 msgstr "Ustvari stisnjeno postscriptno sliko z zlib (ps stopnja 3) za tiskanje"
 
@@ -1040,7 +1072,7 @@ msgstr "Nastavi privzete nastavitve programa za:"
 msgid "Viewer (Postscript):"
 msgstr "Ogledovalnik (postscript):"
 
-#. TEXT_SETUP_FAX_PS_FLATDECODED
+#. TEXT_SETUP_FAX_PS_FLATEDECODED
 msgid "Create zlib compressed postscript image (ps level 3) for fax"
 msgstr "Ustvari stisnjeno postscriptno sliko z zlib (ps stopnja 3) za faks"
 
@@ -1116,15 +1148,17 @@ msgstr "skupina"
 msgid "all"
 msgstr "vsi"
 
-#. TEXT_SETUP_SCANNER_REFL_ICM_PROFILE
+#. TEXT_SETUP_SCANNER_DEFAULT_COLOR_ICM_PROFILE
+#. DESC_SCANNER_DEFAULT_COLOR_ICM_PROFILE
 #, fuzzy
-msgid "Scanner reflective ICM-profile"
+msgid "Scanner default color ICM-profile"
 msgstr "Odstrani tiskalnik"
 
-#. TEXT_SETUP_SCANNER_TRAN_ICM_PROFILE
-#. DESC_SCANNER_TRAN_ICM_PROFILE
-msgid "Scanner transmissive ICM-profile"
-msgstr ""
+#. TEXT_SETUP_SCANNER_DEFAULT_GRAY_ICM_PROFILE
+#. DESC_SCANNER_DEFAULT_GRAY_ICM_PROFILE
+#, fuzzy
+msgid "Scanner default gray ICM-profile"
+msgstr "Odstrani tiskalnik"
 
 #. TEXT_SETUP_DISPLAY_ICM_PROFILE
 #. DESC_DISPLAY_ICM_PROFILE
@@ -1136,6 +1170,12 @@ msgstr ""
 #, fuzzy
 msgid "Custom proofing ICM-profile"
 msgstr "Odstrani tiskalnik"
+
+#. TEXT_SETUP_WORKING_COLOR_SPACE_ICM_PROFILE
+#. DESC_WORKING_COLOR_SPACE_ICM_PROFILE
+#, fuzzy
+msgid "Working color space ICM-profile"
+msgstr "Išči slike po imenih datotek"
 
 #. TEXT_SETUP_PRINTER_ICM_PROFILE
 #. DESC_PRINTER_ICM_PROFILE
@@ -1306,10 +1346,6 @@ msgstr "Namigi za skeniranje"
 #. MENU_ITEM_PROBLEMS
 msgid "Problems?"
 msgstr "Težave?"
-
-#. MENU_ITEM_CMS_BLACK_POINT_COMPENSATION
-msgid "Black point compensation"
-msgstr ""
 
 #. MENU_ITEM_CMS_PROOFING
 #, fuzzy
@@ -1507,6 +1543,20 @@ msgstr "ASMTP prijava"
 msgid "ASMTP CRAM-MD5"
 msgstr "ASMTP CRAM-MD5"
 
+#. MENU_ITEM_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE
+#, fuzzy
+msgid "Embed scanner ICM profile"
+msgstr "Odstrani tiskalnik"
+
+#. MENU_ITEM_CMS_FUNCTION_CONVERT_TO_SRGB
+msgid "Convert to sRGB"
+msgstr ""
+
+#. MENU_ITEM_FUNCTION_CONVERT_TO_WORKING_CS
+#, fuzzy
+msgid "Convert to working color space"
+msgstr "Avtomatska korekcija barv"
+
 #. PROGRESS_SCANNING
 msgid "Scanning"
 msgstr "Skeniram"
@@ -1563,6 +1613,11 @@ msgstr "Zamegli sliko"
 #. PROGRESS_OCR
 msgid "OCR in progress"
 msgstr "OCR napredek"
+
+#. PROGRESS_ICM_CONVERSION
+#, fuzzy
+msgid "converting colors"
+msgstr "Avtomatska korekcija barv"
 
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
@@ -1623,8 +1678,9 @@ msgstr ""
 "končnico"
 
 #. DESC_FAXPROJECT
-msgid "Enter name of fax project"
-msgstr "Vnesite ime projekta za faks"
+#, fuzzy
+msgid "Enter fax project directory name"
+msgstr "Prebrskaj začasni imenik"
 
 #. DESC_FAXPAGENAME
 msgid "Enter new name for faxpage"
@@ -1634,9 +1690,15 @@ msgstr "Vnesite novo ime za stran s faksom"
 msgid "Enter receiver phone number or address"
 msgstr "Vnesite telefonsko številko ali naslov prejemnika"
 
+#. DESC_FAX_PROJECT_BROWSE
+#, fuzzy
+msgid "Browse for fax project directory"
+msgstr "Prebrskaj začasni imenik"
+
 #. DESC_EMAIL_PROJECT
-msgid "Enter name of e-mail project"
-msgstr "Vnesite ime projekta za e-pošto"
+#, fuzzy
+msgid "Enter e-mail project directory name"
+msgstr "Prebrskaj začasni imenik"
 
 #. DESC_EMAIL_IMAGENAME
 msgid "Enter new name for e-mail image"
@@ -1645,6 +1707,11 @@ msgstr "Vnesite novo ime za sliko e-pošte"
 #. DESC_EMAIL_RECEIVER
 msgid "Enter e-mail address"
 msgstr "Vnesite naslov e-pošte"
+
+#. DESC_EMAIL_PROJECT_BROWSE
+#, fuzzy
+msgid "Browse for email project directory"
+msgstr "Prebrskaj začasni imenik"
 
 #. DESC_EMAIL_SUBJECT
 msgid "Enter subject of e-mail"
@@ -1655,8 +1722,14 @@ msgid "Select filetype for image attachments"
 msgstr "Izberite tip datoteke za priponko slike"
 
 #. DESC_MULTIPAGE_PROJECT
-msgid "Enter name of multipage project"
-msgstr "Vnesite ime večstranskega projekta"
+#, fuzzy
+msgid "Enter multipage project directory name"
+msgstr "Prebrskaj začasni imenik"
+
+#. DESC_MULTIPAGE_PROJECT_BROWSE
+#, fuzzy
+msgid "Browse for multipage project directory"
+msgstr "Prebrskaj začasni imenik"
 
 #. DESC_MULTIPAGE_FILETYPE
 msgid "Select filetype for multipage file"
@@ -1896,9 +1969,18 @@ msgstr "Dodatna vrednost gama za zeleno komponento pri fotokopiranju"
 msgid "Additional gamma value for blue component for photocopy"
 msgstr "Dodatna vrednost gama za modro komponento pri fotokopiranju"
 
-#. DESC_PRINTER_PS_FLATDECODED
+#. DESC_PRINTER_EMBED_CSA
+msgid "Creates a postsciptfile that contains the ICM profile of the scanner"
+msgstr ""
+
+#. DESC_PRINTER_EMBED_CRD
+msgid "Creates a postsciptfile that contains the ICM profile of the printer"
+msgstr ""
+
+#. DESC_PRINTER_PS_FLATEDECODED
+#, fuzzy
 msgid ""
-"Create zlib compressed postscript image for printer (flatdecode).\n"
+"Create zlib compressed postscript image for printer (flatedecode).\n"
 "The printer has to understand postscript level 3!"
 msgstr ""
 "Ustvari stisnjeno postscriptno sliko z zlib za tiskalnik.\n"
@@ -1958,16 +2040,18 @@ msgstr ""
 "Če je števec imena datoteke samodejno povečan, se uporabljene številke "
 "preskočijo"
 
-#. DESC_SAVE_PS_FLATDECODED
+#. DESC_SAVE_PS_FLATEDECODED
+#, fuzzy
 msgid ""
-"compress postscript image with zlib algorithm (flatdecode). When you want to "
-"print such a file your printer has to understand postscript level 3"
+"compress postscript image with zlib algorithm (flatedecode). When you want "
+"to print such a file your printer has to understand postscript level 3"
 msgstr ""
 "stiskanje postscriptne slike z zlib algoritmom. Če želite tiskati takšno "
 "datoteko, mora vaš tiskalnik razumeti postscript stopnjo 3"
 
-#. DESC_SAVE_PDF_FLATDECODED
-msgid "compress PDF image with zlib algorithm (flatdecode)."
+#. DESC_SAVE_PDF_FLATEDECODED
+#, fuzzy
+msgid "compress PDF image with zlib algorithm (flatedecode)."
 msgstr "stiskanje PDFslike z zlib algoritmom."
 
 #. DESC_SAVE_PNM16_AS_ASCII
@@ -1983,7 +2067,9 @@ msgstr ""
 "zelo velika datoteka!!!"
 
 #. DESC_REDUCE_16BIT_TO_8BIT
-msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
+#, fuzzy
+msgid ""
+"If scanner sends image with 16 bits/channel save image with 8 bits/channel"
 msgstr "Če skener pošilja sliko z 16 bitov/barvo, shrani sliko z 8 bitov/barvo"
 
 #. DESC_PSFILE_WIDTH
@@ -2013,7 +2099,8 @@ msgid "Use fixed main window size or scrolled, resizable main window"
 msgstr "Uporabi glavno okno s stalno ali spremenljivo velikostjo."
 
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
-msgid "Disable preview gamma when XSane runs as gimp plugin"
+#, fuzzy
+msgid "Disable preview gamma when XSane runs as GIMP plugin"
 msgstr "Onemogoči predogled gama, ko X Sane teče kot vstavek za gimp"
 
 #. DESC_PREVIEW_COLORMAP
@@ -2108,10 +2195,13 @@ msgstr "Izberi področje skeniranja, potem ko je predogled skeniranja zaključen
 msgid "Do color correction after preview scan has finished"
 msgstr "Izvedi korekcijo barv, potem ko je predogled skeniranja zaključen"
 
-#. DESC_EMBED_ICM_PROFILE
-msgid ""
-"Embed scanner/source ICM profile into image file - when fileformat supports "
-"it"
+#. DESC_RENDERING_INTENT
+#, fuzzy
+msgid "Select rendering intent for preview and saving"
+msgstr "Izberi področje skeniranja, potem ko je predogled skeniranja zaključen"
+
+#. DESC_CMS_BPC
+msgid "Apply black point compensation when color transformation is done"
 msgstr ""
 
 #. DESC_FAX_COMMAND
@@ -2142,8 +2232,9 @@ msgstr "Podajte ukaz, ki naj bo izveden za prikaz faksa"
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
 msgstr "Pošlji faks z visoko vertikalno ločljivostjo (196 lpi namesto 98 lpi)"
 
-#. DESC_FAX_PS_FLATDECODED
-msgid "Create zlib compressed postscript image for fax (flatdecode)"
+#. DESC_FAX_PS_FLATEDECODED
+#, fuzzy
+msgid "Create zlib compressed postscript image for fax (flatedecode)"
 msgstr "Ustvari stisnjeno postscriptno sliko z zlib za faks"
 
 #. DESC_SMTP_SERVER
@@ -2392,19 +2483,14 @@ msgstr "Izbriši izbrani predogled iz paketnega seznama"
 msgid "Turns on automatic mode"
 msgstr "Vključi avtomatski način"
 
-#. DESC_SCANNER_REFL_ICM_PROFILE
+#. DESC_BUTTON_SCANNER_DEFAULT_COLOR_ICM_PROFILE_BROWSE
 #, fuzzy
-msgid "Scanner reflektive ICM-profile"
-msgstr "Odstrani tiskalnik"
-
-#. DESC_BUTTON_SCANNER_REFL_ICM_PROFILE_BROWSE
-#, fuzzy
-msgid "Browse for scanner reflektive ICM-profile"
+msgid "Browse for scanner default color ICM-profile"
 msgstr "Išči slike po imenih datotek"
 
-#. DESC_BUTTON_SCANNER_TRAN_ICM_PROFILE_BROWSE
+#. DESC_BUTTON_SCANNER_DEFAULT_GRAY_ICM_PROFILE_BROWSE
 #, fuzzy
-msgid "Browse for scanner transmissive ICM-profile"
+msgid "Browse for scanner default gray ICM-profile"
 msgstr "Išči slike po imenih datotek"
 
 #. DESC_BUTTON_DISPLAY_ICM_PROFILE_BROWSE
@@ -2420,6 +2506,11 @@ msgstr "Išči slike po imenih datotek"
 #. DESC_BUTTON_CUSTOM_PROOFING_ICM_PROFILE_BROWSE
 #, fuzzy
 msgid "Browse for custom proofing ICM-profile"
+msgstr "Išči slike po imenih datotek"
+
+#. DESC_BUTTON_WORKING_COLOR_SPACE_ICM_PROFILE_BROWSE
+#, fuzzy
+msgid "Browse for working color space ICM-profile"
 msgstr "Išči slike po imenih datotek"
 
 #. ERR_HOME_DIR
@@ -2473,11 +2564,6 @@ msgstr "Napaka pri shranjevanju:"
 #. ERR_BAD_DEPTH
 msgid "Can't handle depth"
 msgstr "Napaka pri ravnanju z globino"
-
-#. ERR_GIMP_BAD_DEPTH
-#, c-format
-msgid "GIMP can't handle depth %d bits/color"
-msgstr "GIMP ne more ravnati z globino %d bitov/barvo"
 
 #. ERR_UNKNOWN_SAVING_FORMAT
 msgid "Unknown file format for saving"
@@ -2721,13 +2807,9 @@ msgstr "Napaka pri shranjevanju:"
 msgid "Could not open"
 msgstr "Napaka pri odpiranju"
 
-#. CMS_SCANNER_TRAN_ICM
-msgid "scanner transmissive ICM profile"
-msgstr ""
-
-#. CMS_SCANNER_REFL_ICM
+#. CMS_SCANNER_ICM
 #, fuzzy
-msgid "scanner reflective ICM profile"
+msgid "scanner ICM profile"
 msgstr "Odstrani tiskalnik"
 
 #. CMS_DISPLAY_ICM
@@ -2748,6 +2830,34 @@ msgstr "Ne morem ustvariti začasno datoteko"
 #. WARN_VIEWER_IMAGE_NOT_SAVED
 msgid "viewer image is not saved"
 msgstr "slika predogleda ni shranjena"
+
+#. FILE_FILTER_ALL_FILES
+msgid "All files"
+msgstr ""
+
+#. FILE_FILTER_IMAGES
+#, fuzzy
+msgid "Images"
+msgstr "Strani:"
+
+#. FILE_FILTER_XBL
+#, fuzzy
+msgid "XSane batch list"
+msgstr "Shrani paketni seznam"
+
+#. FILE_FILTER_ICM
+msgid "ICC/ICM Profiles"
+msgstr ""
+
+#. FILE_FILTER_DRC
+#, fuzzy
+msgid "XSane device preferences"
+msgstr "Shrani nastavitve naprave ob izhodu"
+
+#. FILE_FILTER_RC
+#, fuzzy
+msgid "XSane preferences"
+msgstr "Nastavitve"
 
 #. TEXT_USAGE
 msgid "Usage:"
@@ -3121,3 +3231,62 @@ msgstr "Zmanjkalo je pomnilnika"
 
 msgid "Access to resource has been denied"
 msgstr "Dostop do vira je bil zavrnjen"
+
+#, fuzzy
+#~ msgid "select scanner transmissive ICM-profile"
+#~ msgstr "Odstrani tiskalnik"
+
+#, fuzzy
+#~ msgid "select scanner transmissive gray ICM-profile"
+#~ msgstr "Odstrani tiskalnik"
+
+#, fuzzy
+#~ msgid "Scanner reflective ICM-profile"
+#~ msgstr "Odstrani tiskalnik"
+
+#, fuzzy
+#~ msgid "Scanner reflective gray ICM-profile"
+#~ msgstr "Odstrani tiskalnik"
+
+#, fuzzy
+#~ msgid "Scanner transmissive gray ICM-profile"
+#~ msgstr "Odstrani tiskalnik"
+
+#, fuzzy
+#~ msgid "Scanner reflektive ICM-profile"
+#~ msgstr "Odstrani tiskalnik"
+
+#, fuzzy
+#~ msgid "Browse for scanner transmissive ICM-profile"
+#~ msgstr "Išči slike po imenih datotek"
+
+#, fuzzy
+#~ msgid "Browse for scanner transmissive gray ICM-profile"
+#~ msgstr "Išči slike po imenih datotek"
+
+#~ msgid "GIMP can't handle depth %d bits/color"
+#~ msgstr "GIMP ne more ravnati z globino %d bitov/barvo"
+
+#, fuzzy
+#~ msgid "scanner reflective ICM profile"
+#~ msgstr "Odstrani tiskalnik"
+
+#, fuzzy
+#~ msgid "Embed scanner/source ICM profile for GIMP"
+#~ msgstr "Odstrani tiskalnik"
+
+#~ msgid "Enter name of fax project"
+#~ msgstr "Vnesite ime projekta za faks"
+
+#~ msgid "Enter name of e-mail project"
+#~ msgstr "Vnesite ime projekta za e-pošto"
+
+#~ msgid "Enter name of multipage project"
+#~ msgstr "Vnesite ime večstranskega projekta"
+
+#~ msgid ""
+#~ "Gimp does not support depth 16 bits/color.\n"
+#~ "Do you want to reduce the depth to 8 bits/color?"
+#~ msgstr ""
+#~ "Gimp ne podpira 16 bitno barvno globino.<br>Ali želite zmanjšati barvno "
+#~ "globino na 8 bitov?"

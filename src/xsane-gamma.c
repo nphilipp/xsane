@@ -132,7 +132,7 @@ static void xsane_draw_histogram_with_points(XsanePixmap *hist,
     {
       inten = show_inten * count[i] * scale;
 
-      if (xsane.xsane_colors > 1)
+      if (xsane.xsane_channels > 1)
       {
         red   = show_red   * count_red[i]   * scale;
         green = show_green * count_green[i] * scale;
@@ -208,7 +208,7 @@ static void xsane_draw_histogram_with_lines(XsanePixmap *hist,
     {
       inten = show_inten * count[i] * scale;
 
-      if (xsane.xsane_colors > 1)
+      if (xsane.xsane_channels > 1)
       {
         red   = show_red   * count_red[i]   * scale;
         green = show_green * count_green[i] * scale;
@@ -518,7 +518,7 @@ void xsane_update_sliders()
 
   xsane_update_slider(&xsane.slider_gray);
 
-  if ( (xsane.xsane_colors > 1) && (!xsane.enhancement_rgb_default) && (!xsane.enable_color_management))
+  if ( (xsane.xsane_channels > 1) && (!xsane.enhancement_rgb_default) && (!xsane.enable_color_management))
   {
     xsane_update_slider(&xsane.slider_red);
     xsane_update_slider(&xsane.slider_green);
@@ -1599,7 +1599,7 @@ void xsane_update_gamma_curve(int update_raw)
                                  xsane.brightness + xsane.brightness_blue,
                                  xsane.contrast + xsane.contrast_blue , xsane.preview_gamma_size, 255);               
 #else
-      if ( ( ( (xsane.xsane_colors > 1) && xsane.scanner_gamma_color ) || /* color scan and gamma table for red, green and blue available */
+      if ( ( ( (xsane.xsane_channels > 1) && xsane.scanner_gamma_color ) || /* color scan and gamma table for red, green and blue available */
              xsane.scanner_gamma_gray ) && /* grayscale scan and gamma table for gray available */
            (!xsane.no_preview_medium_gamma) ) /* do not use gamma table when disabled */
       {
@@ -1663,7 +1663,7 @@ void xsane_update_gamma_curve(int update_raw)
                                            xsane.preview_gamma_size);
         }
       }
-      else if (xsane.xsane_colors > 1) /* color scan, no color scanner gamma tables available */
+      else if (xsane.xsane_channels > 1) /* color scan, no color scanner gamma tables available */
       {
         DBG(DBG_info, "creating preview gamma tables with medium correction\n");
 
@@ -1837,7 +1837,7 @@ static void xsane_enhancement_update(void)
   gtk_adjustment_set_value(GTK_ADJUSTMENT(xsane.brightness_widget), xsane.brightness);
   gtk_adjustment_set_value(GTK_ADJUSTMENT(xsane.contrast_widget),   xsane.contrast);
 
-  if ( (xsane.xsane_colors > 1) && (!xsane.enhancement_rgb_default) )
+  if ( (xsane.xsane_channels > 1) && (!xsane.enhancement_rgb_default) )
   {
     gtk_adjustment_set_value(GTK_ADJUSTMENT(xsane.gamma_red_widget),      xsane.gamma_red);
     gtk_adjustment_set_value(GTK_ADJUSTMENT(xsane.brightness_red_widget), xsane.brightness_red);
@@ -2112,7 +2112,7 @@ void xsane_enhancement_by_histogram(int update_gamma)
     xsane.contrast   = gray_contrast;
   }
 
-  if ( (xsane.xsane_colors > 1) && (!xsane.enhancement_rgb_default) ) /* rgb sliders active */
+  if ( (xsane.xsane_channels > 1) && (!xsane.enhancement_rgb_default) ) /* rgb sliders active */
   {
     if ((xsane.slider_gray.active == XSANE_SLIDER_ACTIVE) ||
         (xsane.slider_gray.active == XSANE_SLIDER_INACTIVE)) /* gray slider not moved */

@@ -64,6 +64,7 @@ static gint xsane_email_dialog_delete();
 static void xsane_email_filetype_callback(GtkWidget *filetype_option_menu, char *filetype);
 static void xsane_email_receiver_changed_callback(GtkWidget *widget, gpointer data);
 static void xsane_email_subject_changed_callback(GtkWidget *widget, gpointer data);
+static void xsane_email_project_browse_filename_callback(GtkWidget *widget, gpointer data);
 static void xsane_email_project_changed_callback(GtkWidget *widget, gpointer data);
 static void xsane_email_html_mode_callback(GtkWidget *widget);
 static void xsane_email_project_display_status(void);
@@ -150,10 +151,14 @@ void xsane_email_dialog()
   gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
   gtk_box_pack_start(GTK_BOX(email_scan_vbox), hbox, FALSE, FALSE, 1);
 
+#if 0
   pixmap = gdk_pixmap_create_from_xpm_d(xsane.dialog->window, &mask, xsane.bg_trans, (gchar **) email_xpm);
   pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
   gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
   gdk_drawable_unref(pixmap);
+#endif
+  button = xsane_button_new_with_pixmap(xsane.dialog->window, hbox, email_xpm, DESC_EMAIL_PROJECT_BROWSE,
+	                                                      (GtkSignalFunc) xsane_email_project_browse_filename_callback, NULL);
 
   text = gtk_entry_new();
   xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_EMAIL_PROJECT);
@@ -165,7 +170,7 @@ void xsane_email_dialog()
   xsane.project_entry = text;
   xsane.project_entry_box = hbox;
 
-  gtk_widget_show(pixmapwidget);
+//  gtk_widget_show(pixmapwidget);
   gtk_widget_show(text);
   gtk_widget_show(hbox);
 
@@ -1073,6 +1078,64 @@ static void xsane_email_subject_changed_callback(GtkWidget *widget, gpointer dat
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+void xsane_email_project_set_filename(gchar *filename)
+{
+  g_signal_handlers_block_by_func(GTK_OBJECT(xsane.project_entry), (GtkSignalFunc) xsane_email_project_changed_callback, NULL);
+  gtk_entry_set_text(GTK_ENTRY(xsane.project_entry), (char *) filename); /* update filename in entry */
+  gtk_entry_set_position(GTK_ENTRY(xsane.project_entry), strlen(filename)); /* set cursor to right position of filename */
+
+  g_signal_handlers_unblock_by_func(GTK_OBJECT(xsane.project_entry), (GtkSignalFunc) xsane_email_project_changed_callback, NULL);
+}
+
+/* ----------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_email_project_browse_filename_callback(GtkWidget *widget, gpointer data)
+{
+ char filename[PATH_MAX];
+ char windowname[TEXTBUFSIZE];
+
+  DBG(DBG_proc, "xsane_email_project_browse_filename_callback\n");
+
+  xsane_set_sensitivity(FALSE);
+
+  if (preferences.email_project) /* make sure a correct filename is defined */
+  {
+    strncpy(filename, preferences.email_project, sizeof(filename));
+    filename[sizeof(filename) - 1] = '\0';
+  }
+  else /* no filename given, take standard filename */
+  {
+    strcpy(filename, OUT_FILENAME);
+  }
+
+  snprintf(windowname, sizeof(windowname), "%s %s %s", xsane.prog_name, WINDOW_EMAIL_PROJECT_BROWSE, xsane.device_text);
+
+  umask((mode_t) preferences.directory_umask); /* define new file permissions */
+  if (!xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, NULL, NULL, XSANE_FILE_CHOOSER_ACTION_SELECT_PROJECT, XSANE_GET_FILENAME_SHOW_NOTHING, 0, 0))
+  {
+
+    if (preferences.email_project)
+    {
+      free((void *) preferences.email_project);
+    }
+
+    preferences.email_project = strdup(filename);
+
+    xsane_set_sensitivity(TRUE);
+    xsane_email_project_set_filename(filename);
+
+    xsane_email_project_load();
+  }
+  else
+  {
+    xsane_set_sensitivity(TRUE);
+  }
+  umask(XSANE_DEFAULT_UMASK); /* define new file permissions */
+
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void xsane_email_project_changed_callback(GtkWidget *widget, gpointer data)
 {
   DBG(DBG_proc, "xsane_email_project_changed_callback\n");
@@ -1277,20 +1340,20 @@ static void xsane_email_entry_rename_callback(GtkWidget *widget, gpointer list)
 
 
 #ifdef HAVE_GTK2
-    button = gtk_button_new_from_stock(GTK_STOCK_OK);
-#else
-    button = gtk_button_new_with_label(BUTTON_OK);
-#endif
-    g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_email_entry_rename_button_callback, (void *) 1);
-    gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
-    gtk_widget_show(button);
-
-#ifdef HAVE_GTK2
   button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
 #else
   button = gtk_button_new_with_label(BUTTON_CANCEL);
 #endif
     g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_email_entry_rename_button_callback,(void *) -1);
+    gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
+    gtk_widget_show(button);
+
+#ifdef HAVE_GTK2
+    button = gtk_button_new_from_stock(GTK_STOCK_OK);
+#else
+    button = gtk_button_new_with_label(BUTTON_OK);
+#endif
+    g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_email_entry_rename_button_callback, (void *) 1);
     gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
     gtk_widget_show(button);
 
@@ -1666,7 +1729,7 @@ static void xsane_create_email(int fd)
     write_email_mime_ascii(fd, boundary);
 
     write(fd, email_text, strlen(email_text));
-    write(fd, "\r\n\r\n", 2);
+    write(fd, "\r\n\r\n", 4);
 
     for (i=0; i<attachments; i++)
     {
@@ -1856,7 +1919,7 @@ static void xsane_email_send()
     free(type);
     DBG(DBG_info, "converting %s to %s\n", source_filename, email_filename);
     output_format = xsane_identify_output_format(email_filename, NULL, NULL);
-    xsane_save_image_as(email_filename, source_filename, output_format, xsane.project_progress_bar, &cancel_save);
+    xsane_save_image_as(email_filename, source_filename, output_format, xsane.enable_color_management, preferences.cms_function, preferences.cms_intent, preferences.cms_bpc, xsane.project_progress_bar, &cancel_save);
     list = list->next;
     xsane.email_progress_size += xsane_get_filesize(email_filename);
   }

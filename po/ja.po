@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.96\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-15 20:42+0100\n"
+"POT-Creation-Date: 2007-02-25 23:44+0100\n"
 "PO-Revision-Date: 2004-08-28 12:48+900\n"
 "Last-Translator: Kimizuka Tomokazu <sgtom@pluto.dti.ne.jp>\n"
 "Language-Team: Japanese\n"
@@ -73,6 +73,11 @@ msgstr "バッチ領域をリネーム"
 msgid "fax project"
 msgstr "FAXプロジェクト"
 
+#. WINDOW_FAX_PROJECT_BROWSE
+#, fuzzy
+msgid "browse for fax project"
+msgstr "FAXプロジェクト名を入力"
+
 #. WINDOW_FAX_RENAME
 msgid "rename fax page"
 msgstr "FAXページをリネーム"
@@ -85,6 +90,11 @@ msgstr "PSファイルをFAXに挿入"
 #, fuzzy
 msgid "E-mail project"
 msgstr "メールプロジェクト"
+
+#. WINDOW_EMAIL_PROJECT_BROWSE
+#, fuzzy
+msgid "browse for email project"
+msgstr "メールプロジェクト名を入力"
 
 #. WINDOW_EMAIL_RENAME
 #, fuzzy
@@ -99,6 +109,11 @@ msgstr "ファイルをメールに挿入"
 #. WINDOW_MULTIPAGE_PROJECT
 #, fuzzy
 msgid "multipage project"
+msgstr "プロジェクト削除"
+
+#. WINDOW_MULTIPAGE_PROJECT_BROWSE
+#, fuzzy
+msgid "browse for multipage project"
 msgstr "プロジェクト削除"
 
 #. WINDOW_PRESET_AREA_RENAME
@@ -201,14 +216,14 @@ msgstr "媒体の定義を保存"
 msgid "No devices available"
 msgstr "デバイスが使えません"
 
-#. WINDOW_SCANNER_REFL_ICM_PROFILE
+#. WINDOW_SCANNER_DEFAULT_COLOR_ICM_PROFILE
 #, fuzzy
-msgid "select scanner reflective ICM-profile"
+msgid "select scanner default color ICM-profile"
 msgstr "プリンタ削除"
 
-#. WINDOW_SCANNER_TRAN_ICM_PROFILE
+#. WINDOW_SCANNER_DEFAULT_GRAY_ICM_PROFILE
 #, fuzzy
-msgid "select scanner transmissive ICM-profile"
+msgid "select scanner default gray ICM-profile"
 msgstr "プリンタ削除"
 
 #. WINDOW_DISPLAY_ICM_PROFILE
@@ -219,6 +234,11 @@ msgstr ""
 #, fuzzy
 msgid "select custom proofing ICM-profile"
 msgstr "出力ファイル名を選択"
+
+#. WINDOW_WORKING_COLOR_SPACE_ICM_PROFILE
+#, fuzzy
+msgid "select working color space ICM-profile"
+msgstr "プリンタ削除"
 
 #. WINDOW_PRINTER_ICM_PROFILE
 #, fuzzy
@@ -487,11 +507,11 @@ msgstr "上書きの警告"
 msgid "Skip existing filenames"
 msgstr "現在のファイル名をスキップ"
 
-#. RADIO_BUTTON_SAVE_PS_FLATDECODED
+#. RADIO_BUTTON_SAVE_PS_FLATEDECODED
 msgid "Save postscript zlib compressed (ps level 3)"
 msgstr ""
 
-#. RADIO_BUTTON_SAVE_PDF_FLATDECODED
+#. RADIO_BUTTON_SAVE_PDF_FLATEDECODED
 msgid "Save PDF zlib compressed"
 msgstr ""
 
@@ -508,7 +528,8 @@ msgid "Main window size fixed"
 msgstr "メインウィンドウのサイズを固定"
 
 #. RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA
-msgid "Disable gimp preview gamma"
+#, fuzzy
+msgid "Disable GIMP preview gamma"
 msgstr "GIMPのガンマプレビューを無効化"
 
 #. RADIO_BUTTON_PRIVATE_COLORMAP
@@ -531,8 +552,9 @@ msgstr "色彩の自動補正"
 msgid "Use GUI progress pipe"
 msgstr "GUIプログレスパイプを使用"
 
-#. RADIO_BUTTON_EMBED_ICM_PROFILE
-msgid "Embed scanner/source ICM profile into image file"
+#. RADIO_BUTTON_CMS_BPC
+#. MENU_ITEM_CMS_BLACK_POINT_COMPENSATION
+msgid "Black point compensation"
 msgstr ""
 
 #. TEXT_SCANNING_DEVICES
@@ -550,6 +572,12 @@ msgstr "XSaneのオプション"
 #. TEXT_FILETYPE
 msgid "Type"
 msgstr "タイプ"
+
+#. TEXT_CMS_FUNCTION
+#. DESC_CMS_FUNCTION
+#, fuzzy
+msgid "Color management function"
+msgstr "フルカラーレンジ"
 
 #. TEXT_SCANNER_BACKEND
 msgid "Scanner and backend:"
@@ -623,18 +651,11 @@ msgstr "8ビット出力フォーマット："
 msgid "16 bit output formats:"
 msgstr "16ビット出力フォーマット："
 
-#. TEXT_GIMP_REDUCE_16BIT_TO_8BIT
-msgid ""
-"Gimp does not support depth 16 bits/color.\n"
-"Do you want to reduce the depth to 8 bits/color?"
-msgstr ""
-"GIMPは16ビットカラーをサポートしていません。\n"
-"8ビットカラーに減色しますか?"
-
 #. TEXT_REDUCE_16BIT_TO_8BIT
+#, fuzzy
 msgid ""
-"Bit depth 16 bits/color is not supported for this output format.\n"
-"Do you want to reduce the depth to 8 bits/color?"
+"Bit depth 16 bits/channel is not supported for this output format.\n"
+"Do you want to reduce the depth to 8 bits/channel?"
 msgstr ""
 "この出力フォーマットは16ビットカラーをサポートしていません。\n"
 "8ビットカラーに減色しますか?"
@@ -813,9 +834,10 @@ msgid "Medium Name:"
 msgstr "触媒名："
 
 #. TEXT_VIEWER_IMAGE_INFO
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
+"Size %d x %d pixel, %d bits/channel, %d channels, %1.0f dpi x %1.0f dpi, %"
+"1.1f %s"
 msgstr "%d x %d画素, %dビット/色, %d色, %1.0f dpi x %1.0f dpi, %1.1f %s"
 
 #. TEXT_DESPECKLE_RADIUS
@@ -923,7 +945,17 @@ msgstr "プリンタガンマ 緑："
 msgid "Printer gamma blue:"
 msgstr "プリンタガンマ 青："
 
-#. TEXT_SETUP_PRINTER_PS_FLATDECODED
+#. TEXT_SETUP_PRINTER_EMBED_CSA
+#, fuzzy
+msgid "Embed scanner ICM profile as CSA"
+msgstr "プリンタ削除"
+
+#. TEXT_SETUP_PRINTER_EMBED_CRD
+#, fuzzy
+msgid "Embed printer ICM profile as CRD"
+msgstr "プリンタ削除"
+
+#. TEXT_SETUP_PRINTER_PS_FLATEDECODED
 msgid "Create zlib compressed postscript image (ps level 3) for printing"
 msgstr ""
 
@@ -1048,7 +1080,7 @@ msgstr "プログラムの初期値を設定："
 msgid "Viewer (Postscript):"
 msgstr "ビューワ(PostScript)："
 
-#. TEXT_SETUP_FAX_PS_FLATDECODED
+#. TEXT_SETUP_FAX_PS_FLATEDECODED
 msgid "Create zlib compressed postscript image (ps level 3) for fax"
 msgstr ""
 
@@ -1127,15 +1159,17 @@ msgstr "グループ"
 msgid "all"
 msgstr "すべて"
 
-#. TEXT_SETUP_SCANNER_REFL_ICM_PROFILE
+#. TEXT_SETUP_SCANNER_DEFAULT_COLOR_ICM_PROFILE
+#. DESC_SCANNER_DEFAULT_COLOR_ICM_PROFILE
 #, fuzzy
-msgid "Scanner reflective ICM-profile"
+msgid "Scanner default color ICM-profile"
 msgstr "プリンタ削除"
 
-#. TEXT_SETUP_SCANNER_TRAN_ICM_PROFILE
-#. DESC_SCANNER_TRAN_ICM_PROFILE
-msgid "Scanner transmissive ICM-profile"
-msgstr ""
+#. TEXT_SETUP_SCANNER_DEFAULT_GRAY_ICM_PROFILE
+#. DESC_SCANNER_DEFAULT_GRAY_ICM_PROFILE
+#, fuzzy
+msgid "Scanner default gray ICM-profile"
+msgstr "プリンタ削除"
 
 #. TEXT_SETUP_DISPLAY_ICM_PROFILE
 #. DESC_DISPLAY_ICM_PROFILE
@@ -1147,6 +1181,12 @@ msgstr ""
 #, fuzzy
 msgid "Custom proofing ICM-profile"
 msgstr "プリンタ削除"
+
+#. TEXT_SETUP_WORKING_COLOR_SPACE_ICM_PROFILE
+#. DESC_WORKING_COLOR_SPACE_ICM_PROFILE
+#, fuzzy
+msgid "Working color space ICM-profile"
+msgstr "画像ファイル名をブラウズ"
 
 #. TEXT_SETUP_PRINTER_ICM_PROFILE
 #. DESC_PRINTER_ICM_PROFILE
@@ -1319,10 +1359,6 @@ msgstr "スキャンに関するTips"
 #. MENU_ITEM_PROBLEMS
 msgid "Problems?"
 msgstr "何か問題?"
-
-#. MENU_ITEM_CMS_BLACK_POINT_COMPENSATION
-msgid "Black point compensation"
-msgstr ""
 
 #. MENU_ITEM_CMS_PROOFING
 #, fuzzy
@@ -1522,6 +1558,20 @@ msgstr ""
 msgid "ASMTP CRAM-MD5"
 msgstr ""
 
+#. MENU_ITEM_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE
+#, fuzzy
+msgid "Embed scanner ICM profile"
+msgstr "プリンタ削除"
+
+#. MENU_ITEM_CMS_FUNCTION_CONVERT_TO_SRGB
+msgid "Convert to sRGB"
+msgstr ""
+
+#. MENU_ITEM_FUNCTION_CONVERT_TO_WORKING_CS
+#, fuzzy
+msgid "Convert to working color space"
+msgstr "色彩の自動補正"
+
 #. PROGRESS_SCANNING
 msgid "Scanning"
 msgstr "スキャンしています"
@@ -1579,6 +1629,11 @@ msgstr "画像をにじませ中"
 #. PROGRESS_OCR
 msgid "OCR in progress"
 msgstr "OCR進行中"
+
+#. PROGRESS_ICM_CONVERSION
+#, fuzzy
+msgid "converting colors"
+msgstr "色彩の自動補正"
 
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
@@ -1638,8 +1693,9 @@ msgid ""
 msgstr "画像フォーマットタイプファイル名に自動でつく適切な拡張子"
 
 #. DESC_FAXPROJECT
-msgid "Enter name of fax project"
-msgstr "FAXプロジェクト名を入力"
+#, fuzzy
+msgid "Enter fax project directory name"
+msgstr "一時ディレクトリの参照"
 
 #. DESC_FAXPAGENAME
 msgid "Enter new name for faxpage"
@@ -1649,10 +1705,15 @@ msgstr "FAXページにつけるファイル名を入力"
 msgid "Enter receiver phone number or address"
 msgstr "FAX受信機の電話番号かアドレスを入力"
 
+#. DESC_FAX_PROJECT_BROWSE
+#, fuzzy
+msgid "Browse for fax project directory"
+msgstr "一時ディレクトリの参照"
+
 #. DESC_EMAIL_PROJECT
 #, fuzzy
-msgid "Enter name of e-mail project"
-msgstr "メールプロジェクト名を入力"
+msgid "Enter e-mail project directory name"
+msgstr "一時ディレクトリの参照"
 
 #. DESC_EMAIL_IMAGENAME
 #, fuzzy
@@ -1663,6 +1724,11 @@ msgstr "新規メールイメージのファイル名を入力"
 #, fuzzy
 msgid "Enter e-mail address"
 msgstr "メールアドレスを入力"
+
+#. DESC_EMAIL_PROJECT_BROWSE
+#, fuzzy
+msgid "Browse for email project directory"
+msgstr "一時ディレクトリの参照"
 
 #. DESC_EMAIL_SUBJECT
 #, fuzzy
@@ -1675,8 +1741,13 @@ msgstr "画像添付時のファイルタイプを選択"
 
 #. DESC_MULTIPAGE_PROJECT
 #, fuzzy
-msgid "Enter name of multipage project"
-msgstr "メールプロジェクト名を入力"
+msgid "Enter multipage project directory name"
+msgstr "一時ディレクトリの参照"
+
+#. DESC_MULTIPAGE_PROJECT_BROWSE
+#, fuzzy
+msgid "Browse for multipage project directory"
+msgstr "一時ディレクトリの参照"
 
 #. DESC_MULTIPAGE_FILETYPE
 #, fuzzy
@@ -1917,9 +1988,17 @@ msgstr "焼き増しへの緑成分追加ガンマ値"
 msgid "Additional gamma value for blue component for photocopy"
 msgstr "焼き増しへの青成分追加ガンマ値"
 
-#. DESC_PRINTER_PS_FLATDECODED
+#. DESC_PRINTER_EMBED_CSA
+msgid "Creates a postsciptfile that contains the ICM profile of the scanner"
+msgstr ""
+
+#. DESC_PRINTER_EMBED_CRD
+msgid "Creates a postsciptfile that contains the ICM profile of the printer"
+msgstr ""
+
+#. DESC_PRINTER_PS_FLATEDECODED
 msgid ""
-"Create zlib compressed postscript image for printer (flatdecode).\n"
+"Create zlib compressed postscript image for printer (flatedecode).\n"
 "The printer has to understand postscript level 3!"
 msgstr ""
 
@@ -1975,14 +2054,14 @@ msgid ""
 "If filename counter is automatically increased, used numbers are skipped"
 msgstr "ファイル名のカウンタが自動的に増加する際、使用済みの番号はとばされます"
 
-#. DESC_SAVE_PS_FLATDECODED
+#. DESC_SAVE_PS_FLATEDECODED
 msgid ""
-"compress postscript image with zlib algorithm (flatdecode). When you want to "
-"print such a file your printer has to understand postscript level 3"
+"compress postscript image with zlib algorithm (flatedecode). When you want "
+"to print such a file your printer has to understand postscript level 3"
 msgstr ""
 
-#. DESC_SAVE_PDF_FLATDECODED
-msgid "compress PDF image with zlib algorithm (flatdecode)."
+#. DESC_SAVE_PDF_FLATEDECODED
+msgid "compress PDF image with zlib algorithm (flatedecode)."
 msgstr ""
 
 #. DESC_SAVE_PNM16_AS_ASCII
@@ -1998,7 +2077,9 @@ msgstr ""
 "グラムでサポートされていますが、たいへん巨大なファイルを作ります。"
 
 #. DESC_REDUCE_16BIT_TO_8BIT
-msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
+#, fuzzy
+msgid ""
+"If scanner sends image with 16 bits/channel save image with 8 bits/channel"
 msgstr "画像が16ビットカラーでスキャナから送られたら、8ビットで保存"
 
 #. DESC_PSFILE_WIDTH
@@ -2026,7 +2107,8 @@ msgid "Use fixed main window size or scrolled, resizable main window"
 msgstr "メインウィンドウに固定サイズを使うか、スクロール・リサイズ可能にする"
 
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
-msgid "Disable preview gamma when XSane runs as gimp plugin"
+#, fuzzy
+msgid "Disable preview gamma when XSane runs as GIMP plugin"
 msgstr "XSaneがGIMPプラグインとして動作する時は、ガンマプレビューをオフにする"
 
 #. DESC_PREVIEW_COLORMAP
@@ -2112,10 +2194,13 @@ msgstr "プレビュースキャン終了後のスキャン領域を選択"
 msgid "Do color correction after preview scan has finished"
 msgstr "プレビュースキャン終了後に色彩補正を行う"
 
-#. DESC_EMBED_ICM_PROFILE
-msgid ""
-"Embed scanner/source ICM profile into image file - when fileformat supports "
-"it"
+#. DESC_RENDERING_INTENT
+#, fuzzy
+msgid "Select rendering intent for preview and saving"
+msgstr "プレビュースキャン終了後のスキャン領域を選択"
+
+#. DESC_CMS_BPC
+msgid "Apply black point compensation when color transformation is done"
 msgstr ""
 
 #. DESC_FAX_COMMAND
@@ -2146,8 +2231,8 @@ msgstr "FAX参照のための実行コマンドを入力"
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
 msgstr "垂直高解像度（98lpiに代えて196lpiで）モードでFAX送信"
 
-#. DESC_FAX_PS_FLATDECODED
-msgid "Create zlib compressed postscript image for fax (flatdecode)"
+#. DESC_FAX_PS_FLATEDECODED
+msgid "Create zlib compressed postscript image for fax (flatedecode)"
 msgstr ""
 
 #. DESC_SMTP_SERVER
@@ -2403,19 +2488,14 @@ msgstr "選択領域をバッチリストから削除"
 msgid "Turns on automatic mode"
 msgstr "自動モードに切替え"
 
-#. DESC_SCANNER_REFL_ICM_PROFILE
+#. DESC_BUTTON_SCANNER_DEFAULT_COLOR_ICM_PROFILE_BROWSE
 #, fuzzy
-msgid "Scanner reflektive ICM-profile"
-msgstr "プリンタ削除"
-
-#. DESC_BUTTON_SCANNER_REFL_ICM_PROFILE_BROWSE
-#, fuzzy
-msgid "Browse for scanner reflektive ICM-profile"
+msgid "Browse for scanner default color ICM-profile"
 msgstr "画像ファイル名をブラウズ"
 
-#. DESC_BUTTON_SCANNER_TRAN_ICM_PROFILE_BROWSE
+#. DESC_BUTTON_SCANNER_DEFAULT_GRAY_ICM_PROFILE_BROWSE
 #, fuzzy
-msgid "Browse for scanner transmissive ICM-profile"
+msgid "Browse for scanner default gray ICM-profile"
 msgstr "画像ファイル名をブラウズ"
 
 #. DESC_BUTTON_DISPLAY_ICM_PROFILE_BROWSE
@@ -2431,6 +2511,11 @@ msgstr "画像ファイル名をブラウズ"
 #. DESC_BUTTON_CUSTOM_PROOFING_ICM_PROFILE_BROWSE
 #, fuzzy
 msgid "Browse for custom proofing ICM-profile"
+msgstr "画像ファイル名をブラウズ"
+
+#. DESC_BUTTON_WORKING_COLOR_SPACE_ICM_PROFILE_BROWSE
+#, fuzzy
+msgid "Browse for working color space ICM-profile"
 msgstr "画像ファイル名をブラウズ"
 
 #. ERR_HOME_DIR
@@ -2484,11 +2569,6 @@ msgstr "保存エラーです："
 #. ERR_BAD_DEPTH
 msgid "Can't handle depth"
 msgstr "深度が取得できません"
-
-#. ERR_GIMP_BAD_DEPTH
-#, c-format
-msgid "GIMP can't handle depth %d bits/color"
-msgstr "GIMPが%dビットカラーを取得できません"
 
 #. ERR_UNKNOWN_SAVING_FORMAT
 msgid "Unknown file format for saving"
@@ -2733,13 +2813,9 @@ msgstr "保存エラーです："
 msgid "Could not open"
 msgstr "開けません"
 
-#. CMS_SCANNER_TRAN_ICM
-msgid "scanner transmissive ICM profile"
-msgstr ""
-
-#. CMS_SCANNER_REFL_ICM
+#. CMS_SCANNER_ICM
 #, fuzzy
-msgid "scanner reflective ICM profile"
+msgid "scanner ICM profile"
 msgstr "プリンタ削除"
 
 #. CMS_DISPLAY_ICM
@@ -2760,6 +2836,34 @@ msgstr "一時ファイルを作れません"
 #. WARN_VIEWER_IMAGE_NOT_SAVED
 msgid "viewer image is not saved"
 msgstr "ビューワの画像が保存されていません"
+
+#. FILE_FILTER_ALL_FILES
+msgid "All files"
+msgstr ""
+
+#. FILE_FILTER_IMAGES
+#, fuzzy
+msgid "Images"
+msgstr "画像"
+
+#. FILE_FILTER_XBL
+#, fuzzy
+msgid "XSane batch list"
+msgstr "バッチリストを保存"
+
+#. FILE_FILTER_ICM
+msgid "ICC/ICM Profiles"
+msgstr ""
+
+#. FILE_FILTER_DRC
+#, fuzzy
+msgid "XSane device preferences"
+msgstr "終了時にデバイス設定を保存"
+
+#. FILE_FILTER_RC
+#, fuzzy
+msgid "XSane preferences"
+msgstr "設定"
 
 #. TEXT_USAGE
 msgid "Usage:"
@@ -3146,6 +3250,67 @@ msgstr "オーバーフロー"
 msgid "Access to resource has been denied"
 msgstr "リソースへのアクセスが拒否されました"
 
+#, fuzzy
+#~ msgid "select scanner transmissive ICM-profile"
+#~ msgstr "プリンタ削除"
+
+#, fuzzy
+#~ msgid "select scanner transmissive gray ICM-profile"
+#~ msgstr "プリンタ削除"
+
+#, fuzzy
+#~ msgid "Scanner reflective ICM-profile"
+#~ msgstr "プリンタ削除"
+
+#, fuzzy
+#~ msgid "Scanner reflective gray ICM-profile"
+#~ msgstr "プリンタ削除"
+
+#, fuzzy
+#~ msgid "Scanner transmissive gray ICM-profile"
+#~ msgstr "プリンタ削除"
+
+#, fuzzy
+#~ msgid "Scanner reflektive ICM-profile"
+#~ msgstr "プリンタ削除"
+
+#, fuzzy
+#~ msgid "Browse for scanner transmissive ICM-profile"
+#~ msgstr "画像ファイル名をブラウズ"
+
+#, fuzzy
+#~ msgid "Browse for scanner transmissive gray ICM-profile"
+#~ msgstr "画像ファイル名をブラウズ"
+
+#~ msgid "GIMP can't handle depth %d bits/color"
+#~ msgstr "GIMPが%dビットカラーを取得できません"
+
+#, fuzzy
+#~ msgid "scanner reflective ICM profile"
+#~ msgstr "プリンタ削除"
+
+#, fuzzy
+#~ msgid "Embed scanner/source ICM profile for GIMP"
+#~ msgstr "プリンタ削除"
+
+#~ msgid "Enter name of fax project"
+#~ msgstr "FAXプロジェクト名を入力"
+
+#, fuzzy
+#~ msgid "Enter name of e-mail project"
+#~ msgstr "メールプロジェクト名を入力"
+
+#, fuzzy
+#~ msgid "Enter name of multipage project"
+#~ msgstr "メールプロジェクト名を入力"
+
+#~ msgid ""
+#~ "Gimp does not support depth 16 bits/color.\n"
+#~ "Do you want to reduce the depth to 8 bits/color?"
+#~ msgstr ""
+#~ "GIMPは16ビットカラーをサポートしていません。\n"
+#~ "8ビットカラーに減色しますか?"
+
 #~ msgid "Could not create temporary preview files"
 #~ msgstr "一時プレビューファイルを作れません"
 
@@ -3210,9 +3375,6 @@ msgstr "リソースへのアクセスが拒否されました"
 #, fuzzy
 #~ msgid "Multipage saving aborted"
 #~ msgstr "メールプロジェクトが作成されました"
-
-#~ msgid "Image"
-#~ msgstr "画像"
 
 #~ msgid "Viewer (png):"
 #~ msgstr "ビューワ(PNG)："

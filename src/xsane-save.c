@@ -430,6 +430,7 @@ void xsane_read_pnm_header(FILE *file, Image_info *image_info)
     image_info->resolution_x = 72.0;
     image_info->resolution_y = 72.0;
     image_info->reduce_to_lineart = FALSE;
+    image_info->enable_color_management = FALSE;
 
     while (strcmp(buf, "# XSANE data follows\n"))
     {
@@ -483,6 +484,26 @@ void xsane_read_pnm_header(FILE *file, Image_info *image_info)
                                 &image_info->contrast_green, 
                                     &image_info->contrast_blue);
       }
+      else if (!strncmp(buf, "#  color-management=", 20))
+      {
+        sscanf(buf+20, "%d", &image_info->enable_color_management);
+      }
+      else if (!strncmp(buf, "#  cms-function    =", 20))
+      {
+        sscanf(buf+20, "%d", &image_info->cms_function);
+      }
+      else if (!strncmp(buf, "#  cms-intent      =", 20))
+      {
+        sscanf(buf+20, "%d", &image_info->cms_intent);
+      }
+      else if (!strncmp(buf, "#  cms-bpc         =", 20))
+      {
+        sscanf(buf+20, "%d", &image_info->cms_bpc);
+      }
+      else if (!strncmp(buf, "#  icm-profile     =", 20))
+      {
+        sscanf(buf+20, "%s", image_info->icm_profile);
+      }
       else if (!strncmp(buf, "#  reduce to lineart", 20))
       {
         image_info->reduce_to_lineart = TRUE;
@@ -510,11 +531,11 @@ void xsane_read_pnm_header(FILE *file, Image_info *image_info)
     fgetc(file); /* read exactly one newline character */
     
 
-    image_info->colors = 1;
+    image_info->channels = 1;
  
     if (filetype_nr == 6) /* ppm RGB */
     {
-      image_info->colors = 3;
+      image_info->channels = 3;
     } 
   }
 #ifdef SUPPORT_RGBA
@@ -534,12 +555,12 @@ void xsane_read_pnm_header(FILE *file, Image_info *image_info)
       image_info->depth = 16;
     }
 
-    image_info->colors = 4;
+    image_info->channels = 4;
   }
 #endif
 
   DBG(DBG_info, "xsane_read_pnm_header: width=%d, height=%d, depth=%d, colors=%d, resolution_x=%f, resolution_y=%f\n",
-      image_info->image_width, image_info->image_height, image_info->depth, image_info->colors,
+      image_info->image_width, image_info->image_height, image_info->depth, image_info->channels,
       image_info->resolution_x, image_info->resolution_y);
 }
 
@@ -573,7 +594,7 @@ void xsane_write_pnm_header(FILE *file, Image_info *image_info, int save_pnm16_a
   }
 
 
-  if (image_info->colors == 1)
+  if (image_info->channels == 1)
   {
     if (image_info->depth == 1)
     {
@@ -618,6 +639,11 @@ void xsane_write_pnm_header(FILE *file, Image_info *image_info, int save_pnm16_a
                        "#  gamma           = %3.2f\n"
                        "#  brightness      = %4.1f\n"
                        "#  contrast        = %4.1f\n"
+                       "#  color-management= %d\n"
+                       "#  cms-function    = %d\n"
+                       "#  cms-intent      = %d\n"
+                       "#  cms-bpc         = %d\n"
+                       "#  icm-profile     = %s\n"
                        "# XSANE data follows\n"
                        "%05d %05d\n"
                        "%d\n",
@@ -627,11 +653,16 @@ void xsane_write_pnm_header(FILE *file, Image_info *image_info, int save_pnm16_a
                        image_info->gamma,
                        image_info->brightness,
                        image_info->contrast,
+		       image_info->enable_color_management,
+		       image_info->cms_function,
+		       image_info->cms_intent,
+		       image_info->cms_bpc,
+		       image_info->icm_profile,
                        image_info->image_width, image_info->image_height,
                        maxval);
     }
   }
-  else if (image_info->colors == 3)
+  else if (image_info->channels == 3)
   {
     fprintf(file, "P%d\n"
                      "# XSane settings:\n"
@@ -640,6 +671,11 @@ void xsane_write_pnm_header(FILE *file, Image_info *image_info, int save_pnm16_a
                      "#  gamma      IRGB = %3.2f %3.2f %3.2f %3.2f\n"
                      "#  brightness IRGB = %4.1f %4.1f %4.1f %4.1f\n"
                      "#  contrast   IRGB = %4.1f %4.1f %4.1f %4.1f\n"
+                     "#  color-management= %d\n"
+                     "#  cms-function    = %d\n"
+                     "#  cms-intent      = %d\n"
+                     "#  cms-bpc         = %d\n"
+                     "#  icm-profile     = %s\n"
                      "# XSANE data follows\n"
                      "%05d %05d\n" \
                      "%d\n",
@@ -649,11 +685,16 @@ void xsane_write_pnm_header(FILE *file, Image_info *image_info, int save_pnm16_a
                      image_info->gamma,      image_info->gamma_red,      image_info->gamma_green,      image_info->gamma_blue,
                      image_info->brightness, image_info->brightness_red, image_info->brightness_green, image_info->brightness_blue,
                      image_info->contrast,   image_info->contrast_red,   image_info->contrast_green,   image_info->contrast_blue,
+		     image_info->enable_color_management,
+		     image_info->cms_function,
+		     image_info->cms_intent,
+		     image_info->cms_bpc,
+		     image_info->icm_profile,
                      image_info->image_width, image_info->image_height,
                      maxval);
   }
 #ifdef SUPPORT_RGBA
-  else if (image_info->colors == 4)
+  else if (image_info->channels == 4)
   {
         fprintf(file, "SANE_RGBA\n" \
                          "%d %d\n" \
@@ -793,6 +834,121 @@ int xsane_copy_file_by_name(char *output_filename, char *input_filename, GtkProg
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+#ifdef HAVE_LIBLCMS
+cmsHTRANSFORM xsane_create_cms_transform(Image_info *image_info, int cms_function, int cms_intent, int cms_bpc)
+{
+ cmsHPROFILE hInProfile = NULL;
+ cmsHPROFILE hOutProfile = NULL;
+ cmsHTRANSFORM hTransform = NULL;
+ DWORD cms_input_format;
+ DWORD cms_output_format;
+ DWORD cms_flags = 0;
+
+  if (cms_function == XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE)
+  {
+    return NULL;
+  }
+
+  DBG(DBG_info, "Prepare CMS transform\n");
+
+  cmsErrorAction(LCMS_ERROR_SHOW);
+
+  if (cms_bpc)
+  {
+    cms_flags |= cmsFLAGS_BLACKPOINTCOMPENSATION;
+  }
+
+  if (image_info->channels == 1) /* == 1 (grayscale) */
+  {
+    if (image_info->depth == 8)
+    {
+      cms_input_format  = TYPE_GRAY_8;
+      cms_output_format = TYPE_GRAY_8;
+    }
+    else
+    {
+      cms_input_format  = TYPE_GRAY_16;
+      cms_output_format = TYPE_GRAY_16;
+    }
+  }
+  else /* color */
+  {
+    if (image_info->depth == 8)
+    {
+      cms_input_format  = TYPE_RGB_8;
+      cms_output_format = TYPE_RGB_8;
+    }
+    else
+    {
+      cms_input_format  = TYPE_RGB_16;
+      cms_output_format = TYPE_RGB_16;
+    }
+  }
+
+  hInProfile  = cmsOpenProfileFromFile(image_info->icm_profile, "r");
+  if (!hInProfile)
+  {
+   char buf[TEXTBUFSIZE];
+
+    snprintf(buf, sizeof(buf), "%s\n%s %s: %s\n", ERR_CMS_CONVERSION, ERR_CMS_OPEN_ICM_FILE, CMS_SCANNER_ICM, image_info->icm_profile);
+    xsane_back_gtk_error(buf, TRUE);
+  }
+#if 0
+{
+  LPGAMMATABLE Gamma = cmsBuildGamma(256, 3.0);
+  hOutProfile = cmsCreateGrayProfile(cmsD50_xyY(), Gamma);
+  cmsFreeGamma(Gamma);
+}
+#endif
+  if (cms_function == XSANE_CMS_FUNCTION_CONVERT_TO_SRGB)
+  {
+    hOutProfile = cmsCreate_sRGBProfile();
+  }
+  else
+  {
+    hOutProfile = cmsOpenProfileFromFile(preferences.working_color_space_icm_profile, "r");
+    if (!hOutProfile)
+    {
+     char buf[TEXTBUFSIZE];
+
+      cmsCloseProfile(hInProfile);
+
+      snprintf(buf, sizeof(buf), "%s\n%s %s: %s\n", ERR_CMS_CONVERSION, ERR_CMS_OPEN_ICM_FILE, CMS_DISPLAY_ICM, preferences.display_icm_profile);
+      xsane_back_gtk_error(buf, TRUE);
+    }
+  }
+
+  if (!hOutProfile)
+  {
+   char buf[TEXTBUFSIZE];
+
+    cmsCloseProfile(hInProfile);
+
+    snprintf(buf, sizeof(buf), "%s\n", ERR_CMS_CONVERSION);
+    xsane_back_gtk_error(buf, TRUE);
+  }
+
+  hTransform = cmsCreateTransform(hInProfile, cms_input_format,
+                                  hOutProfile, cms_output_format,
+                                  cms_intent, cms_flags);
+
+  cmsCloseProfile(hInProfile);
+  cmsCloseProfile(hOutProfile);
+
+  if (!hTransform)
+  {
+   char buf[TEXTBUFSIZE];
+
+    snprintf(buf, sizeof(buf), "%s\n%s\n", ERR_CMS_CONVERSION, ERR_CMS_CREATE_TRANSFORM);
+    xsane_back_gtk_error(buf, TRUE);
+  }
+
+ return hTransform;
+}
+#endif
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 int xsane_save_grayscale_image_as_lineart(FILE *outfile, FILE *imagefile, Image_info *image_info, GtkProgressBar *progress_bar, int *cancel_save)
 {
  int x, y, bit;
@@ -901,14 +1057,14 @@ int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_in
   image_info->resolution_x *= x_scale;
   image_info->resolution_y *= y_scale;
 
-  original_line = malloc(original_image_width * image_info->colors * bytespp);
+  original_line = malloc(original_image_width * image_info->channels * bytespp);
   if (!original_line)
   {
     DBG(DBG_error, "xsane_save_scaled_image: out of memory\n");
    return -1;
   }
 
-  new_line = malloc(new_image_width * image_info->colors * bytespp);
+  new_line = malloc(new_image_width * image_info->channels * bytespp);
   if (!new_line)
   {
     free(original_line);
@@ -916,7 +1072,7 @@ int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_in
    return -1;
   }
 
-  pixel_val = malloc(new_image_width * image_info->colors * sizeof(float));
+  pixel_val = malloc(new_image_width * image_info->channels * sizeof(float));
   if (!pixel_val)
   {
     free(original_line);
@@ -925,7 +1081,7 @@ int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_in
    return -1;
   }               
 
-  pixel_norm = malloc(new_image_width * image_info->colors * sizeof(float));
+  pixel_norm = malloc(new_image_width * image_info->channels * sizeof(float));
   if (!pixel_norm)
   {
     free(original_line);
@@ -939,8 +1095,8 @@ int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_in
 
   read_line = TRUE;
 
-  memset(pixel_val,  0, new_image_width * image_info->colors * sizeof(float));
-  memset(pixel_norm, 0, new_image_width * image_info->colors * sizeof(float));
+  memset(pixel_val,  0, new_image_width * image_info->channels * sizeof(float));
+  memset(pixel_norm, 0, new_image_width * image_info->channels * sizeof(float));
 
   y_new = 0;
   y_go = 1.0 / y_scale;
@@ -960,7 +1116,7 @@ int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_in
     if (read_line)
     {
       DBG(DBG_info, "xsane_save_scaled_image: reading original line %d\n", (int) y);
-      fread(original_line, original_image_width, image_info->colors * bytespp, imagefile); /* read one line */
+      fread(original_line, original_image_width, image_info->channels * bytespp, imagefile); /* read one line */
       original_line16 = (guint16 *) original_line;
     }
 
@@ -973,19 +1129,19 @@ int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_in
     {
       factor = x_factor * y_factor;
 
-      for (c = 0; c < image_info->colors; c++)
+      for (c = 0; c < image_info->channels; c++)
       {
         if (bytespp == 1)
         {
-          color = original_line[((int) x) * image_info->colors + c];
+          color = original_line[((int) x) * image_info->channels + c];
         }
         else /* bytespp == 2 */
         {
-          color = original_line16[((int) x) * image_info->colors + c];
+          color = original_line16[((int) x) * image_info->channels + c];
         }
 
-        pixel_val [x_new * image_info->colors + c] += factor * color;
-        pixel_norm[x_new * image_info->colors + c] += factor;
+        pixel_val [x_new * image_info->channels + c] += factor * color;
+        pixel_norm[x_new * image_info->channels + c] += factor;
       }
 
       x_go -= x_factor;
@@ -1022,7 +1178,7 @@ int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_in
 
       if (bytespp == 1)
       {
-        for (x_new = 0; x_new < new_image_width * image_info->colors; x_new++)
+        for (x_new = 0; x_new < new_image_width * image_info->channels; x_new++)
         {
           new_line[x_new] = (int) (pixel_val[x_new] / pixel_norm[x_new]);
         }
@@ -1031,13 +1187,13 @@ int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_in
       {
        guint16 *new_line16 = (guint16 *) new_line;
 
-        for (x_new = 0; x_new < new_image_width * image_info->colors; x_new++)
+        for (x_new = 0; x_new < new_image_width * image_info->channels; x_new++)
         {
           new_line16[x_new] = (int) (pixel_val[x_new] / pixel_norm[x_new]);
         }
       }
 
-      fwrite(new_line, new_image_width, image_info->colors * bytespp, outfile); /* write one line */
+      fwrite(new_line, new_image_width, image_info->channels * bytespp, outfile); /* write one line */
 
       if (ferror(outfile))
       {
@@ -1051,8 +1207,8 @@ int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_in
       }
 
       /* reset values and norm factors */
-      memset(pixel_val,  0, new_image_width * image_info->colors * sizeof(float));
-      memset(pixel_norm, 0, new_image_width * image_info->colors * sizeof(float));
+      memset(pixel_val,  0, new_image_width * image_info->channels * sizeof(float));
+      memset(pixel_norm, 0, new_image_width * image_info->channels * sizeof(float));
 
       y_new++;
       y_go = 1.0 / y_scale;
@@ -1080,7 +1236,7 @@ int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_in
 
   if (read_line) /* we have to write one more line */
   {
-    fwrite(new_line, new_image_width, image_info->colors * bytespp, outfile); /* write one line */
+    fwrite(new_line, new_image_width, image_info->channels * bytespp, outfile); /* write one line */
   }
 
   free(original_line);
@@ -1117,14 +1273,14 @@ int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_in
   image_info->resolution_x *= x_scale;
   image_info->resolution_y *= y_scale;
 
-  original_line = malloc(original_image_width * image_info->colors * bytespp);
+  original_line = malloc(original_image_width * image_info->channels * bytespp);
   if (!original_line)
   {
     DBG(DBG_error, "xsane_save_scaled_image: out of memory\n");
    return -1;
   }
 
-  new_line = malloc(new_image_width * image_info->colors * bytespp);
+  new_line = malloc(new_image_width * image_info->channels * bytespp);
   if (!new_line)
   {
     free(original_line);
@@ -1147,18 +1303,18 @@ int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_in
 
     for (; ((int) original_y) - old_original_y; old_original_y += 1)
     {
-      fread(original_line, original_image_width, image_info->colors * bytespp, imagefile); /* read one line */
+      fread(original_line, original_image_width, image_info->channels * bytespp, imagefile); /* read one line */
     }
 
     for (x = 0; x < new_image_width; x++)
     {
-      for (i = 0; i < image_info->colors * bytespp; i++)
+      for (i = 0; i < image_info->channels * bytespp; i++)
       {
-        new_line[x * image_info->colors * bytespp + i] = original_line[((int) (x / x_scale)) * image_info->colors * bytespp + i];
+        new_line[x * image_info->channels * bytespp + i] = original_line[((int) (x / x_scale)) * image_info->channels * bytespp + i];
       }
     }
 
-    fwrite(new_line, new_image_width, image_info->colors * bytespp, outfile); /* write one line */
+    fwrite(new_line, new_image_width, image_info->channels * bytespp, outfile); /* write one line */
 
     original_y += 1/y_scale;
 
@@ -1191,7 +1347,7 @@ int xsane_save_despeckle_image(FILE *outfile, FILE *imagefile, Image_info *image
  guint16 *color_cache_ptr;
  int bytespp = 1;
  int color_radius;
- int color_width  = image_info->image_width * image_info->colors;
+ int color_width  = image_info->image_width * image_info->channels;
 
   radius--; /* correct radius : 1 means nothing happens */
 
@@ -1200,7 +1356,7 @@ int xsane_save_despeckle_image(FILE *outfile, FILE *imagefile, Image_info *image
     radius = 1;
   }
 
-  color_radius = radius * image_info->colors;
+  color_radius = radius * image_info->channels;
 
   if (image_info->depth > 8)
   {
@@ -1256,7 +1412,7 @@ int xsane_save_despeckle_image(FILE *outfile, FILE *imagefile, Image_info *image
 
       if (xmin < 0)
       {
-        xmin = x % image_info->colors;
+        xmin = x % image_info->channels;
       }
 
       if (xmax > color_width)
@@ -1275,11 +1431,11 @@ int xsane_save_despeckle_image(FILE *outfile, FILE *imagefile, Image_info *image
         {
           line_cache_ptr = line_cache + (sy-ymin) * color_width + xmin;
 
-          for (sx = xmin; sx <= xmax; sx+=image_info->colors) /* x part */
+          for (sx = xmin; sx <= xmax; sx+=image_info->channels) /* x part */
           {
             *color_cache_ptr = *line_cache_ptr;
             color_cache_ptr++;
-            line_cache_ptr += image_info->colors;
+            line_cache_ptr += image_info->channels;
           }
         }
 
@@ -1318,11 +1474,11 @@ int xsane_save_despeckle_image(FILE *outfile, FILE *imagefile, Image_info *image
         {
           line_cache16_ptr = line_cache16 + (sy-ymin) * color_width + xmin;
 
-          for (sx = xmin; sx <= xmax; sx+=image_info->colors)
+          for (sx = xmin; sx <= xmax; sx+=image_info->channels)
           {
             *color_cache_ptr = *line_cache16_ptr;
             color_cache_ptr++;
-            line_cache16_ptr += image_info->colors;
+            line_cache16_ptr += image_info->channels;
           }
         }
 
@@ -1411,14 +1567,14 @@ int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info
 
   xsane_write_pnm_header(outfile, image_info, 0);
 
-  line_cache = malloc(image_info->image_width * image_info->colors * bytespp * (2 * intradius + 1));
+  line_cache = malloc(image_info->image_width * image_info->channels * bytespp * (2 * intradius + 1));
   if (!line_cache)
   {
     DBG(DBG_error, "xsane_blur_image: out of memory\n");
    return -1;
   }
 
-  fread(line_cache, image_info->image_width * image_info->colors * bytespp, (2 * intradius + 1), imagefile);
+  fread(line_cache, image_info->image_width * image_info->channels * bytespp, (2 * intradius + 1), imagefile);
 
   for (y = 0; y < image_info->image_height; y++)
   {
@@ -1428,22 +1584,22 @@ int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info
       gtk_main_iteration();
     }
 
-    for (x = 0; x < image_info->image_width * image_info->colors; x++)
+    for (x = 0; x < image_info->image_width * image_info->channels; x++)
     {
       xmin_flag = xmax_flag = ymin_flag = ymax_flag = TRUE;
 
-      xmin = x - intradius * image_info->colors;
-      xmax = x + intradius * image_info->colors;
+      xmin = x - intradius * image_info->channels;
+      xmax = x + intradius * image_info->channels;
 
       if (xmin < 0)
       {
-        xmin = x % image_info->colors;
+        xmin = x % image_info->channels;
         xmin_flag = FALSE;
       }
 
-      if (xmax > image_info->image_width * image_info->colors)
+      if (xmax > image_info->image_width * image_info->channels)
       {
-        xmax = image_info->image_width * image_info->colors;
+        xmax = image_info->image_width * image_info->channels;
         xmax_flag = FALSE;
       }
 
@@ -1471,7 +1627,7 @@ int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info
         {
           for (sy = ymin+1; sy <= ymax-1 ; sy++)
           {
-            val += outer_factor * line_cache[(sy-ymin) * image_info->image_width * image_info->colors + xmin];
+            val += outer_factor * line_cache[(sy-ymin) * image_info->image_width * image_info->channels + xmin];
             norm += outer_factor;
           }
         }
@@ -1480,14 +1636,14 @@ int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info
         {
           for (sy = ymin+1; sy <= ymax-1 ; sy++)
           {
-            val += outer_factor * line_cache[(sy-ymin) * image_info->image_width * image_info->colors + xmax];
+            val += outer_factor * line_cache[(sy-ymin) * image_info->image_width * image_info->channels + xmax];
             norm += outer_factor;
           }
         }
 
         if (ymin_flag) /* integrate over top margin */
         {
-          for (sx = xmin+image_info->colors; sx <= xmax-image_info->colors ; sx += image_info->colors)
+          for (sx = xmin+image_info->channels; sx <= xmax-image_info->channels ; sx += image_info->channels)
           {
             val += outer_factor * line_cache[sx];
             norm += outer_factor;
@@ -1496,18 +1652,18 @@ int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info
 
         if (ymax_flag) /* integrate over bottom margin */
         {
-          for (sx = xmin+image_info->colors; sx <= xmax-image_info->colors ; sx += image_info->colors)
+          for (sx = xmin+image_info->channels; sx <= xmax-image_info->channels ; sx += image_info->channels)
           {
-            val += outer_factor * line_cache[(ymax-ymin) * image_info->image_width * image_info->colors + sx];
+            val += outer_factor * line_cache[(ymax-ymin) * image_info->image_width * image_info->channels + sx];
             norm += outer_factor;
           }
         }
 
         for (sy = ymin+1; sy <= ymax-1; sy++) /* integrate internal square */
         {
-          for (sx = xmin+image_info->colors; sx <= xmax-image_info->colors; sx+=image_info->colors)
+          for (sx = xmin+image_info->channels; sx <= xmax-image_info->channels; sx+=image_info->channels)
           {
-            val += line_cache[(sy-ymin) * image_info->image_width * image_info->colors + sx];
+            val += line_cache[(sy-ymin) * image_info->image_width * image_info->channels + sx];
             norm += 1.0;
           }
         }
@@ -1523,7 +1679,7 @@ int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info
         {
           for (sy = ymin+1; sy <= ymax-1 ; sy++)
           {
-            val += outer_factor * line_cache16[(sy-ymin) * image_info->image_width * image_info->colors + xmin];
+            val += outer_factor * line_cache16[(sy-ymin) * image_info->image_width * image_info->channels + xmin];
             norm += outer_factor;
           }
         }
@@ -1532,14 +1688,14 @@ int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info
         {
           for (sy = ymin+1; sy <= ymax-1 ; sy++)
           {
-            val += outer_factor * line_cache16[(sy-ymin) * image_info->image_width * image_info->colors + xmax];
+            val += outer_factor * line_cache16[(sy-ymin) * image_info->image_width * image_info->channels + xmax];
             norm += outer_factor;
           }
         }
 
         if (ymin_flag) /* integrate over top margin */
         {
-          for (sx = xmin+image_info->colors; sx <= xmax-image_info->colors ; sx += image_info->colors)
+          for (sx = xmin+image_info->channels; sx <= xmax-image_info->channels ; sx += image_info->channels)
           {
             val += outer_factor * line_cache16[sx];
             norm += outer_factor;
@@ -1548,18 +1704,18 @@ int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info
 
         if (ymax_flag) /* integrate over bottom margin */
         {
-          for (sx = xmin+image_info->colors; sx <= xmax-image_info->colors ; sx += image_info->colors)
+          for (sx = xmin+image_info->channels; sx <= xmax-image_info->channels ; sx += image_info->channels)
           {
-            val += outer_factor * line_cache16[(ymax-ymin) * image_info->image_width * image_info->colors + sx];
+            val += outer_factor * line_cache16[(ymax-ymin) * image_info->image_width * image_info->channels + sx];
             norm += outer_factor;
           }
         }
 
         for (sy = ymin; sy <= ymax; sy++) /* integrate internal square */
         {
-          for (sx = xmin; sx <= xmax; sx+=image_info->colors)
+          for (sx = xmin; sx <= xmax; sx+=image_info->channels)
           {
-            val += line_cache16[(sy-ymin) * image_info->image_width * image_info->colors + sx];
+            val += line_cache16[(sy-ymin) * image_info->image_width * image_info->channels + sx];
             norm += 1.0;
           }
         }
@@ -1585,10 +1741,10 @@ int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info
 
     if ((y > intradius) && (y < image_info->image_height - intradius))
     {
-      memcpy(line_cache, line_cache + image_info->image_width * image_info->colors * bytespp, 
-             image_info->image_width * image_info->colors * bytespp * 2 * intradius);
-      fread(line_cache + image_info->image_width * image_info->colors * bytespp * 2 * intradius,
-            image_info->image_width * image_info->colors * bytespp, 1, imagefile);
+      memcpy(line_cache, line_cache + image_info->image_width * image_info->channels * bytespp, 
+             image_info->image_width * image_info->channels * bytespp * 2 * intradius);
+      fread(line_cache + image_info->image_width * image_info->channels * bytespp * 2 * intradius,
+            image_info->image_width * image_info->channels * bytespp, 1, imagefile);
     }
   }
 
@@ -1620,14 +1776,14 @@ int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info
 
   xsane_write_pnm_header(outfile, image_info, 0);
 
-  line_cache = malloc(image_info->image_width * image_info->colors * bytespp * (2 * radius + 1));
+  line_cache = malloc(image_info->image_width * image_info->channels * bytespp * (2 * radius + 1));
   if (!line_cache)
   {
     DBG(DBG_error, "xsane_blur_image: out of memory\n");
    return -1;
   }
 
-  fread(line_cache, image_info->image_width * image_info->colors * bytespp, (2 * radius + 1), imagefile);
+  fread(line_cache, image_info->image_width * image_info->channels * bytespp, (2 * radius + 1), imagefile);
 
   for (y = 0; y < image_info->image_height; y++)
   {
@@ -1637,19 +1793,19 @@ int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info
       gtk_main_iteration();
     }
 
-    for (x = 0; x < image_info->image_width * image_info->colors; x++)
+    for (x = 0; x < image_info->image_width * image_info->channels; x++)
     {
-      xmin = x - radius * image_info->colors;
-      xmax = x + radius * image_info->colors;
+      xmin = x - radius * image_info->channels;
+      xmax = x + radius * image_info->channels;
 
       if (xmin < 0)
       {
-        xmin = x % image_info->colors;
+        xmin = x % image_info->channels;
       }
 
-      if (xmax > image_info->image_width * image_info->colors)
+      if (xmax > image_info->image_width * image_info->channels)
       {
-        xmax = image_info->image_width * image_info->colors;
+        xmax = image_info->image_width * image_info->channels;
       }
 
       ymin = y - radius;
@@ -1672,9 +1828,9 @@ int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info
       {
         for (sy = ymin; sy <= ymax; sy++)
         {
-          for (sx = xmin; sx <= xmax; sx+=image_info->colors)
+          for (sx = xmin; sx <= xmax; sx+=image_info->channels)
           {
-            val += line_cache[(sy-ymin) * image_info->image_width * image_info->colors + sx];
+            val += line_cache[(sy-ymin) * image_info->image_width * image_info->channels + sx];
             count++;
           }
         }
@@ -1688,9 +1844,9 @@ int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info
 
         for (sy = ymin; sy <= ymax; sy++)
         {
-          for (sx = xmin; sx <= xmax; sx+=image_info->colors)
+          for (sx = xmin; sx <= xmax; sx+=image_info->channels)
           {
-            val += line_cache16[(sy-ymin) * image_info->image_width * image_info->colors + sx];
+            val += line_cache16[(sy-ymin) * image_info->image_width * image_info->channels + sx];
             count++;
           }
         }
@@ -1703,10 +1859,10 @@ int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info
 
     if ((y > radius) && (y < image_info->image_height - radius))
     {
-      memcpy(line_cache, line_cache + image_info->image_width * image_info->colors * bytespp, 
-             image_info->image_width * image_info->colors * bytespp * 2 * radius);
-      fread(line_cache + image_info->image_width * image_info->colors * bytespp * 2 * radius,
-            image_info->image_width * image_info->colors * bytespp, 1, imagefile);
+      memcpy(line_cache, line_cache + image_info->image_width * image_info->channels * bytespp, 
+             image_info->image_width * image_info->channels * bytespp * 2 * radius);
+      fread(line_cache + image_info->image_width * image_info->channels * bytespp * 2 * radius,
+            image_info->image_width * image_info->channels * bytespp, 1, imagefile);
     }
   }
 
@@ -1738,7 +1894,7 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
 
   pos0 = ftell(imagefile); /* mark position to skip header */
 
-  bytespp = image_info->colors;
+  bytespp = image_info->channels;
 
   if (image_info->depth > 8)
   {
@@ -2231,7 +2387,7 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void xsane_save_ps_create_document_header(FILE *outfile, int pages, int flatdecode)
+void xsane_save_ps_create_document_header(FILE *outfile, int pages, int flatedecode)
 {
   DBG(DBG_proc, "xsane_save_ps_create_document_header\n");
 
@@ -2240,7 +2396,7 @@ void xsane_save_ps_create_document_header(FILE *outfile, int pages, int flatdeco
                         SANE_VERSION_MAJOR(xsane.sane_backend_versioncode),
                         SANE_VERSION_MINOR(xsane.sane_backend_versioncode));
   fprintf(outfile, "%%%%DocumentData: Clean7Bit\n");
-  if (flatdecode)
+  if (flatedecode)
   {
     fprintf(outfile, "%%%%LanguageLevel: 3\n");
   }
@@ -2292,7 +2448,7 @@ static void xsane_save_ps_create_page_header(FILE *outfile, int page,
                                              float width, float height,
                                              int paper_left_margin, int paper_bottom_margin,
                                              int paper_width, int paper_height,
-                                             int paper_orientation, int flatdecode,
+                                             int paper_orientation, int flatedecode,
                                              GtkProgressBar *progress_bar)
 {
  int degree, position_left, position_bottom, box_left, box_bottom, box_right, box_top, depth;
@@ -2381,7 +2537,7 @@ static void xsane_save_ps_create_page_header(FILE *outfile, int page,
 
   if (depth > 8)
   {
-    depth = 8;
+    depth = 12;
   }
 
   fprintf(outfile, "\n");
@@ -2398,23 +2554,22 @@ static void xsane_save_ps_create_page_header(FILE *outfile, int page,
   fprintf(outfile, "%d rotate\n", degree);
   fprintf(outfile, "%d %d translate\n", position_left, position_bottom);
   fprintf(outfile, "%f %f scale\n", width, height);
-  fprintf(outfile, "%d %d %d\n", image_info->image_width, image_info->image_height, depth);
-  fprintf(outfile, "[%d %d %d %d %d %d]\n", image_info->image_width, 0, 0, -image_info->image_height, 0, image_info->image_height);
-  fprintf(outfile, "currentfile\n");
-  fprintf(outfile, "/ASCII85Decode filter\n");
+  fprintf(outfile, "<<\n");
+  fprintf(outfile, " /ImageType 1\n");
+  fprintf(outfile, " /Width %d\n", image_info->image_width);
+  fprintf(outfile, " /Height %d\n", image_info->image_height);
+  fprintf(outfile, " /BitsPerComponent %d\n", depth);
+  fprintf(outfile, " /Decode [0 1 0 1 0 1]\n");
+  fprintf(outfile, " /ImageMatrix [%d %d %d %d %d %d]\n", image_info->image_width, 0, 0, -image_info->image_height, 0, image_info->image_height);
+  fprintf(outfile, " /DataSource currentfile /ASCII85Decode filter");
 #ifdef HAVE_LIBZ
-  if (flatdecode)
+  if (flatedecode)
   {
-    fprintf(outfile, "/FlateDecode filter\n");
+    fprintf(outfile, " /FlateDecode filter");
   }
 #endif
-
-  if (image_info->colors == 3) /* what about RGBA here ? */
-  {
-    fprintf(outfile, "false 3 colorimage\n");
-    fprintf(outfile, "\n");
-  }
-  else
+  fprintf(outfile, "\n");
+  fprintf(outfile, ">>\n");
   {
     fprintf(outfile, "image\n");
     fprintf(outfile, "\n");
@@ -2433,8 +2588,102 @@ static void xsane_save_ps_create_page_trailer(FILE *outfile)
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 #ifdef HAVE_LIBZ
+/* Utility function for the PDF output */
+static int xsane_write_flatedecode(FILE *outfile, unsigned char *line, int len, int finish)
+{
+  static unsigned char *cbuf = NULL;
+  static int cbuflen = 0;
+  static int linelen = 0;
+  int outlen;
+  static int init = 0;
+  static z_stream s;
+  int ret;
+  int flush;
+  static int count = 0;
+
+  DBG(DBG_proc, "xsane_write_flatedecode\n");
+
+  if (linelen != len)
+  {
+    linelen = len;
+    if (cbuf != NULL)
+    {
+      free(cbuf);
+    }
+    /* buffer length = length + 0.1 * length + 12 (mandatory) */
+    cbuflen = len + len / 10 + 12;
+    cbuf = malloc(cbuflen);
+  }
+
+  if (cbuf == NULL)
+  {
+    DBG(DBG_error, "cbuf allocation failed\n");
+   return 1;
+  }
+
+  if (!init)
+  {
+    s.zalloc = Z_NULL;
+    s.zfree = Z_NULL;
+    s.opaque = Z_NULL;
+
+    ret = deflateInit(&s, Z_DEFAULT_COMPRESSION);
+
+    if (ret != Z_OK)
+    {
+      DBG(DBG_error, "deflateInit failed\n");
+      free(cbuf);
+     return 1;
+    }
+
+    init = 1;
+  }
+  
+  s.avail_in = len;
+  s.next_in = line;
+
+  do
+  {
+    s.avail_out = cbuflen;
+    s.next_out = cbuf;
+
+    flush = (finish) ? Z_FINISH : Z_NO_FLUSH;
+
+    ret = deflate(&s, flush);
+
+    if (ret == Z_STREAM_ERROR)
+    {
+      DBG(DBG_error, "deflate failed\n");
+      free(cbuf);
+     return 1;
+    }
+
+    outlen = cbuflen - s.avail_out;
+
+    fwrite(cbuf, outlen, 1, outfile);
+  } while (s.avail_out == 0);
+
+  if (finish)
+  {
+    DBG(DBG_info, "xsane_write_flatedecode finished\n");
+    deflateEnd(&s);
+    free(cbuf);
+    cbuf = NULL;
+    init = 0;
+    cbuflen = 0;
+    linelen = 0;
+    count = 0;
+  }
+
+ return 0;
+}
+#endif
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+#ifdef HAVE_LIBZ
 /* Utility function for the PostScript output */
-static int xsane_write_compressed_a85_flatdecode(FILE *outfile, unsigned char *line, int len, int finish)
+static int xsane_write_compressed_a85_flatedecode(FILE *outfile, unsigned char *line, int len, int finish)
 {
   static unsigned char *cbuf = NULL;
   static int cbuflen = 0;
@@ -2450,7 +2699,7 @@ static int xsane_write_compressed_a85_flatdecode(FILE *outfile, unsigned char *l
   static unsigned char a85block[6] = {0, 0, 0, 0, 0, 0};
   static int count = 0;
 
-  DBG(DBG_proc, "xsane_write_compressed_a85_flatdecode\n");
+  DBG(DBG_proc, "xsane_write_compressed_a85_flatedecode\n");
 
   if (linelen != len)
   {
@@ -2745,7 +2994,91 @@ static int xsane_write_compressed_a85(FILE *outfile, unsigned char *line, int le
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static int xsane_save_ps_pdf_bw(FILE *outfile, FILE *imagefile, Image_info *image_info, int flatdecode, GtkProgressBar *progress_bar, int *cancel_save)
+#ifdef HAVE_LIBLCMS
+static int xsane_write_CSA(FILE *outfile, char *input_profile, int intent)
+{
+ cmsHPROFILE hProfile;
+ size_t n;
+ char* buffer;
+
+  hProfile = cmsOpenProfileFromFile(input_profile, "r");
+  if (!hProfile)
+  {
+    return -1;
+  }
+
+  n = cmsGetPostScriptCSA(hProfile, intent, NULL, 0);
+  if (n == 0)
+  {
+    return -2;
+  }
+
+  buffer = (char*) malloc(n + 1);
+  if (!buffer)
+  {
+    return -3;
+  }
+
+  cmsGetPostScriptCSA(hProfile, intent, buffer, n);
+  buffer[n] = 0;
+
+  fprintf(outfile, "%s", buffer);
+  fprintf(outfile, "setcolorspace\n");
+
+  free(buffer);
+  cmsCloseProfile(hProfile);
+
+ return 0;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static int xsane_write_CRD(FILE *outfile, char *output_profile, int intent, int blackpointcompensation)
+{
+ cmsHPROFILE hProfile;
+ size_t n;
+ char* buffer;
+ DWORD flags = cmsFLAGS_NODEFAULTRESOURCEDEF;
+
+  hProfile = cmsOpenProfileFromFile(output_profile, "r");
+  if (!hProfile)
+  {
+    return -1;
+  }
+
+  if (blackpointcompensation)
+  {
+    flags |= cmsFLAGS_BLACKPOINTCOMPENSATION;
+  }
+
+  n = cmsGetPostScriptCRDEx(hProfile, intent, flags, NULL, 0);
+  if (n == 0)
+  {
+    return -2;
+  }
+
+  buffer = (char*) malloc(n + 1);
+  if (!buffer)
+  {
+    return -3;
+  }
+
+  cmsGetPostScriptCRDEx(hProfile, intent, flags, buffer, n);
+  buffer[n] = 0;
+
+  fprintf(outfile, "%s", buffer);
+  fprintf(outfile, "setcolorrendering\n");
+
+  free(buffer);
+  cmsCloseProfile(hProfile);
+
+ return 0;
+}
+#endif
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static int xsane_save_ps_pdf_bw(FILE *outfile, FILE *imagefile, Image_info *image_info, int ascii85decode, int flatedecode, GtkProgressBar *progress_bar, int *cancel_save)
 {
  int x, y;
  int bytes_per_line = (image_info->image_width+7)/8;
@@ -2782,15 +3115,26 @@ static int xsane_save_ps_pdf_bw(FILE *outfile, FILE *imagefile, Image_info *imag
       line[x] = fgetc(imagefile) ^ 255;
     }
 
-#ifdef HAVE_LIBZ
-    if (flatdecode)
+    if (ascii85decode)
     {
-      ret = xsane_write_compressed_a85_flatdecode(outfile, line, bytes_per_line, (y == image_info->image_height - 1));
+#ifdef HAVE_LIBZ
+      if (flatedecode)
+      {
+        ret = xsane_write_compressed_a85_flatedecode(outfile, line, bytes_per_line, (y == image_info->image_height - 1));
+      }
+      else
+#endif
+      {
+        ret = xsane_write_compressed_a85(outfile, line, bytes_per_line, (y == image_info->image_height - 1));
+      }
+    }
+    else if (flatedecode)
+    {
+      ret = xsane_write_flatedecode(outfile, line, bytes_per_line, (y == image_info->image_height - 1));
     }
     else
-#endif
     {
-      ret = xsane_write_compressed_a85(outfile, line, bytes_per_line, (y == image_info->image_height - 1));
+      fwrite(line, bytes_per_line, 1, outfile);
     }
 
     if ((ret != 0) || (ferror(outfile)))
@@ -2826,11 +3170,15 @@ static int xsane_save_ps_pdf_bw(FILE *outfile, FILE *imagefile, Image_info *imag
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static int xsane_save_ps_pdf_gray(FILE *outfile, FILE *imagefile, Image_info *image_info, int flatdecode, GtkProgressBar *progress_bar, int *cancel_save)
+static int xsane_save_ps_pdf_gray(FILE *outfile, FILE *imagefile, Image_info *image_info, int ascii85decode, int flatedecode, cmsHTRANSFORM hTransform, int embed_scanner_icm_profile, GtkProgressBar *progress_bar, int *cancel_save)
 {
-  int x, y;
-  int ret;
-  unsigned char *line;
+ int x, y;
+ int ret;
+ unsigned char *line;
+#ifdef HAVE_LIBLCMS
+ unsigned char *line_raw = NULL;
+#endif
+
 
   DBG(DBG_proc, "xsane_save_ps_pdf_gray\n");
 
@@ -2869,15 +3217,26 @@ static int xsane_save_ps_pdf_gray(FILE *outfile, FILE *imagefile, Image_info *im
       }
     }
 
-#ifdef HAVE_LIBZ
-    if (flatdecode)
+    if (ascii85decode)
     {
-      ret = xsane_write_compressed_a85_flatdecode(outfile, line, image_info->image_width, (y == image_info->image_height - 1));
+#ifdef HAVE_LIBZ
+      if (flatedecode)
+      {
+        ret = xsane_write_compressed_a85_flatedecode(outfile, line, image_info->image_width, (y == image_info->image_height - 1));
+      }
+      else
+#endif
+      {
+        ret = xsane_write_compressed_a85(outfile, line, image_info->image_width, (y == image_info->image_height - 1));
+      }
+    }
+    else if (flatedecode)
+    {
+      ret = xsane_write_flatedecode(outfile, line, image_info->image_width, (y == image_info->image_height - 1));
     }
     else
-#endif
     {
-      ret = xsane_write_compressed_a85(outfile, line, image_info->image_width, (y == image_info->image_height - 1));
+      fwrite(line, image_info->image_width, 1, outfile);
     }
 
     if ((ret != 0) || (ferror(outfile)))
@@ -2919,28 +3278,106 @@ static int xsane_save_ps_pdf_gray(FILE *outfile, FILE *imagefile, Image_info *im
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static int xsane_save_ps_pdf_color(FILE *outfile, FILE *imagefile, Image_info *image_info, int flatdecode, GtkProgressBar *progress_bar, int *cancel_save)
+static int xsane_save_ps_pdf_color(FILE *outfile, FILE *imagefile, Image_info *image_info, int ascii85decode, int flatedecode,
+                                   cmsHTRANSFORM hTransform, int do_transform,
+                                   GtkProgressBar *progress_bar, int *cancel_save)
 {
   int x, y;
   int ret;
-  unsigned char *line, *linep;
+  unsigned char *line = NULL, *linep = NULL, *line16 = NULL;
+  int bytes_per_line;
+  int bytes_per_line16 = 0;
+#ifdef HAVE_LIBLCMS
+ unsigned char *line_raw = NULL;
+#endif
 
   DBG(DBG_proc, "xsane_save_ps_pdf_color\n");
 
   *cancel_save = 0;
 
-  line = (unsigned char *) malloc(image_info->image_width * 3);
+  if (image_info->depth > 8) /* reduce 16 bit images to 12 bit */
+  {
+    bytes_per_line16 = image_info->image_width * 3 * 2;
+
+    bytes_per_line   = (image_info->image_width/2) * 3 * 3;
+    if (image_info->image_width & 1)
+    {
+      bytes_per_line += 5;
+    }
+
+    DBG(DBG_info, "bytes_per_line16 = %d\n", bytes_per_line16);
+    DBG(DBG_info, "bytes_per_line   = %d\n", bytes_per_line);
+  
+    line16 = (unsigned char *) malloc(bytes_per_line16);
+  
+    if (line16 == NULL)
+    {
+     char buf[TEXTBUFSIZE];
+        
+      snprintf(buf, sizeof(buf), "%s malloc for line16 failed", ERR_DURING_SAVE);
+      DBG(DBG_error, "%s\n", buf);
+      xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+      *cancel_save = 1;
+     return (*cancel_save);
+    }
+    DBG(DBG_info, "line16 allocated\n");
+  }
+  else
+  {
+    bytes_per_line   = image_info->image_width * 3;
+    bytes_per_line16 = image_info->image_width * 3;
+    DBG(DBG_info, "bytes_per_line = %d\n", bytes_per_line);
+  }
+
+  line = (unsigned char *) malloc(bytes_per_line);
 
   if (line == NULL)
   {
    char buf[TEXTBUFSIZE];
       
-    snprintf(buf, sizeof(buf), "%s malloc failed", ERR_DURING_SAVE);
+    snprintf(buf, sizeof(buf), "%s malloc for line failed", ERR_DURING_SAVE);
     DBG(DBG_error, "%s\n", buf);
     xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+
+    if (line16)
+    {
+      free(line16);
+    }
+
     *cancel_save = 1;
    return (*cancel_save);
   }
+  DBG(DBG_info, "line allocated\n");
+
+#ifdef HAVE_LIBLCMS
+  if (do_transform && (hTransform != NULL))
+  {
+    DBG(DBG_info, "Doing CMS color conversion\n");
+
+    line_raw = (unsigned char *) malloc(bytes_per_line16);
+
+    if (line_raw == NULL)
+    {
+     char buf[TEXTBUFSIZE];
+       
+      snprintf(buf, sizeof(buf), "%s malloc for line_raw failed", ERR_DURING_SAVE);
+      DBG(DBG_error, "%s\n", buf);
+      xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+
+      free(line);
+
+      if (line16)
+      {
+        free(line16);
+      }
+
+      *cancel_save = 1;
+     return (*cancel_save);
+    }
+
+    DBG(DBG_info, "line_raw allocated\n");
+  }
+#endif
  
   for (y = 0; y < image_info->image_height; y++)
   {
@@ -2952,39 +3389,101 @@ static int xsane_save_ps_pdf_color(FILE *outfile, FILE *imagefile, Image_info *i
 
     linep = line;
 
-    if (image_info->depth > 8) /* reduce 16 bit images */
+    if (image_info->depth > 8) /* reduce 16 bit images to 12 bit */
     {
-     guint16 val;
-
-      for (x = 0; x < image_info->image_width; x++)
+#ifdef HAVE_LIBLCMS
+      if (do_transform && (hTransform != NULL))
       {
-        fread(&val, 2, 1, imagefile);
-	*linep++ = val/256;
-        fread(&val, 2, 1, imagefile);
-	*linep++ = val/256;
-        fread(&val, 2, 1, imagefile);
-	*linep++ = val/256;
+        fread(line_raw, 6, image_info->image_width, imagefile);
+        cmsDoTransform(hTransform, line_raw, line16, image_info->image_width);
       }
+      else
+#endif
+      {
+        fread(line16, 6, image_info->image_width, imagefile);
+      }
+
+#if __BYTE_ORDER == __LITTLE_ENDIAN
+      for (x = 0; x < image_info->image_width; x=x+2)
+      {
+        *linep++ =   line16[6*x+1]; /* red high+middle */
+        *linep++ =  (line16[6*x+0] & 240)      |  (line16[6*x+3] >> 4); /* red low | green high */
+        *linep++ = ((line16[6*x+3] & 15) << 4) | ((line16[6*x+2] & 240) >> 4); /* green middle | green low */
+
+        *linep++ =  line16[6*x+5]; /* blue high+middle */
+
+        if (x == image_info->image_width-1)
+        {
+          *linep++ = (line16[6*x+4] & 240); /* blue low */
+          break;
+        }
+
+        *linep++ =  (line16[6*x+4] & 240)      |  (line16[6*x+7] >> 4); /* blue low | red high */
+        *linep++ = ((line16[6*x+7] & 15) << 4) | ((line16[6*x+6] & 240) >> 4); /* red middle | red low */
+
+        *linep++ =   line16[6*x+9]; /* green high+middle */
+        *linep++ =  (line16[6*x+8] & 240)       |  (line16[6*x+11] >> 4); /* green low | blue high */
+        *linep++ = ((line16[6*x+11] & 15) << 4) | ((line16[6*x+10] & 240) >> 4); /* blue middle | blue low */
+      }
+#else
+      for (x = 0; x < image_info->image_width; x=x+2)
+      {
+        *linep++ =   line16[6*x+0]; /* red high+middle */
+        *linep++ =  (line16[6*x+1] & 240)      |  (line16[6*x+2] >> 4); /* red low | green high */
+        *linep++ = ((line16[6*x+2] & 15) << 4) | ((line16[6*x+3] & 240) >> 4); /* green middle | green low */
+
+        *linep++ =  line16[6*x+4]; /* blue high+middle */
+
+        if (x == image_info->image_width-1)
+        {
+          *linep++ = (line16[6*x+5] & 240); /* blue low */
+          break;
+        }
+
+        *linep++ =  (line16[6*x+5] & 240)      |  (line16[6*x+6] >> 4); /* blue low | red high */
+        *linep++ = ((line16[6*x+6] & 15) << 4) | ((line16[6*x+7] & 240) >> 4); /* red middle | red low */
+
+        *linep++ =   line16[6*x+8]; /* green high+middle */
+        *linep++ =  (line16[6*x+9] & 240)       |  (line16[6*x+10] >> 4); /* green low | blue high */
+        *linep++ = ((line16[6*x+10] & 15) << 4) | ((line16[6*x+11] & 240) >> 4); /* blue middle | blue low */
+      }
+#endif
     }
     else /* 8 bits/sample */
     {
-      for (x = 0; x < image_info->image_width; x++)
+#ifdef HAVE_LIBLCMS
+      if (do_transform && (hTransform != NULL))
       {
-	*linep++ = fgetc(imagefile);
-	*linep++ = fgetc(imagefile);
-	*linep++ = fgetc(imagefile);
+        fread(line_raw, 3, image_info->image_width, imagefile);
+        cmsDoTransform(hTransform, line_raw, line, image_info->image_width);
+      }
+      else
+#endif
+      {
+        fread(line, 3, image_info->image_width, imagefile);
       }
     }
 
-#ifdef HAVE_LIBZ
-    if (flatdecode)
+    if (ascii85decode)
     {
-      ret = xsane_write_compressed_a85_flatdecode(outfile, line, (image_info->image_width * 3), (y == image_info->image_height - 1));
+#ifdef HAVE_LIBZ
+      if (flatedecode)
+      {
+        ret = xsane_write_compressed_a85_flatedecode(outfile, line, bytes_per_line, (y == image_info->image_height - 1));
+      }
+      else
+#endif
+      {
+        ret = xsane_write_compressed_a85(outfile, line, bytes_per_line, (y == image_info->image_height - 1));
+      }
+    }
+    else if (flatedecode)
+    {
+      ret = xsane_write_flatedecode(outfile, line, bytes_per_line, (y == image_info->image_height - 1));
     }
     else
-#endif
     {
-      ret = xsane_write_compressed_a85(outfile, line, (image_info->image_width * 3), (y == image_info->image_height - 1));
+      fwrite(line, bytes_per_line, 1, outfile);
     }
 
     if ((ret != 0) || (ferror(outfile)))
@@ -3011,6 +3510,18 @@ static int xsane_save_ps_pdf_color(FILE *outfile, FILE *imagefile, Image_info *i
     {
       break;
     }
+  }
+
+#ifdef HAVE_LIBLCMS
+  if (line_raw)
+  {
+    free(line_raw);
+  }
+#endif
+
+  if (line16)
+  {
+    free(line16);
   }
 
   free(line);
@@ -3023,7 +3534,8 @@ static int xsane_save_ps_pdf_color(FILE *outfile, FILE *imagefile, Image_info *i
 int xsane_save_ps_page(FILE *outfile, int page,
                        FILE *imagefile, Image_info *image_info, float width, float height,
                        int paper_left_margin, int paper_bottom_margin, int paperwidth, int paperheight, int paper_orientation,
-                       int flatdecode,
+                       int flatedecode,
+                       cmsHTRANSFORM hTransform, int do_transform,
                        GtkProgressBar *progress_bar, int *cancel_save)
 {
   DBG(DBG_proc, "xsane_save_ps_page\n");
@@ -3031,23 +3543,23 @@ int xsane_save_ps_page(FILE *outfile, int page,
   xsane_save_ps_create_page_header(outfile, page,
                                    image_info, width, height,
                                    paper_left_margin, paper_bottom_margin, paperwidth, paperheight, paper_orientation,
-                                   flatdecode,
+                                   flatedecode,
                                    progress_bar);
 
-  if (image_info->colors == 1) /* lineart, halftone, grayscale */
+  if (image_info->channels == 1) /* lineart, halftone, grayscale */
   {
     if (image_info->depth == 1) /* lineart, halftone */
     {
-      xsane_save_ps_pdf_bw(outfile, imagefile, image_info, flatdecode, progress_bar, cancel_save);
+      xsane_save_ps_pdf_bw(outfile, imagefile, image_info, TRUE, flatedecode, progress_bar, cancel_save);
     }
     else /* grayscale */
     {
-      xsane_save_ps_pdf_gray(outfile, imagefile, image_info, flatdecode, progress_bar, cancel_save);
+      xsane_save_ps_pdf_gray(outfile, imagefile, image_info, TRUE, flatedecode, hTransform, do_transform, progress_bar, cancel_save);
     }
   }
   else /* color RGB */
   {
-    xsane_save_ps_pdf_color(outfile, imagefile, image_info, flatdecode, progress_bar, cancel_save);
+    xsane_save_ps_pdf_color(outfile, imagefile, image_info, TRUE, flatedecode, hTransform, do_transform, progress_bar, cancel_save);
   }
 
   xsane_save_ps_create_page_trailer(outfile);
@@ -3069,19 +3581,46 @@ int xsane_save_ps_page(FILE *outfile, int page,
 
 int xsane_save_ps(FILE *outfile, FILE *imagefile, Image_info *image_info, float width, float height,
                   int paper_left_margin, int paper_bottom_margin, int paperwidth, int paperheight, int paper_orientation,
-                  int flatdecode,
+                  int flatedecode,
+		  cmsHTRANSFORM hTransform, int apply_ICM_profile, int embed_CSA, char *CSA_profile,
+                  int embed_CRD, char *CRD_profile, int blackpointcompensation, int intent,
                   GtkProgressBar *progress_bar, int *cancel_save)
 {
   DBG(DBG_proc, "xsane_save_ps\n");
 
   *cancel_save = 0;
 
-  xsane_save_ps_create_document_header(outfile, 1 /* pages */, flatdecode);
+  xsane_save_ps_create_document_header(outfile, 1 /* pages */, flatedecode);
+
+#ifdef HAVE_LIBLCMS
+  if ((apply_ICM_profile) && (embed_CRD))
+  {
+      xsane_write_CRD(outfile, CRD_profile, intent, blackpointcompensation); /* write printer profile to ps file */
+  }
+
+
+  if ((apply_ICM_profile) && (embed_CSA))
+  {
+    xsane_write_CSA(outfile, CSA_profile, intent); /* write scanner profile to ps file */
+  }
+  else
+#endif
+  {
+    if (image_info->channels == 1) /* lineart, halftone, grayscale */
+    {
+      fprintf(outfile, "/DeviceGray setcolorspace\n");
+    }
+    else
+    {
+      fprintf(outfile, "/DeviceRGB setcolorspace\n");
+    }
+  }
 
   xsane_save_ps_page(outfile, 1 /* page */, 
                      imagefile, image_info, width, height,
                      paper_left_margin, paper_bottom_margin, paperwidth, paperheight, paper_orientation,
-                     flatdecode,
+                     flatedecode,
+		     hTransform, (apply_ICM_profile && (!embed_CSA) && (!embed_CRD)) /* do_transform */,
                      progress_bar, cancel_save);
 
   xsane_save_ps_create_document_trailer(outfile, 0 /* we defined pages at beginning */);
@@ -3101,7 +3640,93 @@ int xsane_save_ps(FILE *outfile, FILE *imagefile, Image_info *image_info, float 
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void xsane_save_pdf_create_document_header(FILE *outfile, struct pdf_xref *xref, int pages, int flatdecode)
+static int xsane_embed_pdf_icm_profile(FILE *outfile, struct pdf_xref *xref, char *icm_filename, int flatedecode, int icc_object)
+{
+ FILE *icm_profile;
+ size_t size, embed_len;
+ unsigned char *embed_buffer;
+ int ret;
+
+  DBG(DBG_proc, "xsane_embed_pdf_icm_profile(%s)\n", icm_filename);
+
+  icm_profile = fopen(icm_filename, "rb");
+  if (icm_profile == NULL)
+  {
+    DBG(DBG_error, "Could not open ICM profile \"%s\" for reading\n", icm_filename);
+   return -1;
+  }
+
+  fseek(icm_profile, 0, SEEK_END);
+  size = ftell(icm_profile);
+  fseek(icm_profile, 0, SEEK_SET);
+  
+  embed_buffer = malloc(size + 1);
+  if (embed_buffer)
+  {
+    xref->obj[icc_object] = ftell(outfile);
+    fprintf(outfile, "%d 0 obj\n", icc_object);
+    fprintf(outfile, "   << /N 3\n"); /* 3 channels */
+    fprintf(outfile, "      /Alternate /DeviceRGB\n");
+#ifdef HAVE_LIBZ
+    if (flatedecode)
+    {  
+      fprintf(outfile, "      /Filter /FlateDecode\n");
+    }
+#endif
+
+    fprintf(outfile, "      /Length             >>\n");
+
+    /* Position of the stream length, to be written later on */
+    xref->slenp = ftell(outfile) - 15;
+
+    fprintf(outfile, "stream\n");
+
+    /* Start of the stream data */
+    xref->slen = ftell(outfile);
+  
+    embed_len = fread(embed_buffer, 1, size, icm_profile);
+    embed_buffer[embed_len] = 0;
+    fclose(icm_profile);
+
+#ifdef HAVE_LIBZ
+    if (flatedecode)
+    {
+      ret = xsane_write_flatedecode(outfile, embed_buffer, size, TRUE); 
+    }
+    else
+#endif
+    {
+      fwrite(embed_buffer, size, 1, outfile);
+      ret = 0;
+    }
+  
+    /* Go back and write the length of the stream */
+    xref->slen = ftell(outfile) - xref->slen;
+    fseek(outfile, xref->slenp, SEEK_SET);
+    fprintf(outfile, "%lu", xref->slen);
+    fseek(outfile, 0L, SEEK_END);
+
+    fprintf(outfile, "endstream\n");
+    fprintf(outfile, "endobj\n");
+    fprintf(outfile, "\n");
+
+    free(embed_buffer);
+  }
+  else
+  {
+    DBG(DBG_info, "Embedding ICM profile \"%s\" to PDF: no mem\n", icm_filename);
+    fclose(icm_profile);
+   return -2;
+  }
+
+
+  DBG(DBG_info, "Embedding ICM profile \"%s\" to PDF file retuned with status %d\n", icm_filename, ret);
+ return ret;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+void xsane_save_pdf_create_document_header(FILE *outfile, struct pdf_xref *xref, int pages, int flatedecode)
 {
  int i;
 
@@ -3130,7 +3755,7 @@ void xsane_save_pdf_create_document_header(FILE *outfile, struct pdf_xref *xref,
   fprintf(outfile, "      /Kids [\n");
   for (i=0; i < pages; i++)
   {
-    fprintf(outfile, "             %d 0 R\n", i * 2 + 4);
+    fprintf(outfile, "             %d 0 R\n", i * 2 + 6);
   }
   fprintf(outfile, "            ]\n");
   fprintf(outfile, "      /Count %d\n", pages);
@@ -3147,7 +3772,8 @@ static void xsane_save_pdf_create_page_header(FILE *outfile, struct pdf_xref *xr
                                               float width, float height,
                                               int paper_left_margin, int paper_bottom_margin,
                                               int paper_width, int paper_height,
-                                              int paper_orientation, int flatdecode,
+                                              int paper_orientation,
+                                              int flatedecode, int icc_object,
                                               GtkProgressBar *progress_bar)
 {
  int position_left, position_bottom, box_left, box_bottom, box_right, box_top, depth;
@@ -3235,26 +3861,26 @@ static void xsane_save_pdf_create_page_header(FILE *outfile, struct pdf_xref *xr
 
   depth = image_info->depth;
 
-  if (depth > 8)
+  if (depth > 8) /* PDF does not support 16bits/sample in a standard image */
   {
     depth = 8;
   }
 
-  xref->obj[page * 2 + 2] = ftell(outfile);
-  fprintf(outfile, "%d 0 obj\n", page * 2 + 2);
+  xref->obj[page * 2 + 4] = ftell(outfile);
+  fprintf(outfile, "%d 0 obj\n", page * 2 + 4);
   fprintf(outfile, "    << /Type /Page\n");
   fprintf(outfile, "       /Parent 3 0 R\n");
   fprintf(outfile, "       /MediaBox [%d %d %d %d]\n", box_left, box_bottom, box_right, box_top);
-  fprintf(outfile, "       /Contents %d 0 R\n", page * 2 + 3);
-  fprintf(outfile, "       /Resources << /ProcSet %d 0 R >>\n", page * 2 + 4);
+  fprintf(outfile, "       /Contents %d 0 R\n", page * 2 + 5);
+  fprintf(outfile, "       /Resources << /ProcSet %d 0 R >>\n", page * 2 + 6);
   fprintf(outfile, "    >>\n");
   fprintf(outfile, "endobj\n");
   fprintf(outfile, "\n");
 
   /* Offset of object 5, for xref */
-  xref->obj[page * 2 + 3] = ftell(outfile);
+  xref->obj[page * 2 + 5] = ftell(outfile);
 
-  fprintf(outfile, "%d 0 obj\n", page * 2 + 3);
+  fprintf(outfile, "%d 0 obj\n", page * 2 + 5);
   fprintf(outfile, "    << /Length             >>\n");
 
   /* Position of the stream length, to be written later on */
@@ -3273,9 +3899,17 @@ static void xsane_save_pdf_create_page_header(FILE *outfile, struct pdf_xref *xr
   fprintf(outfile, "  /W %d\n", image_info->image_width);
   fprintf(outfile, "  /H %d\n", image_info->image_height);
 
-  if (image_info->colors == 3) /* what about RGBA here ? */
+  if ((icc_object) && (image_info->depth != 1))
   {
-    fprintf(outfile, "  /CS /RGB\n");
+    fprintf(outfile, "  /ColorSpace [/ICCBased %d 0 R]\n", icc_object);
+  }
+
+  if (image_info->channels == 3) /* what about RGBA here ? */
+  {
+    if (icc_object == 0)
+    {
+      fprintf(outfile, "  /CS /RGB\n");
+    }
     fprintf(outfile, "  /BPC %d\n", depth);
   }
   else if (image_info->depth == 1) /* BW */
@@ -3285,22 +3919,20 @@ static void xsane_save_pdf_create_page_header(FILE *outfile, struct pdf_xref *xr
   }
   else /* gray */
   {
-    fprintf(outfile, "  /CS /G\n");
-    fprintf(outfile, "  /BPC 8\n");
+    if (icc_object == 0)
+    {
+      fprintf(outfile, "  /CS /G\n");
+    }
+    fprintf(outfile, "  /BPC %d\n", depth);
   }
 
 #ifdef HAVE_LIBZ
-  if (flatdecode)
+  if (flatedecode)
   {  
-    fprintf(outfile, "  /F [/A85 /FlateDecode]\n");
+    fprintf(outfile, "  /F /FlateDecode\n");
   }
-  else
-  {  
-    fprintf(outfile, "  /F /A85\n");
-  }
-#else
-  fprintf(outfile, "  /F /A85\n");
 #endif
+
   fprintf(outfile, "ID\n");
 }
 
@@ -3315,17 +3947,17 @@ void xsane_save_pdf_create_document_trailer(FILE *outfile, struct pdf_xref *xref
   /* PDF document trailer */
 
   /* Offset of object 6, for xref */
-  xref->obj[pages * 2 + 4] = ftell(outfile);
+  xref->obj[pages * 2 + 6] = ftell(outfile);
 
-  fprintf(outfile, "%d 0 obj\n", pages * 2 + 4);
+  fprintf(outfile, "%d 0 obj\n", pages * 2 + 6);
   fprintf(outfile, "    [/PDF]\n");
   fprintf(outfile, "endobj\n");
   fprintf(outfile, "\n");
 
   /* Offset of object 7, for xref */
-  xref->obj[pages * 2 + 5] = ftell(outfile);
+  xref->obj[pages * 2 + 7] = ftell(outfile);
 
-  fprintf(outfile, "%d 0 obj\n", pages * 2 + 5);
+  fprintf(outfile, "%d 0 obj\n", pages * 2 + 7);
   fprintf(outfile, "   << /Title (XSane scanned image)\n");
   fprintf(outfile, "      /Creator (XSane version %s (sane %d.%d) - by Oliver Rauch)\n",
 	  VERSION,
@@ -3346,19 +3978,19 @@ void xsane_save_pdf_create_document_trailer(FILE *outfile, struct pdf_xref *xref
   xref->xref = ftell(outfile);
 
   fprintf(outfile, "xref\n");
-  fprintf(outfile, "0 %d\n", pages * 2 + 6);
+  fprintf(outfile, "0 %d\n", pages * 2 + 8);
   fprintf(outfile, "0000000000 65535 f \n");
 
-  for (i=1; i <= pages * 2 + 5; i++)
+  for (i=1; i <= pages * 2 + 7; i++)
   {
     fprintf(outfile, "%010lu 00000 n \n", xref->obj[i]);
   }
 
   fprintf(outfile, "\n");
   fprintf(outfile, "trailer\n");
-  fprintf(outfile, "    << /Size %d\n", pages * 2 + 6);
+  fprintf(outfile, "    << /Size %d\n", pages * 2 + 8);
   fprintf(outfile, "       /Root 1 0 R\n");
-  fprintf(outfile, "       /Info %d 0 R\n", pages * 2 + 5);
+  fprintf(outfile, "       /Info %d 0 R\n", pages * 2 + 7);
   fprintf(outfile, "    >>\n");
   fprintf(outfile, "startxref\n");
   fprintf(outfile, "%lu\n", xref->xref);
@@ -3374,7 +4006,7 @@ static void xsane_save_pdf_create_page_trailer(FILE *outfile, struct pdf_xref *x
   fprintf(outfile, "Q\n");
 
   /* Go back and write the length of the stream */
-  xref->slen = ftell(outfile) - xref->slen - 1;
+  xref->slen = ftell(outfile) - xref->slen; /* we had a "-1" at the end but I do not understand the reason for -1, without looks better */
   fseek(outfile, xref->slenp, SEEK_SET);
   fprintf(outfile, "%lu", xref->slen);
   fseek(outfile, 0L, SEEK_END);
@@ -3389,7 +4021,8 @@ static void xsane_save_pdf_create_page_trailer(FILE *outfile, struct pdf_xref *x
 int xsane_save_pdf_page(FILE *outfile, struct pdf_xref *xref, int page,
                         FILE *imagefile, Image_info *image_info, float width, float height,
                         int paper_left_margin, int paper_bottom_margin, int paperwidth, int paperheight, int paper_orientation,
-                        int flatdecode,
+			int flatedecode,
+                        cmsHTRANSFORM hTransform, int do_transform, int icc_object,
                         GtkProgressBar *progress_bar, int *cancel_save)
 {
 
@@ -3398,23 +4031,23 @@ int xsane_save_pdf_page(FILE *outfile, struct pdf_xref *xref, int page,
   xsane_save_pdf_create_page_header(outfile, xref, page,
                                     image_info, width, height,
 			            paper_left_margin, paper_bottom_margin, paperwidth, paperheight, paper_orientation,
-                                    flatdecode,
+                                    flatedecode, icc_object,
 			            progress_bar);
 
-  if (image_info->colors == 1) /* lineart, halftone, grayscale */
+  if (image_info->channels == 1) /* lineart, halftone, grayscale */
   {
     if (image_info->depth == 1) /* lineart, halftone */
     {
-      xsane_save_ps_pdf_bw(outfile, imagefile, image_info, flatdecode, progress_bar, cancel_save);
+      xsane_save_ps_pdf_bw(outfile, imagefile, image_info, FALSE, flatedecode, progress_bar, cancel_save);
     }
     else /* grayscale */
     {
-      xsane_save_ps_pdf_gray(outfile, imagefile, image_info, flatdecode, progress_bar, cancel_save);
+      xsane_save_ps_pdf_gray(outfile, imagefile, image_info, FALSE, flatedecode, hTransform, do_transform, progress_bar, cancel_save);
     }
   }
   else /* color RGB */
   {
-    xsane_save_ps_pdf_color(outfile, imagefile, image_info, flatdecode, progress_bar, cancel_save);
+    xsane_save_ps_pdf_color(outfile, imagefile, image_info, FALSE, flatedecode, hTransform, do_transform, progress_bar, cancel_save);
   }
 
   xsane_save_pdf_create_page_trailer(outfile, xref);
@@ -3436,21 +4069,33 @@ int xsane_save_pdf_page(FILE *outfile, struct pdf_xref *xref, int page,
 
 int xsane_save_pdf(FILE *outfile, FILE *imagefile, Image_info *image_info, float width, float height,
                    int paper_left_margin, int paper_bottom_margin, int paperwidth, int paperheight, int paper_orientation,
-                   int flatdecode,
+                   int flatedecode,
+                   cmsHTRANSFORM hTransform, int apply_ICM_profile, int cms_function,
                    GtkProgressBar *progress_bar, int *cancel_save)
 {
-  struct pdf_xref xref;
+ struct pdf_xref xref;
+ int icc_object = 0;
 
   DBG(DBG_proc, "xsane_save_pdf\n");
 
   *cancel_save = 0;
 
-  xsane_save_pdf_create_document_header(outfile, &xref, 1, flatdecode);
+  xsane_save_pdf_create_document_header(outfile, &xref, 1, flatedecode);
+
+  xref.obj[4] = ftell(outfile);
+  xref.obj[5] = ftell(outfile);
+
+  if (apply_ICM_profile && (cms_function == XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE))
+  {
+    icc_object = 4;
+    xsane_embed_pdf_icm_profile(outfile, &xref, image_info->icm_profile, flatedecode, icc_object);
+  }
 
   xsane_save_pdf_page(outfile, &xref, 1,
                    imagefile, image_info, width, height,
                    paper_left_margin, paper_bottom_margin, paperwidth, paperheight, paper_orientation,
-                   flatdecode,
+                   flatedecode,
+                   hTransform, apply_ICM_profile && ((cms_function != XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE)) /* do_transform */, icc_object,
                    progress_bar, cancel_save);
 
   xsane_save_pdf_create_document_trailer(outfile, &xref, 1);
@@ -3469,8 +4114,8 @@ int xsane_save_pdf(FILE *outfile, FILE *imagefile, Image_info *image_info, float
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
-#ifdef HAVE_LIBJPEG
 
+#ifdef HAVE_LIBJPEG
 typedef struct
 {
   struct jpeg_error_mgr pub;/* "public" fields */
@@ -3497,6 +4142,8 @@ static void xsane_jpeg_error_exit(j_common_ptr cinfo)
 
   *xsane_jpeg_error_mgr_data->cancel_save = 1;
 }
+
+/* ---------------------------------------------------------- */
 
 #ifdef HAVE_LIBLCMS
 static void xsane_jpeg_write_icm_profile(j_compress_ptr cinfo_ptr, const JOCTET *icm_data_ptr, unsigned int icm_data_len)
@@ -3560,11 +4207,15 @@ static void xsane_jpeg_write_icm_profile(j_compress_ptr cinfo_ptr, const JOCTET 
   }
 }
 
-static void xsane_jpeg_embed_icm_profile(j_compress_ptr cinfo_ptr, const char* icm_filename)
+/* ---------------------------------------------------------- */
+
+static void xsane_jpeg_embed_scanner_icm_profile(j_compress_ptr cinfo_ptr, const char *icm_filename)
 {
  FILE *icm_profile;
  size_t size, embed_len;
  LPBYTE embed_buffer;
+
+  DBG(DBG_proc, "xsane_jpeg_embed_scanner_icm_profile(%s)\n", icm_filename);
 
   icm_profile = fopen(icm_filename, "rb");
   if (icm_profile == NULL)
@@ -3585,12 +4236,17 @@ static void xsane_jpeg_embed_icm_profile(j_compress_ptr cinfo_ptr, const char* i
 
     xsane_jpeg_write_icm_profile(cinfo_ptr, embed_buffer, embed_len);
     free(embed_buffer);
+
+    DBG(DBG_info, "ICM profile %s has been embedded to jpeg file\n", icm_filename);
   }
 }
 #endif
 
+/* ---------------------------------------------------------- */
 
-int xsane_save_jpeg(FILE *outfile, FILE *imagefile, Image_info *image_info, int quality, GtkProgressBar *progress_bar, int *cancel_save)
+int xsane_save_jpeg(FILE *outfile, int quality, FILE *imagefile, Image_info *image_info,
+                    cmsHTRANSFORM hTransform, int apply_ICM_profile, int cms_function,
+                    GtkProgressBar *progress_bar, int *cancel_save)
 {
  unsigned char *data;
  char buf[TEXTBUFSIZE];
@@ -3600,12 +4256,15 @@ int xsane_save_jpeg(FILE *outfile, FILE *imagefile, Image_info *image_info, int 
  struct jpeg_compress_struct cinfo;
  xsane_jpeg_error_mgr jerr;
  JSAMPROW row_pointer[1];
+#ifdef HAVE_LIBLCMS
+ unsigned char *data_raw = NULL;
+#endif
 
   DBG(DBG_proc, "xsane_save_jpeg\n");
 
   *cancel_save = 0;
 
-  if (image_info->colors == 3)
+  if (image_info->channels == 3)
   {
     components = 3;
   }
@@ -3624,6 +4283,24 @@ int xsane_save_jpeg(FILE *outfile, FILE *imagefile, Image_info *image_info, int 
     return -1; /* error */
   }
 
+#ifdef HAVE_LIBLCMS
+  if (apply_ICM_profile && (cms_function != XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE) && (hTransform != NULL))
+  {
+    DBG(DBG_info, "Doing CMS color conversion\n");
+
+    data_raw = malloc(image_info->image_width * components * bytespp);
+
+    if (!data_raw)
+    {
+      free(data);
+
+      snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_NO_MEM);
+      xsane_back_gtk_error(buf, TRUE);
+     return -1; /* error */
+    }
+  }
+#endif
+
   cinfo.err = jpeg_std_error(&jerr.pub);
   jerr.pub.error_exit = xsane_jpeg_error_exit;
   jerr.cancel_save = cancel_save; 
@@ -3633,7 +4310,7 @@ int xsane_save_jpeg(FILE *outfile, FILE *imagefile, Image_info *image_info, int 
   cinfo.image_width      = image_info->image_width;
   cinfo.image_height     = image_info->image_height;
   cinfo.input_components = components;
-  if (image_info->colors == 3)
+  if (image_info->channels == 3)
   {
     cinfo.in_color_space   = JCS_RGB;
   }
@@ -3657,9 +4334,16 @@ int xsane_save_jpeg(FILE *outfile, FILE *imagefile, Image_info *image_info, int 
   jpeg_start_compress(&cinfo, TRUE);
 
 #ifdef HAVE_LIBLCMS
-  if ((xsane.scanner_refl_icm_profile) && (xsane.embed_icm_profile))
+  if (apply_ICM_profile)
   {
-    xsane_jpeg_embed_icm_profile(&cinfo, xsane.scanner_refl_icm_profile);
+    if (cms_function == XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE)
+    {
+      xsane_jpeg_embed_scanner_icm_profile(&cinfo, image_info->icm_profile);
+    }
+    else if (cms_function == XSANE_CMS_FUNCTION_CONVERT_TO_WORKING_CS)
+    {
+      xsane_jpeg_embed_scanner_icm_profile(&cinfo, preferences.working_color_space_icm_profile);
+    }
   }
 #endif
 
@@ -3699,7 +4383,18 @@ int xsane_save_jpeg(FILE *outfile, FILE *imagefile, Image_info *image_info, int 
     else if (image_info->depth > 8) /* jpeg does not support 16 bits/sample, so we reduce it at first */
     {
       guint16 *data16 = (guint16 *) data;
-      fread(data, components * 2, image_info->image_width, imagefile);
+#ifdef HAVE_LIBLCMS
+      if (apply_ICM_profile && (cms_function != XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE) && (hTransform != NULL))
+      {
+        fread(data_raw, components * 2, image_info->image_width, imagefile);
+        cmsDoTransform(hTransform, data_raw, data, image_info->image_width);
+      }
+      else
+#endif
+      {
+        fread(data, components * 2, image_info->image_width, imagefile);
+      }
+
       for (x = 0; x < image_info->image_width * components; x++)
       {
         data[x] = data16[x] / 256;
@@ -3708,7 +4403,17 @@ int xsane_save_jpeg(FILE *outfile, FILE *imagefile, Image_info *image_info, int 
     }
     else /* 8 bits/sample */
     {
-      fread(data, components, image_info->image_width, imagefile);
+#ifdef HAVE_LIBLCMS
+      if (apply_ICM_profile && (cms_function != XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE) && (hTransform != NULL))
+      {
+        fread(data_raw, components, image_info->image_width, imagefile);
+        cmsDoTransform(hTransform, data_raw, data, image_info->image_width);
+      }
+      else
+#endif
+      {
+        fread(data, components, image_info->image_width, imagefile);
+      }
     }
 
     row_pointer[0] = data;
@@ -3722,6 +4427,13 @@ int xsane_save_jpeg(FILE *outfile, FILE *imagefile, Image_info *image_info, int 
   }
 
   jpeg_finish_compress(&cinfo);
+
+#ifdef HAVE_LIBLCMS
+  if (data_raw)
+  {
+    free(data_raw);
+  }
+#endif
   free(data);
 
  return (*cancel_save);
@@ -3731,9 +4443,58 @@ int xsane_save_jpeg(FILE *outfile, FILE *imagefile, Image_info *image_info, int 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 #ifdef HAVE_LIBTIFF
+#ifdef HAVE_LIBLCMS
+static void xsane_tiff_embed_scanner_icm_profile(TIFF *tiffile, const char *icm_filename)
+{
+ FILE *icm_profile;
+ size_t size;
+ char *icm_profile_buffer;
+
+  DBG(DBG_proc, "xsane_tiff_embed_scanner_icm_profile(%s)\n", icm_filename);
+  if((icm_profile = fopen(icm_filename, "rb")))
+  {
+    fseek(icm_profile, 0, SEEK_END);
+    size = ftell(icm_profile);
+    fseek(icm_profile, 0, SEEK_SET);
+
+    icm_profile_buffer = (char *) malloc(size + 1);
+
+    if (icm_profile_buffer)
+    {
+      if (fread(icm_profile_buffer, 1, size, icm_profile) == size)
+      {
+        icm_profile_buffer[size] = 0;
+
+        TIFFSetField(tiffile, TIFFTAG_ICCPROFILE, size, icm_profile_buffer);
+      }
+      else
+      {
+        DBG(DBG_error, "Can not read ICM profile data\n");
+      }
+
+      free(icm_profile_buffer);
+    }
+    else
+    {
+      DBG(DBG_error, "Can not get enogh memory for ICM profile\n");
+    }
+
+
+    fclose(icm_profile);
+  }
+  else
+  {
+    DBG(DBG_error, "Can not embed ICM profile\n");
+  }
+}
+#endif
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 /* pages = 0 => single page tiff, page = 0 */
 /* pages > 0 => page = [1 .. pages] */
-int xsane_save_tiff_page(TIFF *tiffile, int page, int pages, FILE *imagefile, Image_info *image_info, int quality,
+int xsane_save_tiff_page(TIFF *tiffile, int page, int pages, int quality, FILE *imagefile, Image_info *image_info,
+                         cmsHTRANSFORM hTransform, int apply_ICM_profile, int cms_function,
                          GtkProgressBar *progress_bar, int *cancel_save)
 {
  char *data;
@@ -3744,6 +4505,9 @@ int xsane_save_tiff_page(TIFF *tiffile, int page, int pages, FILE *imagefile, Im
  int bytes;
  struct tm *ptm;
  time_t now;
+#ifdef HAVE_LIBLCMS
+ char *data_raw = NULL;
+#endif
 
   DBG(DBG_proc, "xsane_save_tiff_page(%d/%d\n", page, pages);
 
@@ -3763,7 +4527,7 @@ int xsane_save_tiff_page(TIFF *tiffile, int page, int pages, FILE *imagefile, Im
   }
 
 
-  if (image_info->colors == 3)
+  if (image_info->channels == 3)
   {
     components = 3;
   }
@@ -3789,6 +4553,25 @@ int xsane_save_tiff_page(TIFF *tiffile, int page, int pages, FILE *imagefile, Im
     xsane_back_gtk_error(buf, TRUE);
    return -1; /* error */
   }
+
+#ifdef HAVE_LIBLCMS
+  if ((cms_function != XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE) && (hTransform != NULL))
+  {
+    DBG(DBG_info, "Doing CMS color conversion\n");
+
+    data_raw = (char *) malloc(image_info->image_width * components * bytes);
+
+    if (!data_raw)
+    {
+      _TIFFfree(data);
+
+      snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_NO_MEM);
+      xsane_back_gtk_error(buf, TRUE);
+     return -1; /* error */
+    }
+  }
+#endif
+
   
   TIFFSetField(tiffile, TIFFTAG_IMAGEWIDTH, image_info->image_width);
   TIFFSetField(tiffile, TIFFTAG_IMAGELENGTH, image_info->image_height);
@@ -3820,7 +4603,7 @@ int xsane_save_tiff_page(TIFF *tiffile, int page, int pages, FILE *imagefile, Im
     TIFFSetField(tiffile, TIFFTAG_JPEGQUALITY, quality);
   }
 
-  if (image_info->colors == 3)
+  if (image_info->channels == 3)
   {
     if (compression == COMPRESSION_JPEG)
     {
@@ -3833,49 +4616,15 @@ int xsane_save_tiff_page(TIFF *tiffile, int page, int pages, FILE *imagefile, Im
     }
 
 #ifdef HAVE_LIBLCMS
-    /* This is quick and dirty solution: transmissive missing, grayscale missing */
-    if ((xsane.scanner_refl_icm_profile) && (xsane.embed_icm_profile))
+    if (apply_ICM_profile)
     {
-     FILE *icm_profile;
-
-      DBG(DBG_error, "Opening ICM profile %s\n", xsane.scanner_refl_icm_profile);
-      if((icm_profile = fopen(xsane.scanner_refl_icm_profile, "rb")))
+      if (cms_function == XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE)
       {
-       size_t size;
-       char *icm_profile_buffer;
-
-        fseek(icm_profile, 0, SEEK_END);
-        size = ftell(icm_profile);
-        fseek(icm_profile, 0, SEEK_SET);
-
-        icm_profile_buffer = (char *) malloc(size + 1);
-
-        if (icm_profile_buffer)
-        {
-          if (fread(icm_profile_buffer, 1, size, icm_profile) == size)
-          {
-            icm_profile_buffer[size] = 0;
-
-            TIFFSetField(tiffile, TIFFTAG_ICCPROFILE, size, icm_profile_buffer);
-          }
-          else
-          {
-            DBG(DBG_error, "Can not read ICM profile data\n");
-          }
-
-          free(icm_profile_buffer);
-        }
-        else
-        {
-          DBG(DBG_error, "Can not get enogh memory for ICM profile\n");
-        }
-
-
-        fclose(icm_profile);
+        xsane_tiff_embed_scanner_icm_profile(tiffile, image_info->icm_profile);
       }
-      else
+      else if (cms_function == XSANE_CMS_FUNCTION_CONVERT_TO_WORKING_CS)
       {
-        DBG(DBG_error, "Can not embed ICM profile\n");
+        xsane_tiff_embed_scanner_icm_profile(tiffile, preferences.working_color_space_icm_profile);
       }
     }
 #endif
@@ -3911,7 +4660,17 @@ int xsane_save_tiff_page(TIFF *tiffile, int page, int pages, FILE *imagefile, Im
       gtk_main_iteration();
     }
     
-    fread(data, 1, w, imagefile);
+#ifdef HAVE_LIBLCMS
+    if ((cms_function != XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE) && (hTransform != NULL))
+    {
+      fread(data_raw, 1, w, imagefile);
+      cmsDoTransform(hTransform, data_raw, data, image_info->image_width);
+    }
+    else
+#endif
+    {
+      fread(data, 1, w, imagefile);
+    }
 
     if (TIFFWriteScanline(tiffile, data, y, 0) != 1)
     {
@@ -3935,6 +4694,13 @@ int xsane_save_tiff_page(TIFF *tiffile, int page, int pages, FILE *imagefile, Im
     TIFFWriteDirectory(tiffile);
   }
 
+#ifdef HAVE_LIBLCMS
+  if (data_raw)
+  {
+    free(data_raw);
+  }
+#endif
+
   _TIFFfree(data);
  return (*cancel_save);
 }
@@ -3942,9 +4708,60 @@ int xsane_save_tiff_page(TIFF *tiffile, int page, int pages, FILE *imagefile, Im
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+#if defined(PNG_iCCP_SUPPORTED)
+#ifdef HAVE_LIBLCMS
+static void xsane_png_embed_scanner_icm_profile(png_structp png_ptr, png_infop png_info_ptr, const char *icm_filename)
+{
+ FILE *icm_profile;
+ gchar *profile_buffer;
+ size_t size;
+
+  DBG(DBG_proc, "xsane_png_embed_scanner_icm_profile(%s)\n", icm_filename);
+  icm_profile = fopen(icm_filename, "rb");
+
+  if (icm_profile)
+  {
+    fseek(icm_profile, 0, SEEK_END);
+    size = ftell(icm_profile);
+    fseek(icm_profile, 0, SEEK_SET);
+
+    profile_buffer = malloc(size);
+
+    if (profile_buffer)
+    {
+      if (fread(profile_buffer, 1, size, icm_profile) == size)
+      {
+        png_set_iCCP(png_ptr, png_info_ptr, "ICC profile", 0, profile_buffer, size);
+      }
+      else
+      {
+        DBG(DBG_error, "can not read ICC profile data\n");
+      }
+
+      free(profile_buffer);
+    }
+    else
+    {
+      DBG(DBG_error, "can not allocate profile_buffer\n");
+    }
+
+    fclose(icm_profile);
+  }
+  else
+  {
+    DBG(DBG_error, "can not open ICM-profile\n");
+  }
+}
+#endif
+#endif
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 #ifdef HAVE_LIBPNG
 #ifdef HAVE_LIBZ
-int xsane_save_png(FILE *outfile, FILE *imagefile, Image_info *image_info, int compression, GtkProgressBar *progress_bar, int *cancel_save)
+int xsane_save_png(FILE *outfile, int compression, FILE *imagefile, Image_info *image_info,
+                   cmsHTRANSFORM hTransform, int apply_ICM_profile, int cms_function,
+                   GtkProgressBar *progress_bar, int *cancel_save)
 {
  png_structp png_ptr;
  png_infop png_info_ptr;
@@ -3954,6 +4771,9 @@ int xsane_save_png(FILE *outfile, FILE *imagefile, Image_info *image_info, int c
  char buf[TEXTBUFSIZE];
  int colortype, components, byte_width;
  int y;
+#ifdef HAVE_LIBLCMS
+ unsigned char *data_raw = NULL;
+#endif
 
   DBG(DBG_proc, "xsane_save_png\n");
 
@@ -3985,12 +4805,12 @@ int xsane_save_png(FILE *outfile, FILE *imagefile, Image_info *image_info, int c
 
   byte_width = image_info->image_width;
 
-  if (image_info->colors == 4) /* RGBA */
+  if (image_info->channels == 4) /* RGBA */
   {
     components = 4;
     colortype = PNG_COLOR_TYPE_RGB_ALPHA;
   }
-  else if (image_info->colors == 3) /* RGB */
+  else if (image_info->channels == 3) /* RGB */
   {
     components = 3;
     colortype = PNG_COLOR_TYPE_RGB;
@@ -4006,13 +4826,13 @@ int xsane_save_png(FILE *outfile, FILE *imagefile, Image_info *image_info, int c
   png_set_IHDR(png_ptr, png_info_ptr, image_info->image_width, image_info->image_height, image_info->depth,
                colortype, PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_BASE, PNG_FILTER_TYPE_BASE);
 
-  if (image_info->colors >=3)
+  if (image_info->channels >=3)
   {
     sig_bit.red   = image_info->depth;
     sig_bit.green = image_info->depth;
     sig_bit.blue  = image_info->depth;
 
-    if (image_info->colors == 4)
+    if (image_info->channels == 4)
     {
       sig_bit.alpha = image_info->depth;
     }
@@ -4038,46 +4858,15 @@ int xsane_save_png(FILE *outfile, FILE *imagefile, Image_info *image_info, int c
 
 #if defined(PNG_iCCP_SUPPORTED)
 #ifdef HAVE_LIBLCMS
-  if ((xsane.scanner_refl_icm_profile) && (xsane.embed_icm_profile))
+  if (apply_ICM_profile)
   {
-   FILE *icm_profile;
-   gchar *profile_buffer;
-   size_t size;
-
-    DBG(DBG_error, "Opening ICM profile %s\n", xsane.scanner_refl_icm_profile);
-    icm_profile = fopen(xsane.scanner_refl_icm_profile, "rb");
-
-    if (icm_profile)
+    if (cms_function == XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE)
     {
-      fseek(icm_profile, 0, SEEK_END);
-      size = ftell(icm_profile);
-      fseek(icm_profile, 0, SEEK_SET);
-
-      profile_buffer = malloc(size);
-
-      if (profile_buffer)
-      {
-        if (fread(profile_buffer, 1, size, icm_profile) == size)
-        {
-          png_set_iCCP(png_ptr, png_info_ptr, "ICC profile", 0, profile_buffer, size);
-        }
-        else
-        {
-          DBG(DBG_error, "can not read ICC profile data\n");
-        }
-
-        free(profile_buffer);
-      }
-      else
-      {
-        DBG(DBG_error, "can not allocate profile_buffer\n");
-      }
-
-      fclose(icm_profile);
+      xsane_png_embed_scanner_icm_profile(png_ptr, png_info_ptr, image_info->icm_profile);
     }
-    else
+    else if (cms_function == XSANE_CMS_FUNCTION_CONVERT_TO_WORKING_CS)
     {
-      DBG(DBG_error, "can not open ICM-profile\n");
+      xsane_png_embed_scanner_icm_profile(png_ptr, png_info_ptr, preferences.working_color_space_icm_profile);
     }
   }
 #endif
@@ -4096,6 +4885,25 @@ int xsane_save_png(FILE *outfile, FILE *imagefile, Image_info *image_info, int c
     return -1; /* error */
   }
 
+#ifdef HAVE_LIBLCMS
+  if ((cms_function != XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE) && (hTransform != NULL))
+  {
+    DBG(DBG_info, "Doing CMS color conversion\n");
+
+    data_raw = malloc(image_info->image_width * components);
+
+    if (!data_raw)
+    {
+      free(data);
+
+      snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_NO_MEM);
+      xsane_back_gtk_error(buf, TRUE);
+      png_destroy_write_struct(&png_ptr, (png_infopp) 0);
+     return -1; /* error */
+    }
+  }
+#endif
+
   for (y = 0; y < image_info->image_height; y++)
   {
     gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height);
@@ -4104,7 +4912,17 @@ int xsane_save_png(FILE *outfile, FILE *imagefile, Image_info *image_info, int c
       gtk_main_iteration();
     }
 
-    fread(data, components, byte_width, imagefile);
+#ifdef HAVE_LIBLCMS
+    if ((cms_function != XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE) && (hTransform != NULL))
+    {
+      fread(data_raw, components, byte_width, imagefile);
+      cmsDoTransform(hTransform, data_raw, data, image_info->image_width);
+    }
+    else
+#endif
+    {
+      fread(data, components, byte_width, imagefile);
+    }
 
     row_ptr = data;
     png_write_rows(png_ptr, &row_ptr, 1); /* errors are caught by test sor setjmp(...) */
@@ -4115,6 +4933,12 @@ int xsane_save_png(FILE *outfile, FILE *imagefile, Image_info *image_info, int c
     }
   }
 
+#ifdef HAVE_LIBLCMS
+  if (data_raw)
+  {
+    free(data_raw);
+  }
+#endif
   free(data);
   png_write_end(png_ptr, png_info_ptr);
   png_destroy_write_struct(&png_ptr, (png_infopp) 0);
@@ -4128,7 +4952,9 @@ int xsane_save_png(FILE *outfile, FILE *imagefile, Image_info *image_info, int c
 
 #ifdef HAVE_LIBPNG
 #ifdef HAVE_LIBZ
-int xsane_save_png_16(FILE *outfile, FILE *imagefile, Image_info *image_info, int compression, GtkProgressBar *progress_bar, int *cancel_save)
+int xsane_save_png_16(FILE *outfile, int compression, FILE *imagefile, Image_info *image_info,
+                      cmsHTRANSFORM hTransform, int apply_ICM_profile, int cms_function,
+                      GtkProgressBar *progress_bar, int *cancel_save)
 {
  png_structp png_ptr;
  png_infop png_info_ptr;
@@ -4137,8 +4963,10 @@ int xsane_save_png_16(FILE *outfile, FILE *imagefile, Image_info *image_info, in
  unsigned char *data;
  char buf[TEXTBUFSIZE];
  int colortype, components;
- int x,y;
- guint16 val;
+ int y;
+#ifdef HAVE_LIBLCMS
+ unsigned char *data_raw = NULL;
+#endif
 
   DBG(DBG_proc, "xsane_save_png16\n");
 
@@ -4168,12 +4996,12 @@ int xsane_save_png_16(FILE *outfile, FILE *imagefile, Image_info *image_info, in
     return -1; /* error */
   }
 
-  if (image_info->colors == 4) /* RGBA */
+  if (image_info->channels == 4) /* RGBA */
   {
     components = 4;
     colortype = PNG_COLOR_TYPE_RGB_ALPHA;
   }
-  else if (image_info->colors == 3) /* RGB */
+  else if (image_info->channels == 3) /* RGB */
   {
     components = 3;
     colortype = PNG_COLOR_TYPE_RGB;
@@ -4205,46 +5033,15 @@ int xsane_save_png_16(FILE *outfile, FILE *imagefile, Image_info *image_info, in
 
 #if defined(PNG_iCCP_SUPPORTED)
 #ifdef HAVE_LIBLCMS
-  if ((xsane.scanner_refl_icm_profile) && (xsane.embed_icm_profile))
+  if (apply_ICM_profile)
   {
-   FILE *icm_profile;
-   gchar *profile_buffer;
-   size_t size;
-
-    DBG(DBG_error, "Opening ICM profile %s\n", xsane.scanner_refl_icm_profile);
-    icm_profile = fopen(xsane.scanner_refl_icm_profile, "rb");
-
-    if (icm_profile)
+    if (cms_function == XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE)
     {
-      fseek(icm_profile, 0, SEEK_END);
-      size = ftell(icm_profile);
-      fseek(icm_profile, 0, SEEK_SET);
-
-      profile_buffer = malloc(size);
-
-      if (profile_buffer)
-      {
-        if (fread(profile_buffer, 1, size, icm_profile) == size)
-        {
-          png_set_iCCP(png_ptr, png_info_ptr, "ICC profile", 0, profile_buffer, size);
-        }
-        else
-        {
-          DBG(DBG_error, "can not read ICC profile data\n");
-        }
-
-        free(profile_buffer);
-      }
-      else
-      {
-        DBG(DBG_error, "can not allocate profile_buffer\n");
-      }
-
-      fclose(icm_profile);
+      xsane_png_embed_scanner_icm_profile(png_ptr, png_info_ptr, image_info->icm_profile);
     }
-    else
+    else if (cms_function == XSANE_CMS_FUNCTION_CONVERT_TO_WORKING_CS)
     {
-      DBG(DBG_error, "can not open ICM-profile\n");
+      xsane_png_embed_scanner_icm_profile(png_ptr, png_info_ptr, preferences.working_color_space_icm_profile);
     }
   }
 #endif
@@ -4264,6 +5061,25 @@ int xsane_save_png_16(FILE *outfile, FILE *imagefile, Image_info *image_info, in
     return -1; /* error */
   }
 
+#ifdef HAVE_LIBLCMS
+  if ((cms_function != XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE) && (hTransform != NULL))
+  {
+    DBG(DBG_info, "Doing CMS color conversion\n");
+
+    data_raw = malloc(image_info->image_width * components * 2);
+
+    if (!data_raw)
+    {
+      free(data);
+
+      snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_NO_MEM);
+      xsane_back_gtk_error(buf, TRUE);
+      png_destroy_write_struct(&png_ptr, (png_infopp) 0);
+     return -1; /* error */
+    }
+  }
+#endif
+
   for (y = 0; y < image_info->image_height; y++)
   {
     gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height);
@@ -4272,12 +5088,33 @@ int xsane_save_png_16(FILE *outfile, FILE *imagefile, Image_info *image_info, in
       gtk_main_iteration();
     }
 
-    for (x = 0; x < image_info->image_width * components; x++) /* this must be changed in dependance of endianess */
+#ifdef HAVE_LIBLCMS
+    if ((cms_function != XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE) && (hTransform != NULL))
     {
-      fread(&val, 2, 1, imagefile);	/* get data in machine order */
-      data[x*2+0] = val / 256;		/* write data in network order (MSB first) */
-      data[x*2+1] = val & 255;
+      fread(data_raw, components * 2, image_info->image_width, imagefile);
+      cmsDoTransform(hTransform, data_raw, data, image_info->image_width);
     }
+    else
+#endif
+    {
+      fread(data, components * 2, image_info->image_width, imagefile);
+    }
+
+#if __BYTE_ORDER == __LITTLE_ENDIAN
+    /* we have to write data in network order (MSB first), so when we run on a low endian machine then we have to swap bytes */
+    {
+     int x;
+
+      for (x = 0; x < image_info->image_width * components; x++)
+      {
+        unsigned char help;
+
+        help = data[x*2+1];
+        data[x*2+0] = data[x*2+1];
+        data[x*2+1] = help;
+      }
+    }
+#endif /* LITTLE_ENDIAN */
 
     row_ptr = data;
     png_write_rows(png_ptr, &row_ptr, 1);
@@ -4287,6 +5124,12 @@ int xsane_save_png_16(FILE *outfile, FILE *imagefile, Image_info *image_info, in
     }
   }
 
+#ifdef HAVE_LIBLCMS
+  if (data_raw)
+  {
+    free(data_raw);
+  }
+#endif
   free(data);
   png_write_end(png_ptr, png_info_ptr);
   png_destroy_write_struct(&png_ptr, (png_infopp) 0);
@@ -4298,22 +5141,69 @@ int xsane_save_png_16(FILE *outfile, FILE *imagefile, Image_info *image_info, in
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static int xsane_save_pnm_16_ascii_gray(FILE *outfile, FILE *imagefile, Image_info *image_info, GtkProgressBar *progress_bar, int *cancel_save)
+static int xsane_save_pnm_16_ascii_gray(FILE *outfile, FILE *imagefile, Image_info *image_info,
+                                        cmsHTRANSFORM hTransform, int apply_ICM_profile,
+                                        GtkProgressBar *progress_bar, int *cancel_save)
 {
  int x,y;
- guint16 val;
+ guint16 *data;
  int count = 0;
+#ifdef HAVE_LIBLCMS
+ guint16 *data_raw = NULL;
+#endif
 
   DBG(DBG_proc, "xsane_save_pnm_16_ascii_gray\n");
 
   *cancel_save = 0;
 
+  data = malloc(image_info->image_width * 2);
+
+  if (!data)
+  {
+   char buf[TEXTBUFSIZE];
+
+    snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_NO_MEM);
+    xsane_back_gtk_error(buf, TRUE);
+   return -1; /* error */
+  }
+
+#ifdef HAVE_LIBLCMS
+  if ((apply_ICM_profile) && (hTransform != NULL))
+  {
+    DBG(DBG_info, "Doing CMS color conversion\n");
+
+    data_raw = malloc(image_info->image_width * 2);
+
+    if (!data_raw)
+    {
+     char buf[TEXTBUFSIZE];
+
+      free(data);
+
+      snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_NO_MEM);
+      xsane_back_gtk_error(buf, TRUE);
+     return -1; /* error */
+    }
+  }
+#endif
+
   for (y = 0; y < image_info->image_height; y++)
   {
+#ifdef HAVE_LIBLCMS
+    if ((apply_ICM_profile) && (hTransform != NULL))
+    {
+      fread(data_raw, 2, image_info->image_width, imagefile);
+      cmsDoTransform(hTransform, data_raw, data, image_info->image_width);
+    }
+    else
+#endif
+    {
+      fread(data, 2, image_info->image_width, imagefile);
+    }
+
     for (x = 0; x < image_info->image_width; x++)
     {
-      fread(&val, 2, 1, imagefile); /* get data in machine order */
-      fprintf(outfile, "%d ", val);
+      fprintf(outfile, "%d ", data[x]);
 
       if (++count >= 10)
       {
@@ -4321,6 +5211,7 @@ static int xsane_save_pnm_16_ascii_gray(FILE *outfile, FILE *imagefile, Image_in
 	count = 0;
       }
     }
+
     fprintf(outfile, "\n");
 
     if (ferror(outfile))
@@ -4347,33 +5238,85 @@ static int xsane_save_pnm_16_ascii_gray(FILE *outfile, FILE *imagefile, Image_in
     }
   }
 
+#ifdef HAVE_LIBLCMS
+  if (data_raw)
+  {
+    free(data_raw);
+  }
+#endif
+  free(data);
+
  return (*cancel_save);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static int xsane_save_pnm_16_ascii_color(FILE *outfile, FILE *imagefile, Image_info *image_info, GtkProgressBar *progress_bar, int *cancel_save)
+static int xsane_save_pnm_16_ascii_color(FILE *outfile, FILE *imagefile, Image_info *image_info,
+                                         cmsHTRANSFORM hTransform, int apply_ICM_profile,
+                                         GtkProgressBar *progress_bar, int *cancel_save)
 {
  int x,y;
- guint16 val;
+ guint16 *data;
  int count = 0;
+#ifdef HAVE_LIBLCMS
+ guint16 *data_raw = NULL;
+#endif
 
   DBG(DBG_proc, "xsane_save_pnm_16_ascii_color\n");
 
   *cancel_save = 0;
 
+
+  data = malloc(image_info->image_width * 6);
+
+  if (!data)
+  {
+   char buf[TEXTBUFSIZE];
+
+    snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_NO_MEM);
+    xsane_back_gtk_error(buf, TRUE);
+   return -1; /* error */
+  }
+
+#ifdef HAVE_LIBLCMS
+  if ((apply_ICM_profile) && (hTransform != NULL))
+  {
+    DBG(DBG_info, "Doing CMS color conversion\n");
+
+    data_raw = malloc(image_info->image_width * 6);
+
+    if (!data_raw)
+    {
+     char buf[TEXTBUFSIZE];
+
+      free(data);
+
+      snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_NO_MEM);
+      xsane_back_gtk_error(buf, TRUE);
+     return -1; /* error */
+    }
+  }
+#endif
+
   for (y = 0; y < image_info->image_height; y++)
   {
+#ifdef HAVE_LIBLCMS
+    if ((apply_ICM_profile) && (hTransform != NULL))
+    {
+      fread(data_raw, 6, image_info->image_width, imagefile);
+      cmsDoTransform(hTransform, data_raw, data, image_info->image_width);
+    }
+    else
+#endif
+    {
+      fread(data, 6, image_info->image_width, imagefile);
+    }
+
     for (x = 0; x < image_info->image_width; x++)
     {
-      fread(&val, 2, 1, imagefile); /* get data in machine order */
-      fprintf(outfile, "%d ", val);
-
-      fread(&val, 2, 1, imagefile);
-      fprintf(outfile, "%d ", val);
-
-      fread(&val, 2, 1, imagefile);
-      fprintf(outfile, "%d  ", val);
+      fprintf(outfile, "%d ", data[3*x+0]);
+      fprintf(outfile, "%d ", data[3*x+1]);
+      fprintf(outfile, "%d ", data[3*x+2]);
 
       if (++count >= 3)
       {
@@ -4408,27 +5351,82 @@ static int xsane_save_pnm_16_ascii_color(FILE *outfile, FILE *imagefile, Image_i
     }
   }
 
+#ifdef HAVE_LIBLCMS
+  if (data_raw)
+  {
+    free(data_raw);
+  }
+#endif
+  free(data);
+
  return (*cancel_save);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static int xsane_save_pnm_16_binary_gray(FILE *outfile, FILE *imagefile, Image_info *image_info, GtkProgressBar *progress_bar, int *cancel_save)
+static int xsane_save_pnm_16_binary_gray(FILE *outfile, FILE *imagefile, Image_info *image_info,
+                                         cmsHTRANSFORM hTransform, int apply_ICM_profile,
+                                         GtkProgressBar *progress_bar, int *cancel_save)
 {
  int x,y;
- guint16 val;
+ guint16 *data;
+#ifdef HAVE_LIBLCMS
+ guint16 *data_raw = NULL;
+#endif
 
   DBG(DBG_proc, "xsane_save_pnm_16_binary_gray\n");
 
   *cancel_save = 0;
 
+  data = malloc(image_info->image_width * 2);
+
+  if (!data)
+  {
+   char buf[TEXTBUFSIZE];
+
+    snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_NO_MEM);
+    xsane_back_gtk_error(buf, TRUE);
+   return -1; /* error */
+  }
+
+#ifdef HAVE_LIBLCMS
+  if (hTransform != NULL)
+  {
+    DBG(DBG_info, "Doing CMS color conversion\n");
+
+    data_raw = malloc(image_info->image_width * 2);
+
+    if (!data_raw)
+    {
+     char buf[TEXTBUFSIZE];
+
+      free(data);
+
+      snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_NO_MEM);
+      xsane_back_gtk_error(buf, TRUE);
+     return -1; /* error */
+    }
+  }
+#endif
+
   for (y = 0; y < image_info->image_height; y++)
   {
+#ifdef HAVE_LIBLCMS
+    if (hTransform != NULL)
+    {
+      fread(data_raw, 2, image_info->image_width, imagefile);
+      cmsDoTransform(hTransform, data_raw, data, image_info->image_width);
+    }
+    else
+#endif
+    {
+      fread(data, 2, image_info->image_width, imagefile);
+    }
+
     for (x = 0; x < image_info->image_width; x++)
     {
-      fread(&val, 2, 1, imagefile); /* get data in machine order */
-      fputc(val / 256, outfile); /* MSB fist */
-      fputc(val & 255, outfile); /* LSB */
+      fputc(data[3*x+0] / 256, outfile);
+      fputc(data[3*x+0] & 255, outfile);
     }
 
     gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height);
@@ -4454,38 +5452,86 @@ static int xsane_save_pnm_16_binary_gray(FILE *outfile, FILE *imagefile, Image_i
     }
   }
 
+#ifdef HAVE_LIBLCMS
+  if (data_raw)
+  {
+    free(data_raw);
+  }
+#endif
+  free(data);
+
  return (*cancel_save);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static int xsane_save_pnm_16_binary_color(FILE *outfile, FILE *imagefile, Image_info *image_info, GtkProgressBar *progress_bar, int *cancel_save)
+static int xsane_save_pnm_16_binary_color(FILE *outfile, FILE *imagefile, Image_info *image_info,
+                                          cmsHTRANSFORM hTransform, int apply_ICM_profile,
+                                          GtkProgressBar *progress_bar, int *cancel_save)
 {
  int x,y;
- guint16 val;
+ guint16 *data;
+#ifdef HAVE_LIBLCMS
+ guint16 *data_raw = NULL;
+#endif
 
   DBG(DBG_proc, "xsane_save_pnm_16_binary_color\n");
 
   *cancel_save = 0;
 
+  data = malloc(image_info->image_width * 6);
+
+  if (!data)
+  {
+   char buf[TEXTBUFSIZE];
+
+    snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_NO_MEM);
+    xsane_back_gtk_error(buf, TRUE);
+   return -1; /* error */
+  }
+
+#ifdef HAVE_LIBLCMS
+  if (hTransform != NULL)
+  {
+    DBG(DBG_info, "Doing CMS color conversion\n");
+
+    data_raw = malloc(image_info->image_width * 6);
+
+    if (!data_raw)
+    {
+     char buf[TEXTBUFSIZE];
+
+      free(data);
+
+      snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_NO_MEM);
+      xsane_back_gtk_error(buf, TRUE);
+     return -1; /* error */
+    }
+  }
+#endif
+
   for (y = 0; y < image_info->image_height; y++)
   {
+#ifdef HAVE_LIBLCMS
+    if (hTransform != NULL)
+    {
+      fread(data_raw, 6, image_info->image_width, imagefile);
+      cmsDoTransform(hTransform, data_raw, data, image_info->image_width);
+    }
+    else
+#endif
+    {
+      fread(data, 6, image_info->image_width, imagefile);
+    }
+
     for (x = 0; x < image_info->image_width; x++)
     {
-      /* red */
-      fread(&val, 2, 1, imagefile); /* get data in machine order */
-      fputc(val / 256, outfile); /* MSB fist */
-      fputc(val & 255, outfile); /* LSB */
-
-      /* green */
-      fread(&val, 2, 1, imagefile); /* get data in machine order */
-      fputc(val / 256, outfile); /* MSB fist */
-      fputc(val & 255, outfile); /* LSB */
-
-      /* blue */
-      fread(&val, 2, 1, imagefile); /* get data in machine order */
-      fputc(val / 256, outfile); /* MSB fist */
-      fputc(val & 255, outfile); /* LSB */
+      fputc(data[3*x+0] / 256, outfile);
+      fputc(data[3*x+0] & 255, outfile);
+      fputc(data[3*x+1] / 256, outfile);
+      fputc(data[3*x+1] & 255, outfile);
+      fputc(data[3*x+2] / 256, outfile);
+      fputc(data[3*x+2] & 255, outfile);
     }
 
     gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height);
@@ -4512,12 +5558,249 @@ static int xsane_save_pnm_16_binary_color(FILE *outfile, FILE *imagefile, Image_
     }
   }
 
+#ifdef HAVE_LIBLCMS
+  if (data_raw)
+  {
+    free(data_raw);
+  }
+#endif
+  free(data);
+
  return (*cancel_save);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-int xsane_save_pnm_16(FILE *outfile, FILE *imagefile, Image_info *image_info, GtkProgressBar *progress_bar, int *cancel_save)
+static int xsane_save_pnm_8_gray(FILE *outfile, FILE *imagefile, Image_info *image_info,
+                                 cmsHTRANSFORM hTransform, int apply_ICM_profile,
+                                 GtkProgressBar *progress_bar, int *cancel_save)
+{
+ int x,y;
+ guint8 *data;
+#ifdef HAVE_LIBLCMS
+ guint8 *data_raw = NULL;
+#endif
+
+  DBG(DBG_proc, "xsane_save_pnm_8_gray\n");
+
+  *cancel_save = 0;
+
+  data = malloc(image_info->image_width);
+
+  if (!data)
+  {
+   char buf[TEXTBUFSIZE];
+
+    snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_NO_MEM);
+    xsane_back_gtk_error(buf, TRUE);
+   return -1; /* error */
+  }
+
+#ifdef HAVE_LIBLCMS
+  if (hTransform != NULL)
+  {
+    DBG(DBG_info, "Doing CMS color conversion\n");
+
+    data_raw = malloc(image_info->image_width);
+
+    if (!data_raw)
+    {
+     char buf[TEXTBUFSIZE];
+
+      free(data);
+
+      snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_NO_MEM);
+      xsane_back_gtk_error(buf, TRUE);
+     return -1; /* error */
+    }
+  }
+#endif
+
+  for (y = 0; y < image_info->image_height; y++)
+  {
+#ifdef HAVE_LIBLCMS
+    if (hTransform != NULL)
+    {
+      fread(data_raw, 1, image_info->image_width, imagefile);
+      cmsDoTransform(hTransform, data_raw, data, image_info->image_width);
+    }
+    else
+#endif
+    {
+      fread(data, 1, image_info->image_width, imagefile);
+    }
+
+    for (x = 0; x < image_info->image_width; x++)
+    {
+      fputc(data[x], outfile);
+    }
+
+    gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height);
+    while (gtk_events_pending())
+    {
+      gtk_main_iteration();
+    }
+
+
+    if (ferror(outfile))
+    {
+     char buf[TEXTBUFSIZE];
+
+      snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+      DBG(DBG_error, "%s\n", buf);
+      xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+      *cancel_save = 1;
+     break;
+    }
+
+    if (*cancel_save)
+    {
+      break;
+    }
+  }
+
+#ifdef HAVE_LIBLCMS
+  if (data_raw)
+  {
+    free(data_raw);
+  }
+#endif
+  free(data);
+
+ return (*cancel_save);
+}
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static int xsane_save_pnm_8_color(FILE *outfile, FILE *imagefile, Image_info *image_info,
+                                  cmsHTRANSFORM hTransform, int apply_ICM_profile,
+                                  GtkProgressBar *progress_bar, int *cancel_save)
+{
+ int x,y;
+ guint8 *data;
+#ifdef HAVE_LIBLCMS
+ guint8 *data_raw = NULL;
+#endif
+
+  DBG(DBG_proc, "xsane_save_pnm_8_color\n");
+
+  *cancel_save = 0;
+
+  data = malloc(image_info->image_width * 3);
+
+  if (!data)
+  {
+   char buf[TEXTBUFSIZE];
+
+    snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_NO_MEM);
+    xsane_back_gtk_error(buf, TRUE);
+   return -1; /* error */
+  }
+
+#ifdef HAVE_LIBLCMS
+  if (hTransform != NULL)
+  {
+    DBG(DBG_info, "Doing CMS color conversion\n");
+
+    data_raw = malloc(image_info->image_width * 3);
+
+    if (!data_raw)
+    {
+     char buf[TEXTBUFSIZE];
+
+      free(data);
+
+      snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_NO_MEM);
+      xsane_back_gtk_error(buf, TRUE);
+     return -1; /* error */
+    }
+  }
+#endif
+
+  for (y = 0; y < image_info->image_height; y++)
+  {
+#ifdef HAVE_LIBLCMS
+    if (hTransform != NULL)
+    {
+      fread(data_raw, 3, image_info->image_width, imagefile);
+      cmsDoTransform(hTransform, data_raw, data, image_info->image_width);
+    }
+    else
+#endif
+    {
+      fread(data, 3, image_info->image_width, imagefile);
+    }
+
+    for (x = 0; x < image_info->image_width; x++)
+    {
+      fputc(data[3*x+0], outfile);
+      fputc(data[3*x+1], outfile);
+      fputc(data[3*x+2], outfile);
+    }
+
+    gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height);
+    while (gtk_events_pending())
+    {
+      gtk_main_iteration();
+    }
+
+
+    if (ferror(outfile))
+    {
+     char buf[TEXTBUFSIZE];
+
+      snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, strerror(errno));
+      DBG(DBG_error, "%s\n", buf);
+      xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+      *cancel_save = 1;
+     break;
+    }
+
+    if (*cancel_save)
+    {
+      break;
+    }
+  }
+
+#ifdef HAVE_LIBLCMS
+  if (data_raw)
+  {
+    free(data_raw);
+  }
+#endif
+  free(data);
+
+ return (*cancel_save);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static int xsane_save_pnm_8(FILE *outfile, FILE *imagefile, Image_info *image_info,
+                            cmsHTRANSFORM hTransform, int apply_ICM_profile,
+                            GtkProgressBar *progress_bar, int *cancel_save)
+{
+  DBG(DBG_proc, "xsane_save_pnm_8\n");
+
+  *cancel_save = 0;
+
+  xsane_write_pnm_header(outfile, image_info, preferences.save_pnm16_as_ascii);
+
+  if (image_info->channels > 1)
+  {
+    xsane_save_pnm_8_color(outfile, imagefile, image_info, hTransform, apply_ICM_profile, progress_bar, cancel_save);
+  }
+  else
+  {
+    xsane_save_pnm_8_gray(outfile, imagefile, image_info, hTransform, apply_ICM_profile, progress_bar, cancel_save);
+  }
+
+ return (*cancel_save);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+int xsane_save_pnm_16(FILE *outfile, FILE *imagefile, Image_info *image_info,
+                      cmsHTRANSFORM hTransform, int apply_ICM_profile,
+                      GtkProgressBar *progress_bar, int *cancel_save)
 {
   DBG(DBG_proc, "xsane_save_pnm_16\n");
 
@@ -4525,33 +5808,32 @@ int xsane_save_pnm_16(FILE *outfile, FILE *imagefile, Image_info *image_info, Gt
 
   xsane_write_pnm_header(outfile, image_info, preferences.save_pnm16_as_ascii);
 
-  if (image_info->colors > 1)
+  if (image_info->channels > 1)
   {
     if (preferences.save_pnm16_as_ascii)
     {
-      xsane_save_pnm_16_ascii_color(outfile, imagefile, image_info, progress_bar, cancel_save);
+      xsane_save_pnm_16_ascii_color(outfile, imagefile, image_info, hTransform, apply_ICM_profile, progress_bar, cancel_save);
     }
     else
     {
-      xsane_save_pnm_16_binary_color(outfile, imagefile, image_info, progress_bar, cancel_save);
+      xsane_save_pnm_16_binary_color(outfile, imagefile, image_info, hTransform, apply_ICM_profile, progress_bar, cancel_save);
     }
   }
   else
   {
     if (preferences.save_pnm16_as_ascii)
     {
-      xsane_save_pnm_16_ascii_gray(outfile, imagefile, image_info, progress_bar, cancel_save);
+      xsane_save_pnm_16_ascii_gray(outfile, imagefile, image_info, hTransform, apply_ICM_profile, progress_bar, cancel_save);
     }
     else
     {
-      xsane_save_pnm_16_binary_gray(outfile, imagefile, image_info, progress_bar, cancel_save);
+      xsane_save_pnm_16_binary_gray(outfile, imagefile, image_info, hTransform, apply_ICM_profile, progress_bar, cancel_save);
     }
   }
 
  return (*cancel_save);
 }
 
-/* ---------------------------------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 /* 0=ok, <0=error, 1=canceled */
@@ -4777,14 +6059,17 @@ int xsane_save_image_as_text(char *output_filename, char *input_filename, GtkPro
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 /* save image in destination file format. lineart images that are stored as grayscale image are reduced to lineart! */
-int xsane_save_image_as(char *output_filename, char *input_filename, int output_format, GtkProgressBar *progress_bar, int *cancel_save)
+int xsane_save_image_as(char *output_filename, char *input_filename, int output_format,
+                        int apply_ICM_profile, int cms_function, int cms_intent, int cms_bpc,
+                        GtkProgressBar *progress_bar, int *cancel_save)
 {
  FILE *outfile;
  FILE *infile;
  char buf[TEXTBUFSIZE];
  Image_info image_info;
- char lineart_filename[PATH_MAX];
+ char temporary_filename[PATH_MAX];
  int remove_input_file = FALSE;
+ cmsHTRANSFORM hTransform = NULL;
   
   DBG(DBG_proc, "xsane_save_image_as(output_file=%s, input_file=%s, type=%d)\n", output_filename, input_filename, output_format);
 
@@ -4806,7 +6091,7 @@ int xsane_save_image_as(char *output_filename, char *input_filename, int output_
   {
     DBG(DBG_info, "original image is a lineart => reduce to lineart\n");
     fclose(infile);
-    xsane_back_gtk_make_path(sizeof(lineart_filename), lineart_filename, 0, 0, "xsane-conversion-", xsane.dev_name, ".pbm", XSANE_PATH_TMP);
+    xsane_back_gtk_make_path(sizeof(temporary_filename), temporary_filename, 0, 0, "xsane-conversion-", xsane.dev_name, ".pbm", XSANE_PATH_TMP);
 
     snprintf(buf, sizeof(buf), "%s: %s", PROGRESS_PACKING_DATA, output_filename);
 
@@ -4818,9 +6103,9 @@ int xsane_save_image_as(char *output_filename, char *input_filename, int output_
       gtk_main_iteration();
     }
 
-    xsane_save_image_as_lineart(lineart_filename, input_filename, progress_bar, cancel_save);
+    xsane_save_image_as_lineart(temporary_filename, input_filename, progress_bar, cancel_save);
 
-    input_filename = lineart_filename;
+    input_filename = temporary_filename;
     remove_input_file = TRUE;
 
     infile = fopen(input_filename, "rb"); /* read binary (b for win32) */
@@ -4836,8 +6121,23 @@ int xsane_save_image_as(char *output_filename, char *input_filename, int output_
     xsane_read_pnm_header(infile, &image_info);
   }
 
-  snprintf(buf, sizeof(buf), "%s: %s", PROGRESS_SAVING_DATA, output_filename);
+#ifdef HAVE_LIBLCMS
+  if (apply_ICM_profile && ((cms_function != XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE) || ((output_format == XSANE_PNM) || (output_format == XSANE_PNM16))))
+  {
+    hTransform = xsane_create_cms_transform(&image_info, cms_function, cms_intent, cms_bpc);
+  }
+#endif
 
+  if (1)
+  {
+    snprintf(buf, sizeof(buf), "%s: %s", PROGRESS_SAVING_DATA, output_filename);
+  }
+  else
+  {
+    snprintf(buf, sizeof(buf), "%s", PROGRESS_SAVING_DATA);
+  }
+
+  gtk_progress_bar_set_ellipsize(GTK_PROGRESS_BAR(progress_bar), PANGO_ELLIPSIZE_START); /* this is new API, can be removed for old GTK versions */
   gtk_progress_set_format_string(GTK_PROGRESS(progress_bar), buf);
   gtk_progress_bar_update(GTK_PROGRESS_BAR(progress_bar), 0.0);
 
@@ -4867,7 +6167,7 @@ int xsane_save_image_as(char *output_filename, char *input_filename, int output_
      return -1; /* error */
     }
 
-    xsane_save_tiff_page(tiffile, 0, 0, infile, &image_info, preferences.jpeg_quality, progress_bar, cancel_save);
+    xsane_save_tiff_page(tiffile, 0, 0, preferences.jpeg_quality, infile, &image_info, hTransform, apply_ICM_profile, cms_function, progress_bar, cancel_save);
 
     TIFFClose(tiffile);
   }
@@ -4894,13 +6194,13 @@ int xsane_save_image_as(char *output_filename, char *input_filename, int output_
           }
           else
           {
-            xsane_copy_file(outfile, infile, progress_bar, cancel_save);
+            xsane_save_pnm_8(outfile, infile, &image_info, hTransform, apply_ICM_profile, progress_bar, cancel_save);
           }
          break;
 
 #ifdef HAVE_LIBJPEG
         case XSANE_JPEG:
-          xsane_save_jpeg(outfile, infile, &image_info, preferences.jpeg_quality, progress_bar, cancel_save);
+          xsane_save_jpeg(outfile, preferences.jpeg_quality, infile, &image_info, hTransform, apply_ICM_profile, cms_function, progress_bar, cancel_save);
          break; /* switch format == XSANE_JPEG */
 #endif
 
@@ -4909,18 +6209,18 @@ int xsane_save_image_as(char *output_filename, char *input_filename, int output_
         case XSANE_PNG:
           if (image_info.depth <= 8)
           {
-            xsane_save_png(outfile, infile, &image_info, preferences.png_compression, progress_bar, cancel_save);
+            xsane_save_png(outfile, preferences.png_compression, infile, &image_info, hTransform, apply_ICM_profile, cms_function, progress_bar, cancel_save);
           }
           else
           {
-            xsane_save_png_16(outfile, infile, &image_info, preferences.png_compression, progress_bar, cancel_save);
+            xsane_save_png_16(outfile, preferences.png_compression, infile, &image_info, hTransform, apply_ICM_profile, cms_function, progress_bar, cancel_save);
           }
          break; /* switch format == XSANE_PNG */
 #endif
 #endif
 
         case XSANE_PNM16:
-          xsane_save_pnm_16(outfile, infile, &image_info, progress_bar, cancel_save);
+          xsane_save_pnm_16(outfile, infile, &image_info, hTransform, apply_ICM_profile, progress_bar, cancel_save);
          break; /* switch fomat == XSANE_PNM16 */
 
         case XSANE_PS: /* save postscript, use original size */
@@ -4938,7 +6238,11 @@ int xsane_save_image_as(char *output_filename, char *input_filename, int output_
                           (int) imagewidth, /* paper_width */
                           (int) imageheight, /* paper_height */
                           0 /* portrait top left */,
-                          preferences.save_ps_flatdecoded,
+                          preferences.save_ps_flatedecoded,
+                          hTransform, apply_ICM_profile,
+                          (cms_function == XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE), image_info.icm_profile,
+		          0, NULL, 0, /* no CRD */
+			  0 /* intent */,
                           progress_bar,
                           cancel_save);
         }
@@ -4959,7 +6263,8 @@ int xsane_save_image_as(char *output_filename, char *input_filename, int output_
                           (int) imagewidth, /* paper_width */
                           (int) imageheight, /* paper_height */
                           0 /* portrait top left */,
-                          preferences.save_pdf_flatdecoded,
+                          preferences.save_pdf_flatedecoded,
+                          hTransform, apply_ICM_profile, cms_function,
                           progress_bar,
                           cancel_save);
         }
@@ -5023,6 +6328,13 @@ int xsane_save_image_as(char *output_filename, char *input_filename, int output_
   }
 
   fclose (infile);
+
+#ifdef HAVE_LIBLCMS
+  if (hTransform != NULL)
+  {
+    cmsDeleteTransform(hTransform);
+  }
+#endif
 
   if (remove_input_file)
   {
@@ -5353,7 +6665,7 @@ void null_print_func(gchar *msg)
 /* ---------------------------------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-int xsane_transfer_to_gimp(char *input_filename, GtkProgressBar *progress_bar, int *cancel_save)
+int xsane_transfer_to_gimp(char *input_filename, int apply_ICM_profile, int cms_function, GtkProgressBar *progress_bar, int *cancel_save)
 {
  int remaining;
  size_t tile_size;
@@ -5368,6 +6680,13 @@ int xsane_transfer_to_gimp(char *input_filename, GtkProgressBar *progress_bar, i
  int i, x, y;
  Image_info image_info;
  FILE *imagefile;
+ int bytes;
+ unsigned char *data = NULL;
+ guint16 *data16 = NULL;
+#ifdef HAVE_LIBLCMS
+ unsigned char *data_raw = NULL;
+ cmsHTRANSFORM hTransform = NULL;
+#endif
 
   DBG(DBG_info, "xsane_transer_to_gimp\n");
 
@@ -5385,18 +6704,64 @@ int xsane_transfer_to_gimp(char *input_filename, GtkProgressBar *progress_bar, i
 
   xsane_read_pnm_header(imagefile, &image_info);
 
+  if (image_info.depth == 16)
+  {
+    bytes = 2;
+  }
+  else
+  {
+    bytes = 1;
+  }
+
+  data = malloc(image_info.image_width * 3 * bytes);
+  data16 = (guint16 *) data;
+
+  if (!data)
+  {
+   char buf[TEXTBUFSIZE];
+
+    snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_NO_MEM);
+    xsane_back_gtk_error(buf, TRUE);
+   return -1; /* error */
+  }
+
+#ifdef HAVE_LIBLCMS
+  if ((cms_function != XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE)  && apply_ICM_profile && (image_info.depth != 1))
+  {
+    hTransform = xsane_create_cms_transform(&image_info, cms_function, preferences.cms_intent, preferences.cms_bpc);
+  }
+
+  if (hTransform != NULL)
+  {
+    DBG(DBG_info, "Doing CMS color conversion\n");
+
+    data_raw = malloc(image_info.image_width * 3 * bytes);
+
+    if (!data_raw)
+    {
+     char buf[TEXTBUFSIZE];
+
+      free(data);
+
+      snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_NO_MEM);
+      xsane_back_gtk_error(buf, TRUE);
+     return -1; /* error */
+    }
+  }
+#endif
+
   x = 0;
   y = 0; 
   tile_offset = 0;
   tile_size = image_info.image_width * gimp_tile_height();
 
-  if (image_info.colors == 3) /* RGB */
+  if (image_info.channels == 3) /* RGB */
   {
     tile_size *= 3;  /* 24 bits/pixel RGB */
     image_type    = GIMP_RGB;
     drawable_type = GIMP_RGB_IMAGE;
   }
-  else if (image_info.colors == 4) /* RGBA */
+  else if (image_info.channels == 4) /* RGBA */
   {
     tile_size *= 4;  /* 32 bits/pixel RGBA */
     image_type    = GIMP_RGB;
@@ -5407,16 +6772,15 @@ int xsane_transfer_to_gimp(char *input_filename, GtkProgressBar *progress_bar, i
   image_ID = gimp_image_new(image_info.image_width, image_info.image_height, image_type);
 
 #ifdef HAVE_LIBLCMS
-
-  if ((xsane.scanner_refl_icm_profile) && (xsane.embed_icm_profile))
+  if ((cms_function != XSANE_CMS_FUNCTION_CONVERT_TO_SRGB) && apply_ICM_profile) /* embed profile */
   {
    GimpParasite *parasite;
    FILE *icm_profile;
    guchar *profile_buffer;
    gint32 size;
 
-    DBG(DBG_error, "Opening ICM profile %s\n", xsane.scanner_refl_icm_profile);
-    icm_profile = fopen(xsane.scanner_refl_icm_profile, "rb");
+    DBG(DBG_error, "Opening ICM profile %s\n", image_info.icm_profile);
+    icm_profile = fopen(image_info.icm_profile, "rb");
 
     if (icm_profile)
     {
@@ -5472,7 +6836,7 @@ int xsane_transfer_to_gimp(char *input_filename, GtkProgressBar *progress_bar, i
   tile = g_new(guchar, tile_size);
  
 
-  if (image_info.colors == 1) /* gray */
+  if (image_info.channels == 1) /* gray */
   {
     switch (image_info.depth)
     {
@@ -5521,75 +6885,37 @@ int xsane_transfer_to_gimp(char *input_filename, GtkProgressBar *progress_bar, i
        break; /* leave switch depth 1 */
 
       case 8: /* 8 bit gray */
-      case 16: /* 16 bit gray already has been reduced to 8 bit */
-        for (i = 0; i < image_info.image_width * image_info.image_height; ++i)
+        for (y = 1; y <= image_info.image_height; y++)
         {
-          tile[tile_offset++] = fgetc(imagefile);
-          x++;
+         int tile_height = gimp_tile_height();
 
-          if (x >= image_info.image_width)
+#ifdef HAVE_LIBLCMS
+          if ((cms_function != XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE) && apply_ICM_profile && (hTransform != NULL))
           {
-           int tile_height = gimp_tile_height();
-
-            x = 0;
-            y++;
-
-            if (y % tile_height == 0)
-            {
-              gimp_pixel_rgn_set_rect(&region, tile, 0, y - tile_height, image_info.image_width, tile_height);
-              tile_offset = 0;
-            }
-
-            gtk_progress_bar_update(progress_bar, (float) y / image_info.image_height); /* update progress bar */
-            while (gtk_events_pending())
-            {
-              gtk_main_iteration();
-            }
+            fread(data_raw, 1, image_info.image_width, imagefile);
+            cmsDoTransform(hTransform, data_raw, data, image_info.image_width);
+          }
+          else
+#endif
+          {
+            fread(data, 1, image_info.image_width, imagefile);
           }
 
-          if (*cancel_save)
+          for (x = 0; x < image_info.image_width; x++)
+	  {
+            tile[tile_offset++] = data[x];
+	  }
+
+          if (y % tile_height == 0)
           {
-            break;
+            gimp_pixel_rgn_set_rect(&region, tile, 0, y - tile_height, image_info.image_width, tile_height);
+            tile_offset = 0;
           }
-        }
-       break; /* leave switch depth */
 
-      default: /* bad depth */
-       break; /* default */
-    }
-  }
-  else if (image_info.colors == 3) /* RGB */
-  {
-    switch (image_info.depth)
-    {
-      case 8: /* 8 bit RGB */
-      case 16: /* 16 bit RGB already has been reduced to 8 bit */
-        for (i = 0; i < image_info.image_width * image_info.image_height*3; ++i)
-        {
-          tile[tile_offset++] = fgetc(imagefile);
-          if (tile_offset % 3 == 0)
+          gtk_progress_bar_update(progress_bar, (float) y / image_info.image_height); /* update progress bar */
+          while (gtk_events_pending())
           {
-            x++;
-
-            if (x >= image_info.image_width)
-            {
-             int tile_height = gimp_tile_height();
-
-              x = 0;
-              y++;
-
-              if (y % tile_height == 0)
-              {
-                gimp_pixel_rgn_set_rect(&region, tile, 0, y - tile_height, image_info.image_width, tile_height);
-                tile_offset = 0;
-              }
-
-              gtk_progress_bar_update(progress_bar, (float) y / image_info.image_height); /* update progress bar */
-              while (gtk_events_pending())
-              {
-                gtk_main_iteration();
-              }
-            }
+            gtk_main_iteration();
           }
 
           if (*cancel_save)
@@ -5599,12 +6925,151 @@ int xsane_transfer_to_gimp(char *input_filename, GtkProgressBar *progress_bar, i
         }
        break; /* case 8 */
 
+
+      case 16: /* 16 bit gray has to be reduced to 8 bit */
+        for (y = 1; y <= image_info.image_height; y++)
+        {
+         int tile_height = gimp_tile_height();
+
+#ifdef HAVE_LIBLCMS
+          if ((cms_function != XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE) && apply_ICM_profile && (hTransform != NULL))
+          {
+            fread(data_raw, 2, image_info.image_width, imagefile);
+            cmsDoTransform(hTransform, data_raw, data, image_info.image_width);
+          }
+          else
+#endif
+          {
+            fread(data, 2, image_info.image_width, imagefile);
+          }
+
+          for (x = 0; x < image_info.image_width; x++)
+	  {
+            tile[tile_offset++] = data16[x]/256;
+	  }
+
+          if (y % tile_height == 0)
+          {
+            gimp_pixel_rgn_set_rect(&region, tile, 0, y - tile_height, image_info.image_width, tile_height);
+            tile_offset = 0;
+          }
+
+          gtk_progress_bar_update(progress_bar, (float) y / image_info.image_height); /* update progress bar */
+          while (gtk_events_pending())
+          {
+            gtk_main_iteration();
+          }
+
+          if (*cancel_save)
+          {
+            break;
+          }
+        }
+       break; /* case 16 */
+
+      default: /* bad depth */
+       break; /* default */
+    }
+  }
+  else if (image_info.channels == 3) /* RGB */
+  {
+    switch (image_info.depth)
+    {
+      case 8: /* 8 bit RGB */
+
+        for (y = 1; y <= image_info.image_height; y++)
+        {
+         int tile_height = gimp_tile_height();
+
+#ifdef HAVE_LIBLCMS
+          if ((cms_function != XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE) && apply_ICM_profile && (hTransform != NULL))
+          {
+            fread(data_raw, 3, image_info.image_width, imagefile);
+            cmsDoTransform(hTransform, data_raw, data, image_info.image_width);
+          }
+          else
+#endif
+          {
+            fread(data, 3, image_info.image_width, imagefile);
+          }
+
+          for (x = 0; x < image_info.image_width; x++)
+	  {
+            tile[tile_offset++] = data[3*x+0];
+            tile[tile_offset++] = data[3*x+1];
+            tile[tile_offset++] = data[3*x+2];
+	  }
+
+          if (y % tile_height == 0)
+          {
+            gimp_pixel_rgn_set_rect(&region, tile, 0, y - tile_height, image_info.image_width, tile_height);
+            tile_offset = 0;
+          }
+
+          gtk_progress_bar_update(progress_bar, (float) y / image_info.image_height); /* update progress bar */
+          while (gtk_events_pending())
+          {
+            gtk_main_iteration();
+          }
+
+          if (*cancel_save)
+          {
+            break;
+          }
+        }
+       break; /* case 8 */
+
+
+      case 16: /* 16 bit RGB has to be reduced to 8 bit */
+
+        for (y = 1; y <= image_info.image_height; y++)
+        {
+         int tile_height = gimp_tile_height();
+
+#ifdef HAVE_LIBLCMS
+          if ((cms_function != XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE) && apply_ICM_profile && (hTransform != NULL))
+          {
+            fread(data_raw, 6, image_info.image_width, imagefile);
+            cmsDoTransform(hTransform, data_raw, data, image_info.image_width);
+          }
+          else
+#endif
+          {
+            fread(data, 6, image_info.image_width, imagefile);
+          }
+
+          for (x = 0; x < image_info.image_width; x++)
+	  {
+            tile[tile_offset++] = data16[3*x+0]/256;
+            tile[tile_offset++] = data16[3*x+1]/256;
+            tile[tile_offset++] = data16[3*x+2]/256;
+	  }
+
+          if (y % tile_height == 0)
+          {
+            gimp_pixel_rgn_set_rect(&region, tile, 0, y - tile_height, image_info.image_width, tile_height);
+            tile_offset = 0;
+          }
+
+          gtk_progress_bar_update(progress_bar, (float) y / image_info.image_height); /* update progress bar */
+          while (gtk_events_pending())
+          {
+            gtk_main_iteration();
+          }
+
+          if (*cancel_save)
+          {
+            break;
+          }
+        }
+       break; /* case 16 */
+
       default: /* bad depth */
        break; /* default */
     }
   }
 #ifdef SUPPORT_RGBA
-  else if (image_info.colors == 4) /* RGBA */
+  else if (image_info.channels == 4) /* RGBA */
   {
    int i;
 
@@ -5673,6 +7138,19 @@ int xsane_transfer_to_gimp(char *input_filename, GtkProgressBar *progress_bar, i
   tile = 0;
 
   fclose(imagefile);
+
+#ifdef HAVE_LIBLCMS
+  if (hTransform != NULL)
+  {
+    cmsDeleteTransform(hTransform);
+  }
+
+  if (data_raw)
+  {
+    free(data_raw);
+  }
+#endif
+  free(data);
 
  return 0;
 }
@@ -5781,7 +7259,7 @@ void write_base64(int fd_socket, FILE *infile)
     pos += 4;
     if (pos > 71)
     {
-      write(fd_socket, "\r\n", 1);
+      write(fd_socket, "\r\n", 2);
       
       pos = 0;
     }
@@ -5796,7 +7274,7 @@ void write_base64(int fd_socket, FILE *infile)
 
   if (pos)
   {
-    write(fd_socket, "\r\n", 1);
+    write(fd_socket, "\r\n", 2);
   }
 
   xsane.email_progress_val = 1.0;

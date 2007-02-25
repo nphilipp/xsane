@@ -470,7 +470,7 @@ void xsane_back_gtk_set_option(int opt_num, void *val, SANE_Action action)
  SANE_Status status;
  SANE_Int info;
  char buf[TEXTBUFSIZE];
- int old_colors = xsane.xsane_colors;
+ int old_channels = xsane.xsane_channels;
  int update_gamma = FALSE;
 
   DBG(DBG_proc, "xsane_back_gtk_set_option\n");
@@ -505,7 +505,7 @@ void xsane_back_gtk_set_option(int opt_num, void *val, SANE_Action action)
     /* XXXXXXXXXXXXXX this also has to be handled XXXXXXXXXXXXXXX */
   }
 
-  if (xsane.xsane_colors != old_colors)
+  if (xsane.xsane_channels != old_channels)
   {
     /* we have to update gamma tables and histogram because medium settings */
     /* may have changed */
@@ -734,7 +734,7 @@ gint xsane_back_gtk_decision(gchar *title, gchar **xpm_d,  gchar *message, gchar
   button = gtk_button_new_with_label(oktext);
   GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
   g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_back_gtk_decision_ok_callback, (void *) decision_flag_ptr);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 5);
+  gtk_box_pack_end(GTK_BOX(hbox), button, TRUE, TRUE, 5);
   gtk_widget_grab_default(button);
   gtk_widget_show(button);
 
@@ -743,7 +743,7 @@ gint xsane_back_gtk_decision(gchar *title, gchar **xpm_d,  gchar *message, gchar
   {
     button = gtk_button_new_with_label(rejecttext);
     g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_back_gtk_decision_reject_callback, (void *) decision_flag_ptr);
-    gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 5);
+    gtk_box_pack_end(GTK_BOX(hbox), button, TRUE, TRUE, 5);
     gtk_widget_show(button);
   }
 
@@ -867,59 +867,6 @@ void xsane_back_gtk_info(gchar *info, int wait)
   {
     xsane_back_gtk_message(ERR_HEADER_INFO, (gchar**) info_xpm, info, wait);
   }
-}
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-GtkWidget *fileselection;
-char *fileselection_filetype = NULL;
-
-static void xsane_back_gtk_filetype_callback(GtkWidget *widget, gpointer data)
-{
- char *extension, *filename;
- char buffer[PATH_MAX];
- char *new_filetype = (char *) data;
-
-  DBG(DBG_proc, "xsane_filetype_callback\n");
-
-  filename = strdup(gtk_file_selection_get_filename(GTK_FILE_SELECTION(fileselection)));
-
-  if ((new_filetype) && (*new_filetype))
-  {
-    extension = strrchr(filename, '.');
-
-    if ((extension) && (extension != filename))
-    {
-      if ( (!strcasecmp(extension, ".pnm"))  || (!strcasecmp(extension, ".raw"))
-        || (!strcasecmp(extension, ".png"))  || (!strcasecmp(extension, ".ps"))
-        || (!strcasecmp(extension, ".pdf"))  || (!strcasecmp(extension, ".rgba"))
-        || (!strcasecmp(extension, ".tiff")) || (!strcasecmp(extension, ".tif"))
-        || (!strcasecmp(extension, ".text")) || (!strcasecmp(extension, ".txt"))
-        || (!strcasecmp(extension, ".jpg"))  || (!strcasecmp(extension, ".jpeg"))
-         ) /* remove filetype extension */
-      {
-        *extension = 0; /* remove extension */
-      }
-    }
-    snprintf(buffer, sizeof(buffer), "%s%s", filename, new_filetype);
-    free(filename);
-    filename = strdup(buffer);
-  }
-
-  if (fileselection_filetype)
-  {
-    free(fileselection_filetype);
-    fileselection_filetype = NULL;
-  }
-
-  if (data)
-  {
-    fileselection_filetype = strdup(new_filetype); 
-  }
-
-  gtk_file_selection_set_filename(GTK_FILE_SELECTION(fileselection), filename);
-
-  free(filename);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1113,6 +1060,475 @@ GtkWidget *xsane_back_gtk_filetype_menu_new(char *filetype, GtkSignalFunc filety
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
+GtkWidget *xsane_back_gtk_cms_function_menu_new(int select_cms_function, GtkSignalFunc cms_function_menu_callback)
+{
+ GtkWidget *xsane_cms_function_menu, *xsane_cms_function_item;
+ GtkWidget *xsane_cms_function_option_menu;
+
+  xsane_cms_function_menu = gtk_menu_new();
+
+  xsane_cms_function_item = gtk_menu_item_new_with_label(MENU_ITEM_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE);
+  if (cms_function_menu_callback)
+  {
+    g_signal_connect(GTK_OBJECT(xsane_cms_function_item), "activate", (GtkSignalFunc) cms_function_menu_callback, (void *) XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE);
+  }
+  gtk_container_add(GTK_CONTAINER(xsane_cms_function_menu), xsane_cms_function_item);
+  gtk_widget_show(xsane_cms_function_item);
+
+  xsane_cms_function_item = gtk_menu_item_new_with_label(MENU_ITEM_CMS_FUNCTION_CONVERT_TO_SRGB);
+  if (cms_function_menu_callback)
+  {
+    g_signal_connect(GTK_OBJECT(xsane_cms_function_item), "activate", (GtkSignalFunc) cms_function_menu_callback, (void *) XSANE_CMS_FUNCTION_CONVERT_TO_SRGB);
+  }
+  gtk_container_add(GTK_CONTAINER(xsane_cms_function_menu), xsane_cms_function_item);
+  gtk_widget_show(xsane_cms_function_item);
+
+  xsane_cms_function_item = gtk_menu_item_new_with_label(MENU_ITEM_FUNCTION_CONVERT_TO_WORKING_CS);
+  if (cms_function_menu_callback)
+  {
+    g_signal_connect(GTK_OBJECT(xsane_cms_function_item), "activate", (GtkSignalFunc) cms_function_menu_callback, (void *) XSANE_CMS_FUNCTION_CONVERT_TO_WORKING_CS);
+  }
+  gtk_container_add(GTK_CONTAINER(xsane_cms_function_menu), xsane_cms_function_item);
+  gtk_widget_show(xsane_cms_function_item);
+
+  xsane_cms_function_option_menu = gtk_option_menu_new();
+  xsane_back_gtk_set_tooltip(xsane.tooltips, xsane_cms_function_option_menu, DESC_CMS_FUNCTION);
+  gtk_option_menu_set_menu(GTK_OPTION_MENU(xsane_cms_function_option_menu), xsane_cms_function_menu);
+  gtk_option_menu_set_history(GTK_OPTION_MENU(xsane_cms_function_option_menu), select_cms_function);
+
+ return (xsane_cms_function_option_menu);
+}
+
+/* ----------------------------------------------------------------------------------------------------------------- */
+
+#ifdef __GTK_FILE_CHOOSER_H__
+
+GtkWidget *filechooser;
+char *filechooser_filetype = NULL;
+
+static void xsane_back_gtk_filetype2_callback(GtkWidget *widget, gpointer data)
+{
+ char *extension, *chooser_filename;
+ char filename[PATH_MAX];
+ char *basename;
+ char *new_filetype = (char *) data;
+ int pos;
+
+  DBG(DBG_proc, "xsane_filetype2_callback\n");
+
+  chooser_filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filechooser));
+
+  if ((new_filetype) && (*new_filetype))
+  {
+    extension = strrchr(chooser_filename, '.');
+
+    if ((extension) && (extension != chooser_filename))
+    {
+      if ( (!strcasecmp(extension, ".pnm"))  || (!strcasecmp(extension, ".raw"))
+        || (!strcasecmp(extension, ".png"))  || (!strcasecmp(extension, ".ps"))
+        || (!strcasecmp(extension, ".pdf"))  || (!strcasecmp(extension, ".rgba"))
+        || (!strcasecmp(extension, ".tiff")) || (!strcasecmp(extension, ".tif"))
+        || (!strcasecmp(extension, ".text")) || (!strcasecmp(extension, ".txt"))
+        || (!strcasecmp(extension, ".jpg"))  || (!strcasecmp(extension, ".jpeg"))
+         ) /* remove filetype extension */
+      {
+        *extension = 0; /* remove extension */
+      }
+    }
+    snprintf(filename, sizeof(filename), "%s%s", chooser_filename, new_filetype);
+  }
+
+  if (filechooser_filetype)
+  {
+    free(filechooser_filetype);
+    filechooser_filetype = NULL;
+  }
+
+  if (data)
+  {
+    filechooser_filetype = strdup(new_filetype); 
+  }
+
+
+  basename = filename;
+
+  for (pos = strlen(filename) - 1; pos > 0; pos--)
+  {
+    if (filename[pos] == '/')
+    {
+      filename[pos]=0;
+
+      basename = filename+pos+1;
+     break;
+    }
+  }
+
+  gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(filechooser), basename);
+
+  g_free(chooser_filename);
+}
+
+/* ----------------------------------------------------------------------------------------------------------------- */
+
+int xsane_back_gtk_get_filename(const char *label, const char *default_name, size_t max_len, char *filename, char **filetype, int *cms_function,
+                                XsaneFileChooserAction action, int show_extra_widgets, int enable_filters, int activate_filter)
+{
+ int ok = 0;
+ GtkWidget *xsane_filetype_option_menu;
+ GtkWidget *xsane_cms_function_option_menu = xsane_cms_function_option_menu;
+ gint result;
+ const gchar *accept_text = NULL;
+ const gchar *reject_text = NULL;
+ GtkFileChooserAction chooser_action = GTK_FILE_CHOOSER_ACTION_OPEN;
+ GtkResponseType accept_code;
+ GtkResponseType reject_code;
+ char buf[PATH_MAX];
+
+
+  DBG(DBG_proc, "xsane_back_gtk_get_filename\n");
+
+  if (filechooser)
+  {
+    gdk_beep();
+    return -1; /* cancel => do not allow to open more than one filechooser dialog */
+  }
+
+  switch (action)
+  {
+    default:
+    case XSANE_FILE_CHOOSER_ACTION_OPEN:
+      chooser_action = GTK_FILE_CHOOSER_ACTION_OPEN;
+      accept_text = GTK_STOCK_OPEN;
+      accept_code = GTK_RESPONSE_ACCEPT;
+      reject_text = GTK_STOCK_CANCEL;
+      reject_code = GTK_RESPONSE_CANCEL;
+     break;
+
+    case XSANE_FILE_CHOOSER_ACTION_SELECT_OPEN:
+      chooser_action = GTK_FILE_CHOOSER_ACTION_OPEN;
+      accept_text = GTK_STOCK_OK;
+      accept_code = GTK_RESPONSE_ACCEPT;
+      reject_text = GTK_STOCK_CANCEL;
+      reject_code = GTK_RESPONSE_CANCEL;
+     break;
+
+    case XSANE_FILE_CHOOSER_ACTION_SAVE:
+      chooser_action = GTK_FILE_CHOOSER_ACTION_SAVE;
+      accept_text = GTK_STOCK_SAVE;
+      accept_code = GTK_RESPONSE_ACCEPT;
+      reject_text = GTK_STOCK_CANCEL;
+      reject_code = GTK_RESPONSE_CANCEL;
+     break;
+
+    case XSANE_FILE_CHOOSER_ACTION_SELECT_SAVE:
+      chooser_action = GTK_FILE_CHOOSER_ACTION_SAVE;
+      accept_text = GTK_STOCK_OK;
+      accept_code = GTK_RESPONSE_ACCEPT;
+      reject_text = GTK_STOCK_CANCEL;
+      reject_code = GTK_RESPONSE_CANCEL;
+     break;
+
+    case XSANE_FILE_CHOOSER_ACTION_SELECT_FOLDER:
+      chooser_action = GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER;
+      accept_text = GTK_STOCK_OK;
+      accept_code = GTK_RESPONSE_ACCEPT;
+      reject_text = GTK_STOCK_CANCEL;
+      reject_code = GTK_RESPONSE_CANCEL;
+     break;
+
+    case XSANE_FILE_CHOOSER_ACTION_SELECT_PROJECT:
+      chooser_action = GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER;
+      accept_text = GTK_STOCK_OK;
+      accept_code = GTK_RESPONSE_NO; /* when we would use ACCEPT, OK, YES or APPLY then the filechooser_dialog would create non existant directories */
+      reject_text = GTK_STOCK_CANCEL;
+      reject_code = GTK_RESPONSE_CANCEL;
+     break;
+  }
+
+  filechooser = gtk_file_chooser_dialog_new (label,
+				      NULL,
+				      chooser_action,
+				      reject_text, reject_code,
+				      accept_text, accept_code,
+				      NULL);
+
+  xsane_set_window_icon(filechooser, 0);
+
+  gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(filechooser), TRUE);
+
+
+  /* add paths to filechooser */
+  if (getenv(STRINGIFY(ENVIRONMENT_HOME_DIR_NAME)) != NULL)
+  {
+    snprintf(buf, sizeof(buf)-2, "%s", getenv(STRINGIFY(ENVIRONMENT_HOME_DIR_NAME)));
+    gtk_file_chooser_add_shortcut_folder(GTK_FILE_CHOOSER(filechooser), buf, NULL);
+  }
+
+  if (getcwd(buf, sizeof(buf)))
+  {
+    gtk_file_chooser_add_shortcut_folder(GTK_FILE_CHOOSER(filechooser), buf, NULL);
+  }
+
+
+  if (enable_filters & XSANE_FILE_FILTER_ALL) /* filter: all files */
+  {
+   GtkFileFilter *filter;
+
+    filter = gtk_file_filter_new();
+    gtk_file_filter_add_pattern(filter, "*");
+
+    gtk_file_filter_set_name(filter, FILE_FILTER_ALL_FILES);
+    gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(filechooser), filter);
+
+    if (activate_filter == XSANE_FILE_FILTER_ALL)
+    {
+      gtk_file_chooser_set_filter(GTK_FILE_CHOOSER(filechooser), filter);
+    }
+  }
+
+  if (enable_filters & XSANE_FILE_FILTER_DRC) /* filter: device rc */
+  {
+   GtkFileFilter *filter;
+
+    filter = gtk_file_filter_new();
+    gtk_file_filter_add_pattern(filter, "*.[dD][rR][cC]");
+
+    gtk_file_filter_set_name(filter, FILE_FILTER_DRC);
+    gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(filechooser), filter);
+
+    if (activate_filter == XSANE_FILE_FILTER_DRC)
+    {
+      gtk_file_chooser_set_filter(GTK_FILE_CHOOSER(filechooser), filter);
+    }
+
+    /* add path to filechooser */
+    if (getenv(STRINGIFY(ENVIRONMENT_HOME_DIR_NAME)) != NULL)
+    {
+      gtk_file_chooser_add_shortcut_folder(GTK_FILE_CHOOSER(filechooser), getenv(STRINGIFY(ENVIRONMENT_HOME_DIR_NAME)), NULL);
+    }
+  }
+
+  if (enable_filters & XSANE_FILE_FILTER_ICM) /* filter: color management profiles */
+  {
+   GtkFileFilter *filter;
+
+    filter = gtk_file_filter_new();
+    gtk_file_filter_add_pattern(filter, "*.[iI][cC][cCmM]");
+
+    gtk_file_filter_set_name(filter, FILE_FILTER_ICM);
+    gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(filechooser), filter);
+
+    if (activate_filter == XSANE_FILE_FILTER_ICM)
+    {
+      gtk_file_chooser_set_filter(GTK_FILE_CHOOSER(filechooser), filter);
+    }
+
+    /* add path to filechooser */
+    if (getenv(STRINGIFY(ENVIRONMENT_HOME_DIR_NAME)) != NULL)
+    {
+      snprintf(buf, sizeof(buf)-2, "%s%c.color%cicc", getenv(STRINGIFY(ENVIRONMENT_HOME_DIR_NAME)), SLASH, SLASH);
+      gtk_file_chooser_add_shortcut_folder(GTK_FILE_CHOOSER(filechooser), buf, NULL);
+    }
+    gtk_file_chooser_add_shortcut_folder(GTK_FILE_CHOOSER(filechooser), "/usr/share/color/icc", NULL);
+  }
+
+  if (enable_filters & XSANE_FILE_FILTER_IMAGES) /* filter: images */
+  {
+   GtkFileFilter *filter;
+
+    filter = gtk_file_filter_new();
+    gtk_file_filter_add_pattern(filter, "*.[jJ][pP][gG]");
+    gtk_file_filter_add_pattern(filter, "*.[jJ][pP][eE][gG]");
+    gtk_file_filter_add_pattern(filter, "*.[pP][nN][gG]");
+    gtk_file_filter_add_pattern(filter, "*.[tT][iI][fF]");
+    gtk_file_filter_add_pattern(filter, "*.[tT][iI][fF][fF]");
+    gtk_file_filter_add_pattern(filter, "*.[pP][sS]");
+    gtk_file_filter_add_pattern(filter, "*.[pP][dD][fF]");
+    gtk_file_filter_add_pattern(filter, "*.[pP][nN][mM]");
+    gtk_file_filter_add_pattern(filter, "*.[pP][bB][mM]");
+    gtk_file_filter_add_pattern(filter, "*.[pP][gG][mM]");
+    gtk_file_filter_add_pattern(filter, "*.[pP][pP][mM]");
+
+    gtk_file_filter_set_name(filter, FILE_FILTER_IMAGES);
+    gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(filechooser), filter);
+
+    if (activate_filter == XSANE_FILE_FILTER_IMAGES)
+    {
+      gtk_file_chooser_set_filter(GTK_FILE_CHOOSER(filechooser), filter);
+    }
+  }
+
+  if (enable_filters & XSANE_FILE_FILTER_BATCHLIST) /* filter: color management profiles */
+  {
+   GtkFileFilter *filter;
+
+    filter = gtk_file_filter_new();
+    gtk_file_filter_add_pattern(filter, "*.[xX][bV][lL]");
+
+    gtk_file_filter_set_name(filter, FILE_FILTER_XBL);
+    gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(filechooser), filter);
+
+    if (activate_filter == XSANE_FILE_FILTER_BATCHLIST)
+    {
+      gtk_file_chooser_set_filter(GTK_FILE_CHOOSER(filechooser), filter);
+    }
+  }
+
+  /* set default filename */
+  if (default_name) /* select file */
+  {
+   const char *basename = default_name;
+   char *path;
+   int pos;
+
+    DBG(DBG_info, "xsane_back_gtk_get_filename: default_name =%s\n", default_name);
+
+    path = strdup(default_name);
+    for (pos = strlen(path)-1; pos > 0; pos--)
+    {
+      if (path[pos] == '/')
+      {
+        path[pos]=0;
+
+	basename = path+pos+1;
+       break;
+      }
+    }
+
+    if (pos)
+    {
+      gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(filechooser), path);
+    }
+
+    if ((action == XSANE_FILE_CHOOSER_ACTION_SAVE) || (action == XSANE_FILE_CHOOSER_ACTION_SELECT_SAVE))
+    {
+      gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(filechooser), (char *) basename);
+    }
+    else
+    {
+      gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(filechooser), (char *) default_name);
+    }
+  }
+
+
+  /* add filetype menu */
+
+  if (show_extra_widgets)
+  {
+   GtkWidget *vbox;
+   GtkWidget *hbox;
+   GtkWidget *label;
+
+    vbox = gtk_vbox_new(FALSE, 15);
+    gtk_widget_show(vbox);
+
+    if (show_extra_widgets & XSANE_GET_FILENAME_SHOW_FILETYPE)
+    {
+      DBG(DBG_info, "xsane_back_gtk_get_filename: showing filetype menu\n");
+  
+      if (filechooser_filetype)
+      {
+        free(filechooser_filetype);
+      }
+  
+      if ((filetype) && (*filetype))
+      {
+        filechooser_filetype = strdup(*filetype);
+      }
+      else
+      {
+        filechooser_filetype = NULL;
+      }
+  
+      hbox = gtk_hbox_new(FALSE, 2);
+      gtk_widget_show(hbox);
+      gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
+  
+      label = gtk_label_new(TEXT_FILETYPE);
+      gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 0);
+      gtk_widget_show(label);
+  
+      xsane_filetype_option_menu = xsane_back_gtk_filetype_menu_new(filechooser_filetype, (GtkSignalFunc) xsane_back_gtk_filetype2_callback);
+      gtk_box_pack_start(GTK_BOX(hbox), xsane_filetype_option_menu, TRUE, TRUE, 2);
+      gtk_widget_show(xsane_filetype_option_menu);
+    }
+
+#ifdef HAVE_LIBLCMS 
+    if ((cms_function) && (show_extra_widgets & XSANE_GET_FILENAME_SHOW_CMS_FUNCTION))
+    {
+      hbox = gtk_hbox_new(FALSE, 2);
+      gtk_widget_show(hbox);
+      gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
+  
+      label = gtk_label_new(TEXT_CMS_FUNCTION);
+      gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 0);
+      gtk_widget_show(label);
+  
+      xsane_cms_function_option_menu = xsane_back_gtk_cms_function_menu_new(*cms_function, NULL);
+      gtk_box_pack_start(GTK_BOX(hbox), xsane_cms_function_option_menu, TRUE, TRUE, 2);
+      gtk_widget_show(xsane_cms_function_option_menu);
+    }
+#endif
+
+    gtk_file_chooser_set_extra_widget(GTK_FILE_CHOOSER(filechooser), vbox);
+  }
+
+
+  gtk_widget_show(filechooser);
+
+  result = gtk_dialog_run(GTK_DIALOG(filechooser));
+
+  DBG(DBG_info, "xsane_back_gtk_get_filename: gtk_dialog_run() returned with result=%d\n", result);
+
+  if (result == accept_code)
+  {
+   char *chooser_filename;
+
+    if ((filetype) && (*filetype))
+    {
+      free(*filetype);
+      *filetype = NULL;
+    }
+
+    if (filechooser_filetype)
+    {
+      if (filetype)
+      {
+        *filetype = strdup(filechooser_filetype);
+      }
+    }
+
+#ifdef HAVE_LIBLCMS 
+    if ((cms_function) && (show_extra_widgets & XSANE_GET_FILENAME_SHOW_CMS_FUNCTION))
+    {
+      *cms_function = gtk_option_menu_get_history(GTK_OPTION_MENU(xsane_cms_function_option_menu));
+
+      DBG(DBG_info, "selected cms_function = %d\n", *cms_function);
+    }
+#endif
+
+    chooser_filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filechooser));
+    strncpy(filename, chooser_filename, max_len - 1);
+    g_free(chooser_filename);
+
+    filename[max_len - 1] = '\0';
+
+    ok = TRUE;
+  }
+
+  gtk_widget_destroy(filechooser);
+  filechooser = NULL;
+
+ return ok ? 0 : -1;
+}
+
+#else
+
+GtkWidget *fileselection;
+char *fileselection_filetype = NULL;
+
+/* ----------------------------------------------------------------------------------------------------------------- */
+
 static void xsane_back_gtk_get_filename_button_clicked(GtkWidget *w, gpointer data)
 {
  int *clicked = data;
@@ -1123,12 +1539,73 @@ static void xsane_back_gtk_get_filename_button_clicked(GtkWidget *w, gpointer da
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 
-int xsane_back_gtk_get_filename(const char *label, const char *default_name, size_t max_len, char *filename, char **filetype,
-                                int show_fileopts, int shorten_path, int select_directory, int show_filetype_menu)
+static void xsane_back_gtk_filetype_callback(GtkWidget *widget, gpointer data)
+{
+ char *extension, *filename;
+ char buffer[PATH_MAX];
+ char *new_filetype = (char *) data;
+
+  DBG(DBG_proc, "xsane_filetype_callback\n");
+
+  filename = strdup(gtk_file_selection_get_filename(GTK_FILE_SELECTION(fileselection)));
+
+  if ((new_filetype) && (*new_filetype))
+  {
+    extension = strrchr(filename, '.');
+
+    if ((extension) && (extension != filename))
+    {
+      if ( (!strcasecmp(extension, ".pnm"))  || (!strcasecmp(extension, ".raw"))
+        || (!strcasecmp(extension, ".png"))  || (!strcasecmp(extension, ".ps"))
+        || (!strcasecmp(extension, ".pdf"))  || (!strcasecmp(extension, ".rgba"))
+        || (!strcasecmp(extension, ".tiff")) || (!strcasecmp(extension, ".tif"))
+        || (!strcasecmp(extension, ".text")) || (!strcasecmp(extension, ".txt"))
+        || (!strcasecmp(extension, ".jpg"))  || (!strcasecmp(extension, ".jpeg"))
+         ) /* remove filetype extension */
+      {
+        *extension = 0; /* remove extension */
+      }
+    }
+    snprintf(buffer, sizeof(buffer), "%s%s", filename, new_filetype);
+    free(filename);
+    filename = strdup(buffer);
+  }
+
+  if (fileselection_filetype)
+  {
+    free(fileselection_filetype);
+    fileselection_filetype = NULL;
+  }
+
+  if (data)
+  {
+    fileselection_filetype = strdup(new_filetype); 
+  }
+
+  gtk_file_selection_set_filename(GTK_FILE_SELECTION(fileselection), filename);
+
+  free(filename);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+int xsane_back_gtk_get_filename(const char *label, const char *default_name, size_t max_len, char *filename, char **filetype, int *cms_function,
+                                XsaneFileChooserAction action, int show_filetype_menu, int enable_filters, int activate_filter)
 {
  int cancel = 0, ok = 0, destroy = 0;
  GtkAccelGroup *accelerator_group;
  GtkWidget *xsane_filetype_option_menu;
+ int show_fileopts = 0;
+ int select_directory = 0;
+
+  if (action == XSANE_FILE_CHOOSER_ACTION_SELECT_FOLDER)
+  {
+    select_directory = TRUE;
+  }
+  else
+  {
+    show_fileopts = TRUE;
+  }
 
   DBG(DBG_proc, "xsane_back_gtk_get_filename\n");
 
@@ -1278,11 +1755,6 @@ int xsane_back_gtk_get_filename(const char *label, const char *default_name, siz
     cwd[cwd_len] = '\0';
 
     DBG(DBG_info, "xsane_back_gtk_get_filename: full path filename = %s\n", filename);
-    if (shorten_path && (strncmp(filename, cwd, cwd_len) == 0))
-    {
-      memcpy(filename, filename + cwd_len, len - cwd_len + 1);
-      DBG(DBG_info, "xsane_back_gtk_get_filename: short path filename = %s\n", filename);
-    }
   }
 
   if (!destroy)
@@ -1294,6 +1766,7 @@ int xsane_back_gtk_get_filename(const char *label, const char *default_name, siz
 
   return ok ? 0 : -1;
 }
+#endif
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 

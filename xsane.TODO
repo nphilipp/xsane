@@ -51,10 +51,6 @@ Sign explaination:
     - correct gtk custom gamma functions and include it
       or better: write an own gamma curve widget
 
- medium selection:
-    - medium definition in dependance of the scanner (?)
-      (I am not sure if this makes sense with color managemant)
-
  medium definition:
     # make grayscale values do not influence color values
 

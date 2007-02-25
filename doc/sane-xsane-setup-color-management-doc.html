@@ -2,10 +2,9 @@
 <html>
 <head>
    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-   <meta name="GENERATOR" content="Mozilla/4.74 [en] (X11; U; Linux 2.2.18 i686) [Netscape]">
    <meta name="Author" content="Oliver Rauch">
    <meta name="Description" content="scan, photocopy and fax frontend for SANE">
-   <title>XSane - Fax mode</title>
+   <title>XSane - Color management setup</title>
 </head>
 <body text="#000000" bgcolor="#FFFFFF" link="#0000EF" vlink="#51188E" alink="#FF0000">
 
@@ -17,7 +16,7 @@
 </td>
 <td>
 <blockquote>
-<h1><font color="#009900">Fax mode</font></h1>
+<h1><font color="#009900">Color management setup</font></h1>
 </blockquote>
 </td>
 </tr>
@@ -127,63 +126,62 @@
 <td VALIGN=TOP BGCOLOR="#FFFFFF">
 <blockquote>
 <br>
-This mode is a frontend for SANE and for a faxprogram like hylafax or mgetty+sendfax.
-<br>
-You need to have a faxprogram like hylafax(1) or mgetty+sendfax(8)
-installed. The faxcommand and the options must be specified in the menu
-<a href="sane-xsane-setup-fax-doc.html">Preferences/Setup:Fax Options</a>.
+You open the setup window via the menu <i>preferences/setup</i> in the
+main window of xsane.
 <br>
 <br>
-<br>
-<center><img SRC="xsane-fax.jpg" alt="XSane-main-window"></center>
-<br>
-<br>
-
+<br>   
+<center><p><br><img SRC="xsane-setup-color-management.jpg" alt="XSane-setup-color-management-window"></center>
 <br>
 <br>
-<center><img SRC="xsane-fax-project.jpg" alt="XSane-fax-project-window"></center>
-<br>
-
-<h4>Fine mode:</h4>
+<br>   
+<h4>Black point compensation:</h4>
 <blockquote>
-The faxpages are always scanned in fine mode (204 dpi * 196 lpi). If
-<i>Fine mode</i> is enabled when the project is sent all pages are sent with
- 196lpi (fine mode), otherwise all pages are sent with 98lpi (normal mode).
+Do black point compensation when color transformation is done.
 </blockquote>
-
-<h4>Insert file:</h4>
-<blockquote>
-You can add an external created postscript file to the fax project. The file is copied
-to the fax project directory.
-</blockquote>
-
-<h4>Show page:</h4>
-<blockquote>
-A postscrip viewer is called to display the selected page.
-</blockquote>
-
-<h4>Rename page:</h4>
-<blockquote>
-Rename the selected page.
-</blockquote>
-
-<h4>Delete page:</h4>
-<blockquote>
-Delete the selected page.
-</blockquote>
-
-<h4>Send project:</h4>
-<blockquote>
-Send all pages that are part of the fax project.
-Note that you need a working fax program!
-</blockquote>
-
-<h4>Delete project:</h4>
-<blockquote>
-Delete the fax project .
-</blockquote>
-
 <br>
+
+<h4>Rendering intent:</h4>
+<blockquote>
+Select rendering intent for preview and saving. This selection is also used as default
+for the viewer.
+</blockquote>
+<br>
+
+<h4>Scanner reflektive ICM profile:</h4>
+<blockquote>
+Select scanner color ICM profile. This is the most important profile because this is the one that is generally used.
+</blockquote>
+<br>
+
+<h4>Scanner reflektive gray ICM profile:</h4>
+<blockquote>
+Select scanner grayscale ICM profile. 
+</blockquote>
+<br>
+
+<h4>Display ICM profile:</h4>
+<blockquote>
+Select display ICM profile. This profile is important for the preview and the viewer. When you do not have
+a profile for your display then you can select sRGB what should produce usable output.
+</blockquote>
+<br>
+
+<h4>Custom proofing ICM profile:</h4>
+<blockquote>
+When you want to do proofing for an output device that is not defined as printer in the printer setup
+then you can select the ICM profile of this device here.
+</blockquote>
+<br>
+
+<h4>Working color space ICM profile:</h4>
+<blockquote>
+When you want to work in a different color space than sRGB then you can select the ICM profile of your
+prefered color space.
+</blockquote>
+<br>
+
+
 </blockquote>
 </td>
 </tr>

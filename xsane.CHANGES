@@ -2922,3 +2922,29 @@ xsane-0.991 -> 0.992:
 
  - replaced several (void**) typecasts in xsane-rc-io.c to avoid type-punned-pointer warning
 
+xsane-0.992 -> 0.993:
+---------------------
+
+ - removed proofing intent options saturation and perceptual, only relative and absolutle colorimetric are available now
+
+ - added CMS transformation to saving routines: pnm(8bit), pnm(16bit ascii and binary), png, jpeg, tiff, gimp-plugin, ps, pdf
+   (missing routines: multipage)
+
+ - added support for gtk_file_chooser_dialog
+   all filenames are handled as full paths (beginning with a slahs) now,
+   the "change working directory" option has been removed
+
+ - made "CANCEL" and "OK" button positions the same as gimp uses it (CANCEL=left, OK=right)
+
+ - added browse function for projects directories
+
+ - removed bugs in mail mode:
+    write(fd, "\r\n\r\n", 2) -> write(fd, "\r\n\r\n", 4)
+    write(fd, "\r\n", 1)     -> write(fd, "\r\n", 2)
+
+ - added embedded ICC profiles for postscript (CSA+CRD) and pdf
+
+ - added 12 bits/channel support for postscript
+
+ - added flatedecode without Asci85 compression for PDF
+

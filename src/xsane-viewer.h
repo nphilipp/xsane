@@ -47,6 +47,8 @@ typedef struct Viewer
   char *undo_filename;
   char *selection_filetype;
 
+  int cms_function;
+
   int allow_reduction_to_lineart;
   int keep_viewer_pnm_format;
   float zoom;
@@ -59,7 +61,7 @@ typedef struct Viewer
 
   int enable_color_management;
   int cms_enable;
-  int cms_black_point_compensation;
+  int cms_bpc;
   int cms_proofing;
   int cms_intent;
   int cms_proofing_intent;
@@ -106,7 +108,7 @@ typedef struct Viewer
 
   GtkWidget *cms_proofing_widget[3];
   GtkWidget *cms_intent_widget[4];
-  GtkWidget *cms_proofing_intent_widget[4];
+  GtkWidget *cms_proofing_intent_widget[2];
   GtkWidget *cms_gamut_alarm_color_widget[6];
 
   GtkWidget *image_info_label;

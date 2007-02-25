@@ -49,7 +49,10 @@ typedef struct
     double gamma_green;			/* printer gamma green */
     double gamma_blue;			/* printer gamma blue */
     char   *icm_profile;		/* printer ICM profile */
-    int ps_flatdecoded;			/* flatdecode (zlib compression), ps level 3 */
+    int ps_flatedecoded;		/* flatedecode (zlib compression), ps level 3 */
+    int embed_csa;			/* CSA = scanner ICM profile for postscript files */
+    int embed_crd;			/* CRD = printer ICM profile for postscript files */
+    int blackpointcompensation;		/* bpc */
   }
 Preferences_printer_t;
 
@@ -94,6 +97,9 @@ typedef struct
     char   *working_directory;		/* directory where xsane saves images etc */
     char   *filename;			/* default filename */
     char   *filetype;			/* default filetype */
+    int    cms_function;		/* cms function (embed/srgb/working cs) */
+    int    cms_intent;			/* cms rendering intent */
+    int    cms_bpc;			/* cms black point compensation */
     int    image_umask;			/* image umask (permisson mask) */
     int    directory_umask;		/* directory umask (permisson mask) */
 
@@ -109,7 +115,7 @@ typedef struct
     double fax_leftoffset;		/* left offset of fax paper in mm */
     double fax_bottomoffset;		/* bottom offset of fax paper in mm */
     int    fax_fine_mode;		/* use fine or normal mode */
-    int    fax_ps_flatdecoded;		/* use postscript level 3 zlib compression */
+    int    fax_ps_flatedecoded;		/* use postscript level 3 zlib compression */
 
 #ifdef XSANE_ACTIVATE_EMAIL
     char   *email_from;			/* email address of sender */
@@ -145,8 +151,8 @@ typedef struct
     int    save_devprefs_at_exit;	/* save device preferences at exit */
     int    overwrite_warning;		/* warn if file exists */
     int    skip_existing_numbers;	/* skip used filenames when automatically increase counter */
-    int    save_ps_flatdecoded;		/* use zlib to for postscript compression (flatdecode) */
-    int    save_pdf_flatdecoded;	/* use zlib to for pdf compression (flatdecode) */
+    int    save_ps_flatedecoded;	/* use zlib to for postscript compression (flatedecode) */
+    int    save_pdf_flatedecoded;	/* use zlib to for pdf compression (flatedecode) */
     int    save_pnm16_as_ascii;		/* selection if pnm 16 bit is saved as ascii or binary file */
     int    reduce_16bit_to_8bit;	/* reduce images with 16 bits/color to 8 bits/color */
     int    filename_counter_step;	/* filename_counter += filename_counter_step; */
@@ -195,6 +201,7 @@ typedef struct
 
     char   *display_icm_profile;
     char   *custom_proofing_icm_profile;
+    char   *working_color_space_icm_profile;
 
     int    paper_orientation;		/* image position on printer and page orientation */
     int    printernr;			/* number of printers */

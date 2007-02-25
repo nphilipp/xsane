@@ -662,6 +662,15 @@ gint xsane_authorization_callback(SANE_String_Const resource,
     gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 10);  /* y-space around buttons */
 
 #ifdef HAVE_GTK2
+    button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
+#else
+    button = gtk_button_new_with_label(BUTTON_CANCEL);
+#endif
+    g_signal_connect(GTK_OBJECT(button), "clicked", GTK_SIGNAL_FUNC(xsane_authorization_button_callback), (void *) -1);
+    gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 10); /* x-space around cancel-button */
+    gtk_widget_show(button);
+
+#ifdef HAVE_GTK2
     button = gtk_button_new_from_stock(GTK_STOCK_OK);
 #else
     button = gtk_button_new_with_label(BUTTON_OK);
@@ -670,15 +679,6 @@ gint xsane_authorization_callback(SANE_String_Const resource,
     g_signal_connect(GTK_OBJECT(button), "clicked", GTK_SIGNAL_FUNC(xsane_authorization_button_callback), (void *) 1);
     gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 10); /* x-space around OK-button */
     gtk_widget_grab_default(button);
-    gtk_widget_show(button);
-
-#ifdef HAVE_GTK2
-    button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
-#else
-    button = gtk_button_new_with_label(BUTTON_CANCEL);
-#endif
-    g_signal_connect(GTK_OBJECT(button), "clicked", GTK_SIGNAL_FUNC(xsane_authorization_button_callback), (void *) -1);
-    gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 10); /* x-space around cancel-button */
     gtk_widget_show(button);
 
     gtk_widget_show(hbox);
@@ -1262,6 +1262,7 @@ static void xsane_browse_filename_callback(GtkWidget *widget, gpointer data)
 {
  char filename[PATH_MAX];
  char windowname[TEXTBUFSIZE];
+ int show_extra_widgets;
 
   DBG(DBG_proc, "xsane_browse_filename_callback\n");
 
@@ -1277,10 +1278,17 @@ static void xsane_browse_filename_callback(GtkWidget *widget, gpointer data)
     strcpy(filename, OUT_FILENAME);
   }
 
+  show_extra_widgets = XSANE_GET_FILENAME_SHOW_FILETYPE;
+  if (xsane.enable_color_management)
+  {
+    show_extra_widgets |= XSANE_GET_FILENAME_SHOW_CMS_FUNCTION;
+  }
+
+
   snprintf(windowname, sizeof(windowname), "%s %s %s", xsane.prog_name, WINDOW_OUTPUT_FILENAME, xsane.device_text);
 
   umask((mode_t) preferences.directory_umask); /* define new file permissions */    
-  xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, &preferences.filetype, TRUE, TRUE, FALSE, TRUE);
+  xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, &preferences.filetype, &preferences.cms_function, XSANE_FILE_CHOOSER_ACTION_SELECT_SAVE, show_extra_widgets, XSANE_FILE_FILTER_ALL | XSANE_FILE_FILTER_IMAGES, XSANE_FILE_FILTER_IMAGES);
   umask(XSANE_DEFAULT_UMASK); /* define new file permissions */    
 
   if (preferences.filename)
@@ -1293,6 +1301,10 @@ static void xsane_browse_filename_callback(GtkWidget *widget, gpointer data)
   xsane_set_sensitivity(TRUE);
 
   xsane_back_gtk_filetype_menu_set_history(xsane.filetype_option_menu, preferences.filetype);
+
+#ifdef HAVE_LIBLCMS
+  gtk_option_menu_set_history(GTK_OPTION_MENU(xsane.cms_function_option_menu), preferences.cms_function);
+#endif
 
   /* correct length of filename counter if it is shorter than minimum length */
   xsane_update_counter_in_filename(&preferences.filename, FALSE, 0, preferences.filename_counter_len);
@@ -1629,17 +1641,17 @@ void xsane_update_param(void *arg)
 
     if (xsane.param.format == SANE_FRAME_GRAY)
     {
-      xsane.xsane_colors = 1;
+      xsane.xsane_channels = 1;
     }
 #ifdef SUPPORT_RGBA
     else if (xsane.param.format == SANE_FRAME_RGBA)
     {
-      xsane.xsane_colors = 4;
+      xsane.xsane_channels = 4;
     }
 #endif
     else /* RGB */
     {
-      xsane.xsane_colors = 3;
+      xsane.xsane_channels = 3;
     }
   }
   else 
@@ -1785,6 +1797,7 @@ int xsane_identify_output_format(char *filename, char *filetype, char **ext)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+#if 0
 void xsane_change_working_directory(void)
 {
  char filename[PATH_MAX];
@@ -1797,7 +1810,7 @@ void xsane_change_working_directory(void)
   sprintf(windowname, "%s %s %s", xsane.prog_name, WINDOW_CHANGE_WORKING_DIR, xsane.device_text);
   if (getcwd(filename, sizeof(filename)))
   {
-    xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, NULL, TRUE, FALSE, TRUE, FALSE);
+//    xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, NULL, TRUE, FALSE, TRUE, FALSE);
     if (chdir(filename))
     {
      char buf[TEXTBUFSIZE];
@@ -1819,6 +1832,7 @@ void xsane_change_working_directory(void)
 
   xsane_set_sensitivity(TRUE);
 }
+#endif
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -2019,17 +2033,17 @@ int xsane_display_eula(int ask_for_accept)
 
   if (ask_for_accept) /* show accept + not accept buttons */
   {
-    button = gtk_button_new_with_label(BUTTON_ACCEPT);
-    g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_eula_button_callback, (void *) 0 /* accept */);
-    gtk_container_add(GTK_CONTAINER(hbox), button);
-    gtk_widget_show(button);
-
     button = gtk_button_new_with_label(BUTTON_NOT_ACCEPT);
     gtk_widget_add_accelerator(button, "clicked", accelerator_group, GDK_Escape, 0, DEF_GTK_ACCEL_LOCKED);
     GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
     g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_eula_button_callback, (void *) 1 /* not accept */);
     gtk_container_add(GTK_CONTAINER(hbox), button);
     gtk_widget_grab_default(button);
+    gtk_widget_show(button);
+
+    button = gtk_button_new_with_label(BUTTON_ACCEPT);
+    g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_eula_button_callback, (void *) 0 /* accept */);
+    gtk_container_add(GTK_CONTAINER(hbox), button);
     gtk_widget_show(button);
   }
   else /* show close button */
@@ -2397,22 +2411,22 @@ int xsane_front_gtk_getname_dialog(const char *dialog_title, const char *desc_te
   gtk_window_add_accel_group(GTK_WINDOW(getname_dialog), accelerator_group);
                                                                                                                                  
 #ifdef HAVE_GTK2
-  button = gtk_button_new_from_stock(GTK_STOCK_OK);
-#else
-  button = gtk_button_new_with_label(BUTTON_OK);
-#endif
-  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_front_gtk_getname_button_callback, (void *) 1);
-  GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
-  gtk_widget_show(button);
-                                                                                                                                 
-#ifdef HAVE_GTK2
   button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
 #else
   button = gtk_button_new_with_label(BUTTON_CANCEL);
 #endif
   g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_front_gtk_getname_button_callback, (void *) -1);
   gtk_widget_add_accelerator(button, "clicked", accelerator_group, GDK_Escape, 0, DEF_GTK_ACCEL_LOCKED); /* ESC */
+  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
+  gtk_widget_show(button);
+                                                                                                                                 
+#ifdef HAVE_GTK2
+  button = gtk_button_new_from_stock(GTK_STOCK_OK);
+#else
+  button = gtk_button_new_with_label(BUTTON_OK);
+#endif
+  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_front_gtk_getname_button_callback, (void *) 1);
+  GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
   gtk_widget_show(button);
                                                                                                                                  

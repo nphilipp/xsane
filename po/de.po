@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.99\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-15 20:42+0100\n"
+"POT-Creation-Date: 2007-02-25 23:44+0100\n"
 "PO-Revision-Date: 2000-01-21 15:51+01:00\n"
 "Last-Translator: Oliver Rauch <Oliver.Rauch@rauch-domain.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -73,6 +73,10 @@ msgstr "Stapelscan Bereich umbenennen"
 msgid "fax project"
 msgstr "Faxprojekt"
 
+#. WINDOW_FAX_PROJECT_BROWSE
+msgid "browse for fax project"
+msgstr "Nach Faxprojekt suchen"
+
 #. WINDOW_FAX_RENAME
 msgid "rename fax page"
 msgstr "Faxseite umbenennen"
@@ -85,6 +89,10 @@ msgstr "ps-Datei einfügen in Fax"
 msgid "E-mail project"
 msgstr "E-Mail Projekt"
 
+#. WINDOW_EMAIL_PROJECT_BROWSE
+msgid "browse for email project"
+msgstr "Nach E-Mailprojekt suchen"
+
 #. WINDOW_EMAIL_RENAME
 msgid "rename e-mail image"
 msgstr "E-Mail Bild umbenennen"
@@ -96,6 +104,10 @@ msgstr "Bild in E-Mail einfügen"
 #. WINDOW_MULTIPAGE_PROJECT
 msgid "multipage project"
 msgstr "Mehrseiten-Projekt"
+
+#. WINDOW_MULTIPAGE_PROJECT_BROWSE
+msgid "browse for multipage project"
+msgstr "Nach Mehrseiten-Projekt suchen"
 
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
@@ -197,13 +209,13 @@ msgstr "Mediumdefinition speichern"
 msgid "No devices available"
 msgstr "Keine Geräte erreichbar"
 
-#. WINDOW_SCANNER_REFL_ICM_PROFILE
-msgid "select scanner reflective ICM-profile"
-msgstr "reflektives ICM-Profil für Scanner auswählen"
+#. WINDOW_SCANNER_DEFAULT_COLOR_ICM_PROFILE
+msgid "select scanner default color ICM-profile"
+msgstr "standard Farb-ICM-Profil für Scanner auswählen"
 
-#. WINDOW_SCANNER_TRAN_ICM_PROFILE
-msgid "select scanner transmissive ICM-profile"
-msgstr "Durchsicht-ICM-Profil für Scanner auswählen"
+#. WINDOW_SCANNER_DEFAULT_GRAY_ICM_PROFILE
+msgid "select scanner default gray ICM-profile"
+msgstr "standard Graustufen-ICM-Profil für Scanner auswählen"
 
 #. WINDOW_DISPLAY_ICM_PROFILE
 msgid "select display ICM-profile"
@@ -212,6 +224,10 @@ msgstr "ICM-Profil für Bildschirm auswählen"
 #. WINDOW_CUSTOM_PROOFING_ICM_PROFILE
 msgid "select custom proofing ICM-profile"
 msgstr "Benutzerdefiniertes Proofing ICM Profil auswählen"
+
+#. WINDOW_WORKING_COLOR_SPACE_ICM_PROFILE
+msgid "select working color space ICM-profile"
+msgstr "ICM-Profil für Arbeitsfarbraum auswählen"
 
 #. WINDOW_PRINTER_ICM_PROFILE
 msgid "select printer ICM-profile"
@@ -477,11 +493,11 @@ msgstr "Überschreibwarnung"
 msgid "Skip existing filenames"
 msgstr "Existierende Dateinamen überspringen"
 
-#. RADIO_BUTTON_SAVE_PS_FLATDECODED
+#. RADIO_BUTTON_SAVE_PS_FLATEDECODED
 msgid "Save postscript zlib compressed (ps level 3)"
 msgstr "Speichere Postscript zlib-komprimiert (ps level 3)"
 
-#. RADIO_BUTTON_SAVE_PDF_FLATDECODED
+#. RADIO_BUTTON_SAVE_PDF_FLATEDECODED
 msgid "Save PDF zlib compressed"
 msgstr "Speichere PDF zlib-komprimiert"
 
@@ -498,8 +514,8 @@ msgid "Main window size fixed"
 msgstr "Feste Hauptfenstergröße"
 
 #. RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA
-msgid "Disable gimp preview gamma"
-msgstr "Vorschau-Gamma für Gimp deaktivieren"
+msgid "Disable GIMP preview gamma"
+msgstr "Vorschau-Gamma für GIMP deaktivieren"
 
 #. RADIO_BUTTON_PRIVATE_COLORMAP
 msgid "Use private colormap"
@@ -521,9 +537,10 @@ msgstr "Automatische Farbkorrektur"
 msgid "Use GUI progress pipe"
 msgstr "Benutze GUI Fortschritts Pipe"
 
-#. RADIO_BUTTON_EMBED_ICM_PROFILE
-msgid "Embed scanner/source ICM profile into image file"
-msgstr "Scanner/Quell-ICM-Profil in Bilddatei einbinden"
+#. RADIO_BUTTON_CMS_BPC
+#. MENU_ITEM_CMS_BLACK_POINT_COMPENSATION
+msgid "Black point compensation"
+msgstr "Schwarzpunkt kompensieren"
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
@@ -540,6 +557,11 @@ msgstr "XSane Optionen"
 #. TEXT_FILETYPE
 msgid "Type"
 msgstr "Typ"
+
+#. TEXT_CMS_FUNCTION
+#. DESC_CMS_FUNCTION
+msgid "Color management function"
+msgstr "Farbmanagement-Funktion"
 
 #. TEXT_SCANNER_BACKEND
 msgid "Scanner and backend:"
@@ -613,21 +635,13 @@ msgstr "8 Bit Ausgabeformate:"
 msgid "16 bit output formats:"
 msgstr "16 Bit Ausgabeformate:"
 
-#. TEXT_GIMP_REDUCE_16BIT_TO_8BIT
-msgid ""
-"Gimp does not support depth 16 bits/color.\n"
-"Do you want to reduce the depth to 8 bits/color?"
-msgstr ""
-"Gimp unterstützt die Bittiefe 16Bits/Farbe nicht.\n"
-"Möchten Sie die Bittiefe auf 8 Bits/Farbe reduzieren?"
-
 #. TEXT_REDUCE_16BIT_TO_8BIT
 msgid ""
-"Bit depth 16 bits/color is not supported for this output format.\n"
-"Do you want to reduce the depth to 8 bits/color?"
+"Bit depth 16 bits/channel is not supported for this output format.\n"
+"Do you want to reduce the depth to 8 bits/channel?"
 msgstr ""
-"Die Bittiefe 16Bits/Farbe wird von diesem Ausgabeformat nicht unterstützt.\n"
-"Möchten Sie die Bittiefe auf 8 Bits/Farbe reduzieren?"
+"Die Bittiefe 16Bits/Kanal wird von diesem Ausgabeformat nicht unterstützt.\n"
+"Möchten Sie die Bittiefe auf 8 Bits/Kanal reduzieren?"
 
 #. TEXT_AUTHORIZATION_REQ
 msgid "Authorization required for"
@@ -798,11 +812,11 @@ msgid "Medium Name:"
 msgstr "Medium Name:"
 
 #. TEXT_VIEWER_IMAGE_INFO
-#, c-format
 msgid ""
-"Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
+"Size %d x %d pixel, %d bits/channel, %d channels, %1.0f dpi x %1.0f dpi, %"
+"1.1f %s"
 msgstr ""
-"Größe %d x %d Punkte, %d Bit/Farbe, %d Farben, %1.0f dpi x %1.0f dpi, %1.1f %"
+"Größe %d x %d Punkte, %d Bit/Kanal, %d Kanäle, %1.0f dpi x %1.0f dpi, %1.1f %"
 "s"
 
 #. TEXT_DESPECKLE_RADIUS
@@ -910,7 +924,15 @@ msgstr "Drucker Gammawert grün:"
 msgid "Printer gamma blue:"
 msgstr "Drucker Gammawert blau:"
 
-#. TEXT_SETUP_PRINTER_PS_FLATDECODED
+#. TEXT_SETUP_PRINTER_EMBED_CSA
+msgid "Embed scanner ICM profile as CSA"
+msgstr "Scanner/Quell-ICM-Profil als CSA einbinden"
+
+#. TEXT_SETUP_PRINTER_EMBED_CRD
+msgid "Embed printer ICM profile as CRD"
+msgstr "ICM Profil für Drucker als CRD einbinden"
+
+#. TEXT_SETUP_PRINTER_PS_FLATEDECODED
 msgid "Create zlib compressed postscript image (ps level 3) for printing"
 msgstr "Erzeuge zlib-komprimiertes Posctscript Bild (ps level 3) zum Drucken"
 
@@ -1034,7 +1056,7 @@ msgstr "Setze Standardwerte für folgendes Programm"
 msgid "Viewer (Postscript):"
 msgstr "Betrachter (Postscript):"
 
-#. TEXT_SETUP_FAX_PS_FLATDECODED
+#. TEXT_SETUP_FAX_PS_FLATEDECODED
 msgid "Create zlib compressed postscript image (ps level 3) for fax"
 msgstr "Erzeuge zlib-komprimiertes Postscript-Bild (ps level 3) zum Faxen"
 
@@ -1110,14 +1132,15 @@ msgstr "Gruppe"
 msgid "all"
 msgstr "Alle"
 
-#. TEXT_SETUP_SCANNER_REFL_ICM_PROFILE
-msgid "Scanner reflective ICM-profile"
-msgstr "Scanner reflektives ICM-Profil"
+#. TEXT_SETUP_SCANNER_DEFAULT_COLOR_ICM_PROFILE
+#. DESC_SCANNER_DEFAULT_COLOR_ICM_PROFILE
+msgid "Scanner default color ICM-profile"
+msgstr "Standard Scanner Farb-ICM-Profil"
 
-#. TEXT_SETUP_SCANNER_TRAN_ICM_PROFILE
-#. DESC_SCANNER_TRAN_ICM_PROFILE
-msgid "Scanner transmissive ICM-profile"
-msgstr "Scanner Durchsicht ICM-Profil"
+#. TEXT_SETUP_SCANNER_DEFAULT_GRAY_ICM_PROFILE
+#. DESC_SCANNER_DEFAULT_GRAY_ICM_PROFILE
+msgid "Scanner default gray ICM-profile"
+msgstr "Standard Scanner Graustufen ICM-Profil"
 
 #. TEXT_SETUP_DISPLAY_ICM_PROFILE
 #. DESC_DISPLAY_ICM_PROFILE
@@ -1128,6 +1151,11 @@ msgstr "Bildschirm ICM-Profil"
 #. DESC_CUSTOM_PROOFING_ICM_PROFILE
 msgid "Custom proofing ICM-profile"
 msgstr "Benutzerdefiniertes Proofing ICM-Profil"
+
+#. TEXT_SETUP_WORKING_COLOR_SPACE_ICM_PROFILE
+#. DESC_WORKING_COLOR_SPACE_ICM_PROFILE
+msgid "Working color space ICM-profile"
+msgstr "Arbeitsfarbraum ICM-Profil"
 
 #. TEXT_SETUP_PRINTER_ICM_PROFILE
 #. DESC_PRINTER_ICM_PROFILE
@@ -1298,10 +1326,6 @@ msgstr "Scantipps"
 msgid "Problems?"
 msgstr "Probleme?"
 
-#. MENU_ITEM_CMS_BLACK_POINT_COMPENSATION
-msgid "Black point compensation"
-msgstr "Schwarzpunkt kompensieren"
-
 #. MENU_ITEM_CMS_PROOFING
 msgid "Proofing"
 msgstr "Proofing"
@@ -1315,7 +1339,6 @@ msgid "Proof printer"
 msgstr "Nachbildung Drucker"
 
 #. SUBMENU_ITEM_CMS_PROOF_CUSTOM
-#, fuzzy
 msgid "Proof custom device"
 msgstr "Nachbildung Benutzerdefinierte Ausgabe"
 
@@ -1491,6 +1514,18 @@ msgstr "ASMTP Login"
 msgid "ASMTP CRAM-MD5"
 msgstr "ASMTP CRAM-MD5"
 
+#. MENU_ITEM_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE
+msgid "Embed scanner ICM profile"
+msgstr "Scanner ICM-Profil einbinden"
+
+#. MENU_ITEM_CMS_FUNCTION_CONVERT_TO_SRGB
+msgid "Convert to sRGB"
+msgstr "Nach sRGB konvertieren"
+
+#. MENU_ITEM_FUNCTION_CONVERT_TO_WORKING_CS
+msgid "Convert to working color space"
+msgstr "In Arbeitsfarbraum konvertieren"
+
 #. PROGRESS_SCANNING
 msgid "Scanning"
 msgstr "Scanne"
@@ -1547,6 +1582,10 @@ msgstr "Bild weichzeichnen"
 #. PROGRESS_OCR
 msgid "OCR in progress"
 msgstr "Texterkennung"
+
+#. PROGRESS_ICM_CONVERSION
+msgid "converting colors"
+msgstr "konvertiere Farben"
 
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
@@ -1607,8 +1646,8 @@ msgstr ""
 "Dateinamen angehängt"
 
 #. DESC_FAXPROJECT
-msgid "Enter name of fax project"
-msgstr "Name des Faxprojekts"
+msgid "Enter fax project directory name"
+msgstr "Faxprojekt-Verzeichnis Namen eingeben"
 
 #. DESC_FAXPAGENAME
 msgid "Enter new name for faxpage"
@@ -1618,9 +1657,13 @@ msgstr "Name der Faxseite eingeben"
 msgid "Enter receiver phone number or address"
 msgstr "Telefonnummer des Empfängers eingeben"
 
+#. DESC_FAX_PROJECT_BROWSE
+msgid "Browse for fax project directory"
+msgstr "Nach Faxprojekt-Verzeichnis suchen"
+
 #. DESC_EMAIL_PROJECT
-msgid "Enter name of e-mail project"
-msgstr "Name des E-Mailprojekts"
+msgid "Enter e-mail project directory name"
+msgstr "Email-Projekt-Verzeichnis Namen eingeben"
 
 #. DESC_EMAIL_IMAGENAME
 msgid "Enter new name for e-mail image"
@@ -1629,6 +1672,10 @@ msgstr "neuen Name für E-Mail Bild eingeben"
 #. DESC_EMAIL_RECEIVER
 msgid "Enter e-mail address"
 msgstr "E-Mail Adresse eingeben"
+
+#. DESC_EMAIL_PROJECT_BROWSE
+msgid "Browse for email project directory"
+msgstr "Nach Email-Projekt-Verzeichnis suchen"
 
 #. DESC_EMAIL_SUBJECT
 msgid "Enter subject of e-mail"
@@ -1639,8 +1686,12 @@ msgid "Select filetype for image attachments"
 msgstr "Dateityp für E-Mailanhang auswählen"
 
 #. DESC_MULTIPAGE_PROJECT
-msgid "Enter name of multipage project"
-msgstr "Name des mehrseitigen Projekts eingeben"
+msgid "Enter multipage project directory name"
+msgstr "Mehrseiten-Projekt-Verzeichnis Namen eingeben"
+
+#. DESC_MULTIPAGE_PROJECT_BROWSE
+msgid "Browse for multipage project directory"
+msgstr "Nach Mehrseiten-Projekt-Verzeichnis suchen"
 
 #. DESC_MULTIPAGE_FILETYPE
 msgid "Select filetype for multipage file"
@@ -1885,9 +1936,17 @@ msgstr "Zusätzlicher Gammawert für grüne Komponente beim Fotokopieren"
 msgid "Additional gamma value for blue component for photocopy"
 msgstr "Zusätzlicher Gammawert für blaue Komponente beim Fotokopieren"
 
-#. DESC_PRINTER_PS_FLATDECODED
+#. DESC_PRINTER_EMBED_CSA
+msgid "Creates a postsciptfile that contains the ICM profile of the scanner"
+msgstr "Erzeugt eine Postscriptdatei die das ICM-Profil des Scammers enthält"
+
+#. DESC_PRINTER_EMBED_CRD
+msgid "Creates a postsciptfile that contains the ICM profile of the printer"
+msgstr "Erzeugt eine Postscriptdatei die das ICM-Profil des Druckers enthält"
+
+#. DESC_PRINTER_PS_FLATEDECODED
 msgid ""
-"Create zlib compressed postscript image for printer (flatdecode).\n"
+"Create zlib compressed postscript image for printer (flatedecode).\n"
 "The printer has to understand postscript level 3!"
 msgstr ""
 "Erzeuge zlib-komprimiertes Postscript Bild zum Drucken (flatdecode).\n"
@@ -1950,17 +2009,17 @@ msgstr ""
 "Wenn der Dateinamenzähler automatisch erhöht wird, werden benutzte "
 "Dateinummern übersprungen"
 
-#. DESC_SAVE_PS_FLATDECODED
+#. DESC_SAVE_PS_FLATEDECODED
 msgid ""
-"compress postscript image with zlib algorithm (flatdecode). When you want to "
-"print such a file your printer has to understand postscript level 3"
+"compress postscript image with zlib algorithm (flatedecode). When you want "
+"to print such a file your printer has to understand postscript level 3"
 msgstr ""
-"komprimiere Postscript Bild mit zlib Algorithmus (flatdecode). Wenn die "
+"komprimiere Postscript Bild mit zlib Algorithmus (flatedecode). Wenn die "
 "Datei gedruckt werden soll muss der Drucker Postscript level 3 verstehen"
 
-#. DESC_SAVE_PDF_FLATDECODED
-msgid "compress PDF image with zlib algorithm (flatdecode)."
-msgstr "komprimiere PDF Bild mit zlib Algorithmus (flatdecode)."
+#. DESC_SAVE_PDF_FLATEDECODED
+msgid "compress PDF image with zlib algorithm (flatedecode)."
+msgstr "komprimiere PDF Bild mit zlib Algorithmus (flatedecode)."
 
 #. DESC_SAVE_PNM16_AS_ASCII
 msgid ""
@@ -1975,10 +2034,11 @@ msgstr ""
 "aber die Dateien werden sehr groß!!!"
 
 #. DESC_REDUCE_16BIT_TO_8BIT
-msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
+msgid ""
+"If scanner sends image with 16 bits/channel save image with 8 bits/channel"
 msgstr ""
-"Wenn der Scanner das Bild mit 16 Bits/Farbe liefert wird das Bild mit 8 Bits/"
-"Farbe gespeichert"
+"Wenn der Scanner das Bild mit 16 Bits/Kanal liefert wird das Bild mit 8 Bits/"
+"Kanal gespeichert"
 
 #. DESC_PSFILE_WIDTH
 msgid "Width of paper for postscript files"
@@ -2009,7 +2069,7 @@ msgid "Use fixed main window size or scrolled, resizable main window"
 msgstr "Verwende feste oder veränderbare Hauptfenstergröße"
 
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
-msgid "Disable preview gamma when XSane runs as gimp plugin"
+msgid "Disable preview gamma when XSane runs as GIMP plugin"
 msgstr "Preview Gamma deaktivieren wenn XSane als Gimp-Plugin gestartet wird"
 
 #. DESC_PREVIEW_COLORMAP
@@ -2110,11 +2170,13 @@ msgstr "Scanbereich nach Vorschauscan automatisch auswählen"
 msgid "Do color correction after preview scan has finished"
 msgstr "Farbkorrektur nach Vorschauscan ausführen"
 
-#. DESC_EMBED_ICM_PROFILE
-msgid ""
-"Embed scanner/source ICM profile into image file - when fileformat supports "
-"it"
-msgstr ""
+#. DESC_RENDERING_INTENT
+msgid "Select rendering intent for preview and saving"
+msgstr "Rendering Intent für Vorschau und zum Speichern auswählen"
+
+#. DESC_CMS_BPC
+msgid "Apply black point compensation when color transformation is done"
+msgstr "Scharzpunkt-Kompensation bei Farbtransformation anwenden"
 
 #. DESC_FAX_COMMAND
 msgid "Enter command to be executed in fax mode"
@@ -2147,9 +2209,9 @@ msgstr ""
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
 msgstr "Sende Fax mit hoher vertikaler Auflösung (196 lpi anstatt 98 lpi)"
 
-#. DESC_FAX_PS_FLATDECODED
-msgid "Create zlib compressed postscript image for fax (flatdecode)"
-msgstr ""
+#. DESC_FAX_PS_FLATEDECODED
+msgid "Create zlib compressed postscript image for fax (flatedecode)"
+msgstr "Erzeuge zlib-komprimiertes Postscript-Bild (ps level 3) zum Faxen"
 
 #. DESC_SMTP_SERVER
 msgid "IP Address or Domain name of SMTP server"
@@ -2400,17 +2462,13 @@ msgstr "Ausgewählten Bereich aus Stapelliste löschen"
 msgid "Turns on automatic mode"
 msgstr "Schaltet automatische Einstellung ein"
 
-#. DESC_SCANNER_REFL_ICM_PROFILE
-msgid "Scanner reflektive ICM-profile"
-msgstr "Scanner reflektives ICM-Profil"
+#. DESC_BUTTON_SCANNER_DEFAULT_COLOR_ICM_PROFILE_BROWSE
+msgid "Browse for scanner default color ICM-profile"
+msgstr "Suche nach standard Scanner Farb-ICM-Profil"
 
-#. DESC_BUTTON_SCANNER_REFL_ICM_PROFILE_BROWSE
-msgid "Browse for scanner reflektive ICM-profile"
-msgstr "Suche nach Scanner reflektivem ICM-Profil"
-
-#. DESC_BUTTON_SCANNER_TRAN_ICM_PROFILE_BROWSE
-msgid "Browse for scanner transmissive ICM-profile"
-msgstr "Suche nach Scanner Durchsicht-ICM-Profil"
+#. DESC_BUTTON_SCANNER_DEFAULT_GRAY_ICM_PROFILE_BROWSE
+msgid "Browse for scanner default gray ICM-profile"
+msgstr "Suche nach standard Scanner Graustufen-ICM-Profil"
 
 #. DESC_BUTTON_DISPLAY_ICM_PROFILE_BROWSE
 msgid "Browse for display ICM-profile"
@@ -2423,6 +2481,10 @@ msgstr "Suche nach Durcker ICM-Profil"
 #. DESC_BUTTON_CUSTOM_PROOFING_ICM_PROFILE_BROWSE
 msgid "Browse for custom proofing ICM-profile"
 msgstr "Suche nach Benutzerdefiniertem Proofing ICM-Profil"
+
+#. DESC_BUTTON_WORKING_COLOR_SPACE_ICM_PROFILE_BROWSE
+msgid "Browse for working color space ICM-profile"
+msgstr "Suche nach ICM-Profil für den Arbeitsfarbraum"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2479,11 +2541,6 @@ msgstr "Fehler beim Speichern:"
 #. ERR_BAD_DEPTH
 msgid "Can't handle depth"
 msgstr "Nicht unterstützte Bittiefe"
-
-#. ERR_GIMP_BAD_DEPTH
-#, c-format
-msgid "GIMP can't handle depth %d bits/color"
-msgstr "GIMP unterstützt Bittiefe %d Bits/Farbe nicht"
 
 #. ERR_UNKNOWN_SAVING_FORMAT
 msgid "Unknown file format for saving"
@@ -2728,13 +2785,9 @@ msgstr "Fehler bei Farbkonvertierung:"
 msgid "Could not open"
 msgstr "Fehler beim Öffnen von"
 
-#. CMS_SCANNER_TRAN_ICM
-msgid "scanner transmissive ICM profile"
-msgstr "Scanner Durchsicht-ICM-Profil"
-
-#. CMS_SCANNER_REFL_ICM
-msgid "scanner reflective ICM profile"
-msgstr "Scanner reflektives ICM-Profil"
+#. CMS_SCANNER_ICM
+msgid "scanner ICM profile"
+msgstr "Scanner ICM-Profil"
 
 #. CMS_DISPLAY_ICM
 msgid "display ICM profile"
@@ -2751,6 +2804,30 @@ msgstr "Konnte Transformation nicht erstellen"
 #. WARN_VIEWER_IMAGE_NOT_SAVED
 msgid "viewer image is not saved"
 msgstr "Betrachter-Bild ist nicht gespeichert"
+
+#. FILE_FILTER_ALL_FILES
+msgid "All files"
+msgstr "Alle Dateien"
+
+#. FILE_FILTER_IMAGES
+msgid "Images"
+msgstr "Bilder"
+
+#. FILE_FILTER_XBL
+msgid "XSane batch list"
+msgstr "Stapellisten"
+
+#. FILE_FILTER_ICM
+msgid "ICC/ICM Profiles"
+msgstr "ICC/ICM Profile"
+
+#. FILE_FILTER_DRC
+msgid "XSane device preferences"
+msgstr "Geräteeinstellungen"
+
+#. FILE_FILTER_RC
+msgid "XSane preferences"
+msgstr "Einstellungen"
 
 #. TEXT_USAGE
 msgid "Usage:"
@@ -3120,5 +3197,3 @@ msgstr "Kein Speicher"
 msgid "Access to resource has been denied"
 msgstr "Zugang zum Gerät wurde verweigert"
 
-#~ msgid "Custom output ICM-profile"
-#~ msgstr "Benutzerdefinierte Ausgabe ICM-Profil"

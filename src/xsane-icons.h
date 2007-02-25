@@ -119,6 +119,7 @@ extern const char *zoom_y_xpm[];
 extern const char *resolution_xpm[];
 extern const char *resolution_x_xpm[];
 extern const char *resolution_y_xpm[];
+extern const char *cms_xpm[];
 extern const char *scanner_xpm[];
 extern const char *intensity_xpm[];
 extern const char *red_xpm[];

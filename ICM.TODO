@@ -1,4 +1,7 @@
-- option: convert image to sRGB and other colorspaces before saving
-- add CMS preview options to preview or xsane main window
-- add CMS postscript support, especally for copy mode
+- convert image to sRGB and other colorspaces while saving: email, multipage
+- append ICC/ICM profile to email, multipage
+- add CMS preview options to preview or xsane main window for preview image
+- add support for 16bits/sample PDF files
+- reduce to 8 bits/sample after color conversion for all image formats
+- add support for grayscale postscript files
 

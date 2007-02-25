@@ -108,7 +108,7 @@ clean:
 	rm -rf .libs
 
 distclean: clean
-	rm -f Makefile $(PROGRAMS)
+	rm -f Makefile $(PROGRAMS) 
 
 depend:
 	makedepend $(INCLUDES) *.c
@@ -232,6 +232,7 @@ xsane-multipage-project.o: xsane-front-gtk.h
 xsane-multipage-project.o: xsane-preferences.h
 xsane-multipage-project.o: xsane-multipage-project.h
 xsane-multipage-project.o: xsane-text.h
+xsane-multipage-project.o: xsane-save.h
 
 xsane-fax-project.o: xsane.h
 xsane-fax-project.o: xsane-back-gtk.h

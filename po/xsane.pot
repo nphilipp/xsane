@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-15 20:42+0100\n"
+"POT-Creation-Date: 2007-02-25 23:44+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -75,6 +75,10 @@ msgstr ""
 msgid "fax project"
 msgstr ""
 
+#. WINDOW_FAX_PROJECT_BROWSE
+msgid "browse for fax project"
+msgstr ""
+
 #. WINDOW_FAX_RENAME
 msgid "rename fax page"
 msgstr ""
@@ -87,6 +91,10 @@ msgstr ""
 msgid "E-mail project"
 msgstr ""
 
+#. WINDOW_EMAIL_PROJECT_BROWSE
+msgid "browse for email project"
+msgstr ""
+
 #. WINDOW_EMAIL_RENAME
 msgid "rename e-mail image"
 msgstr ""
@@ -97,6 +105,10 @@ msgstr ""
 
 #. WINDOW_MULTIPAGE_PROJECT
 msgid "multipage project"
+msgstr ""
+
+#. WINDOW_MULTIPAGE_PROJECT_BROWSE
+msgid "browse for multipage project"
 msgstr ""
 
 #. WINDOW_PRESET_AREA_RENAME
@@ -199,12 +211,12 @@ msgstr ""
 msgid "No devices available"
 msgstr ""
 
-#. WINDOW_SCANNER_REFL_ICM_PROFILE
-msgid "select scanner reflective ICM-profile"
+#. WINDOW_SCANNER_DEFAULT_COLOR_ICM_PROFILE
+msgid "select scanner default color ICM-profile"
 msgstr ""
 
-#. WINDOW_SCANNER_TRAN_ICM_PROFILE
-msgid "select scanner transmissive ICM-profile"
+#. WINDOW_SCANNER_DEFAULT_GRAY_ICM_PROFILE
+msgid "select scanner default gray ICM-profile"
 msgstr ""
 
 #. WINDOW_DISPLAY_ICM_PROFILE
@@ -213,6 +225,10 @@ msgstr ""
 
 #. WINDOW_CUSTOM_PROOFING_ICM_PROFILE
 msgid "select custom proofing ICM-profile"
+msgstr ""
+
+#. WINDOW_WORKING_COLOR_SPACE_ICM_PROFILE
+msgid "select working color space ICM-profile"
 msgstr ""
 
 #. WINDOW_PRINTER_ICM_PROFILE
@@ -479,11 +495,11 @@ msgstr ""
 msgid "Skip existing filenames"
 msgstr ""
 
-#. RADIO_BUTTON_SAVE_PS_FLATDECODED
+#. RADIO_BUTTON_SAVE_PS_FLATEDECODED
 msgid "Save postscript zlib compressed (ps level 3)"
 msgstr ""
 
-#. RADIO_BUTTON_SAVE_PDF_FLATDECODED
+#. RADIO_BUTTON_SAVE_PDF_FLATEDECODED
 msgid "Save PDF zlib compressed"
 msgstr ""
 
@@ -500,7 +516,7 @@ msgid "Main window size fixed"
 msgstr ""
 
 #. RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA
-msgid "Disable gimp preview gamma"
+msgid "Disable GIMP preview gamma"
 msgstr ""
 
 #. RADIO_BUTTON_PRIVATE_COLORMAP
@@ -523,8 +539,9 @@ msgstr ""
 msgid "Use GUI progress pipe"
 msgstr ""
 
-#. RADIO_BUTTON_EMBED_ICM_PROFILE
-msgid "Embed scanner/source ICM profile into image file"
+#. RADIO_BUTTON_CMS_BPC
+#. MENU_ITEM_CMS_BLACK_POINT_COMPENSATION
+msgid "Black point compensation"
 msgstr ""
 
 #. TEXT_SCANNING_DEVICES
@@ -541,6 +558,11 @@ msgstr ""
 
 #. TEXT_FILETYPE
 msgid "Type"
+msgstr ""
+
+#. TEXT_CMS_FUNCTION
+#. DESC_CMS_FUNCTION
+msgid "Color management function"
 msgstr ""
 
 #. TEXT_SCANNER_BACKEND
@@ -615,16 +637,10 @@ msgstr ""
 msgid "16 bit output formats:"
 msgstr ""
 
-#. TEXT_GIMP_REDUCE_16BIT_TO_8BIT
-msgid ""
-"Gimp does not support depth 16 bits/color.\n"
-"Do you want to reduce the depth to 8 bits/color?"
-msgstr ""
-
 #. TEXT_REDUCE_16BIT_TO_8BIT
 msgid ""
-"Bit depth 16 bits/color is not supported for this output format.\n"
-"Do you want to reduce the depth to 8 bits/color?"
+"Bit depth 16 bits/channel is not supported for this output format.\n"
+"Do you want to reduce the depth to 8 bits/channel?"
 msgstr ""
 
 #. TEXT_AUTHORIZATION_REQ
@@ -775,7 +791,8 @@ msgstr ""
 #. TEXT_VIEWER_IMAGE_INFO
 #, c-format
 msgid ""
-"Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
+"Size %d x %d pixel, %d bits/channel, %d channels, %1.0f dpi x %1.0f dpi, %"
+"1.1f %s"
 msgstr ""
 
 #. TEXT_DESPECKLE_RADIUS
@@ -883,7 +900,15 @@ msgstr ""
 msgid "Printer gamma blue:"
 msgstr ""
 
-#. TEXT_SETUP_PRINTER_PS_FLATDECODED
+#. TEXT_SETUP_PRINTER_EMBED_CSA
+msgid "Embed scanner ICM profile as CSA"
+msgstr ""
+
+#. TEXT_SETUP_PRINTER_EMBED_CRD
+msgid "Embed printer ICM profile as CRD"
+msgstr ""
+
+#. TEXT_SETUP_PRINTER_PS_FLATEDECODED
 msgid "Create zlib compressed postscript image (ps level 3) for printing"
 msgstr ""
 
@@ -1007,7 +1032,7 @@ msgstr ""
 msgid "Viewer (Postscript):"
 msgstr ""
 
-#. TEXT_SETUP_FAX_PS_FLATDECODED
+#. TEXT_SETUP_FAX_PS_FLATEDECODED
 msgid "Create zlib compressed postscript image (ps level 3) for fax"
 msgstr ""
 
@@ -1083,13 +1108,14 @@ msgstr ""
 msgid "all"
 msgstr ""
 
-#. TEXT_SETUP_SCANNER_REFL_ICM_PROFILE
-msgid "Scanner reflective ICM-profile"
+#. TEXT_SETUP_SCANNER_DEFAULT_COLOR_ICM_PROFILE
+#. DESC_SCANNER_DEFAULT_COLOR_ICM_PROFILE
+msgid "Scanner default color ICM-profile"
 msgstr ""
 
-#. TEXT_SETUP_SCANNER_TRAN_ICM_PROFILE
-#. DESC_SCANNER_TRAN_ICM_PROFILE
-msgid "Scanner transmissive ICM-profile"
+#. TEXT_SETUP_SCANNER_DEFAULT_GRAY_ICM_PROFILE
+#. DESC_SCANNER_DEFAULT_GRAY_ICM_PROFILE
+msgid "Scanner default gray ICM-profile"
 msgstr ""
 
 #. TEXT_SETUP_DISPLAY_ICM_PROFILE
@@ -1100,6 +1126,11 @@ msgstr ""
 #. TEXT_SETUP_CUSTOM_PROOFING_ICM_PROFILE
 #. DESC_CUSTOM_PROOFING_ICM_PROFILE
 msgid "Custom proofing ICM-profile"
+msgstr ""
+
+#. TEXT_SETUP_WORKING_COLOR_SPACE_ICM_PROFILE
+#. DESC_WORKING_COLOR_SPACE_ICM_PROFILE
+msgid "Working color space ICM-profile"
 msgstr ""
 
 #. TEXT_SETUP_PRINTER_ICM_PROFILE
@@ -1269,10 +1300,6 @@ msgstr ""
 
 #. MENU_ITEM_PROBLEMS
 msgid "Problems?"
-msgstr ""
-
-#. MENU_ITEM_CMS_BLACK_POINT_COMPENSATION
-msgid "Black point compensation"
 msgstr ""
 
 #. MENU_ITEM_CMS_PROOFING
@@ -1463,6 +1490,18 @@ msgstr ""
 msgid "ASMTP CRAM-MD5"
 msgstr ""
 
+#. MENU_ITEM_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE
+msgid "Embed scanner ICM profile"
+msgstr ""
+
+#. MENU_ITEM_CMS_FUNCTION_CONVERT_TO_SRGB
+msgid "Convert to sRGB"
+msgstr ""
+
+#. MENU_ITEM_FUNCTION_CONVERT_TO_WORKING_CS
+msgid "Convert to working color space"
+msgstr ""
+
 #. PROGRESS_SCANNING
 msgid "Scanning"
 msgstr ""
@@ -1520,6 +1559,10 @@ msgstr ""
 msgid "OCR in progress"
 msgstr ""
 
+#. PROGRESS_ICM_CONVERSION
+msgid "converting colors"
+msgstr ""
+
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
 msgstr ""
@@ -1570,7 +1613,7 @@ msgid ""
 msgstr ""
 
 #. DESC_FAXPROJECT
-msgid "Enter name of fax project"
+msgid "Enter fax project directory name"
 msgstr ""
 
 #. DESC_FAXPAGENAME
@@ -1581,8 +1624,12 @@ msgstr ""
 msgid "Enter receiver phone number or address"
 msgstr ""
 
+#. DESC_FAX_PROJECT_BROWSE
+msgid "Browse for fax project directory"
+msgstr ""
+
 #. DESC_EMAIL_PROJECT
-msgid "Enter name of e-mail project"
+msgid "Enter e-mail project directory name"
 msgstr ""
 
 #. DESC_EMAIL_IMAGENAME
@@ -1591,6 +1638,10 @@ msgstr ""
 
 #. DESC_EMAIL_RECEIVER
 msgid "Enter e-mail address"
+msgstr ""
+
+#. DESC_EMAIL_PROJECT_BROWSE
+msgid "Browse for email project directory"
 msgstr ""
 
 #. DESC_EMAIL_SUBJECT
@@ -1602,7 +1653,11 @@ msgid "Select filetype for image attachments"
 msgstr ""
 
 #. DESC_MULTIPAGE_PROJECT
-msgid "Enter name of multipage project"
+msgid "Enter multipage project directory name"
+msgstr ""
+
+#. DESC_MULTIPAGE_PROJECT_BROWSE
+msgid "Browse for multipage project directory"
 msgstr ""
 
 #. DESC_MULTIPAGE_FILETYPE
@@ -1832,9 +1887,17 @@ msgstr ""
 msgid "Additional gamma value for blue component for photocopy"
 msgstr ""
 
-#. DESC_PRINTER_PS_FLATDECODED
+#. DESC_PRINTER_EMBED_CSA
+msgid "Creates a postsciptfile that contains the ICM profile of the scanner"
+msgstr ""
+
+#. DESC_PRINTER_EMBED_CRD
+msgid "Creates a postsciptfile that contains the ICM profile of the printer"
+msgstr ""
+
+#. DESC_PRINTER_PS_FLATEDECODED
 msgid ""
-"Create zlib compressed postscript image for printer (flatdecode).\n"
+"Create zlib compressed postscript image for printer (flatedecode).\n"
 "The printer has to understand postscript level 3!"
 msgstr ""
 
@@ -1888,14 +1951,14 @@ msgid ""
 "If filename counter is automatically increased, used numbers are skipped"
 msgstr ""
 
-#. DESC_SAVE_PS_FLATDECODED
+#. DESC_SAVE_PS_FLATEDECODED
 msgid ""
-"compress postscript image with zlib algorithm (flatdecode). When you want to "
-"print such a file your printer has to understand postscript level 3"
+"compress postscript image with zlib algorithm (flatedecode). When you want "
+"to print such a file your printer has to understand postscript level 3"
 msgstr ""
 
-#. DESC_SAVE_PDF_FLATDECODED
-msgid "compress PDF image with zlib algorithm (flatdecode)."
+#. DESC_SAVE_PDF_FLATEDECODED
+msgid "compress PDF image with zlib algorithm (flatedecode)."
 msgstr ""
 
 #. DESC_SAVE_PNM16_AS_ASCII
@@ -1907,7 +1970,8 @@ msgid ""
 msgstr ""
 
 #. DESC_REDUCE_16BIT_TO_8BIT
-msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
+msgid ""
+"If scanner sends image with 16 bits/channel save image with 8 bits/channel"
 msgstr ""
 
 #. DESC_PSFILE_WIDTH
@@ -1935,7 +1999,7 @@ msgid "Use fixed main window size or scrolled, resizable main window"
 msgstr ""
 
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
-msgid "Disable preview gamma when XSane runs as gimp plugin"
+msgid "Disable preview gamma when XSane runs as GIMP plugin"
 msgstr ""
 
 #. DESC_PREVIEW_COLORMAP
@@ -2021,10 +2085,12 @@ msgstr ""
 msgid "Do color correction after preview scan has finished"
 msgstr ""
 
-#. DESC_EMBED_ICM_PROFILE
-msgid ""
-"Embed scanner/source ICM profile into image file - when fileformat supports "
-"it"
+#. DESC_RENDERING_INTENT
+msgid "Select rendering intent for preview and saving"
+msgstr ""
+
+#. DESC_CMS_BPC
+msgid "Apply black point compensation when color transformation is done"
 msgstr ""
 
 #. DESC_FAX_COMMAND
@@ -2055,8 +2121,8 @@ msgstr ""
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
 msgstr ""
 
-#. DESC_FAX_PS_FLATDECODED
-msgid "Create zlib compressed postscript image for fax (flatdecode)"
+#. DESC_FAX_PS_FLATEDECODED
+msgid "Create zlib compressed postscript image for fax (flatedecode)"
 msgstr ""
 
 #. DESC_SMTP_SERVER
@@ -2300,16 +2366,12 @@ msgstr ""
 msgid "Turns on automatic mode"
 msgstr ""
 
-#. DESC_SCANNER_REFL_ICM_PROFILE
-msgid "Scanner reflektive ICM-profile"
+#. DESC_BUTTON_SCANNER_DEFAULT_COLOR_ICM_PROFILE_BROWSE
+msgid "Browse for scanner default color ICM-profile"
 msgstr ""
 
-#. DESC_BUTTON_SCANNER_REFL_ICM_PROFILE_BROWSE
-msgid "Browse for scanner reflektive ICM-profile"
-msgstr ""
-
-#. DESC_BUTTON_SCANNER_TRAN_ICM_PROFILE_BROWSE
-msgid "Browse for scanner transmissive ICM-profile"
+#. DESC_BUTTON_SCANNER_DEFAULT_GRAY_ICM_PROFILE_BROWSE
+msgid "Browse for scanner default gray ICM-profile"
 msgstr ""
 
 #. DESC_BUTTON_DISPLAY_ICM_PROFILE_BROWSE
@@ -2322,6 +2384,10 @@ msgstr ""
 
 #. DESC_BUTTON_CUSTOM_PROOFING_ICM_PROFILE_BROWSE
 msgid "Browse for custom proofing ICM-profile"
+msgstr ""
+
+#. DESC_BUTTON_WORKING_COLOR_SPACE_ICM_PROFILE_BROWSE
+msgid "Browse for working color space ICM-profile"
 msgstr ""
 
 #. ERR_HOME_DIR
@@ -2374,11 +2440,6 @@ msgstr ""
 
 #. ERR_BAD_DEPTH
 msgid "Can't handle depth"
-msgstr ""
-
-#. ERR_GIMP_BAD_DEPTH
-#, c-format
-msgid "GIMP can't handle depth %d bits/color"
 msgstr ""
 
 #. ERR_UNKNOWN_SAVING_FORMAT
@@ -2616,12 +2677,8 @@ msgstr ""
 msgid "Could not open"
 msgstr ""
 
-#. CMS_SCANNER_TRAN_ICM
-msgid "scanner transmissive ICM profile"
-msgstr ""
-
-#. CMS_SCANNER_REFL_ICM
-msgid "scanner reflective ICM profile"
+#. CMS_SCANNER_ICM
+msgid "scanner ICM profile"
 msgstr ""
 
 #. CMS_DISPLAY_ICM
@@ -2638,6 +2695,30 @@ msgstr ""
 
 #. WARN_VIEWER_IMAGE_NOT_SAVED
 msgid "viewer image is not saved"
+msgstr ""
+
+#. FILE_FILTER_ALL_FILES
+msgid "All files"
+msgstr ""
+
+#. FILE_FILTER_IMAGES
+msgid "Images"
+msgstr ""
+
+#. FILE_FILTER_XBL
+msgid "XSane batch list"
+msgstr ""
+
+#. FILE_FILTER_ICM
+msgid "ICC/ICM Profiles"
+msgstr ""
+
+#. FILE_FILTER_DRC
+msgid "XSane device preferences"
+msgstr ""
+
+#. FILE_FILTER_RC
+msgid "XSane preferences"
 msgstr ""
 
 #. TEXT_USAGE

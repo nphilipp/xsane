@@ -345,7 +345,7 @@ static void xsane_batch_scan_load_list(void)
   sprintf(windowname, "%s %s %s", xsane.prog_name, WINDOW_LOAD_BATCH_LIST, xsane.device_text);
   xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", "batch-lists", 0, "default", ".xbl", XSANE_PATH_LOCAL_SANE);
 
-  if (!xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, NULL, FALSE, FALSE, FALSE, FALSE))
+  if (!xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, NULL, NULL, XSANE_FILE_CHOOSER_ACTION_OPEN, XSANE_GET_FILENAME_SHOW_NOTHING, XSANE_FILE_FILTER_ALL | XSANE_FILE_FILTER_BATCHLIST, XSANE_FILE_FILTER_BATCHLIST))
   {
     if (xsane_batch_scan_load_list_from_file(filename)) /* error while loading file ? */
     {
@@ -396,7 +396,7 @@ static void xsane_batch_scan_save_list(void)
   sprintf(windowname, "%s %s %s", xsane.prog_name, WINDOW_SAVE_BATCH_LIST, xsane.device_text);
   xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", "batch-lists", 0, "default", ".xbl", XSANE_PATH_LOCAL_SANE);
 
-  if (!xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, NULL, FALSE, FALSE, FALSE, FALSE))
+  if (!xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, NULL, NULL, XSANE_FILE_CHOOSER_ACTION_SAVE, XSANE_GET_FILENAME_SHOW_NOTHING, XSANE_FILE_FILTER_ALL | XSANE_FILE_FILTER_BATCHLIST, XSANE_FILE_FILTER_BATCHLIST));
   {
     fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0600);
 
@@ -893,6 +893,17 @@ static void xsane_batch_scan_rename_callback(GtkWidget *widget, gpointer data)
       gtk_box_pack_start(GTK_BOX(vbox), text, TRUE, TRUE, 4);
       gtk_widget_show(text);
 
+
+#ifdef HAVE_GTK2
+      button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
+#else
+      button = gtk_button_new_with_label(BUTTON_CANCEL);
+#endif
+      g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_batch_scan_rename_button_callback, (void *) -1);
+      gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
+      gtk_widget_show(button);
+
+
 #ifdef HAVE_GTK2
       button = gtk_button_new_from_stock(GTK_STOCK_OK);
 #else
@@ -904,15 +915,6 @@ static void xsane_batch_scan_rename_callback(GtkWidget *widget, gpointer data)
       gtk_widget_grab_default(button);
       gtk_widget_show(button);
 
-
-#ifdef HAVE_GTK2
-      button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
-#else
-      button = gtk_button_new_with_label(BUTTON_CANCEL);
-#endif
-      g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_batch_scan_rename_button_callback, (void *) -1);
-      gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
-      gtk_widget_show(button);
 
       xsane_batch_scan_rename = 0;
 

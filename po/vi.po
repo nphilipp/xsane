@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.96\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-15 20:42+0100\n"
+"POT-Creation-Date: 2007-02-25 23:44+0100\n"
 "PO-Revision-Date: 2004-08-26 23:33+0700\n"
 "Last-Translator: Trinh Minh Thanh <tmthanh@yahoo.com>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
@@ -78,6 +78,11 @@ msgstr "đổi tên vùng batch"
 msgid "fax project"
 msgstr "dự án fax"
 
+#. WINDOW_FAX_PROJECT_BROWSE
+#, fuzzy
+msgid "browse for fax project"
+msgstr "Nhập tên cho dự án Fax"
+
 #. WINDOW_FAX_RENAME
 msgid "rename fax page"
 msgstr "đổi tên trang fax"
@@ -90,6 +95,11 @@ msgstr "chèn tập tin ps vào fax"
 #, fuzzy
 msgid "E-mail project"
 msgstr "dự án thư"
+
+#. WINDOW_EMAIL_PROJECT_BROWSE
+#, fuzzy
+msgid "browse for email project"
+msgstr "Nhập tên dự án thư"
 
 #. WINDOW_EMAIL_RENAME
 #, fuzzy
@@ -104,6 +114,11 @@ msgstr "chèn tập tin vào thư"
 #. WINDOW_MULTIPAGE_PROJECT
 #, fuzzy
 msgid "multipage project"
+msgstr "Xóa dự án"
+
+#. WINDOW_MULTIPAGE_PROJECT_BROWSE
+#, fuzzy
+msgid "browse for multipage project"
 msgstr "Xóa dự án"
 
 #  WINDOW_PRESET_AREA_RENAME
@@ -210,14 +225,14 @@ msgstr "Lưu trữ định nghĩa phương tiện"
 msgid "No devices available"
 msgstr "Hiện không có thiết bị"
 
-#. WINDOW_SCANNER_REFL_ICM_PROFILE
+#. WINDOW_SCANNER_DEFAULT_COLOR_ICM_PROFILE
 #, fuzzy
-msgid "select scanner reflective ICM-profile"
+msgid "select scanner default color ICM-profile"
 msgstr "Xóa máy in"
 
-#. WINDOW_SCANNER_TRAN_ICM_PROFILE
+#. WINDOW_SCANNER_DEFAULT_GRAY_ICM_PROFILE
 #, fuzzy
-msgid "select scanner transmissive ICM-profile"
+msgid "select scanner default gray ICM-profile"
 msgstr "Xóa máy in"
 
 #. WINDOW_DISPLAY_ICM_PROFILE
@@ -228,6 +243,11 @@ msgstr ""
 #, fuzzy
 msgid "select custom proofing ICM-profile"
 msgstr "chọn tên tập tin đầu ra"
+
+#. WINDOW_WORKING_COLOR_SPACE_ICM_PROFILE
+#, fuzzy
+msgid "select working color space ICM-profile"
+msgstr "Xóa máy in"
 
 #. WINDOW_PRINTER_ICM_PROFILE
 #, fuzzy
@@ -506,11 +526,11 @@ msgstr "Cảnh báo việc ghi đè"
 msgid "Skip existing filenames"
 msgstr "Nhảy qua các tên tập tin hiện có"
 
-#. RADIO_BUTTON_SAVE_PS_FLATDECODED
+#. RADIO_BUTTON_SAVE_PS_FLATEDECODED
 msgid "Save postscript zlib compressed (ps level 3)"
 msgstr ""
 
-#. RADIO_BUTTON_SAVE_PDF_FLATDECODED
+#. RADIO_BUTTON_SAVE_PDF_FLATEDECODED
 msgid "Save PDF zlib compressed"
 msgstr ""
 
@@ -527,7 +547,8 @@ msgid "Main window size fixed"
 msgstr "Kích cỡ cửa sổ chính không đổi"
 
 #. RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA
-msgid "Disable gimp preview gamma"
+#, fuzzy
+msgid "Disable GIMP preview gamma"
 msgstr "Tắt gamma xem trước của GIMP"
 
 #. RADIO_BUTTON_PRIVATE_COLORMAP
@@ -550,8 +571,9 @@ msgstr "Tự động hiệu chỉnh màu"
 msgid "Use GUI progress pipe"
 msgstr "Dùng pipe tiến trình đồ họa"
 
-#. RADIO_BUTTON_EMBED_ICM_PROFILE
-msgid "Embed scanner/source ICM profile into image file"
+#. RADIO_BUTTON_CMS_BPC
+#. MENU_ITEM_CMS_BLACK_POINT_COMPENSATION
+msgid "Black point compensation"
 msgstr ""
 
 #. TEXT_SCANNING_DEVICES
@@ -569,6 +591,12 @@ msgstr "Tùy chọn XSane"
 #. TEXT_FILETYPE
 msgid "Type"
 msgstr "Loại"
+
+#. TEXT_CMS_FUNCTION
+#. DESC_CMS_FUNCTION
+#, fuzzy
+msgid "Color management function"
+msgstr "Dải màu đầy đủ"
 
 #. TEXT_SCANNER_BACKEND
 msgid "Scanner and backend:"
@@ -642,18 +670,11 @@ msgstr "Định dạng đầu ra 8 bit:"
 msgid "16 bit output formats:"
 msgstr "Định dạng đầu ra 16 bit:"
 
-#. TEXT_GIMP_REDUCE_16BIT_TO_8BIT
-msgid ""
-"Gimp does not support depth 16 bits/color.\n"
-"Do you want to reduce the depth to 8 bits/color?"
-msgstr ""
-"Gimp không hỗ trợ độ sâu màu 16 bit.\n"
-"Có muốn hạ xuống 8 bit không ?"
-
 #. TEXT_REDUCE_16BIT_TO_8BIT
+#, fuzzy
 msgid ""
-"Bit depth 16 bits/color is not supported for this output format.\n"
-"Do you want to reduce the depth to 8 bits/color?"
+"Bit depth 16 bits/channel is not supported for this output format.\n"
+"Do you want to reduce the depth to 8 bits/channel?"
 msgstr ""
 "Không hỗ trợ độ sâu màu 16 bit cho định dạng đầu ra này.\n"
 "Có muốn hạ xuống 8 bit không ?"
@@ -831,9 +852,10 @@ msgid "Medium Name:"
 msgstr "Tên phương tiện:"
 
 #. TEXT_VIEWER_IMAGE_INFO
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
+"Size %d x %d pixel, %d bits/channel, %d channels, %1.0f dpi x %1.0f dpi, %"
+"1.1f %s"
 msgstr ""
 "Kích cỡ %d x %d pixel, %d bit/màu, %d màu, %1.0f dpi x %1.0f dpi, %1.1f %s"
 
@@ -942,7 +964,17 @@ msgstr "Xanh lá cây gamma máy in:"
 msgid "Printer gamma blue:"
 msgstr "Xanh da trời gamma máy in:"
 
-#. TEXT_SETUP_PRINTER_PS_FLATDECODED
+#. TEXT_SETUP_PRINTER_EMBED_CSA
+#, fuzzy
+msgid "Embed scanner ICM profile as CSA"
+msgstr "Xóa máy in"
+
+#. TEXT_SETUP_PRINTER_EMBED_CRD
+#, fuzzy
+msgid "Embed printer ICM profile as CRD"
+msgstr "Xóa máy in"
+
+#. TEXT_SETUP_PRINTER_PS_FLATEDECODED
 msgid "Create zlib compressed postscript image (ps level 3) for printing"
 msgstr ""
 
@@ -1067,7 +1099,7 @@ msgstr "Đặt mặc định chương trình cho:"
 msgid "Viewer (Postscript):"
 msgstr "Trình xem (Postscript):"
 
-#. TEXT_SETUP_FAX_PS_FLATDECODED
+#. TEXT_SETUP_FAX_PS_FLATEDECODED
 msgid "Create zlib compressed postscript image (ps level 3) for fax"
 msgstr ""
 
@@ -1146,15 +1178,17 @@ msgstr "nhóm"
 msgid "all"
 msgstr "toàn bộ"
 
-#. TEXT_SETUP_SCANNER_REFL_ICM_PROFILE
+#. TEXT_SETUP_SCANNER_DEFAULT_COLOR_ICM_PROFILE
+#. DESC_SCANNER_DEFAULT_COLOR_ICM_PROFILE
 #, fuzzy
-msgid "Scanner reflective ICM-profile"
+msgid "Scanner default color ICM-profile"
 msgstr "Xóa máy in"
 
-#. TEXT_SETUP_SCANNER_TRAN_ICM_PROFILE
-#. DESC_SCANNER_TRAN_ICM_PROFILE
-msgid "Scanner transmissive ICM-profile"
-msgstr ""
+#. TEXT_SETUP_SCANNER_DEFAULT_GRAY_ICM_PROFILE
+#. DESC_SCANNER_DEFAULT_GRAY_ICM_PROFILE
+#, fuzzy
+msgid "Scanner default gray ICM-profile"
+msgstr "Xóa máy in"
 
 #. TEXT_SETUP_DISPLAY_ICM_PROFILE
 #. DESC_DISPLAY_ICM_PROFILE
@@ -1166,6 +1200,12 @@ msgstr ""
 #, fuzzy
 msgid "Custom proofing ICM-profile"
 msgstr "Xóa máy in"
+
+#. TEXT_SETUP_WORKING_COLOR_SPACE_ICM_PROFILE
+#. DESC_WORKING_COLOR_SPACE_ICM_PROFILE
+#, fuzzy
+msgid "Working color space ICM-profile"
+msgstr "Duyệt tên tập tin ảnh"
 
 #. TEXT_SETUP_PRINTER_ICM_PROFILE
 #. DESC_PRINTER_ICM_PROFILE
@@ -1338,10 +1378,6 @@ msgstr "Mẹo quét"
 #. MENU_ITEM_PROBLEMS
 msgid "Problems?"
 msgstr "Trục trặc?"
-
-#. MENU_ITEM_CMS_BLACK_POINT_COMPENSATION
-msgid "Black point compensation"
-msgstr ""
 
 #. MENU_ITEM_CMS_PROOFING
 #, fuzzy
@@ -1546,6 +1582,20 @@ msgstr ""
 msgid "ASMTP CRAM-MD5"
 msgstr ""
 
+#. MENU_ITEM_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE
+#, fuzzy
+msgid "Embed scanner ICM profile"
+msgstr "Xóa máy in"
+
+#. MENU_ITEM_CMS_FUNCTION_CONVERT_TO_SRGB
+msgid "Convert to sRGB"
+msgstr ""
+
+#. MENU_ITEM_FUNCTION_CONVERT_TO_WORKING_CS
+#, fuzzy
+msgid "Convert to working color space"
+msgstr "Tự động hiệu chỉnh màu"
+
 #. PROGRESS_SCANNING
 msgid "Scanning"
 msgstr "Đang quét"
@@ -1603,6 +1653,11 @@ msgstr "Đang làm mờ ảnh"
 #. PROGRESS_OCR
 msgid "OCR in progress"
 msgstr "Đang chạy OCR"
+
+#. PROGRESS_ICM_CONVERSION
+#, fuzzy
+msgid "converting colors"
+msgstr "Tự động hiệu chỉnh màu"
 
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
@@ -1664,8 +1719,9 @@ msgstr ""
 "vào tên tập tin"
 
 #. DESC_FAXPROJECT
-msgid "Enter name of fax project"
-msgstr "Nhập tên cho dự án Fax"
+#, fuzzy
+msgid "Enter fax project directory name"
+msgstr "Duyệt tìm thư mục tạm"
 
 #. DESC_FAXPAGENAME
 msgid "Enter new name for faxpage"
@@ -1675,10 +1731,15 @@ msgstr "Nhập tên mới cho trang Fax"
 msgid "Enter receiver phone number or address"
 msgstr "Nhập số điện thoại hay địa chỉ người nhận"
 
+#. DESC_FAX_PROJECT_BROWSE
+#, fuzzy
+msgid "Browse for fax project directory"
+msgstr "Duyệt tìm thư mục tạm"
+
 #. DESC_EMAIL_PROJECT
 #, fuzzy
-msgid "Enter name of e-mail project"
-msgstr "Nhập tên dự án thư"
+msgid "Enter e-mail project directory name"
+msgstr "Duyệt tìm thư mục tạm"
 
 #. DESC_EMAIL_IMAGENAME
 #, fuzzy
@@ -1689,6 +1750,11 @@ msgstr "Nhập tên mới cho ảnh trong thư"
 #, fuzzy
 msgid "Enter e-mail address"
 msgstr "Nhập địa chỉ thư"
+
+#. DESC_EMAIL_PROJECT_BROWSE
+#, fuzzy
+msgid "Browse for email project directory"
+msgstr "Duyệt tìm thư mục tạm"
 
 #. DESC_EMAIL_SUBJECT
 #, fuzzy
@@ -1702,8 +1768,13 @@ msgstr "Chọn loại tập tin cho ảnh đính kèm"
 
 #. DESC_MULTIPAGE_PROJECT
 #, fuzzy
-msgid "Enter name of multipage project"
-msgstr "Nhập tên dự án thư"
+msgid "Enter multipage project directory name"
+msgstr "Duyệt tìm thư mục tạm"
+
+#. DESC_MULTIPAGE_PROJECT_BROWSE
+#, fuzzy
+msgid "Browse for multipage project directory"
+msgstr "Duyệt tìm thư mục tạm"
 
 #  DESC_MAIL_FILETYPE
 #. DESC_MULTIPAGE_FILETYPE
@@ -1947,9 +2018,17 @@ msgstr "Giá trị gamma thêm cho thành phần màu xanh lá cây cho photocop
 msgid "Additional gamma value for blue component for photocopy"
 msgstr "Giá trị gamma thêm cho thành phần màu xanh da trời cho photocopy"
 
-#. DESC_PRINTER_PS_FLATDECODED
+#. DESC_PRINTER_EMBED_CSA
+msgid "Creates a postsciptfile that contains the ICM profile of the scanner"
+msgstr ""
+
+#. DESC_PRINTER_EMBED_CRD
+msgid "Creates a postsciptfile that contains the ICM profile of the printer"
+msgstr ""
+
+#. DESC_PRINTER_PS_FLATEDECODED
 msgid ""
-"Create zlib compressed postscript image for printer (flatdecode).\n"
+"Create zlib compressed postscript image for printer (flatedecode).\n"
 "The printer has to understand postscript level 3!"
 msgstr ""
 
@@ -2007,14 +2086,14 @@ msgid ""
 "If filename counter is automatically increased, used numbers are skipped"
 msgstr "Nếu bộ đếm tên tập tin được tăng tự động, bỏ qua các số đã dùng"
 
-#. DESC_SAVE_PS_FLATDECODED
+#. DESC_SAVE_PS_FLATEDECODED
 msgid ""
-"compress postscript image with zlib algorithm (flatdecode). When you want to "
-"print such a file your printer has to understand postscript level 3"
+"compress postscript image with zlib algorithm (flatedecode). When you want "
+"to print such a file your printer has to understand postscript level 3"
 msgstr ""
 
-#. DESC_SAVE_PDF_FLATDECODED
-msgid "compress PDF image with zlib algorithm (flatdecode)."
+#. DESC_SAVE_PDF_FLATEDECODED
+msgid "compress PDF image with zlib algorithm (flatedecode)."
 msgstr ""
 
 #. DESC_SAVE_PNM16_AS_ASCII
@@ -2030,7 +2109,9 @@ msgstr ""
 "lại tạo các tập tin ảnh lớn !!!"
 
 #. DESC_REDUCE_16BIT_TO_8BIT
-msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
+#, fuzzy
+msgid ""
+"If scanner sends image with 16 bits/channel save image with 8 bits/channel"
 msgstr "Nếu máy quét gửi ảnh 16 bit/màu thì lưu thành 8 bit/màu"
 
 #. DESC_PSFILE_WIDTH
@@ -2059,7 +2140,8 @@ msgstr ""
 "Dùng cỡ cửa sổ chính cố định hoặc cửa sổ chính cuộn được và có thể đổi cỡ"
 
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
-msgid "Disable preview gamma when XSane runs as gimp plugin"
+#, fuzzy
+msgid "Disable preview gamma when XSane runs as GIMP plugin"
 msgstr "Tắt Xem trước gamma khi chạy XSane làm plugin của GIMP"
 
 #. DESC_PREVIEW_COLORMAP
@@ -2151,10 +2233,13 @@ msgstr "Chọn vùng quét sau khi kết thúc việc quét xem trước"
 msgid "Do color correction after preview scan has finished"
 msgstr "Hiệu chỉnh màu sau khi kết thúc việc quét xem trước"
 
-#. DESC_EMBED_ICM_PROFILE
-msgid ""
-"Embed scanner/source ICM profile into image file - when fileformat supports "
-"it"
+#. DESC_RENDERING_INTENT
+#, fuzzy
+msgid "Select rendering intent for preview and saving"
+msgstr "Chọn vùng quét sau khi kết thúc việc quét xem trước"
+
+#. DESC_CMS_BPC
+msgid "Apply black point compensation when color transformation is done"
 msgstr ""
 
 #. DESC_FAX_COMMAND
@@ -2185,8 +2270,8 @@ msgstr "Nhập lệnh thực thi để xem Fax"
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
 msgstr "Gửi Fax có độ phân giải dọc cao (196 lpi thay vì 98 lpi)"
 
-#. DESC_FAX_PS_FLATDECODED
-msgid "Create zlib compressed postscript image for fax (flatdecode)"
+#. DESC_FAX_PS_FLATEDECODED
+msgid "Create zlib compressed postscript image for fax (flatedecode)"
 msgstr ""
 
 #. DESC_SMTP_SERVER
@@ -2447,19 +2532,14 @@ msgstr "Xóa vùng được chọn khỏi danh sách batch"
 msgid "Turns on automatic mode"
 msgstr "Bật chế độ tự động"
 
-#. DESC_SCANNER_REFL_ICM_PROFILE
+#. DESC_BUTTON_SCANNER_DEFAULT_COLOR_ICM_PROFILE_BROWSE
 #, fuzzy
-msgid "Scanner reflektive ICM-profile"
-msgstr "Xóa máy in"
-
-#. DESC_BUTTON_SCANNER_REFL_ICM_PROFILE_BROWSE
-#, fuzzy
-msgid "Browse for scanner reflektive ICM-profile"
+msgid "Browse for scanner default color ICM-profile"
 msgstr "Duyệt tên tập tin ảnh"
 
-#. DESC_BUTTON_SCANNER_TRAN_ICM_PROFILE_BROWSE
+#. DESC_BUTTON_SCANNER_DEFAULT_GRAY_ICM_PROFILE_BROWSE
 #, fuzzy
-msgid "Browse for scanner transmissive ICM-profile"
+msgid "Browse for scanner default gray ICM-profile"
 msgstr "Duyệt tên tập tin ảnh"
 
 #. DESC_BUTTON_DISPLAY_ICM_PROFILE_BROWSE
@@ -2475,6 +2555,11 @@ msgstr "Duyệt tên tập tin ảnh"
 #. DESC_BUTTON_CUSTOM_PROOFING_ICM_PROFILE_BROWSE
 #, fuzzy
 msgid "Browse for custom proofing ICM-profile"
+msgstr "Duyệt tên tập tin ảnh"
+
+#. DESC_BUTTON_WORKING_COLOR_SPACE_ICM_PROFILE_BROWSE
+#, fuzzy
+msgid "Browse for working color space ICM-profile"
 msgstr "Duyệt tên tập tin ảnh"
 
 #. ERR_HOME_DIR
@@ -2528,11 +2613,6 @@ msgstr "Lỗi khi lưu:"
 #. ERR_BAD_DEPTH
 msgid "Can't handle depth"
 msgstr "Không thể xử lý độ sâu"
-
-#. ERR_GIMP_BAD_DEPTH
-#, c-format
-msgid "GIMP can't handle depth %d bits/color"
-msgstr "GIMP không thể xử lý độ sâu %d bit/màu"
 
 #. ERR_UNKNOWN_SAVING_FORMAT
 msgid "Unknown file format for saving"
@@ -2778,13 +2858,9 @@ msgstr "Lỗi khi lưu:"
 msgid "Could not open"
 msgstr "Không mở được"
 
-#. CMS_SCANNER_TRAN_ICM
-msgid "scanner transmissive ICM profile"
-msgstr ""
-
-#. CMS_SCANNER_REFL_ICM
+#. CMS_SCANNER_ICM
 #, fuzzy
-msgid "scanner reflective ICM profile"
+msgid "scanner ICM profile"
 msgstr "Xóa máy in"
 
 #. CMS_DISPLAY_ICM
@@ -2805,6 +2881,34 @@ msgstr "Không tạo được tập tin tạm thời"
 #. WARN_VIEWER_IMAGE_NOT_SAVED
 msgid "viewer image is not saved"
 msgstr "Ảnh ở trình xem không được lưu"
+
+#. FILE_FILTER_ALL_FILES
+msgid "All files"
+msgstr ""
+
+#. FILE_FILTER_IMAGES
+#, fuzzy
+msgid "Images"
+msgstr "Ảnh"
+
+#. FILE_FILTER_XBL
+#, fuzzy
+msgid "XSane batch list"
+msgstr "Lưu danh sách batch"
+
+#. FILE_FILTER_ICM
+msgid "ICC/ICM Profiles"
+msgstr ""
+
+#. FILE_FILTER_DRC
+#, fuzzy
+msgid "XSane device preferences"
+msgstr "Lưu các sở thích thiết bị và thoát ra"
+
+#. FILE_FILTER_RC
+#, fuzzy
+msgid "XSane preferences"
+msgstr "Sở thích"
 
 #. TEXT_USAGE
 msgid "Usage:"
@@ -3208,6 +3312,67 @@ msgstr "Hết bộ nhớ"
 msgid "Access to resource has been denied"
 msgstr "Truy cập đến nguồn bị từ chối"
 
+#, fuzzy
+#~ msgid "select scanner transmissive ICM-profile"
+#~ msgstr "Xóa máy in"
+
+#, fuzzy
+#~ msgid "select scanner transmissive gray ICM-profile"
+#~ msgstr "Xóa máy in"
+
+#, fuzzy
+#~ msgid "Scanner reflective ICM-profile"
+#~ msgstr "Xóa máy in"
+
+#, fuzzy
+#~ msgid "Scanner reflective gray ICM-profile"
+#~ msgstr "Xóa máy in"
+
+#, fuzzy
+#~ msgid "Scanner transmissive gray ICM-profile"
+#~ msgstr "Xóa máy in"
+
+#, fuzzy
+#~ msgid "Scanner reflektive ICM-profile"
+#~ msgstr "Xóa máy in"
+
+#, fuzzy
+#~ msgid "Browse for scanner transmissive ICM-profile"
+#~ msgstr "Duyệt tên tập tin ảnh"
+
+#, fuzzy
+#~ msgid "Browse for scanner transmissive gray ICM-profile"
+#~ msgstr "Duyệt tên tập tin ảnh"
+
+#~ msgid "GIMP can't handle depth %d bits/color"
+#~ msgstr "GIMP không thể xử lý độ sâu %d bit/màu"
+
+#, fuzzy
+#~ msgid "scanner reflective ICM profile"
+#~ msgstr "Xóa máy in"
+
+#, fuzzy
+#~ msgid "Embed scanner/source ICM profile for GIMP"
+#~ msgstr "Xóa máy in"
+
+#~ msgid "Enter name of fax project"
+#~ msgstr "Nhập tên cho dự án Fax"
+
+#, fuzzy
+#~ msgid "Enter name of e-mail project"
+#~ msgstr "Nhập tên dự án thư"
+
+#, fuzzy
+#~ msgid "Enter name of multipage project"
+#~ msgstr "Nhập tên dự án thư"
+
+#~ msgid ""
+#~ "Gimp does not support depth 16 bits/color.\n"
+#~ "Do you want to reduce the depth to 8 bits/color?"
+#~ msgstr ""
+#~ "Gimp không hỗ trợ độ sâu màu 16 bit.\n"
+#~ "Có muốn hạ xuống 8 bit không ?"
+
 #~ msgid "XSane mode"
 #~ msgstr "Chế độ XSane"
 
@@ -3270,9 +3435,6 @@ msgstr "Truy cập đến nguồn bị từ chối"
 #, fuzzy
 #~ msgid "Multipage saving aborted"
 #~ msgstr "Mail project được tạo"
-
-#~ msgid "Image"
-#~ msgstr "Ảnh"
 
 #~ msgid "Viewer (png):"
 #~ msgstr "Trình xem (png):"

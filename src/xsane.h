@@ -71,6 +71,8 @@
 
 #ifdef HAVE_LIBLCMS
 # include "lcms.h"
+#else
+# define cmsHTRANSFORM void *
 #endif
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -89,7 +91,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.992"
+#define XSANE_VERSION		"0.993"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2007"
@@ -385,7 +387,7 @@ typedef struct Image_info
     int image_height;
 
     int depth;
-    int colors;
+    int channels;
 
     double resolution_x;
     double resolution_y;
@@ -408,6 +410,13 @@ typedef struct Image_info
     double threshold;
 
     int reduce_to_lineart;
+
+    int enable_color_management;
+    int cms_function;
+    int cms_intent;
+    int cms_bpc;
+
+    char icm_profile[PATH_MAX];
   }
 Image_info;
 
@@ -473,7 +482,14 @@ enum
   EMAIL_AUTH_ASMTP_LOGIN,
   EMAIL_AUTH_ASMTP_CRAM_MD5
 };
-                                                                                                                 
+
+enum
+{
+  XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE = 0,
+  XSANE_CMS_FUNCTION_CONVERT_TO_SRGB,
+  XSANE_CMS_FUNCTION_CONVERT_TO_WORKING_CS
+};
+
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 extern void xsane_pref_save(void);
@@ -744,6 +760,9 @@ typedef struct Xsane
     GtkWidget *filename_entry;
     GtkWidget *filetype_option_menu;
 
+    /* for all modes */
+    GtkWidget *cms_function_option_menu;
+
     /* saving and transformation values: */
     FILE *out;
     int xsane_mode;
@@ -838,7 +857,7 @@ typedef struct Xsane
     GtkWidget *contrast_blue_widget;
     GtkWidget *threshold_widget;
 
-    SANE_Int xsane_colors;
+    SANE_Int xsane_channels;
     SANE_Bool scanner_gamma_color;
     SANE_Bool scanner_gamma_gray;
 
@@ -954,9 +973,9 @@ typedef struct Xsane
     int show_preview;
 
     int enable_color_management; 
-    int embed_icm_profile;
-    char *scanner_refl_icm_profile;
-    char *scanner_tran_icm_profile;
+    char *scanner_active_icm_profile;
+    char *scanner_default_color_icm_profile;
+    char *scanner_default_gray_icm_profile;
 
     int print_filenames;
     int force_filename;
@@ -989,9 +1008,11 @@ typedef struct XsaneSetup
   GtkWidget *printer_gamma_green_entry;
   GtkWidget *printer_gamma_blue_entry;
   GtkWidget *printer_icm_profile_entry;
+  GtkWidget *printer_embed_csa_button;
+  GtkWidget *printer_embed_crd_button;
   GtkWidget *printer_width_entry;
   GtkWidget *printer_height_entry;
-  GtkWidget *printer_ps_flatdecoded_button;
+  GtkWidget *printer_ps_flatedecoded_button;
 
   GtkWidget *jpeg_image_quality_scale;
   GtkWidget *png_image_compression_scale;
@@ -1000,8 +1021,8 @@ typedef struct XsaneSetup
   GtkWidget *overwrite_warning_button;
   GtkWidget *increase_filename_counter_button;
   GtkWidget *skip_existing_numbers_button;
-  GtkWidget *save_ps_flatdecoded_button;
-  GtkWidget *save_pdf_flatdecoded_button;
+  GtkWidget *save_ps_flatedecoded_button;
+  GtkWidget *save_pdf_flatedecoded_button;
   GtkWidget *save_pnm16_as_ascii_button;
   GtkWidget *reduce_16bit_to_8bit_button;
 
@@ -1035,7 +1056,7 @@ typedef struct XsaneSetup
   GtkWidget *fax_leftoffset_entry;
   GtkWidget *fax_bottomoffset_entry;
   GtkWidget *fax_height_entry;
-  GtkWidget *fax_ps_flatdecoded_button;
+  GtkWidget *fax_ps_flatedecoded_button;
 
   GtkWidget *tmp_path_entry;
 
@@ -1056,11 +1077,14 @@ typedef struct XsaneSetup
   GtkWidget *ocr_gui_outfd_option_entry;
   GtkWidget *ocr_progress_keyword_entry;
 
-  GtkWidget *embed_icm_profile_button;
-  GtkWidget *scanner_refl_icm_profile_entry;
-  GtkWidget *scanner_tran_icm_profile_entry;
+  GtkWidget *cms_intent_option_menu;
+  GtkWidget *cms_bpc_button;
+  GtkWidget *embed_scanner_icm_profile_for_gimp_button;
+  GtkWidget *scanner_default_color_icm_profile_entry;
+  GtkWidget *scanner_default_gray_icm_profile_entry;
   GtkWidget *display_icm_profile_entry;
   GtkWidget *custom_proofing_icm_profile_entry;
+  GtkWidget *working_color_space_icm_profile_entry;
 
   int filename_counter_len;
 

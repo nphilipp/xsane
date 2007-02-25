@@ -55,6 +55,7 @@ void xsane_multipage_dialog_close(void);
 void xsane_multipage_project_save(void);
 static gint xsane_multipage_dialog_delete();
 static void xsane_multipage_filetype_callback(GtkWidget *filetype_option_menu, char *filetype);
+static void xsane_multipage_project_browse_filename_callback(GtkWidget *widget, gpointer data);
 static void xsane_multipage_project_changed_callback(GtkWidget *widget, gpointer data);
 static void xsane_multipage_project_load(void);
 static void xsane_multipage_project_delete(void);
@@ -94,13 +95,11 @@ void xsane_multipage_dialog()
  GtkWidget *multipage_project_exists_hbox, *button;
  GtkWidget *hbox;
  GtkWidget *scrolled_window, *list;
- GtkWidget *pixmapwidget, *text;
+ GtkWidget *text;
  GtkWidget *pages_frame;
  GtkWidget *label;
  GtkWidget *filetype_menu, *filetype_item;
  GtkWidget *filetype_option_menu;
- GdkPixmap *pixmap;
- GdkBitmap *mask;
  char buf[64];
  int filetype_nr;
  int select_item;
@@ -133,10 +132,8 @@ void xsane_multipage_dialog()
   gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
   gtk_box_pack_start(GTK_BOX(multipage_scan_vbox), hbox, FALSE, FALSE, 1);
 
-  pixmap = gdk_pixmap_create_from_xpm_d(xsane.dialog->window, &mask, xsane.bg_trans, (gchar **) multipage_xpm);
-  pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
-  gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
-  gdk_drawable_unref(pixmap);
+  button = xsane_button_new_with_pixmap(xsane.dialog->window, hbox, multipage_xpm, DESC_MULTIPAGE_PROJECT_BROWSE,
+                                                    (GtkSignalFunc) xsane_multipage_project_browse_filename_callback, NULL);
 
   text = gtk_entry_new();
   xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_MULTIPAGE_PROJECT);
@@ -148,7 +145,6 @@ void xsane_multipage_dialog()
   xsane.project_entry = text;
   xsane.project_entry_box = hbox;
 
-  gtk_widget_show(pixmapwidget);
   gtk_widget_show(text);
   gtk_widget_show(hbox);
 
@@ -579,6 +575,65 @@ static void xsane_multipage_project_create()
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+void xsane_multipage_project_set_filename(gchar *filename)
+{
+  g_signal_handlers_block_by_func(GTK_OBJECT(xsane.project_entry), (GtkSignalFunc) xsane_multipage_project_changed_callback, NULL);
+  gtk_entry_set_text(GTK_ENTRY(xsane.project_entry), (char *) filename); /* update filename in entry */
+  gtk_entry_set_position(GTK_ENTRY(xsane.project_entry), strlen(filename)); /* set cursor to right position of filename */
+
+  g_signal_handlers_unblock_by_func(GTK_OBJECT(xsane.project_entry), (GtkSignalFunc) xsane_multipage_project_changed_callback, NULL);
+}
+
+/* ----------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_multipage_project_browse_filename_callback(GtkWidget *widget, gpointer data)
+{
+ char filename[PATH_MAX];
+ char windowname[TEXTBUFSIZE];
+
+  DBG(DBG_proc, "xsane_multipage_project_browse_filename_callback\n");
+
+  xsane_set_sensitivity(FALSE);
+
+  if (preferences.multipage_project) /* make sure a correct filename is defined */
+  {
+    strncpy(filename, preferences.multipage_project, sizeof(filename));
+    filename[sizeof(filename) - 1] = '\0';
+  }
+  else /* no filename given, take standard filename */
+  {
+    strcpy(filename, OUT_FILENAME);
+  }
+
+  snprintf(windowname, sizeof(windowname), "%s %s %s", xsane.prog_name, WINDOW_MULTIPAGE_PROJECT_BROWSE, xsane.device_text);
+
+  umask((mode_t) preferences.directory_umask); /* define new file permissions */
+  if (!xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, NULL, NULL, XSANE_FILE_CHOOSER_ACTION_SELECT_PROJECT, XSANE_GET_FILENAME_SHOW_NOTHING, 0, 0))
+  {
+
+    if (preferences.multipage_project)
+    {
+      free((void *) preferences.multipage_project);
+    }
+
+    preferences.multipage_project = strdup(filename);
+
+    xsane_set_sensitivity(TRUE);
+    xsane_multipage_project_set_filename(filename);
+
+    xsane_multipage_project_load();
+  }
+  else
+  {
+    xsane_set_sensitivity(TRUE);
+  }
+  umask(XSANE_DEFAULT_UMASK); /* define new file permissions */
+
+}
+                                                  
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 static void xsane_multipage_project_changed_callback(GtkWidget *widget, gpointer data)
 {
   DBG(DBG_proc, "xsane_multipage_project_changed_callback\n");
@@ -913,11 +968,11 @@ static void xsane_multipage_save_file()
 
     if (output_format == XSANE_PS)
     {
-      xsane_save_ps_create_document_header(outfile, pages, preferences.save_ps_flatdecoded);
+      xsane_save_ps_create_document_header(outfile, pages, preferences.save_ps_flatedecoded);
     }
     else if (output_format == XSANE_PDF)
     {
-      xsane_save_pdf_create_document_header(outfile, &xref, pages, preferences.save_pdf_flatdecoded);
+      xsane_save_pdf_create_document_header(outfile, &xref, pages, preferences.save_pdf_flatedecoded);
     }
   }
 #ifdef HAVE_LIBTIFF
@@ -1032,7 +1087,8 @@ static void xsane_multipage_save_file()
       xsane_save_ps_page(outfile, page,
                          imagefile, &image_info, imagewidth, imageheight,
                          0, 0, imagewidth, imageheight, 0 /* portrait top left */,
-                         preferences.save_ps_flatdecoded,
+                         preferences.save_ps_flatedecoded,
+                         NULL /* hTransform */, 0 /* embed_scanner_icm_profile */,
                          xsane.project_progress_bar, &cancel_save);
     }
     else if (output_format == XSANE_PDF)
@@ -1043,14 +1099,31 @@ static void xsane_multipage_save_file()
       xsane_save_pdf_page(outfile, &xref, page,
                          imagefile, &image_info, imagewidth, imageheight,
                          0, 0, imagewidth, imageheight, 0 /* portrait top left */,
-                         preferences.save_pdf_flatdecoded,
+                         preferences.save_pdf_flatedecoded,
+                         NULL /* hTransform */, 0 /* embed_scanner_icm_profile */, 0 /* icc_object */,
                          xsane.project_progress_bar, &cancel_save);
     }
 #ifdef HAVE_LIBTIFF
     else if (output_format == XSANE_TIFF)
     {
-      xsane_save_tiff_page(tiffile, page, pages, imagefile, &image_info, preferences.jpeg_quality,
+     cmsHTRANSFORM hTransform = NULL;
+
+#ifdef HAVE_LIBLCMS
+      if ( (preferences.cms_function != XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE)  && xsane.enable_color_management )
+      {
+        hTransform = xsane_create_cms_transform(&image_info, preferences.cms_function, preferences.cms_intent, preferences.cms_bpc);
+      }
+#endif
+
+      xsane_save_tiff_page(tiffile, page, pages, preferences.jpeg_quality, imagefile, &image_info,
+                           hTransform, xsane.enable_color_management, preferences.cms_function, 
                            xsane.project_progress_bar, &cancel_save);
+#ifdef HAVE_LIBLCMS
+      if (hTransform != NULL)
+      {
+        cmsDeleteTransform(hTransform);
+      }
+#endif
     }
 #endif
 

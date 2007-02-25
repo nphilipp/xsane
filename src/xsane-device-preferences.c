@@ -103,10 +103,9 @@ desc_xsane_device[] =
     {"xsane-negative",                xsane_rc_pref_int,          DPOFFSET(negative)},
     {"xsane-show-preview",            xsane_rc_pref_int,          DPOFFSET(show_preview)},
 
-    {"xsane-enable-color-management", xsane_rc_pref_int,          DPOFFSET(enable_color_management)},
-    {"xsane-embed-icm-profile",       xsane_rc_pref_int,          DPOFFSET(embed_icm_profile)},
-    {"xsane-scanner-refl-icm-profile", xsane_rc_pref_string,      DPOFFSET(scanner_refl_icm_profile)},
-    {"xsane-scanner-tran-icm-profile", xsane_rc_pref_string,      DPOFFSET(scanner_tran_icm_profile)},
+    {"xsane-enable-color-management",		xsane_rc_pref_int,	DPOFFSET(enable_color_management)},
+    {"xsane-scanner-default-color-icm-profile",	xsane_rc_pref_string,   DPOFFSET(scanner_default_color_icm_profile)},
+    {"xsane-scanner-default-gray-icm-profile",	xsane_rc_pref_string,	DPOFFSET(scanner_default_gray_icm_profile)},
 };
 
 /* ---------------------------------------------------------------------------------------------------------------- */
@@ -441,8 +440,6 @@ void xsane_device_preferences_load_file(char *filename)
   xsane.negative                    = 0;
   xsane.show_preview                = 1;
 
-  xsane.embed_icm_profile           = 0;
-
   fd = open(filename, O_RDONLY); 
   if (fd >= 0)
   {
@@ -632,7 +629,7 @@ void xsane_device_preferences_load(void)
   sprintf(windowname, "%s %s %s", xsane.prog_name, WINDOW_LOAD_SETTINGS, xsane.device_text);
   xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", 0, 0, xsane.device_set_filename, ".drc", XSANE_PATH_LOCAL_SANE);
 
-  if (!xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, NULL, FALSE, FALSE, FALSE, FALSE))
+  if (!xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, NULL, NULL, XSANE_FILE_CHOOSER_ACTION_OPEN, FALSE, XSANE_FILE_FILTER_ALL | XSANE_FILE_FILTER_DRC, XSANE_FILE_FILTER_DRC))
   {
     xsane_device_preferences_load_file(filename);
   }
@@ -783,7 +780,7 @@ void xsane_device_preferences_save(void)
   sprintf(windowname, "%s %s %s", xsane.prog_name, WINDOW_SAVE_SETTINGS, xsane.device_text);
   xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", 0, 0, xsane.device_set_filename, ".drc", XSANE_PATH_LOCAL_SANE);
 
-  if (!xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, NULL, FALSE, FALSE, FALSE, FALSE))
+  if (!xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, NULL, NULL, XSANE_FILE_CHOOSER_ACTION_SAVE, FALSE, XSANE_FILE_FILTER_ALL | XSANE_FILE_FILTER_DRC, XSANE_FILE_FILTER_DRC))
   {
     xsane_device_preferences_save_file(filename);
   }

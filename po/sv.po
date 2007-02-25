@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.92\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-15 20:42+0100\n"
+"POT-Creation-Date: 2007-02-25 23:44+0100\n"
 "PO-Revision-Date: 2003-08-03 14:12+01:00\n"
 "Last-Translator: Johan Bengtsson <jb@goteborg.bostream.se>\n"
 "Language-Team: LANGUAGE <sv@li.org>\n"
@@ -73,6 +73,11 @@ msgstr "byt namn på massinläsningsområde"
 msgid "fax project"
 msgstr "faxprojekt"
 
+#. WINDOW_FAX_PROJECT_BROWSE
+#, fuzzy
+msgid "browse for fax project"
+msgstr "Skriv in namn för faxprojekt"
+
 #. WINDOW_FAX_RENAME
 msgid "rename fax page"
 msgstr "byt namn på faxsida"
@@ -85,6 +90,11 @@ msgstr "infoga ps-fil i fax"
 #, fuzzy
 msgid "E-mail project"
 msgstr "brevprojekt"
+
+#. WINDOW_EMAIL_PROJECT_BROWSE
+#, fuzzy
+msgid "browse for email project"
+msgstr "Skriv in namn för brevprojekt"
 
 #. WINDOW_EMAIL_RENAME
 #, fuzzy
@@ -99,6 +109,11 @@ msgstr "infoga fil i brev"
 #. WINDOW_MULTIPAGE_PROJECT
 #, fuzzy
 msgid "multipage project"
+msgstr "Ta bort projekt"
+
+#. WINDOW_MULTIPAGE_PROJECT_BROWSE
+#, fuzzy
+msgid "browse for multipage project"
 msgstr "Ta bort projekt"
 
 #. WINDOW_PRESET_AREA_RENAME
@@ -204,14 +219,14 @@ msgstr "Lagra mediedefinition"
 msgid "No devices available"
 msgstr "Inga enheter tillgängliga"
 
-#. WINDOW_SCANNER_REFL_ICM_PROFILE
+#. WINDOW_SCANNER_DEFAULT_COLOR_ICM_PROFILE
 #, fuzzy
-msgid "select scanner reflective ICM-profile"
+msgid "select scanner default color ICM-profile"
 msgstr "Ta bort skrivare"
 
-#. WINDOW_SCANNER_TRAN_ICM_PROFILE
+#. WINDOW_SCANNER_DEFAULT_GRAY_ICM_PROFILE
 #, fuzzy
-msgid "select scanner transmissive ICM-profile"
+msgid "select scanner default gray ICM-profile"
 msgstr "Ta bort skrivare"
 
 #. WINDOW_DISPLAY_ICM_PROFILE
@@ -222,6 +237,11 @@ msgstr ""
 #, fuzzy
 msgid "select custom proofing ICM-profile"
 msgstr "till filnamn"
+
+#. WINDOW_WORKING_COLOR_SPACE_ICM_PROFILE
+#, fuzzy
+msgid "select working color space ICM-profile"
+msgstr "Ta bort skrivare"
 
 #. WINDOW_PRINTER_ICM_PROFILE
 #, fuzzy
@@ -495,11 +515,11 @@ msgstr "Överskriftsvarning"
 msgid "Skip existing filenames"
 msgstr "Hoppa över existerande filnamn"
 
-#. RADIO_BUTTON_SAVE_PS_FLATDECODED
+#. RADIO_BUTTON_SAVE_PS_FLATEDECODED
 msgid "Save postscript zlib compressed (ps level 3)"
 msgstr ""
 
-#. RADIO_BUTTON_SAVE_PDF_FLATDECODED
+#. RADIO_BUTTON_SAVE_PDF_FLATEDECODED
 msgid "Save PDF zlib compressed"
 msgstr ""
 
@@ -516,7 +536,8 @@ msgid "Main window size fixed"
 msgstr "Fixerad storlek på huvudfönster"
 
 #. RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA
-msgid "Disable gimp preview gamma"
+#, fuzzy
+msgid "Disable GIMP preview gamma"
 msgstr "Koppla bort förhandsgranskningsgamma"
 
 #. RADIO_BUTTON_PRIVATE_COLORMAP
@@ -539,8 +560,9 @@ msgstr "Autokorrigera färger"
 msgid "Use GUI progress pipe"
 msgstr "Använd GUI statuslinje"
 
-#. RADIO_BUTTON_EMBED_ICM_PROFILE
-msgid "Embed scanner/source ICM profile into image file"
+#. RADIO_BUTTON_CMS_BPC
+#. MENU_ITEM_CMS_BLACK_POINT_COMPENSATION
+msgid "Black point compensation"
 msgstr ""
 
 #. TEXT_SCANNING_DEVICES
@@ -558,6 +580,12 @@ msgstr "XSane-inställningar"
 #. TEXT_FILETYPE
 msgid "Type"
 msgstr "Typ"
+
+#. TEXT_CMS_FUNCTION
+#. DESC_CMS_FUNCTION
+#, fuzzy
+msgid "Color management function"
+msgstr "Fullt färgomfång"
 
 #. TEXT_SCANNER_BACKEND
 msgid "Scanner and backend:"
@@ -631,18 +659,11 @@ msgstr "8 bits utmatningsformat:"
 msgid "16 bit output formats:"
 msgstr "16 bits utmatningsformat:"
 
-#. TEXT_GIMP_REDUCE_16BIT_TO_8BIT
-msgid ""
-"Gimp does not support depth 16 bits/color.\n"
-"Do you want to reduce the depth to 8 bits/color?"
-msgstr ""
-"Gimp stöder inte 16 bits färgdjup. \n"
-"Vill du reducera till 8 bits färgdjup?"
-
 #. TEXT_REDUCE_16BIT_TO_8BIT
+#, fuzzy
 msgid ""
-"Bit depth 16 bits/color is not supported for this output format.\n"
-"Do you want to reduce the depth to 8 bits/color?"
+"Bit depth 16 bits/channel is not supported for this output format.\n"
+"Do you want to reduce the depth to 8 bits/channel?"
 msgstr ""
 "16 bits färgdjup stöds inte för detta utmatnings format.\n"
 "Vill du reducera till 8 bits färgdjup?"
@@ -819,9 +840,10 @@ msgid "Medium Name:"
 msgstr "Namn på medium:"
 
 #. TEXT_VIEWER_IMAGE_INFO
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
+"Size %d x %d pixel, %d bits/channel, %d channels, %1.0f dpi x %1.0f dpi, %"
+"1.1f %s"
 msgstr ""
 "Storlek %d x %d pixlar, %d bit/färg, %d färger, %1.0f dpi x %1.0f dpi, %1.1f "
 "%s"
@@ -931,7 +953,17 @@ msgstr "Skrivargamma grön:"
 msgid "Printer gamma blue:"
 msgstr "Skrivargamma blå:"
 
-#. TEXT_SETUP_PRINTER_PS_FLATDECODED
+#. TEXT_SETUP_PRINTER_EMBED_CSA
+#, fuzzy
+msgid "Embed scanner ICM profile as CSA"
+msgstr "Ta bort skrivare"
+
+#. TEXT_SETUP_PRINTER_EMBED_CRD
+#, fuzzy
+msgid "Embed printer ICM profile as CRD"
+msgstr "Ta bort skrivare"
+
+#. TEXT_SETUP_PRINTER_PS_FLATEDECODED
 msgid "Create zlib compressed postscript image (ps level 3) for printing"
 msgstr ""
 
@@ -1056,7 +1088,7 @@ msgstr "Sätt standardinställningar för:"
 msgid "Viewer (Postscript):"
 msgstr "Visare (Postscript):"
 
-#. TEXT_SETUP_FAX_PS_FLATDECODED
+#. TEXT_SETUP_FAX_PS_FLATEDECODED
 msgid "Create zlib compressed postscript image (ps level 3) for fax"
 msgstr ""
 
@@ -1135,15 +1167,17 @@ msgstr "grupp"
 msgid "all"
 msgstr "alla"
 
-#. TEXT_SETUP_SCANNER_REFL_ICM_PROFILE
+#. TEXT_SETUP_SCANNER_DEFAULT_COLOR_ICM_PROFILE
+#. DESC_SCANNER_DEFAULT_COLOR_ICM_PROFILE
 #, fuzzy
-msgid "Scanner reflective ICM-profile"
+msgid "Scanner default color ICM-profile"
 msgstr "Ta bort skrivare"
 
-#. TEXT_SETUP_SCANNER_TRAN_ICM_PROFILE
-#. DESC_SCANNER_TRAN_ICM_PROFILE
-msgid "Scanner transmissive ICM-profile"
-msgstr ""
+#. TEXT_SETUP_SCANNER_DEFAULT_GRAY_ICM_PROFILE
+#. DESC_SCANNER_DEFAULT_GRAY_ICM_PROFILE
+#, fuzzy
+msgid "Scanner default gray ICM-profile"
+msgstr "Ta bort skrivare"
 
 #. TEXT_SETUP_DISPLAY_ICM_PROFILE
 #. DESC_DISPLAY_ICM_PROFILE
@@ -1155,6 +1189,12 @@ msgstr ""
 #, fuzzy
 msgid "Custom proofing ICM-profile"
 msgstr "Ta bort skrivare"
+
+#. TEXT_SETUP_WORKING_COLOR_SPACE_ICM_PROFILE
+#. DESC_WORKING_COLOR_SPACE_ICM_PROFILE
+#, fuzzy
+msgid "Working color space ICM-profile"
+msgstr "Bläddra efter filnamn"
 
 #. TEXT_SETUP_PRINTER_ICM_PROFILE
 #. DESC_PRINTER_ICM_PROFILE
@@ -1327,10 +1367,6 @@ msgstr "Bildinläsningstips"
 #. MENU_ITEM_PROBLEMS
 msgid "Problems?"
 msgstr "Problem?"
-
-#. MENU_ITEM_CMS_BLACK_POINT_COMPENSATION
-msgid "Black point compensation"
-msgstr ""
 
 #. MENU_ITEM_CMS_PROOFING
 #, fuzzy
@@ -1535,6 +1571,20 @@ msgstr ""
 msgid "ASMTP CRAM-MD5"
 msgstr ""
 
+#. MENU_ITEM_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE
+#, fuzzy
+msgid "Embed scanner ICM profile"
+msgstr "Ta bort skrivare"
+
+#. MENU_ITEM_CMS_FUNCTION_CONVERT_TO_SRGB
+msgid "Convert to sRGB"
+msgstr ""
+
+#. MENU_ITEM_FUNCTION_CONVERT_TO_WORKING_CS
+#, fuzzy
+msgid "Convert to working color space"
+msgstr "Autokorrigera färger"
+
 #. PROGRESS_SCANNING
 msgid "Scanning"
 msgstr "Läser in"
@@ -1593,6 +1643,11 @@ msgstr "Sudda till bild"
 msgid "OCR in progress"
 msgstr "OCR pågår"
 
+#. PROGRESS_ICM_CONVERSION
+#, fuzzy
+msgid "converting colors"
+msgstr "Autokorrigera färger"
+
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
 msgstr "Starta inläsning <Ctrl-Enter>"
@@ -1647,8 +1702,9 @@ msgstr ""
 "Typ av bildformat, den passande filändelsen läggs automatiskt till filnamnet"
 
 #. DESC_FAXPROJECT
-msgid "Enter name of fax project"
-msgstr "Skriv in namn för faxprojekt"
+#, fuzzy
+msgid "Enter fax project directory name"
+msgstr "Bläddra efter temporär katalog"
 
 #. DESC_FAXPAGENAME
 msgid "Enter new name for faxpage"
@@ -1658,10 +1714,15 @@ msgstr "Skriv in nytt namn för faxsida"
 msgid "Enter receiver phone number or address"
 msgstr "Skriv in mottagarens telefonnummer eller adress"
 
+#. DESC_FAX_PROJECT_BROWSE
+#, fuzzy
+msgid "Browse for fax project directory"
+msgstr "Bläddra efter temporär katalog"
+
 #. DESC_EMAIL_PROJECT
 #, fuzzy
-msgid "Enter name of e-mail project"
-msgstr "Skriv in namn för brevprojekt"
+msgid "Enter e-mail project directory name"
+msgstr "Bläddra efter temporär katalog"
 
 #. DESC_EMAIL_IMAGENAME
 #, fuzzy
@@ -1672,6 +1733,11 @@ msgstr "Skriv in nytt namn för brevbild"
 #, fuzzy
 msgid "Enter e-mail address"
 msgstr "Skriv in epost adress"
+
+#. DESC_EMAIL_PROJECT_BROWSE
+#, fuzzy
+msgid "Browse for email project directory"
+msgstr "Bläddra efter temporär katalog"
 
 #. DESC_EMAIL_SUBJECT
 #, fuzzy
@@ -1684,8 +1750,13 @@ msgstr ""
 
 #. DESC_MULTIPAGE_PROJECT
 #, fuzzy
-msgid "Enter name of multipage project"
-msgstr "Skriv in namn för brevprojekt"
+msgid "Enter multipage project directory name"
+msgstr "Bläddra efter temporär katalog"
+
+#. DESC_MULTIPAGE_PROJECT_BROWSE
+#, fuzzy
+msgid "Browse for multipage project directory"
+msgstr "Bläddra efter temporär katalog"
 
 #. DESC_MULTIPAGE_FILETYPE
 #, fuzzy
@@ -1930,9 +2001,17 @@ msgstr "Extra gammavärde för den gröna komponeneten vid fotokopiering"
 msgid "Additional gamma value for blue component for photocopy"
 msgstr "Extra gammavärde för den blåa komponeneten vid fotokopiering"
 
-#. DESC_PRINTER_PS_FLATDECODED
+#. DESC_PRINTER_EMBED_CSA
+msgid "Creates a postsciptfile that contains the ICM profile of the scanner"
+msgstr ""
+
+#. DESC_PRINTER_EMBED_CRD
+msgid "Creates a postsciptfile that contains the ICM profile of the printer"
+msgstr ""
+
+#. DESC_PRINTER_PS_FLATEDECODED
 msgid ""
-"Create zlib compressed postscript image for printer (flatdecode).\n"
+"Create zlib compressed postscript image for printer (flatedecode).\n"
 "The printer has to understand postscript level 3!"
 msgstr ""
 
@@ -1989,14 +2068,14 @@ msgid ""
 msgstr ""
 "Om filnamnsräknaren automatiskt uppdateras, så hoppas använda nummer över"
 
-#. DESC_SAVE_PS_FLATDECODED
+#. DESC_SAVE_PS_FLATEDECODED
 msgid ""
-"compress postscript image with zlib algorithm (flatdecode). When you want to "
-"print such a file your printer has to understand postscript level 3"
+"compress postscript image with zlib algorithm (flatedecode). When you want "
+"to print such a file your printer has to understand postscript level 3"
 msgstr ""
 
-#. DESC_SAVE_PDF_FLATDECODED
-msgid "compress PDF image with zlib algorithm (flatdecode)."
+#. DESC_SAVE_PDF_FLATEDECODED
+msgid "compress PDF image with zlib algorithm (flatedecode)."
 msgstr ""
 
 #. DESC_SAVE_PNM16_AS_ASCII
@@ -2012,7 +2091,9 @@ msgstr ""
 "producerar väldigt stora filer!!!"
 
 #. DESC_REDUCE_16BIT_TO_8BIT
-msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
+#, fuzzy
+msgid ""
+"If scanner sends image with 16 bits/channel save image with 8 bits/channel"
 msgstr "Spara bild med 8/bits färg om bildläsare skickar bild med 16 bits/färg"
 
 #. DESC_PSFILE_WIDTH
@@ -2046,7 +2127,8 @@ msgstr ""
 "variabel storlek"
 
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
-msgid "Disable preview gamma when XSane runs as gimp plugin"
+#, fuzzy
+msgid "Disable preview gamma when XSane runs as GIMP plugin"
 msgstr ""
 "Koppla bort förhandsgranskningsgamma när XSane körs som gimp insticksprogram"
 
@@ -2148,10 +2230,13 @@ msgstr "Välj inläsningsområde efter förhandsgranskningen är klar"
 msgid "Do color correction after preview scan has finished"
 msgstr "Gör färgkorrigering efter förhansgranskingen är klar"
 
-#. DESC_EMBED_ICM_PROFILE
-msgid ""
-"Embed scanner/source ICM profile into image file - when fileformat supports "
-"it"
+#. DESC_RENDERING_INTENT
+#, fuzzy
+msgid "Select rendering intent for preview and saving"
+msgstr "Välj inläsningsområde efter förhandsgranskningen är klar"
+
+#. DESC_CMS_BPC
+msgid "Apply black point compensation when color transformation is done"
 msgstr ""
 
 #. DESC_FAX_COMMAND
@@ -2182,8 +2267,8 @@ msgstr "Kommando som körs för att visa ett fax"
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
 msgstr "Skicka fax med hög vertikal upplösning (196 lpi istället för 98 lpi)"
 
-#. DESC_FAX_PS_FLATDECODED
-msgid "Create zlib compressed postscript image for fax (flatdecode)"
+#. DESC_FAX_PS_FLATEDECODED
+msgid "Create zlib compressed postscript image for fax (flatedecode)"
 msgstr ""
 
 #. DESC_SMTP_SERVER
@@ -2435,19 +2520,14 @@ msgstr "Ta bort det makerade området fråm massinläsningslistan"
 msgid "Turns on automatic mode"
 msgstr "Aktiverar automatläge"
 
-#. DESC_SCANNER_REFL_ICM_PROFILE
+#. DESC_BUTTON_SCANNER_DEFAULT_COLOR_ICM_PROFILE_BROWSE
 #, fuzzy
-msgid "Scanner reflektive ICM-profile"
-msgstr "Ta bort skrivare"
-
-#. DESC_BUTTON_SCANNER_REFL_ICM_PROFILE_BROWSE
-#, fuzzy
-msgid "Browse for scanner reflektive ICM-profile"
+msgid "Browse for scanner default color ICM-profile"
 msgstr "Bläddra efter filnamn"
 
-#. DESC_BUTTON_SCANNER_TRAN_ICM_PROFILE_BROWSE
+#. DESC_BUTTON_SCANNER_DEFAULT_GRAY_ICM_PROFILE_BROWSE
 #, fuzzy
-msgid "Browse for scanner transmissive ICM-profile"
+msgid "Browse for scanner default gray ICM-profile"
 msgstr "Bläddra efter filnamn"
 
 #. DESC_BUTTON_DISPLAY_ICM_PROFILE_BROWSE
@@ -2463,6 +2543,11 @@ msgstr "Bläddra efter filnamn"
 #. DESC_BUTTON_CUSTOM_PROOFING_ICM_PROFILE_BROWSE
 #, fuzzy
 msgid "Browse for custom proofing ICM-profile"
+msgstr "Bläddra efter filnamn"
+
+#. DESC_BUTTON_WORKING_COLOR_SPACE_ICM_PROFILE_BROWSE
+#, fuzzy
+msgid "Browse for working color space ICM-profile"
 msgstr "Bläddra efter filnamn"
 
 #. ERR_HOME_DIR
@@ -2516,11 +2601,6 @@ msgstr "Fel under spararande:"
 #. ERR_BAD_DEPTH
 msgid "Can't handle depth"
 msgstr "Kan inte hantera bilddjup"
-
-#. ERR_GIMP_BAD_DEPTH
-#, c-format
-msgid "GIMP can't handle depth %d bits/color"
-msgstr "GIMP kan inte hantera bilddjup med %d bits/färg"
 
 #. ERR_UNKNOWN_SAVING_FORMAT
 msgid "Unknown file format for saving"
@@ -2765,13 +2845,9 @@ msgstr "Fel under spararande:"
 msgid "Could not open"
 msgstr "Kunde inte öppna"
 
-#. CMS_SCANNER_TRAN_ICM
-msgid "scanner transmissive ICM profile"
-msgstr ""
-
-#. CMS_SCANNER_REFL_ICM
+#. CMS_SCANNER_ICM
 #, fuzzy
-msgid "scanner reflective ICM profile"
+msgid "scanner ICM profile"
 msgstr "Ta bort skrivare"
 
 #. CMS_DISPLAY_ICM
@@ -2792,6 +2868,34 @@ msgstr "Kunde inte skapa temporär fil"
 #. WARN_VIEWER_IMAGE_NOT_SAVED
 msgid "viewer image is not saved"
 msgstr "visarbild sparas inte"
+
+#. FILE_FILTER_ALL_FILES
+msgid "All files"
+msgstr ""
+
+#. FILE_FILTER_IMAGES
+#, fuzzy
+msgid "Images"
+msgstr "Bild"
+
+#. FILE_FILTER_XBL
+#, fuzzy
+msgid "XSane batch list"
+msgstr "Spara massinläsningslista"
+
+#. FILE_FILTER_ICM
+msgid "ICC/ICM Profiles"
+msgstr ""
+
+#. FILE_FILTER_DRC
+#, fuzzy
+msgid "XSane device preferences"
+msgstr "Spara inställningar när programmet avslutas"
+
+#. FILE_FILTER_RC
+#, fuzzy
+msgid "XSane preferences"
+msgstr "Inställningar"
 
 #. TEXT_USAGE
 msgid "Usage:"
@@ -3177,6 +3281,67 @@ msgid "Access to resource has been denied"
 msgstr "Tillgång till resurs nekas"
 
 #, fuzzy
+#~ msgid "select scanner transmissive ICM-profile"
+#~ msgstr "Ta bort skrivare"
+
+#, fuzzy
+#~ msgid "select scanner transmissive gray ICM-profile"
+#~ msgstr "Ta bort skrivare"
+
+#, fuzzy
+#~ msgid "Scanner reflective ICM-profile"
+#~ msgstr "Ta bort skrivare"
+
+#, fuzzy
+#~ msgid "Scanner reflective gray ICM-profile"
+#~ msgstr "Ta bort skrivare"
+
+#, fuzzy
+#~ msgid "Scanner transmissive gray ICM-profile"
+#~ msgstr "Ta bort skrivare"
+
+#, fuzzy
+#~ msgid "Scanner reflektive ICM-profile"
+#~ msgstr "Ta bort skrivare"
+
+#, fuzzy
+#~ msgid "Browse for scanner transmissive ICM-profile"
+#~ msgstr "Bläddra efter filnamn"
+
+#, fuzzy
+#~ msgid "Browse for scanner transmissive gray ICM-profile"
+#~ msgstr "Bläddra efter filnamn"
+
+#~ msgid "GIMP can't handle depth %d bits/color"
+#~ msgstr "GIMP kan inte hantera bilddjup med %d bits/färg"
+
+#, fuzzy
+#~ msgid "scanner reflective ICM profile"
+#~ msgstr "Ta bort skrivare"
+
+#, fuzzy
+#~ msgid "Embed scanner/source ICM profile for GIMP"
+#~ msgstr "Ta bort skrivare"
+
+#~ msgid "Enter name of fax project"
+#~ msgstr "Skriv in namn för faxprojekt"
+
+#, fuzzy
+#~ msgid "Enter name of e-mail project"
+#~ msgstr "Skriv in namn för brevprojekt"
+
+#, fuzzy
+#~ msgid "Enter name of multipage project"
+#~ msgstr "Skriv in namn för brevprojekt"
+
+#~ msgid ""
+#~ "Gimp does not support depth 16 bits/color.\n"
+#~ "Do you want to reduce the depth to 8 bits/color?"
+#~ msgstr ""
+#~ "Gimp stöder inte 16 bits färgdjup. \n"
+#~ "Vill du reducera till 8 bits färgdjup?"
+
+#, fuzzy
 #~ msgid "POP3 authentication"
 #~ msgstr "POP3 autentisering"
 
@@ -3235,9 +3400,6 @@ msgstr "Tillgång till resurs nekas"
 #, fuzzy
 #~ msgid "Multipage saving aborted"
 #~ msgstr "läs"
-
-#~ msgid "Image"
-#~ msgstr "Bild"
 
 #~ msgid "Viewer (png):"
 #~ msgstr "Visare (png):"

@@ -5,7 +5,7 @@
    <meta name="GENERATOR" content="Mozilla/4.74 [en] (X11; U; Linux 2.2.18 i686) [Netscape]">
    <meta name="Author" content="Oliver Rauch">
    <meta name="Description" content="scan, photocopy and fax frontend for SANE">
-   <title>XSane - Fax mode</title>
+   <title>XSane - Color management</title>
 </head>
 <body text="#000000" bgcolor="#FFFFFF" link="#0000EF" vlink="#51188E" alink="#FF0000">
 
@@ -17,7 +17,7 @@
 </td>
 <td>
 <blockquote>
-<h1><font color="#009900">Fax mode</font></h1>
+<h1><u><font color="#009900">Color management</font></u></h1>
 </blockquote>
 </td>
 </tr>
@@ -125,65 +125,118 @@
 
 
 <td VALIGN=TOP BGCOLOR="#FFFFFF">
+<br>
+<center><img SRC="xsane-color-management-main-window.jpg"
+    alt="XSane-main-window-with-color-management"></center>
+<br>
+<br>
 <blockquote>
-<br>
-This mode is a frontend for SANE and for a faxprogram like hylafax or mgetty+sendfax.
-<br>
-You need to have a faxprogram like hylafax(1) or mgetty+sendfax(8)
-installed. The faxcommand and the options must be specified in the menu
-<a href="sane-xsane-setup-fax-doc.html">Preferences/Setup:Fax Options</a>.
-<br>
-<br>
-<br>
-<center><img SRC="xsane-fax.jpg" alt="XSane-main-window"></center>
-<br>
-<br>
+When you scan an image with color management disabled then you often get an image that does not look very good.
+The colors do not look natural, the contrast is bad, the image is too dark etc.
 
+The reason for this is that each device interprets a color e.g. represented by a red, green and blue value in
+its own way.
+<p>
+When you want a display or a printer to produce an image with the colors of a photo that you want to scan with a scanner
+then you need to tell your system how each device interprets colors. This is done with ICC/ICM profiles.
+When you have at least an ICC/ICM profile for your scanner and for your display then you can enable the color management of XSane.
+Please make sure that you filled out the
+<a href="sane-xsane-setup-color-management-doc.html">color management setup</a>
+correct before you enable it, otherwise you will get a lot of error messages.
 <br>
 <br>
-<center><img SRC="xsane-fax-project.jpg" alt="XSane-fax-project-window"></center>
 <br>
+<a NAME="ENABLE_CMS"></a><b>Enable color management:</b><br>
+&nbsp;&nbsp;
+<img SRC="xsane-enable-color-management.jpg" alt="enable-color-management">
 
-<h4>Fine mode:</h4>
 <blockquote>
-The faxpages are always scanned in fine mode (204 dpi * 196 lpi). If
-<i>Fine mode</i> is enabled when the project is sent all pages are sent with
- 196lpi (fine mode), otherwise all pages are sent with 98lpi (normal mode).
+To enable the color management activate it in the <i>Preferences</i> menu.
+When you do this then the gamma, contrast and brightness options are disabled.
 </blockquote>
 
-<h4>Insert file:</h4>
+<a NAME="CMS_FUNCTION"></a><b>Color management function:</b><br>
+&nbsp;&nbsp;
+<img SRC="xsane-cms-function.jpg" alt="cms-function">
 <blockquote>
-You can add an external created postscript file to the fax project. The file is copied
-to the fax project directory.
+There are three different functions available when color management is enabled:
+<ul>
+  <li>
+    <a NAME="EMBED_ICM_PROFILE"></a><b>Embed scanner ICM profile</b>
+    <br>
+    The image is saved with the original image data, no color transformation is
+    done. The ICM profile is embedded to the image file. Programs that support
+    color management know how to correct the colors.
+    <br>
+    Advantages:
+    <ul>
+      <li>no loss of information</li>
+    </ul>
+    Disadvantages:
+    <ul>
+      <li>a lot of programs are not able to handle embedded profiles</li>
+    </ul>
+    Usage:
+    <ul>
+      <li>image archieve, image manipulation with all color corrections,
+      professional printing</li>
+    </ul>
+    <br>
+    When the selected file format does not support the embedded profiles then
+    the image is tranformed to sRGB.
+    <p>
+  </li>
+
+  <li>
+    <a NAME="CONVERT_TO_SRGB"></a><b>Convert to sRGB</b>
+    <br>
+    The image is converted to sRGB, no ICM profile is embedded.
+    <br>
+    Advantages:
+    <ul>
+      <li>all programs can handle the color corrected image</li>
+    </ul>
+    Disadvantages:
+    <ul>
+      <li>sRGB does not cover all visible colors</li>
+      <li>when you do any further color correction then you lose color
+      information that can result in visible color steps</li>
+    </ul>
+    Usage:
+    <ul>
+      <li>web publication, office documents, image manipulation only when no color
+      correction is done, home and office printing</li>
+    </ul>
+    <p>
+  </li>
+
+  <li>
+    <a NAME="CONVERT_TO_WORKING_COLOR_SPACE"></a><b>Convert to working color space</b>
+    <br>
+    The image is converted to the working color space you selected in the color
+    management setup. The ICM profile of the working color space is embedded
+    to the image file.
+    <br>
+    Advantages:
+    <ul>
+      <li>There are color spaces that do cover the visible colors better than sRGB
+      does</li>
+    </ul>
+    Disadvantages:
+    <ul>
+      <li>when you do any further color correction then you lose color
+      information that can result in visible color steps</li>
+    </ul>
+    Usage:
+    <ul>
+      <li>image archieve, image manipulation with (may be limited) color correction,
+      professional printing</li>
+    </ul>
+    <p>
+  </li>
+</ul>
 </blockquote>
 
-<h4>Show page:</h4>
-<blockquote>
-A postscrip viewer is called to display the selected page.
-</blockquote>
-
-<h4>Rename page:</h4>
-<blockquote>
-Rename the selected page.
-</blockquote>
-
-<h4>Delete page:</h4>
-<blockquote>
-Delete the selected page.
-</blockquote>
-
-<h4>Send project:</h4>
-<blockquote>
-Send all pages that are part of the fax project.
-Note that you need a working fax program!
-</blockquote>
-
-<h4>Delete project:</h4>
-<blockquote>
-Delete the fax project .
-</blockquote>
-
-<br>
 </blockquote>
 </td>
 </tr>

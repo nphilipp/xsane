@@ -4240,7 +4240,7 @@ Preview *preview_new(void)
   p->maximum_output_height = INF; /* full output height */
   p->block_update_maximum_output_size_clipping = FALSE;
 
-  p->preview_colors = -1;
+  p->preview_channels = -1;
   p->invalid = TRUE; /* no valid preview */
   p->ratio = 0.0;
 
@@ -4561,7 +4561,6 @@ Preview *preview_new(void)
   gtk_box_pack_start(GTK_BOX(action_box), p->invalid_pixmap, FALSE, FALSE, 0);
   gtk_widget_show(p->invalid_pixmap);
   gdk_drawable_unref(pixmap);
-
 
   /* Start button */
   p->start = gtk_button_new_with_label(BUTTON_PREVIEW_ACQUIRE);
@@ -5012,7 +5011,7 @@ void preview_scan(Preview *p)
 
       gamma_data = malloc(gamma_gray_size  * sizeof(SANE_Int));
 
-      if ((xsane.xsane_colors > 1) || (xsane.no_preview_medium_gamma)) /* color scan or medium preview gamma disabled */
+      if ((xsane.xsane_channels > 1) || (xsane.no_preview_medium_gamma)) /* color scan or medium preview gamma disabled */
       {
         xsane_create_gamma_curve(gamma_data, 0, 1.0, 0.0, 0.0, 0.0, 100.0, 1.0, gamma_gray_size, gamma_gray_max);
       }
@@ -5088,7 +5087,7 @@ void preview_scan(Preview *p)
 
 
   xsane.block_update_param = FALSE;
-  p->preview_colors  = xsane.xsane_colors;
+  p->preview_channels  = xsane.xsane_channels;
   p->scan_incomplete = FALSE;
   p->invalid = TRUE; /* no valid preview */
   p->scanning = TRUE;
@@ -6331,7 +6330,7 @@ int preview_do_color_correction(Preview *p)
 
   cmsErrorAction(LCMS_ERROR_SHOW);
 
-  if (p->cms_black_point_compensation)
+  if (preferences.cms_bpc)
   {
     cms_flags |= cmsFLAGS_BLACKPOINTCOMPENSATION;
   }
@@ -6370,31 +6369,14 @@ int preview_do_color_correction(Preview *p)
     linesize = p->image_width;
   }
 
-  if (1) /* reflective */
+  hInProfile  = cmsOpenProfileFromFile(xsane.scanner_default_color_icm_profile, "r");
+  if (!hInProfile)
   {
-    hInProfile  = cmsOpenProfileFromFile(xsane.scanner_refl_icm_profile, "r");
-    if (!hInProfile)
-    {
-     char buf[TEXTBUFSIZE];
+   char buf[TEXTBUFSIZE];
 
-      snprintf(buf, sizeof(buf), "%s\n%s %s: %s\n", ERR_CMS_CONVERSION, ERR_CMS_OPEN_ICM_FILE, CMS_SCANNER_TRAN_ICM, xsane.scanner_refl_icm_profile);
-      xsane_back_gtk_error(buf, TRUE);
-     return -1;
-    }
-  }
-  else
-  {
-    hInProfile  = cmsOpenProfileFromFile(xsane.scanner_tran_icm_profile, "r");
-    if (!hInProfile)
-    {
-     char buf[TEXTBUFSIZE];
-
-      cmsCloseProfile(hInProfile);
-
-      snprintf(buf, sizeof(buf), "%s\n%s %s: %s\n", ERR_CMS_CONVERSION, ERR_CMS_OPEN_ICM_FILE, CMS_SCANNER_REFL_ICM, xsane.scanner_tran_icm_profile);
-      xsane_back_gtk_error(buf, TRUE);
-     return -1;
-    }
+    snprintf(buf, sizeof(buf), "%s\n%s %s: %s\n", ERR_CMS_CONVERSION, ERR_CMS_OPEN_ICM_FILE, CMS_SCANNER_ICM, xsane.scanner_default_color_icm_profile);
+    xsane_back_gtk_error(buf, TRUE);
+   return -1;
   }
 
   hOutProfile = cmsOpenProfileFromFile(preferences.display_icm_profile, "r");
@@ -6413,7 +6395,7 @@ int preview_do_color_correction(Preview *p)
   {
     hTransform = cmsCreateTransform(hInProfile, input_format,
                                     hOutProfile, output_format,
-                                    p->cms_intent, cms_flags);
+                                    preferences.cms_intent, cms_flags);
   }
   else /* proof */
   {
@@ -6440,7 +6422,7 @@ int preview_do_color_correction(Preview *p)
     hTransform = cmsCreateProofingTransform(hInProfile, input_format,
                                               hOutProfile, output_format,
                                               hProofProfile,
-                                              p->cms_intent, p->cms_proofing_intent, cms_flags);
+                                              preferences.cms_intent, p->cms_proofing_intent, cms_flags);
   }
 
   if (!hTransform)
@@ -7563,7 +7545,7 @@ void preview_display_valid(Preview *p)
     gtk_widget_hide(p->valid_pixmap);
     gtk_widget_hide(p->invalid_pixmap);
   }
-  else if ((xsane.medium_changed) || (xsane.xsane_colors != p->preview_colors) || (p->invalid) ) /* preview is not valid */
+  else if ((xsane.medium_changed) || (xsane.xsane_channels != p->preview_channels) || (p->invalid) ) /* preview is not valid */
   {
     DBG(DBG_info, "preview not vaild\n");
 

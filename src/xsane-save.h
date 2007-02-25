@@ -40,7 +40,7 @@
 #define PDF_PAGES_MAX 1000
 struct pdf_xref
 {
-  unsigned long obj[PDF_PAGES_MAX * 2 + 6];
+  unsigned long obj[PDF_PAGES_MAX * 2 + 8];
   unsigned long xref; /* xref table */
   unsigned long slen; /* length of image stream */
   unsigned long slenp; /* position of image stream length */
@@ -60,50 +60,58 @@ extern void xsane_read_pnm_header(FILE *file, Image_info *image_info);
 extern void xsane_write_pnm_header(FILE *file, Image_info *image_info, int save_pnm16_as_ascii);
 extern int xsane_copy_file(FILE *outfile, FILE *infile, GtkProgressBar *progress_bar, int *cancel_save);
 extern int xsane_copy_file_by_name(char *output_filename, char *input_filename, GtkProgressBar *progress_bar, int *cancel_save);
+#ifdef HAVE_LIBLCMS
+extern cmsHTRANSFORM xsane_create_cms_transform(Image_info *image_info, int cms_function, int cms_intent, int cms_bpc);
+#endif
 extern int xsane_save_grayscale_image_as_lineart(FILE *outfile, FILE *imagefile, Image_info *image_info, GtkProgressBar *progress_bar, int *cancel_save);
 extern int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_info, float x_scale, float y_scale, GtkProgressBar *progress_bar, int *cancel_save);
 extern int xsane_save_despeckle_image(FILE *outfile, FILE *imagefile, Image_info *image_info, int radius, GtkProgressBar *progress_bar, int *cancel_save);
 extern int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info, float radius, GtkProgressBar *progress_bar, int *cancel_save);
 extern int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_info, int rotation, GtkProgressBar *progress_bar, int *cancel_save);
-extern void xsane_save_ps_create_document_header(FILE *outfile, int pages, int flatdecode);
+extern void xsane_save_ps_create_document_header(FILE *outfile, int pages, int flatedecode);
 extern void xsane_save_ps_create_document_trailer(FILE *outfile, int pages);
 extern int xsane_save_ps_page(FILE *outfile, int page,
                        FILE *imagefile, Image_info *image_info, float width, float height,
                        int paper_left_margin, int paper_bottom_margin, int paperwidth, int paperheight, int paper_orientation,
-                       int flatdecode,
+                       int flatedecode,
+                       cmsHTRANSFORM hTransform, int embed_scanner_icm_profile,
                        GtkProgressBar *progress_bar, int *cancel_save);
 extern int xsane_save_ps(FILE *outfile, FILE *imagefile, Image_info *image_info,
                          float width, float height,
                          int paper_left_margin, int paper_bottom_margin, int paperwidth, int paperheight, int paper_orientation,
-                         int flatdecode,
+			 int flatedecode,
+                         cmsHTRANSFORM hTransform, int apply_ICM_profile, int embed_CSA, char *CSA_profile,
+                         int embed_CRD, char *CRD_profile, int blackpointcompensation, int intent,
                          GtkProgressBar *progress_bar, int *cancel_save);
-extern void xsane_save_pdf_create_document_header(FILE *outfile, struct pdf_xref *xref, int pages, int flatdecode);
+extern void xsane_save_pdf_create_document_header(FILE *outfile, struct pdf_xref *xref, int pages, int flatedecode);
 extern void xsane_save_pdf_create_document_trailer(FILE *outfile, struct pdf_xref *xref, int pages);
 extern int xsane_save_pdf_page(FILE *outfile, struct pdf_xref *xref, int page,
                                FILE *imagefile, Image_info *image_info, float width, float height,
                                int paper_left_margin, int paper_bottom_margin, int paperwidth, int paperheight, int paper_orientation,
-                               int flatdecode,
+                               int flatedecode,
+                               cmsHTRANSFORM hTransform, int embed__scanner_icm_profile, int icc_object,
                                GtkProgressBar *progress_bar, int *cancel_save);
 extern int xsane_save_pdf(FILE *outfile, FILE *imagefile, Image_info *image_info,
                           float width, float height,
                           int paper_left_margin, int paper_bottom_margin, int paperwidth, int paperheight, int paper_orientation,
-                          int flatdecode,
+                          int flatedecode,
+                          cmsHTRANSFORM hTransform, int apply_ICM_profile, int cms_function,
                           GtkProgressBar *progress_bar, int *cancel_save);
 #ifdef HAVE_LIBJPEG
-extern int xsane_save_jpeg(FILE *outfile, FILE *imagefile, Image_info *image_info, int quality, GtkProgressBar *progress_bar, int *cancel_save);
+extern int xsane_save_jpeg(FILE *outfile, int quality, FILE *imagefile, Image_info *image_info, cmsHTRANSFORM hTransform,  int apply_ICM_profile, int cms_function, GtkProgressBar *progress_bar, int *cancel_save);
 #endif
 #ifdef HAVE_LIBTIFF
-extern int xsane_save_tiff_page(TIFF *tiffile, int page, int pages, FILE *imagefile, Image_info *image_info, int quality,
-                                GtkProgressBar *progress_bar, int *cancel_save);
+extern int xsane_save_tiff_page(TIFF *tiffile, int page, int pages, int quality, FILE *imagefile, Image_info *image_info, cmsHTRANSFORM hTransform, int apply_ICM_profile, int cms_function,
+	                         GtkProgressBar *progress_bar, int *cancel_save);
 #endif
-extern int xsane_save_png(FILE *outfile, FILE *imagefile, Image_info *image_info, int compression, GtkProgressBar *progress_bar, int *cancel_save);
-extern int xsane_save_png_16(FILE *outfile, FILE *imagefile, Image_info *image_info, int compression, GtkProgressBar *progress_bar, int *cancel_save);
-extern int xsane_save_pnm_16(FILE *outfile, FILE *imagefile, Image_info *image_info, GtkProgressBar *progress_bar, int *cancel_save);
+extern int xsane_save_png(FILE *outfile, int compression, FILE *imagefile, Image_info *image_info, cmsHTRANSFORM hTransform, int apply_ICM_profile, int cms_function, GtkProgressBar *progress_bar, int *cancel_save);
+extern int xsane_save_png_16(FILE *outfile, int compression, FILE *imagefile, Image_info *image_info, cmsHTRANSFORM hTransform, int apply_ICM_profile, int cms_function, GtkProgressBar *progress_bar, int *cancel_save);
+extern int xsane_save_pnm_16(FILE *outfile, FILE *imagefile, Image_info *image_info, cmsHTRANSFORM hTransform, int apply_ICM_profile, GtkProgressBar *progress_bar, int *cancel_save);
 extern int xsane_save_image_as_lineart(char *output_filename, char *input_filename, GtkProgressBar *progress_bar, int *cancel_save);
 extern int xsane_save_image_as_text(char *output_filename, char *input_filename, GtkProgressBar *progress_bar, int *cancel_save);
-extern int xsane_save_image_as(char *output_filename, char *input_filename, int output_format, GtkProgressBar *progress_bar, int *cancel_save);
+extern int xsane_save_image_as(char *output_filename, char *input_filename, int output_format, int apply_ICM_profile, int cms_function, int cms_intent, int cms_bpc, GtkProgressBar *progress_bar, int *cancel_save);
 extern void null_print_func(gchar *msg);
-extern int xsane_transfer_to_gimp(char *input_filename, GtkProgressBar *progress_bar, int *cancel_save);
+extern int xsane_transfer_to_gimp(char *input_filename, int apply_ICM_profile, int cms_function, GtkProgressBar *progress_bar, int *cancel_save);
 extern void write_base64(int fd_socket, FILE *infile);
 extern void write_email_header(int fd_socket, char *from, char *reply_to, char *to, char *subject, char *boundary, int related);
 extern void write_email_footer(int fd_socket, char *boundary);

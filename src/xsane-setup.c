@@ -139,7 +139,9 @@ void xsane_new_printer(void)
       preferences.printer[preferences.printernr]->gamma_green          = 1.0;
       preferences.printer[preferences.printernr]->gamma_blue           = 1.0;
       preferences.printer[preferences.printernr]->icm_profile          = NULL;
-      preferences.printer[preferences.printernr]->ps_flatdecoded       = 1;
+      preferences.printer[preferences.printernr]->embed_csa            = 1;
+      preferences.printer[preferences.printernr]->embed_crd            = 0;
+      preferences.printer[preferences.printernr]->ps_flatedecoded      = 1;
     }
     else
     {
@@ -289,10 +291,13 @@ static void xsane_setup_printer_update()
   {
     gtk_entry_set_text(GTK_ENTRY(xsane_setup.printer_icm_profile_entry), "");
   }
+
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(xsane_setup.printer_embed_csa_button), preferences.printer[preferences.printernr]->embed_csa);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(xsane_setup.printer_embed_crd_button), preferences.printer[preferences.printernr]->embed_crd);
 #endif
 
 #ifdef HAVE_LIBZ
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(xsane_setup.printer_ps_flatdecoded_button), preferences.printer[preferences.printernr]->ps_flatdecoded);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(xsane_setup.printer_ps_flatedecoded_button), preferences.printer[preferences.printernr]->ps_flatedecoded);
 #endif
 }
 
@@ -376,10 +381,12 @@ static void xsane_setup_printer_apply_changes(GtkWidget *widget, gpointer data)
     free(preferences.printer[preferences.printernr]->icm_profile);
   }
   preferences.printer[preferences.printernr]->icm_profile = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.printer_icm_profile_entry)));
+  xsane_update_bool(xsane_setup.printer_embed_csa_button,  &preferences.printer[preferences.printernr]->embed_csa);
+  xsane_update_bool(xsane_setup.printer_embed_crd_button,  &preferences.printer[preferences.printernr]->embed_crd);
 #endif
 
 #ifdef HAVE_LIBZ
-  xsane_update_bool(xsane_setup.printer_ps_flatdecoded_button,  &preferences.printer[preferences.printernr]->ps_flatdecoded);
+  xsane_update_bool(xsane_setup.printer_ps_flatedecoded_button,  &preferences.printer[preferences.printernr]->ps_flatedecoded);
 #endif
 
   if (option_menu)
@@ -559,17 +566,22 @@ static void xsane_setup_color_management_apply_changes(GtkWidget *widget, gpoint
 {
   DBG(DBG_proc, "xsane_setup_colormagaement_apply_changes\n");
 
-  if (xsane.scanner_refl_icm_profile)
-  {
-    free(xsane.scanner_refl_icm_profile);
-  }
-  xsane.scanner_refl_icm_profile = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.scanner_refl_icm_profile_entry)));
+//  preferences.cms_intent = gtk_option_menu_get_history(GTK_OPTION_MENU(xsane_setup.cms_intent_option_menu));
+//  preferences.cms_intent = gtk_option_menu_get_history(GTK_OPTION_MENU(xsane_setup.cms_intent_option_menu));
+  preferences.cms_intent = (int) gtk_object_get_data(GTK_OBJECT(gtk_menu_get_active(GTK_MENU(gtk_option_menu_get_menu(GTK_OPTION_MENU(xsane_setup.cms_intent_option_menu))))), "Selection");
+  xsane_update_bool(xsane_setup.cms_bpc_button, &preferences.cms_bpc);
 
-  if (xsane.scanner_tran_icm_profile)
+  if (xsane.scanner_default_color_icm_profile)
   {
-    free(xsane.scanner_tran_icm_profile);
+    free(xsane.scanner_default_color_icm_profile);
   }
-  xsane.scanner_tran_icm_profile = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.scanner_tran_icm_profile_entry)));
+  xsane.scanner_default_color_icm_profile = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.scanner_default_color_icm_profile_entry)));
+
+  if (xsane.scanner_default_gray_icm_profile)
+  {
+    free(xsane.scanner_default_gray_icm_profile);
+  }
+  xsane.scanner_default_gray_icm_profile = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.scanner_default_gray_icm_profile_entry)));
 
   if (preferences.display_icm_profile)
   {
@@ -583,7 +595,11 @@ static void xsane_setup_color_management_apply_changes(GtkWidget *widget, gpoint
   }
   preferences.custom_proofing_icm_profile = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.custom_proofing_icm_profile_entry)));
 
-  xsane_update_bool(xsane_setup.embed_icm_profile_button, &xsane.embed_icm_profile);
+  if (preferences.working_color_space_icm_profile)
+  {
+    free(preferences.working_color_space_icm_profile);
+  }
+  preferences.working_color_space_icm_profile = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.working_color_space_icm_profile_entry)));
 }
 #endif
 
@@ -656,8 +672,8 @@ static void xsane_setup_image_apply_changes(GtkWidget *widget, gpointer data)
   xsane_update_bool(xsane_setup.save_pnm16_as_ascii_button,   &preferences.save_pnm16_as_ascii);
 
 #ifdef HAVE_LIBZ
-  xsane_update_bool(xsane_setup.save_ps_flatdecoded_button,    &preferences.save_ps_flatdecoded);
-  xsane_update_bool(xsane_setup.save_pdf_flatdecoded_button,   &preferences.save_pdf_flatdecoded);
+  xsane_update_bool(xsane_setup.save_ps_flatedecoded_button,    &preferences.save_ps_flatedecoded);
+  xsane_update_bool(xsane_setup.save_pdf_flatedecoded_button,   &preferences.save_pdf_flatedecoded);
 #endif
 
   xsane_define_maximum_output_size();
@@ -686,7 +702,7 @@ static void xsane_setup_fax_apply_changes(GtkWidget *widget, gpointer data)
   xsane_update_geometry_double(xsane_setup.fax_height_entry,       &preferences.fax_height,       preferences.length_unit);
 
 #ifdef HAVE_LIBZ
-  xsane_update_bool(xsane_setup.fax_ps_flatdecoded_button,  &preferences.fax_ps_flatdecoded);
+  xsane_update_bool(xsane_setup.fax_ps_flatedecoded_button,  &preferences.fax_ps_flatedecoded);
 #endif
 
   xsane_define_maximum_output_size();
@@ -1043,7 +1059,7 @@ static void xsane_setup_browse_printer_icm_profile_callback(GtkWidget *widget, g
   strncpy(printer_icm_profile, old_printer_icm_profile, sizeof(printer_icm_profile));
 
   snprintf(windowname, sizeof(windowname), "%s %s", xsane.prog_name, WINDOW_PRINTER_ICM_PROFILE);
-  xsane_back_gtk_get_filename(windowname, printer_icm_profile, sizeof(printer_icm_profile), printer_icm_profile, NULL, TRUE, FALSE, FALSE, FALSE);
+  xsane_back_gtk_get_filename(windowname, printer_icm_profile, sizeof(printer_icm_profile), printer_icm_profile, NULL, NULL, XSANE_FILE_CHOOSER_ACTION_SELECT_OPEN, XSANE_GET_FILENAME_SHOW_NOTHING, XSANE_FILE_FILTER_ALL | XSANE_FILE_FILTER_ICM, XSANE_FILE_FILTER_ICM);
 
   gtk_entry_set_text(GTK_ENTRY(xsane_setup.printer_icm_profile_entry), printer_icm_profile);
 }
@@ -1387,7 +1403,7 @@ static void xsane_printer_notebook(GtkWidget *notebook)
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
   gtk_widget_show(label);
 
-  text = gtk_entry_new_with_max_length(255);
+  text = gtk_entry_new_with_max_length(PATH_MAX);
   gtk_widget_set_size_request(text, 70, -1); /* set minimum size */
   xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_PRINTER_ICM_PROFILE);
 
@@ -1411,6 +1427,30 @@ static void xsane_printer_notebook(GtkWidget *notebook)
   gtk_widget_show(button);
 
   gtk_widget_show(hbox);
+
+
+  /* embed csa */
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+  button = gtk_check_button_new_with_label(TEXT_SETUP_PRINTER_EMBED_CSA);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_PRINTER_EMBED_CSA);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), preferences.printer[preferences.printernr]->embed_csa);
+  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 2);
+  gtk_widget_show(button);
+  gtk_widget_show(hbox);
+  xsane_setup.printer_embed_csa_button = button;
+
+
+  /* embed crd */
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+  button = gtk_check_button_new_with_label(TEXT_SETUP_PRINTER_EMBED_CRD);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_PRINTER_EMBED_CRD);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), preferences.printer[preferences.printernr]->embed_crd);
+  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 2);
+  gtk_widget_show(button);
+  gtk_widget_show(hbox);
+  xsane_setup.printer_embed_crd_button = button;
 #endif
 
 #ifdef HAVE_LIBZ
@@ -1418,16 +1458,16 @@ static void xsane_printer_notebook(GtkWidget *notebook)
 
 
 
-  /* flatdecoded = ps level 3 */
+  /* flatedecoded = ps level 3 */
   hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
-  button = gtk_check_button_new_with_label(TEXT_SETUP_PRINTER_PS_FLATDECODED);
-  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_PRINTER_PS_FLATDECODED);
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), preferences.printer[preferences.printernr]->ps_flatdecoded);
+  button = gtk_check_button_new_with_label(TEXT_SETUP_PRINTER_PS_FLATEDECODED);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_PRINTER_PS_FLATEDECODED);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), preferences.printer[preferences.printernr]->ps_flatedecoded);
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 2);
   gtk_widget_show(button);
   gtk_widget_show(hbox);
-  xsane_setup.printer_ps_flatdecoded_button = button;
+  xsane_setup.printer_ps_flatedecoded_button = button;
 #endif
 
 
@@ -1474,7 +1514,7 @@ static void xsane_setup_browse_tmp_path_callback(GtkWidget *widget, gpointer dat
   strncpy(tmp_path, old_tmp_path, sizeof(tmp_path));
 
   snprintf(windowname, sizeof(windowname), "%s %s", xsane.prog_name, WINDOW_TMP_PATH);
-  xsane_back_gtk_get_filename(windowname, tmp_path, sizeof(tmp_path), tmp_path, NULL, TRUE, FALSE, TRUE, FALSE);
+  xsane_back_gtk_get_filename(windowname, tmp_path, sizeof(tmp_path), tmp_path, NULL, NULL, XSANE_FILE_CHOOSER_ACTION_SELECT_FOLDER, XSANE_GET_FILENAME_SHOW_NOTHING, 0, 0);
 
   gtk_entry_set_text(GTK_ENTRY(xsane_setup.tmp_path_entry), tmp_path);
 }
@@ -1482,48 +1522,44 @@ static void xsane_setup_browse_tmp_path_callback(GtkWidget *widget, gpointer dat
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 #ifdef HAVE_LIBLCMS
-static void xsane_setup_browse_scanner_refl_icm_profile_callback(GtkWidget *widget, gpointer data)
+static void xsane_setup_browse_scanner_default_color_icm_profile_callback(GtkWidget *widget, gpointer data)
 {
- const gchar *old_scanner_refl_icm_profile;
- char scanner_refl_icm_profile[PATH_MAX];
+ const gchar *old_scanner_default_color_icm_profile;
+ char scanner_default_color_icm_profile[PATH_MAX];
  char windowname[TEXTBUFSIZE];
 
-  DBG(DBG_proc, "xsane_setup_browse_scanner_refl_icm_profile_callback\n");
+  DBG(DBG_proc, "xsane_setup_browse_scanner_default_color_icm_profile_callback\n");
 
-  old_scanner_refl_icm_profile = gtk_entry_get_text(GTK_ENTRY(xsane_setup.scanner_refl_icm_profile_entry));
-  strncpy(scanner_refl_icm_profile, old_scanner_refl_icm_profile, sizeof(scanner_refl_icm_profile));
+  old_scanner_default_color_icm_profile = gtk_entry_get_text(GTK_ENTRY(xsane_setup.scanner_default_color_icm_profile_entry));
+  strncpy(scanner_default_color_icm_profile, old_scanner_default_color_icm_profile, sizeof(scanner_default_color_icm_profile));
 
-  snprintf(windowname, sizeof(windowname), "%s %s", xsane.prog_name, WINDOW_SCANNER_REFL_ICM_PROFILE);
-  xsane_back_gtk_get_filename(windowname, scanner_refl_icm_profile, sizeof(scanner_refl_icm_profile), scanner_refl_icm_profile, NULL, TRUE, FALSE, FALSE, FALSE);
+  snprintf(windowname, sizeof(windowname), "%s %s", xsane.prog_name, WINDOW_SCANNER_DEFAULT_COLOR_ICM_PROFILE);
+  xsane_back_gtk_get_filename(windowname, scanner_default_color_icm_profile, sizeof(scanner_default_color_icm_profile), scanner_default_color_icm_profile, NULL, NULL, XSANE_FILE_CHOOSER_ACTION_SELECT_OPEN, XSANE_GET_FILENAME_SHOW_NOTHING, XSANE_FILE_FILTER_ALL | XSANE_FILE_FILTER_ICM, XSANE_FILE_FILTER_ICM);
 
-  gtk_entry_set_text(GTK_ENTRY(xsane_setup.scanner_refl_icm_profile_entry), scanner_refl_icm_profile);
+  gtk_entry_set_text(GTK_ENTRY(xsane_setup.scanner_default_color_icm_profile_entry), scanner_default_color_icm_profile);
 }
-#endif
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#ifdef HAVE_LIBLCMS
-static void xsane_setup_browse_scanner_tran_icm_profile_callback(GtkWidget *widget, gpointer data)
+static void xsane_setup_browse_scanner_default_gray_icm_profile_callback(GtkWidget *widget, gpointer data)
 {
- const gchar *old_scanner_tran_icm_profile;
- char scanner_tran_icm_profile[PATH_MAX];
+ const gchar *old_scanner_default_gray_icm_profile;
+ char scanner_default_gray_icm_profile[PATH_MAX];
  char windowname[TEXTBUFSIZE];
 
-  DBG(DBG_proc, "xsane_setup_browse_scanner_tran_icm_profile_callback\n");
+  DBG(DBG_proc, "xsane_setup_browse_scanner_default_gray_icm_profile_callback\n");
 
-  old_scanner_tran_icm_profile = gtk_entry_get_text(GTK_ENTRY(xsane_setup.scanner_tran_icm_profile_entry));
-  strncpy(scanner_tran_icm_profile, old_scanner_tran_icm_profile, sizeof(scanner_tran_icm_profile));
+  old_scanner_default_gray_icm_profile = gtk_entry_get_text(GTK_ENTRY(xsane_setup.scanner_default_gray_icm_profile_entry));
+  strncpy(scanner_default_gray_icm_profile, old_scanner_default_gray_icm_profile, sizeof(scanner_default_gray_icm_profile));
 
-  snprintf(windowname, sizeof(windowname), "%s %s", xsane.prog_name, WINDOW_SCANNER_TRAN_ICM_PROFILE);
-  xsane_back_gtk_get_filename(windowname, scanner_tran_icm_profile, sizeof(scanner_tran_icm_profile), scanner_tran_icm_profile, NULL, TRUE, FALSE, FALSE, FALSE);
+  snprintf(windowname, sizeof(windowname), "%s %s", xsane.prog_name, WINDOW_SCANNER_DEFAULT_GRAY_ICM_PROFILE);
+  xsane_back_gtk_get_filename(windowname, scanner_default_gray_icm_profile, sizeof(scanner_default_gray_icm_profile), scanner_default_gray_icm_profile, NULL, NULL, XSANE_FILE_CHOOSER_ACTION_SELECT_OPEN, XSANE_GET_FILENAME_SHOW_NOTHING, XSANE_FILE_FILTER_ALL | XSANE_FILE_FILTER_ICM, XSANE_FILE_FILTER_ICM);
 
-  gtk_entry_set_text(GTK_ENTRY(xsane_setup.scanner_tran_icm_profile_entry), scanner_tran_icm_profile);
+  gtk_entry_set_text(GTK_ENTRY(xsane_setup.scanner_default_gray_icm_profile_entry), scanner_default_gray_icm_profile);
 }
-#endif
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#ifdef HAVE_LIBLCMS
 static void xsane_setup_browse_display_icm_profile_callback(GtkWidget *widget, gpointer data)
 {
  const gchar *old_display_icm_profile;
@@ -1536,15 +1572,13 @@ static void xsane_setup_browse_display_icm_profile_callback(GtkWidget *widget, g
   strncpy(display_icm_profile, old_display_icm_profile, sizeof(display_icm_profile));
 
   snprintf(windowname, sizeof(windowname), "%s %s", xsane.prog_name, WINDOW_DISPLAY_ICM_PROFILE);
-  xsane_back_gtk_get_filename(windowname, display_icm_profile, sizeof(display_icm_profile), display_icm_profile, NULL, TRUE, FALSE, FALSE, FALSE);
+  xsane_back_gtk_get_filename(windowname, display_icm_profile, sizeof(display_icm_profile), display_icm_profile, NULL, NULL, XSANE_FILE_CHOOSER_ACTION_SELECT_OPEN, XSANE_GET_FILENAME_SHOW_NOTHING, XSANE_FILE_FILTER_ALL | XSANE_FILE_FILTER_ICM, XSANE_FILE_FILTER_ICM);
 
   gtk_entry_set_text(GTK_ENTRY(xsane_setup.display_icm_profile_entry), display_icm_profile);
 }
-#endif
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#ifdef HAVE_LIBLCMS
 static void xsane_setup_browse_custom_proofing_icm_profile_callback(GtkWidget *widget, gpointer data)
 {
  const gchar *old_custom_proofing_icm_profile;
@@ -1557,9 +1591,28 @@ static void xsane_setup_browse_custom_proofing_icm_profile_callback(GtkWidget *w
   strncpy(custom_proofing_icm_profile, old_custom_proofing_icm_profile, sizeof(custom_proofing_icm_profile));
 
   snprintf(windowname, sizeof(windowname), "%s %s", xsane.prog_name, WINDOW_CUSTOM_PROOFING_ICM_PROFILE);
-  xsane_back_gtk_get_filename(windowname, custom_proofing_icm_profile, sizeof(custom_proofing_icm_profile), custom_proofing_icm_profile, NULL, TRUE, FALSE, FALSE, FALSE);
+  xsane_back_gtk_get_filename(windowname, custom_proofing_icm_profile, sizeof(custom_proofing_icm_profile), custom_proofing_icm_profile, NULL, NULL, XSANE_FILE_CHOOSER_ACTION_SELECT_OPEN, XSANE_GET_FILENAME_SHOW_NOTHING, XSANE_FILE_FILTER_ALL | XSANE_FILE_FILTER_ICM, XSANE_FILE_FILTER_ICM);
 
   gtk_entry_set_text(GTK_ENTRY(xsane_setup.custom_proofing_icm_profile_entry), custom_proofing_icm_profile);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_setup_browse_working_color_space_icm_profile_callback(GtkWidget *widget, gpointer data)
+{
+ const gchar *old_working_color_space_icm_profile;
+ char working_color_space_icm_profile[PATH_MAX];
+ char windowname[TEXTBUFSIZE];
+
+  DBG(DBG_proc, "xsane_setup_browse_working_color_space_icm_profile_callback\n");
+
+  old_working_color_space_icm_profile = gtk_entry_get_text(GTK_ENTRY(xsane_setup.working_color_space_icm_profile_entry));
+  strncpy(working_color_space_icm_profile, old_working_color_space_icm_profile, sizeof(working_color_space_icm_profile));
+
+  snprintf(windowname, sizeof(windowname), "%s %s", xsane.prog_name, WINDOW_WORKING_COLOR_SPACE_ICM_PROFILE);
+  xsane_back_gtk_get_filename(windowname, working_color_space_icm_profile, sizeof(working_color_space_icm_profile), working_color_space_icm_profile, NULL, NULL, XSANE_FILE_CHOOSER_ACTION_SELECT_OPEN, XSANE_GET_FILENAME_SHOW_NOTHING, XSANE_FILE_FILTER_ALL | XSANE_FILE_FILTER_ICM, XSANE_FILE_FILTER_ICM);
+
+  gtk_entry_set_text(GTK_ENTRY(xsane_setup.working_color_space_icm_profile_entry), working_color_space_icm_profile);
 }
 #endif
 
@@ -1601,7 +1654,7 @@ static void xsane_saving_notebook(GtkWidget *notebook)
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
   gtk_widget_show(label);
 
-  text = gtk_entry_new_with_max_length(255);
+  text = gtk_entry_new_with_max_length(PATH_MAX);
   gtk_widget_set_size_request(text, 70, -1); /* set minimum size */
   xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_TMP_PATH);
   gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.tmp_path);
@@ -1837,28 +1890,28 @@ static void xsane_filetype_notebook(GtkWidget *notebook)
 
 
 #ifdef HAVE_LIBZ
-  /* save ps with zlib compression / flatdecode = ps level 3 */
+  /* save ps with zlib compression / flatedecode = ps level 3 */
   hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
-  button = gtk_check_button_new_with_label(RADIO_BUTTON_SAVE_PS_FLATDECODED);
-  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_SAVE_PS_FLATDECODED);
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), preferences.save_ps_flatdecoded);
+  button = gtk_check_button_new_with_label(RADIO_BUTTON_SAVE_PS_FLATEDECODED);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_SAVE_PS_FLATEDECODED);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), preferences.save_ps_flatedecoded);
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 2);
   gtk_widget_show(button);
   gtk_widget_show(hbox);
-  xsane_setup.save_ps_flatdecoded_button = button;
+  xsane_setup.save_ps_flatedecoded_button = button;
 
 
-  /* save pdf with zlib compression / flatdecode */
+  /* save pdf with zlib compression / flatedecode */
   hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
-  button = gtk_check_button_new_with_label(RADIO_BUTTON_SAVE_PDF_FLATDECODED);
-  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_SAVE_PDF_FLATDECODED);
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), preferences.save_pdf_flatdecoded);
+  button = gtk_check_button_new_with_label(RADIO_BUTTON_SAVE_PDF_FLATEDECODED);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_SAVE_PDF_FLATEDECODED);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), preferences.save_pdf_flatedecoded);
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 2);
   gtk_widget_show(button);
   gtk_widget_show(hbox);
-  xsane_setup.save_pdf_flatdecoded_button = button;
+  xsane_setup.save_pdf_flatedecoded_button = button;
 #endif
 
 
@@ -2305,16 +2358,16 @@ static void xsane_fax_notebook(GtkWidget *notebook)
   xsane_separator_new(vbox, 4);
 
 
-  /* flatdecoded = ps level 3 */
+  /* flatedecoded = ps level 3 */
   hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
-  button = gtk_check_button_new_with_label(TEXT_SETUP_FAX_PS_FLATDECODED);
-  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_FAX_PS_FLATDECODED);
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), preferences.fax_ps_flatdecoded);
+  button = gtk_check_button_new_with_label(TEXT_SETUP_FAX_PS_FLATEDECODED);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_FAX_PS_FLATEDECODED);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), preferences.fax_ps_flatedecoded);
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 2);
   gtk_widget_show(button);
   gtk_widget_show(hbox);
-  xsane_setup.fax_ps_flatdecoded_button = button;
+  xsane_setup.fax_ps_flatedecoded_button = button;
 #endif
 
 
@@ -3449,7 +3502,8 @@ static void xsane_enhance_notebook(GtkWidget *notebook)
 #ifdef HAVE_LIBLCMS
 static void xsane_color_management_notebook(GtkWidget *notebook)
 {
- GtkWidget *setup_vbox, *vbox, *hbox, *button, *label, *text, *frame;
+ GtkWidget *setup_vbox, *vbox, *hbox, *button, *label, *text, *frame, *option_menu, *menu, *menu_item;
+ int selection = 0;
 
   DBG(DBG_proc, "xsane_color_management_notebook\n");
 
@@ -3471,47 +3525,145 @@ static void xsane_color_management_notebook(GtkWidget *notebook)
   gtk_container_add(GTK_CONTAINER(frame), vbox);
   gtk_widget_show(vbox);
 
-  /* embed ICM profile to file */
+
+
+  /* black point compensation */
   hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
-  button = gtk_check_button_new_with_label(RADIO_BUTTON_EMBED_ICM_PROFILE);
-  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_EMBED_ICM_PROFILE);
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), xsane.embed_icm_profile);
+  button = gtk_check_button_new_with_label(RADIO_BUTTON_CMS_BPC);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_CMS_BPC);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), preferences.cms_bpc);
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 2);
   gtk_widget_show(button);
   gtk_widget_show(hbox);
-  xsane_setup.embed_icm_profile_button = button;
+  xsane_setup.cms_bpc_button = button;
 
 
 
-  /* scanner_refl icm-profile filename : */
-  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+  /* Intent menu */
+  hbox = gtk_hbox_new(FALSE, 2);
+  gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
 
-  label = gtk_label_new(TEXT_SETUP_SCANNER_REFL_ICM_PROFILE);
+  label = gtk_label_new(MENU_ITEM_CMS_RENDERING_INTENT);
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
   gtk_widget_show(label);
 
-  text = gtk_entry_new_with_max_length(255);
-  gtk_widget_set_size_request(text, 70, -1); /* set minimum size */
-  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_SCANNER_REFL_ICM_PROFILE);
+  option_menu = gtk_option_menu_new();
+  xsane_back_gtk_set_tooltip(xsane.tooltips, option_menu, DESC_RENDERING_INTENT);
+  gtk_box_pack_end(GTK_BOX(hbox), option_menu, FALSE, FALSE, 2);
+  gtk_widget_show(option_menu);
+  gtk_widget_show(hbox);
 
-  if (xsane.scanner_refl_icm_profile)
+  menu = gtk_menu_new();
+
+  menu_item = gtk_menu_item_new_with_label(SUBMENU_ITEM_CMS_INTENT_PERCEPTUAL);
+  gtk_object_set_data(GTK_OBJECT(menu_item), "Selection", (void *) INTENT_PERCEPTUAL);
+  gtk_container_add(GTK_CONTAINER(menu), menu_item);
+  gtk_widget_show(menu_item);
+
+  menu_item = gtk_menu_item_new_with_label(SUBMENU_ITEM_CMS_INTENT_RELATIVE_COLORIMETRIC);
+  gtk_object_set_data(GTK_OBJECT(menu_item), "Selection", (void *) INTENT_RELATIVE_COLORIMETRIC);
+  gtk_container_add(GTK_CONTAINER(menu), menu_item);
+  gtk_widget_show(menu_item);
+
+  menu_item = gtk_menu_item_new_with_label(SUBMENU_ITEM_CMS_INTENT_ABSOLUTE_COLORIMETRIC);
+  gtk_object_set_data(GTK_OBJECT(menu_item), "Selection", (void *) INTENT_ABSOLUTE_COLORIMETRIC);
+  gtk_container_add(GTK_CONTAINER(menu), menu_item);
+  gtk_widget_show(menu_item);
+
+  menu_item = gtk_menu_item_new_with_label(SUBMENU_ITEM_CMS_INTENT_SATURATION);
+  gtk_object_set_data(GTK_OBJECT(menu_item), "Selection", (void *) INTENT_SATURATION);
+  gtk_container_add(GTK_CONTAINER(menu), menu_item);
+  gtk_widget_show(menu_item);
+
+  if (preferences.cms_intent == INTENT_PERCEPTUAL)
   {
-    gtk_entry_set_text(GTK_ENTRY(text), (char *) xsane.scanner_refl_icm_profile);
+    selection = 0;
+  }
+  else if (preferences.cms_intent == INTENT_RELATIVE_COLORIMETRIC)
+  {
+    selection = 1;
+  }
+  else if (preferences.cms_intent == INTENT_ABSOLUTE_COLORIMETRIC)
+  {
+    selection = 2;
+  }
+  else
+  {
+    selection = 3;
   }
 
-  gtk_box_pack_start(GTK_BOX(hbox), text, TRUE, TRUE, 4);
-  gtk_widget_show(text);
-  xsane_setup.scanner_refl_icm_profile_entry = text;
+
+  gtk_option_menu_set_menu(GTK_OPTION_MENU(option_menu), menu);
+  gtk_option_menu_set_history(GTK_OPTION_MENU(option_menu), selection);
+  xsane_setup.cms_intent_option_menu = option_menu;
+
+
+  xsane_separator_new(vbox, 4);
+
+
+  /* scanner_default_color_icm_profile filename : */
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+
+  label = gtk_label_new(TEXT_SETUP_SCANNER_DEFAULT_COLOR_ICM_PROFILE);
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_widget_show(label);
 
   button = gtk_button_new_with_label(BUTTON_BROWSE); 
-  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_browse_scanner_refl_icm_profile_callback, NULL);
-  gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 2);
-  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_BUTTON_SCANNER_REFL_ICM_PROFILE_BROWSE);
+  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_browse_scanner_default_color_icm_profile_callback, NULL);
+  gtk_box_pack_end(GTK_BOX(hbox), button, FALSE, FALSE, 2);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_BUTTON_SCANNER_DEFAULT_COLOR_ICM_PROFILE_BROWSE);
   gtk_widget_show(button);
 
+  text = gtk_entry_new_with_max_length(PATH_MAX);
+  gtk_widget_set_size_request(text, 250, -1); /* set minimum size */
+  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_SCANNER_DEFAULT_COLOR_ICM_PROFILE);
+
+  if (xsane.scanner_default_color_icm_profile)
+  {
+    gtk_entry_set_text(GTK_ENTRY(text), (char *) xsane.scanner_default_color_icm_profile);
+  }
+
+  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 4);
+  gtk_widget_show(text);
+  xsane_setup.scanner_default_color_icm_profile_entry = text;
+
   gtk_widget_show(hbox);
+
+
+  /* scanner_default_gray_icm_profile filename : */
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+
+  label = gtk_label_new(TEXT_SETUP_SCANNER_DEFAULT_GRAY_ICM_PROFILE);
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_widget_show(label);
+
+  button = gtk_button_new_with_label(BUTTON_BROWSE); 
+  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_browse_scanner_default_gray_icm_profile_callback, NULL);
+  gtk_box_pack_end(GTK_BOX(hbox), button, FALSE, FALSE, 2);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_BUTTON_SCANNER_DEFAULT_GRAY_ICM_PROFILE_BROWSE);
+  gtk_widget_show(button);
+
+  text = gtk_entry_new_with_max_length(PATH_MAX);
+  gtk_widget_set_size_request(text, 250, -1); /* set minimum size */
+  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_SCANNER_DEFAULT_GRAY_ICM_PROFILE);
+
+  if (xsane.scanner_default_gray_icm_profile)
+  {
+    gtk_entry_set_text(GTK_ENTRY(text), (char *) xsane.scanner_default_gray_icm_profile);
+  }
+
+  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 4);
+  gtk_widget_show(text);
+  xsane_setup.scanner_default_gray_icm_profile_entry = text;
+
+  gtk_widget_show(hbox);
+
+#if 0
+  xsane_separator_new(vbox, 4);
 
 
   /* scanner_tran icm-profile filename : */
@@ -3522,8 +3674,14 @@ static void xsane_color_management_notebook(GtkWidget *notebook)
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
   gtk_widget_show(label);
 
-  text = gtk_entry_new_with_max_length(255);
-  gtk_widget_set_size_request(text, 70, -1); /* set minimum size */
+  button = gtk_button_new_with_label(BUTTON_BROWSE); 
+  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_browse_scanner_tran_icm_profile_callback, NULL);
+  gtk_box_pack_end(GTK_BOX(hbox), button, FALSE, FALSE, 2);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_BUTTON_SCANNER_TRAN_ICM_PROFILE_BROWSE);
+  gtk_widget_show(button);
+
+  text = gtk_entry_new_with_max_length(PATH_MAX);
+  gtk_widget_set_size_request(text, 250, -1); /* set minimum size */
   xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_SCANNER_TRAN_ICM_PROFILE);
 
   if (xsane.scanner_tran_icm_profile)
@@ -3531,17 +3689,44 @@ static void xsane_color_management_notebook(GtkWidget *notebook)
     gtk_entry_set_text(GTK_ENTRY(text), (char *) xsane.scanner_tran_icm_profile);
   }
 
-  gtk_box_pack_start(GTK_BOX(hbox), text, TRUE, TRUE, 4);
+  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 4);
   gtk_widget_show(text);
   xsane_setup.scanner_tran_icm_profile_entry = text;
 
+  gtk_widget_show(hbox);
+
+
+  /* scanner_tran_gray icm-profile filename : */
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+
+  label = gtk_label_new(TEXT_SETUP_SCANNER_TRAN_GRAY_ICM_PROFILE);
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_widget_show(label);
+
   button = gtk_button_new_with_label(BUTTON_BROWSE); 
-  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_browse_scanner_tran_icm_profile_callback, NULL);
-  gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 2);
-  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_BUTTON_SCANNER_TRAN_ICM_PROFILE_BROWSE);
+  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_browse_scanner_tran_gray_icm_profile_callback, NULL);
+  gtk_box_pack_end(GTK_BOX(hbox), button, FALSE, FALSE, 2);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_BUTTON_SCANNER_TRAN_GRAY_ICM_PROFILE_BROWSE);
   gtk_widget_show(button);
 
+  text = gtk_entry_new_with_max_length(PATH_MAX);
+  gtk_widget_set_size_request(text, 250, -1); /* set minimum size */
+  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_SCANNER_TRAN_GRAY_ICM_PROFILE);
+
+  if (xsane.scanner_tran_gray_icm_profile)
+  {
+    gtk_entry_set_text(GTK_ENTRY(text), (char *) xsane.scanner_tran_gray_icm_profile);
+  }
+
+  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 4);
+  gtk_widget_show(text);
+  xsane_setup.scanner_tran_gray_icm_profile_entry = text;
+
   gtk_widget_show(hbox);
+#endif
+
+  xsane_separator_new(vbox, 4);
 
 
   /* display icm-profile filename : */
@@ -3552,8 +3737,14 @@ static void xsane_color_management_notebook(GtkWidget *notebook)
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
   gtk_widget_show(label);
 
-  text = gtk_entry_new_with_max_length(255);
-  gtk_widget_set_size_request(text, 70, -1); /* set minimum size */
+  button = gtk_button_new_with_label(BUTTON_BROWSE); 
+  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_browse_display_icm_profile_callback, NULL);
+  gtk_box_pack_end(GTK_BOX(hbox), button, FALSE, FALSE, 2);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_BUTTON_DISPLAY_ICM_PROFILE_BROWSE);
+  gtk_widget_show(button);
+
+  text = gtk_entry_new_with_max_length(PATH_MAX);
+  gtk_widget_set_size_request(text, 250, -1); /* set minimum size */
   xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_DISPLAY_ICM_PROFILE);
 
   if (preferences.display_icm_profile)
@@ -3561,15 +3752,9 @@ static void xsane_color_management_notebook(GtkWidget *notebook)
     gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.display_icm_profile);
   }
 
-  gtk_box_pack_start(GTK_BOX(hbox), text, TRUE, TRUE, 4);
+  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 4);
   gtk_widget_show(text);
   xsane_setup.display_icm_profile_entry = text;
-
-  button = gtk_button_new_with_label(BUTTON_BROWSE); 
-  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_browse_display_icm_profile_callback, NULL);
-  gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 2);
-  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_BUTTON_DISPLAY_ICM_PROFILE_BROWSE);
-  gtk_widget_show(button);
 
   gtk_widget_show(hbox);
 
@@ -3583,8 +3768,14 @@ static void xsane_color_management_notebook(GtkWidget *notebook)
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
   gtk_widget_show(label);
 
-  text = gtk_entry_new_with_max_length(255);
-  gtk_widget_set_size_request(text, 70, -1); /* set minimum size */
+  button = gtk_button_new_with_label(BUTTON_BROWSE); 
+  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_browse_custom_proofing_icm_profile_callback, NULL);
+  gtk_box_pack_end(GTK_BOX(hbox), button, FALSE, FALSE, 2);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_BUTTON_CUSTOM_PROOFING_ICM_PROFILE_BROWSE);
+  gtk_widget_show(button);
+
+  text = gtk_entry_new_with_max_length(PATH_MAX);
+  gtk_widget_set_size_request(text, 250, -1); /* set minimum size */
   xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_CUSTOM_PROOFING_ICM_PROFILE);
 
   if (preferences.custom_proofing_icm_profile)
@@ -3592,20 +3783,49 @@ static void xsane_color_management_notebook(GtkWidget *notebook)
     gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.custom_proofing_icm_profile);
   }
 
-  gtk_box_pack_start(GTK_BOX(hbox), text, TRUE, TRUE, 4);
+  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 4);
   gtk_widget_show(text);
   xsane_setup.custom_proofing_icm_profile_entry = text;
-
-  button = gtk_button_new_with_label(BUTTON_BROWSE); 
-  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_browse_custom_proofing_icm_profile_callback, NULL);
-  gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 2);
-  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_BUTTON_CUSTOM_PROOFING_ICM_PROFILE_BROWSE);
-  gtk_widget_show(button);
 
   gtk_widget_show(hbox);
 
 
   xsane_separator_new(vbox, 4);
+
+
+  /* working color space icm-profile filename : */
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+
+  label = gtk_label_new(TEXT_SETUP_WORKING_COLOR_SPACE_ICM_PROFILE);
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_widget_show(label);
+
+  button = gtk_button_new_with_label(BUTTON_BROWSE); 
+  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_browse_working_color_space_icm_profile_callback, NULL);
+  gtk_box_pack_end(GTK_BOX(hbox), button, FALSE, FALSE, 2);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_BUTTON_WORKING_COLOR_SPACE_ICM_PROFILE_BROWSE);
+  gtk_widget_show(button);
+
+  text = gtk_entry_new_with_max_length(PATH_MAX);
+  gtk_widget_set_size_request(text, 250, -1); /* set minimum size */
+  xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_WORKING_COLOR_SPACE_ICM_PROFILE);
+
+  if (preferences.working_color_space_icm_profile)
+  {
+    gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.working_color_space_icm_profile);
+  }
+
+  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 4);
+  gtk_widget_show(text);
+  xsane_setup.working_color_space_icm_profile_entry = text;
+
+  gtk_widget_show(hbox);
+
+
+
+  xsane_separator_new(vbox, 4);
+
 
 
   /* apply button */
@@ -3684,6 +3904,15 @@ void xsane_setup_dialog(GtkWidget *widget, gpointer data)
   gtk_widget_show(hbox);   
 
 #ifdef HAVE_GTK2
+  button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
+#else
+  button = gtk_button_new_with_label(BUTTON_CANCEL);
+#endif
+  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_close_setup_dialog_callback, setup_dialog);
+  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
+  gtk_widget_show(button);
+
+#ifdef HAVE_GTK2
   button = gtk_button_new_from_stock(GTK_STOCK_OK);
 #else
   button = gtk_button_new_with_label(BUTTON_OK);
@@ -3692,15 +3921,6 @@ void xsane_setup_dialog(GtkWidget *widget, gpointer data)
   g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_options_ok_callback, setup_dialog);
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
   gtk_widget_grab_default(button);
-  gtk_widget_show(button);
-
-#ifdef HAVE_GTK2
-  button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
-#else
-  button = gtk_button_new_with_label(BUTTON_CANCEL);
-#endif
-  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_close_setup_dialog_callback, setup_dialog);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
   gtk_widget_show(button);
 
   gtk_widget_show(setup_dialog);

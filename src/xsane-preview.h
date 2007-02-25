@@ -122,7 +122,7 @@ typedef struct
   char last_offset_16_byte;
   int scan_incomplete;
   int invalid;
-  int preview_colors;
+  int preview_channels;
   time_t image_last_time_updated;
   gint input_tag;
   SANE_Parameters params;
@@ -155,9 +155,7 @@ typedef struct
 
 #ifdef HAVE_LIBLCMS
   int cms_enable;
-  int cms_black_point_compensation;
   int cms_proofing;
-  int cms_intent;
   int cms_proofing_intent;
   int cms_gamut_check;
 #endif

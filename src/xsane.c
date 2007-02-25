@@ -1154,6 +1154,14 @@ static void xsane_scanmode_menu_callback(GtkWidget *widget, gpointer data)
   }
 }
 
+/* ----------------------------------------------------------------------------------------------------------------- */
+
+static void xsane_cms_function_menu_callback(GtkWidget *widget, gpointer data)
+{
+  preferences.cms_function = (int) data;
+  DBG(DBG_proc, "xsane_cms_function_menu_callback(%d)\n", preferences.cms_function);
+}
+
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 static void xsane_adf_pages_max_callback(GtkWidget *widget, gpointer data)
@@ -1445,6 +1453,31 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
     gtk_widget_show(xsane_spinbutton);
   }
 
+#ifdef HAVE_LIBLCMS
+    if ((xsane.enable_color_management) && 
+	( (xsane.xsane_mode == XSANE_VIEWER) ||
+	  (xsane.xsane_mode == XSANE_SAVE) ||
+	  (xsane.xsane_mode == XSANE_EMAIL) ||
+	  (xsane.xsane_mode == XSANE_MULTIPAGE)
+	)
+       )
+    {
+      hbox = gtk_hbox_new(FALSE, 2);
+      gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
+      gtk_box_pack_start(GTK_BOX(xsane_vbox_xsane_modus), hbox, FALSE, FALSE, 1);
+      gtk_widget_show(hbox);
+  
+      pixmap = gdk_pixmap_create_from_xpm_d(xsane.histogram_dialog->window, &mask, xsane.bg_trans, (gchar **) cms_xpm);
+      pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
+      gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
+      gdk_drawable_unref(pixmap);
+      gtk_widget_show(pixmapwidget);
+  
+      xsane.cms_function_option_menu = xsane_back_gtk_cms_function_menu_new(preferences.cms_function, (GtkSignalFunc) xsane_cms_function_menu_callback);
+      gtk_box_pack_end(GTK_BOX(hbox), xsane.cms_function_option_menu, FALSE, FALSE, 2);
+      gtk_widget_show(xsane.cms_function_option_menu);
+    }
+#endif
 
   /* input selection */
   opt = xsane_get_option_descriptor(xsane.dev, xsane.well_known.scansource);
@@ -1751,7 +1784,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
   }
 
 
-  if ( (xsane.xsane_colors > 1) && (!xsane.enhancement_rgb_default) )
+  if ( (xsane.xsane_channels > 1) && (!xsane.enhancement_rgb_default) )
   {
     xsane_separator_new(xsane_vbox_xsane_modus, 2);
   }
@@ -1759,7 +1792,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
   xsane_range_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(xsane_vbox_xsane_modus), Gamma_xpm, DESC_GAMMA,
                               XSANE_GAMMA_MIN, XSANE_GAMMA_MAX, 0.01, 0.1, 2,
                               &xsane.gamma, &xsane.gamma_widget, 0, xsane_gamma_changed, TRUE);
-  if ( (xsane.xsane_colors > 1) && (!xsane.enhancement_rgb_default) )
+  if ( (xsane.xsane_channels > 1) && (!xsane.enhancement_rgb_default) )
   {
     xsane_range_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(xsane_vbox_xsane_modus), Gamma_red_xpm, DESC_GAMMA_R,
                                 XSANE_GAMMA_MIN, XSANE_GAMMA_MAX, 0.01, 0.1, 2,
@@ -1777,7 +1810,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
   xsane_range_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(xsane_vbox_xsane_modus), brightness_xpm, DESC_BRIGHTNESS,
                               xsane.brightness_min, xsane.brightness_max, 0.1, 1.0, 1,
                               &xsane.brightness, &xsane.brightness_widget, 0, xsane_gamma_changed, TRUE);
-  if ( (xsane.xsane_colors > 1) && (!xsane.enhancement_rgb_default) )
+  if ( (xsane.xsane_channels > 1) && (!xsane.enhancement_rgb_default) )
   {
     xsane_range_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(xsane_vbox_xsane_modus), brightness_red_xpm, DESC_BRIGHTNESS_R,
                                 xsane.brightness_min, xsane.brightness_max, 0.1, 1.0, 1,
@@ -1795,7 +1828,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
   xsane_range_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(xsane_vbox_xsane_modus), contrast_xpm, DESC_CONTRAST,
                               xsane.contrast_gray_min, xsane.contrast_max, 0.1, 1.0, 1,
                               &xsane.contrast, &xsane.contrast_widget, 0, xsane_gamma_changed, TRUE);
-  if ( (xsane.xsane_colors > 1) && (!xsane.enhancement_rgb_default) )
+  if ( (xsane.xsane_channels > 1) && (!xsane.enhancement_rgb_default) )
   {
     xsane_range_new_with_pixmap(xsane.xsane_window->window, GTK_BOX(xsane_vbox_xsane_modus), contrast_red_xpm, DESC_CONTRAST_R,
                                 xsane.contrast_min, xsane.contrast_max, 0.1, 1.0, 1,
@@ -1816,7 +1849,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
   gtk_box_pack_start(GTK_BOX(xsane_vbox_xsane_modus), xsane_hbox_xsane_enhancement, FALSE, FALSE, 0);
   gtk_widget_show(xsane_hbox_xsane_enhancement);
 
-  if (xsane.xsane_colors > 1)
+  if (xsane.xsane_channels > 1)
   {
     button = xsane_toggle_button_new_with_pixmap(xsane.xsane_window->window, xsane_hbox_xsane_enhancement, rgb_default_xpm, DESC_RGB_DEFAULT,
                                                  &xsane.enhancement_rgb_default, xsane_enhancement_rgb_default_callback);
@@ -1983,7 +2016,23 @@ static int xsane_pref_restore(void)
 
   if (!preferences.filename)
   {
-    preferences.filename = strdup(OUT_FILENAME);
+   char filename[PATH_MAX];
+   char buf[PATH_MAX];
+
+    if (getenv(STRINGIFY(ENVIRONMENT_HOME_DIR_NAME)) != NULL)
+    {
+      snprintf(buf, sizeof(buf)-2, "%s%c%s", getenv(STRINGIFY(ENVIRONMENT_HOME_DIR_NAME)), SLASH, OUT_FILENAME);
+      preferences.filename = strdup(buf);
+    }
+    else if (getcwd(filename, sizeof(filename)))
+    {
+      snprintf(buf, sizeof(buf)-2, "%s%c%s", filename, SLASH, OUT_FILENAME);
+      preferences.filename = strdup(buf);
+    }
+    else
+    {
+      preferences.filename = strdup("");
+    }
   }
 
   if (!preferences.filetype)
@@ -1998,7 +2047,23 @@ static int xsane_pref_restore(void)
 
   if (!preferences.fax_project)
   {
-    preferences.fax_project = strdup(FAXPROJECT);
+   char filename[PATH_MAX];
+   char buf[PATH_MAX];
+
+    if (getenv(STRINGIFY(ENVIRONMENT_HOME_DIR_NAME)) != NULL)
+    {
+      snprintf(buf, sizeof(buf)-2, "%s%c%s", getenv(STRINGIFY(ENVIRONMENT_HOME_DIR_NAME)), SLASH, FAXPROJECT);
+      preferences.fax_project = strdup(buf);
+    }
+    else if (getcwd(filename, sizeof(filename)))
+    {
+      snprintf(buf, sizeof(buf)-2, "%s%c%s", filename, SLASH, FAXPROJECT);
+      preferences.fax_project = strdup(buf);
+    }
+    else
+    {
+      preferences.fax_project = strdup("");
+    }
   }
 
   if (!preferences.fax_command)
@@ -2064,7 +2129,23 @@ static int xsane_pref_restore(void)
 
   if (!preferences.email_project)
   {
-    preferences.email_project = strdup(EMAILPROJECT);
+   char filename[PATH_MAX];
+   char buf[PATH_MAX];
+
+    if (getenv(STRINGIFY(ENVIRONMENT_HOME_DIR_NAME)) != NULL)
+    {
+      snprintf(buf, sizeof(buf)-2, "%s%c%s", getenv(STRINGIFY(ENVIRONMENT_HOME_DIR_NAME)), SLASH, EMAILPROJECT);
+      preferences.email_project = strdup(buf);
+    }
+    else if (getcwd(filename, sizeof(filename)))
+    {
+      snprintf(buf, sizeof(buf)-2, "%s%c%s", filename, SLASH, EMAILPROJECT);
+      preferences.email_project = strdup(buf);
+    }
+    else
+    {
+      preferences.email_project = strdup("");
+    }
   }
 
   if (!preferences.email_filetype)
@@ -2075,7 +2156,23 @@ static int xsane_pref_restore(void)
 
   if (!preferences.multipage_project)
   {
-    preferences.multipage_project = strdup(MULTIPAGEPROJECT);
+   char filename[PATH_MAX];
+   char buf[PATH_MAX];
+
+    if (getenv(STRINGIFY(ENVIRONMENT_HOME_DIR_NAME)) != NULL)
+    {
+      snprintf(buf, sizeof(buf)-2, "%s%c%s", getenv(STRINGIFY(ENVIRONMENT_HOME_DIR_NAME)), SLASH, MULTIPAGEPROJECT);
+      preferences.multipage_project = strdup(buf);
+    }
+    else if (getcwd(filename, sizeof(filename)))
+    {
+      snprintf(buf, sizeof(buf)-2, "%s%c%s", filename, SLASH, MULTIPAGEPROJECT);
+      preferences.multipage_project = strdup(buf);
+    }
+    else
+    {
+      preferences.multipage_project = strdup("");
+    }
   }
 
   if (!preferences.multipage_filetype)
@@ -3172,7 +3269,7 @@ static void xsane_info_dialog(GtkWidget *widget, gpointer data)
   gtk_box_pack_start(GTK_BOX(hbox), table, FALSE, FALSE, 5);
   gtk_widget_show(table);
 
-  if ((xsane.xsane_colors > 1) && (xsane.scanner_gamma_color)) /* color gamma correction by scanner */
+  if ((xsane.xsane_channels > 1) && (xsane.scanner_gamma_color)) /* color gamma correction by scanner */
   {
    const SANE_Option_Descriptor *opt;
 
@@ -3193,7 +3290,7 @@ static void xsane_info_dialog(GtkWidget *widget, gpointer data)
     snprintf(buf, sizeof(buf), "%d bit", (int) (0.5 + log(opt->constraint.range->max+1.0) / log(2.0)));
     label = xsane_info_table_text_new(table, buf, 1, 2);
   }
-  else if ((!xsane.xsane_colors > 1) && (xsane.scanner_gamma_gray)) /* gray gamma correction by scanner */
+  else if ((!xsane.xsane_channels > 1) && (xsane.scanner_gamma_gray)) /* gray gamma correction by scanner */
   {
    const SANE_Option_Descriptor *opt;
 
@@ -4081,7 +4178,7 @@ static GtkWidget *xsane_preferences_build_menu(void)
   gtk_widget_show(item);
 
 
-
+#if 0
   /* change working directory */
 
   item = gtk_menu_item_new_with_label(MENU_ITEM_CHANGE_WORKING_DIR);
@@ -4095,6 +4192,7 @@ static GtkWidget *xsane_preferences_build_menu(void)
   item = gtk_menu_item_new();
   gtk_menu_append(GTK_MENU(menu), item);
   gtk_widget_show(item);
+#endif
 
 #ifdef HAVE_LIBLCMS
   /* enable color management */
@@ -5483,6 +5581,17 @@ static void xsane_choose_device(void)
   gtk_container_set_border_width(GTK_CONTAINER(hbox), 5);
   gtk_widget_show(hbox);
 
+  /* The Cancel button */
+#ifdef HAVE_GTK2
+  button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
+#else
+  button = gtk_button_new_with_label(BUTTON_CANCEL);
+#endif
+  gtk_widget_add_accelerator(button, "clicked", device_selection_accelerator_group, GDK_Escape, 0, DEF_GTK_ACCEL_LOCKED);
+  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_exit, NULL);
+  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
+  gtk_widget_show(button);
+
   /* The OK button */
 #ifdef HAVE_GTK2
   button = gtk_button_new_from_stock(GTK_STOCK_OK);
@@ -5493,17 +5602,6 @@ static void xsane_choose_device(void)
   g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_choose_dialog_ok_callback, NULL);
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
   gtk_widget_grab_default(button);
-  gtk_widget_show(button);
-
-  /* The Cancel button */
-#ifdef HAVE_GTK2
-  button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
-#else
-  button = gtk_button_new_with_label(BUTTON_CANCEL);
-#endif
-  gtk_widget_add_accelerator(button, "clicked", device_selection_accelerator_group, GDK_Escape, 0, DEF_GTK_ACCEL_LOCKED);
-  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_exit, NULL);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
   gtk_widget_show(button);
 
   gtk_widget_show(xsane.choose_device_dialog);
@@ -6031,7 +6129,7 @@ int main(int argc, char **argv)
   xsane.histogram_int    = 1;
   xsane.histogram_log    = 1;
 
-  xsane.xsane_colors            = -1; /* unused value to make sure that change of this vlaue is detected */
+  xsane.xsane_channels          = -1; /* unused value to make sure that change of this vlaue is detected */
   xsane.scanner_gamma_color     = FALSE;
   xsane.scanner_gamma_gray      = FALSE;
   xsane.enhancement_rgb_default = TRUE;

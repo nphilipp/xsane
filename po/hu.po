@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-15 20:42+0100\n"
+"POT-Creation-Date: 2007-02-25 23:44+0100\n"
 "PO-Revision-Date: 2005-12-31 10:34+0100\n"
 "Last-Translator: Aron Novak <aaron@szentimre.hu>\n"
 "Language-Team: Hungarian\n"
@@ -74,6 +74,11 @@ msgstr "kötegelt terület átnevezése"
 msgid "fax project"
 msgstr "faxterv"
 
+#. WINDOW_FAX_PROJECT_BROWSE
+#, fuzzy
+msgid "browse for fax project"
+msgstr "Add meg a terv nevét"
+
 #. WINDOW_FAX_RENAME
 msgid "rename fax page"
 msgstr "faxoldal átnevezése"
@@ -86,6 +91,11 @@ msgstr "ps fájl beszúrása a faxba"
 msgid "E-mail project"
 msgstr "levélterv"
 
+#. WINDOW_EMAIL_PROJECT_BROWSE
+#, fuzzy
+msgid "browse for email project"
+msgstr "Add meg a levélterv nevét"
+
 #. WINDOW_EMAIL_RENAME
 msgid "rename e-mail image"
 msgstr "email - kép átnevezése"
@@ -96,6 +106,11 @@ msgstr "fájl beszúrása levélbe"
 
 #. WINDOW_MULTIPAGE_PROJECT
 msgid "multipage project"
+msgstr "több oldalas terv"
+
+#. WINDOW_MULTIPAGE_PROJECT_BROWSE
+#, fuzzy
+msgid "browse for multipage project"
 msgstr "több oldalas terv"
 
 #. WINDOW_PRESET_AREA_RENAME
@@ -198,14 +213,14 @@ msgstr "Középmeghatározás tárolása"
 msgid "No devices available"
 msgstr "Nincs elérhető eszköz"
 
-#. WINDOW_SCANNER_REFL_ICM_PROFILE
+#. WINDOW_SCANNER_DEFAULT_COLOR_ICM_PROFILE
 #, fuzzy
-msgid "select scanner reflective ICM-profile"
+msgid "select scanner default color ICM-profile"
 msgstr "Nyomtató törlése"
 
-#. WINDOW_SCANNER_TRAN_ICM_PROFILE
+#. WINDOW_SCANNER_DEFAULT_GRAY_ICM_PROFILE
 #, fuzzy
-msgid "select scanner transmissive ICM-profile"
+msgid "select scanner default gray ICM-profile"
 msgstr "Nyomtató törlése"
 
 #. WINDOW_DISPLAY_ICM_PROFILE
@@ -216,6 +231,11 @@ msgstr ""
 #, fuzzy
 msgid "select custom proofing ICM-profile"
 msgstr "kimeneti fájlnév megadása"
+
+#. WINDOW_WORKING_COLOR_SPACE_ICM_PROFILE
+#, fuzzy
+msgid "select working color space ICM-profile"
+msgstr "Nyomtató törlése"
 
 #. WINDOW_PRINTER_ICM_PROFILE
 #, fuzzy
@@ -482,11 +502,11 @@ msgstr "Figyelmeztetés felülíráskor"
 msgid "Skip existing filenames"
 msgstr "Létező fájlnevek kihagyása"
 
-#. RADIO_BUTTON_SAVE_PS_FLATDECODED
+#. RADIO_BUTTON_SAVE_PS_FLATEDECODED
 msgid "Save postscript zlib compressed (ps level 3)"
 msgstr "Mentés postscript zlib tömörítettben (ps level 3)"
 
-#. RADIO_BUTTON_SAVE_PDF_FLATDECODED
+#. RADIO_BUTTON_SAVE_PDF_FLATEDECODED
 msgid "Save PDF zlib compressed"
 msgstr "Mentés PDF-ben, zlibbel tömörítve"
 
@@ -503,7 +523,8 @@ msgid "Main window size fixed"
 msgstr "A főablak rögzített méretű"
 
 #. RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA
-msgid "Disable gimp preview gamma"
+#, fuzzy
+msgid "Disable GIMP preview gamma"
 msgstr "A gimp előnézeti gamma tiltása"
 
 #. RADIO_BUTTON_PRIVATE_COLORMAP
@@ -526,8 +547,9 @@ msgstr "Színek automatikus javítása"
 msgid "Use GUI progress pipe"
 msgstr "A GUI folyamatjelző használata"
 
-#. RADIO_BUTTON_EMBED_ICM_PROFILE
-msgid "Embed scanner/source ICM profile into image file"
+#. RADIO_BUTTON_CMS_BPC
+#. MENU_ITEM_CMS_BLACK_POINT_COMPENSATION
+msgid "Black point compensation"
 msgstr ""
 
 #. TEXT_SCANNING_DEVICES
@@ -545,6 +567,12 @@ msgstr "XSane beállítások"
 #. TEXT_FILETYPE
 msgid "Type"
 msgstr "Típus"
+
+#. TEXT_CMS_FUNCTION
+#. DESC_CMS_FUNCTION
+#, fuzzy
+msgid "Color management function"
+msgstr "Teljes színmélység"
 
 #. TEXT_SCANNER_BACKEND
 msgid "Scanner and backend:"
@@ -618,18 +646,11 @@ msgstr "8 bites kimeneti formátumok:"
 msgid "16 bit output formats:"
 msgstr "16 bites kimeneti formátumok:"
 
-#. TEXT_GIMP_REDUCE_16BIT_TO_8BIT
-msgid ""
-"Gimp does not support depth 16 bits/color.\n"
-"Do you want to reduce the depth to 8 bits/color?"
-msgstr ""
-"A Gimp nem támogatja a 16 bites színmélységet.\n"
-"Szeretnéd csökkenteni 8 bitesre?"
-
 #. TEXT_REDUCE_16BIT_TO_8BIT
+#, fuzzy
 msgid ""
-"Bit depth 16 bits/color is not supported for this output format.\n"
-"Do you want to reduce the depth to 8 bits/color?"
+"Bit depth 16 bits/channel is not supported for this output format.\n"
+"Do you want to reduce the depth to 8 bits/channel?"
 msgstr ""
 "A 16 bites színmélység nem támogatott ehhez a formátumhozCsökkentsük 8 "
 "bitesre?"
@@ -800,9 +821,10 @@ msgid "Medium Name:"
 msgstr "Közép neve:"
 
 #. TEXT_VIEWER_IMAGE_INFO
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"Size %d x %d pixel, %d bit/color, %d colors, %1.0f dpi x %1.0f dpi, %1.1f %s"
+"Size %d x %d pixel, %d bits/channel, %d channels, %1.0f dpi x %1.0f dpi, %"
+"1.1f %s"
 msgstr ""
 "Méret %d x %d képpont, %d bit/szín, %d szín, %1.0f dpi x %1.0f dpi, %1.1f %s"
 
@@ -911,7 +933,17 @@ msgstr "Nyomtató zöld gammája:"
 msgid "Printer gamma blue:"
 msgstr "Nyomtató kék gammája:"
 
-#. TEXT_SETUP_PRINTER_PS_FLATDECODED
+#. TEXT_SETUP_PRINTER_EMBED_CSA
+#, fuzzy
+msgid "Embed scanner ICM profile as CSA"
+msgstr "Nyomtató törlése"
+
+#. TEXT_SETUP_PRINTER_EMBED_CRD
+#, fuzzy
+msgid "Embed printer ICM profile as CRD"
+msgstr "Nyomtató törlése"
+
+#. TEXT_SETUP_PRINTER_PS_FLATEDECODED
 msgid "Create zlib compressed postscript image (ps level 3) for printing"
 msgstr "Zlibbel tömörített postscript létrehozása nyomtatáshoz (ps level 3)"
 
@@ -1035,7 +1067,7 @@ msgstr "Alapértelmezett beállítások ehhez:"
 msgid "Viewer (Postscript):"
 msgstr "Nézőke (Postscript):"
 
-#. TEXT_SETUP_FAX_PS_FLATDECODED
+#. TEXT_SETUP_FAX_PS_FLATEDECODED
 msgid "Create zlib compressed postscript image (ps level 3) for fax"
 msgstr "Zlibbel tömörített postscript létrehozása faxhoz (ps level 3)"
 
@@ -1111,15 +1143,17 @@ msgstr "csoport"
 msgid "all"
 msgstr "mindenki más"
 
-#. TEXT_SETUP_SCANNER_REFL_ICM_PROFILE
+#. TEXT_SETUP_SCANNER_DEFAULT_COLOR_ICM_PROFILE
+#. DESC_SCANNER_DEFAULT_COLOR_ICM_PROFILE
 #, fuzzy
-msgid "Scanner reflective ICM-profile"
+msgid "Scanner default color ICM-profile"
 msgstr "Nyomtató törlése"
 
-#. TEXT_SETUP_SCANNER_TRAN_ICM_PROFILE
-#. DESC_SCANNER_TRAN_ICM_PROFILE
-msgid "Scanner transmissive ICM-profile"
-msgstr ""
+#. TEXT_SETUP_SCANNER_DEFAULT_GRAY_ICM_PROFILE
+#. DESC_SCANNER_DEFAULT_GRAY_ICM_PROFILE
+#, fuzzy
+msgid "Scanner default gray ICM-profile"
+msgstr "Nyomtató törlése"
 
 #. TEXT_SETUP_DISPLAY_ICM_PROFILE
 #. DESC_DISPLAY_ICM_PROFILE
@@ -1131,6 +1165,12 @@ msgstr ""
 #, fuzzy
 msgid "Custom proofing ICM-profile"
 msgstr "Nyomtató törlése"
+
+#. TEXT_SETUP_WORKING_COLOR_SPACE_ICM_PROFILE
+#. DESC_WORKING_COLOR_SPACE_ICM_PROFILE
+#, fuzzy
+msgid "Working color space ICM-profile"
+msgstr "Kép fájlnevének böngészése"
 
 #. TEXT_SETUP_PRINTER_ICM_PROFILE
 #. DESC_PRINTER_ICM_PROFILE
@@ -1301,10 +1341,6 @@ msgstr "Beolvasási tanácsok"
 #. MENU_ITEM_PROBLEMS
 msgid "Problems?"
 msgstr "Elakadt?"
-
-#. MENU_ITEM_CMS_BLACK_POINT_COMPENSATION
-msgid "Black point compensation"
-msgstr ""
 
 #. MENU_ITEM_CMS_PROOFING
 #, fuzzy
@@ -1502,6 +1538,20 @@ msgstr "ASMTP bejelentkezés"
 msgid "ASMTP CRAM-MD5"
 msgstr "ASMTP CRAM-MD5"
 
+#. MENU_ITEM_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE
+#, fuzzy
+msgid "Embed scanner ICM profile"
+msgstr "Nyomtató törlése"
+
+#. MENU_ITEM_CMS_FUNCTION_CONVERT_TO_SRGB
+msgid "Convert to sRGB"
+msgstr ""
+
+#. MENU_ITEM_FUNCTION_CONVERT_TO_WORKING_CS
+#, fuzzy
+msgid "Convert to working color space"
+msgstr "Színek automatikus javítása"
+
 #. PROGRESS_SCANNING
 msgid "Scanning"
 msgstr "Beolvasás"
@@ -1558,6 +1608,11 @@ msgstr "Kép elmosása"
 #. PROGRESS_OCR
 msgid "OCR in progress"
 msgstr "Szövegfelismerés folyamatban"
+
+#. PROGRESS_ICM_CONVERSION
+#, fuzzy
+msgid "converting colors"
+msgstr "Színek automatikus javítása"
 
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
@@ -1618,8 +1673,9 @@ msgstr ""
 "fájlnévhez"
 
 #. DESC_FAXPROJECT
-msgid "Enter name of fax project"
-msgstr "Add meg a terv nevét"
+#, fuzzy
+msgid "Enter fax project directory name"
+msgstr "Tallózás az ideiglenes könyvtárhoz"
 
 #. DESC_FAXPAGENAME
 msgid "Enter new name for faxpage"
@@ -1629,9 +1685,15 @@ msgstr "Adj új nevet a faxoldalnak"
 msgid "Enter receiver phone number or address"
 msgstr "Add meg a fogadó telefonját vagy címét"
 
+#. DESC_FAX_PROJECT_BROWSE
+#, fuzzy
+msgid "Browse for fax project directory"
+msgstr "Tallózás az ideiglenes könyvtárhoz"
+
 #. DESC_EMAIL_PROJECT
-msgid "Enter name of e-mail project"
-msgstr "Add meg a levélterv nevét"
+#, fuzzy
+msgid "Enter e-mail project directory name"
+msgstr "Tallózás az ideiglenes könyvtárhoz"
 
 #. DESC_EMAIL_IMAGENAME
 msgid "Enter new name for e-mail image"
@@ -1640,6 +1702,11 @@ msgstr "Adj új nevet a képnek"
 #. DESC_EMAIL_RECEIVER
 msgid "Enter e-mail address"
 msgstr "Add meg az emailcímet"
+
+#. DESC_EMAIL_PROJECT_BROWSE
+#, fuzzy
+msgid "Browse for email project directory"
+msgstr "Tallózás az ideiglenes könyvtárhoz"
 
 #. DESC_EMAIL_SUBJECT
 msgid "Enter subject of e-mail"
@@ -1650,8 +1717,14 @@ msgid "Select filetype for image attachments"
 msgstr "Válassz fájltípust a csatolmányhoz"
 
 #. DESC_MULTIPAGE_PROJECT
-msgid "Enter name of multipage project"
-msgstr "Add meg a többoldalas levélterv nevét"
+#, fuzzy
+msgid "Enter multipage project directory name"
+msgstr "Tallózás az ideiglenes könyvtárhoz"
+
+#. DESC_MULTIPAGE_PROJECT_BROWSE
+#, fuzzy
+msgid "Browse for multipage project directory"
+msgstr "Tallózás az ideiglenes könyvtárhoz"
 
 #. DESC_MULTIPAGE_FILETYPE
 msgid "Select filetype for multipage file"
@@ -1893,9 +1966,18 @@ msgstr "Plusz zöld gamma érték a fotómásoláshoz"
 msgid "Additional gamma value for blue component for photocopy"
 msgstr "Plusz kék gamma érték a fotómásoláshoz"
 
-#. DESC_PRINTER_PS_FLATDECODED
+#. DESC_PRINTER_EMBED_CSA
+msgid "Creates a postsciptfile that contains the ICM profile of the scanner"
+msgstr ""
+
+#. DESC_PRINTER_EMBED_CRD
+msgid "Creates a postsciptfile that contains the ICM profile of the printer"
+msgstr ""
+
+#. DESC_PRINTER_PS_FLATEDECODED
+#, fuzzy
 msgid ""
-"Create zlib compressed postscript image for printer (flatdecode).\n"
+"Create zlib compressed postscript image for printer (flatedecode).\n"
 "The printer has to understand postscript level 3!"
 msgstr ""
 "Zlibbel tömörített postscript létrehozása nyomtatónak (flatcode).\n"
@@ -1956,16 +2038,18 @@ msgstr ""
 "Ha a fájlnévszámláló önműködően növelt, akkor a már használt számokat hagyja "
 "ki"
 
-#. DESC_SAVE_PS_FLATDECODED
+#. DESC_SAVE_PS_FLATEDECODED
+#, fuzzy
 msgid ""
-"compress postscript image with zlib algorithm (flatdecode). When you want to "
-"print such a file your printer has to understand postscript level 3"
+"compress postscript image with zlib algorithm (flatedecode). When you want "
+"to print such a file your printer has to understand postscript level 3"
 msgstr ""
 "postscript kép tömörítése zlibbel (flatcode). Ha egy ilyen fáljt akarsz "
 "kinyomtatni, a nyomtató postscript 3 megfelelő kell legyen."
 
-#. DESC_SAVE_PDF_FLATDECODED
-msgid "compress PDF image with zlib algorithm (flatdecode)."
+#. DESC_SAVE_PDF_FLATEDECODED
+#, fuzzy
+msgid "compress PDF image with zlib algorithm (flatedecode)."
 msgstr "PDF tömörítése zlibbel (flatdecode)"
 
 #. DESC_SAVE_PNM16_AS_ASCII
@@ -1980,7 +2064,9 @@ msgstr ""
 "formátumot több program támogatja, de azok óriásifájlok lesznek!!"
 
 #. DESC_REDUCE_16BIT_TO_8BIT
-msgid "If scanner sends image with 16 bits/color save image with 8 bits/color"
+#, fuzzy
+msgid ""
+"If scanner sends image with 16 bits/channel save image with 8 bits/channel"
 msgstr "Ha a lapolvasó 12 bites képet küdl, akkor 8 bitesbe mentse el"
 
 #. DESC_PSFILE_WIDTH
@@ -2009,7 +2095,8 @@ msgid "Use fixed main window size or scrolled, resizable main window"
 msgstr "Rögzített vagy görgethető/átméretezhető főablak használata"
 
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
-msgid "Disable preview gamma when XSane runs as gimp plugin"
+#, fuzzy
+msgid "Disable preview gamma when XSane runs as GIMP plugin"
 msgstr "Előnézeti gamma tiltása, amikor az XSane a gimpen belül fut"
 
 #. DESC_PREVIEW_COLORMAP
@@ -2102,10 +2189,13 @@ msgstr "Válasszuk ki a beolvasási területet miután elkészült az előnézet
 msgid "Do color correction after preview scan has finished"
 msgstr "Készítsen színkorrekciót az előnézet elkészülte után"
 
-#. DESC_EMBED_ICM_PROFILE
-msgid ""
-"Embed scanner/source ICM profile into image file - when fileformat supports "
-"it"
+#. DESC_RENDERING_INTENT
+#, fuzzy
+msgid "Select rendering intent for preview and saving"
+msgstr "Válasszuk ki a beolvasási területet miután elkészült az előnézet"
+
+#. DESC_CMS_BPC
+msgid "Apply black point compensation when color transformation is done"
 msgstr ""
 
 #. DESC_FAX_COMMAND
@@ -2136,8 +2226,9 @@ msgstr "Adjuk meg a fax-nézőke parancsát"
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
 msgstr "Küldje a faxot nagyobb x-irányú felbontással(196 lpi a 98 lpi helyett)"
 
-#. DESC_FAX_PS_FLATDECODED
-msgid "Create zlib compressed postscript image for fax (flatdecode)"
+#. DESC_FAX_PS_FLATEDECODED
+#, fuzzy
+msgid "Create zlib compressed postscript image for fax (flatedecode)"
 msgstr "Zlibbel tömörített postscript kép létrehozása faxhoz (flatdecode)"
 
 #. DESC_SMTP_SERVER
@@ -2386,19 +2477,14 @@ msgstr "Kijelölt terület törlése a kötegelt listából"
 msgid "Turns on automatic mode"
 msgstr "Önmüködő mód bekapcsolása"
 
-#. DESC_SCANNER_REFL_ICM_PROFILE
+#. DESC_BUTTON_SCANNER_DEFAULT_COLOR_ICM_PROFILE_BROWSE
 #, fuzzy
-msgid "Scanner reflektive ICM-profile"
-msgstr "Nyomtató törlése"
-
-#. DESC_BUTTON_SCANNER_REFL_ICM_PROFILE_BROWSE
-#, fuzzy
-msgid "Browse for scanner reflektive ICM-profile"
+msgid "Browse for scanner default color ICM-profile"
 msgstr "Kép fájlnevének böngészése"
 
-#. DESC_BUTTON_SCANNER_TRAN_ICM_PROFILE_BROWSE
+#. DESC_BUTTON_SCANNER_DEFAULT_GRAY_ICM_PROFILE_BROWSE
 #, fuzzy
-msgid "Browse for scanner transmissive ICM-profile"
+msgid "Browse for scanner default gray ICM-profile"
 msgstr "Kép fájlnevének böngészése"
 
 #. DESC_BUTTON_DISPLAY_ICM_PROFILE_BROWSE
@@ -2414,6 +2500,11 @@ msgstr "Kép fájlnevének böngészése"
 #. DESC_BUTTON_CUSTOM_PROOFING_ICM_PROFILE_BROWSE
 #, fuzzy
 msgid "Browse for custom proofing ICM-profile"
+msgstr "Kép fájlnevének böngészése"
+
+#. DESC_BUTTON_WORKING_COLOR_SPACE_ICM_PROFILE_BROWSE
+#, fuzzy
+msgid "Browse for working color space ICM-profile"
 msgstr "Kép fájlnevének böngészése"
 
 #. ERR_HOME_DIR
@@ -2467,11 +2558,6 @@ msgstr "Hiba mentés alatt:"
 #. ERR_BAD_DEPTH
 msgid "Can't handle depth"
 msgstr "Nem lehet kezelni ezt a mélységet"
-
-#. ERR_GIMP_BAD_DEPTH
-#, c-format
-msgid "GIMP can't handle depth %d bits/color"
-msgstr "A GIMP nem tudja kezelni a %d színmélységet"
 
 #. ERR_UNKNOWN_SAVING_FORMAT
 msgid "Unknown file format for saving"
@@ -2715,13 +2801,9 @@ msgstr "Hiba mentés alatt:"
 msgid "Could not open"
 msgstr "Sikertelen megnyitás"
 
-#. CMS_SCANNER_TRAN_ICM
-msgid "scanner transmissive ICM profile"
-msgstr ""
-
-#. CMS_SCANNER_REFL_ICM
+#. CMS_SCANNER_ICM
 #, fuzzy
-msgid "scanner reflective ICM profile"
+msgid "scanner ICM profile"
 msgstr "Nyomtató törlése"
 
 #. CMS_DISPLAY_ICM
@@ -2742,6 +2824,34 @@ msgstr "Nem lehet létrehozni az ideiglenes fájlt"
 #. WARN_VIEWER_IMAGE_NOT_SAVED
 msgid "viewer image is not saved"
 msgstr "Megjelenítés képe nincs mentve"
+
+#. FILE_FILTER_ALL_FILES
+msgid "All files"
+msgstr ""
+
+#. FILE_FILTER_IMAGES
+#, fuzzy
+msgid "Images"
+msgstr "Oldalak:"
+
+#. FILE_FILTER_XBL
+#, fuzzy
+msgid "XSane batch list"
+msgstr "Kötegelt lista mentése"
+
+#. FILE_FILTER_ICM
+msgid "ICC/ICM Profiles"
+msgstr ""
+
+#. FILE_FILTER_DRC
+#, fuzzy
+msgid "XSane device preferences"
+msgstr "Eszközbeállítások mentése kilépéskor"
+
+#. FILE_FILTER_RC
+#, fuzzy
+msgid "XSane preferences"
+msgstr "Tulajdonságok"
 
 #. TEXT_USAGE
 msgid "Usage:"
@@ -3113,3 +3223,62 @@ msgstr "Elfogyott a memória"
 
 msgid "Access to resource has been denied"
 msgstr "A hozzáférés az erőforráshoz megtagadva"
+
+#, fuzzy
+#~ msgid "select scanner transmissive ICM-profile"
+#~ msgstr "Nyomtató törlése"
+
+#, fuzzy
+#~ msgid "select scanner transmissive gray ICM-profile"
+#~ msgstr "Nyomtató törlése"
+
+#, fuzzy
+#~ msgid "Scanner reflective ICM-profile"
+#~ msgstr "Nyomtató törlése"
+
+#, fuzzy
+#~ msgid "Scanner reflective gray ICM-profile"
+#~ msgstr "Nyomtató törlése"
+
+#, fuzzy
+#~ msgid "Scanner transmissive gray ICM-profile"
+#~ msgstr "Nyomtató törlése"
+
+#, fuzzy
+#~ msgid "Scanner reflektive ICM-profile"
+#~ msgstr "Nyomtató törlése"
+
+#, fuzzy
+#~ msgid "Browse for scanner transmissive ICM-profile"
+#~ msgstr "Kép fájlnevének böngészése"
+
+#, fuzzy
+#~ msgid "Browse for scanner transmissive gray ICM-profile"
+#~ msgstr "Kép fájlnevének böngészése"
+
+#~ msgid "GIMP can't handle depth %d bits/color"
+#~ msgstr "A GIMP nem tudja kezelni a %d színmélységet"
+
+#, fuzzy
+#~ msgid "scanner reflective ICM profile"
+#~ msgstr "Nyomtató törlése"
+
+#, fuzzy
+#~ msgid "Embed scanner/source ICM profile for GIMP"
+#~ msgstr "Nyomtató törlése"
+
+#~ msgid "Enter name of fax project"
+#~ msgstr "Add meg a terv nevét"
+
+#~ msgid "Enter name of e-mail project"
+#~ msgstr "Add meg a levélterv nevét"
+
+#~ msgid "Enter name of multipage project"
+#~ msgstr "Add meg a többoldalas levélterv nevét"
+
+#~ msgid ""
+#~ "Gimp does not support depth 16 bits/color.\n"
+#~ "Do you want to reduce the depth to 8 bits/color?"
+#~ msgstr ""
+#~ "A Gimp nem támogatja a 16 bites színmélységet.\n"
+#~ "Szeretnéd csökkenteni 8 bitesre?"

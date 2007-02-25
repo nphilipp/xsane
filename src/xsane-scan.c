@@ -1061,7 +1061,7 @@ void xsane_scan_done(SANE_Status status)
       image_info.image_width       = xsane.param.pixels_per_line;
       image_info.image_height      = pixel_height;
       image_info.depth             = xsane.depth;
-      image_info.colors            = xsane.xsane_colors;
+      image_info.channels          = xsane.xsane_channels;
 
       image_info.resolution_x      = xsane.resolution_x;
       image_info.resolution_y      = xsane.resolution_y;
@@ -1084,6 +1084,13 @@ void xsane_scan_done(SANE_Status status)
       image_info.threshold         = xsane.threshold;
 
       image_info.reduce_to_lineart = xsane.expand_lineart_to_grayscale;
+
+      image_info.enable_color_management = xsane.enable_color_management;
+      image_info.cms_function            = preferences.cms_function;
+      image_info.cms_intent              = preferences.cms_intent;
+      image_info.cms_bpc                 = preferences.cms_bpc;
+
+      strncpy(image_info.icm_profile, xsane.scanner_default_color_icm_profile, sizeof(image_info.icm_profile));
 
       xsane_write_pnm_header(xsane.out, &image_info, 0);
     }
@@ -1233,12 +1240,12 @@ void xsane_scan_done(SANE_Status status)
 #ifdef HAVE_ANY_GIMP
         if (xsane.mode == XSANE_GIMP_EXTENSION)	/* xsane runs as gimp plugin */
         {
-          xsane_transfer_to_gimp(xsane.dummy_filename, xsane.progress_bar, &xsane.cancel_save);
+          xsane_transfer_to_gimp(xsane.dummy_filename, xsane.enable_color_management, preferences.cms_function, xsane.progress_bar, &xsane.cancel_save);
         }
         else
 #endif /* HAVE_ANY_GIMP */
         {
-          xsane_save_image_as(xsane.output_filename, xsane.dummy_filename, xsane.xsane_output_format, xsane.progress_bar, &xsane.cancel_save);
+          xsane_save_image_as(xsane.output_filename, xsane.dummy_filename, xsane.xsane_output_format, xsane.enable_color_management, preferences.cms_function, preferences.cms_intent, preferences.cms_bpc, xsane.progress_bar, &xsane.cancel_save);
         }
 
         xsane_progress_clear();
@@ -1345,7 +1352,11 @@ void xsane_scan_done(SANE_Status status)
                       preferences.printer[preferences.printernr]->width  * 72.0/MM_PER_INCH, /* usable paperwidth */
                       preferences.printer[preferences.printernr]->height * 72.0/MM_PER_INCH, /* usable paperheight */
                       preferences.paper_orientation,
-                      preferences.printer[preferences.printernr]->ps_flatdecoded, /* ps level 3 */
+                      preferences.printer[preferences.printernr]->ps_flatedecoded, /* ps level 3 */
+                      NULL /* hTransform */, xsane.enable_color_management,
+                      preferences.printer[preferences.printernr]->embed_csa, xsane.scanner_default_color_icm_profile,
+                      preferences.printer[preferences.printernr]->embed_crd, preferences.printer[preferences.printernr]->icm_profile, preferences.printer[preferences.printernr]->blackpointcompensation,
+                      0 /* intent */,
                       xsane.progress_bar,
                       &xsane.cancel_save);
       }
@@ -1729,7 +1740,7 @@ static void xsane_start_scan(void)
     image_info.image_width      = xsane.param.pixels_per_line;
     image_info.image_height     = xsane.param.lines;
     image_info.depth            = xsane.depth;
-    image_info.colors           = xsane.xsane_colors;
+    image_info.channels         = xsane.xsane_channels;
 
     image_info.resolution_x     = xsane.resolution_x;
     image_info.resolution_y     = xsane.resolution_y;
@@ -1752,6 +1763,13 @@ static void xsane_start_scan(void)
     image_info.threshold        = xsane.threshold;
 
     image_info.reduce_to_lineart = xsane.expand_lineart_to_grayscale;
+
+    image_info.enable_color_management = xsane.enable_color_management;
+    image_info.cms_function            = preferences.cms_function;
+    image_info.cms_intent              = preferences.cms_intent;
+    image_info.cms_bpc                 = preferences.cms_bpc;
+
+    strncpy(image_info.icm_profile, xsane.scanner_default_color_icm_profile, sizeof(image_info.icm_profile));
 
     xsane_write_pnm_header(xsane.out, &image_info, 0);
 
@@ -1946,34 +1964,6 @@ gint xsane_scan_dialog(gpointer *data)
       free(extension);
     }
   }
-#ifdef HAVE_ANY_GIMP
-  else	/* We are running in gimp mode */
-  {
-    if ((xsane.param.depth != 1) && (xsane.param.depth != 8)) /* not support bit depth ? */
-    {
-      if (!xsane.reduce_16bit_to_8bit) /* ask if reduce 16 to 8 bit */
-      {
-        if (xsane.param.depth == 16)
-        {
-          snprintf(buf, sizeof(buf), TEXT_GIMP_REDUCE_16BIT_TO_8BIT);
-          if (xsane_back_gtk_decision(ERR_HEADER_INFO, (gchar **) info_xpm, buf, BUTTON_REDUCE, BUTTON_CANCEL, TRUE /* wait */) == FALSE)
-          {
-            xsane_set_sensitivity(TRUE);
-           return FALSE;
-          }
-          xsane.reduce_16bit_to_8bit = TRUE;
-        }
-        else /* unsupported bit depth */
-        {
-          snprintf(buf, sizeof(buf), ERR_GIMP_BAD_DEPTH, xsane.param.depth);
-          xsane_back_gtk_error(buf, TRUE);
-          xsane_set_sensitivity(TRUE);
-         return FALSE;
-        }
-      }
-    }
-  }
-#endif
 
   if (xsane.dummy_filename) /* no dummy filename defined - necessary if an error occurs */
   {
@@ -1982,7 +1972,7 @@ gint xsane_scan_dialog(gpointer *data)
   }
 
   /* create scanner gamma tables, xsane internal gamma tables are created after sane_start */
-  if ( (xsane.xsane_colors > 1) && /* color scan */
+  if ( (xsane.xsane_channels > 1) && /* color scan */
        xsane.scanner_gamma_color ) /* gamma table for red, green and blue available */
   {
    double gamma_red, gamma_green, gamma_blue;
@@ -2097,7 +2087,7 @@ gint xsane_scan_dialog(gpointer *data)
 
     xsane.gamma_data = malloc(gamma_gray_size * sizeof(SANE_Int));
 
-    if (xsane.xsane_colors > 1) /* color scan */
+    if (xsane.xsane_channels > 1) /* color scan */
     {
       xsane_create_gamma_curve(xsane.gamma_data, xsane.negative,
                                gamma, xsane.brightness, xsane.contrast,
@@ -2145,7 +2135,7 @@ static void xsane_create_internal_gamma_tables(void)
   size = (int) pow(2, xsane.param.depth);
   maxval = size-1;
 
-  if (xsane.xsane_colors > 1) /* color scan */
+  if (xsane.xsane_channels > 1) /* color scan */
   {
     if ( (!xsane.scanner_gamma_color) && (xsane.scanner_gamma_gray) )
     {

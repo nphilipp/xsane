@@ -43,6 +43,30 @@ CornerCoordinates;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+#define XSANE_FILE_FILTER_ALL		1
+#define XSANE_FILE_FILTER_IMAGES	2
+#define XSANE_FILE_FILTER_DRC		4
+#define XSANE_FILE_FILTER_BATCHLIST	8
+#define XSANE_FILE_FILTER_ICM		16
+
+#define XSANE_GET_FILENAME_SHOW_NOTHING 	0
+#define XSANE_GET_FILENAME_SHOW_FILETYPE 	1
+#define XSANE_GET_FILENAME_SHOW_CMS_FUNCTION	2
+
+
+typedef enum
+  {
+    XSANE_FILE_CHOOSER_ACTION_OPEN = 1,
+    XSANE_FILE_CHOOSER_ACTION_SELECT_OPEN,
+    XSANE_FILE_CHOOSER_ACTION_SAVE,
+    XSANE_FILE_CHOOSER_ACTION_SELECT_SAVE,
+    XSANE_FILE_CHOOSER_ACTION_SELECT_FOLDER,
+    XSANE_FILE_CHOOSER_ACTION_SELECT_PROJECT
+  }
+XsaneFileChooserAction;
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 extern int xsane_back_gtk_message_dialog_active;
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -63,8 +87,9 @@ extern void xsane_back_gtk_warning(gchar *warning_message, int wait);
 extern void xsane_back_gtk_info(gchar *info_message, int wait);
 extern void xsane_back_gtk_filetype_menu_set_history(GtkWidget *xsane_filetype_option_menu, char *filetype);
 extern GtkWidget *xsane_back_gtk_filetype_menu_new(char *filetype, GtkSignalFunc filetype_callback);
-extern int xsane_back_gtk_get_filename(const char *label, const char *default_name, size_t max_len, char *filename, char **filetype,
-                                       int show_fileopts, int shorten_path, int hide_file_list, int show_filetype_menu);
+extern GtkWidget *xsane_back_gtk_cms_function_menu_new(int cms_select_function, GtkSignalFunc cms_function_menu_callback);
+extern int xsane_back_gtk_get_filename(const char *label, const char *default_name, size_t max_len, char *filename, char **filetype, int *cms_function,
+                                       XsaneFileChooserAction action, int show_filetype_menu, int enable_filters, int activate_filter);
 
 extern void xsane_back_gtk_update_vector(int opt_num, SANE_Int *vector);
 extern void xsane_back_gtk_refresh_dialog(void);

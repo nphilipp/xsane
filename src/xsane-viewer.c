@@ -258,6 +258,7 @@ static void xsane_viewer_save_callback(GtkWidget *window, gpointer data)
  char windowname[TEXTBUFSIZE];
  int output_format;
  int abort = 0;
+ int show_extra_widgets;
  char buf[TEXTBUFSIZE];
 
   if (v->block_actions) /* actions blocked: return */
@@ -283,9 +284,15 @@ static void xsane_viewer_save_callback(GtkWidget *window, gpointer data)
   if (v->allow_modification == VIEWER_FULL_MODIFICATION) /* it is allowed to rename the image */
   { 
     snprintf(windowname, sizeof(windowname), "%s %s %s", xsane.prog_name, WINDOW_VIEWER_OUTPUT_FILENAME, xsane.device_text);
+
+    show_extra_widgets = XSANE_GET_FILENAME_SHOW_FILETYPE;
+    if (v->cms_enable)
+    {
+      show_extra_widgets |= XSANE_GET_FILENAME_SHOW_CMS_FUNCTION;
+    }
  
     umask((mode_t) preferences.directory_umask); /* define new file permissions */
-    abort = xsane_back_gtk_get_filename(windowname, outputfilename, sizeof(outputfilename), outputfilename, &v->selection_filetype, TRUE, TRUE, FALSE, TRUE);
+    abort = xsane_back_gtk_get_filename(windowname, outputfilename, sizeof(outputfilename), outputfilename, &v->selection_filetype, &v->cms_function, XSANE_FILE_CHOOSER_ACTION_SAVE, show_extra_widgets, XSANE_FILE_FILTER_ALL | XSANE_FILE_FILTER_IMAGES, XSANE_FILE_FILTER_IMAGES);
     umask(XSANE_DEFAULT_UMASK); /* define new file permissions */ 
 
     if (abort)
@@ -351,7 +358,7 @@ static void xsane_viewer_save_callback(GtkWidget *window, gpointer data)
   }
   else
   {
-    xsane_save_image_as(v->output_filename, inputfilename, output_format, v->progress_bar, &v->cancel_save);
+    xsane_save_image_as(v->output_filename, inputfilename, output_format, v->cms_enable, v->cms_function, v->cms_intent, v->cms_bpc, v->progress_bar, &v->cancel_save);
   }
 
   free(inputfilename);
@@ -414,7 +421,7 @@ static void xsane_viewer_ocr_callback(GtkWidget *window, gpointer data)
   snprintf(windowname, sizeof(windowname), "%s %s %s", xsane.prog_name, WINDOW_OCR_OUTPUT_FILENAME, xsane.device_text);
  
   umask((mode_t) preferences.directory_umask); /* define new file permissions */
-  abort = xsane_back_gtk_get_filename(windowname, outputfilename, sizeof(outputfilename), outputfilename, NULL, TRUE, TRUE, FALSE, FALSE);
+  abort = xsane_back_gtk_get_filename(windowname, outputfilename, sizeof(outputfilename), outputfilename, NULL, NULL, XSANE_FILE_CHOOSER_ACTION_SAVE, XSANE_GET_FILENAME_SHOW_FILETYPE, XSANE_FILE_FILTER_ALL | XSANE_FILE_FILTER_IMAGES, XSANE_FILE_FILTER_IMAGES);
   umask(XSANE_DEFAULT_UMASK); /* define new file permissions */ 
 
   if (abort)
@@ -1074,7 +1081,7 @@ static void xsane_viewer_scale_image(GtkWidget *window, gpointer data)
 
   xsane_read_pnm_header(infile, &image_info);
 
-  DBG(DBG_info, "scaling image %s with geometry: %d x %d x %d, %d colors\n", v->filename, image_info.image_width, image_info.image_height, image_info.depth, image_info.colors);
+  DBG(DBG_info, "scaling image %s with geometry: %d x %d x %d, %d channels\n", v->filename, image_info.image_width, image_info.image_height, image_info.depth, image_info.channels);
 
   xsane_back_gtk_make_path(sizeof(outfilename), outfilename, 0, 0, "xsane-viewer-", xsane.dev_name, ".ppm", XSANE_PATH_TMP);
 
@@ -1156,7 +1163,7 @@ static void xsane_viewer_despeckle_image(GtkWidget *window, gpointer data)
 
   xsane_read_pnm_header(infile, &image_info);
 
-  DBG(DBG_info, "despeckling image %s with geometry: %d x %d x %d, %d colors\n", v->filename, image_info.image_width, image_info.image_height, image_info.depth, image_info.colors);
+  DBG(DBG_info, "despeckling image %s with geometry: %d x %d x %d, %d channels\n", v->filename, image_info.image_width, image_info.image_height, image_info.depth, image_info.channels);
 
   xsane_back_gtk_make_path(sizeof(outfilename), outfilename, 0, 0, "xsane-viewer-", xsane.dev_name, ".ppm", XSANE_PATH_TMP);
 
@@ -1233,7 +1240,7 @@ static void xsane_viewer_blur_image(GtkWidget *window, gpointer data)
 
   xsane_read_pnm_header(infile, &image_info);
 
-  DBG(DBG_info, "bluring image %s with geometry: %d x %d x %d, %d colors\n", v->filename, image_info.image_width, image_info.image_height, image_info.depth, image_info.colors);
+  DBG(DBG_info, "bluring image %s with geometry: %d x %d x %d, %d channels\n", v->filename, image_info.image_width, image_info.image_height, image_info.depth, image_info.channels);
 
   xsane_back_gtk_make_path(sizeof(outfilename), outfilename, 0, 0, "xsane-viewer-", xsane.dev_name, ".ppm", XSANE_PATH_TMP);
 
@@ -1315,7 +1322,7 @@ static void xsane_viewer_rotate(Viewer *v, int rotation)
 
   xsane_read_pnm_header(infile, &image_info);
 
-  DBG(DBG_info, "rotating image %s with geometry: %d x %d x %d, %d colors\n", v->filename, image_info.image_width, image_info.image_height, image_info.depth, image_info.colors);
+  DBG(DBG_info, "rotating image %s with geometry: %d x %d x %d, %d channels\n", v->filename, image_info.image_width, image_info.image_height, image_info.depth, image_info.channels);
 
   xsane_back_gtk_make_path(sizeof(outfilename), outfilename, 0, 0, "xsane-viewer-", xsane.dev_name, ".ppm", XSANE_PATH_TMP);
 
@@ -1681,8 +1688,8 @@ static void xsane_viewer_set_cms_black_point_compensation_callback(GtkWidget *wi
 {
  Viewer *v = (Viewer *) data;
 
-  v->cms_black_point_compensation = (GTK_CHECK_MENU_ITEM(widget)->active != 0);
-  DBG(DBG_proc, "xsane_viewer_set_cms_black_point_compensation_callback (%d)\n", v->cms_black_point_compensation);
+  v->cms_bpc = (GTK_CHECK_MENU_ITEM(widget)->active != 0);
+  DBG(DBG_proc, "xsane_viewer_set_cms_black_point_compensation_callback (%d)\n", v->cms_bpc);
 
   xsane_viewer_read_image(v);
 }
@@ -1762,21 +1769,18 @@ static void xsane_viewer_set_cms_proofing_intent_callback(GtkWidget *widget, gpo
 
   g_signal_handlers_block_by_func(GTK_OBJECT(v->cms_proofing_intent_widget[0]), (GtkSignalFunc) xsane_viewer_set_cms_proofing_intent_callback, v);
   g_signal_handlers_block_by_func(GTK_OBJECT(v->cms_proofing_intent_widget[1]), (GtkSignalFunc) xsane_viewer_set_cms_proofing_intent_callback, v);
-  g_signal_handlers_block_by_func(GTK_OBJECT(v->cms_proofing_intent_widget[2]), (GtkSignalFunc) xsane_viewer_set_cms_proofing_intent_callback, v);
-  g_signal_handlers_block_by_func(GTK_OBJECT(v->cms_proofing_intent_widget[3]), (GtkSignalFunc) xsane_viewer_set_cms_proofing_intent_callback, v);
 
   val = (int) gtk_object_get_data(GTK_OBJECT(widget), "Selection");
 
   DBG(DBG_proc, "xsane_viewer_set_cms_proofing_intent_callback (%d)\n", val);
 
-  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(v->cms_proofing_intent_widget[v->cms_proofing_intent]), FALSE);
+  /* we have cms_proofing_intent = 1 and 3 and widget[0] and widget[1] => widget[(cms_proofing_intent-1)/2] */
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(v->cms_proofing_intent_widget[(v->cms_proofing_intent-1)/2]), FALSE);
   v->cms_proofing_intent = val;
-  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(v->cms_proofing_intent_widget[v->cms_proofing_intent]), TRUE);
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(v->cms_proofing_intent_widget[(v->cms_proofing_intent-1)/2]), TRUE);
 
   g_signal_handlers_unblock_by_func(GTK_OBJECT(v->cms_proofing_intent_widget[0]), (GtkSignalFunc) xsane_viewer_set_cms_proofing_intent_callback, v);
   g_signal_handlers_unblock_by_func(GTK_OBJECT(v->cms_proofing_intent_widget[1]), (GtkSignalFunc) xsane_viewer_set_cms_proofing_intent_callback, v);
-  g_signal_handlers_unblock_by_func(GTK_OBJECT(v->cms_proofing_intent_widget[2]), (GtkSignalFunc) xsane_viewer_set_cms_proofing_intent_callback, v);
-  g_signal_handlers_unblock_by_func(GTK_OBJECT(v->cms_proofing_intent_widget[3]), (GtkSignalFunc) xsane_viewer_set_cms_proofing_intent_callback, v);
 
   xsane_viewer_read_image(v);
 }
@@ -1858,14 +1862,14 @@ static GtkWidget *xsane_viewer_color_management_build_menu(Viewer *v)
   /* cms enable */
   item = gtk_check_menu_item_new_with_label(MENU_ITEM_CMS_ENABLE_COLOR_MANAGEMENT);
   gtk_menu_append(GTK_MENU(menu), item);
-  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), TRUE);
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), v->cms_enable);
   g_signal_connect(GTK_OBJECT(item), "toggled", (GtkSignalFunc) xsane_viewer_set_cms_enable_callback, v);
   gtk_widget_show(item);
 
   /* black point compensation */
   item = gtk_check_menu_item_new_with_label(MENU_ITEM_CMS_BLACK_POINT_COMPENSATION);
   gtk_menu_append(GTK_MENU(menu), item);
-  if (v->cms_black_point_compensation)
+  if (v->cms_bpc)
   {
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), TRUE);
   }
@@ -1977,17 +1981,6 @@ static GtkWidget *xsane_viewer_color_management_build_menu(Viewer *v)
 
   submenu = gtk_menu_new();
 
-  subitem = gtk_check_menu_item_new_with_label(SUBMENU_ITEM_CMS_INTENT_PERCEPTUAL);
-  gtk_menu_append(GTK_MENU(submenu), subitem);
-  if (v->cms_proofing_intent == INTENT_PERCEPTUAL)
-  {
-    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(subitem), TRUE);
-  }
-  g_signal_connect(GTK_OBJECT(subitem), "toggled", (GtkSignalFunc) xsane_viewer_set_cms_proofing_intent_callback, v);
-  gtk_object_set_data(GTK_OBJECT(subitem), "Selection", (void *) INTENT_PERCEPTUAL);
-  gtk_widget_show(subitem);
-  v->cms_proofing_intent_widget[INTENT_PERCEPTUAL] = subitem;
-
   subitem = gtk_check_menu_item_new_with_label(SUBMENU_ITEM_CMS_INTENT_RELATIVE_COLORIMETRIC);
   gtk_menu_append(GTK_MENU(submenu), subitem);
   if (v->cms_proofing_intent == INTENT_RELATIVE_COLORIMETRIC)
@@ -1997,7 +1990,7 @@ static GtkWidget *xsane_viewer_color_management_build_menu(Viewer *v)
   g_signal_connect(GTK_OBJECT(subitem), "toggled", (GtkSignalFunc) xsane_viewer_set_cms_proofing_intent_callback, v);
   gtk_object_set_data(GTK_OBJECT(subitem), "Selection", (void *) INTENT_RELATIVE_COLORIMETRIC);
   gtk_widget_show(subitem);
-  v->cms_proofing_intent_widget[INTENT_RELATIVE_COLORIMETRIC] = subitem;
+  v->cms_proofing_intent_widget[0] = subitem;
 
   subitem = gtk_check_menu_item_new_with_label(SUBMENU_ITEM_CMS_INTENT_ABSOLUTE_COLORIMETRIC);
   gtk_menu_append(GTK_MENU(submenu), subitem);
@@ -2008,18 +2001,7 @@ static GtkWidget *xsane_viewer_color_management_build_menu(Viewer *v)
   g_signal_connect(GTK_OBJECT(subitem), "toggled", (GtkSignalFunc) xsane_viewer_set_cms_proofing_intent_callback, v);
   gtk_object_set_data(GTK_OBJECT(subitem), "Selection", (void *) INTENT_ABSOLUTE_COLORIMETRIC);
   gtk_widget_show(subitem);
-  v->cms_proofing_intent_widget[INTENT_ABSOLUTE_COLORIMETRIC] = subitem;
-
-  subitem = gtk_check_menu_item_new_with_label(SUBMENU_ITEM_CMS_INTENT_SATURATION);
-  gtk_menu_append(GTK_MENU(submenu), subitem);
-  if (v->cms_proofing_intent == INTENT_SATURATION)
-  {
-    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(subitem), TRUE);
-  }
-  g_signal_connect(GTK_OBJECT(subitem), "toggled", (GtkSignalFunc) xsane_viewer_set_cms_proofing_intent_callback, v);
-  gtk_object_set_data(GTK_OBJECT(subitem), "Selection", (void *) INTENT_SATURATION);
-  gtk_widget_show(subitem);
-  v->cms_proofing_intent_widget[INTENT_SATURATION] = subitem;
+  v->cms_proofing_intent_widget[1] = subitem;
 
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(item), submenu);
 
@@ -2113,6 +2095,58 @@ static GtkWidget *xsane_viewer_color_management_build_menu(Viewer *v)
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 
+static int xsane_viewer_read_image_header(Viewer *v)
+{
+ int pos0;
+ FILE *infile;
+ Image_info image_info;
+
+  /* open imagefile */
+
+  infile = fopen(v->filename, "rb");
+  if (!infile)
+  {
+    DBG(DBG_error, "could not load file %s\n", v->filename);
+   return -1;
+  }
+
+  xsane_read_pnm_header(infile, &image_info);
+
+  pos0 = ftell(infile);
+
+  if (!image_info.channels) /* == 0 (grayscale) ? */
+  {
+    image_info.channels = 1; /* we have one color component */
+  }
+
+  DBG(DBG_info, "reading image header %s with  geometry: %d x %d x %d, %d channels\n", v->filename,
+                 image_info.image_width, image_info.image_height, image_info.depth, image_info.channels);
+
+  /* init color management */
+  v->enable_color_management = image_info.enable_color_management;
+  if (!image_info.enable_color_management)
+  {
+    v->cms_enable = FALSE;
+  }
+
+  v->cms_function = image_info.cms_function;
+  v->cms_intent   = image_info.cms_intent;
+  v->cms_bpc      = image_info.cms_bpc;
+
+  if ((v->enable_color_management) && (image_info.reduce_to_lineart))
+  {
+    v->enable_color_management = FALSE;
+    v->cms_enable = FALSE;
+  }
+
+  fclose(infile);
+
+ return 0;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+
 static int xsane_viewer_read_image(Viewer *v)
 {
  unsigned char *cms_row, *row, *src_row;
@@ -2134,8 +2168,8 @@ static int xsane_viewer_read_image(Viewer *v)
  cmsHTRANSFORM hTransform = NULL;
  int proof = 0;
  char *cms_proof_icm_profile = NULL;
- DWORD input_format;
- DWORD output_format;
+ DWORD cms_input_format;
+ DWORD cms_output_format;
  DWORD cms_flags = 0;
 #endif
 
@@ -2152,57 +2186,50 @@ static int xsane_viewer_read_image(Viewer *v)
 
   pos0 = ftell(infile);
 
-  if (!image_info.colors) /* == 0 (grayscale) ? */
+  if (!image_info.channels) /* == 0 (grayscale) ? */
   {
-    image_info.colors = 1; /* we have one color component */
+    image_info.channels = 1; /* we have one color component */
   }
 
-  DBG(DBG_info, "reading image %s with  geometry: %d x %d x %d, %d colors\n", v->filename,
-                 image_info.image_width, image_info.image_height, image_info.depth, image_info.colors);
+  DBG(DBG_info, "reading image %s with  geometry: %d x %d x %d, %d channels\n", v->filename,
+                 image_info.image_width, image_info.image_height, image_info.depth, image_info.channels);
 
 #ifdef HAVE_LIBLCMS
   /* init color management */
-  if ((v->enable_color_management) && (image_info.reduce_to_lineart))
-  {
-    v->enable_color_management = FALSE;
-    v->cms_enable = FALSE;
-    gtk_widget_set_sensitive(GTK_WIDGET(v->color_management_menu), FALSE);
-    DBG(DBG_info, "xsane-viewer: disbaled color management due to lineart image\n");
-  }
 
   if ((v->enable_color_management) && (v->cms_enable))
   {
     cmsErrorAction(LCMS_ERROR_SHOW);
 
-    if (v->cms_black_point_compensation)
+    if (v->cms_bpc)
     {
       cms_flags |= cmsFLAGS_BLACKPOINTCOMPENSATION;
     }
 
-    if (image_info.colors == 1) /* == 1 (grayscale) */
+    if (image_info.channels == 1) /* == 1 (grayscale) */
     {
       if (image_info.depth == 8)
       {
-        input_format  = TYPE_GRAY_8;
-        output_format = TYPE_GRAY_8;
+        cms_input_format  = TYPE_GRAY_8;
+        cms_output_format = TYPE_GRAY_8;
       }
       else
       {
-        input_format  = TYPE_GRAY_16;
-        output_format = TYPE_GRAY_8;
+        cms_input_format  = TYPE_GRAY_16;
+        cms_output_format = TYPE_GRAY_8;
       }
     }
     else /* color */
     {
       if (image_info.depth == 8)
       {
-        input_format  = TYPE_RGB_8;
-        output_format = TYPE_RGB_8;
+        cms_input_format  = TYPE_RGB_8;
+        cms_output_format = TYPE_RGB_8;
       }
       else
       {
-        input_format  = TYPE_RGB_16;
-        output_format = TYPE_RGB_8;
+        cms_input_format  = TYPE_RGB_16;
+        cms_output_format = TYPE_RGB_8;
       }
     }
 
@@ -2224,31 +2251,14 @@ static int xsane_viewer_read_image(Viewer *v)
        break;
     }
 
-    if (1) /* reflective */
+    hInProfile  = cmsOpenProfileFromFile(image_info.icm_profile, "r");
+    if (!hInProfile)
     {
-      hInProfile  = cmsOpenProfileFromFile(xsane.scanner_refl_icm_profile, "r");
-      if (!hInProfile)
-      {
-       char buf[TEXTBUFSIZE];
+     char buf[TEXTBUFSIZE];
 
-        snprintf(buf, sizeof(buf), "%s\n%s %s: %s\n", ERR_CMS_CONVERSION, ERR_CMS_OPEN_ICM_FILE, CMS_SCANNER_TRAN_ICM, xsane.scanner_refl_icm_profile);
-        xsane_back_gtk_error(buf, TRUE);
-       return -1;
-      }
-    }
-    else
-    {
-      hInProfile  = cmsOpenProfileFromFile(xsane.scanner_tran_icm_profile, "r");
-      if (!hInProfile)
-      {
-       char buf[TEXTBUFSIZE];
-
-        cmsCloseProfile(hInProfile);
-
-        snprintf(buf, sizeof(buf), "%s\n%s %s: %s\n", ERR_CMS_CONVERSION, ERR_CMS_OPEN_ICM_FILE, CMS_SCANNER_REFL_ICM, xsane.scanner_tran_icm_profile);
-        xsane_back_gtk_error(buf, TRUE);
-       return -1;
-      }
+      snprintf(buf, sizeof(buf), "%s\n%s %s: %s\n", ERR_CMS_CONVERSION, ERR_CMS_OPEN_ICM_FILE, CMS_SCANNER_ICM, image_info.icm_profile);
+      xsane_back_gtk_error(buf, TRUE);
+     return -1;
     }
 
     hOutProfile = cmsOpenProfileFromFile(preferences.display_icm_profile, "r");
@@ -2266,8 +2276,8 @@ static int xsane_viewer_read_image(Viewer *v)
 
     if (proof == 0)
     {
-      hTransform = cmsCreateTransform(hInProfile, input_format,
-                                      hOutProfile, output_format,
+      hTransform = cmsCreateTransform(hInProfile, cms_input_format,
+                                      hOutProfile, cms_output_format,
                                       v->cms_intent, cms_flags); 
     }
     else /* proof */
@@ -2292,22 +2302,22 @@ static int xsane_viewer_read_image(Viewer *v)
        return -1;
       }
 
-      hTransform = cmsCreateProofingTransform(hInProfile, input_format,
-                                              hOutProfile, output_format,
+      hTransform = cmsCreateProofingTransform(hInProfile, cms_input_format,
+                                              hOutProfile, cms_output_format,
                                               hProofProfile,
                                               v->cms_intent, v->cms_proofing_intent, cms_flags); 
+    }
+
+    cmsCloseProfile(hInProfile);
+    cmsCloseProfile(hOutProfile);
+    if (proof)
+    {
+      cmsCloseProfile(hProofProfile);
     }
 
     if (!hTransform)
     {
      char buf[TEXTBUFSIZE];
-
-      cmsCloseProfile(hInProfile);
-      cmsCloseProfile(hOutProfile);
-      if (proof)
-      {
-        cmsCloseProfile(hProofProfile);
-      }
 
       snprintf(buf, sizeof(buf), "%s\n%s\n", ERR_CMS_CONVERSION, ERR_CMS_CREATE_TRANSFORM);
       xsane_back_gtk_error(buf, TRUE);
@@ -2324,7 +2334,7 @@ static int xsane_viewer_read_image(Viewer *v)
   }
 
   /* the preview area */
-  if (image_info.colors == 3) /* RGB */
+  if (image_info.channels == 3) /* RGB */
   {
     v->window = gtk_preview_new(GTK_PREVIEW_COLOR);
   }
@@ -2340,21 +2350,21 @@ static int xsane_viewer_read_image(Viewer *v)
 
 
   /* get memory for one row of the image */
-  src_row = malloc(image_info.image_width * image_info.colors * image_info.depth / 8);
+  src_row = malloc(image_info.image_width * image_info.channels * image_info.depth / 8);
 
   if ((v->enable_color_management) && (v->cms_enable))
   {
-    row     = malloc(((int) image_info.image_width * v->zoom) * image_info.colors * image_info.depth / 8);
+    row     = malloc(((int) image_info.image_width * v->zoom) * image_info.channels * image_info.depth / 8);
   }
   else
   {
-    row     = malloc(((int) image_info.image_width * v->zoom) * image_info.colors);
+    row     = malloc(((int) image_info.image_width * v->zoom) * image_info.channels);
   }
 
 #ifdef HAVE_LIBLCMS
   if ((v->enable_color_management) && (v->cms_enable))
   {
-    cms_row = malloc(((int) image_info.image_width * v->zoom) * image_info.colors);
+    cms_row = malloc(((int) image_info.image_width * v->zoom) * image_info.channels);
   }
   else
 #endif
@@ -2398,14 +2408,14 @@ static int xsane_viewer_read_image(Viewer *v)
 
       if (image_info.depth == 8) /* 8 bits/pixel */
       {
-        fseek(infile, pos0 + (((int) (y / v->zoom)) * image_info.image_width) * image_info.colors, SEEK_SET);
-        nread = fread(src_row, image_info.colors, image_info.image_width, infile);
+        fseek(infile, pos0 + (((int) (y / v->zoom)) * image_info.image_width) * image_info.channels, SEEK_SET);
+        nread = fread(src_row, image_info.channels, image_info.image_width, infile);
 
-        if (image_info.colors > 1)
+        if (image_info.channels > 1)
         {
           for (x=0; x < (int) (image_info.image_width * v->zoom); x++)
           {
-           int xoff = ((int) (x / v->zoom)) * image_info.colors;
+           int xoff = ((int) (x / v->zoom)) * image_info.channels;
 
             row[3*x+0] = src_row[xoff + 0];
             row[3*x+1] = src_row[xoff + 1];
@@ -2424,14 +2434,14 @@ static int xsane_viewer_read_image(Viewer *v)
       {
        guint16 *src_row16 = (guint16 *) src_row;
 
-        fseek(infile, pos0 + (((int) (y / v->zoom)) * image_info.image_width) * image_info.colors * 2, SEEK_SET);
-        nread = fread(src_row, 2 * image_info.colors, image_info.image_width, infile);
+        fseek(infile, pos0 + (((int) (y / v->zoom)) * image_info.image_width) * image_info.channels * 2, SEEK_SET);
+        nread = fread(src_row, 2 * image_info.channels, image_info.image_width, infile);
 
-        if (image_info.colors > 1)
+        if (image_info.channels > 1)
         {
           for (x=0; x < (int) (image_info.image_width * v->zoom); x++)
           {
-           int xoff = ((int) (x / v->zoom)) * image_info.colors;
+           int xoff = ((int) (x / v->zoom)) * image_info.channels;
 
             row[3*x+0] = (unsigned char) (src_row16[xoff + 0] / 256);
             row[3*x+1] = (unsigned char) (src_row16[xoff + 1] / 256);
@@ -2451,14 +2461,14 @@ static int xsane_viewer_read_image(Viewer *v)
        guint16 *src_row16 = (guint16 *) src_row;
        guint16 *dst_row16 = (guint16 *) row;
 
-        fseek(infile, pos0 + (((int) (y / v->zoom)) * image_info.image_width) * image_info.colors * 2, SEEK_SET);
-        nread = fread(src_row, 2 * image_info.colors, image_info.image_width, infile);
+        fseek(infile, pos0 + (((int) (y / v->zoom)) * image_info.image_width) * image_info.channels * 2, SEEK_SET);
+        nread = fread(src_row, 2 * image_info.channels, image_info.image_width, infile);
 
-        if (image_info.colors > 1)
+        if (image_info.channels > 1)
         {
           for (x=0; x < (int) (image_info.image_width * v->zoom); x++)
           {
-           int xoff = ((int) (x / v->zoom)) * image_info.colors;
+           int xoff = ((int) (x / v->zoom)) * image_info.channels;
 
             dst_row16[3*x+0] = src_row16[xoff + 0];
             dst_row16[3*x+1] = src_row16[xoff + 1];
@@ -2487,7 +2497,7 @@ static int xsane_viewer_read_image(Viewer *v)
   gtk_preview_put(GTK_PREVIEW(v->window), v->window->window, v->window->style->black_gc, 0, 0, 0, 0, 
                   image_info.image_width * v->zoom, image_info.image_height * v->zoom);
 
-  size = (float) image_info.image_width * image_info.image_height * image_info.colors;
+  size = (float) image_info.image_width * image_info.image_height * image_info.channels;
   if (image_info.depth == 16)
   {
     size *= 2.0;
@@ -2513,12 +2523,12 @@ static int xsane_viewer_read_image(Viewer *v)
 
   if (image_info.reduce_to_lineart)
   {
-    snprintf(buf, sizeof(buf), TEXT_VIEWER_IMAGE_INFO, image_info.image_width, image_info.image_height, 1, image_info.colors, 
+    snprintf(buf, sizeof(buf), TEXT_VIEWER_IMAGE_INFO, image_info.image_width, image_info.image_height, 1, image_info.channels, 
              image_info.resolution_x, image_info.resolution_y, size, size_unit);
   }
   else
   {
-    snprintf(buf, sizeof(buf), TEXT_VIEWER_IMAGE_INFO, image_info.image_width, image_info.image_height, image_info.depth, image_info.colors,
+    snprintf(buf, sizeof(buf), TEXT_VIEWER_IMAGE_INFO, image_info.image_width, image_info.image_height, image_info.depth, image_info.channels,
              image_info.resolution_x, image_info.resolution_y, size, size_unit);
   }
   gtk_label_set(GTK_LABEL(v->image_info_label), buf);
@@ -2555,12 +2565,6 @@ static int xsane_viewer_read_image(Viewer *v)
   if ((v->enable_color_management) && (v->cms_enable))
   {
     cmsDeleteTransform(hTransform);
-    cmsCloseProfile(hInProfile);
-    cmsCloseProfile(hOutProfile);
-    if (proof)
-    {
-      cmsCloseProfile(hProofProfile);
-    }
   }
 #endif
 
@@ -2594,13 +2598,13 @@ static int xsane_viewer_read_image(Viewer *v)
 
   pos0 = ftell(infile);
 
-  if (!image_info.colors) /* == 0 (grayscale) ? */
+  if (!image_info.channels) /* == 0 (grayscale) ? */
   {
-    image_info.colors = 1; /* we have one color component */
+    image_info.channels = 1; /* we have one color component */
   }
 
-  DBG(DBG_info, "reading image %s with  geometry: %d x %d x %d, %d colors\n", v->filename,
-                 image_info.image_width, image_info.image_height, image_info.depth, image_info.colors);
+  DBG(DBG_info, "reading image %s with  geometry: %d x %d x %d, %d channels\n", v->filename,
+                 image_info.image_width, image_info.image_height, image_info.depth, image_info.channels);
   /* open infile */
 
   if (v->window) /* we already have an existing viewer preview window? */
@@ -2609,7 +2613,7 @@ static int xsane_viewer_read_image(Viewer *v)
   }
 
   /* the preview area */
-  if (image_info.colors == 3) /* RGB */
+  if (image_info.channels == 3) /* RGB */
   {
     v->window = gtk_preview_new(GTK_PREVIEW_COLOR);
   }
@@ -2625,8 +2629,8 @@ static int xsane_viewer_read_image(Viewer *v)
 
 
   /* get memory for one row of the image */
-  src_row = malloc(image_info.image_width * image_info.colors * image_info.depth / 8);
-  row = malloc(((int) image_info.image_width * v->zoom) * image_info.colors);
+  src_row = malloc(image_info.image_width * image_info.channels * image_info.depth / 8);
+  row = malloc(((int) image_info.image_width * v->zoom) * image_info.channels);
 
   if (!row || !src_row)
   {
@@ -2657,14 +2661,14 @@ static int xsane_viewer_read_image(Viewer *v)
 
       if (image_info.depth == 8) /* 8 bits/pixel */
       {
-        fseek(infile, pos0 + (((int) (y / v->zoom)) * image_info.image_width) * image_info.colors, SEEK_SET);
-        nread = fread(src_row, image_info.colors, image_info.image_width, infile);
+        fseek(infile, pos0 + (((int) (y / v->zoom)) * image_info.image_width) * image_info.channels, SEEK_SET);
+        nread = fread(src_row, image_info.channels, image_info.image_width, infile);
 
-        if (image_info.colors > 1)
+        if (image_info.channels > 1)
         {
           for (x=0; x < (int) (image_info.image_width * v->zoom); x++)
           {
-           int xoff = ((int) (x / v->zoom)) * image_info.colors;
+           int xoff = ((int) (x / v->zoom)) * image_info.channels;
 
             row[3*x+0] = src_row[xoff + 0];
             row[3*x+1] = src_row[xoff + 1];
@@ -2683,14 +2687,14 @@ static int xsane_viewer_read_image(Viewer *v)
       {
        guint16 *src_row16 = (guint16 *) src_row;
 
-        fseek(infile, pos0 + (((int) (y / v->zoom)) * image_info.image_width) * image_info.colors * 2, SEEK_SET);
-        nread = fread(src_row, 2 * image_info.colors, image_info.image_width, infile);
+        fseek(infile, pos0 + (((int) (y / v->zoom)) * image_info.image_width) * image_info.channels * 2, SEEK_SET);
+        nread = fread(src_row, 2 * image_info.channels, image_info.image_width, infile);
 
-        if (image_info.colors > 1)
+        if (image_info.channels > 1)
         {
           for (x=0; x < (int) (image_info.image_width * v->zoom); x++)
           {
-           int xoff = ((int) (x / v->zoom)) * image_info.colors;
+           int xoff = ((int) (x / v->zoom)) * image_info.channels;
 
             row[3*x+0] = (unsigned char) (src_row16[xoff + 0] / 256);
             row[3*x+1] = (unsigned char) (src_row16[xoff + 1] / 256);
@@ -2713,7 +2717,7 @@ static int xsane_viewer_read_image(Viewer *v)
   gtk_preview_put(GTK_PREVIEW(v->window), v->window->window, v->window->style->black_gc, 0, 0, 0, 0, 
                   image_info.image_width * v->zoom, image_info.image_height * v->zoom);
 
-  size = (float) image_info.image_width * image_info.image_height * image_info.colors;
+  size = (float) image_info.image_width * image_info.image_height * image_info.channels;
   if (image_info.depth == 16)
   {
     size *= 2.0;
@@ -2739,12 +2743,12 @@ static int xsane_viewer_read_image(Viewer *v)
 
   if (image_info.reduce_to_lineart)
   {
-    snprintf(buf, sizeof(buf), TEXT_VIEWER_IMAGE_INFO, image_info.image_width, image_info.image_height, 1, image_info.colors, 
+    snprintf(buf, sizeof(buf), TEXT_VIEWER_IMAGE_INFO, image_info.image_width, image_info.image_height, 1, image_info.channels, 
              image_info.resolution_x, image_info.resolution_y, size, size_unit);
   }
   else
   {
-    snprintf(buf, sizeof(buf), TEXT_VIEWER_IMAGE_INFO, image_info.image_width, image_info.image_height, image_info.depth, image_info.colors,
+    snprintf(buf, sizeof(buf), TEXT_VIEWER_IMAGE_INFO, image_info.image_width, image_info.image_height, image_info.depth, image_info.channels,
              image_info.resolution_x, image_info.resolution_y, size, size_unit);
   }
   gtk_label_set(GTK_LABEL(v->image_info_label), buf);
@@ -2814,8 +2818,9 @@ Viewer *xsane_viewer_new(char *filename, char *selection_filetype, int allow_red
   v->allow_modification = allow_modification;
   v->next_viewer = xsane.viewer_list;
 #ifdef HAVE_LIBLCMS
-  v->enable_color_management = xsane.enable_color_management;
-  v->cms_enable = 1;
+  v->enable_color_management = FALSE;
+  v->cms_enable = TRUE;
+  v->cms_function = XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE;
   v->cms_intent = INTENT_PERCEPTUAL;
   v->cms_proofing = 0; /* display */
   v->cms_proofing_intent = INTENT_ABSOLUTE_COLORIMETRIC;
@@ -2858,6 +2863,8 @@ Viewer *xsane_viewer_new(char *filename, char *selection_filetype, int allow_red
   {
     snprintf(buf, sizeof(buf), "%s %s", WINDOW_VIEWER, xsane.device_text);
   }
+
+  xsane_viewer_read_image_header(v); // xxx oli
 
   v->top = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   gtk_window_set_title(GTK_WINDOW(v->top), buf);
