@@ -440,7 +440,10 @@ void xsane_device_preferences_load_file(char *filename)
   xsane.negative                    = 0;
   xsane.show_preview                = 1;
 
+  xsane.enable_color_management     = 0;
+
   fd = open(filename, O_RDONLY); 
+
   if (fd >= 0)
   {
     /* prepare wire */
@@ -562,6 +565,17 @@ void xsane_device_preferences_load_file(char *filename)
       }
     }
   }
+
+  if (!xsane.scanner_default_color_icm_profile)
+  {
+    xsane.scanner_default_color_icm_profile = strdup("");
+  }
+
+  if (!xsane.scanner_default_gray_icm_profile)
+  {
+    xsane.scanner_default_gray_icm_profile = strdup("");
+  }
+
   gtk_window_move(GTK_WINDOW(xsane.dialog), xsane.dialog_posx, xsane.dialog_posy);
   gtk_window_set_default_size(GTK_WINDOW(xsane.dialog), xsane.dialog_width, xsane.dialog_height);
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.99\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-25 23:44+0100\n"
+"POT-Creation-Date: 2007-03-03 10:10+0100\n"
 "PO-Revision-Date: 2005-12-31 15:46+0300\n"
 "Last-Translator: Vitaly Lipatov <lav@etersoft.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -949,6 +949,10 @@ msgstr "Удалить описание принтера"
 #, fuzzy
 msgid "Embed printer ICM profile as CRD"
 msgstr "Удалить описание принтера"
+
+#. TEXT_SETUP_PRINTER_CMS_BPC
+msgid "Apply black point compensation"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_PS_FLATEDECODED
 msgid "Create zlib compressed postscript image (ps level 3) for printing"
@@ -1984,6 +1988,10 @@ msgstr ""
 
 #. DESC_PRINTER_EMBED_CRD
 msgid "Creates a postsciptfile that contains the ICM profile of the printer"
+msgstr ""
+
+#. DESC_PRINTER_CMS_BPC
+msgid "Applies black point compensation"
 msgstr ""
 
 #. DESC_PRINTER_PS_FLATEDECODED

@@ -302,7 +302,7 @@ desc_printer[] =
     {"printer-ps-flatedecoded",		xsane_rc_pref_int,	PRTOFFSET(ps_flatedecoded)},
     {"printer-embed-csa",		xsane_rc_pref_int,	PRTOFFSET(embed_csa)},
     {"printer-embed-crd",		xsane_rc_pref_int,	PRTOFFSET(embed_crd)},
-    {"printer-bpc",			xsane_rc_pref_int,	PRTOFFSET(blackpointcompensation)}
+    {"printer-cms-bpc",			xsane_rc_pref_int,	PRTOFFSET(cms_bpc)}
   };
 
 /* --------------------------------------------------------------------- */

@@ -180,6 +180,39 @@ is used for grayscale and as common value for color mode. The
 red, green and blue values are for color correction.
 </blockquote>
 
+<h4>Printer ICM profile:</h4>
+<blockquote>
+Select the printer ICM profile. This profile is used for proofing and for printing!
+</blockquote>
+
+<h4>Embed scanner ICM profile as CSA:</h4>
+<blockquote>
+Embed the scanner ICM profile into the posctscript file (as Color Space Array).
+When you have a postscript printer then you should enable this option. In this case
+the scanner does the color transformation.<br>
+When disabled the color transformation is done by xsane.
+</blockquote>
+
+<h4>Embed printer ICM profile as CRD:</h4>
+<blockquote>
+Embed the printer ICM profile into the posctscript file (as Color Rendering Device).
+When you have a postscript printer then you should try to disable this option - a good postscript
+printer should know its own CRD.<br>
+When you use ghostscript or an other rendering software then it is possible that the
+rendering software does not know the ICM profile of the printer. In this case (or when your
+postscript printer does not know its CRD) you have to enable
+this option. When enabled then the printer ICM profile is embedded into the postscript file.<br>
+When disabled the color transformation is done by xsane.<br>
+When <i>embed scanner ICM profile as CSA</i> is disabled then <i>embed printer ICM profile as CRD</i>
+has no function because the color transformation is done by xsane.
+</blockquote>
+
+<h4>Apply black point compensation:</h4>
+<blockquote>
+    When transformation is done then apply black point compensation. When CSA/CRD is embedded
+    then prepare embedded data for black point compensation.
+</blockquote>
+
 </blockquote>
 
 </td>

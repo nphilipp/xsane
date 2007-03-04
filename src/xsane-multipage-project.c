@@ -968,7 +968,7 @@ static void xsane_multipage_save_file()
 
     if (output_format == XSANE_PS)
     {
-      xsane_save_ps_create_document_header(outfile, pages, preferences.save_ps_flatedecoded);
+      xsane_save_ps_create_document_header(outfile, pages, 0, 0, 72.0*9, 72.0*12, 0 /* portrait top left */, preferences.save_ps_flatedecoded);
     }
     else if (output_format == XSANE_PDF)
     {
@@ -1088,7 +1088,7 @@ static void xsane_multipage_save_file()
                          imagefile, &image_info, imagewidth, imageheight,
                          0, 0, imagewidth, imageheight, 0 /* portrait top left */,
                          preferences.save_ps_flatedecoded,
-                         NULL /* hTransform */, 0 /* embed_scanner_icm_profile */,
+                         NULL /* hTransform */, 0 /* embed_scanner_icm_profile */, 0 /* embed CSA */, NULL, /* CSA profile */ 0 /* intent */,
                          xsane.project_progress_bar, &cancel_save);
     }
     else if (output_format == XSANE_PDF)

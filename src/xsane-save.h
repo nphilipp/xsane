@@ -68,17 +68,20 @@ extern int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *i
 extern int xsane_save_despeckle_image(FILE *outfile, FILE *imagefile, Image_info *image_info, int radius, GtkProgressBar *progress_bar, int *cancel_save);
 extern int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info, float radius, GtkProgressBar *progress_bar, int *cancel_save);
 extern int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_info, int rotation, GtkProgressBar *progress_bar, int *cancel_save);
-extern void xsane_save_ps_create_document_header(FILE *outfile, int pages, int flatedecode);
+extern void xsane_save_ps_create_document_header(FILE *outfile, int pages,
+	                                         int paper_left_margin, int paper_bottom_margin,
+                                                 int paper_width, int paper_height,
+                                                 int paper_orientation, int flatedecode);
 extern void xsane_save_ps_create_document_trailer(FILE *outfile, int pages);
 extern int xsane_save_ps_page(FILE *outfile, int page,
                        FILE *imagefile, Image_info *image_info, float width, float height,
-                       int paper_left_margin, int paper_bottom_margin, int paperwidth, int paperheight, int paper_orientation,
+                       int paper_left_margin, int paper_bottom_margin, int paper_width, int paper_height, int paper_orientation,
                        int flatedecode,
-                       cmsHTRANSFORM hTransform, int embed_scanner_icm_profile,
+                       cmsHTRANSFORM hTransform, int apply_ICM_profile, int embed_CSA, char *CSA_profile, int intent,
                        GtkProgressBar *progress_bar, int *cancel_save);
 extern int xsane_save_ps(FILE *outfile, FILE *imagefile, Image_info *image_info,
                          float width, float height,
-                         int paper_left_margin, int paper_bottom_margin, int paperwidth, int paperheight, int paper_orientation,
+                         int paper_left_margin, int paper_bottom_margin, int paper_width, int paper_height, int paper_orientation,
 			 int flatedecode,
                          cmsHTRANSFORM hTransform, int apply_ICM_profile, int embed_CSA, char *CSA_profile,
                          int embed_CRD, char *CRD_profile, int blackpointcompensation, int intent,
@@ -87,13 +90,13 @@ extern void xsane_save_pdf_create_document_header(FILE *outfile, struct pdf_xref
 extern void xsane_save_pdf_create_document_trailer(FILE *outfile, struct pdf_xref *xref, int pages);
 extern int xsane_save_pdf_page(FILE *outfile, struct pdf_xref *xref, int page,
                                FILE *imagefile, Image_info *image_info, float width, float height,
-                               int paper_left_margin, int paper_bottom_margin, int paperwidth, int paperheight, int paper_orientation,
+                               int paper_left_margin, int paper_bottom_margin, int paper_width, int paper_height, int paper_orientation,
                                int flatedecode,
                                cmsHTRANSFORM hTransform, int embed__scanner_icm_profile, int icc_object,
                                GtkProgressBar *progress_bar, int *cancel_save);
 extern int xsane_save_pdf(FILE *outfile, FILE *imagefile, Image_info *image_info,
                           float width, float height,
-                          int paper_left_margin, int paper_bottom_margin, int paperwidth, int paperheight, int paper_orientation,
+                          int paper_left_margin, int paper_bottom_margin, int paper_width, int paper_height, int paper_orientation,
                           int flatedecode,
                           cmsHTRANSFORM hTransform, int apply_ICM_profile, int cms_function,
                           GtkProgressBar *progress_bar, int *cancel_save);

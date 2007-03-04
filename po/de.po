@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.99\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-25 23:44+0100\n"
+"POT-Creation-Date: 2007-03-03 10:10+0100\n"
 "PO-Revision-Date: 2000-01-21 15:51+01:00\n"
 "Last-Translator: Oliver Rauch <Oliver.Rauch@rauch-domain.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -812,6 +812,7 @@ msgid "Medium Name:"
 msgstr "Medium Name:"
 
 #. TEXT_VIEWER_IMAGE_INFO
+#, c-format
 msgid ""
 "Size %d x %d pixel, %d bits/channel, %d channels, %1.0f dpi x %1.0f dpi, %"
 "1.1f %s"
@@ -931,6 +932,10 @@ msgstr "Scanner/Quell-ICM-Profil als CSA einbinden"
 #. TEXT_SETUP_PRINTER_EMBED_CRD
 msgid "Embed printer ICM profile as CRD"
 msgstr "ICM Profil für Drucker als CRD einbinden"
+
+#. TEXT_SETUP_PRINTER_CMS_BPC
+msgid "Apply black point compensation"
+msgstr "Schwarzpunktkompensation anwenden"
 
 #. TEXT_SETUP_PRINTER_PS_FLATEDECODED
 msgid "Create zlib compressed postscript image (ps level 3) for printing"
@@ -1943,6 +1948,10 @@ msgstr "Erzeugt eine Postscriptdatei die das ICM-Profil des Scammers enthält"
 #. DESC_PRINTER_EMBED_CRD
 msgid "Creates a postsciptfile that contains the ICM profile of the printer"
 msgstr "Erzeugt eine Postscriptdatei die das ICM-Profil des Druckers enthält"
+
+#. DESC_PRINTER_CMS_BPC
+msgid "Applies black point compensation"
+msgstr "Schwarzpunkt kompensieren"
 
 #. DESC_PRINTER_PS_FLATEDECODED
 msgid ""
@@ -3196,4 +3205,3 @@ msgstr "Kein Speicher"
 
 msgid "Access to resource has been denied"
 msgstr "Zugang zum Gerät wurde verweigert"
-

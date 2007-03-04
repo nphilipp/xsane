@@ -2387,9 +2387,29 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void xsane_save_ps_create_document_header(FILE *outfile, int pages, int flatedecode)
+void xsane_save_ps_create_document_header(FILE *outfile, int pages,
+                                          int paper_left_margin, int paper_bottom_margin,
+                                          int paper_width, int paper_height,
+                                          int paper_orientation, int flatedecode)
 {
+ int box_left, box_bottom, box_right, box_top;
+
   DBG(DBG_proc, "xsane_save_ps_create_document_header\n");
+
+  if (paper_orientation >= 8) /* rotate with 90 degrees - landscape mode */
+  {
+    box_left        = paper_width - paper_left_margin - paper_height;
+    box_bottom      = paper_bottom_margin;
+    box_right       = box_left   + ceil(paper_height);
+    box_top         = box_bottom + ceil(paper_width);
+  }
+  else /* do not rotate, portrait mode */
+  {
+    box_left        = paper_left_margin;
+    box_bottom      = paper_bottom_margin;
+    box_right       = box_left   + ceil(paper_width);
+    box_top         = box_bottom + ceil(paper_height);
+  }
 
   fprintf(outfile, "%%!PS-Adobe-3.0\n");
   fprintf(outfile, "%%%%Creator: XSane version %s (sane %d.%d) - by Oliver Rauch\n", VERSION,
@@ -2405,6 +2425,8 @@ void xsane_save_ps_create_document_header(FILE *outfile, int pages, int flatedec
     fprintf(outfile, "%%%%LanguageLevel: 2\n");
   }
 
+  fprintf(outfile, "%%%%BoundingBox: %d %d %d %d\n", box_left, box_bottom, box_right, box_top);
+
   if (pages)
   {
     fprintf(outfile, "%%%%Pages: %d\n", pages);
@@ -2415,8 +2437,9 @@ void xsane_save_ps_create_document_header(FILE *outfile, int pages, int flatedec
   }
   
   fprintf(outfile, "%%%%EndComments\n");
+  fprintf(outfile, "%%%%BeginDocument: xsane.ps\n");
   fprintf(outfile, "\n");
-  fprintf(outfile, "/origstate save def\n");
+//  fprintf(outfile, "/origstate save def\n");
   fprintf(outfile, "20 dict begin\n");
 }
 
@@ -2427,7 +2450,7 @@ void xsane_save_ps_create_document_trailer(FILE *outfile, int pages)
   DBG(DBG_proc, "xsane_save_ps_create_document_trailer\n");
 
   fprintf(outfile, "end\n");
-  fprintf(outfile, "origstate restore\n");
+//  fprintf(outfile, "origstate restore\n");
 
   if (pages)
   {
@@ -2436,102 +2459,21 @@ void xsane_save_ps_create_document_trailer(FILE *outfile, int pages)
   }
 
   fprintf(outfile, "%%%%EOF\n");
+  fprintf(outfile, "%%%%EndDocument\n");
   fprintf(outfile, "\n");
 
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-/* page = [1 .. pages] */
-static void xsane_save_ps_create_page_header(FILE *outfile, int page,
-                                             Image_info *image_info,
-                                             float width, float height,
-                                             int paper_left_margin, int paper_bottom_margin,
-                                             int paper_width, int paper_height,
-                                             int paper_orientation, int flatedecode,
-                                             GtkProgressBar *progress_bar)
+static void xsane_save_ps_create_image_header(FILE *outfile,
+                                              Image_info *image_info,
+                                              float width, float height,
+                                              int degree, int position_left, int position_bottom,
+                                              int box_left, int box_bottom, int box_right, int box_top,
+                                              int flatedecode)
 {
- int degree, position_left, position_bottom, box_left, box_bottom, box_right, box_top, depth;
- int left, bottom;
-
-  DBG(DBG_proc, "xsane_save_ps_create_page_header\n");
-
-  switch (paper_orientation)
-  {
-    default:
-    case 0: /* top left portrait */
-      left   = 0.0;
-      bottom = paper_height - height;
-     break;
-
-    case 1: /* top right portrait */
-      left   = paper_width  - width;
-      bottom = paper_height - height;
-     break;
-
-    case 2: /* bottom right portrait */
-      left   = paper_width - width;
-      bottom = 0.0;
-     break;
-
-    case 3: /* bottom left portrait */
-      left   = 0.0;
-      bottom = 0.0;
-     break;
-
-    case 4: /* center portrait */
-      left   = paper_width  / 2.0 - width  / 2.0;
-      bottom = paper_height / 2.0 - height / 2.0;
-     break;
-
-
-    case 8: /* top left landscape */
-      left   = 0.0;
-      bottom = paper_width - height;
-     break;
-
-    case 9: /* top right landscape */
-      left   = paper_height - width;
-      bottom = paper_width  - height;
-     break;
-
-    case 10: /* bottom right landscape */
-      left   = paper_height - width;
-      bottom = 0.0;
-     break;
-
-    case 11: /* bottom left landscape */
-      left   = 0.0;
-      bottom = 0.0;
-     break;
-
-    case 12: /* center landscape */
-      left   = paper_height / 2.0 - width  / 2.0;
-      bottom = paper_width  / 2.0 - height / 2.0;
-     break;
-  }
-
-
-  if (paper_orientation >= 8) /* rotate with 90 degrees - landscape mode */
-  {
-    degree = 90;
-    position_left   = left   + paper_bottom_margin;
-    position_bottom = bottom - paper_width - paper_left_margin;
-    box_left        = paper_width - paper_left_margin - bottom - height;
-    box_bottom      = left   + paper_bottom_margin;
-    box_right       = box_left   + ceil(height);
-    box_top         = box_bottom + ceil(width);
-  }
-  else /* do not rotate, portrait mode */
-  {
-    degree = 0;
-    position_left   = left   + paper_left_margin;
-    position_bottom = bottom + paper_bottom_margin;
-    box_left        = left   + paper_left_margin;
-    box_bottom      = bottom + paper_bottom_margin;
-    box_right       = box_left   + ceil(width);
-    box_top         = box_bottom + ceil(height);
-  }
+ int depth; 
 
   depth = image_info->depth;
 
@@ -2539,10 +2481,6 @@ static void xsane_save_ps_create_page_header(FILE *outfile, int page,
   {
     depth = 12;
   }
-
-  fprintf(outfile, "\n");
-  fprintf(outfile, "%%%%Page: %d %d\n", page, page);
-  fprintf(outfile, "%%%%PageBoundingBox: %d %d %d %d\n", box_left, box_bottom, box_right, box_top);
 
   if (depth == 1)
   {
@@ -2554,12 +2492,20 @@ static void xsane_save_ps_create_page_header(FILE *outfile, int page,
   fprintf(outfile, "%d rotate\n", degree);
   fprintf(outfile, "%d %d translate\n", position_left, position_bottom);
   fprintf(outfile, "%f %f scale\n", width, height);
+
   fprintf(outfile, "<<\n");
   fprintf(outfile, " /ImageType 1\n");
   fprintf(outfile, " /Width %d\n", image_info->image_width);
   fprintf(outfile, " /Height %d\n", image_info->image_height);
   fprintf(outfile, " /BitsPerComponent %d\n", depth);
-  fprintf(outfile, " /Decode [0 1 0 1 0 1]\n");
+  if (image_info->channels == 3)
+  {
+    fprintf(outfile, " /Decode [0 1 0 1 0 1]\n");
+  }
+  else
+  {
+    fprintf(outfile, " /Decode [0 1]\n");
+  }
   fprintf(outfile, " /ImageMatrix [%d %d %d %d %d %d]\n", image_info->image_width, 0, 0, -image_info->image_height, 0, image_info->image_height);
   fprintf(outfile, " /DataSource currentfile /ASCII85Decode filter");
 #ifdef HAVE_LIBZ
@@ -3033,7 +2979,7 @@ static int xsane_write_CSA(FILE *outfile, char *input_profile, int intent)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static int xsane_write_CRD(FILE *outfile, char *output_profile, int intent, int blackpointcompensation)
+static int xsane_write_CRD(FILE *outfile, char *output_profile, int intent, int cms_bpc)
 {
  cmsHPROFILE hProfile;
  size_t n;
@@ -3046,7 +2992,7 @@ static int xsane_write_CRD(FILE *outfile, char *output_profile, int intent, int 
     return -1;
   }
 
-  if (blackpointcompensation)
+  if (cms_bpc)
   {
     flags |= cmsFLAGS_BLACKPOINTCOMPENSATION;
   }
@@ -3128,10 +3074,12 @@ static int xsane_save_ps_pdf_bw(FILE *outfile, FILE *imagefile, Image_info *imag
         ret = xsane_write_compressed_a85(outfile, line, bytes_per_line, (y == image_info->image_height - 1));
       }
     }
+#ifdef HAVE_LIBZ
     else if (flatedecode)
     {
       ret = xsane_write_flatedecode(outfile, line, bytes_per_line, (y == image_info->image_height - 1));
     }
+#endif
     else
     {
       fwrite(line, bytes_per_line, 1, outfile);
@@ -3230,10 +3178,12 @@ static int xsane_save_ps_pdf_gray(FILE *outfile, FILE *imagefile, Image_info *im
         ret = xsane_write_compressed_a85(outfile, line, image_info->image_width, (y == image_info->image_height - 1));
       }
     }
+#ifdef HAVE_LIBZ
     else if (flatedecode)
     {
       ret = xsane_write_flatedecode(outfile, line, image_info->image_width, (y == image_info->image_height - 1));
     }
+#endif
     else
     {
       fwrite(line, image_info->image_width, 1, outfile);
@@ -3477,10 +3427,12 @@ static int xsane_save_ps_pdf_color(FILE *outfile, FILE *imagefile, Image_info *i
         ret = xsane_write_compressed_a85(outfile, line, bytes_per_line, (y == image_info->image_height - 1));
       }
     }
+#ifdef HAVE_LIBZ
     else if (flatedecode)
     {
       ret = xsane_write_flatedecode(outfile, line, bytes_per_line, (y == image_info->image_height - 1));
     }
+#endif
     else
     {
       fwrite(line, bytes_per_line, 1, outfile);
@@ -3533,18 +3485,119 @@ static int xsane_save_ps_pdf_color(FILE *outfile, FILE *imagefile, Image_info *i
 
 int xsane_save_ps_page(FILE *outfile, int page,
                        FILE *imagefile, Image_info *image_info, float width, float height,
-                       int paper_left_margin, int paper_bottom_margin, int paperwidth, int paperheight, int paper_orientation,
+                       int paper_left_margin, int paper_bottom_margin, int paper_width, int paper_height, int paper_orientation,
                        int flatedecode,
-                       cmsHTRANSFORM hTransform, int do_transform,
+                       cmsHTRANSFORM hTransform, int apply_ICM_profile, int embed_CSA, char *CSA_profile, int intent,
                        GtkProgressBar *progress_bar, int *cancel_save)
 {
+ int degree, position_left, position_bottom, box_left, box_bottom, box_right, box_top;
+ int left, bottom;
+
   DBG(DBG_proc, "xsane_save_ps_page\n");
 
-  xsane_save_ps_create_page_header(outfile, page,
-                                   image_info, width, height,
-                                   paper_left_margin, paper_bottom_margin, paperwidth, paperheight, paper_orientation,
-                                   flatedecode,
-                                   progress_bar);
+  switch (paper_orientation)
+  {
+    default:
+    case 0: /* top left portrait */
+      left   = 0.0;
+      bottom = paper_height - height;
+     break;
+
+    case 1: /* top right portrait */
+      left   = paper_width  - width;
+      bottom = paper_height - height;
+     break;
+
+    case 2: /* bottom right portrait */
+      left   = paper_width - width;
+      bottom = 0.0;
+     break;
+
+    case 3: /* bottom left portrait */
+      left   = 0.0;
+      bottom = 0.0;
+     break;
+
+    case 4: /* center portrait */
+      left   = paper_width  / 2.0 - width  / 2.0;
+      bottom = paper_height / 2.0 - height / 2.0;
+     break;
+
+
+    case 8: /* top left landscape */
+      left   = 0.0;
+      bottom = paper_width - height;
+     break;
+
+    case 9: /* top right landscape */
+      left   = paper_height - width;
+      bottom = paper_width  - height;
+     break;
+
+    case 10: /* bottom right landscape */
+      left   = paper_height - width;
+      bottom = 0.0;
+     break;
+
+    case 11: /* bottom left landscape */
+      left   = 0.0;
+      bottom = 0.0;
+     break;
+
+    case 12: /* center landscape */
+      left   = paper_height / 2.0 - width  / 2.0;
+      bottom = paper_width  / 2.0 - height / 2.0;
+     break;
+  }
+
+
+  if (paper_orientation >= 8) /* rotate with 90 degrees - landscape mode */
+  {
+    degree = 90;
+    position_left   = left   + paper_bottom_margin;
+    position_bottom = bottom - paper_width - paper_left_margin;
+    box_left        = paper_width - paper_left_margin - bottom - height;
+    box_bottom      = left   + paper_bottom_margin;
+    box_right       = box_left   + ceil(height);
+    box_top         = box_bottom + ceil(width);
+  }
+  else /* do not rotate, portrait mode */
+  {
+    degree = 0;
+    position_left   = left   + paper_left_margin;
+    position_bottom = bottom + paper_bottom_margin;
+    box_left        = left   + paper_left_margin;
+    box_bottom      = bottom + paper_bottom_margin;
+    box_right       = box_left   + ceil(width);
+    box_top         = box_bottom + ceil(height);
+  }
+
+  fprintf(outfile, "\n");
+  fprintf(outfile, "%%%%Page: %d %d\n", page, page);
+  fprintf(outfile, "%%%%PageBoundingBox: %d %d %d %d\n", box_left, box_bottom, box_right, box_top);
+
+#ifdef HAVE_LIBLCMS
+  if ((apply_ICM_profile) && (embed_CSA))
+  {
+    xsane_write_CSA(outfile, CSA_profile, intent); /* write scanner profile to ps file */
+  }
+  else
+#endif
+  {
+    if (image_info->channels == 1) /* lineart, halftone, grayscale */
+    {
+      fprintf(outfile, "/DeviceGray setcolorspace\n");
+    }
+    else
+    {
+      fprintf(outfile, "/DeviceRGB setcolorspace\n");
+    }
+  }
+
+  xsane_save_ps_create_image_header(outfile, image_info, width, height,
+                                    degree, position_left, position_bottom,
+                                    box_left, box_bottom, box_right, box_top,
+	                            flatedecode);
 
   if (image_info->channels == 1) /* lineart, halftone, grayscale */
   {
@@ -3554,12 +3607,12 @@ int xsane_save_ps_page(FILE *outfile, int page,
     }
     else /* grayscale */
     {
-      xsane_save_ps_pdf_gray(outfile, imagefile, image_info, TRUE, flatedecode, hTransform, do_transform, progress_bar, cancel_save);
+      xsane_save_ps_pdf_gray(outfile, imagefile, image_info, TRUE, flatedecode, hTransform, apply_ICM_profile && (!embed_CSA), progress_bar, cancel_save);
     }
   }
   else /* color RGB */
   {
-    xsane_save_ps_pdf_color(outfile, imagefile, image_info, TRUE, flatedecode, hTransform, do_transform, progress_bar, cancel_save);
+    xsane_save_ps_pdf_color(outfile, imagefile, image_info, TRUE, flatedecode, hTransform, apply_ICM_profile && (!embed_CSA), progress_bar, cancel_save);
   }
 
   xsane_save_ps_create_page_trailer(outfile);
@@ -3580,47 +3633,32 @@ int xsane_save_ps_page(FILE *outfile, int page,
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 int xsane_save_ps(FILE *outfile, FILE *imagefile, Image_info *image_info, float width, float height,
-                  int paper_left_margin, int paper_bottom_margin, int paperwidth, int paperheight, int paper_orientation,
+                  int paper_left_margin, int paper_bottom_margin, int paper_width, int paper_height, int paper_orientation,
                   int flatedecode,
 		  cmsHTRANSFORM hTransform, int apply_ICM_profile, int embed_CSA, char *CSA_profile,
-                  int embed_CRD, char *CRD_profile, int blackpointcompensation, int intent,
+                  int embed_CRD, char *CRD_profile, int cms_bpc, int intent,
                   GtkProgressBar *progress_bar, int *cancel_save)
 {
   DBG(DBG_proc, "xsane_save_ps\n");
 
   *cancel_save = 0;
 
-  xsane_save_ps_create_document_header(outfile, 1 /* pages */, flatedecode);
+  xsane_save_ps_create_document_header(outfile, 1 /* pages */, paper_left_margin, paper_bottom_margin, paper_width, paper_height, paper_orientation, flatedecode);
 
 #ifdef HAVE_LIBLCMS
   if ((apply_ICM_profile) && (embed_CRD))
   {
-      xsane_write_CRD(outfile, CRD_profile, intent, blackpointcompensation); /* write printer profile to ps file */
+      xsane_write_CRD(outfile, CRD_profile, intent, cms_bpc); /* write printer profile to ps file */
   }
-
-
-  if ((apply_ICM_profile) && (embed_CSA))
-  {
-    xsane_write_CSA(outfile, CSA_profile, intent); /* write scanner profile to ps file */
-  }
-  else
 #endif
-  {
-    if (image_info->channels == 1) /* lineart, halftone, grayscale */
-    {
-      fprintf(outfile, "/DeviceGray setcolorspace\n");
-    }
-    else
-    {
-      fprintf(outfile, "/DeviceRGB setcolorspace\n");
-    }
-  }
+
+
 
   xsane_save_ps_page(outfile, 1 /* page */, 
                      imagefile, image_info, width, height,
-                     paper_left_margin, paper_bottom_margin, paperwidth, paperheight, paper_orientation,
+                     paper_left_margin, paper_bottom_margin, paper_width, paper_height, paper_orientation,
                      flatedecode,
-		     hTransform, (apply_ICM_profile && (!embed_CSA) && (!embed_CRD)) /* do_transform */,
+		     hTransform, apply_ICM_profile, embed_CSA, CSA_profile, intent,
                      progress_bar, cancel_save);
 
   xsane_save_ps_create_document_trailer(outfile, 0 /* we defined pages at beginning */);
@@ -4020,7 +4058,7 @@ static void xsane_save_pdf_create_page_trailer(FILE *outfile, struct pdf_xref *x
 
 int xsane_save_pdf_page(FILE *outfile, struct pdf_xref *xref, int page,
                         FILE *imagefile, Image_info *image_info, float width, float height,
-                        int paper_left_margin, int paper_bottom_margin, int paperwidth, int paperheight, int paper_orientation,
+                        int paper_left_margin, int paper_bottom_margin, int paper_width, int paper_height, int paper_orientation,
 			int flatedecode,
                         cmsHTRANSFORM hTransform, int do_transform, int icc_object,
                         GtkProgressBar *progress_bar, int *cancel_save)
@@ -4030,7 +4068,7 @@ int xsane_save_pdf_page(FILE *outfile, struct pdf_xref *xref, int page,
 
   xsane_save_pdf_create_page_header(outfile, xref, page,
                                     image_info, width, height,
-			            paper_left_margin, paper_bottom_margin, paperwidth, paperheight, paper_orientation,
+			            paper_left_margin, paper_bottom_margin, paper_width, paper_height, paper_orientation,
                                     flatedecode, icc_object,
 			            progress_bar);
 
@@ -4068,7 +4106,7 @@ int xsane_save_pdf_page(FILE *outfile, struct pdf_xref *xref, int page,
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 int xsane_save_pdf(FILE *outfile, FILE *imagefile, Image_info *image_info, float width, float height,
-                   int paper_left_margin, int paper_bottom_margin, int paperwidth, int paperheight, int paper_orientation,
+                   int paper_left_margin, int paper_bottom_margin, int paper_width, int paper_height, int paper_orientation,
                    int flatedecode,
                    cmsHTRANSFORM hTransform, int apply_ICM_profile, int cms_function,
                    GtkProgressBar *progress_bar, int *cancel_save)
@@ -4093,7 +4131,7 @@ int xsane_save_pdf(FILE *outfile, FILE *imagefile, Image_info *image_info, float
 
   xsane_save_pdf_page(outfile, &xref, 1,
                    imagefile, image_info, width, height,
-                   paper_left_margin, paper_bottom_margin, paperwidth, paperheight, paper_orientation,
+                   paper_left_margin, paper_bottom_margin, paper_width, paper_height, paper_orientation,
                    flatedecode,
                    hTransform, apply_ICM_profile && ((cms_function != XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE)) /* do_transform */, icc_object,
                    progress_bar, cancel_save);

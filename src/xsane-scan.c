@@ -1090,7 +1090,23 @@ void xsane_scan_done(SANE_Status status)
       image_info.cms_intent              = preferences.cms_intent;
       image_info.cms_bpc                 = preferences.cms_bpc;
 
-      strncpy(image_info.icm_profile, xsane.scanner_default_color_icm_profile, sizeof(image_info.icm_profile));
+      image_info.icm_profile[0] = 0; /* empty string */
+
+      if (image_info.channels == 1)
+      {
+        if (xsane.scanner_default_gray_icm_profile)
+        {
+          strncpy(image_info.icm_profile, xsane.scanner_default_gray_icm_profile, sizeof(image_info.icm_profile));
+        }
+      }
+      else
+      {
+        if (xsane.scanner_default_color_icm_profile)
+        {
+          strncpy(image_info.icm_profile, xsane.scanner_default_color_icm_profile, sizeof(image_info.icm_profile));
+        }
+      }
+
 
       xsane_write_pnm_header(xsane.out, &image_info, 0);
     }
@@ -1349,13 +1365,13 @@ void xsane_scan_done(SANE_Status status)
                       imagewidth, imageheight,
                       preferences.printer[preferences.printernr]->leftoffset   * 72.0/MM_PER_INCH, /* paper_left_margin */
                       preferences.printer[preferences.printernr]->bottomoffset * 72.0/MM_PER_INCH, /* paper_bottom_margin */
-                      preferences.printer[preferences.printernr]->width  * 72.0/MM_PER_INCH, /* usable paperwidth */
-                      preferences.printer[preferences.printernr]->height * 72.0/MM_PER_INCH, /* usable paperheight */
+                      preferences.printer[preferences.printernr]->width  * 72.0/MM_PER_INCH, /* usable paper_width */
+                      preferences.printer[preferences.printernr]->height * 72.0/MM_PER_INCH, /* usable paper_height */
                       preferences.paper_orientation,
                       preferences.printer[preferences.printernr]->ps_flatedecoded, /* ps level 3 */
                       NULL /* hTransform */, xsane.enable_color_management,
                       preferences.printer[preferences.printernr]->embed_csa, xsane.scanner_default_color_icm_profile,
-                      preferences.printer[preferences.printernr]->embed_crd, preferences.printer[preferences.printernr]->icm_profile, preferences.printer[preferences.printernr]->blackpointcompensation,
+                      preferences.printer[preferences.printernr]->embed_crd, preferences.printer[preferences.printernr]->icm_profile, preferences.printer[preferences.printernr]->cms_bpc,
                       0 /* intent */,
                       xsane.progress_bar,
                       &xsane.cancel_save);
@@ -1769,7 +1785,23 @@ static void xsane_start_scan(void)
     image_info.cms_intent              = preferences.cms_intent;
     image_info.cms_bpc                 = preferences.cms_bpc;
 
-    strncpy(image_info.icm_profile, xsane.scanner_default_color_icm_profile, sizeof(image_info.icm_profile));
+
+    image_info.icm_profile[0] = 0; /* empty string */
+
+    if (image_info.channels == 1)
+    {
+      if (xsane.scanner_default_gray_icm_profile)
+      {
+        strncpy(image_info.icm_profile, xsane.scanner_default_gray_icm_profile, sizeof(image_info.icm_profile));
+      }
+    }
+    else
+    {
+      if (xsane.scanner_default_color_icm_profile)
+      {
+        strncpy(image_info.icm_profile, xsane.scanner_default_color_icm_profile, sizeof(image_info.icm_profile));
+      }
+    }
 
     xsane_write_pnm_header(xsane.out, &image_info, 0);
 

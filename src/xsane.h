@@ -91,7 +91,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.993"
+#define XSANE_VERSION		"0.994"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2007"
@@ -1010,6 +1010,7 @@ typedef struct XsaneSetup
   GtkWidget *printer_icm_profile_entry;
   GtkWidget *printer_embed_csa_button;
   GtkWidget *printer_embed_crd_button;
+  GtkWidget *printer_cms_bpc_button;
   GtkWidget *printer_width_entry;
   GtkWidget *printer_height_entry;
   GtkWidget *printer_ps_flatedecoded_button;

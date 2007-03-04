@@ -52,7 +52,7 @@ typedef struct
     int ps_flatedecoded;		/* flatedecode (zlib compression), ps level 3 */
     int embed_csa;			/* CSA = scanner ICM profile for postscript files */
     int embed_crd;			/* CRD = printer ICM profile for postscript files */
-    int blackpointcompensation;		/* bpc */
+    int cms_bpc;			/* bpc */
   }
 Preferences_printer_t;
 

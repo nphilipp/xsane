@@ -287,6 +287,7 @@
 #define TEXT_SETUP_PRINTER_GAMMA_BLUE			_("Printer gamma blue:")
 #define TEXT_SETUP_PRINTER_EMBED_CSA			_("Embed scanner ICM profile as CSA")
 #define TEXT_SETUP_PRINTER_EMBED_CRD			_("Embed printer ICM profile as CRD")
+#define TEXT_SETUP_PRINTER_CMS_BPC			_("Apply black point compensation")
 #define TEXT_SETUP_PRINTER_PS_FLATEDECODED		_("Create zlib compressed postscript image (ps level 3) for printing")
 #define TEXT_SETUP_TMP_PATH				_("Temporary directory")
 #define TEXT_SETUP_IMAGE_PERMISSION			_("Image-file permissions")
@@ -578,6 +579,7 @@
 #define DESC_PRINTER_GAMMA_BLUE		_("Additional gamma value for blue component for photocopy")
 #define DESC_PRINTER_EMBED_CSA		_("Creates a postsciptfile that contains the ICM profile of the scanner")
 #define DESC_PRINTER_EMBED_CRD		_("Creates a postsciptfile that contains the ICM profile of the printer")
+#define DESC_PRINTER_CMS_BPC		_("Applies black point compensation")
 #define DESC_PRINTER_PS_FLATEDECODED	_("Create zlib compressed postscript image for printer (flatedecode).\n" \
                                           "The printer has to understand postscript level 3!")
 #define DESC_TMP_PATH			_("Path to temp directory")

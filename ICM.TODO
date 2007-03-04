@@ -4,4 +4,4 @@
 - add support for 16bits/sample PDF files
 - reduce to 8 bits/sample after color conversion for all image formats
 - add support for grayscale postscript files
-
+- use active_icm_profile

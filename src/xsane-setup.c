@@ -141,6 +141,7 @@ void xsane_new_printer(void)
       preferences.printer[preferences.printernr]->icm_profile          = NULL;
       preferences.printer[preferences.printernr]->embed_csa            = 1;
       preferences.printer[preferences.printernr]->embed_crd            = 0;
+      preferences.printer[preferences.printernr]->cms_bpc              = 0;
       preferences.printer[preferences.printernr]->ps_flatedecoded      = 1;
     }
     else
@@ -294,6 +295,7 @@ static void xsane_setup_printer_update()
 
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(xsane_setup.printer_embed_csa_button), preferences.printer[preferences.printernr]->embed_csa);
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(xsane_setup.printer_embed_crd_button), preferences.printer[preferences.printernr]->embed_crd);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(xsane_setup.printer_cms_bpc_button),   preferences.printer[preferences.printernr]->cms_bpc);
 #endif
 
 #ifdef HAVE_LIBZ
@@ -383,6 +385,7 @@ static void xsane_setup_printer_apply_changes(GtkWidget *widget, gpointer data)
   preferences.printer[preferences.printernr]->icm_profile = strdup(gtk_entry_get_text(GTK_ENTRY(xsane_setup.printer_icm_profile_entry)));
   xsane_update_bool(xsane_setup.printer_embed_csa_button,  &preferences.printer[preferences.printernr]->embed_csa);
   xsane_update_bool(xsane_setup.printer_embed_crd_button,  &preferences.printer[preferences.printernr]->embed_crd);
+  xsane_update_bool(xsane_setup.printer_cms_bpc_button,    &preferences.printer[preferences.printernr]->cms_bpc);
 #endif
 
 #ifdef HAVE_LIBZ
@@ -1451,6 +1454,18 @@ static void xsane_printer_notebook(GtkWidget *notebook)
   gtk_widget_show(button);
   gtk_widget_show(hbox);
   xsane_setup.printer_embed_crd_button = button;
+
+  /* black point compensation */
+  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+  button = gtk_check_button_new_with_label(TEXT_SETUP_PRINTER_CMS_BPC);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_PRINTER_CMS_BPC);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), preferences.printer[preferences.printernr]->cms_bpc);
+  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 2);
+  gtk_widget_show(button);
+  gtk_widget_show(hbox);
+  xsane_setup.printer_cms_bpc_button = button;
+
 #endif
 
 #ifdef HAVE_LIBZ

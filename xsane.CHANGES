@@ -2948,3 +2948,16 @@ xsane-0.992 -> 0.993:
 
  - added flatedecode without Asci85 compression for PDF
 
+
+xsane-0.993 -> 0.994:
+---------------------
+
+ - corrected postscript bug: moved "/DeviceRGB setcolorspace" and "CSA... setcolorspace" from document setup to page setup
+
+ - added black point compensation to printer setup dialog
+
+ - xsane-scan.c: if (channels==1) then scanner_default_gray_icm_profile is used instead of scanner_default_color_icm_profile
+
+ - xsane-scan.c: bugfix segfault when scanning: when scanner_default_color_icm_profile is not defined then "" is used instead
+   of scanner_default_color_icm_profile
+
