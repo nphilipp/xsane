@@ -1,22 +1,21 @@
-# translation of xsane.po to
+# Translation of xsane.po to Slovak
 # Slovak translation of sane
-# Copyright (C) 2003, 2004, 2005 Free Software Foundation, Inc.
-# Zdenko Podobný <zdpo@mailbox.sk>, 2001, 2004, 2005.
+# Copyright (C) 2003, 2004, 2005, 2007 Free Software Foundation, Inc.
+# Zdenko Podobný <zdpo@mailbox.sk>, 2001, 2004, 2005, 2006, 2007
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xsane\n"
+"Project-Id-Version:  xsane-0.995-pre1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-03 10:10+0100\n"
-"PO-Revision-Date: 2005-11-01 18:58+0100\n"
-"Last-Translator: \n"
-"Language-Team:  <sk@li.org>\n"
+"POT-Creation-Date: 2007-08-13 09:22+0200\n"
+"PO-Revision-Date: 2007-10-01 20:37+0200\n"
+"Last-Translator:  Zdenko Podobny <zdenop@gmail.com>\n"
+"Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10.2\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #. Please translate this to the correct directory name (eg. german=>de)
 #. XSANE_LANGUAGE_DIR
@@ -78,47 +77,40 @@ msgid "fax project"
 msgstr "faxový projekt"
 
 #. WINDOW_FAX_PROJECT_BROWSE
-#, fuzzy
 msgid "browse for fax project"
-msgstr "Vložte názov faxového projektu"
+msgstr "vyhľadať faxový projekt"
 
 #. WINDOW_FAX_RENAME
 msgid "rename fax page"
 msgstr "premenovať faxovú stránku"
 
 #. WINDOW_FAX_INSERT
-msgid "insert ps-file into fax"
+msgid "insert PS-file into fax"
 msgstr "vložiť ps-súbor do faxu"
 
 #. WINDOW_EMAIL_PROJECT
-#, fuzzy
 msgid "E-mail project"
-msgstr "poštový projekt"
+msgstr "E-mailový projekt"
 
 #. WINDOW_EMAIL_PROJECT_BROWSE
-#, fuzzy
 msgid "browse for email project"
-msgstr "Vložte názov poštového projektu"
+msgstr "vyhľadať e-mailový projekt"
 
 #. WINDOW_EMAIL_RENAME
-#, fuzzy
 msgid "rename e-mail image"
-msgstr "premenovať obrázok do pošty"
+msgstr "premenovať e-mailový obrázok"
 
 #. WINDOW_EMAIL_INSERT
-#, fuzzy
 msgid "insert file into e-mail"
-msgstr "vložiť obrázok do pošty"
+msgstr "vložiť súbor do e-mailu"
 
 #. WINDOW_MULTIPAGE_PROJECT
-#, fuzzy
 msgid "multipage project"
-msgstr "Zmazať projekt"
+msgstr "viacstranový projekt"
 
 #. WINDOW_MULTIPAGE_PROJECT_BROWSE
-#, fuzzy
 msgid "browse for multipage project"
-msgstr "Zmazať projekt"
+msgstr "vyhľadať viacstranový projekt"
 
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
@@ -221,33 +213,28 @@ msgid "No devices available"
 msgstr "Nie je dostupné žiadne zariadenie"
 
 #. WINDOW_SCANNER_DEFAULT_COLOR_ICM_PROFILE
-#, fuzzy
 msgid "select scanner default color ICM-profile"
-msgstr "Zmazať tlačiareň"
+msgstr "Vybrať štandardný ICM-profil pre skener"
 
 #. WINDOW_SCANNER_DEFAULT_GRAY_ICM_PROFILE
-#, fuzzy
 msgid "select scanner default gray ICM-profile"
-msgstr "Zmazať tlačiareň"
+msgstr "Vybrať štandardný ICM-profil pre skener"
 
 #. WINDOW_DISPLAY_ICM_PROFILE
 msgid "select display ICM-profile"
-msgstr ""
+msgstr "vybrať ICM-profil obrazovky"
 
 #. WINDOW_CUSTOM_PROOFING_ICM_PROFILE
-#, fuzzy
 msgid "select custom proofing ICM-profile"
-msgstr "zvoľte názov pre výstupný súbor"
+msgstr ""
 
 #. WINDOW_WORKING_COLOR_SPACE_ICM_PROFILE
-#, fuzzy
 msgid "select working color space ICM-profile"
-msgstr "Zmazať tlačiareň"
+msgstr ""
 
 #. WINDOW_PRINTER_ICM_PROFILE
-#, fuzzy
 msgid "select printer ICM-profile"
-msgstr "Zmazať tlačiareň"
+msgstr "vybrať ICM profil pre tlačiareň"
 
 #. MENU_FILE
 msgid "File"
@@ -285,7 +272,7 @@ msgstr "Geometria"
 #. MENU_COLOR_MANAGEMENT
 #. NOTEBOOK_COLOR_MANAGEMENT_OPTIONS
 msgid "Color management"
-msgstr ""
+msgstr "Správa farieb"
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
@@ -450,9 +437,8 @@ msgid "Send project"
 msgstr "Poslať projekt"
 
 #. BUTTON_SAVE_MULTIPAGE
-#, fuzzy
 msgid "Save multipage file"
-msgstr "Uložiť obrázok"
+msgstr "Uložiť viacstranový súbor"
 
 #. BUTTON_DELETE_PROJECT
 msgid "Delete project"
@@ -495,9 +481,8 @@ msgid "Fine mode"
 msgstr "Jemný režim"
 
 #. RADIO_BUTTON_HTML_EMAIL
-#, fuzzy
 msgid "HTML e-mail"
-msgstr "HTML pošta"
+msgstr "HTML e-mail"
 
 #. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device preferences at exit"
@@ -512,16 +497,16 @@ msgid "Skip existing filenames"
 msgstr "Preskočiť existujúce názvy súborov"
 
 #. RADIO_BUTTON_SAVE_PS_FLATEDECODED
-msgid "Save postscript zlib compressed (ps level 3)"
-msgstr ""
+msgid "Save postscript zlib compressed (PS level 3)"
+msgstr "Použiť postcipt so zlib kompresiou (PS level 3)"
 
 #. RADIO_BUTTON_SAVE_PDF_FLATEDECODED
 msgid "Save PDF zlib compressed"
-msgstr ""
+msgstr "Uložiť PDF so zlib kompresiou"
 
 #. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
-msgid "Save 16bit pnm in ascii format"
-msgstr "Uložiť 16 bitové pnm v ascii formáte"
+msgid "Save 16bit PNM in ASCII format"
+msgstr "Uložiť 16 bitové PNM v ASCII formáte"
 
 #. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
 msgid "Reduce 16 bit image to 8 bit"
@@ -532,9 +517,8 @@ msgid "Main window size fixed"
 msgstr "Pevná veľkosť hlavného okna"
 
 #. RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA
-#, fuzzy
 msgid "Disable GIMP preview gamma"
-msgstr "Zakázať pre gimp gama náhľad"
+msgstr "Zakázať pre GIMP gama náhľad"
 
 #. RADIO_BUTTON_PRIVATE_COLORMAP
 msgid "Use private colormap"
@@ -544,8 +528,8 @@ msgstr "Použiť vlastnú farebnú mapu"
 msgid "Autoenhance gamma"
 msgstr "Automaticky upraviť gama"
 
-#. RADIO_BUTTON_PRESELECT_SCANAREA
-msgid "Preselect scanarea"
+#. RADIO_BUTTON_PRESELECT_SCAN_AREA
+msgid "Preselect scan area"
 msgstr "Predvoľba skenovacej plochy"
 
 #. RADIO_BUTTON_AUTOCORRECT_COLORS
@@ -559,7 +543,7 @@ msgstr "Použiť GUI rúru postupu"
 #. RADIO_BUTTON_CMS_BPC
 #. MENU_ITEM_CMS_BLACK_POINT_COMPENSATION
 msgid "Black point compensation"
-msgstr ""
+msgstr "Kompenzácia čierneho boru"
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
@@ -569,19 +553,14 @@ msgstr "hľadám zariadenia"
 msgid "Available devices:"
 msgstr "Dostupné zariadenia:"
 
-#. TEXT_XSANE_OPTIONS
-msgid "XSane options"
-msgstr "Nastavenia XSane"
-
 #. TEXT_FILETYPE
 msgid "Type"
 msgstr "Typ"
 
 #. TEXT_CMS_FUNCTION
 #. DESC_CMS_FUNCTION
-#, fuzzy
 msgid "Color management function"
-msgstr "Celofarebný rozsah"
+msgstr "Funkcie správy farieb"
 
 #. TEXT_SCANNER_BACKEND
 msgid "Scanner and backend:"
@@ -656,13 +635,12 @@ msgid "16 bit output formats:"
 msgstr "16 bitové výstupné formáty:"
 
 #. TEXT_REDUCE_16BIT_TO_8BIT
-#, fuzzy
 msgid ""
 "Bit depth 16 bits/channel is not supported for this output format.\n"
 "Do you want to reduce the depth to 8 bits/channel?"
 msgstr ""
-"16 bitov na farbu nie je podporovaných v tomto výstupnom formát.\n"
-"Prajete si redukciu hĺbky na 8 bitov/farbu?"
+"16 bitov na kanál nie je podporovaných v tomto výstupnom formát.\n"
+"Prajete si redukciu hĺbky na 8 bitov/kanál?"
 
 #. TEXT_AUTHORIZATION_REQ
 msgid "Authorization required for"
@@ -697,9 +675,8 @@ msgid "package"
 msgstr "balík"
 
 #. TEXT_WITH_CMS_FUNCTION
-#, fuzzy
 msgid "with color management function"
-msgstr "Celofarebný rozsah"
+msgstr "s funkciami správy farieb"
 
 #. TEXT_WITH_GIMP_SUPPORT
 msgid "with GIMP support"
@@ -767,9 +744,8 @@ msgstr ""
 "PRE KONKRÉTNY ÚČEL.\n"
 
 #. TEXT_EMAIL_ADR
-#, fuzzy
 msgid "E-mail:"
-msgstr "Email:"
+msgstr "E-mail:"
 
 #. TEXT_HOMEPAGE
 msgid "Homepage:"
@@ -788,15 +764,14 @@ msgstr "Preklad:"
 #. by YOUR NAME\n
 #. E-mail: your.name@yourdomain.com\n
 #. TEXT_TRANSLATION_INFO
-#, fuzzy
 msgid ""
 "untranslated original english text\n"
 "by Oliver Rauch\n"
 "E-mail: Oliver.Rauch@rauch-domain.de\n"
 msgstr ""
-"pôvodný nepreložený anglický text\n"
-"je od Olivera Raucha\n"
-"Email: Oliver.Rauch@rauch-domain.de\n"
+"preklad do Slovenského jazyka:\n"
+"Zdenko Podobný\n"
+"Email: zdenop@gmail.com\n"
 
 #. TEXT_INFO_BOX
 msgid "0x0: 0KB"
@@ -807,7 +782,6 @@ msgid "Scanned pages: "
 msgstr "Skenované stránky: "
 
 #. TEXT_EMAIL_TEXT
-#, fuzzy
 msgid "E-mail text:"
 msgstr "Text emailu:"
 
@@ -820,32 +794,29 @@ msgid "Project status:"
 msgstr "Stav projektu:"
 
 #. TEXT_EMAIL_FILETYPE
-#, fuzzy
 msgid "E-mail image filetype:"
 msgstr "Súborový typ obrázka e-mailu:"
 
 #. TEXT_PAGES
-#, fuzzy
 msgid "Pages:"
-msgstr "Použitie:"
+msgstr "Strany:"
 
 #. TEXT_MULTIPAGE_FILETYPE
-#, fuzzy
 msgid "Multipage document filetype:"
-msgstr "Súborový typ obrázka e-mailu:"
+msgstr "Súborový typ viacstranového dokumentu:"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
 msgstr "Názov média:"
 
 #. TEXT_VIEWER_IMAGE_INFO
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Size %d x %d pixel, %d bits/channel, %d channels, %1.0f dpi x %1.0f dpi, %"
 "1.1f %s"
 msgstr ""
-"Veľkosť v bodoch: %d × %d, bitov/farbu: %d, farieb: %d, %1.0f dpi × %1.0f "
-"dpi, %1.1f %s"
+"Veľkosť: %d × %d bodov, %d bitov/kanál, %d kanálov, %1.0f dpi × %1.0f dpi, %"
+"1.1f %s"
 
 #. TEXT_DESPECKLE_RADIUS
 msgid "Despeckle radius:"
@@ -904,71 +875,77 @@ msgstr "Príkaz:"
 msgid "Copy number option:"
 msgstr "Voľba počtu kópií:"
 
+#. TEXT_SETUP_SCAN_RESOLUTION_PRINTER
+msgid "Scan resolution:"
+msgstr "Nastavenie rozlíšenia skenovania"
+
 #. TEXT_SETUP_PRINTER_LINEART_RES
-msgid "Lineart resolution (dpi):"
+msgid "lineart [dpi]"
 msgstr "Rozlíšenie čiarovej grafiky (dpi):"
 
 #. TEXT_SETUP_PRINTER_GRAYSCALE_RES
-msgid "Grayscale resolution (dpi):"
+msgid "grayscale [dpi]"
 msgstr "Rozlíšenie v odtieňoch šedej (dpi):"
 
 #. TEXT_SETUP_PRINTER_COLOR_RES
-msgid "Color resolution (dpi):"
-msgstr "Farebné rozlíšenie (dpi):"
+msgid "color [dpi]"
+msgstr "farba [dpi]"
+
+#. TEXT_SETUP_PRINTER_PAPER_GEOMETRIE
+msgid "Paper geometrie:"
+msgstr "Geometria papiera"
 
 #. TEXT_SETUP_PRINTER_WIDTH
-#. TEXT_SETUP_FAX_WIDTH
-msgid "Width"
-msgstr "Šírka"
+msgid "width"
+msgstr "šírka"
 
 #. TEXT_SETUP_PRINTER_HEIGHT
-#. TEXT_SETUP_FAX_HEIGHT
-msgid "Height"
-msgstr "Výška"
+msgid "height"
+msgstr "výška"
 
 #. TEXT_SETUP_PRINTER_LEFT
-#. TEXT_SETUP_FAX_LEFT
-msgid "Left offset"
+msgid "left offset"
 msgstr "Posun zľava"
 
 #. TEXT_SETUP_PRINTER_BOTTOM
-#. TEXT_SETUP_FAX_BOTTOM
-msgid "Bottom offset"
+msgid "bottom offset"
 msgstr "Posun zdola"
 
+#. TEXT_SETUP_PRINTER_GAMMA_CORRECTION
+msgid "Printer gamma:"
+msgstr "Gama tlačiarne:"
+
 #. TEXT_SETUP_PRINTER_GAMMA
-msgid "Printer gamma value:"
-msgstr "Gama hodnota tlačiarne:"
+msgid "common value"
+msgstr "bežná hodnota:"
 
 #. TEXT_SETUP_PRINTER_GAMMA_RED
-msgid "Printer gamma red:"
-msgstr "Červená gama tlačiarne:"
+msgid "red"
+msgstr "červená"
 
 #. TEXT_SETUP_PRINTER_GAMMA_GREEN
-msgid "Printer gamma green:"
-msgstr "Zelená gama tlačiarne:"
+msgid "green"
+msgstr "zelená"
 
 #. TEXT_SETUP_PRINTER_GAMMA_BLUE
-msgid "Printer gamma blue:"
-msgstr "Modrá gama tlačiarne:"
+msgid "blue"
+msgstr "modrá"
 
 #. TEXT_SETUP_PRINTER_EMBED_CSA
-#, fuzzy
 msgid "Embed scanner ICM profile as CSA"
-msgstr "Zmazať tlačiareň"
+msgstr "Vložiť ICM profil skenera ako CSA"
 
 #. TEXT_SETUP_PRINTER_EMBED_CRD
-#, fuzzy
 msgid "Embed printer ICM profile as CRD"
-msgstr "Zmazať tlačiareň"
+msgstr "Vložiť ICM profil tlačiarne ako CRD"
 
 #. TEXT_SETUP_PRINTER_CMS_BPC
 msgid "Apply black point compensation"
-msgstr ""
+msgstr "Použiť kompenzáciu čierneho bodu"
 
 #. TEXT_SETUP_PRINTER_PS_FLATEDECODED
-msgid "Create zlib compressed postscript image (ps level 3) for printing"
-msgstr ""
+msgid "Create zlib compressed postscript image (PS level 3) for printing"
+msgstr "Vytvoriť zlib komprimovaný postscript obrázok (PS level 3) pre tlač"
 
 #. TEXT_SETUP_TMP_PATH
 msgid "Temporary directory"
@@ -995,9 +972,8 @@ msgid "Filename counter length"
 msgstr "Dĺžka počítadla názvov súborov"
 
 #. TEXT_SETUP_TIFF_ZIP_COMPRESSION
-#, fuzzy
 msgid "TIFF zip compression rate"
-msgstr "Kompresia 8 bitového TIFF obrázka"
+msgstr "Úroveň zip kompresie TIFF"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_16
 msgid "TIFF 16 bit image compression"
@@ -1091,9 +1067,25 @@ msgstr "Štandardné nastavenia programu pre:"
 msgid "Viewer (Postscript):"
 msgstr "Prehliadač (Postscript):"
 
+#. TEXT_SETUP_FAX_WIDTH
+msgid "Width"
+msgstr "Šírka"
+
+#. TEXT_SETUP_FAX_HEIGHT
+msgid "Height"
+msgstr "Výška"
+
+#. TEXT_SETUP_FAX_LEFT
+msgid "Left offset"
+msgstr "Posun zľava"
+
+#. TEXT_SETUP_FAX_BOTTOM
+msgid "Bottom offset"
+msgstr "Posun zdola"
+
 #. TEXT_SETUP_FAX_PS_FLATEDECODED
-msgid "Create zlib compressed postscript image (ps level 3) for fax"
-msgstr ""
+msgid "Create zlib compressed postscript image (PS level 3) for fax"
+msgstr "Vytvoriť zlib komprimovaný postscript obrázok (PS level 3) pre fax"
 
 #. TEXT_SETUP_SMTP_SERVER
 msgid "SMTP server:"
@@ -1112,19 +1104,16 @@ msgid "Reply to:"
 msgstr "Odpovedať na:"
 
 #. TEXT_SETUP_EMAIL_AUTHENTICATION
-#, fuzzy
 msgid "E-mail authentication"
-msgstr "POP3 autentifikácia"
+msgstr "Autentifikácia e-mail:"
 
 #. TEXT_SETUP_EMAIL_AUTH_USER
-#, fuzzy
 msgid "User:"
-msgstr "Použitie:"
+msgstr "Používateľ:"
 
 #. TEXT_SETUP_EMAIL_AUTH_PASS
-#, fuzzy
 msgid "Password:"
-msgstr "Heslo :"
+msgstr "Heslo:"
 
 #. TEXT_SETUP_POP3_SERVER
 msgid "POP3 server:"
@@ -1172,37 +1161,33 @@ msgstr "všetko"
 
 #. TEXT_SETUP_SCANNER_DEFAULT_COLOR_ICM_PROFILE
 #. DESC_SCANNER_DEFAULT_COLOR_ICM_PROFILE
-#, fuzzy
 msgid "Scanner default color ICM-profile"
-msgstr "Zmazať tlačiareň"
+msgstr "Štandardný farebný ICM profil skenera"
 
 #. TEXT_SETUP_SCANNER_DEFAULT_GRAY_ICM_PROFILE
 #. DESC_SCANNER_DEFAULT_GRAY_ICM_PROFILE
-#, fuzzy
 msgid "Scanner default gray ICM-profile"
-msgstr "Zmazať tlačiareň"
+msgstr "Štandardný šedý ICM profil skenera"
 
 #. TEXT_SETUP_DISPLAY_ICM_PROFILE
 #. DESC_DISPLAY_ICM_PROFILE
 msgid "Display ICM-profile"
-msgstr ""
+msgstr "ICM-profil obrazovky"
 
 #. TEXT_SETUP_CUSTOM_PROOFING_ICM_PROFILE
 #. DESC_CUSTOM_PROOFING_ICM_PROFILE
-#, fuzzy
 msgid "Custom proofing ICM-profile"
-msgstr "Zmazať tlačiareň"
+msgstr ""
 
 #. TEXT_SETUP_WORKING_COLOR_SPACE_ICM_PROFILE
 #. DESC_WORKING_COLOR_SPACE_ICM_PROFILE
-#, fuzzy
 msgid "Working color space ICM-profile"
-msgstr "Vyhľadať názov súboru"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_ICM_PROFILE
 #. DESC_PRINTER_ICM_PROFILE
 msgid "Printer ICM-profile"
-msgstr ""
+msgstr "ICM-profil tlačiarne"
 
 msgid "new media"
 msgstr "nové médium"
@@ -1213,9 +1198,8 @@ msgid "Save"
 msgstr "Ukladanie"
 
 #. NOTEBOOK_FILETYPE_OPTIONS
-#, fuzzy
 msgid "Filetype"
-msgstr "Súbor"
+msgstr "Typ súboru"
 
 #. NOTEBOOK_COPY_OPTIONS
 #. MENU_ITEM_COPY
@@ -1229,9 +1213,8 @@ msgstr "Fax"
 
 #. NOTEBOOK_EMAIL_OPTIONS
 #. MENU_ITEM_EMAIL
-#, fuzzy
 msgid "E-mail"
-msgstr "Email"
+msgstr "E-mail"
 
 #. NOTEBOOK_OCR_OPTIONS
 msgid "OCR"
@@ -1247,7 +1230,7 @@ msgstr "Vylepšenie"
 
 #. MENU_ITEM_MULTIPAGE
 msgid "Multipage"
-msgstr ""
+msgstr "Viacstranový"
 
 #. MENU_ITEM_SHOW_TOOLTIPS
 msgid "Show tooltips"
@@ -1323,9 +1306,8 @@ msgstr "Otočenie postscriptu"
 
 #. MENU_ITEM_ENABLE_COLOR_MANAGEMENT
 #. MENU_ITEM_CMS_ENABLE_COLOR_MANAGEMENT
-#, fuzzy
 msgid "Enable color management"
-msgstr "Celofarebný rozsah"
+msgstr "Povoliť správu farieb"
 
 #  MENU_ITEM_EDIT_MEDIUM_DEF
 #. MENU_ITEM_EDIT_MEDIUM_DEF
@@ -1373,32 +1355,28 @@ msgid "Problems?"
 msgstr "Problémy?"
 
 #. MENU_ITEM_CMS_PROOFING
-#, fuzzy
 msgid "Proofing"
-msgstr "Pridaj tlačiareň"
+msgstr ""
 
 #. SUBMENU_ITEM_CMS_PROOF_OFF
 msgid "no proofing (Display)"
 msgstr ""
 
 #. SUBMENU_ITEM_CMS_PROOF_PRINTER
-#, fuzzy
 msgid "Proof printer"
-msgstr "Pridaj tlačiareň"
+msgstr ""
 
 #. SUBMENU_ITEM_CMS_PROOF_CUSTOM
 msgid "Proof custom device"
 msgstr ""
 
 #. MENU_ITEM_CMS_RENDERING_INTENT
-#, fuzzy
 msgid "Rendering intent"
-msgstr "Pridaj tlačiareň"
+msgstr ""
 
 #. MENU_ITEM_CMS_PROOFING_INTENT
-#, fuzzy
 msgid "Proofing rendering intent"
-msgstr "Pridaj tlačiareň"
+msgstr ""
 
 #. SUBMENU_ITEM_CMS_INTENT_PERCEPTUAL
 msgid "Perceptual"
@@ -1406,51 +1384,47 @@ msgstr ""
 
 #. SUBMENU_ITEM_CMS_INTENT_RELATIVE_COLORIMETRIC
 msgid "Relative colorimetric"
-msgstr ""
+msgstr "Relatívna kolometria"
 
 #. SUBMENU_ITEM_CMS_INTENT_ABSOLUTE_COLORIMETRIC
 msgid "Absolute colorimentric"
-msgstr ""
+msgstr "Absolútna kolometria"
 
 #. SUBMENU_ITEM_CMS_INTENT_SATURATION
-#, fuzzy
 msgid "Saturation"
-msgstr "autorizácia"
+msgstr "Sýtosť"
 
 #. MENU_ITEM_CMS_GAMUT_CHECK
 msgid "Gamut check"
-msgstr ""
+msgstr "Kontrola gamutu"
 
 #. MENU_ITEM_CMS_GAMUT_ALARM_COLOR
 msgid "Gamut alarm color"
-msgstr ""
+msgstr "Gamut alarm"
 
 #. SUBMENU_ITEM_CMS_COLOR_BLACK
 msgid "Black"
-msgstr ""
+msgstr "Čierna"
 
 #. SUBMENU_ITEM_CMS_COLOR_GRAY
 msgid "Gray"
-msgstr ""
+msgstr "Šedá"
 
 #. SUBMENU_ITEM_CMS_COLOR_WHITE
-#, fuzzy
 msgid "White"
-msgstr "zápis"
+msgstr "Biela"
 
 #. SUBMENU_ITEM_CMS_COLOR_RED
-#, fuzzy
 msgid "Red"
-msgstr "Redukovať"
+msgstr "Červená"
 
 #. SUBMENU_ITEM_CMS_COLOR_GREEN
 msgid "Green"
-msgstr ""
+msgstr "Zelená"
 
 #. SUBMENU_ITEM_CMS_COLOR_BLUE
-#, fuzzy
 msgid "Blue"
-msgstr "Rozostriť"
+msgstr "Modrá"
 
 #. MENU_ITEM_COUNTER_LEN_INACTIVE
 msgid "inactive"
@@ -1465,11 +1439,11 @@ msgid "CCITT 1D Huffman compression"
 msgstr "CCITT 1D Huffmanova kompresia"
 
 #. MENU_ITEM_TIFF_COMP_CCITFAX3
-msgid "CCITT Group 3 Fax compression"
+msgid "CCITT Group 3 fax compression"
 msgstr "Kompresia CCITT Group 3 Fax"
 
 #. MENU_ITEM_TIFF_COMP_CCITFAX4
-msgid "CCITT Group 4 Fax compression"
+msgid "CCITT Group 4 fax compression"
 msgstr "Kompresia CCITT Group 4 Fax"
 
 #. MENU_ITEM_TIFF_COMP_JPEG
@@ -1481,9 +1455,8 @@ msgid "pack bits"
 msgstr "bitová kompresia"
 
 #. MENU_ITEM_TIFF_COMP_DEFLATE
-#, fuzzy
 msgid "deflate"
-msgstr "omeškaná"
+msgstr "deflate"
 
 #. MENU_ITEM_RANGE_SCALE
 msgid "Slider (Scale)"
@@ -1551,13 +1524,12 @@ msgid "Move item down"
 msgstr "Posunúť položku dole"
 
 #. MENU_ITEM_AUTH_NONE
-#, fuzzy
 msgid "no authentication"
-msgstr "POP3 autentifikácia"
+msgstr "bez autentifikácie"
 
 #. MENU_ITEM_AUTH_POP3
 msgid "POP3 before SMTP"
-msgstr ""
+msgstr "POP3 pred SMTP"
 
 #. MENU_ITEM_AUTH_ASMTP_PLAIN
 msgid "ASMTP Plain"
@@ -1572,18 +1544,16 @@ msgid "ASMTP CRAM-MD5"
 msgstr ""
 
 #. MENU_ITEM_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE
-#, fuzzy
 msgid "Embed scanner ICM profile"
-msgstr "Zmazať tlačiareň"
+msgstr "Vložiť ICM profil skenera"
 
 #. MENU_ITEM_CMS_FUNCTION_CONVERT_TO_SRGB
 msgid "Convert to sRGB"
-msgstr ""
+msgstr "Konvertovať do sRGB"
 
 #. MENU_ITEM_FUNCTION_CONVERT_TO_WORKING_CS
-#, fuzzy
 msgid "Convert to working color space"
-msgstr "Automatická korekcia farieb"
+msgstr ""
 
 #. PROGRESS_SCANNING
 msgid "Scanning"
@@ -1595,12 +1565,11 @@ msgid "Receiving %s data"
 msgstr "Prijímanie %s dát"
 
 #. PROGRESS_PAGE
-#, fuzzy
 msgid "page"
-msgstr "balík"
+msgstr "strana"
 
-#. PROGRESS_TRANSFERING_DATA
-msgid "Transfering image"
+#. PROGRESS_TRANSFERRING_DATA
+msgid "Transferring image"
 msgstr "Prenášanie obrázka"
 
 #. PROGRESS_ROTATING_DATA
@@ -1644,9 +1613,8 @@ msgid "OCR in progress"
 msgstr "Vykonáva sa OCR"
 
 #. PROGRESS_ICM_CONVERSION
-#, fuzzy
 msgid "converting colors"
-msgstr "Automatická korekcia farieb"
+msgstr "konvertovanie farieb"
 
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
@@ -1665,18 +1633,17 @@ msgid "Cancel preview scan <Alt-ESC>"
 msgstr "Prerušenie skenovanie náhľadu <Alt-ESC>"
 
 #. DESC_XSANE_MODE
-#, fuzzy
 msgid ""
 "viewer-<Ctrl-v>, save-<Ctrl-s>, photocopy-<Ctrl-c>, multipage-<Ctrl-m>, fax-"
 "<Ctrl-f> or e-mail-<Ctrl-e>"
 msgstr ""
-"uložiť<Ctrl-s>, zobraziť-<Ctrl-v>, fotokópia-<Ctrl-c>, fax-<Ctrl-f> alebo "
-"pošta-<Ctrl-m>"
+"zobraziť-<Ctrl-v>, uložiť<Ctrl-s>,  fotokópia-<Ctrl-c>, <viacstranový-<Ctrl-"
+"m>, fax-<Ctrl-f> alebo e-mail-<Ctrl-e>"
 
 #. DESC_XSANE_MEDIUM
 msgid ""
 "Select source medium type.\n"
-"To rename, reorder or delete an entry use context menu (right mouse "
+"To rename, reorder or delete an entry use context menu (alternate mouse "
 "button).\n"
 "To create a medium enable the option edit medium definition in preferences "
 "menu."
@@ -1707,9 +1674,8 @@ msgstr ""
 "Typ formátu obrázku; vhodná koncovka je automaticky pridaná k názvu súboru."
 
 #. DESC_FAXPROJECT
-#, fuzzy
 msgid "Enter fax project directory name"
-msgstr "Vyhľadať pomocný priečinok"
+msgstr "Vložte názov priečinka faxového projektu"
 
 #. DESC_FAXPAGENAME
 msgid "Enter new name for faxpage"
@@ -1720,53 +1686,44 @@ msgid "Enter receiver phone number or address"
 msgstr "Vložte telefónne číslo alebo adresu príjemcu"
 
 #. DESC_FAX_PROJECT_BROWSE
-#, fuzzy
 msgid "Browse for fax project directory"
-msgstr "Vyhľadať pomocný priečinok"
+msgstr "Vyhľadať priečinok faxového projektu"
 
 #. DESC_EMAIL_PROJECT
-#, fuzzy
 msgid "Enter e-mail project directory name"
-msgstr "Vyhľadať pomocný priečinok"
+msgstr "Vložte názov priečinka e-mailového projektu"
 
 #. DESC_EMAIL_IMAGENAME
-#, fuzzy
 msgid "Enter new name for e-mail image"
-msgstr "Vložte nový názov pre poštový obrázok"
+msgstr "Vložte nový názov pre e-mailový obrázok"
 
 #. DESC_EMAIL_RECEIVER
-#, fuzzy
 msgid "Enter e-mail address"
-msgstr "Vložte emailovú adresu"
+msgstr "Vložte e-mailovú adresu"
 
 #. DESC_EMAIL_PROJECT_BROWSE
-#, fuzzy
 msgid "Browse for email project directory"
-msgstr "Vyhľadať pomocný priečinok"
+msgstr "Vyhľadať priečinok e-mailového projektu"
 
 #. DESC_EMAIL_SUBJECT
-#, fuzzy
 msgid "Enter subject of e-mail"
-msgstr "Vložte predmet správy"
+msgstr "Vložte predmet e-mailu"
 
 #. DESC_EMAIL_FILETYPE
 msgid "Select filetype for image attachments"
 msgstr "Vyberte si typ súboru pre obrázkové prílohy k e-mailom"
 
 #. DESC_MULTIPAGE_PROJECT
-#, fuzzy
 msgid "Enter multipage project directory name"
-msgstr "Vyhľadať pomocný priečinok"
+msgstr "Vložte názov priečinka viacstranového projektu"
 
 #. DESC_MULTIPAGE_PROJECT_BROWSE
-#, fuzzy
 msgid "Browse for multipage project directory"
-msgstr "Vyhľadať pomocný priečinok"
+msgstr "Vyhľadať  priečinok viacstranového projektu"
 
 #. DESC_MULTIPAGE_FILETYPE
-#, fuzzy
 msgid "Select filetype for multipage file"
-msgstr "Vyberte si typ súboru pre obrázkové prílohy k e-mailom"
+msgstr "Vyberte si typ súboru pre viacstranový súbor"
 
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
@@ -1892,9 +1849,8 @@ msgstr ""
 
 #  DESC_ENH_AUTO
 #. DESC_ENH_AUTO
-#, fuzzy
 msgid "Autoadjust gamma, brightness and contrast <Ctrl-a>"
-msgstr "Automatické nastavenie gamy, jasu a kontrastu <Ctrl-e>"
+msgstr "Automatické nastavenie gamy, jasu a kontrastu <Ctrl-a>"
 
 #  DESC_ENH_DEFAULT
 #. DESC_ENH_DEFAULT
@@ -2016,21 +1972,23 @@ msgstr "Dodatočná gama hodnota pre modrý komponent fotokópie"
 
 #. DESC_PRINTER_EMBED_CSA
 msgid "Creates a postsciptfile that contains the ICM profile of the scanner"
-msgstr ""
+msgstr "Vytvoriť postscript súbor obsahujúci ICM profil skenera"
 
 #. DESC_PRINTER_EMBED_CRD
 msgid "Creates a postsciptfile that contains the ICM profile of the printer"
-msgstr ""
+msgstr "Vytvoriť postscript súbor obsahujúci ICM profil tlačiarne"
 
 #. DESC_PRINTER_CMS_BPC
 msgid "Applies black point compensation"
-msgstr ""
+msgstr "Používa kompenzáciu čierneho bodu"
 
 #. DESC_PRINTER_PS_FLATEDECODED
 msgid ""
 "Create zlib compressed postscript image for printer (flatedecode).\n"
 "The printer has to understand postscript level 3!"
 msgstr ""
+"Vytvoriť zlib komprimovaný postskript obrázok pre tlačiareň (flatedecode).\n"
+"Tlačiareň musí podporovať postscript level 3!"
 
 #. DESC_TMP_PATH
 msgid "Path to temp directory"
@@ -2042,13 +2000,13 @@ msgstr "Vyhľadať pomocný priečinok"
 
 #. DESC_JPEG_QUALITY
 msgid ""
-"Quality in percent if image is saved as jpeg or tiff with jpeg compression"
+"Quality in percent if image is saved as JPEG or TIFF with JPEG compression"
 msgstr ""
 "Kvalita v percentách, ak obrázok je uložený ako jpeg alebo tiff s jpeg "
 "kompresiou"
 
 #. DESC_PNG_COMPRESSION
-msgid "Compression if image is saved as png"
+msgid "Compression if image is saved as PNG"
 msgstr "Kompresia, ak obrázok je uložený ako png"
 
 #. DESC_FILENAME_COUNTER_LEN
@@ -2056,21 +2014,20 @@ msgid "Minimum length of counter in filename"
 msgstr "Minimálna dĺžka počítadla názvov súborov"
 
 #. DESC_TIFF_ZIP_COMPRESSION
-#, fuzzy
-msgid "Compression rate for zip compressed tiff (deflate)"
-msgstr "Typ kompresie, ak obrázok je uložený ako 8 bitový TIFF"
+msgid "Compression rate for zip compressed TIFF (deflate)"
+msgstr "Úroveň kompresie pre zip komprimované TIFF (deflate)"
 
 #. DESC_TIFF_COMPRESSION_16
-msgid "Compression type if 16 bit image is saved as tiff"
-msgstr "Typ kompresie, ak obrázok je uložený ako 16 bitový TIFF"
+msgid "Compression type if 16 bit image is saved as TIFF"
+msgstr "Typ kompresie, ak 16 bitový obrázok je uložený ako  TIFF"
 
 #. DESC_TIFF_COMPRESSION_8
-msgid "Compression type if 8 bit image is saved as tiff"
-msgstr "Typ kompresie, ak obrázok je uložený ako 8 bitový TIFF"
+msgid "Compression type if 8 bit image is saved as TIFF"
+msgstr "Typ kompresie, ak 8 bitový obrázok je uložený ako  TIFF"
 
 #. DESC_TIFF_COMPRESSION_1
-msgid "Compression type if lineart image is saved as tiff"
-msgstr "Typ kompresie, ak je obrázok uložený ako TIFF čiarová grafika"
+msgid "Compression type if lineart image is saved as TIFF"
+msgstr "Typ kompresie, ak je obrázok čiarovej grafiky uložený ako TIFF "
 
 #. DESC_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device dependant preferences in default file at exit of xsane"
@@ -2093,29 +2050,30 @@ msgid ""
 "compress postscript image with zlib algorithm (flatedecode). When you want "
 "to print such a file your printer has to understand postscript level 3"
 msgstr ""
+"komprimovať postscript obrázok so zlib algoritmom (flatedecode). Aby ste "
+"takýto obrázok mohli vytlačiť, tlačiareň musí podporovať  postscript level 3"
 
 #. DESC_SAVE_PDF_FLATEDECODED
 msgid "compress PDF image with zlib algorithm (flatedecode)."
-msgstr ""
+msgstr "komprimovať PDF obrázky so zlib algoritmom  (flatedecode)."
 
 #. DESC_SAVE_PNM16_AS_ASCII
 msgid ""
-"When a 16 bit image shall be saved in pnm format then use ascii format "
+"When a 16 bit image shall be saved in PNM format then use ASCII format "
 "instead of binary format. The binary format is a new format that is not "
-"supported by all programs. The ascii format is supported by more programs "
+"supported by all programs. The ASCII format is supported by more programs "
 "but it produces really huge files!!!"
 msgstr ""
-"Keď ukladáte 16 bitový obrázok vo formáte pnm, tak by ste mali použiť ascii  "
+"Keď ukladáte 16 bitový obrázok vo formáte pnm, tak by ste mali použiť ASCII "
 "formát namiesto binárneho formátu. Binárny formát je novým formátom a nie je "
-"podporovaný všetkými programami. Ascii formát je podporovaný oveľa väčším "
+"podporovaný všetkými programami. ASCII formát je podporovaný oveľa väčším "
 "počtom programov, ale vytvára skutočne veľké súbory!!!"
 
 #. DESC_REDUCE_16BIT_TO_8BIT
-#, fuzzy
 msgid ""
 "If scanner sends image with 16 bits/channel save image with 8 bits/channel"
 msgstr ""
-"Ak skener pošle farebný 16 bitový obrázok, zapísať obrázok v bitoch/farbu"
+"Ak skener pošle farebný 16 bitový obrázok, uložiť obrázok v 8 bitoch/kanál"
 
 #. DESC_PSFILE_WIDTH
 msgid "Width of paper for postscript files"
@@ -2146,7 +2104,6 @@ msgstr ""
 "veľkosťou"
 
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
-#, fuzzy
 msgid "Disable preview gamma when XSane runs as GIMP plugin"
 msgstr "Zakázať gama náhľad, keď je XSane spustené ako GIMP modul"
 
@@ -2159,7 +2116,7 @@ msgid "Select how a range is displayed"
 msgstr "Zvoliť ako sa zobrazí rozsah"
 
 #. DESC_PREVIEW_OVERSAMPLING
-msgid "Value with that the calculated preview resolution is multiplied"
+msgid "Value with which the calculated preview resolution is multiplied"
 msgstr "Hodnota, ktorou sa násobí rozlíšenie náhľadu"
 
 #. DESC_PREVIEW_GAMMA
@@ -2216,7 +2173,7 @@ msgstr "Posun, ktorý nastaví rovnaký rozsah prahu XSane a rozsah prahu skener
 
 #. DESC_ADF_PAGES_MAX
 msgid "Number of pages to scan"
-msgstr ""
+msgstr "Počet strán na skenovanie"
 
 #. DESC_PREVIEW_PIPETTE_RANGE
 msgid "dimension of square that is used to average color for pipette function"
@@ -2225,17 +2182,16 @@ msgstr ""
 
 #. DESC_DOC_VIEWER
 msgid ""
-"Enter command to be executed to display helpfiles, must be a html-viewer!"
+"Enter command to be executed to display helpfiles, must be a HTML-viewer!"
 msgstr ""
-"Nastavenie príkazu k zobrazeniu súborov pomocníka - musí to byť html "
-"prehliadač!"
+"Vložiť príkaz k zobrazeniu súborov pomocníka - musí to byť html prehliadač!"
 
 #. DESC_AUTOENHANCE_GAMMA
 msgid "Change gamma value when autoenhancement button is pressed"
 msgstr "Zmení gama hodnotu, ak je stlačené tlačidlo automatickej úpravy"
 
-#. DESC_PRESELECT_SCANAREA
-msgid "Select scanarea after preview scan has finished"
+#. DESC_PRESELECT_SCAN_AREA
+msgid "Select scan area after preview scan has finished"
 msgstr "Nastavenie skenovanej oblasti po dokončení náhľadu"
 
 #. DESC_AUTOCORRECT_COLORS
@@ -2243,13 +2199,12 @@ msgid "Do color correction after preview scan has finished"
 msgstr "Vykonanie farebnej korekcie po dokončení náhľadu"
 
 #. DESC_RENDERING_INTENT
-#, fuzzy
 msgid "Select rendering intent for preview and saving"
-msgstr "Nastavenie skenovanej oblasti po dokončení náhľadu"
+msgstr ""
 
 #. DESC_CMS_BPC
 msgid "Apply black point compensation when color transformation is done"
-msgstr ""
+msgstr "Použiť kompenzáciu čierneho bodu po ukončení farebnej transformácie"
 
 #. DESC_FAX_COMMAND
 msgid "Enter command to be executed in fax mode"
@@ -2281,7 +2236,7 @@ msgstr "Poslať fax s vysokým zvislým rozlíšením (196 lpi  namiesto 98 lpi)
 
 #. DESC_FAX_PS_FLATEDECODED
 msgid "Create zlib compressed postscript image for fax (flatedecode)"
-msgstr ""
+msgstr "Vytvoriť zlib komprimovaný postscript obrázok pre fax (flatedecode)"
 
 #. DESC_SMTP_SERVER
 msgid "IP Address or Domain name of SMTP server"
@@ -2292,29 +2247,24 @@ msgid "port to connect to SMTP server"
 msgstr "port na pripojenie sa k SMTP"
 
 #. DESC_EMAIL_FROM
-#, fuzzy
 msgid "enter your e-mail address"
-msgstr "vložte svoju emailovú adresu"
+msgstr "vložte svoju e-mailovú adresu"
 
 #. DESC_EMAIL_REPLY_TO
-#, fuzzy
 msgid "enter e-mail address for replied e-mails"
-msgstr "vložte svoju emailovú adresu pre odpoveď"
+msgstr "vložte svoju e-mailovú adresu pre odpoveď"
 
 #. DESC_EMAIL_AUTHENTICATION
-#, fuzzy
 msgid "Type of authentication before sending e-mail"
-msgstr "Autentifikácia na POP3 servery pre odoslaním emailu"
+msgstr "Typ autentifikácie pred odoslaním e-mailu"
 
 #. DESC_EMAIL_AUTH_USER
-#, fuzzy
 msgid "user name for e-mail server"
-msgstr "používateľské meno pre POP3 server"
+msgstr "používateľské meno pre e-mailový server"
 
 #. DESC_EMAIL_AUTH_PASS
-#, fuzzy
 msgid "password for e-mail server"
-msgstr "heslo pre POP3 server"
+msgstr "heslo pre e-mailový server"
 
 #. DESC_POP3_SERVER
 msgid "IP Address or Domain name of POP3 server"
@@ -2325,31 +2275,30 @@ msgid "port to connect to POP3 server"
 msgstr "port na pripojenie sa k POP3 serveru"
 
 #. DESC_HTML_EMAIL
-#, fuzzy
-msgid "E-mail is sent in html mode, place image with: <IMAGE>"
-msgstr "E-mail je poslaný v html režime, umiestnite obrázok pomocou: <IMAGE>"
+msgid "E-mail is sent in HTML mode, place image with: <IMAGE>"
+msgstr "E-mail je poslaný v HTML režime, obrázok umiestnite pomocou: <IMAGE>"
 
 #. DESC_OCR_COMMAND
-msgid "Enter command to start ocr program"
-msgstr "Nastavenie príkazu na spustenie ocr programu"
+msgid "Enter command to start OCR program"
+msgstr "Vložte príkaz na spustenie OCR programu"
 
 #. DESC_OCR_INPUTFILE_OPT
-msgid "Enter option of the ocr program to define input file"
-msgstr "Zadajte voľbu pre ocr program na definovanie vstupného súboru"
+msgid "Enter option of the OCR program to define input file"
+msgstr "Zadajte voľbu pre OCR program na definovanie vstupného súboru"
 
 #. DESC_OCR_OUTPUTFILE_OPT
-msgid "Enter option of the ocr program to define output file"
-msgstr "Zadajte voľbu pre ocr program na definovanie výstupného súboru"
+msgid "Enter option of the OCR program to define output file"
+msgstr "Zadajte voľbu pre OCR program na definovanie výstupného súboru"
 
 #. DESC_OCR_USE_GUI_PIPE_OPT
-msgid "Define if the ocr program supports gui progress pipe"
-msgstr "Určenie, či ocr program podporuje gui rúru postupu"
+msgid "Define if the OCR program supports gui progress pipe"
+msgstr "Určenie, či OCR program podporuje gui rúru postupu"
 
 #. DESC_OCR_OUTFD_OPT
 msgid ""
-"Enter option of the ocr program to define output filedescripor in GUI mode"
+"Enter option of the OCR program to define output filedescripor in GUI mode"
 msgstr ""
-"Vložiť nastavenie ocr programu určujúci výstupný popis súboru v GUI režime"
+"Vložiť nastavenie OCR programu určujúci výstupný popis súboru v GUI režime"
 
 #. DESC_OCR_PROGRESS_KEYWORD
 msgid "Define Keyword that is used to mark progress information"
@@ -2365,9 +2314,8 @@ msgid "write"
 msgstr "zápis"
 
 #. DESC_PERMISSION_SEARCH
-#, fuzzy
 msgid "search"
-msgstr "používateľ"
+msgstr "hľadať"
 
 #. DESC_ADD_BATCH
 msgid "Add selection for batch scan"
@@ -2386,7 +2334,7 @@ msgid "Pick black point"
 msgstr "Výber čierneho bodu"
 
 #. DESC_ZOOM_FULL
-msgid "Use full scanarea"
+msgid "Use full scan area"
 msgstr "Použiť celú skenovaciu oblasť"
 
 #  DESC_ZOOM_OUT
@@ -2411,12 +2359,12 @@ msgstr "Vrátiť späť poslednú zmenu"
 msgid "Select visible area"
 msgstr "Vybrať viditeľnú oblasť"
 
-#. DESC_AUTOSELECT_SCANAREA
-msgid "Autoselect scanarea"
+#. DESC_AUTOSELECT_SCAN_AREA
+msgid "Autoselect scan area"
 msgstr "Automatický výber skenovanej oblasti"
 
-#. DESC_AUTORAISE_SCANAREA
-msgid "Autoraise scanarea"
+#. DESC_AUTORAISE_SCAN_AREA
+msgid "Autoraise scan area"
 msgstr "Automatické zvýšenie skenovanej oblasti"
 
 #. DESC_DELETE_IMAGES
@@ -2426,7 +2374,7 @@ msgstr "Zmazať pamäť náhľadu"
 #. DESC_PRESET_AREA
 msgid ""
 "Preset area:\n"
-"To add new area or edit an existing area use contect menu (right mouse "
+"To add new area or edit an existing area use context menu (alternate mouse "
 "button)."
 msgstr ""
 "Predvolená oblasť:\n"
@@ -2458,16 +2406,16 @@ msgid "Clone image"
 msgstr "Duplikovanie obrázka"
 
 #. DESC_ROTATE90
-msgid "Rotate image 90 degree"
-msgstr "Otočenie obrázka o 90 stupňov"
+msgid "Rotate image 90 degrees"
+msgstr "Otočiť obrázok o 90 stupňov"
 
 #. DESC_ROTATE180
-msgid "Rotate image 180 degree"
-msgstr "Otočenie obrázka o 180 stupňov"
+msgid "Rotate image 180 degrees"
+msgstr "Otočiť obrázok o 180 stupňov"
 
 #. DESC_ROTATE270
-msgid "Rotate image 270 degree"
-msgstr "Otočenie obrázka o 270 stupňov"
+msgid "Rotate image 270 degrees"
+msgstr "Otočiť obrázok o 270 stupňov"
 
 #. DESC_MIRROR_X
 msgid "Mirror image at vertical axis"
@@ -2503,12 +2451,12 @@ msgstr "Faktor zmeny veľkosti Y"
 
 #  DESC_SCALE_WIDTH
 #. DESC_SCALE_WIDTH
-msgid "Scale image to width [in pixel]"
-msgstr "Zmeniť zväčšenie na šírky [v bodoch]"
+msgid "Scale image to width [pixels]"
+msgstr "Zmeniť zväčšenie na šírku [v bodoch]"
 
 #  DESC_SCALE_HEIGHT
 #. DESC_SCALE_HEIGHT
-msgid "Scale image to height [in pixel]"
+msgid "Scale image to height [pixels]"
 msgstr "Zmeniť zväčšenie na výšku [v bodoch]"
 
 #. DESC_BATCH_LIST_EMPTY
@@ -2541,34 +2489,28 @@ msgid "Turns on automatic mode"
 msgstr "Zapne automatický režim"
 
 #. DESC_BUTTON_SCANNER_DEFAULT_COLOR_ICM_PROFILE_BROWSE
-#, fuzzy
 msgid "Browse for scanner default color ICM-profile"
-msgstr "Vyhľadať názov súboru"
+msgstr "Vyhľadať štandardný farebný ICM-profil skenera"
 
 #. DESC_BUTTON_SCANNER_DEFAULT_GRAY_ICM_PROFILE_BROWSE
-#, fuzzy
 msgid "Browse for scanner default gray ICM-profile"
-msgstr "Vyhľadať názov súboru"
+msgstr "Vyhľadať štandardný šedý ICM-profil skenera"
 
 #. DESC_BUTTON_DISPLAY_ICM_PROFILE_BROWSE
-#, fuzzy
 msgid "Browse for display ICM-profile"
-msgstr "Vyhľadať názov súboru"
+msgstr "Vyhľadať ICM-profil displeja"
 
 #. DESC_BUTTON_PRINTER_ICM_PROFILE_BROWSE
-#, fuzzy
 msgid "Browse for printer ICM-profile"
-msgstr "Vyhľadať názov súboru"
+msgstr "Vyhľadať ICM-profil tlačiarne"
 
 #. DESC_BUTTON_CUSTOM_PROOFING_ICM_PROFILE_BROWSE
-#, fuzzy
 msgid "Browse for custom proofing ICM-profile"
-msgstr "Vyhľadať názov súboru"
+msgstr ""
 
 #. DESC_BUTTON_WORKING_COLOR_SPACE_ICM_PROFILE_BROWSE
-#, fuzzy
 msgid "Browse for working color space ICM-profile"
-msgstr "Vyhľadať názov súboru"
+msgstr "Vyhľadať ICM-profil pracovného farebného priestoru"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2583,12 +2525,17 @@ msgid "Filename too long"
 msgstr "Názov súboru príliš dlhý"
 
 #. ERR_CREATE_TEMP_FILE
+#, fuzzy
 msgid ""
 "Could not create temporary file.\n"
 "Open Menue Preferences->Setup Tab Save and\n"
 "select a temporary directory where you have\n"
 "write permissions."
 msgstr ""
+"Nie je možné vytvoriť dočasný súbor.\n"
+"Otvorte ponuku Nastavenia->Karta nastavenie Ukladania\n"
+"a vyberte dočasný priečinok, do ktorého máte prístup\n"
+"na zapisovanie."
 
 #. ERR_SET_OPTION
 msgid "Failed to set value of option"
@@ -2631,7 +2578,7 @@ msgid "Failed to open"
 msgstr "Zlyhalo otváranie"
 
 #. ERR_CREATE_SECURE_FILE
-msgid "Could not create secure file (may be a link does exist):"
+msgid "Could not create secure file (maybe a link does exist):"
 msgstr "Nie je možné vytvoriť bezpečný súbor (možno, že existuje odkaz):"
 
 #. ERR_FAILED_PRINTER_PIPE
@@ -2708,8 +2655,8 @@ msgid "Failed to execute fax command:"
 msgstr "Zlyhalo spustenie faxového príkazu:"
 
 #. ERR_FAILED_EXEC_OCR_CMD
-msgid "Failed to execute ocr command:"
-msgstr "Zlyhalo spustenie ocr príkazu:"
+msgid "Failed to execute OCR command:"
+msgstr "Nepodarilo sa spustiť OCR príkaz:"
 
 #. ERR_BAD_FRAME_FORMAT
 msgid "bad frame format"
@@ -2773,7 +2720,7 @@ msgid ""
 "You try to run XSane as ROOT, that really is DANGEROUS!\n"
 "\n"
 "Do not send any bug reports when you\n"
-"have any problem while running XSane as root:\n"
+"have any problems while running XSane as root:\n"
 "YOU ARE ALONE!"
 msgstr ""
 "Spúšťate XSane ako ROOT, čo je veľmi nebezpečné!\n"
@@ -2856,34 +2803,28 @@ msgid "Unsupported %d-bit output format: %s"
 msgstr "Nepodporovaný %d-bitový výstupný formát: %s"
 
 #. ERR_CMS_CONVERSION
-#, fuzzy
 msgid "Error during CMS conversion:"
-msgstr "Chyba počas ukladania:"
+msgstr "Chyba počas CMS konverzií:"
 
 #. ERR_CMS_OPEN_ICM_FILE
-#, fuzzy
 msgid "Could not open"
-msgstr "Zlyhalo otváranie"
+msgstr "Nie je možné otvoriť"
 
 #. CMS_SCANNER_ICM
-#, fuzzy
 msgid "scanner ICM profile"
-msgstr "Zmazať tlačiareň"
+msgstr "ICM profile skenera"
 
 #. CMS_DISPLAY_ICM
-#, fuzzy
 msgid "display ICM profile"
-msgstr "Vyhľadať názov súboru"
+msgstr "ICM profile displeja"
 
 #. CMS_PROOF_ICM
-#, fuzzy
 msgid "proofing ICM profile"
-msgstr "Zmazať tlačiareň"
+msgstr ""
 
 #. ERR_CMS_CREATE_TRANSFORM
-#, fuzzy
 msgid "Could not create transform"
-msgstr "Nie je možné vytvoriť dočasný súbor"
+msgstr "Nie je možné vytvoriť transformáciu"
 
 #. WARN_VIEWER_IMAGE_NOT_SAVED
 msgid "viewer image is not saved"
@@ -2891,31 +2832,27 @@ msgstr "obrázok z prehliadača nie je uložený"
 
 #. FILE_FILTER_ALL_FILES
 msgid "All files"
-msgstr ""
+msgstr "Všetky súbory"
 
 #. FILE_FILTER_IMAGES
-#, fuzzy
 msgid "Images"
-msgstr "Obrázok"
+msgstr "Obrázky"
 
 #. FILE_FILTER_XBL
-#, fuzzy
 msgid "XSane batch list"
-msgstr "Uložiť dávkový zoznam"
+msgstr "XSane dávkový zoznam"
 
 #. FILE_FILTER_ICM
 msgid "ICC/ICM Profiles"
-msgstr ""
+msgstr "ICC/ICM profily"
 
 #. FILE_FILTER_DRC
-#, fuzzy
 msgid "XSane device preferences"
-msgstr "Uložiť nastavenie zariadenia pri ukončení"
+msgstr "XSane nastavenia zariadení"
 
 #. FILE_FILTER_RC
-#, fuzzy
 msgid "XSane preferences"
-msgstr "Nastavenia"
+msgstr "XSane Nastavenia"
 
 #. TEXT_USAGE
 msgid "Usage:"
@@ -2927,7 +2864,6 @@ msgstr "[VOĽBA]... [ZARIADENIE]"
 
 #  TEXT_HELP
 #. TEXT_HELP
-#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2965,7 +2901,7 @@ msgid ""
 msgstr ""
 "Spustenie grafického rozhrania pre prístup k SANE zariadeniam.\n"
 "\n"
-"Formát [ZARIADENIA] je názov_ovládača:názov zariadenia (napr. umax:/dev/"
+"Formát [ZARIADENIA] je názov_ovládača:názov_zariadenia (napr. umax:/dev/"
 "scanner).\n"
 "[VOĽBA]... môže mať kombináciu nasledovných položiek:\n"
 " -h, --help                  zobrazí tohoto pomocníka a skončí\n"
@@ -2978,8 +2914,9 @@ msgstr ""
 " -V, --viewer                spustí v režime prehliadač (štandardné)\n"
 " -s, --save                  spustí v režime ukladania\n"
 " -c, --copy                  spustí v režime kopírovania\n"
-" -f, --fax                   spustí v režime faxovania\n"
-" -m, --mail                  spustí v režime emailu\n"
+" -m, --multipage              spustí s aktívnym viacstranovým režimom\n"
+" -f, --fax                   spustí s aktívnym režimom faxovania\n"
+" -m, --mail                  spustí s aktívnym režimom e-mailu\n"
 " -n, --no-mode-selection     zakáže ponuku výberu režimu XSane\n"
 "\n"
 " -F, --Fixed                 použije pevnú veľkosť hlavného okna (prepíše\n"
@@ -3034,7 +2971,7 @@ msgid ""
 "3) The permissions for the device file do not allow you to use it - try as "
 "root\n"
 "4) The backend is not loaded by SANE (man sane-dll)\n"
-"5) The backend is not configured correct (man sane-\"backendname\")\n"
+"5) The backend is not configured correctly (man sane-\"backendname\")\n"
 "6) Possibly there is more than one SANE version installed"
 msgstr ""
 "Možné dôvody:\n"
@@ -3161,44 +3098,36 @@ msgid "Rossmann negative HR 100"
 msgstr "Rossmann negatív HR 100"
 
 #. TEXT_PROJECT_STATUS_NOT_CREATED
-#, fuzzy
 msgid "Project not created"
-msgstr "Faxový projekt nebol vytvorený"
+msgstr "Projekt nebol vytvorený"
 
 #. TEXT_PROJECT_STATUS_CREATED
-#, fuzzy
 msgid "Project created"
-msgstr "Faxový projekt vytvorený"
+msgstr "Projekt vytvorený"
 
 #. TEXT_PROJECT_STATUS_CHANGED
-#, fuzzy
 msgid "Project changed"
-msgstr "Faxový projekt zmenený"
+msgstr "Projekt zmenený"
 
 #. TEXT_PROJECT_STATUS_ERR_READ_PROJECT
-#, fuzzy
 msgid "Error reading project"
-msgstr "Chyba pri čítaní e-mailového projektu"
+msgstr "Chyba pri čítaní projektu"
 
 #. TEXT_PROJECT_STATUS_FILE_SAVING_ERROR
-#, fuzzy
 msgid "Error saving file"
-msgstr "Ukladanie obrázka"
+msgstr "Chyba pri ukladaní obrázka"
 
 #. TEXT_PROJECT_STATUS_FILE_SAVING
-#, fuzzy
 msgid "Saving file"
-msgstr "Ukladanie obrázka"
+msgstr "Ukladanie súboru"
 
 #. TEXT_PROJECT_STATUS_FILE_SAVING_ABORTED
-#, fuzzy
 msgid "Aborted saving file"
-msgstr "Ukladanie obrázka"
+msgstr "Prerušené ukladanie súboru"
 
 #. TEXT_PROJECT_STATUS_FILE_SAVED
-#, fuzzy
 msgid "File has been saved"
-msgstr "E-mail bol poslaný"
+msgstr "Súbor pol uložený"
 
 #. TEXT_EMAIL_STATUS_POP3_CONNECTION_FAILED
 msgid "POP3 connection failed"
@@ -3209,9 +3138,8 @@ msgid "POP3 login failed"
 msgstr "POP3 prihlásenie zlyhalo"
 
 #. TEXT_EMAIL_STATUS_ASMTP_AUTH_FAILED
-#, fuzzy
 msgid "ASMTP authentication failed"
-msgstr "SMTP pripojenie zlyhalo"
+msgstr "ASMTP autentifikácia zlyhala"
 
 #. TEXT_EMAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
@@ -3226,22 +3154,19 @@ msgid "Receiver entry not accepted"
 msgstr "Položka Príjemca je neakceptovaná"
 
 #. TEXT_EMAIL_STATUS_SMTP_ERR_DATA
-#, fuzzy
 msgid "E-mail data not accepted"
 msgstr "E-mailové dáta neakceptované"
 
 #. TEXT_EMAIL_STATUS_SENDING
-#, fuzzy
 msgid "Sending e-mail"
-msgstr "Posielanie e-mailu"
+msgstr "Odosielanie e-mailu"
 
 #. TEXT_EMAIL_STATUS_SENT
-#, fuzzy
 msgid "E-mail has been sent"
-msgstr "E-mail bol poslaný"
+msgstr "E-mail bol odoslaný"
 
 #. TEXT_FAX_STATUS_QUEUEING_FAX
-msgid "Queueing Fax"
+msgid "Queueing fax"
 msgstr "Zaraďovanie faxu do fronty"
 
 #. TEXT_FAX_STATUS_FAX_QUEUED
@@ -3302,142 +3227,3 @@ msgstr "Mimo pamäte"
 
 msgid "Access to resource has been denied"
 msgstr "Prístup k zdroju bol odmietnutý"
-
-#, fuzzy
-#~ msgid "select scanner transmissive ICM-profile"
-#~ msgstr "Zmazať tlačiareň"
-
-#, fuzzy
-#~ msgid "select scanner transmissive gray ICM-profile"
-#~ msgstr "Zmazať tlačiareň"
-
-#, fuzzy
-#~ msgid "Scanner reflective ICM-profile"
-#~ msgstr "Zmazať tlačiareň"
-
-#, fuzzy
-#~ msgid "Scanner reflective gray ICM-profile"
-#~ msgstr "Zmazať tlačiareň"
-
-#, fuzzy
-#~ msgid "Scanner transmissive gray ICM-profile"
-#~ msgstr "Zmazať tlačiareň"
-
-#, fuzzy
-#~ msgid "Scanner reflektive ICM-profile"
-#~ msgstr "Zmazať tlačiareň"
-
-#, fuzzy
-#~ msgid "Browse for scanner transmissive ICM-profile"
-#~ msgstr "Vyhľadať názov súboru"
-
-#, fuzzy
-#~ msgid "Browse for scanner transmissive gray ICM-profile"
-#~ msgstr "Vyhľadať názov súboru"
-
-#~ msgid "GIMP can't handle depth %d bits/color"
-#~ msgstr "GIMP nemôže spracovať hĺbku %d bitov/farbu"
-
-#, fuzzy
-#~ msgid "scanner reflective ICM profile"
-#~ msgstr "Zmazať tlačiareň"
-
-#, fuzzy
-#~ msgid "Embed scanner/source ICM profile for GIMP"
-#~ msgstr "Zmazať tlačiareň"
-
-#~ msgid "Enter name of fax project"
-#~ msgstr "Vložte názov faxového projektu"
-
-#, fuzzy
-#~ msgid "Enter name of e-mail project"
-#~ msgstr "Vložte názov poštového projektu"
-
-#, fuzzy
-#~ msgid "Enter name of multipage project"
-#~ msgstr "Vložte názov poštového projektu"
-
-#~ msgid ""
-#~ "Gimp does not support depth 16 bits/color.\n"
-#~ "Do you want to reduce the depth to 8 bits/color?"
-#~ msgstr ""
-#~ "GIMP nepodporuje hĺbku 16 bitov/farba.\n"
-#~ "Prajete si redukciu hĺbky na 8 bitov/farba?"
-
-#, fuzzy
-#~ msgid "POP3 authentication"
-#~ msgstr "POP3 autentifikácia"
-
-#~ msgid "XSane mode"
-#~ msgstr "XSane režim"
-
-#~ msgid "POP3 user:"
-#~ msgstr "POP3 používateľ:"
-
-#~ msgid "POP3 password:"
-#~ msgstr "POP3 heslo:"
-
-#~ msgid "Automatic Document Feeder Modus:"
-#~ msgstr "Režim automatického podávača dokumentov:"
-
-#~ msgid ""
-#~ "Select scansource for Automatic Document feeder. If this scansource is "
-#~ "selected XSane scans until \"out of paper\" or error."
-#~ msgstr ""
-#~ "Výber zdroja skenovania pre automatický podávač dokumentov. Pokiaľ je "
-#~ "táto voľba nastavená, XSane skenuje, pokiaľ nenastane stav \"nie je papier"
-#~ "\" alebo chyba"
-
-#, fuzzy
-#~ msgid "E-mail project not created"
-#~ msgstr "E-mailový projekt nebol vytvorený"
-
-#, fuzzy
-#~ msgid "E-mail project created"
-#~ msgstr "E-mailový projekt vytvorený"
-
-#, fuzzy
-#~ msgid "E-mail project changed"
-#~ msgstr "E-mailový projekt zmenený"
-
-#, fuzzy
-#~ msgid "Multipage project not created"
-#~ msgstr "E-mailový projekt nebol vytvorený"
-
-#, fuzzy
-#~ msgid "Multipage project created"
-#~ msgstr "E-mailový projekt vytvorený"
-
-#, fuzzy
-#~ msgid "Multipage project changed"
-#~ msgstr "E-mailový projekt zmenený"
-
-#, fuzzy
-#~ msgid "Error reading multipage project"
-#~ msgstr "Chyba pri čítaní e-mailového projektu"
-
-#, fuzzy
-#~ msgid "Saving multipage file"
-#~ msgstr "Ukladanie obrázka"
-
-#, fuzzy
-#~ msgid "Multipage saving aborted"
-#~ msgstr "E-mailový projekt vytvorený"
-
-#~ msgid "Viewer (png):"
-#~ msgstr "Prehliadač (png):"
-
-#, fuzzy
-#~ msgid "Enter command to be executed to view an e-mail image"
-#~ msgstr ""
-#~ "Nastavenie príkazu, ktorý ma byť spustený k zobrazeniu obrázku v emaily"
-
-#, fuzzy
-#~ msgid "Failed to execute e-mail image viewer:"
-#~ msgstr "Zlyhalo spustenie prehliadača obrázkov e emaily:"
-
-#~ msgid "Step"
-#~ msgstr "Krok"
-
-#~ msgid "Mail"
-#~ msgstr "Pošta"

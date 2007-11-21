@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.96\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-03 10:10+0100\n"
+"POT-Creation-Date: 2007-08-13 09:22+0200\n"
 "PO-Revision-Date: 2004-10-08 22:00+3\n"
 "Last-Translator: Yujo Rodrigues <yujo@comp.ufu.br>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
@@ -83,7 +83,8 @@ msgid "rename fax page"
 msgstr "renomeia página de fax"
 
 #. WINDOW_FAX_INSERT
-msgid "insert ps-file into fax"
+#, fuzzy
+msgid "insert PS-file into fax"
 msgstr "insere arquivo-ps em um fax"
 
 #. WINDOW_EMAIL_PROJECT
@@ -508,7 +509,7 @@ msgid "Skip existing filenames"
 msgstr "Pular arquivos existentes"
 
 #. RADIO_BUTTON_SAVE_PS_FLATEDECODED
-msgid "Save postscript zlib compressed (ps level 3)"
+msgid "Save postscript zlib compressed (PS level 3)"
 msgstr ""
 
 #. RADIO_BUTTON_SAVE_PDF_FLATEDECODED
@@ -516,7 +517,8 @@ msgid "Save PDF zlib compressed"
 msgstr ""
 
 #. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
-msgid "Save 16bit pnm in ascii format"
+#, fuzzy
+msgid "Save 16bit PNM in ASCII format"
 msgstr "Salvar pnm 16bits em formato ascii"
 
 #. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
@@ -540,8 +542,9 @@ msgstr "Usar mapa de cores particular"
 msgid "Autoenhance gamma"
 msgstr "Alto realce gama"
 
-#. RADIO_BUTTON_PRESELECT_SCANAREA
-msgid "Preselect scanarea"
+#. RADIO_BUTTON_PRESELECT_SCAN_AREA
+#, fuzzy
+msgid "Preselect scan area"
 msgstr "Pré-seleciona área de digitalização"
 
 #. RADIO_BUTTON_AUTOCORRECT_COLORS
@@ -564,10 +567,6 @@ msgstr "procurando por dispositivos"
 #. TEXT_AVAILABLE_DEVICES
 msgid "Available devices:"
 msgstr "Dispositivos disponíveis:"
-
-#. TEXT_XSANE_OPTIONS
-msgid "XSane options"
-msgstr "Opções do XSane"
 
 #. TEXT_FILETYPE
 msgid "Type"
@@ -900,53 +899,72 @@ msgstr "Comando:"
 msgid "Copy number option:"
 msgstr "Opção de número de cópias:"
 
+#. TEXT_SETUP_SCAN_RESOLUTION_PRINTER
+#, fuzzy
+msgid "Scan resolution:"
+msgstr "Escolha a resolução"
+
 #. TEXT_SETUP_PRINTER_LINEART_RES
-msgid "Lineart resolution (dpi):"
+#, fuzzy
+msgid "lineart [dpi]"
 msgstr "Resolução de linha artística (ppp):"
 
 #. TEXT_SETUP_PRINTER_GRAYSCALE_RES
-msgid "Grayscale resolution (dpi):"
+#, fuzzy
+msgid "grayscale [dpi]"
 msgstr "Resolução de tons de cinza (ppp):"
 
 #. TEXT_SETUP_PRINTER_COLOR_RES
-msgid "Color resolution (dpi):"
-msgstr "Resolução de cores (ppp):"
+msgid "color [dpi]"
+msgstr ""
+
+#. TEXT_SETUP_PRINTER_PAPER_GEOMETRIE
+msgid "Paper geometrie:"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_WIDTH
-#. TEXT_SETUP_FAX_WIDTH
-msgid "Width"
+#, fuzzy
+msgid "width"
 msgstr "Largura:"
 
 #. TEXT_SETUP_PRINTER_HEIGHT
-#. TEXT_SETUP_FAX_HEIGHT
-msgid "Height"
+#, fuzzy
+msgid "height"
 msgstr "Altura:"
 
 #. TEXT_SETUP_PRINTER_LEFT
-#. TEXT_SETUP_FAX_LEFT
-msgid "Left offset"
+#, fuzzy
+msgid "left offset"
 msgstr "Deslocamento esquerdo"
 
 #. TEXT_SETUP_PRINTER_BOTTOM
-#. TEXT_SETUP_FAX_BOTTOM
-msgid "Bottom offset"
+#, fuzzy
+msgid "bottom offset"
 msgstr "Deslocamento inferior"
 
-#. TEXT_SETUP_PRINTER_GAMMA
-msgid "Printer gamma value:"
-msgstr "Valor de impressora gama:"
-
-#. TEXT_SETUP_PRINTER_GAMMA_RED
-msgid "Printer gamma red:"
+#. TEXT_SETUP_PRINTER_GAMMA_CORRECTION
+#, fuzzy
+msgid "Printer gamma:"
 msgstr "Vermelho gama da impressora:"
 
+#. TEXT_SETUP_PRINTER_GAMMA
+#, fuzzy
+msgid "common value"
+msgstr "Valores recentes:"
+
+#. TEXT_SETUP_PRINTER_GAMMA_RED
+#, fuzzy
+msgid "red"
+msgstr "ler"
+
 #. TEXT_SETUP_PRINTER_GAMMA_GREEN
-msgid "Printer gamma green:"
-msgstr "Verde gama da Impressora:"
+msgid "green"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_GAMMA_BLUE
-msgid "Printer gamma blue:"
-msgstr "Azul gama da Impressora:"
+#, fuzzy
+msgid "blue"
+msgstr "Embaçar"
 
 #. TEXT_SETUP_PRINTER_EMBED_CSA
 #, fuzzy
@@ -963,7 +981,7 @@ msgid "Apply black point compensation"
 msgstr ""
 
 #. TEXT_SETUP_PRINTER_PS_FLATEDECODED
-msgid "Create zlib compressed postscript image (ps level 3) for printing"
+msgid "Create zlib compressed postscript image (PS level 3) for printing"
 msgstr ""
 
 #. TEXT_SETUP_TMP_PATH
@@ -1087,8 +1105,24 @@ msgstr "Configura os padrões do programa para:"
 msgid "Viewer (Postscript):"
 msgstr "Visualizador (Postscript):"
 
+#. TEXT_SETUP_FAX_WIDTH
+msgid "Width"
+msgstr "Largura:"
+
+#. TEXT_SETUP_FAX_HEIGHT
+msgid "Height"
+msgstr "Altura:"
+
+#. TEXT_SETUP_FAX_LEFT
+msgid "Left offset"
+msgstr "Deslocamento esquerdo"
+
+#. TEXT_SETUP_FAX_BOTTOM
+msgid "Bottom offset"
+msgstr "Deslocamento inferior"
+
 #. TEXT_SETUP_FAX_PS_FLATEDECODED
-msgid "Create zlib compressed postscript image (ps level 3) for fax"
+msgid "Create zlib compressed postscript image (PS level 3) for fax"
 msgstr ""
 
 #. TEXT_SETUP_SMTP_SERVER
@@ -1460,11 +1494,13 @@ msgid "CCITT 1D Huffman compression"
 msgstr "Compressão Huffman CCITT 1D"
 
 #. MENU_ITEM_TIFF_COMP_CCITFAX3
-msgid "CCITT Group 3 Fax compression"
+#, fuzzy
+msgid "CCITT Group 3 fax compression"
 msgstr "Compressão Fax CCITT Grupo 3"
 
 #. MENU_ITEM_TIFF_COMP_CCITFAX4
-msgid "CCITT Group 4 Fax compression"
+#, fuzzy
+msgid "CCITT Group 4 fax compression"
 msgstr "Compressão Fax CCITT Grupo 4"
 
 #. MENU_ITEM_TIFF_COMP_JPEG
@@ -1593,8 +1629,9 @@ msgstr "Recebendo dados %s"
 msgid "page"
 msgstr "pacote"
 
-#. PROGRESS_TRANSFERING_DATA
-msgid "Transfering image"
+#. PROGRESS_TRANSFERRING_DATA
+#, fuzzy
+msgid "Transferring image"
 msgstr "Transferindo imagem"
 
 #. PROGRESS_ROTATING_DATA
@@ -1668,9 +1705,10 @@ msgstr ""
 "<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
+#, fuzzy
 msgid ""
 "Select source medium type.\n"
-"To rename, reorder or delete an entry use context menu (right mouse "
+"To rename, reorder or delete an entry use context menu (alternate mouse "
 "button).\n"
 "To create a medium enable the option edit medium definition in preferences "
 "menu."
@@ -2028,14 +2066,16 @@ msgid "Browse for temporary directory"
 msgstr "Procurar pelo diretório temporário"
 
 #. DESC_JPEG_QUALITY
+#, fuzzy
 msgid ""
-"Quality in percent if image is saved as jpeg or tiff with jpeg compression"
+"Quality in percent if image is saved as JPEG or TIFF with JPEG compression"
 msgstr ""
 "Qualidade em porcentagem se a imagem é salvada como jpeg ou tiff com "
 "compressão jpeg"
 
 #. DESC_PNG_COMPRESSION
-msgid "Compression if image is saved as png"
+#, fuzzy
+msgid "Compression if image is saved as PNG"
 msgstr "Compressão se imagem é salvada como png"
 
 #. DESC_FILENAME_COUNTER_LEN
@@ -2044,19 +2084,22 @@ msgstr "Comprimento mínimo do contador no nome de arquivo"
 
 #. DESC_TIFF_ZIP_COMPRESSION
 #, fuzzy
-msgid "Compression rate for zip compressed tiff (deflate)"
+msgid "Compression rate for zip compressed TIFF (deflate)"
 msgstr "Tipo de compressão se imagem de 8 bits é salvada como tiff"
 
 #. DESC_TIFF_COMPRESSION_16
-msgid "Compression type if 16 bit image is saved as tiff"
+#, fuzzy
+msgid "Compression type if 16 bit image is saved as TIFF"
 msgstr "Tipo de compressão se imagem de 16 bits é salvada como tiff"
 
 #. DESC_TIFF_COMPRESSION_8
-msgid "Compression type if 8 bit image is saved as tiff"
+#, fuzzy
+msgid "Compression type if 8 bit image is saved as TIFF"
 msgstr "Tipo de compressão se imagem de 8 bits é salvada como tiff"
 
 #. DESC_TIFF_COMPRESSION_1
-msgid "Compression type if lineart image is saved as tiff"
+#, fuzzy
+msgid "Compression type if lineart image is saved as TIFF"
 msgstr "Tipo de compressão se imagem em linha artística é salvada como tiff"
 
 #. DESC_SAVE_DEVPREFS_AT_EXIT
@@ -2087,10 +2130,11 @@ msgid "compress PDF image with zlib algorithm (flatedecode)."
 msgstr ""
 
 #. DESC_SAVE_PNM16_AS_ASCII
+#, fuzzy
 msgid ""
-"When a 16 bit image shall be saved in pnm format then use ascii format "
+"When a 16 bit image shall be saved in PNM format then use ASCII format "
 "instead of binary format. The binary format is a new format that is not "
-"supported by all programs. The ascii format is supported by more programs "
+"supported by all programs. The ASCII format is supported by more programs "
 "but it produces really huge files!!!"
 msgstr ""
 "Quando uma imagem 16 bits deve ser salvada em formato pnm então use formato "
@@ -2151,7 +2195,8 @@ msgid "Select how a range is displayed"
 msgstr "Selecione como a extensão é exibida"
 
 #. DESC_PREVIEW_OVERSAMPLING
-msgid "Value with that the calculated preview resolution is multiplied"
+#, fuzzy
+msgid "Value with which the calculated preview resolution is multiplied"
 msgstr "Valor com o qual a resolução prévia calculada é multiplicada"
 
 #. DESC_PREVIEW_GAMMA
@@ -2220,8 +2265,9 @@ msgstr ""
 "pipeta"
 
 #. DESC_DOC_VIEWER
+#, fuzzy
 msgid ""
-"Enter command to be executed to display helpfiles, must be a html-viewer!"
+"Enter command to be executed to display helpfiles, must be a HTML-viewer!"
 msgstr ""
 "Entra comando a ser executado para abrir um visualizador html para exibir "
 "arquivos de ajuda"
@@ -2231,8 +2277,9 @@ msgid "Change gamma value when autoenhancement button is pressed"
 msgstr ""
 "Modifica o valor gama quando o botão de realce altomático esta pressionado"
 
-#. DESC_PRESELECT_SCANAREA
-msgid "Select scanarea after preview scan has finished"
+#. DESC_PRESELECT_SCAN_AREA
+#, fuzzy
+msgid "Select scan area after preview scan has finished"
 msgstr ""
 "Seleciona área de digitalização após a pré-visualização ter sido concluída"
 
@@ -2326,28 +2373,33 @@ msgstr "porta para conectar no servidor POP3"
 
 #. DESC_HTML_EMAIL
 #, fuzzy
-msgid "E-mail is sent in html mode, place image with: <IMAGE>"
+msgid "E-mail is sent in HTML mode, place image with: <IMAGE>"
 msgstr "Correio é enviado no modo html, com imagem: <IMAGE>"
 
 #. DESC_OCR_COMMAND
-msgid "Enter command to start ocr program"
+#, fuzzy
+msgid "Enter command to start OCR program"
 msgstr "Entra comando para iniciar o programa de ocr"
 
 #. DESC_OCR_INPUTFILE_OPT
-msgid "Enter option of the ocr program to define input file"
+#, fuzzy
+msgid "Enter option of the OCR program to define input file"
 msgstr "Entra opção do programa de ocr para definir o arquivo de entrada"
 
 #. DESC_OCR_OUTPUTFILE_OPT
-msgid "Enter option of the ocr program to define output file"
+#, fuzzy
+msgid "Enter option of the OCR program to define output file"
 msgstr "Entra opção do programa ocr para definir o arquivo de saída"
 
 #. DESC_OCR_USE_GUI_PIPE_OPT
-msgid "Define if the ocr program supports gui progress pipe"
+#, fuzzy
+msgid "Define if the OCR program supports gui progress pipe"
 msgstr "Define se o programa de ocr suporta a barra gráfica de progressão"
 
 #. DESC_OCR_OUTFD_OPT
+#, fuzzy
 msgid ""
-"Enter option of the ocr program to define output filedescripor in GUI mode"
+"Enter option of the OCR program to define output filedescripor in GUI mode"
 msgstr ""
 "Entre com a opção do programa ocr para definir a saída do descritor de "
 "arquivos no modo GUI"
@@ -2387,7 +2439,8 @@ msgid "Pick black point"
 msgstr "Pega ponto preto"
 
 #. DESC_ZOOM_FULL
-msgid "Use full scanarea"
+#, fuzzy
+msgid "Use full scan area"
 msgstr "Usa toda area de digitalização"
 
 #. DESC_ZOOM_OUT
@@ -2411,12 +2464,14 @@ msgstr "Desfazer último ampliamento"
 msgid "Select visible area"
 msgstr "Seleciona área visível"
 
-#. DESC_AUTOSELECT_SCANAREA
-msgid "Autoselect scanarea"
+#. DESC_AUTOSELECT_SCAN_AREA
+#, fuzzy
+msgid "Autoselect scan area"
 msgstr "Auto seleciona área de digitalização"
 
-#. DESC_AUTORAISE_SCANAREA
-msgid "Autoraise scanarea"
+#. DESC_AUTORAISE_SCAN_AREA
+#, fuzzy
+msgid "Autoraise scan area"
 msgstr "Obtém automaticamente a área de digitalização"
 
 #. DESC_DELETE_IMAGES
@@ -2424,9 +2479,10 @@ msgid "Delete preview image cache"
 msgstr "Apaga cache de imagem pré-visualizada"
 
 #. DESC_PRESET_AREA
+#, fuzzy
 msgid ""
 "Preset area:\n"
-"To add new area or edit an existing area use contect menu (right mouse "
+"To add new area or edit an existing area use context menu (alternate mouse "
 "button)."
 msgstr ""
 "Área pré-configurada:\n"
@@ -2458,15 +2514,18 @@ msgid "Clone image"
 msgstr "Clona imagem"
 
 #. DESC_ROTATE90
-msgid "Rotate image 90 degree"
+#, fuzzy
+msgid "Rotate image 90 degrees"
 msgstr "Rotaciona imagem em 90 graus"
 
 #. DESC_ROTATE180
-msgid "Rotate image 180 degree"
+#, fuzzy
+msgid "Rotate image 180 degrees"
 msgstr "Rotaciona imagem em 180 graus"
 
 #. DESC_ROTATE270
-msgid "Rotate image 270 degree"
+#, fuzzy
+msgid "Rotate image 270 degrees"
 msgstr "Rotaciona imagem em 270 graus"
 
 #. DESC_MIRROR_X
@@ -2502,11 +2561,13 @@ msgid "Y-Scale factor"
 msgstr "Fator de escala Y"
 
 #. DESC_SCALE_WIDTH
-msgid "Scale image to width [in pixel]"
+#, fuzzy
+msgid "Scale image to width [pixels]"
 msgstr "Dimensiona imagem para largura [em pontos]"
 
 #. DESC_SCALE_HEIGHT
-msgid "Scale image to height [in pixel]"
+#, fuzzy
+msgid "Scale image to height [pixels]"
 msgstr "Dimensiona imagem para altura [em pontos]"
 
 #. DESC_BATCH_LIST_EMPTY
@@ -2628,7 +2689,8 @@ msgid "Failed to open"
 msgstr "Falha ao abrir"
 
 #. ERR_CREATE_SECURE_FILE
-msgid "Could not create secure file (may be a link does exist):"
+#, fuzzy
+msgid "Could not create secure file (maybe a link does exist):"
 msgstr "Não foi possível criar arquivo seguro (talvez o link não existe);"
 
 #. ERR_FAILED_PRINTER_PIPE
@@ -2705,8 +2767,9 @@ msgid "Failed to execute fax command:"
 msgstr "Falha ao executar o comando de fax:"
 
 #. ERR_FAILED_EXEC_OCR_CMD
-msgid "Failed to execute ocr command:"
-msgstr "Falha ao executar o comando para ocr:"
+#, fuzzy
+msgid "Failed to execute OCR command:"
+msgstr "Falha ao executar o comando de fax:"
 
 #. ERR_BAD_FRAME_FORMAT
 msgid "bad frame format"
@@ -2766,11 +2829,12 @@ msgid "warning: option has no value constraint"
 msgstr "atenção: opção não tem o valor do construtor"
 
 #. WARN_XSANE_AS_ROOT
+#, fuzzy
 msgid ""
 "You try to run XSane as ROOT, that really is DANGEROUS!\n"
 "\n"
 "Do not send any bug reports when you\n"
-"have any problem while running XSane as root:\n"
+"have any problems while running XSane as root:\n"
 "YOU ARE ALONE!"
 msgstr ""
 "Você está tentando rodar XSane como ROOT, o que é realmente PERIGOSO!\n"
@@ -3026,6 +3090,7 @@ msgid "<Toolbox>/Xtns/XSane/"
 msgstr ""
 
 #. HELP_NO_DEVICES
+#, fuzzy
 msgid ""
 "Possible reasons:\n"
 "1) There really is no device that is supported by SANE\n"
@@ -3033,7 +3098,7 @@ msgid ""
 "3) The permissions for the device file do not allow you to use it - try as "
 "root\n"
 "4) The backend is not loaded by SANE (man sane-dll)\n"
-"5) The backend is not configured correct (man sane-\"backendname\")\n"
+"5) The backend is not configured correctly (man sane-\"backendname\")\n"
 "6) Possibly there is more than one SANE version installed"
 msgstr ""
 "Possíveis motivos:\n"
@@ -3240,7 +3305,8 @@ msgid "E-mail has been sent"
 msgstr "Correio foi enviado"
 
 #. TEXT_FAX_STATUS_QUEUEING_FAX
-msgid "Queueing Fax"
+#, fuzzy
+msgid "Queueing fax"
 msgstr "Enviado Fax para fila"
 
 #. TEXT_FAX_STATUS_FAX_QUEUED
@@ -3301,6 +3367,24 @@ msgstr "Sem memória"
 
 msgid "Access to resource has been denied"
 msgstr "Acesso ao recurso foi proibido"
+
+#~ msgid "XSane options"
+#~ msgstr "Opções do XSane"
+
+#~ msgid "Failed to execute ocr command:"
+#~ msgstr "Falha ao executar o comando para ocr:"
+
+#~ msgid "Color resolution (dpi):"
+#~ msgstr "Resolução de cores (ppp):"
+
+#~ msgid "Printer gamma value:"
+#~ msgstr "Valor de impressora gama:"
+
+#~ msgid "Printer gamma green:"
+#~ msgstr "Verde gama da Impressora:"
+
+#~ msgid "Printer gamma blue:"
+#~ msgstr "Azul gama da Impressora:"
 
 #, fuzzy
 #~ msgid "select scanner transmissive ICM-profile"

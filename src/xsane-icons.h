@@ -29,10 +29,10 @@
 #define CURSOR_PIPETTE_HEIGHT 16
 #define CURSOR_PIPETTE_HOT_X 1
 #define CURSOR_PIPETTE_HOT_Y 14
-#define CURSOR_AUTORAISE_SCANAREA_WIDTH 16
-#define CURSOR_AUTORAISE_SCANAREA_HEIGHT 16
-#define CURSOR_AUTORAISE_SCANAREA_HOT_X 7
-#define CURSOR_AUTORAISE_SCANAREA_HOT_Y 7
+#define CURSOR_AUTORAISE_SCAN_AREA_WIDTH 16
+#define CURSOR_AUTORAISE_SCAN_AREA_HEIGHT 16
+#define CURSOR_AUTORAISE_SCAN_AREA_HOT_X 7
+#define CURSOR_AUTORAISE_SCAN_AREA_HOT_Y 7
 #define CURSOR_ZOOM_WIDTH 16
 #define CURSOR_ZOOM_HEIGHT 16
 #define CURSOR_ZOOM_HOT_X 6
@@ -147,8 +147,8 @@ extern const char cursor_pipette_white[];
 extern const char cursor_pipette_gray[];
 extern const char cursor_pipette_black[];
 extern const char cursor_pipette_mask[];
-extern const char cursor_autoraise_scanarea[];
-extern const char cursor_autoraise_scanarea_mask[];
+extern const char cursor_autoraise_scan_area[];
+extern const char cursor_autoraise_scan_area_mask[];
 extern const char cursor_zoom[];
 extern const char cursor_zoom_mask[];
 #endif

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xsane\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-03 10:10+0100\n"
+"POT-Creation-Date: 2007-08-13 09:22+0200\n"
 "PO-Revision-Date: 2006-01-02 17:48+0100\n"
 "Last-Translator: Dušan Vejnovič <dusan@vejnovic.com>\n"
 "Language-Team: slovenščina <sl@li.org>\n"
@@ -87,7 +87,8 @@ msgid "rename fax page"
 msgstr "preimenuj stran s faksom"
 
 #. WINDOW_FAX_INSERT
-msgid "insert ps-file into fax"
+#, fuzzy
+msgid "insert PS-file into fax"
 msgstr "vstavi ps-datoteko v faks"
 
 #. WINDOW_EMAIL_PROJECT
@@ -506,7 +507,8 @@ msgid "Skip existing filenames"
 msgstr "Preskoči obstoječa imena datotek"
 
 #. RADIO_BUTTON_SAVE_PS_FLATEDECODED
-msgid "Save postscript zlib compressed (ps level 3)"
+#, fuzzy
+msgid "Save postscript zlib compressed (PS level 3)"
 msgstr "Shrani postscript stisnjen z zlib (ps stopnja 3)"
 
 #. RADIO_BUTTON_SAVE_PDF_FLATEDECODED
@@ -514,7 +516,8 @@ msgid "Save PDF zlib compressed"
 msgstr "Shrani PDF stisnjen z zlib"
 
 #. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
-msgid "Save 16bit pnm in ascii format"
+#, fuzzy
+msgid "Save 16bit PNM in ASCII format"
 msgstr "Shrani 16 bitni pnm v ASCII formatu"
 
 #. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
@@ -538,8 +541,9 @@ msgstr "Uporabi lastno paleto barv"
 msgid "Autoenhance gamma"
 msgstr "Samodejno izboljšaj faktor gama"
 
-#. RADIO_BUTTON_PRESELECT_SCANAREA
-msgid "Preselect scanarea"
+#. RADIO_BUTTON_PRESELECT_SCAN_AREA
+#, fuzzy
+msgid "Preselect scan area"
 msgstr "Predizbrano območje skeniranja"
 
 #. RADIO_BUTTON_AUTOCORRECT_COLORS
@@ -562,10 +566,6 @@ msgstr "iskanje naprav"
 #. TEXT_AVAILABLE_DEVICES
 msgid "Available devices:"
 msgstr "Razpoložljive naprave:"
-
-#. TEXT_XSANE_OPTIONS
-msgid "XSane options"
-msgstr "Izbire XSane"
 
 #. TEXT_FILETYPE
 msgid "Type"
@@ -890,53 +890,72 @@ msgstr "Ukaz:"
 msgid "Copy number option:"
 msgstr "Število kopij:"
 
+#. TEXT_SETUP_SCAN_RESOLUTION_PRINTER
+#, fuzzy
+msgid "Scan resolution:"
+msgstr "Nastavitev ločljivosti skeniranja"
+
 #. TEXT_SETUP_PRINTER_LINEART_RES
-msgid "Lineart resolution (dpi):"
+#, fuzzy
+msgid "lineart [dpi]"
 msgstr "Črnobela ločljivost (dpi):"
 
 #. TEXT_SETUP_PRINTER_GRAYSCALE_RES
-msgid "Grayscale resolution (dpi):"
+#, fuzzy
+msgid "grayscale [dpi]"
 msgstr "Sivinska ločljivost (dpi):"
 
 #. TEXT_SETUP_PRINTER_COLOR_RES
-msgid "Color resolution (dpi):"
-msgstr "Barvna ločljivost (dpi):"
+msgid "color [dpi]"
+msgstr ""
+
+#. TEXT_SETUP_PRINTER_PAPER_GEOMETRIE
+msgid "Paper geometrie:"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_WIDTH
-#. TEXT_SETUP_FAX_WIDTH
-msgid "Width"
+#, fuzzy
+msgid "width"
 msgstr "Širina"
 
 #. TEXT_SETUP_PRINTER_HEIGHT
-#. TEXT_SETUP_FAX_HEIGHT
-msgid "Height"
+#, fuzzy
+msgid "height"
 msgstr "Višina"
 
 #. TEXT_SETUP_PRINTER_LEFT
-#. TEXT_SETUP_FAX_LEFT
-msgid "Left offset"
+#, fuzzy
+msgid "left offset"
 msgstr "Levi odmik"
 
 #. TEXT_SETUP_PRINTER_BOTTOM
-#. TEXT_SETUP_FAX_BOTTOM
-msgid "Bottom offset"
+#, fuzzy
+msgid "bottom offset"
 msgstr "Odmik spodaj"
 
-#. TEXT_SETUP_PRINTER_GAMMA
-msgid "Printer gamma value:"
-msgstr "Vrednost gama za tiskalnik:"
-
-#. TEXT_SETUP_PRINTER_GAMMA_RED
-msgid "Printer gamma red:"
+#. TEXT_SETUP_PRINTER_GAMMA_CORRECTION
+#, fuzzy
+msgid "Printer gamma:"
 msgstr "Gama rdeča za tiskalnik:"
 
+#. TEXT_SETUP_PRINTER_GAMMA
+#, fuzzy
+msgid "common value"
+msgstr "Zadnje vrednosti"
+
+#. TEXT_SETUP_PRINTER_GAMMA_RED
+#, fuzzy
+msgid "red"
+msgstr "preberi"
+
 #. TEXT_SETUP_PRINTER_GAMMA_GREEN
-msgid "Printer gamma green:"
-msgstr "Gama zelena za tiskalnik:"
+msgid "green"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_GAMMA_BLUE
-msgid "Printer gamma blue:"
-msgstr "Gama modra za tiskalnik:"
+#, fuzzy
+msgid "blue"
+msgstr "Zamegli"
 
 #. TEXT_SETUP_PRINTER_EMBED_CSA
 #, fuzzy
@@ -953,7 +972,8 @@ msgid "Apply black point compensation"
 msgstr ""
 
 #. TEXT_SETUP_PRINTER_PS_FLATEDECODED
-msgid "Create zlib compressed postscript image (ps level 3) for printing"
+#, fuzzy
+msgid "Create zlib compressed postscript image (PS level 3) for printing"
 msgstr "Ustvari stisnjeno postscriptno sliko z zlib (ps stopnja 3) za tiskanje"
 
 #. TEXT_SETUP_TMP_PATH
@@ -1076,8 +1096,25 @@ msgstr "Nastavi privzete nastavitve programa za:"
 msgid "Viewer (Postscript):"
 msgstr "Ogledovalnik (postscript):"
 
+#. TEXT_SETUP_FAX_WIDTH
+msgid "Width"
+msgstr "Širina"
+
+#. TEXT_SETUP_FAX_HEIGHT
+msgid "Height"
+msgstr "Višina"
+
+#. TEXT_SETUP_FAX_LEFT
+msgid "Left offset"
+msgstr "Levi odmik"
+
+#. TEXT_SETUP_FAX_BOTTOM
+msgid "Bottom offset"
+msgstr "Odmik spodaj"
+
 #. TEXT_SETUP_FAX_PS_FLATEDECODED
-msgid "Create zlib compressed postscript image (ps level 3) for fax"
+#, fuzzy
+msgid "Create zlib compressed postscript image (PS level 3) for fax"
 msgstr "Ustvari stisnjeno postscriptno sliko z zlib (ps stopnja 3) za faks"
 
 #. TEXT_SETUP_SMTP_SERVER
@@ -1444,11 +1481,13 @@ msgid "CCITT 1D Huffman compression"
 msgstr "CCITT 1D Huffmanovo stiskanje"
 
 #. MENU_ITEM_TIFF_COMP_CCITFAX3
-msgid "CCITT Group 3 Fax compression"
+#, fuzzy
+msgid "CCITT Group 3 fax compression"
 msgstr "CCITT Group 3 stiskanje za fakse"
 
 #. MENU_ITEM_TIFF_COMP_CCITFAX4
-msgid "CCITT Group 4 Fax compression"
+#, fuzzy
+msgid "CCITT Group 4 fax compression"
 msgstr "CCITT Group 4 stiskanje za fakse"
 
 #. MENU_ITEM_TIFF_COMP_JPEG
@@ -1574,8 +1613,9 @@ msgstr "Prejemam %s podatke"
 msgid "page"
 msgstr "stran"
 
-#. PROGRESS_TRANSFERING_DATA
-msgid "Transfering image"
+#. PROGRESS_TRANSFERRING_DATA
+#, fuzzy
+msgid "Transferring image"
 msgstr "Prenašam sliko"
 
 #. PROGRESS_ROTATING_DATA
@@ -1648,9 +1688,10 @@ msgstr ""
 "<Ctrl-m>, faks-<Ctrl-f> ali e-pošta-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
+#, fuzzy
 msgid ""
 "Select source medium type.\n"
-"To rename, reorder or delete an entry use context menu (right mouse "
+"To rename, reorder or delete an entry use context menu (alternate mouse "
 "button).\n"
 "To create a medium enable the option edit medium definition in preferences "
 "menu."
@@ -2003,14 +2044,16 @@ msgid "Browse for temporary directory"
 msgstr "Prebrskaj začasni imenik"
 
 #. DESC_JPEG_QUALITY
+#, fuzzy
 msgid ""
-"Quality in percent if image is saved as jpeg or tiff with jpeg compression"
+"Quality in percent if image is saved as JPEG or TIFF with JPEG compression"
 msgstr ""
 "Kakovost v odstotkih, če sliko shranjujemo v zapisih TIFF ali JPEG pri "
 "stiskanju z JPEG"
 
 #. DESC_PNG_COMPRESSION
-msgid "Compression if image is saved as png"
+#, fuzzy
+msgid "Compression if image is saved as PNG"
 msgstr "Stiskanje, če je slika shranjena kot png"
 
 #. DESC_FILENAME_COUNTER_LEN
@@ -2018,19 +2061,23 @@ msgid "Minimum length of counter in filename"
 msgstr "Najkrajša dolžina števca v imenu datoteke"
 
 #. DESC_TIFF_ZIP_COMPRESSION
-msgid "Compression rate for zip compressed tiff (deflate)"
+#, fuzzy
+msgid "Compression rate for zip compressed TIFF (deflate)"
 msgstr "Stopnja stiskanja za zip stiskani TIFF (zmanjšanje)"
 
 #. DESC_TIFF_COMPRESSION_16
-msgid "Compression type if 16 bit image is saved as tiff"
+#, fuzzy
+msgid "Compression type if 16 bit image is saved as TIFF"
 msgstr "Vrsta stiskanja, če je 16 bitna slika shranjena kot tiff"
 
 #. DESC_TIFF_COMPRESSION_8
-msgid "Compression type if 8 bit image is saved as tiff"
+#, fuzzy
+msgid "Compression type if 8 bit image is saved as TIFF"
 msgstr "Vrsta stiskanja, če je 8 bitna slika shranjena kot tiff"
 
 #. DESC_TIFF_COMPRESSION_1
-msgid "Compression type if lineart image is saved as tiff"
+#, fuzzy
+msgid "Compression type if lineart image is saved as TIFF"
 msgstr "Vrsta stiskanja pri shranjevanju slik v načinu lineart v zapisu TIFF"
 
 #. DESC_SAVE_DEVPREFS_AT_EXIT
@@ -2063,10 +2110,11 @@ msgid "compress PDF image with zlib algorithm (flatedecode)."
 msgstr "stiskanje PDFslike z zlib algoritmom."
 
 #. DESC_SAVE_PNM16_AS_ASCII
+#, fuzzy
 msgid ""
-"When a 16 bit image shall be saved in pnm format then use ascii format "
+"When a 16 bit image shall be saved in PNM format then use ASCII format "
 "instead of binary format. The binary format is a new format that is not "
-"supported by all programs. The ascii format is supported by more programs "
+"supported by all programs. The ASCII format is supported by more programs "
 "but it produces really huge files!!!"
 msgstr ""
 "Če naj bo 16 bitna slika shranjena v pnm formatu, uporabi ASCII format "
@@ -2120,7 +2168,8 @@ msgid "Select how a range is displayed"
 msgstr "Izberi, kako je območje prikazano"
 
 #. DESC_PREVIEW_OVERSAMPLING
-msgid "Value with that the calculated preview resolution is multiplied"
+#, fuzzy
+msgid "Value with which the calculated preview resolution is multiplied"
 msgstr "Vrednost, s katero je izračunana ločljivost predogleda pomnožena"
 
 #. DESC_PREVIEW_GAMMA
@@ -2184,8 +2233,9 @@ msgid "dimension of square that is used to average color for pipette function"
 msgstr "velikost kvadrata, v katerem povprečimo barvo pri zajemu s pipeto."
 
 #. DESC_DOC_VIEWER
+#, fuzzy
 msgid ""
-"Enter command to be executed to display helpfiles, must be a html-viewer!"
+"Enter command to be executed to display helpfiles, must be a HTML-viewer!"
 msgstr ""
 "Podajte ukaz, s katerim prikažemo datoteke za pomoč, mora biti ogledovalnik "
 "HTML kode!"
@@ -2195,8 +2245,9 @@ msgid "Change gamma value when autoenhancement button is pressed"
 msgstr ""
 "Spremeni vrednost gama, ko je pritisnjen gumb za samodejno izboljševanje"
 
-#. DESC_PRESELECT_SCANAREA
-msgid "Select scanarea after preview scan has finished"
+#. DESC_PRESELECT_SCAN_AREA
+#, fuzzy
+msgid "Select scan area after preview scan has finished"
 msgstr "Izberi področje skeniranja, potem ko je predogled skeniranja zaključen"
 
 #. DESC_AUTOCORRECT_COLORS
@@ -2282,28 +2333,34 @@ msgid "port to connect to POP3 server"
 msgstr "vrata za povezavo do POP3 strežnika"
 
 #. DESC_HTML_EMAIL
-msgid "E-mail is sent in html mode, place image with: <IMAGE>"
+#, fuzzy
+msgid "E-mail is sent in HTML mode, place image with: <IMAGE>"
 msgstr "Pošta je poslana v html načinu, postavi sliko z: <IMAGE>"
 
 #. DESC_OCR_COMMAND
-msgid "Enter command to start ocr program"
+#, fuzzy
+msgid "Enter command to start OCR program"
 msgstr "Podajte ukaz za zagon ocr programa"
 
 #. DESC_OCR_INPUTFILE_OPT
-msgid "Enter option of the ocr program to define input file"
+#, fuzzy
+msgid "Enter option of the OCR program to define input file"
 msgstr "Podajte izbiro ocr programa za določitev vhodne datoteke"
 
 #. DESC_OCR_OUTPUTFILE_OPT
-msgid "Enter option of the ocr program to define output file"
+#, fuzzy
+msgid "Enter option of the OCR program to define output file"
 msgstr "Podajte izbiro ocr programa za določitev izhodne datoteke"
 
 #. DESC_OCR_USE_GUI_PIPE_OPT
-msgid "Define if the ocr program supports gui progress pipe"
+#, fuzzy
+msgid "Define if the OCR program supports gui progress pipe"
 msgstr "Določi, če ocr program podpira GUI cevovod napredka"
 
 #. DESC_OCR_OUTFD_OPT
+#, fuzzy
 msgid ""
-"Enter option of the ocr program to define output filedescripor in GUI mode"
+"Enter option of the OCR program to define output filedescripor in GUI mode"
 msgstr ""
 "Podajte izbiro ocr programa za določitev opisa izhodne datoteke v GUI načinu"
 
@@ -2341,7 +2398,8 @@ msgid "Pick black point"
 msgstr "Izberite črno točko"
 
 #. DESC_ZOOM_FULL
-msgid "Use full scanarea"
+#, fuzzy
+msgid "Use full scan area"
 msgstr "Uporabi celotno območje "
 
 #. DESC_ZOOM_OUT
@@ -2365,12 +2423,14 @@ msgstr "Prekliči zadnje povečanje"
 msgid "Select visible area"
 msgstr "Izberi vidno območje"
 
-#. DESC_AUTOSELECT_SCANAREA
-msgid "Autoselect scanarea"
+#. DESC_AUTOSELECT_SCAN_AREA
+#, fuzzy
+msgid "Autoselect scan area"
 msgstr "Samodejno določi območje skeniranja"
 
-#. DESC_AUTORAISE_SCANAREA
-msgid "Autoraise scanarea"
+#. DESC_AUTORAISE_SCAN_AREA
+#, fuzzy
+msgid "Autoraise scan area"
 msgstr "Samodejno povečaj območje skeniranja"
 
 #. DESC_DELETE_IMAGES
@@ -2378,9 +2438,10 @@ msgid "Delete preview image cache"
 msgstr "Izbriši predpomnilnik predogleda slike"
 
 #. DESC_PRESET_AREA
+#, fuzzy
 msgid ""
 "Preset area:\n"
-"To add new area or edit an existing area use contect menu (right mouse "
+"To add new area or edit an existing area use context menu (alternate mouse "
 "button)."
 msgstr ""
 "Prednastavljeno območje:\n"
@@ -2412,15 +2473,18 @@ msgid "Clone image"
 msgstr "Kloniraj sliko"
 
 #. DESC_ROTATE90
-msgid "Rotate image 90 degree"
+#, fuzzy
+msgid "Rotate image 90 degrees"
 msgstr "Rotiraj sliko za 90 stopinj"
 
 #. DESC_ROTATE180
-msgid "Rotate image 180 degree"
+#, fuzzy
+msgid "Rotate image 180 degrees"
 msgstr "Rotiraj sliko za 180 stopinj"
 
 #. DESC_ROTATE270
-msgid "Rotate image 270 degree"
+#, fuzzy
+msgid "Rotate image 270 degrees"
 msgstr "Rotiraj sliko za 270 stopinj"
 
 #. DESC_MIRROR_X
@@ -2456,11 +2520,13 @@ msgid "Y-Scale factor"
 msgstr "Faktor skeliranja Y"
 
 #. DESC_SCALE_WIDTH
-msgid "Scale image to width [in pixel]"
+#, fuzzy
+msgid "Scale image to width [pixels]"
 msgstr "Skeliraj sliko v dolžino [v pikslih]"
 
 #. DESC_SCALE_HEIGHT
-msgid "Scale image to height [in pixel]"
+#, fuzzy
+msgid "Scale image to height [pixels]"
 msgstr "Skeliraj sliko v višino [v pikslih]"
 
 #. DESC_BATCH_LIST_EMPTY
@@ -2582,7 +2648,8 @@ msgid "Failed to open"
 msgstr "Napaka pri odpiranju"
 
 #. ERR_CREATE_SECURE_FILE
-msgid "Could not create secure file (may be a link does exist):"
+#, fuzzy
+msgid "Could not create secure file (maybe a link does exist):"
 msgstr "Ne morem ustvariti varne datoteke (mogoče povezava ne obstaja):"
 
 #. ERR_FAILED_PRINTER_PIPE
@@ -2659,8 +2726,9 @@ msgid "Failed to execute fax command:"
 msgstr "Napaka pri zagonu ukaza za faskiranje:"
 
 #. ERR_FAILED_EXEC_OCR_CMD
-msgid "Failed to execute ocr command:"
-msgstr "Napaka pri zagonu ocr ukaza:"
+#, fuzzy
+msgid "Failed to execute OCR command:"
+msgstr "Napaka pri zagonu ukaza za faskiranje:"
 
 #. ERR_BAD_FRAME_FORMAT
 msgid "bad frame format"
@@ -2720,11 +2788,12 @@ msgid "warning: option has no value constraint"
 msgstr "opozorilo: izbira nima vrednosti omejitve"
 
 #. WARN_XSANE_AS_ROOT
+#, fuzzy
 msgid ""
 "You try to run XSane as ROOT, that really is DANGEROUS!\n"
 "\n"
 "Do not send any bug reports when you\n"
-"have any problem while running XSane as root:\n"
+"have any problems while running XSane as root:\n"
 "YOU ARE ALONE!"
 msgstr ""
 "X Sane ste poskušali pognati kot korenski uporabnik, to je zares NEVARNO!\n"
@@ -2976,6 +3045,7 @@ msgid "<Toolbox>/Xtns/XSane/"
 msgstr "<Toolbox>/Xtns/XSane/"
 
 #. HELP_NO_DEVICES
+#, fuzzy
 msgid ""
 "Possible reasons:\n"
 "1) There really is no device that is supported by SANE\n"
@@ -2983,7 +3053,7 @@ msgid ""
 "3) The permissions for the device file do not allow you to use it - try as "
 "root\n"
 "4) The backend is not loaded by SANE (man sane-dll)\n"
-"5) The backend is not configured correct (man sane-\"backendname\")\n"
+"5) The backend is not configured correctly (man sane-\"backendname\")\n"
 "6) Possibly there is more than one SANE version installed"
 msgstr ""
 "Mogoči vzroki:\n"
@@ -3178,7 +3248,8 @@ msgid "E-mail has been sent"
 msgstr "E-pošta je bila poslana"
 
 #. TEXT_FAX_STATUS_QUEUEING_FAX
-msgid "Queueing Fax"
+#, fuzzy
+msgid "Queueing fax"
 msgstr "Preverjanje čakalne vrste faksa"
 
 #. TEXT_FAX_STATUS_FAX_QUEUED
@@ -3239,6 +3310,24 @@ msgstr "Zmanjkalo je pomnilnika"
 
 msgid "Access to resource has been denied"
 msgstr "Dostop do vira je bil zavrnjen"
+
+#~ msgid "XSane options"
+#~ msgstr "Izbire XSane"
+
+#~ msgid "Failed to execute ocr command:"
+#~ msgstr "Napaka pri zagonu ocr ukaza:"
+
+#~ msgid "Color resolution (dpi):"
+#~ msgstr "Barvna ločljivost (dpi):"
+
+#~ msgid "Printer gamma value:"
+#~ msgstr "Vrednost gama za tiskalnik:"
+
+#~ msgid "Printer gamma green:"
+#~ msgstr "Gama zelena za tiskalnik:"
+
+#~ msgid "Printer gamma blue:"
+#~ msgstr "Gama modra za tiskalnik:"
 
 #, fuzzy
 #~ msgid "select scanner transmissive ICM-profile"

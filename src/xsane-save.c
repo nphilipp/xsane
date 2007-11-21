@@ -77,7 +77,11 @@ static void xsane_gimp_run(char *name, int nparams, GimpParam *param, int *nretu
  
 GimpPlugInInfo PLUG_IN_INFO =
 {
+#if 1
   NULL,                         /* init_proc */
+#else
+  xsane_gimp_query,             /* init_proc that queries xsane each time gimp is started */
+#endif
   NULL,                         /* quit_proc */
   xsane_gimp_query,             /* query_proc */
   xsane_gimp_run,               /* run_proc */
@@ -719,12 +723,7 @@ int xsane_copy_file(FILE *outfile, FILE *infile, GtkProgressBar *progress_bar, i
   size = ftell(infile);
   fseek(infile, 0, SEEK_SET);
 
-  gtk_progress_bar_update(GTK_PROGRESS_BAR(progress_bar), 0.0);
-
-  while (gtk_events_pending())
-  {
-    gtk_main_iteration();
-  }
+  xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(progress_bar), 0.0);
 
   while (!feof(infile))
   {
@@ -735,12 +734,7 @@ int xsane_copy_file(FILE *outfile, FILE *infile, GtkProgressBar *progress_bar, i
       bytes_sum += bytes;
     }
 
-    gtk_progress_bar_update(progress_bar, (float) bytes_sum / size); /* update progress bar */
-
-    while (gtk_events_pending())
-    {
-      gtk_main_iteration();
-    }
+    xsane_progress_bar_set_fraction(progress_bar, (float) bytes_sum / size); /* update progress bar */
 
     if (ferror(infile))
     {
@@ -822,12 +816,7 @@ int xsane_copy_file_by_name(char *output_filename, char *input_filename, GtkProg
   fclose(outfile);
 
   gtk_progress_set_format_string(GTK_PROGRESS(progress_bar), "");
-  gtk_progress_bar_update(GTK_PROGRESS_BAR(progress_bar), 0.0);
-
-  while (gtk_events_pending())
-  {
-    gtk_main_iteration();
-  }
+  xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(progress_bar), 0.0);
 
  return (*cancel_save);
 }
@@ -893,16 +882,21 @@ cmsHTRANSFORM xsane_create_cms_transform(Image_info *image_info, int cms_functio
     snprintf(buf, sizeof(buf), "%s\n%s %s: %s\n", ERR_CMS_CONVERSION, ERR_CMS_OPEN_ICM_FILE, CMS_SCANNER_ICM, image_info->icm_profile);
     xsane_back_gtk_error(buf, TRUE);
   }
-#if 0
-{
-  LPGAMMATABLE Gamma = cmsBuildGamma(256, 3.0);
-  hOutProfile = cmsCreateGrayProfile(cmsD50_xyY(), Gamma);
-  cmsFreeGamma(Gamma);
-}
-#endif
   if (cms_function == XSANE_CMS_FUNCTION_CONVERT_TO_SRGB)
   {
-    hOutProfile = cmsCreate_sRGBProfile();
+    if (image_info->channels == 1) /* == 1 (grayscale) */
+    {
+#if 1 /* xxx oli */
+     LPGAMMATABLE Gamma = cmsBuildGamma(256, 2.2);
+
+      hOutProfile = cmsCreateGrayProfile(cmsD50_xyY(), Gamma);
+      cmsFreeGamma(Gamma);
+#endif
+    }
+    else
+    {
+      hOutProfile = cmsCreate_sRGBProfile();
+    }
   }
   else
   {
@@ -1005,11 +999,7 @@ int xsane_save_grayscale_image_as_lineart(FILE *outfile, FILE *imagefile, Image_
     }
 
 
-    gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height); /* update progress bar */
-    while (gtk_events_pending()) /* give gtk the chance to display the changes */
-    {
-      gtk_main_iteration();
-    }
+    xsane_progress_bar_set_fraction(progress_bar, (float) y / image_info->image_height); /* update progress bar */
 
     if (*cancel_save)
     {
@@ -1107,11 +1097,7 @@ int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_in
   {
     DBG(DBG_info2, "xsane_save_scaled_image: original line %d, new line %d\n", (int) y, y_new);
 
-    gtk_progress_bar_update(progress_bar, (float) y / original_image_height);
-    while (gtk_events_pending())
-    {
-      gtk_main_iteration();
-    }
+    xsane_progress_bar_set_fraction(progress_bar, (float) y / original_image_height);
 
     if (read_line)
     {
@@ -1295,11 +1281,7 @@ int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_in
 
   for (y = 0; y < new_image_height; y++)
   {
-    gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height);
-    while (gtk_events_pending())
-    {
-      gtk_main_iteration();
-    }
+    xsane_progress_bar_set_fraction(progress_bar, (float) y / image_info->image_height);
 
     for (; ((int) original_y) - old_original_y; old_original_y += 1)
     {
@@ -1385,12 +1367,7 @@ int xsane_save_despeckle_image(FILE *outfile, FILE *imagefile, Image_info *image
 
   for (y = 0; y < image_info->image_height; y++)
   {
-    gtk_progress_bar_update(progress_bar, (float)  y / image_info->image_height);
-
-    while (gtk_events_pending())
-    {
-      gtk_main_iteration();
-    }
+    xsane_progress_bar_set_fraction(progress_bar, (float)  y / image_info->image_height);
 
     ymin = y - radius;
     ymax = y + radius;
@@ -1578,11 +1555,7 @@ int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info
 
   for (y = 0; y < image_info->image_height; y++)
   {
-    gtk_progress_bar_update(progress_bar, (float)  y / image_info->image_height);
-    while (gtk_events_pending())
-    {
-      gtk_main_iteration();
-    }
+    xsane_progress_bar_set_fraction(progress_bar, (float)  y / image_info->image_height);
 
     for (x = 0; x < image_info->image_width * image_info->channels; x++)
     {
@@ -1787,11 +1760,7 @@ int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info
 
   for (y = 0; y < image_info->image_height; y++)
   {
-    gtk_progress_bar_update(progress_bar, (float)  y / image_info->image_height);
-    while (gtk_events_pending())
-    {
-      gtk_main_iteration();
-    }
+    xsane_progress_bar_set_fraction(progress_bar, (float)  y / image_info->image_height);
 
     for (x = 0; x < image_info->image_width * image_info->channels; x++)
     {
@@ -1929,11 +1898,7 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
 
       for (y = 0; y < pixel_height; y++)
       {
-        gtk_progress_bar_update(progress_bar, (float) y / pixel_height);
-        while (gtk_events_pending())
-        {
-          gtk_main_iteration();
-        }
+        xsane_progress_bar_set_fraction(progress_bar, (float) y / pixel_height);
 
         for (x = 0; x < pixel_width; x++)
         {
@@ -1986,11 +1951,7 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
 
       for (x=0; x<pixel_width; x++)
       {
-        gtk_progress_bar_update(progress_bar, (float) x / pixel_width);
-        while (gtk_events_pending())
-        {
-          gtk_main_iteration();
-        }
+        xsane_progress_bar_set_fraction(progress_bar, (float) x / pixel_width);
 
         for (y=pixel_height-1; y>=0; y--)
         {
@@ -2040,11 +2001,7 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
 
       for (y = pixel_height-1; y >= 0; y--)
       {
-        gtk_progress_bar_update(progress_bar, (float) (pixel_height - y) / pixel_height);
-        while (gtk_events_pending())
-        {
-          gtk_main_iteration();
-        }
+        xsane_progress_bar_set_fraction(progress_bar, (float) (pixel_height - y) / pixel_height);
 
         for (x = pixel_width-1; x >= 0; x--)
         {
@@ -2099,11 +2056,7 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
 
       for (x = pixel_width-1; x >= 0; x--)
       {
-        gtk_progress_bar_update(progress_bar, (float) (pixel_width - x) / pixel_width);
-        while (gtk_events_pending())
-        {
-          gtk_main_iteration();
-        }
+        xsane_progress_bar_set_fraction(progress_bar, (float) (pixel_width - x) / pixel_width);
 
         for (y = 0; y < pixel_height; y++)
         {
@@ -2152,11 +2105,7 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
 
       for (y = 0; y < pixel_height; y++)
       {
-        gtk_progress_bar_update(progress_bar, (float) y / pixel_height);
-        while (gtk_events_pending())
-        {
-          gtk_main_iteration();
-        }
+        xsane_progress_bar_set_fraction(progress_bar, (float) y / pixel_height);
 
         for (x = pixel_width-1; x >= 0; x--)
         {
@@ -2211,11 +2160,7 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
 
       for (x = 0; x < pixel_width; x++)
       {
-        gtk_progress_bar_update(progress_bar, (float) x / pixel_width);
-        while (gtk_events_pending())
-        {
-          gtk_main_iteration();
-        }
+        xsane_progress_bar_set_fraction(progress_bar, (float) x / pixel_width);
 
         for (y = 0; y < pixel_height; y++)
         {
@@ -2265,11 +2210,7 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
 
       for (y = pixel_height-1; y >= 0; y--)
       {
-        gtk_progress_bar_update(progress_bar, (float) (pixel_height - y) / pixel_height);
-        while (gtk_events_pending())
-        {
-          gtk_main_iteration();
-        }
+        xsane_progress_bar_set_fraction(progress_bar, (float) (pixel_height - y) / pixel_height);
 
         for (x = 0; x < pixel_width; x++)
         {
@@ -2324,11 +2265,7 @@ int xsane_save_rotate_image(FILE *outfile, FILE *imagefile, Image_info *image_in
 
       for (x = pixel_width-1; x >= 0; x--)
       {
-        gtk_progress_bar_update(progress_bar, (float) (pixel_width - x) / pixel_width);
-        while (gtk_events_pending())
-        {
-          gtk_main_iteration();
-        }
+        xsane_progress_bar_set_fraction(progress_bar, (float) (pixel_width - x) / pixel_width);
 
         for (y = pixel_height-1; y >= 0; y--)
         {
@@ -2439,7 +2376,7 @@ void xsane_save_ps_create_document_header(FILE *outfile, int pages,
   fprintf(outfile, "%%%%EndComments\n");
   fprintf(outfile, "%%%%BeginDocument: xsane.ps\n");
   fprintf(outfile, "\n");
-//  fprintf(outfile, "/origstate save def\n");
+/*  fprintf(outfile, "/origstate save def\n"); */
   fprintf(outfile, "20 dict begin\n");
 }
 
@@ -2450,7 +2387,7 @@ void xsane_save_ps_create_document_trailer(FILE *outfile, int pages)
   DBG(DBG_proc, "xsane_save_ps_create_document_trailer\n");
 
   fprintf(outfile, "end\n");
-//  fprintf(outfile, "origstate restore\n");
+/*  fprintf(outfile, "origstate restore\n"); */
 
   if (pages)
   {
@@ -3050,11 +2987,7 @@ static int xsane_save_ps_pdf_bw(FILE *outfile, FILE *imagefile, Image_info *imag
 
   for (y = 0; y < image_info->image_height; y++)
   {
-    gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height);
-    while (gtk_events_pending())
-    {
-      gtk_main_iteration();
-    }
+    xsane_progress_bar_set_fraction(progress_bar, (float) y / image_info->image_height);
 
     for (x = 0; x < bytes_per_line; x++)
     {
@@ -3118,11 +3051,13 @@ static int xsane_save_ps_pdf_bw(FILE *outfile, FILE *imagefile, Image_info *imag
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static int xsane_save_ps_pdf_gray(FILE *outfile, FILE *imagefile, Image_info *image_info, int ascii85decode, int flatedecode, cmsHTRANSFORM hTransform, int embed_scanner_icm_profile, GtkProgressBar *progress_bar, int *cancel_save)
+static int xsane_save_ps_pdf_gray(FILE *outfile, FILE *imagefile, Image_info *image_info, int ascii85decode, int flatedecode, cmsHTRANSFORM hTransform, int do_transform, GtkProgressBar *progress_bar, int *cancel_save)
 {
  int x, y;
  int ret;
- unsigned char *line;
+ unsigned char *line = NULL, *linep = NULL, *line16 = NULL;
+ int bytes_per_line;
+ int bytes_per_line16 = 0;
 #ifdef HAVE_LIBLCMS
  unsigned char *line_raw = NULL;
 #endif
@@ -3132,7 +3067,42 @@ static int xsane_save_ps_pdf_gray(FILE *outfile, FILE *imagefile, Image_info *im
 
   *cancel_save = 0;
 
-  line = (unsigned char *) malloc(image_info->image_width);
+  if (image_info->depth > 8) /* reduce 16 bit images to 12 bit */
+  {
+    bytes_per_line16 = image_info->image_width * 2;
+
+    bytes_per_line   = (image_info->image_width/2) * 3;
+
+    if (image_info->image_width & 1)
+    {
+      bytes_per_line += 2;
+    }
+
+    DBG(DBG_info, "bytes_per_line16 = %d\n", bytes_per_line16);
+    DBG(DBG_info, "bytes_per_line   = %d\n", bytes_per_line);
+  
+    line16 = (unsigned char *) malloc(bytes_per_line16);
+  
+    if (line16 == NULL)
+    {
+     char buf[TEXTBUFSIZE];
+        
+      snprintf(buf, sizeof(buf), "%s malloc for line16 failed", ERR_DURING_SAVE);
+      DBG(DBG_error, "%s\n", buf);
+      xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+      *cancel_save = 1;
+     return (*cancel_save);
+    }
+    DBG(DBG_info, "line16 allocated\n");
+  }
+  else
+  {
+    bytes_per_line   = image_info->image_width;
+    bytes_per_line16 = image_info->image_width;
+    DBG(DBG_info, "bytes_per_line = %d\n", bytes_per_line);
+  }
+
+  line = (unsigned char *) malloc(bytes_per_line);
 
   if (line == NULL)
   {
@@ -3145,10 +3115,43 @@ static int xsane_save_ps_pdf_gray(FILE *outfile, FILE *imagefile, Image_info *im
    return (*cancel_save);
   }
 
+  DBG(DBG_info, "line allocated\n");
+
+#ifdef HAVE_LIBLCMS
+  if (do_transform && (hTransform != NULL))
+  {
+    DBG(DBG_info, "Doing CMS color conversion\n");
+
+    line_raw = (unsigned char *) malloc(bytes_per_line16);
+
+    if (line_raw == NULL)
+    {
+     char buf[TEXTBUFSIZE];
+       
+      snprintf(buf, sizeof(buf), "%s malloc for line_raw failed", ERR_DURING_SAVE);
+      DBG(DBG_error, "%s\n", buf);
+      xsane_back_gtk_decision(ERR_HEADER_ERROR, (gchar **) error_xpm, buf, BUTTON_OK, NULL, TRUE /* wait */);
+
+      free(line);
+
+      if (line16)
+      {
+        free(line16);
+      }
+
+      *cancel_save = 1;
+     return (*cancel_save);
+    }
+
+    DBG(DBG_info, "line_raw allocated\n");
+  }
+#endif
+
   for (y = 0; y < image_info->image_height; y++)
   {
     if (image_info->depth > 8) /* reduce 16 bit images */
     {
+#if 0
      guint16 val;
 
       for (x = 0; x < image_info->image_width; x++)
@@ -3156,12 +3159,71 @@ static int xsane_save_ps_pdf_gray(FILE *outfile, FILE *imagefile, Image_info *im
         fread(&val, 2, 1, imagefile);
         line[x] = val/256;
       }
+#endif
+#if 1
+#ifdef HAVE_LIBLCMS
+      if (do_transform && (hTransform != NULL))
+      {
+        fread(line_raw, 2, image_info->image_width, imagefile);
+        cmsDoTransform(hTransform, line_raw, line16, image_info->image_width);
+      }
+      else
+#endif
+      {
+        fread(line16, 2, image_info->image_width, imagefile);
+      }
+
+      linep = line;
+
+#if __BYTE_ORDER == __LITTLE_ENDIAN
+      for (x = 0; x < image_info->image_width; x=x+2)
+      {
+        *linep++ =   line16[2*x+1]; /* pixel0 high+middle */
+
+        if (x == image_info->image_width-1)
+        {
+          *linep++ = (line16[2*x+0] & 240); /* pixel0 low */
+          break;
+        }
+
+        *linep++ =  (line16[2*x+0] & 240)      |  (line16[2*x+3] >> 4); /* pixel0 low | pixel1 high */
+        *linep++ = ((line16[2*x+3] & 15) << 4) | ((line16[2*x+2] & 240) >> 4); /* pixel1 middle | pixel1 low */
+      }
+#else
+      for (x = 0; x < image_info->image_width; x=x+2)
+      {
+        *linep++ =   line16[2*x+0]; /* pixel0 high+middle */
+
+        if (x == image_info->image_width-1)
+        {
+          *linep++ = (line16[2*x+1] & 240); /* pixel0 low */
+          break;
+        }
+
+        *linep++ =  (line16[2*x+1] & 240)      |  (line16[2*x+2] >> 4); /* pixel0 low | pixel1 high */
+        *linep++ = ((line16[2*x+2] & 15) << 4) | ((line16[2*x+3] & 240) >> 4); /* pixel1 middle | pixel1 low */
+      }
+#endif
+#endif
     }
     else /* 8 bits/sample */
     {
+#if 0
       for (x = 0; x < image_info->image_width; x++)
       {
         line[x] = fgetc(imagefile);
+      }
+#endif
+#ifdef HAVE_LIBLCMS
+      if (do_transform && (hTransform != NULL))
+      {
+        fread(line_raw, 1, image_info->image_width, imagefile);
+        cmsDoTransform(hTransform, line_raw, line, image_info->image_width);
+      }
+      else
+#endif
+      {
+        fread(line, 1, image_info->image_width, imagefile);
       }
     }
 
@@ -3170,23 +3232,23 @@ static int xsane_save_ps_pdf_gray(FILE *outfile, FILE *imagefile, Image_info *im
 #ifdef HAVE_LIBZ
       if (flatedecode)
       {
-        ret = xsane_write_compressed_a85_flatedecode(outfile, line, image_info->image_width, (y == image_info->image_height - 1));
+        ret = xsane_write_compressed_a85_flatedecode(outfile, line, bytes_per_line, (y == image_info->image_height - 1));
       }
       else
 #endif
       {
-        ret = xsane_write_compressed_a85(outfile, line, image_info->image_width, (y == image_info->image_height - 1));
+        ret = xsane_write_compressed_a85(outfile, line, bytes_per_line, (y == image_info->image_height - 1));
       }
     }
 #ifdef HAVE_LIBZ
     else if (flatedecode)
     {
-      ret = xsane_write_flatedecode(outfile, line, image_info->image_width, (y == image_info->image_height - 1));
+      ret = xsane_write_flatedecode(outfile, line, bytes_per_line, (y == image_info->image_height - 1));
     }
 #endif
     else
     {
-      fwrite(line, image_info->image_width, 1, outfile);
+      fwrite(line, bytes_per_line, 1, outfile);
     }
 
     if ((ret != 0) || (ferror(outfile)))
@@ -3209,16 +3271,24 @@ static int xsane_save_ps_pdf_gray(FILE *outfile, FILE *imagefile, Image_info *im
      break;
     }
 
-    gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height);
-    while (gtk_events_pending())
-    {
-      gtk_main_iteration();
-    }
+    xsane_progress_bar_set_fraction(progress_bar, (float) y / image_info->image_height);
 
     if (*cancel_save)
     {
       break;
     }
+  }
+
+#ifdef HAVE_LIBLCMS
+  if (line_raw)
+  {
+    free(line_raw);
+  }
+#endif
+
+  if (line16)
+  {
+    free(line16);
   }
 
   free(line);
@@ -3232,11 +3302,11 @@ static int xsane_save_ps_pdf_color(FILE *outfile, FILE *imagefile, Image_info *i
                                    cmsHTRANSFORM hTransform, int do_transform,
                                    GtkProgressBar *progress_bar, int *cancel_save)
 {
-  int x, y;
-  int ret;
-  unsigned char *line = NULL, *linep = NULL, *line16 = NULL;
-  int bytes_per_line;
-  int bytes_per_line16 = 0;
+ int x, y;
+ int ret;
+ unsigned char *line = NULL, *linep = NULL, *line16 = NULL;
+ int bytes_per_line;
+ int bytes_per_line16 = 0;
 #ifdef HAVE_LIBLCMS
  unsigned char *line_raw = NULL;
 #endif
@@ -3331,11 +3401,7 @@ static int xsane_save_ps_pdf_color(FILE *outfile, FILE *imagefile, Image_info *i
  
   for (y = 0; y < image_info->image_height; y++)
   {
-    gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height);
-    while (gtk_events_pending())
-    {
-      gtk_main_iteration();
-    }
+    xsane_progress_bar_set_fraction(progress_bar, (float) y / image_info->image_height);
 
     linep = line;
 
@@ -4387,11 +4453,7 @@ int xsane_save_jpeg(FILE *outfile, int quality, FILE *imagefile, Image_info *ima
 
   for (y = 0; y < image_info->image_height; y++)
   {
-    gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height);
-    while (gtk_events_pending())
-    {
-      gtk_main_iteration();
-    }
+    xsane_progress_bar_set_fraction(progress_bar, (float) y / image_info->image_height);
 
     if (image_info->depth == 1)
     {
@@ -4692,11 +4754,7 @@ int xsane_save_tiff_page(TIFF *tiffile, int page, int pages, int quality, FILE *
 
   for (y = 0; y < image_info->image_height; y++)
   {
-    gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height);
-    while (gtk_events_pending())
-    {
-      gtk_main_iteration();
-    }
+    xsane_progress_bar_set_fraction(progress_bar, (float) y / image_info->image_height);
     
 #ifdef HAVE_LIBLCMS
     if ((cms_function != XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE) && (hTransform != NULL))
@@ -4944,11 +5002,7 @@ int xsane_save_png(FILE *outfile, int compression, FILE *imagefile, Image_info *
 
   for (y = 0; y < image_info->image_height; y++)
   {
-    gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height);
-    while (gtk_events_pending())
-    {
-      gtk_main_iteration();
-    }
+    xsane_progress_bar_set_fraction(progress_bar, (float) y / image_info->image_height);
 
 #ifdef HAVE_LIBLCMS
     if ((cms_function != XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE) && (hTransform != NULL))
@@ -5120,11 +5174,7 @@ int xsane_save_png_16(FILE *outfile, int compression, FILE *imagefile, Image_inf
 
   for (y = 0; y < image_info->image_height; y++)
   {
-    gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height);
-    while (gtk_events_pending())
-    {
-      gtk_main_iteration();
-    }
+    xsane_progress_bar_set_fraction(progress_bar, (float) y / image_info->image_height);
 
 #ifdef HAVE_LIBLCMS
     if ((cms_function != XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE) && (hTransform != NULL))
@@ -5265,11 +5315,8 @@ static int xsane_save_pnm_16_ascii_gray(FILE *outfile, FILE *imagefile, Image_in
 
     count = 0;
 
-    gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height);
-    while (gtk_events_pending())
-    {
-      gtk_main_iteration();
-    }
+    xsane_progress_bar_set_fraction(progress_bar, (float) y / image_info->image_height);
+
     if (*cancel_save)
     {
       break;
@@ -5377,11 +5424,7 @@ static int xsane_save_pnm_16_ascii_color(FILE *outfile, FILE *imagefile, Image_i
 
     count = 0;
 
-    gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height);
-    while (gtk_events_pending())
-    {
-      gtk_main_iteration();
-    }
+    xsane_progress_bar_set_fraction(progress_bar, (float) y / image_info->image_height);
 
     if (*cancel_save)
     {
@@ -5467,11 +5510,7 @@ static int xsane_save_pnm_16_binary_gray(FILE *outfile, FILE *imagefile, Image_i
       fputc(data[3*x+0] & 255, outfile);
     }
 
-    gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height);
-    while (gtk_events_pending())
-    {
-      gtk_main_iteration();
-    }
+    xsane_progress_bar_set_fraction(progress_bar, (float) y / image_info->image_height);
 
     if (ferror(outfile))
     {
@@ -5572,12 +5611,7 @@ static int xsane_save_pnm_16_binary_color(FILE *outfile, FILE *imagefile, Image_
       fputc(data[3*x+2] & 255, outfile);
     }
 
-    gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height);
-    while (gtk_events_pending())
-    {
-      gtk_main_iteration();
-    }
-
+    xsane_progress_bar_set_fraction(progress_bar, (float) y / image_info->image_height);
 
     if (ferror(outfile))
     {
@@ -5673,12 +5707,7 @@ static int xsane_save_pnm_8_gray(FILE *outfile, FILE *imagefile, Image_info *ima
       fputc(data[x], outfile);
     }
 
-    gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height);
-    while (gtk_events_pending())
-    {
-      gtk_main_iteration();
-    }
-
+    xsane_progress_bar_set_fraction(progress_bar, (float) y / image_info->image_height);
 
     if (ferror(outfile))
     {
@@ -5775,12 +5804,7 @@ static int xsane_save_pnm_8_color(FILE *outfile, FILE *imagefile, Image_info *im
       fputc(data[3*x+2], outfile);
     }
 
-    gtk_progress_bar_update(progress_bar, (float) y / image_info->image_height);
-    while (gtk_events_pending())
-    {
-      gtk_main_iteration();
-    }
-
+    xsane_progress_bar_set_fraction(progress_bar, (float) y / image_info->image_height);
 
     if (ferror(outfile))
     {
@@ -6028,7 +6052,7 @@ int xsane_save_image_as_text(char *output_filename, char *input_filename, GtkPro
  
   if (ocr_progress) /* pipe available */
   {
-    gtk_progress_bar_update(GTK_PROGRESS_BAR(progress_bar), 0.0);
+    xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(progress_bar), 0.0);
  
     while (!feof(ocr_progress))
     {
@@ -6056,7 +6080,7 @@ int xsane_save_image_as_text(char *output_filename, char *input_filename, GtkPro
           fprogress = 1.0;
         }
  
-        gtk_progress_bar_update(GTK_PROGRESS_BAR(progress_bar), fprogress);
+        xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(progress_bar), fprogress);
       }
  
       while (gtk_events_pending())
@@ -6066,7 +6090,7 @@ int xsane_save_image_as_text(char *output_filename, char *input_filename, GtkPro
     }
  
     gtk_progress_set_format_string(GTK_PROGRESS(progress_bar), "");
-    gtk_progress_bar_update(GTK_PROGRESS_BAR(progress_bar), 0.0);
+    xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(progress_bar), 0.0);
   }
   else /* no pipe available */
   {
@@ -6134,12 +6158,7 @@ int xsane_save_image_as(char *output_filename, char *input_filename, int output_
     snprintf(buf, sizeof(buf), "%s: %s", PROGRESS_PACKING_DATA, output_filename);
 
     gtk_progress_set_format_string(GTK_PROGRESS(progress_bar), buf);
-    gtk_progress_bar_update(GTK_PROGRESS_BAR(progress_bar), 0.0);
-
-    while (gtk_events_pending())
-    {
-      gtk_main_iteration();
-    }
+    xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(progress_bar), 0.0);
 
     xsane_save_image_as_lineart(temporary_filename, input_filename, progress_bar, cancel_save);
 
@@ -6177,12 +6196,7 @@ int xsane_save_image_as(char *output_filename, char *input_filename, int output_
 
   gtk_progress_bar_set_ellipsize(GTK_PROGRESS_BAR(progress_bar), PANGO_ELLIPSIZE_START); /* this is new API, can be removed for old GTK versions */
   gtk_progress_set_format_string(GTK_PROGRESS(progress_bar), buf);
-  gtk_progress_bar_update(GTK_PROGRESS_BAR(progress_bar), 0.0);
-
-  while (gtk_events_pending())
-  {
-    gtk_main_iteration();
-  }
+  xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(progress_bar), 0.0);
 
 
 #ifdef HAVE_LIBTIFF
@@ -6329,12 +6343,7 @@ int xsane_save_image_as(char *output_filename, char *input_filename, int output_
           }
 
           gtk_progress_set_format_string(GTK_PROGRESS(progress_bar), "");
-          gtk_progress_bar_update(GTK_PROGRESS_BAR(progress_bar), 0.0);
-
-          while (gtk_events_pending())
-          {
-            gtk_main_iteration();
-          }
+          xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(progress_bar), 0.0);
 
          return -2;
          break; /* switch format == default */
@@ -6354,12 +6363,7 @@ int xsane_save_image_as(char *output_filename, char *input_filename, int output_
       }
 
       gtk_progress_set_format_string(GTK_PROGRESS(progress_bar), "");
-      gtk_progress_bar_update(GTK_PROGRESS_BAR(progress_bar), 0.0);
-
-      while (gtk_events_pending())
-      {
-        gtk_main_iteration();
-      }
+      xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(progress_bar), 0.0);
 
      return -2;
     }
@@ -6385,12 +6389,7 @@ int xsane_save_image_as(char *output_filename, char *input_filename, int output_
   }
 
   gtk_progress_set_format_string(GTK_PROGRESS(progress_bar), "");
-  gtk_progress_bar_update(GTK_PROGRESS_BAR(progress_bar), 0.0);
-
-  while (gtk_events_pending())
-  {
-    gtk_main_iteration();
-  }
+  xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(progress_bar), 0.0);
 
  return (*cancel_save);
 }
@@ -6905,11 +6904,7 @@ int xsane_transfer_to_gimp(char *input_filename, int apply_ICM_profile, int cms_
                 tile_offset = 0;
               }
 
-              gtk_progress_bar_update(progress_bar, (float) y / image_info.image_height); /* update progress bar */
-              while (gtk_events_pending())
-              {
-                gtk_main_iteration();
-              }
+              xsane_progress_bar_set_fraction(progress_bar, (float) y / image_info.image_height); /* update progress bar */
 
               break; /* leave for j loop */
             }
@@ -6950,11 +6945,7 @@ int xsane_transfer_to_gimp(char *input_filename, int apply_ICM_profile, int cms_
             tile_offset = 0;
           }
 
-          gtk_progress_bar_update(progress_bar, (float) y / image_info.image_height); /* update progress bar */
-          while (gtk_events_pending())
-          {
-            gtk_main_iteration();
-          }
+          xsane_progress_bar_set_fraction(progress_bar, (float) y / image_info.image_height); /* update progress bar */
 
           if (*cancel_save)
           {
@@ -6992,11 +6983,7 @@ int xsane_transfer_to_gimp(char *input_filename, int apply_ICM_profile, int cms_
             tile_offset = 0;
           }
 
-          gtk_progress_bar_update(progress_bar, (float) y / image_info.image_height); /* update progress bar */
-          while (gtk_events_pending())
-          {
-            gtk_main_iteration();
-          }
+          xsane_progress_bar_set_fraction(progress_bar, (float) y / image_info.image_height); /* update progress bar */
 
           if (*cancel_save)
           {
@@ -7044,11 +7031,7 @@ int xsane_transfer_to_gimp(char *input_filename, int apply_ICM_profile, int cms_
             tile_offset = 0;
           }
 
-          gtk_progress_bar_update(progress_bar, (float) y / image_info.image_height); /* update progress bar */
-          while (gtk_events_pending())
-          {
-            gtk_main_iteration();
-          }
+          xsane_progress_bar_set_fraction(progress_bar, (float) y / image_info.image_height); /* update progress bar */
 
           if (*cancel_save)
           {
@@ -7089,11 +7072,7 @@ int xsane_transfer_to_gimp(char *input_filename, int apply_ICM_profile, int cms_
             tile_offset = 0;
           }
 
-          gtk_progress_bar_update(progress_bar, (float) y / image_info.image_height); /* update progress bar */
-          while (gtk_events_pending())
-          {
-            gtk_main_iteration();
-          }
+          xsane_progress_bar_set_fraction(progress_bar, (float) y / image_info.image_height); /* update progress bar */
 
           if (*cancel_save)
           {
@@ -7135,11 +7114,7 @@ int xsane_transfer_to_gimp(char *input_filename, int apply_ICM_profile, int cms_
                 tile_offset = 0;
               }
 
-              gtk_progress_bar_update(progress_bar, (float) y / image_info.image_height); /* update progress bar */
-              while (gtk_events_pending())
-              {
-                gtk_main_iteration();
-              }
+              xsane_progress_bar_set_fraction(progress_bar, (float) y / image_info.image_height); /* update progress bar */
             }
           }
 
@@ -7687,6 +7662,9 @@ int write_smtp_header(int fd_socket, char *from, char *to, int auth_type, char *
 {
  char buf[1024];
  int len;
+ char to_line[1024];
+ char *to_pos = NULL;
+ char *pos = NULL;
 
   len = read(fd_socket, buf, sizeof(buf));
   if (len >= 0)
@@ -7732,7 +7710,11 @@ int write_smtp_header(int fd_socket, char *from, char *to, int auth_type, char *
    return -1;
   }
 
-  snprintf(buf, sizeof(buf), "MAIL FROM: %s\r\n", from);
+  while (from[0] == ' ')
+  {
+    from = from + 1;
+  }
+  snprintf(buf, sizeof(buf), "MAIL FROM: <%s>\r\n", from);
   DBG(DBG_info2, "> %s", buf);
   write(fd_socket, buf, strlen(buf));
   len = read(fd_socket, buf, sizeof(buf));
@@ -7754,29 +7736,55 @@ int write_smtp_header(int fd_socket, char *from, char *to, int auth_type, char *
     xsane_front_gtk_email_project_update_lockfile_status();
    return -1;
   }
-  
+ 
 
-  snprintf(buf, sizeof(buf), "RCPT TO: %s\r\n", to);
-  DBG(DBG_info2, "> %s", buf);
-  write(fd_socket, buf, strlen(buf));
-  len = read(fd_socket, buf, sizeof(buf));
-  if (len >= 0)
+  strncpy(to_line, to, sizeof(to_line)); /* it is not allowed to modify the "to" string, so we make a copy */
+  to_pos = to_line;
+  while (to_pos != NULL)
   {
-    buf[len] = 0;
-  }
-  DBG(DBG_info2, "< %s\n", buf);
-
-  if (buf[0] != '2')
-  {
-    DBG(DBG_info, "=> error\n");
-
-    if (xsane.email_status)
+    while (*to_pos == ' ')
     {
-      free(xsane.email_status);
+      to_pos = to_pos + 1;
     }
-    xsane.email_status = strdup(TEXT_EMAIL_STATUS_SMTP_ERR_RCPT);
-    xsane_front_gtk_email_project_update_lockfile_status();
-   return -1;
+    pos = strchr(to_pos, ',');
+
+    if (pos)
+    {
+      *pos = 0; /* end of string marker */
+    }
+
+    snprintf(buf, sizeof(buf), "RCPT TO: <%s>\r\n", to_pos);
+
+    DBG(DBG_info2, "> %s", buf);
+    write(fd_socket, buf, strlen(buf));
+    len = read(fd_socket, buf, sizeof(buf));
+    if (len >= 0)
+    {
+      buf[len] = 0;
+    }
+    DBG(DBG_info2, "< %s\n", buf);
+  
+    if (buf[0] != '2')
+    {
+      DBG(DBG_info, "=> error\n");
+
+      if (xsane.email_status)
+      {
+        free(xsane.email_status);
+      }
+      xsane.email_status = strdup(TEXT_EMAIL_STATUS_SMTP_ERR_RCPT);
+      xsane_front_gtk_email_project_update_lockfile_status();
+     return -1;
+    }
+
+    if (pos)
+    {
+      to_pos = pos+1;
+    }
+    else
+    {
+      to_pos = NULL;
+    }
   }
 
   snprintf(buf, sizeof(buf), "DATA\r\n");

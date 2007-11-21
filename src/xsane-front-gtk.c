@@ -58,6 +58,7 @@ void xsane_progress_cancel(GtkWidget *widget, gpointer data);
 void xsane_progress_new(char *bar_text, char *info, GtkSignalFunc callback, int *cancel_data_pointer);
 void xsane_progress_update(gfloat newval);
 void xsane_progress_clear();
+void xsane_progress_bar_set_fraction(GtkProgressBar *progress_bar, gdouble fraction);
 GtkWidget *xsane_vendor_pixmap_new(GdkWindow *window, GtkWidget *parent);
 GtkWidget *xsane_toggle_button_new_with_pixmap(GdkWindow *window, GtkWidget *parent, const char *xpm_d[], const char *desc,
                                          int *state, void *xsane_toggle_button_callback);
@@ -734,6 +735,49 @@ gint xsane_authorization_callback(SANE_String_Const resource,
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+void xsane_progress_bar_set_fraction(GtkProgressBar *progress_bar, gdouble fraction)
+{
+   if (fraction < 0.0)
+   { 
+     fraction = 0.0; 
+   }
+
+   if (fraction > 1.0)
+   { 
+     fraction = 1.0; 
+   }
+
+#ifdef HAVE_GTK2
+  if ((fraction - gtk_progress_bar_get_fraction(progress_bar) > XSANE_PROGRESS_BAR_MIN_DELTA_PERCENT) || (fraction == 0.0) || (fraction > 0.99))
+  {
+    gtk_progress_bar_set_fraction(progress_bar, fraction);
+#if 0
+    /* this produces jumping scrollbars when we use it instead of the gtk_main_iteration loop */
+    if (GTK_WIDGET_DRAWABLE(progress_bar))
+    {
+      gdk_window_process_updates(progress_bar->progress.widget.window, TRUE);
+    }
+#endif
+    while (gtk_events_pending())
+    {
+      gtk_main_iteration();
+    }
+  }
+#else
+  if ((fraction - gtk_progress_get_current_percentage(&progress_bar->progress) > XSANE_PROGRESS_BAR_MIN_DELTA_PERCENT) || (fraction == 0.0) || (fraction > 0.99))
+  {
+    gtk_progress_bar_update(progress_bar, fraction);
+
+    while (gtk_events_pending())
+    {
+      gtk_main_iteration();
+    }
+  }
+#endif
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 void xsane_progress_cancel(GtkWidget *widget, gpointer data)
 {
  void *cancel_data_pointer;
@@ -1015,7 +1059,7 @@ void xsane_option_menu_new(GtkWidget *parent, char *str_list[], const char *val,
 
   option_menu = gtk_option_menu_new();
   xsane_back_gtk_set_tooltip(xsane.tooltips, option_menu, desc);
-  gtk_box_pack_end(GTK_BOX(parent), option_menu, FALSE, FALSE, 2);
+  gtk_box_pack_end(GTK_BOX(parent), option_menu, TRUE, TRUE, 5);
   gtk_option_menu_set_menu(GTK_OPTION_MENU(option_menu), menu);
   gtk_option_menu_set_history(GTK_OPTION_MENU(option_menu), xsane_option_menu_lookup(menu_items, val));
 
@@ -1043,7 +1087,7 @@ void xsane_option_menu_new_with_pixmap(GdkWindow *window, GtkBox *parent, const 
   DBG(DBG_proc, "xsane_option_menu_new_with_pixmap\n");
 
   hbox = gtk_hbox_new(FALSE, 5);
-  gtk_box_pack_start(parent, hbox, FALSE, FALSE, 0);
+  gtk_box_pack_start(parent, hbox, FALSE, FALSE, 2);
 
   pixmap = gdk_pixmap_create_from_xpm_d(window, &mask, xsane.bg_trans, (gchar **) xpm_d);
   pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
@@ -1172,7 +1216,7 @@ void xsane_range_new_with_pixmap(GdkWindow *window, GtkBox *parent, const char *
   DBG(DBG_proc, "xsane_slider_new_with_pixmap\n");
 
   hbox = gtk_hbox_new(FALSE, 5);
-  gtk_box_pack_start(parent, hbox, FALSE, FALSE, 1);
+  gtk_box_pack_start(parent, hbox, FALSE, FALSE, 2);
 
   pixmap = gdk_pixmap_create_from_xpm_d(window, &mask, xsane.bg_trans, (gchar **) xpm_d);
   pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
@@ -1303,7 +1347,10 @@ static void xsane_browse_filename_callback(GtkWidget *widget, gpointer data)
   xsane_back_gtk_filetype_menu_set_history(xsane.filetype_option_menu, preferences.filetype);
 
 #ifdef HAVE_LIBLCMS
-  gtk_option_menu_set_history(GTK_OPTION_MENU(xsane.cms_function_option_menu), preferences.cms_function);
+  if (xsane.enable_color_management)
+  {
+    gtk_option_menu_set_history(GTK_OPTION_MENU(xsane.cms_function_option_menu), preferences.cms_function);
+  }
 #endif
 
   /* correct length of filename counter if it is shorter than minimum length */
@@ -1424,13 +1471,12 @@ void xsane_outputfilename_new(GtkWidget *vbox)
 
   /* first line: disk icon, filename box */
 
-  hbox = gtk_hbox_new(FALSE, 2);
-  gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
+  hbox = gtk_hbox_new(FALSE, 0);
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
 
   button = xsane_button_new_with_pixmap(xsane.xsane_window->window, hbox, file_xpm, DESC_BROWSE_FILENAME,
                                         (GtkSignalFunc) xsane_browse_filename_callback, NULL);
-  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_B, GDK_CONTROL_MASK, DEF_GTK_ACCEL_LOCKED);
+  gtk_widget_add_accelerator(button, "clicked", xsane.accelerator_group, GDK_F, GDK_MOD1_MASK, DEF_GTK_ACCEL_LOCKED);
 
   text = gtk_entry_new();
   gtk_widget_set_size_request(text, 80, -1); /* set minimum size */
@@ -1439,7 +1485,7 @@ void xsane_outputfilename_new(GtkWidget *vbox)
   gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.filename);
   gtk_entry_set_position(GTK_ENTRY(text), strlen(preferences.filename)); /* set cursor to right position of filename */
 
-  gtk_box_pack_start(GTK_BOX(hbox), text, TRUE, TRUE, 4);
+  gtk_box_pack_end(GTK_BOX(hbox), text, TRUE, TRUE, 5);
   g_signal_connect(GTK_OBJECT(text), "changed", (GtkSignalFunc) xsane_outputfilename_changed_callback, NULL);
 
   xsane.outputfilename_entry = text;
@@ -1450,9 +1496,8 @@ void xsane_outputfilename_new(GtkWidget *vbox)
 
   /* second line: Step, Type */
 
-  hbox = gtk_hbox_new(FALSE, 2);
-  gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 1);
+  hbox = gtk_hbox_new(FALSE, 5);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
 
   /* filename counter step */
 
@@ -1464,7 +1509,7 @@ void xsane_outputfilename_new(GtkWidget *vbox)
  
   xsane_filename_counter_step_option_menu = gtk_option_menu_new();
   xsane_back_gtk_set_tooltip(xsane.tooltips, xsane_filename_counter_step_option_menu, DESC_FILENAME_COUNTER_STEP);
-  gtk_box_pack_start(GTK_BOX(hbox), xsane_filename_counter_step_option_menu, FALSE, FALSE, 2);
+  gtk_box_pack_start(GTK_BOX(hbox), xsane_filename_counter_step_option_menu, FALSE, FALSE, 5);
   gtk_widget_show(xsane_filename_counter_step_option_menu);
   gtk_widget_show(hbox);
  
@@ -1489,7 +1534,7 @@ void xsane_outputfilename_new(GtkWidget *vbox)
   gtk_option_menu_set_history(GTK_OPTION_MENU(xsane_filename_counter_step_option_menu), select_item);
 
   xsane.filetype_option_menu = xsane_back_gtk_filetype_menu_new(preferences.filetype, (GtkSignalFunc) xsane_filetype_callback);
-  gtk_box_pack_end(GTK_BOX(hbox), xsane.filetype_option_menu, FALSE, FALSE, 2);
+  gtk_box_pack_end(GTK_BOX(hbox), xsane.filetype_option_menu, FALSE, FALSE, 5);
   gtk_widget_show(xsane.filetype_option_menu);
 
   xsane_label = gtk_label_new(TEXT_FILETYPE); /* opposite order because of box_pack_end */
@@ -1810,7 +1855,7 @@ void xsane_change_working_directory(void)
   sprintf(windowname, "%s %s %s", xsane.prog_name, WINDOW_CHANGE_WORKING_DIR, xsane.device_text);
   if (getcwd(filename, sizeof(filename)))
   {
-//    xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, NULL, TRUE, FALSE, TRUE, FALSE);
+/*    xsane_back_gtk_get_filename(windowname, filename, sizeof(filename), filename, NULL, TRUE, FALSE, TRUE, FALSE); */
     if (chdir(filename))
     {
      char buf[TEXTBUFSIZE];

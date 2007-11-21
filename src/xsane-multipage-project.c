@@ -454,7 +454,7 @@ static void xsane_multipage_project_load()
   }
 
   gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), _(xsane.multipage_status));
-  gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
+  xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -525,13 +525,13 @@ void xsane_multipage_project_save()
     snprintf(buf, 32, "%s@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", xsane.multipage_status); /* fill 32 characters status line */
     fprintf(projectfile, "%s\n", buf); /* first line is status of multipage */
     gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), _(xsane.multipage_status));
-    gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
+    xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
   }
   else
   {
     fprintf(projectfile, "                                \n"); /* no multipage status */
     gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), "");
-    gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
+    xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
   }
 
   if (xsane.multipage_filename)
@@ -834,7 +834,7 @@ static void xsane_multipage_edit_callback(GtkWidget *widget, gpointer list)
     xsane_multipage_project_save();
 
     gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), _(xsane.multipage_status));
-    gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
+    xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
 
     xsane_viewer_new(outfilename, NULL, FALSE, filename, VIEWER_NO_NAME_MODIFICATION, IMAGE_SAVED);
   }
@@ -882,7 +882,7 @@ static void xsane_multipage_save_file()
   xsane.multipage_status = strdup(TEXT_PROJECT_STATUS_FILE_SAVING);
 
   gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), _(xsane.multipage_status));
-  gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
+  xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
 
 
   snprintf(multipage_filename, sizeof(multipage_filename), "%s%s", preferences.multipage_project, preferences.multipage_filetype);
@@ -926,7 +926,7 @@ static void xsane_multipage_save_file()
         xsane.multipage_status = strdup(TEXT_PROJECT_STATUS_FILE_SAVING_ABORTED);
 
         gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), _(xsane.multipage_status));
-        gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
+        xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
        return;
       }
     }
@@ -962,7 +962,7 @@ static void xsane_multipage_save_file()
       xsane.multipage_status = strdup(TEXT_PROJECT_STATUS_FILE_SAVING_ERROR);
 
       gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), _(xsane.multipage_status));
-      gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
+      xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
      return;
     }
 
@@ -993,7 +993,7 @@ static void xsane_multipage_save_file()
       xsane.multipage_status = strdup(TEXT_PROJECT_STATUS_FILE_SAVING_ERROR);
 
       gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), _(xsane.multipage_status));
-      gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
+      xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
      return;
     }
   }
@@ -1012,7 +1012,7 @@ static void xsane_multipage_save_file()
     xsane.multipage_status = strdup(TEXT_PROJECT_STATUS_FILE_SAVING_ERROR);
 
     gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), _(xsane.multipage_status));
-    gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
+    xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
    return;
   }
 
@@ -1049,7 +1049,7 @@ static void xsane_multipage_save_file()
       snprintf(buf, sizeof(buf), "%s", PROGRESS_PACKING_DATA);
                                                                                                                          
       gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), buf);
-      gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
+      xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
                                                                                                                          
       while (gtk_events_pending())
       {
@@ -1195,7 +1195,7 @@ static void xsane_multipage_save_file()
   xsane_multipage_project_save();
 
   gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), _(xsane.multipage_status));
-  gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
+  xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
 
   xsane_multipage_project_set_sensitive(TRUE);
   xsane_set_sensitivity(TRUE); /* allow changing xsane mode */

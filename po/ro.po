@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.96\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-03 10:10+0100\n"
+"POT-Creation-Date: 2007-08-13 09:22+0200\n"
 "PO-Revision-Date: 2004-08-27 19:55+0300\n"
 "Last-Translator: \n"
 "Language-Team:  <C@li.org>\n"
@@ -85,7 +85,8 @@ msgid "rename fax page"
 msgstr "Redenumeşte pagina de fax"
 
 #. WINDOW_FAX_INSERT
-msgid "insert ps-file into fax"
+#, fuzzy
+msgid "insert PS-file into fax"
 msgstr "Introduce fişier ps în fax"
 
 #. WINDOW_EMAIL_PROJECT
@@ -510,7 +511,7 @@ msgid "Skip existing filenames"
 msgstr "Salt peste fişierele existente"
 
 #. RADIO_BUTTON_SAVE_PS_FLATEDECODED
-msgid "Save postscript zlib compressed (ps level 3)"
+msgid "Save postscript zlib compressed (PS level 3)"
 msgstr ""
 
 #. RADIO_BUTTON_SAVE_PDF_FLATEDECODED
@@ -518,7 +519,8 @@ msgid "Save PDF zlib compressed"
 msgstr ""
 
 #. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
-msgid "Save 16bit pnm in ascii format"
+#, fuzzy
+msgid "Save 16bit PNM in ASCII format"
 msgstr "Salvează pnm 16 biţi în format ascii"
 
 #. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
@@ -542,8 +544,9 @@ msgstr "Foloseşte harta de culori personală"
 msgid "Autoenhance gamma"
 msgstr "Îmbunătăţire automată gamma"
 
-#. RADIO_BUTTON_PRESELECT_SCANAREA
-msgid "Preselect scanarea"
+#. RADIO_BUTTON_PRESELECT_SCAN_AREA
+#, fuzzy
+msgid "Preselect scan area"
 msgstr "Preselectare zonă de scanare"
 
 #. RADIO_BUTTON_AUTOCORRECT_COLORS
@@ -566,10 +569,6 @@ msgstr "Caut dispozitivele"
 #. TEXT_AVAILABLE_DEVICES
 msgid "Available devices:"
 msgstr "Dispozitive disponibile"
-
-#. TEXT_XSANE_OPTIONS
-msgid "XSane options"
-msgstr "Opţiuni XSane"
 
 #. TEXT_FILETYPE
 msgid "Type"
@@ -903,53 +902,72 @@ msgstr "Comandă:"
 msgid "Copy number option:"
 msgstr "Opţiune număr de cópii:"
 
+#. TEXT_SETUP_SCAN_RESOLUTION_PRINTER
+#, fuzzy
+msgid "Scan resolution:"
+msgstr "Setează rezoluţia de scanare"
+
 #. TEXT_SETUP_PRINTER_LINEART_RES
-msgid "Lineart resolution (dpi):"
+#, fuzzy
+msgid "lineart [dpi]"
 msgstr "Rezoluţie alb/negru (dpi):"
 
 #. TEXT_SETUP_PRINTER_GRAYSCALE_RES
-msgid "Grayscale resolution (dpi):"
+#, fuzzy
+msgid "grayscale [dpi]"
 msgstr "Rezoluţie scară de gri (dpi):"
 
 #. TEXT_SETUP_PRINTER_COLOR_RES
-msgid "Color resolution (dpi):"
-msgstr "Rezoluţie color (dpi):"
+msgid "color [dpi]"
+msgstr ""
+
+#. TEXT_SETUP_PRINTER_PAPER_GEOMETRIE
+msgid "Paper geometrie:"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_WIDTH
-#. TEXT_SETUP_FAX_WIDTH
-msgid "Width"
+#, fuzzy
+msgid "width"
 msgstr "Lăţime"
 
 #. TEXT_SETUP_PRINTER_HEIGHT
-#. TEXT_SETUP_FAX_HEIGHT
-msgid "Height"
+#, fuzzy
+msgid "height"
 msgstr "Înălţime"
 
 #. TEXT_SETUP_PRINTER_LEFT
-#. TEXT_SETUP_FAX_LEFT
-msgid "Left offset"
+#, fuzzy
+msgid "left offset"
 msgstr "Decalaj stânga"
 
 #. TEXT_SETUP_PRINTER_BOTTOM
-#. TEXT_SETUP_FAX_BOTTOM
-msgid "Bottom offset"
+#, fuzzy
+msgid "bottom offset"
 msgstr "Decalaj jos"
 
-#. TEXT_SETUP_PRINTER_GAMMA
-msgid "Printer gamma value:"
-msgstr "Valoare gamma imprimantă:"
-
-#. TEXT_SETUP_PRINTER_GAMMA_RED
-msgid "Printer gamma red:"
+#. TEXT_SETUP_PRINTER_GAMMA_CORRECTION
+#, fuzzy
+msgid "Printer gamma:"
 msgstr "Gamma - componentă roşu - pt. imprimantă"
 
+#. TEXT_SETUP_PRINTER_GAMMA
+#, fuzzy
+msgid "common value"
+msgstr "Valori recente:"
+
+#. TEXT_SETUP_PRINTER_GAMMA_RED
+#, fuzzy
+msgid "red"
+msgstr "citire"
+
 #. TEXT_SETUP_PRINTER_GAMMA_GREEN
-msgid "Printer gamma green:"
-msgstr "Gamma - componentă verde - pt. imprimantă"
+msgid "green"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_GAMMA_BLUE
-msgid "Printer gamma blue:"
-msgstr "Gamma - componentă albastru - pt. imprimantă"
+#, fuzzy
+msgid "blue"
+msgstr "Difuzie"
 
 #. TEXT_SETUP_PRINTER_EMBED_CSA
 #, fuzzy
@@ -966,7 +984,7 @@ msgid "Apply black point compensation"
 msgstr ""
 
 #. TEXT_SETUP_PRINTER_PS_FLATEDECODED
-msgid "Create zlib compressed postscript image (ps level 3) for printing"
+msgid "Create zlib compressed postscript image (PS level 3) for printing"
 msgstr ""
 
 #. TEXT_SETUP_TMP_PATH
@@ -1090,8 +1108,24 @@ msgstr "Setează valori implicite în program pt.:"
 msgid "Viewer (Postscript):"
 msgstr "Vizualizator (Postscript):"
 
+#. TEXT_SETUP_FAX_WIDTH
+msgid "Width"
+msgstr "Lăţime"
+
+#. TEXT_SETUP_FAX_HEIGHT
+msgid "Height"
+msgstr "Înălţime"
+
+#. TEXT_SETUP_FAX_LEFT
+msgid "Left offset"
+msgstr "Decalaj stânga"
+
+#. TEXT_SETUP_FAX_BOTTOM
+msgid "Bottom offset"
+msgstr "Decalaj jos"
+
 #. TEXT_SETUP_FAX_PS_FLATEDECODED
-msgid "Create zlib compressed postscript image (ps level 3) for fax"
+msgid "Create zlib compressed postscript image (PS level 3) for fax"
 msgstr ""
 
 #. TEXT_SETUP_SMTP_SERVER
@@ -1463,11 +1497,13 @@ msgid "CCITT 1D Huffman compression"
 msgstr "Compresie CCITT 1D Huffmann"
 
 #. MENU_ITEM_TIFF_COMP_CCITFAX3
-msgid "CCITT Group 3 Fax compression"
+#, fuzzy
+msgid "CCITT Group 3 fax compression"
 msgstr "Compresie CCITT Grup 3 Huffmann"
 
 #. MENU_ITEM_TIFF_COMP_CCITFAX4
-msgid "CCITT Group 4 Fax compression"
+#, fuzzy
+msgid "CCITT Group 4 fax compression"
 msgstr "Compresie CCITT Grup 4 Huffmann"
 
 #. MENU_ITEM_TIFF_COMP_JPEG
@@ -1596,8 +1632,9 @@ msgstr "Primesc date %s"
 msgid "page"
 msgstr "Pachet"
 
-#. PROGRESS_TRANSFERING_DATA
-msgid "Transfering image"
+#. PROGRESS_TRANSFERRING_DATA
+#, fuzzy
+msgid "Transferring image"
 msgstr "Transfer imaginea"
 
 #. PROGRESS_ROTATING_DATA
@@ -1671,9 +1708,10 @@ msgstr ""
 "mail-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
+#, fuzzy
 msgid ""
 "Select source medium type.\n"
-"To rename, reorder or delete an entry use context menu (right mouse "
+"To rename, reorder or delete an entry use context menu (alternate mouse "
 "button).\n"
 "To create a medium enable the option edit medium definition in preferences "
 "menu."
@@ -2031,14 +2069,16 @@ msgid "Browse for temporary directory"
 msgstr "Navighează la directorul temporar"
 
 #. DESC_JPEG_QUALITY
+#, fuzzy
 msgid ""
-"Quality in percent if image is saved as jpeg or tiff with jpeg compression"
+"Quality in percent if image is saved as JPEG or TIFF with JPEG compression"
 msgstr ""
 "Calitatea în procente dacă imaginea este salvată ca JPEG sau TIFF cu "
 "compresie JPEG"
 
 #. DESC_PNG_COMPRESSION
-msgid "Compression if image is saved as png"
+#, fuzzy
+msgid "Compression if image is saved as PNG"
 msgstr "Compresie dacă imaginea este salvată ca PNG"
 
 #. DESC_FILENAME_COUNTER_LEN
@@ -2047,19 +2087,22 @@ msgstr "Lungimea minimă a contorului în numele fişierului"
 
 #. DESC_TIFF_ZIP_COMPRESSION
 #, fuzzy
-msgid "Compression rate for zip compressed tiff (deflate)"
+msgid "Compression rate for zip compressed TIFF (deflate)"
 msgstr "Tip compresie dacă o imagine de 8 biţi este salvată ca TIFF"
 
 #. DESC_TIFF_COMPRESSION_16
-msgid "Compression type if 16 bit image is saved as tiff"
+#, fuzzy
+msgid "Compression type if 16 bit image is saved as TIFF"
 msgstr "Tip compresie dacă o imagine de 16 biţi este salvată ca TIFF"
 
 #. DESC_TIFF_COMPRESSION_8
-msgid "Compression type if 8 bit image is saved as tiff"
+#, fuzzy
+msgid "Compression type if 8 bit image is saved as TIFF"
 msgstr "Tip compresie dacă o imagine de 8 biţi este salvată ca TIFF"
 
 #. DESC_TIFF_COMPRESSION_1
-msgid "Compression type if lineart image is saved as tiff"
+#, fuzzy
+msgid "Compression type if lineart image is saved as TIFF"
 msgstr "Tip compresie dacă o imagine alb/negru este salvată ca TIFF"
 
 #. DESC_SAVE_DEVPREFS_AT_EXIT
@@ -2090,10 +2133,11 @@ msgid "compress PDF image with zlib algorithm (flatedecode)."
 msgstr ""
 
 #. DESC_SAVE_PNM16_AS_ASCII
+#, fuzzy
 msgid ""
-"When a 16 bit image shall be saved in pnm format then use ascii format "
+"When a 16 bit image shall be saved in PNM format then use ASCII format "
 "instead of binary format. The binary format is a new format that is not "
-"supported by all programs. The ascii format is supported by more programs "
+"supported by all programs. The ASCII format is supported by more programs "
 "but it produces really huge files!!!"
 msgstr ""
 "Folosiţi formatul ascii în locul celui binar pentru a salva imaginile pe 16 "
@@ -2156,7 +2200,8 @@ msgid "Select how a range is displayed"
 msgstr "Selectare mod de afişare a gamei"
 
 #. DESC_PREVIEW_OVERSAMPLING
-msgid "Value with that the calculated preview resolution is multiplied"
+#, fuzzy
+msgid "Value with which the calculated preview resolution is multiplied"
 msgstr "Valoarea cu care este înmulţită rezoluţia calculată pt. previzualizare"
 
 #. DESC_PREVIEW_GAMMA
@@ -2227,8 +2272,9 @@ msgid "dimension of square that is used to average color for pipette function"
 msgstr "dimensiunea pătratului folosit la medierea culorii pt. funcţia pipetă"
 
 #. DESC_DOC_VIEWER
+#, fuzzy
 msgid ""
-"Enter command to be executed to display helpfiles, must be a html-viewer!"
+"Enter command to be executed to display helpfiles, must be a HTML-viewer!"
 msgstr ""
 "Introduceţi comanda ce va fi executată pentru afişarea fişierelor ajutor, "
 "trebuie să fie un vizualizator de HTML!"
@@ -2237,8 +2283,9 @@ msgstr ""
 msgid "Change gamma value when autoenhancement button is pressed"
 msgstr "Schimbă valoarea gamma la apasarea butonului de îmbunătăţire automată"
 
-#. DESC_PRESELECT_SCANAREA
-msgid "Select scanarea after preview scan has finished"
+#. DESC_PRESELECT_SCAN_AREA
+#, fuzzy
+msgid "Select scan area after preview scan has finished"
 msgstr "Selectează zona de scanare după terminarea scanării pt. previzualizare"
 
 #. DESC_AUTOCORRECT_COLORS
@@ -2330,30 +2377,35 @@ msgstr "portul de conectare la serverul POP3"
 
 #. DESC_HTML_EMAIL
 #, fuzzy
-msgid "E-mail is sent in html mode, place image with: <IMAGE>"
+msgid "E-mail is sent in HTML mode, place image with: <IMAGE>"
 msgstr "Poşta trimisă în mod HTML va afişa imaginile cu <IMAGE>"
 
 #. DESC_OCR_COMMAND
-msgid "Enter command to start ocr program"
+#, fuzzy
+msgid "Enter command to start OCR program"
 msgstr ""
 "Introduceţi comanda ce va fi executată pt. a porni recunoaşterea optică a "
 "caracterelor (OCR)"
 
 #. DESC_OCR_INPUTFILE_OPT
-msgid "Enter option of the ocr program to define input file"
+#, fuzzy
+msgid "Enter option of the OCR program to define input file"
 msgstr "Introduceţi opţiunea programului OCR ce defineşte fişierul de intrare"
 
 #. DESC_OCR_OUTPUTFILE_OPT
-msgid "Enter option of the ocr program to define output file"
+#, fuzzy
+msgid "Enter option of the OCR program to define output file"
 msgstr "Introduceţi opţiunea programului OCR ce defineşte fişierul de ieşire"
 
 #. DESC_OCR_USE_GUI_PIPE_OPT
-msgid "Define if the ocr program supports gui progress pipe"
+#, fuzzy
+msgid "Define if the OCR program supports gui progress pipe"
 msgstr "Defineşte dacă programul OCR susţine GUI de evoluţie prin pipe"
 
 #. DESC_OCR_OUTFD_OPT
+#, fuzzy
 msgid ""
-"Enter option of the ocr program to define output filedescripor in GUI mode"
+"Enter option of the OCR program to define output filedescripor in GUI mode"
 msgstr ""
 "Introduceţi opţiunea programului OCR ce defineşte descriptorul fişierului de "
 "ieşire în mod GUI"
@@ -2392,7 +2444,8 @@ msgid "Pick black point"
 msgstr "Preia punctul de negru"
 
 #. DESC_ZOOM_FULL
-msgid "Use full scanarea"
+#, fuzzy
+msgid "Use full scan area"
 msgstr "Foloseşte toată zona de scanare"
 
 #. DESC_ZOOM_OUT
@@ -2416,12 +2469,14 @@ msgstr "Anulează ultima mărire"
 msgid "Select visible area"
 msgstr "Selectează zona vizibilă"
 
-#. DESC_AUTOSELECT_SCANAREA
-msgid "Autoselect scanarea"
+#. DESC_AUTOSELECT_SCAN_AREA
+#, fuzzy
+msgid "Autoselect scan area"
 msgstr "Selectare automată zonă de scanare"
 
-#. DESC_AUTORAISE_SCANAREA
-msgid "Autoraise scanarea"
+#. DESC_AUTORAISE_SCAN_AREA
+#, fuzzy
+msgid "Autoraise scan area"
 msgstr "Ridică automat zona de scanare"
 
 #. DESC_DELETE_IMAGES
@@ -2429,9 +2484,10 @@ msgid "Delete preview image cache"
 msgstr "Şterge imaginea previzualizată tampon"
 
 #. DESC_PRESET_AREA
+#, fuzzy
 msgid ""
 "Preset area:\n"
-"To add new area or edit an existing area use contect menu (right mouse "
+"To add new area or edit an existing area use context menu (alternate mouse "
 "button)."
 msgstr ""
 "Zona predefinită:\n"
@@ -2463,15 +2519,18 @@ msgid "Clone image"
 msgstr "Clonează imaginea"
 
 #. DESC_ROTATE90
-msgid "Rotate image 90 degree"
+#, fuzzy
+msgid "Rotate image 90 degrees"
 msgstr "Roteşte imaginea cu 90°"
 
 #. DESC_ROTATE180
-msgid "Rotate image 180 degree"
+#, fuzzy
+msgid "Rotate image 180 degrees"
 msgstr "Roteşte imaginea cu 180°"
 
 #. DESC_ROTATE270
-msgid "Rotate image 270 degree"
+#, fuzzy
+msgid "Rotate image 270 degrees"
 msgstr "Roteşte imaginea cu 270°"
 
 #. DESC_MIRROR_X
@@ -2507,11 +2566,13 @@ msgid "Y-Scale factor"
 msgstr "Factor scalare Y"
 
 #. DESC_SCALE_WIDTH
-msgid "Scale image to width [in pixel]"
+#, fuzzy
+msgid "Scale image to width [pixels]"
 msgstr "Scalare imagine (la lăţime) [în pixeli]"
 
 #. DESC_SCALE_HEIGHT
-msgid "Scale image to height [in pixel]"
+#, fuzzy
+msgid "Scale image to height [pixels]"
 msgstr "Scalare imagine (la înălţime) [în pixeli]"
 
 #. DESC_BATCH_LIST_EMPTY
@@ -2633,7 +2694,8 @@ msgid "Failed to open"
 msgstr "Nu am putut deschide"
 
 #. ERR_CREATE_SECURE_FILE
-msgid "Could not create secure file (may be a link does exist):"
+#, fuzzy
+msgid "Could not create secure file (maybe a link does exist):"
 msgstr "Nu am putut crea fişierul în siguranţă (poate există o legătură):"
 
 #. ERR_FAILED_PRINTER_PIPE
@@ -2710,8 +2772,9 @@ msgid "Failed to execute fax command:"
 msgstr "Nu am putut executa comanda de fax:"
 
 #. ERR_FAILED_EXEC_OCR_CMD
-msgid "Failed to execute ocr command:"
-msgstr "Nu am putut executa comanda de OCR:"
+#, fuzzy
+msgid "Failed to execute OCR command:"
+msgstr "Nu am putut executa comanda de fax:"
 
 #. ERR_BAD_FRAME_FORMAT
 msgid "bad frame format"
@@ -2771,11 +2834,12 @@ msgid "warning: option has no value constraint"
 msgstr "atenţie: opţiunea nu are constrângeri pt. valoare"
 
 #. WARN_XSANE_AS_ROOT
+#, fuzzy
 msgid ""
 "You try to run XSane as ROOT, that really is DANGEROUS!\n"
 "\n"
 "Do not send any bug reports when you\n"
-"have any problem while running XSane as root:\n"
+"have any problems while running XSane as root:\n"
 "YOU ARE ALONE!"
 msgstr ""
 "Încercaţi să rulaţi XSane ca root, ceea ce este PERICULOS!\n"
@@ -3028,6 +3092,7 @@ msgid "<Toolbox>/Xtns/XSane/"
 msgstr "<Toolbox>/Xtns/XSane/"
 
 #. HELP_NO_DEVICES
+#, fuzzy
 msgid ""
 "Possible reasons:\n"
 "1) There really is no device that is supported by SANE\n"
@@ -3035,7 +3100,7 @@ msgid ""
 "3) The permissions for the device file do not allow you to use it - try as "
 "root\n"
 "4) The backend is not loaded by SANE (man sane-dll)\n"
-"5) The backend is not configured correct (man sane-\"backendname\")\n"
+"5) The backend is not configured correctly (man sane-\"backendname\")\n"
 "6) Possibly there is more than one SANE version installed"
 msgstr ""
 "Cauze posibile:\n"
@@ -3242,7 +3307,8 @@ msgid "E-mail has been sent"
 msgstr "Mailul a fost trimis"
 
 #. TEXT_FAX_STATUS_QUEUEING_FAX
-msgid "Queueing Fax"
+#, fuzzy
+msgid "Queueing fax"
 msgstr "Faxul este trimis în coadă"
 
 #. TEXT_FAX_STATUS_FAX_QUEUED
@@ -3303,6 +3369,24 @@ msgstr "Nu am memorie suficientă."
 
 msgid "Access to resource has been denied"
 msgstr "Accesul la resursă a fost respins"
+
+#~ msgid "XSane options"
+#~ msgstr "Opţiuni XSane"
+
+#~ msgid "Failed to execute ocr command:"
+#~ msgstr "Nu am putut executa comanda de OCR:"
+
+#~ msgid "Color resolution (dpi):"
+#~ msgstr "Rezoluţie color (dpi):"
+
+#~ msgid "Printer gamma value:"
+#~ msgstr "Valoare gamma imprimantă:"
+
+#~ msgid "Printer gamma green:"
+#~ msgstr "Gamma - componentă verde - pt. imprimantă"
+
+#~ msgid "Printer gamma blue:"
+#~ msgstr "Gamma - componentă albastru - pt. imprimantă"
 
 #, fuzzy
 #~ msgid "select scanner transmissive ICM-profile"

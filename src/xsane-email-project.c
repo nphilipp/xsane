@@ -151,12 +151,6 @@ void xsane_email_dialog()
   gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
   gtk_box_pack_start(GTK_BOX(email_scan_vbox), hbox, FALSE, FALSE, 1);
 
-#if 0
-  pixmap = gdk_pixmap_create_from_xpm_d(xsane.dialog->window, &mask, xsane.bg_trans, (gchar **) email_xpm);
-  pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
-  gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
-  gdk_drawable_unref(pixmap);
-#endif
   button = xsane_button_new_with_pixmap(xsane.dialog->window, hbox, email_xpm, DESC_EMAIL_PROJECT_BROWSE,
 	                                                      (GtkSignalFunc) xsane_email_project_browse_filename_callback, NULL);
 
@@ -170,7 +164,6 @@ void xsane_email_dialog()
   xsane.project_entry = text;
   xsane.project_entry_box = hbox;
 
-//  gtk_widget_show(pixmapwidget);
   gtk_widget_show(text);
   gtk_widget_show(hbox);
 
@@ -548,7 +541,7 @@ static void xsane_email_project_display_status()
       xsane.email_progress_val = val / 100.0;
       if (xsane.project_progress_bar)
       {
-        gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), xsane.email_progress_val);
+        xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(xsane.project_progress_bar), xsane.email_progress_val);
       }
 
       DBG(DBG_info, "reading from lockfile: email_status %s, email_progress_val %1.3f\n" , xsane.email_status, xsane.email_progress_val);
@@ -578,7 +571,7 @@ static void xsane_email_project_display_status()
     if (xsane.project_progress_bar)
     {
       gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), _(xsane.email_status));
-      gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), xsane.email_progress_val);
+      xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(xsane.project_progress_bar), xsane.email_progress_val);
     }
   
     while (gtk_events_pending())
@@ -848,7 +841,7 @@ static void xsane_email_project_load()
   }
 
   gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), _(xsane.email_status));
-  gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), xsane.email_progress_val);
+  xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(xsane.project_progress_bar), xsane.email_progress_val);
 
   xsane_email_project_display_status();
 
@@ -943,13 +936,13 @@ void xsane_email_project_save()
     snprintf(buf, 32, "%s@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", xsane.email_status); /* fill 32 characters status line */
     fprintf(projectfile, "%s\n", buf); /* first line is status of email */
     gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), _(xsane.email_status));
-    gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
+    xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
   }
   else
   {
     fprintf(projectfile, "                                \n"); /* no email status */
     gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), "");
-    gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
+    xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
   }
 
   if (xsane.email_receiver)
@@ -1311,16 +1304,15 @@ static void xsane_email_entry_rename_callback(GtkWidget *widget, gpointer list)
     xsane_set_window_icon(rename_dialog, 0);
 
     /* set the main vbox */
-    vbox = gtk_vbox_new(FALSE, 0);
-    gtk_container_set_border_width(GTK_CONTAINER(vbox), 0);
+    vbox = gtk_vbox_new(FALSE, 10);
+    gtk_container_set_border_width(GTK_CONTAINER(vbox), 10);
     gtk_container_add(GTK_CONTAINER(rename_dialog), vbox);
     gtk_widget_show(vbox);
 
     /* set the main hbox */
     hbox = gtk_hbox_new(FALSE, 0);
-    xsane_separator_new(vbox, 2);
-    gtk_box_pack_end(GTK_BOX(vbox), hbox, FALSE, FALSE, 5);
-    gtk_container_set_border_width(GTK_CONTAINER(hbox), 5);
+    gtk_box_pack_end(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
+    gtk_container_set_border_width(GTK_CONTAINER(hbox), 0);
     gtk_widget_show(hbox); 
 
     gtk_window_set_position(GTK_WINDOW(rename_dialog), GTK_WIN_POS_CENTER);
@@ -1491,7 +1483,7 @@ static void xsane_email_edit_callback(GtkWidget *widget, gpointer list)
     xsane_copy_file_by_name(outfilename, filename, xsane.multipage_progress_bar, &cancel_save);
 
     gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), "");
-    gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
+    xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
 
     xsane_viewer_new(outfilename, NULL, FALSE, filename, VIEWER_NO_NAME_MODIFICATION, IMAGE_SAVED);
   }

@@ -866,16 +866,15 @@ static void xsane_batch_scan_rename_callback(GtkWidget *widget, gpointer data)
       xsane_set_window_icon(rename_dialog, 0);
 
       /* set the main vbox */
-      vbox = gtk_vbox_new(FALSE, 0);
-      gtk_container_set_border_width(GTK_CONTAINER(vbox), 0);
+      vbox = gtk_vbox_new(FALSE, 10);
+      gtk_container_set_border_width(GTK_CONTAINER(vbox), 10);
       gtk_container_add(GTK_CONTAINER(rename_dialog), vbox);
       gtk_widget_show(vbox);
 
       /* set the main hbox */
       hbox = gtk_hbox_new(FALSE, 0);
-      xsane_separator_new(vbox, 2);
-      gtk_box_pack_end(GTK_BOX(vbox), hbox, FALSE, FALSE, 5);
-      gtk_container_set_border_width(GTK_CONTAINER(hbox), 5);
+      gtk_box_pack_end(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
+      gtk_container_set_border_width(GTK_CONTAINER(hbox), 0);
       gtk_widget_show(hbox);
 
       gtk_window_set_position(GTK_WINDOW(rename_dialog), GTK_WIN_POS_CENTER);

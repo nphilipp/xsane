@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.991\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-03 10:10+0100\n"
+"POT-Creation-Date: 2007-08-13 09:22+0200\n"
 "PO-Revision-Date: 2003-03-27 12:00+0100\n"
 "Last-Translator: gnome-cn@gmail.com\n"
 "Language-Team: zh_CN\n"
@@ -83,7 +83,8 @@ msgid "rename fax page"
 msgstr "更名传真专案"
 
 #. WINDOW_FAX_INSERT
-msgid "insert ps-file into fax"
+#, fuzzy
+msgid "insert PS-file into fax"
 msgstr "插入ps档案到传真"
 
 #. WINDOW_EMAIL_PROJECT
@@ -509,7 +510,7 @@ msgid "Skip existing filenames"
 msgstr "省略已存在的档案"
 
 #. RADIO_BUTTON_SAVE_PS_FLATEDECODED
-msgid "Save postscript zlib compressed (ps level 3)"
+msgid "Save postscript zlib compressed (PS level 3)"
 msgstr ""
 
 #. RADIO_BUTTON_SAVE_PDF_FLATEDECODED
@@ -517,7 +518,8 @@ msgid "Save PDF zlib compressed"
 msgstr ""
 
 #. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
-msgid "Save 16bit pnm in ascii format"
+#, fuzzy
+msgid "Save 16bit PNM in ASCII format"
 msgstr "储存16位元pnm在ascii格式"
 
 #. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
@@ -541,8 +543,9 @@ msgstr "使用先前的colormap"
 msgid "Autoenhance gamma"
 msgstr "自动增强gamma"
 
-#. RADIO_BUTTON_PRESELECT_SCANAREA
-msgid "Preselect scanarea"
+#. RADIO_BUTTON_PRESELECT_SCAN_AREA
+#, fuzzy
+msgid "Preselect scan area"
 msgstr "预先选择扫描区"
 
 #. RADIO_BUTTON_AUTOCORRECT_COLORS
@@ -565,10 +568,6 @@ msgstr "装置扫描中"
 #. TEXT_AVAILABLE_DEVICES
 msgid "Available devices:"
 msgstr "可用的装置有:"
-
-#. TEXT_XSANE_OPTIONS
-msgid "XSane options"
-msgstr "XSane 选项"
 
 #. TEXT_FILETYPE
 msgid "Type"
@@ -875,53 +874,70 @@ msgstr "命令"
 msgid "Copy number option:"
 msgstr ""
 
+#. TEXT_SETUP_SCAN_RESOLUTION_PRINTER
+#, fuzzy
+msgid "Scan resolution:"
+msgstr "设定扫描解析度"
+
 #. TEXT_SETUP_PRINTER_LINEART_RES
-msgid "Lineart resolution (dpi):"
+msgid "lineart [dpi]"
 msgstr ""
 
 #. TEXT_SETUP_PRINTER_GRAYSCALE_RES
-msgid "Grayscale resolution (dpi):"
+msgid "grayscale [dpi]"
 msgstr ""
 
 #. TEXT_SETUP_PRINTER_COLOR_RES
-msgid "Color resolution (dpi):"
-msgstr "色彩解析度 (dpi):"
+msgid "color [dpi]"
+msgstr ""
+
+#. TEXT_SETUP_PRINTER_PAPER_GEOMETRIE
+msgid "Paper geometrie:"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_WIDTH
-#. TEXT_SETUP_FAX_WIDTH
-msgid "Width"
+#, fuzzy
+msgid "width"
 msgstr "宽"
 
 #. TEXT_SETUP_PRINTER_HEIGHT
-#. TEXT_SETUP_FAX_HEIGHT
-msgid "Height"
+#, fuzzy
+msgid "height"
 msgstr "高"
 
 #. TEXT_SETUP_PRINTER_LEFT
-#. TEXT_SETUP_FAX_LEFT
-msgid "Left offset"
+#, fuzzy
+msgid "left offset"
 msgstr "左边差距"
 
 #. TEXT_SETUP_PRINTER_BOTTOM
-#. TEXT_SETUP_FAX_BOTTOM
-msgid "Bottom offset"
+#, fuzzy
+msgid "bottom offset"
 msgstr "下边差距"
 
-#. TEXT_SETUP_PRINTER_GAMMA
-msgid "Printer gamma value:"
-msgstr "列表机gamma值"
-
-#. TEXT_SETUP_PRINTER_GAMMA_RED
-msgid "Printer gamma red:"
+#. TEXT_SETUP_PRINTER_GAMMA_CORRECTION
+#, fuzzy
+msgid "Printer gamma:"
 msgstr "列表机 红色gamma"
 
+#. TEXT_SETUP_PRINTER_GAMMA
+#, fuzzy
+msgid "common value"
+msgstr "最近的值:"
+
+#. TEXT_SETUP_PRINTER_GAMMA_RED
+#, fuzzy
+msgid "red"
+msgstr "读取"
+
 #. TEXT_SETUP_PRINTER_GAMMA_GREEN
-msgid "Printer gamma green:"
-msgstr "列表机 绿色gamma"
+msgid "green"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_GAMMA_BLUE
-msgid "Printer gamma blue:"
-msgstr "列表机 蓝色gamma"
+#, fuzzy
+msgid "blue"
+msgstr "模糊"
 
 #. TEXT_SETUP_PRINTER_EMBED_CSA
 #, fuzzy
@@ -938,7 +954,7 @@ msgid "Apply black point compensation"
 msgstr ""
 
 #. TEXT_SETUP_PRINTER_PS_FLATEDECODED
-msgid "Create zlib compressed postscript image (ps level 3) for printing"
+msgid "Create zlib compressed postscript image (PS level 3) for printing"
 msgstr ""
 
 #. TEXT_SETUP_TMP_PATH
@@ -1061,8 +1077,24 @@ msgstr ""
 msgid "Viewer (Postscript):"
 msgstr "检视器(Postscript)"
 
+#. TEXT_SETUP_FAX_WIDTH
+msgid "Width"
+msgstr "宽"
+
+#. TEXT_SETUP_FAX_HEIGHT
+msgid "Height"
+msgstr "高"
+
+#. TEXT_SETUP_FAX_LEFT
+msgid "Left offset"
+msgstr "左边差距"
+
+#. TEXT_SETUP_FAX_BOTTOM
+msgid "Bottom offset"
+msgstr "下边差距"
+
 #. TEXT_SETUP_FAX_PS_FLATEDECODED
-msgid "Create zlib compressed postscript image (ps level 3) for fax"
+msgid "Create zlib compressed postscript image (PS level 3) for fax"
 msgstr ""
 
 #. TEXT_SETUP_SMTP_SERVER
@@ -1431,12 +1463,14 @@ msgid "CCITT 1D Huffman compression"
 msgstr ""
 
 #. MENU_ITEM_TIFF_COMP_CCITFAX3
-msgid "CCITT Group 3 Fax compression"
-msgstr ""
+#, fuzzy
+msgid "CCITT Group 3 fax compression"
+msgstr "不压缩"
 
 #. MENU_ITEM_TIFF_COMP_CCITFAX4
-msgid "CCITT Group 4 Fax compression"
-msgstr ""
+#, fuzzy
+msgid "CCITT Group 4 fax compression"
+msgstr "不压缩"
 
 #. MENU_ITEM_TIFF_COMP_JPEG
 msgid "JPEG DCT compression"
@@ -1566,8 +1600,9 @@ msgstr "接收%s资料"
 msgid "page"
 msgstr "页"
 
-#. PROGRESS_TRANSFERING_DATA
-msgid "Transfering image"
+#. PROGRESS_TRANSFERRING_DATA
+#, fuzzy
+msgid "Transferring image"
 msgstr "传输影像中"
 
 #. PROGRESS_ROTATING_DATA
@@ -1640,7 +1675,7 @@ msgstr ""
 #. DESC_XSANE_MEDIUM
 msgid ""
 "Select source medium type.\n"
-"To rename, reorder or delete an entry use context menu (right mouse "
+"To rename, reorder or delete an entry use context menu (alternate mouse "
 "button).\n"
 "To create a medium enable the option edit medium definition in preferences "
 "menu."
@@ -1978,11 +2013,12 @@ msgstr "暂存目录浏览"
 
 #. DESC_JPEG_QUALITY
 msgid ""
-"Quality in percent if image is saved as jpeg or tiff with jpeg compression"
+"Quality in percent if image is saved as JPEG or TIFF with JPEG compression"
 msgstr ""
 
 #. DESC_PNG_COMPRESSION
-msgid "Compression if image is saved as png"
+#, fuzzy
+msgid "Compression if image is saved as PNG"
 msgstr "如果存成png档的话,就压缩"
 
 #. DESC_FILENAME_COUNTER_LEN
@@ -1990,20 +2026,23 @@ msgid "Minimum length of counter in filename"
 msgstr ""
 
 #. DESC_TIFF_ZIP_COMPRESSION
-msgid "Compression rate for zip compressed tiff (deflate)"
+msgid "Compression rate for zip compressed TIFF (deflate)"
 msgstr ""
 
 #. DESC_TIFF_COMPRESSION_16
-msgid "Compression type if 16 bit image is saved as tiff"
-msgstr ""
+#, fuzzy
+msgid "Compression type if 16 bit image is saved as TIFF"
+msgstr "如果存成png档的话,就压缩"
 
 #. DESC_TIFF_COMPRESSION_8
-msgid "Compression type if 8 bit image is saved as tiff"
-msgstr ""
+#, fuzzy
+msgid "Compression type if 8 bit image is saved as TIFF"
+msgstr "如果存成png档的话,就压缩"
 
 #. DESC_TIFF_COMPRESSION_1
-msgid "Compression type if lineart image is saved as tiff"
-msgstr ""
+#, fuzzy
+msgid "Compression type if lineart image is saved as TIFF"
+msgstr "如果存成png档的话,就压缩"
 
 #. DESC_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device dependant preferences in default file at exit of xsane"
@@ -2030,9 +2069,9 @@ msgstr ""
 
 #. DESC_SAVE_PNM16_AS_ASCII
 msgid ""
-"When a 16 bit image shall be saved in pnm format then use ascii format "
+"When a 16 bit image shall be saved in PNM format then use ASCII format "
 "instead of binary format. The binary format is a new format that is not "
-"supported by all programs. The ascii format is supported by more programs "
+"supported by all programs. The ASCII format is supported by more programs "
 "but it produces really huge files!!!"
 msgstr ""
 
@@ -2079,7 +2118,7 @@ msgid "Select how a range is displayed"
 msgstr "选择一个区域如何被显示"
 
 #. DESC_PREVIEW_OVERSAMPLING
-msgid "Value with that the calculated preview resolution is multiplied"
+msgid "Value with which the calculated preview resolution is multiplied"
 msgstr ""
 
 #. DESC_PREVIEW_GAMMA
@@ -2137,16 +2176,18 @@ msgid "dimension of square that is used to average color for pipette function"
 msgstr ""
 
 #. DESC_DOC_VIEWER
+#, fuzzy
 msgid ""
-"Enter command to be executed to display helpfiles, must be a html-viewer!"
+"Enter command to be executed to display helpfiles, must be a HTML-viewer!"
 msgstr "输入显示救助档时要被执行的命令,必须是一个html检视器"
 
 #. DESC_AUTOENHANCE_GAMMA
 msgid "Change gamma value when autoenhancement button is pressed"
 msgstr "更改gamma值如果自动增强按钮被按下时"
 
-#. DESC_PRESELECT_SCANAREA
-msgid "Select scanarea after preview scan has finished"
+#. DESC_PRESELECT_SCAN_AREA
+#, fuzzy
+msgid "Select scan area after preview scan has finished"
 msgstr "预览扫描后选择扫描区已经完成了"
 
 #. DESC_AUTOCORRECT_COLORS
@@ -2236,29 +2277,33 @@ msgstr ""
 #
 #. DESC_HTML_EMAIL
 #, fuzzy
-msgid "E-mail is sent in html mode, place image with: <IMAGE>"
+msgid "E-mail is sent in HTML mode, place image with: <IMAGE>"
 msgstr "邮件以HTML传送,影像直接显示"
 
 #. DESC_OCR_COMMAND
-msgid "Enter command to start ocr program"
+#, fuzzy
+msgid "Enter command to start OCR program"
 msgstr "输入开始OCR程式要执行的指令"
 
 #. DESC_OCR_INPUTFILE_OPT
-msgid "Enter option of the ocr program to define input file"
+#, fuzzy
+msgid "Enter option of the OCR program to define input file"
 msgstr "输入OCR程式的选项给定义的输入档"
 
 #. DESC_OCR_OUTPUTFILE_OPT
-msgid "Enter option of the ocr program to define output file"
+#, fuzzy
+msgid "Enter option of the OCR program to define output file"
 msgstr "输入OCR程式的选项给定义的输出档"
 
 #. DESC_OCR_USE_GUI_PIPE_OPT
-msgid "Define if the ocr program supports gui progress pipe"
+msgid "Define if the OCR program supports gui progress pipe"
 msgstr ""
 
 #. DESC_OCR_OUTFD_OPT
+#, fuzzy
 msgid ""
-"Enter option of the ocr program to define output filedescripor in GUI mode"
-msgstr ""
+"Enter option of the OCR program to define output filedescripor in GUI mode"
+msgstr "输入OCR程式的选项给定义的输出档"
 
 #. DESC_OCR_PROGRESS_KEYWORD
 msgid "Define Keyword that is used to mark progress information"
@@ -2294,7 +2339,8 @@ msgid "Pick black point"
 msgstr ""
 
 #. DESC_ZOOM_FULL
-msgid "Use full scanarea"
+#, fuzzy
+msgid "Use full scan area"
 msgstr "使用全部扫描区"
 
 #. DESC_ZOOM_OUT
@@ -2318,12 +2364,14 @@ msgstr ""
 msgid "Select visible area"
 msgstr "选择显示区"
 
-#. DESC_AUTOSELECT_SCANAREA
-msgid "Autoselect scanarea"
+#. DESC_AUTOSELECT_SCAN_AREA
+#, fuzzy
+msgid "Autoselect scan area"
 msgstr "自动选扫描区"
 
-#. DESC_AUTORAISE_SCANAREA
-msgid "Autoraise scanarea"
+#. DESC_AUTORAISE_SCAN_AREA
+#, fuzzy
+msgid "Autoraise scan area"
 msgstr "自动更改扫描区大小"
 
 #. DESC_DELETE_IMAGES
@@ -2333,7 +2381,7 @@ msgstr "删除预览影像快取"
 #. DESC_PRESET_AREA
 msgid ""
 "Preset area:\n"
-"To add new area or edit an existing area use contect menu (right mouse "
+"To add new area or edit an existing area use context menu (alternate mouse "
 "button)."
 msgstr ""
 
@@ -2362,15 +2410,18 @@ msgid "Clone image"
 msgstr "复制影像"
 
 #. DESC_ROTATE90
-msgid "Rotate image 90 degree"
+#, fuzzy
+msgid "Rotate image 90 degrees"
 msgstr "翻转影像90度"
 
 #. DESC_ROTATE180
-msgid "Rotate image 180 degree"
+#, fuzzy
+msgid "Rotate image 180 degrees"
 msgstr "翻转影像180度"
 
 #. DESC_ROTATE270
-msgid "Rotate image 270 degree"
+#, fuzzy
+msgid "Rotate image 270 degrees"
 msgstr "翻转影像270度"
 
 #. DESC_MIRROR_X
@@ -2406,11 +2457,11 @@ msgid "Y-Scale factor"
 msgstr ""
 
 #. DESC_SCALE_WIDTH
-msgid "Scale image to width [in pixel]"
+msgid "Scale image to width [pixels]"
 msgstr ""
 
 #. DESC_SCALE_HEIGHT
-msgid "Scale image to height [in pixel]"
+msgid "Scale image to height [pixels]"
 msgstr ""
 
 #. DESC_BATCH_LIST_EMPTY
@@ -2532,7 +2583,8 @@ msgid "Failed to open"
 msgstr "开启失败"
 
 #. ERR_CREATE_SECURE_FILE
-msgid "Could not create secure file (may be a link does exist):"
+#, fuzzy
+msgid "Could not create secure file (maybe a link does exist):"
 msgstr "不能建立安全档(可能连结已经存在)"
 
 #. ERR_FAILED_PRINTER_PIPE
@@ -2608,8 +2660,9 @@ msgid "Failed to execute fax command:"
 msgstr "不能执行传真命令"
 
 #. ERR_FAILED_EXEC_OCR_CMD
-msgid "Failed to execute ocr command:"
-msgstr "不能执行ocr命令"
+#, fuzzy
+msgid "Failed to execute OCR command:"
+msgstr "不能执行传真命令"
 
 #. ERR_BAD_FRAME_FORMAT
 msgid "bad frame format"
@@ -2669,11 +2722,12 @@ msgid "warning: option has no value constraint"
 msgstr ""
 
 #. WARN_XSANE_AS_ROOT
+#, fuzzy
 msgid ""
 "You try to run XSane as ROOT, that really is DANGEROUS!\n"
 "\n"
 "Do not send any bug reports when you\n"
-"have any problem while running XSane as root:\n"
+"have any problems while running XSane as root:\n"
 "YOU ARE ALONE!"
 msgstr ""
 "你试图以 ROOT 身份运行 XSane, 这样做将会十分危险！\n"
@@ -2896,7 +2950,7 @@ msgid ""
 "3) The permissions for the device file do not allow you to use it - try as "
 "root\n"
 "4) The backend is not loaded by SANE (man sane-dll)\n"
-"5) The backend is not configured correct (man sane-\"backendname\")\n"
+"5) The backend is not configured correctly (man sane-\"backendname\")\n"
 "6) Possibly there is more than one SANE version installed"
 msgstr ""
 
@@ -3089,7 +3143,8 @@ msgid "E-mail has been sent"
 msgstr "邮件已发送"
 
 #. TEXT_FAX_STATUS_QUEUEING_FAX
-msgid "Queueing Fax"
+#, fuzzy
+msgid "Queueing fax"
 msgstr "正在等待传真列队"
 
 #. TEXT_FAX_STATUS_FAX_QUEUED
@@ -3150,6 +3205,24 @@ msgstr "内存不足"
 
 msgid "Access to resource has been denied"
 msgstr "资源存取被禁止"
+
+#~ msgid "XSane options"
+#~ msgstr "XSane 选项"
+
+#~ msgid "Failed to execute ocr command:"
+#~ msgstr "不能执行ocr命令"
+
+#~ msgid "Color resolution (dpi):"
+#~ msgstr "色彩解析度 (dpi):"
+
+#~ msgid "Printer gamma value:"
+#~ msgstr "列表机gamma值"
+
+#~ msgid "Printer gamma green:"
+#~ msgstr "列表机 绿色gamma"
+
+#~ msgid "Printer gamma blue:"
+#~ msgstr "列表机 蓝色gamma"
 
 #, fuzzy
 #~ msgid "select scanner transmissive ICM-profile"

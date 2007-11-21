@@ -1,0 +1,3180 @@
+# translation of pa.po to Punjabi
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# A S Alam <aalam@users.sf.net>, 2007.
+# ASB <aalam@users.sf.net>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: pa\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-08-13 09:22+0200\n"
+"PO-Revision-Date: 2007-10-04 07:56+0530\n"
+"Last-Translator: ASB <aalam@users.sf.net>\n"
+"Language-Team: Punjabi <punjabi-l10n@lists.sf.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#. Please translate this to the correct directory name (eg. german=>de)
+#. XSANE_LANGUAGE_DIR
+msgid "language_dir"
+msgstr "pa"
+
+#. XSANE_COPYRIGHT_SIGN
+msgid "(c)"
+msgstr "(c)"
+
+#. can be translated with \251
+#. FILENAME_PREFIX_CLONE_OF
+msgid "clone-of-"
+msgstr "clone-of-"
+
+#. WINDOW_ABOUT_XSANE
+msgid "About"
+msgstr "ਇਸ ਬਾਰੇ"
+
+#. WINDOW_ABOUT_TRANSLATION, MENU_ITEM_ABOUT_TRANSLATION
+#. MENU_ITEM_ABOUT_TRANSLATION
+msgid "About translation"
+msgstr "ਟਰਾਂਸਲੇਸ਼ਨ ਬਾਰੇ"
+
+#. WINDOW_AUTHORIZE
+msgid "authorization"
+msgstr "ਪਰਮਾਣਕਿਤਾ"
+
+#. WINDOW_GPL
+msgid "GPL - the license"
+msgstr "GPL - ਲਾਈਸੈਂਸ"
+
+#. WINDOW_EULA
+msgid "End User License Agreement"
+msgstr "ਐਂਡ ਯੂਜ਼ਰ ਲਾਈਸੈਂਸ ਇਕਰਾਰਮਾਨਾ (EULA)"
+
+#. WINDOW_INFO
+msgid "info"
+msgstr "ਜਾਣਕਾਰੀ"
+
+#. WINDOW_LOAD_BATCH_LIST
+msgid "load batch list"
+msgstr "ਬੈਂਚ ਲਿਸਟ ਲੋਡ ਕਰੋ"
+
+#. WINDOW_SAVE_BATCH_LIST
+msgid "save batch list"
+msgstr "ਬੈਂਚ ਲਿਸਟ ਸੰਭਾਲੋ"
+
+#. WINDOW_BATCH_SCAN
+msgid "batch scan"
+msgstr "ਬੈਂਚ ਸਕੈਨ"
+
+#. WINDOW_BATCH_RENAME
+msgid "rename batch area"
+msgstr "ਬੈਂਚ ਏਰੀਆ ਨਾਂ-ਬਦਲੋ"
+
+#. WINDOW_FAX_PROJECT
+msgid "fax project"
+msgstr "ਫੈਕਸ ਪ੍ਰੋਜੈਕਟ"
+
+#. WINDOW_FAX_PROJECT_BROWSE
+msgid "browse for fax project"
+msgstr "ਫੈਕਸ ਪ੍ਰੋਜੈਕਟ ਲਈ ਝਲਕ"
+
+#. WINDOW_FAX_RENAME
+msgid "rename fax page"
+msgstr "ਫੈਕਸ ਪੇਜ਼ ਨਾਂ-ਬਦਲੋ"
+
+#. WINDOW_FAX_INSERT
+msgid "insert PS-file into fax"
+msgstr "ਫੈਕਸ ਵਿੱਚ PS-ਫਾਇਲ ਸ਼ਾਮਲ ਕਰੋ"
+
+#. WINDOW_EMAIL_PROJECT
+msgid "E-mail project"
+msgstr "ਈ-ਮੇਲ ਪ੍ਰੋਜੈਕਟ"
+
+#. WINDOW_EMAIL_PROJECT_BROWSE
+msgid "browse for email project"
+msgstr "ਈ-ਮੇਲ ਪ੍ਰੋਜੈਕਟ ਲਈ ਝਲਕ"
+
+#. WINDOW_EMAIL_RENAME
+msgid "rename e-mail image"
+msgstr "ਈ-ਮੇਲ ਚਿੱਤਰ ਨਾਂ ਬਦਲੋ"
+
+#. WINDOW_EMAIL_INSERT
+msgid "insert file into e-mail"
+msgstr "ਈਮੇਲ ਵਿੱਚ ਫਾਇਲ ਸ਼ਾਮਲ ਕਰੋ"
+
+#. WINDOW_MULTIPAGE_PROJECT
+msgid "multipage project"
+msgstr "ਮਲਟੀ-ਪੇਜ਼ ਪ੍ਰੋਜੈਕਟ"
+
+#. WINDOW_MULTIPAGE_PROJECT_BROWSE
+msgid "browse for multipage project"
+msgstr "ਮਲਟੀ-ਪੇਜ਼ ਪ੍ਰੋਜੈਕਟ ਲਈ ਝਲਕ"
+
+#. WINDOW_PRESET_AREA_RENAME
+msgid "rename preset area"
+msgstr "ਪ੍ਰੀ-ਸੈੱਟ ਏਰੀਆ ਨਾਂ-ਬਦਲੋ"
+
+#. WINDOW_PRESET_AREA_ADD
+msgid "add preset area"
+msgstr "ਪ੍ਰੀ-ਸੈੱਟ ਏਰੀਆ ਸ਼ਾਮਲ ਕਰੋ"
+
+#. WINDOW_MEDIUM_RENAME
+msgid "rename medium"
+msgstr "ਮੀਡਿਅਮ ਨਾਂ-ਬਦਲੋ"
+
+#. WINDOW_MEDIUM_ADD
+msgid "add new medium"
+msgstr "ਨਵਾਂ ਮੀਡਿਅਮ ਸ਼ਾਮਲ"
+
+#. WINDOW_SETUP
+msgid "setup"
+msgstr "ਸੈਟਅੱਪ"
+
+#. WINDOW_HISTOGRAM
+msgid "Histogram"
+msgstr "ਹਿਸਟੋਗਰਾਮ"
+
+#. WINDOW_GAMMA
+msgid "Gamma curve"
+msgstr "ਗਾਮਾ ਚਾਪ"
+
+#. WINDOW_STANDARD_OPTIONS
+msgid "Standard options"
+msgstr "ਸਟੈਂਡਰਡ ਚੋਣਾਂ"
+
+#. WINDOW_ADVANCED_OPTIONS
+msgid "Advanced options"
+msgstr "ਤਕਨੀਕੀ ਚੋਣਾਂ"
+
+#. WINDOW_DEVICE_SELECTION
+msgid "device selection"
+msgstr "ਜੰਤਰ ਚੋਣ"
+
+#. WINDOW_PREVIEW
+msgid "Preview"
+msgstr "ਝਲਕ"
+
+#. WINDOW_VIEWER
+#. MENU_ITEM_VIEWER
+msgid "Viewer"
+msgstr "ਦਰਸ਼ਕ"
+
+#. WINDOW_VIEWER_OUTPUT_FILENAME
+msgid "Viewer: select output filename"
+msgstr "ਦਰਸ਼ਕ: ਆਉਟਪੁੱਟ ਫਾਇਲ-ਨਾਂ ਚੁਣੋ"
+
+#. WINDOW_OCR_OUTPUT_FILENAME
+msgid "Select output filename for OCR text file"
+msgstr "OCR ਪਾਠ ਫਾਇਲ ਲਈ ਆਉਟਪੁੱਟ ਫਾਇਲ ਨਾਂ ਚੁਣੋ"
+
+#. WINDOW_OUTPUT_FILENAME
+msgid "select output filename"
+msgstr "ਆਉਟਪੁੱਟ ਫਾਇਲ ਨਾਂ ਚੁਣੋ"
+
+#. WINDOW_SAVE_SETTINGS
+msgid "save device settings"
+msgstr "ਜੰਤਰ ਸੈਟਿੰਗ ਸੰਭਾਲੋ"
+
+#. WINDOW_LOAD_SETTINGS
+msgid "load device settings"
+msgstr "ਜੰਤਰ ਸੈਟਿੰਗ ਲੋਡ ਕਰੋ"
+
+#. WINDOW_CHANGE_WORKING_DIR
+msgid "change working directory"
+msgstr "ਵਰਕਿੰਗ ਡਾਇਰੈਕਟਰੀ ਬਦਲੋ"
+
+#. WINDOW_TMP_PATH
+msgid "select temporary directory"
+msgstr "ਆਰਜ਼ੀ ਡਾਇਰੈਕਟਰੀ ਚੁਣੋ"
+
+#. WINDOW_SCALE
+#. DESC_VIEWER_SCALE
+msgid "Scale image"
+msgstr "ਚਿੱਤਰ ਸਕੇਲ ਕਰੋ"
+
+#. WINDOW_DESPECKLE
+#. DESC_VIEWER_DESPECKLE
+msgid "Despeckle image"
+msgstr "ਡਿਸਪਿਸਕਲੀ ਚਿੱਤਰ"
+
+#. WINDOW_BLUR
+#. DESC_VIEWER_BLUR
+msgid "Blur image"
+msgstr "ਬਲੁਰ ਚਿੱਤਰ"
+
+#. WINDOW_STORE_MEDIUM
+msgid "Store medium definition"
+msgstr "ਸਟੋਰੇਜ਼ ਮੀਡਿਅਮ ਪਰਿਭਾਸ਼ਾ"
+
+#. WINDOW_NO_DEVICES
+msgid "No devices available"
+msgstr "ਕੋਈ ਜੰਤਰ ਉਪਲੱਬਧ ਨਹੀਂ ਹੈ"
+
+#. WINDOW_SCANNER_DEFAULT_COLOR_ICM_PROFILE
+msgid "select scanner default color ICM-profile"
+msgstr "ਸਕੈਨਰ ਡਿਫਾਲਟ ਰੰਗ ICM-ਪਰੋਫਾਇਲ ਚੁਣੋ"
+
+#. WINDOW_SCANNER_DEFAULT_GRAY_ICM_PROFILE
+msgid "select scanner default gray ICM-profile"
+msgstr "ਸਕੈਨਰ ਡਿਫਾਲਟ ਗਰੇ ICM-ਪਰੋਫਾਇਲ ਚੁਣੋ"
+
+#. WINDOW_DISPLAY_ICM_PROFILE
+msgid "select display ICM-profile"
+msgstr "ਡਿਸਪਲੇਅ ICM-ਪਰੋਫਾਇਲ ਚੁਣੋ"
+
+#. WINDOW_CUSTOM_PROOFING_ICM_PROFILE
+msgid "select custom proofing ICM-profile"
+msgstr "ਕਸਟਮ ਪਰੂਫਿੰਗ ICM-ਪਰੋਫਾਇਲ ਚੁਣੋ"
+
+#. WINDOW_WORKING_COLOR_SPACE_ICM_PROFILE
+msgid "select working color space ICM-profile"
+msgstr "ਵਰਕਿੰਗ ਕਲਰ ਸਪੇਸ ICM-ਪਰੋਫਾਇਲ ਚੁਣੋ"
+
+#. WINDOW_PRINTER_ICM_PROFILE
+msgid "select printer ICM-profile"
+msgstr "ਪਰਿੰਟਰ ICM-ਪਰੋਫਾਇਲ ਚੁਣੋ"
+
+#. MENU_FILE
+msgid "File"
+msgstr "ਫਾਇਲ"
+
+#. MENU_PREFERENCES
+msgid "Preferences"
+msgstr "ਮੇਰੀ ਪਸੰਦ"
+
+#. MENU_VIEW
+msgid "View"
+msgstr "ਵੇਖੋ"
+
+#. MENU_WINDOW
+msgid "Window"
+msgstr "ਵਿੰਡੋ"
+
+#. MENU_HELP
+#. BUTTON_HELP
+msgid "Help"
+msgstr "ਮੱਦਦ"
+
+#. MENU_EDIT
+msgid "Edit"
+msgstr "ਸੋਧ"
+
+#. MENU_FILTERS
+msgid "Filters"
+msgstr "ਫਿਲਟਰ"
+
+#. MENU_GEOMETRY
+msgid "Geometry"
+msgstr "ਜੁਮੈਟਰੀ"
+
+#. MENU_COLOR_MANAGEMENT
+#. NOTEBOOK_COLOR_MANAGEMENT_OPTIONS
+msgid "Color management"
+msgstr "ਰੰਗ ਪਰਬੰਧ"
+
+#. MENU_ITEM_ABOUT_XSANE
+msgid "About XSane"
+msgstr "XSane ਬਾਰੇ"
+
+#. MENU_ITEM_INFO
+msgid "Info"
+msgstr "ਜਾਣਕਾਰੀ"
+
+#. MENU_ITEM_QUIT
+msgid "Quit"
+msgstr "ਬਾਹਰ"
+
+#. MENU_ITEM_SAVE_IMAGE
+#. DESC_VIEWER_SAVE
+msgid "Save image"
+msgstr "ਚਿੱਤਰ ਸੰਭਾਲੋ"
+
+#. MENU_ITEM_OCR
+msgid "OCR - save as text"
+msgstr "OCR - ਟੈਕਸਟ ਵਾਂਗ ਸੰਭਾਲੋ"
+
+#. MENU_ITEM_CLONE
+msgid "Clone"
+msgstr "ਕਲੋਨ"
+
+#. MENU_ITEM_SCALE
+msgid "Scale"
+msgstr "ਸਕੇਲ"
+
+#. MENU_ITEM_CLOSE
+#. BUTTON_CLOSE
+msgid "Close"
+msgstr "ਬੰਦ ਕਰੋ"
+
+#. MENU_ITEM_UNDO
+msgid "Undo"
+msgstr "ਵਾਪਸ"
+
+#. MENU_ITEM_DESPECKLE
+msgid "Despeckle"
+msgstr "ਡਿਸਪਿਸਕਲੀ"
+
+#. MENU_ITEM_BLUR
+msgid "Blur"
+msgstr "ਬਲੁਰ"
+
+#. MENU_ITEM_ROTATE90
+msgid "Rotate 90"
+msgstr "90 ਘੁੰਮਾਓ"
+
+#. MENU_ITEM_ROTATE180
+msgid "Rotate 180"
+msgstr "180 ਘੁੰਮਾਓ"
+
+#. MENU_ITEM_ROTATE270
+msgid "Rotate 270"
+msgstr "270 ਘੁੰਮਾਓ"
+
+#. MENU_ITEM_MIRROR_X
+msgid "Mirror |"
+msgstr "ਮਿੱਰਰ |"
+
+#. MENU_ITEM_MIRROR_Y
+msgid "Mirror -"
+msgstr "ਮਿਰੱਰ -"
+
+#. FRAME_RAW_IMAGE
+msgid "Raw image"
+msgstr "ਰਾਅ ਚਿੱਤਰ"
+
+#. FRAME_ENHANCED_IMAGE
+msgid "Enhanced image"
+msgstr "ਇੰਹਾਂਸਡ ਚਿੱਤਰ"
+
+#. BUTTON_SCAN
+msgid "Scan"
+msgstr "ਸਕੈਨ"
+
+#. BUTTON_OK
+msgid "Ok"
+msgstr "ਠੀਕ ਹੈ"
+
+#. BUTTON_ACCEPT
+msgid "Accept"
+msgstr "ਮਨਜ਼ੂਰ"
+
+#. BUTTON_NOT_ACCEPT
+msgid "Not accept"
+msgstr "ਨਾ ਮਨਜ਼ੂਰ"
+
+#. BUTTON_APPLY
+msgid "Apply"
+msgstr "ਲਾਗੂ ਕਰੋ"
+
+#. BUTTON_CANCEL
+msgid "Cancel"
+msgstr "ਰੱਦ ਕਰੋ"
+
+#. BUTTON_REDUCE
+msgid "Reduce"
+msgstr "ਘਟਾਓ"
+
+#. BUTTON_CONT_AT_OWN_RISK
+msgid "Continue at your own risk"
+msgstr "ਆਪਣੇ ਖੇਤਰ ਉੱਤੇ ਜਾਰੀ ਰੱਖੋ"
+
+#. BUTTON_BROWSE
+msgid "Browse"
+msgstr "ਝਲਕ"
+
+#. BUTTON_OVERWRITE
+msgid "Overwrite"
+msgstr "ਉੱਤੇ ਲਿਖੋ"
+
+#. BUTTON_BATCH_LIST_SCAN
+msgid "Scan batch list"
+msgstr "ਬੈਂਚ ਲਿਸਟ ਸਕੈਨ ਕਰੋ"
+
+#. BUTTON_BATCH_AREA_SCAN
+msgid "Scan selected area"
+msgstr "ਚੁਣਿਆ ਏਰੀਆ ਸਕੈਨ ਕਰੋ"
+
+#. BUTTON_PAGE_DELETE
+msgid "Delete page"
+msgstr "ਪੇਜ਼ ਹਟਾਓ"
+
+#. BUTTON_PAGE_SHOW
+msgid "Show page"
+msgstr "ਪੇਜ਼ ਵੇਖਾਓ"
+
+#. BUTTON_PAGE_RENAME
+msgid "Rename page"
+msgstr "ਪੇਜ਼ ਨਾਂ ਬਦਲੋ"
+
+#. BUTTON_IMAGE_DELETE
+msgid "Delete image"
+msgstr "ਚਿੱਤਰ ਹਟਾਓ"
+
+#. BUTTON_IMAGE_SHOW
+msgid "Show image"
+msgstr "ਚਿੱਤਰ ਵੇਖਾਓ"
+
+#. BUTTON_IMAGE_EDIT
+msgid "Edit image"
+msgstr "ਚਿੱਤਰ ਸੋਧ"
+
+#. BUTTON_IMAGE_RENAME
+msgid "Rename image"
+msgstr "ਚਿੱਤਰ ਨਾਂ ਬਦਲੋ"
+
+#. BUTTON_FILE_INSERT
+msgid "Insert file"
+msgstr "ਫਾਇਲ ਸ਼ਾਮਿਲ"
+
+#. BUTTON_CREATE_PROJECT
+msgid "Create project"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਬਣਾਓ"
+
+#. BUTTON_SEND_PROJECT
+msgid "Send project"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਭੇਜੋ"
+
+#. BUTTON_SAVE_MULTIPAGE
+msgid "Save multipage file"
+msgstr "ਮਲਟੀ-ਪੇਜ਼ ਫਾਇਲ ਸੰਭਾਲੋ"
+
+#. BUTTON_DELETE_PROJECT
+msgid "Delete project"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਹਟਾਓ"
+
+#. BUTTON_ADD_PRINTER
+msgid "Add printer"
+msgstr "ਪਰਿੰਟਰ ਸ਼ਾਮਲ"
+
+#. BUTTON_DELETE_PRINTER
+msgid "Delete printer"
+msgstr "ਪਰਿੰਟਰ ਹਟਾਓ"
+
+#. BUTTON_PREVIEW_ACQUIRE
+msgid "Acquire preview"
+msgstr "ਝਲਕ ਲਵੋ"
+
+#. BUTTON_PREVIEW_CANCEL
+msgid "Cancel preview"
+msgstr "ਝਲਕ ਰੱਦ ਕਰੋ"
+
+#. BUTTON_DISCARD_IMAGE
+msgid "Discard image"
+msgstr "ਚਿੱਤਰ ਰੱਦ ਕਰੋ"
+
+#. BUTTON_DISCARD_ALL_IMAGES
+msgid "Discard all images"
+msgstr "ਸਭ ਚਿੱਤਰ ਰੱਦ ਕਰੋ"
+
+#. BUTTON_DO_NOT_CLOSE
+msgid "Do not close"
+msgstr "ਬੰਦ ਨਾ ਕਰੋ"
+
+#. BUTTON_SCALE_BIND
+msgid "Bind scale"
+msgstr "ਬਲਾਇਡ ਸਕੇਲ"
+
+#. RADIO_BUTTON_FINE_MODE
+msgid "Fine mode"
+msgstr "ਫਾਇਨ ਮੋਡ"
+
+#. RADIO_BUTTON_HTML_EMAIL
+msgid "HTML e-mail"
+msgstr "HTML ਈ-ਮੇਲ"
+
+#. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
+msgid "Save device preferences at exit"
+msgstr "ਬੰਦ ਕਰਨ ਸਮੇਂ ਜੰਤਰ ਪਸੰਦ ਸੰਭਾਲੋ"
+
+#. RADIO_BUTTON_OVERWRITE_WARNING
+msgid "Overwrite warning"
+msgstr "ਉੱਤੇ ਲਿਖਣ ਚੇਤਾਵਨੀ"
+
+#. RADIO_BUTTON_SKIP_EXISTING_NRS
+msgid "Skip existing filenames"
+msgstr "ਮੌਜੂਦਾ ਫਾਇਲ ਨਾਂ ਛੱਡੋ"
+
+#. RADIO_BUTTON_SAVE_PS_FLATEDECODED
+msgid "Save postscript zlib compressed (PS level 3)"
+msgstr "ਪੋਸਟ-ਸਕ੍ਰਿਪਟ zlib ਕੰਪਰੈੱਸਡ ਸੰਭਾਲੋ (PS ਲੈਵਲ 3)"
+
+#. RADIO_BUTTON_SAVE_PDF_FLATEDECODED
+msgid "Save PDF zlib compressed"
+msgstr "PDF zlib ਕੰਪਰੈੱਸ ਸੰਭਾਲੋ"
+
+#. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
+msgid "Save 16bit PNM in ASCII format"
+msgstr "6bit PNM ASCII ਫਾਰਮੈਟ ਵਿੱਚ ਸੰਭਾਲੋ"
+
+#. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
+msgid "Reduce 16 bit image to 8 bit"
+msgstr "16 ਬਿੱਟ ਚਿੱਤਰ ਤੋਂ 8 ਬਿੱਟ ਘਟਾਓ"
+
+#. RADIO_BUTTON_WINDOW_FIXED
+msgid "Main window size fixed"
+msgstr "ਮੇਨ ਵਿੰਡੋ ਸਾਇਜ਼ ਸਥਿਰ"
+
+#. RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA
+msgid "Disable GIMP preview gamma"
+msgstr "ਜੈਮਪ ਝਲਕ ਗਾਮਾ ਆਯੋਗ"
+
+#. RADIO_BUTTON_PRIVATE_COLORMAP
+msgid "Use private colormap"
+msgstr "ਪ੍ਰਾਈਵੇਟ ਰੰਗ-ਮੈਪ ਵਰਤੋਂ"
+
+#. RADIO_BUTTON_AUTOENHANCE_GAMMA
+msgid "Autoenhance gamma"
+msgstr "ਆਟੋ-ਇੰਹਾਂਸ ਗਾਮਾ"
+
+#. RADIO_BUTTON_PRESELECT_SCAN_AREA
+msgid "Preselect scan area"
+msgstr "ਪ੍ਰੀ-ਚੁਣਿਆ ਸਕੈਨ ਏਰੀਆ"
+
+#. RADIO_BUTTON_AUTOCORRECT_COLORS
+msgid "Autocorrect colors"
+msgstr "ਆਟੋ-ਸੋਧ ਰੰਗ"
+
+#. RADIO_BUTTON_OCR_USE_GUI_PIPE
+msgid "Use GUI progress pipe"
+msgstr "GUI ਪਰੋਗਰੈੱਸ ਪਾਈਪ ਵਰਤੋਂ"
+
+#. RADIO_BUTTON_CMS_BPC
+#. MENU_ITEM_CMS_BLACK_POINT_COMPENSATION
+msgid "Black point compensation"
+msgstr "ਕਾਲਾ ਪੁਆਇੰਟ ਕੰਪਨਸੇਸ਼ਨ"
+
+#. TEXT_SCANNING_DEVICES
+msgid "scanning for devices"
+msgstr "ਜੰਤਰਾਂ ਲਈ ਸਕੈਨ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ"
+
+#. TEXT_AVAILABLE_DEVICES
+msgid "Available devices:"
+msgstr "ਉਪਲੱਬਧ ਜੰਤਰ:"
+
+#. TEXT_FILETYPE
+msgid "Type"
+msgstr "ਟਾਈਪ"
+
+#. TEXT_CMS_FUNCTION
+#. DESC_CMS_FUNCTION
+msgid "Color management function"
+msgstr "ਰੰਗ ਪਰਬੰਧ ਫੰਕਸ਼ਨ"
+
+#. TEXT_SCANNER_BACKEND
+msgid "Scanner and backend:"
+msgstr "ਸਕੈਨਰ ਅਤੇ ਬੈਕਐਂਡ:"
+
+#. TEXT_VENDOR
+msgid "Vendor:"
+msgstr "ਵੇਂਡਰ:"
+
+#. TEXT_MODEL
+msgid "Model:"
+msgstr "ਮਾਡਲ:"
+
+#. TEXT_TYPE
+msgid "Type:"
+msgstr "ਕਿਸਮ:"
+
+#. TEXT_DEVICE
+msgid "Device:"
+msgstr "ਜੰਤਰ:"
+
+#. TEXT_LOADED_BACKEND
+msgid "Loaded backend:"
+msgstr "ਲੋਡ ਕੀਤਾ ਬੈਕਐਂਡ:"
+
+#. TEXT_SANE_VERSION
+msgid "Sane version:"
+msgstr "ਸੈਨ ਵਰਜਨ:"
+
+#. TEXT_RECENT_VALUES
+msgid "Recent values:"
+msgstr "ਤਾਜ਼ਾ ਮੁੱਲ:"
+
+#. TEXT_GAMMA_CORR_BY
+msgid "Gamma correction by:"
+msgstr "ਗਾਮਾ ਸੋਧ:"
+
+#. TEXT_SCANNER
+msgid "scanner"
+msgstr "ਸਕੈਨਰ"
+
+#. TEXT_SOFTWARE_XSANE
+msgid "software (XSane)"
+msgstr "ਸਾਫਟਵੇਅਰ (XSane)"
+
+#. TEXT_NONE
+msgid "none"
+msgstr "ਕੋਈ ਨਹੀਂ"
+
+#. TEXT_GAMMA_INPUT_DEPTH
+msgid "Gamma input depth:"
+msgstr "ਗਾਮਾ ਇੰਪੁੱਟ ਡੂੰਘਾਈ:"
+
+#. TEXT_GAMMA_OUTPUT_DEPTH
+msgid "Gamma output depth:"
+msgstr "ਗਾਮਾ ਆਉਟਪੁੱਟ ਡੂੰਘਾਈ:"
+
+#. TEXT_SCANNER_OUTPUT_DEPTH
+msgid "Scanner output depth:"
+msgstr "ਸਕੈਨਰ ਆਉਟਪੁੱਟ ਡੂੰਘਾਈ:"
+
+#. TEXT_OUTPUT_FORMATS
+msgid "XSane output formats:"
+msgstr "XSane ਆਉਟਪੁੱਟ ਫਾਰਮੈਟ:"
+
+#. TEXT_8BIT_FORMATS
+msgid "8 bit output formats:"
+msgstr "8 ਬਿੱਟ ਆਉਟਪੁੱਟ ਫਾਰਮੈਟ:"
+
+#. TEXT_16BIT_FORMATS
+msgid "16 bit output formats:"
+msgstr "16 ਬਿੱਟ ਆਉਟਪੁੱਟ ਫਾਰਮੈਟ:"
+
+#. TEXT_REDUCE_16BIT_TO_8BIT
+msgid ""
+"Bit depth 16 bits/channel is not supported for this output format.\n"
+"Do you want to reduce the depth to 8 bits/channel?"
+msgstr ""
+"ਇਹ ਆਉਟਪੁੱਟ ਫਾਰਮੈਟ ਵਾਸਤੇ ਬਿੱਟ ਡੂੰਘਾਈ 16 ਬਿੱਟ/ਚੈਨਲ ਸਹਾਇਕ ਨਹੀਂ ਹੈ।\n"
+"ਕੀ ਤੁਸੀਂ ਡੂੰਘਾਈ ਨੂੰ 8 ਬਿੱਟ/ਚੈਨਲ ਵਾਸਤੇ ਘਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?"
+
+#. TEXT_AUTHORIZATION_REQ
+msgid "Authorization required for"
+msgstr "ਇਸ ਲਈ ਆਥੂਰਾਈਜੇਸ਼ਨ ਚਾਹੀਦੀ ਹੈ"
+
+#. TEXT_AUTHORIZATION_SECURE
+msgid "Password transmission is secure"
+msgstr "ਪਾਸਵਰਡ ਟਰਾਂਸਮਿਸ਼ਨ ਸੁਰੱਖਿਅਤ ਹੈ"
+
+#. TEXT_AUTHORIZATION_INSECURE
+msgid "Backend requests plain-text password"
+msgstr "ਬੈਕਐਂਡ ਨੇ ਪਲੇਨ-ਟੈਕਸਟ ਪਾਸਵਰਡ ਦੀ ਮੰਗ ਕੀਤੀ"
+
+#. TEXT_USERNAME
+msgid "Username :"
+msgstr "ਯੂਜ਼ਰ ਨਾਂ :"
+
+#. TEXT_PASSWORD
+msgid "Password :"
+msgstr "ਪਾਸਵਰਡ :"
+
+#. TEXT_INVALID_PARAMS
+msgid "Invalid parameters."
+msgstr "ਗਲਤ ਪੈਰਾਮੀਟਰ ਹੈ।"
+
+#. TEXT_VERSION
+msgid "version:"
+msgstr "ਵਰਜਨ:"
+
+#. TEXT_PACKAGE
+msgid "package"
+msgstr "ਪੈਕੇਜ"
+
+#. TEXT_WITH_CMS_FUNCTION
+msgid "with color management function"
+msgstr "ਰੰਗ ਪਰਬੰਧ ਫੰਕਸ਼ਨ ਨਾਲ"
+
+#. TEXT_WITH_GIMP_SUPPORT
+msgid "with GIMP support"
+msgstr "ਜੈਮਪ ਸਹਿਯੋਗ ਨਾਲ"
+
+#. TEXT_WITHOUT_GIMP_SUPPORT
+msgid "without GIMP support"
+msgstr "ਜੈਮਪ ਸਹਿਯੋਗ ਬਗੈਰ"
+
+#. TEXT_GTK_VERSION
+msgid "compiled with GTK-"
+msgstr "ਕੰਪਾਇਲ ਕੀਤਾ GTK-"
+
+#. TEXT_GIMP_VERSION
+msgid "compiled with GIMP-"
+msgstr "ਕੰਪਾਇਲ ਕੀਤਾ ਹੈ ਜੈਪਮ-"
+
+#. TEXT_UNKNOWN
+msgid "unknown"
+msgstr "ਅਣਜਾਣ"
+
+#. TEXT_EULA
+msgid ""
+"XSane is distributed under the terms of the GNU General Public License\n"
+"as published by the Free Software Foundation; either version 2 of the\n"
+"License, or (at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but\n"
+"WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+"Should the program prove defective, you assume the cost of all\n"
+"necessary servicing, repair or correction. To use this program you\n"
+"have to read, understand and accept the following\n"
+"\"NO WARRANTY\" agreement.\n"
+msgstr ""
+"XSane ਨੂੰ ਤੁਸੀਂ ਗਨੂ ਜਰਨਲ ਪਬਲਿਕ ਲਾਈਸੈਂਸ,ਜਿਸ ਨੂੰ ਫਰੀ ਸਾਫਟਵੇਅਰ ਫਾਊਨਡੇਸ਼ਨ\n"
+"ਨੇ ਤਿਆਰ ਕੀਤਾ ਹੈ, ਦੇ ਵਰਜਨ 2 ਜਾਂ ਨਵੇਂ ਦੀਆਂ ਸ਼ਰਤਾਂ (ਉਹ ਤੁਹਾਡੀ ਆਪਣੀ ਮਰਜ਼ੀ ਹੈ)\n"
+"ਅਧੀਨ ਵੰਡ ਅਤੇ/ਜਾਂ ਸੋਧ ਸਕਦੇ ਹੋ।\n"
+"\n"
+"ਇਹ ਪਰੋਗਰਾਮ ਨੂੰ ਇਹ ਮੰਨ ਕੇ ਵੰਡਿਆ ਜਾ ਰਿਹਾ ਹੈ ਕਿ ਇਹ ਫਾਇਦੇਮੰਦ ਰਹੇਗਾ, ਪਰ ਇਸ ਦੀ\n"
+"ਕੋਈ ਵਾਰੰਟੀ ਨਹੀਂ ਲਈ ਜਾ ਰਹੀ ਹੈ, ਕਿਸੇ ਖਾਸ ਕੰਮ ਲਈ ਅਨੁਕੂਲ ਹੋਣ ਜਾਂ ਠੀਕ ਤਰ੍ਹਾਂ ਕੰਮ\n"
+"ਕਰਨ ਦੀ ਵੀ ਕੋਈ ਗਾਰੰਟੀ ਨਹੀਂ ਹੈ। ਹੋਰ ਵੇਰਵੇ ਲਈ ਗਨੂ ਜਰਨਲ ਪਬਲਿਕ ਲਾਇਸੈਂਸ ਨੂੰ ਪੜ੍ਹੋ।\n"
+"ਇਹ ਪਰੋਗਰਾਮ ਖਰਾਬ ਵੀ ਹੋ ਸਕਦਾ ਹੈ, ਤੁਹਾਨੂੰ ਸਭ ਸਰਵਿਸ, ਮੁਰੰਮਤ ਜਾਂ ਠੀਕ ਕਰਾਉਣ\n"
+"ਦਾ ਖਰਚਾ ਪੈ ਸਕਦਾ ਹੈ। ਇਹ ਪਰੋਗਰਾਮ ਨੂੰ ਵਰਤਣ ਲਈ ਤੁਹਾਨੂੰ \"NO WARRANTY\"\n"
+"ਇਕਰਾਰਨਾਮਾ ਪੜ੍ਹ ਲੈਣਾ ਚਾਹੀਦਾ ਹੈ\n"
+
+#. TEXT_GPL
+msgid ""
+"XSane is distributed under the terms of the GNU General Public License\n"
+"as published by the Free Software Foundation; either version 2 of the\n"
+"License, or (at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but\n"
+"WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+msgstr ""
+"XSane ਨੂੰ ਤੁਸੀਂ ਗਨੂ ਜਰਨਲ ਪਬਲਿਕ ਲਾਈਸੈਂਸ,ਜਿਸ ਨੂੰ ਫਰੀ ਸਾਫਟਵੇਅਰ ਫਾਊਨਡੇਸ਼ਨ\n"
+"ਨੇ ਤਿਆਰ ਕੀਤਾ ਹੈ, ਦੇ ਵਰਜਨ 2 ਜਾਂ ਨਵੇਂ ਦੀਆਂ ਸ਼ਰਤਾਂ (ਉਹ ਤੁਹਾਡੀ ਆਪਣੀ ਮਰਜ਼ੀ ਹੈ)\n"
+"ਅਧੀਨ ਵੰਡ ਅਤੇ/ਜਾਂ ਸੋਧ ਸਕਦੇ ਹੋ।\n"
+"\n"
+"ਇਹ ਪਰੋਗਰਾਮ ਨੂੰ ਇਹ ਮੰਨ ਕੇ ਵੰਡਿਆ ਜਾ ਰਿਹਾ ਹੈ ਕਿ ਇਹ ਫਾਇਦੇਮੰਦ ਰਹੇਗਾ, ਪਰ ਇਸ ਦੀ\n"
+"ਕੋਈ ਵਾਰੰਟੀ ਨਹੀਂ ਲਈ ਜਾ ਰਹੀ ਹੈ, ਕਿਸੇ ਖਾਸ ਕੰਮ ਲਈ ਅਨੁਕੂਲ ਹੋਣ ਜਾਂ ਠੀਕ ਤਰ੍ਹਾਂ ਕੰਮ\n"
+"ਕਰਨ ਦੀ ਵੀ ਕੋਈ ਗਾਰੰਟੀ ਨਹੀਂ ਹੈ। ਹੋਰ ਵੇਰਵੇ ਲਈ ਗਨੂ ਜਰਨਲ ਪਬਲਿਕ ਲਾਇਸੈਂਸ ਨੂੰ ਪੜ੍ਹੋ।\n"
+
+#. TEXT_EMAIL_ADR
+msgid "E-mail:"
+msgstr "ਈ-ਮੇਲ:"
+
+#. TEXT_HOMEPAGE
+msgid "Homepage:"
+msgstr "ਮੇਨ ਪੇਜ਼:"
+
+#. TEXT_FILE
+msgid "File:"
+msgstr "ਫਾਇਲ:"
+
+#. TEXT_TRANSLATION
+msgid "Translation:"
+msgstr "ਟਰਾਂਸਲੇਸ਼ਨ:"
+
+#. Please translate this to something like
+#. translation to YOUR LANGUAGE\n
+#. by YOUR NAME\n
+#. E-mail: your.name@yourdomain.com\n
+#. TEXT_TRANSLATION_INFO
+msgid ""
+"untranslated original english text\n"
+"by Oliver Rauch\n"
+"E-mail: Oliver.Rauch@rauch-domain.de\n"
+msgstr ""
+"ਪੰਜਾਬੀ ਵਿੱਚ ਅਨੁਵਾਦ ਕੀਤਾ ਲਿਖਿਆ\n"
+"ਅਮਨਪਰੀਤ ਸਿੰਘ ਆਲਮ\n"
+"ਟੀਮ: ਪੰਜਾਬੀ ਓਪਨ ਸੋਰਸ ਟੀਮ (http://www.satluj.org)\n"
+
+#. TEXT_INFO_BOX
+msgid "0x0: 0KB"
+msgstr "0x0: 0KB"
+
+#. TEXT_ADF_PAGES_SCANNED
+msgid "Scanned pages: "
+msgstr "ਸਕੈਨ ਕੀਤੇ ਸਫ਼ੇ: "
+
+#. TEXT_EMAIL_TEXT
+msgid "E-mail text:"
+msgstr "ਈ-ਮੇਲ ਟੈਕਸਟ:"
+
+#. TEXT_ATTACHMENTS
+msgid "Attachments:"
+msgstr "ਅਟੈਂਚਮਿੰਟ:"
+
+#. TEXT_EMAIL_STATUS
+msgid "Project status:"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਹਾਲਤ:"
+
+#. TEXT_EMAIL_FILETYPE
+msgid "E-mail image filetype:"
+msgstr "ਈਮੇਲ ਚਿੱਤਰ ਫਾਇਲ-ਟਾਈਪ:"
+
+#. TEXT_PAGES
+msgid "Pages:"
+msgstr "ਪੇਜ਼:"
+
+#. TEXT_MULTIPAGE_FILETYPE
+msgid "Multipage document filetype:"
+msgstr "ਮਲਟੀ-ਪੇਜ਼ ਦਸਤਾਵੇਜ਼ ਫਾਇਲ ਟਾਈਪ:"
+
+#. TEXT_MEDIUM_DEFINITION_NAME
+msgid "Medium Name:"
+msgstr "ਮੀਡਿਅਮ ਨਾਂ:"
+
+#. TEXT_VIEWER_IMAGE_INFO
+#, c-format
+msgid ""
+"Size %d x %d pixel, %d bits/channel, %d channels, %1.0f dpi x %1.0f dpi, %"
+"1.1f %s"
+msgstr ""
+"ਆਕਾਰ %d x %d ਪਿਕਸਲ, %d ਬਿੱਟ/ਚੈਨਲ, %d ਚੈਨਲ, %1.0f dpi x %1.0f dpi, %1.1f %s"
+
+#. TEXT_DESPECKLE_RADIUS
+msgid "Despeckle radius:"
+msgstr "ਡਿਸਪਿਸਲਕੀ ਰੇਡੀਅਸ:"
+
+#. TEXT_BLUR_RADIUS
+msgid "Blur radius:"
+msgstr "ਬਲੁਰ ਰੇਡੀਅਸ:"
+
+#. TEXT_BATCH_AREA_DEFAULT_NAME
+msgid "(no name)"
+msgstr "(ਨਾਂ ਨਹੀਂ)"
+
+#. TEXT_BATCH_LIST_AREANAME
+msgid "Area name:"
+msgstr "ਏਰੀਆ ਨਾਂ:"
+
+#. TEXT_BATCH_LIST_SCANMODE
+msgid "Scanmode:"
+msgstr "ਸਕੈਨ-ਮੋਡ:"
+
+#. TEXT_BATCH_LIST_GEOMETRY_TL
+msgid "Top left:"
+msgstr "ਉੱਤੇ ਖੱਬਾ:"
+
+#. TEXT_BATCH_LIST_GEOMETRY_SIZE
+msgid "Size:"
+msgstr "ਆਕਾਰ:"
+
+#. TEXT_BATCH_LIST_RESOLUTION
+msgid "Resolution:"
+msgstr "ਰੈਜ਼ੋਲੇਸ਼ਨ:"
+
+#. TEXT_BATCH_LIST_BIT_DEPTH
+msgid "Bit depth:"
+msgstr "ਬਿੱਟ ਡੂੰਘਾਈ:"
+
+#. TEXT_BATCH_LIST_BY_GUI
+msgid "as selected"
+msgstr "ਜਿਵੇਂ ਚੁਣਿਆ"
+
+#. TEXT_SETUP_PRINTER_SEL
+msgid "Printer selection:"
+msgstr "ਪਰਿੰਟਰ ਚੋਣ:"
+
+#. TEXT_SETUP_PRINTER_NAME
+msgid "Name:"
+msgstr "ਨਾਂ:"
+
+#. TEXT_SETUP_PRINTER_CMD, TEXT_SETUP_FAX_CMD
+#. TEXT_SETUP_FAX_COMMAND
+msgid "Command:"
+msgstr "ਕਮਾਂਡ:"
+
+#. TEXT_SETUP_COPY_NR_OPT
+msgid "Copy number option:"
+msgstr "ਕਾਪੀ ਗਿਣਤੀ ਚੋਣ:"
+
+#. TEXT_SETUP_SCAN_RESOLUTION_PRINTER
+msgid "Scan resolution:"
+msgstr "ਸਕੈਨ ਰੈਜ਼ੋਲੇਸ਼ਨ:"
+
+#. TEXT_SETUP_PRINTER_LINEART_RES
+msgid "lineart [dpi]"
+msgstr "ਲੀਨੀਅਰਟ [dpi]"
+
+#. TEXT_SETUP_PRINTER_GRAYSCALE_RES
+msgid "grayscale [dpi]"
+msgstr "ਗਰੇ-ਸਕੇਲ [dpi]"
+
+#. TEXT_SETUP_PRINTER_COLOR_RES
+msgid "color [dpi]"
+msgstr "ਕਲਰ [dpi]"
+
+#. TEXT_SETUP_PRINTER_PAPER_GEOMETRIE
+msgid "Paper geometrie:"
+msgstr "ਪੇਪਰ ਜੁਮੈਟਰੀ:"
+
+#. TEXT_SETUP_PRINTER_WIDTH
+msgid "width"
+msgstr "ਚੌੜਾਈ"
+
+#. TEXT_SETUP_PRINTER_HEIGHT
+msgid "height"
+msgstr "ਉਚਾਈ"
+
+#. TEXT_SETUP_PRINTER_LEFT
+msgid "left offset"
+msgstr "ਖੱਬਾ ਆਫਸੈੱਟ"
+
+#. TEXT_SETUP_PRINTER_BOTTOM
+msgid "bottom offset"
+msgstr "ਤਲ ਆਫਸੈੱਟ"
+
+#. TEXT_SETUP_PRINTER_GAMMA_CORRECTION
+msgid "Printer gamma:"
+msgstr "ਪਰਿੰਟਰ ਗਾਮਾ:"
+
+#. TEXT_SETUP_PRINTER_GAMMA
+msgid "common value"
+msgstr "ਆਮ ਮੁੱਲ"
+
+#. TEXT_SETUP_PRINTER_GAMMA_RED
+msgid "red"
+msgstr "ਲਾਲ"
+
+#. TEXT_SETUP_PRINTER_GAMMA_GREEN
+msgid "green"
+msgstr "ਹਰਾ"
+
+#. TEXT_SETUP_PRINTER_GAMMA_BLUE
+msgid "blue"
+msgstr "ਨੀਲਾ"
+
+#. TEXT_SETUP_PRINTER_EMBED_CSA
+msgid "Embed scanner ICM profile as CSA"
+msgstr "ਇੰਬੈੱਡ ਸਕੈਨਰ ICM ਪਰੋਫਾਇਲ CSA ਵਾਂਗ"
+
+#. TEXT_SETUP_PRINTER_EMBED_CRD
+msgid "Embed printer ICM profile as CRD"
+msgstr "ਇੰਬੈੱਡ ਪਰਿੰਟਰ ICM ਪਰੋਫਾਇਲ CRD ਵਾਂਗ"
+
+#. TEXT_SETUP_PRINTER_CMS_BPC
+msgid "Apply black point compensation"
+msgstr "ਕਾਲਾ ਪੁਆਇੰਟ ਕੰਪਨਸੇਸ਼ਨ ਲਾਗੂ ਕਰੋ"
+
+#. TEXT_SETUP_PRINTER_PS_FLATEDECODED
+msgid "Create zlib compressed postscript image (PS level 3) for printing"
+msgstr "ਪਰਿੰਟਿੰਗ ਲਈ zlib ਕੰਪਰੈੱਸਡ ਪੋਸਟਸਕ੍ਰਿਪਟ ਚਿੱਤਰ (PS ਲੈਵਲ 3) ਬਣਾਓ"
+
+#. TEXT_SETUP_TMP_PATH
+msgid "Temporary directory"
+msgstr "ਆਰਜ਼ੀ ਡਾਇਰੈਕਟਰੀ"
+
+#. TEXT_SETUP_IMAGE_PERMISSION
+msgid "Image-file permissions"
+msgstr "ਚਿੱਤਰ-ਫਾਇਲ ਅਧਿਕਾਰ"
+
+#. TEXT_SETUP_DIR_PERMISSION
+msgid "Directory permissions"
+msgstr "ਡਾਇਰੈਕਟਰੀ ਅਧਿਕਾਰ"
+
+#. TEXT_SETUP_JPEG_QUALITY
+msgid "JPEG image quality"
+msgstr "JPEG ਚਿੱਤਰ ਕੁਆਲਟੀ"
+
+#. TEXT_SETUP_PNG_COMPRESSION
+msgid "PNG image compression"
+msgstr "PNG ਚਿੱਤਰ ਕੰਪਰੈਸ਼ਨ"
+
+#. TEXT_SETUP_FILENAME_COUNTER_LEN
+msgid "Filename counter length"
+msgstr "ਫਾਇਲ-ਨਾਂ ਕਾਊਂਟਰ ਲੰਬਾਈ"
+
+#. TEXT_SETUP_TIFF_ZIP_COMPRESSION
+msgid "TIFF zip compression rate"
+msgstr "TIFF ਜ਼ਿਪ ਕੰਪਰੈਸ਼ਨ ਰੇਟ"
+
+#. TEXT_SETUP_TIFF_COMPRESSION_16
+msgid "TIFF 16 bit image compression"
+msgstr "TIFF 16 ਬਿੱਟ ਚਿੱਤਰ ਕੰਪਰੈਸ਼ਨ"
+
+#. TEXT_SETUP_TIFF_COMPRESSION_8
+msgid "TIFF 8 bit image compression"
+msgstr "TIFF 8 ਬਿੱਟ ਚਿੱਤਰ ਕੰਪਰੈਸ਼ਨ"
+
+#. TEXT_SETUP_TIFF_COMPRESSION_1
+msgid "TIFF lineart image compression"
+msgstr "TIFF ਲੀਨੀਅਰਟ ਚਿੱਤਰ ਕੰਪਰੈਸ਼ਨ"
+
+#. TEXT_SETUP_SHOW_RANGE_MODE
+msgid "Show range as:"
+msgstr "ਰੇਜ਼ ਇੰਝ ਵੇਖੋ:"
+
+#. TEXT_SETUP_PREVIEW_OVERSAMPLING
+msgid "Preview oversampling:"
+msgstr "ਝਲਕ ਓਵਰ-ਸੈਂਪਲਿੰਗ:"
+
+#. TEXT_SETUP_PREVIEW_GAMMA
+msgid "Preview gamma:"
+msgstr "ਝਲਕ ਗਾਮਾ:"
+
+#. TEXT_SETUP_PREVIEW_GAMMA_RED
+msgid "Preview gamma red:"
+msgstr "ਝਲਕ ਗਾਮਾ ਲਾਲ:"
+
+#. TEXT_SETUP_PREVIEW_GAMMA_GREEN
+msgid "Preview gamma green:"
+msgstr "ਝਲਕ ਗਾਮਾ ਹਰਾ:"
+
+#. TEXT_SETUP_PREVIEW_GAMMA_BLUE
+msgid "Preview gamma blue:"
+msgstr "ਝਲਕ ਗਾਮਾ ਨੀਲਾ:"
+
+#. TEXT_SETUP_LINEART_MODE
+msgid "Threshold option:"
+msgstr "ਥਰੈਸ਼ਹੋਲਡ ਚੋਣ:"
+
+#. TEXT_SETUP_PREVIEW_PIPETTE_RANGE
+msgid "Preview pipette range"
+msgstr "ਝਲਕ ਪਿਪੱਟ (pipette) ਰੇਜ਼"
+
+#. TEXT_SETUP_THRESHOLD_MIN
+msgid "Threshold minimum:"
+msgstr "ਥਰੈਸ਼ਹੋਲਡ ਘੱਟੋ-ਘੱਟ:"
+
+#. TEXT_SETUP_THRESHOLD_MAX
+msgid "Threshold maximum:"
+msgstr "ਥਰੈਸ਼ਹੋਲਡ ਵੱਧੋ-ਵੱਧ:"
+
+#. TEXT_SETUP_THRESHOLD_MUL
+msgid "Threshold multiplier:"
+msgstr "ਥਰੈਸ਼ਹੋਲਡ ਮਲਟੀਪਲਾਇਰ:"
+
+#. TEXT_SETUP_THRESHOLD_OFF
+msgid "Threshold offset:"
+msgstr "ਥਰੈਸ਼ਹੋਲਡ ਆਫਸੈੱਟ"
+
+#. TEXT_SETUP_GRAYSCALE_SCANMODE
+msgid "Name of grayscale scanmode:"
+msgstr "ਗਰੇ-ਸਕੇਲ ਸਕੈਨ-ਮੋਡ ਦਾ ਨਾਂ:"
+
+#. TEXT_SETUP_HELPFILE_VIEWER
+msgid "Helpfile viewer (HTML):"
+msgstr "ਮੱਦਦ-ਫਾਇਲ ਦਰਸ਼ਕ (HTML):"
+
+#. TEXT_SETUP_FAX_RECEIVER_OPTION
+msgid "Receiver option:"
+msgstr "ਰਿਸੀਵਰ ਚੋਣ:"
+
+#. TEXT_SETUP_FAX_POSTSCRIPT_OPT
+msgid "Postscriptfile option:"
+msgstr "ਪੋਸਟਸਕ੍ਰਿਪਟ ਫਾਇਲ ਚੋਣਾਂ:"
+
+#. TEXT_SETUP_FAX_NORMAL_MODE_OPT
+msgid "Normal mode option:"
+msgstr "ਨਾਰਮਲ ਮੋਡ ਚੋਣ:"
+
+#. TEXT_SETUP_FAX_FINE_MODE_OPT
+msgid "Fine mode option:"
+msgstr "ਫਾਇਨ ਮੋਡ ਚੋਣ:"
+
+#. TEXT_SETUP_FAX_PROGRAM_DEFAULTS
+msgid "Set program defaults for:"
+msgstr "ਇਸ ਲਈ ਪਰੋਗਰਾਮ ਡਿਫਾਲਟ ਸੈੱਟ ਕਰੋ:"
+
+#. TEXT_SETUP_FAX_VIEWER
+msgid "Viewer (Postscript):"
+msgstr "ਦਰਸ਼ਕ (ਪੋਸਟ-ਸਕ੍ਰਿਪਟ):"
+
+#. TEXT_SETUP_FAX_WIDTH
+msgid "Width"
+msgstr "ਚੌੜਾਈ"
+
+#. TEXT_SETUP_FAX_HEIGHT
+msgid "Height"
+msgstr "ਉਚਾਈ"
+
+#. TEXT_SETUP_FAX_LEFT
+msgid "Left offset"
+msgstr "ਖੱਬੇ ਆਫਸੈੱਟ"
+
+#. TEXT_SETUP_FAX_BOTTOM
+msgid "Bottom offset"
+msgstr "ਤਲ ਆਫਸੈੱਟ"
+
+#. TEXT_SETUP_FAX_PS_FLATEDECODED
+msgid "Create zlib compressed postscript image (PS level 3) for fax"
+msgstr "ਫੈਕਸ ਲਈ zlib ਕੰਪਰੈੱਸਡ ਪੋਸਟ-ਸਕ੍ਰਿਪਟ ਚਿੱਤਰ (PS ਲੈਵਲ 3) ਬਣਾਓ"
+
+#. TEXT_SETUP_SMTP_SERVER
+msgid "SMTP server:"
+msgstr "SMTP ਸਰਵਰ:"
+
+#. TEXT_SETUP_SMTP_PORT
+msgid "SMTP port:"
+msgstr "SMTP ਪੋਰਟ:"
+
+#. TEXT_SETUP_EMAIL_FROM
+msgid "From:"
+msgstr "ਵੱਲੋਂ:"
+
+#. TEXT_SETUP_EMAIL_REPLY_TO
+msgid "Reply to:"
+msgstr "ਜਵਾਬ:"
+
+#. TEXT_SETUP_EMAIL_AUTHENTICATION
+msgid "E-mail authentication"
+msgstr "ਈ-ਮੇਲ ਪਰਮਾਣਕਿਤਾ"
+
+#. TEXT_SETUP_EMAIL_AUTH_USER
+msgid "User:"
+msgstr "ਯੂਜ਼ਰ:"
+
+#. TEXT_SETUP_EMAIL_AUTH_PASS
+msgid "Password:"
+msgstr "ਪਾਸਵਰਡ:"
+
+#. TEXT_SETUP_POP3_SERVER
+msgid "POP3 server:"
+msgstr "POP3 ਸਰਵਰ:"
+
+#. TEXT_SETUP_POP3_PORT
+msgid "POP3 port:"
+msgstr "POP3 ਪੋਰਟ:"
+
+#. TEXT_SETUP_OCR_COMMAND
+msgid "OCR Command:"
+msgstr "OCR ਕਮਾਂਡ:"
+
+#. TEXT_SETUP_OCR_INPUTFILE_OPT
+msgid "Inputfile option:"
+msgstr "ਇੰਪੁੱਟ ਫਾਇਲ ਚੋਣ:"
+
+#. TEXT_SETUP_OCR_OUTPUTFILE_OPT
+msgid "Outputfile option:"
+msgstr "ਆਉਟਪੁੱਟ ਫਾਇਲ ਚੋਣ:"
+
+#. TEXT_SETUP_OCR_USE_GUI_PIPE_OPT
+msgid "Use GUI progress pipe:"
+msgstr "GUI ਤਰੱਕੀ ਪਾਈਪ ਵਰਤੋਂ:"
+
+#. TEXT_SETUP_OCR_OUTFD_OPT
+msgid "GUI output-fd option:"
+msgstr "GUI output-fd ਚੋਣ:"
+
+#. TEXT_SETUP_OCR_PROGRESS_KEYWORD
+msgid "Progress keyword:"
+msgstr "ਤਰੱਕੀ ਸ਼ਬਦ:"
+
+#. TEXT_SETUP_PERMISSION_USER
+msgid "user"
+msgstr "ਯੂਜ਼ਰ"
+
+#. TEXT_SETUP_PERMISSION_GROUP
+msgid "group"
+msgstr "ਗਰੁੱਪ"
+
+#. TEXT_SETUP_PERMISSION_ALL
+msgid "all"
+msgstr "ਸਭ"
+
+#. TEXT_SETUP_SCANNER_DEFAULT_COLOR_ICM_PROFILE
+#. DESC_SCANNER_DEFAULT_COLOR_ICM_PROFILE
+msgid "Scanner default color ICM-profile"
+msgstr "ਸਕੈਨਰ ਡਿਫਾਲਟ ਕਲਰ ICM-ਪਰੋਫਾਇਲ"
+
+#. TEXT_SETUP_SCANNER_DEFAULT_GRAY_ICM_PROFILE
+#. DESC_SCANNER_DEFAULT_GRAY_ICM_PROFILE
+msgid "Scanner default gray ICM-profile"
+msgstr "ਸਕੈਨਰ ਡਿਫਾਲਟ ਗਰੇ ICM-ਪਰੋਫਾਇਲ"
+
+#. TEXT_SETUP_DISPLAY_ICM_PROFILE
+#. DESC_DISPLAY_ICM_PROFILE
+msgid "Display ICM-profile"
+msgstr "ਡਿਸਪਲੇਅ ICM-ਪਰੋਫਾਇਲ"
+
+#. TEXT_SETUP_CUSTOM_PROOFING_ICM_PROFILE
+#. DESC_CUSTOM_PROOFING_ICM_PROFILE
+msgid "Custom proofing ICM-profile"
+msgstr "ਕਸਟਮ ਪਰੂਫ਼ਿੰਗ ICM-ਪਰੋਫਾਇਲ"
+
+#. TEXT_SETUP_WORKING_COLOR_SPACE_ICM_PROFILE
+#. DESC_WORKING_COLOR_SPACE_ICM_PROFILE
+msgid "Working color space ICM-profile"
+msgstr "ਵਰਕਿੰਗ ਕਲਰ ਸਪੇਸ ICM-ਪਰੋਫਾਇਲ"
+
+#. TEXT_SETUP_PRINTER_ICM_PROFILE
+#. DESC_PRINTER_ICM_PROFILE
+msgid "Printer ICM-profile"
+msgstr "ਪਰਿੰਟਰ ICM-ਪਰੋਫਾਇਲ"
+
+msgid "new media"
+msgstr "ਨਵਾਂ ਮੀਡਿਆ"
+
+#. NOTEBOOK_SAVING_OPTIONS
+#. MENU_ITEM_SAVE
+msgid "Save"
+msgstr "ਸੰਭਾਲੋ"
+
+#. NOTEBOOK_FILETYPE_OPTIONS
+msgid "Filetype"
+msgstr "ਫਾਇਲ ਟਾਈਪ"
+
+#. NOTEBOOK_COPY_OPTIONS
+#. MENU_ITEM_COPY
+msgid "Copy"
+msgstr "ਕਾਪੀ"
+
+#. NOTEBOOK_FAX_OPTIONS
+#. MENU_ITEM_FAX
+msgid "Fax"
+msgstr "ਫੈਕਸ"
+
+#. NOTEBOOK_EMAIL_OPTIONS
+#. MENU_ITEM_EMAIL
+msgid "E-mail"
+msgstr "ਈ-ਮੇਲ"
+
+#. NOTEBOOK_OCR_OPTIONS
+msgid "OCR"
+msgstr "OCR"
+
+#. NOTEBOOK_DISPLAY_OPTIONS
+msgid "Display"
+msgstr "ਡਿਸਪਲੇਅ"
+
+#. NOTEBOOK_ENHANCE_OPTIONS
+msgid "Enhancement"
+msgstr "ਇੰਹਾਂਸਮੈਂਟ"
+
+#. MENU_ITEM_MULTIPAGE
+msgid "Multipage"
+msgstr "ਮਲਟੀ-ਪੇਜ਼"
+
+#. MENU_ITEM_SHOW_TOOLTIPS
+msgid "Show tooltips"
+msgstr "ਟੂਲ-ਟਿੱਪ ਵੇਖੋ"
+
+#. MENU_ITEM_SHOW_PREVIEW
+msgid "Show preview"
+msgstr "ਝਲਕ ਵੇਖੋ"
+
+#. MENU_ITEM_SHOW_HISTOGRAM
+msgid "Show histogram"
+msgstr "ਹਿਸਟੋਗਰਾਮ ਵੇਖੋ"
+
+#. MENU_ITEM_SHOW_GAMMA
+msgid "Show gamma curve"
+msgstr "ਗਾਮਾ ਕਰਵ ਵੇਖੋ"
+
+#. MENU_ITEM_SHOW_BATCH_SCAN
+msgid "Show batch scan"
+msgstr "ਬੈਂਚ ਸਕੈਨ ਵੇਖੋ"
+
+#. MENU_ITEM_SHOW_STANDARDOPTIONS
+msgid "Show standard options"
+msgstr "ਸਟੈਂਡਰਡ ਚੋਣਾਂ ਵੇਖੋ"
+
+#. MENU_ITEM_SHOW_ADVANCEDOPTIONS
+msgid "Show advanced options"
+msgstr "ਤਕਨੀਕੀ ਚੋਣ ਵੇਖੋ"
+
+#. MENU_ITEM_SETUP
+msgid "Setup"
+msgstr "ਸੈੱਟਅੱਪ"
+
+#. MENU_ITEM_LENGTH_UNIT
+msgid "Length unit"
+msgstr "ਲੰਬਾਈ ਯੂਨਿਟ"
+
+#. SUBMENU_ITEM_LENGTH_MILLIMETERS
+msgid "millimeters"
+msgstr "ਮਿਲੀਮੀਟਰ"
+
+#. SUBMENU_ITEM_LENGTH_CENTIMETERS
+msgid "centimeters"
+msgstr "ਸੈਂਟੀਮੀਟਰ"
+
+#. SUBMENU_ITEM_LENGTH_INCHES
+msgid "inches"
+msgstr "ਇੰਚ"
+
+#. MENU_ITEM_UPDATE_POLICY
+msgid "Update policy"
+msgstr "ਅੱਪਡੇਟ ਪਾਲਸੀ"
+
+#. SUBMENU_ITEM_POLICY_CONTINUOUS
+msgid "continuous"
+msgstr "ਜਾਰੀ ਰੱਖੋ"
+
+#. SUBMENU_ITEM_POLICY_DISCONTINU
+msgid "discontinuous"
+msgstr "ਨਾ ਜਾਰੀ ਰੱਖੋ"
+
+#. SUBMENU_ITEM_POLICY_DELAYED
+msgid "delayed"
+msgstr "ਦੇਰੀ"
+
+#. MENU_ITEM_SHOW_RESOLUTIONLIST
+msgid "Show resolution list"
+msgstr "ਰੈਜ਼ੋਲੇਸ਼ਨ ਲਿਸਟ ਵੇਖੋ"
+
+#. MENU_ITEM_PAGE_ROTATE
+msgid "Rotate postscript"
+msgstr "ਪੋਸਟ-ਸਕ੍ਰਿਪਟ ਘੁੰਮਾਓ"
+
+#. MENU_ITEM_ENABLE_COLOR_MANAGEMENT
+#. MENU_ITEM_CMS_ENABLE_COLOR_MANAGEMENT
+msgid "Enable color management"
+msgstr "ਰੰਗ ਪਰਬੰਧ ਯੋਗ ਕਰੋ"
+
+#. MENU_ITEM_EDIT_MEDIUM_DEF
+msgid "Edit medium definition"
+msgstr "ਮੀਡਿਅਮ ਪ੍ਰੀਭਾਸ਼ਾ ਸੋਧ"
+
+#. MENU_ITEM_SAVE_DEVICE_SETTINGS
+msgid "Save device settings"
+msgstr "ਜੰਤਰ ਸੈਟਿੰਗ ਸੰਭਾਲੋ"
+
+#. MENU_ITEM_LOAD_DEVICE_SETTINGS
+msgid "Load device settings"
+msgstr "ਜੰਤਰ ਸੈਟਿੰਗ ਲੋਡ ਕਰੋ"
+
+#. MENU_ITEM_CHANGE_WORKING_DIR
+msgid "Change directory"
+msgstr "ਡਾਇਰੈਕਟਰੀ ਬਦਲੋ"
+
+#. MENU_ITEM_XSANE_EULA
+msgid "Show EULA"
+msgstr "EULA ਵੇਖੋ"
+
+#. MENU_ITEM_XSANE_GPL
+msgid "Show license (GPL)"
+msgstr "ਲਾਈਸੈਂਸ ਵੇਖੋ (GPL)"
+
+#. MENU_ITEM_XSANE_DOC
+msgid "XSane doc"
+msgstr "XSane ਦਸਤਾਵੇਜ਼"
+
+#. MENU_ITEM_BACKEND_DOC
+msgid "Backend doc"
+msgstr "ਬੈਕਐਂਡ ਦਸਤਾਵੇਜ਼"
+
+#. MENU_ITEM_AVAILABLE_BACKENDS
+msgid "Available backends"
+msgstr "ਉਪਲੱਬਧ ਬੈਕਐਂਡ"
+
+#. MENU_ITEM_SCANTIPS
+msgid "Scantips"
+msgstr "ਸਕੈਨ-ਟਿੱਪ"
+
+#. MENU_ITEM_PROBLEMS
+msgid "Problems?"
+msgstr "ਸਮੱਸਿਆ?"
+
+#. MENU_ITEM_CMS_PROOFING
+msgid "Proofing"
+msgstr "ਪਰੂਫ਼ਿੰਗ"
+
+#. SUBMENU_ITEM_CMS_PROOF_OFF
+msgid "no proofing (Display)"
+msgstr "ਕੋਈ ਪਰੂਫਿੰਗ ਨਹੀਂ (ਡਿਸਪਲੇਅ)"
+
+#. SUBMENU_ITEM_CMS_PROOF_PRINTER
+msgid "Proof printer"
+msgstr "ਪਰਿੰਟਰ ਪਰੂਫਿੰਗ"
+
+#. SUBMENU_ITEM_CMS_PROOF_CUSTOM
+msgid "Proof custom device"
+msgstr "ਕਸਟਮ ਜੰਤਰ ਪਰੂਫ਼"
+
+#. MENU_ITEM_CMS_RENDERING_INTENT
+msgid "Rendering intent"
+msgstr "ਰੈਂਡਰਿੰਗ ਇੰਟੈਂਟ"
+
+#. MENU_ITEM_CMS_PROOFING_INTENT
+msgid "Proofing rendering intent"
+msgstr "ਪਰੂਫ਼ਿੰਗ ਰੈਂਡਰਿੰਗ ਇੰਟੈਟ"
+
+#. SUBMENU_ITEM_CMS_INTENT_PERCEPTUAL
+msgid "Perceptual"
+msgstr "ਪਰਸੀਪਟੁਲ"
+
+#. SUBMENU_ITEM_CMS_INTENT_RELATIVE_COLORIMETRIC
+msgid "Relative colorimetric"
+msgstr "ਸੰਬੰਧਿਤ ਕਲੋਰੀਮੈਂਟ੍ਰਿਕ"
+
+#. SUBMENU_ITEM_CMS_INTENT_ABSOLUTE_COLORIMETRIC
+msgid "Absolute colorimentric"
+msgstr "ਅਸਲ ਕਲੋਰੀਮੈਂਟ੍ਰਿਕ"
+
+#. SUBMENU_ITEM_CMS_INTENT_SATURATION
+msgid "Saturation"
+msgstr "ਸੰਤ੍ਰਿਪਤ"
+
+#. MENU_ITEM_CMS_GAMUT_CHECK
+msgid "Gamut check"
+msgstr "Gamut ਚੈੱਕ"
+
+#. MENU_ITEM_CMS_GAMUT_ALARM_COLOR
+msgid "Gamut alarm color"
+msgstr "Gamut ਅਲਾਰਮ ਰੰਗ"
+
+#. SUBMENU_ITEM_CMS_COLOR_BLACK
+msgid "Black"
+msgstr "ਕਾਲਾ"
+
+#. SUBMENU_ITEM_CMS_COLOR_GRAY
+msgid "Gray"
+msgstr "ਸਲੇਟੀ"
+
+#. SUBMENU_ITEM_CMS_COLOR_WHITE
+msgid "White"
+msgstr "ਚਿੱਟਾ"
+
+#. SUBMENU_ITEM_CMS_COLOR_RED
+msgid "Red"
+msgstr "ਲਾਲ"
+
+#. SUBMENU_ITEM_CMS_COLOR_GREEN
+msgid "Green"
+msgstr "ਹਰਾ"
+
+#. SUBMENU_ITEM_CMS_COLOR_BLUE
+msgid "Blue"
+msgstr "ਨੀਲਾ"
+
+#. MENU_ITEM_COUNTER_LEN_INACTIVE
+msgid "inactive"
+msgstr "ਇਨ-ਐਕਟਿਵ"
+
+#. MENU_ITEM_TIFF_COMP_NONE
+msgid "no compression"
+msgstr "ਕੰਪਰੈਸ਼ਨ ਨਹੀਂ"
+
+#. MENU_ITEM_TIFF_COMP_CCITTRLE
+msgid "CCITT 1D Huffman compression"
+msgstr "CCITT 1D Huffman ਕੰਪਰੈਸ਼ਨ"
+
+#. MENU_ITEM_TIFF_COMP_CCITFAX3
+msgid "CCITT Group 3 fax compression"
+msgstr "CCITT ਗਰੁੱਪ 3 ਫੈਕਸ ਕੰਪਰੈਸ਼ਨ"
+
+#. MENU_ITEM_TIFF_COMP_CCITFAX4
+msgid "CCITT Group 4 fax compression"
+msgstr "CCITT ਗਰੁੱਪ 4 ਫੈਕਸ ਕੰਪਰੈਸ਼ਨ"
+
+#. MENU_ITEM_TIFF_COMP_JPEG
+msgid "JPEG DCT compression"
+msgstr "JPEG DCT ਕੰਪਰੈਸ਼ਨ"
+
+#. MENU_ITEM_TIFF_COMP_PACKBITS
+msgid "pack bits"
+msgstr "ਪੈਕ ਬਿੱਟ"
+
+#. MENU_ITEM_TIFF_COMP_DEFLATE
+msgid "deflate"
+msgstr "deflate"
+
+#. MENU_ITEM_RANGE_SCALE
+msgid "Slider (Scale)"
+msgstr "ਸਲਾਇਡਰ (ਸਕੇਲ)"
+
+#. MENU_ITEM_RANGE_SCROLLBAR
+msgid "Slider (Scrollbar)"
+msgstr "ਸਲਾਇਡਰ (ਸਕਰੋਲਬਾਰ)"
+
+#. MENU_ITEM_RANGE_SPINBUTTON
+msgid "Spinbutton"
+msgstr "ਸਪਿੰਨ-ਬਟਨ"
+
+#. MENU_ITEM_RANGE_SCALE_SPIN
+msgid "Scale and Spinbutton"
+msgstr "ਸਕੇਲ ਅਤੇ ਸਪਿੰਨ ਬਟਨ"
+
+#. MENU_ITEM_RANGE_SCROLL_SPIN
+msgid "Scrollbar and Spinbutton"
+msgstr "ਸਕਰੋਲ-ਬਾਰ ਅਤੇ ਸਪਿਨ-ਬਟਨ"
+
+#. MENU_ITEM_LINEART_MODE_STANDARD
+msgid "Standard options window (lineart)"
+msgstr "ਸਟੈਂਡਰਡ ਚੋਣ ਵਿੰਡੋ (ਲੀਨੀਅਰਟ)"
+
+#. MENU_ITEM_LINEART_MODE_XSANE
+msgid "XSane main window (lineart)"
+msgstr "XSane ਮੇਨ ਵਿੰਡੋ (ਲੀਨੀਅਰਟ)"
+
+#. MENU_ITEM_LINEART_MODE_GRAY
+msgid "XSane main window (grayscale->lineart)"
+msgstr "XSane ਮੇਨ ਵਿੰਡੋ (grayscale->lineart)"
+
+#. MENU_ITEM_SELECTION_NONE
+msgid "(none)"
+msgstr "(ਕੋਈ ਨਹੀਂ)"
+
+#. MENU_ITEM_FILETYPE_BY_EXT
+msgid "by ext"
+msgstr "ext ਨਾਲ"
+
+#. MENU_ITEM_PRESET_AREA_ADD_SEL
+msgid "Add selection to list"
+msgstr "ਚੋਣ ਲਿਸਟ 'ਚ ਸ਼ਾਮਲ"
+
+#. MENU_ITEM_MEDIUM_ADD
+msgid "Add medium definition"
+msgstr "ਮੀਡਿਅਮ ਪਰਿਭਾਸ਼ਾ ਸ਼ਾਮਲ"
+
+#. MENU_ITEM_RENAME
+msgid "Rename item"
+msgstr "ਆਈਟਮ ਨਾਂ ਬਦਲੋ"
+
+#. MENU_ITEM_DELETE
+msgid "Delete item"
+msgstr "ਆਈਟਮ ਹਟਾਓ"
+
+#. MENU_ITEM_MOVE_UP
+msgid "Move item up"
+msgstr "ਆਈਟਮ ਉੱਤੇ ਭੇਜੋ"
+
+#. MENU_ITEM_MOVE_DWN
+msgid "Move item down"
+msgstr "ਆਈਟਮ ਹੇਠਾਂ ਭੇਜੋ"
+
+#. MENU_ITEM_AUTH_NONE
+msgid "no authentication"
+msgstr "ਕੋਈ ਪਰਮਾਣਕਿਤਾ ਨਹੀਂ"
+
+#. MENU_ITEM_AUTH_POP3
+msgid "POP3 before SMTP"
+msgstr "SMTP ਤੋਂ ਪਹਿਲਾਂ POP3"
+
+#. MENU_ITEM_AUTH_ASMTP_PLAIN
+msgid "ASMTP Plain"
+msgstr "ASMTP ਪਲੇਨ"
+
+#. MENU_ITEM_AUTH_ASMTP_LOGIN
+msgid "ASMTP Login"
+msgstr "ASMTP ਲਾਗਇਨ"
+
+#. MENU_ITEM_AUTH_ASMTP_CRAM_MD5
+msgid "ASMTP CRAM-MD5"
+msgstr "ASMTP CRAM-MD5"
+
+#. MENU_ITEM_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE
+msgid "Embed scanner ICM profile"
+msgstr "ਇੰਬੈੱਡ ਸਕੈਨਰ ICM ਪਰੋਫਾਇਲ"
+
+#. MENU_ITEM_CMS_FUNCTION_CONVERT_TO_SRGB
+msgid "Convert to sRGB"
+msgstr "sRGB ਲਈ ਬਦਲਿਆ ਜਾ ਰਿਹਾ ਹੈ"
+
+#. MENU_ITEM_FUNCTION_CONVERT_TO_WORKING_CS
+msgid "Convert to working color space"
+msgstr "ਵਰਕਿੰਗ ਕਲਰ ਸਪੇਸ ਬਦਲੀ ਜਾ ਰਹੀ ਹੈ"
+
+#. PROGRESS_SCANNING
+msgid "Scanning"
+msgstr "ਸਕੈਨ ਕੀਤਾ ਰਿਹਾ ਹੈ"
+
+#. PROGRESS_RECEIVING_FRAME_DATA
+#, c-format
+msgid "Receiving %s data"
+msgstr "%s ਡਾਟਾ ਲਿਆ ਜਾ ਰਿਹਾ ਹੈ"
+
+#. PROGRESS_PAGE
+msgid "page"
+msgstr "ਪੇਜ਼"
+
+#. PROGRESS_TRANSFERRING_DATA
+msgid "Transferring image"
+msgstr "ਚਿੱਤਰ ਟਰਾਂਸਫਰ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ"
+
+#. PROGRESS_ROTATING_DATA
+msgid "Rotating image"
+msgstr "ਚਿੱਤਰ ਘੁੰਮਾਇਆ ਜਾ ਰਿਹਾ ਹੈ"
+
+#. PROGRESS_MIRRORING_DATA
+msgid "Mirroring image"
+msgstr "ਚਿੱਤਰ ਮਿੱਰਰ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ"
+
+#. PROGRESS_PACKING_DATA
+msgid "Packing image"
+msgstr "ਚਿੱਤਰ ਪੈਕ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ"
+
+#. PROGRESS_CONVERTING_DATA
+msgid "Converting image"
+msgstr "ਚਿੱਤਰ ਬਦਲਿਆ ਜਾ ਰਿਹਾ ਹੈ"
+
+#. PROGRESS_SAVING_DATA
+msgid "Saving image"
+msgstr "ਚਿੱਤਰ ਸੰਭਾਲਿਆ ਜਾ ਰਿਹਾ ਹੈ"
+
+#. PROGRESS_CLONING_DATA
+msgid "Cloning image"
+msgstr "ਚਿੱਤਰ ਕਲੋਨ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ"
+
+#. PROGRESS_SCALING_DATA
+msgid "Scaling image"
+msgstr "ਚਿੱਤਰ ਸਕੇਲ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ"
+
+#. PROGRESS_DESPECKLING_DATA
+msgid "Despeckling image"
+msgstr "ਚਿੱਤਰ ਡਿਸਪਿਕਲਿੰਗ"
+
+#. PROGRESS_BLURING_DATA
+msgid "Bluring image"
+msgstr "ਚਿੱਤਰ ਬਲੁਰਿੰਗ"
+
+#. PROGRESS_OCR
+msgid "OCR in progress"
+msgstr "OCR ਜਾਰੀ ਹੈ"
+
+#. PROGRESS_ICM_CONVERSION
+msgid "converting colors"
+msgstr "ਰੰਗ ਬਦਲੇ ਜਾ ਰਹੇ ਹਨ"
+
+#. DESC_SCAN_START
+msgid "Start scan <Ctrl-Enter>"
+msgstr "ਸਕੈਨ ਚਾਲੂ ਕਰੋ <Ctrl-Enter>"
+
+#. DESC_SCAN_CANCEL
+msgid "Cancel scan <ESC>"
+msgstr "ਸਕੈਲ ਰੱਦ ਕਰੋ <ESC>"
+
+#. DESC_PREVIEW_ACQUIRE
+msgid "Acquire preview scan <Alt-p>"
+msgstr "ਸਕੈਨ ਝਲਕ ਲਵੋ <Alt-p>"
+
+#. DESC_PREVIEW_CANCEL
+msgid "Cancel preview scan <Alt-ESC>"
+msgstr "ਸਕੈਨ ਝਲਕ ਰੱਦ ਕਰੋ <Alt-ESC>"
+
+#. DESC_XSANE_MODE
+msgid ""
+"viewer-<Ctrl-v>, save-<Ctrl-s>, photocopy-<Ctrl-c>, multipage-<Ctrl-m>, fax-"
+"<Ctrl-f> or e-mail-<Ctrl-e>"
+msgstr ""
+"viewer-<Ctrl-v>, save-<Ctrl-s>, photocopy-<Ctrl-c>, multipage-<Ctrl-m>, fax-"
+"<Ctrl-f> or e-mail-<Ctrl-e>"
+
+#. DESC_XSANE_MEDIUM
+msgid ""
+"Select source medium type.\n"
+"To rename, reorder or delete an entry use context menu (alternate mouse "
+"button).\n"
+"To create a medium enable the option edit medium definition in preferences "
+"menu."
+msgstr ""
+"ਸਰੋਤ ਮੀਡਿਅਮ ਟਾਈਪ ਚੁਣੋ।\n"
+"ਇੱਕ ਐਂਟਰੀ ਦਾ ਨਾਂ ਬਦਲਣ, ਰੀ-ਆਰਡਰ ਕਰਨ ਜਾਂ ਹਟਾਉਣ ਵਾਸਤੇ ਮੇਨੂ ਵਰਤੋਂ (ਬਦਲਵੇਂ ਰੂਪ ਵਿੱਚ ਮਾਊਂਸ ਬਟਨ)"
+"।\n"
+"ਇੱਕ ਮੀਡਿਅਮ ਬਣਾਉਣ ਵਾਸਤੇ ਪਸੰਦ ਮੇਨੂ ਵਿੱਚ ਮੀਡਿਅਮ ਪਰਿਭਾਸ਼ਾ ਸੋਧ ਚੋਣ ਯੋਗ ਕਰੋ।"
+
+#. DESC_FILENAME_COUNTER_STEP
+msgid "Value that is added to filenamecounter after scan"
+msgstr "ਸਕੈਨ ਕਰਨ ਬਾਅਦ ਫਾਇਲ-ਨਾਂ-ਕਾਊਂਟਰ ਲਈ ਜੋੜਨ ਵਾਸਤੇ ਮੁੱਲ"
+
+#. DESC_BROWSE_FILENAME
+msgid "Browse for image filename"
+msgstr "ਚਿੱਤਰ ਫਾਇਲ ਨਾਂ ਲਈ ਝਲਕ"
+
+#. DESC_FILENAME
+msgid "Filename for scanned image"
+msgstr "ਸਕੈਨ ਕੀਤੇ ਚਿੱਤਰਾਂ ਲਈ ਫਾਇਲ ਨਾਂ"
+
+#. DESC_FILETYPE
+msgid ""
+"Type of image format, the suitable filename extension is automatically added "
+"to the filename"
+msgstr "ਚਿੱਤਰ ਫਾਇਲ ਕਿਸਮ, ਫਾਇਲ ਨਾਂ ਵਿੱਚ ਫਾਇਲ-ਨਾਂ ਐਕਸ਼ਟੇਸ਼ਨ ਨੂੰ ਆਟੋਮੈਟਿਕ ਹੀ ਜੋੜ ਦਿੱਤਾ ਜਾਵੇਗਾ"
+
+#. DESC_FAXPROJECT
+msgid "Enter fax project directory name"
+msgstr "ਫੈਕਸ ਪ੍ਰੋਜੈਕਟ ਡਾਇਰੈਕਟਰੀ ਨਾਂ ਦਿਓ"
+
+#. DESC_FAXPAGENAME
+msgid "Enter new name for faxpage"
+msgstr "ਫੈਕਸ-ਸਫ਼ੇ ਲਈ ਨਵਾਂ ਨਾਂ ਦਿਓ ਜੀ"
+
+#. DESC_FAXRECEIVER
+msgid "Enter receiver phone number or address"
+msgstr "ਰਿਸੀਵਰ ਫੋਨ ਨਾਂ ਜਾਂ ਐਡਰੈੱਸ ਦਿਓ"
+
+#. DESC_FAX_PROJECT_BROWSE
+msgid "Browse for fax project directory"
+msgstr "ਫੈਕਸ ਪ੍ਰੋਜੈਕਟ ਡਾਇਰੈਕਟਰੀ ਲਈ ਝਲਕ"
+
+#. DESC_EMAIL_PROJECT
+msgid "Enter e-mail project directory name"
+msgstr "ਈਮੇਲ ਪ੍ਰੋਜੈਕਟ ਡਾਇਰੈਕਟਰੀ ਨਾਂ ਦਿਓ"
+
+#. DESC_EMAIL_IMAGENAME
+msgid "Enter new name for e-mail image"
+msgstr "ਈਮੇਲ ਚਿੱਤਰ ਲਈ ਨਵਾਂ ਨਾਂ ਦਿਓ"
+
+#. DESC_EMAIL_RECEIVER
+msgid "Enter e-mail address"
+msgstr "ਈਮੇਲ ਐਡਰੈੱਸ ਦਿਓ"
+
+#. DESC_EMAIL_PROJECT_BROWSE
+msgid "Browse for email project directory"
+msgstr "ਈਮੇਮ ਪ੍ਰੋਜੈਕਟ ਡਾਇਰੈਕਟਰੀ ਲਈ ਝਲਕ"
+
+#. DESC_EMAIL_SUBJECT
+msgid "Enter subject of e-mail"
+msgstr "ਈਮੇਲ ਲਈ ਵਿਸ਼ਾ ਦਿਓ ਜੀ"
+
+#. DESC_EMAIL_FILETYPE
+msgid "Select filetype for image attachments"
+msgstr "ਚਿੱਤਰ ਅਟੈਂਚਮਿੰਟ ਲਈ ਫਾਇਲ ਕਿਸਮ ਚੁਣੋ"
+
+#. DESC_MULTIPAGE_PROJECT
+msgid "Enter multipage project directory name"
+msgstr "ਮਲਟੀ-ਪੇਜ਼ ਪ੍ਰੋਜੈਕਟ ਡਾਇਰੈਕਟਰੀ ਨਾਂ ਦਿਓ"
+
+#. DESC_MULTIPAGE_PROJECT_BROWSE
+msgid "Browse for multipage project directory"
+msgstr "ਮਲਟੀ-ਪੇਜ਼ ਪ੍ਰੋਜੈਕਟ ਡਾਇਰੈਕਟਰੀ ਲਈ ਝਲਕ"
+
+#. DESC_MULTIPAGE_FILETYPE
+msgid "Select filetype for multipage file"
+msgstr "ਮਲਟੀ-ਪੇਜ਼ ਫਾਇਲ ਲਈ ਫਾਇਲ-ਕਿਸਮ ਚੁਣੋ"
+
+#. DESC_PRESET_AREA_RENAME
+msgid "Enter new name for preset area"
+msgstr "ਪ੍ਰੀ-ਸੈੱਟ ਏਰੀਏ ਲਈ ਨਵਾਂ ਨਾਂ ਦਿਓ"
+
+#. DESC_PRESET_AREA_ADD
+msgid "Enter name for new preset area"
+msgstr "ਨਵੇਂ ਪ੍ਰੀ-ਸੈੱਟ ਏਰੀਏ ਲਈ ਨਾਂ ਦਿਓ"
+
+#. DESC_MEDIUM_RENAME
+msgid "Enter new name for medium definition"
+msgstr "ਮੀਡਿਆ ਪ੍ਰੀਭਾਸ਼ਾ ਲਈ ਨਵਾਂ ਨਾਂ ਦਿਓ"
+
+#. DESC_MEDIUM_ADD
+msgid "Enter name for new medium definition"
+msgstr "ਨਵੇਂ ਮੀਡਿਆ ਪ੍ਰੀਭਾਸ਼ਾ ਲਈ ਨਾਂ ਦਿਓ"
+
+#. DESC_PRINTER_SELECT
+msgid "Select printerdefinition <Shift-F1/F2/...>"
+msgstr "ਪਰਿੰਟਰ-ਪ੍ਰੀਭਾਸ਼ਾ ਚੁਣੋ <Shift-F1/F2/...>"
+
+#. DESC_RESOLUTION
+msgid "Set scan resolution"
+msgstr "ਸਕੈਨ ਰੈਜ਼ੋਲੇਸ਼ਨ ਸੈੱਟ ਕਰੋ"
+
+#. DESC_RESOLUTION_X
+msgid "Set scan resolution for x direction"
+msgstr "x ਦਿਸ਼ਾ ਲਈ ਸਕੈਨ ਰੈਜ਼ੋਲੇਸ਼ਨ ਦਿਓ"
+
+#. DESC_RESOLUTION_Y
+msgid "Set scan resolution for y direction"
+msgstr "y ਦਿਸ਼ਾ ਲਈ ਸਕੈਨ ਰੈਜ਼ੋਲੇਸ਼ਨ ਦਿਓ"
+
+#. DESC_ZOOM
+msgid "Set zoomfactor"
+msgstr "ਜ਼ੂਮ-ਫੈਕਟਰ ਦਿਓ"
+
+#. DESC_ZOOM_X
+msgid "Set zoomfactor for x direction"
+msgstr "x ਦਿਸ਼ਾ ਲਈ ਜ਼ੂਮ-ਫੈਕਟਰ ਦਿਓ"
+
+#. DESC_ZOOM_Y
+msgid "Set zoomfactor for y direction"
+msgstr "y ਦਿਸ਼ਾ ਲਈ ਜ਼ੂਮ-ਫੈਕਟਰ ਦਿਓ"
+
+#. DESC_COPY_NUMBER
+msgid "Set number of copies"
+msgstr "ਕਾਪੀਆਂ ਦੀ ਗਿਣਤੀ ਸੈੱਟ ਕਰੋ"
+
+#. DESC_NEGATIVE
+msgid "Negative: Invert colors for scanning negatives <Ctrl-n>"
+msgstr "ਨੈਗਟਿਵ: ਸਕੈਨਿੰਗ ਨੈਗਟਿਵ ਲਈ ਉਲਟ ਰੰਗ <Ctrl-n>"
+
+#. DESC_GAMMA
+msgid "Set gamma value"
+msgstr "ਗਾਮਾ ਮੁੱਲ ਦਿਓ"
+
+#. DESC_GAMMA_R
+msgid "Set gamma value for red component"
+msgstr "ਲਾਲ ਭਾਗ ਲਈ ਗਾਮਾ ਮੁੱਲ ਦਿਓ"
+
+#. DESC_GAMMA_G
+msgid "Set gamma value for green component"
+msgstr "ਹਰੇ ਭਾਗ ਲਈ ਗਾਮਾ ਮੁੱਲ ਦਿਓ"
+
+#. DESC_GAMMA_B
+msgid "Set gamma value for blue component"
+msgstr "ਨੀਲੇ ਭਾਗ ਲਈ ਗਾਮਾ ਮੁੱਲ ਦਿਓ"
+
+#. DESC_BRIGHTNESS
+msgid "Set brightness"
+msgstr "ਚਮਕ ਦਿਓ"
+
+#. DESC_BRIGHTNESS_R
+msgid "Set brightness for red component"
+msgstr "ਲਾਲ ਭਾਗ ਲਈ ਚਮਕ ਦਿਓ"
+
+#. DESC_BRIGHTNESS_G
+msgid "Set brightness for green component"
+msgstr "ਹਰੇ ਭਾਗ ਲਈ ਚਮਕ ਦਿਓ"
+
+#. DESC_BRIGHTNESS_B
+msgid "Set brightness for blue component"
+msgstr "ਨੀਲੇ ਲਈ ਚਮਕ ਦਿਓ"
+
+#. DESC_CONTRAST
+msgid "Set contrast"
+msgstr "ਕਨਟਰਾਸਟ ਸੈੱਟ ਕਰੋ"
+
+#. DESC_CONTRAST_R
+msgid "Set contrast for red component"
+msgstr "ਲਾਲ ਭਾਗ ਲਈ ਕਨਟਰਾਸਟ ਸੈੱਟ ਕਰੋ"
+
+#. DESC_CONTRAST_G
+msgid "Set contrast for green component"
+msgstr "ਹਰੇ ਭਾਗ ਲਈ ਕਨਟਰਾਸਟ ਸੈੱਟ ਕਰੋ"
+
+#. DESC_CONTRAST_B
+msgid "Set contrast for blue component"
+msgstr "ਨੀਲੇ ਭਾਗ ਲਈ ਕਨਟਰਾਸਟ ਸੈੱਟ ਕਰੋ"
+
+#. DESC_THRESHOLD
+msgid "Set threshold"
+msgstr "ਥਰੈਂਸ਼ਹੋਲਡ ਦਿਓ"
+
+#. DESC_RGB_DEFAULT
+msgid ""
+"RGB default: Set enhancement values for red, green and blue to default "
+"values <Ctrl-b>:\n"
+" gamma = 1.0\n"
+" brightness = 0\n"
+" contrast = 0"
+msgstr ""
+"RGB ਡਿਫਾਲਟ: ਲਾਲ, ਹਰੇ ਅਤੇ ਨੀਲੇ ਲਈ ਇੰਹਾਂਸਡ ਮੁੱਲ ਨੂੰ ਡਿਫਾਲਟ ਸੈੱਟ ਕਰੋ<Ctrl-b>:\n"
+" ਗਾਮਾ = 1.0\n"
+" ਚਮਕ = 0\n"
+" ਕਨਟਰਾਸਟ = 0"
+
+#. DESC_ENH_AUTO
+msgid "Autoadjust gamma, brightness and contrast <Ctrl-a>"
+msgstr "ਗਾਮਾ, ਚਮਕ ਅਤੇ ਕਨਟਰਾਸਟ ਆਟੋ-ਅਨੁਕੂਲ ਕਰੋ <Ctrl-a>"
+
+#. DESC_ENH_DEFAULT
+msgid ""
+"Set default enhancement values <Ctrl-0>:\n"
+"gamma = 1.0\n"
+"brightness = 0\n"
+"contrast = 0"
+msgstr ""
+"ਡਿਫਾਲਟ ਇੰਹਾਂਸਮੈਂਟ ਮੁੱਲ ਸੈੱਟ ਕਰੋ <Ctrl-0>:\n"
+"ਗਾਮਾ = 1.0\n"
+"ਬਰਾਈਟਨੈੱਸ = 0\n"
+"ਕਨਟਰਾਸਟ = 0"
+
+#. DESC_ENH_RESTORE
+msgid "Restore enhancement values from preferences <Ctrl-r>"
+msgstr "ਪਸੰਦ ਤੋਂ ਇੰਹਾਂਸਡ ਮੁੱਲ ਰੀ-ਸਟੋਰ ਕਰੋ <Ctrl-r>"
+
+#. DESC_ENH_STORE
+msgid "Store active enhancement values to preferences <Ctrl-+>"
+msgstr "ਐਕਟਿਵ ਇੰਹਾਂਸਡ ਮੁੱਲ ਪਸੰਦ ਵਿੱਚ ਸਟੋਰ ਕਰੋ <Ctrl-+>"
+
+#. DESC_HIST_INTENSITY
+msgid "Show histogram of intensity/gray <Alt-i>"
+msgstr "ਇੰਟੈਂਸਟੀ/ਗਰੇ ਲਈ ਹਿਸਟੋਗਰਾਮ ਵੇਖੋ <Alt-i>"
+
+#. DESC_HIST_RED
+msgid "Show histogram of red component <Alt-r>"
+msgstr "ਲਾਲ ਭਾਗ ਲਈ ਹਿਸਟੋਗਰਾਮ ਵੇਖੋ <Alt-r>"
+
+#. DESC_HIST_GREEN
+msgid "Show histogram of green component <Alt-g>"
+msgstr "ਹਰੇ ਭਾਗ ਲਈ ਹਿਸਟੋਗਰਾਮ ਵੇਖੋ <Alt-g>"
+
+#. DESC_HIST_BLUE
+msgid "Show histogram of blue component <Alt-b>"
+msgstr "ਨੀਲੇ ਭਾਗ ਲਈ ਹਿਸਟੋਗਰਾਮ ਵੇਖੋ <Alt-b>"
+
+#. DESC_HIST_PIXEL
+msgid "Display mode: show histogram with lines instead of pixels <Alt-m>"
+msgstr "ਡਿਸਪਲੇਅ ਮੋਡ: ਪਿਕਸਲਾਂ ਦੀ ਬਜਾਏ ਲਾਈਨਾਂ ਨਾਲ ਹਿਸਟੋਗਰਾਮ ਵੇਖੋ <Alt-m>"
+
+#. DESC_HIST_LOG
+msgid "Show logarithm of pixelcount <Alt-l>"
+msgstr "ਪਿਕਸਲ-ਗਿਣਤੀ ਦਾ ਲਾਗਰਥਿਮ ਵੇਖੋ <Alt-l>"
+
+#. DESC_PRINTER_SETUP
+msgid "Select definition to change"
+msgstr "ਬਦਲਣ ਲਈ ਪਰਿਭਾਸ਼ਾ ਚੁਣੋ"
+
+#. DESC_PRINTER_NAME
+msgid "Define a name for the selection of this definition"
+msgstr "ਇਹ ਪ੍ਰੀਭਾਸ਼ਾ ਦੀ ਚੋਣ ਵਾਸਤੇ ਨਾਂ ਦਿਓ"
+
+#. DESC_PRINTER_COMMAND
+msgid "Enter command to be executed in copy mode (e.g. \"lpr\")"
+msgstr "ਕਾਪੀ ਮੋਡ ਵਿੱਚ ਚਲਾਉਣ ਲਈ ਕਮਾਂਡ ਦਿਓ (ਜਿਵੇਂ ਕਿ \"lpr\")"
+
+#. DESC_COPY_NUMBER_OPTION
+msgid "Enter option for copy numbers"
+msgstr "ਕਾਪੀ ਗਿਣਤੀ ਲਈ ਚੋਣ ਦਿਓ"
+
+#. DESC_PRINTER_LINEART_RESOLUTION
+msgid ""
+"Resolution with which lineart images are printed and saved in postscript"
+msgstr "ਰੈਜ਼ੋਲੂਸ਼ਨ, ਜਿਸ ਨਾਲ ਲੀਨੀਅਰ ਚਿੱਤਰ ਪਰਿੰਟ ਕੀਤੇ ਜਾਣਗੇ ਅਤੇ ਪੋਸਟਸਕ੍ਰਿਪਟ ਵਿੱਚ ਸੰਭਾਲੇ ਜਾਣਗੇ"
+
+#. DESC_PRINTER_GRAYSCALE_RESOLUTION
+msgid ""
+"Resolution with which grayscale images are printed and saved in postscript"
+msgstr "ਰੈਜ਼ੋਲੂਸ਼ਨ, ਜਿਸ ਨਾਲ ਗਰੇਸਕੇਲ ਚਿੱਤਰ ਪਰਿੰਟ ਕੀਤੇ ਜਾਣਗੇ ਅਤੇ ਪੋਸਟਸਕ੍ਰਿਪਟ ਵਿੱਚ ਸੰਭਾਲੇ ਜਾਣਗੇ"
+
+#. DESC_PRINTER_COLOR_RESOLUTION
+msgid "Resolution with which color images are printed and saved in postscript"
+msgstr "ਰੈਜ਼ੋਲੂਸ਼ਨ, ਜਿਸ ਨਾਲ ਕਲਰ ਚਿੱਤਰ ਪਰਿੰਟ ਕੀਤੇ ਜਾਣਗੇ ਅਤੇ ਪੋਸਟਸਕ੍ਰਿਪਟ ਵਿੱਚ ਸੰਭਾਲੇ ਜਾਣਗੇ"
+
+#. DESC_PRINTER_WIDTH
+#. DESC_FAX_WIDTH
+msgid "Width of printable area"
+msgstr "ਪਰਿੰਟ-ਯੋਗ ਖੇਤਰ ਦੀ ਚੌੜਾਈ"
+
+#. DESC_PRINTER_HEIGHT
+#. DESC_FAX_HEIGHT
+msgid "Height of printable area"
+msgstr "ਪਰਿੰਟ-ਯੋਗ ਖੇਤਰ ਦੀ ਉਚਾਈ"
+
+#. DESC_PRINTER_LEFTOFFSET
+#. DESC_FAX_LEFTOFFSET
+msgid "Left offset from the edge of the paper to the printable area"
+msgstr "ਪਰਿੰਟ-ਯੋਗ ਏਰੀਏ ਤੋਂ ਪੇਪਰ ਦੇ ਕੋਨੇ ਤੋਂ ਖੱਬਾ ਆਫਸੈੱਟ"
+
+#. DESC_PRINTER_BOTTOMOFFSET
+#. DESC_FAX_BOTTOMOFFSET
+msgid "Bottom offset from the edge of the paper to the printable area"
+msgstr "ਪਰਿੰਟ-ਯੋਗ ਏਰੀਏ ਤੋਂ ਪੇਪਰ ਦੇ ਕੋਨੇ ਤੋਂ ਤਲ ਆਫਸੈੱਟ"
+
+#. DESC_PRINTER_GAMMA
+msgid "Additional gamma value for photocopy"
+msgstr "ਫੋਟੋ-ਕਾਪੀ ਲਈ ਹੋਰ ਗਾਮਾ ਮੁੱਲ"
+
+#. DESC_PRINTER_GAMMA_RED
+msgid "Additional gamma value for red component for photocopy"
+msgstr "ਫੋਟੋ-ਕਾਪੀ ਲਈ ਲਾਲ ਭਾਗ ਵਾਸਤੇ ਹੋਰ ਗਾਮਾ ਮੁੱਲ"
+
+#. DESC_PRINTER_GAMMA_GREEN
+msgid "Additional gamma value for green component for photocopy"
+msgstr "ਫੋਟੋ-ਕਾਪੀ ਲਈ ਹਰੇ ਭਾਗ ਵਾਸਤੇ ਹੋਰ ਗਾਮਾ ਮੁੱਲ"
+
+#. DESC_PRINTER_GAMMA_BLUE
+msgid "Additional gamma value for blue component for photocopy"
+msgstr "ਫੋਟੋ-ਕਾਪੀ ਲਈ ਨੀਲੇ ਭਾਗ ਵਾਸਤੇ ਹੋਰ ਗਾਮਾ ਮੁੱਲ"
+
+#. DESC_PRINTER_EMBED_CSA
+msgid "Creates a postsciptfile that contains the ICM profile of the scanner"
+msgstr "ਇੱਕ ਪੋਸਟ-ਸਕ੍ਰਿਪਟ ਫਾਇਲ ਬਣਾਓ, ਜੋ ਕਿ ਸਕੈਨਰ ਦਾ ICM ਪਰੋਫਾਇਲ ਰੱਖਦੀ ਹੋਵੇ।"
+
+#. DESC_PRINTER_EMBED_CRD
+msgid "Creates a postsciptfile that contains the ICM profile of the printer"
+msgstr "ਇੱਕ ਪੋਸਟ-ਸਕ੍ਰਿਪਟ ਫਾਇਲ ਬਣਾਓ, ਜੋ ਕਿ ਪਰਿੰਟਰ ਦਾ ICM ਪਰੋਫਾਇਲ ਰੱਖਦੀ ਹੋਵੇ।"
+
+#. DESC_PRINTER_CMS_BPC
+msgid "Applies black point compensation"
+msgstr "ਕਾਲਾ ਪੁਆਇੰਟ ਕੰਪਨਸੇਸ਼ਨ ਲਾਗੂ ਕਰੋ"
+
+#. DESC_PRINTER_PS_FLATEDECODED
+msgid ""
+"Create zlib compressed postscript image for printer (flatedecode).\n"
+"The printer has to understand postscript level 3!"
+msgstr ""
+"ਪਰਿੰਟਰ (flatedecode) ਲਈ zlib ਕੰਪਰੈੱਸਡ ਪੋਸਟ-ਸਕ੍ਰਿਪਟ ਬਣਾਓ।\n"
+"ਪਰਿੰਟਰ ਵਲੋਂ ਪੋਸਟ-ਸਕ੍ਰਿਪਟ ਲੈਵਲ 3 ਬਾਰੇ ਜਾਣਕਾਰੀ ਹੋਣੀ ਲਾਜ਼ਮੀ ਹੈ!"
+
+#. DESC_TMP_PATH
+msgid "Path to temp directory"
+msgstr "ਆਰਜ਼ੀ ਡਾਇਰੈਕਟਰੀ ਲਈ ਮਾਰਗ"
+
+#. DESC_BUTTON_TMP_PATH_BROWSE
+msgid "Browse for temporary directory"
+msgstr "ਆਰਜ਼ੀ ਡਾਇਰੈਕਟਰੀ ਲਈ ਝਲਕ"
+
+#. DESC_JPEG_QUALITY
+msgid ""
+"Quality in percent if image is saved as JPEG or TIFF with JPEG compression"
+msgstr "ਜੇਤ ਚਿੱਤਰ ਨੂੰ JPEG ਜਾਂ TIFF ਨਾਲ JPEG ਕੰਪਰੈਸ਼ਨ ਵਾਂਗ ਸੰਭਾਲਿਆ ਜਾਵੇ ਤਾਂ ਕੁਆਲਟੀ ਫੀਸਦੀ"
+
+#. DESC_PNG_COMPRESSION
+msgid "Compression if image is saved as PNG"
+msgstr "ਜੇ ਚਿੱਤਰ ਨੂੰ PNG ਦੇ ਤੌਰ ਉੱਤੇ ਸੰਭਾਲਿਆ ਜਾਵੇ ਤਾਂ ਕੰਪਰੈੱਸ ਕਰੋ"
+
+#. DESC_FILENAME_COUNTER_LEN
+msgid "Minimum length of counter in filename"
+msgstr "ਫਾਇਲ ਨਾਂ ਵਿੱਚ ਕਾਊਂਟਰ ਦੀ ਘੱਟੋ-ਘੱਟ ਲੰਬਾਈ"
+
+#. DESC_TIFF_ZIP_COMPRESSION
+msgid "Compression rate for zip compressed TIFF (deflate)"
+msgstr "ਜ਼ਿੱਪ (zip) ਕੰਪਰੈੱਸ TIFF ਲਈ ਕੰਪਰੈਸ਼ਨ ਰੇਟ (deflate)"
+
+#. DESC_TIFF_COMPRESSION_16
+msgid "Compression type if 16 bit image is saved as TIFF"
+msgstr "ਜੇ 16 ਬਿੱਟ ਚਿੱਤਰ ਨੂੰ TIFF ਵਾਂਗ ਸੰਭਾਲਣ ਹੋਵੇ ਤਾਂ ਕੰਪਰੈੱਸਨ ਕਿਸਮ"
+
+#. DESC_TIFF_COMPRESSION_8
+msgid "Compression type if 8 bit image is saved as TIFF"
+msgstr "ਜੇ 8 ਬਿੱਟ ਚਿੱਤਰ ਨੂੰ TIFF ਵਾਂਗ ਸੰਭਾਲਣ ਹੋਵੇ ਤਾਂ ਕੰਪਰੈੱਸਨ ਕਿਸਮ"
+
+#. DESC_TIFF_COMPRESSION_1
+msgid "Compression type if lineart image is saved as TIFF"
+msgstr "ਜੇ ਲੀਨੀਅਰਟ ਚਿੱਤਰ ਨੂੰ TIFF ਵਾਂਗ ਸੰਭਾਲਣ ਹੋਵੇ ਤਾਂ ਕੰਪਰੈੱਸਨ ਕਿਸਮ"
+
+#. DESC_SAVE_DEVPREFS_AT_EXIT
+msgid "Save device dependant preferences in default file at exit of xsane"
+msgstr "xsane ਬੰਦ ਕਰਨ ਸਮੇਂ ਡਿਫਾਲਟ ਫਾਇਲ ਵਿੱਚ ਜੰਤਰ ਨਿਰਭਰਤਾ ਪਸੰਦ ਸੰਭਾਲੋ"
+
+#. DESC_OVERWRITE_WARNING
+msgid "Warn before overwriting an existing file"
+msgstr "ਇੱਕ ਮੌਜੂਦਾ ਫਾਇਲ ਉੱਤੇ ਲਿਖਣ ਤੋਂ ਪਹਿਲਾਂ ਚੇਤਾਵਨੀ ਦਿਓ"
+
+#. DESC_SKIP_EXISTING
+msgid ""
+"If filename counter is automatically increased, used numbers are skipped"
+msgstr "ਜੇ ਫਾਇਲ-ਨਾਂ ਕਾਊਂਟਰ ਨੂੰ ਆਟੋਮੈਟਿਕ ਵਧਾਉਣਾ ਹੋਵੇ ਤਾਂ ਵਰਤੇ ਨੰਬਰ ਛੱਡੇ ਜਾਣਗੇ"
+
+#. DESC_SAVE_PS_FLATEDECODED
+msgid ""
+"compress postscript image with zlib algorithm (flatedecode). When you want "
+"to print such a file your printer has to understand postscript level 3"
+msgstr ""
+"zlib ਐਲਗੋਰਥਿਮ (flatedecode) ਨਾਲ ਕੰਪਰੈੱਸ ਪੋਸਟਸਕ੍ਰਿਪਟ ਚਿੱਤਰ ਹੈ। ਜਦੋਂ ਤੁਸੀਂ ਇਹ ਫਾਇਲ ਪਰਿੰਟ "
+"ਕਰਨੀ ਚਾਹੋ ਤਾਂ ਤੁਹਾਡੇ ਪਰਿੰਟਰ ਨੂੰ ਪੋਸਟ-ਸਕ੍ਰਿਪਟ ਲੈਵਲ 3 ਬਾਰੇ ਜਾਣਕਾਰੀ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ।"
+
+#. DESC_SAVE_PDF_FLATEDECODED
+msgid "compress PDF image with zlib algorithm (flatedecode)."
+msgstr "zlib ਐਲਗੋਰਥਿਮ ਨਾਲ ਕੰਪਰੈਸ PDF ਚਿੱਤਰ (flatedecode)."
+
+#. DESC_SAVE_PNM16_AS_ASCII
+msgid ""
+"When a 16 bit image shall be saved in PNM format then use ASCII format "
+"instead of binary format. The binary format is a new format that is not "
+"supported by all programs. The ASCII format is supported by more programs "
+"but it produces really huge files!!!"
+msgstr ""
+"ਜਦੋਂ ਇੱਕ 16 ਬਿੱਟ ਚਿੱਤਦ ਨੂੰ PNM ਫਾਰਮੈਟ 'ਚ ਸੰਭਾਲਿਆ ਜਾਵੇਗਾ ਤਾਂ ਬਾਈਨਰੀ ਫਾਰਮੈਟ ਦੀ ਬਜਾਏ ASCII "
+"ਫਾਰਮੈਟ ਵਰਤੋਂ। ਬਾਈਨਰੀ ਫਾਰਮੈਟ ਇੱਕ ਨਵਾਂ ਫਾਰਮੈਟ ਹੈ, ਜੋ ਕਿ ਸਭ ਪਰੋਗਰਾਮਾਂ ਵਲੋਂ ਸਹਾਇਕ ਨਹੀਂ ਹੈ। "
+"ASCII ਫਾਰਮੈਟ ਕਈ ਪਰੋਗਰਾਮਾਂ ਵਲੋਂ ਸਹਾਇਕ ਹੈ, ਪਰ ਇਹ ਬਹੁਤ ਹੀ ਵੱਡੀਆਂ ਫਾਇਲਾਂ ਬਣਾਉਦਾ ਹੈ!!!"
+
+#. DESC_REDUCE_16BIT_TO_8BIT
+msgid ""
+"If scanner sends image with 16 bits/channel save image with 8 bits/channel"
+msgstr "ਜੇ ਸਕੈਨਰ 16 ਬਿੱਟ/ਚੈਨਲ ਸੰਭਾਲੋ ਚਿੱਤਰ ਨੂੰ 8 ਬਿੱਟ/ਚੈਨਲ ਨਾਲ ਭੇਜੇ"
+
+#. DESC_PSFILE_WIDTH
+msgid "Width of paper for postscript files"
+msgstr "ਪੋਸਟ-ਸਕ੍ਰਿਪਟ ਫਾਇਲਾਂ ਲਈ ਪੇਪਰ ਦੀ ਚੌੜਾਈ"
+
+#. DESC_PSFILE_HEIGHT
+msgid "Height of paper for postscript files"
+msgstr "ਪੋਸਟ-ਸਕ੍ਰਿਪਟ ਫਾਇਲਾਂ ਲਈ ਪੇਪਰ ਦੀ ਉਚਾਈ"
+
+#. DESC_PSFILE_LEFTOFFSET
+msgid ""
+"Left offset from the edge of the paper to the usable area for postscript "
+"files"
+msgstr "ਪੋਸਟਸਕ੍ਰਿਪਟ ਫਾਇਲਾਂ ਲਈ ਵਰਤੋਂ-ਯੋਗ ਏਰੀਆ ਵਾਸਤੇ ਪੇਪਰ ਦੇ ਕੋਨ ਤੋਂ ਖੱਬੇ ਆਫਸੈੱਟ"
+
+#. DESC_PSFILE_BOTTOMOFFSET
+msgid ""
+"Bottom offset from the edge of the paper to the usable area for postscript "
+"files"
+msgstr "ਪੋਸਟਸਕ੍ਰਿਪਟ ਫਾਇਲਾਂ ਲਈ ਵਰਤੋਂ-ਯੋਗ ਏਰੀਆ ਵਾਸਤੇ ਪੇਪਰ ਦੇ ਕੋਨ ਤੋਂ ਤਲ ਆਫਸੈੱਟ"
+
+#. DESC_MAIN_WINDOW_FIXED
+msgid "Use fixed main window size or scrolled, resizable main window"
+msgstr "ਫਿਕਸ ਮੇਨ ਵਿੰਡੋ ਸ਼ਾਇਜ਼ ਜਾਂ ਸਕਰੋਲ, ਮੁੜ-ਆਕਾਰਯੋਗ ਮੇਨ ਵਿੰਡੋ ਵਰਤੋਂ"
+
+#. DESC_DISABLE_GIMP_PREVIEW_GAMMA
+msgid "Disable preview gamma when XSane runs as GIMP plugin"
+msgstr "ਜਦੋਂ XSane ਜੈਮਪ ਪਲੱਗਇਨ ਵਾਂਗ ਚੱਲੇ ਤਾਂ ਝਲਕ ਗਾਮਾ ਆਯੋਗ ਕਰੋ"
+
+#. DESC_PREVIEW_COLORMAP
+msgid "Use an own colormap for preview if display depth is 8 bpp"
+msgstr "ਜੇ ਡਿਸਪਲੇਅ ਡੂੰਘਾਈ 8 bpp ਹੋਵੇ ਤਾਂ ਝਲਕ ਲਈ ਆਪਣਾ ਕਲਰ-ਮੈਪ ਵਰਤੋਂ"
+
+#. DESC_SHOW_RANGE_MODE
+msgid "Select how a range is displayed"
+msgstr "ਚੁਣੋ ਕਿ ਰੇਜ਼ ਕਿਵੇਂ ਵੇਖਾਈ ਜਾਵੇ"
+
+#. DESC_PREVIEW_OVERSAMPLING
+msgid "Value with which the calculated preview resolution is multiplied"
+msgstr "ਮੁੱਲ, ਜਿਸ ਨਾਲ ਕੈਲੂਕੇਟ ਕੀਤੇ ਝਲਕ ਰੈਜ਼ੋਲੂਸ਼ਨ ਨੂੰ ਗੁਣਾ ਕੀਤਾ ਜਾਵੇ"
+
+#. DESC_PREVIEW_GAMMA
+msgid "Set gamma correction value for preview image"
+msgstr "ਝਲਕ ਚਿੱਤਰ ਲਈ ਗਾਮਾ ਸੋਧ ਮੁੱਲ ਦਿਓ"
+
+#. DESC_PREVIEW_GAMMA_RED
+msgid "Set gamma correction value for red component of preview image"
+msgstr "ਝਲਕ ਚਿੱਤਰ ਵਿੱਚ ਲਾਲ ਰੰਗ ਲਈ ਗਾਮਾ ਸੋਧ ਮੁੱਲ ਦਿਓ"
+
+#. DESC_PREVIEW_GAMMA_GREEN
+msgid "Set gamma correction value for green component of preview image"
+msgstr "ਝਲਕ ਚਿੱਤਰ ਵਿੱਚ ਹਰੇ ਰੰਗ ਲਈ ਗਾਮਾ ਸੋਧ ਮੁੱਲ ਦਿਓ"
+
+#. DESC_PREVIEW_GAMMA_BLUE
+msgid "Set gamma correction value for blue component of preview image"
+msgstr "ਝਲਕ ਚਿੱਤਰ ਵਿੱਚ ਨੀਲੇ ਰੰਗ ਲਈ ਗਾਮਾ ਸੋਧ ਮੁੱਲ ਦਿਓ"
+
+#. DESC_LINEART_MODE
+msgid "Define the way XSane shall handle the threshold option"
+msgstr "ਥਰੈਸ਼ਹੋਲਡ ਚੋਣ ਹੈਂਡਲ ਕਰਨ ਲਈ XSane ਨੂੰ ਢੰਗ ਦਿਓ"
+
+#. DESC_GRAYSCALE_SCANMODE
+msgid ""
+"Select grayscale scanmode. This scanmode is used for lineart preview scan "
+"when transformation from grayscale to lineart is enabled"
+msgstr ""
+"ਗਰੇ-ਸਕੇਲ ਸਕੈਨਮੋਡ ਚੁਣੋ। ਇਹ ਸਕੈਨਮੋਡ ਨੂੰ ਲੀਨੀਅਰਟ ਝਲਕ ਸਕੈਨ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ, ਜਦੋਂ ਗਰੇ-ਸਕੇਲ ਤੋਂ "
+"ਲੀਨੀਅਰਟ ਟਰਾਂਸਫਰਮੇਸ਼ਨ ਨੂੰ ਯੋਗ ਕੀਤਾ ਹੁੰਦਾ ਹੈ।"
+
+#. DESC_PREVIEW_THRESHOLD_MIN
+#, no-c-format
+msgid "The scanner's minimum threshold level in %"
+msgstr "ਸਕੈਨਰ ਦਾ ਘੱਟੋ-ਘੱਟ ਥਰੈਸ਼ਹੋਲਡ ਪੱਧਰ % ਵਿੱਚ"
+
+#. DESC_PREVIEW_THRESHOLD_MAX
+#, no-c-format
+msgid "The scanner's maximum threshold level in %"
+msgstr "ਸਕੈਨਰ ਦਾ ਵੱਧ ਤੋਂ ਵੱਧ ਥਰੈਸ਼ਹੋਲਡ ਪੱਧਰ % ਵਿੱਚ"
+
+#. DESC_PREVIEW_THRESHOLD_MUL
+msgid ""
+"Multiplier to make XSane threshold range and scanner threshold range the same"
+msgstr "XSane ਥਰੈਸ਼ਹੋਲਡ ਰੇਜ਼ ਅਤੇ ਸਕੈਨਰ ਥਰੈਸ਼ਹੋਲਡ ਰੇਜ਼ ਇੱਕ ਬਣਾਉਣ ਵਾਸਤੇ ਮਲਟੀਪਲਾਇਰ"
+
+#. DESC_PREVIEW_THRESHOLD_OFF
+msgid ""
+"Offset to make XSane threshold range and scanner threshold range the same"
+msgstr "XSane ਥਰੈਸ਼ਹੋਲਡ ਰੇਜ਼ ਅਤੇ ਸਕੈਨਰ ਥਰੈਸ਼ਹੋਲਡ ਰੇਜ਼ ਇੱਕ ਬਣਾਉਣ ਵਾਸਤੇ ਆਫਸੈੱਟ"
+
+#. DESC_ADF_PAGES_MAX
+msgid "Number of pages to scan"
+msgstr "ਸਕੈਨ ਕਰਨ ਲਈ ਸਫ਼ਿਆਂ ਦੀ ਗਿਣਤੀ"
+
+#. DESC_PREVIEW_PIPETTE_RANGE
+msgid "dimension of square that is used to average color for pipette function"
+msgstr "ਵਰਗ ਦਾ ਮਾਪ, ਜੋਂ ਕਿ ਪਿਪਟ (pipette) ਫੰਕਸ਼ਨ ਲਈ ਔਸਤ ਰੰਗ ਵਾਸਤੇ ਵਰਤਿਆ ਜਾਵੇ"
+
+#. DESC_DOC_VIEWER
+msgid ""
+"Enter command to be executed to display helpfiles, must be a HTML-viewer!"
+msgstr "helpfiles ਵੇਖਾਉਣ ਲਈ ਕਮਾਂਡ ਦਿਓ, ਇੱਕ HTML-ਦਰਸ਼ਕ ਹੋਣਾ ਲਾਜ਼ਮੀ ਹੈ!"
+
+#. DESC_AUTOENHANCE_GAMMA
+msgid "Change gamma value when autoenhancement button is pressed"
+msgstr "ਆਟੋ-ਇੰਹਾਂਸਮੈਂਟ ਬਟਨ ਦਬਾਉਣ ਸਮੇਂ ਗਾਮਾ ਮੁੱਲ ਬਦਲੋ"
+
+#. DESC_PRESELECT_SCAN_AREA
+msgid "Select scan area after preview scan has finished"
+msgstr "ਸਕੈਨ ਝਲਕ ਪੂਰੀ ਹੋਣ ਦੇ ਬਾਅਦ ਸਕੈਨ-ਖੇਤਰ ਚੁਣੋ"
+
+#. DESC_AUTOCORRECT_COLORS
+msgid "Do color correction after preview scan has finished"
+msgstr "ਸਕੈਨ ਝਲਕ ਪੂਰੀ ਹੋਣ ਦੇ ਬਾਅਦ ਰੰਗ ਸੋਧ ਕਰੋ"
+
+#. DESC_RENDERING_INTENT
+msgid "Select rendering intent for preview and saving"
+msgstr "ਝਲਕ ਅਤੇ ਸੰਭਾਲਣ ਲਈ ਰੈਂਡਰਿੰਗ ਇੰਟੈੱਟ ਚੁਣੋ"
+
+#. DESC_CMS_BPC
+msgid "Apply black point compensation when color transformation is done"
+msgstr "ਜਦੋਂ ਕਲਰ ਟਰਾਂਸਫਰਮੇਸ਼ਨ ਪੂਰੀ ਹੋਵੇ ਤਾਂ ਕਾਲਾ ਪੁਆਇੰਟ ਕੰਪਨਸੇਸ਼ਨ ਲਾਗੂ ਕਰੋ"
+
+#. DESC_FAX_COMMAND
+msgid "Enter command to be executed in fax mode"
+msgstr "ਫੈਕਸ ਢੰਗ ਵਿੱਚ ਚਲਾਉਣ ਲਈ ਕਮਾਂਡ ਦਿਓ"
+
+#. DESC_FAX_RECEIVER_OPT
+msgid "Enter option to specify receiver"
+msgstr "ਰਿਸੀਵਰ ਦੇਣ ਲਈ ਚੋਣ ਦੱਸੋ"
+
+#. DESC_FAX_POSTSCRIPT_OPT
+msgid "Enter option to specify postscript files following"
+msgstr "ਅੱਗੇ ਪੋਸਟਸਕ੍ਰਿਪਟ ਫਾਇਲਾਂ ਦੇਣ ਵਾਸਤੇ ਚੋਣ ਦਿਓ"
+
+#. DESC_FAX_NORMAL_OPT
+msgid "Enter option to specify normal mode (low resolution)"
+msgstr "ਨਾਰਮਲ ਮੋਡ ਦੇਣ ਵਾਸਤੇ ਚੋਣ ਦਿਓ (ਘੱਟ ਰੈਜ਼ੋਲੂਸ਼ਨ)"
+
+#. DESC_FAX_FINE_OPT
+msgid "Enter option to specify fine mode (high resolution)"
+msgstr "ਫਾਇਨ ਮੋਡ ਦੇਣ ਵਾਸਤੇ ਚੋਣ ਦਿਓ (ਉੱਚ ਰੈਜ਼ੋਲੂਸ਼ਨ)"
+
+#. DESC_FAX_VIEWER
+msgid "Enter command to be executed to view a fax"
+msgstr "ਫੈਕਸ ਵੇਖਣ ਵਾਸਤੇ ਚਲਾਉਣ ਲਈ ਕਮਾਂਡ ਦਿਓ"
+
+#. DESC_FAX_FINE_MODE
+msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
+msgstr "ਉੱਚ ਵਰਟੀਕਲ ਰੈਜ਼ੋਲੂਸ਼ਨ ਨਾਲ ਫੈਕਸ ਭੇਜੋ (98 lpi ਦੀ ਬਜਾਏ 196 lpi)"
+
+#. DESC_FAX_PS_FLATEDECODED
+msgid "Create zlib compressed postscript image for fax (flatedecode)"
+msgstr "ਫੈਕਸ ਲਈ zlib ਕੰਪਰੈੱਸ ਪੋਸਟ-ਸਕ੍ਰਿਪਟ ਚਿੱਤਰ ਬਣਾਓ (flatedecode)"
+
+#. DESC_SMTP_SERVER
+msgid "IP Address or Domain name of SMTP server"
+msgstr "SMTP ਸਰਵਰ ਦਾ IP ਐਡਰੈੱਸ ਜਾਂ ਡੋਮੇਨ ਨਾਂ"
+
+#. DESC_SMTP_PORT
+msgid "port to connect to SMTP server"
+msgstr "SMTP ਸਰਵਰ ਨਾਲ ਕੁਨੈਕਟ ਹੋਣ ਲਈ ਪੋਰਟ"
+
+#. DESC_EMAIL_FROM
+msgid "enter your e-mail address"
+msgstr "ਆਪਣਾ ਈ-ਮੇਲ ਐਡਰੈੱਸ ਦਿਓ"
+
+#. DESC_EMAIL_REPLY_TO
+msgid "enter e-mail address for replied e-mails"
+msgstr "ਜਵਾਬੀ ਈਮੇਲਾਂ ਲਈ ਈਮੇਲ ਐਡਰੈੱਸ ਦਿਓ"
+
+#. DESC_EMAIL_AUTHENTICATION
+msgid "Type of authentication before sending e-mail"
+msgstr "ਈਮੇਲ ਭੇਜਣ ਤੋਂ ਪਹਿਲਾਂ ਪਰਮਾਣਕਿਤਾ ਦੀ ਟਾਈਪ"
+
+#. DESC_EMAIL_AUTH_USER
+msgid "user name for e-mail server"
+msgstr "ਈ-ਮੇਲ ਸਰਵਰ ਲਈ ਯੂਜ਼ਰ ਨਾਂ ਦਿਓ"
+
+#. DESC_EMAIL_AUTH_PASS
+msgid "password for e-mail server"
+msgstr "ਈ-ਮੇਲ ਸਰਵਰ ਲਈ ਪਾਸਵਰਡ ਦਿਓ"
+
+#. DESC_POP3_SERVER
+msgid "IP Address or Domain name of POP3 server"
+msgstr "POP3 ਸਰਵਰ ਦਾ IP ਐਡਰੈੱਸ ਜਾਂ ਡੋਮੇਨ ਨਾਂ"
+
+#. DESC_POP3_PORT
+msgid "port to connect to POP3 server"
+msgstr "POP3 ਸਰਵਰ ਨਾਲ ਕੁਨੈਕਟ ਹੋਣ ਲਈ ਪੋਰਟ"
+
+#. DESC_HTML_EMAIL
+msgid "E-mail is sent in HTML mode, place image with: <IMAGE>"
+msgstr "HTML ਮੋਡ ਵਿੱਚ ਈਮੇਲ ਭੇਜੀ, ਚਿੱਤਰ ਹੈ: <IMAGE>"
+
+#. DESC_OCR_COMMAND
+msgid "Enter command to start OCR program"
+msgstr "OCR ਪਰੋਗਰਾਮ ਚਲਾਉਣ ਲਈ ਕਮਾਂਡ ਦਿਓ"
+
+#. DESC_OCR_INPUTFILE_OPT
+msgid "Enter option of the OCR program to define input file"
+msgstr "ਇੰਪੁੱਟ ਫਾਇਲ ਦੇਣ ਵਾਸਤੇ OCR ਪਰੋਗਰਾਮ ਦੀ ਚੋਣ ਦਿਓ"
+
+#. DESC_OCR_OUTPUTFILE_OPT
+msgid "Enter option of the OCR program to define output file"
+msgstr "ਆਉਟਪੁੱਟ ਫਾਇਲ ਦੇਣ ਵਾਸਤੇ OCR ਪਰੋਗਰਾਮ ਦੀ ਚੋਣ ਦਿਓ"
+
+#. DESC_OCR_USE_GUI_PIPE_OPT
+msgid "Define if the OCR program supports gui progress pipe"
+msgstr "ਜੇ OCR ਪਰੋਗਰਾਮ gui ਪਰੋਗਰੈੱਸ ਪਾਈਪ ਲਈ ਸਹਿਯੋਗ ਹੈ ਤਾਂ ਦਿਓ"
+
+#. DESC_OCR_OUTFD_OPT
+msgid ""
+"Enter option of the OCR program to define output filedescripor in GUI mode"
+msgstr "GUI ਮੋਡ ਵਿੱਚ ਆਉਟ-ਪੁੱਟ filedescripor ਦੇਣ ਵਾਸਤੇ OCR ਪਰੋਗਰਾਮ ਦੀ ਚੋਣ ਦਿਓ"
+
+#. DESC_OCR_PROGRESS_KEYWORD
+msgid "Define Keyword that is used to mark progress information"
+msgstr "ਸ਼ਬਦ ਦਿਓ, ਜੋ ਕਿ ਪਰੋਗਰੈੱਸ ਜਾਣਕਾਰੀ ਲਈ ਨਿਸ਼ਾਨ ਵਜੋਂ ਵਰਤਿਆ ਜਾਵੇ"
+
+#. DESC_PERMISSION_READ
+msgid "read"
+msgstr "ਪੜ੍ਹਨ"
+
+#. DESC_PERMISSION_WRITE
+msgid "write"
+msgstr "ਲਿਖਣ"
+
+#. DESC_PERMISSION_SEARCH
+msgid "search"
+msgstr "ਖੋਜ"
+
+#. DESC_ADD_BATCH
+msgid "Add selection for batch scan"
+msgstr "ਬੈਂਚ ਸਕੈਨ ਲਈ ਚੋਣ ਸ਼ਾਮਲ ਕਰੋ"
+
+#. DESC_PIPETTE_WHITE
+msgid "Pick white point"
+msgstr "ਚਿੱਟਾ ਪੁਆਇੰਟ ਲਵੋ"
+
+#. DESC_PIPETTE_GRAY
+msgid "Pick gray point"
+msgstr "ਸਲੇਟੀ ਪੁਆਇੰਟ ਲਵੋ"
+
+#. DESC_PIPETTE_BLACK
+msgid "Pick black point"
+msgstr "ਕਾਲਾ ਪੁਆਇੰਟ ਲਵੋ"
+
+#. DESC_ZOOM_FULL
+msgid "Use full scan area"
+msgstr "ਪੂਰਾ ਸਕੈਨ ਖੇਤਰ ਵਰਤੋਂ"
+
+#. DESC_ZOOM_OUT
+#, no-c-format
+msgid "Zoom 20% out"
+msgstr "ਜ਼ੂਮ 20% ਆਉਟ"
+
+#. DESC_ZOOM_IN
+msgid "Click at position to zoom to"
+msgstr "ਜ਼ੂਮ ਕਰਨ ਲਈ ਸਥਿਤੀ ਉੱਤੇ ਕਲਿੱਕ ਕਰੋ"
+
+#. DESC_ZOOM_AREA
+msgid "Zoom into selected area"
+msgstr "ਚੁਣੇ ਖੇਤਰ ਲਈ ਜ਼ੂਮ"
+
+#. DESC_ZOOM_UNDO
+msgid "Undo last zoom"
+msgstr "ਆਖਰੀ ਜ਼ੂਮ ਵਾਪਸ"
+
+#. DESC_FULL_PREVIEW_AREA
+msgid "Select visible area"
+msgstr "ਦੇਖਣਯੋਗ ਖੇਤਰ ਚੁਣੋ"
+
+#. DESC_AUTOSELECT_SCAN_AREA
+msgid "Autoselect scan area"
+msgstr "ਸਕੈਨ-ਖੇਤਰ ਆਟੋ-ਚੁਣੋ"
+
+#. DESC_AUTORAISE_SCAN_AREA
+msgid "Autoraise scan area"
+msgstr "ਸਕੈਨ-ਖੇਤਰ ਆਟੋ-ਉਭਾਰੋ"
+
+#. DESC_DELETE_IMAGES
+msgid "Delete preview image cache"
+msgstr "ਝਲਕ ਚਿੱਤਰ ਕੈਚੇ ਹਟਾਓ"
+
+#. DESC_PRESET_AREA
+msgid ""
+"Preset area:\n"
+"To add new area or edit an existing area use context menu (alternate mouse "
+"button)."
+msgstr ""
+"ਪ੍ਰੀ-ਸੈੱਟ ਏਰੀਆ:\n"
+"ਇੱਕ ਨਵਾਂ ਖੇਤਰ ਸ਼ਾਮਲ ਕਰਨ ਜਾਂ ਇੱਕ ਮੌਜੂਦ ਖੇਤਰ ਸੋਧਣ ਵਾਸਤੇ ਪਰਸੰਗ ਮੇਨੂ (ਮਾਊਂਸ ਬਟਨ ਦਾ ਬਦਲ) ਵਰਤੋਂ।"
+
+#. DESC_ROTATION
+msgid "Rotate preview and scan"
+msgstr "ਝਲਕ ਅਤੇ ਸਕੈਨ ਘੁੰਮਾਓ"
+
+#. DESC_RATIO
+msgid "Aspect ratio of selection"
+msgstr "ਚੋਣ ਲਈ ਆਕਾਰ ਅਨੁਪਾਤ"
+
+#. DESC_PAPER_ORIENTATION
+msgid "Define image position for printing"
+msgstr "ਪਰਿੰਟ ਕਰਨ ਲਈ ਚਿੱਤਰ ਸਥਿਤੀ ਦਿਓ"
+
+#. DESC_VIEWER_OCR
+msgid "Optical Character Recognition"
+msgstr "ਆਪਟੀਕਲ ਕਰੈਕਟਰ ਰੀਕੋਨਾਈਜ਼ੇਸ਼ਨ (OCR)"
+
+#. DESC_VIEWER_UNDO
+msgid "Undo last change"
+msgstr "ਆਖਰੀ ਬਦਲਾਅ ਵਾਪਿਸ ਲਵੋ"
+
+#. DESC_VIEWER_CLONE
+msgid "Clone image"
+msgstr "ਚਿੱਤਰ ਕਲੋਨ ਕਰੋ"
+
+#. DESC_ROTATE90
+msgid "Rotate image 90 degrees"
+msgstr "ਚਿੱਤਰ 90 ਡਿਗਰੀ ਘੁੰਮਾਓ"
+
+#. DESC_ROTATE180
+msgid "Rotate image 180 degrees"
+msgstr "ਚਿੱਤਰ 180 ਡਿਗਰੀ ਘੁੰਮਾਓ"
+
+#. DESC_ROTATE270
+msgid "Rotate image 270 degrees"
+msgstr "ਚਿੱਤਰ 270 ਡਿਗਰੀ ਘੁੰਮਾਓ"
+
+#. DESC_MIRROR_X
+msgid "Mirror image at vertical axis"
+msgstr "ਵਰਟੀਕਲ ਧੁਰੇ ਉੱਤੇ ਚਿੱਤਰ ਮਿੱਰਰ ਕਰੋ"
+
+#. DESC_MIRROR_Y
+msgid "Mirror image at horizontal axis"
+msgstr "ਹਾਰੀਜ਼ਟਲ ਧੁਰੇ ਉੱਤੇ ਚਿੱਤਰ ਮਿੱਰਰ ਕਰੋ"
+
+#. DESC_VIEWER_ZOOM
+msgid "Zoom image"
+msgstr "ਚਿੱਤਰ ਜ਼ੂਮ"
+
+#. DESC_STORE_MEDIUM
+msgid "Store medium"
+msgstr "ਮੀਡਿਅਮ ਸਟੋਰ ਕਰੋ"
+
+#. DESC_DELETE_MEDIUM
+msgid "Delete active medium"
+msgstr "ਐਕਟਿਵ ਮੀਡਿਅਮ ਹਟਾਓ"
+
+#. DESC_SCALE_FACTOR
+msgid "Scale factor"
+msgstr "ਸਕੇਲ ਫੈਕਟਰ"
+
+#. DESC_X_SCALE_FACTOR
+msgid "X-Scale factor"
+msgstr "X-ਸਕੇਲ ਫੈਕਟਰ"
+
+#. DESC_Y_SCALE_FACTOR
+msgid "Y-Scale factor"
+msgstr "Y-ਸਕੇਲ ਫੈਕਟਰ"
+
+#. DESC_SCALE_WIDTH
+msgid "Scale image to width [pixels]"
+msgstr "ਚਿੱਤਰ ਨੂੰ ਚੌੜਾਈ [pixels] ਲਈ ਸਕੇਲ ਕਰੋ"
+
+#. DESC_SCALE_HEIGHT
+msgid "Scale image to height [pixels]"
+msgstr "ਚਿੱਤਰ ਨੂੰ ਉਚਾਈ [pixels] ਲਈ ਸਕੇਲ ਕਰੋ"
+
+#. DESC_BATCH_LIST_EMPTY
+msgid "Empty batch list"
+msgstr "ਬੈਂਚ ਲਿਸਟ ਖਾਲੀ ਕਰੋ"
+
+#. DESC_BATCH_LIST_SAVE
+msgid "Save batch list"
+msgstr "ਬੈਂਚ ਲਿਸਟ ਸੰਭਾਲੋ"
+
+#. DESC_BATCH_LIST_LOAD
+msgid "Load batch list"
+msgstr "ਬੈਂਚ ਲਿਸਟ ਲੋਡ ਕਰੋ"
+
+#. DESC_BATCH_RENAME
+msgid "Rename area"
+msgstr "ਖੇਤਰ ਨਾਂ ਬਦਲੋ"
+
+#. DESC_BATCH_ADD
+msgid "Add selected preview area to batch list"
+msgstr "ਬੈਂਚ ਲਿਸਟ ਲਈ ਚੁਣਿਆ ਝਲਕ ਖੇਤਰ ਸ਼ਾਮਲ ਕਰੋ"
+
+#. DESC_BATCH_DEL
+msgid "Delete selected area from batch list"
+msgstr "ਬੈਂਚ ਲਿਸਟ ਤੋਂ ਚੁਣਿਆ ਖੇਤਰ ਹਟਾਓ"
+
+#. DESC_AUTOMATIC
+msgid "Turns on automatic mode"
+msgstr "ਆਟੋਮੈਟਿਕ ਮੋਡ ਚਾਲੂ ਕਰੋ"
+
+#. DESC_BUTTON_SCANNER_DEFAULT_COLOR_ICM_PROFILE_BROWSE
+msgid "Browse for scanner default color ICM-profile"
+msgstr "ਸਕੈਨਰ ਡਿਫਾਲਟ ਕਲਰ ICM-ਪਰੋਫਾਇਲ ਲਈ ਝਲਕ"
+
+#. DESC_BUTTON_SCANNER_DEFAULT_GRAY_ICM_PROFILE_BROWSE
+msgid "Browse for scanner default gray ICM-profile"
+msgstr "ਸਕੈਨਰ ਡਿਫਾਲਟ ਗਰੇ ICM-ਪਰੋਫਾਇਲ ਲਈ ਝਲਕ"
+
+#. DESC_BUTTON_DISPLAY_ICM_PROFILE_BROWSE
+msgid "Browse for display ICM-profile"
+msgstr "ਡਿਸਪਲੇਅ ICM-ਪਰੋਫਾਇਲ ਲਈ ਝਲਕ"
+
+#. DESC_BUTTON_PRINTER_ICM_PROFILE_BROWSE
+msgid "Browse for printer ICM-profile"
+msgstr "ਪਰਿੰਟਰ ICM-ਪਰੋਫਾਇਲ ਲਈ ਝਲਕ"
+
+#. DESC_BUTTON_CUSTOM_PROOFING_ICM_PROFILE_BROWSE
+msgid "Browse for custom proofing ICM-profile"
+msgstr "ਕਸਟਮ ਪਰੂਫ਼ਿੰਗ ICM-ਪਰੋਫਾਇਲ ਲਈ ਝਲਕ"
+
+#. DESC_BUTTON_WORKING_COLOR_SPACE_ICM_PROFILE_BROWSE
+msgid "Browse for working color space ICM-profile"
+msgstr "ਵਰਕਿੰਗ ਕਲਰ ਸਪੇਸ ICM-ਪਰੋਫਾਇਲ ਲਈ ਝਲਕ"
+
+#. ERR_HOME_DIR
+msgid "Failed to determine home directory:"
+msgstr "ਘਰ ਡਾਇਰੈਕਟਰੀ ਪਛਾਣਨ ਲਈ ਫੇਲ੍ਹ:"
+
+#. ERR_CHANGE_WORKING_DIR
+msgid "Failed to change working directory to"
+msgstr "ਵਰਕਿੰਗ ਡਾਇਰੈਕਟਰੀ ਬਦਲਣ ਲਈ ਫੇਲ੍ਹ"
+
+#. ERR_FILENAME_TOO_LONG
+msgid "Filename too long"
+msgstr "ਫਾਇਲ ਨਾਂ ਬਹੁਤ ਲੰਮਾ ਹੈ"
+
+#. ERR_CREATE_TEMP_FILE
+msgid ""
+"Could not create temporary file.\n"
+"Open Menue Preferences->Setup Tab Save and\n"
+"select a temporary directory where you have\n"
+"write permissions."
+msgstr ""
+"ਆਰਜ਼ੀ ਫਾਇਲ ਨਹੀਂ ਬਣਾਈ ਜਾ ਸਕੀ।\n"
+"ਪਸੰਦ ->ਸੈੱਟਅੱਪ ਮੇਨੂ ਤੋਂ ਸੰਭਾਲੋ ਟੈਬ ਖੋਲ੍ਹੋ ਅਤੇ\n"
+"ਇੱਕ ਆਰਜ਼ੀ ਡਾਇਰੈਕਟਰੀ ਚੁਣੋ, ਜਿੱਥੇ ਕਿ ਤੁਹਾਨੂੰ ਲਿਖਣ\n"
+"ਅਧਿਕਾਰ ਹੋਣ।"
+
+#. ERR_SET_OPTION
+msgid "Failed to set value of option"
+msgstr "ਚੋਣ ਲਈ ਮੁੱਲ ਸੈੱਟ ਕਰਨ ਲਈ ਫੇਲ੍ਹ"
+
+#. ERR_GET_OPTION
+msgid "Failed to obtain value of option"
+msgstr "ਚੋਣ ਲਈ ਮੁੱਲ ਲੈਣ ਲਈ ਫੇਲ੍ਹ"
+
+#. ERR_OPTION_COUNT
+msgid "Error obtaining option count"
+msgstr "ਚੋਣ ਗਿਣਤੀ ਲੈਣ ਲਈ ਗਲਤੀ"
+
+#. ERR_DEVICE_OPEN_FAILED
+msgid "Failed to open device"
+msgstr "ਜੰਤਰ ਖੋਲ੍ਹਣ ਲਈ ਫੇਲ੍ਹ ਹੋਇਆ"
+
+#. ERR_NO_DEVICES
+msgid "no devices available"
+msgstr "ਕੋਈ ਜੰਤਰ ਉਪਲੱਬਧ ਨਹੀਂ ਹੈ"
+
+#. ERR_DURING_READ
+msgid "Error during read:"
+msgstr "ਪੜ੍ਹਨ ਦੌਰਾਨ ਗਲਤੀ:"
+
+#. ERR_DURING_SAVE
+msgid "Error during save:"
+msgstr "ਸੰਭਾਲਣ ਦੌਰਾਨ ਗਲਤੀ:"
+
+#. ERR_BAD_DEPTH
+msgid "Can't handle depth"
+msgstr "ਡੂੰਘਾਈ ਹੈਂਡਲ ਨਹੀਂ ਕੀਤੀ ਜਾ ਸਕਦੀ"
+
+#. ERR_UNKNOWN_SAVING_FORMAT
+msgid "Unknown file format for saving"
+msgstr "ਸੰਭਾਲਣ ਲਈ ਅਣਜਾਣ ਫਾਇਲ ਫਾਰਮੈਟ"
+
+#. ERR_OPEN_FAILED
+msgid "Failed to open"
+msgstr "ਖੋਲ੍ਹਣ ਲਈ ਫੇਲ੍ਹ ਹੋਇਆ"
+
+#. ERR_CREATE_SECURE_FILE
+msgid "Could not create secure file (maybe a link does exist):"
+msgstr "ਸੁਰੱਖਿਅਤ ਫਾਇਲ ਬਣਾਈ ਨਹੀਂ ਜਾ ਸਕੀ (ਸ਼ਾਇਦ ਇੱਕ ਲਿੰਕ ਮੌਜੂਦ ਹੋ ਸਕਦਾ ਹੈ):"
+
+#. ERR_FAILED_PRINTER_PIPE
+msgid "Failed to open pipe for executing printercommand"
+msgstr "ਪਰਿੰਟਰ-ਕਮਾਂਡ ਚਲਾਉਣ ਵਾਸਤੇ ਪਾਇਪ ਖੋਲ੍ਹਣ ਵਾਸਤੇ ਫੇਲ੍ਹ ਹੈ"
+
+#. ERR_FAILED_EXEC_PRINTER_CMD
+msgid "Failed to execute printercommand:"
+msgstr "ਪਰਿੰਟਰ ਕਮਾਂਡ ਚਲਾਉਣ ਲਈ ਫੇਲ੍ਹ:"
+
+#. ERR_FAILED_START_SCANNER
+msgid "Failed to start scanner:"
+msgstr "ਸਕੈਨਰ ਚਾਲੂ ਕਰਨ ਲਈ ਫੇਲ੍ਹ:"
+
+#. ERR_FAILED_GET_PARAMS
+msgid "Failed to get parameters:"
+msgstr "ਮੁੱਲ ਲੈਣ ਲਈ ਫੇਲ੍ਹ:"
+
+#. ERR_NO_OUTPUT_FORMAT
+msgid "No output format given"
+msgstr "ਕੋਈ ਆਉਟਪੁੱਟ ਫਾਰਮੈਟ ਨਹੀਂ ਦਿੱਤਾ ਹੈ"
+
+#. ERR_NO_MEM
+msgid "out of memory"
+msgstr "ਮੈਮੋਰੀ ਖਤਮ ਹੋ ਗਈ"
+
+#. ERR_TOO_MUCH_DATA
+msgid "Backend sends more image data than it defined in parameters"
+msgstr "ਬੈਕਐਂਡ ਆਪਣੇ ਦਿੱਤੇ ਪੈਰਾਮੀਟਰ ਤੋਂ ਵੱਧ ਚਿੱਤਰ ਡਾਟਾ ਭੇਜਦਾ ਹੈ"
+
+#. ERR_LIBTIFF
+msgid "LIBTIFF reports error"
+msgstr "LIBTIFF ਨੇ ਗਲਤੀ ਦਿੱਤੀ ਹੈ"
+
+#. ERR_LIBPNG
+msgid "LIBPNG reports error"
+msgstr "LIBPNG ਨੇ ਗਲਤੀ ਦਿੱਤੀ ਹੈ"
+
+#. ERR_LIBJPEG
+msgid "LIBJPEG reports error"
+msgstr "LIBJPEG ਨੇ ਗਲਤੀ ਦਿੱਤੀ ਹੈ"
+
+#. ERR_ZLIB
+msgid "ZLIB error or memory allocation problem"
+msgstr "ZLIB ਗਲਤੀ ਜਾਂ ਮੈਮੋਰੀ ਜਾਰੀ ਕਰਨ ਸਮੱਸਿਆ ਹੈ"
+
+#. ERR_UNKNOWN_TYPE
+msgid "unknown type"
+msgstr "ਅਣਜਾਣ ਟਾਈਪ"
+
+#. ERR_UNKNOWN_CONSTRAINT_TYPE
+msgid "unknown constraint type"
+msgstr "ਅਣਜਾਣ ਕਨਸਟਰੇਂਟ ਟਾਈਪ"
+
+#. ERR_OPTION_NAME_NULL
+msgid "Option has empty name (NULL)."
+msgstr "ਚੋਣ ਲਈ ਖਾਲੀ ਨਾਂ (NULL) ਹੈ।"
+
+#. ERR_BACKEND_BUG
+msgid "This is a backend bug. Please inform the author of the backend!"
+msgstr "ਇਹ ਬੈਕਐਂਡ ਬੱਗ ਹੈ। ਬੈਕਐਂਡ ਦੇ ਲੇਖਕ ਨੂੰ ਜਾਣਕਾਰੀ ਦਿਓ ਜੀ!"
+
+#. ERR_FAILED_EXEC_DOC_VIEWER
+msgid "Failed to execute documentation viewer:"
+msgstr "ਦਸਤਾਵੇਜ਼ ਦਰਸ਼ਕ ਚਲਾਉਣ ਲਈ ਫੇਲ੍ਹ:"
+
+#. ERR_FAILED_EXEC_FAX_VIEWER
+msgid "Failed to execute fax viewer:"
+msgstr "ਫੈਕਸ ਦਰਸ਼ਕ ਚਲਾਉਣ ਲਈ ਫੇਲ੍ਹ ਹੈ:"
+
+#. ERR_FAILED_EXEC_FAX_CMD
+msgid "Failed to execute fax command:"
+msgstr "ਫੈਕਸ ਕਮਾਂਡ ਚਲਾਉਣ ਲਈ ਫੇਲ੍ਹ:"
+
+#. ERR_FAILED_EXEC_OCR_CMD
+msgid "Failed to execute OCR command:"
+msgstr "OCR ਕਮਾਂਡ ਚਲਾਉਣ ਲਈ ਫੇਲ੍ਹ:"
+
+#. ERR_BAD_FRAME_FORMAT
+msgid "bad frame format"
+msgstr "ਗਲਤ ਫਰੇਮ ਫਾਰਮੈਟ"
+
+#. ERR_FAILED_SET_RESOLUTION
+msgid "unable to set resolution"
+msgstr "ਰੈਜ਼ੋਲੇਸ਼ਨ ਸੈੱਟ ਕਰਨ ਲਈ ਅਸਮਰੱਥ"
+
+#. ERR_PASSWORD_FILE_INSECURE
+#, c-format
+msgid "Password file (%s) is insecure, use permission x00\n"
+msgstr "ਪਾਸਵਰਡ ਫਾਇਲ (%s) ਅਸੁਰੱਖਿਅਤ ਹੈ, ਅਧਿਕਾਰ x00 ਵਰਤੋਂ\n"
+
+#. ERR_ERROR
+msgid "error"
+msgstr "ਗਲਤੀ"
+
+#. ERR_MAJOR_VERSION_NR_CONFLICT
+msgid "Sane major version number mismatch!"
+msgstr "ਸੇਨ (sane) ਮੇਜਰ ਵਰਜਨ ਨੰਬਰ ਮਿਲਦਾ ਨਹੀਂ!"
+
+#. ERR_XSANE_MAJOR_VERSION
+msgid "XSane major version ="
+msgstr "XSane ਮੁੱਖ ਵਰਜਨ ="
+
+#. ERR_BACKEND_MAJOR_VERSION
+msgid "backend major version ="
+msgstr "ਬੈਕਐਂਡ ਮੁੱਖ ਵਰਜਨ ="
+
+#. ERR_PROGRAM_ABORTED
+msgid "*** PROGRAM ABORTED ***"
+msgstr "*** ਪਰੋਗਰਾਮ ਅਧੂਰਾ ਛੱਡਿਆ ***"
+
+#. ERR_FAILED_ALLOCATE_IMAGE
+msgid "Failed to allocate image memory:"
+msgstr "ਚਿੱਤਰ ਮੈਮੋਰੀ ਦੇਣ ਲਈ ਫੇਲ੍ਹ:"
+
+#. ERR_PREVIEW_BAD_DEPTH
+msgid "Preview cannot handle bit depth"
+msgstr "ਝਲਕ ਬਿੱਟ ਡੂੰਘਾਈ ਹੈਂਡਲ ਨਹੀਂ ਕਰ ਸਕਦੀ ਹੈ"
+
+#. ERR_GIMP_SUPPORT_MISSING
+msgid "GIMP support missing"
+msgstr "ਜੈਮਪ ਸਹਿਯੋਗ ਗੁੰਮ ਹੈ"
+
+#. ERR_CREATE_FAX_PROJECT
+msgid "Could not create faxproject"
+msgstr "ਫੈਕਸ-ਪਰੋਜੈਕਟ ਨਹੀਂ ਬਣਾਇਆ ਜਾ ਸਕਿਆ"
+
+#. WARN_COUNTER_UNDERRUN
+msgid "Filename counter underrun"
+msgstr "ਫਾਇਲ-ਨਾਂ ਕਾਊਂਟਰ ਅੰਡਰ-ਰਨ (underrun)"
+
+#. WARN_NO_VALUE_CONSTRAINT
+msgid "warning: option has no value constraint"
+msgstr "ਚੇਤਾਵਨੀ: ਚੋਣ ਲਈ ਕੋਈ ਮੁੱਲ ਪਾਬੰਦੀ ਨਹੀਂ ਹੈ।"
+
+#. WARN_XSANE_AS_ROOT
+msgid ""
+"You try to run XSane as ROOT, that really is DANGEROUS!\n"
+"\n"
+"Do not send any bug reports when you\n"
+"have any problems while running XSane as root:\n"
+"YOU ARE ALONE!"
+msgstr ""
+"ਤੁਸੀਂ XSane ਨੂੰ ROOT ਵਾਂਗ ਚਲਾ ਰਹੇ ਹੋ, ਜੋ ਕਿ *ਖਤਰਨਾਕ* ਹੈ!\n"
+"\n"
+"ਜਦੋਂ ਤੁਸੀਂ XSane ਨੂੰ root ਵਾਂਗ ਚਲਾਉਦੇ ਹੋਵੋ ਤਾਂ\n"
+"ਕੋਈ ਵੀ ਬੱਗ ਜਾਣਕਾਰੀ ਨਾ ਭੇਜੋ ਜੀ:\n"
+"*ਤੁਸੀਂ ਇੱਕਲੇ ਹੀ ਕਰੋ*!"
+
+#. ERR_HEADER_ERROR
+msgid "Error"
+msgstr "ਗਲਤੀ"
+
+#. ERR_HEADER_WARNING
+msgid "Warning"
+msgstr "ਚੇਤਾਵਨੀ"
+
+#. ERR_HEADER_INFO
+msgid "Information"
+msgstr "ਜਾਣਕਾਰੀ"
+
+#. ERR_HEADER_CHILD_PROCESS_ERROR
+msgid "Child process error"
+msgstr "ਚਾਇਲਡ ਕਾਰਵਾਈ ਗਲਤੀ"
+
+#. ERR_FAILED_CREATE_FILE
+msgid "Failed to create file:"
+msgstr "ਫਾਇਲ ਬਣਾਉਣ ਲਈ ਫੇਲ੍ਹ:"
+
+#. ERR_LOAD_DEVICE_SETTINGS
+msgid "Error while loading device settings:"
+msgstr "ਜੰਤਰ ਸੈਟਿੰਗ ਲੋਡ ਕਰਨ ਦੌਰਾਨ ਗਲਤੀ:"
+
+#. ERR_NO_DRC_FILE
+msgid "is not a device-rc-file !!!"
+msgstr "ਇੱਕ device-rc-file ਨਹੀਂ ਹੈ!!!"
+
+#. ERR_NETSCAPE_EXECUTE_FAIL
+msgid "Failed to execute netscape!"
+msgstr "ਨੈੱਟਸਕੇਪ ਚਲਾਉਣ ਦੌਰਾਨ ਗਲਤੀ!"
+
+#. ERR_SENDFAX_RECEIVER_MISSING
+msgid "Send fax: no receiver defined"
+msgstr "ਫੈਕਸ ਭੇਜੋ: ਕੋਈ ਰਿਸੀਵਰ ਨਹੀਂ ਦਿੱਤਾ"
+
+#. ERR_CREATED_FOR_DEVICE
+msgid "has been created for device"
+msgstr "ਜੰਤਰ ਲਈ ਬਣਾਇਆ ਗਿਆ"
+
+#. ERR_USED_FOR_DEVICE
+msgid "you want to use it for device"
+msgstr "ਤੁਸੀਂ ਇਸ ਨੂੰ ਜੰਤਰ ਲਈ ਵਰਤਣਾ ਚਾਹੁੰਦੇ ਹੋ"
+
+#. ERR_MAY_CAUSE_PROBLEMS
+msgid "this may cause problems!"
+msgstr "ਇਹ ਸਮੱਸਿਆ ਪੈਦਾ ਕਰ ਸਕਦਾ ਹੈ!"
+
+#. WARN_UNSAVED_IMAGES
+#, c-format
+msgid "There are %d unsaved images"
+msgstr "%d ਨਾ-ਸੰਭਾਲੇ ਚਿੱਤਰ ਹਨ"
+
+#. WARN_FILE_EXISTS
+#, c-format
+msgid "File %s already exists"
+msgstr "ਫਾਇਲ %s ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ"
+
+#. ERR_FILE_NOT_EXISTS
+#, c-format
+msgid "File %s does not exist"
+msgstr "ਫਾਇਲ %s ਮੌਜੂਦ ਨਹੀਂ ਹੈ"
+
+#. ERR_FILE_NOT_POSTSCRIPT
+#, c-format
+msgid "File %s is not a postscript file"
+msgstr "ਫਾਇਲ %s ਪੋਸਟ-ਸਕ੍ਰਿਪਟ ਫਾਇਲ ਨਹੀਂ ਹੈ"
+
+#. ERR_UNSUPPORTED_OUTPUT_FORMAT
+#, c-format
+msgid "Unsupported %d-bit output format: %s"
+msgstr "ਨਾ-ਸਹਾਇਕ %d-ਬਿੱਟ ਆਉਟਪੁੱਟ ਫਾਰਮੈਟ: %s"
+
+#. ERR_CMS_CONVERSION
+msgid "Error during CMS conversion:"
+msgstr "CMS ਕਨਵਰਜਨ ਦੇ ਦੌਰਾਨ ਗਲਤੀ:"
+
+#. ERR_CMS_OPEN_ICM_FILE
+msgid "Could not open"
+msgstr "ਖੋਲ੍ਹਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ"
+
+#. CMS_SCANNER_ICM
+msgid "scanner ICM profile"
+msgstr "ਸਕੈਨਰ ICM ਪਰੋਫਾਇਲ"
+
+#. CMS_DISPLAY_ICM
+msgid "display ICM profile"
+msgstr "ਡਿਸਪਲੇਅ ICM ਪਰੋਫਾਇਲ"
+
+#. CMS_PROOF_ICM
+msgid "proofing ICM profile"
+msgstr "ਪਰੂਫਿੰਗ ICM ਪਰੋਫਾਇਲ"
+
+#. ERR_CMS_CREATE_TRANSFORM
+msgid "Could not create transform"
+msgstr "ਟਰਾਂਸਫਰਮ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ"
+
+#. WARN_VIEWER_IMAGE_NOT_SAVED
+msgid "viewer image is not saved"
+msgstr "ਵੇਖਾਇਆ ਚਿੱਤਰ ਸੰਭਾਲਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ"
+
+#. FILE_FILTER_ALL_FILES
+msgid "All files"
+msgstr "ਸਭ ਫਾਇਲਾਂ"
+
+#. FILE_FILTER_IMAGES
+msgid "Images"
+msgstr "ਚਿੱਤਰ"
+
+#. FILE_FILTER_XBL
+msgid "XSane batch list"
+msgstr "XSane ਬੈਂਚ ਲਿਸਟ"
+
+#. FILE_FILTER_ICM
+msgid "ICC/ICM Profiles"
+msgstr "ICC/ICM ਪਰੋਫਾਇਲ"
+
+#. FILE_FILTER_DRC
+msgid "XSane device preferences"
+msgstr "XSane ਜੰਤਰ ਪਸੰਦ"
+
+#. FILE_FILTER_RC
+msgid "XSane preferences"
+msgstr "XSane ਪਸੰਦ"
+
+#. TEXT_USAGE
+msgid "Usage:"
+msgstr "ਵਰਤੋਂ:"
+
+#. TEXT_USAGE_OPTIONS
+msgid "[OPTION]... [DEVICE]"
+msgstr "[OPTION]... [DEVICE]"
+
+#. TEXT_HELP
+msgid ""
+"Start up graphical user interface to access SANE (Scanner Access Now Easy) "
+"devices.\n"
+"\n"
+"The format of [DEVICE] is backendname:devicefile (e.g. umax:/dev/scanner).\n"
+"[OPTION]... can be a combination of the following items:\n"
+" -h, --help                   display this help message and exit\n"
+" -v, --version                print version information\n"
+" -l, --license                print license information\n"
+"\n"
+" -d, --device-settings file   load device settings from file (without \".drc"
+"\")\n"
+"\n"
+" -V, --viewer                 start with viewer-mode active (default)\n"
+" -s, --save                   start with save-mode active\n"
+" -c, --copy                   start with copy-mode active\n"
+" -m, --multipage              start with multipage-mode active\n"
+" -f, --fax                    start with fax-mode active\n"
+" -e, --email                  start with e-mail-mode active\n"
+" -n, --no-mode-selection      disable menu for XSane mode selection\n"
+"\n"
+" -F, --Fixed                  fixed main window size (overwrite preferences "
+"value)\n"
+" -R, --Resizeable             resizable, scrolled main window (overwrite "
+"preferences value)\n"
+"\n"
+" -p, --print-filenames        print image filenames created by XSane\n"
+" -N, --force-filename name    force filename and disable user filename "
+"selection\n"
+"\n"
+" --display X11-display        redirect output to X11-display\n"
+" --no-xshm                    do not use shared memory images\n"
+" --sync                       request a synchronous connection with the X11 "
+"server"
+msgstr ""
+"SANE (Scanner Access Now Easy) ਜੰਤਰਾਂ ਲਈ ਗਰਾਫਿਕਲ ਯੂਜ਼ਰ ਇੰਟਰਫੇਸ ਸ਼ੁਰੂ ਕਰੋ\n"
+"\n"
+"[DEVICE] ਦਾ ਫਾਰਮੈਟ backendname:devicefile (ਜਿਵੇਂ umax:/dev/scanner) ਹੈ।\n"
+"[OPTION]... ਹੇਠ ਦਿੱਤੀਆਂ ਆਈਟਮਾਂ ਦਾ ਜੋੜ ਹੋ ਸਕਦਾ ਹੈ:\n"
+" -h, --help                   display this help message and exit\n"
+" -v, --version                print version information\n"
+" -l, --license                print license information\n"
+"\n"
+" -d, --device-settings file   load device settings from file (without \".drc"
+"\")\n"
+"\n"
+" -V, --viewer                 start with viewer-mode active (default)\n"
+" -s, --save                   start with save-mode active\n"
+" -c, --copy                   start with copy-mode active\n"
+" -m, --multipage              start with multipage-mode active\n"
+" -f, --fax                    start with fax-mode active\n"
+" -e, --email                  start with e-mail-mode active\n"
+" -n, --no-mode-selection      disable menu for XSane mode selection\n"
+"\n"
+" -F, --Fixed                  fixed main window size (overwrite preferences "
+"value)\n"
+" -R, --Resizeable             resizable, scrolled main window (overwrite "
+"preferences value)\n"
+"\n"
+" -p, --print-filenames        print image filenames created by XSane\n"
+" -N, --force-filename name    force filename and disable user filename "
+"selection\n"
+"\n"
+" --display X11-display        redirect output to X11-display\n"
+" --no-xshm                    do not use shared memory images\n"
+" --sync                       request a synchronous connection with the X11 "
+"server"
+
+#. strings for gimp plugin
+#. XSANE_GIMP_INSTALL_BLURB
+msgid "Front-end to the SANE interface"
+msgstr "SANE ਇੰਟਰਫੇਸ ਲਈ ਫਰੰਟ-ਐਂਡ"
+
+#. XSANE_GIMP_INSTALL_HELP
+msgid ""
+"This function provides access to scanners and other image acquisition "
+"devices through the SANE (Scanner Access Now Easy) interface."
+msgstr ""
+"ਇਹ ਫੰਕਸ਼ਨ ਸਕੈਨਰ ਅਤੇ ਹੋਰ ਚਿੱਤਰ ਲੈਣਯੋਗ ਜੰਤਰਾਂ ਨੂੰ SANE (ਸਕੈਨਰ ਅਸੈੱਸ ਨਾਓ ਈਜ਼ਿ) ਇੰਟਰਫੇਸ ਰਾਹੀਂ ਵਰਤਦਾ "
+"ਹੈ।"
+
+#. Menu path must not be translated, this is done by the gimp. Only translate the text behind the last "/"
+#. XSANE_GIMP_MENU_DIALOG
+msgid "<Toolbox>/File/Acquire/XSane: Device dialog..."
+msgstr "<Toolbox>/ਫਾਇਲ/ਲਵੋ/XSane: ਜੰਤਰ ਡਾਈਲਾਗ..."
+
+#. XSANE_GIMP_MENU
+msgid "<Toolbox>/File/Acquire/XSane: "
+msgstr "<Toolbox>/ਫਾਇਲ/ਲਵੋ/XSane: "
+
+#. XSANE_GIMP_MENU_DIALOG_OLD
+msgid "<Toolbox>/Xtns/XSane/Device dialog..."
+msgstr "<Toolbox>/Xtns/XSane/ਜੰਤਰ ਡਾਈਲਾਗ..."
+
+#. XSANE_GIMP_MENU_OLD
+msgid "<Toolbox>/Xtns/XSane/"
+msgstr "<Toolbox>/Xtns/XSane/"
+
+#. HELP_NO_DEVICES
+msgid ""
+"Possible reasons:\n"
+"1) There really is no device that is supported by SANE\n"
+"2) Supported devices are busy\n"
+"3) The permissions for the device file do not allow you to use it - try as "
+"root\n"
+"4) The backend is not loaded by SANE (man sane-dll)\n"
+"5) The backend is not configured correctly (man sane-\"backendname\")\n"
+"6) Possibly there is more than one SANE version installed"
+msgstr ""
+"ਸੰਭਵ ਕਾਰਨ ਹਨ:\n"
+"1) SANE ਵਲੋਂ ਸਹਿਯੋਗ ਪ੍ਰਾਪਤ ਕੋਈ ਜੰਤਰ ਹੈ ਹੀ ਨਹੀਂ\n"
+"2) ਸਹਿਯੋਗੀ ਜੰਤਰ ਰੁੱਝਿਆ ਹੋਇਆ ਹੈ\n"
+"3) ਜੰਤਰ ਫਾਇਲ ਲਈ ਅਧਿਕਾਰ ਤਾਹਨੂੰ ਵਰਤਣ ਨਹੀਂ ਦੇ ਰਹੇ ਹਨ - root ਵਾਂਗ ਵਰਤੋਂ\n"
+"4) SANE ਵਲੋਂ ਬੈਕਐਂਡ ਲੋਡ ਨਹੀਂ ਕੀਤਾ ਗਿਆ ਹੈ (man sane-dll)\n"
+"5) ਬੈਕਐਂਡ ਠੀਕ ਤਰ੍ਹਾਂ ਸੰਰਚਿਤ ਨਹੀਂ ਹੈ (man sane-\"backendname\")\n"
+"6) ਸੰਭਵ ਤੌਰ ਉੱਤੇ ਇੱਕ ਤੋਂ ਵੱਧ SANE ਵਰਜਨ ਇੰਸਟਾਲ ਹਨ"
+
+#. strings that are used in structures, so it is not allowed to use _()/gettext() here
+#. gettext_noop does mark these texts but does not change the string
+#. MENU_ITEM_SURFACE_FULL_SIZE
+msgid "full size"
+msgstr "ਪੂਰਾ ਆਕਾਰ"
+
+#. MENU_ITEM_SURFACE_DIN_A3P
+msgid "DIN A3 port."
+msgstr "DIN A3 ਪੋਰਟ ਹੈ।"
+
+#. MENU_ITEM_SURFACE_DIN_A3L
+msgid "DIN A3 land."
+msgstr "DIN A3 ਲੈਂਡ।"
+
+#. MENU_ITEM_SURFACE_DIN_A4P
+msgid "DIN A4 port."
+msgstr "DIN A4 ਪੋਰਟ।"
+
+#. MENU_ITEM_SURFACE_DIN_A4L
+msgid "DIN A4 land."
+msgstr "DIN A4 ਲੈਂਡ।"
+
+#. MENU_ITEM_SURFACE_DIN_A5P
+msgid "DIN A5 port."
+msgstr "DIN A5 ਪੋਰਟ।"
+
+#. MENU_ITEM_SURFACE_DIN_A5L
+msgid "DIN A5 land."
+msgstr "DIN A5 ਲੈਂਡ।"
+
+#. MENU_ITEM_SURFACE_13cmx18cm
+msgid "13cm x 18cm"
+msgstr "13cm x 18cm"
+
+#. MENU_ITEM_SURFACE_18cmx13cm
+msgid "18cm x 13cm"
+msgstr "18cm x 13cm"
+
+#. MENU_ITEM_SURFACE_10cmx15cm
+msgid "10cm x 15cm"
+msgstr "10cm x 15cm"
+
+#. MENU_ITEM_SURFACE_15cmx10cm
+msgid "15cm x 10cm"
+msgstr "15cm x 10cm"
+
+#. MENU_ITEM_SURFACE_9cmx13cm
+msgid "9cm x 13cm"
+msgstr "9cm x 13cm"
+
+#. MENU_ITEM_SURFACE_13cmx9cm
+msgid "13cm x 9cm"
+msgstr "13cm x 9cm"
+
+#. MENU_ITEM_SURFACE_legal_P
+msgid "legal port."
+msgstr "ਲੀਗਲ ਪੋਰਟ।"
+
+#. MENU_ITEM_SURFACE_legal_L
+msgid "legal land."
+msgstr "ਲੀਗਲ ਲੈਂਡ।"
+
+#. MENU_ITEM_SURFACE_letter_P
+msgid "letter port."
+msgstr "ਲੈਟਰ ਪੋਰਟ।"
+
+#. MENU_ITEM_SURFACE_letter_L
+msgid "letter land."
+msgstr "ਲੈਟਰ ਲੈਂਡ।"
+
+#. MENU_ITEM_MEDIUM_FULL_COLOR_RANGE
+msgid "Full color range"
+msgstr "ਪੂਰੀ ਰੰਗ ਰੇਜ਼"
+
+#. MENU_ITEM_MEDIUM_SLIDE
+msgid "Slide"
+msgstr "ਸਲਾਇਡ"
+
+#. MENU_ITEM_MEDIUM_STANDARD_NEG
+msgid "Standard negative"
+msgstr "ਸਟੈਂਡਰਡ ਨੈਗਟਿਵ"
+
+#. MENU_ITEM_MEDIUM_AGFA_NEG
+msgid "Agfa negative"
+msgstr "Agfa ਨੈਗਟਿਵ"
+
+#. MENU_ITEM_MEDIUM_AGFA_NEG_XRG200_4
+msgid "Agfa negative XRG 200-4"
+msgstr "Agfa ਨੈਗਟਿਵ XRG 200-4"
+
+#. MENU_ITEM_MEDIUM_AGFA_NEG_HDC_100
+msgid "Agfa negative HDC 100"
+msgstr "Agfa ਨੈਗਟਿਵ HDC 100"
+
+#. MENU_ITEM_MEDIUM_FUJI_NEG
+msgid "Fuji negative"
+msgstr "Fuji ਨੈਗਟਿਵ"
+
+#. MENU_ITEM_MEDIUM_KODAK_NEG
+msgid "Kodak negative"
+msgstr "Kodak ਨੈਗਟਿਵ"
+
+#. MENU_ITEM_MEDIUM_KONICA_NEG
+msgid "Konica negative"
+msgstr "Konica ਨੈਗਟਿਵ"
+
+#. MENU_ITEM_MEDIUM_KONICA_NEG_VX_100
+msgid "Konica negative VX 100"
+msgstr "Konica ਨੈਗਟਿਵ VX 100"
+
+#. MENU_ITEM_MEDIUM_ROSSMANN_NEG_HR_100
+msgid "Rossmann negative HR 100"
+msgstr "Rossmann ਨੈਗਟਿਵ HR 100"
+
+#. TEXT_PROJECT_STATUS_NOT_CREATED
+msgid "Project not created"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਬਣਾਇਆ ਨਹੀਂ ਗਿਆ"
+
+#. TEXT_PROJECT_STATUS_CREATED
+msgid "Project created"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਬਣਾਇਆ ਗਿਆ"
+
+#. TEXT_PROJECT_STATUS_CHANGED
+msgid "Project changed"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਬਦਲਿਆ ਗਿਆ"
+
+#. TEXT_PROJECT_STATUS_ERR_READ_PROJECT
+msgid "Error reading project"
+msgstr "ਪ੍ਰੋਜੈਕਟ ਪੜ੍ਹਨ ਦੌਰਾਨ ਗਲਤੀ"
+
+#. TEXT_PROJECT_STATUS_FILE_SAVING_ERROR
+msgid "Error saving file"
+msgstr "ਫਾਇਲ ਸੰਭਾਲ ਦੌਰਾਨ ਗਲਤੀ"
+
+#. TEXT_PROJECT_STATUS_FILE_SAVING
+msgid "Saving file"
+msgstr "ਫਾਇਲ ਸੰਭਾਲੀ ਜਾ ਰਹੀ ਹੈ"
+
+#. TEXT_PROJECT_STATUS_FILE_SAVING_ABORTED
+msgid "Aborted saving file"
+msgstr "ਫਾਇਲ ਸੰਭਾਲਣਾ ਅਧੂਰਾ ਛੱਡਿਆ"
+
+#. TEXT_PROJECT_STATUS_FILE_SAVED
+msgid "File has been saved"
+msgstr "ਫਾਇਲ ਸੰਭਾਲੀ ਗਈ ਹੈ"
+
+#. TEXT_EMAIL_STATUS_POP3_CONNECTION_FAILED
+msgid "POP3 connection failed"
+msgstr "POP3 ਕੁਨੈਕਸ਼ਨ ਫੇਲ੍ਹ ਹੋਇਆ"
+
+#. TEXT_EMAIL_STATUS_POP3_LOGIN_FAILED
+msgid "POP3 login failed"
+msgstr "POP3 ਲਾਗਇਨ ਫੇਲ੍ਹ ਹੋਇਆ"
+
+#. TEXT_EMAIL_STATUS_ASMTP_AUTH_FAILED
+msgid "ASMTP authentication failed"
+msgstr "ASMTP ਪਰਮਾਣਕਿਤਾ ਫੇਲ੍ਹ ਹੋਈ"
+
+#. TEXT_EMAIL_STATUS_SMTP_CONNECTION_FAILED
+msgid "SMTP connection failed"
+msgstr "SMTP ਕੁਨੈਕਸ਼ਨ ਫੇਲ੍ਹ ਹੋਇਆ"
+
+#. TEXT_EMAIL_STATUS_SMTP_ERR_FROM
+msgid "From entry not accepted"
+msgstr "ਵਲੋਂ ਐਂਟਰੀ ਮਨਜ਼ੂਰ ਨਹੀਂ ਕੀਤੀ"
+
+#. TEXT_EMAIL_STATUS_SMTP_ERR_RCPT
+msgid "Receiver entry not accepted"
+msgstr "ਰਿਸੀਵਰ ਐਂਟਰੀ ਮਨਜ਼ੂਰ ਨਹੀਂ ਕੀਤੀ"
+
+#. TEXT_EMAIL_STATUS_SMTP_ERR_DATA
+msgid "E-mail data not accepted"
+msgstr "ਈਮੇਲ ਡਾਟਾ ਮਨਜ਼ੂਰ ਨਹੀਂ ਕੀਤਾ ਗਿਆ"
+
+#. TEXT_EMAIL_STATUS_SENDING
+msgid "Sending e-mail"
+msgstr "ਈਮੇਲ ਭੇਜੀ ਜਾ ਰਹੀ ਹੈ"
+
+#. TEXT_EMAIL_STATUS_SENT
+msgid "E-mail has been sent"
+msgstr "ਈਮੇਲ ਭੇਜੀ ਗਈ"
+
+#. TEXT_FAX_STATUS_QUEUEING_FAX
+msgid "Queueing fax"
+msgstr "ਫੈਕਸ ਕਿਊਇੰਗ"
+
+#. TEXT_FAX_STATUS_FAX_QUEUED
+msgid "Fax is queued"
+msgstr "ਫੈਕਸ ਕਤਾਰਬੱਧ ਹੈ"
+
+#. Sane backend messages
+msgid "flatbed scanner"
+msgstr "ਫਲੈਟਬੈਡ ਸਕੈਨਰ"
+
+msgid "frame grabber"
+msgstr "ਫਰੇਮ ਗਰੱਬਰ"
+
+msgid "handheld scanner"
+msgstr "ਹੈਂਡ-ਹੈਂਲਡ ਸਕੈਨਰ"
+
+msgid "still camera"
+msgstr "ਸਟਿੱਲ ਕੈਮਰਾ"
+
+msgid "video camera"
+msgstr "ਵੀਡਿਓ ਕੈਮਰਾ"
+
+msgid "virtual device"
+msgstr "ਵੁਰਚੁਅਲ ਜੰਤਰ"
+
+msgid "Success"
+msgstr "ਸਫ਼ਲ"
+
+msgid "Operation not supported"
+msgstr "ਓਪਰੇਸ਼ਨ ਸਹਾਇਕ ਨਹੀਂ ਹੈ"
+
+msgid "Operation was cancelled"
+msgstr "ਓਪਰੇਸ਼ਨ ਰੱਦ ਕੀਤਾ ਗਿਆ"
+
+msgid "Device busy"
+msgstr "ਜੰਤਰ ਰੁੱਝਿਆ ਹੋਇਆ ਹੈ"
+
+msgid "Invalid argument"
+msgstr "ਗਲਤ ਮੁੱਲ"
+
+msgid "End of file reached"
+msgstr "ਫਾਇਲ ਦਾ ਅੰਤ ਆ ਗਿਆ"
+
+msgid "Document feeder jammed"
+msgstr "ਦਸਤਾਵੇਜ਼ ਫੀਡਰ ਜਾਮ ਹੋ ਗਿਆ"
+
+msgid "Document feeder out of documents"
+msgstr "ਦਸਤਾਵੇਜ਼ ਫੀਡਰ ਵਿੱਚ ਦਸਤਾਵੇਜ਼ ਖਤਮ ਹੋ ਗਏ"
+
+msgid "Scanner cover is open"
+msgstr "ਸਕੈਨਰ ਢੱਕਣ ਖੁੱਲ੍ਹਾ ਹੈ"
+
+msgid "Error during device I/O"
+msgstr "ਜੰਤਰ I/O ਦੌਰਾਨ ਗਲਤੀ"
+
+msgid "Out of memory"
+msgstr "ਮੈਮੋਰੀ ਤੋਂ ਬਾਹਰ"
+
+msgid "Access to resource has been denied"
+msgstr "ਸਰੋਤ ਲਈ ਪਹੁੰਚ ਪਾਬੰਦੀ ਹੈ"

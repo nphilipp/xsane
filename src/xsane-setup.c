@@ -556,7 +556,7 @@ static void xsane_setup_enhance_apply_changes(GtkWidget *widget, gpointer data)
   preferences.preview_pipette_range = xsane_setup.preview_pipette_range;
 
   xsane_update_bool(xsane_setup.auto_enhance_gamma_button,  &preferences.auto_enhance_gamma);
-  xsane_update_bool(xsane_setup.preselect_scanarea_button,  &preferences.preselect_scanarea);
+  xsane_update_bool(xsane_setup.preselect_scan_area_button,  &preferences.preselect_scan_area);
   xsane_update_bool(xsane_setup.auto_correct_colors_button, &preferences.auto_correct_colors);
 
   xsane_update_gamma_curve(TRUE /* update raw */);
@@ -569,8 +569,6 @@ static void xsane_setup_color_management_apply_changes(GtkWidget *widget, gpoint
 {
   DBG(DBG_proc, "xsane_setup_colormagaement_apply_changes\n");
 
-//  preferences.cms_intent = gtk_option_menu_get_history(GTK_OPTION_MENU(xsane_setup.cms_intent_option_menu));
-//  preferences.cms_intent = gtk_option_menu_get_history(GTK_OPTION_MENU(xsane_setup.cms_intent_option_menu));
   preferences.cms_intent = (int) gtk_object_get_data(GTK_OBJECT(gtk_menu_get_active(GTK_MENU(gtk_option_menu_get_menu(GTK_OPTION_MENU(xsane_setup.cms_intent_option_menu))))), "Selection");
   xsane_update_bool(xsane_setup.cms_bpc_button, &preferences.cms_bpc);
 
@@ -734,7 +732,6 @@ static void xsane_setup_email_apply_changes(GtkWidget *widget, gpointer data)
     preferences.email_auth_pass[i] ^= 0x53;
   }
 
-//  xsane_update_bool(xsane_setup.email_authentication_entry, &preferences.email_authentication);
   xsane_update_int(xsane_setup.email_smtp_port_entry, &preferences.email_smtp_port);
   xsane_update_int(xsane_setup.email_pop3_port_entry, &preferences.email_pop3_port);
 
@@ -1072,7 +1069,7 @@ static void xsane_setup_browse_printer_icm_profile_callback(GtkWidget *widget, g
 
 static void xsane_printer_notebook(GtkWidget *notebook)
 {
- GtkWidget *setup_vbox, *vbox, *hbox, *button, *label, *text, *frame;
+ GtkWidget *setup_vbox, *vbox, *hbox, *title_hbox, *button_box, *button, *label, *text, *table, *separator;
  GtkWidget *printer_option_menu;
  char buf[64];
 
@@ -1080,27 +1077,23 @@ static void xsane_printer_notebook(GtkWidget *notebook)
 
   /* Printer options notebook page */
 
-  setup_vbox = gtk_vbox_new(FALSE, 5);
+  setup_vbox = gtk_vbox_new(FALSE, 0);
 
   label = gtk_label_new(NOTEBOOK_COPY_OPTIONS);
   gtk_notebook_append_page(GTK_NOTEBOOK(notebook), setup_vbox, label);
   gtk_widget_show(setup_vbox);
 
-  frame = gtk_frame_new(0);
-  gtk_container_set_border_width(GTK_CONTAINER(frame), 7);
-  gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_ETCHED_IN);
-  gtk_box_pack_start(GTK_BOX(setup_vbox), frame, TRUE, TRUE, 0); /* sizeable framehight */
-  gtk_widget_show(frame);
 
-  vbox = gtk_vbox_new(FALSE, 1);
-  gtk_container_add(GTK_CONTAINER(frame), vbox);
+  vbox = gtk_vbox_new(FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(setup_vbox), vbox, TRUE, TRUE, 2); /* sizeable framehight, 2 pixels at top and bottom */
+  gtk_container_set_border_width(GTK_CONTAINER(vbox), 6); /* 6 pixels left and right */
   gtk_widget_show(vbox);
 
 
+  /* printer selection : */
 
-  hbox = gtk_hbox_new(FALSE, 2);
-  gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
+  hbox = gtk_hbox_new(FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
 
   label = gtk_label_new(TEXT_SETUP_PRINTER_SEL);
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
@@ -1125,7 +1118,7 @@ static void xsane_printer_notebook(GtkWidget *notebook)
 
   text = gtk_entry_new();
   xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_PRINTER_NAME);
-  gtk_widget_set_size_request(text, 250, -1);
+  gtk_widget_set_size_request(text, 350, -1);
   gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.printer[preferences.printernr]->name);
   gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
   gtk_widget_show(text);
@@ -1143,7 +1136,7 @@ static void xsane_printer_notebook(GtkWidget *notebook)
 
   text = gtk_entry_new();
   xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_PRINTER_COMMAND);
-  gtk_widget_set_size_request(text, 250, -1);
+  gtk_widget_set_size_request(text, 350, -1);
   gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.printer[preferences.printernr]->command);
   gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
   gtk_widget_show(text);
@@ -1161,7 +1154,7 @@ static void xsane_printer_notebook(GtkWidget *notebook)
 
   text = gtk_entry_new();
   xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_COPY_NUMBER_OPTION);
-  gtk_widget_set_size_request(text, 250, -1);
+  gtk_widget_set_size_request(text, 350, -1);
   gtk_entry_set_text(GTK_ENTRY(text), (char *) preferences.printer[preferences.printernr]->copy_number_option);
   gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
   gtk_widget_show(text);
@@ -1171,14 +1164,24 @@ static void xsane_printer_notebook(GtkWidget *notebook)
 
   xsane_separator_new(vbox, 2);
 
+  table = gtk_table_new(8, 5, FALSE);
+  gtk_box_pack_start(GTK_BOX(vbox), table, TRUE, TRUE, 2);
+  gtk_widget_show(table);
+
+
+  /* title */
+  title_hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  label = gtk_label_new(TEXT_SETUP_SCAN_RESOLUTION_PRINTER);
+  gtk_box_pack_start(GTK_BOX(title_hbox), label, FALSE, FALSE, 2);
+  gtk_table_attach(GTK_TABLE(table), title_hbox, 0, 1, 0, 1, GTK_FILL, 0, 0 , 0);
+  gtk_widget_show(label);
+  gtk_widget_show(title_hbox);
+
 
   /* printer lineart resolution : */
 
-  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
-
   label = gtk_label_new(TEXT_SETUP_PRINTER_LINEART_RES);
-  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_table_attach(GTK_TABLE(table), label, 1, 2, 0, 1, GTK_SHRINK | GTK_EXPAND, 0, 0 , 0);
   gtk_widget_show(label);
 
   text = gtk_entry_new();
@@ -1186,19 +1189,15 @@ static void xsane_printer_notebook(GtkWidget *notebook)
   gtk_widget_set_size_request(text, 80, -1);
   snprintf(buf, sizeof(buf), "%d", preferences.printer[preferences.printernr]->lineart_resolution);
   gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
-  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
+  gtk_table_attach(GTK_TABLE(table), text, 1, 2, 1, 2, GTK_SHRINK | GTK_EXPAND, 0, 0 , 0);
   gtk_widget_show(text);
-  gtk_widget_show(hbox);
   xsane_setup.printer_lineart_resolution_entry = text;
 
 
   /* printer grayscale resolution : */
 
-  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
-
   label = gtk_label_new(TEXT_SETUP_PRINTER_GRAYSCALE_RES);
-  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_table_attach(GTK_TABLE(table), label, 2, 3, 0, 1, GTK_SHRINK | GTK_EXPAND, 0, 0 , 0);
   gtk_widget_show(label);
 
   text = gtk_entry_new();
@@ -1206,19 +1205,15 @@ static void xsane_printer_notebook(GtkWidget *notebook)
   gtk_widget_set_size_request(text, 80, -1);
   snprintf(buf, sizeof(buf), "%d", preferences.printer[preferences.printernr]->grayscale_resolution);
   gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
-  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
+  gtk_table_attach(GTK_TABLE(table), text, 2, 3, 1, 2, GTK_SHRINK | GTK_EXPAND, 0, 0 , 0);
   gtk_widget_show(text);
-  gtk_widget_show(hbox);
   xsane_setup.printer_grayscale_resolution_entry = text;
 
 
   /* printer color resolution : */
 
-  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
-
   label = gtk_label_new(TEXT_SETUP_PRINTER_COLOR_RES);
-  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_table_attach(GTK_TABLE(table), label, 3, 4, 0, 1, GTK_SHRINK | GTK_EXPAND, 0, 0 , 0);
   gtk_widget_show(label);
 
   text = gtk_entry_new();
@@ -1226,23 +1221,32 @@ static void xsane_printer_notebook(GtkWidget *notebook)
   gtk_widget_set_size_request(text, 80, -1);
   snprintf(buf, sizeof(buf), "%d", preferences.printer[preferences.printernr]->color_resolution);
   gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
-  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
+  gtk_table_attach(GTK_TABLE(table), text, 3, 4, 1, 2, GTK_SHRINK | GTK_EXPAND, 0, 0 , 0);
   gtk_widget_show(text);
-  gtk_widget_show(hbox);
   xsane_setup.printer_color_resolution_entry = text;
 
 
-  xsane_separator_new(vbox, 2);
+  gtk_table_set_row_spacing(GTK_TABLE(table), 1, 4);
+  separator = gtk_hseparator_new();
+  gtk_table_attach(GTK_TABLE(table), separator, 0, 5, 2, 3, GTK_FILL, 0, 0 , 0);
+  gtk_widget_show(separator);
+  gtk_table_set_row_spacing(GTK_TABLE(table), 2, 4);
+
+
+  /* title */
+  title_hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  label = gtk_label_new(TEXT_SETUP_PRINTER_PAPER_GEOMETRIE);
+  gtk_box_pack_start(GTK_BOX(title_hbox), label, FALSE, FALSE, 2);
+  gtk_table_attach(GTK_TABLE(table), title_hbox, 0, 1, 3, 4, GTK_FILL, 0, 0 , 0);
+  gtk_widget_show(label);
+  gtk_widget_show(title_hbox);
 
 
   /* printer width: */
 
-  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
-
-  snprintf(buf, sizeof(buf), "%s [%s]:", TEXT_SETUP_PRINTER_WIDTH, xsane_back_gtk_unit_string(SANE_UNIT_MM));
+  snprintf(buf, sizeof(buf), "%s [%s]", TEXT_SETUP_PRINTER_WIDTH, xsane_back_gtk_unit_string(SANE_UNIT_MM));
   label = gtk_label_new(buf);
-  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_table_attach(GTK_TABLE(table), label, 1, 2, 3, 4, GTK_SHRINK | GTK_EXPAND, 0, 0 , 0);
   gtk_widget_show(label);
 
   text = gtk_entry_new();
@@ -1250,19 +1254,15 @@ static void xsane_printer_notebook(GtkWidget *notebook)
   gtk_widget_set_size_request(text, 80, -1);
   snprintf(buf, sizeof(buf), "%4.3f", preferences.printer[preferences.printernr]->width / preferences.length_unit);
   gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
-  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
+  gtk_table_attach(GTK_TABLE(table), text, 1, 2, 4, 5, GTK_SHRINK | GTK_EXPAND, 0, 0 , 0);
   gtk_widget_show(text);
-  gtk_widget_show(hbox);
   xsane_setup.printer_width_entry = text;
 
   /* printer height: */
 
-  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
-
-  snprintf(buf, sizeof(buf), "%s [%s]:", TEXT_SETUP_PRINTER_HEIGHT, xsane_back_gtk_unit_string(SANE_UNIT_MM));
+  snprintf(buf, sizeof(buf), "%s [%s]", TEXT_SETUP_PRINTER_HEIGHT, xsane_back_gtk_unit_string(SANE_UNIT_MM));
   label = gtk_label_new(buf);
-  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_table_attach(GTK_TABLE(table), label, 2, 3, 3, 4, GTK_SHRINK | GTK_EXPAND, 0, 0 , 0);
   gtk_widget_show(label);
 
   text = gtk_entry_new();
@@ -1270,19 +1270,15 @@ static void xsane_printer_notebook(GtkWidget *notebook)
   gtk_widget_set_size_request(text, 80, -1);
   snprintf(buf, sizeof(buf), "%4.3f", preferences.printer[preferences.printernr]->height / preferences.length_unit);
   gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
-  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
+  gtk_table_attach(GTK_TABLE(table), text, 2, 3, 4, 5, GTK_SHRINK | GTK_EXPAND, 0, 0 , 0);
   gtk_widget_show(text);
-  gtk_widget_show(hbox);
   xsane_setup.printer_height_entry = text;
 
   /* printer left offset : */
 
-  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
-
-  snprintf(buf, sizeof(buf), "%s [%s]:", TEXT_SETUP_PRINTER_LEFT, xsane_back_gtk_unit_string(SANE_UNIT_MM));
+  snprintf(buf, sizeof(buf), "%s [%s]", TEXT_SETUP_PRINTER_LEFT, xsane_back_gtk_unit_string(SANE_UNIT_MM));
   label = gtk_label_new(buf);
-  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_table_attach(GTK_TABLE(table), label, 3, 4, 3, 4, GTK_SHRINK | GTK_EXPAND, 0, 0 , 0);
   gtk_widget_show(label);
 
   text = gtk_entry_new();
@@ -1290,19 +1286,15 @@ static void xsane_printer_notebook(GtkWidget *notebook)
   gtk_widget_set_size_request(text, 80, -1);
   snprintf(buf, sizeof(buf), "%4.3f", preferences.printer[preferences.printernr]->leftoffset / preferences.length_unit);
   gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
-  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
+  gtk_table_attach(GTK_TABLE(table), text, 3, 4, 4, 5, GTK_SHRINK | GTK_EXPAND, 0, 0 , 0);
   gtk_widget_show(text);
-  gtk_widget_show(hbox);
   xsane_setup.printer_leftoffset_entry = text;
 
   /* printer bottom offset : */
 
-  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
-
-  snprintf(buf, sizeof(buf), "%s [%s]:", TEXT_SETUP_PRINTER_BOTTOM, xsane_back_gtk_unit_string(SANE_UNIT_MM));
+  snprintf(buf, sizeof(buf), "%s [%s]", TEXT_SETUP_PRINTER_BOTTOM, xsane_back_gtk_unit_string(SANE_UNIT_MM));
   label = gtk_label_new(buf);
-  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_table_attach(GTK_TABLE(table), label, 4, 5, 3, 4, GTK_SHRINK | GTK_EXPAND, 0, 0 , 0);
   gtk_widget_show(label);
 
   text = gtk_entry_new();
@@ -1310,22 +1302,31 @@ static void xsane_printer_notebook(GtkWidget *notebook)
   gtk_widget_set_size_request(text, 80, -1);
   snprintf(buf, sizeof(buf), "%4.3f", preferences.printer[preferences.printernr]->bottomoffset / preferences.length_unit);
   gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
-  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
+  gtk_table_attach(GTK_TABLE(table), text, 4, 5, 4, 5, GTK_SHRINK | GTK_EXPAND, 0, 0 , 0);
   gtk_widget_show(text);
-  gtk_widget_show(hbox);
   xsane_setup.printer_bottomoffset_entry = text;
 
 
-  xsane_separator_new(vbox, 2);
+  gtk_table_set_row_spacing(GTK_TABLE(table), 4, 4);
+  separator = gtk_hseparator_new();
+  gtk_table_attach(GTK_TABLE(table), separator, 0, 5, 5, 6, GTK_FILL, 0, 0 , 0);
+  gtk_widget_show(separator);
+  gtk_table_set_row_spacing(GTK_TABLE(table), 5, 4);
+
+
+  /* title */
+  title_hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
+  label = gtk_label_new(TEXT_SETUP_PRINTER_GAMMA_CORRECTION);
+  gtk_box_pack_start(GTK_BOX(title_hbox), label, FALSE, FALSE, 2);
+  gtk_table_attach(GTK_TABLE(table), title_hbox, 0, 1, 6, 7, GTK_FILL, 0, 0 , 0);
+  gtk_widget_show(label);
+  gtk_widget_show(title_hbox);
 
 
   /* printer gamma: */
 
-  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
-
   label = gtk_label_new(TEXT_SETUP_PRINTER_GAMMA);
-  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_table_attach(GTK_TABLE(table), label, 1, 2, 6, 7, GTK_SHRINK | GTK_EXPAND, 0, 0 , 0);
   gtk_widget_show(label);
 
   text = gtk_entry_new();
@@ -1333,18 +1334,14 @@ static void xsane_printer_notebook(GtkWidget *notebook)
   gtk_widget_set_size_request(text, 80, -1);
   snprintf(buf, sizeof(buf), "%1.2f", preferences.printer[preferences.printernr]->gamma);
   gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
-  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
+  gtk_table_attach(GTK_TABLE(table), text, 1, 2, 7, 8, GTK_SHRINK | GTK_EXPAND, 0, 0 , 0);
   gtk_widget_show(text);
-  gtk_widget_show(hbox);
   xsane_setup.printer_gamma_entry = text;
 
   /* printer gamma red: */
 
-  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
-
   label = gtk_label_new(TEXT_SETUP_PRINTER_GAMMA_RED);
-  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_table_attach(GTK_TABLE(table), label, 2, 3, 6, 7, GTK_SHRINK | GTK_EXPAND, 0, 0 , 0);
   gtk_widget_show(label);
 
   text = gtk_entry_new();
@@ -1352,18 +1349,14 @@ static void xsane_printer_notebook(GtkWidget *notebook)
   gtk_widget_set_size_request(text, 80, -1);
   snprintf(buf, sizeof(buf), "%1.2f", preferences.printer[preferences.printernr]->gamma_red);
   gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
-  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
+  gtk_table_attach(GTK_TABLE(table), text, 2, 3, 7, 8, GTK_SHRINK | GTK_EXPAND, 0, 0 , 0);
   gtk_widget_show(text);
-  gtk_widget_show(hbox);
   xsane_setup.printer_gamma_red_entry = text;
 
   /* printer gamma green: */
 
-  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
-
   label = gtk_label_new(TEXT_SETUP_PRINTER_GAMMA_GREEN);
-  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_table_attach(GTK_TABLE(table), label, 3, 4, 6, 7, GTK_SHRINK | GTK_EXPAND, 0, 0 , 0);
   gtk_widget_show(label);
 
   text = gtk_entry_new();
@@ -1371,18 +1364,14 @@ static void xsane_printer_notebook(GtkWidget *notebook)
   gtk_widget_set_size_request(text, 80, -1);
   snprintf(buf, sizeof(buf), "%1.2f", preferences.printer[preferences.printernr]->gamma_green);
   gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
-  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
+  gtk_table_attach(GTK_TABLE(table), text, 3, 4, 7, 8, GTK_SHRINK | GTK_EXPAND, 0, 0 , 0);
   gtk_widget_show(text);
-  gtk_widget_show(hbox);
   xsane_setup.printer_gamma_green_entry = text;
 
   /* printer gamma blue: */
 
-  hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
-
   label = gtk_label_new(TEXT_SETUP_PRINTER_GAMMA_BLUE);
-  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
+  gtk_table_attach(GTK_TABLE(table), label, 4, 5, 6, 7, GTK_SHRINK | GTK_EXPAND, 0, 0 , 0);
   gtk_widget_show(label);
 
   text = gtk_entry_new();
@@ -1390,9 +1379,8 @@ static void xsane_printer_notebook(GtkWidget *notebook)
   gtk_widget_set_size_request(text, 80, -1);
   snprintf(buf, sizeof(buf), "%1.2f", preferences.printer[preferences.printernr]->gamma_blue);
   gtk_entry_set_text(GTK_ENTRY(text), (char *) buf);
-  gtk_box_pack_end(GTK_BOX(hbox), text, FALSE, FALSE, 2);
+  gtk_table_attach(GTK_TABLE(table), text, 4, 5, 7, 8, GTK_SHRINK | GTK_EXPAND, 0, 0 , 0);
   gtk_widget_show(text);
-  gtk_widget_show(hbox);
   xsane_setup.printer_gamma_blue_entry = text;
 
 #ifdef HAVE_LIBLCMS
@@ -1486,12 +1474,27 @@ static void xsane_printer_notebook(GtkWidget *notebook)
 #endif
 
 
-  xsane_separator_new(vbox, 4);
+  xsane_separator_new(vbox, 2);
 
   /* "apply" "add printer" "delete printer" */
 
   hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+  gtk_box_pack_end(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+  gtk_widget_show(hbox);
+
+  button_box = gtk_hbox_new(/* homogeneous */ TRUE, 0);
+  gtk_box_pack_end(GTK_BOX(hbox), button_box, FALSE, FALSE, 0);
+  gtk_widget_show(button_box);
+
+  button = gtk_button_new_with_label(BUTTON_ADD_PRINTER);
+  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_printer_new, printer_option_menu);
+  gtk_box_pack_start(GTK_BOX(button_box), button, TRUE, TRUE, 0);
+  gtk_widget_show(button);
+
+  button = gtk_button_new_with_label(BUTTON_DELETE_PRINTER);
+  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_printer_delete, printer_option_menu);
+  gtk_box_pack_start(GTK_BOX(button_box), button, TRUE, TRUE, 8);
+  gtk_widget_show(button);
 
 #ifdef HAVE_GTK2
   button = gtk_button_new_from_stock(GTK_STOCK_APPLY);
@@ -1499,20 +1502,8 @@ static void xsane_printer_notebook(GtkWidget *notebook)
   button = gtk_button_new_with_label(BUTTON_APPLY);
 #endif
   g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_printer_apply_changes, printer_option_menu);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
+  gtk_box_pack_start(GTK_BOX(button_box), button, TRUE, TRUE, 0);
   gtk_widget_show(button);
-
-  button = gtk_button_new_with_label(BUTTON_ADD_PRINTER);
-  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_printer_new, printer_option_menu);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
-  gtk_widget_show(button);
-
-  button = gtk_button_new_with_label(BUTTON_DELETE_PRINTER);
-  g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_printer_delete, printer_option_menu);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
-  gtk_widget_show(button);
-
-  gtk_widget_show(hbox);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -1635,7 +1626,7 @@ static void xsane_setup_browse_working_color_space_icm_profile_callback(GtkWidge
 
 static void xsane_saving_notebook(GtkWidget *notebook)
 {
- GtkWidget *setup_vbox, *vbox, *hbox, *button, *label, *text, *frame;
+ GtkWidget *setup_vbox, *vbox, *hbox, *button, *label, *text;
  GtkWidget *filename_counter_len_option_menu, *filename_counter_len_menu, *filename_counter_len_item;
  char buf[64];
  int i, select = 1;
@@ -1643,21 +1634,17 @@ static void xsane_saving_notebook(GtkWidget *notebook)
   DBG(DBG_proc, "xsane_saving_notebook\n");
 
   /* Saving options notebook page */
-  setup_vbox = gtk_vbox_new(FALSE, 5);
+  setup_vbox = gtk_vbox_new(FALSE, 0);
 
   label = gtk_label_new(NOTEBOOK_SAVING_OPTIONS);
   gtk_notebook_append_page(GTK_NOTEBOOK(notebook), setup_vbox, label);
   gtk_widget_show(setup_vbox);
 
-  frame = gtk_frame_new(0);
-  gtk_container_set_border_width(GTK_CONTAINER(frame), 7);
-  gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_ETCHED_IN);
-  gtk_box_pack_start(GTK_BOX(setup_vbox), frame, TRUE, TRUE, 0); /* sizeable framehight */
-  gtk_widget_show(frame);
-
-  vbox = gtk_vbox_new(FALSE, 1);
-  gtk_container_add(GTK_CONTAINER(frame), vbox);
+  vbox = gtk_vbox_new(FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(setup_vbox), vbox, TRUE, TRUE, 2); /* sizeable framehight */
+  gtk_container_set_border_width(GTK_CONTAINER(vbox), 6);
   gtk_widget_show(vbox);
+
 
 
 
@@ -1788,7 +1775,7 @@ static void xsane_saving_notebook(GtkWidget *notebook)
   /* apply button */
 
   hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+  gtk_box_pack_end(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
 
 #ifdef HAVE_GTK2
   button = gtk_button_new_from_stock(GTK_STOCK_APPLY);
@@ -1796,7 +1783,7 @@ static void xsane_saving_notebook(GtkWidget *notebook)
   button = gtk_button_new_with_label(BUTTON_APPLY);
 #endif
   g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_saving_apply_changes, NULL);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
+  gtk_box_pack_end(GTK_BOX(hbox), button, FALSE, FALSE, 0);
   gtk_widget_show(button);
 
   gtk_widget_show(hbox);
@@ -1806,7 +1793,7 @@ static void xsane_saving_notebook(GtkWidget *notebook)
 
 static void xsane_filetype_notebook(GtkWidget *notebook)
 {
- GtkWidget *setup_vbox, *vbox, *hbox, *button, *label, *frame;
+ GtkWidget *setup_vbox, *vbox, *hbox, *button, *label;
 #ifdef HAVE_LIBTIFF
  int i, select = 1;
 
@@ -1860,21 +1847,17 @@ static void xsane_filetype_notebook(GtkWidget *notebook)
   DBG(DBG_proc, "xsane_filetype_notebook\n");
 
   /* Image options notebook page */
-  setup_vbox = gtk_vbox_new(FALSE, 5);
+  setup_vbox = gtk_vbox_new(FALSE, 0);
 
   label = gtk_label_new(NOTEBOOK_FILETYPE_OPTIONS);
   gtk_notebook_append_page(GTK_NOTEBOOK(notebook), setup_vbox, label);
   gtk_widget_show(setup_vbox);
 
-  frame = gtk_frame_new(0);
-  gtk_container_set_border_width(GTK_CONTAINER(frame), 7);
-  gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_ETCHED_IN);
-  gtk_box_pack_start(GTK_BOX(setup_vbox), frame, TRUE, TRUE, 0); /* sizeable framehight */
-  gtk_widget_show(frame);
-
-  vbox = gtk_vbox_new(FALSE, 1);
-  gtk_container_add(GTK_CONTAINER(frame), vbox);
+  vbox = gtk_vbox_new(FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(setup_vbox), vbox, TRUE, TRUE, 2); /* sizeable framehight */
+  gtk_container_set_border_width(GTK_CONTAINER(vbox), 6);
   gtk_widget_show(vbox);
+
 
 
   /* reduce 16bit to 8bit */
@@ -2079,7 +2062,7 @@ static void xsane_filetype_notebook(GtkWidget *notebook)
   /* apply button */
 
   hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+  gtk_box_pack_end(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
 
 #ifdef HAVE_GTK2
   button = gtk_button_new_from_stock(GTK_STOCK_APPLY);
@@ -2087,7 +2070,7 @@ static void xsane_filetype_notebook(GtkWidget *notebook)
   button = gtk_button_new_with_label(BUTTON_APPLY);
 #endif
   g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_image_apply_changes, NULL);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
+  gtk_box_pack_end(GTK_BOX(hbox), button, FALSE, FALSE, 0);
   gtk_widget_show(button);
 
   gtk_widget_show(hbox);
@@ -2125,7 +2108,7 @@ static void xsane_fax_notebook_set_faxprogram_default_callback(GtkWidget *widget
 
 static void xsane_fax_notebook(GtkWidget *notebook)
 {
- GtkWidget *setup_vbox, *vbox, *hbox, *button, *label, *text, *frame;
+ GtkWidget *setup_vbox, *vbox, *hbox, *button, *label, *text;
  char buf[64];
  int i;
 
@@ -2133,21 +2116,17 @@ static void xsane_fax_notebook(GtkWidget *notebook)
 
   /* Fax options notebook page */
 
-  setup_vbox = gtk_vbox_new(FALSE, 5);
+  setup_vbox = gtk_vbox_new(FALSE, 0);
 
   label = gtk_label_new(NOTEBOOK_FAX_OPTIONS);
   gtk_notebook_append_page(GTK_NOTEBOOK(notebook), setup_vbox, label);
   gtk_widget_show(setup_vbox);
 
-  frame = gtk_frame_new(0);
-  gtk_container_set_border_width(GTK_CONTAINER(frame), 7);
-  gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_ETCHED_IN);
-  gtk_box_pack_start(GTK_BOX(setup_vbox), frame, TRUE, TRUE, 0); /* sizeable framehight */
-  gtk_widget_show(frame);
-
-  vbox = gtk_vbox_new(FALSE, 1);
-  gtk_container_add(GTK_CONTAINER(frame), vbox);
+  vbox = gtk_vbox_new(FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(setup_vbox), vbox, TRUE, TRUE, 2); /* sizeable framehight */
+  gtk_container_set_border_width(GTK_CONTAINER(vbox), 6);
   gtk_widget_show(vbox);
+
 
   /* faxcommand : */
 
@@ -2392,7 +2371,7 @@ static void xsane_fax_notebook(GtkWidget *notebook)
   /* apply button */
 
   hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+  gtk_box_pack_end(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
 
 #ifdef HAVE_GTK2
   button = gtk_button_new_from_stock(GTK_STOCK_APPLY);
@@ -2400,7 +2379,7 @@ static void xsane_fax_notebook(GtkWidget *notebook)
   button = gtk_button_new_with_label(BUTTON_APPLY);
 #endif
   g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_fax_apply_changes, NULL);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
+  gtk_box_pack_end(GTK_BOX(hbox), button, FALSE, FALSE, 0);
   gtk_widget_show(button);
 
   gtk_widget_show(hbox);
@@ -2420,7 +2399,7 @@ static void xsane_email_notebook(GtkWidget *notebook)
 
 #define AUTHENTICATION_NUMBER 4
 
- GtkWidget *setup_vbox, *vbox, *pop3_vbox, *hbox, *button, *label, *text, *frame;
+ GtkWidget *setup_vbox, *vbox, *pop3_vbox, *hbox, *button, *label, *text;
  GtkWidget *authentication_option_menu, *authentication_menu, *authentication_menu_item;
  char buf[64];
  char *password;
@@ -2431,21 +2410,17 @@ static void xsane_email_notebook(GtkWidget *notebook)
 
   /* Mail options notebook page */
 
-  setup_vbox = gtk_vbox_new(FALSE, 5);
+  setup_vbox = gtk_vbox_new(FALSE, 0);
 
   label = gtk_label_new(NOTEBOOK_EMAIL_OPTIONS);
   gtk_notebook_append_page(GTK_NOTEBOOK(notebook), setup_vbox, label);
   gtk_widget_show(setup_vbox);
 
-  frame = gtk_frame_new(0);
-  gtk_container_set_border_width(GTK_CONTAINER(frame), 7);
-  gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_ETCHED_IN);
-  gtk_box_pack_start(GTK_BOX(setup_vbox), frame, TRUE, TRUE, 0); /* sizeable framehight */
-  gtk_widget_show(frame);
-
-  vbox = gtk_vbox_new(FALSE, 1);
-  gtk_container_add(GTK_CONTAINER(frame), vbox);
+  vbox = gtk_vbox_new(FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(setup_vbox), vbox, TRUE, TRUE, 2); /* sizeable framehight */
+  gtk_container_set_border_width(GTK_CONTAINER(vbox), 6);
   gtk_widget_show(vbox);
+
 
 
   /* from */
@@ -2671,7 +2646,7 @@ static void xsane_email_notebook(GtkWidget *notebook)
   /* apply button */
 
   hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+  gtk_box_pack_end(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
 
 #ifdef HAVE_GTK2
   button = gtk_button_new_from_stock(GTK_STOCK_APPLY);
@@ -2679,7 +2654,7 @@ static void xsane_email_notebook(GtkWidget *notebook)
   button = gtk_button_new_with_label(BUTTON_APPLY);
 #endif
   g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_email_apply_changes, NULL);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
+  gtk_box_pack_end(GTK_BOX(hbox), button, FALSE, FALSE, 0);
   gtk_widget_show(button);
 
   gtk_widget_show(hbox);
@@ -2690,27 +2665,23 @@ static void xsane_email_notebook(GtkWidget *notebook)
 
 static void xsane_ocr_notebook(GtkWidget *notebook)
 {
- GtkWidget *setup_vbox, *vbox, *hbox, *label, *text, *frame, *button;
+ GtkWidget *setup_vbox, *vbox, *hbox, *label, *text, *button;
 
   DBG(DBG_proc, "xsane_ocr_notebook\n");
 
   /* OCR options notebook page */
 
-  setup_vbox = gtk_vbox_new(FALSE, 5);
+  setup_vbox = gtk_vbox_new(FALSE, 0);
 
   label = gtk_label_new(NOTEBOOK_OCR_OPTIONS);
   gtk_notebook_append_page(GTK_NOTEBOOK(notebook), setup_vbox, label);
   gtk_widget_show(setup_vbox);
 
-  frame = gtk_frame_new(0);
-  gtk_container_set_border_width(GTK_CONTAINER(frame), 7);
-  gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_ETCHED_IN);
-  gtk_box_pack_start(GTK_BOX(setup_vbox), frame, TRUE, TRUE, 0); /* sizeable framehight */
-  gtk_widget_show(frame);
-
-  vbox = gtk_vbox_new(FALSE, 1);
-  gtk_container_add(GTK_CONTAINER(frame), vbox);
+  vbox = gtk_vbox_new(FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(setup_vbox), vbox, TRUE, TRUE, 2); /* sizeable framehight */
+  gtk_container_set_border_width(GTK_CONTAINER(vbox), 6);
   gtk_widget_show(vbox);
+
 
   /* ocr command : */
 
@@ -2823,7 +2794,7 @@ static void xsane_ocr_notebook(GtkWidget *notebook)
   /* apply button */
 
   hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+  gtk_box_pack_end(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
 
 #ifdef HAVE_GTK2
   button = gtk_button_new_from_stock(GTK_STOCK_APPLY);
@@ -2831,7 +2802,7 @@ static void xsane_ocr_notebook(GtkWidget *notebook)
   button = gtk_button_new_with_label(BUTTON_APPLY);
 #endif
   g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_ocr_apply_changes, NULL);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
+  gtk_box_pack_end(GTK_BOX(hbox), button, FALSE, FALSE, 0);
   gtk_widget_show(button);
   gtk_widget_show(hbox);
 }
@@ -2840,7 +2811,7 @@ static void xsane_ocr_notebook(GtkWidget *notebook)
 
 static void xsane_display_notebook(GtkWidget *notebook)
 {
- GtkWidget *setup_vbox, *vbox, *hbox, *button, *label, *text, *frame;
+ GtkWidget *setup_vbox, *vbox, *hbox, *button, *label, *text;
  GtkWidget *show_range_mode_option_menu, *show_range_mode_menu, *show_range_mode_item;
  char buf[64];
  int i, select = 1;
@@ -2858,21 +2829,17 @@ static void xsane_display_notebook(GtkWidget *notebook)
 
   /* Display options notebook page */
 
-  setup_vbox = gtk_vbox_new(FALSE, 5);
+  setup_vbox = gtk_vbox_new(FALSE, 0);
 
   label = gtk_label_new(NOTEBOOK_DISPLAY_OPTIONS);
   gtk_notebook_append_page(GTK_NOTEBOOK(notebook), setup_vbox, label);
   gtk_widget_show(setup_vbox);
 
-  frame = gtk_frame_new(0);
-  gtk_container_set_border_width(GTK_CONTAINER(frame), 7);
-  gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_ETCHED_IN);
-  gtk_box_pack_start(GTK_BOX(setup_vbox), frame, TRUE, TRUE, 0); /* sizeable framehight */
-  gtk_widget_show(frame);
-
-  vbox = gtk_vbox_new(FALSE, 1);
-  gtk_container_add(GTK_CONTAINER(frame), vbox);
+  vbox = gtk_vbox_new(FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(setup_vbox), vbox, TRUE, TRUE, 2); /* sizeable framehight */
+  gtk_container_set_border_width(GTK_CONTAINER(vbox), 6);
   gtk_widget_show(vbox);
+
 
   /* main window fixed: */
 
@@ -3094,7 +3061,7 @@ static void xsane_display_notebook(GtkWidget *notebook)
   /* apply button */
 
   hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+  gtk_box_pack_end(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
 
 #ifdef HAVE_GTK2
   button = gtk_button_new_from_stock(GTK_STOCK_APPLY);
@@ -3102,7 +3069,7 @@ static void xsane_display_notebook(GtkWidget *notebook)
   button = gtk_button_new_with_label(BUTTON_APPLY);
 #endif
   g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_display_apply_changes, NULL);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
+  gtk_box_pack_end(GTK_BOX(hbox), button, FALSE, FALSE, 0);
   gtk_widget_show(button);
 
   gtk_widget_show(hbox);
@@ -3187,7 +3154,7 @@ static void xsane_setup_preview_pipette_range_callback(GtkWidget *widget, gpoint
 
 static void xsane_enhance_notebook(GtkWidget *notebook)
 {
- GtkWidget *setup_vbox, *vbox, *hbox, *button, *label, *text, *frame;
+ GtkWidget *setup_vbox, *vbox, *hbox, *button, *label, *text;
  GtkWidget *lineart_mode_option_menu, *lineart_mode_menu, *lineart_mode_item;
  GtkWidget *gray_option_menu, *gray_menu, *gray_item;
  GtkWidget *preview_pipette_range_option_menu, *preview_pipette_range_menu, *preview_pipette_range_item;
@@ -3208,21 +3175,17 @@ static void xsane_enhance_notebook(GtkWidget *notebook)
 
   /* enhancement options notebook page */
 
-  setup_vbox = gtk_vbox_new(FALSE, 5);
+  setup_vbox = gtk_vbox_new(FALSE, 0);
 
   label = gtk_label_new(NOTEBOOK_ENHANCE_OPTIONS);
   gtk_notebook_append_page(GTK_NOTEBOOK(notebook), setup_vbox, label);
   gtk_widget_show(setup_vbox);
 
-  frame = gtk_frame_new(0);
-  gtk_container_set_border_width(GTK_CONTAINER(frame), 7);
-  gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_ETCHED_IN);
-  gtk_box_pack_start(GTK_BOX(setup_vbox), frame, TRUE, TRUE, 0); /* sizeable framehight */
-  gtk_widget_show(frame);
-
-  vbox = gtk_vbox_new(FALSE, 1);
-  gtk_container_add(GTK_CONTAINER(frame), vbox);
+  vbox = gtk_vbox_new(FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(setup_vbox), vbox, TRUE, TRUE, 2); /* sizeable framehight */
+  gtk_container_set_border_width(GTK_CONTAINER(vbox), 6);
   gtk_widget_show(vbox);
+
 
   /* lineart modus menu  */
   lineart_mode_strings[0].name   = MENU_ITEM_LINEART_MODE_STANDARD;
@@ -3430,16 +3393,16 @@ static void xsane_enhance_notebook(GtkWidget *notebook)
   gtk_widget_show(hbox);
   xsane_setup.auto_enhance_gamma_button = button;
 
-  /* autoselect scanarea */
+  /* autoselect scan area */
   hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
-  button = gtk_check_button_new_with_label(RADIO_BUTTON_PRESELECT_SCANAREA);
-  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_PRESELECT_SCANAREA);
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), preferences.preselect_scanarea);
+  button = gtk_check_button_new_with_label(RADIO_BUTTON_PRESELECT_SCAN_AREA);
+  xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_PRESELECT_SCAN_AREA);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), preferences.preselect_scan_area);
   gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 2);
   gtk_widget_show(button);
   gtk_widget_show(hbox);
-  xsane_setup.preselect_scanarea_button = button;
+  xsane_setup.preselect_scan_area_button = button;
 
   /* autocorrect colors */
   hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
@@ -3496,7 +3459,7 @@ static void xsane_enhance_notebook(GtkWidget *notebook)
   /* apply button */
 
   hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+  gtk_box_pack_end(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
 
 #ifdef HAVE_GTK2
   button = gtk_button_new_from_stock(GTK_STOCK_APPLY);
@@ -3504,7 +3467,7 @@ static void xsane_enhance_notebook(GtkWidget *notebook)
   button = gtk_button_new_with_label(BUTTON_APPLY);
 #endif
   g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_enhance_apply_changes, NULL);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
+  gtk_box_pack_end(GTK_BOX(hbox), button, FALSE, FALSE, 0);
   gtk_widget_show(button);
 
   xsane_enhance_notebook_sensitivity(xsane_setup.lineart_mode);
@@ -3517,28 +3480,24 @@ static void xsane_enhance_notebook(GtkWidget *notebook)
 #ifdef HAVE_LIBLCMS
 static void xsane_color_management_notebook(GtkWidget *notebook)
 {
- GtkWidget *setup_vbox, *vbox, *hbox, *button, *label, *text, *frame, *option_menu, *menu, *menu_item;
+ GtkWidget *setup_vbox, *vbox, *hbox, *button, *label, *text, *option_menu, *menu, *menu_item;
  int selection = 0;
 
   DBG(DBG_proc, "xsane_color_management_notebook\n");
 
   /* color management options notebook page */
 
-  setup_vbox = gtk_vbox_new(FALSE, 5);
+  setup_vbox = gtk_vbox_new(FALSE, 0);
 
   label = gtk_label_new(NOTEBOOK_COLOR_MANAGEMENT_OPTIONS);
   gtk_notebook_append_page(GTK_NOTEBOOK(notebook), setup_vbox, label);
   gtk_widget_show(setup_vbox);
 
-  frame = gtk_frame_new(0);
-  gtk_container_set_border_width(GTK_CONTAINER(frame), 7);
-  gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_ETCHED_IN);
-  gtk_box_pack_start(GTK_BOX(setup_vbox), frame, TRUE, TRUE, 0); /* sizeable framehight */
-  gtk_widget_show(frame);
-
-  vbox = gtk_vbox_new(FALSE, 1);
-  gtk_container_add(GTK_CONTAINER(frame), vbox);
+  vbox = gtk_vbox_new(FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(setup_vbox), vbox, TRUE, TRUE, 2); /* sizeable framehight */
+  gtk_container_set_border_width(GTK_CONTAINER(vbox), 6);
   gtk_widget_show(vbox);
+
 
 
 
@@ -3846,7 +3805,7 @@ static void xsane_color_management_notebook(GtkWidget *notebook)
   /* apply button */
 
   hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+  gtk_box_pack_end(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
 
 #ifdef HAVE_GTK2
   button = gtk_button_new_from_stock(GTK_STOCK_APPLY);
@@ -3854,7 +3813,7 @@ static void xsane_color_management_notebook(GtkWidget *notebook)
   button = gtk_button_new_with_label(BUTTON_APPLY);
 #endif
   g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_color_management_apply_changes, NULL);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
+  gtk_box_pack_end(GTK_BOX(hbox), button, FALSE, FALSE, 0);
   gtk_widget_show(button);
 
   gtk_widget_show(hbox);
@@ -3865,7 +3824,7 @@ static void xsane_color_management_notebook(GtkWidget *notebook)
 
 void xsane_setup_dialog(GtkWidget *widget, gpointer data)
 {
- GtkWidget *setup_dialog, *setup_vbox, *hbox, *button, *notebook;
+ GtkWidget *setup_dialog, *setup_vbox, *hbox, *button_box, *button, *notebook;
  char buf[64];
 
   DBG(DBG_proc, "xsane_setup_dialog\n");
@@ -3913,10 +3872,14 @@ void xsane_setup_dialog(GtkWidget *widget, gpointer data)
 
   /* set the main hbox */
   hbox = gtk_hbox_new(FALSE, 0);
-  xsane_separator_new(setup_vbox, 2);
-  gtk_box_pack_end(GTK_BOX(setup_vbox), hbox, FALSE, FALSE, 5);
-  gtk_container_set_border_width(GTK_CONTAINER(hbox), 5);
+  gtk_box_pack_end(GTK_BOX(setup_vbox), hbox, FALSE, FALSE, 4);
+  gtk_container_set_border_width(GTK_CONTAINER(hbox), 4);
   gtk_widget_show(hbox);   
+
+  button_box = gtk_hbox_new(TRUE, 0);
+  gtk_box_pack_end(GTK_BOX(hbox), button_box, FALSE, FALSE, 0);
+  gtk_container_set_border_width(GTK_CONTAINER(button_box), 0);
+  gtk_widget_show(button_box);   
 
 #ifdef HAVE_GTK2
   button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
@@ -3924,7 +3887,7 @@ void xsane_setup_dialog(GtkWidget *widget, gpointer data)
   button = gtk_button_new_with_label(BUTTON_CANCEL);
 #endif
   g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_close_setup_dialog_callback, setup_dialog);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
+  gtk_box_pack_start(GTK_BOX(button_box), button, TRUE, TRUE, 8);
   gtk_widget_show(button);
 
 #ifdef HAVE_GTK2
@@ -3934,7 +3897,7 @@ void xsane_setup_dialog(GtkWidget *widget, gpointer data)
 #endif
   GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
   g_signal_connect(GTK_OBJECT(button), "clicked", (GtkSignalFunc) xsane_setup_options_ok_callback, setup_dialog);
-  gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, TRUE, 0);
+  gtk_box_pack_start(GTK_BOX(button_box), button, TRUE, TRUE, 0);
   gtk_widget_grab_default(button);
   gtk_widget_show(button);
 

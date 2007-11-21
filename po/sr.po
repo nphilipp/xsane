@@ -1,20 +1,22 @@
+# translation of sr.po to Српски
+# translation of sr.po to
 # Serbian translation for XSane.
-# Copyright (C) 2001 Free Software Foundation, Inc.
-# Rusmir Duškor <drusmir@gmx.ch>, 2002.
+# Copyright (C) 2001, 2007 Free Software Foundation, Inc.
 #
 #
+# Русмир Душко <drusmir@gmx.ch>, 2002, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.76\n"
+"Project-Id-Version: sr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-03 10:10+0100\n"
-"PO-Revision-Date: 2002-01-17 00:47GMT\n"
-"Last-Translator: Rusmir Duško <drusmir@gmx.ch>\n"
-"Language-Team: srpski <sr@li.org>\n"
+"POT-Creation-Date: 2007-08-13 09:22+0200\n"
+"PO-Revision-Date: 2007-09-22 21:09+0200\n"
+"Last-Translator: Русмир Душко <drusmir@gmx.ch>\n"
+"Language-Team: Српски <sr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.9.2\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #. Please translate this to the correct directory name (eg. german=>de)
 #. XSANE_LANGUAGE_DIR
@@ -28,710 +30,674 @@ msgstr "(c)"
 #. can be translated with \251
 #. FILENAME_PREFIX_CLONE_OF
 msgid "clone-of-"
-msgstr ""
+msgstr "копија од"
 
 #. WINDOW_ABOUT_XSANE
 msgid "About"
-msgstr "O programu"
+msgstr "О програму"
 
 #. WINDOW_ABOUT_TRANSLATION, MENU_ITEM_ABOUT_TRANSLATION
 #. MENU_ITEM_ABOUT_TRANSLATION
 msgid "About translation"
-msgstr "O prevodu"
+msgstr "О преводу"
 
 #. WINDOW_AUTHORIZE
 msgid "authorization"
-msgstr "autorizacija"
+msgstr "ауторизација "
 
 #. WINDOW_GPL
 msgid "GPL - the license"
-msgstr ""
+msgstr "GPL - лиценца"
 
 #. WINDOW_EULA
 msgid "End User License Agreement"
-msgstr ""
+msgstr "Лиценца за корисника"
 
 #. WINDOW_INFO
 msgid "info"
-msgstr "podatci"
+msgstr "информација"
 
 #. WINDOW_LOAD_BATCH_LIST
 msgid "load batch list"
-msgstr ""
+msgstr "отвори пакет"
 
 #. WINDOW_SAVE_BATCH_LIST
 msgid "save batch list"
-msgstr ""
+msgstr "запамти пакет"
 
 #. WINDOW_BATCH_SCAN
 msgid "batch scan"
-msgstr "paketno skeniranje"
+msgstr "пакетно скенирање"
 
 #. WINDOW_BATCH_RENAME
-#, fuzzy
 msgid "rename batch area"
-msgstr "Izbriši stranu"
+msgstr "преименуј пакет"
 
 #. WINDOW_FAX_PROJECT
 msgid "fax project"
-msgstr "Faks"
+msgstr "Факс пројект"
 
 #. WINDOW_FAX_PROJECT_BROWSE
-#, fuzzy
 msgid "browse for fax project"
-msgstr "Unesi ime projekta za faks"
+msgstr "Унеси име пројекта за факс"
 
 #. WINDOW_FAX_RENAME
 msgid "rename fax page"
-msgstr "preimenuj stranu sa faksom"
+msgstr "преименуј страницу факса"
 
 #. WINDOW_FAX_INSERT
-msgid "insert ps-file into fax"
-msgstr "unesi ps-fajl u faks"
+msgid "insert PS-file into fax"
+msgstr "унеси PS фајлу у факс"
 
 #. WINDOW_EMAIL_PROJECT
-#, fuzzy
 msgid "E-mail project"
-msgstr "e-pošta"
+msgstr "Пројект е-поште"
 
 #. WINDOW_EMAIL_PROJECT_BROWSE
-#, fuzzy
 msgid "browse for email project"
-msgstr "Unesi ime projekta za E-poštu"
+msgstr "Унеси име пројекта за е-пошту"
 
 #. WINDOW_EMAIL_RENAME
-#, fuzzy
 msgid "rename e-mail image"
-msgstr "preimenuj stranu sa e-poštom"
+msgstr "преименуј слику у е-пошти"
 
 #. WINDOW_EMAIL_INSERT
-#, fuzzy
 msgid "insert file into e-mail"
-msgstr "unesi sliku u e-poštu"
+msgstr "унеси фајлу у е-пошту"
 
 #. WINDOW_MULTIPAGE_PROJECT
-#, fuzzy
 msgid "multipage project"
-msgstr "Izbriši projekat"
+msgstr "многоструки пројект"
 
 #. WINDOW_MULTIPAGE_PROJECT_BROWSE
-#, fuzzy
 msgid "browse for multipage project"
-msgstr "Izbriši projekat"
+msgstr "тражи многоструки пројект"
 
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
-msgstr "preimenuj prepodešavanja"
+msgstr "преименуј преподешавања"
 
 #. WINDOW_PRESET_AREA_ADD
-#, fuzzy
 msgid "add preset area"
-msgstr "preimenuj prepodešavanja"
+msgstr "додај преподешавања"
 
 #. WINDOW_MEDIUM_RENAME
-#, fuzzy
 msgid "rename medium"
-msgstr "Izaberi izvor medijuma"
+msgstr "преименуј уређај"
 
 #. WINDOW_MEDIUM_ADD
-#, fuzzy
 msgid "add new medium"
-msgstr "Izaberi izvor medijuma"
+msgstr "додај нов уређај"
 
 #. WINDOW_SETUP
 msgid "setup"
-msgstr "Konfiguracija"
+msgstr "Конфигурација"
 
 #. WINDOW_HISTOGRAM
 msgid "Histogram"
-msgstr "Histogram"
+msgstr "Хистограм"
 
 #. WINDOW_GAMMA
 msgid "Gamma curve"
-msgstr "Gama krivina"
+msgstr "Гама кривина"
 
 #. WINDOW_STANDARD_OPTIONS
 msgid "Standard options"
-msgstr "Standarni izbori"
+msgstr "Стандарне опције"
 
 #. WINDOW_ADVANCED_OPTIONS
 msgid "Advanced options"
-msgstr "Napredni izbori"
+msgstr "Напредне опцијеi"
 
 #. WINDOW_DEVICE_SELECTION
 msgid "device selection"
-msgstr "biranje uređaja"
+msgstr "бирање уређаја"
 
 #. WINDOW_PREVIEW
 msgid "Preview"
-msgstr "Pregled"
+msgstr "Преглед"
 
 #. WINDOW_VIEWER
 #. MENU_ITEM_VIEWER
 msgid "Viewer"
-msgstr "Prikazivač"
+msgstr "Приказивач"
 
 #. WINDOW_VIEWER_OUTPUT_FILENAME
 msgid "Viewer: select output filename"
-msgstr "Prikazivač: izaberi izlazni naziv fajla"
+msgstr "Приказивач: изабери излазни назив фајле "
 
 #. WINDOW_OCR_OUTPUT_FILENAME
 msgid "Select output filename for OCR text file"
-msgstr "Izaberi izlazni naziv fajla za OCR tekst fajl"
+msgstr "Изабери назив фајле за OCR текстуални фајлl"
 
 #. WINDOW_OUTPUT_FILENAME
 msgid "select output filename"
-msgstr "Odredi izlazni naziv fajla"
+msgstr "Одреди излазни назив фајле"
 
 #. WINDOW_SAVE_SETTINGS
 msgid "save device settings"
-msgstr "Zapamti podešavanja uređaja"
+msgstr "Запамти подешавања уређаја"
 
 #. WINDOW_LOAD_SETTINGS
 msgid "load device settings"
-msgstr "Učitaj podešavanja uređaja"
+msgstr "Учитај подешавања уређаја"
 
 #. WINDOW_CHANGE_WORKING_DIR
 msgid "change working directory"
-msgstr "Promeni radnu granu"
+msgstr "Промени радну директорију"
 
 #. WINDOW_TMP_PATH
 msgid "select temporary directory"
-msgstr "Izaberi privremeni direktorijum"
+msgstr "Изабери привремену директорију"
 
 #. WINDOW_SCALE
 #. DESC_VIEWER_SCALE
 msgid "Scale image"
-msgstr "Skaliraj sliku"
+msgstr "Скалирај слику"
 
 #. WINDOW_DESPECKLE
 #. DESC_VIEWER_DESPECKLE
 msgid "Despeckle image"
-msgstr "Odstrani fleke"
+msgstr "Одстрани флеке"
 
 #. WINDOW_BLUR
 #. DESC_VIEWER_BLUR
 msgid "Blur image"
-msgstr "Zamagli sliku"
+msgstr "Замагли слику"
 
 #. WINDOW_STORE_MEDIUM
-#, fuzzy
 msgid "Store medium definition"
-msgstr "Preimenuj definiciju"
+msgstr "Запамти дефиницију уређаја"
 
 #. WINDOW_NO_DEVICES
-#, fuzzy
 msgid "No devices available"
-msgstr "Nijedan uređaj nije dostupan"
+msgstr "Ниједан уређај није доступан"
 
 #. WINDOW_SCANNER_DEFAULT_COLOR_ICM_PROFILE
-#, fuzzy
 msgid "select scanner default color ICM-profile"
-msgstr "Odstrani štampač"
+msgstr "Изабери за скенер подразумевани ICM профил за боју"
 
 #. WINDOW_SCANNER_DEFAULT_GRAY_ICM_PROFILE
-#, fuzzy
 msgid "select scanner default gray ICM-profile"
-msgstr "Odstrani štampač"
+msgstr "Изабери за скенер подразумевани грао ICM профил"
 
 #. WINDOW_DISPLAY_ICM_PROFILE
 msgid "select display ICM-profile"
-msgstr ""
+msgstr "Изабери ICM профил за екран"
 
 #. WINDOW_CUSTOM_PROOFING_ICM_PROFILE
-#, fuzzy
 msgid "select custom proofing ICM-profile"
-msgstr "Odredi izlazni naziv fajla"
+msgstr "Одабери избор корисника за пробни ICM профил"
 
 #. WINDOW_WORKING_COLOR_SPACE_ICM_PROFILE
-#, fuzzy
 msgid "select working color space ICM-profile"
-msgstr "Odstrani štampač"
+msgstr "Изабери радно место ICM профила за боју"
 
 #. WINDOW_PRINTER_ICM_PROFILE
-#, fuzzy
 msgid "select printer ICM-profile"
-msgstr "Odstrani štampač"
+msgstr "Изабери штампач ICM профила"
 
 #. MENU_FILE
 msgid "File"
-msgstr "Fajl"
+msgstr "Фајла"
 
 #. MENU_PREFERENCES
 msgid "Preferences"
-msgstr "Podešavanja"
+msgstr "Подешавања"
 
 #. MENU_VIEW
 msgid "View"
-msgstr "Pogled"
+msgstr "Поглед"
 
 #. MENU_WINDOW
 msgid "Window"
-msgstr ""
+msgstr "Окна"
 
 #. MENU_HELP
 #. BUTTON_HELP
 msgid "Help"
-msgstr "Pomoć"
+msgstr "Помоћ"
 
 #. MENU_EDIT
 msgid "Edit"
-msgstr ""
+msgstr "Промени"
 
 #. MENU_FILTERS
 msgid "Filters"
-msgstr "Filteri"
+msgstr "Филтери"
 
 #. MENU_GEOMETRY
 msgid "Geometry"
-msgstr ""
+msgstr "Геометрија"
 
 #. MENU_COLOR_MANAGEMENT
 #. NOTEBOOK_COLOR_MANAGEMENT_OPTIONS
 msgid "Color management"
-msgstr ""
+msgstr "Управљање са бојом"
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
-msgstr "O programu XSane"
+msgstr "О програму XSane"
 
 #. MENU_ITEM_INFO
 msgid "Info"
-msgstr "Informacije"
+msgstr "Информације"
 
 #. MENU_ITEM_QUIT
 msgid "Quit"
-msgstr "Izlaz"
+msgstr "Изађи"
 
 #. MENU_ITEM_SAVE_IMAGE
 #. DESC_VIEWER_SAVE
 msgid "Save image"
-msgstr "Zapamti sliku"
+msgstr "Запамти слику"
 
 #. MENU_ITEM_OCR
 msgid "OCR - save as text"
-msgstr ""
+msgstr "OCR - запамти као текст"
 
 #. MENU_ITEM_CLONE
 msgid "Clone"
-msgstr "Kopiraj"
+msgstr "Направи копију"
 
 #. MENU_ITEM_SCALE
 msgid "Scale"
-msgstr "Promeni veličinu"
+msgstr "Промени величину"
 
 #. MENU_ITEM_CLOSE
 #. BUTTON_CLOSE
 msgid "Close"
-msgstr "Zatvori"
+msgstr "Затвори"
 
 #. MENU_ITEM_UNDO
 msgid "Undo"
-msgstr ""
+msgstr "Врати"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
-msgstr "odflekati"
+msgstr "одфлекати"
 
 #. MENU_ITEM_BLUR
 msgid "Blur"
-msgstr "zamagli"
+msgstr "Замагли"
 
 #. MENU_ITEM_ROTATE90
 msgid "Rotate 90"
-msgstr ""
+msgstr "Окрени за 90 степени"
 
 #. MENU_ITEM_ROTATE180
-#, fuzzy
 msgid "Rotate 180"
-msgstr "Rotiraj sliku za 180 stepeni"
+msgstr "Окрени за180 степени"
 
 #. MENU_ITEM_ROTATE270
-#, fuzzy
 msgid "Rotate 270"
-msgstr "Rotiraj sliku za 270 stepeni"
+msgstr "Окрени за 270 степени"
 
 #. MENU_ITEM_MIRROR_X
-#, fuzzy
 msgid "Mirror |"
-msgstr "greška"
+msgstr "Окрени по хоризонтали |"
 
 #. MENU_ITEM_MIRROR_Y
-#, fuzzy
 msgid "Mirror -"
-msgstr "greška"
+msgstr "Окрени по вертикали  -"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
-msgstr "sirova slika"
+msgstr "Сирова слика"
 
 #. FRAME_ENHANCED_IMAGE
 msgid "Enhanced image"
-msgstr "Poboljšana slika"
+msgstr "Побољшана слика"
 
 #. BUTTON_SCAN
-#, fuzzy
 msgid "Scan"
-msgstr "Skeniranje"
+msgstr "Скенирање"
 
 #. BUTTON_OK
 msgid "Ok"
-msgstr "U redu"
+msgstr "У реду"
 
 #. BUTTON_ACCEPT
 msgid "Accept"
-msgstr "Prihvati"
+msgstr "Прихвати"
 
 #. BUTTON_NOT_ACCEPT
 msgid "Not accept"
-msgstr "Nije prihvaćeno"
+msgstr "Отказано"
 
 #. BUTTON_APPLY
 msgid "Apply"
-msgstr "Primeni"
+msgstr "Примени"
 
 #. BUTTON_CANCEL
 msgid "Cancel"
-msgstr "Prekini"
+msgstr "Прекини"
 
 #. BUTTON_REDUCE
 msgid "Reduce"
-msgstr "Smanji"
+msgstr "Смањи"
 
 #. BUTTON_CONT_AT_OWN_RISK
 msgid "Continue at your own risk"
-msgstr "Nastavi na sopstvenu odgovornost"
+msgstr "Настави на сопствену одговорност"
 
 #. BUTTON_BROWSE
 msgid "Browse"
-msgstr "Pretraži"
+msgstr "Претражи"
 
 #. BUTTON_OVERWRITE
 msgid "Overwrite"
-msgstr "Prepiši"
+msgstr "Препиши"
 
 #. BUTTON_BATCH_LIST_SCAN
-#, fuzzy
 msgid "Scan batch list"
-msgstr "Saveti za skeniranje"
+msgstr "Скенирај пакете"
 
 #. BUTTON_BATCH_AREA_SCAN
-#, fuzzy
 msgid "Scan selected area"
-msgstr "Uvećavaj u izabrano područje"
+msgstr "Скенирај изабрано подручје"
 
 #. BUTTON_PAGE_DELETE
 msgid "Delete page"
-msgstr "Izbriši stranu"
+msgstr "Избриши страницу"
 
 #. BUTTON_PAGE_SHOW
 msgid "Show page"
-msgstr "Prikaži pregled"
+msgstr "Прикажи страницу"
 
 #. BUTTON_PAGE_RENAME
 msgid "Rename page"
-msgstr "Preimenuj stranu"
+msgstr "Преименуј страницу"
 
 #. BUTTON_IMAGE_DELETE
 msgid "Delete image"
-msgstr "Izbriši sliku"
+msgstr "Избриши слику"
 
 #. BUTTON_IMAGE_SHOW
 msgid "Show image"
-msgstr "Pokaži sliku"
+msgstr "Покажи слику"
 
 #. BUTTON_IMAGE_EDIT
-#, fuzzy
 msgid "Edit image"
-msgstr "Poboljšana slika"
+msgstr "Промени слику"
 
 #. BUTTON_IMAGE_RENAME
 msgid "Rename image"
-msgstr "Preimenuj sliku"
+msgstr "Преименуј слику"
 
 #. BUTTON_FILE_INSERT
 msgid "Insert file"
-msgstr "Unesi fajl"
+msgstr "Унеси фајлу"
 
 #. BUTTON_CREATE_PROJECT
 msgid "Create project"
-msgstr "Uradi projekat"
+msgstr "Направи пројект"
 
 #. BUTTON_SEND_PROJECT
 msgid "Send project"
-msgstr "Pošalji projekat"
+msgstr "Пошаљи пројект"
 
 #. BUTTON_SAVE_MULTIPAGE
-#, fuzzy
 msgid "Save multipage file"
-msgstr "Zapamti sliku"
+msgstr "Запамти многоструку фајлу"
 
 #. BUTTON_DELETE_PROJECT
 msgid "Delete project"
-msgstr "Izbriši projekat"
+msgstr "Избриши пројект"
 
 #. BUTTON_ADD_PRINTER
 msgid "Add printer"
-msgstr "Dodaj štampač"
+msgstr "Додај штампач"
 
 #. BUTTON_DELETE_PRINTER
 msgid "Delete printer"
-msgstr "Odstrani štampač"
+msgstr "Одстрани штампач"
 
 #. BUTTON_PREVIEW_ACQUIRE
 msgid "Acquire preview"
-msgstr "Uradi pregled"
+msgstr "Уради преглед"
 
 #. BUTTON_PREVIEW_CANCEL
 msgid "Cancel preview"
-msgstr "Prekini pregled"
+msgstr "Прекини преглед"
 
 #. BUTTON_DISCARD_IMAGE
 msgid "Discard image"
-msgstr "Odbaci sliku"
+msgstr "Одбаци слику"
 
 #. BUTTON_DISCARD_ALL_IMAGES
 msgid "Discard all images"
-msgstr "Odbaci sve slike"
+msgstr "Одбаци све слике"
 
 #. BUTTON_DO_NOT_CLOSE
 msgid "Do not close"
-msgstr "Ne zatvaraj"
+msgstr "Не затварај"
 
 #. BUTTON_SCALE_BIND
 msgid "Bind scale"
-msgstr "Poveži skaliranja"
+msgstr "Запамти скалу"
 
 #. RADIO_BUTTON_FINE_MODE
 msgid "Fine mode"
-msgstr "Tačan modus"
+msgstr "Фини модус"
 
 #. RADIO_BUTTON_HTML_EMAIL
-#, fuzzy
 msgid "HTML e-mail"
-msgstr "HTML e-pošta"
+msgstr "HTML е-пошта"
 
 #. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device preferences at exit"
-msgstr "Zapamti podešavanja uređaja pri izlazu"
+msgstr "Запамти подешавања уређаја при излазу"
 
 #. RADIO_BUTTON_OVERWRITE_WARNING
 msgid "Overwrite warning"
-msgstr "Prepiši upozorenje"
+msgstr "Препиши упозорење"
 
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
 msgid "Skip existing filenames"
-msgstr "Preskoči postojeće nazive fajli"
+msgstr "Прескочи постојеће називе фајли"
 
 #. RADIO_BUTTON_SAVE_PS_FLATEDECODED
-msgid "Save postscript zlib compressed (ps level 3)"
-msgstr ""
+msgid "Save postscript zlib compressed (PS level 3)"
+msgstr "Запамти као postscript компресован са zlib (PS level 3)"
 
 #. RADIO_BUTTON_SAVE_PDF_FLATEDECODED
 msgid "Save PDF zlib compressed"
-msgstr ""
+msgstr "Запамти као PDF компресован са zlib"
 
 #. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
-msgid "Save 16bit pnm in ascii format"
-msgstr ""
+msgid "Save 16bit PNM in ASCII format"
+msgstr "Запамти 16 битни PNM у ASCII формату"
 
 #. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
 msgid "Reduce 16 bit image to 8 bit"
-msgstr "Smanji 16 bitnu sliku na 8 bita"
+msgstr "Смањи 16 битну слику на 8 бита"
 
 #. RADIO_BUTTON_WINDOW_FIXED
 msgid "Main window size fixed"
-msgstr "Veličina glavnog prozora je postavljena"
+msgstr "Величина главног прозора је постављена"
 
 #. RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA
-#, fuzzy
 msgid "Disable GIMP preview gamma"
-msgstr "Onemogući gama pri pregledu u gimpu"
+msgstr "Онемогући гама при прегледу у GIMP-у"
 
 #. RADIO_BUTTON_PRIVATE_COLORMAP
 msgid "Use private colormap"
-msgstr "Upotrebi privatnu paletu boja"
+msgstr "Употреби приватну палету боја"
 
 #. RADIO_BUTTON_AUTOENHANCE_GAMMA
 msgid "Autoenhance gamma"
-msgstr "Automatsko poboljšanje faktora gama"
+msgstr "Аутоматско побољшање фактора гама"
 
-#. RADIO_BUTTON_PRESELECT_SCANAREA
-msgid "Preselect scanarea"
-msgstr "Automatsko biranje površine skeniranja"
+#. RADIO_BUTTON_PRESELECT_SCAN_AREA
+msgid "Preselect scan area"
+msgstr "Преподешена површина скенирања"
 
 #. RADIO_BUTTON_AUTOCORRECT_COLORS
 msgid "Autocorrect colors"
-msgstr "Autokorektura boja"
+msgstr "Аутоматска коректура боја"
 
 #. RADIO_BUTTON_OCR_USE_GUI_PIPE
 msgid "Use GUI progress pipe"
-msgstr ""
+msgstr "Користи напредак GUI цеви"
 
 #. RADIO_BUTTON_CMS_BPC
 #. MENU_ITEM_CMS_BLACK_POINT_COMPENSATION
 msgid "Black point compensation"
-msgstr ""
+msgstr "Компензација црне тачке"
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
-msgstr "Skeniranje uređaja"
+msgstr "Скенирање уређаја"
 
 #. TEXT_AVAILABLE_DEVICES
 msgid "Available devices:"
-msgstr "Dostupni uređaji"
-
-#. TEXT_XSANE_OPTIONS
-msgid "XSane options"
-msgstr "XSane opcije"
+msgstr "Доступни уређаји"
 
 #. TEXT_FILETYPE
 msgid "Type"
-msgstr "Vrsta"
+msgstr "Врста"
 
 #. TEXT_CMS_FUNCTION
 #. DESC_CMS_FUNCTION
-#, fuzzy
 msgid "Color management function"
-msgstr "pun opseg"
+msgstr "Подешавање боје"
 
 #. TEXT_SCANNER_BACKEND
 msgid "Scanner and backend:"
-msgstr "Skener i backend"
+msgstr "Скенер и додатци:"
 
 #. TEXT_VENDOR
 msgid "Vendor:"
-msgstr "Proizvođač:"
+msgstr "Произвођач:"
 
 #. TEXT_MODEL
 msgid "Model:"
-msgstr "Model:"
+msgstr "Модел:"
 
 #. TEXT_TYPE
 msgid "Type:"
-msgstr "Vrsta:"
+msgstr "Врста:"
 
 #. TEXT_DEVICE
 msgid "Device:"
-msgstr "Uređaj:"
+msgstr "Уређај:"
 
 #. TEXT_LOADED_BACKEND
 msgid "Loaded backend:"
-msgstr "Podignut backend:"
+msgstr "Учитани додатак:"
 
 #. TEXT_SANE_VERSION
 msgid "Sane version:"
-msgstr "Sane verzija:"
+msgstr "Верзија Sane:"
 
 #. TEXT_RECENT_VALUES
 msgid "Recent values:"
-msgstr "Zadnje vrednosti:"
+msgstr "Задње вредности:"
 
 #. TEXT_GAMMA_CORR_BY
 msgid "Gamma correction by:"
-msgstr "Gama korekcija:"
+msgstr "Исправка гаме са:"
 
 #. TEXT_SCANNER
 msgid "scanner"
-msgstr "skener"
+msgstr "скенер"
 
 #. TEXT_SOFTWARE_XSANE
 msgid "software (XSane)"
-msgstr "program (Xsane)"
+msgstr "програм (XSane)"
 
 #. TEXT_NONE
 msgid "none"
-msgstr "bez"
+msgstr "нема"
 
 #. TEXT_GAMMA_INPUT_DEPTH
 msgid "Gamma input depth:"
-msgstr "Dubina bita ulazne game:"
+msgstr "Улазна дубина гаме:"
 
 #. TEXT_GAMMA_OUTPUT_DEPTH
 msgid "Gamma output depth:"
-msgstr "Dubina bita izlazne game:"
+msgstr "Излазна дубина гаме:"
 
 #. TEXT_SCANNER_OUTPUT_DEPTH
 msgid "Scanner output depth:"
-msgstr "Dubina bita izlaza skenera: "
+msgstr "Излазна дубина скенера:"
 
 #. TEXT_OUTPUT_FORMATS
 msgid "XSane output formats:"
-msgstr "Xsane izlazni formati:"
+msgstr "Излазни формати XSane:"
 
 #. TEXT_8BIT_FORMATS
 msgid "8 bit output formats:"
-msgstr "8-bitni izlazni formati:"
+msgstr "8 битни излазни формати:"
 
 #. TEXT_16BIT_FORMATS
 msgid "16 bit output formats:"
-msgstr "16-bitni izlazni formati:"
+msgstr "16 битни излазни формати:"
 
 #. TEXT_REDUCE_16BIT_TO_8BIT
-#, fuzzy
 msgid ""
 "Bit depth 16 bits/channel is not supported for this output format.\n"
 "Do you want to reduce the depth to 8 bits/channel?"
 msgstr ""
-"Dubina 16 bit-a u boji nije podržana za ovaj format.\n"
-"Da li želite da smanjite dubinu na 8 bit-a u boji?"
+"Дубина 16 бита у боји није подржана за овај формат.\n"
+"Да ли желите да смањите дубину на 8 бита у боји?"
 
 #. TEXT_AUTHORIZATION_REQ
 msgid "Authorization required for"
-msgstr "Zahtevana potvrda za"
+msgstr "Ауторизација је потребна за"
 
 #. TEXT_AUTHORIZATION_SECURE
 msgid "Password transmission is secure"
-msgstr "Prenos lozinke je siguran"
+msgstr "Пренос лозинке је сигуран"
 
 #. TEXT_AUTHORIZATION_INSECURE
 msgid "Backend requests plain-text password"
-msgstr "Backend zahteva nešifrovanu lozinku"
+msgstr "Додатак захтева нешифровану лозинку"
 
 #. TEXT_USERNAME
 msgid "Username :"
-msgstr "Korisnik:"
+msgstr "Корисник:"
 
 #. TEXT_PASSWORD
 msgid "Password :"
-msgstr "Lozinka:"
+msgstr "Лозинка:"
 
 #. TEXT_INVALID_PARAMS
 msgid "Invalid parameters."
-msgstr "Nevažeći parametri."
+msgstr "Неважећи параметри."
 
 #. TEXT_VERSION
 msgid "version:"
-msgstr "Verzija:"
+msgstr "Верзија:"
 
 #. TEXT_PACKAGE
 msgid "package"
-msgstr "paket"
+msgstr "пакет"
 
 #. TEXT_WITH_CMS_FUNCTION
-#, fuzzy
 msgid "with color management function"
-msgstr "pun opseg"
+msgstr "са подешавањем боје"
 
 #. TEXT_WITH_GIMP_SUPPORT
 msgid "with GIMP support"
-msgstr "sa podrškom GIMP-a"
+msgstr "са подршком GIMP-а"
 
 #. TEXT_WITHOUT_GIMP_SUPPORT
 msgid "without GIMP support"
-msgstr "bez podrške GIMP-a"
+msgstr "без подршке GIMP-а"
 
 #. TEXT_GTK_VERSION
 msgid "compiled with GTK-"
-msgstr "prevedeno sa podrškom za GTK-"
+msgstr "преведено са подршком за GTK-"
 
 #. TEXT_GIMP_VERSION
 msgid "compiled with GIMP-"
-msgstr "prevedeno sa podrškom GIMP-a"
+msgstr "преведено са подршком GIMP-а"
 
 #. TEXT_UNKNOWN
 msgid "unknown"
-msgstr "nepoznato"
+msgstr "непознато"
 
 #. TEXT_EULA
 msgid ""
@@ -747,6 +713,17 @@ msgid ""
 "have to read, understand and accept the following\n"
 "\"NO WARRANTY\" agreement.\n"
 msgstr ""
+"XSane се дистрибура под условима GNU General Public Licence\n"
+"коју је објавила Free Software Foundation,\n"
+"или верзија 2 од ове лиценце, или (по вашој жељи) свака следећа верзија.\n"
+"Овај прогам се дистрибуира за жељом, да ће бити користан, без ИКАКВЕ "
+"ГАРАНЦИЈЕ;\n"
+"без употребне вредности за неку одређену сврху.\n"
+"Ако овај програм вам донесе неку штету, ви сами сносит све сервисне "
+"трошкове, поправке.\n"
+"Да би користили овај програм, ви требате да читате, разумете и прихватите "
+"следећи\n"
+"\"NO WARRANTY\" споразум.\n"
 
 #. TEXT_GPL
 msgid ""
@@ -758,38 +735,42 @@ msgid ""
 "WITHOUT ANY WARRANTY; without even the implied warranty of\n"
 "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
+"XSane се дистрибура под условима GNU General Public Licence\n"
+"коју је објавила Free Software Foundation,\n"
+"или верзија 2 од ове лиценце, или (по вашој жељи) свака следећа верзија.\n"
+"Овај прогам се дистрибуира за жељом, да ће бити користан, без ИКАКВЕ "
+"ГАРАНЦИЈЕ;\n"
+"без употребне вредности за неку одређену сврху.\n"
 
 #. TEXT_EMAIL_ADR
-#, fuzzy
 msgid "E-mail:"
-msgstr "E-pošta:"
+msgstr "Е-пошта:"
 
 #. TEXT_HOMEPAGE
 msgid "Homepage:"
-msgstr "lični Web sajt:"
+msgstr "Лична Web страница:"
 
 #. TEXT_FILE
 msgid "File:"
-msgstr "Fajl:"
+msgstr "Фајла:"
 
 #. TEXT_TRANSLATION
 msgid "Translation:"
-msgstr "Prevod:"
+msgstr "Превод:"
 
 #. Please translate this to something like
 #. translation to YOUR LANGUAGE\n
 #. by YOUR NAME\n
 #. E-mail: your.name@yourdomain.com\n
 #. TEXT_TRANSLATION_INFO
-#, fuzzy
 msgid ""
 "untranslated original english text\n"
 "by Oliver Rauch\n"
 "E-mail: Oliver.Rauch@rauch-domain.de\n"
 msgstr ""
-"prevod iz engleskog teksta\n"
-"Rusmir Duško\n"
-"E-pošta: drusmir@gmx.ch\n"
+"превод из енглеског текста\n"
+"Русмир Душко\n"
+"Е-пошта: drusmir@gmx.ch\n"
 
 #. TEXT_INFO_BOX
 msgid "0x0: 0KB"
@@ -797,222 +778,217 @@ msgstr "0x0: 0KB"
 
 #. TEXT_ADF_PAGES_SCANNED
 msgid "Scanned pages: "
-msgstr "Skenirane strane: "
+msgstr "Скениране стране: "
 
 #. TEXT_EMAIL_TEXT
-#, fuzzy
 msgid "E-mail text:"
-msgstr "E-pošta:"
+msgstr "Текст е-поште:"
 
 #. TEXT_ATTACHMENTS
 msgid "Attachments:"
-msgstr "Dodatci:"
+msgstr "Додатак:"
 
 #. TEXT_EMAIL_STATUS
 msgid "Project status:"
-msgstr "Status projekta:"
+msgstr "Статус пројекта:"
 
 #. TEXT_EMAIL_FILETYPE
 msgid "E-mail image filetype:"
-msgstr ""
+msgstr "Тип фајле слике е-поште:"
 
 #. TEXT_PAGES
-#, fuzzy
 msgid "Pages:"
-msgstr "Upotreba:"
+msgstr "Странице:"
 
 #. TEXT_MULTIPAGE_FILETYPE
 msgid "Multipage document filetype:"
-msgstr ""
+msgstr "Тип многостручног документа"
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
-msgstr ""
+msgstr "Име уређаја:"
 
 #. TEXT_VIEWER_IMAGE_INFO
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Size %d x %d pixel, %d bits/channel, %d channels, %1.0f dpi x %1.0f dpi, %"
 "1.1f %s"
 msgstr ""
-"Veličina %d x %d piksxel, %d bit/boji, %d boja, %1.0f dpi x %1.0f dpi, %1.1f "
-"%s"
+"Величина %d x %d тачка, %d бита/каналу, %d канала, %1.0f dpi x %1.0f dpi, %"
+"1.1f %s"
 
 #. TEXT_DESPECKLE_RADIUS
 msgid "Despeckle radius:"
-msgstr "Radijus odflekivanja:"
+msgstr "Радијус одфлекивања:"
 
 #. TEXT_BLUR_RADIUS
 msgid "Blur radius:"
-msgstr "Radijus zamaglivanja:"
+msgstr "Радијус замагливања:"
 
 #. TEXT_BATCH_AREA_DEFAULT_NAME
-#, fuzzy
 msgid "(no name)"
-msgstr "(ništa)"
+msgstr "(без имена)"
 
 #. TEXT_BATCH_LIST_AREANAME
-#, fuzzy
 msgid "Area name:"
-msgstr "Korisnik:"
+msgstr "Име подручја:"
 
 #. TEXT_BATCH_LIST_SCANMODE
-#, fuzzy
 msgid "Scanmode:"
-msgstr "Način rada XSane"
+msgstr "Начин скенирања:"
 
 #. TEXT_BATCH_LIST_GEOMETRY_TL
 msgid "Top left:"
-msgstr ""
+msgstr "Горе лево:"
 
 #. TEXT_BATCH_LIST_GEOMETRY_SIZE
-#, fuzzy
 msgid "Size:"
-msgstr "Dia"
+msgstr "Величина:"
 
 #. TEXT_BATCH_LIST_RESOLUTION
-#, fuzzy
 msgid "Resolution:"
-msgstr "Opcije praga šuma:"
+msgstr "Резолуција:"
 
 #. TEXT_BATCH_LIST_BIT_DEPTH
-#, fuzzy
 msgid "Bit depth:"
-msgstr "Dubina bita ulazne game:"
+msgstr "Дубина бита:"
 
 #. TEXT_BATCH_LIST_BY_GUI
-#, fuzzy
 msgid "as selected"
-msgstr "Uvećavaj u izabrano područje"
+msgstr "као изабрано"
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
-msgstr "Izaberi štampač:"
+msgstr "Изабери штампач:"
 
 #. TEXT_SETUP_PRINTER_NAME
 msgid "Name:"
-msgstr "Ime:"
+msgstr "Име:"
 
 #. TEXT_SETUP_PRINTER_CMD, TEXT_SETUP_FAX_CMD
 #. TEXT_SETUP_FAX_COMMAND
 msgid "Command:"
-msgstr "Komanda:"
+msgstr "Команда:"
 
 #. TEXT_SETUP_COPY_NR_OPT
 msgid "Copy number option:"
-msgstr "Opcija sa broj kopija:"
+msgstr "Колико копија:"
+
+#. TEXT_SETUP_SCAN_RESOLUTION_PRINTER
+msgid "Scan resolution:"
+msgstr "Резолуција скенирања:"
 
 #. TEXT_SETUP_PRINTER_LINEART_RES
-msgid "Lineart resolution (dpi):"
-msgstr "Rezolucija u crno/belom načinu Lineart (dpi):"
+msgid "lineart [dpi]"
+msgstr " (dpi):"
 
 #. TEXT_SETUP_PRINTER_GRAYSCALE_RES
-msgid "Grayscale resolution (dpi):"
-msgstr "Rezolucija u sivom (dpi):"
+msgid "grayscale [dpi]"
+msgstr "Црно бела резолуција (dpi):"
 
 #. TEXT_SETUP_PRINTER_COLOR_RES
-msgid "Color resolution (dpi):"
-msgstr "Rezolucija u boji (dpi):"
+msgid "color [dpi]"
+msgstr "боја [dpi]"
+
+#. TEXT_SETUP_PRINTER_PAPER_GEOMETRIE
+msgid "Paper geometrie:"
+msgstr "Геометрија папира:"
 
 #. TEXT_SETUP_PRINTER_WIDTH
-#. TEXT_SETUP_FAX_WIDTH
-msgid "Width"
-msgstr "Širina"
+msgid "width"
+msgstr "ширина"
 
 #. TEXT_SETUP_PRINTER_HEIGHT
-#. TEXT_SETUP_FAX_HEIGHT
-msgid "Height"
-msgstr "Visina"
+msgid "height"
+msgstr "висина"
 
 #. TEXT_SETUP_PRINTER_LEFT
-#. TEXT_SETUP_FAX_LEFT
-msgid "Left offset"
-msgstr "Leva ivica"
+msgid "left offset"
+msgstr "Лева ивица"
 
 #. TEXT_SETUP_PRINTER_BOTTOM
-#. TEXT_SETUP_FAX_BOTTOM
-msgid "Bottom offset"
-msgstr "Donja ivica"
+msgid "bottom offset"
+msgstr "Доња ивица"
+
+#. TEXT_SETUP_PRINTER_GAMMA_CORRECTION
+msgid "Printer gamma:"
+msgstr "Штампач гама:"
 
 #. TEXT_SETUP_PRINTER_GAMMA
-msgid "Printer gamma value:"
-msgstr "Vrednost gama za štampač:"
+msgid "common value"
+msgstr "заједничка вредност"
 
 #. TEXT_SETUP_PRINTER_GAMMA_RED
-msgid "Printer gamma red:"
-msgstr "Vrednost gama crvene boje za štampač:"
+msgid "red"
+msgstr "црвена"
 
 #. TEXT_SETUP_PRINTER_GAMMA_GREEN
-msgid "Printer gamma green:"
-msgstr "Vrednost gama zelene boje za štampač:"
+msgid "green"
+msgstr "зелена"
 
 #. TEXT_SETUP_PRINTER_GAMMA_BLUE
-msgid "Printer gamma blue:"
-msgstr "Vrednost gama plave boje za štampač:"
+msgid "blue"
+msgstr "плава"
 
 #. TEXT_SETUP_PRINTER_EMBED_CSA
-#, fuzzy
 msgid "Embed scanner ICM profile as CSA"
-msgstr "Odstrani štampač"
+msgstr "ICM профил од скенера угради као CSA"
 
 #. TEXT_SETUP_PRINTER_EMBED_CRD
-#, fuzzy
 msgid "Embed printer ICM profile as CRD"
-msgstr "Odstrani štampač"
+msgstr "ICM профил од скенера угради као CRD"
 
 #. TEXT_SETUP_PRINTER_CMS_BPC
 msgid "Apply black point compensation"
-msgstr ""
+msgstr "Примени компензацију црне тачке"
 
 #. TEXT_SETUP_PRINTER_PS_FLATEDECODED
-msgid "Create zlib compressed postscript image (ps level 3) for printing"
-msgstr ""
+msgid "Create zlib compressed postscript image (PS level 3) for printing"
+msgstr "Направи zlib компресовану postcript слику (ps level 3) за штампање"
 
 #. TEXT_SETUP_TMP_PATH
 msgid "Temporary directory"
-msgstr "Privremeni direktorijum"
+msgstr "Привремени директоријум"
 
 #. TEXT_SETUP_IMAGE_PERMISSION
 msgid "Image-file permissions"
-msgstr "Dozvole za fajle slika"
+msgstr "Дозволе за фајле слика"
 
 #. TEXT_SETUP_DIR_PERMISSION
 msgid "Directory permissions"
-msgstr "Dozvole direktorijuma"
+msgstr "Дозволе директоријума"
 
 #. TEXT_SETUP_JPEG_QUALITY
 msgid "JPEG image quality"
-msgstr "JPEG kvalitet slike"
+msgstr "JPEG квалитет слике"
 
 #. TEXT_SETUP_PNG_COMPRESSION
 msgid "PNG image compression"
-msgstr "PNG kompresija slike"
+msgstr "PNG компресија слике"
 
 #. TEXT_SETUP_FILENAME_COUNTER_LEN
 msgid "Filename counter length"
-msgstr "Brojač dužine naziva fajla"
+msgstr "Бројач дужине назива фајле"
 
 #. TEXT_SETUP_TIFF_ZIP_COMPRESSION
-#, fuzzy
 msgid "TIFF zip compression rate"
-msgstr "TIFF 8 bitna kompresija slike"
+msgstr "TIFF zip фактор компресије"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_16
 msgid "TIFF 16 bit image compression"
-msgstr "TIFF 16-bitna kompresija slike"
+msgstr "TIFF 16 битна компресија слике"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_8
 msgid "TIFF 8 bit image compression"
-msgstr "TIFF 8 bitna kompresija slike"
+msgstr "TIFF 8 битна компресија слике"
 
 #. TEXT_SETUP_TIFF_COMPRESSION_1
 msgid "TIFF lineart image compression"
-msgstr "TIFF lineart kompresija slike"
+msgstr "TIFF lineart компресија слике"
 
 #. TEXT_SETUP_SHOW_RANGE_MODE
-#, fuzzy
 msgid "Show range as:"
-msgstr "Prikaži pregled"
+msgstr "Прикажи опсег као:"
 
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
@@ -1020,218 +996,224 @@ msgstr "Prekomerni uzorak pri pregledu:"
 
 #. TEXT_SETUP_PREVIEW_GAMMA
 msgid "Preview gamma:"
-msgstr "Faktor gama pri pregledu:"
+msgstr "Фактор гама при прегледу:"
 
 #. TEXT_SETUP_PREVIEW_GAMMA_RED
 msgid "Preview gamma red:"
-msgstr "Faktor gama za crvenu boju pri pregledu:"
+msgstr "Фактор гама за црвену боју при прегледу:"
 
 #. TEXT_SETUP_PREVIEW_GAMMA_GREEN
 msgid "Preview gamma green:"
-msgstr "Faktor gama za zelenu boju pri pregledu:"
+msgstr "Фактор гама за зелену боју при прегледу:"
 
 #. TEXT_SETUP_PREVIEW_GAMMA_BLUE
 msgid "Preview gamma blue:"
-msgstr "Faktor gama za plavu boja pri pregledu:"
+msgstr "Фактор гама за плаву боју при прегледу:"
 
 #. TEXT_SETUP_LINEART_MODE
 msgid "Threshold option:"
-msgstr "Opcije praga šuma:"
+msgstr "Опције прага шума:"
 
 #. TEXT_SETUP_PREVIEW_PIPETTE_RANGE
 msgid "Preview pipette range"
-msgstr "Opsega četkice pri pregledu"
+msgstr "Опсег четкице при прегледу"
 
 #. TEXT_SETUP_THRESHOLD_MIN
 msgid "Threshold minimum:"
-msgstr "Minimalni prag šuma:"
+msgstr "Минимални прег шума:"
 
 #. TEXT_SETUP_THRESHOLD_MAX
 msgid "Threshold maximum:"
-msgstr "Maksimum praga šuma:"
+msgstr "Максимум прага шума:"
 
 #. TEXT_SETUP_THRESHOLD_MUL
 msgid "Threshold multiplier:"
-msgstr "Umnožavač praga šuma:"
+msgstr "Умножаваћ прага шума:"
 
 #. TEXT_SETUP_THRESHOLD_OFF
 msgid "Threshold offset:"
-msgstr "Promena praga šuma:"
+msgstr "Промена прага шума:"
 
 #. TEXT_SETUP_GRAYSCALE_SCANMODE
 msgid "Name of grayscale scanmode:"
-msgstr "Ime sivog načina skeniranja:"
+msgstr "Име сивог начина скенирања:"
 
 #. TEXT_SETUP_HELPFILE_VIEWER
 msgid "Helpfile viewer (HTML):"
-msgstr "Prikazivač za pomoć (HTML):"
+msgstr "Приказивач за помоћ (HTML):"
 
 #. TEXT_SETUP_FAX_RECEIVER_OPTION
 msgid "Receiver option:"
-msgstr "Opcija za broj prijemnika:"
+msgstr "Опција за број пријемника:"
 
 #. TEXT_SETUP_FAX_POSTSCRIPT_OPT
 msgid "Postscriptfile option:"
-msgstr "Opcije za postscript fajl:"
+msgstr "Опција за postscript фајлу:"
 
 #. TEXT_SETUP_FAX_NORMAL_MODE_OPT
 msgid "Normal mode option:"
-msgstr "Opcije pri normalnom načinu:"
+msgstr "Опције при уобичајеном начину:"
 
 #. TEXT_SETUP_FAX_FINE_MODE_OPT
 msgid "Fine mode option:"
-msgstr "Opcije pri posebnom načinu:"
+msgstr "Опције y finom начину:"
 
 #. TEXT_SETUP_FAX_PROGRAM_DEFAULTS
 msgid "Set program defaults for:"
-msgstr ""
+msgstr "Стави стандардне вредности за програм:"
 
 #. TEXT_SETUP_FAX_VIEWER
 msgid "Viewer (Postscript):"
-msgstr "Prikazivač (postscript):"
+msgstr "Приказивач (postscript):"
+
+#. TEXT_SETUP_FAX_WIDTH
+msgid "Width"
+msgstr "Ширина"
+
+#. TEXT_SETUP_FAX_HEIGHT
+msgid "Height"
+msgstr "Висина"
+
+#. TEXT_SETUP_FAX_LEFT
+msgid "Left offset"
+msgstr "Лева ивица"
+
+#. TEXT_SETUP_FAX_BOTTOM
+msgid "Bottom offset"
+msgstr "Доња ивица"
 
 #. TEXT_SETUP_FAX_PS_FLATEDECODED
-msgid "Create zlib compressed postscript image (ps level 3) for fax"
-msgstr ""
+msgid "Create zlib compressed postscript image (PS level 3) for fax"
+msgstr "Направи zlib компресовану postscript слику (PS level 3) за факс"
 
 #. TEXT_SETUP_SMTP_SERVER
 msgid "SMTP server:"
-msgstr "SMTP server"
+msgstr "SMTP сервер:"
 
 #. TEXT_SETUP_SMTP_PORT
 msgid "SMTP port:"
-msgstr "SMTP port:"
+msgstr "SMTP порт:"
 
 #. TEXT_SETUP_EMAIL_FROM
 msgid "From:"
-msgstr "Pošiljalac:"
+msgstr "Пошиљалац:"
 
 #. TEXT_SETUP_EMAIL_REPLY_TO
 msgid "Reply to:"
-msgstr "Adresa za odgovor:"
+msgstr "Одговор на:"
 
 #. TEXT_SETUP_EMAIL_AUTHENTICATION
-#, fuzzy
 msgid "E-mail authentication"
-msgstr "POP3 autentifikacija"
+msgstr "Ауторизација е-поште"
 
 #. TEXT_SETUP_EMAIL_AUTH_USER
-#, fuzzy
 msgid "User:"
-msgstr "Upotreba:"
+msgstr "Корисник:"
 
 #. TEXT_SETUP_EMAIL_AUTH_PASS
-#, fuzzy
 msgid "Password:"
-msgstr "Lozinka:"
+msgstr "Лозинка:"
 
 #. TEXT_SETUP_POP3_SERVER
 msgid "POP3 server:"
-msgstr "POP3 server:"
+msgstr "POP3 сервер:"
 
 #. TEXT_SETUP_POP3_PORT
 msgid "POP3 port:"
-msgstr "POP3 port:"
+msgstr "POP3 порт:"
 
 #. TEXT_SETUP_OCR_COMMAND
 msgid "OCR Command:"
-msgstr "OCR komanda:"
+msgstr "OCR команда:"
 
 #. TEXT_SETUP_OCR_INPUTFILE_OPT
 msgid "Inputfile option:"
-msgstr "Opcije za ulazni fajl:"
+msgstr "Опције за улазну фајлу:"
 
 #. TEXT_SETUP_OCR_OUTPUTFILE_OPT
 msgid "Outputfile option:"
-msgstr "Opcije za izlazni fajl:"
+msgstr "Опције за излазну фајлу:"
 
 #. TEXT_SETUP_OCR_USE_GUI_PIPE_OPT
 msgid "Use GUI progress pipe:"
-msgstr ""
+msgstr "Користи напредак GUI цеви:"
 
 #. TEXT_SETUP_OCR_OUTFD_OPT
-#, fuzzy
 msgid "GUI output-fd option:"
-msgstr "Opcije za izlazni fajl:"
+msgstr "GUI -fd излазна опција:"
 
 #. TEXT_SETUP_OCR_PROGRESS_KEYWORD
 msgid "Progress keyword:"
-msgstr ""
+msgstr "Кључна реч напретка:"
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
-msgstr "korisnik"
+msgstr "корисник"
 
 #. TEXT_SETUP_PERMISSION_GROUP
 msgid "group"
-msgstr "grupa"
+msgstr "група"
 
 #. TEXT_SETUP_PERMISSION_ALL
 msgid "all"
-msgstr "svi"
+msgstr "сви"
 
 #. TEXT_SETUP_SCANNER_DEFAULT_COLOR_ICM_PROFILE
 #. DESC_SCANNER_DEFAULT_COLOR_ICM_PROFILE
-#, fuzzy
 msgid "Scanner default color ICM-profile"
-msgstr "Odstrani štampač"
+msgstr "Уобичајени ICM профил за боју од скенера"
 
 #. TEXT_SETUP_SCANNER_DEFAULT_GRAY_ICM_PROFILE
 #. DESC_SCANNER_DEFAULT_GRAY_ICM_PROFILE
-#, fuzzy
 msgid "Scanner default gray ICM-profile"
-msgstr "Odstrani štampač"
+msgstr "Уобичајени ICM профил за сиво од скенера"
 
 #. TEXT_SETUP_DISPLAY_ICM_PROFILE
 #. DESC_DISPLAY_ICM_PROFILE
 msgid "Display ICM-profile"
-msgstr ""
+msgstr "ICM профил за екран"
 
 #. TEXT_SETUP_CUSTOM_PROOFING_ICM_PROFILE
 #. DESC_CUSTOM_PROOFING_ICM_PROFILE
-#, fuzzy
 msgid "Custom proofing ICM-profile"
-msgstr "Odstrani štampač"
+msgstr "Избор корисника за пробни ICM профил"
 
 #. TEXT_SETUP_WORKING_COLOR_SPACE_ICM_PROFILE
 #. DESC_WORKING_COLOR_SPACE_ICM_PROFILE
-#, fuzzy
 msgid "Working color space ICM-profile"
-msgstr "Traži slike po nazivima fajla"
+msgstr "Радни простор ICM профила у боји"
 
 #. TEXT_SETUP_PRINTER_ICM_PROFILE
 #. DESC_PRINTER_ICM_PROFILE
 msgid "Printer ICM-profile"
-msgstr ""
+msgstr "ICM профил штампача"
 
 msgid "new media"
-msgstr ""
+msgstr "нови уређај"
 
 #. NOTEBOOK_SAVING_OPTIONS
 #. MENU_ITEM_SAVE
 msgid "Save"
-msgstr "Sačuvaj"
+msgstr "Сачувај"
 
 #. NOTEBOOK_FILETYPE_OPTIONS
-#, fuzzy
 msgid "Filetype"
-msgstr "Fajl"
+msgstr "Тип фајле"
 
 #. NOTEBOOK_COPY_OPTIONS
 #. MENU_ITEM_COPY
 msgid "Copy"
-msgstr "Kopiraj"
+msgstr "Копирај"
 
 #. NOTEBOOK_FAX_OPTIONS
 #. MENU_ITEM_FAX
 msgid "Fax"
-msgstr "Faks"
+msgstr "Факс"
 
 #. NOTEBOOK_EMAIL_OPTIONS
 #. MENU_ITEM_EMAIL
-#, fuzzy
 msgid "E-mail"
-msgstr "E-pošta:"
+msgstr "Е-пошта:"
 
 #. NOTEBOOK_OCR_OPTIONS
 msgid "OCR"
@@ -1239,643 +1221,613 @@ msgstr "OCR"
 
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display"
-msgstr "Prikaz"
+msgstr "Екран"
 
 #. NOTEBOOK_ENHANCE_OPTIONS
 msgid "Enhancement"
-msgstr "Poboljšavanje"
+msgstr "Побољшавање"
 
 #. MENU_ITEM_MULTIPAGE
 msgid "Multipage"
-msgstr ""
+msgstr "Многоструко"
 
 #. MENU_ITEM_SHOW_TOOLTIPS
 msgid "Show tooltips"
-msgstr "Prikaži savete"
+msgstr "Прикажи савете"
 
 #. MENU_ITEM_SHOW_PREVIEW
 msgid "Show preview"
-msgstr "Prikaži pregled"
+msgstr "Прикажи преглед"
 
 #. MENU_ITEM_SHOW_HISTOGRAM
 msgid "Show histogram"
-msgstr "Prikaži histogram"
+msgstr "Прикажи хистограм"
 
 #. MENU_ITEM_SHOW_GAMMA
 msgid "Show gamma curve"
-msgstr "Prikaži krivinu gama"
+msgstr "Прикажи кривину гама"
 
 #. MENU_ITEM_SHOW_BATCH_SCAN
-#, fuzzy
 msgid "Show batch scan"
-msgstr "paketno skeniranje"
+msgstr "Прикажи пакетно скенирање"
 
 #. MENU_ITEM_SHOW_STANDARDOPTIONS
 msgid "Show standard options"
-msgstr "Prikaži standardne izbore"
+msgstr "Прикажи стандардне изборе"
 
 #. MENU_ITEM_SHOW_ADVANCEDOPTIONS
 msgid "Show advanced options"
-msgstr "Prikaži napredne mogućnosti"
+msgstr "Прикажи напредне могућности"
 
 #. MENU_ITEM_SETUP
 msgid "Setup"
-msgstr "Konfiguracija"
+msgstr "Конфигурација"
 
 #. MENU_ITEM_LENGTH_UNIT
 msgid "Length unit"
-msgstr "Dužinska mera"
+msgstr "Дужинска мера"
 
 #. SUBMENU_ITEM_LENGTH_MILLIMETERS
 msgid "millimeters"
-msgstr "milimetri"
+msgstr "милиметри"
 
 #. SUBMENU_ITEM_LENGTH_CENTIMETERS
 msgid "centimeters"
-msgstr "centimetri"
+msgstr "сантиметри"
 
 #. SUBMENU_ITEM_LENGTH_INCHES
 msgid "inches"
-msgstr "inči"
+msgstr "инчи"
 
 #. MENU_ITEM_UPDATE_POLICY
 msgid "Update policy"
-msgstr "Aktualiziraj"
+msgstr "Начин освежавања"
 
 #. SUBMENU_ITEM_POLICY_CONTINUOUS
 msgid "continuous"
-msgstr "neprekidno"
+msgstr "непрекидно"
 
 #. SUBMENU_ITEM_POLICY_DISCONTINU
 msgid "discontinuous"
-msgstr "prekidno"
+msgstr "прекидно"
 
 #. SUBMENU_ITEM_POLICY_DELAYED
 msgid "delayed"
-msgstr "zadržano"
+msgstr "одложено"
 
 #. MENU_ITEM_SHOW_RESOLUTIONLIST
 msgid "Show resolution list"
-msgstr "Prikaži listu rezolucija"
+msgstr "Прикажи листу резолуција"
 
 #. MENU_ITEM_PAGE_ROTATE
 msgid "Rotate postscript"
-msgstr "Rotiraj postscript"
+msgstr "Обрни postscript"
 
 #. MENU_ITEM_ENABLE_COLOR_MANAGEMENT
 #. MENU_ITEM_CMS_ENABLE_COLOR_MANAGEMENT
-#, fuzzy
 msgid "Enable color management"
-msgstr "pun opseg"
+msgstr "Укључи подешавања боје"
 
 #. MENU_ITEM_EDIT_MEDIUM_DEF
-#, fuzzy
 msgid "Edit medium definition"
-msgstr "Preimenuj definiciju"
+msgstr "Prомени дефиницију уређаја"
 
 #. MENU_ITEM_SAVE_DEVICE_SETTINGS
 msgid "Save device settings"
-msgstr "Zapamti podešavanja uređaja"
+msgstr "Запамти подешавања уређаја"
 
 #. MENU_ITEM_LOAD_DEVICE_SETTINGS
 msgid "Load device settings"
-msgstr "Učitaj podešavanja uređaja"
+msgstr "Учитарј подешавања уређаја"
 
 #. MENU_ITEM_CHANGE_WORKING_DIR
 msgid "Change directory"
-msgstr "Promeni direktorijum"
+msgstr "Промени директоријум"
 
 #. MENU_ITEM_XSANE_EULA
 msgid "Show EULA"
-msgstr ""
+msgstr "Прикажи EULA"
 
 #. MENU_ITEM_XSANE_GPL
 msgid "Show license (GPL)"
-msgstr ""
+msgstr "Прикажи лиценцу (GPL)"
 
 #. MENU_ITEM_XSANE_DOC
 msgid "XSane doc"
-msgstr "Xsane dokumentacija"
+msgstr "XSane документација"
 
 #. MENU_ITEM_BACKEND_DOC
 msgid "Backend doc"
-msgstr "Backend dokumentacija"
+msgstr "Документација додатка"
 
 #. MENU_ITEM_AVAILABLE_BACKENDS
 msgid "Available backends"
-msgstr "Dostupni backend-i"
+msgstr "Доступни додатци"
 
 #. MENU_ITEM_SCANTIPS
 msgid "Scantips"
-msgstr "Saveti za skeniranje"
+msgstr "Савети за скенирање"
 
 #. MENU_ITEM_PROBLEMS
 msgid "Problems?"
-msgstr "Problemi?"
+msgstr "Проблеми?"
 
 #. MENU_ITEM_CMS_PROOFING
-#, fuzzy
 msgid "Proofing"
-msgstr "Dodaj štampač"
+msgstr "Проба"
 
 #. SUBMENU_ITEM_CMS_PROOF_OFF
 msgid "no proofing (Display)"
-msgstr ""
+msgstr "нема probe (Екран)"
 
 #. SUBMENU_ITEM_CMS_PROOF_PRINTER
-#, fuzzy
 msgid "Proof printer"
-msgstr "Dodaj štampač"
+msgstr "Пробни штампач"
 
 #. SUBMENU_ITEM_CMS_PROOF_CUSTOM
 msgid "Proof custom device"
 msgstr ""
 
 #. MENU_ITEM_CMS_RENDERING_INTENT
-#, fuzzy
 msgid "Rendering intent"
-msgstr "Dodaj štampač"
+msgstr ""
 
 #. MENU_ITEM_CMS_PROOFING_INTENT
-#, fuzzy
 msgid "Proofing rendering intent"
-msgstr "Dodaj štampač"
+msgstr "Пробни "
 
 #. SUBMENU_ITEM_CMS_INTENT_PERCEPTUAL
 msgid "Perceptual"
-msgstr ""
+msgstr "Предмет опажања"
 
 #. SUBMENU_ITEM_CMS_INTENT_RELATIVE_COLORIMETRIC
 msgid "Relative colorimetric"
-msgstr ""
+msgstr "одмерено мешане боје"
 
 #. SUBMENU_ITEM_CMS_INTENT_ABSOLUTE_COLORIMETRIC
 msgid "Absolute colorimentric"
 msgstr ""
 
 #. SUBMENU_ITEM_CMS_INTENT_SATURATION
-#, fuzzy
 msgid "Saturation"
-msgstr "autorizacija"
+msgstr "Засићење"
 
 #. MENU_ITEM_CMS_GAMUT_CHECK
 msgid "Gamut check"
-msgstr ""
+msgstr "Gamut провера"
 
 #. MENU_ITEM_CMS_GAMUT_ALARM_COLOR
 msgid "Gamut alarm color"
-msgstr ""
+msgstr "Gamut алармна боја"
 
 #. SUBMENU_ITEM_CMS_COLOR_BLACK
 msgid "Black"
-msgstr ""
+msgstr "Црно"
 
 #. SUBMENU_ITEM_CMS_COLOR_GRAY
 msgid "Gray"
-msgstr ""
+msgstr "Сиво"
 
 #. SUBMENU_ITEM_CMS_COLOR_WHITE
-#, fuzzy
 msgid "White"
-msgstr "pisati"
+msgstr "Бела"
 
 #. SUBMENU_ITEM_CMS_COLOR_RED
-#, fuzzy
 msgid "Red"
-msgstr "Smanji"
+msgstr "Црвена"
 
 #. SUBMENU_ITEM_CMS_COLOR_GREEN
 msgid "Green"
-msgstr ""
+msgstr "Зелена"
 
 #. SUBMENU_ITEM_CMS_COLOR_BLUE
-#, fuzzy
 msgid "Blue"
-msgstr "zamagli"
+msgstr "Плава"
 
 #. MENU_ITEM_COUNTER_LEN_INACTIVE
 msgid "inactive"
-msgstr "neaktivno"
+msgstr "неактивно"
 
 #. MENU_ITEM_TIFF_COMP_NONE
 msgid "no compression"
-msgstr "bez kompresije"
+msgstr "без компресије"
 
 #. MENU_ITEM_TIFF_COMP_CCITTRLE
 msgid "CCITT 1D Huffman compression"
-msgstr "CCITT 1D Huffman kompresija"
+msgstr "CCITT 1D Huffman компресија"
 
 #. MENU_ITEM_TIFF_COMP_CCITFAX3
-msgid "CCITT Group 3 Fax compression"
-msgstr "CCITT Group 3 Faks kompresija"
+msgid "CCITT Group 3 fax compression"
+msgstr "CCITT Group 3 факс компресија"
 
 #. MENU_ITEM_TIFF_COMP_CCITFAX4
-msgid "CCITT Group 4 Fax compression"
-msgstr "CCITT Group 4 Faks kompresija"
+msgid "CCITT Group 4 fax compression"
+msgstr "CCITT Group 4 факс компресија"
 
 #. MENU_ITEM_TIFF_COMP_JPEG
 msgid "JPEG DCT compression"
-msgstr "JPEG DCT kompresija"
+msgstr "JPEG DCT компресија"
 
 #. MENU_ITEM_TIFF_COMP_PACKBITS
 msgid "pack bits"
-msgstr "zapakovani biti"
+msgstr "запаковани бити"
 
 #. MENU_ITEM_TIFF_COMP_DEFLATE
-#, fuzzy
 msgid "deflate"
-msgstr "zadržano"
+msgstr "запаковати"
 
 #. MENU_ITEM_RANGE_SCALE
-#, fuzzy
 msgid "Slider (Scale)"
-msgstr "Dia"
+msgstr "Клизач (Скала)"
 
 #. MENU_ITEM_RANGE_SCROLLBAR
 msgid "Slider (Scrollbar)"
-msgstr ""
+msgstr "Клизач (клизећа трака)"
 
 #. MENU_ITEM_RANGE_SPINBUTTON
 msgid "Spinbutton"
-msgstr ""
+msgstr "Дугме за окретање"
 
 #. MENU_ITEM_RANGE_SCALE_SPIN
 msgid "Scale and Spinbutton"
-msgstr ""
+msgstr "Клизач и дугме за окретање"
 
 #. MENU_ITEM_RANGE_SCROLL_SPIN
 msgid "Scrollbar and Spinbutton"
-msgstr ""
+msgstr "Клизећа трака и дугме за окретање"
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
 msgid "Standard options window (lineart)"
-msgstr "Standardne opcije prozor (c/b)"
+msgstr "Стандардне опције прозор (linerart)"
 
 #. MENU_ITEM_LINEART_MODE_XSANE
 msgid "XSane main window (lineart)"
-msgstr "Xane glavni prozor (c/b)"
+msgstr "XSane главни прозор (lineart)"
 
 #. MENU_ITEM_LINEART_MODE_GRAY
 msgid "XSane main window (grayscale->lineart)"
-msgstr "XSane glavni prozor (sivi -> c/b)"
+msgstr "XSane главни прозор (crno-belo -> linerart)"
 
 #. MENU_ITEM_SELECTION_NONE
 msgid "(none)"
-msgstr "(ništa)"
+msgstr "(ништа)"
 
 #. MENU_ITEM_FILETYPE_BY_EXT
 msgid "by ext"
-msgstr "po nastavku"
+msgstr "по наставку"
 
 #. MENU_ITEM_PRESET_AREA_ADD_SEL
 msgid "Add selection to list"
-msgstr "Dodaj izbor u listu"
+msgstr "Додај избор у листу"
 
 #. MENU_ITEM_MEDIUM_ADD
-#, fuzzy
 msgid "Add medium definition"
-msgstr "Preimenuj definiciju"
+msgstr "Додај дефиницију уређаја"
 
 #. MENU_ITEM_RENAME
-#, fuzzy
 msgid "Rename item"
-msgstr "Preimenuj sliku"
+msgstr "Преименуј ставку"
 
 #. MENU_ITEM_DELETE
-#, fuzzy
 msgid "Delete item"
-msgstr "Odstrani štampač"
+msgstr "Одстрани ставку"
 
 #. MENU_ITEM_MOVE_UP
-#, fuzzy
 msgid "Move item up"
-msgstr "Pomeri na gore"
+msgstr "Помери ставку на горе"
 
 #. MENU_ITEM_MOVE_DWN
-#, fuzzy
 msgid "Move item down"
-msgstr "Pomeri na dole"
+msgstr "Помери ставку на доле"
 
 #. MENU_ITEM_AUTH_NONE
-#, fuzzy
 msgid "no authentication"
-msgstr "POP3 autentifikacija"
+msgstr "нема ауторизације"
 
 #. MENU_ITEM_AUTH_POP3
 msgid "POP3 before SMTP"
-msgstr ""
+msgstr "POP3 пре SMTP"
 
 #. MENU_ITEM_AUTH_ASMTP_PLAIN
 msgid "ASMTP Plain"
-msgstr ""
+msgstr "ASMTP отворен"
 
 #. MENU_ITEM_AUTH_ASMTP_LOGIN
 msgid "ASMTP Login"
-msgstr ""
+msgstr "ASMTP пријава"
 
 #. MENU_ITEM_AUTH_ASMTP_CRAM_MD5
 msgid "ASMTP CRAM-MD5"
-msgstr ""
+msgstr "ASMTP CRAM-MD5"
 
 #. MENU_ITEM_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE
-#, fuzzy
 msgid "Embed scanner ICM profile"
-msgstr "Odstrani štampač"
+msgstr "Уградити скенеров ICM профил"
 
 #. MENU_ITEM_CMS_FUNCTION_CONVERT_TO_SRGB
 msgid "Convert to sRGB"
-msgstr ""
+msgstr "Претвори у sRGB"
 
 #. MENU_ITEM_FUNCTION_CONVERT_TO_WORKING_CS
-#, fuzzy
 msgid "Convert to working color space"
-msgstr "Autokorektura boja"
+msgstr "Промени у "
 
 #. PROGRESS_SCANNING
 msgid "Scanning"
-msgstr "Skeniranje"
+msgstr "Скенирање"
 
 #. PROGRESS_RECEIVING_FRAME_DATA
 #, c-format
 msgid "Receiving %s data"
-msgstr "Primam %s podatke"
+msgstr "Примам %s податке"
 
 #. PROGRESS_PAGE
-#, fuzzy
 msgid "page"
-msgstr "paket"
+msgstr "страна"
 
-#. PROGRESS_TRANSFERING_DATA
-msgid "Transfering image"
-msgstr "Sliku preneti"
+#. PROGRESS_TRANSFERRING_DATA
+msgid "Transferring image"
+msgstr "Пренети слику"
 
 #. PROGRESS_ROTATING_DATA
 msgid "Rotating image"
-msgstr "Sliku rotirati"
+msgstr "Слику ротирати"
 
 #. PROGRESS_MIRRORING_DATA
 msgid "Mirroring image"
-msgstr "Sliku ogledati"
+msgstr "Слику огледати"
 
 #. PROGRESS_PACKING_DATA
 msgid "Packing image"
-msgstr "Sliku kompresovati"
+msgstr "Слику компресовати"
 
 #. PROGRESS_CONVERTING_DATA
 msgid "Converting image"
-msgstr "Podatke konvertovati"
+msgstr "Податке конвертовати"
 
 #. PROGRESS_SAVING_DATA
 msgid "Saving image"
-msgstr "Sliku zapamtiti"
+msgstr "Слику запамтити"
 
 #. PROGRESS_CLONING_DATA
 msgid "Cloning image"
-msgstr "Sliku kopirati"
+msgstr "Слику копирати"
 
 #. PROGRESS_SCALING_DATA
 msgid "Scaling image"
-msgstr "Skaliraj sliku"
+msgstr "Скалирај слику"
 
 #. PROGRESS_DESPECKLING_DATA
 msgid "Despeckling image"
-msgstr "Sliku odflekavati"
+msgstr "Слику одфлекати"
 
 #. PROGRESS_BLURING_DATA
 msgid "Bluring image"
-msgstr "Zamagljavam sliku"
+msgstr "Замагљујем слику"
 
 #. PROGRESS_OCR
 msgid "OCR in progress"
-msgstr ""
+msgstr "OCR напредак"
 
 #. PROGRESS_ICM_CONVERSION
-#, fuzzy
 msgid "converting colors"
-msgstr "Autokorektura boja"
+msgstr "Промени боје"
 
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
-msgstr "Startaj skeniranje <Ctrl-Enter>"
+msgstr "Стартај скенирање <Ctrl-Enter>"
 
 #. DESC_SCAN_CANCEL
 msgid "Cancel scan <ESC>"
-msgstr "Prekini skeniranje <ESC>"
+msgstr "Прекини скенирање <ESC>"
 
 #. DESC_PREVIEW_ACQUIRE
 msgid "Acquire preview scan <Alt-p>"
-msgstr "Pregled <Alt-p>"
+msgstr "Преглед <Alt-p>"
 
 #. DESC_PREVIEW_CANCEL
 msgid "Cancel preview scan <Alt-ESC>"
-msgstr "Prekini pregled <Alt-ESC>"
+msgstr "Прекини преглед <Alt-ESC>"
 
 #. DESC_XSANE_MODE
 msgid ""
 "viewer-<Ctrl-v>, save-<Ctrl-s>, photocopy-<Ctrl-c>, multipage-<Ctrl-m>, fax-"
 "<Ctrl-f> or e-mail-<Ctrl-e>"
 msgstr ""
+"прикажи-<Ctrl-v>, запамти-<Ctrl-s>, фотокопија-<Ctrl-c>, многоструки-<Ctrl-"
+"m>, факс-<Ctrl-f> или е-пошта-<Ctrl-e>"
 
 #. DESC_XSANE_MEDIUM
 msgid ""
 "Select source medium type.\n"
-"To rename, reorder or delete an entry use context menu (right mouse "
+"To rename, reorder or delete an entry use context menu (alternate mouse "
 "button).\n"
 "To create a medium enable the option edit medium definition in preferences "
 "menu."
 msgstr ""
+"Изабери изворни уређај.\n"
+"За преименовање, сортирање или брисање уписа користити контексни мени\n"
+" (алтернативни тастер миша).\n"
+"Да би направили нови уређај, опцију промени дефиницију уређаја у "
+"подешавањима активирати."
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
-msgstr "Vrednost, za koju se povećava brojač fajla posle skeniranja"
+msgstr "Вредност, за коју се повећава бројач фајле после скенирања"
 
 #. DESC_BROWSE_FILENAME
 msgid "Browse for image filename"
-msgstr "Traži slike po nazivima fajla"
+msgstr "Тражи слике по називима фајла"
 
 #. DESC_FILENAME
 msgid "Filename for scanned image"
-msgstr "Naziv fajla za skeniranu sliku"
+msgstr "Назив фајла за скенирану слику"
 
 #. DESC_FILETYPE
 msgid ""
 "Type of image format, the suitable filename extension is automatically added "
 "to the filename"
 msgstr ""
-"Način zapisa; odgovarajući nastavak se automatski dodaje na naziv fajla"
+"Тип формата записа слике, одговарајући наставак се аутоматски додаје на "
+"назив фајле"
 
 #. DESC_FAXPROJECT
-#, fuzzy
 msgid "Enter fax project directory name"
-msgstr "Pretraži privremeni direktorijum"
+msgstr "Наведи директоријум за факс пројект"
 
 #. DESC_FAXPAGENAME
 msgid "Enter new name for faxpage"
-msgstr "Unesi novo ime za stranu sa faksom"
+msgstr "Унеси ново име за страну са факсом"
 
 #. DESC_FAXRECEIVER
 msgid "Enter receiver phone number or address"
-msgstr "Unesi telefonski broj ili adresu prijemnika"
+msgstr "Унеси телефонски број или адресу пријемника"
 
 #. DESC_FAX_PROJECT_BROWSE
-#, fuzzy
 msgid "Browse for fax project directory"
-msgstr "Pretraži privremeni direktorijum"
+msgstr "Тражи директориј за факс пројект"
 
 #. DESC_EMAIL_PROJECT
-#, fuzzy
 msgid "Enter e-mail project directory name"
-msgstr "Pretraži privremeni direktorijum"
+msgstr "Наведи директоријум за пројект е-поште"
 
 #. DESC_EMAIL_IMAGENAME
-#, fuzzy
 msgid "Enter new name for e-mail image"
-msgstr "Unesi novo ime za sliku u E-pošti"
+msgstr "Унеси ново име за слику у е-пошти"
 
 #. DESC_EMAIL_RECEIVER
-#, fuzzy
 msgid "Enter e-mail address"
-msgstr "Unesi email adresu"
+msgstr "Унеси адресу е-поште"
 
 #. DESC_EMAIL_PROJECT_BROWSE
-#, fuzzy
 msgid "Browse for email project directory"
-msgstr "Pretraži privremeni direktorijum"
+msgstr "Претражи директоријум за пројект е-поште"
 
 #. DESC_EMAIL_SUBJECT
-#, fuzzy
 msgid "Enter subject of e-mail"
-msgstr "Unesi temu od E-pošte"
+msgstr "Унеси тему од е-поште"
 
 #. DESC_EMAIL_FILETYPE
 msgid "Select filetype for image attachments"
-msgstr ""
+msgstr "Изабери тип фајле за сликовне додатке"
 
 #. DESC_MULTIPAGE_PROJECT
-#, fuzzy
 msgid "Enter multipage project directory name"
-msgstr "Pretraži privremeni direktorijum"
+msgstr "Наведи директоријум за многоструки пројект"
 
 #. DESC_MULTIPAGE_PROJECT_BROWSE
-#, fuzzy
 msgid "Browse for multipage project directory"
-msgstr "Pretraži privremeni direktorijum"
+msgstr "Претражи директоријум за многоструки пројект"
 
 #. DESC_MULTIPAGE_FILETYPE
-#, fuzzy
 msgid "Select filetype for multipage file"
-msgstr "Izaberi izlazni naziv fajla za OCR tekst fajl"
+msgstr "Изабери тип фајле за многоструку фајлу"
 
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
-msgstr "Unesi novo ime za opseg konfiguracija"
+msgstr "Унеси ново име за опсег конфигурација"
 
 #. DESC_PRESET_AREA_ADD
-#, fuzzy
 msgid "Enter name for new preset area"
-msgstr "Unesi novo ime za opseg konfiguracija"
+msgstr "Унеси име за нови опсег конфигурација"
 
 #. DESC_MEDIUM_RENAME
-#, fuzzy
 msgid "Enter new name for medium definition"
-msgstr "Preimenuj definiciju"
+msgstr "Унеси ново име за дефиницију уређаја"
 
 #. DESC_MEDIUM_ADD
-#, fuzzy
 msgid "Enter name for new medium definition"
-msgstr "Preimenuj definiciju"
+msgstr "Унеси име за нову дефиницију уређаја"
 
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
-msgstr "Izaberi štampač"
+msgstr "Изабери дефиницију штампача <Shift-F1/F2/...>"
 
 #. DESC_RESOLUTION
 msgid "Set scan resolution"
-msgstr "Izaberi rezoluciju skeniranja"
+msgstr "Изабери резолуцију скенирања"
 
 #. DESC_RESOLUTION_X
 msgid "Set scan resolution for x direction"
-msgstr "Izaberi rezoluciju skeniranja u smeru x"
+msgstr "Изабери резолуцију скенирања у смеру x"
 
 #. DESC_RESOLUTION_Y
 msgid "Set scan resolution for y direction"
-msgstr "Izaberi rezoluciju skeniranja u smeru y"
+msgstr "Изабери резолуцију скенирања у смеру y"
 
 #. DESC_ZOOM
 msgid "Set zoomfactor"
-msgstr "Izaberi faktor uveli"
+msgstr "Изабери фактор увеличавања"
 
 #. DESC_ZOOM_X
 msgid "Set zoomfactor for x direction"
-msgstr "Izaberi faktor uveli u smeru x"
+msgstr "Изабери фактор увеличавања у смеру x"
 
 #. DESC_ZOOM_Y
 msgid "Set zoomfactor for y direction"
-msgstr "Izaberi faktor uveličavanja u smeru y"
+msgstr " Изабери фактор увеличавања у смеру y"
 
 #. DESC_COPY_NUMBER
 msgid "Set number of copies"
-msgstr "Izaberite broj kopija"
+msgstr "Одредите број копија"
 
 #. DESC_NEGATIVE
-#, fuzzy
 msgid "Negative: Invert colors for scanning negatives <Ctrl-n>"
-msgstr "Negativ: invertiraj boje za skeniranje negativa <Shift-n>"
+msgstr "Негатив: Преокрени боје за скенирање негатива <Ctrl-n>"
 
 #. DESC_GAMMA
 msgid "Set gamma value"
-msgstr "Izaberi vrednost gama"
+msgstr "Изабери вредност гама"
 
 #. DESC_GAMMA_R
 msgid "Set gamma value for red component"
-msgstr "Izaberi vrednost gama za crvenu boju"
+msgstr "Изабери вредност гама за црвену компонетну"
 
 #. DESC_GAMMA_G
 msgid "Set gamma value for green component"
-msgstr "Izaberi vrednost gama za zelenu boju"
+msgstr "Изабери вредност гама за зелену компонетну"
 
 #. DESC_GAMMA_B
 msgid "Set gamma value for blue component"
-msgstr "Izaberi vrednost gama za plavu boju"
+msgstr "Изабери вредност гама за плаву компонетну"
 
 #. DESC_BRIGHTNESS
 msgid "Set brightness"
-msgstr "Izaberi osvetljenje"
+msgstr "Изабери осветљење"
 
 #. DESC_BRIGHTNESS_R
 msgid "Set brightness for red component"
-msgstr "Izaberi osvetljenje za crvenu boju"
+msgstr "Изабери осветљење за црвену компоненту"
 
 #. DESC_BRIGHTNESS_G
 msgid "Set brightness for green component"
-msgstr "Izaberi osvetljenje za zelenu boju"
+msgstr "Изабери осветљење за зелену компоненту"
 
 #. DESC_BRIGHTNESS_B
 msgid "Set brightness for blue component"
-msgstr "Izaberi osvetljenje za plavu boju"
+msgstr "Изабери осветљење за плаву компоненту"
 
 #. DESC_CONTRAST
 msgid "Set contrast"
-msgstr "Izaberi kontrast"
+msgstr "Изабери контраст"
 
 #. DESC_CONTRAST_R
 msgid "Set contrast for red component"
-msgstr "Izaberi kontrast za crvenu boju"
+msgstr "Изабери контраст за црвену компоненту"
 
 #. DESC_CONTRAST_G
 msgid "Set contrast for green component"
-msgstr "Izaberi kontrast za zelenu boju"
+msgstr "Изабери контраст за зелену компоненту"
 
 #. DESC_CONTRAST_B
 msgid "Set contrast for blue component"
-msgstr "Izaberi kontrast za plavu boju"
+msgstr "Изабери контраст за плаву компоненту"
 
 #. DESC_THRESHOLD
 msgid "Set threshold"
-msgstr "Izaberi prag šuma"
+msgstr "Изабери праг шума"
 
 #. DESC_RGB_DEFAULT
-#, fuzzy
 msgid ""
 "RGB default: Set enhancement values for red, green and blue to default "
 "values <Ctrl-b>:\n"
@@ -1883,688 +1835,673 @@ msgid ""
 " brightness = 0\n"
 " contrast = 0"
 msgstr ""
-"Podrazumevane vrednosti za RGB: Namesti poboljšane vrednosti za crvenu, "
-"zelenu i plavu na standardne vrednosti <Shift-b>:\n"
-" gama = 1.0\n"
-" svetlost = 0\n"
-" kontrast = 0"
+"Подразумеване вредности за RGB:\n"
+"Намести побољшане вредности за црвену, зелену и плаву настандардне вредности "
+"<Ctrl-b>:\n"
+" гама = 1.0\n"
+" осветљење = 0\n"
+" контраст = 0"
 
 #. DESC_ENH_AUTO
-#, fuzzy
 msgid "Autoadjust gamma, brightness and contrast <Ctrl-a>"
-msgstr "Autopodešavanje  vrednosti gama, osvetljenja i kontrasta <Shift-e>"
+msgstr "Аутоподешавање вредности гама, осветљења и контраста <Ctrl-a>"
 
 #. DESC_ENH_DEFAULT
-#, fuzzy
 msgid ""
 "Set default enhancement values <Ctrl-0>:\n"
 "gamma = 1.0\n"
 "brightness = 0\n"
 "contrast = 0"
 msgstr ""
-"Postavi standardne vrednosti za poboljšanje <Shift-d>:\n"
-"gama = 1.0\n"
-"osvetljenje = 0\n"
-"kontrast = 0"
+"Постави стандардне вредности за побољшање <Ctrl-0>:\n"
+"гама = 1.0\n"
+"осветљење = 0\n"
+"контраст = 0"
 
 #. DESC_ENH_RESTORE
-#, fuzzy
 msgid "Restore enhancement values from preferences <Ctrl-r>"
-msgstr "Obnovi vrednosti za poboljšanje slike iz podešavanja <Shift-r>"
+msgstr "Обнови вредности за побољшање из подешавања <Ctrl-r>"
 
 #. DESC_ENH_STORE
-#, fuzzy
 msgid "Store active enhancement values to preferences <Ctrl-+>"
-msgstr "Zapamti aktivne vrednosti za poboljšanje slike u podešavanja <Shift-m>"
+msgstr "Запамти активне вредности за побољшање у подешавања <Ctrl-+>"
 
 #. DESC_HIST_INTENSITY
 msgid "Show histogram of intensity/gray <Alt-i>"
-msgstr "Prikaz histograma svetlosti/grao <Alt-i>"
+msgstr "Приказ хистограма јачине/грао <Alt-i>"
 
 #. DESC_HIST_RED
 msgid "Show histogram of red component <Alt-r>"
-msgstr "Prikaz histograma crvene boje <Alt-r>"
+msgstr "Приказ хистограма црвене компоненте <Alt-r>"
 
 #. DESC_HIST_GREEN
 msgid "Show histogram of green component <Alt-g>"
-msgstr "Prikaz histograma zelene boje <Alt-g>"
+msgstr "Приказ хистограма зелене компоненте <Alt-g>"
 
 #. DESC_HIST_BLUE
 msgid "Show histogram of blue component <Alt-b>"
-msgstr "Prikaz histograma plave boje <Alt-b>"
+msgstr "Приказ хистограма плаве компоненте <Alt-b>"
 
 #. DESC_HIST_PIXEL
 msgid "Display mode: show histogram with lines instead of pixels <Alt-m>"
-msgstr "Prikaz histograma sa linijama umesto piksela <Alt-m>"
+msgstr "Модус екрана: Приказ хистограма са линијама уместо пиксела <Alt-m>"
 
 #. DESC_HIST_LOG
 msgid "Show logarithm of pixelcount <Alt-l>"
-msgstr "Prikaz logaritma od broja piksela <Alt-l>"
+msgstr "Приказ логаритма од броја пиксела <Alt-l>"
 
 #. DESC_PRINTER_SETUP
 msgid "Select definition to change"
-msgstr "Izaberi definiciju za menjanje"
+msgstr "Изабери дефиницију за мењање"
 
 #. DESC_PRINTER_NAME
 msgid "Define a name for the selection of this definition"
-msgstr "Ime definicije"
+msgstr "Одабери име за селекцију те дефиниције"
 
 #. DESC_PRINTER_COMMAND
 msgid "Enter command to be executed in copy mode (e.g. \"lpr\")"
-msgstr "Unesi komandu, koja se izvodi pri kopiranju (na primer \"lpr -\")"
+msgstr "Унеси команду, која се изводи при копирању (на пример \"lpr -\")"
 
 #. DESC_COPY_NUMBER_OPTION
 msgid "Enter option for copy numbers"
-msgstr "Unesi opciju za broj kopija"
+msgstr "Унеси опцију за број копија"
 
 #. DESC_PRINTER_LINEART_RESOLUTION
 msgid ""
 "Resolution with which lineart images are printed and saved in postscript"
-msgstr "Rezolucija, u kojoj se crno/bele slike štampaju i pamte u postscriptu"
+msgstr ""
+"Резолуција, у којој се црно / беле слике штампају и памте у postscript-у"
 
 #. DESC_PRINTER_GRAYSCALE_RESOLUTION
 msgid ""
 "Resolution with which grayscale images are printed and saved in postscript"
-msgstr "Rezolucija, u kojoj se sive slike štampaju i pamte u postscriptu"
+msgstr "Резолуција, у којој се сивве слике штампају и памте у postscript-у"
 
 #. DESC_PRINTER_COLOR_RESOLUTION
 msgid "Resolution with which color images are printed and saved in postscript"
-msgstr "Rezolucija, u kojoj se slike u boji štampaju i pamte u postscriptu"
+msgstr "Резолуција, у којој се слике у боји штампају и памте у postscript-у"
 
 #. DESC_PRINTER_WIDTH
 #. DESC_FAX_WIDTH
 msgid "Width of printable area"
-msgstr "Širina površine za štampanje"
+msgstr "Ширина површине за штампање"
 
 #. DESC_PRINTER_HEIGHT
 #. DESC_FAX_HEIGHT
 msgid "Height of printable area"
-msgstr "Visina površine za štampanje"
+msgstr "Висина површине за штампање"
 
 #. DESC_PRINTER_LEFTOFFSET
 #. DESC_FAX_LEFTOFFSET
 msgid "Left offset from the edge of the paper to the printable area"
-msgstr "Razmak od levog ruba papira do početka površine za štampanje"
+msgstr "Размак од левог руба папира до почетка површине за штампање"
 
 #. DESC_PRINTER_BOTTOMOFFSET
 #. DESC_FAX_BOTTOMOFFSET
 msgid "Bottom offset from the edge of the paper to the printable area"
-msgstr "Razmak od donjeg ruba papira do početka površine za štampanje"
+msgstr "Размак од доњег руба папира до почетка површине за штампање"
 
 #. DESC_PRINTER_GAMMA
 msgid "Additional gamma value for photocopy"
-msgstr "Dodatna vrednost gama pri fotokopiranju"
+msgstr "Додатна вредност гама при фотокопирању"
 
 #. DESC_PRINTER_GAMMA_RED
 msgid "Additional gamma value for red component for photocopy"
-msgstr "Dodatna vrednost gama za crvenu boju pri fotokopiranju"
+msgstr "Додатна вредност гама за црвену компоненту при фотокопирању"
 
 #. DESC_PRINTER_GAMMA_GREEN
 msgid "Additional gamma value for green component for photocopy"
-msgstr "Dodatna vrednost gama za zelenu boju pri fotokopiranju"
+msgstr "Додатна вредност гама за зелену компоненту при фотокопирању"
 
 #. DESC_PRINTER_GAMMA_BLUE
 msgid "Additional gamma value for blue component for photocopy"
-msgstr "Dodatna vrednost gama za plavu boju pri fotokopiranju"
+msgstr "Додатна вредност гама за плаву компоненту при фотокопирању"
 
 #. DESC_PRINTER_EMBED_CSA
 msgid "Creates a postsciptfile that contains the ICM profile of the scanner"
-msgstr ""
+msgstr "Направи postscipt фајлу која садржи ICM профил скенера"
 
 #. DESC_PRINTER_EMBED_CRD
 msgid "Creates a postsciptfile that contains the ICM profile of the printer"
-msgstr ""
+msgstr "Направи postscipt фајлу која садржи ICM профил штампача"
 
 #. DESC_PRINTER_CMS_BPC
 msgid "Applies black point compensation"
-msgstr ""
+msgstr "Примени компензацију црне тачке"
 
 #. DESC_PRINTER_PS_FLATEDECODED
 msgid ""
 "Create zlib compressed postscript image for printer (flatedecode).\n"
 "The printer has to understand postscript level 3!"
 msgstr ""
+"Направи zlib компресовану postscript слику за штампач (flatedecode).\n"
+"Штампач треба да разуме postscript степен 3!"
 
 #. DESC_TMP_PATH
 msgid "Path to temp directory"
-msgstr "Put do privremenog direktorijuma"
+msgstr "Пут до привременог директоријума"
 
 #. DESC_BUTTON_TMP_PATH_BROWSE
 msgid "Browse for temporary directory"
-msgstr "Pretraži privremeni direktorijum"
+msgstr "Претражи привремени директоријум"
 
 #. DESC_JPEG_QUALITY
 msgid ""
-"Quality in percent if image is saved as jpeg or tiff with jpeg compression"
+"Quality in percent if image is saved as JPEG or TIFF with JPEG compression"
 msgstr ""
-"Kvalitet slike u procentima, ako je slika zapamćena kao JPEG ili TIFF sa "
-"JPEG kompresijom"
+"Квалитет слике у процентима ако је слика запамћена као JPEG или TIFF за JPEG "
+"компресијом"
 
 #. DESC_PNG_COMPRESSION
-msgid "Compression if image is saved as png"
-msgstr "Kompresija ako je slika zapamćena kao PNG"
+msgid "Compression if image is saved as PNG"
+msgstr "Компресија ако је слика запамћена као PNG"
 
 #. DESC_FILENAME_COUNTER_LEN
 msgid "Minimum length of counter in filename"
-msgstr "Najkraća dužina brojača u nazivu fajla"
+msgstr "Најкраћа дужина бројача у називу фајле"
 
 #. DESC_TIFF_ZIP_COMPRESSION
-#, fuzzy
-msgid "Compression rate for zip compressed tiff (deflate)"
-msgstr "Vrsta kompresije ako se 8-bitn-a slika pamti kao TIFF"
+msgid "Compression rate for zip compressed TIFF (deflate)"
+msgstr "Висина компресије за zip компресовану TIFF (сажимање)"
 
 #. DESC_TIFF_COMPRESSION_16
-msgid "Compression type if 16 bit image is saved as tiff"
-msgstr "Vrsta kompresije ako se 16-bitn-a slika pamti kao TIFF"
+msgid "Compression type if 16 bit image is saved as TIFF"
+msgstr "Врста компресије ако се 16 битна слика памити као TIFF"
 
 #. DESC_TIFF_COMPRESSION_8
-msgid "Compression type if 8 bit image is saved as tiff"
-msgstr "Vrsta kompresije ako se 8-bitn-a slika pamti kao TIFF"
+msgid "Compression type if 8 bit image is saved as TIFF"
+msgstr "Врста компресије ако се 8 битна слика памти као TIFF"
 
 #. DESC_TIFF_COMPRESSION_1
-msgid "Compression type if lineart image is saved as tiff"
-msgstr "Vrsta kompresije ako se crno/bela slika pamti kao TIFF"
+msgid "Compression type if lineart image is saved as TIFF"
+msgstr "Врста компресије ако се lineart слика памти као TIFF"
 
 #. DESC_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device dependant preferences in default file at exit of xsane"
 msgstr ""
-"Pamti odgovarajuće konfiguracije uređaja u podrazumevanoj fajli pri "
-"napuštanju Xsane-a"
+"Памти одговарајуће конфигурације уређаја у подразумеваној фајли при "
+"напуштању XSane"
 
 #. DESC_OVERWRITE_WARNING
 msgid "Warn before overwriting an existing file"
-msgstr "Upozori pre prepisivanja postojeće fajle"
+msgstr "Упозори пре преписивања постојеће фајле"
 
 #. DESC_SKIP_EXISTING
 msgid ""
 "If filename counter is automatically increased, used numbers are skipped"
 msgstr ""
-"Ako je brojač naziva fajle automatski povećan, postojeći brojevi se "
-"automatski preskaču"
+"Ако је бројач назива фајле аутоматски повећан, постојећи бројеви се "
+"аутоматски прескачу"
 
 #. DESC_SAVE_PS_FLATEDECODED
 msgid ""
 "compress postscript image with zlib algorithm (flatedecode). When you want "
 "to print such a file your printer has to understand postscript level 3"
 msgstr ""
+"компресуј postscript сликз са zlib алогаритмом (flatedecode). Ако ви хоћете "
+"да штампате ваш штампач треба да разуме postscript степен 3"
 
 #. DESC_SAVE_PDF_FLATEDECODED
 msgid "compress PDF image with zlib algorithm (flatedecode)."
-msgstr ""
+msgstr "компресуј PDF слику са zlib алогаритмом (flatedecode)."
 
 #. DESC_SAVE_PNM16_AS_ASCII
 msgid ""
-"When a 16 bit image shall be saved in pnm format then use ascii format "
+"When a 16 bit image shall be saved in PNM format then use ASCII format "
 "instead of binary format. The binary format is a new format that is not "
-"supported by all programs. The ascii format is supported by more programs "
+"supported by all programs. The ASCII format is supported by more programs "
 "but it produces really huge files!!!"
 msgstr ""
+"Ако 16 битна слика треба да се запамти у PNM формату тада користите ASCII "
+"формат уместо бинарног формата. Бинарни формат је нови формат и није подржан "
+"од свих програма. ASCII формат је подржан од више програма али прави огромне "
+"фајле!!!"
 
 #. DESC_REDUCE_16BIT_TO_8BIT
-#, fuzzy
 msgid ""
 "If scanner sends image with 16 bits/channel save image with 8 bits/channel"
 msgstr ""
-"Ako skener šalje sliku sa 16 bit-a u boji pamti sliku sa 8 bit-a u boji"
+"Ако скенер шаље слику са 16 бита / каналу памти слику са 8 бита / каналу."
 
 #. DESC_PSFILE_WIDTH
 msgid "Width of paper for postscript files"
-msgstr "Širina papira pri štampanju postcript fajli"
+msgstr "Ширина папира при штампању postcript фајли"
 
 #. DESC_PSFILE_HEIGHT
 msgid "Height of paper for postscript files"
-msgstr "Visina papira pri štampanju postscript fajli"
+msgstr "Висина папира при штампању postscript фајли"
 
 #. DESC_PSFILE_LEFTOFFSET
 msgid ""
 "Left offset from the edge of the paper to the usable area for postscript "
 "files"
-msgstr "Odmak slike od levog ruba papira pri štampanju postscript fajli"
+msgstr "Одмак слике од левог руба папира при штампању postscript фајли"
 
 #. DESC_PSFILE_BOTTOMOFFSET
 msgid ""
 "Bottom offset from the edge of the paper to the usable area for postscript "
 "files"
-msgstr "Odmak slike od donjeg ruba papira pri štampanju postscript fajli"
+msgstr "Одмак слике од доњег руба папира при штампању postscript фајли"
 
 #. DESC_MAIN_WINDOW_FIXED
 msgid "Use fixed main window size or scrolled, resizable main window"
-msgstr "Upotrebi fiksiranu ili promenljivu glavnu stranu"
+msgstr "Употреби фиксирану или променљиву главну страну"
 
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
-#, fuzzy
 msgid "Disable preview gamma when XSane runs as GIMP plugin"
-msgstr "Onemogući pregled gama, ako se Xsane upotrebljava kao uložak za Gimp"
+msgstr "Онемогући преглед гама ако XSane се користи као додатак за Gimp."
 
 #. DESC_PREVIEW_COLORMAP
 msgid "Use an own colormap for preview if display depth is 8 bpp"
-msgstr ""
-"Upotrebi svoju paletu boja za pregled ako se koristi dubina ekrana od 8 bpp"
+msgstr "Употреби своју палету боја за преглед ако је дубина екрана 8 bpp"
 
 #. DESC_SHOW_RANGE_MODE
 msgid "Select how a range is displayed"
-msgstr ""
+msgstr "Изабери како се показује опсег"
 
 #. DESC_PREVIEW_OVERSAMPLING
-msgid "Value with that the calculated preview resolution is multiplied"
-msgstr "Vrednost, sa kojom se pomnožava izračunata rezolucija pregleda"
+msgid "Value with which the calculated preview resolution is multiplied"
+msgstr "Вредност са којом се помножава израчуната резолуција прегледа"
 
 #. DESC_PREVIEW_GAMMA
 msgid "Set gamma correction value for preview image"
-msgstr "Odredi vrednost gama pri pregledu slike"
+msgstr "Одреди вредност гама корекције при прегледу слике"
 
 #. DESC_PREVIEW_GAMMA_RED
 msgid "Set gamma correction value for red component of preview image"
-msgstr "Odredi vrednost gama za crvenu boju pri pregledu slike"
+msgstr "Одреди вредност гама корекције за црвену компоненту при прегледу слике"
 
 #. DESC_PREVIEW_GAMMA_GREEN
 msgid "Set gamma correction value for green component of preview image"
-msgstr "Odredi vrednost gama za zelenu boju pri pregledu slike"
+msgstr "Одреди вредност гама корекције за зелену компоненту при прегледу слике"
 
 #. DESC_PREVIEW_GAMMA_BLUE
 msgid "Set gamma correction value for blue component of preview image"
-msgstr "Odredi vrednost gama za plavu boju pri pregledu slike"
+msgstr "Одреди вредност гама корекције за плаву компоненту при прегледу слике"
 
 #. DESC_LINEART_MODE
 msgid "Define the way XSane shall handle the threshold option"
-msgstr "Definišite način, kako Xsane određuje prag šuma"
+msgstr "Одредите начин, како XSane одређује праг шума"
 
 #. DESC_GRAYSCALE_SCANMODE
 msgid ""
 "Select grayscale scanmode. This scanmode is used for lineart preview scan "
 "when transformation from grayscale to lineart is enabled"
 msgstr ""
-"Selektiraj sivi način skeniranja, Taj način se upotrebljava za crno/bele "
-"slike ako je transformacija iz sive u crno/belu omogućena"
+"Селектирај сиви начин скенирања. Тај начин се употребљава за црно / беле "
+"прегледе ако је трансформација из сиве у црно / белу омогућена"
 
 #. DESC_PREVIEW_THRESHOLD_MIN
 #, no-c-format
 msgid "The scanner's minimum threshold level in %"
-msgstr "Donja vrednost praga šuma u %"
+msgstr "Доња вредност прага шума у %"
 
 #. DESC_PREVIEW_THRESHOLD_MAX
 #, no-c-format
 msgid "The scanner's maximum threshold level in %"
-msgstr "Gornja vrednost praga šuma u %"
+msgstr "Горња вредност прага шума у %"
 
 #. DESC_PREVIEW_THRESHOLD_MUL
 msgid ""
 "Multiplier to make XSane threshold range and scanner threshold range the same"
-msgstr "Umnožavač, koji prag šuma skenera i programa Xsane usklađuje"
+msgstr "Умножавач, који праг шума скенера и XSane усклађује"
 
 #. DESC_PREVIEW_THRESHOLD_OFF
 msgid ""
 "Offset to make XSane threshold range and scanner threshold range the same"
-msgstr "Odmak, koji prag šuma skenera i programa Xsane usklađuje"
+msgstr "Одмак, који праг шума скенера и XSane усклађује"
 
 #. DESC_ADF_PAGES_MAX
 msgid "Number of pages to scan"
-msgstr ""
+msgstr "Број страна за скенирање"
 
 #. DESC_PREVIEW_PIPETTE_RANGE
 msgid "dimension of square that is used to average color for pipette function"
-msgstr "Veličina kvadrata, koji se koristi da uskladi boju za funkciju pipete."
+msgstr "Величина квадрата, који се користи да усклади боју за функцију пипете."
 
 #. DESC_DOC_VIEWER
 msgid ""
-"Enter command to be executed to display helpfiles, must be a html-viewer!"
-msgstr "Dajte komandu, sa kojom se prikazuju pomoćni fajlovi HTML!"
+"Enter command to be executed to display helpfiles, must be a HTML-viewer!"
+msgstr ""
+"Дајте команду, са којом се приказују помоћни фајлови, мора бити HTML "
+"приказивач!"
 
 #. DESC_AUTOENHANCE_GAMMA
 msgid "Change gamma value when autoenhancement button is pressed"
 msgstr ""
-"Prilagodi vrednost gama pri upotrebi dugmeta za auto poboljšavanje slike"
+"Гама вредност ће се подесити, ако се дугме за аутоматско побољшање притисне "
 
-#. DESC_PRESELECT_SCANAREA
-msgid "Select scanarea after preview scan has finished"
-msgstr "Izaberi površinu za skeniranje posle završetka pregleda"
+#. DESC_PRESELECT_SCAN_AREA
+msgid "Select scan area after preview scan has finished"
+msgstr "Изабери опсег скенирања после прегледа који је завршен"
 
 #. DESC_AUTOCORRECT_COLORS
 msgid "Do color correction after preview scan has finished"
-msgstr "Uradi korekciju boje posle završetka pregleda"
+msgstr "Уради корекцију боје после завршетка прегледа"
 
 #. DESC_RENDERING_INTENT
-#, fuzzy
 msgid "Select rendering intent for preview and saving"
-msgstr "Izaberi površinu za skeniranje posle završetka pregleda"
+msgstr "Изабери rendering intent за преглед и памћење"
 
 #. DESC_CMS_BPC
 msgid "Apply black point compensation when color transformation is done"
-msgstr ""
+msgstr "Уради компензацију црне тачке ако је претварање боје урађено"
 
 #. DESC_FAX_COMMAND
 msgid "Enter command to be executed in fax mode"
-msgstr "Dajte komandu koja je potrebna za slanje faksa"
+msgstr "Дајте команду која ће се извршити у факс модусу"
 
 #. DESC_FAX_RECEIVER_OPT
 msgid "Enter option to specify receiver"
-msgstr "Opcija sa kojom sa određuje telefonski broj prijemnika"
+msgstr "Опција са којом се одређује телефонски број пријемника"
 
 #. DESC_FAX_POSTSCRIPT_OPT
 msgid "Enter option to specify postscript files following"
-msgstr "Opcija sa kojom sa određuje slanje postscript fajlova"
+msgstr "Опција са којом се одређује да следи слање postscript фајлова"
 
 #. DESC_FAX_NORMAL_OPT
 msgid "Enter option to specify normal mode (low resolution)"
-msgstr "Opcija sa kojom sa određuje vertikalna rezolucija od 98 lpi"
+msgstr ""
+"Опција са којом се одређује нормални модус (ниска резолуција, вертикална "
+"резолуција од 98 lpi)"
 
 #. DESC_FAX_FINE_OPT
 msgid "Enter option to specify fine mode (high resolution)"
-msgstr "Opcija sa kojom sa određuje vertikalna rezolucija od 196 lpi"
+msgstr ""
+"Опција са којом се одређује фини модус (висока резолуција, вертикална "
+"резолуција од 196 lpi)"
 
 #. DESC_FAX_VIEWER
 msgid "Enter command to be executed to view a fax"
-msgstr "Komanda za prikazivanje faksa"
+msgstr "Команда за приказивање факса"
 
 #. DESC_FAX_FINE_MODE
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
-msgstr "Šalji faks u visokoj rezoluciji po osi y (196 lpi umesto 98 lpi)"
+msgstr "Шаљи факс у високој вертикалној резолуцији (196 lpi уместо 98 lpi)"
 
 #. DESC_FAX_PS_FLATEDECODED
 msgid "Create zlib compressed postscript image for fax (flatedecode)"
-msgstr ""
+msgstr "Направи са zlib компресовану postscript слику за факс (flatedecode)"
 
 #. DESC_SMTP_SERVER
 msgid "IP Address or Domain name of SMTP server"
-msgstr "IP adresa ili ime domena SMTP servera"
+msgstr "IP адреса или име домена SMTP сервера"
 
 #. DESC_SMTP_PORT
 msgid "port to connect to SMTP server"
-msgstr "port na kojem SMTP server treba da bude povezan"
+msgstr "порт на којем SMTP сервер треба да буде повезан"
 
 #. DESC_EMAIL_FROM
-#, fuzzy
 msgid "enter your e-mail address"
-msgstr "unesite vašu e-poštansku adresu"
+msgstr "унесите адресу ваше е-поште"
 
 #. DESC_EMAIL_REPLY_TO
-#, fuzzy
 msgid "enter e-mail address for replied e-mails"
-msgstr "unesite e-poštansku adresu za odgovore na ovu adresu"
+msgstr "унесите адресу е-поште за одговоре на е-пошту"
 
 #. DESC_EMAIL_AUTHENTICATION
-#, fuzzy
 msgid "Type of authentication before sending e-mail"
-msgstr "Autentifikaciju POP3 servera isvršiti pre slanja e-pošte"
+msgstr "Врста ауторизације пре слања е-поште"
 
 #. DESC_EMAIL_AUTH_USER
-#, fuzzy
 msgid "user name for e-mail server"
-msgstr "korisničko ime za POP3 server"
+msgstr "корисничко име за сервер Е-поште"
 
 #. DESC_EMAIL_AUTH_PASS
-#, fuzzy
 msgid "password for e-mail server"
-msgstr "lozinka za POP3 server"
+msgstr "лозинка за сервер е-поште"
 
 #. DESC_POP3_SERVER
 msgid "IP Address or Domain name of POP3 server"
-msgstr "IP adresa ili ime domena POP3 servera"
+msgstr "IP адреса или име домена POP3 сервера"
 
 #. DESC_POP3_PORT
 msgid "port to connect to POP3 server"
-msgstr "port na kojem POP3 server treba da bude povezan"
+msgstr "порт на којем POP3 сервер треба да буде повезан"
 
 #. DESC_HTML_EMAIL
-#, fuzzy
-msgid "E-mail is sent in html mode, place image with: <IMAGE>"
-msgstr "e-pošta je poslata u html modusu, slike su prikazane direktno"
+msgid "E-mail is sent in HTML mode, place image with: <IMAGE>"
+msgstr "е-пошта је послата у HTML модусу, стави слику са: <IMAGE>"
 
 #. DESC_OCR_COMMAND
-msgid "Enter command to start ocr program"
-msgstr "Komanda za startanje vašeg OCR programa"
+msgid "Enter command to start OCR program"
+msgstr "Стави команду за ваш OCR програм"
 
 #. DESC_OCR_INPUTFILE_OPT
-msgid "Enter option of the ocr program to define input file"
-msgstr "Opcija od OCR programa koja definiše ulazni fajl"
+msgid "Enter option of the OCR program to define input file"
+msgstr "Стави  команду од OCR програма која одређује улазну фајлу"
 
 #. DESC_OCR_OUTPUTFILE_OPT
-msgid "Enter option of the ocr program to define output file"
-msgstr "Opcija od OCR programa koja definiše izlazni fajl"
+msgid "Enter option of the OCR program to define output file"
+msgstr "Унеси опцију од OCR програма која одређује излазну фајлу"
 
 #. DESC_OCR_USE_GUI_PIPE_OPT
-msgid "Define if the ocr program supports gui progress pipe"
-msgstr ""
+msgid "Define if the OCR program supports gui progress pipe"
+msgstr "Одреди да ли OCR програм подржава напредак GUI цеви"
 
 #. DESC_OCR_OUTFD_OPT
-#, fuzzy
 msgid ""
-"Enter option of the ocr program to define output filedescripor in GUI mode"
-msgstr "Opcija od OCR programa koja definiše izlazni fajl"
+"Enter option of the OCR program to define output filedescripor in GUI mode"
+msgstr "Унеси опцију OCR која одређује излазни индекс у GUI модусу"
 
 #. DESC_OCR_PROGRESS_KEYWORD
 msgid "Define Keyword that is used to mark progress information"
-msgstr ""
+msgstr "Одреди кључну реч која се користи за информацију прогреса"
 
 #. DESC_PERMISSION_READ
 msgid "read"
-msgstr "čitati"
+msgstr "читати"
 
 #. DESC_PERMISSION_WRITE
 msgid "write"
-msgstr "pisati"
+msgstr "писати"
 
 #. DESC_PERMISSION_SEARCH
-#, fuzzy
 msgid "search"
-msgstr "korisnik"
+msgstr "тражи"
 
 #. DESC_ADD_BATCH
-#, fuzzy
 msgid "Add selection for batch scan"
-msgstr "Dodaj izbor u listu"
+msgstr "Додаз избор у пакет"
 
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
-msgstr "Izberi belu tačku"
+msgstr "Изабери белу тачку"
 
 #. DESC_PIPETTE_GRAY
 msgid "Pick gray point"
-msgstr "Izberi sivu tačku"
+msgstr "Изабери сиву тачку"
 
 #. DESC_PIPETTE_BLACK
 msgid "Pick black point"
-msgstr "Izberi crnu tačku"
+msgstr "Изабери црну тачку"
 
 #. DESC_ZOOM_FULL
-msgid "Use full scanarea"
-msgstr "Upotrebi celu površinu skeniranja"
+msgid "Use full scan area"
+msgstr "Употреби целу површину за скенирање"
 
 #. DESC_ZOOM_OUT
 #, no-c-format
 msgid "Zoom 20% out"
-msgstr "Smanji za 20% "
+msgstr "Смањи за 20%"
 
 #. DESC_ZOOM_IN
 msgid "Click at position to zoom to"
-msgstr ""
+msgstr "Притисни на позицију да је повећаш"
 
 #. DESC_ZOOM_AREA
 msgid "Zoom into selected area"
-msgstr "Uvećavaj u izabrano područje"
+msgstr "Увећај у изабрано подручје"
 
 #. DESC_ZOOM_UNDO
 msgid "Undo last zoom"
-msgstr "Odbaci zadnje uvećavanje"
+msgstr "Одбаци задње увећавање"
 
 #. DESC_FULL_PREVIEW_AREA
 msgid "Select visible area"
-msgstr "Izaberi vidnu površinu"
+msgstr "Изабери видну површину"
 
-#. DESC_AUTOSELECT_SCANAREA
-msgid "Autoselect scanarea"
-msgstr "Automatska selekcija površine skeniranja"
+#. DESC_AUTOSELECT_SCAN_AREA
+msgid "Autoselect scan area"
+msgstr "Одреди аутоматски површину за скенирање"
 
-#. DESC_AUTORAISE_SCANAREA
-#, fuzzy
-msgid "Autoraise scanarea"
-msgstr "Automatska selekcija površine skeniranja"
+#. DESC_AUTORAISE_SCAN_AREA
+msgid "Autoraise scan area"
+msgstr "Започни аутоматски површину за скенирање"
 
 #. DESC_DELETE_IMAGES
 msgid "Delete preview image cache"
-msgstr "Obriši pregled slike"
+msgstr "Обриши кеш прегледа слике"
 
 #. DESC_PRESET_AREA
 msgid ""
 "Preset area:\n"
-"To add new area or edit an existing area use contect menu (right mouse "
+"To add new area or edit an existing area use context menu (alternate mouse "
 "button)."
 msgstr ""
+"Постави унапред опсег:\n"
+"Да додаш нови опсег или да промениш неки постојећи опсег користи контексни "
+"мени (алтернативни тастер миша)"
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
-msgstr "Rotiraj pregled i skeniraj"
+msgstr "Ротирај преглед и скенирај"
 
 #. DESC_RATIO
 msgid "Aspect ratio of selection"
-msgstr ""
+msgstr "Однос страна избора"
 
 #. DESC_PAPER_ORIENTATION
 msgid "Define image position for printing"
-msgstr ""
+msgstr "Одреди позицију слике за штампање"
 
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
-msgstr "Optical Character Recongnition"
+msgstr "Оптичко разпознавање знакова (OCR)"
 
 #. DESC_VIEWER_UNDO
-#, fuzzy
 msgid "Undo last change"
-msgstr "Odbaci zadnje uvećavanje"
+msgstr "Одбаци задњу промену"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
-msgstr "Kopiraj sliku"
+msgstr "Копирај слику"
 
 #. DESC_ROTATE90
-msgid "Rotate image 90 degree"
-msgstr "Rotiraj sliku za 90 stepeni"
+msgid "Rotate image 90 degrees"
+msgstr "Окрени слику за 90 степени"
 
 #. DESC_ROTATE180
-msgid "Rotate image 180 degree"
-msgstr "Rotiraj sliku za 180 stepeni"
+msgid "Rotate image 180 degrees"
+msgstr "Окрени слику за 180 степени"
 
 #. DESC_ROTATE270
-msgid "Rotate image 270 degree"
-msgstr "Rotiraj sliku za 270 stepeni"
+msgid "Rotate image 270 degrees"
+msgstr "Окрени слику за 270 степени"
 
 #. DESC_MIRROR_X
 msgid "Mirror image at vertical axis"
-msgstr "Ogledaj sliku u vertikalnoj osi"
+msgstr "Огледај слику у вертикалној оси"
 
 #. DESC_MIRROR_Y
 msgid "Mirror image at horizontal axis"
-msgstr "Ogledaj sliku u horizontalnoj osi"
+msgstr "Огледај слику у хоризонталној оси"
 
 #. DESC_VIEWER_ZOOM
 msgid "Zoom image"
-msgstr "Uveličaj sliku"
+msgstr "Увеличај слику"
 
 #. DESC_STORE_MEDIUM
-#, fuzzy
 msgid "Store medium"
-msgstr "Izaberi izvor medijuma"
+msgstr "Запамти уређај"
 
 #. DESC_DELETE_MEDIUM
-#, fuzzy
 msgid "Delete active medium"
-msgstr "Izbriši sliku"
+msgstr "Избриши активни уређај"
 
 #. DESC_SCALE_FACTOR
-#, fuzzy
 msgid "Scale factor"
-msgstr "Odredi X stepen povećavanja:"
+msgstr "Фактор повећавања"
 
 #. DESC_X_SCALE_FACTOR
-#, fuzzy
 msgid "X-Scale factor"
-msgstr "Odredi X stepen povećavanja:"
+msgstr "Фактор повећавања по оси X"
 
 #. DESC_Y_SCALE_FACTOR
-#, fuzzy
 msgid "Y-Scale factor"
-msgstr "Odredi Y stepen povećavanja:"
+msgstr "Фактор повећавања по оси Y"
 
 #. DESC_SCALE_WIDTH
-msgid "Scale image to width [in pixel]"
-msgstr ""
+msgid "Scale image to width [pixels]"
+msgstr "Повећај слику по ширини [у тачкама]"
 
 #. DESC_SCALE_HEIGHT
-msgid "Scale image to height [in pixel]"
-msgstr ""
+msgid "Scale image to height [pixels]"
+msgstr "Повећај слику по висину [у тачкама]"
 
 #. DESC_BATCH_LIST_EMPTY
-#, fuzzy
 msgid "Empty batch list"
-msgstr "Saveti za skeniranje"
+msgstr "Празан пакет"
 
 #. DESC_BATCH_LIST_SAVE
 msgid "Save batch list"
-msgstr ""
+msgstr "Запамти пакете"
 
 #. DESC_BATCH_LIST_LOAD
 msgid "Load batch list"
-msgstr ""
+msgstr "отвори пакет"
 
 #. DESC_BATCH_RENAME
-#, fuzzy
 msgid "Rename area"
-msgstr "Preimenuj stranu"
+msgstr "Преименуј опсег"
 
 #. DESC_BATCH_ADD
-#, fuzzy
 msgid "Add selected preview area to batch list"
-msgstr "Dodaj izbor u listu"
+msgstr "Додај избор прегледа у пакете"
 
 #. DESC_BATCH_DEL
 msgid "Delete selected area from batch list"
-msgstr ""
+msgstr "Обриши одабрани опсег из пакета"
 
 #. DESC_AUTOMATIC
 msgid "Turns on automatic mode"
-msgstr ""
+msgstr "Укључи аутоматски модус"
 
 #. DESC_BUTTON_SCANNER_DEFAULT_COLOR_ICM_PROFILE_BROWSE
-#, fuzzy
 msgid "Browse for scanner default color ICM-profile"
-msgstr "Traži slike po nazivima fajla"
+msgstr "Тражи подразумевани ICM профил за боју"
 
 #. DESC_BUTTON_SCANNER_DEFAULT_GRAY_ICM_PROFILE_BROWSE
-#, fuzzy
 msgid "Browse for scanner default gray ICM-profile"
-msgstr "Traži slike po nazivima fajla"
+msgstr "Тражи подразумевани ICM профил за грао"
 
 #. DESC_BUTTON_DISPLAY_ICM_PROFILE_BROWSE
-#, fuzzy
 msgid "Browse for display ICM-profile"
-msgstr "Traži slike po nazivima fajla"
+msgstr "Тражи ICM профил за екран"
 
 #. DESC_BUTTON_PRINTER_ICM_PROFILE_BROWSE
-#, fuzzy
 msgid "Browse for printer ICM-profile"
-msgstr "Traži slike po nazivima fajla"
+msgstr "Тражи ICM профил за штампач"
 
 #. DESC_BUTTON_CUSTOM_PROOFING_ICM_PROFILE_BROWSE
-#, fuzzy
 msgid "Browse for custom proofing ICM-profile"
-msgstr "Traži slike po nazivima fajla"
+msgstr "Тражи корисников пробни ICM профил"
 
 #. DESC_BUTTON_WORKING_COLOR_SPACE_ICM_PROFILE_BROWSE
-#, fuzzy
 msgid "Browse for working color space ICM-profile"
-msgstr "Traži slike po nazivima fajla"
+msgstr "Тражи за радни простор ICM профила у боји"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
-msgstr "Neuspelo učitavanje korisničkog direktorijuma:"
+msgstr "Неуспело учитавање корисничког директоријума:"
 
 #. ERR_CHANGE_WORKING_DIR
 msgid "Failed to change working directory to"
-msgstr "Neuspelo menjanje radnog direktorijuma do"
+msgstr "Неуспело мењање радоног директоријума до"
 
 #. ERR_FILENAME_TOO_LONG
 msgid "Filename too long"
-msgstr "Naziv fajla je predugačak"
+msgstr "Назив фајле је предугачак"
 
 #. ERR_CREATE_TEMP_FILE
 msgid ""
@@ -2573,346 +2510,337 @@ msgid ""
 "select a temporary directory where you have\n"
 "write permissions."
 msgstr ""
+"Не могу да направим привремену фајлу.\n"
+"Отвори мени подешавања -> Подеси Таб Запамти и\n"
+"изабери привремену директорију где имате права\n"
+"да пишете."
 
 #. ERR_SET_OPTION
 msgid "Failed to set value of option"
-msgstr "Greška pri promeni opcije"
+msgstr "Грешка при промени опције"
 
 #. ERR_GET_OPTION
 msgid "Failed to obtain value of option"
-msgstr "Greška pri čitanju opcije"
+msgstr "Грешка при читању опције"
 
 #. ERR_OPTION_COUNT
 msgid "Error obtaining option count"
-msgstr "Nisam mogao da odredim broj opcija"
+msgstr "Нисам могао да одредим број опција"
 
 #. ERR_DEVICE_OPEN_FAILED
 msgid "Failed to open device"
-msgstr "Greška pri otvaranju uređaja"
+msgstr "Грешка при отварању уређаја"
 
 #. ERR_NO_DEVICES
 msgid "no devices available"
-msgstr "Nijedan uređaj nije dostupan"
+msgstr "Ниједан уређај није доступан"
 
 #. ERR_DURING_READ
 msgid "Error during read:"
-msgstr "Greška pri čitanju:"
+msgstr "Грешка при читању:"
 
 #. ERR_DURING_SAVE
 msgid "Error during save:"
-msgstr "Greška pri pamćenju:"
+msgstr "Грешка при памћењу:"
 
 #. ERR_BAD_DEPTH
 msgid "Can't handle depth"
-msgstr "Nepodržana dubina bita"
+msgstr "Ноподржана дубина бита"
 
 #. ERR_UNKNOWN_SAVING_FORMAT
 msgid "Unknown file format for saving"
-msgstr "Nepoznat naziv fajla za pamćenje"
+msgstr "Непознат формат фајле за памћење"
 
 #. ERR_OPEN_FAILED
 msgid "Failed to open"
-msgstr "Greška pri otvaranju"
+msgstr "Грешка при отварању"
 
 #. ERR_CREATE_SECURE_FILE
-msgid "Could not create secure file (may be a link does exist):"
-msgstr "Ne mogu napraviti sigurnosnu fajlu (možda je veza koja postoji):"
+msgid "Could not create secure file (maybe a link does exist):"
+msgstr "Не могу направити сигурну фајлу (можда постоји линк):"
 
 #. ERR_FAILED_PRINTER_PIPE
 msgid "Failed to open pipe for executing printercommand"
-msgstr "Greška pri otvaranju cevovoda za štampanje"
+msgstr "Грешка при отварању цеви за штампање"
 
 #. ERR_FAILED_EXEC_PRINTER_CMD
 msgid "Failed to execute printercommand:"
-msgstr "Greška pri izvršenju komande za štampanje"
+msgstr "Грешка при извршењу команде за штампање:"
 
 #. ERR_FAILED_START_SCANNER
 msgid "Failed to start scanner:"
-msgstr "Greška pri startanju skenera:"
+msgstr "Грешка при стартању скенера:"
 
 #. ERR_FAILED_GET_PARAMS
 msgid "Failed to get parameters:"
-msgstr "Greška pri čitanju parametara:"
+msgstr "Грешка при читању параметара:"
 
 #. ERR_NO_OUTPUT_FORMAT
 msgid "No output format given"
-msgstr "Izlazni format nija dan"
+msgstr "Излазни формат није дан"
 
 #. ERR_NO_MEM
 msgid "out of memory"
-msgstr "Ponestalo je memorije"
+msgstr "Понестало је меморије"
 
 #. ERR_TOO_MUCH_DATA
 msgid "Backend sends more image data than it defined in parameters"
 msgstr ""
-"Backend-i šalju više podatako o slici, nego što je definisano u parametrima"
+"Додатци шаљу више податако о слици, него што је дефинисано у параметрима"
 
 #. ERR_LIBTIFF
 msgid "LIBTIFF reports error"
-msgstr "LIBTIFF javlja grešku"
+msgstr "LIBTIFF јавља грешку"
 
 #. ERR_LIBPNG
 msgid "LIBPNG reports error"
-msgstr "LIBPNG javlja grešku"
+msgstr "LIBPNG јавља грешку"
 
 #. ERR_LIBJPEG
-#, fuzzy
 msgid "LIBJPEG reports error"
-msgstr "LIBPNG javlja grešku"
+msgstr "LIBJPEG јавља грешку"
 
 #. ERR_ZLIB
 msgid "ZLIB error or memory allocation problem"
-msgstr ""
+msgstr "ZLIB грешка или проблем доделе меморије"
 
 #. ERR_UNKNOWN_TYPE
 msgid "unknown type"
-msgstr "nopoznata vrsta"
+msgstr "непозната врста"
 
 #. ERR_UNKNOWN_CONSTRAINT_TYPE
 msgid "unknown constraint type"
-msgstr "nepoznata nametnuta vrsta"
+msgstr "непозната предвиђена врста"
 
 #. ERR_OPTION_NAME_NULL
 msgid "Option has empty name (NULL)."
-msgstr ""
+msgstr "Опција нема имена (НУЛА)."
 
 #. ERR_BACKEND_BUG
 msgid "This is a backend bug. Please inform the author of the backend!"
-msgstr ""
+msgstr "То је грешка додатка. Молим обавестите аутора додатка!"
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
-msgstr "Greška pri izvršenju prikazivača dokumentacije:"
+msgstr "Грешка при извршењу приказивача документације:"
 
 #. ERR_FAILED_EXEC_FAX_VIEWER
 msgid "Failed to execute fax viewer:"
-msgstr "Greška pri izvršenju prikazivača faksova:"
+msgstr "Грешка при извршењу приказивача факсова:"
 
 #. ERR_FAILED_EXEC_FAX_CMD
 msgid "Failed to execute fax command:"
-msgstr "Greška pri izvršenju komande za faks:"
+msgstr "Грешка при извршењу команде за факс:"
 
 #. ERR_FAILED_EXEC_OCR_CMD
-msgid "Failed to execute ocr command:"
-msgstr "Greška pri izvršenju komande za OCR:"
+msgid "Failed to execute OCR command:"
+msgstr "Грешка при извршењу команде за OCR:"
 
 #. ERR_BAD_FRAME_FORMAT
 msgid "bad frame format"
-msgstr "neočekivan format okvira"
+msgstr "неочекиван формат оквира"
 
 #. ERR_FAILED_SET_RESOLUTION
 msgid "unable to set resolution"
-msgstr "Nisam mogao rezoluciju definisati"
+msgstr "Нисам могао одредити резолуцију"
 
 #. ERR_PASSWORD_FILE_INSECURE
 #, c-format
 msgid "Password file (%s) is insecure, use permission x00\n"
-msgstr "Fajla sa lozinkama (%s) je nesigurna, koristi dozvole x00\n"
+msgstr "Фајла са лозинкама (%s) је несигурна, користи дозволе x00\n"
 
 #. ERR_ERROR
 msgid "error"
-msgstr "greška"
+msgstr "грешка"
 
 #. ERR_MAJOR_VERSION_NR_CONFLICT
 msgid "Sane major version number mismatch!"
-msgstr "Glavna verzije sane ne odgovara!"
+msgstr "Главна верзија Sane не одговара!"
 
 #. ERR_XSANE_MAJOR_VERSION
 msgid "XSane major version ="
-msgstr "XSane glavna verzija ="
+msgstr "XSane главна верзија ="
 
 #. ERR_BACKEND_MAJOR_VERSION
 msgid "backend major version ="
-msgstr "backend glavna verzija ="
+msgstr "додатак главна верзија ="
 
 #. ERR_PROGRAM_ABORTED
 msgid "*** PROGRAM ABORTED ***"
-msgstr "*** PROGRAM JE OBUSTAVLJEN ***"
+msgstr "*** ПРОГРАМ ЈЕ ОБУСТАВЉЕН ***"
 
 #. ERR_FAILED_ALLOCATE_IMAGE
 msgid "Failed to allocate image memory:"
-msgstr "Greška pri dodeljivanju memorije za sliku"
+msgstr "Грешка при додели меморије за слику"
 
 #. ERR_PREVIEW_BAD_DEPTH
 msgid "Preview cannot handle bit depth"
-msgstr "Pregled ne nepodržava dubinu bita"
+msgstr "Преглед не подржава дубину бита"
 
 #. ERR_GIMP_SUPPORT_MISSING
 msgid "GIMP support missing"
-msgstr "Nedostaje podržavanje za GIMP"
+msgstr "Недостаје подршка за GIMP"
 
 #. ERR_CREATE_FAX_PROJECT
 msgid "Could not create faxproject"
-msgstr "Ne mogu napraviti faks projekat"
+msgstr "Не могу направити факс пројект"
 
 #. WARN_COUNTER_UNDERRUN
 msgid "Filename counter underrun"
-msgstr "Brojač naziva fajla je prekoračio opseg"
+msgstr "Бројач назива фајла је прекорачио опсег"
 
 #. WARN_NO_VALUE_CONSTRAINT
 msgid "warning: option has no value constraint"
-msgstr "upozorenje: opcija nema dozvoljenu vrednost"
+msgstr "упозорење: опција нема предвиђену вредност"
 
 #. WARN_XSANE_AS_ROOT
 msgid ""
 "You try to run XSane as ROOT, that really is DANGEROUS!\n"
 "\n"
 "Do not send any bug reports when you\n"
-"have any problem while running XSane as root:\n"
+"have any problems while running XSane as root:\n"
 "YOU ARE ALONE!"
 msgstr ""
-"Vi pokušavate da startate Xsane kao ROOT, \n"
-"to je vrlo OPASNO!\n"
+"Ви покушавате да стартате XSane као ROOT, то је врло ОПАСНО \n"
 "\n"
-"Ne šaljite nikakav report greške ako vi\n"
-"imate bilo koji problem koristeći Xsane kao root\n"
-"Upozoreni ste, morate se sami snaći!"
+"Не шаљите никакав репорт грешке ако виi\n"
+"имате било који проблем користећи XSane као root\n"
+"Упозорени сте , морате се сами снаћи!"
 
 #. ERR_HEADER_ERROR
 msgid "Error"
-msgstr "Greška"
+msgstr "Грешка"
 
 #. ERR_HEADER_WARNING
 msgid "Warning"
-msgstr "Upozorenje"
+msgstr "Упозорење"
 
 #. ERR_HEADER_INFO
 msgid "Information"
-msgstr "Obaveštenje"
+msgstr "Обавештење"
 
 #. ERR_HEADER_CHILD_PROCESS_ERROR
 msgid "Child process error"
-msgstr ""
+msgstr "Грешка процеса наследника"
 
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
-msgstr "Greška pri pravljenju fajla:"
+msgstr "Грешка при прављењу фајле:"
 
 #. ERR_LOAD_DEVICE_SETTINGS
 msgid "Error while loading device settings:"
-msgstr "Greška pri učitavanju podešavanja uređaja:"
+msgstr "Грешка при учитавању подешавања уређаја:"
 
 #. ERR_NO_DRC_FILE
 msgid "is not a device-rc-file !!!"
-msgstr "nije fajl sa podatcimo o device-rc"
+msgstr "Није фајла са податцима о апарату!!!"
 
 #. ERR_NETSCAPE_EXECUTE_FAIL
 msgid "Failed to execute netscape!"
-msgstr "Greška pri izvršenju pretraživača!"
+msgstr "Грешка при извршењу претраживача!"
 
 #. ERR_SENDFAX_RECEIVER_MISSING
 msgid "Send fax: no receiver defined"
-msgstr "Greška pri slanju faksa: prijemnik nije dat"
+msgstr "Грешка при слању факса: пријемник није дат"
 
 #. ERR_CREATED_FOR_DEVICE
 msgid "has been created for device"
-msgstr "bila je napravljena za uređaj"
+msgstr "била је направљена за уређај"
 
 #. ERR_USED_FOR_DEVICE
 msgid "you want to use it for device"
-msgstr "upotrebljavaće se za uređaj"
+msgstr "употребљаваће се за уређај"
 
 #. ERR_MAY_CAUSE_PROBLEMS
 msgid "this may cause problems!"
-msgstr "to može praviti probleme!"
+msgstr "то може правити проблеме!"
 
 #. WARN_UNSAVED_IMAGES
 #, c-format
 msgid "There are %d unsaved images"
-msgstr "Ima %d nezapamćenih slika"
+msgstr "Има %d незапамћених слика"
 
 #. WARN_FILE_EXISTS
 #, c-format
 msgid "File %s already exists"
-msgstr "Fajl %s već postoji"
+msgstr "Фајл %s већ постоји"
 
 #. ERR_FILE_NOT_EXISTS
 #, c-format
 msgid "File %s does not exist"
-msgstr "Fajl %s ne postoji"
+msgstr "Фајл %s не постоји"
 
 #. ERR_FILE_NOT_POSTSCRIPT
 #, c-format
 msgid "File %s is not a postscript file"
-msgstr "Fajl  %s nije postcript"
+msgstr "Фајл %s није postcript"
 
 #. ERR_UNSUPPORTED_OUTPUT_FORMAT
 #, c-format
 msgid "Unsupported %d-bit output format: %s"
-msgstr "Nepodržani %d- bitni izlazni format %s"
+msgstr "Неподржани %d- битни излазни формат: %s"
 
 #. ERR_CMS_CONVERSION
-#, fuzzy
 msgid "Error during CMS conversion:"
-msgstr "Greška pri pamćenju:"
+msgstr "Грешка при CMS промени:"
 
 #. ERR_CMS_OPEN_ICM_FILE
-#, fuzzy
 msgid "Could not open"
-msgstr "Greška pri otvaranju"
+msgstr "Не могу отворити"
 
 #. CMS_SCANNER_ICM
-#, fuzzy
 msgid "scanner ICM profile"
-msgstr "Odstrani štampač"
+msgstr "ICM профил скенера"
 
 #. CMS_DISPLAY_ICM
-#, fuzzy
 msgid "display ICM profile"
-msgstr "Traži slike po nazivima fajla"
+msgstr "ICM профил за екран"
 
 #. CMS_PROOF_ICM
-#, fuzzy
 msgid "proofing ICM profile"
-msgstr "Odstrani štampač"
+msgstr "пробни ICM профил"
 
 #. ERR_CMS_CREATE_TRANSFORM
-#, fuzzy
 msgid "Could not create transform"
-msgstr "Ne mogu da napravim privremeni fajl"
+msgstr "Не могу да претворим"
 
 #. WARN_VIEWER_IMAGE_NOT_SAVED
 msgid "viewer image is not saved"
-msgstr "Slika prikazivača nije zapamćena"
+msgstr "Слика приказивача није запамћена"
 
 #. FILE_FILTER_ALL_FILES
 msgid "All files"
-msgstr ""
+msgstr "Све фајле"
 
 #. FILE_FILTER_IMAGES
-#, fuzzy
 msgid "Images"
-msgstr "Slika"
+msgstr "Слике"
 
 #. FILE_FILTER_XBL
-#, fuzzy
 msgid "XSane batch list"
-msgstr "Saveti za skeniranje"
+msgstr "XSane пакети"
 
 #. FILE_FILTER_ICM
 msgid "ICC/ICM Profiles"
-msgstr ""
+msgstr "ICC/ICM профили"
 
 #. FILE_FILTER_DRC
-#, fuzzy
 msgid "XSane device preferences"
-msgstr "Zapamti podešavanja uređaja pri izlazu"
+msgstr "XSane подешавања уређаја"
 
 #. FILE_FILTER_RC
-#, fuzzy
 msgid "XSane preferences"
-msgstr "Podešavanja"
+msgstr "XSane подешавања"
 
 #. TEXT_USAGE
 msgid "Usage:"
-msgstr "Upotreba:"
+msgstr "Употреба:"
 
 #. TEXT_USAGE_OPTIONS
 msgid "[OPTION]... [DEVICE]"
-msgstr "[OPCIJA]... [UREĐAJ]"
+msgstr "[ОПЦИЈА]... [УРЕЂАЈ]"
 
 #. TEXT_HELP
-#, fuzzy
 msgid ""
 "Start up graphical user interface to access SANE (Scanner Access Now Easy) "
 "devices.\n"
@@ -2948,57 +2876,56 @@ msgid ""
 " --sync                       request a synchronous connection with the X11 "
 "server"
 msgstr ""
-"Startaj grafički korisnički interfejs (GUI) da dobiješ pristup do SANE "
-"(Scanner Access Now Easy) uređaja.\n"
+"Стартај графички кориснички интерфејс (GUI) да добијеш приступ до SANE "
+"(Scanner Access Now Easy) уређаја.\n"
 "\n"
-"Format [UREĐAJ] je ime backend-a: u obliku uređaja (n.pr. umax:/dev/"
-"scanner)\n"
-"[OPCIJA]... može biti kombinacija sledećih stavki:\n"
-" -h, --help                   pokaži ovaj pomoćni i tekst\n"
-" -v, --version                daj informacije o verziji\n"
-" -l, --license                daj ifnormacije o licenci\n"
+"Формат од [DEVICE] је име додатка:фајла-уређаја (нпр. umax:/dev/scanner\n"
+"[OPTION]... може бити комбинација од следећих ставки\n"
+" -h, --help                   покажи текст за помоћ и изађи\n"
+" -v, --version                дај информацију о верзији\n"
+" -l, --license                дај информацију о лиценци\n"
 "\n"
-" -d, --device-settings fajl   učitaj podešavanja uređaja iz fajla (bez "
-"nastavka \".drc\")\n"
+" -d, --device-settings фајла   учитај подешавања уређаја из фајле (без \".drc"
+"\")\n"
 "\n"
-" -s, --save                   startaj u modusu za upisivanje\n"
-" -V, --viewer                 startaj u modusu za prikazivanje\n"
-" -c, --copy                   startaj u modusu za kopiranje\n"
-" -f, --fax                    startaj u modusu za slanje faksa\n"
-" -m, --mail                   startaj u modusu za e-poštu\n"
-" -n, --no-mode-selection      onemogući izbor modusa\n"
+" -V, --viewer                 стартај у модусу за приказивање (default)\n"
+" -s, --save                   стартај у модусу за памћење\n"
+" -c, --copy                   стартај у модусу зс копирање\n"
+" -m, --multipage              стартај у mnogostrukom модусу\n"
+" -f, --fax                    стартај у модусу за факс\n"
+" -e, --email                  стартај у модусу за електронску пошту\n"
+" -n, --no-mode-selection      искључи мени за XSane модус бирања\n"
 "\n"
-" -F, --Fixed                  glavni prozor je stalne veličine (prepiši "
-"podešavanja)\n"
-" -R, --Resizeable             glavni prozor je promenljiv (prepiši "
-"podešavanja)\n"
+" -F, --Fixed                  главни прозор је фиксне величине (препиши "
+"вредности подешавања)\n"
+" -R, --Resizeable             главни прозор је променљив (препиши вредности "
+"подешавања)\n"
 "\n"
-" -p, --print-filenames        prikaži nazive fajla napravljene od XSane-a\n"
-" -N, --force-filename name    koristi naziv kao naziv fajla i onemogući "
-"korisniku izbor                               naziva fajla\n"
+" -p, --print-filenames        прикажи називе фајли направљених од XSane\n"
+" -N, --force-filename name    користи назив као име фајле и онемогући "
+"кориснику избор назива фајле\n"
 "\n"
-" --display X11-display        prebaci izlaz na X11-prikaz\n"
-" --no-xshm                    ne koristi slike koje se dele sa više "
-"korisnika\n"
-" --sync                       zahtevaj sihronu vezu sa X11 serverom"
+" --display X11-display        пребаци излаз на X11 приказ\n"
+" --no-xshm                    не користи слике које користе дељену меморију\n"
+" --sync                       захтевај синхрону везу са X11 сервером"
 
 #. strings for gimp plugin
 #. XSANE_GIMP_INSTALL_BLURB
 msgid "Front-end to the SANE interface"
-msgstr "Grafički posrednik do SANE intefejsa"
+msgstr "Графички посредник до SANE интерфејса"
 
 #. XSANE_GIMP_INSTALL_HELP
 msgid ""
 "This function provides access to scanners and other image acquisition "
 "devices through the SANE (Scanner Access Now Easy) interface."
 msgstr ""
-"Ta funkcija omogućava dostup do skenera i drugih uređaja za dobijanje slika "
-"pomoću SANE-a (Sccanner Access Now Easy) interfejsa."
+"Та функција омогућава доступ до скенера и других уређаја за добијање слика "
+"помоћу SANE (Scanner Access Now Easy) интерфејса."
 
 #. Menu path must not be translated, this is done by the gimp. Only translate the text behind the last "/"
 #. XSANE_GIMP_MENU_DIALOG
 msgid "<Toolbox>/File/Acquire/XSane: Device dialog..."
-msgstr "<Toolbox>/File/Acquire/XSane: Izbor uređaja..."
+msgstr "<Toolbox>/File/Acquire/XSane: Избор уређаја..."
 
 #. XSANE_GIMP_MENU
 msgid "<Toolbox>/File/Acquire/XSane: "
@@ -3006,7 +2933,7 @@ msgstr "<Toolbox>/File/Acquire/XSane:"
 
 #. XSANE_GIMP_MENU_DIALOG_OLD
 msgid "<Toolbox>/Xtns/XSane/Device dialog..."
-msgstr "<Toolbox>/Xtns/XSane/Izbor uređaja..."
+msgstr "<Toolbox>/Xtns/XSane/Избор уређаја..."
 
 #. XSANE_GIMP_MENU_OLD
 msgid "<Toolbox>/Xtns/XSane/"
@@ -3020,39 +2947,46 @@ msgid ""
 "3) The permissions for the device file do not allow you to use it - try as "
 "root\n"
 "4) The backend is not loaded by SANE (man sane-dll)\n"
-"5) The backend is not configured correct (man sane-\"backendname\")\n"
+"5) The backend is not configured correctly (man sane-\"backendname\")\n"
 "6) Possibly there is more than one SANE version installed"
 msgstr ""
+"Могући узроци:\n"
+"1) Стварно није уређај који је подржан од SANE\n"
+"2) Подржани уређаји су заузети\n"
+"3) Дозволе фајли уређаја не дозвољавају да их користите, покушајте као root\n"
+"4) Додатак није подигнут од SANE (man sane-dll)\n"
+"5) Додатак није исправно конфигурисан (man sane-\"backendname\")\n"
+"6) Могуће да je инстaлисанo више верзија SANE"
 
 #. strings that are used in structures, so it is not allowed to use _()/gettext() here
 #. gettext_noop does mark these texts but does not change the string
 #. MENU_ITEM_SURFACE_FULL_SIZE
 msgid "full size"
-msgstr "cela strana"
+msgstr "пуна величина"
 
 #. MENU_ITEM_SURFACE_DIN_A3P
 msgid "DIN A3 port."
-msgstr "uspravno A3"
+msgstr "DIN A3 усправно"
 
 #. MENU_ITEM_SURFACE_DIN_A3L
 msgid "DIN A3 land."
-msgstr "vodoravno A3"
+msgstr "DIN A3 попречно"
 
 #. MENU_ITEM_SURFACE_DIN_A4P
 msgid "DIN A4 port."
-msgstr "uspravno A4"
+msgstr "DIN A4 усправно"
 
 #. MENU_ITEM_SURFACE_DIN_A4L
 msgid "DIN A4 land."
-msgstr "vodoravno A4"
+msgstr "DIN A4 попречно"
 
 #. MENU_ITEM_SURFACE_DIN_A5P
 msgid "DIN A5 port."
-msgstr "uspravno A5"
+msgstr "DIN A5 усправно"
 
 #. MENU_ITEM_SURFACE_DIN_A5L
 msgid "DIN A5 land."
-msgstr "vodoravno A5"
+msgstr "DIN A5 попречно"
 
 #. MENU_ITEM_SURFACE_13cmx18cm
 msgid "13cm x 18cm"
@@ -3080,344 +3014,191 @@ msgstr "13 cm x 9 cm"
 
 #. MENU_ITEM_SURFACE_legal_P
 msgid "legal port."
-msgstr "uspravno legal"
+msgstr "legal усправно"
 
 #. MENU_ITEM_SURFACE_legal_L
 msgid "legal land."
-msgstr "vodoravno legal"
+msgstr "legal попречно"
 
 #. MENU_ITEM_SURFACE_letter_P
 msgid "letter port."
-msgstr "uspravno letter"
+msgstr "letter усправно"
 
 #. MENU_ITEM_SURFACE_letter_L
 msgid "letter land."
-msgstr "vodoravno letter"
+msgstr "letter попречно"
 
 #. MENU_ITEM_MEDIUM_FULL_COLOR_RANGE
-#, fuzzy
 msgid "Full color range"
-msgstr "pun opseg"
+msgstr "Пун опсег боја"
 
 #. MENU_ITEM_MEDIUM_SLIDE
 msgid "Slide"
-msgstr "Dia"
+msgstr "Диапозитив"
 
 #. MENU_ITEM_MEDIUM_STANDARD_NEG
 msgid "Standard negative"
-msgstr "Standardni negativ"
+msgstr "Стандардни негатив"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG
 msgid "Agfa negative"
-msgstr "Agfa negativ"
+msgstr "Agfa негатив"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG_XRG200_4
-#, fuzzy
 msgid "Agfa negative XRG 200-4"
-msgstr "Agfa negativ"
+msgstr "Agfa негатив XRG 200-4"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG_HDC_100
-#, fuzzy
 msgid "Agfa negative HDC 100"
-msgstr "Agfa negativ"
+msgstr "Agfa негатив HDC 100"
 
 #. MENU_ITEM_MEDIUM_FUJI_NEG
 msgid "Fuji negative"
-msgstr "Fuji negativ"
+msgstr "Fuji негатив"
 
 #. MENU_ITEM_MEDIUM_KODAK_NEG
 msgid "Kodak negative"
-msgstr "Kodak negativ"
+msgstr "Kodak негатив"
 
 #. MENU_ITEM_MEDIUM_KONICA_NEG
 msgid "Konica negative"
-msgstr "Konica negativ"
+msgstr "Konica негатив"
 
 #. MENU_ITEM_MEDIUM_KONICA_NEG_VX_100
-#, fuzzy
 msgid "Konica negative VX 100"
-msgstr "Konica negativ"
+msgstr "Konica негатив VX 100"
 
 #. MENU_ITEM_MEDIUM_ROSSMANN_NEG_HR_100
 msgid "Rossmann negative HR 100"
-msgstr ""
+msgstr "Rossmann негатив HR 100"
 
 #. TEXT_PROJECT_STATUS_NOT_CREATED
-#, fuzzy
 msgid "Project not created"
-msgstr "čitati"
+msgstr "Пројект није направљен"
 
 #. TEXT_PROJECT_STATUS_CREATED
-#, fuzzy
 msgid "Project created"
-msgstr "čitati"
+msgstr "Пројект је направљен"
 
 #. TEXT_PROJECT_STATUS_CHANGED
-#, fuzzy
 msgid "Project changed"
-msgstr "Automatsko biranje površine skeniranja"
+msgstr "Пројект је промењен"
 
 #. TEXT_PROJECT_STATUS_ERR_READ_PROJECT
-#, fuzzy
 msgid "Error reading project"
-msgstr "Unesi ime projekta za E-poštu"
+msgstr "Грешка при читању пројекта"
 
 #. TEXT_PROJECT_STATUS_FILE_SAVING_ERROR
-#, fuzzy
 msgid "Error saving file"
-msgstr "Sliku zapamtiti"
+msgstr "Грешка при памћењу слике"
 
 #. TEXT_PROJECT_STATUS_FILE_SAVING
-#, fuzzy
 msgid "Saving file"
-msgstr "Sliku zapamtiti"
+msgstr "Запамтити слику"
 
 #. TEXT_PROJECT_STATUS_FILE_SAVING_ABORTED
-#, fuzzy
 msgid "Aborted saving file"
-msgstr "Sliku zapamtiti"
+msgstr "Памћење слике је прекинуто"
 
 #. TEXT_PROJECT_STATUS_FILE_SAVED
 msgid "File has been saved"
-msgstr ""
+msgstr "Фајла је запамћена"
 
 #. TEXT_EMAIL_STATUS_POP3_CONNECTION_FAILED
 msgid "POP3 connection failed"
-msgstr ""
+msgstr "POP3 повезивање није успело"
 
 #. TEXT_EMAIL_STATUS_POP3_LOGIN_FAILED
 msgid "POP3 login failed"
-msgstr ""
+msgstr "POP3 пријава није успела"
 
 #. TEXT_EMAIL_STATUS_ASMTP_AUTH_FAILED
-#, fuzzy
 msgid "ASMTP authentication failed"
-msgstr "POP3 autentifikacija"
+msgstr "ASMTP аутентификација није успела"
 
 #. TEXT_EMAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
-msgstr ""
+msgstr "SMTP повезивање није успело"
 
 #. TEXT_EMAIL_STATUS_SMTP_ERR_FROM
-#, fuzzy
 msgid "From entry not accepted"
-msgstr "čitati"
+msgstr "Унос пошиљаоца није дозвољен"
 
 #. TEXT_EMAIL_STATUS_SMTP_ERR_RCPT
-#, fuzzy
 msgid "Receiver entry not accepted"
-msgstr "čitati"
+msgstr "Унос пријемника није прихваћен"
 
 #. TEXT_EMAIL_STATUS_SMTP_ERR_DATA
-#, fuzzy
 msgid "E-mail data not accepted"
-msgstr "čitati"
+msgstr "Податци е-поште нису прихваћени"
 
 #. TEXT_EMAIL_STATUS_SENDING
 msgid "Sending e-mail"
-msgstr ""
+msgstr "Слање е-поште"
 
 #. TEXT_EMAIL_STATUS_SENT
 msgid "E-mail has been sent"
-msgstr ""
+msgstr "Е-пошта је послана"
 
 #. TEXT_FAX_STATUS_QUEUEING_FAX
-msgid "Queueing Fax"
-msgstr ""
+msgid "Queueing fax"
+msgstr "Ставити факс у ред за чекање"
 
 #. TEXT_FAX_STATUS_FAX_QUEUED
 msgid "Fax is queued"
-msgstr ""
+msgstr "Факс је у реду за чекање"
 
 #. Sane backend messages
 msgid "flatbed scanner"
-msgstr "ravni skener"
+msgstr "равни скенер"
 
 msgid "frame grabber"
-msgstr "okvirni snimač"
+msgstr "оквирни снимач"
 
 msgid "handheld scanner"
-msgstr "ručni skener"
+msgstr "ручни скенер"
 
 msgid "still camera"
-msgstr "fotoaparat"
+msgstr "фотоапарат"
 
 msgid "video camera"
-msgstr "videokamera"
+msgstr "видеокамера"
 
 msgid "virtual device"
-msgstr "virtualni uređaj"
+msgstr "виртуални уређај"
 
 msgid "Success"
-msgstr "Uspešno"
+msgstr "Успешно"
 
 msgid "Operation not supported"
-msgstr "Operacija nije podržana"
+msgstr "Операција није подржана"
 
 msgid "Operation was cancelled"
-msgstr "Operacija je bila prekinuta"
+msgstr "Операција је била прекинута"
 
 msgid "Device busy"
-msgstr "Uređaj je zauzet"
+msgstr "Уређај је заузет"
 
 msgid "Invalid argument"
-msgstr "Pogrešan argument"
+msgstr "Погрешан аргумент"
 
 msgid "End of file reached"
-msgstr "Dostignut je kraj fajla"
+msgstr "Достигнут је крај фајле"
 
 msgid "Document feeder jammed"
-msgstr "Zastoj u magazinu dokumenata"
+msgstr "Застој у магазину докумената"
 
 msgid "Document feeder out of documents"
-msgstr "Magazin dokumenta je prazan"
+msgstr "Магазин докумената је празан"
 
 msgid "Scanner cover is open"
-msgstr "Kućište skenera je otvoreno"
+msgstr "Кућиште скенера је отворено"
 
 msgid "Error during device I/O"
-msgstr "I/O greška na uređaju"
+msgstr "I/O грешка на уређају"
 
 msgid "Out of memory"
-msgstr "Nedostatak memorije"
+msgstr "Недостатак меморије"
 
 msgid "Access to resource has been denied"
-msgstr "Dostup do resursa nije dozvoljen"
-
-#, fuzzy
-#~ msgid "select scanner transmissive ICM-profile"
-#~ msgstr "Odstrani štampač"
-
-#, fuzzy
-#~ msgid "select scanner transmissive gray ICM-profile"
-#~ msgstr "Odstrani štampač"
-
-#, fuzzy
-#~ msgid "Scanner reflective ICM-profile"
-#~ msgstr "Odstrani štampač"
-
-#, fuzzy
-#~ msgid "Scanner reflective gray ICM-profile"
-#~ msgstr "Odstrani štampač"
-
-#, fuzzy
-#~ msgid "Scanner transmissive gray ICM-profile"
-#~ msgstr "Odstrani štampač"
-
-#, fuzzy
-#~ msgid "Scanner reflektive ICM-profile"
-#~ msgstr "Odstrani štampač"
-
-#, fuzzy
-#~ msgid "Browse for scanner transmissive ICM-profile"
-#~ msgstr "Traži slike po nazivima fajla"
-
-#, fuzzy
-#~ msgid "Browse for scanner transmissive gray ICM-profile"
-#~ msgstr "Traži slike po nazivima fajla"
-
-#~ msgid "GIMP can't handle depth %d bits/color"
-#~ msgstr "GIMP ne može podržati dubinu od %d bit-a u boji"
-
-#, fuzzy
-#~ msgid "scanner reflective ICM profile"
-#~ msgstr "Odstrani štampač"
-
-#, fuzzy
-#~ msgid "Embed scanner/source ICM profile for GIMP"
-#~ msgstr "Odstrani štampač"
-
-#~ msgid "Enter name of fax project"
-#~ msgstr "Unesi ime projekta za faks"
-
-#, fuzzy
-#~ msgid "Enter name of e-mail project"
-#~ msgstr "Unesi ime projekta za E-poštu"
-
-#, fuzzy
-#~ msgid "Enter name of multipage project"
-#~ msgstr "Unesi ime projekta za E-poštu"
-
-#~ msgid ""
-#~ "Gimp does not support depth 16 bits/color.\n"
-#~ "Do you want to reduce the depth to 8 bits/color?"
-#~ msgstr ""
-#~ "Gimp ne podržava dubinu 16 bit-a u boji.\n"
-#~ "Da li želite da smanjite dubinu na 8 bit-a u boji?"
-
-#, fuzzy
-#~ msgid "POP3 authentication"
-#~ msgstr "POP3 autentifikacija"
-
-#~ msgid "XSane mode"
-#~ msgstr "Način rada XSane"
-
-#~ msgid "POP3 user:"
-#~ msgstr "POP3 korisnik:"
-
-#~ msgid "POP3 password:"
-#~ msgstr "POP3 lozinka:"
-
-#~ msgid "Automatic Document Feeder Modus:"
-#~ msgstr "Automatsko uvlačenje dokumenata:"
-
-#~ msgid ""
-#~ "Select scansource for Automatic Document feeder. If this scansource is "
-#~ "selected XSane scans until \"out of paper\" or error."
-#~ msgstr ""
-#~ "Odredi izvor skeniranja za automatsko dodavanje dokumenata. Ako je taj "
-#~ "izvor izabran onda Xsane skenira do obaveštenja \"out of paper\" ili "
-#~ "dogreške."
-
-#, fuzzy
-#~ msgid "E-mail project not created"
-#~ msgstr "čitati"
-
-#, fuzzy
-#~ msgid "E-mail project created"
-#~ msgstr "čitati"
-
-#, fuzzy
-#~ msgid "E-mail project changed"
-#~ msgstr "Automatsko biranje površine skeniranja"
-
-#, fuzzy
-#~ msgid "Multipage project not created"
-#~ msgstr "čitati"
-
-#, fuzzy
-#~ msgid "Multipage project created"
-#~ msgstr "čitati"
-
-#, fuzzy
-#~ msgid "Multipage project changed"
-#~ msgstr "Automatsko biranje površine skeniranja"
-
-#, fuzzy
-#~ msgid "Error reading multipage project"
-#~ msgstr "Unesi ime projekta za E-poštu"
-
-#, fuzzy
-#~ msgid "Saving multipage file"
-#~ msgstr "Sliku zapamtiti"
-
-#, fuzzy
-#~ msgid "Multipage saving aborted"
-#~ msgstr "čitati"
-
-#~ msgid "Viewer (png):"
-#~ msgstr "Prikazivač (png):"
-
-#, fuzzy
-#~ msgid "Enter command to be executed to view an e-mail image"
-#~ msgstr "Komanda za prikaz slike iz e-pošte"
-
-#, fuzzy
-#~ msgid "Failed to execute e-mail image viewer:"
-#~ msgstr "Greška pri izvršenju prikazivača e-pošte:"
-
-#~ msgid "Step"
-#~ msgstr "Korak"
-
-#~ msgid "Mail"
-#~ msgstr "E-pošta:"
+msgstr "Доступ до ресурса није дозвољен"

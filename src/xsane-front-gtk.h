@@ -43,6 +43,7 @@ extern void xsane_authorization_button_callback(GtkWidget *widget, gpointer data
 extern gint xsane_authorization_callback(SANE_String_Const resource,
                                          SANE_Char username[SANE_MAX_USERNAME_LEN],
                                          SANE_Char password[SANE_MAX_PASSWORD_LEN]);
+extern void xsane_progress_bar_set_fraction(GtkProgressBar *progress_bar, gdouble fraction);
 extern void xsane_progress_cancel(GtkWidget *widget, gpointer data);
 extern void xsane_progress_new(char *bar_text, char *info, GtkSignalFunc callback, int *cancel_data_pointer);
 extern void xsane_progress_update(gfloat newval);

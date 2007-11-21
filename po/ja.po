@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XSANE 0.96\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-03 10:10+0100\n"
+"POT-Creation-Date: 2007-08-13 09:22+0200\n"
 "PO-Revision-Date: 2004-08-28 12:48+900\n"
 "Last-Translator: Kimizuka Tomokazu <sgtom@pluto.dti.ne.jp>\n"
 "Language-Team: Japanese\n"
@@ -83,7 +83,8 @@ msgid "rename fax page"
 msgstr "FAXページをリネーム"
 
 #. WINDOW_FAX_INSERT
-msgid "insert ps-file into fax"
+#, fuzzy
+msgid "insert PS-file into fax"
 msgstr "PSファイルをFAXに挿入"
 
 #. WINDOW_EMAIL_PROJECT
@@ -508,7 +509,7 @@ msgid "Skip existing filenames"
 msgstr "現在のファイル名をスキップ"
 
 #. RADIO_BUTTON_SAVE_PS_FLATEDECODED
-msgid "Save postscript zlib compressed (ps level 3)"
+msgid "Save postscript zlib compressed (PS level 3)"
 msgstr ""
 
 #. RADIO_BUTTON_SAVE_PDF_FLATEDECODED
@@ -516,7 +517,8 @@ msgid "Save PDF zlib compressed"
 msgstr ""
 
 #. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
-msgid "Save 16bit pnm in ascii format"
+#, fuzzy
+msgid "Save 16bit PNM in ASCII format"
 msgstr "16ビットpnmをasciiフォーマットで保存"
 
 #. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
@@ -540,8 +542,9 @@ msgstr "プライベートカラーマップを使う"
 msgid "Autoenhance gamma"
 msgstr "自動強調（ガンマ）"
 
-#. RADIO_BUTTON_PRESELECT_SCANAREA
-msgid "Preselect scanarea"
+#. RADIO_BUTTON_PRESELECT_SCAN_AREA
+#, fuzzy
+msgid "Preselect scan area"
 msgstr "スキャン領域の先行指定"
 
 #. RADIO_BUTTON_AUTOCORRECT_COLORS
@@ -564,10 +567,6 @@ msgstr "デバイスをスキャンしています"
 #. TEXT_AVAILABLE_DEVICES
 msgid "Available devices:"
 msgstr "デバイス使用可能："
-
-#. TEXT_XSANE_OPTIONS
-msgid "XSane options"
-msgstr "XSaneのオプション"
 
 #. TEXT_FILETYPE
 msgid "Type"
@@ -897,53 +896,72 @@ msgstr "コマンド："
 msgid "Copy number option:"
 msgstr "番号オプションをコピー："
 
+#. TEXT_SETUP_SCAN_RESOLUTION_PRINTER
+#, fuzzy
+msgid "Scan resolution:"
+msgstr "スキャナの解像度をセット"
+
 #. TEXT_SETUP_PRINTER_LINEART_RES
-msgid "Lineart resolution (dpi):"
+#, fuzzy
+msgid "lineart [dpi]"
 msgstr "ラインアート解像度(dpi)："
 
 #. TEXT_SETUP_PRINTER_GRAYSCALE_RES
-msgid "Grayscale resolution (dpi):"
+#, fuzzy
+msgid "grayscale [dpi]"
 msgstr "グレースケール解像度(dpi)："
 
 #. TEXT_SETUP_PRINTER_COLOR_RES
-msgid "Color resolution (dpi):"
-msgstr "色解像度(dpi)："
+msgid "color [dpi]"
+msgstr ""
+
+#. TEXT_SETUP_PRINTER_PAPER_GEOMETRIE
+msgid "Paper geometrie:"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_WIDTH
-#. TEXT_SETUP_FAX_WIDTH
-msgid "Width"
+#, fuzzy
+msgid "width"
 msgstr "幅"
 
 #. TEXT_SETUP_PRINTER_HEIGHT
-#. TEXT_SETUP_FAX_HEIGHT
-msgid "Height"
+#, fuzzy
+msgid "height"
 msgstr "高さ"
 
 #. TEXT_SETUP_PRINTER_LEFT
-#. TEXT_SETUP_FAX_LEFT
-msgid "Left offset"
+#, fuzzy
+msgid "left offset"
 msgstr "左オフセット"
 
 #. TEXT_SETUP_PRINTER_BOTTOM
-#. TEXT_SETUP_FAX_BOTTOM
-msgid "Bottom offset"
+#, fuzzy
+msgid "bottom offset"
 msgstr "下オフセット"
 
-#. TEXT_SETUP_PRINTER_GAMMA
-msgid "Printer gamma value:"
-msgstr "プリンタガンマ値："
-
-#. TEXT_SETUP_PRINTER_GAMMA_RED
-msgid "Printer gamma red:"
+#. TEXT_SETUP_PRINTER_GAMMA_CORRECTION
+#, fuzzy
+msgid "Printer gamma:"
 msgstr "プリンタガンマ 赤："
 
+#. TEXT_SETUP_PRINTER_GAMMA
+#, fuzzy
+msgid "common value"
+msgstr "最近の値："
+
+#. TEXT_SETUP_PRINTER_GAMMA_RED
+#, fuzzy
+msgid "red"
+msgstr "読込み"
+
 #. TEXT_SETUP_PRINTER_GAMMA_GREEN
-msgid "Printer gamma green:"
-msgstr "プリンタガンマ 緑："
+msgid "green"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_GAMMA_BLUE
-msgid "Printer gamma blue:"
-msgstr "プリンタガンマ 青："
+#, fuzzy
+msgid "blue"
+msgstr "にじみ"
 
 #. TEXT_SETUP_PRINTER_EMBED_CSA
 #, fuzzy
@@ -960,7 +978,7 @@ msgid "Apply black point compensation"
 msgstr ""
 
 #. TEXT_SETUP_PRINTER_PS_FLATEDECODED
-msgid "Create zlib compressed postscript image (ps level 3) for printing"
+msgid "Create zlib compressed postscript image (PS level 3) for printing"
 msgstr ""
 
 #. TEXT_SETUP_TMP_PATH
@@ -1084,8 +1102,24 @@ msgstr "プログラムの初期値を設定："
 msgid "Viewer (Postscript):"
 msgstr "ビューワ(PostScript)："
 
+#. TEXT_SETUP_FAX_WIDTH
+msgid "Width"
+msgstr "幅"
+
+#. TEXT_SETUP_FAX_HEIGHT
+msgid "Height"
+msgstr "高さ"
+
+#. TEXT_SETUP_FAX_LEFT
+msgid "Left offset"
+msgstr "左オフセット"
+
+#. TEXT_SETUP_FAX_BOTTOM
+msgid "Bottom offset"
+msgstr "下オフセット"
+
 #. TEXT_SETUP_FAX_PS_FLATEDECODED
-msgid "Create zlib compressed postscript image (ps level 3) for fax"
+msgid "Create zlib compressed postscript image (PS level 3) for fax"
 msgstr ""
 
 #. TEXT_SETUP_SMTP_SERVER
@@ -1457,11 +1491,13 @@ msgid "CCITT 1D Huffman compression"
 msgstr "CCITT 1D Huffman 圧縮"
 
 #. MENU_ITEM_TIFF_COMP_CCITFAX3
-msgid "CCITT Group 3 Fax compression"
+#, fuzzy
+msgid "CCITT Group 3 fax compression"
 msgstr "CCITT Group 3 Fax 圧縮"
 
 #. MENU_ITEM_TIFF_COMP_CCITFAX4
-msgid "CCITT Group 4 Fax compression"
+#, fuzzy
+msgid "CCITT Group 4 fax compression"
 msgstr "CCITT Group 4 Fax 圧縮"
 
 #. MENU_ITEM_TIFF_COMP_JPEG
@@ -1590,8 +1626,9 @@ msgstr "データ %s を受信しています"
 msgid "page"
 msgstr "パッケージ"
 
-#. PROGRESS_TRANSFERING_DATA
-msgid "Transfering image"
+#. PROGRESS_TRANSFERRING_DATA
+#, fuzzy
+msgid "Transferring image"
 msgstr "画像を変換中"
 
 #. PROGRESS_ROTATING_DATA
@@ -1665,9 +1702,10 @@ msgstr ""
 "メール-<Ctrl-m>"
 
 #. DESC_XSANE_MEDIUM
+#, fuzzy
 msgid ""
 "Select source medium type.\n"
-"To rename, reorder or delete an entry use context menu (right mouse "
+"To rename, reorder or delete an entry use context menu (alternate mouse "
 "button).\n"
 "To create a medium enable the option edit medium definition in preferences "
 "menu."
@@ -2019,13 +2057,15 @@ msgid "Browse for temporary directory"
 msgstr "一時ディレクトリの参照"
 
 #. DESC_JPEG_QUALITY
+#, fuzzy
 msgid ""
-"Quality in percent if image is saved as jpeg or tiff with jpeg compression"
+"Quality in percent if image is saved as JPEG or TIFF with JPEG compression"
 msgstr "JPEG圧縮で保存されたJPEGまたはTIFF画像の画質(%)"
 
 # DESC_PNG_COMPRESSION
 #. DESC_PNG_COMPRESSION
-msgid "Compression if image is saved as png"
+#, fuzzy
+msgid "Compression if image is saved as PNG"
 msgstr "画像がPNGで保存されていれば圧縮"
 
 #. DESC_FILENAME_COUNTER_LEN
@@ -2034,19 +2074,22 @@ msgstr "ファイル名のカウンタの最小範囲"
 
 #. DESC_TIFF_ZIP_COMPRESSION
 #, fuzzy
-msgid "Compression rate for zip compressed tiff (deflate)"
+msgid "Compression rate for zip compressed TIFF (deflate)"
 msgstr "8ビット画像がTIFFで保存されている場合の圧縮タイプ"
 
 #. DESC_TIFF_COMPRESSION_16
-msgid "Compression type if 16 bit image is saved as tiff"
+#, fuzzy
+msgid "Compression type if 16 bit image is saved as TIFF"
 msgstr "16ビット画像がTIFFで保存されている場合の圧縮タイプ"
 
 #. DESC_TIFF_COMPRESSION_8
-msgid "Compression type if 8 bit image is saved as tiff"
+#, fuzzy
+msgid "Compression type if 8 bit image is saved as TIFF"
 msgstr "8ビット画像がTIFFで保存されている場合の圧縮タイプ"
 
 #. DESC_TIFF_COMPRESSION_1
-msgid "Compression type if lineart image is saved as tiff"
+#, fuzzy
+msgid "Compression type if lineart image is saved as TIFF"
 msgstr "ラインアート画像がTIFFで保存されている場合の圧縮タイプ"
 
 #. DESC_SAVE_DEVPREFS_AT_EXIT
@@ -2073,10 +2116,11 @@ msgid "compress PDF image with zlib algorithm (flatedecode)."
 msgstr ""
 
 #. DESC_SAVE_PNM16_AS_ASCII
+#, fuzzy
 msgid ""
-"When a 16 bit image shall be saved in pnm format then use ascii format "
+"When a 16 bit image shall be saved in PNM format then use ASCII format "
 "instead of binary format. The binary format is a new format that is not "
-"supported by all programs. The ascii format is supported by more programs "
+"supported by all programs. The ASCII format is supported by more programs "
 "but it produces really huge files!!!"
 msgstr ""
 "16ビット画像がPNMフォーマットで保存されるときは、バイナリフォーマットの代わり"
@@ -2128,7 +2172,8 @@ msgid "Select how a range is displayed"
 msgstr "表示する範囲を選択"
 
 #. DESC_PREVIEW_OVERSAMPLING
-msgid "Value with that the calculated preview resolution is multiplied"
+#, fuzzy
+msgid "Value with which the calculated preview resolution is multiplied"
 msgstr "プレビュー解像度に掛けられた計算値"
 
 #. DESC_PREVIEW_GAMMA
@@ -2186,16 +2231,18 @@ msgid "dimension of square that is used to average color for pipette function"
 msgstr "ピペット機能用の標準色に使われる小片の面積"
 
 #. DESC_DOC_VIEWER
+#, fuzzy
 msgid ""
-"Enter command to be executed to display helpfiles, must be a html-viewer!"
+"Enter command to be executed to display helpfiles, must be a HTML-viewer!"
 msgstr "ヘルプファイル表示時に実行されるコマンド(HTMLビューワです!)を入力"
 
 #. DESC_AUTOENHANCE_GAMMA
 msgid "Change gamma value when autoenhancement button is pressed"
 msgstr "自動強調ボタン押下時にガンマ値を変更"
 
-#. DESC_PRESELECT_SCANAREA
-msgid "Select scanarea after preview scan has finished"
+#. DESC_PRESELECT_SCAN_AREA
+#, fuzzy
+msgid "Select scan area after preview scan has finished"
 msgstr "プレビュースキャン終了後のスキャン領域を選択"
 
 #. DESC_AUTOCORRECT_COLORS
@@ -2286,28 +2333,33 @@ msgstr "POP3サーバへの接続ポート"
 
 #. DESC_HTML_EMAIL
 #, fuzzy
-msgid "E-mail is sent in html mode, place image with: <IMAGE>"
+msgid "E-mail is sent in HTML mode, place image with: <IMAGE>"
 msgstr "メールはHTMLモードで送られ、画像は<IMAGE>タグとともに配置されます。"
 
 #. DESC_OCR_COMMAND
-msgid "Enter command to start ocr program"
+#, fuzzy
+msgid "Enter command to start OCR program"
 msgstr "OCRプログラムの開始コマンドを入力"
 
 #. DESC_OCR_INPUTFILE_OPT
-msgid "Enter option of the ocr program to define input file"
+#, fuzzy
+msgid "Enter option of the OCR program to define input file"
 msgstr "入力ファイルを定義するOCRプログラムのオプションを入力"
 
 #. DESC_OCR_OUTPUTFILE_OPT
-msgid "Enter option of the ocr program to define output file"
+#, fuzzy
+msgid "Enter option of the OCR program to define output file"
 msgstr "出力ファイルを定義するOCRプログラムのオプションを入力"
 
 #. DESC_OCR_USE_GUI_PIPE_OPT
-msgid "Define if the ocr program supports gui progress pipe"
+#, fuzzy
+msgid "Define if the OCR program supports gui progress pipe"
 msgstr "OCRプログラムがGUIプログレスパイプをサポートするかを定義"
 
 #. DESC_OCR_OUTFD_OPT
+#, fuzzy
 msgid ""
-"Enter option of the ocr program to define output filedescripor in GUI mode"
+"Enter option of the OCR program to define output filedescripor in GUI mode"
 msgstr ""
 "GUIモードで出力ファイルディスクリプタを定義するためのOCRプログラムのオプショ"
 "ンを入力"
@@ -2346,7 +2398,8 @@ msgid "Pick black point"
 msgstr "黒点をピック"
 
 #. DESC_ZOOM_FULL
-msgid "Use full scanarea"
+#, fuzzy
+msgid "Use full scan area"
 msgstr "スキャン領域すべてを使用"
 
 #. DESC_ZOOM_OUT
@@ -2370,12 +2423,14 @@ msgstr "前回の拡大を元に戻す"
 msgid "Select visible area"
 msgstr "可視領域を選択"
 
-#. DESC_AUTOSELECT_SCANAREA
-msgid "Autoselect scanarea"
+#. DESC_AUTOSELECT_SCAN_AREA
+#, fuzzy
+msgid "Autoselect scan area"
 msgstr "スキャン領域の自動選択"
 
-#. DESC_AUTORAISE_SCANAREA
-msgid "Autoraise scanarea"
+#. DESC_AUTORAISE_SCAN_AREA
+#, fuzzy
+msgid "Autoraise scan area"
 msgstr "スキャン領域の自動拡張"
 
 #. DESC_DELETE_IMAGES
@@ -2383,9 +2438,10 @@ msgid "Delete preview image cache"
 msgstr "プレビュー画像のキャッシュを削除"
 
 #. DESC_PRESET_AREA
+#, fuzzy
 msgid ""
 "Preset area:\n"
-"To add new area or edit an existing area use contect menu (right mouse "
+"To add new area or edit an existing area use context menu (alternate mouse "
 "button)."
 msgstr ""
 "プリセット領域：\n"
@@ -2417,15 +2473,18 @@ msgid "Clone image"
 msgstr "画像を複製"
 
 #. DESC_ROTATE90
-msgid "Rotate image 90 degree"
+#, fuzzy
+msgid "Rotate image 90 degrees"
 msgstr "画像を90°回転"
 
 #. DESC_ROTATE180
-msgid "Rotate image 180 degree"
+#, fuzzy
+msgid "Rotate image 180 degrees"
 msgstr "画像を180°回転"
 
 #. DESC_ROTATE270
-msgid "Rotate image 270 degree"
+#, fuzzy
+msgid "Rotate image 270 degrees"
 msgstr "画像を270°回転"
 
 #. DESC_MIRROR_X
@@ -2461,11 +2520,13 @@ msgid "Y-Scale factor"
 msgstr "Y成分の倍率："
 
 #. DESC_SCALE_WIDTH
-msgid "Scale image to width [in pixel]"
+#, fuzzy
+msgid "Scale image to width [pixels]"
 msgstr "画像幅の倍率[pixel]："
 
 #. DESC_SCALE_HEIGHT
-msgid "Scale image to height [in pixel]"
+#, fuzzy
+msgid "Scale image to height [pixels]"
 msgstr "画像高さの倍率[pixel]："
 
 #. DESC_BATCH_LIST_EMPTY
@@ -2587,7 +2648,8 @@ msgid "Failed to open"
 msgstr "開けません"
 
 #. ERR_CREATE_SECURE_FILE
-msgid "Could not create secure file (may be a link does exist):"
+#, fuzzy
+msgid "Could not create secure file (maybe a link does exist):"
 msgstr "安全なファイルを作れません（リンク切れなど）："
 
 #. ERR_FAILED_PRINTER_PIPE
@@ -2663,8 +2725,9 @@ msgid "Failed to execute fax command:"
 msgstr "FAXコマンドの実行に失敗しました："
 
 #. ERR_FAILED_EXEC_OCR_CMD
-msgid "Failed to execute ocr command:"
-msgstr "OCRコマンドの実行に失敗しました："
+#, fuzzy
+msgid "Failed to execute OCR command:"
+msgstr "FAXコマンドの実行に失敗しました："
 
 #. ERR_BAD_FRAME_FORMAT
 msgid "bad frame format"
@@ -2725,11 +2788,12 @@ msgid "warning: option has no value constraint"
 msgstr "警告：オプションは制約条件の値を持っていません"
 
 #. WARN_XSANE_AS_ROOT
+#, fuzzy
 msgid ""
 "You try to run XSane as ROOT, that really is DANGEROUS!\n"
 "\n"
 "Do not send any bug reports when you\n"
-"have any problem while running XSane as root:\n"
+"have any problems while running XSane as root:\n"
 "YOU ARE ALONE!"
 msgstr ""
 "ルート権限でXSaneを使うのは、たいへん危険です!\n"
@@ -2981,6 +3045,7 @@ msgid "<Toolbox>/Xtns/XSane/"
 msgstr "<Toolbox>/Xtns/XSane/"
 
 #. HELP_NO_DEVICES
+#, fuzzy
 msgid ""
 "Possible reasons:\n"
 "1) There really is no device that is supported by SANE\n"
@@ -2988,7 +3053,7 @@ msgid ""
 "3) The permissions for the device file do not allow you to use it - try as "
 "root\n"
 "4) The backend is not loaded by SANE (man sane-dll)\n"
-"5) The backend is not configured correct (man sane-\"backendname\")\n"
+"5) The backend is not configured correctly (man sane-\"backendname\")\n"
 "6) Possibly there is more than one SANE version installed"
 msgstr ""
 "考えられる理由：\n"
@@ -3196,7 +3261,8 @@ msgid "E-mail has been sent"
 msgstr "メールは送信されていません"
 
 #. TEXT_FAX_STATUS_QUEUEING_FAX
-msgid "Queueing Fax"
+#, fuzzy
+msgid "Queueing fax"
 msgstr "FAXを送信中"
 
 #. TEXT_FAX_STATUS_FAX_QUEUED
@@ -3257,6 +3323,24 @@ msgstr "オーバーフロー"
 
 msgid "Access to resource has been denied"
 msgstr "リソースへのアクセスが拒否されました"
+
+#~ msgid "XSane options"
+#~ msgstr "XSaneのオプション"
+
+#~ msgid "Failed to execute ocr command:"
+#~ msgstr "OCRコマンドの実行に失敗しました："
+
+#~ msgid "Color resolution (dpi):"
+#~ msgstr "色解像度(dpi)："
+
+#~ msgid "Printer gamma value:"
+#~ msgstr "プリンタガンマ値："
+
+#~ msgid "Printer gamma green:"
+#~ msgstr "プリンタガンマ 緑："
+
+#~ msgid "Printer gamma blue:"
+#~ msgstr "プリンタガンマ 青："
 
 #, fuzzy
 #~ msgid "select scanner transmissive ICM-profile"

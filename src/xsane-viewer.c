@@ -1095,7 +1095,7 @@ static void xsane_viewer_scale_image(GtkWidget *window, gpointer data)
 
   gtk_progress_set_format_string(GTK_PROGRESS(v->progress_bar), PROGRESS_SCALING_DATA);
 
-  gtk_progress_bar_update(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
+  xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
 
   if (v->bind_scale)
   {
@@ -1108,7 +1108,7 @@ static void xsane_viewer_scale_image(GtkWidget *window, gpointer data)
   fclose(outfile);
 
   gtk_progress_set_format_string(GTK_PROGRESS(v->progress_bar), "");
-  gtk_progress_bar_update(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
+  xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
 
   if (v->undo_filename)
   {
@@ -1177,7 +1177,7 @@ static void xsane_viewer_despeckle_image(GtkWidget *window, gpointer data)
 
   gtk_progress_set_format_string(GTK_PROGRESS(v->progress_bar), PROGRESS_DESPECKLING_DATA);
 
-  gtk_progress_bar_update(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
+  xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
 
   xsane_save_despeckle_image(outfile, infile, &image_info, v->despeckle_radius, v->progress_bar, &v->cancel_save);
 
@@ -1185,7 +1185,7 @@ static void xsane_viewer_despeckle_image(GtkWidget *window, gpointer data)
   fclose(outfile);
 
   gtk_progress_set_format_string(GTK_PROGRESS(v->progress_bar), "");
-  gtk_progress_bar_update(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
+  xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
 
   if (v->undo_filename)
   {
@@ -1254,7 +1254,7 @@ static void xsane_viewer_blur_image(GtkWidget *window, gpointer data)
 
   gtk_progress_set_format_string(GTK_PROGRESS(v->progress_bar), PROGRESS_BLURING_DATA);
 
-  gtk_progress_bar_update(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
+  xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
 
   xsane_save_blur_image(outfile, infile, &image_info, v->blur_radius, v->progress_bar, &v->cancel_save);
 
@@ -1262,7 +1262,7 @@ static void xsane_viewer_blur_image(GtkWidget *window, gpointer data)
   fclose(outfile);
 
   gtk_progress_set_format_string(GTK_PROGRESS(v->progress_bar), "");
-  gtk_progress_bar_update(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
+  xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
 
   if (v->undo_filename)
   {
@@ -1344,7 +1344,7 @@ static void xsane_viewer_rotate(Viewer *v, int rotation)
     gtk_progress_set_format_string(GTK_PROGRESS(v->progress_bar), PROGRESS_MIRRORING_DATA);
   }
 
-  gtk_progress_bar_update(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
+  xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
 
   xsane_save_rotate_image(outfile, infile, &image_info, rotation, v->progress_bar, &v->cancel_save);
 
@@ -1352,7 +1352,7 @@ static void xsane_viewer_rotate(Viewer *v, int rotation)
   fclose(outfile);
 
   gtk_progress_set_format_string(GTK_PROGRESS(v->progress_bar), "");
-  gtk_progress_bar_update(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
+  xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(v->progress_bar), 0.0);
 
   if (v->undo_filename)
   {
@@ -2864,7 +2864,7 @@ Viewer *xsane_viewer_new(char *filename, char *selection_filetype, int allow_red
     snprintf(buf, sizeof(buf), "%s %s", WINDOW_VIEWER, xsane.device_text);
   }
 
-  xsane_viewer_read_image_header(v); // xxx oli
+  xsane_viewer_read_image_header(v);
 
   v->top = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   gtk_window_set_title(GTK_WINDOW(v->top), buf);

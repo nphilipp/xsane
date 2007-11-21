@@ -145,7 +145,7 @@ Preferences preferences =
        1,		/* rgb default */
        0,		/* negative */
        1,		/* autoenhance_gamma: change gamma value with autoenhance button */
-       1,		/* preselect_scanarea after preview scan */
+       1,		/* preselect_scan_area after preview scan */
        1,		/* auto_correct_colors after preview scan */
  GTK_UPDATE_DISCONTINUOUS, /* update policy for gtk frontend sliders */
        0,		/* medium_nr */
@@ -264,7 +264,7 @@ desc[] =
     {"rgb-default",			xsane_rc_pref_int,	POFFSET(xsane_rgb_default)},
     {"negative",			xsane_rc_pref_int,	POFFSET(xsane_negative)},
     {"auto-enhance-gamma",		xsane_rc_pref_int,	POFFSET(auto_enhance_gamma)},
-    {"preselect-scanarea",		xsane_rc_pref_int,	POFFSET(preselect_scanarea)},
+    {"preselect-scan-area",		xsane_rc_pref_int,	POFFSET(preselect_scan_area)},
     {"auto-correct-colors",		xsane_rc_pref_int,	POFFSET(auto_correct_colors)},
     {"gtk-update-policy",		xsane_rc_pref_int,	POFFSET(gtk_update_policy)},
     {"medium-nr",			xsane_rc_pref_int,	POFFSET(medium_nr)},

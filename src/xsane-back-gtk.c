@@ -294,6 +294,7 @@ int xsane_back_gtk_make_path(size_t buf_size, char *buf, const char *prog_name, 
 
     buf[len++] = SLASH; /* OS/2 does not like slash at end of mktemp-path */
   }
+
   if (len >= buf_size)
   {
     goto filename_too_long;
@@ -431,15 +432,7 @@ int xsane_back_gtk_make_path(size_t buf_size, char *buf, const char *prog_name, 
     len += 6;
     buf[len] = '\0';
 
-#if 1
     fd = mkstemp(buf); /* create unique filename and opens/creates the file */
-#else
-    mktemp(buf); /* not safe */
-    umask(0177);
-    fd = open(buf, O_WRONLY | O_EXCL | O_CREAT, 0600);
-    umask(XSANE_DEFAULT_UMASK); /* define new file permissions */
-#endif
-
     if (fd == -1)
     {
       xsane_back_gtk_error(ERR_CREATE_TEMP_FILE, FALSE);
@@ -937,7 +930,6 @@ void xsane_back_gtk_filetype_menu_set_history(GtkWidget *xsane_filetype_option_m
     select_item = filetype_nr;
   }
 #endif
-
   gtk_option_menu_set_history(GTK_OPTION_MENU(xsane_filetype_option_menu), select_item);
 }
 
@@ -1908,8 +1900,37 @@ static void xsane_back_gtk_value_update(GtkAdjustment *adj_data, DialogElement *
 
   xsane_back_gtk_set_option(opt_num, &val, SANE_ACTION_SET_VALUE);
   xsane_control_option(xsane.dev, opt_num, SANE_ACTION_GET_VALUE, &new_val, 0);
+#if 1
+  val = new_val;
+  switch(opt->type)
+  {
+    case SANE_TYPE_INT:
+      if (new_val != val)
+      {
+        adj_data->value = val;
+        g_signal_emit_by_name(GTK_OBJECT(adj_data), "value_changed");
+      }
+     break;
 
-  if (new_val != val)
+    case SANE_TYPE_FIXED:
+      if (abs(new_val - val) > 1) /* tolarate 1/65536 error, instead of: if (new_val != val) */
+      {
+        d = SANE_UNFIX(val);
+        if (opt->unit == SANE_UNIT_MM)
+        {
+          d /= preferences.length_unit;
+        }
+        adj_data->value = d;
+        g_signal_emit_by_name(GTK_OBJECT(adj_data), "value_changed");
+      }
+     break;
+
+    default:
+     break;
+  }
+#endif
+#if 0
+  if (abs(new_val - val) > 1) /* tolarate 1/65536 error, instead of: if (new_val != val) */
   {
     val = new_val;
     switch(opt->type)
@@ -1932,6 +1953,7 @@ static void xsane_back_gtk_value_update(GtkAdjustment *adj_data, DialogElement *
     }
     g_signal_emit_by_name(GTK_OBJECT(adj_data), "value_changed");
   }
+#endif
 
  return;			/* value didn't change */
 }
@@ -2474,7 +2496,7 @@ void xsane_back_gtk_update_scan_window(void)
             GTK_ADJUSTMENT(elem->data)->value = new_val;
           }
 
-          if (old_val != new_val)
+          if (old_val != new_val) /* XXX dangerous comparison of doubles, we should allow tiny differences */
           {
 	      g_signal_emit_by_name(GTK_OBJECT(elem->data), "value_changed");
           }

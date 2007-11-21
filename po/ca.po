@@ -1,15 +1,15 @@
 # Catalan translation for XSane.
 # Copyright (C) 2006 Free Software Foundation, Inc.
-# Raül Cambeiro <raulcambeiro@ambtu.bcn.es>, 2006, XSane 0.991
+# Raül Cambeiro <rulet@menta.net>, 2007, XSane 0.995
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XSane 0.991\n"
+"Project-Id-Version: XSane 0.995\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-03 10:10+0100\n"
-"PO-Revision-Date: 2006-03-02 03:35+0100\n"
-"Last-Translator: Raül Cambeiro <raulcambeiro@ambtu.bcn.es>\n"
-"Language-Team: \n"
+"POT-Creation-Date: 2007-08-13 09:22+0200\n"
+"PO-Revision-Date: 2007-09-25 03:53+0100\n"
+"Last-Translator: Raül Cambeiro <rulet@menta.net>\n"
+"Language-Team: Catalan\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -74,16 +74,15 @@ msgid "fax project"
 msgstr "Projecte de fax"
 
 #. WINDOW_FAX_PROJECT_BROWSE
-#, fuzzy
 msgid "browse for fax project"
-msgstr "Introduïu el nom del projecte de fax"
+msgstr "Nom del projecte de fax"
 
 #. WINDOW_FAX_RENAME
 msgid "rename fax page"
 msgstr "Reanomena la pàgina de fax"
 
 #. WINDOW_FAX_INSERT
-msgid "insert ps-file into fax"
+msgid "insert PS-file into fax"
 msgstr "Inseriu un fitxer PS al fax"
 
 #. WINDOW_EMAIL_PROJECT
@@ -91,9 +90,8 @@ msgid "E-mail project"
 msgstr "Projecte de correu electrònic"
 
 #. WINDOW_EMAIL_PROJECT_BROWSE
-#, fuzzy
 msgid "browse for email project"
-msgstr "Introduïu el nom del projecte de correu electrònic"
+msgstr "Nom del projecte de correu electrònic"
 
 #. WINDOW_EMAIL_RENAME
 msgid "rename e-mail image"
@@ -108,9 +106,8 @@ msgid "multipage project"
 msgstr "Projecte multipàgina"
 
 #. WINDOW_MULTIPAGE_PROJECT_BROWSE
-#, fuzzy
 msgid "browse for multipage project"
-msgstr "Projecte multipàgina"
+msgstr "Nom del projecte multipàgina"
 
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
@@ -213,33 +210,28 @@ msgid "No devices available"
 msgstr "No hi ha dispositius disponibles"
 
 #. WINDOW_SCANNER_DEFAULT_COLOR_ICM_PROFILE
-#, fuzzy
 msgid "select scanner default color ICM-profile"
-msgstr "Elimina la impressora"
+msgstr "Seleccioneu el perfil ICM de color predeterminat de l'escàner"
 
 #. WINDOW_SCANNER_DEFAULT_GRAY_ICM_PROFILE
-#, fuzzy
 msgid "select scanner default gray ICM-profile"
-msgstr "Elimina la impressora"
+msgstr "Seleccioneu el perfil ICM de grisos predeterminat de l'escàner"
 
 #. WINDOW_DISPLAY_ICM_PROFILE
 msgid "select display ICM-profile"
-msgstr ""
+msgstr "Seleccioneu el perfil ICM de la pantalla"
 
 #. WINDOW_CUSTOM_PROOFING_ICM_PROFILE
-#, fuzzy
 msgid "select custom proofing ICM-profile"
-msgstr "Seleccioneu el nom del fitxer de sortida"
+msgstr "Seleccioneu el perfil ICM per a proves personalitzades"
 
 #. WINDOW_WORKING_COLOR_SPACE_ICM_PROFILE
-#, fuzzy
 msgid "select working color space ICM-profile"
-msgstr "Elimina la impressora"
+msgstr "Seleccioneu el perfil ICM de l'espai de color amb què treballareu"
 
 #. WINDOW_PRINTER_ICM_PROFILE
-#, fuzzy
 msgid "select printer ICM-profile"
-msgstr "Elimina la impressora"
+msgstr "Seleccioneu el perfil ICM de la impressora"
 
 #. MENU_FILE
 msgid "File"
@@ -277,7 +269,7 @@ msgstr "Geometria"
 #. MENU_COLOR_MANAGEMENT
 #. NOTEBOOK_COLOR_MANAGEMENT_OPTIONS
 msgid "Color management"
-msgstr ""
+msgstr "Gestió del color"
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
@@ -327,15 +319,15 @@ msgstr "Difumina"
 
 #. MENU_ITEM_ROTATE90
 msgid "Rotate 90"
-msgstr "Rota 90º"
+msgstr "Gira 90º"
 
 #. MENU_ITEM_ROTATE180
 msgid "Rotate 180"
-msgstr "Rota 180º"
+msgstr "Gira 180º"
 
 #. MENU_ITEM_ROTATE270
 msgid "Rotate 270"
-msgstr "Rota 270º"
+msgstr "Gira 270º"
 
 #. MENU_ITEM_MIRROR_X
 msgid "Mirror |"
@@ -502,7 +494,7 @@ msgid "Skip existing filenames"
 msgstr "Omet els noms de fitxer existents"
 
 #. RADIO_BUTTON_SAVE_PS_FLATEDECODED
-msgid "Save postscript zlib compressed (ps level 3)"
+msgid "Save postscript zlib compressed (PS level 3)"
 msgstr "Desa en PostScript comprimit amb zlib (PS nivell 3)"
 
 #. RADIO_BUTTON_SAVE_PDF_FLATEDECODED
@@ -510,7 +502,7 @@ msgid "Save PDF zlib compressed"
 msgstr "Desa en PDF comprimit amb zlib"
 
 #. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
-msgid "Save 16bit pnm in ascii format"
+msgid "Save 16bit PNM in ASCII format"
 msgstr "Desa en format ASCII els PNM de 16 bits"
 
 #. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
@@ -522,7 +514,6 @@ msgid "Main window size fixed"
 msgstr "Finestra principal de mida fixa"
 
 #. RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA
-#, fuzzy
 msgid "Disable GIMP preview gamma"
 msgstr "Inhabilita la previsualització de gamma d'El Gimp"
 
@@ -534,8 +525,8 @@ msgstr "Usa un mapa de colors personal"
 msgid "Autoenhance gamma"
 msgstr "Millora la gamma automàticament"
 
-#. RADIO_BUTTON_PRESELECT_SCANAREA
-msgid "Preselect scanarea"
+#. RADIO_BUTTON_PRESELECT_SCAN_AREA
+msgid "Preselect scan area"
 msgstr "Preselecciona l'àrea d'escaneig"
 
 #. RADIO_BUTTON_AUTOCORRECT_COLORS
@@ -549,7 +540,7 @@ msgstr "Usa el conducte de progrés de la interfície gràfica"
 #. RADIO_BUTTON_CMS_BPC
 #. MENU_ITEM_CMS_BLACK_POINT_COMPENSATION
 msgid "Black point compensation"
-msgstr ""
+msgstr "Compensació de punt negre"
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
@@ -559,19 +550,14 @@ msgstr "S'estan cercant els dispositius"
 msgid "Available devices:"
 msgstr "Dispositius disponibles:"
 
-#. TEXT_XSANE_OPTIONS
-msgid "XSane options"
-msgstr "Opcions de l'XSane"
-
 #. TEXT_FILETYPE
 msgid "Type"
 msgstr "Tipus"
 
 #. TEXT_CMS_FUNCTION
 #. DESC_CMS_FUNCTION
-#, fuzzy
 msgid "Color management function"
-msgstr "Tots els colors"
+msgstr "Funció de gestió del color"
 
 #. TEXT_SCANNER_BACKEND
 msgid "Scanner and backend:"
@@ -646,14 +632,13 @@ msgid "16 bit output formats:"
 msgstr "Formats de sortida de 16 bits:"
 
 #. TEXT_REDUCE_16BIT_TO_8BIT
-#, fuzzy
 msgid ""
 "Bit depth 16 bits/channel is not supported for this output format.\n"
 "Do you want to reduce the depth to 8 bits/channel?"
 msgstr ""
-"La profunditat de 16 bits per color no és permesa per a aquest format de "
+"La profunditat de 16 bits per canal no és permesa per a aquest format de "
 "sortida.\n"
-"Voleu reduir la profunditat de color a 8 bits?"
+"Voleu reduir la profunditat de color a 8 bits per canal?"
 
 #. TEXT_AUTHORIZATION_REQ
 msgid "Authorization required for"
@@ -688,9 +673,8 @@ msgid "package"
 msgstr "Paquet:"
 
 #. TEXT_WITH_CMS_FUNCTION
-#, fuzzy
 msgid "with color management function"
-msgstr "Tots els colors"
+msgstr "Amb funció de gestió del color"
 
 #. TEXT_WITH_GIMP_SUPPORT
 msgid "with GIMP support"
@@ -737,7 +721,7 @@ msgstr ""
 "Si el programa tingués algun error, assumireu el cost de totes les "
 "revisions,\n"
 "reparacions o correccions necessàries. Per a usar aquest programa,\n"
-"heu de llegir, entendre i acceptar el següent acord de \"NO GARANTIA\".\n"
+"heu de llegir, entendre i acceptar el següent acord de «NO GARANTIA».\n"
 
 #. TEXT_GPL
 msgid ""
@@ -786,7 +770,7 @@ msgid ""
 msgstr ""
 "Traducció al català\n"
 "de Raül Cambeiro\n"
-"raulcambeiro@ambtu.bcn.es\n"
+"rulet@menta.net\n"
 
 #. TEXT_INFO_BOX
 msgid "0x0: 0KB"
@@ -825,12 +809,12 @@ msgid "Medium Name:"
 msgstr "Nom del mitjà:"
 
 #. TEXT_VIEWER_IMAGE_INFO
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Size %d x %d pixel, %d bits/channel, %d channels, %1.0f dpi x %1.0f dpi, %"
 "1.1f %s"
 msgstr ""
-"Mida %d x %d píxels, %d bits/color, %d colors, %1.0f ppp x %1.0f ppp, %1.1f %"
+"Mida %d x %d píxels, %d bits/canal, %d canals, %1.0f ppp x %1.0f ppp, %1.1f %"
 "s"
 
 #. TEXT_DESPECKLE_RADIUS
@@ -890,70 +874,76 @@ msgstr "Ordre:"
 msgid "Copy number option:"
 msgstr "Opció del nombre de còpies:"
 
+#. TEXT_SETUP_SCAN_RESOLUTION_PRINTER
+msgid "Scan resolution:"
+msgstr "Resolució de l'escaneig:"
+
 #. TEXT_SETUP_PRINTER_LINEART_RES
-msgid "Lineart resolution (dpi):"
-msgstr "Resolució en mode línia (ppp):"
+msgid "lineart [dpi]"
+msgstr "línia (ppp)"
 
 #. TEXT_SETUP_PRINTER_GRAYSCALE_RES
-msgid "Grayscale resolution (dpi):"
-msgstr "Resolució en escala de grisos (ppp):"
+msgid "grayscale [dpi]"
+msgstr "escala de grisos (ppp)"
 
 #. TEXT_SETUP_PRINTER_COLOR_RES
-msgid "Color resolution (dpi):"
-msgstr "Resolució en color (ppp):"
+msgid "color [dpi]"
+msgstr "color [ppp]"
+
+#. TEXT_SETUP_PRINTER_PAPER_GEOMETRIE
+msgid "Paper geometrie:"
+msgstr "Geometria del paper:"
 
 #. TEXT_SETUP_PRINTER_WIDTH
-#. TEXT_SETUP_FAX_WIDTH
-msgid "Width"
+msgid "width"
 msgstr "Amplada"
 
 #. TEXT_SETUP_PRINTER_HEIGHT
-#. TEXT_SETUP_FAX_HEIGHT
-msgid "Height"
+msgid "height"
 msgstr "Alçària"
 
 #. TEXT_SETUP_PRINTER_LEFT
-#. TEXT_SETUP_FAX_LEFT
-msgid "Left offset"
+msgid "left offset"
 msgstr "Marge esquerre"
 
 #. TEXT_SETUP_PRINTER_BOTTOM
-#. TEXT_SETUP_FAX_BOTTOM
-msgid "Bottom offset"
+msgid "bottom offset"
 msgstr "Marge inferior"
 
+#. TEXT_SETUP_PRINTER_GAMMA_CORRECTION
+msgid "Printer gamma:"
+msgstr "Gamma de la impressora:"
+
 #. TEXT_SETUP_PRINTER_GAMMA
-msgid "Printer gamma value:"
-msgstr "Valor gamma de la impressora:"
+msgid "common value"
+msgstr "Valor comú"
 
 #. TEXT_SETUP_PRINTER_GAMMA_RED
-msgid "Printer gamma red:"
-msgstr "Gamma per al vermell de la impressora:"
+msgid "red"
+msgstr "Vermell"
 
 #. TEXT_SETUP_PRINTER_GAMMA_GREEN
-msgid "Printer gamma green:"
-msgstr "Gamma per al verd de la impressora:"
+msgid "green"
+msgstr "Verd"
 
 #. TEXT_SETUP_PRINTER_GAMMA_BLUE
-msgid "Printer gamma blue:"
-msgstr "Gamma per al blau de la impressora:"
+msgid "blue"
+msgstr "Blau"
 
 #. TEXT_SETUP_PRINTER_EMBED_CSA
-#, fuzzy
 msgid "Embed scanner ICM profile as CSA"
-msgstr "Elimina la impressora"
+msgstr "Inclou el perfil ICM de l'escàner com a CSA"
 
 #. TEXT_SETUP_PRINTER_EMBED_CRD
-#, fuzzy
 msgid "Embed printer ICM profile as CRD"
-msgstr "Elimina la impressora"
+msgstr "Inclou el perfil ICM de l'escàner com a CRD"
 
 #. TEXT_SETUP_PRINTER_CMS_BPC
 msgid "Apply black point compensation"
-msgstr ""
+msgstr "Aplica compensació de punt negre"
 
 #. TEXT_SETUP_PRINTER_PS_FLATEDECODED
-msgid "Create zlib compressed postscript image (ps level 3) for printing"
+msgid "Create zlib compressed postscript image (PS level 3) for printing"
 msgstr ""
 "Crea una imatge PostScript comprimida amb zlib (PS nivell 3) per a imprimir"
 
@@ -1077,8 +1067,24 @@ msgstr "Estableix els valors per defecte per a:"
 msgid "Viewer (Postscript):"
 msgstr "Visualitzador (PostScript)"
 
+#. TEXT_SETUP_FAX_WIDTH
+msgid "Width"
+msgstr "Amplada"
+
+#. TEXT_SETUP_FAX_HEIGHT
+msgid "Height"
+msgstr "Alçària"
+
+#. TEXT_SETUP_FAX_LEFT
+msgid "Left offset"
+msgstr "Marge esquerre"
+
+#. TEXT_SETUP_FAX_BOTTOM
+msgid "Bottom offset"
+msgstr "Marge inferior"
+
 #. TEXT_SETUP_FAX_PS_FLATEDECODED
-msgid "Create zlib compressed postscript image (ps level 3) for fax"
+msgid "Create zlib compressed postscript image (PS level 3) for fax"
 msgstr ""
 "Crea una imatge PostScript comprimida amb zlib (PS nivell 3) per als faxos"
 
@@ -1156,37 +1162,33 @@ msgstr "Tothom"
 
 #. TEXT_SETUP_SCANNER_DEFAULT_COLOR_ICM_PROFILE
 #. DESC_SCANNER_DEFAULT_COLOR_ICM_PROFILE
-#, fuzzy
 msgid "Scanner default color ICM-profile"
-msgstr "Elimina la impressora"
+msgstr "Perfil ICM de color predeterminat de l'escàner"
 
 #. TEXT_SETUP_SCANNER_DEFAULT_GRAY_ICM_PROFILE
 #. DESC_SCANNER_DEFAULT_GRAY_ICM_PROFILE
-#, fuzzy
 msgid "Scanner default gray ICM-profile"
-msgstr "Elimina la impressora"
+msgstr "Perfil ICM de grisos predeterminat de l'escàner"
 
 #. TEXT_SETUP_DISPLAY_ICM_PROFILE
 #. DESC_DISPLAY_ICM_PROFILE
 msgid "Display ICM-profile"
-msgstr ""
+msgstr "Perfil ICM de la pantalla"
 
 #. TEXT_SETUP_CUSTOM_PROOFING_ICM_PROFILE
 #. DESC_CUSTOM_PROOFING_ICM_PROFILE
-#, fuzzy
 msgid "Custom proofing ICM-profile"
-msgstr "Elimina la impressora"
+msgstr "Perfil ICM per a proves personalitzades"
 
 #. TEXT_SETUP_WORKING_COLOR_SPACE_ICM_PROFILE
 #. DESC_WORKING_COLOR_SPACE_ICM_PROFILE
-#, fuzzy
 msgid "Working color space ICM-profile"
-msgstr "Navegueu per a trobar el nom de fitxer de la imatge"
+msgstr "Perfil ICM per a l'espai de color amb què treballareu"
 
 #. TEXT_SETUP_PRINTER_ICM_PROFILE
 #. DESC_PRINTER_ICM_PROFILE
 msgid "Printer ICM-profile"
-msgstr ""
+msgstr "Perfil ICM de la impressora"
 
 msgid "new media"
 msgstr "Nou suport"
@@ -1301,13 +1303,12 @@ msgstr "Mostra la llista de resolucions"
 
 #. MENU_ITEM_PAGE_ROTATE
 msgid "Rotate postscript"
-msgstr "Rota el PostScript"
+msgstr "Gira el PostScript"
 
 #. MENU_ITEM_ENABLE_COLOR_MANAGEMENT
 #. MENU_ITEM_CMS_ENABLE_COLOR_MANAGEMENT
-#, fuzzy
 msgid "Enable color management"
-msgstr "Tots els colors"
+msgstr "Habilita la gestió del color"
 
 #. MENU_ITEM_EDIT_MEDIUM_DEF
 msgid "Edit medium definition"
@@ -1354,84 +1355,76 @@ msgid "Problems?"
 msgstr "Problemes?"
 
 #. MENU_ITEM_CMS_PROOFING
-#, fuzzy
 msgid "Proofing"
-msgstr "Afegeix una impressora"
+msgstr "Proves"
 
 #. SUBMENU_ITEM_CMS_PROOF_OFF
 msgid "no proofing (Display)"
-msgstr ""
+msgstr "Sense proves (pantalla)"
 
 #. SUBMENU_ITEM_CMS_PROOF_PRINTER
-#, fuzzy
 msgid "Proof printer"
-msgstr "Afegeix una impressora"
+msgstr "Impressora per a proves"
 
 #. SUBMENU_ITEM_CMS_PROOF_CUSTOM
 msgid "Proof custom device"
-msgstr ""
+msgstr "Dispositiu per a proves personalitzat"
 
 #. MENU_ITEM_CMS_RENDERING_INTENT
-#, fuzzy
 msgid "Rendering intent"
-msgstr "Afegeix una impressora"
+msgstr "Propòsit de renderització"
 
 #. MENU_ITEM_CMS_PROOFING_INTENT
-#, fuzzy
 msgid "Proofing rendering intent"
-msgstr "Afegeix una impressora"
+msgstr "Prova del propòsit de renderització"
 
 #. SUBMENU_ITEM_CMS_INTENT_PERCEPTUAL
 msgid "Perceptual"
-msgstr ""
+msgstr "Percepció"
 
 #. SUBMENU_ITEM_CMS_INTENT_RELATIVE_COLORIMETRIC
 msgid "Relative colorimetric"
-msgstr ""
+msgstr "Colorimetria relativa"
 
 #. SUBMENU_ITEM_CMS_INTENT_ABSOLUTE_COLORIMETRIC
 msgid "Absolute colorimentric"
-msgstr ""
+msgstr "Colorimetria absoluta"
 
 #. SUBMENU_ITEM_CMS_INTENT_SATURATION
-#, fuzzy
 msgid "Saturation"
-msgstr "Autorització"
+msgstr "Saturació"
 
 #. MENU_ITEM_CMS_GAMUT_CHECK
 msgid "Gamut check"
-msgstr ""
+msgstr "Comprovació de gamma"
 
 #. MENU_ITEM_CMS_GAMUT_ALARM_COLOR
 msgid "Gamut alarm color"
-msgstr ""
+msgstr "Color d'alarma de gamma"
 
 #. SUBMENU_ITEM_CMS_COLOR_BLACK
 msgid "Black"
-msgstr ""
+msgstr "Negre"
 
 #. SUBMENU_ITEM_CMS_COLOR_GRAY
 msgid "Gray"
-msgstr ""
+msgstr "Gris"
 
 #. SUBMENU_ITEM_CMS_COLOR_WHITE
-#, fuzzy
 msgid "White"
-msgstr "escriptura"
+msgstr "Blanc"
 
 #. SUBMENU_ITEM_CMS_COLOR_RED
-#, fuzzy
 msgid "Red"
-msgstr "Redueix"
+msgstr "Vermell"
 
 #. SUBMENU_ITEM_CMS_COLOR_GREEN
 msgid "Green"
-msgstr ""
+msgstr "Verd"
 
 #. SUBMENU_ITEM_CMS_COLOR_BLUE
-#, fuzzy
 msgid "Blue"
-msgstr "Difumina"
+msgstr "Blau"
 
 #. MENU_ITEM_COUNTER_LEN_INACTIVE
 msgid "inactive"
@@ -1446,11 +1439,11 @@ msgid "CCITT 1D Huffman compression"
 msgstr "Compressió CCITT 1D Huffman"
 
 #. MENU_ITEM_TIFF_COMP_CCITFAX3
-msgid "CCITT Group 3 Fax compression"
+msgid "CCITT Group 3 fax compression"
 msgstr "Compressió CCITT Fax Grup 3"
 
 #. MENU_ITEM_TIFF_COMP_CCITFAX4
-msgid "CCITT Group 4 Fax compression"
+msgid "CCITT Group 4 fax compression"
 msgstr "Compressió CCITT Fax Grup 4"
 
 #. MENU_ITEM_TIFF_COMP_JPEG
@@ -1550,18 +1543,16 @@ msgid "ASMTP CRAM-MD5"
 msgstr "ASMTP CRAM-MD5"
 
 #. MENU_ITEM_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE
-#, fuzzy
 msgid "Embed scanner ICM profile"
-msgstr "Elimina la impressora"
+msgstr "Inclou el perfil ICM de l'escàner"
 
 #. MENU_ITEM_CMS_FUNCTION_CONVERT_TO_SRGB
 msgid "Convert to sRGB"
-msgstr ""
+msgstr "Converteix a sRGB"
 
 #. MENU_ITEM_FUNCTION_CONVERT_TO_WORKING_CS
-#, fuzzy
 msgid "Convert to working color space"
-msgstr "Corregeix els colors automàticament"
+msgstr "Converteix a l'espai de color de treball"
 
 #. PROGRESS_SCANNING
 msgid "Scanning"
@@ -1576,13 +1567,13 @@ msgstr "S'estan rebent dades %s"
 msgid "page"
 msgstr "pàgina"
 
-#. PROGRESS_TRANSFERING_DATA
-msgid "Transfering image"
+#. PROGRESS_TRANSFERRING_DATA
+msgid "Transferring image"
 msgstr "S'està transferint la imatge"
 
 #. PROGRESS_ROTATING_DATA
 msgid "Rotating image"
-msgstr "S'està rotant la imatge"
+msgstr "S'està girant la imatge"
 
 #. PROGRESS_MIRRORING_DATA
 msgid "Mirroring image"
@@ -1621,9 +1612,8 @@ msgid "OCR in progress"
 msgstr "OCR en progrés"
 
 #. PROGRESS_ICM_CONVERSION
-#, fuzzy
 msgid "converting colors"
-msgstr "Corregeix els colors automàticament"
+msgstr "S'estan convertint els colors"
 
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
@@ -1652,15 +1642,15 @@ msgstr ""
 #. DESC_XSANE_MEDIUM
 msgid ""
 "Select source medium type.\n"
-"To rename, reorder or delete an entry use context menu (right mouse "
+"To rename, reorder or delete an entry use context menu (alternate mouse "
 "button).\n"
 "To create a medium enable the option edit medium definition in preferences "
 "menu."
 msgstr ""
 "Seleccioneu el tipus de mitjà d'origen.\n"
 "Per a reanomenar, reordenar o eliminar una entrada empreu el menú contextual "
-"(botó dret del ratolí).\n"
-"Per a crear un mitjà, habiliteu l'opció \"Edita la definició del mitjà\" al "
+"(botó secundari del ratolí).\n"
+"Per a crear un mitjà, habiliteu l'opció «Edita la definició del mitjà» al "
 "menú Preferències."
 
 #. DESC_FILENAME_COUNTER_STEP
@@ -1686,9 +1676,8 @@ msgstr ""
 "automàticament al nom del fitxer"
 
 #. DESC_FAXPROJECT
-#, fuzzy
 msgid "Enter fax project directory name"
-msgstr "Navega per a trobar el directoi temporal"
+msgstr "Introduïu el nom de directori per al projecte de fax"
 
 #. DESC_FAXPAGENAME
 msgid "Enter new name for faxpage"
@@ -1699,14 +1688,12 @@ msgid "Enter receiver phone number or address"
 msgstr "Introduïu el número de telèfon o l'adreça del receptor"
 
 #. DESC_FAX_PROJECT_BROWSE
-#, fuzzy
 msgid "Browse for fax project directory"
-msgstr "Navega per a trobar el directoi temporal"
+msgstr "Navegueu fins al directori per al projecte de fax"
 
 #. DESC_EMAIL_PROJECT
-#, fuzzy
 msgid "Enter e-mail project directory name"
-msgstr "Navega per a trobar el directoi temporal"
+msgstr "Introduïu el nom de directori per al projecte de correu electrònic"
 
 #. DESC_EMAIL_IMAGENAME
 msgid "Enter new name for e-mail image"
@@ -1717,9 +1704,8 @@ msgid "Enter e-mail address"
 msgstr "Introduïu una adreça electrònica"
 
 #. DESC_EMAIL_PROJECT_BROWSE
-#, fuzzy
 msgid "Browse for email project directory"
-msgstr "Navega per a trobar el directoi temporal"
+msgstr "Navegueu fins al directori per al projecte de correu electrònic"
 
 #. DESC_EMAIL_SUBJECT
 msgid "Enter subject of e-mail"
@@ -1730,14 +1716,12 @@ msgid "Select filetype for image attachments"
 msgstr "Seleccioneu el tipus de fitxer per a les imatges adjuntes"
 
 #. DESC_MULTIPAGE_PROJECT
-#, fuzzy
 msgid "Enter multipage project directory name"
-msgstr "Navega per a trobar el directoi temporal"
+msgstr "Introduïu el nom de directori per al projecte multipàgina"
 
 #. DESC_MULTIPAGE_PROJECT_BROWSE
-#, fuzzy
 msgid "Browse for multipage project directory"
-msgstr "Navega per a trobar el directoi temporal"
+msgstr "Navegueu fins al directori per al projecte multipàgina"
 
 #. DESC_MULTIPAGE_FILETYPE
 msgid "Select filetype for multipage file"
@@ -1862,9 +1846,8 @@ msgstr ""
 " Contrast = 0"
 
 #. DESC_ENH_AUTO
-#, fuzzy
 msgid "Autoadjust gamma, brightness and contrast <Ctrl-a>"
-msgstr "Ajusta automàticament la gamma, la lluminositat i el contrast <Ctrl-e>"
+msgstr "Ajusta automàticament la gamma, la lluminositat i el contrast <Ctrl-a>"
 
 #. DESC_ENH_DEFAULT
 msgid ""
@@ -1923,7 +1906,7 @@ msgstr "Definiu un nom per a la selecció d'aquesta definició"
 
 #. DESC_PRINTER_COMMAND
 msgid "Enter command to be executed in copy mode (e.g. \"lpr\")"
-msgstr "Introduïu l'ordre que s'executarà en mode de còpia (p.ex.: \"lpr\")"
+msgstr "Introduïu l'ordre que s'executarà en mode de còpia (p.ex.: «lpr»)"
 
 #. DESC_COPY_NUMBER_OPTION
 msgid "Enter option for copy numbers"
@@ -1987,18 +1970,17 @@ msgstr "Valor gamma addicional de la component blava per a les fotocòpies"
 
 #. DESC_PRINTER_EMBED_CSA
 msgid "Creates a postsciptfile that contains the ICM profile of the scanner"
-msgstr ""
+msgstr "Crea un fitxer PostScript que conté el perfil ICM de l'escàner"
 
 #. DESC_PRINTER_EMBED_CRD
 msgid "Creates a postsciptfile that contains the ICM profile of the printer"
-msgstr ""
+msgstr "Crea un fitxer PostScript que conté el perfil ICM de la impressora"
 
 #. DESC_PRINTER_CMS_BPC
 msgid "Applies black point compensation"
-msgstr ""
+msgstr "Aplica compensació de punt negre"
 
 #. DESC_PRINTER_PS_FLATEDECODED
-#, fuzzy
 msgid ""
 "Create zlib compressed postscript image for printer (flatedecode).\n"
 "The printer has to understand postscript level 3!"
@@ -2017,13 +1999,13 @@ msgstr "Navega per a trobar el directoi temporal"
 
 #. DESC_JPEG_QUALITY
 msgid ""
-"Quality in percent if image is saved as jpeg or tiff with jpeg compression"
+"Quality in percent if image is saved as JPEG or TIFF with JPEG compression"
 msgstr ""
 "Qualitat, en percentatge, si deseu la imatge en JPEG o en TIFF amb "
 "compressió JPEG"
 
 #. DESC_PNG_COMPRESSION
-msgid "Compression if image is saved as png"
+msgid "Compression if image is saved as PNG"
 msgstr "Compressió si deseu la imatge en format PNG"
 
 #. DESC_FILENAME_COUNTER_LEN
@@ -2032,19 +2014,19 @@ msgstr ""
 "Nombre mínim de xifres per al comptador en els noms de fitxers consecutius"
 
 #. DESC_TIFF_ZIP_COMPRESSION
-msgid "Compression rate for zip compressed tiff (deflate)"
+msgid "Compression rate for zip compressed TIFF (deflate)"
 msgstr "Grau de compressió per als TIFF comprimits amb zip (algoritme Deflate)"
 
 #. DESC_TIFF_COMPRESSION_16
-msgid "Compression type if 16 bit image is saved as tiff"
+msgid "Compression type if 16 bit image is saved as TIFF"
 msgstr "Tipus de compressió si deseu en TIFF una imatge de 16 bits"
 
 #. DESC_TIFF_COMPRESSION_8
-msgid "Compression type if 8 bit image is saved as tiff"
+msgid "Compression type if 8 bit image is saved as TIFF"
 msgstr "Tipus de compressió si deseu en TIFF una imatge de 8 bits"
 
 #. DESC_TIFF_COMPRESSION_1
-msgid "Compression type if lineart image is saved as tiff"
+msgid "Compression type if lineart image is saved as TIFF"
 msgstr ""
 "Tipus de compressió si deseu en TIFF una imatge amb profunditat binària "
 "(mode línia)"
@@ -2067,7 +2049,6 @@ msgstr ""
 "els números ja usats"
 
 #. DESC_SAVE_PS_FLATEDECODED
-#, fuzzy
 msgid ""
 "compress postscript image with zlib algorithm (flatedecode). When you want "
 "to print such a file your printer has to understand postscript level 3"
@@ -2077,15 +2058,14 @@ msgstr ""
 "format PostScript nivell 3"
 
 #. DESC_SAVE_PDF_FLATEDECODED
-#, fuzzy
 msgid "compress PDF image with zlib algorithm (flatedecode)."
-msgstr "Comprimeix les imatges PDF amb l'algoritme FlatDecode de zlib"
+msgstr "Comprimeix les imatges PDF amb l'algoritme FlatDecode de zlib."
 
 #. DESC_SAVE_PNM16_AS_ASCII
 msgid ""
-"When a 16 bit image shall be saved in pnm format then use ascii format "
+"When a 16 bit image shall be saved in PNM format then use ASCII format "
 "instead of binary format. The binary format is a new format that is not "
-"supported by all programs. The ascii format is supported by more programs "
+"supported by all programs. The ASCII format is supported by more programs "
 "but it produces really huge files!!!"
 msgstr ""
 "Quan hagueu de desar una imatge de 16 bits en format PNM, empreu el format "
@@ -2094,12 +2074,11 @@ msgstr ""
 "programes, però produeix fitxers molt grans."
 
 #. DESC_REDUCE_16BIT_TO_8BIT
-#, fuzzy
 msgid ""
 "If scanner sends image with 16 bits/channel save image with 8 bits/channel"
 msgstr ""
-"Si l'escàner envia la imatge amb 16 bits per color, desa-la amb 8 bits per "
-"color"
+"Si l'escàner envia la imatge amb 16 bits per canal, desa-la amb 8 bits per "
+"canal"
 
 #. DESC_PSFILE_WIDTH
 msgid "Width of paper for postscript files"
@@ -2132,7 +2111,6 @@ msgstr ""
 "barra de desplaçament"
 
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
-#, fuzzy
 msgid "Disable preview gamma when XSane runs as GIMP plugin"
 msgstr ""
 "Inhabilita la previsualització de la correcció gamma quan l'XSane funciona "
@@ -2149,7 +2127,7 @@ msgid "Select how a range is displayed"
 msgstr "Seleccioneu com es mostren els intervals de valors"
 
 #. DESC_PREVIEW_OVERSAMPLING
-msgid "Value with that the calculated preview resolution is multiplied"
+msgid "Value with which the calculated preview resolution is multiplied"
 msgstr ""
 "Valor amb què es multiplica la resolució de previsualització calculada "
 "prèviament"
@@ -2223,7 +2201,7 @@ msgstr ""
 
 #. DESC_DOC_VIEWER
 msgid ""
-"Enter command to be executed to display helpfiles, must be a html-viewer!"
+"Enter command to be executed to display helpfiles, must be a HTML-viewer!"
 msgstr ""
 "Introduïu l'ordre a executar per a mostrar els fitxers d'ajuda. Ha de ser un "
 "visualitzador d'HTML."
@@ -2232,8 +2210,8 @@ msgstr ""
 msgid "Change gamma value when autoenhancement button is pressed"
 msgstr "Canvia el valor de la gamma en prémer el botó de realçament automàtic"
 
-#. DESC_PRESELECT_SCANAREA
-msgid "Select scanarea after preview scan has finished"
+#. DESC_PRESELECT_SCAN_AREA
+msgid "Select scan area after preview scan has finished"
 msgstr "Selecciona l'àrea d'escaneig quan l'escaneig de previsualització acabi"
 
 #. DESC_AUTOCORRECT_COLORS
@@ -2241,13 +2219,14 @@ msgid "Do color correction after preview scan has finished"
 msgstr "Corregeix el color quan l'escaneig de previsualització acabi"
 
 #. DESC_RENDERING_INTENT
-#, fuzzy
 msgid "Select rendering intent for preview and saving"
-msgstr "Selecciona l'àrea d'escaneig quan l'escaneig de previsualització acabi"
+msgstr ""
+"Selecciona el propòsit de renderització per a la previsualització i el "
+"desament"
 
 #. DESC_CMS_BPC
 msgid "Apply black point compensation when color transformation is done"
-msgstr ""
+msgstr "Aplica compensació de punt negre quan acabi la transformació de color"
 
 #. DESC_FAX_COMMAND
 msgid "Enter command to be executed in fax mode"
@@ -2280,7 +2259,6 @@ msgstr ""
 "Envia el fax amb resolució vertical alta (196 lpi per comptes de 98 lpi)"
 
 #. DESC_FAX_PS_FLATEDECODED
-#, fuzzy
 msgid "Create zlib compressed postscript image for fax (flatedecode)"
 msgstr ""
 "Crea imatges PostScript comprimides amb zlib per als faxos (algoritme "
@@ -2323,31 +2301,31 @@ msgid "port to connect to POP3 server"
 msgstr "Port per a connectar al servidor POP3"
 
 #. DESC_HTML_EMAIL
-msgid "E-mail is sent in html mode, place image with: <IMAGE>"
+msgid "E-mail is sent in HTML mode, place image with: <IMAGE>"
 msgstr "El missatge s'enviarà en HTML; podeu incorporar-hi imatges amb <IMAGE>"
 
 #. DESC_OCR_COMMAND
-msgid "Enter command to start ocr program"
+msgid "Enter command to start OCR program"
 msgstr "Introduïu l'ordre per a iniciar el programa d'OCR"
 
 #. DESC_OCR_INPUTFILE_OPT
-msgid "Enter option of the ocr program to define input file"
+msgid "Enter option of the OCR program to define input file"
 msgstr "Introduïu l'opció del programa d'OCR per a definir el fitxer d'entrada"
 
 #. DESC_OCR_OUTPUTFILE_OPT
-msgid "Enter option of the ocr program to define output file"
+msgid "Enter option of the OCR program to define output file"
 msgstr ""
 "Introduïu l'opció del programa d'OCR per a definir el fitxer de sortida"
 
 #. DESC_OCR_USE_GUI_PIPE_OPT
-msgid "Define if the ocr program supports gui progress pipe"
+msgid "Define if the OCR program supports gui progress pipe"
 msgstr ""
 "Especifiqueu si el programa d'OCR permet l'ús d'un conducte de progrés a la "
 "interfície gràfica"
 
 #. DESC_OCR_OUTFD_OPT
 msgid ""
-"Enter option of the ocr program to define output filedescripor in GUI mode"
+"Enter option of the OCR program to define output filedescripor in GUI mode"
 msgstr ""
 "Introduïu l'opció del programa d'OCR per a definir el descriptor del fitxer "
 "de sortida en mode gràfic"
@@ -2366,9 +2344,8 @@ msgid "write"
 msgstr "escriptura"
 
 #. DESC_PERMISSION_SEARCH
-#, fuzzy
 msgid "search"
-msgstr "Usuari"
+msgstr "cerca"
 
 #. DESC_ADD_BATCH
 msgid "Add selection for batch scan"
@@ -2387,7 +2364,7 @@ msgid "Pick black point"
 msgstr "Tria un punt negre"
 
 #. DESC_ZOOM_FULL
-msgid "Use full scanarea"
+msgid "Use full scan area"
 msgstr "Usa tota l'àrea d'escaneig"
 
 #. DESC_ZOOM_OUT
@@ -2411,12 +2388,12 @@ msgstr "Desfés l'última ampliació"
 msgid "Select visible area"
 msgstr "Seleccioneu l'àrea visible"
 
-#. DESC_AUTOSELECT_SCANAREA
-msgid "Autoselect scanarea"
+#. DESC_AUTOSELECT_SCAN_AREA
+msgid "Autoselect scan area"
 msgstr "Selecciona automàticament l'àrea d'escaneig"
 
-#. DESC_AUTORAISE_SCANAREA
-msgid "Autoraise scanarea"
+#. DESC_AUTORAISE_SCAN_AREA
+msgid "Autoraise scan area"
 msgstr "Posa davant automàticament l'àrea d'escaneig"
 
 #. DESC_DELETE_IMAGES
@@ -2426,16 +2403,16 @@ msgstr "Buida la memòria cau de la imatge de previsualització"
 #. DESC_PRESET_AREA
 msgid ""
 "Preset area:\n"
-"To add new area or edit an existing area use contect menu (right mouse "
+"To add new area or edit an existing area use context menu (alternate mouse "
 "button)."
 msgstr ""
 "Àrea prefixada:\n"
 "Per a afegir una àrea nova o editar-ne una d'existent, useu el menú "
-"contextual (botó dret del ratolí)"
+"contextual (botó secundari del ratolí)"
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
-msgstr "Rota la previsualització i l'escaneig"
+msgstr "Gira la previsualització i l'escaneig"
 
 #. DESC_RATIO
 msgid "Aspect ratio of selection"
@@ -2458,16 +2435,16 @@ msgid "Clone image"
 msgstr "Clona la imatge"
 
 #. DESC_ROTATE90
-msgid "Rotate image 90 degree"
-msgstr "Rota la imatge 90 graus"
+msgid "Rotate image 90 degrees"
+msgstr "Gira la imatge 90 graus"
 
 #. DESC_ROTATE180
-msgid "Rotate image 180 degree"
-msgstr "Rota la imatge 180 graus"
+msgid "Rotate image 180 degrees"
+msgstr "Gira la imatge 180 graus"
 
 #. DESC_ROTATE270
-msgid "Rotate image 270 degree"
-msgstr "Rota la imatge 270 graus"
+msgid "Rotate image 270 degrees"
+msgstr "Gira la imatge 270 graus"
 
 #. DESC_MIRROR_X
 msgid "Mirror image at vertical axis"
@@ -2502,11 +2479,11 @@ msgid "Y-Scale factor"
 msgstr "Factor d'escala en Y"
 
 #. DESC_SCALE_WIDTH
-msgid "Scale image to width [in pixel]"
+msgid "Scale image to width [pixels]"
 msgstr "Escala la imatge a l'amplada especificada (en píxels)"
 
 #. DESC_SCALE_HEIGHT
-msgid "Scale image to height [in pixel]"
+msgid "Scale image to height [pixels]"
 msgstr "Escala la imatge a l'alçària especificada (en píxels)"
 
 #. DESC_BATCH_LIST_EMPTY
@@ -2538,34 +2515,28 @@ msgid "Turns on automatic mode"
 msgstr "Activa el mode automàtic"
 
 #. DESC_BUTTON_SCANNER_DEFAULT_COLOR_ICM_PROFILE_BROWSE
-#, fuzzy
 msgid "Browse for scanner default color ICM-profile"
-msgstr "Navegueu per a trobar el nom de fitxer de la imatge"
+msgstr "Navegueu fins al perfil ICM de color predeterminat de l'escàner"
 
 #. DESC_BUTTON_SCANNER_DEFAULT_GRAY_ICM_PROFILE_BROWSE
-#, fuzzy
 msgid "Browse for scanner default gray ICM-profile"
-msgstr "Navegueu per a trobar el nom de fitxer de la imatge"
+msgstr "Navegueu fins al perfil ICM de grisos predeterminat de l'escàner"
 
 #. DESC_BUTTON_DISPLAY_ICM_PROFILE_BROWSE
-#, fuzzy
 msgid "Browse for display ICM-profile"
-msgstr "Navegueu per a trobar el nom de fitxer de la imatge"
+msgstr "Navegueu fins al perfil ICM de la pantalla"
 
 #. DESC_BUTTON_PRINTER_ICM_PROFILE_BROWSE
-#, fuzzy
 msgid "Browse for printer ICM-profile"
-msgstr "Navegueu per a trobar el nom de fitxer de la imatge"
+msgstr "Navegueu fins al perfil ICM de la impressora"
 
 #. DESC_BUTTON_CUSTOM_PROOFING_ICM_PROFILE_BROWSE
-#, fuzzy
 msgid "Browse for custom proofing ICM-profile"
-msgstr "Navegueu per a trobar el nom de fitxer de la imatge"
+msgstr "Navegueu fins al perfil ICM per a proves personalitzades"
 
 #. DESC_BUTTON_WORKING_COLOR_SPACE_ICM_PROFILE_BROWSE
-#, fuzzy
 msgid "Browse for working color space ICM-profile"
-msgstr "Navegueu per a trobar el nom de fitxer de la imatge"
+msgstr "Navegueu fins al perfil ICM de l'espai de color amb què treballareu"
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
@@ -2631,7 +2602,7 @@ msgid "Failed to open"
 msgstr "No s'ha pogut obrir"
 
 #. ERR_CREATE_SECURE_FILE
-msgid "Could not create secure file (may be a link does exist):"
+msgid "Could not create secure file (maybe a link does exist):"
 msgstr "No s'ha pogut crear un fitxer segur (potser hi ha un enllaç):"
 
 #. ERR_FAILED_PRINTER_PIPE
@@ -2712,7 +2683,7 @@ msgid "Failed to execute fax command:"
 msgstr "No s'ha pogut executar l'ordre de fax:"
 
 #. ERR_FAILED_EXEC_OCR_CMD
-msgid "Failed to execute ocr command:"
+msgid "Failed to execute OCR command:"
 msgstr "No s'ha pogut executar l'ordre d'OCR:"
 
 #. ERR_BAD_FRAME_FORMAT
@@ -2777,7 +2748,7 @@ msgid ""
 "You try to run XSane as ROOT, that really is DANGEROUS!\n"
 "\n"
 "Do not send any bug reports when you\n"
-"have any problem while running XSane as root:\n"
+"have any problems while running XSane as root:\n"
 "YOU ARE ALONE!"
 msgstr ""
 "Esteu provant d'executar l'XSane com a usuari root. Això és MOLT PERILLÓS.\n"
@@ -2860,34 +2831,28 @@ msgid "Unsupported %d-bit output format: %s"
 msgstr "Format de sortida de %d bits no permés: %s"
 
 #. ERR_CMS_CONVERSION
-#, fuzzy
 msgid "Error during CMS conversion:"
-msgstr "S'ha produït un error en desar:"
+msgstr "S'ha produït un error en la conversió CMS:"
 
 #. ERR_CMS_OPEN_ICM_FILE
-#, fuzzy
 msgid "Could not open"
 msgstr "No s'ha pogut obrir"
 
 #. CMS_SCANNER_ICM
-#, fuzzy
 msgid "scanner ICM profile"
-msgstr "Elimina la impressora"
+msgstr "Perfil ICM de l'escàner"
 
 #. CMS_DISPLAY_ICM
-#, fuzzy
 msgid "display ICM profile"
-msgstr "Navegueu per a trobar el nom de fitxer de la imatge"
+msgstr "Perfil ICM de la pantalla"
 
 #. CMS_PROOF_ICM
-#, fuzzy
 msgid "proofing ICM profile"
-msgstr "Elimina la impressora"
+msgstr "Perfil ICM per a proves"
 
 #. ERR_CMS_CREATE_TRANSFORM
-#, fuzzy
 msgid "Could not create transform"
-msgstr "No s'ha pogut crear el projecte de fax"
+msgstr "No s'ha pogut crear la trasformació"
 
 #. WARN_VIEWER_IMAGE_NOT_SAVED
 msgid "viewer image is not saved"
@@ -2895,31 +2860,27 @@ msgstr "La imatge del visualitzador no s'ha desat"
 
 #. FILE_FILTER_ALL_FILES
 msgid "All files"
-msgstr ""
+msgstr "Tots els fitxers"
 
 #. FILE_FILTER_IMAGES
-#, fuzzy
 msgid "Images"
-msgstr "Pàgines:"
+msgstr "Imatges"
 
 #. FILE_FILTER_XBL
-#, fuzzy
 msgid "XSane batch list"
-msgstr "Desa el lot d'escaneig"
+msgstr "Lot d'escaneig de l'XSane"
 
 #. FILE_FILTER_ICM
 msgid "ICC/ICM Profiles"
-msgstr ""
+msgstr "Perfils ICC/ICM"
 
 #. FILE_FILTER_DRC
-#, fuzzy
 msgid "XSane device preferences"
-msgstr "Desa la configuració del dispositiu en sortir"
+msgstr "Preferències de dispositiu de l'XSane"
 
 #. FILE_FILTER_RC
-#, fuzzy
 msgid "XSane preferences"
-msgstr "Preferències"
+msgstr "Preferències de l'XSane"
 
 #. TEXT_USAGE
 msgid "Usage:"
@@ -2976,7 +2937,7 @@ msgstr ""
 " -l, --license                imprimeix informació de la llicència\n"
 "\n"
 " -d, --device-settings file   carrega una configuració de dispositiu d'un "
-"fitxer (sense \".drc\")\n"
+"fitxer (sense «.drc»)\n"
 "\n"
 " -V, --viewer                 inicia amb el mode de visualització actiu "
 "(predeterminat)\n"
@@ -3042,7 +3003,7 @@ msgid ""
 "3) The permissions for the device file do not allow you to use it - try as "
 "root\n"
 "4) The backend is not loaded by SANE (man sane-dll)\n"
-"5) The backend is not configured correct (man sane-\"backendname\")\n"
+"5) The backend is not configured correctly (man sane-\"backendname\")\n"
 "6) Possibly there is more than one SANE version installed"
 msgstr ""
 "Possibles motius:\n"
@@ -3051,8 +3012,8 @@ msgstr ""
 "3) Els permisos del fitxer de dispositiu no permeten que l'useu. Proveu com "
 "a root\n"
 "4) El SANE no ha carregat el controlador (man sane-dll)\n"
-"5) El controlador no s'ha configurat correctament (man sane-"
-"\"nomdelcontrolador\")\n"
+"5) El controlador no s'ha configurat correctament (man "
+"sane-«nomdelcontrolador»)\n"
 "6) Probablement hi hagi més d'una versió del SANE instal·lada"
 
 #. strings that are used in structures, so it is not allowed to use _()/gettext() here
@@ -3219,7 +3180,7 @@ msgstr "Ha fallat la connexió SMTP"
 
 #. TEXT_EMAIL_STATUS_SMTP_ERR_FROM
 msgid "From entry not accepted"
-msgstr "No s'ha acceptat el camp \"De:\""
+msgstr "No s'ha acceptat el camp «De:»"
 
 #. TEXT_EMAIL_STATUS_SMTP_ERR_RCPT
 msgid "Receiver entry not accepted"
@@ -3238,7 +3199,7 @@ msgid "E-mail has been sent"
 msgstr "S'ha enviat el missatge"
 
 #. TEXT_FAX_STATUS_QUEUEING_FAX
-msgid "Queueing Fax"
+msgid "Queueing fax"
 msgstr "S'està posant el fax a la cua"
 
 #. TEXT_FAX_STATUS_FAX_QUEUED
@@ -3299,62 +3260,3 @@ msgstr "Sense memòria"
 
 msgid "Access to resource has been denied"
 msgstr "S'ha denegat l'accés al recurs"
-
-#, fuzzy
-#~ msgid "select scanner transmissive ICM-profile"
-#~ msgstr "Elimina la impressora"
-
-#, fuzzy
-#~ msgid "select scanner transmissive gray ICM-profile"
-#~ msgstr "Elimina la impressora"
-
-#, fuzzy
-#~ msgid "Scanner reflective ICM-profile"
-#~ msgstr "Elimina la impressora"
-
-#, fuzzy
-#~ msgid "Scanner reflective gray ICM-profile"
-#~ msgstr "Elimina la impressora"
-
-#, fuzzy
-#~ msgid "Scanner transmissive gray ICM-profile"
-#~ msgstr "Elimina la impressora"
-
-#, fuzzy
-#~ msgid "Scanner reflektive ICM-profile"
-#~ msgstr "Elimina la impressora"
-
-#, fuzzy
-#~ msgid "Browse for scanner transmissive ICM-profile"
-#~ msgstr "Navegueu per a trobar el nom de fitxer de la imatge"
-
-#, fuzzy
-#~ msgid "Browse for scanner transmissive gray ICM-profile"
-#~ msgstr "Navegueu per a trobar el nom de fitxer de la imatge"
-
-#~ msgid "GIMP can't handle depth %d bits/color"
-#~ msgstr "El Gimp no pot gestionar una profunditat de %d bits/color"
-
-#, fuzzy
-#~ msgid "scanner reflective ICM profile"
-#~ msgstr "Elimina la impressora"
-
-#, fuzzy
-#~ msgid "Embed scanner/source ICM profile for GIMP"
-#~ msgstr "Elimina la impressora"
-
-#~ msgid "Enter name of fax project"
-#~ msgstr "Introduïu el nom del projecte de fax"
-
-#~ msgid "Enter name of e-mail project"
-#~ msgstr "Introduïu el nom del projecte de correu electrònic"
-
-#~ msgid "Enter name of multipage project"
-#~ msgstr "Introduïu el nom del projecte de multipàgina"
-
-#~ msgid ""
-#~ "Gimp does not support depth 16 bits/color.\n"
-#~ "Do you want to reduce the depth to 8 bits/color?"
-#~ msgstr ""
-#~ "El Gimp no permet l'ús de 16 bits per color.\n"
-#~ "Voleu reduir la profunditat a 8 bits per color?"

@@ -408,7 +408,7 @@ static void xsane_fax_project_load()
   g_signal_connect(GTK_OBJECT(xsane.fax_receiver_entry), "changed", (GtkSignalFunc) xsane_fax_receiver_changed_callback, NULL);
 
   gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), _(xsane.fax_status));
-  gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
+  xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -500,13 +500,13 @@ void xsane_fax_project_save()
     snprintf(buf, 32, "%s@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", xsane.fax_status); /* fill 32 characters status line */
     fprintf(projectfile, "%s\n", buf); /* first line is status of mail */
     gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), _(xsane.fax_status));
-    gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
+    xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
   }
   else
   {
     fprintf(projectfile, "                                \n"); /* no mail status */
     gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), "");
-    gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
+    xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
   }
 
   if (xsane.fax_receiver)
@@ -578,7 +578,7 @@ static void xsane_fax_receiver_changed_callback(GtkWidget *widget, gpointer data
   xsane_fax_project_save();
 
   gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), _(xsane.fax_status));
-  gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
+  xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
@@ -789,16 +789,15 @@ static void xsane_fax_entry_rename_callback(GtkWidget *widget, gpointer list)
     xsane_set_window_icon(rename_dialog, 0);
 
     /* set the main vbox */
-    vbox = gtk_vbox_new(FALSE, 0);
-    gtk_container_set_border_width(GTK_CONTAINER(vbox), 0);
+    vbox = gtk_vbox_new(FALSE, 10);
+    gtk_container_set_border_width(GTK_CONTAINER(vbox), 10);
     gtk_container_add(GTK_CONTAINER(rename_dialog), vbox);
     gtk_widget_show(vbox);
 
     /* set the main hbox */
     hbox = gtk_hbox_new(FALSE, 0);
-    xsane_separator_new(vbox, 2);
-    gtk_box_pack_end(GTK_BOX(vbox), hbox, FALSE, FALSE, 5);
-    gtk_container_set_border_width(GTK_CONTAINER(hbox), 5);
+    gtk_box_pack_end(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
+    gtk_container_set_border_width(GTK_CONTAINER(hbox), 0);
     gtk_widget_show(hbox); 
 
     gtk_window_set_position(GTK_WINDOW(rename_dialog), GTK_WIN_POS_CENTER);
@@ -1106,7 +1105,7 @@ static int xsane_fax_convert_pnm_to_ps(char *source_filename, char *fax_filename
   /* open progressbar */
   snprintf(buf, sizeof(buf), "%s - %s", PROGRESS_CONVERTING_DATA, source_filename);
   gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), buf);
-  gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
+  xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
 
   while (gtk_events_pending())
   {
@@ -1173,7 +1172,7 @@ static int xsane_fax_convert_pnm_to_ps(char *source_filename, char *fax_filename
   }
 
   gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), "");
-  gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
+  xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
 
   while (gtk_events_pending())
   {
@@ -1325,7 +1324,7 @@ static void xsane_fax_send()
     xsane.fax_status = strdup(TEXT_FAX_STATUS_QUEUEING_FAX);
     xsane_fax_project_update_project_status();
     gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), _(xsane.fax_status));
-    gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
+    xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
 
     while (pid)
     {
@@ -1362,7 +1361,7 @@ static void xsane_fax_send()
     xsane.fax_status = strdup(TEXT_FAX_STATUS_FAX_QUEUED);
     xsane_fax_project_update_project_status();
     gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), _(xsane.fax_status));
-    gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
+    xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
 
     xsane_set_sensitivity(TRUE);
 

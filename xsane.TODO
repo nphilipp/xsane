@@ -28,6 +28,9 @@ Sign explaination:
     # allow additional image data after each row (is sane standard conform)
     - make visible if the user did a final scan with the recent settings
 
+ preview/copy+fax:
+    # make preview_update_maximum_output_size() depend on
+      scan position instead of printer output position
 
  fax-function:
 ++  # add new image types to fax fileformat: tiff/pbm/g3

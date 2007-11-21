@@ -1,26 +1,26 @@
-# translation of da-ny.po to Danish
-# Dansk oversættelse af XSane.
-# Copyright (C) 2002 Mogens Jæger <mogensjaeger@get2net.dk>
+# Finnish translation for xsane
+# Copyright (c) (c) 2006 Canonical Ltd, and Rosetta Contributors 2006
+# This file is distributed under the same license as the xsane package.
+# Elias Julkunen <elias.julkunen@gmail.com>, 2006
+# Timo Jyrinki <timo.jyrinki@iki.fi>, 2007
+# Antti Kajander <antti.kajander@gmail.com>, 2006
 #
-# Mogens Jaeger <mogensjaeger@get2net.dk>, 2004, 2005.
-# Mogens Jaeger <mogens@jaeger.tf>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: XSANE 0.99\n"
+"Project-Id-Version: xsane\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-13 09:22+0200\n"
-"PO-Revision-Date: 2007-10-01 02:16+0200\n"
-"Last-Translator: Mogens Jaeger <mogens@jaeger.tf>\n"
-"Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
+"PO-Revision-Date: 2007-11-19 10:39+0200\n"
+"Last-Translator: Timo Jyrinki <timo.jyrinki@iki.fi>\n"
+"Language-Team: Finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
 
 #. Please translate this to the correct directory name (eg. german=>de)
 #. XSANE_LANGUAGE_DIR
 msgid "language_dir"
-msgstr "da"
+msgstr "fi"
 
 #. XSANE_COPYRIGHT_SIGN
 msgid "(c)"
@@ -29,674 +29,678 @@ msgstr "(c)"
 #. can be translated with \251
 #. FILENAME_PREFIX_CLONE_OF
 msgid "clone-of-"
-msgstr "klon-af-"
+msgstr ""
 
 #. WINDOW_ABOUT_XSANE
 msgid "About"
-msgstr "Om"
+msgstr "Tietoa"
 
 #. WINDOW_ABOUT_TRANSLATION, MENU_ITEM_ABOUT_TRANSLATION
 #. MENU_ITEM_ABOUT_TRANSLATION
 msgid "About translation"
-msgstr "Om oversættelse"
+msgstr "Tietoa käännöksestä"
 
 #. WINDOW_AUTHORIZE
 msgid "authorization"
-msgstr "autorisation"
+msgstr ""
 
 #. WINDOW_GPL
 msgid "GPL - the license"
-msgstr "GPL - licensen"
+msgstr "GPL-lisenssi"
 
 #. WINDOW_EULA
 msgid "End User License Agreement"
-msgstr "Slutbruger licensaftale"
+msgstr ""
 
 #. WINDOW_INFO
 msgid "info"
-msgstr "information"
+msgstr ""
 
 #. WINDOW_LOAD_BATCH_LIST
 msgid "load batch list"
-msgstr "hent batchliste"
+msgstr ""
 
 #. WINDOW_SAVE_BATCH_LIST
 msgid "save batch list"
-msgstr "gem batchliste"
+msgstr ""
 
 #. WINDOW_BATCH_SCAN
 msgid "batch scan"
-msgstr "batch skan"
+msgstr ""
 
 #. WINDOW_BATCH_RENAME
 msgid "rename batch area"
-msgstr "omdøb batchområde"
+msgstr ""
 
 #. WINDOW_FAX_PROJECT
 msgid "fax project"
-msgstr "fax projekt"
+msgstr ""
 
 #. WINDOW_FAX_PROJECT_BROWSE
+#, fuzzy
 msgid "browse for fax project"
-msgstr "søg efter fax projekt"
+msgstr "Syötä faksiprojektin nimi"
 
 #. WINDOW_FAX_RENAME
 msgid "rename fax page"
-msgstr "omdøb fax side"
+msgstr ""
 
 #. WINDOW_FAX_INSERT
 msgid "insert PS-file into fax"
-msgstr "indsæt PS-fil i fax"
+msgstr ""
 
 #. WINDOW_EMAIL_PROJECT
 msgid "E-mail project"
-msgstr "E-post projekt"
+msgstr ""
 
 #. WINDOW_EMAIL_PROJECT_BROWSE
+#, fuzzy
 msgid "browse for email project"
-msgstr "søg efter e-post projekt"
+msgstr "Projektia luettaessa tapahtui virhe"
 
 #. WINDOW_EMAIL_RENAME
 msgid "rename e-mail image"
-msgstr "omdøb e-post billede"
+msgstr ""
 
 #. WINDOW_EMAIL_INSERT
 msgid "insert file into e-mail"
-msgstr "indsæt fil i e-post"
+msgstr ""
 
 #. WINDOW_MULTIPAGE_PROJECT
 msgid "multipage project"
-msgstr "flersidet projekt"
+msgstr ""
 
 #. WINDOW_MULTIPAGE_PROJECT_BROWSE
+#, fuzzy
 msgid "browse for multipage project"
-msgstr "søg efter flersidet projekt"
+msgstr "Selaa väliaikaistiedostoja"
 
 #. WINDOW_PRESET_AREA_RENAME
 msgid "rename preset area"
-msgstr "omdøb forvalgt område"
+msgstr ""
 
 #. WINDOW_PRESET_AREA_ADD
 msgid "add preset area"
-msgstr "tilføj forvalgt område"
+msgstr ""
 
 #. WINDOW_MEDIUM_RENAME
 msgid "rename medium"
-msgstr "omdøb medie"
+msgstr ""
 
 #. WINDOW_MEDIUM_ADD
 msgid "add new medium"
-msgstr "tilføj nyt medie"
+msgstr ""
 
 #. WINDOW_SETUP
 msgid "setup"
-msgstr "opsætning"
+msgstr ""
 
 #. WINDOW_HISTOGRAM
 msgid "Histogram"
-msgstr "Histogram"
+msgstr "Histogrammi"
 
 #. WINDOW_GAMMA
 msgid "Gamma curve"
-msgstr "Gammakurve"
+msgstr "Gamma-käyrä"
 
 #. WINDOW_STANDARD_OPTIONS
 msgid "Standard options"
-msgstr "Standard indstillinger"
+msgstr "Perusasetukset"
 
 #. WINDOW_ADVANCED_OPTIONS
 msgid "Advanced options"
-msgstr "Avancerede indstillinger"
+msgstr "Lisäasetukset"
 
 #. WINDOW_DEVICE_SELECTION
 msgid "device selection"
-msgstr "valg af enhed"
+msgstr ""
 
 #. WINDOW_PREVIEW
 msgid "Preview"
-msgstr "Forhåndsvisning"
+msgstr "Esikatselu"
 
 #. WINDOW_VIEWER
 #. MENU_ITEM_VIEWER
 msgid "Viewer"
-msgstr "Viser"
+msgstr "Katselin"
 
 #. WINDOW_VIEWER_OUTPUT_FILENAME
 msgid "Viewer: select output filename"
-msgstr "Viser: vælg uddatafilnavn"
+msgstr "Katselin: valitse ulostulon tiedostonimi"
 
 #. WINDOW_OCR_OUTPUT_FILENAME
 msgid "Select output filename for OCR text file"
-msgstr "Vælg uddatafilnavn for tekstgenkendelsesfil"
+msgstr ""
 
 #. WINDOW_OUTPUT_FILENAME
 msgid "select output filename"
-msgstr "vælg uddatafilnavn"
+msgstr ""
 
 #. WINDOW_SAVE_SETTINGS
 msgid "save device settings"
-msgstr "gem enhedsindstillinger"
+msgstr "tallenna laitteen asetukset"
 
 #. WINDOW_LOAD_SETTINGS
 msgid "load device settings"
-msgstr "indlæs enhedsindstillinger"
+msgstr "lataa laitteen asetukset"
 
 #. WINDOW_CHANGE_WORKING_DIR
 msgid "change working directory"
-msgstr "skift arbejds bibliotek"
+msgstr "vaihda työhakemistoa"
 
 #. WINDOW_TMP_PATH
 msgid "select temporary directory"
-msgstr "vælg midlertidigt bibliotek"
+msgstr "valitse väliaikaishakemisto"
 
 #. WINDOW_SCALE
 #. DESC_VIEWER_SCALE
 msgid "Scale image"
-msgstr "Skalér billede"
+msgstr "Skaalaa kuvaa"
 
 #. WINDOW_DESPECKLE
 #. DESC_VIEWER_DESPECKLE
 msgid "Despeckle image"
-msgstr "Fjern kornstøj fra billede"
+msgstr "Poista laikut kuvasta"
 
 #. WINDOW_BLUR
 #. DESC_VIEWER_BLUR
 msgid "Blur image"
-msgstr "Slør billede"
+msgstr "Sumenna kuvaa"
 
 #. WINDOW_STORE_MEDIUM
 msgid "Store medium definition"
-msgstr "Gem medie definition"
+msgstr ""
 
 #. WINDOW_NO_DEVICES
 msgid "No devices available"
-msgstr "Ingen enheder til rådighed"
+msgstr "Ei laitteita käytettävissä"
 
 #. WINDOW_SCANNER_DEFAULT_COLOR_ICM_PROFILE
 msgid "select scanner default color ICM-profile"
-msgstr "vælg skannerens standard ICM-profil"
+msgstr ""
 
 #. WINDOW_SCANNER_DEFAULT_GRAY_ICM_PROFILE
 msgid "select scanner default gray ICM-profile"
-msgstr "vælg skannerens standard grå ICM-profil"
+msgstr ""
 
 #. WINDOW_DISPLAY_ICM_PROFILE
 msgid "select display ICM-profile"
-msgstr "vælg skærm ICM-profil"
+msgstr ""
 
 #. WINDOW_CUSTOM_PROOFING_ICM_PROFILE
 msgid "select custom proofing ICM-profile"
-msgstr "vælg brugerdefineret ICM-profil"
+msgstr ""
 
 #. WINDOW_WORKING_COLOR_SPACE_ICM_PROFILE
 msgid "select working color space ICM-profile"
-msgstr "vælg ICM-profil for arbejdsfarverum"
+msgstr ""
 
 #. WINDOW_PRINTER_ICM_PROFILE
+#, fuzzy
 msgid "select printer ICM-profile"
-msgstr "vælg printer ICM-profil"
+msgstr "Poista tulostin"
 
 #. MENU_FILE
 msgid "File"
-msgstr "Fil"
+msgstr "Tiedosto"
 
 #. MENU_PREFERENCES
 msgid "Preferences"
-msgstr "Indstillinger"
+msgstr "Asetukset"
 
 #. MENU_VIEW
 msgid "View"
-msgstr "Vis"
+msgstr "Näytä"
 
 #. MENU_WINDOW
 msgid "Window"
-msgstr "Vindue"
+msgstr "Ikkuna"
 
 #. MENU_HELP
 #. BUTTON_HELP
 msgid "Help"
-msgstr "Hjælp"
+msgstr "Ohje"
 
 #. MENU_EDIT
 msgid "Edit"
-msgstr "Ret"
+msgstr "Muokkaa"
 
 #. MENU_FILTERS
 msgid "Filters"
-msgstr "Filtre"
+msgstr "Suotimet"
 
 #. MENU_GEOMETRY
 msgid "Geometry"
-msgstr "Geometri"
+msgstr "Geometria"
 
 #. MENU_COLOR_MANAGEMENT
 #. NOTEBOOK_COLOR_MANAGEMENT_OPTIONS
 msgid "Color management"
-msgstr "Farvestyring"
+msgstr ""
 
 #. MENU_ITEM_ABOUT_XSANE
 msgid "About XSane"
-msgstr "Om XSane"
+msgstr "Tietoja XSanesta"
 
 #. MENU_ITEM_INFO
 msgid "Info"
-msgstr "Information"
+msgstr "Tietoja"
 
 #. MENU_ITEM_QUIT
 msgid "Quit"
-msgstr "Afslut"
+msgstr "Poistu"
 
 #. MENU_ITEM_SAVE_IMAGE
 #. DESC_VIEWER_SAVE
 msgid "Save image"
-msgstr "Gem billede"
+msgstr "Tallenna kuva"
 
 #. MENU_ITEM_OCR
 msgid "OCR - save as text"
-msgstr "Tekstgenkendelse - gem som tekst"
+msgstr "OCR - tallenna tekstinä"
 
 #. MENU_ITEM_CLONE
 msgid "Clone"
-msgstr "Klon"
+msgstr "Kloonaa"
 
 #. MENU_ITEM_SCALE
 msgid "Scale"
-msgstr "Skalér"
+msgstr "Skaalaa"
 
 #. MENU_ITEM_CLOSE
 #. BUTTON_CLOSE
 msgid "Close"
-msgstr "Luk"
+msgstr "Sulje"
 
 #. MENU_ITEM_UNDO
 msgid "Undo"
-msgstr "Fortryd ændring"
+msgstr "Kumoa"
 
 #. MENU_ITEM_DESPECKLE
 msgid "Despeckle"
-msgstr "Fjern kornstøj"
+msgstr "Poista laikut"
 
 #. MENU_ITEM_BLUR
 msgid "Blur"
-msgstr "Slør"
+msgstr "Sumenna"
 
 #. MENU_ITEM_ROTATE90
 msgid "Rotate 90"
-msgstr "Rotér 90"
+msgstr "Kierrä 90"
 
 #. MENU_ITEM_ROTATE180
 msgid "Rotate 180"
-msgstr "Rotér 180"
+msgstr "Kierrä 180"
 
 #. MENU_ITEM_ROTATE270
 msgid "Rotate 270"
-msgstr "Rotér 270"
+msgstr "Kierrä 270"
 
 #. MENU_ITEM_MIRROR_X
 msgid "Mirror |"
-msgstr "Spejl |"
+msgstr "Peilaa |"
 
 #. MENU_ITEM_MIRROR_Y
 msgid "Mirror -"
-msgstr "Spejl -"
+msgstr "Peilaa -"
 
 #. FRAME_RAW_IMAGE
 msgid "Raw image"
-msgstr "Oprindeligt billede"
+msgstr "Raakakuva"
 
 #. FRAME_ENHANCED_IMAGE
 msgid "Enhanced image"
-msgstr "Forbedret billede"
+msgstr ""
 
 #. BUTTON_SCAN
 msgid "Scan"
-msgstr "Skan"
+msgstr "Lue kuva"
 
 #. BUTTON_OK
 msgid "Ok"
-msgstr "O.k."
+msgstr "Ok"
 
 #. BUTTON_ACCEPT
 msgid "Accept"
-msgstr "Acceptér"
+msgstr "Hyväksy"
 
 #. BUTTON_NOT_ACCEPT
 msgid "Not accept"
-msgstr "Afvis"
+msgstr "Älä hyväksy"
 
 #. BUTTON_APPLY
 msgid "Apply"
-msgstr "Anvend"
+msgstr "Toteuta"
 
 #. BUTTON_CANCEL
 msgid "Cancel"
-msgstr "Afbryd"
+msgstr "Peru"
 
 #. BUTTON_REDUCE
 msgid "Reduce"
-msgstr "Reducér"
+msgstr "Supista"
 
 #. BUTTON_CONT_AT_OWN_RISK
 msgid "Continue at your own risk"
-msgstr "Fortsæt på egen risiko"
+msgstr ""
 
 #. BUTTON_BROWSE
 msgid "Browse"
-msgstr "Gennemsøg"
+msgstr "Selaa"
 
 #. BUTTON_OVERWRITE
 msgid "Overwrite"
-msgstr "Overskriv"
+msgstr "Korvaa"
 
 #. BUTTON_BATCH_LIST_SCAN
 msgid "Scan batch list"
-msgstr "Skan batch liste"
+msgstr ""
 
 #. BUTTON_BATCH_AREA_SCAN
 msgid "Scan selected area"
-msgstr "Skan valgt område"
+msgstr "Lue valittu osa kuvasta"
 
 #. BUTTON_PAGE_DELETE
 msgid "Delete page"
-msgstr "Slet side"
+msgstr "Poista sivu"
 
 #. BUTTON_PAGE_SHOW
 msgid "Show page"
-msgstr "Vis side"
+msgstr "Näytä sivu"
 
 #. BUTTON_PAGE_RENAME
 msgid "Rename page"
-msgstr "Omdøb side"
+msgstr "Muuta sivun nimeä"
 
 #. BUTTON_IMAGE_DELETE
 msgid "Delete image"
-msgstr "Slet billede"
+msgstr "Poista kuva"
 
 #. BUTTON_IMAGE_SHOW
 msgid "Show image"
-msgstr "Vis billede"
+msgstr "Näytä kuva"
 
 #. BUTTON_IMAGE_EDIT
 msgid "Edit image"
-msgstr "Ret billede"
+msgstr "Muokkaa kuvaa"
 
 #. BUTTON_IMAGE_RENAME
 msgid "Rename image"
-msgstr "Omdøb billede"
+msgstr "Muuta kuvan nimeä"
 
 #. BUTTON_FILE_INSERT
 msgid "Insert file"
-msgstr "Indsæt fil"
+msgstr "Lisää tiedosto"
 
 #. BUTTON_CREATE_PROJECT
 msgid "Create project"
-msgstr "Dan projekt"
+msgstr "Luo projekti"
 
 #. BUTTON_SEND_PROJECT
 msgid "Send project"
-msgstr "Send projekt"
+msgstr "Lähetä projekti"
 
 #. BUTTON_SAVE_MULTIPAGE
 msgid "Save multipage file"
-msgstr "Gem flersidefil"
+msgstr ""
 
 #. BUTTON_DELETE_PROJECT
 msgid "Delete project"
-msgstr "Slet projekt"
+msgstr "Poista projekti"
 
 #. BUTTON_ADD_PRINTER
 msgid "Add printer"
-msgstr "Tilføj printer"
+msgstr "Lisää tulostin"
 
 #. BUTTON_DELETE_PRINTER
 msgid "Delete printer"
-msgstr "Slet printer"
+msgstr "Poista tulostin"
 
 #. BUTTON_PREVIEW_ACQUIRE
 msgid "Acquire preview"
-msgstr "Rekvirer forhåndsvisning"
+msgstr "Lue esikatselukuva"
 
 #. BUTTON_PREVIEW_CANCEL
 msgid "Cancel preview"
-msgstr "Afbryd forhåndsvisning"
+msgstr "Peru esikatselu"
 
 #. BUTTON_DISCARD_IMAGE
 msgid "Discard image"
-msgstr "Kassér billede"
+msgstr "Hylkää kuva"
 
 #. BUTTON_DISCARD_ALL_IMAGES
 msgid "Discard all images"
-msgstr "Kassér alle billeder"
+msgstr "Hylkää kaikki kuvat"
 
 #. BUTTON_DO_NOT_CLOSE
 msgid "Do not close"
-msgstr "Undlad at lukke"
+msgstr "Älä sulje"
 
 #. BUTTON_SCALE_BIND
 msgid "Bind scale"
-msgstr "Fasthold skalering"
+msgstr "Sido skaalaus"
 
 #. RADIO_BUTTON_FINE_MODE
 msgid "Fine mode"
-msgstr "Fin tilstand"
+msgstr ""
 
 #. RADIO_BUTTON_HTML_EMAIL
 msgid "HTML e-mail"
-msgstr "HTML e-post"
+msgstr ""
 
 #. RADIO_BUTTON_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device preferences at exit"
-msgstr "Gem enhedsindstillinger ved afslutning"
+msgstr "Tallenna laiteasetukset poistuttaessa"
 
 #. RADIO_BUTTON_OVERWRITE_WARNING
 msgid "Overwrite warning"
-msgstr "Overskriv advarsel"
+msgstr "Korvausvaroitus"
 
 #. RADIO_BUTTON_SKIP_EXISTING_NRS
 msgid "Skip existing filenames"
-msgstr "Drop eksisterende filnavne"
+msgstr "Ohita olemassaolevat tiedostonimet"
 
 #. RADIO_BUTTON_SAVE_PS_FLATEDECODED
 msgid "Save postscript zlib compressed (PS level 3)"
-msgstr "Gem postscript zlib-komprimeret (PS level 3)"
+msgstr ""
 
 #. RADIO_BUTTON_SAVE_PDF_FLATEDECODED
 msgid "Save PDF zlib compressed"
-msgstr "Gem PDF zlib-komprimeret"
+msgstr ""
 
 #. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
 msgid "Save 16bit PNM in ASCII format"
-msgstr "Gem 16 bit PNM i ASCII format"
+msgstr ""
 
 #. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
 msgid "Reduce 16 bit image to 8 bit"
-msgstr "Reducér 16 bit billede til 8 bit"
+msgstr ""
 
 #. RADIO_BUTTON_WINDOW_FIXED
 msgid "Main window size fixed"
-msgstr "Hoved-vinduesstørrelse er fast"
+msgstr "Kiinteä pääikkunan koko"
 
 #. RADIO_BUTTON_DISABLE_GIMP_PREVIEW_GAMMA
+#, fuzzy
 msgid "Disable GIMP preview gamma"
-msgstr "Deaktivér GIMP forhåndsvisnings-gamma"
+msgstr "Ota gimp-esikatselugamma pois käytöstä"
 
 #. RADIO_BUTTON_PRIVATE_COLORMAP
 msgid "Use private colormap"
-msgstr "Brug egen farvemappe"
+msgstr ""
 
 #. RADIO_BUTTON_AUTOENHANCE_GAMMA
 msgid "Autoenhance gamma"
-msgstr "Automatisk optimering af gamma"
+msgstr "Paranna gamma-arvoa automaattisesti"
 
 #. RADIO_BUTTON_PRESELECT_SCAN_AREA
+#, fuzzy
 msgid "Preselect scan area"
-msgstr "Forvalg skanningsområde"
+msgstr "Esivalitse kuvanlukualue"
 
 #. RADIO_BUTTON_AUTOCORRECT_COLORS
 msgid "Autocorrect colors"
-msgstr "Autooptimér farver"
+msgstr "Korjaa värit automaattisesti"
 
 #. RADIO_BUTTON_OCR_USE_GUI_PIPE
 msgid "Use GUI progress pipe"
-msgstr "Brug GUI fremskridtsrør"
+msgstr ""
 
 #. RADIO_BUTTON_CMS_BPC
 #. MENU_ITEM_CMS_BLACK_POINT_COMPENSATION
 msgid "Black point compensation"
-msgstr "Sort-punkt kompensation"
+msgstr ""
 
 #. TEXT_SCANNING_DEVICES
 msgid "scanning for devices"
-msgstr "Skanner efter enheder"
+msgstr "etsitään laitteita"
 
 #. TEXT_AVAILABLE_DEVICES
 msgid "Available devices:"
-msgstr "Enheder til rådighed:"
+msgstr "Löydetyt laitteet:"
 
 #. TEXT_FILETYPE
 msgid "Type"
-msgstr "Type"
+msgstr "Tyyppi"
 
 #. TEXT_CMS_FUNCTION
 #. DESC_CMS_FUNCTION
 msgid "Color management function"
-msgstr "Farvestyringsfunktion"
+msgstr ""
 
 #. TEXT_SCANNER_BACKEND
 msgid "Scanner and backend:"
-msgstr "Skanner og bagende:"
+msgstr "Kuvanlukija ja taustaohjelma:"
 
 #. TEXT_VENDOR
 msgid "Vendor:"
-msgstr "Fremstillet af:"
+msgstr "Valmistaja:"
 
 #. TEXT_MODEL
 msgid "Model:"
-msgstr "Model:"
+msgstr "Malli:"
 
 #. TEXT_TYPE
 msgid "Type:"
-msgstr "Type:"
+msgstr "Tyyppi:"
 
 #. TEXT_DEVICE
 msgid "Device:"
-msgstr "Enhed:"
+msgstr "Laite:"
 
 #. TEXT_LOADED_BACKEND
 msgid "Loaded backend:"
-msgstr "Anvendt bagende:"
+msgstr "Ladattu taustaohjelma:"
 
 #. TEXT_SANE_VERSION
 msgid "Sane version:"
-msgstr "Version af Sane:"
+msgstr "Sane-versio:"
 
 #. TEXT_RECENT_VALUES
 msgid "Recent values:"
-msgstr "Nuværende værdier:"
+msgstr "Viimeaikaiset arvot:"
 
 #. TEXT_GAMMA_CORR_BY
 msgid "Gamma correction by:"
-msgstr "Gammakorrektion med:"
+msgstr "Gamma-korjaus:"
 
 #. TEXT_SCANNER
 msgid "scanner"
-msgstr "skanner"
+msgstr "kuvanlukija"
 
 #. TEXT_SOFTWARE_XSANE
 msgid "software (XSane)"
-msgstr "programel (XSane)"
+msgstr "ohjelma (XSane)"
 
 #. TEXT_NONE
 msgid "none"
-msgstr "ingen"
+msgstr "ei mitään"
 
 #. TEXT_GAMMA_INPUT_DEPTH
 msgid "Gamma input depth:"
-msgstr "Gamma inddatabitdybde:"
+msgstr ""
 
 #. TEXT_GAMMA_OUTPUT_DEPTH
 msgid "Gamma output depth:"
-msgstr "Gamma uddatabitdybde:"
+msgstr ""
 
 #. TEXT_SCANNER_OUTPUT_DEPTH
 msgid "Scanner output depth:"
-msgstr "Scanner uddatabitdybde:"
+msgstr ""
 
 #. TEXT_OUTPUT_FORMATS
 msgid "XSane output formats:"
-msgstr "XSane uddataformater:"
+msgstr ""
 
 #. TEXT_8BIT_FORMATS
 msgid "8 bit output formats:"
-msgstr "8 bit uddataformater:"
+msgstr ""
 
 #. TEXT_16BIT_FORMATS
 msgid "16 bit output formats:"
-msgstr "16 bit uddataformater:"
+msgstr ""
 
 #. TEXT_REDUCE_16BIT_TO_8BIT
 msgid ""
 "Bit depth 16 bits/channel is not supported for this output format.\n"
 "Do you want to reduce the depth to 8 bits/channel?"
 msgstr ""
-"16 bit/farve er ikke understøttet for dette uddataformat.\n"
-"Ønsker du at reducere til 8 bit/farve?"
 
 #. TEXT_AUTHORIZATION_REQ
 msgid "Authorization required for"
-msgstr "Autorisation er nødvendig for"
+msgstr ""
 
 #. TEXT_AUTHORIZATION_SECURE
 msgid "Password transmission is secure"
-msgstr "Passwordoverførsel er sikker"
+msgstr ""
 
 #. TEXT_AUTHORIZATION_INSECURE
 msgid "Backend requests plain-text password"
-msgstr "Bagende fordrer almindeligt tekst password"
+msgstr ""
 
 #. TEXT_USERNAME
 msgid "Username :"
-msgstr "Brugernavn:"
+msgstr ""
 
 #. TEXT_PASSWORD
 msgid "Password :"
-msgstr "Password:"
+msgstr ""
 
 #. TEXT_INVALID_PARAMS
 msgid "Invalid parameters."
-msgstr "Ugyldig parameter."
+msgstr ""
 
 #. TEXT_VERSION
 msgid "version:"
-msgstr "version:"
+msgstr ""
 
 #. TEXT_PACKAGE
 msgid "package"
-msgstr "pakke"
+msgstr ""
 
 #. TEXT_WITH_CMS_FUNCTION
 msgid "with color management function"
-msgstr "med farvestyringsfunktion"
+msgstr ""
 
 #. TEXT_WITH_GIMP_SUPPORT
 msgid "with GIMP support"
-msgstr "med GIMP understøttelse"
+msgstr ""
 
 #. TEXT_WITHOUT_GIMP_SUPPORT
 msgid "without GIMP support"
-msgstr "uden GIMP understøttelse"
+msgstr ""
 
 #. TEXT_GTK_VERSION
 msgid "compiled with GTK-"
-msgstr "oversat med GTK-"
+msgstr ""
 
 #. TEXT_GIMP_VERSION
 msgid "compiled with GIMP-"
-msgstr "oversat med GIMP-"
+msgstr ""
 
 #. TEXT_UNKNOWN
 msgid "unknown"
-msgstr "ukendt"
+msgstr ""
 
 #. TEXT_EULA
 msgid ""
@@ -712,17 +716,6 @@ msgid ""
 "have to read, understand and accept the following\n"
 "\"NO WARRANTY\" agreement.\n"
 msgstr ""
-"XSane bliver distribueret under betingelserne i GNU General Public License\n"
-"som publiceret af the Free Software Foundation; enten version 2 af "
-"licensen,\n"
-"eller (efter eget ønske) enhver senere version.\n"
-"\n"
-"Dette program er distribueret i det håb at det kan være nyttigt, men\n"
-"UDEN ENHVER FORM FOR GARANTI, endda uden den underforståede\n"
-"garanti for SALGBARHED, eller EGNETHED FOR ET BESTEMT FORMÅL\n"
-"Skulle programmet vise sig at være defekt, overtager du udgiften til al\n"
-"nødvendig service, reparation og korrektion. For at bruge dette program\n"
-"skal du læse, forstå og acceptere den følgende \"INGEN GARANTI\" aftale.\n"
 
 #. TEXT_GPL
 msgid ""
@@ -734,30 +727,22 @@ msgid ""
 "WITHOUT ANY WARRANTY; without even the implied warranty of\n"
 "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
-"XSane bliver distribueret under betingelserne i GNU General Public License\n"
-"som publiceret af the Free Software Foundation; enten version 2 af "
-"licensen,\n"
-"eller (efter eget ønske) enhver senere version.\n"
-"\n"
-"Dette program er distribueret i det håb at det kan være nyttigt, men UDEN\n"
-"ENHVER FORM FOR GARANTI, endda uden den underforståede garanti for\n"
-"SALGBARHED, eller EGNETHED FOR ET BESTEMT FORMÅL\n"
 
 #. TEXT_EMAIL_ADR
 msgid "E-mail:"
-msgstr "E-post:"
+msgstr ""
 
 #. TEXT_HOMEPAGE
 msgid "Homepage:"
-msgstr "Hjemmeside:"
+msgstr "Kotisivu:"
 
 #. TEXT_FILE
 msgid "File:"
-msgstr "Fil:"
+msgstr "Tiedosto:"
 
 #. TEXT_TRANSLATION
 msgid "Translation:"
-msgstr "Oversættelse:"
+msgstr "Käännös:"
 
 #. Please translate this to something like
 #. translation to YOUR LANGUAGE\n
@@ -769,9 +754,6 @@ msgid ""
 "by Oliver Rauch\n"
 "E-mail: Oliver.Rauch@rauch-domain.de\n"
 msgstr ""
-"ikke-oversat original engelsk tekst\n"
-"af Oliver Rauch\n"
-"E-post: Oliver.Rauch@rauch-domain.de\n"
 
 #. TEXT_INFO_BOX
 msgid "0x0: 0KB"
@@ -779,864 +761,877 @@ msgstr "0x0: 0KB"
 
 #. TEXT_ADF_PAGES_SCANNED
 msgid "Scanned pages: "
-msgstr "Skannede sider: "
+msgstr "Luetut sivut: "
 
 #. TEXT_EMAIL_TEXT
 msgid "E-mail text:"
-msgstr "E-post tekst:"
+msgstr ""
 
 #. TEXT_ATTACHMENTS
 msgid "Attachments:"
-msgstr "Vedhæftninger:"
+msgstr "Liitteet:"
 
 #. TEXT_EMAIL_STATUS
 msgid "Project status:"
-msgstr "Projektstatus:"
+msgstr "Projektin tila:"
 
 #. TEXT_EMAIL_FILETYPE
 msgid "E-mail image filetype:"
-msgstr "E-post billede filtype:"
+msgstr ""
 
 #. TEXT_PAGES
 msgid "Pages:"
-msgstr "Sider:"
+msgstr ""
 
 #. TEXT_MULTIPAGE_FILETYPE
 msgid "Multipage document filetype:"
-msgstr "Flerside-dokument filtype:"
+msgstr ""
 
 #. TEXT_MEDIUM_DEFINITION_NAME
 msgid "Medium Name:"
-msgstr "Medienavn:"
+msgstr ""
 
 #. TEXT_VIEWER_IMAGE_INFO
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Size %d x %d pixel, %d bits/channel, %d channels, %1.0f dpi x %1.0f dpi, %"
 "1.1f %s"
 msgstr ""
-"Størrelse %d x %d pixel, %d bit/kanal, %d kanaler, %1.0f dpi x %1.0f dpi, %"
+"Koko %d x %d pikseliä, %d bittiä/väri, %d väriä, %1.0f dpi x %1.0f dpi, %"
 "1.1f %s"
 
 #. TEXT_DESPECKLE_RADIUS
 msgid "Despeckle radius:"
-msgstr "Fjern kornstøj radius:"
+msgstr "Laikkujen poiston säde:"
 
 #. TEXT_BLUR_RADIUS
 msgid "Blur radius:"
-msgstr "Sløringsradius:"
+msgstr "Sumennuksen säde:"
 
 #. TEXT_BATCH_AREA_DEFAULT_NAME
 msgid "(no name)"
-msgstr "(intet navn)"
+msgstr "(nimetön)"
 
 #. TEXT_BATCH_LIST_AREANAME
 msgid "Area name:"
-msgstr "Områdenavn:"
+msgstr ""
 
 #. TEXT_BATCH_LIST_SCANMODE
 msgid "Scanmode:"
-msgstr "Skannertilstand:"
+msgstr "Kuvanlukutapa:"
 
 #. TEXT_BATCH_LIST_GEOMETRY_TL
 msgid "Top left:"
-msgstr "Øverst venstre:"
+msgstr "Vasen yläreuna:"
 
 #. TEXT_BATCH_LIST_GEOMETRY_SIZE
 msgid "Size:"
-msgstr "Størrelse:"
+msgstr "Koko:"
 
 #. TEXT_BATCH_LIST_RESOLUTION
 msgid "Resolution:"
-msgstr "Opløsning:"
+msgstr "Tarkkuus:"
 
 #. TEXT_BATCH_LIST_BIT_DEPTH
 msgid "Bit depth:"
-msgstr "Bitdybde:"
+msgstr "Värisyvyys:"
 
 #. TEXT_BATCH_LIST_BY_GUI
 msgid "as selected"
-msgstr "som valgt"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_SEL
 msgid "Printer selection:"
-msgstr "Printervalg:"
+msgstr "Tulostimen valinta:"
 
 #. TEXT_SETUP_PRINTER_NAME
 msgid "Name:"
-msgstr "Navn:"
+msgstr "Nimi:"
 
 #. TEXT_SETUP_PRINTER_CMD, TEXT_SETUP_FAX_CMD
 #. TEXT_SETUP_FAX_COMMAND
 msgid "Command:"
-msgstr "Kommando:"
+msgstr "Komento:"
 
 #. TEXT_SETUP_COPY_NR_OPT
 msgid "Copy number option:"
-msgstr "Kopi nummerindstilling:"
+msgstr ""
 
 #. TEXT_SETUP_SCAN_RESOLUTION_PRINTER
+#, fuzzy
 msgid "Scan resolution:"
-msgstr "Skanneropløsning:"
+msgstr "Aseta kuvanluvun tarkkuus"
 
 #. TEXT_SETUP_PRINTER_LINEART_RES
 msgid "lineart [dpi]"
-msgstr "Stregtegning [dpi]"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_GRAYSCALE_RES
 msgid "grayscale [dpi]"
-msgstr "Gråskala [dpi]"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_COLOR_RES
 msgid "color [dpi]"
-msgstr "farve [dpi]"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_PAPER_GEOMETRIE
 msgid "Paper geometrie:"
-msgstr "Papir geometri:"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_WIDTH
+#, fuzzy
 msgid "width"
-msgstr "bredde"
+msgstr "Leveys"
 
 #. TEXT_SETUP_PRINTER_HEIGHT
+#, fuzzy
 msgid "height"
-msgstr "højde"
+msgstr "Korkeus"
 
 #. TEXT_SETUP_PRINTER_LEFT
 msgid "left offset"
-msgstr "venstre margen"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_BOTTOM
 msgid "bottom offset"
-msgstr "bund margen"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_GAMMA_CORRECTION
+#, fuzzy
 msgid "Printer gamma:"
-msgstr "Printer gamma:"
+msgstr "Tulostimen punagamma:"
 
 #. TEXT_SETUP_PRINTER_GAMMA
+#, fuzzy
 msgid "common value"
-msgstr "standardværdi"
+msgstr "Viimeaikaiset arvot:"
 
 #. TEXT_SETUP_PRINTER_GAMMA_RED
+#, fuzzy
 msgid "red"
-msgstr "rød"
+msgstr "luku"
 
 #. TEXT_SETUP_PRINTER_GAMMA_GREEN
 msgid "green"
-msgstr "grøn"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_GAMMA_BLUE
 msgid "blue"
-msgstr "blå"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_EMBED_CSA
 msgid "Embed scanner ICM profile as CSA"
-msgstr "Indlejr skanner ICM profil som CSA"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_EMBED_CRD
 msgid "Embed printer ICM profile as CRD"
-msgstr "Indlejr printer ICM profil som CRD"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_CMS_BPC
 msgid "Apply black point compensation"
-msgstr "Tilføj sort punkt kompensation"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_PS_FLATEDECODED
 msgid "Create zlib compressed postscript image (PS level 3) for printing"
-msgstr "Dan zlib-komprimeret postscript-billede (PS level 3) til udskrivning"
+msgstr ""
 
 #. TEXT_SETUP_TMP_PATH
 msgid "Temporary directory"
-msgstr "Midlertidigt bibliotek"
+msgstr "Väliaikaishakemisto"
 
 #. TEXT_SETUP_IMAGE_PERMISSION
 msgid "Image-file permissions"
-msgstr "Billedfilrettigheder"
+msgstr "Kuvatiedoston oikeudet"
 
 #. TEXT_SETUP_DIR_PERMISSION
 msgid "Directory permissions"
-msgstr "Biblioteksrettigheder"
+msgstr "Hakemiston oikeudet"
 
 #. TEXT_SETUP_JPEG_QUALITY
 msgid "JPEG image quality"
-msgstr "JPEG billedkvalitet"
+msgstr "JPEG-kuvanlaatu"
 
 #. TEXT_SETUP_PNG_COMPRESSION
 msgid "PNG image compression"
-msgstr "PNG billedkompression"
+msgstr "PNG-kuvan pakkaus"
 
 #. TEXT_SETUP_FILENAME_COUNTER_LEN
 msgid "Filename counter length"
-msgstr "Filnavn tællerlængde"
+msgstr "Tiedostonimen laskurin pituus"
 
 #. TEXT_SETUP_TIFF_ZIP_COMPRESSION
 msgid "TIFF zip compression rate"
-msgstr "TIFF zlib-komprimeringsgrad"
+msgstr ""
 
 #. TEXT_SETUP_TIFF_COMPRESSION_16
 msgid "TIFF 16 bit image compression"
-msgstr "TIFF 16 bit billedekompression"
+msgstr ""
 
 #. TEXT_SETUP_TIFF_COMPRESSION_8
 msgid "TIFF 8 bit image compression"
-msgstr "TIFF 8 bit billedekompression"
+msgstr ""
 
 #. TEXT_SETUP_TIFF_COMPRESSION_1
 msgid "TIFF lineart image compression"
-msgstr "TIFF stregtegning billedekompression"
+msgstr ""
 
 #. TEXT_SETUP_SHOW_RANGE_MODE
 msgid "Show range as:"
-msgstr "Vis område som:"
+msgstr ""
 
 #. TEXT_SETUP_PREVIEW_OVERSAMPLING
 msgid "Preview oversampling:"
-msgstr "Forhåndsvisning oversampling:"
+msgstr ""
 
 #. TEXT_SETUP_PREVIEW_GAMMA
 msgid "Preview gamma:"
-msgstr "Forhåndsvisning gamma:"
+msgstr ""
 
 #. TEXT_SETUP_PREVIEW_GAMMA_RED
 msgid "Preview gamma red:"
-msgstr "Forhåndsvisning gamma rød:"
+msgstr ""
 
 #. TEXT_SETUP_PREVIEW_GAMMA_GREEN
 msgid "Preview gamma green:"
-msgstr "Forhåndsvisning gamma grøn:"
+msgstr ""
 
 #. TEXT_SETUP_PREVIEW_GAMMA_BLUE
 msgid "Preview gamma blue:"
-msgstr "Forhåndsvisning gamma blå:"
+msgstr ""
 
 #. TEXT_SETUP_LINEART_MODE
 msgid "Threshold option:"
-msgstr "Grænseværdi-indstilling:"
+msgstr ""
 
 #. TEXT_SETUP_PREVIEW_PIPETTE_RANGE
 msgid "Preview pipette range"
-msgstr "Forhåndsvisnings pipetteområde"
+msgstr ""
 
 #. TEXT_SETUP_THRESHOLD_MIN
 msgid "Threshold minimum:"
-msgstr "Grænseværdi minimum:"
+msgstr ""
 
 #. TEXT_SETUP_THRESHOLD_MAX
 msgid "Threshold maximum:"
-msgstr "Grænseværdi maksimum:"
+msgstr ""
 
 #. TEXT_SETUP_THRESHOLD_MUL
 msgid "Threshold multiplier:"
-msgstr "Grænseværdi faktor:"
+msgstr ""
 
 #. TEXT_SETUP_THRESHOLD_OFF
 msgid "Threshold offset:"
-msgstr "Grænseværdi forskydning:"
+msgstr ""
 
 #. TEXT_SETUP_GRAYSCALE_SCANMODE
 msgid "Name of grayscale scanmode:"
-msgstr "Navn på gråskala skannertilstand:"
+msgstr ""
 
 #. TEXT_SETUP_HELPFILE_VIEWER
 msgid "Helpfile viewer (HTML):"
-msgstr "Hjælpefil viser (HTML):"
+msgstr "Ohjekatselin (HTML):"
 
 #. TEXT_SETUP_FAX_RECEIVER_OPTION
 msgid "Receiver option:"
-msgstr "Indstillinger for modtagernummer:"
+msgstr "Vastaanottajavalitsin:"
 
 #. TEXT_SETUP_FAX_POSTSCRIPT_OPT
 msgid "Postscriptfile option:"
-msgstr "Indstillinger for Postscriptfiler:"
+msgstr "Postscript-tiedostovalitsin:"
 
 #. TEXT_SETUP_FAX_NORMAL_MODE_OPT
 msgid "Normal mode option:"
-msgstr "Indstillinger for normaltilstand:"
+msgstr ""
 
 #. TEXT_SETUP_FAX_FINE_MODE_OPT
 msgid "Fine mode option:"
-msgstr "Indstillinger for fintilstand:"
+msgstr ""
 
 #. TEXT_SETUP_FAX_PROGRAM_DEFAULTS
 msgid "Set program defaults for:"
-msgstr "Sæt program standardværdier for:"
+msgstr ""
 
 #. TEXT_SETUP_FAX_VIEWER
 msgid "Viewer (Postscript):"
-msgstr "Viser (Postscript):"
+msgstr "Katselin (Postscript):"
 
 #. TEXT_SETUP_FAX_WIDTH
 msgid "Width"
-msgstr "Bredde"
+msgstr "Leveys"
 
 #. TEXT_SETUP_FAX_HEIGHT
 msgid "Height"
-msgstr "Højde"
+msgstr "Korkeus"
 
 #. TEXT_SETUP_FAX_LEFT
 msgid "Left offset"
-msgstr "Venstre margen"
+msgstr ""
 
 #. TEXT_SETUP_FAX_BOTTOM
 msgid "Bottom offset"
-msgstr "Bund margen"
+msgstr ""
 
 #. TEXT_SETUP_FAX_PS_FLATEDECODED
 msgid "Create zlib compressed postscript image (PS level 3) for fax"
-msgstr "Dan zlib-komprimeret postscript-billede (PS level 3) til fax"
+msgstr ""
 
 #. TEXT_SETUP_SMTP_SERVER
 msgid "SMTP server:"
-msgstr "SMTP server:"
+msgstr "SMTP-palvelin"
 
 #. TEXT_SETUP_SMTP_PORT
 msgid "SMTP port:"
-msgstr "SMTP port:"
+msgstr "SMTP-portti"
 
 #. TEXT_SETUP_EMAIL_FROM
 msgid "From:"
-msgstr "Fra:"
+msgstr "Lähettäjä:"
 
 #. TEXT_SETUP_EMAIL_REPLY_TO
 msgid "Reply to:"
-msgstr "Svar til:"
+msgstr "Vastausosoite:"
 
 #. TEXT_SETUP_EMAIL_AUTHENTICATION
 msgid "E-mail authentication"
-msgstr "E-post godkendelse"
+msgstr ""
 
 #. TEXT_SETUP_EMAIL_AUTH_USER
 msgid "User:"
-msgstr "Bruger:"
+msgstr ""
 
 #. TEXT_SETUP_EMAIL_AUTH_PASS
 msgid "Password:"
-msgstr "Password:"
+msgstr ""
 
 #. TEXT_SETUP_POP3_SERVER
 msgid "POP3 server:"
-msgstr "POP3 server:"
+msgstr "POP3-palvelin:"
 
 #. TEXT_SETUP_POP3_PORT
 msgid "POP3 port:"
-msgstr "POP3 port:"
+msgstr "POP3-portti:"
 
 #. TEXT_SETUP_OCR_COMMAND
 msgid "OCR Command:"
-msgstr "Tekstgenkendelses-kommando:"
+msgstr "OCR-komento:"
 
 #. TEXT_SETUP_OCR_INPUTFILE_OPT
 msgid "Inputfile option:"
-msgstr "Inddatafilindstilling:"
+msgstr "Syötetiedostovalitsin:"
 
 #. TEXT_SETUP_OCR_OUTPUTFILE_OPT
 msgid "Outputfile option:"
-msgstr "Uddatafilindstilling:"
+msgstr "Tulostetiedostovalitsin:"
 
 #. TEXT_SETUP_OCR_USE_GUI_PIPE_OPT
 msgid "Use GUI progress pipe:"
-msgstr "Brug GUI fremskridtsrør:"
+msgstr ""
 
 #. TEXT_SETUP_OCR_OUTFD_OPT
 msgid "GUI output-fd option:"
-msgstr "GUI uddata-fd indstilling:"
+msgstr ""
 
 #. TEXT_SETUP_OCR_PROGRESS_KEYWORD
 msgid "Progress keyword:"
-msgstr "Fremskridts nøgleord:"
+msgstr ""
 
 #. TEXT_SETUP_PERMISSION_USER
 msgid "user"
-msgstr "bruger"
+msgstr "käyttäjä"
 
 #. TEXT_SETUP_PERMISSION_GROUP
 msgid "group"
-msgstr "gruppe"
+msgstr "ryhmä"
 
 #. TEXT_SETUP_PERMISSION_ALL
 msgid "all"
-msgstr "alle"
+msgstr "kaikki"
 
 #. TEXT_SETUP_SCANNER_DEFAULT_COLOR_ICM_PROFILE
 #. DESC_SCANNER_DEFAULT_COLOR_ICM_PROFILE
 msgid "Scanner default color ICM-profile"
-msgstr "Skanners standard farve ICM-profil"
+msgstr ""
 
 #. TEXT_SETUP_SCANNER_DEFAULT_GRAY_ICM_PROFILE
 #. DESC_SCANNER_DEFAULT_GRAY_ICM_PROFILE
 msgid "Scanner default gray ICM-profile"
-msgstr "Skanner standard grå ICM-profil"
+msgstr ""
 
 #. TEXT_SETUP_DISPLAY_ICM_PROFILE
 #. DESC_DISPLAY_ICM_PROFILE
 msgid "Display ICM-profile"
-msgstr "Skærm ICM-profil"
+msgstr ""
 
 #. TEXT_SETUP_CUSTOM_PROOFING_ICM_PROFILE
 #. DESC_CUSTOM_PROOFING_ICM_PROFILE
 msgid "Custom proofing ICM-profile"
-msgstr "Bruger test ICM-profil"
+msgstr ""
 
 #. TEXT_SETUP_WORKING_COLOR_SPACE_ICM_PROFILE
 #. DESC_WORKING_COLOR_SPACE_ICM_PROFILE
 msgid "Working color space ICM-profile"
-msgstr "Arbejds farverum ICM-profil"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_ICM_PROFILE
 #. DESC_PRINTER_ICM_PROFILE
 msgid "Printer ICM-profile"
-msgstr "Printer ICM-profil"
+msgstr ""
 
 msgid "new media"
-msgstr "nyt medie"
+msgstr ""
 
 #. NOTEBOOK_SAVING_OPTIONS
 #. MENU_ITEM_SAVE
 msgid "Save"
-msgstr "Gem"
+msgstr "Tallenna"
 
 #. NOTEBOOK_FILETYPE_OPTIONS
 msgid "Filetype"
-msgstr "Filtype"
+msgstr ""
 
 #. NOTEBOOK_COPY_OPTIONS
 #. MENU_ITEM_COPY
 msgid "Copy"
-msgstr "Kopi"
+msgstr "Kopioi"
 
 #. NOTEBOOK_FAX_OPTIONS
 #. MENU_ITEM_FAX
 msgid "Fax"
-msgstr "Fax"
+msgstr "Faksi"
 
 #. NOTEBOOK_EMAIL_OPTIONS
 #. MENU_ITEM_EMAIL
 msgid "E-mail"
-msgstr "E-post"
+msgstr ""
 
 #. NOTEBOOK_OCR_OPTIONS
 msgid "OCR"
-msgstr "Tekstgenkendelse"
+msgstr "OCR"
 
 #. NOTEBOOK_DISPLAY_OPTIONS
 msgid "Display"
-msgstr "Skærm"
+msgstr "Näyttö"
 
 #. NOTEBOOK_ENHANCE_OPTIONS
 msgid "Enhancement"
-msgstr "Forbedring"
+msgstr "Parannus"
 
 #. MENU_ITEM_MULTIPAGE
 msgid "Multipage"
-msgstr "Flerside"
+msgstr ""
 
 #. MENU_ITEM_SHOW_TOOLTIPS
 msgid "Show tooltips"
-msgstr "Vis værktøjstips"
+msgstr "Näytä työkaluvihjeet"
 
 #. MENU_ITEM_SHOW_PREVIEW
 msgid "Show preview"
-msgstr "Vis forhåndsvisning"
+msgstr "Näytä esikatselu"
 
 #. MENU_ITEM_SHOW_HISTOGRAM
 msgid "Show histogram"
-msgstr "Vis histogram"
+msgstr "Näytä histogrammi"
 
 #. MENU_ITEM_SHOW_GAMMA
 msgid "Show gamma curve"
-msgstr "Vis gammakurve"
+msgstr "Näytä gammakäyrä"
 
 #. MENU_ITEM_SHOW_BATCH_SCAN
 msgid "Show batch scan"
-msgstr "Vis batchskan"
+msgstr ""
 
 #. MENU_ITEM_SHOW_STANDARDOPTIONS
 msgid "Show standard options"
-msgstr "Vis standardindstillinger"
+msgstr "Näytä perusasetukset"
 
 #. MENU_ITEM_SHOW_ADVANCEDOPTIONS
 msgid "Show advanced options"
-msgstr "Vis avancerede indstillinger"
+msgstr "Näytä lisäasetukset"
 
 #. MENU_ITEM_SETUP
 msgid "Setup"
-msgstr "Opsætning"
+msgstr "Asetukset"
 
 #. MENU_ITEM_LENGTH_UNIT
 msgid "Length unit"
-msgstr "Længdeenhed"
+msgstr "Pituusyksikkö"
 
 #. SUBMENU_ITEM_LENGTH_MILLIMETERS
 msgid "millimeters"
-msgstr "millimeter"
+msgstr "millimetrit"
 
 #. SUBMENU_ITEM_LENGTH_CENTIMETERS
 msgid "centimeters"
-msgstr "centimeter"
+msgstr "senttimetrit"
 
 #. SUBMENU_ITEM_LENGTH_INCHES
 msgid "inches"
-msgstr "tommer"
+msgstr "tuumat"
 
 #. MENU_ITEM_UPDATE_POLICY
 msgid "Update policy"
-msgstr "Opdateringspolitik"
+msgstr "Päivityskäytäntö"
 
 #. SUBMENU_ITEM_POLICY_CONTINUOUS
 msgid "continuous"
-msgstr "kontinuerlig"
+msgstr "jatkuva"
 
 #. SUBMENU_ITEM_POLICY_DISCONTINU
 msgid "discontinuous"
-msgstr "afbrudt"
+msgstr "epäjatkuva"
 
 #. SUBMENU_ITEM_POLICY_DELAYED
 msgid "delayed"
-msgstr "forsinket"
+msgstr "viivästetty"
 
 #. MENU_ITEM_SHOW_RESOLUTIONLIST
 msgid "Show resolution list"
-msgstr "Vis liste med opløsninger"
+msgstr "Näytä tarkkuusluettelo"
 
 #. MENU_ITEM_PAGE_ROTATE
 msgid "Rotate postscript"
-msgstr "Rotér postscript"
+msgstr "Kierrä postscript"
 
 #. MENU_ITEM_ENABLE_COLOR_MANAGEMENT
 #. MENU_ITEM_CMS_ENABLE_COLOR_MANAGEMENT
+#, fuzzy
 msgid "Enable color management"
-msgstr "Tillad farvestyring"
+msgstr "Täysi värivalikoima"
 
 #. MENU_ITEM_EDIT_MEDIUM_DEF
 msgid "Edit medium definition"
-msgstr "Ret mediedefinition"
+msgstr ""
 
 #. MENU_ITEM_SAVE_DEVICE_SETTINGS
 msgid "Save device settings"
-msgstr "Gem enhedsindstillinger"
+msgstr "Tallenna laiteasetukset"
 
 #. MENU_ITEM_LOAD_DEVICE_SETTINGS
 msgid "Load device settings"
-msgstr "Indlæs enhedsindstillinger"
+msgstr "Lataa laiteasetukest"
 
 #. MENU_ITEM_CHANGE_WORKING_DIR
 msgid "Change directory"
-msgstr "Skift bibliotek"
+msgstr "Vaihda hakemistoa"
 
 #. MENU_ITEM_XSANE_EULA
 msgid "Show EULA"
-msgstr "Vis slutbrugeraftale"
+msgstr "Näytä EULA"
 
 #. MENU_ITEM_XSANE_GPL
 msgid "Show license (GPL)"
-msgstr "Vis licens (GPL)"
+msgstr "Näytä lisenssi (GPL)"
 
 #. MENU_ITEM_XSANE_DOC
 msgid "XSane doc"
-msgstr "XSane vejledning"
+msgstr "XSane-dokumentaatio"
 
 #. MENU_ITEM_BACKEND_DOC
 msgid "Backend doc"
-msgstr "Bagendevejledning"
+msgstr "Taustaosan dokumentaatio"
 
 #. MENU_ITEM_AVAILABLE_BACKENDS
 msgid "Available backends"
-msgstr "Bagender til rådighed"
+msgstr "Käytettävissä olevat taustaosat"
 
 #. MENU_ITEM_SCANTIPS
 msgid "Scantips"
-msgstr "Skannertips"
+msgstr "Kuvanlukuvinkkejä"
 
 #. MENU_ITEM_PROBLEMS
 msgid "Problems?"
-msgstr "Problemer?"
+msgstr "Ongelmia?"
 
 #. MENU_ITEM_CMS_PROOFING
 msgid "Proofing"
-msgstr "Tester"
+msgstr ""
 
 #. SUBMENU_ITEM_CMS_PROOF_OFF
 msgid "no proofing (Display)"
-msgstr "ingen test (Skærm)"
+msgstr ""
 
 #. SUBMENU_ITEM_CMS_PROOF_PRINTER
+#, fuzzy
 msgid "Proof printer"
-msgstr "Test printer"
+msgstr "Lisää tulostin"
 
 #. SUBMENU_ITEM_CMS_PROOF_CUSTOM
 msgid "Proof custom device"
-msgstr "Test brugerenhed"
+msgstr ""
 
 #. MENU_ITEM_CMS_RENDERING_INTENT
 msgid "Rendering intent"
-msgstr "Rendering intent"
+msgstr ""
 
 #. MENU_ITEM_CMS_PROOFING_INTENT
 msgid "Proofing rendering intent"
-msgstr "Tester rendering intent"
+msgstr ""
 
 #. SUBMENU_ITEM_CMS_INTENT_PERCEPTUAL
 msgid "Perceptual"
-msgstr "Vedr. sansning"
+msgstr ""
 
 #. SUBMENU_ITEM_CMS_INTENT_RELATIVE_COLORIMETRIC
 msgid "Relative colorimetric"
-msgstr "Relativ kolorimetrisk"
+msgstr ""
 
 #. SUBMENU_ITEM_CMS_INTENT_ABSOLUTE_COLORIMETRIC
 msgid "Absolute colorimentric"
-msgstr "Absolut kolorimetrisk"
+msgstr ""
 
 #. SUBMENU_ITEM_CMS_INTENT_SATURATION
 msgid "Saturation"
-msgstr "Farvemætning"
+msgstr ""
 
 #. MENU_ITEM_CMS_GAMUT_CHECK
 msgid "Gamut check"
-msgstr "Kontrol af gamut"
+msgstr ""
 
 #. MENU_ITEM_CMS_GAMUT_ALARM_COLOR
 msgid "Gamut alarm color"
-msgstr "Gamut alarmfarve"
+msgstr ""
 
 #. SUBMENU_ITEM_CMS_COLOR_BLACK
 msgid "Black"
-msgstr "Sort"
+msgstr ""
 
 #. SUBMENU_ITEM_CMS_COLOR_GRAY
 msgid "Gray"
-msgstr "Grå"
+msgstr ""
 
 #. SUBMENU_ITEM_CMS_COLOR_WHITE
+#, fuzzy
 msgid "White"
-msgstr "Hvid"
+msgstr "kirjoitus"
 
 #. SUBMENU_ITEM_CMS_COLOR_RED
+#, fuzzy
 msgid "Red"
-msgstr "Rød"
+msgstr "Supista"
 
 #. SUBMENU_ITEM_CMS_COLOR_GREEN
 msgid "Green"
-msgstr "Grøn"
+msgstr ""
 
 #. SUBMENU_ITEM_CMS_COLOR_BLUE
+#, fuzzy
 msgid "Blue"
-msgstr "Blå"
+msgstr "Sumenna"
 
 #. MENU_ITEM_COUNTER_LEN_INACTIVE
 msgid "inactive"
-msgstr "Ikke aktiv"
+msgstr ""
 
 #. MENU_ITEM_TIFF_COMP_NONE
 msgid "no compression"
-msgstr "ingen kompression"
+msgstr "ei pakkausta"
 
 #. MENU_ITEM_TIFF_COMP_CCITTRLE
 msgid "CCITT 1D Huffman compression"
-msgstr "CCITT 1D Huffman kompression"
+msgstr "CCITT 1D Huffman -pakkaus"
 
 #. MENU_ITEM_TIFF_COMP_CCITFAX3
+#, fuzzy
 msgid "CCITT Group 3 fax compression"
-msgstr "CCITT gruppe 3 fax kompression"
+msgstr "CCITT Group 3 Fax -pakkaus"
 
 #. MENU_ITEM_TIFF_COMP_CCITFAX4
+#, fuzzy
 msgid "CCITT Group 4 fax compression"
-msgstr "CCITT gruppe 4 fax kompression"
+msgstr "CCITT Group 4 Fax -pakkaus"
 
 #. MENU_ITEM_TIFF_COMP_JPEG
 msgid "JPEG DCT compression"
-msgstr "JPEG DCT kompression"
+msgstr "JPEG DCT -pakkaus"
 
 #. MENU_ITEM_TIFF_COMP_PACKBITS
 msgid "pack bits"
-msgstr "pakkede bits"
+msgstr ""
 
 #. MENU_ITEM_TIFF_COMP_DEFLATE
 msgid "deflate"
-msgstr "komprimeret"
+msgstr ""
 
 #. MENU_ITEM_RANGE_SCALE
 msgid "Slider (Scale)"
-msgstr "Skyder instilling (skala)"
+msgstr ""
 
 #. MENU_ITEM_RANGE_SCROLLBAR
 msgid "Slider (Scrollbar)"
-msgstr "Skyder indstilling (rullebjælke)"
+msgstr ""
 
 #. MENU_ITEM_RANGE_SPINBUTTON
 msgid "Spinbutton"
-msgstr "Drejeknap"
+msgstr ""
 
 #. MENU_ITEM_RANGE_SCALE_SPIN
 msgid "Scale and Spinbutton"
-msgstr "Skala og drejeknap"
+msgstr ""
 
 #. MENU_ITEM_RANGE_SCROLL_SPIN
 msgid "Scrollbar and Spinbutton"
-msgstr "Rullebjælke og drejeknap"
+msgstr ""
 
 #. MENU_ITEM_LINEART_MODE_STANDARD
 msgid "Standard options window (lineart)"
-msgstr "Standard instillingsvindue (stregtegning)"
+msgstr ""
 
 #. MENU_ITEM_LINEART_MODE_XSANE
 msgid "XSane main window (lineart)"
-msgstr "XSane hovedvindue (stregtegning)"
+msgstr ""
 
 #. MENU_ITEM_LINEART_MODE_GRAY
 msgid "XSane main window (grayscale->lineart)"
-msgstr "XSane hovedvindue (gråskala > stregtegning)"
+msgstr ""
 
 #. MENU_ITEM_SELECTION_NONE
 msgid "(none)"
-msgstr "(ingen)"
+msgstr "(ei mitään)"
 
 #. MENU_ITEM_FILETYPE_BY_EXT
 msgid "by ext"
-msgstr "efter fil-endelse"
+msgstr ""
 
 #. MENU_ITEM_PRESET_AREA_ADD_SEL
 msgid "Add selection to list"
-msgstr "Tilføj valgt område til liste"
+msgstr "Lisää valinta luetteloon"
 
 #. MENU_ITEM_MEDIUM_ADD
 msgid "Add medium definition"
-msgstr "Tilføj mediedefinition"
+msgstr ""
 
 #. MENU_ITEM_RENAME
 msgid "Rename item"
-msgstr "Omdøb punkt"
+msgstr "Muuta nimeä"
 
 #. MENU_ITEM_DELETE
 msgid "Delete item"
-msgstr "Slet punkt"
+msgstr "Poista"
 
 #. MENU_ITEM_MOVE_UP
 msgid "Move item up"
-msgstr "Flyt punkt op"
+msgstr "Siirrä ylös"
 
 #. MENU_ITEM_MOVE_DWN
 msgid "Move item down"
-msgstr "Flyt punkt ned"
+msgstr "Siirrä alas"
 
 #. MENU_ITEM_AUTH_NONE
 msgid "no authentication"
-msgstr "ingen godkendelse"
+msgstr ""
 
 #. MENU_ITEM_AUTH_POP3
 msgid "POP3 before SMTP"
-msgstr "POP3 før SMTP"
+msgstr ""
 
 #. MENU_ITEM_AUTH_ASMTP_PLAIN
 msgid "ASMTP Plain"
-msgstr "ASMTP almen"
+msgstr ""
 
 #. MENU_ITEM_AUTH_ASMTP_LOGIN
 msgid "ASMTP Login"
-msgstr "ASMTP logind"
+msgstr ""
 
 #. MENU_ITEM_AUTH_ASMTP_CRAM_MD5
 msgid "ASMTP CRAM-MD5"
-msgstr "ASMTP CRAM-MD5"
+msgstr ""
 
 #. MENU_ITEM_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE
 msgid "Embed scanner ICM profile"
-msgstr "Indlejr skanner ICM-profil"
+msgstr ""
 
 #. MENU_ITEM_CMS_FUNCTION_CONVERT_TO_SRGB
 msgid "Convert to sRGB"
-msgstr "Konvertér til sRGB"
+msgstr ""
 
 #. MENU_ITEM_FUNCTION_CONVERT_TO_WORKING_CS
 msgid "Convert to working color space"
-msgstr "Konvertér til arbejds farverum"
+msgstr ""
 
 #. PROGRESS_SCANNING
 msgid "Scanning"
-msgstr "Skanning"
+msgstr "Luetaan kuvaa"
 
 #. PROGRESS_RECEIVING_FRAME_DATA
 #, c-format
 msgid "Receiving %s data"
-msgstr "Modtager %s data"
+msgstr "Vastaanotetaan dataa %s"
 
 #. PROGRESS_PAGE
 msgid "page"
-msgstr "side"
+msgstr ""
 
 #. PROGRESS_TRANSFERRING_DATA
+#, fuzzy
 msgid "Transferring image"
-msgstr "Overfører billede"
+msgstr "Siirretään kuvaa"
 
 #. PROGRESS_ROTATING_DATA
 msgid "Rotating image"
-msgstr "Roterer billede"
+msgstr "Kierretään kuvaa"
 
 #. PROGRESS_MIRRORING_DATA
 msgid "Mirroring image"
-msgstr "Spejlvender billede"
+msgstr "Peilataan kuvaa"
 
 #. PROGRESS_PACKING_DATA
 msgid "Packing image"
-msgstr "Pakker billede"
+msgstr "Pakataan kuvaa"
 
 #. PROGRESS_CONVERTING_DATA
 msgid "Converting image"
-msgstr "Konverterer billede"
+msgstr "Muunnetaan kuvaa"
 
 #. PROGRESS_SAVING_DATA
 msgid "Saving image"
-msgstr "Gemmer billede"
+msgstr "Tallennetaan kuvaa"
 
 #. PROGRESS_CLONING_DATA
 msgid "Cloning image"
-msgstr "Kloner billede"
+msgstr "Kloonataan kuvaa"
 
 #. PROGRESS_SCALING_DATA
 msgid "Scaling image"
-msgstr "Skalerer billede"
+msgstr "Skaalataan kuvaa"
 
 #. PROGRESS_DESPECKLING_DATA
 msgid "Despeckling image"
-msgstr "Fjerner kornstøj i billede"
+msgstr "Poistetaan laikkuja"
 
 #. PROGRESS_BLURING_DATA
 msgid "Bluring image"
-msgstr "Slører billede"
+msgstr "Sumennetaan kuvaa"
 
 #. PROGRESS_OCR
 msgid "OCR in progress"
-msgstr "Tekstgenkendelse"
+msgstr "OCR käynnissä"
 
 #. PROGRESS_ICM_CONVERSION
+#, fuzzy
 msgid "converting colors"
-msgstr "Konverterer farver"
+msgstr "Korjaa värit automaattisesti"
 
 #. DESC_SCAN_START
 msgid "Start scan <Ctrl-Enter>"
-msgstr "Start skanning <Ctrl Enter>"
+msgstr "Aloita kuvanluku <Ctrl-Enter>"
 
 #. DESC_SCAN_CANCEL
 msgid "Cancel scan <ESC>"
-msgstr "Afbryd skanning <ESC>"
+msgstr "Peru kuvanluku <ESC>"
 
 #. DESC_PREVIEW_ACQUIRE
 msgid "Acquire preview scan <Alt-p>"
-msgstr "Rekvirer forhåndsvisningsskan <Alt-p>"
+msgstr "Lue esikatselukuva <Alt-p>"
 
 #. DESC_PREVIEW_CANCEL
 msgid "Cancel preview scan <Alt-ESC>"
-msgstr "Afbryd skan forhåndsvisning <Alt-ESC>"
+msgstr "Peru esikatselukuvanluku <Alt-ESC>"
 
 #. DESC_XSANE_MODE
 msgid ""
 "viewer-<Ctrl-v>, save-<Ctrl-s>, photocopy-<Ctrl-c>, multipage-<Ctrl-m>, fax-"
 "<Ctrl-f> or e-mail-<Ctrl-e>"
 msgstr ""
-"viser-<Ctrl-v>, gem-<Ctrl-s>, fotokopi-<Ctrl-c>, flerside-<Ctrl-m>, fax-"
-"<Ctrl-f> eller e-post-<Ctrl-e>"
 
 #. DESC_XSANE_MEDIUM
 msgid ""
@@ -1646,187 +1641,185 @@ msgid ""
 "To create a medium enable the option edit medium definition in preferences "
 "menu."
 msgstr ""
-"Vælg kilde medietype.\n"
-"For at omdøbe, omarrangere eller slette en indføring bruges kontekstmenuen "
-"(alternativt musetaste).\n"
-"For at danne et medie, aktivér indstillingen ret-medie-definition i "
-"indstillingsmenuen."
 
 #. DESC_FILENAME_COUNTER_STEP
 msgid "Value that is added to filenamecounter after scan"
-msgstr "Værdi der bliver lagt til filtælleren efter skanning"
+msgstr ""
 
 #. DESC_BROWSE_FILENAME
 msgid "Browse for image filename"
-msgstr "Søg efter billed filnavn"
+msgstr ""
 
 #. DESC_FILENAME
 msgid "Filename for scanned image"
-msgstr "Filnavn til skannet billede"
+msgstr "Tiedostonimi skannatulle kuvalle"
 
 #. DESC_FILETYPE
 msgid ""
 "Type of image format, the suitable filename extension is automatically added "
 "to the filename"
 msgstr ""
-"Type af billedformat, den passende filendelse bliver automatisk tilføjet "
-"filnavnet"
+"Kuvamuodon tyyppi, sopiva tiedostopääte lisätään tiedostonimeen "
+"automaattisesti"
 
 #. DESC_FAXPROJECT
 msgid "Enter fax project directory name"
-msgstr "Angiv fax projektets biblioteksnavn"
+msgstr ""
 
 #. DESC_FAXPAGENAME
 msgid "Enter new name for faxpage"
-msgstr "Angiv nyt navn for fax side"
+msgstr "Syötä faksisivun uusi nimi"
 
 #. DESC_FAXRECEIVER
 msgid "Enter receiver phone number or address"
-msgstr "Angiv modtager telefonnummer eller adresse"
+msgstr "Syötä vastaanottajan puhelinnumero tai osoite"
 
 #. DESC_FAX_PROJECT_BROWSE
+#, fuzzy
 msgid "Browse for fax project directory"
-msgstr "Søg efter fax-projekt bibliotek"
+msgstr "Selaa väliaikaistiedostoja"
 
 #. DESC_EMAIL_PROJECT
 msgid "Enter e-mail project directory name"
-msgstr "Angiv biblioteksnavn til e-post projekt"
+msgstr ""
 
 #. DESC_EMAIL_IMAGENAME
 msgid "Enter new name for e-mail image"
-msgstr "Angiv nyt navn på e-post billede"
+msgstr ""
 
 #. DESC_EMAIL_RECEIVER
 msgid "Enter e-mail address"
-msgstr "Angiv e-post adresse"
+msgstr ""
 
 #. DESC_EMAIL_PROJECT_BROWSE
+#, fuzzy
 msgid "Browse for email project directory"
-msgstr "Søg efter e-post projektbibliotek"
+msgstr "Selaa väliaikaistiedostoja"
 
 #. DESC_EMAIL_SUBJECT
 msgid "Enter subject of e-mail"
-msgstr "Angiv subjekt for e-post"
+msgstr ""
 
 #. DESC_EMAIL_FILETYPE
 msgid "Select filetype for image attachments"
-msgstr "Vælg filtype for billed vedhæftninger"
+msgstr "Valitse tiedostomuoto kuvaliitteille"
 
 #. DESC_MULTIPAGE_PROJECT
 msgid "Enter multipage project directory name"
-msgstr "Angiv biblioteksnavn til flersidet projekt"
+msgstr ""
 
 #. DESC_MULTIPAGE_PROJECT_BROWSE
+#, fuzzy
 msgid "Browse for multipage project directory"
-msgstr "Søg efter flersidet projektbibliotek"
+msgstr "Selaa väliaikaistiedostoja"
 
 #. DESC_MULTIPAGE_FILETYPE
 msgid "Select filetype for multipage file"
-msgstr "Vælg filtype for flerside fil"
+msgstr ""
 
 #. DESC_PRESET_AREA_RENAME
 msgid "Enter new name for preset area"
-msgstr "Angiv nyt navn på forvalgt område"
+msgstr "Syötä uusi nimi esivalitulle alueelle"
 
 #. DESC_PRESET_AREA_ADD
 msgid "Enter name for new preset area"
-msgstr "Angiv navn på nyt forvalgt område"
+msgstr "Syötä nimi uudelle esivalitulle alueelle"
 
 #. DESC_MEDIUM_RENAME
 msgid "Enter new name for medium definition"
-msgstr "Angiv nyt navn på mediedefinition"
+msgstr ""
 
 #. DESC_MEDIUM_ADD
 msgid "Enter name for new medium definition"
-msgstr "Angiv navn på ny mediedefinition"
+msgstr ""
 
 #. DESC_PRINTER_SELECT
 msgid "Select printerdefinition <Shift-F1/F2/...>"
-msgstr "Vælg printerdefinition <Shift-F1/F2/...>"
+msgstr ""
 
 #. DESC_RESOLUTION
 msgid "Set scan resolution"
-msgstr "Sæt skanneropløsning"
+msgstr "Aseta kuvanluvun tarkkuus"
 
 #. DESC_RESOLUTION_X
 msgid "Set scan resolution for x direction"
-msgstr "Sæt skanneropløsning for x-retning"
+msgstr "Aseta kuvanluvun tarkkuus x-akselin suuntaan"
 
 #. DESC_RESOLUTION_Y
 msgid "Set scan resolution for y direction"
-msgstr "Sæt skanneropløsning for y-retning"
+msgstr "Aseta kuvanluvun tarkkuus y-akselin suuntaan"
 
 #. DESC_ZOOM
 msgid "Set zoomfactor"
-msgstr "Sæt zoomfaktor"
+msgstr "Aseta suurennuskerroin"
 
 #. DESC_ZOOM_X
 msgid "Set zoomfactor for x direction"
-msgstr "Sæt zoomfaktor for x-retning"
+msgstr "Asenna suurennuskerroin x-akselin suuntaan"
 
 #. DESC_ZOOM_Y
 msgid "Set zoomfactor for y direction"
-msgstr "Sæt zoomfaktor for y-retning"
+msgstr "Aseta suurennuskerroin y-akselin suuntaan"
 
 #. DESC_COPY_NUMBER
 msgid "Set number of copies"
-msgstr "Sæt antal kopier"
+msgstr "Aseta kopioiden määrä"
 
 #. DESC_NEGATIVE
 msgid "Negative: Invert colors for scanning negatives <Ctrl-n>"
-msgstr "Negativer: Invertér farver for skannet negativ <Ctrl-n>"
+msgstr "Negatiivi: Käänteiset värit negatiivien skannausta varten <Ctrl-n>"
 
 #. DESC_GAMMA
 msgid "Set gamma value"
-msgstr "Sæt gammaværdi"
+msgstr "Aseta gamma-arvo"
 
 #. DESC_GAMMA_R
 msgid "Set gamma value for red component"
-msgstr "Sæt gammaværdi for rød farvedel"
+msgstr ""
 
 #. DESC_GAMMA_G
 msgid "Set gamma value for green component"
-msgstr "Sæt gammaværdi for grøn farvedel"
+msgstr ""
 
 #. DESC_GAMMA_B
 msgid "Set gamma value for blue component"
-msgstr "Sæt gammaværdi for blå farvedel"
+msgstr ""
 
 #. DESC_BRIGHTNESS
 msgid "Set brightness"
-msgstr "Sæt værdi for lyshed"
+msgstr "Aseta kirkkaus"
 
 #. DESC_BRIGHTNESS_R
 msgid "Set brightness for red component"
-msgstr "Sæt værdi for lyshed i rød farvedel"
+msgstr ""
 
 #. DESC_BRIGHTNESS_G
 msgid "Set brightness for green component"
-msgstr "Sæt værdi for lyshed i grøn farvedel"
+msgstr ""
 
 #. DESC_BRIGHTNESS_B
 msgid "Set brightness for blue component"
-msgstr "Sæt værdi for lyshed i blå farvedel"
+msgstr ""
 
 #. DESC_CONTRAST
 msgid "Set contrast"
-msgstr "Sæt værdi for kontrast"
+msgstr "Aseta kontrasti"
 
 #. DESC_CONTRAST_R
 msgid "Set contrast for red component"
-msgstr "Sæt værdi for kontrast i rød farvedel"
+msgstr ""
 
 #. DESC_CONTRAST_G
 msgid "Set contrast for green component"
-msgstr "Sæt værdi for kontrast i grøn farvedel"
+msgstr ""
 
 #. DESC_CONTRAST_B
 msgid "Set contrast for blue component"
-msgstr "Sæt værdi for kontrast i blå farvedel"
+msgstr ""
 
 #. DESC_THRESHOLD
 msgid "Set threshold"
-msgstr "Sæt grænseværdi"
+msgstr "Aseta kynnysarvo"
 
 #. DESC_RGB_DEFAULT
 msgid ""
@@ -1836,15 +1829,11 @@ msgid ""
 " brightness = 0\n"
 " contrast = 0"
 msgstr ""
-"RGB standard: Sæt optimeringsværdier for rød, grøn og blå til standard "
-"værdier <Ctrl-b>:\n"
-" gamma = 1.0\n"
-" lyshed = 0\n"
-" kontrast = 0"
 
 #. DESC_ENH_AUTO
+#, fuzzy
 msgid "Autoadjust gamma, brightness and contrast <Ctrl-a>"
-msgstr "Autojustér gamma, lyshed og kontrast <Ctrl-a>"
+msgstr "Säädä gamma, kirkkaus ja kontrasti automaattisesti <Ctrl-e>"
 
 #. DESC_ENH_DEFAULT
 msgid ""
@@ -1853,515 +1842,514 @@ msgid ""
 "brightness = 0\n"
 "contrast = 0"
 msgstr ""
-"Sæt standardoptimeringsværdier <Ctrl-0>:\n"
-"gamma = 1.0\n"
-"lyshed = 0\n"
-"kontrast = 0"
 
 #. DESC_ENH_RESTORE
 msgid "Restore enhancement values from preferences <Ctrl-r>"
-msgstr "Genskab optimeringsværdier fra indstillinger <Ctrl-r>"
+msgstr ""
 
 #. DESC_ENH_STORE
 msgid "Store active enhancement values to preferences <Ctrl-+>"
-msgstr "Gem aktive optimeringsværdier i indstillinger <Ctrl-+>"
+msgstr ""
 
 #. DESC_HIST_INTENSITY
 msgid "Show histogram of intensity/gray <Alt-i>"
-msgstr "Vis histogram for intensitet/grå <Alt-i>"
+msgstr ""
 
 #. DESC_HIST_RED
 msgid "Show histogram of red component <Alt-r>"
-msgstr "Vis histogram for rød farvedel <Alt-r>"
+msgstr ""
 
 #. DESC_HIST_GREEN
 msgid "Show histogram of green component <Alt-g>"
-msgstr "Vis histogram for grøn farvedel <Alt-g>"
+msgstr ""
 
 #. DESC_HIST_BLUE
 msgid "Show histogram of blue component <Alt-b>"
-msgstr "Vis histogram for blå farvedel <Alt-b>"
+msgstr ""
 
 #. DESC_HIST_PIXEL
 msgid "Display mode: show histogram with lines instead of pixels <Alt-m>"
-msgstr "Vis histogram med linier i stedet for med pixels <Alt-m>"
+msgstr ""
 
 #. DESC_HIST_LOG
 msgid "Show logarithm of pixelcount <Alt-l>"
-msgstr "Brug logaritmisk visning af pixeltælling <Alt-l>"
+msgstr ""
 
 #. DESC_PRINTER_SETUP
 msgid "Select definition to change"
-msgstr "Vælg definition der skal ændres"
+msgstr ""
 
 #. DESC_PRINTER_NAME
 msgid "Define a name for the selection of this definition"
-msgstr "Angiv et navn til den valgte definition"
+msgstr ""
 
 #. DESC_PRINTER_COMMAND
 msgid "Enter command to be executed in copy mode (e.g. \"lpr\")"
-msgstr ""
-"Angiv hvilken kommando der skal udføres i kopi tilstand (f.eks. \"lpr\")"
+msgstr "Syötä komento, joka suoritetaan kopiointitilassa (esim. \"lpr\")"
 
 #. DESC_COPY_NUMBER_OPTION
 msgid "Enter option for copy numbers"
-msgstr "Angiv værdi for antal kopier"
+msgstr "Syötä valitsin kopioiden määrän määrittämiseksi"
 
 #. DESC_PRINTER_LINEART_RESOLUTION
 msgid ""
 "Resolution with which lineart images are printed and saved in postscript"
 msgstr ""
-"Opløsning ved hvilken stregtegningsbilleder bliver printet og gemt i "
-"postscript"
 
 #. DESC_PRINTER_GRAYSCALE_RESOLUTION
 msgid ""
 "Resolution with which grayscale images are printed and saved in postscript"
-msgstr "Opløsning for printning og gemning i postscript for gråskala billeder"
+msgstr ""
+"Resoluutio, jolla mustavalkokuvat tulostetaan ja tallennetaan postscriptinä"
 
 #. DESC_PRINTER_COLOR_RESOLUTION
 msgid "Resolution with which color images are printed and saved in postscript"
-msgstr "Opløsning for printning og gemning i postscript for farve billeder"
+msgstr "Resoluutio, jolla värikuvat tulostetaan ja tallennetaan postscriptinä"
 
 #. DESC_PRINTER_WIDTH
 #. DESC_FAX_WIDTH
 msgid "Width of printable area"
-msgstr "Bredde af printbart område"
+msgstr "Tulostusalueen leveys"
 
 #. DESC_PRINTER_HEIGHT
 #. DESC_FAX_HEIGHT
 msgid "Height of printable area"
-msgstr "Højde af printbart område"
+msgstr "Tulostusalueen korkeus"
 
 #. DESC_PRINTER_LEFTOFFSET
 #. DESC_FAX_LEFTOFFSET
 msgid "Left offset from the edge of the paper to the printable area"
-msgstr "Venstre margen fra kant af papir, til det printbare område"
+msgstr "Vasen marginaali paperin reunasta tulostusalueeseen"
 
 #. DESC_PRINTER_BOTTOMOFFSET
 #. DESC_FAX_BOTTOMOFFSET
 msgid "Bottom offset from the edge of the paper to the printable area"
-msgstr "Bund margen fra kant af papir, til det printbare område"
+msgstr "Alamarginaali paperin reunasta tulostusalueeseen"
 
 #. DESC_PRINTER_GAMMA
 msgid "Additional gamma value for photocopy"
-msgstr "Supplerende gammaværdi for fotokopiering"
+msgstr ""
 
 #. DESC_PRINTER_GAMMA_RED
 msgid "Additional gamma value for red component for photocopy"
-msgstr "Supplerende gammaværdi for fotokopiering, rød farvedel"
+msgstr ""
 
 #. DESC_PRINTER_GAMMA_GREEN
 msgid "Additional gamma value for green component for photocopy"
-msgstr "Supplerende gammaværdi for fotokopiering, grøn farvedel"
+msgstr ""
 
 #. DESC_PRINTER_GAMMA_BLUE
 msgid "Additional gamma value for blue component for photocopy"
-msgstr "Supplerende gammaværdi for fotokopiering, blå farvedel"
+msgstr ""
 
 #. DESC_PRINTER_EMBED_CSA
 msgid "Creates a postsciptfile that contains the ICM profile of the scanner"
-msgstr "Danner en postscriptfil der indeholder ICM-profilen for skanneren"
+msgstr ""
 
 #. DESC_PRINTER_EMBED_CRD
 msgid "Creates a postsciptfile that contains the ICM profile of the printer"
-msgstr "Danner en postscriptfil der indeholder ICM-profilen for printeren"
+msgstr ""
 
 #. DESC_PRINTER_CMS_BPC
 msgid "Applies black point compensation"
-msgstr "Tilføjer sort punkt kompensation"
+msgstr ""
 
 #. DESC_PRINTER_PS_FLATEDECODED
 msgid ""
 "Create zlib compressed postscript image for printer (flatedecode).\n"
 "The printer has to understand postscript level 3!"
 msgstr ""
-"Dan zlib-komprimeret postscript-billede til printer (flatedecode).\n"
-"Printeren skal kunne håndtere postscript level 3!"
 
 #. DESC_TMP_PATH
 msgid "Path to temp directory"
-msgstr "Sti til midlertidigt bibliotek"
+msgstr "Polku väliaikaistiedostojen hakemistoon"
 
 #. DESC_BUTTON_TMP_PATH_BROWSE
 msgid "Browse for temporary directory"
-msgstr "Find sti til midlertidigt bibliotek"
+msgstr "Selaa väliaikaistiedostoja"
 
 #. DESC_JPEG_QUALITY
+#, fuzzy
 msgid ""
 "Quality in percent if image is saved as JPEG or TIFF with JPEG compression"
 msgstr ""
-"Kvalitet i procent, hvis billede gemmes som JPEG eller som TIFF med JPEG "
-"kompression"
+"Laatu prosentteina kun kuva tallennetaan JPEG-muodossa tai TIFF-muodossa "
+"JPEG-pakkauksella"
 
 #. DESC_PNG_COMPRESSION
+#, fuzzy
 msgid "Compression if image is saved as PNG"
-msgstr "Kompression hvis billedet gemmes som PNG"
+msgstr "Pakkaus tallennettaessa PNG:nä"
 
 #. DESC_FILENAME_COUNTER_LEN
 msgid "Minimum length of counter in filename"
-msgstr "Minimumlængde af tæller i filnavn"
+msgstr ""
 
 #. DESC_TIFF_ZIP_COMPRESSION
 msgid "Compression rate for zip compressed TIFF (deflate)"
-msgstr "Kompressionsgrad for zip komprimeret TIFF (deflation)"
+msgstr ""
 
 #. DESC_TIFF_COMPRESSION_16
+#, fuzzy
 msgid "Compression type if 16 bit image is saved as TIFF"
-msgstr "Kompressionstype, hvis 16 bit billede gemmes som TIFF"
+msgstr "Pakkaustapa tallennettaessa 16-bittistä kuvaa TIFFinä"
 
 #. DESC_TIFF_COMPRESSION_8
+#, fuzzy
 msgid "Compression type if 8 bit image is saved as TIFF"
-msgstr "Kompressionstype hvis 8 bit billede gemmes som TIFF"
+msgstr "Pakkaustapa tallennettaessa 8-bittistä kuvaa TIFFinä"
 
 #. DESC_TIFF_COMPRESSION_1
+#, fuzzy
 msgid "Compression type if lineart image is saved as TIFF"
-msgstr "Kompressionstype når stregtegningsbilleder gemmes som TIFF"
+msgstr "Pakkaustapa tallennettaessa 8-bittistä kuvaa TIFFinä"
 
 #. DESC_SAVE_DEVPREFS_AT_EXIT
 msgid "Save device dependant preferences in default file at exit of xsane"
-msgstr "Gem enhedsafhængige værdier i standardfil, ved afslutning af XSane"
+msgstr ""
+"Tallenna laiteriippuvaiset asetukset oletustiedostoon poistuttaessa xsanesta"
 
 #. DESC_OVERWRITE_WARNING
 msgid "Warn before overwriting an existing file"
-msgstr "Advar før overskrivning af eksisterende fil"
+msgstr "Varoita ennen tiedostojen korvaamista"
 
 #. DESC_SKIP_EXISTING
 msgid ""
 "If filename counter is automatically increased, used numbers are skipped"
-msgstr "Hvis filnavntæller øges automatisk, bliver brugte numre forbigået"
+msgstr ""
 
 #. DESC_SAVE_PS_FLATEDECODED
 msgid ""
 "compress postscript image with zlib algorithm (flatedecode). When you want "
 "to print such a file your printer has to understand postscript level 3"
 msgstr ""
-"komprimér postscript-billede med zlib-algoritme (fladafkodning). Når en fil "
-"af denne type skal udskrives, skal printeren kunne forstå postscript level 3"
 
 #. DESC_SAVE_PDF_FLATEDECODED
 msgid "compress PDF image with zlib algorithm (flatedecode)."
-msgstr "komprimér PDF-billede med zlib-algoritme (fladafkodning)."
+msgstr ""
 
 #. DESC_SAVE_PNM16_AS_ASCII
+#, fuzzy
 msgid ""
 "When a 16 bit image shall be saved in PNM format then use ASCII format "
 "instead of binary format. The binary format is a new format that is not "
 "supported by all programs. The ASCII format is supported by more programs "
 "but it produces really huge files!!!"
 msgstr ""
-"Hvis et 16-bit billede skal gemmes i PNM format, bruges ASCII format i "
-"stedet for binært format. Det binære format er et nyt format, der ikke "
-"understøttes af alle programmer. ASCII formatet er understøttet af flere "
-"programmer, men det producerer ret store filer!!!"
+"Kun 16-bittinen kuva tallennetaan PNM-muodossa, käytä ASCII-muotoa "
+"binäärimuodon sijasta. Binäärimuoto on uusi, eikä kaikki ohjelmat tue sitä. "
+"ASCII-muoto on tuetumpi, mutta se tuottaa todella suuria tiedostoja!!!"
 
 #. DESC_REDUCE_16BIT_TO_8BIT
+#, fuzzy
 msgid ""
 "If scanner sends image with 16 bits/channel save image with 8 bits/channel"
 msgstr ""
-"Hvis skanneren sender billede med 16 bit/farve gemmes billedet med 8 bit/"
-"farve"
+"Jos skanneri lähettää kuvaa muodossa 16 bittiä/väri, tallenna kuva muodossa "
+"8 bittiä/väri"
 
 #. DESC_PSFILE_WIDTH
 msgid "Width of paper for postscript files"
-msgstr "Bredde af papir for postscript filer"
+msgstr "Paperin leveys postscript-tiedostoille"
 
 #. DESC_PSFILE_HEIGHT
 msgid "Height of paper for postscript files"
-msgstr "Højde af papir for postscript filer"
+msgstr "Paperin korkeus postscript-tiedostoille"
 
 #. DESC_PSFILE_LEFTOFFSET
 msgid ""
 "Left offset from the edge of the paper to the usable area for postscript "
 "files"
-msgstr "Venstre margen fra papirkant til printbart område for postscript filer"
+msgstr ""
+"Vasen marginaali postscript-tiedostoille paperin reunasta tulostusalueelle"
 
 #. DESC_PSFILE_BOTTOMOFFSET
 msgid ""
 "Bottom offset from the edge of the paper to the usable area for postscript "
 "files"
-msgstr "Bund margen fra papirkant til printbart område for postscript filer"
+msgstr ""
+"Alamarginaali postscript-tiedostoille paperin reunasta tulostusalueelle"
 
 #. DESC_MAIN_WINDOW_FIXED
 msgid "Use fixed main window size or scrolled, resizable main window"
 msgstr ""
-"Brug fast hovedvinduesstørrelse eller rullet, foranderlig "
-"hovedvinduesstørrelse"
 
 #. DESC_DISABLE_GIMP_PREVIEW_GAMMA
+#, fuzzy
 msgid "Disable preview gamma when XSane runs as GIMP plugin"
-msgstr "Deaktivér forhåndsvisningsgamma, når XSane kører som et GIMP plugin"
+msgstr ""
+"Poista esikatselun gammakorjaus käytöstä, kun XSane on käytössä GIMP-"
+"liitännäisenä"
 
 #. DESC_PREVIEW_COLORMAP
 msgid "Use an own colormap for preview if display depth is 8 bpp"
 msgstr ""
-"Brug en egen farvemappe for forhåndsvisning, hvis display dybde er 8 bpp"
+"Käytä omaa värikarttaa esikatselussa jos väritarkkuus on 8 bittiä pikselille"
 
 #. DESC_SHOW_RANGE_MODE
 msgid "Select how a range is displayed"
-msgstr "Vælg hvordan et område vises"
+msgstr ""
 
 #. DESC_PREVIEW_OVERSAMPLING
+#, fuzzy
 msgid "Value with which the calculated preview resolution is multiplied"
-msgstr ""
-"Værdi, med hvilken den beregnede forhåndsvisningsopløsning er multipliceret"
+msgstr "Esikatselukuvan resoluution kerroin"
 
 #. DESC_PREVIEW_GAMMA
 msgid "Set gamma correction value for preview image"
-msgstr "Sæt gamma korrektionsværdi for forhåndsvisningsbillede"
+msgstr "Aseta gammakorjaus esikatselukuvalle"
 
 #. DESC_PREVIEW_GAMMA_RED
 msgid "Set gamma correction value for red component of preview image"
-msgstr "Sæt gamma korrektionsværdi for forhåndsvisnings billede, rød farvedel"
+msgstr "Aseta gammakorjaus esikatselukuvan punaiselle komponentille"
 
 #. DESC_PREVIEW_GAMMA_GREEN
 msgid "Set gamma correction value for green component of preview image"
-msgstr "Sæt gamma korrektionsværdi for forhåndsvisnings billede, grøn farvedel"
+msgstr "Aseta gammakorjaus esikatselukuvan vihreälle komponentille"
 
 #. DESC_PREVIEW_GAMMA_BLUE
 msgid "Set gamma correction value for blue component of preview image"
-msgstr "Sæt gamma korrektionsværdi for forhåndsvisnings billede, blå farvedel"
+msgstr "Aseta gammakorjaus esikatselukuvan siniselle komponentille"
 
 #. DESC_LINEART_MODE
 msgid "Define the way XSane shall handle the threshold option"
-msgstr "Definér den måde, hvorpå XSane skal behandle grænseværdi indstillingen"
+msgstr ""
 
 #. DESC_GRAYSCALE_SCANMODE
 msgid ""
 "Select grayscale scanmode. This scanmode is used for lineart preview scan "
 "when transformation from grayscale to lineart is enabled"
 msgstr ""
-"Vælg gråskala skanningstilstand. Denne skanningstilstand bruges til "
-"stregtegnings forhåndsvisning når transformation fra gråskala til "
-"stregtegning er valgt"
 
 #. DESC_PREVIEW_THRESHOLD_MIN
 #, no-c-format
 msgid "The scanner's minimum threshold level in %"
-msgstr "Skannerens minimumsgrænseværdi niveau i %"
+msgstr ""
 
 #. DESC_PREVIEW_THRESHOLD_MAX
 #, no-c-format
 msgid "The scanner's maximum threshold level in %"
-msgstr "Skannerens maximumsgrænseværdi niveau i %"
+msgstr ""
 
 #. DESC_PREVIEW_THRESHOLD_MUL
 msgid ""
 "Multiplier to make XSane threshold range and scanner threshold range the same"
 msgstr ""
-"Multiplikator, der bringer XSane's og skannerens grænseværdiområde i "
-"overensstemmelse med hinanden"
 
 #. DESC_PREVIEW_THRESHOLD_OFF
 msgid ""
 "Offset to make XSane threshold range and scanner threshold range the same"
 msgstr ""
-"Forskydning, der bringer XSane's og skannerens grænseværdiområde i "
-"overensstemmelse med hinanden"
 
 #. DESC_ADF_PAGES_MAX
 msgid "Number of pages to scan"
-msgstr "Antal sider der skal skannes"
+msgstr ""
 
 #. DESC_PREVIEW_PIPETTE_RANGE
 msgid "dimension of square that is used to average color for pipette function"
 msgstr ""
-"Dimension af det kvadrat, der skal bruges til gennemsnitsfarve med pipette-"
-"funktionen"
 
 #. DESC_DOC_VIEWER
+#, fuzzy
 msgid ""
 "Enter command to be executed to display helpfiles, must be a HTML-viewer!"
 msgstr ""
-"Angiv den Komando der skal udføres for at vise hjælpefiler - skal være en "
-"HTML-viser!"
+"Syötä komento, joka suoritetaan ohjetiedostojen katselemiseksi (täytyy tukea "
+"HTML:ää)."
 
 #. DESC_AUTOENHANCE_GAMMA
 msgid "Change gamma value when autoenhancement button is pressed"
-msgstr "Skift gammaværdi, når autoforbedringsknappen trykkes"
+msgstr ""
 
 #. DESC_PRESELECT_SCAN_AREA
+#, fuzzy
 msgid "Select scan area after preview scan has finished"
-msgstr "Vælg skanområde når forhåndsvisning er gennemført"
+msgstr "Valitse skannausalue esikatseluskannauksen valmistuttua"
 
 #. DESC_AUTOCORRECT_COLORS
 msgid "Do color correction after preview scan has finished"
-msgstr "Udfør farvekorrektion, når forhåndsvisning er gennemført"
+msgstr "Tee värinkorjaus esikatseluskannauksen valmistuttua"
 
 #. DESC_RENDERING_INTENT
+#, fuzzy
 msgid "Select rendering intent for preview and saving"
-msgstr "Vælg rendering intent for forhåndsvisning og gemning"
+msgstr "Valitse skannausalue esikatseluskannauksen valmistuttua"
 
 #. DESC_CMS_BPC
 msgid "Apply black point compensation when color transformation is done"
-msgstr "Tilføj sortpunktskompensation når farvetransformation er færdig"
+msgstr ""
 
 #. DESC_FAX_COMMAND
 msgid "Enter command to be executed in fax mode"
-msgstr "Komando der skal udføres i fax tilstand"
+msgstr "Syötä komento, joka suoritetaan faksitilassa"
 
 #. DESC_FAX_RECEIVER_OPT
 msgid "Enter option to specify receiver"
-msgstr "Indstilling der angiver modtager telefonnummer"
+msgstr "Syötä valitsin vastaanottajan määrittämiseksi"
 
 #. DESC_FAX_POSTSCRIPT_OPT
 msgid "Enter option to specify postscript files following"
-msgstr ""
-"Angiv indstilling, der markerer at efterfølgende fil er i postscript format"
+msgstr "Syötä valitsin, jolla määritetään postscript-tiedostot"
 
 #. DESC_FAX_NORMAL_OPT
 msgid "Enter option to specify normal mode (low resolution)"
-msgstr "Angiv værdi til indstilling af en lodret opløsning på 98 lpi"
+msgstr "Syötä valitsin, jolla määritetään matalaresoluutiotila (tavallinen)"
 
 #. DESC_FAX_FINE_OPT
 msgid "Enter option to specify fine mode (high resolution)"
-msgstr "Angiv værdi til indstilling af en lodret opløsning på 196 lpi"
+msgstr "Syötä valitsin, jolla määritetään korkearesoluutiotila"
 
 #. DESC_FAX_VIEWER
 msgid "Enter command to be executed to view a fax"
-msgstr "Komando der skal udføres, for at vise en fax"
+msgstr "Syötä komento, joka suoritetaan faksin katselemiseksi"
 
 #. DESC_FAX_FINE_MODE
 msgid "Send fax with high vertical resolution (196 lpi instead of 98 lpi)"
-msgstr "Send fax med høj lodret opløsning (196 lpi i stedet for 98 lpi)"
+msgstr "Lähetä faksi korkealla vaakaresoluutiolla (196 lpi 98 lpi:n sijasta)"
 
 #. DESC_FAX_PS_FLATEDECODED
 msgid "Create zlib compressed postscript image for fax (flatedecode)"
-msgstr "Dan zlib-komprimeret postscript billede til fax (fladafkodning)"
+msgstr ""
 
 #. DESC_SMTP_SERVER
 msgid "IP Address or Domain name of SMTP server"
-msgstr "IP adresse eller domain navn på SMTP server"
+msgstr "SMTP-palvelimen osoite"
 
 #. DESC_SMTP_PORT
 msgid "port to connect to SMTP server"
-msgstr "port til forbindelse til SMTP server"
+msgstr "SMTP-palvelimen portti"
 
 #. DESC_EMAIL_FROM
 msgid "enter your e-mail address"
-msgstr "Angiv din e-post adresse"
+msgstr ""
 
 #. DESC_EMAIL_REPLY_TO
 msgid "enter e-mail address for replied e-mails"
-msgstr "Angiv e-post adresse til svar e-post"
+msgstr ""
 
 #. DESC_EMAIL_AUTHENTICATION
 msgid "Type of authentication before sending e-mail"
-msgstr "Godkendelsestype før e-post sendes"
+msgstr ""
 
 #. DESC_EMAIL_AUTH_USER
 msgid "user name for e-mail server"
-msgstr "brugernavn til e-post server"
+msgstr ""
 
 #. DESC_EMAIL_AUTH_PASS
 msgid "password for e-mail server"
-msgstr "password til e-post server"
+msgstr ""
 
 #. DESC_POP3_SERVER
 msgid "IP Address or Domain name of POP3 server"
-msgstr "IP adresse eller domain navn på POP3 server"
+msgstr "POP3-palvelimen osoite"
 
 #. DESC_POP3_PORT
 msgid "port to connect to POP3 server"
-msgstr "port til forbindelse til POP3 server"
+msgstr "POP3-palvelimen portti"
 
 #. DESC_HTML_EMAIL
 msgid "E-mail is sent in HTML mode, place image with: <IMAGE>"
-msgstr "E-post er sendt i HTML tilstand, placér billede med: <IMAGE>"
+msgstr ""
 
 #. DESC_OCR_COMMAND
+#, fuzzy
 msgid "Enter command to start OCR program"
-msgstr "Indtast kommando til at starte tekstgenkendelsesprogram"
+msgstr "Syötä komento OCR-ohjelman käynnistämiseksi"
 
 #. DESC_OCR_INPUTFILE_OPT
+#, fuzzy
 msgid "Enter option of the OCR program to define input file"
-msgstr ""
-"Indtast indstillinger for tekstgenkendelsesprogram for at definere inddatafil"
+msgstr "Syötä valitsin, jolla OCR-ohjelmalle määritetään syötetiedosto"
 
 #. DESC_OCR_OUTPUTFILE_OPT
+#, fuzzy
 msgid "Enter option of the OCR program to define output file"
-msgstr ""
-"Indtast indstillinger for tekstgenkendelsesprogram for at definere uddatafil"
+msgstr "Syötä valitsin, jolla OCR-ohjelmalle määritetään tulostetiedosto"
 
 #. DESC_OCR_USE_GUI_PIPE_OPT
+#, fuzzy
 msgid "Define if the OCR program supports gui progress pipe"
-msgstr "Angiv om tekstgenkendelsesprogrammet understøtter GUI fremskridtsrør"
+msgstr "Määrittele, tukeeko OCR-ohjelma GUI-edistymisputkea"
 
 #. DESC_OCR_OUTFD_OPT
+#, fuzzy
 msgid ""
 "Enter option of the OCR program to define output filedescripor in GUI mode"
 msgstr ""
-"Angiv indstilling for tekstgenkendelsesprogrammet, til definering af uddata "
-"filbeskrivelse i GUI tilstand"
+"Syötä valitsin, jolla OCR-ohjelmalle määritetään tiedostokahva GUI-tilassa"
 
 #. DESC_OCR_PROGRESS_KEYWORD
 msgid "Define Keyword that is used to mark progress information"
-msgstr "Definer nøgleord der skal bruges til at markere fremskridts angivelse"
+msgstr "Määritä avainsana jota käytetään merkittäessä edistymistietoja"
 
 #. DESC_PERMISSION_READ
 msgid "read"
-msgstr "læs"
+msgstr "luku"
 
 #. DESC_PERMISSION_WRITE
 msgid "write"
-msgstr "skriv"
+msgstr "kirjoitus"
 
 #. DESC_PERMISSION_SEARCH
+#, fuzzy
 msgid "search"
-msgstr "søg"
+msgstr "käyttäjä"
 
 #. DESC_ADD_BATCH
 msgid "Add selection for batch scan"
-msgstr "Tilføj område til batch skan"
+msgstr ""
 
 #. DESC_PIPETTE_WHITE
 msgid "Pick white point"
-msgstr "Vælg hvidt punkt"
+msgstr "Valitse valkoinen piste"
 
 #. DESC_PIPETTE_GRAY
 msgid "Pick gray point"
-msgstr "Vælg gråt punkt"
+msgstr "Valitse harmaa piste"
 
 #. DESC_PIPETTE_BLACK
 msgid "Pick black point"
-msgstr "Vælg sort punkt"
+msgstr "Valitse musta piste"
 
 #. DESC_ZOOM_FULL
+#, fuzzy
 msgid "Use full scan area"
-msgstr "Brug fuldt skanområde"
+msgstr "Käytä koko skannausaluetta"
 
 #. DESC_ZOOM_OUT
 #, no-c-format
 msgid "Zoom 20% out"
-msgstr "Zoom 20% ud"
+msgstr "Loitonna 20%"
 
 #. DESC_ZOOM_IN
 msgid "Click at position to zoom to"
-msgstr "Klik i det ønskede zoomområde"
+msgstr "Napsauta suurennettavaa kohtaa"
 
 #. DESC_ZOOM_AREA
 msgid "Zoom into selected area"
-msgstr "Zoom ind i det valgte område"
+msgstr "Suurenna valittu alue"
 
 #. DESC_ZOOM_UNDO
 msgid "Undo last zoom"
-msgstr "Fortryd sidste zoom"
+msgstr "Kumoa edellinen suurennos"
 
 #. DESC_FULL_PREVIEW_AREA
 msgid "Select visible area"
-msgstr "Vælg synligt område"
+msgstr "Valitse näkyvä alue"
 
 #. DESC_AUTOSELECT_SCAN_AREA
+#, fuzzy
 msgid "Autoselect scan area"
-msgstr "Autovælg skanområde"
+msgstr "Valitse skannausalue automaattisesti"
 
 #. DESC_AUTORAISE_SCAN_AREA
+#, fuzzy
 msgid "Autoraise scan area"
-msgstr "Autoudvid skanområde"
+msgstr "Valitse skannausalue automaattisesti"
 
 #. DESC_DELETE_IMAGES
 msgid "Delete preview image cache"
-msgstr "Slet forhåndsvisningscache"
+msgstr "Poista esikatseluvälimuisti"
 
 #. DESC_PRESET_AREA
 msgid ""
@@ -2369,149 +2357,151 @@ msgid ""
 "To add new area or edit an existing area use context menu (alternate mouse "
 "button)."
 msgstr ""
-"Forvalgt område:\n"
-"For at tilføje et nyt eller rette i et eksisterende område bruges "
-"kontekstmenuen (alternativt musetaste)."
 
 #. DESC_ROTATION
 msgid "Rotate preview and scan"
-msgstr "Rotér forhåndsvisning og skanning"
+msgstr "Käännä esikatselua ja skannaa"
 
 #. DESC_RATIO
 msgid "Aspect ratio of selection"
-msgstr "Forholdet mellem bredde/højde af valgt område"
+msgstr "Valinnan kuvasuhde"
 
 #. DESC_PAPER_ORIENTATION
 msgid "Define image position for printing"
-msgstr "Definer billed position for printning"
+msgstr "Määritä kuvan sijainti tulostusta varten"
 
 #. DESC_VIEWER_OCR
 msgid "Optical Character Recognition"
-msgstr "Tekst genkendelse"
+msgstr "Optinen merkkientunnistus (OCR)"
 
 #. DESC_VIEWER_UNDO
 msgid "Undo last change"
-msgstr "Fortryd sidste ændring"
+msgstr "Kumoa edellinen muutos"
 
 #. DESC_VIEWER_CLONE
 msgid "Clone image"
-msgstr "Klon billede"
+msgstr "Kloonaa kuva"
 
 #. DESC_ROTATE90
+#, fuzzy
 msgid "Rotate image 90 degrees"
-msgstr "Rotér billede 90 grader"
+msgstr "Kierrä kuvaa 90 astetta"
 
 #. DESC_ROTATE180
+#, fuzzy
 msgid "Rotate image 180 degrees"
-msgstr "Rotér billede 180 grader"
+msgstr "Kierrä kuvaa 180 astetta"
 
 #. DESC_ROTATE270
+#, fuzzy
 msgid "Rotate image 270 degrees"
-msgstr "Rotér billede 270 grader"
+msgstr "Kierrä kuvaa 270 astetta"
 
 #. DESC_MIRROR_X
 msgid "Mirror image at vertical axis"
-msgstr "Spejlvend billede om lodret akse"
+msgstr "Peilaa kuva pystyakselin suhteen"
 
 #. DESC_MIRROR_Y
 msgid "Mirror image at horizontal axis"
-msgstr "Spejlvend billede om vandret akse"
+msgstr "Peilaa kuva vaaka-akselin suhteen"
 
 #. DESC_VIEWER_ZOOM
 msgid "Zoom image"
-msgstr "Zoom billede"
+msgstr "Suurenna kuvaa"
 
 #. DESC_STORE_MEDIUM
 msgid "Store medium"
-msgstr "Gem medie"
+msgstr "Tallennusmedia"
 
 #. DESC_DELETE_MEDIUM
 msgid "Delete active medium"
-msgstr "Slet aktivt medie"
+msgstr "Poista aktiivinen media"
 
 #. DESC_SCALE_FACTOR
 msgid "Scale factor"
-msgstr "Skaleringsfaktor"
+msgstr "Skaalauskerroin"
 
 #. DESC_X_SCALE_FACTOR
 msgid "X-Scale factor"
-msgstr "Skaleringsfaktor X-retning"
+msgstr "Vaakaskaalauskerroin"
 
 #. DESC_Y_SCALE_FACTOR
 msgid "Y-Scale factor"
-msgstr "Skaleringsfaktor Y-retning"
+msgstr "Pystyskaalauskerroin"
 
 #. DESC_SCALE_WIDTH
+#, fuzzy
 msgid "Scale image to width [pixels]"
-msgstr "Skalér billede til bredde [pixler]"
+msgstr "Skaalaa kuva leveyteen [pikseleissä]"
 
 #. DESC_SCALE_HEIGHT
+#, fuzzy
 msgid "Scale image to height [pixels]"
-msgstr "Skalér billede til højde [pixler]"
+msgstr "Skaalaa kuva korkeuteen [pikseleissä]"
 
 #. DESC_BATCH_LIST_EMPTY
 msgid "Empty batch list"
-msgstr "Tøm batchliste"
+msgstr "Tyhjennä työjonolista"
 
 #. DESC_BATCH_LIST_SAVE
 msgid "Save batch list"
-msgstr "Gem batchliste"
+msgstr "Tallenna työjonolista"
 
 #. DESC_BATCH_LIST_LOAD
 msgid "Load batch list"
-msgstr "Hent batchliste"
+msgstr "Avaa työjonolista"
 
 #. DESC_BATCH_RENAME
 msgid "Rename area"
-msgstr "Omdøb område"
+msgstr "Nimeä alue uudelleen"
 
 #. DESC_BATCH_ADD
 msgid "Add selected preview area to batch list"
-msgstr "Tilføj valgt forhåndsvisningsområde til batchliste"
+msgstr ""
 
 #. DESC_BATCH_DEL
 msgid "Delete selected area from batch list"
-msgstr "Slet valgt forhåndsvisningsområde fra batchliste"
+msgstr ""
 
 #. DESC_AUTOMATIC
 msgid "Turns on automatic mode"
-msgstr "Tænder for automatisk tilstand"
+msgstr "Asettaa automaattisen tilan päälle"
 
 #. DESC_BUTTON_SCANNER_DEFAULT_COLOR_ICM_PROFILE_BROWSE
 msgid "Browse for scanner default color ICM-profile"
-msgstr "Søg efter skanners standard farve ICM-profil"
+msgstr ""
 
 #. DESC_BUTTON_SCANNER_DEFAULT_GRAY_ICM_PROFILE_BROWSE
 msgid "Browse for scanner default gray ICM-profile"
-msgstr "Søg efter skanners standard grå ICM-profil"
+msgstr ""
 
 #. DESC_BUTTON_DISPLAY_ICM_PROFILE_BROWSE
 msgid "Browse for display ICM-profile"
-msgstr "Søg efter skærm ICM-profil"
+msgstr ""
 
 #. DESC_BUTTON_PRINTER_ICM_PROFILE_BROWSE
 msgid "Browse for printer ICM-profile"
-msgstr "Søg efter printer ICM-profil"
+msgstr ""
 
 #. DESC_BUTTON_CUSTOM_PROOFING_ICM_PROFILE_BROWSE
 msgid "Browse for custom proofing ICM-profile"
-msgstr "Søg efter bruger test ICM-profil"
+msgstr ""
 
 #. DESC_BUTTON_WORKING_COLOR_SPACE_ICM_PROFILE_BROWSE
 msgid "Browse for working color space ICM-profile"
-msgstr "Søg efter arbejds-farverum ICM-profil"
+msgstr ""
 
 #. ERR_HOME_DIR
 msgid "Failed to determine home directory:"
-msgstr "Kunne ikke bestemme hjem-bibliotek:"
+msgstr "Kotihakemiston määritys epäonnistui:"
 
 #. ERR_CHANGE_WORKING_DIR
 msgid "Failed to change working directory to"
-msgstr "Kunne ikke skifte arbejdsbibliotek til"
+msgstr "Ei onnistuttu vaihtamaan työhakemistoksi"
 
 #. ERR_FILENAME_TOO_LONG
 msgid "Filename too long"
-msgstr "Filnavn er for langt"
+msgstr "Liian pitkä tiedostonimi"
 
 #. ERR_CREATE_TEMP_FILE
 msgid ""
@@ -2520,189 +2510,188 @@ msgid ""
 "select a temporary directory where you have\n"
 "write permissions."
 msgstr ""
-"Kunne ikke danne midlertidig fil.\n"
-"Åbn Menu Indstillinger->Opsætning Tab Gem og\n"
-"vælg et midlertidigt bibliotek hvor du har\n"
-"skrive rettigheder."
 
 #. ERR_SET_OPTION
 msgid "Failed to set value of option"
-msgstr "Kunne ikke sætte værdien af indstillingen"
+msgstr "Valitsimen arvon asettaminen epäonnistui"
 
 #. ERR_GET_OPTION
 msgid "Failed to obtain value of option"
-msgstr "Kunne ikke læse værdien af indstillingen"
+msgstr "Valitsimen arvon selvittäminen epäonnistui"
 
 #. ERR_OPTION_COUNT
 msgid "Error obtaining option count"
-msgstr "Kunne ikke bestemme antallet af indstillinger"
+msgstr "Valitsinten määrän selvittäminen epäonnistui"
 
 #. ERR_DEVICE_OPEN_FAILED
 msgid "Failed to open device"
-msgstr "Kunne ikke åbne enhed"
+msgstr "Laitteen avaaminen epäonnistui"
 
 #. ERR_NO_DEVICES
 msgid "no devices available"
-msgstr "Ingen enheder til rådighed"
+msgstr "ei laitteita saatavilla"
 
 #. ERR_DURING_READ
 msgid "Error during read:"
-msgstr "Fejl under læsning:"
+msgstr "Virhe luettaessa:"
 
 #. ERR_DURING_SAVE
 msgid "Error during save:"
-msgstr "Fejl under skrivning:"
+msgstr "Virhe tallennettaessa:"
 
 #. ERR_BAD_DEPTH
 msgid "Can't handle depth"
-msgstr "Ikke understøttet bit-dybde"
+msgstr "Epäkelpo värisyvyys"
 
 #. ERR_UNKNOWN_SAVING_FORMAT
 msgid "Unknown file format for saving"
-msgstr "Ukendt filformat til gemning"
+msgstr "Tuntematon tallennusmuoto"
 
 #. ERR_OPEN_FAILED
 msgid "Failed to open"
-msgstr "Kunne ikke åbne"
+msgstr "Avaaminen epäonnistui"
 
 #. ERR_CREATE_SECURE_FILE
+#, fuzzy
 msgid "Could not create secure file (maybe a link does exist):"
-msgstr "Kunne ikke danne sikker fil (måske eksisterer der et link):"
+msgstr "Ei onnistuttu luomaan turvallista tiedostoa (ehkä linkkiä ei ole):"
 
 #. ERR_FAILED_PRINTER_PIPE
 msgid "Failed to open pipe for executing printercommand"
-msgstr "Kunne ikke åbne rør til udførelse af printkommando"
+msgstr "Putken avaaminen tulostinkomennon suorittamista varten epäonnistui"
 
 #. ERR_FAILED_EXEC_PRINTER_CMD
 msgid "Failed to execute printercommand:"
-msgstr "Kunne ikke udføre printkommando:"
+msgstr "Tulostinkomennon suorittaminen epäonnistui:"
 
 #. ERR_FAILED_START_SCANNER
 msgid "Failed to start scanner:"
-msgstr "Kunne ikke starte skanner:"
+msgstr "Skannerin käynnistäminen epäonnistui:"
 
 #. ERR_FAILED_GET_PARAMS
 msgid "Failed to get parameters:"
-msgstr "Kunne ikke få fat i parametre:"
+msgstr "Ei onnistuttu hakemaan parametreja:"
 
 #. ERR_NO_OUTPUT_FORMAT
 msgid "No output format given"
-msgstr "Intet uddataformat angivet"
+msgstr "Tulostemuotoa ei annettu"
 
 #. ERR_NO_MEM
 msgid "out of memory"
-msgstr "ikke mere ram"
+msgstr "muisti loppui"
 
 #. ERR_TOO_MUCH_DATA
 msgid "Backend sends more image data than it defined in parameters"
-msgstr "Bagende sender flere billeddata, end defineret i parametrene"
+msgstr "Taustaosa lähettää enemmän kuvadataa kuin se määritteli parametreissa"
 
 #. ERR_LIBTIFF
 msgid "LIBTIFF reports error"
-msgstr "LIBTIFF melder fejl"
+msgstr "LIBTIFF ilmoittaa virheestä"
 
 #. ERR_LIBPNG
 msgid "LIBPNG reports error"
-msgstr "LIBPNG melder fejl"
+msgstr "LIBPNG ilmoittaa virheestä"
 
 #. ERR_LIBJPEG
 msgid "LIBJPEG reports error"
-msgstr "LIBJPEG melder fejl"
+msgstr "LIBJPEG ilmoittaa virheestä"
 
 #. ERR_ZLIB
 msgid "ZLIB error or memory allocation problem"
-msgstr "ZLIB fejl, eller hukommelsesallokerings problem"
+msgstr ""
 
 #. ERR_UNKNOWN_TYPE
 msgid "unknown type"
-msgstr "ukendt type"
+msgstr "tuntematon tyyppi"
 
 #. ERR_UNKNOWN_CONSTRAINT_TYPE
 msgid "unknown constraint type"
-msgstr "ukendt forpligtende type"
+msgstr "tuntematon rajoitustyyppi"
 
 #. ERR_OPTION_NAME_NULL
 msgid "Option has empty name (NULL)."
-msgstr "Indstilling har tomt navn (NULL)."
+msgstr "Asetuksella on tyhjä nimi (NULL)."
 
 #. ERR_BACKEND_BUG
 msgid "This is a backend bug. Please inform the author of the backend!"
-msgstr "Dette er en bagende fejl. Underret forfatteren af bagenden!"
+msgstr "Tämä on taustaosan virhe. Ilmoita siitä taustaosan tekijälle!"
 
 #. ERR_FAILED_EXEC_DOC_VIEWER
 msgid "Failed to execute documentation viewer:"
-msgstr "Kunne ikke udføre dokument-viser:"
+msgstr "Dokumentaatiokatselimen käynnistäminen epäonnistui:"
 
 #. ERR_FAILED_EXEC_FAX_VIEWER
 msgid "Failed to execute fax viewer:"
-msgstr "Kunne ikke udføre fax-viser:"
+msgstr "Faksikatselimen käynnistäminen epäonnistui:"
 
 #. ERR_FAILED_EXEC_FAX_CMD
 msgid "Failed to execute fax command:"
-msgstr "Kunne ikke udføre fax kommando:"
+msgstr "Faksikomennon suorittaminen epäonnistui:"
 
 #. ERR_FAILED_EXEC_OCR_CMD
+#, fuzzy
 msgid "Failed to execute OCR command:"
-msgstr "Kunne ikke udføre tekstgenkendelses-kommando:"
+msgstr "Faksikomennon suorittaminen epäonnistui:"
 
 #. ERR_BAD_FRAME_FORMAT
 msgid "bad frame format"
-msgstr "forkert frame-format"
+msgstr "epäkelpo kehysmuoto"
 
 #. ERR_FAILED_SET_RESOLUTION
 msgid "unable to set resolution"
-msgstr "kunne ikke vælge opløsning"
+msgstr "tarkkuuden asetus epäonnistui"
 
 #. ERR_PASSWORD_FILE_INSECURE
 #, c-format
 msgid "Password file (%s) is insecure, use permission x00\n"
-msgstr "Password fil (%s) er usikker, brug rettighed x00\n"
+msgstr "Salasanatiedosto (%s) ei ole turvattu, käytä oikeuksia x00\n"
 
 #. ERR_ERROR
 msgid "error"
-msgstr "fejl"
+msgstr "virhe"
 
 #. ERR_MAJOR_VERSION_NR_CONFLICT
 msgid "Sane major version number mismatch!"
-msgstr "Sane hovedversionsnummer uoverensstemmelse!"
+msgstr "Sanen versionumero ei täsmää!"
 
 #. ERR_XSANE_MAJOR_VERSION
 msgid "XSane major version ="
-msgstr "XSane hovedversionsnummer ="
+msgstr "XSane-versio ="
 
 #. ERR_BACKEND_MAJOR_VERSION
 msgid "backend major version ="
-msgstr "bagende hovedversionsnummer ="
+msgstr "taustaosan versio ="
 
 #. ERR_PROGRAM_ABORTED
 msgid "*** PROGRAM ABORTED ***"
-msgstr "*** PROGRAM AFBRUDT ***"
+msgstr "*** OHJELMA KESKEYTETTIIN ***"
 
 #. ERR_FAILED_ALLOCATE_IMAGE
 msgid "Failed to allocate image memory:"
-msgstr "Kunne ikke allokere billedram:"
+msgstr "Virhe varattaessa muistia kuville:"
 
 #. ERR_PREVIEW_BAD_DEPTH
 msgid "Preview cannot handle bit depth"
-msgstr "Forhåndsvisning kan ikke håndtere bitdybde"
+msgstr "Esikatselu ei pysty käsittelemään tätä värisyvyyttä"
 
 #. ERR_GIMP_SUPPORT_MISSING
 msgid "GIMP support missing"
-msgstr "GIMP understøttelse mangler"
+msgstr "GIMP-tuki puuttuu"
 
 #. ERR_CREATE_FAX_PROJECT
 msgid "Could not create faxproject"
-msgstr "Kunne ikke danne fax-projekt"
+msgstr "Ei voitu luoda faksiprojektia"
 
 #. WARN_COUNTER_UNDERRUN
 msgid "Filename counter underrun"
-msgstr "Filnavn tæller 'underløb'"
+msgstr "Virhe tiedostonimilaskurissa"
 
 #. WARN_NO_VALUE_CONSTRAINT
 msgid "warning: option has no value constraint"
-msgstr "advarsel: indstillingen har ingen forpligtende værdi"
+msgstr "varoitus: valitsimella ei ole arvorajoitusta"
 
 #. WARN_XSANE_AS_ROOT
+#, fuzzy
 msgid ""
 "You try to run XSane as ROOT, that really is DANGEROUS!\n"
 "\n"
@@ -2710,144 +2699,150 @@ msgid ""
 "have any problems while running XSane as root:\n"
 "YOU ARE ALONE!"
 msgstr ""
-"Du prøver at køre XSane som ROOT, det ER meget FARLIGT!\n"
+"Olet ajamassa XSanea PÄÄKÄYTTÄJÄNÄ, se on erittäin VAARALLISTA!\n"
 "\n"
-"Du skal ikke sende bug-rapporter\n"
-"hvis du får problemer når du kører XSane som root:\n"
-"DU ER HELT ALENE!"
+"Älä lähetä virheilmoituksia kun sinulla\n"
+"on ongelmia ajaessa XSanea pääkäyttäjänä:\n"
+"OLET YKSIN!"
 
 #. ERR_HEADER_ERROR
 msgid "Error"
-msgstr "Fejl"
+msgstr "Virhe"
 
 #. ERR_HEADER_WARNING
 msgid "Warning"
-msgstr "Advarsel"
+msgstr "Varoitus"
 
 #. ERR_HEADER_INFO
 msgid "Information"
-msgstr "Information"
+msgstr "Tietoja"
 
 #. ERR_HEADER_CHILD_PROCESS_ERROR
 msgid "Child process error"
-msgstr "barneproces-fejl"
+msgstr "Virhe lapsiprosessissa"
 
 #. ERR_FAILED_CREATE_FILE
 msgid "Failed to create file:"
-msgstr "Kunne ikke danne fil:"
+msgstr "Tiedoston luominen epäonnistui:"
 
 #. ERR_LOAD_DEVICE_SETTINGS
 msgid "Error while loading device settings:"
-msgstr "Fejl under hentning af enhedsindstillinger:"
+msgstr "Virhe ladattaessa laitteen asetuksia:"
 
 #. ERR_NO_DRC_FILE
 msgid "is not a device-rc-file !!!"
-msgstr "er ikke en enhedsindstillingsfil!!!"
+msgstr "ei ole DRC-tiedosto!"
 
 #. ERR_NETSCAPE_EXECUTE_FAIL
 msgid "Failed to execute netscape!"
-msgstr "Kunne ikke køre Netscape!"
+msgstr "Netscapen suorittaminen epäonnistui!"
 
 #. ERR_SENDFAX_RECEIVER_MISSING
 msgid "Send fax: no receiver defined"
-msgstr "Send fax: ingen modtager anført"
+msgstr "Lähetä faksi: vastaanottajaa ei määritelty"
 
 #. ERR_CREATED_FOR_DEVICE
 msgid "has been created for device"
-msgstr "er blevet dannet til enhed"
+msgstr "on luotu laitteelle"
 
 #. ERR_USED_FOR_DEVICE
 msgid "you want to use it for device"
-msgstr "bliver brugt til enhed"
+msgstr "haluat käyttää sitä laitteelle"
 
 #. ERR_MAY_CAUSE_PROBLEMS
 msgid "this may cause problems!"
-msgstr "dette kan skabe problemer!"
+msgstr "tämä saattaa aiheuttaa ongelmia!"
 
 #. WARN_UNSAVED_IMAGES
 #, c-format
 msgid "There are %d unsaved images"
-msgstr "Der er %d ikke gemte billeder"
+msgstr "%d tallentamatonta kuvaa"
 
 #. WARN_FILE_EXISTS
 #, c-format
 msgid "File %s already exists"
-msgstr "Filen %s eksisterer allerede"
+msgstr "Tiedosto %s on jo olemassa"
 
 #. ERR_FILE_NOT_EXISTS
 #, c-format
 msgid "File %s does not exist"
-msgstr "Fil %s eksisterer ikke"
+msgstr "Tiedostoa %s ei ole"
 
 #. ERR_FILE_NOT_POSTSCRIPT
 #, c-format
 msgid "File %s is not a postscript file"
-msgstr "Fil %s er ikke en postscript fil"
+msgstr "Tiedosto %s ei ole postscript-tiedosto"
 
 #. ERR_UNSUPPORTED_OUTPUT_FORMAT
 #, c-format
 msgid "Unsupported %d-bit output format: %s"
-msgstr "Ikke understøttet %d-bit uddataformat: %s"
+msgstr "Ei-tuettu %d-bittinen tulostemuoto: %s"
 
 #. ERR_CMS_CONVERSION
+#, fuzzy
 msgid "Error during CMS conversion:"
-msgstr "Fejl under CMS omformning:"
+msgstr "Virhe tallennettaessa:"
 
 #. ERR_CMS_OPEN_ICM_FILE
+#, fuzzy
 msgid "Could not open"
-msgstr "Kunne ikke åbne"
+msgstr "Avaaminen epäonnistui"
 
 #. CMS_SCANNER_ICM
 msgid "scanner ICM profile"
-msgstr "skanner ICM-profil"
+msgstr ""
 
 #. CMS_DISPLAY_ICM
 msgid "display ICM profile"
-msgstr "vis ICM-profil"
+msgstr ""
 
 #. CMS_PROOF_ICM
 msgid "proofing ICM profile"
-msgstr "test ICM-profil"
+msgstr ""
 
 #. ERR_CMS_CREATE_TRANSFORM
+#, fuzzy
 msgid "Could not create transform"
-msgstr "Kunne ikke danne transformation"
+msgstr "Ei voitu luoda faksiprojektia"
 
 #. WARN_VIEWER_IMAGE_NOT_SAVED
 msgid "viewer image is not saved"
-msgstr "viser-billede er ikke gemt"
+msgstr "katselimen kuvaa ei tallennettu"
 
 #. FILE_FILTER_ALL_FILES
 msgid "All files"
-msgstr "Alle filer"
+msgstr ""
 
 #. FILE_FILTER_IMAGES
 msgid "Images"
-msgstr "Billeder"
+msgstr ""
 
 #. FILE_FILTER_XBL
+#, fuzzy
 msgid "XSane batch list"
-msgstr "XSane batchliste"
+msgstr "Tallenna työjonolista"
 
 #. FILE_FILTER_ICM
 msgid "ICC/ICM Profiles"
-msgstr "ICC/ICM Profiler"
+msgstr ""
 
 #. FILE_FILTER_DRC
+#, fuzzy
 msgid "XSane device preferences"
-msgstr "XSane enhedsindstillinger"
+msgstr "Tallenna laiteasetukset poistuttaessa"
 
 #. FILE_FILTER_RC
+#, fuzzy
 msgid "XSane preferences"
-msgstr "XSane Indstillinger"
+msgstr "Asetukset"
 
 #. TEXT_USAGE
 msgid "Usage:"
-msgstr "Brug:"
+msgstr "Käyttö:"
 
 #. TEXT_USAGE_OPTIONS
 msgid "[OPTION]... [DEVICE]"
-msgstr "[INDSTILLING]... [ENHED]"
+msgstr "[VALITSIN]... [LAITE]"
 
 #. TEXT_HELP
 msgid ""
@@ -2885,70 +2880,39 @@ msgid ""
 " --sync                       request a synchronous connection with the X11 "
 "server"
 msgstr ""
-"Starter grafisk bruger interface til SANE (Scanner Access Now Easy) "
-"enheder.\n"
-"\n"
-"Formatet af [ENHED] er bagendenavn:enhedsfil (f.eks. umax:/dev/scanner).\n"
-"[INDSTILLING]... Kan være en kombination af de følgende punkter:\n"
-" -h, --hjælp                   vis denne hjælpemeddelelse og afslut\n"
-" -v, --version                print versioninformation\n"
-" -l, --licens                print licensinformation\n"
-"\n"
-" -d, --device-settings file   hent enheds indstillinger fra fil (uden \".drc"
-"\")\n"
-"\n"
-" -V, --viewer                 start med viser-tilstand aktiveret (default)\n"
-" -s, --save                   start med gem-tilstand aktiveret\n"
-" -c, --copy                   start med kopi-tilstand aktiveret\n"
-"Saturation -f, --fax                    start med fax-tilstand aktiveret\n"
-" -m, -- flerside               start med flerside-tilstand aktiv\n"
-" -e, --email                   start med e-post-tilstand aktiveret\n"
-" -n, --no-mode-selection      deaktivér menu for XSane tilstand markering\n"
-"\n"
-" -F, --Fixed                  fast hovedvindues størrelse (overskriv "
-"præference værdier)\n"
-" -R, --Resizeable             foranderligt hovedvindues størrelse (overskriv "
-"præference værdier)\n"
-"\n"
-" -p, --print-filenames        print billedfilnavne dannet af XSane\n"
-" -N, --force-filename name    tving filenavne og deaktivér bruger "
-"filnavnevalg\n"
-"\n"
-" --display X11-display        omdiriger uddata til X11-display\n"
-" --no-xshm                    brug ingen delt ram billeder\n"
-" --sync                       kræver en synkron forbindelse til X11 serveren"
 
 #. strings for gimp plugin
 #. XSANE_GIMP_INSTALL_BLURB
 msgid "Front-end to the SANE interface"
-msgstr "Forende til SANE grænseflade"
+msgstr "Edustaosa SANE-rajapinnalle"
 
 #. XSANE_GIMP_INSTALL_HELP
 msgid ""
 "This function provides access to scanners and other image acquisition "
 "devices through the SANE (Scanner Access Now Easy) interface."
 msgstr ""
-"Denne funktion giver adgang til skannere og andre billedhentnings enheder "
-"gennem SANE (Scanner Access Now Easy) grænseflade."
+"Tämä toiminto tarjoaa pääsyn kuvanlukijoihin ja muihin kuvalaitteisiin SANE-"
+"rajapinnan (Scanner Access Now Easy) avulla."
 
 #. Menu path must not be translated, this is done by the gimp. Only translate the text behind the last "/"
 #. XSANE_GIMP_MENU_DIALOG
 msgid "<Toolbox>/File/Acquire/XSane: Device dialog..."
-msgstr "<Toolbox>/File/Acquire/XSane: Enhedsdialog..."
+msgstr "<Toolbox>/Tiedosto/Kuvan syöttö/XSane: Laiteikkuna..."
 
 #. XSANE_GIMP_MENU
 msgid "<Toolbox>/File/Acquire/XSane: "
-msgstr "<Toolbox>/File/Acquire/XSane: "
+msgstr "<Toolbox>/Tiedosto/Kuvan syöttö/Xsane: "
 
 #. XSANE_GIMP_MENU_DIALOG_OLD
 msgid "<Toolbox>/Xtns/XSane/Device dialog..."
-msgstr "<Toolbox>/Xtns/XSane/Enhedsdialog..."
+msgstr "<Toolbox>/Laajennokset/XSane/Laiteikkuna..."
 
 #. XSANE_GIMP_MENU_OLD
 msgid "<Toolbox>/Xtns/XSane/"
-msgstr "<Toolbox>/Xtns/XSane/"
+msgstr "<Toolbox>/Laajennokset/XSane/"
 
 #. HELP_NO_DEVICES
+#, fuzzy
 msgid ""
 "Possible reasons:\n"
 "1) There really is no device that is supported by SANE\n"
@@ -2959,255 +2923,283 @@ msgid ""
 "5) The backend is not configured correctly (man sane-\"backendname\")\n"
 "6) Possibly there is more than one SANE version installed"
 msgstr ""
-"Mulige grunde:\n"
-"1) Der er virkelig ingen enheder der er understøttet af SANE\n"
-"2) Understøttet enhed er optaget\n"
-"3) Enhedsfilens rettigheder tillader dig ikke at bruge den - prøv som root\n"
-"4) Bagenden er ikke indlæst af SANE (man sane-dll)\n"
-"5) Bagenden er ikke konfigureret korrekt (man sane-\"bagendenavn\")\n"
-"6) Måske er der mere end én version af SANE installeret"
+"Mahdolliset syyt:\n"
+"1) Järjestelmässä ei ole SANEn tukemaa laitetta\n"
+"2) Tuetut laitteet ovat varattuja\n"
+"3) Laitteen oikeudet eivät salli sinun käyttää sitä - kokeile pääkäyttäjänä\n"
+"4) SANE ei ole ladannut taustaosaa (man sane-dll)\n"
+"5) Taustaosan asetukset eivät ole kunnossa (man sane-\"taustaosannimi\")\n"
+"6) SANEsta on mahdollisesti asennettuna useampia versioita"
 
 #. strings that are used in structures, so it is not allowed to use _()/gettext() here
 #. gettext_noop does mark these texts but does not change the string
 #. MENU_ITEM_SURFACE_FULL_SIZE
 msgid "full size"
-msgstr "fuld størrelse"
+msgstr "täysi koko"
 
 #. MENU_ITEM_SURFACE_DIN_A3P
 msgid "DIN A3 port."
-msgstr "DIN A3 portræt."
+msgstr "DIN A3 pysty"
 
 #. MENU_ITEM_SURFACE_DIN_A3L
 msgid "DIN A3 land."
-msgstr "DIN A3 tværformat."
+msgstr "DIN A3 vaaka"
 
 #. MENU_ITEM_SURFACE_DIN_A4P
 msgid "DIN A4 port."
-msgstr "DIN A4 portræt."
+msgstr "DIN A4 pysty"
 
 #. MENU_ITEM_SURFACE_DIN_A4L
 msgid "DIN A4 land."
-msgstr "DIN A4 tværformat."
+msgstr "DIN A4 vaaka"
 
 #. MENU_ITEM_SURFACE_DIN_A5P
 msgid "DIN A5 port."
-msgstr "DIN A5 portræt."
+msgstr "DIN A5 pysty"
 
 #. MENU_ITEM_SURFACE_DIN_A5L
 msgid "DIN A5 land."
-msgstr "DIN A5 tværformat."
+msgstr "DIN A5 vaaka"
 
 #. MENU_ITEM_SURFACE_13cmx18cm
 msgid "13cm x 18cm"
-msgstr "13cm x 18cm"
+msgstr "13 cm x 18 cm"
 
 #. MENU_ITEM_SURFACE_18cmx13cm
 msgid "18cm x 13cm"
-msgstr "18cm x 13cm"
+msgstr "18 cm x 13 cm"
 
 #. MENU_ITEM_SURFACE_10cmx15cm
 msgid "10cm x 15cm"
-msgstr "10cm x 15cm"
+msgstr "10 cm x 15 cm"
 
 #. MENU_ITEM_SURFACE_15cmx10cm
 msgid "15cm x 10cm"
-msgstr "15cm x 10cm"
+msgstr "15 cm x 10 cm"
 
 #. MENU_ITEM_SURFACE_9cmx13cm
 msgid "9cm x 13cm"
-msgstr "9cm x 13cm"
+msgstr "9 cm x 13 cm"
 
 #. MENU_ITEM_SURFACE_13cmx9cm
 msgid "13cm x 9cm"
-msgstr "13cm x 9cm"
+msgstr "13 cm x 9 cm"
 
 #. MENU_ITEM_SURFACE_legal_P
 msgid "legal port."
-msgstr "legal portræt."
+msgstr "legal pysty"
 
 #. MENU_ITEM_SURFACE_legal_L
 msgid "legal land."
-msgstr "legal tværformat."
+msgstr "legal vaaka"
 
 #. MENU_ITEM_SURFACE_letter_P
 msgid "letter port."
-msgstr "letter portræt."
+msgstr "letter pysty"
 
 #. MENU_ITEM_SURFACE_letter_L
 msgid "letter land."
-msgstr "letter tværformat."
+msgstr "letter vaaka"
 
 #. MENU_ITEM_MEDIUM_FULL_COLOR_RANGE
 msgid "Full color range"
-msgstr "Fuldt farveområde"
+msgstr "Täysi värivalikoima"
 
 #. MENU_ITEM_MEDIUM_SLIDE
 msgid "Slide"
-msgstr "Film"
+msgstr "Dia"
 
 #. MENU_ITEM_MEDIUM_STANDARD_NEG
 msgid "Standard negative"
-msgstr "Standard negativ"
+msgstr "Tavallinen negatiivi"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG
 msgid "Agfa negative"
-msgstr "Agfa negativ"
+msgstr "Agfa-negatiivi"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG_XRG200_4
 msgid "Agfa negative XRG 200-4"
-msgstr "Agfa negativ XRG 200-4"
+msgstr "Agfa-negatiivi XRG 200-4"
 
 #. MENU_ITEM_MEDIUM_AGFA_NEG_HDC_100
 msgid "Agfa negative HDC 100"
-msgstr "Agfa negativ HDC 100"
+msgstr "Agfa-negatiivi HDC 100"
 
 #. MENU_ITEM_MEDIUM_FUJI_NEG
 msgid "Fuji negative"
-msgstr "Fuji negativ"
+msgstr "Fuji-negatiivi"
 
 #. MENU_ITEM_MEDIUM_KODAK_NEG
 msgid "Kodak negative"
-msgstr "Kodak negativ"
+msgstr "Kodak-negatiivi"
 
 #. MENU_ITEM_MEDIUM_KONICA_NEG
 msgid "Konica negative"
-msgstr "Konica negativ"
+msgstr "Konica-negatiivi"
 
 #. MENU_ITEM_MEDIUM_KONICA_NEG_VX_100
 msgid "Konica negative VX 100"
-msgstr "Konica negativ VX 100"
+msgstr "Konica-negatiivi VX 100"
 
 #. MENU_ITEM_MEDIUM_ROSSMANN_NEG_HR_100
 msgid "Rossmann negative HR 100"
-msgstr "Rossmann negativ HR 100"
+msgstr "Rossmann-negatiivi HR 100"
 
 #. TEXT_PROJECT_STATUS_NOT_CREATED
 msgid "Project not created"
-msgstr "Projekt ikke dannet"
+msgstr "Projektia ei luotu"
 
 #. TEXT_PROJECT_STATUS_CREATED
 msgid "Project created"
-msgstr "Projekt dannet"
+msgstr "Projekti luotiin"
 
 #. TEXT_PROJECT_STATUS_CHANGED
 msgid "Project changed"
-msgstr "Projekt ændret"
+msgstr "Projektia muutettiin"
 
 #. TEXT_PROJECT_STATUS_ERR_READ_PROJECT
 msgid "Error reading project"
-msgstr "Fejl ved læsning af projekt"
+msgstr "Projektia luettaessa tapahtui virhe"
 
 #. TEXT_PROJECT_STATUS_FILE_SAVING_ERROR
 msgid "Error saving file"
-msgstr "Fejl ved gemning af fil"
+msgstr "Virhe tallennettaessa tiedostoa"
 
 #. TEXT_PROJECT_STATUS_FILE_SAVING
 msgid "Saving file"
-msgstr "Gemmer fil"
+msgstr "Tallennetaan tiedostoa"
 
 #. TEXT_PROJECT_STATUS_FILE_SAVING_ABORTED
 msgid "Aborted saving file"
-msgstr "Afbrudt gemning af fil"
+msgstr "Tiedoston tallentaminen keskeytettiin"
 
 #. TEXT_PROJECT_STATUS_FILE_SAVED
 msgid "File has been saved"
-msgstr "Fil er blevet gemt"
+msgstr "Tiedosto tallennettiin"
 
 #. TEXT_EMAIL_STATUS_POP3_CONNECTION_FAILED
 msgid "POP3 connection failed"
-msgstr "POP3 tilslutning mislykkedes"
+msgstr "POP3-yhteys epäonnistui"
 
 #. TEXT_EMAIL_STATUS_POP3_LOGIN_FAILED
 msgid "POP3 login failed"
-msgstr "POP3 logind mislykkedes"
+msgstr "POP3-kirjautuminen epäonnistui"
 
 #. TEXT_EMAIL_STATUS_ASMTP_AUTH_FAILED
 msgid "ASMTP authentication failed"
-msgstr "ASMTP godkendelse mislykkedes"
+msgstr ""
 
 #. TEXT_EMAIL_STATUS_SMTP_CONNECTION_FAILED
 msgid "SMTP connection failed"
-msgstr "SMTP tilslutning mislykkedes"
+msgstr "SMTP-yhteys epäonnistui"
 
 #. TEXT_EMAIL_STATUS_SMTP_ERR_FROM
 msgid "From entry not accepted"
-msgstr "Fra indtastningen ikke accepteret"
+msgstr "Lähettäjää ei hyväksytty"
 
 #. TEXT_EMAIL_STATUS_SMTP_ERR_RCPT
 msgid "Receiver entry not accepted"
-msgstr "Modtager indtastningen ikke accepteret"
+msgstr "Vastaanottajaa ei hyväksytty"
 
 #. TEXT_EMAIL_STATUS_SMTP_ERR_DATA
 msgid "E-mail data not accepted"
-msgstr "E-post data ikke accepteret"
+msgstr ""
 
 #. TEXT_EMAIL_STATUS_SENDING
 msgid "Sending e-mail"
-msgstr "Sender e-post"
+msgstr ""
 
 #. TEXT_EMAIL_STATUS_SENT
 msgid "E-mail has been sent"
-msgstr "E-post er blevet sendt"
+msgstr ""
 
 #. TEXT_FAX_STATUS_QUEUEING_FAX
+#, fuzzy
 msgid "Queueing fax"
-msgstr "Fax sættes i kø"
+msgstr "Laitetaan faksi jonoon"
 
 #. TEXT_FAX_STATUS_FAX_QUEUED
 msgid "Fax is queued"
-msgstr "Fax er sat i kø"
+msgstr "Faksi on jonossa"
 
 #. Sane backend messages
 msgid "flatbed scanner"
-msgstr "Flatbed skanner"
+msgstr "tasokuvanlukija"
 
 msgid "frame grabber"
-msgstr "frame grabber"
+msgstr ""
 
 msgid "handheld scanner"
-msgstr "Håndholdt skanner"
+msgstr "käsikuvanlukija"
 
 msgid "still camera"
-msgstr "Kamera"
+msgstr "kamera"
 
 msgid "video camera"
-msgstr "Video kamera"
+msgstr "videokamera"
 
 msgid "virtual device"
-msgstr "Virtuel enhed"
+msgstr "näennäislaite"
 
 msgid "Success"
-msgstr "Succes"
+msgstr "Onnistui"
 
 msgid "Operation not supported"
-msgstr "Handling ikke understøttet"
+msgstr "Toimintoa ei tueta"
 
 msgid "Operation was cancelled"
-msgstr "Handling afbrudt"
+msgstr "Toiminto peruttiin"
 
 msgid "Device busy"
-msgstr "Enhed optaget"
+msgstr "Laite varattu"
 
 msgid "Invalid argument"
-msgstr "Ugyldigt argument"
+msgstr "Epäkelpo argumentti"
 
 msgid "End of file reached"
-msgstr "Slutning af fil nået"
+msgstr "Saavutettiin tiedoston loppu"
 
 msgid "Document feeder jammed"
-msgstr "Dokumentføder blokeret"
+msgstr ""
 
 msgid "Document feeder out of documents"
-msgstr "Dokumentføder tom for dokumenter"
+msgstr ""
 
 msgid "Scanner cover is open"
-msgstr "Skannerlåg er åbent"
+msgstr "Kuvanlukijan kansi on auki"
 
 msgid "Error during device I/O"
-msgstr "Fejl under enheds I/O"
+msgstr ""
 
 msgid "Out of memory"
-msgstr "Ikke mere ram"
+msgstr "Muisti loppui"
 
 msgid "Access to resource has been denied"
-msgstr "Adgang til ressource nægtet"
+msgstr "Pääsy resurssiin on estetty"
+
+#~ msgid "XSane options"
+#~ msgstr "XSane-valinnat"
+
+#~ msgid "Printer gamma value:"
+#~ msgstr "Tulostimen gamma-arvo:"
+
+#~ msgid "Printer gamma green:"
+#~ msgstr "Tulostimen vihergamma:"
+
+#~ msgid "Printer gamma blue:"
+#~ msgstr "Tulostimen sinigamma:"
+
+#~ msgid "execute"
+#~ msgstr "suoritus"
+
+#~ msgid "GIMP can't handle depth %d bits/color"
+#~ msgstr "GIMP ei pysty käsittelemään %d bittiä värille"
+
+#~ msgid "Failed to execute ocr command:"
+#~ msgstr "OCR-komennon suorittaminen epäonnistui:"
+
+#~ msgid "XSane Image Scanner"
+#~ msgstr "XSane-kuvanlukuohjelma"
+
+#~ msgid "Scan, copy and fax images"
+#~ msgstr "Skannaa, kopioi ja faksaa kuvia"

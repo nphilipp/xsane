@@ -194,7 +194,7 @@ typedef struct
     int    xsane_rgb_default;
     int    xsane_negative;
     int    auto_enhance_gamma;		/* change gamma value with automatic color correction */
-    int    preselect_scanarea;		/* automatic selection of scanarea after preview scan */
+    int    preselect_scan_area;		/* automatic selection of scan area after preview scan */
     int    auto_correct_colors;		/* automatic color correction after preview scan */
     int    gtk_update_policy;
     int    medium_nr;

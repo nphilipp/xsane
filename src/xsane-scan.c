@@ -505,6 +505,9 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
         status = sane_read(dev, (SANE_Byte *) buf16, sizeof(buf16), &len);
       }
 
+      DBG(DBG_info, "sane_read returned with status %s\n", XSANE_STRSTATUS(status));
+      DBG(DBG_info, "sane_read: len = %d\n", len);
+
 
       if (!xsane.scanning) /* scan may have been canceled while sane_read was executed */
       {
@@ -947,7 +950,7 @@ static int xsane_reduce_to_lineart()
  int abort = 0;
 
   /* open progressbar */
-  xsane_progress_new(PROGRESS_PACKING_DATA, PROGRESS_TRANSFERING_DATA, (GtkSignalFunc) xsane_cancel_save, &xsane.cancel_save);
+  xsane_progress_new(PROGRESS_PACKING_DATA, PROGRESS_TRANSFERRING_DATA, (GtkSignalFunc) xsane_cancel_save, &xsane.cancel_save);
   while (gtk_events_pending())
   {
     gtk_main_iteration();
@@ -1134,7 +1137,7 @@ void xsane_scan_done(SANE_Status status)
         xsane_read_pnm_header(infile, &image_info);
 
         /* open progressbar */
-        xsane_progress_new(PROGRESS_ROTATING_DATA, PROGRESS_TRANSFERING_DATA, (GtkSignalFunc) xsane_cancel_save, &xsane.cancel_save);
+        xsane_progress_new(PROGRESS_ROTATING_DATA, PROGRESS_TRANSFERRING_DATA, (GtkSignalFunc) xsane_cancel_save, &xsane.cancel_save);
         while (gtk_events_pending())
         {
           gtk_main_iteration();
@@ -1246,7 +1249,7 @@ void xsane_scan_done(SANE_Status status)
       { /* ok, we have to do a transformation */
 
         /* open progressbar */
-        xsane_progress_new(PROGRESS_CONVERTING_DATA, PROGRESS_TRANSFERING_DATA, (GtkSignalFunc) xsane_cancel_save, &xsane.cancel_save);
+        xsane_progress_new(PROGRESS_CONVERTING_DATA, PROGRESS_TRANSFERRING_DATA, (GtkSignalFunc) xsane_cancel_save, &xsane.cancel_save);
         while (gtk_events_pending())
         {
           gtk_main_iteration();
@@ -1305,7 +1308,7 @@ void xsane_scan_done(SANE_Status status)
       }
 
       /* open progressbar */
-      xsane_progress_new(PROGRESS_CONVERTING_DATA, PROGRESS_TRANSFERING_DATA, (GtkSignalFunc) xsane_cancel_save, &xsane.cancel_save);
+      xsane_progress_new(PROGRESS_CONVERTING_DATA, PROGRESS_TRANSFERRING_DATA, (GtkSignalFunc) xsane_cancel_save, &xsane.cancel_save);
 
       while (gtk_events_pending())
       {
@@ -1471,7 +1474,7 @@ void xsane_scan_done(SANE_Status status)
       xsane_multipage_project_save();
 
       gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), _(xsane.multipage_status));
-      gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
+      xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
     }
     else if (xsane.xsane_mode == XSANE_FAX)
     {
@@ -1512,7 +1515,7 @@ void xsane_scan_done(SANE_Status status)
       xsane_fax_project_save();
 
       gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), _(xsane.fax_status));
-      gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
+      xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
     }
 #ifdef XSANE_ACTIVATE_EMAIL
     else if (xsane.xsane_mode == XSANE_EMAIL)
@@ -1554,7 +1557,7 @@ void xsane_scan_done(SANE_Status status)
       xsane_email_project_save();
 
       gtk_progress_set_format_string(GTK_PROGRESS(xsane.project_progress_bar), _(xsane.email_status));
-      gtk_progress_bar_update(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
+      xsane_progress_bar_set_fraction(GTK_PROGRESS_BAR(xsane.project_progress_bar), 0.0);
     }
 #endif
   }
@@ -1595,7 +1598,7 @@ void xsane_scan_done(SANE_Status status)
     DBG(DBG_info, "Batch mode end of scan\n");
     sane_cancel(xsane.dev); /* we have to call sane_cancel otherwise we are not able to set new parameters */
   }
-//  else if ( ( (status != SANE_STATUS_GOOD) && (status != SANE_STATUS_EOF) ) || (!xsane.batch_loop) ) /* last scan: update histogram */
+/*  else if ( ( (status != SANE_STATUS_GOOD) && (status != SANE_STATUS_EOF) ) || (!xsane.batch_loop) ) */ /* last scan: update histogram */
   else
   {
     DBG(DBG_info, "Normal end of scan\n");

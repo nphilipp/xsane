@@ -91,7 +91,7 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.994"
+#define XSANE_VERSION		"0.995"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
 #define XSANE_DATE		"1998-2007"
@@ -103,6 +103,7 @@
 
 #define XSANE_DEBUG_ENVIRONMENT	"XSANE_DEBUG"
 
+#define XSANE_PROGRESS_BAR_MIN_DELTA_PERCENT 0.025
 #define XSANE_DEFAULT_UMASK		0007
 #define XSANE_HOLD_TIME			200
 #define XSANE_CONTINUOUS_HOLD_TIME	10
@@ -305,6 +306,12 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
+#ifndef PATH_MAX
+# define PATH_MAX	1024
+#endif
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 enum
 {
   XSANE_PATH_LOCAL_SANE = 0,
@@ -495,12 +502,6 @@ enum
 extern void xsane_pref_save(void);
 extern void xsane_interface(int argc, char **argv);
 extern void xsane_batch_scan_add(void);
-
-/* ---------------------------------------------------------------------------------------------------------------------- */
-
-#ifndef PATH_MAX
-# define PATH_MAX	1024
-#endif
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 #ifndef TEMP_PATH
@@ -1040,7 +1041,7 @@ typedef struct XsaneSetup
   GtkWidget *preview_threshold_mul_entry;
   GtkWidget *preview_threshold_off_entry;
   GtkWidget *auto_enhance_gamma_button;
-  GtkWidget *preselect_scanarea_button;
+  GtkWidget *preselect_scan_area_button;
   GtkWidget *auto_correct_colors_button;
   GtkWidget *disable_gimp_preview_gamma_button;
   GtkWidget *preview_oversampling_entry;

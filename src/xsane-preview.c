@@ -180,7 +180,7 @@ static void preview_add_batch(GtkWidget *window, Preview *p);
 static void preview_pipette_white(GtkWidget *window, gpointer data);
 static void preview_pipette_gray(GtkWidget *window, gpointer data);
 static void preview_pipette_black(GtkWidget *window, gpointer data);
-static void preview_init_autoraise_scanarea(GtkWidget *window, gpointer data);
+static void preview_init_autoraise_scan_area(GtkWidget *window, gpointer data);
 void preview_select_full_preview_area(Preview *p);
 static void preview_full_preview_area_callback(GtkWidget *widget, gpointer call_data);
 static void preview_delete_images_callback(GtkWidget *widget, gpointer call_data);
@@ -194,7 +194,7 @@ static void preview_preset_area_callback(GtkWidget *widget, gpointer data);
 static void preview_rotation_callback(GtkWidget *widget, gpointer data);
 static void preview_establish_ratio(Preview *p);
 static void preview_ratio_callback(GtkWidget *widget, gpointer data);
-static void preview_autoselect_scanarea_callback(GtkWidget *window, gpointer data);
+static void preview_autoselect_scan_area_callback(GtkWidget *window, gpointer data);
 
 void preview_display_with_correction(Preview *p);
 void preview_do_gamma_correction(Preview *p);
@@ -209,8 +209,8 @@ void preview_area_resize(Preview *p);
 gint preview_area_resize_handler(GtkWidget *widget, GdkEvent *event, gpointer data);
 void preview_update_maximum_output_size(Preview *p);
 void preview_set_maximum_output_size(Preview *p, float width, float height, int paper_orientation);
-void preview_autoraise_scanarea(Preview *p, int preview_x, int preview_y, float *autoselect_coord);
-void preview_autoselect_scanarea(Preview *p, float *autoselect_coord);
+void preview_autoraise_scan_area(Preview *p, int preview_x, int preview_y, float *autoselect_coord);
+void preview_autoselect_scan_area(Preview *p, float *autoselect_coord);
 void preview_display_valid(Preview *p);
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -699,7 +699,7 @@ static void preview_update_selection(Preview *p)
         coord[i] = val;
       }
     }
-    else /* backend does not use scanarea options */
+    else /* backend does not use scan area options */
     {
       switch (i)
       {
@@ -1875,9 +1875,9 @@ static void preview_scan_done(Preview *p, int save_image)
 
   sane_get_parameters(xsane.dev, &xsane.param); /* update xsane.param */
 
-  if ((preferences.preselect_scanarea) && (!p->startimage) && (!xsane.medium_calibration))
+  if ((preferences.preselect_scan_area) && (!p->startimage) && (!xsane.medium_calibration))
   {
-    preview_autoselect_scanarea(p, p->selection.coordinate); /* get autoselection coordinates */
+    preview_autoselect_scan_area(p, p->selection.coordinate); /* get autoselection coordinates */
     preview_draw_selection(p); 
     preview_establish_selection(p); 
     xsane_update_histogram(TRUE /* update_raw */); /* update histogram (necessary because overwritten by preview_update_surface) */
@@ -3777,14 +3777,14 @@ static gint preview_button_press_event_handler(GtkWidget *window, GdkEvent *even
       }
       break;
 
-      case MODE_AUTORAISE_SCANAREA:
+      case MODE_AUTORAISE_SCAN_AREA:
       {
-        DBG(DBG_info, "autoraise scanarea mode\n");
+        DBG(DBG_info, "autoraise scan area mode\n");
 
         if ( ( (((GdkEventButton *)event)->button == 1) || (((GdkEventButton *)event)->button == 2) ) &&
              (p->image_data_raw) ) /* left or middle button */
         {
-          preview_autoraise_scanarea(p, event->button.x, event->button.y, p->selection.coordinate); /* raise selection area */
+          preview_autoraise_scan_area(p, event->button.x, event->button.y, p->selection.coordinate); /* raise selection area */
         }
 
         p->mode = MODE_NORMAL;
@@ -4291,8 +4291,8 @@ Preview *preview_new(void)
 
   xsane_vseparator_new(p->button_box, 3);
 
-  p->full_area   = xsane_button_new_with_pixmap(p->top->window, p->button_box, auto_select_preview_area_xpm, DESC_AUTOSELECT_SCANAREA, (GtkSignalFunc) preview_autoselect_scanarea_callback, p);
-  p->autoraise   = xsane_button_new_with_pixmap(p->top->window, p->button_box, auto_raise_preview_area_xpm,  DESC_AUTORAISE_SCANAREA,  (GtkSignalFunc) preview_init_autoraise_scanarea,      p);
+  p->full_area   = xsane_button_new_with_pixmap(p->top->window, p->button_box, auto_select_preview_area_xpm, DESC_AUTOSELECT_SCAN_AREA, (GtkSignalFunc) preview_autoselect_scan_area_callback, p);
+  p->autoraise   = xsane_button_new_with_pixmap(p->top->window, p->button_box, auto_raise_preview_area_xpm,  DESC_AUTORAISE_SCAN_AREA,  (GtkSignalFunc) preview_init_autoraise_scan_area,      p);
   p->autoselect  = xsane_button_new_with_pixmap(p->top->window, p->button_box, full_preview_area_xpm,        DESC_FULL_PREVIEW_AREA,   (GtkSignalFunc) preview_full_preview_area_callback,   p);
 
   xsane_vseparator_new(p->button_box, 3);
@@ -4419,7 +4419,7 @@ Preview *preview_new(void)
   xsane_separator_new(middle_vbox, 1);
 
 
-  /* select maximum scanarea */
+  /* select maximum scan area */
   pixmap = gdk_pixmap_create_from_xpm_d(p->top->window, &mask, xsane.bg_trans, (gchar **) size_xpm);
   pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
   gtk_box_pack_start(GTK_BOX(p->menu_box), pixmapwidget, FALSE, FALSE, 2);
@@ -4668,7 +4668,7 @@ void preview_update_surface(Preview *p, int surface_changed)
 
   p->show_selection = FALSE; /* at first let's say we have no corrdinate selection */
 
-  for (i = 0; i < 4; ++i) /* test if surface (max vals of scanarea) has changed */
+  for (i = 0; i < 4; ++i) /* test if surface (max vals of scan area) has changed */
   {
 /*    val = (i & 2) ? INF : -INF; */
     val = (i & 2) ? INF : 0;
@@ -5564,7 +5564,7 @@ static void preview_pipette_black(GtkWidget *window, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void preview_init_autoraise_scanarea(GtkWidget *window, gpointer data)
+static void preview_init_autoraise_scan_area(GtkWidget *window, gpointer data)
 {
  Preview *p=data;
  GdkCursor *cursor;
@@ -5573,12 +5573,12 @@ static void preview_init_autoraise_scanarea(GtkWidget *window, gpointer data)
  GdkPixmap *pixmap;
  GdkPixmap *mask;
 
-  DBG(DBG_proc, "preview_init_autoraise_scanarea\n");
+  DBG(DBG_proc, "preview_init_autoraise_scan_area\n");
 
-  p->mode = MODE_AUTORAISE_SCANAREA;
+  p->mode = MODE_AUTORAISE_SCAN_AREA;
 
-  pixmap = gdk_bitmap_create_from_data(p->top->window, cursor_autoraise_scanarea,      CURSOR_AUTORAISE_SCANAREA_WIDTH, CURSOR_AUTORAISE_SCANAREA_HEIGHT);
-  mask   = gdk_bitmap_create_from_data(p->top->window, cursor_autoraise_scanarea_mask, CURSOR_AUTORAISE_SCANAREA_WIDTH, CURSOR_AUTORAISE_SCANAREA_HEIGHT);
+  pixmap = gdk_bitmap_create_from_data(p->top->window, cursor_autoraise_scan_area,      CURSOR_AUTORAISE_SCAN_AREA_WIDTH, CURSOR_AUTORAISE_SCAN_AREA_HEIGHT);
+  mask   = gdk_bitmap_create_from_data(p->top->window, cursor_autoraise_scan_area_mask, CURSOR_AUTORAISE_SCAN_AREA_WIDTH, CURSOR_AUTORAISE_SCAN_AREA_HEIGHT);
 
   fg.red   = 0;
   fg.green = 0;
@@ -5588,7 +5588,7 @@ static void preview_init_autoraise_scanarea(GtkWidget *window, gpointer data)
   bg.green = 65535;
   bg.blue  = 65535;
 
-  cursor = gdk_cursor_new_from_pixmap(pixmap, mask, &fg, &bg, CURSOR_AUTORAISE_SCANAREA_HOT_X, CURSOR_AUTORAISE_SCANAREA_HOT_Y);
+  cursor = gdk_cursor_new_from_pixmap(pixmap, mask, &fg, &bg, CURSOR_AUTORAISE_SCAN_AREA_HOT_X, CURSOR_AUTORAISE_SCAN_AREA_HOT_Y);
 
   gdk_window_set_cursor(p->window->window, cursor);
   gdk_cursor_unref(cursor);
@@ -6190,11 +6190,11 @@ static void preview_ratio_callback(GtkWidget *widget, gpointer data)
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-static void preview_autoselect_scanarea_callback(GtkWidget *window, gpointer data)
+static void preview_autoselect_scan_area_callback(GtkWidget *window, gpointer data)
 {
  Preview *p=data;
 
-  preview_autoselect_scanarea(p, p->selection.coordinate); /* get autoselection coordinates */
+  preview_autoselect_scan_area(p, p->selection.coordinate); /* get autoselection coordinates */
   preview_draw_selection(p); 
   preview_establish_selection(p); 
   xsane_update_histogram(TRUE /* update raw */); /* update histogram (necessary because overwritten by preview_update_surface */
@@ -7092,7 +7092,7 @@ void preview_set_maximum_output_size(Preview *p, float width, float height, int 
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 #define AUTORAISE_ERROR 30
-void preview_autoraise_scanarea(Preview *p, int preview_x, int preview_y, float *autoselect_coord)
+void preview_autoraise_scan_area(Preview *p, int preview_x, int preview_y, float *autoselect_coord)
 {
  int x, y;
  int image_x, image_y;
@@ -7104,7 +7104,7 @@ void preview_autoraise_scanarea(Preview *p, int preview_x, int preview_y, float 
  int top_ok, bottom_ok, left_ok, right_ok;
  float xscale, yscale;
 
-  DBG(DBG_proc, "preview_autoraise_scanarea\n");
+  DBG(DBG_proc, "preview_autoraise_scan_area\n");
 
   preview_transform_coordinate_window_to_image(p, preview_x, preview_y, &image_x, &image_y);
 
@@ -7327,7 +7327,7 @@ void preview_autoraise_scanarea(Preview *p, int preview_x, int preview_y, float 
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-void preview_autoselect_scanarea(Preview *p, float *autoselect_coord)
+void preview_autoselect_scan_area(Preview *p, float *autoselect_coord)
 {
  int x, y;
  int offset;
@@ -7338,7 +7338,7 @@ void preview_autoselect_scanarea(Preview *p, float *autoselect_coord)
  int brightness;
  int background_white;
 
-  DBG(DBG_proc, "preview_autoselect_scanarea\n");
+  DBG(DBG_proc, "preview_autoselect_scan_area\n");
 
   /* try to find out background color */
   /* add color values at the margins */
@@ -7373,16 +7373,16 @@ void preview_autoselect_scanarea(Preview *p, float *autoselect_coord)
   }
 
   brightness = bright_sum / (2 * (p->image_width + p->image_height) );
-  DBG(DBG_info, "preview_autoselect_scanarea: average margin brightness is %d\n", brightness);
+  DBG(DBG_info, "preview_autoselect_scan_area: average margin brightness is %d\n", brightness);
 
   if ( brightness > 128 )
   {
-    DBG(DBG_info, "preview_autoselect_scanarea: background is white\n");
+    DBG(DBG_info, "preview_autoselect_scan_area: background is white\n");
     background_white = 1;
   }
   else
   {
-    DBG(DBG_info, "preview_autoselect_scanarea: background is black\n");
+    DBG(DBG_info, "preview_autoselect_scan_area: background is black\n");
     background_white = 0;
   }
   
@@ -7505,7 +7505,7 @@ void preview_autoselect_scanarea(Preview *p, float *autoselect_coord)
 
   if ( (top >= bottom) || (right <= left) ) /* empty selection: use complete image */
   {
-    DBG(DBG_info, "autoselect_scanarea: empty selection: using complete area\n");
+    DBG(DBG_info, "autoselect_scan_area: empty selection: using complete area\n");
     top    = 0;
     bottom = p->image_height -1;
     left   = 0;

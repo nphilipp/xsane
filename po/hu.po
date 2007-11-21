@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-03 10:10+0100\n"
+"POT-Creation-Date: 2007-08-13 09:22+0200\n"
 "PO-Revision-Date: 2005-12-31 10:34+0100\n"
 "Last-Translator: Aron Novak <aaron@szentimre.hu>\n"
 "Language-Team: Hungarian\n"
@@ -84,7 +84,8 @@ msgid "rename fax page"
 msgstr "faxoldal átnevezése"
 
 #. WINDOW_FAX_INSERT
-msgid "insert ps-file into fax"
+#, fuzzy
+msgid "insert PS-file into fax"
 msgstr "ps fájl beszúrása a faxba"
 
 #. WINDOW_EMAIL_PROJECT
@@ -503,7 +504,8 @@ msgid "Skip existing filenames"
 msgstr "Létező fájlnevek kihagyása"
 
 #. RADIO_BUTTON_SAVE_PS_FLATEDECODED
-msgid "Save postscript zlib compressed (ps level 3)"
+#, fuzzy
+msgid "Save postscript zlib compressed (PS level 3)"
 msgstr "Mentés postscript zlib tömörítettben (ps level 3)"
 
 #. RADIO_BUTTON_SAVE_PDF_FLATEDECODED
@@ -511,7 +513,8 @@ msgid "Save PDF zlib compressed"
 msgstr "Mentés PDF-ben, zlibbel tömörítve"
 
 #. RADIO_BUTTON_SAVE_PNM16_AS_ASCII
-msgid "Save 16bit pnm in ascii format"
+#, fuzzy
+msgid "Save 16bit PNM in ASCII format"
 msgstr "Mentés 16bites pnm ascii módban"
 
 #. RADIO_BUTTON_REDUCE_16BIT_TO_8BIT
@@ -535,8 +538,9 @@ msgstr "Egyéni színtérkép használata"
 msgid "Autoenhance gamma"
 msgstr "A gamma önműködő javítása"
 
-#. RADIO_BUTTON_PRESELECT_SCANAREA
-msgid "Preselect scanarea"
+#. RADIO_BUTTON_PRESELECT_SCAN_AREA
+#, fuzzy
+msgid "Preselect scan area"
 msgstr "Előre választott beolvasási terület"
 
 #. RADIO_BUTTON_AUTOCORRECT_COLORS
@@ -559,10 +563,6 @@ msgstr "eszközök keresése"
 #. TEXT_AVAILABLE_DEVICES
 msgid "Available devices:"
 msgstr "Elérhető eszközök:"
-
-#. TEXT_XSANE_OPTIONS
-msgid "XSane options"
-msgstr "XSane beállítások"
 
 #. TEXT_FILETYPE
 msgid "Type"
@@ -885,53 +885,72 @@ msgstr "Parancs:"
 msgid "Copy number option:"
 msgstr "Másolatszám lehetősége:"
 
+#. TEXT_SETUP_SCAN_RESOLUTION_PRINTER
+#, fuzzy
+msgid "Scan resolution:"
+msgstr "Állítsd be a felbontást"
+
 #. TEXT_SETUP_PRINTER_LINEART_RES
-msgid "Lineart resolution (dpi):"
+#, fuzzy
+msgid "lineart [dpi]"
 msgstr "Vonalas felbontás (dpi):"
 
 #. TEXT_SETUP_PRINTER_GRAYSCALE_RES
-msgid "Grayscale resolution (dpi):"
+#, fuzzy
+msgid "grayscale [dpi]"
 msgstr "Szürkeárnyalatos felbontás (dpi):"
 
 #. TEXT_SETUP_PRINTER_COLOR_RES
-msgid "Color resolution (dpi):"
-msgstr "Színes felbontás (dpi):"
+msgid "color [dpi]"
+msgstr ""
+
+#. TEXT_SETUP_PRINTER_PAPER_GEOMETRIE
+msgid "Paper geometrie:"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_WIDTH
-#. TEXT_SETUP_FAX_WIDTH
-msgid "Width"
+#, fuzzy
+msgid "width"
 msgstr "Szélesség"
 
 #. TEXT_SETUP_PRINTER_HEIGHT
-#. TEXT_SETUP_FAX_HEIGHT
-msgid "Height"
+#, fuzzy
+msgid "height"
 msgstr "Magasság"
 
 #. TEXT_SETUP_PRINTER_LEFT
-#. TEXT_SETUP_FAX_LEFT
-msgid "Left offset"
+#, fuzzy
+msgid "left offset"
 msgstr "Jobb eltolás"
 
 #. TEXT_SETUP_PRINTER_BOTTOM
-#. TEXT_SETUP_FAX_BOTTOM
-msgid "Bottom offset"
+#, fuzzy
+msgid "bottom offset"
 msgstr "Lenti eltolás"
 
-#. TEXT_SETUP_PRINTER_GAMMA
-msgid "Printer gamma value:"
-msgstr "Nyomtató gamma értéke:"
-
-#. TEXT_SETUP_PRINTER_GAMMA_RED
-msgid "Printer gamma red:"
+#. TEXT_SETUP_PRINTER_GAMMA_CORRECTION
+#, fuzzy
+msgid "Printer gamma:"
 msgstr "Nyomtató piros gammája:"
 
+#. TEXT_SETUP_PRINTER_GAMMA
+#, fuzzy
+msgid "common value"
+msgstr "Jelenlegi értékek:"
+
+#. TEXT_SETUP_PRINTER_GAMMA_RED
+#, fuzzy
+msgid "red"
+msgstr "olvasás"
+
 #. TEXT_SETUP_PRINTER_GAMMA_GREEN
-msgid "Printer gamma green:"
-msgstr "Nyomtató zöld gammája:"
+msgid "green"
+msgstr ""
 
 #. TEXT_SETUP_PRINTER_GAMMA_BLUE
-msgid "Printer gamma blue:"
-msgstr "Nyomtató kék gammája:"
+#, fuzzy
+msgid "blue"
+msgstr "Elmosás"
 
 #. TEXT_SETUP_PRINTER_EMBED_CSA
 #, fuzzy
@@ -948,7 +967,8 @@ msgid "Apply black point compensation"
 msgstr ""
 
 #. TEXT_SETUP_PRINTER_PS_FLATEDECODED
-msgid "Create zlib compressed postscript image (ps level 3) for printing"
+#, fuzzy
+msgid "Create zlib compressed postscript image (PS level 3) for printing"
 msgstr "Zlibbel tömörített postscript létrehozása nyomtatáshoz (ps level 3)"
 
 #. TEXT_SETUP_TMP_PATH
@@ -1071,8 +1091,25 @@ msgstr "Alapértelmezett beállítások ehhez:"
 msgid "Viewer (Postscript):"
 msgstr "Nézőke (Postscript):"
 
+#. TEXT_SETUP_FAX_WIDTH
+msgid "Width"
+msgstr "Szélesség"
+
+#. TEXT_SETUP_FAX_HEIGHT
+msgid "Height"
+msgstr "Magasság"
+
+#. TEXT_SETUP_FAX_LEFT
+msgid "Left offset"
+msgstr "Jobb eltolás"
+
+#. TEXT_SETUP_FAX_BOTTOM
+msgid "Bottom offset"
+msgstr "Lenti eltolás"
+
 #. TEXT_SETUP_FAX_PS_FLATEDECODED
-msgid "Create zlib compressed postscript image (ps level 3) for fax"
+#, fuzzy
+msgid "Create zlib compressed postscript image (PS level 3) for fax"
 msgstr "Zlibbel tömörített postscript létrehozása faxhoz (ps level 3)"
 
 #. TEXT_SETUP_SMTP_SERVER
@@ -1439,11 +1476,13 @@ msgid "CCITT 1D Huffman compression"
 msgstr "CCITT 1D Huffman tömörítés"
 
 #. MENU_ITEM_TIFF_COMP_CCITFAX3
-msgid "CCITT Group 3 Fax compression"
+#, fuzzy
+msgid "CCITT Group 3 fax compression"
 msgstr "CCITT Group 3 Fax tömörítés"
 
 #. MENU_ITEM_TIFF_COMP_CCITFAX4
-msgid "CCITT Group 4 Fax compression"
+#, fuzzy
+msgid "CCITT Group 4 fax compression"
 msgstr "CCITT Group 4 Fax tömörítés"
 
 #. MENU_ITEM_TIFF_COMP_JPEG
@@ -1569,8 +1608,9 @@ msgstr "%s adatok fogadása"
 msgid "page"
 msgstr "oldal"
 
-#. PROGRESS_TRANSFERING_DATA
-msgid "Transfering image"
+#. PROGRESS_TRANSFERRING_DATA
+#, fuzzy
+msgid "Transferring image"
 msgstr "Kép átvitele"
 
 #. PROGRESS_ROTATING_DATA
@@ -1643,9 +1683,10 @@ msgstr ""
 "m>, fax-<Ctrl-f> vagy e-mail-<Ctrl-e>"
 
 #. DESC_XSANE_MEDIUM
+#, fuzzy
 msgid ""
 "Select source medium type.\n"
-"To rename, reorder or delete an entry use context menu (right mouse "
+"To rename, reorder or delete an entry use context menu (alternate mouse "
 "button).\n"
 "To create a medium enable the option edit medium definition in preferences "
 "menu."
@@ -2000,14 +2041,16 @@ msgid "Browse for temporary directory"
 msgstr "Tallózás az ideiglenes könyvtárhoz"
 
 #. DESC_JPEG_QUALITY
+#, fuzzy
 msgid ""
-"Quality in percent if image is saved as jpeg or tiff with jpeg compression"
+"Quality in percent if image is saved as JPEG or TIFF with JPEG compression"
 msgstr ""
 "A minőség százalékban megadva, ha a kép jpegben vagy jpeg tömörítésű tiffben "
 "van mentve"
 
 #. DESC_PNG_COMPRESSION
-msgid "Compression if image is saved as png"
+#, fuzzy
+msgid "Compression if image is saved as PNG"
 msgstr "A tömörítés, ha a kép pngben van mentve"
 
 #. DESC_FILENAME_COUNTER_LEN
@@ -2015,19 +2058,23 @@ msgid "Minimum length of counter in filename"
 msgstr "A fájlnévben a számláló minimális hossza"
 
 #. DESC_TIFF_ZIP_COMPRESSION
-msgid "Compression rate for zip compressed tiff (deflate)"
+#, fuzzy
+msgid "Compression rate for zip compressed TIFF (deflate)"
 msgstr "Tömörítési szint zippel tömörített tiff-nél (deflate)"
 
 #. DESC_TIFF_COMPRESSION_16
-msgid "Compression type if 16 bit image is saved as tiff"
+#, fuzzy
+msgid "Compression type if 16 bit image is saved as TIFF"
 msgstr "A tömörítés módja 16 bites tiff kép esetén"
 
 #. DESC_TIFF_COMPRESSION_8
-msgid "Compression type if 8 bit image is saved as tiff"
+#, fuzzy
+msgid "Compression type if 8 bit image is saved as TIFF"
 msgstr "A tömörítés módja 8 bites tiff kép esetén"
 
 #. DESC_TIFF_COMPRESSION_1
-msgid "Compression type if lineart image is saved as tiff"
+#, fuzzy
+msgid "Compression type if lineart image is saved as TIFF"
 msgstr "A tömörítés módja vonalas tiff kép esetén"
 
 #. DESC_SAVE_DEVPREFS_AT_EXIT
@@ -2061,10 +2108,11 @@ msgid "compress PDF image with zlib algorithm (flatedecode)."
 msgstr "PDF tömörítése zlibbel (flatdecode)"
 
 #. DESC_SAVE_PNM16_AS_ASCII
+#, fuzzy
 msgid ""
-"When a 16 bit image shall be saved in pnm format then use ascii format "
+"When a 16 bit image shall be saved in PNM format then use ASCII format "
 "instead of binary format. The binary format is a new format that is not "
-"supported by all programs. The ascii format is supported by more programs "
+"supported by all programs. The ASCII format is supported by more programs "
 "but it produces really huge files!!!"
 msgstr ""
 "Amikor 16 bites pnm fájlt mentünk, akkor azt ascii formában mentse a bináris "
@@ -2116,7 +2164,8 @@ msgid "Select how a range is displayed"
 msgstr "Terület megjelenítésének beállítása"
 
 #. DESC_PREVIEW_OVERSAMPLING
-msgid "Value with that the calculated preview resolution is multiplied"
+#, fuzzy
+msgid "Value with which the calculated preview resolution is multiplied"
 msgstr "Ezzel az értékkel szorzódik az előnézeti felbontás"
 
 #. DESC_PREVIEW_GAMMA
@@ -2180,8 +2229,9 @@ msgid "dimension of square that is used to average color for pipette function"
 msgstr "dimension of square that is used to average color for pipette function"
 
 #. DESC_DOC_VIEWER
+#, fuzzy
 msgid ""
-"Enter command to be executed to display helpfiles, must be a html-viewer!"
+"Enter command to be executed to display helpfiles, must be a HTML-viewer!"
 msgstr ""
 "Adjuk meg a parancsot, ami a súgófájlok megjelenítéséhez kell. (html-nézőke!)"
 
@@ -2189,8 +2239,9 @@ msgstr ""
 msgid "Change gamma value when autoenhancement button is pressed"
 msgstr "Gamma érték változtatása amikor az önműködő javítás gombot használjuk"
 
-#. DESC_PRESELECT_SCANAREA
-msgid "Select scanarea after preview scan has finished"
+#. DESC_PRESELECT_SCAN_AREA
+#, fuzzy
+msgid "Select scan area after preview scan has finished"
 msgstr "Válasszuk ki a beolvasási területet miután elkészült az előnézet"
 
 #. DESC_AUTOCORRECT_COLORS
@@ -2276,30 +2327,36 @@ msgid "port to connect to POP3 server"
 msgstr "A POP3 kiszolgáló portja"
 
 #. DESC_HTML_EMAIL
-msgid "E-mail is sent in html mode, place image with: <IMAGE>"
+#, fuzzy
+msgid "E-mail is sent in HTML mode, place image with: <IMAGE>"
 msgstr "A levelet HTML módban küldtük ezzel a képpel: <IMAGE>"
 
 #. DESC_OCR_COMMAND
-msgid "Enter command to start ocr program"
+#, fuzzy
+msgid "Enter command to start OCR program"
 msgstr "Adjuk meg a szövegfelismerő parancsát"
 
 #. DESC_OCR_INPUTFILE_OPT
-msgid "Enter option of the ocr program to define input file"
+#, fuzzy
+msgid "Enter option of the OCR program to define input file"
 msgstr ""
 "Adjuk meg a szövegfelismerő program beállítását a bemeneti fájl megadásához"
 
 #. DESC_OCR_OUTPUTFILE_OPT
-msgid "Enter option of the ocr program to define output file"
+#, fuzzy
+msgid "Enter option of the OCR program to define output file"
 msgstr ""
 "Adjuk meg a szövegfelismerő program beállítását a kimeneti fájl megadásához"
 
 #. DESC_OCR_USE_GUI_PIPE_OPT
-msgid "Define if the ocr program supports gui progress pipe"
+#, fuzzy
+msgid "Define if the OCR program supports gui progress pipe"
 msgstr "Támogatja-e a szövegfelismerő a gui folyamatjelzőt "
 
 #. DESC_OCR_OUTFD_OPT
+#, fuzzy
 msgid ""
-"Enter option of the ocr program to define output filedescripor in GUI mode"
+"Enter option of the OCR program to define output filedescripor in GUI mode"
 msgstr "Add meg OCR kimenő fájlleírót beállító kapcsolóját(GUI mód)"
 
 #. DESC_OCR_PROGRESS_KEYWORD
@@ -2336,7 +2393,8 @@ msgid "Pick black point"
 msgstr "Fekete pont megadása"
 
 #. DESC_ZOOM_FULL
-msgid "Use full scanarea"
+#, fuzzy
+msgid "Use full scan area"
 msgstr "Teljes beolvasási terület"
 
 #. DESC_ZOOM_OUT
@@ -2360,12 +2418,14 @@ msgstr "Utolsó nagyítás visszavonása"
 msgid "Select visible area"
 msgstr "Látható terület kijelölése"
 
-#. DESC_AUTOSELECT_SCANAREA
-msgid "Autoselect scanarea"
+#. DESC_AUTOSELECT_SCAN_AREA
+#, fuzzy
+msgid "Autoselect scan area"
 msgstr "Beolvasási terület önműködő meghatározása"
 
-#. DESC_AUTORAISE_SCANAREA
-msgid "Autoraise scanarea"
+#. DESC_AUTORAISE_SCAN_AREA
+#, fuzzy
+msgid "Autoraise scan area"
 msgstr "Beolvasási terület önműködő növelése"
 
 #. DESC_DELETE_IMAGES
@@ -2373,9 +2433,10 @@ msgid "Delete preview image cache"
 msgstr "Előnézeti képmemória törlése"
 
 #. DESC_PRESET_AREA
+#, fuzzy
 msgid ""
 "Preset area:\n"
-"To add new area or edit an existing area use contect menu (right mouse "
+"To add new area or edit an existing area use context menu (alternate mouse "
 "button)."
 msgstr ""
 "Előre beállított terület:\n"
@@ -2406,15 +2467,18 @@ msgid "Clone image"
 msgstr "Kép klónozása"
 
 #. DESC_ROTATE90
-msgid "Rotate image 90 degree"
+#, fuzzy
+msgid "Rotate image 90 degrees"
 msgstr "Kép forgatása 90 fokkal"
 
 #. DESC_ROTATE180
-msgid "Rotate image 180 degree"
+#, fuzzy
+msgid "Rotate image 180 degrees"
 msgstr "Kép forgatása 180 fokkal"
 
 #. DESC_ROTATE270
-msgid "Rotate image 270 degree"
+#, fuzzy
+msgid "Rotate image 270 degrees"
 msgstr "Kép forgatása 270 fokkal"
 
 #. DESC_MIRROR_X
@@ -2450,11 +2514,13 @@ msgid "Y-Scale factor"
 msgstr "Y-irányú nagyítás"
 
 #. DESC_SCALE_WIDTH
-msgid "Scale image to width [in pixel]"
+#, fuzzy
+msgid "Scale image to width [pixels]"
 msgstr "Kép nagyítása adott szélességre[képpontban]"
 
 #. DESC_SCALE_HEIGHT
-msgid "Scale image to height [in pixel]"
+#, fuzzy
+msgid "Scale image to height [pixels]"
 msgstr "Kép nagyítása adott magasságra[képpontban]"
 
 #. DESC_BATCH_LIST_EMPTY
@@ -2576,7 +2642,8 @@ msgid "Failed to open"
 msgstr "Sikertelen megnyitás"
 
 #. ERR_CREATE_SECURE_FILE
-msgid "Could not create secure file (may be a link does exist):"
+#, fuzzy
+msgid "Could not create secure file (maybe a link does exist):"
 msgstr "Nem sikerült biztonságos fájlt létrehozni:"
 
 #. ERR_FAILED_PRINTER_PIPE
@@ -2652,8 +2719,9 @@ msgid "Failed to execute fax command:"
 msgstr "Nem sikerült a faxparancs végrehajtása:"
 
 #. ERR_FAILED_EXEC_OCR_CMD
-msgid "Failed to execute ocr command:"
-msgstr "Nem sikerült a szövegfelismerő elindítása:"
+#, fuzzy
+msgid "Failed to execute OCR command:"
+msgstr "Nem sikerült a faxparancs végrehajtása:"
 
 #. ERR_BAD_FRAME_FORMAT
 msgid "bad frame format"
@@ -2713,11 +2781,12 @@ msgid "warning: option has no value constraint"
 msgstr "vigyázat: option has no value constraint"
 
 #. WARN_XSANE_AS_ROOT
+#, fuzzy
 msgid ""
 "You try to run XSane as ROOT, that really is DANGEROUS!\n"
 "\n"
 "Do not send any bug reports when you\n"
-"have any problem while running XSane as root:\n"
+"have any problems while running XSane as root:\n"
 "YOU ARE ALONE!"
 msgstr ""
 "Az XSane-t root-ként akartad futtatni. Ez VESZÉLYES!\n"
@@ -2969,6 +3038,7 @@ msgid "<Toolbox>/Xtns/XSane/"
 msgstr "<Toolbox>/Xtns/XSane/"
 
 #. HELP_NO_DEVICES
+#, fuzzy
 msgid ""
 "Possible reasons:\n"
 "1) There really is no device that is supported by SANE\n"
@@ -2976,7 +3046,7 @@ msgid ""
 "3) The permissions for the device file do not allow you to use it - try as "
 "root\n"
 "4) The backend is not loaded by SANE (man sane-dll)\n"
-"5) The backend is not configured correct (man sane-\"backendname\")\n"
+"5) The backend is not configured correctly (man sane-\"backendname\")\n"
 "6) Possibly there is more than one SANE version installed"
 msgstr ""
 "Lehetséges okok:\n"
@@ -3170,7 +3240,8 @@ msgid "E-mail has been sent"
 msgstr "A levél elküldve"
 
 #. TEXT_FAX_STATUS_QUEUEING_FAX
-msgid "Queueing Fax"
+#, fuzzy
+msgid "Queueing fax"
 msgstr "A fax sorbaállítása"
 
 #. TEXT_FAX_STATUS_FAX_QUEUED
@@ -3231,6 +3302,24 @@ msgstr "Elfogyott a memória"
 
 msgid "Access to resource has been denied"
 msgstr "A hozzáférés az erőforráshoz megtagadva"
+
+#~ msgid "XSane options"
+#~ msgstr "XSane beállítások"
+
+#~ msgid "Failed to execute ocr command:"
+#~ msgstr "Nem sikerült a szövegfelismerő elindítása:"
+
+#~ msgid "Color resolution (dpi):"
+#~ msgstr "Színes felbontás (dpi):"
+
+#~ msgid "Printer gamma value:"
+#~ msgstr "Nyomtató gamma értéke:"
+
+#~ msgid "Printer gamma green:"
+#~ msgstr "Nyomtató zöld gammája:"
+
+#~ msgid "Printer gamma blue:"
+#~ msgstr "Nyomtató kék gammája:"
 
 #, fuzzy
 #~ msgid "select scanner transmissive ICM-profile"
