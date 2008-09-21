@@ -2783,7 +2783,7 @@ static gint xsane_medium_delete_callback(GtkWidget *widget, GtkWidget *medium_wi
   {
     DBG(DBG_info ,"deleting %s\n", preferences.medium[selection]->name);
 
-    free(preferences.medium[selection]);
+  //  free(preferences.medium[selection]);
 
     preferences.medium_definitions--;
 
@@ -2791,6 +2791,7 @@ static gint xsane_medium_delete_callback(GtkWidget *widget, GtkWidget *medium_wi
     {
       preferences.medium[i] = preferences.medium[i+1];
     }
+    preferences.medium = realloc(preferences.medium, preferences.medium_definitions * sizeof(void *)); // NEW
 
     if (preferences.medium_nr == selection)
     {

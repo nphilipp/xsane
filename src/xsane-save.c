@@ -2965,7 +2965,7 @@ static int xsane_save_ps_pdf_bw(FILE *outfile, FILE *imagefile, Image_info *imag
 {
  int x, y;
  int bytes_per_line = (image_info->image_width+7)/8;
- int ret;
+ int ret = 0;
  unsigned char *line;
 
   DBG(DBG_proc, "xsane_save_ps_pdf_bw\n");
@@ -3016,6 +3016,7 @@ static int xsane_save_ps_pdf_bw(FILE *outfile, FILE *imagefile, Image_info *imag
     else
     {
       fwrite(line, bytes_per_line, 1, outfile);
+      ret = 0;
     }
 
     if ((ret != 0) || (ferror(outfile)))
@@ -3054,7 +3055,7 @@ static int xsane_save_ps_pdf_bw(FILE *outfile, FILE *imagefile, Image_info *imag
 static int xsane_save_ps_pdf_gray(FILE *outfile, FILE *imagefile, Image_info *image_info, int ascii85decode, int flatedecode, cmsHTRANSFORM hTransform, int do_transform, GtkProgressBar *progress_bar, int *cancel_save)
 {
  int x, y;
- int ret;
+ int ret = 0;
  unsigned char *line = NULL, *linep = NULL, *line16 = NULL;
  int bytes_per_line;
  int bytes_per_line16 = 0;
@@ -3249,6 +3250,7 @@ static int xsane_save_ps_pdf_gray(FILE *outfile, FILE *imagefile, Image_info *im
     else
     {
       fwrite(line, bytes_per_line, 1, outfile);
+      ret = 0;
     }
 
     if ((ret != 0) || (ferror(outfile)))
@@ -3303,7 +3305,7 @@ static int xsane_save_ps_pdf_color(FILE *outfile, FILE *imagefile, Image_info *i
                                    GtkProgressBar *progress_bar, int *cancel_save)
 {
  int x, y;
- int ret;
+ int ret = 0;
  unsigned char *line = NULL, *linep = NULL, *line16 = NULL;
  int bytes_per_line;
  int bytes_per_line16 = 0;
@@ -3502,6 +3504,7 @@ static int xsane_save_ps_pdf_color(FILE *outfile, FILE *imagefile, Image_info *i
     else
     {
       fwrite(line, bytes_per_line, 1, outfile);
+      ret = 0;
     }
 
     if ((ret != 0) || (ferror(outfile)))
@@ -3866,6 +3869,9 @@ void xsane_save_pdf_create_document_header(FILE *outfile, struct pdf_xref *xref,
   fprintf(outfile, "   >>\n");
   fprintf(outfile, "endobj\n");
   fprintf(outfile, "\n");
+
+  xref->obj[4] = 0;
+  xref->obj[5] = 0;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -4087,7 +4093,14 @@ void xsane_save_pdf_create_document_trailer(FILE *outfile, struct pdf_xref *xref
 
   for (i=1; i <= pages * 2 + 7; i++)
   {
-    fprintf(outfile, "%010lu 00000 n \n", xref->obj[i]);
+    if (xref->obj[i] > 0)
+    {
+      fprintf(outfile, "%010lu 00000 n \n", xref->obj[i]);
+    }
+    else
+    {
+      fprintf(outfile, "%010lu 00000 f \n", 0L);
+    }
   }
 
   fprintf(outfile, "\n");
@@ -4185,9 +4198,6 @@ int xsane_save_pdf(FILE *outfile, FILE *imagefile, Image_info *image_info, float
   *cancel_save = 0;
 
   xsane_save_pdf_create_document_header(outfile, &xref, 1, flatedecode);
-
-  xref.obj[4] = ftell(outfile);
-  xref.obj[5] = ftell(outfile);
 
   if (apply_ICM_profile && (cms_function == XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE))
   {

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=XSane - Scanning
+Comment=Acquire images from a scanner
+Exec=xsane
+Icon=xsane
+Terminal=false
+Type=Application
+Categories=Application;Graphics

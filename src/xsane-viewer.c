@@ -2536,14 +2536,14 @@ static int xsane_viewer_read_image(Viewer *v)
   width = image_info.image_width * v->zoom + 26;
   height = image_info.image_height * v->zoom + 136;
 
-  if (width > gdk_screen_width())
+  if (width >= gdk_screen_width())
   {
-    width = gdk_screen_width();
+    width = gdk_screen_width()-1;
   }
 
-  if (height > gdk_screen_height())
+  if (height >= gdk_screen_height())
   {
-    height = gdk_screen_height();
+    height = gdk_screen_height()-1;
   }
 
 #ifdef HAVE_GTK2
@@ -2756,14 +2756,14 @@ static int xsane_viewer_read_image(Viewer *v)
   width = image_info.image_width * v->zoom + 26;
   height = image_info.image_height * v->zoom + 136;
 
-  if (width > gdk_screen_width())
+  if (width >= gdk_screen_width())
   {
-    width = gdk_screen_width();
+    width = gdk_screen_width()-1;
   }
 
-  if (height > gdk_screen_height())
+  if (height >= gdk_screen_height())
   {
-    height = gdk_screen_height();
+    height = gdk_screen_height()-1;
   }
 
 #ifdef HAVE_GTK2

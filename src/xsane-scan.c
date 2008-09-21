@@ -1602,6 +1602,7 @@ void xsane_scan_done(SANE_Status status)
   else
   {
     DBG(DBG_info, "Normal end of scan\n");
+    xsane.adf_page_counter = 0;
     xsane_set_sensitivity(TRUE);		/* reactivate buttons etc */
     sane_cancel(xsane.dev); /* stop scanning */
     xsane_update_histogram(TRUE /* update raw */);

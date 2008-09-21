@@ -23,6 +23,8 @@ oldincludedir = /usr/include
 configdir = ${sysconfdir}/sane.d
 sanedatadir = ${datadir}/sane
 xsanedocdir = ${datadir}/sane/xsane/doc
+desktopappdir = @datadir@/applications
+pixmapdir = @datadir@/pixmaps
 
 MKINSTALLDIRS = @MKINSTALLDIRS@
 INSTALL = @INSTALL@
@@ -63,7 +65,7 @@ XSANE_OBJS = xsane-back-gtk.o xsane-front-gtk.o xsane-gamma.o \
 all: $(PROGRAMS)
 
 install: $(PROGRAMS)
-	$(MKINSTALLDIRS) $(DESTDIR)$(bindir) $(DESTDIR)$(sbindir) $(DESTDIR)$(datadir) $(DESTDIR)$(sanedatadir) $(DESTDIR)$(xsanedocdir) $(DESTDIR)$(sanedatadir)/xsane
+	$(MKINSTALLDIRS) $(DESTDIR)$(bindir) $(DESTDIR)$(sbindir) $(DESTDIR)$(datadir) $(DESTDIR)$(sanedatadir) $(DESTDIR)$(xsanedocdir) $(DESTDIR)$(sanedatadir)/xsane $(DESTDIR)$(desktopappdir) $(DESTDIR)$(pixmapdir)
 	@for program in $(BINPROGS); do \
 	  $(INSTALL_PROGRAM) $${program} $(DESTDIR)$(bindir)/$${program}; \
 	done
@@ -73,6 +75,8 @@ install: $(PROGRAMS)
 	$(INSTALL_DATA) $(srcdir)/xsane-logo.xpm $(DESTDIR)$(sanedatadir)/xsane/xsane-logo.xpm
 	$(INSTALL_DATA) $(srcdir)/xsane-gpl.txt $(DESTDIR)$(sanedatadir)/xsane/xsane-gpl.txt
 	$(INSTALL_DATA) $(srcdir)/xsane-eula.txt $(DESTDIR)$(sanedatadir)/xsane/xsane-eula.txt
+	$(INSTALL_DATA) $(srcdir)/xsane.desktop $(DESTDIR)$(desktopappdir)/xsane.desktop
+	$(INSTALL_DATA) $(srcdir)/xsane.xpm $(DESTDIR)$(pixmapdir)/xsane.xpm
 	@for logo in *-logo.xpm; do \
 	  echo installing $(DESTDIR)$(sanedatadir)/xsane/$${logo}; \
 	  $(INSTALL_DATA) $(srcdir)/$${logo} $(DESTDIR)$(sanedatadir)/xsane/$${logo}; \
@@ -91,6 +95,10 @@ uninstall:
 	rm -f $(DESTDIR)$(sanedatadir)/xsane/xsane-calibration.pnm
 	echo uninstalling $(DESTDIR)$(sanedatadir)/xsane/xsane-logo.xpm...
 	rm -f $(DESTDIR)$(sanedatadir)/xsane/xsane-logo.xpm
+	echo uninstalling $(DESTDIR)$(desktopappdir)/xsane.desktop
+	rm -f $(DESTDIR)$(desktopappdir)/xsane.desktop
+	echo uninstalling $(DESTDIR)$(pixmapdir)/xsane.xpm
+	rm -f $(DESTDIR)$(pixmapdir)/xsane.xpm
 	@for logo in *-logo.xpm; do \
 	  echo uninstalling $(DESTDIR)$(sanedatadir)/xsane/$${logo}; \
 	  rm -f $(DESTDIR)$(sanedatadir)/xsane/$${logo}; \

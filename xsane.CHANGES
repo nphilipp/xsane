@@ -2997,3 +2997,15 @@ xsane-0.994 -> 0.995:
    ca cs da de es fi fr hu it ja nl pa pl pt pt_BR ro ru sk sl sr sv tr vi zh zh_CN
    U  N  U  N  N  A  N  N  U  N  N  U  N  N  N     N  N  U  N  U  N  N  N  N  N
    99599 99599 96 99595 99 99595 99 99599 96 96    96 99 99599 99592 99 96 96 992
+
+xsane-0.995 -> 0.996:
+---------------------
+
+ - removed bug when deleting medium types: removed free() command, added realloc()
+
+ - xsane_viewer.c: reduced maximum viewer size form gdk_screen_width/gdk_screen_height to
+   gdk_screen_width-1/gdk_screen_height-1
+
+ - xsane-save.c: PDF: ICC object 4+5 are initialized with offset 0
+ - xsane-save.c: PDF: objects with offset 0 are makred free (f) in xref table
+
