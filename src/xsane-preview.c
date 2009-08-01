@@ -4425,6 +4425,7 @@ Preview *preview_new(void)
   gtk_box_pack_start(GTK_BOX(p->menu_box), pixmapwidget, FALSE, FALSE, 2);
   gtk_widget_show(pixmapwidget);
   gdk_drawable_unref(pixmap);
+  gdk_drawable_unref(mask);
 
   preset_area_option_menu = gtk_option_menu_new();
   xsane_back_gtk_set_tooltip(xsane.tooltips, preset_area_option_menu, DESC_PRESET_AREA);
@@ -4441,6 +4442,7 @@ Preview *preview_new(void)
   gtk_box_pack_start(GTK_BOX(p->menu_box), pixmapwidget, FALSE, FALSE, 2);
   gtk_widget_show(pixmapwidget);
   gdk_drawable_unref(pixmap);
+  gdk_drawable_unref(mask);
 
   rotation_menu = gtk_menu_new();
 
@@ -4488,6 +4490,7 @@ Preview *preview_new(void)
   gtk_box_pack_start(GTK_BOX(p->menu_box), pixmapwidget, FALSE, FALSE, 2);
   gtk_widget_show(pixmapwidget);
   gdk_drawable_unref(pixmap);
+  gdk_drawable_unref(mask);
 
   ratio_menu = gtk_menu_new();
 
@@ -4543,24 +4546,28 @@ Preview *preview_new(void)
   gtk_box_pack_start(GTK_BOX(action_box), p->valid_pixmap, FALSE, FALSE, 0);
   gtk_widget_show(p->valid_pixmap);
   gdk_drawable_unref(pixmap);
+  gdk_drawable_unref(mask);
 
   pixmap = gdk_pixmap_create_from_xpm_d(p->top->window, &mask, xsane.bg_trans, (gchar **) scanning_xpm);
   p->scanning_pixmap = gtk_image_new_from_pixmap(pixmap, mask);
   gtk_box_pack_start(GTK_BOX(action_box), p->scanning_pixmap, FALSE, FALSE, 0);
   gtk_widget_show(p->scanning_pixmap);
   gdk_drawable_unref(pixmap);
+  gdk_drawable_unref(mask);
 
   pixmap = gdk_pixmap_create_from_xpm_d(p->top->window, &mask, xsane.bg_trans, (gchar **) incomplete_xpm);
   p->incomplete_pixmap = gtk_image_new_from_pixmap(pixmap, mask);
   gtk_box_pack_start(GTK_BOX(action_box), p->incomplete_pixmap, FALSE, FALSE, 0);
   gtk_widget_show(p->incomplete_pixmap);
   gdk_drawable_unref(pixmap);
+  gdk_drawable_unref(mask);
 
   pixmap = gdk_pixmap_create_from_xpm_d(p->top->window, &mask, xsane.bg_trans, (gchar **) invalid_xpm);
   p->invalid_pixmap = gtk_image_new_from_pixmap(pixmap, mask);
   gtk_box_pack_start(GTK_BOX(action_box), p->invalid_pixmap, FALSE, FALSE, 0);
   gtk_widget_show(p->invalid_pixmap);
   gdk_drawable_unref(pixmap);
+  gdk_drawable_unref(mask);
 
   /* Start button */
   p->start = gtk_button_new_with_label(BUTTON_PREVIEW_ACQUIRE);

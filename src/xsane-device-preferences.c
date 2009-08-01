@@ -603,6 +603,7 @@ void xsane_device_preferences_load_file(char *filename)
 #endif
 
   xsane_update_param(0);
+  xsane_set_all_resolutions(); /* XXX test XXX */
   xsane_refresh_dialog();
   xsane_enhancement_by_gamma();
 }

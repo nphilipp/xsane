@@ -687,6 +687,7 @@ static void xsane_viewer_scale_callback(GtkWidget *window, gpointer data)
     gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 20);
     gtk_widget_show(pixmapwidget);
     gdk_drawable_unref(pixmap);
+    gdk_drawable_unref(mask);
 
     adjustment_size_x = (GtkAdjustment *) gtk_adjustment_new(v->x_scale_factor * image_info.image_width , 0.01 * image_info.image_width, 4.0 * image_info.image_width, 1.0, 5.0, 0.0);
     spinbutton = gtk_spin_button_new(adjustment_size_x, 0, 0);
@@ -703,6 +704,7 @@ static void xsane_viewer_scale_callback(GtkWidget *window, gpointer data)
     gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 20);
     gtk_widget_show(pixmapwidget);
     gdk_drawable_unref(pixmap);
+    gdk_drawable_unref(mask);
 
     adjustment_size_y = (GtkAdjustment *) gtk_adjustment_new(v->x_scale_factor * image_info.image_height , 0.01 * image_info.image_height, 4.0 * image_info.image_height, 1.0, 5.0, 0.0);
     spinbutton = gtk_spin_button_new(adjustment_size_y, 0, 0);
@@ -749,6 +751,7 @@ static void xsane_viewer_scale_callback(GtkWidget *window, gpointer data)
     gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 20);
     gtk_widget_show(pixmapwidget);
     gdk_drawable_unref(pixmap);
+    gdk_drawable_unref(mask);
 
     adjustment_size_x = (GtkAdjustment *) gtk_adjustment_new(v->x_scale_factor * image_info.image_width , 0.01 * image_info.image_width, 4.0 * image_info.image_width, 1.0, 5.0, 0.0);
     spinbutton = gtk_spin_button_new(adjustment_size_x, 0, 0);
@@ -787,6 +790,7 @@ static void xsane_viewer_scale_callback(GtkWidget *window, gpointer data)
     gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 20);
     gtk_widget_show(pixmapwidget);
     gdk_drawable_unref(pixmap);
+    gdk_drawable_unref(mask);
 
     adjustment_size_y = (GtkAdjustment *) gtk_adjustment_new(v->y_scale_factor * image_info.image_height , 0.01 * image_info.image_height, 4.0 * image_info.image_height, 1.0, 5.0, 0.0);
     spinbutton = gtk_spin_button_new(adjustment_size_y, 0, 0);

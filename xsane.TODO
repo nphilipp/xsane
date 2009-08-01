@@ -76,6 +76,7 @@ Sign explaination:
       (problem with old config files should already be solved)
     + add several defaults (fax=> mode=gray, ocr=> mode=gray, ...)
     + test memory after each call of malloc - partly done
+    + add filename counter step / ordering step for multipage project
     - average of a multiple scan of the same image ???
     - include much more parameters when saving images - mostly done
     - add infrared filter for transmissive rgbi scans (sane-2):

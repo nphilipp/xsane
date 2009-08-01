@@ -3009,3 +3009,12 @@ xsane-0.995 -> 0.996:
  - xsane-save.c: PDF: ICC object 4+5 are initialized with offset 0
  - xsane-save.c: PDF: objects with offset 0 are makred free (f) in xref table
 
+
+xsane-0.996 -> 0.997:
+---------------------
+
+ - removed SANE_CAP_ALWAYS_SETTABLE (not SANE1)
+ - added test for (opt->size == 0) for SANE_TYPE_STRING in xsane.c
+ - in gtk_adjustment_new changed page_size from (min-max)*1e-30 to 0
+   because new gtk versions don`t link non zero values for spinbuttons
+ - added several gdk_drawable_unref(mask)

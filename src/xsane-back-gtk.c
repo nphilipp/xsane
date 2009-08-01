@@ -709,6 +709,7 @@ gint xsane_back_gtk_decision(gchar *title, gchar **xpm_d,  gchar *message, gchar
     gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 10);
     gtk_widget_show(pixmapwidget);
     gdk_drawable_unref(pixmap);
+    gdk_drawable_unref(mask);
   }
 
   /* the message */
@@ -2002,7 +2003,8 @@ void xsane_back_gtk_range_new(GtkWidget *parent, const char *name, gfloat val,
   label = gtk_label_new((char *) name);
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
 
-  elem->data = gtk_adjustment_new(val, min, max, quant, quant*10, (max-min) * 1e-30);
+  elem->data = gtk_adjustment_new(val, min, max, quant, quant*10, 0);
+  //elem->data = gtk_adjustment_new(val, min, max, quant, quant*10, (max-min) * 1e-30);
   /* 1e-30 => hscrollbar has an unwanted side effect: the maximum is not the maximum */
   /* of the given range, it is reduced by the page_size, so it has to be very small */
 
@@ -2121,7 +2123,8 @@ void xsane_back_gtk_value_new(GtkWidget *parent, const char *name, gfloat val,
   label = gtk_label_new((char *) name);
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
 
-  elem->data = gtk_adjustment_new(val, -1e29, 1e29, 1, 10, 1e-30);
+  elem->data = gtk_adjustment_new(val, -1e29, 1e29, 1, 10, 0);
+  //elem->data = gtk_adjustment_new(val, -1e29, 1e29, 1, 10, 1e-30);
 
   /* spinbutton */
 #ifndef HAVE_GTK2
@@ -2612,7 +2615,7 @@ void xsane_back_gtk_set_sensitivity(int sensitive)
       continue;
     }
 
-    if (!(opt->cap & SANE_CAP_ALWAYS_SETTABLE))
+  //  if (!(opt->cap & SANE_CAP_ALWAYS_SETTABLE))
     {
       gtk_widget_set_sensitive(xsane.element[i].widget, sensitive);
     }

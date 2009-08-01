@@ -153,6 +153,7 @@ void xsane_fax_dialog()
   pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask);
   gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
   gdk_drawable_unref(pixmap);
+  gdk_drawable_unref(mask);
 
   text = gtk_entry_new();
   xsane_back_gtk_set_tooltip(xsane.tooltips, text, DESC_FAXRECEIVER);

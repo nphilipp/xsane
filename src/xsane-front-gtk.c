@@ -853,23 +853,24 @@ GtkWidget *xsane_vendor_pixmap_new(GdkWindow *window, GtkWidget *parent)
  GtkWidget *pixmapwidget = NULL;
  GdkBitmap *mask = NULL;
  GdkPixmap *pixmap = NULL;
+ GdkColor *bg_trans = NULL;
 
   if (xsane.devlist[xsane.selected_dev]->vendor)
   {
     xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", NULL, NULL, xsane.devlist[xsane.selected_dev]->vendor, "-logo.xpm", XSANE_PATH_SYSTEM);
-    pixmap = gdk_pixmap_create_from_xpm(window, &mask, xsane.bg_trans, filename);
+    pixmap = gdk_pixmap_create_from_xpm(window, &mask, bg_trans, filename);
   }
 
   if (!pixmap) /* vendor logo not available, use backend logo */
   {
     xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", NULL, NULL, xsane.backend, "-logo.xpm", XSANE_PATH_SYSTEM);
-    pixmap = gdk_pixmap_create_from_xpm(window, &mask, xsane.bg_trans, filename);
+    pixmap = gdk_pixmap_create_from_xpm(window, &mask, bg_trans, filename);
   }
 
   if (!pixmap) /* backend logo not available, use xsane logo */
   {
     xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", NULL, NULL, "sane-xsane", "-logo.xpm", XSANE_PATH_SYSTEM);
-    pixmap = gdk_pixmap_create_from_xpm(window, &mask, xsane.bg_trans, filename);
+    pixmap = gdk_pixmap_create_from_xpm(window, &mask, bg_trans, filename);
   }
 
   if (pixmap) /* ok, we have a pixmap, so let´s show it */
@@ -886,6 +887,7 @@ GtkWidget *xsane_vendor_pixmap_new(GdkWindow *window, GtkWidget *parent)
     pixmapwidget = gtk_image_new_from_pixmap(pixmap, mask); /* now add the pixmap */
     gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE /* expand */, FALSE /* fill */, 2);
     gdk_drawable_unref(pixmap);
+    gdk_drawable_unref(mask);
     gtk_widget_show(pixmapwidget);
   }
 
@@ -912,6 +914,7 @@ GtkWidget *xsane_toggle_button_new_with_pixmap(GdkWindow *window, GtkWidget *par
   gtk_container_add(GTK_CONTAINER(button), pixmapwidget);
   gtk_widget_show(pixmapwidget);
   gdk_drawable_unref(pixmap);
+  gdk_drawable_unref(mask);
 
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *state);
   g_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_toggle_button_callback, (GtkObject *) state);
@@ -941,6 +944,7 @@ GtkWidget *xsane_button_new_with_pixmap(GdkWindow *window, GtkWidget *parent, co
   gtk_container_add(GTK_CONTAINER(button), pixmapwidget);
   gtk_widget_show(pixmapwidget);
   gdk_drawable_unref(pixmap);
+  gdk_drawable_unref(mask);
 
   if (xsane_button_callback)
   {
@@ -1131,7 +1135,8 @@ void xsane_range_new(GtkBox *parent, char *labeltext, const char *desc,
   label = gtk_label_new(labeltext);
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 1);
 
-  *data = (GtkWidget *) gtk_adjustment_new(*val, min, max, quant, page_step, (max-min) * 1e-30);
+  *data = (GtkWidget *) gtk_adjustment_new(*val, min, max, quant, page_step, 0);
+ // *data = (GtkWidget *) gtk_adjustment_new(*val, min, max, quant, page_step, (max-min) * 1e-30);
   /* 1e-30 => hscrollbar has an unwanted side effect: the maximum is not the maximum */
   /* of the given range, it is reduced by the page_size, so it has to be very small */
 
@@ -1223,8 +1228,10 @@ void xsane_range_new_with_pixmap(GdkWindow *window, GtkBox *parent, const char *
   gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
   gtk_widget_show(pixmapwidget);
   gdk_drawable_unref(pixmap);
+  gdk_drawable_unref(mask);
 
-  *data = (GtkWidget *) gtk_adjustment_new(*val, min, max, quant, page_step, (max-min) * 1e-30);
+  *data = (GtkWidget *) gtk_adjustment_new(*val, min, max, quant, page_step, 0);
+  //*data = (GtkWidget *) gtk_adjustment_new(*val, min, max, quant, page_step, (max-min) * 1e-30);
   /* 1e-30 => hscrollbar has an unwanted side effect: the maximum is not the maximum */
   /* of the given range, it is reduced by the page_size, so it has to be very small */
 
@@ -1506,6 +1513,7 @@ void xsane_outputfilename_new(GtkWidget *vbox)
   gtk_box_pack_start(GTK_BOX(hbox), pixmapwidget, FALSE, FALSE, 2);
   gtk_widget_show(pixmapwidget);
   gdk_drawable_unref(pixmap);
+  gdk_drawable_unref(mask);
  
   xsane_filename_counter_step_option_menu = gtk_option_menu_new();
   xsane_back_gtk_set_tooltip(xsane.tooltips, xsane_filename_counter_step_option_menu, DESC_FILENAME_COUNTER_STEP);
