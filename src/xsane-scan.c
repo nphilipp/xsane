@@ -3,7 +3,7 @@
    xsane-scan.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2007 Oliver Rauch
+   Copyright (C) 1998-2010 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -141,6 +141,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
  SANE_Int len;
  int i, j;
  char buf[TEXTBUFSIZE];
+ size_t bytes_read;
 
   DBG(DBG_proc, "xsane_read_image_data\n");
 
@@ -394,7 +395,7 @@ static void xsane_read_image_data(gpointer data, gint source, GdkInputCondition 
                long fpos = ftell(xsane.out);
 
                 fseek(xsane.out, 0, SEEK_CUR); /* sync between write and read */
-                fread(rgbbuf, 1, bytes - 1, xsane.out);
+                bytes_read = fread(rgbbuf, 1, bytes - 1, xsane.out);
                 fseek(xsane.out, fpos, SEEK_SET);
               }
 

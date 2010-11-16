@@ -3,7 +3,7 @@
    xsane-front-gtk.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2007 Oliver Rauch
+   Copyright (C) 1998-2010 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -1136,9 +1136,6 @@ void xsane_range_new(GtkBox *parent, char *labeltext, const char *desc,
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 1);
 
   *data = (GtkWidget *) gtk_adjustment_new(*val, min, max, quant, page_step, 0);
- // *data = (GtkWidget *) gtk_adjustment_new(*val, min, max, quant, page_step, (max-min) * 1e-30);
-  /* 1e-30 => hscrollbar has an unwanted side effect: the maximum is not the maximum */
-  /* of the given range, it is reduced by the page_size, so it has to be very small */
 
   /* value label */
   if (preferences.show_range_mode & 8)
@@ -1231,9 +1228,6 @@ void xsane_range_new_with_pixmap(GdkWindow *window, GtkBox *parent, const char *
   gdk_drawable_unref(mask);
 
   *data = (GtkWidget *) gtk_adjustment_new(*val, min, max, quant, page_step, 0);
-  //*data = (GtkWidget *) gtk_adjustment_new(*val, min, max, quant, page_step, (max-min) * 1e-30);
-  /* 1e-30 => hscrollbar has an unwanted side effect: the maximum is not the maximum */
-  /* of the given range, it is reduced by the page_size, so it has to be very small */
 
   /* value label */
   if (preferences.show_range_mode & 8)

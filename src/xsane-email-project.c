@@ -3,7 +3,7 @@
    xsane-email-project.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2007 Oliver Rauch
+   Copyright (C) 1998-2010 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -493,6 +493,7 @@ static void xsane_email_project_display_status()
  char filename[PATH_MAX];
  int val;
  int i, c;
+ int items_done;
 
   DBG(DBG_proc, "xsane_email_project_display_status\n");
 
@@ -510,7 +511,7 @@ static void xsane_email_project_display_status()
     }
     buf[i-1] = 0;
 
-    fscanf(lockfile, "%d\n", &val);
+    items_done = fscanf(lockfile, "%d\n", &val);
 
     fclose(lockfile);
 
@@ -1514,6 +1515,7 @@ static void xsane_create_email(int fd)
  int use_attachment = 0;
  int email_text_size = 0;
  int display_images_inline = FALSE;
+ size_t bytes_written;
 
   DBG(DBG_proc, "xsane_create_email\n");
 
@@ -1654,7 +1656,7 @@ static void xsane_create_email(int fd)
           {
             snprintf(buf, sizeof(buf), "<p><img SRC=\"cid:%s\">\r\n", content_id);
           }
-          write(fd, buf, strlen(buf));
+          bytes_written = write(fd, buf, strlen(buf));
         }
         else /* more images selected than available */
         {
@@ -1663,11 +1665,11 @@ static void xsane_create_email(int fd)
       else if (*email_text_pos == 10) /* new line */
       {
         snprintf(buf, sizeof(buf), "<br>\r\n");
-        write(fd, buf, strlen(buf));
+        bytes_written = write(fd, buf, strlen(buf));
       }
       else
       {
-        write(fd, email_text_pos, 1);
+        bytes_written = write(fd, email_text_pos, 1);
       }
       email_text_pos++;
     }
@@ -1683,11 +1685,11 @@ static void xsane_create_email(int fd)
       {
         snprintf(buf, sizeof(buf), "<p><img SRC=\"cid:%s\">\r\n", content_id);
       }
-      write(fd, buf, strlen(buf));
+      bytes_written = write(fd, buf, strlen(buf));
     }
 
     snprintf(buf, sizeof(buf), "</html>\r\n");
-    write(fd, buf, strlen(buf));
+    bytes_written = write(fd, buf, strlen(buf));
 
 
     for (i=0; i<attachments; i++)
@@ -1722,8 +1724,8 @@ static void xsane_create_email(int fd)
     write_email_header(fd, preferences.email_from, preferences.email_reply_to, xsane.email_receiver, xsane.email_subject, boundary, 0 /* not related */);
     write_email_mime_ascii(fd, boundary);
 
-    write(fd, email_text, strlen(email_text));
-    write(fd, "\r\n\r\n", 4);
+    bytes_written = write(fd, email_text, strlen(email_text));
+    bytes_written = write(fd, "\r\n\r\n", 4);
 
     for (i=0; i<attachments; i++)
     {

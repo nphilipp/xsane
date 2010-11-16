@@ -3,7 +3,7 @@
    xsane.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2007 Oliver Rauch
+   Copyright (C) 1998-2010 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -1218,7 +1218,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
   gtk_widget_show(pixmapwidget);
 
   /* adf pages maximum */
-  adjustment = gtk_adjustment_new(preferences.adf_pages_max, 1, 9999, 1, 10, 1);
+  adjustment = gtk_adjustment_new(preferences.adf_pages_max, 1, 9999, 1, 10, 0);
   xsane_spinbutton = gtk_spin_button_new(GTK_ADJUSTMENT(adjustment), 0, 0);
   gtk_widget_set_size_request(xsane_spinbutton, 55, -1);
   gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(xsane_spinbutton), FALSE);
@@ -1317,7 +1317,7 @@ GtkWidget *xsane_update_xsane_callback() /* creates the XSane option window */
 
 
     /* number of copies */
-    adjustment = gtk_adjustment_new(xsane.copy_number, 1, 99, 1, 10, 1);
+    adjustment = gtk_adjustment_new(xsane.copy_number, 1, 99, 1, 10, 0);
     xsane_spinbutton = gtk_spin_button_new(GTK_ADJUSTMENT(adjustment), 0, 0);
     gtk_widget_set_size_request(xsane_spinbutton, 40, -1);
     gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(xsane_spinbutton), FALSE);
@@ -3219,7 +3219,7 @@ static void xsane_info_dialog(GtkWidget *widget, gpointer data)
   }
   else
   {
-    snprintf(buf, sizeof(buf), xsane.devlist[xsane.selected_dev]->name);
+    snprintf(buf, sizeof(buf), "%s", xsane.devlist[xsane.selected_dev]->name);
   }
   label = xsane_info_table_text_new(table, buf, 1, 3);
 
@@ -4995,7 +4995,7 @@ static void xsane_device_dialog(void)
 
   snprintf(buf, sizeof(buf), ":%s", devname);
   snprintf(buf, sizeof(buf), "/%s", (strrchr(buf, ':')+1));
-  sprintf(textptr, (strrchr(buf, '/')+1));
+  sprintf(textptr, "%s", (strrchr(buf, '/')+1));
 
   xsane.device_text = strdup(devicetext);
 

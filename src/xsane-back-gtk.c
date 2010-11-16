@@ -3,7 +3,7 @@
    xsane-back-gtk.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2007 Oliver Rauch
+   Copyright (C) 1998-2010 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -2004,9 +2004,6 @@ void xsane_back_gtk_range_new(GtkWidget *parent, const char *name, gfloat val,
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
 
   elem->data = gtk_adjustment_new(val, min, max, quant, quant*10, 0);
-  //elem->data = gtk_adjustment_new(val, min, max, quant, quant*10, (max-min) * 1e-30);
-  /* 1e-30 => hscrollbar has an unwanted side effect: the maximum is not the maximum */
-  /* of the given range, it is reduced by the page_size, so it has to be very small */
 
   /* value label */
   if (preferences.show_range_mode & 8)
@@ -2124,7 +2121,6 @@ void xsane_back_gtk_value_new(GtkWidget *parent, const char *name, gfloat val,
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
 
   elem->data = gtk_adjustment_new(val, -1e29, 1e29, 1, 10, 0);
-  //elem->data = gtk_adjustment_new(val, -1e29, 1e29, 1, 10, 1e-30);
 
   /* spinbutton */
 #ifndef HAVE_GTK2

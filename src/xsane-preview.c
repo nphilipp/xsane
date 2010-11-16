@@ -3,7 +3,7 @@
    xsane-preview.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2007 Oliver Rauch
+   Copyright (C) 1998-2010 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -2100,6 +2100,7 @@ int preview_create_batch_icon_from_file(Preview *p, FILE *in, Batch_Scan_Paramet
  int xx, yy;
  int offset = 0;
  guchar *data;
+ size_t bytes_read;
 
   DBG(DBG_proc, "preview_create_batch_icon_from_file\n");
 
@@ -2245,13 +2246,13 @@ int preview_create_batch_icon_from_file(Preview *p, FILE *in, Batch_Scan_Paramet
       {
         fseek(in, header + (xoffset + (int)(x * scale) + (yoffset + (int)(y * scale)) * image_width) * 6, SEEK_SET);
 
-        fread(&r, 2, 1, in); /* read 16 bit value in machines byte order */
+        bytes_read = fread(&r, 2, 1, in); /* read 16 bit value in machines byte order */
         r = preview_gamma_data_red[r >> rotate16];
 
-        fread(&g, 2, 1, in);
+        bytes_read = fread(&g, 2, 1, in);
         g = preview_gamma_data_green[g >> rotate16];
 
-        fread(&b, 2, 1, in);
+        bytes_read = fread(&b, 2, 1, in);
         b = preview_gamma_data_blue[b >> rotate16];
 
         c = r * 65536 + g * 256 + b;

@@ -3,7 +3,7 @@
    xsane-setup.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2007 Oliver Rauch
+   Copyright (C) 1998-2010 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -910,7 +910,7 @@ static void xsane_permission_box(GtkWidget *parent, gchar *name, gchar *descript
   button = gtk_toggle_button_new_with_label("r");
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *permission & 256 );
   xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_PERMISSION_READ);
-  gtk_widget_set_size_request(button, 21, -1);
+  gtk_widget_set_size_request(button, 26, -1);
   gtk_widget_set_name(button, name);
   g_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_permission_toggled, (void *) 256);
   gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 1);
@@ -920,7 +920,7 @@ static void xsane_permission_box(GtkWidget *parent, gchar *name, gchar *descript
   button = gtk_toggle_button_new_with_label("w");
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *permission & 128 );
   xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_PERMISSION_WRITE);
-  gtk_widget_set_size_request(button, 21, -1);
+  gtk_widget_set_size_request(button, 26, -1);
   gtk_widget_set_name(button, name);
   g_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_permission_toggled, (void *) 128);
   gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 1);
@@ -930,7 +930,7 @@ static void xsane_permission_box(GtkWidget *parent, gchar *name, gchar *descript
   button = gtk_toggle_button_new_with_label("x");
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *permission & 64 );
   xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_PERMISSION_SEARCH);
-  gtk_widget_set_size_request(button, 21, -1);
+  gtk_widget_set_size_request(button, 26, -1);
   gtk_widget_set_name(button, name);
   g_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_permission_toggled, (void *) 64);
   gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 1);
@@ -948,7 +948,7 @@ static void xsane_permission_box(GtkWidget *parent, gchar *name, gchar *descript
   button = gtk_toggle_button_new_with_label("r");
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *permission & 32 );
   xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_PERMISSION_READ);
-  gtk_widget_set_size_request(button, 21, -1);
+  gtk_widget_set_size_request(button, 26, -1);
   gtk_widget_set_name(button, name);
   g_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_permission_toggled, (void *) 32);
   gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 1);
@@ -957,7 +957,7 @@ static void xsane_permission_box(GtkWidget *parent, gchar *name, gchar *descript
   button = gtk_toggle_button_new_with_label("w");
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *permission & 16 );
   xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_PERMISSION_WRITE);
-  gtk_widget_set_size_request(button, 21, -1);
+  gtk_widget_set_size_request(button, 26, -1);
   gtk_widget_set_name(button, name);
   g_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_permission_toggled, (void *) 16);
   gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 1);
@@ -966,7 +966,7 @@ static void xsane_permission_box(GtkWidget *parent, gchar *name, gchar *descript
   button = gtk_toggle_button_new_with_label("x");
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *permission & 8 );
   xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_PERMISSION_SEARCH);
-  gtk_widget_set_size_request(button, 21, -1);
+  gtk_widget_set_size_request(button, 26, -1);
   gtk_widget_set_name(button, name);
   g_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_permission_toggled, (void *) 8);
   gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 1);
@@ -984,7 +984,7 @@ static void xsane_permission_box(GtkWidget *parent, gchar *name, gchar *descript
   button = gtk_toggle_button_new_with_label("r");
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *permission & 4 );
   xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_PERMISSION_READ);
-  gtk_widget_set_size_request(button, 21, -1);
+  gtk_widget_set_size_request(button, 26, -1);
   gtk_widget_set_name(button, name);
   g_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_permission_toggled, (void *) 4);
   gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 1);
@@ -993,7 +993,7 @@ static void xsane_permission_box(GtkWidget *parent, gchar *name, gchar *descript
   button = gtk_toggle_button_new_with_label("w");
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *permission & 2 );
   xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_PERMISSION_WRITE);
-  gtk_widget_set_size_request(button, 21, -1);
+  gtk_widget_set_size_request(button, 26, -1);
   gtk_widget_set_name(button, name);
   g_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_permission_toggled, (void *) 2);
   gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 1);
@@ -1002,7 +1002,7 @@ static void xsane_permission_box(GtkWidget *parent, gchar *name, gchar *descript
   button = gtk_toggle_button_new_with_label("x");
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), *permission & 1 );
   xsane_back_gtk_set_tooltip(xsane.tooltips, button, DESC_PERMISSION_SEARCH);
-  gtk_widget_set_size_request(button, 21, -1);
+  gtk_widget_set_size_request(button, 26, -1);
   gtk_widget_set_name(button, name);
   g_signal_connect(GTK_OBJECT(button), "toggled", (GtkSignalFunc) xsane_permission_toggled, (void *) 1);
   gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 1);
