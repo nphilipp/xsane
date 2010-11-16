@@ -3,7 +3,7 @@
    xsane-save.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2007 Oliver Rauch
+   Copyright (C) 1998-2010 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -423,6 +423,7 @@ void xsane_read_pnm_header(FILE *file, Image_info *image_info)
 {
  int max_val, filetype_nr;
  char buf[TEXTBUFSIZE];
+ int items_done;
 
   fgets(buf, sizeof(buf)-1, file);
   DBG(DBG_info, "filetype header :%s", buf);
@@ -514,13 +515,13 @@ void xsane_read_pnm_header(FILE *file, Image_info *image_info)
       }
     }
 
-    fscanf(file, "%d %d", &image_info->image_width, &image_info->image_height);
+    items_done = fscanf(file, "%d %d", &image_info->image_width, &image_info->image_height);
 
     image_info->depth = 1;
 
     if (filetype_nr != 4) /* P4 = lineart */
     {
-      fscanf(file, "%d", &max_val);
+      items_done = fscanf(file, "%d", &max_val);
 
       if (max_val == 255)
       {
@@ -545,7 +546,7 @@ void xsane_read_pnm_header(FILE *file, Image_info *image_info)
 #ifdef SUPPORT_RGBA
   else if (buf[0] == 'S') /* RGBA format */
   {
-    fscanf(file, "%d %d\n%d", &image_info->image_width, &image_info->image_height, &max_val);
+    items_done = fscanf(file, "%d %d\n%d", &image_info->image_width, &image_info->image_height, &max_val);
     fgetc(file); /* read exactly one newline character */
 
     image_info->depth = 1;
@@ -1032,6 +1033,7 @@ int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_in
  float factor, x_factor, y_factor;
  guint16 color;
  int read_line;
+ size_t bytes_read;
 
   DBG(DBG_proc, "xsane_save_scaled_image\n");
 
@@ -1102,7 +1104,7 @@ int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_in
     if (read_line)
     {
       DBG(DBG_info, "xsane_save_scaled_image: reading original line %d\n", (int) y);
-      fread(original_line, original_image_width, image_info->channels * bytespp, imagefile); /* read one line */
+      bytes_read = fread(original_line, original_image_width, image_info->channels * bytespp, imagefile); /* read one line */
       original_line16 = (guint16 *) original_line;
     }
 
@@ -1285,7 +1287,7 @@ int xsane_save_scaled_image(FILE *outfile, FILE *imagefile, Image_info *image_in
 
     for (; ((int) original_y) - old_original_y; old_original_y += 1)
     {
-      fread(original_line, original_image_width, image_info->channels * bytespp, imagefile); /* read one line */
+      bytes_read = fread(original_line, original_image_width, image_info->channels * bytespp, imagefile); /* read one line */
     }
 
     for (x = 0; x < new_image_width; x++)
@@ -1330,6 +1332,7 @@ int xsane_save_despeckle_image(FILE *outfile, FILE *imagefile, Image_info *image
  int bytespp = 1;
  int color_radius;
  int color_width  = image_info->image_width * image_info->channels;
+ size_t bytes_read;
 
   radius--; /* correct radius : 1 means nothing happens */
 
@@ -1354,7 +1357,7 @@ int xsane_save_despeckle_image(FILE *outfile, FILE *imagefile, Image_info *image
    return -1;
   }
 
-  fread(line_cache, color_width * bytespp, (2 * radius + 1), imagefile);
+  bytes_read = fread(line_cache, color_width * bytespp, (2 * radius + 1), imagefile);
 
   color_cache = malloc((size_t) sizeof(guint16) * (2*radius+1)*(2*radius+1));
 
@@ -1502,7 +1505,7 @@ int xsane_save_despeckle_image(FILE *outfile, FILE *imagefile, Image_info *image
     {
       memcpy(line_cache, line_cache + color_width * bytespp, 
              color_width * bytespp * 2 * radius);
-      fread(line_cache + color_width * bytespp * 2 * radius,
+      bytes_read = fread(line_cache + color_width * bytespp * 2 * radius,
             color_width * bytespp, 1, imagefile);
     }
   }
@@ -1530,6 +1533,7 @@ int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info
  int xmax_flag;
  int ymin_flag;
  int ymax_flag;
+ size_t bytes_read;
 
   *cancel_save = 0;
 
@@ -1551,7 +1555,7 @@ int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info
    return -1;
   }
 
-  fread(line_cache, image_info->image_width * image_info->channels * bytespp, (2 * intradius + 1), imagefile);
+  bytes_read = fread(line_cache, image_info->image_width * image_info->channels * bytespp, (2 * intradius + 1), imagefile);
 
   for (y = 0; y < image_info->image_height; y++)
   {
@@ -1716,7 +1720,7 @@ int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info
     {
       memcpy(line_cache, line_cache + image_info->image_width * image_info->channels * bytespp, 
              image_info->image_width * image_info->channels * bytespp * 2 * intradius);
-      fread(line_cache + image_info->image_width * image_info->channels * bytespp * 2 * intradius,
+      bytes_read = fread(line_cache + image_info->image_width * image_info->channels * bytespp * 2 * intradius,
             image_info->image_width * image_info->channels * bytespp, 1, imagefile);
     }
   }
@@ -1756,7 +1760,7 @@ int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info
    return -1;
   }
 
-  fread(line_cache, image_info->image_width * image_info->channels * bytespp, (2 * radius + 1), imagefile);
+  bytes_read = fread(line_cache, image_info->image_width * image_info->channels * bytespp, (2 * radius + 1), imagefile);
 
   for (y = 0; y < image_info->image_height; y++)
   {
@@ -1830,7 +1834,7 @@ int xsane_save_blur_image(FILE *outfile, FILE *imagefile, Image_info *image_info
     {
       memcpy(line_cache, line_cache + image_info->image_width * image_info->channels * bytespp, 
              image_info->image_width * image_info->channels * bytespp * 2 * radius);
-      fread(line_cache + image_info->image_width * image_info->channels * bytespp * 2 * radius,
+      bytes_read = fread(line_cache + image_info->image_width * image_info->channels * bytespp * 2 * radius,
             image_info->image_width * image_info->channels * bytespp, 1, imagefile);
     }
   }
@@ -3059,6 +3063,7 @@ static int xsane_save_ps_pdf_gray(FILE *outfile, FILE *imagefile, Image_info *im
  unsigned char *line = NULL, *linep = NULL, *line16 = NULL;
  int bytes_per_line;
  int bytes_per_line16 = 0;
+ size_t bytes_read;
 #ifdef HAVE_LIBLCMS
  unsigned char *line_raw = NULL;
 #endif
@@ -3157,7 +3162,7 @@ static int xsane_save_ps_pdf_gray(FILE *outfile, FILE *imagefile, Image_info *im
 
       for (x = 0; x < image_info->image_width; x++)
       {
-        fread(&val, 2, 1, imagefile);
+        bytes_read = fread(&val, 2, 1, imagefile);
         line[x] = val/256;
       }
 #endif
@@ -3165,13 +3170,13 @@ static int xsane_save_ps_pdf_gray(FILE *outfile, FILE *imagefile, Image_info *im
 #ifdef HAVE_LIBLCMS
       if (do_transform && (hTransform != NULL))
       {
-        fread(line_raw, 2, image_info->image_width, imagefile);
+        bytes_read = fread(line_raw, 2, image_info->image_width, imagefile);
         cmsDoTransform(hTransform, line_raw, line16, image_info->image_width);
       }
       else
 #endif
       {
-        fread(line16, 2, image_info->image_width, imagefile);
+        bytes_read = fread(line16, 2, image_info->image_width, imagefile);
       }
 
       linep = line;
@@ -3218,13 +3223,13 @@ static int xsane_save_ps_pdf_gray(FILE *outfile, FILE *imagefile, Image_info *im
 #ifdef HAVE_LIBLCMS
       if (do_transform && (hTransform != NULL))
       {
-        fread(line_raw, 1, image_info->image_width, imagefile);
+        bytes_read = fread(line_raw, 1, image_info->image_width, imagefile);
         cmsDoTransform(hTransform, line_raw, line, image_info->image_width);
       }
       else
 #endif
       {
-        fread(line, 1, image_info->image_width, imagefile);
+        bytes_read = fread(line, 1, image_info->image_width, imagefile);
       }
     }
 
@@ -3309,6 +3314,7 @@ static int xsane_save_ps_pdf_color(FILE *outfile, FILE *imagefile, Image_info *i
  unsigned char *line = NULL, *linep = NULL, *line16 = NULL;
  int bytes_per_line;
  int bytes_per_line16 = 0;
+ size_t bytes_read;
 #ifdef HAVE_LIBLCMS
  unsigned char *line_raw = NULL;
 #endif
@@ -3412,13 +3418,13 @@ static int xsane_save_ps_pdf_color(FILE *outfile, FILE *imagefile, Image_info *i
 #ifdef HAVE_LIBLCMS
       if (do_transform && (hTransform != NULL))
       {
-        fread(line_raw, 6, image_info->image_width, imagefile);
+        bytes_read = fread(line_raw, 6, image_info->image_width, imagefile);
         cmsDoTransform(hTransform, line_raw, line16, image_info->image_width);
       }
       else
 #endif
       {
-        fread(line16, 6, image_info->image_width, imagefile);
+        bytes_read = fread(line16, 6, image_info->image_width, imagefile);
       }
 
 #if __BYTE_ORDER == __LITTLE_ENDIAN
@@ -3472,13 +3478,13 @@ static int xsane_save_ps_pdf_color(FILE *outfile, FILE *imagefile, Image_info *i
 #ifdef HAVE_LIBLCMS
       if (do_transform && (hTransform != NULL))
       {
-        fread(line_raw, 3, image_info->image_width, imagefile);
+        bytes_read = fread(line_raw, 3, image_info->image_width, imagefile);
         cmsDoTransform(hTransform, line_raw, line, image_info->image_width);
       }
       else
 #endif
       {
-        fread(line, 3, image_info->image_width, imagefile);
+        bytes_read = fread(line, 3, image_info->image_width, imagefile);
       }
     }
 
@@ -4370,6 +4376,7 @@ int xsane_save_jpeg(FILE *outfile, int quality, FILE *imagefile, Image_info *ima
  struct jpeg_compress_struct cinfo;
  xsane_jpeg_error_mgr jerr;
  JSAMPROW row_pointer[1];
+ size_t bytes_read;
 #ifdef HAVE_LIBLCMS
  unsigned char *data_raw = NULL;
 #endif
@@ -4496,13 +4503,13 @@ int xsane_save_jpeg(FILE *outfile, int quality, FILE *imagefile, Image_info *ima
 #ifdef HAVE_LIBLCMS
       if (apply_ICM_profile && (cms_function != XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE) && (hTransform != NULL))
       {
-        fread(data_raw, components * 2, image_info->image_width, imagefile);
+        bytes_read = fread(data_raw, components * 2, image_info->image_width, imagefile);
         cmsDoTransform(hTransform, data_raw, data, image_info->image_width);
       }
       else
 #endif
       {
-        fread(data, components * 2, image_info->image_width, imagefile);
+        bytes_read = fread(data, components * 2, image_info->image_width, imagefile);
       }
 
       for (x = 0; x < image_info->image_width * components; x++)
@@ -4516,13 +4523,13 @@ int xsane_save_jpeg(FILE *outfile, int quality, FILE *imagefile, Image_info *ima
 #ifdef HAVE_LIBLCMS
       if (apply_ICM_profile && (cms_function != XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE) && (hTransform != NULL))
       {
-        fread(data_raw, components, image_info->image_width, imagefile);
+        bytes_read = fread(data_raw, components, image_info->image_width, imagefile);
         cmsDoTransform(hTransform, data_raw, data, image_info->image_width);
       }
       else
 #endif
       {
-        fread(data, components, image_info->image_width, imagefile);
+        bytes_read = fread(data, components, image_info->image_width, imagefile);
       }
     }
 
@@ -4615,6 +4622,7 @@ int xsane_save_tiff_page(TIFF *tiffile, int page, int pages, int quality, FILE *
  int bytes;
  struct tm *ptm;
  time_t now;
+ size_t bytes_read;
 #ifdef HAVE_LIBLCMS
  char *data_raw = NULL;
 #endif
@@ -4769,13 +4777,13 @@ int xsane_save_tiff_page(TIFF *tiffile, int page, int pages, int quality, FILE *
 #ifdef HAVE_LIBLCMS
     if ((cms_function != XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE) && (hTransform != NULL))
     {
-      fread(data_raw, 1, w, imagefile);
+      bytes_read = fread(data_raw, 1, w, imagefile);
       cmsDoTransform(hTransform, data_raw, data, image_info->image_width);
     }
     else
 #endif
     {
-      fread(data, 1, w, imagefile);
+      bytes_read = fread(data, 1, w, imagefile);
     }
 
     if (TIFFWriteScanline(tiffile, data, y, 0) != 1)
@@ -4877,6 +4885,7 @@ int xsane_save_png(FILE *outfile, int compression, FILE *imagefile, Image_info *
  char buf[TEXTBUFSIZE];
  int colortype, components, byte_width;
  int y;
+ size_t bytes_read;
 #ifdef HAVE_LIBLCMS
  unsigned char *data_raw = NULL;
 #endif
@@ -5017,13 +5026,13 @@ int xsane_save_png(FILE *outfile, int compression, FILE *imagefile, Image_info *
 #ifdef HAVE_LIBLCMS
     if ((cms_function != XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE) && (hTransform != NULL))
     {
-      fread(data_raw, components, byte_width, imagefile);
+      bytes_read = fread(data_raw, components, byte_width, imagefile);
       cmsDoTransform(hTransform, data_raw, data, image_info->image_width);
     }
     else
 #endif
     {
-      fread(data, components, byte_width, imagefile);
+      bytes_read = fread(data, components, byte_width, imagefile);
     }
 
     row_ptr = data;
@@ -5066,6 +5075,7 @@ int xsane_save_png_16(FILE *outfile, int compression, FILE *imagefile, Image_inf
  char buf[TEXTBUFSIZE];
  int colortype, components;
  int y;
+ size_t bytes_read;
 #ifdef HAVE_LIBLCMS
  unsigned char *data_raw = NULL;
 #endif
@@ -5189,13 +5199,13 @@ int xsane_save_png_16(FILE *outfile, int compression, FILE *imagefile, Image_inf
 #ifdef HAVE_LIBLCMS
     if ((cms_function != XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE) && (hTransform != NULL))
     {
-      fread(data_raw, components * 2, image_info->image_width, imagefile);
+      bytes_read = fread(data_raw, components * 2, image_info->image_width, imagefile);
       cmsDoTransform(hTransform, data_raw, data, image_info->image_width);
     }
     else
 #endif
     {
-      fread(data, components * 2, image_info->image_width, imagefile);
+      bytes_read = fread(data, components * 2, image_info->image_width, imagefile);
     }
 
 #if __BYTE_ORDER == __LITTLE_ENDIAN
@@ -5207,7 +5217,7 @@ int xsane_save_png_16(FILE *outfile, int compression, FILE *imagefile, Image_inf
       {
         unsigned char help;
 
-        help = data[x*2+1];
+        help = data[x*2+0];
         data[x*2+0] = data[x*2+1];
         data[x*2+1] = help;
       }
@@ -5246,6 +5256,7 @@ static int xsane_save_pnm_16_ascii_gray(FILE *outfile, FILE *imagefile, Image_in
  int x,y;
  guint16 *data;
  int count = 0;
+ size_t bytes_read;
 #ifdef HAVE_LIBLCMS
  guint16 *data_raw = NULL;
 #endif
@@ -5290,13 +5301,13 @@ static int xsane_save_pnm_16_ascii_gray(FILE *outfile, FILE *imagefile, Image_in
 #ifdef HAVE_LIBLCMS
     if ((apply_ICM_profile) && (hTransform != NULL))
     {
-      fread(data_raw, 2, image_info->image_width, imagefile);
+      bytes_read = fread(data_raw, 2, image_info->image_width, imagefile);
       cmsDoTransform(hTransform, data_raw, data, image_info->image_width);
     }
     else
 #endif
     {
-      fread(data, 2, image_info->image_width, imagefile);
+      bytes_read = fread(data, 2, image_info->image_width, imagefile);
     }
 
     for (x = 0; x < image_info->image_width; x++)
@@ -5353,6 +5364,7 @@ static int xsane_save_pnm_16_ascii_color(FILE *outfile, FILE *imagefile, Image_i
  int x,y;
  guint16 *data;
  int count = 0;
+ size_t bytes_read;
 #ifdef HAVE_LIBLCMS
  guint16 *data_raw = NULL;
 #endif
@@ -5398,13 +5410,13 @@ static int xsane_save_pnm_16_ascii_color(FILE *outfile, FILE *imagefile, Image_i
 #ifdef HAVE_LIBLCMS
     if ((apply_ICM_profile) && (hTransform != NULL))
     {
-      fread(data_raw, 6, image_info->image_width, imagefile);
+      bytes_read = fread(data_raw, 6, image_info->image_width, imagefile);
       cmsDoTransform(hTransform, data_raw, data, image_info->image_width);
     }
     else
 #endif
     {
-      fread(data, 6, image_info->image_width, imagefile);
+      bytes_read = fread(data, 6, image_info->image_width, imagefile);
     }
 
     for (x = 0; x < image_info->image_width; x++)
@@ -5461,6 +5473,7 @@ static int xsane_save_pnm_16_binary_gray(FILE *outfile, FILE *imagefile, Image_i
 {
  int x,y;
  guint16 *data;
+ size_t bytes_read;
 #ifdef HAVE_LIBLCMS
  guint16 *data_raw = NULL;
 #endif
@@ -5505,13 +5518,13 @@ static int xsane_save_pnm_16_binary_gray(FILE *outfile, FILE *imagefile, Image_i
 #ifdef HAVE_LIBLCMS
     if (hTransform != NULL)
     {
-      fread(data_raw, 2, image_info->image_width, imagefile);
+      bytes_read = fread(data_raw, 2, image_info->image_width, imagefile);
       cmsDoTransform(hTransform, data_raw, data, image_info->image_width);
     }
     else
 #endif
     {
-      fread(data, 2, image_info->image_width, imagefile);
+      bytes_read = fread(data, 2, image_info->image_width, imagefile);
     }
 
     for (x = 0; x < image_info->image_width; x++)
@@ -5558,6 +5571,7 @@ static int xsane_save_pnm_16_binary_color(FILE *outfile, FILE *imagefile, Image_
 {
  int x,y;
  guint16 *data;
+ size_t bytes_read;
 #ifdef HAVE_LIBLCMS
  guint16 *data_raw = NULL;
 #endif
@@ -5602,13 +5616,13 @@ static int xsane_save_pnm_16_binary_color(FILE *outfile, FILE *imagefile, Image_
 #ifdef HAVE_LIBLCMS
     if (hTransform != NULL)
     {
-      fread(data_raw, 6, image_info->image_width, imagefile);
+      bytes_read = fread(data_raw, 6, image_info->image_width, imagefile);
       cmsDoTransform(hTransform, data_raw, data, image_info->image_width);
     }
     else
 #endif
     {
-      fread(data, 6, image_info->image_width, imagefile);
+      bytes_read = fread(data, 6, image_info->image_width, imagefile);
     }
 
     for (x = 0; x < image_info->image_width; x++)
@@ -5659,6 +5673,7 @@ static int xsane_save_pnm_8_gray(FILE *outfile, FILE *imagefile, Image_info *ima
 {
  int x,y;
  guint8 *data;
+ size_t bytes_read;
 #ifdef HAVE_LIBLCMS
  guint8 *data_raw = NULL;
 #endif
@@ -5703,13 +5718,13 @@ static int xsane_save_pnm_8_gray(FILE *outfile, FILE *imagefile, Image_info *ima
 #ifdef HAVE_LIBLCMS
     if (hTransform != NULL)
     {
-      fread(data_raw, 1, image_info->image_width, imagefile);
+      bytes_read = fread(data_raw, 1, image_info->image_width, imagefile);
       cmsDoTransform(hTransform, data_raw, data, image_info->image_width);
     }
     else
 #endif
     {
-      fread(data, 1, image_info->image_width, imagefile);
+      bytes_read = fread(data, 1, image_info->image_width, imagefile);
     }
 
     for (x = 0; x < image_info->image_width; x++)
@@ -5754,6 +5769,7 @@ static int xsane_save_pnm_8_color(FILE *outfile, FILE *imagefile, Image_info *im
 {
  int x,y;
  guint8 *data;
+ size_t bytes_read;
 #ifdef HAVE_LIBLCMS
  guint8 *data_raw = NULL;
 #endif
@@ -5798,13 +5814,13 @@ static int xsane_save_pnm_8_color(FILE *outfile, FILE *imagefile, Image_info *im
 #ifdef HAVE_LIBLCMS
     if (hTransform != NULL)
     {
-      fread(data_raw, 3, image_info->image_width, imagefile);
+      bytes_read = fread(data_raw, 3, image_info->image_width, imagefile);
       cmsDoTransform(hTransform, data_raw, data, image_info->image_width);
     }
     else
 #endif
     {
-      fread(data, 3, image_info->image_width, imagefile);
+      bytes_read = fread(data, 3, image_info->image_width, imagefile);
     }
 
     for (x = 0; x < image_info->image_width; x++)
@@ -6730,6 +6746,7 @@ int xsane_transfer_to_gimp(char *input_filename, int apply_ICM_profile, int cms_
  int bytes;
  unsigned char *data = NULL;
  guint16 *data16 = NULL;
+ size_t bytes_read;
 #ifdef HAVE_LIBLCMS
  unsigned char *data_raw = NULL;
  cmsHTRANSFORM hTransform = NULL;
@@ -6935,13 +6952,13 @@ int xsane_transfer_to_gimp(char *input_filename, int apply_ICM_profile, int cms_
 #ifdef HAVE_LIBLCMS
           if ((cms_function != XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE) && apply_ICM_profile && (hTransform != NULL))
           {
-            fread(data_raw, 1, image_info.image_width, imagefile);
+            bytes_read = fread(data_raw, 1, image_info.image_width, imagefile);
             cmsDoTransform(hTransform, data_raw, data, image_info.image_width);
           }
           else
 #endif
           {
-            fread(data, 1, image_info.image_width, imagefile);
+            bytes_read = fread(data, 1, image_info.image_width, imagefile);
           }
 
           for (x = 0; x < image_info.image_width; x++)
@@ -6973,13 +6990,13 @@ int xsane_transfer_to_gimp(char *input_filename, int apply_ICM_profile, int cms_
 #ifdef HAVE_LIBLCMS
           if ((cms_function != XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE) && apply_ICM_profile && (hTransform != NULL))
           {
-            fread(data_raw, 2, image_info.image_width, imagefile);
+            bytes_read = fread(data_raw, 2, image_info.image_width, imagefile);
             cmsDoTransform(hTransform, data_raw, data, image_info.image_width);
           }
           else
 #endif
           {
-            fread(data, 2, image_info.image_width, imagefile);
+            bytes_read = fread(data, 2, image_info.image_width, imagefile);
           }
 
           for (x = 0; x < image_info.image_width; x++)
@@ -7019,13 +7036,13 @@ int xsane_transfer_to_gimp(char *input_filename, int apply_ICM_profile, int cms_
 #ifdef HAVE_LIBLCMS
           if ((cms_function != XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE) && apply_ICM_profile && (hTransform != NULL))
           {
-            fread(data_raw, 3, image_info.image_width, imagefile);
+            bytes_read = fread(data_raw, 3, image_info.image_width, imagefile);
             cmsDoTransform(hTransform, data_raw, data, image_info.image_width);
           }
           else
 #endif
           {
-            fread(data, 3, image_info.image_width, imagefile);
+            bytes_read = fread(data, 3, image_info.image_width, imagefile);
           }
 
           for (x = 0; x < image_info.image_width; x++)
@@ -7060,13 +7077,13 @@ int xsane_transfer_to_gimp(char *input_filename, int apply_ICM_profile, int cms_
 #ifdef HAVE_LIBLCMS
           if ((cms_function != XSANE_CMS_FUNCTION_EMBED_SCANNER_ICM_PROFILE) && apply_ICM_profile && (hTransform != NULL))
           {
-            fread(data_raw, 6, image_info.image_width, imagefile);
+            bytes_read = fread(data_raw, 6, image_info.image_width, imagefile);
             cmsDoTransform(hTransform, data_raw, data, image_info.image_width);
           }
           else
 #endif
           {
-            fread(data, 6, image_info.image_width, imagefile);
+            bytes_read = fread(data, 6, image_info.image_width, imagefile);
           }
 
           for (x = 0; x < image_info.image_width; x++)
@@ -7194,6 +7211,7 @@ static const char base64[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwx
 static void write_3chars_as_base64(unsigned char c1, unsigned char c2, unsigned char c3, int pads, int fd_socket)
 {
  char buf[4];
+ ssize_t bytes_written;
 
   buf[0] = base64[c1>>2]; /* wirte bits 7-2 of first char */
   buf[1] = base64[((c1 & 0x3)<< 4) | ((c2 & 0xF0) >> 4)]; /* write bits 1,0 of first and bits 7-4 of second char */
@@ -7214,7 +7232,7 @@ static void write_3chars_as_base64(unsigned char c1, unsigned char c2, unsigned 
     buf[3] = base64[c3 & 0x3F]; /* write bits 5-0 of third char as lsb */
   }
 
-  write(fd_socket, buf, 4);
+  bytes_written = write(fd_socket, buf, 4);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -7224,6 +7242,7 @@ void write_string_base64(int fd_socket, char *string, int len)
  int i;
  int pad;
  unsigned char c1, c2, c3;
+ ssize_t bytes_written;
 
   for (i = 0; i < len; i+=3)
   {
@@ -7249,7 +7268,7 @@ void write_string_base64(int fd_socket, char *string, int len)
 
     write_3chars_as_base64(c1, c2, c3, pad, fd_socket);
   }
-  write(fd_socket, "\r\n", 2);
+  bytes_written = write(fd_socket, "\r\n", 2);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -7258,6 +7277,7 @@ void write_base64(int fd_socket, FILE *infile)
 {
  int c1, c2, c3;
  int pos = 0;
+ ssize_t bytes_written;
 
   while ((c1 = getc(infile)) != EOF)
   {
@@ -7282,7 +7302,7 @@ void write_base64(int fd_socket, FILE *infile)
     pos += 4;
     if (pos > 71)
     {
-      write(fd_socket, "\r\n", 2);
+      bytes_written = write(fd_socket, "\r\n", 2);
       
       pos = 0;
     }
@@ -7297,7 +7317,7 @@ void write_base64(int fd_socket, FILE *infile)
 
   if (pos)
   {
-    write(fd_socket, "\r\n", 2);
+    bytes_written = write(fd_socket, "\r\n", 2);
   }
 
   xsane.email_progress_val = 1.0;
@@ -7309,35 +7329,36 @@ void write_base64(int fd_socket, FILE *infile)
 void write_email_header(int fd_socket, char *from, char *reply_to, char *to, char *subject, char *boundary, int related)
 {
  char buf[1024];
+ ssize_t bytes_written;
 
   snprintf(buf, sizeof(buf), "From: %s\r\n", from);
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
 
   snprintf(buf, sizeof(buf), "Reply-To: %s\r\n", reply_to);
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
 
   snprintf(buf, sizeof(buf), "To: %s\r\n", to);
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
 
   snprintf(buf, sizeof(buf), "Subject: %s\r\n", subject);
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
 
   snprintf(buf, sizeof(buf), "MIME-Version: 1.0\r\n");
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
 
   if (related) /* related means that we need a special link in the html part to display the image */
   {
     snprintf(buf, sizeof(buf), "Content-Type: multipart/related;\r\n");
-    write(fd_socket, buf, strlen(buf));
+    bytes_written = write(fd_socket, buf, strlen(buf));
   }
   else
   {
     snprintf(buf, sizeof(buf), "Content-Type: multipart/mixed;\r\n");
-    write(fd_socket, buf, strlen(buf));
+    bytes_written = write(fd_socket, buf, strlen(buf));
   }
 
   snprintf(buf, sizeof(buf), " boundary=\"%s\"\r\n\r\n", boundary);
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -7345,9 +7366,10 @@ void write_email_header(int fd_socket, char *from, char *reply_to, char *to, cha
 void write_email_footer(int fd_socket, char *boundary)
 {
  char buf[1024];
+ ssize_t bytes_written;
 
   snprintf(buf, sizeof(buf), "--%s--\r\n", boundary);
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -7355,18 +7377,19 @@ void write_email_footer(int fd_socket, char *boundary)
 void write_email_mime_ascii(int fd_socket, char *boundary)
 {
  char buf[1024];
+ ssize_t bytes_written;
 
   snprintf(buf, sizeof(buf), "--%s\r\n", boundary);
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
 
   snprintf(buf, sizeof(buf), "Content-Type: text/plain;\r\n");
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
 
   snprintf(buf, sizeof(buf), "        charset=\"iso-8859-1\"\r\n");
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
 
   snprintf(buf, sizeof(buf), "Content-Transfer-Encoding: 8bit\r\n\r\n");
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -7374,24 +7397,25 @@ void write_email_mime_ascii(int fd_socket, char *boundary)
 void write_email_mime_html(int fd_socket, char *boundary)
 {
  char buf[1024];
+ ssize_t bytes_written;
 
   snprintf(buf, sizeof(buf), "--%s\r\n", boundary);
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
 
   snprintf(buf, sizeof(buf), "Content-Type: text/html;\r\n");
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
 
   snprintf(buf, sizeof(buf), "        charset=\"us-ascii\"\r\n");
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
 
   snprintf(buf, sizeof(buf), "Content-Transfer-Encoding: 7bit\r\n\r\n");
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
 
   snprintf(buf, sizeof(buf), "<!doctype html public \"-//w3c//dtd html 4.0 transitional//en\">\r\n");
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
 
   snprintf(buf, sizeof(buf), "<html>\r\n");
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -7399,30 +7423,31 @@ void write_email_mime_html(int fd_socket, char *boundary)
 void write_email_attach_image(int fd_socket, char *boundary, char *content_id, char *content_type, FILE *infile, char *filename)
 {
  char buf[1024];
+ ssize_t bytes_written;
 
   snprintf(buf, sizeof(buf), "--%s\r\n", boundary);
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
 
   snprintf(buf, sizeof(buf), "Content-Type: %s\r\n", content_type);
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
 
   if (content_id)
   {
     snprintf(buf, sizeof(buf), "Content-ID: <%s>\r\n", content_id);
-    write(fd_socket, buf, strlen(buf));
+    bytes_written = write(fd_socket, buf, strlen(buf));
   }
 
   snprintf(buf, sizeof(buf), "Content-Transfer-Encoding: base64\r\n");
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
 
   snprintf(buf, sizeof(buf), "Content-Disposition: inline;\r\n");
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
 
   snprintf(buf, sizeof(buf), "        filename=\"%s\"\r\n", filename);
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
 
   snprintf(buf, sizeof(buf), "\r\n");
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
 
   write_base64(fd_socket, infile);
 }
@@ -7432,27 +7457,28 @@ void write_email_attach_image(int fd_socket, char *boundary, char *content_id, c
 void write_email_attach_file(int fd_socket, char *boundary, FILE *infile, char *filename)
 {
  char buf[1024];
+ ssize_t bytes_written;
 
   snprintf(buf, sizeof(buf), "--%s\r\n", boundary);
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
 
   snprintf(buf, sizeof(buf), "Content-Type: application/octet-stream\r\n");
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
 
   snprintf(buf, sizeof(buf), "        name=\"%s\"\r\n", filename);
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
 
   snprintf(buf, sizeof(buf), "Content-Transfer-Encoding: base64\r\n");
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
 
   snprintf(buf, sizeof(buf), "Content-Disposition: attachment;\r\n");
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
 
   snprintf(buf, sizeof(buf), "        filename=\"%s\"\r\n", filename);
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
 
   snprintf(buf, sizeof(buf), "\r\n");
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
 
   write_base64(fd_socket, infile);
 }
@@ -7521,6 +7547,7 @@ int pop3_login(int fd_socket, char *user, char *passwd)
 {
  char buf[1024];
  int len;
+ ssize_t bytes_written;
 
   len = read(fd_socket, buf, sizeof(buf));
   if (len >= 0)
@@ -7531,7 +7558,7 @@ int pop3_login(int fd_socket, char *user, char *passwd)
 
   snprintf(buf, sizeof(buf), "USER %s\r\n", user);
   DBG(DBG_info2, "> USER xxx\n");
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
   len = read(fd_socket, buf, sizeof(buf));
   if (len >= 0)
   {
@@ -7545,7 +7572,7 @@ int pop3_login(int fd_socket, char *user, char *passwd)
 
   snprintf(buf, sizeof(buf), "PASS %s\r\n", passwd);
   DBG(DBG_info2, "> PASS xxx\n");
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
   len = read(fd_socket, buf, sizeof(buf));
   if (len >= 0)
   {
@@ -7559,7 +7586,7 @@ int pop3_login(int fd_socket, char *user, char *passwd)
 
   snprintf(buf, sizeof(buf), "QUIT\r\n");
   DBG(DBG_info2, "> QUIT\n");
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
   len = read(fd_socket, buf, sizeof(buf));
   if (len >= 0)
   {
@@ -7576,6 +7603,7 @@ int asmtp_authentication(int fd_socket, int auth_type, char *user, char *passwd)
 {
  int len;
  char buf[1024];
+ ssize_t bytes_written;
 
   DBG(DBG_proc, "asmtp_authentication\n");
 
@@ -7584,7 +7612,7 @@ int asmtp_authentication(int fd_socket, int auth_type, char *user, char *passwd)
     case EMAIL_AUTH_ASMTP_PLAIN:
       snprintf(buf, sizeof(buf), "AUTH PLAIN ");
       DBG(DBG_info2, "> %s\\0(USER)\\0(PASSWORD)\n", buf);
-      write(fd_socket, buf, strlen(buf));
+      bytes_written = write(fd_socket, buf, strlen(buf));
       snprintf(buf, sizeof(buf), "%c%s%c%s", 0, user, 0, passwd);
       write_string_base64(fd_socket, buf, strlen(user)+strlen(passwd)+2);
       len = read(fd_socket, buf, sizeof(buf));
@@ -7598,7 +7626,7 @@ int asmtp_authentication(int fd_socket, int auth_type, char *user, char *passwd)
     case EMAIL_AUTH_ASMTP_LOGIN:
       snprintf(buf, sizeof(buf), "AUTH LOGIN\r\n");
       DBG(DBG_info2, "> %s", buf);
-      write(fd_socket, buf, strlen(buf));
+      bytes_written = write(fd_socket, buf, strlen(buf));
       len = read(fd_socket, buf, sizeof(buf));
       if (len >= 0)
       {
@@ -7646,7 +7674,7 @@ int asmtp_authentication(int fd_socket, int auth_type, char *user, char *passwd)
     case EMAIL_AUTH_ASMTP_CRAM_MD5:
       snprintf(buf, sizeof(buf), "AUTH CRAM-MD5\r\n");
       DBG(DBG_info2, "> %s", buf);
-      write(fd_socket, buf, strlen(buf));
+      bytes_written = write(fd_socket, buf, strlen(buf));
       len = read(fd_socket, buf, sizeof(buf));
       if (len >= 0)
       {
@@ -7675,6 +7703,7 @@ int write_smtp_header(int fd_socket, char *from, char *to, int auth_type, char *
  char to_line[1024];
  char *to_pos = NULL;
  char *pos = NULL;
+ ssize_t bytes_written;
 
   len = read(fd_socket, buf, sizeof(buf));
   if (len >= 0)
@@ -7692,7 +7721,7 @@ int write_smtp_header(int fd_socket, char *from, char *to, int auth_type, char *
     snprintf(buf, sizeof(buf), "EHLO localhost\r\n");
   }
   DBG(DBG_info2, "> %s", buf);
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
   len = read(fd_socket, buf, sizeof(buf));
   if (len >= 0)
   {
@@ -7726,7 +7755,7 @@ int write_smtp_header(int fd_socket, char *from, char *to, int auth_type, char *
   }
   snprintf(buf, sizeof(buf), "MAIL FROM: <%s>\r\n", from);
   DBG(DBG_info2, "> %s", buf);
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
   len = read(fd_socket, buf, sizeof(buf));
   if (len >= 0)
   {
@@ -7766,7 +7795,7 @@ int write_smtp_header(int fd_socket, char *from, char *to, int auth_type, char *
     snprintf(buf, sizeof(buf), "RCPT TO: <%s>\r\n", to_pos);
 
     DBG(DBG_info2, "> %s", buf);
-    write(fd_socket, buf, strlen(buf));
+    bytes_written = write(fd_socket, buf, strlen(buf));
     len = read(fd_socket, buf, sizeof(buf));
     if (len >= 0)
     {
@@ -7799,7 +7828,7 @@ int write_smtp_header(int fd_socket, char *from, char *to, int auth_type, char *
 
   snprintf(buf, sizeof(buf), "DATA\r\n");
   DBG(DBG_info2, "> %s", buf);
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
   len = read(fd_socket, buf, sizeof(buf));
   if (len >= 0)
   {
@@ -7830,10 +7859,11 @@ int write_smtp_footer(int fd_socket)
 {
  char buf[1024];
  int len;
+ ssize_t bytes_written;
 
   snprintf(buf, sizeof(buf), "\r\n.\r\n");
   DBG(DBG_info2, "> %s", buf);
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
   len = read(fd_socket, buf, sizeof(buf));
   if (len >= 0)
   {
@@ -7843,7 +7873,7 @@ int write_smtp_footer(int fd_socket)
 
   snprintf(buf, sizeof(buf), "QUIT\r\n");
   DBG(DBG_info2, "> %s", buf);
-  write(fd_socket, buf, strlen(buf));
+  bytes_written = write(fd_socket, buf, strlen(buf));
   len = read(fd_socket, buf, sizeof(buf));
   if (len >= 0)
   {

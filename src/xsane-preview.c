@@ -3,7 +3,7 @@
    xsane-preview.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2007 Oliver Rauch
+   Copyright (C) 1998-2010 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -2100,6 +2100,7 @@ int preview_create_batch_icon_from_file(Preview *p, FILE *in, Batch_Scan_Paramet
  int xx, yy;
  int offset = 0;
  guchar *data;
+ size_t bytes_read;
 
   DBG(DBG_proc, "preview_create_batch_icon_from_file\n");
 
@@ -2245,13 +2246,13 @@ int preview_create_batch_icon_from_file(Preview *p, FILE *in, Batch_Scan_Paramet
       {
         fseek(in, header + (xoffset + (int)(x * scale) + (yoffset + (int)(y * scale)) * image_width) * 6, SEEK_SET);
 
-        fread(&r, 2, 1, in); /* read 16 bit value in machines byte order */
+        bytes_read = fread(&r, 2, 1, in); /* read 16 bit value in machines byte order */
         r = preview_gamma_data_red[r >> rotate16];
 
-        fread(&g, 2, 1, in);
+        bytes_read = fread(&g, 2, 1, in);
         g = preview_gamma_data_green[g >> rotate16];
 
-        fread(&b, 2, 1, in);
+        bytes_read = fread(&b, 2, 1, in);
         b = preview_gamma_data_blue[b >> rotate16];
 
         c = r * 65536 + g * 256 + b;
@@ -4425,6 +4426,7 @@ Preview *preview_new(void)
   gtk_box_pack_start(GTK_BOX(p->menu_box), pixmapwidget, FALSE, FALSE, 2);
   gtk_widget_show(pixmapwidget);
   gdk_drawable_unref(pixmap);
+  gdk_drawable_unref(mask);
 
   preset_area_option_menu = gtk_option_menu_new();
   xsane_back_gtk_set_tooltip(xsane.tooltips, preset_area_option_menu, DESC_PRESET_AREA);
@@ -4441,6 +4443,7 @@ Preview *preview_new(void)
   gtk_box_pack_start(GTK_BOX(p->menu_box), pixmapwidget, FALSE, FALSE, 2);
   gtk_widget_show(pixmapwidget);
   gdk_drawable_unref(pixmap);
+  gdk_drawable_unref(mask);
 
   rotation_menu = gtk_menu_new();
 
@@ -4488,6 +4491,7 @@ Preview *preview_new(void)
   gtk_box_pack_start(GTK_BOX(p->menu_box), pixmapwidget, FALSE, FALSE, 2);
   gtk_widget_show(pixmapwidget);
   gdk_drawable_unref(pixmap);
+  gdk_drawable_unref(mask);
 
   ratio_menu = gtk_menu_new();
 
@@ -4543,24 +4547,28 @@ Preview *preview_new(void)
   gtk_box_pack_start(GTK_BOX(action_box), p->valid_pixmap, FALSE, FALSE, 0);
   gtk_widget_show(p->valid_pixmap);
   gdk_drawable_unref(pixmap);
+  gdk_drawable_unref(mask);
 
   pixmap = gdk_pixmap_create_from_xpm_d(p->top->window, &mask, xsane.bg_trans, (gchar **) scanning_xpm);
   p->scanning_pixmap = gtk_image_new_from_pixmap(pixmap, mask);
   gtk_box_pack_start(GTK_BOX(action_box), p->scanning_pixmap, FALSE, FALSE, 0);
   gtk_widget_show(p->scanning_pixmap);
   gdk_drawable_unref(pixmap);
+  gdk_drawable_unref(mask);
 
   pixmap = gdk_pixmap_create_from_xpm_d(p->top->window, &mask, xsane.bg_trans, (gchar **) incomplete_xpm);
   p->incomplete_pixmap = gtk_image_new_from_pixmap(pixmap, mask);
   gtk_box_pack_start(GTK_BOX(action_box), p->incomplete_pixmap, FALSE, FALSE, 0);
   gtk_widget_show(p->incomplete_pixmap);
   gdk_drawable_unref(pixmap);
+  gdk_drawable_unref(mask);
 
   pixmap = gdk_pixmap_create_from_xpm_d(p->top->window, &mask, xsane.bg_trans, (gchar **) invalid_xpm);
   p->invalid_pixmap = gtk_image_new_from_pixmap(pixmap, mask);
   gtk_box_pack_start(GTK_BOX(action_box), p->invalid_pixmap, FALSE, FALSE, 0);
   gtk_widget_show(p->invalid_pixmap);
   gdk_drawable_unref(pixmap);
+  gdk_drawable_unref(mask);
 
   /* Start button */
   p->start = gtk_button_new_with_label(BUTTON_PREVIEW_ACQUIRE);

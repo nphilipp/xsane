@@ -91,10 +91,10 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
-#define XSANE_VERSION		"0.996"
+#define XSANE_VERSION		"0.998"
 #define XSANE_AUTHOR		"Oliver Rauch"
 #define XSANE_COPYRIGHT		"Oliver Rauch"
-#define XSANE_DATE		"1998-2007"
+#define XSANE_DATE		"1998-2010"
 #define XSANE_EMAIL_ADR		"Oliver.Rauch@xsane.org"
 #define XSANE_HOMEPAGE		"http://www.xsane.org"
 #define XSANE_COPYRIGHT_TXT	XSANE_DATE " " XSANE_COPYRIGHT

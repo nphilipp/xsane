@@ -3,7 +3,7 @@
    xsane-device-preferences.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
-   Copyright (C) 1998-2007 Oliver Rauch
+   Copyright (C) 1998-2010 Oliver Rauch
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -603,6 +603,7 @@ void xsane_device_preferences_load_file(char *filename)
 #endif
 
   xsane_update_param(0);
+  xsane_set_all_resolutions(); /* XXX test XXX */
   xsane_refresh_dialog();
   xsane_enhancement_by_gamma();
 }

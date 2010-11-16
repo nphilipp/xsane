@@ -3009,3 +3009,25 @@ xsane-0.995 -> 0.996:
  - xsane-save.c: PDF: ICC object 4+5 are initialized with offset 0
  - xsane-save.c: PDF: objects with offset 0 are makred free (f) in xref table
 
+
+xsane-0.996 -> 0.997:
+---------------------
+
+ - removed SANE_CAP_ALWAYS_SETTABLE (not SANE1)
+ - added test for (opt->size == 0) for SANE_TYPE_STRING in xsane.c
+ - in gtk_adjustment_new changed page_size from (min-max)*1e-30 to 0
+   because new gtk versions don`t like non zero values for spinbuttons
+ - added several gdk_drawable_unref(mask)
+
+xsane-0.997 -> 0.998:
+---------------------
+ - removed bug saving image as 16 bit png:
+   until now all low byte data has been a copy of the high byte data,
+   so in fact all images saved untile xsane-0.997 are saved as 8 bit image
+   in a 16 bit format.
+ - changed some more gtk_adjustment_new(...) page_sizes to 0
+ - added several bytes_read = and bytes_written = before fread, read, fwrite, write
+ - added some items_done = before fscanf
+ - corrected some format stings (missing "%s")
+
+
