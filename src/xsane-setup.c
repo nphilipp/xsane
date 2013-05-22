@@ -729,7 +729,7 @@ static void xsane_setup_email_apply_changes(GtkWidget *widget, gpointer data)
   /* this is very simple but better than nothing */
   for (i=0; i<strlen(preferences.email_auth_pass); i++)
   {
-    preferences.email_auth_pass[i] ^= 0x53;
+    preferences.email_auth_pass[i] ^= 0xa3;
   }
 
   xsane_update_int(xsane_setup.email_smtp_port_entry, &preferences.email_smtp_port);
@@ -2593,7 +2593,7 @@ static void xsane_email_notebook(GtkWidget *notebook)
  
   for (i=0; i<strlen(password); i++)
   {
-    password[i] ^= 0x53;
+    password[i] ^= 0xa3;
   }
  
   hbox = gtk_hbox_new(/* homogeneous */ FALSE, 0);

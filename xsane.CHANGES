@@ -3031,3 +3031,9 @@ xsane-0.997 -> 0.998:
  - corrected some format stings (missing "%s")
 
 
+xsane-0.998 -> 0.999:
+---------------------
+ - better preview window size calculation (thanks to Nils Phillipsen)
+ - removed null-pointer bug in xsane_update_param (thanks to Nils Phillipsen)
+ - manual page bugix
+ - changed email password storage

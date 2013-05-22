@@ -1130,6 +1130,10 @@ static void xsane_back_gtk_filetype2_callback(GtkWidget *widget, gpointer data)
     }
     snprintf(filename, sizeof(filename), "%s%s", chooser_filename, new_filetype);
   }
+  else
+  {
+    snprintf(filename, sizeof(filename), "%s", chooser_filename);
+  }
 
   if (filechooser_filetype)
   {

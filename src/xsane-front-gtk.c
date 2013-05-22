@@ -1709,7 +1709,7 @@ void xsane_update_param(void *arg)
   gtk_label_set(GTK_LABEL(xsane.info_label), buf);
 
 
-  if (xsane.preview->surface_unit == SANE_UNIT_MM)
+  if (xsane.preview && xsane.preview->surface_unit == SANE_UNIT_MM)
   {
    double dx, dy;
 
@@ -1724,7 +1724,10 @@ void xsane_update_param(void *arg)
 
   xsane_update_histogram(TRUE /* update raw */);
 
-  preview_display_valid(xsane.preview);
+  if (xsane.preview)
+  {
+    preview_display_valid(xsane.preview);
+  }
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
