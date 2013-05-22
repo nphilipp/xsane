@@ -126,13 +126,13 @@ or
 .B -v
 flag is given xsane prints a version information, some
 information about gtk+ and gimp version it is compiled
-against and lists the supported fileformats, then it exits.
+against and lists the supported file formats, then it exits.
 .PP
 when the
 .B --license
 or
 .B -l
-flag is igven xsane prints license information and exits.
+flag is given xsane prints license information and exits.
 .PP
 The
 .B --device-settings
@@ -176,7 +176,7 @@ The
 .B --no-mode-selection
 or
 .B -n
-flag disables the menu for xsane mode selection (viwer, save, copy, fax, mail).
+flag disables the menu for xsane mode selection (viewer, save, copy, fax, mail).
 .PP
 If the
 .B --Fixed

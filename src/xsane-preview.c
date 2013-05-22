@@ -4666,6 +4666,9 @@ void preview_update_surface(Preview *p, int surface_changed)
  SANE_Unit unit;
  double min, max;
  int expand_surface = 0;
+ gint min_width, min_height;
+ GdkScreen *screen;
+ GdkRectangle geometry;
 
   DBG(DBG_proc, "preview_update_surface\n");
 
@@ -4849,8 +4852,25 @@ void preview_update_surface(Preview *p, int surface_changed)
   {
     DBG(DBG_info, "preview_update_surface: defining size of preview window\n");
 
+/*
     p->preview_window_width  = 0.3 * gdk_screen_width();
     p->preview_window_height = 0.5 * gdk_screen_height();
+*/
+    /* ensure preview window fits on displays, account for multi-head */
+    min_width = gdk_screen_width();
+    min_height = gdk_screen_height();
+
+    screen = gdk_screen_get_default();
+    for (i = 0; i < gdk_screen_get_n_monitors(screen); i++)
+    {
+      gdk_screen_get_monitor_geometry(screen, i, &geometry);
+      min_width = MIN(min_width, geometry.width);
+      min_height = MIN(min_height, geometry.height);
+    }
+
+    p->preview_window_width  = 0.3 * min_width;
+    p->preview_window_height = 0.5 * min_height;
+
     preview_area_correct(p); /* calculate preview_width and height */
     gtk_widget_set_size_request(GTK_WIDGET(p->window), p->preview_width, p->preview_height);
   }
